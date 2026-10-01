@@ -122,8 +122,7 @@ export function Trainer({ course, startSfen, startNodeId, userSide, defaultOppon
         }
       } else if (!auto) setQuizFeedback(null)
 
-      const knownGood = !!bookMove && bookMove.kind !== 'deviation'
-      if (coachOn && engineSupported() && !knownGood && (isMine || !auto)) {
+      if (coachOn && engineSupported() && (isMine || !auto || !!bookMove)) {
         const previous = pliesRef.current[index - 1]?.review
         const previousLoss = previous && previous !== 'pending' && previous.usi ? previous.loss : 0
         setPlies((current) => current.map((p, i) => (i === index ? { ...p, review: 'pending' } : p)))

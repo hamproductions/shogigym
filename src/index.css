@@ -1191,3 +1191,50 @@ main {
     font-size: clamp(0.85rem, 5.4vw, 1.6rem);
   }
 }
+
+.pattern-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 1rem;
+}
+
+.pattern {
+  background: var(--panel);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  border-left: 5px solid var(--bad);
+}
+
+.pattern.v-opponent-mistake {
+  border-left-color: #1baca6;
+}
+
+.pattern p {
+  margin: 0.4rem 0;
+}
+
+.pattern-head {
+  display: flex;
+  flex-direction: column;
+}
+
+.pattern-move {
+  font-family: var(--piece-font);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.pattern-punish {
+  color: var(--ink-soft);
+}
+
+.pattern-board {
+  margin-top: 0.8rem;
+}
+
+.pattern-board .board-wrap {
+  width: 100%;
+}

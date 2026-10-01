@@ -2,7 +2,7 @@ import { Trainer } from '../components/Trainer'
 import { courseById, SETUPS } from '../model'
 import { go } from '../hooks'
 
-export function CoursePage({ id }: { id: string }) {
+export function CoursePage({ id, nodeId }: { id: string; nodeId?: string }) {
   const course = courseById(id)
   if (!course) {
     return (
@@ -17,7 +17,7 @@ export function CoursePage({ id }: { id: string }) {
       <div className="crumbs">
         <button className="link" onClick={() => go()}>All openings</button> / {setup.ja}
       </div>
-      <Trainer key={course.id} course={course} title={course.title} defaultOpponent="off" />
+      <Trainer key={`${course.id}-${nodeId ?? ''}`} course={course} startNodeId={nodeId} title={course.title} defaultOpponent="off" />
       <details className="course-info">
         <summary>About this line</summary>
         <p><strong>Goal:</strong> {course.goalFormation}</p>

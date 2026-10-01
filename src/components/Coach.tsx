@@ -75,11 +75,11 @@ export function Coach({ ply, course, me, onDemo, onAlternative }: Props) {
 
       {review && review.reasons.length > 0 && (
         <div className="why">
-          <h3>{['inaccuracy', 'mistake', 'miss', 'blunder'].includes(review.label) ? 'Why it is worse' : 'What it does'}</h3>
+          <h3>{['inaccuracy', 'mistake', 'miss', 'blunder'].includes(review.label) ? (book ? 'The AI disagrees with this book move' : 'Why it is worse') : 'What it does'}</h3>
           <ul>{review.reasons.map((r) => <li key={r}>{r}</li>)}</ul>
         </div>
       )}
-      {review && review.bestReasons.length > 0 && review.label !== 'book' && (
+      {review && review.bestReasons.length > 0 && (review.label !== 'book' || review.loss >= 0.02) && (
         <div className="why best">
           <h3>{['inaccuracy', 'mistake', 'miss', 'blunder'].includes(review.label) ? 'Better' : 'AI’s top choice'}: {moveText(ply.before, review.best.move)}</h3>
           <ul>{review.bestReasons.map((r) => <li key={r}>{r}</li>)}</ul>

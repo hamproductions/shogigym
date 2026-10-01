@@ -5,9 +5,11 @@ import { Drill } from './pages/Drill'
 import { Tsume } from './pages/Tsume'
 import { Analyze } from './pages/Analyze'
 import { Play } from './pages/Play'
+import { Patterns } from './pages/Patterns'
 
 const NAV = [
   { route: '', label: 'Openings' },
+  { route: 'patterns', label: 'Patterns' },
   { route: 'drill', label: 'Review' },
   { route: 'tsume', label: 'Tsume' },
   { route: 'analyze', label: 'Analyze' },
@@ -33,7 +35,8 @@ export default function App() {
       </header>
       <main>
         {page === '' && <Home />}
-        {page === 'course' && <CoursePage id={rest[0]} />}
+        {page === 'course' && <CoursePage id={rest[0]} nodeId={rest[1]} />}
+        {page === 'patterns' && <Patterns />}
         {page === 'drill' && <Drill />}
         {page === 'tsume' && <Tsume />}
         {page === 'analyze' && <Analyze />}

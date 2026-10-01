@@ -40,6 +40,7 @@ export function Home() {
             Review {due > 0 ? `${due} due` : 'positions'}
             {difficult > 0 && <small>, {difficult} difficult</small>}
           </button>
+          <button onClick={() => go('patterns')}>Win and failure patterns</button>
           <button onClick={() => go('tsume')}>Tsume problems</button>
           <button onClick={() => go('analyze')}>Analyze a kifu</button>
           <button onClick={() => go('play')}>Free board vs AI</button>
