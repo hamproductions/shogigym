@@ -1,0 +1,314 @@
+{
+ "id": "shikenbisha-vs-anaguma--fujii",
+ "title": "四間飛車 vs 居飛車穴熊(先手・藤井システム)",
+ "myStrategy": "shikenbisha",
+ "opponentStrategy": "ibisha",
+ "mySide": "sente",
+ "source": "手順はWikipedia英語版「Fujii System」(https://en.wikipedia.org/wiki/Fujii_System)の Development 節の29手に準拠(西洋式表記からUSIに変換し合法手検証済み)。解説は同記事の本文に準拠。",
+ "goalFormation": "玉は居玉のまま、左銀を4七、右桂を3七、端歩を1五まで伸ばし、▲6五歩で角筋を相手玉(2二)に通した形。",
+ "goalLabel": "藤井システムの攻撃態勢が整いました",
+ "root": {
+  "id": "n0",
+  "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+  "comment": "藤井猛九段が創案した、居飛車穴熊・左美濃対策の四間飛車。穴熊が完成する前に、居玉のまま角筋と端から攻めかかります。",
+  "branches": [
+   {
+    "usi": "7g7f",
+    "kind": "main",
+    "child": {
+     "id": "n_0",
+     "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL w - 1",
+     "branches": [
+      {
+       "usi": "3c3d",
+       "kind": "main",
+       "child": {
+        "id": "n_1",
+        "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL b - 1",
+        "branches": [
+         {
+          "usi": "6g6f",
+          "kind": "main",
+          "child": {
+           "id": "n_2",
+           "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2PP5/PP2PPPPP/1B5R1/LNSGKGSNL w - 1",
+           "branches": [
+            {
+             "usi": "8c8d",
+             "kind": "main",
+             "child": {
+              "id": "n_3",
+              "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/1p4p2/9/2PP5/PP2PPPPP/1B5R1/LNSGKGSNL b - 1",
+              "branches": [
+               {
+                "usi": "2h6h",
+                "kind": "main",
+                "note": "角道を止めて飛車を6筋へ。四間飛車です。",
+                "child": {
+                 "id": "n_4",
+                 "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/1p4p2/9/2PP5/PP2PPPPP/1B1R5/LNSGKGSNL w - 1",
+                 "branches": [
+                  {
+                   "usi": "7a6b",
+                   "kind": "main",
+                   "child": {
+                    "id": "n_5",
+                    "sfen": "ln1gkgsnl/1r1s3b1/p1pppp1pp/1p4p2/9/2PP5/PP2PPPPP/1B1R5/LNSGKGSNL b - 1",
+                    "branches": [
+                     {
+                      "usi": "1g1f",
+                      "kind": "main",
+                      "note": "玉を囲う前に端歩を突きます。相手が穴熊を目指すなら、居玉のまま1筋から速攻をかけるのが藤井システムの特徴です。",
+                      "child": {
+                       "id": "n_6",
+                       "sfen": "ln1gkgsnl/1r1s3b1/p1pppp1pp/1p4p2/9/2PP4P/PP2PPPP1/1B1R5/LNSGKGSNL w - 1",
+                       "branches": [
+                        {
+                         "usi": "5a4b",
+                         "kind": "main",
+                         "child": {
+                          "id": "n_7",
+                          "sfen": "ln1g1gsnl/1r1s1k1b1/p1pppp1pp/1p4p2/9/2PP4P/PP2PPPP1/1B1R5/LNSGKGSNL b - 1",
+                          "branches": [
+                           {
+                            "usi": "3i3h",
+                            "kind": "main",
+                            "child": {
+                             "id": "n_8",
+                             "sfen": "ln1g1gsnl/1r1s1k1b1/p1pppp1pp/1p4p2/9/2PP4P/PP2PPPP1/1B1R2S2/LNSGKG1NL w - 1",
+                             "branches": [
+                              {
+                               "usi": "4b3b",
+                               "kind": "main",
+                               "child": {
+                                "id": "n_9",
+                                "sfen": "ln1g1gsnl/1r1s2kb1/p1pppp1pp/1p4p2/9/2PP4P/PP2PPPP1/1B1R2S2/LNSGKG1NL b - 1",
+                                "branches": [
+                                 {
+                                  "usi": "7i7h",
+                                  "kind": "main",
+                                  "child": {
+                                   "id": "n_10",
+                                   "sfen": "ln1g1gsnl/1r1s2kb1/p1pppp1pp/1p4p2/9/2PP4P/PP2PPPP1/1BSR2S2/LN1GKG1NL w - 1",
+                                   "branches": [
+                                    {
+                                     "usi": "5c5d",
+                                     "kind": "main",
+                                     "child": {
+                                      "id": "n_11",
+                                      "sfen": "ln1g1gsnl/1r1s2kb1/p1pp1p1pp/1p2p1p2/9/2PP4P/PP2PPPP1/1BSR2S2/LN1GKG1NL b - 1",
+                                      "branches": [
+                                       {
+                                        "usi": "7h6g",
+                                        "kind": "main",
+                                        "note": "銀を6七へ進めます。",
+                                        "child": {
+                                         "id": "n_12",
+                                         "sfen": "ln1g1gsnl/1r1s2kb1/p1pp1p1pp/1p2p1p2/9/2PP4P/PP1SPPPP1/1B1R2S2/LN1GKG1NL w - 1",
+                                         "branches": [
+                                          {
+                                           "usi": "6a5b",
+                                           "kind": "main",
+                                           "child": {
+                                            "id": "n_13",
+                                            "sfen": "ln3gsnl/1r1sg1kb1/p1pp1p1pp/1p2p1p2/9/2PP4P/PP1SPPPP1/1B1R2S2/LN1GKG1NL b - 1",
+                                            "branches": [
+                                             {
+                                              "usi": "1f1e",
+                                              "kind": "main",
+                                              "note": "端歩を5段目まで突き越し、端攻めの準備をします。",
+                                              "child": {
+                                               "id": "n_14",
+                                               "sfen": "ln3gsnl/1r1sg1kb1/p1pp1p1pp/1p2p1p2/8P/2PP5/PP1SPPPP1/1B1R2S2/LN1GKG1NL w - 1",
+                                               "branches": [
+                                                {
+                                                 "usi": "6b5c",
+                                                 "kind": "main",
+                                                 "child": {
+                                                  "id": "n_15",
+                                                  "sfen": "ln3gsnl/1r2g1kb1/p1ppsp1pp/1p2p1p2/8P/2PP5/PP1SPPPP1/1B1R2S2/LN1GKG1NL b - 1",
+                                                  "branches": [
+                                                   {
+                                                    "usi": "6i5h",
+                                                    "kind": "main",
+                                                    "child": {
+                                                     "id": "n_16",
+                                                     "sfen": "ln3gsnl/1r2g1kb1/p1ppsp1pp/1p2p1p2/8P/2PP5/PP1SPPPP1/1B1RG1S2/LN2KG1NL w - 1",
+                                                     "branches": [
+                                                      {
+                                                       "usi": "8d8e",
+                                                       "kind": "main",
+                                                       "child": {
+                                                        "id": "n_17",
+                                                        "sfen": "ln3gsnl/1r2g1kb1/p1ppsp1pp/4p1p2/1p6P/2PP5/PP1SPPPP1/1B1RG1S2/LN2KG1NL b - 1",
+                                                        "branches": [
+                                                         {
+                                                          "usi": "8h7g",
+                                                          "kind": "main",
+                                                          "child": {
+                                                           "id": "n_18",
+                                                           "sfen": "ln3gsnl/1r2g1kb1/p1ppsp1pp/4p1p2/1p6P/2PP5/PPBSPPPP1/3RG1S2/LN2KG1NL w - 1",
+                                                           "branches": [
+                                                            {
+                                                             "usi": "2b3c",
+                                                             "kind": "main",
+                                                             "child": {
+                                                              "id": "n_19",
+                                                              "sfen": "ln3gsnl/1r2g1k2/p1ppspbpp/4p1p2/1p6P/2PP5/PPBSPPPP1/3RG1S2/LN2KG1NL b - 1",
+                                                              "branches": [
+                                                               {
+                                                                "usi": "4g4f",
+                                                                "kind": "main",
+                                                                "child": {
+                                                                 "id": "n_20",
+                                                                 "sfen": "ln3gsnl/1r2g1k2/p1ppspbpp/4p1p2/1p6P/2PP1P3/PPBSP1PP1/3RG1S2/LN2KG1NL w - 1",
+                                                                 "branches": [
+                                                                  {
+                                                                   "usi": "3b2b",
+                                                                   "kind": "main",
+                                                                   "child": {
+                                                                    "id": "n_21",
+                                                                    "sfen": "ln3gsnl/1r2g2k1/p1ppspbpp/4p1p2/1p6P/2PP1P3/PPBSP1PP1/3RG1S2/LN2KG1NL b - 1",
+                                                                    "branches": [
+                                                                     {
+                                                                      "usi": "3g3f",
+                                                                      "kind": "main",
+                                                                      "child": {
+                                                                       "id": "n_22",
+                                                                       "sfen": "ln3gsnl/1r2g2k1/p1ppspbpp/4p1p2/1p6P/2PP1PP2/PPBSP2P1/3RG1S2/LN2KG1NL w - 1",
+                                                                       "branches": [
+                                                                        {
+                                                                         "usi": "4c4d",
+                                                                         "kind": "main",
+                                                                         "child": {
+                                                                          "id": "n_23",
+                                                                          "sfen": "ln3gsnl/1r2g2k1/p1pps1bpp/4ppp2/1p6P/2PP1PP2/PPBSP2P1/3RG1S2/LN2KG1NL b - 1",
+                                                                          "branches": [
+                                                                           {
+                                                                            "usi": "2i3g",
+                                                                            "kind": "main",
+                                                                            "note": "右桂を3七へ跳ねて攻めに参加させます。",
+                                                                            "child": {
+                                                                             "id": "n_24",
+                                                                             "sfen": "ln3gsnl/1r2g2k1/p1pps1bpp/4ppp2/1p6P/2PP1PP2/PPBSP1NP1/3RG1S2/LN2KG2L w - 1",
+                                                                             "branches": [
+                                                                              {
+                                                                               "usi": "5b4c",
+                                                                               "kind": "main",
+                                                                               "child": {
+                                                                                "id": "n_25",
+                                                                                "sfen": "ln3gsnl/1r5k1/p1ppsgbpp/4ppp2/1p6P/2PP1PP2/PPBSP1NP1/3RG1S2/LN2KG2L b - 1",
+                                                                                "branches": [
+                                                                                 {
+                                                                                  "usi": "6f6e",
+                                                                                  "kind": "main",
+                                                                                  "note": "6筋の歩を突いて角筋を通します。角は相手玉のいる2二の筋を直接にらみ、相手が穴熊(2一)に潜っても同じ筋の上にいます。",
+                                                                                  "child": {
+                                                                                   "id": "n_26",
+                                                                                   "sfen": "ln3gsnl/1r5k1/p1ppsgbpp/4ppp2/1p1P4P/2P2PP2/PPBSP1NP1/3RG1S2/LN2KG2L w - 1",
+                                                                                   "branches": [
+                                                                                    {
+                                                                                     "usi": "4a3b",
+                                                                                     "kind": "main",
+                                                                                     "child": {
+                                                                                      "id": "n_27",
+                                                                                      "sfen": "ln4snl/1r4gk1/p1ppsgbpp/4ppp2/1p1P4P/2P2PP2/PPBSP1NP1/3RG1S2/LN2KG2L b - 1",
+                                                                                      "branches": [
+                                                                                       {
+                                                                                        "usi": "3h4g",
+                                                                                        "kind": "main",
+                                                                                        "note": "3八の銀を4七へ上がり、3七に跳ねた桂の頭を守ります。",
+                                                                                        "child": {
+                                                                                         "id": "n_28",
+                                                                                         "sfen": "ln4snl/1r4gk1/p1ppsgbpp/4ppp2/1p1P4P/2P2PP2/PPBSPSNP1/3RG4/LN2KG2L w - 1",
+                                                                                         "branches": [],
+                                                                                         "comment": "藤井システムの基本形。玉は居玉のまま、角筋・右桂・端歩で穴熊の完成前に攻めかかります。相手が香を1二に上がって穴熊に入ってきたら▲2五桂、▲4五歩で角筋を開けて攻めます。逆に相手が早い戦いを仕掛けてきたら、▲4八玉〜▲3九玉と美濃囲いに切り替えます。"
+                                                                                        }
+                                                                                       }
+                                                                                      ]
+                                                                                     }
+                                                                                    }
+                                                                                   ]
+                                                                                  }
+                                                                                 }
+                                                                                ]
+                                                                               }
+                                                                              }
+                                                                             ]
+                                                                            }
+                                                                           }
+                                                                          ]
+                                                                         }
+                                                                        }
+                                                                       ]
+                                                                      }
+                                                                     }
+                                                                    ]
+                                                                   }
+                                                                  }
+                                                                 ]
+                                                                }
+                                                               }
+                                                              ]
+                                                             }
+                                                            }
+                                                           ]
+                                                          }
+                                                         }
+                                                        ]
+                                                       }
+                                                      }
+                                                     ]
+                                                    }
+                                                   }
+                                                  ]
+                                                 }
+                                                }
+                                               ]
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          }
+                                         ]
+                                        }
+                                       }
+                                      ]
+                                     }
+                                    }
+                                   ]
+                                  }
+                                 }
+                                ]
+                               }
+                              }
+                             ]
+                            }
+                           }
+                          ]
+                         }
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,656 @@
+{
+ "id": "shikenbisha-vs-ibisha--kakukoukan",
+ "title": "角交換四間飛車(先手)",
+ "myStrategy": "shikenbisha",
+ "opponentStrategy": "ibisha",
+ "mySide": "sente",
+ "source": "手順・解説は日々頓死(hibitonshi.com)「角交換四間飛車の序盤定跡と攻め方」(https://hibitonshi.com/kakukoukan-shiken/)に準拠。出典の「△4二金」は4一・5二の両金が動けるため、前手の△5二金右と整合する△4二金上(4一から)と解釈した。",
+ "goalFormation": "角交換後に美濃囲い(玉2八)を作り、▲7六銀・▲6六銀・逆棒銀のいずれかで攻める形。",
+ "root": {
+  "id": "n0",
+  "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+  "comment": "角道を止めずに飛車を振り、自分から角を交換する四間飛車です。",
+  "branches": [
+   {
+    "usi": "7g7f",
+    "kind": "main",
+    "child": {
+     "id": "n_0",
+     "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL w - 1",
+     "branches": [
+      {
+       "usi": "3c3d",
+       "kind": "main",
+       "child": {
+        "id": "n_1",
+        "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL b - 1",
+        "branches": [
+         {
+          "usi": "2h6h",
+          "kind": "main",
+          "note": "通常は▲6六歩と角道を止めてから飛車を回るところですが、角交換四間飛車では角道を止めずに▲6八飛と回ります。",
+          "child": {
+           "id": "n_2",
+           "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/1B1R5/LNSGKGSNL w - 1",
+           "branches": [
+            {
+             "usi": "8c8d",
+             "kind": "main",
+             "note": "居飛車側は8筋の歩を突いてきます。",
+             "child": {
+              "id": "n_3",
+              "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/1p4p2/9/2P6/PP1PPPPPP/1B1R5/LNSGKGSNL b - 1",
+              "branches": [
+               {
+                "usi": "5i4h",
+                "kind": "main",
+                "note": "通常の四間飛車なら▲7七角と上がって受けるところですが、それはできません。無視して玉を寄っていきます。",
+                "child": {
+                 "id": "n_4",
+                 "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/1p4p2/9/2P6/PP1PPPPPP/1B1R1K3/LNSG1GSNL w - 1",
+                 "branches": [
+                  {
+                   "usi": "8d8e",
+                   "kind": "main",
+                   "child": {
+                    "id": "n_5",
+                    "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/6p2/1p7/2P6/PP1PPPPPP/1B1R1K3/LNSG1GSNL b - 1",
+                    "branches": [
+                     {
+                      "usi": "4h3h",
+                      "kind": "main",
+                      "note": "基本図。",
+                      "child": {
+                       "id": "n_6",
+                       "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/6p2/1p7/2P6/PP1PPPPPP/1B1R2K2/LNSG1GSNL w - 1",
+                       "branches": [
+                        {
+                         "usi": "7a6b",
+                         "kind": "main",
+                         "child": {
+                          "id": "nb0_0",
+                          "sfen": "ln1gkgsnl/1r1s3b1/p1pppp1pp/6p2/1p7/2P6/PP1PPPPPP/1B1R2K2/LNSG1GSNL b - 1",
+                          "branches": [
+                           {
+                            "usi": "3h2h",
+                            "kind": "main",
+                            "child": {
+                             "id": "nb0_1",
+                             "sfen": "ln1gkgsnl/1r1s3b1/p1pppp1pp/6p2/1p7/2P6/PP1PPPPPP/1B1R3K1/LNSG1GSNL w - 1",
+                             "branches": [
+                              {
+                               "usi": "5a4b",
+                               "kind": "main",
+                               "child": {
+                                "id": "nb0_2",
+                                "sfen": "ln1g1gsnl/1r1s1k1b1/p1pppp1pp/6p2/1p7/2P6/PP1PPPPPP/1B1R3K1/LNSG1GSNL b - 1",
+                                "branches": [
+                                 {
+                                  "usi": "8h2b+",
+                                  "kind": "main",
+                                  "note": "△4二玉としたタイミングで角交換をするのも部分的な定跡です。",
+                                  "child": {
+                                   "id": "nb0_3",
+                                   "sfen": "ln1g1gsnl/1r1s1k1+B1/p1pppp1pp/6p2/1p7/2P6/PP1PPPPPP/3R3K1/LNSG1GSNL w B 1",
+                                   "branches": [
+                                    {
+                                     "usi": "3a2b",
+                                     "kind": "main",
+                                     "note": "△同銀は壁銀の悪形。△3二玉とされてから角交換をすると▲2二角成△同玉とされる変化が生まれるので、このタイミングの方が一般的に得です。",
+                                     "child": {
+                                      "id": "nb0_4",
+                                      "sfen": "ln1g1g1nl/1r1s1k1s1/p1pppp1pp/6p2/1p7/2P6/PP1PPPPPP/3R3K1/LNSG1GSNL b Bb 1",
+                                      "branches": [
+                                       {
+                                        "usi": "7i8h",
+                                        "kind": "main",
+                                        "child": {
+                                         "id": "nb0_5",
+                                         "sfen": "ln1g1g1nl/1r1s1k1s1/p1pppp1pp/6p2/1p7/2P6/PP1PPPPPP/1S1R3K1/LN1G1GSNL w Bb 1",
+                                         "branches": [
+                                          {
+                                           "usi": "4b3b",
+                                           "kind": "main",
+                                           "child": {
+                                            "id": "nb0_6",
+                                            "sfen": "ln1g1g1nl/1r1s2ks1/p1pppp1pp/6p2/1p7/2P6/PP1PPPPPP/1S1R3K1/LN1G1GSNL b Bb 1",
+                                            "branches": [
+                                             {
+                                              "usi": "8h7g",
+                                              "kind": "main",
+                                              "note": "分岐図。ここから攻め方を選びます。",
+                                              "child": {
+                                               "id": "nb0_7",
+                                               "sfen": "ln1g1g1nl/1r1s2ks1/p1pppp1pp/6p2/1p7/2P6/PPSPPPPPP/3R3K1/LN1G1GSNL w Bb 1",
+                                               "branches": [
+                                                {
+                                                 "usi": "2b3c",
+                                                 "kind": "main",
+                                                 "child": {
+                                                  "id": "nb0b0_0",
+                                                  "sfen": "ln1g1g1nl/1r1s2k2/p1ppppspp/6p2/1p7/2P6/PPSPPPPPP/3R3K1/LN1G1GSNL b Bb 1",
+                                                  "branches": [
+                                                   {
+                                                    "usi": "3i3h",
+                                                    "kind": "main",
+                                                    "note": "玉は2八に移動し、美濃囲いの形を作ります。美濃囲いは手数のわりに横からの攻めに強い囲いです。",
+                                                    "child": {
+                                                     "id": "nb0b0_1",
+                                                     "sfen": "ln1g1g1nl/1r1s2k2/p1ppppspp/6p2/1p7/2P6/PPSPPPPPP/3R2SK1/LN1G1G1NL w Bb 1",
+                                                     "branches": [
+                                                      {
+                                                       "usi": "6a5b",
+                                                       "kind": "main",
+                                                       "child": {
+                                                        "id": "nb0b0_2",
+                                                        "sfen": "ln3g1nl/1r1sg1k2/p1ppppspp/6p2/1p7/2P6/PPSPPPPPP/3R2SK1/LN1G1G1NL b Bb 1",
+                                                        "branches": [
+                                                         {
+                                                          "usi": "6i7h",
+                                                          "kind": "main",
+                                                          "child": {
+                                                           "id": "nb0b0_3",
+                                                           "sfen": "ln3g1nl/1r1sg1k2/p1ppppspp/6p2/1p7/2P6/PPSPPPPPP/2GR2SK1/LN3G1NL w Bb 1",
+                                                           "branches": [
+                                                            {
+                                                             "usi": "4a4b",
+                                                             "kind": "main",
+                                                             "child": {
+                                                              "id": "nb0b0_4",
+                                                              "sfen": "ln5nl/1r1sggk2/p1ppppspp/6p2/1p7/2P6/PPSPPPPPP/2GR2SK1/LN3G1NL b Bb 1",
+                                                              "branches": [
+                                                               {
+                                                                "usi": "6g6f",
+                                                                "kind": "main",
+                                                                "child": {
+                                                                 "id": "nb0b0_5",
+                                                                 "sfen": "ln5nl/1r1sggk2/p1ppppspp/6p2/1p7/2PP5/PPS1PPPPP/2GR2SK1/LN3G1NL w Bb 1",
+                                                                 "branches": [
+                                                                  {
+                                                                   "usi": "6c6d",
+                                                                   "kind": "main",
+                                                                   "child": {
+                                                                    "id": "nb0b0_6",
+                                                                    "sfen": "ln5nl/1r1sggk2/p1p1ppspp/3p2p2/1p7/2PP5/PPS1PPPPP/2GR2SK1/LN3G1NL b Bb 1",
+                                                                    "branches": [
+                                                                     {
+                                                                      "usi": "7f7e",
+                                                                      "kind": "main",
+                                                                      "child": {
+                                                                       "id": "nb0b0_7",
+                                                                       "sfen": "ln5nl/1r1sggk2/p1p1ppspp/3p2p2/1pP6/3P5/PPS1PPPPP/2GR2SK1/LN3G1NL w Bb 1",
+                                                                       "branches": [
+                                                                        {
+                                                                         "usi": "6b6c",
+                                                                         "kind": "main",
+                                                                         "child": {
+                                                                          "id": "nb0b0_8",
+                                                                          "sfen": "ln5nl/1r2ggk2/p1psppspp/3p2p2/1pP6/3P5/PPS1PPPPP/2GR2SK1/LN3G1NL b Bb 1",
+                                                                          "branches": [
+                                                                           {
+                                                                            "usi": "7g7f",
+                                                                            "kind": "main",
+                                                                            "note": "▲7六銀+▲7八金型。上図から▲6五歩△同歩▲同銀を狙います。6筋の歩を捌け、銀交換も見込める形で、振り飛車が指しやすくなります。",
+                                                                            "child": {
+                                                                             "id": "nb0b0_9",
+                                                                             "sfen": "ln5nl/1r2ggk2/p1psppspp/3p2p2/1pP6/2SP5/PP2PPPPP/2GR2SK1/LN3G1NL w Bb 1",
+                                                                             "branches": [
+                                                                              {
+                                                                               "usi": "8e8f",
+                                                                               "kind": "main",
+                                                                               "note": "居飛車側で最も気になる手が△8六歩です。",
+                                                                               "child": {
+                                                                                "id": "nb0b0b0_0",
+                                                                                "sfen": "ln5nl/1r2ggk2/p1psppspp/3p2p2/2P6/1pSP5/PP2PPPPP/2GR2SK1/LN3G1NL b Bb 1",
+                                                                                "branches": [
+                                                                                 {
+                                                                                  "usi": "8g8f",
+                                                                                  "kind": "main",
+                                                                                  "child": {
+                                                                                   "id": "nb0b0b0_1",
+                                                                                   "sfen": "ln5nl/1r2ggk2/p1psppspp/3p2p2/2P6/1PSP5/P3PPPPP/2GR2SK1/LN3G1NL w BPb 1",
+                                                                                   "branches": [
+                                                                                    {
+                                                                                     "usi": "8b8f",
+                                                                                     "kind": "main",
+                                                                                     "child": {
+                                                                                      "id": "nb0b0b0_2",
+                                                                                      "sfen": "ln5nl/4ggk2/p1psppspp/3p2p2/2P6/1rSP5/P3PPPPP/2GR2SK1/LN3G1NL b BPbp 1",
+                                                                                      "branches": [
+                                                                                       {
+                                                                                        "usi": "7h8g",
+                                                                                        "kind": "main",
+                                                                                        "note": "▲8七金と受けるのが定跡です。",
+                                                                                        "child": {
+                                                                                         "id": "nb0b0b0_3",
+                                                                                         "sfen": "ln5nl/4ggk2/p1psppspp/3p2p2/2P6/1rSP5/PG2PPPPP/3R2SK1/LN3G1NL w BPbp 1",
+                                                                                         "branches": [
+                                                                                          {
+                                                                                           "usi": "8f8b",
+                                                                                           "kind": "main",
+                                                                                           "child": {
+                                                                                            "id": "nb0b0b0_4",
+                                                                                            "sfen": "ln5nl/1r2ggk2/p1psppspp/3p2p2/2P6/2SP5/PG2PPPPP/3R2SK1/LN3G1NL b BPbp 1",
+                                                                                            "branches": [
+                                                                                             {
+                                                                                              "usi": "P*8e",
+                                                                                              "kind": "main",
+                                                                                              "note": "この後は金を7七に動かし、▲8八飛と回って8筋の逆襲を狙います。▲8四歩〜▲8三歩成となれば先手大成功。△8三歩と受けてきても先手大満足です。",
+                                                                                              "child": {
+                                                                                               "id": "nb0b0b0_5",
+                                                                                               "sfen": "ln5nl/1r2ggk2/p1psppspp/3p2p2/1PP6/2SP5/PG2PPPPP/3R2SK1/LN3G1NL w Bbp 1",
+                                                                                               "branches": []
+                                                                                              }
+                                                                                             }
+                                                                                            ]
+                                                                                           }
+                                                                                          }
+                                                                                         ]
+                                                                                        }
+                                                                                       }
+                                                                                      ]
+                                                                                     }
+                                                                                    }
+                                                                                   ]
+                                                                                  }
+                                                                                 }
+                                                                                ]
+                                                                               }
+                                                                              }
+                                                                             ]
+                                                                            }
+                                                                           }
+                                                                          ]
+                                                                         }
+                                                                        }
+                                                                       ]
+                                                                      }
+                                                                     }
+                                                                    ]
+                                                                   }
+                                                                  }
+                                                                 ]
+                                                                }
+                                                               }
+                                                              ]
+                                                             }
+                                                            },
+                                                            {
+                                                             "usi": "3b2b",
+                                                             "kind": "main",
+                                                             "child": {
+                                                              "id": "nb0b1_4",
+                                                              "sfen": "ln3g1nl/1r1sg2k1/p1ppppspp/6p2/1p7/2P6/PPSPPPPPP/2GR2SK1/LN3G1NL b Bb 1",
+                                                              "branches": [
+                                                               {
+                                                                "usi": "6g6f",
+                                                                "kind": "main",
+                                                                "child": {
+                                                                 "id": "nb0b1_5",
+                                                                 "sfen": "ln3g1nl/1r1sg2k1/p1ppppspp/6p2/1p7/2PP5/PPS1PPPPP/2GR2SK1/LN3G1NL w Bb 1",
+                                                                 "branches": [
+                                                                  {
+                                                                   "usi": "4a3b",
+                                                                   "kind": "main",
+                                                                   "child": {
+                                                                    "id": "nb0b1_6",
+                                                                    "sfen": "ln5nl/1r1sg1gk1/p1ppppspp/6p2/1p7/2PP5/PPS1PPPPP/2GR2SK1/LN3G1NL b Bb 1",
+                                                                    "branches": [
+                                                                     {
+                                                                      "usi": "6f6e",
+                                                                      "kind": "main",
+                                                                      "note": "居飛車の歩が6三に待機しているなら、▲6五歩と強く突き、空いたスペースに銀を進出させます。",
+                                                                      "child": {
+                                                                       "id": "nb0b1_7",
+                                                                       "sfen": "ln5nl/1r1sg1gk1/p1ppppspp/6p2/1p1P5/2P6/PPS1PPPPP/2GR2SK1/LN3G1NL w Bb 1",
+                                                                       "branches": [
+                                                                        {
+                                                                         "usi": "5c5d",
+                                                                         "kind": "main",
+                                                                         "child": {
+                                                                          "id": "nb0b1_8",
+                                                                          "sfen": "ln5nl/1r1sg1gk1/p1pp1pspp/4p1p2/1p1P5/2P6/PPS1PPPPP/2GR2SK1/LN3G1NL b Bb 1",
+                                                                          "branches": [
+                                                                           {
+                                                                            "usi": "7g6f",
+                                                                            "kind": "main",
+                                                                            "child": {
+                                                                             "id": "nb0b1_9",
+                                                                             "sfen": "ln5nl/1r1sg1gk1/p1pp1pspp/4p1p2/1p1P5/2PS5/PP2PPPPP/2GR2SK1/LN3G1NL w Bb 1",
+                                                                             "branches": [
+                                                                              {
+                                                                               "usi": "6b5c",
+                                                                               "kind": "main",
+                                                                               "child": {
+                                                                                "id": "nb0b1_10",
+                                                                                "sfen": "ln5nl/1r2g1gk1/p1ppspspp/4p1p2/1p1P5/2PS5/PP2PPPPP/2GR2SK1/LN3G1NL b Bb 1",
+                                                                                "branches": [
+                                                                                 {
+                                                                                  "usi": "6f7e",
+                                                                                  "kind": "main",
+                                                                                  "note": "▲6六銀+▲7八金型。次は▲6四歩から棒銀の要領で攻めます。先手からはいつでも▲7一角などと打ち込む手があり、相当攻めやすいはずです。先に△7四歩と突かれて▲7五銀と出られない場合は、▲7五歩△同歩▲同銀の要領で進出します。",
+                                                                                  "child": {
+                                                                                   "id": "nb0b1_11",
+                                                                                   "sfen": "ln5nl/1r2g1gk1/p1ppspspp/4p1p2/1pSP5/2P6/PP2PPPPP/2GR2SK1/LN3G1NL w Bb 1",
+                                                                                   "branches": []
+                                                                                  }
+                                                                                 }
+                                                                                ]
+                                                                               }
+                                                                              }
+                                                                             ]
+                                                                            }
+                                                                           }
+                                                                          ]
+                                                                         }
+                                                                        }
+                                                                       ]
+                                                                      }
+                                                                     }
+                                                                    ]
+                                                                   }
+                                                                  }
+                                                                 ]
+                                                                }
+                                                               }
+                                                              ]
+                                                             }
+                                                            }
+                                                           ]
+                                                          }
+                                                         },
+                                                         {
+                                                          "usi": "6h8h",
+                                                          "kind": "main",
+                                                          "note": "角交換四間飛車では、一度向かい飛車に振り直す指し方も一般的です。",
+                                                          "child": {
+                                                           "id": "nb0b2_3",
+                                                           "sfen": "ln3g1nl/1r1sg1k2/p1ppppspp/6p2/1p7/2P6/PPSPPPPPP/1R4SK1/LN1G1G1NL w Bb 1",
+                                                           "branches": [
+                                                            {
+                                                             "usi": "3b2b",
+                                                             "kind": "main",
+                                                             "child": {
+                                                              "id": "nb0b2b0_0",
+                                                              "sfen": "ln3g1nl/1r1sg2k1/p1ppppspp/6p2/1p7/2P6/PPSPPPPPP/1R4SK1/LN1G1G1NL b Bb 1",
+                                                              "branches": [
+                                                               {
+                                                                "usi": "8g8f",
+                                                                "kind": "main",
+                                                                "child": {
+                                                                 "id": "nb0b2b0_1",
+                                                                 "sfen": "ln3g1nl/1r1sg2k1/p1ppppspp/6p2/1p7/1PP6/P1SPPPPPP/1R4SK1/LN1G1G1NL w Bb 1",
+                                                                 "branches": [
+                                                                  {
+                                                                   "usi": "8e8f",
+                                                                   "kind": "main",
+                                                                   "child": {
+                                                                    "id": "nb0b2b0_2",
+                                                                    "sfen": "ln3g1nl/1r1sg2k1/p1ppppspp/6p2/9/1pP6/P1SPPPPPP/1R4SK1/LN1G1G1NL b Bbp 1",
+                                                                    "branches": [
+                                                                     {
+                                                                      "usi": "7g8f",
+                                                                      "kind": "main",
+                                                                      "note": "逆棒銀。次に▲8五銀〜▲8四銀〜▲8三銀成となれば、飛車先を逆襲して先手成功。居飛車からは△4四角などと打って反撃してくる筋があります。",
+                                                                      "child": {
+                                                                       "id": "nb0b2b0_3",
+                                                                       "sfen": "ln3g1nl/1r1sg2k1/p1ppppspp/6p2/9/1SP6/P2PPPPPP/1R4SK1/LN1G1G1NL w BPbp 1",
+                                                                       "branches": []
+                                                                      }
+                                                                     }
+                                                                    ]
+                                                                   }
+                                                                  }
+                                                                 ]
+                                                                }
+                                                               }
+                                                              ]
+                                                             }
+                                                            },
+                                                            {
+                                                             "usi": "7c7d",
+                                                             "kind": "alt",
+                                                             "child": {
+                                                              "id": "nb0b2b1_0",
+                                                              "sfen": "ln3g1nl/1r1sg1k2/p2pppspp/2p3p2/1p7/2P6/PPSPPPPPP/1R4SK1/LN1G1G1NL b Bb 1",
+                                                              "branches": [
+                                                               {
+                                                                "usi": "7g6f",
+                                                                "kind": "main",
+                                                                "note": "▲6六銀型。△7三桂には▲7五歩と上がった銀を活用して攻め、△5三銀型にしてくれば▲7七桂と跳ねて、将来▲6五桂と跳ねる狙いです。",
+                                                                "child": {
+                                                                 "id": "nb0b2b1_1",
+                                                                 "sfen": "ln3g1nl/1r1sg1k2/p2pppspp/2p3p2/1p7/2PS5/PP1PPPPPP/1R4SK1/LN1G1G1NL w Bb 1",
+                                                                 "branches": []
+                                                                }
+                                                               }
+                                                              ]
+                                                             }
+                                                            }
+                                                           ]
+                                                          }
+                                                         }
+                                                        ]
+                                                       }
+                                                      }
+                                                     ]
+                                                    }
+                                                   }
+                                                  ]
+                                                 }
+                                                }
+                                               ],
+                                               "comment": "分岐図。攻め方は▲7六銀+▲7八金型、▲6六銀+▲7八金型、逆棒銀、▲6六銀型があります。"
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          }
+                                         ]
+                                        }
+                                       }
+                                      ]
+                                     }
+                                    }
+                                   ]
+                                  }
+                                 }
+                                ]
+                               }
+                              }
+                             ]
+                            }
+                           }
+                          ]
+                         }
+                        },
+                        {
+                         "usi": "8e8f",
+                         "kind": "deviation",
+                         "note": "基本図から居飛車がさっそく△8六歩と攻めてくる変化。",
+                         "punishNote": "8筋の歩交換には、角交換してから▲7七角と打つのが部分的な手筋。飛車と銀の両取りになります。実際には振り飛車が指しやすくなる変化です。",
+                         "child": {
+                          "id": "nb1_0",
+                          "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/6p2/9/1pP6/PP1PPPPPP/1B1R2K2/LNSG1GSNL b - 1",
+                          "branches": [
+                           {
+                            "usi": "8g8f",
+                            "kind": "main",
+                            "child": {
+                             "id": "nb1_1",
+                             "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/6p2/9/1PP6/P2PPPPPP/1B1R2K2/LNSG1GSNL w P 1",
+                             "branches": [
+                              {
+                               "usi": "8b8f",
+                               "kind": "main",
+                               "child": {
+                                "id": "nb1_2",
+                                "sfen": "lnsgkgsnl/7b1/p1pppp1pp/6p2/9/1rP6/P2PPPPPP/1B1R2K2/LNSG1GSNL b Pp 1",
+                                "branches": [
+                                 {
+                                  "usi": "8h2b+",
+                                  "kind": "main",
+                                  "child": {
+                                   "id": "nb1_3",
+                                   "sfen": "lnsgkgsnl/7+B1/p1pppp1pp/6p2/9/1rP6/P2PPPPPP/3R2K2/LNSG1GSNL w BPp 1",
+                                   "branches": [
+                                    {
+                                     "usi": "3a2b",
+                                     "kind": "main",
+                                     "child": {
+                                      "id": "nb1_4",
+                                      "sfen": "lnsgkg1nl/7s1/p1pppp1pp/6p2/9/1rP6/P2PPPPPP/3R2K2/LNSG1GSNL b BPbp 1",
+                                      "branches": [
+                                       {
+                                        "usi": "B*7g",
+                                        "kind": "main",
+                                        "note": "飛車と銀の両取り。",
+                                        "child": {
+                                         "id": "nb1_5",
+                                         "sfen": "lnsgkg1nl/7s1/p1pppp1pp/6p2/9/1rP6/P1BPPPPPP/3R2K2/LNSG1GSNL w Pbp 1",
+                                         "branches": [
+                                          {
+                                           "usi": "8f8i+",
+                                           "kind": "main",
+                                           "child": {
+                                            "id": "nb1b0_0",
+                                            "sfen": "lnsgkg1nl/7s1/p1pppp1pp/6p2/9/2P6/P1BPPPPPP/3R2K2/L+rSG1GSNL b Pbnp 1",
+                                            "branches": [
+                                             {
+                                              "usi": "7g2b+",
+                                              "kind": "main",
+                                              "child": {
+                                               "id": "nb1b0_1",
+                                               "sfen": "lnsgkg1nl/7+B1/p1pppp1pp/6p2/9/2P6/P2PPPPPP/3R2K2/L+rSG1GSNL w SPbnp 1",
+                                               "branches": [
+                                                {
+                                                 "usi": "B*3c",
+                                                 "kind": "main",
+                                                 "child": {
+                                                  "id": "nb1b0_2",
+                                                  "sfen": "lnsgkg1nl/7+B1/p1ppppbpp/6p2/9/2P6/P2PPPPPP/3R2K2/L+rSG1GSNL b SPnp 1",
+                                                  "branches": [
+                                                   {
+                                                    "usi": "2b3c",
+                                                    "kind": "main",
+                                                    "child": {
+                                                     "id": "nb1b0_3",
+                                                     "sfen": "lnsgkg1nl/9/p1pppp+Bpp/6p2/9/2P6/P2PPPPPP/3R2K2/L+rSG1GSNL w BSPnp 1",
+                                                     "branches": [
+                                                      {
+                                                       "usi": "2a3c",
+                                                       "kind": "main",
+                                                       "child": {
+                                                        "id": "nb1b0_4",
+                                                        "sfen": "lnsgkg2l/9/p1ppppnpp/6p2/9/2P6/P2PPPPPP/3R2K2/L+rSG1GSNL b BSPbnp 1",
+                                                        "branches": [
+                                                         {
+                                                          "usi": "6h8h",
+                                                          "kind": "main",
+                                                          "note": "角を打って馬を消してくる展開には、素直に応じてから飛車をぶつけます。振り飛車側の駒得が大きく、先手有利です。",
+                                                          "child": {
+                                                           "id": "nb1b0_5",
+                                                           "sfen": "lnsgkg2l/9/p1ppppnpp/6p2/9/2P6/P2PPPPPP/1R4K2/L+rSG1GSNL w BSPbnp 1",
+                                                           "branches": []
+                                                          }
+                                                         }
+                                                        ]
+                                                       }
+                                                      }
+                                                     ]
+                                                    }
+                                                   }
+                                                  ]
+                                                 }
+                                                }
+                                               ]
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          },
+                                          {
+                                           "usi": "8f8b",
+                                           "kind": "alt",
+                                           "child": {
+                                            "id": "nb1b1_0",
+                                            "sfen": "lnsgkg1nl/1r5s1/p1pppp1pp/6p2/9/2P6/P1BPPPPPP/3R2K2/LNSG1GSNL b Pbp 1",
+                                            "branches": [
+                                             {
+                                              "usi": "P*8d",
+                                              "kind": "main",
+                                              "note": "▲8三歩と打ちたい気持ちをこらえて、▲8四歩と垂らします。",
+                                              "child": {
+                                               "id": "nb1b1_1",
+                                               "sfen": "lnsgkg1nl/1r5s1/p1pppp1pp/1P4p2/9/2P6/P1BPPPPPP/3R2K2/LNSG1GSNL w bp 1",
+                                               "branches": [
+                                                {
+                                                 "usi": "2b3c",
+                                                 "kind": "main",
+                                                 "child": {
+                                                  "id": "nb1b1_2",
+                                                  "sfen": "lnsgkg1nl/1r7/p1ppppspp/1P4p2/9/2P6/P1BPPPPPP/3R2K2/LNSG1GSNL b bp 1",
+                                                  "branches": [
+                                                   {
+                                                    "usi": "6h8h",
+                                                    "kind": "main",
+                                                    "note": "次に▲8三歩成となれば振り飛車成功。次は▲3三角成△同桂▲8三銀の強襲があります。",
+                                                    "child": {
+                                                     "id": "nb1b1_3",
+                                                     "sfen": "lnsgkg1nl/1r7/p1ppppspp/1P4p2/9/2P6/P1BPPPPPP/1R4K2/LNSG1GSNL w bp 1",
+                                                     "branches": []
+                                                    }
+                                                   }
+                                                  ]
+                                                 }
+                                                }
+                                               ]
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          }
+                                         ],
+                                         "comment": "分岐図(両取り)。△8九飛成と攻め合う手と、△8二飛と引いて両取りを防ぐ手が考えられます。"
+                                        }
+                                       }
+                                      ]
+                                     }
+                                    }
+                                   ]
+                                  }
+                                 }
+                                ]
+                               }
+                              }
+                             ]
+                            }
+                           }
+                          ]
+                         }
+                        }
+                       ],
+                       "comment": "基本図。ここから居飛車の△8六歩の仕掛けと、△6二銀〜△4二玉の持久戦が考えられます。"
+                      }
+                     }
+                    ]
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}
