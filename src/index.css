@@ -1238,3 +1238,18 @@ main {
 .pattern-board .board-wrap {
   width: 100%;
 }
+
+.progress {
+  display: block;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--line);
+  margin: 0.35rem 0 0.15rem;
+  overflow: hidden;
+}
+
+.progress-fill {
+  display: block;
+  height: 100%;
+  background: var(--good);
+}

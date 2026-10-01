@@ -1,0 +1,194 @@
+{
+ "id": "shikenbisha-vs-hidarimino--24fu",
+ "title": "四間飛車(藤井システム型) vs 左美濃(後手・▲2四歩の仕掛け)",
+ "myStrategy": "shikenbisha",
+ "opponentStrategy": "ibisha",
+ "mySide": "gote",
+ "source": "開始局面と手順はWikipedia日本語版「左美濃」の第1-4図〜第1-6図(1996年5月14日 王位戦予選 谷川浩司 vs 阿部隆)と同節の解説に準拠(CC BY-SA)。開始局面は第1-4図をSFENに変換し、全手を合法手検証済み。",
+ "goalFormation": "左美濃側の代表的な攻め筋▲2四歩△同歩▲同角(または▲5五歩)への対応を覚える。",
+ "root": {
+  "id": "n0",
+  "sfen": "l1kg3nl/2s1gr3/2n1p1bpp/ppp1s1pP1/3p1p3/PPP1P1P2/1KSP1PN1P/2S1G2R1/LNBG4L w - 1",
+  "comment": "第1-4図。藤井システム型の四間飛車に、左美濃側が▲2四歩と仕掛けた局面。▲2四歩△同歩▲同角は左美濃の代表的な攻め筋で、相手が△同角と取れば左美濃側の作戦成功、△2二飛と回っても▲3三角成か▲2五歩とするのが部分的な定跡とされる。",
+  "branches": [
+   {
+    "usi": "2c2d",
+    "kind": "main",
+    "note": "▲2四歩には△同歩と取ります。",
+    "child": {
+     "id": "n_0",
+     "sfen": "l1kg3nl/2s1gr3/2n1p1b1p/ppp1s1pp1/3p1p3/PPP1P1P2/1KSP1PN1P/2S1G2R1/LNBG4L b p 1",
+     "branches": [
+      {
+       "usi": "7i2d",
+       "kind": "main",
+       "note": "実戦の進行。角で歩を取り返し、2筋を狙います。",
+       "child": {
+        "id": "nb0_0",
+        "sfen": "l1kg3nl/2s1gr3/2n1p1b1p/ppp1s1pB1/3p1p3/PPP1P1P2/1KSP1PN1P/2S1G2R1/LN1G4L w Pp 1",
+        "branches": [
+         {
+          "usi": "4b2b",
+          "kind": "main",
+          "note": "飛車を2筋に回して受けます。",
+          "child": {
+           "id": "nb0b0_0",
+           "sfen": "l1kg3nl/2s1g2r1/2n1p1b1p/ppp1s1pB1/3p1p3/PPP1P1P2/1KSP1PN1P/2S1G2R1/LN1G4L b Pp 1",
+           "branches": [
+            {
+             "usi": "2d3c+",
+             "kind": "main",
+             "note": "△2二飛には▲3三角成か▲2五歩とするのが部分的な定跡。",
+             "child": {
+              "id": "nb0b0_1",
+              "sfen": "l1kg3nl/2s1g2r1/2n1p1+B1p/ppp1s1p2/3p1p3/PPP1P1P2/1KSP1PN1P/2S1G2R1/LN1G4L w BPp 1",
+              "branches": [
+               {
+                "usi": "2b2h+",
+                "kind": "main",
+                "child": {
+                 "id": "nb0b0_2",
+                 "sfen": "l1kg3nl/2s1g4/2n1p1+B1p/ppp1s1p2/3p1p3/PPP1P1P2/1KSP1PN1P/2S1G2+r1/LN1G4L b BPrp 1",
+                 "branches": [
+                  {
+                   "usi": "3c1a",
+                   "kind": "main",
+                   "note": "実戦はこの▲1一馬まで進み(第1-5図)、以下▲7五歩→7四歩→7六香(第1-6図)となった。",
+                   "child": {
+                    "id": "nb0b0_3",
+                    "sfen": "l1kg3n+B/2s1g4/2n1p3p/ppp1s1p2/3p1p3/PPP1P1P2/1KSP1PN1P/2S1G2+r1/LN1G4L w BLPrp 1",
+                    "branches": []
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         },
+         {
+          "usi": "3c2d",
+          "kind": "deviation",
+          "note": "角で角を取り返した形。",
+          "punishNote": "出典では、相手が△同角と取れば左美濃側の作戦成功とされる。",
+          "child": {
+           "id": "nb0b1_0",
+           "sfen": "l1kg3nl/2s1gr3/2n1p3p/ppp1s1pb1/3p1p3/PPP1P1P2/1KSP1PN1P/2S1G2R1/LN1G4L b Pbp 1",
+           "branches": []
+          }
+         }
+        ]
+       }
+      },
+      {
+       "usi": "5f5e",
+       "kind": "alt",
+       "note": "△同歩に▲5五歩とする変化。",
+       "child": {
+        "id": "nb1_0",
+        "sfen": "l1kg3nl/2s1gr3/2n1p1b1p/ppp1s1pp1/3pPp3/PPP3P2/1KSP1PN1P/2S1G2R1/LNBG4L w p 1",
+        "branches": [
+         {
+          "usi": "3c5e",
+          "kind": "main",
+          "note": "▲5五歩は△同角と取ります。",
+          "child": {
+           "id": "nb1b0_0",
+           "sfen": "l1kg3nl/2s1gr3/2n1p3p/ppp1s1pp1/3pbp3/PPP3P2/1KSP1PN1P/2S1G2R1/LNBG4L b 2p 1",
+           "branches": [
+            {
+             "usi": "2h2d",
+             "kind": "main",
+             "child": {
+              "id": "nb1b0_1",
+              "sfen": "l1kg3nl/2s1gr3/2n1p3p/ppp1s1pR1/3pbp3/PPP3P2/1KSP1PN1P/2S1G4/LNBG4L w P2p 1",
+              "branches": [
+               {
+                "usi": "P*2b",
+                "kind": "main",
+                "note": "△2二歩と受けて、以下△3七角成〜△6四馬で玉頭攻撃をみられる。",
+                "child": {
+                 "id": "nb1b0_2",
+                 "sfen": "l1kg3nl/2s1gr1p1/2n1p3p/ppp1s1pR1/3pbp3/PPP3P2/1KSP1PN1P/2S1G4/LNBG4L b Pp 1",
+                 "branches": []
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         },
+         {
+          "usi": "5d5e",
+          "kind": "alt",
+          "note": "銀で取ると、▲2四角から角を成り込まれる。",
+          "child": {
+           "id": "nb1b1_0",
+           "sfen": "l1kg3nl/2s1gr3/2n1p1b1p/ppp3pp1/3psp3/PPP3P2/1KSP1PN1P/2S1G2R1/LNBG4L b 2p 1",
+           "branches": [
+            {
+             "usi": "7i2d",
+             "kind": "main",
+             "child": {
+              "id": "nb1b1_1",
+              "sfen": "l1kg3nl/2s1gr3/2n1p1b1p/ppp3pB1/3psp3/PPP3P2/1KSP1PN1P/2S1G2R1/LN1G4L w P2p 1",
+              "branches": [
+               {
+                "usi": "4b2b",
+                "kind": "main",
+                "child": {
+                 "id": "nb1b1_2",
+                 "sfen": "l1kg3nl/2s1g2r1/2n1p1b1p/ppp3pB1/3psp3/PPP3P2/1KSP1PN1P/2S1G2R1/LN1G4L b P2p 1",
+                 "branches": [
+                  {
+                   "usi": "2d3c+",
+                   "kind": "main",
+                   "child": {
+                    "id": "nb1b1_3",
+                    "sfen": "l1kg3nl/2s1g2r1/2n1p1+B1p/ppp3p2/3psp3/PPP3P2/1KSP1PN1P/2S1G2R1/LN1G4L w BP2p 1",
+                    "branches": [
+                     {
+                      "usi": "2b2h+",
+                      "kind": "main",
+                      "child": {
+                       "id": "nb1b1_4",
+                       "sfen": "l1kg3nl/2s1g4/2n1p1+B1p/ppp3p2/3psp3/PPP3P2/1KSP1PN1P/2S1G2+r1/LN1G4L b BPr2p 1",
+                       "branches": [
+                        {
+                         "usi": "3c5e",
+                         "kind": "main",
+                         "note": "△同銀の場合の進行。馬で5五の銀を取り返されます。",
+                         "child": {
+                          "id": "nb1b1_5",
+                          "sfen": "l1kg3nl/2s1g4/2n1p3p/ppp3p2/3p+Bp3/PPP3P2/1KSP1PN1P/2S1G2+r1/LN1G4L w BSPr2p 1",
+                          "branches": []
+                         }
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

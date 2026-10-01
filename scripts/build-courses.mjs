@@ -66,9 +66,10 @@ function mergeInto(node, branches) {
 mkdirSync(OUT_DIR, { recursive: true })
 for (const file of readdirSync(SPEC_DIR).filter((f) => f.endsWith('.mjs'))) {
   const { default: spec } = await import(pathToFileURL(`${SPEC_DIR}/${file}`).href)
-  const start = Position.newBySFEN(InitialPositionSFEN.STANDARD)
+  const start = Position.newBySFEN(spec.startSfen ?? InitialPositionSFEN.STANDARD)
+  if (!start) throw new Error(`${spec.id}: invalid startSfen`)
   const { head } = buildSegment(start, spec.line, undefined, 'n')
-  const { line, ...meta } = spec
+  const { line, startSfen, ...meta } = spec
   const course = { ...meta, root: { id: 'n0', sfen: start.sfen, comment: spec.rootComment, branches: head.branches } }
   delete course.rootComment
   writeFileSync(`${OUT_DIR}/${spec.id}.json`, JSON.stringify(course, null, 1) + '\n')

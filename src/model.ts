@@ -165,9 +165,9 @@ export const SETUPS: Setup[] = [
     intro:
       'A Static Rook version of the Mino castle, with the king on the 8th file. It handles both slow and rapid games, and Castle Tower Mino (玉8七) was hard for Ranging Rook to crack from the side.',
     shikenPlan:
-      'Fujii System answer: stop the ideal formation and fight at the king head (▲4五歩, ▲2五歩 △同歩 ▲同桂) instead of attacking from the side. No book line yet: use Spar vs AI.',
+      'Fujii System answer: stop the ideal formation and fight at the king head (▲4五歩, ▲2五歩 △同歩 ▲同桂) instead of attacking from the side. The line here is Left Mino’s standard ▲2四歩 strike against a Fujii-type Shiken-bisha, from a 1996 pro game.',
     sources: ['https://ja.wikipedia.org/wiki/左美濃', 'https://en.wikipedia.org/wiki/Fujii_System'],
-    courseIds: [],
+    courseIds: ['shikenbisha-vs-hidarimino--24fu'],
   },
   {
     id: 'millennium',

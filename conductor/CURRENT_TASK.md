@@ -38,5 +38,15 @@ Shogi trainer app, Shiken-bisha (四間飛車) focus:
 - Dev server: background task on port 5317, must be killed at end; close session `joseki` at end
 - No push/deploy/external writes; no Artifact publishing
 
-## Next action
-Recheck drill after position-key change; mobile + light mode screenshots; production build; README/credits; commit locally.
+- Mobile 390px (no horizontal scroll, even board rows), light + dark mode, production build (264 KB gz)
+- Book moves reviewed by engine (4五歩早仕掛け △同歩 shows -4%, AI prefers △同角 = matches source)
+- Patterns page (9 failure / 8 win patterns) + deep link #/course/<id>/<nodeId>
+- Console clean on all pages
+
+## Commits (local only, not pushed)
+- 6adc853 initial app; 03b40ab engine review of book moves + patterns page
+
+## Next action (user said continue working, 2026-10-01)
+1. Code review subagent on 6adc853..03b40ab; verify findings myself, fix confirmed ones
+2. Sourced lines for 左美濃 / ミレニアム / 相振り飛車 (verify sources directly; no invented moves)
+3. Per-line progress on home

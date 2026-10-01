@@ -1,6 +1,6 @@
-import { COURSES, SETUPS, type Course } from '../model'
+import { COURSES, SETUPS, sideToMove, walkNodes, type Course } from '../model'
 import { go, useCards } from '../hooks'
-import { isDifficult } from '../srs'
+import { isDifficult, positionKey, type Card } from '../srs'
 
 function courseLabel(course: Course) {
   const side = course.userSide === 'sente' ? '☗ sente' : '☖ gote'
@@ -22,8 +22,25 @@ function countKinds(course: Course) {
   return n
 }
 
+const decisionKeys = new Map<string, string[]>(
+  COURSES.map((course) => {
+    const keys: string[] = []
+    walkNodes(course.root, (node) => {
+      if (sideToMove(node) === course.userSide && node.branches.some((b) => b.kind !== 'deviation')) keys.push(positionKey(node.sfen))
+    })
+    return [course.id, [...new Set(keys)]]
+  }),
+)
+
+function progress(course: Course, cards: Map<string, Card>) {
+  const keys = decisionKeys.get(course.id) ?? []
+  const learned = keys.filter((k) => (cards.get(k)?.level ?? 0) >= 2).length
+  return { learned, total: keys.length }
+}
+
 export function Home() {
   const cards = useCards()
+  const byKey = new Map(cards.map((c) => [c.key, c]))
   const now = Date.now()
   const due = cards.filter((c) => c.due <= now).length
   const difficult = cards.filter(isDifficult).length
@@ -59,15 +76,22 @@ export function Home() {
               <p>{setup.intro}</p>
               {setup.shikenPlan && <p className="plan">{setup.shikenPlan}</p>}
               <div className="course-links">
-                {courses.map((course) => (
-                  <button key={course.id} onClick={() => go('course', course.id)}>
-                    <span className="course-title">{course.title}</span>
-                    <span className="course-meta">
-                      {courseLabel(course)}
-                      {courseOutcome(course) && `, ${courseOutcome(course)}`}
-                    </span>
-                  </button>
-                ))}
+                {courses.map((course) => {
+                  const { learned, total } = progress(course, byKey)
+                  return (
+                    <button key={course.id} onClick={() => go('course', course.id)}>
+                      <span className="course-title">{course.title}</span>
+                      <span className="course-meta">
+                        {courseLabel(course)}
+                        {courseOutcome(course) && `, ${courseOutcome(course)}`}
+                      </span>
+                      <span className="progress" aria-label={`${learned} of ${total} positions learned`}>
+                        <span className="progress-fill" style={{ width: `${total ? (learned / total) * 100 : 0}%` }} />
+                      </span>
+                      <span className="course-meta">{learned} of {total} positions learned</span>
+                    </button>
+                  )
+                })}
                 {courses.length === 0 && (
                   <button onClick={() => go('play')}>
                     <span className="course-title">Spar vs AI</span>
