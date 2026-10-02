@@ -803,5 +803,24 @@
     "chooseMain": "得意戦法を選ぶ",
     "castles": "囲い: {{list}}",
     "mirrored": "同じ手順を反対側から見たもの"
+  },
+  "moveFacts": {
+    "captures": "{{piece}}を取る",
+    "check": "王手",
+    "promotes": "成って{{piece}}になる",
+    "drops": "{{piece}}を打つ",
+    "forks": "{{a}}と{{b}}の両取り",
+    "attacks": "{{piece}}に当てる",
+    "sep": "、",
+    "leavesHanging": "この手で{{square}}の{{piece}}が浮き駒になります（狙われていて、守りが足りません）",
+    "missedMate": "{{count}}手詰めを逃しました：{{line}}",
+    "allowsMate": "相手に{{count}}手詰めを許します：{{line}}",
+    "canBeTaken": "{{square}}の{{piece}}はそのまま取られます：{{move}}",
+    "enPrise": "動かした{{piece}}が{{square}}でタダで取られる形です",
+    "losesMaterial": "相手の最善手順で駒損します（{{pieces}}を失う）：{{line}}",
+    "strongestReply": "相手の最強の応手は{{move}}：{{what}}",
+    "bestWins": "最善手{{move}}なら駒得できます：{{line}}",
+    "bestDoes": "{{move}}：{{what}}",
+    "engineLine": "読み筋：{{line}}"
   }
 }

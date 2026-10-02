@@ -127,15 +127,15 @@ export function describeMove(sfen: string, usi: string): string[] {
   const move = position.createMoveByUSI(usi)
   if (!move) return []
   const out: string[] = []
-  if (move.capturedPieceType) out.push(`captures the ${pieceName(move.capturedPieceType)}`)
+  if (move.capturedPieceType) out.push(i18n.t('moveFacts.captures', { piece: pieceName(move.capturedPieceType) }))
   const after = position.clone()
   after.doMove(move)
-  if (after.checked) out.push('gives check')
-  if (move.promote) out.push(`promotes to ${PIECE_CHAR[after.board.at(move.to)!.type]}`)
-  if (!(move.from instanceof Square)) out.push(`drops a ${pieceName(move.pieceType)}`)
+  if (after.checked) out.push(i18n.t('moveFacts.check'))
+  if (move.promote) out.push(i18n.t('moveFacts.promotes', { piece: PIECE_CHAR[after.board.at(move.to)!.type] }))
+  if (!(move.from instanceof Square)) out.push(i18n.t('moveFacts.drops', { piece: pieceName(move.pieceType) }))
   const targets = attackedEnemies(position, move).filter((t) => t !== move.capturedPieceType)
-  if (targets.length >= 2) out.push(`forks ${targets.slice(0, 2).map(pieceName).join(' and ')}`)
-  else if (targets.length === 1 && PIECE_VALUE[targets[0]] >= 5) out.push(`attacks the ${pieceName(targets[0])}`)
+  if (targets.length >= 2) out.push(i18n.t('moveFacts.forks', { a: pieceName(targets[0]), b: pieceName(targets[1]) }))
+  else if (targets.length === 1 && PIECE_VALUE[targets[0]] >= 5) out.push(i18n.t('moveFacts.attacks', { piece: pieceName(targets[0]) }))
   return out
 }
 
@@ -161,35 +161,35 @@ export function explainMistake(sfen: string, usi: string, best: Candidate, reply
   const hangingBefore = hangingPieces(position, move.color)
   for (const [square, type] of hangingPieces(after, move.color)) {
     if (hangingBefore.has(square) || square === move.to.usi) continue
-    reasons.push(`Your move leaves the ${pieceName(type)} on ${squareName(square)} hanging: it is attacked and not safely defended`)
+    reasons.push(i18n.t('moveFacts.leavesHanging', { piece: pieceName(type), square: squareName(square) }))
   }
   if ('mate' in best.score && best.score.mate > 0 && best.move !== usi)
-    reasons.push(`Missed a forced mate in ${best.score.mate}: ${lineText(sfen, best.pv, best.score.mate)}`)
+    reasons.push(i18n.t('moveFacts.missedMate', { count: best.score.mate, line: lineText(sfen, best.pv, best.score.mate) }))
   if (reply && 'mate' in reply.score && reply.score.mate > 0)
-    reasons.push(`This allows the opponent to mate in ${reply.score.mate}: ${lineText(after.sfen, reply.pv, reply.score.mate)}`)
+    reasons.push(i18n.t('moveFacts.allowsMate', { count: reply.score.mate, line: lineText(after.sfen, reply.pv, reply.score.mate) }))
   if (reply) {
     const replyMove = after.createMoveByUSI(reply.move)
     if (replyMove?.capturedPieceType && replyMove.to.equals(move.to))
-      reasons.push(`Your ${pieceName(after.board.at(move.to)!.type)} on ${squareName(move.to.usi)} can just be taken: ${formatMove(after, replyMove)}`)
-    else if (isHanging(position, move)) reasons.push(`The ${pieceName(after.board.at(move.to)!.type)} you moved is left en prise on ${squareName(move.to.usi)}`)
+      reasons.push(i18n.t('moveFacts.canBeTaken', { piece: pieceName(after.board.at(move.to)!.type), square: squareName(move.to.usi), move: formatMove(after, replyMove) }))
+    else if (isHanging(position, move)) reasons.push(i18n.t('moveFacts.enPrise', { piece: pieceName(after.board.at(move.to)!.type), square: squareName(move.to.usi) }))
     const { swing, captured } = materialSwing(after, reply.pv, move.color, 6)
     const lost = captured.filter((c) => c.by !== move.color).map((c) => pieceName(c.type))
     if (swing <= -4 && lost.length)
-      reasons.push(`Opponent's best line wins material (you lose ${lost.join(', ')}): ${lineText(after.sfen, reply.pv, 6)}`)
+      reasons.push(i18n.t('moveFacts.losesMaterial', { pieces: lost.join(i18n.t('moveFacts.sep')), line: lineText(after.sfen, reply.pv, 6) }))
     const threat = describeMove(after.sfen, reply.move)
-    if (threat.length) reasons.push(`Opponent's strongest reply ${formatMove(after, after.createMoveByUSI(reply.move)!)} ${threat.join(', ')}`)
+    if (threat.length) reasons.push(i18n.t('moveFacts.strongestReply', { move: formatMove(after, after.createMoveByUSI(reply.move)!), what: threat.join(i18n.t('moveFacts.sep')) }))
   }
   if (best.move !== usi) {
     const { swing } = materialSwing(position, best.pv, move.color, 6)
-    if (swing >= 4) reasons.push(`The best move ${lineText(sfen, [best.move], 1)} wins material: ${lineText(sfen, best.pv, 6)}`)
+    if (swing >= 4) reasons.push(i18n.t('moveFacts.bestWins', { move: lineText(sfen, [best.move], 1), line: lineText(sfen, best.pv, 6) }))
   }
   return reasons
 }
 
 export function bestMoveReasons(sfen: string, best: Candidate): string[] {
   const what = describeMove(sfen, best.move)
-  const reasons = what.length ? [`${lineText(sfen, [best.move], 1)} ${what.join(', ')}`] : []
-  reasons.push(`Engine line: ${lineText(sfen, best.pv, 8)}`)
+  const reasons = what.length ? [i18n.t('moveFacts.bestDoes', { move: lineText(sfen, [best.move], 1), what: what.join(i18n.t('moveFacts.sep')) })] : []
+  reasons.push(i18n.t('moveFacts.engineLine', { line: lineText(sfen, best.pv, 8) }))
   return reasons
 }
 

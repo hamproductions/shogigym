@@ -822,5 +822,24 @@
     "chooseMain": "Choose your main strategy",
     "castles": "Castles: {{list}}",
     "mirrored": "Same line, seen from the other side"
+  },
+  "moveFacts": {
+    "captures": "captures the {{piece}}",
+    "check": "gives check",
+    "promotes": "promotes to {{piece}}",
+    "drops": "drops a {{piece}}",
+    "forks": "forks {{a}} and {{b}}",
+    "attacks": "attacks the {{piece}}",
+    "sep": ", ",
+    "leavesHanging": "Your move leaves the {{piece}} on {{square}} hanging: it is attacked and not safely defended",
+    "missedMate": "Missed a forced mate in {{count}}: {{line}}",
+    "allowsMate": "This allows the opponent to mate in {{count}}: {{line}}",
+    "canBeTaken": "Your {{piece}} on {{square}} can just be taken: {{move}}",
+    "enPrise": "The {{piece}} you moved is left en prise on {{square}}",
+    "losesMaterial": "Opponent's best line wins material (you lose {{pieces}}): {{line}}",
+    "strongestReply": "Opponent's strongest reply {{move}} {{what}}",
+    "bestWins": "The best move {{move}} wins material: {{line}}",
+    "bestDoes": "{{move}} {{what}}",
+    "engineLine": "Engine line: {{line}}"
   }
 }
