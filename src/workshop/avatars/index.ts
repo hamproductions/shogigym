@@ -94,7 +94,12 @@ export function avatarSlot(options: Omit<AvatarOptions, 'environment' | 'base'>)
     if (!enabled()) drop()
     else if (wanted) start()
   })
-  const idle = environment ? window.setTimeout(() => (window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 1)))(() => enabled() && prefetchAvatars()), 4000) : 0
+  const idle = environment ? window.setTimeout(() => (window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 1)))(() => {
+        if (!enabled()) return
+        prefetchAvatars()
+        wanted = true
+        start()
+      }), 1500) : 0
   return {
     request: () => {
       wanted = true

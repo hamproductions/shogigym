@@ -149,7 +149,7 @@ export function Board3D(props: Board3DProps) {
     const dragged = performance.now() - (s.droppedAt ?? 0) <= 400
     const event = changed && power.current ? moveEvent(prev, props.position, latest.current.lastMove) : null
     const fx = power.current
-    s.onLand = event && fx ? () => fx.onMove({ ...event, delay: 0 }) : null
+    s.onLand = event && fx ? () => fx.onMove({ ...event, delay: 0, carried: true }) : null
     rebuild(s, latest.current, changed && !dragged, prev, changed && dragged)
     if (s.onLand && event) fx?.onMove({ ...event, delay: dragged ? 0 : 0.22 })
     if (event?.mate && !FLAT) flipTimer.current = window.setTimeout(() => {

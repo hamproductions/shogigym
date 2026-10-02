@@ -115,8 +115,8 @@
 
 .ws-eval-track {
   position: relative;
-  width: 72px;
-  height: 8px;
+  width: 160px;
+  height: 14px;
   border-radius: var(--radius-pill);
   background: var(--meter-track);
   overflow: hidden;
@@ -135,7 +135,8 @@
 }
 
 .ws-eval-chip b {
-  min-width: 48px;
+  min-width: 56px;
+  font-size: var(--text-md);
   font-variant-numeric: tabular-nums;
 }
 
@@ -537,9 +538,10 @@
   }
 
   .ws-eval-chip {
-    order: 1;
-    gap: var(--space-1-5);
-    padding: var(--space-1) var(--space-1-5);
+    order: 3;
+    flex: 1 1 100%;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-2);
   }
 
   .ws-modebar > .ws-lastmove,
@@ -550,7 +552,9 @@
   }
 
   .ws-eval-track {
-    width: 24px;
+    flex: 1;
+    width: auto;
+    height: 12px;
   }
 
   .ws-eval-chip b {
@@ -558,7 +562,7 @@
   }
 
   .ws-eval-label {
-    display: none;
+    display: inline;
   }
 
   .ws-board-wrap > .ws-plate {

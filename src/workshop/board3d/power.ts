@@ -7,7 +7,7 @@ import { pieceMesh } from './piece'
 import { glowTexture, loadBrush, ringTexture, stampTexture } from './powerTextures'
 
 export type PowerSquare = { file: number; rank: number }
-export type PowerMove = { to: PowerSquare; color: Color; capture?: { type: PieceType; color: Color } | null; check?: PowerSquare | null; mate?: boolean; promoted?: boolean; delay?: number }
+export type PowerMove = { to: PowerSquare; color: Color; capture?: { type: PieceType; color: Color } | null; check?: PowerSquare | null; mate?: boolean; promoted?: boolean; delay?: number; carried?: boolean }
 export type PowerContext = { scene: THREE.Scene; root: THREE.Object3D; camera: THREE.PerspectiveCamera; renderer: THREE.WebGLRenderer }
 export type Power = {
   onMove: (move: PowerMove) => void
@@ -528,7 +528,7 @@ export function createPower(ctx: PowerContext): Power {
     sparks.spawn(at.clone().setY(0.15), 160, { speed: 7.5, up: 4, color: 0xffe6b0, color2: 0xff7020, size: 0.11, life: 0.8 })
     debris.spawn(at, 36, 4.2)
     skyBeam(at, 0xfff0c8, 0.46, 26, 0.16, 0.4)
-    if (move.capture) ghost(at.clone().setY(0), move.capture.type, move.capture.color)
+    if (move.capture && !move.carried) ghost(at.clone().setY(0), move.capture.type, move.capture.color)
     add(0.15, () => (frame.scale = Math.min(frame.scale, calm() ? 0.7 : 0.3)), { real: true })
     add(0.14, (t) => flashTo(0.22 * (1 - t / 0.14)), { real: true })
     shake(0.45)

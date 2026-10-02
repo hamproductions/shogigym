@@ -220,6 +220,7 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
     action.t += dt
     const t = action.t
     if (action.placed) {
+      if (t >= REACH) knock(action)
       const u = clamp01(t / REACH)
       aim(actor, world(action.placed).addScaledVector(UP, GRIP_Y + 0.4 * (1 - ease(u))), motion('slide', 0.5 + u * 0.4, 'open', 'press', ease(u)))
       st.reachW = ease(u)
@@ -309,8 +310,7 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
         other.action = null
       }
     const action: Action = { kind: move.kind, steps: [], index: 0, t: 0, wait: 0, lock: null, last: null, sound: move.sound ?? null, land: move.land ?? null, placed: move.placed ? move.to.clone() : null }
-    if (move.placed) knock(action)
-    else {
+    if (!move.placed) {
       const capture = move.capture
       if (capture) {
         const clone = capture.mesh

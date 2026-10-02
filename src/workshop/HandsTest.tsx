@@ -40,7 +40,7 @@ const framesFor = (pattern: Pattern) => Math.round(((Position.newBySFEN(pattern.
 const props = (position: Position, lastMove?: string): Board3DProps => ({ position, flipped: false, tilted: true, lastMove, selected: null, targets: [], arrows: [], onSquare: () => undefined, onHand: () => undefined, onDrop: () => undefined })
 
 function slotFor(controller: AvatarController): AvatarSlot {
-  return { request: () => undefined, ready: () => true, walls: controller.walls, inspect: controller.inspect, swap: controller.swap, playMove: (move) => (controller.playMove({ ...move, sound: null }), true), cue: controller.cue, update: controller.update, dispose: controller.dispose }
+  return { request: () => undefined, ready: () => true, walls: controller.walls, inspect: controller.inspect, swap: controller.swap, playMove: (move) => (controller.playMove({ ...move, sound: move.kind === 'capture' ? 'capture' : 'move' }), true), cue: controller.cue, update: controller.update, dispose: controller.dispose }
 }
 
 type Overlay = { target: THREE.Mesh; pinch: THREE.Mesh; piece: THREE.Mesh; pole: THREE.ArrowHelper; axes: THREE.AxesHelper }
