@@ -2,6 +2,7 @@
   "name": "Shogi Gym 将棋ジム",
   "short_name": "Shogi Gym",
   "description": "Shogi training gym: openings with study and quiz, review, tsume, tesuji, play the AI and analyze games.",
+  "id": "./",
   "start_url": "./",
   "scope": "./",
   "display": "fullscreen",

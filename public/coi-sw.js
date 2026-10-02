@@ -15,7 +15,7 @@ self.addEventListener('install', (event) => {
   if (!local) event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(['./', 'manifest.webmanifest', 'favicon.svg', 'icon-192.png', 'icon-512.png'])))
 })
 
-self.addEventListener('activate', (event) => event.waitUntil(Promise.all([self.clients.claim(), caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))])))
+self.addEventListener('activate', (event) => event.waitUntil(Promise.all([self.clients.claim(), caches.keys().then((keys) => Promise.all(keys.filter((k) => k.startsWith('shogigym-') && k !== CACHE).map((k) => caches.delete(k))))])))
 
 self.addEventListener('fetch', (event) => {
   const request = event.request

@@ -14,7 +14,7 @@ import { useSettings } from './settings'
 
 const U = 100
 const CH = SQ_D * U
-const PAD = 0.2 * U
+const PAD = 0.08 * U
 const KANJI_NUM = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九']
 
 type Drag = { from: Square | PieceType; color: Color; type: PieceType; x: number; y: number; moved: boolean; id: number }

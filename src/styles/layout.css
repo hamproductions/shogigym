@@ -389,6 +389,10 @@
     min-height: 0;
   }
 
+  .ws-flat-wood {
+    margin: 0;
+  }
+
   .ws-stage.previewing .ws-board-wrap::after {
     display: none;
   }
