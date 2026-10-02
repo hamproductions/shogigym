@@ -417,7 +417,7 @@ function lacquerMap(map: THREE.Texture) {
       const k = Math.min(1, ink(x / (size - 1), 1 - y / (size - 1)) * 1.4)
       const o = (y * size + x) * 4
       img.data[o] = Math.round(k * 255)
-      img.data[o + 1] = Math.round(215 - k * 195)
+      img.data[o + 1] = Math.round(225 - k * 95)
       img.data[o + 2] = 0
       img.data[o + 3] = 255
     }
@@ -597,7 +597,7 @@ export function pieceMesh(type: PieceType, color: Color) {
   const lm = lacquerMap(map)
   const finish = PIECE_FINISHES[getSettings().pieceFinish] ?? PIECE_FINISHES.moriage
   const gloss = finish.gloss
-  const face = new THREE.MeshPhysicalMaterial({ map, roughness: 1, roughnessMap: lm, normalMap: finish.relief ? reliefNormal(map, finish.relief * scale, komaWidth(scale), scale) : null, clearcoat: gloss, clearcoatMap: lm, clearcoatRoughness: 0.4, envMap: pieceEnv, envMapIntensity: 0.12 })
+  const face = new THREE.MeshPhysicalMaterial({ map, roughness: 1, roughnessMap: lm, normalMap: finish.relief ? reliefNormal(map, finish.relief * scale, komaWidth(scale), scale) : null, normalScale: new THREE.Vector2(0.5, 0.5), clearcoat: gloss * 0.5, clearcoatMap: lm, clearcoatRoughness: 0.55, specularIntensity: 0.35, envMap: pieceEnv, envMapIntensity: 0.08 })
   const mesh = new THREE.Mesh(pieceGeometry(scale), [hiddenLid, sideMaterial])
   mesh.castShadow = true
   mesh.receiveShadow = true
