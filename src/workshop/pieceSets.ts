@@ -58,14 +58,33 @@ function rasterize(image: HTMLImageElement): HTMLCanvasElement {
   if (x1 <= x0) return full
   const w = x1 - x0 + 1
   const h = y1 - y0 + 1
-  const inset = 0.1
+  const inset = 0
   const out = document.createElement('canvas')
   out.width = out.height = 256
   const octx = out.getContext('2d', { willReadFrequently: true })!
   octx.drawImage(full, x0 + w * inset, y0 + h * inset, w * (1 - 2 * inset), h * (1 - 2 * inset), 256 * inset, 256 * inset, 256 * (1 - 2 * inset), 256 * (1 - 2 * inset))
   const img = octx.getImageData(0, 0, 256, 256)
   const px = img.data
+  const inside = new Uint8Array(256 * 256)
+  for (let i = 0; i < inside.length; i++) inside[i] = px[i * 4 + 3] > 40 ? 1 : 0
+  const sum = new Int32Array(257 * 257)
+  for (let y = 0; y < 256; y++)
+    for (let x = 0; x < 256; x++) sum[(y + 1) * 257 + x + 1] = inside[y * 256 + x] + sum[y * 257 + x + 1] + sum[(y + 1) * 257 + x] - sum[y * 257 + x]
+  const r = 14
+  const deep = (x: number, y: number) => {
+    const xa = Math.max(0, x - r)
+    const ya = Math.max(0, y - r)
+    const xb = Math.min(256, x + r + 1)
+    const yb = Math.min(256, y + r + 1)
+    const area = (xb - xa) * (yb - ya)
+    return x - r >= 0 && y - r >= 0 && x + r < 256 && y + r < 256 && sum[yb * 257 + xb] - sum[ya * 257 + xb] - sum[yb * 257 + xa] + sum[ya * 257 + xa] === area
+  }
   for (let i = 0; i < px.length; i += 4) {
+    const p = i / 4
+    if (!deep(p % 256, Math.floor(p / 256))) {
+      px[i + 3] = 0
+      continue
+    }
     const r = px[i]
     const g = px[i + 1]
     const b = px[i + 2]
