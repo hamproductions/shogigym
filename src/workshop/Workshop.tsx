@@ -226,6 +226,9 @@ export function Workshop() {
     return () => mq.removeEventListener('change', on)
   }, [])
   const [drawer, setDrawer] = useState(false)
+  useEffect(() => {
+    if (drawer) document.querySelector('.ws-panel-body')?.scrollTo(0, 0)
+  }, [drawer])
   const panelWidth = panelPrefs.width
   const panelHidden = compact ? !drawer : panelPrefs.hidden
   const compactRef = useRef(compact)
@@ -601,6 +604,19 @@ export function Workshop() {
   const sheetIsOpen = sheetOpen ?? ((mode === 'lesson' && !course) || (mode === 'drill' && !drillItem))
   const reviewAt = mode === 'spar' && cursor > 0 && colorSide(positionOf(sfens[cursor - 1]).color) !== userSide ? cursor - 1 : cursor
   const review = useReview(sfens, game.moves, reviewAt, ai && (mode === 'spar' || mode === 'analyze'))
+  useEffect(() => {
+    if (mode !== 'spar' || !ai || !atEnd || game.moves.length === 0) return
+    const n = game.moves.length
+    const before = sfens[n - 1]
+    const usi = game.moves[n - 1]
+    if (!before || colorSide(positionOf(before).color) === userSide || cachedReview(before, usi)) return
+    const timer = setTimeout(() => {
+      reviewMove(before, usi, { movetime: 400 })
+        .then((r) => rememberReview(before, usi, r))
+        .catch(() => undefined)
+    }, 1500)
+    return () => clearTimeout(timer)
+  }, [mode, ai, atEnd, game.moves, sfens, userSide])
   useEffect(() => {
     if (mode !== 'spar' || !review || reviewAt === 0 || !['mistake', 'miss', 'blunder'].includes(review.label)) return
     const before = sfens[reviewAt - 1]
@@ -1523,7 +1539,7 @@ export function Workshop() {
 
       {palette && <Palette commands={commands} onClose={() => setPalette(false)} />}
       {confirm && (
-        <div className="ws-palette-back" onPointerDown={() => performance.now() - confirmAt.current > 450 && setConfirm(null)}>
+        <div className="ws-palette-back" onPointerDown={() => performance.now() - confirmAt.current > 250 && setConfirm(null)}>
           <div className="ws-dialog" role="alertdialog" aria-label="Confirm" onPointerDown={(e) => e.stopPropagation()}>
             <p>{confirm.text}</p>
             <div className="ws-actions">
@@ -1533,7 +1549,7 @@ export function Workshop() {
               <button
                 className="primary"
                 onClick={() => {
-                  if (performance.now() - confirmAt.current < 450) return
+                  if (performance.now() - confirmAt.current < 250) return
                   confirm.run()
                   setConfirm(null)
                 }}
@@ -1798,28 +1814,33 @@ function MovesPane({ sfens, moves, cursor, setCursor, title, onScore, tree, onSw
   if (moves.length === 0) return <p className="ws-muted">No moves yet. Play on the board, or import a game in 検討 Analyze (Coach tab).</p>
   const rate = async () => {
     setSaved(null)
-    let previous = await analyze(usiPosition(sfens[0]), { multipv: 2, movetime: 400 })
+    const results = new Map<number, Awaited<ReturnType<typeof analyze>>>()
+    const at = async (n: number) => {
+      const hit = results.get(n)
+      if (hit) return hit
+      const result = await analyze(usiPosition(sfens[n]), { multipv: 2, movetime: 400 })
+      results.set(n, result)
+      const top = result.candidates[0]
+      if (top) onScore?.(strip(sfens[n]), scoreToCp(toSente(top.score, colorSide(positionOf(sfens[n]).color))))
+      return result
+    }
     let previousLoss = 0
     for (let i = 1; i <= moves.length; i++) {
-      setProgress(i)
-      const result = await analyze(usiPosition(sfens[i]), { multipv: 2, movetime: 400 })
-      for (const [at, res] of [
-        [i - 1, previous],
-        [i, result],
-      ] as const) {
-        const top = res.candidates[0]
-        if (top) onScore?.(strip(sfens[at]), scoreToCp(toSente(top.score, colorSide(positionOf(sfens[at]).color))))
-      }
       const usi = moves[i - 1]
       const known = cachedReview(sfens[i - 1], usi)
-      if (known) previousLoss = known.loss
-      else if (previous.candidates.length) {
+      if (known) {
+        previousLoss = known.loss
+        continue
+      }
+      setProgress(i)
+      const before = await at(i - 1)
+      const after = await at(i)
+      if (before.candidates.length) {
         const inBook = bookLookup(sfens[i - 1]).some((h) => h.node.branches.some((b) => b.usi === usi && b.kind !== 'deviation'))
-        const review = classify({ sfen: sfens[i - 1], usi, before: previous, after: result, inBook, previousLoss })
+        const review = classify({ sfen: sfens[i - 1], usi, before, after, inBook, previousLoss })
         previousLoss = review.loss
         rememberReview(sfens[i - 1], usi, review)
       }
-      previous = result
       setTick((t) => t + 1)
     }
     setProgress(null)
