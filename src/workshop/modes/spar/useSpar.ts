@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { reviewMove } from '../../../analysis'
 import { saveMistakes } from '../../../mistakes'
@@ -32,18 +32,8 @@ export function useSpar(session: BoardSession, { load, setTab, coach, mistakes, 
   const [resigned, setResigned] = useState(false)
   const [endHidden, setEndHidden] = useState('')
   const [newGameOpen, setNewGameOpen] = useState(false)
-  const askedNewGame = useRef(false)
   const clock = useGameClock({ enabled: mode === 'spar', toMove, atEnd, moveCount: game.moves.length, stopped: resigned || gameOver })
   const { review, reviewAt } = coach
-
-  useEffect(() => {
-    if (mode !== 'spar') {
-      askedNewGame.current = false
-      return
-    }
-    if (!askedNewGame.current && game.moves.length === 0) setNewGameOpen(true)
-    askedNewGame.current = true
-  }, [mode, game.moves.length])
 
   useEffect(() => {
     if (mode !== 'spar' || !ai || !atEnd || game.moves.length === 0) return
