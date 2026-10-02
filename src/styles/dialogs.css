@@ -105,10 +105,6 @@
   width: min(560px, 100%);
 }
 
-.ws-newgame .ws-field {
-  min-height: 36px;
-}
-
 .ws-welcome {
   width: min(480px, 100%);
 }

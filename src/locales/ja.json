@@ -257,17 +257,17 @@
     "noClock": "持ち時間なし",
     "none": "なし",
     "everyMoveWithin10Seconds": "1手10秒",
-    "10S": "10秒",
+    "10S": "1手10秒",
     "3MinutesEachThenYou": "3分切れ負け",
     "3Min": "3分",
     "10MinutesEachThenYou": "10分切れ負け",
     "10Min": "10分",
     "10MinutesThen30Seconds": "持ち時間10分、切れたら1手30秒の秒読み",
-    "10Min30S": "10分+30秒",
+    "10Min30S": "10分+秒読み30秒",
     "30MinutesThen60Seconds": "持ち時間30分、切れたら1手60秒の秒読み",
-    "30Min60S": "30分+60秒",
+    "30Min60S": "30分+秒読み60秒",
     "5MinutesPlus5Seconds": "持ち時間5分、1手ごとに5秒加算",
-    "5Min5S": "5分+5秒加算"
+    "5Min5S": "5分+1手5秒加算"
   },
   "palette": {
     "play": "{{move}}を指す",

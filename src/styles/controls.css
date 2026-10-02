@@ -274,6 +274,24 @@
   color: var(--text-muted);
 }
 
+select.ws-field {
+  min-height: var(--control-sm);
+  padding: 0 var(--space-8) 0 var(--space-2-5);
+  border-color: transparent;
+  background-color: var(--surface-2);
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: calc(100% - 17px) 55%, calc(100% - 12px) 55%;
+  background-size: 5px 5px;
+  background-repeat: no-repeat;
+  appearance: none;
+  cursor: pointer;
+  transition: background-color var(--dur-fast);
+}
+
+select.ws-field:hover {
+  background-color: var(--surface-3);
+}
+
 .ws-toggle,
 .ws-check-row {
   display: flex;
@@ -287,7 +305,8 @@
 
 @media (pointer: coarse) {
   .ws-btn,
-  .ws-seg button {
+  .ws-seg button,
+  select.ws-field {
     min-height: 40px;
   }
 
