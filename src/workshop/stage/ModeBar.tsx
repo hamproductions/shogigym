@@ -24,6 +24,7 @@ function EvalChip({ rate }: { rate: number }) {
   const { t } = useTranslation()
   return (
     <span className="ws-eval-chip" title={t('workshop.winChance', { value: Math.round(rate * 100), value2: 100 - Math.round(rate * 100) })}>
+      <span className="ws-eval-label">{t('workshop.winChanceShort')}</span>
       <span className="ws-eval-track">
         <span style={{ width: `${rate * 100}%` }} />
       </span>

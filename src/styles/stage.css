@@ -129,6 +129,11 @@
   transition: width var(--dur-slow) ease;
 }
 
+.ws-eval-label {
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+}
+
 .ws-eval-chip b {
   min-width: 48px;
   font-variant-numeric: tabular-nums;
@@ -539,6 +544,10 @@
 
   .ws-eval-chip b {
     min-width: 0;
+  }
+
+  .ws-eval-label {
+    display: none;
   }
 
   .ws-board-wrap > .ws-plate {

@@ -788,7 +788,8 @@
     "studyPlayWhy": "Play {{move}} (green arrow): {{note}}",
     "isAFineMoveNotIt": "{{move}} is a fine move, but not the answer. Try again.",
     "takeBackAndRetry": "Take back and try again",
-    "phoneMistake": "{{move}}: {{label}}. Tap Panel for why, or take it back."
+    "phoneMistake": "{{move}}: {{label}}. Tap Panel for why, or take it back.",
+    "winChanceShort": "Win chance"
   },
   "zones": {
     "first": "First",

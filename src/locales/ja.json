@@ -769,7 +769,8 @@
     "studyPlayWhy": "{{move}}を指しましょう（緑の矢印）：{{note}}",
     "isAFineMoveNotIt": "{{move}}も悪くない手ですが、正解ではありません。もう一度。",
     "takeBackAndRetry": "待ったして指し直す",
-    "phoneMistake": "{{move}}は{{label}}。理由はパネル、待ったで指し直し。"
+    "phoneMistake": "{{move}}は{{label}}。理由はパネル、待ったで指し直し。",
+    "winChanceShort": "勝率"
   },
   "zones": {
     "first": "最初へ",
