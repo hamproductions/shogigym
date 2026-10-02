@@ -1,5 +1,4 @@
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import { FLAT } from './dimensions'
 import { cameraFit, layout } from './layout'
 import type { Board3DProps, SceneState } from './types'
 
@@ -32,7 +31,7 @@ export function updateView(s: SceneState, props: Board3DProps, dt: number) {
   s.root.rotation.y += (flip - s.root.rotation.y) * ease(dt, 12)
   if (Math.abs(flip - s.root.rotation.y) < 0.002) s.root.rotation.y = flip
   const distance = cameraFit(camera.aspect, s.tilt, props.sideRoom ?? 0) / (2 * Math.tan((camera.fov * Math.PI) / 360))
-  const angle = (FLAT ? 0 : 0.02) + s.tilt * 0.8
+  const angle = 0.02 + s.tilt * 0.8
   const pan = layout.portrait ? 0 : s.tilt * 0.6
   syncControls(s, !!props.orbit)
   const near = s.controls ? 0.1 : Math.max(0.1, distance - 45)

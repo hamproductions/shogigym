@@ -8,10 +8,9 @@ import { coursesOf, mainBranch, setupOf } from '../../lib/book'
 import { mistakeHeadline, mistakeIsBad, type ShownMistake } from '../../lib/mistake'
 import { sideMark } from '../../lib/notation'
 import { moveGloss } from '../../pieces'
-import type { LessonMode, Level, Score } from '../../types'
+import type { Level, Score } from '../../types'
 import { Button } from '../../ui/Button'
 import { Card } from '../../ui/Card'
-import { Segmented } from '../../ui/Segmented'
 import { OpeningPicker } from './OpeningPicker'
 import type { Lesson } from './useLesson'
 
@@ -54,29 +53,11 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
   const endComment = done ? lesson.node?.comment : undefined
   return (
     <div className="ws-lesson-pane">
-      <div className="ws-lesson-top">
-        <button className="ws-back" onClick={lesson.leave}>
-          {t('lesson.lessons')}
-        </button>
-        {progress && progress.total > 0 && (
-          <span className="ws-progress-count">
-            {t('lesson.yourMoves', { value: Math.min(progress.done, progress.total), total: progress.total })}
-          </span>
-        )}
-        <button className="ws-back" onClick={() => lesson.setMapOpen(true)}>
-          {t('lesson.lessonMap')}
-        </button>
-      </div>
-      <Segmented<LessonMode>
-        size="big"
-        label={t('lesson.lessonMode')}
-        value={lessonMode}
-        options={[
-          { v: 'study', t: <>{t('lesson.study')}<span>{t('lesson.movesShownWithReasons')}</span></> },
-          { v: 'quiz', t: <>{t('lesson.quiz')}<span>{t('lesson.findTheMovesYourself')}</span></> },
-        ]}
-        onChange={lesson.switchLessonMode}
-      />
+      {progress && progress.total > 0 && (
+        <span className="ws-progress-count">
+          {t('lesson.yourMoves', { value: Math.min(progress.done, progress.total), total: progress.total })}
+        </span>
+      )}
       {lessonMode === 'quiz' && (score.right > 0 || score.wrong > 0 || justRight) && (
         <p className="ws-score">
           <span className="right">✓ {score.right}</span>

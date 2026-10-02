@@ -1,49 +1,14 @@
 import * as THREE from 'three'
 import { Color, PieceType } from 'tsshogi'
-import { PIECE_CHAR } from '../../shogi'
 import { PIECE_FINISHES, getSettings } from '../settings'
 import { loadedPiece, pieceCode } from '../pieceSets'
-import { SIDE_COT, TIP_SLOPE, komaDepth, komaTaper, komaWidth, pieceScale } from './dimensions'
+import { komaDepth, komaTaper, komaWidth, pieceScale } from './dimensions'
+import { PROMOTED, faceText, piecePolygon, type Poly } from '../koma'
 import { environmentMap } from './materials'
 import { inkMask, lacquerMap, reliefNormal } from './relief'
 import { artTexture, faceTexture } from './textures'
 
-type Poly = [number, number][]
-
-const PROMOTED = new Set([PieceType.PROM_PAWN, PieceType.PROM_LANCE, PieceType.PROM_KNIGHT, PieceType.PROM_SILVER, PieceType.HORSE, PieceType.DRAGON])
-
-const FACE: Record<PieceType, string> = {
-  [PieceType.KING]: '王将',
-  [PieceType.ROOK]: '飛車',
-  [PieceType.BISHOP]: '角行',
-  [PieceType.GOLD]: '金将',
-  [PieceType.SILVER]: '銀将',
-  [PieceType.KNIGHT]: '桂馬',
-  [PieceType.LANCE]: '香車',
-  [PieceType.PAWN]: '歩兵',
-  [PieceType.DRAGON]: '龍王',
-  [PieceType.HORSE]: '龍馬',
-  [PieceType.PROM_SILVER]: '成銀',
-  [PieceType.PROM_KNIGHT]: '成桂',
-  [PieceType.PROM_LANCE]: '成香',
-  [PieceType.PROM_PAWN]: 'と金',
-}
-
 const finish = () => PIECE_FINISHES[getSettings().pieceFinish] ?? PIECE_FINISHES.moriage
-
-function piecePolygon(scale: number): Poly {
-  const l = komaWidth(scale)
-  const h = scale
-  const xs = (l / 2 - h * SIDE_COT) / (1 - TIP_SLOPE * SIDE_COT)
-  const ys = h - xs * TIP_SLOPE - h / 2
-  return [
-    [-l / 2, -h / 2],
-    [l / 2, -h / 2],
-    [xs, ys],
-    [0, h / 2],
-    [-xs, ys],
-  ]
-}
 
 const pieceShape = (scale: number) => new THREE.Shape(piecePolygon(scale).map(([x, y]) => new THREE.Vector2(x, y)))
 
@@ -163,13 +128,11 @@ const bottomMaterial = new THREE.MeshStandardMaterial({ color: 0xdcb377, emissiv
 export const pieceFaceUrl = (type: PieceType, color: Color) => (faceMap(type, color).image as HTMLCanvasElement).toDataURL()
 
 function faceMap(type: PieceType, color: Color) {
-  const one = getSettings().pieceStyle === 'one'
   const gote = color === Color.WHITE
   const set = getSettings().pieceSet
   const art = set && set !== 'letters' ? loadedPiece(set, pieceCode(type, gote && type === PieceType.KING ? Color.WHITE : Color.BLACK)) : undefined
   if (art) return artTexture(art, `${set}/${pieceCode(type, color)}`)
-  const char = type === PieceType.KING && gote ? (one ? '玉' : '玉将') : one ? (type === PieceType.KING ? '王' : PIECE_CHAR[type]) : FACE[type]
-  return faceTexture(char, PROMOTED.has(type))
+  return faceTexture(faceText(type, color, getSettings().pieceStyle), PROMOTED.has(type))
 }
 
 export function pieceMesh(type: PieceType, color: Color) {

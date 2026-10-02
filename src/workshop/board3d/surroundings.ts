@@ -1,6 +1,6 @@
 import type * as THREE from 'three'
 import type { RoomDims } from '../roomFloor'
-import { CASUAL, FLAT } from './dimensions'
+import { CASUAL } from './dimensions'
 
 type RoomModule = typeof import('../room')
 
@@ -16,7 +16,7 @@ const loadRoom = () =>
 export type Surroundings = { need: () => void; prefetch: () => () => void }
 
 export function surroundings(root: THREE.Group, dims: RoomDims): Surroundings {
-  let built = FLAT
+  let built = false
   const build = (m: RoomModule) => {
     if (built) return
     built = true
@@ -30,7 +30,6 @@ export function surroundings(root: THREE.Group, dims: RoomDims): Surroundings {
       else void loadRoom().then(build)
     },
     prefetch: () => {
-      if (FLAT) return () => {}
       const idle = (run: () => void) => (typeof window.requestIdleCallback === 'function' ? window.requestIdleCallback(run) : window.setTimeout(run, 0))
       const timer = window.setTimeout(() => idle(() => void loadRoom()), 3000)
       return () => window.clearTimeout(timer)

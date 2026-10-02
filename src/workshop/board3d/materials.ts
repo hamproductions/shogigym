@@ -3,15 +3,20 @@ import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment
 import { grainTexture } from '../roomFloor'
 import { srgbTexture } from './textures'
 
+const envs = new WeakMap<THREE.WebGLRenderer, THREE.Texture>()
 let pieceEnv: THREE.Texture | null = null
 
 export const environmentMap = () => pieceEnv
 
 export function preparePieceEnvironment(renderer: THREE.WebGLRenderer) {
-  if (pieceEnv) return
-  const pmrem = new THREE.PMREMGenerator(renderer)
-  pieceEnv = pmrem.fromScene(new RoomEnvironment(), 0.04).texture
-  pmrem.dispose()
+  let env = envs.get(renderer)
+  if (!env) {
+    const pmrem = new THREE.PMREMGenerator(renderer)
+    env = pmrem.fromScene(new RoomEnvironment(), 0.04).texture
+    pmrem.dispose()
+    envs.set(renderer, env)
+  }
+  pieceEnv = env
 }
 
 export function woodMaterial(base: [number, number, number], seed: number) {

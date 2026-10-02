@@ -2,11 +2,10 @@ import { useTranslation } from 'react-i18next'
 import { moveText, positionOf } from '../../../shogi'
 import { sideMark } from '../../lib/notation'
 import { useSettings } from '../../settings'
-import { TESUJI_DRILLS, TESUJI_KINDS, tesujiStats } from '../../tesujiDrills'
+import { TESUJI_DRILLS, tesujiStats } from '../../tesujiDrills'
 import type { TesujiState, TesujiTrainer } from './useTesuji'
 import { Button } from '../../ui/Button'
 import { Card } from '../../ui/Card'
-import { Segmented } from '../../ui/Segmented'
 
 export function TesujiPane({ trainer, drill, replaying, onBack }: { trainer: TesujiTrainer; drill: TesujiState; replaying: boolean; onBack: () => void }) {
   const { t } = useTranslation()
@@ -17,7 +16,6 @@ export function TesujiPane({ trainer, drill, replaying, onBack }: { trainer: Tes
   const side = sideMark(positionOf(sfen).color)
   return (
     <div className="ws-practice">
-      <Segmented size="small" label={t('tesuji.tesujiType')} value={drill.filter} options={['all', ...TESUJI_KINDS].map((k) => ({ v: k, t: k === 'all' ? t('tesuji.mixed') : k }))} onChange={trainer.start} />
       <p className="ws-task">
         {t('tesuji.toMoveFindThe', { side })}
         {drill.hint || drill.status !== 'asking' ? <strong>{drill.item.tesuji}</strong> : t('tesuji.tesuji')}
@@ -46,9 +44,6 @@ export function TesujiPane({ trainer, drill, replaying, onBack }: { trainer: Tes
       <div className="ws-actions">
         {drill.status === 'asking' && !drill.hint && <Button onClick={trainer.hint}>{t('tesuji.hint')}</Button>}
         {drill.status === 'asking' && <Button onClick={trainer.reveal}>{t('tesuji.showAnswer')}</Button>}
-        <Button variant={drill.status === 'asking' ? 'secondary' : 'primary'} onClick={trainer.next}>
-          {t('tesuji.next')}
-        </Button>
       </div>
       )}
       <p className="ws-muted">{t('tesuji.solvedFirstTryOf', { value: pool.filter((d) => stats.solved.includes(d.id)).length, poolCount: pool.length })}</p>

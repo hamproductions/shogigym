@@ -5,6 +5,7 @@ import { Color } from 'tsshogi'
 import type { Side } from '../../shogi'
 import { avatarCues } from '../avatars'
 import { Board2D } from '../Board2D'
+import { BoardFlat } from '../BoardFlat'
 import { Board3D, type StandZones } from '../Board3D'
 import { useSession } from '../hooks/session'
 import type { useBoardDecor } from '../hooks/useBoardDecor'
@@ -80,6 +81,8 @@ export function BoardStage({ view, decor, input, commit, mistake, onBack, spar, 
       {evalRate !== null && <EvalBar rate={evalRate} flipped={flipped} />}
       {settings.environment === 'diagram' || settings.environment === 'broadcast' ? (
         <Board2D style={settings.environment} {...board} tilted={false} />
+      ) : settings.environment === 'flat' ? (
+        <BoardFlat key={`${settings.pieceStyle}|${settings.boardStyle}|${settings.coords}|${assetsKey}`} {...board} tilted={false} onZones={onZones} castles={decor.castles} peek={decor.peekTargets} peekFrom={decor.peekFrom} stamp={decor.stamp} />
       ) : (
         <Board3D
           key={`${settings.pieceStyle}|${settings.boardStyle}|${settings.pieceFinish}|${settings.coords}|${settings.environment}|${assetsKey}`}

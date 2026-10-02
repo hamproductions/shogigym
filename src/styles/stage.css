@@ -126,7 +126,6 @@
   position: absolute;
   inset: 0 auto 0 0;
   background: var(--meter-fill);
-  transition: width var(--dur-slow) ease;
 }
 
 .ws-eval-label {
@@ -576,12 +575,20 @@
     padding: var(--space-1-5) var(--space-2-5) var(--space-1-5) var(--space-1-5);
   }
 
-  .ws-modebar.sheet-up,
+  .ws-modebar.sheet-up > .ws-modebar-seal,
+  .ws-modebar.sheet-up > .ws-modebar-text,
+  .ws-modebar.sheet-up > .ws-eval-chip,
+  .ws-modebar.sheet-up > .ws-help-toggle,
   .ws-modebar-text span,
   .ws-modebar .ws-turn,
   .ws-modebar > .ws-lastmove,
   .ws-modebar > .ws-mini-nav {
     display: none;
+  }
+
+  .ws-modebar.sheet-up {
+    margin-top: var(--space-1);
+    padding-block: var(--space-1);
   }
 
   .ws-modebar-seal {
@@ -772,7 +779,6 @@
   right: 0;
   bottom: 0;
   background: #f1eadb;
-  transition: height 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .ws-evalbar-num {
@@ -855,4 +861,11 @@
   .ws-board-wrap.with-eval .ws-plate {
     left: 40px;
   }
+}
+
+.ws-bar-select {
+  width: auto;
+  max-width: 11em;
+  padding-block: var(--space-1);
+  font-size: var(--text-sm);
 }

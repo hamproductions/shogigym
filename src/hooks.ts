@@ -6,14 +6,14 @@ const settled = new Map<string, Analysis>()
 
 export function useAnalysis(sfen: string, enabled: boolean, multipv = 3, movetime = 1500) {
   const { epoch } = useEngineStatus()
-  const [state, setState] = useState<{ sfen: string; analysis: Analysis | null; error: string | null }>({ sfen: '', analysis: null, error: null })
+  const [state, setState] = useState<{ sfen: string; analysis: Analysis | null; error: string | null; final?: boolean }>({ sfen: '', analysis: null, error: null })
   useEffect(() => {
     if (!enabled || !engineSupported()) return
     let cancelled = false
     const key = `${epoch}|${sfen}|${multipv}|${movetime}`
     const known = settled.get(key)
     if (known) {
-      queueMicrotask(() => !cancelled && setState({ sfen, analysis: known, error: null }))
+      queueMicrotask(() => !cancelled && setState({ sfen, analysis: known, error: null, final: true }))
       return () => {
         cancelled = true
       }
@@ -27,7 +27,7 @@ export function useAnalysis(sfen: string, enabled: boolean, multipv = 3, movetim
         if (deep.candidates.length) {
           settled.set(key, deep)
           if (settled.size > 500) settled.delete(settled.keys().next().value!)
-          if (!cancelled) setState({ sfen, analysis: deep, error: null })
+          if (!cancelled) setState({ sfen, analysis: deep, error: null, final: true })
         }
       } catch (e) {
         if (!cancelled) setState({ sfen, analysis: null, error: (e as Error).message })

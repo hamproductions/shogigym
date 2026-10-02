@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { Color, type ImmutablePosition } from 'tsshogi'
 import { avatarSlot, flushMoveSound, moveSound, soundPending } from './avatars'
 import { updateView } from './board3d/camera'
-import { FLAT, HALF_D, HALF_W, LEG, THICK, setBoardDims } from './board3d/dimensions'
+import { HALF_D, HALF_W, LEG, THICK, setBoardDims } from './board3d/dimensions'
 import { flipCameraOffset, saveSnapshot, startTableFlip, stepTableFlip } from './board3d/effects'
 import { bindPointer } from './board3d/interaction'
 import { layout, sideStandsFit, zoneReporter } from './board3d/layout'
@@ -86,7 +86,7 @@ export function Board3D(props: Board3DProps) {
       s.avatars?.update(dt * (power.current?.timeScale() ?? 1), s.flip?.way ?? 0, !!s.controls)
       const shake = flipCameraOffset(s, time)
       if (shake) s.camera.position.add(shake)
-      const restoreCamera = FLAT ? undefined : power.current?.applyCamera()
+      const restoreCamera = power.current?.applyCamera()
       renderer.render(s.scene, s.camera)
       restoreCamera?.()
       if (shake) s.camera.position.sub(shake)
@@ -97,7 +97,6 @@ export function Board3D(props: Board3DProps) {
     frame = requestAnimationFrame(loop)
 
     const onFlip = () => {
-      if (FLAT) return
       power.current?.clear()
       startTableFlip(s)
     }
@@ -155,7 +154,7 @@ export function Board3D(props: Board3DProps) {
     s.onLand = event && fx ? () => fx.onMove({ ...event, delay: 0, carried: true }) : null
     rebuild(s, latest.current, changed && !dragged, prev, changed && dragged)
     if (s.onLand && event) fx?.onMove({ ...event, delay: dragged ? 0 : 0.22 })
-    if (event?.mate && !FLAT) flipTimer.current = window.setTimeout(() => {
+    if (event?.mate) flipTimer.current = window.setTimeout(() => {
       fx?.clear()
       startTableFlip(s, event.color === Color.BLACK ? Color.WHITE : Color.BLACK)
     }, 4200)

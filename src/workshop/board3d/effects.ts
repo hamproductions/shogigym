@@ -3,7 +3,7 @@ import { Color } from 'tsshogi'
 import { SNAPSHOT_NAME } from '../lib/events'
 import { CASUAL_ROOM, ROOM_H, TABLE, TABLE_H, TRADITIONAL_ROOM, ZABUTON, mm } from '../roomMetrics'
 import { playSound } from '../settings'
-import { CASUAL, FLAT, HALF_D, HALF_W, LEG, THICK } from './dimensions'
+import { CASUAL, HALF_D, HALF_W, LEG, THICK } from './dimensions'
 import { layout } from './layout'
 import type { Wall } from '../avatars'
 import type { Arena, Body, Dust, SceneState, TableFlip } from './types'
@@ -35,7 +35,6 @@ function arena(): Arena {
     return { floor, boxes: [block(0, 0, TABLE.halfW, TABLE.halfD, top), ...chairs, ...things], ...CASUAL_ROOM, ceil: floor + ROOM_H, walls: [lamp] }
   }
   const floor = -THICK - LEG
-  if (FLAT) return { floor, boxes: [], halfX: Infinity, halfZ: Infinity, ceil: Infinity, walls: [] }
   const seats = [1, -1].flatMap((sign) => {
     const z = sign * (HALF_D + ZABUTON.gap)
     const tray = { x: sign * 15.5, z: sign * (HALF_D + 10) }

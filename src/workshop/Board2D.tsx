@@ -1,12 +1,9 @@
 import { Color, PieceType, Square } from 'tsshogi'
 import { HAND_ORDER, PIECE_CHAR } from '../shogi'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { Board3DProps } from './Board3D'
 import { PIECE_FONTS, loadPieceFont } from './settings'
-import { SNAPSHOT_EVENT, SNAPSHOT_NAME } from './lib/events'
-import { flushMoveSound, moveSound, soundPending } from './avatars'
-import { steppedMove } from './lib/stepped'
-import type { ImmutablePosition } from 'tsshogi'
+import { useSvgBoard } from './hooks/useSvgBoard'
 import { useTranslation } from 'react-i18next'
 
 const KANJI_NUM = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九']
@@ -51,40 +48,10 @@ const THEMES = {
 const komaPath = (w: number, h: number) => `M ${-w * 0.42} ${h * 0.46} L ${w * 0.42} ${h * 0.46} L ${w * 0.34} ${-h * 0.3} L 0 ${-h * 0.46} L ${-w * 0.34} ${-h * 0.3} Z`
 
 export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }) {
-  const previous = useRef<ImmutablePosition | null>(null)
-  useEffect(() => {
-    const prev = previous.current
-    previous.current = props.position
-    if (!prev || prev.sfen === props.position.sfen) return
-    const stepped = steppedMove(prev, props.position, props.lastMove)
-    if (stepped && !soundPending()) moveSound(stepped.capture ? 'capture' : 'move')
-    flushMoveSound()
-  }, [props.position, props.lastMove])
+  const svgRef = useSvgBoard(props)
   const [, setFontReady] = useState(false)
   useEffect(() => {
     void loadPieceFont('kaisho').then(() => setFontReady(true))
-  }, [])
-  const svgRef = useRef<SVGSVGElement>(null)
-  useEffect(() => {
-    const onSnapshot = (event: Event) => {
-      const svg = svgRef.current
-      if (!svg) return
-      const box = svg.viewBox.baseVal
-      const img = new Image()
-      img.onload = () => {
-        const canvas = document.createElement('canvas')
-        canvas.width = box.width
-        canvas.height = box.height
-        canvas.getContext('2d')!.drawImage(img, 0, 0)
-        const a = document.createElement('a')
-        a.href = canvas.toDataURL('image/png')
-        a.download = `${(event as CustomEvent<string>).detail || SNAPSHOT_NAME}.png`
-        a.click()
-      }
-      img.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(new XMLSerializer().serializeToString(svg))}`
-    }
-    window.addEventListener(SNAPSHOT_EVENT, onSnapshot)
-    return () => window.removeEventListener(SNAPSHOT_EVENT, onSnapshot)
   }, [])
   const komaFont = style === 'broadcast' ? `'${PIECE_FONTS.kaisho.family}', 'Shippori Mincho B1', serif` : "'Shippori Mincho B1', serif"
   const { i18n } = useTranslation()

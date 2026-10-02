@@ -13,7 +13,6 @@ export let MARGIN = 8 / MM_PER_SQUARE
 export let HALF_W = 4.5 + MARGIN
 export let HALF_D = 4.5 * SQ_D + MARGIN
 export let CASUAL = false
-export let FLAT = false
 export let THICK = 182 / MM_PER_SQUARE
 export let LEG = 95 / MM_PER_SQUARE
 
@@ -23,7 +22,6 @@ export function setBoardDims() {
   HALF_W = 4.5 + MARGIN
   HALF_D = 4.5 * SQ_D + MARGIN
   CASUAL = environment === 'casual'
-  FLAT = environment === 'flat'
   THICK = (CASUAL ? 60 : 182) / MM_PER_SQUARE
   LEG = CASUAL ? 0 : 95 / MM_PER_SQUARE
 }

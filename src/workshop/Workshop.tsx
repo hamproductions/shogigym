@@ -144,8 +144,8 @@ export function Workshop({ routeMode, routeMain }: { routeMode?: string; routeMa
     analyze.saveFinished(result)
   }, [result]) // eslint-disable-line react-hooks/exhaustive-deps
   const evalOn = session.ai && session.assist && (isGameMode(mode) || (mode === 'lesson' && !!course && lesson.lessonMode === 'study'))
-  const steadyRate = useSteadyRate(evalOn && evaluation.evalSente ? evaluation.senteRate : null)
-  const evalRate = evalOn ? steadyRate : null
+  const steadyRate = useSteadyRate(evalOn && evaluation.evalFinal ? evaluation.senteRate : null)
+  const evalRate = evalOn ? (steadyRate ?? 0.5) : null
   const evalBar = evalRate !== null && !layout.compact && !view.hideUi
   const newGame = () => load(InitialPositionSFEN.STANDARD, userSide, mode === 'lesson' ? 'analyze' : mode, null)
   const startOver = () => (game.moves.length > 0 ? setConfirm({ text: t('workshop.startOverFromTheBeginning'), run: () => load(course ? course.root.sfen : InitialPositionSFEN.STANDARD, userSide, mode, course) }) : undefined)
@@ -183,7 +183,7 @@ export function Workshop({ routeMode, routeMain }: { routeMode?: string; routeMa
             <Icon name="exitFullscreen" size={18} />
             <span>{t('workshop.showUi')} (Esc)</span>
           </button>
-          <ModeBar title={title} instruction={instruction} lessonMode={lesson.lessonMode} sheetUp={layout.compact && layout.drawer} panelHidden={layout.panelHidden} onPanel={(hidden) => layout.setPanel({ hidden })} spar={spar} evalRate={evalRate} barShown={evalBar} onStartOver={startOver} />
+          <ModeBar title={title} instruction={instruction} lessonMode={lesson.lessonMode} sheetUp={layout.compact && layout.drawer} panelHidden={layout.panelHidden} onPanel={(hidden) => layout.setPanel({ hidden })} spar={spar} evalRate={evalRate} barShown={evalBar} onStartOver={startOver} tsume={tsume} tesuji={tesuji} lesson={lesson} drill={drill} />
           <BoardStage evalRate={evalBar ? evalRate : null} view={view} decor={decor} input={input} commit={commit} mistake={mistake} onBack={goBack} spar={spar} tsume={tsume.tsume} hasDrillCard={!!drill.item} phoneTask={phoneTask} announce={announce} onZones={layout.setZones} />
         </section>
         <SidePanels

@@ -2,11 +2,12 @@ import * as THREE from 'three'
 import { Color } from 'tsshogi'
 import { getSettings } from '../settings'
 import { furnishFloor, type RoomDims } from '../roomFloor'
-import { CASUAL, FLAT, HALF_D, HALF_W, LEG, STAND, STAND_SLAB, STAND_TOP, STRIP_D, STRIP_W, THICK } from './dimensions'
+import { CASUAL, HALF_D, HALF_W, LEG, STAND, STAND_SLAB, STAND_TOP, STRIP_D, STRIP_W, THICK } from './dimensions'
 import { layout, standCenter } from './layout'
 import { surroundings } from './surroundings'
 import { environmentMap, preparePieceEnvironment, standMaterial, woodMaterial } from './materials'
-import { BOARD_TONE, boardTexture } from './textures'
+import { boardTexture } from './textures'
+import { BOARD_TONE } from '../koma'
 import type { SceneState, Stand } from './types'
 
 export function createRenderer() {
@@ -20,7 +21,7 @@ export function createRenderer() {
   return renderer
 }
 
-function addLights(scene: THREE.Scene) {
+export function addLights(scene: THREE.Scene) {
   scene.add(new THREE.HemisphereLight(0xe8e0d0, 0x3a2a18, 0.9))
   const lamp = new THREE.SpotLight(0xffe8c4, 70, 80, Math.PI / 3, 1, 1.2)
   lamp.position.set(-1.5, 18, 2.5)
@@ -37,7 +38,7 @@ function addFloor(root: THREE.Group): RoomDims {
   const floor = new THREE.Mesh()
   floor.receiveShadow = true
   const dims = { thick: THICK, leg: LEG, halfW: HALF_W, halfD: HALF_D, floor }
-  if (!FLAT) furnishFloor(root, dims, CASUAL)
+  furnishFloor(root, dims, CASUAL)
   return dims
 }
 
@@ -104,7 +105,7 @@ function addStands(root: THREE.Group) {
 
 export function buildScene(renderer: THREE.WebGLRenderer): SceneState {
   const scene = new THREE.Scene()
-  const camera = new THREE.PerspectiveCamera(FLAT ? 2.5 : 30, 1, 0.1, FLAT ? 2000 : 200)
+  const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 200)
   addLights(scene)
   const root = new THREE.Group()
   scene.add(root)

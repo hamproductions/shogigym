@@ -10,7 +10,6 @@ import { expectedMoves, reviewCounts, type ReviewItem, type ReviewQueue } from '
 import type { Drill, DrillState } from './useDrill'
 import { Button } from '../../ui/Button'
 import { Card } from '../../ui/Card'
-import { Segmented } from '../../ui/Segmented'
 
 function untilText(ms: number) {
   const minutes = Math.round(ms / 60000)
@@ -82,30 +81,10 @@ function EmptyQueue({ drill, counts, onQueue }: { drill: DrillState | null; coun
 }
 
 export function ReviewPane({ trainer, startSfen, mistakePreview, mistakeOk, onOpenGame }: { trainer: Drill; startSfen: string | null; mistakePreview: boolean; mistakeOk: boolean; onOpenGame: (g: StoredGame) => void }) {
-  const { t } = useTranslation()
   const { drill, item } = trainer
   const counts = useMemo(() => reviewCounts(), [drill?.queue, drill?.index, drill?.items])
-  const queues: { id: ReviewQueue; label: string; n: number }[] = [
-    { id: 'due', label: t('review.due'), n: counts.due },
-    { id: 'new', label: t('review.learnNew'), n: counts.new },
-    { id: 'difficult', label: t('review.difficult'), n: counts.difficult },
-    { id: 'mistakes', label: t('review.myGameMistakes'), n: counts.mistakes },
-  ]
   return (
     <div className="ws-practice">
-      <Segmented<ReviewQueue | ''>
-        label={t('review.reviewQueue')}
-        value={drill?.queue ?? ''}
-        options={queues.map((q) => ({
-          v: q.id,
-          t: (
-            <>
-              {q.label} <span>{q.n > 99 ? '99+' : q.n}</span>
-            </>
-          ),
-        }))}
-        onChange={(q) => q && trainer.start(q)}
-      />
       {item && startSfen && drill ? <ReviewCard drill={drill} item={item} startSfen={startSfen} onNext={trainer.next} onRetry={trainer.retry} mistakePreview={mistakePreview} mistakeOk={mistakeOk} /> : <EmptyQueue drill={drill} counts={counts} onQueue={trainer.start} />}
       {!item && <YourGames onOpen={onOpenGame} />}
     </div>

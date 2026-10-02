@@ -12,7 +12,7 @@ type Evals = Record<string, number>
 
 export function useEvaluation({ sfen, ai, toMove }: BoardSession) {
   const settings = useSettings()
-  const { analysis } = useAnalysis(sfen, ai, settings.candidates, settings.thinkMs)
+  const { analysis, final } = useAnalysis(sfen, ai, settings.candidates, settings.thinkMs)
   const [evals, setEvalsState] = useState<Evals>(allEvals)
   const [showBest, setShowBest] = useState(true)
   const best = analysis?.candidates[0]
@@ -31,7 +31,7 @@ export function useEvaluation({ sfen, ai, toMove }: BoardSession) {
     setSeen({ evalKey, evalCp })
     if (evalCp !== null) updateEvals((e) => (e[evalKey] === evalCp ? e : { ...e, [evalKey]: evalCp }))
   }
-  return { analysis, best, evalSente, senteRate: evalSente ? scoreWinRate(evalSente) : 0.5, evals, recordEval, showBest, setShowBest }
+  return { analysis, best, evalSente, evalFinal: !!final && !!evalSente, senteRate: evalSente ? scoreWinRate(evalSente) : 0.5, evals, recordEval, showBest, setShowBest }
 }
 
 export type Evaluation = ReturnType<typeof useEvaluation>

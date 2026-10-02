@@ -4,10 +4,16 @@ import { useSession } from '../hooks/session'
 import { Icon } from '../icons'
 import { sideMark } from '../lib/notation'
 import type { Spar } from '../modes/spar/useSpar'
+import type { TesujiTrainer as Tesuji } from '../modes/tesuji/useTesuji'
+import type { Tsume } from '../modes/tsume/useTsume'
+import { LessonControls, ReviewControls, TesujiControls, TsumeControls } from './PracticeControls'
+import type { Drill } from '../modes/drill/useDrill'
+import type { Lesson } from '../modes/lesson/useLesson'
 import { STRENGTH, TIME_CONTROLS, setSettings, useSettings } from '../settings'
 import { MODES, isGameMode, type LessonMode } from '../types'
 import { Button } from '../ui/Button'
 import { cx } from '../ui/cx'
+import { useGlide } from '../hooks/useGlide'
 
 type ModeBarProps = {
   title: string
@@ -20,15 +26,20 @@ type ModeBarProps = {
   evalRate: number | null
   barShown: boolean
   onStartOver: () => void
+  tsume: Tsume
+  tesuji: Tesuji
+  lesson: Lesson
+  drill: Drill
 }
 
 function EvalChip({ rate, barShown }: { rate: number; barShown: boolean }) {
   const { t } = useTranslation()
+  const fill = useGlide<HTMLSpanElement>('width', rate * 100)
   return (
     <span className={`ws-eval-chip${barShown ? ' has-bar' : ''}`} title={t('workshop.winChance', { value: Math.round(rate * 100), value2: 100 - Math.round(rate * 100) })}>
       <span className="ws-eval-label">{t('workshop.winChanceShort')}</span>
       <span className="ws-eval-track">
-        <span style={{ width: `${rate * 100}%` }} />
+        <span ref={fill} style={{ width: `${rate * 100}%` }} />
       </span>
       <b>
         {rate >= 0.5 ? '☗' : '☖'} {Math.round(Math.max(rate, 1 - rate) * 100)}%
@@ -37,7 +48,7 @@ function EvalChip({ rate, barShown }: { rate: number; barShown: boolean }) {
   )
 }
 
-export function ModeBar({ title, instruction, lessonMode, sheetUp, panelHidden, onPanel, spar, evalRate, barShown, onStartOver }: ModeBarProps) {
+export function ModeBar({ title, instruction, lessonMode, sheetUp, panelHidden, onPanel, spar, evalRate, barShown, onStartOver, tsume, tesuji, lesson, drill }: ModeBarProps) {
   const { t } = useTranslation()
   const settings = useSettings()
   const ja = settings.lang === 'ja'
@@ -66,6 +77,31 @@ export function ModeBar({ title, instruction, lessonMode, sheetUp, panelHidden, 
           {settings.assist ? t('workshop.coachOn') : t('workshop.coachOff')}
         </Button>
       )}
+      {mode === 'spar' && game.moves.length > 0 && !gameOver && !spar.resigned && (
+        <>
+          <Button size="sm" variant={spar.erred ? 'primary' : 'secondary'} onClick={spar.takeBack} disabled={spar.lastUserMove < 0} title={t('workshop.takeBackYourLastMove3')}>
+            {t('workshop.takeBack')}
+          </Button>
+          <Button size="sm" variant="ghost" onClick={spar.confirmResign}>
+            {t('workshop.resign')}
+          </Button>
+        </>
+      )}
+      {mode === 'lesson' && course && <LessonControls lesson={lesson} />}
+      {mode === 'drill' && <ReviewControls drill={drill} />}
+      {mode === 'tsume' && <TsumeControls trainer={tsume} />}
+      {mode === 'tesuji' && <TesujiControls trainer={tesuji} />}
+      {mode !== 'spar' && mode !== 'tsume' && mode !== 'tesuji' && game.moves.length > 0 && (
+        <Button size="sm" variant="ghost" onClick={onStartOver} title={t('workshop.startOver')} aria-label={t('workshop.startOver')}>
+          <Icon name="reset" size={16} />
+        </Button>
+      )}
+      {mode === 'spar' && (
+        <Button variant={spar.erred ? 'secondary' : 'primary'} className="ws-game-setup" onClick={() => spar.setNewGameOpen(true)} title={`${STRENGTH[settings.opponent].label} · ${TIME_CONTROLS[settings.timeControl].label}`}>
+          {t('newGame.button')}
+        </Button>
+      )}
+      {evalRate !== null && <EvalChip rate={evalRate} barShown={barShown} />}
       {!panelHidden && (
         <div className="ws-mini-nav">
           <Button size="sm" className="ws-mini-wide" onClick={() => onPanel(true)} title={t('workshop.boardOnlyHideThePanel')} aria-label={t('workshop.hideThePanel')}>
@@ -88,27 +124,6 @@ export function ModeBar({ title, instruction, lessonMode, sheetUp, panelHidden, 
           </Button>
         </div>
       )}
-      {mode === 'spar' && game.moves.length > 0 && !gameOver && !spar.resigned && (
-        <>
-          <Button size="sm" variant={spar.erred ? 'primary' : 'secondary'} onClick={spar.takeBack} disabled={spar.lastUserMove < 0} title={t('workshop.takeBackYourLastMove3')}>
-            {t('workshop.takeBack')}
-          </Button>
-          <Button size="sm" variant="ghost" onClick={spar.confirmResign}>
-            {t('workshop.resign')}
-          </Button>
-        </>
-      )}
-      {mode !== 'spar' && game.moves.length > 0 && (
-        <Button size="sm" variant="ghost" onClick={onStartOver} title={t('workshop.startOver')} aria-label={t('workshop.startOver')}>
-          <Icon name="reset" size={16} />
-        </Button>
-      )}
-      {mode === 'spar' && (
-        <Button variant={spar.erred ? 'secondary' : 'primary'} className="ws-game-setup" onClick={() => spar.setNewGameOpen(true)} title={`${STRENGTH[settings.opponent].label} · ${TIME_CONTROLS[settings.timeControl].label}`}>
-          {t('newGame.button')}
-        </Button>
-      )}
-      {evalRate !== null && <EvalChip rate={evalRate} barShown={barShown} />}
     </header>
   )
 }

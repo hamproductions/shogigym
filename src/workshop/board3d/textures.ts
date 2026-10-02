@@ -3,12 +3,7 @@ import { PIECE_FONTS, getSettings, type BoardStyle } from '../settings'
 import type { LoadedPiece } from '../pieceSets'
 import { grainTexture } from '../roomFloor'
 import { CASUAL, HALF_D, HALF_W, MARGIN } from './dimensions'
-
-export const BOARD_TONE: Record<BoardStyle, { board: [number, number, number]; edge: [number, number, number]; line: string }> = {
-  kaya: { board: [219, 170, 98], edge: [196, 146, 80], line: 'rgba(40,22,8,0.88)' },
-  'shin-kaya': { board: [236, 206, 150], edge: [214, 178, 118], line: 'rgba(60,36,14,0.8)' },
-  dark: { board: [150, 98, 52], edge: [112, 70, 34], line: 'rgba(250,228,190,0.7)' },
-}
+import { BOARD_TONE } from '../koma'
 
 export function srgbTexture(canvas: HTMLCanvasElement, anisotropy = 1) {
   const texture = new THREE.CanvasTexture(canvas)
