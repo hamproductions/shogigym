@@ -61,7 +61,19 @@
     "aiLine": "AIの手順",
     "best": "最善",
     "best2": "≈ 最善",
-    "thenChoices": " その後{{forks}}通りに分岐"
+    "thenChoices": " その後{{forks}}通りに分岐",
+    "statsTitle": "ソフト同士の対局で指された手",
+    "statsSource": "{{games}}局 · {{source}}",
+    "statsMove": "指し手",
+    "statsPlayed": "頻度",
+    "statsResult": "勝率（☗ / ☖）",
+    "statsGames": "{{count}}局",
+    "statsRowTitle": "{{move}}：{{games}}局。☗勝ち{{sente}}%、☖勝ち{{gote}}%、引き分け{{draw}}%。クリックで盤に表示。",
+    "statsBookMark": "ソフト推奨",
+    "statsBook": "やねうら王定跡の推奨手：{{move}}（{{eval}}）",
+    "statsBookRare": "この対局群ではほとんど指されていません",
+    "statsEval": "{{side}} +{{cp}}",
+    "statsNone": "この局面のソフト対局データはありません。序盤{{ply}}手までのよく現れる局面のみ収録しています。"
   },
   "games": {
     "savedUpdatedThisSlot": "保存しました（上書き）。",

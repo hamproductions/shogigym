@@ -56,7 +56,10 @@ bun scripts/mine-tesuji.ts              # rebuild src/data/tesuji-drills.json fr
 node scripts/validate.mjs               # legality check of every course
 node scripts/solve-tsume.mjs 5 400 500  # solve data/tsume-raw/mate5.sfen with the engine
 node scripts/verify-tsume.mjs --prune   # keep only strict check-only mates
+bun scripts/stats/build.ts --floodgate 2025 --aoba 4 --min 10   # opening statistics -> public/book/
 ```
+
+`scripts/stats/build.ts` builds the "Played in engine games" table in the What next tab. It streams the newest `--aoba` AobaZero self-play archives (about 10,000 games and 120 MB each) straight from Google Drive through `xz` without writing them to disk (a dropped connection only cuts that file short; the games read so far still count), downloads each Floodgate year in `--floodgate` to `.cache/stats/` (7z needs a seekable file; downloads resume after a dropped connection) and streams it through `bsdtar` without unpacking it, replays the first `--ply` (30) moves of every game that starts from the normal position and has a result, and counts each (position, move) with sente wins, gote wins and draws. Positions seen in at least `--min` games are kept with up to `--moves` (10) moves each, the YaneuraOu new_petabook best move and eval are merged in, and the result is written as 256 JSON shards keyed by a hash of the position (`src/workshop/lib/stats.ts` has the same hash). Archives are deleted after aggregation unless `--keep` is passed; a Floodgate year needs about 350 MB of free disk while it is processed. The YaneuraOu book (76 MB) is fetched the same way. To scale up, add years (`--floodgate 2023,2024,2025`) and files (`--aoba 20`), and raise `--min` to keep the output small.
 
 Each course records its source in its `source` field.
 
@@ -77,6 +80,9 @@ This app is GPL-3.0-or-later.
 | ミレニアム | shogijam.com, "四間飛車対ミレニアムの激しい定跡" game file | Attribution; moves are a game record |
 | 相振り飛車 | thirdfilerook.jp, "相振り飛車の基礎知識 三間飛車VS四間飛車とは" | Attribution |
 | 藤井システム, 左美濃, 囲い崩し diagrams | Wikipedia (en "Fujii System"; ja 左美濃, 美濃囲い, 舟囲い) | CC BY-SA |
+| Opening statistics, AobaZero (`public/book/`) | Self-play game records of AobaZero (github.com/kobanium/aobazero; archives linked from www.yss-aya.com/aobazero/), aggregated to per-position move counts and results. These are training games, whose first 30 moves include deliberate exploration noise, so rare moves there can be weaker than engine play | Public domain (the README says everything except the aobaz engine is public domain) |
+| Opening statistics, Floodgate (`public/book/`) | Floodgate computer-shogi server game archives (wdoor.c.u-tokyo.ac.jp/shogi/), used only as aggregated move counts and results; no game record, player name or rating is shipped | No license stated; aggregate counts only |
+| Engine book move (`public/book/`) | YaneuraOu new_petabook "新ペタショック定跡 233万局面" (github.com/yaneurao/YaneuraOu/releases/tag/new_petabook233), best move and eval for positions in the statistics | MIT |
 | Tsume problems | YaneuraOu 5M mate-problem set (yaneuraou.yaneu.com/2020/12/25/christmas-present/), solutions computed and re-verified here | None claimed |
 | Move-label thresholds | chess.com expected-points model | n/a |
 | Review intervals | Chessable MoveTrainer schedule | n/a |

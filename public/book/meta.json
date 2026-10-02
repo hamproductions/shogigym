@@ -1,0 +1,28 @@
+{
+  "games": 146807,
+  "sources": [
+    {
+      "id": "aobazero:arch000079210000.csa.xz",
+      "games": 9716
+    },
+    {
+      "id": "aobazero:arch000079220000.csa.xz",
+      "games": 9691
+    },
+    {
+      "id": "aobazero:arch000079230000.csa.xz",
+      "games": 633
+    },
+    {
+      "id": "aobazero:arch000079240000.csa.xz",
+      "games": 201
+    },
+    {
+      "id": "floodgate:2025",
+      "games": 126566
+    }
+  ],
+  "minGames": 10,
+  "maxPly": 30,
+  "built": "2026-10-02"
+}

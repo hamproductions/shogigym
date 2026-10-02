@@ -27,3 +27,4 @@ public/engine
 .shots
 build
 .react-router
+.cache

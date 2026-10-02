@@ -1,0 +1,131 @@
+.ws-stats {
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+}
+
+.ws-off .ws-stats {
+  margin-top: 0;
+}
+
+.ws-stats-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.ws-stats-head h3 {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+}
+
+.ws-stats-head span,
+.ws-stats-cols {
+  font-size: var(--text-2xs);
+}
+
+.ws-stats-cols,
+.ws-stats-row {
+  display: grid;
+  grid-template-columns: minmax(64px, 0.9fr) 1.2fr 1.2fr;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.ws-stats-cols {
+  padding: 0 var(--space-2) var(--space-1);
+}
+
+.ws-stats-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ws-stats-row {
+  width: 100%;
+  padding: var(--space-1-5) var(--space-2);
+  border-radius: var(--radius-sm);
+  text-align: left;
+}
+
+.ws-stats-row:hover,
+.ws-stats-row:focus-visible {
+  background: var(--card-hover);
+}
+
+.ws-stats-move {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-1);
+  font-family: var(--font-mincho);
+  font-size: var(--text-md);
+  font-weight: var(--weight-heavy);
+  white-space: nowrap;
+}
+
+.ws-stats-book {
+  padding: 0 var(--space-1);
+  border-radius: var(--radius-xs);
+  background: var(--info-soft);
+  color: var(--info);
+  font-family: var(--font-sans);
+  font-size: var(--text-2xs);
+  font-style: normal;
+  font-weight: var(--weight-bold);
+}
+
+.ws-stats-freq,
+.ws-stats-win {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-half);
+  min-width: 0;
+}
+
+.ws-stats-bar,
+.ws-stats-split {
+  display: flex;
+  height: 6px;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: var(--meter-track);
+}
+
+.ws-stats-bar i {
+  background: var(--warning);
+}
+
+.ws-stats-split i.b {
+  background: var(--meter-fill);
+}
+
+.ws-stats-split i.w {
+  margin-left: auto;
+  background: var(--hai-400);
+}
+
+.ws-stats-num {
+  font-size: var(--text-2xs);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.ws-stats-num small {
+  color: var(--text-muted);
+  font-size: inherit;
+}
+
+.ws-stats-engine {
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-xs);
+}
+
+.ws-stats-empty {
+  margin: var(--space-3) 0 0;
+  font-size: var(--text-xs);
+}
