@@ -49,7 +49,7 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
       {twoPanels && zones && (
         <aside className="ws-panel ws-panel-left" style={{ ...zones.under }}>
           <Tabs items={[{ id: 'moves', label: <span className={labelClass}>{t('tabs.moves')}</span> }]} value="moves" onChange={() => undefined} />
-          <PanelBody tab="moves" model={model} />
+          <PanelBody tab="moves" model={model} overlays={false} />
         </aside>
       )}
       <aside className={`ws-panel${sheetOpen ? ' open' : ''}`} style={zoned ? (zones && !panelPrefsHidden ? { ...zones.over } : { display: 'none' }) : undefined}>

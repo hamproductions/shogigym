@@ -101,7 +101,7 @@ function FlowSection({ model }: { model: PanelModel }) {
   )
 }
 
-export function PanelBody({ tab, model }: { tab: Tab; model: PanelModel }) {
+export function PanelBody({ tab, model, overlays = true }: { tab: Tab; model: PanelModel; overlays?: boolean }) {
   const session = useSession()
   const { mode, course, game, sfens, sfen, cursor, setCursor, selection, ai, assist, userSide, nodes, play } = session
   const { lesson, tsume, drill, mistakes, evaluation, level, reply, bookLast, onBack } = model
@@ -110,10 +110,10 @@ export function PanelBody({ tab, model }: { tab: Tab; model: PanelModel }) {
   return (
     <div className="ws-panel-body" key={key}>
       {tab === 'moves' && ai && assist && game.moves.length > 0 && isGameMode(mode) && <EvalGraph values={sfens.map((s) => evaluation.evals[strip(s)])} cursor={cursor} onJump={setCursor} />}
-      {level === 'new' && selection && !(mode === 'lesson' && course) && <PieceGuide sfen={sfen} from={selection.from} />}
+      {overlays && level === 'new' && selection && !(mode === 'lesson' && course) && <PieceGuide sfen={sfen} from={selection.from} />}
       {tab === 'engine' && <EngineSection model={model} />}
       {tab === 'coach' && mode === 'lesson' && <LessonPane lesson={lesson} mistake={mistakes.mistake} mistakePreview={mistakes.previewing} level={level} reply={reply} onPlayReply={() => reply && play(reply.usi)} lastNote={bookLast?.branch.note} endRate={endRate} onBack={onBack} />}
-      {lesson.mapOpen && course && <LessonMap course={course} currentNodeId={nodes?.get(strip(sfen))?.id ?? null} onJump={lesson.jumpTo} onClose={() => lesson.setMapOpen(false)} />}
+      {overlays && lesson.mapOpen && course && <LessonMap course={course} currentNodeId={nodes?.get(strip(sfen))?.id ?? null} onJump={lesson.jumpTo} onClose={() => lesson.setMapOpen(false)} />}
       {tab === 'coach' && <CoachSection model={model} />}
       {tab === 'flow' && <FlowSection model={model} />}
       {tab === 'moves' && <MovesTab model={model} />}
