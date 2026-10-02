@@ -158,6 +158,8 @@ export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, heig
     stretch: 0,
     excess: 0,
     rise: 0,
+    planLean: 0,
+    planRise: 0,
     bow: 0,
     slump: 0,
     nod: 0,
@@ -260,16 +262,19 @@ export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, heig
     state.think = damp(state.think, state.thinkTarget, 5, dt)
     state.flinch = damp(state.flinch, state.flinchTarget, state.flinchTarget > state.flinch ? 14 : 2, dt)
     const r = state.reachW > 0.001 ? reachPlan() : { lean: 0, rise: 0, yaw: 0 }
-    state.rise = damp(state.rise, r.rise * Math.min(1, state.reachW * 2.5), 12, dt)
+    const engaged = state.reachW > 0.001
+    state.planLean = engaged ? Math.max(damp(state.planLean, r.lean, 11, dt), state.planLean - dt * 0.5) : damp(state.planLean, 0, 4, dt)
+    state.planRise = engaged ? Math.max(damp(state.planRise, r.rise, 11, dt), state.planRise - dt * 0.8) : damp(state.planRise, 0, 4, dt)
+    state.rise = damp(state.rise, state.planRise * Math.min(1, state.reachW * 2.5), 8, dt)
     const shift = riseShift(state.rise)
     holder.position.copy(seated).addScaledVector(away, recoil.back * state.flinch - shift.f).addScaledVector(UP, recoil.up * state.flinch + shift.u)
     if (seat.style === 'seiza') poseLegs(state.rise)
     shoulder.quaternion.setFromAxisAngle(AY, -s * rad(28) * state.reachW).multiply(qa.setFromAxisAngle(AZ, rightSign * rad(14) * state.reachW))
-    const reachLean = r.lean * Math.min(1, state.reachW * 2.5)
-    state.stretch = state.reachW > 0.5 ? Math.min(rad(12), Math.max(0, state.stretch + Math.max(-1, Math.min(1, (state.excess + 0.03 * UNITS_PER_M) / (0.1 * UNITS_PER_M))) * dt * 6)) : damp(state.stretch, 0, 6, dt)
+    const reachLean = state.planLean * Math.min(1, state.reachW * 2.5)
+    state.stretch = state.reachW > 0.5 ? damp(state.stretch, Math.min(rad(12), Math.max(0, state.stretch + Math.max(-1, Math.min(1, (state.excess + 0.03 * UNITS_PER_M) / (0.1 * UNITS_PER_M))) * rad(4))), 3, dt) : damp(state.stretch, 0, 4, dt)
     const leanTarget = rad(seat.style === 'seiza' ? 7 : 5) + Math.min(MAX_LEAN + rad(5), reachLean + state.stretch) + state.bow * rad(38) + state.slump * rad(16) + state.think * rad(4) + recoil.lean * state.flinch
-    state.lean = damp(state.lean, leanTarget, state.reachW > 0.05 ? 16 : 8, dt)
-    state.twist = damp(state.twist, Math.max(-0.5, Math.min(0.5, r.yaw * 0.35)) * state.reachW, 10, dt)
+    state.lean = damp(state.lean, leanTarget, state.reachW > 0.05 ? 9 : 6, dt)
+    state.twist = damp(state.twist, Math.max(-0.5, Math.min(0.5, r.yaw * 0.35)) * state.reachW, 5, dt)
     const breath = Math.sin(state.time * 1.7) * rad(1.2)
     const hipLean = Math.max(0, state.lean - rad(7)) * HIP_SHARE
     pelvis.quaternion.setFromAxisAngle(AX, s * hipLean)

@@ -17,6 +17,7 @@ const CLOSE = 0.08
 const CARRY = 0.26
 const DOWN = 0.07
 const STEP = REACH + CLOSE + CARRY + DOWN
+const WITHDRAW = 0.5
 const LIFT: Record<MotionKind, number> = { slide: 0.12, carry: 0.45, drop: 0.45, capture: 0.35, promote: 0.6 }
 const MOTIONS = handMotion.moves as Record<MotionKind, { samples: HandPose[] }>
 const SHAPES = {
@@ -65,7 +66,7 @@ type Step = { mesh: THREE.Object3D; from: THREE.Vector3; to: THREE.Vector3; from
 
 type Action = { kind: MotionKind; steps: Step[]; index: number; t: number; wait: number; lock: THREE.Vector3 | null; last: THREE.Vector3 | null; sound: Knock | null; land: (() => void) | null; placed: THREE.Vector3 | null }
 
-type Actor = { color: Color; char: Character; uniforms: Fade; action: Action | null; glance: number; nextGlance: number; focus: THREE.Vector3 | null; focusFor: number; nod: number; bow: number; happyFor: number }
+type Actor = { color: Color; char: Character; uniforms: Fade; action: Action | null; out: number; glance: number; nextGlance: number; focus: THREE.Vector3 | null; focusFor: number; nod: number; bow: number; happyFor: number }
 
 type Fade = { fade: { value: THREE.Vector2 }; band: { value: THREE.Vector4 }; arms: { value: THREE.Vector3[] } }
 
@@ -149,7 +150,7 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
   const seat = seats(options)
   const actors: Actor[] = AVATAR_MODELS.map((m, i) => {
     const char = createCharacter(vrms[i], seat[m.color], root, m.height, random)
-    return { color: m.color, char, uniforms: uniforms[i], action: null, glance: 0, nextGlance: 3 + random() * 5, focus: null, focusFor: 0, nod: 0, bow: 0, happyFor: 0 }
+    return { color: m.color, char, uniforms: uniforms[i], action: null, out: 1, glance: 0, nextGlance: 3 + random() * 5, focus: null, focusFor: 0, nod: 0, bow: 0, happyFor: 0 }
   })
   for (const a of actors) {
     a.char.state.lookAt.copy(root.localToWorld(new THREE.Vector3(0, 0, 0)))
@@ -202,9 +203,13 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
     const action = actor.action
     const st = actor.char.state
     if (!action) {
-      st.reachW = damp(st.reachW, 0, 8, dt)
+      actor.out += dt
+      const u = Math.min(1, actor.out / WITHDRAW)
+      st.reachW = Math.min(st.reachW, 1 - ease(u))
+      if (st.reachW > 0.001) st.reach.at.addScaledVector(UP, (dt / WITHDRAW) * 1.6 * (1 - u))
       return
     }
+    actor.out = 0
     action.t += dt
     const t = action.t
     if (action.placed) {
@@ -431,7 +436,7 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
     for (const actor of actors) {
       if (actor.action) release(actor.action)
       for (const step of actor.action?.steps ?? []) for (const o of [step.flip, step.mesh]) if (o?.parent === root) o.removeFromParent()
-      Object.assign(actor, { action: null, glance: 0, nextGlance: 3 + random() * 5, focus: null, focusFor: 0, nod: 0, bow: 0, happyFor: 0 })
+      Object.assign(actor, { action: null, out: 1, glance: 0, nextGlance: 3 + random() * 5, focus: null, focusFor: 0, nod: 0, bow: 0, happyFor: 0 })
       actor.char.reset()
       actor.char.state.lookAt.copy(root.localToWorld(new THREE.Vector3(0, 0, 0)))
       actor.char.update(1 / 60)
