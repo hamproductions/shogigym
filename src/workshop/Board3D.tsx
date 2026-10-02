@@ -705,6 +705,7 @@ type SceneState = {
   animations: { mesh: THREE.Object3D; from: THREE.Vector3; to: THREE.Vector3; start: number }[]
   drag: { mesh: THREE.Object3D; from: Square | PieceType } | null
   settled?: boolean
+  droppedAt?: number
   lastTime?: number
 }
 
@@ -889,6 +890,17 @@ export function Board3D(props: Board3DProps) {
       renderer.domElement.setPointerCapture(event.pointerId)
     }
 
+    const dropMark = new THREE.Mesh(new THREE.PlaneGeometry(0.98, 0.98 * SQ_D), new THREE.MeshBasicMaterial({ color: 0x3fae5a, transparent: true, opacity: 0.55, depthWrite: false }))
+    dropMark.rotation.x = -Math.PI / 2
+    dropMark.visible = false
+    root.add(dropMark)
+    const dropEdge = new THREE.Mesh(new THREE.RingGeometry(0.62, 0.69, 4, 1, Math.PI / 4), new THREE.MeshBasicMaterial({ color: 0x1f7a3a, depthWrite: false }))
+    dropEdge.scale.set(1, SQ_D, 1)
+    dropEdge.rotation.x = -Math.PI / 2
+    dropMark.add(dropEdge)
+    dropEdge.rotation.x = 0
+    dropEdge.position.z = 0.001
+
     const onMove = (event: PointerEvent) => {
       const s = state.current!
       ray(event)
@@ -907,6 +919,15 @@ export function Board3D(props: Board3DProps) {
       if (s.drag) {
         const p = localPoint()
         if (p) s.drag.mesh.position.set(p.x, 0.6, p.z)
+        const sq = hit?.kind === 'square' ? hit.square : null
+        const legal = !!sq && (latest.current.targets ?? []).some((t) => t.equals(sq))
+        dropMark.visible = !!sq
+        if (sq) {
+          dropMark.position.set(squareX(sq.file), 0.008, squareZ(sq.rank))
+          ;(dropMark.material as THREE.MeshBasicMaterial).color.set(legal ? 0x3fae5a : 0x8a8a8a)
+          ;(dropEdge.material as THREE.MeshBasicMaterial).color.set(legal ? 0x1f7a3a : 0x5a5a5a)
+          ;(dropMark.material as THREE.MeshBasicMaterial).opacity = legal ? 0.55 : 0.3
+        }
       }
     }
 
@@ -917,8 +938,10 @@ export function Board3D(props: Board3DProps) {
       if (s.drag) {
         const { from } = s.drag
         s.drag = null
+        dropMark.visible = false
+        s.droppedAt = performance.now()
         if (hit?.kind === 'square') latest.current.onDrop(from, hit.square)
-        rebuild(true)
+        rebuild(false)
       } else if (down && hit) {
         if (hit.kind === 'square') latest.current.onSquare(hit.square)
         else if (hit.kind === 'arrow') latest.current.onArrow?.(hit.usi)
@@ -950,6 +973,14 @@ export function Board3D(props: Board3DProps) {
       const pan = layout.portrait ? 0 : s.tilt * 0.6
       camera.position.set(pan, Math.cos(angle) * distance, Math.sin(angle) * distance)
       camera.lookAt(pan, 0, s.tilt * 0.4)
+      const sel = latest.current.selected
+      for (const mesh of s.pieces.children) {
+        const base = mesh.userData.baseY as number | undefined
+        if (base === undefined || s.animations.some((a) => a.mesh === mesh) || s.drag?.mesh === mesh) continue
+        const on = sel instanceof Square ? (mesh.userData.square as Square | undefined)?.equals(sel) : sel !== null && mesh.userData.liftable && mesh.userData.type === sel && mesh.userData.color === latest.current.selectedColor
+        const target = base + (on ? 0.45 : 0)
+        mesh.position.y += (target - mesh.position.y) * (1 - Math.exp(-dt * 18))
+      }
       for (const anim of [...s.animations]) {
         const t = Math.min(1, (time - anim.start) / 220)
         const e = 1 - Math.pow(1 - t, 3)
@@ -987,6 +1018,7 @@ export function Board3D(props: Board3DProps) {
       const mesh = pieceMesh(piece.type, piece.color)
       mesh.position.set(squareX(square.file), 0, squareZ(square.rank))
       mesh.userData.square = square
+      mesh.userData.baseY = 0
       s.pieces.add(mesh)
       if (animate && lastMove && lastMove.slice(2, 4) === square.usi) {
         const from = lastMove[1] === '*' ? standCenter(piece.color) : (() => {
@@ -1000,7 +1032,11 @@ export function Board3D(props: Board3DProps) {
     const hands = [Color.BLACK, Color.WHITE].map((color) => [color, handLayout(position, color)] as const)
     s.placeStands()
     for (const [color, spots] of hands) {
+      const seen = new Map<PieceType, number>()
       for (const spot of spots) {
+        const nth = seen.get(spot.type) ?? 0
+        seen.set(spot.type, nth + 1)
+        const same = spots.filter((p) => p.type === spot.type).length
         const mesh = pieceMesh(spot.type, color)
         mesh.rotation.y += spot.rot
       mesh.rotation.z = spot.roll ?? 0
@@ -1008,7 +1044,7 @@ export function Board3D(props: Board3DProps) {
         mesh.scale.setScalar(0.96 * spot.scale)
         mesh.position.set(spot.x, STAND_TOP + (spot.lift ?? 0), spot.z)
         mesh.castShadow = false
-        mesh.userData = { color, type: spot.type }
+        mesh.userData = { color, type: spot.type, baseY: mesh.position.y, liftable: nth === Math.floor(same / 2) }
         s.pieces.add(mesh)
         s.handMeshes.push(mesh)
         if (spot.count && spot.count > 1) {
@@ -1125,7 +1161,7 @@ export function Board3D(props: Board3DProps) {
   useEffect(() => {
     const prev = previous.current
     previous.current = props.position
-    rebuild(prev !== null && prev.sfen !== props.position.sfen)
+    rebuild(prev !== null && prev.sfen !== props.position.sfen && performance.now() - (state.current?.droppedAt ?? 0) > 400)
   }, [props.position])
 
   useEffect(() => {
@@ -1242,24 +1278,25 @@ function handLayout(position: ImmutablePosition, color: Color): HandSpot[] {
     const b = bounds(placed)
     return { placed, b, fits: !rest.length && b.maxX - b.minX <= inner && b.maxZ - b.minZ <= inner }
   }
-  const tipRadius = (t: PieceType) => w(t) / 2 / SIDE_COT - h(t)
+  const sideAngle = Math.atan(SIDE_COT)
+  const bevelOut = (0.025 * 0.96 + 0.004) / Math.sin(sideAngle)
   const fanRow = (row: PieceType[], liftBase: number): Placed[] => {
-    const steps = row.slice(1).map((t, i) => 2 * Math.atan(SIDE_COT) + 0.08 / Math.min(tipRadius(row[i]), tipRadius(t)))
+    const steps = row.slice(1).map(() => 2 * sideAngle + 0.002)
     let phi = -steps.reduce((a, b) => a + b, 0) / 2
     return row.map((type, i) => {
       if (i > 0) phi += steps[i - 1]
-      const r = w(type) / 2 / SIDE_COT - h(type) / 2
+      const r = w(type) / 2 / SIDE_COT + bevelOut - h(type) / 2
       return { type, x: r * Math.sin(phi), z: r * Math.cos(phi), rot: phi, lift: liftBase }
     })
   }
-  const fanAttempt = () => {
+  const fanAttempt = (split: boolean) => {
     const rows: Placed[][] = []
     let rest = [...pieces]
     while (rest.length) {
       let row: PieceType[] = []
       for (const t of rest) {
         const b = bounds(fanRow([...row, t], 0))
-        if (row.length && (b.maxX - b.minX > inner || big(row[0]) !== big(t))) break
+        if (row.length && (b.maxX - b.minX > inner || (split && big(row[0]) !== big(t)))) break
         row = [...row, t]
       }
       rows.push(fanRow(row, rows.length * 0.03))
@@ -1338,7 +1375,8 @@ function handLayout(position: ImmutablePosition, color: Color): HandSpot[] {
   const tries = [
     ...[0.04, 0.02, 0].map((gap) => [straight, gap, 0]),
   ]
-  const fanned = fanAttempt()
+  const split = fanAttempt(true)
+  const fanned = split.fits ? split : fanAttempt(false)
   const flat = tries.map(([pivot, gap, squeeze]) => attempt(pivot, gap, squeeze)).find((a) => a.fits)
   lastHandMode = fanned.fits ? 'fan' : flat ? 'rows' : 'grouped'
   const best = fanned.fits ? fanned : (tries.map(([pivot, gap, squeeze]) => attempt(pivot, gap, squeeze)).find((a) => a.fits) ?? [0.17, 0.14, 0.11, 0.09, 0.07].map(grouped).find((a) => a.fits) ?? grouped(0.07))
