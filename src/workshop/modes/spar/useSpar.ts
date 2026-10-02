@@ -32,7 +32,7 @@ export function useSpar(session: BoardSession, { load, setTab, coach, mistakes, 
   const [resigned, setResigned] = useState(false)
   const [endHidden, setEndHidden] = useState('')
   const [newGameOpen, setNewGameOpen] = useState(false)
-  const clock = useGameClock({ enabled: mode === 'spar', toMove, atEnd, moveCount: game.moves.length, stopped: resigned || gameOver })
+  const clock = useGameClock({ enabled: mode === 'spar', toMove, atEnd, moveCount: game.moves.length, stopped: resigned || gameOver, userSide })
   const { review, reviewAt } = coach
 
   useEffect(() => {

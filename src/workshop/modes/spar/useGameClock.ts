@@ -12,7 +12,7 @@ export type ClockFace = { text: string; active: boolean; low: boolean; out: bool
 
 const freshClock = (tc: TimeControlSpec): ClockState => ({ sente: tc.main * 1000, gote: tc.main * 1000, byo: tc.byoyomi * 1000, flagged: null })
 
-export function useGameClock({ enabled, toMove, atEnd, moveCount, stopped }: { enabled: boolean; toMove: Side; atEnd: boolean; moveCount: number; stopped: boolean }) {
+export function useGameClock({ enabled, toMove, atEnd, moveCount, stopped, userSide }: { enabled: boolean; toMove: Side; atEnd: boolean; moveCount: number; stopped: boolean; userSide: Side }) {
   const { t } = useTranslation()
   const settings = useSettings()
   const timeControl = TIME_CONTROLS[settings.timeControl] ?? TIME_CONTROLS.none
@@ -56,20 +56,31 @@ export function useGameClock({ enabled, toMove, atEnd, moveCount, stopped }: { e
   }, [running, toMove, timeControl])
 
   const spoken = useRef('')
+  const byoyomiCalled = useRef(false)
+  const fresh = useRef('')
   useEffect(() => {
-    if (!running || clock[toMove] > 0 || !timeControl.byoyomi) return
+    if (moveCount === 0) byoyomiCalled.current = false
+  }, [moveCount])
+  useEffect(() => {
+    if (!running || toMove !== userSide || clock[toMove] > 0 || !timeControl.byoyomi) return
     const left = Math.ceil(clock.byo / 1000)
     const gone = timeControl.byoyomi - left
-    const key = `${toMove}|${movesSeen.current}|${left}`
+    const turn = `${toMove}|${moveCount}`
+    if (left >= timeControl.byoyomi) fresh.current = turn
+    if (fresh.current !== turn) return
+    const key = `${turn}|${left}`
     if (spoken.current === key) return
     spoken.current = key
     if (left <= 9 && left >= 1) say(String(10 - left), true)
     else if (gone > 0 && gone % 10 === 0) say(`${gone}秒`, true)
-    else if (gone === 0 && left === timeControl.byoyomi) say('秒読み', true)
-  }, [running, clock, toMove, timeControl])
+    else if (gone === 0 && left === timeControl.byoyomi && timeControl.main > 0 && !byoyomiCalled.current) {
+      byoyomiCalled.current = true
+      say('秒読み', true)
+    }
+  }, [running, clock, toMove, userSide, timeControl, moveCount])
   useEffect(() => {
-    if (clock.flagged) say('時間切れ', true)
-  }, [clock.flagged])
+    if (clock.flagged === userSide) say('時間切れ', true)
+  }, [clock.flagged, userSide])
 
   const face = (side: Side): ClockFace | undefined => {
     if (!enabled || !clockOn) return undefined
