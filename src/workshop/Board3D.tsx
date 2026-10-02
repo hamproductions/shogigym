@@ -870,7 +870,7 @@ export function Board3D(props: Board3DProps) {
       const rect = renderer.domElement.getBoundingClientRect()
       const gap = 12
       const W = Math.max(0, Math.min(bd.l - gap - 16, w - 16 - bd.r - gap))
-      const H = Math.max(0, Math.min(h - 16 - top.b - gap, bottom.t - gap - 16))
+      const H = Math.max(0, Math.min(h - 48 - top.b - gap, bottom.t - gap - 48))
       const under = { left: rect.left + bd.l - gap - W, top: rect.top + top.b + gap, width: W, height: H }
       const over = { left: rect.left + bd.r + gap, top: rect.top + bottom.t - gap - H, width: W, height: H }
       const key = [under, over].map((r) => [r.left, r.top, r.width, r.height].map((v) => Math.round(v / 6)).join(',')).join('|')

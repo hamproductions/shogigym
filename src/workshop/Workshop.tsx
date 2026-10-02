@@ -1389,9 +1389,6 @@ export function Workshop() {
       {tab === 'flow' && !spoilerFree && gameOver && <p className="ws-muted">{t('workshop.theGameIsOverCheckmate')}</p>}
       {tab === 'flow' && !assist && <p className="ws-muted">{t('workshop.helpIsOffTurnIt2')}</p>}
       {tab === 'flow' && assist && !spoilerFree && !gameOver && <FlowPane lanes={lanes} sfen={lanesRef.current.sfen} onPreview={startPreview} onHover={setHoverLane} />}
-      {tab === 'moves' && (mode === 'spar' || mode === 'analyze') && !preview && (
-        <GamesBox current={slotId} onSave={saveSlot} onCopy={exportKif} onOpen={openSlot} onDelete={(g) => setConfirm({ text: t('workshop.deleteThisCannotBeUndone', { title: g.title }), run: () => (deleteGame(g.id), g.id === slotId && setSlotId(null)), yes: t('workshop.delete'), no: t('workshop.keepIt') })} onImport={importGame} />
-      )}
       {tab === 'moves' &&
         (preview && previewSfens ? (
           <>
@@ -1423,6 +1420,9 @@ export function Workshop() {
             }
           />
         ))}
+      {tab === 'moves' && (mode === 'spar' || mode === 'analyze') && !preview && (
+        <GamesBox current={slotId} onSave={saveSlot} onCopy={exportKif} onOpen={openSlot} onDelete={(g) => setConfirm({ text: t('workshop.deleteThisCannotBeUndone', { title: g.title }), run: () => (deleteGame(g.id), g.id === slotId && setSlotId(null)), yes: t('workshop.delete'), no: t('workshop.keepIt') })} onImport={importGame} />
+      )}
     </div>
   )
 
@@ -2244,7 +2244,7 @@ function MovesPane({ sfens, moves, cursor, setCursor, title, onScore, tree, onSw
   const listRef = useRef<HTMLOListElement>(null)
   const tesujis = useMemo(() => moves.map((usi, i) => (sfens[i] ? detectTesuji(sfens[i], usi) : null)), [moves, sfens])
   useEffect(() => {
-    const row = listRef.current?.children[Math.max(0, cursor - 1)] as HTMLElement | undefined
+    const row = listRef.current?.querySelector('button.on') ?? listRef.current?.lastElementChild
     row?.scrollIntoView({ block: 'nearest' })
   }, [cursor, moves.length])
   const [progress, setProgress] = useState<number | null>(null)
@@ -2306,6 +2306,44 @@ function MovesPane({ sfens, moves, cursor, setCursor, title, onScore, tree, onSw
     )
     setSaved(saveMistakes(items))
   }
+  const cell = (i: number) => {
+    const usi = moves[i]
+      const label = current?.items[i]
+      const siblings = tree ? (nodeAt(tree, moves.slice(0, i))?.children ?? []).filter((c) => c.usi !== usi) : []
+      return (
+        <div key={i} className={[siblings.length ? 'has-vars' : '', tree && !isMainLine(tree, moves.slice(0, i + 1)) ? 'in-var' : ''].join(' ')}>
+          <button className={cursor === i + 1 ? 'on' : ''} onClick={() => setCursor(i + 1)}>
+            {moveText(sfens[i], usi, moves[i - 1])}
+            {tesujis[i] && (
+              <span className="ws-move-tesuji" title={t('moves.tesuji', { value: tesujis[i]!.ja, value2: tesujis[i]!.explain })}>
+                {tesujis[i]!.ja}
+              </span>
+            )}
+            {label && label !== 'good' && label !== 'excellent' && label !== 'best' && (
+              <span className="ws-move-label" style={{ color: LABELS[label].color }} title={LABELS[label].text}>
+                {LABELS[label].symbol}
+              </span>
+            )}
+          </button>
+          {siblings.length > 0 && (
+            <span className="ws-vars">
+              <span className="ws-vars-tag">{t('moves.var')}</span>
+              {siblings.map((c) => (
+                <span key={c.usi} className="ws-var">
+                  <button onClick={() => onSwitch?.([...moves.slice(0, i), c.usi])} title={t('moves.switchToThisLine')}>
+                    {moveText(sfens[i], c.usi, moves[i - 1])}
+                    {c.children.length > 0 && <small> +{countMoves(c)}</small>}
+                  </button>
+                  <button className="ws-var-x" onClick={() => onDelete?.([...moves.slice(0, i), c.usi], countMoves(c) + 1)} aria-label={t('moves.deleteThisVariation')} title={t('moves.deleteThisVariation')}>
+                    ×
+                  </button>
+                </span>
+              ))}
+            </span>
+          )}
+        </div>
+      )
+  }
   const mistakes = current?.items.filter((l) => l === 'mistake' || l === 'miss' || l === 'blunder').length ?? 0
   return (
     <div>
@@ -2321,47 +2359,13 @@ function MovesPane({ sfens, moves, cursor, setCursor, title, onScore, tree, onSw
           </>
         )}
       </div>
-      {tree && <p className="ws-legend ws-branch-help">{t('moves.whatIfClickAnyMove')}</p>}
-      <p className="ws-legend">{t('moves.bookMoveInaccuracyMistakeBlunder')}</p>
-      <ol className="ws-moves" ref={listRef}>
-        {moves.map((usi, i) => {
-          const label = current?.items[i]
-          const siblings = tree ? (nodeAt(tree, moves.slice(0, i))?.children ?? []).filter((c) => c.usi !== usi) : []
-          return (
-            <li key={i} className={[siblings.length ? 'has-vars' : '', tree && !isMainLine(tree, moves.slice(0, i + 1)) ? 'in-var' : ''].join(' ')}>
-              <button className={cursor === i + 1 ? 'on' : ''} onClick={() => setCursor(i + 1)}>
-                <span className="ws-move-no">{i + 1}</span>
-                {moveText(sfens[i], usi, moves[i - 1])}
-                {tesujis[i] && (
-                  <span className="ws-move-tesuji" title={t('moves.tesuji', { value: tesujis[i]!.ja, value2: tesujis[i]!.explain })}>
-                    {tesujis[i]!.ja}
-                  </span>
-                )}
-                {label && label !== 'good' && label !== 'excellent' && label !== 'best' && (
-                  <span className="ws-move-label" style={{ color: LABELS[label].color }} title={LABELS[label].text}>
-                    {LABELS[label].symbol}
-                  </span>
-                )}
-              </button>
-              {siblings.length > 0 && (
-                <span className="ws-vars">
-                  <span className="ws-vars-tag">{t('moves.var')}</span>
-                  {siblings.map((c) => (
-                    <span key={c.usi} className="ws-var">
-                      <button onClick={() => onSwitch?.([...moves.slice(0, i), c.usi])} title={t('moves.switchToThisLine')}>
-                        {moveText(sfens[i], c.usi, moves[i - 1])}
-                        {c.children.length > 0 && <small> +{countMoves(c)}</small>}
-                      </button>
-                      <button className="ws-var-x" onClick={() => onDelete?.([...moves.slice(0, i), c.usi], countMoves(c) + 1)} aria-label={t('moves.deleteThisVariation')} title={t('moves.deleteThisVariation')}>
-                        ×
-                      </button>
-                    </span>
-                  ))}
-                </span>
-              )}
-            </li>
-          )
-        })}
+      <ol className="ws-moves" ref={listRef} title={t('moves.bookMoveInaccuracyMistakeBlunder')}>
+        {Array.from({ length: Math.ceil(moves.length / 2) }, (_, r) => (
+          <li key={r} className="ws-move-row">
+            <span className="ws-move-no">{r + 1}.</span>
+            {[2 * r, 2 * r + 1].map((i) => (i < moves.length ? cell(i) : <span key={i} />))}
+          </li>
+        ))}
       </ol>
     </div>
   )

@@ -4330,3 +4330,54 @@
     min-width: 220px;
   }
 }
+
+.ws .ws-moves {
+  display: block;
+  max-height: none;
+}
+
+.ws-move-row {
+  display: grid;
+  grid-template-columns: 34px 1fr 1fr;
+  align-items: start;
+  gap: 4px;
+  padding: 1px 0;
+}
+
+.ws-move-row:nth-child(even) {
+  background: rgba(60, 40, 20, 0.04);
+}
+
+.ws-move-row .ws-move-no {
+  width: auto;
+  padding: 7px 0 0 6px;
+  font-size: 12px;
+}
+
+.ws-move-row > div {
+  min-width: 0;
+}
+
+.ws-move-row .ws-vars {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 2px 0 4px;
+}
+
+.ws-games {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+.ws-games .ws-actions button {
+  padding: 6px 10px;
+  font-size: 13px;
+}
+
+.ws-games .ws-actions button.primary {
+  background: transparent;
+  color: inherit;
+  border: 1px solid var(--line);
+}
