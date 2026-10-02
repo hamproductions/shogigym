@@ -35,6 +35,7 @@ export type Settings = {
   fvScale: number
   theme: Theme
   characters: boolean
+  power: boolean
 }
 
 const KEY = 'joseki-practice:settings:v1'
@@ -47,7 +48,7 @@ function navigatorLang(): Lang {
   }
 }
 
-const DEFAULTS: Settings = { sound: true, volume: 0.6, pieceStyle: 'two', pieceFont: 'mincho', pieceSet: 'letters', pieceFinish: 'moriage', coords: true, environment: 'traditional', boardStyle: 'kaya', thinkMs: 1500, candidates: 3, opponent: 'beginner', aiStrategy: '', mainStrategy: 'shikenbisha', assist: true, timeControl: 'none', lang: navigatorLang(), engine: 'yaneuraou', fvScale: 16, theme: 'system', characters: true }
+const DEFAULTS: Settings = { sound: true, volume: 0.6, pieceStyle: 'two', pieceFont: 'mincho', pieceSet: 'letters', pieceFinish: 'moriage', coords: true, environment: 'traditional', boardStyle: 'kaya', thinkMs: 1500, candidates: 3, opponent: 'beginner', aiStrategy: '', mainStrategy: 'shikenbisha', assist: true, timeControl: 'none', lang: navigatorLang(), engine: 'yaneuraou', fvScale: 16, theme: 'system', characters: true, power: false }
 
 function read(): Settings {
   try {
@@ -132,10 +133,41 @@ function tone(when: number, freq: number, gain: number, length: number) {
   osc.stop(ac.currentTime + when + length)
 }
 
-export function playSound(kind: 'move' | 'capture' | 'right' | 'wrong' | 'complete' | 'bang' | 'clatter') {
+function sweep(when: number, from: number, to: number, gain: number, length: number) {
+  const ac = ctx()
+  const osc = ac.createOscillator()
+  osc.type = 'sine'
+  osc.frequency.setValueAtTime(from, ac.currentTime + when)
+  osc.frequency.exponentialRampToValueAtTime(to, ac.currentTime + when + length)
+  const amp = ac.createGain()
+  amp.gain.setValueAtTime(0.0001, ac.currentTime + when)
+  amp.gain.exponentialRampToValueAtTime(gain * current.volume, ac.currentTime + when + 0.008)
+  amp.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + when + length)
+  osc.connect(amp).connect(ac.destination)
+  osc.start(ac.currentTime + when)
+  osc.stop(ac.currentTime + when + length)
+}
+
+export function playSound(kind: 'move' | 'capture' | 'right' | 'wrong' | 'complete' | 'bang' | 'clatter' | 'thump' | 'heartbeat' | 'boom') {
   if (!current.sound) return
   try {
     if (kind === 'move') knock(0, 1900, 1.4, 0.09)
+    else if (kind === 'thump') {
+      sweep(0, 150, 38, 0.8, 0.5)
+      knock(0, 110, 6, 0.3)
+      knock(0, 1250, 2, 0.12)
+    } else if (kind === 'heartbeat')
+      for (const beat of [0, 0.75]) {
+        sweep(beat, 95, 42, 0.75, 0.2)
+        sweep(beat + 0.2, 80, 38, 0.55, 0.22)
+      }
+    else if (kind === 'boom') {
+      sweep(0, 130, 26, 0.9, 1.8)
+      knock(0, 80, 10, 1.1)
+      knock(0, 420, 5, 0.5)
+      knock(0.02, 1600, 2.5, 0.2)
+      for (const [i, f] of [523, 784, 1046].entries()) tone(0.35 + i * 0.08, f, 0.05, 2.2)
+    }
     else if (kind === 'capture') knock(0, 1250, 2.2, 0.13)
     else if (kind === 'bang') {
       knock(0, 140, 9, 0.45)

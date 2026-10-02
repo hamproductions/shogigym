@@ -458,7 +458,9 @@
     "fvScaleHint": "Scale the net was trained for: Suisho5 24, Háo 20, most others 16.",
     "candidateMoves": "Candidate moves",
     "lineCount_one": "1 line",
-    "lineCount_other": "{{count}} lines"
+    "lineCount_other": "{{count}} lines",
+    "powerMode": "Power mode",
+    "powerModeHint": "Light beams and explosions on captures, a dramatic 王手, and a big finale on 詰み."
   },
   "tabs": {
     "coach": "Coach",

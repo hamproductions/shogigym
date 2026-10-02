@@ -71,6 +71,8 @@ export function SettingsDialog({ onClose, level, onLevel }: { onClose: () => voi
             <SegmentedField<BoardStyle> label={t('settings.boardWood')} value={st.boardStyle} options={[{ v: 'kaya', t: t('settings.kaya') }, { v: 'shin-kaya', t: t('settings.light') }, { v: 'dark', t: t('settings.dark') }]} onChange={(v) => setSettings({ boardStyle: v })} />
             {(st.environment === 'traditional' || st.environment === 'casual') && <SegmentedField label={t('settings.characters')} value={st.characters} options={[{ v: true, t: t('settings.on') }, { v: false, t: t('settings.off') }]} onChange={(v) => setSettings({ characters: v })} />}
             {(st.environment === 'traditional' || st.environment === 'casual') && st.characters && <p className="ws-muted ws-credit">{t('settings.charactersCredit')}</p>}
+            {st.environment !== 'diagram' && st.environment !== 'broadcast' && <SegmentedField label={t('settings.powerMode')} value={st.power} options={[{ v: true, t: t('settings.on') }, { v: false, t: t('settings.off') }]} onChange={(v) => setSettings({ power: v })} />}
+            {st.environment !== 'diagram' && st.environment !== 'broadcast' && st.power && <p className="ws-muted ws-credit">{t('settings.powerModeHint')}</p>}
           </>
         )}
         {tab === 'pieces' && (

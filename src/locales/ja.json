@@ -446,7 +446,9 @@
     "fvScale": "FV_SCALE",
     "fvScaleHint": "評価関数に合わせた値: 水匠5は24、Háoは20、その他の多くは16。",
     "candidateMoves": "候補手の数",
-    "lineCount_other": "{{count}}手順"
+    "lineCount_other": "{{count}}手順",
+    "powerMode": "パワーモード",
+    "powerModeHint": "駒取りで光と爆発、王手で演出、詰みで大フィナーレ。"
   },
   "tabs": {
     "coach": "指導",
