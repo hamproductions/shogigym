@@ -7,7 +7,7 @@ export const MODE_SLUG: Record<Mode, string> = { spar: 'play', analyze: 'analyze
 
 const SLUG_MODE = Object.fromEntries(Object.entries(MODE_SLUG).map(([m, s]) => [s, m as Mode])) as Record<string, Mode>
 
-export function useRouteMode(mode: Mode, enterMode: (m: Mode) => void, routeMode: string | undefined, routeMain: string | undefined) {
+export function useRouteMode(mode: Mode, enterMode: (m: Mode) => void, routeMode: string | undefined, routeMain: string | undefined, ready: boolean) {
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const target = useRef<Mode | null>(null)
@@ -19,6 +19,7 @@ export function useRouteMode(mode: Mode, enterMode: (m: Mode) => void, routeMode
   }, [pathname, routeMain, routeMode])
 
   useEffect(() => {
+    if (!ready) return
     const want = target.current
     if (want && want !== mode) return enterMode(want)
     target.current = null

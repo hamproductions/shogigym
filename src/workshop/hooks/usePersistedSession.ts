@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Position } from 'tsshogi'
 import { COURSES } from '../../model'
 import { applyUsi, type Side } from '../../shogi'
@@ -30,49 +30,61 @@ type Persisted = { session: BoardSession; lesson: Lesson; tsume: Tsume; drill: D
 export function usePersistedSession({ session, lesson, tsume, drill, slots, resume }: Persisted) {
   const { mode, course, game, cursor, userSide, tree } = session
   const restored = useRef(false)
+  const [ready, setReady] = useState(false)
+  const placeholder = useRef(true)
 
   useEffect(() => {
     if (restored.current) return
     restored.current = true
+    setReady(true)
     try {
       const data = readSession()
       if (!data) return
+      const saved: Partial<Record<Mode, Snapshot>> = {}
       for (const m of ['spar', 'analyze'] as const) {
         const g = data[m]
-        if (g && replays(g.start, g.moves)) slots.stash(m, { game: { start: g.start, moves: g.moves }, cursor: g.cursor, userSide: g.userSide, flipped: g.userSide === 'gote', course: null, lessonMode: 'study', score: { right: 0, wrong: 0 }, tree: g.tree })
+        if (g && replays(g.start, g.moves)) saved[m] = { game: { start: g.start, moves: g.moves }, cursor: g.cursor, userSide: g.userSide, flipped: g.userSide === 'gote', course: null, lessonMode: 'study', score: { right: 0, wrong: 0 }, tree: g.tree }
       }
       const saw = data.lesson
       const c = saw && COURSES.find((x) => x.id === saw.courseId)
-      if (c && saw && replays(c.root.sfen, saw.moves)) slots.stash('lesson', { game: { start: c.root.sfen, moves: saw.moves }, cursor: saw.moves.length, userSide: c.userSide, flipped: c.userSide === 'gote', course: c, lessonMode: saw.lessonMode, score: saw.score ?? { right: 0, wrong: 0 } })
-      const back = slots.stashed(data.mode)
+      if (c && saw && replays(c.root.sfen, saw.moves)) saved.lesson = { game: { start: c.root.sfen, moves: saw.moves }, cursor: saw.moves.length, userSide: c.userSide, flipped: c.userSide === 'gote', course: c, lessonMode: saw.lessonMode, score: saw.score ?? { right: 0, wrong: 0 } }
+      const back = saved[data.mode]
       if (back && (data.mode === 'spar' || data.mode === 'analyze' || data.mode === 'lesson')) {
         resume(data.mode, back)
+        placeholder.current = false
         if (back.course) lesson.setPickerSetup(setupOf(back.course)?.id ?? null)
       }
       const problem = data.mode === 'tsume' && data.tsume ? PROBLEMS.find((p) => p.id === data.tsume!.problemId) : undefined
       if (problem) tsume.restore(problem, data.tsume!.length)
       if (data.mode === 'drill' && data.drill) drill.start(data.drill.queue)
+      if (problem || (data.mode === 'drill' && data.drill)) placeholder.current = false
+      for (const [m, snapshot] of Object.entries(saved)) slots.stash(m as Mode, snapshot)
     } catch (error) {
       console.warn('session not restored', error)
     }
-  })
+  }, [lesson, tsume, drill, slots, resume])
 
   const { lessonMode, score } = lesson
   const problem = tsume.tsume
   const drillState = drill.drill
   useEffect(() => {
-    if (!restored.current) return
+    if (!ready) return
+    if (placeholder.current) {
+      placeholder.current = false
+      return
+    }
     try {
-      const prev = readSession() ?? { mode: 'spar' }
-      const next: SavedSession = { ...prev, mode }
-      if (mode === 'lesson') next.lesson = course ? { courseId: course.id, lessonMode, moves: game.moves.slice(0, cursor), score } : undefined
+      const next: SavedSession = { ...(readSession() ?? {}), mode }
+      if (mode === 'lesson' && course) next.lesson = { courseId: course.id, lessonMode, moves: game.moves.slice(0, cursor), score }
       if (mode === 'spar') next.spar = { start: game.start, moves: game.moves, cursor, userSide, tree }
       if (mode === 'analyze') next.analyze = { start: game.start, moves: game.moves, cursor, userSide, tree }
       if (mode === 'tsume' && problem) next.tsume = { problemId: problem.problem.id, length: problem.length }
-      if (mode === 'drill') next.drill = drillState ? { queue: drillState.queue } : undefined
+      if (mode === 'drill' && drillState) next.drill = { queue: drillState.queue }
       localStorage.setItem(SESSION_KEY, JSON.stringify(next))
     } catch (error) {
       console.warn('session not saved', error)
     }
-  }, [mode, course, lessonMode, game, cursor, userSide, score, tree, problem, drillState])
+  }, [ready, mode, course, lessonMode, game, cursor, userSide, score, tree, problem, drillState])
+
+  return ready
 }
