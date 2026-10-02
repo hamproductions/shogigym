@@ -30,18 +30,23 @@ export type Board3DProps = {
   onArrow?: (usi: string) => void
 }
 
-const PIECE_SIZE: Partial<Record<PieceType, number>> = {
-  [PieceType.KING]: 0.86,
-  [PieceType.ROOK]: 0.82,
-  [PieceType.BISHOP]: 0.82,
-  [PieceType.DRAGON]: 0.82,
-  [PieceType.HORSE]: 0.82,
-  [PieceType.GOLD]: 0.78,
-  [PieceType.SILVER]: 0.78,
-  [PieceType.KNIGHT]: 0.74,
-  [PieceType.LANCE]: 0.7,
-  [PieceType.PAWN]: 0.68,
-}
+const MM_PER_SQUARE = 34
+
+const KOMA_MM: [PieceType[], number, number, number][] = [
+  [[PieceType.KING], 31.5, 28, 9.5],
+  [[PieceType.ROOK, PieceType.BISHOP, PieceType.DRAGON, PieceType.HORSE], 30.5, 27, 9],
+  [[PieceType.GOLD, PieceType.SILVER, PieceType.PROM_SILVER], 29.5, 26, 8.75],
+  [[PieceType.KNIGHT, PieceType.PROM_KNIGHT], 28.5, 25, 8.25],
+  [[PieceType.LANCE, PieceType.PROM_LANCE], 28, 23, 8],
+  [[PieceType.PAWN, PieceType.PROM_PAWN], 27, 22.5, 7.75],
+]
+
+const PIECE_SIZE: Partial<Record<PieceType, number>> = Object.fromEntries(KOMA_MM.flatMap(([types, h]) => types.map((t) => [t, h / MM_PER_SQUARE])))
+
+const KOMA_DIMS = new Map(KOMA_MM.map(([, h, w, t]) => [h / MM_PER_SQUARE, { w: w / MM_PER_SQUARE, t: t / MM_PER_SQUARE }]))
+
+const komaWidth = (scale: number) => KOMA_DIMS.get(scale)?.w ?? scale * 0.88
+const komaDepth = (scale: number) => (KOMA_DIMS.get(scale)?.t ?? 0.16 * scale + 0.11) - 0.05
 
 const PROMOTED = new Set([PieceType.PROM_PAWN, PieceType.PROM_LANCE, PieceType.PROM_KNIGHT, PieceType.PROM_SILVER, PieceType.HORSE, PieceType.DRAGON])
 const FACE: Record<PieceType, string> = {
@@ -186,7 +191,7 @@ const geometryCache = new Map<number, THREE.ExtrudeGeometry>()
 function pieceGeometry(scale: number) {
   const cached = geometryCache.get(scale)
   if (cached) return cached
-  const w = scale * 0.9
+  const w = komaWidth(scale)
   const h = scale
   const shape = new THREE.Shape()
   shape.moveTo(-w * 0.5, -h * 0.5)
@@ -195,7 +200,7 @@ function pieceGeometry(scale: number) {
   shape.lineTo(0, h * 0.5)
   shape.lineTo(-w * 0.33, h * 0.38)
   shape.closePath()
-  const geometry = new THREE.ExtrudeGeometry(shape, { depth: 0.16 * scale + 0.06, bevelEnabled: true, bevelThickness: 0.025, bevelSize: 0.025, bevelSegments: 2 })
+  const geometry = new THREE.ExtrudeGeometry(shape, { depth: komaDepth(scale), bevelEnabled: true, bevelThickness: 0.025, bevelSize: 0.025, bevelSegments: 2 })
   const uv = geometry.attributes.uv
   for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) / w + 0.5, uv.getY(i) / h + 0.5)
   const pos = geometry.attributes.position
@@ -212,7 +217,7 @@ function pieceGeometry(scale: number) {
 const hiddenLid = new THREE.MeshBasicMaterial({ visible: false })
 
 function piecePolygon(scale: number): [number, number][] {
-  const w = scale * 0.9
+  const w = komaWidth(scale)
   const h = scale
   return [
     [-w * 0.5, -h * 0.5],
@@ -398,10 +403,10 @@ function carvedTop(scale: number, map: THREE.Texture) {
   if (cached) return cached
   const ink = inkMask(map)
   const relief = finish.relief * scale
-  const w = scale * 0.9
+  const w = komaWidth(scale)
   const h = scale
   const poly = piecePolygon(scale)
-  const top = 0.16 * scale + 0.06 + 0.026
+  const top = komaDepth(scale) + 0.026
   const n = 200
   const positions: number[] = []
   const uvs: number[] = []
@@ -458,7 +463,7 @@ export function pieceMesh(type: PieceType, color: Color) {
   const lm = lacquerMap(map)
   const finish = PIECE_FINISHES[getSettings().pieceFinish] ?? PIECE_FINISHES.moriage
   const gloss = finish.gloss
-  const face = new THREE.MeshPhysicalMaterial({ map, roughness: 1, roughnessMap: lm, normalMap: finish.relief ? reliefNormal(map, finish.relief * scale, scale * 0.9, scale) : null, clearcoat: gloss, clearcoatMap: lm, clearcoatRoughness: 0.04, envMap: pieceEnv, envMapIntensity: 0.85 })
+  const face = new THREE.MeshPhysicalMaterial({ map, roughness: 1, roughnessMap: lm, normalMap: finish.relief ? reliefNormal(map, finish.relief * scale, komaWidth(scale), scale) : null, clearcoat: gloss, clearcoatMap: lm, clearcoatRoughness: 0.04, envMap: pieceEnv, envMapIntensity: 0.85 })
   const mesh = new THREE.Mesh(pieceGeometry(scale), [hiddenLid, sideMaterial])
   mesh.castShadow = true
   mesh.receiveShadow = true
