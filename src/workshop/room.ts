@@ -24,6 +24,53 @@ export function zabutonTexture() {
   })
 }
 
+const glassSheen = (ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, seed: number) => {
+  const r = rng(seed)
+  ctx.save()
+  ctx.beginPath()
+  ctx.rect(x, y, w, h)
+  ctx.clip()
+  const tint = ctx.createLinearGradient(x, y, x, y + h)
+  tint.addColorStop(0, 'rgba(225,238,245,0.10)')
+  tint.addColorStop(1, 'rgba(200,215,225,0.16)')
+  ctx.fillStyle = tint
+  ctx.fillRect(x, y, w, h)
+  for (const [at, width, alpha] of [
+    [0.18, 0.16, 0.22],
+    [0.42, 0.05, 0.16],
+    [0.7, 0.1, 0.12],
+  ]) {
+    const cx = x + w * at
+    const g = ctx.createLinearGradient(cx - w * width, y, cx + w * width, y + h * 0.4)
+    g.addColorStop(0, 'rgba(255,255,255,0)')
+    g.addColorStop(0.5, `rgba(255,255,255,${alpha})`)
+    g.addColorStop(1, 'rgba(255,255,255,0)')
+    ctx.fillStyle = g
+    ctx.beginPath()
+    ctx.moveTo(cx - w * width, y + h)
+    ctx.lineTo(cx + w * width * 0.2, y)
+    ctx.lineTo(cx + w * width * 1.4, y)
+    ctx.lineTo(cx + w * width * 0.2, y + h)
+    ctx.closePath()
+    ctx.fill()
+  }
+  for (let i = 0; i < 40; i++) {
+    const sx = x + r() * w
+    const sy = y + r() * h
+    const sr = 6 + r() * 26
+    const g = ctx.createRadialGradient(sx, sy, 0, sx, sy, sr)
+    g.addColorStop(0, `rgba(255,255,255,${0.04 + r() * 0.06})`)
+    g.addColorStop(1, 'rgba(255,255,255,0)')
+    ctx.fillStyle = g
+    ctx.fillRect(sx - sr, sy - sr, sr * 2, sr * 2)
+  }
+  ctx.fillStyle = 'rgba(70,60,45,0.08)'
+  ctx.fillRect(x, y + h - 6, w, 6)
+  ctx.restore()
+}
+
+const glassDraw: Draw = (ctx, w, h) => glassSheen(ctx, 0, 0, w, h, 17)
+
 const shojiDraw =
   (glow: boolean): Draw =>
   (ctx, w, h) => {
@@ -58,8 +105,7 @@ const shojiDraw =
       ctx.fillRect(f - 2, f, 2, h - koshi - f)
       ctx.fillRect(w - f, f, 2, h - koshi - f)
       ctx.fillRect(f, h - koshi, w - 2 * f, 2)
-      ctx.fillStyle = 'rgba(255,255,255,0.10)'
-      ctx.fillRect(f, glass + 6, w - 2 * f, h - koshi - glass - 6)
+      glassSheen(ctx, f, glass + 6, w - 2 * f, h - koshi - glass - 6, 29)
     }
   }
 
@@ -280,18 +326,21 @@ function clearOfBoard(lamp: THREE.Vector3, radius: number) {
   }
 }
 
-function skyDome(key: string, ground: string, scenery: Draw) {
-  const group = new THREE.Group()
-  const sky = new THREE.Mesh(once('sky-geometry', () => new THREE.SphereGeometry(100, 32, 16)), once(`sky:${key}`, () => new THREE.MeshBasicMaterial({ map: paint(`sky-${key}`, 1024, 512, skyDraw(ground)), side: THREE.BackSide, depthTest: false, depthWrite: false })))
+function skyDome(file: string) {
+  const sky = new THREE.Mesh(
+    once('sky-geometry', () => new THREE.SphereGeometry(100, 64, 32)),
+    once(`sky:${file}`, () => {
+      const map = new THREE.TextureLoader().load(`${import.meta.env.BASE_URL}sky/${file}`)
+      map.colorSpace = THREE.SRGBColorSpace
+      map.wrapS = THREE.RepeatWrapping
+      map.repeat.x = -1
+      map.anisotropy = 8
+      return new THREE.MeshBasicMaterial({ map, side: THREE.BackSide, depthTest: false, depthWrite: false })
+    }),
+  )
   sky.renderOrder = -1001
-  const r = 92
-  const top = r * Math.tan((BAND_TOP * Math.PI) / 180)
-  const bottom = r * Math.tan((BAND_BOTTOM * Math.PI) / 180)
-  const band = new THREE.Mesh(once('band-geometry', () => new THREE.CylinderGeometry(r, r, top - bottom, 96, 1, true).translate(0, (top + bottom) / 2, 0)), once(`band:${key}`, () => new THREE.MeshBasicMaterial({ map: paint(`band-${key}`, 4096, 512, scenery), side: THREE.BackSide, alphaTest: 0.5, depthTest: false, depthWrite: false })))
-  band.renderOrder = -1000
-  for (const m of [sky, band]) m.frustumCulled = false
-  group.add(sky, band)
-  return group
+  sky.frustumCulled = false
+  return sky
 }
 
 export function buildRoom(root: THREE.Group, dims: RoomDims) {
@@ -520,7 +569,7 @@ export function buildRoom(root: THREE.Group, dims: RoomDims) {
       [groups.up, (p) => p.y < ceil - 1],
       [lamp, clearOfBoard(new THREE.Vector3(0, lampY, 0), lampR + 0.5)],
     ],
-    skyDome('garden', '#9a9a86', gardenDraw),
+    skyDome('ninomaru_teien.jpg'),
   )
 }
 
@@ -548,135 +597,6 @@ const lanternDraw: Draw = (ctx, w, h) => {
   for (let y = 0; y < h; y += 32) ctx.fillRect(0, y, w, 3)
 }
 
-const skyDraw =
-  (ground: string): Draw =>
-  (ctx, w, h) => {
-    const sky = ctx.createLinearGradient(0, 0, 0, h / 2)
-    sky.addColorStop(0, '#6f9fd0')
-    sky.addColorStop(0.75, '#c4dbea')
-    sky.addColorStop(1, '#f0e8d8')
-    ctx.fillStyle = sky
-    ctx.fillRect(0, 0, w, h / 2)
-    ctx.fillStyle = ground
-    ctx.fillRect(0, h / 2, w, h / 2)
-    const r = rng(12)
-    ctx.fillStyle = 'rgba(255,255,255,0.7)'
-    for (let i = 0; i < 16; i++) {
-      const cx = r() * w
-      const cy = h * (0.2 + r() * 0.2)
-      for (let k = 0; k < 6; k++) {
-        ctx.beginPath()
-        ctx.ellipse(cx + (k - 2.5) * w * 0.012, cy + (r() - 0.5) * h * 0.01, w * (0.015 + r() * 0.012), h * (0.008 + r() * 0.006), 0, 0, Math.PI * 2)
-        ctx.fill()
-      }
-    }
-  }
-
-const BAND_TOP = 16
-const BAND_BOTTOM = -8
-const horizon = (h: number) => (h * BAND_TOP) / (BAND_TOP - BAND_BOTTOM)
-
-const blobs = (ctx: CanvasRenderingContext2D, r: () => number, w: number, y0: number, y1: number, size: number, count: number, colors: string[]) => {
-  for (let i = 0; i < count; i++) {
-    ctx.fillStyle = colors[Math.floor(r() * colors.length)]
-    ctx.beginPath()
-    ctx.ellipse(r() * w, y0 + r() * (y1 - y0), size * (0.6 + r()), size * (0.4 + r() * 0.6), 0, 0, Math.PI * 2)
-    ctx.fill()
-  }
-}
-
-const hills = (ctx: CanvasRenderingContext2D, w: number, base: number, height: number, color: string, f: number) => {
-  ctx.fillStyle = color
-  ctx.beginPath()
-  ctx.moveTo(0, base)
-  for (let x = 0; x <= w; x += 16) ctx.lineTo(x, base - height * (0.55 + 0.3 * Math.sin((x / w) * Math.PI * 2 * f) + 0.15 * Math.sin((x / w) * Math.PI * 2 * f * 3.7 + 1)))
-  ctx.lineTo(w, base)
-  ctx.fill()
-}
-
-const gardenDraw: Draw = (ctx, w, h) => {
-  const r = rng(12)
-  const hz = horizon(h)
-  hills(ctx, w, hz, 70, '#a7b6c4', 5)
-  hills(ctx, w, hz, 46, '#8fa3a0', 9)
-  blobs(ctx, r, w, hz - 52, hz - 12, 16, 700, ['#3f5d3c', '#4a6b40', '#35503a', '#567a45'])
-  blobs(ctx, r, w, hz - 46, hz - 14, 11, 140, ['#b5482a', '#c9672e', '#d98b3a'])
-  for (let i = 0; i < 60; i++) {
-    const x = r() * w
-    const base = hz - 14
-    ctx.fillStyle = '#4a3a2a'
-    ctx.fillRect(x - 2, base - 60, 4, 60)
-    ctx.fillStyle = i % 2 ? '#2e4a32' : '#35553a'
-    for (let k = 0; k < 4; k++) {
-      ctx.beginPath()
-      ctx.ellipse(x + (r() - 0.5) * 22, base - 26 - k * 12, 26 - k * 4, 6, 0, 0, Math.PI * 2)
-      ctx.fill()
-    }
-  }
-  ctx.fillStyle = '#cdbd9a'
-  ctx.fillRect(0, hz - 16, w, 16)
-  ctx.fillStyle = '#4b4d55'
-  ctx.fillRect(0, hz - 20, w, 5)
-  ctx.fillStyle = '#6b8550'
-  ctx.fillRect(0, hz, w, 10)
-  ctx.fillStyle = '#b8b3a3'
-  ctx.fillRect(0, hz + 10, w, h - hz - 10)
-  ctx.strokeStyle = 'rgba(150,145,130,0.3)'
-  ctx.lineWidth = 1.5
-  for (let y = hz + 16; y < h; y += 9) {
-    ctx.beginPath()
-    for (let x = 0; x <= w; x += 16) ctx.lineTo(x, y + Math.sin(x * 0.02) * 2)
-    ctx.stroke()
-  }
-  blobs(ctx, r, w, hz + 2, hz + 22, 14, 160, ['#56713f', '#62804a', '#4d6a3a'])
-  blobs(ctx, r, w, hz + 22, hz + 70, 10, 90, ['#8d8a80', '#7a776e'])
-}
-
-const townDraw: Draw = (ctx, w, h) => {
-  const r = rng(27)
-  const hz = horizon(h)
-  hills(ctx, w, hz, 60, '#aebccb', 4)
-  ctx.fillStyle = '#9fb0c2'
-  for (let x = 0; x < w; x += 20 + r() * 50) ctx.fillRect(x, hz - 30 - r() * 90, 26 + r() * 50, 140)
-  ctx.fillStyle = 'rgba(255,255,255,0.35)'
-  for (let i = 0; i < 1200; i++) ctx.fillRect(r() * w, hz - 20 - r() * 100, 3, 2)
-  blobs(ctx, r, w, hz - 36, hz - 6, 18, 260, ['#5f7f52', '#6f8d5c', '#4f6e48'])
-  for (let x = 0; x < w; x += 50 + r() * 70) {
-    const hw = 46 + r() * 40
-    const wall = ['#e8e0d0', '#d9cdb8', '#f0ece4', '#c9b9a0'][Math.floor(r() * 4)]
-    const roof = ['#4a5560', '#6a4038', '#3d4a5a', '#5a5a52'][Math.floor(r() * 4)]
-    const by = hz - 2
-    ctx.fillStyle = wall
-    ctx.fillRect(x, by - 36, hw, 36)
-    ctx.fillStyle = roof
-    ctx.beginPath()
-    ctx.moveTo(x - 6, by - 34)
-    ctx.lineTo(x + hw / 2, by - 56)
-    ctx.lineTo(x + hw + 6, by - 34)
-    ctx.fill()
-    ctx.fillStyle = '#9fb4c4'
-    ctx.fillRect(x + hw * 0.2, by - 26, hw * 0.22, 10)
-    ctx.fillRect(x + hw * 0.6, by - 26, hw * 0.22, 10)
-  }
-  ctx.strokeStyle = 'rgba(40,40,40,0.8)'
-  ctx.lineWidth = 1.5
-  for (let x = 40; x < w; x += 300) {
-    ctx.fillStyle = '#6a6660'
-    ctx.fillRect(x, hz - 150, 5, 150)
-    ctx.fillRect(x - 12, hz - 142, 29, 3)
-    for (const dy of [0, 8, 18]) {
-      ctx.beginPath()
-      ctx.moveTo(x + 2, hz - 140 + dy)
-      ctx.quadraticCurveTo(x + 152, hz - 112 + dy, x + 302, hz - 140 + dy)
-      ctx.stroke()
-    }
-  }
-  ctx.fillStyle = '#8f938a'
-  ctx.fillRect(0, hz, w, h - hz)
-  blobs(ctx, r, w, hz + 2, hz + 26, 16, 200, ['#5a7a4a', '#6a8a52'])
-  ctx.fillStyle = '#c9c2b2'
-  ctx.fillRect(0, hz + 40, w, 6)
-}
 
 const wallpaperDraw: Draw = (ctx, w, h) => {
   ctx.fillStyle = '#ece5d6'
@@ -867,7 +787,7 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
     const y0 = floorY + mm(700)
     const y1 = floorY + mm(2050)
     wallRun(s, A, [[w0, w1, y0, y1]])
-    put(parts, standard('glass', { color: 0xd8e6ee, roughness: 0.05, metalness: 0.2, transparent: true, opacity: 0.12, depthWrite: false }), panel(s, w0, w1, y0, y1, -1.0))
+    put(parts, standard('glass', { map: paint('glass', 512, 512, glassDraw), roughness: 0.05, metalness: 0.2, transparent: true, depthWrite: false }), panel(s, w0, w1, y0, y1, -1.0))
     put(parts, sash, beam(s, w0, w0 + 1.2, y0, y1, -1.6, 0.6))
     put(parts, sash, beam(s, w1 - 1.2, w1, y0, y1, -1.6, 0.6))
     put(parts, sash, beam(s, w0, w1, y1 - 1.2, y1, -1.6, 0.6))
@@ -1106,6 +1026,6 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
       [groups.up, (p) => p.y < ceil - 1],
       [lamp, clearOfBoard(new THREE.Vector3(0, lampY + 3, 0), shadeR + 1)],
     ],
-    skyDome('town', '#8f938a', townDraw),
+    skyDome('residential_garden.jpg'),
   )
 }
