@@ -79,6 +79,16 @@ export const STRATEGIES: Strategy[] = [
     about: { ja: '7筋の歩を早く伸ばし、角交換から▲5五角などで7筋を飛車と角で攻める三間飛車の速攻型。', en: 'A fast Third File Rook that pushes the 7-file pawn early and attacks the 7th file with rook and bishop, typically after a bishop trade and ▲5五角.' },
   },
   {
+    id: 'ishida',
+    side: 'furibisha',
+    family: 'sanken',
+    ja: '石田流',
+    en: 'Ishida',
+    level: 2,
+    castles: ['美濃囲い'],
+    about: { ja: '7筋(後手なら3筋)の歩を7五まで伸ばし、飛車を7六に浮いて構える三間飛車。飛車が横に動けるので、7筋と8筋の両方から攻められる。', en: 'A Third File Rook that pushes its 7-file pawn to 7五 (3五 as gote) and lifts the rook to 7六. The floating rook can swing sideways, so it attacks on both the 7th and 8th files.' },
+  },
+  {
     id: 'nakabisha',
     side: 'furibisha',
     family: 'naka',
@@ -314,12 +324,16 @@ export const MATCHUPS: Matchup[] = [
   m('gokigen', 'ibisha', ['nakabisha-vs-ibisha--gokigen24'], { ja: '▲2四歩の速攻には△3三角から積極的に咎め、2筋にと金を作って反撃する。', en: 'Punish the quick ▲2四歩 actively with △3三角, then counter-attack with a tokin on the 2nd file.' }, { title: { ja: '速攻▲2四歩', en: 'Quick ▲2四歩' } }),
   m('gokigen', 'sankenbisha', ['nakabisha-vs-sankenbisha--aifuri'], { ja: '相振り中飛車。5筋の位を取り、銀を4五へ出して3筋方面を狙いながら美濃に囲う。', en: 'Double Ranging Rook from Central Rook: take the 5th file, push the silver to 4五 aiming at the 3rd file, and castle into Mino.' }),
   m('mukaibisha', 'sankenbisha', [], { ja: '▲6七銀で6六の歩を守り、相手の横歩取りの筋を封じてから金無双に囲う。', en: 'Guard the 6六 pawn with ▲6七銀 to stop the side-pawn grab, then castle in Kin-musō.' }),
+  m('ishida', 'ibisha', ['shogirule--62', 'shogirule--62-2'], { ja: '▲7五歩・▲7八飛から玉を2八まで囲い、▲6六歩で角道を止めて▲7六飛と浮く。相手が6筋に銀と飛車を集めて角交換を挑んできたら、▲8八同飛と飛車で取り返して▲7七銀で受ける。', en: 'Play ▲7五歩 and ▲7八飛, castle the king to 2八, close the bishop line with ▲6六歩 and float the rook to 7六. If the opponent gathers silver and rook on the 6th file and forces a bishop trade, recapture with ▲8八同飛 and defend with ▲7七銀.' }, { sources: ['https://www.shogi-rule.com/joseki-62/', 'https://www.shogi-rule.com/joseki-62-2/'] }),
+  m('ishida', 'sankenbisha', ['shogirule--44'], { ja: '相手も石田流に組む相三間飛車。お互いに飛車を浮いたあと、相手玉に近い8筋(2筋)の歩を伸ばして飛車を回し、角も攻めに加える。', en: 'Both sides play Ishida. After both rooks float, push the pawn on the file nearest the enemy king (8th, or 2nd as gote), swing the rook there and bring the bishop into the attack.' }, { title: { ja: '相三間飛車', en: 'Double Third File Rook' }, sources: ['https://www.shogi-rule.com/joseki-44/'] }),
+  m('sankenbisha', 'sankenbisha', ['shogirule--44'], { ja: '相三間飛車。お互いに7五(3五)の歩を伸ばして浮き飛車にし、端歩を突き合ってから相手玉に近い筋へ飛車を回す。', en: 'Double Third File Rook: both push the 7五 (3五) pawn and float the rook, trade edge-pawn moves, then swing the rook to the file nearest the enemy king.' }, { title: { ja: '相三間飛車', en: 'Double Third File Rook' }, level: 2, sources: ['https://www.shogi-rule.com/joseki-44/'] }),
   m('kakukoukan-furi', 'ibisha', ['shikenbisha-vs-ibisha--kakukoukan'], { ja: '自分から角を交換し、角の打ち込みの隙を作らないように美濃に囲う。飛車は8筋へ振り直すこともある。', en: 'Trade bishops yourself and castle into Mino without leaving drop squares; the rook often re-swings to the 8th file.' }),
 
   m('ibisha', 'shikenbisha', [], { ja: '四間飛車の基本の組み方と、それに対する居飛車の駒組みを相手側から学ぶ。', en: 'See the standard Fourth File Rook build from the Static Rook side.' }, { level: 1 }),
   m('ibisha', 'sankenbisha', [], { ja: '三間飛車の基本形に対する居飛車の組み方。', en: 'The Static Rook build against the basic Third File Rook.' }, { level: 1 }),
   m('ibisha', 'hayaishida', ['ibisha-vs-hayaishida--42gyoku'], { ja: '▲7五歩を見たらすぐ△4二玉と上がり、王手飛車や角交換の筋を消してから駒組みに入る。', en: 'As soon as ▲7五歩 appears, play △4二玉 to remove the rook-fork and bishop-trade tricks, then build normally.' }),
   m('ibisha', 'gokigen', [], { ja: '▲2四歩の速攻を仕掛けた場合に、ゴキゲン中飛車側の△3三角からの反撃を学ぶ。', en: 'What happens when you try the quick ▲2四歩: Gokigen’s △3三角 counter.' }),
+  m('ibisha', 'ishida', [], { ja: '石田流に対して△6二銀→△6三銀と左銀を出し、7筋の攻めに備える。△6二飛と6筋に飛車を回して角交換を挑む指し方もある。', en: 'Against Ishida bring the left silver △6二銀 → △6三銀 to meet the 7th-file attack, or swing the rook to △6二飛 and force a bishop trade on the 6th file.' }, { level: 2 }),
   m('ibisha', 'kakukoukan-furi', [], { ja: '角交換振り飛車に対する居飛車側の指し方。', en: 'The Static Rook side against Bishop-exchange Ranging Rook.' }),
 
   m('bougin', 'shikenbisha', [], { ja: '銀を3七→2六→3五と繰り出し、飛車・銀・歩で2〜3筋を破る。久保流の△6五歩の反撃に注意。', en: 'Bring the silver 3七→2六→3五 and break the 2–3 files with rook, silver and pawn. Watch for the Kubo-style △6五歩 counter.' }, { level: 1 }),
@@ -459,9 +473,12 @@ export const COURSE_SIDES: Record<string, [string[], string[]]> = {
   'shogirule--47': [['hayashikake45'], [SH]],
   'shogirule--47-2': [['hayashikake45'], [SH]],
   'shogirule--48': [['bougin'], [SH]],
+  'shogirule--44': [['sankenbisha', 'ishida'], ['sankenbisha', 'ishida']],
   'shogirule--50': [['yokofudori'], ['yoko-45kaku']],
   'shogirule--52': [['yokofudori'], ['yoko-85hi']],
   'shogirule--53': [['yokofudori'], ['yoko-85hi']],
+  'shogirule--62': [['ishida', 'sankenbisha'], ['ibisha']],
+  'shogirule--62-2': [['ishida', 'sankenbisha'], ['ibisha', 'migishiken']],
 }
 
 export const LEGACY_AI_STRATEGY: Record<string, string> = {
