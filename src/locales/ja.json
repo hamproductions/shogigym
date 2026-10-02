@@ -246,8 +246,8 @@
     "var": "変化",
     "switchToThisLine": "この手順に切り替える",
     "deleteThisVariation": "この変化を削除",
-    "mistakesFound_other": "悪手が{{count}}つ見つかりました。",
-    "allSaved_other": "{{count}}つ全て復習に追加しました。復習で練習しましょう。"
+    "mistakesFound_other": "悪手が{{count}}個見つかりました。",
+    "allSaved_other": "{{count}}個すべて復習に追加しました。復習で練習しましょう。"
   },
   "options": {
     "beginner": "初心者",
@@ -390,7 +390,7 @@
     "skip": "スキップ",
     "nothingDueRightNow": "今は期限のカードはありません",
     "nothingInThisQueue": "このキューは空です",
-    "learnNewPositions_other": "新しい局面を{{count}}つ覚える",
+    "learnNewPositions_other": "新しい局面を{{count}}個覚える",
     "yourOwnMistakesLandHere": "自分の悪手がここに入ります。検討で棋譜を読み込み、棋譜タブで全ての手を評価してから悪手を保存しましょう。",
     "aPositionLandsHereAfter": "スケジュールの初期に3回以上間違えた局面がここに入ります。",
     "positionsYouQuizInOpenings": "定跡のクイズやここで覚えた局面は、4時間後、1日後、3日後、1週間後、さらにその後と間隔をあけて出題されます。間違えると最初からやり直しです。",

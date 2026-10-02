@@ -181,7 +181,7 @@ export function Workshop({ routeMode, routeMain }: { routeMode?: string; routeMa
           model={{ lesson, drill, tsume, tesuji, spar, analyze, mistakes, evaluation, coach, level: levels.level, reply: opponent.reply, spoilerFree, bookHere, bookLast, lanes: flow.lanes, lanesSfen: flow.lanesSfen, onHoverLane: flow.setHoverLane, onBack: goBack, setConfirm }}
           canAutoplay={!!upcoming && autoplayAllowed}
           onStartOver={startOver}
-          picking={picking}
+          picking={picking || (mode === 'drill' && !drill.item)}
         />
         {spar.newGameOpen && (
           <NewGameDialog

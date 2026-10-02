@@ -51,7 +51,7 @@ function ReviewCard({ drill, item, startSfen, onNext, onRetry, mistakePreview, m
       )}
       <div className="ws-actions">
         {drill.result && <Button onClick={onRetry}>{t('review.tryItAgain')}</Button>}
-        <Button variant="primary" onClick={onNext}>
+        <Button variant={drill.result ? 'primary' : 'secondary'} onClick={onNext}>
           {drill.result ? t('review.nextCard') : t('review.skip')}
         </Button>
       </div>
