@@ -113,6 +113,14 @@
   width: min(560px, 100%);
 }
 
+.ws-newgame .ws-setting {
+  align-items: start;
+}
+
+.ws-newgame .ws-setting > span:first-child {
+  padding-top: var(--space-1);
+}
+
 .ws-welcome {
   width: min(480px, 100%);
 }
@@ -399,6 +407,11 @@
 
   .ws-settings-body .ws-setting > :last-child {
     justify-self: start;
+  }
+
+  .ws-settings-body .ws-setting input[type='range'] {
+    width: 100%;
+    justify-self: stretch;
   }
 
   .ws-settings-body .ws-setting > .ws-seg,
