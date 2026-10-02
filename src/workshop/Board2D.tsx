@@ -238,6 +238,12 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
         <rect x={x0} y={y0} width={boardW} height={boardH} fill="transparent" onClick={onBoard} style={{ cursor: 'pointer' }} />
         {hand(Color.BLACK)}
         {hand(Color.WHITE)}
+        {checkSquare && (
+          <g pointerEvents="none" transform={`translate(${x0 + (col(checkSquare.file) + 0.5) * t.cw} ${y0 + row(checkSquare.rank) * t.ch})`}>
+            <circle r={t.cw * 0.3} fill="#c62a1a" stroke="#fbf6ec" strokeWidth={2} />
+            <text textAnchor="middle" dominantBaseline="central" fontSize={t.cw * 0.22} fontWeight={700} fill="#fff">王手</text>
+          </g>
+        )}
       </svg>
     </div>
   )

@@ -19,6 +19,7 @@ type ModeBarProps = {
   spar: Spar
   evalRate: number | null
   barShown: boolean
+  onStartOver: () => void
 }
 
 function EvalChip({ rate, barShown }: { rate: number; barShown: boolean }) {
@@ -36,11 +37,11 @@ function EvalChip({ rate, barShown }: { rate: number; barShown: boolean }) {
   )
 }
 
-export function ModeBar({ title, instruction, lessonMode, sheetUp, panelHidden, onPanel, spar, evalRate, barShown }: ModeBarProps) {
+export function ModeBar({ title, instruction, lessonMode, sheetUp, panelHidden, onPanel, spar, evalRate, barShown, onStartOver }: ModeBarProps) {
   const { t } = useTranslation()
   const settings = useSettings()
   const ja = settings.lang === 'ja'
-  const { mode, course, lastMove, prevSfen, plyBase, preview, cursor, toMove, nav, position, gameOver } = useSession()
+  const { mode, course, lastMove, prevSfen, plyBase, preview, cursor, toMove, nav, gameOver, game } = useSession()
   const seal = !ja ? <Icon name={MODES.find((m) => m.id === mode)!.icon} size={22} /> : mode === 'lesson' && course ? t(lessonMode === 'study' ? 'modes.sealStudy' : 'modes.sealQuiz') : t(`modes.${mode}.name`)
   return (
     <header className={`ws-modebar${sheetUp ? ' sheet-up' : ''} m-${mode}${mode === 'lesson' ? ` l-${lessonMode}` : ''}`}>
@@ -75,11 +76,6 @@ export function ModeBar({ title, instruction, lessonMode, sheetUp, panelHidden, 
       )}
       {panelHidden && (
         <div className="ws-mini-nav">
-          {mode === 'spar' && !spar.resigned && !gameOver && (
-            <Button size="sm" onClick={spar.takeBack} disabled={spar.lastUserMove < 0} title={t('workshop.takeBackYourLastMove2')} aria-label={t('workshop.takeBack')}>
-              {t('workshop.takeBack')}
-            </Button>
-          )}
           <Button size="sm" onClick={nav.back} disabled={!nav.canBack} title={t('workshop.back')} aria-label={t('workshop.back2')}>
             <Icon name="prev" size={16} />
           </Button>
@@ -92,13 +88,27 @@ export function ModeBar({ title, instruction, lessonMode, sheetUp, panelHidden, 
           </Button>
         </div>
       )}
+      {mode === 'spar' && game.moves.length > 0 && !gameOver && !spar.resigned && (
+        <>
+          <Button size="sm" variant={spar.erred ? 'primary' : 'secondary'} onClick={spar.takeBack} disabled={spar.lastUserMove < 0} title={t('workshop.takeBackYourLastMove3')}>
+            {t('workshop.takeBack')}
+          </Button>
+          <Button size="sm" variant="ghost" onClick={spar.confirmResign}>
+            {t('workshop.resign')}
+          </Button>
+        </>
+      )}
+      {mode !== 'spar' && game.moves.length > 0 && (
+        <Button size="sm" variant="ghost" onClick={onStartOver} title={t('workshop.startOver')} aria-label={t('workshop.startOver')}>
+          <Icon name="reset" size={16} />
+        </Button>
+      )}
       {mode === 'spar' && (
         <Button variant={spar.erred ? 'secondary' : 'primary'} className="ws-game-setup" onClick={() => spar.setNewGameOpen(true)} title={`${STRENGTH[settings.opponent].label} · ${TIME_CONTROLS[settings.timeControl].label}`}>
           {t('newGame.button')}
         </Button>
       )}
       {evalRate !== null && <EvalChip rate={evalRate} barShown={barShown} />}
-      {position.checked && !gameOver && <span className="ws-check">{t('workshop.check')}</span>}
     </header>
   )
 }

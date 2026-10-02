@@ -578,7 +578,9 @@
 
   .ws-modebar.sheet-up,
   .ws-modebar-text span,
-  .ws-modebar .ws-turn {
+  .ws-modebar .ws-turn,
+  .ws-modebar > .ws-lastmove,
+  .ws-modebar > .ws-mini-nav {
     display: none;
   }
 

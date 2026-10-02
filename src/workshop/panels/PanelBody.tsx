@@ -15,7 +15,6 @@ import { ReviewPane } from '../modes/drill/ReviewPane'
 import type { Drill } from '../modes/drill/useDrill'
 import { LessonPane } from '../modes/lesson/LessonPane'
 import type { Lesson } from '../modes/lesson/useLesson'
-import { SparActions } from '../modes/spar/SparActions'
 import type { Spar } from '../modes/spar/useSpar'
 import { TesujiPane } from '../modes/tesuji/TesujiPane'
 import type { TesujiTrainer } from '../modes/tesuji/useTesuji'
@@ -71,8 +70,8 @@ function EngineSection({ model }: { model: PanelModel }) {
 
 function CoachSection({ model }: { model: PanelModel }) {
   const { t } = useTranslation()
-  const { mode, game, cursor, sfens, sfen, course, assist, ai, gameOver, userTurn, play, preview } = useSession()
-  const { tesuji, tsume, drill, analyze, spar, mistakes, coach, bookHere, bookLast, onBack, analyzeMoves } = model
+  const { mode, game, cursor, sfens, sfen, course, assist, ai, userTurn, play, preview } = useSession()
+  const { tesuji, tsume, drill, analyze, mistakes, coach, bookHere, bookLast, onBack, analyzeMoves } = model
   const { reviewAt } = coach
   return (
     <>
@@ -81,7 +80,6 @@ function CoachSection({ model }: { model: PanelModel }) {
       {mode === 'drill' && <ReviewPane trainer={drill} startSfen={drill.item ? sfens[drill.drill?.base ?? 0] : null} mistakePreview={mistakes.previewing} mistakeOk={!!mistakes.mistake && !mistakeIsBad(mistakes.mistake)} onOpenGame={(g) => analyze.reviewSlot(g, analyzeMoves)} />}
       {mode === 'analyze' && <ImportBox onImport={analyze.importGame} />}
       {mode === 'analyze' && analyze.gameNotes && <KifuNotes notes={analyze.gameNotes} moves={game.moves} cursor={cursor} />}
-      {mode === 'spar' && game.moves.length > 0 && !gameOver && <SparActions spar={spar} erred={spar.erred} />}
       {isGameMode(mode) && !assist && <p className="ws-muted">{t('workshop.helpIsOffNoRatings')}</p>}
       {isGameMode(mode) && assist && <CoachPane review={coach.review} lastMove={reviewAt > 0 ? game.moves[reviewAt - 1] : undefined} prevSfen={reviewAt > 0 ? sfens[reviewAt - 1] : null} you={mode === 'spar'} bookLast={reviewAt === cursor ? bookLast : bookAtPly(sfens, game.moves, reviewAt)} bookHere={bookHere} sfen={sfen} course={course} onPlay={play} canPlay={userTurn} ai={ai} showBook={mode === 'analyze'} />}
     </>

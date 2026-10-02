@@ -163,6 +163,12 @@ export function drawMarks(s: SceneState, props: Board3DProps) {
     }
   }
   for (const castle of props.castles ?? []) s.marks.add(castleBox(castle))
+  if (props.checkSquare) {
+    const check = badgeSprite('王手', '#c62a1a')
+    check.scale.setScalar(0.62)
+    check.position.set(squareX(props.checkSquare.file), 0.75, squareZ(props.checkSquare.rank) - 0.5 * flip)
+    s.marks.add(check)
+  }
   const stamp = props.stamp && Square.newByUSI(props.stamp.square)
   if (props.stamp && stamp) {
     const badge = badgeSprite(props.stamp.text, props.stamp.color)

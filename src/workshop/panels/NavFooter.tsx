@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { useSession } from '../hooks/session'
 import { Icon } from '../icons'
 
-export function NavFooter({ canAutoplay, onStartOver }: { canAutoplay: boolean; onStartOver: () => void }) {
+export function NavFooter({ canAutoplay }: { canAutoplay: boolean }) {
   const { t } = useTranslation()
   const { game, preview, playing, setPlaying, nav } = useSession()
   return (
@@ -21,9 +21,6 @@ export function NavFooter({ canAutoplay, onStartOver }: { canAutoplay: boolean; 
       </button>
       <button onClick={nav.last} disabled={!nav.canForward} title={t('workshop.latestEnd')}>
         <Icon name="last" />
-      </button>
-      <button onClick={onStartOver} title={t('workshop.startOver')}>
-        <Icon name="reset" />
       </button>
     </footer>
   )

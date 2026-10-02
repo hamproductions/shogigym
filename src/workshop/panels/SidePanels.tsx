@@ -8,7 +8,7 @@ import { Tabs } from '../ui/Tabs'
 import { NavFooter } from './NavFooter'
 import { PanelBody, type PanelModel } from './PanelBody'
 
-type SidePanelsProps = { layout: Layout; tab: Tab; setTab: (tab: Tab) => void; sheetOpen: boolean; model: PanelModel; canAutoplay: boolean; onStartOver: () => void; picking: boolean }
+type SidePanelsProps = { layout: Layout; tab: Tab; setTab: (tab: Tab) => void; sheetOpen: boolean; model: PanelModel; canAutoplay: boolean; picking: boolean }
 
 function trackPointer(move: (ev: PointerEvent) => void, done?: (ev: PointerEvent) => void) {
   const up = (ev: PointerEvent) => {
@@ -20,7 +20,7 @@ function trackPointer(move: (ev: PointerEvent) => void, done?: (ev: PointerEvent
   window.addEventListener('pointerup', up)
 }
 
-export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay, onStartOver, picking }: SidePanelsProps) {
+export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay, picking }: SidePanelsProps) {
   const { t } = useTranslation()
   const ja = useSettings().lang === 'ja'
   const { compact, zoned, zones, twoPanels, panelPrefsHidden, panelWidth, setPanel } = layout
@@ -62,7 +62,7 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
           </Button>
         </Tabs>
         <PanelBody tab={tab} model={model} />
-        {!picking && <NavFooter canAutoplay={canAutoplay} onStartOver={onStartOver} />}
+        {!picking && <NavFooter canAutoplay={canAutoplay} />}
       </aside>
     </>
   )

@@ -183,7 +183,7 @@ export function Workshop({ routeMode, routeMain }: { routeMode?: string; routeMa
             <Icon name="exitFullscreen" size={18} />
             <span>{t('workshop.showUi')} (Esc)</span>
           </button>
-          <ModeBar title={title} instruction={instruction} lessonMode={lesson.lessonMode} sheetUp={layout.compact && layout.drawer} panelHidden={layout.panelHidden} onPanel={(hidden) => layout.setPanel({ hidden })} spar={spar} evalRate={evalRate} barShown={evalBar} />
+          <ModeBar title={title} instruction={instruction} lessonMode={lesson.lessonMode} sheetUp={layout.compact && layout.drawer} panelHidden={layout.panelHidden} onPanel={(hidden) => layout.setPanel({ hidden })} spar={spar} evalRate={evalRate} barShown={evalBar} onStartOver={startOver} />
           <BoardStage evalRate={evalBar ? evalRate : null} view={view} decor={decor} input={input} commit={commit} mistake={mistake} onBack={goBack} spar={spar} tsume={tsume.tsume} hasDrillCard={!!drill.item} phoneTask={phoneTask} announce={announce} onZones={layout.setZones} />
         </section>
         <SidePanels
@@ -193,7 +193,6 @@ export function Workshop({ routeMode, routeMain }: { routeMode?: string; routeMa
           sheetOpen={layout.sheetOpen ?? (picking || (mode === 'drill' && !drill.item))}
           model={{ analyzeMoves: slots.stashed('analyze')?.game.moves.length ?? 0, lesson, drill, tsume, tesuji, spar, analyze, mistakes, evaluation, coach, level: levels.level, reply: opponent.reply, spoilerFree, bookHere, bookLast, lanes: flow.lanes, lanesSfen: flow.lanesSfen, onHoverLane: flow.setHoverLane, onBack: goBack, setConfirm }}
           canAutoplay={!!upcoming && autoplayAllowed}
-          onStartOver={startOver}
           picking={picking || (mode === 'drill' && !drill.item)}
         />
         {spar.newGameOpen && (
