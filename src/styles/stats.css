@@ -60,8 +60,10 @@
 
 .ws-stats-move {
   display: flex;
-  align-items: baseline;
-  gap: var(--space-1);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-half);
+  min-width: 0;
   font-family: var(--font-mincho);
   font-size: var(--text-md);
   font-weight: var(--weight-heavy);
@@ -77,6 +79,7 @@
   font-size: var(--text-2xs);
   font-style: normal;
   font-weight: var(--weight-bold);
+  line-height: var(--leading-snug);
 }
 
 .ws-stats-freq,
@@ -110,9 +113,27 @@
 }
 
 .ws-stats-num {
-  font-size: var(--text-2xs);
+  font-size: var(--text-xs);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+}
+
+.ws-stats-num b {
+  font-weight: var(--weight-bold);
+}
+
+.ws-stats-num b.w {
+  color: var(--text-muted);
+}
+
+.ws-stats-win.thin {
+  opacity: 0.5;
+}
+
+.ws-stats-key {
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-2xs);
+  line-height: var(--leading-snug);
 }
 
 .ws-stats-num small {

@@ -63,17 +63,18 @@
     "best2": "≈ best",
     "thenChoices": " then {{forks}} choices",
     "statsTitle": "Played in engine games",
-    "statsSource": "{{games}} games · {{source}}",
+    "statsSource": "{{games}} games reached this position · {{source}}",
     "statsMove": "Move",
     "statsPlayed": "How often",
     "statsResult": "Who won (☗ / ☖)",
-    "statsGames": "{{count}} games",
+    "statsGames": "{{n}} games",
     "statsRowTitle": "{{move}}: {{games}} games. ☗ won {{sente}}%, ☖ won {{gote}}%, draws {{draw}}%. Click to show it on the board.",
-    "statsBookMark": "engine pick",
+    "statsBookMark": "YaneuraOu",
     "statsBook": "YaneuraOu book move: {{move}} ({{eval}})",
     "statsBookRare": "rarely played in these games",
     "statsEval": "{{side}} +{{cp}}",
-    "statsNone": "No engine-game statistics for this position. They cover common positions in the first {{ply}} moves only."
+    "statsNone": "No engine-game statistics for this position. They cover common positions in the first {{ply}} moves only.",
+    "statsKey": "Bars: ☗ wins on the left, ☖ wins on the right, draws in the gap. They are results of the games that played the move, not a rating of the move; faded rows have fewer than {{min}} games."
   },
   "games": {
     "savedUpdatedThisSlot": "Saved (updated this slot).",

@@ -34,6 +34,8 @@ function useOpeningStats(sfen: string) {
   return { loading: state?.sfen !== sfen, stats: state?.sfen === sfen ? state.stats : null, meta }
 }
 
+const THIN_SAMPLE = 200
+
 const pct = (n: number, total: number) => (total ? Math.round((n / total) * 100) : 0)
 
 function sourceLabel(meta: StatsMeta | null) {
@@ -52,7 +54,6 @@ function OpeningStats({ sfen, onPreview, onHover }: { sfen: string; onPreview: (
   const book = stats.book
   const bookText = book ? moveText(sfen, book.usi) : ''
   const bookEval = book ? t('flow.statsEval', { side: (book.eval >= 0) !== gote ? '☗' : '☖', cp: Math.abs(book.eval) }) : ''
-  const top = stats.moves[0]?.games ?? 1
   return (
     <section className="ws-stats" aria-label={t('flow.statsTitle')}>
       <header className="ws-stats-head">
@@ -72,26 +73,26 @@ function OpeningStats({ sfen, onPreview, onHover }: { sfen: string; onPreview: (
           const isBook = book?.usi === m.usi
           return (
             <li key={m.usi}>
-              <button className="ws-stats-row" onClick={() => onPreview([m.usi], text)} onMouseEnter={() => onHover(m.usi)} onMouseLeave={() => onHover(null)} onFocus={() => onHover(m.usi)} onBlur={() => onHover(null)} title={t('flow.statsRowTitle', { move: text, games: m.games, sente: s, gote: g, draw: Math.max(0, 100 - s - g) })}>
+              <button className="ws-stats-row" onClick={() => onPreview([m.usi], text)} onMouseEnter={() => onHover(m.usi)} onMouseLeave={() => onHover(null)} onFocus={() => onHover(m.usi)} onBlur={() => onHover(null)} title={t('flow.statsRowTitle', { move: text, games: m.games.toLocaleString(), sente: s, gote: g, draw: Math.max(0, 100 - s - g) })}>
                 <span className="ws-stats-move">
                   {text}
                   {isBook && <em className="ws-stats-book">{t('flow.statsBookMark')}</em>}
                 </span>
                 <span className="ws-stats-freq">
                   <span className="ws-stats-bar">
-                    <i style={{ width: `${(m.games / top) * 100}%` }} />
+                    <i style={{ width: `${(m.games / stats.games) * 100}%` }} />
                   </span>
                   <span className="ws-stats-num">
-                    {pct(m.games, stats.games)}% <small>{t('flow.statsGames', { count: m.games })}</small>
+                    {pct(m.games, stats.games)}% <small>{t('flow.statsGames', { count: m.games, n: m.games.toLocaleString() })}</small>
                   </span>
                 </span>
-                <span className="ws-stats-win">
+                <span className={`ws-stats-win${m.games < THIN_SAMPLE ? ' thin' : ''}`}>
                   <span className="ws-stats-split">
                     <i className="b" style={{ width: `${s}%` }} />
                     <i className="w" style={{ width: `${g}%` }} />
                   </span>
                   <span className="ws-stats-num">
-                    ☗{s}% ☖{g}%
+                    <b className="b">☗{s}%</b> <b className="w">☖{g}%</b>
                   </span>
                 </span>
               </button>
@@ -99,6 +100,7 @@ function OpeningStats({ sfen, onPreview, onHover }: { sfen: string; onPreview: (
           )
         })}
       </ul>
+      <p className="ws-stats-key ws-muted">{t('flow.statsKey', { min: THIN_SAMPLE })}</p>
       {book && (
         <p className="ws-stats-engine">
           {t('flow.statsBook', { move: bookText, eval: bookEval })}
