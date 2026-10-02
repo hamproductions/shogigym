@@ -1166,79 +1166,105 @@ function handLayout(position: ImmutablePosition, color: Color): HandSpot[] {
     const types = [...BIG, PieceType.PAWN].filter((t) => hand.count(t) > 0)
     return types.map((type, i) => ({ type, x: c.x + sign * (STRIP_W / 2 - 0.6 - i * 1.02), z: c.z, rot: 0, scale: strip().k, count: hand.count(type) }))
   }
-  const types = [PieceType.ROOK, PieceType.BISHOP, PieceType.GOLD, PieceType.SILVER, PieceType.KNIGHT, PieceType.LANCE, PieceType.PAWN].filter((t) => hand.count(t) > 0)
+  const pieces = [PieceType.ROOK, PieceType.BISHOP, PieceType.GOLD, PieceType.SILVER, PieceType.KNIGHT, PieceType.LANCE, PieceType.PAWN].flatMap((t) => Array(hand.count(t)).fill(t) as PieceType[])
   const w = (t: PieceType) => komaWidth(PIECE_SIZE[t] ?? 0.8) * 0.96
   const h = (t: PieceType) => (PIECE_SIZE[t] ?? 0.8) * 0.96
-  const gap = 0.05
-  const pivot = 1.6
-  let stagger = 0.34
-  const fan = (type: PieceType) => {
-    const n = hand.count(type)
-    const step = (stagger * w(type)) / pivot
-    const placed = Array.from({ length: n }, (_, j) => {
-      const phi = (j - (n - 1) / 2) * step
-      return { type, x: pivot * Math.sin(phi), z: pivot * (1 - Math.cos(phi)), rot: -phi, lift: j * 0.012 }
+  const inner = STAND - 0.16
+  type Placed = { type: PieceType; x: number; z: number; rot: number; lift: number }
+  const corners = (p: Placed) =>
+    [
+      [-1, -1],
+      [1, -1],
+      [-1, 1],
+      [1, 1],
+    ].map(([a, b]) => {
+      const lx = (a * w(p.type)) / 2
+      const lz = (b * h(p.type)) / 2
+      return [p.x + lx * Math.cos(p.rot) + lz * Math.sin(p.rot), p.z - lx * Math.sin(p.rot) + lz * Math.cos(p.rot)]
     })
-    const corners = placed.flatMap((p) =>
-      [
-        [-1, -1],
-        [1, -1],
-        [-1, 1],
-        [1, 1],
-      ].map(([a, b]) => {
-        const lx = (a * w(type)) / 2
-        const lz = (b * h(type)) / 2
-        return [p.x + lx * Math.cos(p.rot) + lz * Math.sin(p.rot), p.z - lx * Math.sin(p.rot) + lz * Math.cos(p.rot)]
-      }),
-    )
-    const xs = corners.map((c) => c[0])
-    const zs = corners.map((c) => c[1])
-    return { placed, left: Math.min(...xs), width: Math.max(...xs) - Math.min(...xs), top: Math.min(...zs), height: Math.max(...zs) - Math.min(...zs) }
+  const bounds = (placed: Placed[]) => {
+    const all = placed.flatMap(corners)
+    const xs = all.map((c) => c[0])
+    const zs = all.map((c) => c[1])
+    return { minX: Math.min(...xs), maxX: Math.max(...xs), minZ: Math.min(...zs), maxZ: Math.max(...zs) }
   }
-  type Group = ReturnType<typeof fan>
-  const pack = (inner: number) => {
-    const rows: Group[][] = []
-    let row: Group[] = []
-    let width = 0
-    for (const t of types) {
-      const g = fan(t)
-      if (row.length && width + gap + g.width > inner) {
-        rows.push(row)
-        row = []
-        width = 0
+  const ring = (row: PieceType[], r: number, gap: number, squeeze: number, liftBase: number): Placed[] => {
+    const pitch = (a: PieceType, b: PieceType) => (w(a) + w(b)) / 2 + gap - (a === b ? squeeze * w(b) : 0)
+    const steps = row.slice(1).map((t, i) => pitch(row[i], t) / (r + Math.max(h(row[i]), h(t)) / 2))
+    let phi = -steps.reduce((a, b) => a + b, 0) / 2
+    return row.map((type, i) => {
+      if (i > 0) phi += steps[i - 1]
+      return { type, x: r * Math.sin(phi), z: r * Math.cos(phi), rot: phi, lift: liftBase + i * 0.012 }
+    })
+  }
+  const attempt = (pivot: number, gap: number, squeeze: number) => {
+    const placed: Placed[] = []
+    let rest = [...pieces]
+    let r = pivot
+    let ringIndex = 0
+    while (rest.length) {
+      let row: PieceType[] = []
+      const rowH = Math.max(...rest.slice(0, 1).map(h))
+      for (const t of rest) {
+        const next = ring([...row, t], r + rowH / 2, gap, squeeze, ringIndex * 0.03)
+        const b = bounds(next)
+        if (row.length && b.maxX - b.minX > inner) break
+        row = [...row, t]
       }
-      width += (row.length ? gap : 0) + g.width
-      row.push(g)
+      const ringH = Math.max(...row.map(h))
+      placed.push(...ring(row, r + ringH / 2, gap, squeeze, ringIndex * 0.03))
+      rest = rest.slice(row.length)
+      r += ringH + gap
+      ringIndex++
+      if (ringIndex > 6) break
     }
-    if (row.length) rows.push(row)
-    return rows
+    const b = bounds(placed)
+    return { placed, b, fits: !rest.length && b.maxX - b.minX <= inner && b.maxZ - b.minZ <= inner }
   }
-  const rowW = (row: Group[]) => row.reduce((sum, g) => sum + g.width, 0) + gap * (row.length - 1)
-  const rowH = (row: Group[]) => Math.max(...row.map((g) => g.height))
-  const height = (rows: Group[][]) => rows.reduce((sum, r) => sum + rowH(r), 0) + gap * (rows.length - 1)
-  let size = STAND
-  let rows = pack(size - 0.2)
-  for (let attempt = 0; attempt < 80 && (height(rows) > size - 0.2 || rows.some((r) => rowW(r) > size - 0.2)); attempt++) {
-    if (stagger > 0.22) stagger -= 0.02
-    else size += 0.05
-    rows = pack(size - 0.2)
+  const fanStep = 2 * Math.atan(SIDE_COT) + 0.008
+  const fanRow = (row: PieceType[], liftBase: number): Placed[] =>
+    row.map((type, i) => {
+      const phi = (i - (row.length - 1) / 2) * fanStep
+      const r = w(type) / 2 / SIDE_COT - h(type) / 2
+      return { type, x: r * Math.sin(phi), z: r * Math.cos(phi), rot: phi, lift: liftBase }
+    })
+  const fanAttempt = () => {
+    const rows: Placed[][] = []
+    let rest = [...pieces]
+    while (rest.length) {
+      let row: PieceType[] = []
+      for (const t of rest) {
+        const b = bounds(fanRow([...row, t], 0))
+        if (row.length && b.maxX - b.minX > inner) break
+        row = [...row, t]
+      }
+      rows.push(fanRow(row, rows.length * 0.03))
+      rest = rest.slice(row.length)
+    }
+    const placed: Placed[] = []
+    let v = 0
+    for (const row of rows) {
+      const b = bounds(row)
+      const ox = -(b.minX + b.maxX) / 2
+      placed.push(...row.map((p) => ({ ...p, x: p.x + ox, z: p.z - b.minZ + v })))
+      v += b.maxZ - b.minZ + 0.04
+    }
+    const b = bounds(placed)
+    return { placed, b, fits: b.maxX - b.minX <= inner && b.maxZ - b.minZ <= inner }
   }
-  standSize.set(color, size)
+  const straight = 1e4
+  const tries = [
+    ...[0.04, 0.02, 0].map((gap) => [straight, gap, 0]),
+    ...[0.1, 0.2, 0.3, 0.4, 0.5, 0.6].map((squeeze) => [straight, 0.02, squeeze]),
+  ]
+  const fanned = fanAttempt()
+  const best = fanned.fits ? fanned : (tries.map(([pivot, gap, squeeze]) => attempt(pivot, gap, squeeze)).find((a) => a.fits) ?? attempt(straight, 0, 0.6))
+  standSize.set(color, STAND)
   const c = standCenter(color)
   const sign = color === Color.BLACK ? 1 : -1
-  const spots: HandSpot[] = []
-  let v = -height(rows) / 2
-  for (const row of rows) {
-    const rh = rowH(row)
-    let u = -rowW(row) / 2
-    for (const g of row) {
-      const dz = v + (rh - g.height) / 2 - g.top
-      for (const p of g.placed) spots.push({ type: p.type, x: c.x + sign * (u - g.left + p.x), z: c.z + sign * (dz + p.z), rot: p.rot, scale: 1, lift: p.lift })
-      u += g.width + gap
-    }
-    v += rh + gap
-  }
-  return spots
+  const ox = -(best.b.minX + best.b.maxX) / 2
+  const oz = -(best.b.minZ + best.b.maxZ) / 2
+  return best.placed.map((p) => ({ type: p.type, x: c.x + sign * (p.x + ox), z: c.z + sign * (p.z + oz), rot: p.rot, scale: 1, lift: p.lift }))
 }
 
 function handSpot(position: ImmutablePosition, color: Color, type: PieceType) {
