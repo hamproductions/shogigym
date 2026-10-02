@@ -3,7 +3,8 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { Color, PieceType } from 'tsshogi'
 import { pieceMesh, preparePieceEnvironment } from './Board3D'
-import { PIECE_FINISHES, setSettings, useSettings, type PieceFinish } from './settings'
+import { PIECE_FINISHES, loadPieceFont, setSettings, useSettings, type PieceFinish } from './settings'
+import { loadPieceSet } from './pieceSets'
 
 const TYPES: { type: PieceType; label: string }[] = [
   { type: PieceType.KING, label: '王' },
@@ -18,11 +19,21 @@ const TYPES: { type: PieceType; label: string }[] = [
   { type: PieceType.PROM_PAWN, label: 'と' },
 ]
 
-export function PieceViewer({ onClose }: { onClose: () => void }) {
+export function PieceViewer({ onClose, page }: { onClose: () => void; page?: boolean }) {
   const host = useRef<HTMLDivElement>(null)
   const [type, setType] = useState(PieceType.ROOK)
   const [light, setLight] = useState(0.35)
   const st = useSettings()
+  const [ready, setReady] = useState('')
+  useEffect(() => {
+    let live = true
+    Promise.all([loadPieceFont(st.pieceFont), loadPieceSet(st.pieceSet)])
+      .catch(() => undefined)
+      .then(() => live && setReady(`${st.pieceFont}|${st.pieceSet}`))
+    return () => {
+      live = false
+    }
+  }, [st.pieceFont, st.pieceSet])
   const scene = useRef<{ setPiece: (t: PieceType) => void; setLight: (a: number) => void } | null>(null)
 
   useEffect(() => {
@@ -88,14 +99,14 @@ export function PieceViewer({ onClose }: { onClose: () => void }) {
 
   useEffect(() => {
     scene.current?.setPiece(type)
-  }, [type, st.pieceFinish])
+  }, [type, st.pieceFinish, ready])
   useEffect(() => {
     scene.current?.setLight(light)
   }, [light])
 
   return (
-    <div className="ws-palette-back" onPointerDown={onClose}>
-      <div className="ws-dialog ws-viewer" role="dialog" aria-label="Piece viewer" onPointerDown={(e) => e.stopPropagation()}>
+    <div className={page ? 'ws-viewer-page' : 'ws-palette-back'} onPointerDown={page ? undefined : onClose}>
+      <div className={`ws-dialog ws-viewer${page ? ' page' : ''}`} role="dialog" aria-label="Piece viewer" onPointerDown={(e) => e.stopPropagation()}>
         <div className="ws-viewer-head">
           <h2>駒 Piece viewer</h2>
           <button onClick={onClose} aria-label="Close">

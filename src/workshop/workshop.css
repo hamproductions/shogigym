@@ -3652,3 +3652,20 @@
 .ws .ws-viewer-open {
   margin: 0 0 8px;
 }
+
+.ws-viewer-page {
+  grid-column: 1 / -1;
+  display: grid;
+  place-items: center;
+  min-height: 100%;
+  padding: 16px;
+  overflow: auto;
+}
+
+.ws .ws-viewer.page {
+  width: min(900px, 100%);
+}
+
+.ws .ws-viewer.page .ws-viewer-stage {
+  height: min(70vh, 640px);
+}

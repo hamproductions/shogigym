@@ -1,5 +1,6 @@
-import { Component, type ReactNode } from 'react'
+import { Component, useEffect, useState, type ReactNode } from 'react'
 import { Workshop } from './workshop/Workshop'
+import { PieceViewer } from './workshop/PieceViewer'
 
 class Recover extends Component<{ children: ReactNode }, { error: Error | null }> {
   state = { error: null as Error | null }
@@ -31,9 +32,21 @@ class Recover extends Component<{ children: ReactNode }, { error: Error | null }
 }
 
 export default function App() {
+  const [hash, setHash] = useState(location.hash)
+  useEffect(() => {
+    const on = () => setHash(location.hash)
+    window.addEventListener('hashchange', on)
+    return () => window.removeEventListener('hashchange', on)
+  }, [])
   return (
     <Recover>
-      <Workshop />
+      {hash === '#viewer' ? (
+        <div className="ws">
+          <PieceViewer page onClose={() => (location.hash = '')} />
+        </div>
+      ) : (
+        <Workshop />
+      )}
     </Recover>
   )
 }
