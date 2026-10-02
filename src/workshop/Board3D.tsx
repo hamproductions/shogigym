@@ -1166,17 +1166,18 @@ function handLayout(position: ImmutablePosition, color: Color): HandSpot[] {
     const types = [...BIG, PieceType.PAWN].filter((t) => hand.count(t) > 0)
     return types.map((type, i) => ({ type, x: c.x + sign * (STRIP_W / 2 - 0.6 - i * 1.02), z: c.z, rot: 0, scale: strip().k, count: hand.count(type) }))
   }
-  const pieces = [PieceType.ROOK, PieceType.BISHOP, PieceType.GOLD, PieceType.SILVER, PieceType.KNIGHT, PieceType.LANCE, PieceType.PAWN].flatMap((t) => Array(hand.count(t)).fill(t) as PieceType[])
+  const types = [PieceType.ROOK, PieceType.BISHOP, PieceType.GOLD, PieceType.SILVER, PieceType.KNIGHT, PieceType.LANCE, PieceType.PAWN].filter((t) => hand.count(t) > 0)
   const w = (t: PieceType) => komaWidth(PIECE_SIZE[t] ?? 0.8) * 0.96
   const h = (t: PieceType) => (PIECE_SIZE[t] ?? 0.8) * 0.96
-  const gap = 0.03
-  const radius = 3.6
-  const arc = (row: PieceType[]) => {
-    const steps = row.slice(1).map((t, i) => ((w(row[i]) + w(t)) / 2 + gap) / (radius + Math.max(h(row[i]), h(t)) / 2))
-    let theta = -steps.reduce((a, b) => a + b, 0) / 2
-    const placed = row.map((type, i) => {
-      if (i > 0) theta += steps[i - 1]
-      return { type, x: radius * Math.sin(theta), z: radius * (1 - Math.cos(theta)) - h(type) / 2, rot: -theta }
+  const gap = 0.05
+  const pivot = 1.6
+  let stagger = 0.34
+  const fan = (type: PieceType) => {
+    const n = hand.count(type)
+    const step = (stagger * w(type)) / pivot
+    const placed = Array.from({ length: n }, (_, j) => {
+      const phi = (j - (n - 1) / 2) * step
+      return { type, x: pivot * Math.sin(phi), z: pivot * (1 - Math.cos(phi)), rot: -phi, lift: j * 0.012 }
     })
     const corners = placed.flatMap((p) =>
       [
@@ -1185,43 +1186,57 @@ function handLayout(position: ImmutablePosition, color: Color): HandSpot[] {
         [-1, 1],
         [1, 1],
       ].map(([a, b]) => {
-        const lx = (a * w(p.type)) / 2
-        const lz = (b * h(p.type)) / 2
+        const lx = (a * w(type)) / 2
+        const lz = (b * h(type)) / 2
         return [p.x + lx * Math.cos(p.rot) + lz * Math.sin(p.rot), p.z - lx * Math.sin(p.rot) + lz * Math.cos(p.rot)]
       }),
     )
     const xs = corners.map((c) => c[0])
     const zs = corners.map((c) => c[1])
-    return { placed, width: Math.max(...xs) - Math.min(...xs), top: Math.min(...zs), bottom: Math.max(...zs) }
+    return { placed, left: Math.min(...xs), width: Math.max(...xs) - Math.min(...xs), top: Math.min(...zs), height: Math.max(...zs) - Math.min(...zs) }
   }
+  type Group = ReturnType<typeof fan>
   const pack = (inner: number) => {
-    const rows: PieceType[][] = []
-    let row: PieceType[] = []
-    for (const t of pieces) {
-      if (row.length && arc([...row, t]).width > inner) {
+    const rows: Group[][] = []
+    let row: Group[] = []
+    let width = 0
+    for (const t of types) {
+      const g = fan(t)
+      if (row.length && width + gap + g.width > inner) {
         rows.push(row)
         row = []
+        width = 0
       }
-      row.push(t)
+      width += (row.length ? gap : 0) + g.width
+      row.push(g)
     }
     if (row.length) rows.push(row)
-    return rows.map(arc)
+    return rows
   }
-  const height = (rows: ReturnType<typeof arc>[]) => rows.reduce((sum, r) => sum + r.bottom - r.top, 0) + gap * (rows.length - 1)
+  const rowW = (row: Group[]) => row.reduce((sum, g) => sum + g.width, 0) + gap * (row.length - 1)
+  const rowH = (row: Group[]) => Math.max(...row.map((g) => g.height))
+  const height = (rows: Group[][]) => rows.reduce((sum, r) => sum + rowH(r), 0) + gap * (rows.length - 1)
   let size = STAND
-  let rows = pack(size - 0.24)
-  while (height(rows) > size - 0.24) {
-    size += 0.05
-    rows = pack(size - 0.24)
+  let rows = pack(size - 0.2)
+  for (let attempt = 0; attempt < 80 && (height(rows) > size - 0.2 || rows.some((r) => rowW(r) > size - 0.2)); attempt++) {
+    if (stagger > 0.22) stagger -= 0.02
+    else size += 0.05
+    rows = pack(size - 0.2)
   }
   standSize.set(color, size)
   const c = standCenter(color)
   const sign = color === Color.BLACK ? 1 : -1
   const spots: HandSpot[] = []
   let v = -height(rows) / 2
-  for (const r of rows) {
-    for (const p of r.placed) spots.push({ type: p.type, x: c.x + sign * p.x, z: c.z + sign * (v - r.top + p.z), rot: p.rot, scale: 1 })
-    v += r.bottom - r.top + gap
+  for (const row of rows) {
+    const rh = rowH(row)
+    let u = -rowW(row) / 2
+    for (const g of row) {
+      const dz = v + (rh - g.height) / 2 - g.top
+      for (const p of g.placed) spots.push({ type: p.type, x: c.x + sign * (u - g.left + p.x), z: c.z + sign * (dz + p.z), rot: p.rot, scale: 1, lift: p.lift })
+      u += g.width + gap
+    }
+    v += rh + gap
   }
   return spots
 }
