@@ -86,7 +86,7 @@ export function Board3D(props: Board3DProps) {
       s.avatars?.update(dt * (power.current?.timeScale() ?? 1), s.flip?.way ?? 0, !!s.controls)
       const shake = flipCameraOffset(s, time)
       if (shake) s.camera.position.add(shake)
-      const restoreCamera = power.current?.applyCamera()
+      const restoreCamera = FLAT ? undefined : power.current?.applyCamera()
       renderer.render(s.scene, s.camera)
       restoreCamera?.()
       if (shake) s.camera.position.sub(shake)
@@ -97,6 +97,7 @@ export function Board3D(props: Board3DProps) {
     frame = requestAnimationFrame(loop)
 
     const onFlip = () => {
+      if (FLAT) return
       power.current?.clear()
       startTableFlip(s)
     }

@@ -1,5 +1,7 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import type { StoredGame } from '../../games'
+import { YourGames } from './YourGames'
 import { courseTitle } from '../../../model'
 import i18n from '../../../i18n'
 import { moveText } from '../../../shogi'
@@ -79,7 +81,7 @@ function EmptyQueue({ drill, counts, onQueue }: { drill: DrillState | null; coun
   )
 }
 
-export function ReviewPane({ trainer, startSfen, mistakePreview, mistakeOk }: { trainer: Drill; startSfen: string | null; mistakePreview: boolean; mistakeOk: boolean }) {
+export function ReviewPane({ trainer, startSfen, mistakePreview, mistakeOk, onOpenGame }: { trainer: Drill; startSfen: string | null; mistakePreview: boolean; mistakeOk: boolean; onOpenGame: (g: StoredGame) => void }) {
   const { t } = useTranslation()
   const { drill, item } = trainer
   const counts = useMemo(() => reviewCounts(), [drill?.queue, drill?.index, drill?.items])
@@ -105,6 +107,7 @@ export function ReviewPane({ trainer, startSfen, mistakePreview, mistakeOk }: { 
         onChange={(q) => q && trainer.start(q)}
       />
       {item && startSfen && drill ? <ReviewCard drill={drill} item={item} startSfen={startSfen} onNext={trainer.next} onRetry={trainer.retry} mistakePreview={mistakePreview} mistakeOk={mistakeOk} /> : <EmptyQueue drill={drill} counts={counts} onQueue={trainer.start} />}
+      {!item && <YourGames onOpen={onOpenGame} />}
     </div>
   )
 }

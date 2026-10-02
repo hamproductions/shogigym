@@ -799,3 +799,58 @@
     display: none;
   }
 }
+
+@media (max-height: 520px) and (min-width: 821px) {
+  .ws-modebar {
+    gap: var(--space-2);
+    margin: var(--space-1) var(--space-2) 0;
+    padding: var(--space-1) var(--space-2) var(--space-1) var(--space-1);
+  }
+
+  .ws-modebar-seal {
+    min-width: 30px;
+    height: 30px;
+    font-size: var(--text-sm);
+  }
+
+  .ws-modebar-text strong {
+    font-size: var(--text-md);
+  }
+
+  .ws-modebar-text span,
+  .ws-modebar .ws-turn,
+  .ws-modebar .ws-ply {
+    display: none;
+  }
+
+  .ws-modebar .ws-btn {
+    white-space: nowrap;
+    padding-block: var(--space-1);
+  }
+
+  .ws-lastmove strong {
+    font-size: var(--text-md);
+  }
+
+  .ws-plate {
+    font-size: var(--text-xs);
+    padding-block: 0;
+  }
+
+  .ws-plate .ws-pill {
+    display: none;
+  }
+
+  .ws-evalbar {
+    width: 18px;
+    margin-right: var(--space-1-5);
+  }
+
+  .ws-evalbar-num {
+    font-size: 10px;
+  }
+
+  .ws-board-wrap.with-eval .ws-plate {
+    left: 40px;
+  }
+}

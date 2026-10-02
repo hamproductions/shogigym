@@ -5,7 +5,7 @@ import { applyUsi } from '../../../shogi'
 import type { BoardSession } from '../../hooks/useBoardSession'
 import type { Load } from '../../hooks/useModeSwitch'
 import { savedAtLabel, sideMark } from '../../lib/notation'
-import { deleteGame, storeGame, type StoredGame } from '../../games'
+import { deleteGame, gameId, loadGames, storeGame, type GameResult, type StoredGame } from '../../games'
 import { STRENGTH, useSettings } from '../../settings'
 import { allLines, countMoves, mainLine } from '../../tree'
 import { isGameMode, type Confirm, type Tab } from '../../types'
@@ -83,6 +83,29 @@ export function useAnalyzeGames(session: BoardSession, { load, setTab, setConfir
     else run()
   }
 
+  const saveFinished = (result: GameResult) => {
+    if (game.moves.length < 2) return
+    const id = gameId(game.start, game.moves)
+    if (loadGames().some((g) => g.id === id)) return
+    const when = savedAtLabel(new Date())
+    storeGame({ id, title: t('workshop.vsAiAs', { side: sideMark(userSide), when }), savedAt: Date.now(), start: game.start, moves: game.moves, tree: tree.children.length ? tree : undefined, userSide, result, vsAi: true })
+  }
+
+  const reviewSlot = (g: StoredGame, confirmReplace: number) => {
+    const run = () => {
+      load(g.start, g.userSide, 'analyze', null)
+      session.setGame({ start: g.start, moves: g.moves })
+      if (g.tree) session.setTree(g.tree)
+      session.setCursor(0)
+      setGameTitle(g.title)
+      setSlotId(g.id)
+      setAutoRate(g.moves.join(' '))
+      setTab('moves')
+    }
+    if (confirmReplace > 0) setConfirm({ text: t('workshop.openThisGameInAnalyze', { count: confirmReplace }), run, yes: t('workshop.openIt'), no: t('workshop.cancel') })
+    else run()
+  }
+
   const deleteSlot = (g: StoredGame) =>
     setConfirm({
       text: t('workshop.deleteThisCannotBeUndone', { title: g.title }),
@@ -101,6 +124,8 @@ export function useAnalyzeGames(session: BoardSession, { load, setTab, setConfir
     saveSlot,
     openSlot,
     deleteSlot,
+    saveFinished,
+    reviewSlot,
     openReview: (title: string, rate: string) => {
       setGameTitle(title)
       setAutoRate(rate)

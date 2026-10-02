@@ -1,6 +1,8 @@
 import type { Tree } from './tree'
 
-export type StoredGame = { id: string; title: string; savedAt: number; start: string; moves: string[]; tree?: Tree; userSide: 'sente' | 'gote' }
+export type GameResult = 'win' | 'loss' | 'resigned' | 'time'
+
+export type StoredGame = { id: string; title: string; savedAt: number; start: string; moves: string[]; tree?: Tree; userSide: 'sente' | 'gote'; result?: GameResult; vsAi?: boolean }
 
 const KEY = 'joseki-practice:games:v1'
 
@@ -28,4 +30,10 @@ export function storeGame(game: StoredGame) {
 
 export function deleteGame(id: string) {
   write(loadGames().filter((g) => g.id !== id))
+}
+
+export const gameId = (start: string, moves: string[]) => {
+  let h = 0
+  for (const c of `${start}|${moves.join(' ')}`) h = (h * 31 + c.charCodeAt(0)) | 0
+  return `ai-${(h >>> 0).toString(36)}`
 }

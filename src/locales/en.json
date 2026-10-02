@@ -413,7 +413,18 @@
     "doneAnswered_one": "Done: {{answered}} of 1 card answered",
     "doneAnswered_other": "Done: {{answered}} of {{count}} cards answered",
     "inSchedule_one": "1 position is in your schedule. The next ones come back {{when}}.",
-    "inSchedule_other": "{{count}} positions are in your schedule. The next ones come back {{when}}."
+    "inSchedule_other": "{{count}} positions are in your schedule. The next ones come back {{when}}.",
+    "yourGames": "Your games vs the AI",
+    "reviewGame": "Review",
+    "moveCount_one": "{{count}} move",
+    "moveCount_other": "{{count}} moves",
+    "result": {
+      "win": "Won",
+      "loss": "Lost",
+      "resigned": "Resigned",
+      "time": "Time",
+      "none": "Saved"
+    }
   },
   "settings": {
     "general": "General",

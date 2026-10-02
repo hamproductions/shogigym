@@ -30,6 +30,7 @@ import { FlowPane } from './FlowPane'
 import { MovesTab } from './MovesTab'
 
 export type PanelModel = {
+  analyzeMoves: number
   lesson: Lesson
   drill: Drill
   tsume: Tsume
@@ -71,13 +72,13 @@ function EngineSection({ model }: { model: PanelModel }) {
 function CoachSection({ model }: { model: PanelModel }) {
   const { t } = useTranslation()
   const { mode, game, cursor, sfens, sfen, course, assist, ai, gameOver, userTurn, play, preview } = useSession()
-  const { tesuji, tsume, drill, analyze, spar, mistakes, coach, bookHere, bookLast, onBack } = model
+  const { tesuji, tsume, drill, analyze, spar, mistakes, coach, bookHere, bookLast, onBack, analyzeMoves } = model
   const { reviewAt } = coach
   return (
     <>
       {mode === 'tesuji' && tesuji.drill && <TesujiPane trainer={tesuji} drill={tesuji.drill} replaying={!!mistakes.mistake && mistakes.previewing} onBack={onBack} />}
       {mode === 'tsume' && tsume.tsume && <TsumePane trainer={tsume} tsume={tsume.tsume} banner={!!mistakes.mistake && !!preview} onBack={onBack} />}
-      {mode === 'drill' && <ReviewPane trainer={drill} startSfen={drill.item ? sfens[drill.drill?.base ?? 0] : null} mistakePreview={mistakes.previewing} mistakeOk={!!mistakes.mistake && !mistakeIsBad(mistakes.mistake)} />}
+      {mode === 'drill' && <ReviewPane trainer={drill} startSfen={drill.item ? sfens[drill.drill?.base ?? 0] : null} mistakePreview={mistakes.previewing} mistakeOk={!!mistakes.mistake && !mistakeIsBad(mistakes.mistake)} onOpenGame={(g) => analyze.reviewSlot(g, analyzeMoves)} />}
       {mode === 'analyze' && <ImportBox onImport={analyze.importGame} />}
       {mode === 'analyze' && analyze.gameNotes && <KifuNotes notes={analyze.gameNotes} moves={game.moves} cursor={cursor} />}
       {mode === 'spar' && game.moves.length > 0 && !gameOver && <SparActions spar={spar} erred={spar.erred} />}

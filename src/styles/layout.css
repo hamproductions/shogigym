@@ -494,3 +494,37 @@
 .ws-sound.compact .ws-sound-pop::before {
   inset: -10px 0 100% 0;
 }
+
+@media (max-height: 520px) and (min-width: 821px) {
+  .ws {
+    --rail-w: 52px;
+    grid-template-columns: var(--rail-w) minmax(0, 1fr) min(var(--panel-w, 380px), 34vw);
+  }
+
+  .ws-rail {
+    gap: 2px;
+    padding-top: var(--space-1);
+  }
+
+  .ws-rail-btn {
+    width: 42px;
+    padding: var(--space-1-5) 0;
+  }
+
+  .ws-rail-btn > span {
+    display: none;
+  }
+
+  .ws-rail .ws-seal,
+  .ws-rail > :first-child {
+    transform: scale(0.75);
+  }
+
+  .ws-board-wrap {
+    padding: var(--space-1) var(--space-1) var(--space-1) var(--space-2);
+  }
+
+  .ws-panel .ws-tabs button {
+    padding-block: var(--space-1-5);
+  }
+}

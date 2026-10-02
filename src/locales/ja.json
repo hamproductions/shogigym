@@ -402,7 +402,18 @@
     "inGameYouPlayed": "{{game}}で、ここで{{move}}と指しました。より良い手を探しましょう。",
     "anImportedGame": "読み込んだ棋譜",
     "doneAnswered_other": "完了: {{count}}枚中{{answered}}枚に回答",
-    "inSchedule_other": "{{count}}局面がスケジュールに入っています。次の出題は{{when}}です。"
+    "inSchedule_other": "{{count}}局面がスケジュールに入っています。次の出題は{{when}}です。",
+    "yourGames": "AIとの対局",
+    "reviewGame": "振り返る",
+    "moveCount_one": "{{count}}手",
+    "moveCount_other": "{{count}}手",
+    "result": {
+      "win": "勝ち",
+      "loss": "負け",
+      "resigned": "投了",
+      "time": "時間切れ",
+      "none": "保存"
+    }
   },
   "settings": {
     "general": "一般",

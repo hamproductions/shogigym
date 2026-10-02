@@ -137,9 +137,12 @@ export function Workshop({ routeMode, routeMain }: { routeMode?: string; routeMa
   const phoneTask = layout.compact && !layout.drawer ? spar.erred && coach.review ? { text: t('workshop.phoneMistake', { move: moveText(session.sfens[coach.reviewAt - 1], game.moves[coach.reviewAt - 1]), label: LABELS[coach.review.label].text }), action: t('workshop.takeBack'), run: spar.takeBack } : { text: instruction, action: studyReply ? t('workshop.playTheirMove') : picking ? t('workshop.pickALesson') : mode === 'drill' && !drill.item ? t('workshop.pickAQueue') : t('workshop.panel'), run: () => (studyReply ? session.play(studyReply.usi) : layout.setDrawer(true)) } : null
   const autoplayAllowed = isGameMode(mode) || !!preview
   const finished = mode === 'spar' && (session.gameOver || spar.resigned || !!spar.flagged)
+  const result = !finished ? null : spar.resigned ? 'resigned' : spar.flagged ? (spar.flagged === userSide ? 'time' : 'win') : session.toMove === userSide ? 'loss' : 'win'
   useEffect(() => {
-    if (finished) say('ありがとうございました')
-  }, [finished])
+    if (!result) return
+    say('ありがとうございました')
+    analyze.saveFinished(result)
+  }, [result]) // eslint-disable-line react-hooks/exhaustive-deps
   const evalOn = session.ai && session.assist && (isGameMode(mode) || (mode === 'lesson' && !!course && lesson.lessonMode === 'study'))
   const steadyRate = useSteadyRate(evalOn && evaluation.evalSente ? evaluation.senteRate : null)
   const evalRate = evalOn ? steadyRate : null
@@ -188,7 +191,7 @@ export function Workshop({ routeMode, routeMain }: { routeMode?: string; routeMa
           tab={tab}
           setTab={setTab}
           sheetOpen={layout.sheetOpen ?? (picking || (mode === 'drill' && !drill.item))}
-          model={{ lesson, drill, tsume, tesuji, spar, analyze, mistakes, evaluation, coach, level: levels.level, reply: opponent.reply, spoilerFree, bookHere, bookLast, lanes: flow.lanes, lanesSfen: flow.lanesSfen, onHoverLane: flow.setHoverLane, onBack: goBack, setConfirm }}
+          model={{ analyzeMoves: slots.stashed('analyze')?.game.moves.length ?? 0, lesson, drill, tsume, tesuji, spar, analyze, mistakes, evaluation, coach, level: levels.level, reply: opponent.reply, spoilerFree, bookHere, bookLast, lanes: flow.lanes, lanesSfen: flow.lanesSfen, onHoverLane: flow.setHoverLane, onBack: goBack, setConfirm }}
           canAutoplay={!!upcoming && autoplayAllowed}
           onStartOver={startOver}
           picking={picking || (mode === 'drill' && !drill.item)}
