@@ -11,7 +11,7 @@ import { PIECE_INFO, PieceGuide, moveGloss, sees } from './pieces'
 import { allEvals, cachedReview, rememberEval, rememberReview } from './memory'
 import { deleteGame, loadGames, storeGame, type StoredGame } from './games'
 import { addPath, allLines, emptyTree, isMainLine, mainContinuation, mainLine, nodeAt, promote, removeBranch, type Tree } from './tree'
-import { STRENGTH, playSound, setSettings, useSettings, type AiStrength, type BoardStyle, type PieceStyle } from './settings'
+import { PIECE_FONTS, STRENGTH, loadPieceFont, playSound, setSettings, useSettings, type AiStrength, type BoardStyle, type PieceFont, type PieceStyle } from './settings'
 import { analyze, engineSupported, scoreToCp, type Score } from '../engine'
 import { useAnalysis } from '../hooks'
 import { LABELS, describeMove, reviewMove, scoreWinRate, usiPosition, type MoveReview } from '../analysis'
@@ -129,6 +129,16 @@ export function Workshop() {
   }
   const [sheetOpen, setSheetOpen] = useState<boolean | null>(null)
   const ai = engineSupported()
+  const [fontReady, setFontReady] = useState('mincho')
+  useEffect(() => {
+    let live = true
+    loadPieceFont(settings.pieceFont)
+      .catch(() => undefined)
+      .then(() => live && setFontReady(settings.pieceFont))
+    return () => {
+      live = false
+    }
+  }, [settings.pieceFont])
   const assist = settings.assist || (mode !== 'spar' && mode !== 'analyze')
   const [playing, setPlaying] = useState(false)
   const [lessonMap, setLessonMap] = useState(false)
@@ -1190,7 +1200,7 @@ export function Workshop() {
             )}
           </div>}
           <Board3D
-            key={`${settings.pieceStyle}|${settings.boardStyle}`}
+            key={`${settings.pieceStyle}|${settings.boardStyle}|${fontReady}`}
             position={position}
             flipped={flipped}
             tilted={tilted}
@@ -2754,6 +2764,7 @@ function SettingsDialog({ onClose }: { onClose: () => void }) {
           <input type="range" min={0} max={1} step={0.05} disabled={!st.sound} value={st.volume} onChange={(e) => setSettings({ volume: Number(e.target.value) })} onMouseUp={() => playSound('move')} />
         </label>
         <h3>Board and pieces</h3>
+        {seg<PieceFont>('Piece lettering', st.pieceFont, (Object.keys(PIECE_FONTS) as PieceFont[]).map((v) => ({ v, t: PIECE_FONTS[v].label })), (v) => setSettings({ pieceFont: v }))}
         {seg<PieceStyle>('Piece faces', st.pieceStyle, [{ v: 'two', t: '二字 王将' }, { v: 'one', t: '一字 王' }], (v) => setSettings({ pieceStyle: v }))}
         {seg<BoardStyle>('Board wood', st.boardStyle, [{ v: 'kaya', t: '榧 Kaya' }, { v: 'shin-kaya', t: '新榧 Light' }, { v: 'dark', t: '濃色 Dark' }], (v) => setSettings({ boardStyle: v }))}
         <h3>AI</h3>

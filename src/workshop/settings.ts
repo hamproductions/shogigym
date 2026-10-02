@@ -1,6 +1,7 @@
 import { useSyncExternalStore } from 'react'
 
 export type PieceStyle = 'two' | 'one'
+export type PieceFont = 'mincho' | 'kaisho' | 'gyosho' | 'antique'
 export type BoardStyle = 'kaya' | 'shin-kaya' | 'dark'
 export type AiStrength = 'beginner' | 'club' | 'strong' | 'max'
 
@@ -8,6 +9,7 @@ export type Settings = {
   sound: boolean
   volume: number
   pieceStyle: PieceStyle
+  pieceFont: PieceFont
   boardStyle: BoardStyle
   thinkMs: number
   candidates: number
@@ -18,7 +20,7 @@ export type Settings = {
 
 const KEY = 'joseki-practice:settings:v1'
 
-const DEFAULTS: Settings = { sound: true, volume: 0.6, pieceStyle: 'two', boardStyle: 'kaya', thinkMs: 1500, candidates: 3, opponent: 'beginner', aiStrategy: '', assist: true }
+const DEFAULTS: Settings = { sound: true, volume: 0.6, pieceStyle: 'two', pieceFont: 'mincho', boardStyle: 'kaya', thinkMs: 1500, candidates: 3, opponent: 'beginner', aiStrategy: '', assist: true }
 
 function read(): Settings {
   try {
@@ -115,4 +117,17 @@ export function playSound(kind: 'move' | 'capture' | 'right' | 'wrong' | 'comple
   } catch (error) {
     console.warn('sound failed', error)
   }
+}
+
+export const PIECE_FONTS: Record<PieceFont, { label: string; family: string; weight: number; load: () => Promise<unknown> }> = {
+  mincho: { label: '明朝 Mincho', family: 'Shippori Mincho B1', weight: 800, load: async () => undefined },
+  kaisho: { label: '楷書 Kaisho', family: 'Yuji Syuku', weight: 400, load: () => import('@fontsource/yuji-syuku/400.css') },
+  gyosho: { label: '行書 Gyōsho', family: 'Yuji Boku', weight: 400, load: () => import('@fontsource/yuji-boku/400.css') },
+  antique: { label: '古風 Antique', family: 'Zen Antique', weight: 400, load: () => import('@fontsource/zen-antique/400.css') },
+}
+
+export async function loadPieceFont(font: PieceFont) {
+  const spec = PIECE_FONTS[font]
+  await spec.load()
+  await document.fonts.load(`${spec.weight} 100px "${spec.family}"`, '歩兵王将玉飛車角行金銀桂馬香成龍と')
 }

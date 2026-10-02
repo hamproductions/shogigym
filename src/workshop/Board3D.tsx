@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 import { Color, PieceType, Square, type ImmutablePosition } from 'tsshogi'
 import { HAND_ORDER, PIECE_CHAR } from '../shogi'
-import { getSettings, type BoardStyle } from './settings'
+import { PIECE_FONTS, getSettings, type BoardStyle } from './settings'
 
 export type BoardArrow = { usi: string; color: string; dashed?: boolean; label?: string }
 
@@ -136,19 +136,21 @@ function woodMaterial(base: [number, number, number], seed: number, roughness = 
 const faceCache = new Map<string, THREE.Texture>()
 
 function faceTexture(char: string, promoted: boolean) {
-  const key = `${char}${promoted}`
+  const font = PIECE_FONTS[getSettings().pieceFont] ?? PIECE_FONTS.mincho
+  const key = `${char}${promoted}${font.family}`
   const cached = faceCache.get(key)
   if (cached) return cached
   const canvas = grainTexture(256, 256, [240, 210, 152], 18, char.charCodeAt(0))
   const ctx = canvas.getContext('2d')!
   ctx.fillStyle = promoted ? '#9c1c12' : '#0e0804'
   ctx.strokeStyle = ctx.fillStyle
-  ctx.lineWidth = 3
+  ctx.lineWidth = font.weight >= 700 ? 3 : 7
+  ctx.lineJoin = 'round'
   ctx.textAlign = 'center'
   ctx.textBaseline = 'middle'
   const chars = [...char]
   const size = chars.length === 1 ? 150 : 104
-  ctx.font = `800 ${size}px "Shippori Mincho B1", serif`
+  ctx.font = `${font.weight} ${size}px "${font.family}", "Shippori Mincho B1", serif`
   chars.forEach((c, i) => {
     const y = 128 + (i - (chars.length - 1) / 2) * size * 0.98 + 6
     ctx.fillText(c, 128, y)
