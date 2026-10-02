@@ -28,7 +28,7 @@ function loadSheetHeight() {
 }
 
 export function scrollPanelTop(smooth = false) {
-  const body = document.querySelector('.ws-panel-body')
+  const body = document.querySelector('.ws-panel:not(.ws-panel-left) .ws-panel-body')
   if (smooth) body?.scrollTo({ top: 0, behavior: 'smooth' })
   else body?.scrollTo(0, 0)
 }
