@@ -1,9 +1,10 @@
-import { mkdirSync, readdirSync, writeFileSync } from 'node:fs'
+import { copyFileSync, mkdirSync, readdirSync, rmSync, writeFileSync } from 'node:fs'
 import { pathToFileURL } from 'node:url'
 import { InitialPositionSFEN, Position, parseMoves } from 'tsshogi'
 
 const SPEC_DIR = 'scripts/courses'
 const OUT_DIR = 'src/data/joseki'
+const VENDOR_DIR = 'vendor/shiryu-joseki'
 
 function parseSegment(position, segment, lastMove) {
   const text = segment.moves.trim()
@@ -61,6 +62,20 @@ function mergeInto(node, branches) {
       mergeInto(existing.child, branch.child.branches)
     }
   }
+}
+
+const vendorArg = process.argv.indexOf('--vendor')
+if (vendorArg > 0) {
+  const [checkout, commit] = process.argv.slice(vendorArg + 1, vendorArg + 3)
+  if (!checkout || !/^[0-9a-f]{40}$/.test(commit ?? '')) throw new Error('usage: --vendor <shiryu checkout> <40-char commit>')
+  const from = `${checkout}/src/data/joseki`
+  const to = `${VENDOR_DIR}/src/data/joseki`
+  rmSync(to, { recursive: true, force: true })
+  mkdirSync(to, { recursive: true })
+  for (const file of readdirSync(from).filter((f) => f.endsWith('.json') && !f.startsWith('_'))) copyFileSync(`${from}/${file}`, `${to}/${file}`)
+  for (const file of ['LICENSE', 'DESIGN.md']) copyFileSync(`${checkout}/${file}`, `${VENDOR_DIR}/${file}`)
+  writeFileSync(`${VENDOR_DIR}/SOURCE_COMMIT`, commit + '\n')
+  console.log(`vendored ${readdirSync(to).length} courses from ${commit}`)
 }
 
 mkdirSync(OUT_DIR, { recursive: true })
