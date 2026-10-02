@@ -366,7 +366,11 @@
   }
 
   .ws.drawer-open {
-    grid-template-rows: auto minmax(0, 1fr) calc(var(--sheet-h, 50) * 1dvh);
+    grid-template-rows: auto minmax(0, 1fr) fit-content(max(30dvh, calc(100dvh - 57px - min(516px, 131vw))));
+  }
+
+  .ws.drawer-open.sheet-set {
+    grid-template-rows: auto minmax(0, 1fr) calc(var(--sheet-h) * 1dvh);
   }
 
   .ws.drawer-open > .ws-panel {

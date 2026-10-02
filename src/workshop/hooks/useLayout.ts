@@ -21,9 +21,9 @@ function loadPanelPrefs(): PanelPrefs {
 
 function loadSheetHeight() {
   try {
-    return Number(localStorage.getItem(SHEET_KEY)) || 46
+    return Number(localStorage.getItem(SHEET_KEY)) || null
   } catch {
-    return 50
+    return null
   }
 }
 
@@ -89,7 +89,7 @@ export function useLayout({ mode, needsPicking, welcome }: { mode: Mode; needsPi
   const persistSheet = () =>
     setSheetH((h) => {
       try {
-        localStorage.setItem(SHEET_KEY, String(h))
+        if (h) localStorage.setItem(SHEET_KEY, String(h))
       } catch (error) {
         console.warn('sheet size not persisted', error)
       }

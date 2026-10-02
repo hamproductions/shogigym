@@ -163,7 +163,7 @@ export function Workshop({ routeMode, routeMain }: { routeMode?: string; routeMa
 
   return (
     <SessionContext.Provider value={session}>
-      <div className={`ws${view.hideUi ? ' fs' : ''}${layout.zoned ? ' zoned' : layout.panelHidden ? ' panel-hidden' : ''}${layout.compact && layout.drawer ? ' drawer-open' : ''}`} style={{ ['--panel-w' as string]: `${layout.panelWidth}px`, ['--sheet-h' as string]: layout.sheetH }}>
+      <div className={`ws${view.hideUi ? ' fs' : ''}${layout.zoned ? ' zoned' : layout.panelHidden ? ' panel-hidden' : ''}${layout.compact && layout.drawer ? ' drawer-open' : ''}${layout.sheetH ? ' sheet-set' : ''}`} style={{ ['--panel-w' as string]: `${layout.panelWidth}px`, ['--sheet-h' as string]: layout.sheetH ?? undefined }}>
         <Rail mode={mode} onMode={enterMode} compact={layout.compact} view={view} onFlip={() => session.setFlipped((v) => !v)} settingsOpen={showSettings} onSettings={() => setShowSettings(true)} onPalette={() => setPalette(true)} snapshotName={`${SNAPSHOT_NAME}-${mode}-${cursor}`} />
         <section className={`ws-stage${preview || playing || !atEnd ? ' previewing' : ''}`}>
           <button className="ws-fs-exit" onClick={() => view.setHideUi(false)} aria-label={t('workshop.showUi')} title={`${t('workshop.showUi')} (Esc)`}>
