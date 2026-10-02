@@ -1,30 +1,60 @@
-# Shiken-bisha dojo
+# ShogiLab 将棋ラボ
 
-A browser trainer for playing 四間飛車 (Fourth File Rook) against every common Static Rook plan.
+A shogi workshop for learning and playing 四間飛車 (Shiken-bisha, Fourth File Rook): sourced joseki lines, study and quiz, spaced review, tsume, an AI opponent and coach, and full game analysis. It runs entirely in the browser, with the YaneuraOu engine compiled to WebAssembly.
 
-- **Openings**: every opponent setup with a short introduction, its book lines, and the Shiken-bisha plan. Move any piece at any time. The app marks book moves, known failure patterns and known opponent mistakes (with how to punish them), and shows a flowchart of the branches.
-- **Coach**: every move you play gets a chess.com-style label (Brilliant, Great, Best, Excellent, Good, Book, Inaccuracy, Mistake, Miss, Blunder) from YaneuraOu, plus a plain-language reason built from the engine lines: hanging pieces, material lost along the refutation, forks, missed or allowed mates, and the better move.
-- **Review**: spaced repetition per position (4h, 1d, 3d, 1w, 2w, 1mo, 3mo, 6mo; a miss restarts the ladder). Includes a Difficult list and puzzles made from your own analyzed games.
-- **Tsume**: 1148 problems of 3, 5 and 7 moves. Every attacking move must give check; alternative mating moves are accepted when the engine confirms the mate.
-- **Analyze**: paste or open KIF, KI2, CSA, JKF, USI, SFEN or USEN (Shift_JIS files are handled). You get per-move labels, accuracy per side, an eval graph, where the game left the book, and one-click puzzles from your mistakes.
+The whole app is one screen: a 3D board in the middle, a mode rail on the left, and tool tabs (Coach, AI, What next, Moves) on the right. On phones the board takes the full screen and the tools open as a drawer.
 
-## Run
+## Features
+
+- **定跡 Openings**: 16 opponent setups plus castle-breaking (囲い崩し) and sabaki (捌き) techniques, every move taken from a cited source.
+  - **Study mode** shows each move with its reason and plays the opponent's reply on your cue.
+  - **Quiz mode** asks you to find the moves.
+  - A wrong move is graded (Good, Inaccuracy, Mistake, Blunder…), the punishing line plays out on the board, and you are asked to go back and try again.
+  - A Lesson map shows every branch of the line.
+- **復習 Review**: spaced repetition per position (4 h, 1 d, 3 d, 1 w and longer; a miss starts the position over). Mistakes from your own games are added automatically.
+- **詰将棋 Tsume**: 1手詰 to 7手詰 plus a mixed set. Hints are staged, a King escape overlay is optional, and a solve only counts when it was found without help.
+- **対局 Play AI**: four strengths. You can choose the AI's strategy (居飛車穴熊, 棒銀, 舟囲い急戦, 左美濃, 相振り飛車 and more); the AI follows that setup's book lines, then thinks for itself.
+  - 待った take-back, resign, and a 王手 warning.
+  - A coach comments on each of your moves.
+  - Saved positions survive a reload.
+- **検討 Analyze**:
+  - Import KIF, KI2, CSA, JKF, USI, SFEN or USEN; Shift_JIS files work, and player names, comments and the result are shown.
+  - Rate every move, with an eval graph you can click.
+  - A variation tree (変化): step back anywhere and play a different move for either side.
+  - Save games to in-app slots, or copy them as KIF with the variations included.
+- **Formation display**: the strategy and castle of both sides (四間飛車, 本美濃, 穴熊, ミレニアム…) appear beside the board, with a short banner when one is completed.
+- **Settings**: piece faces (二字 / 一字), board wood, sound, AI thinking time, number of candidate lines, AI strength, and a knowledge level ("I know the rules" / "New to shogi").
+
+## Run locally
 
 ```sh
 bun install        # postinstall copies the engine into public/engine
 bun run dev        # http://localhost:5173
+bun run build      # production build in dist/
+bun run lint
+node scripts/validate.mjs   # every joseki move and demo line is legal
 ```
 
-The engine needs `SharedArrayBuffer`, so the page must be served with `Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: require-corp`. `vite.config.ts` sets both for dev and preview; any production host must send them too. Without them the joseki data still works and the AI features are disabled.
+## Deploy
+
+Every push to `main` runs `.github/workflows/deploy.yml`. It validates the course data, lints, builds with `BASE_PATH=/<repo>/`, and publishes `dist/` to GitHub Pages. In the repository settings, set Pages → Source to "GitHub Actions" once.
+
+The engine needs `SharedArrayBuffer`, which requires cross-origin isolation (`Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: require-corp`).
+
+- **GitHub Pages** cannot send these headers. `public/coi-sw.js` is a small service worker that adds them on the client, and the page reloads once the first time it installs.
+- **Other hosts:** Netlify and Cloudflare Pages read `public/_headers`, and Vercel reads `vercel.json`.
+- **Without isolation**, lessons, review and tsume still work, but the AI features are disabled.
 
 ## Data scripts
 
 ```sh
-node scripts/build-courses.mjs        # scripts/courses/*.mjs -> src/data/joseki/*.json
-node scripts/validate.mjs             # every joseki move and demo line is legal
+node scripts/build-courses.mjs          # scripts/courses/*.mjs -> src/data/joseki/*.json
+node scripts/validate.mjs               # legality check of every course
 node scripts/solve-tsume.mjs 5 400 500  # solve data/tsume-raw/mate5.sfen with the engine
 node scripts/verify-tsume.mjs --prune   # keep only strict check-only mates
 ```
+
+Each course records its source in its `source` field.
 
 ## Sources and licenses
 
@@ -34,9 +64,14 @@ This app is GPL-3.0-or-later.
 |---|---|---|
 | Engine | YaneuraOu, WASM build `@mizarjp/yaneuraou.k-p` (github.com/mizar/YaneuraOu.wasm) | GPL-3.0 |
 | Rules, notation, kifu I/O | tsshogi (github.com/sunfish-shogi/tsshogi) | MIT |
-| Joseki courses in `vendor/shiryu-joseki` | github.com/Shiryu181/shogi-joseki, commit in `vendor/shiryu-joseki/SOURCE_COMMIT`. Lines follow shogilounge.com, hibitonshi.com and shogi-joutatsu.com, as listed in each course's `source` field | GPL-3.0 |
-| 角交換四間飛車 course | hibitonshi.com/kakukoukan-shiken/ | moves and notes adapted from the article |
-| 藤井システム course | en.wikipedia.org/wiki/Fujii_System | CC BY-SA |
-| Tsume problems | YaneuraOu 5M mate-problem set (yaneuraou.yaneu.com/2020/12/25/christmas-present/), released with no copyright claimed; solutions were computed and re-verified here | none claimed |
-| Move-label thresholds | chess.com expected-points model (support.chess.com, "How are moves classified") | n/a |
-| Review intervals | Chessable MoveTrainer schedule (support.chessable.com) | n/a |
+| 3D rendering | three.js | MIT |
+| Joseki courses in `vendor/shiryu-joseki` | github.com/Shiryu181/shogi-joseki (commit in `vendor/shiryu-joseki/SOURCE_COMMIT`), lines from shogilounge.com, hibitonshi.com and shogi-joutatsu.com | GPL-3.0 |
+| 将棋ルール.com courses (`shogirule--*`) | Move sequences from the game files published at shogi-rule.com/joseki_index/, with the closing summaries paraphrased | Attribution; moves are game records |
+| 角交換四間飛車 | hibitonshi.com/kakukoukan-shiken/ | Moves and notes adapted from the article |
+| ミレニアム | shogijam.com, "四間飛車対ミレニアムの激しい定跡" game file | Attribution; moves are a game record |
+| 相振り飛車 | thirdfilerook.jp, "相振り飛車の基礎知識 三間飛車VS四間飛車とは" | Attribution |
+| 藤井システム, 左美濃, 囲い崩し diagrams | Wikipedia (en "Fujii System"; ja 左美濃, 美濃囲い, 舟囲い) | CC BY-SA |
+| Tsume problems | YaneuraOu 5M mate-problem set (yaneuraou.yaneu.com/2020/12/25/christmas-present/), solutions computed and re-verified here | None claimed |
+| Move-label thresholds | chess.com expected-points model | n/a |
+| Review intervals | Chessable MoveTrainer schedule | n/a |
+| Fonts | Shippori Mincho B1, Zen Kaku Gothic New (via Fontsource) | OFL-1.1 |

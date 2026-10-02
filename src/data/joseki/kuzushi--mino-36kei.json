@@ -1,0 +1,60 @@
+{
+ "id": "kuzushi--mino-36kei",
+ "title": "囲い崩し: 美濃囲いに△3六桂",
+ "myStrategy": "ibisha",
+ "opponentStrategy": "shikenbisha",
+ "mySide": "gote",
+ "userSide": "gote",
+ "source": "局面と手順はWikipedia日本語版「美濃囲い」の図「美濃囲いの有名なくずし例」と同節の解説に準拠(CC BY-SA)。図の局面(△3六桂と打たれた局面、持ち駒は先手 銀桂歩2・後手 角銀歩)をSFENに変換し、全手を合法手検証済み。",
+ "goalFormation": "美濃囲いは3六への桂打ちと角のにらみに弱い。△3六桂を▲同歩と取らせて△8八飛成〜△5五角の王手飛車を決める。",
+ "root": {
+  "id": "n0",
+  "sfen": "l+R3g1nl/3sg1k2/p2p1p1p1/2P1p1p1p/3P5/6n1P/P3PPPP1/LB2G1SK1/1r3G1NL b SN2Pbsp 1",
+  "comment": "△3六桂と打たれた局面。一段飛車と角のにらみがあると、美濃囲いは△3六桂であっという間に寄ってしまいやすい。▲1八玉は△1七銀、▲1七玉は△2八銀で、どちらも△4九飛成で金を手に入れると詰む。ここでは▲同歩と取った場合を確かめます。",
+  "branches": [
+   {
+    "usi": "3g3f",
+    "kind": "main",
+    "note": "△3六桂を▲同歩と取ると…",
+    "child": {
+     "id": "n_0",
+     "sfen": "l+R3g1nl/3sg1k2/p2p1p1p1/2P1p1p1p/3P5/6P1P/P3PP1P1/LB2G1SK1/1r3G1NL w S2N2Pbsp 1",
+     "branches": [
+      {
+       "usi": "8i8h+",
+       "kind": "main",
+       "note": "飛車を切って龍を8八に引き寄せます。",
+       "child": {
+        "id": "n_1",
+        "sfen": "l+R3g1nl/3sg1k2/p2p1p1p1/2P1p1p1p/3P5/6P1P/P3PP1P1/L+r2G1SK1/5G1NL b S2N2P2bsp 1",
+        "branches": [
+         {
+          "usi": "8a8h",
+          "kind": "main",
+          "child": {
+           "id": "n_2",
+           "sfen": "l4g1nl/3sg1k2/p2p1p1p1/2P1p1p1p/3P5/6P1P/P3PP1P1/L+R2G1SK1/5G1NL w RS2N2P2bsp 1",
+           "branches": [
+            {
+             "usi": "B*5e",
+             "kind": "main",
+             "note": "△5五角が王手飛車。玉と8八の龍を同時に狙います。",
+             "child": {
+              "id": "n_3",
+              "sfen": "l4g1nl/3sg1k2/p2p1p1p1/2P1p1p1p/3Pb4/6P1P/P3PP1P1/L+R2G1SK1/5G1NL b RS2N2Pbsp 1",
+              "branches": [],
+              "comment": "王手飛車がかかり、美濃側は受けきれません。美濃を寄せる急所は4九(後手なら6一)の金を動かすことで、3九に角や銀を打つ展開になると美濃の玉は寄ってしまいます。"
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

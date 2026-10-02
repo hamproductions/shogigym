@@ -1,0 +1,61 @@
+{
+ "id": "kuzushi--funa-hashi",
+ "title": "囲い崩し: 舟囲いの端攻め(△9五歩▲同歩△9八歩)",
+ "myStrategy": "shikenbisha",
+ "opponentStrategy": "ibisha",
+ "mySide": "gote",
+ "userSide": "gote",
+ "source": "局面と手順はWikipedia日本語版「舟囲い」の「崩し方」節の図(△9八歩まで、持ち駒は先手 角桂歩2・後手 飛角)と同節の解説に準拠(CC BY-SA)。図の局面をSFENに変換し、全手を合法手検証済み。",
+ "goalFormation": "持ち駒に飛車があるとき、玉側の端を歩で釣り上げて飛車を端から打ち込む。",
+ "root": {
+  "id": "n0",
+  "sfen": "ln1g4l/1ks3g2/1ppp1s2p/6pp1/P3Pp3/2P6/1P1PS1P1P/p1K1GS1R1/LN1G3NL b BN2Prb 1",
+  "comment": "振り飛車側が玉のいる端から△9五歩▲同歩△9八歩としたところ。持ち駒に飛車を持つと、玉側の端を歩で同香と釣り上げて飛車をこちら側から打つ端攻めの手筋が生じます。",
+  "branches": [
+   {
+    "usi": "9i9h",
+    "kind": "main",
+    "note": "▲9八同香と取ると…",
+    "child": {
+     "id": "n_0",
+     "sfen": "ln1g4l/1ks3g2/1ppp1s2p/6pp1/P3Pp3/2P6/1P1PS1P1P/L1K1GS1R1/1N1G3NL w BN3Prb 1",
+     "branches": [
+      {
+       "usi": "R*9i",
+       "kind": "main",
+       "note": "香が浮いた9九に飛車を打ち込むのが狙い。",
+       "child": {
+        "id": "n_1",
+        "sfen": "ln1g4l/1ks3g2/1ppp1s2p/6pp1/P3Pp3/2P6/1P1PS1P1P/L1K1GS1R1/rN1G3NL b BN3Pb 1",
+        "branches": [
+         {
+          "usi": "7h8h",
+          "kind": "main",
+          "note": "▲8八玉と逃げても…",
+          "child": {
+           "id": "n_2",
+           "sfen": "ln1g4l/1ks3g2/1ppp1s2p/6pp1/P3Pp3/2P6/1P1PS1P1P/LK2GS1R1/rN1G3NL w BN3Pb 1",
+           "branches": [
+            {
+             "usi": "B*7g",
+             "kind": "main",
+             "note": "持ち駒に角(または金銀の金気2枚)があると△7七角の手段が生じます。",
+             "child": {
+              "id": "n_3",
+              "sfen": "ln1g4l/1ks3g2/1ppp1s2p/6pp1/P3Pp3/2P6/1PbPS1P1P/LK2GS1R1/rN1G3NL b BN3P 1",
+              "branches": [],
+              "comment": "舟囲いは8七の地点や端が弱く、横からの攻めでも7筋の玉には当たりが強くなります。▲9八同香と取らずに▲8八玉でも、歩が多ければ△9九歩成▲同玉△9七歩などの攻めが続きます。"
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

@@ -12,20 +12,25 @@ export function positionOf(sfen: string): Position {
   return position
 }
 
-export function moveText(sfen: string, usi: string): string {
+export function moveText(sfen: string, usi: string, lastUsi?: string): string {
   const position = positionOf(sfen)
   const move = position.createMoveByUSI(usi)
-  return move ? formatMove(position, move) : usi
+  if (!move) return usi
+  const text = formatMove(position, move)
+  return lastUsi && lastUsi.slice(2, 4) === usi.slice(2, 4) ? text.slice(0, 1) + '同' + text.slice(3) : text
 }
 
 export function pvText(sfen: string, pv: string[], limit = 8): string {
   const position = positionOf(sfen)
   const out: string[] = []
+  let last = ''
   for (const usi of pv.slice(0, limit)) {
     const move = position.createMoveByUSI(usi)
     if (!move || !position.isValidMove(move)) break
-    out.push(formatMove(position, move))
+    const text = formatMove(position, move)
+    out.push(last && last.slice(2, 4) === usi.slice(2, 4) ? text.slice(0, 1) + '同' + text.slice(3) : text)
     position.doMove(move)
+    last = usi
   }
   return out.join(' ')
 }
@@ -93,4 +98,20 @@ export function hasLegalMove(position: ImmutablePosition): boolean {
     ...HAND_ORDER.filter((t) => hand.count(t) > 0),
   ]
   return sources.some((from) => legalTargets(position, from).length > 0)
+}
+
+export function reachable(sfen: string, square: Square): Square[] {
+  const position = positionOf(sfen)
+  const piece = position.board.at(square)
+  if (!piece) return []
+  position.setColor(piece.color)
+  return legalTargets(position, square)
+}
+
+export function kingSquare(sfen: string, color: Color): Square | null {
+  const position = positionOf(sfen)
+  return position.board.listNonEmptySquares().find((s) => {
+    const p = position.board.at(s)!
+    return p.color === color && p.type === PieceType.KING
+  }) ?? null
 }

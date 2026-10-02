@@ -25,7 +25,7 @@ export type Analysis = {
   candidates: Candidate[]
 }
 
-const SCRIPT_URL = '/engine/yaneuraou.k-p.js'
+const SCRIPT_URL = `${import.meta.env.BASE_URL}engine/yaneuraou.k-p.js`
 
 let enginePromise: Promise<YaneuraOuModule> | null = null
 let listener: ((line: string) => void) | null = null

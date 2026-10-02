@@ -8,6 +8,7 @@ export type Card = {
   due: number
   mistakes: number
   reviews: number
+  lastCorrect?: boolean
 }
 
 const STORAGE_KEY = 'joseki-practice:srs:v2'
@@ -54,6 +55,7 @@ export function record(key: string, correct: boolean, now = Date.now()) {
       due: now + LADDER[level - 1],
       mistakes: card.mistakes + (correct ? 0 : 1),
       reviews: card.reviews + 1,
+      lastCorrect: correct,
     },
   }
   save()
@@ -63,6 +65,8 @@ export const isDue = (key: string, now = Date.now()) => {
   const card = cards[key]
   return !!card && card.due <= now
 }
+
+export const isLearned = (card: Card | undefined) => !!card && (card.lastCorrect ?? card.mistakes === 0)
 
 export const isDifficult = (card: Card) => card.mistakes >= 3 && card.level < 4
 

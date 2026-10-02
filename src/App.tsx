@@ -1,50 +1,39 @@
-import { go, useHashRoute } from './hooks'
-import { Home } from './pages/Home'
-import { CoursePage } from './pages/CoursePage'
-import { Drill } from './pages/Drill'
-import { Tsume } from './pages/Tsume'
-import { Analyze } from './pages/Analyze'
-import { Play } from './pages/Play'
-import { Patterns } from './pages/Patterns'
+import { Component, type ReactNode } from 'react'
+import { Workshop } from './workshop/Workshop'
 
-const NAV = [
-  { route: '', label: 'Openings' },
-  { route: 'patterns', label: 'Patterns' },
-  { route: 'drill', label: 'Review' },
-  { route: 'tsume', label: 'Tsume' },
-  { route: 'analyze', label: 'Analyze' },
-  { route: 'play', label: 'Free board' },
-]
+class Recover extends Component<{ children: ReactNode }, { error: Error | null }> {
+  state = { error: null as Error | null }
+
+  static getDerivedStateFromError(error: Error) {
+    return { error }
+  }
+
+  reset = () => {
+    try {
+      localStorage.removeItem('joseki-practice:session:v2')
+    } catch (error) {
+      console.warn('session not cleared', error)
+    }
+    location.reload()
+  }
+
+  render() {
+    if (!this.state.error) return this.props.children
+    return (
+      <div className="ws-crash">
+        <h1>Something went wrong</h1>
+        <p>{this.state.error.message}</p>
+        <p>Your progress and settings are safe. Resetting only clears the game that was open.</p>
+        <button onClick={this.reset}>Reset the open game and reload</button>
+      </div>
+    )
+  }
+}
 
 export default function App() {
-  const [page = '', ...rest] = useHashRoute()
-  const active = page === 'course' ? '' : page
   return (
-    <>
-      <header className="topbar">
-        <button className="brand" onClick={() => go()}>
-          <span className="brand-mark">四</span> Shiken-bisha dojo
-        </button>
-        <nav>
-          {NAV.map((n) => (
-            <button key={n.route} className={active === n.route ? 'on' : ''} onClick={() => go(...(n.route ? [n.route] : []))}>
-              {n.label}
-            </button>
-          ))}
-        </nav>
-      </header>
-      <main>
-        {page === '' && <Home />}
-        {page === 'course' && <CoursePage id={rest[0]} nodeId={rest[1]} />}
-        {page === 'patterns' && <Patterns />}
-        {page === 'drill' && <Drill />}
-        {page === 'tsume' && <Tsume />}
-        {page === 'analyze' && <Analyze />}
-        {page === 'play' && <Play sfen={rest[0]} />}
-      </main>
-      <footer className="footer">
-        GPL-3.0. Engine: YaneuraOu (WASM build by mizar, GPL-3.0). Joseki data: Shiryu181/shogi-joseki (GPL-3.0) plus lines from hibitonshi.com and Wikipedia. Tsume: YaneuraOu mate set. Rules and kifu: tsshogi (MIT).
-      </footer>
-    </>
+    <Recover>
+      <Workshop />
+    </Recover>
   )
 }

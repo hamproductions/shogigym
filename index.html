@@ -4,7 +4,19 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shiken-bisha dojo</title>
+    <meta name="description" content="ShogiLab: a 四間飛車 (Shiken-bisha) trainer with sourced joseki, study and quiz, spaced review, tsume, an AI coach and game analysis." />
+    <meta name="theme-color" content="#16202e" />
+    <title>ShogiLab 将棋ラボ</title>
+    <script>
+      if (!window.crossOriginIsolated && window.isSecureContext && 'serviceWorker' in navigator && !sessionStorage.getItem('coi-reloaded')) {
+        navigator.serviceWorker.register('coi-sw.js').then(() => {
+          if (!navigator.serviceWorker.controller) {
+            sessionStorage.setItem('coi-reloaded', '1')
+            location.reload()
+          }
+        })
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
