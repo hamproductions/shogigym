@@ -1,6 +1,6 @@
-# Shogizemi 将棋ゼミ
+# Shogi Gym 将棋ジム
 
-A free shogi study room in the browser. Learn openings with study and quiz modes, keep them with spaced review, sharpen tactics with tsume and tesuji drills, play the AI and analyze your games. Everything runs locally, with the YaneuraOu engine compiled to WebAssembly.
+A free shogi training gym in the browser. Learn openings with study and quiz modes, keep them with spaced review, sharpen tactics with tsume and tesuji drills, play the AI and analyze your games. Everything runs locally, with the YaneuraOu engine compiled to WebAssembly.
 
 The opening library started with 四間飛車 (Fourth File Rook) and is growing towards the main strategies for beginners up to amateur 1–2 dan.
 

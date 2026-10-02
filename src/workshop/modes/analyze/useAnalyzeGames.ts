@@ -55,7 +55,7 @@ export function useAnalyzeGames(session: BoardSession, { load, setTab, setConfir
 
   const exportKif = () => {
     const lines = isGameMode(mode) && tree.children.length ? allLines(tree) : [game.moves]
-    const ai = `Shogizemi AI (${STRENGTH[settings.opponent].label})`
+    const ai = `Shogi Gym AI (${STRENGTH[settings.opponent].label})`
     const names = mode === 'spar' ? (userSide === 'sente' ? { sente: t('workshop.you'), gote: ai } : { sente: ai, gote: t('workshop.you') }) : gameNotes?.title && gameNotes.title !== IMPORTED ? { title: gameNotes.title } : course ? { title: course.title } : {}
     return exportGame(game.start, lines, names)
   }

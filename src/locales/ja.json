@@ -1,6 +1,6 @@
 {
   "app": {
-    "title": "将棋ゼミ",
+    "title": "将棋ジム",
     "somethingWentWrong": "エラーが発生しました",
     "yourProgressAndSettingsAre": "進捗と設定は残っています。リセットで消えるのは開いていた対局だけです。",
     "resetTheOpenGameAnd": "開いていた対局をリセットして再読み込み"
@@ -296,7 +296,7 @@
     "techniques": "基本と手筋",
     "openingsByWhatYourOpponent": "相手の戦型別の定跡",
     "startHere": "ここから",
-    "shogilabCreditsAndLicences": "将棋ゼミ: クレジットとライセンス",
+    "shogilabCreditsAndLicences": "将棋ジム: クレジットとライセンス",
     "engineYaneuraouWasmBuildBy": "エンジン: やねうら王（mizar氏によるWASM版、GPL-3.0）。定跡データ: Shiryu181/shogi-joseki（GPL-3.0）、hibitonshi.com、shogijam.com、thirdfilerook.jp、Wikipedia（CC BY-SA）の手順。詰将棋: やねうら王の詰将棋集。ルールと棋譜: tsshogi（MIT）。フォント: Shippori Mincho B1、Zen Kaku Gothic New（SIL OFL）。",
     "youPlay": "あなたは{{side}}",
     "lessonCount_other": "{{count}}レッスン"
@@ -557,7 +557,7 @@
     "takeBackYourLastMove": "待った: 直前の手を戻しました。別の手を指しましょう。",
     "openThisGameInAnalyze_other": "この対局を検討で開きますか？ 検討で開いている棋譜（{{count}}手）は置き換えられます。",
     "mode": "モード",
-    "shogilab": "将棋ゼミ",
+    "shogilab": "将棋ジム",
     "searchLinesAndCommandsK": "定跡とコマンドを検索 (⌘K)",
     "settingsSoundPiecesBoardAi": "設定: 音、駒、盤、AI",
     "controlMapWhoControlsEach": "利きマップ: 各マスの利き（青は☗、赤は☖、紫は拮抗）。Cキー",
@@ -693,7 +693,7 @@
     "confirm": "確認",
     "yesStartNew": "新しく始める",
     "welcome": "ようこそ",
-    "welcomeToShogilab": "将棋ゼミへようこそ",
+    "welcomeToShogilab": "将棋ジムへようこそ",
     "aWorkshopForLearningThe": "四間飛車を学ぶための工房です。実戦の定跡を学習し、クイズで確認し、詰将棋を解き、AIと対局できます。将棋はどのくらい知っていますか？",
     "iKnowTheRules": "ルールを知っている",
     "iCanRead7Style": "「7六歩」のような棋譜が読めて、駒の動かし方も分かる。",

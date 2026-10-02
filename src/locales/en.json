@@ -1,6 +1,6 @@
 {
   "app": {
-    "title": "Shogizemi",
+    "title": "Shogi Gym",
     "somethingWentWrong": "Something went wrong",
     "yourProgressAndSettingsAre": "Your progress and settings are safe. Resetting only clears the game that was open.",
     "resetTheOpenGameAnd": "Reset the open game and reload"
@@ -302,7 +302,7 @@
     "techniques": "Techniques",
     "openingsByWhatYourOpponent": "Openings by what your opponent plays",
     "startHere": "Start here",
-    "shogilabCreditsAndLicences": "Shogizemi: credits and licences",
+    "shogilabCreditsAndLicences": "Shogi Gym: credits and licences",
     "engineYaneuraouWasmBuildBy": "Engine: YaneuraOu (WASM build by mizar, GPL-3.0). Opening data: Shiryu181/shogi-joseki (GPL-3.0), plus lines from hibitonshi.com, shogijam.com, thirdfilerook.jp and Wikipedia (CC BY-SA). Mate problems: YaneuraOu mate set. Rules and kifu: tsshogi (MIT). Fonts: Shippori Mincho B1, Zen Kaku Gothic New (SIL OFL).",
     "youPlay": "You play {{side}}",
     "lessonCount_one": "1 lesson",
@@ -570,7 +570,7 @@
     "openThisGameInAnalyze_one": "Open this game in Analyze? The game already open there (1 move) will be replaced.",
     "openThisGameInAnalyze_other": "Open this game in Analyze? The game already open there ({{count}} moves) will be replaced.",
     "mode": "Mode",
-    "shogilab": "Shogizemi 将棋ゼミ",
+    "shogilab": "Shogi Gym 将棋ジム",
     "searchLinesAndCommandsK": "Search lines and commands (⌘K)",
     "settingsSoundPiecesBoardAi": "Settings: sound, pieces, board, AI",
     "controlMapWhoControlsEach": "Control map: who controls each square (blue ☗, red ☖, purple contested). Press C",
@@ -706,7 +706,7 @@
     "confirm": "Confirm",
     "yesStartNew": "Yes, start new",
     "welcome": "Welcome",
-    "welcomeToShogilab": "Welcome to Shogizemi",
+    "welcomeToShogilab": "Welcome to Shogi Gym",
     "aWorkshopForLearningThe": "A workshop for learning the Fourth-file Rook (Shikenbisha): study real opening lines, quiz yourself, solve tsume and play the AI. How well do you know shogi?",
     "iKnowTheRules": "I know the rules",
     "iCanRead7Style": "I can read 7六歩-style moves and know how every piece moves.",
