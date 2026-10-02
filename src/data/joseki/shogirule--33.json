@@ -1,7 +1,7 @@
 {
  "id": "shogirule--33",
  "title": "先手四間飛車 対 穴熊(将棋ルール.com)",
- "titleEn": "Sente Fourth File Rook vs Anaguma",
+ "titleEn": "Fourth File Rook vs Anaguma",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "sente",

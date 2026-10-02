@@ -1,7 +1,7 @@
 {
  "id": "shikenbisha-vs-ibisha--kakukoukan",
  "title": "角交換四間飛車(先手)",
- "titleEn": "Bishop-exchange Fourth File Rook (Sente)",
+ "titleEn": "Bishop-exchange Fourth File Rook",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "sente",

@@ -1,7 +1,7 @@
 {
  "id": "shikenbisha-vs-aifuri--nishikawa",
  "title": "相振り飛車: 西川流(先手) vs 三間飛車・△3六歩には四間飛車",
- "titleEn": "Double Ranging Rook: Nishikawa style (Sente) vs Third File Rook, answer △3六歩 with Fourth File Rook",
+ "titleEn": "Double Ranging Rook: Nishikawa style vs Third File Rook, answer △3六歩 with Fourth File Rook",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "sankenbisha",
  "mySide": "sente",

@@ -1,7 +1,7 @@
 {
  "id": "shogirule--47",
  "title": "後手四間飛車 対 ４五歩急戦(将棋ルール.com)",
- "titleEn": "Gote Fourth File Rook vs ▲4五歩 rapid attack",
+ "titleEn": "Fourth File Rook vs ▲4五歩 rapid attack",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "gote",

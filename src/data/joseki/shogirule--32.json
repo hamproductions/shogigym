@@ -1,7 +1,7 @@
 {
  "id": "shogirule--32",
  "title": "先手矢倉「脇システム」(将棋ルール.com)",
- "titleEn": "Sente Yagura: Waki System",
+ "titleEn": "Yagura: Waki System",
  "myStrategy": "yagura",
  "opponentStrategy": "yagura",
  "mySide": "sente",

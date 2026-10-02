@@ -1,7 +1,7 @@
 {
  "id": "shikenbisha-vs-anaguma--fujii",
  "title": "四間飛車 vs 居飛車穴熊(先手・藤井システム)",
- "titleEn": "Fourth File Rook vs Static Rook Anaguma (Sente, Fujii System)",
+ "titleEn": "Fourth File Rook vs Static Rook Anaguma (Fujii System)",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "sente",

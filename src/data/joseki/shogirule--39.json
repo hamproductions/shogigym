@@ -1,7 +1,7 @@
 {
  "id": "shogirule--39",
  "title": "先手四間飛車 対 後手棒銀(将棋ルール.com)",
- "titleEn": "Sente Fourth File Rook vs Gote Climbing Silver",
+ "titleEn": "Fourth File Rook vs Climbing Silver",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "sente",

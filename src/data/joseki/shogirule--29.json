@@ -1,7 +1,7 @@
 {
  "id": "shogirule--29",
  "title": "先手矢倉 対 後手急戦(阿久津流)(将棋ルール.com)",
- "titleEn": "Sente Yagura vs Gote rapid attack (Akutsu style)",
+ "titleEn": "Yagura vs rapid attack (Akutsu style)",
  "myStrategy": "yagura",
  "opponentStrategy": "yagura",
  "mySide": "sente",

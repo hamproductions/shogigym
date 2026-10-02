@@ -1,7 +1,7 @@
 {
  "id": "shikenbisha-vs-aifuri--2fu",
  "title": "相振り飛車: 四間飛車(先手) vs 三間飛車・2歩を手持ちにする手筋",
- "titleEn": "Double Ranging Rook: Fourth File Rook (Sente) vs Third File Rook, winning two pawns in hand",
+ "titleEn": "Double Ranging Rook: Fourth File Rook vs Third File Rook, winning two pawns in hand",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "sankenbisha",
  "mySide": "sente",

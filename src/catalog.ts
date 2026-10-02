@@ -69,7 +69,7 @@ export function buildCatalog(raws: RawCourse[]) {
       id,
       baseId: raw.id,
       title: mirrored && strategy ? `${raw.title} ― ${userSide === 'sente' ? '先手' : '後手'}・${strategy.ja}側` : raw.title,
-      titleEn: mirrored && strategy ? `${raw.titleEn ?? TITLES_EN[raw.id] ?? raw.title}, playing ${userSide === 'sente' ? 'Sente' : 'Gote'} as ${strategy.en}` : (raw.titleEn ?? TITLES_EN[raw.id]),
+      titleEn: mirrored && strategy ? `${raw.titleEn ?? TITLES_EN[raw.id] ?? raw.title} (as ${strategy.en})` : (raw.titleEn ?? TITLES_EN[raw.id]),
       userSide,
       notesFromOpponentView: userSide !== raw.mySide,
       setupId,

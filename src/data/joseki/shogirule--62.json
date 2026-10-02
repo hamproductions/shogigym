@@ -1,7 +1,7 @@
 {
  "id": "shogirule--62",
  "title": "先手三間飛車「石田流」(将棋ルール.com)",
- "titleEn": "Sente Ishida Third File Rook",
+ "titleEn": "Ishida Third File Rook",
  "myStrategy": "sankenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "sente",

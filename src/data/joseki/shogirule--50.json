@@ -1,7 +1,7 @@
 {
  "id": "shogirule--50",
  "title": "先手横歩取り 対 後手△4五角(将棋ルール.com)",
- "titleEn": "Sente Side Pawn Capture vs Gote △4五角",
+ "titleEn": "Side Pawn Capture vs △4五角",
  "myStrategy": "yokofudori",
  "opponentStrategy": "yokofudori",
  "mySide": "sente",
