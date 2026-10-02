@@ -58,11 +58,10 @@
 
 .ws-rail-btn span {
   max-width: 100%;
-  overflow: hidden;
   font-size: var(--text-2xs);
   line-height: var(--leading-tight);
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  text-align: center;
+  text-wrap: balance;
 }
 
 .ws-rail-btn .ws-en {
@@ -425,6 +424,10 @@
 .ws.fs .ws-plate,
 .ws.fs .ws-phone-task {
   display: none;
+}
+
+.ws.fs .ws-board-wrap {
+  padding: 0;
 }
 
 .ws.fs .ws-fs-exit {

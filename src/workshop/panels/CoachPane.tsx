@@ -27,14 +27,14 @@ function Verdict({ review, lastMove, prevSfen, bookLast, ai, you }: Pick<CoachPa
     return (
       <>
         <div className="ws-verdict-head">
-          <span className="ws-badge" style={{ background: LABELS[review.label].color }}>
+          <span className="ws-badge" style={{ ['--label' as string]: LABELS[review.label].color }}>
             {LABELS[review.label].symbol}
           </span>
           <strong>
             {you ? t('coach.yourMove') : ''}
             {played}
           </strong>
-          <span style={{ color: LABELS[review.label].color }}>{LABELS[review.label].text}</span>
+          <span className="ws-verdict-label" style={{ ['--label' as string]: LABELS[review.label].color }}>{LABELS[review.label].text}</span>
         </div>
         {bookLast?.branch.note && <p className="ws-note">{bookLast.branch.note}</p>}
         {bookLast?.branch.kind === 'deviation' && bookLast.branch.punishNote && <p className="ws-note warn">{bookLast.branch.punishNote}</p>}
@@ -55,11 +55,11 @@ function Verdict({ review, lastMove, prevSfen, bookLast, ai, you }: Pick<CoachPa
     return (
       <>
         <div className="ws-verdict-head">
-          <span className="ws-badge" style={{ background: LABELS.book.color }}>
+          <span className="ws-badge" style={{ ['--label' as string]: LABELS.book.color }}>
             {LABELS.book.symbol}
           </span>
           <strong>{played}</strong>
-          <span style={{ color: LABELS.book.color }}>{t('coach.bookMove')}</span>
+          <span className="ws-verdict-label" style={{ ['--label' as string]: LABELS.book.color }}>{t('coach.bookMove')}</span>
         </div>
         {bookLast.branch.note && <p className="ws-note">{bookLast.branch.note}</p>}
       </>
@@ -68,11 +68,11 @@ function Verdict({ review, lastMove, prevSfen, bookLast, ai, you }: Pick<CoachPa
     return (
       <>
         <div className="ws-verdict-head">
-          <span className="ws-badge" style={{ background: LABELS.mistake.color }}>
+          <span className="ws-badge" style={{ ['--label' as string]: LABELS.mistake.color }}>
             {LABELS.mistake.symbol}
           </span>
           <strong>{played}</strong>
-          <span style={{ color: LABELS.mistake.color }}>{t('coach.knownMistake')}</span>
+          <span className="ws-verdict-label" style={{ ['--label' as string]: LABELS.mistake.color }}>{t('coach.knownMistake')}</span>
         </div>
         {(bookLast.branch.punishNote ?? bookLast.branch.note) && <p className="ws-note warn">{bookLast.branch.punishNote ?? bookLast.branch.note}</p>}
       </>

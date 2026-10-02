@@ -86,7 +86,7 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
         <Card tone={mistakeIsBad(mistake) ? 'bad' : 'good'}>
           <div className="ws-verdict-head">
             {mistake.verdict && (
-              <span className="ws-badge" style={{ background: LABELS[mistake.verdict.label].color }}>
+              <span className="ws-badge" style={{ ['--label' as string]: LABELS[mistake.verdict.label].color }}>
                 {LABELS[mistake.verdict.label].symbol}
               </span>
             )}

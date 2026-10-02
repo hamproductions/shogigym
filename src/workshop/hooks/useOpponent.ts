@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { scoreWinRate, usiPosition } from '../../analysis'
 import { analyze, engineSupported } from '../../engine'
 import { mainBranch, strategyMove, strip } from '../lib/book'
+import { otherSide } from '../../shogi'
 import { STRENGTH, useSettings } from '../settings'
 import type { LessonMode } from '../types'
 import type { BoardSession } from './useBoardSession'
@@ -19,7 +20,7 @@ export function useOpponent(session: BoardSession, { lessonMode, halted }: { les
     const book = mode === 'lesson' ? mainBranch(nodes?.get(strip(liveSfen))) : undefined
     const run = async () => {
       if (book) return setPending({ key: liveSfen, usi: book.usi, note: book.note, source: 'book' })
-      const planned = mode === 'spar' && settings.aiStrategy ? strategyMove(settings.aiStrategy, userSide, liveSfen) : undefined
+      const planned = mode === 'spar' && settings.aiStrategy ? strategyMove(settings.aiStrategy, otherSide(userSide), liveSfen) : undefined
       if (planned) return setPending({ key: liveSfen, usi: planned.usi, note: planned.note, source: 'book' })
       if (mode === 'lesson' || !engineSupported()) return
       const level = STRENGTH[settings.opponent]

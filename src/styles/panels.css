@@ -85,8 +85,13 @@
   font-size: var(--text-lg);
 }
 
+.ws-verdict-label {
+  color: light-dark(color-mix(in srgb, var(--label) 55%, #000), var(--label));
+}
+
 .ws-badge {
   flex: none;
+  background: light-dark(color-mix(in srgb, var(--label) 56%, #000), var(--label));
   display: grid;
   place-items: center;
   width: 28px;
@@ -300,7 +305,7 @@
 .ws-move-row {
   display: grid;
   grid-template-columns: 34px 1fr 1fr;
-  align-items: start;
+  align-items: baseline;
   gap: var(--space-1);
   padding: var(--space-half) 0;
   border-radius: var(--radius-sm);
@@ -315,7 +320,7 @@
 }
 
 .ws-move-no {
-  padding: var(--space-2) 0 0 var(--space-1-5);
+  padding-left: var(--space-1-5);
   color: var(--text-muted);
   font-size: var(--text-xs);
 }
@@ -354,6 +359,7 @@
 
 .ws-move-label {
   margin-left: var(--space-1-5);
+  color: light-dark(color-mix(in srgb, var(--label) 55%, #000), var(--label));
   font-family: var(--font-sans);
   font-weight: var(--weight-bold);
   font-size: var(--text-xs);
@@ -484,8 +490,10 @@
 }
 
 .ws-hint-line.idle {
+  padding-left: 0;
   background: transparent;
   color: var(--text-muted);
+  font: var(--weight-regular) var(--text-sm) / var(--leading-normal) var(--font-sans);
 }
 
 .ws-picker > * + * {
@@ -930,6 +938,7 @@
 
   .ws-practice > .ws-seg {
     order: 9;
+    margin-top: var(--space-3);
   }
 
   .ws-practice > .ws-tsume-lengths {
@@ -948,7 +957,7 @@
 
   .ws-practice > .ws-tsume-status {
     order: -2;
-    height: 2.9em;
+    height: auto;
     font-size: var(--text-sm);
   }
 
@@ -990,4 +999,72 @@
   .ws-card {
     margin-top: var(--space-2);
   }
+}
+
+.ws-main-current {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: var(--space-3);
+  width: 100%;
+  margin: 0 0 var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--card);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ws-main-current span {
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+}
+
+.ws-main-current strong {
+  font-family: var(--font-mincho);
+  font-size: var(--text-lg);
+}
+
+.ws-main-current em {
+  color: var(--accent);
+  font-style: normal;
+  font-size: var(--text-sm);
+}
+
+.ws-main-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--space-2);
+}
+
+.ws-main-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--card);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ws-main-chip strong {
+  font-family: var(--font-mincho);
+}
+
+.ws-main-chip span {
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+}
+
+.ws-main-chip.on {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
 }

@@ -106,7 +106,7 @@ export function MovesPane({ sfens, moves, cursor, setCursor, title, onScore, tre
             </span>
           )}
           {label && !QUIET_LABELS.includes(label) && (
-            <span className="ws-move-label" style={{ color: LABELS[label].color }} title={LABELS[label].text}>
+            <span className="ws-move-label" style={{ ['--label' as string]: LABELS[label].color }} title={LABELS[label].text}>
               {LABELS[label].symbol}
             </span>
           )}

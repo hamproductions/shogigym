@@ -1,6 +1,7 @@
 import problemsData from '../data/tsume.json'
 import { analyze, engineSupported } from '../engine'
-import { COURSES, findPath, sideToMove, walkNodes, type Course, type JosekiNode } from '../model'
+import { COURSES, SETUPS, findPath, sideToMove, walkNodes, type Course, type JosekiNode } from '../model'
+import { getSettings } from './settings'
 import { getCard, isDifficult, isLearned, positionKey } from '../srs'
 import { loadMistakes, type Mistake } from '../mistakes'
 import { applyUsi, colorSide, hasLegalMove, moveText, positionOf, type Side } from '../shogi'
@@ -81,12 +82,19 @@ export type ReviewItem =
 export type ReviewQueue = 'due' | 'new' | 'difficult' | 'mistakes'
 
 type Spot = { key: string; course: Course; node: JosekiNode; depth: number; alts: { course: Course; node: JosekiNode; depth: number }[] }
-let positionsCache: Spot[] | null = null
+const positionsCache = new Map<string, Spot[]>()
+
+export const coursesForMain = (main: string) => {
+  const ids = new Set(SETUPS.filter((s) => s.technique || s.main === main).flatMap((s) => s.courseIds))
+  return COURSES.filter((c) => ids.has(c.id))
+}
 
 function trainablePositions() {
-  if (positionsCache) return positionsCache
+  const main = getSettings().mainStrategy
+  const cached = positionsCache.get(main)
+  if (cached) return cached
   const seen = new Map<string, Spot>()
-  for (const course of COURSES)
+  for (const course of coursesForMain(main))
     walkNodes(course.root, (node, path) => {
       if (sideToMove(node) !== course.userSide || !node.branches.some((b) => b.kind !== 'deviation')) return
       const key = positionKey(node.sfen)
@@ -94,8 +102,9 @@ function trainablePositions() {
       if (hit) hit.alts.push({ course, node, depth: path.length })
       else seen.set(key, { key, course, node, depth: path.length, alts: [{ course, node, depth: path.length }] })
     })
-  positionsCache = [...seen.values()]
-  return positionsCache
+  const spots = [...seen.values()]
+  positionsCache.set(main, spots)
+  return spots
 }
 
 export function courseProgress(course: Course) {

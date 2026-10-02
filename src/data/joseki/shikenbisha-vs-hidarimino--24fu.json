@@ -4,7 +4,7 @@
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "gote",
- "source": "開始局面と手順はWikipedia日本語版「左美濃」の第1-4図〜第1-6図(1996年5月14日 王位戦予選 谷川浩司 vs 阿部隆)と同節の解説に準拠(CC BY-SA)。開始局面は第1-4図をSFENに変換し、全手を合法手検証済み。",
+ "source": "開始局面と手順はWikipedia日本語版「左美濃」(https://ja.wikipedia.org/wiki/左美濃)の第1-4図〜第1-6図(1996年5月14日 王位戦予選 谷川浩司 vs 阿部隆)と同節の解説に準拠(CC BY-SA)。開始局面は第1-4図をSFENに変換し、全手を合法手検証済み。",
  "goalFormation": "左美濃側の代表的な攻め筋▲2四歩△同歩▲同角(または▲5五歩)への対応を覚える。",
  "root": {
   "id": "n0",

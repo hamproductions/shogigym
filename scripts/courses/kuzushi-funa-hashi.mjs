@@ -6,7 +6,7 @@ export default {
   mySide: 'gote',
   userSide: 'gote',
   source:
-    '局面と手順はWikipedia日本語版「舟囲い」の「崩し方」節の図(△9八歩まで、持ち駒は先手 角桂歩2・後手 飛角)と同節の解説に準拠(CC BY-SA)。図の局面をSFENに変換し、全手を合法手検証済み。',
+    '局面と手順はWikipedia日本語版「舟囲い」(https://ja.wikipedia.org/wiki/舟囲い)の「崩し方」節の図(△9八歩まで、持ち駒は先手 角桂歩2・後手 飛角)と同節の解説に準拠(CC BY-SA)。図の局面をSFENに変換し、全手を合法手検証済み。',
   goalFormation: '持ち駒に飛車があるとき、玉側の端を歩で釣り上げて飛車を端から打ち込む。',
   startSfen: 'ln1g4l/1ks3g2/1ppp1s2p/6pp1/P3Pp3/2P6/1P1PS1P1P/p1K1GS1R1/LN1G3NL b BN2Prb 1',
   rootComment:

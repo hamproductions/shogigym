@@ -6,7 +6,7 @@ export default {
   mySide: 'gote',
   userSide: 'gote',
   source:
-    '局面と手順はWikipedia日本語版「美濃囲い」の図「木村美濃囲いの攻略」と同節の解説に準拠(CC BY-SA)。図の局面(△3六歩まで、持ち駒は先手 角歩3・後手 角)をSFENに変換し、全手を合法手検証済み。',
+    '局面と手順はWikipedia日本語版「美濃囲い」(https://ja.wikipedia.org/wiki/美濃囲い)の図「木村美濃囲いの攻略」と同節の解説に準拠(CC BY-SA)。図の局面(△3六歩まで、持ち駒は先手 角歩3・後手 角)をSFENに変換し、全手を合法手検証済み。',
   goalFormation: '木村美濃は玉に紐がなく、角の打ち込みで金銀を崩される。四間飛車側から見れば、自分の美濃がこう崩されるという警告。',
   startSfen: 'ln5nl/1r3gk2/p1s1sg1p1/2p1pp2p/3G2P2/PPP1PPp1P/2S2SNP1/3R2GK1/LN6L b B3Pb 1',
   rootComment: '木村美濃囲いのくずし例。居飛車が△3五歩▲同歩△3六歩とした場面です。',

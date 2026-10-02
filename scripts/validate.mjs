@@ -1,3 +1,4 @@
+import { spawnSync } from 'node:child_process'
 import { readdirSync, readFileSync } from 'node:fs'
 import { Position } from 'tsshogi'
 
@@ -48,4 +49,8 @@ for (const dir of dirs) {
 }
 
 console.log(`${moves} moves checked, ${errors} errors`)
+for (const script of ['scripts/strategy-check.ts']) {
+  const run = spawnSync('bun', [script], { stdio: 'inherit' })
+  if (run.status !== 0) errors++
+}
 process.exit(errors ? 1 : 0)

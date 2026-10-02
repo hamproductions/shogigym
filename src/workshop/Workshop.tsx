@@ -17,6 +17,7 @@ import { NewGameDialog } from './dialogs/NewGameDialog'
 import { Palette } from './dialogs/Palette'
 import { SettingsDialog } from './dialogs/SettingsDialog'
 import { WelcomeDialog } from './dialogs/WelcomeDialog'
+import { useSettings } from './settings'
 import { SessionContext } from './hooks/session'
 import { useAnnouncements } from './hooks/useAnnouncements'
 import { useAutoplay } from './hooks/useAutoplay'
@@ -155,7 +156,8 @@ export function Workshop() {
     levels.finishWelcome()
     next?.()
   }
-  const firstLesson = COURSES.find((c) => c.id === SETUPS[0].courseIds[0])
+  const mainStrategy = useSettings().mainStrategy
+  const firstLesson = COURSES.find((c) => c.id === (SETUPS.find((x) => x.basics && x.main === mainStrategy) ?? SETUPS.find((x) => x.main === mainStrategy) ?? SETUPS[0]).courseIds[0])
 
   return (
     <SessionContext.Provider value={session}>

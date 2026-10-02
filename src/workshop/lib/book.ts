@@ -1,4 +1,6 @@
 import { bookLookup } from '../../kifu'
+import { strategiesAt } from '../../catalog'
+import { LEGACY_AI_STRATEGY } from '../../data/strategies'
 import { COURSES, SETUPS, type Course, type JosekiMove, type JosekiNode } from '../../model'
 import type { Side } from '../../shogi'
 
@@ -27,13 +29,16 @@ export function courseNodes(course: Course): CourseNodes {
   return map
 }
 
-export const strategyCourses = (setupId: string, side: Side) => {
-  const setup = SETUPS.find((x) => x.id === setupId && !x.technique)
-  return (setup?.courseIds ?? []).map((id) => COURSES.find((c) => c.id === id)).filter((c): c is Course => !!c && c.userSide === side)
+export const aiStrategyId = (id: string) => LEGACY_AI_STRATEGY[id] ?? id
+
+export const strategyCourses = (strategyId: string, side: Side) => {
+  const id = aiStrategyId(strategyId)
+  const seen = new Set<string>()
+  return COURSES.filter((c) => strategiesAt(c.baseId, side).includes(id) && !seen.has(c.baseId) && !!seen.add(c.baseId))
 }
 
-export function strategyMove(setupId: string, side: Side, sfen: string) {
-  const options = strategyCourses(setupId, side).flatMap((c) => {
+export function strategyMove(strategyId: string, side: Side, sfen: string) {
+  const options = strategyCourses(strategyId, side).flatMap((c) => {
     const pick = mainBranch(courseNodes(c).get(strip(sfen)))
     return pick ? [pick] : []
   })
@@ -94,6 +99,8 @@ export function bookAtPly(sfens: string[], moves: string[], ply: number): BookHi
 
 export const inBook = (sfen: string, usi: string) => bookLookup(sfen).some((h) => h.node.branches.some((b) => b.usi === usi && b.kind !== 'deviation'))
 
-export const setupOf = (course: Course) => SETUPS.find((s) => s.courseIds.includes(course.id))
+export const setupOf = (course: Course, main?: string) => SETUPS.find((s) => s.courseIds.includes(course.id) && (!main || s.technique || s.main === main)) ?? SETUPS.find((s) => s.courseIds.includes(course.id))
+
+export const setupsFor = (main: string) => SETUPS.filter((s) => s.main === main)
 
 export const coursesOf = (courseIds: string[]) => courseIds.map((id) => COURSES.find((c) => c.id === id)).filter((c): c is Course => !!c)
