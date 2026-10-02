@@ -16,7 +16,7 @@ import { TESUJI_KINDS, TESUJI_DRILLS, markTesuji, pickTesuji, tesujiStats, type 
 import { deleteGame, loadGames, storeGame, type StoredGame } from './games'
 import { PIECE_SETS, loadPieceSet, pieceUrl, type PieceSet } from './pieceSets'
 import { addPath, allLines, emptyTree, isMainLine, mainContinuation, mainLine, nodeAt, promote, removeBranch, type Tree } from './tree'
-import { PIECE_FINISHES, PIECE_FONTS, STRENGTH, TIME_CONTROLS, type TimeControl, loadPieceFont, playSound, setSettings, useSettings, type AiStrength, type BoardStyle, type Environment, type PieceFinish, type PieceFont, type PieceStyle, type Lang } from './settings'
+import { PIECE_FINISHES, PIECE_FONTS, STRENGTH, TIME_CONTROLS, type TimeControl, loadPieceFont, playSound, setSettings, useSettings, type AiStrength, type BoardStyle, type Environment, type PieceFinish, type PieceFont, type PieceStyle, type Lang, type EngineKind } from './settings'
 import { analyze, engineSupported, scoreToCp, type Score } from '../engine'
 import { useAnalysis } from '../hooks'
 import { LABELS, describeMove, reviewMove, scoreWinRate, usiPosition, type MoveReview } from '../analysis'
@@ -1450,7 +1450,7 @@ export function Workshop() {
           </svg>
         </div>
         {compact && (
-          <div className="ws-more ws-mode-menu">
+          <div className="ws-menu-wrap ws-mode-menu">
             <button className="ws-rail-btn on" onClick={() => setModeMenu((v) => !v)} aria-expanded={modeMenu}>
               <Icon name="menu" size={20} />
               <span>{t(`modes.${mode}.name`)}</span>
@@ -1483,11 +1483,17 @@ export function Workshop() {
           <Icon name="tilt" size={20} />
           <span>{t('workshop.tilt')}</span>
         </button>
+        {!flatView && (
+          <button className={`ws-rail-btn${orbit ? ' on' : ''}`} onClick={() => setOrbit((v) => !v)} title={t('workshop.lookAroundHint')} aria-pressed={orbit}>
+            <Icon name="orbit" size={20} />
+            <span>{t('workshop.lookAround')}</span>
+          </button>
+        )}
         <button className={`ws-rail-btn${showSettings ? ' on' : ''}`} onClick={() => setShowSettings(true)} title={t('workshop.settingsSoundPiecesBoardAi')}>
           <Icon name="gear" size={20} />
           <span className={ja ? 'ws-ja' : 'ws-en'}>{t('rail.settings')}</span>
         </button>
-        <div className="ws-more">
+        <div className="ws-menu-wrap">
           <button className={`ws-rail-btn${more ? ' on' : ''}`} onClick={() => setMore((v) => !v)} aria-expanded={more} title={t('rail.more')}>
             <Icon name="more" size={20} />
             <span>{t('rail.more')}</span>
@@ -1495,16 +1501,9 @@ export function Workshop() {
           {more && (
             <div className="ws-more-menu" onClick={() => setMore(false)}>
               <button className={`ws-rail-btn${showControl ? ' on' : ''}`} onClick={() => setShowControl((v) => !v)} title={t('workshop.controlMapWhoControlsEach')} aria-pressed={showControl}>
-                <span className={ja ? 'ws-ja' : 'ws-en'} style={ja ? { fontSize: 18 } : undefined}>
-                  {t('rail.control')}
-                </span>
+                <Icon name="control" size={20} />
+                <span>{t('rail.control')}</span>
               </button>
-              {!flatView && (
-                <button className={`ws-rail-btn${orbit ? ' on' : ''}`} onClick={() => setOrbit((v) => !v)} title={t('workshop.lookAroundHint')} aria-pressed={orbit}>
-                  <Icon name="orbit" size={20} />
-                  <span>{t('workshop.lookAround')}</span>
-                </button>
-              )}
               <button className="ws-rail-btn" onClick={() => setHideUi(true)} title={`${t('workshop.hideUi')} (H)`}>
                 <Icon name="panel" size={20} />
                 <span>{t('workshop.hideUiShort')}</span>
@@ -1601,19 +1600,19 @@ export function Workshop() {
               <b>{t('newGame.button')}</b>
             </button>
           )}
+          {ai && assist && evalSente && (mode === 'analyze' || mode === 'spar' || (mode === 'lesson' && !!course && lessonMode === 'study')) && (
+            <span className="ws-eval-chip" title={t('workshop.winChance', { value: Math.round(senteRate * 100), value2: 100 - Math.round(senteRate * 100) })}>
+              <span className="ws-eval-track">
+                <span style={{ width: `${senteRate * 100}%` }} />
+              </span>
+              <b>
+                {senteRate >= 0.5 ? '☗' : '☖'} {Math.round(Math.max(senteRate, 1 - senteRate) * 100)}%
+              </b>
+            </span>
+          )}
           {inCheck && !gameOver && <span className="ws-check">{t('workshop.check')}</span>}
         </header>
         <div className="ws-board-wrap">
-          {ai && assist && (mode === 'analyze' || mode === 'spar' || (mode === 'lesson' && !!course && lessonMode === 'study')) && <div className="ws-evalbar" aria-label={t('workshop.evaluation')}>
-            <div className="ws-evalbar-fill" style={{ ['--rate' as string]: `${(flipped ? 1 - senteRate : senteRate) * 100}%` }} />
-            {evalSente && (
-              <span className={`ws-evalbar-text ${(senteRate >= 0.5) !== flipped ? 'bottom' : 'top'} ${senteRate >= 0.5 ? 'light' : 'dark'}`} title={t('workshop.winChance', { value: Math.round(senteRate * 100), value2: 100 - Math.round(senteRate * 100) })}>
-                {senteRate >= 0.5 ? '☗' : '☖'}
-                <br />
-                {Math.round(Math.max(senteRate, 1 - senteRate) * 100)}
-              </span>
-            )}
-          </div>}
           {settings.environment === 'diagram' || settings.environment === 'broadcast' ? (
             <Board2D style={settings.environment} position={position} flipped={flipped} tilted={false} lastMove={lastMove} selected={selection?.from ?? null} selectedColor={selection?.color} targets={targets} arrows={arrows} heat={heat} checkSquare={inCheck ? kingSquare(sfen, position.color) : null} onSquare={onSquare} onHand={onHand} onDrop={onDrop} />
           ) : (
@@ -3362,6 +3361,8 @@ function SettingsDialog({ onClose, level, onLevel }: { onClose: () => void; leve
                 {seg(t('settings.candidateMovesShown'), st.candidates, [{ v: 1, t: '1' }, { v: 2, t: '2' }, { v: 3, t: '3' }, { v: 5, t: '5' }], (v) => setSettings({ candidates: v }))}
                 {seg<AiStrength>(t('settings.aiOpponentStrength'), st.opponent, (Object.keys(STRENGTH) as AiStrength[]).map((k) => ({ v: k, t: STRENGTH[k].label })), (v) => setSettings({ opponent: v }))}
                 {seg<TimeControl>(t('settings.clock'), st.timeControl, (Object.keys(TIME_CONTROLS) as TimeControl[]).map((k) => ({ v: k, t: TIME_CONTROLS[k].label })), (v) => setSettings({ timeControl: v }))}
+                {seg<EngineKind>(t('settings.engine'), st.engine, [{ v: 'yaneuraou', t: t('settings.yaneuraou') }, { v: 'fairy', t: t('settings.fairyStockfish') }], (v) => setSettings({ engine: v }))}
+                <p className="ws-muted ws-credit">{t('settings.engineHint')}</p>
             </>
           )}
         </div>

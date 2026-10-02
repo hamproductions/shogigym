@@ -2,15 +2,18 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="ShogiLab: a 四間飛車 (Shiken-bisha) trainer with sourced joseki, study and quiz, spaced review, tsume, an AI coach and game analysis." />
     <meta name="theme-color" content="#16202e" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="icon-192.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <title>ShogiLab 将棋ラボ</title>
     <script>
-      if (!window.crossOriginIsolated && window.isSecureContext && 'serviceWorker' in navigator && !sessionStorage.getItem('coi-reloaded')) {
+      if (window.isSecureContext && 'serviceWorker' in navigator) {
         navigator.serviceWorker.register('coi-sw.js').then(() => {
-          if (!navigator.serviceWorker.controller) {
+          if (!window.crossOriginIsolated && !navigator.serviceWorker.controller && !sessionStorage.getItem('coi-reloaded')) {
             sessionStorage.setItem('coi-reloaded', '1')
             location.reload()
           }

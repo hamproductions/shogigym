@@ -963,6 +963,7 @@ export function Board3D(props: Board3DProps) {
     dropEdge.rotation.x = 0
     dropEdge.position.z = 0.001
 
+    let ghost: THREE.Object3D | null = null
     const onMove = (event: PointerEvent) => {
       const s = state.current!
       ray(event)
@@ -984,6 +985,34 @@ export function Board3D(props: Board3DProps) {
         const sq = hit?.kind === 'square' ? hit.square : null
         const legal = !!sq && (latest.current.targets ?? []).some((t) => t.equals(sq))
         dropMark.visible = !!sq
+        if (ghost && (!legal || ghost.userData.at !== sq?.usi)) {
+          s.marks.remove(ghost)
+          ghost = null
+        }
+        if (legal && sq && !ghost) {
+          const type = s.drag.mesh.userData.type as PieceType | undefined
+          const color = s.drag.mesh.userData.color as Color | undefined
+          const onBoard = s.drag.from instanceof Square ? latest.current.position.board.at(s.drag.from) : null
+          const t = onBoard?.type ?? type
+          const c = onBoard?.color ?? color
+          if (t !== undefined && c !== undefined) {
+            ghost = pieceMesh(t, c)
+            ghost.traverse((o) => {
+              const m = (o as THREE.Mesh).material
+              for (const mat of Array.isArray(m) ? m : m ? [m] : []) {
+                const clone = mat.clone()
+                clone.transparent = true
+                clone.opacity = 0.4
+                clone.depthWrite = false
+                ;(o as THREE.Mesh).material = clone
+              }
+              o.castShadow = false
+            })
+            ghost.position.set(squareX(sq.file), 0, squareZ(sq.rank))
+            ghost.userData.at = sq.usi
+            s.marks.add(ghost)
+          }
+        }
         if (sq) {
           dropMark.position.set(squareX(sq.file), 0.008, squareZ(sq.rank))
           ;(dropMark.material as THREE.MeshBasicMaterial).color.set(legal ? 0x3fae5a : 0x8a8a8a)
@@ -1001,6 +1030,10 @@ export function Board3D(props: Board3DProps) {
         const { from } = s.drag
         s.drag = null
         dropMark.visible = false
+        if (ghost) {
+          s.marks.remove(ghost)
+          ghost = null
+        }
         s.droppedAt = performance.now()
         if (hit?.kind === 'square') latest.current.onDrop(from, hit.square)
         rebuild(false)
