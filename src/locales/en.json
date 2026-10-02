@@ -222,7 +222,7 @@
     }
   },
   "moves": {
-    "noMovesYetPlayOn": "No moves yet. Play on the board, or import a game in Analyze (Coach tab).",
+    "noMovesYetPlayOn": "No moves yet. Play on the board, or load a game below.",
     "rateTheRemainingMoves": "Rate the remaining moves",
     "rateEveryMove": "Rate every move",
     "ratingMoveOf": "Rating move {{progress}} of {{movesCount}}…",
@@ -349,7 +349,9 @@
   "rail": {
     "settings": "Settings",
     "control": "Control",
-    "more": "More"
+    "more": "More",
+    "exportImage": "Save board image",
+    "tableFlip": "Flip the table (ちゃぶ台返し)"
   },
   "review": {
     "inMin": "in {{minutes}} min",

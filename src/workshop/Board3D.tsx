@@ -854,7 +854,7 @@ export function Board3D(props: Board3DProps) {
         return { l: Math.min(...xs), r: Math.max(...xs), t: Math.min(...ys), b: Math.max(...ys) }
       }
       const st = state.current!
-      if (st.tiltTarget !== 0 || st.tilt > 0.002) return
+      if (st.tiltTarget !== 0 || st.tilt > 0.002 || tableFlip) return
       if (Math.abs((latest.current.flipped ? Math.PI : 0) - st.root.rotation.y) > 0.002) return
       const ok = !layout.portrait
       if (!ok) {
@@ -1099,6 +1099,40 @@ export function Board3D(props: Board3DProps) {
         const target = base + (on ? 0.45 : 0)
         mesh.position.y += (target - mesh.position.y) * (1 - Math.exp(-dt * 18))
       }
+      if (tableFlip) {
+        const t = (time - tableFlip.start) / 1000
+        for (const b of tableFlip.bodies) {
+          b.v.y -= 30 * dt
+          b.obj.position.addScaledVector(b.v, dt)
+          b.obj.rotation.x += b.w.x * dt
+          b.obj.rotation.y += b.w.y * dt
+          b.obj.rotation.z += b.w.z * dt
+          const floorY = -THICK - LEG + 0.15
+          if (b.obj.position.y < floorY && b.v.y < 0) {
+            b.obj.position.y = floorY
+            b.v.y *= -0.35
+            b.v.x *= 0.7
+            b.v.z *= 0.7
+            b.w.multiplyScalar(0.6)
+          }
+        }
+        const k = Math.min(1, t / 0.6)
+        const shake = Math.max(0, 0.5 - t) * 0.6
+        camera.position.x += (Math.random() - 0.5) * shake
+        camera.position.y += (Math.random() - 0.5) * shake
+        board.rotation.x = -k * k * 2.6
+        board.position.y = -THICK / 2 + Math.sin(Math.min(1, t / 0.9) * Math.PI) * 4
+        board.position.z = -k * 6
+        if (t > 3.2) {
+          for (const b of tableFlip.bodies) b.obj.removeFromParent()
+          board.rotation.x = 0
+          board.position.set(0, -THICK / 2, 0)
+          tableFlip = null
+          s.pieces.visible = true
+          s.marks.visible = true
+          rebuild(false)
+        }
+      }
       for (const anim of [...s.animations]) {
         const t = Math.min(1, (time - anim.start) / 220)
         const e = 1 - Math.pow(1 - t, 3)
@@ -1112,6 +1146,32 @@ export function Board3D(props: Board3DProps) {
     }
     frame = requestAnimationFrame(loop)
 
+    let tableFlip: { start: number; bodies: { obj: THREE.Object3D; v: THREE.Vector3; w: THREE.Vector3 }[] } | null = null
+    const onFlip = () => {
+      const s = state.current
+      if (!s || tableFlip) return
+      const bodies = s.pieces.children.map((m) => {
+        const obj = m.clone()
+        obj.position.copy(m.position)
+        root.add(obj)
+        const dir = new THREE.Vector3(m.position.x, 0, m.position.z).normalize()
+        return { obj, v: new THREE.Vector3(dir.x * (4 + Math.random() * 8), 10 + Math.random() * 12, dir.z * (4 + Math.random() * 8) - 6 - Math.random() * 6), w: new THREE.Vector3((Math.random() - 0.5) * 30, (Math.random() - 0.5) * 30, (Math.random() - 0.5) * 30) }
+      })
+      s.pieces.visible = false
+      s.marks.visible = false
+      tableFlip = { start: performance.now(), bodies }
+    }
+    const onSnapshot = (event: Event) => {
+      renderer.render(scene, camera)
+      const url = renderer.domElement.toDataURL('image/png')
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `${(event as CustomEvent<string>).detail || 'shogilab'}.png`
+      a.click()
+    }
+    window.addEventListener('shogilab:tableflip', onFlip)
+    window.addEventListener('shogilab:snapshot', onSnapshot)
+
     document.fonts.load('800 64px "Shippori Mincho B1"').then(() => {
       faceCache.clear()
       rebuild(false)
@@ -1119,6 +1179,8 @@ export function Board3D(props: Board3DProps) {
 
     return () => {
       cancelAnimationFrame(frame)
+      window.removeEventListener('shogilab:tableflip', onFlip)
+      window.removeEventListener('shogilab:snapshot', onSnapshot)
       observer.disconnect()
       renderer.dispose()
       el.removeChild(renderer.domElement)

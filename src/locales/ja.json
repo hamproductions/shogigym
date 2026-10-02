@@ -218,7 +218,7 @@
     }
   },
   "moves": {
-    "noMovesYetPlayOn": "まだ手がありません。盤上で指すか、検討の指導タブで棋譜を読み込みましょう。",
+    "noMovesYetPlayOn": "まだ指し手がありません。盤で指すか、下から棋譜を読み込んでください。",
     "rateTheRemainingMoves": "残りの手を評価",
     "rateEveryMove": "全ての手を評価",
     "ratingMoveOf": "{{progress}} / {{movesCount}}手目を評価中…",
@@ -342,7 +342,9 @@
   "rail": {
     "settings": "設定",
     "control": "利",
-    "more": "その他"
+    "more": "その他",
+    "exportImage": "盤面を画像で保存",
+    "tableFlip": "ちゃぶ台返し"
   },
   "review": {
     "inMin": "{{minutes}}分後",

@@ -10,6 +10,8 @@ const paths = {
   flip: 'M7 4v16M4 7l3-3 3 3M17 20V4M14 17l3 3 3-3',
   orbit: 'M12 5c5 0 9 3.1 9 7s-4 7-9 7-9-3.1-9-7 4-7 9-7zM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM19 3l2 2-2 2',
   control: 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z',
+  image: 'M4 5h16v14H4zM4 15l5-5 4 4 3-3 4 4M15 9h.01',
+  tableflip: 'M3 17h12M5 17l-1 4M13 17l1 4M15 17l5-9M17 4l3 3M21 3l-2 5',
   more: 'M4.5 12h2M11 12h2M17.5 12h2',
   menu: 'M4 6h16M4 12h16M4 18h16',
   fullscreen: 'M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5',

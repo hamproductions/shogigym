@@ -1,6 +1,6 @@
 import { Color, PieceType, Square } from 'tsshogi'
 import { HAND_ORDER, PIECE_CHAR } from '../shogi'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { Board3DProps } from './Board3D'
 import { PIECE_FONTS, loadPieceFont } from './settings'
 import { useTranslation } from 'react-i18next'
@@ -50,6 +50,28 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
   const [, setFontReady] = useState(false)
   useEffect(() => {
     void loadPieceFont('kaisho').then(() => setFontReady(true))
+  }, [])
+  const svgRef = useRef<SVGSVGElement>(null)
+  useEffect(() => {
+    const onSnapshot = (event: Event) => {
+      const svg = svgRef.current
+      if (!svg) return
+      const box = svg.viewBox.baseVal
+      const img = new Image()
+      img.onload = () => {
+        const canvas = document.createElement('canvas')
+        canvas.width = box.width
+        canvas.height = box.height
+        canvas.getContext('2d')!.drawImage(img, 0, 0)
+        const a = document.createElement('a')
+        a.href = canvas.toDataURL('image/png')
+        a.download = `${(event as CustomEvent<string>).detail || 'shogilab'}.png`
+        a.click()
+      }
+      img.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(new XMLSerializer().serializeToString(svg))}`
+    }
+    window.addEventListener('shogilab:snapshot', onSnapshot)
+    return () => window.removeEventListener('shogilab:snapshot', onSnapshot)
   }, [])
   const komaFont = style === 'broadcast' ? `'${PIECE_FONTS.kaisho.family}', 'Shippori Mincho B1', serif` : "'Shippori Mincho B1', serif"
   const { i18n } = useTranslation()
@@ -131,7 +153,7 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
   const lastFrom = lastMove && lastMove[1] !== '*' ? Square.newByUSI(lastMove.slice(0, 2)) : null
   return (
     <div className={`ws-flat ws-flat-${style}`}>
-      <svg viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label={i18n.t('board.shogiBoard')}>
+      <svg ref={svgRef} xmlns="http://www.w3.org/2000/svg" viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label={i18n.t('board.shogiBoard')}>
         <rect width={width} height={height} fill={t.bg} />
         <rect x={x0} y={y0} width={boardW} height={boardH} fill={t.board} />
         {lastFrom && cell(lastFrom, style === 'diagram' ? '#9cc3ff' : '#fff2a8', 0.35, 'lf')}

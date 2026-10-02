@@ -1500,6 +1500,16 @@ export function Workshop() {
                   <span>{t('workshop.fullScreen2')}</span>
                 </button>
               )}
+              <button className="ws-rail-btn" onClick={() => window.dispatchEvent(new CustomEvent('shogilab:snapshot', { detail: `shogilab-${mode}-${cursor}` }))}>
+                <Icon name="image" size={20} />
+                <span>{t('rail.exportImage')}</span>
+              </button>
+              {!flatView && (
+                <button className="ws-rail-btn" onClick={() => window.dispatchEvent(new Event('shogilab:tableflip'))}>
+                  <Icon name="tableflip" size={20} />
+                  <span>{t('rail.tableFlip')}</span>
+                </button>
+              )}
               <button className="ws-rail-btn" onClick={() => setPalette(true)} title={t('workshop.searchLinesAndCommandsK')}>
                 <Icon name="command" size={20} />
                 <span>⌘K</span>
@@ -1713,6 +1723,7 @@ export function Workshop() {
                     : t(mode !== 'spar' ? 'workshop.wins' : (toMove === 'sente' ? 'gote' : 'sente') === userSide ? 'workshop.youWin' : 'workshop.aiWins', { winner: t(toMove === 'sente' ? 'common.gote' : 'common.sente') })}
               </span>
               <div className="ws-actions">
+                {mode === 'spar' && !flatView && <button onClick={() => window.dispatchEvent(new Event('shogilab:tableflip'))}>{t('rail.tableFlip')}</button>}
                 {mode === 'spar' && (
                   <button onClick={reviewGame}>
                     {t('workshop.reviewThisGame')}
