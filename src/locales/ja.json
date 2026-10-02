@@ -50,7 +50,8 @@
     "play": "指す",
     "seeHowTheBestLine": "最善手順の続きを見る",
     "hideTheLine": "手順を隠す",
-    "showTheBestMoveAs": "最善手を矢印で表示"
+    "showTheBestMoveAs": "最善手を矢印で表示",
+    "lessonNote": "AIの意見です。レッスンは定跡の手順を教えるので、異なることがあります。"
   },
   "flow": {
     "noBookLineFromThis": "この局面からの定跡はなく、AIはまだ考えています。",

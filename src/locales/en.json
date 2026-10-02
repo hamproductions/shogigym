@@ -50,7 +50,8 @@
     "play": "Play",
     "seeHowTheBestLine": "See how the best line continues",
     "hideTheLine": "Hide the line",
-    "showTheBestMoveAs": "Show the best move as an arrow"
+    "showTheBestMoveAs": "Show the best move as an arrow",
+    "lessonNote": "The engine’s own opinion. The lesson teaches its book line, which may differ."
   },
   "flow": {
     "noBookLineFromThis": "No book line from this position, and the AI is still thinking.",

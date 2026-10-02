@@ -1261,7 +1261,8 @@ export function Workshop() {
       {tab === 'engine' && ai && spoilerFree && <p className="ws-muted">{t('workshop.theAiStaysQuietUntil')}</p>}
       {tab === 'engine' && ai && !spoilerFree && gameOver && <p className="ws-muted">{t('workshop.checkmateWon', { winner: t(toMove === 'sente' ? 'common.gote' : 'common.sente') })}</p>}
       {tab === 'engine' && !assist && <p className="ws-muted">{t('workshop.helpIsOffTurnIt')}</p>}
-      {tab === 'engine' && ai && assist && !spoilerFree && !gameOver && <EnginePane sfen={sfen} toMove={toMove} analysis={analysis} showBest={showBest} setShowBest={setShowBest} onPlay={play} canPlay={userTurn} book={bookHere} />}
+      {tab === 'engine' && (mode === 'lesson' || mode === 'drill') && ai && assist && !spoilerFree && !gameOver && <p className="ws-note">{t('engine.lessonNote')}</p>}
+      {tab === 'engine' && ai && assist && !spoilerFree && !gameOver && <EnginePane sfen={sfen} toMove={toMove} analysis={analysis} showBest={showBest} setShowBest={setShowBest} onPlay={play} canPlay={userTurn && mode !== 'lesson' && mode !== 'drill'} book={bookHere} />}
       {tab === 'coach' && mode === 'lesson' && (
         <LessonPane
           course={course}
@@ -2645,12 +2646,12 @@ function OpeningPicker({ onOpen, level, setupId, setSetupId }: { onOpen: (c: Cou
       </h2>
       {level === 'new' && <p className="ws-picker-intro">{t('picker.clickAnyPieceOnThe')}</p>}
       <input className="ws-search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t('picker.searchAnagumaBGinSagimiya')} aria-label={t('picker.searchLessons')} />
-      {groups.some((g) => g.setup.technique) && <h3 className="ws-sub">{t('picker.techniques')}</h3>}
-      {[...groups.filter((g) => g.setup.technique), ...groups.filter((g) => !g.setup.technique)].map(({ setup, courses }, i, all) => {
+      {[...groups.filter((g) => g.setup.id === 'basics'), ...groups.filter((g) => !g.setup.technique && g.setup.id !== 'basics'), ...groups.filter((g) => g.setup.technique)].map(({ setup, courses }, i, all) => {
         const p = courses.map(courseProgress).reduce((a, b) => ({ learned: a.learned + b.learned, total: a.total + b.total }), { learned: 0, total: 0 })
         return (
           <Fragment key={setup.id}>
-          {!setup.technique && all[i - 1]?.setup.technique && <h3 className="ws-sub">{t('picker.openingsByWhatYourOpponent')}</h3>}
+          {!setup.technique && all[i - 1]?.setup.id === 'basics' && <h3 className="ws-sub">{t('picker.openingsByWhatYourOpponent')}</h3>}
+          {setup.technique && !all[i - 1]?.setup.technique && <h3 className="ws-sub">{t('picker.techniques')}</h3>}
           <button className="ws-setup" onClick={() => setSetupId(setup.id)}>
             <span className="ws-lib-ja">
               {ja ? setup.ja : setup.name}
