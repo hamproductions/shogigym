@@ -1,6 +1,7 @@
 {
  "id": "tesuji--tare-fu",
  "title": "手筋: 垂れ歩",
+ "titleEn": "Tesuji: dangling pawn",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "sente",

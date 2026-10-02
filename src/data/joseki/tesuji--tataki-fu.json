@@ -1,6 +1,7 @@
 {
  "id": "tesuji--tataki-fu",
  "title": "手筋: たたきの歩",
+ "titleEn": "Tesuji: striking pawn",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "nakabisha",
  "mySide": "sente",

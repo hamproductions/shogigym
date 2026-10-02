@@ -1,6 +1,7 @@
 {
  "id": "tesuji--tsugi-kei",
  "title": "手筋: 継ぎ桂",
+ "titleEn": "Tesuji: follow-up knight",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "sente",

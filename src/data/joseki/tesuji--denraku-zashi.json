@@ -1,6 +1,7 @@
 {
  "id": "tesuji--denraku-zashi",
  "title": "手筋: 田楽刺し",
+ "titleEn": "Tesuji: skewer (dengaku-zashi)",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "sente",

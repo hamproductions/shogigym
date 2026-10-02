@@ -1,6 +1,7 @@
 {
  "id": "tesuji--tsukisute-fu",
  "title": "手筋: 突き捨ての歩",
+ "titleEn": "Tesuji: pawn sacrifice push",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "sente",

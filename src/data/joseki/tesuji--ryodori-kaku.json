@@ -1,6 +1,7 @@
 {
  "id": "tesuji--ryodori-kaku",
  "title": "手筋: 両取りの角(王手飛車)",
+ "titleEn": "Tesuji: bishop fork (check and rook)",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "sente",

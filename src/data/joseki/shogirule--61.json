@@ -1,6 +1,7 @@
 {
  "id": "shogirule--61",
  "title": "後手ダイレクト向かい飛車(将棋ルール.com)",
+ "titleEn": "Gote Direct Opposing Rook",
  "myStrategy": "mukaibisha",
  "opponentStrategy": "ibisha",
  "mySide": "gote",

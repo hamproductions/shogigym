@@ -295,7 +295,7 @@
     "modeCommand": "{{name}}モード"
   },
   "picker": {
-    "theyAttackYouDefendAs": "相手が攻め、あなたは{{side}}で受ける",
+    "theyAttackYouDefendAs": "あなたは{{side}}で受ける",
     "yourMovesInThisLesson": "このレッスンでクイズにヒントなしで正解した手の数",
     "rightInQuiz": "クイズ正解 {{learned}}/{{total}}",
     "study": "学習",

@@ -1,6 +1,7 @@
 {
  "id": "tesuji--wariuchi-gin-kin",
  "title": "手筋: 割り打ちの銀(金と金の間)",
+ "titleEn": "Tesuji: splitting silver (between two golds)",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "sente",

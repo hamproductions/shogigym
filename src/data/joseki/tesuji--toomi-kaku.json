@@ -1,6 +1,7 @@
 {
  "id": "tesuji--toomi-kaku",
  "title": "手筋: 遠見の角",
+ "titleEn": "Tesuji: far-seeing bishop",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "sente",

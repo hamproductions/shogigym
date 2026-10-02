@@ -1,6 +1,7 @@
 {
  "id": "tesuji--shoten-fu",
  "title": "手筋: 焦点の歩",
+ "titleEn": "Tesuji: focal pawn",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "sente",

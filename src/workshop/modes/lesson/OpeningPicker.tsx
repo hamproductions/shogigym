@@ -1,9 +1,8 @@
 import { Fragment, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { SETUPS, type Course } from '../../../model'
+import { SETUPS, courseTitle, type Course } from '../../../model'
 import { scrollPanelTop } from '../../hooks/useLayout'
 import { coursesOf } from '../../lib/book'
-import { sideMark } from '../../lib/notation'
 import { courseProgress } from '../../practice'
 import { setSettings, useSettings } from '../../settings'
 import { mainStrategies, strategyById } from '../../../data/strategies'
@@ -15,14 +14,13 @@ type PickerProps = { onOpen: (c: Course, sub: LessonMode) => void; level: Level;
 const percent = ({ learned, total }: { learned: number; total: number }) => `${total ? (learned / total) * 100 : 0}%`
 
 function LessonCard({ course, onOpen }: { course: Course; onOpen: PickerProps['onOpen'] }) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const progress = courseProgress(course)
-  const side = sideMark(course.userSide)
   return (
     <div className="ws-lesson-card">
-      <span className="ws-lesson-title">{course.title}</span>
+      <span className="ws-lesson-title">{courseTitle(course, i18n.language)}</span>
       <span className="ws-lesson-meta">
-        <span className={`ws-role ${course.notesFromOpponentView ? 'defend' : 'attack'}`}>{course.notesFromOpponentView ? t('picker.theyAttackYouDefendAs', { side }) : t('picker.youPlay', { side: t(course.userSide === 'sente' ? 'common.sente' : 'common.gote') })}</span>
+        <span className={`ws-role ${course.notesFromOpponentView ? 'defend' : 'attack'}`}>{t(course.notesFromOpponentView ? 'picker.theyAttackYouDefendAs' : 'picker.youPlay', { side: t(course.userSide === 'sente' ? 'common.sente' : 'common.gote') })}</span>
         <span>
           <span title={t('picker.yourMovesInThisLesson')}>{t('picker.rightInQuiz', { learned: progress.learned, total: progress.total })}</span>
         </span>
@@ -65,7 +63,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
   const card = (c: Course) => <LessonCard key={c.id} course={c} onOpen={onOpen} />
   const search = <input className="ws-search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t('picker.searchAnagumaBGinSagimiya')} aria-label={t('picker.searchLessons')} autoFocus={!!q} />
   if (q) {
-    const hits = all.flatMap((g) => g.courses.filter((c) => `${c.title} ${g.setup.ja} ${g.setup.name}`.toLowerCase().includes(q)))
+    const hits = all.flatMap((g) => g.courses.filter((c) => `${c.title} ${c.titleEn ?? ''} ${g.setup.ja} ${g.setup.name}`.toLowerCase().includes(q)))
     return (
       <div className="ws-picker">
         {search}

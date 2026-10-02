@@ -1,6 +1,7 @@
 {
  "id": "tesuji--renda-fu",
  "title": "手筋: 連打の歩",
+ "titleEn": "Tesuji: repeated pawn strikes",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "sente",

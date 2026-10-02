@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { InitialPositionSFEN } from 'tsshogi'
 import { usiPosition } from '../../../analysis'
 import { analyze, engineSupported } from '../../../engine'
-import { findPath, sideToMove, type Course, type JosekiNode } from '../../../model'
+import { courseTitle, findPath, sideToMove, type Course, type JosekiNode } from '../../../model'
 import { applyUsi, moveText } from '../../../shogi'
 import { positionKey, record } from '../../../srs'
 import type { BoardArrow } from '../../Board3D'
@@ -22,7 +22,7 @@ const LESSON_GREEN = '#4f8a2a'
 type LessonDeps = { mistakes: Mistakes; load: Load; setTab: (tab: Tab) => void; closeSheet: () => void; compact: boolean }
 
 export function useLesson(session: BoardSession, { mistakes, load, setTab, closeSheet, compact }: LessonDeps) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const { mode, course, nodes, liveSfen, cursor, game, preview, toMove, userSide, atEnd, play } = session
   const [lessonMode, setLessonMode] = useState<LessonMode>('study')
   const [showAnswer, setShowAnswer] = useState(false)
@@ -199,7 +199,7 @@ export function useLesson(session: BoardSession, { mistakes, load, setTab, close
     waitingForReply,
     hidesAnswer,
     arrows,
-    title: course ? `${lessonMode === 'study' ? t('workshop.study') : t('workshop.quiz')}: ${course.title}` : t('workshop.openingsPickALesson'),
+    title: course ? `${lessonMode === 'study' ? t('workshop.study') : t('workshop.quiz')}: ${courseTitle(course, i18n.language)}` : t('workshop.openingsPickALesson'),
     instruction,
     reset,
     restore,

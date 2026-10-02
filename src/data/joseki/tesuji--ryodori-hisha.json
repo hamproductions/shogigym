@@ -1,6 +1,7 @@
 {
  "id": "tesuji--ryodori-hisha",
  "title": "手筋: 飛車の両取り",
+ "titleEn": "Tesuji: rook fork",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "sente",

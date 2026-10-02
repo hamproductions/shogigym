@@ -1,6 +1,7 @@
 {
  "id": "tesuji--tanda-fu",
  "title": "手筋: 単打の歩",
+ "titleEn": "Tesuji: single pawn drop",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "sente",

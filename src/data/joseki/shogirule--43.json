@@ -1,6 +1,7 @@
 {
  "id": "shogirule--43",
  "title": "相振り飛車 先手向かい飛車 対 後手三間飛車(将棋ルール.com)",
+ "titleEn": "Double Ranging Rook: Sente Opposing Rook vs Gote Third File Rook",
  "myStrategy": "mukaibisha",
  "opponentStrategy": "sankenbisha",
  "mySide": "sente",

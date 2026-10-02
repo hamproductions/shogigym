@@ -1,6 +1,7 @@
 {
  "id": "shogirule--42",
  "title": "先手四間飛車 対 後手右四間(将棋ルール.com)",
+ "titleEn": "Sente Fourth File Rook vs Gote Right Fourth File Rook",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "sente",

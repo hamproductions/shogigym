@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { courseTitle } from '../../../model'
 import i18n from '../../../i18n'
 import { moveText } from '../../../shogi'
 import { sfenAfter, sideMark } from '../../lib/notation'
@@ -20,7 +21,7 @@ function untilText(ms: number) {
 type Counts = ReturnType<typeof reviewCounts>
 
 function ReviewCard({ drill, item, startSfen, onNext, onRetry, mistakePreview, mistakeOk }: { drill: DrillState; item: ReviewItem; startSfen: string; onNext: () => void; onRetry: () => void; mistakePreview: boolean; mistakeOk: boolean }) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const expected = moveText(startSfen, expectedMoves(item)[0])
   const lessonNote = item.kind === 'position' ? item.node.branches.find((b) => b.usi === expectedMoves(item)[0])?.note : undefined
   const learning = drill.queue === 'new' && !drill.result && !drill.retry
@@ -28,7 +29,7 @@ function ReviewCard({ drill, item, startSfen, onNext, onRetry, mistakePreview, m
     <>
       <p className="ws-muted">
         {t('review.cardOf', { value: drill.index + 1, itemsCount: drill.items.length })}
-        {item.kind === 'position' ? t('review.from', { title: item.course.title }) : ''}
+        {item.kind === 'position' ? t('review.from', { title: courseTitle(item.course, i18n.language) }) : ''}
         {item.kind === 'position' && item.moves.length > 0 ? t('review.after', { move: moveText(item.moves.length > 1 ? sfenAfter(item.course.root.sfen, item.moves.slice(0, -1)) : item.course.root.sfen, item.moves.at(-1)!) }) : ''}
       </p>
       {!drill.result && <p className="ws-task">{item.kind === 'position' ? (learning ? t('review.newPositionPlayGreenArrow', { move: expected }) : t('review.yourMoveAsPlayThe', { side: sideMark(item.course.userSide) })) : t('review.inGameYouPlayed', { game: item.mistake.game === 'Imported game' ? t('review.anImportedGame') : item.mistake.game, move: moveText(item.mistake.sfen, item.mistake.played) })}</p>}

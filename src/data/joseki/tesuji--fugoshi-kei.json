@@ -1,6 +1,7 @@
 {
  "id": "tesuji--fugoshi-kei",
  "title": "手筋: 歩越しの桂馬",
+ "titleEn": "Tesuji: knight over the pawn",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "sente",

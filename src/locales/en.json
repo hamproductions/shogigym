@@ -301,7 +301,7 @@
     "modeCommand": "{{name}} mode"
   },
   "picker": {
-    "theyAttackYouDefendAs": "They attack, you defend as {{side}}",
+    "theyAttackYouDefendAs": "You defend as {{side}}",
     "yourMovesInThisLesson": "Your moves in this lesson that you got right in Quiz without help",
     "rightInQuiz": "{{learned}}/{{total}} right in Quiz",
     "study": "Study",

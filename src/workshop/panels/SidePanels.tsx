@@ -52,7 +52,7 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
           <PanelBody tab="moves" model={model} overlays={false} />
         </aside>
       )}
-      <aside className={`ws-panel${sheetOpen ? ' open' : ''}`} style={zoned ? (zones && !panelPrefsHidden ? { ...zones.over } : { display: 'none' }) : undefined}>
+      <aside className={`ws-panel${sheetOpen ? ' open' : ''}`} style={zoned ? (zones && !panelPrefsHidden ? (picking ? { ...zones.over, height: Math.max(zones.over.height, zones.under.top + zones.under.height - zones.over.top) } : { ...zones.over }) : { display: 'none' }) : undefined}>
         {compact && <div className="ws-sheet-grip" role="separator" aria-orientation="horizontal" onPointerDown={startSheetDrag} />}
         <div className="ws-panel-resize" title={t('workshop.dragToResizeThePanel')} onPointerDown={startResize} />
         <button className="ws-sheet-handle" onClick={() => layout.setSheetOpen(!sheetOpen)} onPointerDown={startHandleSwipe} aria-label={sheetOpen ? t('workshop.collapsePanel') : t('workshop.expandPanel')} />

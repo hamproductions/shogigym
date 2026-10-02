@@ -1,6 +1,7 @@
 {
  "id": "shogirule--60",
  "title": "後手一手損角換わり 対 先手棒銀(将棋ルール.com)",
+ "titleEn": "Gote One-Move-Loss Bishop Exchange vs Sente Climbing Silver",
  "myStrategy": "kakugawari",
  "opponentStrategy": "kakugawari",
  "mySide": "gote",

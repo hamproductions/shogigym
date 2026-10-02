@@ -1,6 +1,7 @@
 {
  "id": "tesuji--hisha-ni-hisha",
  "title": "手筋: 飛車には飛車",
+ "titleEn": "Tesuji: meet a rook with a rook",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "sente",

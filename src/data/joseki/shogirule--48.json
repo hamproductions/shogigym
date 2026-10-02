@@ -1,6 +1,7 @@
 {
  "id": "shogirule--48",
  "title": "後手四間飛車 対 角換わり棒銀(将棋ルール.com)",
+ "titleEn": "Gote Fourth File Rook vs Bishop Exchange Climbing Silver",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "gote",

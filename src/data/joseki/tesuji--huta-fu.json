@@ -1,6 +1,7 @@
 {
  "id": "tesuji--huta-fu",
  "title": "手筋: ふた歩",
+ "titleEn": "Tesuji: lid pawn",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "sente",

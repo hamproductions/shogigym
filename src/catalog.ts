@@ -1,4 +1,5 @@
 import { COURSE_SIDES, MATCHUPS, TECHNIQUES, strategyById, type Level, type Text } from './data/strategies'
+import { TITLES_EN } from './data/titlesEn'
 import type { Course, JosekiNode, RawCourse } from './model'
 
 type Side = 'sente' | 'gote'
@@ -68,6 +69,7 @@ export function buildCatalog(raws: RawCourse[]) {
       id,
       baseId: raw.id,
       title: mirrored && strategy ? `${raw.title} ― ${userSide === 'sente' ? '先手' : '後手'}・${strategy.ja}側` : raw.title,
+      titleEn: mirrored && strategy ? `${raw.titleEn ?? TITLES_EN[raw.id] ?? raw.title}, playing ${userSide === 'sente' ? 'Sente' : 'Gote'} as ${strategy.en}` : (raw.titleEn ?? TITLES_EN[raw.id]),
       userSide,
       notesFromOpponentView: userSide !== raw.mySide,
       setupId,

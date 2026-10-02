@@ -28,6 +28,7 @@ export type JosekiNode = {
 export type RawCourse = {
   id: string
   title: string
+  titleEn?: string
   myStrategy: string
   opponentStrategy: string
   mySide: Side
@@ -122,3 +123,5 @@ export function verdictFor(course: Course, mover: Side, kind: MoveKind): Verdict
   if (kind !== 'deviation') return mover === course.userSide ? 'good' : 'book'
   return mover === course.userSide ? 'mistake' : 'opponent-mistake'
 }
+
+export const courseTitle = (course: Pick<Course, 'title' | 'titleEn'>, lang: string) => (lang === 'ja' ? course.title : (course.titleEn ?? course.title))

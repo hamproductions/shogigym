@@ -1,6 +1,7 @@
 {
  "id": "tesuji--soko-fu",
  "title": "手筋: 底歩",
+ "titleEn": "Tesuji: bottom pawn",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "sente",

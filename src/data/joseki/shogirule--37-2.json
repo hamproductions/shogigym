@@ -1,6 +1,7 @@
 {
  "id": "shogirule--37-2",
  "title": "先手四間飛車 対 後手急戦 (2)(将棋ルール.com)",
+ "titleEn": "Sente Fourth File Rook vs Gote rapid attack (2)",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "sente",

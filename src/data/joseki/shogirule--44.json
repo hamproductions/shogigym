@@ -1,6 +1,7 @@
 {
  "id": "shogirule--44",
  "title": "相振り飛車 相三間飛車(将棋ルール.com)",
+ "titleEn": "Double Ranging Rook: both Third File Rook",
  "myStrategy": "sankenbisha",
  "opponentStrategy": "sankenbisha",
  "mySide": "sente",

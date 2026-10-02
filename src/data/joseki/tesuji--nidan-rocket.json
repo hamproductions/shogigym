@@ -1,6 +1,7 @@
 {
  "id": "tesuji--nidan-rocket",
  "title": "手筋: 2段ロケット",
+ "titleEn": "Tesuji: two-stage rocket",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "sente",

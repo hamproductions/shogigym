@@ -1,6 +1,7 @@
 {
  "id": "shogirule--35",
  "title": "先手四間飛車「藤井システム」(将棋ルール.com)",
+ "titleEn": "Sente Fourth File Rook: Fujii System",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "sente",

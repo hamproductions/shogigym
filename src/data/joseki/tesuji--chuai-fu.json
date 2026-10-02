@@ -1,6 +1,7 @@
 {
  "id": "tesuji--chuai-fu",
  "title": "手筋: 中合いの歩",
+ "titleEn": "Tesuji: interposing pawn at a distance",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "sente",

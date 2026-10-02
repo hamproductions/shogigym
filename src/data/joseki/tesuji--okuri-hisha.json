@@ -1,6 +1,7 @@
 {
  "id": "tesuji--okuri-hisha",
  "title": "手筋: 飛車の送りの手筋",
+ "titleEn": "Tesuji: rook sent through",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "sente",

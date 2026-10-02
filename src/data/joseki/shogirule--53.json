@@ -1,6 +1,7 @@
 {
  "id": "shogirule--53",
  "title": "先手横歩取り 対 後手△8五飛(▲6八玉型)(将棋ルール.com)",
+ "titleEn": "Sente Side Pawn Capture vs Gote △8五飛 (▲6八玉 shape)",
  "myStrategy": "yokofudori",
  "opponentStrategy": "yokofudori",
  "mySide": "sente",

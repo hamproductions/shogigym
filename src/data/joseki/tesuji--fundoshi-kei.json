@@ -1,6 +1,7 @@
 {
  "id": "tesuji--fundoshi-kei",
  "title": "手筋: ふんどしの桂",
+ "titleEn": "Tesuji: knight fork (fundoshi)",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "sente",
