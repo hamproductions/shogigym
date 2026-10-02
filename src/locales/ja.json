@@ -338,7 +338,8 @@
   },
   "rail": {
     "settings": "設定",
-    "control": "利"
+    "control": "利",
+    "more": "その他"
   },
   "review": {
     "inMin": "{{minutes}}分後",
@@ -722,5 +723,14 @@
     "back": "戻る",
     "forward": "進む",
     "last": "最後へ"
+  },
+  "newGame": {
+    "title": "新しい対局",
+    "button": "新規対局",
+    "side": "手番",
+    "strength": "AIの強さ",
+    "clock": "持ち時間",
+    "strategy": "AIの戦法",
+    "start": "対局開始"
   }
 }

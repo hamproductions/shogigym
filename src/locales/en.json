@@ -345,7 +345,8 @@
   },
   "rail": {
     "settings": "Settings",
-    "control": "Control"
+    "control": "Control",
+    "more": "More"
   },
   "review": {
     "inMin": "in {{minutes}} min",
@@ -741,5 +742,14 @@
     "back": "Back",
     "forward": "Forward",
     "last": "Last"
+  },
+  "newGame": {
+    "title": "New game",
+    "button": "New game",
+    "side": "You play",
+    "strength": "AI strength",
+    "clock": "Clock",
+    "strategy": "AI plays",
+    "start": "Start"
   }
 }

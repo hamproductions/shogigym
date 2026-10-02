@@ -4109,3 +4109,224 @@
   opacity: 0.35;
   cursor: default;
 }
+
+.ws .ws-plate {
+  font-size: 16px;
+  gap: 10px;
+}
+
+.ws .ws-plate .ws-pill {
+  font-size: 14px;
+  padding: 3px 10px;
+}
+
+.ws.zoned .ws-plate {
+  left: 24px;
+}
+
+.ws-game-setup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  padding: 4px 6px 4px 12px;
+  border: 1px solid rgba(239, 230, 211, 0.18);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--kinari-dim);
+  font: inherit;
+  font-size: 13px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.ws-game-setup b {
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: #c8442f;
+  color: #fff;
+}
+
+.ws-newgame {
+  width: min(560px, calc(100vw - 24px));
+}
+
+.ws-newgame h2 {
+  margin: 0 0 8px;
+}
+
+.ws-newgame .ws-setting {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.ws-newgame .ws-seg {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ws-newgame select {
+  min-height: 38px;
+  font: inherit;
+}
+
+.ws-more {
+  position: relative;
+}
+
+.ws-more-menu {
+  position: absolute;
+  left: calc(100% + 8px);
+  bottom: 0;
+  z-index: 45;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 180px;
+  padding: 6px;
+  border-radius: 12px;
+  background: #1d1a17;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+}
+
+.ws-more-menu .ws-rail-btn {
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+}
+
+.ws-more-menu .ws-rail-btn span {
+  font-size: 14px;
+}
+
+.ws-rail-btn .ws-ja,
+.ws-rail-btn .ws-en {
+  white-space: nowrap;
+}
+
+@media (max-width: 820px) {
+  .ws-rail {
+    justify-content: flex-start;
+    gap: 4px;
+  }
+
+  .ws-rail .ws-rail-gap {
+    flex: 1;
+  }
+
+  .ws-rail > .ws-rail-btn > span,
+  .ws-rail > .ws-more > .ws-rail-btn > span {
+    display: none;
+  }
+
+  .ws-mode-menu > .ws-rail-btn {
+    flex-direction: row;
+    gap: 8px;
+    padding: 6px 12px;
+  }
+
+  .ws-rail > .ws-mode-menu > .ws-rail-btn > span {
+    display: inline;
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .ws-more-menu {
+    position: fixed;
+    top: 56px;
+    right: 8px;
+    left: auto;
+    bottom: auto;
+  }
+
+  .ws-more-menu.left {
+    left: 8px;
+    right: auto;
+  }
+
+  .ws-game-setup span {
+    display: none;
+  }
+
+  .ws-modebar.sheet-up {
+    display: none;
+  }
+
+  .ws .ws-plate {
+    font-size: 13px;
+  }
+
+  .ws .ws-plate .ws-pill {
+    font-size: 12px;
+    padding: 2px 8px;
+  }
+}
+
+@media (max-width: 820px) {
+  .ws.drawer-open .ws-plate {
+    display: none;
+  }
+
+  .ws.drawer-open .ws-board-wrap {
+    padding: 0;
+  }
+}
+
+.ws-more-menu .ws-rail-btn span,
+.ws .ws-rail .ws-more-menu .ws-rail-btn span {
+  display: inline !important;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.ws-more-menu .ws-rail-btn.on::after,
+.ws-more-menu .ws-rail-btn::after {
+  display: none;
+}
+
+.ws-more-menu .ws-rail-btn.on {
+  background: rgba(200, 68, 47, 0.18);
+}
+
+@media (max-width: 820px) {
+  .ws-rail {
+    align-items: center;
+    padding: 6px 10px;
+  }
+
+  .ws-rail .ws-rail-gap {
+    display: block;
+    flex: 1;
+  }
+
+  .ws-rail > .ws-rail-btn,
+  .ws-rail > .ws-more > .ws-rail-btn {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+  }
+
+  .ws-rail > .ws-mode-menu > .ws-rail-btn {
+    width: auto;
+    height: 44px;
+    padding: 0 14px;
+  }
+
+  .ws-rail > .ws-mode-menu > .ws-rail-btn > span {
+    display: inline !important;
+  }
+
+  .ws-rail > .ws-mode-menu > .ws-rail-btn::after {
+    display: none;
+  }
+
+  .ws-more-menu {
+    min-width: 220px;
+  }
+}

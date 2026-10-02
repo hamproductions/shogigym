@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { Color, InitialPositionSFEN, PieceType, Position, Square, parseMoves, type Move } from 'tsshogi'
 import '@fontsource/shippori-mincho-b1/800.css'
 import '@fontsource/zen-kaku-gothic-new/400.css'
@@ -126,7 +126,7 @@ export function Workshop() {
   }, [])
   const [sheetH, setSheetH] = useState(() => {
     try {
-      return Number(localStorage.getItem('joseki-practice:sheet:v1')) || 50
+      return Number(localStorage.getItem('joseki-practice:sheet:v1')) || 46
     } catch {
       return 50
     }
@@ -134,6 +134,10 @@ export function Workshop() {
   const [fullscreen, setFullscreen] = useState(() => !!document.fullscreenElement)
   const [hideUi, setHideUi] = useState(false)
   const [orbit, setOrbit] = useState(false)
+  const [more, setMore] = useState(false)
+  const [modeMenu, setModeMenu] = useState(false)
+  const [newGame, setNewGame] = useState(false)
+  const askedNewGame = useRef(false)
   useEffect(() => {
     const on = (e: KeyboardEvent) => {
       if (e.key.toLowerCase() !== 'h' || e.metaKey || e.ctrlKey || e.altKey || (e.target as HTMLElement).closest('input, textarea, select')) return
@@ -1422,6 +1426,15 @@ export function Workshop() {
     </div>
   )
 
+  useEffect(() => {
+    if (mode !== 'spar') {
+      askedNewGame.current = false
+      return
+    }
+    if (!askedNewGame.current && game.moves.length === 0) setNewGame(true)
+    askedNewGame.current = true
+  }, [mode, game.moves.length])
+
   const commands = useCommands({ sfen, setMode: enterMode, setFlipped, setTilted, openCourse, play, newGame: () => load(InitialPositionSFEN.STANDARD, userSide, mode === 'lesson' ? 'analyze' : mode, null) })
 
   return (
@@ -1436,57 +1449,86 @@ export function Workshop() {
             </text>
           </svg>
         </div>
-        {MODES.map((m) => (
+        {compact && (
+          <div className="ws-more ws-mode-menu">
+            <button className="ws-rail-btn on" onClick={() => setModeMenu((v) => !v)} aria-expanded={modeMenu}>
+              <Icon name="menu" size={20} />
+              <span>{t(`modes.${mode}.name`)}</span>
+            </button>
+            {modeMenu && (
+              <div className="ws-more-menu left" onClick={() => setModeMenu(false)}>
+                {MODES.map((m) => (
+                  <button key={m.id} className={`ws-rail-btn${mode === m.id ? ' on' : ''}`} onClick={() => enterMode(m.id)}>
+                    <Icon name={m.icon} size={20} />
+                    <span>{t(`modes.${m.id}.name`)}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+        {!compact &&
+          MODES.map((m) => (
           <button key={m.id} className={`ws-rail-btn${mode === m.id ? ' on' : ''}`} onClick={() => enterMode(m.id)} aria-pressed={mode === m.id} title={t('modes.title', { name: t(`modes.${m.id}.name`), hint: t(`modes.${m.id}.hint`) })}>
             <Icon name={m.icon} size={20} />
             <span className={ja ? 'ws-ja' : 'ws-en'}>{t(`modes.${m.id}.name`)}</span>
           </button>
         ))}
         <div className="ws-rail-gap" />
-        <button className="ws-rail-btn" onClick={() => setPalette(true)} title={t('workshop.searchLinesAndCommandsK')}>
-          <Icon name="command" size={20} />
-          <span>⌘K</span>
-        </button>
-        <button className={`ws-rail-btn${showSettings ? ' on' : ''}`} onClick={() => setShowSettings(true)} title={t('workshop.settingsSoundPiecesBoardAi')}>
-          <Icon name="gear" size={20} />
-          <span className={ja ? 'ws-ja' : 'ws-en'}>{t('rail.settings')}</span>
-        </button>
-        <button className={`ws-rail-btn${showControl ? ' on' : ''}`} onClick={() => setShowControl((v) => !v)} title={t('workshop.controlMapWhoControlsEach')} aria-pressed={showControl}>
-          <span className={ja ? 'ws-ja' : 'ws-en'} style={ja ? { fontSize: 18 } : undefined}>
-            {t('rail.control')}
-          </span>
+        <button className="ws-rail-btn" onClick={() => setFlipped((v) => !v)} title={t('workshop.flipTheBoardF')}>
+          <Icon name="flip" size={20} />
+          <span>{t('workshop.flip')}</span>
         </button>
         <button className={`ws-rail-btn${tilted && !flatView ? ' on' : ''}`} onClick={() => setTilted((v) => !v)} disabled={flatView} title={t('workshop.tiltTheBoardT')}>
           <Icon name="tilt" size={20} />
           <span>{t('workshop.tilt')}</span>
         </button>
-        <button className="ws-rail-btn" onClick={() => setFlipped((v) => !v)} title={t('workshop.flipTheBoardF')}>
-          <Icon name="flip" size={20} />
-          <span>{t('workshop.flip')}</span>
+        <button className={`ws-rail-btn${showSettings ? ' on' : ''}`} onClick={() => setShowSettings(true)} title={t('workshop.settingsSoundPiecesBoardAi')}>
+          <Icon name="gear" size={20} />
+          <span className={ja ? 'ws-ja' : 'ws-en'}>{t('rail.settings')}</span>
         </button>
-        {!flatView && (
-          <button className={`ws-rail-btn${orbit ? ' on' : ''}`} onClick={() => setOrbit((v) => !v)} title={t('workshop.lookAroundHint')} aria-pressed={orbit}>
-            <Icon name="orbit" size={20} />
-            <span>{t('workshop.lookAround')}</span>
+        <div className="ws-more">
+          <button className={`ws-rail-btn${more ? ' on' : ''}`} onClick={() => setMore((v) => !v)} aria-expanded={more} title={t('rail.more')}>
+            <Icon name="more" size={20} />
+            <span>{t('rail.more')}</span>
           </button>
-        )}
-        <button className="ws-rail-btn" onClick={() => setHideUi(true)} title={`${t('workshop.hideUi')} (H)`}>
-          <Icon name="panel" size={20} />
-          <span>{t('workshop.hideUiShort')}</span>
-        </button>
-        {document.fullscreenEnabled && (
-          <button className={`ws-rail-btn${fullscreen ? ' on' : ''}`} onClick={() => void (document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen())} title={fullscreen ? t('workshop.exitFullScreenEsc') : t('workshop.fullScreen')} aria-pressed={fullscreen}>
-            <Icon name={fullscreen ? 'exitFullscreen' : 'fullscreen'} size={20} />
-            <span>{t('workshop.fullScreen2')}</span>
-          </button>
-        )}
+          {more && (
+            <div className="ws-more-menu" onClick={() => setMore(false)}>
+              <button className={`ws-rail-btn${showControl ? ' on' : ''}`} onClick={() => setShowControl((v) => !v)} title={t('workshop.controlMapWhoControlsEach')} aria-pressed={showControl}>
+                <span className={ja ? 'ws-ja' : 'ws-en'} style={ja ? { fontSize: 18 } : undefined}>
+                  {t('rail.control')}
+                </span>
+              </button>
+              {!flatView && (
+                <button className={`ws-rail-btn${orbit ? ' on' : ''}`} onClick={() => setOrbit((v) => !v)} title={t('workshop.lookAroundHint')} aria-pressed={orbit}>
+                  <Icon name="orbit" size={20} />
+                  <span>{t('workshop.lookAround')}</span>
+                </button>
+              )}
+              <button className="ws-rail-btn" onClick={() => setHideUi(true)} title={`${t('workshop.hideUi')} (H)`}>
+                <Icon name="panel" size={20} />
+                <span>{t('workshop.hideUiShort')}</span>
+              </button>
+              {document.fullscreenEnabled && (
+                <button className={`ws-rail-btn${fullscreen ? ' on' : ''}`} onClick={() => void (document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen())} title={fullscreen ? t('workshop.exitFullScreenEsc') : t('workshop.fullScreen')} aria-pressed={fullscreen}>
+                  <Icon name={fullscreen ? 'exitFullscreen' : 'fullscreen'} size={20} />
+                  <span>{t('workshop.fullScreen2')}</span>
+                </button>
+              )}
+              <button className="ws-rail-btn" onClick={() => setPalette(true)} title={t('workshop.searchLinesAndCommandsK')}>
+                <Icon name="command" size={20} />
+                <span>⌘K</span>
+              </button>
+            </div>
+          )}
+        </div>
       </nav>
 
       <section className={`ws-stage${previewing ? ' previewing' : ''}`}>
         <button className="ws-fs-exit" onClick={() => setHideUi(false)} aria-label={t('workshop.showUi')} title={`${t('workshop.showUi')} (H)`}>
           <Icon name="exitFullscreen" size={18} />
         </button>
-        <header className={`ws-modebar m-${mode}${mode === 'lesson' ? ` l-${lessonMode}` : ''}`}>
+        <header className={`ws-modebar${compact && drawer ? ' sheet-up' : ''} m-${mode}${mode === 'lesson' ? ` l-${lessonMode}` : ''}`}>
           <span className="ws-modebar-seal">{!ja ? <Icon name={MODES.find((m) => m.id === mode)!.icon} size={22} /> : mode === 'lesson' && course ? t(lessonMode === 'study' ? 'modes.sealStudy' : 'modes.sealQuiz') : t(`modes.${mode}.name`)}</span>
           <span className="ws-modebar-text">
             <strong>
@@ -1552,36 +1594,12 @@ export function Workshop() {
             </div>
           )}
           {mode === 'spar' && (
-            <label className="ws-strength">
-              <span>{t('workshop.clock')}</span>
-              <select value={settings.timeControl} onChange={(e) => setSettings({ timeControl: e.target.value as TimeControl })} aria-label={t('workshop.timeControl')} title={t('workshop.changingItRestartsBothClocks', { hint: timeControl.hint })}>
-                {(Object.keys(TIME_CONTROLS) as TimeControl[]).map((k) => (
-                  <option key={k} value={k} title={TIME_CONTROLS[k].hint}>
-                    {TIME_CONTROLS[k].label}
-                  </option>
-                ))}
-              </select>
-            </label>
-          )}
-          {mode === 'spar' && (
-            <label className="ws-strength">
-              <span>AI</span>
-              <select value={settings.opponent} onChange={(e) => setSettings({ opponent: e.target.value as AiStrength })} aria-label={t('workshop.aiStrength')}>
-                {(Object.keys(STRENGTH) as AiStrength[]).map((k) => (
-                  <option key={k} value={k}>
-                    {STRENGTH[k].label}
-                  </option>
-                ))}
-              </select>
-              <select value={settings.aiStrategy} onChange={(e) => setSettings({ aiStrategy: e.target.value })} aria-label={t('workshop.aiStrategy')} title={t('workshop.whatTheAiPlaysAgainst')}>
-                <option value="">{t('workshop.anyStrategy')}</option>
-                {SETUPS.filter((x) => !x.technique && strategyCourses(x.id, userSide).length > 0).map((x) => (
-                  <option key={x.id} value={x.id}>
-                    {x.ja}
-                  </option>
-                ))}
-              </select>
-            </label>
+            <button className="ws-game-setup" onClick={() => setNewGame(true)} title={t('newGame.title')}>
+              <span>{STRENGTH[settings.opponent].label}</span>
+              <span>{TIME_CONTROLS[settings.timeControl].label}</span>
+              <span>{settings.aiStrategy ? SETUPS.find((x) => x.id === settings.aiStrategy)?.ja : t('workshop.anyStrategy')}</span>
+              <b>{t('newGame.button')}</b>
+            </button>
           )}
           {inCheck && !gameOver && <span className="ws-check">{t('workshop.check')}</span>}
         </header>
@@ -1719,7 +1737,7 @@ export function Workshop() {
                   </button>
                 )}
                 {mode === 'spar' && (
-                  <button className="primary" onClick={() => load(InitialPositionSFEN.STANDARD, userSide, 'spar', null)}>
+                  <button className="primary" onClick={() => setNewGame(true)}>
                     {t('workshop.newGame')}
                   </button>
                 )}
@@ -1864,6 +1882,16 @@ export function Workshop() {
         </footer>
       </aside>
 
+      {newGame && (
+        <NewGameDialog
+          side={userSide}
+          onClose={() => setNewGame(false)}
+          onStart={(side) => {
+            setNewGame(false)
+            load(InitialPositionSFEN.STANDARD, side, 'spar', null)
+          }}
+        />
+      )}
       {palette && <Palette commands={commands} onClose={() => setPalette(false)} />}
       {confirm && (
         <div className="ws-palette-back" onPointerDown={() => performance.now() - confirmAt.current > 250 && setConfirm(null)}>
@@ -3178,6 +3206,66 @@ function FlowPane({ lanes, sfen, onPreview, onHover }: { lanes: Lane[]; sfen: st
           </button>
         )
       })}
+    </div>
+  )
+}
+
+function NewGameDialog({ side, onClose, onStart }: { side: Side; onClose: () => void; onStart: (side: Side) => void }) {
+  const { t } = useTranslation()
+  const st = useSettings()
+  const [pick, setPick] = useState<Side>(side)
+  const row = (label: string, body: ReactNode) => (
+    <div className="ws-setting">
+      <span>{label}</span>
+      <div className="ws-seg">{body}</div>
+    </div>
+  )
+  return (
+    <div className="ws-palette-back" onPointerDown={onClose}>
+      <div className="ws-dialog ws-newgame" role="dialog" aria-label={t('newGame.title')} onPointerDown={(e) => e.stopPropagation()}>
+        <h2>{t('newGame.title')}</h2>
+        {row(
+          t('newGame.side'),
+          (['sente', 'gote'] as const).map((x) => (
+            <button key={x} className={pick === x ? 'on' : ''} onClick={() => setPick(x)}>
+              {x === 'sente' ? t('workshop.playSente') : t('workshop.playGote')}
+            </button>
+          )),
+        )}
+        {row(
+          t('newGame.strength'),
+          (Object.keys(STRENGTH) as AiStrength[]).map((k) => (
+            <button key={k} className={st.opponent === k ? 'on' : ''} onClick={() => setSettings({ opponent: k })}>
+              {STRENGTH[k].label}
+            </button>
+          )),
+        )}
+        {row(
+          t('newGame.clock'),
+          (Object.keys(TIME_CONTROLS) as TimeControl[]).map((k) => (
+            <button key={k} className={st.timeControl === k ? 'on' : ''} onClick={() => setSettings({ timeControl: k })} title={TIME_CONTROLS[k].hint}>
+              {TIME_CONTROLS[k].label}
+            </button>
+          )),
+        )}
+        <label className="ws-setting">
+          <span>{t('newGame.strategy')}</span>
+          <select value={st.aiStrategy} onChange={(e) => setSettings({ aiStrategy: e.target.value })}>
+            <option value="">{t('workshop.anyStrategy')}</option>
+            {SETUPS.filter((x) => !x.technique && strategyCourses(x.id, pick).length > 0).map((x) => (
+              <option key={x.id} value={x.id}>
+                {x.ja}
+              </option>
+            ))}
+          </select>
+        </label>
+        <div className="ws-actions">
+          <button onClick={onClose}>{t('workshop.cancel')}</button>
+          <button className="primary" onClick={() => onStart(pick)}>
+            {t('newGame.start')}
+          </button>
+        </div>
+      </div>
     </div>
   )
 }
