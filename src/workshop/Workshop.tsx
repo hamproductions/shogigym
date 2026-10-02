@@ -239,6 +239,7 @@ export function Workshop() {
     return { done, total }
   }, [course, cursor, game.moves])
   const [checking, setChecking] = useState(false)
+  const [showControl, setShowControl] = useState(false)
   const [tesujiDrill, setTesujiDrill] = useState<{ item: TesujiDrill; filter: string; status: 'asking' | 'right' | 'shown'; missed: boolean; hint: boolean; wrong?: string } | null>(null)
   const [tesujiNote, setTesujiNote] = useState<(Tesuji & { at: number }) | null>(null)
   useEffect(() => {
@@ -637,7 +638,7 @@ export function Workshop() {
       setNudge(`That is the opponent's piece. You play ${position.color === Color.BLACK ? '☗' : '☖'}.`)
       return
     }
-    setPeekFrom(piece && !(peekFrom && peekFrom.equals(square)) ? square : null)
+    setPeekFrom(peekFrom && peekFrom.equals(square) ? null : square)
   }
 
   const onHand = (color: Color, type: PieceType) => {
@@ -760,6 +761,29 @@ export function Workshop() {
   const [hoverLane, setHoverLane] = useState<string | null>(null)
   if (hoverLane && !preview && tab === 'flow') arrows.push({ usi: hoverLane, color: '#e0a23a' })
   const peekSquare = peekFrom && position.board.at(peekFrom) ? peekFrom : null
+  const focusSquare = peekFrom && !position.board.at(peekFrom) ? peekFrom : null
+  const control = useMemo(() => {
+    const grid = new Map<string, { s: Square[]; g: Square[] }>()
+    for (const sq of position.board.listNonEmptySquares()) {
+      const piece = position.board.at(sq)!
+      for (const t of sees(sfen, sq)) {
+        const cell = grid.get(t.usi) ?? { s: [], g: [] }
+        ;(piece.color === Color.BLACK ? cell.s : cell.g).push(sq)
+        grid.set(t.usi, cell)
+      }
+    }
+    return grid
+  }, [sfen, position])
+  const focusCell = focusSquare ? (control.get(focusSquare.usi) ?? { s: [], g: [] }) : null
+  const heat = [
+    ...(showControl
+      ? [...control.entries()].map(([usi, c]) => {
+          const d = c.s.length - c.g.length
+          return { square: Square.newByUSI(usi)!, color: d > 0 ? 0x1f7ae0 : d < 0 ? 0xd2402a : 0x9a5ad0, opacity: Math.min(0.42, 0.14 + 0.1 * Math.abs(d || 1)), label: String(Math.max(c.s.length, c.g.length) && (d === 0 ? c.s.length : Math.abs(d))) }
+        })
+      : []),
+    ...(focusCell ? [...focusCell.s.map((square) => ({ square, color: 0x1f7ae0, opacity: 0.4 })), ...focusCell.g.map((square) => ({ square, color: 0xc8442f, opacity: 0.4 }))] : []),
+  ]
   const enemyColor = mode === 'analyze' || (mode === 'lesson' && !course) ? (position.color === Color.BLACK ? Color.WHITE : Color.BLACK) : userSide === 'sente' ? Color.WHITE : Color.BLACK
   const enemyKing = showEscape && mode === 'tsume' ? kingSquare(sfen, enemyColor) : null
   const peekTargets = peekSquare ? sees(sfen, peekSquare).filter((sq) => level !== 'new' || position.board.at(sq)?.color !== position.board.at(peekSquare)?.color) : enemyKing ? reachable(sfen, enemyKing) : []
@@ -814,7 +838,9 @@ export function Workshop() {
     return () => clearTimeout(t)
   }, [announce])
   const checkHelp = mode === 'spar' && inCheck && userTurn && atEnd && !gameOver && !preview ? '王手: your king is attacked. Move it away, block the line, or capture the attacker.' : null
-  const boardNote = nudge ?? (checking ? 'Checking that move…' : (peekNote ?? (tesujiNote && tesujiNote.at === cursor ? `手筋 ${tesujiNote.ja} (${tesujiNote.en}): ${tesujiNote.explain}` : checkHelp)))
+  const kanji = (sq: Square) => `${PIECE_INFO[position.board.at(sq)!.type].ja.slice(0, 1)}${sq.file}${'一二三四五六七八九'[sq.rank - 1]}`
+  const focusNote = focusSquare && focusCell ? `${focusSquare.file}${'一二三四五六七八九'[focusSquare.rank - 1]}: ☗ ${focusCell.s.length ? focusCell.s.map(kanji).join(' ') : 'none'} · ☖ ${focusCell.g.length ? focusCell.g.map(kanji).join(' ') : 'none'}${focusCell.s.length !== focusCell.g.length ? ` — ${focusCell.s.length > focusCell.g.length ? '☗' : '☖'} controls it` : focusCell.s.length ? ' — contested' : ''}` : null
+  const boardNote = nudge ?? (checking ? 'Checking that move…' : (focusNote ?? peekNote ?? (tesujiNote && tesujiNote.at === cursor ? `手筋 ${tesujiNote.ja} (${tesujiNote.en}): ${tesujiNote.explain}` : checkHelp)))
   const castles = [Color.BLACK, Color.WHITE].flatMap((color) => {
     const f = formationOf(position, color)
     return f.castle && f.castle !== '居玉' ? [{ squares: f.squares, color: color === Color.BLACK ? '#b8432f' : '#2f5d9b', label: f.castle }] : []
@@ -900,6 +926,7 @@ export function Workshop() {
       else if (event.key === 'f') setFlipped((v) => !v)
       else if (event.key === 'p') setPanel({ hidden: !panelHiddenRef.current })
       else if (event.key === 't') setTilted((v) => !v)
+      else if (event.key === 'c' && !event.metaKey && !event.ctrlKey) setShowControl((v) => !v)
       else if (event.key === 'k' && modeRef.current === 'tsume') {
         setPeekFrom(null)
         setShowEscape((v) => !v)
@@ -1148,6 +1175,10 @@ export function Workshop() {
           <span className="ws-ja">設定</span>
           <span>Settings</span>
         </button>
+        <button className={`ws-rail-btn${showControl ? ' on' : ''}`} onClick={() => setShowControl((v) => !v)} title="利き map: who controls each square (blue ☗, red ☖, purple contested). Press C" aria-pressed={showControl}>
+          <span className="ws-ja" style={{ fontSize: 18 }}>利</span>
+          <span>Control</span>
+        </button>
         <button className={`ws-rail-btn${tilted ? ' on' : ''}`} onClick={() => setTilted((v) => !v)} title="Tilt the board (T)">
           <Icon name="tilt" size={20} />
           <span>Tilt</span>
@@ -1270,6 +1301,7 @@ export function Workshop() {
             castles={castles}
             snapKey={`${mode}|${game.start}|${course?.id ?? ''}|${tsume?.problem.id ?? ''}`}
             peek={peekTargets}
+            heat={heat}
             checkSquare={inCheck ? kingSquare(sfen, position.color) : null}
             peekFrom={peekSquare ?? enemyKing}
             stamp={stamp}

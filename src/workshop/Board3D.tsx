@@ -18,6 +18,7 @@ export type Board3DProps = {
   arrows: BoardArrow[]
   castles?: { squares: Square[]; color: string; label: string }[]
   peek?: Square[]
+  heat?: { square: Square; color: number; opacity: number; label?: string }[]
   checkSquare?: Square | null
   snapKey?: string
   peekFrom?: Square | null
@@ -673,6 +674,15 @@ export function Board3D(props: Board3DProps) {
       s.marks.add(edge)
     }
     if (latest.current.peekFrom) tile(latest.current.peekFrom, 0xc8442f, 0.22)
+    for (const h of latest.current.heat ?? []) {
+      tile(h.square, h.color, h.opacity)
+      if (h.label) {
+        const tag = coordSprite(h.label)
+        tag.scale.setScalar(0.34)
+        tag.position.set(squareX(h.square.file) + 0.32, 0.06, squareZ(h.square.rank) + 0.3)
+        s.marks.add(tag)
+      }
+    }
     for (const castle of latest.current.castles ?? []) s.marks.add(castleBox(castle))
     const stamp = latest.current.stamp
     if (stamp) {
@@ -699,7 +709,7 @@ export function Board3D(props: Board3DProps) {
 
   useEffect(() => {
     drawMarks()
-  }, [props.selected, props.targets, props.arrows, props.lastMove, props.castles, props.stamp, props.flipped, props.peek, props.peekFrom, props.checkSquare])
+  }, [props.selected, props.targets, props.arrows, props.lastMove, props.castles, props.stamp, props.flipped, props.peek, props.peekFrom, props.checkSquare, props.heat])
 
   useEffect(() => {
     if (state.current) state.current.tiltTarget = props.tilted ? 1 : 0
