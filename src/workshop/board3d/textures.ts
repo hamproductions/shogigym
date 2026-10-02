@@ -118,7 +118,7 @@ export function faceTexture(char: string, promoted: boolean) {
 
 const coordCache = new Map<string, THREE.Texture>()
 
-export function coordSprite(text: string) {
+function coordTexture(text: string) {
   const cacheKey = `${text}|${getSettings().boardStyle}`
   let texture = coordCache.get(cacheKey)
   if (!texture) {
@@ -128,13 +128,24 @@ export function coordSprite(text: string) {
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
     ctx.fillText(text, 32, 34)
-    texture = srgbTexture(canvas)
+    texture = srgbTexture(canvas, 8)
     coordCache.set(cacheKey, texture)
   }
-  const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture, depthTest: false }))
+  return texture
+}
+
+export function coordSprite(text: string) {
+  const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: coordTexture(text), depthTest: false }))
   s.scale.setScalar(0.3)
   s.renderOrder = 9
   return s
+}
+
+export function coordPlane(text: string, size: number, flipped: boolean) {
+  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(size, size), new THREE.MeshBasicMaterial({ map: coordTexture(text), transparent: true, depthWrite: false }))
+  mesh.rotation.set(-Math.PI / 2, 0, flipped ? Math.PI : 0)
+  mesh.renderOrder = 9
+  return mesh
 }
 
 export function arrowTag(text: string, color: string) {

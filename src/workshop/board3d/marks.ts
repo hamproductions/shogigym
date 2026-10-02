@@ -4,7 +4,7 @@ import { getSettings } from '../settings'
 import { HALF_D, HALF_W, MARGIN, SQ_D, STAND_TOP, squareX, squareZ } from './dimensions'
 import { handSpot } from './hand'
 import { standCenter } from './layout'
-import { arrowTag, badgeSprite, coordSprite, labelSprite } from './textures'
+import { arrowTag, badgeSprite, coordPlane, coordSprite, labelSprite } from './textures'
 import type { Board3DProps, BoardArrow, SceneState } from './types'
 
 const DROP_TYPE: Record<string, PieceType> = { P: PieceType.PAWN, L: PieceType.LANCE, N: PieceType.KNIGHT, S: PieceType.SILVER, G: PieceType.GOLD, B: PieceType.BISHOP, R: PieceType.ROOK }
@@ -141,13 +141,11 @@ export function drawMarks(s: SceneState, props: Board3DProps) {
   const flip = flipped ? -1 : 1
   if (getSettings().coords)
     for (let i = 1; i <= 9; i++) {
-      const file = coordSprite(String(i))
-      file.scale.setScalar(MARGIN * 0.82)
-      file.position.set(squareX(i), 0.05, -(HALF_D - MARGIN / 2) * flip)
+      const file = coordPlane(String(i), MARGIN * 0.82, !!flipped)
+      file.position.set(squareX(i), 0.006, -(HALF_D - MARGIN / 2) * flip)
       s.marks.add(file)
-      const rank = coordSprite('一二三四五六七八九'[i - 1])
-      rank.scale.setScalar(MARGIN * 0.82)
-      rank.position.set((HALF_W - MARGIN / 2) * flip, 0.05, squareZ(i))
+      const rank = coordPlane('一二三四五六七八九'[i - 1], MARGIN * 0.82, !!flipped)
+      rank.position.set((HALF_W - MARGIN / 2) * flip, 0.006, squareZ(i))
       s.marks.add(rank)
     }
   for (const sq of props.peek ?? []) {
