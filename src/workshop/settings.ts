@@ -138,8 +138,8 @@ export async function loadPieceFont(font: PieceFont) {
 
 export const PIECE_FINISHES: Record<PieceFinish, { label: string; hint: string; relief: number; gloss: number }> = {
   oshi: { label: '押し駒', hint: 'Stamped: ink pressed onto the wood.', relief: 0, gloss: 0 },
-  kaki: { label: '書き駒', hint: 'Written: lacquer painted straight onto the wood.', relief: 0.01, gloss: 0.7 },
-  hori: { label: '彫駒', hint: 'Carved: characters cut into the wood.', relief: -0.055, gloss: 0.4 },
-  horiume: { label: '彫埋駒', hint: 'Carved, then the groove filled flush with lacquer.', relief: -0.008, gloss: 1 },
-  moriage: { label: '盛上駒', hint: 'Horiume, then lacquer built up into raised characters. The finest grade.', relief: 0.04, gloss: 1 },
+  kaki: { label: '書き駒', hint: 'Written: lacquer painted straight onto the wood.', relief: 0.004, gloss: 0.7 },
+  hori: { label: '彫駒', hint: 'Carved: characters cut into the wood.', relief: -0.016, gloss: 0.4 },
+  horiume: { label: '彫埋駒', hint: 'Carved, then the groove filled flush with lacquer.', relief: -0.003, gloss: 1 },
+  moriage: { label: '盛上駒', hint: 'Horiume, then lacquer built up into raised characters. The finest grade.', relief: 0.012, gloss: 1 },
 }

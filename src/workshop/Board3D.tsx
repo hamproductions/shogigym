@@ -32,21 +32,24 @@ export type Board3DProps = {
 
 const MM_PER_SQUARE = 34
 
-const KOMA_MM: [PieceType[], number, number, number][] = [
-  [[PieceType.KING], 31.5, 28, 9.5],
-  [[PieceType.ROOK, PieceType.BISHOP, PieceType.DRAGON, PieceType.HORSE], 30.5, 27, 9],
-  [[PieceType.GOLD, PieceType.SILVER, PieceType.PROM_SILVER], 29.5, 26, 8.75],
-  [[PieceType.KNIGHT, PieceType.PROM_KNIGHT], 28.5, 25, 8.25],
-  [[PieceType.LANCE, PieceType.PROM_LANCE], 28, 23, 8],
-  [[PieceType.PAWN, PieceType.PROM_PAWN], 27, 22.5, 7.75],
+const KOMA_MM: [PieceType[], number, number, number, number][] = [
+  [[PieceType.KING], 32.5, 29.3, 9.6, 3.93],
+  [[PieceType.ROOK, PieceType.BISHOP, PieceType.DRAGON, PieceType.HORSE], 31.5, 28.3, 9.3, 3.81],
+  [[PieceType.GOLD, PieceType.SILVER, PieceType.PROM_SILVER], 30.5, 27.3, 9.0, 3.68],
+  [[PieceType.KNIGHT, PieceType.PROM_KNIGHT], 29.5, 26.3, 8.7, 3.56],
+  [[PieceType.LANCE, PieceType.PROM_LANCE], 29.5, 24.1, 8.4, 3.26],
+  [[PieceType.PAWN, PieceType.PROM_PAWN], 28.3, 23.1, 8.1, 3.17],
 ]
 
 const PIECE_SIZE: Partial<Record<PieceType, number>> = Object.fromEntries(KOMA_MM.flatMap(([types, h]) => types.map((t) => [t, h / MM_PER_SQUARE])))
 
-const KOMA_DIMS = new Map(KOMA_MM.map(([, h, w, t]) => [h / MM_PER_SQUARE, { w: w / MM_PER_SQUARE, t: t / MM_PER_SQUARE }]))
+const KOMA_DIMS = new Map(KOMA_MM.map(([, h, l, k, tip]) => [h / MM_PER_SQUARE, { w: l / MM_PER_SQUARE, t: k / MM_PER_SQUARE, taper: tip / k }]))
 
-const komaWidth = (scale: number) => KOMA_DIMS.get(scale)?.w ?? scale * 0.88
-const komaDepth = (scale: number) => (KOMA_DIMS.get(scale)?.t ?? 0.16 * scale + 0.11) - 0.05
+const komaWidth = (scale: number) => KOMA_DIMS.get(scale)?.w ?? scale * 0.9
+const komaDepth = (scale: number) => (KOMA_DIMS.get(scale)?.t ?? 0.28 * scale) - 0.05
+const komaTaper = (scale: number) => KOMA_DIMS.get(scale)?.taper ?? 0.41
+const SIDE_COT = 1 / Math.tan((81 * Math.PI) / 180)
+const TIP_SLOPE = Math.tan(((180 - 146) / 2 / 180) * Math.PI)
 
 const PROMOTED = new Set([PieceType.PROM_PAWN, PieceType.PROM_LANCE, PieceType.PROM_KNIGHT, PieceType.PROM_SILVER, PieceType.HORSE, PieceType.DRAGON])
 const FACE: Record<PieceType, string> = {
@@ -193,20 +196,14 @@ function pieceGeometry(scale: number) {
   if (cached) return cached
   const w = komaWidth(scale)
   const h = scale
-  const shape = new THREE.Shape()
-  shape.moveTo(-w * 0.5, -h * 0.5)
-  shape.lineTo(w * 0.5, -h * 0.5)
-  shape.lineTo(w * 0.33, h * 0.38)
-  shape.lineTo(0, h * 0.5)
-  shape.lineTo(-w * 0.33, h * 0.38)
-  shape.closePath()
+  const shape = new THREE.Shape(piecePolygon(scale).map(([x, y]) => new THREE.Vector2(x, y)))
   const geometry = new THREE.ExtrudeGeometry(shape, { depth: komaDepth(scale), bevelEnabled: true, bevelThickness: 0.025, bevelSize: 0.025, bevelSegments: 2 })
   const uv = geometry.attributes.uv
   for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) / w + 0.5, uv.getY(i) / h + 0.5)
   const pos = geometry.attributes.position
   for (let i = 0; i < pos.count; i++) {
     const t = (pos.getY(i) + h * 0.5) / h
-    pos.setZ(i, pos.getZ(i) * (1 - 0.5 * Math.min(1, Math.max(0, t))))
+    pos.setZ(i, pos.getZ(i) * (1 - (1 - komaTaper(scale)) * Math.min(1, Math.max(0, t))))
   }
   geometry.computeVertexNormals()
   geometry.rotateX(-Math.PI / 2)
@@ -217,14 +214,16 @@ function pieceGeometry(scale: number) {
 const hiddenLid = new THREE.MeshBasicMaterial({ visible: false })
 
 function piecePolygon(scale: number): [number, number][] {
-  const w = komaWidth(scale)
+  const l = komaWidth(scale)
   const h = scale
+  const xs = (l / 2 - h * SIDE_COT) / (1 - TIP_SLOPE * SIDE_COT)
+  const ys = h - xs * TIP_SLOPE - h / 2
   return [
-    [-w * 0.5, -h * 0.5],
-    [w * 0.5, -h * 0.5],
-    [w * 0.33, h * 0.38],
-    [0, h * 0.5],
-    [-w * 0.33, h * 0.38],
+    [-l / 2, -h / 2],
+    [l / 2, -h / 2],
+    [xs, ys],
+    [0, h / 2],
+    [-xs, ys],
   ]
 }
 
@@ -418,7 +417,7 @@ function carvedTop(scale: number, map: THREE.Texture) {
       const u = x / w + 0.5
       const v = y / h + 0.5
       const t = Math.min(1, Math.max(0, v))
-      positions.push(x, y, top * (1 - 0.5 * t) + ink(u, v) * relief)
+      positions.push(x, y, top * (1 - (1 - komaTaper(scale)) * t) + ink(u, v) * relief)
       uvs.push(u, v)
     }
   const index: number[] = []
@@ -463,7 +462,7 @@ export function pieceMesh(type: PieceType, color: Color) {
   const lm = lacquerMap(map)
   const finish = PIECE_FINISHES[getSettings().pieceFinish] ?? PIECE_FINISHES.moriage
   const gloss = finish.gloss
-  const face = new THREE.MeshPhysicalMaterial({ map, roughness: 1, roughnessMap: lm, normalMap: finish.relief ? reliefNormal(map, finish.relief * scale, komaWidth(scale), scale) : null, clearcoat: gloss, clearcoatMap: lm, clearcoatRoughness: 0.04, envMap: pieceEnv, envMapIntensity: 0.85 })
+  const face = new THREE.MeshPhysicalMaterial({ map, roughness: 1, roughnessMap: lm, normalMap: finish.relief ? reliefNormal(map, finish.relief * scale, komaWidth(scale), scale) : null, clearcoat: gloss, clearcoatMap: lm, clearcoatRoughness: 0.18, envMap: pieceEnv, envMapIntensity: 0.4 })
   const mesh = new THREE.Mesh(pieceGeometry(scale), [hiddenLid, sideMaterial])
   mesh.castShadow = true
   mesh.receiveShadow = true
@@ -520,7 +519,7 @@ export function Board3D(props: Board3DProps) {
     const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 200)
 
     scene.add(new THREE.HemisphereLight(0xc9d6ff, 0x20160c, 0.55))
-    const lamp = new THREE.SpotLight(0xffe2b0, 190, 60, Math.PI / 5, 0.55, 1.6)
+    const lamp = new THREE.SpotLight(0xffe8c4, 120, 80, Math.PI / 3, 1, 1.2)
     lamp.position.set(-1.5, 18, 2.5)
     lamp.castShadow = true
     lamp.shadow.mapSize.set(2048, 2048)
@@ -540,7 +539,7 @@ export function Board3D(props: Board3DProps) {
     scene.add(floor)
 
     const tone = BOARD_TONE[getSettings().boardStyle]
-    const boardMaterials = [woodMaterial(tone.edge, 3), woodMaterial(tone.edge, 5), new THREE.MeshPhysicalMaterial({ map: boardTexture(getSettings().boardStyle), roughness: 0.45, clearcoat: 0.3, clearcoatRoughness: 0.3, envMap: pieceEnv, envMapIntensity: 0.3 }), woodMaterial([150, 104, 50], 9), woodMaterial(tone.edge, 11), woodMaterial(tone.edge, 13)]
+    const boardMaterials = [woodMaterial(tone.edge, 3), woodMaterial(tone.edge, 5), new THREE.MeshPhysicalMaterial({ map: boardTexture(getSettings().boardStyle), roughness: 0.55, clearcoat: 0.15, clearcoatRoughness: 0.45, envMap: pieceEnv, envMapIntensity: 0.25 }), woodMaterial([150, 104, 50], 9), woodMaterial(tone.edge, 11), woodMaterial(tone.edge, 13)]
     const board = new THREE.Mesh(new THREE.BoxGeometry(9 / 0.9, 0.9, 9 / 0.9), boardMaterials)
     board.position.y = -0.45
     board.castShadow = true
