@@ -1,4 +1,5 @@
 import problemsData from '../data/tsume.json'
+import i18n from '../i18n'
 import { analyze, engineSupported } from '../engine'
 import { COURSES, SETUPS, findPath, sideToMove, walkNodes, type Course, type JosekiNode } from '../model'
 import { getSettings } from './settings'
@@ -52,18 +53,18 @@ export type TsumeVerdict = { kind: 'continue'; offBook: boolean } | { kind: 'sol
 
 export async function judgeTsumeMove(problem: Problem, line: string[], sfen: string, usi: string, onBook: boolean): Promise<TsumeVerdict> {
   const next = applyUsi(sfen, usi)
-  if (!next) return { kind: 'wrong', reason: 'That move is not legal.' }
+  if (!next) return { kind: 'wrong', reason: i18n.t('tsume.reasonIllegal') }
   const after = positionOf(next)
-  if (!after.checked) return { kind: 'wrong', reason: 'In tsume every attacking move must give check. This move does not.' }
+  if (!after.checked) return { kind: 'wrong', reason: i18n.t('tsume.reasonNoCheck') }
   if (!hasLegalMove(after)) return { kind: 'solved' }
   if (onBook && usi === problem.pv[line.length]) return { kind: 'continue', offBook: false }
-  if (!engineSupported()) return { kind: 'wrong', reason: `The stored solution plays ${moveText(sfen, problem.pv[line.length])}.` }
+  if (!engineSupported()) return { kind: 'wrong', reason: i18n.t('tsume.reasonStored', { move: moveText(sfen, problem.pv[line.length]) }) }
   const movesLeft = Math.ceil((problem.mate - line.length) / 2)
   const result = await analyze(`position sfen ${next}`, { multipv: 1, movetime: 800 })
   const score = result.candidates[0]?.score
   const plies = score && 'mate' in score && score.mate < 0 ? -score.mate : null
   if (plies !== null && Math.ceil(plies / 2) <= movesLeft - 1) return { kind: 'continue', offBook: true }
-  return { kind: 'wrong', reason: `After this check the defence holds: there is no forced mate in the ${movesLeft - 1 > 0 ? `${movesLeft - 1} move${movesLeft - 1 === 1 ? '' : 's'}` : 'moves'} left.` }
+  return { kind: 'wrong', reason: movesLeft - 1 > 0 ? i18n.t('tsume.reasonHolds', { count: movesLeft - 1 }) : i18n.t('tsume.reasonHoldsNow') }
 }
 
 export async function defenderMove(problem: Problem, line: string[], sfen: string, onBook: boolean): Promise<string | null> {

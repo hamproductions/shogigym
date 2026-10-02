@@ -1,7 +1,7 @@
 import { LABELS, type Label, type MoveReview } from '../../analysis'
 import i18n from '../../i18n'
 
-export type Mistake = { usi: string; loss: number | null; known: boolean; verdict?: MoveReview }
+export type Mistake = { usi: string; loss: number | null; known: boolean; verdict?: MoveReview; reason?: string }
 export type ShownMistake = Mistake & { base: number; expected: string; note?: string }
 
 const WEAK_LABELS: Label[] = ['inaccuracy', 'mistake', 'miss', 'blunder']
@@ -22,6 +22,7 @@ export function mistakeSeal(m: Mistake) {
 }
 
 export function mistakeHeadline(move: string, m: Mistake) {
+  if (m.reason) return i18n.t('mistake.failsBecause', { move, reason: m.reason })
   if (m.verdict && !m.known) {
     const label = LABELS[m.verdict.label].text
     const loss = m.loss ? i18n.t('mistake.winChance', { loss: m.loss }) : ''

@@ -203,7 +203,8 @@
     "butNotThisLessonS": "{{move}}: {{label}}, but not this lesson's move",
     "isAKnownMistake": "{{move}} is a known mistake",
     "isAMistakeWinChance": "{{move}} is a mistake (−{{loss}}% win chance)",
-    "isPlayableButNotThis": "{{move}} is playable, but not this lesson's move"
+    "isPlayableButNotThis": "{{move}} is playable, but not this lesson's move",
+    "failsBecause": "{{move}}: {{reason}}"
   },
   "modes": {
     "title": "{{name}}: {{hint}}",
@@ -521,7 +522,14 @@
     "hint": "Hint",
     "showMove": "Show move",
     "escapeSquaresShowWhereThe": "Escape squares: show where the king can run (K)",
-    "solvedOfInThisSet": "Solved {{value}} of {{poolCount}} in this set."
+    "solvedOfInThisSet": "Solved {{value}} of {{poolCount}} in this set.",
+    "reasonIllegal": "not a legal move",
+    "reasonNoCheck": "not a check, and every attacking move must check",
+    "reasonStored": "the solution is {{move}}",
+    "reasonHolds_one": "the defence holds, no mate in the 1 move left",
+    "reasonHolds_other": "the defence holds, no mate in the {{count}} moves left",
+    "reasonHoldsNow": "the king escapes",
+    "notMateBecause": "Not mate: {{reason}}."
   },
   "viewer": {
     "pieceViewer": "Piece viewer",

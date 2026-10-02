@@ -199,7 +199,8 @@
     "butNotThisLessonS": "{{move}}: {{label}}。ただしレッスンの手ではありません",
     "isAKnownMistake": "{{move}}は定跡にある悪手です",
     "isAMistakeWinChance": "{{move}}は悪手です（勝率 −{{loss}}%）",
-    "isPlayableButNotThis": "{{move}}も指せますが、レッスンの手ではありません"
+    "isPlayableButNotThis": "{{move}}も指せますが、レッスンの手ではありません",
+    "failsBecause": "{{move}}：{{reason}}"
   },
   "modes": {
     "title": "{{name}}: {{hint}}",
@@ -509,7 +510,14 @@
     "hint": "ヒント",
     "showMove": "初手を見る",
     "escapeSquaresShowWhereThe": "逃げ道: 玉が逃げられるマスを表示 (K)",
-    "solvedOfInThisSet": "このセットの正解数: {{value}} / {{poolCount}}"
+    "solvedOfInThisSet": "このセットの正解数: {{value}} / {{poolCount}}",
+    "reasonIllegal": "指せない手です",
+    "reasonNoCheck": "王手ではありません（攻め方は毎手王手）",
+    "reasonStored": "正解は{{move}}です",
+    "reasonHolds_one": "受けられて、残り1手で詰みません",
+    "reasonHolds_other": "受けられて、残り{{count}}手で詰みません",
+    "reasonHoldsNow": "玉に逃げられます",
+    "notMateBecause": "詰みません：{{reason}}。"
   },
   "viewer": {
     "pieceViewer": "駒ビューア",

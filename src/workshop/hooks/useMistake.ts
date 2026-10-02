@@ -33,7 +33,7 @@ export function useMistake(session: BoardSession, setTab: (tab: Tab) => void) {
     }
     session.setSelection(null)
     session.setPromotion(null)
-    const found: Mistake = { usi, loss, known: deviation?.kind === 'deviation' || !!reason, verdict }
+    const found: Mistake = { usi, loss, known: deviation?.kind === 'deviation' || !!reason, verdict, reason }
     setMistake({ base: session.cursor, expected, note: reason ?? deviation?.punishNote ?? deviation?.note, ...found })
     if (mistakeIsBad(found)) session.startPreview([usi, ...refutation], t('workshop.whyFails', { move: moveText(session.liveSfen, usi) }), 1)
     setTab('coach')

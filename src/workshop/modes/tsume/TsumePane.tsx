@@ -16,7 +16,7 @@ function TsumeStatus({ tsume }: { tsume: TsumeState }) {
   if (tsume.status === 'wrong')
     return (
       <p className="ws-result wrong">
-        {t('tsume.notMate')} {tsume.reason}
+        {tsume.reason ? t('tsume.notMateBecause', { reason: tsume.reason }) : t('tsume.notMate')}
       </p>
     )
   if (tsume.status === 'shown')
