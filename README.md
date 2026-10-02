@@ -71,8 +71,8 @@ This app is GPL-3.0-or-later.
 | Engine (optional) | Fairy-Stockfish, WASM build `fairy-stockfish-nnue.wasm` (github.com/fairy-stockfish/fairy-stockfish.wasm) | GPL-3.0 |
 | Rules, notation, kifu I/O | tsshogi (github.com/sunfish-shogi/tsshogi) | MIT |
 | 3D rendering | three.js | MIT |
-| Joseki courses in `vendor/shiryu-joseki` | github.com/Shiryu181/shogi-joseki (commit in `vendor/shiryu-joseki/SOURCE_COMMIT`), lines from shogilounge.com, hibitonshi.com and shogi-joutatsu.com | GPL-3.0 |
-| 将棋ルール.com courses (`shogirule--*`) | Move sequences from the game files published at shogi-rule.com/joseki_index/, with the closing summaries paraphrased | Attribution; moves are game records |
+| Joseki courses in `vendor/shiryu-joseki` | github.com/Shiryu181/shogi-joseki (commit in `vendor/shiryu-joseki/SOURCE_COMMIT`, re-vendored with `node scripts/build-courses.mjs --vendor <checkout> <commit>`), lines from shogilounge.com, hibitonshi.com, shogi-joutatsu.com, shogi-rule.com and ameblo.jp shogi blogs, as cited in each course's `source` | GPL-3.0 |
+| 将棋ルール.com courses (`shogirule--*`) | Move sequences from the game files published at shogi-rule.com/joseki_index/. The closing summaries are written here from the moves and final position; no text from the site is reproduced, only its one-word evaluation (互角/先手優勢/後手優勢) is cited | Attribution; moves are game records |
 | 角交換四間飛車 | hibitonshi.com/kakukoukan-shiken/ | Moves and notes adapted from the article |
 | ミレニアム | shogijam.com, "四間飛車対ミレニアムの激しい定跡" game file | Attribution; moves are a game record |
 | 相振り飛車 | thirdfilerook.jp, "相振り飛車の基礎知識 三間飛車VS四間飛車とは" | Attribution |
