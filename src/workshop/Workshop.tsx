@@ -6,7 +6,6 @@ import '@fontsource/zen-kaku-gothic-new/500.css'
 import '@fontsource/zen-kaku-gothic-new/700.css'
 import './workshop.css'
 import { Board2D } from './Board2D'
-import { StandZones } from './StandZones'
 import { Board3D, sideStandsFit, type BoardArrow, type StandZones as StandZonesRect } from './Board3D'
 import { Icon, type IconName } from './icons'
 import { PIECE_INFO, PieceGuide, moveGloss, sees } from './pieces'
@@ -102,6 +101,7 @@ export function Workshop() {
   const settings = useSettings()
   const ja = settings.lang === 'ja'
   const [tab, setTab] = useState<Tab>('coach')
+  const [leftTab, setLeftTab] = useState<Tab>('moves')
   const [lessonMode, setLessonMode] = useState<'study' | 'quiz'>('study')
   const [mistake, setMistake] = useState<{ base: number; usi: string; expected: string; note?: string; loss: number | null; known: boolean; verdict?: MoveReview } | null>(null)
   const [showAnswer, setShowAnswer] = useState(false)
@@ -1245,6 +1245,183 @@ export function Workshop() {
     }
   }, [mode, course, lessonMode, game, cursor, userSide, score, tree, tsume, drill])
 
+  const twoPanels = zoned && !panelPrefs.hidden && !!zones && zones.under.width >= 240 && zones.under.height >= 200
+  const pickTab = (id: Tab, side: 'left' | 'right') => {
+    if (side === 'right') {
+      if (twoPanels && id === leftTab) setLeftTab(tab)
+      setTab(id)
+    } else {
+      if (id === tab) setTab(leftTab)
+      setLeftTab(id)
+    }
+  }
+  const panelBody = (tab: Tab) => (
+    <div className="ws-panel-body">
+      {level === 'new' && selection && !(mode === 'lesson' && course) && <PieceGuide sfen={sfen} from={selection.from} />}
+      {tab === 'engine' && !ai && <p className="ws-muted">{t('workshop.theAiNeedsACross')}</p>}
+      {tab === 'engine' && ai && spoilerFree && <p className="ws-muted">{t('workshop.theAiStaysQuietUntil')}</p>}
+      {tab === 'engine' && ai && !spoilerFree && gameOver && <p className="ws-muted">{t('workshop.checkmateWon', { winner: t(toMove === 'sente' ? 'common.gote' : 'common.sente') })}</p>}
+      {tab === 'engine' && !assist && <p className="ws-muted">{t('workshop.helpIsOffTurnIt')}</p>}
+      {tab === 'engine' && ai && assist && !spoilerFree && !gameOver && <EnginePane sfen={sfen} toMove={toMove} analysis={analysis} showBest={showBest} setShowBest={setShowBest} onPlay={play} canPlay={userTurn} book={bookHere} />}
+      {tab === 'coach' && mode === 'lesson' && (
+        <LessonPane
+          course={course}
+          lessonMode={lessonMode}
+          justRight={justRight}
+          progress={lineProgress}
+          checking={checking}
+          onLessonMode={(m) => {
+            if (m === 'quiz' && course && lessonMode !== 'quiz' && game.moves.length > 0) return openCourse(course, 'quiz')
+            setLessonMode(m)
+            setShowAnswer(false)
+            setScore({ right: 0, wrong: 0 })
+          }}
+          onOpen={openCourse}
+          onChange={() => (load(InitialPositionSFEN.STANDARD, 'sente', 'lesson', null), setPickerSetup(null))}
+          onMap={() => setLessonMap(true)}
+          onRestart={(sub) => course && openCourse(course, sub ?? lessonMode)}
+          asking={lessonAsking}
+          done={lessonDone}
+          good={lessonGood.map((b) => ({ usi: b.usi, note: b.note }))}
+          sfen={liveSfen}
+          userSide={userSide}
+          mistake={mistake}
+          showAnswer={showAnswer}
+          onShowAnswer={() => setShowAnswer(true)}
+          onBack={goBack}
+          onExplore={explore}
+          whatIf={preview && !mistake ? preview.title : null}
+          offBook={lessonOffBook}
+          onBackToLine={() => {
+            let i = cursor
+            while (i > 0 && !nodes?.get(strip(sfens[i]))) i--
+            setGame((g) => ({ ...g, moves: g.moves.slice(0, i) }))
+            setCursor(i)
+          }}
+          endComment={lessonDone ? lessonNode?.comment : undefined}
+          jumped={jumped}
+          mistakePreview={!!preview && !!mistake}
+          playing={playing}
+          score={score}
+          lastNote={bookLast?.branch.note}
+          endRate={lessonDone && evalSente ? (userSide === 'sente' ? senteRate : 1 - senteRate) : null}
+          level={level}
+          pickerSetup={pickerSetup}
+          onPickerSetup={setPickerSetup}
+          reply={reply}
+          onPlayReply={() => reply && play(reply.usi)}
+          lastMove={lastMove}
+          prevSfen={prevSfen}
+        />
+      )}
+      {lessonMap && course && <LessonMap course={course} currentNodeId={nodes?.get(strip(sfen))?.id ?? null} onJump={jumpTo} onClose={() => setLessonMap(false)} />}
+      {tab === 'coach' && mode === 'tesuji' && tesujiDrill && (
+        <TesujiPane
+          drill={tesujiDrill}
+          sfen={tesujiDrill.item.sfen}
+          onFilter={(f) => startTesuji(f)}
+          onNext={() => startTesuji(tesujiDrill.filter, tesujiDrill.item.id)}
+          onHint={() => setTesujiDrill({ ...tesujiDrill, hint: true, missed: true })}
+          onShow={() => (setTesujiDrill({ ...tesujiDrill, status: 'shown', missed: true }), markTesuji(tesujiDrill.item.id, false))}
+        />
+      )}
+      {tab === 'coach' && mode === 'tsume' && tsume && (
+        <TsumePane
+          tsume={tsume}
+          onLength={(n) => startTsume(n)}
+          escape={showEscape}
+          onEscape={() => (setPeekFrom(null), setShowEscape((v) => !v))}
+          onNext={() => startTsume(tsume.length, tsume.problem.id)}
+          onRetry={() => (load(tsume.problem.sfen, attackerOf(tsume.problem), 'tsume', null), setTsume({ ...tsume, status: 'playing', onBook: true, good: 0 }))}
+          onHint={() => setTsume({ ...tsume, hint: tsume.hint + 1 })}
+          onShow={() => {
+            markTsume(tsume.problem.id, 'failed')
+            setGame({ start: tsume.problem.sfen, moves: tsume.problem.pv })
+            setCursor(tsume.problem.pv.length)
+            setTsume({ ...tsume, status: 'shown', hint: 2, seen: true })
+          }}
+        />
+      )}
+      {tab === 'coach' && mode === 'drill' && <ReviewPane drill={drill} item={drillItem} startSfen={drillItem ? sfens[drill?.base ?? 0] : null} onQueue={startReview} onNext={() => drill && loadReview(drill.queue, drill.items, drill.index + 1, false, drill.answered)} onRetry={() => drill && loadReview(drill.queue, drill.items, drill.index, true, drill.answered)} mistakePreview={!!preview && !!mistake} mistakeOk={!!mistake && !mistakeIsBad(mistake)} />}
+      {tab === 'coach' && mode === 'analyze' && <ImportBox onImport={importGame} />}
+      {tab === 'coach' && mode === 'analyze' && gameNotes && game.moves.join(' ').startsWith(gameNotes.moves.split(' ').slice(0, cursor).join(' ')) && cursor <= gameNotes.moves.split(' ').length && (
+        <div className="ws-kifu-notes">
+          {gameNotes.title !== 'Imported game' && cursor === 0 && <p className="ws-muted">{gameNotes.title}</p>}
+          {gameNotes.comments[cursor] && (
+            <p className="ws-note">
+              <span className="ws-kifu-tag">{t('workshop.comment')}</span> {gameNotes.comments[cursor]}
+            </p>
+          )}
+          {gameNotes.ending && cursor === gameNotes.moves.split(' ').length && <p className="ws-note">{gameNotes.ending}</p>}
+        </div>
+      )}
+      {tab === 'coach' && mode === 'spar' && (
+        <div className="ws-seg ws-spar-side" role="group" aria-label={t('workshop.yourSide')}>
+          {(['sente', 'gote'] as const).map((side) => (
+            <button key={side} className={userSide === side ? 'on' : ''} onClick={() => (side === userSide ? undefined : game.moves.length > 0 ? setConfirm({ text: t('workshop.newGameAs', { side: t(side === 'sente' ? 'common.sente' : 'common.gote'), count: game.moves.length }), run: () => load(InitialPositionSFEN.STANDARD, side, 'spar', null) }) : load(InitialPositionSFEN.STANDARD, side, 'spar', null))}>
+              {side === 'sente' ? t('workshop.playSente') : t('workshop.playGote')}
+            </button>
+          ))}
+        </div>
+      )}
+      {tab === 'coach' && mode === 'spar' && game.moves.length > 0 && !gameOver && (
+        <div className="ws-actions ws-spar-actions">
+          {!resigned && (
+            <button onClick={takeBack} disabled={lastUserMove < 0} title={t('workshop.takeBackYourLastMove3')}>
+              {t('workshop.takeBack')}
+            </button>
+          )}
+          {!resigned && (
+            <button onClick={() => setConfirm({ text: t('workshop.resignThisGameYouCan'), run: () => setResigned(true), yes: t('workshop.resign2'), no: t('workshop.keepPlaying') })}>
+              {t('workshop.resign')}
+            </button>
+          )}
+          <button onClick={reviewGame}>{t('workshop.reviewInAnalyze')}</button>
+        </div>
+      )}
+      {tab === 'coach' && (mode === 'spar' || mode === 'analyze') && !assist && <p className="ws-muted">{t('workshop.helpIsOffNoRatings')}</p>}
+      {tab === 'coach' && (mode === 'spar' || mode === 'analyze') && assist && <CoachPane review={review} lastMove={reviewAt > 0 ? game.moves[reviewAt - 1] : undefined} prevSfen={reviewAt > 0 ? sfens[reviewAt - 1] : null} you={mode === 'spar'} bookLast={reviewAt === cursor ? bookLast : bookAt(reviewAt)} bookHere={bookHere} sfen={sfen} course={course} onPlay={play} canPlay={userTurn} hide={false} ai={ai} showBook={mode === 'analyze'} />}
+      {tab === 'flow' && spoilerFree && <p className="ws-muted">{t('workshop.findTheMoveYourselfFirst')}</p>}
+      {tab === 'flow' && !spoilerFree && gameOver && <p className="ws-muted">{t('workshop.theGameIsOverCheckmate')}</p>}
+      {tab === 'flow' && !assist && <p className="ws-muted">{t('workshop.helpIsOffTurnIt2')}</p>}
+      {tab === 'flow' && assist && !spoilerFree && !gameOver && <FlowPane lanes={lanes} sfen={lanesRef.current.sfen} onPreview={startPreview} onHover={setHoverLane} />}
+      {tab === 'moves' && (mode === 'spar' || mode === 'analyze') && !preview && (
+        <GamesBox current={slotId} onSave={saveSlot} onCopy={exportKif} onOpen={openSlot} onDelete={(g) => setConfirm({ text: t('workshop.deleteThisCannotBeUndone', { title: g.title }), run: () => (deleteGame(g.id), g.id === slotId && setSlotId(null)), yes: t('workshop.delete'), no: t('workshop.keepIt') })} onImport={importGame} />
+      )}
+      {tab === 'moves' &&
+        (preview && previewSfens ? (
+          <>
+            <p className="ws-muted">{t('workshop.showingAPreviewTheseMoves')}</p>
+            <MovesPane sfens={[...sfens.slice(0, preview.base), ...previewSfens]} moves={[...game.moves.slice(0, preview.base), ...preview.moves]} cursor={preview.base + preview.step} setCursor={(i) => i >= preview.base && setPreview({ ...preview, step: i - preview.base })} title={gameTitle || t('workshop.thisGame')} />
+          </>
+        ) : (
+          <MovesPane
+            sfens={sfens}
+            moves={game.moves}
+            cursor={cursor}
+            setCursor={setCursor}
+            title={gameTitle || t('workshop.thisGame')}
+            onScore={(k, cp) => setEvals((e) => ({ ...e, [k]: cp }))}
+            tree={mode === 'spar' || mode === 'analyze' ? tree : null}
+            autoRate={mode === 'analyze' && autoRate === game.moves.join(' ')}
+            onSwitch={(path) => {
+              const node = nodeAt(tree, path)
+              setGame((g) => ({ ...g, moves: [...path, ...mainContinuation(node)] }))
+              setCursor(path.length)
+            }}
+            onDelete={(path, size) =>
+              setConfirm({
+                text: t('workshop.deleteVariation', { count: size }),
+                run: () => setTree((t) => removeBranch(t, path)),
+                yes: t('workshop.delete'),
+                no: t('workshop.keepIt'),
+              })
+            }
+          />
+        ))}
+    </div>
+  )
+
   const commands = useCommands({ sfen, setMode: enterMode, setFlipped, setTilted, openCourse, play, newGame: () => load(InitialPositionSFEN.STANDARD, userSide, mode === 'lesson' ? 'analyze' : mode, null) })
 
   return (
@@ -1287,10 +1464,12 @@ export function Workshop() {
           <Icon name="flip" size={20} />
           <span>{t('workshop.flip')}</span>
         </button>
-        <button className={`ws-rail-btn${orbit ? ' on' : ''}`} onClick={() => setOrbit((v) => !v)} title={t('workshop.lookAroundHint')} aria-pressed={orbit}>
-          <Icon name="orbit" size={20} />
-          <span>{t('workshop.lookAround')}</span>
-        </button>
+        {!flatView && (
+          <button className={`ws-rail-btn${orbit ? ' on' : ''}`} onClick={() => setOrbit((v) => !v)} title={t('workshop.lookAroundHint')} aria-pressed={orbit}>
+            <Icon name="orbit" size={20} />
+            <span>{t('workshop.lookAround')}</span>
+          </button>
+        )}
         <button className="ws-rail-btn" onClick={() => setHideUi(true)} title={`${t('workshop.hideUi')} (H)`}>
           <Icon name="panel" size={20} />
           <span>{t('workshop.hideUiShort')}</span>
@@ -1441,18 +1620,9 @@ export function Workshop() {
             onHand={onHand}
             onDrop={onDrop}
             onZones={setZones}
-            orbit={orbit}
+            orbit={orbit && !flatView}
             sideRoom={0}
           />
-          )}
-          {zoned && zones && (
-            <StandZones
-              zone={zones.under}
-              moves={game.moves.map((u, i) => moveText(sfens[i], u))}
-              cursor={cursor}
-              onJump={(n) => (setPreview(null), setCursor(n))}
-              actions={[]}
-            />
           )}
           {preview && mistake && (
             <div className={`ws-preview mistake${mistakeIsBad(mistake) ? '' : ' ok'}`} role="status">
@@ -1591,6 +1761,18 @@ export function Workshop() {
         </div>
       </section>
 
+      {twoPanels && zones && (
+        <aside className="ws-panel ws-panel-left" style={{ ...zones.under }}>
+          <div className="ws-tabs" role="tablist">
+            {TABS.map((id) => (
+              <button key={id} role="tab" aria-selected={leftTab === id} className={leftTab === id ? 'on' : ''} onClick={() => pickTab(id, 'left')}>
+                <span className={ja ? 'ws-ja' : 'ws-en'}>{t(`tabs.${id}`)}</span>
+              </button>
+            ))}
+          </div>
+          {panelBody(leftTab)}
+        </aside>
+      )}
       <aside className={`ws-panel${sheetIsOpen ? ' open' : ''}`} style={zoned ? (zones && !panelPrefs.hidden ? { ...zones.over } : { display: 'none' }) : undefined}>
         {compact && (
           <div
@@ -1650,7 +1832,7 @@ export function Workshop() {
         />
         <div className="ws-tabs" role="tablist">
           {TABS.map((id) => (
-            <button key={id} role="tab" aria-selected={tab === id} className={tab === id ? 'on' : ''} onClick={() => setTab(id)}>
+            <button key={id} role="tab" aria-selected={tab === id} className={tab === id ? 'on' : ''} onClick={() => pickTab(id, 'right')}>
               <span className={ja ? 'ws-ja' : 'ws-en'}>{t(`tabs.${id}`)}</span>
             </button>
           ))}
@@ -1658,170 +1840,7 @@ export function Workshop() {
             ×
           </button>
         </div>
-        <div className="ws-panel-body">
-          {level === 'new' && selection && !(mode === 'lesson' && course) && <PieceGuide sfen={sfen} from={selection.from} />}
-          {tab === 'engine' && !ai && <p className="ws-muted">{t('workshop.theAiNeedsACross')}</p>}
-          {tab === 'engine' && ai && spoilerFree && <p className="ws-muted">{t('workshop.theAiStaysQuietUntil')}</p>}
-          {tab === 'engine' && ai && !spoilerFree && gameOver && <p className="ws-muted">{t('workshop.checkmateWon', { winner: t(toMove === 'sente' ? 'common.gote' : 'common.sente') })}</p>}
-          {tab === 'engine' && !assist && <p className="ws-muted">{t('workshop.helpIsOffTurnIt')}</p>}
-          {tab === 'engine' && ai && assist && !spoilerFree && !gameOver && <EnginePane sfen={sfen} toMove={toMove} analysis={analysis} showBest={showBest} setShowBest={setShowBest} onPlay={play} canPlay={userTurn} book={bookHere} />}
-          {tab === 'coach' && mode === 'lesson' && (
-            <LessonPane
-              course={course}
-              lessonMode={lessonMode}
-              justRight={justRight}
-              progress={lineProgress}
-              checking={checking}
-              onLessonMode={(m) => {
-                if (m === 'quiz' && course && lessonMode !== 'quiz' && game.moves.length > 0) return openCourse(course, 'quiz')
-                setLessonMode(m)
-                setShowAnswer(false)
-                setScore({ right: 0, wrong: 0 })
-              }}
-              onOpen={openCourse}
-              onChange={() => (load(InitialPositionSFEN.STANDARD, 'sente', 'lesson', null), setPickerSetup(null))}
-              onMap={() => setLessonMap(true)}
-              onRestart={(sub) => course && openCourse(course, sub ?? lessonMode)}
-              asking={lessonAsking}
-              done={lessonDone}
-              good={lessonGood.map((b) => ({ usi: b.usi, note: b.note }))}
-              sfen={liveSfen}
-              userSide={userSide}
-              mistake={mistake}
-              showAnswer={showAnswer}
-              onShowAnswer={() => setShowAnswer(true)}
-              onBack={goBack}
-              onExplore={explore}
-              whatIf={preview && !mistake ? preview.title : null}
-              offBook={lessonOffBook}
-              onBackToLine={() => {
-                let i = cursor
-                while (i > 0 && !nodes?.get(strip(sfens[i]))) i--
-                setGame((g) => ({ ...g, moves: g.moves.slice(0, i) }))
-                setCursor(i)
-              }}
-              endComment={lessonDone ? lessonNode?.comment : undefined}
-              jumped={jumped}
-              mistakePreview={!!preview && !!mistake}
-              playing={playing}
-              score={score}
-              lastNote={bookLast?.branch.note}
-              endRate={lessonDone && evalSente ? (userSide === 'sente' ? senteRate : 1 - senteRate) : null}
-              level={level}
-              pickerSetup={pickerSetup}
-              onPickerSetup={setPickerSetup}
-              reply={reply}
-              onPlayReply={() => reply && play(reply.usi)}
-              lastMove={lastMove}
-              prevSfen={prevSfen}
-            />
-          )}
-          {lessonMap && course && <LessonMap course={course} currentNodeId={nodes?.get(strip(sfen))?.id ?? null} onJump={jumpTo} onClose={() => setLessonMap(false)} />}
-          {tab === 'coach' && mode === 'tesuji' && tesujiDrill && (
-            <TesujiPane
-              drill={tesujiDrill}
-              sfen={tesujiDrill.item.sfen}
-              onFilter={(f) => startTesuji(f)}
-              onNext={() => startTesuji(tesujiDrill.filter, tesujiDrill.item.id)}
-              onHint={() => setTesujiDrill({ ...tesujiDrill, hint: true, missed: true })}
-              onShow={() => (setTesujiDrill({ ...tesujiDrill, status: 'shown', missed: true }), markTesuji(tesujiDrill.item.id, false))}
-            />
-          )}
-          {tab === 'coach' && mode === 'tsume' && tsume && (
-            <TsumePane
-              tsume={tsume}
-              onLength={(n) => startTsume(n)}
-              escape={showEscape}
-              onEscape={() => (setPeekFrom(null), setShowEscape((v) => !v))}
-              onNext={() => startTsume(tsume.length, tsume.problem.id)}
-              onRetry={() => (load(tsume.problem.sfen, attackerOf(tsume.problem), 'tsume', null), setTsume({ ...tsume, status: 'playing', onBook: true, good: 0 }))}
-              onHint={() => setTsume({ ...tsume, hint: tsume.hint + 1 })}
-              onShow={() => {
-                markTsume(tsume.problem.id, 'failed')
-                setGame({ start: tsume.problem.sfen, moves: tsume.problem.pv })
-                setCursor(tsume.problem.pv.length)
-                setTsume({ ...tsume, status: 'shown', hint: 2, seen: true })
-              }}
-            />
-          )}
-          {tab === 'coach' && mode === 'drill' && <ReviewPane drill={drill} item={drillItem} startSfen={drillItem ? sfens[drill?.base ?? 0] : null} onQueue={startReview} onNext={() => drill && loadReview(drill.queue, drill.items, drill.index + 1, false, drill.answered)} onRetry={() => drill && loadReview(drill.queue, drill.items, drill.index, true, drill.answered)} mistakePreview={!!preview && !!mistake} mistakeOk={!!mistake && !mistakeIsBad(mistake)} />}
-          {tab === 'coach' && mode === 'analyze' && <ImportBox onImport={importGame} />}
-          {tab === 'coach' && mode === 'analyze' && gameNotes && game.moves.join(' ').startsWith(gameNotes.moves.split(' ').slice(0, cursor).join(' ')) && cursor <= gameNotes.moves.split(' ').length && (
-            <div className="ws-kifu-notes">
-              {gameNotes.title !== 'Imported game' && cursor === 0 && <p className="ws-muted">{gameNotes.title}</p>}
-              {gameNotes.comments[cursor] && (
-                <p className="ws-note">
-                  <span className="ws-kifu-tag">{t('workshop.comment')}</span> {gameNotes.comments[cursor]}
-                </p>
-              )}
-              {gameNotes.ending && cursor === gameNotes.moves.split(' ').length && <p className="ws-note">{gameNotes.ending}</p>}
-            </div>
-          )}
-          {tab === 'coach' && mode === 'spar' && (
-            <div className="ws-seg ws-spar-side" role="group" aria-label={t('workshop.yourSide')}>
-              {(['sente', 'gote'] as const).map((side) => (
-                <button key={side} className={userSide === side ? 'on' : ''} onClick={() => (side === userSide ? undefined : game.moves.length > 0 ? setConfirm({ text: t('workshop.newGameAs', { side: t(side === 'sente' ? 'common.sente' : 'common.gote'), count: game.moves.length }), run: () => load(InitialPositionSFEN.STANDARD, side, 'spar', null) }) : load(InitialPositionSFEN.STANDARD, side, 'spar', null))}>
-                  {side === 'sente' ? t('workshop.playSente') : t('workshop.playGote')}
-                </button>
-              ))}
-            </div>
-          )}
-          {tab === 'coach' && mode === 'spar' && game.moves.length > 0 && !gameOver && (
-            <div className="ws-actions ws-spar-actions">
-              {!resigned && (
-                <button onClick={takeBack} disabled={lastUserMove < 0} title={t('workshop.takeBackYourLastMove3')}>
-                  {t('workshop.takeBack')}
-                </button>
-              )}
-              {!resigned && (
-                <button onClick={() => setConfirm({ text: t('workshop.resignThisGameYouCan'), run: () => setResigned(true), yes: t('workshop.resign2'), no: t('workshop.keepPlaying') })}>
-                  {t('workshop.resign')}
-                </button>
-              )}
-              <button onClick={reviewGame}>{t('workshop.reviewInAnalyze')}</button>
-            </div>
-          )}
-          {tab === 'coach' && (mode === 'spar' || mode === 'analyze') && !assist && <p className="ws-muted">{t('workshop.helpIsOffNoRatings')}</p>}
-          {tab === 'coach' && (mode === 'spar' || mode === 'analyze') && assist && <CoachPane review={review} lastMove={reviewAt > 0 ? game.moves[reviewAt - 1] : undefined} prevSfen={reviewAt > 0 ? sfens[reviewAt - 1] : null} you={mode === 'spar'} bookLast={reviewAt === cursor ? bookLast : bookAt(reviewAt)} bookHere={bookHere} sfen={sfen} course={course} onPlay={play} canPlay={userTurn} hide={false} ai={ai} showBook={mode === 'analyze'} />}
-          {tab === 'flow' && spoilerFree && <p className="ws-muted">{t('workshop.findTheMoveYourselfFirst')}</p>}
-          {tab === 'flow' && !spoilerFree && gameOver && <p className="ws-muted">{t('workshop.theGameIsOverCheckmate')}</p>}
-          {tab === 'flow' && !assist && <p className="ws-muted">{t('workshop.helpIsOffTurnIt2')}</p>}
-          {tab === 'flow' && assist && !spoilerFree && !gameOver && <FlowPane lanes={lanes} sfen={lanesRef.current.sfen} onPreview={startPreview} onHover={setHoverLane} />}
-          {tab === 'moves' && (mode === 'spar' || mode === 'analyze') && !preview && (
-            <GamesBox current={slotId} onSave={saveSlot} onCopy={exportKif} onOpen={openSlot} onDelete={(g) => setConfirm({ text: t('workshop.deleteThisCannotBeUndone', { title: g.title }), run: () => (deleteGame(g.id), g.id === slotId && setSlotId(null)), yes: t('workshop.delete'), no: t('workshop.keepIt') })} onImport={importGame} />
-          )}
-          {tab === 'moves' &&
-            (preview && previewSfens ? (
-              <>
-                <p className="ws-muted">{t('workshop.showingAPreviewTheseMoves')}</p>
-                <MovesPane sfens={[...sfens.slice(0, preview.base), ...previewSfens]} moves={[...game.moves.slice(0, preview.base), ...preview.moves]} cursor={preview.base + preview.step} setCursor={(i) => i >= preview.base && setPreview({ ...preview, step: i - preview.base })} title={gameTitle || t('workshop.thisGame')} />
-              </>
-            ) : (
-              <MovesPane
-                sfens={sfens}
-                moves={game.moves}
-                cursor={cursor}
-                setCursor={setCursor}
-                title={gameTitle || t('workshop.thisGame')}
-                onScore={(k, cp) => setEvals((e) => ({ ...e, [k]: cp }))}
-                tree={mode === 'spar' || mode === 'analyze' ? tree : null}
-                autoRate={mode === 'analyze' && autoRate === game.moves.join(' ')}
-                onSwitch={(path) => {
-                  const node = nodeAt(tree, path)
-                  setGame((g) => ({ ...g, moves: [...path, ...mainContinuation(node)] }))
-                  setCursor(path.length)
-                }}
-                onDelete={(path, size) =>
-                  setConfirm({
-                    text: t('workshop.deleteVariation', { count: size }),
-                    run: () => setTree((t) => removeBranch(t, path)),
-                    yes: t('workshop.delete'),
-                    no: t('workshop.keepIt'),
-                  })
-                }
-              />
-            ))}
-        </div>
+        {panelBody(tab)}
         {ai && assist && game.moves.length > 0 && (mode === 'analyze' || mode === 'spar') && <EvalGraph className={tab === 'moves' ? '' : 'phone-hidden'} values={sfens.map((s) => evals[strip(s)])} cursor={cursor} onJump={setCursor} onScan={scanGame} scanning={scanning} />}
         <footer className="ws-nav">
           <button onClick={() => (preview ? setPreview({ ...preview, step: 0 }) : setCursor(0))} disabled={preview ? preview.step === 0 : cursor === 0} title={t('workshop.startHome')}>
