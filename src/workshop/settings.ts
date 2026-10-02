@@ -49,7 +49,15 @@ function navigatorLang(): Lang {
   }
 }
 
-const DEFAULTS: Settings = { sound: true, voice: true, volume: 0.6, pieceStyle: 'two', pieceFont: 'mincho', pieceSet: 'letters', pieceFinish: 'moriage', coords: true, environment: 'traditional', boardStyle: 'kaya', thinkMs: 1500, candidates: 3, opponent: 'beginner', aiStrategy: '', mainStrategy: 'shikenbisha', assist: true, timeControl: 'none', lang: navigatorLang(), engine: 'yaneuraou', fvScale: 16, theme: 'system', characters: true, power: false }
+function defaultEnvironment(): Environment {
+  try {
+    return matchMedia('(max-width: 820px), (pointer: coarse) and (max-width: 1024px)').matches ? 'flat' : 'traditional'
+  } catch {
+    return 'traditional'
+  }
+}
+
+const DEFAULTS: Settings = { sound: true, voice: true, volume: 0.6, pieceStyle: 'two', pieceFont: 'mincho', pieceSet: 'letters', pieceFinish: 'moriage', coords: true, environment: defaultEnvironment(), boardStyle: 'kaya', thinkMs: 1500, candidates: 3, opponent: 'beginner', aiStrategy: '', mainStrategy: 'shikenbisha', assist: true, timeControl: 'none', lang: navigatorLang(), engine: 'yaneuraou', fvScale: 16, theme: 'system', characters: true, power: false }
 
 function read(): Settings {
   try {
