@@ -8,7 +8,7 @@ import { detectTesuji, type Tesuji } from '../tesuji'
 import type { BoardSession } from './useBoardSession'
 import { useTransient } from './useTransient'
 
-export type Announcement = { side: Color; name: string; kind: string; key: number }
+export type Announcement = { side: Color; name: string; kind: string; key: number; tesuji?: boolean }
 
 const QUIET_NAMES = ['居玉', '居飛車']
 
@@ -35,7 +35,7 @@ export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, pos
     if (stepped && position.checked) say(hasLegalMove(position) ? '王手' : '詰み', true)
     if (tesuji) {
       say(tesuji.ja)
-      setAnnounce({ side: positionOf(sfens[cursor - 1]).color, name: tesuji.ja, kind: t('workshop.tesuji'), key: Date.now() })
+      setAnnounce({ side: positionOf(sfens[cursor - 1]).color, name: tesuji.ja, kind: t('workshop.tesuji'), key: Date.now(), tesuji: true })
       setTesujiNote({ ...tesuji, at: cursor })
     }
     for (const color of [Color.BLACK, Color.WHITE]) {

@@ -424,3 +424,151 @@
     justify-content: flex-start;
   }
 }
+
+.ws-reel {
+  position: fixed;
+  inset: 0;
+  background: #0c0a08;
+  font-family: var(--font-sans);
+}
+
+.ws-reel-stage,
+.ws-reel-stage > * {
+  position: absolute;
+  inset: 0;
+}
+
+.ws-reel-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  color: #fff6e4;
+}
+
+.ws-reel-title {
+  position: absolute;
+  left: 7%;
+  bottom: 14%;
+  display: grid;
+  transform-origin: left bottom;
+}
+
+.ws-reel-title span,
+.ws-reel-kicker {
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: 0.4em;
+  color: #e8a33c;
+}
+
+.ws-reel-title strong {
+  font-family: 'Yuji Boku', 'Shippori Mincho B1', serif;
+  font-weight: 400;
+  font-size: 170px;
+  line-height: 1;
+  text-shadow: 0 0 40px rgba(232, 80, 40, 0.7), 0 6px 0 rgba(0, 0, 0, 0.5);
+}
+
+.ws-reel-line {
+  position: absolute;
+  left: 7%;
+  top: 12%;
+  display: grid;
+  transform-origin: left top;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.8);
+}
+
+.ws-reel-line.right {
+  left: auto;
+  right: 7%;
+  text-align: right;
+  transform-origin: right top;
+}
+
+.ws-reel-line.bottom {
+  top: auto;
+  bottom: 9%;
+  left: 50%;
+  translate: -50% 0;
+}
+
+.ws-reel-line strong {
+  font-weight: 900;
+  font-size: 76px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.ws-reel-line.bottom strong {
+  font-size: 54px;
+}
+
+.ws-reel-line em {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 48px;
+  color: #e8a33c;
+}
+
+.ws-reel-card {
+  position: absolute;
+  left: 50%;
+  top: 44%;
+  width: 62%;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 0 2px rgba(232, 163, 60, 0.6);
+}
+
+.ws-reel-card img {
+  display: block;
+  width: 100%;
+}
+
+.ws-reel-kicker {
+  position: absolute;
+  right: 7%;
+  top: 10%;
+  font-size: 40px;
+  color: #ff5a3c;
+  text-shadow: 0 0 24px rgba(255, 70, 40, 0.8);
+  transform-origin: right top;
+}
+
+.ws-reel-end {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 10px;
+  background: radial-gradient(circle at 50% 50%, rgba(12, 10, 8, 0.55), rgba(12, 10, 8, 0.92));
+}
+
+.ws-reel-end strong {
+  font-family: 'Yuji Boku', 'Shippori Mincho B1', serif;
+  font-weight: 400;
+  font-size: 150px;
+  line-height: 1;
+  text-shadow: 0 0 40px rgba(232, 80, 40, 0.6);
+}
+
+.ws-reel-end span {
+  font-weight: 700;
+  font-size: 30px;
+}
+
+.ws-reel-end em {
+  min-height: 1.3em;
+  font-style: normal;
+  font-family: ui-monospace, monospace;
+  font-size: 28px;
+  color: #e8a33c;
+}
+
+.ws-reel-flash {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  mix-blend-mode: screen;
+}

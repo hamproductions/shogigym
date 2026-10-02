@@ -1,14 +1,22 @@
-# Shogi Gym 将棋ジム
+<p align="center"><img src=".github/media/banner.png" alt="Shogi Gym 将棋ジム" width="100%"></p>
+
+# Shogi Gym 将棋ジム · v1.0.0
+
+**Play it: [hamproductions.github.io/shogilab](https://hamproductions.github.io/shogilab/)**
 
 A free shogi training gym in the browser. Learn openings with study and quiz modes, keep them with spaced review, sharpen tactics with tsume and tesuji drills, play the AI and analyze your games. Everything runs locally, with the YaneuraOu engine compiled to WebAssembly.
 
-The opening library started with 四間飛車 (Fourth File Rook) and is growing towards the main strategies for beginners up to amateur 1–2 dan.
+<p align="center"><img src=".github/media/reel.gif" alt="Shogi Gym in action: a tatami room, two players moving the pieces by hand, a capture with power mode, and a checkmate that ends with the table flipped" width="100%"></p>
 
-The whole app is one screen: a 3D board in the middle, a mode rail on the left, and tool panels beside the board. On phones the board and panel share the screen.
+<p align="center"><a href=".github/media/reel.mp4">Watch the 60 fps version</a></p>
+
+The opening library covers the main strategies for beginners up to amateur 1–2 dan: pick your main (四間飛車, 中飛車, 居飛車, 矢倉…) and learn it against what your opponent plays.
+
+The whole app is one screen: a 3D board in a tatami room or a home dining room (or a flat 2D, diagram or broadcast board), a mode rail on the left, and tool panels beside the board. On phones the board and panel share the screen. English and Japanese throughout, installable as a PWA.
 
 ## Features
 
-- **定跡 Openings**: 16 opponent setups plus castle-breaking (囲い崩し) and sabaki (捌き) techniques, every move taken from a cited source.
+- **定跡 Openings**: 110 lessons across 85 matchups for every main strategy, plus castle-breaking (囲い崩し) and sabaki (捌き) techniques, every move taken from a cited source.
   - **Study mode** shows each move with its reason and plays the opponent's reply on your cue.
   - **Quiz mode** asks you to find the moves.
   - A wrong move is graded (Good, Inaccuracy, Mistake, Blunder…), the punishing line plays out on the board, and you are asked to go back and try again.
@@ -26,6 +34,10 @@ The whole app is one screen: a 3D board in the middle, a mode rail on the left, 
   - A variation tree (変化): step back anywhere and play a different move for either side.
   - Save games to in-app slots, or copy them as KIF with the variations included.
 - **Formation display**: the strategy and castle of both sides (四間飛車, 本美濃, 穴熊, ミレニアム…) appear beside the board, with a short banner when one is completed.
+- **Players at the table**: two seated characters move every piece by hand (reach, grip, carry, press), lean in for far squares and bow at the start. A dev-only `/dev/hands` page steps through every hand motion frame by frame.
+- **Power mode** (optional): sparks, shockwaves and light beams on captures, a dimmed room with a red beam for 王手, and a 詰み finale after which the loser flips the table.
+- **Zundamon voice** (VOICEVOX:ずんだもん): reads out openings, castles and tesuji as they appear, calls 王手 and 詰み, counts byoyomi, and greets you at the start and end of a game.
+- **Eval bar** beside the board, steady between moves, and a take-back-and-retry prompt after a mistake.
 - **Settings**: piece set (drawn letters in four brush styles, or the 菱湖 Ryoko / Brown / Light artwork sets) with a live preview, piece faces (二字 / 一字), board wood, sound, AI thinking time, number of candidate lines, AI strength, and a knowledge level ("I know the rules" / "New to shogi"), which is also asked once on the first visit.
 
 ## Run locally

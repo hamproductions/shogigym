@@ -5,4 +5,5 @@ export default [
   route('viewer', 'routes/viewer.tsx'),
   route('komadai', 'routes/komadai.tsx'),
   route('dev/hands', 'routes/hands.tsx'),
+  route('dev/reel', 'routes/reel.tsx'),
 ] satisfies RouteConfig

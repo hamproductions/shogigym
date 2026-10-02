@@ -446,8 +446,9 @@
   left: 50%;
   top: 42%;
   z-index: var(--z-announce);
-  width: min(92%, 760px);
+  width: min(64%, 640px);
   display: grid;
+  gap: var(--space-1);
   place-items: center;
   padding: var(--space-3) var(--space-6) var(--space-4);
   pointer-events: none;
@@ -479,6 +480,13 @@
   animation: ws-announce-band 2.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
+.ws-announce.latin strong {
+  font-family: var(--font-display, var(--font-sans));
+  font-weight: var(--weight-heavy);
+  font-size: clamp(1.6rem, 3.2vw, 2.6rem);
+  letter-spacing: 0.02em;
+}
+
 .ws-announce span {
   font-size: var(--text-sm);
   font-weight: var(--weight-bold);
@@ -490,8 +498,9 @@
   position: relative;
   font-family: 'Yuji Boku', 'Yuji Syuku', var(--font-mincho);
   font-weight: 400;
-  font-size: clamp(2.4rem, 7vw, 4.6rem);
+  font-size: clamp(2rem, 4.6vw, 3.8rem);
   line-height: 1.1;
+  white-space: nowrap;
   letter-spacing: 0.08em;
   color: #fff6e4;
   text-shadow: 0 0 18px color-mix(in srgb, var(--ink) 70%, white), 0 3px 0 rgba(0, 0, 0, 0.35);

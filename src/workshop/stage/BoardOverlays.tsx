@@ -7,7 +7,7 @@ import type { Announcement } from '../hooks/useAnnouncements'
 export function AnnounceBadge({ announce }: { announce: Announcement }) {
   const { t } = useTranslation()
   return (
-    <div className={`ws-announce ${announce.side === Color.BLACK ? 'sente' : 'gote'}`} role="status">
+    <div className={`ws-announce ${announce.side === Color.BLACK ? 'sente' : 'gote'}${/[\u3040-\u9fff]/.test(announce.name) ? '' : ' latin'}${announce.tesuji ? ' tesuji' : ''}`} role="status">
       <span>
         {announce.side === Color.BLACK ? t('workshop.sente') : t('workshop.gote')} {announce.kind}
       </span>
