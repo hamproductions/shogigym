@@ -129,6 +129,7 @@ export function Workshop() {
   }
   const [sheetOpen, setSheetOpen] = useState<boolean | null>(null)
   const ai = engineSupported()
+  const assist = settings.assist || (mode !== 'spar' && mode !== 'analyze')
   const [playing, setPlaying] = useState(false)
   const [lessonMap, setLessonMap] = useState(false)
   const [peekFrom, setPeekFrom] = useState<Square | null>(null)
@@ -666,14 +667,14 @@ export function Workshop() {
   const lessonOffBook = mode === 'lesson' && !!course && !preview && !nodes?.get(strip(liveSfen))
   const lessonDone = mode === 'lesson' && !!course && atEnd && !preview && !!lessonNode && lessonNode.branches.filter((b) => b.kind !== 'deviation').length === 0
   const spoilerFree = (lessonAsking && lessonMode === 'quiz' && !showAnswer) || (drillAsking && drill?.queue !== 'new') || (mode === 'tsume' && tsume?.status !== 'solved' && tsume?.status !== 'shown')
-  if (!gameOver && ai && best && showBest && !spoilerFree && (mode === 'analyze' || tab === 'engine')) {
+  if (!gameOver && ai && assist && best && showBest && !spoilerFree && (mode === 'analyze' || tab === 'engine')) {
     for (const c of analysis!.candidates.slice(1)) if (c.move !== best.move) arrows.push({ usi: c.move, color: SHU, dashed: true })
     arrows.push({ usi: best.move, color: SHU, label: 'best' })
   }
   if (drillItem && !preview && (drill?.result === 'wrong' || (drill?.queue === 'new' && !drill.result))) arrows.push({ usi: expectedMoves(drillItem)[0], color: '#4f8a2a' })
   if (lessonAsking && (lessonMode === 'study' || showAnswer)) for (const b of lessonGood) arrows.push({ usi: b.usi, color: '#4f8a2a', dashed: b.kind !== 'main' })
   if (mode === 'tsume' && tsume && tsume.hint >= 2 && cursor === 0) arrows.push({ usi: tsume.problem.pv[0], color: '#d4a017' })
-  if (review && review.label !== 'book' && ['mistake', 'blunder', 'miss', 'inaccuracy'].includes(review.label) && tab === 'coach' && review.reply && reviewAt === cursor && !preview) arrows.push({ usi: review.reply.move, color: '#2b6cb0' })
+  if (assist && review && review.label !== 'book' && ['mistake', 'blunder', 'miss', 'inaccuracy'].includes(review.label) && tab === 'coach' && review.reply && reviewAt === cursor && !preview) arrows.push({ usi: review.reply.move, color: '#2b6cb0' })
 
   if (reply) arrows.push({ usi: reply.usi, color: '#8fa6d8' })
   const evalSente = ai && best ? toSente(best.score, toMove) : null
@@ -755,7 +756,7 @@ export function Workshop() {
     return f.castle && f.castle !== '居玉' ? [{ squares: f.squares, color: color === Color.BLACK ? '#b8432f' : '#2f5d9b', label: f.castle }] : []
   })
   const reviewedMove = !preview && reviewAt > 0 ? game.moves[reviewAt - 1] : undefined
-  const stamp = review && reviewedMove ? { square: reviewedMove.slice(2, 4), text: LABELS[review.label].symbol, color: LABELS[review.label].color } : lastMove && bookLast ? { square: lastMove.slice(2, 4), text: '本', color: '#a88865' } : null
+  const stamp = !assist ? null : review && reviewedMove ? { square: reviewedMove.slice(2, 4), text: LABELS[review.label].symbol, color: LABELS[review.label].color } : lastMove && bookLast ? { square: lastMove.slice(2, 4), text: '本', color: '#a88865' } : null
   const [evals, setEvalsState] = useState<Record<string, number>>(allEvals)
   const setEvals = (f: (e: Record<string, number>) => Record<string, number>) =>
     setEvalsState((e) => {
@@ -1123,6 +1124,11 @@ export function Workshop() {
             )}
             <span className={`ws-turn ${toMove}`}>{toMove === 'sente' ? '☗' : '☖'} to move</span>
           </span>
+          {(mode === 'spar' || mode === 'analyze') && (
+            <button className={`ws-help-toggle${settings.assist ? ' on' : ''}`} onClick={() => setSettings({ assist: !settings.assist })} title={settings.assist ? 'Help is on: eval bar, AI arrows and move ratings. Click to play with no help.' : 'No help: click to show the eval bar, AI arrows and move ratings again.'} aria-pressed={settings.assist}>
+              {settings.assist ? 'Help on' : 'No help'}
+            </button>
+          )}
           {!panelHidden && (
             <div className="ws-mini-nav">
               <button className="ws-mini-wide" onClick={() => setPanel({ hidden: true })} title="Board only: hide the panel (P)" aria-label="Hide the panel">
@@ -1133,6 +1139,11 @@ export function Workshop() {
           )}
           {panelHidden && (
             <div className="ws-mini-nav">
+              {mode === 'spar' && !resigned && !gameOver && (
+                <button onClick={takeBack} disabled={lastUserMove < 0} title="待った: take back your last move" aria-label="Take back">
+                  待った
+                </button>
+              )}
               <button onClick={() => (preview ? setPreview({ ...preview, step: Math.max(0, preview.step - 1) }) : setCursor((c) => Math.max(0, c - 1)))} disabled={preview ? preview.step === 0 : cursor === 0} title="Back (←)" aria-label="Back">
                 <Icon name="prev" size={16} />
               </button>
@@ -1168,7 +1179,7 @@ export function Workshop() {
           {inCheck && !gameOver && <span className="ws-check">王手</span>}
         </header>
         <div className="ws-board-wrap">
-          {ai && (mode === 'analyze' || mode === 'spar' || (mode === 'lesson' && !!course && lessonMode === 'study')) && <div className="ws-evalbar" aria-label="Evaluation">
+          {ai && assist && (mode === 'analyze' || mode === 'spar' || (mode === 'lesson' && !!course && lessonMode === 'study')) && <div className="ws-evalbar" aria-label="Evaluation">
             <div className="ws-evalbar-fill" style={{ ['--rate' as string]: `${(flipped ? 1 - senteRate : senteRate) * 100}%` }} />
             {evalSente && (
               <span className={`ws-evalbar-text ${(senteRate >= 0.5) !== flipped ? 'bottom' : 'top'} ${senteRate >= 0.5 ? 'light' : 'dark'}`} title={`Win chance: ☗ ${Math.round(senteRate * 100)}% / ☖ ${100 - Math.round(senteRate * 100)}%`}>
@@ -1334,7 +1345,7 @@ export function Workshop() {
             e.preventDefault()
             const startX = e.clientX
             const startW = panelWidth
-            const move = (ev: PointerEvent) => setPanel({ width: Math.min(720, Math.max(280, startW + startX - ev.clientX)) })
+            const move = (ev: PointerEvent) => setPanel({ width: Math.min(560, Math.max(320, startW + startX - ev.clientX)) })
             const up = () => {
               window.removeEventListener('pointermove', move)
               window.removeEventListener('pointerup', up)
@@ -1374,7 +1385,8 @@ export function Workshop() {
           {tab === 'engine' && !ai && <p className="ws-muted">The AI needs a cross-origin isolated page. Reload from the dev server.</p>}
           {tab === 'engine' && ai && spoilerFree && <p className="ws-muted">The AI stays quiet until you answer.</p>}
           {tab === 'engine' && ai && !spoilerFree && gameOver && <p className="ws-muted">Checkmate: {toMove === 'sente' ? '☖ Gote' : '☗ Sente'} has won. Step back to analyse earlier positions.</p>}
-          {tab === 'engine' && ai && !spoilerFree && !gameOver && <EnginePane sfen={sfen} toMove={toMove} analysis={analysis} showBest={showBest} setShowBest={setShowBest} onPlay={play} canPlay={userTurn} book={bookHere} />}
+          {tab === 'engine' && !assist && <p className="ws-muted">Help is off. Turn it back on in the header to see the AI's view.</p>}
+          {tab === 'engine' && ai && assist && !spoilerFree && !gameOver && <EnginePane sfen={sfen} toMove={toMove} analysis={analysis} showBest={showBest} setShowBest={setShowBest} onPlay={play} canPlay={userTurn} book={bookHere} />}
           {tab === 'coach' && mode === 'lesson' && (
             <LessonPane
               course={course}
@@ -1482,10 +1494,12 @@ export function Workshop() {
               <button onClick={reviewGame}>Review in 検討 Analyze</button>
             </div>
           )}
-          {tab === 'coach' && (mode === 'spar' || mode === 'analyze') && <CoachPane review={review} lastMove={reviewAt > 0 ? game.moves[reviewAt - 1] : undefined} prevSfen={reviewAt > 0 ? sfens[reviewAt - 1] : null} you={mode === 'spar'} bookLast={reviewAt === cursor ? bookLast : bookAt(reviewAt)} bookHere={bookHere} sfen={sfen} course={course} onPlay={play} canPlay={userTurn} hide={false} ai={ai} showBook={mode === 'analyze'} />}
+          {tab === 'coach' && (mode === 'spar' || mode === 'analyze') && !assist && <p className="ws-muted">Help is off: no ratings, arrows or eval while you play. Your mistakes are still saved; review the game in 検討 Analyze afterwards with help on.</p>}
+          {tab === 'coach' && (mode === 'spar' || mode === 'analyze') && assist && <CoachPane review={review} lastMove={reviewAt > 0 ? game.moves[reviewAt - 1] : undefined} prevSfen={reviewAt > 0 ? sfens[reviewAt - 1] : null} you={mode === 'spar'} bookLast={reviewAt === cursor ? bookLast : bookAt(reviewAt)} bookHere={bookHere} sfen={sfen} course={course} onPlay={play} canPlay={userTurn} hide={false} ai={ai} showBook={mode === 'analyze'} />}
           {tab === 'flow' && spoilerFree && <p className="ws-muted">Find the move yourself first. The options appear here after you answer.</p>}
           {tab === 'flow' && !spoilerFree && gameOver && <p className="ws-muted">The game is over: checkmate. Step back to look at earlier positions.</p>}
-          {tab === 'flow' && !spoilerFree && !gameOver && <FlowPane lanes={lanes} sfen={lanesRef.current.sfen} onPreview={startPreview} onHover={setHoverLane} />}
+          {tab === 'flow' && !assist && <p className="ws-muted">Help is off. Turn it back on in the header to see the lines.</p>}
+          {tab === 'flow' && assist && !spoilerFree && !gameOver && <FlowPane lanes={lanes} sfen={lanesRef.current.sfen} onPreview={startPreview} onHover={setHoverLane} />}
           {tab === 'moves' && (mode === 'spar' || mode === 'analyze') && !preview && (
             <GamesBox current={slotId} onSave={saveSlot} onCopy={exportKif} onOpen={openSlot} onDelete={(g) => setConfirm({ text: `Delete “${g.title}”? This cannot be undone.`, run: () => (deleteGame(g.id), g.id === slotId && setSlotId(null)), yes: 'Delete', no: 'Keep it' })} onImport={importGame} />
           )}
@@ -1521,7 +1535,7 @@ export function Workshop() {
               />
             ))}
         </div>
-        {ai && game.moves.length > 0 && (mode === 'analyze' || mode === 'spar') && <EvalGraph className={tab === 'moves' ? '' : 'phone-hidden'} values={sfens.map((s) => evals[strip(s)])} cursor={cursor} onJump={setCursor} onScan={scanGame} scanning={scanning} />}
+        {ai && assist && game.moves.length > 0 && (mode === 'analyze' || mode === 'spar') && <EvalGraph className={tab === 'moves' ? '' : 'phone-hidden'} values={sfens.map((s) => evals[strip(s)])} cursor={cursor} onJump={setCursor} onScan={scanGame} scanning={scanning} />}
         <footer className="ws-nav">
           <button onClick={() => (preview ? setPreview({ ...preview, step: 0 }) : setCursor(0))} disabled={preview ? preview.step === 0 : cursor === 0} title="Start (Home)">
             <Icon name="first" />

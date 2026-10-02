@@ -13,11 +13,12 @@ export type Settings = {
   candidates: number
   opponent: AiStrength
   aiStrategy: string
+  assist: boolean
 }
 
 const KEY = 'joseki-practice:settings:v1'
 
-const DEFAULTS: Settings = { sound: true, volume: 0.6, pieceStyle: 'two', boardStyle: 'kaya', thinkMs: 1500, candidates: 3, opponent: 'beginner', aiStrategy: '' }
+const DEFAULTS: Settings = { sound: true, volume: 0.6, pieceStyle: 'two', boardStyle: 'kaya', thinkMs: 1500, candidates: 3, opponent: 'beginner', aiStrategy: '', assist: true }
 
 function read(): Settings {
   try {

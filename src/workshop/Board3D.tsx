@@ -433,7 +433,7 @@ export function Board3D(props: Board3DProps) {
       }
       s.root.rotation.y += (flip - s.root.rotation.y) * (1 - Math.exp(-dt * 12))
       if (Math.abs(flip - s.root.rotation.y) < 0.002) s.root.rotation.y = flip
-      const fit = (layout.portrait ? Math.max((layout.narrow ? 10.1 : 10.6) / camera.aspect, 2 * (strip().z + strip().d / 2) + 0.2) : Math.max((2 * (5.17 + STAND)) / camera.aspect, 10.6)) * (1 + 0.06 * s.tilt)
+      const fit = (layout.portrait ? Math.max((layout.narrow ? 10.1 : 10.6) / camera.aspect, 2 * (strip().z + strip().d / 2) + 0.2) : Math.max((2 * (5.17 + STAND)) / camera.aspect, 10.6)) * (1 + (layout.portrait ? 0.06 : 0.16) * s.tilt)
       const distance = fit / (2 * Math.tan((camera.fov * Math.PI) / 360))
       const angle = 0.02 + s.tilt * 0.8
       const pan = layout.portrait ? 0 : s.tilt * 0.6
