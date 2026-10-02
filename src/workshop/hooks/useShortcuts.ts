@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import type { BoardSession } from './useBoardSession'
 import type { View } from './useView'
+import { getSettings, setSettings } from '../settings'
 
 type Shortcuts = {
   session: BoardSession
@@ -69,6 +70,11 @@ export function useShortcuts({ session, view, palette, togglePalette, dialogOpen
       else if (event.key === 'End') nav.last()
       else if (event.key === 'f') setFlipped((v) => !v)
       else if (event.key === 'p') togglePanel()
+      else if (event.key === 'm' && !event.metaKey && !event.ctrlKey) {
+        const { sound, volume } = getSettings()
+        setSettings(sound && volume > 0 ? { sound: false } : { sound: true, volume: volume || 0.6 })
+        return
+      }
       else if (event.key === 't' && !flatView) setTilted((v) => !v)
       else if (event.key === 'c' && !event.metaKey && !event.ctrlKey) setShowControl((v) => !v)
       else if (event.key === 'k' && modeRef.current === 'tsume') toggleEscape()

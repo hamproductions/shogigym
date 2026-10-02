@@ -361,7 +361,10 @@
     "control": "利",
     "more": "その他",
     "exportImage": "盤面を画像で保存",
-    "tableFlip": "ちゃぶ台返し"
+    "tableFlip": "ちゃぶ台返し",
+    "mute": "ミュート",
+    "unmute": "ミュート解除",
+    "muted": "ミュート"
   },
   "review": {
     "inMin": "{{minutes}}分後",

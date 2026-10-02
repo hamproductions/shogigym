@@ -368,7 +368,10 @@
     "control": "Control",
     "more": "More",
     "exportImage": "Save board image",
-    "tableFlip": "Flip the table (ちゃぶ台返し)"
+    "tableFlip": "Flip the table (ちゃぶ台返し)",
+    "mute": "Mute",
+    "unmute": "Unmute",
+    "muted": "Muted"
   },
   "review": {
     "inMin": "in {{minutes}} min",

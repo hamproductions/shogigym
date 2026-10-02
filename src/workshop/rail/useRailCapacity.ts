@@ -14,7 +14,7 @@ export function useRailCapacity() {
       if (!last) return
       const bottomPadding = parseFloat(getComputedStyle(rail).paddingBottom) || 0
       const free = rail.clientHeight - bottomPadding - (last.offsetTop + last.offsetHeight)
-      setCapacity(Math.max(0, Math.floor(free / (last.offsetHeight + RAIL_GAP))))
+      setCapacity(Math.max(0, Math.floor(free / (last.offsetHeight + RAIL_GAP)) - 1))
     }
     measure()
     const observer = new ResizeObserver(measure)

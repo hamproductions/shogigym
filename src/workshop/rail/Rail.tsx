@@ -6,6 +6,7 @@ import { flipTable, saveBoardImage } from '../lib/events'
 import { useSettings } from '../settings'
 import { MODES, type Mode } from '../types'
 import { RailSeal } from './RailSeal'
+import { SoundButton } from './SoundButton'
 import { useRailCapacity } from './useRailCapacity'
 import { useRailTools, type RailTool } from './useRailTools'
 
@@ -92,6 +93,7 @@ export function Rail({ mode, onMode, compact, view, onFlip, settingsOpen, onSett
           </button>
         ))}
       <div className="ws-rail-gap" />
+      <SoundButton compact={compact} />
       {inline.map((tool) => (
         <ToolButton key={tool.id} tool={tool} />
       ))}
