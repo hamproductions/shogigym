@@ -1,6 +1,7 @@
 import type * as THREE from 'three'
 import type { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import type { Color, ImmutablePosition, PieceType, Square } from 'tsshogi'
+import type { AvatarCues, AvatarSlot, Wall } from '../avatars'
 import type { Surroundings } from './surroundings'
 
 export type BoardArrow = { usi: string; color: string; dashed?: boolean; label?: string }
@@ -31,6 +32,7 @@ export type Board3DProps = {
   onArrow?: (usi: string) => void
   onZones?: (zones: StandZones | null) => void
   sideRoom?: number
+  cues?: AvatarCues
 }
 
 export type Latest = { readonly current: Board3DProps }
@@ -39,7 +41,7 @@ export type Stand = { stand: THREE.Mesh; side: number; legs: THREE.Mesh[] }
 
 export type Body = { obj: THREE.Object3D; v: THREE.Vector3; w: THREE.Vector3; center: THREE.Vector3; half: THREE.Vector3; keepFlat: boolean; grounded: boolean; landed: boolean }
 
-export type Arena = { floor: number; boxes: { minX: number; maxX: number; minZ: number; maxZ: number; top: number }[]; halfX: number; halfZ: number; ceil: number }
+export type Arena = { floor: number; boxes: { minX: number; maxX: number; minZ: number; maxZ: number; top: number }[]; halfX: number; halfZ: number; ceil: number; walls: Wall[] }
 
 export type TableFlip = { start: number; bodies: Body[]; arena: Arena; rig: THREE.Group; dust: Dust; slammed: boolean; lastClatter: number }
 
@@ -47,6 +49,7 @@ export type Dust = { points: THREE.Points; burst: (at: THREE.Vector3, count: num
 
 export type SceneState = {
   room: Surroundings
+  avatars?: AvatarSlot
   renderer: THREE.WebGLRenderer
   scene: THREE.Scene
   camera: THREE.PerspectiveCamera
@@ -67,5 +70,6 @@ export type SceneState = {
   flip: TableFlip | null
   settled?: boolean
   droppedAt?: number
+  onLand?: (() => void) | null
   lastTime?: number
 }

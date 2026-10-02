@@ -1,16 +1,19 @@
 import { useEffect, useRef } from 'react'
 import type { ImmutablePosition } from 'tsshogi'
+import { avatarSlot, flushMoveSound } from './avatars'
 import { updateView } from './board3d/camera'
-import { setBoardDims } from './board3d/dimensions'
+import { HALF_D, HALF_W, LEG, THICK, setBoardDims } from './board3d/dimensions'
 import { flipCameraOffset, saveSnapshot, startTableFlip, stepTableFlip } from './board3d/effects'
 import { bindPointer } from './board3d/interaction'
 import { layout, sideStandsFit, zoneReporter } from './board3d/layout'
 import { drawMarks } from './board3d/marks'
 import { liftSelected, rebuild, stepAnimations } from './board3d/pieces'
+import { createPower, moveEvent, type Power } from './board3d/power'
 import { buildScene, createRenderer } from './board3d/scene'
 import { clearFaceTextures } from './board3d/textures'
 import type { Board3DProps, SceneState } from './board3d/types'
 import { SNAPSHOT_EVENT, TABLE_FLIP_EVENT } from './lib/events'
+import { getSettings, subscribeSettings } from './settings'
 
 export type { Board3DProps, BoardArrow, StandZones, ZoneRect } from './board3d/types'
 
@@ -21,14 +24,28 @@ export function Board3D(props: Board3DProps) {
   const latest = useRef(props)
   latest.current = props
   const previous = useRef<ImmutablePosition | null>(null)
+  const power = useRef<Power | null>(null)
 
   useEffect(() => {
     const el = host.current!
     const renderer = createRenderer()
     el.appendChild(renderer.domElement)
     const s = buildScene(renderer)
+    s.avatars = avatarSlot({ root: s.root, camera: s.camera, dims: { thick: THICK, leg: LEG, halfW: HALF_W, halfD: HALF_D } })
+    if (latest.current.cues) s.avatars.cue(latest.current.cues)
     state.current = s
+    if (import.meta.env.DEV) (window as unknown as { __dbg: SceneState }).__dbg = s
     const refresh = (animate = false) => rebuild(s, latest.current, animate)
+    const syncPower = () => {
+      const on = getSettings().power
+      if (on && !power.current) power.current = createPower(s)
+      if (!on && power.current) {
+        power.current.dispose()
+        power.current = null
+      }
+    }
+    syncPower()
+    const unsubscribePower = subscribeSettings(syncPower)
 
     const resize = () => {
       const { clientWidth: w, clientHeight: h } = el
@@ -55,14 +72,21 @@ export function Board3D(props: Board3DProps) {
     const loop = (time: number) => {
       const dt = Math.min(0.5, (time - (s.lastTime ?? time)) / 1000)
       s.lastTime = time
-      if (s.tiltTarget > 0 || latest.current.orbit || s.flip) s.room.need()
+      if (s.tiltTarget > 0 || latest.current.orbit || s.flip) {
+        s.room.need()
+        s.avatars?.request()
+      }
       updateView(s, latest.current, dt)
       liftSelected(s, latest.current, dt)
       stepTableFlip(s, time, dt, refresh)
       stepAnimations(s, time)
+      power.current?.update(dt)
+      s.avatars?.update(dt * (power.current?.timeScale() ?? 1), !!s.flip, !!s.controls)
       const shake = flipCameraOffset(s, time)
       if (shake) s.camera.position.add(shake)
+      const restoreCamera = power.current?.applyCamera()
       renderer.render(s.scene, s.camera)
+      restoreCamera?.()
       if (shake) s.camera.position.sub(shake)
       if (!performance.getEntriesByName('board-first-frame').length) performance.mark('board-first-frame')
       reportZones()
@@ -86,7 +110,11 @@ export function Board3D(props: Board3DProps) {
       window.removeEventListener(SNAPSHOT_EVENT, onSnapshot)
       unbind()
       cancelPrefetch()
+      s.avatars?.dispose()
       observer.disconnect()
+      unsubscribePower()
+      power.current?.dispose()
+      power.current = null
       s.controls?.dispose()
       renderer.dispose()
       el.removeChild(renderer.domElement)
@@ -98,8 +126,22 @@ export function Board3D(props: Board3DProps) {
     const prev = previous.current
     previous.current = props.position
     const s = state.current
-    if (s) rebuild(s, latest.current, prev !== null && prev.sfen !== props.position.sfen && performance.now() - (s.droppedAt ?? 0) > 400)
+    if (!s || (prev !== null && prev.sfen === props.position.sfen)) return
+    const changed = prev !== null
+    const dragged = performance.now() - (s.droppedAt ?? 0) <= 400
+    const event = changed && power.current ? moveEvent(prev, props.position, latest.current.lastMove) : null
+    const fx = power.current
+    s.onLand = event && fx ? () => fx.onMove({ ...event, delay: 0 }) : null
+    rebuild(s, latest.current, changed && !dragged, prev, changed && dragged)
+    if (s.onLand && event) fx?.onMove({ ...event, delay: dragged ? 0 : 0.22 })
+    else if (!event) fx?.clear()
+    s.onLand = null
+    flushMoveSound()
   }, [props.position])
+
+  useEffect(() => {
+    if (state.current && props.cues) state.current.avatars?.cue(props.cues)
+  }, [props.cues])
 
   useEffect(() => {
     if (state.current) drawMarks(state.current, latest.current)

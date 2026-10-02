@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Color } from 'tsshogi'
 import type { Side } from '../../shogi'
+import { avatarCues } from '../avatars'
 import { Board2D } from '../Board2D'
 import { Board3D, type StandZones } from '../Board3D'
 import { useSession } from '../hooks/session'
@@ -55,8 +56,15 @@ export function BoardStage({ view, decor, input, commit, mistake, onBack, spar, 
   const { t } = useTranslation()
   const settings = useSettings()
   const assetsKey = usePieceAssetsKey()
-  const { mode, course, game, position, flipped, userSide, lastMove, selection, promotion, gameOver, sfen } = useSession()
+  const { mode, course, game, position, flipped, userSide, lastMove, selection, promotion, gameOver, sfen, atEnd, userTurn, toMove } = useSession()
   const picking = mode === 'lesson' && !course
+  const playing = mode === 'spar' || (mode === 'lesson' && !!course)
+  const sideColor = (side: Side) => (side === 'sente' ? Color.BLACK : Color.WHITE)
+  const stamp = decor.stamp
+  const cues = useMemo(
+    () => avatarCues({ playing, aiTurn: atEnd && !userTurn && !gameOver && !spar.resigned, resigned: spar.resigned, userColor: sideColor(userSide), toMove: sideColor(toMove), fresh: game.moves.length === 0, gameKey: `${mode}|${game.start}|${course?.id ?? ''}`, lastMove, ply: game.moves.length, stamp }),
+    [playing, atEnd, userTurn, gameOver, spar.resigned, userSide, toMove, game.moves.length, game.start, mode, course?.id, lastMove, stamp],
+  )
   const board = { position, flipped, lastMove, selected: selection?.from ?? null, selectedColor: selection?.color, targets: input.targets, arrows: decor.arrows, heat: decor.heat, checkSquare: decor.checkSquare, onSquare: input.onSquare, onHand: input.onHand, onDrop: input.onDrop }
   const who = (side: Side) => (mode === 'analyze' || picking || (mode === 'drill' && !hasDrillCard) ? null : side === userSide ? t('workshop.you') : t('workshop.opponent'))
   const plate = (place: 'top' | 'bottom') => {
@@ -82,6 +90,7 @@ export function BoardStage({ view, decor, input, commit, mistake, onBack, spar, 
           onZones={onZones}
           orbit={view.orbit && !view.flatView}
           sideRoom={0}
+          cues={cues}
         />
       )}
       <BoardBanners mistake={mistake} onBack={onBack} />

@@ -1,9 +1,10 @@
 import * as THREE from 'three'
 import { SNAPSHOT_NAME } from '../lib/events'
-import { CASUAL_ROOM, ROOM_H, TABLE, TABLE_H, TRADITIONAL_ROOM, ZABUTON } from '../roomMetrics'
+import { CASUAL_ROOM, ROOM_H, TABLE, TABLE_H, TRADITIONAL_ROOM, ZABUTON, mm } from '../roomMetrics'
 import { playSound } from '../settings'
 import { CASUAL, FLAT, HALF_D, HALF_W, LEG, THICK } from './dimensions'
 import { layout } from './layout'
+import type { Wall } from '../avatars'
 import type { Arena, Body, Dust, SceneState, TableFlip } from './types'
 
 const GRAVITY = 34
@@ -17,18 +18,35 @@ const tmpV = new THREE.Vector3()
 const basis = new THREE.Matrix4()
 const axes = [new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()]
 
+const block = (x: number, z: number, hx: number, hz: number, top: number) => ({ minX: x - hx, maxX: x + hx, minZ: z - hz, maxZ: z + hz, top })
+
 function arena(): Arena {
   if (CASUAL) {
-    const floor = -THICK - TABLE_H
-    return { floor, boxes: [{ minX: -TABLE.halfW, maxX: TABLE.halfW, minZ: -TABLE.halfD, maxZ: TABLE.halfD, top: -THICK }], ...CASUAL_ROOM, ceil: floor + ROOM_H }
+    const top = -THICK
+    const floor = top - TABLE_H
+    const seat = mm(440)
+    const chairs = [1, -1].flatMap((side) => {
+      const cz = side * (TABLE.halfD + seat / 2 - 2)
+      return [block(0, cz, seat / 2, seat / 2, floor + seat + 0.8), block(0, cz + side * (seat / 2 - 0.7), seat / 2, 0.5, floor + seat + mm(420))]
+    })
+    const things = [block(12.2, 8.6, 1.8, 1.8, top + 2.85), block(-12.2, -8.6, 1.8, 1.8, top + 2.85), block(12.4, -7.6, 3.6, 3.6, top + 0.5), block(-12.4, 7.6, 3.9, 3.9, top + 3.4)]
+    const lamp: Wall = { minX: -mm(200), maxX: mm(200), minZ: -mm(200), maxZ: mm(200), minY: top + mm(560), maxY: floor + ROOM_H }
+    return { floor, boxes: [block(0, 0, TABLE.halfW, TABLE.halfD, top), ...chairs, ...things], ...CASUAL_ROOM, ceil: floor + ROOM_H, walls: [lamp] }
   }
   const floor = -THICK - LEG
-  if (FLAT) return { floor, boxes: [], halfX: Infinity, halfZ: Infinity, ceil: Infinity }
-  const zabuton = [1, -1].map((sign) => {
+  if (FLAT) return { floor, boxes: [], halfX: Infinity, halfZ: Infinity, ceil: Infinity, walls: [] }
+  const seats = [1, -1].flatMap((sign) => {
     const z = sign * (HALF_D + ZABUTON.gap)
-    return { minX: -ZABUTON.w / 2, maxX: ZABUTON.w / 2, minZ: z - ZABUTON.d / 2, maxZ: z + ZABUTON.d / 2, top: floor + ZABUTON.h }
+    const tray = { x: sign * 15.5, z: sign * (HALF_D + 10) }
+    return [
+      block(0, z, ZABUTON.w / 2, ZABUTON.d / 2, floor + ZABUTON.h),
+      block(-sign * 13.5, z + sign, 1.7, mm(225), floor + mm(300)),
+      block(tray.x, tray.z, 4.55, 4.55, floor + 0.75),
+      block(tray.x - sign * 1.6, tray.z - sign * 1.2, 2.2, 2.2, floor + 4.1),
+      block(tray.x + sign * 1.8, tray.z + sign * 1.6, 1.15, 1.15, floor + 3.1),
+    ]
   })
-  return { floor, boxes: zabuton, ...TRADITIONAL_ROOM, ceil: floor + ROOM_H }
+  return { floor, boxes: seats, ...TRADITIONAL_ROOM, ceil: floor + ROOM_H, walls: [] }
 }
 
 function surface(a: Arena, x: number, z: number) {
@@ -149,6 +167,17 @@ function stepBody(b: Body, f: TableFlip, dt: number, board: { m: THREE.Matrix4; 
       b.v[k] = -Math.sign(c[k]) * Math.abs(b.v[k]) * 0.5
     }
   }
+  for (const wall of a.walls) {
+    const lo = { x: wall.minX, y: wall.minY ?? -Infinity, z: wall.minZ }
+    const hi = { x: wall.maxX, y: wall.maxY ?? Infinity, z: wall.maxZ }
+    const depth = (k: 'x' | 'y' | 'z') => Math.min(c[k] + e[k] - lo[k], hi[k] - (c[k] - e[k]))
+    const free = (['x', 'y', 'z'] as const).filter((k) => Number.isFinite(lo[k] + hi[k]))
+    if ((['x', 'y', 'z'] as const).some((k) => depth(k) <= 0)) continue
+    const k = free.reduce((best, axis) => (depth(axis) < depth(best) ? axis : best))
+    const out = c[k] < (lo[k] + hi[k]) / 2 ? -1 : 1
+    b.obj.position[k] += out * depth(k)
+    b.v[k] = out * Math.abs(b.v[k]) * 0.4
+  }
   if (c.y + e.y > a.ceil) {
     b.obj.position.y -= c.y + e.y - a.ceil
     b.v.y = -Math.abs(b.v.y) * 0.4
@@ -210,13 +239,13 @@ export function startTableFlip(s: SceneState) {
   const bodies = [...launchPieces(s), ...launchStands(s)]
   s.pieces.visible = false
   s.marks.visible = false
-  s.flip = { start: performance.now(), bodies, arena: arena(), rig, dust, slammed: false, lastClatter: 0 }
+  s.flip = { start: performance.now(), bodies, arena: { ...arena(), walls: s.avatars?.walls() ?? [] }, rig, dust, slammed: false, lastClatter: 0 }
   dust.burst(new THREE.Vector3(0, 0, HALF_D), 40, 6)
   playSound('bang')
 }
 
 function poseBoard(f: TableFlip, t: number) {
-  const pivot = new THREE.Vector3(0, CASUAL ? -THICK : -THICK - LEG, -HALF_D)
+  const pivot = new THREE.Vector3(0, CASUAL ? -THICK : -THICK - LEG, CASUAL ? -HALF_D / 3 : -HALF_D)
   const u = Math.min(1, Math.max(0, (t - 0.04) / (SLAM - 0.04)))
   const k = (t - SLAM) / 0.45
   const angle = Math.PI * Math.pow(u, 1.35) - (k > 0 && k < 1 ? 0.24 * Math.sin(Math.PI * k) * (1 - k) : 0)
@@ -225,14 +254,17 @@ function poseBoard(f: TableFlip, t: number) {
   f.rig.position.y += 5.5 * Math.sin(Math.PI * Math.min(1, t / SLAM))
   f.rig.updateMatrix()
   const low = CASUAL ? -THICK : -THICK - LEG
-  let lift = 0
+  const mid = new THREE.Vector3(0, low / 2, 0).applyMatrix4(f.rig.matrix)
+  const corners = [-HALF_W, HALF_W].flatMap((x) => [-HALF_D, HALF_D].map((z) => new THREE.Vector3(x, 0, z).applyMatrix4(f.rig.matrix)))
+  const ground = CASUAL ? surface(f.arena, mid.x, mid.z) : Math.max(...[mid, ...corners].map((p) => surface(f.arena, p.x, p.z)))
+  let lift = -Infinity
   for (const x of [-HALF_W, HALF_W])
     for (const y of [low, 0])
       for (const z of [-HALF_D, HALF_D]) {
         const p = new THREE.Vector3(x, y, z).applyMatrix4(f.rig.matrix)
-        lift = Math.max(lift, surface(f.arena, p.x, p.z) - p.y)
+        lift = Math.max(lift, ground - p.y)
       }
-  f.rig.position.y += lift
+  f.rig.position.y += t >= SLAM ? lift : Math.max(0, lift)
   f.rig.updateMatrix()
 }
 

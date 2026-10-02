@@ -3,8 +3,9 @@ import { InitialPositionSFEN, type Color, type Move, type PieceType, type Square
 import { engineSupported } from '../../engine'
 import type { Course } from '../../model'
 import { applyUsi, colorSide, hasLegalMove, positionOf, type Side } from '../../shogi'
+import { moveSound } from '../avatars'
 import { courseNodes } from '../lib/book'
-import { playSound, useSettings } from '../settings'
+import { useSettings } from '../settings'
 import { addPath, emptyTree, isMainLine, mainContinuation, nodeAt, type Tree } from '../tree'
 import { isGameMode, type Game, type Mode, type Preview } from '../types'
 import { useLatest } from './useLatest'
@@ -80,7 +81,7 @@ export function useBoardSession() {
       setPeekFrom(null)
       const at = sfensRef.current[cursor]
       const mv = at ? positionOf(at).createMoveByUSI(usi) : null
-      playSound(mv?.capturedPieceType ? 'capture' : 'move')
+      moveSound(mv?.capturedPieceType ? 'capture' : 'move')
       const g = gameRef.current
       const path = [...g.moves.slice(0, cursor), usi]
       const existing = isGameMode(modeRef.current) ? nodeAt(treeRef.current, path) : null

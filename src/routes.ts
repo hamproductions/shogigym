@@ -4,4 +4,5 @@ export default [
   layout('routes/workshop.tsx', [index('routes/page.tsx', { id: 'home' }), route(':mode', 'routes/page.tsx', { id: 'mode' }), route('openings/:main', 'routes/page.tsx', { id: 'openings-main' })]),
   route('viewer', 'routes/viewer.tsx'),
   route('komadai', 'routes/komadai.tsx'),
+  route('dev/hands', 'routes/hands.tsx'),
 ] satisfies RouteConfig

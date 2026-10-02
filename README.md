@@ -33,14 +33,14 @@ The whole app is one screen: a 3D board in the middle, a mode rail on the left, 
 ```sh
 bun install        # postinstall copies the engine into public/engine
 bun run dev        # http://localhost:5173
-bun run build      # production build in dist/
+bun run build      # prerendered static site in build/client/ (needs Node 22.22+)
 bun run lint
 node scripts/validate.mjs   # every joseki move and demo line is legal
 ```
 
 ## Deploy
 
-Every push to `main` runs `.github/workflows/deploy.yml`. It validates the course data, lints, builds with `BASE_PATH=/<repo>/`, and publishes `dist/` to GitHub Pages. In the repository settings, set Pages → Source to "GitHub Actions" once.
+Every push to `main` runs `.github/workflows/deploy.yml`. It validates the course data, lints, builds with `BASE_PATH=/<repo>/`, prerenders every mode and strategy page with React Router, and publishes `build/client/` to GitHub Pages. In the repository settings, set Pages → Source to "GitHub Actions" once.
 
 The engine needs `SharedArrayBuffer`, which requires cross-origin isolation (`Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: require-corp`).
 
@@ -74,6 +74,10 @@ This app is GPL-3.0-or-later.
 | Engine (optional) | Fairy-Stockfish, WASM build `fairy-stockfish-nnue.wasm` (github.com/fairy-stockfish/fairy-stockfish.wasm) | GPL-3.0 |
 | Rules, notation, kifu I/O | tsshogi (github.com/sunfish-shogi/tsshogi) | MIT |
 | 3D rendering | three.js | MIT |
+| Room panoramas (`public/sky/ninomaru_teien.jpg`, `residential_garden.jpg`) | Poly Haven HDRIs "Ninomaru Teien" (Greg Zaal) and "Residential Garden" (Greg Zaal, Rico Cilliers), tonemapped JPGs downscaled to 4096 px (polyhaven.com) | CC0 1.0 |
+| VRM loading | @pixiv/three-vrm (github.com/pixiv/three-vrm) | MIT |
+| Hand poses (`src/workshop/avatars/handMotion.json`) | Finger rotations baked offline by `scripts/mocap/` with MediaPipe Hand Landmarker (Apache-2.0) and Kalidokit (MIT) from landmarks of the Japan Shogi Association 手つき videos; only derived joint angles are shipped, no video | Derived data |
+| Seated players (`public/avatars/sendagaya-shino.vrm`, `sakurada-fumiriya.vrm`) | VRoid Studio β sample models "Sendagaya Shino" and "Sakurada Fumiriya" by pixiv Inc. (vroid.pixiv.help/hc/en-us/articles/360013482714 and /360014788554 state CC0; conditions overview at /4402614652569; VRM files via github.com/madjin/vrm-samples; VRM meta: licenseName CC0, allowedUserName Everyone, commercialUssageName Allow); textures downscaled to 1024 px and thumbnails shrunk for size | CC0 1.0 |
 | Joseki courses in `vendor/shiryu-joseki` | github.com/Shiryu181/shogi-joseki (commit in `vendor/shiryu-joseki/SOURCE_COMMIT`, re-vendored with `node scripts/build-courses.mjs --vendor <checkout> <commit>`), lines from shogilounge.com, hibitonshi.com, shogi-joutatsu.com, shogi-rule.com and ameblo.jp shogi blogs, as cited in each course's `source` | GPL-3.0 |
 | 将棋ルール.com courses (`shogirule--*`) | Move sequences from the game files published at shogi-rule.com/joseki_index/. The closing summaries are written here from the moves and final position; no text from the site is reproduced, only its one-word evaluation (互角/先手優勢/後手優勢) is cited | Attribution; moves are game records |
 | 角交換四間飛車 | hibitonshi.com/kakukoukan-shiken/ | Moves and notes adapted from the article |
