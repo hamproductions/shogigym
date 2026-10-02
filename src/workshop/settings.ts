@@ -14,6 +14,7 @@ export type Settings = {
   pieceFont: PieceFont
   pieceSet: PieceSet
   pieceFinish: PieceFinish
+  coords: boolean
   boardStyle: BoardStyle
   thinkMs: number
   candidates: number
@@ -24,7 +25,7 @@ export type Settings = {
 
 const KEY = 'joseki-practice:settings:v1'
 
-const DEFAULTS: Settings = { sound: true, volume: 0.6, pieceStyle: 'two', pieceFont: 'mincho', pieceSet: 'letters', pieceFinish: 'moriage', boardStyle: 'kaya', thinkMs: 1500, candidates: 3, opponent: 'beginner', aiStrategy: '', assist: true }
+const DEFAULTS: Settings = { sound: true, volume: 0.6, pieceStyle: 'two', pieceFont: 'mincho', pieceSet: 'letters', pieceFinish: 'moriage', coords: true, boardStyle: 'kaya', thinkMs: 1500, candidates: 3, opponent: 'beginner', aiStrategy: '', assist: true }
 
 function read(): Settings {
   try {

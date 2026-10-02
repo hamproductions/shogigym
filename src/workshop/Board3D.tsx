@@ -32,9 +32,15 @@ export type Board3DProps = {
 
 const MM_PER_SQUARE = 35.2
 const SQ_D = 38.6 / 35.2
-const MARGIN = 8 / 35.2
-const HALF_W = 4.5 + MARGIN
-const HALF_D = 4.5 * SQ_D + MARGIN
+let MARGIN = 8 / 35.2
+let HALF_W = 4.5 + MARGIN
+let HALF_D = 4.5 * SQ_D + MARGIN
+
+function setBoardDims() {
+  MARGIN = (getSettings().coords ? 26 : 8) / 35.2
+  HALF_W = 4.5 + MARGIN
+  HALF_D = 4.5 * SQ_D + MARGIN
+}
 const THICK = 182 / 35.2
 const LEG = 2.2
 
@@ -471,7 +477,7 @@ export function pieceMesh(type: PieceType, color: Color) {
   const lm = lacquerMap(map)
   const finish = PIECE_FINISHES[getSettings().pieceFinish] ?? PIECE_FINISHES.moriage
   const gloss = finish.gloss
-  const face = new THREE.MeshPhysicalMaterial({ map, roughness: 1, roughnessMap: lm, normalMap: finish.relief ? reliefNormal(map, finish.relief * scale, komaWidth(scale), scale) : null, clearcoat: gloss, clearcoatMap: lm, clearcoatRoughness: 0.18, envMap: pieceEnv, envMapIntensity: 0.4 })
+  const face = new THREE.MeshPhysicalMaterial({ map, roughness: 1, roughnessMap: lm, normalMap: finish.relief ? reliefNormal(map, finish.relief * scale, komaWidth(scale), scale) : null, clearcoat: gloss, clearcoatMap: lm, clearcoatRoughness: 0.4, envMap: pieceEnv, envMapIntensity: 0.12 })
   const mesh = new THREE.Mesh(pieceGeometry(scale), [hiddenLid, sideMaterial])
   mesh.castShadow = true
   mesh.receiveShadow = true
@@ -507,6 +513,7 @@ type SceneState = {
 const layout = { portrait: false, narrow: false }
 
 export function Board3D(props: Board3DProps) {
+  setBoardDims()
   const host = useRef<HTMLDivElement>(null)
   const state = useRef<SceneState | null>(null)
   const latest = useRef(props)
@@ -520,15 +527,15 @@ export function Board3D(props: Board3DProps) {
     renderer.shadowMap.enabled = true
     renderer.shadowMap.type = THREE.PCFSoftShadowMap
     renderer.toneMapping = THREE.ACESFilmicToneMapping
-    renderer.toneMappingExposure = 0.9
+    renderer.toneMappingExposure = 0.82
     preparePieceEnvironment(renderer)
     el.appendChild(renderer.domElement)
 
     const scene = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 200)
 
-    scene.add(new THREE.HemisphereLight(0xc9d6ff, 0x20160c, 0.55))
-    const lamp = new THREE.SpotLight(0xffe8c4, 120, 80, Math.PI / 3, 1, 1.2)
+    scene.add(new THREE.HemisphereLight(0xe8e0d0, 0x3a2a18, 0.9))
+    const lamp = new THREE.SpotLight(0xffe8c4, 70, 80, Math.PI / 3, 1, 1.2)
     lamp.position.set(-1.5, 18, 2.5)
     lamp.castShadow = true
     lamp.shadow.mapSize.set(2048, 2048)
@@ -609,7 +616,7 @@ export function Board3D(props: Board3DProps) {
       camera.aspect = w / h
       camera.updateProjectionMatrix()
       const sideFit = Math.max((2 * (HALF_W + 0.45 + STAND)) / (w / h), 2 * HALF_D + 0.6)
-      const portrait = w < 560 || (h * 10) / sideFit < 540
+      const portrait = w < 560 || (h * 10) / sideFit < 470
       const narrow = w < 560
       if (portrait !== layout.portrait || narrow !== layout.narrow) {
         layout.portrait = portrait
@@ -854,14 +861,15 @@ export function Board3D(props: Board3DProps) {
       s.marks.add(group)
     }
     const flipSign = latest.current.flipped ? -1 : 1
-    for (let i = 1; i <= 9; i++) {
-      const file = coordSprite(String(i))
-      file.position.set(squareX(i), 0.05, -(HALF_D + 0.24) * flipSign)
-      s.marks.add(file)
-      const rank = coordSprite('一二三四五六七八九'[i - 1])
-      rank.position.set((HALF_W + 0.24) * flipSign, 0.05, squareZ(i))
-      s.marks.add(rank)
-    }
+    if (getSettings().coords)
+      for (let i = 1; i <= 9; i++) {
+        const file = coordSprite(String(i))
+        file.position.set(squareX(i), 0.05, -(HALF_D - MARGIN / 2) * flipSign)
+        s.marks.add(file)
+        const rank = coordSprite('一二三四五六七八九'[i - 1])
+        rank.position.set((HALF_W - MARGIN / 2) * flipSign, 0.05, squareZ(i))
+        s.marks.add(rank)
+      }
     for (const sq of latest.current.peek ?? []) {
       tile(sq, 0xc8442f, 0.26)
       const edge = new THREE.Mesh(new THREE.RingGeometry(0.62, 0.69, 4, 1, Math.PI / 4), new THREE.MeshBasicMaterial({ color: 0xb33a26, transparent: true, opacity: 0.7, depthWrite: false }))
@@ -1015,7 +1023,7 @@ function coordSprite(text: string) {
     const canvas = document.createElement('canvas')
     canvas.width = canvas.height = 64
     const ctx = canvas.getContext('2d')!
-    ctx.fillStyle = 'rgba(236, 226, 206, 0.92)'
+    ctx.fillStyle = getSettings().boardStyle === 'dark' ? 'rgba(250, 232, 196, 0.92)' : 'rgba(40, 22, 8, 0.85)'
     ctx.font = '800 40px "Shippori Mincho B1", serif'
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'

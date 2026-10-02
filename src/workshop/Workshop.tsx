@@ -1301,7 +1301,7 @@ export function Workshop() {
             )}
           </div>}
           <Board3D
-            key={`${settings.pieceStyle}|${settings.boardStyle}|${settings.pieceFinish}|${fontReady}`}
+            key={`${settings.pieceStyle}|${settings.boardStyle}|${settings.pieceFinish}|${settings.coords}|${fontReady}`}
             position={position}
             flipped={flipped}
             tilted={tilted}
@@ -3031,6 +3031,7 @@ function SettingsDialog({ onClose, level, onLevel }: { onClose: () => void; leve
             ),
           )}
         </div>
+        {seg('Board coordinates', st.coords, [{ v: true, t: 'Show (wider margin)' }, { v: false, t: 'Hide' }], (v) => setSettings({ coords: v }))}
         {seg<PieceFinish>('Piece finish', st.pieceFinish, (Object.keys(PIECE_FINISHES) as PieceFinish[]).map((v) => ({ v, t: PIECE_FINISHES[v].label })), (v) => setSettings({ pieceFinish: v }))}
         <p className="ws-muted ws-credit">{PIECE_FINISHES[st.pieceFinish].hint}</p>
         {PIECE_SETS[st.pieceSet].credit && <p className="ws-muted ws-credit">{PIECE_SETS[st.pieceSet].credit}</p>}
