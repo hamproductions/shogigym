@@ -25,6 +25,7 @@ type Side = 'right' | 'left'
 export const SEIZA = { hip: 66, ankle: 50, lift: 0.042 }
 const KNEEL = 24
 const MAX_LEAN = (62 * Math.PI) / 180
+const HIP_SHARE = 0.65
 
 function fitSprings(vrm: VRM, k: number) {
   const manager = vrm.springBoneManager
@@ -134,6 +135,9 @@ export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, heig
   const recoil = seat.style === 'seiza' ? { back: 15, up: 0, lean: rad(-16) } : { back: 0.5, up: 0.3, lean: rad(-10) }
 
   const spine = [bone('spine'), bone('chest'), bone('upperChest')]
+  const pelvis = bone('hips')
+  const hinge = new THREE.Quaternion()
+  const legBase = legs.map((l) => l.upper.quaternion.clone())
   const shoulder = bone('rightShoulder')
   const neck = bone('neck')
   const head = bone('head')
@@ -267,7 +271,11 @@ export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, heig
     state.lean = damp(state.lean, leanTarget, state.reachW > 0.05 ? 16 : 8, dt)
     state.twist = damp(state.twist, Math.max(-0.5, Math.min(0.5, r.yaw * 0.35)) * state.reachW, 10, dt)
     const breath = Math.sin(state.time * 1.7) * rad(1.2)
-    spine.forEach((b, i) => b.quaternion.setFromAxisAngle(AY, state.twist / 3).multiply(qa.setFromAxisAngle(AX, s * state.lean * [0.42, 0.33, 0.25][i])))
+    const hipLean = Math.max(0, state.lean - rad(7)) * HIP_SHARE
+    pelvis.quaternion.setFromAxisAngle(AX, s * hipLean)
+    hinge.copy(pelvis.quaternion).invert()
+    legs.forEach((l, i) => (seat.style === 'seiza' ? l.upper.quaternion.premultiply(hinge) : l.upper.quaternion.copy(hinge).multiply(legBase[i])))
+    spine.forEach((b, i) => b.quaternion.setFromAxisAngle(AY, state.twist / 3).multiply(qa.setFromAxisAngle(AX, s * (state.lean - hipLean) * [0.42, 0.33, 0.25][i])))
     spine[1].quaternion.multiply(qa.setFromAxisAngle(AX, -s * breath))
 
     holder.updateWorldMatrix(true, false)
