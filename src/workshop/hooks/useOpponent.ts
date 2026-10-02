@@ -15,7 +15,7 @@ export function useOpponent(session: BoardSession, { lessonMode, halted }: { les
   const [pending, setPending] = useState<Reply | null>(null)
 
   useEffect(() => {
-    if ((mode !== 'lesson' && mode !== 'spar') || (mode === 'lesson' && !course) || !atEnd || toMove === userSide || halted) return
+    if ((mode !== 'lesson' && mode !== 'spar') || (mode === 'lesson' && !course) || (!atEnd && mode !== 'lesson') || toMove === userSide || halted) return
     let cancelled = false
     const book = mode === 'lesson' ? mainBranch(nodes?.get(strip(liveSfen))) : undefined
     const run = async () => {
@@ -36,13 +36,13 @@ export function useOpponent(session: BoardSession, { lessonMode, halted }: { les
     }
   }, [mode, atEnd, toMove, userSide, liveSfen, nodes, course, settings.opponent, settings.aiStrategy, halted])
 
-  const reply = !preview && pending && pending.key === liveSfen && atEnd && (mode === 'lesson' || mode === 'spar') && toMove !== userSide ? pending : null
+  const reply = !preview && pending && pending.key === liveSfen && (atEnd || mode === 'lesson') && (mode === 'lesson' || mode === 'spar') && toMove !== userSide ? pending : null
 
   useEffect(() => {
-    if (!reply || (mode === 'lesson' && lessonMode === 'study')) return
+    if (!reply || !atEnd || (mode === 'lesson' && lessonMode === 'study')) return
     const timer = setTimeout(() => play(reply.usi), mode === 'spar' ? 900 : 1000)
     return () => clearTimeout(timer)
-  }, [reply, mode, lessonMode, play])
+  }, [reply, atEnd, mode, lessonMode, play])
 
   return { reply, forget: () => setPending(null) }
 }
