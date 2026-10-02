@@ -70,13 +70,13 @@ function EngineSection({ model }: { model: PanelModel }) {
 
 function CoachSection({ model }: { model: PanelModel }) {
   const { t } = useTranslation()
-  const { mode, game, cursor, sfens, sfen, course, assist, ai, gameOver, userTurn, play } = useSession()
-  const { tesuji, tsume, drill, analyze, spar, mistakes, coach, bookHere, bookLast } = model
+  const { mode, game, cursor, sfens, sfen, course, assist, ai, gameOver, userTurn, play, preview } = useSession()
+  const { tesuji, tsume, drill, analyze, spar, mistakes, coach, bookHere, bookLast, onBack } = model
   const { reviewAt } = coach
   return (
     <>
       {mode === 'tesuji' && tesuji.drill && <TesujiPane trainer={tesuji} drill={tesuji.drill} />}
-      {mode === 'tsume' && tsume.tsume && <TsumePane trainer={tsume} tsume={tsume.tsume} />}
+      {mode === 'tsume' && tsume.tsume && <TsumePane trainer={tsume} tsume={tsume.tsume} banner={!!mistakes.mistake && !!preview} onBack={onBack} />}
       {mode === 'drill' && <ReviewPane trainer={drill} startSfen={drill.item ? sfens[drill.drill?.base ?? 0] : null} mistakePreview={mistakes.previewing} mistakeOk={!!mistakes.mistake && !mistakeIsBad(mistakes.mistake)} />}
       {mode === 'analyze' && <ImportBox onImport={analyze.importGame} />}
       {mode === 'analyze' && analyze.gameNotes && <KifuNotes notes={analyze.gameNotes} moves={game.moves} cursor={cursor} />}

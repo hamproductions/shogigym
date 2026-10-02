@@ -30,7 +30,7 @@ function TsumeStatus({ tsume }: { tsume: TsumeState }) {
   return <p className={tsume.hint >= 1 ? 'ws-note ws-hint-line' : 'ws-note ws-hint-line idle'}>{tsume.hint >= 1 ? t('tsume.hintTheFirstMoveUses', { piece: firstPieceHint(tsume.problem) }) + (tsume.hint >= 2 ? t('tsume.theYellowArrowShowsIt') : '') : t('tsume.stuckHintTellsYouWhich')}</p>
 }
 
-export function TsumePane({ trainer, tsume }: { trainer: Tsume; tsume: TsumeState }) {
+export function TsumePane({ trainer, tsume, banner, onBack }: { trainer: Tsume; tsume: TsumeState; banner: boolean; onBack: () => void }) {
   const { t } = useTranslation()
   const stats = loadTsumeStats()
   const pool = PROBLEMS.filter((p) => tsume.length === 'all' || p.mate === tsume.length)
@@ -45,16 +45,13 @@ export function TsumePane({ trainer, tsume }: { trainer: Tsume; tsume: TsumeStat
         <TsumeStatus tsume={tsume} />
       </div>
       <div className="ws-actions">
-        <Button variant="primary" onClick={trainer.next}>
+        <Button variant={tsume.status === 'solved' || tsume.status === 'shown' ? 'primary' : 'secondary'} onClick={trainer.next}>
           {t('tsume.nextProblem')}
         </Button>
         {(tsume.status === 'playing' || tsume.status === 'wrong') && <Button onClick={trainer.reveal}>{t('tsume.showSolution')}</Button>}
-        {(tsume.status === 'wrong' || tsume.status === 'shown') && <Button onClick={trainer.retry}>{t('tsume.tryAgain')}</Button>}
-        {tsume.status === 'playing' && (
-          <Button onClick={trainer.hint} disabled={tsume.hint >= 2}>
-            {tsume.hint === 0 ? t('tsume.hint') : t('tsume.showMove')}
-          </Button>
-        )}
+        {tsume.status === 'shown' && <Button onClick={trainer.retry}>{t('tsume.tryAgain')}</Button>}
+        {tsume.status === 'wrong' && !banner && <Button onClick={onBack}>{t('tsume.tryAgain')}</Button>}
+        {tsume.status === 'playing' && tsume.hint === 0 && <Button onClick={trainer.hint}>{t('tsume.hint')}</Button>}
       </div>
       <label className="ws-check-row">
         <input type="checkbox" checked={trainer.showEscape} onChange={trainer.toggleEscape} />

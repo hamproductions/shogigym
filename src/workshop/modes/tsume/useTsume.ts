@@ -92,6 +92,8 @@ export function useTsume(session: BoardSession, { mistakes, load, setTab }: { mi
     reveal: () => {
       if (!tsume) return
       markTsume(tsume.problem.id, 'failed')
+      mistakes.setMistake(null)
+      session.setPreview(null)
       session.setGame({ start: tsume.problem.sfen, moves: tsume.problem.pv })
       session.setCursor(tsume.problem.pv.length)
       setTsume({ ...tsume, status: 'shown', hint: 2, seen: true })

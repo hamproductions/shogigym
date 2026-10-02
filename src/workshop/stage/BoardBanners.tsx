@@ -33,7 +33,7 @@ function MistakeBanner({ mistake, preview, onBack }: { mistake: ShownMistake; pr
       <Button size="sm" onClick={replay}>{playing ? t('workshop.pause') : t('workshop.replay')}</Button>
       {mode !== 'drill' && (
         <Button size="sm" variant="primary" onClick={onBack}>
-          {t('workshop.goBackAndTryAgain')}
+          {mode === 'tsume' ? t('tsume.tryAgain') : t('workshop.goBackAndTryAgain')}
         </Button>
       )}
     </div>
