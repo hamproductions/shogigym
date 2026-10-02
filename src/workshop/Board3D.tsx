@@ -136,6 +136,39 @@ function woodMaterial(base: [number, number, number], seed: number, roughness = 
 
 const faceCache = new Map<string, THREE.Texture>()
 
+const carveCache = new WeakMap<THREE.Texture, THREE.Texture>()
+
+function carveTexture(map: THREE.Texture) {
+  const cached = carveCache.get(map)
+  if (cached) return cached
+  const source = map.image as HTMLCanvasElement
+  const size = source.width
+  const lum = document.createElement('canvas')
+  lum.width = lum.height = size
+  const lctx = lum.getContext('2d', { willReadFrequently: true })!
+  lctx.drawImage(source, 0, 0)
+  const img = lctx.getImageData(0, 0, size, size)
+  const px = img.data
+  for (let i = 0; i < px.length; i += 4) {
+    const r = px[i]
+    const g = px[i + 1]
+    const ink = r < 110 || (r > 110 && r - g > 60) ? 1 : 0
+    const v = ink ? 0 : 255
+    px[i] = px[i + 1] = px[i + 2] = v
+    px[i + 3] = 255
+  }
+  lctx.putImageData(img, 0, 0)
+  const out = document.createElement('canvas')
+  out.width = out.height = size
+  const octx = out.getContext('2d')!
+  octx.filter = 'blur(1.6px)'
+  octx.drawImage(lum, 0, 0)
+  const texture = new THREE.CanvasTexture(out)
+  texture.anisotropy = 8
+  carveCache.set(map, texture)
+  return texture
+}
+
 const artCache = new Map<string, THREE.Texture>()
 
 function artTexture(art: LoadedPiece, key: string) {
@@ -207,7 +240,7 @@ function pieceGeometry(scale: number) {
   return geometry
 }
 
-const sideMaterial = new THREE.MeshStandardMaterial({ color: 0xd2a868, roughness: 0.55 })
+const sideMaterial = new THREE.MeshStandardMaterial({ color: 0xdcb377, emissive: 0x8a6232, emissiveIntensity: 0.75, roughness: 0.6 })
 
 function pieceMesh(type: PieceType, color: Color) {
   const scale = PIECE_SIZE[type] ?? 0.8
@@ -215,7 +248,8 @@ function pieceMesh(type: PieceType, color: Color) {
   const char = type === PieceType.KING && color === Color.WHITE ? (one ? '玉' : KING_GOTE) : one ? (type === PieceType.KING ? '王' : PIECE_CHAR[type]) : FACE[type]
   const set = getSettings().pieceSet
   const art = set && set !== 'letters' ? loadedPiece(set, pieceCode(type, color === Color.WHITE && type === PieceType.KING ? Color.WHITE : Color.BLACK)) : undefined
-  const face = new THREE.MeshStandardMaterial({ map: art ? artTexture(art, `${set}/${pieceCode(type, color)}`) : faceTexture(char, PROMOTED.has(type)), roughness: 0.45 })
+  const map = art ? artTexture(art, `${set}/${pieceCode(type, color)}`) : faceTexture(char, PROMOTED.has(type))
+  const face = new THREE.MeshStandardMaterial({ map, bumpMap: carveTexture(map), bumpScale: 2.2, roughness: 0.5 })
   const mesh = new THREE.Mesh(pieceGeometry(scale), [face, sideMaterial])
   mesh.castShadow = true
   mesh.receiveShadow = true
