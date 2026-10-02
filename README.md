@@ -13,6 +13,7 @@ The whole app is one screen: a 3D board in the middle, a mode rail on the left, 
   - A Lesson map shows every branch of the line.
 - **復習 Review**: spaced repetition per position (4 h, 1 d, 3 d, 1 w and longer; a miss starts the position over). Mistakes from your own games are added automatically.
 - **詰将棋 Tsume**: 1手詰 to 7手詰 plus a mixed set. Hints are staged, a King escape overlay is optional, and a solve only counts when it was found without help.
+- **手筋 Tesuji**: 377 drills where the move to find is a named tesuji (叩きの歩, 突き捨ての歩, 焦点の歩, 垂れ歩, 底歩, 頭金, 両取り, ふんどしの桂, 王手飛車取り …), mined from the book lines and tsume by `scripts/mine-tesuji.ts`, each citing its source position. Plus four hand-entered pawn-tesuji lessons from shogi-rule.com's diagrams. While you play or analyze, a tesuji in the game is named on the board and tagged in the move list.
 - **対局 Play AI**: four strengths. You can choose the AI's strategy (居飛車穴熊, 棒銀, 舟囲い急戦, 左美濃, 相振り飛車 and more); the AI follows that setup's book lines, then thinks for itself.
   - 待った take-back, resign, and a 王手 warning.
   - A coach comments on each of your moves.
@@ -49,6 +50,7 @@ The engine needs `SharedArrayBuffer`, which requires cross-origin isolation (`Cr
 
 ```sh
 node scripts/build-courses.mjs          # scripts/courses/*.mjs -> src/data/joseki/*.json
+bun scripts/mine-tesuji.ts              # rebuild src/data/tesuji-drills.json from the courses and tsume
 node scripts/validate.mjs               # legality check of every course
 node scripts/solve-tsume.mjs 5 400 500  # solve data/tsume-raw/mate5.sfen with the engine
 node scripts/verify-tsume.mjs --prune   # keep only strict check-only mates

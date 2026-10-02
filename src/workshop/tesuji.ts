@@ -47,8 +47,8 @@ export function detectTesuji(before: string, usi: string): Tesuji | null {
   const king = hits.some((p) => p!.type === PieceType.KING)
   const valuable = hits.filter((p) => VALUABLE.has(p!.type))
 
-  if (king && hits.some((p) => p!.type === PieceType.ROOK || p!.type === PieceType.DRAGON)) return T.ohteHisha
-  if (king && valuable.length > 0 && piece.type !== PieceType.PAWN) return T.ohteTori
+  if (king && attackers === 0 && hits.some((p) => p!.type === PieceType.ROOK || p!.type === PieceType.DRAGON)) return T.ohteHisha
+  if (king && attackers === 0 && piece.type !== PieceType.PAWN && hits.some((p) => p!.type === PieceType.BISHOP || p!.type === PieceType.HORSE)) return T.ohteTori
   if (piece.type === PieceType.PAWN) {
     if (drop) {
       if ((me === Color.BLACK && to.rank === 9) || (me === Color.WHITE && to.rank === 1)) return T.sokofu

@@ -10,6 +10,7 @@ import { Icon, type IconName } from './icons'
 import { PIECE_INFO, PieceGuide, moveGloss, sees } from './pieces'
 import { allEvals, cachedReview, rememberEval, rememberReview } from './memory'
 import { detectTesuji, type Tesuji } from './tesuji'
+import { TESUJI_KINDS, TESUJI_DRILLS, markTesuji, pickTesuji, tesujiStats, type TesujiDrill } from './tesujiDrills'
 import { deleteGame, loadGames, storeGame, type StoredGame } from './games'
 import { PIECE_SETS, loadPieceSet, pieceUrl, type PieceSet } from './pieceSets'
 import { addPath, allLines, emptyTree, isMainLine, mainContinuation, mainLine, nodeAt, promote, removeBranch, type Tree } from './tree'
@@ -28,13 +29,14 @@ import { COURSES, SETUPS, findPath, sideToMove, type Course, type JosekiNode } f
 import { LessonMap } from '../components/Flowchart'
 import { PIECE_CHAR, applyUsi, hasLegalMove, kingSquare, reachable, colorSide, legalTargets, moveText, positionOf, promotionOptions, pvText, type Side } from '../shogi'
 
-type Mode = 'lesson' | 'drill' | 'tsume' | 'spar' | 'analyze'
+type Mode = 'lesson' | 'drill' | 'tsume' | 'tesuji' | 'spar' | 'analyze'
 type Tab = 'engine' | 'coach' | 'flow' | 'moves'
 
 const MODES: { id: Mode; icon: IconName; ja: string; name: string; hint: string }[] = [
   { id: 'lesson', icon: 'study', ja: '定跡', name: 'Openings', hint: 'Learn opening lines: study them, then quiz yourself' },
   { id: 'drill', icon: 'review', ja: '復習', name: 'Review', hint: 'Spaced repetition of positions you have learned' },
   { id: 'tsume', icon: 'tsume', ja: '詰将棋', name: 'Tsume', hint: 'Mate problems' },
+  { id: 'tesuji', icon: 'flow', ja: '手筋', name: 'Tesuji', hint: 'Find the tactical trick: tataki, tare, focal pawn, forks and more' },
   { id: 'spar', icon: 'spar', ja: '対局', name: 'Play AI', hint: 'Play a game against the AI' },
   { id: 'analyze', icon: 'analyze', ja: '検討', name: 'Analyze', hint: 'Move both sides freely, import and rate games' },
 ]
@@ -141,7 +143,7 @@ export function Workshop() {
     }
   }
   const [sheetOpen, setSheetOpen] = useState<boolean | null>(null)
-  const ai = engineSupported()
+  const ai = engineSupported() && !course?.noEngine
   const [fontReady, setFontReady] = useState('mincho')
   useEffect(() => {
     let live = true
@@ -237,6 +239,7 @@ export function Workshop() {
     return { done, total }
   }, [course, cursor, game.moves])
   const [checking, setChecking] = useState(false)
+  const [tesujiDrill, setTesujiDrill] = useState<{ item: TesujiDrill; filter: string; status: 'asking' | 'right' | 'shown'; missed: boolean; hint: boolean; wrong?: string } | null>(null)
   const [tesujiNote, setTesujiNote] = useState<(Tesuji & { at: number }) | null>(null)
   useEffect(() => {
     if (!tesujiNote) return
@@ -383,6 +386,14 @@ export function Workshop() {
     return null
   }
 
+  const startTesuji = (filter: string, exclude?: string) => {
+    const item = pickTesuji(filter, exclude)
+    if (!item) return
+    load(item.sfen, colorSide(positionOf(item.sfen).color), 'tesuji', null)
+    setTesujiDrill({ item, filter, status: 'asking', missed: false, hint: false })
+    setTab('coach')
+  }
+
   const startTsume = (length: number | 'all', exclude?: string) => {
     const problem = pickProblem(length, exclude)
     load(problem.sfen, attackerOf(problem), 'tsume', null)
@@ -435,6 +446,20 @@ export function Workshop() {
   const commit = async (usi: string) => {
     setPromotion(null)
     setPeekFrom(null)
+    if (mode === 'tesuji' && tesujiDrill) {
+      if (tesujiDrill.status !== 'asking') return
+      if (usi === tesujiDrill.item.answer) {
+        playSound('right')
+        play(usi)
+        markTesuji(tesujiDrill.item.id, !tesujiDrill.missed)
+        setTesujiDrill({ ...tesujiDrill, status: 'right' })
+      } else {
+        playSound('wrong')
+        setSelection(null)
+        setTesujiDrill({ ...tesujiDrill, missed: true, wrong: usi })
+      }
+      return
+    }
     if (mode === 'tsume' && tsume) {
       if (tsume.status !== 'playing' || toMove !== userSide) return
       setTsume({ ...tsume, status: 'checking' })
@@ -513,7 +538,7 @@ export function Workshop() {
     }
     let loss: number | null = null
     let verdict: MoveReview | undefined
-    if (engineSupported()) {
+    if (ai) {
       verdict = await reviewMove(liveSfen, usi, { movetime: 600 })
       if (!deviation?.child && verdict.reply) refutation = verdict.reply.pv.slice(0, modeRef.current === 'tsume' ? 1 : 5)
       loss = Math.max(0, Math.round(verdict.loss * 100))
@@ -699,11 +724,12 @@ export function Workshop() {
   const lessonAsking = mode === 'lesson' && !!course && !preview && toMove === userSide && lessonGood.length > 0
   const lessonOffBook = mode === 'lesson' && !!course && !preview && !nodes?.get(strip(liveSfen))
   const lessonDone = mode === 'lesson' && !!course && atEnd && !preview && !!lessonNode && lessonNode.branches.filter((b) => b.kind !== 'deviation').length === 0
-  const spoilerFree = (lessonAsking && lessonMode === 'quiz' && !showAnswer) || (drillAsking && drill?.queue !== 'new') || (mode === 'tsume' && tsume?.status !== 'solved' && tsume?.status !== 'shown')
+  const spoilerFree = (lessonAsking && lessonMode === 'quiz' && !showAnswer) || (drillAsking && drill?.queue !== 'new') || (mode === 'tsume' && tsume?.status !== 'solved' && tsume?.status !== 'shown') || (mode === 'tesuji' && tesujiDrill?.status === 'asking')
   if (!gameOver && ai && assist && best && showBest && !spoilerFree && (mode === 'analyze' || tab === 'engine')) {
     for (const c of analysis!.candidates.slice(1)) if (c.move !== best.move) arrows.push({ usi: c.move, color: SHU, dashed: true })
     arrows.push({ usi: best.move, color: SHU, label: 'best' })
   }
+  if (mode === 'tesuji' && tesujiDrill && tesujiDrill.status === 'shown' && cursor === 0) arrows.push({ usi: tesujiDrill.item.answer, color: '#4f8a2a' })
   if (drillItem && !preview && (drill?.result === 'wrong' || (drill?.queue === 'new' && !drill.result))) arrows.push({ usi: expectedMoves(drillItem)[0], color: '#4f8a2a' })
   if (lessonAsking && (lessonMode === 'study' || showAnswer)) for (const b of lessonGood) arrows.push({ usi: b.usi, color: '#4f8a2a', dashed: b.kind !== 'main' })
   if (mode === 'tsume' && tsume && tsume.hint >= 2 && cursor === 0) arrows.push({ usi: tsume.problem.pv[0], color: '#d4a017' })
@@ -901,6 +927,7 @@ export function Workshop() {
       return lessonMode === 'study' ? 'Their move is shown. Press Space or Play their move.' : 'Their reply comes in a moment.'
     }
     if (mode === 'drill') return drillItem ? (drillItem.kind === 'mistake' && !drill?.result ? 'Find a better move than the one you played in your game.' : drill?.result ? 'Next card when you are ready.' : drill?.queue === 'new' ? 'Learn this move: play the green arrow.' : 'Play the move you learned.') : 'Pick what to review.'
+    if (mode === 'tesuji') return tesujiDrill ? (tesujiDrill.status === 'asking' ? `${colorSide(position.color) === 'sente' ? '☗' : '☖'} to move: find the 手筋.` : 'Next drill when you are ready.') : 'Find the tesuji.'
     if (mode === 'tsume') return tsume ? `${attackerOf(tsume.problem) === 'sente' ? '☗' : '☖'} to play: mate in ${tsume.problem.mate}. Every attacking move must give check.` : 'Every attacking move must give check.'
     if (mode === 'spar') return resigned ? 'You resigned. Review the game, or start a new one.' : position.checked && !hasLegalMove(position) ? 'Checkmate. The game is over.' : !atEnd ? 'Looking back at earlier moves. Play a move here to try a variation, or press ⏭ to return.' : userTurn ? (position.checked ? '王手! Your king is in check.' : 'Your move.') : 'The AI is thinking.'
     return 'Try anything. The AI tab rates the position.'
@@ -1018,6 +1045,7 @@ export function Workshop() {
       if (back.tree) setTree(back.tree)
       return
     }
+    if (m === 'tesuji') return startTesuji(tesujiDrill?.filter ?? 'all')
     if (m === 'tsume') return startTsume(tsume?.length ?? (loadTsumeStats().solved.length < 5 ? 1 : 3))
     if (m === 'drill') {
       const counts = reviewCounts()
@@ -1147,7 +1175,9 @@ export function Workshop() {
                       : 'Review'
                     : mode === 'spar'
                       ? `vs AI ${userSide === 'sente' ? '☗' : '☖'}`
-                      : 'Analyze: move both sides freely'}
+                      : mode === 'tesuji'
+                        ? `手筋: ${tesujiDrill && tesujiDrill.filter !== 'all' ? tesujiDrill.filter : 'mixed'}`
+                        : 'Analyze: move both sides freely'}
             </strong>
             <span>{modeInstruction()}</span>
           </span>
@@ -1483,6 +1513,16 @@ export function Workshop() {
             />
           )}
           {lessonMap && course && <LessonMap course={course} currentNodeId={nodes?.get(strip(sfen))?.id ?? null} onJump={jumpTo} onClose={() => setLessonMap(false)} />}
+          {tab === 'coach' && mode === 'tesuji' && tesujiDrill && (
+            <TesujiPane
+              drill={tesujiDrill}
+              sfen={tesujiDrill.item.sfen}
+              onFilter={(f) => startTesuji(f)}
+              onNext={() => startTesuji(tesujiDrill.filter, tesujiDrill.item.id)}
+              onHint={() => setTesujiDrill({ ...tesujiDrill, hint: true, missed: true })}
+              onShow={() => (setTesujiDrill({ ...tesujiDrill, status: 'shown', missed: true }), markTesuji(tesujiDrill.item.id, false))}
+            />
+          )}
           {tab === 'coach' && mode === 'tsume' && tsume && (
             <TsumePane
               tsume={tsume}
@@ -2087,6 +2127,49 @@ function pieceOfFirst(problem: Problem) {
   if (!move) return 'pieces'
   const name = PIECE_INFO[move.pieceType]
   return move.from instanceof Square ? `${name.ja} on the board` : `${name.ja} in hand (a drop)`
+}
+
+function TesujiPane({ drill, sfen, onFilter, onNext, onHint, onShow }: { drill: { item: TesujiDrill; filter: string; status: 'asking' | 'right' | 'shown'; missed: boolean; hint: boolean; wrong?: string }; sfen: string; onFilter: (f: string) => void; onNext: () => void; onHint: () => void; onShow: () => void }) {
+  const stats = tesujiStats()
+  const pool = TESUJI_DRILLS.filter((d) => drill.filter === 'all' || d.tesuji === drill.filter)
+  const side = colorSide(positionOf(sfen).color) === 'sente' ? '☗' : '☖'
+  return (
+    <div className="ws-practice">
+      <div className="ws-seg small ws-tesuji-filter" role="group" aria-label="Tesuji type">
+        {['all', ...TESUJI_KINDS].map((k) => (
+          <button key={k} className={drill.filter === k ? 'on' : ''} onClick={() => onFilter(k)}>
+            {k === 'all' ? 'Mixed' : k}
+          </button>
+        ))}
+      </div>
+      <p className="ws-task">
+        {side} to move. Find the {drill.hint || drill.status !== 'asking' ? <strong>{drill.item.tesuji}</strong> : '手筋'}.
+      </p>
+      {drill.status === 'asking' && drill.wrong && <p className="ws-result wrong">{moveText(sfen, drill.wrong)} is not it. Look again{drill.hint ? '' : ', or take a hint'}.</p>}
+      {drill.status === 'asking' && drill.hint && <p className="ws-note">{drill.item.explain}</p>}
+      {drill.status !== 'asking' && (
+        <div className={`ws-card ${drill.status === 'right' ? 'good' : ''}`}>
+          <strong>
+            {drill.status === 'right' ? '✓ ' : ''}
+            {moveText(sfen, drill.item.answer)}: {drill.item.tesuji} <span className="ws-muted">({drill.item.en})</span>
+          </strong>
+          <p>{drill.item.explain}</p>
+          {drill.item.note && <p className="ws-note">{drill.item.note}</p>}
+          <p className="ws-muted">From: {drill.item.from}</p>
+        </div>
+      )}
+      <div className="ws-actions">
+        <button className="primary" onClick={onNext}>
+          Next
+        </button>
+        {drill.status === 'asking' && !drill.hint && <button onClick={onHint}>Hint</button>}
+        {drill.status === 'asking' && <button onClick={onShow}>Show answer</button>}
+      </div>
+      <p className="ws-muted">
+        Solved first try: {pool.filter((d) => stats.solved.includes(d.id)).length} of {pool.length}
+      </p>
+    </div>
+  )
 }
 
 function TsumePane({ tsume, onLength, onNext, onRetry, onHint, onShow, escape, onEscape }: { tsume: { problem: Problem; status: string; reason?: string; hint: number; length: number | 'all'; good: number; missed?: boolean; seen?: boolean }; onLength: (n: number | 'all') => void; onNext: () => void; onRetry: () => void; onHint: () => void; onShow: () => void; escape: boolean; onEscape: () => void }) {

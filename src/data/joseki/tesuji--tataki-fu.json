@@ -1,0 +1,29 @@
+{
+ "id": "tesuji--tataki-fu",
+ "title": "手筋: たたきの歩",
+ "myStrategy": "shikenbisha",
+ "opponentStrategy": "nakabisha",
+ "mySide": "sente",
+ "userSide": "sente",
+ "noEngine": true,
+ "source": "局面と手はshogi-rule.com「歩の効果的な手筋」(https://www.shogi-rule.com/koma_hu/)の「たたきの歩」の図(中飛車 対 居飛車)をSFENに変換。持ち駒は図に表示がないため、打つ歩と本文で使う角だけを置いた。",
+ "goalFormation": "たたきの歩: 自分が打たれたら嫌なところに歩を叩く。",
+ "root": {
+  "id": "n0",
+  "sfen": "ln1gr2nl/1ks3g2/pppp1pppp/4s4/9/2P6/PP1P1PP1P/2K1GS1R1/LNSG3NL b BP 1",
+  "comment": "中飛車 対 居飛車でよく見られる形。後手の5筋に歩を叩きます。",
+  "branches": [
+   {
+    "usi": "P*5b",
+    "kind": "main",
+    "note": "たたきの歩。飛車で取れば角を打ち込んで飛車を成り込めます。金で取れば相手の陣形が大きく崩れます。",
+    "child": {
+     "id": "n_0",
+     "sfen": "ln1gr2nl/1ks1P1g2/pppp1pppp/4s4/9/2P6/PP1P1PP1P/2K1GS1R1/LNSG3NL w B 1",
+     "branches": [],
+     "comment": "中飛車側からしたらかなり嫌な手です。"
+    }
+   }
+  ]
+ }
+}
