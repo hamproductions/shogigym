@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import { Color, PieceType, Square, type ImmutablePosition } from 'tsshogi'
 import { HAND_ORDER, PIECE_CHAR } from '../shogi'
-import { PIECE_FONTS, getSettings, type BoardStyle } from './settings'
+import { PIECE_FINISHES, PIECE_FONTS, getSettings, type BoardStyle } from './settings'
 import { loadedPiece, pieceCode, type LoadedPiece } from './pieceSets'
 
 export type BoardArrow = { usi: string; color: string; dashed?: boolean; label?: string }
@@ -288,42 +288,121 @@ function lacquerMap(map: THREE.Texture) {
   return texture
 }
 
+const normalCache = new WeakMap<THREE.Texture, Map<number, THREE.Texture>>()
+
+function reliefNormal(map: THREE.Texture, relief: number, w: number, h: number) {
+  let byRelief = normalCache.get(map)
+  if (!byRelief) normalCache.set(map, (byRelief = new Map()))
+  const cached = byRelief.get(relief)
+  if (cached) return cached
+  const ink = inkMask(map)
+  const size = 256
+  const height = new Float32Array(size * size)
+  for (let y = 0; y < size; y++)
+    for (let x = 0; x < size; x++) {
+      const k = ink(x / (size - 1), 1 - y / (size - 1))
+      height[y * size + x] = k * relief
+    }
+  const canvas = document.createElement('canvas')
+  canvas.width = canvas.height = size
+  const ctx = canvas.getContext('2d')!
+  const img = ctx.createImageData(size, size)
+  const at = (x: number, y: number) => height[Math.min(size - 1, Math.max(0, y)) * size + Math.min(size - 1, Math.max(0, x))]
+  const sx = (2 * w) / size
+  const sy = (2 * h) / size
+  for (let y = 0; y < size; y++)
+    for (let x = 0; x < size; x++) {
+      const dx = (at(x + 1, y) - at(x - 1, y)) / sx
+      const dy = (at(x, y - 1) - at(x, y + 1)) / sy
+      const len = Math.hypot(dx, dy, 1)
+      const o = (y * size + x) * 4
+      img.data[o] = Math.round(((-dx / len) * 0.5 + 0.5) * 255)
+      img.data[o + 1] = Math.round(((-dy / len) * 0.5 + 0.5) * 255)
+      img.data[o + 2] = Math.round(((1 / len) * 0.5 + 0.5) * 255)
+      img.data[o + 3] = 255
+    }
+  ctx.putImageData(img, 0, 0)
+  const texture = new THREE.CanvasTexture(canvas)
+  texture.anisotropy = 8
+  byRelief.set(relief, texture)
+  return texture
+}
+
 const topCache = new WeakMap<THREE.Texture, Map<number, THREE.BufferGeometry>>()
 
+const inkCache = new WeakMap<THREE.Texture, (u: number, v: number) => number>()
+
 function inkMask(map: THREE.Texture) {
+  const cached = inkCache.get(map)
+  if (cached) return cached
   const source = map.image as HTMLCanvasElement
-  const size = 256
+  const size = 512
   const canvas = document.createElement('canvas')
   canvas.width = canvas.height = size
   const ctx = canvas.getContext('2d', { willReadFrequently: true })!
-  ctx.filter = 'blur(1.4px)'
   ctx.drawImage(source, 0, 0, size, size)
-  const px = ctx.getImageData(0, 0, size, size).data
-  const ink = new Float32Array(size * size)
-  for (let i = 0; i < ink.length; i++) {
-    const r = px[i * 4]
-    const g = px[i * 4 + 1]
-    const b = px[i * 4 + 2]
-    const red = r > 110 && r - g > 55 && r - b > 55 ? 1 : 0
-    ink[i] = Math.max(red, Math.min(1, Math.max(0, (165 - (0.3 * r + 0.59 * g + 0.11 * b)) / 70)))
+  const raw = ctx.getImageData(0, 0, size, size).data
+  const hard = new Float32Array(size * size)
+  for (let i = 0; i < hard.length; i++) {
+    const r = raw[i * 4]
+    const g = raw[i * 4 + 1]
+    const b = raw[i * 4 + 2]
+    const red = r > 110 && r - g > 55 && r - b > 55
+    hard[i] = red || 0.3 * r + 0.59 * g + 0.11 * b < 125 ? 1 : 0
   }
-  return (u: number, v: number) => {
-    const x = Math.min(size - 1, Math.max(0, Math.round(u * (size - 1))))
-    const y = Math.min(size - 1, Math.max(0, Math.round((1 - v) * (size - 1))))
-    return ink[y * size + x]
+  const blur = (src: Float32Array, radius: number) => {
+    const tmp = new Float32Array(src.length)
+    const out = new Float32Array(src.length)
+    const n = radius * 2 + 1
+    for (let y = 0; y < size; y++) {
+      let acc = 0
+      for (let x = -radius; x <= radius; x++) acc += src[y * size + Math.min(size - 1, Math.max(0, x))]
+      for (let x = 0; x < size; x++) {
+        tmp[y * size + x] = acc / n
+        acc += src[y * size + Math.min(size - 1, x + radius + 1)] - src[y * size + Math.max(0, x - radius)]
+      }
+    }
+    for (let x = 0; x < size; x++) {
+      let acc = 0
+      for (let y = -radius; y <= radius; y++) acc += tmp[Math.min(size - 1, Math.max(0, y)) * size + x]
+      for (let y = 0; y < size; y++) {
+        out[y * size + x] = acc / n
+        acc += tmp[Math.min(size - 1, y + radius + 1) * size + x] - tmp[Math.max(0, y - radius) * size + x]
+      }
+    }
+    return out
   }
+  const soft = blur(blur(hard, 3), 3)
+  const sample = (u: number, v: number) => {
+    const fx = Math.min(size - 1.001, Math.max(0, u * (size - 1)))
+    const fy = Math.min(size - 1.001, Math.max(0, (1 - v) * (size - 1)))
+    const x = Math.floor(fx)
+    const y = Math.floor(fy)
+    const tx = fx - x
+    const ty = fy - y
+    const a = soft[y * size + x] * (1 - tx) + soft[y * size + x + 1] * tx
+    const b = soft[(y + 1) * size + x] * (1 - tx) + soft[(y + 1) * size + x + 1] * tx
+    const k = a * (1 - ty) + b * ty
+    return k * k * (3 - 2 * k)
+  }
+  inkCache.set(map, sample)
+  return sample
 }
 
 function carvedTop(scale: number, map: THREE.Texture) {
   let byScale = topCache.get(map)
   if (!byScale) topCache.set(map, (byScale = new Map()))
-  const cached = byScale.get(scale)
+  const finish = PIECE_FINISHES[getSettings().pieceFinish] ?? PIECE_FINISHES.moriage
+  const key = Math.round(scale * 1000) * 1000 + Math.round(finish.relief * 1000)
+  const cached = byScale.get(key)
   if (cached) return cached
+  const ink = inkMask(map)
+  const relief = finish.relief * scale
   const w = scale * 0.9
   const h = scale
   const poly = piecePolygon(scale)
   const top = 0.16 * scale + 0.06 + 0.026
-  const n = 160
+  const n = 200
   const positions: number[] = []
   const uvs: number[] = []
   for (let j = 0; j <= n; j++)
@@ -334,7 +413,7 @@ function carvedTop(scale: number, map: THREE.Texture) {
       const u = x / w + 0.5
       const v = y / h + 0.5
       const t = Math.min(1, Math.max(0, v))
-      positions.push(x, y, top * (1 - 0.5 * t))
+      positions.push(x, y, top * (1 - 0.5 * t) + ink(u, v) * relief)
       uvs.push(u, v)
     }
   const index: number[] = []
@@ -349,7 +428,7 @@ function carvedTop(scale: number, map: THREE.Texture) {
   geometry.setIndex(index)
   geometry.computeVertexNormals()
   geometry.rotateX(-Math.PI / 2)
-  byScale.set(scale, geometry)
+  byScale.set(key, geometry)
   return geometry
 }
 
@@ -377,7 +456,9 @@ export function pieceMesh(type: PieceType, color: Color) {
   const art = set && set !== 'letters' ? loadedPiece(set, pieceCode(type, color === Color.WHITE && type === PieceType.KING ? Color.WHITE : Color.BLACK)) : undefined
   const map = art ? artTexture(art, `${set}/${pieceCode(type, color)}`) : faceTexture(char, PROMOTED.has(type))
   const lm = lacquerMap(map)
-  const face = new THREE.MeshPhysicalMaterial({ map, roughness: 1, roughnessMap: lm, clearcoat: 1, clearcoatMap: lm, clearcoatRoughness: 0.04, envMap: pieceEnv, envMapIntensity: 0.85 })
+  const finish = PIECE_FINISHES[getSettings().pieceFinish] ?? PIECE_FINISHES.moriage
+  const gloss = finish.gloss
+  const face = new THREE.MeshPhysicalMaterial({ map, roughness: 1, roughnessMap: lm, normalMap: finish.relief ? reliefNormal(map, finish.relief * scale, scale * 0.9, scale) : null, clearcoat: gloss, clearcoatMap: lm, clearcoatRoughness: 0.04, envMap: pieceEnv, envMapIntensity: 0.85 })
   const mesh = new THREE.Mesh(pieceGeometry(scale), [hiddenLid, sideMaterial])
   mesh.castShadow = true
   mesh.receiveShadow = true

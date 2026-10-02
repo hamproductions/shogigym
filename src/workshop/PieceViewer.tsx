@@ -3,6 +3,7 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { Color, PieceType } from 'tsshogi'
 import { pieceMesh, preparePieceEnvironment } from './Board3D'
+import { PIECE_FINISHES, setSettings, useSettings, type PieceFinish } from './settings'
 
 const TYPES: { type: PieceType; label: string }[] = [
   { type: PieceType.KING, label: '王' },
@@ -21,6 +22,7 @@ export function PieceViewer({ onClose }: { onClose: () => void }) {
   const host = useRef<HTMLDivElement>(null)
   const [type, setType] = useState(PieceType.ROOK)
   const [light, setLight] = useState(0.35)
+  const st = useSettings()
   const scene = useRef<{ setPiece: (t: PieceType) => void; setLight: (a: number) => void } | null>(null)
 
   useEffect(() => {
@@ -86,7 +88,7 @@ export function PieceViewer({ onClose }: { onClose: () => void }) {
 
   useEffect(() => {
     scene.current?.setPiece(type)
-  }, [type])
+  }, [type, st.pieceFinish])
   useEffect(() => {
     scene.current?.setLight(light)
   }, [light])
@@ -109,6 +111,14 @@ export function PieceViewer({ onClose }: { onClose: () => void }) {
             </button>
           ))}
         </div>
+        <div className="ws-seg small">
+          {(Object.keys(PIECE_FINISHES) as PieceFinish[]).map((f) => (
+            <button key={f} className={st.pieceFinish === f ? 'on' : ''} onClick={() => setSettings({ pieceFinish: f })}>
+              {PIECE_FINISHES[f].label}
+            </button>
+          ))}
+        </div>
+        <p className="ws-muted">{PIECE_FINISHES[st.pieceFinish].hint}</p>
         <label className="ws-setting">
           <span>Light direction</span>
           <input type="range" min={0} max={1} step={0.01} value={light} onChange={(e) => setLight(Number(e.target.value))} />

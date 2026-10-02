@@ -15,7 +15,7 @@ import { TESUJI_KINDS, TESUJI_DRILLS, markTesuji, pickTesuji, tesujiStats, type 
 import { deleteGame, loadGames, storeGame, type StoredGame } from './games'
 import { PIECE_SETS, loadPieceSet, pieceUrl, type PieceSet } from './pieceSets'
 import { addPath, allLines, emptyTree, isMainLine, mainContinuation, mainLine, nodeAt, promote, removeBranch, type Tree } from './tree'
-import { PIECE_FONTS, STRENGTH, loadPieceFont, playSound, setSettings, useSettings, type AiStrength, type BoardStyle, type PieceFont, type PieceStyle } from './settings'
+import { PIECE_FINISHES, PIECE_FONTS, STRENGTH, loadPieceFont, playSound, setSettings, useSettings, type AiStrength, type BoardStyle, type PieceFinish, type PieceFont, type PieceStyle } from './settings'
 import { analyze, engineSupported, scoreToCp, type Score } from '../engine'
 import { useAnalysis } from '../hooks'
 import { LABELS, describeMove, reviewMove, scoreWinRate, usiPosition, type MoveReview } from '../analysis'
@@ -242,6 +242,11 @@ export function Workshop() {
   const [checking, setChecking] = useState(false)
   const [showControl, setShowControl] = useState(false)
   const [showViewer, setShowViewer] = useState(false)
+  useEffect(() => {
+    const open = () => setShowViewer(true)
+    window.addEventListener('shogilab:viewer', open)
+    return () => window.removeEventListener('shogilab:viewer', open)
+  }, [])
   const [tesujiDrill, setTesujiDrill] = useState<{ item: TesujiDrill; filter: string; status: 'asking' | 'right' | 'shown'; missed: boolean; hint: boolean; wrong?: string } | null>(null)
   const [tesujiNote, setTesujiNote] = useState<(Tesuji & { at: number }) | null>(null)
   useEffect(() => {
@@ -1182,10 +1187,6 @@ export function Workshop() {
           <span className="ws-ja">設定</span>
           <span>Settings</span>
         </button>
-        <button className={`ws-rail-btn${showViewer ? ' on' : ''}`} onClick={() => setShowViewer(true)} title="Piece viewer: inspect a piece in 3D">
-          <span className="ws-ja" style={{ fontSize: 18 }}>駒</span>
-          <span>Piece</span>
-        </button>
         <button className={`ws-rail-btn${showControl ? ' on' : ''}`} onClick={() => setShowControl((v) => !v)} title="利き map: who controls each square (blue ☗, red ☖, purple contested). Press C" aria-pressed={showControl}>
           <span className="ws-ja" style={{ fontSize: 18 }}>利</span>
           <span>Control</span>
@@ -1300,7 +1301,7 @@ export function Workshop() {
             )}
           </div>}
           <Board3D
-            key={`${settings.pieceStyle}|${settings.boardStyle}|${fontReady}`}
+            key={`${settings.pieceStyle}|${settings.boardStyle}|${settings.pieceFinish}|${fontReady}`}
             position={position}
             flipped={flipped}
             tilted={tilted}
@@ -1707,7 +1708,7 @@ export function Workshop() {
           </div>
         </div>
       )}
-      {showSettings && <SettingsDialog onClose={() => setShowSettings(false)} level={level} onLevel={setLevel} onViewer={() => (setShowSettings(false), setShowViewer(true))} />}
+      {showSettings && <SettingsDialog onClose={() => setShowSettings(false)} level={level} onLevel={setLevel} />}
       {showViewer && <PieceViewer onClose={() => setShowViewer(false)} />}
       {welcome && (
         <div className="ws-palette-back">
@@ -2778,6 +2779,7 @@ function useCommands({ sfen, setMode, setFlipped, setTilted, openCourse, play, n
       const base: Command[] = [
         ...MODES.map((m) => ({ id: `mode-${m.id}`, label: `${m.name} mode`, hint: m.hint, run: () => setMode(m.id) })),
         { id: 'flip', label: 'Flip the board', hint: 'F', run: () => setFlipped((v) => !v) },
+        { id: 'viewer', label: 'Piece viewer (debug)', run: () => window.dispatchEvent(new Event('shogilab:viewer')) },
         { id: 'tilt', label: 'Tilt the board', hint: 'T', run: () => setTilted((v) => !v) },
         { id: 'new', label: 'New game from the start', run: newGame },
         ...COURSES.map((c) => ({ id: `course-${c.id}`, label: c.title, hint: SETUPS.find((s) => s.courseIds.includes(c.id))?.ja, run: () => openCourse(c) })),
@@ -2986,7 +2988,7 @@ function FlowPane({ lanes, sfen, onPreview, onHover }: { lanes: Lane[]; sfen: st
   )
 }
 
-function SettingsDialog({ onClose, level, onLevel, onViewer }: { onClose: () => void; level: Level; onLevel: (l: Level) => void; onViewer: () => void }) {
+function SettingsDialog({ onClose, level, onLevel }: { onClose: () => void; level: Level; onLevel: (l: Level) => void }) {
   const st = useSettings()
   const seg = <T extends string | number | boolean>(label: string, value: T, options: { v: T; t: string }[], set: (v: T) => void) => (
     <div className="ws-setting">
@@ -3029,9 +3031,8 @@ function SettingsDialog({ onClose, level, onLevel, onViewer }: { onClose: () => 
             ),
           )}
         </div>
-        <button className="ws-viewer-open" onClick={onViewer}>
-          Inspect a piece in 3D ›
-        </button>
+        {seg<PieceFinish>('Piece finish', st.pieceFinish, (Object.keys(PIECE_FINISHES) as PieceFinish[]).map((v) => ({ v, t: PIECE_FINISHES[v].label })), (v) => setSettings({ pieceFinish: v }))}
+        <p className="ws-muted ws-credit">{PIECE_FINISHES[st.pieceFinish].hint}</p>
         {PIECE_SETS[st.pieceSet].credit && <p className="ws-muted ws-credit">{PIECE_SETS[st.pieceSet].credit}</p>}
         {st.pieceSet === 'letters' && seg<PieceFont>('Piece lettering', st.pieceFont, (Object.keys(PIECE_FONTS) as PieceFont[]).map((v) => ({ v, t: PIECE_FONTS[v].label })), (v) => setSettings({ pieceFont: v }))}
         {st.pieceSet === 'letters' && seg<PieceStyle>('Piece faces', st.pieceStyle, [{ v: 'two', t: '二字 王将' }, { v: 'one', t: '一字 王' }], (v) => setSettings({ pieceStyle: v }))}
