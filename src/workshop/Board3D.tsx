@@ -30,7 +30,13 @@ export type Board3DProps = {
   onArrow?: (usi: string) => void
 }
 
-const MM_PER_SQUARE = 34
+const MM_PER_SQUARE = 35.2
+const SQ_D = 38.6 / 35.2
+const MARGIN = 8 / 35.2
+const HALF_W = 4.5 + MARGIN
+const HALF_D = 4.5 * SQ_D + MARGIN
+const THICK = 182 / 35.2
+const LEG = 2.2
 
 const KOMA_MM: [PieceType[], number, number, number, number][] = [
   [[PieceType.KING], 32.5, 29.3, 9.6, 3.93],
@@ -77,7 +83,7 @@ const BOARD_TONE: Record<BoardStyle, { board: [number, number, number]; edge: [n
 }
 
 const squareX = (file: number) => 5 - file
-const squareZ = (rank: number) => rank - 5
+const squareZ = (rank: number) => (rank - 5) * SQ_D
 
 function grainTexture(width: number, height: number, base: [number, number, number], lines: number, seed: number) {
   const canvas = document.createElement('canvas')
@@ -104,23 +110,26 @@ function grainTexture(width: number, height: number, base: [number, number, numb
 }
 
 function boardTexture(style: BoardStyle) {
-  const size = 1024
-  const canvas = grainTexture(size, size, BOARD_TONE[style].board, 260, 7)
+  const sizeW = 1024
+  const sizeH = Math.round((sizeW * HALF_D) / HALF_W)
+  const canvas = grainTexture(sizeW, sizeH, BOARD_TONE[style].board, 260, 7)
   const ctx = canvas.getContext('2d')!
-  const margin = size * 0.05
-  const cell = (size - margin * 2) / 9
+  const mx = (MARGIN / (2 * HALF_W)) * sizeW
+  const my = (MARGIN / (2 * HALF_D)) * sizeH
+  const cw = (sizeW - mx * 2) / 9
+  const ch = (sizeH - my * 2) / 9
   ctx.strokeStyle = BOARD_TONE[style].line
   ctx.lineWidth = 2.2
   for (let i = 0; i <= 9; i++) {
     ctx.beginPath()
-    ctx.moveTo(margin + i * cell, margin)
-    ctx.lineTo(margin + i * cell, size - margin)
-    ctx.moveTo(margin, margin + i * cell)
-    ctx.lineTo(size - margin, margin + i * cell)
+    ctx.moveTo(mx + i * cw, my)
+    ctx.lineTo(mx + i * cw, sizeH - my)
+    ctx.moveTo(mx, my + i * ch)
+    ctx.lineTo(sizeW - mx, my + i * ch)
     ctx.stroke()
   }
   ctx.lineWidth = 4
-  ctx.strokeRect(margin, margin, cell * 9, cell * 9)
+  ctx.strokeRect(mx, my, cw * 9, ch * 9)
   ctx.fillStyle = 'rgba(40,22,8,0.9)'
   for (const [cx, cy] of [
     [3, 3],
@@ -129,7 +138,7 @@ function boardTexture(style: BoardStyle) {
     [6, 6],
   ]) {
     ctx.beginPath()
-    ctx.arc(margin + cx * cell, margin + cy * cell, 6, 0, Math.PI * 2)
+    ctx.arc(mx + cx * cw, my + cy * ch, 6, 0, Math.PI * 2)
     ctx.fill()
   }
   const texture = new THREE.CanvasTexture(canvas)
@@ -532,29 +541,29 @@ export function Board3D(props: Board3DProps) {
     const root = new THREE.Group()
     scene.add(root)
 
-    const floor = new THREE.Mesh(new THREE.PlaneGeometry(80, 80), new THREE.ShadowMaterial({ opacity: 0.22 }))
+    const floor = new THREE.Mesh(new THREE.PlaneGeometry(80, 80), new THREE.ShadowMaterial({ opacity: 0.1 }))
     floor.rotation.x = -Math.PI / 2
-    floor.position.y = -0.95
+    floor.position.y = -THICK - LEG
     floor.receiveShadow = true
     scene.add(floor)
 
     const tone = BOARD_TONE[getSettings().boardStyle]
     const boardMaterials = [woodMaterial(tone.edge, 3), woodMaterial(tone.edge, 5), new THREE.MeshPhysicalMaterial({ map: boardTexture(getSettings().boardStyle), roughness: 0.55, clearcoat: 0.15, clearcoatRoughness: 0.45, envMap: pieceEnv, envMapIntensity: 0.25 }), woodMaterial([150, 104, 50], 9), woodMaterial(tone.edge, 11), woodMaterial(tone.edge, 13)]
-    const board = new THREE.Mesh(new THREE.BoxGeometry(9 / 0.9, 0.9, 9 / 0.9), boardMaterials)
-    board.position.y = -0.45
+    const board = new THREE.Mesh(new THREE.BoxGeometry(2 * HALF_W, THICK, 2 * HALF_D), boardMaterials)
+    board.position.y = -THICK / 2
     board.castShadow = true
     board.receiveShadow = true
     root.add(board)
 
     const legMaterial = woodMaterial([120, 78, 36], 17)
     for (const [x, z] of [
-      [-3.6, -3.6],
-      [3.6, -3.6],
-      [-3.6, 3.6],
-      [3.6, 3.6],
+      [-3.4, -3.8],
+      [3.4, -3.8],
+      [-3.4, 3.8],
+      [3.4, 3.8],
     ]) {
-      const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.3, 0.6, 16), legMaterial)
-      leg.position.set(x, -1.2, z)
+      const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.9, 0.55, LEG, 24), legMaterial)
+      leg.position.set(x, -THICK - LEG / 2, z)
       leg.castShadow = true
       root.add(leg)
     }
@@ -565,13 +574,26 @@ export function Board3D(props: Board3DProps) {
       stand.castShadow = true
       stand.receiveShadow = true
       root.add(stand)
-      return { stand, side }
+      const legs = [0, 1, 2, 3].map(() => {
+        const leg = new THREE.Mesh(new THREE.BoxGeometry(0.32, 1, 0.32), standMaterial)
+        leg.castShadow = true
+        root.add(leg)
+        return leg
+      })
+      return { stand, side, legs }
     })
     const placeStands = () =>
-      stands.forEach(({ stand, side }) => {
+      stands.forEach(({ stand, side, legs }) => {
         const c = standCenter(side === 1 ? Color.BLACK : Color.WHITE)
         stand.scale.set(layout.portrait ? STRIP_W / STAND : 1, 1, layout.portrait ? strip().d / STAND : 1)
         stand.position.set(c.x, -0.55, c.z)
+        const legH = THICK + LEG - 0.8
+        const off = STAND / 2 - 0.35
+        legs.forEach((leg, i) => {
+          leg.visible = !layout.portrait
+          leg.scale.y = legH
+          leg.position.set(c.x + (i % 2 ? off : -off), -0.8 - legH / 2, c.z + (i < 2 ? off : -off))
+        })
       })
     placeStands()
 
@@ -586,7 +608,7 @@ export function Board3D(props: Board3DProps) {
       renderer.setSize(w, h)
       camera.aspect = w / h
       camera.updateProjectionMatrix()
-      const sideFit = Math.max((2 * (5.17 + STAND)) / (w / h), 10.6)
+      const sideFit = Math.max((2 * (HALF_W + 0.45 + STAND)) / (w / h), 2 * HALF_D + 0.6)
       const portrait = w < 560 || (h * 10) / sideFit < 540
       const narrow = w < 560
       if (portrait !== layout.portrait || narrow !== layout.narrow) {
@@ -636,8 +658,8 @@ export function Board3D(props: Board3DProps) {
       const p = localPoint()
       if (!p) return null
       const file = 5 - Math.round(p.x)
-      const rank = Math.round(p.z) + 5
-      if (file < 1 || file > 9 || rank < 1 || rank > 9 || Math.abs(p.x) > 4.5 || Math.abs(p.z) > 4.5) return null
+      const rank = Math.round(p.z / SQ_D) + 5
+      if (file < 1 || file > 9 || rank < 1 || rank > 9 || Math.abs(p.x) > 4.5 || Math.abs(p.z) > 4.5 * SQ_D) return null
       return { kind: 'square', square: new Square(file, rank) }
     }
 
@@ -706,7 +728,7 @@ export function Board3D(props: Board3DProps) {
       }
       s.root.rotation.y += (flip - s.root.rotation.y) * (1 - Math.exp(-dt * 12))
       if (Math.abs(flip - s.root.rotation.y) < 0.002) s.root.rotation.y = flip
-      const fit = (layout.portrait ? Math.max((layout.narrow ? 10.1 : 10.6) / camera.aspect, 2 * (strip().z + strip().d / 2) + 0.2) : Math.max((2 * (5.17 + STAND)) / camera.aspect, 10.6)) * (1 + (layout.portrait ? 0.06 : 0.16) * s.tilt)
+      const fit = (layout.portrait ? Math.max((2 * HALF_W + (layout.narrow ? 0.5 : 1.0)) / camera.aspect, 2 * (strip().z + strip().d / 2) + 0.2) : Math.max((2 * (HALF_W + 0.45 + STAND)) / camera.aspect, 2 * HALF_D + 0.6)) * (1 + (layout.portrait ? 0.06 : 0.16) * s.tilt)
       const distance = fit / (2 * Math.tan((camera.fov * Math.PI) / 360))
       const angle = 0.02 + s.tilt * 0.8
       const pan = layout.portrait ? 0 : s.tilt * 0.6
@@ -834,10 +856,10 @@ export function Board3D(props: Board3DProps) {
     const flipSign = latest.current.flipped ? -1 : 1
     for (let i = 1; i <= 9; i++) {
       const file = coordSprite(String(i))
-      file.position.set(squareX(i), 0.05, -4.75 * flipSign)
+      file.position.set(squareX(i), 0.05, -(HALF_D + 0.24) * flipSign)
       s.marks.add(file)
       const rank = coordSprite('一二三四五六七八九'[i - 1])
-      rank.position.set(4.75 * flipSign, 0.05, squareZ(i))
+      rank.position.set((HALF_W + 0.24) * flipSign, 0.05, squareZ(i))
       s.marks.add(rank)
     }
     for (const sq of latest.current.peek ?? []) {
@@ -902,12 +924,12 @@ const BIG = HAND_ORDER.filter((t) => t !== PieceType.PAWN)
 
 function standCenter(color: Color) {
   const sign = color === Color.BLACK ? 1 : -1
-  return layout.portrait ? new THREE.Vector3(0, -0.3, sign * strip().z) : new THREE.Vector3(sign * (5.12 + STAND / 2), -0.3, sign * (5.0 - STAND / 2))
+  return layout.portrait ? new THREE.Vector3(0, -0.3, sign * strip().z) : new THREE.Vector3(sign * (HALF_W + 0.4 + STAND / 2), -0.3, sign * (HALF_D - STAND / 2))
 }
 
 const STAND = 3.4
 const STRIP_W = 10
-const strip = () => (layout.narrow ? { d: 0.95, z: 5.08 + 0.95 / 2, k: 0.84 } : { d: 1.3, z: 5.15 + 1.3 / 2, k: 1 })
+const strip = () => (layout.narrow ? { d: 0.95, z: HALF_D + 0.3 + 0.95 / 2, k: 0.84 } : { d: 1.3, z: HALF_D + 0.35 + 1.3 / 2, k: 1 })
 
 function handLayout(position: ImmutablePosition, color: Color): HandSpot[] {
   const hand = position.hand(color)
@@ -993,7 +1015,7 @@ function coordSprite(text: string) {
     const canvas = document.createElement('canvas')
     canvas.width = canvas.height = 64
     const ctx = canvas.getContext('2d')!
-    ctx.fillStyle = getSettings().boardStyle === 'dark' ? 'rgba(250, 232, 196, 0.92)' : 'rgba(40, 22, 8, 0.85)'
+    ctx.fillStyle = 'rgba(236, 226, 206, 0.92)'
     ctx.font = '800 40px "Shippori Mincho B1", serif'
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
