@@ -1,0 +1,35 @@
+import { Color, Square, type ImmutablePosition } from 'tsshogi'
+import { sees } from '../pieces'
+
+export type ControlCell = { s: Square[]; g: Square[] }
+type HeatCell = { square: Square; color: number; opacity: number; label?: string }
+
+const SENTE_BLUE = 0x1f7ae0
+const GOTE_RED = 0xd2402a
+const CONTESTED = 0x9a5ad0
+
+export const EMPTY_CELL: ControlCell = { s: [], g: [] }
+
+export function controlMap(sfen: string, position: ImmutablePosition) {
+  const grid = new Map<string, ControlCell>()
+  for (const sq of position.board.listNonEmptySquares()) {
+    const piece = position.board.at(sq)!
+    for (const t of sees(sfen, sq)) {
+      const cell = grid.get(t.usi) ?? { s: [], g: [] }
+      ;(piece.color === Color.BLACK ? cell.s : cell.g).push(sq)
+      grid.set(t.usi, cell)
+    }
+  }
+  return grid
+}
+
+export function controlHeat(control: Map<string, ControlCell>): HeatCell[] {
+  return [...control.entries()].map(([usi, c]) => {
+    const d = c.s.length - c.g.length
+    return { square: Square.newByUSI(usi)!, color: d > 0 ? SENTE_BLUE : d < 0 ? GOTE_RED : CONTESTED, opacity: Math.min(0.42, 0.14 + 0.1 * Math.abs(d || 1)), label: String(Math.max(c.s.length, c.g.length) && (d === 0 ? c.s.length : Math.abs(d))) }
+  })
+}
+
+export function focusHeat(square: Square, cell: ControlCell): HeatCell {
+  return { square, color: cell.s.length !== cell.g.length ? (cell.s.length > cell.g.length ? SENTE_BLUE : GOTE_RED) : CONTESTED, opacity: 0.35 }
+}

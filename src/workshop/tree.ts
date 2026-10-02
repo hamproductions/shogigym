@@ -95,3 +95,10 @@ export function allLines(root: Tree): string[][] {
   walk(root, [])
   return out
 }
+
+export function countMoves(node: Tree): number {
+  let n = 0
+  const walk = (t: Tree) => t.children.forEach((c) => (n++, walk(c)))
+  walk(node)
+  return n
+}
