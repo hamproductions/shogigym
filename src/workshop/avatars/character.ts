@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { VRMSpringBoneCollider, VRMSpringBoneColliderShapeCapsule, VRMSpringBoneColliderShapeSphere, type VRM, type VRMHumanBoneName } from '@pixiv/three-vrm'
-import { armChain, basisQuaternion, clamp01, damp, solveArm, type ArmChain } from './ik'
+import { armChain, basisQuaternion, damp, solveArm, type ArmChain } from './ik'
 
 export const UNITS_PER_M = 1000 / 35.2
 
@@ -24,6 +24,7 @@ type Side = 'right' | 'left'
 
 export const SEIZA = { hip: 66, ankle: 50, lift: 0.042 }
 const KNEEL = 24
+const MAX_LEAN = (62 * Math.PI) / 180
 
 function fitSprings(vrm: VRM, k: number) {
   const manager = vrm.springBoneManager
@@ -126,7 +127,7 @@ export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, heig
   }
   holder.updateWorldMatrix(true, true)
   const reachOut = Math.min(...legs.map((l) => Math.abs(local(l.lower).z))) - 0.07 * UNITS_PER_M
-  const clearance = seat.tableEdge + 0.06 * UNITS_PER_M - reachOut
+  const clearance = seat.tableEdge + 0.015 * UNITS_PER_M - reachOut
   if (seat.style === 'seiza') holder.position.addScaledVector(new THREE.Vector3(0, 0, Math.sign(seat.z)), clearance)
   const seated = holder.position.clone()
   const away = new THREE.Vector3(seat.x, 0, seat.z).normalize()
@@ -229,14 +230,22 @@ export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, heig
     const edge = root.getWorldPosition(plan.edge).addScaledVector(f, -seat.tableEdge)
     const reach = armLength() * 0.93
     let best = { lean: 0, rise: 0 }
-    for (let lean = 0; lean < rad(75); lean += rad(1.5)) {
-      const rise = seat.style === 'seiza' ? clamp01((lean - rad(20)) / rad(30)) : 0
+    let bestCost = Infinity
+    const rises = seat.style === 'seiza' ? [0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9, 1] : [0]
+    for (const rise of rises) {
       const shift = riseShift(rise)
       const base = tmp.copy(hips).addScaledVector(f, shift.f - cur.f).addScaledVector(UP, shift.u - cur.u)
-      plan.q.setFromAxisAngle(axis, lean)
-      if (tmp2.copy(hd0).applyQuaternion(plan.q).add(base).sub(edge).dot(f) > 0.35 * UNITS_PER_M) break
-      best = { lean, rise }
-      if (plan.at.copy(sh0).applyQuaternion(plan.q).add(base).distanceTo(target) <= reach) break
+      for (let lean = 0; lean <= MAX_LEAN; lean += rad(2)) {
+        plan.q.setFromAxisAngle(axis, lean)
+        if (tmp2.copy(hd0).applyQuaternion(plan.q).add(base).sub(edge).dot(f) > 0.3 * UNITS_PER_M) break
+        const miss = Math.max(0, plan.at.copy(sh0).applyQuaternion(plan.q).add(base).distanceTo(target) - reach)
+        const cost = miss * 100 + lean / MAX_LEAN + rise * 0.8
+        if (cost < bestCost) {
+          bestCost = cost
+          best = { lean, rise }
+        }
+        if (!miss) break
+      }
     }
     const p = holder.worldToLocal(tmp.copy(target))
     return { ...best, yaw: Math.atan2(s * p.x, s * p.z) }
@@ -251,10 +260,10 @@ export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, heig
     const shift = riseShift(state.rise)
     holder.position.copy(seated).addScaledVector(away, recoil.back * state.flinch - shift.f).addScaledVector(UP, recoil.up * state.flinch + shift.u)
     if (seat.style === 'seiza') poseLegs(state.rise)
-    shoulder.quaternion.setFromAxisAngle(AY, -s * rad(14) * state.reachW).multiply(qa.setFromAxisAngle(AZ, rightSign * rad(6) * state.reachW))
+    shoulder.quaternion.setFromAxisAngle(AY, -s * rad(28) * state.reachW).multiply(qa.setFromAxisAngle(AZ, rightSign * rad(14) * state.reachW))
     const reachLean = r.lean * Math.min(1, state.reachW * 2.5)
-    state.stretch = state.reachW > 0.5 ? Math.min(rad(60), Math.max(0, state.stretch + Math.max(-1, Math.min(1, (state.excess + 0.03 * UNITS_PER_M) / (0.1 * UNITS_PER_M))) * dt * 10)) : damp(state.stretch, 0, 6, dt)
-    const leanTarget = rad(seat.style === 'seiza' ? 7 : 5) + reachLean + state.stretch + state.bow * rad(38) + state.slump * rad(16) + state.think * rad(4) + recoil.lean * state.flinch
+    state.stretch = state.reachW > 0.5 ? Math.min(rad(12), Math.max(0, state.stretch + Math.max(-1, Math.min(1, (state.excess + 0.03 * UNITS_PER_M) / (0.1 * UNITS_PER_M))) * dt * 6)) : damp(state.stretch, 0, 6, dt)
+    const leanTarget = rad(seat.style === 'seiza' ? 7 : 5) + Math.min(MAX_LEAN + rad(5), reachLean + state.stretch) + state.bow * rad(38) + state.slump * rad(16) + state.think * rad(4) + recoil.lean * state.flinch
     state.lean = damp(state.lean, leanTarget, state.reachW > 0.05 ? 16 : 8, dt)
     state.twist = damp(state.twist, Math.max(-0.5, Math.min(0.5, r.yaw * 0.35)) * state.reachW, 10, dt)
     const breath = Math.sin(state.time * 1.7) * rad(1.2)
