@@ -15,7 +15,7 @@ import { TESUJI_KINDS, TESUJI_DRILLS, markTesuji, pickTesuji, tesujiStats, type 
 import { deleteGame, loadGames, storeGame, type StoredGame } from './games'
 import { PIECE_SETS, loadPieceSet, pieceUrl, type PieceSet } from './pieceSets'
 import { addPath, allLines, emptyTree, isMainLine, mainContinuation, mainLine, nodeAt, promote, removeBranch, type Tree } from './tree'
-import { PIECE_FINISHES, PIECE_FONTS, STRENGTH, loadPieceFont, playSound, setSettings, useSettings, type AiStrength, type BoardStyle, type PieceFinish, type PieceFont, type PieceStyle } from './settings'
+import { PIECE_FINISHES, PIECE_FONTS, STRENGTH, loadPieceFont, playSound, setSettings, useSettings, type AiStrength, type BoardStyle, type Environment, type PieceFinish, type PieceFont, type PieceStyle } from './settings'
 import { analyze, engineSupported, scoreToCp, type Score } from '../engine'
 import { useAnalysis } from '../hooks'
 import { LABELS, describeMove, reviewMove, scoreWinRate, usiPosition, type MoveReview } from '../analysis'
@@ -1301,7 +1301,7 @@ export function Workshop() {
             )}
           </div>}
           <Board3D
-            key={`${settings.pieceStyle}|${settings.boardStyle}|${settings.pieceFinish}|${settings.coords}|${fontReady}`}
+            key={`${settings.pieceStyle}|${settings.boardStyle}|${settings.pieceFinish}|${settings.coords}|${settings.environment}|${fontReady}`}
             position={position}
             flipped={flipped}
             tilted={tilted}
@@ -3031,6 +3031,7 @@ function SettingsDialog({ onClose, level, onLevel }: { onClose: () => void; leve
             ),
           )}
         </div>
+        {seg<Environment>('Setting', st.environment, [{ v: 'traditional', t: '対局室 Traditional' }, { v: 'casual', t: '家庭 Casual' }], (v) => setSettings({ environment: v }))}
         {seg('Board coordinates', st.coords, [{ v: true, t: 'Show (wider margin)' }, { v: false, t: 'Hide' }], (v) => setSettings({ coords: v }))}
         {seg<PieceFinish>('Piece finish', st.pieceFinish, (Object.keys(PIECE_FINISHES) as PieceFinish[]).map((v) => ({ v, t: PIECE_FINISHES[v].label })), (v) => setSettings({ pieceFinish: v }))}
         <p className="ws-muted ws-credit">{PIECE_FINISHES[st.pieceFinish].hint}</p>

@@ -4,6 +4,7 @@ import { useSyncExternalStore } from 'react'
 export type PieceStyle = 'two' | 'one'
 export type PieceFont = 'mincho' | 'kaisho' | 'gyosho' | 'antique'
 export type PieceFinish = 'oshi' | 'kaki' | 'hori' | 'horiume' | 'moriage'
+export type Environment = 'traditional' | 'casual'
 export type BoardStyle = 'kaya' | 'shin-kaya' | 'dark'
 export type AiStrength = 'beginner' | 'club' | 'strong' | 'max'
 
@@ -15,6 +16,7 @@ export type Settings = {
   pieceSet: PieceSet
   pieceFinish: PieceFinish
   coords: boolean
+  environment: Environment
   boardStyle: BoardStyle
   thinkMs: number
   candidates: number
@@ -25,7 +27,7 @@ export type Settings = {
 
 const KEY = 'joseki-practice:settings:v1'
 
-const DEFAULTS: Settings = { sound: true, volume: 0.6, pieceStyle: 'two', pieceFont: 'mincho', pieceSet: 'letters', pieceFinish: 'moriage', coords: true, boardStyle: 'kaya', thinkMs: 1500, candidates: 3, opponent: 'beginner', aiStrategy: '', assist: true }
+const DEFAULTS: Settings = { sound: true, volume: 0.6, pieceStyle: 'two', pieceFont: 'mincho', pieceSet: 'letters', pieceFinish: 'moriage', coords: true, environment: 'traditional', boardStyle: 'kaya', thinkMs: 1500, candidates: 3, opponent: 'beginner', aiStrategy: '', assist: true }
 
 function read(): Settings {
   try {

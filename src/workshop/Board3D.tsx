@@ -41,9 +41,13 @@ function setBoardDims() {
   MARGIN = (getSettings().coords ? 26 : 8) / 35.2
   HALF_W = 4.5 + MARGIN
   HALF_D = 4.5 * SQ_D + MARGIN
+  CASUAL = getSettings().environment === 'casual'
+  THICK = (CASUAL ? 60 : 182) / 35.2
+  LEG = CASUAL ? 0 : 95 / 35.2
 }
-const THICK = 182 / 35.2
-const LEG = 95 / 35.2
+let CASUAL = false
+let THICK = 182 / 35.2
+let LEG = 95 / 35.2
 const STAND_TOP = -8 / 35.2
 const STAND_SLAB = 20 / 35.2
 
@@ -136,6 +140,69 @@ function tatamiTexture() {
   texture.colorSpace = THREE.SRGBColorSpace
   texture.wrapS = texture.wrapT = THREE.RepeatWrapping
   texture.repeat.set(3, 1.5)
+  texture.anisotropy = 8
+  return texture
+}
+
+const TABLE_H = 740 / 35.2
+
+function floorTexture() {
+  const texture = new THREE.CanvasTexture(grainTexture(1024, 1024, [176, 136, 92], 220, 41))
+  texture.colorSpace = THREE.SRGBColorSpace
+  texture.wrapS = texture.wrapT = THREE.RepeatWrapping
+  texture.repeat.set(6, 6)
+  return texture
+}
+
+function buildCasual(root: THREE.Group) {
+  const top = -THICK
+  const tableW = 1100 / 35.2
+  const tableD = 800 / 35.2
+  const tableT = 30 / 35.2
+  const wood = new THREE.MeshStandardMaterial({ map: tableTexture(), roughness: 0.6 })
+  const add = (geometry: THREE.BufferGeometry, material: THREE.Material, x: number, y: number, z: number) => {
+    const mesh = new THREE.Mesh(geometry, material)
+    mesh.position.set(x, y, z)
+    mesh.castShadow = true
+    mesh.receiveShadow = true
+    root.add(mesh)
+    return mesh
+  }
+  add(new THREE.BoxGeometry(tableW, tableT, tableD), wood, 0, top - tableT / 2, 0)
+  const legH = TABLE_H - tableT
+  for (const [sx, sz] of [
+    [-1, -1],
+    [1, -1],
+    [-1, 1],
+    [1, 1],
+  ])
+    add(new THREE.BoxGeometry(1.6, legH, 1.6), wood, sx * (tableW / 2 - 1.6), top - tableT - legH / 2, sz * (tableD / 2 - 1.6))
+  const chairWood = new THREE.MeshStandardMaterial({ color: 0x6b4426, roughness: 0.65 })
+  const cushion = new THREE.MeshStandardMaterial({ color: 0x8a3a2a, roughness: 0.95 })
+  const floorY = top - TABLE_H
+  const seatH = 440 / 35.2
+  const seat = 440 / 35.2
+  for (const side of [1, -1]) {
+    const cz = side * (tableD / 2 + seat / 2 - 2)
+    add(new THREE.BoxGeometry(seat, 1, seat), chairWood, 0, floorY + seatH - 0.5, cz)
+    add(new THREE.BoxGeometry(seat - 1, 0.6, seat - 1), cushion, 0, floorY + seatH + 0.3, cz)
+    for (const [sx, sz] of [
+      [-1, -1],
+      [1, -1],
+      [-1, 1],
+      [1, 1],
+    ])
+      add(new THREE.BoxGeometry(1, seatH - 1, 1), chairWood, sx * (seat / 2 - 0.6), floorY + (seatH - 1) / 2, cz + sz * (seat / 2 - 0.6))
+    const backH = 420 / 35.2
+    add(new THREE.BoxGeometry(seat, backH, 0.9), chairWood, 0, floorY + seatH + backH / 2, cz + side * (seat / 2 - 0.45))
+  }
+}
+
+function tableTexture() {
+  const texture = new THREE.CanvasTexture(grainTexture(1024, 1024, [122, 82, 50], 180, 31))
+  texture.colorSpace = THREE.SRGBColorSpace
+  texture.wrapS = texture.wrapT = THREE.RepeatWrapping
+  texture.repeat.set(4, 2)
   texture.anisotropy = 8
   return texture
 }
@@ -244,6 +311,16 @@ function boardTexture(style: BoardStyle) {
   const my = (MARGIN / (2 * HALF_D)) * sizeH
   const cw = (sizeW - mx * 2) / 9
   const ch = (sizeH - my * 2) / 9
+  if (CASUAL) {
+    ctx.strokeStyle = 'rgba(70, 42, 16, 0.22)'
+    ctx.lineWidth = 1.5
+    for (const f of [0.27, 0.52, 0.76]) {
+      ctx.beginPath()
+      ctx.moveTo(0, sizeH * f)
+      ctx.lineTo(sizeW, sizeH * f)
+      ctx.stroke()
+    }
+  }
   ctx.strokeStyle = BOARD_TONE[style].line
   ctx.lineWidth = 2.2
   for (let i = 0; i <= 9; i++) {
@@ -613,6 +690,7 @@ export function pieceMesh(type: PieceType, color: Color) {
 type Pick = { kind: 'square'; square: Square } | { kind: 'hand'; color: Color; type: PieceType } | { kind: 'arrow'; usi: string }
 
 type SceneState = {
+  placeStands: () => void
   renderer: THREE.WebGLRenderer
   scene: THREE.Scene
   camera: THREE.PerspectiveCamera
@@ -672,6 +750,11 @@ export function Board3D(props: Board3DProps) {
     floor.receiveShadow = true
     floor.rotation.x = -Math.PI / 2
     floor.position.y = -THICK - LEG
+    if (CASUAL) {
+      floor.material = new THREE.MeshStandardMaterial({ map: floorTexture(), roughness: 0.7 })
+      floor.position.y = -THICK - TABLE_H
+      buildCasual(root)
+    }
     floor.receiveShadow = true
     scene.add(floor)
 
@@ -682,7 +765,7 @@ export function Board3D(props: Board3DProps) {
     board.castShadow = true
     board.receiveShadow = true
     root.add(board)
-    buildRoom(root)
+    if (!CASUAL) buildRoom(root)
 
     const legMaterial = woodMaterial([120, 78, 36], 17)
     for (const [x, z] of [
@@ -694,6 +777,7 @@ export function Board3D(props: Board3DProps) {
       const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.9, 0.55, LEG, 24), legMaterial)
       leg.position.set(x, -THICK - LEG / 2, z)
       leg.castShadow = true
+      leg.visible = !CASUAL
       root.add(leg)
     }
 
@@ -715,11 +799,14 @@ export function Board3D(props: Board3DProps) {
     const placeStands = () =>
       stands.forEach(({ stand, side, legs }) => {
         const c = standCenter(side === 1 ? Color.BLACK : Color.WHITE)
-        stand.scale.set(layout.portrait ? STRIP_W / STAND : 1, 1, layout.portrait ? strip().d / STAND : 1)
-        stand.position.set(c.x, STAND_TOP - STAND_SLAB / 2, c.z)
+        const grow = (standSize.get(side === 1 ? Color.BLACK : Color.WHITE) ?? STAND) / STAND
+        stand.scale.set(layout.portrait ? STRIP_W / STAND : grow, 1, layout.portrait ? strip().d / STAND : grow)
+        const block = CASUAL && !layout.portrait ? (THICK + STAND_TOP) / STAND_SLAB : 1
+        stand.scale.y = block
+        stand.position.set(c.x, STAND_TOP - (STAND_SLAB * block) / 2, c.z)
         const legH = THICK + LEG + STAND_TOP - STAND_SLAB
         const [post, foot] = legs
-        post.visible = foot.visible = !layout.portrait
+        post.visible = foot.visible = !layout.portrait && !CASUAL
         post.scale.y = legH
         post.position.set(c.x, STAND_TOP - STAND_SLAB - legH / 2, c.z)
         foot.position.set(c.x, -THICK - LEG + 0.11, c.z)
@@ -730,7 +817,7 @@ export function Board3D(props: Board3DProps) {
     const marks = new THREE.Group()
     root.add(pieces, marks)
 
-    state.current = { renderer, scene, camera, root, pieces, marks, board, handMeshes: [], tags: [], tilt: 0, tiltTarget: 0, animations: [], drag: null }
+    state.current = { renderer, scene, camera, root, pieces, marks, board, placeStands, handMeshes: [], tags: [], tilt: 0, tiltTarget: 0, animations: [], drag: null }
 
     const resize = () => {
       const { clientWidth: w, clientHeight: h } = el
@@ -857,7 +944,7 @@ export function Board3D(props: Board3DProps) {
       }
       s.root.rotation.y += (flip - s.root.rotation.y) * (1 - Math.exp(-dt * 12))
       if (Math.abs(flip - s.root.rotation.y) < 0.002) s.root.rotation.y = flip
-      const fit = (layout.portrait ? Math.max((2 * HALF_W + (layout.narrow ? 0.5 : 1.0)) / camera.aspect, 2 * (strip().z + strip().d / 2) + 0.2) : Math.max((2 * (HALF_W + 0.45 + STAND)) / camera.aspect, 2 * HALF_D + 0.6)) * (1 + (layout.portrait ? 0.06 : 0.16) * s.tilt)
+      const fit = (layout.portrait ? Math.max((2 * HALF_W + (layout.narrow ? 0.5 : 1.0)) / camera.aspect, 2 * (strip().z + strip().d / 2) + 0.2) : Math.max((2 * (HALF_W + 0.45 + maxStand())) / camera.aspect, 2 * HALF_D + 0.6)) * (1 + (layout.portrait ? 0.06 : 0.16) * s.tilt)
       const distance = fit / (2 * Math.tan((camera.fov * Math.PI) / 360))
       const angle = 0.02 + s.tilt * 0.8
       const pan = layout.portrait ? 0 : s.tilt * 0.6
@@ -910,8 +997,10 @@ export function Board3D(props: Board3DProps) {
         mesh.position.copy(from)
       }
     }
-    for (const color of [Color.BLACK, Color.WHITE]) {
-      for (const spot of handLayout(position, color)) {
+    const hands = [Color.BLACK, Color.WHITE].map((color) => [color, handLayout(position, color)] as const)
+    s.placeStands()
+    for (const [color, spots] of hands) {
+      for (const spot of spots) {
         const mesh = pieceMesh(spot.type, color)
         mesh.rotation.y += spot.rot
         mesh.scale.setScalar(0.96 * spot.scale)
@@ -924,7 +1013,7 @@ export function Board3D(props: Board3DProps) {
           const badge = badgeSprite(String(spot.count), '#2a241e')
           badge.scale.setScalar(0.5)
           const sign = color === Color.BLACK ? 1 : -1
-          badge.position.set(spot.x + sign * 0.3, 0.4, spot.z - sign * 0.3)
+          badge.position.set(spot.x + sign * 0.3, layout.portrait ? 0.4 : STAND_TOP + 0.35, spot.z - sign * 0.3)
           s.pieces.add(badge)
         }
       }
@@ -1056,9 +1145,13 @@ type HandSpot = { type: PieceType; x: number; z: number; rot: number; scale: num
 
 const BIG = HAND_ORDER.filter((t) => t !== PieceType.PAWN)
 
+const standSize = new Map<Color, number>()
+const maxStand = () => Math.max(STAND, ...standSize.values())
+
 function standCenter(color: Color) {
   const sign = color === Color.BLACK ? 1 : -1
-  return layout.portrait ? new THREE.Vector3(0, STAND_TOP, sign * strip().z) : new THREE.Vector3(sign * (HALF_W + 0.4 + STAND / 2), STAND_TOP, sign * (HALF_D - STAND / 2))
+  const size = standSize.get(color) ?? STAND
+  return layout.portrait ? new THREE.Vector3(0, STAND_TOP, sign * strip().z) : new THREE.Vector3(sign * (HALF_W + 0.4 + size / 2), STAND_TOP, sign * (HALF_D - size / 2))
 }
 
 const STAND = 3.4
@@ -1073,66 +1166,63 @@ function handLayout(position: ImmutablePosition, color: Color): HandSpot[] {
     const types = [...BIG, PieceType.PAWN].filter((t) => hand.count(t) > 0)
     return types.map((type, i) => ({ type, x: c.x + sign * (STRIP_W / 2 - 0.6 - i * 1.02), z: c.z, rot: 0, scale: strip().k, count: hand.count(type) }))
   }
-  const groups = [
-    [PieceType.ROOK, PieceType.BISHOP, PieceType.GOLD, PieceType.SILVER],
-    [PieceType.KNIGHT, PieceType.LANCE],
-    [PieceType.PAWN],
-  ]
-    .map((types) => types.flatMap((t) => Array(hand.count(t)).fill(t) as PieceType[]))
-    .filter((g) => g.length)
-  const size = STAND - 0.45
-  const pivot = 3.2
-  const base = (t: PieceType, k: number) => (PIECE_SIZE[t] ?? 0.8) * 0.96 * k
-  let overlap = 0.8
-  let pitch = 1.25
-  const gaps = (row: PieceType[], k: number) => row.slice(1).map((t, i) => ((base(row[i], k) + base(t, k)) * overlap) / 2)
-  const rowRadius = (row: PieceType[], k: number) => Math.max(pivot * k, gaps(row, k).reduce((a, b) => a + b, 0) / 0.5)
-  const rowSteps = (row: PieceType[], k: number) => gaps(row, k).map((g) => g / rowRadius(row, k))
-  const rowWidth = (row: PieceType[], k: number) => {
-    const angle = rowSteps(row, k).reduce((a, b) => a + b, 0)
-    return 2 * rowRadius(row, k) * Math.sin(angle / 2) + base(row[0], k) * 0.9
+  const pieces = [PieceType.ROOK, PieceType.BISHOP, PieceType.GOLD, PieceType.SILVER, PieceType.KNIGHT, PieceType.LANCE, PieceType.PAWN].flatMap((t) => Array(hand.count(t)).fill(t) as PieceType[])
+  const w = (t: PieceType) => komaWidth(PIECE_SIZE[t] ?? 0.8) * 0.96
+  const h = (t: PieceType) => (PIECE_SIZE[t] ?? 0.8) * 0.96
+  const gap = 0.03
+  const radius = 3.6
+  const arc = (row: PieceType[]) => {
+    const steps = row.slice(1).map((t, i) => ((w(row[i]) + w(t)) / 2 + gap) / (radius + Math.max(h(row[i]), h(t)) / 2))
+    let theta = -steps.reduce((a, b) => a + b, 0) / 2
+    const placed = row.map((type, i) => {
+      if (i > 0) theta += steps[i - 1]
+      return { type, x: radius * Math.sin(theta), z: radius * (1 - Math.cos(theta)) - h(type) / 2, rot: -theta }
+    })
+    const corners = placed.flatMap((p) =>
+      [
+        [-1, -1],
+        [1, -1],
+        [-1, 1],
+        [1, 1],
+      ].map(([a, b]) => {
+        const lx = (a * w(p.type)) / 2
+        const lz = (b * h(p.type)) / 2
+        return [p.x + lx * Math.cos(p.rot) + lz * Math.sin(p.rot), p.z - lx * Math.sin(p.rot) + lz * Math.cos(p.rot)]
+      }),
+    )
+    const xs = corners.map((c) => c[0])
+    const zs = corners.map((c) => c[1])
+    return { placed, width: Math.max(...xs) - Math.min(...xs), top: Math.min(...zs), bottom: Math.max(...zs) }
   }
-  const rowSag = (row: PieceType[], k: number) => rowRadius(row, k) * (1 - Math.cos(rowSteps(row, k).reduce((a, b) => a + b, 0) / 2))
-  const rowHeight = (row: PieceType[], k: number) => Math.max(...row.map((t) => base(t, k))) * pitch + rowSag(row, k)
-  let k = 1
-  let rows: PieceType[][] = []
-  for (let attempt = 0; attempt < 30; attempt++) {
-    rows = []
-    for (const g of groups) {
-      let row: PieceType[] = []
-      for (const t of g) {
-        if (row.length && rowWidth([...row, t], k) > size) {
-          rows.push(row)
-          row = []
-        }
-        row.push(t)
+  const pack = (inner: number) => {
+    const rows: PieceType[][] = []
+    let row: PieceType[] = []
+    for (const t of pieces) {
+      if (row.length && arc([...row, t]).width > inner) {
+        rows.push(row)
+        row = []
       }
-      rows.push(row)
+      row.push(t)
     }
-    const height = rows.reduce((sum, row) => sum + rowHeight(row, k), 0) - (rows.length ? (pitch - 1) * base(rows[rows.length - 1][0], k) : 0)
-    if (height <= size) break
-    if (overlap > 0.5) overlap -= 0.06
-    else if (pitch > 0.62) pitch -= 0.08
-    else k *= 0.96
+    if (row.length) rows.push(row)
+    return rows.map(arc)
   }
+  const height = (rows: ReturnType<typeof arc>[]) => rows.reduce((sum, r) => sum + r.bottom - r.top, 0) + gap * (rows.length - 1)
+  let size = STAND
+  let rows = pack(size - 0.24)
+  while (height(rows) > size - 0.24) {
+    size += 0.05
+    rows = pack(size - 0.24)
+  }
+  standSize.set(color, size)
   const c = standCenter(color)
   const sign = color === Color.BLACK ? 1 : -1
-  const heights = rows.map((row) => rowHeight(row, k))
-  const total = heights.reduce((a, b) => a + b, 0)
   const spots: HandSpot[] = []
-  let offset = -total / 2
-  rows.forEach((row, r) => {
-    const v = offset + heights[r] / 2 + rowSag(row, k) / 2
-    offset += heights[r]
-    const radius = rowRadius(row, k)
-    const steps = rowSteps(row, k)
-    const span = steps.reduce((a, b) => a + b, 0)
-    let theta = -span / 2
-    row.forEach((type, i) => {
-      if (i > 0) theta += steps[i - 1]
-      spots.push({ type, x: c.x + sign * radius * Math.sin(theta), z: c.z + sign * (v - radius * (1 - Math.cos(theta))), rot: theta, scale: k, lift: r * 0.09 + (row.length - 1 - i) * 0.02 })
-    })
-  })
+  let v = -height(rows) / 2
+  for (const r of rows) {
+    for (const p of r.placed) spots.push({ type: p.type, x: c.x + sign * p.x, z: c.z + sign * (v - r.top + p.z), rot: p.rot, scale: 1 })
+    v += r.bottom - r.top + gap
+  }
   return spots
 }
 
