@@ -1061,7 +1061,7 @@ function standCenter(color: Color) {
 
 const STAND = 3.4
 const STRIP_W = 10
-const strip = () => (layout.narrow ? { d: 0.95, z: HALF_D + 0.3 + 0.95 / 2, k: 0.84 } : { d: 1.3, z: HALF_D + 0.35 + 1.3 / 2, k: 1 })
+const strip = () => ({ d: 1.15, z: HALF_D + 0.25 + 1.15 / 2, k: 1 })
 
 function handLayout(position: ImmutablePosition, color: Color): HandSpot[] {
   const hand = position.hand(color)
@@ -1081,7 +1081,9 @@ function handLayout(position: ImmutablePosition, color: Color): HandSpot[] {
   const size = STAND - 0.45
   const pivot = 3.2
   const base = (t: PieceType, k: number) => (PIECE_SIZE[t] ?? 0.8) * 0.96 * k
-  const gaps = (row: PieceType[], k: number) => row.slice(1).map((t, i) => ((base(row[i], k) + base(t, k)) * 0.8) / 2)
+  let overlap = 0.8
+  let pitch = 1.25
+  const gaps = (row: PieceType[], k: number) => row.slice(1).map((t, i) => ((base(row[i], k) + base(t, k)) * overlap) / 2)
   const rowRadius = (row: PieceType[], k: number) => Math.max(pivot * k, gaps(row, k).reduce((a, b) => a + b, 0) / 0.5)
   const rowSteps = (row: PieceType[], k: number) => gaps(row, k).map((g) => g / rowRadius(row, k))
   const rowWidth = (row: PieceType[], k: number) => {
@@ -1089,15 +1091,15 @@ function handLayout(position: ImmutablePosition, color: Color): HandSpot[] {
     return 2 * rowRadius(row, k) * Math.sin(angle / 2) + base(row[0], k) * 0.9
   }
   const rowSag = (row: PieceType[], k: number) => rowRadius(row, k) * (1 - Math.cos(rowSteps(row, k).reduce((a, b) => a + b, 0) / 2))
-  const rowHeight = (row: PieceType[], k: number) => Math.max(...row.map((t) => base(t, k))) * 1.25 + rowSag(row, k)
+  const rowHeight = (row: PieceType[], k: number) => Math.max(...row.map((t) => base(t, k))) * pitch + rowSag(row, k)
   let k = 1
   let rows: PieceType[][] = []
-  for (let attempt = 0; attempt < 14; attempt++) {
+  for (let attempt = 0; attempt < 30; attempt++) {
     rows = []
     for (const g of groups) {
       let row: PieceType[] = []
       for (const t of g) {
-        if (row.length && (row.length >= 6 || rowWidth([...row, t], k) > size)) {
+        if (row.length && rowWidth([...row, t], k) > size) {
           rows.push(row)
           row = []
         }
@@ -1105,9 +1107,11 @@ function handLayout(position: ImmutablePosition, color: Color): HandSpot[] {
       }
       rows.push(row)
     }
-    const height = rows.reduce((sum, row) => sum + rowHeight(row, k), 0)
+    const height = rows.reduce((sum, row) => sum + rowHeight(row, k), 0) - (rows.length ? (pitch - 1) * base(rows[rows.length - 1][0], k) : 0)
     if (height <= size) break
-    k *= 0.92
+    if (overlap > 0.5) overlap -= 0.06
+    else if (pitch > 0.62) pitch -= 0.08
+    else k *= 0.96
   }
   const c = standCenter(color)
   const sign = color === Color.BLACK ? 1 : -1
@@ -1124,7 +1128,7 @@ function handLayout(position: ImmutablePosition, color: Color): HandSpot[] {
     let theta = -span / 2
     row.forEach((type, i) => {
       if (i > 0) theta += steps[i - 1]
-      spots.push({ type, x: c.x + sign * radius * Math.sin(theta), z: c.z + sign * (v - radius * (1 - Math.cos(theta))), rot: theta, scale: k, lift: (row.length - 1 - i) * 0.02 })
+      spots.push({ type, x: c.x + sign * radius * Math.sin(theta), z: c.z + sign * (v - radius * (1 - Math.cos(theta))), rot: theta, scale: k, lift: r * 0.09 + (row.length - 1 - i) * 0.02 })
     })
   })
   return spots
