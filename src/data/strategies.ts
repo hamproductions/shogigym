@@ -176,6 +176,7 @@ export const STRATEGIES: Strategy[] = [
   { id: 'yoko-85hi', side: 'ibisha', family: 'aiibisha', ja: '横歩取り△8五飛', en: 'Side Pawn: △8五飛', level: 3, castles: ['中原囲い'], about: { ja: '横歩を取らせた後手が飛車を8五に引いて構える形。飛車が5筋・7筋へも横に利き、桂を△7三に跳ねて攻める。', en: 'Gote lets the side pawn go and parks the rook on 8五, where it covers the 5th and 7th files sideways; the knight jumps to △7三 to attack.' } },
   { id: 'yoko-45kaku', side: 'ibisha', family: 'aiibisha', ja: '横歩取り△4五角', en: 'Side Pawn: △4五角', level: 3, castles: [], about: { ja: '横歩を取られた後手が、角を交換してすぐ△4五角と打ち、先手の飛車と6七の地点を同時に狙う激しい戦法。', en: 'A sharp gambit: after the side pawn is taken, gote trades bishops and drops △4五角, hitting the rook and 6七 at once.' } },
   { id: 'ittezon', side: 'ibisha', family: 'aiibisha', ja: '一手損角換わり', en: 'Tempo-loss Bishop Exchange', level: 2, castles: ['片矢倉'], about: { ja: '後手が自分から△8八角成と角を交換する角換わり。1手損を承知で、角交換の時期を自分で選ぶ。', en: 'A Bishop Exchange where gote trades bishops itself with △8八角成, giving up a tempo to choose when the trade happens.' } },
+  { id: 'kyusen-yagura', side: 'ibisha', family: 'aiibisha', ja: '急戦矢倉', en: 'Rapid-attack Yagura', level: 3, castles: [], about: { ja: '相手が矢倉を組み終える前に、玉を囲い切らずに仕掛ける指し方。銀を中央に出して△5五歩などで早く戦いを起こす。', en: 'Attack the Yagura before it is finished, without completing your own castle: bring a silver to the centre and open the game early, for example with △5五歩.' } },
   { id: 'gangi', side: 'ibisha', family: 'aiibisha', ja: '雁木', en: 'Gangi', level: 2, castles: ['雁木囲い'], about: { ja: '銀2枚を横に並べる雁木囲いに組む居飛車。', en: 'A Static Rook set-up with the two silvers side by side in the Gangi castle.' } },
   {
     id: 'bougin',
@@ -366,7 +367,9 @@ export const MATCHUPS: Matchup[] = [
   m('hidarimino', 'shikenbisha', [], { ja: '左美濃に組み、▲2四歩から仕掛ける。藤井システムの玉頭攻めに注意。', en: 'Build Left Mino and strike with ▲2四歩; watch for the Fujii System king-head attack.' }),
   m('millennium', 'shikenbisha', [], { ja: '玉を8九に置いて角筋から外す。△6五歩からの仕掛けに注意。', en: 'King on 8九 off the bishop line; watch for the △6五歩 strike.' }),
 
-  m('yagura', 'yagura', ['yagura--24te', 'yagura--gote', 'yagura--36gin37kei'], { ja: '24手組で金銀を7八金・6七金・7七銀と組み、角を7九へ引く。そこから3六銀3七桂の形で2筋から攻める。', en: 'The 24-move build: 7八金, 6七金, 7七銀 and the bishop back to 7九. Then attack the 2nd file with the 3六銀 + 3七桂 formation.' }, { title: { ja: '相矢倉', en: 'Double Yagura' } }),
+  m('yagura', 'yagura', ['yagura--24te', 'yagura--gote', 'yagura--36gin37kei', 'shogirule--32'], { ja: '24手組で金銀を7八金・6七金・7七銀と組み、角を7九へ引く。そこから3六銀3七桂の形で2筋から攻める。脇システムではお互いに角を4六・6四に出し合い、角交換のあと端を攻める。', en: 'The 24-move build: 7八金, 6七金, 7七銀 and the bishop back to 7九. Then attack the 2nd file with the 3六銀 + 3七桂 formation. In the Waki System both bishops come out to 4六 and 6四, and after the trade the attack goes to the edge.' }, { title: { ja: '相矢倉', en: 'Double Yagura' }, sources: ['https://www.shogi-rule.com/joseki-32/'] }),
+  m('yagura', 'kyusen-yagura', ['shogirule--29'], { ja: '相手が囲いを後回しにして△5五歩と中央から仕掛けてきても、慌てずに金銀を中央に寄せて受ける。相手の玉も4一のままなので、収録の手順は先手優勢で終わる。', en: 'If the opponent skips the castle and strikes in the centre with △5五歩, stay calm and bring golds and silvers to the centre. Their king is still on 4一 too, and the collected line ends with sente better.' }, { sources: ['https://www.shogi-rule.com/joseki-29/'] }),
+  m('kyusen-yagura', 'yagura', [], { ja: '玉を4一に置いたまま、△7四歩・△5三銀右・△8五歩と攻めの形を先に作り、△5五歩で中央から仕掛ける。相手の矢倉が完成する前に戦いを起こすのが狙い。', en: 'Leave the king on 4一, build the attack first with △7四歩, △5三銀右 and △8五歩, then strike in the centre with △5五歩. The aim is to start the fight before the Yagura is complete.' }),
   m('kakugawari', 'ittezon', ['shogirule--59', 'shogirule--60'], { ja: '一手損角換わりには、得した1手を生かして早繰り銀か棒銀で早く攻める。早繰り銀は3筋、棒銀は1筋の端から銀を使う。', en: 'Against Tempo-loss Bishop Exchange, use the extra tempo to attack quickly with Rapid Advancing or Climbing Silver: the 3rd file for the former, the edge for the latter.' }, { sources: ['https://www.shogi-rule.com/joseki-59/', 'https://www.shogi-rule.com/joseki-60/'] }),
   m('ittezon', 'hayakurigin', ['shogirule--59'], { ja: '早繰り銀で3筋を破られても、△5四銀・△6五歩と中央から反撃する。角を打ち合って銀と角を交換し、角2枚の力で戦う。', en: 'If Rapid Advancing Silver breaks the 3rd file, counter in the centre with △5四銀 and △6五歩. Trade bishop drops so you end up with two bishops for a silver.' }, { sources: ['https://www.shogi-rule.com/joseki-59/'] }),
   m('ittezon', 'bougin', ['shogirule--60'], { ja: '棒銀の端攻めでは銀と香の交換を許し、△1三歩で受ける。相手の▲1二歩の拠点は残るので、持ち駒の銀と角を受けに使う準備をしておく。', en: 'Against Climbing Silver on the edge, allow the silver-for-lance trade and defend with △1三歩. The ▲1二歩 foothold stays, so keep the silver and bishop in hand ready for defence.' }, { sources: ['https://www.shogi-rule.com/joseki-60/'] }),
@@ -486,6 +489,8 @@ export const COURSE_SIDES: Record<string, [string[], string[]]> = {
   'shogirule--48': [['bougin'], [SH]],
   'shogirule--15-3': [['chousoku'], ['gokigen']],
   'shogirule--20': [['maruyama'], ['gokigen']],
+  'shogirule--29': [['yagura'], ['kyusen-yagura']],
+  'shogirule--32': [['yagura'], ['yagura']],
   'shogirule--43': [['mukaibisha'], ['sankenbisha']],
   'shogirule--44': [['sankenbisha', 'ishida'], ['sankenbisha', 'ishida']],
   'shogirule--50': [['yokofudori'], ['yoko-45kaku']],
