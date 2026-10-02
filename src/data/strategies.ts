@@ -163,6 +163,8 @@ export const STRATEGIES: Strategy[] = [
     about: { ja: 'お互いに飛車先の歩を早く伸ばし、飛車先を交換し合う相居飛車。', en: 'Both sides push the rook pawn early and trade it off.' },
   },
   { id: 'yokofudori', side: 'ibisha', family: 'aiibisha', ja: '横歩取り', en: 'Side Pawn Capture', level: 3, castles: ['中原囲い'], about: { ja: '先手が飛車で3四の歩(横歩)を取る激しい相居飛車。', en: 'A sharp Double Static Rook line where sente’s rook takes the side pawn on 3四.' } },
+  { id: 'yoko-85hi', side: 'ibisha', family: 'aiibisha', ja: '横歩取り△8五飛', en: 'Side Pawn: △8五飛', level: 3, castles: ['中原囲い'], about: { ja: '横歩を取らせた後手が飛車を8五に引いて構える形。飛車が5筋・7筋へも横に利き、桂を△7三に跳ねて攻める。', en: 'Gote lets the side pawn go and parks the rook on 8五, where it covers the 5th and 7th files sideways; the knight jumps to △7三 to attack.' } },
+  { id: 'yoko-45kaku', side: 'ibisha', family: 'aiibisha', ja: '横歩取り△4五角', en: 'Side Pawn: △4五角', level: 3, castles: [], about: { ja: '横歩を取られた後手が、角を交換してすぐ△4五角と打ち、先手の飛車と6七の地点を同時に狙う激しい戦法。', en: 'A sharp gambit: after the side pawn is taken, gote trades bishops and drops △4五角, hitting the rook and 6七 at once.' } },
   { id: 'gangi', side: 'ibisha', family: 'aiibisha', ja: '雁木', en: 'Gangi', level: 2, castles: ['雁木囲い'], about: { ja: '銀2枚を横に並べる雁木囲いに組む居飛車。', en: 'A Static Rook set-up with the two silvers side by side in the Gangi castle.' } },
   {
     id: 'bougin',
@@ -348,7 +350,10 @@ export const MATCHUPS: Matchup[] = [
   m('yagura', 'gangi', [], { ja: '矢倉対雁木。収録できる出典付きの手順はまだない。', en: 'Yagura vs Gangi. No sourced line yet.' }),
   m('kakugawari', 'kakugawari', ['kakugawari--bougin', 'kakugawari--gote', 'kakugawari--hayakurigin'], { ja: '角を交換したあと、角を打たれる隙を作らずに駒組みし、棒銀や早繰り銀で攻める/受ける。', en: 'After the bishop trade, build without leaving drop squares, then attack or defend against Climbing or Rapid Advancing Silver.' }, { title: { ja: '相角換わり', en: 'Bishop Exchange' } }),
   m('aigakari', 'aigakari', ['aigakari--bougin', 'aigakari--gote'], { ja: 'お互いに飛車先の歩を交換したあと、銀を繰り出して2筋を攻める。', en: 'After both sides trade the rook pawn, advance the silver and attack the 2nd file.' }, { title: { ja: '相掛かり', en: 'Double Wing Attack' } }),
-  m('yokofudori', 'yokofudori', [], { ja: '横歩取り。収録できる出典付きの手順はまだない。', en: 'Side Pawn Capture. No sourced line yet.' }, { title: { ja: '横歩取り', en: 'Side Pawn Capture' } }),
+  m('yokofudori', 'yoko-85hi', ['shogirule--53', 'shogirule--52'], { ja: '横歩を取ったあと飛車を2六に引き、玉を6八か5八に囲う。相手の△7三桂・△8六歩からの攻めには、角交換と▲3五歩で右側から反撃する。', en: 'After taking the side pawn, bring the rook back to 2六 and put the king on 6八 or 5八. Answer △7三桂 and △8六歩 with a bishop trade and ▲3五歩 on the right side.' }, { sources: ['https://www.shogi-rule.com/joseki-53/', 'https://www.shogi-rule.com/joseki-52/'] }),
+  m('yokofudori', 'yoko-45kaku', ['shogirule--50'], { ja: '△4五角は飛車と6七を同時に狙う奇襲。▲2四飛とかわし、△2三歩に▲7七角と打って飛車と香の両取りで返すのが受けの筋。', en: '△4五角 is a gambit hitting the rook and 6七 at once. Sidestep with ▲2四飛, and after △2三歩 drop ▲7七角 to fork the rook and the lance.' }, { sources: ['https://www.shogi-rule.com/joseki-50/'] }),
+  m('yoko-85hi', 'yokofudori', [], { ja: '横歩を取らせて飛車を8五に引き、△4一玉・△6二銀・△5一金と囲う。△7四歩・△7三桂と桂を跳ね、8筋と7筋から攻める。', en: 'Let the side pawn go, park the rook on 8五 and castle with △4一玉, △6二銀 and △5一金. Jump the knight via △7四歩 and △7三桂 and attack on the 8th and 7th files.' }),
+  m('yoko-45kaku', 'yokofudori', [], { ja: '角を交換して△2八歩▲同銀のあと△4五角と打つ。変化が激しいので手順を正確に覚える。収録の本線は互角で終わる。', en: 'Trade bishops, play △2八歩 ▲同銀 and drop △4五角. The play is sharp, so learn the order exactly; the collected line ends level.' }),
   m('gangi', 'yagura', [], { ja: '雁木対矢倉。収録できる出典付きの手順はまだない。', en: 'Gangi vs Yagura. No sourced line yet.' }),
   m('sujichigai', 'ibisha', ['sujichigaikaku--basic'], { ja: '早い角交換から4五に角を打って歩を得し、飛車を8筋へ回して銀・桂と組み合わせて攻める。1手損している点は忘れない。', en: 'Trade bishops early, drop on 4五 to win a pawn, then swing the rook to the 8th file and attack with silver and knight. Remember you are a tempo down.' }, { id: 'sujichigai-basics', basics: true, title: { ja: '基本の手順', en: 'Basic line' } }),
 ]
@@ -454,6 +459,9 @@ export const COURSE_SIDES: Record<string, [string[], string[]]> = {
   'shogirule--47': [['hayashikake45'], [SH]],
   'shogirule--47-2': [['hayashikake45'], [SH]],
   'shogirule--48': [['bougin'], [SH]],
+  'shogirule--50': [['yokofudori'], ['yoko-45kaku']],
+  'shogirule--52': [['yokofudori'], ['yoko-85hi']],
+  'shogirule--53': [['yokofudori'], ['yoko-85hi']],
 }
 
 export const LEGACY_AI_STRATEGY: Record<string, string> = {
