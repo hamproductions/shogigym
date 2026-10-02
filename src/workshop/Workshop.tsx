@@ -553,9 +553,12 @@ export function Workshop() {
     }
     setSelection(null)
     setPromotion(null)
-    setMistake({ base: cursor, usi, expected, note: reason ?? deviation?.punishNote ?? deviation?.note, loss, known: deviation?.kind === 'deviation' || !!reason, verdict })
-    setPreview({ base: cursor, moves: [usi, ...refutation], step: 1, title: `why ${moveText(liveSfen, usi)} fails` })
-    setPlaying(true)
+    const found: Mistake = { usi, loss, known: deviation?.kind === 'deviation' || !!reason, verdict }
+    setMistake({ base: cursor, expected, note: reason ?? deviation?.punishNote ?? deviation?.note, ...found })
+    if (mistakeIsBad(found)) {
+      setPreview({ base: cursor, moves: [usi, ...refutation], step: 1, title: `why ${moveText(liveSfen, usi)} fails` })
+      setPlaying(true)
+    }
     setTab('coach')
     return verdict
   }
@@ -954,16 +957,19 @@ export function Workshop() {
     return () => window.removeEventListener('keydown', onKey)
   }, [palette, game.moves.length, reply, play, playing, preview, promotion, showSettings, confirm, autoplayAllowed, lessonAsking, lessonMode, lessonGood])
 
+  const studyReply = mode === 'lesson' && course && lessonMode === 'study' && !lessonAsking && !lessonDone && !preview && !mistake ? reply : null
+
   const modeInstruction = () => {
     if (checking) return 'Checking that move…'
     if (preview && mistake) return mistakeIsBad(mistake) ? 'Watch how it gets punished, then go back and try again.' : 'Watch what follows, then go back and play the lesson move.'
+    if (mistake && !preview) return mistakeIsBad(mistake) ? `${moveText(sfens[mistake.base], mistake.usi)} was a mistake. Try again.` : `${moveText(sfens[mistake.base], mistake.usi)} is a fine move, but not this lesson's. Find the book move.`
     if (preview) return 'Preview: watch it play out, then keep these moves or exit the preview.'
     if (mode === 'lesson') {
       if (!course) return 'Pick a technique or an opening, then Study or Quiz.'
       if (lessonOffBook) return 'Off the lesson line. Go back to it, or explore in Analyze.'
       if (lessonDone) return 'Line complete.'
       if (lessonAsking) return lessonMode === 'study' ? `Your move as ${userSide === 'sente' ? '☗' : '☖'}: play the green arrow.${lessonGood.some((b) => b.note) ? ' The coach tells you why.' : ''}` : showAnswer ? 'Answer shown: play the green arrow.' : `Your move as ${userSide === 'sente' ? '☗' : '☖'}: find the book move. No hints.`
-      return lessonMode === 'study' ? 'Their move is shown. Press Space or Play their move.' : 'Their reply comes in a moment.'
+      return lessonMode === 'study' ? (compact ? 'Their move is shown. Tap Play their move.' : 'Their move is shown. Press Space or Play their move.') : 'Their reply comes in a moment.'
     }
     if (mode === 'drill') return drillItem ? (drillItem.kind === 'mistake' && !drill?.result ? 'Find a better move than the one you played in your game.' : drill?.result ? 'Next card when you are ready.' : drill?.queue === 'new' ? 'Learn this move: play the green arrow.' : 'Play the move you learned.') : 'Pick what to review.'
     if (mode === 'tesuji') return tesujiDrill ? (tesujiDrill.status === 'asking' ? `${colorSide(position.color) === 'sente' ? '☗' : '☖'} to move: find the 手筋.` : 'Next drill when you are ready.') : 'Find the tesuji.'
@@ -1237,7 +1243,7 @@ export function Workshop() {
           </span>
           {(mode === 'spar' || mode === 'analyze') && (
             <button className={`ws-help-toggle${settings.assist ? ' on' : ''}`} onClick={() => setSettings({ assist: !settings.assist })} title={settings.assist ? 'Help is on: eval bar, AI arrows and move ratings. Click to play with no help.' : 'No help: click to show the eval bar, AI arrows and move ratings again.'} aria-pressed={settings.assist}>
-              {settings.assist ? 'Help on' : 'No help'}
+              {settings.assist ? 'Coach: on' : 'Coach: off'}
             </button>
           )}
           {!panelHidden && (
@@ -1326,6 +1332,7 @@ export function Workshop() {
               <span className="ws-preview-seal">{mistakeSeal(mistake)}</span>
               {mode === 'drill' && <span className="ws-short">{mistakeIsBad(mistake) ? 'Better' : 'Lesson'}: {moveText(sfens[mistake.base], mistake.expected)}</span>}
               {mode === 'tsume' && <span className="ws-short">Not mate</span>}
+              {mode === 'lesson' && <span className="ws-short">{mistake.verdict ? LABELS[mistake.verdict.label].text : 'Mistake'}</span>}
               <span>
                 {mistakeHeadline(moveText(sfens[mistake.base], mistake.usi), mistake)}. {playing ? 'Watch what follows.' : preview.step < preview.moves.length ? 'Paused.' : 'That is how it continues.'}
               </span>
@@ -1389,9 +1396,9 @@ export function Workshop() {
           {mode === 'tsume' && <span className="ws-plate bottom"><span className="ws-plate-side">{flipped ? '☖ Gote' : '☗ Sente'}</span><span className="ws-muted">{(flipped ? 'gote' : 'sente') === userSide ? 'You attack' : 'Defends'}</span></span>}
           {mode !== 'tsume' && !(mode === 'lesson' && !course) && <Plate className="top" position={position} color={flipped ? Color.BLACK : Color.WHITE} who={mode === 'analyze' || (mode === 'lesson' && !course) || (mode === 'drill' && !drillItem) ? null : (flipped ? 'sente' : 'gote') === userSide ? 'You' : 'Opponent'} />}
           {compact && !drawer && (
-            <button className="ws-phone-task" onClick={() => setDrawer(true)}>
+            <button className="ws-phone-task" onClick={() => (studyReply ? play(studyReply.usi) : setDrawer(true))}>
               <span>{modeInstruction()}</span>
-              <b>{mode === 'lesson' && !course ? 'Pick a lesson' : mode === 'drill' && !drillItem ? 'Pick a queue' : 'Panel'} ›</b>
+              <b>{studyReply ? 'Play their move' : mode === 'lesson' && !course ? 'Pick a lesson' : mode === 'drill' && !drillItem ? 'Pick a queue' : 'Panel'} ›</b>
             </button>
           )}
           {mode !== 'tsume' && !(mode === 'lesson' && !course) && <Plate className="bottom" position={position} color={flipped ? Color.WHITE : Color.BLACK} who={mode === 'analyze' || (mode === 'lesson' && !course) || (mode === 'drill' && !drillItem) ? null : (flipped ? 'gote' : 'sente') === userSide ? 'You' : 'Opponent'} />}
@@ -1442,7 +1449,7 @@ export function Workshop() {
               {promotion.map((m) => (
                 <button key={m.usi} className={m.promote ? 'yes' : 'no'} onClick={() => void commit(m.usi)}>
                   <span className={`ws-koma${m.promote ? ' promoted' : ''}`}>{m.promote ? (PROMOTED_CHAR[m.pieceType] ?? PIECE_CHAR[m.pieceType]) : PIECE_CHAR[m.pieceType]}</span>
-                  <span>{m.promote ? '成る' : '成らない'}</span>
+                  <span>{m.promote ? '成る Promote' : '成らない Keep'}</span>
                 </button>
               ))}
               <button className="cancel" onClick={() => (setPromotion(null), setSelection(null))} title="Cancel this move (Esc)">
@@ -3005,6 +3012,9 @@ function SettingsDialog({ onClose, level, onLevel }: { onClose: () => void; leve
   return (
     <div className="ws-palette-back" onPointerDown={onClose}>
       <div className="ws-dialog ws-settings" role="dialog" aria-label="Settings" onPointerDown={(e) => e.stopPropagation()}>
+        <button className="ws-dialog-x" onClick={onClose} aria-label="Close settings" title="Close (Esc)">
+          ×
+        </button>
         <h2>設定 Settings</h2>
         <h3>You</h3>
         {seg<Level>('Shogi knowledge', level, [{ v: 'rules', t: 'I know the rules' }, { v: 'new', t: 'New to shogi' }], onLevel)}

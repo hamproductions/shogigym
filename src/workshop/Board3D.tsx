@@ -1170,6 +1170,7 @@ function handLayout(position: ImmutablePosition, color: Color): HandSpot[] {
   const w = (t: PieceType) => komaWidth(PIECE_SIZE[t] ?? 0.8) * 0.96
   const h = (t: PieceType) => (PIECE_SIZE[t] ?? 0.8) * 0.96
   const inner = STAND - 0.16
+  const big = (t: PieceType) => t === PieceType.ROOK || t === PieceType.BISHOP
   type Placed = { type: PieceType; x: number; z: number; rot: number; lift: number }
   const corners = (p: Placed) =>
     [
@@ -1182,6 +1183,22 @@ function handLayout(position: ImmutablePosition, color: Color): HandSpot[] {
       const lz = (b * h(p.type)) / 2
       return [p.x + lx * Math.cos(p.rot) + lz * Math.sin(p.rot), p.z - lx * Math.sin(p.rot) + lz * Math.cos(p.rot)]
     })
+  const collide = (p: Placed, q: Placed, gap: number) => {
+    const grow = (c: number[][], o: Placed) => c.map(([x, z]) => [o.x + (x - o.x) * (1 + gap), o.z + (z - o.z) * (1 + gap)])
+    const a = grow(corners(p), p)
+    const b = grow(corners(q), q)
+    for (const r of [p.rot, q.rot]) {
+      for (const [ax, az] of [
+        [Math.cos(r), -Math.sin(r)],
+        [Math.sin(r), Math.cos(r)],
+      ]) {
+        const pa = a.map(([x, z]) => x * ax + z * az)
+        const pb = b.map(([x, z]) => x * ax + z * az)
+        if (Math.max(...pa) < Math.min(...pb) || Math.max(...pb) < Math.min(...pa)) return false
+      }
+    }
+    return true
+  }
   const bounds = (placed: Placed[]) => {
     const all = placed.flatMap(corners)
     const xs = all.map((c) => c[0])
@@ -1208,7 +1225,7 @@ function handLayout(position: ImmutablePosition, color: Color): HandSpot[] {
       for (const t of rest) {
         const next = ring([...row, t], r + rowH / 2, gap, squeeze, ringIndex * 0.03)
         const b = bounds(next)
-        if (row.length && b.maxX - b.minX > inner) break
+        if (row.length && (b.maxX - b.minX > inner || big(row[0]) !== big(t))) break
         row = [...row, t]
       }
       const ringH = Math.max(...row.map(h))
@@ -1235,19 +1252,25 @@ function handLayout(position: ImmutablePosition, color: Color): HandSpot[] {
       let row: PieceType[] = []
       for (const t of rest) {
         const b = bounds(fanRow([...row, t], 0))
-        if (row.length && b.maxX - b.minX > inner) break
+        if (row.length && (b.maxX - b.minX > inner || big(row[0]) !== big(t))) break
         row = [...row, t]
       }
       rows.push(fanRow(row, rows.length * 0.03))
       rest = rest.slice(row.length)
     }
     const placed: Placed[] = []
-    let v = 0
     for (const row of rows) {
       const b = bounds(row)
       const ox = -(b.minX + b.maxX) / 2
-      placed.push(...row.map((p) => ({ ...p, x: p.x + ox, z: p.z - b.minZ + v })))
-      v += b.maxZ - b.minZ + 0.04
+      const shifted = (dz: number) => row.map((p) => ({ ...p, x: p.x + ox, z: p.z - b.minZ + dz }))
+      if (!placed.length) {
+        placed.push(...shifted(0))
+        continue
+      }
+      const top = bounds(placed)
+      let dz = top.minZ
+      while (dz < top.maxZ + 0.05 && shifted(dz).some((p) => placed.some((q) => collide(p, q, 0.04)))) dz += 0.02
+      placed.push(...shifted(dz))
     }
     const b = bounds(placed)
     return { placed, b, fits: b.maxX - b.minX <= inner && b.maxZ - b.minZ <= inner }

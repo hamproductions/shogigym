@@ -490,7 +490,7 @@
 .ws-palette-back {
   position: fixed;
   inset: 0;
-  z-index: 20;
+  z-index: 40;
   display: flex;
   justify-content: center;
   padding-top: 12vh;
@@ -3668,4 +3668,38 @@
 
 .ws .ws-viewer.page .ws-viewer-stage {
   height: min(70vh, 640px);
+}
+
+.ws-dialog {
+  max-height: calc(100dvh - 14vh - 16px);
+  overflow-y: auto;
+}
+
+.ws-dialog.ws-settings {
+  max-height: calc(100dvh - 8vh - 16px);
+}
+
+@media (max-width: 820px) {
+  .ws-dialog,
+  .ws-dialog.ws-settings {
+    margin-top: 12px;
+    max-height: calc(100dvh - 24px);
+  }
+}
+
+.ws-dialog-x {
+  position: sticky;
+  top: 0;
+  float: right;
+  width: 44px;
+  height: 44px;
+  margin: -6px -8px 0 8px;
+  border: 0;
+  border-radius: 10px;
+  background: #e2d5bb;
+  color: #2a241e;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 1;
 }
