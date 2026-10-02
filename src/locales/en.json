@@ -177,7 +177,8 @@
     "wrongTries_other": "{{count}} wrong tries",
     "listSeparator": ", ",
     "quizAgainUntilClean": "{{parts}}. Quiz it again until it is clean.",
-    "wasLabel": "{{move}}: {{label}}. Try again."
+    "wasLabel": "{{move}}: {{label}}. Try again.",
+    "noBookReply": "No book reply here. Try your own moves below."
   },
   "lessonMap": {
     "start": "Start",

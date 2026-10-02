@@ -112,7 +112,7 @@ export function PanelBody({ tab, model, overlays = true }: { tab: Tab; model: Pa
       {tab === 'moves' && ai && assist && game.moves.length > 0 && isGameMode(mode) && <EvalGraph values={sfens.map((s) => evaluation.evals[strip(s)])} cursor={cursor} onJump={setCursor} />}
       {overlays && level === 'new' && selection && !(mode === 'lesson' && course) && <PieceGuide sfen={sfen} from={selection.from} />}
       {tab === 'engine' && <EngineSection model={model} />}
-      {tab === 'coach' && mode === 'lesson' && <LessonPane lesson={lesson} mistake={mistakes.mistake} mistakePreview={mistakes.previewing} level={level} reply={reply} onPlayReply={() => reply && play(reply.usi)} lastNote={bookLast?.branch.note} endRate={endRate} onBack={onBack} />}
+      {tab === 'coach' && mode === 'lesson' && <LessonPane lesson={lesson} mistake={mistakes.mistake} mistakePreview={mistakes.previewing} level={level} reply={reply} onPlayReply={play} lastNote={bookLast?.branch.note} endRate={endRate} onBack={onBack} />}
       {overlays && lesson.mapOpen && course && <LessonMap course={course} currentNodeId={nodes?.get(strip(sfen))?.id ?? null} onJump={lesson.jumpTo} onClose={() => lesson.setMapOpen(false)} />}
       {tab === 'coach' && <CoachSection model={model} />}
       {tab === 'flow' && <FlowSection model={model} />}

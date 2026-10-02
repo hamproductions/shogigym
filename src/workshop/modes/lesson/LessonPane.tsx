@@ -4,7 +4,7 @@ import i18n from '../../../i18n'
 import { SETUPS, type Course } from '../../../model'
 import { moveText } from '../../../shogi'
 import { useSession } from '../../hooks/session'
-import { coursesOf, setupOf } from '../../lib/book'
+import { coursesOf, mainBranch, setupOf } from '../../lib/book'
 import { mistakeHeadline, mistakeIsBad, type ShownMistake } from '../../lib/mistake'
 import { sideMark } from '../../lib/notation'
 import { moveGloss } from '../../pieces'
@@ -34,7 +34,7 @@ type LessonPaneProps = {
   mistakePreview: boolean
   level: Level
   reply: { usi: string; note?: string } | null
-  onPlayReply: () => void
+  onPlayReply: (usi: string) => void
   lastNote?: string
   endRate: number | null
   onBack: () => void
@@ -44,12 +44,13 @@ const reveal = (el: HTMLElement | null) => el?.scrollIntoView({ block: 'nearest'
 
 export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPlayReply, lastNote, endRate, onBack }: LessonPaneProps) {
   const { t } = useTranslation()
-  const { course, liveSfen: sfen, userSide, lastMove, prevSfen, playing, preview } = useSession()
+  const { course, liveSfen: sfen, userSide, lastMove, prevSfen, playing, preview, atEnd } = useSession()
   const { lessonMode, score, justRight, checking, progress, done, asking, offBook, good, showAnswer, jumped } = lesson
   if (!course) return <OpeningPicker onOpen={lesson.open} level={level} setupId={lesson.pickerSetup} setSetupId={lesson.setPickerSetup} />
   const side = sideMark(userSide)
   const nextCourse = nextCourseAfter(course)
   const whatIf = preview && !mistake ? preview.title : null
+  const theirs = reply ?? mainBranch(lesson.node)
   const endComment = done ? lesson.node?.comment : undefined
   return (
     <div className="ws-lesson-pane">
@@ -182,15 +183,15 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
         </Card>
       ) : (
         <Card>
-          <strong>{reply ? t('lesson.theirMove', { move: moveText(sfen, reply.usi) }) : t('lesson.theirMove2')}</strong>
-          {level === 'new' && reply && <span className="ws-gloss">{moveGloss(sfen, reply.usi)}</span>}
-          {reply?.note && <p>{reply.note}</p>}
-          {lessonMode === 'study' && reply ? (
-            <Button variant="primary" onClick={onPlayReply}>
+          <strong>{theirs ? t('lesson.theirMove', { move: moveText(sfen, theirs.usi) }) : t('lesson.theirMove2')}</strong>
+          {level === 'new' && theirs && <span className="ws-gloss">{moveGloss(sfen, theirs.usi)}</span>}
+          {theirs?.note && <p>{theirs.note}</p>}
+          {theirs && (lessonMode === 'study' || !atEnd) ? (
+            <Button variant="primary" onClick={() => onPlayReply(theirs.usi)}>
               {t('lesson.playTheirMove')} <span className="ws-key">Space</span>
             </Button>
           ) : (
-            <p className="ws-muted">{t('lesson.comingInAMoment')}</p>
+            <p className="ws-muted">{theirs ? t('lesson.comingInAMoment') : t('lesson.noBookReply')}</p>
           )}
         </Card>
       )}

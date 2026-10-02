@@ -173,7 +173,8 @@
     "wrongTries_other": "不正解 {{count}}回",
     "listSeparator": "、",
     "quizAgainUntilClean": "{{parts}}。ミスなしになるまで繰り返しましょう。",
-    "wasLabel": "{{move}}は{{label}}でした。もう一度。"
+    "wasLabel": "{{move}}は{{label}}でした。もう一度。",
+    "noBookReply": "ここから先の定跡はありません。下から自由に指して試せます。"
   },
   "lessonMap": {
     "start": "開始",
