@@ -61,16 +61,8 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
   const all = SETUPS.map((setup) => ({ setup, courses: coursesOf(setup.courseIds) })).filter((g) => g.courses.length)
   const groups = all.filter((g) => g.setup.technique || g.setup.main === main.id)
   const card = (c: Course) => <LessonCard key={c.id} course={c} onOpen={onOpen} />
-  const search = <input className="ws-search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t('picker.searchAnagumaBGinSagimiya')} aria-label={t('picker.searchLessons')} autoFocus={!!q} />
-  if (q) {
-    const hits = all.flatMap((g) => g.courses.filter((c) => `${c.title} ${c.titleEn ?? ''} ${g.setup.ja} ${g.setup.name}`.toLowerCase().includes(q)))
-    return (
-      <div className="ws-picker">
-        {search}
-        {hits.length ? hits.map(card) : <p className="ws-muted">{t('picker.noLessonMatches', { query })}</p>}
-      </div>
-    )
-  }
+  const search = <input className="ws-search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t('picker.searchAnagumaBGinSagimiya')} aria-label={t('picker.searchLessons')} />
+  const hits = q ? all.flatMap((g) => g.courses.filter((c) => `${c.title} ${c.titleEn ?? ''} ${g.setup.ja} ${g.setup.name}`.toLowerCase().includes(q))) : []
   const group = groups.find((g) => g.setup.id === setupId)
   if (group)
     return (
@@ -119,7 +111,8 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
       </button>
       {level === 'new' && <p className="ws-picker-intro">{t('picker.clickAnyPieceOnThe')}</p>}
       {search}
-      {ordered.map(({ setup, courses }, i, all) => {
+      {q && (hits.length ? hits.map(card) : <p className="ws-muted">{t('picker.noLessonMatches', { query })}</p>)}
+      {!q && ordered.map(({ setup, courses }, i, all) => {
         const p = courses.map(courseProgress).reduce((a, b) => ({ learned: a.learned + b.learned, total: a.total + b.total }), { learned: 0, total: 0 })
         return (
           <Fragment key={setup.id}>
