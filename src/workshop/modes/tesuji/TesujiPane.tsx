@@ -4,6 +4,9 @@ import { sideMark } from '../../lib/notation'
 import { useSettings } from '../../settings'
 import { TESUJI_DRILLS, TESUJI_KINDS, tesujiStats } from '../../tesujiDrills'
 import type { TesujiState, TesujiTrainer } from './useTesuji'
+import { Button } from '../../ui/Button'
+import { Card } from '../../ui/Card'
+import { Segmented } from '../../ui/Segmented'
 
 export function TesujiPane({ trainer, drill }: { trainer: TesujiTrainer; drill: TesujiState }) {
   const { t } = useTranslation()
@@ -14,13 +17,7 @@ export function TesujiPane({ trainer, drill }: { trainer: TesujiTrainer; drill: 
   const side = sideMark(positionOf(sfen).color)
   return (
     <div className="ws-practice">
-      <div className="ws-seg small ws-tesuji-filter" role="group" aria-label={t('tesuji.tesujiType')}>
-        {['all', ...TESUJI_KINDS].map((k) => (
-          <button key={k} className={drill.filter === k ? 'on' : ''} onClick={() => trainer.start(k)}>
-            {k === 'all' ? t('tesuji.mixed') : k}
-          </button>
-        ))}
-      </div>
+      <Segmented size="small" label={t('tesuji.tesujiType')} value={drill.filter} options={['all', ...TESUJI_KINDS].map((k) => ({ v: k, t: k === 'all' ? t('tesuji.mixed') : k }))} onChange={trainer.start} />
       <p className="ws-task">
         {t('tesuji.toMoveFindThe', { side })}
         {drill.hint || drill.status !== 'asking' ? <strong>{drill.item.tesuji}</strong> : t('tesuji.tesuji')}
@@ -29,7 +26,7 @@ export function TesujiPane({ trainer, drill }: { trainer: TesujiTrainer; drill: 
       {drill.status === 'asking' && drill.wrong && <p className="ws-result wrong">{drill.hint ? t('tesuji.isNotItLookAgain', { move: moveText(sfen, drill.wrong) }) : t('tesuji.isNotItLookAgain2', { move: moveText(sfen, drill.wrong) })}</p>}
       {drill.status === 'asking' && drill.hint && <p className="ws-note">{drill.item.explain}</p>}
       {drill.status !== 'asking' && (
-        <div className={`ws-card ${drill.status === 'right' ? 'good' : ''}`}>
+        <Card tone={drill.status === 'right' ? 'good' : null}>
           <strong>
             {drill.status === 'right' ? '✓ ' : ''}
             {moveText(sfen, drill.item.answer)}: {drill.item.tesuji} {lang !== 'ja' && <span className="ws-muted">({drill.item.en})</span>}
@@ -37,14 +34,14 @@ export function TesujiPane({ trainer, drill }: { trainer: TesujiTrainer; drill: 
           <p>{drill.item.explain}</p>
           {drill.item.note && <p className="ws-note">{drill.item.note}</p>}
           <p className="ws-muted">{t('tesuji.from', { from: drill.item.from })}</p>
-        </div>
+        </Card>
       )}
       <div className="ws-actions">
-        <button className="primary" onClick={trainer.next}>
+        <Button variant="primary" onClick={trainer.next}>
           {t('tesuji.next')}
-        </button>
-        {drill.status === 'asking' && !drill.hint && <button onClick={trainer.hint}>{t('tesuji.hint')}</button>}
-        {drill.status === 'asking' && <button onClick={trainer.reveal}>{t('tesuji.showAnswer')}</button>}
+        </Button>
+        {drill.status === 'asking' && !drill.hint && <Button onClick={trainer.hint}>{t('tesuji.hint')}</Button>}
+        {drill.status === 'asking' && <Button onClick={trainer.reveal}>{t('tesuji.showAnswer')}</Button>}
       </div>
       <p className="ws-muted">{t('tesuji.solvedFirstTryOf', { value: pool.filter((d) => stats.solved.includes(d.id)).length, poolCount: pool.length })}</p>
     </div>

@@ -8,7 +8,10 @@ import { coursesOf, setupOf } from '../../lib/book'
 import { mistakeHeadline, mistakeIsBad, type ShownMistake } from '../../lib/mistake'
 import { sideMark } from '../../lib/notation'
 import { moveGloss } from '../../pieces'
-import type { Level, Score } from '../../types'
+import type { LessonMode, Level, Score } from '../../types'
+import { Button } from '../../ui/Button'
+import { Card } from '../../ui/Card'
+import { Segmented } from '../../ui/Segmented'
 import { OpeningPicker } from './OpeningPicker'
 import type { Lesson } from './useLesson'
 
@@ -61,16 +64,16 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
           {t('lesson.lessonMap')}
         </button>
       </div>
-      <div className="ws-seg big" role="group" aria-label={t('lesson.lessonMode')}>
-        <button className={lessonMode === 'study' ? 'on' : ''} onClick={() => lesson.switchLessonMode('study')}>
-          {t('lesson.study')}
-          <span>{t('lesson.movesShownWithReasons')}</span>
-        </button>
-        <button className={lessonMode === 'quiz' ? 'on' : ''} onClick={() => lesson.switchLessonMode('quiz')}>
-          {t('lesson.quiz')}
-          <span>{t('lesson.findTheMovesYourself')}</span>
-        </button>
-      </div>
+      <Segmented<LessonMode>
+        size="big"
+        label={t('lesson.lessonMode')}
+        value={lessonMode}
+        options={[
+          { v: 'study', t: <>{t('lesson.study')}<span>{t('lesson.movesShownWithReasons')}</span></> },
+          { v: 'quiz', t: <>{t('lesson.quiz')}<span>{t('lesson.findTheMovesYourself')}</span></> },
+        ]}
+        onChange={lesson.switchLessonMode}
+      />
       {lessonMode === 'quiz' && (score.right > 0 || score.wrong > 0 || justRight) && (
         <p className="ws-score">
           <span className="right">✓ {score.right}</span>
@@ -80,7 +83,7 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
       )}
       {checking && <p className="ws-muted">{t('lesson.checkingThatMove')}</p>}
       {mistakePreview && mistake ? (
-        <div className={`ws-card ${mistakeIsBad(mistake) ? 'bad' : 'good'}`}>
+        <Card tone={mistakeIsBad(mistake) ? 'bad' : 'good'}>
           <div className="ws-verdict-head">
             {mistake.verdict && (
               <span className="ws-badge" style={{ background: LABELS[mistake.verdict.label].color }}>
@@ -102,42 +105,42 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
             {lessonMode === 'study' ? (mistake.verdict && mistake.verdict.best.move !== mistake.expected && mistake.verdict.best.move !== mistake.usi ? t('lesson.theLessonMoveIsThe', { move: moveText(sfen, mistake.expected), move2: moveText(sfen, mistake.verdict.best.move) }) : t('lesson.theLessonMoveIs', { move: moveText(sfen, mistake.expected) })) : ''}
             {playing ? t('lesson.theBoardIsPlayingOut') : t('lesson.thatIsHowItContinues')}
           </p>
-          <button className="primary" onClick={onBack}>
+          <Button variant="primary" onClick={onBack}>
             {t('lesson.goBackAndTryAgain')}
-          </button>
-        </div>
+          </Button>
+        </Card>
       ) : offBook ? (
-        <div className="ws-card">
+        <Card>
           <strong>{t('lesson.youLeftTheLessonLine')}</strong>
           <p>{t('lesson.theBookHasNoMoves')}</p>
           <div className="ws-actions">
-            <button className="primary" onClick={lesson.backToLine}>
+            <Button variant="primary" onClick={lesson.backToLine}>
               {t('lesson.backToTheLessonLine')}
-            </button>
-            <button onClick={lesson.explore}>{t('lesson.exploreItInAnalyze')}</button>
+            </Button>
+            <Button onClick={lesson.explore}>{t('lesson.exploreItInAnalyze')}</Button>
           </div>
-        </div>
+        </Card>
       ) : whatIf ? (
-        <div className="ws-card">
+        <Card>
           <strong>{t('lesson.preview', { whatIf })}</strong>
           <p>{t('lesson.theAiPlaysTheBest')}</p>
-        </div>
+        </Card>
       ) : done ? (
-        <div className="ws-card good">
+        <Card tone="good">
           <strong>{t('lesson.lineComplete')}</strong>
           <div className="ws-actions">
             {lessonMode === 'study' && (
-              <button className="primary" onClick={() => lesson.open(course, 'quiz')}>
+              <Button variant="primary" onClick={() => lesson.open(course, 'quiz')}>
                 {t('lesson.quizThisLine')}
-              </button>
+              </Button>
             )}
             {nextCourse && (
-              <button className={lessonMode === 'quiz' ? 'primary' : ''} onClick={() => lesson.open(nextCourse, lessonMode)}>
+              <Button variant={lessonMode === 'quiz' ? 'primary' : 'secondary'} onClick={() => lesson.open(nextCourse, lessonMode)}>
                 {t('lesson.nextLesson')}
-              </button>
+              </Button>
             )}
-            <button onClick={() => lesson.open(course, lessonMode)}>{t('lesson.startAgain')}</button>
-            <button onClick={lesson.leave}>{t('lesson.otherLessons')}</button>
+            <Button onClick={() => lesson.open(course, lessonMode)}>{t('lesson.startAgain')}</Button>
+            <Button onClick={lesson.leave}>{t('lesson.otherLessons')}</Button>
           </div>
           {endComment && <p className="ws-endnote">{endComment}</p>}
           <p>{lessonMode === 'quiz' ? quizSummary(score) : jumped ? t('lesson.endOfThisBranchYou') : t('lesson.youHaveSeenTheWhole')}</p>
@@ -150,13 +153,13 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
                   : t('lesson.aiSViewOfThe3', { value: Math.round(endRate * 100) })}
             </p>
           )}
-        </div>
+        </Card>
       ) : asking ? (
-        <div className="ws-card">
+        <Card>
           {lessonMode === 'quiz' && !showAnswer && (
-            <button className={`ws-answer-top${mistake && !mistakePreview ? ' primary' : ''}`} onClick={lesson.revealAnswer}>
+            <Button size="sm" variant={mistake && !mistakePreview ? 'primary' : 'secondary'} className="ws-answer-top" onClick={lesson.revealAnswer}>
               {t('lesson.showMeTheAnswer')}
-            </button>
+            </Button>
           )}
           {mistake && !mistakePreview && <p className="ws-result wrong">{mistakeIsBad(mistake) ? t('lesson.wasLabel', { move: moveText(sfen, mistake.usi), label: (mistake.verdict ? LABELS[mistake.verdict.label] : LABELS.mistake).text }) : t('lesson.isNotThisLessonS', { move: moveText(sfen, mistake.usi) })}</p>}
           {lessonMode === 'study' || showAnswer ? (
@@ -174,20 +177,20 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
           ) : (
             <strong>{t('lesson.yourMoveAsFindThe', { side })}</strong>
           )}
-        </div>
+        </Card>
       ) : (
-        <div className="ws-card">
+        <Card>
           <strong>{reply ? t('lesson.theirMove', { move: moveText(sfen, reply.usi) }) : t('lesson.theirMove2')}</strong>
           {level === 'new' && reply && <span className="ws-gloss">{moveGloss(sfen, reply.usi)}</span>}
           {reply?.note && <p>{reply.note}</p>}
           {lessonMode === 'study' && reply ? (
-            <button className="primary" onClick={onPlayReply}>
+            <Button variant="primary" onClick={onPlayReply}>
               {t('lesson.playTheirMove')} <span className="ws-key">Space</span>
-            </button>
+            </Button>
           ) : (
             <p className="ws-muted">{t('lesson.comingInAMoment')}</p>
           )}
-        </div>
+        </Card>
       )}
       {lastMove && prevSfen && lastNote && !mistakePreview && (
         <div className="ws-last">

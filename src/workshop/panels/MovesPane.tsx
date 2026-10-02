@@ -10,6 +10,7 @@ import { toSente } from '../lib/notation'
 import { cachedReview, rememberReview } from '../memory'
 import { detectTesuji } from '../tesuji'
 import { countMoves, isMainLine, nodeAt, type Tree } from '../tree'
+import { Button } from '../ui/Button'
 
 type MovesPaneProps = {
   sfens: string[]
@@ -133,12 +134,20 @@ export function MovesPane({ sfens, moves, cursor, setCursor, title, onScore, tre
   return (
     <div>
       <div className="ws-rate">
-        {engineSupported() && canRate && progress === null && !rated && <button onClick={rate}>{labels ? t('moves.rateTheRemainingMoves') : t('moves.rateEveryMove')}</button>}
+        {engineSupported() && canRate && progress === null && !rated && (
+          <Button size="sm" onClick={rate}>
+            {labels ? t('moves.rateTheRemainingMoves') : t('moves.rateEveryMove')}
+          </Button>
+        )}
         {progress !== null && <span className="ws-muted">{t('moves.ratingMoveOf', { progress, movesCount: moves.length })}</span>}
         {rated && progress === null && (
           <>
             <span className="ws-muted">{mistakes ? t('moves.mistakesFound', { count: mistakes }) : t('moves.noMistakesFound')}</span>
-            {mistakes > 0 && saved === null && !allSaved && <button onClick={saveMine}>{t('moves.saveThemAsReviewCards')}</button>}
+            {mistakes > 0 && saved === null && !allSaved && (
+              <Button size="sm" onClick={saveMine}>
+                {t('moves.saveThemAsReviewCards')}
+              </Button>
+            )}
             {mistakes > 0 && saved === null && allSaved && <span className="ws-muted">{t('moves.alreadySavedToReview')}</span>}
             {saved !== null && <span className="ws-muted">{t('moves.allSaved', { count: mistakes })}</span>}
           </>

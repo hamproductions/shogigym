@@ -5,6 +5,7 @@ import { useSession } from '../hooks/session'
 import { mistakeHeadline, mistakeIsBad, mistakeSeal, type ShownMistake } from '../lib/mistake'
 import { mainLine, promote } from '../tree'
 import { isGameMode, type Preview } from '../types'
+import { Button } from '../ui/Button'
 
 function MistakeBanner({ mistake, preview, onBack }: { mistake: ShownMistake; preview: Preview; onBack: () => void }) {
   const { t } = useTranslation()
@@ -29,11 +30,11 @@ function MistakeBanner({ mistake, preview, onBack }: { mistake: ShownMistake; pr
         {t('workshop.headlineEnd')}
         {playing ? t('workshop.watchWhatFollows') : preview.step < preview.moves.length ? t('workshop.paused') : t('workshop.thatIsHowItContinues')}
       </span>
-      <button onClick={replay}>{playing ? t('workshop.pause') : t('workshop.replay')}</button>
+      <Button size="sm" onClick={replay}>{playing ? t('workshop.pause') : t('workshop.replay')}</Button>
       {mode !== 'drill' && (
-        <button className="primary" onClick={onBack}>
+        <Button size="sm" variant="primary" onClick={onBack}>
           {t('workshop.goBackAndTryAgain')}
-        </button>
+        </Button>
       )}
     </div>
   )
@@ -48,11 +49,11 @@ function PreviewBanner({ preview }: { preview: Preview }) {
       <span>
         {t('workshop.preview2')}: {preview.title}, <span className="ws-nowrap">{t('workshop.moveOf', { step: preview.step, movesCount: preview.moves.length })}</span>
       </span>
-      <button onClick={() => setPlaying((v) => !v)}>{playing ? t('workshop.pause') : t('workshop.play')}</button>
-      <button onClick={keepPreview} disabled={preview.step === 0}>
+      <Button size="sm" onClick={() => setPlaying((v) => !v)}>{playing ? t('workshop.pause') : t('workshop.play')}</Button>
+      <Button size="sm" onClick={keepPreview} disabled={preview.step === 0}>
         {t('workshop.keepTheseMoves')}
-      </button>
-      <button onClick={exitPreview}>{t('workshop.exitPreview')}</button>
+      </Button>
+      <Button size="sm" onClick={exitPreview}>{t('workshop.exitPreview')}</Button>
     </div>
   )
 }
@@ -79,12 +80,12 @@ function BranchBanner() {
           </>
         )}
       </span>
-      <button title={t('workshop.goBackToTheMain')} onClick={backToMain}>
+      <Button size="sm" title={t('workshop.goBackToTheMain')} onClick={backToMain}>
         {t('workshop.mainLine')}
-      </button>
-      <button onClick={() => setTree((tr) => promote(tr, game.moves))} title={t('workshop.makeThisVariationTheMain')}>
+      </Button>
+      <Button size="sm" onClick={() => setTree((tr) => promote(tr, game.moves))} title={t('workshop.makeThisVariationTheMain')}>
         {t('workshop.makeItMain')}
-      </button>
+      </Button>
     </div>
   )
 }
@@ -104,7 +105,7 @@ function ReviewBanner() {
           </>
         )}
       </span>
-      <button onClick={() => (playing ? setPlaying(false) : (setCursor(game.moves.length), setPlaying(false)))}>{playing ? t('workshop.pause') : t('workshop.goToTheLastMove')}</button>
+      <Button size="sm" onClick={() => (playing ? setPlaying(false) : (setCursor(game.moves.length), setPlaying(false)))}>{playing ? t('workshop.pause') : t('workshop.goToTheLastMove')}</Button>
     </div>
   )
 }

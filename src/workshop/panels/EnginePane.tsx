@@ -8,6 +8,8 @@ import { EngineName } from '../EngineSettings'
 import type { BookMove } from '../lib/book'
 import { sideMark, toSente } from '../lib/notation'
 import { lossClass, winLoss } from '../lib/score'
+import { Button } from '../ui/Button'
+import { Pill } from '../ui/Pill'
 
 function standing(rate: number) {
   const lead = Math.abs(Math.round(rate * 100) - 50) / 100
@@ -62,8 +64,12 @@ export function EnginePane({ sfen, toMove, analysis, showBest, setShowBest, onPl
         <span className="ws-muted">{t('engine.bestMoveFor', { side: sideMark(toMove) })}</span>
         <div className="ws-best-row">
           <strong>{moveText(sfen, best.move)}</strong>
-          {book.some((b) => b.usi === best.move) && <span className="ws-pill">{t('engine.book')}</span>}
-          {canPlay && <button onClick={() => onPlay(best.move)}>{t('engine.playIt')}</button>}
+          {book.some((b) => b.usi === best.move) && <Pill>{t('engine.book')}</Pill>}
+          {canPlay && (
+            <Button size="sm" variant="primary" onClick={() => onPlay(best.move)}>
+              {t('engine.playIt')}
+            </Button>
+          )}
         </div>
         {why(best.move) && <p>{why(best.move)}</p>}
         {answer(best) && <p className="ws-muted">{t('engine.theyWouldLikelyAnswer', { move: answer(best) })}</p>}
@@ -77,7 +83,11 @@ export function EnginePane({ sfen, toMove, analysis, showBest, setShowBest, onPl
             <div className="ws-alt-row">
               <strong>{moveText(sfen, c.move)}</strong>
               <span className={lossClass(loss)}>{loss === 0 ? t('engine.justAsGood') : t('engine.winChance', { loss })}</span>
-              {canPlay && <button onClick={() => onPlay(c.move)}>{t('engine.play')}</button>}
+              {canPlay && (
+                <Button size="sm" onClick={() => onPlay(c.move)}>
+                  {t('engine.play')}
+                </Button>
+              )}
             </div>
             {why(c.move) && <p>{why(c.move)}</p>}
           </div>

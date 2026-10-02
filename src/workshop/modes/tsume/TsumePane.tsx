@@ -4,6 +4,8 @@ import { sideMark } from '../../lib/notation'
 import { PROBLEMS, attackerOf, loadTsumeStats } from '../../practice'
 import { firstPieceHint } from './firstPiece'
 import type { Tsume, TsumeLength, TsumeState } from './useTsume'
+import { Button } from '../../ui/Button'
+import { Segmented } from '../../ui/Segmented'
 
 const LENGTHS: TsumeLength[] = [1, 3, 5, 7, 'all']
 
@@ -34,13 +36,7 @@ export function TsumePane({ trainer, tsume }: { trainer: Tsume; tsume: TsumeStat
   const pool = PROBLEMS.filter((p) => tsume.length === 'all' || p.mate === tsume.length)
   return (
     <div className="ws-practice">
-      <div className="ws-seg small" role="group" aria-label={t('tsume.problemLength')}>
-        {LENGTHS.map((n) => (
-          <button key={n} className={tsume.length === n ? 'on' : ''} onClick={() => trainer.start(n)}>
-            {n === 'all' ? t('tsume.mixed') : t('tsume.mateIn', { n })}
-          </button>
-        ))}
-      </div>
+      <Segmented<TsumeLength> size="small" className="ws-tsume-lengths" label={t('tsume.problemLength')} value={tsume.length} options={LENGTHS.map((n) => ({ v: n, t: n === 'all' ? t('tsume.mixed') : t('tsume.mateIn', { n }) }))} onChange={trainer.start} />
       <p className="ws-task">
         {t('tsume.toPlayAndMateIn', { side: sideMark(attackerOf(tsume.problem)), mate: tsume.problem.mate })}
         <span className="ws-wide">{t('tsume.everyAttackingMoveMustGive')}</span>
@@ -49,15 +45,15 @@ export function TsumePane({ trainer, tsume }: { trainer: Tsume; tsume: TsumeStat
         <TsumeStatus tsume={tsume} />
       </div>
       <div className="ws-actions">
-        <button className="primary" onClick={trainer.next}>
+        <Button variant="primary" onClick={trainer.next}>
           {t('tsume.nextProblem')}
-        </button>
-        {(tsume.status === 'playing' || tsume.status === 'wrong') && <button onClick={trainer.reveal}>{t('tsume.showSolution')}</button>}
-        {(tsume.status === 'wrong' || tsume.status === 'shown') && <button onClick={trainer.retry}>{t('tsume.tryAgain')}</button>}
+        </Button>
+        {(tsume.status === 'playing' || tsume.status === 'wrong') && <Button onClick={trainer.reveal}>{t('tsume.showSolution')}</Button>}
+        {(tsume.status === 'wrong' || tsume.status === 'shown') && <Button onClick={trainer.retry}>{t('tsume.tryAgain')}</Button>}
         {tsume.status === 'playing' && (
-          <button onClick={trainer.hint} disabled={tsume.hint >= 2}>
+          <Button onClick={trainer.hint} disabled={tsume.hint >= 2}>
             {tsume.hint === 0 ? t('tsume.hint') : t('tsume.showMove')}
-          </button>
+          </Button>
         )}
       </div>
       <label className="ws-check-row">

@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { useSession } from '../../hooks/session'
 import { flipTable } from '../../lib/events'
 import type { Spar } from './useSpar'
+import { Button } from '../../ui/Button'
 
 export function GameOverBanner({ spar, flatView }: { spar: Spar; flatView: boolean }) {
   const { t } = useTranslation()
@@ -18,18 +19,18 @@ export function GameOverBanner({ spar, flatView }: { spar: Spar; flatView: boole
         : t(mode !== 'spar' ? 'workshop.wins' : other(toMove) === userSide ? 'workshop.youWin' : 'workshop.aiWins', { winner: winner(other(toMove)) })
   return (
     <div className="ws-gameover" role="status">
-      <button className="ws-gameover-x" onClick={() => spar.setEndHidden(sfen)} aria-label={t('workshop.hideThisAndLookAt')} title={t('workshop.lookAtTheBoard')}>
+      <Button variant="icon" className="ws-gameover-x" onClick={() => spar.setEndHidden(sfen)} aria-label={t('workshop.hideThisAndLookAt')} title={t('workshop.lookAtTheBoard')}>
         ×
-      </button>
+      </Button>
       <strong>{headline}</strong>
       <span>{detail}</span>
       <div className="ws-actions">
-        {mode === 'spar' && !flatView && <button onClick={flipTable}>{t('rail.tableFlip')}</button>}
-        {mode === 'spar' && <button onClick={spar.reviewGame}>{t('workshop.reviewThisGame')}</button>}
+        {mode === 'spar' && !flatView && <Button onClick={flipTable}>{t('rail.tableFlip')}</Button>}
+        {mode === 'spar' && <Button onClick={spar.reviewGame}>{t('workshop.reviewThisGame')}</Button>}
         {mode === 'spar' && (
-          <button className="primary" onClick={() => spar.setNewGameOpen(true)}>
+          <Button variant="primary" onClick={() => spar.setNewGameOpen(true)}>
             {t('workshop.newGame')}
-          </button>
+          </Button>
         )}
       </div>
     </div>

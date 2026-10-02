@@ -5,7 +5,11 @@ import '@fontsource/shippori-mincho-b1/800.css'
 import '@fontsource/zen-kaku-gothic-new/400.css'
 import '@fontsource/zen-kaku-gothic-new/500.css'
 import '@fontsource/zen-kaku-gothic-new/700.css'
-import './workshop.css'
+import '../styles/controls.css'
+import '../styles/layout.css'
+import '../styles/stage.css'
+import '../styles/panels.css'
+import '../styles/dialogs.css'
 import { COURSES, SETUPS } from '../model'
 import { useCommands } from './dialogs/commands'
 import { ConfirmDialog } from './dialogs/ConfirmDialog'
@@ -33,7 +37,7 @@ import { useTransient } from './hooks/useTransient'
 import { useView } from './hooks/useView'
 import { Icon } from './icons'
 import { bookForMove, bookMovesAt } from './lib/book'
-import { VIEWER_EVENT } from './lib/events'
+import { SNAPSHOT_NAME, VIEWER_EVENT } from './lib/events'
 import { mistakeIsBad } from './lib/mistake'
 import { moveText } from '../shogi'
 import { useAnalyzeGames } from './modes/analyze/useAnalyzeGames'
@@ -156,7 +160,7 @@ export function Workshop() {
   return (
     <SessionContext.Provider value={session}>
       <div className={`ws${view.hideUi ? ' fs' : ''}${layout.zoned ? ' zoned' : layout.panelHidden ? ' panel-hidden' : ''}${layout.compact && layout.drawer ? ' drawer-open' : ''}`} style={{ ['--panel-w' as string]: `${layout.panelWidth}px`, ['--sheet-h' as string]: layout.sheetH }}>
-        <Rail mode={mode} onMode={enterMode} compact={layout.compact} view={view} onFlip={() => session.setFlipped((v) => !v)} settingsOpen={showSettings} onSettings={() => setShowSettings(true)} onPalette={() => setPalette(true)} snapshotName={`shogilab-${mode}-${cursor}`} />
+        <Rail mode={mode} onMode={enterMode} compact={layout.compact} view={view} onFlip={() => session.setFlipped((v) => !v)} settingsOpen={showSettings} onSettings={() => setShowSettings(true)} onPalette={() => setPalette(true)} snapshotName={`${SNAPSHOT_NAME}-${mode}-${cursor}`} />
         <section className={`ws-stage${preview || playing || !atEnd ? ' previewing' : ''}`}>
           <button className="ws-fs-exit" onClick={() => view.setHideUi(false)} aria-label={t('workshop.showUi')} title={`${t('workshop.showUi')} (Esc)`}>
             <Icon name="exitFullscreen" size={18} />

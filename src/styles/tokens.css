@@ -1,0 +1,174 @@
+:root {
+  --sumi-950: #120f0c;
+  --sumi-900: #14110e;
+  --sumi-850: #1c1814;
+  --sumi-800: #1e1a16;
+  --sumi-750: #28221c;
+  --sumi-700: #2a241e;
+  --sumi-600: #3a322a;
+  --sumi-500: #4d4339;
+  --hai-500: #62574a;
+  --hai-400: #857a6b;
+  --hai-300: #aa9e8c;
+  --washi-300: #d6cab3;
+  --washi-250: #e4dac7;
+  --washi-200: #ebe3d3;
+  --washi-150: #f4eee3;
+  --washi-100: #f6f0e5;
+  --washi-50: #fffaf1;
+  --kinari: #ece4d4;
+  --gofun: #fff8f0;
+  --shu-700: #a3301a;
+  --shu-600: #b3361c;
+  --shu-500: #c4442a;
+  --shu-300: #f08a6c;
+  --kin-700: #8a5300;
+  --kin-600: #80560a;
+  --kin-300: #f1c27a;
+  --kin-200: #e6b55c;
+  --rokusho-700: #2f6118;
+  --rokusho-600: #4f7a2a;
+  --rokusho-300: #93c66e;
+  --ai-700: #2b5791;
+  --ai-600: #2f5d9b;
+  --ai-300: #93b4e6;
+  --murasaki-600: #5c3d8a;
+  --bengara-600: #8a5a2b;
+  --koma-light: #f6e3b4;
+  --koma-dark: #dcb978;
+  --koma-ink: #1d140c;
+  --koma-red: #b3261e;
+  --kaya-light: #e2b56c;
+  --kaya-dark: #cf9f55;
+
+  --font-sans: 'Zen Kaku Gothic New', system-ui, sans-serif;
+  --font-mincho: 'Shippori Mincho B1', serif;
+  --text-2xs: 11px;
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-md: 15px;
+  --text-lg: 17px;
+  --text-xl: 20px;
+  --text-2xl: 28px;
+  --glyph-sm: 18px;
+  --glyph-md: 24px;
+  --glyph-lg: 30px;
+  --leading-tight: 1.25;
+  --leading-snug: 1.45;
+  --leading-normal: 1.6;
+  --leading-mincho: 1.8;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-bold: 700;
+  --weight-heavy: 800;
+  --tracking-seal: 0.08em;
+
+  --space-half: 2px;
+  --space-1: 4px;
+  --space-1-5: 6px;
+  --space-2: 8px;
+  --space-2-5: 10px;
+  --space-3: 12px;
+  --space-3-5: 14px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-pill: 999px;
+
+  --control-sm: 28px;
+  --control-md: 32px;
+  --control-lg: 44px;
+  --rail-w: 76px;
+
+  --z-plate: 2;
+  --z-hud: 4;
+  --z-banner: 5;
+  --z-announce: 6;
+  --z-floating-panel: 6;
+  --z-promote: 8;
+  --z-sheet: 30;
+  --z-dialog: 40;
+  --z-menu: 60;
+
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --dur-slow: 400ms;
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  color-scheme: light;
+  --surface-0: light-dark(var(--washi-200), var(--sumi-900));
+  --surface-1: light-dark(var(--washi-150), var(--sumi-850));
+  --surface-2: light-dark(var(--washi-250), #322a23);
+  --surface-3: light-dark(var(--washi-300), #43392f);
+  --panel: light-dark(var(--washi-100), var(--sumi-800));
+  --card: light-dark(var(--washi-50), var(--sumi-750));
+  --card-hover: light-dark(#ffffff, #2f2821);
+  --field: light-dark(#fffcf6, var(--sumi-950));
+  --overlay: light-dark(rgb(251 247 239 / 0.94), rgb(23 20 16 / 0.92));
+  --text: light-dark(#241e18, var(--kinari));
+  --text-muted: light-dark(var(--hai-500), var(--hai-300));
+  --text-faint: light-dark(#7c7064, var(--hai-400));
+  --text-inverse: light-dark(var(--kinari), #241e18);
+  --border: light-dark(rgb(36 30 24 / 0.14), rgb(236 228 212 / 0.12));
+  --border-strong: light-dark(rgb(36 30 24 / 0.3), rgb(236 228 212 / 0.26));
+  --accent: light-dark(var(--shu-600), var(--shu-500));
+  --accent-hover: light-dark(var(--shu-700), #d0502f);
+  --accent-text: light-dark(var(--shu-700), var(--shu-300));
+  --accent-contrast: var(--gofun);
+  --accent-soft: light-dark(rgb(179 54 28 / 0.12), rgb(240 138 108 / 0.16));
+  --success: light-dark(var(--rokusho-700), var(--rokusho-300));
+  --success-soft: light-dark(rgb(47 97 24 / 0.12), rgb(147 198 110 / 0.14));
+  --success-fill: var(--rokusho-600);
+  --warning: light-dark(var(--kin-600), var(--kin-200));
+  --warning-soft: light-dark(rgb(128 86 10 / 0.12), rgb(230 181 92 / 0.14));
+  --danger: light-dark(var(--shu-700), #f2907b);
+  --danger-soft: light-dark(rgb(163 48 26 / 0.1), rgb(242 144 123 / 0.14));
+  --danger-fill: #d23b25;
+  --danger-strong: #7c2416;
+  --success-strong: #2e5418;
+  --info: light-dark(var(--ai-700), var(--ai-300));
+  --info-soft: light-dark(rgb(43 87 145 / 0.1), rgb(147 180 230 / 0.14));
+  --info-fill: var(--ai-600);
+  --highlight: light-dark(var(--kin-700), var(--kin-300));
+  --focus: light-dark(var(--shu-600), var(--shu-300));
+  --scrim: light-dark(rgb(40 30 20 / 0.38), rgb(6 5 4 / 0.62));
+  --pattern-ink: light-dark(rgb(36 30 24 / 0.06), rgb(236 228 212 / 0.045));
+  --stage-glow: light-dark(rgb(255 252 245 / 0.7), rgb(150 110 70 / 0.14));
+  --shadow-sm: 0 1px 2px light-dark(rgb(60 40 20 / 0.14), rgb(0 0 0 / 0.45));
+  --shadow-md: 0 8px 24px light-dark(rgb(60 40 20 / 0.16), rgb(0 0 0 / 0.5));
+  --shadow-lg: 0 24px 64px light-dark(rgb(40 26 12 / 0.24), rgb(0 0 0 / 0.6));
+  --meter-fill: var(--text);
+  --meter-track: var(--surface-3);
+
+  --mode-spar: var(--ai-600);
+  --mode-analyze: var(--sumi-500);
+  --mode-study: var(--rokusho-600);
+  --mode-quiz: var(--shu-600);
+  --mode-drill: var(--bengara-600);
+  --mode-tsume: var(--murasaki-600);
+  --mode-tesuji: var(--shu-600);
+  --mode-ink: var(--gofun);
+  --on-fill: #fff;
+  --on-fill-soft: rgb(255 255 255 / 0.16);
+  --shadow-sheet: 0 -8px 24px rgb(0 0 0 / 0.18);
+  --shadow-koma: 0 3px 2px rgb(60 30 0 / 0.45);
+  --wood-sheen: inset 0 1px 0 rgb(255 255 255 / 0.35), inset 0 -2px 0 rgb(0 0 0 / 0.12);
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+  }
+}

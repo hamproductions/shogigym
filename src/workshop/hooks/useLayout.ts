@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { sideStandsFit, type StandZones } from '../Board3D'
+import { sideStandsFit } from '../board3d/layout'
+import type { StandZones } from '../board3d/types'
 import { useSettings } from '../settings'
 import type { Mode } from '../types'
 import { useLatest } from './useLatest'

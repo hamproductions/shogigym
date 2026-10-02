@@ -5,7 +5,19 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Shogi Gym 将棋ジム: a free shogi training gym. Learn openings with study and quiz, spaced review, tsume and tesuji, play the AI and analyze your games." />
-    <meta name="theme-color" content="#16202e" />
+    <meta name="theme-color" content="#1c1814" />
+    <script>
+      ;(() => {
+        let theme = 'system'
+        try {
+          theme = JSON.parse(localStorage.getItem('joseki-practice:settings:v1') || '{}').theme || 'system'
+        } catch {}
+        if (theme !== 'light' && theme !== 'dark') theme = 'system'
+        document.documentElement.dataset.theme = theme
+        const dark = theme === 'dark' || (theme === 'system' && matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', dark ? '#1c1814' : '#f4eee3')
+      })()
+    </script>
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="apple-touch-icon" href="icon-192.png" />
     <meta name="apple-mobile-web-app-capable" content="yes" />

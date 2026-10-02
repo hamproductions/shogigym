@@ -3,6 +3,7 @@ import { sideToMove, verdictFor, type Course, type JosekiMove, type JosekiNode, 
 import { moveText } from '../shogi'
 import { useTranslation } from 'react-i18next'
 import i18n from '../i18n'
+import { Button } from '../workshop/ui/Button'
 import './flowchart.css'
 
 type Props = {
@@ -190,9 +191,9 @@ export function LessonMap({ course, currentNodeId, onJump, onClose }: Props & { 
         <div className="fc-overlay-box" onMouseDown={(e) => e.stopPropagation()}>
           <div className="fc-head">
             <strong>{t('lessonMap.lessonMap', { title: course.title })}</strong>
-            <button className="fc-expand" onClick={onClose}>
+            <Button size="sm" variant="ghost" onClick={onClose}>
               {t('lessonMap.close')}
-            </button>
+            </Button>
           </div>
           <p className="fc-help">{t('lessonMap.everyPointInThisLesson')}</p>
           <Diagram

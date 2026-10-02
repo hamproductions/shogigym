@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next'
 import type { Layout } from '../hooks/useLayout'
 import { useSettings } from '../settings'
 import { TABS, type Tab } from '../types'
+import { Button } from '../ui/Button'
+import { Tabs } from '../ui/Tabs'
 import { NavFooter } from './NavFooter'
 import { PanelBody, type PanelModel } from './PanelBody'
 
@@ -46,11 +48,7 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
     <>
       {twoPanels && zones && (
         <aside className="ws-panel ws-panel-left" style={{ ...zones.under }}>
-          <div className="ws-tabs" role="tablist">
-            <button role="tab" aria-selected className="on">
-              <span className={labelClass}>{t('tabs.moves')}</span>
-            </button>
-          </div>
+          <Tabs items={[{ id: 'moves', label: <span className={labelClass}>{t('tabs.moves')}</span> }]} value="moves" onChange={() => undefined} />
           <PanelBody tab="moves" model={model} />
         </aside>
       )}
@@ -58,16 +56,11 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
         {compact && <div className="ws-sheet-grip" role="separator" aria-orientation="horizontal" onPointerDown={startSheetDrag} />}
         <div className="ws-panel-resize" title={t('workshop.dragToResizeThePanel')} onPointerDown={startResize} />
         <button className="ws-sheet-handle" onClick={() => layout.setSheetOpen(!sheetOpen)} onPointerDown={startHandleSwipe} aria-label={sheetOpen ? t('workshop.collapsePanel') : t('workshop.expandPanel')} />
-        <div className="ws-tabs" role="tablist">
-          {TABS.filter((id) => !(twoPanels && id === 'moves')).map((id) => (
-            <button key={id} role="tab" aria-selected={tab === id} className={tab === id ? 'on' : ''} onClick={() => setTab(id)}>
-              <span className={labelClass}>{t(`tabs.${id}`)}</span>
-            </button>
-          ))}
-          <button className="ws-panel-close" onClick={() => setPanel({ hidden: true })} title={t('workshop.closeThePanelP')} aria-label={t('workshop.closeThePanel')}>
+        <Tabs items={TABS.filter((id) => !(twoPanels && id === 'moves')).map((id) => ({ id, label: <span className={labelClass}>{t(`tabs.${id}`)}</span> }))} value={tab} onChange={setTab}>
+          <Button variant="icon" size="lg" className="ws-panel-close" onClick={() => setPanel({ hidden: true })} title={t('workshop.closeThePanelP')} aria-label={t('workshop.closeThePanel')}>
             ×
-          </button>
-        </div>
+          </Button>
+        </Tabs>
         <PanelBody tab={tab} model={model} />
         <NavFooter canAutoplay={canAutoplay} onStartOver={onStartOver} />
       </aside>

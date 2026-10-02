@@ -1,4 +1,5 @@
 import type { PieceSet } from './pieceSets'
+import { applyTheme, type Theme } from './theme'
 import i18n from '../i18n'
 import { useSyncExternalStore } from 'react'
 
@@ -31,6 +32,8 @@ export type Settings = {
   lang: Lang
   engine: EngineKind
   fvScale: number
+  theme: Theme
+  characters: boolean
 }
 
 const KEY = 'joseki-practice:settings:v1'
@@ -43,7 +46,7 @@ function navigatorLang(): Lang {
   }
 }
 
-const DEFAULTS: Settings = { sound: true, volume: 0.6, pieceStyle: 'two', pieceFont: 'mincho', pieceSet: 'letters', pieceFinish: 'moriage', coords: true, environment: 'traditional', boardStyle: 'kaya', thinkMs: 1500, candidates: 3, opponent: 'beginner', aiStrategy: '', assist: true, timeControl: 'none', lang: navigatorLang(), engine: 'yaneuraou', fvScale: 16 }
+const DEFAULTS: Settings = { sound: true, volume: 0.6, pieceStyle: 'two', pieceFont: 'mincho', pieceSet: 'letters', pieceFinish: 'moriage', coords: true, environment: 'traditional', boardStyle: 'kaya', thinkMs: 1500, candidates: 3, opponent: 'beginner', aiStrategy: '', assist: true, timeControl: 'none', lang: navigatorLang(), engine: 'yaneuraou', fvScale: 16, theme: 'system', characters: true }
 
 function read(): Settings {
   try {
@@ -55,11 +58,13 @@ function read(): Settings {
 
 let current = read()
 void i18n.changeLanguage(current.lang)
+applyTheme(current.theme)
 const listeners = new Set<() => void>()
 
 export function setSettings(patch: Partial<Settings>) {
   current = { ...current, ...patch }
   if (patch.lang && patch.lang !== i18n.language) void i18n.changeLanguage(patch.lang)
+  if (patch.theme) applyTheme(patch.theme)
   try {
     localStorage.setItem(KEY, JSON.stringify(current))
   } catch (error) {
@@ -126,11 +131,16 @@ function tone(when: number, freq: number, gain: number, length: number) {
   osc.stop(ac.currentTime + when + length)
 }
 
-export function playSound(kind: 'move' | 'capture' | 'right' | 'wrong' | 'complete') {
+export function playSound(kind: 'move' | 'capture' | 'right' | 'wrong' | 'complete' | 'bang' | 'clatter') {
   if (!current.sound) return
   try {
     if (kind === 'move') knock(0, 1900, 1.4, 0.09)
     else if (kind === 'capture') knock(0, 1250, 2.2, 0.13)
+    else if (kind === 'bang') {
+      knock(0, 140, 9, 0.45)
+      knock(0, 420, 5, 0.25)
+      knock(0.02, 1100, 2.5, 0.12)
+    } else if (kind === 'clatter') for (let i = 0; i < 4; i++) knock(i * 0.035 + Math.random() * 0.03, 1400 + Math.random() * 1400, 0.9, 0.07)
     else if (kind === 'right') {
       tone(0, 880, 0.12, 0.18)
       tone(0.09, 1320, 0.1, 0.22)

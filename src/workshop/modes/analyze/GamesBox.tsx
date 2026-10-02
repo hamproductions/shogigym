@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { loadGames } from '../../games'
 import { ImportBox } from './ImportBox'
 import type { AnalyzeGames } from './useAnalyzeGames'
+import { Button } from '../../ui/Button'
 
 export function GamesBox({ games }: { games: AnalyzeGames }) {
   const { t } = useTranslation()
@@ -14,16 +15,18 @@ export function GamesBox({ games }: { games: AnalyzeGames }) {
   return (
     <div className="ws-games">
       <div className="ws-actions">
-        <button className="primary" onClick={() => setNote(games.saveSlot() ? (current ? t('games.savedUpdatedThisSlot') : t('games.savedToYourGames')) : t('games.couldNotSaveBrowserStorage'))}>
+        <Button size="sm" onClick={() => setNote(games.saveSlot() ? (current ? t('games.savedUpdatedThisSlot') : t('games.savedToYourGames')) : t('games.couldNotSaveBrowserStorage'))}>
           {current ? t('games.saveChanges') : t('games.saveGame')}
-        </button>
-        <button className={view === 'saved' ? 'on' : ''} onClick={() => toggle('saved')}>
+        </Button>
+        <Button size="sm" on={view === 'saved'} onClick={() => toggle('saved')}>
           {t('games.savedGames')} <span className="ws-count">{stored.length}</span>
-        </button>
-        <button className={view === 'load' ? 'on' : ''} onClick={() => toggle('load')}>
+        </Button>
+        <Button size="sm" on={view === 'load'} onClick={() => toggle('load')}>
           {t('games.loadAGame')}
-        </button>
-        <button onClick={() => navigator.clipboard.writeText(games.exportKif()).then(() => setNote(t('games.kifCopiedPasteItInto')), () => setNote(t('games.couldNotCopyToThe')))}>{t('games.copyKif')}</button>
+        </Button>
+        <Button size="sm" onClick={() => navigator.clipboard.writeText(games.exportKif()).then(() => setNote(t('games.kifCopiedPasteItInto')), () => setNote(t('games.couldNotCopyToThe')))}>
+          {t('games.copyKif')}
+        </Button>
       </div>
       {note && <p className="ws-muted">{note}</p>}
       {view === 'saved' && (
@@ -38,9 +41,9 @@ export function GamesBox({ games }: { games: AnalyzeGames }) {
                   {g.tree && g.tree.children.length > 1 ? t('games.withVariations') : ''}
                 </span>
               </button>
-              <button className="ws-var-x" onClick={() => games.deleteSlot(g)} aria-label={t('games.delete', { title: g.title })} title={t('games.delete2')}>
+              <Button variant="icon" className="ws-var-x" onClick={() => games.deleteSlot(g)} aria-label={t('games.delete', { title: g.title })} title={t('games.delete2')}>
                 ×
-              </button>
+              </Button>
             </li>
           ))}
         </ul>

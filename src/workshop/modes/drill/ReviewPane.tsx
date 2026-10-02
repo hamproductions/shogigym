@@ -5,6 +5,9 @@ import { moveText } from '../../../shogi'
 import { sfenAfter, sideMark } from '../../lib/notation'
 import { expectedMoves, reviewCounts, type ReviewItem, type ReviewQueue } from '../../practice'
 import type { Drill, DrillState } from './useDrill'
+import { Button } from '../../ui/Button'
+import { Card } from '../../ui/Card'
+import { Segmented } from '../../ui/Segmented'
 
 function untilText(ms: number) {
   const minutes = Math.round(ms / 60000)
@@ -16,7 +19,7 @@ function untilText(ms: number) {
 
 type Counts = ReturnType<typeof reviewCounts>
 
-function Card({ drill, item, startSfen, onNext, onRetry, mistakePreview, mistakeOk }: { drill: DrillState; item: ReviewItem; startSfen: string; onNext: () => void; onRetry: () => void; mistakePreview: boolean; mistakeOk: boolean }) {
+function ReviewCard({ drill, item, startSfen, onNext, onRetry, mistakePreview, mistakeOk }: { drill: DrillState; item: ReviewItem; startSfen: string; onNext: () => void; onRetry: () => void; mistakePreview: boolean; mistakeOk: boolean }) {
   const { t } = useTranslation()
   const expected = moveText(startSfen, expectedMoves(item)[0])
   const lessonNote = item.kind === 'position' ? item.node.branches.find((b) => b.usi === expectedMoves(item)[0])?.note : undefined
@@ -47,10 +50,10 @@ function Card({ drill, item, startSfen, onNext, onRetry, mistakePreview, mistake
         </p>
       )}
       <div className="ws-actions">
-        {drill.result && <button onClick={onRetry}>{t('review.tryItAgain')}</button>}
-        <button className="primary" onClick={onNext}>
+        {drill.result && <Button onClick={onRetry}>{t('review.tryItAgain')}</Button>}
+        <Button variant="primary" onClick={onNext}>
           {drill.result ? t('review.nextCard') : t('review.skip')}
-        </button>
+        </Button>
       </div>
     </>
   )
@@ -60,18 +63,18 @@ function EmptyQueue({ drill, counts, onQueue }: { drill: DrillState | null; coun
   const { t } = useTranslation()
   const now = Date.now()
   return (
-    <div className="ws-card">
+    <Card>
       <strong>{drill && drill.items.length > 0 ? t('review.doneAnswered', { answered: drill.answered, count: drill.items.length }) : drill?.queue === 'due' ? t('review.nothingDueRightNow') : t('review.nothingInThisQueue')}</strong>
       {counts.new > 0 && drill?.queue !== 'new' && (
-        <button className="primary" onClick={() => onQueue('new')}>
+        <Button variant="primary" onClick={() => onQueue('new')}>
           {t('review.learnNewPositions', { count: Math.min(10, counts.new) })}
-        </button>
+        </Button>
       )}
       {counts.started > 0 && Number.isFinite(counts.nextDue) && counts.nextDue > now && <p>{t('review.inSchedule', { count: counts.started, when: untilText(counts.nextDue - now) })}</p>}
       {drill?.queue === 'mistakes' && counts.mistakes === 0 && <p>{t('review.yourOwnMistakesLandHere')}</p>}
       {drill?.queue === 'difficult' && <p>{t('review.aPositionLandsHereAfter')}</p>}
       {counts.started === 0 && drill?.queue !== 'mistakes' && drill?.queue !== 'difficult' && <p>{t('review.positionsYouQuizInOpenings')}</p>}
-    </div>
+    </Card>
   )
 }
 
@@ -87,14 +90,20 @@ export function ReviewPane({ trainer, startSfen, mistakePreview, mistakeOk }: { 
   ]
   return (
     <div className="ws-practice">
-      <div className="ws-seg" role="group" aria-label={t('review.reviewQueue')}>
-        {queues.map((q) => (
-          <button key={q.id} className={drill?.queue === q.id ? 'on' : ''} onClick={() => trainer.start(q.id)}>
-            {q.label} <span>{q.n > 99 ? '99+' : q.n}</span>
-          </button>
-        ))}
-      </div>
-      {item && startSfen && drill ? <Card drill={drill} item={item} startSfen={startSfen} onNext={trainer.next} onRetry={trainer.retry} mistakePreview={mistakePreview} mistakeOk={mistakeOk} /> : <EmptyQueue drill={drill} counts={counts} onQueue={trainer.start} />}
+      <Segmented<ReviewQueue | ''>
+        label={t('review.reviewQueue')}
+        value={drill?.queue ?? ''}
+        options={queues.map((q) => ({
+          v: q.id,
+          t: (
+            <>
+              {q.label} <span>{q.n > 99 ? '99+' : q.n}</span>
+            </>
+          ),
+        }))}
+        onChange={(q) => q && trainer.start(q)}
+      />
+      {item && startSfen && drill ? <ReviewCard drill={drill} item={item} startSfen={startSfen} onNext={trainer.next} onRetry={trainer.retry} mistakePreview={mistakePreview} mistakeOk={mistakeOk} /> : <EmptyQueue drill={drill} counts={counts} onQueue={trainer.start} />}
     </div>
   )
 }

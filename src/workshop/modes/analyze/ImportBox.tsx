@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { decodeKifuFile } from '../../../kifu'
+import { Button } from '../../ui/Button'
 
 export function ImportBox({ onImport, open }: { onImport: (text: string) => string | null; open?: boolean }) {
   const { t } = useTranslation()
@@ -19,12 +20,12 @@ export function ImportBox({ onImport, open }: { onImport: (text: string) => stri
         <span className="ws-lib-ja">{t('games.importAGame')}</span>
         <span className="ws-lib-en">{t('games.kifKi2CsaUsiOr')}</span>
       </summary>
-      <textarea value={text} onChange={(e) => setText(e.target.value)} rows={4} placeholder={t('games.pasteAGameRecordHere')} />
+      <textarea className="ws-field" value={text} onChange={(e) => setText(e.target.value)} rows={4} placeholder={t('games.pasteAGameRecordHere')} />
       <div className="ws-actions">
-        <button className="primary" onClick={() => setError(onImport(text))} disabled={!text.trim()}>
+        <Button size="sm" variant="primary" onClick={() => setError(onImport(text))} disabled={!text.trim()}>
           {t('games.loadIt')}
-        </button>
-        <label className="ws-file">
+        </Button>
+        <label className="ws-btn sm ws-file">
           {t('games.openAFile')}
           <input
             type="file"

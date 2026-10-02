@@ -7,6 +7,7 @@ import { sideMark } from '../../lib/notation'
 import { courseProgress } from '../../practice'
 import { useSettings } from '../../settings'
 import type { LessonMode, Level } from '../../types'
+import { Button } from '../../ui/Button'
 
 type PickerProps = { onOpen: (c: Course, sub: LessonMode) => void; level: Level; setupId: string | null; setSetupId: (id: string | null) => void }
 
@@ -26,10 +27,10 @@ function LessonCard({ course, onOpen }: { course: Course; onOpen: PickerProps['o
         </span>
       </span>
       <span className="ws-lesson-buttons">
-        <button className="primary" onClick={() => onOpen(course, 'study')}>
+        <Button variant="primary" onClick={() => onOpen(course, 'study')}>
           {t('picker.study')}
-        </button>
-        <button onClick={() => onOpen(course, 'quiz')}>{t('picker.quiz')}</button>
+        </Button>
+        <Button onClick={() => onOpen(course, 'quiz')}>{t('picker.quiz')}</Button>
       </span>
       <i className="ws-progress" style={{ width: percent(progress) }} />
     </div>
@@ -42,6 +43,7 @@ function Credits() {
     <details className="ws-source">
       <summary>{t('picker.shogilabCreditsAndLicences')}</summary>
       <p>{t('picker.engineYaneuraouWasmBuildBy')}</p>
+      <p>{t('picker.charactersCredit')}</p>
     </details>
   )
 }

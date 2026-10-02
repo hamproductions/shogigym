@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import type { Spar } from './useSpar'
+import { Button } from '../../ui/Button'
 
 export function SparActions({ spar }: { spar: Spar }) {
   const { t } = useTranslation()
@@ -7,10 +8,10 @@ export function SparActions({ spar }: { spar: Spar }) {
     <div className="ws-actions ws-spar-actions">
       {!spar.resigned && (
         <>
-          <button onClick={spar.takeBack} disabled={spar.lastUserMove < 0} title={t('workshop.takeBackYourLastMove3')}>
+          <Button onClick={spar.takeBack} disabled={spar.lastUserMove < 0} title={t('workshop.takeBackYourLastMove3')}>
             {t('workshop.takeBack')}
-          </button>
-          <button onClick={spar.confirmResign}>{t('workshop.resign')}</button>
+          </Button>
+          <Button onClick={spar.confirmResign}>{t('workshop.resign')}</Button>
         </>
       )}
     </div>

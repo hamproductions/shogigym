@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Confirm } from '../types'
+import { Button } from '../ui/Button'
+import { Dialog } from '../ui/Dialog'
 
 const CLICK_THROUGH_MS = 250
 
@@ -12,25 +14,23 @@ export function ConfirmDialog({ confirm, onClose }: { confirm: Confirm; onClose:
   }, [confirm])
   const settled = () => performance.now() - openedAt.current > CLICK_THROUGH_MS
   return (
-    <div className="ws-palette-back" onPointerDown={() => settled() && onClose()}>
-      <div className="ws-dialog" role="alertdialog" aria-label={t('workshop.confirm')} onPointerDown={(e) => e.stopPropagation()}>
-        <p>{confirm.text}</p>
-        <div className="ws-actions">
-          <button onClick={onClose} autoFocus>
-            {confirm.no ?? t('workshop.keepPlaying')}
-          </button>
-          <button
-            className="primary"
-            onClick={() => {
-              if (performance.now() - openedAt.current < CLICK_THROUGH_MS) return
-              confirm.run()
-              onClose()
-            }}
-          >
-            {confirm.yes ?? t('workshop.yesStartNew')}
-          </button>
-        </div>
+    <Dialog label={t('workshop.confirm')} role="alertdialog" onBackdrop={() => settled() && onClose()}>
+      <p>{confirm.text}</p>
+      <div className="ws-actions">
+        <Button onClick={onClose} autoFocus>
+          {confirm.no ?? t('workshop.keepPlaying')}
+        </Button>
+        <Button
+          variant="primary"
+          onClick={() => {
+            if (performance.now() - openedAt.current < CLICK_THROUGH_MS) return
+            confirm.run()
+            onClose()
+          }}
+        >
+          {confirm.yes ?? t('workshop.yesStartNew')}
+        </Button>
       </div>
-    </div>
+    </Dialog>
   )
 }

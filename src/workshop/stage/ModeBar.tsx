@@ -6,6 +6,8 @@ import { sideMark } from '../lib/notation'
 import type { Spar } from '../modes/spar/useSpar'
 import { STRENGTH, TIME_CONTROLS, setSettings, useSettings } from '../settings'
 import { MODES, isGameMode, type LessonMode } from '../types'
+import { Button } from '../ui/Button'
+import { cx } from '../ui/cx'
 
 type ModeBarProps = {
   title: string
@@ -57,41 +59,41 @@ export function ModeBar({ title, instruction, lessonMode, sheetUp, panelHidden, 
         <span className={`ws-turn ${toMove}`}>{t('workshop.toMove', { side: sideMark(toMove) })}</span>
       </span>
       {isGameMode(mode) && (
-        <button className={`ws-help-toggle${settings.assist ? ' on' : ''}`} onClick={() => setSettings({ assist: !settings.assist })} title={settings.assist ? t('workshop.helpIsOnEvalBar') : t('workshop.noHelpClickToShow')} aria-pressed={settings.assist}>
+        <Button size="sm" variant="ghost" className={cx('ws-help-toggle', settings.assist && 'on')} onClick={() => setSettings({ assist: !settings.assist })} title={settings.assist ? t('workshop.helpIsOnEvalBar') : t('workshop.noHelpClickToShow')} aria-pressed={settings.assist}>
           {settings.assist ? t('workshop.coachOn') : t('workshop.coachOff')}
-        </button>
+        </Button>
       )}
       {!panelHidden && (
         <div className="ws-mini-nav">
-          <button className="ws-mini-wide" onClick={() => onPanel(true)} title={t('workshop.boardOnlyHideThePanel')} aria-label={t('workshop.hideThePanel')}>
+          <Button size="sm" className="ws-mini-wide" onClick={() => onPanel(true)} title={t('workshop.boardOnlyHideThePanel')} aria-label={t('workshop.hideThePanel')}>
             <Icon name="panel" size={16} />
             <span>{t('workshop.hidePanel')}</span>
-          </button>
+          </Button>
         </div>
       )}
       {panelHidden && (
         <div className="ws-mini-nav">
           {mode === 'spar' && !spar.resigned && !gameOver && (
-            <button onClick={spar.takeBack} disabled={spar.lastUserMove < 0} title={t('workshop.takeBackYourLastMove2')} aria-label={t('workshop.takeBack')}>
+            <Button size="sm" onClick={spar.takeBack} disabled={spar.lastUserMove < 0} title={t('workshop.takeBackYourLastMove2')} aria-label={t('workshop.takeBack')}>
               {t('workshop.takeBack')}
-            </button>
+            </Button>
           )}
-          <button onClick={nav.back} disabled={!nav.canBack} title={t('workshop.back')} aria-label={t('workshop.back2')}>
+          <Button size="sm" onClick={nav.back} disabled={!nav.canBack} title={t('workshop.back')} aria-label={t('workshop.back2')}>
             <Icon name="prev" size={16} />
-          </button>
-          <button onClick={nav.forward} disabled={!nav.canForward} title={t('workshop.forward')} aria-label={t('workshop.forward2')}>
+          </Button>
+          <Button size="sm" onClick={nav.forward} disabled={!nav.canForward} title={t('workshop.forward')} aria-label={t('workshop.forward2')}>
             <Icon name="next" size={16} />
-          </button>
-          <button className="ws-mini-wide" onClick={() => onPanel(false)} title={t('workshop.showThePanelP')} aria-label={t('workshop.showThePanel')}>
+          </Button>
+          <Button size="sm" className="ws-mini-wide" onClick={() => onPanel(false)} title={t('workshop.showThePanelP')} aria-label={t('workshop.showThePanel')}>
             <Icon name="panel" size={16} />
             <span>{t('workshop.panel')}</span>
-          </button>
+          </Button>
         </div>
       )}
       {mode === 'spar' && (
-        <button className="ws-game-setup" onClick={() => spar.setNewGameOpen(true)} title={`${STRENGTH[settings.opponent].label} · ${TIME_CONTROLS[settings.timeControl].label}`}>
-          <b>{t('newGame.button')}</b>
-        </button>
+        <Button variant="primary" className="ws-game-setup" onClick={() => spar.setNewGameOpen(true)} title={`${STRENGTH[settings.opponent].label} · ${TIME_CONTROLS[settings.timeControl].label}`}>
+          {t('newGame.button')}
+        </Button>
       )}
       {evalRate !== null && <EvalChip rate={evalRate} />}
       {position.checked && !gameOver && <span className="ws-check">{t('workshop.check')}</span>}

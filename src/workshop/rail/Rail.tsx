@@ -23,7 +23,7 @@ type RailProps = {
 
 function ToolButton({ tool }: { tool: RailTool }) {
   return (
-    <button className={`ws-rail-btn${tool.on ? ' on' : ''}`} onClick={tool.run} disabled={tool.disabled} title={tool.title} aria-pressed={tool.pressed}>
+    <button className={`ws-rail-btn${tool.on ? ' on' : ''}`} data-tool={tool.id} onClick={tool.run} disabled={tool.disabled} title={tool.title ?? tool.label} aria-pressed={tool.pressed}>
       <Icon name={tool.icon} size={20} />
       <span className={tool.labelClass}>{tool.label}</span>
     </button>
