@@ -4,7 +4,7 @@
 Shogi Gym 将棋ジム: dogfood as a new/weak player and keep fixing until the UX is smooth; finish the whole backlog autonomously; no "still open" lists as a stopping point.
 
 ## Constraints
-- No push/deploy unless the user says so in the same turn (last push cdba2d9; everything after is local).
+- No push/deploy unless the user says so in the same turn. Shipped v1.0.0 on 2026-10-03 (main 307b5e5, Pages deploy green, live at hamproductions.github.io/shogilab).
 - No Artifact publishing; no code comments; agent-browser with mock keychain + mute-audio, one named session, close it; never click mailto:/tel:.
 - Dev server on 5317 (background task, 2 h limit; restart when it expires). User's own VOICEVOX engine container on 50021: use read-only, never stop.
 - Dev-only pages (/komadai, /dev/hands) via `import.meta.env.DEV` lazy import; keep the /dev/hands tester.
@@ -19,7 +19,5 @@ Open:
 3. "Tiles floating" report — stray-piece ease-back added; root cause unconfirmed.
 4. Characters: seiza feet flat, near-arm sleeve stub, cloth/hair clipping re-check, thigh clip visual confirm.
 5. Tesuji announcements should use gold (CSS exists, class not applied).
-6. README GIF via /motion-reel.
 7. Critic minors: stale panel after tesuji go-back, onboarding step 2 density + Skip, picker heading duplication.
-8. Production build check (dev pages absent).
 Deferred by user: lesson note text translation (dynamic content), Zundamon 3D model (voice only).
