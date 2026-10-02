@@ -23,7 +23,7 @@ The whole app is one screen: a 3D board in the middle, a mode rail on the left, 
   - A variation tree (変化): step back anywhere and play a different move for either side.
   - Save games to in-app slots, or copy them as KIF with the variations included.
 - **Formation display**: the strategy and castle of both sides (四間飛車, 本美濃, 穴熊, ミレニアム…) appear beside the board, with a short banner when one is completed.
-- **Settings**: piece faces (二字 / 一字), board wood, sound, AI thinking time, number of candidate lines, AI strength, and a knowledge level ("I know the rules" / "New to shogi").
+- **Settings**: piece set (drawn letters in four brush styles, or the 菱湖 Ryoko / Brown / Light artwork sets) with a live preview, piece faces (二字 / 一字), board wood, sound, AI thinking time, number of candidate lines, AI strength, and a knowledge level ("I know the rules" / "New to shogi"), which is also asked once on the first visit.
 
 ## Run locally
 
@@ -74,4 +74,6 @@ This app is GPL-3.0-or-later.
 | Tsume problems | YaneuraOu 5M mate-problem set (yaneuraou.yaneu.com/2020/12/25/christmas-present/), solutions computed and re-verified here | None claimed |
 | Move-label thresholds | chess.com expected-points model | n/a |
 | Review intervals | Chessable MoveTrainer schedule | n/a |
-| Fonts | Shippori Mincho B1, Zen Kaku Gothic New (via Fontsource) | OFL-1.1 |
+| Fonts | Shippori Mincho B1, Zen Kaku Gothic New, Yuji Syuku, Yuji Boku, Zen Antique (via Fontsource) | OFL-1.1 |
+| Piece set 菱湖 Ryoko (`public/pieces/ryoko_1kanji`) | Ryoko_1Kanji by nexxogen, from lishogi (github.com/WandererXII/lishogi) | CC BY-SA 4.0 |
+| Piece sets Brown / Light (`public/pieces/kanji_brown`, `kanji_light`) | kanji_brown and kanji_light by Ka-hu, from lishogi | CC BY 4.0 |

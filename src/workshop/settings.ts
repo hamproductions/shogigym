@@ -1,3 +1,4 @@
+import type { PieceSet } from './pieceSets'
 import { useSyncExternalStore } from 'react'
 
 export type PieceStyle = 'two' | 'one'
@@ -10,6 +11,7 @@ export type Settings = {
   volume: number
   pieceStyle: PieceStyle
   pieceFont: PieceFont
+  pieceSet: PieceSet
   boardStyle: BoardStyle
   thinkMs: number
   candidates: number
@@ -20,7 +22,7 @@ export type Settings = {
 
 const KEY = 'joseki-practice:settings:v1'
 
-const DEFAULTS: Settings = { sound: true, volume: 0.6, pieceStyle: 'two', pieceFont: 'mincho', boardStyle: 'kaya', thinkMs: 1500, candidates: 3, opponent: 'beginner', aiStrategy: '', assist: true }
+const DEFAULTS: Settings = { sound: true, volume: 0.6, pieceStyle: 'two', pieceFont: 'mincho', pieceSet: 'letters', boardStyle: 'kaya', thinkMs: 1500, candidates: 3, opponent: 'beginner', aiStrategy: '', assist: true }
 
 function read(): Settings {
   try {

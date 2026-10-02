@@ -10,6 +10,7 @@ import { Icon, type IconName } from './icons'
 import { PIECE_INFO, PieceGuide, moveGloss, sees } from './pieces'
 import { allEvals, cachedReview, rememberEval, rememberReview } from './memory'
 import { deleteGame, loadGames, storeGame, type StoredGame } from './games'
+import { PIECE_SETS, loadPieceSet, pieceUrl, type PieceSet } from './pieceSets'
 import { addPath, allLines, emptyTree, isMainLine, mainContinuation, mainLine, nodeAt, promote, removeBranch, type Tree } from './tree'
 import { PIECE_FONTS, STRENGTH, loadPieceFont, playSound, setSettings, useSettings, type AiStrength, type BoardStyle, type PieceFont, type PieceStyle } from './settings'
 import { analyze, engineSupported, scoreToCp, type Score } from '../engine'
@@ -119,7 +120,15 @@ export function Workshop() {
       return 'rules'
     }
   })
+  const [welcome, setWelcome] = useState(() => {
+    try {
+      return localStorage.getItem(LEVEL_KEY) === null
+    } catch {
+      return false
+    }
+  })
   const setLevel = (next: Level) => {
+    setWelcome(false)
     setLevelState(next)
     try {
       localStorage.setItem(LEVEL_KEY, next)
@@ -132,13 +141,13 @@ export function Workshop() {
   const [fontReady, setFontReady] = useState('mincho')
   useEffect(() => {
     let live = true
-    loadPieceFont(settings.pieceFont)
+    Promise.all([loadPieceFont(settings.pieceFont), loadPieceSet(settings.pieceSet)])
       .catch(() => undefined)
-      .then(() => live && setFontReady(settings.pieceFont))
+      .then(() => live && setFontReady(`${settings.pieceFont}|${settings.pieceSet}`))
     return () => {
       live = false
     }
-  }, [settings.pieceFont])
+  }, [settings.pieceFont, settings.pieceSet])
   const assist = settings.assist || (mode !== 'spar' && mode !== 'analyze')
   const [playing, setPlaying] = useState(false)
   const [lessonMap, setLessonMap] = useState(false)
@@ -1440,7 +1449,6 @@ export function Workshop() {
               lastNote={bookLast?.branch.note}
               endRate={lessonDone && evalSente ? (userSide === 'sente' ? senteRate : 1 - senteRate) : null}
               level={level}
-              onLevel={setLevel}
               pickerSetup={pickerSetup}
               onPickerSetup={setPickerSetup}
               reply={reply}
@@ -1591,7 +1599,26 @@ export function Workshop() {
           </div>
         </div>
       )}
-      {showSettings && <SettingsDialog onClose={() => setShowSettings(false)} />}
+      {showSettings && <SettingsDialog onClose={() => setShowSettings(false)} level={level} onLevel={setLevel} />}
+      {welcome && (
+        <div className="ws-palette-back">
+          <div className="ws-dialog ws-welcome" role="dialog" aria-label="Welcome">
+            <h2>ようこそ ShogiLab</h2>
+            <p>A workshop for learning 四間飛車. How well do you know shogi?</p>
+            <div className="ws-welcome-choices">
+              <button className="primary" onClick={() => setLevel('rules')}>
+                <strong>I know the rules</strong>
+                <span>I can read 7六歩-style moves and know how every piece moves.</span>
+              </button>
+              <button onClick={() => setLevel('new')}>
+                <strong>New to shogi</strong>
+                <span>Show how pieces move and describe lesson moves in plain English.</span>
+              </button>
+            </div>
+            <p className="ws-muted">You can change this any time in 設定 Settings.</p>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
@@ -2114,7 +2141,7 @@ function mistakeHeadline(move: string, m: Mistake) {
   return `${move} is playable, but not this lesson's move`
 }
 
-function OpeningPicker({ onOpen, level, onLevel, setupId, setSetupId }: { onOpen: (c: Course, sub: 'study' | 'quiz') => void; level: Level; onLevel: (l: Level) => void; setupId: string | null; setSetupId: (id: string | null) => void }) {
+function OpeningPicker({ onOpen, level, setupId, setSetupId }: { onOpen: (c: Course, sub: 'study' | 'quiz') => void; level: Level; setupId: string | null; setSetupId: (id: string | null) => void }) {
   useEffect(() => {
     document.querySelector('.ws-panel-body')?.scrollTo(0, 0)
   }, [setupId])
@@ -2174,14 +2201,6 @@ function OpeningPicker({ onOpen, level, onLevel, setupId, setSetupId }: { onOpen
         What do you want to learn?
         <span>You play 四間飛車. Pick a technique, or the setup your opponent plays.</span>
       </h2>
-      <div className="ws-seg ws-level" role="group" aria-label="Your level">
-        <button className={level === 'rules' ? 'on' : ''} onClick={() => onLevel('rules')}>
-          I know the rules
-        </button>
-        <button className={level === 'new' ? 'on' : ''} onClick={() => onLevel('new')}>
-          New to shogi
-        </button>
-      </div>
       {level === 'new' && <p className="ws-picker-intro">Click any piece on the board to see how it moves. Lesson moves get a plain-English description.</p>}
       <input className="ws-search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search: 鷺宮, 穴熊, 棒銀…" aria-label="Search lessons" />
       {groups.some((g) => g.setup.technique) && <h3 className="ws-sub">Techniques</h3>}
@@ -2258,7 +2277,6 @@ function LessonPane(props: {
   onPlayReply: () => void
   endRate: number | null
   level: Level
-  onLevel: (l: Level) => void
   pickerSetup: string | null
   onPickerSetup: (id: string | null) => void
   onExplore: () => void
@@ -2268,8 +2286,8 @@ function LessonPane(props: {
   endComment?: string
   jumped: boolean
 }) {
-  const { justRight, progress, checking, jumped, offBook, onBackToLine, endComment, whatIf, onExplore, pickerSetup, onPickerSetup, playing, level, onLevel, endRate, reply, onPlayReply, course, lessonMode, onLessonMode, onOpen, onChange, onMap, onRestart, asking, done, good, sfen, userSide, mistake, showAnswer, onShowAnswer, onBack, mistakePreview, score, lastNote, lastMove, prevSfen } = props
-  if (!course) return <OpeningPicker onOpen={onOpen} level={level} onLevel={onLevel} setupId={pickerSetup} setSetupId={onPickerSetup} />
+  const { justRight, progress, checking, jumped, offBook, onBackToLine, endComment, whatIf, onExplore, pickerSetup, onPickerSetup, playing, level, endRate, reply, onPlayReply, course, lessonMode, onLessonMode, onOpen, onChange, onMap, onRestart, asking, done, good, sfen, userSide, mistake, showAnswer, onShowAnswer, onBack, mistakePreview, score, lastNote, lastMove, prevSfen } = props
+  if (!course) return <OpeningPicker onOpen={onOpen} level={level} setupId={pickerSetup} setSetupId={onPickerSetup} />
   const side = userSide === 'sente' ? '☗' : '☖'
   const setup = SETUPS.find((s) => s.courseIds.includes(course.id))
   const siblings = (setup?.courseIds ?? []).map((id) => COURSES.find((c) => c.id === id)).filter((c): c is Course => !!c)
@@ -2739,7 +2757,7 @@ function FlowPane({ lanes, sfen, onPreview, onHover }: { lanes: Lane[]; sfen: st
   )
 }
 
-function SettingsDialog({ onClose }: { onClose: () => void }) {
+function SettingsDialog({ onClose, level, onLevel }: { onClose: () => void; level: Level; onLevel: (l: Level) => void }) {
   const st = useSettings()
   const seg = <T extends string | number | boolean>(label: string, value: T, options: { v: T; t: string }[], set: (v: T) => void) => (
     <div className="ws-setting">
@@ -2757,6 +2775,8 @@ function SettingsDialog({ onClose }: { onClose: () => void }) {
     <div className="ws-palette-back" onPointerDown={onClose}>
       <div className="ws-dialog ws-settings" role="dialog" aria-label="Settings" onPointerDown={(e) => e.stopPropagation()}>
         <h2>設定 Settings</h2>
+        <h3>You</h3>
+        {seg<Level>('Shogi knowledge', level, [{ v: 'rules', t: 'I know the rules' }, { v: 'new', t: 'New to shogi' }], onLevel)}
         <h3>Sound</h3>
         {seg('Sound effects', st.sound, [{ v: true, t: 'On' }, { v: false, t: 'Off' }], (v) => setSettings({ sound: v }))}
         <label className="ws-setting">
@@ -2764,8 +2784,25 @@ function SettingsDialog({ onClose }: { onClose: () => void }) {
           <input type="range" min={0} max={1} step={0.05} disabled={!st.sound} value={st.volume} onChange={(e) => setSettings({ volume: Number(e.target.value) })} onMouseUp={() => playSound('move')} />
         </label>
         <h3>Board and pieces</h3>
-        {seg<PieceFont>('Piece lettering', st.pieceFont, (Object.keys(PIECE_FONTS) as PieceFont[]).map((v) => ({ v, t: PIECE_FONTS[v].label })), (v) => setSettings({ pieceFont: v }))}
-        {seg<PieceStyle>('Piece faces', st.pieceStyle, [{ v: 'two', t: '二字 王将' }, { v: 'one', t: '一字 王' }], (v) => setSettings({ pieceStyle: v }))}
+        {seg<PieceSet>('Piece set', st.pieceSet, (Object.keys(PIECE_SETS) as PieceSet[]).map((v) => ({ v, t: PIECE_SETS[v].label })), (v) => setSettings({ pieceSet: v }))}
+        <div className="ws-piece-sample" aria-label="Preview">
+          {(['OU', 'HI', 'KA', 'KI', 'GI', 'FU', 'RY', 'TO'] as const).map((code) =>
+            st.pieceSet === 'letters' ? (
+              <span key={code} className={`ws-sample-koma${code === 'RY' || code === 'TO' ? ' promoted' : ''}`} style={{ fontFamily: `"${PIECE_FONTS[st.pieceFont].family}", serif`, fontWeight: PIECE_FONTS[st.pieceFont].weight }}>
+                {[...(st.pieceStyle === 'one' ? { OU: '王', HI: '飛', KA: '角', KI: '金', GI: '銀', FU: '歩', RY: '龍', TO: 'と' }[code] : { OU: '王将', HI: '飛車', KA: '角行', KI: '金将', GI: '銀将', FU: '歩兵', RY: '龍王', TO: 'と' }[code])].map((c, i, all) => (
+                  <i key={i} className={all.length === 1 ? 'one' : ''}>
+                    {c}
+                  </i>
+                ))}
+              </span>
+            ) : (
+              <img key={code} src={pieceUrl(st.pieceSet, code)} alt={code} />
+            ),
+          )}
+        </div>
+        {PIECE_SETS[st.pieceSet].credit && <p className="ws-muted ws-credit">{PIECE_SETS[st.pieceSet].credit}</p>}
+        {st.pieceSet === 'letters' && seg<PieceFont>('Piece lettering', st.pieceFont, (Object.keys(PIECE_FONTS) as PieceFont[]).map((v) => ({ v, t: PIECE_FONTS[v].label })), (v) => setSettings({ pieceFont: v }))}
+        {st.pieceSet === 'letters' && seg<PieceStyle>('Piece faces', st.pieceStyle, [{ v: 'two', t: '二字 王将' }, { v: 'one', t: '一字 王' }], (v) => setSettings({ pieceStyle: v }))}
         {seg<BoardStyle>('Board wood', st.boardStyle, [{ v: 'kaya', t: '榧 Kaya' }, { v: 'shin-kaya', t: '新榧 Light' }, { v: 'dark', t: '濃色 Dark' }], (v) => setSettings({ boardStyle: v }))}
         <h3>AI</h3>
         {seg('Thinking time', st.thinkMs, [{ v: 500, t: 'Fast' }, { v: 1500, t: 'Normal' }, { v: 4000, t: 'Deep' }], (v) => setSettings({ thinkMs: v }))}

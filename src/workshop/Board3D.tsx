@@ -3,6 +3,7 @@ import * as THREE from 'three'
 import { Color, PieceType, Square, type ImmutablePosition } from 'tsshogi'
 import { HAND_ORDER, PIECE_CHAR } from '../shogi'
 import { PIECE_FONTS, getSettings, type BoardStyle } from './settings'
+import { loadedPiece, pieceCode, type LoadedPiece } from './pieceSets'
 
 export type BoardArrow = { usi: string; color: string; dashed?: boolean; label?: string }
 
@@ -135,6 +136,21 @@ function woodMaterial(base: [number, number, number], seed: number, roughness = 
 
 const faceCache = new Map<string, THREE.Texture>()
 
+const artCache = new Map<string, THREE.Texture>()
+
+function artTexture(art: LoadedPiece, key: string) {
+  const cached = artCache.get(key)
+  if (cached) return cached
+  const canvas = grainTexture(256, 256, [240, 210, 152], 18, key.length)
+  const ctx = canvas.getContext('2d')!
+  ctx.drawImage(art.canvas, 0, 0, 256, 256)
+  const texture = new THREE.CanvasTexture(canvas)
+  texture.colorSpace = THREE.SRGBColorSpace
+  texture.anisotropy = 8
+  artCache.set(key, texture)
+  return texture
+}
+
 function faceTexture(char: string, promoted: boolean) {
   const font = PIECE_FONTS[getSettings().pieceFont] ?? PIECE_FONTS.mincho
   const key = `${char}${promoted}${font.family}`
@@ -197,7 +213,9 @@ function pieceMesh(type: PieceType, color: Color) {
   const scale = PIECE_SIZE[type] ?? 0.8
   const one = getSettings().pieceStyle === 'one'
   const char = type === PieceType.KING && color === Color.WHITE ? (one ? '玉' : KING_GOTE) : one ? (type === PieceType.KING ? '王' : PIECE_CHAR[type]) : FACE[type]
-  const face = new THREE.MeshStandardMaterial({ map: faceTexture(char, PROMOTED.has(type)), roughness: 0.45 })
+  const set = getSettings().pieceSet
+  const art = set && set !== 'letters' ? loadedPiece(set, pieceCode(type, color === Color.WHITE && type === PieceType.KING ? Color.WHITE : Color.BLACK)) : undefined
+  const face = new THREE.MeshStandardMaterial({ map: art ? artTexture(art, `${set}/${pieceCode(type, color)}`) : faceTexture(char, PROMOTED.has(type)), roughness: 0.45 })
   const mesh = new THREE.Mesh(pieceGeometry(scale), [face, sideMaterial])
   mesh.castShadow = true
   mesh.receiveShadow = true
