@@ -753,7 +753,7 @@
     "hideUi": "Hide the interface: board only",
     "hideUiShort": "Hide UI",
     "lookAround": "Look around",
-    "lookAroundHint": "Look around: drag to rotate, scroll to zoom. Moves are paused until you turn it off.",
+    "lookAroundHint": "Look around: drag to rotate, scroll to zoom. Click pieces to keep playing.",
     "hidePanel": "Hide panel"
   },
   "zones": {

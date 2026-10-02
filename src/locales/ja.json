@@ -734,7 +734,7 @@
     "hideUi": "UIを隠して盤だけ表示",
     "hideUiShort": "UI非表示",
     "lookAround": "見回す",
-    "lookAroundHint": "見回す: ドラッグで回転、スクロールで拡大縮小。オフにするまで指し手は止まります。",
+    "lookAroundHint": "見回す: ドラッグで回転、スクロールで拡大縮小。駒をクリックすればそのまま指せます。",
     "hidePanel": "パネルを隠す"
   },
   "zones": {
