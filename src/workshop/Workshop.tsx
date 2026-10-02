@@ -55,7 +55,6 @@ import { useSteadyRate } from './hooks/useSteadyRate'
 import { say } from './lib/voice'
 import { Rail } from './rail/Rail'
 import { BoardStage } from './stage/BoardStage'
-import { EvalBar } from './stage/EvalBar'
 import { ModeBar } from './stage/ModeBar'
 import { isGameMode, type Confirm, type Tab } from './types'
 
@@ -144,7 +143,7 @@ export function Workshop({ routeMode, routeMain }: { routeMode?: string; routeMa
   const evalOn = session.ai && session.assist && (isGameMode(mode) || (mode === 'lesson' && !!course && lesson.lessonMode === 'study'))
   const steadyRate = useSteadyRate(evalOn && evaluation.evalSente ? evaluation.senteRate : null)
   const evalRate = evalOn ? steadyRate : null
-  const evalBoard = evalRate !== null && !layout.compact && !view.tilted && !view.orbit && !view.hideUi && layout.zones ? layout.zones.board : null
+  const evalBar = evalRate !== null && !layout.compact && !view.hideUi
   const newGame = () => load(InitialPositionSFEN.STANDARD, userSide, mode === 'lesson' ? 'analyze' : mode, null)
   const startOver = () => (game.moves.length > 0 ? setConfirm({ text: t('workshop.startOverFromTheBeginning'), run: () => load(course ? course.root.sfen : InitialPositionSFEN.STANDARD, userSide, mode, course) }) : undefined)
   const commands = useCommands({ sfen, setMode: enterMode, flip: () => session.setFlipped((v) => !v), tilt: () => view.setTilted((v) => !v), openCourse: lesson.open, play: session.play, newGame })
@@ -181,9 +180,8 @@ export function Workshop({ routeMode, routeMain }: { routeMode?: string; routeMa
             <Icon name="exitFullscreen" size={18} />
             <span>{t('workshop.showUi')} (Esc)</span>
           </button>
-          <ModeBar title={title} instruction={instruction} lessonMode={lesson.lessonMode} sheetUp={layout.compact && layout.drawer} panelHidden={layout.panelHidden} onPanel={(hidden) => layout.setPanel({ hidden })} spar={spar} evalRate={evalRate} barShown={!!evalBoard} />
-          <BoardStage view={view} decor={decor} input={input} commit={commit} mistake={mistake} onBack={goBack} spar={spar} tsume={tsume.tsume} hasDrillCard={!!drill.item} phoneTask={phoneTask} announce={announce} onZones={layout.setZones} />
-          {evalBoard && evalRate !== null && <EvalBar rate={evalRate} board={evalBoard} flipped={session.flipped} />}
+          <ModeBar title={title} instruction={instruction} lessonMode={lesson.lessonMode} sheetUp={layout.compact && layout.drawer} panelHidden={layout.panelHidden} onPanel={(hidden) => layout.setPanel({ hidden })} spar={spar} evalRate={evalRate} barShown={evalBar} />
+          <BoardStage evalRate={evalBar ? evalRate : null} view={view} decor={decor} input={input} commit={commit} mistake={mistake} onBack={goBack} spar={spar} tsume={tsume.tsume} hasDrillCard={!!drill.item} phoneTask={phoneTask} announce={announce} onZones={layout.setZones} />
         </section>
         <SidePanels
           layout={layout}

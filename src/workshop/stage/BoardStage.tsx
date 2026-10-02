@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { EvalBar } from './EvalBar'
 import { Color } from 'tsshogi'
 import type { Side } from '../../shogi'
 import { avatarCues } from '../avatars'
@@ -23,6 +24,7 @@ import { AnnounceBadge, PromotionPicker, TsumePlate } from './BoardOverlays'
 import { BoardBanners } from './BoardBanners'
 
 type BoardStageProps = {
+  evalRate: number | null
   view: View
   decor: ReturnType<typeof useBoardDecor>
   input: ReturnType<typeof useBoardInput>
@@ -52,7 +54,7 @@ function usePieceAssetsKey() {
   return ready
 }
 
-export function BoardStage({ view, decor, input, commit, mistake, onBack, spar, tsume, hasDrillCard, phoneTask, announce, onZones }: BoardStageProps) {
+export function BoardStage({ view, decor, input, commit, mistake, onBack, spar, tsume, hasDrillCard, phoneTask, announce, onZones, evalRate }: BoardStageProps) {
   const { t } = useTranslation()
   const settings = useSettings()
   const assetsKey = usePieceAssetsKey()
@@ -74,7 +76,8 @@ export function BoardStage({ view, decor, input, commit, mistake, onBack, spar, 
   const sparEnded = mode === 'spar' && (spar.resigned || !!spar.flagged)
   const showGameOver = ((gameOver && game.moves.length > 0 && isGameMode(mode)) || sparEnded) && spar.endHidden !== sfen
   return (
-    <div className="ws-board-wrap">
+    <div className={`ws-board-wrap${evalRate !== null ? ' with-eval' : ''}`}>
+      {evalRate !== null && <EvalBar rate={evalRate} flipped={flipped} />}
       {settings.environment === 'diagram' || settings.environment === 'broadcast' ? (
         <Board2D style={settings.environment} {...board} tilted={false} />
       ) : (
