@@ -3620,3 +3620,35 @@
   font-weight: 700;
   white-space: nowrap;
 }
+
+.ws-viewer {
+  width: min(560px, 94vw);
+}
+
+.ws-viewer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ws .ws-viewer-head button {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+  font-size: 26px;
+}
+
+.ws-viewer-stage {
+  height: min(52vh, 420px);
+  margin: 8px 0;
+  border-radius: 12px;
+  background: radial-gradient(ellipse at 50% 40%, #3a4a66, #16202e);
+  touch-action: none;
+  cursor: grab;
+}
+
+.ws .ws-viewer-open {
+  margin: 0 0 8px;
+}

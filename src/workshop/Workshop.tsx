@@ -9,6 +9,7 @@ import { Board3D, type BoardArrow } from './Board3D'
 import { Icon, type IconName } from './icons'
 import { PIECE_INFO, PieceGuide, moveGloss, sees } from './pieces'
 import { allEvals, cachedReview, rememberEval, rememberReview } from './memory'
+import { PieceViewer } from './PieceViewer'
 import { detectTesuji, type Tesuji } from './tesuji'
 import { TESUJI_KINDS, TESUJI_DRILLS, markTesuji, pickTesuji, tesujiStats, type TesujiDrill } from './tesujiDrills'
 import { deleteGame, loadGames, storeGame, type StoredGame } from './games'
@@ -240,6 +241,7 @@ export function Workshop() {
   }, [course, cursor, game.moves])
   const [checking, setChecking] = useState(false)
   const [showControl, setShowControl] = useState(false)
+  const [showViewer, setShowViewer] = useState(false)
   const [tesujiDrill, setTesujiDrill] = useState<{ item: TesujiDrill; filter: string; status: 'asking' | 'right' | 'shown'; missed: boolean; hint: boolean; wrong?: string } | null>(null)
   const [tesujiNote, setTesujiNote] = useState<(Tesuji & { at: number }) | null>(null)
   useEffect(() => {
@@ -1701,7 +1703,8 @@ export function Workshop() {
           </div>
         </div>
       )}
-      {showSettings && <SettingsDialog onClose={() => setShowSettings(false)} level={level} onLevel={setLevel} />}
+      {showSettings && <SettingsDialog onClose={() => setShowSettings(false)} level={level} onLevel={setLevel} onViewer={() => (setShowSettings(false), setShowViewer(true))} />}
+      {showViewer && <PieceViewer onClose={() => setShowViewer(false)} />}
       {welcome && (
         <div className="ws-palette-back">
           <div className="ws-dialog ws-welcome" role="dialog" aria-label="Welcome">
@@ -2979,7 +2982,7 @@ function FlowPane({ lanes, sfen, onPreview, onHover }: { lanes: Lane[]; sfen: st
   )
 }
 
-function SettingsDialog({ onClose, level, onLevel }: { onClose: () => void; level: Level; onLevel: (l: Level) => void }) {
+function SettingsDialog({ onClose, level, onLevel, onViewer }: { onClose: () => void; level: Level; onLevel: (l: Level) => void; onViewer: () => void }) {
   const st = useSettings()
   const seg = <T extends string | number | boolean>(label: string, value: T, options: { v: T; t: string }[], set: (v: T) => void) => (
     <div className="ws-setting">
@@ -3022,6 +3025,9 @@ function SettingsDialog({ onClose, level, onLevel }: { onClose: () => void; leve
             ),
           )}
         </div>
+        <button className="ws-viewer-open" onClick={onViewer}>
+          Inspect a piece in 3D ›
+        </button>
         {PIECE_SETS[st.pieceSet].credit && <p className="ws-muted ws-credit">{PIECE_SETS[st.pieceSet].credit}</p>}
         {st.pieceSet === 'letters' && seg<PieceFont>('Piece lettering', st.pieceFont, (Object.keys(PIECE_FONTS) as PieceFont[]).map((v) => ({ v, t: PIECE_FONTS[v].label })), (v) => setSettings({ pieceFont: v }))}
         {st.pieceSet === 'letters' && seg<PieceStyle>('Piece faces', st.pieceStyle, [{ v: 'two', t: '二字 王将' }, { v: 'one', t: '一字 王' }], (v) => setSettings({ pieceStyle: v }))}

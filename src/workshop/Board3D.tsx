@@ -137,81 +137,6 @@ function woodMaterial(base: [number, number, number], seed: number, roughness = 
 
 const faceCache = new Map<string, THREE.Texture>()
 
-function bakeCarve(canvas: HTMLCanvasElement) {
-  const size = canvas.width
-  const ctx = canvas.getContext('2d', { willReadFrequently: true })!
-  const img = ctx.getImageData(0, 0, size, size)
-  const px = img.data
-  const ink = new Uint8Array(size * size)
-  const red = new Uint8Array(size * size)
-  for (let i = 0; i < ink.length; i++) {
-    const r = px[i * 4]
-    const g = px[i * 4 + 1]
-    const b = px[i * 4 + 2]
-    const isRed = r > 110 && r - g > 55 && r - b > 55
-    red[i] = isRed ? 1 : 0
-    ink[i] = isRed || 0.3 * r + 0.59 * g + 0.11 * b < 120 ? 1 : 0
-  }
-  const at = (x: number, y: number) => (x < 0 || y < 0 || x >= size || y >= size ? 0 : ink[y * size + x])
-  const d = Math.max(4, Math.round(size / 40))
-  for (let y = 0; y < size; y++)
-    for (let x = 0; x < size; x++) {
-      const i = y * size + x
-      const o = i * 4
-      if (ink[i]) {
-        const lipShadow = !at(x - d, y - d)
-        const litWall = !at(x + d, y + d)
-        let [r, g, b] = red[i] ? [128, 22, 14] : [26, 15, 6]
-        if (lipShadow) [r, g, b] = [r * 0.45, g * 0.45, b * 0.45]
-        else if (litWall) [r, g, b] = red[i] ? [196, 70, 52] : [118, 84, 46]
-        px[o] = r
-        px[o + 1] = g
-        px[o + 2] = b
-      } else {
-        const rim = at(x + d, y + d) && !at(x - d, y - d)
-        const cast = at(x - d, y - d)
-        const k = rim ? 1.28 : cast ? 0.68 : 1
-        px[o] = Math.min(255, px[o] * k)
-        px[o + 1] = Math.min(255, px[o + 1] * k)
-        px[o + 2] = Math.min(255, px[o + 2] * k)
-      }
-    }
-  ctx.putImageData(img, 0, 0)
-}
-
-const carveCache = new WeakMap<THREE.Texture, THREE.Texture>()
-
-function carveTexture(map: THREE.Texture) {
-  const cached = carveCache.get(map)
-  if (cached) return cached
-  const source = map.image as HTMLCanvasElement
-  const size = source.width
-  const lum = document.createElement('canvas')
-  lum.width = lum.height = size
-  const lctx = lum.getContext('2d', { willReadFrequently: true })!
-  lctx.drawImage(source, 0, 0)
-  const img = lctx.getImageData(0, 0, size, size)
-  const px = img.data
-  for (let i = 0; i < px.length; i += 4) {
-    const r = px[i]
-    const g = px[i + 1]
-    const ink = r < 110 || (r > 110 && r - g > 60) ? 1 : 0
-    const v = ink ? 0 : 255
-    px[i] = px[i + 1] = px[i + 2] = v
-    px[i + 3] = 255
-  }
-  lctx.putImageData(img, 0, 0)
-  const out = document.createElement('canvas')
-  out.width = out.height = size
-  const octx = out.getContext('2d')!
-  octx.filter = 'blur(1.6px)'
-  octx.drawImage(lum, 0, 0)
-  const texture = new THREE.CanvasTexture(out)
-  texture.anisotropy = 8
-  carveCache.set(map, texture)
-  return texture
-}
-
 const artCache = new Map<string, THREE.Texture>()
 
 function artTexture(art: LoadedPiece, key: string) {
@@ -220,7 +145,6 @@ function artTexture(art: LoadedPiece, key: string) {
   const canvas = grainTexture(256, 256, [240, 210, 152], 18, key.length)
   const ctx = canvas.getContext('2d')!
   ctx.drawImage(art.canvas, 0, 0, 256, 256)
-  bakeCarve(canvas)
   const texture = new THREE.CanvasTexture(canvas)
   texture.colorSpace = THREE.SRGBColorSpace
   texture.anisotropy = 8
@@ -249,7 +173,6 @@ function faceTexture(char: string, promoted: boolean) {
     ctx.fillText(c, 128, y)
     ctx.strokeText(c, 128, y)
   })
-  bakeCarve(canvas)
   const texture = new THREE.CanvasTexture(canvas)
   texture.colorSpace = THREE.SRGBColorSpace
   texture.anisotropy = 8
@@ -285,19 +208,149 @@ function pieceGeometry(scale: number) {
   return geometry
 }
 
+const hiddenLid = new THREE.MeshBasicMaterial({ visible: false })
+
+function piecePolygon(scale: number): [number, number][] {
+  const w = scale * 0.9
+  const h = scale
+  return [
+    [-w * 0.5, -h * 0.5],
+    [w * 0.5, -h * 0.5],
+    [w * 0.33, h * 0.38],
+    [0, h * 0.5],
+    [-w * 0.33, h * 0.38],
+  ]
+}
+
+function inside(poly: [number, number][], x: number, y: number) {
+  let hit = false
+  for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+    const [xi, yi] = poly[i]
+    const [xj, yj] = poly[j]
+    if (yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) hit = !hit
+  }
+  return hit
+}
+
+function nearestOnPolygon(poly: [number, number][], x: number, y: number): [number, number] {
+  let best: [number, number] = poly[0]
+  let bestD = Infinity
+  for (let i = 0; i < poly.length; i++) {
+    const [ax, ay] = poly[i]
+    const [bx, by] = poly[(i + 1) % poly.length]
+    const dx = bx - ax
+    const dy = by - ay
+    const t = Math.max(0, Math.min(1, ((x - ax) * dx + (y - ay) * dy) / (dx * dx + dy * dy)))
+    const px = ax + t * dx
+    const py = ay + t * dy
+    const d = (px - x) ** 2 + (py - y) ** 2
+    if (d < bestD) {
+      bestD = d
+      best = [px, py]
+    }
+  }
+  return best
+}
+
+const topCache = new WeakMap<THREE.Texture, Map<number, THREE.BufferGeometry>>()
+
+function inkMask(map: THREE.Texture) {
+  const source = map.image as HTMLCanvasElement
+  const size = 256
+  const canvas = document.createElement('canvas')
+  canvas.width = canvas.height = size
+  const ctx = canvas.getContext('2d', { willReadFrequently: true })!
+  ctx.filter = 'blur(1.4px)'
+  ctx.drawImage(source, 0, 0, size, size)
+  const px = ctx.getImageData(0, 0, size, size).data
+  const ink = new Float32Array(size * size)
+  for (let i = 0; i < ink.length; i++) {
+    const r = px[i * 4]
+    const g = px[i * 4 + 1]
+    const b = px[i * 4 + 2]
+    const red = r > 110 && r - g > 55 && r - b > 55 ? 1 : 0
+    ink[i] = Math.max(red, Math.min(1, Math.max(0, (165 - (0.3 * r + 0.59 * g + 0.11 * b)) / 70)))
+  }
+  return (u: number, v: number) => {
+    const x = Math.min(size - 1, Math.max(0, Math.round(u * (size - 1))))
+    const y = Math.min(size - 1, Math.max(0, Math.round((1 - v) * (size - 1))))
+    return ink[y * size + x]
+  }
+}
+
+function carvedTop(scale: number, map: THREE.Texture) {
+  let byScale = topCache.get(map)
+  if (!byScale) topCache.set(map, (byScale = new Map()))
+  const cached = byScale.get(scale)
+  if (cached) return cached
+  const w = scale * 0.9
+  const h = scale
+  const poly = piecePolygon(scale)
+  const ink = inkMask(map)
+  const top = 0.16 * scale + 0.06 + 0.026
+  const depth = 0.028 * scale
+  const n = 160
+  const positions: number[] = []
+  const uvs: number[] = []
+  for (let j = 0; j <= n; j++)
+    for (let i = 0; i <= n; i++) {
+      let x = -w / 2 + (w * i) / n
+      let y = -h / 2 + (h * j) / n
+      if (!inside(poly, x, y)) [x, y] = nearestOnPolygon(poly, x, y)
+      const u = x / w + 0.5
+      const v = y / h + 0.5
+      const t = Math.min(1, Math.max(0, v))
+      positions.push(x, y, top * (1 - 0.5 * t) - ink(u, v) * depth)
+      uvs.push(u, v)
+    }
+  const index: number[] = []
+  for (let j = 0; j < n; j++)
+    for (let i = 0; i < n; i++) {
+      const a = j * (n + 1) + i
+      index.push(a, a + 1, a + n + 1, a + 1, a + n + 2, a + n + 1)
+    }
+  const geometry = new THREE.BufferGeometry()
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3))
+  geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2))
+  geometry.setIndex(index)
+  geometry.computeVertexNormals()
+  geometry.rotateX(-Math.PI / 2)
+  byScale.set(scale, geometry)
+  return geometry
+}
+
+const bottomCache = new Map<number, THREE.BufferGeometry>()
+
+function pieceBottom(scale: number) {
+  const cached = bottomCache.get(scale)
+  if (cached) return cached
+  const shape = new THREE.Shape(piecePolygon(scale).map(([x, y]) => new THREE.Vector2(x, y)))
+  const geometry = new THREE.ShapeGeometry(shape)
+  geometry.rotateX(Math.PI / 2)
+  geometry.scale(1, 1, -1)
+  geometry.translate(0, -0.02, 0)
+  bottomCache.set(scale, geometry)
+  return geometry
+}
+
 const sideMaterial = new THREE.MeshStandardMaterial({ color: 0xdcb377, emissive: 0x8a6232, emissiveIntensity: 0.75, roughness: 0.6 })
 
-function pieceMesh(type: PieceType, color: Color) {
+export function pieceMesh(type: PieceType, color: Color) {
   const scale = PIECE_SIZE[type] ?? 0.8
   const one = getSettings().pieceStyle === 'one'
   const char = type === PieceType.KING && color === Color.WHITE ? (one ? '玉' : KING_GOTE) : one ? (type === PieceType.KING ? '王' : PIECE_CHAR[type]) : FACE[type]
   const set = getSettings().pieceSet
   const art = set && set !== 'letters' ? loadedPiece(set, pieceCode(type, color === Color.WHITE && type === PieceType.KING ? Color.WHITE : Color.BLACK)) : undefined
   const map = art ? artTexture(art, `${set}/${pieceCode(type, color)}`) : faceTexture(char, PROMOTED.has(type))
-  const face = new THREE.MeshStandardMaterial({ map, bumpMap: carveTexture(map), bumpScale: 2.2, roughness: 0.5 })
-  const mesh = new THREE.Mesh(pieceGeometry(scale), [face, sideMaterial])
+  const face = new THREE.MeshStandardMaterial({ map, roughness: 0.55 })
+  const mesh = new THREE.Mesh(pieceGeometry(scale), [hiddenLid, sideMaterial])
   mesh.castShadow = true
   mesh.receiveShadow = true
+  const top = new THREE.Mesh(carvedTop(scale, map), face)
+  top.castShadow = true
+  top.receiveShadow = true
+  const bottom = new THREE.Mesh(pieceBottom(scale), sideMaterial)
+  mesh.add(top, bottom)
   if (color === Color.WHITE) mesh.rotation.y = Math.PI
   return mesh
 }
