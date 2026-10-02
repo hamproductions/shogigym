@@ -27,7 +27,7 @@ export function pageMeta(mode: string | undefined, main: string | undefined) {
 export const knownMain = (id: string) => mainStrategies().some((s) => s.id === id)
 
 export function metaTags(title: string, description: string, pathname: string) {
-  const url = `${SITE_URL}${pathname === '/' ? '/' : pathname.replace(/\/$/, '')}`
+  const url = `${SITE_URL}${pathname.endsWith('/') ? pathname : `${pathname}/`}`
   const image = `${SITE_URL}/og.png`
   return [
     { title },
