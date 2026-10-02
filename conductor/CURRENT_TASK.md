@@ -104,9 +104,13 @@ Next: castle-breaking + sabaki drills from kif-backed sources; more dogfood
 - Dev server running for user: http://localhost:5317 (background task; kill at end)
 - Open question (user): book ▲7六歩 rated 96.1% accuracy — should book moves count 100%?
 
-## 手筋 drills (in progress, paused for phone fixes)
-Source shogi-rule.com/koma_hu/ etc; diagrams in scratchpad/tesuji. Plan: tesuji drill = position from diagram, find the sourced tesuji move; engine-free grading (partial boards have no kings). Read so far:
-- 垂れ歩 (partial): gote 2一桂 1一香 3二金 2二角 3三歩 1三歩; sente 3七歩 1七歩 2八飛 2九桂 1九香, hand 歩; answer P*2d.
-- 単打の歩: gote 9一香 8一桂 5一金 4一銀 1一香 8二玉 7二銀, pawns 9/8/7/6/4/3/1三; sente 2一龍, 7六歩, pawns 9/8/6/4/3/1七, 7八玉 5八金 4八銀, 9九香 8九桂 7九銀 6九金 2九桂 1九香, hand 歩; answer P*5b; source line △同金 ▲4一龍.
-- たたきの歩: gote 9一香 8一桂 6一金 5一飛 2一桂 1一香 8二玉 7二銀 3二金 pawns 9/8/7/6/4/3/2/1三 5四銀; sente 7六歩 pawns 9/8/6/4/3/1七 7八玉 5八金 4八銀 2八飛 9九香 8九桂 7九銀 6九金 2九桂 1九香, hand 歩(+角 per text); answer P*5b; 金で取ると(5二金→6二? arrow 5二→6二→6一 shows gold escape) .
-- 焦点の歩: gote 9一香 8一桂 7一銀 6一金 5一玉 4一金 2一桂 1一香 3二飛 2二角 pawns 9..4三,1三; sente 3五銀 2五飛, pawns 9..4七 1七, 8八角, 9九香 8九桂 7九銀 6九金 5九玉 4九金 3九銀 2九桂 1九香, hand 歩; answer P*3c.
+
+## Live request ledger (what-did-i-say, 2026-10-02 afternoon)
+Standing: /goal dogfood as weak player until UX is smooth; never stop; use subagents. No push without explicit word this turn (last push = cdba2d9; later commits local).
+Open, in order:
+1. [doing] Click an empty square -> show which pieces (both sides) attack it.
+2. [doing] 利き map toggle: per-square control (sente/gote/contested) overlay.
+3. [subagent] More 手筋: transcribe shogi-rule.com 金/銀/飛/角/桂/香 tesuji diagrams (koma_kin..koma_kyosha) into scripts/courses/tesuji-*.mjs; 腹銀/割り打ち/合わせ currently 0 drills.
+4. [subagent] Tablet usability sweep (previous agent died on API error).
+5. Desktop sweep leftovers: ⌘K '7g7f' no match; lesson-map wheel scroll.
+Done this stretch (verified): carved letters (baked groove+bump), king tesuji detection (両王手 空き王手 尻金 肩銀 一間竜 吊るし桂 捨て駒の王手; 841 drills, 150 cap), peek rings -> flat tiles, 手筋 mode, phone drawer/task strip, piece sets, onboarding.

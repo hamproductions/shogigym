@@ -136,6 +136,48 @@ function woodMaterial(base: [number, number, number], seed: number, roughness = 
 
 const faceCache = new Map<string, THREE.Texture>()
 
+function bakeCarve(canvas: HTMLCanvasElement) {
+  const size = canvas.width
+  const ctx = canvas.getContext('2d', { willReadFrequently: true })!
+  const img = ctx.getImageData(0, 0, size, size)
+  const px = img.data
+  const ink = new Uint8Array(size * size)
+  const red = new Uint8Array(size * size)
+  for (let i = 0; i < ink.length; i++) {
+    const r = px[i * 4]
+    const g = px[i * 4 + 1]
+    const b = px[i * 4 + 2]
+    const isRed = r > 110 && r - g > 55 && r - b > 55
+    red[i] = isRed ? 1 : 0
+    ink[i] = isRed || 0.3 * r + 0.59 * g + 0.11 * b < 120 ? 1 : 0
+  }
+  const at = (x: number, y: number) => (x < 0 || y < 0 || x >= size || y >= size ? 0 : ink[y * size + x])
+  const d = Math.max(4, Math.round(size / 40))
+  for (let y = 0; y < size; y++)
+    for (let x = 0; x < size; x++) {
+      const i = y * size + x
+      const o = i * 4
+      if (ink[i]) {
+        const lipShadow = !at(x - d, y - d)
+        const litWall = !at(x + d, y + d)
+        let [r, g, b] = red[i] ? [128, 22, 14] : [26, 15, 6]
+        if (lipShadow) [r, g, b] = [r * 0.45, g * 0.45, b * 0.45]
+        else if (litWall) [r, g, b] = red[i] ? [196, 70, 52] : [118, 84, 46]
+        px[o] = r
+        px[o + 1] = g
+        px[o + 2] = b
+      } else {
+        const rim = at(x + d, y + d) && !at(x - d, y - d)
+        const cast = at(x - d, y - d)
+        const k = rim ? 1.28 : cast ? 0.68 : 1
+        px[o] = Math.min(255, px[o] * k)
+        px[o + 1] = Math.min(255, px[o + 1] * k)
+        px[o + 2] = Math.min(255, px[o + 2] * k)
+      }
+    }
+  ctx.putImageData(img, 0, 0)
+}
+
 const carveCache = new WeakMap<THREE.Texture, THREE.Texture>()
 
 function carveTexture(map: THREE.Texture) {
@@ -177,6 +219,7 @@ function artTexture(art: LoadedPiece, key: string) {
   const canvas = grainTexture(256, 256, [240, 210, 152], 18, key.length)
   const ctx = canvas.getContext('2d')!
   ctx.drawImage(art.canvas, 0, 0, 256, 256)
+  bakeCarve(canvas)
   const texture = new THREE.CanvasTexture(canvas)
   texture.colorSpace = THREE.SRGBColorSpace
   texture.anisotropy = 8
@@ -205,6 +248,7 @@ function faceTexture(char: string, promoted: boolean) {
     ctx.fillText(c, 128, y)
     ctx.strokeText(c, 128, y)
   })
+  bakeCarve(canvas)
   const texture = new THREE.CanvasTexture(canvas)
   texture.colorSpace = THREE.SRGBColorSpace
   texture.anisotropy = 8
@@ -622,11 +666,11 @@ export function Board3D(props: Board3DProps) {
       s.marks.add(rank)
     }
     for (const sq of latest.current.peek ?? []) {
-      const ring = new THREE.Mesh(new THREE.RingGeometry(0.36, 0.44, 32), new THREE.MeshBasicMaterial({ color: 0xc8442f, transparent: true, opacity: 0.8, depthWrite: false, depthTest: false }))
-      ring.renderOrder = 8
-      ring.rotation.x = -Math.PI / 2
-      ring.position.set(squareX(sq.file), 0.3, squareZ(sq.rank))
-      s.marks.add(ring)
+      tile(sq, 0xc8442f, 0.26)
+      const edge = new THREE.Mesh(new THREE.RingGeometry(0.62, 0.69, 4, 1, Math.PI / 4), new THREE.MeshBasicMaterial({ color: 0xb33a26, transparent: true, opacity: 0.7, depthWrite: false }))
+      edge.rotation.x = -Math.PI / 2
+      edge.position.set(squareX(sq.file), 0.005, squareZ(sq.rank))
+      s.marks.add(edge)
     }
     if (latest.current.peekFrom) tile(latest.current.peekFrom, 0xc8442f, 0.22)
     for (const castle of latest.current.castles ?? []) s.marks.add(castleBox(castle))

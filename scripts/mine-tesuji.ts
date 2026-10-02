@@ -37,12 +37,23 @@ for (const p of tsume) {
   p.pv.forEach((usi, i) => {
     if (i % 2 === 0) {
       const t = detectTesuji(sfen, usi)
-      if (t && ['頭金', '腹銀', '割り打ちの銀', '垂れ歩', '叩きの歩', '焦点の歩', '底歩', '合わせの歩'].includes(t.ja)) add({ id: `tsume-${p.id}-${i}`, tesuji: t.ja, en: t.en, explain: t.explain, sfen, answer: usi, from: `詰将棋 ${p.mate}手詰 #${p.id}` })
+      if (t && ['頭金', '腹銀', '割り打ちの銀', '垂れ歩', '叩きの歩', '焦点の歩', '底歩', '合わせの歩', '両王手', '空き王手', '尻金', '肩銀', '一間竜', '吊るし桂', '捨て駒の王手'].includes(t.ja)) add({ id: `tsume-${p.id}-${i}`, tesuji: t.ja, en: t.en, explain: t.explain, sfen, answer: usi, from: `詰将棋 ${p.mate}手詰 #${p.id}` })
     }
     sfen = applyUsi(sfen, usi) ?? sfen
   })
 }
 
+let seed = 7
+const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647)
+const byKind = new Map<string, Drill[]>()
+for (const d of out) byKind.set(d.tesuji, [...(byKind.get(d.tesuji) ?? []), d])
+const capped = [...byKind.values()].flatMap((list) => {
+  const book = list.filter((d) => d.id.startsWith('book-'))
+  const rest = list.filter((d) => !d.id.startsWith('book-')).sort(() => rand() - 0.5)
+  return [...book, ...rest].slice(0, Math.max(150, book.length))
+})
+out.length = 0
+out.push(...capped)
 writeFileSync('src/data/tesuji-drills.json', JSON.stringify(out))
 const counts: Record<string, number> = {}
 for (const d of out) counts[d.tesuji] = (counts[d.tesuji] ?? 0) + 1

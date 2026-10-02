@@ -19,6 +19,13 @@ const T = {
   wariuchi: { ja: '割り打ちの銀', en: 'Splitting silver', explain: 'A silver dropped between two pieces so its diagonal steps back attack both.' },
   ryodori: { ja: '両取り', en: 'Fork', explain: 'One move attacks two valuable pieces; the opponent can only save one.' },
   atamakin: { ja: '頭金', en: 'Gold on the head', explain: 'A gold dropped right in front of the king. When it is protected, this is often mate.' },
+  ryooute: { ja: '両王手', en: 'Double check', explain: 'Two pieces give check at once. Blocking or capturing cannot stop both, so the king must move.' },
+  akiOute: { ja: '空き王手', en: 'Discovered check', explain: 'Moving one piece uncovers check from another behind it, so the moved piece can grab something for free.' },
+  shirikin: { ja: '尻金', en: 'Gold from behind', explain: 'A gold dropped behind the king. It pushes the king up into your attackers.' },
+  katagin: { ja: '肩銀', en: 'Shoulder silver', explain: 'A silver dropped diagonally in front of the king: check, and it covers the squares the king would run to.' },
+  ikkenryu: { ja: '一間竜', en: 'Dragon one gap away', explain: 'A dragon giving check from two squares away. The king cannot attack it, and the gap is hard to block.' },
+  tsurushikei: { ja: '吊るし桂', en: 'Hanging knight', explain: 'A knight dropped two squares above the king: it takes away the escape squares in front.' },
+  sutegoma: { ja: '捨て駒の王手', en: 'Sacrifice check', explain: 'A check with a piece that can be taken. Pulling the king or a defender onto that square opens the mate.' },
   haragin: { ja: '腹銀', en: 'Belly silver', explain: 'A silver dropped beside the king. It cuts off escape squares and threatens the king from the side.' },
 } satisfies Record<string, Tesuji>
 
@@ -47,6 +54,10 @@ export function detectTesuji(before: string, usi: string): Tesuji | null {
   const king = hits.some((p) => p!.type === PieceType.KING)
   const valuable = hits.filter((p) => VALUABLE.has(p!.type))
 
+  const enemyKing = enemySquares.find((sq) => pos.board.at(sq)!.type === PieceType.KING)
+  const checkers = enemyKing ? pos.board.listNonEmptySquares().filter((sq) => pos.board.at(sq)!.color === me && sees(after, sq).some((t) => t.equals(enemyKing))) : []
+  if (checkers.length >= 2) return T.ryooute
+  if (checkers.length === 1 && !checkers[0].equals(to)) return T.akiOute
   if (king && attackers === 0 && hits.some((p) => p!.type === PieceType.ROOK || p!.type === PieceType.DRAGON)) return T.ohteHisha
   if (king && attackers === 0 && piece.type !== PieceType.PAWN && hits.some((p) => p!.type === PieceType.BISHOP || p!.type === PieceType.HORSE)) return T.ohteTori
   if (piece.type === PieceType.PAWN) {
@@ -61,11 +72,21 @@ export function detectTesuji(before: string, usi: string): Tesuji | null {
     return null
   }
   if (drop && piece.type === PieceType.GOLD && king && frontPiece?.type === PieceType.KING && frontPiece.color !== me) return T.atamakin
+  if (enemyKing && drop) {
+    const fwd = me === Color.BLACK ? 1 : -1
+    const df = to.file - enemyKing.file
+    const dr = (to.rank - enemyKing.rank) * fwd
+    if (piece.type === PieceType.GOLD && df === 0 && dr === -1 && king) return T.shirikin
+    if (piece.type === PieceType.SILVER && Math.abs(df) === 1 && dr === 1 && king) return T.katagin
+    if (piece.type === PieceType.KNIGHT && df === 0 && dr === 2) return T.tsurushikei
+  }
+  if (enemyKing && king && piece.type === PieceType.DRAGON && ((to.file === enemyKing.file && Math.abs(to.rank - enemyKing.rank) === 2) || (to.rank === enemyKing.rank && Math.abs(to.file - enemyKing.file) === 2))) return T.ikkenryu
   if (drop && piece.type === PieceType.SILVER && enemySquares.some((sq) => pos.board.at(sq)!.type === PieceType.KING && sq.rank === to.rank && Math.abs(sq.file - to.file) === 1)) return T.haragin
   if (valuable.length >= 2 && attackers === 0) {
     if (piece.type === PieceType.KNIGHT) return T.fundoshi
     if (drop && piece.type === PieceType.SILVER) return T.wariuchi
     return T.ryodori
   }
+  if (king && attackers > 0) return T.sutegoma
   return null
 }
