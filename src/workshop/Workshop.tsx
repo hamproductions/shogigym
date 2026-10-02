@@ -24,7 +24,7 @@ import { classify, type Label } from '../analysis'
 import { bookLookup } from '../kifu'
 import { COURSES, SETUPS, findPath, sideToMove, type Course, type JosekiNode } from '../model'
 import { LessonMap } from '../components/Flowchart'
-import { applyUsi, hasLegalMove, kingSquare, reachable, colorSide, legalTargets, moveText, positionOf, promotionOptions, pvText, type Side } from '../shogi'
+import { PIECE_CHAR, applyUsi, hasLegalMove, kingSquare, reachable, colorSide, legalTargets, moveText, positionOf, promotionOptions, pvText, type Side } from '../shogi'
 
 type Mode = 'lesson' | 'drill' | 'tsume' | 'spar' | 'analyze'
 type Tab = 'engine' | 'coach' | 'flow' | 'moves'
@@ -47,6 +47,8 @@ const TABS: { id: Tab; ja: string; name: string }[] = [
 const SHU = '#c8442f'
 
 const strip = (sfen: string) => sfen.split(' ').slice(0, 3).join(' ')
+
+const PROMOTED_CHAR: Partial<Record<PieceType, string>> = { [PieceType.PAWN]: 'と', [PieceType.LANCE]: '成香', [PieceType.KNIGHT]: '成桂', [PieceType.SILVER]: '成銀', [PieceType.BISHOP]: '馬', [PieceType.ROOK]: '龍' }
 
 const nodesCache = new Map<string, Map<string, JosekiNode>>()
 const cachedNodes = (course: Course) => {
@@ -1309,10 +1311,15 @@ export function Workshop() {
           {promotion && (
             <div className="ws-promote" role="dialog" aria-label="Promote?">
               {promotion.map((m) => (
-                <button key={m.usi} onClick={() => void commit(m.usi)}>
-                  {m.promote ? '成る' : '成らない'}
+                <button key={m.usi} className={m.promote ? 'yes' : 'no'} onClick={() => void commit(m.usi)}>
+                  <span className={`ws-koma${m.promote ? ' promoted' : ''}`}>{m.promote ? (PROMOTED_CHAR[m.pieceType] ?? PIECE_CHAR[m.pieceType]) : PIECE_CHAR[m.pieceType]}</span>
+                  <span>{m.promote ? '成る' : '成らない'}</span>
                 </button>
               ))}
+              <button className="cancel" onClick={() => (setPromotion(null), setSelection(null))} title="Cancel this move (Esc)">
+                <span className="ws-koma-x">×</span>
+                <span>Cancel</span>
+              </button>
             </div>
           )}
         </div>

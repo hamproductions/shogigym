@@ -3248,3 +3248,63 @@
     font-size: 18px;
   }
 }
+
+.ws .ws-promote {
+  z-index: 8;
+  gap: 10px;
+  padding: 12px;
+  background: rgba(25, 23, 20, 0.94);
+}
+
+.ws .ws-promote button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 84px;
+  padding: 10px 12px 8px;
+  border-radius: 10px;
+  background: var(--lacquer-hi);
+  color: var(--kinari);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.ws .ws-promote button.yes {
+  background: var(--shu);
+}
+
+.ws .ws-promote button.cancel {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px rgba(232, 225, 211, 0.25);
+}
+
+.ws-koma {
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 56px;
+  padding-top: 8px;
+  background: linear-gradient(180deg, #f3dca8, #dcb978);
+  color: #1d140c;
+  font-family: var(--mincho);
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 1;
+  writing-mode: vertical-rl;
+  clip-path: polygon(50% 0, 84% 12%, 100% 100%, 0 100%, 16% 12%);
+}
+
+.ws-koma.promoted {
+  color: #b3261e;
+}
+
+.ws-koma-x {
+  display: grid;
+  place-items: center;
+  height: 56px;
+  font-size: 30px;
+  font-weight: 400;
+  opacity: 0.8;
+}
