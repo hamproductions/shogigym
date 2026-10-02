@@ -209,7 +209,7 @@ export const SETUPS: Setup[] = [
       'Classic pawn tesuji from the diagrams on shogi-rule.com: the dangling pawn, the striking pawn, the single drop and the focal pawn. For hundreds more, open 手筋 in the left rail: positions taken from the lessons and tsume where a tesuji is the move.',
     shikenPlan: 'Pawns are the cheapest piece, so most tesuji are pawn sacrifices that pull a defender out of place.',
     sources: ['https://www.shogi-rule.com/koma_hu/'],
-    courseIds: ['tesuji--tare-fu', 'tesuji--tanda-fu', 'tesuji--tataki-fu', 'tesuji--shoten-fu'],
+    courseIds: ['tesuji--tare-fu', 'tesuji--tanda-fu', 'tesuji--tataki-fu', 'tesuji--shoten-fu', 'tesuji--soko-fu', 'tesuji--huta-fu', 'tesuji--chuai-fu', 'tesuji--renda-fu', 'tesuji--tsukisute-fu', 'tesuji--fundoshi-kei', 'tesuji--tsugi-kei', 'tesuji--hikae-kei', 'tesuji--fugoshi-kei', 'tesuji--mino-kuzushi', 'tesuji--keito-gin', 'tesuji--wariuchi-gin-kin', 'tesuji--wariuchi-gin-hisha', 'tesuji--hara-gin-kaku', 'tesuji--hara-gin-kei', 'tesuji--ryodori-hisha', 'tesuji--okuri-hisha', 'tesuji--hisha-ni-hisha', 'tesuji--toomi-kaku', 'tesuji--ryodori-kaku', 'tesuji--denraku-zashi', 'tesuji--nidan-rocket'],
   },
   {
     id: 'kuzushi',

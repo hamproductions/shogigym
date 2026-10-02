@@ -1,0 +1,95 @@
+{
+ "id": "tesuji--okuri-hisha",
+ "title": "手筋: 飛車の送りの手筋",
+ "myStrategy": "shikenbisha",
+ "opponentStrategy": "ibisha",
+ "mySide": "sente",
+ "userSide": "sente",
+ "noEngine": true,
+ "source": "局面と手はshogi-rule.com「飛車の効果的な手筋」(https://www.shogi-rule.com/koma_hisha/)の「飛車の送りの手筋」の図をSFENに変換。持ち駒は図に表示がないため、打つ駒などを手順から推定して置いた。(同内容が金の手筋(https://www.shogi-rule.com/koma_kin/)の「飛車の送りの手筋」にも掲載。図はアニメーションGIFのコマ送りを読み取った)。",
+ "goalFormation": "飛車の送り: 飛車の利きにある玉の守り駒を、反対側に金を打って剥がし、詰みまで持っていく。",
+ "root": {
+  "id": "n0",
+  "sfen": "3g3nl/2R2sk2/4ppppp/9/9/9/9/9/9 b G 1",
+  "comment": "飛車の利きの筋に玉がいて、4二の銀が守っています。反対側に金を打つ手を探しましょう。",
+  "branches": [
+   {
+    "usi": "G*2b",
+    "kind": "main",
+    "note": "飛車の利きの筋に玉がいます。守りの駒を剥がすため、反対側に金を打ちます。",
+    "child": {
+     "id": "n_0",
+     "sfen": "3g3nl/2R2skG1/4ppppp/9/9/9/9/9/9 w - 1",
+     "branches": [
+      {
+       "usi": "3b2b",
+       "kind": "main",
+       "note": "一見、金がタダで取れるようですが、",
+       "child": {
+        "id": "n_1",
+        "sfen": "3g3nl/2R2s1k1/4ppppp/9/9/9/9/9/9 b g 1",
+        "branches": [
+         {
+          "usi": "7b4b+",
+          "kind": "main",
+          "note": "飛車で銀を取り、王手になります。",
+          "child": {
+           "id": "n_2",
+           "sfen": "3g3nl/5+R1k1/4ppppp/9/9/9/9/9/9 w Sg 1",
+           "branches": [
+            {
+             "usi": "G*3b",
+             "kind": "main",
+             "note": "金を合駒に打っても、",
+             "child": {
+              "id": "n_3",
+              "sfen": "3g3nl/5+Rgk1/4ppppp/9/9/9/9/9/9 b S 1",
+              "branches": [
+               {
+                "usi": "S*3a",
+                "kind": "main",
+                "note": "取った銀を打ち、",
+                "child": {
+                 "id": "n_4",
+                 "sfen": "3g2Snl/5+Rgk1/4ppppp/9/9/9/9/9/9 w - 1",
+                 "branches": [
+                  {
+                   "usi": "2b1b",
+                   "kind": "main",
+                   "note": "玉は1二へ逃げるしかありません。",
+                   "child": {
+                    "id": "n_5",
+                    "sfen": "3g2Snl/5+Rg1k/4ppppp/9/9/9/9/9/9 b - 1",
+                    "branches": [
+                     {
+                      "usi": "4b3b",
+                      "kind": "main",
+                      "note": "飛車で金を取って詰みです。",
+                      "child": {
+                       "id": "n_6",
+                       "sfen": "3g2Snl/6+R1k/4ppppp/9/9/9/9/9/9 w G 1",
+                       "branches": [],
+                       "comment": "玉に金を取らせることで、飛車の利きから守り駒を剥がす手筋です。"
+                      }
+                     }
+                    ]
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

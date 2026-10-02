@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import { Color, PieceType, Square, type ImmutablePosition } from 'tsshogi'
 import { HAND_ORDER, PIECE_CHAR } from '../shogi'
 import { PIECE_FONTS, getSettings, type BoardStyle } from './settings'
@@ -132,7 +133,7 @@ function boardTexture(style: BoardStyle) {
 function woodMaterial(base: [number, number, number], seed: number, roughness = 0.62) {
   const texture = new THREE.CanvasTexture(grainTexture(512, 512, base, 120, seed))
   texture.colorSpace = THREE.SRGBColorSpace
-  return new THREE.MeshStandardMaterial({ map: texture, roughness, metalness: 0 })
+  return new THREE.MeshPhysicalMaterial({ map: texture, roughness: Math.min(roughness, 0.5), metalness: 0, clearcoat: 0.35, clearcoatRoughness: 0.32, envMap: pieceEnv, envMapIntensity: 0.35 })
 }
 
 const faceCache = new Map<string, THREE.Texture>()
@@ -252,6 +253,41 @@ function nearestOnPolygon(poly: [number, number][], x: number, y: number): [numb
   return best
 }
 
+let pieceEnv: THREE.Texture | null = null
+
+export function preparePieceEnvironment(renderer: THREE.WebGLRenderer) {
+  if (pieceEnv) return
+  const pmrem = new THREE.PMREMGenerator(renderer)
+  pieceEnv = pmrem.fromScene(new RoomEnvironment(), 0.04).texture
+  pmrem.dispose()
+}
+
+const lacquerCache = new WeakMap<THREE.Texture, THREE.Texture>()
+
+function lacquerMap(map: THREE.Texture) {
+  const cached = lacquerCache.get(map)
+  if (cached) return cached
+  const ink = inkMask(map)
+  const size = 256
+  const canvas = document.createElement('canvas')
+  canvas.width = canvas.height = size
+  const ctx = canvas.getContext('2d')!
+  const img = ctx.createImageData(size, size)
+  for (let y = 0; y < size; y++)
+    for (let x = 0; x < size; x++) {
+      const k = Math.min(1, ink(x / (size - 1), 1 - y / (size - 1)) * 1.4)
+      const o = (y * size + x) * 4
+      img.data[o] = Math.round(k * 255)
+      img.data[o + 1] = Math.round(215 - k * 195)
+      img.data[o + 2] = 0
+      img.data[o + 3] = 255
+    }
+  ctx.putImageData(img, 0, 0)
+  const texture = new THREE.CanvasTexture(canvas)
+  lacquerCache.set(map, texture)
+  return texture
+}
+
 const topCache = new WeakMap<THREE.Texture, Map<number, THREE.BufferGeometry>>()
 
 function inkMask(map: THREE.Texture) {
@@ -286,9 +322,7 @@ function carvedTop(scale: number, map: THREE.Texture) {
   const w = scale * 0.9
   const h = scale
   const poly = piecePolygon(scale)
-  const ink = inkMask(map)
   const top = 0.16 * scale + 0.06 + 0.026
-  const depth = 0.028 * scale
   const n = 160
   const positions: number[] = []
   const uvs: number[] = []
@@ -300,7 +334,7 @@ function carvedTop(scale: number, map: THREE.Texture) {
       const u = x / w + 0.5
       const v = y / h + 0.5
       const t = Math.min(1, Math.max(0, v))
-      positions.push(x, y, top * (1 - 0.5 * t) - ink(u, v) * depth)
+      positions.push(x, y, top * (1 - 0.5 * t))
       uvs.push(u, v)
     }
   const index: number[] = []
@@ -333,7 +367,7 @@ function pieceBottom(scale: number) {
   return geometry
 }
 
-const sideMaterial = new THREE.MeshStandardMaterial({ color: 0xdcb377, emissive: 0x8a6232, emissiveIntensity: 0.75, roughness: 0.6 })
+const sideMaterial = new THREE.MeshStandardMaterial({ color: 0xdcb377, emissive: 0x8a6232, emissiveIntensity: 0.75, roughness: 0.85 })
 
 export function pieceMesh(type: PieceType, color: Color) {
   const scale = PIECE_SIZE[type] ?? 0.8
@@ -342,7 +376,8 @@ export function pieceMesh(type: PieceType, color: Color) {
   const set = getSettings().pieceSet
   const art = set && set !== 'letters' ? loadedPiece(set, pieceCode(type, color === Color.WHITE && type === PieceType.KING ? Color.WHITE : Color.BLACK)) : undefined
   const map = art ? artTexture(art, `${set}/${pieceCode(type, color)}`) : faceTexture(char, PROMOTED.has(type))
-  const face = new THREE.MeshStandardMaterial({ map, roughness: 0.55 })
+  const lm = lacquerMap(map)
+  const face = new THREE.MeshPhysicalMaterial({ map, roughness: 1, roughnessMap: lm, clearcoat: 1, clearcoatMap: lm, clearcoatRoughness: 0.04, envMap: pieceEnv, envMapIntensity: 0.85 })
   const mesh = new THREE.Mesh(pieceGeometry(scale), [hiddenLid, sideMaterial])
   mesh.castShadow = true
   mesh.receiveShadow = true
@@ -392,6 +427,7 @@ export function Board3D(props: Board3DProps) {
     renderer.shadowMap.type = THREE.PCFSoftShadowMap
     renderer.toneMapping = THREE.ACESFilmicToneMapping
     renderer.toneMappingExposure = 0.9
+    preparePieceEnvironment(renderer)
     el.appendChild(renderer.domElement)
 
     const scene = new THREE.Scene()
@@ -418,7 +454,7 @@ export function Board3D(props: Board3DProps) {
     scene.add(floor)
 
     const tone = BOARD_TONE[getSettings().boardStyle]
-    const boardMaterials = [woodMaterial(tone.edge, 3), woodMaterial(tone.edge, 5), new THREE.MeshStandardMaterial({ map: boardTexture(getSettings().boardStyle), roughness: 0.5 }), woodMaterial([150, 104, 50], 9), woodMaterial(tone.edge, 11), woodMaterial(tone.edge, 13)]
+    const boardMaterials = [woodMaterial(tone.edge, 3), woodMaterial(tone.edge, 5), new THREE.MeshPhysicalMaterial({ map: boardTexture(getSettings().boardStyle), roughness: 0.45, clearcoat: 0.3, clearcoatRoughness: 0.3, envMap: pieceEnv, envMapIntensity: 0.3 }), woodMaterial([150, 104, 50], 9), woodMaterial(tone.edge, 11), woodMaterial(tone.edge, 13)]
     const board = new THREE.Mesh(new THREE.BoxGeometry(9 / 0.9, 0.9, 9 / 0.9), boardMaterials)
     board.position.y = -0.45
     board.castShadow = true

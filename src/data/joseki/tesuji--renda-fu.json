@@ -1,0 +1,73 @@
+{
+ "id": "tesuji--renda-fu",
+ "title": "手筋: 連打の歩",
+ "myStrategy": "shikenbisha",
+ "opponentStrategy": "ibisha",
+ "mySide": "sente",
+ "userSide": "sente",
+ "noEngine": true,
+ "source": "局面と手はshogi-rule.com「歩の効果的な手筋」(https://www.shogi-rule.com/koma_hu/)の「連打の歩」の図をSFENに変換。持ち駒は図に表示がないため、打つ駒などを手順から推定して置いた。(持ち駒の歩2枚は手順から推定。図は手順のコマ送りを読み取った)。",
+ "goalFormation": "連打の歩: 常に自分の手番になるよう歩を打ち続け、香車を確実に奪う。",
+ "root": {
+  "id": "n0",
+  "sfen": "ln2g3l/1ks1s4/pppp1pp2/7S1/9/2P5p/PP1P1PP2/2K1G2R1/LNSG3NL b 2P 1",
+  "comment": "1一に相手の香車がいて、2四に銀が控えています。歩を連打する手順を探しましょう。",
+  "branches": [
+   {
+    "usi": "P*1b",
+    "kind": "main",
+    "note": "歩を連打して、香車を確実に奪います。",
+    "child": {
+     "id": "n_0",
+     "sfen": "ln2g3l/1ks1s3P/pppp1pp2/7S1/9/2P5p/PP1P1PP2/2K1G2R1/LNSG3NL w P 1",
+     "branches": [
+      {
+       "usi": "1a1b",
+       "kind": "main",
+       "note": "香車は歩を取るしかなく、",
+       "child": {
+        "id": "n_1",
+        "sfen": "ln2g4/1ks1s3l/pppp1pp2/7S1/9/2P5p/PP1P1PP2/2K1G2R1/LNSG3NL b Pp 1",
+        "branches": [
+         {
+          "usi": "P*1c",
+          "kind": "main",
+          "note": "もう一度歩を打ちます。",
+          "child": {
+           "id": "n_2",
+           "sfen": "ln2g4/1ks1s3l/pppp1pp1P/7S1/9/2P5p/PP1P1PP2/2K1G2R1/LNSG3NL w p 1",
+           "branches": [
+            {
+             "usi": "1b1c",
+             "kind": "main",
+             "note": "香車が取るとき、",
+             "child": {
+              "id": "n_3",
+              "sfen": "ln2g4/1ks1s4/pppp1pp1l/7S1/9/2P5p/PP1P1PP2/2K1G2R1/LNSG3NL b 2p 1",
+              "branches": [
+               {
+                "usi": "2d1c+",
+                "kind": "main",
+                "note": "銀で香車が取れます。",
+                "child": {
+                 "id": "n_4",
+                 "sfen": "ln2g4/1ks1s4/pppp1pp1+S/9/9/2P5p/PP1P1PP2/2K1G2R1/LNSG3NL w L2p 1",
+                 "branches": [],
+                 "comment": "ポイントは常に自分の手番になるように歩を連打し続けることです。"
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

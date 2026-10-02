@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { Color, PieceType } from 'tsshogi'
-import { pieceMesh } from './Board3D'
+import { pieceMesh, preparePieceEnvironment } from './Board3D'
 
 const TYPES: { type: PieceType; label: string }[] = [
   { type: PieceType.KING, label: '王' },
@@ -31,6 +31,7 @@ export function PieceViewer({ onClose }: { onClose: () => void }) {
     renderer.toneMapping = THREE.ACESFilmicToneMapping
     renderer.toneMappingExposure = 0.95
     el.appendChild(renderer.domElement)
+    preparePieceEnvironment(renderer)
     const world = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera(30, 1, 0.05, 50)
     camera.position.set(0, 1.9, 2.1)

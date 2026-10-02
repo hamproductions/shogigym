@@ -1182,6 +1182,10 @@ export function Workshop() {
           <span className="ws-ja">設定</span>
           <span>Settings</span>
         </button>
+        <button className={`ws-rail-btn${showViewer ? ' on' : ''}`} onClick={() => setShowViewer(true)} title="Piece viewer: inspect a piece in 3D">
+          <span className="ws-ja" style={{ fontSize: 18 }}>駒</span>
+          <span>Piece</span>
+        </button>
         <button className={`ws-rail-btn${showControl ? ' on' : ''}`} onClick={() => setShowControl((v) => !v)} title="利き map: who controls each square (blue ☗, red ☖, purple contested). Press C" aria-pressed={showControl}>
           <span className="ws-ja" style={{ fontSize: 18 }}>利</span>
           <span>Control</span>
