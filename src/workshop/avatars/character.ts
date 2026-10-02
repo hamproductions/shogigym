@@ -230,11 +230,11 @@ export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, heig
     const reach = armLength() * 0.93
     let best = { lean: 0, rise: 0 }
     for (let lean = 0; lean < rad(75); lean += rad(1.5)) {
-      const rise = seat.style === 'seiza' ? clamp01((lean - rad(20)) / rad(30)) * 0.75 : 0
+      const rise = seat.style === 'seiza' ? clamp01((lean - rad(20)) / rad(30)) : 0
       const shift = riseShift(rise)
       const base = tmp.copy(hips).addScaledVector(f, shift.f - cur.f).addScaledVector(UP, shift.u - cur.u)
       plan.q.setFromAxisAngle(axis, lean)
-      if (tmp2.copy(hd0).applyQuaternion(plan.q).add(base).sub(edge).dot(f) > 0.25 * UNITS_PER_M) break
+      if (tmp2.copy(hd0).applyQuaternion(plan.q).add(base).sub(edge).dot(f) > 0.35 * UNITS_PER_M) break
       best = { lean, rise }
       if (plan.at.copy(sh0).applyQuaternion(plan.q).add(base).distanceTo(target) <= reach) break
     }
