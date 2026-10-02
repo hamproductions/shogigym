@@ -217,11 +217,11 @@
     },
     "drill": {
       "name": "Review",
-      "hint": "Spaced repetition of positions you have learned"
+      "hint": "Replay positions you have learned until they stick"
     },
     "tsume": {
       "name": "Tsume",
-      "hint": "Mate problems"
+      "hint": "Checkmate puzzles: find the checks that trap the king"
     },
     "tesuji": {
       "name": "Tesuji",
