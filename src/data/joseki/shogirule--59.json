@@ -1,0 +1,366 @@
+{
+ "id": "shogirule--59",
+ "title": "後手一手損角換わり 対 先手早繰り銀(将棋ルール.com)",
+ "myStrategy": "kakugawari",
+ "opponentStrategy": "kakugawari",
+ "mySide": "gote",
+ "source": "手順は将棋ルール.com「後手一手損角換わり「早繰り銀」の定跡」(https://www.shogi-rule.com/joseki-59/)掲載の棋譜ファイル(joseki-59.kif、35手、検討エンジンGPSfishの解析付き)をそのまま使用し、全手を合法手検証済み。終局面のまとめは手順と盤面から独自に書いたもので、ページの文章は転載していない(形勢判断のみ出典による)。",
+ "goalFormation": "後手は△8八角成と自分から角を交換する一手損角換わり。先手は早繰り銀で▲3七銀→▲4六銀→▲3五歩と銀を進め、3筋の歩を取って銀を3五に進めた。後手は△5四銀・△6五歩と中央から反撃し、角の打ち合いのあと△5五銀▲同角△同角で角と銀を交換した。先手は銀を手にして▲4六銀と引き、▲7四歩が後手陣に迫る。後手は角を盤上と持ち駒に1枚ずつ持つ。出典の形勢判断は互角。",
+ "root": {
+  "id": "n0",
+  "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+  "comment": "後手一手損角換わり 対 先手早繰り銀。最後まで進めると、終局面のまとめが表示されます。",
+  "branches": [
+   {
+    "usi": "7g7f",
+    "kind": "main",
+    "child": {
+     "id": "n_0",
+     "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL w - 1",
+     "branches": [
+      {
+       "usi": "3c3d",
+       "kind": "main",
+       "child": {
+        "id": "n_1",
+        "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL b - 1",
+        "branches": [
+         {
+          "usi": "2g2f",
+          "kind": "main",
+          "child": {
+           "id": "n_2",
+           "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P4P1/PP1PPPP1P/1B5R1/LNSGKGSNL w - 1",
+           "branches": [
+            {
+             "usi": "4a3b",
+             "kind": "main",
+             "child": {
+              "id": "n_3",
+              "sfen": "lnsgk1snl/1r4gb1/pppppp1pp/6p2/9/2P4P1/PP1PPPP1P/1B5R1/LNSGKGSNL b - 1",
+              "branches": [
+               {
+                "usi": "2f2e",
+                "kind": "main",
+                "child": {
+                 "id": "n_4",
+                 "sfen": "lnsgk1snl/1r4gb1/pppppp1pp/6p2/7P1/2P6/PP1PPPP1P/1B5R1/LNSGKGSNL w - 1",
+                 "branches": [
+                  {
+                   "usi": "8c8d",
+                   "kind": "main",
+                   "child": {
+                    "id": "n_5",
+                    "sfen": "lnsgk1snl/1r4gb1/p1pppp1pp/1p4p2/7P1/2P6/PP1PPPP1P/1B5R1/LNSGKGSNL b - 1",
+                    "branches": [
+                     {
+                      "usi": "6i7h",
+                      "kind": "main",
+                      "child": {
+                       "id": "n_6",
+                       "sfen": "lnsgk1snl/1r4gb1/p1pppp1pp/1p4p2/7P1/2P6/PP1PPPP1P/1BG4R1/LNS1KGSNL w - 1",
+                       "branches": [
+                        {
+                         "usi": "2b8h+",
+                         "kind": "main",
+                         "child": {
+                          "id": "n_7",
+                          "sfen": "lnsgk1snl/1r4g2/p1pppp1pp/1p4p2/7P1/2P6/PP1PPPP1P/1+bG4R1/LNS1KGSNL b b 1",
+                          "branches": [
+                           {
+                            "usi": "7i8h",
+                            "kind": "main",
+                            "child": {
+                             "id": "n_8",
+                             "sfen": "lnsgk1snl/1r4g2/p1pppp1pp/1p4p2/7P1/2P6/PP1PPPP1P/1SG4R1/LN2KGSNL w Bb 1",
+                             "branches": [
+                              {
+                               "usi": "3a2b",
+                               "kind": "main",
+                               "child": {
+                                "id": "n_9",
+                                "sfen": "lnsgk2nl/1r4gs1/p1pppp1pp/1p4p2/7P1/2P6/PP1PPPP1P/1SG4R1/LN2KGSNL b Bb 1",
+                                "branches": [
+                                 {
+                                  "usi": "3i3h",
+                                  "kind": "main",
+                                  "child": {
+                                   "id": "n_10",
+                                   "sfen": "lnsgk2nl/1r4gs1/p1pppp1pp/1p4p2/7P1/2P6/PP1PPPP1P/1SG3SR1/LN2KG1NL w Bb 1",
+                                   "branches": [
+                                    {
+                                     "usi": "2b3c",
+                                     "kind": "main",
+                                     "child": {
+                                      "id": "n_11",
+                                      "sfen": "lnsgk2nl/1r4g2/p1ppppspp/1p4p2/7P1/2P6/PP1PPPP1P/1SG3SR1/LN2KG1NL b Bb 1",
+                                      "branches": [
+                                       {
+                                        "usi": "1g1f",
+                                        "kind": "main",
+                                        "child": {
+                                         "id": "n_12",
+                                         "sfen": "lnsgk2nl/1r4g2/p1ppppspp/1p4p2/7P1/2P5P/PP1PPPP2/1SG3SR1/LN2KG1NL w Bb 1",
+                                         "branches": [
+                                          {
+                                           "usi": "1c1d",
+                                           "kind": "main",
+                                           "child": {
+                                            "id": "n_13",
+                                            "sfen": "lnsgk2nl/1r4g2/p1ppppsp1/1p4p1p/7P1/2P5P/PP1PPPP2/1SG3SR1/LN2KG1NL b Bb 1",
+                                            "branches": [
+                                             {
+                                              "usi": "3g3f",
+                                              "kind": "main",
+                                              "child": {
+                                               "id": "n_14",
+                                               "sfen": "lnsgk2nl/1r4g2/p1ppppsp1/1p4p1p/7P1/2P3P1P/PP1PPP3/1SG3SR1/LN2KG1NL w Bb 1",
+                                               "branches": [
+                                                {
+                                                 "usi": "7a7b",
+                                                 "kind": "main",
+                                                 "child": {
+                                                  "id": "n_15",
+                                                  "sfen": "ln1gk2nl/1rs3g2/p1ppppsp1/1p4p1p/7P1/2P3P1P/PP1PPP3/1SG3SR1/LN2KG1NL b Bb 1",
+                                                  "branches": [
+                                                   {
+                                                    "usi": "3h3g",
+                                                    "kind": "main",
+                                                    "child": {
+                                                     "id": "n_16",
+                                                     "sfen": "ln1gk2nl/1rs3g2/p1ppppsp1/1p4p1p/7P1/2P3P1P/PP1PPPS2/1SG4R1/LN2KG1NL w Bb 1",
+                                                     "branches": [
+                                                      {
+                                                       "usi": "6c6d",
+                                                       "kind": "main",
+                                                       "child": {
+                                                        "id": "n_17",
+                                                        "sfen": "ln1gk2nl/1rs3g2/p1p1ppsp1/1p1p2p1p/7P1/2P3P1P/PP1PPPS2/1SG4R1/LN2KG1NL b Bb 1",
+                                                        "branches": [
+                                                         {
+                                                          "usi": "3g4f",
+                                                          "kind": "main",
+                                                          "child": {
+                                                           "id": "n_18",
+                                                           "sfen": "ln1gk2nl/1rs3g2/p1p1ppsp1/1p1p2p1p/7P1/2P2SP1P/PP1PPP3/1SG4R1/LN2KG1NL w Bb 1",
+                                                           "branches": [
+                                                            {
+                                                             "usi": "7b6c",
+                                                             "kind": "main",
+                                                             "child": {
+                                                              "id": "n_19",
+                                                              "sfen": "ln1gk2nl/1r4g2/p1psppsp1/1p1p2p1p/7P1/2P2SP1P/PP1PPP3/1SG4R1/LN2KG1NL b Bb 1",
+                                                              "branches": [
+                                                               {
+                                                                "usi": "3f3e",
+                                                                "kind": "main",
+                                                                "child": {
+                                                                 "id": "n_20",
+                                                                 "sfen": "ln1gk2nl/1r4g2/p1psppsp1/1p1p2p1p/6PP1/2P2S2P/PP1PPP3/1SG4R1/LN2KG1NL w Bb 1",
+                                                                 "branches": [
+                                                                  {
+                                                                   "usi": "3d3e",
+                                                                   "kind": "main",
+                                                                   "child": {
+                                                                    "id": "n_21",
+                                                                    "sfen": "ln1gk2nl/1r4g2/p1psppsp1/1p1p4p/6pP1/2P2S2P/PP1PPP3/1SG4R1/LN2KG1NL b Bbp 1",
+                                                                    "branches": [
+                                                                     {
+                                                                      "usi": "4f3e",
+                                                                      "kind": "main",
+                                                                      "child": {
+                                                                       "id": "n_22",
+                                                                       "sfen": "ln1gk2nl/1r4g2/p1psppsp1/1p1p4p/6SP1/2P5P/PP1PPP3/1SG4R1/LN2KG1NL w BPbp 1",
+                                                                       "branches": [
+                                                                        {
+                                                                         "usi": "6c5d",
+                                                                         "kind": "main",
+                                                                         "child": {
+                                                                          "id": "n_23",
+                                                                          "sfen": "ln1gk2nl/1r4g2/p1p1ppsp1/1p1ps3p/6SP1/2P5P/PP1PPP3/1SG4R1/LN2KG1NL b BPbp 1",
+                                                                          "branches": [
+                                                                           {
+                                                                            "usi": "8h7g",
+                                                                            "kind": "main",
+                                                                            "child": {
+                                                                             "id": "n_24",
+                                                                             "sfen": "ln1gk2nl/1r4g2/p1p1ppsp1/1p1ps3p/6SP1/2P5P/PPSPPP3/2G4R1/LN2KG1NL w BPbp 1",
+                                                                             "branches": [
+                                                                              {
+                                                                               "usi": "8d8e",
+                                                                               "kind": "main",
+                                                                               "child": {
+                                                                                "id": "n_25",
+                                                                                "sfen": "ln1gk2nl/1r4g2/p1p1ppsp1/3ps3p/1p4SP1/2P5P/PPSPPP3/2G4R1/LN2KG1NL b BPbp 1",
+                                                                                "branches": [
+                                                                                 {
+                                                                                  "usi": "7f7e",
+                                                                                  "kind": "main",
+                                                                                  "child": {
+                                                                                   "id": "n_26",
+                                                                                   "sfen": "ln1gk2nl/1r4g2/p1p1ppsp1/3ps3p/1pP3SP1/8P/PPSPPP3/2G4R1/LN2KG1NL w BPbp 1",
+                                                                                   "branches": [
+                                                                                    {
+                                                                                     "usi": "6d6e",
+                                                                                     "kind": "main",
+                                                                                     "child": {
+                                                                                      "id": "n_27",
+                                                                                      "sfen": "ln1gk2nl/1r4g2/p1p1ppsp1/4s3p/1pPp2SP1/8P/PPSPPP3/2G4R1/LN2KG1NL b BPbp 1",
+                                                                                      "branches": [
+                                                                                       {
+                                                                                        "usi": "7e7d",
+                                                                                        "kind": "main",
+                                                                                        "child": {
+                                                                                         "id": "n_28",
+                                                                                         "sfen": "ln1gk2nl/1r4g2/p1p1ppsp1/2P1s3p/1p1p2SP1/8P/PPSPPP3/2G4R1/LN2KG1NL w BPbp 1",
+                                                                                         "branches": [
+                                                                                          {
+                                                                                           "usi": "B*6d",
+                                                                                           "kind": "main",
+                                                                                           "child": {
+                                                                                            "id": "n_29",
+                                                                                            "sfen": "ln1gk2nl/1r4g2/p1p1ppsp1/2Pbs3p/1p1p2SP1/8P/PPSPPP3/2G4R1/LN2KG1NL b BPp 1",
+                                                                                            "branches": [
+                                                                                             {
+                                                                                              "usi": "B*4f",
+                                                                                              "kind": "main",
+                                                                                              "child": {
+                                                                                               "id": "n_30",
+                                                                                               "sfen": "ln1gk2nl/1r4g2/p1p1ppsp1/2Pbs3p/1p1p2SP1/5B2P/PPSPPP3/2G4R1/LN2KG1NL w Pp 1",
+                                                                                               "branches": [
+                                                                                                {
+                                                                                                 "usi": "5d5e",
+                                                                                                 "kind": "main",
+                                                                                                 "child": {
+                                                                                                  "id": "n_31",
+                                                                                                  "sfen": "ln1gk2nl/1r4g2/p1p1ppsp1/2Pb4p/1p1ps1SP1/5B2P/PPSPPP3/2G4R1/LN2KG1NL b Pp 1",
+                                                                                                  "branches": [
+                                                                                                   {
+                                                                                                    "usi": "4f5e",
+                                                                                                    "kind": "main",
+                                                                                                    "child": {
+                                                                                                     "id": "n_32",
+                                                                                                     "sfen": "ln1gk2nl/1r4g2/p1p1ppsp1/2Pb4p/1p1pB1SP1/8P/PPSPPP3/2G4R1/LN2KG1NL w SPp 1",
+                                                                                                     "branches": [
+                                                                                                      {
+                                                                                                       "usi": "6d5e",
+                                                                                                       "kind": "main",
+                                                                                                       "child": {
+                                                                                                        "id": "n_33",
+                                                                                                        "sfen": "ln1gk2nl/1r4g2/p1p1ppsp1/2P5p/1p1pb1SP1/8P/PPSPPP3/2G4R1/LN2KG1NL b SPbp 1",
+                                                                                                        "branches": [
+                                                                                                         {
+                                                                                                          "usi": "3e4f",
+                                                                                                          "kind": "main",
+                                                                                                          "child": {
+                                                                                                           "id": "n_34",
+                                                                                                           "sfen": "ln1gk2nl/1r4g2/p1p1ppsp1/2P5p/1p1pb2P1/5S2P/PPSPPP3/2G4R1/LN2KG1NL w SPbp 1",
+                                                                                                           "branches": [],
+                                                                                                           "comment": "後手は△8八角成と自分から角を交換する一手損角換わり。先手は早繰り銀で▲3七銀→▲4六銀→▲3五歩と銀を進め、3筋の歩を取って銀を3五に進めた。後手は△5四銀・△6五歩と中央から反撃し、角の打ち合いのあと△5五銀▲同角△同角で角と銀を交換した。先手は銀を手にして▲4六銀と引き、▲7四歩が後手陣に迫る。後手は角を盤上と持ち駒に1枚ずつ持つ。出典の形勢判断は互角。"
+                                                                                                          }
+                                                                                                         }
+                                                                                                        ]
+                                                                                                       }
+                                                                                                      }
+                                                                                                     ]
+                                                                                                    }
+                                                                                                   }
+                                                                                                  ]
+                                                                                                 }
+                                                                                                }
+                                                                                               ]
+                                                                                              }
+                                                                                             }
+                                                                                            ]
+                                                                                           }
+                                                                                          }
+                                                                                         ]
+                                                                                        }
+                                                                                       }
+                                                                                      ]
+                                                                                     }
+                                                                                    }
+                                                                                   ]
+                                                                                  }
+                                                                                 }
+                                                                                ]
+                                                                               }
+                                                                              }
+                                                                             ]
+                                                                            }
+                                                                           }
+                                                                          ]
+                                                                         }
+                                                                        }
+                                                                       ]
+                                                                      }
+                                                                     }
+                                                                    ]
+                                                                   }
+                                                                  }
+                                                                 ]
+                                                                }
+                                                               }
+                                                              ]
+                                                             }
+                                                            }
+                                                           ]
+                                                          }
+                                                         }
+                                                        ]
+                                                       }
+                                                      }
+                                                     ]
+                                                    }
+                                                   }
+                                                  ]
+                                                 }
+                                                }
+                                               ]
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          }
+                                         ]
+                                        }
+                                       }
+                                      ]
+                                     }
+                                    }
+                                   ]
+                                  }
+                                 }
+                                ]
+                               }
+                              }
+                             ]
+                            }
+                           }
+                          ]
+                         }
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

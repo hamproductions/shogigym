@@ -175,6 +175,7 @@ export const STRATEGIES: Strategy[] = [
   { id: 'yokofudori', side: 'ibisha', family: 'aiibisha', ja: '横歩取り', en: 'Side Pawn Capture', level: 3, castles: ['中原囲い'], about: { ja: '先手が飛車で3四の歩(横歩)を取る激しい相居飛車。', en: 'A sharp Double Static Rook line where sente’s rook takes the side pawn on 3四.' } },
   { id: 'yoko-85hi', side: 'ibisha', family: 'aiibisha', ja: '横歩取り△8五飛', en: 'Side Pawn: △8五飛', level: 3, castles: ['中原囲い'], about: { ja: '横歩を取らせた後手が飛車を8五に引いて構える形。飛車が5筋・7筋へも横に利き、桂を△7三に跳ねて攻める。', en: 'Gote lets the side pawn go and parks the rook on 8五, where it covers the 5th and 7th files sideways; the knight jumps to △7三 to attack.' } },
   { id: 'yoko-45kaku', side: 'ibisha', family: 'aiibisha', ja: '横歩取り△4五角', en: 'Side Pawn: △4五角', level: 3, castles: [], about: { ja: '横歩を取られた後手が、角を交換してすぐ△4五角と打ち、先手の飛車と6七の地点を同時に狙う激しい戦法。', en: 'A sharp gambit: after the side pawn is taken, gote trades bishops and drops △4五角, hitting the rook and 6七 at once.' } },
+  { id: 'ittezon', side: 'ibisha', family: 'aiibisha', ja: '一手損角換わり', en: 'Tempo-loss Bishop Exchange', level: 2, castles: ['片矢倉'], about: { ja: '後手が自分から△8八角成と角を交換する角換わり。1手損を承知で、角交換の時期を自分で選ぶ。', en: 'A Bishop Exchange where gote trades bishops itself with △8八角成, giving up a tempo to choose when the trade happens.' } },
   { id: 'gangi', side: 'ibisha', family: 'aiibisha', ja: '雁木', en: 'Gangi', level: 2, castles: ['雁木囲い'], about: { ja: '銀2枚を横に並べる雁木囲いに組む居飛車。', en: 'A Static Rook set-up with the two silvers side by side in the Gangi castle.' } },
   {
     id: 'bougin',
@@ -363,6 +364,11 @@ export const MATCHUPS: Matchup[] = [
   m('millennium', 'shikenbisha', [], { ja: '玉を8九に置いて角筋から外す。△6五歩からの仕掛けに注意。', en: 'King on 8九 off the bishop line; watch for the △6五歩 strike.' }),
 
   m('yagura', 'yagura', ['yagura--24te', 'yagura--gote', 'yagura--36gin37kei'], { ja: '24手組で金銀を7八金・6七金・7七銀と組み、角を7九へ引く。そこから3六銀3七桂の形で2筋から攻める。', en: 'The 24-move build: 7八金, 6七金, 7七銀 and the bishop back to 7九. Then attack the 2nd file with the 3六銀 + 3七桂 formation.' }, { title: { ja: '相矢倉', en: 'Double Yagura' } }),
+  m('kakugawari', 'ittezon', ['shogirule--59', 'shogirule--60'], { ja: '一手損角換わりには、得した1手を生かして早繰り銀か棒銀で早く攻める。早繰り銀は3筋、棒銀は1筋の端から銀を使う。', en: 'Against Tempo-loss Bishop Exchange, use the extra tempo to attack quickly with Rapid Advancing or Climbing Silver: the 3rd file for the former, the edge for the latter.' }, { sources: ['https://www.shogi-rule.com/joseki-59/', 'https://www.shogi-rule.com/joseki-60/'] }),
+  m('ittezon', 'hayakurigin', ['shogirule--59'], { ja: '早繰り銀で3筋を破られても、△5四銀・△6五歩と中央から反撃する。角を打ち合って銀と角を交換し、角2枚の力で戦う。', en: 'If Rapid Advancing Silver breaks the 3rd file, counter in the centre with △5四銀 and △6五歩. Trade bishop drops so you end up with two bishops for a silver.' }, { sources: ['https://www.shogi-rule.com/joseki-59/'] }),
+  m('ittezon', 'bougin', ['shogirule--60'], { ja: '棒銀の端攻めでは銀と香の交換を許し、△1三歩で受ける。相手の▲1二歩の拠点は残るので、持ち駒の銀と角を受けに使う準備をしておく。', en: 'Against Climbing Silver on the edge, allow the silver-for-lance trade and defend with △1三歩. The ▲1二歩 foothold stays, so keep the silver and bishop in hand ready for defence.' }, { sources: ['https://www.shogi-rule.com/joseki-60/'] }),
+  m('hayakurigin', 'ittezon', [], { ja: '一手損角換わりに▲3七銀→▲4六銀→▲3五歩と早く銀を繰り出し、3筋を破る。相手の中央からの反撃(△6五歩)に注意する。', en: 'Against Tempo-loss Bishop Exchange, rush the silver ▲3七銀 → ▲4六銀 → ▲3五歩 to break the 3rd file. Watch for the central counter △6五歩.' }),
+  m('bougin', 'ittezon', [], { ja: '一手損角換わりに▲2七銀→▲2六銀と出て▲1五歩から端を攻め、銀と香を交換して▲1二歩の拠点を作る。', en: 'Against Tempo-loss Bishop Exchange, go ▲2七銀 → ▲2六銀, attack the edge with ▲1五歩, trade silver for lance and plant ▲1二歩.' }),
   m('yagura', 'gangi', [], { ja: '矢倉対雁木。収録できる出典付きの手順はまだない。', en: 'Yagura vs Gangi. No sourced line yet.' }),
   m('kakugawari', 'kakugawari', ['kakugawari--bougin', 'kakugawari--gote', 'kakugawari--hayakurigin'], { ja: '角を交換したあと、角を打たれる隙を作らずに駒組みし、棒銀や早繰り銀で攻める/受ける。', en: 'After the bishop trade, build without leaving drop squares, then attack or defend against Climbing or Rapid Advancing Silver.' }, { title: { ja: '相角換わり', en: 'Bishop Exchange' } }),
   m('aigakari', 'aigakari', ['aigakari--bougin', 'aigakari--gote'], { ja: 'お互いに飛車先の歩を交換したあと、銀を繰り出して2筋を攻める。', en: 'After both sides trade the rook pawn, advance the silver and attack the 2nd file.' }, { title: { ja: '相掛かり', en: 'Double Wing Attack' } }),
@@ -480,6 +486,8 @@ export const COURSE_SIDES: Record<string, [string[], string[]]> = {
   'shogirule--50': [['yokofudori'], ['yoko-45kaku']],
   'shogirule--52': [['yokofudori'], ['yoko-85hi']],
   'shogirule--53': [['yokofudori'], ['yoko-85hi']],
+  'shogirule--59': [['hayakurigin', 'kakugawari'], ['ittezon']],
+  'shogirule--60': [['bougin', 'kakugawari'], ['ittezon']],
   'shogirule--61': [['ibisha'], ['mukaibisha']],
   'shogirule--62': [['ishida', 'sankenbisha'], ['ibisha']],
   'shogirule--62-2': [['ishida', 'sankenbisha'], ['ibisha', 'migishiken']],
