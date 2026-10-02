@@ -15,6 +15,7 @@ export type EngineKind = 'yaneuraou' | 'nnue' | 'fairy'
 
 export type Settings = {
   sound: boolean
+  voice: boolean
   volume: number
   pieceStyle: PieceStyle
   pieceFont: PieceFont
@@ -48,7 +49,7 @@ function navigatorLang(): Lang {
   }
 }
 
-const DEFAULTS: Settings = { sound: true, volume: 0.6, pieceStyle: 'two', pieceFont: 'mincho', pieceSet: 'letters', pieceFinish: 'moriage', coords: true, environment: 'traditional', boardStyle: 'kaya', thinkMs: 1500, candidates: 3, opponent: 'beginner', aiStrategy: '', mainStrategy: 'shikenbisha', assist: true, timeControl: 'none', lang: navigatorLang(), engine: 'yaneuraou', fvScale: 16, theme: 'system', characters: true, power: false }
+const DEFAULTS: Settings = { sound: true, voice: true, volume: 0.6, pieceStyle: 'two', pieceFont: 'mincho', pieceSet: 'letters', pieceFinish: 'moriage', coords: true, environment: 'traditional', boardStyle: 'kaya', thinkMs: 1500, candidates: 3, opponent: 'beginner', aiStrategy: '', mainStrategy: 'shikenbisha', assist: true, timeControl: 'none', lang: navigatorLang(), engine: 'yaneuraou', fvScale: 16, theme: 'system', characters: true, power: false }
 
 function read(): Settings {
   try {
@@ -97,14 +98,14 @@ export const STRENGTH: Record<AiStrength, { label: string; movetime: number; pic
 
 let audio: AudioContext | null = null
 
-function ctx() {
+export function audioContext() {
   audio ??= new AudioContext()
   if (audio.state === 'suspended') void audio.resume()
   return audio
 }
 
 function knock(when: number, pitch: number, gain: number, length: number) {
-  const ac = ctx()
+  const ac = audioContext()
   const source = ac.createBufferSource()
   const buffer = ac.createBuffer(1, Math.floor(ac.sampleRate * length), ac.sampleRate)
   const data = buffer.getChannelData(0)
@@ -121,7 +122,7 @@ function knock(when: number, pitch: number, gain: number, length: number) {
 }
 
 function tone(when: number, freq: number, gain: number, length: number) {
-  const ac = ctx()
+  const ac = audioContext()
   const osc = ac.createOscillator()
   osc.type = 'sine'
   osc.frequency.value = freq
@@ -134,7 +135,7 @@ function tone(when: number, freq: number, gain: number, length: number) {
 }
 
 function sweep(when: number, from: number, to: number, gain: number, length: number) {
-  const ac = ctx()
+  const ac = audioContext()
   const osc = ac.createOscillator()
   osc.type = 'sine'
   osc.frequency.setValueAtTime(from, ac.currentTime + when)

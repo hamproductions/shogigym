@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { say } from '../lib/voice'
 import { EngineSettings } from '../EngineSettings'
 import { PIECE_SETS, pieceUrl, type PieceSet } from '../pieceSets'
 import { PIECE_FINISHES, PIECE_FONTS, playSound, setSettings, useSettings, type BoardStyle, type Environment, type Lang, type PieceFinish, type PieceFont, type PieceStyle } from '../settings'
@@ -62,6 +63,11 @@ export function SettingsDialog({ onClose, level, onLevel }: { onClose: () => voi
             <SettingRow label={t('settings.volume')}>
               <input type="range" min={0} max={1} step={0.05} disabled={!st.sound} value={st.volume} aria-label={t('settings.volume')} onChange={(e) => setSettings({ volume: Number(e.target.value) })} onMouseUp={() => playSound('move')} />
             </SettingRow>
+            <SegmentedField label={t('settings.voice')} value={st.voice} options={[{ v: true, t: t('settings.on') }, { v: false, t: t('settings.off') }]} onChange={(v) => {
+              setSettings({ voice: v })
+              if (v) say('四間飛車', true)
+            }} />
+            {st.voice && <p className="ws-muted ws-credit">{t('settings.voiceCredit')}</p>}
           </>
         )}
         {tab === 'board' && (

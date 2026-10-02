@@ -2,7 +2,8 @@ import { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Color } from 'tsshogi'
 import { formationName, formationOf } from '../../formation'
-import { positionOf } from '../../shogi'
+import { hasLegalMove, positionOf } from '../../shogi'
+import { say } from '../lib/voice'
 import { detectTesuji, type Tesuji } from '../tesuji'
 import type { BoardSession } from './useBoardSession'
 import { useTransient } from './useTransient'
@@ -31,7 +32,9 @@ export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, pos
     }
     if (preview || mode === 'tsume' || cursor === 0) return
     const tesuji = stepped && sfens[cursor - 1] ? detectTesuji(sfens[cursor - 1], game.moves[cursor - 1]) : null
+    if (stepped && position.checked) say(hasLegalMove(position) ? '王手' : '詰み', true)
     if (tesuji) {
+      say(tesuji.ja)
       setAnnounce({ side: positionOf(sfens[cursor - 1]).color, name: tesuji.ja, kind: t('workshop.tesuji'), key: Date.now() })
       setTesujiNote({ ...tesuji, at: cursor })
     }
@@ -46,6 +49,7 @@ export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, pos
         if (announced.current.seen.has(id)) continue
         announced.current.seen.add(id)
         if (!stepped) continue
+        say(name)
         setAnnounce({ side: color, name: formationName(name, i18n.language), kind, key: Date.now() })
         return
       }

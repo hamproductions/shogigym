@@ -65,7 +65,7 @@ export function BoardStage({ view, decor, input, commit, mistake, onBack, spar, 
     () => avatarCues({ playing, aiTurn: atEnd && !userTurn && !gameOver && !spar.resigned, resigned: spar.resigned, userColor: sideColor(userSide), toMove: sideColor(toMove), fresh: game.moves.length === 0, gameKey: `${mode}|${game.start}|${course?.id ?? ''}`, lastMove, ply: game.moves.length, stamp }),
     [playing, atEnd, userTurn, gameOver, spar.resigned, userSide, toMove, game.moves.length, game.start, mode, course?.id, lastMove, stamp],
   )
-  const board = { position, flipped, lastMove, selected: selection?.from ?? null, selectedColor: selection?.color, targets: input.targets, arrows: decor.arrows, heat: decor.heat, checkSquare: decor.checkSquare, onSquare: input.onSquare, onHand: input.onHand, onDrop: input.onDrop }
+  const board = { position, flipped, lastMove, selected: selection?.from ?? null, selectedColor: selection?.color, targets: input.targets, arrows: decor.arrows, heat: decor.heat, checkSquare: decor.checkSquare, onSquare: input.onSquare, onHand: input.onHand, onDrop: input.onDrop, movable: userTurn && !gameOver ? position.color : null }
   const who = (side: Side) => (mode === 'analyze' || picking || (mode === 'drill' && !hasDrillCard) ? null : side === userSide ? t('workshop.you') : t('workshop.opponent'))
   const plate = (place: 'top' | 'bottom') => {
     const side: Side = (place === 'top') === flipped ? 'sente' : 'gote'

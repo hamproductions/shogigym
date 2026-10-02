@@ -41,12 +41,17 @@ const takeSound = () => {
   return kind
 }
 
+let knockedAt = 0
+
+export const soundPending = () => !!pending || performance.now() - knockedAt < 250
+
 export function flushMoveSound() {
   const kind = takeSound()
   if (kind) playSound(kind)
 }
 
 export function moveSound(kind: Knock) {
+  knockedAt = performance.now()
   flushMoveSound()
   if (!live) return playSound(kind)
   pending = { kind, timer: window.setTimeout(flushMoveSound, 300) }

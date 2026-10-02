@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Side } from '../../../shogi'
 import { clockTime } from '../../lib/notation'
+import { say } from '../../lib/voice'
 import { TIME_CONTROLS, useSettings } from '../../settings'
 
 type TimeControlSpec = (typeof TIME_CONTROLS)[keyof typeof TIME_CONTROLS]
@@ -53,6 +54,22 @@ export function useGameClock({ enabled, toMove, atEnd, moveCount, stopped }: { e
     }, 100)
     return () => window.clearInterval(id)
   }, [running, toMove, timeControl])
+
+  const spoken = useRef('')
+  useEffect(() => {
+    if (!running || clock[toMove] > 0 || !timeControl.byoyomi) return
+    const left = Math.ceil(clock.byo / 1000)
+    const gone = timeControl.byoyomi - left
+    const key = `${toMove}|${movesSeen.current}|${left}`
+    if (spoken.current === key) return
+    spoken.current = key
+    if (left <= 9 && left >= 1) say(String(10 - left), true)
+    else if (gone > 0 && gone % 10 === 0) say(`${gone}秒`, true)
+    else if (gone === 0 && left === timeControl.byoyomi) say('秒読み', true)
+  }, [running, clock, toMove, timeControl])
+  useEffect(() => {
+    if (clock.flagged) say('時間切れ', true)
+  }, [clock.flagged])
 
   const face = (side: Side): ClockFace | undefined => {
     if (!enabled || !clockOn) return undefined

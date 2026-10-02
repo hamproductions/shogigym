@@ -18,12 +18,13 @@ type ModeBarProps = {
   onPanel: (hidden: boolean) => void
   spar: Spar
   evalRate: number | null
+  barShown: boolean
 }
 
-function EvalChip({ rate }: { rate: number }) {
+function EvalChip({ rate, barShown }: { rate: number; barShown: boolean }) {
   const { t } = useTranslation()
   return (
-    <span className="ws-eval-chip" title={t('workshop.winChance', { value: Math.round(rate * 100), value2: 100 - Math.round(rate * 100) })}>
+    <span className={`ws-eval-chip${barShown ? ' has-bar' : ''}`} title={t('workshop.winChance', { value: Math.round(rate * 100), value2: 100 - Math.round(rate * 100) })}>
       <span className="ws-eval-label">{t('workshop.winChanceShort')}</span>
       <span className="ws-eval-track">
         <span style={{ width: `${rate * 100}%` }} />
@@ -35,7 +36,7 @@ function EvalChip({ rate }: { rate: number }) {
   )
 }
 
-export function ModeBar({ title, instruction, lessonMode, sheetUp, panelHidden, onPanel, spar, evalRate }: ModeBarProps) {
+export function ModeBar({ title, instruction, lessonMode, sheetUp, panelHidden, onPanel, spar, evalRate, barShown }: ModeBarProps) {
   const { t } = useTranslation()
   const settings = useSettings()
   const ja = settings.lang === 'ja'
@@ -96,7 +97,7 @@ export function ModeBar({ title, instruction, lessonMode, sheetUp, panelHidden, 
           {t('newGame.button')}
         </Button>
       )}
-      {evalRate !== null && <EvalChip rate={evalRate} />}
+      {evalRate !== null && <EvalChip rate={evalRate} barShown={barShown} />}
       {position.checked && !gameOver && <span className="ws-check">{t('workshop.check')}</span>}
     </header>
   )

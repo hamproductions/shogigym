@@ -62,8 +62,11 @@ export function zoneReporter(s: SceneState, latest: Latest) {
     const gap = 12
     const W = Math.max(0, Math.min(bd.l - gap - 16, w - 16 - bd.r - gap))
     const H = Math.max(0, Math.min(h - 48 - top.b - gap, bottom.t - gap - 48))
+    const bar = 0
+    const underW = Math.max(0, W - bar)
     const zones: StandZones = {
-      under: { left: rect.left + bd.l - gap - W, top: rect.top + top.b + gap, width: W, height: H },
+      board: { left: rect.left + bd.l, top: rect.top + bd.t, width: bd.r - bd.l, height: bd.b - bd.t },
+      under: { left: rect.left + bd.l - gap - bar - underW, top: rect.top + top.b + gap, width: underW, height: H },
       over: { left: rect.left + bd.r + gap, top: rect.top + bottom.t - gap - H, width: W, height: H },
     }
     const key = [zones.under, zones.over].map((r) => [r.left, r.top, r.width, r.height].map((v) => Math.round(v / 6)).join(',')).join('|')

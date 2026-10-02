@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { Color, type ImmutablePosition } from 'tsshogi'
-import { avatarSlot, flushMoveSound } from './avatars'
+import { avatarSlot, flushMoveSound, moveSound, soundPending } from './avatars'
 import { updateView } from './board3d/camera'
 import { FLAT, HALF_D, HALF_W, LEG, THICK, setBoardDims } from './board3d/dimensions'
 import { flipCameraOffset, saveSnapshot, startTableFlip, stepTableFlip } from './board3d/effects'
@@ -147,7 +147,9 @@ export function Board3D(props: Board3DProps) {
     window.clearTimeout(flipTimer.current)
     const changed = prev !== null
     const dragged = performance.now() - (s.droppedAt ?? 0) <= 400
-    const event = changed && power.current ? moveEvent(prev, props.position, latest.current.lastMove) : null
+    const stepped = changed ? moveEvent(prev, props.position, latest.current.lastMove) : null
+    if (stepped && !soundPending() && !dragged) moveSound(stepped.capture ? 'capture' : 'move')
+    const event = power.current ? stepped : null
     const fx = power.current
     s.onLand = event && fx ? () => fx.onMove({ ...event, delay: 0, carried: true }) : null
     rebuild(s, latest.current, changed && !dragged, prev, changed && dragged)

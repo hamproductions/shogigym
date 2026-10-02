@@ -475,7 +475,9 @@
     "lineCount_one": "1 line",
     "lineCount_other": "{{count}} lines",
     "powerMode": "Power mode",
-    "powerModeHint": "Light beams and explosions on captures, a dramatic 王手, and a big finale on 詰み."
+    "powerModeHint": "Light beams and explosions on captures, a dramatic 王手, and a big finale on 詰み.",
+    "voice": "Zundamon voice",
+    "voiceCredit": "Reads out openings, castles, tesuji, check and byoyomi. Voice: VOICEVOX:ずんだもん"
   },
   "tabs": {
     "coach": "Coach",

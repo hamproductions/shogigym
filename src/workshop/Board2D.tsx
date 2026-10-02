@@ -4,6 +4,9 @@ import { useEffect, useRef, useState } from 'react'
 import type { Board3DProps } from './Board3D'
 import { PIECE_FONTS, loadPieceFont } from './settings'
 import { SNAPSHOT_EVENT, SNAPSHOT_NAME } from './lib/events'
+import { flushMoveSound, moveSound, soundPending } from './avatars'
+import { steppedMove } from './lib/stepped'
+import type { ImmutablePosition } from 'tsshogi'
 import { useTranslation } from 'react-i18next'
 
 const KANJI_NUM = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九']
@@ -48,6 +51,15 @@ const THEMES = {
 const komaPath = (w: number, h: number) => `M ${-w * 0.42} ${h * 0.46} L ${w * 0.42} ${h * 0.46} L ${w * 0.34} ${-h * 0.3} L 0 ${-h * 0.46} L ${-w * 0.34} ${-h * 0.3} Z`
 
 export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }) {
+  const previous = useRef<ImmutablePosition | null>(null)
+  useEffect(() => {
+    const prev = previous.current
+    previous.current = props.position
+    if (!prev || prev.sfen === props.position.sfen) return
+    const stepped = steppedMove(prev, props.position, props.lastMove)
+    if (stepped && !soundPending()) moveSound(stepped.capture ? 'capture' : 'move')
+    flushMoveSound()
+  }, [props.position, props.lastMove])
   const [, setFontReady] = useState(false)
   useEffect(() => {
     void loadPieceFont('kaisho').then(() => setFontReady(true))

@@ -7,7 +7,7 @@ import type { Surroundings } from './surroundings'
 export type BoardArrow = { usi: string; color: string; dashed?: boolean; label?: string }
 
 export type ZoneRect = { left: number; top: number; width: number; height: number }
-export type StandZones = { under: ZoneRect; over: ZoneRect }
+export type StandZones = { under: ZoneRect; over: ZoneRect; board: ZoneRect }
 
 export type Board3DProps = {
   position: ImmutablePosition
@@ -29,6 +29,7 @@ export type Board3DProps = {
   onSquare: (square: Square) => void
   onHand: (color: Color, type: PieceType) => void
   onDrop: (from: Square | PieceType, to: Square) => void
+  movable?: Color | null
   onArrow?: (usi: string) => void
   onZones?: (zones: StandZones | null) => void
   sideRoom?: number

@@ -51,8 +51,11 @@ import { useTesuji } from './modes/tesuji/useTesuji'
 import { useTsume } from './modes/tsume/useTsume'
 import { SidePanels } from './panels/SidePanels'
 import { PieceViewer } from './PieceViewer'
+import { useSteadyRate } from './hooks/useSteadyRate'
+import { say } from './lib/voice'
 import { Rail } from './rail/Rail'
 import { BoardStage } from './stage/BoardStage'
+import { EvalBar } from './stage/EvalBar'
 import { ModeBar } from './stage/ModeBar'
 import { isGameMode, type Confirm, type Tab } from './types'
 
@@ -134,7 +137,14 @@ export function Workshop({ routeMode, routeMain }: { routeMode?: string; routeMa
   const picking = mode === 'lesson' && !course
   const phoneTask = layout.compact && !layout.drawer ? spar.erred && coach.review ? { text: t('workshop.phoneMistake', { move: moveText(session.sfens[coach.reviewAt - 1], game.moves[coach.reviewAt - 1]), label: LABELS[coach.review.label].text }), action: t('workshop.takeBack'), run: spar.takeBack } : { text: instruction, action: studyReply ? t('workshop.playTheirMove') : picking ? t('workshop.pickALesson') : mode === 'drill' && !drill.item ? t('workshop.pickAQueue') : t('workshop.panel'), run: () => (studyReply ? session.play(studyReply.usi) : layout.setDrawer(true)) } : null
   const autoplayAllowed = isGameMode(mode) || !!preview
-  const evalRate = session.ai && session.assist && evaluation.evalSente && (isGameMode(mode) || (mode === 'lesson' && !!course && lesson.lessonMode === 'study')) ? evaluation.senteRate : null
+  const finished = mode === 'spar' && (session.gameOver || spar.resigned || !!spar.flagged)
+  useEffect(() => {
+    if (finished) say('ありがとうございました')
+  }, [finished])
+  const evalOn = session.ai && session.assist && (isGameMode(mode) || (mode === 'lesson' && !!course && lesson.lessonMode === 'study'))
+  const steadyRate = useSteadyRate(evalOn && evaluation.evalSente ? evaluation.senteRate : null)
+  const evalRate = evalOn ? steadyRate : null
+  const evalBoard = evalRate !== null && !layout.compact && !view.tilted && !view.orbit && !view.hideUi && layout.zones ? layout.zones.board : null
   const newGame = () => load(InitialPositionSFEN.STANDARD, userSide, mode === 'lesson' ? 'analyze' : mode, null)
   const startOver = () => (game.moves.length > 0 ? setConfirm({ text: t('workshop.startOverFromTheBeginning'), run: () => load(course ? course.root.sfen : InitialPositionSFEN.STANDARD, userSide, mode, course) }) : undefined)
   const commands = useCommands({ sfen, setMode: enterMode, flip: () => session.setFlipped((v) => !v), tilt: () => view.setTilted((v) => !v), openCourse: lesson.open, play: session.play, newGame })
@@ -171,8 +181,9 @@ export function Workshop({ routeMode, routeMain }: { routeMode?: string; routeMa
             <Icon name="exitFullscreen" size={18} />
             <span>{t('workshop.showUi')} (Esc)</span>
           </button>
-          <ModeBar title={title} instruction={instruction} lessonMode={lesson.lessonMode} sheetUp={layout.compact && layout.drawer} panelHidden={layout.panelHidden} onPanel={(hidden) => layout.setPanel({ hidden })} spar={spar} evalRate={evalRate} />
+          <ModeBar title={title} instruction={instruction} lessonMode={lesson.lessonMode} sheetUp={layout.compact && layout.drawer} panelHidden={layout.panelHidden} onPanel={(hidden) => layout.setPanel({ hidden })} spar={spar} evalRate={evalRate} barShown={!!evalBoard} />
           <BoardStage view={view} decor={decor} input={input} commit={commit} mistake={mistake} onBack={goBack} spar={spar} tsume={tsume.tsume} hasDrillCard={!!drill.item} phoneTask={phoneTask} announce={announce} onZones={layout.setZones} />
+          {evalBoard && evalRate !== null && <EvalBar rate={evalRate} board={evalBoard} flipped={session.flipped} />}
         </section>
         <SidePanels
           layout={layout}
@@ -191,6 +202,7 @@ export function Workshop({ routeMode, routeMain }: { routeMode?: string; routeMa
             onStart={(side) => {
               spar.setNewGameOpen(false)
               load(InitialPositionSFEN.STANDARD, side, 'spar', null)
+              say('よろしくお願いします', true)
             }}
           />
         )}
