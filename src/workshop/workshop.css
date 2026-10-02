@@ -4487,3 +4487,25 @@
   position: fixed;
   z-index: 60;
 }
+
+.ws.fs .ws-fs-exit {
+  top: 14px;
+  left: 14px;
+  width: auto;
+  height: 44px;
+  padding: 0 16px 0 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 22px;
+  background: #efe6d3;
+  color: #1d140c;
+  font: inherit;
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+}
+
+.ws.fs .ws-fs-exit:hover {
+  background: #fff7e6;
+}

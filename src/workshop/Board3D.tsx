@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js'
 import { Color, PieceType, Position, Square, type ImmutablePosition } from 'tsshogi'
 import { HAND_ORDER, PIECE_CHAR } from '../shogi'
 import { PIECE_FINISHES, PIECE_FONTS, getSettings, type BoardStyle } from './settings'
@@ -651,7 +650,7 @@ export function Board3D(props: Board3DProps) {
         return { l: Math.min(...xs), r: Math.max(...xs), t: Math.min(...ys), b: Math.max(...ys) }
       }
       const st = state.current!
-      if (st.tiltTarget !== 0 || st.tilt > 0.002 || tableFlip) return
+      if (Math.abs(st.tilt - st.tiltTarget) > 0.002 || tableFlip) return
       if (Math.abs((latest.current.flipped ? Math.PI : 0) - st.root.rotation.y) > 0.002) return
       const ok = !layout.portrait
       if (!ok) {
@@ -742,7 +741,6 @@ export function Board3D(props: Board3DProps) {
 
     let controls: OrbitControls | null = null
     const onDown = (event: PointerEvent) => {
-      if (controls) return
       ray(event)
       const hit = pick()
       if (!hit) return
@@ -767,6 +765,8 @@ export function Board3D(props: Board3DProps) {
       ray(event)
       const hit = pick()
       renderer.domElement.style.cursor = hit ? 'pointer' : 'default'
+      if (!down) return
+      if (controls && !s.drag && Math.hypot(event.clientX - down.x, event.clientY - down.y) > 6) down = null
       if (!down) return
       if (!s.drag && down.pick.kind !== 'arrow' && Math.hypot(event.clientX - down.x, event.clientY - down.y) > 6) {
         const from = down.pick.kind === 'square' ? down.pick.square : down.pick.type
