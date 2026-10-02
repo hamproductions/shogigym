@@ -20,11 +20,11 @@ const STEP = REACH + CLOSE + CARRY + DOWN
 const LIFT: Record<MotionKind, number> = { slide: 0.12, carry: 0.45, drop: 0.45, capture: 0.35, promote: 0.6 }
 const MOTIONS = handMotion.moves as Record<MotionKind, { samples: HandPose[] }>
 const SHAPES = {
-  open: { Index: [15, 10, 8], Middle: [15, 10, 8], Ring: [45, 50, 30], Little: [55, 55, 35] },
-  grip: { Index: [28, 16, 12], Middle: [18, 8, 6], Ring: [55, 60, 35], Little: [60, 60, 40] },
-  press: { Index: [8, 4, 4], Middle: [22, 8, 4], Ring: [45, 50, 30], Little: [55, 55, 35] },
+  open: { Index: [8, 5, 4], Middle: [8, 5, 4], Ring: [40, 45, 28], Little: [50, 50, 32] },
+  grip: { Index: [14, 7, 5], Middle: [10, 5, 3], Ring: [50, 55, 32], Little: [55, 55, 36] },
+  press: { Index: [6, 3, 3], Middle: [12, 5, 3], Ring: [40, 45, 28], Little: [50, 50, 32] },
 }
-const MOCAP = 0.2
+const MOCAP = 0
 const PAD_DEPTH = 0.15
 
 const topOf = (mesh: THREE.Object3D) => {
