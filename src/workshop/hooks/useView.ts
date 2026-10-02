@@ -11,7 +11,7 @@ export function useView() {
   const flatView = settings.environment === 'flat' || settings.environment === 'diagram' || settings.environment === 'broadcast'
   useEffect(() => {
     const on = (e: KeyboardEvent) => {
-      if (e.key.toLowerCase() !== 'h' || e.metaKey || e.ctrlKey || e.altKey || (e.target as HTMLElement).closest('input, textarea, select')) return
+      if (e.key.toLowerCase() !== 'h' || e.metaKey || e.ctrlKey || e.altKey || (e.target instanceof Element && e.target.closest('input, textarea, select'))) return
       setHideUi((v) => !v)
     }
     window.addEventListener('keydown', on)
