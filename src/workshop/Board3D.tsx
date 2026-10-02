@@ -816,7 +816,7 @@ export function Board3D(props: Board3DProps) {
     const { lastMove, selected, selectedColor, targets, arrows } = latest.current
     s.marks.clear()
     const tile = (square: Square, color: number, opacity: number) => {
-      const mesh = new THREE.Mesh(new THREE.PlaneGeometry(0.98, 0.98), new THREE.MeshBasicMaterial({ color, transparent: true, opacity, depthWrite: false }))
+      const mesh = new THREE.Mesh(new THREE.PlaneGeometry(0.98, 0.98 * SQ_D), new THREE.MeshBasicMaterial({ color, transparent: true, opacity, depthWrite: false }))
       mesh.rotation.x = -Math.PI / 2
       mesh.position.set(squareX(square.file), 0.004, squareZ(square.rank))
       s.marks.add(mesh)
@@ -833,6 +833,7 @@ export function Board3D(props: Board3DProps) {
     if (selected instanceof Square) {
       tile(selected, 0xfff1c9, 0.45)
       const frame = new THREE.Mesh(new THREE.RingGeometry(0.66, 0.69, 4, 1, Math.PI / 4), new THREE.MeshBasicMaterial({ color: 0xc8442f, depthWrite: false }))
+      frame.scale.set(1, SQ_D, 1)
       frame.rotation.x = -Math.PI / 2
       frame.position.set(squareX(selected.file), 0.006, squareZ(selected.rank))
       s.marks.add(frame)
@@ -873,6 +874,7 @@ export function Board3D(props: Board3DProps) {
     for (const sq of latest.current.peek ?? []) {
       tile(sq, 0xc8442f, 0.26)
       const edge = new THREE.Mesh(new THREE.RingGeometry(0.62, 0.69, 4, 1, Math.PI / 4), new THREE.MeshBasicMaterial({ color: 0xb33a26, transparent: true, opacity: 0.7, depthWrite: false }))
+      edge.scale.set(1, SQ_D, 1)
       edge.rotation.x = -Math.PI / 2
       edge.position.set(squareX(sq.file), 0.005, squareZ(sq.rank))
       s.marks.add(edge)
