@@ -247,7 +247,8 @@
     "switchToThisLine": "この手順に切り替える",
     "deleteThisVariation": "この変化を削除",
     "mistakesFound_other": "悪手が{{count}}個見つかりました。",
-    "allSaved_other": "{{count}}個すべて復習に追加しました。復習で練習しましょう。"
+    "allSaved_other": "{{count}}個すべて復習に追加しました。復習で練習しましょう。",
+    "noMovesYetSolve": "指した手がここに表示されます。"
   },
   "options": {
     "beginner": "初心者",

@@ -24,11 +24,12 @@ type MovesPaneProps = {
   onSwitch?: (path: string[]) => void
   onDelete?: (path: string[], size: number) => void
   autoRate?: boolean
+  empty?: string
 }
 
 const QUIET_LABELS = ['good', 'excellent', 'best']
 
-export function MovesPane({ sfens, moves, cursor, setCursor, title, onScore, tree, onSwitch, onDelete, autoRate, canRate = true }: MovesPaneProps) {
+export function MovesPane({ sfens, moves, cursor, setCursor, title, onScore, tree, onSwitch, onDelete, autoRate, canRate = true, empty }: MovesPaneProps) {
   const { t, i18n } = useTranslation()
   const [, setTick] = useState(0)
   const listRef = useRef<HTMLOListElement>(null)
@@ -49,7 +50,7 @@ export function MovesPane({ sfens, moves, cursor, setCursor, title, onScore, tre
     autoStarted.current = true
     void rateRef.current()
   })
-  if (moves.length === 0) return <p className="ws-muted">{t('moves.noMovesYetPlayOn')}</p>
+  if (moves.length === 0) return <p className="ws-muted">{empty ?? t('moves.noMovesYetPlayOn')}</p>
   const rate = async () => {
     setSaved(null)
     const results = new Map<number, Awaited<ReturnType<typeof analyze>>>()

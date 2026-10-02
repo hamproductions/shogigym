@@ -253,7 +253,8 @@
     "mistakesFound_one": "1 mistake found.",
     "mistakesFound_other": "{{count}} mistakes found.",
     "allSaved_one": "It is in Review now. Practise it there.",
-    "allSaved_other": "All {{count}} are in Review now. Practise them there."
+    "allSaved_other": "All {{count}} are in Review now. Practise them there.",
+    "noMovesYetSolve": "Your moves will appear here."
   },
   "options": {
     "beginner": "Beginner",

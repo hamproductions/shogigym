@@ -30,6 +30,7 @@ export function MovesTab({ model }: { model: PanelModel }) {
         tree={isGameMode(mode) ? tree : null}
         autoRate={analyze.autoRating}
         canRate={mode === 'analyze' || gameOver || spar.resigned}
+        empty={isGameMode(mode) ? undefined : t('moves.noMovesYetSolve')}
         onSwitch={(path) => {
           setGame((g) => ({ ...g, moves: [...path, ...mainContinuation(nodeAt(tree, path))] }))
           setCursor(path.length)

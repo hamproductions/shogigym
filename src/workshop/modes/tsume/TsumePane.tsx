@@ -45,10 +45,10 @@ export function TsumePane({ trainer, tsume, banner, onBack }: { trainer: Tsume; 
         <TsumeStatus tsume={tsume} />
       </div>
       <div className="ws-actions">
-        {(tsume.status === 'playing' || tsume.status === 'wrong') && <Button onClick={trainer.reveal}>{t('tsume.showSolution')}</Button>}
+        {tsume.status === 'wrong' && !banner && <Button variant="primary" onClick={onBack}>{t('tsume.tryAgain')}</Button>}
         {tsume.status === 'shown' && <Button onClick={trainer.retry}>{t('tsume.tryAgain')}</Button>}
-        {tsume.status === 'wrong' && !banner && <Button onClick={onBack}>{t('tsume.tryAgain')}</Button>}
         {tsume.status === 'playing' && tsume.hint === 0 && <Button onClick={trainer.hint}>{t('tsume.hint')}</Button>}
+        {(tsume.status === 'playing' || tsume.status === 'wrong') && <Button onClick={trainer.reveal}>{t('tsume.showSolution')}</Button>}
         <Button variant={tsume.status === 'solved' || tsume.status === 'shown' ? 'primary' : 'secondary'} onClick={trainer.next}>
           {t('tsume.nextProblem')}
         </Button>
