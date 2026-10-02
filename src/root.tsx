@@ -30,12 +30,14 @@ export function Layout({ children }: { children: ReactNode }) {
     <html lang="ja" suppressHydrationWarning>
       <head>
         <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
         <meta name="theme-color" content="#1c1814" suppressHydrationWarning />
         <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
         <link rel="manifest" href={`${base}manifest.webmanifest`} />
         <link rel="apple-touch-icon" href={`${base}icon-192.png`} />
         <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script dangerouslySetInnerHTML={{ __html: isolationScript }} />
         <Meta />
