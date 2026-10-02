@@ -65,7 +65,24 @@ export type MoveReview = {
   bestReasons: string[]
 }
 
-const pieceName = (type: PieceType) => PIECE_CHAR[type]
+const PIECE_EN: Record<PieceType, string> = {
+  [PieceType.PAWN]: 'pawn',
+  [PieceType.LANCE]: 'lance',
+  [PieceType.KNIGHT]: 'knight',
+  [PieceType.SILVER]: 'silver',
+  [PieceType.GOLD]: 'gold',
+  [PieceType.BISHOP]: 'bishop',
+  [PieceType.ROOK]: 'rook',
+  [PieceType.KING]: 'king',
+  [PieceType.PROM_PAWN]: 'tokin',
+  [PieceType.PROM_LANCE]: 'promoted lance',
+  [PieceType.PROM_KNIGHT]: 'promoted knight',
+  [PieceType.PROM_SILVER]: 'promoted silver',
+  [PieceType.HORSE]: 'horse',
+  [PieceType.DRAGON]: 'dragon',
+}
+
+const pieceName = (type: PieceType) => (i18n.language === 'ja' ? PIECE_CHAR[type] : PIECE_EN[type])
 
 function materialSwing(position: Position, pv: string[], perspective: Color, plies: number) {
   const p = position.clone()
@@ -131,7 +148,7 @@ export function describeMove(sfen: string, usi: string): string[] {
   const after = position.clone()
   after.doMove(move)
   if (after.checked) out.push(i18n.t('moveFacts.check'))
-  if (move.promote) out.push(i18n.t('moveFacts.promotes', { piece: PIECE_CHAR[after.board.at(move.to)!.type] }))
+  if (move.promote) out.push(i18n.t('moveFacts.promotes', { piece: pieceName(after.board.at(move.to)!.type) }))
   if (!(move.from instanceof Square)) out.push(i18n.t('moveFacts.drops', { piece: pieceName(move.pieceType) }))
   const targets = attackedEnemies(position, move).filter((t) => t !== move.capturedPieceType)
   if (targets.length >= 2) out.push(i18n.t('moveFacts.forks', { a: pieceName(targets[0]), b: pieceName(targets[1]) }))
@@ -175,13 +192,13 @@ export function explainMistake(sfen: string, usi: string, best: Candidate, reply
     const { swing, captured } = materialSwing(after, reply.pv, move.color, 6)
     const lost = captured.filter((c) => c.by !== move.color).map((c) => pieceName(c.type))
     if (swing <= -4 && lost.length)
-      reasons.push(i18n.t('moveFacts.losesMaterial', { pieces: lost.join(i18n.t('moveFacts.sep')), line: lineText(after.sfen, reply.pv, 6) }))
+      reasons.push(i18n.t('moveFacts.losesMaterial', { pieces: lost.join(i18n.t('moveFacts.sep')), line: lineText(after.sfen, reply.pv, 3) }))
     const threat = describeMove(after.sfen, reply.move)
     if (threat.length) reasons.push(i18n.t('moveFacts.strongestReply', { move: formatMove(after, after.createMoveByUSI(reply.move)!), what: threat.join(i18n.t('moveFacts.sep')) }))
   }
   if (best.move !== usi) {
     const { swing } = materialSwing(position, best.pv, move.color, 6)
-    if (swing >= 4) reasons.push(i18n.t('moveFacts.bestWins', { move: lineText(sfen, [best.move], 1), line: lineText(sfen, best.pv, 6) }))
+    if (swing >= 4) reasons.push(i18n.t('moveFacts.bestWins', { move: lineText(sfen, [best.move], 1), line: lineText(sfen, best.pv, 3) }))
   }
   return reasons
 }
