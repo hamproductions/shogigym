@@ -5,6 +5,7 @@ import '@fontsource/zen-kaku-gothic-new/400.css'
 import '@fontsource/zen-kaku-gothic-new/500.css'
 import '@fontsource/zen-kaku-gothic-new/700.css'
 import './workshop.css'
+import { Board2D } from './Board2D'
 import { Board3D, type BoardArrow } from './Board3D'
 import { Icon, type IconName } from './icons'
 import { PIECE_INFO, PieceGuide, moveGloss, sees } from './pieces'
@@ -1367,6 +1368,9 @@ export function Workshop() {
               </span>
             )}
           </div>}
+          {settings.environment === 'diagram' || settings.environment === 'broadcast' ? (
+            <Board2D style={settings.environment} position={position} flipped={flipped} tilted={false} lastMove={lastMove} selected={selection?.from ?? null} selectedColor={selection?.color} targets={targets} arrows={arrows} heat={heat} checkSquare={inCheck ? kingSquare(sfen, position.color) : null} onSquare={onSquare} onHand={onHand} onDrop={onDrop} />
+          ) : (
           <Board3D
             key={`${settings.pieceStyle}|${settings.boardStyle}|${settings.pieceFinish}|${settings.coords}|${settings.environment}|${fontReady}`}
             position={position}
@@ -1388,6 +1392,7 @@ export function Workshop() {
             onHand={onHand}
             onDrop={onDrop}
           />
+          )}
           {preview && mistake && (
             <div className={`ws-preview mistake${mistakeIsBad(mistake) ? '' : ' ok'}`} role="status">
               <span className="ws-preview-seal">{mistakeSeal(mistake)}</span>
@@ -3109,7 +3114,7 @@ function SettingsDialog({ onClose, level, onLevel }: { onClose: () => void; leve
             ),
           )}
         </div>
-        {seg<Environment>('Setting', st.environment, [{ v: 'traditional', t: '対局室 Traditional' }, { v: 'casual', t: '家庭 Casual' }], (v) => setSettings({ environment: v }))}
+        {seg<Environment>('Setting', st.environment, [{ v: 'traditional', t: '対局室 Traditional' }, { v: 'casual', t: '家庭 Casual' }, { v: 'flat', t: '平面 2D' }, { v: 'diagram', t: '図面 Diagram' }, { v: 'broadcast', t: '大盤 Broadcast' }], (v) => setSettings({ environment: v }))}
         {seg('Board coordinates', st.coords, [{ v: true, t: 'Show (wider margin)' }, { v: false, t: 'Hide' }], (v) => setSettings({ coords: v }))}
         {seg<PieceFinish>('Piece finish', st.pieceFinish, (Object.keys(PIECE_FINISHES) as PieceFinish[]).map((v) => ({ v, t: PIECE_FINISHES[v].label })), (v) => setSettings({ pieceFinish: v }))}
         <p className="ws-muted ws-credit">{PIECE_FINISHES[st.pieceFinish].hint}</p>

@@ -42,10 +42,12 @@ function setBoardDims() {
   HALF_W = 4.5 + MARGIN
   HALF_D = 4.5 * SQ_D + MARGIN
   CASUAL = getSettings().environment === 'casual'
+  FLAT = getSettings().environment === 'flat'
   THICK = (CASUAL ? 60 : 182) / 35.2
   LEG = CASUAL ? 0 : 95 / 35.2
 }
 let CASUAL = false
+let FLAT = false
 let THICK = 182 / 35.2
 let LEG = 95 / 35.2
 const STAND_TOP = -8 / 35.2
@@ -731,7 +733,7 @@ export function Board3D(props: Board3DProps) {
     el.appendChild(renderer.domElement)
 
     const scene = new THREE.Scene()
-    const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 200)
+    const camera = new THREE.PerspectiveCamera(FLAT ? 2.5 : 30, 1, 0.1, FLAT ? 2000 : 200)
 
     scene.add(new THREE.HemisphereLight(0xe8e0d0, 0x3a2a18, 0.9))
     const lamp = new THREE.SpotLight(0xffe8c4, 70, 80, Math.PI / 3, 1, 1.2)
@@ -766,7 +768,8 @@ export function Board3D(props: Board3DProps) {
     board.castShadow = true
     board.receiveShadow = true
     root.add(board)
-    if (!CASUAL) buildRoom(root)
+    if (!CASUAL && !FLAT) buildRoom(root)
+    floor.visible = !FLAT
 
     const legMaterial = woodMaterial([120, 78, 36], 17)
     for (const [x, z] of [
@@ -969,7 +972,8 @@ export function Board3D(props: Board3DProps) {
       if (Math.abs(flip - s.root.rotation.y) < 0.002) s.root.rotation.y = flip
       const fit = (layout.portrait ? Math.max((2 * HALF_W + (layout.narrow ? 0.5 : 1.0)) / camera.aspect, 2 * (strip().z + strip().d / 2) + 0.2) : Math.max((2 * (HALF_W + 0.45 + maxStand())) / camera.aspect, 2 * HALF_D + 0.6)) * (1 + (layout.portrait ? 0.06 : 0.16) * s.tilt)
       const distance = fit / (2 * Math.tan((camera.fov * Math.PI) / 360))
-      const angle = 0.02 + s.tilt * 0.8
+      if (FLAT) s.tilt = 0
+      const angle = FLAT ? 0 : 0.02 + s.tilt * 0.8
       const pan = layout.portrait ? 0 : s.tilt * 0.6
       camera.position.set(pan, Math.cos(angle) * distance, Math.sin(angle) * distance)
       camera.lookAt(pan, 0, s.tilt * 0.4)
