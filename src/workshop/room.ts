@@ -2,92 +2,8 @@ import * as THREE from 'three'
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js'
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 import { loadPieceFont } from './settings'
-
-export type RoomDims = { thick: number; leg: number; halfW: number; halfD: number; floor: THREE.Mesh }
-
-const mm = (n: number) => n / 35.2
-
-export const TATAMI_W = mm(910)
-export const TATAMI_L = mm(1820)
-export const TABLE_H = mm(740)
-
-const cache = new Map<string, unknown>()
-
-function once<T>(key: string, make: () => T): T {
-  if (!cache.has(key)) cache.set(key, make())
-  return cache.get(key) as T
-}
-
-function rng(seed: number) {
-  let s = seed
-  return () => (s = (s * 16807) % 2147483647) / 2147483647
-}
-
-type Draw = (ctx: CanvasRenderingContext2D, w: number, h: number) => void
-
-function paint(key: string, w: number, h: number, draw: Draw, repeat = false) {
-  return once(`tex:${key}`, () => {
-    const canvas = document.createElement('canvas')
-    canvas.width = w
-    canvas.height = h
-    draw(canvas.getContext('2d')!, w, h)
-    const texture = new THREE.CanvasTexture(canvas)
-    texture.colorSpace = THREE.SRGBColorSpace
-    texture.anisotropy = 8
-    if (repeat) texture.wrapS = texture.wrapT = THREE.RepeatWrapping
-    return texture
-  })
-}
-
-export function grainTexture(width: number, height: number, base: [number, number, number], lines: number, seed: number) {
-  const canvas = document.createElement('canvas')
-  canvas.width = width
-  canvas.height = height
-  const ctx = canvas.getContext('2d')!
-  ctx.fillStyle = `rgb(${base.join(',')})`
-  ctx.fillRect(0, 0, width, height)
-  let s = seed
-  const rand = () => ((s = (s * 16807) % 2147483647) / 2147483647)
-  for (let i = 0; i < lines; i++) {
-    const y = rand() * height
-    const amp = 2 + rand() * 9
-    const freq = 0.002 + rand() * 0.006
-    const phase = rand() * 10
-    const dark = rand() < 0.55
-    ctx.strokeStyle = dark ? `rgba(110,62,22,${0.05 + rand() * 0.12})` : `rgba(255,226,170,${0.04 + rand() * 0.08})`
-    ctx.lineWidth = 0.6 + rand() * 2.4
-    ctx.beginPath()
-    for (let x = 0; x <= width; x += 8) ctx.lineTo(x, y + Math.sin(x * freq + phase) * amp + Math.sin(x * freq * 3.1) * amp * 0.3)
-    ctx.stroke()
-  }
-  return canvas
-}
-
-const grain = (key: string, w: number, h: number, base: [number, number, number], lines: number, seed: number) => paint(key, w, h, (ctx) => ctx.drawImage(grainTexture(w, h, base, lines, seed), 0, 0), true)
-
-export function tatamiTexture() {
-  return once('tatami-floor', () => {
-    const texture = tatamiMat().clone()
-    texture.wrapS = texture.wrapT = THREE.RepeatWrapping
-    texture.repeat.set(6, 3.2)
-    return texture
-  })
-}
-
-export function floorTexture() {
-  return planks()
-}
-
-export function tableTexture() {
-  return once('table', () => {
-    const texture = new THREE.CanvasTexture(grainTexture(1024, 1024, [122, 82, 50], 180, 31))
-    texture.colorSpace = THREE.SRGBColorSpace
-    texture.wrapS = texture.wrapT = THREE.RepeatWrapping
-    texture.repeat.set(1, 1)
-    texture.anisotropy = 8
-    return texture
-  })
-}
+import { CASUAL_ROOM, ROOM_H, TABLE, TABLE_H, TATAMI_W, TRADITIONAL_ROOM, ZABUTON, mm } from './roomMetrics'
+import { grain, grainTexture, once, paint, rng, standard, tableTexture, tileUV, type Draw, type RoomDims } from './roomFloor'
 
 export function zabutonTexture() {
   return paint('zabuton', 512, 512, (ctx, size) => {
@@ -107,60 +23,6 @@ export function zabutonTexture() {
       }
   })
 }
-
-const tatamiMat = () =>
-  paint('tatami-mat', 512, 1024, (ctx, w, h) => {
-    ctx.fillStyle = '#cbc394'
-    ctx.fillRect(0, 0, w, h)
-    const r = rng(11)
-    for (let y = 0; y < h; y += 4) {
-      const k = 0.84 + r() * 0.22
-      ctx.fillStyle = `rgba(${Math.round(150 * k)},${Math.round(146 * k)},${Math.round(92 * k)},0.42)`
-      ctx.fillRect(0, y, w, 2)
-    }
-    ctx.fillStyle = 'rgba(255,250,215,0.10)'
-    for (let y = 2; y < h; y += 4) ctx.fillRect(0, y, w, 1)
-    ctx.fillStyle = 'rgba(96,86,44,0.16)'
-    for (let x = 30; x < w - 20; x += 36) ctx.fillRect(x, 0, 2, h)
-    const heri = 18
-    ctx.fillStyle = '#1f2132'
-    ctx.fillRect(0, 0, heri, h)
-    ctx.fillRect(w - heri, 0, heri, h)
-    ctx.fillStyle = 'rgba(170,160,130,0.28)'
-    for (const x of [4, 13, w - 14, w - 5]) ctx.fillRect(x, 0, 1.5, h)
-    ctx.fillStyle = 'rgba(30,24,10,0.6)'
-    ctx.fillRect(0, 0, w, 3)
-    ctx.fillRect(0, h - 3, w, 3)
-  })
-
-const planks = () =>
-  once('planks', () => {
-    const texture = paint('planks-canvas', 1024, 1024, (ctx, w, h) => {
-      const r = rng(5)
-      const cols = 8
-      const cw = w / cols
-      for (let c = 0; c < cols; c++) {
-        let y = -r() * h
-        while (y < h) {
-          const len = h * (0.45 + r() * 0.5)
-          const k = 0.86 + r() * 0.24
-          const img = grainTexture(Math.ceil(cw), 256, [Math.round(178 * k), Math.round(132 * k), Math.round(86 * k)], 30, Math.floor(r() * 1e6) + 1)
-          ctx.save()
-          ctx.translate(c * cw + cw, y)
-          ctx.rotate(Math.PI / 2)
-          ctx.drawImage(img, 0, 0, len, cw)
-          ctx.restore()
-          ctx.fillStyle = 'rgba(50,30,14,0.55)'
-          ctx.fillRect(c * cw, y, cw, 2)
-          y += len
-        }
-        ctx.fillStyle = 'rgba(50,30,14,0.5)'
-        ctx.fillRect(c * cw, 0, 2, h)
-      }
-    })
-    texture.repeat.set(1, 1)
-    return texture
-  })
 
 const shojiDraw =
   (glow: boolean): Draw =>
@@ -334,19 +196,6 @@ const scrollTexture = () =>
     return texture
   })
 
-const WARM = new THREE.Color(1, 0.86, 0.68)
-
-const standard = (key: string, params: THREE.MeshStandardMaterialParameters, glow = 0) =>
-  once(`mat:${key}`, () => {
-    const material = new THREE.MeshStandardMaterial(params)
-    material.name = key
-    if (glow) {
-      material.emissive.copy(material.color).multiplyScalar(glow).multiply(WARM)
-      material.emissiveMap = material.map
-    }
-    return material
-  })
-
 const plasterTile = 22
 
 type Parts = Map<THREE.Material, THREE.BufferGeometry[]>
@@ -366,12 +215,6 @@ function bake(parts: Parts, group: THREE.Object3D, cast = false, receive = false
     group.add(mesh)
   }
   parts.clear()
-}
-
-function tileUV(g: THREE.BufferGeometry, su: number, sv: number, ou = 0, ov = 0) {
-  const uv = g.getAttribute('uv') as THREE.BufferAttribute
-  for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * su + ou, uv.getY(i) * sv + ov)
-  return g
 }
 
 function flipU(g: THREE.BufferGeometry) {
@@ -451,52 +294,14 @@ function skyDome(key: string, ground: string, scenery: Draw) {
   return group
 }
 
-function warmLight(root: THREE.Group, x: number, y: number, z: number, floorY: number, intensity: number, angle: number) {
-  const light = new THREE.SpotLight(0xffc48a, intensity, 0, angle, 1, 1.5)
-  light.position.set(x, y, z)
-  light.target.position.set(x, floorY, z)
-  root.add(light, light.target)
-}
-
-function tatamiGeometry(A: number, B: number) {
-  const layout = [
-    [0, 0, 2, 1],
-    [2, 0, 2, 1],
-    [0, 1, 1, 2],
-    [1, 1, 2, 1],
-    [3, 1, 1, 2],
-    [1, 2, 1, 2],
-    [2, 2, 1, 2],
-    [0, 3, 1, 2],
-    [3, 3, 1, 2],
-    [1, 4, 2, 1],
-    [0, 5, 2, 1],
-    [2, 5, 2, 1],
-  ]
-  return mergeGeometries(
-    layout.map(([x, y, w, h]) => {
-      const g = new THREE.PlaneGeometry(TATAMI_W, TATAMI_L).rotateX(-Math.PI / 2)
-      if (w === 2) g.rotateY(Math.PI / 2)
-      return g.translate(-A + (x + w / 2) * TATAMI_W, 0, -B + (y + h / 2) * TATAMI_W)
-    }),
-  )
-}
-
 export function buildRoom(root: THREE.Group, dims: RoomDims) {
   const floorY = -dims.thick - dims.leg
-  const A = 2 * TATAMI_W
-  const B = 3 * TATAMI_W
-  const ceil = floorY + mm(2400)
+  const A = TRADITIONAL_ROOM.halfX
+  const B = TRADITIONAL_ROOM.halfZ
+  const ceil = floorY + ROOM_H
   const lintel = floorY + mm(1760)
   const post = mm(120)
   const D = mm(760)
-
-  const floor = dims.floor
-  root.add(floor)
-  floor.rotation.set(0, 0, 0)
-  floor.position.set(0, floorY, 0)
-  floor.geometry = tatamiGeometry(A, B)
-  floor.material = standard('tatami', { map: tatamiMat(), roughness: 0.9 }, 0.16)
 
   const hinoki = standard('hinoki', { map: grain('hinoki', 256, 512, [214, 182, 138], 60, 13), roughness: 0.55 }, 0.35)
   const darkWood = standard('dark-wood', { map: grain('dark-wood', 256, 256, [118, 80, 48], 50, 19), roughness: 0.45 }, 0.3)
@@ -651,9 +456,9 @@ export function buildRoom(root: THREE.Group, dims: RoomDims) {
   const zabuton = standard('zabuton-mat', { map: zabutonTexture(), roughness: 0.95 })
   for (const sgn of [1, -1]) {
     const yaw = sgn === 1 ? 0 : Math.PI
-    const cz = sgn * (dims.halfD + 14)
-    const cushion = new THREE.Mesh(new RoundedBoxGeometry(16.5, 1.6, 17.5, 4, 0.7), zabuton)
-    cushion.position.set(0, floorY + 0.8, cz)
+    const cz = sgn * (dims.halfD + ZABUTON.gap)
+    const cushion = new THREE.Mesh(new RoundedBoxGeometry(ZABUTON.w, ZABUTON.h, ZABUTON.d, 4, 0.7), zabuton)
+    cushion.position.set(0, floorY + ZABUTON.h / 2, cz)
     cushion.castShadow = cushion.receiveShadow = true
     groups.items.add(cushion)
     const kx = -sgn * 13.5
@@ -686,7 +491,6 @@ export function buildRoom(root: THREE.Group, dims: RoomDims) {
   for (const sgn of [1, -1]) put(parts, darkWood, new THREE.TorusGeometry(lampR * 0.72, 0.18, 6, 32).rotateX(Math.PI / 2).translate(0, lampY + (sgn * lampH) / 2, 0))
   put(parts, darkWood, new THREE.CylinderGeometry(0.07, 0.07, ceil - lampY - lampH / 2, 4).translate(0, (ceil + lampY + lampH / 2) / 2, 0))
   bake(parts, lamp)
-  warmLight(root, 0, lampY - 1, 0, floorY, 150, 1.25)
   const paper = standard('andon', { color: 0xfff2da, emissive: 0xffc27e, emissiveIntensity: 1.1, emissiveMap: paint('andon', 128, 256, andonDraw), roughness: 1, side: THREE.DoubleSide })
   const aw = mm(300)
   const ah = mm(760)
@@ -703,9 +507,6 @@ export function buildRoom(root: THREE.Group, dims: RoomDims) {
     }
     put(parts, kyoWood, box(aw - 0.4, 0.3, aw - 0.4, x, floorY + mm(150), z))
     for (let k = 0; k < 4; k++) put(parts, paper, new THREE.PlaneGeometry(aw - 0.5, ah - mm(150) - 1.2).translate(0, 0, aw / 2 - 0.05).rotateY((k * Math.PI) / 2).translate(x, floorY + mm(150) + (ah - mm(150)) / 2, z))
-    const light = new THREE.PointLight(0xffb36a, 260, 90, 2)
-    light.position.set(x, floorY + ah * 0.55, z)
-    root.add(light)
   }
   bake(parts, groups.items)
 
@@ -989,19 +790,12 @@ const sunDraw: Draw = (ctx, w, h) => {
 export function buildCasual(root: THREE.Group, dims: RoomDims) {
   const top = -dims.thick
   const floorY = top - TABLE_H
-  const A = mm(2200)
-  const B = mm(2700)
-  const ceil = floorY + mm(2400)
-  const tableW = mm(1100)
-  const tableD = mm(800)
+  const A = CASUAL_ROOM.halfX
+  const B = CASUAL_ROOM.halfZ
+  const ceil = floorY + ROOM_H
+  const tableW = 2 * TABLE.halfW
+  const tableD = 2 * TABLE.halfD
   const tableT = mm(30)
-
-  const floor = dims.floor
-  root.add(floor)
-  floor.rotation.set(0, 0, 0)
-  floor.position.set(0, floorY, 0)
-  floor.geometry = tileUV(new THREE.PlaneGeometry(2 * A, 2 * B).rotateX(-Math.PI / 2), (2 * A) / 34, (2 * B) / 34)
-  floor.material = standard('planks', { map: planks(), roughness: 0.55 }, 0.24)
 
   const parts: Parts = new Map()
   const groups = { px: new THREE.Group(), nx: new THREE.Group(), pz: new THREE.Group(), nz: new THREE.Group(), up: new THREE.Group(), items: new THREE.Group(), table: new THREE.Group() }
@@ -1144,9 +938,6 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
     put(parts, sash, new THREE.CylinderGeometry(0.3, 0.3, mm(1450), 8).translate(lx, floorY + mm(725), lz))
     const shade = standard('shade', { color: 0xf6ead2, emissive: 0xffd9a0, emissiveIntensity: 0.9, roughness: 1, side: THREE.DoubleSide })
     put(parts, shade, new THREE.CylinderGeometry(4.6, 6.2, 7.5, 28, 1, true).translate(lx, floorY + mm(1450) + 1.5, lz))
-    const glow = new THREE.PointLight(0xffb978, 220, 90, 2)
-    glow.position.set(lx, floorY + mm(1450), lz)
-    root.add(glow)
     bake(parts, groups.nx)
   }
 
@@ -1247,7 +1038,6 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
 
   {
     const wood = standard('table-wood', { map: tableTexture(), roughness: 0.6 }, 0.2)
-    put(parts, wood, box(tableW, tableT, tableD, 0, top - tableT / 2, 0))
     const legH = TABLE_H - tableT
     for (const [sx, sz] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) put(parts, wood, box(1.6, legH, 1.6, sx * (tableW / 2 - 2.4), top - tableT - legH / 2, sz * (tableD / 2 - 2.4)))
     for (const sz of [-1, 1]) put(parts, wood, box(tableW - 5, 2.4, 0.6, 0, top - tableT - 1.2, sz * (tableD / 2 - 2.4)))
@@ -1305,7 +1095,6 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
   put(parts, sash, new THREE.CylinderGeometry(0.07, 0.07, ceil - lampY - 6.6, 4).translate(0, (ceil + lampY + 6.6) / 2, 0))
   put(parts, sash, new THREE.CylinderGeometry(1.6, 1.6, 0.5, 20).translate(0, ceil - 0.25, 0))
   bake(parts, lamp)
-  warmLight(root, 0, lampY + 2, 0, floorY, 70, 1.15)
 
   cutaway(
     root,

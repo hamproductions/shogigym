@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { handSnapshots, type HandSnapshot } from './Board3D'
+import { handSnapshots, type HandSnapshot } from './board3d/komadai'
 import { loadPieceFont, useSettings } from './settings'
 import { loadPieceSet } from './pieceSets'
 

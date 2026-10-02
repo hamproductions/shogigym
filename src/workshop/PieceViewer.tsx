@@ -2,10 +2,13 @@ import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { Color, PieceType } from 'tsshogi'
-import { pieceMesh, preparePieceEnvironment } from './Board3D'
+import { preparePieceEnvironment } from './board3d/materials'
+import { pieceMesh } from './board3d/piece'
 import { PIECE_FINISHES, loadPieceFont, setSettings, useSettings, type PieceFinish } from './settings'
 import { loadPieceSet } from './pieceSets'
 import { useTranslation } from 'react-i18next'
+import { DialogHeader } from './ui/Dialog'
+import { Segmented, SettingRow } from './ui/Segmented'
 
 const TYPES: { type: PieceType; label: string }[] = [
   { type: PieceType.KING, label: '王' },
@@ -109,33 +112,15 @@ export function PieceViewer({ onClose, page }: { onClose: () => void; page?: boo
   return (
     <div className={page ? 'ws-viewer-page' : 'ws-palette-back'} onPointerDown={page ? undefined : onClose}>
       <div className={`ws-dialog ws-viewer${page ? ' page' : ''}`} role="dialog" aria-label={t('viewer.pieceViewer')} onPointerDown={(e) => e.stopPropagation()}>
-        <div className="ws-viewer-head">
-          <h2>{t('viewer.pieceViewer')}</h2>
-          <button onClick={onClose} aria-label={t('viewer.close')}>
-            ×
-          </button>
-        </div>
+        <DialogHeader title={t('viewer.pieceViewer')} closeLabel={t('viewer.close')} onClose={onClose} />
         <div className="ws-viewer-stage" ref={host} />
         <p className="ws-muted">{t('viewer.dragToRotateScrollOr')}</p>
-        <div className="ws-seg small">
-          {TYPES.map((t) => (
-            <button key={t.type} className={type === t.type ? 'on' : ''} onClick={() => setType(t.type)}>
-              {t.label}
-            </button>
-          ))}
-        </div>
-        <div className="ws-seg small">
-          {(Object.keys(PIECE_FINISHES) as PieceFinish[]).map((f) => (
-            <button key={f} className={st.pieceFinish === f ? 'on' : ''} onClick={() => setSettings({ pieceFinish: f })}>
-              {PIECE_FINISHES[f].label}
-            </button>
-          ))}
-        </div>
+        <Segmented size="small" value={type} options={TYPES.map((x) => ({ v: x.type, t: x.label }))} onChange={setType} />
+        <Segmented<PieceFinish> size="small" value={st.pieceFinish} options={(Object.keys(PIECE_FINISHES) as PieceFinish[]).map((f) => ({ v: f, t: PIECE_FINISHES[f].label }))} onChange={(f) => setSettings({ pieceFinish: f })} />
         <p className="ws-muted">{PIECE_FINISHES[st.pieceFinish].hint}</p>
-        <label className="ws-setting">
-          <span>{t('viewer.lightDirection')}</span>
-          <input type="range" min={0} max={1} step={0.01} value={light} onChange={(e) => setLight(Number(e.target.value))} />
-        </label>
+        <SettingRow label={t('viewer.lightDirection')}>
+          <input type="range" min={0} max={1} step={0.01} value={light} aria-label={t('viewer.lightDirection')} onChange={(e) => setLight(Number(e.target.value))} />
+        </SettingRow>
       </div>
     </div>
   )

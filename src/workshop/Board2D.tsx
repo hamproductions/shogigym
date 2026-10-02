@@ -3,6 +3,7 @@ import { HAND_ORDER, PIECE_CHAR } from '../shogi'
 import { useEffect, useRef, useState } from 'react'
 import type { Board3DProps } from './Board3D'
 import { PIECE_FONTS, loadPieceFont } from './settings'
+import { SNAPSHOT_EVENT, SNAPSHOT_NAME } from './lib/events'
 import { useTranslation } from 'react-i18next'
 
 const KANJI_NUM = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九']
@@ -65,13 +66,13 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
         canvas.getContext('2d')!.drawImage(img, 0, 0)
         const a = document.createElement('a')
         a.href = canvas.toDataURL('image/png')
-        a.download = `${(event as CustomEvent<string>).detail || 'shogilab'}.png`
+        a.download = `${(event as CustomEvent<string>).detail || SNAPSHOT_NAME}.png`
         a.click()
       }
       img.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(new XMLSerializer().serializeToString(svg))}`
     }
-    window.addEventListener('shogilab:snapshot', onSnapshot)
-    return () => window.removeEventListener('shogilab:snapshot', onSnapshot)
+    window.addEventListener(SNAPSHOT_EVENT, onSnapshot)
+    return () => window.removeEventListener(SNAPSHOT_EVENT, onSnapshot)
   }, [])
   const komaFont = style === 'broadcast' ? `'${PIECE_FONTS.kaisho.family}', 'Shippori Mincho B1', serif` : "'Shippori Mincho B1', serif"
   const { i18n } = useTranslation()
