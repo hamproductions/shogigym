@@ -66,13 +66,14 @@ type Step = { mesh: THREE.Object3D; from: THREE.Vector3; to: THREE.Vector3; from
 
 type Action = { kind: MotionKind; steps: Step[]; index: number; t: number; wait: number; lock: THREE.Vector3 | null; last: THREE.Vector3 | null; sound: Knock | null; land: (() => void) | null; placed: THREE.Vector3 | null }
 
-type Actor = { color: Color; char: Character; uniforms: Fade; action: Action | null; out: number; glance: number; nextGlance: number; focus: THREE.Vector3 | null; focusFor: number; nod: number; bow: number; happyFor: number }
+type Actor = { color: Color; char: Character; casters: THREE.Mesh[]; uniforms: Fade; action: Action | null; out: number; glance: number; nextGlance: number; focus: THREE.Vector3 | null; focusFor: number; nod: number; bow: number; happyFor: number }
 
-type Fade = { fade: { value: THREE.Vector2 }; band: { value: THREE.Vector4 }; arms: { value: THREE.Vector3[] } }
+type Fade = { fade: { value: THREE.Vector2 }; band: { value: THREE.Vector4 }; board: { value: THREE.Vector4 }; arms: { value: THREE.Vector3[] } }
 
 const FADE_HEAD = [
   'uniform vec2 avatarFade;',
   'uniform vec4 avatarBand;',
+  'uniform vec4 avatarBoard;',
   'uniform vec3 avatarArms[8];',
   'float avatarArm(vec3 p, int i, float w) {',
   '  vec3 a = avatarArms[i + 1];',
@@ -92,6 +93,8 @@ const FADE_GLSL = [
   '  float avatarBody = min(avatarArm(avatarW, 0, avatarBand.w), avatarArm(avatarW, 4, avatarBand.w));',
   '  if (avatarBand.z > 0.5 && !gl_FrontFacing) discard;',
   '  float avatarK = min(smoothstep(avatarFade.x, avatarFade.y, length(vViewPosition)), 1.0 - avatarBand.z * avatarBody);',
+  '  float avatarOver = step(avatarBoard.x, avatarW.x) * step(avatarW.x, avatarBoard.y) * step(avatarBoard.z, avatarW.z) * step(avatarW.z, avatarBoard.w);',
+  '  avatarK = min(avatarK, 1.0 - avatarBand.x * avatarOver * avatarBody);',
   '  if (avatarK < 0.999 && avatarK <= fract(52.9829189 * fract(dot(gl_FragCoord.xy, vec2(0.06711056, 0.00583715))))) discard;',
 ].join('\n')
 
@@ -103,6 +106,7 @@ function patchFade(material: THREE.Material, uniforms: Fade) {
     base(shader, renderer)
     shader.uniforms.avatarFade = uniforms.fade
     shader.uniforms.avatarBand = uniforms.band
+    shader.uniforms.avatarBoard = uniforms.board
     shader.uniforms.avatarArms = uniforms.arms
     const outline = (material as { isOutline?: boolean }).isOutline ? '\n  if (avatarBand.z > 0.5) discard;' : ''
     shader.fragmentShader = shader.fragmentShader.replace('void main() {', FADE_HEAD).replace('#include <clipping_planes_fragment>', FADE_GLSL + outline)
@@ -145,12 +149,15 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
   const { root, camera } = options
   const random = options.random ?? Math.random
   let clock = 0
-  const uniforms = AVATAR_MODELS.map((): Fade => ({ fade: { value: new THREE.Vector2() }, band: { value: new THREE.Vector4() }, arms: { value: Array.from({ length: 8 }, () => new THREE.Vector3()) } }))
+  const uniforms = AVATAR_MODELS.map((): Fade => ({ fade: { value: new THREE.Vector2() }, band: { value: new THREE.Vector4() }, board: { value: new THREE.Vector4() }, arms: { value: Array.from({ length: 8 }, () => new THREE.Vector3()) } }))
   const vrms = await Promise.all(AVATAR_MODELS.map((m, i) => loadVrm(loader, `${options.base}${m.file}`, uniforms[i])))
   const seat = seats(options)
+  const boardHalf = new THREE.Vector2(options.dims.halfW + 0.6, options.dims.halfD + 0.6)
   const actors: Actor[] = AVATAR_MODELS.map((m, i) => {
     const char = createCharacter(vrms[i], seat[m.color], root, m.height, random)
-    return { color: m.color, char, uniforms: uniforms[i], action: null, out: 1, glance: 0, nextGlance: 3 + random() * 5, focus: null, focusFor: 0, nod: 0, bow: 0, happyFor: 0 }
+    const casters: THREE.Mesh[] = []
+    char.vrm.scene.traverse((o) => (o as THREE.Mesh).isMesh && casters.push(o as THREE.Mesh))
+    return { color: m.color, char, casters, uniforms: uniforms[i], action: null, out: 1, glance: 0, nextGlance: 3 + random() * 5, focus: null, focusFor: 0, nod: 0, bow: 0, happyFor: 0 }
   })
   for (const a of actors) {
     a.char.state.lookAt.copy(root.localToWorld(new THREE.Vector3(0, 0, 0)))
@@ -381,7 +388,11 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
       const side = actor.color === Color.BLACK ? 1 : -1
       const near = orbit ? 0 : THREE.MathUtils.smoothstep((cam.z * side) / Math.max(1e-3, cam.length()), 0, 0.012)
       actor.uniforms.fade.value.set(distance * 0.22, distance * 0.34)
-      actor.uniforms.band.value.set(0, 0, near, actor.char.state.reachW > 0.02 ? 0.085 * UNITS_PER_M : 0)
+      const top = orbit ? 0 : THREE.MathUtils.smoothstep(cam.y / Math.max(1e-3, cam.length()), 0.78, 0.9)
+      actor.uniforms.band.value.set(top, 0, near, actor.char.state.reachW > 0.02 ? 0.085 * UNITS_PER_M : 0)
+      actor.uniforms.board.value.set(rootAt.x - boardHalf.x, rootAt.x + boardHalf.x, rootAt.z - boardHalf.y, rootAt.z + boardHalf.y)
+      const shadows = near < 0.5 && top < 0.5
+      if (actor.casters[0]?.castShadow !== shadows) for (const m of actor.casters) m.castShadow = shadows
       const st = actor.char.state
       st.flinchTarget = flinch ? (actor.color === Color.WHITE ? 1 : 0.4) : 0
       stepAction(actor, dt)
