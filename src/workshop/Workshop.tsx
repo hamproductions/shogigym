@@ -782,7 +782,7 @@ export function Workshop() {
           return { square: Square.newByUSI(usi)!, color: d > 0 ? 0x1f7ae0 : d < 0 ? 0xd2402a : 0x9a5ad0, opacity: Math.min(0.42, 0.14 + 0.1 * Math.abs(d || 1)), label: String(Math.max(c.s.length, c.g.length) && (d === 0 ? c.s.length : Math.abs(d))) }
         })
       : []),
-    ...(focusCell ? [...focusCell.s.map((square) => ({ square, color: 0x1f7ae0, opacity: 0.4 })), ...focusCell.g.map((square) => ({ square, color: 0xc8442f, opacity: 0.4 }))] : []),
+    ...(focusSquare ? [{ square: focusSquare, color: focusCell && focusCell.s.length !== focusCell.g.length ? (focusCell.s.length > focusCell.g.length ? 0x1f7ae0 : 0xd2402a) : 0x9a5ad0, opacity: 0.35 }] : []),
   ]
   const enemyColor = mode === 'analyze' || (mode === 'lesson' && !course) ? (position.color === Color.BLACK ? Color.WHITE : Color.BLACK) : userSide === 'sente' ? Color.WHITE : Color.BLACK
   const enemyKing = showEscape && mode === 'tsume' ? kingSquare(sfen, enemyColor) : null
@@ -840,6 +840,11 @@ export function Workshop() {
   const checkHelp = mode === 'spar' && inCheck && userTurn && atEnd && !gameOver && !preview ? '王手: your king is attacked. Move it away, block the line, or capture the attacker.' : null
   const kanji = (sq: Square) => `${PIECE_INFO[position.board.at(sq)!.type].ja.slice(0, 1)}${sq.file}${'一二三四五六七八九'[sq.rank - 1]}`
   const focusNote = focusSquare && focusCell ? `${focusSquare.file}${'一二三四五六七八九'[focusSquare.rank - 1]}: ☗ ${focusCell.s.length ? focusCell.s.map(kanji).join(' ') : 'none'} · ☖ ${focusCell.g.length ? focusCell.g.map(kanji).join(' ') : 'none'}${focusCell.s.length !== focusCell.g.length ? ` — ${focusCell.s.length > focusCell.g.length ? '☗' : '☖'} controls it` : focusCell.s.length ? ' — contested' : ''}` : null
+  if (focusSquare && focusCell) {
+    arrows.length = 0
+    for (const sq of focusCell.s) arrows.push({ usi: `${sq.usi}${focusSquare.usi}`, color: '#1f7ae0' })
+    for (const sq of focusCell.g) arrows.push({ usi: `${sq.usi}${focusSquare.usi}`, color: '#d2402a' })
+  }
   const boardNote = nudge ?? (checking ? 'Checking that move…' : (focusNote ?? peekNote ?? (tesujiNote && tesujiNote.at === cursor ? `手筋 ${tesujiNote.ja} (${tesujiNote.en}): ${tesujiNote.explain}` : checkHelp)))
   const castles = [Color.BLACK, Color.WHITE].flatMap((color) => {
     const f = formationOf(position, color)
