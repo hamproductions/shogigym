@@ -16,7 +16,7 @@ export type AvatarPhase = 'reach' | 'grip' | 'carry' | 'place' | 'press' | 'with
 
 export type AvatarInspect = { color: Color; phase: AvatarPhase; kind: MotionKind | null; t: number; sample: number; target: THREE.Vector3; pole: THREE.Vector3; pinch: THREE.Vector3; piece: THREE.Vector3 | null; hand: THREE.Object3D; pose: Record<string, number[]> | null; applied: Record<string, number[]> }
 
-export type AvatarController = { playMove: (move: AvatarMove) => void; cue: (cues: AvatarCues) => void; update: (dt: number, flinch: boolean, orbit: boolean) => void; walls: () => Wall[]; swap: (from: THREE.Object3D, to: THREE.Object3D) => void; reset: () => void; inspect: () => AvatarInspect[]; dispose: () => void }
+export type AvatarController = { playMove: (move: AvatarMove) => void; cue: (cues: AvatarCues) => void; update: (dt: number, flip: number, orbit: boolean) => void; walls: () => Wall[]; swap: (from: THREE.Object3D, to: THREE.Object3D) => void; reset: () => void; inspect: () => AvatarInspect[]; dispose: () => void }
 
 export type AvatarOptions = { root: THREE.Object3D; camera: THREE.Camera; environment: 'traditional' | 'casual'; dims: { thick: number; leg: number; halfW: number; halfD: number }; base: string; random?: () => number }
 
@@ -113,7 +113,7 @@ export function avatarSlot(options: Omit<AvatarOptions, 'environment' | 'base'>)
       cues = next
       controller?.cue(next)
     },
-    update: (dt: number, flinch: boolean, orbit: boolean) => controller?.update(dt, flinch, orbit),
+    update: (dt: number, flip: number, orbit: boolean) => controller?.update(dt, flip, orbit),
     dispose: () => {
       disposed = true
       window.clearTimeout(idle)

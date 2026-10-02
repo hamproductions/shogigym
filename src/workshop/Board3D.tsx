@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react'
-import type { ImmutablePosition } from 'tsshogi'
+import { Color, type ImmutablePosition } from 'tsshogi'
 import { avatarSlot, flushMoveSound } from './avatars'
 import { updateView } from './board3d/camera'
-import { HALF_D, HALF_W, LEG, THICK, setBoardDims } from './board3d/dimensions'
+import { FLAT, HALF_D, HALF_W, LEG, THICK, setBoardDims } from './board3d/dimensions'
 import { flipCameraOffset, saveSnapshot, startTableFlip, stepTableFlip } from './board3d/effects'
 import { bindPointer } from './board3d/interaction'
 import { layout, sideStandsFit, zoneReporter } from './board3d/layout'
@@ -25,6 +25,7 @@ export function Board3D(props: Board3DProps) {
   latest.current = props
   const previous = useRef<ImmutablePosition | null>(null)
   const power = useRef<Power | null>(null)
+  const flipTimer = useRef(0)
 
   useEffect(() => {
     const el = host.current!
@@ -82,7 +83,7 @@ export function Board3D(props: Board3DProps) {
       stepTableFlip(s, time, dt, refresh)
       stepAnimations(s, time)
       power.current?.update(dt)
-      s.avatars?.update(dt * (power.current?.timeScale() ?? 1), !!s.flip, !!s.controls)
+      s.avatars?.update(dt * (power.current?.timeScale() ?? 1), s.flip?.way ?? 0, !!s.controls)
       const shake = flipCameraOffset(s, time)
       if (shake) s.camera.position.add(shake)
       const restoreCamera = power.current?.applyCamera()
@@ -95,7 +96,17 @@ export function Board3D(props: Board3DProps) {
     }
     frame = requestAnimationFrame(loop)
 
-    const onFlip = () => startTableFlip(s)
+    const onFlip = () => {
+      power.current?.clear()
+      startTableFlip(s)
+    }
+    const releaseFlip = () => {
+      if (s.flip) s.flip.release = true
+    }
+    window.addEventListener('pointerdown', releaseFlip)
+    window.addEventListener('wheel', releaseFlip, { passive: true })
+    window.addEventListener('keydown', releaseFlip)
+    s.releaseFlip = releaseFlip
     const onSnapshot = (event: Event) => saveSnapshot(s, (event as CustomEvent<string>).detail)
     window.addEventListener(TABLE_FLIP_EVENT, onFlip)
     window.addEventListener(SNAPSHOT_EVENT, onSnapshot)
@@ -108,6 +119,10 @@ export function Board3D(props: Board3DProps) {
     return () => {
       cancelAnimationFrame(frame)
       window.removeEventListener(TABLE_FLIP_EVENT, onFlip)
+      window.removeEventListener('pointerdown', releaseFlip)
+      window.removeEventListener('wheel', releaseFlip)
+      window.removeEventListener('keydown', releaseFlip)
+      window.clearTimeout(flipTimer.current)
       window.removeEventListener(SNAPSHOT_EVENT, onSnapshot)
       unbind()
       cancelPrefetch()
@@ -128,6 +143,8 @@ export function Board3D(props: Board3DProps) {
     previous.current = props.position
     const s = state.current
     if (!s || (prev !== null && prev.sfen === props.position.sfen)) return
+    s.releaseFlip?.()
+    window.clearTimeout(flipTimer.current)
     const changed = prev !== null
     const dragged = performance.now() - (s.droppedAt ?? 0) <= 400
     const event = changed && power.current ? moveEvent(prev, props.position, latest.current.lastMove) : null
@@ -135,6 +152,10 @@ export function Board3D(props: Board3DProps) {
     s.onLand = event && fx ? () => fx.onMove({ ...event, delay: 0 }) : null
     rebuild(s, latest.current, changed && !dragged, prev, changed && dragged)
     if (s.onLand && event) fx?.onMove({ ...event, delay: dragged ? 0 : 0.22 })
+    if (event?.mate && !FLAT) flipTimer.current = window.setTimeout(() => {
+      fx?.clear()
+      startTableFlip(s, event.color === Color.BLACK ? Color.WHITE : Color.BLACK)
+    }, 4200)
     else if (!event) fx?.clear()
     s.onLand = null
     flushMoveSound()

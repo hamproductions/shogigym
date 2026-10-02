@@ -94,7 +94,7 @@ const FADE_GLSL = [
   '  if (avatarBand.z > 0.5 && !gl_FrontFacing) discard;',
   '  float avatarK = min(smoothstep(avatarFade.x, avatarFade.y, length(vViewPosition)), 1.0 - avatarBand.z * avatarBody);',
   '  float avatarOver = step(avatarBoard.x, avatarW.x) * step(avatarW.x, avatarBoard.y) * step(avatarBoard.z, avatarW.z) * step(avatarW.z, avatarBoard.w);',
-  '  avatarK = min(avatarK, 1.0 - avatarBand.x * avatarOver * avatarBody);',
+  '  avatarK = min(avatarK, 1.0 - avatarBand.x * avatarOver * smoothstep(avatarBand.y, avatarBand.y + 1.5, avatarW.y));',
   '  if (avatarK < 0.999 && avatarK <= fract(52.9829189 * fract(dot(gl_FragCoord.xy, vec2(0.06711056, 0.00583715))))) discard;',
 ].join('\n')
 
@@ -372,7 +372,8 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
   const target = new THREE.Vector3()
   const rootAt = new THREE.Vector3()
   const camAt = new THREE.Vector3()
-  const update = (dt: number, flinch: boolean, orbit: boolean) => {
+  const update = (dt: number, flip: number, orbit: boolean) => {
+    const flinch = flip !== 0
     clock += dt
     if (flinch)
       for (const actor of actors)
@@ -389,12 +390,12 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
       const near = orbit ? 0 : THREE.MathUtils.smoothstep((cam.z * side) / Math.max(1e-3, cam.length()), 0, 0.012)
       actor.uniforms.fade.value.set(distance * 0.22, distance * 0.34)
       const top = orbit ? 0 : THREE.MathUtils.smoothstep(cam.y / Math.max(1e-3, cam.length()), 0.78, 0.9)
-      actor.uniforms.band.value.set(top, 0, near, actor.char.state.reachW > 0.02 ? 0.085 * UNITS_PER_M : 0)
+      actor.uniforms.band.value.set(top, rootAt.y + 0.16 * UNITS_PER_M, near, actor.char.state.reachW > 0.02 ? 0.085 * UNITS_PER_M : 0)
       actor.uniforms.board.value.set(rootAt.x - boardHalf.x, rootAt.x + boardHalf.x, rootAt.z - boardHalf.y, rootAt.z + boardHalf.y)
       const shadows = near < 0.5 && top < 0.5
       if (actor.casters[0]?.castShadow !== shadows) for (const m of actor.casters) m.castShadow = shadows
       const st = actor.char.state
-      st.flinchTarget = flinch ? (actor.color === Color.WHITE ? 1 : 0.4) : 0
+      st.flinchTarget = flinch ? ((actor.color === Color.BLACK) === flip > 0 ? 0.4 : 1) : 0
       stepAction(actor, dt)
       const busy = !!actor.action
       st.thinkTarget = cues.thinking === actor.color && !busy && st.reachW < 0.3 ? 1 : 0

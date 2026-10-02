@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import { Color } from 'tsshogi'
 import { SNAPSHOT_NAME } from '../lib/events'
 import { CASUAL_ROOM, ROOM_H, TABLE, TABLE_H, TRADITIONAL_ROOM, ZABUTON, mm } from '../roomMetrics'
 import { playSound } from '../settings'
@@ -205,7 +206,7 @@ function stepBody(b: Body, f: TableFlip, dt: number, board: { m: THREE.Matrix4; 
   return impact
 }
 
-function launchPieces(s: SceneState): Body[] {
+function launchPieces(s: SceneState, way: number): Body[] {
   return s.pieces.children.map((m) => {
     const obj = m.clone()
     obj.position.copy(m.position)
@@ -213,43 +214,44 @@ function launchPieces(s: SceneState): Body[] {
     const dir = new THREE.Vector3(m.position.x, 0, m.position.z).normalize()
     const rocket = Math.random() < 0.12
     const speed = rocket ? 18 + Math.random() * 14 : 4 + Math.random() * 9
-    const v = new THREE.Vector3(dir.x * speed, rocket ? 62 + Math.random() * 8 : 12 + Math.random() * 18, dir.z * speed - 3 - Math.random() * 6)
+    const v = new THREE.Vector3(dir.x * speed, rocket ? 62 + Math.random() * 8 : 12 + Math.random() * 18, dir.z * speed - way * (3 + Math.random() * 6))
     return body(obj, v, new THREE.Vector3(random(70), random(70), random(70)), true)
   })
 }
 
-function launchStands(s: SceneState): Body[] {
+function launchStands(s: SceneState, way: number): Body[] {
   return s.stands.flatMap(({ stand, side, legs }) =>
     [stand, ...legs]
       .filter((m) => m.visible)
       .map((m, i) => {
-        const v = layout.portrait ? new THREE.Vector3(random(8), 16 + Math.random() * 6, side * (12 + Math.random() * 6)) : new THREE.Vector3(side * (10 + Math.random() * 8 + i * 2), 14 + Math.random() * 8, -4 - Math.random() * 6)
+        const v = layout.portrait ? new THREE.Vector3(random(8), 16 + Math.random() * 6, side * (12 + Math.random() * 6)) : new THREE.Vector3(side * (10 + Math.random() * 8 + i * 2), 14 + Math.random() * 8, -way * (4 + Math.random() * 6))
         return body(m, v, new THREE.Vector3(random(14), random(10), random(14)), false)
       }),
   )
 }
 
-export function startTableFlip(s: SceneState) {
+export function startTableFlip(s: SceneState, by: Color = Color.BLACK) {
+  const way = by === Color.BLACK ? 1 : -1
   if (s.flip) return
   const rig = new THREE.Group()
   s.root.add(rig)
   rig.add(s.board, ...s.legs)
   const dust = dustCloud()
   s.root.add(dust.points)
-  const bodies = [...launchPieces(s), ...launchStands(s)]
+  const bodies = [...launchPieces(s, way), ...launchStands(s, way)]
   s.pieces.visible = false
   s.marks.visible = false
-  s.flip = { start: performance.now(), bodies, arena: { ...arena(), walls: s.avatars?.walls() ?? [] }, rig, dust, slammed: false, lastClatter: 0 }
-  dust.burst(new THREE.Vector3(0, 0, HALF_D), 40, 6)
+  s.flip = { start: performance.now(), bodies, arena: { ...arena(), walls: s.avatars?.walls() ?? [] }, rig, dust, slammed: false, lastClatter: 0, release: false, way }
+  dust.burst(new THREE.Vector3(0, 0, way * HALF_D), 40, 6)
   playSound('bang')
 }
 
 function poseBoard(f: TableFlip, t: number) {
-  const pivot = new THREE.Vector3(0, CASUAL ? -THICK : -THICK - LEG, CASUAL ? -HALF_D / 3 : -HALF_D)
+  const pivot = new THREE.Vector3(0, CASUAL ? -THICK : -THICK - LEG, -f.way * (CASUAL ? HALF_D / 3 : HALF_D))
   const u = Math.min(1, Math.max(0, (t - 0.04) / (SLAM - 0.04)))
   const k = (t - SLAM) / 0.45
   const angle = Math.PI * Math.pow(u, 1.35) - (k > 0 && k < 1 ? 0.24 * Math.sin(Math.PI * k) * (1 - k) : 0)
-  f.rig.rotation.set(-angle, 0, 0)
+  f.rig.rotation.set(-f.way * angle, 0, 0)
   f.rig.position.copy(pivot).sub(pivot.clone().applyEuler(f.rig.rotation))
   f.rig.position.y += 5.5 * Math.sin(Math.PI * Math.min(1, t / SLAM))
   f.rig.updateMatrix()
@@ -299,7 +301,7 @@ export function stepTableFlip(s: SceneState, time: number, dt: number, done: () 
     playSound('clatter')
   }
   f.dust.step(dt)
-  if (t <= DURATION) return
+  if (t <= DURATION || !f.release) return
   for (const b of f.bodies) b.obj.quaternion.identity()
   for (const b of f.bodies) if (b.keepFlat) b.obj.removeFromParent()
   f.rig.position.set(0, 0, 0)

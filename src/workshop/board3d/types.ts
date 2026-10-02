@@ -43,7 +43,7 @@ export type Body = { obj: THREE.Object3D; v: THREE.Vector3; w: THREE.Vector3; ce
 
 export type Arena = { floor: number; boxes: { minX: number; maxX: number; minZ: number; maxZ: number; top: number }[]; halfX: number; halfZ: number; ceil: number; walls: Wall[] }
 
-export type TableFlip = { start: number; bodies: Body[]; arena: Arena; rig: THREE.Group; dust: Dust; slammed: boolean; lastClatter: number }
+export type TableFlip = { start: number; bodies: Body[]; arena: Arena; rig: THREE.Group; dust: Dust; slammed: boolean; lastClatter: number; release: boolean; way: number }
 
 export type Dust = { points: THREE.Points; burst: (at: THREE.Vector3, count: number, power: number) => void; step: (dt: number) => void }
 
@@ -72,5 +72,6 @@ export type SceneState = {
   droppedAt?: number
   onLand?: (() => void) | null
   settle?: () => void
+  releaseFlip?: () => void
   lastTime?: number
 }

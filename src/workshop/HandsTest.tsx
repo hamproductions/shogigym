@@ -112,7 +112,7 @@ export default function HandsTest() {
         rebuild(s, props(next, pattern.usi), true, prev)
         simFrame = 0
       }
-      for (; simFrame < f; simFrame++) controller.update(DT, false, !cut)
+      for (; simFrame < f; simFrame++) controller.update(DT, 0, !cut)
       const a = inspect()
       draw(a)
       if (follow && a) {
