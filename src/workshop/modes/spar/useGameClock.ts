@@ -18,7 +18,7 @@ export function useGameClock({ enabled, toMove, atEnd, moveCount, stopped }: { e
   const timeControl = TIME_CONTROLS[settings.timeControl] ?? TIME_CONTROLS.none
   const clockOn = timeControl.main + timeControl.byoyomi > 0
   const [clock, setClock] = useState(() => freshClock(timeControl))
-  const running = enabled && clockOn && !stopped && atEnd && !clock.flagged
+  const running = enabled && clockOn && !stopped && atEnd && !clock.flagged && moveCount > 0
   const movesSeen = useRef(moveCount)
 
   const [clockSpec, setClockSpec] = useState(timeControl)
