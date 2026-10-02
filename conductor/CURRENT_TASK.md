@@ -12,9 +12,11 @@ Shogi Gym 将棋ジム: dogfood as a new/weak player and keep fixing until the U
 - Do not spawn extra agents; only the VRM characters agent is running; coordinator does everything else and commits.
 
 ## Pending, in order
-1. VRM characters (agent running; uncommitted: src/workshop/avatars/*, public/avatars/*, HandsTest.tsx, routes/hands.tsx, Board3D.tsx, board3d/{effects,pieces,types}.ts, BoardStage.tsx, useBoardSession.ts, routes.ts, README credits). Open defects: casual idle posture (raised hands), finger extension in the shogi grip (index+middle long), near-arm sleeve stub, seiza feet, far-square lean, /dev/hands verification. Then coordinator browser-verifies and commits with the power-mode wiring in Board3D.tsx (s.onLand fired from the hand press).
-2. Production build check (dev pages absent), then README GIF via /motion-reel.
-3. Continued dogfood (new player, phone + desktop) with fixes; critic + usability pass for UI changes.
+1. Lesson note/aim/comment text is Japanese-only (~2,600 unique strings, ~78k chars). The user earlier ruled dynamic content out of localization scope; revisit only if asked.
+2. Critic leftovers (minor): duplicate wrong-move wording in header vs card, stale panel after tesuji go-back, onboarding step 2 density + Skip link, picker heading duplication.
+3. README GIF via /motion-reel; production-build check that /dev/hands and /komadai are absent.
+4. Characters: seiza feet, near-arm sleeve stub, casual seating check.
 
-## Done this stretch (committed locally)
-Nine backlog bugs (persisted sessions, resigned state, flat coordinates, tsume buttons, New game clocks, Settings sizing, phone sheet), power mode effects (3345e86), opening stats from engine games (f53f91b, fd50e52), Settings dialog top-anchored, Play AI restore when last mode was Tesuji, tsume failure reasons localized, move facts/mistake explanations localized, study bar shows move + reason, phone title wraps, tour wording, quiz feedback scrolled into view.
+## Done this stretch (committed locally, not pushed)
+Characters: lean planned from real seated geometry, hip hinge with straight back, every /dev/hands pattern reaches (~1 mm) in both rooms, long index/middle fingers, piece glued to fingertips with fallback.
+New-player UX: English names for formations, lesson titles (110), tesuji tags, coach explanations (English piece names, 3-move lines); Take back and try again after a mistake (desktop panel + phone bar); quiz prompt before a quiet Show answer; tesuji wrong answer replays with a single go-back action; tsume Hint before Show solution; onboarding defaults to New to shogi; Win chance label; full-height lesson picker; plainer mode descriptions.
