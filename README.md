@@ -1,8 +1,10 @@
-# ShogiLab 将棋ラボ
+# Shogizemi 将棋ゼミ
 
-A shogi workshop for learning and playing 四間飛車 (Shiken-bisha, Fourth File Rook): sourced joseki lines, study and quiz, spaced review, tsume, an AI opponent and coach, and full game analysis. It runs entirely in the browser, with the YaneuraOu engine compiled to WebAssembly.
+A free shogi study room in the browser. Learn openings with study and quiz modes, keep them with spaced review, sharpen tactics with tsume and tesuji drills, play the AI and analyze your games. Everything runs locally, with the YaneuraOu engine compiled to WebAssembly.
 
-The whole app is one screen: a 3D board in the middle, a mode rail on the left, and tool tabs (Coach, AI, What next, Moves) on the right. On phones the board takes the full screen and the tools open as a drawer.
+The opening library started with 四間飛車 (Fourth File Rook) and is growing towards the main strategies for beginners up to amateur 1–2 dan.
+
+The whole app is one screen: a 3D board in the middle, a mode rail on the left, and tool panels beside the board. On phones the board and panel share the screen.
 
 ## Features
 

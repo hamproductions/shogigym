@@ -1,7 +1,7 @@
 {
-  "name": "ShogiLab 将棋ラボ",
-  "short_name": "ShogiLab",
-  "description": "四間飛車 trainer: joseki study and quiz, review, tsume, tesuji, play the AI and analyze games.",
+  "name": "Shogizemi 将棋ゼミ",
+  "short_name": "将棋ゼミ",
+  "description": "Shogi study room: openings with study and quiz, review, tsume, tesuji, play the AI and analyze games.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

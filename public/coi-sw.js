@@ -1,4 +1,4 @@
-const CACHE = 'shogilab-v1'
+const CACHE = 'shogizemi-v1'
 const local = new URL(self.location.href).searchParams.get('mode') === 'development'
 
 const isolate = (response) => {
