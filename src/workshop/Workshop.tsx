@@ -33,6 +33,7 @@ import { useModeSlots, useModeSwitch } from './hooks/useModeSwitch'
 import { useMoveReview } from './hooks/useMoveReview'
 import { useOpponent } from './hooks/useOpponent'
 import { usePersistedSession } from './hooks/usePersistedSession'
+import { useRouteMode } from './hooks/useRouteMode'
 import { useShortcuts } from './hooks/useShortcuts'
 import { useTransient } from './hooks/useTransient'
 import { useView } from './hooks/useView'
@@ -54,7 +55,7 @@ import { BoardStage } from './stage/BoardStage'
 import { ModeBar } from './stage/ModeBar'
 import { isGameMode, type Confirm, type Tab } from './types'
 
-export function Workshop() {
+export function Workshop({ routeMode, routeMain }: { routeMode?: string; routeMain?: string }) {
   const { t } = useTranslation()
   const session = useBoardSession()
   const { mode, course, preview, sfen, nodes, prevSfen, lastMove, cursor, atEnd, playing, userSide, game } = session
@@ -81,6 +82,7 @@ export function Workshop() {
   const opponent = useOpponent(session, { lessonMode: lesson.lessonMode, halted: spar.halted })
   const { enterMode, resume } = useModeSwitch(slots, { session, lesson, drill, tsume, tesuji, spar, analyze, mistakes, layout, setTab })
   usePersistedSession({ session, lesson, tsume, drill, slots, resume })
+  useRouteMode(mode, enterMode, routeMode, routeMain)
   const { announce, tesujiNote } = useAnnouncements(session)
   const flow = useFlowLanes(session, evaluation.analysis)
   const upcoming = useAutoplay(session, evaluation.best?.move)

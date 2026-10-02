@@ -5,7 +5,6 @@ import ja from './locales/ja.json'
 
 i18n.on('languageChanged', (lng) => {
   document.documentElement.lang = lng
-  document.title = i18n.t('app.title')
 })
 
 void i18n.use(initReactI18next).init({

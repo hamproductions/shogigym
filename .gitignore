@@ -25,3 +25,5 @@ dist-ssr
 
 public/engine
 .shots
+build
+.react-router

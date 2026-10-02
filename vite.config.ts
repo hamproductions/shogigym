@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs'
-import react from '@vitejs/plugin-react'
+import { reactRouter } from '@react-router/dev/vite'
 import { defineConfig, type Plugin } from 'vite'
 
 const crossOriginIsolation = {
@@ -27,7 +27,7 @@ const compactJoseki = (): Plugin => ({
 
 export default defineConfig({
   base: process.env.BASE_PATH ?? '/',
-  plugins: [compactJoseki(), woff2Only(), react()],
+  plugins: [compactJoseki(), woff2Only(), reactRouter()],
   build: {
     chunkSizeWarningLimit: 1500,
     rolldownOptions: {
