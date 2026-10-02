@@ -7,7 +7,7 @@ import type { CoachReview } from '../hooks/useMoveReview'
 import type { Reply } from '../hooks/useOpponent'
 import { bookAtPly, strip, type BookHit, type BookMove } from '../lib/book'
 import type { Lane } from '../lib/lanes'
-import { isBad, mistakeIsBad } from '../lib/mistake'
+import { mistakeIsBad } from '../lib/mistake'
 import { ImportBox } from '../modes/analyze/ImportBox'
 import { KifuNotes } from '../modes/analyze/KifuNotes'
 import type { AnalyzeGames } from '../modes/analyze/useAnalyzeGames'
@@ -80,7 +80,7 @@ function CoachSection({ model }: { model: PanelModel }) {
       {mode === 'drill' && <ReviewPane trainer={drill} startSfen={drill.item ? sfens[drill.drill?.base ?? 0] : null} mistakePreview={mistakes.previewing} mistakeOk={!!mistakes.mistake && !mistakeIsBad(mistakes.mistake)} />}
       {mode === 'analyze' && <ImportBox onImport={analyze.importGame} />}
       {mode === 'analyze' && analyze.gameNotes && <KifuNotes notes={analyze.gameNotes} moves={game.moves} cursor={cursor} />}
-      {mode === 'spar' && game.moves.length > 0 && !gameOver && <SparActions spar={spar} erred={!!coach.review && reviewAt > 0 && reviewAt === spar.lastUserMove + 1 && isBad(coach.review.label)} />}
+      {mode === 'spar' && game.moves.length > 0 && !gameOver && <SparActions spar={spar} erred={spar.erred} />}
       {isGameMode(mode) && !assist && <p className="ws-muted">{t('workshop.helpIsOffNoRatings')}</p>}
       {isGameMode(mode) && assist && <CoachPane review={coach.review} lastMove={reviewAt > 0 ? game.moves[reviewAt - 1] : undefined} prevSfen={reviewAt > 0 ? sfens[reviewAt - 1] : null} you={mode === 'spar'} bookLast={reviewAt === cursor ? bookLast : bookAtPly(sfens, game.moves, reviewAt)} bookHere={bookHere} sfen={sfen} course={course} onPlay={play} canPlay={userTurn} ai={ai} showBook={mode === 'analyze'} />}
     </>

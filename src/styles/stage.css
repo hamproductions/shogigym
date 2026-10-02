@@ -521,8 +521,16 @@
   }
 
   .ws-eval-chip {
+    order: 1;
     gap: var(--space-1-5);
     padding: var(--space-1) var(--space-1-5);
+  }
+
+  .ws-modebar > .ws-lastmove,
+  .ws-modebar > .ws-help-toggle,
+  .ws-modebar > .ws-mini-nav,
+  .ws-modebar > .ws-game-setup {
+    order: 2;
   }
 
   .ws-eval-track {

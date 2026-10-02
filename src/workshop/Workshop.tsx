@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { InitialPositionSFEN } from 'tsshogi'
+import { LABELS } from '../analysis'
 import '@fontsource/shippori-mincho-b1/800.css'
 import '@fontsource/zen-kaku-gothic-new/400.css'
 import '@fontsource/zen-kaku-gothic-new/500.css'
@@ -131,7 +132,7 @@ export function Workshop({ routeMode, routeMain }: { routeMode?: string; routeMa
   const title = mode === 'lesson' ? lesson.title : mode === 'tsume' ? (tsume.title ?? analyze.title) : { drill, tesuji, spar, analyze }[mode].title
   const studyReply = lesson.waitingForReply ? opponent.reply : null
   const picking = mode === 'lesson' && !course
-  const phoneTask = layout.compact && !layout.drawer ? { text: instruction, action: studyReply ? t('workshop.playTheirMove') : picking ? t('workshop.pickALesson') : mode === 'drill' && !drill.item ? t('workshop.pickAQueue') : t('workshop.panel'), run: () => (studyReply ? session.play(studyReply.usi) : layout.setDrawer(true)) } : null
+  const phoneTask = layout.compact && !layout.drawer ? spar.erred && coach.review ? { text: t('workshop.phoneMistake', { move: moveText(session.sfens[coach.reviewAt - 1], game.moves[coach.reviewAt - 1]), label: LABELS[coach.review.label].text }), action: t('workshop.takeBack'), run: spar.takeBack } : { text: instruction, action: studyReply ? t('workshop.playTheirMove') : picking ? t('workshop.pickALesson') : mode === 'drill' && !drill.item ? t('workshop.pickAQueue') : t('workshop.panel'), run: () => (studyReply ? session.play(studyReply.usi) : layout.setDrawer(true)) } : null
   const autoplayAllowed = isGameMode(mode) || !!preview
   const evalRate = session.ai && session.assist && evaluation.evalSente && (isGameMode(mode) || (mode === 'lesson' && !!course && lesson.lessonMode === 'study')) ? evaluation.senteRate : null
   const newGame = () => load(InitialPositionSFEN.STANDARD, userSide, mode === 'lesson' ? 'analyze' : mode, null)
