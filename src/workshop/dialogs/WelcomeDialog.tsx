@@ -58,16 +58,14 @@ export function WelcomeDialog({ level, onPreviewLevel, onLearnBasics, onPlayAi, 
             <li>
               <Icon name="coach" size={18} />
               <strong>{t('workshop.sidePanel')}</strong>
-              <span>{t('workshop.coachExplainsMovesAiRates')}</span>
-            </li>
-            <li>
-              <Icon name="prev" size={18} />
-              <strong>{t('workshop.stepBack')}</strong>
-              <span>{t('workshop.andWalkThroughMovesPlay')}</span>
+              <span>{t('workshop.panelShort')}</span>
             </li>
           </ul>
           <div className="ws-actions">
             <Button onClick={() => setStep(0)}>{t('workshop.back2')}</Button>
+            <Button variant="ghost" onClick={() => setStep(2)}>
+              {t('workshop.skipTour')}
+            </Button>
             <Button variant="primary" onClick={() => setStep(2)}>
               {t('workshop.next')}
             </Button>

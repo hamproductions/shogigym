@@ -127,7 +127,7 @@ export function Workshop({ routeMode, routeMain }: { routeMode?: string; routeMa
   const instruction = (() => {
     if (lesson.checking) return t('workshop.checkingThatMove')
     if (preview && mistake) return mistakeIsBad(mistake) ? t('workshop.watchHowItGetsPunished') : t('workshop.watchWhatFollowsThenGo')
-    if (mistake && !(mode === 'lesson' && !layout.compact && !preview)) return mistakeIsBad(mistake) ? t('workshop.wasAMistakeTryAgain', { move: moveText(session.sfens[mistake.base], mistake.usi) }) : t(mode === 'lesson' || mode === 'drill' ? 'workshop.isAFineMoveBut' : 'workshop.isAFineMoveNotIt', { move: moveText(session.sfens[mistake.base], mistake.usi) })
+    if (mistake && !((mode === 'lesson' || mode === 'tesuji') && !layout.compact && !preview)) return mistakeIsBad(mistake) ? t('workshop.wasAMistakeTryAgain', { move: moveText(session.sfens[mistake.base], mistake.usi) }) : t(mode === 'lesson' || mode === 'drill' ? 'workshop.isAFineMoveBut' : 'workshop.isAFineMoveNotIt', { move: moveText(session.sfens[mistake.base], mistake.usi) })
     if (preview) return t('workshop.previewWatchItPlayOut')
     return { lesson, drill, tesuji, tsume, spar, analyze }[mode].instruction()
   })()

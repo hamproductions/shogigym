@@ -112,7 +112,6 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
   const ordered = [...groups.filter((g) => g.setup.basics), ...groups.filter((g) => !g.setup.technique && !g.setup.basics), ...groups.filter((g) => g.setup.technique)]
   return (
     <div className="ws-picker">
-      <h2 className="ws-picker-title">{t('picker.whatDoYouWantTo')}</h2>
       <button className="ws-main-current" onClick={() => setChoosing(true)}>
         <span>{t('strategy.yourMain')}</span>
         <strong>{ja ? main.ja : main.en}</strong>

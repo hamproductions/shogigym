@@ -307,7 +307,7 @@
     "rightInQuiz": "{{learned}}/{{total}} right in Quiz",
     "study": "Study",
     "quiz": "Quiz",
-    "searchAnagumaBGinSagimiya": "Search: Anaguma, Bōgin, Sagimiya…",
+    "searchAnagumaBGinSagimiya": "Search: Anaguma, Climbing Silver, Mino…",
     "searchLessons": "Search lessons",
     "noLessonMatches": "No lesson matches “{{query}}”.",
     "back": "← Back",
@@ -792,7 +792,9 @@
     "isAFineMoveNotIt": "{{move}} is a fine move, but not the answer. Try again.",
     "takeBackAndRetry": "Take back and try again",
     "phoneMistake": "{{move}}: {{label}}. Tap Panel for why, or take it back.",
-    "winChanceShort": "Win chance"
+    "winChanceShort": "Win chance",
+    "panelShort": "Coach, eval, next moves and the move list. ◀ ▶ step through moves.",
+    "skipTour": "Skip"
   },
   "zones": {
     "first": "First",
