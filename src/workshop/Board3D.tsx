@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
+import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js'
 import { Color, PieceType, Square, type ImmutablePosition } from 'tsshogi'
 import { HAND_ORDER, PIECE_CHAR } from '../shogi'
 import { PIECE_FINISHES, PIECE_FONTS, getSettings, type BoardStyle } from './settings'
@@ -90,6 +91,123 @@ const BOARD_TONE: Record<BoardStyle, { board: [number, number, number]; edge: [n
 
 const squareX = (file: number) => 5 - file
 const squareZ = (rank: number) => (rank - 5) * SQ_D
+
+const TATAMI_W = 910 / 35.2
+const TATAMI_L = 1820 / 35.2
+
+function tatamiTexture() {
+  const w = 1024
+  const h = 1024
+  const canvas = document.createElement('canvas')
+  canvas.width = w
+  canvas.height = h
+  const ctx = canvas.getContext('2d')!
+  const mat = (x: number, y: number, mw: number, mh: number, vertical: boolean) => {
+    ctx.fillStyle = '#d6d3a8'
+    ctx.fillRect(x, y, mw, mh)
+    let seed = Math.round(x * 7 + y * 13 + 1)
+    const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647)
+    const step = 3
+    for (let i = 0; i < (vertical ? mw : mh); i += step) {
+      const k = 0.85 + rand() * 0.25
+      ctx.fillStyle = `rgba(${Math.round(180 * k)}, ${Math.round(176 * k)}, ${Math.round(128 * k)}, 0.4)`
+      if (vertical) ctx.fillRect(x + i, y, 1.2, mh)
+      else ctx.fillRect(x, y + i, mw, 1.2)
+    }
+    const heri = 14
+    ctx.fillStyle = '#2c2f48'
+    if (vertical) {
+      ctx.fillRect(x, y, heri, mh)
+      ctx.fillRect(x + mw - heri, y, heri, mh)
+    } else {
+      ctx.fillRect(x, y, mw, heri)
+      ctx.fillRect(x, y + mh - heri, mw, heri)
+    }
+    ctx.strokeStyle = 'rgba(30, 24, 12, 0.5)'
+    ctx.lineWidth = 2
+    ctx.strokeRect(x + 1, y + 1, mw - 2, mh - 2)
+  }
+  mat(0, 0, w / 2, h, true)
+  mat(w / 2, 0, w / 2, h / 2, false)
+  mat(w / 2, h / 2, w / 2, h / 2, false)
+  const texture = new THREE.CanvasTexture(canvas)
+  texture.colorSpace = THREE.SRGBColorSpace
+  texture.wrapS = texture.wrapT = THREE.RepeatWrapping
+  texture.repeat.set(3, 1.5)
+  texture.anisotropy = 8
+  return texture
+}
+
+function shojiTexture() {
+  const w = 512
+  const h = 1024
+  const canvas = document.createElement('canvas')
+  canvas.width = w
+  canvas.height = h
+  const ctx = canvas.getContext('2d')!
+  ctx.fillStyle = '#f4f1e8'
+  ctx.fillRect(0, 0, w, h)
+  ctx.fillStyle = '#d9c39a'
+  const frame = 18
+  ctx.fillRect(0, 0, frame, h)
+  ctx.fillRect(w - frame, 0, frame, h)
+  ctx.fillRect(0, 0, w, frame)
+  ctx.fillRect(0, h - frame, w, frame)
+  for (let i = 1; i < 6; i++) ctx.fillRect((w / 6) * i - 3, 0, 6, h)
+  ctx.fillRect(0, h * 0.55, w, 8)
+  return new THREE.CanvasTexture(canvas)
+}
+
+function zabutonTexture() {
+  const size = 512
+  const canvas = document.createElement('canvas')
+  canvas.width = canvas.height = size
+  const ctx = canvas.getContext('2d')!
+  ctx.fillStyle = '#26407a'
+  ctx.fillRect(0, 0, size, size)
+  ctx.strokeStyle = 'rgba(120, 150, 210, 0.35)'
+  ctx.lineWidth = 3
+  for (let y = 0; y < size; y += 32)
+    for (let x = (y / 32) % 2 ? 16 : 0; x < size; x += 32) {
+      ctx.beginPath()
+      ctx.moveTo(x, y + 16)
+      ctx.lineTo(x + 16, y)
+      ctx.lineTo(x + 32, y + 16)
+      ctx.lineTo(x + 16, y + 32)
+      ctx.closePath()
+      ctx.stroke()
+    }
+  const texture = new THREE.CanvasTexture(canvas)
+  texture.colorSpace = THREE.SRGBColorSpace
+  return texture
+}
+
+function buildRoom(root: THREE.Group) {
+  const floorY = -THICK - LEG
+  const zabuton = new THREE.MeshStandardMaterial({ map: zabutonTexture(), roughness: 0.95 })
+  for (const sign of [1, -1]) {
+    const cushion = new THREE.Mesh(new RoundedBoxGeometry(16.5, 1.6, 17.5, 4, 0.7), zabuton)
+    cushion.position.set(0, floorY + 0.8, sign * (HALF_D + 14))
+    cushion.receiveShadow = true
+    cushion.castShadow = true
+    root.add(cushion)
+  }
+  const shoji = shojiTexture()
+  shoji.colorSpace = THREE.SRGBColorSpace
+  shoji.wrapS = THREE.RepeatWrapping
+  shoji.repeat.set(4, 1)
+  const wallZ = -60
+  const wall = new THREE.Mesh(new THREE.PlaneGeometry(120, 60), new THREE.MeshStandardMaterial({ map: shoji, emissive: 0xfff6e4, emissiveIntensity: 0.35, roughness: 0.9 }))
+  wall.position.set(0, floorY + 30, wallZ)
+  root.add(wall)
+  const plaster = new THREE.MeshStandardMaterial({ color: 0xcfcab9, roughness: 0.95 })
+  for (const sign of [1, -1]) {
+    const side = new THREE.Mesh(new THREE.PlaneGeometry(140, 60), plaster)
+    side.rotation.y = -sign * Math.PI / 2
+    side.position.set(sign * 60, floorY + 30, 10)
+    root.add(side)
+  }
+}
 
 function grainTexture(width: number, height: number, base: [number, number, number], lines: number, seed: number) {
   const canvas = document.createElement('canvas')
@@ -548,7 +666,8 @@ export function Board3D(props: Board3DProps) {
     const root = new THREE.Group()
     scene.add(root)
 
-    const floor = new THREE.Mesh(new THREE.PlaneGeometry(80, 80), new THREE.ShadowMaterial({ opacity: 0.1 }))
+    const floor = new THREE.Mesh(new THREE.PlaneGeometry(TATAMI_W * 6, TATAMI_L * 3.2), new THREE.MeshStandardMaterial({ map: tatamiTexture(), roughness: 0.92 }))
+    floor.receiveShadow = true
     floor.rotation.x = -Math.PI / 2
     floor.position.y = -THICK - LEG
     floor.receiveShadow = true
@@ -561,6 +680,7 @@ export function Board3D(props: Board3DProps) {
     board.castShadow = true
     board.receiveShadow = true
     root.add(board)
+    buildRoom(root)
 
     const legMaterial = woodMaterial([120, 78, 36], 17)
     for (const [x, z] of [
@@ -581,12 +701,13 @@ export function Board3D(props: Board3DProps) {
       stand.castShadow = true
       stand.receiveShadow = true
       root.add(stand)
-      const legs = [0, 1, 2, 3].map(() => {
-        const leg = new THREE.Mesh(new THREE.BoxGeometry(0.32, 1, 0.32), standMaterial)
-        leg.castShadow = true
-        root.add(leg)
-        return leg
-      })
+      const post = new THREE.Mesh(new THREE.CylinderGeometry(0.34, 0.42, 1, 24), standMaterial)
+      const foot = new THREE.Mesh(new THREE.BoxGeometry(1.9, 0.22, 1.9), standMaterial)
+      const legs = [post, foot]
+      for (const m of legs) {
+        m.castShadow = true
+        root.add(m)
+      }
       return { stand, side, legs }
     })
     const placeStands = () =>
@@ -595,12 +716,11 @@ export function Board3D(props: Board3DProps) {
         stand.scale.set(layout.portrait ? STRIP_W / STAND : 1, 1, layout.portrait ? strip().d / STAND : 1)
         stand.position.set(c.x, -0.55, c.z)
         const legH = THICK + LEG - 0.8
-        const off = STAND / 2 - 0.35
-        legs.forEach((leg, i) => {
-          leg.visible = !layout.portrait
-          leg.scale.y = legH
-          leg.position.set(c.x + (i % 2 ? off : -off), -0.8 - legH / 2, c.z + (i < 2 ? off : -off))
-        })
+        const [post, foot] = legs
+        post.visible = foot.visible = !layout.portrait
+        post.scale.y = legH
+        post.position.set(c.x, -0.8 - legH / 2, c.z)
+        foot.position.set(c.x, -THICK - LEG + 0.11, c.z)
       })
     placeStands()
 
