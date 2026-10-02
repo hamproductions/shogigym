@@ -49,9 +49,10 @@ export function usePersistedSession({ session, lesson, tsume, drill, spar, slots
       const saw = data.lesson
       const c = saw && COURSES.find((x) => x.id === saw.courseId)
       if (c && saw && replays(c.root.sfen, saw.moves)) saved.lesson = { game: { start: c.root.sfen, moves: saw.moves }, cursor: saw.moves.length, userSide: c.userSide, flipped: c.userSide === 'gote', course: c, lessonMode: saw.lessonMode, score: saw.score ?? { right: 0, wrong: 0 } }
-      const back = saved[data.mode]
-      if (back && (data.mode === 'spar' || data.mode === 'analyze' || data.mode === 'lesson')) {
-        resume(data.mode, back)
+      const into = data.mode === 'spar' || data.mode === 'analyze' || data.mode === 'lesson' ? data.mode : 'spar'
+      const back = saved[into]
+      if (back) {
+        resume(into, back)
         if (back.resigned) spar.restoreResigned()
         placeholder.current = false
         if (back.course) lesson.setPickerSetup(setupOf(back.course)?.id ?? null)
