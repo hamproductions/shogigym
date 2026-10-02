@@ -64,3 +64,39 @@ export function formationOf(position: ImmutablePosition, color: Color) {
   }
   return { strategy, castle, squares }
 }
+
+const ENGLISH: Record<string, string> = {
+  ビッグ4: 'Big Four',
+  銀冠穴熊: 'Silver Crown Anaguma',
+  居飛車穴熊: 'Static Rook Anaguma',
+  振り飛車穴熊: 'Ranging Rook Anaguma',
+  穴熊: 'Anaguma',
+  ミレニアム: 'Millennium',
+  銀冠: 'Silver Crown',
+  ダイヤモンド美濃: 'Diamond Mino',
+  高美濃: 'High Mino',
+  本美濃: 'Mino',
+  片美濃: 'Half Mino',
+  木村美濃: 'Kimura Mino',
+  天守閣美濃: 'Tenshukaku Mino',
+  左美濃: 'Left Mino',
+  金矢倉: 'Gold Yagura',
+  銀矢倉: 'Silver Yagura',
+  舟囲い: 'Boat castle',
+  金無双: 'Double Gold',
+  居玉: 'King unmoved',
+  居飛車: 'Static Rook',
+  袖飛車: 'Side Rook',
+  右四間飛車: 'Right Fourth File Rook',
+  中飛車: 'Central Rook',
+  四間飛車: 'Fourth File Rook',
+  三間飛車: 'Third File Rook',
+  向かい飛車: 'Opposing Rook',
+  石田流: 'Ishida',
+  棒銀: 'Climbing Silver',
+  早繰り銀: 'Rapid Advancing Silver',
+  腰掛け銀: 'Reclining Silver',
+  斜め棒銀: 'Diagonal Climbing Silver',
+}
+
+export const formationName = (name: string, lang: string) => (lang === 'ja' ? name : (ENGLISH[name] ?? name))

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Color, type Square } from 'tsshogi'
 import { LABELS, type MoveReview } from '../../analysis'
 import type { Analysis } from '../../engine'
-import { formationOf } from '../../formation'
+import { formationName, formationOf } from '../../formation'
 import { kingSquare, reachable } from '../../shogi'
 import type { BoardArrow } from '../Board3D'
 import { EMPTY_CELL, controlHeat, controlMap, focusHeat, type ControlCell } from '../lib/control'
@@ -43,7 +43,7 @@ type DecorInput = {
 }
 
 export function useBoardDecor(session: BoardSession, input: DecorInput) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const { position, sfen, preview, gameOver, cursor, game, peekFrom, mode, course, userSide, userTurn, atEnd, ai, assist, lastMove } = session
   const { analysis, showBest, tab, spoilerFree, modeArrows, review, reviewAt, reply, upcoming, hoverLane, showControl, showEscape, level, nudge, checking, tesujiNote, bookLast } = input
 
@@ -88,7 +88,7 @@ export function useBoardDecor(session: BoardSession, input: DecorInput) {
 
   const castles = [Color.BLACK, Color.WHITE].flatMap((color) => {
     const f = formationOf(position, color)
-    return f.castle && f.castle !== '居玉' ? [{ squares: f.squares, color: color === Color.BLACK ? '#b8432f' : '#2f5d9b', label: f.castle }] : []
+    return f.castle && f.castle !== '居玉' ? [{ squares: f.squares, color: color === Color.BLACK ? '#b8432f' : '#2f5d9b', label: formationName(f.castle, i18n.language) }] : []
   })
   const reviewedMove = !preview && reviewAt > 0 ? game.moves[reviewAt - 1] : undefined
   const stamp = !assist ? null : review && reviewedMove ? { square: reviewedMove.slice(2, 4), text: LABELS[review.label].symbol, color: LABELS[review.label].color } : lastMove && bookLast ? { square: lastMove.slice(2, 4), text: '本', color: '#a88865' } : null

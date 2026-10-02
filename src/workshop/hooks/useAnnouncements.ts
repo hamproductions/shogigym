@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Color } from 'tsshogi'
-import { formationOf } from '../../formation'
+import { formationName, formationOf } from '../../formation'
 import { positionOf } from '../../shogi'
 import { detectTesuji, type Tesuji } from '../tesuji'
 import type { BoardSession } from './useBoardSession'
@@ -12,7 +12,7 @@ export type Announcement = { side: Color; name: string; kind: string; key: numbe
 const QUIET_NAMES = ['居玉', '居飛車']
 
 export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, position }: BoardSession) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [announce, setAnnounce] = useTransient<Announcement>(1800)
   const [tesujiNote, setTesujiNote] = useTransient<Tesuji & { at: number }>(6000)
   const announced = useRef<{ start: string; seen: Set<string> }>({ start: '', seen: new Set() })
@@ -46,7 +46,7 @@ export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, pos
         if (announced.current.seen.has(id)) continue
         announced.current.seen.add(id)
         if (!stepped) continue
-        setAnnounce({ side: color, name, kind, key: Date.now() })
+        setAnnounce({ side: color, name: formationName(name, i18n.language), kind, key: Date.now() })
         return
       }
     }
