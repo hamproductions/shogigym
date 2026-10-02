@@ -127,6 +127,9 @@ export function Workshop() {
       return false
     }
   })
+  const [welcomeStep, setWelcomeStep] = useState(0)
+  const setLevelOnly = (next: Level) => setLevelState(next)
+  const finishWelcome = () => setLevel(level)
   const setLevel = (next: Level) => {
     setWelcome(false)
     setLevelState(next)
@@ -1603,19 +1606,90 @@ export function Workshop() {
       {welcome && (
         <div className="ws-palette-back">
           <div className="ws-dialog ws-welcome" role="dialog" aria-label="Welcome">
-            <h2>ようこそ ShogiLab</h2>
-            <p>A workshop for learning 四間飛車. How well do you know shogi?</p>
-            <div className="ws-welcome-choices">
-              <button className="primary" onClick={() => setLevel('rules')}>
-                <strong>I know the rules</strong>
-                <span>I can read 7六歩-style moves and know how every piece moves.</span>
-              </button>
-              <button onClick={() => setLevel('new')}>
-                <strong>New to shogi</strong>
-                <span>Show how pieces move and describe lesson moves in plain English.</span>
-              </button>
+            <div className="ws-steps" aria-hidden="true">
+              {[0, 1, 2].map((n) => (
+                <i key={n} className={n === welcomeStep ? 'on' : n < welcomeStep ? 'done' : ''} />
+              ))}
             </div>
-            <p className="ws-muted">You can change this any time in 設定 Settings.</p>
+            {welcomeStep === 0 && (
+              <>
+                <h2>ようこそ ShogiLab</h2>
+                <p>A workshop for learning 四間飛車: study real opening lines, quiz yourself, solve tsume and play the AI. How well do you know shogi?</p>
+                <div className="ws-welcome-choices">
+                  <button className={level === 'rules' ? 'primary' : ''} onClick={() => (setLevelOnly('rules'), setWelcomeStep(1))}>
+                    <strong>I know the rules</strong>
+                    <span>I can read 7六歩-style moves and know how every piece moves.</span>
+                  </button>
+                  <button className={level === 'new' ? 'primary' : ''} onClick={() => (setLevelOnly('new'), setWelcomeStep(1))}>
+                    <strong>New to shogi</strong>
+                    <span>Show how each piece moves when I tap it, and describe lesson moves in plain English.</span>
+                  </button>
+                </div>
+              </>
+            )}
+            {welcomeStep === 1 && (
+              <>
+                <h2>How the screen works</h2>
+                <ul className="ws-tour">
+                  {MODES.map((m) => (
+                    <li key={m.id}>
+                      <Icon name={m.icon} size={18} />
+                      <strong>
+                        {m.ja} {m.name}
+                      </strong>
+                      <span>{m.hint}.</span>
+                    </li>
+                  ))}
+                  <li>
+                    <Icon name="coach" size={18} />
+                    <strong>Side panel</strong>
+                    <span>Coach explains moves, AI rates the position, What next shows lines, Moves lists the game. Hide it with Board only or ×.</span>
+                  </li>
+                  <li>
+                    <Icon name="prev" size={18} />
+                    <strong>Step back</strong>
+                    <span>← and → walk through moves. Play a different move to try a 変化 variation; the game is kept.</span>
+                  </li>
+                </ul>
+                <div className="ws-actions">
+                  <button onClick={() => setWelcomeStep(0)}>Back</button>
+                  <button className="primary" onClick={() => setWelcomeStep(2)}>
+                    Next
+                  </button>
+                </div>
+              </>
+            )}
+            {welcomeStep === 2 && (
+              <>
+                <h2>Where do you want to start?</h2>
+                <div className="ws-welcome-choices">
+                  <button
+                    className="primary"
+                    onClick={() => {
+                      finishWelcome()
+                      const first = COURSES.find((c) => c.id === SETUPS[0].courseIds[0])
+                      if (first) openCourse(first, 'study')
+                    }}
+                  >
+                    <strong>Learn the basic 四間飛車 setup</strong>
+                    <span>Study mode walks you through every move with the reason. Then quiz yourself.</span>
+                  </button>
+                  <button onClick={() => (finishWelcome(), load(InitialPositionSFEN.STANDARD, 'sente', 'spar', null))}>
+                    <strong>Play the AI</strong>
+                    <span>Beginner strength. The coach rates your moves and your mistakes go to Review.</span>
+                  </button>
+                  <button onClick={() => (finishWelcome(), enterMode('tsume'))}>
+                    <strong>Solve 1手詰</strong>
+                    <span>Mate-in-one puzzles to warm up.</span>
+                  </button>
+                  <button onClick={finishWelcome}>
+                    <strong>Just look around</strong>
+                    <span>Pick anything from the lesson list.</span>
+                  </button>
+                </div>
+                <p className="ws-muted">Your level and display options are in 設定 Settings.</p>
+              </>
+            )}
           </div>
         </div>
       )}

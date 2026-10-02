@@ -56,9 +56,30 @@ function rasterize(image: HTMLImageElement): HTMLCanvasElement {
         if (y > y1) y1 = y
       }
   if (x1 <= x0) return full
+  const w = x1 - x0 + 1
+  const h = y1 - y0 + 1
+  const inset = 0.1
   const out = document.createElement('canvas')
   out.width = out.height = 256
-  out.getContext('2d')!.drawImage(full, x0, y0, x1 - x0 + 1, y1 - y0 + 1, 0, 0, 256, 256)
+  const octx = out.getContext('2d', { willReadFrequently: true })!
+  octx.drawImage(full, x0 + w * inset, y0 + h * inset, w * (1 - 2 * inset), h * (1 - 2 * inset), 256 * inset, 256 * inset, 256 * (1 - 2 * inset), 256 * (1 - 2 * inset))
+  const img = octx.getImageData(0, 0, 256, 256)
+  const px = img.data
+  for (let i = 0; i < px.length; i += 4) {
+    const r = px[i]
+    const g = px[i + 1]
+    const b = px[i + 2]
+    const lum = 0.3 * r + 0.59 * g + 0.11 * b
+    const red = r > 120 && r - g > 70 && r - b > 70
+    const ink = red ? 1 : Math.min(1, Math.max(0, (175 - lum) / 90))
+    px[i + 3] = Math.round(px[i + 3] * Math.min(1, ink * 1.35))
+    if (!red) {
+      px[i] = 18
+      px[i + 1] = 12
+      px[i + 2] = 6
+    }
+  }
+  octx.putImageData(img, 0, 0)
   return out
 }
 
