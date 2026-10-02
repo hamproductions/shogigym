@@ -1175,7 +1175,7 @@ function handLayout(position: ImmutablePosition, color: Color): HandSpot[] {
   const h = (t: PieceType) => (PIECE_SIZE[t] ?? 0.8) * 0.96
   const inner = STAND - 0.16
   const big = (t: PieceType) => t === PieceType.ROOK || t === PieceType.BISHOP
-  type Placed = { type: PieceType; x: number; z: number; rot: number; lift: number; roll?: number }
+  type Placed = { type: PieceType; x: number; z: number; rot: number; lift: number; roll?: number; count?: number }
   const corners = (p: Placed) =>
     [
       [-1, -1],
@@ -1283,41 +1283,54 @@ function handLayout(position: ImmutablePosition, color: Color): HandSpot[] {
     return { placed, b, fits: b.maxX - b.minX <= inner && b.maxZ - b.minZ <= inner }
   }
   const grouped = (expose: number) => {
-    const group = (type: PieceType, n: number): Placed[] => {
+    const group = (type: PieceType, n: number, e: number): Placed[] => {
       const thick = (komaDepth(PIECE_SIZE[type] ?? 0.8) + 0.05) * 0.96
       const roll = Math.asin(Math.min(0.9, thick / w(type)))
-      return Array.from({ length: n }, (_, j) => ({ type, x: j * expose, z: 0, rot: 0, lift: j ? (w(type) / 2) * Math.sin(roll) + 0.004 : 0, roll: j ? -roll : 0 }))
+      return Array.from({ length: n }, (_, j) => ({ type, x: j * e, z: 0, rot: 0, lift: j ? (w(type) / 2) * Math.sin(roll) + 0.004 : 0, roll: j ? -roll : 0, count: j === n - 1 && n > 1 ? n : undefined }))
     }
-    const chunks = (type: PieceType) => {
+    const sizes = (type: PieceType) => {
       const n = hand.count(type)
-      return Array.from({ length: Math.ceil(n / 9) }, (_, k) => group(type, Math.min(9, n - k * 9)))
+      return Array.from({ length: Math.ceil(n / 9) }, (_, k) => ({ type, n: Math.min(9, n - k * 9) }))
     }
-    const tiers = [[PieceType.ROOK, PieceType.BISHOP, PieceType.LANCE], [PieceType.GOLD, PieceType.SILVER, PieceType.KNIGHT], [PieceType.PAWN]].map((tier) => tier.flatMap(chunks)).filter((tier) => tier.length)
-    const placed: Placed[] = []
-    let v = 0
+    const tiers = [[PieceType.ROOK, PieceType.BISHOP, PieceType.LANCE], [PieceType.GOLD, PieceType.SILVER, PieceType.KNIGHT], [PieceType.PAWN]].map((tier) => tier.flatMap(sizes)).filter((tier) => tier.length)
+    const span = (line: { type: PieceType; n: number }[], e: number) => line.reduce((sum, g) => sum + w(g.type) + (g.n - 1) * e, 0) + 0.08 * (line.length - 1)
+    const lines: { type: PieceType; n: number }[][] = []
     for (const tier of tiers) {
-      let line: Placed[][] = []
-      const flush = () => {
-        if (!line.length) return
-        let u = 0
-        const row: Placed[] = []
-        for (const g of line) {
-          const b = bounds(g)
-          row.push(...g.map((p) => ({ ...p, x: p.x - b.minX + u })))
-          u += b.maxX - b.minX + 0.05
-        }
-        const b = bounds(row)
-        placed.push(...row.map((p) => ({ ...p, x: p.x - (b.minX + b.maxX) / 2, z: p.z - b.minZ + v })))
-        v += b.maxZ - b.minZ + 0.05
-        line = []
-      }
+      let line: { type: PieceType; n: number }[] = []
       for (const g of tier) {
-        const width = [...line, g].reduce((sum, x) => sum + bounds(x).maxX - bounds(x).minX + 0.05, -0.05)
-        if (line.length && width > inner) flush()
+        if (line.length && span([...line, g], expose) > inner - 0.04) {
+          lines.push(line)
+          line = []
+        }
         line.push(g)
       }
-      flush()
+      if (line.length) lines.push(line)
     }
+    const rows = lines.map((line) => {
+      const overlaps = line.reduce((sum, g) => sum + g.n - 1, 0)
+      const room = inner - 0.04 - span(line, 0)
+      const e = overlaps ? Math.max(expose, Math.min(0.5 * Math.min(...line.map((g) => w(g.type))), room / overlaps)) : 0
+      let u = 0
+      const row: Placed[] = []
+      for (const g of line) {
+        row.push(...group(g.type, g.n, e).map((p) => ({ ...p, x: p.x + u + w(g.type) / 2 })))
+        u += w(g.type) + (g.n - 1) * e + 0.08
+      }
+      const b = bounds(row)
+      return row.map((p) => ({ ...p, x: p.x - (b.minX + b.maxX) / 2, z: p.z - b.minZ }))
+    })
+    const heights = rows.map((row) => {
+      const b = bounds(row)
+      return b.maxZ - b.minZ
+    })
+    const total = heights.reduce((a, b) => a + b, 0)
+    const vgap = rows.length > 1 ? Math.max(0.04, Math.min(0.25, (inner - 0.04 - total) / (rows.length - 1))) : 0
+    const placed: Placed[] = []
+    let v = 0
+    rows.forEach((row, k) => {
+      placed.push(...row.map((p) => ({ ...p, z: p.z + v })))
+      v += heights[k] + vgap
+    })
     const b = bounds(placed)
     return { placed, b, fits: b.maxX - b.minX <= inner && b.maxZ - b.minZ <= inner }
   }
@@ -1334,7 +1347,7 @@ function handLayout(position: ImmutablePosition, color: Color): HandSpot[] {
   const sign = color === Color.BLACK ? 1 : -1
   const ox = -(best.b.minX + best.b.maxX) / 2
   const oz = -(best.b.minZ + best.b.maxZ) / 2
-  return best.placed.map((p) => ({ type: p.type, x: c.x + sign * (p.x + ox), z: c.z + sign * (p.z + oz), rot: p.rot, scale: 1, lift: p.lift, roll: p.roll }))
+  return best.placed.map((p) => ({ type: p.type, x: c.x + sign * (p.x + ox), z: c.z + sign * (p.z + oz), rot: p.rot, scale: 1, lift: p.lift, roll: p.roll, count: p.count }))
 }
 
 function handSpot(position: ImmutablePosition, color: Color, type: PieceType) {

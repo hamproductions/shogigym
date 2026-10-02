@@ -15,7 +15,7 @@ import { TESUJI_KINDS, TESUJI_DRILLS, markTesuji, pickTesuji, tesujiStats, type 
 import { deleteGame, loadGames, storeGame, type StoredGame } from './games'
 import { PIECE_SETS, loadPieceSet, pieceUrl, type PieceSet } from './pieceSets'
 import { addPath, allLines, emptyTree, isMainLine, mainContinuation, mainLine, nodeAt, promote, removeBranch, type Tree } from './tree'
-import { PIECE_FINISHES, PIECE_FONTS, STRENGTH, loadPieceFont, playSound, setSettings, useSettings, type AiStrength, type BoardStyle, type Environment, type PieceFinish, type PieceFont, type PieceStyle } from './settings'
+import { PIECE_FINISHES, PIECE_FONTS, STRENGTH, TIME_CONTROLS, type TimeControl, loadPieceFont, playSound, setSettings, useSettings, type AiStrength, type BoardStyle, type Environment, type PieceFinish, type PieceFont, type PieceStyle } from './settings'
 import { analyze, engineSupported, scoreToCp, type Score } from '../engine'
 import { useAnalysis } from '../hooks'
 import { LABELS, describeMove, reviewMove, scoreWinRate, usiPosition, type MoveReview } from '../analysis'
@@ -220,6 +220,10 @@ export function Workshop() {
   sfensRef.current = sfens
   const [endHidden, setEndHidden] = useState('')
   const [resigned, setResigned] = useState(false)
+  const timeControl = TIME_CONTROLS[settings.timeControl] ?? TIME_CONTROLS.none
+  const clockOn = timeControl.main + timeControl.byoyomi > 0
+  const freshClock = () => ({ sente: timeControl.main * 1000, gote: timeControl.main * 1000, byo: timeControl.byoyomi * 1000, flagged: null as Side | null })
+  const [clock, setClock] = useState(freshClock)
   const [justRight, setJustRight] = useState(false)
   const lineProgress = useMemo(() => {
     if (!course) return null
@@ -335,6 +339,7 @@ export function Workshop() {
     setSlotId(null)
     setPeekFrom(null)
     setResigned(false)
+    setClock(freshClock())
     setJustRight(false)
     setSheetOpen(null)
     setPlyBase(0)
@@ -587,7 +592,7 @@ export function Workshop() {
 
   const [pending, setPending] = useState<{ key: string; usi: string; note?: string; source: 'book' | 'ai' } | null>(null)
   useEffect(() => {
-    if ((mode !== 'lesson' && mode !== 'spar') || (mode === 'lesson' && !course) || !atEnd || toMove === userSide || resigned) return
+    if ((mode !== 'lesson' && mode !== 'spar') || (mode === 'lesson' && !course) || !atEnd || toMove === userSide || resigned || (mode === 'spar' && clock.flagged)) return
     let cancelled = false
     const book = mode === 'lesson' ? nodes?.get(strip(liveSfen))?.branches.find((b) => b.kind === 'main' && b.child) ?? nodes?.get(strip(liveSfen))?.branches.find((b) => b.kind !== 'deviation' && b.child) : undefined
     const run = async () => {
@@ -606,7 +611,7 @@ export function Workshop() {
     return () => {
       cancelled = true
     }
-  }, [mode, atEnd, toMove, userSide, liveSfen, nodes, course, settings.opponent, settings.aiStrategy, resigned])
+  }, [mode, atEnd, toMove, userSide, liveSfen, nodes, course, settings.opponent, settings.aiStrategy, resigned, clock.flagged])
   const reply = !preview && pending && pending.key === liveSfen && atEnd && (mode === 'lesson' || mode === 'spar') && toMove !== userSide ? pending : null
   useEffect(() => {
     if (!reply || (mode === 'lesson' && lessonMode === 'study')) return
@@ -614,7 +619,7 @@ export function Workshop() {
     return () => clearTimeout(timer)
   }, [reply, mode, lessonMode, play])
 
-  const canMove = (userTurn && !(mode === 'spar' && resigned)) || (mode === 'lesson' && !!course && lessonMode === 'study' && !preview)
+  const canMove = (userTurn && !(mode === 'spar' && (resigned || clock.flagged))) || (mode === 'lesson' && !!course && lessonMode === 'study' && !preview)
   const select = (from: Square | PieceType, color: Color) => setSelection({ from, color })
   const targets = useMemo(() => (selection ? legalTargets(position, selection.from) : []), [selection, position])
 
@@ -725,6 +730,50 @@ export function Workshop() {
   const best = analysis?.candidates[0]
   const arrows: BoardArrow[] = []
   const gameOver = !preview && !hasLegalMove(position)
+  const clockRunning = mode === 'spar' && clockOn && !resigned && !gameOver && atEnd && !clock.flagged
+  useEffect(() => {
+    setClock(freshClock())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [settings.timeControl])
+  const movesSeen = useRef(game.moves.length)
+  useEffect(() => {
+    const before = movesSeen.current
+    movesSeen.current = game.moves.length
+    if (mode !== 'spar' || !clockOn || game.moves.length <= before || !atEnd) return
+    const mover: Side = toMove === 'sente' ? 'gote' : 'sente'
+    setClock((c) => ({ ...c, [mover]: c[mover] + (c[mover] > 0 || !timeControl.byoyomi ? timeControl.increment * 1000 : 0), byo: timeControl.byoyomi * 1000 }))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [game.moves.length])
+  useEffect(() => {
+    if (!clockRunning) return
+    let last = performance.now()
+    const side = toMove
+    const id = window.setInterval(() => {
+      const now = performance.now()
+      const dt = now - last
+      last = now
+      setClock((c) => {
+        if (c.flagged) return c
+        const main = c[side] - dt
+        if (main > 0) return { ...c, [side]: main }
+        if (!timeControl.byoyomi) return { ...c, [side]: 0, flagged: side }
+        const byo = c.byo + main
+        return byo > 0 ? { ...c, [side]: 0, byo } : { ...c, [side]: 0, byo: 0, flagged: side }
+      })
+    }, 100)
+    return () => window.clearInterval(id)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clockRunning, toMove])
+  const clockFor = (side: Side) => {
+    if (mode !== 'spar' || !clockOn) return undefined
+    const active = clockRunning && toMove === side
+    const main = clock[side]
+    const inByo = main <= 0 && timeControl.byoyomi > 0
+    const ms = inByo ? (toMove === side ? clock.byo : timeControl.byoyomi * 1000) : main
+    const total = Math.ceil(ms / 1000)
+    const text = inByo ? `秒読み ${total}` : `${Math.floor(total / 60)}:${String(total % 60).padStart(2, '0')}`
+    return { text, active, low: active && total <= 10, out: clock.flagged === side }
+  }
   const inCheck = position.checked
   const checkKey = inCheck && !preview ? sfen : ''
   useEffect(() => {
@@ -1275,6 +1324,18 @@ export function Workshop() {
           )}
           {mode === 'spar' && (
             <label className="ws-strength">
+              <span>Clock</span>
+              <select value={settings.timeControl} onChange={(e) => setSettings({ timeControl: e.target.value as TimeControl })} aria-label="Time control" title={`${timeControl.hint}. Changing it restarts both clocks.`}>
+                {(Object.keys(TIME_CONTROLS) as TimeControl[]).map((k) => (
+                  <option key={k} value={k} title={TIME_CONTROLS[k].hint}>
+                    {TIME_CONTROLS[k].label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          )}
+          {mode === 'spar' && (
+            <label className="ws-strength">
               <span>AI</span>
               <select value={settings.opponent} onChange={(e) => setSettings({ opponent: e.target.value as AiStrength })} aria-label="AI strength">
                 {(Object.keys(STRENGTH) as AiStrength[]).map((k) => (
@@ -1394,23 +1455,29 @@ export function Workshop() {
           )}
           {mode === 'tsume' && <span className="ws-plate top"><span className="ws-plate-side">{flipped ? '☗ Sente' : '☖ Gote'}</span><span className="ws-muted">{(flipped ? 'sente' : 'gote') === userSide ? 'You attack' : 'Defends'}</span></span>}
           {mode === 'tsume' && <span className="ws-plate bottom"><span className="ws-plate-side">{flipped ? '☖ Gote' : '☗ Sente'}</span><span className="ws-muted">{(flipped ? 'gote' : 'sente') === userSide ? 'You attack' : 'Defends'}</span></span>}
-          {mode !== 'tsume' && !(mode === 'lesson' && !course) && <Plate className="top" position={position} color={flipped ? Color.BLACK : Color.WHITE} who={mode === 'analyze' || (mode === 'lesson' && !course) || (mode === 'drill' && !drillItem) ? null : (flipped ? 'sente' : 'gote') === userSide ? 'You' : 'Opponent'} />}
+          {mode !== 'tsume' && !(mode === 'lesson' && !course) && <Plate className="top" clock={clockFor(flipped ? 'sente' : 'gote')} position={position} color={flipped ? Color.BLACK : Color.WHITE} who={mode === 'analyze' || (mode === 'lesson' && !course) || (mode === 'drill' && !drillItem) ? null : (flipped ? 'sente' : 'gote') === userSide ? 'You' : 'Opponent'} />}
           {compact && !drawer && (
             <button className="ws-phone-task" onClick={() => (studyReply ? play(studyReply.usi) : setDrawer(true))}>
               <span>{modeInstruction()}</span>
               <b>{studyReply ? 'Play their move' : mode === 'lesson' && !course ? 'Pick a lesson' : mode === 'drill' && !drillItem ? 'Pick a queue' : 'Panel'} ›</b>
             </button>
           )}
-          {mode !== 'tsume' && !(mode === 'lesson' && !course) && <Plate className="bottom" position={position} color={flipped ? Color.WHITE : Color.BLACK} who={mode === 'analyze' || (mode === 'lesson' && !course) || (mode === 'drill' && !drillItem) ? null : (flipped ? 'gote' : 'sente') === userSide ? 'You' : 'Opponent'} />}
-          {((gameOver && game.moves.length > 0 && (mode === 'spar' || mode === 'analyze')) || (resigned && mode === 'spar')) && endHidden !== sfen && (
+          {mode !== 'tsume' && !(mode === 'lesson' && !course) && <Plate className="bottom" clock={clockFor(flipped ? 'gote' : 'sente')} position={position} color={flipped ? Color.WHITE : Color.BLACK} who={mode === 'analyze' || (mode === 'lesson' && !course) || (mode === 'drill' && !drillItem) ? null : (flipped ? 'gote' : 'sente') === userSide ? 'You' : 'Opponent'} />}
+          {((gameOver && game.moves.length > 0 && (mode === 'spar' || mode === 'analyze')) || ((resigned || clock.flagged) && mode === 'spar')) && endHidden !== sfen && (
             <div className="ws-gameover" role="status">
               <button className="ws-gameover-x" onClick={() => setEndHidden(sfen)} aria-label="Hide this and look at the board" title="Look at the board">
                 ×
               </button>
-              <strong>{resigned && !gameOver ? '投了' : '詰み'}</strong>
+              <strong>{clock.flagged && mode === 'spar' && !gameOver ? '時間切れ' : resigned && !gameOver ? '投了' : '詰み'}</strong>
               <span>
-                {resigned && !gameOver ? `You resigned. ${userSide === 'sente' ? '☖ Gote' : '☗ Sente'} wins` : toMove === 'sente' ? '☖ Gote' : '☗ Sente'}{resigned && !gameOver ? '' : ' wins'}
-                {mode === 'spar' ? ((toMove === 'sente' ? 'gote' : 'sente') === userSide ? '. Well played!' : '. The AI wins this one.') : '.'}
+                {clock.flagged && mode === 'spar' && !gameOver
+                  ? `${clock.flagged === userSide ? 'You ran out of time' : 'The AI ran out of time'}. ${clock.flagged === 'sente' ? '☖ Gote' : '☗ Sente'} wins${clock.flagged === userSide ? '.' : '. Well played!'}`
+                  : (
+                    <>
+                      {resigned && !gameOver ? `You resigned. ${userSide === 'sente' ? '☖ Gote' : '☗ Sente'} wins` : toMove === 'sente' ? '☖ Gote' : '☗ Sente'}{resigned && !gameOver ? '' : ' wins'}
+                      {mode === 'spar' ? ((toMove === 'sente' ? 'gote' : 'sente') === userSide ? '. Well played!' : '. The AI wins this one.') : '.'}
+                    </>
+                  )}
               </span>
               <div className="ws-actions">
                 {mode === 'spar' && (
@@ -2911,10 +2978,11 @@ function EvalGraph({ values, cursor, onJump, onScan, scanning, className = '' }:
   )
 }
 
-function Plate({ position, color, who, className }: { position: ReturnType<typeof positionOf>; color: Color; who: 'You' | 'Opponent' | null; className: string }) {
+function Plate({ position, color, who, className, clock }: { position: ReturnType<typeof positionOf>; color: Color; who: 'You' | 'Opponent' | null; className: string; clock?: { text: string; active: boolean; low: boolean; out: boolean } }) {
   const { strategy, castle } = formationOf(position, color)
   return (
     <div className={`ws-plate ${className}`}>
+      {clock && <span className={`ws-clock${clock.active ? ' on' : ''}${clock.low ? ' low' : ''}${clock.out ? ' out' : ''}`} role="timer">{clock.out ? '時間切れ' : clock.text}</span>}
       <span className="ws-plate-side">{color === Color.BLACK ? '☗ Sente' : '☖ Gote'}</span>
       {who && <span className="ws-muted">{who}</span>}
       {strategy && <span className="ws-pill" title="Strategy, from where the rook is">{strategy}</span>}

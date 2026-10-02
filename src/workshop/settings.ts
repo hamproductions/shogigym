@@ -6,6 +6,7 @@ export type PieceFont = 'mincho' | 'kaisho' | 'gyosho' | 'antique'
 export type PieceFinish = 'oshi' | 'kaki' | 'hori' | 'horiume' | 'moriage'
 export type Environment = 'traditional' | 'casual'
 export type BoardStyle = 'kaya' | 'shin-kaya' | 'dark'
+export type TimeControl = 'none' | '10s' | '3m' | '10m' | '10m30s' | '30m60s' | '5m5s'
 export type AiStrength = 'beginner' | 'club' | 'strong' | 'max'
 
 export type Settings = {
@@ -23,11 +24,12 @@ export type Settings = {
   opponent: AiStrength
   aiStrategy: string
   assist: boolean
+  timeControl: TimeControl
 }
 
 const KEY = 'joseki-practice:settings:v1'
 
-const DEFAULTS: Settings = { sound: true, volume: 0.6, pieceStyle: 'two', pieceFont: 'mincho', pieceSet: 'letters', pieceFinish: 'moriage', coords: true, environment: 'traditional', boardStyle: 'kaya', thinkMs: 1500, candidates: 3, opponent: 'beginner', aiStrategy: '', assist: true }
+const DEFAULTS: Settings = { sound: true, volume: 0.6, pieceStyle: 'two', pieceFont: 'mincho', pieceSet: 'letters', pieceFinish: 'moriage', coords: true, environment: 'traditional', boardStyle: 'kaya', thinkMs: 1500, candidates: 3, opponent: 'beginner', aiStrategy: '', assist: true, timeControl: 'none' }
 
 function read(): Settings {
   try {
@@ -145,4 +147,14 @@ export const PIECE_FINISHES: Record<PieceFinish, { label: string; hint: string; 
   hori: { label: '彫駒', hint: 'Carved: characters cut into the wood.', relief: -0.016, gloss: 0.4 },
   horiume: { label: '彫埋駒', hint: 'Carved, then the groove filled flush with lacquer.', relief: -0.003, gloss: 1 },
   moriage: { label: '盛上駒', hint: 'Horiume, then lacquer built up into raised characters. The finest grade.', relief: 0.012, gloss: 1 },
+}
+
+export const TIME_CONTROLS: Record<TimeControl, { label: string; hint: string; main: number; byoyomi: number; increment: number }> = {
+  none: { hint: 'No clock', label: 'None', main: 0, byoyomi: 0, increment: 0 },
+  '10s': { hint: '1手10秒: every move within 10 seconds', label: '10秒', main: 0, byoyomi: 10, increment: 0 },
+  '3m': { hint: '3分切れ負け: 3 minutes each, then you lose on time', label: '3分', main: 180, byoyomi: 0, increment: 0 },
+  '10m': { hint: '10分切れ負け: 10 minutes each, then you lose on time', label: '10分', main: 600, byoyomi: 0, increment: 0 },
+  '10m30s': { hint: '10 minutes, then 30 seconds for every move (秒読み)', label: '10分+30秒', main: 600, byoyomi: 30, increment: 0 },
+  '30m60s': { hint: '30 minutes, then 60 seconds for every move (秒読み)', label: '30分+60秒', main: 1800, byoyomi: 60, increment: 0 },
+  '5m5s': { hint: '5 minutes, plus 5 seconds added after each move', label: '5分+5秒加算', main: 300, byoyomi: 0, increment: 5 },
 }
