@@ -1252,13 +1252,47 @@ function handLayout(position: ImmutablePosition, color: Color): HandSpot[] {
     const b = bounds(placed)
     return { placed, b, fits: b.maxX - b.minX <= inner && b.maxZ - b.minZ <= inner }
   }
+  const grouped = (expose: number) => {
+    const group = (type: PieceType, n: number): Placed[] => Array.from({ length: n }, (_, j) => ({ type, x: j * expose, z: 0, rot: (j - (n - 1) / 2) * 0.03, lift: j * 0.012 }))
+    const chunks = (type: PieceType) => {
+      const n = hand.count(type)
+      return Array.from({ length: Math.ceil(n / 9) }, (_, k) => group(type, Math.min(9, n - k * 9)))
+    }
+    const tiers = [[PieceType.ROOK, PieceType.BISHOP, PieceType.LANCE], [PieceType.GOLD, PieceType.SILVER, PieceType.KNIGHT], [PieceType.PAWN]].map((tier) => tier.flatMap(chunks)).filter((tier) => tier.length)
+    const placed: Placed[] = []
+    let v = 0
+    for (const tier of tiers) {
+      let line: Placed[][] = []
+      const flush = () => {
+        if (!line.length) return
+        let u = 0
+        const row: Placed[] = []
+        for (const g of line) {
+          const b = bounds(g)
+          row.push(...g.map((p) => ({ ...p, x: p.x - b.minX + u })))
+          u += b.maxX - b.minX + 0.05
+        }
+        const b = bounds(row)
+        placed.push(...row.map((p) => ({ ...p, x: p.x - (b.minX + b.maxX) / 2, z: p.z - b.minZ + v })))
+        v += b.maxZ - b.minZ + 0.05
+        line = []
+      }
+      for (const g of tier) {
+        const width = [...line, g].reduce((sum, x) => sum + bounds(x).maxX - bounds(x).minX + 0.05, -0.05)
+        if (line.length && width > inner) flush()
+        line.push(g)
+      }
+      flush()
+    }
+    const b = bounds(placed)
+    return { placed, b, fits: b.maxX - b.minX <= inner && b.maxZ - b.minZ <= inner }
+  }
   const straight = 1e4
   const tries = [
     ...[0.04, 0.02, 0].map((gap) => [straight, gap, 0]),
-    ...[0.1, 0.2, 0.3, 0.4, 0.5, 0.6].map((squeeze) => [straight, 0.02, squeeze]),
   ]
   const fanned = fanAttempt()
-  const best = fanned.fits ? fanned : (tries.map(([pivot, gap, squeeze]) => attempt(pivot, gap, squeeze)).find((a) => a.fits) ?? attempt(straight, 0, 0.6))
+  const best = fanned.fits ? fanned : (tries.map(([pivot, gap, squeeze]) => attempt(pivot, gap, squeeze)).find((a) => a.fits) ?? [0.17, 0.14, 0.11, 0.09, 0.07].map(grouped).find((a) => a.fits) ?? grouped(0.07))
   standSize.set(color, STAND)
   const c = standCenter(color)
   const sign = color === Color.BLACK ? 1 : -1
