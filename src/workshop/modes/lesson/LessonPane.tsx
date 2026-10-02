@@ -40,6 +40,8 @@ type LessonPaneProps = {
   onBack: () => void
 }
 
+const reveal = (el: HTMLElement | null) => el?.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
+
 export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPlayReply, lastNote, endRate, onBack }: LessonPaneProps) {
   const { t } = useTranslation()
   const { course, liveSfen: sfen, userSide, lastMove, prevSfen, playing, preview } = useSession()
@@ -156,12 +158,12 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
         </Card>
       ) : asking ? (
         <Card>
+          {mistake && !mistakePreview && <p key={`${mistake.base}:${mistake.usi}`} ref={reveal} className="ws-result wrong">{mistakeIsBad(mistake) ? t('lesson.wasLabel', { move: moveText(sfen, mistake.usi), label: (mistake.verdict ? LABELS[mistake.verdict.label] : LABELS.mistake).text }) : t('lesson.isNotThisLessonS', { move: moveText(sfen, mistake.usi) })}</p>}
           {lessonMode === 'quiz' && !showAnswer && (
             <Button size="sm" variant={mistake && !mistakePreview ? 'primary' : 'secondary'} className="ws-answer-top" onClick={lesson.revealAnswer}>
               {t('lesson.showMeTheAnswer')}
             </Button>
           )}
-          {mistake && !mistakePreview && <p className="ws-result wrong">{mistakeIsBad(mistake) ? t('lesson.wasLabel', { move: moveText(sfen, mistake.usi), label: (mistake.verdict ? LABELS[mistake.verdict.label] : LABELS.mistake).text }) : t('lesson.isNotThisLessonS', { move: moveText(sfen, mistake.usi) })}</p>}
           {lessonMode === 'study' || showAnswer ? (
             <>
               <strong>{t('lesson.yourMoveAs', { side })}</strong>
