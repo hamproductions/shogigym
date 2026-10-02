@@ -29,7 +29,14 @@ function avatarMove(s: SceneState, position: ImmutablePosition, prev: ImmutableP
   const capture = captured && type && to ? { mesh: pieceMesh(captured.type, captured.color), to, hide: s.handMeshes.find((m) => m.userData.color === move.color && m.userData.type === type && m.userData.liftable) } : undefined
   const step = move.from instanceof Square ? Math.max(Math.abs(move.from.file - move.to.file), Math.abs(move.from.rank - move.to.rank)) : 0
   const kind = !(move.from instanceof Square) ? 'drop' : capture ? 'capture' : move.promote ? 'promote' : step <= 1 ? 'slide' : 'carry'
-  const played = s.avatars.playMove({ kind, flip: kind === 'promote' ? pieceMesh(move.pieceType, move.color) : undefined, color: move.color, mesh, from, to: mesh.position.clone(), placed, land: s.onLand, capture })
+  const land = s.onLand
+  const source = kind === 'drop' && !placed ? s.handMeshes.find((m) => m.userData.color === move.color && m.userData.type === move.pieceType && m.userData.liftable) : undefined
+  if (source) source.visible = false
+  const played = s.avatars.playMove({ kind, flip: kind === 'promote' ? pieceMesh(move.pieceType, move.color) : undefined, color: move.color, mesh, from, to: mesh.position.clone(), placed, land: source ? () => (land?.(), s.settle?.()) : land, capture })
+  if (!played && source) {
+    source.visible = true
+    queueMicrotask(() => s.settle?.())
+  }
   if (played) s.onLand = null
   return played
 }
@@ -50,8 +57,9 @@ export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, pr
     if (lastMove && lastMove.slice(2, 4) === square.usi) moved = { mesh, color: piece.color, square }
   }
   s.placeStands()
+  const lagging = !!(prev && lastMove && lastMove[1] === '*' && animate && !placed && s.avatars?.ready())
   for (const color of [Color.BLACK, Color.WHITE]) {
-    const spots = handLayout(position, color)
+    const spots = handLayout(lagging && prev ? prev : position, color)
     const seen = new Map<PieceType, number>()
     for (const spot of spots) {
       const nth = seen.get(spot.type) ?? 0
@@ -95,9 +103,16 @@ const isLifted = (mesh: THREE.Object3D, props: Board3DProps) => {
 export function liftSelected(s: SceneState, props: Board3DProps, dt: number) {
   for (const mesh of s.pieces.children) {
     const base = mesh.userData.baseY as number | undefined
+    if (mesh.userData.held && performance.now() - ((mesh.userData.heldAt as number | undefined) ?? 0) > 4000) mesh.userData.held = false
     if (base === undefined || mesh.userData.held || s.animations.some((a) => a.mesh === mesh) || s.drag?.mesh === mesh) continue
     const target = base + (isLifted(mesh, props) ? LIFT : 0)
-    mesh.position.y += (target - mesh.position.y) * (1 - Math.exp(-dt * 18))
+    const k = 1 - Math.exp(-dt * 18)
+    mesh.position.y += (target - mesh.position.y) * k
+    const square = mesh.userData.square as Square | undefined
+    if (square) {
+      mesh.position.x += (squareX(square.file) - mesh.position.x) * k
+      mesh.position.z += (squareZ(square.rank) - mesh.position.z) * k
+    }
   }
 }
 

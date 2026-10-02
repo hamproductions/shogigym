@@ -1,9 +1,8 @@
 import { useTranslation } from 'react-i18next'
-import { Color, PieceType, type Move } from 'tsshogi'
-import { PIECE_CHAR } from '../../shogi'
+import { Color, promotedPieceType, type Move } from 'tsshogi'
+import { pieceFaceUrl } from '../board3d/piece'
 import type { Announcement } from '../hooks/useAnnouncements'
 
-const PROMOTED_CHAR: Partial<Record<PieceType, string>> = { [PieceType.PAWN]: 'と', [PieceType.LANCE]: '成香', [PieceType.KNIGHT]: '成桂', [PieceType.SILVER]: '成銀', [PieceType.BISHOP]: '馬', [PieceType.ROOK]: '龍' }
 
 export function AnnounceBadge({ announce }: { announce: Announcement }) {
   const { t } = useTranslation()
@@ -23,7 +22,7 @@ export function PromotionPicker({ options, onPick, onCancel }: { options: Move[]
     <div className="ws-promote" role="dialog" aria-label={t('workshop.promote')}>
       {options.map((m) => (
         <button key={m.usi} className={m.promote ? 'yes' : 'no'} onClick={() => onPick(m.usi)}>
-          <span className={`ws-koma${m.promote ? ' promoted' : ''}`}>{m.promote ? (PROMOTED_CHAR[m.pieceType] ?? PIECE_CHAR[m.pieceType]) : PIECE_CHAR[m.pieceType]}</span>
+          <img className="ws-koma-face" src={pieceFaceUrl(m.promote ? promotedPieceType(m.pieceType) : m.pieceType, Color.BLACK)} alt="" />
           <span>{m.promote ? t('workshop.promote2') : t('workshop.donTPromote')}</span>
         </button>
       ))}

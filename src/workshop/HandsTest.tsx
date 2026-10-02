@@ -135,6 +135,16 @@ export default function HandsTest() {
         tilted: [new THREE.Vector3(0.6, 26, near * 30), new THREE.Vector3(0, 0, near * 0.4)],
         hand: [new THREE.Vector3(at.x - near * 6, 2.5, at.z + near * 2), a ? s.root.worldToLocal(a.target.clone()) : at],
         gote: [new THREE.Vector3(0, 18, -32), new THREE.Vector3(0, 0, -2)],
+        rest: (() => {
+          let hips: THREE.Object3D | null = a?.hand ?? null
+          while (hips?.parent && !/hips/i.test(hips.name)) hips = hips.parent
+          let rest: THREE.Object3D | null = null
+          hips?.traverse((o) => {
+            if (!rest && /_L_Hand$/.test(o.name)) rest = o
+          })
+          const t = rest ? s.root.worldToLocal((rest as THREE.Object3D).getWorldPosition(new THREE.Vector3())) : at
+          return [new THREE.Vector3(t.x + Math.sign(t.x || 1) * 7, t.y + 3, t.z + near * 2.5), t]
+        })(),
       }
       s.camera.position.copy(views[preset][0])
       controls.target.copy(views[preset][1])
@@ -147,6 +157,7 @@ export default function HandsTest() {
       if (!live) return c.dispose()
       controller = c
       s.avatars = slotFor(c)
+      s.settle = () => rebuild(s, props(next, pattern.usi), false)
       simFrame = -1
       setInfo(goto(0))
       setReady(true)
@@ -227,7 +238,7 @@ export default function HandsTest() {
           </select>
         </div>
         <div>
-          {['top', 'tilted', 'hand', 'gote'].map((c) => (
+          {['top', 'tilted', 'hand', 'gote', 'rest'].map((c) => (
             <button key={c} onClick={() => api.current?.camera(c)}>
               {c}
             </button>

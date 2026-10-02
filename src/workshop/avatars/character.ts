@@ -24,6 +24,7 @@ type Side = 'right' | 'left'
 
 export const SEIZA = { hip: 66, ankle: 50, lift: 0.042 }
 const KNEEL = 24
+const THIGH_R = 0.075
 const MAX_LEAN = (62 * Math.PI) / 180
 const HIP_SHARE = 0.65
 
@@ -92,10 +93,11 @@ export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, heig
     const curlSign = -Math.sign(finger.x) || 1
     const fingers = FINGERS.flatMap((f) => JOINTS.map((j) => bone(`${cap}${f}${j}`)))
     const pads = [[bone(`${cap}IndexIntermediate`), bone(`${cap}IndexDistal`)]]
+    const tips = FINGERS.map((f) => [bone(`${cap}${f}Intermediate`), bone(`${cap}${f}Distal`)])
     const thumb = (['Metacarpal', 'Proximal', 'Distal'] as const).map((j) => bone(`${cap}Thumb${j}`))
     const chain: ArmChain = armChain(bone(`${cap}UpperArm`), bone(`${cap}LowerArm`), bone(`${cap}Hand`))
     const keys = [...FINGERS.flatMap((f) => JOINTS.map((j) => `Right${f}${j}`)), ...['Proximal', 'Intermediate', 'Distal'].map((j) => `RightThumb${j}`)]
-    return { side, chain, restQ, grip, curlSign, digits: [...fingers, ...thumb], keys, pads, sign: side === 'right' ? 1 : -1 }
+    return { side, chain, restQ, grip, curlSign, digits: [...fingers, ...thumb], keys, pads, tips, lift: 0, sign: side === 'right' ? 1 : -1 }
   })
 
   const legs = (['left', 'right'] as const).map((side) => ({ upper: bone(`${side}UpperLeg`), lower: bone(`${side}LowerLeg`), foot: bone(`${side}Foot`), out: side === 'right' ? 1 : -1 }))
@@ -182,6 +184,9 @@ export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, heig
   const down = new THREE.Vector3(0, -1, 0)
   const tmp = new THREE.Vector3()
   const tmp2 = new THREE.Vector3()
+  const thighA = new THREE.Vector3()
+  const tableRest = new THREE.Vector3()
+  const thighB = new THREE.Vector3()
   const pole = new THREE.Vector3()
   const wrist = new THREE.Vector3()
   const wristB = new THREE.Vector3()
@@ -305,7 +310,12 @@ export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, heig
       const leg = legs.find((l) => l.out === side.sign)!
       const hip = leg.upper.getWorldPosition(tmp)
       const knee = leg.lower.getWorldPosition(new THREE.Vector3())
-      const at = knee.lerp(hip, seat.style === 'seiza' ? 0.58 : 0.45).addScaledVector(UP, 0.07 * UNITS_PER_M).addScaledVector(right, side.sign * 0.015 * UNITS_PER_M)
+      if (seat.style === 'chair') {
+        const at = root.localToWorld(tableRest.set(0, seat.tableY + 0.045 * UNITS_PER_M, Math.sign(seat.z) * (seat.tableEdge - 0.07 * UNITS_PER_M))).addScaledVector(right, side.sign * 0.2 * UNITS_PER_M)
+        setGoal(g, at, tmp2.copy(fwd).addScaledVector(right, -side.sign * 0.45).addScaledVector(down, 0.12), down, 0.55, false)
+        continue
+      }
+      const at = knee.lerp(hip, 0.58).addScaledVector(UP, 0.07 * UNITS_PER_M + side.lift).addScaledVector(right, side.sign * 0.015 * UNITS_PER_M)
       setGoal(g, at, tmp2.copy(fwd).addScaledVector(down, 0.3).addScaledVector(right, side.sign * 0.08), down, 0.45, false)
     }
 
@@ -359,6 +369,18 @@ export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, heig
         tip.add(b).addScaledVector(b.sub(a), 0.7)
       }
       tip.divideScalar(side.pads.length)
+      const leg = legs.find((l) => l.out === side.sign)!
+      const hipAt = leg.upper.getWorldPosition(thighA)
+      const thigh = leg.lower.getWorldPosition(thighB).sub(hipAt)
+      let sink = -Infinity
+      for (const [mid, end] of side.tips) {
+        const a = mid.getWorldPosition(tmp)
+        const p = end.getWorldPosition(tmp2).multiplyScalar(1.7).addScaledVector(a, -0.7)
+        const h = Math.min(1, Math.max(0, p.clone().sub(hipAt).dot(thigh) / thigh.lengthSq()))
+        sink = Math.max(sink, THIGH_R * UNITS_PER_M - p.distanceTo(hipAt.clone().addScaledVector(thigh, h)))
+      }
+      const resting = 1 - Math.max(state.reachW * (side.side === state.side ? 1 : 0), state.think * (side.side === 'right' ? 1 : 0), state.flinch)
+      side.lift = resting > 0.5 ? Math.max(0, damp(side.lift, side.lift + sink + 0.004 * UNITS_PER_M, 10, dt)) : damp(side.lift, 0, 4, dt)
       if (side.side === state.side) pinchAt.copy(tip)
       side.grip.copy(side.chain.hand.worldToLocal(tip))
     }

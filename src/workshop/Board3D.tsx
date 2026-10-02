@@ -36,6 +36,7 @@ export function Board3D(props: Board3DProps) {
     state.current = s
     if (import.meta.env.DEV) (window as unknown as { __dbg: SceneState }).__dbg = s
     const refresh = (animate = false) => rebuild(s, latest.current, animate)
+    s.settle = () => refresh()
     const syncPower = () => {
       const on = getSettings().power
       if (on && !power.current) power.current = createPower(s)

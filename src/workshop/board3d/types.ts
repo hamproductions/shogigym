@@ -71,5 +71,6 @@ export type SceneState = {
   settled?: boolean
   droppedAt?: number
   onLand?: (() => void) | null
+  settle?: () => void
   lastTime?: number
 }

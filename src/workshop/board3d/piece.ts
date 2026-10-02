@@ -160,6 +160,8 @@ const hiddenLid = new THREE.MeshBasicMaterial({ visible: false })
 const sideMaterial = new THREE.MeshStandardMaterial({ color: 0xdcb377, emissive: 0x8a6232, emissiveIntensity: 0.75, roughness: 0.85 })
 const bottomMaterial = new THREE.MeshStandardMaterial({ color: 0xdcb377, emissive: 0x8a6232, emissiveIntensity: 0.75, roughness: 0.85, side: THREE.DoubleSide })
 
+export const pieceFaceUrl = (type: PieceType, color: Color) => (faceMap(type, color).image as HTMLCanvasElement).toDataURL()
+
 function faceMap(type: PieceType, color: Color) {
   const one = getSettings().pieceStyle === 'one'
   const gote = color === Color.WHITE

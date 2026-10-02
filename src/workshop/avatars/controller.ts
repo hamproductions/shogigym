@@ -12,12 +12,12 @@ import { AVATAR_MODELS, type AvatarInspect, type AvatarPhase, type Knock, type M
 const mm = (n: number) => n / 35.2
 const UP = new THREE.Vector3(0, 1, 0)
 const GRIP_Y = 0.38
-const REACH = 0.28
-const CLOSE = 0.08
-const CARRY = 0.26
-const DOWN = 0.07
+const REACH = 0.24
+const CLOSE = 0.07
+const CARRY = 0.22
+const DOWN = 0.06
 const STEP = REACH + CLOSE + CARRY + DOWN
-const WITHDRAW = 0.5
+const WITHDRAW = 0.4
 const LIFT: Record<MotionKind, number> = { slide: 0.12, carry: 0.45, drop: 0.45, capture: 0.35, promote: 0.6 }
 const MOTIONS = handMotion.moves as Record<MotionKind, { samples: HandPose[] }>
 const SHAPES = {
@@ -324,6 +324,7 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
         })
       }
       move.mesh.userData.held = true
+      move.mesh.userData.heldAt = performance.now()
       move.mesh.position.copy(move.from)
       const flip = move.flip ?? null
       if (flip) {
@@ -469,6 +470,7 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
         if (step.mesh === from) {
           step.mesh = to
           to.userData.held = true
+          to.userData.heldAt = performance.now()
           to.position.copy(from.position)
           to.quaternion.copy(from.quaternion)
           to.visible = from.visible
