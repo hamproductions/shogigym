@@ -159,11 +159,6 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
       ) : asking ? (
         <Card>
           {mistake && !mistakePreview && <p key={`${mistake.base}:${mistake.usi}`} ref={reveal} className="ws-result wrong">{mistakeIsBad(mistake) ? t('lesson.wasLabel', { move: moveText(sfen, mistake.usi), label: (mistake.verdict ? LABELS[mistake.verdict.label] : LABELS.mistake).text }) : t('lesson.isNotThisLessonS', { move: moveText(sfen, mistake.usi) })}</p>}
-          {lessonMode === 'quiz' && !showAnswer && (
-            <Button size="sm" variant={mistake && !mistakePreview ? 'primary' : 'secondary'} className="ws-answer-top" onClick={lesson.revealAnswer}>
-              {t('lesson.showMeTheAnswer')}
-            </Button>
-          )}
           {lessonMode === 'study' || showAnswer ? (
             <>
               <strong>{t('lesson.yourMoveAs', { side })}</strong>
@@ -177,7 +172,12 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
               <p className="ws-muted">{t('lesson.playItOnTheBoard')}</p>
             </>
           ) : (
-            <strong>{t('lesson.yourMoveAsFindThe', { side })}</strong>
+            <>
+              <strong>{t('lesson.yourMoveAsFindThe', { side })}</strong>
+              <Button size="sm" variant="ghost" className="ws-answer-reveal" onClick={lesson.revealAnswer}>
+                {t('lesson.showMeTheAnswer')}
+              </Button>
+            </>
           )}
         </Card>
       ) : (

@@ -686,8 +686,9 @@
   font-weight: var(--weight-bold);
 }
 
-.ws-answer-top {
-  margin-bottom: var(--space-2);
+.ws-answer-reveal {
+  align-self: flex-start;
+  margin-top: var(--space-2);
 }
 
 .ws-answer {

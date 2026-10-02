@@ -91,7 +91,7 @@ export function ModeBar({ title, instruction, lessonMode, sheetUp, panelHidden, 
         </div>
       )}
       {mode === 'spar' && (
-        <Button variant="primary" className="ws-game-setup" onClick={() => spar.setNewGameOpen(true)} title={`${STRENGTH[settings.opponent].label} · ${TIME_CONTROLS[settings.timeControl].label}`}>
+        <Button variant={spar.erred ? 'secondary' : 'primary'} className="ws-game-setup" onClick={() => spar.setNewGameOpen(true)} title={`${STRENGTH[settings.opponent].label} · ${TIME_CONTROLS[settings.timeControl].label}`}>
           {t('newGame.button')}
         </Button>
       )}

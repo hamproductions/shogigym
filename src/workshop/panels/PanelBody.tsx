@@ -75,7 +75,7 @@ function CoachSection({ model }: { model: PanelModel }) {
   const { reviewAt } = coach
   return (
     <>
-      {mode === 'tesuji' && tesuji.drill && <TesujiPane trainer={tesuji} drill={tesuji.drill} />}
+      {mode === 'tesuji' && tesuji.drill && <TesujiPane trainer={tesuji} drill={tesuji.drill} replaying={!!mistakes.mistake && mistakes.previewing} onBack={onBack} />}
       {mode === 'tsume' && tsume.tsume && <TsumePane trainer={tsume} tsume={tsume.tsume} banner={!!mistakes.mistake && !!preview} onBack={onBack} />}
       {mode === 'drill' && <ReviewPane trainer={drill} startSfen={drill.item ? sfens[drill.drill?.base ?? 0] : null} mistakePreview={mistakes.previewing} mistakeOk={!!mistakes.mistake && !mistakeIsBad(mistakes.mistake)} />}
       {mode === 'analyze' && <ImportBox onImport={analyze.importGame} />}

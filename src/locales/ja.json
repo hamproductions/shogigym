@@ -737,7 +737,7 @@
     "andWalkThroughMovesPlay": "◀ ▶ ボタン（パソコンでは←→キー）で手を進めたり戻したりします。別の手を指すと変化を試せます。元の棋譜は残ります。",
     "next": "次へ",
     "whereDoYouWantTo": "どこから始めますか？",
-    "learnTheBasicFourthFile": "得意戦法の基本形を学ぶ",
+    "learnTheBasicFourthFile": "基本の戦法の組み方を学ぶ",
     "studyModeWalksYouThrough": "学習モードで一手ずつ理由とともに進めます。その後クイズで確認しましょう。",
     "playTheAi": "AIと対局",
     "beginnerStrengthTheCoachRates": "初心者向けの強さです。指導が指し手を評価し、悪手は復習に追加されます。",

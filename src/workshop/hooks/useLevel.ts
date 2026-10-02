@@ -12,7 +12,7 @@ function storedLevel() {
 }
 
 export function useLevel() {
-  const [level, setLevelState] = useState<Level>(() => (storedLevel() === 'new' ? 'new' : 'rules'))
+  const [level, setLevelState] = useState<Level>(() => (storedLevel() === 'rules' ? 'rules' : 'new'))
   const [welcome, setWelcome] = useState(() => storedLevel() === null)
   const setLevel = (next: Level) => {
     setWelcome(false)

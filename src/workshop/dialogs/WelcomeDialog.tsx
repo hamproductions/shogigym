@@ -33,13 +33,13 @@ export function WelcomeDialog({ level, onPreviewLevel, onLearnBasics, onPlayAi, 
           <h2>{t('workshop.welcomeToShogilab')}</h2>
           <p>{t('workshop.aWorkshopForLearningThe')}</p>
           <div className="ws-welcome-choices">
-            <button className={level === 'rules' ? 'primary' : ''} onClick={() => pickLevel('rules')}>
-              <strong>{t('workshop.iKnowTheRules')}</strong>
-              <span>{t('workshop.iCanRead7Style')}</span>
-            </button>
             <button className={level === 'new' ? 'primary' : ''} onClick={() => pickLevel('new')}>
               <strong>{t('workshop.newToShogi')}</strong>
               <span>{t('workshop.showHowEachPieceMoves')}</span>
+            </button>
+            <button className={level === 'rules' ? 'primary' : ''} onClick={() => pickLevel('rules')}>
+              <strong>{t('workshop.iKnowTheRules')}</strong>
+              <span>{t('workshop.iCanRead7Style')}</span>
             </button>
           </div>
         </>

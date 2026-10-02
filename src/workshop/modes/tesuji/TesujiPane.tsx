@@ -8,7 +8,7 @@ import { Button } from '../../ui/Button'
 import { Card } from '../../ui/Card'
 import { Segmented } from '../../ui/Segmented'
 
-export function TesujiPane({ trainer, drill }: { trainer: TesujiTrainer; drill: TesujiState }) {
+export function TesujiPane({ trainer, drill, replaying, onBack }: { trainer: TesujiTrainer; drill: TesujiState; replaying: boolean; onBack: () => void }) {
   const { t } = useTranslation()
   const lang = useSettings().lang
   const stats = tesujiStats()
@@ -36,6 +36,13 @@ export function TesujiPane({ trainer, drill }: { trainer: TesujiTrainer; drill: 
           <p className="ws-muted">{t('tesuji.from', { from: drill.item.from })}</p>
         </Card>
       )}
+      {replaying ? (
+        <div className="ws-actions">
+          <Button variant="primary" onClick={onBack}>
+            {t('workshop.goBackAndTryAgain')}
+          </Button>
+        </div>
+      ) : (
       <div className="ws-actions">
         {drill.status === 'asking' && !drill.hint && <Button onClick={trainer.hint}>{t('tesuji.hint')}</Button>}
         {drill.status === 'asking' && <Button onClick={trainer.reveal}>{t('tesuji.showAnswer')}</Button>}
@@ -43,6 +50,7 @@ export function TesujiPane({ trainer, drill }: { trainer: TesujiTrainer; drill: 
           {t('tesuji.next')}
         </Button>
       </div>
+      )}
       <p className="ws-muted">{t('tesuji.solvedFirstTryOf', { value: pool.filter((d) => stats.solved.includes(d.id)).length, poolCount: pool.length })}</p>
     </div>
   )
