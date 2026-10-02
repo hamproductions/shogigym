@@ -43,7 +43,9 @@ function setBoardDims() {
   HALF_D = 4.5 * SQ_D + MARGIN
 }
 const THICK = 182 / 35.2
-const LEG = 2.2
+const LEG = 95 / 35.2
+const STAND_TOP = -8 / 35.2
+const STAND_SLAB = 20 / 35.2
 
 const KOMA_MM: [PieceType[], number, number, number, number][] = [
   [[PieceType.KING], 32.5, 29.3, 9.6, 3.93],
@@ -697,7 +699,7 @@ export function Board3D(props: Board3DProps) {
 
     const standMaterial = woodMaterial([180, 128, 66], 21)
     const stands = [1, -1].map((side) => {
-      const stand = new THREE.Mesh(new THREE.BoxGeometry(STAND, 0.5, STAND), standMaterial)
+      const stand = new THREE.Mesh(new THREE.BoxGeometry(STAND, STAND_SLAB, STAND), standMaterial)
       stand.castShadow = true
       stand.receiveShadow = true
       root.add(stand)
@@ -714,12 +716,12 @@ export function Board3D(props: Board3DProps) {
       stands.forEach(({ stand, side, legs }) => {
         const c = standCenter(side === 1 ? Color.BLACK : Color.WHITE)
         stand.scale.set(layout.portrait ? STRIP_W / STAND : 1, 1, layout.portrait ? strip().d / STAND : 1)
-        stand.position.set(c.x, -0.55, c.z)
-        const legH = THICK + LEG - 0.8
+        stand.position.set(c.x, STAND_TOP - STAND_SLAB / 2, c.z)
+        const legH = THICK + LEG + STAND_TOP - STAND_SLAB
         const [post, foot] = legs
         post.visible = foot.visible = !layout.portrait
         post.scale.y = legH
-        post.position.set(c.x, -0.8 - legH / 2, c.z)
+        post.position.set(c.x, STAND_TOP - STAND_SLAB - legH / 2, c.z)
         foot.position.set(c.x, -THICK - LEG + 0.11, c.z)
       })
     placeStands()
@@ -913,7 +915,7 @@ export function Board3D(props: Board3DProps) {
         const mesh = pieceMesh(spot.type, color)
         mesh.rotation.y += spot.rot
         mesh.scale.setScalar(0.96 * spot.scale)
-        mesh.position.set(spot.x, -0.3 + (spot.lift ?? 0), spot.z)
+        mesh.position.set(spot.x, STAND_TOP + (spot.lift ?? 0), spot.z)
         mesh.castShadow = false
         mesh.userData = { color, type: spot.type }
         s.pieces.add(mesh)
@@ -1054,7 +1056,7 @@ const BIG = HAND_ORDER.filter((t) => t !== PieceType.PAWN)
 
 function standCenter(color: Color) {
   const sign = color === Color.BLACK ? 1 : -1
-  return layout.portrait ? new THREE.Vector3(0, -0.3, sign * strip().z) : new THREE.Vector3(sign * (HALF_W + 0.4 + STAND / 2), -0.3, sign * (HALF_D - STAND / 2))
+  return layout.portrait ? new THREE.Vector3(0, STAND_TOP, sign * strip().z) : new THREE.Vector3(sign * (HALF_W + 0.4 + STAND / 2), STAND_TOP, sign * (HALF_D - STAND / 2))
 }
 
 const STAND = 3.4
@@ -1131,7 +1133,7 @@ function handLayout(position: ImmutablePosition, color: Color): HandSpot[] {
 function handSpot(position: ImmutablePosition, color: Color, type: PieceType) {
   const spots = handLayout(position, color).filter((p) => p.type === type)
   const spot = spots[Math.floor(spots.length / 2)]
-  return spot ? new THREE.Vector3(spot.x, -0.3, spot.z) : null
+  return spot ? new THREE.Vector3(spot.x, STAND_TOP, spot.z) : null
 }
 
 const DROP_TYPE: Record<string, PieceType> = { P: PieceType.PAWN, L: PieceType.LANCE, N: PieceType.KNIGHT, S: PieceType.SILVER, G: PieceType.GOLD, B: PieceType.BISHOP, R: PieceType.ROOK }
