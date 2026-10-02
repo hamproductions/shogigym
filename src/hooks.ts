@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react'
-import { analyze, engineSupported, type Analysis } from './engine'
+import { analyze, engineSupported, useEngineStatus, type Analysis } from './engine'
 import { usiPosition } from './analysis'
 
 const settled = new Map<string, Analysis>()
 
 export function useAnalysis(sfen: string, enabled: boolean, multipv = 3, movetime = 1500) {
+  const { epoch } = useEngineStatus()
   const [state, setState] = useState<{ sfen: string; analysis: Analysis | null; error: string | null }>({ sfen: '', analysis: null, error: null })
   useEffect(() => {
     if (!enabled || !engineSupported()) return
     let cancelled = false
-    const key = `${sfen}|${multipv}|${movetime}`
+    const key = `${epoch}|${sfen}|${multipv}|${movetime}`
     const known = settled.get(key)
     if (known) {
       queueMicrotask(() => !cancelled && setState({ sfen, analysis: known, error: null }))
@@ -36,6 +37,6 @@ export function useAnalysis(sfen: string, enabled: boolean, multipv = 3, movetim
       cancelled = true
       clearTimeout(timer)
     }
-  }, [sfen, enabled, multipv, movetime])
+  }, [sfen, enabled, multipv, movetime, epoch])
   return state.sfen === sfen ? state : { sfen, analysis: null, error: null }
 }

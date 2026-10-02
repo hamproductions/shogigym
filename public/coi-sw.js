@@ -1,5 +1,5 @@
 const CACHE = 'shogilab-v1'
-const local = ['localhost', '127.0.0.1'].includes(self.location.hostname)
+const local = new URL(self.location.href).searchParams.get('mode') === 'development'
 
 const isolate = (response) => {
   if (response.status === 0) return response

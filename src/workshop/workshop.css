@@ -4482,3 +4482,8 @@
     width: 40px;
   }
 }
+
+.ws .ws-more-menu {
+  position: fixed;
+  z-index: 60;
+}

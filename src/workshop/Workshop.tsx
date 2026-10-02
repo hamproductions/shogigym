@@ -16,9 +16,10 @@ import { TESUJI_KINDS, TESUJI_DRILLS, markTesuji, pickTesuji, tesujiStats, type 
 import { deleteGame, loadGames, storeGame, type StoredGame } from './games'
 import { PIECE_SETS, loadPieceSet, pieceUrl, type PieceSet } from './pieceSets'
 import { addPath, allLines, emptyTree, isMainLine, mainContinuation, mainLine, nodeAt, promote, removeBranch, type Tree } from './tree'
-import { PIECE_FINISHES, PIECE_FONTS, STRENGTH, TIME_CONTROLS, type TimeControl, loadPieceFont, playSound, setSettings, useSettings, type AiStrength, type BoardStyle, type Environment, type PieceFinish, type PieceFont, type PieceStyle, type Lang, type EngineKind } from './settings'
+import { PIECE_FINISHES, PIECE_FONTS, STRENGTH, TIME_CONTROLS, type TimeControl, loadPieceFont, playSound, setSettings, useSettings, type AiStrength, type BoardStyle, type Environment, type PieceFinish, type PieceFont, type PieceStyle, type Lang } from './settings'
 import { analyze, engineSupported, scoreToCp, type Score } from '../engine'
 import { useAnalysis } from '../hooks'
+import { EngineName, EngineSettings } from './EngineSettings'
 import { LABELS, describeMove, reviewMove, scoreWinRate, usiPosition, type MoveReview } from '../analysis'
 import { formationOf } from '../formation'
 import { attackerOf, buildQueue, markOpened, courseProgress, defenderMove, expectedMoves, judgeTsumeMove, markTsume, pickProblem, reviewCounts, PROBLEMS, loadTsumeStats, type Problem, type ReviewItem, type ReviewQueue } from './practice'
@@ -101,7 +102,6 @@ export function Workshop() {
   const settings = useSettings()
   const ja = settings.lang === 'ja'
   const [tab, setTab] = useState<Tab>('coach')
-  const [leftTab, setLeftTab] = useState<Tab>('moves')
   const [lessonMode, setLessonMode] = useState<'study' | 'quiz'>('study')
   const [mistake, setMistake] = useState<{ base: number; usi: string; expected: string; note?: string; loss: number | null; known: boolean; verdict?: MoveReview } | null>(null)
   const [showAnswer, setShowAnswer] = useState(false)
@@ -136,6 +136,18 @@ export function Workshop() {
   const [orbit, setOrbit] = useState(false)
   const [more, setMore] = useState(false)
   const [modeMenu, setModeMenu] = useState(false)
+  const [moreAt, setMoreAt] = useState<DOMRect | null>(null)
+  useEffect(() => {
+    if (!more && !modeMenu) return
+    const close = () => (setMore(false), setModeMenu(false))
+    const key = (e: KeyboardEvent) => e.key === 'Escape' && close()
+    window.addEventListener('pointerdown', close)
+    window.addEventListener('keydown', key)
+    return () => {
+      window.removeEventListener('pointerdown', close)
+      window.removeEventListener('keydown', key)
+    }
+  }, [more, modeMenu])
   const [newGame, setNewGame] = useState(false)
   const askedNewGame = useRef(false)
   useEffect(() => {
@@ -318,7 +330,7 @@ export function Workshop() {
   const panelWidth = panelPrefs.width
   const flatView = settings.environment === 'flat' || settings.environment === 'diagram' || settings.environment === 'broadcast'
   const panelHidden = compact ? !drawer : panelPrefs.hidden
-  const zoned = !compact && settings.environment !== 'diagram' && settings.environment !== 'broadcast' && viewport.w >= 1100 && !(tilted && !flatView) && sideStandsFit(viewport.w - 100, viewport.h - 110)
+  const zoned = !compact && settings.environment !== 'diagram' && settings.environment !== 'broadcast' && viewport.w >= 1100 && sideStandsFit(viewport.w - 100, viewport.h - 110)
   const compactRef = useRef(compact)
   compactRef.current = compact
   const panelHiddenRef = useRef(panelHidden)
@@ -369,7 +381,7 @@ export function Workshop() {
   )
 
   const load = (start: string, side: Side, nextMode: Mode, nextCourse: Course | null) => {
-    if (nextMode !== mode && (mode === 'spar' || mode === 'analyze' || mode === 'lesson')) saved.current[mode] = { game, cursor, userSide, flipped, course, lessonMode, score, tree }
+    if (nextMode !== mode && (mode === 'spar' || mode === 'analyze' || mode === 'lesson')) saved.current[mode] = { game, cursor, userSide, flipped, course, lessonMode, score, tree, resigned }
     setPreview(null)
     setPlaying(false)
     setTree(emptyTree())
@@ -960,20 +972,6 @@ export function Workshop() {
   useEffect(() => {
     if (evalCp !== null) setEvals((e) => (e[evalKey] === evalCp ? e : { ...e, [evalKey]: evalCp }))
   }, [evalKey, evalCp])
-  const [scanning, setScanning] = useState(false)
-  const scanGame = async () => {
-    setScanning(true)
-    for (const s of sfens) {
-      if (evals[strip(s)] !== undefined) continue
-      const result = await analyze(usiPosition(s), { multipv: 1, movetime: 250 })
-      const top = result.candidates[0]
-      if (top) {
-        const cp = scoreToCp(toSente(top.score, colorSide(positionOf(s).color)))
-        setEvals((e) => ({ ...e, [strip(s)]: cp }))
-      }
-    }
-    setScanning(false)
-  }
   const senteRate = evalSente ? scoreWinRate(evalSente) : 0.5
 
   useEffect(() => {
@@ -1158,11 +1156,11 @@ export function Workshop() {
   useEffect(() => {
     if (mode === 'lesson' || mode === 'drill' || mode === 'tsume') document.querySelector('.ws-panel-body')?.scrollTo({ top: 0, behavior: 'smooth' })
   }, [mode, cursor, preview === null, lessonDone])
-  const saved = useRef<Partial<Record<Mode, { game: { start: string; moves: string[] }; cursor: number; userSide: Side; flipped: boolean; course: Course | null; lessonMode: 'study' | 'quiz'; score: { right: number; wrong: number; shown?: number; retried?: number }; tree?: Tree }>>>({})
+  const saved = useRef<Partial<Record<Mode, { resigned?: boolean; game: { start: string; moves: string[] }; cursor: number; userSide: Side; flipped: boolean; course: Course | null; lessonMode: 'study' | 'quiz'; score: { right: number; wrong: number; shown?: number; retried?: number }; tree?: Tree }>>>({})
   const enterMode = (m: Mode) => {
     if (m === mode && m === 'lesson' && course && !preview) return load(InitialPositionSFEN.STANDARD, 'sente', 'lesson', null), setPickerSetup(null)
     if (m === mode) return
-    saved.current[mode] = { game, cursor, userSide, flipped, course, lessonMode, score, tree }
+    saved.current[mode] = { game, cursor, userSide, flipped, course, lessonMode, score, tree, resigned }
     setShowEscape(false)
     setPeekFrom(null)
     setTab('coach')
@@ -1175,6 +1173,7 @@ export function Workshop() {
       setLessonMode(back.lessonMode)
       setScore(back.score)
       if (back.tree) setTree(back.tree)
+      if (back.resigned) setResigned(true)
       return
     }
     if (m === 'tesuji') return startTesuji(tesujiDrill?.filter ?? 'all')
@@ -1250,17 +1249,13 @@ export function Workshop() {
   }, [mode, course, lessonMode, game, cursor, userSide, score, tree, tsume, drill])
 
   const twoPanels = zoned && !panelPrefs.hidden && !!zones && zones.under.width >= 240 && zones.under.height >= 200
-  const pickTab = (id: Tab, side: 'left' | 'right') => {
-    if (side === 'right') {
-      if (twoPanels && id === leftTab) setLeftTab(tab)
-      setTab(id)
-    } else {
-      if (id === tab) setTab(leftTab)
-      setLeftTab(id)
-    }
-  }
+  useEffect(() => {
+    if (twoPanels && tab === 'moves') setTab('coach')
+  }, [twoPanels, tab])
+
   const panelBody = (tab: Tab) => (
-    <div className="ws-panel-body">
+    <div className="ws-panel-body" key={`${mode}|${course?.id ?? ''}|${lessonMode}|${tab}|${tsume?.problem.id ?? ''}|${drill?.index ?? ''}`}>
+      {tab === 'moves' && ai && assist && game.moves.length > 0 && (mode === 'analyze' || mode === 'spar') && <EvalGraph values={sfens.map((s) => evals[strip(s)])} cursor={cursor} onJump={setCursor} />}
       {level === 'new' && selection && !(mode === 'lesson' && course) && <PieceGuide sfen={sfen} from={selection.from} />}
       {tab === 'engine' && !ai && <p className="ws-muted">{t('workshop.theAiNeedsACross')}</p>}
       {tab === 'engine' && ai && spoilerFree && <p className="ws-muted">{t('workshop.theAiStaysQuietUntil')}</p>}
@@ -1359,15 +1354,6 @@ export function Workshop() {
           {gameNotes.ending && cursor === gameNotes.moves.split(' ').length && <p className="ws-note">{gameNotes.ending}</p>}
         </div>
       )}
-      {tab === 'coach' && mode === 'spar' && (
-        <div className="ws-seg ws-spar-side" role="group" aria-label={t('workshop.yourSide')}>
-          {(['sente', 'gote'] as const).map((side) => (
-            <button key={side} className={userSide === side ? 'on' : ''} onClick={() => (side === userSide ? undefined : game.moves.length > 0 ? setConfirm({ text: t('workshop.newGameAs', { side: t(side === 'sente' ? 'common.sente' : 'common.gote'), count: game.moves.length }), run: () => load(InitialPositionSFEN.STANDARD, side, 'spar', null) }) : load(InitialPositionSFEN.STANDARD, side, 'spar', null))}>
-              {side === 'sente' ? t('workshop.playSente') : t('workshop.playGote')}
-            </button>
-          ))}
-        </div>
-      )}
       {tab === 'coach' && mode === 'spar' && game.moves.length > 0 && !gameOver && (
         <div className="ws-actions ws-spar-actions">
           {!resigned && (
@@ -1380,7 +1366,6 @@ export function Workshop() {
               {t('workshop.resign')}
             </button>
           )}
-          <button onClick={reviewGame}>{t('workshop.reviewInAnalyze')}</button>
         </div>
       )}
       {tab === 'coach' && (mode === 'spar' || mode === 'analyze') && !assist && <p className="ws-muted">{t('workshop.helpIsOffNoRatings')}</p>}
@@ -1405,6 +1390,7 @@ export function Workshop() {
             onScore={(k, cp) => setEvals((e) => ({ ...e, [k]: cp }))}
             tree={mode === 'spar' || mode === 'analyze' ? tree : null}
             autoRate={mode === 'analyze' && autoRate === game.moves.join(' ')}
+            canRate={mode === 'analyze' || gameOver || resigned}
             onSwitch={(path) => {
               const node = nodeAt(tree, path)
               setGame((g) => ({ ...g, moves: [...path, ...mainContinuation(node)] }))
@@ -1451,12 +1437,12 @@ export function Workshop() {
         </div>
         {compact && (
           <div className="ws-menu-wrap ws-mode-menu">
-            <button className="ws-rail-btn on" onClick={() => setModeMenu((v) => !v)} aria-expanded={modeMenu}>
+            <button className="ws-rail-btn on" onClick={(e) => (e.stopPropagation(), setMore(false), setModeMenu((v) => !v))} aria-expanded={modeMenu}>
               <Icon name="menu" size={20} />
               <span>{t(`modes.${mode}.name`)}</span>
             </button>
             {modeMenu && (
-              <div className="ws-more-menu left" onClick={() => setModeMenu(false)}>
+              <div className="ws-more-menu left" onPointerDown={(e) => e.stopPropagation()} onClick={() => setModeMenu(false)}>
                 {MODES.map((m) => (
                   <button key={m.id} className={`ws-rail-btn${mode === m.id ? ' on' : ''}`} onClick={() => enterMode(m.id)}>
                     <Icon name={m.icon} size={20} />
@@ -1494,12 +1480,12 @@ export function Workshop() {
           <span className={ja ? 'ws-ja' : 'ws-en'}>{t('rail.settings')}</span>
         </button>
         <div className="ws-menu-wrap">
-          <button className={`ws-rail-btn${more ? ' on' : ''}`} onClick={() => setMore((v) => !v)} aria-expanded={more} title={t('rail.more')}>
+          <button className={`ws-rail-btn${more ? ' on' : ''}`} onClick={(e) => (e.stopPropagation(), setModeMenu(false), setMoreAt(e.currentTarget.getBoundingClientRect()), setMore((v) => !v))} aria-expanded={more} title={t('rail.more')}>
             <Icon name="more" size={20} />
             <span>{t('rail.more')}</span>
           </button>
           {more && (
-            <div className="ws-more-menu" onClick={() => setMore(false)}>
+            <div className="ws-more-menu" style={moreAt && !compact ? { left: moreAt.right + 8, bottom: window.innerHeight - moreAt.bottom } : undefined} onPointerDown={(e) => e.stopPropagation()} onClick={() => setMore(false)}>
               <button className={`ws-rail-btn${showControl ? ' on' : ''}`} onClick={() => setShowControl((v) => !v)} title={t('workshop.controlMapWhoControlsEach')} aria-pressed={showControl}>
                 <Icon name="control" size={20} />
                 <span>{t('rail.control')}</span>
@@ -1569,7 +1555,7 @@ export function Workshop() {
             <div className="ws-mini-nav">
               <button className="ws-mini-wide" onClick={() => setPanel({ hidden: true })} title={t('workshop.boardOnlyHideThePanel')} aria-label={t('workshop.hideThePanel')}>
                 <Icon name="panel" size={16} />
-                <span>{t('workshop.boardOnly')}</span>
+                <span>{t('workshop.hidePanel')}</span>
               </button>
             </div>
           )}
@@ -1593,10 +1579,7 @@ export function Workshop() {
             </div>
           )}
           {mode === 'spar' && (
-            <button className="ws-game-setup" onClick={() => setNewGame(true)} title={t('newGame.title')}>
-              <span>{STRENGTH[settings.opponent].label}</span>
-              <span>{TIME_CONTROLS[settings.timeControl].label}</span>
-              <span>{settings.aiStrategy ? SETUPS.find((x) => x.id === settings.aiStrategy)?.ja : t('workshop.anyStrategy')}</span>
+            <button className="ws-game-setup" onClick={() => setNewGame(true)} title={`${STRENGTH[settings.opponent].label} · ${TIME_CONTROLS[settings.timeControl].label}`}>
               <b>{t('newGame.button')}</b>
             </button>
           )}
@@ -1781,13 +1764,11 @@ export function Workshop() {
       {twoPanels && zones && (
         <aside className="ws-panel ws-panel-left" style={{ ...zones.under }}>
           <div className="ws-tabs" role="tablist">
-            {TABS.map((id) => (
-              <button key={id} role="tab" aria-selected={leftTab === id} className={leftTab === id ? 'on' : ''} onClick={() => pickTab(id, 'left')}>
-                <span className={ja ? 'ws-ja' : 'ws-en'}>{t(`tabs.${id}`)}</span>
-              </button>
-            ))}
+            <button role="tab" aria-selected className="on">
+              <span className={ja ? 'ws-ja' : 'ws-en'}>{t('tabs.moves')}</span>
+            </button>
           </div>
-          {panelBody(leftTab)}
+          {panelBody('moves')}
         </aside>
       )}
       <aside className={`ws-panel${sheetIsOpen ? ' open' : ''}`} style={zoned ? (zones && !panelPrefs.hidden ? { ...zones.over } : { display: 'none' }) : undefined}>
@@ -1848,8 +1829,8 @@ export function Workshop() {
           aria-label={sheetIsOpen ? t('workshop.collapsePanel') : t('workshop.expandPanel')}
         />
         <div className="ws-tabs" role="tablist">
-          {TABS.map((id) => (
-            <button key={id} role="tab" aria-selected={tab === id} className={tab === id ? 'on' : ''} onClick={() => pickTab(id, 'right')}>
+          {TABS.filter((id) => !(twoPanels && id === 'moves')).map((id) => (
+            <button key={id} role="tab" aria-selected={tab === id} className={tab === id ? 'on' : ''} onClick={() => setTab(id)}>
               <span className={ja ? 'ws-ja' : 'ws-en'}>{t(`tabs.${id}`)}</span>
             </button>
           ))}
@@ -1858,8 +1839,7 @@ export function Workshop() {
           </button>
         </div>
         {panelBody(tab)}
-        {ai && assist && game.moves.length > 0 && (mode === 'analyze' || mode === 'spar') && <EvalGraph className={tab === 'moves' ? '' : 'phone-hidden'} values={sfens.map((s) => evals[strip(s)])} cursor={cursor} onJump={setCursor} onScan={scanGame} scanning={scanning} />}
-        <footer className="ws-nav">
+        <footer className="ws-nav" hidden={game.moves.length === 0 && !preview}>
           <button onClick={() => (preview ? setPreview({ ...preview, step: 0 }) : setCursor(0))} disabled={preview ? preview.step === 0 : cursor === 0} title={t('workshop.startHome')}>
             <Icon name="first" />
           </button>
@@ -2073,7 +2053,13 @@ function EnginePane({ sfen, toMove, analysis, showBest, setShowBest, onPlay, can
   const { t } = useTranslation()
   const [openLine, setOpenLine] = useState<number | null>(null)
   if (!engineSupported()) return <p className="ws-muted">{t('engine.theAiNeedsACross')}</p>
-  if (!analysis || !analysis.candidates.length) return <p className="ws-muted">{t('engine.analysingThePosition')}</p>
+  if (!analysis || !analysis.candidates.length)
+    return (
+      <>
+        <EngineName />
+        <p className="ws-muted">{t('engine.analysingThePosition')}</p>
+      </>
+    )
   const [best, ...others] = analysis.candidates
   const bestRate = scoreWinRate(best.score)
   const senteRate = scoreWinRate(toSente(best.score, toMove))
@@ -2089,8 +2075,7 @@ function EnginePane({ sfen, toMove, analysis, showBest, setShowBest, onPlay, can
   }
   return (
     <div className="ws-engine">
-      <p className="ws-legend">{t('engine.boardArrowsSolidTheAi')}</p>
-      <AiControls />
+      <EngineName />
       <div className="ws-standing">
         <strong>{standing(senteRate)}</strong>
         <div className="ws-meter" aria-hidden="true">
@@ -2237,7 +2222,7 @@ function CoachPane(props: {
   )
 }
 
-function MovesPane({ sfens, moves, cursor, setCursor, title, onScore, tree, onSwitch, onDelete, autoRate }: { sfens: string[]; moves: string[]; cursor: number; setCursor: (i: number) => void; title: string; onScore?: (sfen: string, cp: number) => void; tree?: Tree | null; onSwitch?: (path: string[]) => void; onDelete?: (path: string[], size: number) => void; autoRate?: boolean }) {
+function MovesPane({ sfens, moves, cursor, setCursor, title, onScore, tree, onSwitch, onDelete, autoRate, canRate = true }: { canRate?: boolean; sfens: string[]; moves: string[]; cursor: number; setCursor: (i: number) => void; title: string; onScore?: (sfen: string, cp: number) => void; tree?: Tree | null; onSwitch?: (path: string[]) => void; onDelete?: (path: string[], size: number) => void; autoRate?: boolean }) {
   const { t } = useTranslation()
   const [, setTick] = useState(0)
   const listRef = useRef<HTMLOListElement>(null)
@@ -2347,7 +2332,7 @@ function MovesPane({ sfens, moves, cursor, setCursor, title, onScore, tree, onSw
   return (
     <div>
       <div className="ws-rate">
-        {engineSupported() && progress === null && !rated && <button onClick={rate}>{current ? t('moves.rateTheRemainingMoves') : t('moves.rateEveryMove')}</button>}
+        {engineSupported() && canRate && progress === null && !rated && <button onClick={rate}>{current ? t('moves.rateTheRemainingMoves') : t('moves.rateEveryMove')}</button>}
         {progress !== null && <span className="ws-muted">{t('moves.ratingMoveOf', { progress, movesCount: moves.length })}</span>}
         {rated && progress === null && (
           <>
@@ -3085,7 +3070,7 @@ function Palette({ commands, onClose }: { commands: (q: string) => Command[]; on
   )
 }
 
-function EvalGraph({ values, cursor, onJump, onScan, scanning, className = '' }: { values: (number | undefined)[]; cursor: number; onJump: (i: number) => void; onScan: () => void; scanning: boolean; className?: string }) {
+function EvalGraph({ values, cursor, onJump, className = '' }: { values: (number | undefined)[]; cursor: number; onJump: (i: number) => void; className?: string }) {
   const { t } = useTranslation()
   const W = 360
   const H = 88
@@ -3095,7 +3080,6 @@ function EvalGraph({ values, cursor, onJump, onScan, scanning, className = '' }:
   const known = values.map((v, i) => (v === undefined ? null : [x(i), y(v)])).filter((p): p is number[] => p !== null)
   const line = known.map(([px, py], i) => `${i ? 'L' : 'M'}${px.toFixed(1)},${py.toFixed(1)}`).join('')
   const area = known.length ? `${line}L${known.at(-1)![0].toFixed(1)},${H / 2}L${known[0][0].toFixed(1)},${H / 2}Z` : ''
-  const missing = values.some((v) => v === undefined)
   return (
     <div className={`ws-graph ${className}`}>
       <div className="ws-graph-axis">
@@ -3117,11 +3101,6 @@ function EvalGraph({ values, cursor, onJump, onScan, scanning, className = '' }:
         {line && <path d={line} className="ws-graph-line" />}
         <line x1={x(cursor)} x2={x(cursor)} y1="0" y2={H} className="ws-graph-cursor" />
       </svg>
-      {missing && values.length > 1 && (
-        <button className="ws-graph-scan" onClick={onScan} disabled={scanning}>
-          {scanning ? t('graph.scoringEveryMove') : t('graph.scoreEveryMove')}
-        </button>
-      )}
     </div>
   )
 }
@@ -3359,10 +3338,7 @@ function SettingsDialog({ onClose, level, onLevel }: { onClose: () => void; leve
             <>
                 {seg(t('settings.thinkingTime'), st.thinkMs, [{ v: 500, t: t('settings.fast') }, { v: 1500, t: t('settings.normal') }, { v: 4000, t: t('settings.deep') }], (v) => setSettings({ thinkMs: v }))}
                 {seg(t('settings.candidateMovesShown'), st.candidates, [{ v: 1, t: '1' }, { v: 2, t: '2' }, { v: 3, t: '3' }, { v: 5, t: '5' }], (v) => setSettings({ candidates: v }))}
-                {seg<AiStrength>(t('settings.aiOpponentStrength'), st.opponent, (Object.keys(STRENGTH) as AiStrength[]).map((k) => ({ v: k, t: STRENGTH[k].label })), (v) => setSettings({ opponent: v }))}
-                {seg<TimeControl>(t('settings.clock'), st.timeControl, (Object.keys(TIME_CONTROLS) as TimeControl[]).map((k) => ({ v: k, t: TIME_CONTROLS[k].label })), (v) => setSettings({ timeControl: v }))}
-                {seg<EngineKind>(t('settings.engine'), st.engine, [{ v: 'yaneuraou', t: t('settings.yaneuraou') }, { v: 'fairy', t: t('settings.fairyStockfish') }], (v) => setSettings({ engine: v }))}
-                <p className="ws-muted ws-credit">{t('settings.engineHint')}</p>
+                <EngineSettings />
             </>
           )}
         </div>
@@ -3371,30 +3347,4 @@ function SettingsDialog({ onClose, level, onLevel }: { onClose: () => void; leve
   )
 }
 
-function AiControls() {
-  const { t } = useTranslation()
-  const st = useSettings()
-  return (
-    <div className="ws-inline-settings">
-      <div className="ws-seg small" role="group" aria-label={t('settings.thinkingTime')}>
-        {[
-          { v: 500, t: t('settings.fast') },
-          { v: 1500, t: t('settings.normal') },
-          { v: 4000, t: t('settings.deep') },
-        ].map((o) => (
-          <button key={o.v} className={st.thinkMs === o.v ? 'on' : ''} onClick={() => setSettings({ thinkMs: o.v })}>
-            {o.t}
-          </button>
-        ))}
-      </div>
-      <div className="ws-seg small" role="group" aria-label={t('settings.candidateMoves')}>
-        {[1, 2, 3, 5].map((n) => (
-          <button key={n} className={st.candidates === n ? 'on' : ''} onClick={() => setSettings({ candidates: n })}>
-            {t('settings.lineCount', { count: n })}
-          </button>
-        ))}
-      </div>
-    </div>
-  )
-}
 

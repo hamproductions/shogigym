@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "postinstall": "mkdir -p public/engine && cp node_modules/@mizarjp/yaneuraou.k-p/lib/yaneuraou.k-p.js node_modules/@mizarjp/yaneuraou.k-p/lib/yaneuraou.k-p.wasm node_modules/@mizarjp/yaneuraou.k-p/lib/yaneuraou.k-p.worker.js public/engine/",
+    "postinstall": "mkdir -p public/engine && cp node_modules/@mizarjp/yaneuraou.k-p/lib/yaneuraou.k-p.js node_modules/@mizarjp/yaneuraou.k-p/lib/yaneuraou.k-p.wasm node_modules/@mizarjp/yaneuraou.k-p/lib/yaneuraou.k-p.worker.js node_modules/@mizarjp/yaneuraou.halfkp.noeval/lib/yaneuraou.halfkp.noeval.js node_modules/@mizarjp/yaneuraou.halfkp.noeval/lib/yaneuraou.halfkp.noeval.wasm node_modules/@mizarjp/yaneuraou.halfkp.noeval/lib/yaneuraou.halfkp.noeval.worker.js public/engine/ && mkdir -p public/engine/fairy && cp node_modules/fairy-stockfish-nnue.wasm/stockfish.js node_modules/fairy-stockfish-nnue.wasm/stockfish.wasm node_modules/fairy-stockfish-nnue.wasm/stockfish.worker.js public/engine/fairy/",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
@@ -16,7 +16,9 @@
     "@fontsource/yuji-syuku": "^5.3.0",
     "@fontsource/zen-antique": "^5.3.0",
     "@fontsource/zen-kaku-gothic-new": "^5.3.0",
+    "@mizarjp/yaneuraou.halfkp.noeval": "^7.6.3-alpha.0",
     "@mizarjp/yaneuraou.k-p": "^7.6.3-alpha.0",
+    "fairy-stockfish-nnue.wasm": "^1.1.12",
     "i18next": "^26.4.2",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",

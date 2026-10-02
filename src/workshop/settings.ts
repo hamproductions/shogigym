@@ -10,6 +10,7 @@ export type BoardStyle = 'kaya' | 'shin-kaya' | 'dark'
 export type TimeControl = 'none' | '10s' | '3m' | '10m' | '10m30s' | '30m60s' | '5m5s'
 export type AiStrength = 'beginner' | 'club' | 'strong' | 'max'
 export type Lang = 'en' | 'ja'
+export type EngineKind = 'yaneuraou' | 'nnue' | 'fairy'
 
 export type Settings = {
   sound: boolean
@@ -28,6 +29,8 @@ export type Settings = {
   assist: boolean
   timeControl: TimeControl
   lang: Lang
+  engine: EngineKind
+  fvScale: number
 }
 
 const KEY = 'joseki-practice:settings:v1'
@@ -40,7 +43,7 @@ function navigatorLang(): Lang {
   }
 }
 
-const DEFAULTS: Settings = { sound: true, volume: 0.6, pieceStyle: 'two', pieceFont: 'mincho', pieceSet: 'letters', pieceFinish: 'moriage', coords: true, environment: 'traditional', boardStyle: 'kaya', thinkMs: 1500, candidates: 3, opponent: 'beginner', aiStrategy: '', assist: true, timeControl: 'none', lang: navigatorLang() }
+const DEFAULTS: Settings = { sound: true, volume: 0.6, pieceStyle: 'two', pieceFont: 'mincho', pieceSet: 'letters', pieceFinish: 'moriage', coords: true, environment: 'traditional', boardStyle: 'kaya', thinkMs: 1500, candidates: 3, opponent: 'beginner', aiStrategy: '', assist: true, timeControl: 'none', lang: navigatorLang(), engine: 'yaneuraou', fvScale: 16 }
 
 function read(): Settings {
   try {
@@ -67,14 +70,15 @@ export function setSettings(patch: Partial<Settings>) {
 
 export const getSettings = () => current
 
+export function subscribeSettings(listener: () => void) {
+  listeners.add(listener)
+  return () => {
+    listeners.delete(listener)
+  }
+}
+
 export function useSettings() {
-  return useSyncExternalStore(
-    (l) => {
-      listeners.add(l)
-      return () => listeners.delete(l)
-    },
-    () => current,
-  )
+  return useSyncExternalStore(subscribeSettings, () => current)
 }
 
 export const STRENGTH: Record<AiStrength, { label: string; movetime: number; pickFrom: number; maxLoss: number }> = {

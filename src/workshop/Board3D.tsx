@@ -855,6 +855,7 @@ export function Board3D(props: Board3DProps) {
       }
       const st = state.current!
       if (st.tiltTarget !== 0 || st.tilt > 0.002) return
+      if (Math.abs((latest.current.flipped ? Math.PI : 0) - st.root.rotation.y) > 0.002) return
       const ok = !layout.portrait
       if (!ok) {
         if (zoneKey !== 'none') {

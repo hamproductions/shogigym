@@ -65,6 +65,8 @@ This app is GPL-3.0-or-later.
 | Part | Source | License |
 |---|---|---|
 | Engine | YaneuraOu, WASM build `@mizarjp/yaneuraou.k-p` (github.com/mizar/YaneuraOu.wasm) | GPL-3.0 |
+| Engine (optional) | YaneuraOu NNUE (HalfKP 256x2-32-32), WASM build `@mizarjp/yaneuraou.halfkp.noeval` (github.com/mizar/YaneuraOu.wasm); no evaluation file is bundled, the user loads their own nn.bin | GPL-3.0 |
+| Engine (optional) | Fairy-Stockfish, WASM build `fairy-stockfish-nnue.wasm` (github.com/fairy-stockfish/fairy-stockfish.wasm) | GPL-3.0 |
 | Rules, notation, kifu I/O | tsshogi (github.com/sunfish-shogi/tsshogi) | MIT |
 | 3D rendering | three.js | MIT |
 | Joseki courses in `vendor/shiryu-joseki` | github.com/Shiryu181/shogi-joseki (commit in `vendor/shiryu-joseki/SOURCE_COMMIT`), lines from shogilounge.com, hibitonshi.com and shogi-joutatsu.com | GPL-3.0 |

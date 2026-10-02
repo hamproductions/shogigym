@@ -10,7 +10,9 @@
         "@fontsource/yuji-syuku": "^5.3.0",
         "@fontsource/zen-antique": "^5.3.0",
         "@fontsource/zen-kaku-gothic-new": "^5.3.0",
+        "@mizarjp/yaneuraou.halfkp.noeval": "^7.6.3-alpha.0",
         "@mizarjp/yaneuraou.k-p": "^7.6.3-alpha.0",
+        "fairy-stockfish-nnue.wasm": "^1.1.12",
         "i18next": "^26.4.2",
         "react": "^19.2.8",
         "react-dom": "^19.2.8",
@@ -44,6 +46,8 @@
     "@fontsource/zen-antique": ["@fontsource/zen-antique@5.3.0", "", {}, "sha512-G9iu1kgpr0MvBWVoR+DjoVMgK5zdVVeMQ+qdHJ42ec8Ag+574uWuykjMbOn9Nfq560swzixiTNdMlWoNzzyCAg=="],
 
     "@fontsource/zen-kaku-gothic-new": ["@fontsource/zen-kaku-gothic-new@5.3.0", "", {}, "sha512-2t88gAaUkqIAFARfO8GkT1x57QBRx8A0pWeB0CIrIahnzdanWjcV4thPCSv9BJmpeRndq6qbFx1KYglHykiPhw=="],
+
+    "@mizarjp/yaneuraou.halfkp.noeval": ["@mizarjp/yaneuraou.halfkp.noeval@7.6.3-alpha.0", "", { "bin": { "usi.halfkp.noeval": "usi.halfkp.noeval.js" } }, "sha512-74qva6+2RgIUJA+NMJmFJnDCEKl3wTCEekDJfUdd4/Q7djB0bxlYxxn+5bC7CkBswi/T9jYpkvnsVon0Lv+aeA=="],
 
     "@mizarjp/yaneuraou.k-p": ["@mizarjp/yaneuraou.k-p@7.6.3-alpha.0", "", { "bin": { "usi.k-p": "usi.k-p.js" } }, "sha512-mdvyrtoCkI6s2bLImTol3Jj7AYVs0RJ4KOrP2OVRn7oPedtKVBfkROTWHkGdwIQHCDIzFCGEG+oEzmvxauvFcg=="],
 
@@ -138,6 +142,8 @@
     "csstype": ["csstype@3.2.3", "", {}, "sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ=="],
 
     "detect-libc": ["detect-libc@2.1.2", "", {}, "sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ=="],
+
+    "fairy-stockfish-nnue.wasm": ["fairy-stockfish-nnue.wasm@1.1.12", "", {}, "sha512-E0z5fvgZgIK0NoLmI6krWt5g362G4mZguANy8obTXL7EFPzyOyQn9A8OmBcjRe/s4see2s9okfULTGVnCu+1XQ=="],
 
     "fdir": ["fdir@6.5.0", "", { "peerDependencies": { "picomatch": "^3 || ^4" }, "optionalPeers": ["picomatch"] }, "sha512-tIbYtZbucOs0BRGqPJkshJUYdL+SDH7dVM8gjy+ERp3WAUjLEFJE+02kanyHtwjWOnwrKYBiwAmM0p4kLJAnXg=="],
 

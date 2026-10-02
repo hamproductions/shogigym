@@ -1,12 +1,22 @@
-type YaneuraOuModule = {
+import { useSyncExternalStore } from 'react'
+import i18n from './i18n'
+import { readEvalFile } from './evalStore'
+import { getSettings, subscribeSettings, type EngineKind } from './workshop/settings'
+
+type UsiModule = {
   addMessageListener: (listener: (line: string) => void) => void
   postMessage: (command: string) => void
   terminate: () => void
+  FS?: { writeFile: (path: string, data: Uint8Array) => void }
 }
+
+type EngineFactory = () => Promise<UsiModule>
 
 declare global {
   interface Window {
-    YaneuraOu_K_P?: () => Promise<YaneuraOuModule>
+    YaneuraOu_K_P?: EngineFactory
+    YaneuraOu_HalfKP_noeval?: EngineFactory
+    Stockfish?: EngineFactory
   }
 }
 
@@ -25,34 +35,70 @@ export type Analysis = {
   candidates: Candidate[]
 }
 
-const SCRIPT_URL = `${import.meta.env.BASE_URL}engine/yaneuraou.k-p.js`
+export type EngineStatus = { kind: EngineKind; name: string; error: string; epoch: number }
 
-let enginePromise: Promise<YaneuraOuModule> | null = null
+const ENGINES: Record<EngineKind, { script: string; factory: () => EngineFactory | undefined; options: () => string[] }> = {
+  yaneuraou: { script: `${import.meta.env.BASE_URL}engine/yaneuraou.k-p.js`, factory: () => window.YaneuraOu_K_P, options: () => ['USI_OwnBook value false', 'PvInterval value 0'] },
+  nnue: { script: `${import.meta.env.BASE_URL}engine/yaneuraou.halfkp.noeval.js`, factory: () => window.YaneuraOu_HalfKP_noeval, options: () => ['USI_OwnBook value false', 'PvInterval value 0', 'EvalDir value .', 'EvalFile value nn.bin', `FV_SCALE value ${getSettings().fvScale}`] },
+  fairy: { script: `${import.meta.env.BASE_URL}engine/fairy/stockfish.js`, factory: () => window.Stockfish, options: () => ['USI_Variant value shogi'] },
+}
+
+let active: { key: string; engine: Promise<UsiModule> } | null = null
+let current: UsiModule | null = null
+let session = 0
 let listener: ((line: string) => void) | null = null
+let pending: (() => void) | null = null
 let queue: Promise<unknown> = Promise.resolve()
 let interruptible = false
 let searching = false
 let backgroundGeneration = 0
+let status: EngineStatus = { kind: getSettings().engine, name: '', error: '', epoch: 0 }
+const statusListeners = new Set<() => void>()
 
-function loadScript(): Promise<void> {
-  if (window.YaneuraOu_K_P) return Promise.resolve()
+function setStatus(patch: Partial<EngineStatus>) {
+  status = { ...status, ...patch }
+  statusListeners.forEach((l) => l())
+}
+
+export function useEngineStatus() {
+  return useSyncExternalStore(
+    (l) => {
+      statusListeners.add(l)
+      return () => {
+        statusListeners.delete(l)
+      }
+    },
+    () => status,
+  )
+}
+
+function engineKey() {
+  const { engine, fvScale } = getSettings()
+  return engine === 'nnue' ? `${engine}:${fvScale}` : engine
+}
+
+function loadScript(src: string, factory: () => EngineFactory | undefined): Promise<void> {
+  if (factory()) return Promise.resolve()
   return new Promise((resolve, reject) => {
     const script = document.createElement('script')
-    script.src = SCRIPT_URL
+    script.src = src
     script.onload = () => resolve()
-    script.onerror = () => reject(new Error(`failed to load ${SCRIPT_URL}`))
+    script.onerror = () => reject(new Error(`failed to load ${src}`))
     document.head.appendChild(script)
   })
 }
 
-function waitFor(engine: YaneuraOuModule, command: string, terminator: string, onLine?: (line: string) => void): Promise<void> {
+function waitFor(engine: UsiModule, command: string, terminator: string, onLine?: (line: string) => void): Promise<void> {
   return new Promise((resolve) => {
+    const finish = () => {
+      listener = null
+      pending = null
+      resolve()
+    }
+    pending = finish
     listener = (line) => {
       onLine?.(line)
-      if (line.startsWith(terminator)) {
-        listener = null
-        resolve()
-      }
+      if (line.startsWith(terminator)) finish()
     }
     engine.postMessage(command)
   })
@@ -62,22 +108,78 @@ export function engineSupported(): boolean {
   return typeof SharedArrayBuffer !== 'undefined' && window.crossOriginIsolated
 }
 
-export function getEngine(): Promise<YaneuraOuModule> {
-  enginePromise ??= (async () => {
-    if (!engineSupported()) throw new Error('SharedArrayBuffer unavailable: page must be cross-origin isolated (COOP/COEP)')
-    await loadScript()
-    const engine = await window.YaneuraOu_K_P!()
-    engine.addMessageListener((line) => listener?.(line))
-    await waitFor(engine, 'usi', 'usiok')
-    engine.postMessage('setoption name USI_Hash value 128')
-    engine.postMessage(`setoption name Threads value ${Math.max(1, Math.min(4, (navigator.hardwareConcurrency || 2) - 1))}`)
-    engine.postMessage('setoption name USI_OwnBook value false')
-    engine.postMessage('setoption name PvInterval value 0')
-    await waitFor(engine, 'isready', 'readyok')
-    return engine
-  })()
-  return enginePromise
+async function boot(kind: EngineKind): Promise<UsiModule> {
+  const id = session
+  if (!engineSupported()) throw new Error('SharedArrayBuffer unavailable: page must be cross-origin isolated (COOP/COEP)')
+  const spec = ENGINES[kind]
+  const evalFile = kind === 'nnue' ? await readEvalFile() : null
+  if (kind === 'nnue' && !evalFile) throw new Error(i18n.t('engine.noEvalFile'))
+  await loadScript(spec.script, spec.factory)
+  const engine = await spec.factory()!()
+  engine.addMessageListener((line) => {
+    if (id === session) listener?.(line)
+  })
+  if (evalFile) engine.FS!.writeFile('/nn.bin', evalFile.bytes)
+  let name = ''
+  await waitFor(engine, 'usi', 'usiok', (line) => {
+    if (line.startsWith('id name ')) name = line.slice(8)
+  })
+  engine.postMessage('setoption name USI_Hash value 128')
+  engine.postMessage(`setoption name Threads value ${Math.max(1, Math.min(4, (navigator.hardwareConcurrency || 2) - 1))}`)
+  spec.options().forEach((option) => engine.postMessage(`setoption name ${option}`))
+  let failure = ''
+  await waitFor(engine, 'isready', 'readyok', (line) => {
+    if (!line.startsWith('Error')) return
+    failure = line
+    pending?.()
+  })
+  if (id !== session || failure) {
+    engine.terminate()
+    throw new Error(failure || 'engine switched')
+  }
+  current = engine
+  setStatus({ kind, name: evalFile ? `${name} (${evalFile.name})` : name, error: '', epoch: status.epoch + 1 })
+  return engine
 }
+
+function shutdown() {
+  const previous = active
+  active = null
+  current = null
+  session++
+  backgroundGeneration++
+  pending?.()
+  searching = false
+  interruptible = false
+  cache.clear()
+  previous?.engine.then((engine) => engine.terminate()).catch(() => undefined)
+}
+
+export function getEngine(): Promise<UsiModule> {
+  const key = engineKey()
+  if (active && active.key !== key) shutdown()
+  if (!active) {
+    const kind = getSettings().engine
+    const engine = boot(kind)
+    active = { key, engine }
+    setStatus({ kind, name: '', error: '' })
+    engine.catch((error: Error) => {
+      if (active?.engine !== engine) return
+      active = null
+      setStatus({ error: error.message })
+    })
+  }
+  return active.engine
+}
+
+export function restartEngine() {
+  shutdown()
+  if (engineSupported()) getEngine().catch((error) => console.warn('engine preload failed', error))
+}
+
+subscribeSettings(() => {
+  if (active && active.key !== engineKey()) restartEngine()
+})
 
 export function parseInfo(line: string): Candidate | null {
   const tokens = line.split(' ')
@@ -110,11 +212,11 @@ export function analyze(usiPosition: string, { multipv = 3, movetime = 1500, bac
 }
 
 function search(usiPosition: string, multipv: number, movetime: number, background: boolean): Promise<Analysis> {
-  if (searching && interruptible) enginePromise?.then((engine) => engine.postMessage('stop'))
+  if (searching && interruptible) active?.engine.then((engine) => engine.postMessage('stop'))
   const generation = background ? ++backgroundGeneration : backgroundGeneration
   const run = async () => {
     const engine = await getEngine()
-    if (background && generation !== backgroundGeneration) return { bestmove: '', candidates: [] }
+    if (engine !== current || (background && generation !== backgroundGeneration)) return { bestmove: '', candidates: [] }
     searching = true
     interruptible = background
     engine.postMessage(`setoption name MultiPV value ${multipv}`)

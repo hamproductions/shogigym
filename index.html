@@ -12,7 +12,7 @@
     <title>ShogiLab 将棋ラボ</title>
     <script>
       if (window.isSecureContext && 'serviceWorker' in navigator) {
-        navigator.serviceWorker.register('coi-sw.js').then(() => {
+        navigator.serviceWorker.register('coi-sw.js?mode=%MODE%').then(() => {
           if (!window.crossOriginIsolated && !navigator.serviceWorker.controller && !sessionStorage.getItem('coi-reloaded')) {
             sessionStorage.setItem('coi-reloaded', '1')
             location.reload()
