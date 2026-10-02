@@ -81,7 +81,7 @@ export function Workshop({ routeMode, routeMain }: { routeMode?: string; routeMa
   const spar = useSpar(session, { load, setTab, coach, mistakes, setNudge, setConfirm, forgetReply: () => opponent.forget(), openInAnalyze: analyze.openReview, analyzeMoves: () => slots.stashed('analyze')?.game.moves.length ?? 0 })
   const opponent = useOpponent(session, { lessonMode: lesson.lessonMode, halted: spar.halted })
   const { enterMode, resume } = useModeSwitch(slots, { session, lesson, drill, tsume, tesuji, spar, analyze, mistakes, layout, setTab })
-  const restored = usePersistedSession({ session, lesson, tsume, drill, slots, resume })
+  const restored = usePersistedSession({ session, lesson, tsume, drill, spar, slots, resume })
   useRouteMode(mode, enterMode, routeMode, routeMain, restored)
   const { announce, tesujiNote } = useAnnouncements(session)
   const flow = useFlowLanes(session, evaluation.analysis)
