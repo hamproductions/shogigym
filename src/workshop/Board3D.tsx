@@ -922,7 +922,7 @@ export function Board3D(props: Board3DProps) {
         s.handMeshes.push(mesh)
         if (spot.count && spot.count > 1) {
           const badge = badgeSprite(String(spot.count), '#2a241e')
-          badge.scale.setScalar(0.36)
+          badge.scale.setScalar(0.5)
           const sign = color === Color.BLACK ? 1 : -1
           badge.position.set(spot.x + sign * 0.3, 0.4, spot.z - sign * 0.3)
           s.pieces.add(badge)
@@ -987,9 +987,11 @@ export function Board3D(props: Board3DProps) {
     if (getSettings().coords)
       for (let i = 1; i <= 9; i++) {
         const file = coordSprite(String(i))
+        file.scale.setScalar(MARGIN * 0.82)
         file.position.set(squareX(i), 0.05, -(HALF_D - MARGIN / 2) * flipSign)
         s.marks.add(file)
         const rank = coordSprite('一二三四五六七八九'[i - 1])
+        rank.scale.setScalar(MARGIN * 0.82)
         rank.position.set((HALF_W - MARGIN / 2) * flipSign, 0.05, squareZ(i))
         s.marks.add(rank)
       }
