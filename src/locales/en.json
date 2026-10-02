@@ -786,7 +786,8 @@
     "lookAroundHint": "Look around: drag to rotate, scroll to zoom. Click pieces to keep playing.",
     "hidePanel": "Hide panel",
     "studyPlayWhy": "Play {{move}} (green arrow): {{note}}",
-    "isAFineMoveNotIt": "{{move}} is a fine move, but not the answer. Try again."
+    "isAFineMoveNotIt": "{{move}} is a fine move, but not the answer. Try again.",
+    "takeBackAndRetry": "Take back and try again"
   },
   "zones": {
     "first": "First",

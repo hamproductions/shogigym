@@ -29,7 +29,7 @@ type MovesPaneProps = {
 const QUIET_LABELS = ['good', 'excellent', 'best']
 
 export function MovesPane({ sfens, moves, cursor, setCursor, title, onScore, tree, onSwitch, onDelete, autoRate, canRate = true }: MovesPaneProps) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [, setTick] = useState(0)
   const listRef = useRef<HTMLOListElement>(null)
   const tesujis = useMemo(() => moves.map((usi, i) => (sfens[i] ? detectTesuji(sfens[i], usi) : null)), [moves, sfens])
@@ -101,8 +101,8 @@ export function MovesPane({ sfens, moves, cursor, setCursor, title, onScore, tre
         <button className={cursor === i + 1 ? 'on' : ''} onClick={() => setCursor(i + 1)}>
           {moveText(sfens[i], usi, moves[i - 1])}
           {tesuji && (
-            <span className="ws-move-tesuji" title={t('moves.tesuji', { value: tesuji.ja, value2: tesuji.explain })}>
-              {tesuji.ja}
+            <span className="ws-move-tesuji" title={t('moves.tesuji', { value: i18n.language === 'ja' ? tesuji.ja : `${tesuji.en} (${tesuji.ja})`, value2: tesuji.explain })}>
+              {i18n.language === 'ja' ? tesuji.ja : tesuji.en}
             </span>
           )}
           {label && !QUIET_LABELS.includes(label) && (

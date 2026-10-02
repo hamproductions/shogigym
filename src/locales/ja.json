@@ -767,7 +767,8 @@
     "lookAroundHint": "見回す: ドラッグで回転、スクロールで拡大縮小。駒をクリックすればそのまま指せます。",
     "hidePanel": "パネルを隠す",
     "studyPlayWhy": "{{move}}を指しましょう（緑の矢印）：{{note}}",
-    "isAFineMoveNotIt": "{{move}}も悪くない手ですが、正解ではありません。もう一度。"
+    "isAFineMoveNotIt": "{{move}}も悪くない手ですが、正解ではありません。もう一度。",
+    "takeBackAndRetry": "待ったして指し直す"
   },
   "zones": {
     "first": "最初へ",

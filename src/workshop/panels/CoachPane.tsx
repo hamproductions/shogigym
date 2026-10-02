@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { LABELS, type MoveReview } from '../../analysis'
 import type { Course } from '../../model'
+import i18n from '../../i18n'
 import { moveText } from '../../shogi'
 import type { BookHit, BookMove } from '../lib/book'
 import { isWeak } from '../lib/mistake'
@@ -19,6 +20,8 @@ type CoachPaneProps = {
   showBook: boolean
   you: boolean
 }
+
+const prefixOf = (key: string) => i18n.t(key, { move: '\u0000', line: '\u0000' }).split('\u0000')[0]
 
 function Verdict({ review, lastMove, prevSfen, bookLast, ai, you }: Pick<CoachPaneProps, 'review' | 'bookLast' | 'ai' | 'you'> & { lastMove: string; prevSfen: string }) {
   const { t } = useTranslation()
@@ -43,10 +46,10 @@ function Verdict({ review, lastMove, prevSfen, bookLast, ai, you }: Pick<CoachPa
             {r}
           </p>
         ))}
-        {isWeak(review.label) && review.best.move !== lastMove && !review.reasons.some((r) => r.startsWith('The best move')) && (
+        {isWeak(review.label) && review.best.move !== lastMove && !review.reasons.some((r) => r.startsWith(prefixOf('moveFacts.bestWins'))) && (
           <p className="ws-reason">
             {t('coach.betterWas')}<strong>{moveText(prevSfen, review.best.move)}</strong>
-            {review.bestReasons[0] && !review.bestReasons[0].startsWith('Engine line') ? `: ${review.bestReasons[0]}` : t('coach.betterWasEnd')}
+            {review.bestReasons[0] && !review.bestReasons[0].startsWith(prefixOf('moveFacts.engineLine')) ? `: ${review.bestReasons[0]}` : t('coach.betterWasEnd')}
           </p>
         )}
       </>
