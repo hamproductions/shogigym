@@ -1,0 +1,196 @@
+{
+ "id": "shogirule--61",
+ "title": "後手ダイレクト向かい飛車(将棋ルール.com)",
+ "myStrategy": "mukaibisha",
+ "opponentStrategy": "ibisha",
+ "mySide": "gote",
+ "source": "手順は将棋ルール.com「後手一手損角換わり 対 ダイレクト向かい飛車 の定跡」(https://www.shogi-rule.com/joseki-61/)掲載の棋譜ファイル(joseki-61.kif、18手、検討エンジンGPSfishの解析付き)をそのまま使用し、全手を合法手検証済み。終局面のまとめは手順と盤面から独自に書いたもので、ページの文章は転載していない(形勢判断のみ出典による)。",
+ "goalFormation": "後手は自分から角を交換し、すぐ△2二飛と向かい飛車にした(ダイレクト向かい飛車)。先手は▲6五角と打って4三の歩を狙い、後手の△7四角の打ち返しにも構わず▲4三角成と馬を作った。後手は△5二金右で馬に当てて追い払いにかかる。先手は歩を1枚得し、後手は7四の角と2筋の飛車で反撃を狙う。出典の形勢判断は互角。",
+ "root": {
+  "id": "n0",
+  "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+  "comment": "後手ダイレクト向かい飛車。最後まで進めると、終局面のまとめが表示されます。",
+  "branches": [
+   {
+    "usi": "7g7f",
+    "kind": "main",
+    "child": {
+     "id": "n_0",
+     "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL w - 1",
+     "branches": [
+      {
+       "usi": "3c3d",
+       "kind": "main",
+       "child": {
+        "id": "n_1",
+        "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL b - 1",
+        "branches": [
+         {
+          "usi": "2g2f",
+          "kind": "main",
+          "child": {
+           "id": "n_2",
+           "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P4P1/PP1PPPP1P/1B5R1/LNSGKGSNL w - 1",
+           "branches": [
+            {
+             "usi": "9c9d",
+             "kind": "main",
+             "child": {
+              "id": "n_3",
+              "sfen": "lnsgkgsnl/1r5b1/1ppppp1pp/p5p2/9/2P4P1/PP1PPPP1P/1B5R1/LNSGKGSNL b - 1",
+              "branches": [
+               {
+                "usi": "2f2e",
+                "kind": "main",
+                "child": {
+                 "id": "n_4",
+                 "sfen": "lnsgkgsnl/1r5b1/1ppppp1pp/p5p2/7P1/2P6/PP1PPPP1P/1B5R1/LNSGKGSNL w - 1",
+                 "branches": [
+                  {
+                   "usi": "2b8h+",
+                   "kind": "main",
+                   "child": {
+                    "id": "n_5",
+                    "sfen": "lnsgkgsnl/1r7/1ppppp1pp/p5p2/7P1/2P6/PP1PPPP1P/1+b5R1/LNSGKGSNL b b 1",
+                    "branches": [
+                     {
+                      "usi": "7i8h",
+                      "kind": "main",
+                      "child": {
+                       "id": "n_6",
+                       "sfen": "lnsgkgsnl/1r7/1ppppp1pp/p5p2/7P1/2P6/PP1PPPP1P/1S5R1/LN1GKGSNL w Bb 1",
+                       "branches": [
+                        {
+                         "usi": "3a2b",
+                         "kind": "main",
+                         "child": {
+                          "id": "n_7",
+                          "sfen": "lnsgkg1nl/1r5s1/1ppppp1pp/p5p2/7P1/2P6/PP1PPPP1P/1S5R1/LN1GKGSNL b Bb 1",
+                          "branches": [
+                           {
+                            "usi": "8h7g",
+                            "kind": "main",
+                            "child": {
+                             "id": "n_8",
+                             "sfen": "lnsgkg1nl/1r5s1/1ppppp1pp/p5p2/7P1/2P6/PPSPPPP1P/7R1/LN1GKGSNL w Bb 1",
+                             "branches": [
+                              {
+                               "usi": "2b3c",
+                               "kind": "main",
+                               "child": {
+                                "id": "n_9",
+                                "sfen": "lnsgkg1nl/1r7/1pppppspp/p5p2/7P1/2P6/PPSPPPP1P/7R1/LN1GKGSNL b Bb 1",
+                                "branches": [
+                                 {
+                                  "usi": "3i3h",
+                                  "kind": "main",
+                                  "child": {
+                                   "id": "n_10",
+                                   "sfen": "lnsgkg1nl/1r7/1pppppspp/p5p2/7P1/2P6/PPSPPPP1P/6SR1/LN1GKG1NL w Bb 1",
+                                   "branches": [
+                                    {
+                                     "usi": "9d9e",
+                                     "kind": "main",
+                                     "child": {
+                                      "id": "n_11",
+                                      "sfen": "lnsgkg1nl/1r7/1pppppspp/6p2/p6P1/2P6/PPSPPPP1P/6SR1/LN1GKG1NL b Bb 1",
+                                      "branches": [
+                                       {
+                                        "usi": "5i6h",
+                                        "kind": "main",
+                                        "child": {
+                                         "id": "n_12",
+                                         "sfen": "lnsgkg1nl/1r7/1pppppspp/6p2/p6P1/2P6/PPSPPPP1P/3K2SR1/LN1G1G1NL w Bb 1",
+                                         "branches": [
+                                          {
+                                           "usi": "8b2b",
+                                           "kind": "main",
+                                           "child": {
+                                            "id": "n_13",
+                                            "sfen": "lnsgkg1nl/7r1/1pppppspp/6p2/p6P1/2P6/PPSPPPP1P/3K2SR1/LN1G1G1NL b Bb 1",
+                                            "branches": [
+                                             {
+                                              "usi": "B*6e",
+                                              "kind": "main",
+                                              "child": {
+                                               "id": "n_14",
+                                               "sfen": "lnsgkg1nl/7r1/1pppppspp/6p2/p2B3P1/2P6/PPSPPPP1P/3K2SR1/LN1G1G1NL w b 1",
+                                               "branches": [
+                                                {
+                                                 "usi": "B*7d",
+                                                 "kind": "main",
+                                                 "child": {
+                                                  "id": "n_15",
+                                                  "sfen": "lnsgkg1nl/7r1/1pppppspp/2b3p2/p2B3P1/2P6/PPSPPPP1P/3K2SR1/LN1G1G1NL b - 1",
+                                                  "branches": [
+                                                   {
+                                                    "usi": "6e4c+",
+                                                    "kind": "main",
+                                                    "child": {
+                                                     "id": "n_16",
+                                                     "sfen": "lnsgkg1nl/7r1/1pppp+Bspp/2b3p2/p6P1/2P6/PPSPPPP1P/3K2SR1/LN1G1G1NL w P 1",
+                                                     "branches": [
+                                                      {
+                                                       "usi": "6a5b",
+                                                       "kind": "main",
+                                                       "child": {
+                                                        "id": "n_17",
+                                                        "sfen": "lns1kg1nl/4g2r1/1pppp+Bspp/2b3p2/p6P1/2P6/PPSPPPP1P/3K2SR1/LN1G1G1NL b P 1",
+                                                        "branches": [],
+                                                        "comment": "後手は自分から角を交換し、すぐ△2二飛と向かい飛車にした(ダイレクト向かい飛車)。先手は▲6五角と打って4三の歩を狙い、後手の△7四角の打ち返しにも構わず▲4三角成と馬を作った。後手は△5二金右で馬に当てて追い払いにかかる。先手は歩を1枚得し、後手は7四の角と2筋の飛車で反撃を狙う。出典の形勢判断は互角。"
+                                                       }
+                                                      }
+                                                     ]
+                                                    }
+                                                   }
+                                                  ]
+                                                 }
+                                                }
+                                               ]
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          }
+                                         ]
+                                        }
+                                       }
+                                      ]
+                                     }
+                                    }
+                                   ]
+                                  }
+                                 }
+                                ]
+                               }
+                              }
+                             ]
+                            }
+                           }
+                          ]
+                         }
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}
