@@ -3703,3 +3703,37 @@
   cursor: pointer;
   z-index: 1;
 }
+
+.ws-komadai-test {
+  min-height: 100dvh;
+  padding: 16px;
+  background: #11161f;
+  color: #efe6d3;
+  overflow: auto;
+}
+
+.ws-komadai-test h1 {
+  margin: 0 0 12px;
+  font-size: 20px;
+}
+
+.ws-komadai-test h2 {
+  margin: 20px 0 8px;
+  font-size: 15px;
+}
+
+.ws-komadai-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.ws-komadai-grid figure {
+  margin: 0;
+}
+
+.ws-komadai-grid figcaption {
+  font-size: 12px;
+  opacity: 0.8;
+  word-break: break-all;
+}

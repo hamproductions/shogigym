@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js'
-import { Color, PieceType, Square, type ImmutablePosition } from 'tsshogi'
+import { Color, PieceType, Position, Square, type ImmutablePosition } from 'tsshogi'
 import { HAND_ORDER, PIECE_CHAR } from '../shogi'
 import { PIECE_FINISHES, PIECE_FONTS, getSettings, type BoardStyle } from './settings'
 import { loadedPiece, pieceCode, type LoadedPiece } from './pieceSets'
@@ -1003,6 +1003,8 @@ export function Board3D(props: Board3DProps) {
       for (const spot of spots) {
         const mesh = pieceMesh(spot.type, color)
         mesh.rotation.y += spot.rot
+      mesh.rotation.z = spot.roll ?? 0
+        mesh.rotation.z = spot.roll ?? 0
         mesh.scale.setScalar(0.96 * spot.scale)
         mesh.position.set(spot.x, STAND_TOP + (spot.lift ?? 0), spot.z)
         mesh.castShadow = false
@@ -1141,7 +1143,7 @@ export function Board3D(props: Board3DProps) {
   return <div className="board3d" ref={host} />
 }
 
-type HandSpot = { type: PieceType; x: number; z: number; rot: number; scale: number; count?: number; lift?: number }
+type HandSpot = { type: PieceType; x: number; z: number; rot: number; scale: number; count?: number; lift?: number; roll?: number }
 
 const BIG = HAND_ORDER.filter((t) => t !== PieceType.PAWN)
 
@@ -1158,6 +1160,8 @@ const STAND = 3.4
 const STRIP_W = 10
 const strip = () => ({ d: 1.15, z: HALF_D + 0.25 + 1.15 / 2, k: 1 })
 
+let lastHandMode = ''
+
 function handLayout(position: ImmutablePosition, color: Color): HandSpot[] {
   const hand = position.hand(color)
   if (layout.portrait) {
@@ -1171,7 +1175,7 @@ function handLayout(position: ImmutablePosition, color: Color): HandSpot[] {
   const h = (t: PieceType) => (PIECE_SIZE[t] ?? 0.8) * 0.96
   const inner = STAND - 0.16
   const big = (t: PieceType) => t === PieceType.ROOK || t === PieceType.BISHOP
-  type Placed = { type: PieceType; x: number; z: number; rot: number; lift: number }
+  type Placed = { type: PieceType; x: number; z: number; rot: number; lift: number; roll?: number }
   const corners = (p: Placed) =>
     [
       [-1, -1],
@@ -1238,13 +1242,16 @@ function handLayout(position: ImmutablePosition, color: Color): HandSpot[] {
     const b = bounds(placed)
     return { placed, b, fits: !rest.length && b.maxX - b.minX <= inner && b.maxZ - b.minZ <= inner }
   }
-  const fanStep = 2 * Math.atan(SIDE_COT) + 0.008
-  const fanRow = (row: PieceType[], liftBase: number): Placed[] =>
-    row.map((type, i) => {
-      const phi = (i - (row.length - 1) / 2) * fanStep
+  const tipRadius = (t: PieceType) => w(t) / 2 / SIDE_COT - h(t)
+  const fanRow = (row: PieceType[], liftBase: number): Placed[] => {
+    const steps = row.slice(1).map((t, i) => 2 * Math.atan(SIDE_COT) + 0.08 / Math.min(tipRadius(row[i]), tipRadius(t)))
+    let phi = -steps.reduce((a, b) => a + b, 0) / 2
+    return row.map((type, i) => {
+      if (i > 0) phi += steps[i - 1]
       const r = w(type) / 2 / SIDE_COT - h(type) / 2
       return { type, x: r * Math.sin(phi), z: r * Math.cos(phi), rot: phi, lift: liftBase }
     })
+  }
   const fanAttempt = () => {
     const rows: Placed[][] = []
     let rest = [...pieces]
@@ -1276,7 +1283,11 @@ function handLayout(position: ImmutablePosition, color: Color): HandSpot[] {
     return { placed, b, fits: b.maxX - b.minX <= inner && b.maxZ - b.minZ <= inner }
   }
   const grouped = (expose: number) => {
-    const group = (type: PieceType, n: number): Placed[] => Array.from({ length: n }, (_, j) => ({ type, x: j * expose, z: 0, rot: (j - (n - 1) / 2) * 0.03, lift: j * 0.012 }))
+    const group = (type: PieceType, n: number): Placed[] => {
+      const thick = (komaDepth(PIECE_SIZE[type] ?? 0.8) + 0.05) * 0.96
+      const roll = Math.asin(Math.min(0.9, thick / w(type)))
+      return Array.from({ length: n }, (_, j) => ({ type, x: j * expose, z: 0, rot: 0, lift: j ? (w(type) / 2) * Math.sin(roll) + 0.004 : 0, roll: j ? -roll : 0 }))
+    }
     const chunks = (type: PieceType) => {
       const n = hand.count(type)
       return Array.from({ length: Math.ceil(n / 9) }, (_, k) => group(type, Math.min(9, n - k * 9)))
@@ -1315,13 +1326,15 @@ function handLayout(position: ImmutablePosition, color: Color): HandSpot[] {
     ...[0.04, 0.02, 0].map((gap) => [straight, gap, 0]),
   ]
   const fanned = fanAttempt()
+  const flat = tries.map(([pivot, gap, squeeze]) => attempt(pivot, gap, squeeze)).find((a) => a.fits)
+  lastHandMode = fanned.fits ? 'fan' : flat ? 'rows' : 'grouped'
   const best = fanned.fits ? fanned : (tries.map(([pivot, gap, squeeze]) => attempt(pivot, gap, squeeze)).find((a) => a.fits) ?? [0.17, 0.14, 0.11, 0.09, 0.07].map(grouped).find((a) => a.fits) ?? grouped(0.07))
   standSize.set(color, STAND)
   const c = standCenter(color)
   const sign = color === Color.BLACK ? 1 : -1
   const ox = -(best.b.minX + best.b.maxX) / 2
   const oz = -(best.b.minZ + best.b.maxZ) / 2
-  return best.placed.map((p) => ({ type: p.type, x: c.x + sign * (p.x + ox), z: c.z + sign * (p.z + oz), rot: p.rot, scale: 1, lift: p.lift }))
+  return best.placed.map((p) => ({ type: p.type, x: c.x + sign * (p.x + ox), z: c.z + sign * (p.z + oz), rot: p.rot, scale: 1, lift: p.lift, roll: p.roll }))
 }
 
 function handSpot(position: ImmutablePosition, color: Color, type: PieceType) {
@@ -1504,4 +1517,49 @@ function badgeSprite(text: string, color: string) {
   sprite.scale.setScalar(0.5)
   sprite.renderOrder = 13
   return sprite
+}
+
+export type HandSnapshot = { url: string; mode: string }
+
+export function handSnapshots(sfens: string[], px: number): HandSnapshot[] {
+  setBoardDims()
+  layout.portrait = false
+  const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true })
+  renderer.setPixelRatio(1)
+  renderer.setSize(px, px)
+  renderer.toneMapping = THREE.ACESFilmicToneMapping
+  renderer.toneMappingExposure = 0.82
+  preparePieceEnvironment(renderer)
+  const standMaterial = woodMaterial([180, 128, 66], 21)
+  const out: HandSnapshot[] = []
+  for (const sfen of sfens) {
+    const position = Position.newBySFEN(sfen)
+    if (!position) continue
+    const scene = new THREE.Scene()
+    scene.background = new THREE.Color(0x1b2230)
+    scene.add(new THREE.HemisphereLight(0xe8e0d0, 0x3a2a18, 1.2))
+    const sun = new THREE.DirectionalLight(0xffe8c4, 1.6)
+    sun.position.set(-1, 10, 2)
+    scene.add(sun)
+    const spots = handLayout(position, Color.BLACK)
+    const c = standCenter(Color.BLACK)
+    const stand = new THREE.Mesh(new THREE.BoxGeometry(STAND, STAND_SLAB, STAND), standMaterial)
+    stand.position.set(c.x, STAND_TOP - STAND_SLAB / 2, c.z)
+    scene.add(stand)
+    for (const spot of spots) {
+      const mesh = pieceMesh(spot.type, Color.BLACK)
+      mesh.rotation.y += spot.rot
+      mesh.rotation.z = spot.roll ?? 0
+      mesh.scale.setScalar(0.96 * spot.scale)
+      mesh.position.set(spot.x, STAND_TOP + (spot.lift ?? 0), spot.z)
+      scene.add(mesh)
+    }
+    const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 50)
+    camera.position.set(c.x, 6.2, c.z + 4.2)
+    camera.lookAt(c.x, STAND_TOP, c.z)
+    renderer.render(scene, camera)
+    out.push({ url: renderer.domElement.toDataURL('image/png'), mode: lastHandMode })
+  }
+  renderer.dispose()
+  return out
 }

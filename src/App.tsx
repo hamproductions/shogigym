@@ -1,6 +1,8 @@
-import { Component, useEffect, useState, type ReactNode } from 'react'
+import { Component, Suspense, lazy, useEffect, useState, type ReactNode } from 'react'
 import { Workshop } from './workshop/Workshop'
 import { PieceViewer } from './workshop/PieceViewer'
+
+const KomadaiTest = import.meta.env.DEV ? lazy(() => import('./workshop/KomadaiTest')) : null
 
 class Recover extends Component<{ children: ReactNode }, { error: Error | null }> {
   state = { error: null as Error | null }
@@ -40,7 +42,11 @@ export default function App() {
   }, [])
   return (
     <Recover>
-      {hash === '#viewer' ? (
+      {KomadaiTest && hash === '#komadai' ? (
+        <Suspense fallback={null}>
+          <KomadaiTest />
+        </Suspense>
+      ) : hash === '#viewer' ? (
         <div className="ws">
           <PieceViewer page onClose={() => (location.hash = '')} />
         </div>
