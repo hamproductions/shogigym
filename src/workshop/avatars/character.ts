@@ -210,7 +210,7 @@ export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, heig
   const armReach = (rest('rightLowerArm').distanceTo(rest('rightUpperArm')) + rest('rightHand').distanceTo(rest('rightLowerArm')) + rest('rightMiddleDistal').distanceTo(rest('rightHand'))) * k * 0.9
   const thigh = rest('leftLowerLeg').distanceTo(rest('leftUpperLeg')) * k
   const headUp = rest('head').sub(rest('hips')).y * k
-  const edge = Math.abs(seated.z) - seat.tableEdge + 0.12 * UNITS_PER_M
+  const edge = Math.abs(seated.z) - seat.tableEdge + 0.3 * UNITS_PER_M
   const riseShift = (rise: number) => ({ f: thigh * (Math.sin(rad(SEIZA.hip)) - Math.sin(rad(kneel(rise)))), u: thigh * (Math.cos(rad(kneel(rise))) - Math.cos(rad(SEIZA.hip))) })
   const reachPlan = () => {
     const p = holder.worldToLocal(tmp.copy(state.reach.at))

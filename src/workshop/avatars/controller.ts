@@ -280,7 +280,8 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
     const action = actor.action
     const step = action?.steps[action.index]
     if (!action || !step || action.t < REACH + CLOSE) return
-    const pinch = root.worldToLocal(pinchAt.copy(actor.char.pinch()))
+    const reached = clamp01(1.5 - actor.char.pinch().distanceTo(actor.char.state.reach.at) / 0.6)
+    const pinch = root.worldToLocal(pinchAt.copy(actor.char.state.reach.at).lerp(actor.char.pinch(), reached))
     action.lock ??= step.mesh.position.clone().sub(pinch)
     action.lock.lerp(hold.set(0, -topOf(step.mesh) - PAD_DEPTH, 0), 1 - Math.exp(-dt * 30))
     step.mesh.position.copy(pinch).add(action.lock)
