@@ -520,8 +520,17 @@
     font-size: var(--text-md);
   }
 
+  .ws-eval-chip {
+    gap: var(--space-1-5);
+    padding: var(--space-1) var(--space-1-5);
+  }
+
   .ws-eval-track {
-    width: 40px;
+    width: 24px;
+  }
+
+  .ws-eval-chip b {
+    min-width: 0;
   }
 
   .ws-board-wrap > .ws-plate {

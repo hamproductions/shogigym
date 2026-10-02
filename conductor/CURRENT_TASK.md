@@ -1,24 +1,20 @@
 # CURRENT TASK
 
 ## Goal (standing /goal)
-ShogiLab (四間飛車 trainer, three.js board, single-screen workshop). Dogfood as a new/weak player and keep fixing until UX is smooth; use subagent dogfood runs continuously; no "still open" lists as a stopping point.
+Shogi Gym 将棋ジム: dogfood as a new/weak player and keep fixing until the UX is smooth; finish the whole backlog autonomously; no "still open" lists as a stopping point.
 
 ## Constraints
 - No push/deploy unless the user says so in the same turn (last push cdba2d9; everything after is local).
 - No Artifact publishing; no code comments; agent-browser with mock keychain + mute-audio, one named session, close it; never click mailto:/tel:.
-- Dev server: user asked for it on 5317 (background task, 2 h limit); kill what you start otherwise.
-- Test pages must not ship: dev-only via `import.meta.env.DEV` lazy import (verified absent from `vite build`).
-- Disk ~13 GiB free (98%); run df -h before builds/sweeps.
+- Dev server on 5317 (background task, 2 h limit; restart when it expires).
+- Dev-only pages (/komadai, /dev/hands) via `import.meta.env.DEV` lazy import; verify absent from the production build.
+- Disk is tight (~7 GiB free); df -h before builds. Concurrent headless browsers starve rAF (software WebGL) — one browser at a time.
+- Do not spawn extra agents; only the VRM characters agent is running; coordinator does everything else and commits.
 
-## Live request ledger (what-did-i-say 2026-10-02 evening)
-Pending, in order:
-1. Re-architect src/workshop/Workshop.tsx (3.3k lines) — after background agents finish; user to run /ask-matt (cannot be model-invoked).
-2. Critic findings still open: AI vs lesson contradiction (#5), panel scroll reset (#6), tsume retry triplication (#9), resigned game revives (#13), flip re-layout (#14), tilt fit (#15), New game dialog polish (#32), Settings size (#31), phone sheet sizing (#36/#37), English untranslated data (#4), beginner path first (#39), arrow colours (#40).
-3. Table flip (explosive) animation; image export (PNG of board).
-4. Room furnishing (subagent running): traditional + home, good from all angles.
-5. Fairy-Stockfish + YaneuraOu NNUE engine choice (subagent running, ShogiHome-style).
-6. Joseki database research (subagent running).
-7. PWA verify on production preview (manifest/SW/offline) — check stalled.
-8. Every UI change: real click-through + critic subagent before reporting.
-Done this session (browser-verified, committed locally): spec koma (大振り駒 table, 81°/146°, taper), 本寸 rectangular board + 6-sun legs, coords in margin with hide setting, softer light/satin lacquer, tatami room + zabuton/shoji, Casual table set (table, chairs, 2-sun board, block stands), komadai per etiquette (edge-to-edge fan → straight rows → shingled same-type overlap with counts; 12 cm fixed; big/small separated), dev #komadai test page (1–19), game clocks (切れ負け/秒読み/Fischer), lift selected piece, drag drop-target highlight, no replay on in-place drop, dogfood fixes (dialogs fit phone, Settings ×, off-book retry, phone Play their move, English promotion labels, Coach on/off).
-Not requested but noted: 振り駒 / 大橋流 from the etiquette article (not implemented; ask before adding).
+## Pending, in order
+1. VRM characters (agent running; uncommitted: src/workshop/avatars/*, public/avatars/*, HandsTest.tsx, routes/hands.tsx, Board3D.tsx, board3d/{effects,pieces,types}.ts, BoardStage.tsx, useBoardSession.ts, routes.ts, README credits). Open defects: casual idle posture (raised hands), finger extension in the shogi grip (index+middle long), near-arm sleeve stub, seiza feet, far-square lean, /dev/hands verification. Then coordinator browser-verifies and commits with the power-mode wiring in Board3D.tsx (s.onLand fired from the hand press).
+2. Production build check (dev pages absent), then README GIF via /motion-reel.
+3. Continued dogfood (new player, phone + desktop) with fixes; critic + usability pass for UI changes.
+
+## Done this stretch (committed locally)
+Nine backlog bugs (persisted sessions, resigned state, flat coordinates, tsume buttons, New game clocks, Settings sizing, phone sheet), power mode effects (3345e86), opening stats from engine games (f53f91b, fd50e52), Settings dialog top-anchored, Play AI restore when last mode was Tesuji, tsume failure reasons localized, move facts/mistake explanations localized, study bar shows move + reason, phone title wraps, tour wording, quiz feedback scrolled into view.
