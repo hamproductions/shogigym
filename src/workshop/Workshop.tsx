@@ -9,6 +9,7 @@ import { Board3D, type BoardArrow } from './Board3D'
 import { Icon, type IconName } from './icons'
 import { PIECE_INFO, PieceGuide, moveGloss, sees } from './pieces'
 import { allEvals, cachedReview, rememberEval, rememberReview } from './memory'
+import { detectTesuji, type Tesuji } from './tesuji'
 import { deleteGame, loadGames, storeGame, type StoredGame } from './games'
 import { PIECE_SETS, loadPieceSet, pieceUrl, type PieceSet } from './pieceSets'
 import { addPath, allLines, emptyTree, isMainLine, mainContinuation, mainLine, nodeAt, promote, removeBranch, type Tree } from './tree'
@@ -236,6 +237,12 @@ export function Workshop() {
     return { done, total }
   }, [course, cursor, game.moves])
   const [checking, setChecking] = useState(false)
+  const [tesujiNote, setTesujiNote] = useState<(Tesuji & { at: number }) | null>(null)
+  useEffect(() => {
+    if (!tesujiNote) return
+    const t = setTimeout(() => setTesujiNote(null), 6000)
+    return () => clearTimeout(t)
+  }, [tesujiNote])
   const [panelPrefs, setPanelPrefs] = useState<{ width: number; hidden: boolean }>(() => {
     try {
       return { width: 380, hidden: false, ...JSON.parse(localStorage.getItem('joseki-practice:panel:v1') ?? '{}') }
@@ -251,6 +258,10 @@ export function Workshop() {
     return () => mq.removeEventListener('change', on)
   }, [])
   const [drawer, setDrawer] = useState(false)
+  const needsPicking = (mode === 'lesson' && !course) || (mode === 'drill' && !drill?.items.length)
+  useEffect(() => {
+    if (compact && needsPicking && !welcome) setDrawer(true)
+  }, [compact, needsPicking, mode, welcome])
   useEffect(() => {
     if (drawer) document.querySelector('.ws-panel-body')?.scrollTo(0, 0)
   }, [drawer])
@@ -750,6 +761,11 @@ export function Workshop() {
       announced.current = { start: game.start, seen }
     }
     if (preview || mode === 'tsume' || cursor === 0) return
+    const tesuji = stepped && sfens[cursor - 1] ? detectTesuji(sfens[cursor - 1], game.moves[cursor - 1]) : null
+    if (tesuji) {
+      setAnnounce({ side: positionOf(sfens[cursor - 1]).color, name: tesuji.ja, kind: '手筋', key: Date.now() })
+      setTesujiNote({ ...tesuji, at: cursor })
+    }
     for (const color of [Color.BLACK, Color.WHITE]) {
       const f = formationOf(position, color)
       for (const [name, kind] of [
@@ -772,7 +788,7 @@ export function Workshop() {
     return () => clearTimeout(t)
   }, [announce])
   const checkHelp = mode === 'spar' && inCheck && userTurn && atEnd && !gameOver && !preview ? '王手: your king is attacked. Move it away, block the line, or capture the attacker.' : null
-  const boardNote = nudge ?? (checking ? 'Checking that move…' : (peekNote ?? checkHelp))
+  const boardNote = nudge ?? (checking ? 'Checking that move…' : (peekNote ?? (tesujiNote && tesujiNote.at === cursor ? `手筋 ${tesujiNote.ja} (${tesujiNote.en}): ${tesujiNote.explain}` : checkHelp)))
   const castles = [Color.BLACK, Color.WHITE].flatMap((color) => {
     const f = formationOf(position, color)
     return f.castle && f.castle !== '居玉' ? [{ squares: f.squares, color: color === Color.BLACK ? '#b8432f' : '#2f5d9b', label: f.castle }] : []
@@ -885,7 +901,7 @@ export function Workshop() {
       return lessonMode === 'study' ? 'Their move is shown. Press Space or Play their move.' : 'Their reply comes in a moment.'
     }
     if (mode === 'drill') return drillItem ? (drillItem.kind === 'mistake' && !drill?.result ? 'Find a better move than the one you played in your game.' : drill?.result ? 'Next card when you are ready.' : drill?.queue === 'new' ? 'Learn this move: play the green arrow.' : 'Play the move you learned.') : 'Pick what to review.'
-    if (mode === 'tsume') return 'Every attacking move must give check.'
+    if (mode === 'tsume') return tsume ? `${attackerOf(tsume.problem) === 'sente' ? '☗' : '☖'} to play: mate in ${tsume.problem.mate}. Every attacking move must give check.` : 'Every attacking move must give check.'
     if (mode === 'spar') return resigned ? 'You resigned. Review the game, or start a new one.' : position.checked && !hasLegalMove(position) ? 'Checkmate. The game is over.' : !atEnd ? 'Looking back at earlier moves. Play a move here to try a variation, or press ⏭ to return.' : userTurn ? (position.checked ? '王手! Your king is in check.' : 'Your move.') : 'The AI is thinking.'
     return 'Try anything. The AI tab rates the position.'
   }
@@ -1298,6 +1314,12 @@ export function Workshop() {
           {mode === 'tsume' && <span className="ws-plate top"><span className="ws-plate-side">{flipped ? '☗ Sente' : '☖ Gote'}</span><span className="ws-muted">{(flipped ? 'sente' : 'gote') === userSide ? 'You attack' : 'Defends'}</span></span>}
           {mode === 'tsume' && <span className="ws-plate bottom"><span className="ws-plate-side">{flipped ? '☖ Gote' : '☗ Sente'}</span><span className="ws-muted">{(flipped ? 'gote' : 'sente') === userSide ? 'You attack' : 'Defends'}</span></span>}
           {mode !== 'tsume' && !(mode === 'lesson' && !course) && <Plate className="top" position={position} color={flipped ? Color.BLACK : Color.WHITE} who={mode === 'analyze' || (mode === 'lesson' && !course) || (mode === 'drill' && !drillItem) ? null : (flipped ? 'sente' : 'gote') === userSide ? 'You' : 'Opponent'} />}
+          {compact && !drawer && (
+            <button className="ws-phone-task" onClick={() => setDrawer(true)}>
+              <span>{modeInstruction()}</span>
+              <b>{mode === 'lesson' && !course ? 'Pick a lesson' : mode === 'drill' && !drillItem ? 'Pick a queue' : 'Panel'} ›</b>
+            </button>
+          )}
           {mode !== 'tsume' && !(mode === 'lesson' && !course) && <Plate className="bottom" position={position} color={flipped ? Color.WHITE : Color.BLACK} who={mode === 'analyze' || (mode === 'lesson' && !course) || (mode === 'drill' && !drillItem) ? null : (flipped ? 'gote' : 'sente') === userSide ? 'You' : 'Opponent'} />}
           {((gameOver && game.moves.length > 0 && (mode === 'spar' || mode === 'analyze')) || (resigned && mode === 'spar')) && endHidden !== sfen && (
             <div className="ws-gameover" role="status">
@@ -1927,6 +1949,7 @@ function CoachPane(props: {
 function MovesPane({ sfens, moves, cursor, setCursor, title, onScore, tree, onSwitch, onDelete, autoRate }: { sfens: string[]; moves: string[]; cursor: number; setCursor: (i: number) => void; title: string; onScore?: (sfen: string, cp: number) => void; tree?: Tree | null; onSwitch?: (path: string[]) => void; onDelete?: (path: string[], size: number) => void; autoRate?: boolean }) {
   const [, setTick] = useState(0)
   const listRef = useRef<HTMLOListElement>(null)
+  const tesujis = useMemo(() => moves.map((usi, i) => (sfens[i] ? detectTesuji(sfens[i], usi) : null)), [moves, sfens])
   useEffect(() => {
     const row = listRef.current?.children[Math.max(0, cursor - 1)] as HTMLElement | undefined
     row?.scrollIntoView({ block: 'nearest' })
@@ -2006,7 +2029,7 @@ function MovesPane({ sfens, moves, cursor, setCursor, title, onScore, tree, onSw
         )}
       </div>
       {tree && <p className="ws-legend ws-branch-help">What-if: click any move below, then play a different move on the board. It becomes a 変化 variation and the game is kept.</p>}
-      <p className="ws-legend">本 book move · ?! inaccuracy · ? mistake · ?? blunder · ! great · 変 variation</p>
+      <p className="ws-legend">本 book move · ?! inaccuracy · ? mistake · ?? blunder · ! great · 変 variation · red tag = 手筋 (tesuji) found</p>
       <ol className="ws-moves" ref={listRef}>
         {moves.map((usi, i) => {
           const label = current?.items[i]
@@ -2016,6 +2039,11 @@ function MovesPane({ sfens, moves, cursor, setCursor, title, onScore, tree, onSw
               <button className={cursor === i + 1 ? 'on' : ''} onClick={() => setCursor(i + 1)}>
                 <span className="ws-move-no">{i + 1}</span>
                 {moveText(sfens[i], usi, moves[i - 1])}
+                {tesujis[i] && (
+                  <span className="ws-move-tesuji" title={`手筋 ${tesujis[i]!.ja}: ${tesujis[i]!.explain}`}>
+                    {tesujis[i]!.ja}
+                  </span>
+                )}
                 {label && label !== 'good' && label !== 'excellent' && label !== 'best' && (
                   <span className="ws-move-label" style={{ color: LABELS[label].color }} title={LABELS[label].text}>
                     {LABELS[label].symbol}
