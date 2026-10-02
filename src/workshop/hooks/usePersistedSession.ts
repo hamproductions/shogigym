@@ -63,7 +63,7 @@ export function usePersistedSession({ session, lesson, tsume, drill, slots, resu
   useEffect(() => {
     if (!restored.current) return
     try {
-      const prev = readSession() ?? { mode: 'lesson' }
+      const prev = readSession() ?? { mode: 'spar' }
       const next: SavedSession = { ...prev, mode }
       if (mode === 'lesson') next.lesson = course ? { courseId: course.id, lessonMode, moves: game.moves.slice(0, cursor), score } : undefined
       if (mode === 'spar') next.spar = { start: game.start, moves: game.moves, cursor, userSide, tree }

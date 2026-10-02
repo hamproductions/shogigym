@@ -10,12 +10,12 @@ export type Score = { right: number; wrong: number; shown?: number; retried?: nu
 export type Confirm = { text: string; run: () => void; yes?: string; no?: string }
 
 export const MODES: { id: Mode; icon: IconName }[] = [
+  { id: 'spar', icon: 'spar' },
+  { id: 'analyze', icon: 'analyze' },
   { id: 'lesson', icon: 'study' },
   { id: 'drill', icon: 'review' },
   { id: 'tsume', icon: 'tsume' },
   { id: 'tesuji', icon: 'flow' },
-  { id: 'spar', icon: 'spar' },
-  { id: 'analyze', icon: 'analyze' },
 ]
 
 export const TABS: Tab[] = ['coach', 'engine', 'flow', 'moves']

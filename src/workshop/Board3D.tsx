@@ -729,6 +729,16 @@ export function Board3D(props: Board3DProps) {
       }
       const handHit = raycaster.intersectObjects(s.handMeshes, false)[0]
       if (handHit) return { kind: 'hand', ...(handHit.object.userData as { color: Color; type: PieceType }) }
+      const pieceHit = raycaster.intersectObjects(s.pieces.children, true).find((h) => {
+        let o: THREE.Object3D | null = h.object
+        while (o && !o.userData.square) o = o.parent
+        return !!o
+      })
+      if (pieceHit) {
+        let o: THREE.Object3D | null = pieceHit.object
+        while (o && !o.userData.square) o = o.parent
+        if (o && s.drag?.mesh !== o) return { kind: 'square', square: o.userData.square as Square }
+      }
       const p = localPoint()
       if (!p) return null
       const file = 5 - Math.round(p.x)

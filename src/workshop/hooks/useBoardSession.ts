@@ -13,7 +13,7 @@ type Selection = { from: Square | PieceType; color: Color } | null
 
 export function useBoardSession() {
   const settings = useSettings()
-  const [mode, setMode] = useState<Mode>('lesson')
+  const [mode, setMode] = useState<Mode>('spar')
   const [course, setCourse] = useState<Course | null>(null)
   const [game, setGame] = useState<Game>({ start: InitialPositionSFEN.STANDARD, moves: [] })
   const [cursor, setCursor] = useState(0)
