@@ -127,7 +127,7 @@ export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, heig
   holder.updateWorldMatrix(true, true)
   const reachOut = Math.min(...legs.map((l) => Math.abs(local(l.lower).z))) - 0.07 * UNITS_PER_M
   const clearance = seat.tableEdge + 0.06 * UNITS_PER_M - reachOut
-  if (seat.style === 'seiza' && clearance > 0) holder.position.addScaledVector(new THREE.Vector3(0, 0, Math.sign(seat.z)), clearance)
+  if (seat.style === 'seiza') holder.position.addScaledVector(new THREE.Vector3(0, 0, Math.sign(seat.z)), clearance)
   const seated = holder.position.clone()
   const away = new THREE.Vector3(seat.x, 0, seat.z).normalize()
   const recoil = seat.style === 'seiza' ? { back: 15, up: 0, lean: rad(-16) } : { back: 0.5, up: 0.3, lean: rad(-10) }
@@ -205,24 +205,40 @@ export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, heig
     if (g.grip) outWrist.sub(tmp.copy(side.grip).applyQuaternion(outQ).multiplyScalar(k))
   }
 
-  const hips0 = holder.worldToLocal(bone('hips').getWorldPosition(new THREE.Vector3()))
-  const shoulder0 = rest('rightUpperArm').sub(rest('hips')).multiplyScalar(k)
-  const armReach = (rest('rightLowerArm').distanceTo(rest('rightUpperArm')) + rest('rightHand').distanceTo(rest('rightLowerArm')) + rest('rightMiddleDistal').distanceTo(rest('rightHand'))) * k * 0.9
   const thigh = rest('leftLowerLeg').distanceTo(rest('leftUpperLeg')) * k
-  const headUp = rest('head').sub(rest('hips')).y * k
-  const edge = Math.abs(seated.z) - seat.tableEdge + 0.3 * UNITS_PER_M
   const riseShift = (rise: number) => ({ f: thigh * (Math.sin(rad(SEIZA.hip)) - Math.sin(rad(kneel(rise)))), u: thigh * (Math.cos(rad(kneel(rise))) - Math.cos(rad(SEIZA.hip))) })
+  const plan = { hips: new THREE.Vector3(), sh0: new THREE.Vector3(), hd0: new THREE.Vector3(), f: new THREE.Vector3(), axis: new THREE.Vector3(), edge: new THREE.Vector3(), at: new THREE.Vector3(), q: new THREE.Quaternion() }
+  const armLength = () => {
+    const chain = sides.find((x) => x.side === state.side)!.chain
+    const a = chain.upper.getWorldPosition(tmp)
+    const b = chain.lower.getWorldPosition(tmp2)
+    const ab = a.distanceTo(b)
+    const c = chain.hand.getWorldPosition(a)
+    return ab + b.distanceTo(c) + c.distanceTo(pinchAt)
+  }
   const reachPlan = () => {
-    const p = holder.worldToLocal(tmp.copy(state.reach.at))
+    holder.updateWorldMatrix(true, true)
+    const target = state.reach.at
+    const f = plan.f.set(0, 0, s).applyQuaternion(holder.getWorldQuaternion(plan.q)).setY(0).normalize()
+    const axis = plan.axis.crossVectors(UP, f).normalize()
+    const hips = bone('hips').getWorldPosition(plan.hips)
+    plan.q.setFromAxisAngle(axis, -state.lean)
+    const sh0 = bone('rightUpperArm').getWorldPosition(plan.sh0).sub(hips).applyQuaternion(plan.q)
+    const hd0 = bone('head').getWorldPosition(plan.hd0).sub(hips).applyQuaternion(plan.q)
+    const cur = riseShift(state.rise)
+    const edge = root.getWorldPosition(plan.edge).addScaledVector(f, -seat.tableEdge)
+    const reach = armLength() * 0.93
     let best = { lean: 0, rise: 0 }
-    for (let lean = 0; lean < rad(80); lean += rad(2)) {
+    for (let lean = 0; lean < rad(75); lean += rad(1.5)) {
       const rise = seat.style === 'seiza' ? clamp01((lean - rad(20)) / rad(30)) * 0.75 : 0
       const shift = riseShift(rise)
-      if (s * (hips0.z + s * shift.f) + headUp * Math.sin(lean) > edge) break
+      const base = tmp.copy(hips).addScaledVector(f, shift.f - cur.f).addScaledVector(UP, shift.u - cur.u)
+      plan.q.setFromAxisAngle(axis, lean)
+      if (tmp2.copy(hd0).applyQuaternion(plan.q).add(base).sub(edge).dot(f) > 0.25 * UNITS_PER_M) break
       best = { lean, rise }
-      const q = tmp2.set(hips0.x + shoulder0.x, hips0.y + shift.u + shoulder0.y * Math.cos(lean), hips0.z + s * (shift.f + shoulder0.y * Math.sin(lean)))
-      if (q.distanceTo(p) <= armReach) break
+      if (plan.at.copy(sh0).applyQuaternion(plan.q).add(base).distanceTo(target) <= reach) break
     }
+    const p = holder.worldToLocal(tmp.copy(target))
     return { ...best, yaw: Math.atan2(s * p.x, s * p.z) }
   }
 
@@ -237,7 +253,7 @@ export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, heig
     if (seat.style === 'seiza') poseLegs(state.rise)
     shoulder.quaternion.setFromAxisAngle(AY, -s * rad(14) * state.reachW).multiply(qa.setFromAxisAngle(AZ, rightSign * rad(6) * state.reachW))
     const reachLean = r.lean * Math.min(1, state.reachW * 2.5)
-    state.stretch = state.reachW > 0.5 ? Math.min(rad(15), Math.max(0, state.stretch + Math.max(-1, Math.min(1, (state.excess + 0.06 * UNITS_PER_M) / (0.2 * UNITS_PER_M))) * dt * 3)) : damp(state.stretch, 0, 6, dt)
+    state.stretch = state.reachW > 0.5 ? Math.min(rad(60), Math.max(0, state.stretch + Math.max(-1, Math.min(1, (state.excess + 0.03 * UNITS_PER_M) / (0.1 * UNITS_PER_M))) * dt * 10)) : damp(state.stretch, 0, 6, dt)
     const leanTarget = rad(seat.style === 'seiza' ? 7 : 5) + reachLean + state.stretch + state.bow * rad(38) + state.slump * rad(16) + state.think * rad(4) + recoil.lean * state.flinch
     state.lean = damp(state.lean, leanTarget, state.reachW > 0.05 ? 16 : 8, dt)
     state.twist = damp(state.twist, Math.max(-0.5, Math.min(0.5, r.yaw * 0.35)) * state.reachW, 10, dt)
