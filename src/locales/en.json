@@ -494,7 +494,8 @@
     "next": "Next",
     "hint": "Hint",
     "showAnswer": "Show answer",
-    "solvedFirstTryOf": "Solved first try: {{value}} of {{poolCount}}"
+    "solvedFirstTryOf": "Solved first try: {{value}} of {{poolCount}}",
+    "missesIt": "it misses the tesuji"
   },
   "tsume": {
     "pieces": "pieces",
@@ -784,7 +785,8 @@
     "lookAround": "Look around",
     "lookAroundHint": "Look around: drag to rotate, scroll to zoom. Click pieces to keep playing.",
     "hidePanel": "Hide panel",
-    "studyPlayWhy": "Play {{move}} (green arrow): {{note}}"
+    "studyPlayWhy": "Play {{move}} (green arrow): {{note}}",
+    "isAFineMoveNotIt": "{{move}} is a fine move, but not the answer. Try again."
   },
   "zones": {
     "first": "First",

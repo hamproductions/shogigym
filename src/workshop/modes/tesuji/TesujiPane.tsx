@@ -37,11 +37,11 @@ export function TesujiPane({ trainer, drill }: { trainer: TesujiTrainer; drill: 
         </Card>
       )}
       <div className="ws-actions">
-        <Button variant="primary" onClick={trainer.next}>
-          {t('tesuji.next')}
-        </Button>
         {drill.status === 'asking' && !drill.hint && <Button onClick={trainer.hint}>{t('tesuji.hint')}</Button>}
         {drill.status === 'asking' && <Button onClick={trainer.reveal}>{t('tesuji.showAnswer')}</Button>}
+        <Button variant={drill.status === 'asking' ? 'secondary' : 'primary'} onClick={trainer.next}>
+          {t('tesuji.next')}
+        </Button>
       </div>
       <p className="ws-muted">{t('tesuji.solvedFirstTryOf', { value: pool.filter((d) => stats.solved.includes(d.id)).length, poolCount: pool.length })}</p>
     </div>

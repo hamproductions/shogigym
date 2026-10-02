@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { colorSide, positionOf } from '../../../shogi'
 import type { BoardArrow } from '../../Board3D'
 import type { BoardSession } from '../../hooks/useBoardSession'
+import type { Mistakes } from '../../hooks/useMistake'
 import type { Load } from '../../hooks/useModeSwitch'
 import { sideMark } from '../../lib/notation'
 import { playSound } from '../../settings'
@@ -13,7 +14,7 @@ export type TesujiState = { item: TesujiDrill; filter: string; status: 'asking' 
 
 const ANSWER_GREEN = '#4f8a2a'
 
-export function useTesuji(session: BoardSession, { load, setTab }: { load: Load; setTab: (tab: Tab) => void }) {
+export function useTesuji(session: BoardSession, { mistakes, load, setTab }: { mistakes: Mistakes; load: Load; setTab: (tab: Tab) => void }) {
   const { t } = useTranslation()
   const [drill, setDrill] = useState<TesujiState | null>(null)
   const active = session.mode === 'tesuji'
@@ -37,6 +38,7 @@ export function useTesuji(session: BoardSession, { load, setTab }: { load: Load;
       playSound('wrong')
       session.setSelection(null)
       setDrill({ ...drill, missed: true, wrong: usi })
+      void mistakes.show(usi, drill.item.answer, undefined, t('tesuji.missesIt'))
     }
   }
 

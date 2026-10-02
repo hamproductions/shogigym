@@ -482,7 +482,8 @@
     "next": "次へ",
     "hint": "ヒント",
     "showAnswer": "答えを見る",
-    "solvedFirstTryOf": "一発正解: {{value}} / {{poolCount}}"
+    "solvedFirstTryOf": "一発正解: {{value}} / {{poolCount}}",
+    "missesIt": "手筋を逃しています"
   },
   "tsume": {
     "pieces": "駒",
@@ -765,7 +766,8 @@
     "lookAround": "見回す",
     "lookAroundHint": "見回す: ドラッグで回転、スクロールで拡大縮小。駒をクリックすればそのまま指せます。",
     "hidePanel": "パネルを隠す",
-    "studyPlayWhy": "{{move}}を指しましょう（緑の矢印）：{{note}}"
+    "studyPlayWhy": "{{move}}を指しましょう（緑の矢印）：{{note}}",
+    "isAFineMoveNotIt": "{{move}}も悪くない手ですが、正解ではありません。もう一度。"
   },
   "zones": {
     "first": "最初へ",

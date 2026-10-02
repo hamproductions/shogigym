@@ -76,7 +76,7 @@ export function Workshop({ routeMode, routeMain }: { routeMode?: string; routeMa
   const layout = useLayout({ mode, needsPicking: (mode === 'lesson' && !course) || (mode === 'drill' && !drill.drill?.items.length), welcome: levels.welcome })
   const lesson = useLesson(session, { mistakes, load, setTab, closeSheet: () => layout.setSheetOpen(false), compact: layout.compact })
   const tsume = useTsume(session, { mistakes, load, setTab })
-  const tesuji = useTesuji(session, { load, setTab })
+  const tesuji = useTesuji(session, { mistakes, load, setTab })
   const analyze = useAnalyzeGames(session, { load, setTab, setConfirm })
   const spar = useSpar(session, { load, setTab, coach, mistakes, setNudge, setConfirm, forgetReply: () => opponent.forget(), openInAnalyze: analyze.openReview, analyzeMoves: () => slots.stashed('analyze')?.game.moves.length ?? 0 })
   const opponent = useOpponent(session, { lessonMode: lesson.lessonMode, halted: spar.halted })
@@ -124,7 +124,7 @@ export function Workshop({ routeMode, routeMain }: { routeMode?: string; routeMa
   const instruction = (() => {
     if (lesson.checking) return t('workshop.checkingThatMove')
     if (preview && mistake) return mistakeIsBad(mistake) ? t('workshop.watchHowItGetsPunished') : t('workshop.watchWhatFollowsThenGo')
-    if (mistake) return mistakeIsBad(mistake) ? t('workshop.wasAMistakeTryAgain', { move: moveText(session.sfens[mistake.base], mistake.usi) }) : t('workshop.isAFineMoveBut', { move: moveText(session.sfens[mistake.base], mistake.usi) })
+    if (mistake) return mistakeIsBad(mistake) ? t('workshop.wasAMistakeTryAgain', { move: moveText(session.sfens[mistake.base], mistake.usi) }) : t(mode === 'lesson' || mode === 'drill' ? 'workshop.isAFineMoveBut' : 'workshop.isAFineMoveNotIt', { move: moveText(session.sfens[mistake.base], mistake.usi) })
     if (preview) return t('workshop.previewWatchItPlayOut')
     return { lesson, drill, tesuji, tsume, spar, analyze }[mode].instruction()
   })()
