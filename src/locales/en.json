@@ -744,9 +744,9 @@
     "showHowEachPieceMoves": "Show how each piece moves when I tap it, and describe lesson moves in plain English.",
     "howTheScreenWorks": "How the screen works",
     "sidePanel": "Side panel",
-    "coachExplainsMovesAiRates": "Coach explains moves, AI rates the position, What next shows lines, Moves lists the game. Hide it with Board only or ×.",
+    "coachExplainsMovesAiRates": "Coach explains moves, AI rates the position, What next shows lines, Moves lists the game. Hide it with Hide panel or ×.",
     "stepBack": "Step back",
-    "andWalkThroughMovesPlay": "← and → walk through moves. Play a different move to try a variation; the game is kept.",
+    "andWalkThroughMovesPlay": "The ◀ ▶ buttons (or the ← → keys) walk through moves. Play a different move to try a variation; the game is kept.",
     "next": "Next",
     "whereDoYouWantTo": "Where do you want to start?",
     "learnTheBasicFourthFile": "Learn the basic setup of your main strategy",
@@ -767,7 +767,6 @@
     "kingEscapes_one": "The {{side}} king you are attacking can escape to 1 square.",
     "kingEscapes_other": "The {{side}} king you are attacking can escape to {{count}} squares.",
     "studyYourMove": "Your move as {{side}}: play the green arrow.",
-    "coachTellsWhy": " The coach tells you why.",
     "youFlagged": "You ran out of time. {{winner}} wins.",
     "aiFlagged": "The AI ran out of time. {{winner}} wins. Well played!",
     "youResigned": "You resigned. {{winner}} wins.",
@@ -784,7 +783,8 @@
     "hideUiShort": "Hide UI",
     "lookAround": "Look around",
     "lookAroundHint": "Look around: drag to rotate, scroll to zoom. Click pieces to keep playing.",
-    "hidePanel": "Hide panel"
+    "hidePanel": "Hide panel",
+    "studyPlayWhy": "Play {{move}} (green arrow): {{note}}"
   },
   "zones": {
     "first": "First",

@@ -174,7 +174,7 @@ export function useLesson(session: BoardSession, { mistakes, load, setTab, close
     if (!course) return t('workshop.pickATechniqueOrAn')
     if (offBook) return t('workshop.offTheLessonLineGo')
     if (done) return t('workshop.lineComplete')
-    if (asking) return lessonMode === 'study' ? t('workshop.studyYourMove', { side: sideMark(userSide) }) + (good.some((b) => b.note) ? t('workshop.coachTellsWhy') : '') : showAnswer ? t('workshop.answerShownPlayTheGreen') : t('workshop.yourMoveAsFindThe', { me: sideMark(userSide) })
+    if (asking) return lessonMode === 'study' ? (good[0]?.note ? t('workshop.studyPlayWhy', { move: moveText(liveSfen, good[0].usi), note: good[0].note }) : t('workshop.studyYourMove', { side: sideMark(userSide) })) : showAnswer ? t('workshop.answerShownPlayTheGreen') : t('workshop.yourMoveAsFindThe', { me: sideMark(userSide) })
     return lessonMode === 'study' ? (compact ? t('workshop.theirMoveIsShownTap') : t('workshop.theirMoveIsShownPress')) : t('workshop.theirReplyComesInA')
   }
 

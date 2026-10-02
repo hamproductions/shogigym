@@ -509,6 +509,10 @@
   }
 
   .ws-modebar-text strong {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    white-space: normal;
     font-size: var(--text-sm);
   }
 

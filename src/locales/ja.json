@@ -731,9 +731,9 @@
     "showHowEachPieceMoves": "駒をタップすると動ける場所を表示し、レッスンの手をやさしい言葉で説明します。",
     "howTheScreenWorks": "画面の見方",
     "sidePanel": "サイドパネル",
-    "coachExplainsMovesAiRates": "指導は指し手を解説し、形勢は局面を評価し、この先は手順を示し、棋譜は対局の手を一覧します。「盤面のみ」か×で隠せます。",
+    "coachExplainsMovesAiRates": "指導は指し手を解説し、形勢は局面を評価し、この先は手順を示し、棋譜は対局の手を一覧します。「パネルを隠す」か×で隠せます。",
     "stepBack": "手を戻す",
-    "andWalkThroughMovesPlay": "←と→で手を進めたり戻したりします。別の手を指すと変化を試せます。元の棋譜は残ります。",
+    "andWalkThroughMovesPlay": "◀ ▶ ボタン（パソコンでは←→キー）で手を進めたり戻したりします。別の手を指すと変化を試せます。元の棋譜は残ります。",
     "next": "次へ",
     "whereDoYouWantTo": "どこから始めますか？",
     "learnTheBasicFourthFile": "得意戦法の基本形を学ぶ",
@@ -750,7 +750,6 @@
     "pieceCovers_other": "{{square}}の{{piece}}の利きは{{count}}マスです。",
     "kingEscapes_other": "攻めている{{side}}玉の逃げ道は{{count}}マスです。",
     "studyYourMove": "{{side}}の手番です。緑の矢印の手を指しましょう。",
-    "coachTellsWhy": "指導で理由を説明します。",
     "youFlagged": "あなたの時間切れです。{{winner}}の勝ち。",
     "aiFlagged": "AIの時間切れです。{{winner}}の勝ち。お見事！",
     "youResigned": "投了しました。{{winner}}の勝ち。",
@@ -765,7 +764,8 @@
     "hideUiShort": "UI非表示",
     "lookAround": "見回す",
     "lookAroundHint": "見回す: ドラッグで回転、スクロールで拡大縮小。駒をクリックすればそのまま指せます。",
-    "hidePanel": "パネルを隠す"
+    "hidePanel": "パネルを隠す",
+    "studyPlayWhy": "{{move}}を指しましょう（緑の矢印）：{{note}}"
   },
   "zones": {
     "first": "最初へ",
