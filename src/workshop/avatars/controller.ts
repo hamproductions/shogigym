@@ -25,6 +25,20 @@ const SHAPES = {
   press: { Index: [8, 4, 4], Middle: [22, 8, 4], Ring: [45, 50, 30], Little: [55, 55, 35] },
 }
 const MOCAP = 0.2
+const PAD_DEPTH = 0.15
+
+const topOf = (mesh: THREE.Object3D) => {
+  if (mesh.userData.top !== undefined) return mesh.userData.top as number
+  let top = 0
+  mesh.traverse((o) => {
+    const g = (o as THREE.Mesh).geometry
+    if (!g) return
+    if (!g.boundingBox) g.computeBoundingBox()
+    top = Math.max(top, g.boundingBox!.max.y)
+  })
+  mesh.userData.top = top
+  return top
+}
 
 type HandShape = keyof typeof SHAPES
 
@@ -103,7 +117,7 @@ async function loadVrm(loader: GLTFLoader, url: string, uniforms: Fade) {
   VRMUtils.combineSkeletons(gltf.scene)
   vrm.scene.traverse((o) => {
     o.frustumCulled = false
-    o.castShadow = false
+    o.castShadow = (o as THREE.Mesh).isMesh === true
     o.receiveShadow = false
     const m = (o as THREE.Mesh).material
     if (m) for (const mat of Array.isArray(m) ? m : [m]) patchFade(mat, uniforms)
@@ -261,12 +275,14 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
   }
 
   const pinchAt = new THREE.Vector3()
-  const attach = (actor: Actor) => {
+  const hold = new THREE.Vector3()
+  const attach = (actor: Actor, dt: number) => {
     const action = actor.action
     const step = action?.steps[action.index]
     if (!action || !step || action.t < REACH + CLOSE) return
     const pinch = root.worldToLocal(pinchAt.copy(actor.char.pinch()))
     action.lock ??= step.mesh.position.clone().sub(pinch)
+    action.lock.lerp(hold.set(0, -topOf(step.mesh) - PAD_DEPTH, 0), 1 - Math.exp(-dt * 30))
     step.mesh.position.copy(pinch).add(action.lock)
     step.flip?.position.copy(step.mesh.position)
   }
@@ -397,7 +413,7 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
       actor.char.update(dt)
       actor.char.arms(actor.uniforms.arms.value)
       for (const v of actor.uniforms.arms.value.slice(4)) v.setScalar(1e6)
-      attach(actor)
+      attach(actor, dt)
     }
   }
 

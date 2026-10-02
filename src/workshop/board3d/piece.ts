@@ -182,7 +182,9 @@ export function pieceMesh(type: PieceType, color: Color) {
   const top = new THREE.Mesh(carvedTop(scale, map), face)
   top.castShadow = true
   top.receiveShadow = true
-  mesh.add(top, new THREE.Mesh(pieceBottom(scale), bottomMaterial))
+  const bottom = new THREE.Mesh(pieceBottom(scale), bottomMaterial)
+  bottom.castShadow = true
+  mesh.add(top, bottom)
   if (color === Color.WHITE) mesh.rotation.y = Math.PI
   return mesh
 }
