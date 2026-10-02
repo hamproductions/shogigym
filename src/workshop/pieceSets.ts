@@ -1,12 +1,13 @@
 import { Color, PieceType } from 'tsshogi'
+import i18n from '../i18n'
 
 export type PieceSet = 'letters' | 'ryoko_1kanji' | 'kanji_brown' | 'kanji_light'
 
 export const PIECE_SETS: Record<PieceSet, { label: string; credit?: string }> = {
-  letters: { label: 'Drawn letters' },
-  ryoko_1kanji: { label: '菱湖 Ryoko', credit: 'Ryoko_1Kanji by nexxogen (lishogi), CC BY-SA 4.0' },
-  kanji_brown: { label: '駒 Brown', credit: 'kanji_brown by Ka-hu (lishogi), CC BY 4.0' },
-  kanji_light: { label: '駒 Light', credit: 'kanji_light by Ka-hu (lishogi), CC BY 4.0' },
+  letters: { get label() { return i18n.t('pieceSets.drawnLetters') } },
+  ryoko_1kanji: { get label() { return i18n.t('pieceSets.ryoko') }, credit: 'Ryoko_1Kanji by nexxogen (lishogi), CC BY-SA 4.0' },
+  kanji_brown: { get label() { return i18n.t('pieceSets.brown') }, credit: 'kanji_brown by Ka-hu (lishogi), CC BY 4.0' },
+  kanji_light: { get label() { return i18n.t('pieceSets.light') }, credit: 'kanji_light by Ka-hu (lishogi), CC BY 4.0' },
 }
 
 const CODE: Record<PieceType, string> = {

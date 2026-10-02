@@ -1,4 +1,5 @@
 import type { PieceSet } from './pieceSets'
+import i18n from '../i18n'
 import { useSyncExternalStore } from 'react'
 
 export type PieceStyle = 'two' | 'one'
@@ -8,6 +9,7 @@ export type Environment = 'traditional' | 'casual' | 'flat' | 'diagram' | 'broad
 export type BoardStyle = 'kaya' | 'shin-kaya' | 'dark'
 export type TimeControl = 'none' | '10s' | '3m' | '10m' | '10m30s' | '30m60s' | '5m5s'
 export type AiStrength = 'beginner' | 'club' | 'strong' | 'max'
+export type Lang = 'en' | 'ja'
 
 export type Settings = {
   sound: boolean
@@ -25,11 +27,20 @@ export type Settings = {
   aiStrategy: string
   assist: boolean
   timeControl: TimeControl
+  lang: Lang
 }
 
 const KEY = 'joseki-practice:settings:v1'
 
-const DEFAULTS: Settings = { sound: true, volume: 0.6, pieceStyle: 'two', pieceFont: 'mincho', pieceSet: 'letters', pieceFinish: 'moriage', coords: true, environment: 'traditional', boardStyle: 'kaya', thinkMs: 1500, candidates: 3, opponent: 'beginner', aiStrategy: '', assist: true, timeControl: 'none' }
+function navigatorLang(): Lang {
+  try {
+    return navigator.language.toLowerCase().startsWith('ja') ? 'ja' : 'en'
+  } catch {
+    return 'en'
+  }
+}
+
+const DEFAULTS: Settings = { sound: true, volume: 0.6, pieceStyle: 'two', pieceFont: 'mincho', pieceSet: 'letters', pieceFinish: 'moriage', coords: true, environment: 'traditional', boardStyle: 'kaya', thinkMs: 1500, candidates: 3, opponent: 'beginner', aiStrategy: '', assist: true, timeControl: 'none', lang: navigatorLang() }
 
 function read(): Settings {
   try {
@@ -40,10 +51,12 @@ function read(): Settings {
 }
 
 let current = read()
+void i18n.changeLanguage(current.lang)
 const listeners = new Set<() => void>()
 
 export function setSettings(patch: Partial<Settings>) {
   current = { ...current, ...patch }
+  if (patch.lang && patch.lang !== i18n.language) void i18n.changeLanguage(patch.lang)
   try {
     localStorage.setItem(KEY, JSON.stringify(current))
   } catch (error) {
@@ -65,10 +78,10 @@ export function useSettings() {
 }
 
 export const STRENGTH: Record<AiStrength, { label: string; movetime: number; pickFrom: number; maxLoss: number }> = {
-  beginner: { label: 'Beginner', movetime: 150, pickFrom: 4, maxLoss: 0.2 },
-  club: { label: 'Club player', movetime: 300, pickFrom: 3, maxLoss: 0.07 },
-  strong: { label: 'Strong', movetime: 800, pickFrom: 1, maxLoss: 0 },
-  max: { label: 'Full strength', movetime: 2000, pickFrom: 1, maxLoss: 0 },
+  beginner: { get label() { return i18n.t('options.beginner') }, movetime: 150, pickFrom: 4, maxLoss: 0.2 },
+  club: { get label() { return i18n.t('options.clubPlayer') }, movetime: 300, pickFrom: 3, maxLoss: 0.07 },
+  strong: { get label() { return i18n.t('options.strong') }, movetime: 800, pickFrom: 1, maxLoss: 0 },
+  max: { get label() { return i18n.t('options.fullStrength') }, movetime: 2000, pickFrom: 1, maxLoss: 0 },
 }
 
 let audio: AudioContext | null = null
@@ -129,10 +142,10 @@ export function playSound(kind: 'move' | 'capture' | 'right' | 'wrong' | 'comple
 }
 
 export const PIECE_FONTS: Record<PieceFont, { label: string; family: string; weight: number; load: () => Promise<unknown> }> = {
-  mincho: { label: '明朝 Mincho', family: 'Shippori Mincho B1', weight: 800, load: async () => undefined },
-  kaisho: { label: '楷書 Kaisho', family: 'Yuji Syuku', weight: 400, load: () => import('@fontsource/yuji-syuku/400.css') },
-  gyosho: { label: '行書 Gyōsho', family: 'Yuji Boku', weight: 400, load: () => import('@fontsource/yuji-boku/400.css') },
-  antique: { label: '古風 Antique', family: 'Zen Antique', weight: 400, load: () => import('@fontsource/zen-antique/400.css') },
+  mincho: { get label() { return i18n.t('options.mincho') }, family: 'Shippori Mincho B1', weight: 800, load: async () => undefined },
+  kaisho: { get label() { return i18n.t('options.kaisho') }, family: 'Yuji Syuku', weight: 400, load: () => import('@fontsource/yuji-syuku/400.css') },
+  gyosho: { get label() { return i18n.t('options.gySho') }, family: 'Yuji Boku', weight: 400, load: () => import('@fontsource/yuji-boku/400.css') },
+  antique: { get label() { return i18n.t('options.antique') }, family: 'Zen Antique', weight: 400, load: () => import('@fontsource/zen-antique/400.css') },
 }
 
 export async function loadPieceFont(font: PieceFont) {
@@ -142,19 +155,19 @@ export async function loadPieceFont(font: PieceFont) {
 }
 
 export const PIECE_FINISHES: Record<PieceFinish, { label: string; hint: string; relief: number; gloss: number }> = {
-  oshi: { label: '押し駒', hint: 'Stamped: ink pressed onto the wood.', relief: 0, gloss: 0 },
-  kaki: { label: '書き駒', hint: 'Written: lacquer painted straight onto the wood.', relief: 0.004, gloss: 0.7 },
-  hori: { label: '彫駒', hint: 'Carved: characters cut into the wood.', relief: -0.016, gloss: 0.4 },
-  horiume: { label: '彫埋駒', hint: 'Carved, then the groove filled flush with lacquer.', relief: -0.003, gloss: 1 },
-  moriage: { label: '盛上駒', hint: 'Horiume, then lacquer built up into raised characters. The finest grade.', relief: 0.012, gloss: 1 },
+  oshi: { get label() { return i18n.t('options.stamped') }, get hint() { return i18n.t('options.stampedInkPressedOntoThe') }, relief: 0, gloss: 0 },
+  kaki: { get label() { return i18n.t('options.written') }, get hint() { return i18n.t('options.writtenLacquerPaintedStraightOnto') }, relief: 0.004, gloss: 0.7 },
+  hori: { get label() { return i18n.t('options.carved') }, get hint() { return i18n.t('options.carvedCharactersCutIntoThe') }, relief: -0.016, gloss: 0.4 },
+  horiume: { get label() { return i18n.t('options.carvedFilled') }, get hint() { return i18n.t('options.carvedThenTheGrooveFilled') }, relief: -0.003, gloss: 1 },
+  moriage: { get label() { return i18n.t('options.raisedLacquer') }, get hint() { return i18n.t('options.horiumeThenLacquerBuiltUp') }, relief: 0.012, gloss: 1 },
 }
 
 export const TIME_CONTROLS: Record<TimeControl, { label: string; hint: string; main: number; byoyomi: number; increment: number }> = {
-  none: { hint: 'No clock', label: 'None', main: 0, byoyomi: 0, increment: 0 },
-  '10s': { hint: '1手10秒: every move within 10 seconds', label: '10秒', main: 0, byoyomi: 10, increment: 0 },
-  '3m': { hint: '3分切れ負け: 3 minutes each, then you lose on time', label: '3分', main: 180, byoyomi: 0, increment: 0 },
-  '10m': { hint: '10分切れ負け: 10 minutes each, then you lose on time', label: '10分', main: 600, byoyomi: 0, increment: 0 },
-  '10m30s': { hint: '10 minutes, then 30 seconds for every move (秒読み)', label: '10分+30秒', main: 600, byoyomi: 30, increment: 0 },
-  '30m60s': { hint: '30 minutes, then 60 seconds for every move (秒読み)', label: '30分+60秒', main: 1800, byoyomi: 60, increment: 0 },
-  '5m5s': { hint: '5 minutes, plus 5 seconds added after each move', label: '5分+5秒加算', main: 300, byoyomi: 0, increment: 5 },
+  none: { get hint() { return i18n.t('options.noClock') }, get label() { return i18n.t('options.none') }, main: 0, byoyomi: 0, increment: 0 },
+  '10s': { get hint() { return i18n.t('options.everyMoveWithin10Seconds') }, get label() { return i18n.t('options.10S') }, main: 0, byoyomi: 10, increment: 0 },
+  '3m': { get hint() { return i18n.t('options.3MinutesEachThenYou') }, get label() { return i18n.t('options.3Min') }, main: 180, byoyomi: 0, increment: 0 },
+  '10m': { get hint() { return i18n.t('options.10MinutesEachThenYou') }, get label() { return i18n.t('options.10Min') }, main: 600, byoyomi: 0, increment: 0 },
+  '10m30s': { get hint() { return i18n.t('options.10MinutesThen30Seconds') }, get label() { return i18n.t('options.10Min30S') }, main: 600, byoyomi: 30, increment: 0 },
+  '30m60s': { get hint() { return i18n.t('options.30MinutesThen60Seconds') }, get label() { return i18n.t('options.30Min60S') }, main: 1800, byoyomi: 60, increment: 0 },
+  '5m5s': { get hint() { return i18n.t('options.5MinutesPlus5Seconds') }, get label() { return i18n.t('options.5Min5S') }, main: 300, byoyomi: 0, increment: 5 },
 }

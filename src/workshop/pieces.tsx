@@ -1,5 +1,7 @@
 import { Color, PieceType, Square } from 'tsshogi'
 import { positionOf } from '../shogi'
+import { useTranslation } from 'react-i18next'
+import i18n from '../i18n'
 
 type Step = { dx: number; dy: number; slide?: boolean }
 
@@ -20,20 +22,20 @@ const BISHOP_SLIDES: Step[] = [
 ]
 
 export const PIECE_INFO: Record<PieceType, { ja: string; reading: string; en: string; moves: string; steps: Step[]; promotes?: string }> = {
-  [PieceType.PAWN]: { ja: '歩兵', reading: 'fuhyō', en: 'Pawn', moves: 'One square straight forward.', steps: [{ dx: 0, dy: -1 }], promotes: 'Promotes to と金 (tokin), which moves like a gold.' },
-  [PieceType.LANCE]: { ja: '香車', reading: 'kyōsha', en: 'Lance', moves: 'Any number of squares straight forward. It cannot go back or sideways.', steps: [{ dx: 0, dy: -1, slide: true }], promotes: 'Promotes to 成香, which moves like a gold.' },
-  [PieceType.KNIGHT]: { ja: '桂馬', reading: 'keima', en: 'Knight', moves: 'Jumps two squares forward and one to the side, over any piece. Only forward.', steps: [{ dx: -1, dy: -2 }, { dx: 1, dy: -2 }], promotes: 'Promotes to 成桂, which moves like a gold.' },
-  [PieceType.SILVER]: { ja: '銀将', reading: 'ginshō', en: 'Silver general', moves: 'One square forward, or one square diagonally in any direction.', steps: SILVER_STEPS, promotes: 'Promotes to 成銀, which moves like a gold.' },
-  [PieceType.GOLD]: { ja: '金将', reading: 'kinshō', en: 'Gold general', moves: 'One square in any direction except diagonally backward.', steps: GOLD_STEPS },
-  [PieceType.BISHOP]: { ja: '角行', reading: 'kakugyō', en: 'Bishop', moves: 'Any number of squares diagonally.', steps: BISHOP_SLIDES, promotes: 'Promotes to 龍馬 (horse): a bishop that can also step one square up, down or sideways.' },
-  [PieceType.ROOK]: { ja: '飛車', reading: 'hisha', en: 'Rook', moves: 'Any number of squares up, down or sideways.', steps: ROOK_SLIDES, promotes: 'Promotes to 龍王 (dragon): a rook that can also step one square diagonally.' },
-  [PieceType.KING]: { ja: '玉将', reading: 'gyokushō', en: 'King', moves: 'One square in any direction. Checkmate the other king to win.', steps: KING_STEPS },
-  [PieceType.PROM_PAWN]: { ja: 'と金', reading: 'tokin', en: 'Promoted pawn', moves: 'Moves like a gold. If captured, it goes back to being a plain pawn.', steps: GOLD_STEPS },
-  [PieceType.PROM_LANCE]: { ja: '成香', reading: 'narikyō', en: 'Promoted lance', moves: 'Moves like a gold.', steps: GOLD_STEPS },
-  [PieceType.PROM_KNIGHT]: { ja: '成桂', reading: 'narikei', en: 'Promoted knight', moves: 'Moves like a gold.', steps: GOLD_STEPS },
-  [PieceType.PROM_SILVER]: { ja: '成銀', reading: 'narigin', en: 'Promoted silver', moves: 'Moves like a gold.', steps: GOLD_STEPS },
-  [PieceType.HORSE]: { ja: '龍馬', reading: 'ryūma', en: 'Horse (promoted bishop)', moves: 'Any number of squares diagonally, plus one square up, down or sideways.', steps: [...BISHOP_SLIDES, ...ROOK_SLIDES.map((s) => ({ dx: s.dx, dy: s.dy }))] },
-  [PieceType.DRAGON]: { ja: '龍王', reading: 'ryūō', en: 'Dragon (promoted rook)', moves: 'Any number of squares up, down or sideways, plus one square diagonally.', steps: [...ROOK_SLIDES, ...BISHOP_SLIDES.map((s) => ({ dx: s.dx, dy: s.dy }))] },
+  [PieceType.PAWN]: { ja: '歩兵', reading: 'fuhyō', en: 'Pawn', get moves() { return i18n.t('pieces.oneSquareStraightForward') }, steps: [{ dx: 0, dy: -1 }], get promotes() { return i18n.t('pieces.promotesToTokinWhichMoves') } },
+  [PieceType.LANCE]: { ja: '香車', reading: 'kyōsha', en: 'Lance', get moves() { return i18n.t('pieces.anyNumberOfSquaresStraight') }, steps: [{ dx: 0, dy: -1, slide: true }], get promotes() { return i18n.t('pieces.promotesToWhichMovesLike') } },
+  [PieceType.KNIGHT]: { ja: '桂馬', reading: 'keima', en: 'Knight', get moves() { return i18n.t('pieces.jumpsTwoSquaresForwardAnd') }, steps: [{ dx: -1, dy: -2 }, { dx: 1, dy: -2 }], get promotes() { return i18n.t('pieces.promotesToWhichMovesLike2') } },
+  [PieceType.SILVER]: { ja: '銀将', reading: 'ginshō', en: 'Silver general', get moves() { return i18n.t('pieces.oneSquareForwardOrOne') }, steps: SILVER_STEPS, get promotes() { return i18n.t('pieces.promotesToWhichMovesLike3') } },
+  [PieceType.GOLD]: { ja: '金将', reading: 'kinshō', en: 'Gold general', get moves() { return i18n.t('pieces.oneSquareInAnyDirection') }, steps: GOLD_STEPS },
+  [PieceType.BISHOP]: { ja: '角行', reading: 'kakugyō', en: 'Bishop', get moves() { return i18n.t('pieces.anyNumberOfSquaresDiagonally') }, steps: BISHOP_SLIDES, get promotes() { return i18n.t('pieces.promotesToHorseABishop') } },
+  [PieceType.ROOK]: { ja: '飛車', reading: 'hisha', en: 'Rook', get moves() { return i18n.t('pieces.anyNumberOfSquaresUp') }, steps: ROOK_SLIDES, get promotes() { return i18n.t('pieces.promotesToDragonARook') } },
+  [PieceType.KING]: { ja: '玉将', reading: 'gyokushō', en: 'King', get moves() { return i18n.t('pieces.oneSquareInAnyDirection2') }, steps: KING_STEPS },
+  [PieceType.PROM_PAWN]: { ja: 'と金', reading: 'tokin', en: 'Promoted pawn', get moves() { return i18n.t('pieces.movesLikeAGoldIf') }, steps: GOLD_STEPS },
+  [PieceType.PROM_LANCE]: { ja: '成香', reading: 'narikyō', en: 'Promoted lance', get moves() { return i18n.t('pieces.movesLikeAGold') }, steps: GOLD_STEPS },
+  [PieceType.PROM_KNIGHT]: { ja: '成桂', reading: 'narikei', en: 'Promoted knight', get moves() { return i18n.t('pieces.movesLikeAGold') }, steps: GOLD_STEPS },
+  [PieceType.PROM_SILVER]: { ja: '成銀', reading: 'narigin', en: 'Promoted silver', get moves() { return i18n.t('pieces.movesLikeAGold') }, steps: GOLD_STEPS },
+  [PieceType.HORSE]: { ja: '龍馬', reading: 'ryūma', en: 'Horse (promoted bishop)', get moves() { return i18n.t('pieces.anyNumberOfSquaresDiagonally2') }, steps: [...BISHOP_SLIDES, ...ROOK_SLIDES.map((s) => ({ dx: s.dx, dy: s.dy }))] },
+  [PieceType.DRAGON]: { ja: '龍王', reading: 'ryūō', en: 'Dragon (promoted rook)', get moves() { return i18n.t('pieces.anyNumberOfSquaresUp2') }, steps: [...ROOK_SLIDES, ...BISHOP_SLIDES.map((s) => ({ dx: s.dx, dy: s.dy }))] },
 }
 
 function MoveDiagram({ steps }: { steps: Step[] }) {
@@ -52,6 +54,8 @@ function MoveDiagram({ steps }: { steps: Step[] }) {
 }
 
 export function PieceGuide({ sfen, from }: { sfen: string; from: Square | PieceType }) {
+  const { t, i18n: lang } = useTranslation()
+  const ja = lang.language === 'ja'
   const position = positionOf(sfen)
   const type = from instanceof Square ? position.board.at(from)?.type : from
   if (type === undefined) return null
@@ -63,12 +67,12 @@ export function PieceGuide({ sfen, from }: { sfen: string; from: Square | PieceT
       <MoveDiagram steps={info.steps} />
       <div>
         <strong>
-          {kingName} <span>{info.reading}</span>
+          {kingName} {!ja && <span>{info.reading}</span>}
         </strong>
-        <span className="ws-piece-en">{info.en}</span>
+        {!ja && <span className="ws-piece-en">{info.en}</span>}
         <p>{info.moves}</p>
-        {info.promotes && !inHand && <p className="ws-muted">{info.promotes} A piece may promote when it moves into, out of, or inside the last three ranks.</p>}
-        {inHand && <p className="ws-muted">A captured piece is yours: drop it on any empty square instead of moving. You cannot drop a pawn on a file where you already have an unpromoted pawn, or drop a pawn to give checkmate.</p>}
+        {info.promotes && !inHand && <p className="ws-muted">{info.promotes} {t('pieces.aPieceMayPromoteWhen')}</p>}
+        {inHand && <p className="ws-muted">{t('pieces.aCapturedPieceIsYours')}</p>}
       </div>
     </div>
   )
@@ -82,10 +86,10 @@ export function moveGloss(sfen: string, usi: string): string {
   const move = position.createMoveByUSI(usi)
   if (!move) return ''
   const to = `${FILE[move.to.file]}${RANK[move.to.rank]}`
-  if (!(move.from instanceof Square)) return `Drop a ${PIECE_INFO[move.pieceType].en.toLowerCase()} on ${to}`
-  const piece = PIECE_INFO[move.pieceType].en
-  const capture = move.capturedPieceType !== null && move.capturedPieceType !== undefined ? `, taking the ${PIECE_INFO[move.capturedPieceType].en.toLowerCase()}` : ''
-  return `${piece} to ${to}${capture}${move.promote ? ', promoting' : ''}`
+  const piece = PIECE_INFO[move.pieceType]
+  if (!(move.from instanceof Square)) return i18n.t('pieces.glossDrop', { pieceEn: piece.en.toLowerCase(), pieceJa: piece.ja, to })
+  const taken = move.capturedPieceType !== null && move.capturedPieceType !== undefined ? PIECE_INFO[move.capturedPieceType] : null
+  return i18n.t('pieces.glossMove', { pieceEn: piece.en, pieceJa: piece.ja, to }) + (taken ? i18n.t('pieces.glossCapture', { takenEn: taken.en.toLowerCase(), takenJa: taken.ja }) : '') + (move.promote ? i18n.t('pieces.glossPromote') : '')
 }
 
 export function sees(sfen: string, square: Square): Square[] {

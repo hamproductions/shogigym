@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js'
 import { Color, PieceType, Position, Square, type ImmutablePosition } from 'tsshogi'
 import { HAND_ORDER, PIECE_CHAR } from '../shogi'
@@ -13,6 +14,7 @@ export type Board3DProps = {
   position: ImmutablePosition
   flipped: boolean
   tilted: boolean
+  orbit?: boolean
   lastMove?: string
   selected: Square | PieceType | null
   selectedColor?: Color
@@ -29,7 +31,20 @@ export type Board3DProps = {
   onHand: (color: Color, type: PieceType) => void
   onDrop: (from: Square | PieceType, to: Square) => void
   onArrow?: (usi: string) => void
+  onZones?: (zones: StandZones | null) => void
+  sideRoom?: number
 }
+
+export function sideStandsFit(w: number, h: number) {
+  setBoardDims()
+  const side = Math.min(w / (2 * (HALF_W + 0.45 + STAND)), h / (2 * HALF_D + 0.6))
+  const sd = w < 560 ? 0.95 : 1.15
+  const strips = Math.min(w / (2 * HALF_W + (w < 560 ? 0.5 : 1.0)), h / (2 * (HALF_D + 0.3 + sd) + 0.2))
+  return side >= strips * 0.97
+}
+
+export type ZoneRect = { left: number; top: number; width: number; height: number }
+export type StandZones = { under: ZoneRect; over: ZoneRect }
 
 const MM_PER_SQUARE = 35.2
 const SQ_D = 38.6 / 35.2
@@ -821,6 +836,48 @@ export function Board3D(props: Board3DProps) {
     const marks = new THREE.Group()
     root.add(pieces, marks)
 
+    let zoneKey = ''
+    const reportZones = () => {
+      const cb = latest.current.onZones
+      if (!cb) return
+      const w = renderer.domElement.clientWidth
+      const h = renderer.domElement.clientHeight
+      const box = (obj: THREE.Object3D) => {
+        const b = new THREE.Box3().setFromObject(obj)
+        const xs: number[] = []
+        const ys: number[] = []
+        for (const x of [b.min.x, b.max.x]) for (const y of [b.max.y]) for (const z of [b.min.z, b.max.z]) {
+          const p = new THREE.Vector3(x, y, z).project(camera)
+          xs.push(((p.x + 1) / 2) * w)
+          ys.push(((1 - p.y) / 2) * h)
+        }
+        return { l: Math.min(...xs), r: Math.max(...xs), t: Math.min(...ys), b: Math.max(...ys) }
+      }
+      const st = state.current!
+      if (st.tiltTarget !== 0 || st.tilt > 0.002) return
+      const ok = !layout.portrait
+      if (!ok) {
+        if (zoneKey !== 'none') {
+          zoneKey = 'none'
+          cb(null)
+        }
+        return
+      }
+      const bd = box(board)
+      const [a, c] = stands.map(({ stand }) => box(stand))
+      const top = a.t < c.t ? a : c
+      const bottom = a.t < c.t ? c : a
+      const rect = renderer.domElement.getBoundingClientRect()
+      const ul = 16
+      const ur = w - 12
+      const under = { left: rect.left + ul, top: rect.top + top.b + 10, width: Math.max(0, bd.l - 10 - ul), height: Math.max(0, h - 44 - top.b - 10) }
+      const over = { left: rect.left + bd.r + 10, top: rect.top + 12, width: Math.max(0, ur - bd.r - 10), height: Math.max(0, bottom.t - 10 - 12) }
+      const key = [under, over].map((r) => [r.left, r.top, r.width, r.height].map((v) => Math.round(v / 6)).join(',')).join('|')
+      if (key === zoneKey) return
+      zoneKey = key
+      cb({ under, over })
+    }
+
     state.current = { renderer, scene, camera, root, pieces, marks, board, placeStands, handMeshes: [], tags: [], tilt: 0, tiltTarget: 0, animations: [], drag: null }
 
     const resize = () => {
@@ -828,9 +885,8 @@ export function Board3D(props: Board3DProps) {
       renderer.setSize(w, h)
       camera.aspect = w / h
       camera.updateProjectionMatrix()
-      const sideFit = Math.max((2 * (HALF_W + 0.45 + STAND)) / (w / h), 2 * HALF_D + 0.6)
-      const portrait = w < 560 || (h * 10) / sideFit < 470
       const narrow = w < 560
+      const portrait = !sideStandsFit(w, h)
       if (portrait !== layout.portrait || narrow !== layout.narrow) {
         layout.portrait = portrait
         layout.narrow = narrow
@@ -885,7 +941,9 @@ export function Board3D(props: Board3DProps) {
 
     let down: { pick: Pick; x: number; y: number } | null = null
 
+    let controls: OrbitControls | null = null
     const onDown = (event: PointerEvent) => {
+      if (controls) return
       ray(event)
       const hit = pick()
       if (!hit) return
@@ -970,13 +1028,34 @@ export function Board3D(props: Board3DProps) {
       }
       s.root.rotation.y += (flip - s.root.rotation.y) * (1 - Math.exp(-dt * 12))
       if (Math.abs(flip - s.root.rotation.y) < 0.002) s.root.rotation.y = flip
-      const fit = (layout.portrait ? Math.max((2 * HALF_W + (layout.narrow ? 0.5 : 1.0)) / camera.aspect, 2 * (strip().z + strip().d / 2) + 0.2) : Math.max((2 * (HALF_W + 0.45 + maxStand())) / camera.aspect, 2 * HALF_D + 0.6)) * (1 + (layout.portrait ? 0.06 : 0.16) * s.tilt)
+      const fit = (layout.portrait ? Math.max((2 * HALF_W + (layout.narrow ? 0.5 : 1.0)) / camera.aspect, 2 * (strip().z + strip().d / 2) + 0.2) : Math.max((2 * (HALF_W + 0.45 + Math.max(maxStand(), latest.current.sideRoom ?? 0))) / camera.aspect, 2 * HALF_D + 0.6)) * (1 + (layout.portrait ? 0.06 : 0.16) * s.tilt)
       const distance = fit / (2 * Math.tan((camera.fov * Math.PI) / 360))
-      if (FLAT) s.tilt = 0
-      const angle = FLAT ? 0 : 0.02 + s.tilt * 0.8
+      const angle = (FLAT ? 0 : 0.02) + s.tilt * 0.8
       const pan = layout.portrait ? 0 : s.tilt * 0.6
-      camera.position.set(pan, Math.cos(angle) * distance, Math.sin(angle) * distance)
-      camera.lookAt(pan, 0, s.tilt * 0.4)
+      if (latest.current.orbit && !controls) {
+        controls = new OrbitControls(camera, renderer.domElement)
+        controls.target.set(0, 0, 0)
+        controls.enableDamping = true
+        controls.maxPolarAngle = Math.PI * 0.48
+        controls.minDistance = 6
+        controls.maxDistance = 80
+      }
+      if (!latest.current.orbit && controls) {
+        controls.dispose()
+        controls = null
+      }
+      const near = controls ? 0.1 : Math.max(0.1, distance - 45)
+      const far = controls ? 400 : distance + 120
+      if (camera.near !== near || camera.far !== far) {
+        camera.near = near
+        camera.far = far
+        camera.updateProjectionMatrix()
+      }
+      if (controls) controls.update()
+      else {
+        camera.position.set(pan, Math.cos(angle) * distance, Math.sin(angle) * distance)
+        camera.lookAt(pan, 0, s.tilt * 0.4)
+      }
       const sel = latest.current.selected
       for (const mesh of s.pieces.children) {
         const base = mesh.userData.baseY as number | undefined
@@ -993,6 +1072,7 @@ export function Board3D(props: Board3DProps) {
         if (t >= 1) s.animations.splice(s.animations.indexOf(anim), 1)
       }
       renderer.render(scene, camera)
+      reportZones()
       frame = requestAnimationFrame(loop)
     }
     frame = requestAnimationFrame(loop)
@@ -1055,7 +1135,7 @@ export function Board3D(props: Board3DProps) {
           const badge = badgeSprite(String(spot.count), '#2a241e')
           badge.scale.setScalar(0.5)
           const sign = color === Color.BLACK ? 1 : -1
-          badge.position.set(spot.x + sign * 0.3, layout.portrait ? 0.4 : STAND_TOP + 0.35, spot.z - sign * 0.3)
+          badge.position.set(spot.x + (layout.portrait ? sign * 0.3 : 0), layout.portrait ? 0.4 : STAND_TOP + 0.45, spot.z - sign * (layout.portrait ? 0.3 : 0.5))
           s.pieces.add(badge)
         }
       }
@@ -1562,10 +1642,11 @@ function badgeSprite(text: string, color: string) {
   ctx.lineWidth = 5
   ctx.stroke()
   ctx.fillStyle = '#fff'
-  ctx.font = `800 ${text.length > 1 ? 40 : 50}px "Shippori Mincho B1", sans-serif`
+  ctx.font = `700 ${text.length > 1 ? 40 : 50}px "Zen Kaku Gothic New", sans-serif`
   ctx.textAlign = 'center'
-  ctx.textBaseline = 'middle'
-  ctx.fillText(text, 48, 52)
+  ctx.textBaseline = 'alphabetic'
+  const m = ctx.measureText(text)
+  ctx.fillText(text, 48, 48 + (m.actualBoundingBoxAscent - m.actualBoundingBoxDescent) / 2)
   const texture = new THREE.CanvasTexture(canvas)
   texture.colorSpace = THREE.SRGBColorSpace
   const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture, depthTest: false }))

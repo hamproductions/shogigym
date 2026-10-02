@@ -1,20 +1,21 @@
 import { Color, PieceType, Square, formatMove, type Move, type Position } from 'tsshogi'
 import { analyze, scoreToCp, type Analysis, type Candidate, type Score } from './engine'
 import { PIECE_CHAR, positionOf, type Side } from './shogi'
+import i18n from './i18n'
 
 export type Label = 'brilliant' | 'great' | 'best' | 'excellent' | 'good' | 'book' | 'inaccuracy' | 'mistake' | 'miss' | 'blunder'
 
 export const LABELS: Record<Label, { text: string; symbol: string; color: string }> = {
-  brilliant: { text: 'Brilliant', symbol: '!!', color: '#1baca6' },
-  great: { text: 'Great', symbol: '!', color: '#5c8bb0' },
-  best: { text: 'Best', symbol: '★', color: '#81b64c' },
-  excellent: { text: 'Excellent', symbol: '◎', color: '#81b64c' },
-  good: { text: 'Good', symbol: '○', color: '#95b776' },
-  book: { text: 'Book', symbol: '本', color: '#a88865' },
-  inaccuracy: { text: 'Inaccuracy', symbol: '?!', color: '#f0c15c' },
-  mistake: { text: 'Mistake', symbol: '?', color: '#e58f2a' },
-  miss: { text: 'Miss', symbol: '✗', color: '#ee6b55' },
-  blunder: { text: 'Blunder', symbol: '??', color: '#ca3431' },
+  brilliant: { get text() { return i18n.t('labels.brilliant') }, symbol: '!!', color: '#1baca6' },
+  great: { get text() { return i18n.t('labels.great') }, symbol: '!', color: '#5c8bb0' },
+  best: { get text() { return i18n.t('labels.best') }, symbol: '★', color: '#81b64c' },
+  excellent: { get text() { return i18n.t('labels.excellent') }, symbol: '◎', color: '#81b64c' },
+  good: { get text() { return i18n.t('labels.good') }, symbol: '○', color: '#95b776' },
+  book: { get text() { return i18n.t('labels.book') }, symbol: '本', color: '#a88865' },
+  inaccuracy: { get text() { return i18n.t('labels.inaccuracy') }, symbol: '?!', color: '#f0c15c' },
+  mistake: { get text() { return i18n.t('labels.mistake') }, symbol: '?', color: '#e58f2a' },
+  miss: { get text() { return i18n.t('labels.miss') }, symbol: '✗', color: '#ee6b55' },
+  blunder: { get text() { return i18n.t('labels.blunder') }, symbol: '??', color: '#ca3431' },
 }
 
 export const PIECE_VALUE: Record<PieceType, number> = {

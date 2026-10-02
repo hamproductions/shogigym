@@ -1,6 +1,9 @@
 import { Color, PieceType, Square } from 'tsshogi'
 import { HAND_ORDER, PIECE_CHAR } from '../shogi'
+import { useEffect, useState } from 'react'
 import type { Board3DProps } from './Board3D'
+import { PIECE_FONTS, loadPieceFont } from './settings'
+import { useTranslation } from 'react-i18next'
 
 const KANJI_NUM = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九']
 const COUNT = ['', '', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八']
@@ -29,8 +32,8 @@ const THEMES = {
     ch: 110,
     pad: 80,
     side: 230,
-    bg: '#f2c98a',
-    board: '#f2c98a',
+    bg: '#f2d39c',
+    board: '#f2d39c',
     line: '#3a2a18',
     frame: 3,
     coord: '#111',
@@ -44,6 +47,13 @@ const THEMES = {
 const komaPath = (w: number, h: number) => `M ${-w * 0.42} ${h * 0.46} L ${w * 0.42} ${h * 0.46} L ${w * 0.34} ${-h * 0.3} L 0 ${-h * 0.46} L ${-w * 0.34} ${-h * 0.3} Z`
 
 export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }) {
+  const [, setFontReady] = useState(false)
+  useEffect(() => {
+    void loadPieceFont('kaisho').then(() => setFontReady(true))
+  }, [])
+  const komaFont = style === 'broadcast' ? `'${PIECE_FONTS.kaisho.family}', 'Shippori Mincho B1', serif` : "'Shippori Mincho B1', serif"
+  const { i18n } = useTranslation()
+  const ja = i18n.language === 'ja'
   const t = THEMES[style]
   const { position, flipped, selected, selectedColor, targets, arrows, lastMove, checkSquare, heat } = props
   const boardW = t.cw * 9
@@ -71,8 +81,8 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
     const counts = HAND_ORDER.filter((type) => position.hand(color).count(type) > 0)
     const hx = bottom ? x0 + boardW + 80 + (t.side - 80) / 2 : (t.side - 80) / 2 + 20
     const mark = color === Color.BLACK ? '☗' : '☖'
-    const size = t.koma ? 62 : 52
-    const step = t.koma ? 92 : 64
+    const size = t.koma ? 50 : 52
+    const step = t.koma ? 102 : 64
     const startY = bottom ? y0 + boardH - step * Math.max(1, counts.length) - (t.koma ? 0 : 20) : y0 + (t.koma ? 0 : 20)
     const items = counts.map((type, i) => {
       const y = bottom ? startY + step * (i + 0.5) : startY + step * (counts.length - i - 0.5) + (t.koma ? 0 : 50)
@@ -81,14 +91,17 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
       return (
         <g key={type} transform={`translate(${hx} ${y})${bottom ? '' : ' rotate(180)'}`} onClick={() => props.onHand(color, type)} style={{ cursor: 'pointer' }}>
           <rect x={-t.side / 2 + 6} y={-step / 2} width={t.side - 12} height={step} fill={on ? '#ffd76a' : 'transparent'} opacity={on ? 0.8 : 1} rx={8} />
-          {t.koma && <path d={komaPath(78, 86)} fill="#f6efd8" stroke="#b49a6a" strokeWidth={2} />}
-          <text textAnchor="middle" dominantBaseline="central" y={t.koma ? 4 : 0} fontSize={size} fontFamily="'Shippori Mincho B1', serif" fontWeight={800} fill={t.piece}>
+          {t.koma && <path d={komaPath(84, 94)} fill="#f6efd8" stroke="#b49a6a" strokeWidth={2} />}
+          <text textAnchor="middle" dominantBaseline="central" y={t.koma ? 4 : 0} fontSize={size} fontFamily={komaFont} fontWeight={t.koma ? 400 : 800} fill={t.piece}>
             {PIECE_CHAR[type]}
           </text>
           {n > 1 && (
-            <text textAnchor="middle" dominantBaseline="central" x={t.koma ? 46 : 0} y={t.koma ? -30 : 44} fontSize={t.koma ? 30 : 30} fontWeight={700} fill={t.koma ? '#b3261e' : t.piece}>
-              {t.koma ? n : COUNT[n]}
-            </text>
+            <g transform={t.koma ? `translate(42 -32)${bottom ? '' : ' rotate(180)'}` : undefined}>
+              {t.koma && <circle r={21} fill="#2a241e" />}
+              <text textAnchor="middle" y={t.koma ? 0 : 44} dy="0.36em" fontSize={30} fontWeight={700} fontFamily="'Zen Kaku Gothic New', sans-serif" fill={t.koma ? '#fff' : t.piece}>
+                {t.koma ? n : COUNT[n]}
+              </text>
+            </g>
           )}
         </g>
       )
@@ -105,8 +118,8 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
             </text>
           )}
           {!t.koma && !counts.length && (
-            <text textAnchor="middle" y={60} fontSize={36} fill={t.piece} writingMode="tb">
-              なし
+            <text textAnchor="middle" y={60} fontSize={ja ? 36 : 26} fill={t.piece} writingMode={ja ? 'tb' : undefined}>
+              {i18n.t('board.none')}
             </text>
           )}
         </g>
@@ -118,7 +131,7 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
   const lastFrom = lastMove && lastMove[1] !== '*' ? Square.newByUSI(lastMove.slice(0, 2)) : null
   return (
     <div className={`ws-flat ws-flat-${style}`}>
-      <svg viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label="Shogi board">
+      <svg viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label={i18n.t('board.shogiBoard')}>
         <rect width={width} height={height} fill={t.bg} />
         <rect x={x0} y={y0} width={boardW} height={boardH} fill={t.board} />
         {lastFrom && cell(lastFrom, style === 'diagram' ? '#9cc3ff' : '#fff2a8', 0.35, 'lf')}
@@ -134,7 +147,7 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
         ))}
         {!t.koma && [3, 6].flatMap((a) => [3, 6].map((b) => <circle key={`${a}${b}`} cx={x0 + a * t.cw} cy={y0 + b * t.ch} r={5} fill={t.line} />))}
         {Array.from({ length: 9 }, (_, i) => (
-          <g key={`c${i}`} fill={t.coord} fontSize={t.coordSize} fontWeight={t.koma ? 800 : 400} fontFamily={t.koma ? "'Zen Kaku Gothic New', sans-serif" : "'Shippori Mincho B1', serif"} textAnchor="middle" dominantBaseline="central">
+          <g key={`c${i}`} fill={t.coord} fontSize={t.coordSize} fontWeight={t.koma ? 800 : 400} fontFamily="'Shippori Mincho B1', serif" textAnchor="middle" dominantBaseline="central">
             <text x={x0 + (i + 0.5) * t.cw} y={y0 - t.pad / 2}>
               {flipped ? i + 1 : 9 - i}
             </text>
@@ -155,8 +168,8 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
                 dominantBaseline="central"
                 y={t.koma ? 6 : 0}
                 fontSize={text.length > 1 ? 40 : t.koma ? 60 : 62}
-                fontFamily="'Shippori Mincho B1', serif"
-                fontWeight={t.koma ? 800 : 500}
+                fontFamily={komaFont}
+                fontWeight={t.koma ? 400 : 500}
                 fill={PROMOTED.has(piece.type) ? t.promoted : t.piece}
               >
                 {text}

@@ -1,6 +1,7 @@
 import { Component, Suspense, lazy, useEffect, useState, type ReactNode } from 'react'
 import { Workshop } from './workshop/Workshop'
 import { PieceViewer } from './workshop/PieceViewer'
+import i18n from './i18n'
 
 const KomadaiTest = import.meta.env.DEV ? lazy(() => import('./workshop/KomadaiTest')) : null
 
@@ -24,10 +25,10 @@ class Recover extends Component<{ children: ReactNode }, { error: Error | null }
     if (!this.state.error) return this.props.children
     return (
       <div className="ws-crash">
-        <h1>Something went wrong</h1>
+        <h1>{i18n.t('app.somethingWentWrong')}</h1>
         <p>{this.state.error.message}</p>
-        <p>Your progress and settings are safe. Resetting only clears the game that was open.</p>
-        <button onClick={this.reset}>Reset the open game and reload</button>
+        <p>{i18n.t('app.yourProgressAndSettingsAre')}</p>
+        <button onClick={this.reset}>{i18n.t('app.resetTheOpenGameAnd')}</button>
       </div>
     )
   }

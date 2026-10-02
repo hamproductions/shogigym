@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useRef } from 'react'
 import { sideToMove, verdictFor, type Course, type JosekiMove, type JosekiNode, type Verdict } from '../model'
 import { moveText } from '../shogi'
+import { useTranslation } from 'react-i18next'
+import i18n from '../i18n'
 import './flowchart.css'
 
 type Props = {
@@ -29,12 +31,12 @@ const BOX_H = 92
 const GAP_X = 16
 const GAP_Y = 46
 
-const TAG: Record<Verdict | 'start', string> = {
-  start: 'Start',
-  good: 'Your move',
-  book: 'Their reply',
-  mistake: 'Your mistake',
-  'opponent-mistake': 'Their mistake: punish it',
+const TAG: Record<Verdict | 'start', () => string> = {
+  start: () => i18n.t('lessonMap.start'),
+  good: () => i18n.t('lessonMap.yourMove'),
+  book: () => i18n.t('lessonMap.theirReply'),
+  mistake: () => i18n.t('lessonMap.yourMistake'),
+  'opponent-mistake': () => i18n.t('lessonMap.theirMistakePunishIt'),
 }
 
 function buildStage(course: Course, parent: JosekiNode, first: JosekiMove, ply: number, fork: Stage['fork']): Stage {
@@ -75,11 +77,11 @@ function layout(root: Stage) {
 }
 
 function tagText(stage: Stage) {
-  if (stage.fork === 'yours' && stage.verdict === 'good') return 'Your choice'
-  if (stage.fork === 'theirs' && stage.verdict === 'book') return 'If they play'
-  if (stage.fork === 'theirs' && stage.verdict === 'opponent-mistake') return 'If they slip: punish it'
-  if (stage.verdict === 'good' || stage.verdict === 'book') return 'Book line'
-  return TAG[stage.verdict]
+  if (stage.fork === 'yours' && stage.verdict === 'good') return i18n.t('lessonMap.yourChoice')
+  if (stage.fork === 'theirs' && stage.verdict === 'book') return i18n.t('lessonMap.ifTheyPlay')
+  if (stage.fork === 'theirs' && stage.verdict === 'opponent-mistake') return i18n.t('lessonMap.ifTheySlipPunishIt')
+  if (stage.verdict === 'good' || stage.verdict === 'book') return i18n.t('lessonMap.bookLine')
+  return TAG[stage.verdict]()
 }
 
 const flatten = (stage: Stage): Stage[] => [stage, ...stage.children.flatMap(flatten)]
@@ -97,6 +99,7 @@ function firstSentence(text?: string) {
 }
 
 function Diagram({ stages, size, currentKey, currentNodeId, onJump }: { stages: Stage[]; size: { w: number; h: number }; currentKey: string | null; currentNodeId: string | null; onJump: (id: string) => void }) {
+  const { t } = useTranslation()
   const scroller = useRef<HTMLDivElement>(null)
   const pos = (s: Stage) => ({ left: s.x * (BOX_W + GAP_X), top: s.depth * (BOX_H + GAP_Y) })
 
@@ -153,7 +156,7 @@ function Diagram({ stages, size, currentKey, currentNodeId, onJump }: { stages: 
                   {summary(s)}
                 </span>
               ) : (
-                <span className="fc-moves">Initial position</span>
+                <span className="fc-moves">{t('lessonMap.initialPosition')}</span>
               )}
               <span className="fc-note">{firstSentence(s.end.comment ?? s.steps.at(-1)?.move.punishNote ?? s.steps.at(-1)?.move.note)}</span>
               {insideAt >= 0 && <span className="fc-progress" style={{ width: `${((insideAt + 1) / s.steps.length) * 100}%` }} />}
@@ -166,6 +169,7 @@ function Diagram({ stages, size, currentKey, currentNodeId, onJump }: { stages: 
 }
 
 export function LessonMap({ course, currentNodeId, onJump, onClose }: Props & { onClose: () => void }) {
+  const { t } = useTranslation()
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose()
     window.addEventListener('keydown', onKey)
@@ -185,12 +189,12 @@ export function LessonMap({ course, currentNodeId, onJump, onClose }: Props & { 
       <div className="fc-overlay" onMouseDown={onClose}>
         <div className="fc-overlay-box" onMouseDown={(e) => e.stopPropagation()}>
           <div className="fc-head">
-            <strong>Lesson map: {course.title}</strong>
+            <strong>{t('lessonMap.lessonMap', { title: course.title })}</strong>
             <button className="fc-expand" onClick={onClose}>
-              Close
+              {t('lessonMap.close')}
             </button>
           </div>
-          <p className="fc-help">Every point in this lesson where you or the opponent choose. Click a box to go there.</p>
+          <p className="fc-help">{t('lessonMap.everyPointInThisLesson')}</p>
           <Diagram
             stages={stages}
             size={size}

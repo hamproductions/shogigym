@@ -6,7 +6,8 @@ import '@fontsource/zen-kaku-gothic-new/500.css'
 import '@fontsource/zen-kaku-gothic-new/700.css'
 import './workshop.css'
 import { Board2D } from './Board2D'
-import { Board3D, type BoardArrow } from './Board3D'
+import { StandZones } from './StandZones'
+import { Board3D, sideStandsFit, type BoardArrow, type StandZones as StandZonesRect } from './Board3D'
 import { Icon, type IconName } from './icons'
 import { PIECE_INFO, PieceGuide, moveGloss, sees } from './pieces'
 import { allEvals, cachedReview, rememberEval, rememberReview } from './memory'
@@ -16,7 +17,7 @@ import { TESUJI_KINDS, TESUJI_DRILLS, markTesuji, pickTesuji, tesujiStats, type 
 import { deleteGame, loadGames, storeGame, type StoredGame } from './games'
 import { PIECE_SETS, loadPieceSet, pieceUrl, type PieceSet } from './pieceSets'
 import { addPath, allLines, emptyTree, isMainLine, mainContinuation, mainLine, nodeAt, promote, removeBranch, type Tree } from './tree'
-import { PIECE_FINISHES, PIECE_FONTS, STRENGTH, TIME_CONTROLS, type TimeControl, loadPieceFont, playSound, setSettings, useSettings, type AiStrength, type BoardStyle, type Environment, type PieceFinish, type PieceFont, type PieceStyle } from './settings'
+import { PIECE_FINISHES, PIECE_FONTS, STRENGTH, TIME_CONTROLS, type TimeControl, loadPieceFont, playSound, setSettings, useSettings, type AiStrength, type BoardStyle, type Environment, type PieceFinish, type PieceFont, type PieceStyle, type Lang } from './settings'
 import { analyze, engineSupported, scoreToCp, type Score } from '../engine'
 import { useAnalysis } from '../hooks'
 import { LABELS, describeMove, reviewMove, scoreWinRate, usiPosition, type MoveReview } from '../analysis'
@@ -28,27 +29,24 @@ import { decodeKifuFile, exportGame, parseGame } from '../kifu'
 import { classify, type Label } from '../analysis'
 import { bookLookup } from '../kifu'
 import { COURSES, SETUPS, findPath, sideToMove, type Course, type JosekiNode } from '../model'
+import { useTranslation } from 'react-i18next'
+import i18n from '../i18n'
 import { LessonMap } from '../components/Flowchart'
 import { PIECE_CHAR, applyUsi, hasLegalMove, kingSquare, reachable, colorSide, legalTargets, moveText, positionOf, promotionOptions, pvText, type Side } from '../shogi'
 
 type Mode = 'lesson' | 'drill' | 'tsume' | 'tesuji' | 'spar' | 'analyze'
 type Tab = 'engine' | 'coach' | 'flow' | 'moves'
 
-const MODES: { id: Mode; icon: IconName; ja: string; name: string; hint: string }[] = [
-  { id: 'lesson', icon: 'study', ja: '定跡', name: 'Openings', hint: 'Learn opening lines: study them, then quiz yourself' },
-  { id: 'drill', icon: 'review', ja: '復習', name: 'Review', hint: 'Spaced repetition of positions you have learned' },
-  { id: 'tsume', icon: 'tsume', ja: '詰将棋', name: 'Tsume', hint: 'Mate problems' },
-  { id: 'tesuji', icon: 'flow', ja: '手筋', name: 'Tesuji', hint: 'Find the tactical trick: tataki, tare, focal pawn, forks and more' },
-  { id: 'spar', icon: 'spar', ja: '対局', name: 'Play AI', hint: 'Play a game against the AI' },
-  { id: 'analyze', icon: 'analyze', ja: '検討', name: 'Analyze', hint: 'Move both sides freely, import and rate games' },
+const MODES: { id: Mode; icon: IconName }[] = [
+  { id: 'lesson', icon: 'study' },
+  { id: 'drill', icon: 'review' },
+  { id: 'tsume', icon: 'tsume' },
+  { id: 'tesuji', icon: 'flow' },
+  { id: 'spar', icon: 'spar' },
+  { id: 'analyze', icon: 'analyze' },
 ]
 
-const TABS: { id: Tab; ja: string; name: string }[] = [
-  { id: 'coach', ja: '指導', name: 'Coach' },
-  { id: 'engine', ja: '形勢', name: 'AI' },
-  { id: 'flow', ja: 'この先', name: 'What next' },
-  { id: 'moves', ja: '棋譜', name: 'Moves' },
-]
+const TABS: Tab[] = ['coach', 'engine', 'flow', 'moves']
 
 const SHU = '#c8442f'
 
@@ -99,8 +97,10 @@ type SavedGame = { start: string; moves: string[]; cursor: number; userSide: Sid
 type SavedSession = { mode: Mode; lesson?: { courseId: string; lessonMode: 'study' | 'quiz'; moves: string[]; score?: { right: number; wrong: number } }; spar?: SavedGame; analyze?: SavedGame; tsume?: { problemId: string; length: number | 'all' }; drill?: { queue: ReviewQueue } }
 
 export function Workshop() {
+  const { t } = useTranslation()
   const [mode, setMode] = useState<Mode>('lesson')
   const settings = useSettings()
+  const ja = settings.lang === 'ja'
   const [tab, setTab] = useState<Tab>('coach')
   const [lessonMode, setLessonMode] = useState<'study' | 'quiz'>('study')
   const [mistake, setMistake] = useState<{ base: number; usi: string; expected: string; note?: string; loss: number | null; known: boolean; verdict?: MoveReview } | null>(null)
@@ -117,6 +117,36 @@ export function Workshop() {
   const [selection, setSelection] = useState<Selection>(null)
   const [promotion, setPromotion] = useState<Move[] | null>(null)
   const [palette, setPalette] = useState(false)
+  const [zones, setZones] = useState<StandZonesRect | null>(null)
+  const [viewport, setViewport] = useState(() => ({ w: window.innerWidth, h: window.innerHeight }))
+  useEffect(() => {
+    const on = () => setViewport({ w: window.innerWidth, h: window.innerHeight })
+    window.addEventListener('resize', on)
+    return () => window.removeEventListener('resize', on)
+  }, [])
+  const [sheetH, setSheetH] = useState(() => {
+    try {
+      return Number(localStorage.getItem('joseki-practice:sheet:v1')) || 50
+    } catch {
+      return 50
+    }
+  })
+  const [fullscreen, setFullscreen] = useState(() => !!document.fullscreenElement)
+  const [hideUi, setHideUi] = useState(false)
+  const [orbit, setOrbit] = useState(false)
+  useEffect(() => {
+    const on = (e: KeyboardEvent) => {
+      if (e.key.toLowerCase() !== 'h' || e.metaKey || e.ctrlKey || e.altKey || (e.target as HTMLElement).closest('input, textarea, select')) return
+      setHideUi((v) => !v)
+    }
+    window.addEventListener('keydown', on)
+    return () => window.removeEventListener('keydown', on)
+  }, [])
+  useEffect(() => {
+    const on = () => setFullscreen(!!document.fullscreenElement)
+    document.addEventListener('fullscreenchange', on)
+    return () => document.removeEventListener('fullscreenchange', on)
+  }, [])
   const [showBest, setShowBest] = useState(true)
   const [level, setLevelState] = useState<Level>(() => {
     try {
@@ -282,7 +312,9 @@ export function Workshop() {
     if (drawer) document.querySelector('.ws-panel-body')?.scrollTo(0, 0)
   }, [drawer])
   const panelWidth = panelPrefs.width
+  const flatView = settings.environment === 'flat' || settings.environment === 'diagram' || settings.environment === 'broadcast'
   const panelHidden = compact ? !drawer : panelPrefs.hidden
+  const zoned = !compact && settings.environment !== 'diagram' && settings.environment !== 'broadcast' && viewport.w >= 1100 && !(tilted && !flatView) && sideStandsFit(viewport.w - 100, viewport.h - 110)
   const compactRef = useRef(compact)
   compactRef.current = compact
   const panelHiddenRef = useRef(panelHidden)
@@ -373,11 +405,11 @@ export function Workshop() {
     setPromotion(null)
   }
 
-  const [gameTitle, setGameTitle] = useState('this game')
+  const [gameTitle, setGameTitle] = useState('')
   const [plyBase, setPlyBase] = useState(0)
   const importGame = (text: string): string | null => {
     const parsed = parseGame(text)
-    if (parsed instanceof Error) return `Could not read that game: ${parsed.message}`
+    if (parsed instanceof Error) return t('workshop.couldNotReadThatGame', { message: parsed.message })
     let at: string | null = parsed.startSfen
     let valid = 0
     for (const usi of parsed.moves) {
@@ -385,17 +417,17 @@ export function Workshop() {
       if (!at) break
       valid++
     }
-    if (valid < parsed.moves.length) return `Move ${valid + 1} (${parsed.moves[valid]}) is not legal in that position, so the game can't be loaded. Check the record and try again.`
+    if (valid < parsed.moves.length) return t('workshop.moveIsNotLegalIn', { value: valid + 1, value2: parsed.moves[valid] })
     const run = () => {
       load(parsed.startSfen, 'sente', 'analyze', null)
       setGame({ start: parsed.startSfen, moves: parsed.moves })
       setCursor(0)
       setGameNotes({ title: parsed.title, comments: parsed.comments ?? [], ending: parsed.ending, moves: parsed.moves.join(' ') })
-      setGameTitle(parsed.title || 'this game')
+      setGameTitle(parsed.title || '')
       setTab('moves')
     }
     const variations = countMoves(tree) - mainLine(tree).length
-    if (mode === 'analyze' && game.moves.length > 0) setConfirm({ text: `Load this game (${parsed.moves.length} moves)? The game on the board (${game.moves.length} moves${variations > 0 ? ' plus its variations' : ''}) will be replaced.`, run, yes: 'Load it', no: 'Cancel' })
+    if (mode === 'analyze' && game.moves.length > 0) setConfirm({ text: t(variations > 0 ? 'workshop.loadGameReplaceVariations' : 'workshop.loadGameReplace', { count: parsed.moves.length, current: game.moves.length }), run, yes: t('workshop.loadIt'), no: t('workshop.cancel') })
     else run()
     return null
   }
@@ -500,7 +532,7 @@ export function Workshop() {
       const line = after && engineSupported() ? ((await analyze(usiPosition(after), { multipv: 1, movetime: 700 })).candidates[0]?.pv.slice(0, 5) ?? []) : []
       setSelection(null)
       setMistake(null)
-      setPreview({ base: cursor, moves: [usi, ...line], step: 1, title: `if they play ${moveText(liveSfen, usi)}` })
+      setPreview({ base: cursor, moves: [usi, ...line], step: 1, title: t('workshop.ifTheyPlay', { move: moveText(liveSfen, usi) }) })
       setPlaying(true)
       return
     }
@@ -562,7 +594,7 @@ export function Workshop() {
     const found: Mistake = { usi, loss, known: deviation?.kind === 'deviation' || !!reason, verdict }
     setMistake({ base: cursor, expected, note: reason ?? deviation?.punishNote ?? deviation?.note, ...found })
     if (mistakeIsBad(found)) {
-      setPreview({ base: cursor, moves: [usi, ...refutation], step: 1, title: `why ${moveText(liveSfen, usi)} fails` })
+      setPreview({ base: cursor, moves: [usi, ...refutation], step: 1, title: t('workshop.whyFails', { move: moveText(liveSfen, usi) }) })
       setPlaying(true)
     }
     setTab('coach')
@@ -639,7 +671,7 @@ export function Workshop() {
     const piece = position.board.at(square)
     if (selection?.from instanceof Square && piece?.color !== selection.color && sees(sfen, selection.from).some((t) => t.equals(square))) {
       setSelection(null)
-      setNudge(position.board.at(selection.from)?.type === PieceType.KING ? 'Your king cannot go there: that square is attacked.' : 'That move would leave your king in check.')
+      setNudge(position.board.at(selection.from)?.type === PieceType.KING ? t('workshop.yourKingCannotGoThere') : t('workshop.thatMoveWouldLeaveYour'))
       return
     }
     if (mode === 'lesson' && !course) return setPeekFrom(piece && !(peekFrom && peekFrom.equals(square)) ? square : null)
@@ -651,7 +683,7 @@ export function Workshop() {
     }
     setSelection(null)
     if (piece && piece.color !== position.color && (mode === 'drill' || mode === 'tsume' || (mode === 'lesson' && lessonMode === 'quiz')) && userTurn) {
-      setNudge(`That is the opponent's piece. You play ${position.color === Color.BLACK ? '☗' : '☖'}.`)
+      setNudge(t('workshop.thatIsTheOpponentS', { side: position.color === Color.BLACK ? '☗' : '☖' }))
       return
     }
     setPeekFrom(peekFrom && peekFrom.equals(square) ? null : square)
@@ -700,8 +732,8 @@ export function Workshop() {
     const before = sfens[reviewAt - 1]
     const usi = game.moves[reviewAt - 1]
     if (!before || !usi || colorSide(positionOf(before).color) !== userSide) return
-    const added = saveMistakes([{ id: `${before}|${usi}`, sfen: before, played: usi, best: review.best.move, bestPv: review.best.pv, label: review.label, reasons: review.reasons, game: 'your game vs the AI', ply: reviewAt }])
-    if (added) setNudge('Saved to 復習 Review: you will practise this position later.')
+    const added = saveMistakes([{ id: `${before}|${usi}`, sfen: before, played: usi, best: review.best.move, bestPv: review.best.pv, label: review.label, reasons: review.reasons, game: t('workshop.yourGameVsTheAi'), ply: reviewAt }])
+    if (added) setNudge(t('workshop.savedToReviewYouWill'))
   }, [review, reviewAt, mode, userSide])
   const bookHere = useMemo(() => {
     if (!nodes) return uniqueBook(sfen)
@@ -772,7 +804,7 @@ export function Workshop() {
     const inByo = main <= 0 && timeControl.byoyomi > 0
     const ms = inByo ? (toMove === side ? clock.byo : timeControl.byoyomi * 1000) : main
     const total = Math.ceil(ms / 1000)
-    const text = inByo ? `秒読み ${total}` : `${Math.floor(total / 60)}:${String(total % 60).padStart(2, '0')}`
+    const text = inByo ? t('workshop.byoyomi', { total }) : `${Math.floor(total / 60)}:${String(total % 60).padStart(2, '0')}`
     return { text, active, low: active && total <= 10, out: clock.flagged === side }
   }
   const inCheck = position.checked
@@ -788,7 +820,7 @@ export function Workshop() {
   const spoilerFree = (lessonAsking && lessonMode === 'quiz' && !showAnswer) || (drillAsking && drill?.queue !== 'new') || (mode === 'tsume' && tsume?.status !== 'solved' && tsume?.status !== 'shown') || (mode === 'tesuji' && tesujiDrill?.status === 'asking')
   if (!gameOver && ai && assist && best && showBest && !spoilerFree && (mode === 'analyze' || tab === 'engine')) {
     for (const c of analysis!.candidates.slice(1)) if (c.move !== best.move) arrows.push({ usi: c.move, color: SHU, dashed: true })
-    arrows.push({ usi: best.move, color: SHU, label: 'best' })
+    arrows.push({ usi: best.move, color: SHU, label: t('workshop.best') })
   }
   if (mode === 'tesuji' && tesujiDrill && tesujiDrill.status === 'shown' && cursor === 0) arrows.push({ usi: tesujiDrill.item.answer, color: '#4f8a2a' })
   if (drillItem && !preview && (drill?.result === 'wrong' || (drill?.queue === 'new' && !drill.result))) arrows.push({ usi: expectedMoves(drillItem)[0], color: '#4f8a2a' })
@@ -849,11 +881,11 @@ export function Workshop() {
   const peekTargets = peekSquare ? sees(sfen, peekSquare).filter((sq) => level !== 'new' || position.board.at(sq)?.color !== position.board.at(peekSquare)?.color) : enemyKing ? reachable(sfen, enemyKing) : []
   const peekPiece = peekSquare ? position.board.at(peekSquare) : null
   const peekNote = peekSquare && peekPiece
-    ? `${peekPiece.color === Color.BLACK ? '☗' : '☖'}${PIECE_INFO[peekPiece.type].ja.slice(0, 1)} on ${peekSquare.file}${'一二三四五六七八九'[peekSquare.rank - 1]} covers ${peekTargets.length} ${peekTargets.length === 1 ? 'square' : 'squares'}.${level === 'new' ? ` ${PIECE_INFO[peekPiece.type].moves}` : ''}`
+    ? t('workshop.pieceCovers', { piece: `${peekPiece.color === Color.BLACK ? '☗' : '☖'}${PIECE_INFO[peekPiece.type].ja.slice(0, 1)}`, square: `${peekSquare.file}${'一二三四五六七八九'[peekSquare.rank - 1]}`, count: peekTargets.length }) + (level === 'new' ? ` ${PIECE_INFO[peekPiece.type].moves}` : '')
     : enemyKing
       ? peekTargets.length
-        ? `The ${enemyColor === Color.BLACK ? '☗' : '☖'} king you are attacking can escape to ${peekTargets.length} ${peekTargets.length === 1 ? 'square' : 'squares'}.`
-        : `The ${enemyColor === Color.BLACK ? '☗' : '☖'} king you are attacking has no escape square.`
+        ? t('workshop.kingEscapes', { side: enemyColor === Color.BLACK ? '☗' : '☖', count: peekTargets.length })
+        : t('workshop.theKingYouAreAttacking', { side: enemyColor === Color.BLACK ? '☗' : '☖' })
       : null
   const [announce, setAnnounce] = useState<{ side: Color; name: string; kind: string; key: number } | null>(null)
   const announced = useRef<{ start: string; seen: Set<string> }>({ start: '', seen: new Set() })
@@ -873,14 +905,14 @@ export function Workshop() {
     if (preview || mode === 'tsume' || cursor === 0) return
     const tesuji = stepped && sfens[cursor - 1] ? detectTesuji(sfens[cursor - 1], game.moves[cursor - 1]) : null
     if (tesuji) {
-      setAnnounce({ side: positionOf(sfens[cursor - 1]).color, name: tesuji.ja, kind: '手筋', key: Date.now() })
+      setAnnounce({ side: positionOf(sfens[cursor - 1]).color, name: tesuji.ja, kind: t('workshop.tesuji'), key: Date.now() })
       setTesujiNote({ ...tesuji, at: cursor })
     }
     for (const color of [Color.BLACK, Color.WHITE]) {
       const f = formationOf(position, color)
       for (const [name, kind] of [
-        [f.strategy, '戦法'],
-        [f.castle, '囲い'],
+        [f.strategy, t('workshop.strategy')],
+        [f.castle, t('workshop.castle')],
       ] as const) {
         if (!name || name === '居玉' || name === '居飛車') continue
         const id = `${color}|${name}`
@@ -897,15 +929,15 @@ export function Workshop() {
     const t = setTimeout(() => setAnnounce(null), 1800)
     return () => clearTimeout(t)
   }, [announce])
-  const checkHelp = mode === 'spar' && inCheck && userTurn && atEnd && !gameOver && !preview ? '王手: your king is attacked. Move it away, block the line, or capture the attacker.' : null
+  const checkHelp = mode === 'spar' && inCheck && userTurn && atEnd && !gameOver && !preview ? t('workshop.checkYourKingIsAttacked') : null
   const kanji = (sq: Square) => `${PIECE_INFO[position.board.at(sq)!.type].ja.slice(0, 1)}${sq.file}${'一二三四五六七八九'[sq.rank - 1]}`
-  const focusNote = focusSquare && focusCell ? `${focusSquare.file}${'一二三四五六七八九'[focusSquare.rank - 1]}: ☗ ${focusCell.s.length ? focusCell.s.map(kanji).join(' ') : 'none'} · ☖ ${focusCell.g.length ? focusCell.g.map(kanji).join(' ') : 'none'}${focusCell.s.length !== focusCell.g.length ? ` — ${focusCell.s.length > focusCell.g.length ? '☗' : '☖'} controls it` : focusCell.s.length ? ' — contested' : ''}` : null
+  const focusNote = focusSquare && focusCell ? `${focusSquare.file}${'一二三四五六七八九'[focusSquare.rank - 1]}: ☗ ${focusCell.s.length ? focusCell.s.map(kanji).join(' ') : t('workshop.none')} · ☖ ${focusCell.g.length ? focusCell.g.map(kanji).join(' ') : t('workshop.none')}${focusCell.s.length !== focusCell.g.length ? t('workshop.controlsIt', { value: focusCell.s.length > focusCell.g.length ? '☗' : '☖' }) : focusCell.s.length ? t('workshop.contested') : ''}` : null
   if (focusSquare && focusCell) {
     arrows.length = 0
     for (const sq of focusCell.s) arrows.push({ usi: `${sq.usi}${focusSquare.usi}`, color: '#1f7ae0' })
     for (const sq of focusCell.g) arrows.push({ usi: `${sq.usi}${focusSquare.usi}`, color: '#d2402a' })
   }
-  const boardNote = nudge ?? (checking ? 'Checking that move…' : (focusNote ?? peekNote ?? (tesujiNote && tesujiNote.at === cursor ? `手筋 ${tesujiNote.ja} (${tesujiNote.en}): ${tesujiNote.explain}` : checkHelp)))
+  const boardNote = nudge ?? (checking ? t('workshop.checkingThatMove') : (focusNote ?? peekNote ?? (tesujiNote && tesujiNote.at === cursor ? t('workshop.tesuji2', { ja: tesujiNote.ja, en: tesujiNote.en, explain: tesujiNote.explain }) : checkHelp)))
   const castles = [Color.BLACK, Color.WHITE].flatMap((color) => {
     const f = formationOf(position, color)
     return f.castle && f.castle !== '居玉' ? [{ squares: f.squares, color: color === Color.BLACK ? '#b8432f' : '#2f5d9b', label: f.castle }] : []
@@ -990,7 +1022,7 @@ export function Workshop() {
       else if (event.key === 'End') setCursor(game.moves.length)
       else if (event.key === 'f') setFlipped((v) => !v)
       else if (event.key === 'p') setPanel({ hidden: !panelHiddenRef.current })
-      else if (event.key === 't') setTilted((v) => !v)
+      else if (event.key === 't' && !flatView) setTilted((v) => !v)
       else if (event.key === 'c' && !event.metaKey && !event.ctrlKey) setShowControl((v) => !v)
       else if (event.key === 'k' && modeRef.current === 'tsume') {
         setPeekFrom(null)
@@ -1010,22 +1042,23 @@ export function Workshop() {
   const studyReply = mode === 'lesson' && course && lessonMode === 'study' && !lessonAsking && !lessonDone && !preview && !mistake ? reply : null
 
   const modeInstruction = () => {
-    if (checking) return 'Checking that move…'
-    if (preview && mistake) return mistakeIsBad(mistake) ? 'Watch how it gets punished, then go back and try again.' : 'Watch what follows, then go back and play the lesson move.'
-    if (mistake && !preview) return mistakeIsBad(mistake) ? `${moveText(sfens[mistake.base], mistake.usi)} was a mistake. Try again.` : `${moveText(sfens[mistake.base], mistake.usi)} is a fine move, but not this lesson's. Find the book move.`
-    if (preview) return 'Preview: watch it play out, then keep these moves or exit the preview.'
+    const me = userSide === 'sente' ? '☗' : '☖'
+    if (checking) return t('workshop.checkingThatMove')
+    if (preview && mistake) return mistakeIsBad(mistake) ? t('workshop.watchHowItGetsPunished') : t('workshop.watchWhatFollowsThenGo')
+    if (mistake && !preview) return mistakeIsBad(mistake) ? t('workshop.wasAMistakeTryAgain', { move: moveText(sfens[mistake.base], mistake.usi) }) : t('workshop.isAFineMoveBut', { move: moveText(sfens[mistake.base], mistake.usi) })
+    if (preview) return t('workshop.previewWatchItPlayOut')
     if (mode === 'lesson') {
-      if (!course) return 'Pick a technique or an opening, then Study or Quiz.'
-      if (lessonOffBook) return 'Off the lesson line. Go back to it, or explore in Analyze.'
-      if (lessonDone) return 'Line complete.'
-      if (lessonAsking) return lessonMode === 'study' ? `Your move as ${userSide === 'sente' ? '☗' : '☖'}: play the green arrow.${lessonGood.some((b) => b.note) ? ' The coach tells you why.' : ''}` : showAnswer ? 'Answer shown: play the green arrow.' : `Your move as ${userSide === 'sente' ? '☗' : '☖'}: find the book move. No hints.`
-      return lessonMode === 'study' ? (compact ? 'Their move is shown. Tap Play their move.' : 'Their move is shown. Press Space or Play their move.') : 'Their reply comes in a moment.'
+      if (!course) return t('workshop.pickATechniqueOrAn')
+      if (lessonOffBook) return t('workshop.offTheLessonLineGo')
+      if (lessonDone) return t('workshop.lineComplete')
+      if (lessonAsking) return lessonMode === 'study' ? t('workshop.studyYourMove', { side: me }) + (lessonGood.some((b) => b.note) ? t('workshop.coachTellsWhy') : '') : showAnswer ? t('workshop.answerShownPlayTheGreen') : t('workshop.yourMoveAsFindThe', { me })
+      return lessonMode === 'study' ? (compact ? t('workshop.theirMoveIsShownTap') : t('workshop.theirMoveIsShownPress')) : t('workshop.theirReplyComesInA')
     }
-    if (mode === 'drill') return drillItem ? (drillItem.kind === 'mistake' && !drill?.result ? 'Find a better move than the one you played in your game.' : drill?.result ? 'Next card when you are ready.' : drill?.queue === 'new' ? 'Learn this move: play the green arrow.' : 'Play the move you learned.') : 'Pick what to review.'
-    if (mode === 'tesuji') return tesujiDrill ? (tesujiDrill.status === 'asking' ? `${colorSide(position.color) === 'sente' ? '☗' : '☖'} to move: find the 手筋.` : 'Next drill when you are ready.') : 'Find the tesuji.'
-    if (mode === 'tsume') return tsume ? `${attackerOf(tsume.problem) === 'sente' ? '☗' : '☖'} to play: mate in ${tsume.problem.mate}. Every attacking move must give check.` : 'Every attacking move must give check.'
-    if (mode === 'spar') return resigned ? 'You resigned. Review the game, or start a new one.' : position.checked && !hasLegalMove(position) ? 'Checkmate. The game is over.' : !atEnd ? 'Looking back at earlier moves. Play a move here to try a variation, or press ⏭ to return.' : userTurn ? (position.checked ? '王手! Your king is in check.' : 'Your move.') : 'The AI is thinking.'
-    return 'Try anything. The AI tab rates the position.'
+    if (mode === 'drill') return drillItem ? (drillItem.kind === 'mistake' && !drill?.result ? t('workshop.findABetterMoveThan') : drill?.result ? t('workshop.nextCardWhenYouAre') : drill?.queue === 'new' ? t('workshop.learnThisMovePlayThe') : t('workshop.playTheMoveYouLearned')) : t('workshop.pickWhatToReview')
+    if (mode === 'tesuji') return tesujiDrill ? (tesujiDrill.status === 'asking' ? t('workshop.toMoveFindTheTesuji', { side: colorSide(position.color) === 'sente' ? '☗' : '☖' }) : t('workshop.nextDrillWhenYouAre')) : t('workshop.findTheTesuji')
+    if (mode === 'tsume') return tsume ? t('workshop.toPlayMateInEvery', { side: attackerOf(tsume.problem) === 'sente' ? '☗' : '☖', mate: tsume.problem.mate }) : t('workshop.everyAttackingMoveMustGive')
+    if (mode === 'spar') return resigned ? t('workshop.youResignedReviewTheGame') : position.checked && !hasLegalMove(position) ? t('workshop.checkmateTheGameIsOver') : !atEnd ? t('workshop.lookingBackAtEarlierMoves') : userTurn ? (position.checked ? t('workshop.checkYourKingIsIn') : t('workshop.yourMove')) : t('workshop.theAiIsThinking')
+    return t('workshop.tryAnythingTheAiTab')
   }
 
   const explore = () => {
@@ -1044,14 +1077,14 @@ export function Workshop() {
   const exportKif = () => {
     const lines = (mode === 'spar' || mode === 'analyze') && tree.children.length ? allLines(tree) : [game.moves]
     const ai = `ShogiLab AI (${STRENGTH[settings.opponent].label})`
-    const names = mode === 'spar' ? (userSide === 'sente' ? { sente: 'You', gote: ai } : { sente: ai, gote: 'You' }) : gameNotes?.title && gameNotes.title !== 'Imported game' ? { title: gameNotes.title } : course ? { title: course.title } : {}
+    const names = mode === 'spar' ? (userSide === 'sente' ? { sente: t('workshop.you'), gote: ai } : { sente: ai, gote: t('workshop.you') }) : gameNotes?.title && gameNotes.title !== 'Imported game' ? { title: gameNotes.title } : course ? { title: course.title } : {}
     return exportGame(game.start, lines, names)
   }
   const saveSlot = () => {
     const id = slotId ?? String(Date.now())
     const d = new Date()
     const when = `${d.getMonth() + 1}/${d.getDate()} ${d.getHours()}:${String(d.getMinutes()).padStart(2, '0')}`
-    const title = mode === 'spar' ? `vs AI as ${userSide === 'sente' ? '☗' : '☖'} · ${when}` : `${gameTitle && gameTitle !== 'this game' ? gameTitle : 'Analysis'} · ${when}`
+    const title = mode === 'spar' ? t('workshop.vsAiAs', { side: userSide === 'sente' ? '☗' : '☖', when }) : `${gameTitle || t('workshop.analysis')} · ${when}`
     const ok = storeGame({ id, title, savedAt: Date.now(), start: game.start, moves: tree.children.length ? mainLine(tree) : game.moves, tree: tree.children.length ? tree : undefined, userSide })
     if (ok) setSlotId(id)
     return ok
@@ -1066,7 +1099,7 @@ export function Workshop() {
       setSlotId(g.id)
       setTab('moves')
     }
-    if (mode === 'analyze' && game.moves.length > 0 && slotId !== g.id) setConfirm({ text: `Open “${g.title}”? The game on the board will be replaced (save it first if you want to keep it).`, run, yes: 'Open it', no: 'Cancel' })
+    if (mode === 'analyze' && game.moves.length > 0 && slotId !== g.id) setConfirm({ text: t('workshop.openTheGameOnThe', { title: g.title }), run, yes: t('workshop.openIt'), no: t('workshop.cancel') })
     else run()
   }
 
@@ -1083,7 +1116,7 @@ export function Workshop() {
     setTree((t) => removeBranch(t, game.moves.slice(0, lastUserMove + 1)))
     setGame((g) => ({ ...g, moves: g.moves.slice(0, lastUserMove) }))
     setCursor(lastUserMove)
-    setNudge('待った: your last move was taken back. Try another.')
+    setNudge(t('workshop.takeBackYourLastMove'))
   }
 
   const reviewGame = () => {
@@ -1100,12 +1133,12 @@ export function Workshop() {
       load(start, userSide, 'analyze', null)
       setGame({ start, moves })
       setCursor(first)
-      setGameTitle('your game vs the AI')
+      setGameTitle(t('workshop.yourGameVsTheAi'))
       setAutoRate(moves.join(' '))
       setTab('moves')
     }
     const open = saved.current.analyze?.game.moves.length ?? 0
-    if (open > 0) setConfirm({ text: `Open this game in 検討 Analyze? The game already open there (${open} moves) will be replaced.`, run, yes: 'Open it', no: 'Cancel' })
+    if (open > 0) setConfirm({ text: t('workshop.openThisGameInAnalyze', { count: open }), run, yes: t('workshop.openIt'), no: t('workshop.cancel') })
     else run()
   }
 
@@ -1215,9 +1248,9 @@ export function Workshop() {
   const commands = useCommands({ sfen, setMode: enterMode, setFlipped, setTilted, openCourse, play, newGame: () => load(InitialPositionSFEN.STANDARD, userSide, mode === 'lesson' ? 'analyze' : mode, null) })
 
   return (
-    <div className={`ws${panelHidden ? ' panel-hidden' : ''}${compact && drawer ? ' drawer-open' : ''}`} style={{ ['--panel-w' as string]: `${panelWidth}px` }}>
-      <nav className="ws-rail" aria-label="Mode">
-        <div className="ws-seal" title="ShogiLab 将棋ラボ">
+    <div className={`ws${hideUi ? ' fs' : ''}${zoned ? ' zoned' : panelHidden ? ' panel-hidden' : ''}${compact && drawer ? ' drawer-open' : ''}`} style={{ ['--panel-w' as string]: `${panelWidth}px`, ['--sheet-h' as string]: sheetH }}>
+      <nav className="ws-rail" aria-label={t('workshop.mode')}>
+        <div className="ws-seal" title={t('workshop.shogilab')}>
           <svg viewBox="0 0 64 64" aria-hidden="true">
             <path d="M32 3 L50 11 L57 61 H7 L14 11 Z" fill="#e9c98f" stroke="#7a4a1c" strokeWidth="2.5" strokeLinejoin="round" />
             <path d="M32 7.5 L47.2 14.3 L53.4 57.5 H10.6 L16.8 14.3 Z" fill="none" stroke="#c8442f" strokeWidth="1.6" strokeLinejoin="round" opacity="0.55" />
@@ -1227,106 +1260,122 @@ export function Workshop() {
           </svg>
         </div>
         {MODES.map((m) => (
-          <button key={m.id} className={`ws-rail-btn${mode === m.id ? ' on' : ''}`} onClick={() => enterMode(m.id)} aria-pressed={mode === m.id} title={`${m.name}: ${m.hint}`}>
+          <button key={m.id} className={`ws-rail-btn${mode === m.id ? ' on' : ''}`} onClick={() => enterMode(m.id)} aria-pressed={mode === m.id} title={t('modes.title', { name: t(`modes.${m.id}.name`), hint: t(`modes.${m.id}.hint`) })}>
             <Icon name={m.icon} size={20} />
-            <span className="ws-ja">{m.ja}</span>
-            <span>{m.name}</span>
+            <span className={ja ? 'ws-ja' : 'ws-en'}>{t(`modes.${m.id}.name`)}</span>
           </button>
         ))}
         <div className="ws-rail-gap" />
-        <button className="ws-rail-btn" onClick={() => setPalette(true)} title="Search lines and commands (⌘K)">
+        <button className="ws-rail-btn" onClick={() => setPalette(true)} title={t('workshop.searchLinesAndCommandsK')}>
           <Icon name="command" size={20} />
           <span>⌘K</span>
         </button>
-        <button className={`ws-rail-btn${showSettings ? ' on' : ''}`} onClick={() => setShowSettings(true)} title="Settings: sound, pieces, board, AI">
+        <button className={`ws-rail-btn${showSettings ? ' on' : ''}`} onClick={() => setShowSettings(true)} title={t('workshop.settingsSoundPiecesBoardAi')}>
           <Icon name="gear" size={20} />
-          <span className="ws-ja">設定</span>
-          <span>Settings</span>
+          <span className={ja ? 'ws-ja' : 'ws-en'}>{t('rail.settings')}</span>
         </button>
-        <button className={`ws-rail-btn${showControl ? ' on' : ''}`} onClick={() => setShowControl((v) => !v)} title="利き map: who controls each square (blue ☗, red ☖, purple contested). Press C" aria-pressed={showControl}>
-          <span className="ws-ja" style={{ fontSize: 18 }}>利</span>
-          <span>Control</span>
+        <button className={`ws-rail-btn${showControl ? ' on' : ''}`} onClick={() => setShowControl((v) => !v)} title={t('workshop.controlMapWhoControlsEach')} aria-pressed={showControl}>
+          <span className={ja ? 'ws-ja' : 'ws-en'} style={ja ? { fontSize: 18 } : undefined}>
+            {t('rail.control')}
+          </span>
         </button>
-        <button className={`ws-rail-btn${tilted ? ' on' : ''}`} onClick={() => setTilted((v) => !v)} title="Tilt the board (T)">
+        <button className={`ws-rail-btn${tilted && !flatView ? ' on' : ''}`} onClick={() => setTilted((v) => !v)} disabled={flatView} title={t('workshop.tiltTheBoardT')}>
           <Icon name="tilt" size={20} />
-          <span>Tilt</span>
+          <span>{t('workshop.tilt')}</span>
         </button>
-        <button className="ws-rail-btn" onClick={() => setFlipped((v) => !v)} title="Flip the board (F)">
+        <button className="ws-rail-btn" onClick={() => setFlipped((v) => !v)} title={t('workshop.flipTheBoardF')}>
           <Icon name="flip" size={20} />
-          <span>Flip</span>
+          <span>{t('workshop.flip')}</span>
         </button>
+        <button className={`ws-rail-btn${orbit ? ' on' : ''}`} onClick={() => setOrbit((v) => !v)} title={t('workshop.lookAroundHint')} aria-pressed={orbit}>
+          <Icon name="orbit" size={20} />
+          <span>{t('workshop.lookAround')}</span>
+        </button>
+        <button className="ws-rail-btn" onClick={() => setHideUi(true)} title={`${t('workshop.hideUi')} (H)`}>
+          <Icon name="panel" size={20} />
+          <span>{t('workshop.hideUiShort')}</span>
+        </button>
+        {document.fullscreenEnabled && (
+          <button className={`ws-rail-btn${fullscreen ? ' on' : ''}`} onClick={() => void (document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen())} title={fullscreen ? t('workshop.exitFullScreenEsc') : t('workshop.fullScreen')} aria-pressed={fullscreen}>
+            <Icon name={fullscreen ? 'exitFullscreen' : 'fullscreen'} size={20} />
+            <span>{t('workshop.fullScreen2')}</span>
+          </button>
+        )}
       </nav>
 
       <section className={`ws-stage${previewing ? ' previewing' : ''}`}>
+        <button className="ws-fs-exit" onClick={() => setHideUi(false)} aria-label={t('workshop.showUi')} title={`${t('workshop.showUi')} (H)`}>
+          <Icon name="exitFullscreen" size={18} />
+        </button>
         <header className={`ws-modebar m-${mode}${mode === 'lesson' ? ` l-${lessonMode}` : ''}`}>
-          <span className="ws-modebar-seal">{mode === 'lesson' ? (course ? (lessonMode === 'study' ? '研究' : '試験') : '定跡') : MODES.find((m) => m.id === mode)!.ja}</span>
+          <span className="ws-modebar-seal">{!ja ? <Icon name={MODES.find((m) => m.id === mode)!.icon} size={22} /> : mode === 'lesson' && course ? t(lessonMode === 'study' ? 'modes.sealStudy' : 'modes.sealQuiz') : t(`modes.${mode}.name`)}</span>
           <span className="ws-modebar-text">
             <strong>
               {mode === 'lesson'
                 ? course
-                  ? `${lessonMode === 'study' ? 'Study' : 'Quiz'}: ${course.title}`
-                  : 'Openings: pick a lesson'
+                  ? `${lessonMode === 'study' ? t('workshop.study') : t('workshop.quiz')}: ${course.title}`
+                  : t('workshop.openingsPickALesson')
                 : mode === 'tsume' && tsume
-                  ? `Tsume: mate in ${tsume.problem.mate}`
+                  ? t('workshop.tsumeMateIn', { mate: tsume.problem.mate })
                   : mode === 'drill'
                     ? drillItem
-                      ? `Review card ${drill!.index + 1} of ${drill!.items.length}`
-                      : 'Review'
+                      ? t('workshop.reviewCardOf', { value: drill!.index + 1, itemsCount: drill!.items.length })
+                      : t('workshop.review')
                     : mode === 'spar'
-                      ? `vs AI ${userSide === 'sente' ? '☗' : '☖'}`
+                      ? t('workshop.vsAi', { side: userSide === 'sente' ? '☗' : '☖' })
                       : mode === 'tesuji'
-                        ? `手筋: ${tesujiDrill && tesujiDrill.filter !== 'all' ? tesujiDrill.filter : 'mixed'}`
-                        : 'Analyze: move both sides freely'}
+                        ? `${t('workshop.tesuji')}: ${tesujiDrill && tesujiDrill.filter !== 'all' ? tesujiDrill.filter : t('workshop.mixed')}`
+                        : t('workshop.analyzeMoveBothSidesFreely')}
             </strong>
             <span>{modeInstruction()}</span>
           </span>
           <span className="ws-lastmove">
             {lastMove && prevSfen ? (
               <>
-                <span className="ws-ply">{plyBase + (preview ? preview.base + preview.step : cursor)}手目</span>
+                <span className="ws-ply">{t('workshop.move', { value: plyBase + (preview ? preview.base + preview.step : cursor) })}</span>
                 <strong>{moveText(prevSfen, lastMove)}</strong>
               </>
             ) : (
-              <span className="ws-ply">{plyBase > 0 ? `${plyBase}手目の局面` : '開始局面'}</span>
+              <span className="ws-ply">{plyBase > 0 ? t('workshop.afterMove', { plyBase }) : t('workshop.startPosition')}</span>
             )}
-            <span className={`ws-turn ${toMove}`}>{toMove === 'sente' ? '☗' : '☖'} to move</span>
+            <span className={`ws-turn ${toMove}`}>{t('workshop.toMove', { side: toMove === 'sente' ? '☗' : '☖' })}</span>
           </span>
           {(mode === 'spar' || mode === 'analyze') && (
-            <button className={`ws-help-toggle${settings.assist ? ' on' : ''}`} onClick={() => setSettings({ assist: !settings.assist })} title={settings.assist ? 'Help is on: eval bar, AI arrows and move ratings. Click to play with no help.' : 'No help: click to show the eval bar, AI arrows and move ratings again.'} aria-pressed={settings.assist}>
-              {settings.assist ? 'Coach: on' : 'Coach: off'}
+            <button className={`ws-help-toggle${settings.assist ? ' on' : ''}`} onClick={() => setSettings({ assist: !settings.assist })} title={settings.assist ? t('workshop.helpIsOnEvalBar') : t('workshop.noHelpClickToShow')} aria-pressed={settings.assist}>
+              {settings.assist ? t('workshop.coachOn') : t('workshop.coachOff')}
             </button>
           )}
           {!panelHidden && (
             <div className="ws-mini-nav">
-              <button className="ws-mini-wide" onClick={() => setPanel({ hidden: true })} title="Board only: hide the panel (P)" aria-label="Hide the panel">
+              <button className="ws-mini-wide" onClick={() => setPanel({ hidden: true })} title={t('workshop.boardOnlyHideThePanel')} aria-label={t('workshop.hideThePanel')}>
                 <Icon name="panel" size={16} />
-                <span>Board only</span>
+                <span>{t('workshop.boardOnly')}</span>
               </button>
             </div>
           )}
           {panelHidden && (
             <div className="ws-mini-nav">
               {mode === 'spar' && !resigned && !gameOver && (
-                <button onClick={takeBack} disabled={lastUserMove < 0} title="待った: take back your last move" aria-label="Take back">
-                  待った
+                <button onClick={takeBack} disabled={lastUserMove < 0} title={t('workshop.takeBackYourLastMove2')} aria-label={t('workshop.takeBack')}>
+                  {t('workshop.takeBack')}
                 </button>
               )}
-              <button onClick={() => (preview ? setPreview({ ...preview, step: Math.max(0, preview.step - 1) }) : setCursor((c) => Math.max(0, c - 1)))} disabled={preview ? preview.step === 0 : cursor === 0} title="Back (←)" aria-label="Back">
+              <button onClick={() => (preview ? setPreview({ ...preview, step: Math.max(0, preview.step - 1) }) : setCursor((c) => Math.max(0, c - 1)))} disabled={preview ? preview.step === 0 : cursor === 0} title={t('workshop.back')} aria-label={t('workshop.back2')}>
                 <Icon name="prev" size={16} />
               </button>
-              <button onClick={() => (preview ? setPreview({ ...preview, step: Math.min(preview.moves.length, preview.step + 1) }) : setCursor((c) => Math.min(game.moves.length, c + 1)))} disabled={preview ? preview.step >= preview.moves.length : atEnd} title="Forward (→)" aria-label="Forward">
+              <button onClick={() => (preview ? setPreview({ ...preview, step: Math.min(preview.moves.length, preview.step + 1) }) : setCursor((c) => Math.min(game.moves.length, c + 1)))} disabled={preview ? preview.step >= preview.moves.length : atEnd} title={t('workshop.forward')} aria-label={t('workshop.forward2')}>
                 <Icon name="next" size={16} />
               </button>
-              <button className="ws-mini-wide" onClick={() => setPanel({ hidden: false })} title="Show the panel (P)" aria-label="Show the panel">
+              <button className="ws-mini-wide" onClick={() => setPanel({ hidden: false })} title={t('workshop.showThePanelP')} aria-label={t('workshop.showThePanel')}>
                 <Icon name="panel" size={16} />
-                <span>Panel</span>
+                <span>{t('workshop.panel')}</span>
               </button>
             </div>
           )}
           {mode === 'spar' && (
             <label className="ws-strength">
-              <span>Clock</span>
-              <select value={settings.timeControl} onChange={(e) => setSettings({ timeControl: e.target.value as TimeControl })} aria-label="Time control" title={`${timeControl.hint}. Changing it restarts both clocks.`}>
+              <span>{t('workshop.clock')}</span>
+              <select value={settings.timeControl} onChange={(e) => setSettings({ timeControl: e.target.value as TimeControl })} aria-label={t('workshop.timeControl')} title={t('workshop.changingItRestartsBothClocks', { hint: timeControl.hint })}>
                 {(Object.keys(TIME_CONTROLS) as TimeControl[]).map((k) => (
                   <option key={k} value={k} title={TIME_CONTROLS[k].hint}>
                     {TIME_CONTROLS[k].label}
@@ -1338,15 +1387,15 @@ export function Workshop() {
           {mode === 'spar' && (
             <label className="ws-strength">
               <span>AI</span>
-              <select value={settings.opponent} onChange={(e) => setSettings({ opponent: e.target.value as AiStrength })} aria-label="AI strength">
+              <select value={settings.opponent} onChange={(e) => setSettings({ opponent: e.target.value as AiStrength })} aria-label={t('workshop.aiStrength')}>
                 {(Object.keys(STRENGTH) as AiStrength[]).map((k) => (
                   <option key={k} value={k}>
                     {STRENGTH[k].label}
                   </option>
                 ))}
               </select>
-              <select value={settings.aiStrategy} onChange={(e) => setSettings({ aiStrategy: e.target.value })} aria-label="AI strategy" title="What the AI plays against your 四間飛車. It follows that setup's book lines while it can, then thinks for itself.">
-                <option value="">Any strategy</option>
+              <select value={settings.aiStrategy} onChange={(e) => setSettings({ aiStrategy: e.target.value })} aria-label={t('workshop.aiStrategy')} title={t('workshop.whatTheAiPlaysAgainst')}>
+                <option value="">{t('workshop.anyStrategy')}</option>
                 {SETUPS.filter((x) => !x.technique && strategyCourses(x.id, userSide).length > 0).map((x) => (
                   <option key={x.id} value={x.id}>
                     {x.ja}
@@ -1355,13 +1404,13 @@ export function Workshop() {
               </select>
             </label>
           )}
-          {inCheck && !gameOver && <span className="ws-check">王手</span>}
+          {inCheck && !gameOver && <span className="ws-check">{t('workshop.check')}</span>}
         </header>
         <div className="ws-board-wrap">
-          {ai && assist && (mode === 'analyze' || mode === 'spar' || (mode === 'lesson' && !!course && lessonMode === 'study')) && <div className="ws-evalbar" aria-label="Evaluation">
+          {ai && assist && (mode === 'analyze' || mode === 'spar' || (mode === 'lesson' && !!course && lessonMode === 'study')) && <div className="ws-evalbar" aria-label={t('workshop.evaluation')}>
             <div className="ws-evalbar-fill" style={{ ['--rate' as string]: `${(flipped ? 1 - senteRate : senteRate) * 100}%` }} />
             {evalSente && (
-              <span className={`ws-evalbar-text ${(senteRate >= 0.5) !== flipped ? 'bottom' : 'top'} ${senteRate >= 0.5 ? 'light' : 'dark'}`} title={`Win chance: ☗ ${Math.round(senteRate * 100)}% / ☖ ${100 - Math.round(senteRate * 100)}%`}>
+              <span className={`ws-evalbar-text ${(senteRate >= 0.5) !== flipped ? 'bottom' : 'top'} ${senteRate >= 0.5 ? 'light' : 'dark'}`} title={t('workshop.winChance', { value: Math.round(senteRate * 100), value2: 100 - Math.round(senteRate * 100) })}>
                 {senteRate >= 0.5 ? '☗' : '☖'}
                 <br />
                 {Math.round(Math.max(senteRate, 1 - senteRate) * 100)}
@@ -1375,7 +1424,7 @@ export function Workshop() {
             key={`${settings.pieceStyle}|${settings.boardStyle}|${settings.pieceFinish}|${settings.coords}|${settings.environment}|${fontReady}`}
             position={position}
             flipped={flipped}
-            tilted={tilted}
+            tilted={tilted && !flatView}
             lastMove={lastMove}
             selected={selection?.from ?? null}
             selectedColor={selection?.color}
@@ -1391,51 +1440,63 @@ export function Workshop() {
             onSquare={onSquare}
             onHand={onHand}
             onDrop={onDrop}
+            onZones={setZones}
+            orbit={orbit}
+            sideRoom={0}
           />
+          )}
+          {zoned && zones && (
+            <StandZones
+              zone={zones.under}
+              moves={game.moves.map((u, i) => moveText(sfens[i], u))}
+              cursor={cursor}
+              onJump={(n) => (setPreview(null), setCursor(n))}
+              actions={[]}
+            />
           )}
           {preview && mistake && (
             <div className={`ws-preview mistake${mistakeIsBad(mistake) ? '' : ' ok'}`} role="status">
               <span className="ws-preview-seal">{mistakeSeal(mistake)}</span>
-              {mode === 'drill' && <span className="ws-short">{mistakeIsBad(mistake) ? 'Better' : 'Lesson'}: {moveText(sfens[mistake.base], mistake.expected)}</span>}
-              {mode === 'tsume' && <span className="ws-short">Not mate</span>}
-              {mode === 'lesson' && <span className="ws-short">{mistake.verdict ? LABELS[mistake.verdict.label].text : 'Mistake'}</span>}
+              {mode === 'drill' && <span className="ws-short">{mistakeIsBad(mistake) ? t('workshop.better') : t('workshop.lesson')}: {moveText(sfens[mistake.base], mistake.expected)}</span>}
+              {mode === 'tsume' && <span className="ws-short">{t('workshop.notMate')}</span>}
+              {mode === 'lesson' && <span className="ws-short">{mistake.verdict ? LABELS[mistake.verdict.label].text : t('workshop.mistake')}</span>}
               <span>
-                {mistakeHeadline(moveText(sfens[mistake.base], mistake.usi), mistake)}. {playing ? 'Watch what follows.' : preview.step < preview.moves.length ? 'Paused.' : 'That is how it continues.'}
+                {mistakeHeadline(moveText(sfens[mistake.base], mistake.usi), mistake)}{t('workshop.headlineEnd')}{playing ? t('workshop.watchWhatFollows') : preview.step < preview.moves.length ? t('workshop.paused') : t('workshop.thatIsHowItContinues')}
               </span>
-              <button onClick={() => (playing ? setPlaying(false) : (preview.step >= preview.moves.length && setPreview({ ...preview, step: 1 }), setPlaying(true)))}>{playing ? 'Pause' : 'Replay'}</button>
+              <button onClick={() => (playing ? setPlaying(false) : (preview.step >= preview.moves.length && setPreview({ ...preview, step: 1 }), setPlaying(true)))}>{playing ? t('workshop.pause') : t('workshop.replay')}</button>
               {mode !== 'drill' && (
                 <button className="primary" onClick={goBack}>
-                  Go back and try again
+                  {t('workshop.goBackAndTryAgain')}
                 </button>
               )}
             </div>
           )}
           {preview && !mistake && (
             <div className="ws-preview" role="status">
-              <span className="ws-preview-seal">検討</span>
+              <span className="ws-preview-seal">{t('workshop.preview')}</span>
               <span>
-                Preview: {preview.title}, <span className="ws-nowrap">move {preview.step} of {preview.moves.length}</span>
+                {t('workshop.preview2')}: {preview.title}, <span className="ws-nowrap">{t('workshop.moveOf', { step: preview.step, movesCount: preview.moves.length })}</span>
               </span>
-              <button onClick={() => setPlaying((v) => !v)}>{playing ? 'Pause' : 'Play'}</button>
-              <button onClick={keepPreview} disabled={preview.step === 0}>Keep these moves</button>
-              <button onClick={() => (setPreview(null), setPlaying(false))}>Exit preview</button>
+              <button onClick={() => setPlaying((v) => !v)}>{playing ? t('workshop.pause') : t('workshop.play')}</button>
+              <button onClick={keepPreview} disabled={preview.step === 0}>{t('workshop.keepTheseMoves')}</button>
+              <button onClick={() => (setPreview(null), setPlaying(false))}>{t('workshop.exitPreview')}</button>
             </div>
           )}
           {!preview && onVariation && (
             <div className="ws-preview branch" role="status">
-              <span className="ws-preview-seal">変化</span>
+              <span className="ws-preview-seal">{t('workshop.branch')}</span>
               <span>
                 {atEnd ? (
                   <>
-                    Variation
+                    {t('workshop.variation')}
                   </>
                 ) : (
                   <>
-                    Move {cursor} of {game.moves.length}. <strong className="ws-branch-tip">Play a different move to branch (変化)</strong>
+                    {t('workshop.moveOf2', { cursor, movesCount: game.moves.length })} <strong className="ws-branch-tip">{t('workshop.playADifferentMoveTo')}</strong>
                   </>
                 )}
               </span>
-              <button title="Go back to the main line"
+              <button title={t('workshop.goBackToTheMain')}
                 onClick={() => {
                   let i = 0
                   const main = mainLine(tree)
@@ -1444,55 +1505,52 @@ export function Workshop() {
                   setCursor(i)
                 }}
               >
-                Main line
+                {t('workshop.mainLine')}
               </button>
-              <button onClick={() => setTree((t) => promote(t, game.moves))} title="Make this variation the main line">
-                Make it main
+              <button onClick={() => setTree((t) => promote(t, game.moves))} title={t('workshop.makeThisVariationTheMain')}>
+                {t('workshop.makeItMain')}
               </button>
             </div>
           )}
           {!preview && !onVariation && previewing && (
             <div className="ws-preview" role="status">
-              <span className="ws-preview-seal">{playing ? '再生' : '検討'}</span>
-              <span>{playing ? 'Playing the line' : <>Move {cursor} of {game.moves.length}. <strong className="ws-branch-tip">{mode === 'spar' || mode === 'analyze' ? 'Play a different move to branch (変化)' : 'A move here replaces what came after'}</strong></>}</span>
-              <button onClick={() => (playing ? setPlaying(false) : (setCursor(game.moves.length), setPlaying(false)))}>{playing ? 'Pause' : 'Go to the last move'}</button>
+              <span className="ws-preview-seal">{playing ? t('workshop.play') : t('workshop.review2')}</span>
+              <span>{playing ? t('workshop.playingTheLine') : <>{t('workshop.moveOf2', { cursor, movesCount: game.moves.length })} <strong className="ws-branch-tip">{mode === 'spar' || mode === 'analyze' ? t('workshop.playADifferentMoveTo') : t('workshop.aMoveHereReplacesWhat')}</strong></>}</span>
+              <button onClick={() => (playing ? setPlaying(false) : (setCursor(game.moves.length), setPlaying(false)))}>{playing ? t('workshop.pause') : t('workshop.goToTheLastMove')}</button>
             </div>
           )}
-          {mode === 'tsume' && <span className="ws-plate top"><span className="ws-plate-side">{flipped ? '☗ Sente' : '☖ Gote'}</span><span className="ws-muted">{(flipped ? 'sente' : 'gote') === userSide ? 'You attack' : 'Defends'}</span></span>}
-          {mode === 'tsume' && <span className="ws-plate bottom"><span className="ws-plate-side">{flipped ? '☖ Gote' : '☗ Sente'}</span><span className="ws-muted">{(flipped ? 'gote' : 'sente') === userSide ? 'You attack' : 'Defends'}</span></span>}
-          {mode !== 'tsume' && !(mode === 'lesson' && !course) && <Plate className="top" clock={clockFor(flipped ? 'sente' : 'gote')} position={position} color={flipped ? Color.BLACK : Color.WHITE} who={mode === 'analyze' || (mode === 'lesson' && !course) || (mode === 'drill' && !drillItem) ? null : (flipped ? 'sente' : 'gote') === userSide ? 'You' : 'Opponent'} />}
+          {mode === 'tsume' && <span className="ws-plate top"><span className="ws-plate-side">{flipped ? t('workshop.sente') : t('workshop.gote')}</span><span className="ws-muted">{(flipped ? 'sente' : 'gote') === userSide ? t('workshop.youAttack') : t('workshop.defends')}</span></span>}
+          {mode === 'tsume' && <span className="ws-plate bottom"><span className="ws-plate-side">{flipped ? t('workshop.gote') : t('workshop.sente')}</span><span className="ws-muted">{(flipped ? 'gote' : 'sente') === userSide ? t('workshop.youAttack') : t('workshop.defends')}</span></span>}
+          {mode !== 'tsume' && !(mode === 'lesson' && !course) && <Plate className="top" clock={clockFor(flipped ? 'sente' : 'gote')} position={position} color={flipped ? Color.BLACK : Color.WHITE} who={mode === 'analyze' || (mode === 'lesson' && !course) || (mode === 'drill' && !drillItem) ? null : (flipped ? 'sente' : 'gote') === userSide ? t('workshop.you') : t('workshop.opponent')} />}
           {compact && !drawer && (
             <button className="ws-phone-task" onClick={() => (studyReply ? play(studyReply.usi) : setDrawer(true))}>
               <span>{modeInstruction()}</span>
-              <b>{studyReply ? 'Play their move' : mode === 'lesson' && !course ? 'Pick a lesson' : mode === 'drill' && !drillItem ? 'Pick a queue' : 'Panel'} ›</b>
+              <b>{studyReply ? t('workshop.playTheirMove') : mode === 'lesson' && !course ? t('workshop.pickALesson') : mode === 'drill' && !drillItem ? t('workshop.pickAQueue') : t('workshop.panel')} ›</b>
             </button>
           )}
-          {mode !== 'tsume' && !(mode === 'lesson' && !course) && <Plate className="bottom" clock={clockFor(flipped ? 'gote' : 'sente')} position={position} color={flipped ? Color.WHITE : Color.BLACK} who={mode === 'analyze' || (mode === 'lesson' && !course) || (mode === 'drill' && !drillItem) ? null : (flipped ? 'gote' : 'sente') === userSide ? 'You' : 'Opponent'} />}
+          {mode !== 'tsume' && !(mode === 'lesson' && !course) && <Plate className="bottom" clock={clockFor(flipped ? 'gote' : 'sente')} position={position} color={flipped ? Color.WHITE : Color.BLACK} who={mode === 'analyze' || (mode === 'lesson' && !course) || (mode === 'drill' && !drillItem) ? null : (flipped ? 'gote' : 'sente') === userSide ? t('workshop.you') : t('workshop.opponent')} />}
           {((gameOver && game.moves.length > 0 && (mode === 'spar' || mode === 'analyze')) || ((resigned || clock.flagged) && mode === 'spar')) && endHidden !== sfen && (
             <div className="ws-gameover" role="status">
-              <button className="ws-gameover-x" onClick={() => setEndHidden(sfen)} aria-label="Hide this and look at the board" title="Look at the board">
+              <button className="ws-gameover-x" onClick={() => setEndHidden(sfen)} aria-label={t('workshop.hideThisAndLookAt')} title={t('workshop.lookAtTheBoard')}>
                 ×
               </button>
-              <strong>{clock.flagged && mode === 'spar' && !gameOver ? '時間切れ' : resigned && !gameOver ? '投了' : '詰み'}</strong>
+              <strong>{clock.flagged && mode === 'spar' && !gameOver ? t('workshop.outOfTime') : resigned && !gameOver ? t('workshop.resigned') : t('workshop.checkmate')}</strong>
               <span>
                 {clock.flagged && mode === 'spar' && !gameOver
-                  ? `${clock.flagged === userSide ? 'You ran out of time' : 'The AI ran out of time'}. ${clock.flagged === 'sente' ? '☖ Gote' : '☗ Sente'} wins${clock.flagged === userSide ? '.' : '. Well played!'}`
-                  : (
-                    <>
-                      {resigned && !gameOver ? `You resigned. ${userSide === 'sente' ? '☖ Gote' : '☗ Sente'} wins` : toMove === 'sente' ? '☖ Gote' : '☗ Sente'}{resigned && !gameOver ? '' : ' wins'}
-                      {mode === 'spar' ? ((toMove === 'sente' ? 'gote' : 'sente') === userSide ? '. Well played!' : '. The AI wins this one.') : '.'}
-                    </>
-                  )}
+                  ? t(clock.flagged === userSide ? 'workshop.youFlagged' : 'workshop.aiFlagged', { winner: t(clock.flagged === 'sente' ? 'common.gote' : 'common.sente') })
+                  : resigned && !gameOver
+                    ? t('workshop.youResigned', { winner: t(userSide === 'sente' ? 'common.gote' : 'common.sente') })
+                    : t(mode !== 'spar' ? 'workshop.wins' : (toMove === 'sente' ? 'gote' : 'sente') === userSide ? 'workshop.youWin' : 'workshop.aiWins', { winner: t(toMove === 'sente' ? 'common.gote' : 'common.sente') })}
               </span>
               <div className="ws-actions">
                 {mode === 'spar' && (
                   <button onClick={reviewGame}>
-                    Review this game
+                    {t('workshop.reviewThisGame')}
                   </button>
                 )}
                 {mode === 'spar' && (
                   <button className="primary" onClick={() => load(InitialPositionSFEN.STANDARD, userSide, 'spar', null)}>
-                    New game
+                    {t('workshop.newGame')}
                   </button>
                 )}
               </div>
@@ -1501,7 +1559,7 @@ export function Workshop() {
           {announce && (
             <div key={announce.key} className={`ws-announce ${announce.side === Color.BLACK ? 'sente' : 'gote'}`} role="status">
               <span>
-                {announce.side === Color.BLACK ? '☗ 先手' : '☖ 後手'} {announce.kind}
+                {announce.side === Color.BLACK ? t('workshop.sente') : t('workshop.gote')} {announce.kind}
               </span>
               <strong>{announce.name}</strong>
             </div>
@@ -1513,31 +1571,55 @@ export function Workshop() {
           )}
           {!boardNote && mode === 'tsume' && tsume && tsume.status === 'playing' && tsume.good === 0 && tsume.hint >= 1 && (
             <div className="ws-peek ws-phone-only" role="status">
-              Hint: the first move uses your {pieceOfFirst(tsume.problem)}.
+              {t('workshop.hintTheFirstMoveUses', { piece: pieceOfFirst(tsume.problem) })}
             </div>
           )}
           {promotion && (
-            <div className="ws-promote" role="dialog" aria-label="Promote?">
+            <div className="ws-promote" role="dialog" aria-label={t('workshop.promote')}>
               {promotion.map((m) => (
                 <button key={m.usi} className={m.promote ? 'yes' : 'no'} onClick={() => void commit(m.usi)}>
                   <span className={`ws-koma${m.promote ? ' promoted' : ''}`}>{m.promote ? (PROMOTED_CHAR[m.pieceType] ?? PIECE_CHAR[m.pieceType]) : PIECE_CHAR[m.pieceType]}</span>
-                  <span>{m.promote ? '成る Promote' : '成らない Keep'}</span>
+                  <span>{m.promote ? t('workshop.promote2') : t('workshop.donTPromote')}</span>
                 </button>
               ))}
-              <button className="cancel" onClick={() => (setPromotion(null), setSelection(null))} title="Cancel this move (Esc)">
+              <button className="cancel" onClick={() => (setPromotion(null), setSelection(null))} title={t('workshop.cancelThisMoveEsc')}>
                 <span className="ws-koma-x">×</span>
-                <span>Cancel</span>
+                <span>{t('workshop.cancel')}</span>
               </button>
             </div>
           )}
         </div>
       </section>
 
-      {compact && drawer && <div className="ws-drawer-back" onPointerDown={() => setDrawer(false)} aria-hidden="true" />}
-      <aside className={`ws-panel${sheetIsOpen ? ' open' : ''}`}>
+      <aside className={`ws-panel${sheetIsOpen ? ' open' : ''}`} style={zoned ? (zones && !panelPrefs.hidden ? { ...zones.over } : { display: 'none' }) : undefined}>
+        {compact && (
+          <div
+            className="ws-sheet-grip"
+            role="separator"
+            aria-orientation="horizontal"
+            onPointerDown={(e) => {
+              e.preventDefault()
+              const move = (ev: PointerEvent) => setSheetH(Math.round(Math.min(78, Math.max(22, 100 - (ev.clientY / window.innerHeight) * 100))))
+              const up = () => {
+                window.removeEventListener('pointermove', move)
+                window.removeEventListener('pointerup', up)
+                setSheetH((h) => {
+                  try {
+                    localStorage.setItem('joseki-practice:sheet:v1', String(h))
+                  } catch (error) {
+                    console.warn('sheet size not persisted', error)
+                  }
+                  return h
+                })
+              }
+              window.addEventListener('pointermove', move)
+              window.addEventListener('pointerup', up)
+            }}
+          />
+        )}
         <div
           className="ws-panel-resize"
-          title="Drag to resize the panel"
+          title={t('workshop.dragToResizeThePanel')}
           onPointerDown={(e) => {
             e.preventDefault()
             const startX = e.clientX
@@ -1564,25 +1646,24 @@ export function Workshop() {
             }
             window.addEventListener('pointerup', up)
           }}
-          aria-label={sheetIsOpen ? 'Collapse panel' : 'Expand panel'}
+          aria-label={sheetIsOpen ? t('workshop.collapsePanel') : t('workshop.expandPanel')}
         />
         <div className="ws-tabs" role="tablist">
-          {TABS.map((t) => (
-            <button key={t.id} role="tab" aria-selected={tab === t.id} className={tab === t.id ? 'on' : ''} onClick={() => setTab(t.id)}>
-              <span className="ws-ja">{t.ja}</span>
-              <span>{t.name}</span>
+          {TABS.map((id) => (
+            <button key={id} role="tab" aria-selected={tab === id} className={tab === id ? 'on' : ''} onClick={() => setTab(id)}>
+              <span className={ja ? 'ws-ja' : 'ws-en'}>{t(`tabs.${id}`)}</span>
             </button>
           ))}
-          <button className="ws-panel-close" onClick={() => setPanel({ hidden: true })} title="Close the panel (P)" aria-label="Close the panel">
+          <button className="ws-panel-close" onClick={() => setPanel({ hidden: true })} title={t('workshop.closeThePanelP')} aria-label={t('workshop.closeThePanel')}>
             ×
           </button>
         </div>
         <div className="ws-panel-body">
           {level === 'new' && selection && !(mode === 'lesson' && course) && <PieceGuide sfen={sfen} from={selection.from} />}
-          {tab === 'engine' && !ai && <p className="ws-muted">The AI needs a cross-origin isolated page. Reload from the dev server.</p>}
-          {tab === 'engine' && ai && spoilerFree && <p className="ws-muted">The AI stays quiet until you answer.</p>}
-          {tab === 'engine' && ai && !spoilerFree && gameOver && <p className="ws-muted">Checkmate: {toMove === 'sente' ? '☖ Gote' : '☗ Sente'} has won. Step back to analyse earlier positions.</p>}
-          {tab === 'engine' && !assist && <p className="ws-muted">Help is off. Turn it back on in the header to see the AI's view.</p>}
+          {tab === 'engine' && !ai && <p className="ws-muted">{t('workshop.theAiNeedsACross')}</p>}
+          {tab === 'engine' && ai && spoilerFree && <p className="ws-muted">{t('workshop.theAiStaysQuietUntil')}</p>}
+          {tab === 'engine' && ai && !spoilerFree && gameOver && <p className="ws-muted">{t('workshop.checkmateWon', { winner: t(toMove === 'sente' ? 'common.gote' : 'common.sente') })}</p>}
+          {tab === 'engine' && !assist && <p className="ws-muted">{t('workshop.helpIsOffTurnIt')}</p>}
           {tab === 'engine' && ai && assist && !spoilerFree && !gameOver && <EnginePane sfen={sfen} toMove={toMove} analysis={analysis} showBest={showBest} setShowBest={setShowBest} onPlay={play} canPlay={userTurn} book={bookHere} />}
           {tab === 'coach' && mode === 'lesson' && (
             <LessonPane
@@ -1670,17 +1751,17 @@ export function Workshop() {
               {gameNotes.title !== 'Imported game' && cursor === 0 && <p className="ws-muted">{gameNotes.title}</p>}
               {gameNotes.comments[cursor] && (
                 <p className="ws-note">
-                  <span className="ws-kifu-tag">棋譜コメント</span> {gameNotes.comments[cursor]}
+                  <span className="ws-kifu-tag">{t('workshop.comment')}</span> {gameNotes.comments[cursor]}
                 </p>
               )}
               {gameNotes.ending && cursor === gameNotes.moves.split(' ').length && <p className="ws-note">{gameNotes.ending}</p>}
             </div>
           )}
           {tab === 'coach' && mode === 'spar' && (
-            <div className="ws-seg ws-spar-side" role="group" aria-label="Your side">
+            <div className="ws-seg ws-spar-side" role="group" aria-label={t('workshop.yourSide')}>
               {(['sente', 'gote'] as const).map((side) => (
-                <button key={side} className={userSide === side ? 'on' : ''} onClick={() => (side === userSide ? undefined : game.moves.length > 0 ? setConfirm({ text: `Start a new game as ${side === 'sente' ? '☗ sente' : '☖ gote'}? Your current game (${game.moves.length} moves) will be lost.`, run: () => load(InitialPositionSFEN.STANDARD, side, 'spar', null) }) : load(InitialPositionSFEN.STANDARD, side, 'spar', null))}>
-                  {side === 'sente' ? 'Play ☗ sente' : 'Play ☖ gote'}
+                <button key={side} className={userSide === side ? 'on' : ''} onClick={() => (side === userSide ? undefined : game.moves.length > 0 ? setConfirm({ text: t('workshop.newGameAs', { side: t(side === 'sente' ? 'common.sente' : 'common.gote'), count: game.moves.length }), run: () => load(InitialPositionSFEN.STANDARD, side, 'spar', null) }) : load(InitialPositionSFEN.STANDARD, side, 'spar', null))}>
+                  {side === 'sente' ? t('workshop.playSente') : t('workshop.playGote')}
                 </button>
               ))}
             </div>
@@ -1688,32 +1769,32 @@ export function Workshop() {
           {tab === 'coach' && mode === 'spar' && game.moves.length > 0 && !gameOver && (
             <div className="ws-actions ws-spar-actions">
               {!resigned && (
-                <button onClick={takeBack} disabled={lastUserMove < 0} title="Take back your last move and the AI's reply">
-                  待った Take back
+                <button onClick={takeBack} disabled={lastUserMove < 0} title={t('workshop.takeBackYourLastMove3')}>
+                  {t('workshop.takeBack')}
                 </button>
               )}
               {!resigned && (
-                <button onClick={() => setConfirm({ text: 'Resign this game? You can still review it afterwards.', run: () => setResigned(true), yes: 'Resign', no: 'Keep playing' })}>
-                  Resign
+                <button onClick={() => setConfirm({ text: t('workshop.resignThisGameYouCan'), run: () => setResigned(true), yes: t('workshop.resign2'), no: t('workshop.keepPlaying') })}>
+                  {t('workshop.resign')}
                 </button>
               )}
-              <button onClick={reviewGame}>Review in 検討 Analyze</button>
+              <button onClick={reviewGame}>{t('workshop.reviewInAnalyze')}</button>
             </div>
           )}
-          {tab === 'coach' && (mode === 'spar' || mode === 'analyze') && !assist && <p className="ws-muted">Help is off: no ratings, arrows or eval while you play. Your mistakes are still saved; review the game in 検討 Analyze afterwards with help on.</p>}
+          {tab === 'coach' && (mode === 'spar' || mode === 'analyze') && !assist && <p className="ws-muted">{t('workshop.helpIsOffNoRatings')}</p>}
           {tab === 'coach' && (mode === 'spar' || mode === 'analyze') && assist && <CoachPane review={review} lastMove={reviewAt > 0 ? game.moves[reviewAt - 1] : undefined} prevSfen={reviewAt > 0 ? sfens[reviewAt - 1] : null} you={mode === 'spar'} bookLast={reviewAt === cursor ? bookLast : bookAt(reviewAt)} bookHere={bookHere} sfen={sfen} course={course} onPlay={play} canPlay={userTurn} hide={false} ai={ai} showBook={mode === 'analyze'} />}
-          {tab === 'flow' && spoilerFree && <p className="ws-muted">Find the move yourself first. The options appear here after you answer.</p>}
-          {tab === 'flow' && !spoilerFree && gameOver && <p className="ws-muted">The game is over: checkmate. Step back to look at earlier positions.</p>}
-          {tab === 'flow' && !assist && <p className="ws-muted">Help is off. Turn it back on in the header to see the lines.</p>}
+          {tab === 'flow' && spoilerFree && <p className="ws-muted">{t('workshop.findTheMoveYourselfFirst')}</p>}
+          {tab === 'flow' && !spoilerFree && gameOver && <p className="ws-muted">{t('workshop.theGameIsOverCheckmate')}</p>}
+          {tab === 'flow' && !assist && <p className="ws-muted">{t('workshop.helpIsOffTurnIt2')}</p>}
           {tab === 'flow' && assist && !spoilerFree && !gameOver && <FlowPane lanes={lanes} sfen={lanesRef.current.sfen} onPreview={startPreview} onHover={setHoverLane} />}
           {tab === 'moves' && (mode === 'spar' || mode === 'analyze') && !preview && (
-            <GamesBox current={slotId} onSave={saveSlot} onCopy={exportKif} onOpen={openSlot} onDelete={(g) => setConfirm({ text: `Delete “${g.title}”? This cannot be undone.`, run: () => (deleteGame(g.id), g.id === slotId && setSlotId(null)), yes: 'Delete', no: 'Keep it' })} onImport={importGame} />
+            <GamesBox current={slotId} onSave={saveSlot} onCopy={exportKif} onOpen={openSlot} onDelete={(g) => setConfirm({ text: t('workshop.deleteThisCannotBeUndone', { title: g.title }), run: () => (deleteGame(g.id), g.id === slotId && setSlotId(null)), yes: t('workshop.delete'), no: t('workshop.keepIt') })} onImport={importGame} />
           )}
           {tab === 'moves' &&
             (preview && previewSfens ? (
               <>
-                <p className="ws-muted">Showing a preview. These moves are not part of your game.</p>
-                <MovesPane sfens={[...sfens.slice(0, preview.base), ...previewSfens]} moves={[...game.moves.slice(0, preview.base), ...preview.moves]} cursor={preview.base + preview.step} setCursor={(i) => i >= preview.base && setPreview({ ...preview, step: i - preview.base })} title={gameTitle} />
+                <p className="ws-muted">{t('workshop.showingAPreviewTheseMoves')}</p>
+                <MovesPane sfens={[...sfens.slice(0, preview.base), ...previewSfens]} moves={[...game.moves.slice(0, preview.base), ...preview.moves]} cursor={preview.base + preview.step} setCursor={(i) => i >= preview.base && setPreview({ ...preview, step: i - preview.base })} title={gameTitle || t('workshop.thisGame')} />
               </>
             ) : (
               <MovesPane
@@ -1721,7 +1802,7 @@ export function Workshop() {
                 moves={game.moves}
                 cursor={cursor}
                 setCursor={setCursor}
-                title={gameTitle}
+                title={gameTitle || t('workshop.thisGame')}
                 onScore={(k, cp) => setEvals((e) => ({ ...e, [k]: cp }))}
                 tree={mode === 'spar' || mode === 'analyze' ? tree : null}
                 autoRate={mode === 'analyze' && autoRate === game.moves.join(' ')}
@@ -1732,10 +1813,10 @@ export function Workshop() {
                 }}
                 onDelete={(path, size) =>
                   setConfirm({
-                    text: `Delete this variation (${size} ${size === 1 ? 'move' : 'moves'})? This cannot be undone.`,
+                    text: t('workshop.deleteVariation', { count: size }),
                     run: () => setTree((t) => removeBranch(t, path)),
-                    yes: 'Delete',
-                    no: 'Keep it',
+                    yes: t('workshop.delete'),
+                    no: t('workshop.keepIt'),
                   })
                 }
               />
@@ -1743,22 +1824,22 @@ export function Workshop() {
         </div>
         {ai && assist && game.moves.length > 0 && (mode === 'analyze' || mode === 'spar') && <EvalGraph className={tab === 'moves' ? '' : 'phone-hidden'} values={sfens.map((s) => evals[strip(s)])} cursor={cursor} onJump={setCursor} onScan={scanGame} scanning={scanning} />}
         <footer className="ws-nav">
-          <button onClick={() => (preview ? setPreview({ ...preview, step: 0 }) : setCursor(0))} disabled={preview ? preview.step === 0 : cursor === 0} title="Start (Home)">
+          <button onClick={() => (preview ? setPreview({ ...preview, step: 0 }) : setCursor(0))} disabled={preview ? preview.step === 0 : cursor === 0} title={t('workshop.startHome')}>
             <Icon name="first" />
           </button>
-          <button onClick={() => (preview ? setPreview({ ...preview, step: Math.max(0, preview.step - 1) }) : setCursor((c) => Math.max(0, c - 1)))} disabled={preview ? preview.step === 0 : cursor === 0} title="Back (←)">
+          <button onClick={() => (preview ? setPreview({ ...preview, step: Math.max(0, preview.step - 1) }) : setCursor((c) => Math.max(0, c - 1)))} disabled={preview ? preview.step === 0 : cursor === 0} title={t('workshop.back')}>
             <Icon name="prev" />
           </button>
-          <button className="ws-play" onClick={() => setPlaying((v) => !v)} disabled={!playing && (!upcoming || !autoplayAllowed)} title={playing ? 'Pause (Space)' : 'Play the line forward (Space)'} aria-pressed={playing}>
+          <button className="ws-play" onClick={() => setPlaying((v) => !v)} disabled={!playing && (!upcoming || !autoplayAllowed)} title={playing ? t('workshop.pauseSpace') : t('workshop.playTheLineForwardSpace')} aria-pressed={playing}>
             <Icon name={playing ? 'pause' : 'play'} />
           </button>
-          <button onClick={() => (preview ? setPreview({ ...preview, step: Math.min(preview.moves.length, preview.step + 1) }) : setCursor((c) => Math.min(game.moves.length, c + 1)))} disabled={preview ? preview.step >= preview.moves.length : atEnd} title="Forward (→)">
+          <button onClick={() => (preview ? setPreview({ ...preview, step: Math.min(preview.moves.length, preview.step + 1) }) : setCursor((c) => Math.min(game.moves.length, c + 1)))} disabled={preview ? preview.step >= preview.moves.length : atEnd} title={t('workshop.forward')}>
             <Icon name="next" />
           </button>
-          <button onClick={() => (preview ? setPreview({ ...preview, step: preview.moves.length }) : setCursor(game.moves.length))} disabled={preview ? preview.step >= preview.moves.length : atEnd} title="Latest (End)">
+          <button onClick={() => (preview ? setPreview({ ...preview, step: preview.moves.length }) : setCursor(game.moves.length))} disabled={preview ? preview.step >= preview.moves.length : atEnd} title={t('workshop.latestEnd')}>
             <Icon name="last" />
           </button>
-          <button onClick={() => (game.moves.length > 0 ? setConfirm({ text: 'Start over from the beginning? The moves on the board will be cleared.', run: () => load(course ? course.root.sfen : InitialPositionSFEN.STANDARD, userSide, mode, course) }) : undefined)} title="Start over">
+          <button onClick={() => (game.moves.length > 0 ? setConfirm({ text: t('workshop.startOverFromTheBeginning'), run: () => load(course ? course.root.sfen : InitialPositionSFEN.STANDARD, userSide, mode, course) }) : undefined)} title={t('workshop.startOver')}>
             <Icon name="reset" />
           </button>
         </footer>
@@ -1767,11 +1848,11 @@ export function Workshop() {
       {palette && <Palette commands={commands} onClose={() => setPalette(false)} />}
       {confirm && (
         <div className="ws-palette-back" onPointerDown={() => performance.now() - confirmAt.current > 250 && setConfirm(null)}>
-          <div className="ws-dialog" role="alertdialog" aria-label="Confirm" onPointerDown={(e) => e.stopPropagation()}>
+          <div className="ws-dialog" role="alertdialog" aria-label={t('workshop.confirm')} onPointerDown={(e) => e.stopPropagation()}>
             <p>{confirm.text}</p>
             <div className="ws-actions">
               <button onClick={() => setConfirm(null)} autoFocus>
-                {confirm.no ?? 'Keep playing'}
+                {confirm.no ?? t('workshop.keepPlaying')}
               </button>
               <button
                 className="primary"
@@ -1781,7 +1862,7 @@ export function Workshop() {
                   setConfirm(null)
                 }}
               >
-                {confirm.yes ?? 'Yes, start new'}
+                {confirm.yes ?? t('workshop.yesStartNew')}
               </button>
             </div>
           </div>
@@ -1791,7 +1872,7 @@ export function Workshop() {
       {showViewer && <PieceViewer onClose={() => setShowViewer(false)} />}
       {welcome && (
         <div className="ws-palette-back">
-          <div className="ws-dialog ws-welcome" role="dialog" aria-label="Welcome">
+          <div className="ws-dialog ws-welcome" role="dialog" aria-label={t('workshop.welcome')}>
             <div className="ws-steps" aria-hidden="true">
               {[0, 1, 2].map((n) => (
                 <i key={n} className={n === welcomeStep ? 'on' : n < welcomeStep ? 'done' : ''} />
@@ -1799,55 +1880,53 @@ export function Workshop() {
             </div>
             {welcomeStep === 0 && (
               <>
-                <h2>ようこそ ShogiLab</h2>
-                <p>A workshop for learning 四間飛車: study real opening lines, quiz yourself, solve tsume and play the AI. How well do you know shogi?</p>
+                <h2>{t('workshop.welcomeToShogilab')}</h2>
+                <p>{t('workshop.aWorkshopForLearningThe')}</p>
                 <div className="ws-welcome-choices">
                   <button className={level === 'rules' ? 'primary' : ''} onClick={() => (setLevelOnly('rules'), setWelcomeStep(1))}>
-                    <strong>I know the rules</strong>
-                    <span>I can read 7六歩-style moves and know how every piece moves.</span>
+                    <strong>{t('workshop.iKnowTheRules')}</strong>
+                    <span>{t('workshop.iCanRead7Style')}</span>
                   </button>
                   <button className={level === 'new' ? 'primary' : ''} onClick={() => (setLevelOnly('new'), setWelcomeStep(1))}>
-                    <strong>New to shogi</strong>
-                    <span>Show how each piece moves when I tap it, and describe lesson moves in plain English.</span>
+                    <strong>{t('workshop.newToShogi')}</strong>
+                    <span>{t('workshop.showHowEachPieceMoves')}</span>
                   </button>
                 </div>
               </>
             )}
             {welcomeStep === 1 && (
               <>
-                <h2>How the screen works</h2>
+                <h2>{t('workshop.howTheScreenWorks')}</h2>
                 <ul className="ws-tour">
                   {MODES.map((m) => (
                     <li key={m.id}>
                       <Icon name={m.icon} size={18} />
-                      <strong>
-                        {m.ja} {m.name}
-                      </strong>
-                      <span>{m.hint}.</span>
+                      <strong>{t(`modes.${m.id}.name`)}</strong>
+                      <span>{t('modes.sentence', { hint: t(`modes.${m.id}.hint`) })}</span>
                     </li>
                   ))}
                   <li>
                     <Icon name="coach" size={18} />
-                    <strong>Side panel</strong>
-                    <span>Coach explains moves, AI rates the position, What next shows lines, Moves lists the game. Hide it with Board only or ×.</span>
+                    <strong>{t('workshop.sidePanel')}</strong>
+                    <span>{t('workshop.coachExplainsMovesAiRates')}</span>
                   </li>
                   <li>
                     <Icon name="prev" size={18} />
-                    <strong>Step back</strong>
-                    <span>← and → walk through moves. Play a different move to try a 変化 variation; the game is kept.</span>
+                    <strong>{t('workshop.stepBack')}</strong>
+                    <span>{t('workshop.andWalkThroughMovesPlay')}</span>
                   </li>
                 </ul>
                 <div className="ws-actions">
-                  <button onClick={() => setWelcomeStep(0)}>Back</button>
+                  <button onClick={() => setWelcomeStep(0)}>{t('workshop.back2')}</button>
                   <button className="primary" onClick={() => setWelcomeStep(2)}>
-                    Next
+                    {t('workshop.next')}
                   </button>
                 </div>
               </>
             )}
             {welcomeStep === 2 && (
               <>
-                <h2>Where do you want to start?</h2>
+                <h2>{t('workshop.whereDoYouWantTo')}</h2>
                 <div className="ws-welcome-choices">
                   <button
                     className="primary"
@@ -1857,23 +1936,23 @@ export function Workshop() {
                       if (first) openCourse(first, 'study')
                     }}
                   >
-                    <strong>Learn the basic 四間飛車 setup</strong>
-                    <span>Study mode walks you through every move with the reason. Then quiz yourself.</span>
+                    <strong>{t('workshop.learnTheBasicFourthFile')}</strong>
+                    <span>{t('workshop.studyModeWalksYouThrough')}</span>
                   </button>
                   <button onClick={() => (finishWelcome(), load(InitialPositionSFEN.STANDARD, 'sente', 'spar', null))}>
-                    <strong>Play the AI</strong>
-                    <span>Beginner strength. The coach rates your moves and your mistakes go to Review.</span>
+                    <strong>{t('workshop.playTheAi')}</strong>
+                    <span>{t('workshop.beginnerStrengthTheCoachRates')}</span>
                   </button>
                   <button onClick={() => (finishWelcome(), enterMode('tsume'))}>
-                    <strong>Solve 1手詰</strong>
-                    <span>Mate-in-one puzzles to warm up.</span>
+                    <strong>{t('workshop.solveMateInOne')}</strong>
+                    <span>{t('workshop.mateInOnePuzzlesTo')}</span>
                   </button>
                   <button onClick={finishWelcome}>
-                    <strong>Just look around</strong>
-                    <span>Pick anything from the lesson list.</span>
+                    <strong>{t('workshop.justLookAround')}</strong>
+                    <span>{t('workshop.pickAnythingFromTheLesson')}</span>
                   </button>
                 </div>
-                <p className="ws-muted">Your level and display options are in 設定 Settings.</p>
+                <p className="ws-muted">{t('workshop.yourLevelAndDisplayOptions')}</p>
               </>
             )}
           </div>
@@ -1936,18 +2015,19 @@ function useReview(sfens: string[], moves: string[], cursor: number, enabled: bo
 
 function standing(rate: number) {
   const lead = Math.abs(Math.round(rate * 100) - 50) / 100
-  const side = rate > 0.5 ? '☗ Sente' : '☖ Gote'
-  if (lead < 0.04) return 'The position is even'
-  if (lead < 0.12) return `${side} is slightly better`
-  if (lead < 0.25) return `${side} is better`
-  if (lead < 0.4) return `${side} is clearly better`
-  return `${side} is winning`
+  const side = rate > 0.5 ? i18n.t('engine.sente') : i18n.t('engine.gote')
+  if (lead < 0.04) return i18n.t('engine.thePositionIsEven')
+  if (lead < 0.12) return i18n.t('engine.isSlightlyBetter', { side })
+  if (lead < 0.25) return i18n.t('engine.isBetter', { side })
+  if (lead < 0.4) return i18n.t('engine.isClearlyBetter', { side })
+  return i18n.t('engine.isWinning', { side })
 }
 
 function EnginePane({ sfen, toMove, analysis, showBest, setShowBest, onPlay, canPlay, book }: { sfen: string; toMove: Side; analysis: ReturnType<typeof useAnalysis>['analysis']; showBest: boolean; setShowBest: (v: boolean) => void; onPlay: (usi: string) => void; canPlay: boolean; book: { usi: string; note?: string }[] }) {
+  const { t } = useTranslation()
   const [openLine, setOpenLine] = useState<number | null>(null)
-  if (!engineSupported()) return <p className="ws-muted">The AI needs a cross-origin isolated page. Reload from the dev server.</p>
-  if (!analysis || !analysis.candidates.length) return <p className="ws-muted">Analysing the position…</p>
+  if (!engineSupported()) return <p className="ws-muted">{t('engine.theAiNeedsACross')}</p>
+  if (!analysis || !analysis.candidates.length) return <p className="ws-muted">{t('engine.analysingThePosition')}</p>
   const [best, ...others] = analysis.candidates
   const bestRate = scoreWinRate(best.score)
   const senteRate = scoreWinRate(toSente(best.score, toMove))
@@ -1963,7 +2043,7 @@ function EnginePane({ sfen, toMove, analysis, showBest, setShowBest, onPlay, can
   }
   return (
     <div className="ws-engine">
-      <p className="ws-legend">Board arrows: solid = the AI's best move, dashed = other good candidates (their win-chance cost is listed below).</p>
+      <p className="ws-legend">{t('engine.boardArrowsSolidTheAi')}</p>
       <AiControls />
       <div className="ws-standing">
         <strong>{standing(senteRate)}</strong>
@@ -1971,30 +2051,30 @@ function EnginePane({ sfen, toMove, analysis, showBest, setShowBest, onPlay, can
           <span style={{ width: `${senteRate * 100}%` }} />
         </div>
         <span className="ws-muted">
-          Win chance: ☗ {Math.round(senteRate * 100)}% against ☖ {Math.round((1 - senteRate) * 100)}%
+          {t('engine.winChanceAgainst', { value: Math.round(senteRate * 100), value2: Math.round((1 - senteRate) * 100) })}
         </span>
       </div>
 
       <div className="ws-best">
-        <span className="ws-muted">Best move for {toMove === 'sente' ? '☗' : '☖'}</span>
+        <span className="ws-muted">{t('engine.bestMoveFor', { side: toMove === 'sente' ? '☗' : '☖' })}</span>
         <div className="ws-best-row">
           <strong>{moveText(sfen, best.move)}</strong>
-          {book.some((b) => b.usi === best.move) && <span className="ws-pill">book</span>}
-          {canPlay && <button onClick={() => onPlay(best.move)}>Play it</button>}
+          {book.some((b) => b.usi === best.move) && <span className="ws-pill">{t('engine.book')}</span>}
+          {canPlay && <button onClick={() => onPlay(best.move)}>{t('engine.playIt')}</button>}
         </div>
         {why(best.move) && <p>{why(best.move)}</p>}
-        {answer(best) && <p className="ws-muted">They would likely answer {answer(best)}.</p>}
+        {answer(best) && <p className="ws-muted">{t('engine.theyWouldLikelyAnswer', { move: answer(best) })}</p>}
       </div>
 
-      {others.length > 0 && <h3 className="ws-sub">Other moves</h3>}
+      {others.length > 0 && <h3 className="ws-sub">{t('engine.otherMoves')}</h3>}
       {others.map((c) => {
         const loss = Math.max(0, Math.round((bestRate - scoreWinRate(c.score)) * 100))
         return (
           <div key={c.multipv} className="ws-alt">
             <div className="ws-alt-row">
               <strong>{moveText(sfen, c.move)}</strong>
-              <span className={`ws-loss${loss >= 10 ? ' bad' : loss >= 4 ? ' meh' : ''}`}>{loss === 0 ? 'just as good' : `−${loss}% win chance`}</span>
-              {canPlay && <button onClick={() => onPlay(c.move)}>Play</button>}
+              <span className={`ws-loss${loss >= 10 ? ' bad' : loss >= 4 ? ' meh' : ''}`}>{loss === 0 ? t('engine.justAsGood') : t('engine.winChance', { loss })}</span>
+              {canPlay && <button onClick={() => onPlay(c.move)}>{t('engine.play')}</button>}
             </div>
             {why(c.move) && <p>{why(c.move)}</p>}
           </div>
@@ -2002,13 +2082,13 @@ function EnginePane({ sfen, toMove, analysis, showBest, setShowBest, onPlay, can
       })}
 
       <button className="ws-more" onClick={() => setOpenLine(openLine === null ? 1 : null)}>
-        {openLine === null ? 'See how the best line continues' : 'Hide the line'}
+        {openLine === null ? t('engine.seeHowTheBestLine') : t('engine.hideTheLine')}
       </button>
       {openLine !== null && <p className="ws-pv">{pvText(sfen, best.pv, 8)}</p>}
 
       <label className="ws-toggle">
         <input type="checkbox" checked={showBest} onChange={(e) => setShowBest(e.target.checked)} />
-        <span>Show the best move as an arrow</span>
+        <span>{t('engine.showTheBestMoveAs')}</span>
       </label>
     </div>
   )
@@ -2029,6 +2109,7 @@ function CoachPane(props: {
   showBook: boolean
   you?: boolean
 }) {
+  const { t } = useTranslation()
   const { review, lastMove, prevSfen, bookLast, bookHere, sfen, course, onPlay, canPlay, hide, ai, showBook, you } = props
   return (
     <div className="ws-coach">
@@ -2041,7 +2122,7 @@ function CoachPane(props: {
                   {LABELS[review.label].symbol}
                 </span>
                 <strong>
-                  {you ? 'Your move ' : ''}
+                  {you ? t('coach.yourMove') : ''}
                   {moveText(prevSfen, lastMove)}
                 </strong>
                 <span style={{ color: LABELS[review.label].color }}>{LABELS[review.label].text}</span>
@@ -2055,8 +2136,8 @@ function CoachPane(props: {
               ))}
               {['inaccuracy', 'mistake', 'miss', 'blunder'].includes(review.label) && review.best.move !== lastMove && !review.reasons.some((r) => r.startsWith('The best move')) && (
                 <p className="ws-reason">
-                  Better was <strong>{moveText(prevSfen, review.best.move)}</strong>
-                  {review.bestReasons[0] && !review.bestReasons[0].startsWith('Engine line') ? `: ${review.bestReasons[0]}` : '.'}
+                  {t('coach.betterWas')}<strong>{moveText(prevSfen, review.best.move)}</strong>
+                  {review.bestReasons[0] && !review.bestReasons[0].startsWith('Engine line') ? `: ${review.bestReasons[0]}` : t('coach.betterWasEnd')}
                 </p>
               )}
             </>
@@ -2067,7 +2148,7 @@ function CoachPane(props: {
                   {LABELS.book.symbol}
                 </span>
                 <strong>{moveText(prevSfen, lastMove)}</strong>
-                <span style={{ color: LABELS.book.color }}>Book move</span>
+                <span style={{ color: LABELS.book.color }}>{t('coach.bookMove')}</span>
               </div>
               {bookLast.branch.note && <p className="ws-note">{bookLast.branch.note}</p>}
             </>
@@ -2078,24 +2159,24 @@ function CoachPane(props: {
                   {LABELS.mistake.symbol}
                 </span>
                 <strong>{moveText(prevSfen, lastMove)}</strong>
-                <span style={{ color: LABELS.mistake.color }}>Known mistake</span>
+                <span style={{ color: LABELS.mistake.color }}>{t('coach.knownMistake')}</span>
               </div>
               {(bookLast.branch.punishNote ?? bookLast.branch.note) && <p className="ws-note warn">{bookLast.branch.punishNote ?? bookLast.branch.note}</p>}
             </>
           ) : ai ? (
-            <p className="ws-muted">Checking {moveText(prevSfen, lastMove)}…</p>
+            <p className="ws-muted">{t('coach.checking', { move: moveText(prevSfen, lastMove) })}</p>
           ) : (
-            <p className="ws-muted">{moveText(prevSfen, lastMove)} is off the book. Turn the AI on (A) to have it rated.</p>
+            <p className="ws-muted">{t('coach.isOffTheBookTurn', { move: moveText(prevSfen, lastMove) })}</p>
           )}
         </div>
       ) : (
-        <p className="ws-muted">{course ? course.root.comment ?? course.goalFormation : 'Make a move. The coach checks it against the book and the AI and tells you why.'}</p>
+        <p className="ws-muted">{course ? course.root.comment ?? course.goalFormation : t('coach.makeAMoveTheCoach')}</p>
       )}
       {showBook && bookHere.length > 0 && (
         <div className="ws-book">
-          <h3>Book moves from the lessons</h3>
+          <h3>{t('coach.bookMovesFromTheLessons')}</h3>
           {hide ? (
-            <p className="ws-muted">Your move. Find the book move; the coach reveals it after you play.</p>
+            <p className="ws-muted">{t('coach.yourMoveFindTheBook')}</p>
           ) : (
             bookHere.map((b) => (
               <button key={b.usi} className="ws-book-move" disabled={!canPlay} onClick={() => onPlay(b.usi)}>
@@ -2111,6 +2192,7 @@ function CoachPane(props: {
 }
 
 function MovesPane({ sfens, moves, cursor, setCursor, title, onScore, tree, onSwitch, onDelete, autoRate }: { sfens: string[]; moves: string[]; cursor: number; setCursor: (i: number) => void; title: string; onScore?: (sfen: string, cp: number) => void; tree?: Tree | null; onSwitch?: (path: string[]) => void; onDelete?: (path: string[], size: number) => void; autoRate?: boolean }) {
+  const { t } = useTranslation()
   const [, setTick] = useState(0)
   const listRef = useRef<HTMLOListElement>(null)
   const tesujis = useMemo(() => moves.map((usi, i) => (sfens[i] ? detectTesuji(sfens[i], usi) : null)), [moves, sfens])
@@ -2130,7 +2212,7 @@ function MovesPane({ sfens, moves, cursor, setCursor, title, onScore, tree, onSw
     autoStarted.current = true
     void rateRef.current()
   })
-  if (moves.length === 0) return <p className="ws-muted">No moves yet. Play on the board, or import a game in 検討 Analyze (Coach tab).</p>
+  if (moves.length === 0) return <p className="ws-muted">{t('moves.noMovesYetPlayOn')}</p>
   const rate = async () => {
     setSaved(null)
     const results = new Map<number, Awaited<ReturnType<typeof analyze>>>()
@@ -2181,19 +2263,19 @@ function MovesPane({ sfens, moves, cursor, setCursor, title, onScore, tree, onSw
   return (
     <div>
       <div className="ws-rate">
-        {engineSupported() && progress === null && !rated && <button onClick={rate}>{current ? 'Rate the remaining moves' : 'Rate every move'}</button>}
-        {progress !== null && <span className="ws-muted">Rating move {progress} of {moves.length}…</span>}
+        {engineSupported() && progress === null && !rated && <button onClick={rate}>{current ? t('moves.rateTheRemainingMoves') : t('moves.rateEveryMove')}</button>}
+        {progress !== null && <span className="ws-muted">{t('moves.ratingMoveOf', { progress, movesCount: moves.length })}</span>}
         {rated && progress === null && (
           <>
-            <span className="ws-muted">{mistakes ? `${mistakes} ${mistakes === 1 ? 'mistake' : 'mistakes'} found.` : 'No mistakes found.'}</span>
-            {mistakes > 0 && saved === null && !allSaved && <button onClick={saveMine}>Save them as review cards</button>}
-            {mistakes > 0 && saved === null && allSaved && <span className="ws-muted">Already saved to 復習 Review.</span>}
-            {saved !== null && <span className="ws-muted">All {mistakes} {mistakes === 1 ? 'is' : 'are'} in 復習 Review now. Practise them there.</span>}
+            <span className="ws-muted">{mistakes ? t('moves.mistakesFound', { count: mistakes }) : t('moves.noMistakesFound')}</span>
+            {mistakes > 0 && saved === null && !allSaved && <button onClick={saveMine}>{t('moves.saveThemAsReviewCards')}</button>}
+            {mistakes > 0 && saved === null && allSaved && <span className="ws-muted">{t('moves.alreadySavedToReview')}</span>}
+            {saved !== null && <span className="ws-muted">{t('moves.allSaved', { count: mistakes })}</span>}
           </>
         )}
       </div>
-      {tree && <p className="ws-legend ws-branch-help">What-if: click any move below, then play a different move on the board. It becomes a 変化 variation and the game is kept.</p>}
-      <p className="ws-legend">本 book move · ?! inaccuracy · ? mistake · ?? blunder · ! great · 変 variation · red tag = 手筋 (tesuji) found</p>
+      {tree && <p className="ws-legend ws-branch-help">{t('moves.whatIfClickAnyMove')}</p>}
+      <p className="ws-legend">{t('moves.bookMoveInaccuracyMistakeBlunder')}</p>
       <ol className="ws-moves" ref={listRef}>
         {moves.map((usi, i) => {
           const label = current?.items[i]
@@ -2204,7 +2286,7 @@ function MovesPane({ sfens, moves, cursor, setCursor, title, onScore, tree, onSw
                 <span className="ws-move-no">{i + 1}</span>
                 {moveText(sfens[i], usi, moves[i - 1])}
                 {tesujis[i] && (
-                  <span className="ws-move-tesuji" title={`手筋 ${tesujis[i]!.ja}: ${tesujis[i]!.explain}`}>
+                  <span className="ws-move-tesuji" title={t('moves.tesuji', { value: tesujis[i]!.ja, value2: tesujis[i]!.explain })}>
                     {tesujis[i]!.ja}
                   </span>
                 )}
@@ -2216,14 +2298,14 @@ function MovesPane({ sfens, moves, cursor, setCursor, title, onScore, tree, onSw
               </button>
               {siblings.length > 0 && (
                 <span className="ws-vars">
-                  <span className="ws-vars-tag">変化</span>
+                  <span className="ws-vars-tag">{t('moves.var')}</span>
                   {siblings.map((c) => (
                     <span key={c.usi} className="ws-var">
-                      <button onClick={() => onSwitch?.([...moves.slice(0, i), c.usi])} title="Switch to this line">
+                      <button onClick={() => onSwitch?.([...moves.slice(0, i), c.usi])} title={t('moves.switchToThisLine')}>
                         {moveText(sfens[i], c.usi, moves[i - 1])}
                         {c.children.length > 0 && <small> +{countMoves(c)}</small>}
                       </button>
-                      <button className="ws-var-x" onClick={() => onDelete?.([...moves.slice(0, i), c.usi], countMoves(c) + 1)} aria-label="Delete this variation" title="Delete this variation">
+                      <button className="ws-var-x" onClick={() => onDelete?.([...moves.slice(0, i), c.usi], countMoves(c) + 1)} aria-label={t('moves.deleteThisVariation')} title={t('moves.deleteThisVariation')}>
                         ×
                       </button>
                     </span>
@@ -2248,102 +2330,107 @@ function countMoves(node: Tree): number {
 function pieceOfFirst(problem: Problem) {
   const position = positionOf(problem.sfen)
   const move = position.createMoveByUSI(problem.pv[0])
-  if (!move) return 'pieces'
+  if (!move) return i18n.t('tsume.pieces')
   const name = PIECE_INFO[move.pieceType]
-  return move.from instanceof Square ? `${name.ja} on the board` : `${name.ja} in hand (a drop)`
+  return move.from instanceof Square ? i18n.t('tsume.onTheBoard', { ja: name.ja }) : i18n.t('tsume.inHandADrop', { ja: name.ja })
 }
 
 function TesujiPane({ drill, sfen, onFilter, onNext, onHint, onShow }: { drill: { item: TesujiDrill; filter: string; status: 'asking' | 'right' | 'shown'; missed: boolean; hint: boolean; wrong?: string }; sfen: string; onFilter: (f: string) => void; onNext: () => void; onHint: () => void; onShow: () => void }) {
+  const { t } = useTranslation()
   const stats = tesujiStats()
   const pool = TESUJI_DRILLS.filter((d) => drill.filter === 'all' || d.tesuji === drill.filter)
   const side = colorSide(positionOf(sfen).color) === 'sente' ? '☗' : '☖'
+  const lang = useSettings().lang
   return (
     <div className="ws-practice">
-      <div className="ws-seg small ws-tesuji-filter" role="group" aria-label="Tesuji type">
+      <div className="ws-seg small ws-tesuji-filter" role="group" aria-label={t('tesuji.tesujiType')}>
         {['all', ...TESUJI_KINDS].map((k) => (
           <button key={k} className={drill.filter === k ? 'on' : ''} onClick={() => onFilter(k)}>
-            {k === 'all' ? 'Mixed' : k}
+            {k === 'all' ? t('tesuji.mixed') : k}
           </button>
         ))}
       </div>
       <p className="ws-task">
-        {side} to move. Find the {drill.hint || drill.status !== 'asking' ? <strong>{drill.item.tesuji}</strong> : '手筋'}.
+        {t('tesuji.toMoveFindThe', { side })}
+        {drill.hint || drill.status !== 'asking' ? <strong>{drill.item.tesuji}</strong> : t('tesuji.tesuji')}
+        {t('tesuji.findTheEnd')}
       </p>
-      {drill.status === 'asking' && drill.wrong && <p className="ws-result wrong">{moveText(sfen, drill.wrong)} is not it. Look again{drill.hint ? '' : ', or take a hint'}.</p>}
+      {drill.status === 'asking' && drill.wrong && <p className="ws-result wrong">{drill.hint ? t('tesuji.isNotItLookAgain', { move: moveText(sfen, drill.wrong) }) : t('tesuji.isNotItLookAgain2', { move: moveText(sfen, drill.wrong) })}</p>}
       {drill.status === 'asking' && drill.hint && <p className="ws-note">{drill.item.explain}</p>}
       {drill.status !== 'asking' && (
         <div className={`ws-card ${drill.status === 'right' ? 'good' : ''}`}>
           <strong>
             {drill.status === 'right' ? '✓ ' : ''}
-            {moveText(sfen, drill.item.answer)}: {drill.item.tesuji} <span className="ws-muted">({drill.item.en})</span>
+            {moveText(sfen, drill.item.answer)}: {drill.item.tesuji} {lang !== 'ja' && <span className="ws-muted">({drill.item.en})</span>}
           </strong>
           <p>{drill.item.explain}</p>
           {drill.item.note && <p className="ws-note">{drill.item.note}</p>}
-          <p className="ws-muted">From: {drill.item.from}</p>
+          <p className="ws-muted">{t('tesuji.from', { from: drill.item.from })}</p>
         </div>
       )}
       <div className="ws-actions">
         <button className="primary" onClick={onNext}>
-          Next
+          {t('tesuji.next')}
         </button>
-        {drill.status === 'asking' && !drill.hint && <button onClick={onHint}>Hint</button>}
-        {drill.status === 'asking' && <button onClick={onShow}>Show answer</button>}
+        {drill.status === 'asking' && !drill.hint && <button onClick={onHint}>{t('tesuji.hint')}</button>}
+        {drill.status === 'asking' && <button onClick={onShow}>{t('tesuji.showAnswer')}</button>}
       </div>
       <p className="ws-muted">
-        Solved first try: {pool.filter((d) => stats.solved.includes(d.id)).length} of {pool.length}
+        {t('tesuji.solvedFirstTryOf', { value: pool.filter((d) => stats.solved.includes(d.id)).length, poolCount: pool.length })}
       </p>
     </div>
   )
 }
 
 function TsumePane({ tsume, onLength, onNext, onRetry, onHint, onShow, escape, onEscape }: { tsume: { problem: Problem; status: string; reason?: string; hint: number; length: number | 'all'; good: number; missed?: boolean; seen?: boolean }; onLength: (n: number | 'all') => void; onNext: () => void; onRetry: () => void; onHint: () => void; onShow: () => void; escape: boolean; onEscape: () => void }) {
+  const { t } = useTranslation()
   const stats = loadTsumeStats()
   const pool = PROBLEMS.filter((p) => tsume.length === 'all' || p.mate === tsume.length)
   const attacker = attackerOf(tsume.problem)
   return (
     <div className="ws-practice">
-      <div className="ws-seg small" role="group" aria-label="Problem length">
+      <div className="ws-seg small" role="group" aria-label={t('tsume.problemLength')}>
         {([1, 3, 5, 7, 'all'] as const).map((n) => (
           <button key={n} className={tsume.length === n ? 'on' : ''} onClick={() => onLength(n)}>
-            {n === 'all' ? 'Mixed' : `${n}手詰`}
+            {n === 'all' ? t('tsume.mixed') : t('tsume.mateIn', { n })}
           </button>
         ))}
       </div>
       <p className="ws-task">
-        {attacker === 'sente' ? '☗' : '☖'} to play and mate in {tsume.problem.mate}.<span className="ws-wide"> Every attacking move must give check.</span>
+        {t('tsume.toPlayAndMateIn', { side: attacker === 'sente' ? '☗' : '☖', mate: tsume.problem.mate })}<span className="ws-wide">{t('tsume.everyAttackingMoveMustGive')}</span>
       </p>
       <div className="ws-tsume-status">
         {tsume.status === 'checking' ? (
-          <p className="ws-muted">Checking your move…</p>
+          <p className="ws-muted">{t('tsume.checkingYourMove')}</p>
         ) : tsume.status === 'solved' ? (
-          <p className="ws-result right">{tsume.seen ? '詰み. Solved after seeing the solution, so it is not counted as solved yet.' : tsume.hint >= 2 ? '詰み. Solved after the first move was shown, so it is not counted as solved yet.' : tsume.missed ? '詰み. Solved on a second try, so it is not counted as solved yet. Next time, first try.' : '詰み. Solved.'}</p>
+          <p className="ws-result right">{tsume.seen ? t('tsume.mateSolvedAfterSeeingThe') : tsume.hint >= 2 ? t('tsume.mateSolvedAfterTheFirst') : tsume.missed ? t('tsume.mateSolvedOnASecond') : t('tsume.mateSolved')}</p>
         ) : tsume.status === 'wrong' ? (
-          <p className="ws-result wrong">Not mate. {tsume.reason}</p>
+          <p className="ws-result wrong">{t('tsume.notMate')} {tsume.reason}</p>
         ) : tsume.status === 'shown' ? (
-          <p className="ws-pv">Solution: {pvText(tsume.problem.sfen, tsume.problem.pv, tsume.problem.mate)}</p>
+          <p className="ws-pv">{t('tsume.solution')}{pvText(tsume.problem.sfen, tsume.problem.pv, tsume.problem.mate)}</p>
         ) : tsume.good > 0 ? (
-          <p className="ws-result right">✓ Check, and still mate in time. Keep going.</p>
+          <p className="ws-result right">{t('tsume.checkAndStillMateIn')}</p>
         ) : (
           <p className={tsume.hint >= 1 ? 'ws-note ws-hint-line' : 'ws-note ws-hint-line idle'}>
-            {tsume.hint >= 1 ? `Hint: the first move uses your ${pieceOfFirst(tsume.problem)}.${tsume.hint >= 2 ? ' The yellow arrow shows it.' : ''}` : 'Stuck? Hint tells you which piece moves first.'}
+            {tsume.hint >= 1 ? t('tsume.hintTheFirstMoveUses', { piece: pieceOfFirst(tsume.problem) }) + (tsume.hint >= 2 ? t('tsume.theYellowArrowShowsIt') : '') : t('tsume.stuckHintTellsYouWhich')}
           </p>
         )}
       </div>
       <div className="ws-actions">
         <button className="primary" onClick={onNext}>
-          Next problem
+          {t('tsume.nextProblem')}
         </button>
-        {(tsume.status === 'playing' || tsume.status === 'wrong') && <button onClick={onShow}>Show solution</button>}
-        {(tsume.status === 'wrong' || tsume.status === 'shown') && <button onClick={onRetry}>Try again</button>}
-        {tsume.status === 'playing' && <button onClick={onHint} disabled={tsume.hint >= 2}>{tsume.hint === 0 ? 'Hint' : 'Show move'}</button>}
+        {(tsume.status === 'playing' || tsume.status === 'wrong') && <button onClick={onShow}>{t('tsume.showSolution')}</button>}
+        {(tsume.status === 'wrong' || tsume.status === 'shown') && <button onClick={onRetry}>{t('tsume.tryAgain')}</button>}
+        {tsume.status === 'playing' && <button onClick={onHint} disabled={tsume.hint >= 2}>{tsume.hint === 0 ? t('tsume.hint') : t('tsume.showMove')}</button>}
       </div>
       <label className="ws-check-row">
         <input type="checkbox" checked={escape} onChange={onEscape} />
-        <span>逃げ道: show where the king can run (K)</span>
+        <span>{t('tsume.escapeSquaresShowWhereThe')}</span>
       </label>
-      {tsume.status === 'solved' && <p className="ws-pv">Solution: {pvText(tsume.problem.sfen, tsume.problem.pv, tsume.problem.mate)}</p>}
+      {tsume.status === 'solved' && <p className="ws-pv">{t('tsume.solution')}{pvText(tsume.problem.sfen, tsume.problem.pv, tsume.problem.mate)}</p>}
       <p className="ws-muted">
-        Solved {pool.filter((p) => stats.solved.includes(p.id)).length} of {pool.length} in this set.
+        {t('tsume.solvedOfInThisSet', { value: pool.filter((p) => stats.solved.includes(p.id)).length, poolCount: pool.length })}
       </p>
     </div>
   )
@@ -2355,23 +2442,24 @@ function sfenAfter(start: string, moves: string[]) {
 
 function untilText(ms: number) {
   const minutes = Math.round(ms / 60000)
-  if (minutes < 60) return `in ${minutes} min`
+  if (minutes < 60) return i18n.t('review.inMin', { minutes })
   const hours = Math.round(minutes / 60)
-  if (hours < 48) return `in ${hours} h`
-  return `in ${Math.round(hours / 24)} days`
+  if (hours < 48) return i18n.t('review.inH', { hours })
+  return i18n.t('review.inDays', { count: Math.round(hours / 24) })
 }
 
 function ReviewPane({ drill, item, startSfen, onQueue, onNext, onRetry, mistakePreview, mistakeOk }: { drill: { queue: ReviewQueue; items: ReviewItem[]; index: number; result: null | 'right' | 'wrong'; retry: boolean; answered: number } | null; item: ReviewItem | undefined; startSfen: string | null; onQueue: (q: ReviewQueue) => void; onNext: () => void; onRetry: () => void; mistakePreview: boolean; mistakeOk?: boolean }) {
+  const { t } = useTranslation()
   const counts = useMemo(() => reviewCounts(), [drill?.queue, drill?.index, drill?.items])
   const queues: { id: ReviewQueue; label: string; n: number }[] = [
-    { id: 'due', label: 'Due', n: counts.due },
-    { id: 'new', label: 'Learn new', n: counts.new },
-    { id: 'difficult', label: 'Difficult', n: counts.difficult },
-    { id: 'mistakes', label: 'My game mistakes', n: counts.mistakes },
+    { id: 'due', label: t('review.due'), n: counts.due },
+    { id: 'new', label: t('review.learnNew'), n: counts.new },
+    { id: 'difficult', label: t('review.difficult'), n: counts.difficult },
+    { id: 'mistakes', label: t('review.myGameMistakes'), n: counts.mistakes },
   ]
   return (
     <div className="ws-practice">
-      <div className="ws-seg" role="group" aria-label="Review queue">
+      <div className="ws-seg" role="group" aria-label={t('review.reviewQueue')}>
         {queues.map((q) => (
           <button key={q.id} className={drill?.queue === q.id ? 'on' : ''} onClick={() => onQueue(q.id)}>
             {q.label} <span>{q.n > 99 ? '99+' : q.n}</span>
@@ -2381,45 +2469,45 @@ function ReviewPane({ drill, item, startSfen, onQueue, onNext, onRetry, mistakeP
       {item && startSfen ? (
         <>
           <p className="ws-muted">
-            Card {drill!.index + 1} of {drill!.items.length}
-            {item.kind === 'position' ? `, from ${item.course.title}` : ''}
-            {item.kind === 'position' && item.moves.length > 0 ? `, after ${moveText(item.moves.length > 1 ? sfenAfter(item.course.root.sfen, item.moves.slice(0, -1)) : item.course.root.sfen, item.moves.at(-1)!)}` : ''}
+            {t('review.cardOf', { value: drill!.index + 1, itemsCount: drill!.items.length })}
+            {item.kind === 'position' ? t('review.from', { title: item.course.title }) : ''}
+            {item.kind === 'position' && item.moves.length > 0 ? t('review.after', { move: moveText(item.moves.length > 1 ? sfenAfter(item.course.root.sfen, item.moves.slice(0, -1)) : item.course.root.sfen, item.moves.at(-1)!) }) : ''}
           </p>
-          {!drill!.result && <p className="ws-task">{item.kind === 'position' ? (drill!.queue === 'new' && !drill!.result && !drill!.retry ? `New position. Play ${moveText(startSfen, expectedMoves(item)[0])} (green arrow).` : `Your move as ${item.course.userSide === 'sente' ? '☗' : '☖'}: play the move from the lesson.`) : `In ${item.mistake.game === 'Imported game' ? 'an imported game' : item.mistake.game} you played ${moveText(item.mistake.sfen, item.mistake.played)} here. Find the better move.`}</p>}
-          {drill!.retry && !drill!.result && <p className="ws-muted">Retry. Only your first try counts for the schedule.</p>}
+          {!drill!.result && <p className="ws-task">{item.kind === 'position' ? (drill!.queue === 'new' && !drill!.result && !drill!.retry ? t('review.newPositionPlayGreenArrow', { move: moveText(startSfen, expectedMoves(item)[0]) }) : t('review.yourMoveAsPlayThe', { side: item.course.userSide === 'sente' ? '☗' : '☖' })) : t('review.inGameYouPlayed', { game: item.mistake.game === 'Imported game' ? t('review.anImportedGame') : item.mistake.game, move: moveText(item.mistake.sfen, item.mistake.played) })}</p>}
+          {drill!.retry && !drill!.result && <p className="ws-muted">{t('review.retryOnlyYourFirstTry')}</p>}
           {item.kind === 'position' && drill!.queue === 'new' && !drill!.result && !drill!.retry && item.node.branches.find((b) => b.usi === expectedMoves(item)[0])?.note && <p className="ws-note">{item.node.branches.find((b) => b.usi === expectedMoves(item)[0])!.note}</p>}
-          {drill!.result === 'right' && <p className="ws-result right">{drill!.retry ? 'Right this time. The card still comes back soon, because the first try missed.' : 'Right. It comes back later on a longer interval.'}</p>}
+          {drill!.result === 'right' && <p className="ws-result right">{drill!.retry ? t('review.rightThisTimeTheCard') : t('review.rightItComesBackLater')}</p>}
           {drill!.result === 'wrong' && (
             <p className={`ws-result ${mistakeOk ? 'ok' : 'wrong'}`}>
-              {mistakeOk ? `A good move too, but the lesson plays ${moveText(startSfen, expectedMoves(item)[0])}.` : `Not this one. The better move was ${moveText(startSfen, expectedMoves(item)[0])}.`}{mistakePreview ? ' The board is showing what your move leads to.' : ' It is marked with a green arrow.'}
-              {!drill!.retry && ' This card comes back in about 4 hours.'}
+              {mistakeOk ? t('review.aGoodMoveTooBut', { move: moveText(startSfen, expectedMoves(item)[0]) }) : t('review.notThisOneTheBetter', { move: moveText(startSfen, expectedMoves(item)[0]) })}{mistakePreview ? t('review.theBoardIsShowingWhat') : t('review.itIsMarkedWithA')}
+              {!drill!.retry && t('review.thisCardComesBackIn')}
             </p>
           )}
           {item.kind === 'position' && drill!.result && item.node.branches.find((b) => b.usi === expectedMoves(item)[0])?.note && <p className="ws-note">{item.node.branches.find((b) => b.usi === expectedMoves(item)[0])!.note}</p>}
-          {item.kind === 'mistake' && drill!.result === 'wrong' && !drill!.retry && item.mistake.reasons[0] && <p className="ws-note">Why your game move was bad: {item.mistake.reasons[0]}</p>}
+          {item.kind === 'mistake' && drill!.result === 'wrong' && !drill!.retry && item.mistake.reasons[0] && <p className="ws-note">{t('review.whyYourGameMoveWas')}{item.mistake.reasons[0]}</p>}
           <div className="ws-actions">
-            {drill!.result && <button onClick={onRetry}>Try it again</button>}
+            {drill!.result && <button onClick={onRetry}>{t('review.tryItAgain')}</button>}
             <button className="primary" onClick={onNext}>
-              {drill!.result ? 'Next card' : 'Skip'}
+              {drill!.result ? t('review.nextCard') : t('review.skip')}
             </button>
           </div>
         </>
       ) : (
         <div className="ws-card">
-          <strong>{drill && drill.items.length > 0 ? `Done: ${drill.answered} of ${drill.items.length} ${drill.items.length === 1 ? 'card' : 'cards'} answered` : drill?.queue === 'due' ? 'Nothing due right now' : 'Nothing in this queue'}</strong>
+          <strong>{drill && drill.items.length > 0 ? t('review.doneAnswered', { answered: drill.answered, count: drill.items.length }) : drill?.queue === 'due' ? t('review.nothingDueRightNow') : t('review.nothingInThisQueue')}</strong>
           {counts.new > 0 && drill?.queue !== 'new' && (
             <button className="primary" onClick={() => onQueue('new')}>
-              Learn {Math.min(10, counts.new)} new positions
+              {t('review.learnNewPositions', { count: Math.min(10, counts.new) })}
             </button>
           )}
           {counts.started > 0 && Number.isFinite(counts.nextDue) && counts.nextDue > Date.now() && (
             <p>
-              {counts.started} {counts.started === 1 ? 'position is' : 'positions are'} in your schedule. The next ones come back {untilText(counts.nextDue - Date.now())}.
+              {t('review.inSchedule', { count: counts.started, when: untilText(counts.nextDue - Date.now()) })}
             </p>
           )}
-          {drill?.queue === 'mistakes' && counts.mistakes === 0 && <p>Your own mistakes land here. In 検討 Analyze, import a game, rate every move in the 棋譜 Moves tab, then save the mistakes.</p>}
-          {drill?.queue === 'difficult' && <p>A position lands here after 3 or more misses while it is still early in its schedule.</p>}
-          {counts.started === 0 && drill?.queue !== 'mistakes' && drill?.queue !== 'difficult' && <p>Positions you quiz in 定跡 Openings, or learn here, come back on a schedule: after 4 hours, 1 day, 3 days, 1 week, then longer. A miss starts the position over.</p>}
+          {drill?.queue === 'mistakes' && counts.mistakes === 0 && <p>{t('review.yourOwnMistakesLandHere')}</p>}
+          {drill?.queue === 'difficult' && <p>{t('review.aPositionLandsHereAfter')}</p>}
+          {counts.started === 0 && drill?.queue !== 'mistakes' && drill?.queue !== 'difficult' && <p>{t('review.positionsYouQuizInOpenings')}</p>}
         </div>
       )}
     </div>
@@ -2432,29 +2520,31 @@ const mistakeIsBad = (m: Mistake) => m.known || (m.verdict ? ['inaccuracy', 'mis
 
 function mistakeSeal(m: Mistake) {
   const label = m.verdict?.label
-  if (label === 'blunder') return '大悪手'
-  if (label === 'mistake' || label === 'miss' || (m.known && !label)) return '悪手'
-  if (label === 'inaccuracy') return '緩手'
-  if (!mistakeIsBad(m)) return '別'
+  if (label === 'blunder') return i18n.t('mistake.blunder')
+  if (label === 'mistake' || label === 'miss' || (m.known && !label)) return i18n.t('mistake.mistake')
+  if (label === 'inaccuracy') return i18n.t('mistake.inaccuracy')
+  if (!mistakeIsBad(m)) return i18n.t('mistake.other')
   return '✗'
 }
 
 function mistakeHeadline(move: string, m: Mistake) {
   if (m.verdict && !m.known) {
     const label = LABELS[m.verdict.label].text
-    const loss = m.loss ? ` (−${m.loss}% win chance)` : ''
-    return ['inaccuracy', 'mistake', 'miss', 'blunder'].includes(m.verdict.label) ? `${move}: ${label}${loss}` : `${move}: ${label}, but not this lesson's move`
+    const loss = m.loss ? i18n.t('mistake.winChance', { loss: m.loss }) : ''
+    return ['inaccuracy', 'mistake', 'miss', 'blunder'].includes(m.verdict.label) ? `${move}: ${label}${loss}` : i18n.t('mistake.butNotThisLessonS', { move, label })
   }
-  if (m.known) return `${move} is a known mistake`
-  if ((m.loss ?? 0) >= 8) return `${move} is a mistake (−${m.loss}% win chance)`
-  return `${move} is playable, but not this lesson's move`
+  if (m.known) return i18n.t('mistake.isAKnownMistake', { move })
+  if ((m.loss ?? 0) >= 8) return i18n.t('mistake.isAMistakeWinChance', { move, loss: m.loss })
+  return i18n.t('mistake.isPlayableButNotThis', { move })
 }
 
 function OpeningPicker({ onOpen, level, setupId, setSetupId }: { onOpen: (c: Course, sub: 'study' | 'quiz') => void; level: Level; setupId: string | null; setSetupId: (id: string | null) => void }) {
+  const { t } = useTranslation()
   useEffect(() => {
     document.querySelector('.ws-panel-body')?.scrollTo(0, 0)
   }, [setupId])
   const [query, setQuery] = useState('')
+  const ja = useSettings().lang === 'ja'
   const q = query.trim().toLowerCase()
   const groups = SETUPS.map((setup) => ({ setup, courses: setup.courseIds.map((id) => COURSES.find((c) => c.id === id)).filter((c): c is Course => !!c) })).filter((g) => g.courses.length)
   const card = (c: Course) => {
@@ -2464,16 +2554,16 @@ function OpeningPicker({ onOpen, level, setupId, setSetupId }: { onOpen: (c: Cou
       <div key={c.id} className="ws-lesson-card">
         <span className="ws-lesson-title">{c.title}</span>
         <span className="ws-lesson-meta">
-          <span className={`ws-role ${c.notesFromOpponentView ? 'defend' : 'attack'}`}>{c.notesFromOpponentView ? `They attack, you defend as ${side}` : `You play ${side} ${c.userSide}`}</span>
+          <span className={`ws-role ${c.notesFromOpponentView ? 'defend' : 'attack'}`}>{c.notesFromOpponentView ? t('picker.theyAttackYouDefendAs', { side }) : t('picker.youPlay', { side: t(c.userSide === 'sente' ? 'common.sente' : 'common.gote') })}</span>
           <span>
-            <span title="Your moves in this lesson that you got right in Quiz without help">{learned}/{total} right in Quiz</span>
+            <span title={t('picker.yourMovesInThisLesson')}>{t('picker.rightInQuiz', { learned, total })}</span>
           </span>
         </span>
         <span className="ws-lesson-buttons">
           <button className="primary" onClick={() => onOpen(c, 'study')}>
-            Study
+            {t('picker.study')}
           </button>
-          <button onClick={() => onOpen(c, 'quiz')}>Quiz</button>
+          <button onClick={() => onOpen(c, 'quiz')}>{t('picker.quiz')}</button>
         </span>
         <i className="ws-progress" style={{ width: `${total ? (learned / total) * 100 : 0}%` }} />
       </div>
@@ -2483,8 +2573,8 @@ function OpeningPicker({ onOpen, level, setupId, setSetupId }: { onOpen: (c: Cou
     const hits = groups.flatMap((g) => g.courses.filter((c) => `${c.title} ${g.setup.ja} ${g.setup.name}`.toLowerCase().includes(q)))
     return (
       <div className="ws-picker">
-        <input className="ws-search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search: 鷺宮, 穴熊, 棒銀…" aria-label="Search lessons" autoFocus />
-        {hits.length ? hits.map(card) : <p className="ws-muted">No lesson matches “{query}”.</p>}
+        <input className="ws-search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t('picker.searchAnagumaBGinSagimiya')} aria-label={t('picker.searchLessons')} autoFocus />
+        {hits.length ? hits.map(card) : <p className="ws-muted">{t('picker.noLessonMatches', { query })}</p>}
       </div>
     )
   }
@@ -2493,12 +2583,9 @@ function OpeningPicker({ onOpen, level, setupId, setSetupId }: { onOpen: (c: Cou
     return (
       <div className="ws-picker">
         <button className="ws-back" onClick={() => setSetupId(null)}>
-          ← Back
+          {t('picker.back')}
         </button>
-        <h2 className="ws-picker-title">
-          {group.setup.ja}
-          <span>{group.setup.name}</span>
-        </h2>
+        <h2 className="ws-picker-title">{ja ? group.setup.ja : group.setup.name}</h2>
         <p className="ws-picker-intro">{group.setup.intro}</p>
         {group.setup.shikenPlan && <p className="ws-picker-intro plan">{group.setup.shikenPlan}</p>}
         {group.courses.map(card)}
@@ -2507,25 +2594,23 @@ function OpeningPicker({ onOpen, level, setupId, setSetupId }: { onOpen: (c: Cou
   return (
     <div className="ws-picker">
       <h2 className="ws-picker-title">
-        What do you want to learn?
-        <span>You play 四間飛車. Pick a technique, or the setup your opponent plays.</span>
+        {t('picker.whatDoYouWantTo')}
+        <span>{t('picker.youPlayTheFourthFile')}</span>
       </h2>
-      {level === 'new' && <p className="ws-picker-intro">Click any piece on the board to see how it moves. Lesson moves get a plain-English description.</p>}
-      <input className="ws-search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search: 鷺宮, 穴熊, 棒銀…" aria-label="Search lessons" />
-      {groups.some((g) => g.setup.technique) && <h3 className="ws-sub">Techniques</h3>}
+      {level === 'new' && <p className="ws-picker-intro">{t('picker.clickAnyPieceOnThe')}</p>}
+      <input className="ws-search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t('picker.searchAnagumaBGinSagimiya')} aria-label={t('picker.searchLessons')} />
+      {groups.some((g) => g.setup.technique) && <h3 className="ws-sub">{t('picker.techniques')}</h3>}
       {[...groups.filter((g) => g.setup.technique), ...groups.filter((g) => !g.setup.technique)].map(({ setup, courses }, i, all) => {
         const p = courses.map(courseProgress).reduce((a, b) => ({ learned: a.learned + b.learned, total: a.total + b.total }), { learned: 0, total: 0 })
         return (
           <Fragment key={setup.id}>
-          {!setup.technique && all[i - 1]?.setup.technique && <h3 className="ws-sub">Openings by what your opponent plays</h3>}
+          {!setup.technique && all[i - 1]?.setup.technique && <h3 className="ws-sub">{t('picker.openingsByWhatYourOpponent')}</h3>}
           <button className="ws-setup" onClick={() => setSetupId(setup.id)}>
             <span className="ws-lib-ja">
-              {setup.ja}
-              {setup.id === 'basics' && p.learned === 0 && <em className="ws-start">Start here</em>}
+              {ja ? setup.ja : setup.name}
+              {setup.id === 'basics' && p.learned === 0 && <em className="ws-start">{t('picker.startHere')}</em>}
             </span>
-            <span className="ws-lib-en">
-              {setup.name}, {courses.length} {courses.length === 1 ? 'lesson' : 'lessons'}
-            </span>
+            <span className="ws-lib-en">{t('picker.lessonCount', { count: courses.length })}</span>
             <span className="ws-setup-go" aria-hidden="true">
               ›
             </span>
@@ -2540,20 +2625,20 @@ function OpeningPicker({ onOpen, level, setupId, setSetupId }: { onOpen: (c: Cou
 }
 
 function Credits() {
+  const { t } = useTranslation()
   return (
     <details className="ws-source">
-      <summary>ShogiLab 将棋ラボ: credits and licences</summary>
-      <p>Engine: YaneuraOu (WASM build by mizar, GPL-3.0). Opening data: Shiryu181/shogi-joseki (GPL-3.0), plus lines from hibitonshi.com, shogijam.com, thirdfilerook.jp and Wikipedia (CC BY-SA). Mate problems: YaneuraOu mate set. Rules and kifu: tsshogi (MIT). Fonts: Shippori Mincho B1, Zen Kaku Gothic New (SIL OFL).</p>
+      <summary>{t('picker.shogilabCreditsAndLicences')}</summary>
+      <p>{t('picker.engineYaneuraouWasmBuildBy')}</p>
     </details>
   )
 }
 
 function quizSummary({ right, wrong, shown = 0, retried = 0 }: { right: number; wrong: number; shown?: number; retried?: number }) {
-  const n = (k: number, one: string, many: string) => `${k} ${k === 1 ? one : many}`
-  if (right === 0 && retried === 0 && (shown > 0 || wrong > 0)) return 'You needed help for every move this time. Quiz it again.'
-  if (wrong === 0 && shown === 0 && retried === 0) return right === 1 ? 'Your move was right, no mistakes.' : `All ${right} moves right, no mistakes.`
-  const parts = [`${n(right, 'move', 'moves')} found first try`, retried ? `${retried} found after a wrong try` : '', shown ? `${n(shown, 'answer', 'answers')} shown` : '', wrong ? n(wrong, 'wrong try', 'wrong tries') : ''].filter(Boolean)
-  return `${parts.join(', ')}. Quiz it again until it is clean.`
+  if (right === 0 && retried === 0 && (shown > 0 || wrong > 0)) return i18n.t('lesson.youNeededHelpForEvery')
+  if (wrong === 0 && shown === 0 && retried === 0) return right === 1 ? i18n.t('lesson.yourMoveWasRightNo') : i18n.t('lesson.allMovesRightNoMistakes', { right })
+  const parts = [i18n.t('lesson.firstTry', { count: right }), retried ? i18n.t('lesson.afterWrongTry', { count: retried }) : '', shown ? i18n.t('lesson.answersShown', { count: shown }) : '', wrong ? i18n.t('lesson.wrongTries', { count: wrong }) : ''].filter(Boolean)
+  return i18n.t('lesson.quizAgainUntilClean', { parts: parts.join(i18n.t('lesson.listSeparator')) })
 }
 
 function LessonPane(props: {
@@ -2595,6 +2680,7 @@ function LessonPane(props: {
   endComment?: string
   jumped: boolean
 }) {
+  const { t } = useTranslation()
   const { justRight, progress, checking, jumped, offBook, onBackToLine, endComment, whatIf, onExplore, pickerSetup, onPickerSetup, playing, level, endRate, reply, onPlayReply, course, lessonMode, onLessonMode, onOpen, onChange, onMap, onRestart, asking, done, good, sfen, userSide, mistake, showAnswer, onShowAnswer, onBack, mistakePreview, score, lastNote, lastMove, prevSfen } = props
   if (!course) return <OpeningPicker onOpen={onOpen} level={level} setupId={pickerSetup} setSetupId={onPickerSetup} />
   const side = userSide === 'sente' ? '☗' : '☖'
@@ -2605,33 +2691,35 @@ function LessonPane(props: {
     <div className="ws-lesson-pane">
       <div className="ws-lesson-top">
         <button className="ws-back" onClick={onChange}>
-          ← Lessons
+          {t('lesson.lessons')}
         </button>
         {progress && progress.total > 0 && (
           <span className="ws-progress-count">
-            Your moves {Math.min(progress.done, progress.total)} / {progress.total}
+            {t('lesson.yourMoves', { value: Math.min(progress.done, progress.total), total: progress.total })}
           </span>
         )}
         <button className="ws-back" onClick={onMap}>
-          Lesson map
+          {t('lesson.lessonMap')}
         </button>
       </div>
-      <div className="ws-seg big" role="group" aria-label="Lesson mode">
+      <div className="ws-seg big" role="group" aria-label={t('lesson.lessonMode')}>
         <button className={lessonMode === 'study' ? 'on' : ''} onClick={() => onLessonMode('study')}>
-          研究 Study<span>moves shown, with reasons</span>
+          {t('lesson.study')}
+          <span>{t('lesson.movesShownWithReasons')}</span>
         </button>
         <button className={lessonMode === 'quiz' ? 'on' : ''} onClick={() => onLessonMode('quiz')}>
-          試験 Quiz<span>find the moves yourself</span>
+          {t('lesson.quiz')}
+          <span>{t('lesson.findTheMovesYourself')}</span>
         </button>
       </div>
       {lessonMode === 'quiz' && (score.right > 0 || score.wrong > 0 || justRight) && (
         <p className="ws-score">
           <span className="right">✓ {score.right}</span>
           <span className="wrong">✗ {score.wrong}</span>
-          {justRight && !mistake && !done && <span className="ws-just-right">Right, that is the lesson move.</span>}
+          {justRight && !mistake && !done && <span className="ws-just-right">{t('lesson.rightThatIsTheLesson')}</span>}
         </p>
       )}
-      {checking && <p className="ws-muted">Checking that move…</p>}
+      {checking && <p className="ws-muted">{t('lesson.checkingThatMove')}</p>}
       {mistakePreview && mistake ? (
         <div className={`ws-card ${mistakeIsBad(mistake) ? 'bad' : 'good'}`}>
           <div className="ws-verdict-head">
@@ -2650,57 +2738,57 @@ function LessonPane(props: {
               ))}
             </ul>
           )}
-          {mistake.verdict && !mistake.note && mistake.verdict.reasons.length === 0 && <p>{mistakeIsBad(mistake) ? 'The opponent gets the better of it. Watch the board.' : 'Nothing goes wrong right away. The lesson plays a different plan, shown when you go back.'}</p>}
+          {mistake.verdict && !mistake.note && mistake.verdict.reasons.length === 0 && <p>{mistakeIsBad(mistake) ? t('lesson.theOpponentGetsTheBetter') : t('lesson.nothingGoesWrongRightAway')}</p>}
           <p className="ws-muted">
-            {lessonMode === 'study' ? `The lesson move is ${moveText(sfen, mistake.expected)}${mistake.verdict && mistake.verdict.best.move !== mistake.expected && mistake.verdict.best.move !== mistake.usi ? `; the AI's top choice is ${moveText(sfen, mistake.verdict.best.move)}` : ''}. ` : ''}
-            {playing ? 'The board is playing out what follows.' : 'That is how it continues.'}
+            {lessonMode === 'study' ? (mistake.verdict && mistake.verdict.best.move !== mistake.expected && mistake.verdict.best.move !== mistake.usi ? t('lesson.theLessonMoveIsThe', { move: moveText(sfen, mistake.expected), move2: moveText(sfen, mistake.verdict.best.move) }) : t('lesson.theLessonMoveIs', { move: moveText(sfen, mistake.expected) })) : ''}
+            {playing ? t('lesson.theBoardIsPlayingOut') : t('lesson.thatIsHowItContinues')}
           </p>
           <button className="primary" onClick={onBack}>
-            Go back and try again
+            {t('lesson.goBackAndTryAgain')}
           </button>
         </div>
       ) : offBook ? (
         <div className="ws-card">
-          <strong>You left the lesson line</strong>
-          <p>The book has no moves from this position. Go back to the last lesson position, or explore this one freely.</p>
+          <strong>{t('lesson.youLeftTheLessonLine')}</strong>
+          <p>{t('lesson.theBookHasNoMoves')}</p>
           <div className="ws-actions">
             <button className="primary" onClick={onBackToLine}>
-              Back to the lesson line
+              {t('lesson.backToTheLessonLine')}
             </button>
-            <button onClick={onExplore}>Explore it in 検討 Analyze</button>
+            <button onClick={onExplore}>{t('lesson.exploreItInAnalyze')}</button>
           </div>
         </div>
       ) : whatIf ? (
         <div className="ws-card">
-          <strong>Preview: {whatIf}</strong>
-          <p>The AI plays the best continuation on the board. Use “Keep these moves” to carry on from there, or “Exit preview” to go back to the lesson.</p>
+          <strong>{t('lesson.preview', { whatIf })}</strong>
+          <p>{t('lesson.theAiPlaysTheBest')}</p>
         </div>
       ) : done ? (
         <div className="ws-card good">
-          <strong>Line complete</strong>
+          <strong>{t('lesson.lineComplete')}</strong>
           <div className="ws-actions">
             {lessonMode === 'study' && (
               <button className="primary" onClick={() => onRestart('quiz')}>
-                Quiz this line
+                {t('lesson.quizThisLine')}
               </button>
             )}
             {nextCourse && (
               <button className={lessonMode === 'quiz' ? 'primary' : ''} onClick={() => onOpen(nextCourse, lessonMode)}>
-                Next lesson
+                {t('lesson.nextLesson')}
               </button>
             )}
-            <button onClick={() => onRestart()}>Start again</button>
-            <button onClick={onChange}>Other lessons</button>
+            <button onClick={() => onRestart()}>{t('lesson.startAgain')}</button>
+            <button onClick={onChange}>{t('lesson.otherLessons')}</button>
           </div>
           {endComment && <p className="ws-endnote">{endComment}</p>}
-          <p>{lessonMode === 'quiz' ? quizSummary(score) : jumped ? 'End of this branch. You jumped here from the Lesson map; play it from the start to learn it.' : 'You have seen the whole line. Now try it without hints.'}</p>
+          <p>{lessonMode === 'quiz' ? quizSummary(score) : jumped ? t('lesson.endOfThisBranchYou') : t('lesson.youHaveSeenTheWhole')}</p>
           {endRate !== null && (
             <p className={endRate >= 0.55 ? 'ws-end good' : endRate <= 0.45 ? 'ws-end bad' : 'ws-end'}>
               {endRate >= 0.55
-                ? `AI's view of the final position: you are better (${Math.round(endRate * 100)}% win chance).`
+                ? t('lesson.aiSViewOfThe', { value: Math.round(endRate * 100) })
                 : endRate <= 0.45
-                  ? `AI's view of the final position: you are worse (${Math.round(endRate * 100)}% win chance).`
-                  : `AI's view of the final position: about even (${Math.round(endRate * 100)}% win chance).`}
+                  ? t('lesson.aiSViewOfThe2', { value: Math.round(endRate * 100) })
+                  : t('lesson.aiSViewOfThe3', { value: Math.round(endRate * 100) })}
             </p>
           )}
         </div>
@@ -2708,13 +2796,13 @@ function LessonPane(props: {
         <div className="ws-card">
           {lessonMode === 'quiz' && !showAnswer && (
             <button className={`ws-answer-top${mistake && !mistakePreview ? ' primary' : ''}`} onClick={onShowAnswer}>
-              Show me the answer
+              {t('lesson.showMeTheAnswer')}
             </button>
           )}
-          {mistake && !mistakePreview && <p className="ws-result wrong">{mistakeIsBad(mistake) ? `${moveText(sfen, mistake.usi)} was ${mistake.verdict ? `a ${LABELS[mistake.verdict.label].text.toLowerCase()}` : 'a mistake'}. Try again.` : `${moveText(sfen, mistake.usi)} is not this lesson's move. Try again.`}</p>}
+          {mistake && !mistakePreview && <p className="ws-result wrong">{mistakeIsBad(mistake) ? t('lesson.wasLabel', { move: moveText(sfen, mistake.usi), label: (mistake.verdict ? LABELS[mistake.verdict.label] : LABELS.mistake).text }) : t('lesson.isNotThisLessonS', { move: moveText(sfen, mistake.usi) })}</p>}
           {lessonMode === 'study' || showAnswer ? (
             <>
-              <strong>Your move as {side}</strong>
+              <strong>{t('lesson.yourMoveAs', { side })}</strong>
               {good.map((g) => (
                 <div key={g.usi} className="ws-answer">
                   <span className="ws-answer-move">{moveText(sfen, g.usi)}</span>
@@ -2722,42 +2810,42 @@ function LessonPane(props: {
                   {g.note && <p>{g.note}</p>}
                 </div>
               ))}
-              <p className="ws-muted">Play it on the board (green arrow).</p>
+              <p className="ws-muted">{t('lesson.playItOnTheBoard')}</p>
             </>
           ) : (
             <>
-              <strong>Your move as {side}: find the book move</strong>
+              <strong>{t('lesson.yourMoveAsFindThe', { side })}</strong>
             </>
           )}
         </div>
       ) : (
         <div className="ws-card">
-          <strong>Their move{reply ? `: ${moveText(sfen, reply.usi)}` : ''}</strong>
+          <strong>{reply ? t('lesson.theirMove', { move: moveText(sfen, reply.usi) }) : t('lesson.theirMove2')}</strong>
           {level === 'new' && reply && <span className="ws-gloss">{moveGloss(sfen, reply.usi)}</span>}
           {reply?.note && <p>{reply.note}</p>}
           {lessonMode === 'study' && reply ? (
             <button className="primary" onClick={onPlayReply}>
-              Play their move <span className="ws-key">Space</span>
+              {t('lesson.playTheirMove')} <span className="ws-key">Space</span>
             </button>
           ) : (
-            <p className="ws-muted">Coming in a moment.</p>
+            <p className="ws-muted">{t('lesson.comingInAMoment')}</p>
           )}
         </div>
       )}
       {lastMove && prevSfen && lastNote && !mistakePreview && (
         <div className="ws-last">
-          <span className="ws-muted">Last move {moveText(prevSfen, lastMove)}</span>
+          <span className="ws-muted">{t('lesson.lastMove', { move: moveText(prevSfen, lastMove) })}</span>
           <p>{lastNote}</p>
         </div>
       )}
       {!lastMove && course.root.comment && <p className="ws-last">{course.root.comment}</p>}
       <button className="ws-explore" onClick={onExplore}>
-        Try your own moves from here
-        <span>Opens this position in 検討 Analyze. Move both sides freely; the AI rates every move.</span>
+        {t('lesson.tryYourOwnMovesFrom')}
+        <span>{t('lesson.opensThisPositionInAnalyze')}</span>
       </button>
       {course.source && (
         <details className="ws-source">
-          <summary>Source</summary>
+          <summary>{t('lesson.source')}</summary>
           <p>{course.source}</p>
         </details>
       )}
@@ -2766,36 +2854,37 @@ function LessonPane(props: {
 }
 
 function GamesBox({ current, onSave, onCopy, onOpen, onDelete, onImport }: { current: string | null; onSave: () => boolean; onCopy: () => string; onOpen: (g: StoredGame) => void; onDelete: (g: StoredGame) => void; onImport: (text: string) => string | null }) {
+  const { t } = useTranslation()
   const [note, setNote] = useState<string | null>(null)
   const [view, setView] = useState<'none' | 'saved' | 'load'>('none')
   const games = loadGames()
   return (
     <div className="ws-games">
       <div className="ws-actions">
-        <button className="primary" onClick={() => setNote(onSave() ? (current ? 'Saved (updated this slot).' : 'Saved to your games.') : 'Could not save: browser storage is full or blocked.')}>
-          {current ? 'Save changes' : 'Save game'}
+        <button className="primary" onClick={() => setNote(onSave() ? (current ? t('games.savedUpdatedThisSlot') : t('games.savedToYourGames')) : t('games.couldNotSaveBrowserStorage'))}>
+          {current ? t('games.saveChanges') : t('games.saveGame')}
         </button>
         <button className={view === 'saved' ? 'on' : ''} onClick={() => setView(view === 'saved' ? 'none' : 'saved')}>
-          Saved games <span className="ws-count">{games.length}</span>
+          {t('games.savedGames')} <span className="ws-count">{games.length}</span>
         </button>
         <button className={view === 'load' ? 'on' : ''} onClick={() => setView(view === 'load' ? 'none' : 'load')}>
-          Load a game
+          {t('games.loadAGame')}
         </button>
-        <button onClick={() => navigator.clipboard.writeText(onCopy()).then(() => setNote('KIF copied. Paste it into ShogiGUI, Kifu for Windows or 81Dojo.'), () => setNote('Could not copy to the clipboard.'))}>Copy KIF</button>
+        <button onClick={() => navigator.clipboard.writeText(onCopy()).then(() => setNote(t('games.kifCopiedPasteItInto')), () => setNote(t('games.couldNotCopyToThe')))}>{t('games.copyKif')}</button>
       </div>
       {note && <p className="ws-muted">{note}</p>}
       {view === 'saved' && (
         <ul className="ws-game-list">
-          {games.length === 0 && <li className="ws-muted">No saved games yet. Press Save game to keep this one.</li>}
+          {games.length === 0 && <li className="ws-muted">{t('games.noSavedGamesYetPress')}</li>}
           {games.map((g) => (
             <li key={g.id} className={g.id === current ? 'on' : ''}>
               <button className="ws-game-open" onClick={() => onOpen(g)}>
                 <strong>{g.title}</strong>
                 <span>
-                  {g.moves.length} moves{g.tree && g.tree.children.length > 1 ? ' · with variations' : ''}
+                  {t('games.moves', { count: g.moves.length })}{g.tree && g.tree.children.length > 1 ? t('games.withVariations') : ''}
                 </span>
               </button>
-              <button className="ws-var-x" onClick={() => onDelete(g)} aria-label={`Delete ${g.title}`} title="Delete">
+              <button className="ws-var-x" onClick={() => onDelete(g)} aria-label={t('games.delete', { title: g.title })} title={t('games.delete2')}>
                 ×
               </button>
             </li>
@@ -2808,6 +2897,7 @@ function GamesBox({ current, onSave, onCopy, onOpen, onDelete, onImport }: { cur
 }
 
 function ImportBox({ onImport, open }: { onImport: (text: string) => string | null; open?: boolean }) {
+  const { t } = useTranslation()
   const [text, setText] = useState('')
   const [error, setError] = useState<string | null>(null)
   return (
@@ -2816,16 +2906,16 @@ function ImportBox({ onImport, open }: { onImport: (text: string) => string | nu
         if (box.open) setTimeout(() => box.querySelector('.ws-actions')?.scrollIntoView({ block: 'nearest', behavior: 'smooth' }), 50)
       }}>
       <summary>
-        <span className="ws-lib-ja">棋譜を読み込む</span>
-        <span className="ws-lib-en">Import a game: KIF, KI2, CSA, USI or SFEN</span>
+        <span className="ws-lib-ja">{t('games.importAGame')}</span>
+        <span className="ws-lib-en">{t('games.kifKi2CsaUsiOr')}</span>
       </summary>
-      <textarea value={text} onChange={(e) => setText(e.target.value)} rows={4} placeholder="Paste a game record here" />
+      <textarea value={text} onChange={(e) => setText(e.target.value)} rows={4} placeholder={t('games.pasteAGameRecordHere')} />
       <div className="ws-actions">
         <button className="primary" onClick={() => setError(onImport(text))} disabled={!text.trim()}>
-          Load it
+          {t('games.loadIt')}
         </button>
         <label className="ws-file">
-          Open a file
+          {t('games.openAFile')}
           <input
             type="file"
             accept=".kif,.kifu,.ki2,.csa,.txt,.usi,.sfen"
@@ -2844,6 +2934,7 @@ function ImportBox({ onImport, open }: { onImport: (text: string) => string | nu
 type Command = { id: string; label: string; hint?: string; run: () => void }
 
 function useCommands({ sfen, setMode, setFlipped, setTilted, openCourse, play, newGame }: { sfen: string; setMode: (m: Mode) => void; setFlipped: (f: (v: boolean) => boolean) => void; setTilted: (f: (v: boolean) => boolean) => void; openCourse: (c: Course) => void; play: (usi: string) => void; newGame: () => void }) {
+  const { t } = useTranslation()
   return useCallback(
     (query: string): Command[] => {
       const q = query.trim().toLowerCase()
@@ -2853,20 +2944,20 @@ function useCommands({ sfen, setMode, setFlipped, setTilted, openCourse, play, n
         const direct = position.createMoveByUSI(query.trim())
         const [parsed] = direct && position.isValidMove(direct) ? [[direct]] : parseMoves(position, query.trim())
         const move = parsed?.[0]
-        if (move && position.isValidMove(move)) out.push({ id: `play-${move.usi}`, label: `Play ${moveText(sfen, move.usi)}`, run: () => play(move.usi) })
+        if (move && position.isValidMove(move)) out.push({ id: `play-${move.usi}`, label: t('palette.play', { move: moveText(sfen, move.usi) }), run: () => play(move.usi) })
       }
       const base: Command[] = [
-        ...MODES.map((m) => ({ id: `mode-${m.id}`, label: `${m.name} mode`, hint: m.hint, run: () => setMode(m.id) })),
-        { id: 'flip', label: 'Flip the board', hint: 'F', run: () => setFlipped((v) => !v) },
-        { id: 'viewer', label: 'Piece viewer (debug)', run: () => window.dispatchEvent(new Event('shogilab:viewer')) },
-        { id: 'tilt', label: 'Tilt the board', hint: 'T', run: () => setTilted((v) => !v) },
-        { id: 'new', label: 'New game from the start', run: newGame },
+        ...MODES.map((m) => ({ id: `mode-${m.id}`, label: t('palette.modeCommand', { name: t(`modes.${m.id}.name`) }), hint: t(`modes.${m.id}.hint`), run: () => setMode(m.id) })),
+        { id: 'flip', label: t('palette.flipTheBoard'), hint: 'F', run: () => setFlipped((v) => !v) },
+        { id: 'viewer', label: t('palette.pieceViewerDebug'), run: () => window.dispatchEvent(new Event('shogilab:viewer')) },
+        { id: 'tilt', label: t('palette.tiltTheBoard'), hint: 'T', run: () => setTilted((v) => !v) },
+        { id: 'new', label: t('palette.newGameFromTheStart'), run: newGame },
         ...COURSES.map((c) => ({ id: `course-${c.id}`, label: c.title, hint: SETUPS.find((s) => s.courseIds.includes(c.id))?.ja, run: () => openCourse(c) })),
       ]
       const terms = [q, ...Object.entries(ALIASES).filter(([en]) => q.length >= 3 && en.startsWith(q)).map(([, ja]) => ja)]
       return [...out, ...base.filter((c) => !q || terms.some((t) => `${c.label} ${c.hint ?? ''}`.toLowerCase().includes(t)))].slice(0, 12)
     },
-    [sfen, setMode, setFlipped, setTilted, openCourse, play, newGame],
+    [sfen, setMode, setFlipped, setTilted, openCourse, play, newGame, t],
   )
 }
 
@@ -2899,6 +2990,7 @@ const ALIASES: Record<string, string> = {
 }
 
 function Palette({ commands, onClose }: { commands: (q: string) => Command[]; onClose: () => void }) {
+  const { t } = useTranslation()
   const [query, setQuery] = useState('')
   const [index, setIndex] = useState(0)
   const input = useRef<HTMLInputElement>(null)
@@ -2911,11 +3003,11 @@ function Palette({ commands, onClose }: { commands: (q: string) => Command[]; on
   }
   return (
     <div className="ws-palette-back" onPointerDown={onClose}>
-      <div className="ws-palette" onPointerDown={(e) => e.stopPropagation()} role="dialog" aria-label="Command palette">
+      <div className="ws-palette" onPointerDown={(e) => e.stopPropagation()} role="dialog" aria-label={t('palette.commandPalette')}>
         <input
           ref={input}
           value={query}
-          placeholder="Search lines, type a move like 76歩 or 7g7f, or a command"
+          placeholder={t('palette.searchLinesTypeAMove')}
           onChange={(e) => {
             setQuery(e.target.value)
             setIndex(0)
@@ -2936,7 +3028,7 @@ function Palette({ commands, onClose }: { commands: (q: string) => Command[]; on
               </button>
             </li>
           ))}
-          {items.length === 0 && <li className="ws-muted ws-empty">No match. Try a line name like 鷺宮 or mino, or a move like 76歩.</li>}
+          {items.length === 0 && <li className="ws-muted ws-empty">{t('palette.noMatchTryALine')}</li>}
         </ul>
       </div>
     </div>
@@ -2944,6 +3036,7 @@ function Palette({ commands, onClose }: { commands: (q: string) => Command[]; on
 }
 
 function EvalGraph({ values, cursor, onJump, onScan, scanning, className = '' }: { values: (number | undefined)[]; cursor: number; onJump: (i: number) => void; onScan: () => void; scanning: boolean; className?: string }) {
+  const { t } = useTranslation()
   const W = 360
   const H = 88
   const n = Math.max(values.length - 1, 1)
@@ -2956,14 +3049,14 @@ function EvalGraph({ values, cursor, onJump, onScan, scanning, className = '' }:
   return (
     <div className={`ws-graph ${className}`}>
       <div className="ws-graph-axis">
-        <span>先手有利</span>
-        <span>後手有利</span>
+        <span>{t('graph.senteAhead')}</span>
+        <span>{t('graph.goteAhead')}</span>
       </div>
       <svg
         viewBox={`0 0 ${W} ${H}`}
         preserveAspectRatio="none"
         role="img"
-        aria-label="Evaluation by move"
+        aria-label={t('graph.evaluationByMove')}
         onClick={(e) => {
           const rect = e.currentTarget.getBoundingClientRect()
           onJump(Math.round(((e.clientX - rect.left) / rect.width) * n))
@@ -2976,22 +3069,23 @@ function EvalGraph({ values, cursor, onJump, onScan, scanning, className = '' }:
       </svg>
       {missing && values.length > 1 && (
         <button className="ws-graph-scan" onClick={onScan} disabled={scanning}>
-          {scanning ? 'Scoring every move…' : 'Score every move'}
+          {scanning ? t('graph.scoringEveryMove') : t('graph.scoreEveryMove')}
         </button>
       )}
     </div>
   )
 }
 
-function Plate({ position, color, who, className, clock }: { position: ReturnType<typeof positionOf>; color: Color; who: 'You' | 'Opponent' | null; className: string; clock?: { text: string; active: boolean; low: boolean; out: boolean } }) {
+function Plate({ position, color, who, className, clock }: { position: ReturnType<typeof positionOf>; color: Color; who: string | null; className: string; clock?: { text: string; active: boolean; low: boolean; out: boolean } }) {
+  const { t } = useTranslation()
   const { strategy, castle } = formationOf(position, color)
   return (
     <div className={`ws-plate ${className}`}>
-      {clock && <span className={`ws-clock${clock.active ? ' on' : ''}${clock.low ? ' low' : ''}${clock.out ? ' out' : ''}`} role="timer">{clock.out ? '時間切れ' : clock.text}</span>}
-      <span className="ws-plate-side">{color === Color.BLACK ? '☗ Sente' : '☖ Gote'}</span>
+      {clock && <span className={`ws-clock${clock.active ? ' on' : ''}${clock.low ? ' low' : ''}${clock.out ? ' out' : ''}`} role="timer">{clock.out ? t('plate.outOfTime') : clock.text}</span>}
+      <span className="ws-plate-side">{color === Color.BLACK ? t('plate.sente') : t('plate.gote')}</span>
       {who && <span className="ws-muted">{who}</span>}
-      {strategy && <span className="ws-pill" title="Strategy, from where the rook is">{strategy}</span>}
-      {castle && <span className="ws-pill" title="Castle, from where the king, golds and silvers stand">{castle}</span>}
+      {strategy && <span className="ws-pill" title={t('plate.strategyFromWhereTheRook')}>{strategy}</span>}
+      {castle && <span className="ws-pill" title={t('plate.castleFromWhereTheKing')}>{castle}</span>}
     </div>
   )
 }
@@ -3027,15 +3121,16 @@ function buildLanes(sfen: string, nodes: Map<string, JosekiNode> | null, analysi
 }
 
 function FlowPane({ lanes, sfen, onPreview, onHover }: { lanes: Lane[]; sfen: string; onPreview: (moves: string[], title: string) => void; onHover: (usi: string | null) => void }) {
+  const { t } = useTranslation()
   if (!lanes.length)
     return (
       <div className="ws-off">
-        <p>No book line from this position, and the AI is still thinking.</p>
+        <p>{t('flow.noBookLineFromThis')}</p>
       </div>
     )
   return (
     <div className="ws-flow">
-      <p className="ws-muted">What can happen from the position on the board. Click a line to watch it play out.</p>
+      <p className="ws-muted">{t('flow.whatCanHappenFromThe')}</p>
       {lanes.map((lane) => {
         const steps: string[] = []
         let at = sfen
@@ -3048,8 +3143,8 @@ function FlowPane({ lanes, sfen, onPreview, onHover }: { lanes: Lane[]; sfen: st
         return (
           <button key={lane.first} className={`ws-lane ${lane.tag}`} onClick={() => onPreview(lane.moves, steps[0])} onMouseEnter={() => onHover(lane.first)} onMouseLeave={() => onHover(null)} onFocus={() => onHover(lane.first)} onBlur={() => onHover(null)}>
             <span className="ws-lane-head">
-              <span className="ws-lane-tag">{lane.tag === 'book' ? '定跡 book' : lane.tag === 'mistake' ? '悪手 known mistake' : 'AI line'}</span>
-              {lane.loss !== undefined && <span className={`ws-loss${lane.loss >= 10 ? ' bad' : lane.loss >= 4 ? ' meh' : ''}`}>{lane.best ? 'best' : lane.loss === 0 ? '≈ best' : `−${lane.loss}%`}</span>}
+              <span className="ws-lane-tag">{lane.tag === 'book' ? t('flow.book') : lane.tag === 'mistake' ? t('flow.knownMistake') : t('flow.aiLine')}</span>
+              {lane.loss !== undefined && <span className={`ws-loss${lane.loss >= 10 ? ' bad' : lane.loss >= 4 ? ' meh' : ''}`}>{lane.best ? t('flow.best') : lane.loss === 0 ? t('flow.best2') : `−${lane.loss}%`}</span>}
             </span>
             <span className="ws-lane-steps">
               {steps.map((t, i) => (
@@ -3058,7 +3153,7 @@ function FlowPane({ lanes, sfen, onPreview, onHover }: { lanes: Lane[]; sfen: st
                   {t}
                 </span>
               ))}
-              {lane.forks && <span className="ws-muted"> then {lane.forks} choices</span>}
+              {lane.forks && <span className="ws-muted">{t('flow.thenChoices', { forks: lane.forks })}</span>}
             </span>
             {lane.note && <span className="ws-lane-note">{lane.note}</span>}
           </button>
@@ -3069,7 +3164,9 @@ function FlowPane({ lanes, sfen, onPreview, onHover }: { lanes: Lane[]; sfen: st
 }
 
 function SettingsDialog({ onClose, level, onLevel }: { onClose: () => void; level: Level; onLevel: (l: Level) => void }) {
+  const { t } = useTranslation()
   const st = useSettings()
+  const [tab, setTab] = useState<'general' | 'board' | 'pieces' | 'play'>('general')
   const seg = <T extends string | number | boolean>(label: string, value: T, options: { v: T; t: string }[], set: (v: T) => void) => (
     <div className="ws-setting">
       <span>{label}</span>
@@ -3082,54 +3179,80 @@ function SettingsDialog({ onClose, level, onLevel }: { onClose: () => void; leve
       </div>
     </div>
   )
+  const tabs = [
+    { id: 'general', label: t('settings.general') },
+    { id: 'board', label: t('settings.board') },
+    { id: 'pieces', label: t('settings.pieces') },
+    { id: 'play', label: t('settings.playAi') },
+  ] as const
   return (
     <div className="ws-palette-back" onPointerDown={onClose}>
-      <div className="ws-dialog ws-settings" role="dialog" aria-label="Settings" onPointerDown={(e) => e.stopPropagation()}>
-        <button className="ws-dialog-x" onClick={onClose} aria-label="Close settings" title="Close (Esc)">
-          ×
-        </button>
-        <h2>設定 Settings</h2>
-        <h3>You</h3>
-        {seg<Level>('Shogi knowledge', level, [{ v: 'rules', t: 'I know the rules' }, { v: 'new', t: 'New to shogi' }], onLevel)}
-        <h3>Sound</h3>
-        {seg('Sound effects', st.sound, [{ v: true, t: 'On' }, { v: false, t: 'Off' }], (v) => setSettings({ sound: v }))}
-        <label className="ws-setting">
-          <span>Volume</span>
-          <input type="range" min={0} max={1} step={0.05} disabled={!st.sound} value={st.volume} onChange={(e) => setSettings({ volume: Number(e.target.value) })} onMouseUp={() => playSound('move')} />
-        </label>
-        <h3>Board and pieces</h3>
-        {seg<PieceSet>('Piece set', st.pieceSet, (Object.keys(PIECE_SETS) as PieceSet[]).map((v) => ({ v, t: PIECE_SETS[v].label })), (v) => setSettings({ pieceSet: v }))}
-        <div className="ws-piece-sample" aria-label="Preview">
-          {(['OU', 'HI', 'KA', 'KI', 'GI', 'FU', 'RY', 'TO'] as const).map((code) =>
-            st.pieceSet === 'letters' ? (
-              <span key={code} className={`ws-sample-koma${code === 'RY' || code === 'TO' ? ' promoted' : ''}`} style={{ fontFamily: `"${PIECE_FONTS[st.pieceFont].family}", serif`, fontWeight: PIECE_FONTS[st.pieceFont].weight }}>
-                {[...(st.pieceStyle === 'one' ? { OU: '王', HI: '飛', KA: '角', KI: '金', GI: '銀', FU: '歩', RY: '龍', TO: 'と' }[code] : { OU: '王将', HI: '飛車', KA: '角行', KI: '金将', GI: '銀将', FU: '歩兵', RY: '龍王', TO: 'と' }[code])].map((c, i, all) => (
-                  <i key={i} className={all.length === 1 ? 'one' : ''}>
-                    {c}
-                  </i>
-                ))}
-              </span>
-            ) : (
-              <img key={code} src={pieceUrl(st.pieceSet, code)} alt={code} />
-            ),
-          )}
-        </div>
-        {seg<Environment>('Setting', st.environment, [{ v: 'traditional', t: '対局室 Traditional' }, { v: 'casual', t: '家庭 Casual' }, { v: 'flat', t: '平面 2D' }, { v: 'diagram', t: '図面 Diagram' }, { v: 'broadcast', t: '大盤 Broadcast' }], (v) => setSettings({ environment: v }))}
-        {seg('Board coordinates', st.coords, [{ v: true, t: 'Show (wider margin)' }, { v: false, t: 'Hide' }], (v) => setSettings({ coords: v }))}
-        {seg<PieceFinish>('Piece finish', st.pieceFinish, (Object.keys(PIECE_FINISHES) as PieceFinish[]).map((v) => ({ v, t: PIECE_FINISHES[v].label })), (v) => setSettings({ pieceFinish: v }))}
-        <p className="ws-muted ws-credit">{PIECE_FINISHES[st.pieceFinish].hint}</p>
-        {PIECE_SETS[st.pieceSet].credit && <p className="ws-muted ws-credit">{PIECE_SETS[st.pieceSet].credit}</p>}
-        {st.pieceSet === 'letters' && seg<PieceFont>('Piece lettering', st.pieceFont, (Object.keys(PIECE_FONTS) as PieceFont[]).map((v) => ({ v, t: PIECE_FONTS[v].label })), (v) => setSettings({ pieceFont: v }))}
-        {st.pieceSet === 'letters' && seg<PieceStyle>('Piece faces', st.pieceStyle, [{ v: 'two', t: '二字 王将' }, { v: 'one', t: '一字 王' }], (v) => setSettings({ pieceStyle: v }))}
-        {seg<BoardStyle>('Board wood', st.boardStyle, [{ v: 'kaya', t: '榧 Kaya' }, { v: 'shin-kaya', t: '新榧 Light' }, { v: 'dark', t: '濃色 Dark' }], (v) => setSettings({ boardStyle: v }))}
-        <h3>AI</h3>
-        {seg('Thinking time', st.thinkMs, [{ v: 500, t: 'Fast' }, { v: 1500, t: 'Normal' }, { v: 4000, t: 'Deep' }], (v) => setSettings({ thinkMs: v }))}
-        {seg('Candidate moves shown', st.candidates, [{ v: 1, t: '1' }, { v: 2, t: '2' }, { v: 3, t: '3' }, { v: 5, t: '5' }], (v) => setSettings({ candidates: v }))}
-        {seg<AiStrength>('対局 opponent strength', st.opponent, (Object.keys(STRENGTH) as AiStrength[]).map((k) => ({ v: k, t: STRENGTH[k].label })), (v) => setSettings({ opponent: v }))}
-        <div className="ws-actions">
-          <button className="primary" onClick={onClose}>
-            Done
+      <div className="ws-dialog ws-settings" role="dialog" aria-label={t('settings.settings')} onPointerDown={(e) => e.stopPropagation()}>
+        <div className="ws-settings-head">
+          <h2>{t('settings.settings')}</h2>
+          <button className="ws-dialog-x" onClick={onClose} aria-label={t('settings.closeSettings')} title={t('settings.closeEsc')}>
+            ×
           </button>
+        </div>
+        <div className="ws-settings-tabs" role="tablist">
+          {tabs.map((x) => (
+            <button key={x.id} role="tab" aria-selected={tab === x.id} className={tab === x.id ? 'on' : ''} onClick={() => setTab(x.id)}>
+              {x.label}
+            </button>
+          ))}
+        </div>
+        <div className="ws-settings-body">
+          {tab === 'general' && (
+            <>
+                {seg<Lang>('Language / 言語', st.lang, [{ v: 'en', t: 'English' }, { v: 'ja', t: '日本語' }], (v) => setSettings({ lang: v }))}
+                {seg<Level>(t('settings.shogiKnowledge'), level, [{ v: 'rules', t: t('settings.iKnowTheRules') }, { v: 'new', t: t('settings.newToShogi') }], onLevel)}
+                {seg(t('settings.soundEffects'), st.sound, [{ v: true, t: t('settings.on') }, { v: false, t: t('settings.off') }], (v) => setSettings({ sound: v }))}
+                <label className="ws-setting">
+                  <span>{t('settings.volume')}</span>
+                  <input type="range" min={0} max={1} step={0.05} disabled={!st.sound} value={st.volume} onChange={(e) => setSettings({ volume: Number(e.target.value) })} onMouseUp={() => playSound('move')} />
+                </label>
+            </>
+          )}
+          {tab === 'board' && (
+            <>
+                {seg<Environment>(t('settings.setting'), st.environment, [{ v: 'traditional', t: t('settings.traditional') }, { v: 'casual', t: t('settings.casual') }, { v: 'flat', t: t('settings.2d') }, { v: 'diagram', t: t('settings.diagram') }, { v: 'broadcast', t: t('settings.broadcast') }], (v) => setSettings({ environment: v }))}
+                {seg(t('settings.boardCoordinates'), st.coords, [{ v: true, t: t('settings.showWiderMargin') }, { v: false, t: t('settings.hide') }], (v) => setSettings({ coords: v }))}
+                {seg<BoardStyle>(t('settings.boardWood'), st.boardStyle, [{ v: 'kaya', t: t('settings.kaya') }, { v: 'shin-kaya', t: t('settings.light') }, { v: 'dark', t: t('settings.dark') }], (v) => setSettings({ boardStyle: v }))}
+            </>
+          )}
+          {tab === 'pieces' && (
+            <>
+                {seg<PieceSet>(t('settings.pieceSet'), st.pieceSet, (Object.keys(PIECE_SETS) as PieceSet[]).map((v) => ({ v, t: PIECE_SETS[v].label })), (v) => setSettings({ pieceSet: v }))}
+                <div className="ws-piece-sample" aria-label={t('settings.preview')}>
+                  {(['OU', 'HI', 'KA', 'KI', 'GI', 'FU', 'RY', 'TO'] as const).map((code) =>
+                    st.pieceSet === 'letters' ? (
+                      <span key={code} className={`ws-sample-koma${code === 'RY' || code === 'TO' ? ' promoted' : ''}`} style={{ fontFamily: `"${PIECE_FONTS[st.pieceFont].family}", serif`, fontWeight: PIECE_FONTS[st.pieceFont].weight }}>
+                        {[...(st.pieceStyle === 'one' ? { OU: '王', HI: '飛', KA: '角', KI: '金', GI: '銀', FU: '歩', RY: '龍', TO: 'と' }[code] : { OU: '王将', HI: '飛車', KA: '角行', KI: '金将', GI: '銀将', FU: '歩兵', RY: '龍王', TO: 'と' }[code])].map((c, i, all) => (
+                          <i key={i} className={all.length === 1 ? 'one' : ''}>
+                            {c}
+                          </i>
+                        ))}
+                      </span>
+                    ) : (
+                      <img key={code} src={pieceUrl(st.pieceSet, code)} alt={code} />
+                    ),
+                  )}
+                </div>
+                {seg<PieceFinish>(t('settings.pieceFinish'), st.pieceFinish, (Object.keys(PIECE_FINISHES) as PieceFinish[]).map((v) => ({ v, t: PIECE_FINISHES[v].label })), (v) => setSettings({ pieceFinish: v }))}
+                <p className="ws-muted ws-credit">{PIECE_FINISHES[st.pieceFinish].hint}</p>
+                {PIECE_SETS[st.pieceSet].credit && <p className="ws-muted ws-credit">{PIECE_SETS[st.pieceSet].credit}</p>}
+                {st.pieceSet === 'letters' && seg<PieceFont>(t('settings.pieceLettering'), st.pieceFont, (Object.keys(PIECE_FONTS) as PieceFont[]).map((v) => ({ v, t: PIECE_FONTS[v].label })), (v) => setSettings({ pieceFont: v }))}
+                {st.pieceSet === 'letters' && seg<PieceStyle>(t('settings.pieceFaces'), st.pieceStyle, [{ v: 'two', t: t('settings.twoCharacters') }, { v: 'one', t: t('settings.oneCharacter') }], (v) => setSettings({ pieceStyle: v }))}
+            </>
+          )}
+          {tab === 'play' && (
+            <>
+                {seg(t('settings.thinkingTime'), st.thinkMs, [{ v: 500, t: t('settings.fast') }, { v: 1500, t: t('settings.normal') }, { v: 4000, t: t('settings.deep') }], (v) => setSettings({ thinkMs: v }))}
+                {seg(t('settings.candidateMovesShown'), st.candidates, [{ v: 1, t: '1' }, { v: 2, t: '2' }, { v: 3, t: '3' }, { v: 5, t: '5' }], (v) => setSettings({ candidates: v }))}
+                {seg<AiStrength>(t('settings.aiOpponentStrength'), st.opponent, (Object.keys(STRENGTH) as AiStrength[]).map((k) => ({ v: k, t: STRENGTH[k].label })), (v) => setSettings({ opponent: v }))}
+                {seg<TimeControl>(t('settings.clock'), st.timeControl, (Object.keys(TIME_CONTROLS) as TimeControl[]).map((k) => ({ v: k, t: TIME_CONTROLS[k].label })), (v) => setSettings({ timeControl: v }))}
+            </>
+          )}
         </div>
       </div>
     </div>
@@ -3137,24 +3260,25 @@ function SettingsDialog({ onClose, level, onLevel }: { onClose: () => void; leve
 }
 
 function AiControls() {
+  const { t } = useTranslation()
   const st = useSettings()
   return (
     <div className="ws-inline-settings">
-      <div className="ws-seg small" role="group" aria-label="Thinking time">
+      <div className="ws-seg small" role="group" aria-label={t('settings.thinkingTime')}>
         {[
-          { v: 500, t: 'Fast' },
-          { v: 1500, t: 'Normal' },
-          { v: 4000, t: 'Deep' },
+          { v: 500, t: t('settings.fast') },
+          { v: 1500, t: t('settings.normal') },
+          { v: 4000, t: t('settings.deep') },
         ].map((o) => (
           <button key={o.v} className={st.thinkMs === o.v ? 'on' : ''} onClick={() => setSettings({ thinkMs: o.v })}>
             {o.t}
           </button>
         ))}
       </div>
-      <div className="ws-seg small" role="group" aria-label="Candidate moves">
+      <div className="ws-seg small" role="group" aria-label={t('settings.candidateMoves')}>
         {[1, 2, 3, 5].map((n) => (
           <button key={n} className={st.candidates === n ? 'on' : ''} onClick={() => setSettings({ candidates: n })}>
-            {n} {n === 1 ? 'line' : 'lines'}
+            {t('settings.lineCount', { count: n })}
           </button>
         ))}
       </div>
