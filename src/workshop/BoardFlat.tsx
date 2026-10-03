@@ -6,11 +6,12 @@ import { OverMarks, UnderMarks } from './flatMarks'
 import { useLatest } from './hooks/useLatest'
 import { useSvgBoard } from './hooks/useSvgBoard'
 import { SPRITE_BOX, bakeFlat, spriteKey, type Baked } from './board3d/bake'
-import { HALF_D, HALF_W, MARGIN, SQ_D, STAND, STRIP_D, STRIP_W } from './board3d/dimensions'
+import { HALF_D, HALF_W, MARGIN, SQ_D, STAND, STRIP_D, STRIP_W, setBoardDims } from './board3d/dimensions'
 import { handArrangement } from './board3d/hand'
 import { layout, sideStandsFit, standCenter } from './board3d/layout'
 import { steppedMove } from './lib/stepped'
-import { useSettings } from './settings'
+import { loadPieceSet } from './pieceSets'
+import { loadPieceFont, useSettings } from './settings'
 
 const U = 100
 const CH = SQ_D * U
@@ -50,19 +51,24 @@ const bakeCache = new Map<string, Baked>()
 function useBaked() {
   const settings = useSettings()
   const key = `${settings.pieceStyle}|${settings.pieceFinish}|${settings.pieceFont}|${settings.pieceSet}|${settings.boardStyle}|${settings.coords}`
-  const [, setReady] = useState('')
+  const [ready, setReady] = useState<Baked | null>(null)
+  const cached = bakeCache.get(key)
+  if (cached && ready !== cached) setReady(cached)
   useEffect(() => {
+    if (bakeCache.has(key)) return
     let live = true
-    void document.fonts.load('800 64px "Shippori Mincho B1"').then(() => {
+    void Promise.all([loadPieceFont(settings.pieceFont), loadPieceSet(settings.pieceSet), loadPieceFont('mincho')]).then(() => {
       if (!live || bakeCache.has(key)) return
-      bakeCache.set(key, bakeFlat(Math.min(512, Math.round(256 * Math.min(2, window.devicePixelRatio || 1)))))
-      setReady(key)
+      const baked = bakeFlat(Math.min(512, Math.round(256 * Math.min(2, window.devicePixelRatio || 1))))
+      bakeCache.set(key, baked)
+      if (bakeCache.size > 8) bakeCache.delete(bakeCache.keys().next().value!)
+      setReady(baked)
     })
     return () => {
       live = false
     }
-  }, [key])
-  return bakeCache.get(key) ?? null
+  }, [key, settings.pieceFont, settings.pieceSet])
+  return cached ?? ready
 }
 
 function Koma({ baked, type, color, up }: { baked: Baked; type: PieceType; color: Color; up: boolean }) {
@@ -73,6 +79,7 @@ function Koma({ baked, type, color, up }: { baked: Baked; type: PieceType; color
 export function BoardFlat(props: Board3DProps) {
   const { position, flipped, selected, selectedColor, lastMove, movable } = props
   const settings = useSettings()
+  setBoardDims()
   const { i18n } = useTranslation()
   const svgRef = useSvgBoard(props)
   const wrapRef = useRef<HTMLDivElement>(null)

@@ -17,12 +17,14 @@ const themeScript = `(() => {
 })()`
 
 const isolationScript = `if (window.isSecureContext && 'serviceWorker' in navigator) {
-  navigator.serviceWorker.register('${base}coi-sw.js?mode=${import.meta.env.MODE}', { scope: '${base}' }).then(() => {
-    if (!window.crossOriginIsolated && !navigator.serviceWorker.controller && !sessionStorage.getItem('coi-reloaded')) {
-      sessionStorage.setItem('coi-reloaded', '1')
+  const reloadWhenControlled = () => {
+    if (!window.crossOriginIsolated && navigator.serviceWorker.controller && !sessionStorage.getItem('coi-controlled-reload')) {
+      sessionStorage.setItem('coi-controlled-reload', '1')
       location.reload()
     }
-  })
+  }
+  navigator.serviceWorker.addEventListener('controllerchange', reloadWhenControlled)
+  navigator.serviceWorker.register('${base}coi-sw.js?mode=${import.meta.env.MODE}', { scope: '${base}' }).then(reloadWhenControlled)
 }`
 
 export function Layout({ children }: { children: ReactNode }) {
