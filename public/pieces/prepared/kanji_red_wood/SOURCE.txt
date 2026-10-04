@@ -1,0 +1,6 @@
+Source artwork: Lishogi standard piece set kanji_red_wood.
+Original SVGs: https://raw.githubusercontent.com/WandererXII/lishogi/master/ui/@build/pieces/assets/standard/kanji_red_wood/0{CODE}.svg
+Authors: Ka-hu
+License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+Source license record: https://github.com/WandererXII/lishogi/blob/master/COPYING.md
+Changes: extracted glyph artwork from source piece images; removed tile, outline, shadow, and surface texture; fitted glyph proportionally to a shared transparent tile face; normalized lettering to black or source red.

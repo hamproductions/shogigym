@@ -187,7 +187,8 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
   const release = (action: Action) => {
     for (const step of action.steps.slice(action.index)) finish(step)
     action.index = action.steps.length
-    knock(action)
+    action.sound = null
+    action.land = null
   }
 
   const gripAt = (actor: Actor, p: THREE.Vector3) => world(p).addScaledVector(UP, GRIP_Y).addScaledVector(actor.char.forward(), 0.12)
@@ -265,10 +266,10 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
       aim(actor, from.lerp(to, ease(u)).addScaledVector(UP, LIFT[action.kind] * arc(u)), hand)
       if (step.toQ) step.mesh.quaternion.slerpQuaternions(step.fromQ, step.toQ, ease(u))
       if (step.flip) {
-        step.flip.visible = u < 0.5
-        step.mesh.visible = u >= 0.5
-        step.flip.rotation.z = Math.PI * Math.min(u, 0.5)
-        step.mesh.rotation.z = -Math.PI * Math.max(0, 1 - u) * (u >= 0.5 ? 1 : 0)
+        step.flip.visible = true
+        step.mesh.visible = false
+        step.flip.rotation.z = Math.PI * ease(u)
+        step.flip.userData.turn = ease(u)
       }
       return
     }
@@ -299,6 +300,7 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
     action.lock.lerp(hold.set(0, -topOf(step.mesh) - PAD_DEPTH, 0), 1 - Math.exp(-dt * 30))
     step.mesh.position.copy(pinch).add(action.lock)
     step.flip?.position.copy(step.mesh.position)
+    if (step.flip) step.flip.position.y += topOf(step.flip) * (step.flip.userData.turn ?? 0)
   }
 
   const playMove = (move: AvatarMove) => {

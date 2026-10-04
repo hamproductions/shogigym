@@ -25,6 +25,10 @@ const FACE: Record<PieceType, string> = {
 }
 
 export const BOARD_TONE: Record<BoardStyle, { board: [number, number, number]; edge: [number, number, number]; line: string }> = {
+  'sunfish-light': { board: [233, 214, 170], edge: [211, 191, 146], line: '#000' },
+  'sunfish-warm': { board: [227, 169, 83], edge: [204, 146, 62], line: '#000' },
+  'sunfish-resin': { board: [214, 155, 0], edge: [194, 135, 0], line: '#000' },
+  'sunfish-dark': { board: [51, 51, 51], edge: [40, 40, 40], line: '#fff' },
   kaya: { board: [219, 170, 98], edge: [196, 146, 80], line: 'rgba(40,22,8,0.88)' },
   'shin-kaya': { board: [236, 206, 150], edge: [214, 178, 118], line: 'rgba(60,36,14,0.8)' },
   dark: { board: [150, 98, 52], edge: [112, 70, 34], line: 'rgba(250,228,190,0.7)' },

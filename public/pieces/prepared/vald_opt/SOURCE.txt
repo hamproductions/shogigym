@@ -1,0 +1,6 @@
+Source artwork: Lishogi standard piece set vald_opt.
+Original SVGs: https://raw.githubusercontent.com/WandererXII/lishogi/master/ui/@build/pieces/assets/standard/vald_opt/0{CODE}.svg
+Authors: Kleffa
+License: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)
+Source license record: https://github.com/WandererXII/lishogi/blob/master/COPYING.md
+Changes: extracted glyph artwork from source piece images; removed tile, outline, shadow, and surface texture; fitted glyph proportionally to a shared transparent tile face; normalized lettering to black or source red.

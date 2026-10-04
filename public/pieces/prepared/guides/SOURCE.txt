@@ -1,0 +1,1 @@
+Line guide: Lishogi shogi_fcz, AGPLv3+. Mark guide: CouchTomato87 kanji_guide_shadowed, CC BY 4.0. Dot guide: Valdivia by Kleffa, CC BY-SA 4.0. Source SVGs and attribution are retained in the corresponding source and prepared directories. Guide glyphs isolated without body, border or shadow; original colors retained.

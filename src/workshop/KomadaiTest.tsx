@@ -26,7 +26,7 @@ export default function KomadaiTest() {
   const [shots, setShots] = useState<HandSnapshot[][] | null>(null)
   useEffect(() => {
     let live = true
-    Promise.all([loadPieceFont(st.pieceFont), loadPieceSet(st.pieceSet)])
+    Promise.all([loadPieceFont(st.pieceFont), loadPieceSet(st.pieceSet, st.pieceGuide)])
       .catch(() => undefined)
       .then(() => {
         if (live) setShots(SERIES.map((s) => handSnapshots(s.order.map((_, i) => handSfen(s.order.slice(0, i + 1))), 360)))
@@ -34,7 +34,7 @@ export default function KomadaiTest() {
     return () => {
       live = false
     }
-  }, [st.pieceFont, st.pieceSet, st.pieceFinish])
+  }, [st.pieceFont, st.pieceSet, st.pieceGuide, st.pieceFinish])
   return (
     <main className="ws-komadai-test">
       <h1>駒台 layout test: 1 to 19 pieces in hand</h1>

@@ -8,7 +8,7 @@ let pieceEnv: THREE.Texture | null = null
 
 export const environmentMap = () => pieceEnv
 
-export function preparePieceEnvironment(renderer: THREE.WebGLRenderer) {
+export function preparePieceEnvironment(renderer: THREE.WebGLRenderer, activate = true) {
   let env = envs.get(renderer)
   if (!env) {
     const pmrem = new THREE.PMREMGenerator(renderer)
@@ -16,7 +16,8 @@ export function preparePieceEnvironment(renderer: THREE.WebGLRenderer) {
     pmrem.dispose()
     envs.set(renderer, env)
   }
-  pieceEnv = env
+  if (activate) pieceEnv = env
+  return env
 }
 
 export function woodMaterial(base: [number, number, number], seed: number) {

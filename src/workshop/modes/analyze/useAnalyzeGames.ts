@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { exportGame, parseGame } from '../../../kifu'
 import { applyUsi } from '../../../shogi'
 import type { BoardSession } from '../../hooks/useBoardSession'
-import type { Load } from '../../hooks/useModeSwitch'
+import type { Load, Snapshot } from '../../hooks/useModeSwitch'
 import { savedAtLabel, sideMark } from '../../lib/notation'
 import { deleteGame, gameId, loadGames, storeGame, type GameResult, type StoredGame } from '../../games'
 import { STRENGTH, useSettings } from '../../settings'
@@ -25,7 +25,7 @@ function firstIllegalMove(start: string, moves: string[]) {
   return valid < moves.length ? valid : -1
 }
 
-export function useAnalyzeGames(session: BoardSession, { load, setTab, setConfirm }: { load: Load; setTab: (tab: Tab) => void; setConfirm: (confirm: Confirm) => void }) {
+export function useAnalyzeGames(session: BoardSession, { load, setTab, setConfirm, analysisSnapshot, onSaveError }: { load: Load; setTab: (tab: Tab) => void; setConfirm: (confirm: Confirm) => void; analysisSnapshot: () => Snapshot | undefined; onSaveError: () => void }) {
   const { t } = useTranslation()
   const settings = useSettings()
   const { mode, game, tree, userSide, course } = session
@@ -69,6 +69,15 @@ export function useAnalyzeGames(session: BoardSession, { load, setTab, setConfir
     return ok
   }
 
+  const preserveAnalysis = () => {
+    const previous = mode === 'analyze' ? { game, tree, userSide } : analysisSnapshot()
+    if (!previous || (!previous.game.moves.length && !previous.tree?.children.length)) return true
+    const when = savedAtLabel(new Date())
+    const ok = storeGame({ id: crypto.randomUUID(), title: `${gameTitle || t('workshop.analysis')} · ${when}`, savedAt: Date.now(), start: previous.game.start, moves: previous.tree?.children.length ? mainLine(previous.tree) : previous.game.moves, tree: previous.tree?.children.length ? previous.tree : undefined, userSide: previous.userSide })
+    if (!ok) onSaveError()
+    return ok
+  }
+
   const openSlot = (g: StoredGame) => {
     const run = () => {
       load(g.start, g.userSide, 'analyze', null)
@@ -93,9 +102,7 @@ export function useAnalyzeGames(session: BoardSession, { load, setTab, setConfir
 
   const reviewSlot = (g: StoredGame, _confirmReplace: number) => {
     const run = () => {
-      if (game.moves.length > 0) {
-        saveSlot()
-      }
+      if (!preserveAnalysis()) return
       load(g.start, g.userSide, 'analyze', null)
       session.setGame({ start: g.start, moves: g.moves })
       if (g.tree) session.setTree(g.tree)
@@ -124,6 +131,7 @@ export function useAnalyzeGames(session: BoardSession, { load, setTab, setConfir
     importGame,
     exportKif,
     saveSlot,
+    preserveAnalysis,
     openSlot,
     deleteSlot,
     saveFinished,

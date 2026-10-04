@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { Color } from 'tsshogi'
-import { getSettings } from '../settings'
+import { getSettings, type BoardStyle } from '../settings'
 import { furnishFloor, type RoomDims } from '../roomFloor'
 import { CASUAL, HALF_D, HALF_W, LEG, STAND, STAND_SLAB, STAND_TOP, STRIP_D, STRIP_W, THICK } from './dimensions'
 import { layout, standCenter } from './layout'
@@ -10,14 +10,14 @@ import { boardTexture } from './textures'
 import { BOARD_TONE } from '../koma'
 import type { SceneState, Stand } from './types'
 
-export function createRenderer() {
+export function createRenderer(activateEnvironment = true) {
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
   renderer.setPixelRatio(Math.min(2, window.devicePixelRatio))
   renderer.shadowMap.enabled = true
   renderer.shadowMap.type = THREE.PCFShadowMap
   renderer.toneMapping = THREE.ACESFilmicToneMapping
   renderer.toneMappingExposure = 0.82
-  preparePieceEnvironment(renderer)
+  preparePieceEnvironment(renderer, activateEnvironment)
   return renderer
 }
 
@@ -42,10 +42,14 @@ function addFloor(root: THREE.Group): RoomDims {
   return dims
 }
 
+export function boardTopMaterial(style: BoardStyle, envMap = environmentMap()) {
+  return new THREE.MeshPhysicalMaterial({ map: boardTexture(style), roughness: 0.55, clearcoat: 0.15, clearcoatRoughness: 0.45, envMap, envMapIntensity: 0.25 })
+}
+
 function addBoard(root: THREE.Group) {
   const style = getSettings().boardStyle
   const tone = BOARD_TONE[style]
-  const top = new THREE.MeshPhysicalMaterial({ map: boardTexture(style), roughness: 0.55, clearcoat: 0.15, clearcoatRoughness: 0.45, envMap: environmentMap(), envMapIntensity: 0.25 })
+  const top = boardTopMaterial(style)
   const board = new THREE.Mesh(new THREE.BoxGeometry(2 * HALF_W, THICK, 2 * HALF_D), [woodMaterial(tone.edge, 3), woodMaterial(tone.edge, 5), top, woodMaterial([150, 104, 50], 9), woodMaterial(tone.edge, 11), woodMaterial(tone.edge, 13)])
   board.position.y = -THICK / 2
   board.castShadow = true

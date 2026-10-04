@@ -11,7 +11,7 @@ import { HALF_D, HALF_W, MARGIN, SQ_D, STAND, STRIP_D, STRIP_W, setBoardDims } f
 import { handArrangement } from './board3d/hand'
 import { layout, sideStandsFit, standCenter } from './board3d/layout'
 import { steppedMove } from './lib/stepped'
-import { useSettings } from './settings'
+import { playSound, useSettings } from './settings'
 
 const U = 100
 const CH = SQ_D * U
@@ -56,7 +56,7 @@ export function BoardFlat(props: Board3DProps) {
   const settings = useSettings()
   setBoardDims()
   const { i18n } = useTranslation()
-  const svgRef = useSvgBoard(props)
+  const svgRef = useSvgBoard()
   const wrapRef = useRef<HTMLDivElement>(null)
   const [box, setBox] = useState({ w: 1, h: 1 })
   useEffect(() => {
@@ -127,7 +127,10 @@ export function BoardFlat(props: Board3DProps) {
     const fy = from ? py(from) : stand.y + stand.h / 2
     const dx = fx - px(to)
     const dy = fy - py(to)
-    svgRef.current?.querySelector(`[data-sq="${to.usi}"]`)?.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: `translate(${dx / 2}px, ${dy / 2 - 10}px) scale(1.16)`, offset: 0.5 }, { transform: 'none' }], { duration: 220, easing: 'cubic-bezier(0.45, 0, 0.25, 1)' })
+    const animation = svgRef.current?.querySelector(`[data-sq="${to.usi}"]`)?.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: `translate(${dx / 2}px, ${dy / 2 - 10}px) scale(1.16)`, offset: 0.5 }, { transform: 'none' }], { duration: 220, easing: 'cubic-bezier(0.45, 0, 0.25, 1)' })
+    if (!animation) return
+    animation.onfinish = () => playSound(stepped.capture ? 'capture' : 'move')
+    return () => animation.cancel()
   }, [position, lastMove, flipped, geo, svgRef])
 
   const [drag, setDrag] = useState<Drag | null>(null)

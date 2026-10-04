@@ -32,13 +32,13 @@ export function PieceViewer({ onClose, page }: { onClose: () => void; page?: boo
   const [ready, setReady] = useState('')
   useEffect(() => {
     let live = true
-    Promise.all([loadPieceFont(st.pieceFont), loadPieceSet(st.pieceSet)])
+    Promise.all([loadPieceFont(st.pieceFont), loadPieceSet(st.pieceSet, st.pieceGuide)])
       .catch(() => undefined)
-      .then(() => live && setReady(`${st.pieceFont}|${st.pieceSet}`))
+      .then(() => live && setReady(`${st.pieceFont}|${st.pieceSet}|${st.pieceGuide}`))
     return () => {
       live = false
     }
-  }, [st.pieceFont, st.pieceSet])
+  }, [st.pieceFont, st.pieceSet, st.pieceGuide])
   const scene = useRef<{ setPiece: (t: PieceType) => void; setLight: (a: number) => void } | null>(null)
 
   useEffect(() => {

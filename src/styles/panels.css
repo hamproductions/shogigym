@@ -429,7 +429,7 @@
   position: absolute;
   left: 0;
   top: 2px;
-  bottom: 2px;
+  height: 84px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -443,8 +443,33 @@
   stroke-width: 1;
 }
 
-.ws-graph-area {
-  fill: color-mix(in srgb, var(--text) 14%, transparent);
+.ws-graph-area.sente {
+  fill: color-mix(in srgb, var(--success) 24%, transparent);
+}
+
+.ws-graph-area.gote {
+  fill: color-mix(in srgb, var(--info) 24%, transparent);
+}
+
+.ws-graph-mark {
+  fill: light-dark(color-mix(in srgb, var(--label) 55%, #000), var(--label));
+}
+
+.ws-graph-mark text {
+  font: var(--weight-bold) 9px var(--font-sans);
+  text-anchor: middle;
+}
+
+.ws-graph-review {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.ws-graph-review strong {
+  color: light-dark(color-mix(in srgb, var(--label) 55%, #000), var(--label));
 }
 
 .ws-graph-line {

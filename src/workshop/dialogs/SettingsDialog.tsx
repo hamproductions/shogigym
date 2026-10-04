@@ -1,13 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Color, PieceType, promotedPieceType } from 'tsshogi'
 import { faceText } from '../koma'
-import { useBakedPieces } from '../hooks/useBakedPieces'
-import { spriteKey } from '../board3d/bake'
+import { bakePreviews } from '../board3d/bake'
+import { finishProfile } from '../board3d/relief'
+import { pieceSurface } from '../board3d/textures'
 import { useTranslation } from 'react-i18next'
 import { say } from '../lib/voice'
 import { EngineSettings } from '../EngineSettings'
-import { PIECE_SETS, type PieceSet } from '../pieceSets'
-import { PIECE_FINISHES, PIECE_FONTS, PIECE_MATERIALS, PIECE_GRAINS, pieceFinishOptions, selectedPieceFinish, playSound, setSettings, useSettings, type BoardStyle, type Environment, type Lang, type PieceFinish, type PieceMaterial, type PieceGrain, type PieceFont, type PieceStyle } from '../settings'
+import { loadPieceSet, pieceGlyphUrl, PIECE_SETS, type PieceSet } from '../pieceSets'
+import { PIECE_FACE_PAIRS, PIECE_TYPEFACES, pieceFamily, pieceSetForFace } from '../pieceDesigns'
+import { loadPieceFont, PIECE_COLORS, PIECE_FINISHES, PIECE_FONTS, PIECE_MATERIALS, PIECE_GRAINS, pieceFinishOptions, selectedPieceFinish, playSound, setSettings, useSettings, type BoardStyle, type Environment, type Lang, type PieceMaterial, type PieceGrain, type PieceFont, type PieceAppearance, type PieceFinish } from '../settings'
+import { BOARD_STYLES } from '../boardStyles'
 import type { Theme } from '../theme'
 import type { Level } from '../types'
 import { Dialog, DialogHeader } from '../ui/Dialog'
@@ -15,30 +18,174 @@ import { SegmentedField, SettingRow } from '../ui/Segmented'
 import { Tabs } from '../ui/Tabs'
 
 type SettingsTab = 'general' | 'board' | 'pieces' | 'play'
+const FONTS = Object.keys(PIECE_FONTS) as PieceFont[]
+const BOARD_STYLE_KEYS = Object.keys(BOARD_STYLES) as BoardStyle[]
+const asset = (group: string, key: string) => `${import.meta.env.BASE_URL}previews/${group}/${key}.webp`
+
+function SurfaceSample({ appearance }: { appearance: PieceAppearance }) {
+  const ref = useRef<HTMLCanvasElement>(null)
+  useEffect(() => {
+    ref.current?.getContext('2d')?.drawImage(pieceSurface(42, appearance), 0, 0)
+  }, [appearance])
+  return <canvas ref={ref} width={256} height={256} className="ws-surface-sample" />
+}
+
+function GlyphSample({ set, font, style = 'one', code = 'FU', guide = 'none' }: { set: PieceSet; font: PieceFont; style?: 'one' | 'two'; code?: 'FU' | 'KI'; guide?: 'none' | 'movement' | 'dots' | 'lines' }) {
+  const [sampleGuide] = useState(() => ['KI', 'GI', 'KE', 'KA'][Math.floor(Math.random() * 4)])
+  useEffect(() => {
+    if (set === 'letters' || set === 'broadcast') void loadPieceFont(font)
+  }, [set, font])
+  const type = code === 'KI' ? PieceType.GOLD : PieceType.PAWN
+  if (guide === 'lines' || guide === 'dots') {
+    const spec = PIECE_FONTS[font]
+    return <svg className="ws-guide-sample" width={82} height={82} viewBox="0 0 256 256" aria-label="Character and movement guide">
+      {set !== 'letters' && set !== 'broadcast' ? <image href={pieceGlyphUrl(set, code)} x={0} y={0} width={256} height={118} preserveAspectRatio="xMidYMid meet" /> : <text x={128} y={60} dominantBaseline="central" textAnchor="middle" fill="#0e0804" fontFamily={spec.family} fontWeight={spec.weight} fontSize={100}>{faceText(type, Color.BLACK, 'one')}</text>}
+      <image href={`${import.meta.env.BASE_URL}pieces/prepared/guides/${sampleGuide}.${guide}.png?v=16`} x={0} y={138} width={256} height={118} preserveAspectRatio="xMidYMid meet" />
+    </svg>
+  }
+  const guideClass = guide === 'none' ? '' : guide === 'movement' ? ' with-marks' : ' with-guide'
+  if (set !== 'letters' && set !== 'broadcast') return <span className={`ws-glyph-sample${guideClass}`}><img className="ws-prepared-glyph" src={pieceGlyphUrl(set, code)} alt={faceText(type, Color.BLACK, style)} />{guide !== 'none' && <img src={`${import.meta.env.BASE_URL}pieces/prepared/guides/${guide === 'movement' ? code : sampleGuide}.${guide}.png?v=16`} alt="" />}</span>
+  const spec = PIECE_FONTS[font]
+  return <span className={`ws-glyph-sample${guideClass}`} style={{ fontFamily: spec.family, fontWeight: spec.weight, fontSize: style === 'two' ? 32 : undefined }}><span>{faceText(type, Color.BLACK, style)}</span>{guide !== 'none' && <img src={`${import.meta.env.BASE_URL}pieces/prepared/guides/${guide === 'movement' ? code : sampleGuide}.${guide}.png?v=16`} alt="" />}</span>
+}
 
 const SAMPLE_TYPES = [PieceType.KING, PieceType.ROOK, PieceType.BISHOP, PieceType.GOLD, PieceType.SILVER, PieceType.PAWN, PieceType.KNIGHT, PieceType.LANCE]
+type PreviewFace = PieceType | 'GY'
+const setPreviewCache = new Map<string, Map<PreviewFace, string>>()
 
-function PieceSample() {
-  const { t } = useTranslation()
-  const { baked, loading, error } = useBakedPieces()
+function StickyPiecePreview() {
+  const st = useSettings()
+  const [images, setImages] = useState<Map<PreviewFace, string>>(new Map())
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string>()
+  const key = `appearance-v17|${st.pieceSet}|${st.pieceFont}|${st.pieceStyle}|${st.pieceGuide}|${st.pieceMaterial}|${st.pieceColor}|${st.pieceGrain}|${st.pieceFinish}`
+  useEffect(() => {
+    const cached = setPreviewCache.get(key)
+    setError(undefined)
+    if (cached) {
+      setImages(cached)
+      setLoading(false)
+      return
+    }
+    const controller = new AbortController()
+    const types = [...new Set(SAMPLE_TYPES.flatMap((type) => [type, promotedPieceType(type)]))]
+    setLoading(true)
+    void Promise.all([loadPieceSet(st.pieceSet, st.pieceGuide), loadPieceFont(st.pieceFont)]).then(() => bakePreviews([{ key: 'set', ...st }, { key: 'king-back', ...st, color: Color.WHITE, types: [PieceType.KING] }], controller.signal, types)).then((previews) => {
+      if (!controller.signal.aborted) {
+        const images = new Map<PreviewFace, string>(types.map((type, i) => [type, previews.get('set')![i]]))
+        images.set('GY', previews.get('king-back')![0])
+        setPreviewCache.set(key, images)
+        if (setPreviewCache.size > 8) setPreviewCache.delete(setPreviewCache.keys().next().value!)
+        setImages(images)
+        setLoading(false)
+      }
+    }).catch((error: unknown) => {
+      if (!controller.signal.aborted) {
+        setError(String(error))
+        setLoading(false)
+      }
+    })
+    return () => controller.abort()
+  }, [key, st.pieceSet, st.pieceFont, st.pieceStyle, st.pieceGuide, st.pieceMaterial, st.pieceColor, st.pieceGrain, st.pieceFinish])
   const [flipped, setFlipped] = useState<PieceType[]>([])
-  return (
-    <div className="ws-piece-sample" aria-label={t('settings.preview')} aria-busy={loading}>
-      {baked ? SAMPLE_TYPES.map((type) => {
-        const promoted = promotedPieceType(type)
-        const canFlip = promoted !== type
-        const on = flipped.includes(type)
-        return (
-          <button key={type} type="button" className="ws-sample-tile" disabled={!canFlip} aria-label={faceText(type, Color.BLACK, 'one')} aria-pressed={canFlip ? on : undefined} onMouseEnter={() => canFlip && setFlipped((prev) => prev.includes(type) ? prev : [...prev, type])} onMouseLeave={() => setFlipped((prev) => prev.filter((item) => item !== type))} onFocus={() => canFlip && setFlipped((prev) => prev.includes(type) ? prev : [...prev, type])} onBlur={() => setFlipped((prev) => prev.filter((item) => item !== type))}>
-            <span className={`ws-sample-flip${on ? ' on' : ''}`}>
-              <img src={baked.pieces.get(spriteKey(type, Color.BLACK, true))} alt="" />
-              {canFlip && <img className="back" src={baked.pieces.get(spriteKey(promoted, Color.BLACK, true))} alt="" />}
-            </span>
-          </button>
-        )
-      }) : <span role="status">{error ?? t('settings.loadingEvalFile')}</span>}
-    </div>
-  )
+  const flip = (type: PieceType, on: boolean) => setFlipped((prev) => on ? prev.includes(type) ? prev : [...prev, type] : prev.filter((item) => item !== type))
+  return <div className="ws-sticky-piece-preview ws-full-set-preview" aria-label="Piece set preview" aria-busy={loading}>{images.size > 0 && SAMPLE_TYPES.map((type) => {
+    const promoted: PreviewFace = type === PieceType.KING ? 'GY' : promotedPieceType(type)
+    const canFlip = promoted !== type
+    const on = flipped.includes(type)
+    return <button key={type} type="button" className="ws-sample-tile" disabled={!canFlip} aria-label={faceText(type, Color.BLACK, st.pieceStyle)} aria-pressed={canFlip ? on : undefined} onMouseEnter={() => canFlip && flip(type, true)} onMouseLeave={() => flip(type, false)} onFocus={() => canFlip && flip(type, true)} onBlur={() => flip(type, false)} onClick={() => flip(type, !on)}><span className={`ws-sample-flip${on ? ' on' : ''}`}>{images.has(type) && <img src={images.get(type)} alt="" />}{canFlip && images.has(promoted) && <img className="back" src={images.get(promoted)} alt="" />}</span></button>
+  })}{(loading || error) && <span className="ws-preview-status" role="status">{error ?? 'Rendering preview…'}</span>}</div>
+}
+
+function OptionGroup({ label, options, value, onChange }: { label: string; options: { key: string; label: string; preview?: React.ReactNode }[]; value: string; onChange: (key: string) => void }) {
+  return <section className={`ws-option-group${label === 'Typeface' ? ' ws-typeface-options' : label === 'Type' || label === 'Guide style' ? ' ws-type-options' : ''}`}><p className="ws-muted">{label}</p><div className="ws-design-options">{options.map((option) => <button type="button" key={option.key} aria-pressed={value === option.key} onClick={() => onChange(option.key)}>{option.preview && <span className="ws-option-preview">{option.preview}</span>}<span>{option.label}</span></button>)}</div></section>
+}
+
+function FinishSection({ finish }: { finish: PieceFinish }) {
+  const spec = PIECE_FINISHES[finish]
+  const surface = 25
+  const profile = Array.from({ length: 41 }, (_, i) => {
+    const x = 40 + i
+    const distance = 1 - Math.abs(i - 20) / 20
+    const height = finish === 'oshi' ? 5 : finish === 'kaki' ? 10 : finish === 'moriage' ? 16 : finish === 'fukabori' ? -20 : finish === 'hori' || finish === 'molded' ? -14 : 0
+    return `${x},${surface - finishProfile(finish, distance) * height}`
+  }).join(' ')
+  const filled = finish === 'horiume' || finish === 'moriage'
+  return <svg className="ws-finish-section" viewBox="0 0 120 60" role="img" aria-label={`${spec.label} cross-section`}><rect width="120" height="60" fill="#f7f1df" /><path d="M4 25H116V56H4Z" fill="#ebc574" />{filled && <path d="M40 25H80L60 44Z" fill="#15110d" />}{finish === 'insatsu' || finish === 'horiume' ? <path d="M40 25H80" stroke="#15110d" strokeWidth={finish === 'insatsu' ? 1 : 2} /> : spec.relief < 0 ? <><polygon points={`40,25 ${profile} 80,25`} fill="#f7f1df" /><polyline points={profile} fill="none" stroke="#080604" strokeWidth="2" /></> : <polygon points={`40,25 ${profile} 80,25`} fill="#15110d" />}</svg>
+}
+
+const finishPreviewCache = new Map<string, Map<string, string[]>>()
+
+function FinishOptions() {
+  const st = useSettings()
+  const key = `finish-coating-v9|${pieceFinishOptions(st.pieceMaterial).join()}|${st.pieceSet}|${st.pieceFont}|${st.pieceStyle}|${st.pieceGuide}|${st.pieceMaterial}|${st.pieceColor}|${st.pieceGrain}`
+  const [ready, setReady] = useState<{ key: string; images: Map<string, string[]> }>()
+  const [error, setError] = useState<string>()
+  const images = finishPreviewCache.get(key) ?? (ready?.key === key ? ready.images : undefined)
+  useEffect(() => {
+    setError(undefined)
+    if (finishPreviewCache.has(key)) return
+    const controller = new AbortController()
+    const appearance = { pieceSet: st.pieceSet, pieceFont: st.pieceFont, pieceStyle: st.pieceStyle, pieceGuide: st.pieceGuide, pieceMaterial: st.pieceMaterial, pieceColor: st.pieceColor, pieceGrain: st.pieceGrain }
+    void Promise.all([loadPieceSet(st.pieceSet, st.pieceGuide), loadPieceFont(st.pieceFont)]).then(() => bakePreviews(pieceFinishOptions(st.pieceMaterial).map((pieceFinish) => ({ key: `finish:${pieceFinish}`, ...appearance, pieceFinish })), controller.signal, [PieceType.KING])).then((images) => {
+      if (!controller.signal.aborted) {
+        finishPreviewCache.set(key, images)
+        if (finishPreviewCache.size > 8) finishPreviewCache.delete(finishPreviewCache.keys().next().value!)
+        setReady({ key, images })
+      }
+    }).catch((error: unknown) => { if (!controller.signal.aborted) setError(String(error)) })
+    return () => controller.abort()
+  }, [key, st.pieceSet, st.pieceFont, st.pieceStyle, st.pieceGuide, st.pieceMaterial, st.pieceColor, st.pieceGrain])
+  if (!images) return <section className="ws-finish-options" aria-busy={!error}><p className="ws-muted">Finish</p><p className="ws-muted" role="status">{error ?? 'Rendering finish previews…'}</p></section>
+  return <div className="ws-finish-options"><OptionGroup label="Finish" options={pieceFinishOptions(st.pieceMaterial).map((key) => ({ key, label: PIECE_FINISHES[key].label, preview: <><span className="ws-finish-render">{images ? <img src={images.get(`finish:${key}`)?.[0]} alt="" /> : <span role="status">{error ?? 'Rendering…'}</span>}</span><FinishSection finish={key} /><span className="ws-finish-coating">{PIECE_FINISHES[key].coating === 'lacquer' ? 'Urushi lacquer' : 'Paint'}</span></> }))} value={selectedPieceFinish()} onChange={(key) => setSettings({ pieceFinish: key as typeof st.pieceFinish })} /></div>
+}
+
+function DesignOptions() {
+  const { t } = useTranslation()
+  const st = useSettings()
+  const currentFamily = pieceFamily(st.pieceSet)
+  const lettering = currentFamily === 'letters'
+  const pair = PIECE_FACE_PAIRS[currentFamily]
+  const paired = !!pair
+  const twoOnly = currentFamily === 'orangain'
+  const faces = twoOnly ? 'two' : pair ? pair[1] === st.pieceSet ? 'two' : 'one' : lettering ? st.pieceStyle : 'one'
+  const changeFace = (key: string) => {
+    const pieceStyle = key === 'two' ? 'two' : 'one'
+    const pieceGuide = key === 'movement' || key === 'dots' || key === 'lines' ? key : 'none'
+    setSettings({ pieceStyle, pieceGuide, pieceSet: pieceSetForFace(currentFamily, pieceStyle) })
+  }
+  const changeFamily = (pieceSet: PieceSet) => {
+    const pieceStyle = pieceSet === 'orangain' ? 'two' : pieceSet === 'letters' || PIECE_FACE_PAIRS[pieceSet] ? faces : 'one'
+    setSettings({ pieceSet: pieceSetForFace(pieceSet, pieceStyle), pieceStyle, pieceGuide: pieceSet === 'orangain' ? 'none' : st.pieceGuide })
+  }
+  const presets: { key: string; label: string; patch: PieceAppearance }[] = [
+    { key: 'classic', label: 'Classic', patch: { pieceSet: 'letters', pieceFont: 'mincho', pieceStyle: 'two', pieceGuide: 'none', pieceMaterial: 'satsuma', pieceColor: 'natural', pieceGrain: 'masame', pieceFinish: 'hori' } },
+    { key: 'elegant', label: 'Elegant', patch: { pieceSet: 'ryoko_1kanji', pieceFont: 'kaisho', pieceStyle: 'one', pieceGuide: 'none', pieceMaterial: 'mikura', pieceColor: 'natural', pieceGrain: 'itame', pieceFinish: 'moriage' } },
+    { key: 'plastic', label: 'Plastic', patch: { pieceSet: 'sunfish_hitomoji', pieceFont: 'mincho', pieceStyle: 'one', pieceGuide: 'none', pieceMaterial: 'plastic', pieceColor: 'light', pieceGrain: 'masame', pieceFinish: 'oshi' } },
+    { key: 'broadcast', label: 'Broadcast', patch: { pieceSet: 'broadcast', pieceFont: 'kaisho', pieceStyle: 'one', pieceGuide: 'none', pieceMaterial: 'plastic', pieceColor: 'light', pieceGrain: 'masame', pieceFinish: 'oshi' } },
+  ]
+  return <>
+    <StickyPiecePreview />
+    <OptionGroup label="Preset" options={presets.map((preset) => ({ ...preset, preview: <GlyphSample set={preset.patch.pieceSet!} font={preset.patch.pieceFont ?? st.pieceFont} style={preset.patch.pieceStyle} code="KI" /> }))} value={presets.find((preset) => Object.entries(preset.patch).every(([key, value]) => st[key as keyof typeof st] === value))?.key ?? ''} onChange={(key) => setSettings(presets.find((preset) => preset.key === key)!.patch)} />
+    <OptionGroup label="Typeface" options={PIECE_TYPEFACES.map((key) => ({ key, label: key === 'sunfish_hitomoji' ? 'Sunfish' : key === 'kaishoa_one' ? 'Kaisho A' : key === 'kanji_brown' ? 'Ka-hu' : key === 'shogi_bnw' ? 'Shogi' : PIECE_SETS[key].label, preview: <GlyphSample set={key} font={st.pieceFont} /> }))} value={currentFamily} onChange={(key) => changeFamily(key as PieceSet)} />
+    {lettering && <OptionGroup label="Font" options={FONTS.map((key) => ({ key, label: PIECE_FONTS[key].label, preview: <GlyphSample set="letters" font={key} /> }))} value={st.pieceFont} onChange={(key) => setSettings({ pieceFont: key as PieceFont })} />}
+    <OptionGroup label="Type" options={(twoOnly ? ['two'] : ['one', ...(lettering || paired ? ['two'] : []), 'guide']).map((key) => ({ key, label: key === 'guide' ? 'One character + guide' : t(key === 'one' ? 'settings.oneCharacter' : 'settings.twoCharacters'), preview: <GlyphSample set={paired ? pieceSetForFace(currentFamily, key === 'two' ? 'two' : 'one') : st.pieceSet} font={st.pieceFont} style={key === 'two' ? 'two' : 'one'} guide={key === 'guide' ? st.pieceGuide === 'none' ? 'lines' : st.pieceGuide : 'none'} /> }))} value={st.pieceGuide === 'none' ? faces : 'guide'} onChange={(key) => changeFace(key === 'guide' ? st.pieceGuide === 'none' ? 'lines' : st.pieceGuide : key)} />
+
+    {st.pieceGuide !== 'none' && <OptionGroup label="Guide style" options={(['lines', 'dots', 'movement'] as const).map((key) => ({ key, label: key === 'dots' ? 'Dots' : key === 'movement' ? 'Marks' : 'Lines', preview: <img className="ws-prepared-glyph" src={`${import.meta.env.BASE_URL}pieces/prepared/guides/KI.${key}.png?v=16`} alt="" /> }))} value={st.pieceGuide} onChange={(key) => setSettings({ pieceGuide: key as typeof st.pieceGuide })} />}
+    <OptionGroup label="Color" options={Object.entries(PIECE_COLORS).map(([key, spec]) => ({ key, label: spec.label, preview: <span className="ws-color-swatch" style={{ background: `rgb(${(spec.tone ?? PIECE_MATERIALS[st.pieceMaterial].tone).join(',')})` }} /> }))} value={st.pieceColor} onChange={(key) => setSettings({ pieceColor: key as typeof st.pieceColor })} />
+    <OptionGroup label="Material" options={Object.entries(PIECE_MATERIALS).map(([key, spec]) => ({ key, label: spec.label, preview: <span className="ws-color-swatch" style={{ background: key === 'glass' ? `linear-gradient(135deg, rgba(${spec.tone.join(',')},0.35), rgba(255,255,255,0.85) 48%, rgba(${spec.tone.join(',')},0.2) 52%, rgba(${spec.tone.join(',')},0.5))` : `rgb(${spec.tone.join(',')})`, boxShadow: key === 'glass' ? 'inset 0 0 0 1px rgba(255,255,255,0.7)' : undefined }} /> }))} value={st.pieceMaterial} onChange={(key) => { const pieceMaterial = key as PieceMaterial; setSettings({ pieceMaterial, pieceFinish: pieceFinishOptions(pieceMaterial).includes(st.pieceFinish) ? st.pieceFinish : 'oshi' }) }} />
+    {!['plastic', 'glass', 'frostedGlass'].includes(st.pieceMaterial) && <OptionGroup label="Grain" options={Object.entries(PIECE_GRAINS).map(([key, spec]) => ({ key, label: spec.label, preview: <SurfaceSample appearance={{ pieceSet: 'letters', pieceMaterial: st.pieceMaterial, pieceColor: 'natural', pieceGrain: key as PieceGrain }} /> }))} value={st.pieceGrain} onChange={(key) => setSettings({ pieceGrain: key as PieceGrain })} />}
+    <FinishOptions />
+
+    <p className="ws-muted ws-credit">{PIECE_FINISHES[selectedPieceFinish()].hint}</p>
+    {PIECE_SETS[st.pieceSet].credit && <p className="ws-muted ws-credit">{PIECE_SETS[st.pieceSet].credit}</p>}
+  </>
+}
+
+function BoardOptions() {
+  const { t } = useTranslation()
+  const st = useSettings()
+  return <OptionGroup label={t('settings.boardWood')} options={BOARD_STYLE_KEYS.map((key) => ({ key, label: BOARD_STYLES[key].label, preview: <img src={asset('boards', key)} alt="" /> }))} value={st.boardStyle} onChange={(key) => setSettings({ boardStyle: key as BoardStyle })} />
 }
 
 export function SettingsDialog({ onClose, level, onLevel }: { onClose: () => void; level: Level; onLevel: (l: Level) => void }) {
@@ -81,7 +228,7 @@ export function SettingsDialog({ onClose, level, onLevel }: { onClose: () => voi
           <>
             <SegmentedField<Environment> label={t('settings.setting')} value={st.environment} options={[{ v: 'traditional', t: t('settings.traditional') }, { v: 'casual', t: t('settings.casual') }, { v: 'flat', t: t('settings.2d') }, { v: 'diagram', t: t('settings.diagram') }, { v: 'broadcast', t: t('settings.broadcast') }]} onChange={(v) => setSettings({ environment: v })} />
             <SegmentedField label={t('settings.boardCoordinates')} value={st.coords} options={[{ v: true, t: t('settings.showWiderMargin') }, { v: false, t: t('settings.hide') }]} onChange={(v) => setSettings({ coords: v })} />
-            <SegmentedField<BoardStyle> label={t('settings.boardWood')} value={st.boardStyle} options={[{ v: 'kaya', t: t('settings.kaya') }, { v: 'shin-kaya', t: t('settings.light') }, { v: 'dark', t: t('settings.dark') }]} onChange={(v) => setSettings({ boardStyle: v })} />
+            <BoardOptions />
             {(st.environment === 'traditional' || st.environment === 'casual') && <SegmentedField label={t('settings.characters')} value={st.characters} options={[{ v: true, t: t('settings.on') }, { v: false, t: t('settings.off') }]} onChange={(v) => setSettings({ characters: v })} />}
             {(st.environment === 'traditional' || st.environment === 'casual') && st.characters && <p className="ws-muted ws-credit">{t('settings.charactersCredit')}</p>}
             {st.environment !== 'flat' && st.environment !== 'diagram' && st.environment !== 'broadcast' && <SegmentedField label={t('settings.powerMode')} value={st.power} options={[{ v: true, t: t('settings.on') }, { v: false, t: t('settings.off') }]} onChange={(v) => setSettings({ power: v })} />}
@@ -90,15 +237,7 @@ export function SettingsDialog({ onClose, level, onLevel }: { onClose: () => voi
         )}
         {tab === 'pieces' && (
           <>
-            <SegmentedField<PieceSet> label={t('settings.pieceSet')} value={st.pieceSet} options={(Object.keys(PIECE_SETS) as PieceSet[]).map((v) => ({ v, t: PIECE_SETS[v].label }))} onChange={(v) => setSettings(v === 'broadcast' ? { pieceSet: v, pieceMaterial: 'plastic', pieceFont: 'kaisho', pieceStyle: 'one', pieceFinish: 'insatsu' } : { pieceSet: v })} />
-            <PieceSample />
-            <SegmentedField<PieceMaterial> label={st.lang === 'ja' ? '駒材' : 'Material'} value={st.pieceMaterial} options={(Object.keys(PIECE_MATERIALS) as PieceMaterial[]).map((v) => ({ v, t: PIECE_MATERIALS[v].label }))} onChange={(v) => setSettings({ pieceMaterial: v, pieceFinish: pieceFinishOptions(v).includes(st.pieceFinish) ? st.pieceFinish : pieceFinishOptions(v)[0] })} />
-            {st.pieceMaterial !== 'plastic' && <SegmentedField<PieceGrain> label={st.lang === 'ja' ? '木目' : 'Wood grain'} value={st.pieceGrain} options={(Object.keys(PIECE_GRAINS) as PieceGrain[]).map((v) => ({ v, t: PIECE_GRAINS[v].label }))} onChange={(v) => setSettings({ pieceGrain: v })} />}
-            <SegmentedField<PieceFinish> label={t('settings.pieceFinish')} value={selectedPieceFinish()} options={pieceFinishOptions(st.pieceMaterial).map((v) => ({ v, t: PIECE_FINISHES[v].label }))} onChange={(v) => setSettings({ pieceFinish: v })} />
-            <p className="ws-muted ws-credit">{PIECE_FINISHES[selectedPieceFinish()].hint}</p>
-            {PIECE_SETS[st.pieceSet].credit && <p className="ws-muted ws-credit">{PIECE_SETS[st.pieceSet].credit}</p>}
-            {(st.pieceSet === 'letters' || st.pieceSet === 'broadcast') && <SegmentedField<PieceFont> label={t('settings.pieceLettering')} value={st.pieceFont} options={(Object.keys(PIECE_FONTS) as PieceFont[]).map((v) => ({ v, t: PIECE_FONTS[v].label }))} onChange={(v) => setSettings({ pieceFont: v })} />}
-            {(st.pieceSet === 'letters' || st.pieceSet === 'broadcast') && <SegmentedField<PieceStyle> label={t('settings.pieceFaces')} value={st.pieceStyle} options={[{ v: 'two', t: t('settings.twoCharacters') }, { v: 'one', t: t('settings.oneCharacter') }]} onChange={(v) => setSettings({ pieceStyle: v })} />}
+            <DesignOptions />
           </>
         )}
         {tab === 'play' && (

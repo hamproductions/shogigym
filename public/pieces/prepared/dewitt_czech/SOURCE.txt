@@ -1,0 +1,6 @@
+Source artwork: Lishogi standard piece set dewitt_czech.
+Original SVGs: https://raw.githubusercontent.com/WandererXII/lishogi/master/ui/@build/pieces/assets/standard/dewitt_czech/0{CODE}.svg
+Authors: Lishogi authors
+License: AGPLv3+ (https://github.com/WandererXII/lishogi/blob/master/COPYING.md)
+Source license record: https://github.com/WandererXII/lishogi/blob/master/COPYING.md
+Changes: extracted glyph artwork from source piece images; removed tile, outline, shadow, and surface texture; fitted glyph proportionally to a shared transparent tile face; normalized lettering to black or source red.

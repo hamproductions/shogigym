@@ -10,7 +10,6 @@ import type { Arena, Body, Dust, SceneState, TableFlip } from './types'
 
 const GRAVITY = 34
 const SLAM = 0.72
-const DURATION = 4
 const DUST = 320
 
 const random = (spread: number) => (Math.random() - 0.5) * spread
@@ -307,19 +306,27 @@ export function stepTableFlip(s: SceneState, time: number, dt: number, done: () 
     poseBoard(f, Math.max(0, t - dt + step * (i + 1)))
     const board = { m: boardMatrix(f, s), kick: t < SLAM ? 1.5 / steps : 0 }
     for (const b of f.bodies) {
+      const beforePosition = b.obj.position.clone()
+      const beforeRotation = b.obj.quaternion.clone()
       const impact = stepBody(b, f, step, board)
       if (impact > 7) {
         impacts++
         if (!b.landed && !b.keepFlat) f.dust.burst(orient(b).center.setY(b.obj.position.y), 24, 7)
         b.landed = true
       }
-      if (b.sleeping || !b.grounded || b.v.y > 0.1) continue
+      if (b.sleeping) continue
+      if (!b.grounded || b.v.y > 0.1) {
+        b.quietFor = 0
+        continue
+      }
       settle(b, step)
       pushOutOfBoard(b, board.m, 0, f.arena)
       const { center, extent } = orient(b)
       const ground = footprintSurface(f.arena, center, extent)
       if (center.y - extent.y < ground) b.obj.position.y += ground - (center.y - extent.y)
-      if (t > SLAM + 0.5 && b.v.lengthSq() < 0.0025 && b.w.lengthSq() < 0.0025) {
+      const quiet = b.v.lengthSq() < 0.0025 && b.w.lengthSq() < 0.0025 && b.obj.position.distanceToSquared(beforePosition) < 0.000001 && b.obj.quaternion.angleTo(beforeRotation) < 0.0005
+      b.quietFor = quiet ? (b.quietFor ?? 0) + step : 0
+      if (t > SLAM && b.quietFor >= 0.5) {
         b.v.set(0, 0, 0)
         b.w.set(0, 0, 0)
         b.sleeping = true
@@ -331,7 +338,7 @@ export function stepTableFlip(s: SceneState, time: number, dt: number, done: () 
     playSound('clatter')
   }
   f.dust.step(dt)
-  if (t <= DURATION || !f.release) return
+  if (!f.release || !f.slammed || f.bodies.some((b) => !b.sleeping)) return
   for (const b of f.bodies) b.obj.quaternion.identity()
   for (const b of f.bodies) if (b.keepFlat) b.obj.removeFromParent()
   f.rig.position.set(0, 0, 0)

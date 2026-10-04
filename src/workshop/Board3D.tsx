@@ -1,9 +1,10 @@
 import { useEffect, useRef } from 'react'
 import { Color, type ImmutablePosition } from 'tsshogi'
-import { avatarSlot, flushMoveSound, moveSound, soundPending } from './avatars'
+import { avatarSlot } from './avatars'
 import { updateView } from './board3d/camera'
 import { HALF_D, HALF_W, LEG, THICK, setBoardDims } from './board3d/dimensions'
 import { flipCameraOffset, saveSnapshot, startTableFlip, stepTableFlip } from './board3d/effects'
+import { createFurigoma3D } from './board3d/furigoma'
 import { bindPointer } from './board3d/interaction'
 import { layout, sideStandsFit, zoneReporter } from './board3d/layout'
 import { drawMarks } from './board3d/marks'
@@ -13,7 +14,7 @@ import { buildScene, createRenderer } from './board3d/scene'
 import { clearFaceTextures } from './board3d/textures'
 import type { Board3DProps, SceneState } from './board3d/types'
 import { SNAPSHOT_EVENT, TABLE_FLIP_EVENT } from './lib/events'
-import { getSettings, subscribeSettings } from './settings'
+import { getSettings, playSound, subscribeSettings } from './settings'
 
 export type { Board3DProps, BoardArrow, StandZones, ZoneRect } from './board3d/types'
 
@@ -26,6 +27,7 @@ export function Board3D(props: Board3DProps) {
   const previous = useRef<ImmutablePosition | null>(null)
   const power = useRef<Power | null>(null)
   const flipTimer = useRef(0)
+  const furigoma = useRef<ReturnType<typeof createFurigoma3D> | null>(null)
 
   useEffect(() => {
     const el = host.current!
@@ -82,6 +84,7 @@ export function Board3D(props: Board3DProps) {
       liftSelected(s, latest.current, dt)
       stepTableFlip(s, time, dt, refresh)
       stepAnimations(s, time)
+      furigoma.current?.step(dt)
       power.current?.update(dt)
       s.avatars?.update(dt * (power.current?.timeScale() ?? 1), s.flip?.way ?? 0, !!s.controls)
       const shake = flipCameraOffset(s, time)
@@ -135,6 +138,8 @@ export function Board3D(props: Board3DProps) {
 
     return () => {
       cancelAnimationFrame(frame)
+      furigoma.current?.dispose()
+      furigoma.current = null
       window.removeEventListener(TABLE_FLIP_EVENT, onFlip)
       renderer.domElement.removeEventListener('pointerdown', onFlipDown)
       renderer.domElement.ownerDocument.removeEventListener('pointermove', onFlipMove, true)
@@ -166,11 +171,13 @@ export function Board3D(props: Board3DProps) {
     const changed = prev !== null
     const dragged = performance.now() - (s.droppedAt ?? 0) <= 400
     const stepped = changed ? moveEvent(prev, props.position, latest.current.lastMove) : null
-    if (stepped && !soundPending() && !dragged) moveSound(stepped.capture ? 'capture' : 'move')
     const event = power.current ? stepped : null
     const fx = power.current
-    s.onLand = event && fx ? () => fx.onMove({ ...event, delay: 0, carried: true }) : null
-    rebuild(s, latest.current, changed && !dragged, prev, changed && dragged)
+    s.onLand = stepped ? () => {
+      playSound(stepped.capture ? 'capture' : 'move')
+      if (event && fx) fx.onMove({ ...event, delay: 0, carried: true })
+    } : null
+    rebuild(s, latest.current, changed && (!dragged || !!latest.current.lastMove?.endsWith('+')), prev, changed && dragged)
     if (s.onLand && event) fx?.onMove({ ...event, delay: dragged ? 0 : 0.22 })
     if (event?.mate) flipTimer.current = window.setTimeout(() => {
       fx?.clear()
@@ -178,8 +185,18 @@ export function Board3D(props: Board3DProps) {
     }, 4200)
     else if (!event) fx?.clear()
     s.onLand = null
-    flushMoveSound()
   }, [props.position])
+
+  useEffect(() => {
+    const scene = state.current
+    if (!scene || !props.furigoma) return
+    const toss = createFurigoma3D(scene, (faces) => latest.current.onFurigoma?.(faces))
+    furigoma.current = toss
+    return () => {
+      toss.dispose()
+      if (furigoma.current === toss) furigoma.current = null
+    }
+  }, [props.furigoma])
 
   useEffect(() => {
     if (state.current && props.cues) state.current.avatars?.cue(props.cues)

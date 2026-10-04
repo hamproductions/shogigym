@@ -1,6 +1,6 @@
 import type * as THREE from 'three'
 import { Color } from 'tsshogi'
-import { getSettings, playSound, subscribeSettings, type Environment } from '../settings'
+import { getSettings, subscribeSettings, type Environment } from '../settings'
 
 export type Knock = 'move' | 'capture'
 
@@ -30,33 +30,6 @@ export const avatarRoom = (environment: Environment) => (environment === 'tradit
 export const loadAvatars = (options: AvatarOptions) => import('./controller').then((m) => m.createAvatars(options))
 
 let prefetched = false
-let live = 0
-let pending: { kind: Knock; timer: number } | null = null
-
-const takeSound = () => {
-  if (!pending) return null
-  window.clearTimeout(pending.timer)
-  const { kind } = pending
-  pending = null
-  return kind
-}
-
-let knockedAt = 0
-
-export const soundPending = () => !!pending || performance.now() - knockedAt < 250
-
-export function flushMoveSound() {
-  const kind = takeSound()
-  if (kind) playSound(kind)
-}
-
-export function moveSound(kind: Knock) {
-  knockedAt = performance.now()
-  flushMoveSound()
-  if (!live) return playSound(kind)
-  pending = { kind, timer: window.setTimeout(flushMoveSound, 300) }
-}
-
 function prefetchAvatars() {
   if (prefetched) return
   prefetched = true
@@ -74,7 +47,6 @@ export function avatarSlot(options: Omit<AvatarOptions, 'environment' | 'base'>)
   let cues: AvatarCues | null = null
   const enabled = () => !!environment && getSettings().characters && !disposed
   const drop = () => {
-    if (controller) live--
     controller?.dispose()
     controller = null
   }
@@ -86,7 +58,6 @@ export function avatarSlot(options: Omit<AvatarOptions, 'environment' | 'base'>)
         loading = false
         if (!enabled()) return c.dispose()
         controller = c
-        live++
         if (cues) c.cue(cues)
       })
       .catch((error) => {
@@ -117,7 +88,7 @@ export function avatarSlot(options: Omit<AvatarOptions, 'environment' | 'base'>)
     swap: (from: THREE.Object3D, to: THREE.Object3D) => controller?.swap(from, to),
     playMove: (move: AvatarMove) => {
       if (!controller) return false
-      controller.playMove({ ...move, sound: takeSound() })
+      controller.playMove(move)
       return true
     },
     cue: (next: AvatarCues) => {

@@ -1,4 +1,4 @@
-export type Phrase = { text: string; say: string }
+export type Phrase = { text: string; say: string; natural?: boolean }
 
 const named = (pairs: Record<string, string>, tail: string) => Object.entries(pairs).map(([text, kana]) => ({ text, say: `${kana}${tail}` }))
 
@@ -69,6 +69,8 @@ const COUNT = ['いち', 'に', 'さん', 'し', 'ご', 'ろく', 'しち', 'は
 export const PHRASES: Phrase[] = [
   ...named(FORMATIONS, ''),
   ...named(TESUJI, ''),
+  { text: 'あなたの振り歩先です', say: 'あなたのふりふせんです' },
+  ...Array.from({ length: 6 }, (_, n) => ({ text: `${n >= 3 ? '歩' : 'と金'}が${n >= 3 ? n : 5 - n}枚出たので、あなたは${n >= 3 ? '先手' : '後手'}です`, say: `${n >= 3 ? '歩' : 'と金'}が${n >= 3 ? n : 5 - n}枚出たので、あなたは${n >= 3 ? '先手' : '後手'}です`, natural: true })),
   { text: 'よろしくお願いします', say: 'よろしくおねがいします！' },
   { text: 'ありがとうございました', say: 'ありがとうございました' },
   { text: '王手', say: 'おうて！' },

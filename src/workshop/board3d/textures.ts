@@ -1,9 +1,11 @@
 import * as THREE from 'three'
-import { PIECE_FONTS, PIECE_MATERIALS, getSettings, type BoardStyle } from '../settings'
-import type { LoadedPiece } from '../pieceSets'
+import { PieceType } from 'tsshogi'
+import { PIECE_FONTS, pieceTone, getSettings, type BoardStyle, type PieceAppearance } from '../settings'
+import { loadedGuide, twoCharacterGlyph, type LoadedPiece } from '../pieceSets'
 import { grainTexture, rng } from '../roomFloor'
-import { CASUAL, HALF_D, HALF_W, MARGIN } from './dimensions'
-import { BOARD_TONE } from '../koma'
+import { CASUAL, HALF_D, HALF_W, MARGIN, komaWidth, pieceScale } from './dimensions'
+import { BOARD_STYLES, loadedBoard } from '../boardStyles'
+import { BOARD_TONE, piecePolygon } from '../koma'
 
 export function srgbTexture(canvas: HTMLCanvasElement, anisotropy = 1) {
   const texture = new THREE.CanvasTexture(canvas)
@@ -25,10 +27,19 @@ function canvas2d(width: number, height = width) {
   return { canvas, ctx: canvas.getContext('2d')! }
 }
 
+export function boardSurface(style: BoardStyle, width: number, height: number) {
+  if (!BOARD_STYLES[style].source) return grainTexture(width, height, BOARD_TONE[style].board, 260, 7)
+  const image = loadedBoard(style)
+  if (!image) throw new Error(`Board surface not loaded: ${BOARD_STYLES[style].label}`)
+  const { canvas, ctx } = canvas2d(width, height)
+  ctx.drawImage(image, 0, 0, width, height)
+  return canvas
+}
+
 export function boardTexture(style: BoardStyle) {
   const sizeW = 1024
   const sizeH = Math.round((sizeW * HALF_D) / HALF_W)
-  const canvas = grainTexture(sizeW, sizeH, BOARD_TONE[style].board, 260, 7)
+  const canvas = boardSurface(style, sizeW, sizeH)
   const ctx = canvas.getContext('2d')!
   const mx = (MARGIN / (2 * HALF_W)) * sizeW
   const my = (MARGIN / (2 * HALF_D)) * sizeH
@@ -56,7 +67,7 @@ export function boardTexture(style: BoardStyle) {
   }
   ctx.lineWidth = 4
   ctx.strokeRect(mx, my, cw * 9, ch * 9)
-  ctx.fillStyle = 'rgba(40,22,8,0.9)'
+  ctx.fillStyle = BOARD_TONE[style].line
   for (const [cx, cy] of [
     [3, 3],
     [6, 3],
@@ -73,15 +84,18 @@ export function boardTexture(style: BoardStyle) {
 const faceCache = new Map<string, THREE.Texture>()
 const artCache = new Map<string, THREE.Texture>()
 
-export const clearFaceTextures = () => faceCache.clear()
+export const clearFaceTextures = () => {
+  faceCache.clear()
+  artCache.clear()
+}
 
-function pieceSurface(seed: number) {
-  const { pieceMaterial, pieceGrain } = getSettings()
-  const tone = PIECE_MATERIALS[pieceMaterial].tone
+export function pieceSurface(seed: number, appearance?: PieceAppearance) {
+  const { pieceMaterial, pieceGrain, pieceColor } = { ...getSettings(), ...appearance }
+  const tone = pieceTone(pieceMaterial, pieceColor)
   const { canvas, ctx } = canvas2d(256)
   ctx.fillStyle = `rgb(${tone.join(',')})`
   ctx.fillRect(0, 0, 256, 256)
-  if (pieceMaterial === 'plastic') return canvas
+  if (pieceMaterial === 'plastic' || pieceMaterial === 'glass' || pieceMaterial === 'frostedGlass') return canvas
   const random = rng(Math.abs(seed) % 2147483646 + 1)
   const warmth = random() * 4 - 2
   ctx.fillStyle = `rgba(${warmth > 0 ? '255,225,165' : '125,85,35'},0.035)`
@@ -112,41 +126,157 @@ function pieceSurface(seed: number) {
   return canvas
 }
 
-export function artTexture(art: LoadedPiece, key: string, seed = 1) {
-  key += `|${getSettings().pieceMaterial}|${getSettings().pieceGrain}|${seed}`
+function guideInk(guide: HTMLCanvasElement | undefined, ink: HTMLCanvasElement) {
+  if (!guide) return guide
+  const pixels = ink.getContext('2d')!.getImageData(0, 0, ink.width, ink.height).data
+  let index = 0
+  for (let i = 4; i < pixels.length; i += 4)
+    if (pixels[i + 3] > pixels[index + 3]) index = i
+  const { canvas, ctx } = canvas2d(guide.width, guide.height)
+  ctx.drawImage(guide, 0, 0)
+  ctx.globalCompositeOperation = 'source-in'
+  ctx.fillStyle = `rgb(${pixels[index]},${pixels[index + 1]},${pixels[index + 2]})`
+  ctx.fillRect(0, 0, canvas.width, canvas.height)
+  return canvas
+}
+
+function composeGlyph(ink: HTMLCanvasElement, guide?: HTMLCanvasElement, two = false, marks = false) {
+  const { canvas, ctx } = canvas2d(ink.width)
+  const scale = pieceScale(PieceType.KING)
+  const width = komaWidth(scale)
+  const [x, y] = piecePolygon(scale)[2]
+  const left = canvas.width * (0.5 - x / width)
+  const top = canvas.height * (0.5 - y / scale)
+  const faceWidth = canvas.width - left * 2
+  const faceHeight = canvas.height - top - top / 2
+  const draw = (image: HTMLCanvasElement, boxTop: number, boxHeight: number) => {
+    const factor = two && !guide ? boxHeight * scale / canvas.height / image.height : faceWidth * width / canvas.width / image.width
+    const fit = guide ? Math.min(factor, boxHeight * scale / canvas.height / image.height) : factor
+    const drawWidth = image.width * fit * canvas.width / width
+    const drawHeight = image.height * fit * canvas.height / scale
+    ctx.drawImage(image, left + (faceWidth - drawWidth) / 2, boxTop + (boxHeight - drawHeight) / 2, drawWidth, drawHeight)
+  }
+  if (!guide || marks) {
+    if (guide) ctx.drawImage(guide, 0, 0, canvas.width, canvas.height)
+    draw(ink, top, faceHeight)
+  } else {
+    const gap = faceHeight / 12
+    const half = (faceHeight - gap) / 2
+    draw(ink, top, half)
+    draw(guide, top + half + gap, half)
+  }
+  return canvas
+}
+
+export function artTexture(art: LoadedPiece, key: string, seed = 1, appearance?: PieceAppearance) {
+  const settings = { ...getSettings(), ...appearance }
+  key += `|${settings.pieceStyle}|${settings.pieceGuide}|${settings.pieceMaterial}|${settings.pieceColor}|${settings.pieceGrain}|${seed}`
   const cached = artCache.get(key)
   if (cached) return cached
-  const canvas = pieceSurface(seed)
-  canvas.getContext('2d')!.drawImage(art.canvas, 0, 0, 256, 256)
+  const canvas = pieceSurface(seed, appearance)
+  const ink = canvas2d(256)
+  ink.ctx.drawImage(art.canvas, 0, 0, 256, 256)
+  const lightInk = settings.pieceColor === 'dark' || settings.pieceColor === 'mahogany'
+  if (lightInk) {
+    const image = ink.ctx.getImageData(0, 0, 256, 256)
+    for (let i = 0; i < image.data.length; i += 4) {
+      const red = image.data[i] - image.data[i + 1] > 35 && image.data[i] - image.data[i + 2] > 20
+      const color = red ? [255, 160, 164] : [250, 246, 235]
+      image.data[i] = color[0]
+      image.data[i + 1] = color[1]
+      image.data[i + 2] = color[2]
+    }
+    ink.ctx.putImageData(image, 0, 0)
+  }
+  const sourceGuide = settings.pieceGuide === 'none' ? undefined : loadedGuide(art.code, settings.pieceGuide)
+  const guide = settings.pieceGuide === 'lines' ? guideInk(sourceGuide, ink.canvas) : sourceGuide
+  const glyph = composeGlyph(ink.canvas, guide, twoCharacterGlyph(settings.pieceSet), settings.pieceGuide === 'movement')
+  canvas.getContext('2d')!.drawImage(glyph, 0, 0)
   const texture = srgbTexture(canvas, 8)
+  texture.userData.lightInk = lightInk
+  texture.userData.glyphCanvas = glyph
+  texture.userData.inkCanvas = glyph
   artCache.set(key, texture)
   return texture
 }
 
-export function faceTexture(char: string, promoted: boolean, seed = 1) {
-  const broadcast = getSettings().pieceSet === 'broadcast'
-  const font = PIECE_FONTS[getSettings().pieceFont] ?? PIECE_FONTS.mincho
-  const key = `${char}${promoted}${font.family}${broadcast}|${getSettings().pieceMaterial}|${getSettings().pieceGrain}|${seed}`
+const glyphCache = new Map<string, HTMLCanvasElement>()
+
+function normalizeInk(source: HTMLCanvasElement) {
+  const pixels = source.getContext('2d')!.getImageData(0, 0, source.width, source.height).data
+  let left = source.width
+  let top = source.height
+  let right = 0
+  let bottom = 0
+  for (let y = 0; y < source.height; y++)
+    for (let x = 0; x < source.width; x++)
+      if (pixels[(y * source.width + x) * 4 + 3]) {
+        left = Math.min(left, x)
+        top = Math.min(top, y)
+        right = Math.max(right, x + 1)
+        bottom = Math.max(bottom, y + 1)
+      }
+  const { canvas, ctx } = canvas2d(source.width)
+  if (right <= left || bottom <= top) return canvas
+  const factor = Math.min(canvas.width / (right - left), canvas.height / (bottom - top))
+  const width = (right - left) * factor
+  const height = (bottom - top) * factor
+  ctx.drawImage(source, left, top, right - left, bottom - top, (canvas.width - width) / 2, (canvas.height - height) / 2, width, height)
+  return canvas
+}
+
+export function faceTexture(char: string, promoted: boolean, seed = 1, appearance?: PieceAppearance, code = 'FU') {
+  const set = appearance?.pieceSet ?? getSettings().pieceSet
+  const broadcast = set === 'broadcast'
+  const font = PIECE_FONTS[appearance?.pieceFont ?? getSettings().pieceFont] ?? PIECE_FONTS.mincho
+  const settings = { ...getSettings(), ...appearance }
+  const key = `${char}${promoted}${font.family}${broadcast}|${set}|${settings.pieceMaterial}|${settings.pieceColor}|${settings.pieceGrain}|${settings.pieceGuide}|${code}|${seed}`
   const cached = faceCache.get(key)
   if (cached) return cached
-  const canvas = pieceSurface(seed)
-  const ctx = canvas.getContext('2d')!
-  ctx.fillStyle = promoted ? '#9c1c12' : '#0e0804'
-  ctx.strokeStyle = ctx.fillStyle
-  ctx.lineWidth = font.weight >= 700 ? 3 : 7
-  ctx.lineJoin = 'round'
-  ctx.textAlign = 'center'
-  ctx.textBaseline = 'middle'
-  const chars = [...char]
-  const size = chars.length === 1 ? 150 : 104
-  ctx.font = `${font.weight} ${size}px "${font.family}", "Shippori Mincho B1", serif`
-  chars.forEach((c, i) => {
-    const y = 128 + (i - (chars.length - 1) / 2) * size * 0.98 + 6
-    ctx.fillText(c, 128, y)
-    if (!broadcast) ctx.strokeText(c, 128, y)
-  })
+  const canvas = pieceSurface(seed, appearance)
+  const lightInk = settings.pieceColor === 'dark' || settings.pieceColor === 'mahogany'
+  const glyphKey = `${char}|${promoted}|${font.family}|${broadcast}|${lightInk}|${settings.pieceGuide}|${code}`
+  let glyph = glyphCache.get(glyphKey)
+  if (!glyph) {
+    glyph = canvas2d(256).canvas
+    const ctx = glyph.getContext('2d')!
+    ctx.fillStyle = lightInk ? promoted ? '#ffa0a4' : '#faf6eb' : promoted ? '#9c1c12' : '#0e0804'
+    ctx.strokeStyle = ctx.fillStyle
+    ctx.lineWidth = font.weight >= 700 ? 3 : 7
+    ctx.lineJoin = 'round'
+    ctx.textAlign = 'center'
+    ctx.textBaseline = 'middle'
+    const chars = [...char]
+    const size = chars.length === 1 ? 176 : 116
+    ctx.font = `${font.weight} ${size}px "${font.family}", "Shippori Mincho B1", serif`
+    chars.forEach((c, i) => {
+      const y = 128 + (i - (chars.length - 1) / 2) * size * 0.98 + 6
+      ctx.fillText(c, 128, y)
+      if (!broadcast) ctx.strokeText(c, 128, y)
+    })
+    const sourceGuide = settings.pieceGuide === 'none' ? undefined : loadedGuide(code, settings.pieceGuide)
+    const guide = settings.pieceGuide === 'lines' ? guideInk(sourceGuide, glyph) : sourceGuide
+    if (settings.pieceGuide !== 'none' && !guide) throw new Error(`Guide not loaded: ${code}/${settings.pieceGuide}`)
+    glyph = composeGlyph(normalizeInk(glyph), guide, settings.pieceStyle === 'two', settings.pieceGuide === 'movement')
+    glyphCache.set(glyphKey, glyph)
+  }
+  canvas.getContext('2d')!.drawImage(glyph, 0, 0)
   const texture = srgbTexture(canvas, 8)
+  texture.userData.lightInk = lightInk
+  texture.userData.glyphCanvas = glyph
+  texture.userData.inkCanvas = glyph
   faceCache.set(key, texture)
+  return texture
+}
+
+const glyphTextures = new WeakMap<THREE.Texture, THREE.Texture>()
+
+export function glyphTexture(map: THREE.Texture) {
+  let texture = glyphTextures.get(map)
+  if (!texture) {
+    texture = srgbTexture(map.userData.inkCanvas, 8)
+    glyphTextures.set(map, texture)
+  }
   return texture
 }
 
@@ -157,7 +287,7 @@ function coordTexture(text: string) {
   let texture = coordCache.get(cacheKey)
   if (!texture) {
     const { canvas, ctx } = canvas2d(64)
-    ctx.fillStyle = getSettings().boardStyle === 'dark' ? 'rgba(250, 232, 196, 0.92)' : 'rgba(40, 22, 8, 0.85)'
+    ctx.fillStyle = getSettings().boardStyle.endsWith('dark') ? 'rgba(250, 232, 196, 0.92)' : 'rgba(40, 22, 8, 0.85)'
     ctx.font = '800 40px "Shippori Mincho B1", serif'
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
@@ -178,7 +308,7 @@ export function coordSprite(text: string) {
 export function coordPlane(text: string, size: number, flipped: boolean) {
   const mesh = new THREE.Mesh(new THREE.PlaneGeometry(size, size), new THREE.MeshBasicMaterial({ map: coordTexture(text), transparent: true, depthWrite: false }))
   mesh.rotation.set(-Math.PI / 2, 0, flipped ? Math.PI : 0)
-  mesh.renderOrder = 9
+  mesh.renderOrder = 0
   return mesh
 }
 

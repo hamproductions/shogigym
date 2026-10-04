@@ -1,20 +1,7 @@
 import { useEffect, useRef } from 'react'
-import type { ImmutablePosition } from 'tsshogi'
-import { flushMoveSound, moveSound, soundPending } from '../avatars'
-import type { Board3DProps } from '../Board3D'
 import { SNAPSHOT_EVENT, SNAPSHOT_NAME } from '../lib/events'
-import { steppedMove } from '../lib/stepped'
 
-export function useSvgBoard(props: Pick<Board3DProps, 'position' | 'lastMove'>) {
-  const previous = useRef<ImmutablePosition | null>(null)
-  useEffect(() => {
-    const prev = previous.current
-    previous.current = props.position
-    if (!prev || prev.sfen === props.position.sfen) return
-    const stepped = steppedMove(prev, props.position, props.lastMove)
-    if (stepped && !soundPending()) moveSound(stepped.capture ? 'capture' : 'move')
-    flushMoveSound()
-  }, [props.position, props.lastMove])
+export function useSvgBoard() {
   const svgRef = useRef<SVGSVGElement>(null)
   useEffect(() => {
     const onSnapshot = (event: Event) => {

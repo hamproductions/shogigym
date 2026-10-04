@@ -3,9 +3,8 @@ import { InitialPositionSFEN, type Color, type Move, type PieceType, type Square
 import { engineSupported } from '../../engine'
 import type { Course } from '../../model'
 import { applyUsi, colorSide, hasLegalMove, positionOf, type Side } from '../../shogi'
-import { moveSound } from '../avatars'
 import { courseNodes } from '../lib/book'
-import { useSettings } from '../settings'
+import { audioContext, getSettings, useSettings } from '../settings'
 import { addPath, emptyTree, isMainLine, mainContinuation, nodeAt, type Tree } from '../tree'
 import { isGameMode, type Game, type Mode, type Preview } from '../types'
 import { useLatest } from './useLatest'
@@ -85,7 +84,13 @@ export function useBoardSession() {
         setPlaying(false)
         return
       }
-      moveSound(mv.capturedPieceType ? 'capture' : 'move')
+      if (getSettings().sound && navigator.userActivation?.isActive !== false) {
+        try {
+          audioContext()
+        } catch (error) {
+          console.warn('sound failed', error)
+        }
+      }
       const g = gameRef.current
       const path = [...g.moves.slice(0, cursor), usi]
       const existing = isGameMode(modeRef.current) ? nodeAt(treeRef.current, path) : null

@@ -44,7 +44,7 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
   const pointer = new THREE.Vector2()
   const plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0)
   const drop = dropMarker(s.root)
-  let down: { pick: Pick; x: number; y: number } | null = null
+  let down: { pick: Pick; x: number; y: number; pointerId: number } | null = null
   let ghost: THREE.Object3D | null = null
 
   const ray = (event: PointerEvent) => {
@@ -114,6 +114,7 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
   }
 
   const onDown = (event: PointerEvent) => {
+    if (event.button !== 0 || !event.isPrimary) return
     if (s.flip) {
       down = null
       return
@@ -121,7 +122,7 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
     ray(event)
     const hit = pick()
     if (!hit) return
-    down = { pick: hit, x: event.clientX, y: event.clientY }
+    down = { pick: hit, x: event.clientX, y: event.clientY, pointerId: event.pointerId }
     canvas.setPointerCapture(event.pointerId)
   }
 
@@ -133,9 +134,9 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
     ray(event)
     const hit = pick()
     canvas.style.cursor = hit ? 'pointer' : 'default'
-    if (!down) return
+    if (!down || event.pointerId !== down.pointerId) return
     const moved = Math.hypot(event.clientX - down.x, event.clientY - down.y) > 6
-    if (s.controls && !s.drag && moved) down = null
+    if (s.controls && !s.drag && (event.clientX !== down.x || event.clientY !== down.y)) down = null
     if (!down) return
     if (!s.drag && moved) startDrag(down.pick)
     if (!s.drag) return
@@ -150,6 +151,7 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
   }
 
   const onUp = (event: PointerEvent) => {
+    if (!down || event.pointerId !== down.pointerId || event.button !== 0) return
     if (s.flip) {
       down = null
       return
@@ -164,7 +166,7 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
       s.droppedAt = performance.now()
       if (hit?.kind === 'square') latest.current.onDrop(from, hit.square)
       rebuild()
-    } else if (down && hit) {
+    } else if (down && hit && Math.hypot(event.clientX - down.x, event.clientY - down.y) <= 6) {
       if (hit.kind === 'square') latest.current.onSquare(hit.square)
       else if (hit.kind === 'arrow') latest.current.onArrow?.(hit.usi)
       else latest.current.onHand(hit.color, hit.type)
@@ -172,10 +174,23 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
     down = null
   }
 
+  const cancel = () => {
+    down = null
+    if (s.drag) {
+      s.drag = null
+      drop.hide()
+      clearGhost()
+      rebuild()
+    }
+  }
+  canvas.addEventListener('pointercancel', cancel)
+  canvas.addEventListener('lostpointercapture', cancel)
   canvas.addEventListener('pointerdown', onDown)
   canvas.addEventListener('pointermove', onMove)
   canvas.addEventListener('pointerup', onUp)
   return () => {
+    canvas.removeEventListener('pointercancel', cancel)
+    canvas.removeEventListener('lostpointercapture', cancel)
     canvas.removeEventListener('pointerdown', onDown)
     canvas.removeEventListener('pointermove', onMove)
     canvas.removeEventListener('pointerup', onUp)

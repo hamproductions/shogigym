@@ -5,11 +5,12 @@ import type { ImmutablePosition } from 'tsshogi'
 import { steppedMove } from './lib/stepped'
 import { useLatest } from './hooks/useLatest'
 import type { Board3DProps } from './Board3D'
-import { PIECE_FONTS, loadPieceFont } from './settings'
+import { PIECE_FONTS, loadPieceFont, playSound, useSettings } from './settings'
 import { useSvgBoard } from './hooks/useSvgBoard'
 import { useBakedPieces } from './hooks/useBakedPieces'
 import { SPRITE_BOX, spriteKey } from './board3d/bake'
 import { UnderMarks, OverMarks } from './flatMarks'
+import { BOARD_TONE } from './koma'
 import { SQ_D } from './board3d/dimensions'
 import { useTranslation } from 'react-i18next'
 
@@ -55,7 +56,7 @@ const THEMES = {
 const komaPath = (w: number, h: number) => `M ${-w * 0.42} ${h * 0.46} L ${w * 0.42} ${h * 0.46} L ${w * 0.34} ${-h * 0.3} L 0 ${-h * 0.46} L ${-w * 0.34} ${-h * 0.3} Z`
 
 export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }) {
-  const svgRef = useSvgBoard(props)
+  const svgRef = useSvgBoard()
   const { baked, loading, error } = useBakedPieces(style === 'broadcast')
   const [, setFontReady] = useState(false)
   useEffect(() => {
@@ -63,7 +64,10 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
   }, [])
   const komaFont = style === 'broadcast' ? `'${PIECE_FONTS.kaisho.family}', 'Shippori Mincho B1', serif` : "'Shippori Mincho B1', serif"
   const { i18n } = useTranslation()
-  const t = THEMES[style]
+  const settings = useSettings()
+  const customBoard = style === 'broadcast' && settings.boardStyle.startsWith('sunfish-')
+  const tone = BOARD_TONE[settings.boardStyle]
+  const t = customBoard ? { ...THEMES[style], bg: `rgb(${tone.board.join(',')})`, board: `rgb(${tone.board.join(',')})`, line: tone.line, coord: tone.line } : THEMES[style]
   const { position, flipped, selected, selectedColor, targets, arrows, lastMove, checkSquare, heat } = props
   const boardW = t.cw * 9
   const boardH = t.ch * 9
@@ -145,14 +149,18 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
     svg?.getAnimations({ subtree: true }).forEach((animation) => animation.cancel())
     const prev = previous.current
     previous.current = position
-    if (!prev || !lastMove || !steppedMove(prev, position, lastMove)) return
+    const stepped = prev && lastMove ? steppedMove(prev, position, lastMove) : null
+    if (!stepped || !lastMove) return
     const to = Square.newByUSI(lastMove.slice(2, 4))
     const from = lastMove[1] === '*' ? null : Square.newByUSI(lastMove.slice(0, 2))
     if (!to) return
     const { cx: px, cy: py, ch } = geo.current
     const dx = from ? px(from) - px(to) : 0
     const dy = from ? py(from) - py(to) : -ch
-    svg?.querySelector(`[data-sq="${to.usi}"]`)?.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: `translate(${dx / 2}px, ${dy / 2 - 12}px) scale(1.12)`, offset: 0.5 }, { transform: 'none' }], { duration: 220, easing: 'ease-out' })
+    const animation = svg?.querySelector(`[data-sq="${to.usi}"]`)?.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: `translate(${dx / 2}px, ${dy / 2 - 12}px) scale(1.12)`, offset: 0.5 }, { transform: 'none' }], { duration: 220, easing: 'ease-out' })
+    if (!animation) return
+    animation.onfinish = () => playSound(stepped.capture ? 'capture' : 'move')
+    return () => animation.cancel()
   }, [position, lastMove, flipped, style, svgRef, geo])
   const tiles = position.board.listNonEmptySquares().map((sq) => {
     const piece = position.board.at(sq)!
@@ -178,7 +186,8 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
       {(loading || error) && <div className="ws-board-loading" role="status">{error ?? i18n.t('settings.loadingEvalFile')}</div>}
       <svg ref={svgRef} xmlns="http://www.w3.org/2000/svg" viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label={i18n.t('board.shogiBoard')}>
         <rect width={width} height={height} fill={t.bg} />
-        <rect x={x0} y={y0} width={boardW} height={boardH} fill={t.board} />
+        {customBoard && baked && <image href={baked.surface} width={width} height={height} preserveAspectRatio="none" />}
+        <rect x={x0} y={y0} width={boardW} height={boardH} fill={customBoard ? 'transparent' : t.board} />
         {t.koma ? <UnderMarks props={props} p={project} u={t.cw} /> : (
           <>
             {lastFrom && cell(lastFrom, style === 'diagram' ? '#9cc3ff' : '#fff2a8', 0.35, 'lf')}

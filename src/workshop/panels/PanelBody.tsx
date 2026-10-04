@@ -129,13 +129,14 @@ function FlowSection({ model }: { model: PanelModel }) {
 
 export function PanelBody({ tab, model, overlays = true }: { tab: Tab; model: PanelModel; overlays?: boolean }) {
   const session = useSession()
+  useReviewVersion()
   const { mode, course, game, sfens, sfen, cursor, setCursor, selection, ai, assist, userSide, nodes, play } = session
   const { lesson, tsume, drill, mistakes, evaluation, level, reply, bookLast, onBack } = model
   const key = `${mode}|${course?.id ?? ''}|${lesson.lessonMode}|${tab}|${tsume.tsume?.problem.id ?? ''}|${drill.drill?.index ?? ''}`
   const endRate = lesson.done && evaluation.evalSente ? (userSide === 'sente' ? evaluation.senteRate : 1 - evaluation.senteRate) : null
   return (
     <>
-      {tab === 'moves' && ai && assist && game.moves.length > 0 && isGameMode(mode) && <div className="ws-pinned-graph"><EvalGraph values={sfens.map((s) => evaluation.evals[strip(s)])} cursor={cursor} onJump={setCursor} /></div>}
+      {tab === 'moves' && ai && assist && game.moves.length > 0 && isGameMode(mode) && <div className="ws-pinned-graph"><EvalGraph values={sfens.map((s) => evaluation.evals[strip(s)])} labels={sfens.map((_, i) => i > 0 ? cachedReview(sfens[i - 1], game.moves[i - 1])?.label : undefined)} cursor={cursor} onJump={setCursor} /></div>}
       <div className="ws-panel-body" key={key}>
         {overlays && level === 'new' && selection && !(mode === 'lesson' && course) && <PieceGuide sfen={sfen} from={selection.from} />}
         {tab === 'engine' && <EngineSection model={model} />}

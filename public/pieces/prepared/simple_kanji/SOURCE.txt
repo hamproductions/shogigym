@@ -1,0 +1,6 @@
+Source artwork: Lishogi standard piece set simple_kanji, glyph layer extracted from SVG files.
+Original files: https://raw.githubusercontent.com/WandererXII/lishogi/master/ui/@build/pieces/assets/standard/simple_kanji/0{CODE}.svg
+Authors: Ka-hu
+License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+Source license record: https://github.com/WandererXII/lishogi/blob/master/COPYING.md
+Changes: tile body and shadow removed; glyph artwork fitted proportionally inside the shared tile face and rasterized to a transparent 256 by 256 image; baked lettering highlights replaced with solid black or red ink.

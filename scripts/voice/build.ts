@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import { mkdirSync, rmSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { PHRASES } from './phrases'
 
@@ -8,13 +8,15 @@ const SPEAKER = Number(process.env.VOICEVOX_SPEAKER ?? 3)
 const OUT = 'public/voice/zundamon'
 const TMP = join(process.env.TMPDIR ?? '/tmp', 'shogi-gym-voice')
 
-rmSync(OUT, { recursive: true, force: true })
+const missingOnly = process.argv.includes('--missing')
+if (!missingOnly) rmSync(OUT, { recursive: true, force: true })
 mkdirSync(OUT, { recursive: true })
 mkdirSync(TMP, { recursive: true })
 
-const manifest: Record<string, string> = {}
-for (const { text, say } of PHRASES) {
-  const kana = say.replace(/[\u3041-\u3096]/g, (c) => String.fromCharCode(c.charCodeAt(0) + 0x60))
+const manifest: Record<string, string> = missingOnly && existsSync(join(OUT, 'manifest.json')) ? JSON.parse(readFileSync(join(OUT, 'manifest.json'), 'utf8')) : {}
+for (const { text, say, natural } of PHRASES) {
+  if (missingOnly && manifest[text] && existsSync(join(OUT, manifest[text]))) continue
+  const kana = natural ? say : say.replace(/[\u3041-\u3096]/g, (c) => String.fromCharCode(c.charCodeAt(0) + 0x60))
   const query = await (await fetch(`${ENGINE}/audio_query?speaker=${SPEAKER}&text=${encodeURIComponent(kana)}`, { method: 'POST' })).json()
   for (const phrase of query.accent_phrases) for (const mora of phrase.moras) if (/^[AIUEO]$/.test(mora.vowel)) {
     mora.vowel = mora.vowel.toLowerCase()

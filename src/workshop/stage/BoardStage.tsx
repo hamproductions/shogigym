@@ -19,6 +19,7 @@ import { firstPieceHint } from '../modes/tsume/firstPiece'
 import type { TsumeState } from '../modes/tsume/useTsume'
 import { Plate } from '../panels/Plate'
 import { loadPieceFont, useSettings } from '../settings'
+import { loadBoardStyle } from '../boardStyles'
 import { loadPieceSet } from '../pieceSets'
 import { isGameMode } from '../types'
 import { AnnounceBadge, PromotionPicker, TsumePlate } from './BoardOverlays'
@@ -26,6 +27,8 @@ import { BoardBanners } from './BoardBanners'
 import { Button } from '../ui/Button'
 
 type BoardStageProps = {
+  furigoma?: boolean
+  onFurigoma?: (faces: boolean[]) => void
   evalRate: number | null
   view: View
   decor: ReturnType<typeof useBoardDecor>
@@ -46,17 +49,17 @@ function usePieceAssetsKey() {
   const [ready, setReady] = useState('mincho')
   useEffect(() => {
     let live = true
-    Promise.all([loadPieceFont(settings.pieceFont), loadPieceSet(settings.pieceSet)])
-      .catch(() => undefined)
-      .then(() => live && setReady(`${settings.pieceFont}|${settings.pieceSet}`))
+    Promise.all([loadPieceFont(settings.pieceFont), loadPieceSet(settings.pieceSet, settings.pieceGuide), loadBoardStyle(settings.boardStyle)])
+      .catch((error: unknown) => { if (live) setReady(`error:${error instanceof Error ? error.message : String(error)}`); throw error })
+      .then(() => live && setReady(`${settings.pieceFont}|${settings.pieceSet}|${settings.pieceGuide}|${settings.boardStyle}`), () => undefined)
     return () => {
       live = false
     }
-  }, [settings.pieceFont, settings.pieceSet])
+  }, [settings.pieceFont, settings.pieceSet, settings.pieceGuide, settings.boardStyle])
   return ready
 }
 
-export function BoardStage({ view, decor, input, commit, mistake, onBack, spar, tsume, hasDrillCard, phoneTask, announce, onZones, evalRate }: BoardStageProps) {
+export function BoardStage({ view, decor, input, commit, mistake, onBack, spar, tsume, hasDrillCard, phoneTask, announce, onZones, evalRate, furigoma, onFurigoma }: BoardStageProps) {
   const { t } = useTranslation()
   const settings = useSettings()
   const assetsKey = usePieceAssetsKey()
@@ -79,21 +82,23 @@ export function BoardStage({ view, decor, input, commit, mistake, onBack, spar, 
   const showGameOver = ((gameOver && game.moves.length > 0 && isGameMode(mode)) || sparEnded) && spar.endHidden !== sfen
   return (
     <div className={`ws-board-wrap${evalRate !== null ? ' with-eval' : ''}`}>
-      {spar.furigomaBanner && (
+      {mode === 'spar' && spar.furigomaBanner && (
         <div className="ws-furigoma-banner" style={{ position: 'absolute', top: 12, left: '50%', transform: 'translateX(-50%)', zIndex: 100, background: 'rgba(20,20,25,0.92)', border: '1px solid var(--border-subtle, rgba(255,255,255,0.2))', padding: '8px 18px', borderRadius: 8, color: '#fff', boxShadow: '0 4px 16px rgba(0,0,0,0.4)', display: 'flex', alignItems: 'center', gap: 12, fontSize: '0.95rem', fontWeight: 600 }}>
           <span>{spar.furigomaBanner}</span>
           <Button size="sm" onClick={() => spar.clearFurigomaBanner()}>✕</Button>
         </div>
       )}
       {evalRate !== null && <EvalBar rate={evalRate} flipped={flipped} />}
-      {settings.environment === 'diagram' || settings.environment === 'broadcast' ? (
+      {settings.environment !== 'diagram' && settings.environment !== 'broadcast' && settings.environment !== 'flat' && assetsKey !== `${settings.pieceFont}|${settings.pieceSet}|${settings.pieceGuide}|${settings.boardStyle}` ? <div className="ws-board-loading" role="status">{assetsKey.startsWith('error:') ? assetsKey.slice(6) : t('settings.loadingEvalFile')}</div> : settings.environment === 'diagram' || settings.environment === 'broadcast' ? (
         <Board2D style={settings.environment} {...board} tilted={false} />
       ) : settings.environment === 'flat' ? (
         <BoardFlat {...board} tilted={false} onZones={onZones} />
       ) : (
         <Board3D
-          key={`${settings.pieceStyle}|${settings.boardStyle}|${settings.pieceFinish}|${settings.pieceMaterial}|${settings.pieceGrain}|${settings.coords}|${settings.environment}|${assetsKey}`}
+          key={`${settings.pieceStyle}|${settings.boardStyle}|${settings.pieceFinish}|${settings.pieceMaterial}|${settings.pieceColor}|${settings.pieceGrain}|${settings.coords}|${settings.environment}|${assetsKey}`}
           {...board}
+          furigoma={furigoma}
+          onFurigoma={onFurigoma}
           tilted={view.tilted && !view.flatView}
           snapKey={`${mode}|${game.start}|${course?.id ?? ''}|${tsume?.problem.id ?? ''}`}
           onZones={onZones}

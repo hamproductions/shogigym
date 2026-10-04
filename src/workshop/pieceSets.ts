@@ -1,15 +1,49 @@
 import { Color, PieceType } from 'tsshogi'
 import i18n from '../i18n'
+import type { PieceGuide } from './settings'
 
-export type PieceSet = 'letters' | 'broadcast' | 'ryoko_1kanji' | 'kanji_brown' | 'kanji_light'
+export type PieceSet = 'letters' | 'broadcast' | 'ryoko_1kanji' | 'kanji_brown' | 'kanji_light' | 'sunfish_futamoji' | 'sunfish_hitomoji' | 'sunfish_wood' | 'sunfish_gothic' | 'sunfish_dark' | 'sunfish_gothic_dark' | 'kaishoa_one' | 'kaishoa_two' | '1kanji_3d' | '2kanji_3d' | 'simple_kanji' | 'orangain' | 'kanji_red_wood' | 'portella' | 'portella_2kanji' | 'dewitt_1kanji' | 'dewitt_2kanji' | 'dewitt_czech' | 'hitomoji' | 'shogi_cz' | 'shogi_fcz' | 'engraved_cz' | 'engraved_cz_bnw' | 'kanji_guide_shadowed' | 'valdivia' | 'vald_opt' | 'shogi_bnw' | 'glass' | 'pixel'
 
-export const PIECE_SETS: Record<PieceSet, { label: string; credit?: string }> = {
+export const PIECE_SETS: Record<PieceSet, { label: string; credit?: string; inkOnly?: boolean; tone?: [number, number, number] }> = {
   letters: { get label() { return i18n.t('pieceSets.drawnLetters') } },
   broadcast: { get label() { return i18n.t('settings.broadcast') } },
+  '1kanji_3d': { label: 'Lishogi Kanji', credit: 'Little-Mage and CouchTomato87 (Lishogi), CC BY 4.0', inkOnly: true },
+  '2kanji_3d': { label: 'Lishogi Kanji · Two characters', credit: 'Little-Mage and orangain (Lishogi), CC BY-SA 3.0', inkOnly: true },
+  simple_kanji: { label: 'Simple Kanji', credit: 'Ka-hu (Lishogi), CC BY 4.0', inkOnly: true },
+  orangain: { label: 'Orangain', credit: 'orangain (Lishogi), CC BY-SA 3.0', inkOnly: true },
+  kanji_red_wood: { label: 'Ka-hu · Red wood', credit: 'Ka-hu (Lishogi), CC BY 4.0', inkOnly: true },
+  portella: { label: 'Portella', credit: 'Portella (Lishogi), CC BY-NC-SA 4.0', inkOnly: true },
+  portella_2kanji: { label: 'Portella · Two characters', credit: 'Portella (Lishogi), CC BY-NC-SA 4.0', inkOnly: true },
+  dewitt_1kanji: { label: 'Dewitt', credit: 'Lishogi, AGPL-3.0-or-later', inkOnly: true },
+  dewitt_2kanji: { label: 'Dewitt · Two characters', credit: 'Lishogi, AGPL-3.0-or-later', inkOnly: true },
+  dewitt_czech: { label: 'Dewitt · Czech guide', credit: 'Lishogi, AGPL-3.0-or-later', inkOnly: true },
+  hitomoji: { label: 'Hitomoji', credit: 'Lishogi, AGPL-3.0-or-later', inkOnly: true },
+  shogi_cz: { label: 'Shogi.cz', credit: 'shogi.cz (Lishogi), CC BY-SA 4.0', inkOnly: true },
+  shogi_fcz: { label: 'Shogi.cz · Flat guide', credit: 'Lishogi, AGPL-3.0-or-later', inkOnly: true },
+  engraved_cz: { label: 'Shogi.cz', credit: 'ddeo604 (Lishogi), CC BY-SA 4.0', inkOnly: true },
+  engraved_cz_bnw: { label: 'Shogi.cz', credit: 'Lishogi, AGPL-3.0-or-later', inkOnly: true },
+  kanji_guide_shadowed: { label: 'Kanji · Guide', credit: 'CouchTomato87 (Lishogi), CC BY 4.0', inkOnly: true },
+  valdivia: { label: 'Valdivia', credit: 'Kleffa (Lishogi), CC BY-SA 4.0', inkOnly: true },
+  vald_opt: { label: 'Valdivia · Alternate', credit: 'Kleffa (Lishogi), CC BY-SA 4.0', inkOnly: true },
+  shogi_bnw: { label: 'Shogi · Dark', credit: 'visualdenniss (Lishogi), CC BY-SA 4.0', inkOnly: true },
+  glass: { label: 'Glass', credit: 'Lishogi, AGPL-3.0-or-later', inkOnly: true },
+  pixel: { label: 'Pixel', credit: 'Lishogi, AGPL-3.0-or-later', inkOnly: true },
   ryoko_1kanji: { get label() { return i18n.t('pieceSets.ryoko') }, credit: 'Ryoko_1Kanji by nexxogen (lishogi), CC BY-SA 4.0' },
   kanji_brown: { get label() { return i18n.t('pieceSets.brown') }, credit: 'kanji_brown by Ka-hu (lishogi), CC BY 4.0' },
   kanji_light: { get label() { return i18n.t('pieceSets.light') }, credit: 'kanji_light by Ka-hu (lishogi), CC BY 4.0' },
+  sunfish_futamoji: { get label() { return i18n.language.startsWith('ja') ? '二文字' : 'Sunfish · Two characters' }, credit: 'Shogi Images by Sunfish Shogi, CC0', inkOnly: true },
+  sunfish_hitomoji: { get label() { return i18n.language.startsWith('ja') ? '一文字' : 'Sunfish · One character' }, credit: 'Shogi Images by Sunfish Shogi, CC0', inkOnly: true },
+  sunfish_wood: { get label() { return i18n.language.startsWith('ja') ? '木目' : 'Sunfish · Wood grain' }, credit: 'Shogi Images by Sunfish Shogi, CC0', inkOnly: true },
+  sunfish_gothic: { get label() { return i18n.language.startsWith('ja') ? 'ゴシック' : 'Sunfish · Gothic' }, credit: 'Shogi Images by Sunfish Shogi, CC0', inkOnly: true },
+  sunfish_dark: { get label() { return i18n.language.startsWith('ja') ? 'ダーク' : 'Sunfish · Dark' }, credit: 'Shogi Images by Sunfish Shogi, CC0', inkOnly: true, tone: [48, 48, 48] },
+  sunfish_gothic_dark: { get label() { return i18n.language.startsWith('ja') ? 'ゴシック・ダーク' : 'Sunfish · Gothic dark' }, credit: 'Shogi Images by Sunfish Shogi, CC0', inkOnly: true, tone: [48, 48, 48] },
+  kaishoa_one: { get label() { return i18n.language.startsWith('ja') ? '楷書A・一字' : 'Kaisho A · One character' }, credit: 'Kaisho A by Zahajki, CC0', inkOnly: true },
+  kaishoa_two: { get label() { return i18n.language.startsWith('ja') ? '楷書A・二字' : 'Kaisho A · Two characters' }, credit: 'Kaisho A by Zahajki, CC0', inkOnly: true },
 }
+
+const GLYPH_SOURCE: Partial<Record<PieceSet, PieceSet>> = { kanji_light: 'kanji_brown', kanji_red_wood: 'kanji_brown', sunfish_wood: 'sunfish_hitomoji', sunfish_dark: 'sunfish_hitomoji', sunfish_gothic_dark: 'sunfish_gothic', dewitt_czech: 'dewitt_1kanji', shogi_fcz: 'shogi_cz', engraved_cz: 'shogi_cz', engraved_cz_bnw: 'shogi_cz', kanji_guide_shadowed: 'kanji_brown', valdivia: 'kanji_brown', vald_opt: 'kanji_brown', glass: 'kanji_brown' }
+const glyphSource = (set: PieceSet) => GLYPH_SOURCE[set] ?? set
+export const twoCharacterGlyph = (set: PieceSet) => new Set<PieceSet>(['sunfish_futamoji', 'kaishoa_two', '2kanji_3d', 'orangain', 'dewitt_2kanji', 'portella_2kanji']).has(glyphSource(set))
 
 const CODE: Record<PieceType, string> = {
   [PieceType.PAWN]: 'FU',
@@ -30,96 +64,71 @@ const CODE: Record<PieceType, string> = {
 
 export const pieceCode = (type: PieceType, color: Color) => (type === PieceType.KING && color === Color.WHITE ? 'GY' : CODE[type])
 
-export type LoadedPiece = { canvas: HTMLCanvasElement }
+export type LoadedPiece = { canvas: HTMLCanvasElement; code: string; size: number }
+
+export const GUIDE_SETS = new Set<PieceSet>(['dewitt_czech', 'shogi_cz', 'shogi_fcz', 'engraved_cz', 'engraved_cz_bnw', 'kanji_guide_shadowed', 'valdivia', 'vald_opt'])
 
 const loaded = new Map<string, LoadedPiece>()
+const guides = new Map<string, HTMLCanvasElement>()
+export const loadedGuide = (code: string, guide: PieceGuide) => guides.get(`${code}/${guide}`)
 
-export const loadedPiece = (set: PieceSet, code: string) => loaded.get(`${set}/${code}`)
+export const loadedPiece = (set: PieceSet, code: string) => loaded.get(`${glyphSource(set)}/${code}`)
 
-export const pieceUrl = (set: PieceSet, code: string) => `${import.meta.env.BASE_URL}pieces/${set}/${code}.svg`
 
-function rasterize(image: HTMLImageElement): HTMLCanvasElement {
-  const size = 512
-  const full = document.createElement('canvas')
-  full.width = full.height = size
-  const ctx = full.getContext('2d', { willReadFrequently: true })!
-  ctx.drawImage(image, 0, 0, size, size)
-  const data = ctx.getImageData(0, 0, size, size).data
-  let x0 = size
-  let y0 = size
-  let x1 = 0
-  let y1 = 0
-  for (let y = 0; y < size; y++)
-    for (let x = 0; x < size; x++)
-      if (data[(y * size + x) * 4 + 3] > 40) {
-        if (x < x0) x0 = x
-        if (y < y0) y0 = y
-        if (x > x1) x1 = x
-        if (y > y1) y1 = y
-      }
-  if (x1 <= x0) return full
-  const w = x1 - x0 + 1
-  const h = y1 - y0 + 1
-  const inset = 0
-  const out = document.createElement('canvas')
-  out.width = out.height = 256
-  const octx = out.getContext('2d', { willReadFrequently: true })!
-  octx.drawImage(full, x0 + w * inset, y0 + h * inset, w * (1 - 2 * inset), h * (1 - 2 * inset), 256 * inset, 256 * inset, 256 * (1 - 2 * inset), 256 * (1 - 2 * inset))
-  const img = octx.getImageData(0, 0, 256, 256)
-  const px = img.data
-  const inside = new Uint8Array(256 * 256)
-  for (let i = 0; i < inside.length; i++) inside[i] = px[i * 4 + 3] > 40 ? 1 : 0
-  const sum = new Int32Array(257 * 257)
-  for (let y = 0; y < 256; y++)
-    for (let x = 0; x < 256; x++) sum[(y + 1) * 257 + x + 1] = inside[y * 256 + x] + sum[y * 257 + x + 1] + sum[(y + 1) * 257 + x] - sum[y * 257 + x]
-  const r = 14
-  const deep = (x: number, y: number) => {
-    const xa = Math.max(0, x - r)
-    const ya = Math.max(0, y - r)
-    const xb = Math.min(256, x + r + 1)
-    const yb = Math.min(256, y + r + 1)
-    const area = (xb - xa) * (yb - ya)
-    return x - r >= 0 && y - r >= 0 && x + r < 256 && y + r < 256 && sum[yb * 257 + xb] - sum[ya * 257 + xb] - sum[yb * 257 + xa] + sum[ya * 257 + xa] === area
-  }
-  for (let i = 0; i < px.length; i += 4) {
-    const p = i / 4
-    if (!deep(p % 256, Math.floor(p / 256))) {
-      px[i + 3] = 0
-      continue
-    }
-    const r = px[i]
-    const g = px[i + 1]
-    const b = px[i + 2]
-    const lum = 0.3 * r + 0.59 * g + 0.11 * b
-    const red = r > 120 && r - g > 70 && r - b > 70
-    const ink = red ? 1 : Math.min(1, Math.max(0, (175 - lum) / 90))
-    px[i + 3] = Math.round(px[i + 3] * Math.min(1, ink * 1.35))
-    if (!red) {
-      px[i] = 18
-      px[i + 1] = 12
-      px[i + 2] = 6
-    }
-  }
-  octx.putImageData(img, 0, 0)
-  return out
+export const pieceGlyphUrl = (set: PieceSet, code: string) => `${import.meta.env.BASE_URL}pieces/prepared/${glyphSource(set)}/${code}.png?v=18`
+
+function imageCanvas(image: HTMLImageElement) {
+  const canvas = document.createElement('canvas')
+  canvas.width = canvas.height = 256
+  canvas.getContext('2d')!.drawImage(image, 0, 0, 256, 256)
+  return canvas
 }
 
-export async function loadPieceSet(set: PieceSet) {
-  if (set === 'letters' || set === 'broadcast') return
+function loadImage(url: string) {
+  return new Promise<HTMLImageElement>((resolve, reject) => {
+    const image = new Image(256, 256)
+    image.onload = () => resolve(image)
+    image.onerror = () => reject(new Error(`Could not load piece asset: ${url}`))
+    image.src = url
+  })
+}
+
+const pending = new Map<string, Promise<void>>()
+const guidePending = new Map<PieceGuide, Promise<void>>()
+
+function loadGuides(guide: PieceGuide, codes: string[]) {
+  if (guide === 'none') return Promise.resolve()
+  const existing = guidePending.get(guide)
+  if (existing) return existing
+  const promise = Promise.all(codes.map(async (code) => {
+    const key = `${code}/${guide}`
+    if (!guides.has(key)) guides.set(key, imageCanvas(await loadImage(`${import.meta.env.BASE_URL}pieces/prepared/guides/${code}.${guide}.png?v=16`)))
+  })).then(() => {}).catch((error) => {
+    guidePending.delete(guide)
+    throw error
+  })
+  guidePending.set(guide, promise)
+  return promise
+}
+
+export async function loadPieceSet(set: PieceSet, guide: PieceGuide = 'none') {
   const codes = [...new Set([...Object.values(CODE), 'GY'])]
-  await Promise.all(
-    codes.map(
-      (code) =>
-        loaded.get(`${set}/${code}`) ??
-        new Promise<void>((resolve) => {
-          const image = new Image(512, 512)
-          image.onload = () => {
-            loaded.set(`${set}/${code}`, { canvas: rasterize(image) })
-            resolve()
-          }
-          image.onerror = () => resolve()
-          image.src = pieceUrl(set, code)
-        }),
-    ),
-  )
+  if (set === 'letters' || set === 'broadcast') return loadGuides(guide, codes)
+  const source = glyphSource(set)
+  const key = `${source}/${guide}`
+  const existing = pending.get(key)
+  if (existing) return existing
+  const promise = (async () => {
+    await Promise.all(codes.map(async (code) => {
+      if (loaded.has(`${source}/${code}`)) return
+      const image = await loadImage(`${import.meta.env.BASE_URL}pieces/prepared/${source}/${code}.png?v=18`)
+      loaded.set(`${source}/${code}`, { canvas: imageCanvas(image), code, size: 256 })
+    }))
+    await loadGuides(guide, codes)
+  })().catch((error) => {
+    pending.delete(key)
+    throw error
+  })
+  pending.set(key, promise)
+  return promise
 }

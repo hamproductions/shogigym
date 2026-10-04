@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { Color, PieceType, Square, unpromotedPieceType, type ImmutablePosition } from 'tsshogi'
-import { STAND_TOP, squareX, squareZ } from './dimensions'
+import { STAND_TOP, komaDepth, pieceScale, squareX, squareZ } from './dimensions'
 import { handLayout, handPieceMesh, handSpot } from './hand'
 import { layout, standCenter } from './layout'
 import { drawMarks } from './marks'
@@ -30,16 +30,17 @@ function avatarMove(s: SceneState, position: ImmutablePosition, prev: ImmutableP
   const to = type && handSpot(position, move.color, type)
   const capture = captured && type && to ? { mesh: pieceMesh(captured.type, captured.color), to, hide: s.handMeshes.find((m) => m.userData.color === move.color && m.userData.type === type && m.userData.liftable) } : undefined
   const step = move.from instanceof Square ? Math.max(Math.abs(move.from.file - move.to.file), Math.abs(move.from.rank - move.to.rank)) : 0
-  const kind = !(move.from instanceof Square) ? 'drop' : capture ? 'capture' : move.promote ? 'promote' : step <= 1 ? 'slide' : 'carry'
-  const land = s.onLand
+  const kind = !(move.from instanceof Square) ? 'drop' : move.promote ? 'promote' : capture ? 'capture' : step <= 1 ? 'slide' : 'carry'
+  const land = placed ? null : s.onLand
   const source = kind === 'drop' && !placed ? s.handMeshes.find((m) => m.userData.color === move.color && m.userData.type === move.pieceType && m.userData.liftable) : undefined
   if (source) source.visible = false
-  const played = s.avatars.playMove({ kind, flip: kind === 'promote' ? pieceMesh(move.pieceType, move.color, mesh.userData.grainSeed as number) : undefined, color: move.color, mesh, from, to: mesh.position.clone(), placed, land: source ? () => (land?.(), s.settle?.()) : land, capture })
+  if (placed && move.promote) return false
+  const played = s.avatars.playMove({ kind, flip: move.promote ? pieceMesh(move.pieceType, move.color, mesh.userData.grainSeed as number) : undefined, color: move.color, mesh, from, to: mesh.position.clone(), placed, land: source ? () => (land?.(), s.settle?.()) : land, capture })
   if (!played && source) {
     source.visible = true
     queueMicrotask(() => s.settle?.())
   }
-  if (played) s.onLand = null
+  if (played && !placed) s.onLand = null
   return played
 }
 
@@ -47,6 +48,7 @@ export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, pr
   const { position, lastMove } = props
   if (prev) {
     s.avatars?.reset?.()
+    for (const animation of s.animations) animation.flip?.removeFromParent()
     s.animations.length = 0
     animate = animate && !!(lastMove && playedMove(prev, position, lastMove))
   }
@@ -58,6 +60,7 @@ export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, pr
     if (seed !== undefined) grains.set(move.to.usi, seed)
   }
   const held = s.pieces.children.filter((m) => m.userData.held && m.userData.square)
+  const existing = prev ? [] : [...s.pieces.children]
   s.pieces.clear()
   s.handMeshes = []
   let moved: { mesh: THREE.Object3D; color: Color; square: Square } | null = null
@@ -96,13 +99,35 @@ export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, pr
     const next = s.pieces.children.find((m) => (m.userData.square as Square | undefined)?.equals(old.userData.square as Square))
     if (next) s.avatars?.swap(old, next)
   }
+  for (const old of existing) {
+    const square = old.userData.square as Square | undefined
+    const next = square ? s.pieces.children.find((m) => (m.userData.square as Square | undefined)?.equals(square)) : s.handMeshes.find((m) => m.userData.type === old.userData.type && m.userData.color === old.userData.color && m.userData.liftable === old.userData.liftable)
+    if (!next) continue
+    next.position.copy(old.position)
+    next.quaternion.copy(old.quaternion)
+    next.visible = old.visible
+    for (const animation of s.animations) if (animation.mesh === old) animation.mesh = next
+    if (s.drag?.mesh === old) s.drag.mesh = next
+  }
+  if (!prev) for (const animation of s.animations) if (animation.flip) s.pieces.add(animation.flip)
   if (moved && lastMove && (animate || placed) && !avatarMove(s, position, prev, lastMove, moved.mesh, placed) && animate) {
     const { mesh } = moved
-    const from = lastMove[1] === '*' ? standCenter(moved.color) : squarePoint(Square.newByUSI(lastMove.slice(0, 2)) ?? moved.square)
-    s.animations.push({ mesh, from, to: mesh.position.clone(), start: performance.now() })
+    const from = placed ? mesh.position.clone() : lastMove[1] === '*' ? standCenter(moved.color) : squarePoint(Square.newByUSI(lastMove.slice(0, 2)) ?? moved.square)
+    const flip = move?.promote ? pieceMesh(move.pieceType, move.color, mesh.userData.grainSeed as number) : undefined
+    if (flip) {
+      flip.position.copy(from)
+      s.pieces.add(flip)
+      mesh.visible = false
+    }
+    s.animations.push({ mesh, from, to: mesh.position.clone(), start: performance.now(), flip, land: s.onLand })
+    s.onLand = null
     mesh.position.copy(from)
   }
-  for (const mesh of s.pieces.children) if (isLifted(mesh, props)) mesh.position.y = (mesh.userData.baseY as number) + LIFT
+  if (placed) {
+    s.onLand?.()
+    s.onLand = null
+  }
+  for (const mesh of s.pieces.children) if (!existing.length && !mesh.userData.held && isLifted(mesh, props)) mesh.position.y = (mesh.userData.baseY as number) + LIFT
   drawMarks(s, props)
 }
 
@@ -115,13 +140,15 @@ const isLifted = (mesh: THREE.Object3D, props: Board3DProps) => {
 }
 
 export function liftSelected(s: SceneState, props: Board3DProps, dt: number) {
+  if (s.flip) return
   for (const mesh of s.pieces.children) {
     const base = mesh.userData.baseY as number | undefined
-    if (mesh.userData.held && performance.now() - ((mesh.userData.heldAt as number | undefined) ?? 0) > 4000) mesh.userData.held = false
-    if (base === undefined || mesh.userData.held || s.animations.some((a) => a.mesh === mesh) || s.drag?.mesh === mesh) continue
-    const target = base + (isLifted(mesh, props) ? LIFT : 0)
+    if (base === undefined || mesh.userData.held || s.animations.some((a) => a.mesh === mesh || a.flip === mesh) || s.drag?.mesh === mesh) continue
+    const lifted = isLifted(mesh, props)
+    const target = base + (lifted ? LIFT : 0)
     const k = 1 - Math.exp(-dt * 18)
-    mesh.position.y += (target - mesh.position.y) * k
+    if (lifted) mesh.position.y = target
+    else mesh.position.y += (target - mesh.position.y) * k
     const square = mesh.userData.square as Square | undefined
     if (square) {
       mesh.position.x += (squareX(square.file) - mesh.position.x) * k
@@ -132,10 +159,21 @@ export function liftSelected(s: SceneState, props: Board3DProps, dt: number) {
 
 export function stepAnimations(s: SceneState, time: number) {
   for (const anim of [...s.animations]) {
-    const t = Math.min(1, (time - anim.start) / 220)
+    const t = Math.min(1, (time - anim.start) / (anim.flip ? 550 : 220))
     const e = 1 - Math.pow(1 - t, 3)
     anim.mesh.position.lerpVectors(anim.from, anim.to, e)
     anim.mesh.position.y = anim.to.y + Math.sin(Math.PI * t) * 0.5
-    if (t >= 1) s.animations.splice(s.animations.indexOf(anim), 1)
+    if (anim.flip) {
+      anim.flip.position.copy(anim.mesh.position)
+      anim.flip.rotation.z = Math.PI * e
+      anim.flip.position.y += komaDepth(pieceScale(anim.flip.userData.type ?? anim.mesh.userData.type ?? PieceType.KING)) * e
+    }
+    if (t >= 1) {
+      anim.mesh.position.copy(anim.to)
+      anim.mesh.visible = true
+      anim.flip?.removeFromParent()
+      s.animations.splice(s.animations.indexOf(anim), 1)
+      anim.land?.()
+    }
   }
 }

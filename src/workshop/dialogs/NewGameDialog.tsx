@@ -17,18 +17,7 @@ export function NewGameDialog({ side, onClose, onStart }: { side: Side; onClose:
   const st = useSettings()
   const [pick, setPick] = useState<PickSide>(side)
   const ja = st.lang === 'ja'
-  const start = () => {
-    let chosen: Side
-    let isRandom = false
-    if (pick === 'random') {
-      chosen = Math.random() < 0.5 ? 'sente' : 'gote'
-      isRandom = true
-    } else {
-      chosen = pick
-    }
-    onStart(chosen, isRandom)
-  }
-  const effectiveSide: Side = pick === 'random' ? 'sente' : pick
+  const start = () => onStart(pick === 'random' ? side : pick, pick === 'random')
   return (
     <Dialog label={t('newGame.title')} className="ws-newgame" onBackdrop={onClose}>
       <h2>{t('newGame.title')}</h2>
@@ -48,7 +37,7 @@ export function NewGameDialog({ side, onClose, onStart }: { side: Side; onClose:
         <select className="ws-field" value={aiStrategyId(st.aiStrategy)} aria-label={t('newGame.strategy')} onChange={(e) => setSettings({ aiStrategy: e.target.value })}>
           <option value="">{t('workshop.anyStrategy')}</option>
           {Object.entries(FAMILIES).map(([family, label]) => {
-            const options = STRATEGIES.filter((x) => x.family === family && strategyCourses(x.id, otherSide(effectiveSide)).length > 0)
+            const options = STRATEGIES.filter((x) => x.family === family && (pick === 'random' ? strategyCourses(x.id, 'sente').length > 0 || strategyCourses(x.id, 'gote').length > 0 : strategyCourses(x.id, otherSide(pick)).length > 0))
             return options.length ? (
               <optgroup key={family} label={`${t(options[0].side === 'ibisha' ? 'strategy.ibisha' : 'strategy.furibisha')} · ${ja ? label.ja : label.en}`}>
                 {options.map((x) => (

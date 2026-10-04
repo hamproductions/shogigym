@@ -23,18 +23,19 @@ type SparDeps = {
   setConfirm: (confirm: Confirm) => void
   forgetReply: () => void
   openInAnalyze: (title: string, autoRate: string) => void
-  analyzeMoves: () => number
+  preserveAnalysis: () => boolean
+  paused?: boolean
   onOpenAnalyze?: () => void
 }
 
-export function useSpar(session: BoardSession, { load, setTab, coach, mistakes, setNudge, setConfirm, forgetReply, openInAnalyze, onOpenAnalyze }: SparDeps) {
+export function useSpar(session: BoardSession, { load, setTab, coach, mistakes, setNudge, setConfirm, forgetReply, openInAnalyze, preserveAnalysis, paused = false, onOpenAnalyze }: SparDeps) {
   const { t } = useTranslation()
   const { mode, game, sfens, cursor, userSide, atEnd, toMove, gameOver, ai, position, userTurn } = session
   const [resigned, setResigned] = useState(false)
   const [endHidden, setEndHidden] = useState('')
   const [newGameOpen, setNewGameOpen] = useState(false)
   const [furigomaBanner, setFurigomaBanner] = useState<string | null>(null)
-  const clock = useGameClock({ enabled: mode === 'spar', toMove, atEnd, moveCount: game.moves.length, stopped: resigned || gameOver, userSide })
+  const clock = useGameClock({ enabled: mode === 'spar', toMove, atEnd, moveCount: game.moves.length, stopped: paused || resigned || gameOver, userSide })
   const { review, reviewAt } = coach
 
   useEffect(() => {
@@ -86,6 +87,7 @@ export function useSpar(session: BoardSession, { load, setTab, coach, mistakes, 
       at = applyUsi(at, moves[i]) ?? at
     }
     const run = () => {
+      if (!preserveAnalysis()) return
       load(start, userSide, 'analyze', null)
       session.setGame({ start, moves })
       session.setCursor(first)
@@ -103,7 +105,7 @@ export function useSpar(session: BoardSession, { load, setTab, coach, mistakes, 
     restoreResigned: () => setResigned(true),
     confirmResign: () => setConfirm({ text: t('workshop.resignThisGameYouCan'), run: () => setResigned(true), yes: t('workshop.resign2'), no: t('workshop.keepPlaying') }),
     flagged: clock.flagged,
-    halted: resigned || (mode === 'spar' && !!clock.flagged),
+    halted: paused || resigned || (mode === 'spar' && !!clock.flagged),
     clockFace: clock.face,
     endHidden,
     setEndHidden,
@@ -120,6 +122,7 @@ export function useSpar(session: BoardSession, { load, setTab, coach, mistakes, 
     instruction,
     reset: () => {
       setResigned(false)
+      setFurigomaBanner(null)
       clock.reset()
     },
   }

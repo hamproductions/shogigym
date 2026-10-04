@@ -18,7 +18,7 @@ import { NewGameDialog } from './dialogs/NewGameDialog'
 import { Palette } from './dialogs/Palette'
 import { SettingsDialog } from './dialogs/SettingsDialog'
 import { WelcomeDialog } from './dialogs/WelcomeDialog'
-import { getSettings, useSettings } from './settings'
+import { useSettings } from './settings'
 import { SessionContext } from './hooks/session'
 import { useAnnouncements } from './hooks/useAnnouncements'
 import { useAutoplay } from './hooks/useAutoplay'
@@ -40,7 +40,7 @@ import { useTransient } from './hooks/useTransient'
 import { useView } from './hooks/useView'
 import { Icon } from './icons'
 import { bookForMove, bookMovesAt } from './lib/book'
-import { SNAPSHOT_NAME, TABLE_FLIP_EVENT, VIEWER_EVENT } from './lib/events'
+import { SNAPSHOT_NAME, VIEWER_EVENT } from './lib/events'
 import { mistakeIsBad } from './lib/mistake'
 import { moveText } from '../shogi'
 import { useAnalyzeGames } from './modes/analyze/useAnalyzeGames'
@@ -52,10 +52,12 @@ import { useTsume } from './modes/tsume/useTsume'
 import { SidePanels } from './panels/SidePanels'
 import { PieceViewer } from './PieceViewer'
 import { useSteadyRate } from './hooks/useSteadyRate'
-import { say } from './lib/voice'
+import { say, sayFurigomaResult } from './lib/voice'
 import { Rail } from './rail/Rail'
 import { BoardStage } from './stage/BoardStage'
 import { ModeBar } from './stage/ModeBar'
+import { Furigoma } from './stage/Furigoma'
+import { Button } from './ui/Button'
 import { isGameMode, type Confirm, type Tab } from './types'
 
 export function Workshop({ routeMode, routeMain }: { routeMode?: string; routeMain?: string }) {
@@ -66,6 +68,8 @@ export function Workshop({ routeMode, routeMain }: { routeMode?: string; routeMa
   const [palette, setPalette] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [showViewer, setShowViewer] = useState(false)
+  const [pendingFurigoma, setPendingFurigoma] = useState(false)
+  const [furigomaFaces, setFurigomaFaces] = useState<boolean[] | null>(null)
   const [confirm, setConfirm] = useState<Confirm | null>(null)
   const [nudge, setNudge] = useTransient<string>(2200)
   const levels = useLevel()
@@ -80,8 +84,8 @@ export function Workshop({ routeMode, routeMain }: { routeMode?: string; routeMa
   const lesson = useLesson(session, { mistakes, load, setTab, closeSheet: () => layout.setSheetOpen(false), compact: layout.compact })
   const tsume = useTsume(session, { mistakes, load, setTab })
   const tesuji = useTesuji(session, { mistakes, load, setTab })
-  const analyze = useAnalyzeGames(session, { load, setTab, setConfirm })
-  const spar = useSpar(session, { load, setTab, coach, mistakes, setNudge, setConfirm, forgetReply: () => opponent.forget(), openInAnalyze: analyze.openReview, analyzeMoves: () => slots.stashed('analyze')?.game.moves.length ?? 0, onOpenAnalyze: () => (layout.setDrawer(true), layout.setSheetOpen(true)) })
+  const analyze = useAnalyzeGames(session, { load, setTab, setConfirm, analysisSnapshot: () => slots.stashed('analyze'), onSaveError: () => setNudge(t('games.couldNotSaveBrowserStorage')) })
+  const spar = useSpar(session, { load, setTab, coach, mistakes, setNudge, setConfirm, forgetReply: () => opponent.forget(), openInAnalyze: analyze.openReview, preserveAnalysis: analyze.preserveAnalysis, paused: pendingFurigoma, onOpenAnalyze: () => (layout.setDrawer(true), layout.setSheetOpen(true)) })
   const opponent = useOpponent(session, { lessonMode: lesson.lessonMode, halted: spar.halted })
   const { enterMode, resume } = useModeSwitch(slots, { session, lesson, drill, tsume, tesuji, spar, analyze, mistakes, layout, setTab })
   const restored = usePersistedSession({ session, lesson, tsume, drill, spar, slots, resume })
@@ -156,8 +160,8 @@ export function Workshop({ routeMode, routeMain }: { routeMode?: string; routeMa
     view,
     palette,
     togglePalette: () => setPalette((v) => !v),
-    dialogOpen: showSettings || !!confirm || spar.newGameOpen,
-    closeDialogs: () => (setShowSettings(false), setConfirm(null), spar.setNewGameOpen(false)),
+    dialogOpen: showSettings || !!confirm || spar.newGameOpen || pendingFurigoma,
+    closeDialogs: () => (setShowSettings(false), setConfirm(null), spar.setNewGameOpen(false), setPendingFurigoma(false)),
     overlayOpen: lesson.mapOpen && !!course,
     replyMove: opponent.reply?.usi,
     studyMove: lesson.asking && lesson.lessonMode === 'study' ? lesson.good[0]?.usi : undefined,
@@ -171,7 +175,9 @@ export function Workshop({ routeMode, routeMain }: { routeMode?: string; routeMa
     levels.finishWelcome()
     next?.()
   }
-  const mainStrategy = useSettings().mainStrategy
+  const settings = useSettings()
+  const three = settings.environment === 'traditional' || settings.environment === 'casual'
+  const mainStrategy = settings.mainStrategy
   const firstLesson = COURSES.find((c) => c.id === (SETUPS.find((x) => x.basics && x.main === mainStrategy) ?? SETUPS.find((x) => x.main === mainStrategy) ?? SETUPS[0]).courseIds[0])
 
   return (
@@ -184,7 +190,11 @@ export function Workshop({ routeMode, routeMain }: { routeMode?: string; routeMa
             <span>{t('workshop.showUi')} (Esc)</span>
           </button>
           <ModeBar title={title} instruction={instruction} lessonMode={lesson.lessonMode} sheetUp={layout.compact && layout.drawer} panelHidden={layout.panelHidden} onPanel={(hidden) => layout.setPanel({ hidden })} spar={spar} evalRate={evalRate} barShown={evalBar} onStartOver={startOver} tsume={tsume} tesuji={tesuji} lesson={lesson} drill={drill} />
-          <BoardStage evalRate={evalBar ? evalRate : null} view={view} decor={decor} input={input} commit={commit} mistake={mistake} onBack={goBack} spar={spar} tsume={tsume.tsume} hasDrillCard={!!drill.item} phoneTask={phoneTask} announce={announce} onZones={layout.setZones} />
+          <BoardStage furigoma={pendingFurigoma && three} onFurigoma={(faces) => {
+            setFurigomaFaces(faces)
+            const pawns = faces.filter(Boolean).length
+            sayFurigomaResult(pawns)
+          }} evalRate={evalBar ? evalRate : null} view={view} decor={decor} input={input} commit={commit} mistake={mistake} onBack={goBack} spar={spar} tsume={tsume.tsume} hasDrillCard={!!drill.item} phoneTask={phoneTask} announce={announce} onZones={layout.setZones} />
         </section>
         <SidePanels
           layout={layout}
@@ -201,21 +211,45 @@ export function Workshop({ routeMode, routeMain }: { routeMode?: string; routeMa
             onClose={() => spar.setNewGameOpen(false)}
             onStart={(side, isRandom) => {
               spar.setNewGameOpen(false)
-              load(InitialPositionSFEN.STANDARD, side, 'spar', null)
+              spar.clearFurigomaBanner()
+              session.setPlaying(false)
               if (isRandom) {
-                const is3d = getSettings().environment === 'traditional' || getSettings().environment === 'casual'
-                if (is3d) {
-                  window.dispatchEvent(new CustomEvent(TABLE_FLIP_EVENT))
-                }
-                const isJa = getSettings().lang === 'ja'
-                const bannerText = side === 'sente' ? (isJa ? 'あなた（先手）' : ' You (Sente)') : (isJa ? 'あなた（後手）' : ' You (Gote)')
-                spar.setFurigomaBanner(bannerText)
-                say('よろしくお願いします', true)
-              } else {
+                setFurigomaFaces(null)
+                if (three) load(InitialPositionSFEN.STANDARD, side, 'spar', null)
+                setPendingFurigoma(true)
+                if (three) say('あなたの振り歩先です', true)
+              }
+              else {
+                load(InitialPositionSFEN.STANDARD, side, 'spar', null)
                 say('よろしくお願いします', true)
               }
             }}
           />
+        )}
+        {pendingFurigoma && !three && <Furigoma onCancel={() => setPendingFurigoma(false)} onDone={(side) => {
+          load(InitialPositionSFEN.STANDARD, side, 'spar', null)
+          spar.setFurigomaBanner(t(side === 'sente' ? 'workshop.playSente' : 'workshop.playGote'))
+          setPendingFurigoma(false)
+        }} />}
+        {pendingFurigoma && three && (
+          <div onClick={() => {
+            if (!furigomaFaces) return
+            const side = furigomaFaces.filter(Boolean).length >= 3 ? 'sente' : 'gote'
+            load(InitialPositionSFEN.STANDARD, side, 'spar', null)
+            spar.setFurigomaBanner(t(side === 'sente' ? 'workshop.playSente' : 'workshop.playGote'))
+            setPendingFurigoma(false)
+          }} style={{ position: 'fixed', inset: 0, zIndex: 100, pointerEvents: 'auto', cursor: furigomaFaces ? 'pointer' : 'default' }}>
+            <div className="ws-dialog" style={{ position: 'absolute', bottom: 24, left: '50%', transform: 'translateX(-50%)' }}>
+              <p role="status">{furigomaFaces ? settings.lang === 'ja' ? `歩${furigomaFaces.filter(Boolean).length}枚・と金${furigomaFaces.filter((face) => !face).length}枚：あなたは${furigomaFaces.filter(Boolean).length >= 3 ? '先手' : '後手'}` : `${furigomaFaces.filter(Boolean).length} pawns · ${furigomaFaces.filter((face) => !face).length} tokins: you play ${furigomaFaces.filter(Boolean).length >= 3 ? 'Sente' : 'Gote'}` : settings.lang === 'ja' ? '振り駒を行います' : 'Tossing five pawns…'}</p>
+              <div className="ws-actions">
+                <Button onClick={(event) => {
+                  event.stopPropagation()
+                  setPendingFurigoma(false)
+                }}>{t('workshop.cancel')}</Button>
+                {furigomaFaces && <span>{settings.lang === 'ja' ? 'どこかをクリックして対局開始' : 'Click anywhere to start'}</span>}
+              </div>
+            </div>
+          </div>
         )}
         {palette && <Palette commands={commands} onClose={() => setPalette(false)} />}
         {confirm && <ConfirmDialog confirm={confirm} onClose={() => setConfirm(null)} />}

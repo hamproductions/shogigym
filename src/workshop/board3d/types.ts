@@ -11,6 +11,8 @@ export type StandZones = { under: ZoneRect; over: ZoneRect; board: ZoneRect }
 
 export type Board3DProps = {
   position: ImmutablePosition
+  furigoma?: boolean
+  onFurigoma?: (faces: boolean[]) => void
   flipped: boolean
   tilted: boolean
   orbit?: boolean
@@ -40,7 +42,7 @@ export type Latest = { readonly current: Board3DProps }
 
 export type Stand = { stand: THREE.Mesh; side: number; legs: THREE.Mesh[] }
 
-export type Body = { obj: THREE.Object3D; v: THREE.Vector3; w: THREE.Vector3; center: THREE.Vector3; half: THREE.Vector3; keepFlat: boolean; grounded: boolean; landed: boolean; sleeping?: boolean }
+export type Body = { obj: THREE.Object3D; v: THREE.Vector3; w: THREE.Vector3; center: THREE.Vector3; half: THREE.Vector3; keepFlat: boolean; grounded: boolean; landed: boolean; sleeping?: boolean; quietFor?: number }
 
 export type Arena = { floor: number; boxes: { minX: number; maxX: number; minZ: number; maxZ: number; top: number }[]; halfX: number; halfZ: number; ceil: number; walls: Wall[] }
 
@@ -65,7 +67,7 @@ export type SceneState = {
   tags: THREE.Object3D[]
   tilt: number
   tiltTarget: number
-  animations: { mesh: THREE.Object3D; from: THREE.Vector3; to: THREE.Vector3; start: number }[]
+  animations: { mesh: THREE.Object3D; from: THREE.Vector3; to: THREE.Vector3; start: number; flip?: THREE.Object3D; land?: (() => void) | null }[]
   drag: { mesh: THREE.Object3D; from: Square | PieceType } | null
   controls: OrbitControls | null
   flip: TableFlip | null

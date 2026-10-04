@@ -1,0 +1,5 @@
+Shogi Images by Sunfish Shogi
+https://sunfish-shogi.github.io/shogi-images/
+CC0 1.0 Universal
+https://creativecommons.org/publicdomain/zero/1.0/
+Original board surface layers retained. Grid is drawn by the application renderer.

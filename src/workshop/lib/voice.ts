@@ -39,3 +39,7 @@ export function say(text: string, urgent = false) {
     playingUntil = ac.currentTime + buffer.duration
   })
 }
+
+export function sayFurigomaResult(pawns: number) {
+  say(`${pawns >= 3 ? '歩' : 'と金'}が${pawns >= 3 ? pawns : 5 - pawns}枚出たので、あなたは${pawns >= 3 ? '先手' : '後手'}です`, true)
+}

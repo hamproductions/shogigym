@@ -1,17 +1,19 @@
 import * as THREE from 'three'
 import { Color, PieceType, promotedPieceType, unpromotedPieceType } from 'tsshogi'
-import { PIECE_FINISHES, PIECE_MATERIALS, selectedPieceFinish, getSettings } from '../settings'
+import { PIECE_FINISHES, pieceTone, getSettings, type PieceAppearance, pieceFinishOptions } from '../settings'
 import { loadedPiece, pieceCode } from '../pieceSets'
 import { komaDepth, komaTaper, komaWidth, pieceScale } from './dimensions'
 import { PROMOTED, faceText, piecePolygon, type Poly } from '../koma'
 import { environmentMap } from './materials'
-import { inkMask, lacquerMap, reliefNormal } from './relief'
-import { artTexture, faceTexture } from './textures'
+import { finishMask, lacquerMap, reliefNormal } from './relief'
+import { artTexture, faceTexture, glyphTexture } from './textures'
 
-const finish = () => {
-  const selected = selectedPieceFinish()
+const finish = (appearance?: PieceAppearance) => {
+  const settings = { ...getSettings(), ...appearance }
+  const options = pieceFinishOptions(settings.pieceMaterial)
+  const selected = options.includes(settings.pieceFinish) ? settings.pieceFinish : options[0]
   const spec = PIECE_FINISHES[selected]
-  return getSettings().pieceMaterial === 'plastic' && selected === 'oshi' ? { ...spec, relief: -0.003 } : spec
+  return { ...spec, kind: selected }
 }
 
 const pieceShape = (scale: number) => new THREE.Shape(piecePolygon(scale).map(([x, y]) => new THREE.Vector2(x, y)))
@@ -67,22 +69,24 @@ function pieceBody(scale: number) {
   return geometry
 }
 
-const topCache = new WeakMap<THREE.Texture, Map<number, THREE.BufferGeometry>>()
+const topCache = new WeakMap<object, Map<number, THREE.BufferGeometry>>()
 
-function carvedTop(scale: number, map: THREE.Texture) {
-  let byScale = topCache.get(map)
-  if (!byScale) topCache.set(map, (byScale = new Map()))
-  const depth = finish().relief
-  const key = Math.round(scale * 1000) * 1000 + Math.round(depth * 1000)
+function carvedTop(scale: number, map: THREE.Texture, segments: number, appearance?: PieceAppearance) {
+  const glyph = map.userData.glyph ?? map.userData.glyphCanvas ?? map
+  let byScale = topCache.get(glyph)
+  if (!byScale) topCache.set(glyph, (byScale = new Map()))
+  const spec = finish(appearance)
+  const depth = spec.relief
+  const key = ((Math.round(scale * 1000) * 1000 + Math.round(depth * 10000)) * 1000 + segments) * 10 + ['insatsu', 'oshi', 'molded', 'kaki', 'hori', 'fukabori', 'horiume', 'moriage'].indexOf(spec.kind)
   const cached = byScale.get(key)
   if (cached) return cached
-  const ink = inkMask(map)
+  const ink = finishMask(map, spec.kind)
   const relief = depth * scale
   const w = komaWidth(scale)
   const h = scale
   const poly = piecePolygon(scale)
   const top = komaDepth(scale) + 0.024
-  const n = 200
+  const n = segments
   const positions: number[] = []
   const uvs: number[] = []
   for (let j = 0; j <= n; j++)
@@ -123,47 +127,88 @@ function pieceBottom(scale: number) {
   for (let i = 0; i < uv.count; i++) uv.setXY(i, 0.5 - pos.getX(i) / komaWidth(scale), pos.getY(i) / scale + 0.5)
   geometry.rotateX(-Math.PI / 2)
   geometry.scale(1, -1, 1)
+  const index = geometry.index!
+  for (let i = 0; i < index.count; i += 3) {
+    const second = index.getX(i + 1)
+    index.setX(i + 1, index.getX(i + 2))
+    index.setX(i + 2, second)
+  }
+  geometry.computeVertexNormals()
   geometry.translate(0, -0.02, 0)
   bottomCache.set(scale, geometry)
   return geometry
 }
 
 const hiddenLid = new THREE.MeshBasicMaterial({ visible: false })
-const plasticSideMaterial = new THREE.MeshBasicMaterial({ color: 0xe2cda4 })
 const sideMaterial = new THREE.MeshStandardMaterial({ color: 0xdcb377, emissive: 0x8a6232, emissiveIntensity: 0.75, roughness: 0.85 })
 
 export const pieceFaceUrl = (type: PieceType, color: Color) => (faceMap(type, color).image as HTMLCanvasElement).toDataURL()
 
-function faceMap(type: PieceType, color: Color, seed = 1) {
+function faceMap(type: PieceType, color: Color, seed = 1, appearance?: PieceAppearance) {
   const gote = color === Color.WHITE
-  const set = getSettings().pieceSet
+  const set = appearance?.pieceSet ?? getSettings().pieceSet
   const art = set && set !== 'letters' ? loadedPiece(set, pieceCode(type, gote && type === PieceType.KING ? Color.WHITE : Color.BLACK)) : undefined
-  if (art) return artTexture(art, `${set}/${pieceCode(type, color)}`, seed)
-  return faceTexture(faceText(type, color, getSettings().pieceStyle), PROMOTED.has(type), seed)
+  if (art) return artTexture(art, `${set}/${pieceCode(type, color)}/${appearance?.pieceGuide ?? getSettings().pieceGuide}`, seed, appearance)
+  return faceTexture(faceText(type, color, appearance?.pieceStyle ?? getSettings().pieceStyle), PROMOTED.has(type), seed, appearance, pieceCode(type, color))
 }
 
-export function pieceMesh(type: PieceType, color: Color, seed = [...pieceCode(unpromotedPieceType(type), color)].reduce((value, char) => value * 31 + char.charCodeAt(0), color === Color.BLACK ? 17 : 29)) {
+export function pieceMesh(type: PieceType, color: Color, seed = [...pieceCode(unpromotedPieceType(type), color)].reduce((value, char) => value * 31 + char.charCodeAt(0), color === Color.BLACK ? 17 : 29), segments = 200, appearance?: PieceAppearance, envMap = environmentMap(), flat = false) {
   const scale = pieceScale(type)
-  const map = faceMap(type, color, seed)
-  const inkMap = faceMap(type, color)
-  const lm = lacquerMap(inkMap)
-  const plastic = getSettings().pieceMaterial === 'plastic'
-  const { relief, gloss } = finish()
-  const face = plastic && !relief ? new THREE.MeshBasicMaterial({ map }) : new THREE.MeshPhysicalMaterial({ map, emissive: plastic ? 0xffffff : 0x000000, emissiveMap: plastic ? map : null, emissiveIntensity: plastic ? 0.65 : 0, roughness: 1, roughnessMap: lm, normalMap: relief ? reliefNormal(inkMap, relief * scale, komaWidth(scale), scale) : null, normalScale: new THREE.Vector2(0.5, 0.5), clearcoat: gloss * 0.5, clearcoatMap: lm, clearcoatRoughness: 0.55, specularIntensity: 0.35, envMap: environmentMap(), envMapIntensity: 0.08 })
-  const side = plastic ? plasticSideMaterial : sideMaterial.clone()
-  if (!plastic) side.color.set(`rgb(${PIECE_MATERIALS[getSettings().pieceMaterial].tone.join(',')})`)
+  const map = faceMap(type, color, seed, appearance)
+  const inkMap = faceMap(type, color, 1, appearance)
+  const settings = { ...getSettings(), ...appearance }
+  const plastic = settings.pieceMaterial === 'plastic'
+  const frosted = settings.pieceMaterial === 'frostedGlass'
+  const glass = settings.pieceMaterial === 'glass' || frosted
+  if (glass) segments = Math.min(segments, 48)
+  const { relief, gloss, kind, coating } = finish(appearance)
+  const lacquer = coating === 'lacquer'
+  const lm = lacquerMap(inkMap, lacquer ? 0.5 : 0)
+  const face = plastic && !relief ? new THREE.MeshBasicMaterial({ map }) : new THREE.MeshPhysicalMaterial({ map: glass ? glyphTexture(map) : map, transparent: glass, alphaTest: glass ? 0.01 : 0, depthWrite: !glass, emissive: plastic ? 0xffffff : 0x000000, emissiveMap: plastic ? map : null, emissiveIntensity: plastic ? 0.65 : 0, roughness: 1, roughnessMap: lm, normalMap: relief ? reliefNormal(inkMap, relief * scale, komaWidth(scale), scale, kind) : null, normalScale: new THREE.Vector2(0.5, 0.5), clearcoat: lacquer ? Math.max(0.375, gloss * 0.5) : 0, clearcoatMap: lm, clearcoatRoughness: lacquer ? 0.3 : 1, specularIntensity: lacquer ? 0.5 : 0.15, envMap, envMapIntensity: lacquer ? 0.35 : 0.08 })
+  const tone = pieceTone(settings.pieceMaterial, settings.pieceColor)
+  const glassMaterial = () => flat ? new THREE.MeshBasicMaterial({ color: `rgb(${tone.join(',')})`, transparent: true, opacity: frosted ? 0.62 : 0.28, depthWrite: false, side: THREE.FrontSide }) : new THREE.MeshPhysicalMaterial({ color: `rgb(${tone.join(',')})`, roughness: frosted ? 0.75 : 0.06, metalness: 0, transmission: 0, ior: 1.5, thickness: komaDepth(scale), transparent: true, opacity: frosted ? 0.62 : 0.28, depthWrite: false, clearcoat: frosted ? 0.08 : 0.5, clearcoatRoughness: frosted ? 0.8 : 0.15, envMap, envMapIntensity: frosted ? 0.2 : 0.6, side: THREE.FrontSide })
+  const side = glass ? glassMaterial() : settings.pieceColor !== 'natural' || plastic ? new THREE.MeshBasicMaterial({ color: `rgb(${tone.map((channel) => Math.round(channel * 0.9)).join(',')})` }) : sideMaterial.clone()
+  if (!plastic && !glass && settings.pieceColor === 'natural') side.color.set(`rgb(${tone.join(',')})`)
   const mesh = new THREE.Mesh(pieceBody(scale), [hiddenLid, side])
   mesh.userData.grainSeed = seed
-  mesh.castShadow = true
-  mesh.receiveShadow = true
-  const top = new THREE.Mesh(carvedTop(scale, inkMap), face)
-  top.castShadow = true
-  top.receiveShadow = !plastic
+  mesh.userData.type = type
+  mesh.userData.color = color
+  mesh.castShadow = !glass
+  mesh.receiveShadow = !glass
+  const top = new THREE.Mesh(carvedTop(scale, inkMap, segments, appearance), face)
+  top.castShadow = !glass
+  top.receiveShadow = !plastic && !glass
   const reverse = PROMOTED.has(type) ? unpromotedPieceType(type) : promotedPieceType(type)
-  const backMap = faceMap(reverse, color, seed)
-  const bottom = new THREE.Mesh(pieceBottom(scale), new THREE.MeshBasicMaterial({ map: backMap, side: THREE.DoubleSide }))
-  bottom.castShadow = true
+  const backMap = type === PieceType.KING || type === PieceType.GOLD ? faceTexture('', false, seed, { ...appearance, pieceGuide: 'none' }) : faceMap(reverse, color, seed, appearance)
+  const backFace = glass ? face.clone() : new THREE.MeshBasicMaterial({ map: backMap, side: THREE.DoubleSide })
+  if (glass) {
+    backFace.map = glyphTexture(backMap)
+    backFace.side = THREE.DoubleSide
+    backFace.depthWrite = false
+    if (backFace instanceof THREE.MeshPhysicalMaterial) {
+      backFace.roughnessMap = lacquerMap(backMap, lacquer ? 0.5 : 0)
+      backFace.clearcoatMap = backFace.roughnessMap
+      backFace.normalMap = relief ? reliefNormal(backMap, relief * scale, komaWidth(scale), scale, kind) : null
+    }
+  }
+  const bottom = new THREE.Mesh(pieceBottom(scale), backFace)
+  if (glass) bottom.position.y = 0.022
+  bottom.castShadow = !glass
   mesh.add(top, bottom)
+  if (glass) {
+    const frontSurface = new THREE.Mesh(carvedTop(scale, inkMap, segments, { ...appearance, pieceFinish: 'horiume' }), glassMaterial())
+    frontSurface.position.y = -0.001
+    const backMaterial = glassMaterial()
+    backMaterial.side = THREE.DoubleSide
+    const backSurface = new THREE.Mesh(pieceBottom(scale), backMaterial)
+    backSurface.position.y = 0.021
+    bottom.renderOrder = 1
+    backSurface.renderOrder = 2
+    mesh.renderOrder = 3
+    frontSurface.renderOrder = 4
+    top.renderOrder = 5
+    mesh.add(frontSurface, backSurface)
+  }
   if (color === Color.WHITE) mesh.rotation.y = Math.PI
   return mesh
 }

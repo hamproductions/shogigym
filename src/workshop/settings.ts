@@ -4,12 +4,14 @@ import i18n from '../i18n'
 import { useSyncExternalStore } from 'react'
 
 export type PieceStyle = 'two' | 'one'
+export type PieceGuide = 'none' | 'movement' | 'dots' | 'lines'
+export type PieceColor = 'natural' | 'light' | 'dark' | 'mahogany'
 export type PieceFont = 'mincho' | 'kaisho' | 'gyosho' | 'antique'
 export type PieceFinish = 'insatsu' | 'oshi' | 'molded' | 'kaki' | 'hori' | 'fukabori' | 'horiume' | 'moriage'
-export type PieceMaterial = 'satsuma' | 'mikura' | 'sham' | 'tsubaki' | 'maki' | 'maple' | 'plastic'
+export type PieceMaterial = 'satsuma' | 'mikura' | 'sham' | 'tsubaki' | 'maki' | 'maple' | 'plastic' | 'glass' | 'frostedGlass'
 export type PieceGrain = 'itame' | 'masame' | 'root' | 'tiger' | 'lightning'
 export type Environment = 'traditional' | 'casual' | 'flat' | 'diagram' | 'broadcast'
-export type BoardStyle = 'kaya' | 'shin-kaya' | 'dark'
+export type BoardStyle = 'kaya' | 'shin-kaya' | 'dark' | 'sunfish-light' | 'sunfish-warm' | 'sunfish-resin' | 'sunfish-dark'
 export type TimeControl = 'none' | '10s' | '3m' | '10m' | '10m30s' | '30m60s' | '5m5s'
 export type AiStrength = 'beginner' | 'club' | 'strong' | 'max'
 export type Lang = 'en' | 'ja'
@@ -20,10 +22,12 @@ export type Settings = {
   voice: boolean
   volume: number
   pieceStyle: PieceStyle
+  pieceGuide: PieceGuide
   pieceFont: PieceFont
   pieceSet: PieceSet
   pieceFinish: PieceFinish
   pieceMaterial: PieceMaterial
+  pieceColor: PieceColor
   pieceGrain: PieceGrain
   coords: boolean
   environment: Environment
@@ -43,6 +47,8 @@ export type Settings = {
   power: boolean
 }
 
+export type PieceAppearance = Partial<Pick<Settings, 'pieceSet' | 'pieceFont' | 'pieceStyle' | 'pieceGuide' | 'pieceMaterial' | 'pieceGrain' | 'pieceFinish' | 'pieceColor'>>
+
 const KEY = 'joseki-practice:settings:v1'
 
 function navigatorLang(): Lang {
@@ -61,13 +67,17 @@ function defaultEnvironment(): Environment {
   }
 }
 
-const DEFAULTS: Settings = { sound: true, voice: true, volume: 0.6, pieceStyle: 'two', pieceFont: 'mincho', pieceSet: 'letters', pieceFinish: 'moriage', pieceMaterial: 'satsuma', pieceGrain: 'masame', coords: true, environment: defaultEnvironment(), boardStyle: 'kaya', thinkMs: 1500, candidates: 3, opponent: 'beginner', aiStrategy: '', mainStrategy: 'shikenbisha', assist: true, timeControl: 'none', lang: navigatorLang(), engine: 'yaneuraou', fvScale: 16, theme: 'system', characters: true, power: false }
+const DEFAULTS: Settings = { sound: true, voice: true, volume: 0.6, pieceStyle: 'two', pieceGuide: 'none', pieceFont: 'mincho', pieceSet: 'letters', pieceFinish: 'moriage', pieceMaterial: 'satsuma', pieceColor: 'natural', pieceGrain: 'masame', coords: true, environment: defaultEnvironment(), boardStyle: 'kaya', thinkMs: 1500, candidates: 3, opponent: 'beginner', aiStrategy: '', mainStrategy: 'shikenbisha', assist: true, timeControl: 'none', lang: navigatorLang(), engine: 'yaneuraou', fvScale: 16, theme: 'system', characters: true, power: false }
 
 function read(): Settings {
   try {
     const saved = JSON.parse(localStorage.getItem(KEY) ?? '{}')
     if (saved.pieceStyle === 'broadcast') Object.assign(saved, { pieceSet: 'broadcast', pieceStyle: 'one' })
     if (saved.pieceSet === 'broadcast' && !saved.pieceMaterial) Object.assign(saved, { pieceMaterial: 'plastic', pieceFinish: 'insatsu' })
+    if (saved.pieceSet === 'sunfish_dark') Object.assign(saved, { pieceSet: 'sunfish_hitomoji', pieceColor: saved.pieceColor ?? 'dark' })
+    if (saved.pieceSet === 'sunfish_gothic_dark') Object.assign(saved, { pieceSet: 'sunfish_gothic', pieceColor: saved.pieceColor ?? 'dark' })
+    if (saved.pieceFinish === 'insatsu') saved.pieceFinish = 'oshi'
+    if (saved.pieceFinish === 'molded' || saved.pieceFinish === 'fukabori') saved.pieceFinish = 'hori'
     return { ...DEFAULTS, ...saved }
   } catch {
     return DEFAULTS
@@ -227,7 +237,18 @@ export const PIECE_MATERIALS: Record<PieceMaterial, { label: string; tone: [numb
   maki: { get label() { return optionLabel('Podocarpus', '槇') }, tone: [234, 215, 168] },
   maple: { get label() { return optionLabel('Maple', 'イタヤ・楓') }, tone: [245, 226, 190] },
   plastic: { get label() { return optionLabel('Plastic', 'プラスチック') }, tone: [245, 227, 189] },
+  glass: { get label() { return optionLabel('Glass', 'ガラス') }, tone: [224, 241, 245] },
+  frostedGlass: { get label() { return optionLabel('Frosted glass', 'すりガラス') }, tone: [232, 240, 242] },
 }
+
+export const PIECE_COLORS: Record<PieceColor, { label: string; tone?: [number, number, number] }> = {
+  natural: { get label() { return optionLabel('Natural', '自然色') } },
+  light: { get label() { return optionLabel('Light', '白色') }, tone: [250, 242, 222] },
+  dark: { get label() { return optionLabel('Dark', '黒色') }, tone: [48, 48, 48] },
+  mahogany: { get label() { return optionLabel('Red brown', '赤茶色') }, tone: [130, 43, 30] },
+}
+
+export const pieceTone = (material: PieceMaterial, color: PieceColor) => PIECE_COLORS[color].tone ?? PIECE_MATERIALS[material].tone
 
 export const PIECE_GRAINS: Record<PieceGrain, { label: string }> = {
   itame: { get label() { return optionLabel('Flat grain', '板目') } },
@@ -237,21 +258,21 @@ export const PIECE_GRAINS: Record<PieceGrain, { label: string }> = {
   lightning: { get label() { return optionLabel('Lightning figure', '稲妻杢') } },
 }
 
-export const pieceFinishOptions = (material: PieceMaterial): PieceFinish[] => material === 'plastic' ? ['insatsu', 'molded', 'oshi'] : ['insatsu', 'oshi', 'kaki', 'hori', 'fukabori', 'horiume', 'moriage']
+export const pieceFinishOptions = (_material: PieceMaterial): PieceFinish[] => ['oshi', 'kaki', 'hori', 'horiume', 'moriage']
 export const selectedPieceFinish = () => {
   const options = pieceFinishOptions(current.pieceMaterial)
   return options.includes(current.pieceFinish) ? current.pieceFinish : options[0]
 }
 
-export const PIECE_FINISHES: Record<PieceFinish, { label: string; hint: string; relief: number; gloss: number }> = {
-  insatsu: { get label() { return optionLabel('Printed', '印刷') }, get hint() { return optionLabel('Flat printed characters.', '平面に印刷した文字。') }, relief: 0, gloss: 0 },
-  molded: { get label() { return optionLabel('Molded and painted', '成形・塗装') }, get hint() { return optionLabel('Molded recesses filled with paint.', '成形したくぼみに塗料を充填。') }, relief: -0.006, gloss: 0.25 },
-  fukabori: { get label() { return optionLabel('Deep carved', '深彫り') }, get hint() { return optionLabel('Deeply recessed characters.', '深く彫り込んだ文字。') }, relief: -0.03, gloss: 0.4 },
-  oshi: { get label() { return i18n.t('options.stamped') }, get hint() { return i18n.t('options.stampedInkPressedOntoThe') }, relief: 0, gloss: 0 },
-  kaki: { get label() { return i18n.t('options.written') }, get hint() { return i18n.t('options.writtenLacquerPaintedStraightOnto') }, relief: 0.004, gloss: 0.7 },
-  hori: { get label() { return i18n.t('options.carved') }, get hint() { return i18n.t('options.carvedCharactersCutIntoThe') }, relief: -0.016, gloss: 0.4 },
-  horiume: { get label() { return i18n.t('options.carvedFilled') }, get hint() { return i18n.t('options.carvedThenTheGrooveFilled') }, relief: 0, gloss: 1 },
-  moriage: { get label() { return i18n.t('options.raisedLacquer') }, get hint() { return i18n.t('options.horiumeThenLacquerBuiltUp') }, relief: 0.012, gloss: 1 },
+export const PIECE_FINISHES: Record<PieceFinish, { label: string; hint: string; relief: number; gloss: number; coating: 'paint' | 'lacquer' }> = {
+  insatsu: { get label() { return optionLabel('Printed', '印刷') }, get hint() { return optionLabel('Flat printed characters.', '平面に印刷した文字。') }, relief: 0, gloss: 0, coating: 'paint' },
+  molded: { get label() { return optionLabel('Molded and painted', '成形・塗装') }, get hint() { return optionLabel('Molded recesses filled with paint.', '成形したくぼみに塗料を充填。') }, relief: -0.006, gloss: 0.25, coating: 'paint' },
+  fukabori: { get label() { return optionLabel('Deep carved', '深彫り') }, get hint() { return optionLabel('Deeply recessed characters.', '深く彫り込んだ文字。') }, relief: -0.03, gloss: 0.4, coating: 'lacquer' },
+  oshi: { get label() { return i18n.t('options.stamped') }, get hint() { return i18n.t('options.stampedInkPressedOntoThe') }, relief: 0.0015, gloss: 0, coating: 'paint' },
+  kaki: { get label() { return i18n.t('options.written') }, get hint() { return i18n.t('options.writtenLacquerPaintedStraightOnto') }, relief: 0.004, gloss: 0.7, coating: 'lacquer' },
+  hori: { get label() { return i18n.t('options.carved') }, get hint() { return i18n.t('options.carvedCharactersCutIntoThe') }, relief: -0.016, gloss: 0.4, coating: 'lacquer' },
+  horiume: { get label() { return i18n.t('options.carvedFilled') }, get hint() { return i18n.t('options.carvedThenTheGrooveFilled') }, relief: 0, gloss: 1, coating: 'lacquer' },
+  moriage: { get label() { return i18n.t('options.raisedLacquer') }, get hint() { return i18n.t('options.horiumeThenLacquerBuiltUp') }, relief: 0.012, gloss: 1, coating: 'lacquer' },
 }
 
 export const TIME_CONTROLS: Record<TimeControl, { label: string; hint: string; main: number; byoyomi: number; increment: number }> = {
