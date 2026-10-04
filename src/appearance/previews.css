@@ -1,0 +1,417 @@
+.app-piece-sample {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-1-5);
+  margin: var(--space-1-5) 0 var(--space-2);
+  padding: var(--space-3-5) var(--space-4) var(--space-3);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, var(--kaya-light), var(--kaya-dark));
+  box-shadow: var(--wood-sheen);
+  overflow-x: auto;
+}
+
+.app-sample-tile {
+  flex: 1 0 76px;
+  max-width: 110px;
+  aspect-ratio: 1;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  perspective: 500px;
+  cursor: pointer;
+}
+
+.app-sample-tile:disabled {
+  opacity: 1;
+  cursor: default;
+}
+
+.app-sample-flip {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.35s ease;
+}
+
+.app-sample-flip.on {
+  transform: rotateX(180deg);
+}
+
+.app-piece-sample img {
+  position: absolute;
+  inset: -18%;
+  width: 136%;
+  height: 136%;
+  max-width: none;
+  object-fit: contain;
+  backface-visibility: hidden;
+}
+
+.app-piece-sample img.back {
+  transform: rotateX(180deg);
+}
+
+.app-sample-koma {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 60px;
+  padding-top: var(--space-2);
+  background: linear-gradient(180deg, var(--koma-light), var(--koma-dark));
+  color: var(--koma-ink);
+  line-height: 1;
+  clip-path: polygon(50% 0, 86% 13%, 100% 100%, 0 100%, 14% 13%);
+
+}
+
+.app-sample-koma i {
+  font-style: normal;
+  font-size: var(--glyph-sm);
+}
+
+.app-sample-koma i.one {
+  font-size: var(--glyph-lg);
+}
+
+.app-sample-koma.promoted {
+  color: var(--koma-red);
+}
+
+@media (max-width: 560px) {
+.app-piece-sample {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+
+}
+
+.app-design-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.app-design-options > button {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  background: var(--card);
+  box-shadow: inset 0 0 0 1px var(--border);
+  font-size: var(--text-sm);
+}
+
+.app-design-options > button[aria-pressed='true'] {
+  box-shadow: inset 0 0 0 2px var(--accent);
+}
+
+.app-design-images {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100px;
+}
+
+.app-design-images img {
+  width: 33.333%;
+  min-width: 0;
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+
+.app-design-images img:only-child {
+  width: 100%;
+  max-height: 180px;
+}
+
+.app-option-group > p {
+  margin: var(--space-3) 0 var(--space-2);
+}
+
+.app-option-group .app-design-options {
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+.app-option-preview {
+  display: grid;
+  place-items: center;
+  height: 90px;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+}
+
+.app-option-preview img,
+.app-surface-sample {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.app-glyph-sample {
+  display: block;
+  font-size: 52px;
+  line-height: 1;
+  writing-mode: vertical-rl;
+  color: var(--text);
+}
+
+.app-color-swatch {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-sm);
+}
+
+.app-sticky-piece-preview {
+  position: sticky;
+  top: calc(-1 * var(--space-2));
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  grid-template-rows: 110px;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2);
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+}
+
+.app-sticky-piece-preview > canvas,
+.app-sticky-piece-preview > img,
+.app-sticky-piece-preview > .app-glyph-sample {
+  grid-column: 1;
+  grid-row: 1;
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+  clip-path: polygon(50% 4%, 85% 20%, 94% 96%, 6% 96%, 15% 20%);
+}
+
+.app-sticky-piece-preview > .app-glyph-sample {
+  display: grid;
+  place-content: center;
+  color: #0e0804;
+}
+
+.app-sticky-piece-preview > button {
+  width: 110px;
+  height: 110px;
+  padding: 0;
+  background: transparent;
+}
+
+.app-sticky-piece-preview > button img {
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(50% 4%, 85% 20%, 94% 96%, 6% 96%, 15% 20%);
+}
+
+.app-option-preview:has(.app-glyph-sample),
+.app-option-preview:has(.app-guide-sample),
+.app-option-preview:has(img.app-prepared-glyph) {
+  background: #f5e3bd;
+}
+
+.app-option-preview .app-glyph-sample {
+  color: #0e0804;
+}
+
+.app-option-preview img.app-prepared-glyph {
+  width: 82px;
+  height: 82px;
+  aspect-ratio: 1;
+}
+
+.app-sticky-piece-preview.app-full-set-preview {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  grid-template-rows: auto;
+  gap: var(--space-1);
+}
+
+.app-full-set-preview > .app-sample-tile {
+  width: 100%;
+  height: auto;
+  min-width: 0;
+  aspect-ratio: 0.85;
+}
+
+.app-full-set-preview .app-sample-flip img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  backface-visibility: hidden;
+  clip-path: polygon(50% 4%, 85% 20%, 94% 96%, 6% 96%, 15% 20%);
+}
+
+.app-full-set-preview .app-sample-flip img.back {
+  transform: rotateX(180deg);
+}
+
+.app-full-set-preview .app-sample-flip img {
+  clip-path: none;
+}
+
+.app-full-set-preview .app-preview-status {
+  grid-column: 1 / -1;
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.app-full-set-preview .app-sample-flip img {
+  inset: -18%;
+  width: 136%;
+  height: 136%;
+  max-width: none;
+}
+
+.app-finish-options .app-option-preview {
+  height: 140px;
+}
+
+.app-finish-options .app-option-preview img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+.app-finish-options .app-option-preview {
+  display: flex;
+  flex-direction: column;
+  height: 190px;
+}
+
+.app-finish-render {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 140px;
+  overflow: hidden;
+}
+
+.app-finish-section {
+  flex: none;
+  width: 100%;
+  height: 50px;
+}
+
+.app-full-set-preview:has(> .app-preview-status:only-child) {
+  min-height: 110px;
+  place-items: center;
+}
+
+.app-full-set-preview > .app-preview-status:only-child {
+  padding: var(--space-3);
+}
+
+.app-finish-options .app-option-preview {
+  height: 210px;
+}
+
+.app-finish-coating {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.app-dialog.app-settings:has(.app-finish-options) {
+  width: min(1080px, 100%);
+}
+
+.app-finish-options .app-design-options {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+@media (max-width: 760px) {
+.app-finish-options .app-design-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+
+}
+
+.app-glyph-sample.with-guide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8%;
+  width: 82px;
+  height: 100%;
+  writing-mode: horizontal-tb;
+  font-size: 32px;
+}
+
+.app-option-preview .app-glyph-sample.with-guide > * {
+  position: static;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  height: 46%;
+  object-fit: contain;
+  text-align: center;
+}
+
+.app-glyph-sample.with-marks {
+  position: relative;
+  height: 100%;
+}
+
+.app-glyph-sample.with-marks > :first-child {
+  position: relative;
+  z-index: 1;
+}
+
+.app-glyph-sample.with-marks > img:last-child {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.app-typeface-options .app-design-options {
+  grid-template-columns: repeat(auto-fit, minmax(104px, 1fr));
+}
+
+.app-typeface-options .app-option-preview {
+  height: 64px;
+}
+
+.app-typeface-options .app-design-options > button {
+  padding: 6px;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.app-typeface-options .app-glyph-sample {
+  font-size: 44px;
+}
+
+.app-typeface-options .app-option-preview img.app-prepared-glyph {
+  width: 64px;
+  height: 64px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.app-type-options .app-design-options {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.app-type-options .app-design-options > button {
+  flex: 0 1 160px;
+  min-width: 120px;
+}
+
+.app-type-options .app-option-preview {
+  height: 82px;
+}

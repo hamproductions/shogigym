@@ -3,7 +3,7 @@ import { sideToMove, verdictFor, type Course, type JosekiMove, type JosekiNode, 
 import { moveText } from '../shogi'
 import { useTranslation } from 'react-i18next'
 import i18n from '../i18n'
-import { Button } from '../workshop/ui/Button'
+import { Button } from '../app/ui/Button'
 import './flowchart.css'
 
 type Props = {

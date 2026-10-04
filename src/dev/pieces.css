@@ -1,0 +1,122 @@
+.app-komadai-test {
+  min-height: 100dvh;
+  padding: var(--space-4);
+  background: var(--surface-0);
+  color: var(--text);
+  font-family: var(--font-sans);
+  overflow: auto;
+}
+
+.app-komadai-test h1 {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-xl);
+}
+
+.app-komadai-test h2 {
+  margin: var(--space-5) 0 var(--space-2);
+  font-size: var(--text-md);
+}
+
+.app-komadai-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-3);
+}
+
+.app-komadai-grid figure {
+  margin: 0;
+}
+
+.app-komadai-grid figcaption {
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  word-break: break-all;
+}
+
+.app-typeface-test {
+  box-sizing: border-box;
+  width: min(1760px, 100%);
+  margin-inline: auto;
+}
+
+.app-typeface-test-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: var(--space-2) var(--space-4);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border);
+}
+
+.app-typeface-test-header h1 {
+  margin: 0;
+}
+
+.app-typeface-test-header p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  text-align: right;
+}
+
+.app-typeface-test-set {
+  margin-bottom: var(--space-4);
+  padding: clamp(var(--space-3), 1.5vw, var(--space-5));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+}
+
+.app-typeface-test-set h2 {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-md);
+}
+
+.app-typeface-test-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: clamp(var(--space-2), 1.25vw, var(--space-4));
+}
+
+.app-typeface-test-grid figure {
+  display: grid;
+  min-width: 0;
+  gap: var(--space-2);
+  margin: 0;
+  padding: var(--space-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--card);
+}
+
+.app-typeface-test-grid img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--radius-sm);
+  background: #f5e3bd;
+  object-fit: contain;
+}
+
+.app-typeface-test-grid figcaption {
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  line-height: var(--leading-tight);
+  text-align: center;
+  min-height: 1lh;
+}
+
+@media (max-width: 560px) {
+.app-typeface-test-header {
+    align-items: flex-start;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-1);
+  }
+
+.app-typeface-test-header p {
+    text-align: left;
+  }
+
+
+}

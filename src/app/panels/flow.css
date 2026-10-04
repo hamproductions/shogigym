@@ -1,0 +1,59 @@
+.app-flow > p {
+  margin: 0 0 var(--space-3);
+}
+
+.app-lane {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  width: 100%;
+  margin-bottom: var(--space-2);
+  padding: var(--space-2-5) var(--space-3);
+  text-align: left;
+  transition: background var(--dur-fast);
+}
+
+.app-lane:hover,
+.app-lane:focus-visible {
+  background: var(--card-hover);
+}
+
+.app-lane.book { --tone: var(--warning); }
+
+.app-lane.ai { --tone: var(--info); }
+
+.app-lane.mistake { --tone: var(--danger); }
+
+.app-lane-head {
+  display: flex;
+  justify-content: space-between;
+  color: var(--tone);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-bold);
+}
+
+.app-lane-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-half) var(--space-1-5);
+  font-family: var(--font-mincho);
+  font-size: var(--text-sm);
+  line-height: var(--leading-snug);
+}
+
+.app-lane-steps .first {
+  font-weight: var(--weight-heavy);
+  font-size: var(--text-lg);
+}
+
+.app-lane-steps i {
+  margin-right: var(--space-1-5);
+  font-style: normal;
+  color: var(--text-muted);
+}
+
+.app-lane-note {
+  font-family: var(--font-mincho);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}

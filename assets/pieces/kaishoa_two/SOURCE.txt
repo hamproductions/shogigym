@@ -1,0 +1,4 @@
+Source: https://github.com/Zahajki/shogi-piece-images
+Asset: 楷書A, traced and adjusted from Yan Zhenqing's regular script; the source author states it does not rely on existing shogi piece typefaces or glyphs.
+License: CC0 1.0 Universal.
+https://creativecommons.org/publicdomain/zero/1.0/legalcode

@@ -1,0 +1,7 @@
+Source artwork: Lishogi standard piece set portella.
+Original files: https://raw.githubusercontent.com/WandererXII/lishogi/master/ui/@build/pieces/assets/standard/portella/0{CODE}.png
+Authors: Portella
+License: CC BY-NC-SA 4.0 (https://creativecommons.org/licenses/by-nc-sa/4.0/)
+Source license record: https://github.com/WandererXII/lishogi/blob/master/COPYING.md
+Changes: background, tile frame, wood texture, shadow and maker marking removed; source glyph contours retained, ink normalized to black/red, fitted proportionally inside the shared tile face. Pixel design preserves hard pixel edges.
+Adapted glyphs retain CC BY-NC-SA 4.0 license.

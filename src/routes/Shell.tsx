@@ -1,9 +1,9 @@
 export function Shell() {
   return (
-    <div className="ws ws-shell" aria-busy="true">
-      <nav className="ws-rail" />
-      <section className="ws-stage">
-        <div className="ws-shell-board" />
+    <div className="app-shell app-shell" aria-busy="true">
+      <nav className="app-rail" />
+      <section className="app-stage">
+        <div className="app-shell-board" />
       </section>
     </div>
   )

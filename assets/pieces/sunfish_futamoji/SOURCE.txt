@@ -1,0 +1,3 @@
+Source: https://sunfish-shogi.github.io/shogi-images/
+License: CC0 1.0 Universal. The source page permits use and modification without attribution; this file records provenance.
+https://creativecommons.org/publicdomain/zero/1.0/legalcode

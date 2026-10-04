@@ -1,0 +1,6 @@
+Source artwork: Lishogi standard piece set kanji_guide_shadowed.
+Original SVGs: https://raw.githubusercontent.com/WandererXII/lishogi/master/ui/@build/pieces/assets/standard/kanji_guide_shadowed/0{CODE}.svg
+Authors: CouchTomato87
+License: CC BY 4.0 (https://github.com/CouchTomato87/InternationalizedPieces/blob/master/LICENCE.txt)
+Source license record: https://github.com/WandererXII/lishogi/blob/master/COPYING.md
+Changes: extracted glyph artwork from source piece images; removed tile, outline, shadow, and surface texture; fitted glyph proportionally to a shared transparent tile face; normalized lettering to black or source red.

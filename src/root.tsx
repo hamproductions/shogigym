@@ -75,7 +75,7 @@ export function ErrorBoundary() {
     location.reload()
   }
   return (
-    <div className="ws-crash">
+    <div className="app-crash">
       <h1>Something went wrong / エラーが発生しました</h1>
       <p>{message}</p>
       <button onClick={reset}>Reset the open game and reload / 開いている対局をリセットして再読み込み</button>

@@ -1,0 +1,56 @@
+.app-piece-guide {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+  padding: var(--space-2-5) var(--space-3);
+}
+
+.app-piece-guide strong {
+  font-family: var(--font-mincho);
+  font-weight: var(--weight-heavy);
+  font-size: var(--text-lg);
+}
+
+.app-piece-guide strong span,
+.app-piece-en {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-regular);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.app-piece-en {
+  display: block;
+}
+
+.app-piece-guide p {
+  margin: var(--space-1) 0 0;
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+}
+
+.app-piece-grid {
+  flex: none;
+  display: grid;
+  grid-template-columns: repeat(5, 14px);
+  grid-template-rows: repeat(5, 14px);
+  gap: var(--space-half);
+  align-self: flex-start;
+}
+
+.app-piece-grid i {
+  border-radius: var(--radius-xs);
+  background: color-mix(in srgb, var(--text) 8%, transparent);
+}
+
+.app-piece-grid i.self {
+  background: var(--text);
+}
+
+.app-piece-grid i.step {
+  background: var(--success-fill);
+}
+
+.app-piece-grid i.slide {
+  background: var(--info-fill);
+}

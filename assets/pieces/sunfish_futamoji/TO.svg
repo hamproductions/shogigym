@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:ns1="http://www.inkscape.org/namespaces/inkscape" xmlns:ns2="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="35" height="37" viewBox="245 37 35 37" preserveAspectRatio="none"><defs><filter y="-0.012531805" height="1.0250636" ns1:menu-tooltip="Darkens the edge with an inner blur and adds a flexible glow" ns1:menu="Shadows and Glows" ns1:label="Dark and Glow" style="color-interpolation-filters:sRGB;" id="filter975" x="-0.026387308" width="1.0527746">
+      <feGaussianBlur stdDeviation="5" result="result6" id="feGaussianBlur973" />
+      <feComposite result="result8" in="SourceGraphic" operator="atop" in2="result6" id="feComposite974" />
+      <feComposite result="result9" operator="over" in2="SourceAlpha" in="result8" id="feComposite975" />
+      <feColorMatrix values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 " result="result10" id="feColorMatrix975" />
+      <feBlend in="result10" mode="normal" in2="result6" id="feBlend975" />
+    </filter>
+    </defs><g ns1:label="character" ns1:groupmode="layer" id="layer1" style="display:inline" transform="translate(-7.4299545,-111.66332)">
+    <g id="g15" style="display:inline;filter:url(#filter975)" transform="matrix(0.01892205,0,0,-0.01680939,21.334739,116.77346)">
+      <path d="m 12966.097,-2626.9718 c -2.785,-7.5928 0.925,-29.4211 8.352,-48.4027 34.446,-163.9304 88.039,-314.5641 148.386,-451.4602 0,-4.7473 -12.991,-20.8794 -28.767,-37.0138 -39.903,-38.9116 -86.301,-114.8388 -100.221,-162.2926 -24.128,-87.3155 25.181,-201.9461 131.898,-238.0111 57.84,-16.6097 139.29,-6.8455 193.985,-10.8939 74.418,-3.4266 100.206,18.4594 100.206,54.5237 0,39.8617 -18.369,89.3614 -104.67,89.3614 -66.242,1.7431 -212.191,-70.3773 -239.271,22.2048 -12.064,61.6906 -10.188,95.593 235.886,283.0073 32.723,26.4311 66.686,37.4714 62.046,63.0969 -7.98,53.4326 -23.854,88.0145 -87.927,119.5237 -7.277,-46.1629 -90.693,-118.3232 -90.693,-118.3232 -45.357,96.4973 -64.765,210.831 -65.09,300.1995 0,89.2138 -37.915,108.8552 -114.009,133.5307 -38.975,13.2878 -45.471,13.2878 -50.111,0.9459 z" id="path10-9" style="display:inline;fill:#d40000;stroke-width:0.938469" ns2:nodetypes="cccccccscccccccccc" />
+    </g>
+    </g>
+</svg>

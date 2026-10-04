@@ -2,7 +2,7 @@ import { spawn, spawnSync } from 'node:child_process'
 import { existsSync, mkdirSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs'
 import { createInterface } from 'node:readline'
 import { InitialPositionSFEN, Position, importCSA, parseCSAMove } from 'tsshogi'
-import { statsKey, statsShard, type RawPosition, type StatsMeta } from '../../src/workshop/lib/stats'
+import { statsKey, statsShard, type RawPosition, type StatsMeta } from '../../src/app/lib/stats'
 
 const args = process.argv.slice(2)
 const arg = (name: string, fallback: string) => {

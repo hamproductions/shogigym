@@ -1,4 +1,4 @@
-.ws-btn {
+.app-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -15,31 +15,31 @@
   transition: background var(--dur-fast), color var(--dur-fast), box-shadow var(--dur-fast);
 }
 
-.ws-btn:not(:disabled):hover {
+.app-btn:not(:disabled):hover {
   background: var(--surface-3);
 }
 
-.ws-btn.primary {
+.app-btn.primary {
   background: var(--accent);
   color: var(--accent-contrast);
 }
 
-.ws-btn.primary:not(:disabled):hover {
+.app-btn.primary:not(:disabled):hover {
   background: var(--accent-hover);
 }
 
-.ws-btn.ghost {
+.app-btn.ghost {
   background: transparent;
   color: var(--text-muted);
   box-shadow: inset 0 0 0 1px var(--border-strong);
 }
 
-.ws-btn.ghost:not(:disabled):hover {
+.app-btn.ghost:not(:disabled):hover {
   background: var(--surface-2);
   color: var(--text);
 }
 
-.ws-btn.icon {
+.app-btn.icon {
   width: var(--control-md);
   padding: 0;
   background: transparent;
@@ -49,47 +49,47 @@
   line-height: 1;
 }
 
-.ws-btn.icon:not(:disabled):hover {
+.app-btn.icon:not(:disabled):hover {
   background: var(--surface-2);
   color: var(--text);
 }
 
-.ws-btn.on {
+.app-btn.on {
   box-shadow: inset 0 0 0 2px var(--text);
 }
 
-.ws-btn.sm {
+.app-btn.sm {
   min-height: var(--control-sm);
   padding: 0 var(--space-2);
   font-size: var(--text-xs);
 }
 
-.ws-btn.lg {
+.app-btn.lg {
   min-height: 40px;
   padding: 0 var(--space-4);
   font-size: var(--text-md);
   font-weight: var(--weight-bold);
 }
 
-.ws-btn.icon.lg {
+.app-btn.icon.lg {
   width: var(--control-lg);
   min-height: var(--control-lg);
   padding: 0;
   font-size: var(--glyph-md);
 }
 
-.ws-file input {
+.app-file input {
   display: none;
 }
 
-.ws-actions {
+.app-actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-2);
 }
 
-.ws-key {
+.app-key {
   margin-left: var(--space-1);
   padding: 0 var(--space-1);
   border: 1px solid color-mix(in srgb, currentColor 50%, transparent);
@@ -97,13 +97,13 @@
   font-size: var(--text-2xs);
 }
 
-.ws-seg {
+.app-seg {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-1);
 }
 
-.ws-seg button {
+.app-seg button {
   min-height: var(--control-sm);
   padding: 0 var(--space-2-5);
   border-radius: var(--radius-md);
@@ -112,37 +112,37 @@
   transition: background var(--dur-fast);
 }
 
-.ws-seg button:not(.on):hover {
+.app-seg button:not(.on):hover {
   background: var(--surface-3);
 }
 
-.ws-seg button span {
+.app-seg button span {
   margin-left: var(--space-1);
   color: var(--text-muted);
 }
 
-.ws-seg button.on {
+.app-seg button.on {
   background: var(--text);
   color: var(--text-inverse);
 }
 
-.ws-seg button.on span {
+.app-seg button.on span {
   color: inherit;
   opacity: 0.75;
 }
 
-.ws-seg.small button {
+.app-seg.small button {
   min-height: 24px;
   padding: 0 var(--space-2);
   font-size: var(--text-xs);
 }
 
-.ws-seg.big {
+.app-seg.big {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
 
-.ws-seg.big button {
+.app-seg.big button {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -153,15 +153,15 @@
   text-align: left;
 }
 
-.ws-seg.big button span {
+.app-seg.big button span {
   margin: 0;
   font-family: var(--font-sans);
   font-weight: var(--weight-regular);
   font-size: var(--text-2xs);
 }
 
-.ws-pill,
-.ws-count {
+.app-pill,
+.app-count {
   display: inline-block;
   padding: 0 var(--space-2);
   border-radius: var(--radius-pill);
@@ -171,14 +171,14 @@
   line-height: var(--leading-snug);
 }
 
-.ws-count {
+.app-count {
   margin-left: var(--space-1);
   padding: 0 var(--space-1-5);
   background: var(--surface-3);
   font-size: var(--text-2xs);
 }
 
-.ws-tabs {
+.app-tabs {
   display: flex;
   align-items: stretch;
   gap: var(--space-1);
@@ -188,7 +188,7 @@
   scrollbar-width: none;
 }
 
-.ws-tabs button {
+.app-tabs button {
   flex: none;
   margin-bottom: -1px;
   padding: var(--space-2-5) var(--space-2) var(--space-2);
@@ -199,47 +199,47 @@
   transition: color var(--dur-fast);
 }
 
-.ws-tabs button:hover {
+.app-tabs button:hover {
   color: var(--text);
 }
 
-.ws-tabs button.on {
+.app-tabs button.on {
   color: var(--accent-text);
   border-bottom-color: var(--accent);
 }
 
-.ws-tabs .ws-ja {
+.app-tabs .app-ja {
   font-family: var(--font-mincho);
   font-weight: var(--weight-heavy);
   font-size: var(--text-md);
   letter-spacing: var(--tracking-seal);
 }
 
-.ws-card,
-.ws-lane,
-.ws-setup,
-.ws-lesson-card,
-.ws-piece-guide {
+.app-card,
+.app-lane,
+.app-setup,
+.app-lesson-card,
+.app-piece-guide {
   --tone: transparent;
   border-radius: var(--radius-lg);
   background: var(--card);
   box-shadow: inset 3px 0 0 var(--tone), inset 0 0 0 1px var(--border), var(--shadow-sm);
 }
 
-.ws-card {
+.app-card {
   margin-top: var(--space-3);
   padding: var(--space-3) var(--space-4);
 }
 
-.ws-card.good {
+.app-card.good {
   --tone: var(--success);
 }
 
-.ws-card.bad {
+.app-card.bad {
   --tone: var(--danger);
 }
 
-.ws-card > strong {
+.app-card > strong {
   display: block;
   font-family: var(--font-mincho);
   font-weight: var(--weight-heavy);
@@ -247,19 +247,19 @@
   line-height: var(--leading-snug);
 }
 
-.ws-card p {
+.app-card p {
   margin: var(--space-1-5) 0;
   font-size: var(--text-sm);
   line-height: var(--leading-normal);
 }
 
-.ws-card > .ws-btn,
-.ws-card > .ws-actions {
+.app-card > .app-btn,
+.app-card > .app-actions {
   margin-top: var(--space-2);
 }
 
-.ws-search,
-.ws-field {
+.app-search,
+.app-field {
   width: 100%;
   padding: var(--space-2) var(--space-3);
   border: 1px solid var(--border-strong);
@@ -269,12 +269,12 @@
   font: var(--text-sm) / var(--leading-normal) var(--font-sans);
 }
 
-.ws-search::placeholder,
-.ws-field::placeholder {
+.app-search::placeholder,
+.app-field::placeholder {
   color: var(--text-muted);
 }
 
-select.ws-field {
+select.app-field {
   min-height: var(--control-sm);
   padding: 0 var(--space-8) 0 var(--space-2-5);
   border-color: transparent;
@@ -288,12 +288,12 @@ select.ws-field {
   transition: background-color var(--dur-fast);
 }
 
-select.ws-field:hover {
+select.app-field:hover {
   background-color: var(--surface-3);
 }
 
-.ws-toggle,
-.ws-check-row {
+.app-toggle,
+.app-check-row {
   display: flex;
   align-items: center;
   gap: var(--space-2);
@@ -304,13 +304,13 @@ select.ws-field:hover {
 }
 
 @media (pointer: coarse) {
-  .ws-btn,
-  .ws-seg button,
-  select.ws-field {
+  .app-btn,
+  .app-seg button,
+  select.app-field {
     min-height: 40px;
   }
 
-  .ws-btn.icon {
+  .app-btn.icon {
     width: var(--control-lg);
     min-height: var(--control-lg);
   }

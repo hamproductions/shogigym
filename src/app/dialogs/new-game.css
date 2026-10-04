@@ -1,0 +1,11 @@
+.app-newgame {
+  width: min(560px, 100%);
+}
+
+.app-newgame .app-setting {
+  align-items: start;
+}
+
+.app-newgame .app-setting > span:first-child {
+  padding-top: var(--space-1);
+}
