@@ -1,0 +1,147 @@
+.app-reel {
+  position: fixed;
+  inset: 0;
+  background: #0c0a08;
+  font-family: var(--font-sans);
+}
+
+.app-reel-stage,
+.app-reel-stage > * {
+  position: absolute;
+  inset: 0;
+}
+
+.app-reel-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  color: #fff6e4;
+}
+
+.app-reel-title {
+  position: absolute;
+  left: 7%;
+  bottom: 14%;
+  display: grid;
+  transform-origin: left bottom;
+}
+
+.app-reel-title span,
+.app-reel-kicker {
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: 0.4em;
+  color: #e8a33c;
+}
+
+.app-reel-title strong {
+  font-family: 'Yuji Boku', 'Shippori Mincho B1', serif;
+  font-weight: 400;
+  font-size: 170px;
+  line-height: 1;
+  text-shadow: 0 0 40px rgba(232, 80, 40, 0.7), 0 6px 0 rgba(0, 0, 0, 0.5);
+}
+
+.app-reel-line {
+  position: absolute;
+  left: 7%;
+  top: 12%;
+  display: grid;
+  transform-origin: left top;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.8);
+}
+
+.app-reel-line.right {
+  left: auto;
+  right: 7%;
+  text-align: right;
+  transform-origin: right top;
+}
+
+.app-reel-line.bottom {
+  top: auto;
+  bottom: 9%;
+  left: 50%;
+  translate: -50% 0;
+}
+
+.app-reel-line strong {
+  font-weight: 900;
+  font-size: 76px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.app-reel-line.bottom strong {
+  font-size: 54px;
+}
+
+.app-reel-line em {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 48px;
+  color: #e8a33c;
+}
+
+.app-reel-card {
+  position: absolute;
+  left: 50%;
+  top: 44%;
+  width: 62%;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 0 2px rgba(232, 163, 60, 0.6);
+}
+
+.app-reel-card img {
+  display: block;
+  width: 100%;
+}
+
+.app-reel-kicker {
+  position: absolute;
+  right: 7%;
+  top: 10%;
+  font-size: 40px;
+  color: #ff5a3c;
+  text-shadow: 0 0 24px rgba(255, 70, 40, 0.8);
+  transform-origin: right top;
+}
+
+.app-reel-end {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 10px;
+  background: radial-gradient(circle at 50% 50%, rgba(12, 10, 8, 0.55), rgba(12, 10, 8, 0.92));
+}
+
+.app-reel-end strong {
+  font-family: 'Yuji Boku', 'Shippori Mincho B1', serif;
+  font-weight: 400;
+  font-size: 150px;
+  line-height: 1;
+  text-shadow: 0 0 40px rgba(232, 80, 40, 0.6);
+}
+
+.app-reel-end span {
+  font-weight: 700;
+  font-size: 30px;
+}
+
+.app-reel-end em {
+  min-height: 1.3em;
+  font-style: normal;
+  font-family: ui-monospace, monospace;
+  font-size: 28px;
+  color: #e8a33c;
+}
+
+.app-reel-flash {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  mix-blend-mode: screen;
+}

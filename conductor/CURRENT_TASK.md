@@ -1,24 +1,41 @@
 # Current task
 
 ## Scope
-All other tile requests are accepted and closed. Only these four repairs remain in scope. No delegation, push, tests, browser checks, server changes, system changes, or audio configuration changes.
+Add View mode: two bots play automatically while the user watches with free camera control. Reuse real engine, board rendering and existing settings. View games are temporary: no kifu persistence, autosave or saved-game controls. Preserve pending module/CSS/asset refactor. Commit and push all current changes authorized. No subagents, system/audio changes or new test files authorized.
 
-## Implementation
-Board coordinate correction: `coordPlane` render order changed from 9 to 0. Coordinate planes already lie at board Y 0.006; late transparent rendering previously composited them over all glass layers. Coordinates now render before glass, preserving board-relative placement and glass attenuation. Runtime result unverified.
-FU centering audit: measured 285 prepared glyph alpha bounds; seven Portella glyphs were offset by more than one pixel. Shared fitter now measures visible alpha above 40 instead of faint extraction residue. Portella extraction derives its interior from source wood colors and removes disconnected specks; regenerated both Portella sets, inspected FU PNG, and measured all 285 again with zero bounding-center offsets above one pixel. Asset URL version advanced to 18. This verifies asset bounding centers, not every extraction contour or optical centering in the browser.
-Frosted interior correction: opacity restored to original 0.62 at user request. Reverse ink previously rendered after the cloudy panes, leaving it visibly clear regardless of opacity. Back ink no longer writes depth; explicit back-to-front layer order places the frosted front surface over interior ink and board, then front lettering. Screenshot result after this correction remains unverified.
-Frosted glass added as a separate material option: milky tint, higher opacity and roughness, subdued reflection, no wood grain. Uses the common glass geometry/back/finish path and flat preview renderer. No runtime checks run.
-Selected tiles now remain at exact base height plus selection lift every frame, independent of OrbitControls or camera angle. Removed camera-gesture suspension of selection positioning. Drag and move animations retain exclusive transform ownership. Runtime result unverified.
-Refresh re-lift repair: `pieces.ts` preserves board/hand transforms and visibility during non-move rebuilds, remaps active animation and drag references, and restores physical flip meshes. Previously refresh recreated tiles at base height while animations retained detached objects. Runtime stability remains unverified.
-King and gold backs are blank material surfaces, with no reverse lettering or movement guides. Other pieces retain promoted/unpromoted reverse faces.
-0. Play startup: `hooks/useAutoplay.ts` previously delayed the first move by the full 1100ms playback interval. First move now schedules immediately; subsequent moves retain 1100ms spacing. Pause resets the startup clock. No runtime check run.
-1. Glass back: `src/workshop/board3d/piece.ts` uses actual bottom geometry with a double-sided glass surface and reverse lettering material cloned from the front finish, including relief normal and lacquer maps. Screenshot exposed bottom geometry at local Y -0.02, buried under the board. Glass back ink now sits at Y 0.002 and glass back surface at Y 0.001, above the contact plane. Runtime result remains unverified.
-2. Promotion: `pieces.ts` prioritizes promotion over capture; `Board3D.tsx` enables dragged promotion animation. Avatar and fallback paths rotate the unpromoted physical mesh through 180 degrees, compensate thickness, and reveal the final mesh only at completion. Dragged promotions turn at their destination.
-3. Camera re-lift: `camera.ts` records active OrbitControls gestures; `pieces.ts` suppresses lift interpolation during those gestures and preserves held ownership without timeout. `interaction.ts` rejects secondary buttons/pointers and excludes moved camera gestures from click selection.
-4. Table flip: `effects.ts` removes timer-based restoration. Bodies require low velocity, negligible translation and rotation, and continuous half-second stability before sleeping. Restoration requires an explicit viewport click and every body asleep.
+## Work
+- Hidden tabs stop all active/scheduled app audio and reject new effects or speech. Returning does not replay stopped speech. Game progression remains unchanged.
+- Live Play/View games have no review border. Historical navigation pauses View automation; border appears only in historical positions or explicit preview. Review border fills viewport when evaluation bar is absent.
+- New-game setup offers Furigoma, 上手 Sente or 下手 Sente; explicit sides start directly. Difficulty and strategy dropdowns appear only in setup, removed from top bar.
+- Add mode navigation, route, translations, pause/resume and new-game controls.
+- Automate both sides with existing strength settings; discard stale results when paused, navigating, restarting or leaving.
+- Disable spectator piece moves; keep camera control independent of bot turns.
+- Retain animations, promotions and landing sounds. Handle terminal outcomes and engine errors.
+- Run aggregate existing TypeScript/build verification. Browser verification requires a reachable existing server; localhost:5173 refused connection. Do not start a server against standing instructions.
+- Place View after Tesuji in mode navigation. Remove remaining Workshop UI namespace and CSS prefixes consistently, retaining persistent setting keys.
+- Include usual per-move coach review, evaluation, graph and arrows. Wait for each review before continuing. Separate difficulty controls for 上手 and 下手.
+- Show each bot's assigned Sente/Gote beside its controls after furigoma; leave sides unassigned before the toss.
+- Separate setup bot rows with vertical spacing. End-game thanks on user victory or decisive Bot-vs-Bot result; cancel queued or playing victory speech when restarting or opening new-game setup.
+- Show setup dialog on View entry and restart. Start button initiates furigoma; never toss on entry. Assign 上手's side from the result, then start automatically 2.5 seconds after settling. Keep the finished game paused until restart.
+- Extend avatar shader occlusion so leaning heads cannot cover the board, including free-camera mode; retain moving arms/hands.
 
-## Evidence and limitations
-Source paths and patches inspected. No browser or tests run, following user restriction. Visual glass rendering, promotion continuity, camera gesture stability, and complete physics settling remain runtime-unverified. Existing unrelated working-tree changes preserved.
+- Bot furigoma includes baked Zundamon intro and pawn/tokin count with 上手 side announcement in 2D and 3D. Preserve contact sounds.
+
+- Participant names are 上手/下手 throughout controls, board labels and furigoma speech; Sente/Gote remains separately assigned. Victory speech requires a live transition and never runs on restored finished games.
+
+## Skill coverage
+Brainstorming SKILL.md read 1–EOF, bounded path. Explicit feature request and existing flow settle design; user authorization controls execution without another approval gate.
+
+## State
+Implemented separate spectator automation, navigation and controls. Renamed source UI classes to app- and root app-shell, merged Workshop translations into app namespace. Existing game/settings storage keys retained. View skips session persistence and mode snapshot storage; saved-game/rating-save controls excluded. Removed board-shaped ray cutout. Free-camera proximity fade uses actual animated head position, preserves moving hand, and restores avatar when zoomed out. Aggregate TypeScript and production build passed. No browser proof because existing local server is unavailable.
 
 ## Next action
-User checks the four repaired behaviors in the existing running application. Address only concrete failures within this scope.
+Commit and push current implementation; verify clean working tree and zero divergence from upstream. Browser visual/audio behavior remains unverified because existing server is unavailable.
+
+## Correction
+- Source: supplied near-avatar screenshot and explicit manual Start workflow.
+- Mistake: board-footprint clipping substituted for existing proximity fade; mode entry initiated toss.
+- Rule: fade obstructing near avatar smoothly and restore at distance; keep setup separate from furigoma.
+- Action: restored proximity-driven free-camera fade, added shared bot setup dialog, gated initial playback.
+- Coverage: get-your-shit-together SKILL.md read 1–EOF (27 lines).
+- Verification: aggregate TypeScript passed. localhost:5173 connection refused; browser behavior unverified.

@@ -1,7 +1,7 @@
 import type { Config } from '@react-router/dev/config'
 import { mainStrategies } from './src/data/strategies.ts'
 
-const MODES = ['play', 'analyze', 'openings', 'review', 'tsume', 'tesuji']
+const MODES = ['play', 'view', 'analyze', 'openings', 'review', 'tsume', 'tesuji']
 
 export default {
   appDirectory: 'src',

@@ -1,0 +1,116 @@
+.app-plate {
+  position: absolute;
+  left: 26px;
+  z-index: var(--z-plate);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-half) var(--space-2-5) var(--space-half) var(--space-half);
+  border-radius: var(--radius-md);
+  background: var(--overlay);
+  box-shadow: var(--shadow-sm);
+  font-size: var(--text-md);
+  pointer-events: none;
+}
+
+.app-plate.top {
+  top: 10px;
+}
+
+.app-plate.bottom {
+  bottom: 18px;
+}
+
+.app-shell.zoned .app-plate {
+  left: 24px;
+}
+
+.app-plate-side {
+  padding-left: var(--space-1-5);
+  font-weight: var(--weight-bold);
+}
+
+.app-plate .app-pill {
+  font-size: var(--text-sm);
+}
+
+.app-clock {
+  min-width: 64px;
+  padding: var(--space-half) var(--space-2);
+  border-radius: var(--radius-sm);
+  background: var(--surface-3);
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--weight-bold);
+  text-align: center;
+}
+
+.app-clock.on {
+  background: var(--text);
+  color: var(--text-inverse);
+}
+
+.app-clock.low {
+  background: var(--danger-fill);
+  color: var(--on-fill);
+}
+
+.app-clock.out {
+  background: var(--danger-strong);
+  color: var(--on-fill);
+}
+
+@media (max-width: 820px) {
+.app-board-wrap > .app-plate {
+    position: static;
+    align-self: flex-start;
+    margin: var(--space-half) var(--space-2);
+    padding: 0;
+    background: none;
+    box-shadow: none;
+    font-size: var(--text-sm);
+  }
+
+.app-board-wrap > .app-plate.top {
+    order: -1;
+  }
+
+.app-board-wrap > .app-plate.bottom {
+    order: 5;
+  }
+
+.app-plate-side {
+    padding-left: 0;
+  }
+
+.app-plate .app-pill {
+    font-size: var(--text-xs);
+  }
+
+.app-shell.drawer-open .app-plate {
+    display: none;
+  }
+
+
+}
+
+.app-board-wrap.with-eval .app-plate {
+  left: 66px;
+}
+
+@media (max-height: 520px) and (min-width: 821px) {
+.app-plate {
+    font-size: var(--text-xs);
+    padding-block: 0;
+  }
+
+.app-plate .app-pill {
+    display: none;
+  }
+
+.app-board-wrap.with-eval .app-plate {
+    left: 40px;
+  }
+
+
+}

@@ -1,6 +1,6 @@
 import { Suspense, lazy } from 'react'
 
-const KomadaiTest = import.meta.env.DEV ? lazy(() => import('../workshop/KomadaiTest')) : null
+const KomadaiTest = import.meta.env.DEV ? lazy(() => import('../dev/KomadaiTest')) : null
 
 export async function clientLoader() {
   return null

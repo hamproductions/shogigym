@@ -1,0 +1,33 @@
+.app-viewer {
+  width: min(560px, 100%);
+}
+
+.app-viewer > .app-seg {
+  margin-top: var(--space-1-5);
+}
+
+.app-viewer-stage {
+  height: min(52vh, 420px);
+  margin: var(--space-2) 0;
+  border-radius: var(--radius-lg);
+  background: radial-gradient(ellipse at 50% 40%, var(--sumi-600), var(--sumi-900));
+  touch-action: none;
+  cursor: grab;
+}
+
+.app-viewer-page {
+  grid-column: 1 / -1;
+  display: grid;
+  place-items: center;
+  min-height: 100%;
+  padding: var(--space-4);
+  overflow: auto;
+}
+
+.app-viewer.page {
+  width: min(900px, 100%);
+}
+
+.app-viewer.page .app-viewer-stage {
+  height: min(70vh, 640px);
+}

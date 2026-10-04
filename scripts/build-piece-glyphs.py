@@ -107,7 +107,7 @@ def build_lishogi():
         images = {}
         for code in LISHOGI_CODES:
             url = f'{LISHOGI_BASE}/{piece_set}/0{code}.svg'
-            source = ROOT / 'public' / 'pieces' / 'sources' / piece_set / f'0{code}.svg'
+            source = ROOT / 'assets' / 'pieces' / 'sources' / piece_set / f'0{code}.svg'
             source.parent.mkdir(parents=True, exist_ok=True)
             if not source.exists():
                 source.write_bytes(urllib.request.urlopen(url).read())
@@ -147,7 +147,7 @@ def main():
             target = ROOT / 'public' / 'pieces' / 'prepared' / piece_set
             target.mkdir(parents=True, exist_ok=True)
             images = {}
-            for source in sorted((ROOT / 'public' / 'pieces' / piece_set).glob('*.svg')):
+            for source in sorted((ROOT / 'assets' / 'pieces' / piece_set).glob('*.svg')):
                 images[source.stem] = glyph(source, piece_set in {'ryoko_1kanji', 'kanji_brown'})
             for code, image in fit_glyph_set(images, resampling=Image.Resampling.NEAREST if piece_set == 'pixel' else Image.Resampling.LANCZOS, piece_set=piece_set).items():
                 image.save(target / f'{code}.png', optimize=True)

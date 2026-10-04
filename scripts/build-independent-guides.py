@@ -34,7 +34,7 @@ def main():
             if '--compose-only' in sys.argv:
                 guide = Image.open(guide_dir / f'{code}.{mode}.png').convert('RGBA')
             else:
-                source = ROOT / f'public/pieces/sources/{name}/0{code}.svg'
+                source = ROOT / f'assets/pieces/sources/{name}/0{code}.svg'
                 root = ET.parse(source).getroot()
                 guide = GUIDES['guide_layer'](root, name, code)
                 if name == 'kanji_guide_shadowed':

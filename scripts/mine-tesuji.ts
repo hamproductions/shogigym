@@ -1,5 +1,5 @@
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs'
-import { detectTesuji } from '../src/workshop/tesuji'
+import { detectTesuji } from '../src/app/tesuji'
 import { applyUsi } from '../src/shogi'
 
 type Node = { sfen: string; branches: { usi: string; kind: string; note?: string; child?: Node }[] }

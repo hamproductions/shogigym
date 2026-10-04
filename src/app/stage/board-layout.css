@@ -1,0 +1,54 @@
+.app-stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  background: radial-gradient(ellipse 65% 75% at 50% 48%, var(--stage-glow), transparent 70%);
+}
+
+.app-board-wrap {
+  position: relative;
+  flex: 1;
+  display: flex;
+  min-height: 0;
+  padding: var(--space-1) var(--space-2) var(--space-2) var(--space-5);
+}
+
+.app-stage.previewing .app-board-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 2px 4px 4px 20px;
+  border: 2px solid var(--accent);
+  border-radius: var(--radius-xl);
+  pointer-events: none;
+}
+
+.app-stage.previewing .app-board-wrap:not(.with-eval)::after {
+  inset: 0;
+}
+
+@media (max-width: 820px) {
+.app-board-wrap {
+    flex-direction: column;
+    padding: var(--space-1) var(--space-half) var(--space-half);
+  }
+
+.app-stage.previewing .app-board-wrap::after {
+    inset: 2px;
+  }
+
+
+}
+
+.app-fs-exit {
+  display: none;
+}
+
+@media (max-height: 520px) and (min-width: 821px) {
+.app-board-wrap {
+    padding: var(--space-1) var(--space-1) var(--space-1) var(--space-2);
+  }
+
+
+}

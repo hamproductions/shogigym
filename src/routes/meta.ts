@@ -5,6 +5,7 @@ export const SITE_URL = (import.meta.env.VITE_SITE_URL ?? 'https://hamproduction
 
 const MODES: Record<string, { title: string; description: string }> = {
   play: { title: 'Play the AI', description: 'Play shogi against the AI at beginner to full strength, with a coach that explains every move.' },
+  view: { title: 'Watch the bots', description: 'Watch two shogi bots play automatically and explore the board with a free camera.' },
   analyze: { title: 'Analyze a game', description: 'Load a KIF or play out a game, rate every move and explore variations with the engine.' },
   openings: { title: 'Openings', description: 'Learn shogi openings for your main strategy with study and quiz modes, from beginner to amateur 1–2 dan.' },
   review: { title: 'Review', description: 'Spaced repetition of the positions you have learned and the mistakes from your games.' },

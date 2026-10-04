@@ -361,7 +361,7 @@ def extract(source, piece_set, code, fitted=True):
 
 def main():
     output = ROOT / 'public' / 'pieces' / 'prepared'
-    sources = ROOT / 'public' / 'pieces' / 'sources'
+    sources = ROOT / 'assets' / 'pieces' / 'sources'
     for piece_set, (license_name, authors, license_url, _) in SETS.items():
         if len(sys.argv) > 1 and piece_set not in sys.argv[1:]:
             continue

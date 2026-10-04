@@ -72,7 +72,7 @@ def extract(image, piece_set):
 
 
 for piece_set in (sys.argv[1:] or SETS):
-    source = ROOT / 'public' / 'pieces' / 'sources' / piece_set
+    source = ROOT / 'assets' / 'pieces' / 'sources' / piece_set
     target = ROOT / 'public' / 'pieces' / 'prepared' / piece_set
     source.mkdir(parents=True, exist_ok=True)
     target.mkdir(parents=True, exist_ok=True)

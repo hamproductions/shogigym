@@ -1,0 +1,9 @@
+.board-loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--surface-0);
+  color: var(--text-muted);
+  z-index: 1;
+}

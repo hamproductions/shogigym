@@ -1,7 +1,7 @@
 import { useSyncExternalStore } from 'react'
 import i18n from './i18n'
 import { readEvalFile } from './evalStore'
-import { getSettings, subscribeSettings, type EngineKind } from './workshop/settings'
+import { getSettings, subscribeSettings, type EngineKind } from './appearance/settings'
 
 type UsiModule = {
   addMessageListener: (listener: (line: string) => void) => void

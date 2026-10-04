@@ -1,6 +1,6 @@
 import { Suspense, lazy } from 'react'
 
-const PieceTypefacesTest = import.meta.env.DEV ? lazy(() => import('../workshop/PieceTypefacesTest')) : null
+const PieceTypefacesTest = import.meta.env.DEV ? lazy(() => import('../dev/PieceTypefacesTest')) : null
 
 export async function clientLoader() {
   return null
