@@ -62,6 +62,8 @@
   line-height: var(--leading-tight);
   text-align: center;
   text-wrap: balance;
+  font-family: var(--font-sans);
+  font-weight: var(--weight-bold);
 }
 
 .app-rail-btn .app-en {
@@ -69,11 +71,11 @@
 }
 
 .app-rail-btn .app-ja {
-  font-family: var(--font-mincho);
-  font-weight: var(--weight-heavy);
-  font-size: var(--text-md);
+  font-family: var(--font-sans);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-2xs);
   line-height: var(--leading-tight);
-  letter-spacing: var(--tracking-seal);
+  letter-spacing: normal;
 }
 
 .app-menu-wrap {

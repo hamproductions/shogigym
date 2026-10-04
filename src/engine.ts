@@ -35,7 +35,7 @@ export type Analysis = {
   candidates: Candidate[]
 }
 
-export type EngineStatus = { kind: EngineKind; name: string; error: string; epoch: number }
+export type EngineStatus = { kind: EngineKind; name: string; error: string; loading: boolean; epoch: number }
 
 const ENGINES: Record<EngineKind, { script: string; factory: () => EngineFactory | undefined; options: () => string[] }> = {
   yaneuraou: { script: `${import.meta.env.BASE_URL}engine/yaneuraou.k-p.js`, factory: () => window.YaneuraOu_K_P, options: () => ['USI_OwnBook value false', 'PvInterval value 0'] },
@@ -52,7 +52,7 @@ let queue: Promise<unknown> = Promise.resolve()
 let interruptible = false
 let searching = false
 let backgroundGeneration = 0
-let status: EngineStatus = { kind: getSettings().engine, name: '', error: '', epoch: 0 }
+let status: EngineStatus = { kind: getSettings().engine, name: '', error: '', loading: false, epoch: 0 }
 const statusListeners = new Set<() => void>()
 
 function setStatus(patch: Partial<EngineStatus>) {
@@ -185,7 +185,7 @@ async function boot(kind: EngineKind): Promise<UsiModule> {
     throw new Error(failure || 'engine switched')
   }
   current = engine
-  setStatus({ kind, name: evalFile ? `${name} (${evalFile.name})` : name, error: '', epoch: status.epoch + 1 })
+  setStatus({ kind, name: evalFile ? `${name} (${evalFile.name})` : name, error: '', loading: false, epoch: status.epoch + 1 })
   return engine
 }
 
@@ -209,11 +209,11 @@ export function getEngine(): Promise<UsiModule> {
     const kind = getSettings().engine
     const engine = boot(kind)
     active = { key, engine }
-    setStatus({ kind, name: '', error: '' })
+    setStatus({ kind, name: '', error: '', loading: true })
     engine.catch((error: Error) => {
       if (active?.engine !== engine) return
       shutdown()
-      setStatus({ error: error.message })
+      setStatus({ error: error.message, loading: false })
     })
   }
   return active.engine

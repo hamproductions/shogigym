@@ -272,6 +272,8 @@
     "gote": "☖ 後手"
   },
   "engine": {
+    "loadingEngine": "AIエンジンを読み込み中…",
+    "reloadPage": "ページを再読み込み",
     "sente": "☗ 先手",
     "gote": "☖ 後手",
     "thePositionIsEven": "形勢は互角",

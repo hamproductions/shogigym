@@ -20,6 +20,7 @@ import type { TesujiTrainer } from '../modes/tesuji/useTesuji'
 import type { Tsume } from '../modes/tsume/useTsume'
 import { PieceGuide } from '../pieces'
 import { isGameMode, type Confirm, type Level, type Tab } from '../types'
+import { Button } from '../ui/Button'
 
 const LessonMap = lazy(() => import('../../components/Flowchart').then((m) => ({ default: m.LessonMap })))
 const ImportBox = lazy(() => import('../modes/analyze/ImportBox').then((m) => ({ default: m.ImportBox })))
@@ -65,7 +66,7 @@ function EngineSection({ model }: { model: PanelModel }) {
   const live = ai && assist && !spoilerFree && !gameOver
   return (
     <>
-      {!ai && <p className="app-muted">{t('app.theAiNeedsACross')}</p>}
+      {!ai && <div role="alert"><p className="app-muted">{t('app.theAiNeedsACross')}</p><Button onClick={() => location.reload()}>{t('engine.reloadPage')}</Button></div>}
       {ai && spoilerFree && <p className="app-muted">{t('app.theAiStaysQuietUntil')}</p>}
       {ai && !spoilerFree && gameOver && <p className="app-muted">{t('app.checkmateWon', { winner: t(toMove === 'sente' ? 'common.gote' : 'common.sente') })}</p>}
       {!assist && <p className="app-muted">{t('app.helpIsOffTurnIt')}</p>}

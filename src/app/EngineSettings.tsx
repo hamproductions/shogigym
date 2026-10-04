@@ -71,7 +71,10 @@ export function EngineName() {
   return (
     <>
       <p className="app-muted app-credit">{t('engine.activeEngine', { name: status.kind === st.engine && status.name ? status.name : `${label} ${status.error ? '' : t('engine.engineStarting')}`.trim() })}</p>
-      {status.kind === st.engine && status.error && <p className="app-result wrong">{status.error}</p>}
+      {status.kind === st.engine && status.error && <div role="alert">
+        <p className="app-result wrong">{status.error}</p>
+        <Button size="sm" onClick={restartEngine}>{t('tsume.tryAgain')}</Button>
+      </div>}
     </>
   )
 }

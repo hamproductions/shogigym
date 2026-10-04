@@ -24,6 +24,9 @@ export function useWatch(session: BoardSession, load: Load, reviewReady: boolean
   const strategy = strategies[session.toMove === firstBot ? 0 : 1]
   const start = useCallback((side: 'sente' | 'gote') => { setFirstBot(side); setStarted(true); setPlaying(true) }, [setPlaying])
   const [state, setState] = useState<{ game: Game; ending?: string; error?: string } | null>(null)
+  useEffect(() => {
+    if (mode === 'view') setState((current) => current?.error ? { ...current, error: undefined } : current)
+  }, [mode, epoch])
   const repetition = useMemo(() => {
     if (mode !== 'view') return null
     const record = new Record(positionOf(game.start))
@@ -76,7 +79,7 @@ export function useWatch(session: BoardSession, load: Load, reviewReady: boolean
   const toggle = () => {
     if (!canPlay) return
     if (error) setState((current) => current ? { ...current, error: undefined } : null)
-    session.setPlaying(!playing)
+    session.setPlaying(error ? true : !playing)
   }
 
   return {

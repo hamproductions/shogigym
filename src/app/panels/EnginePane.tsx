@@ -2,7 +2,7 @@ import './engine.css'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { describeMove, scoreWinRate } from '../../analysis'
-import { engineSupported, type Analysis, type Candidate } from '../../engine'
+import { engineSupported, useEngineStatus, type Analysis, type Candidate } from '../../engine'
 import i18n from '../../i18n'
 import { applyUsi, moveText, pvText, type Side } from '../../shogi'
 import { EngineName } from '../EngineSettings'
@@ -27,7 +27,13 @@ type EnginePaneProps = { sfen: string; toMove: Side; analysis: Analysis | null; 
 export function EnginePane({ sfen, toMove, analysis, showBest, setShowBest, onPlay, canPlay, book }: EnginePaneProps) {
   const { t } = useTranslation()
   const [lineOpen, setLineOpen] = useState(false)
-  if (!engineSupported()) return <p className="app-muted">{t('engine.theAiNeedsACross')}</p>
+  const status = useEngineStatus()
+  if (!engineSupported()) return <div role="alert">
+    <p className="app-muted">{t('engine.theAiNeedsACross')}</p>
+    <Button onClick={() => location.reload()}>{t('engine.reloadPage')}</Button>
+  </div>
+  if (status.error) return <EngineName />
+  if (status.loading) return <div role="status" aria-busy="true"><EngineName /></div>
   if (!analysis || !analysis.candidates.length)
     return (
       <>

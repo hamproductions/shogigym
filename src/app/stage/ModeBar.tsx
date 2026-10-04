@@ -16,7 +16,7 @@ import { MODES, isGameMode, type LessonMode } from '../types'
 import { Button } from '../ui/Button'
 import { cx } from '../ui/cx'
 import { useGlide } from '../hooks/useGlide'
-import { restartEngine, useEngineStatus } from '../../engine'
+import { engineSupported, restartEngine, useEngineStatus } from '../../engine'
 import { FAMILIES, STRATEGIES } from '../../data/strategies'
 import { strategyCourses } from '../lib/book'
 
@@ -59,6 +59,7 @@ export function ModeBar({ title, instruction, lessonMode, sheetUp, panelHidden, 
   const { t } = useTranslation()
   const settings = useSettings()
   const engine = useEngineStatus()
+  const unavailable = !engineSupported()
   const ja = settings.lang === 'ja'
   const { mode, course, lastMove, prevSfen, plyBase, preview, cursor, toMove, nav, gameOver, game } = useSession()
   const seal = !ja ? <Icon name={MODES.find((m) => m.id === mode)!.icon} size={22} /> : mode === 'lesson' && course ? t(lessonMode === 'study' ? 'modes.sealStudy' : 'modes.sealQuiz') : t(`modes.${mode}.name`)
@@ -67,9 +68,10 @@ export function ModeBar({ title, instruction, lessonMode, sheetUp, panelHidden, 
       <span className="app-modebar-seal">{seal}</span>
       <span className="app-modebar-text">
         <strong>{title}</strong>
-        <span>{engine.error && (isGameMode(mode) || mode === 'view') ? engine.error : instruction}</span>
+        <span role="status" aria-busy={engine.loading}>{unavailable ? t('engine.theAiNeedsACross') : engine.error ? engine.error : engine.loading ? t('engine.loadingEngine') : instruction}</span>
       </span>
       {engine.error && (isGameMode(mode) || mode === 'view') && <Button size="sm" onClick={() => { restartEngine(); if (mode === 'view') watch.toggle() }}>{t('tsume.tryAgain')}</Button>}
+      {unavailable && <Button size="sm" onClick={() => location.reload()}>{t('engine.reloadPage')}</Button>}
       {mode === 'view' && (
         <>
           <Button size="sm" onClick={watch.started ? watch.toggle : onWatchSetup} disabled={watch.started && !watch.canPlay}>

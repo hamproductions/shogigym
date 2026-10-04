@@ -279,6 +279,8 @@
     "gote": "☖ Gote"
   },
   "engine": {
+    "loadingEngine": "Loading AI engine…",
+    "reloadPage": "Reload page",
     "sente": "☗ Sente",
     "gote": "☖ Gote",
     "thePositionIsEven": "The position is even",
