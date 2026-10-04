@@ -18,7 +18,7 @@ import { NewGameDialog } from './dialogs/NewGameDialog'
 import { Palette } from './dialogs/Palette'
 import { SettingsDialog } from './dialogs/SettingsDialog'
 import { WelcomeDialog } from './dialogs/WelcomeDialog'
-import { useSettings } from './settings'
+import { getSettings, useSettings } from './settings'
 import { SessionContext } from './hooks/session'
 import { useAnnouncements } from './hooks/useAnnouncements'
 import { useAutoplay } from './hooks/useAutoplay'
@@ -40,7 +40,7 @@ import { useTransient } from './hooks/useTransient'
 import { useView } from './hooks/useView'
 import { Icon } from './icons'
 import { bookForMove, bookMovesAt } from './lib/book'
-import { SNAPSHOT_NAME, VIEWER_EVENT } from './lib/events'
+import { SNAPSHOT_NAME, TABLE_FLIP_EVENT, VIEWER_EVENT } from './lib/events'
 import { mistakeIsBad } from './lib/mistake'
 import { moveText } from '../shogi'
 import { useAnalyzeGames } from './modes/analyze/useAnalyzeGames'
@@ -81,7 +81,7 @@ export function Workshop({ routeMode, routeMain }: { routeMode?: string; routeMa
   const tsume = useTsume(session, { mistakes, load, setTab })
   const tesuji = useTesuji(session, { mistakes, load, setTab })
   const analyze = useAnalyzeGames(session, { load, setTab, setConfirm })
-  const spar = useSpar(session, { load, setTab, coach, mistakes, setNudge, setConfirm, forgetReply: () => opponent.forget(), openInAnalyze: analyze.openReview, analyzeMoves: () => slots.stashed('analyze')?.game.moves.length ?? 0 })
+  const spar = useSpar(session, { load, setTab, coach, mistakes, setNudge, setConfirm, forgetReply: () => opponent.forget(), openInAnalyze: analyze.openReview, analyzeMoves: () => slots.stashed('analyze')?.game.moves.length ?? 0, onOpenAnalyze: () => (layout.setDrawer(true), layout.setSheetOpen(true)) })
   const opponent = useOpponent(session, { lessonMode: lesson.lessonMode, halted: spar.halted })
   const { enterMode, resume } = useModeSwitch(slots, { session, lesson, drill, tsume, tesuji, spar, analyze, mistakes, layout, setTab })
   const restored = usePersistedSession({ session, lesson, tsume, drill, spar, slots, resume })
@@ -199,10 +199,21 @@ export function Workshop({ routeMode, routeMain }: { routeMode?: string; routeMa
           <NewGameDialog
             side={userSide}
             onClose={() => spar.setNewGameOpen(false)}
-            onStart={(side) => {
+            onStart={(side, isRandom) => {
               spar.setNewGameOpen(false)
               load(InitialPositionSFEN.STANDARD, side, 'spar', null)
-              say('よろしくお願いします', true)
+              if (isRandom) {
+                const is3d = getSettings().environment === 'traditional' || getSettings().environment === 'casual'
+                if (is3d) {
+                  window.dispatchEvent(new CustomEvent(TABLE_FLIP_EVENT))
+                }
+                const isJa = getSettings().lang === 'ja'
+                const bannerText = side === 'sente' ? (isJa ? 'あなた（先手）' : ' You (Sente)') : (isJa ? 'あなた（後手）' : ' You (Gote)')
+                spar.setFurigomaBanner(bannerText)
+                say('よろしくお願いします', true)
+              } else {
+                say('よろしくお願いします', true)
+              }
             }}
           />
         )}

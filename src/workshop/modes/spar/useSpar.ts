@@ -24,14 +24,16 @@ type SparDeps = {
   forgetReply: () => void
   openInAnalyze: (title: string, autoRate: string) => void
   analyzeMoves: () => number
+  onOpenAnalyze?: () => void
 }
 
-export function useSpar(session: BoardSession, { load, setTab, coach, mistakes, setNudge, setConfirm, forgetReply, openInAnalyze, analyzeMoves }: SparDeps) {
+export function useSpar(session: BoardSession, { load, setTab, coach, mistakes, setNudge, setConfirm, forgetReply, openInAnalyze, onOpenAnalyze }: SparDeps) {
   const { t } = useTranslation()
   const { mode, game, sfens, cursor, userSide, atEnd, toMove, gameOver, ai, position, userTurn } = session
   const [resigned, setResigned] = useState(false)
   const [endHidden, setEndHidden] = useState('')
   const [newGameOpen, setNewGameOpen] = useState(false)
+  const [furigomaBanner, setFurigomaBanner] = useState<string | null>(null)
   const clock = useGameClock({ enabled: mode === 'spar', toMove, atEnd, moveCount: game.moves.length, stopped: resigned || gameOver, userSide })
   const { review, reviewAt } = coach
 
@@ -89,10 +91,9 @@ export function useSpar(session: BoardSession, { load, setTab, coach, mistakes, 
       session.setCursor(first)
       openInAnalyze(t('workshop.yourGameVsTheAi'), moves.join(' '))
       setTab('moves')
+      onOpenAnalyze?.()
     }
-    const open = analyzeMoves()
-    if (open > 0) setConfirm({ text: t('workshop.openThisGameInAnalyze', { count: open }), run, yes: t('workshop.openIt'), no: t('workshop.cancel') })
-    else run()
+    run()
   }
 
   const instruction = () => (resigned ? t('workshop.youResignedReviewTheGame') : position.checked && !hasLegalMove(position) ? t('workshop.checkmateTheGameIsOver') : !atEnd ? t('workshop.lookingBackAtEarlierMoves') : userTurn ? (position.checked ? t('workshop.checkYourKingIsIn') : t('workshop.yourMove')) : t('workshop.theAiIsThinking'))
@@ -113,6 +114,9 @@ export function useSpar(session: BoardSession, { load, setTab, coach, mistakes, 
     takeBack,
     reviewGame,
     title: t('workshop.vsAi', { side: sideMark(userSide) }),
+    furigomaBanner,
+    setFurigomaBanner,
+    clearFurigomaBanner: () => setFurigomaBanner(null),
     instruction,
     reset: () => {
       setResigned(false)

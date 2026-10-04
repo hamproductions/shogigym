@@ -91,8 +91,11 @@ export function useAnalyzeGames(session: BoardSession, { load, setTab, setConfir
     storeGame({ id, title: t('workshop.vsAiAs', { side: sideMark(userSide), when }), savedAt: Date.now(), start: game.start, moves: game.moves, tree: tree.children.length ? tree : undefined, userSide, result, vsAi: true })
   }
 
-  const reviewSlot = (g: StoredGame, confirmReplace: number) => {
+  const reviewSlot = (g: StoredGame, _confirmReplace: number) => {
     const run = () => {
+      if (game.moves.length > 0) {
+        saveSlot()
+      }
       load(g.start, g.userSide, 'analyze', null)
       session.setGame({ start: g.start, moves: g.moves })
       if (g.tree) session.setTree(g.tree)
@@ -102,8 +105,7 @@ export function useAnalyzeGames(session: BoardSession, { load, setTab, setConfir
       setAutoRate(g.moves.join(' '))
       setTab('moves')
     }
-    if (confirmReplace > 0) setConfirm({ text: t('workshop.openThisGameInAnalyze', { count: confirmReplace }), run, yes: t('workshop.openIt'), no: t('workshop.cancel') })
-    else run()
+    run()
   }
 
   const deleteSlot = (g: StoredGame) =>

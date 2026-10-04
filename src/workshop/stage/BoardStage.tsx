@@ -23,6 +23,7 @@ import { loadPieceSet } from '../pieceSets'
 import { isGameMode } from '../types'
 import { AnnounceBadge, PromotionPicker, TsumePlate } from './BoardOverlays'
 import { BoardBanners } from './BoardBanners'
+import { Button } from '../ui/Button'
 
 type BoardStageProps = {
   evalRate: number | null
@@ -78,6 +79,12 @@ export function BoardStage({ view, decor, input, commit, mistake, onBack, spar, 
   const showGameOver = ((gameOver && game.moves.length > 0 && isGameMode(mode)) || sparEnded) && spar.endHidden !== sfen
   return (
     <div className={`ws-board-wrap${evalRate !== null ? ' with-eval' : ''}`}>
+      {spar.furigomaBanner && (
+        <div className="ws-furigoma-banner" style={{ position: 'absolute', top: 12, left: '50%', transform: 'translateX(-50%)', zIndex: 100, background: 'rgba(20,20,25,0.92)', border: '1px solid var(--border-subtle, rgba(255,255,255,0.2))', padding: '8px 18px', borderRadius: 8, color: '#fff', boxShadow: '0 4px 16px rgba(0,0,0,0.4)', display: 'flex', alignItems: 'center', gap: 12, fontSize: '0.95rem', fontWeight: 600 }}>
+          <span>{spar.furigomaBanner}</span>
+          <Button size="sm" onClick={() => spar.clearFurigomaBanner()}>✕</Button>
+        </div>
+      )}
       {evalRate !== null && <EvalBar rate={evalRate} flipped={flipped} />}
       {settings.environment === 'diagram' || settings.environment === 'broadcast' ? (
         <Board2D style={settings.environment} {...board} tilted={false} />

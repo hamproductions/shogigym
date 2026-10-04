@@ -70,6 +70,11 @@ export function SettingsDialog({ onClose, level, onLevel }: { onClose: () => voi
               if (v) say('四間飛車', true)
             }} />
             {st.voice && <p className="ws-muted ws-credit">{t('settings.voiceCredit')}</p>}
+            <div className="ws-about-section" style={{ marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px solid var(--border-subtle, rgba(255,255,255,0.1))', fontSize: '0.85rem' }}>
+              <p className="ws-muted" style={{ margin: 0, opacity: 0.8 }}>
+                Shogi Lab · <a href="https://github.com/hamproductions/shogilab" target="_blank" rel="noreferrer" style={{ color: 'var(--text-accent, #60a5fa)', textDecoration: 'underline' }}>GitHub Repository</a>
+              </p>
+            </div>
           </>
         )}
         {tab === 'board' && (
