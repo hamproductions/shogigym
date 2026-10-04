@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { Color, promotedPieceType, type Move } from 'tsshogi'
-import { pieceFaceUrl } from '../board3d/piece'
+import { useBakedPieces } from '../hooks/useBakedPieces'
+import { spriteKey } from '../board3d/bake'
 import type { Announcement } from '../hooks/useAnnouncements'
 
 
@@ -18,11 +19,12 @@ export function AnnounceBadge({ announce }: { announce: Announcement }) {
 
 export function PromotionPicker({ options, onPick, onCancel }: { options: Move[]; onPick: (usi: string) => void; onCancel: () => void }) {
   const { t } = useTranslation()
+  const { baked } = useBakedPieces()
   return (
     <div className="ws-promote" role="dialog" aria-label={t('workshop.promote')}>
       {options.map((m) => (
         <button key={m.usi} className={m.promote ? 'yes' : 'no'} onClick={() => onPick(m.usi)}>
-          <img className="ws-koma-face" src={pieceFaceUrl(m.promote ? promotedPieceType(m.pieceType) : m.pieceType, Color.BLACK)} alt="" />
+          <img src={baked?.pieces.get(spriteKey(m.promote ? promotedPieceType(m.pieceType) : m.pieceType, m.color, true))} alt="" />
           <span>{m.promote ? t('workshop.promote2') : t('workshop.donTPromote')}</span>
         </button>
       ))}

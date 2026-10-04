@@ -1,20 +1,42 @@
-# CURRENT TASK
+# Current task
 
-## Goal (standing /goal)
-Shogi Gym 将棋ジム: dogfood as a new/weak player and keep fixing until the UX is smooth; finish the whole backlog autonomously; no "still open" lists as a stopping point.
+## Scope and permissions
+- Fix the nine screenshot issues plus engine startup/search hangs and obsolete shadow-map warning. All supplied screenshots inspected at original resolution.
+- Corrected scope: restore Diagram and Broadcast renderers and their original board appearance. Broadcast tiles must use the same baked sprite rendering as wooden 2D, as confirmed by the latest DOM screenshot; live 3D overlay is rejected. Diagram remains unchanged. Show controls/Esc and own evaluated-move counters remain approved.
+- Scoped edits and browser verification authorized. Current turn authorizes committing and pushing all working-tree changes; deployment not requested. Do not start/stop servers or alter system/user browser/audio.
+- Existing main: 38800ce. Current delivery includes all existing tracked changes and the shared baked-pieces hook.
 
-## Constraints
-- No push/deploy unless the user says so in the same turn. Shipped v1.0.0 on 2026-10-03; latest deploy 9ced95e green, live at hamproductions.github.io/shogilab.
-- Full handoff: conductor/HANDOFF_2026-10-03.md
-- No Artifact publishing; no code comments; agent-browser with mock keychain + mute-audio, one named session, close it; never click mailto:/tel:.
-- Dev server on 5317 (background task, 2 h limit; restart when it expires). User's own VOICEVOX engine container on 50021: use read-only, never stop.
-- Dev-only pages (/komadai, /dev/hands) via `import.meta.env.DEV` lazy import; keep the /dev/hands tester.
-- Disk is tight (~2 GiB free); df -h before builds. One headless browser at a time.
+## Implemented
+- Incorrect BoardStage routing replaced Diagram/Broadcast entirely; restore their Board2D paths. Keep hidden Tilt in flat modes.
+- Pickup transforms use sprite-centered origins and animated shadows. Review frame uses the same container border across modes, including phone.
+- Evaluation graph outside scrolling move list; Coach counters subscribe to actual completed review data and filter own side.
+- Show controls label/icon; background uses nonintersecting wave arcs; PCFShadowMap replaces removed shadow type.
+- Piece undersides use opposite-face textures with normalized UVs.
+- Engine waits have deadlines, cancellation checks between startup handshakes, cleanup and retry/error UI. Engine switching after failure now starts the selected engine. Opponent restarts on engine epoch and skips halted/terminal games.
 
-## Ledger (status as of 2026-10-03)
-Done and browser-checked: hand reach parity sente/gote, hip lean (no collapse), smoothing (no twitch), long fingers, piece glued to fingertips with fallback, no teleport, shadows, rest-hand thigh lift (measured, not visually confirmed), hands on table in casual room, top-view dissolve of far player (hands kept — re-check after height change), promotion picker faces, drops keep stand pile until landing, faster hands, characters auto-load, power mode wired, tsume mate → loser flips table, flip held until next click/scroll/key, eval bar on board margin + steady value + phone row, move knock on every forward step (3D and 2D), voice clips (76, WebM/Opus, katakana readings, no なのだ), more castles, English UI strings/titles, take-back flow, quiz/tesuji/tsume retry flows.
-Browser-verified after ship: announcement banner, greeting clip, voice toggle+credit, byoyomi clips play. Byoyomi voice fixed (own clock only, 1–9 then 時間切れ, browser-verified). Not browser-verified: drag only own side, tester move sounds, quiz header de-dup.
-Open:
-4. Characters: seiza feet flat, near-arm sleeve stub, cloth/hair clipping re-check, thigh clip visual confirm.
-Left by owner's decision: not-reproduced reports (off-centre piece, floating tiles, power-capture misplacement).
-Deferred by user: lesson note text translation (dynamic content), Zundamon 3D model (voice only).
+## Verification
+- Earlier verification used existing localhost:5317 in isolated headed joseki-followup session with mock keychain/basic passwords/muted audio; no non-http links.
+- Observed opening AI reply, AI first move as gote, own Book counter 1/1 excluding opponent, NNUE missing-file error/retry with retained evaluation bar, wooden Diagram tiles, hidden Tilt, Show controls/Esc restoration.
+- Imported existing 53-ply Millennium course through UI. Move list scrollTop 411 with graph visibly pinned at y=60; uniform 2px review border visible.
+- Build and typecheck passed; lint passed with existing warnings; validator passed. Engine edits since build require final typecheck/lint.
+- Remaining: Broadcast/wood/3D border and sprite parity; real flip-back/promotion animation; mobile; final cleanup/diff validation.
+
+## Skills
+- get-your-shit-together 1-27 EOF; look-at-the-screen 1-60 EOF; real-testing-evidence 1-70 EOF; agent-browser 1-52 EOF and core CLI; systematic-debugging 1-283 EOF plus root-cause-tracing 1-169 EOF; verification-before-completion 1-120 EOF.
+- grilling 1-28 EOF; frontend-design 1-71 EOF; brainstorming 1-285 EOF. Bounded counter design approved; no architectural document required.
+
+## Current boundary
+- User is taking over runtime testing. Agent browser testing stopped; task session closed and temporary screenshot removed.
+- Lift correction found reduced-motion disables CSS transitions; added a narrow tile-transition exception and larger lift. This correction is not runtime verified.
+- Flip-back animation, corrected lift, Broadcast/3D parity and mobile remain unverified. Final engine edits have not received the full build check.
+- Runtime checks remain stopped by user request. Current turn requests committing and pushing everything, then confirming a clean working tree.
+
+## Latest correction
+- Table-flip tile collision treated tile centers as points, allowing oriented tile extents to intersect the overturned board. Replace with separating-axis collision using complete tile and board boxes.
+- Integrate physics in at most 1/120s steps with board pose updated each step; reproject contacts after settling rotation and sleep grounded low-velocity bodies. Runtime behavior remains unverified; no checks run.
+- Table-flip dismissal was bound globally to pointer-down, wheel, and key input, causing camera navigation to reset the scene.
+- Dismiss only on a stationary primary viewport click. Any pointer movement cancels dismissal; document capture tracks the full gesture even outside the canvas. Wheel, keyboard, camera drag, and surrounding UI interactions retain the flipped scene. Pointer cancel and multi-pointer input cancel pending dismissal.
+- Enable temporary orbit controls while table flip is active. Suppress board piece selection/drop input during the flip; normal orbit preference resumes afterward. Position changes still release obsolete flip state.
+- Shared wood grain contrast increased; 3D instances use varied seeds preserved through ordinary moves/promotion. Face height overlaps bevel to address the reported seam. These earlier changes remain visually unverified.
+- Current delivery: commit and push all changes to main. No tests/browser/server/deploy; standing check stop remains active.
+- Immediate next action: confirm remote HEAD matches local HEAD and working tree is clean after push. UI fixes remain runtime unverified.

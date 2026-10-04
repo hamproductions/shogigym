@@ -4,14 +4,14 @@ import { Color, PieceType, Square, type ImmutablePosition } from 'tsshogi'
 import type { Board3DProps } from './Board3D'
 import { OverMarks, UnderMarks } from './flatMarks'
 import { useLatest } from './hooks/useLatest'
+import { useBakedPieces } from './hooks/useBakedPieces'
 import { useSvgBoard } from './hooks/useSvgBoard'
-import { SPRITE_BOX, bakeFlat, spriteKey, type Baked } from './board3d/bake'
+import { SPRITE_BOX, spriteKey, type Baked } from './board3d/bake'
 import { HALF_D, HALF_W, MARGIN, SQ_D, STAND, STRIP_D, STRIP_W, setBoardDims } from './board3d/dimensions'
 import { handArrangement } from './board3d/hand'
 import { layout, sideStandsFit, standCenter } from './board3d/layout'
 import { steppedMove } from './lib/stepped'
-import { loadPieceSet } from './pieceSets'
-import { loadPieceFont, useSettings } from './settings'
+import { useSettings } from './settings'
 
 const U = 100
 const CH = SQ_D * U
@@ -46,31 +46,6 @@ function geometry(portrait: boolean, narrow: boolean) {
   }
 }
 
-const bakeCache = new Map<string, Baked>()
-
-function useBaked() {
-  const settings = useSettings()
-  const key = `${settings.pieceStyle}|${settings.pieceFinish}|${settings.pieceFont}|${settings.pieceSet}|${settings.boardStyle}|${settings.coords}`
-  const [ready, setReady] = useState<Baked | null>(null)
-  const cached = bakeCache.get(key)
-  if (cached && ready !== cached) setReady(cached)
-  useEffect(() => {
-    if (bakeCache.has(key)) return
-    let live = true
-    void Promise.all([loadPieceFont(settings.pieceFont), loadPieceSet(settings.pieceSet), loadPieceFont('mincho')]).then(() => {
-      if (!live || bakeCache.has(key)) return
-      const baked = bakeFlat(Math.min(512, Math.round(256 * Math.min(2, window.devicePixelRatio || 1))))
-      bakeCache.set(key, baked)
-      if (bakeCache.size > 8) bakeCache.delete(bakeCache.keys().next().value!)
-      setReady(baked)
-    })
-    return () => {
-      live = false
-    }
-  }, [key, settings.pieceFont, settings.pieceSet])
-  return cached ?? ready
-}
-
 function Koma({ baked, type, color, up }: { baked: Baked; type: PieceType; color: Color; up: boolean }) {
   const size = SPRITE_BOX * U
   return <image href={baked.pieces.get(spriteKey(type, color, up))} x={-size / 2} y={-size / 2} width={size} height={size} />
@@ -94,7 +69,7 @@ export function BoardFlat(props: Board3DProps) {
   const zoned = !!props.onZones && window.innerWidth >= 1100 && sideStandsFit(window.innerWidth - 100, window.innerHeight - 110)
   const g = geometry(!(zoned || sideStandsFit(box.w, box.h)), box.w < 560)
   const margin = MARGIN * U
-  const baked = useBaked()
+  const { baked, loading, error } = useBakedPieces()
   const gx = g.bx + margin
   const gy = g.by + margin
   const col = (file: number) => (flipped ? file - 1 : 9 - file)
@@ -137,6 +112,7 @@ export function BoardFlat(props: Board3DProps) {
   })
   const previous = useRef<ImmutablePosition | null>(null)
   useLayoutEffect(() => {
+    svgRef.current?.getAnimations({ subtree: true }).forEach((animation) => animation.cancel())
     const prev = previous.current
     previous.current = position
     if (!prev || prev.sfen === position.sfen || !lastMove) return
@@ -200,7 +176,7 @@ export function BoardFlat(props: Board3DProps) {
     else props.onHand(d.color, d.from as PieceType)
   }
 
-  if (!baked) return <div className="ws-flat ws-flat-wood" ref={wrapRef} />
+  if (!baked) return <div className="ws-flat ws-flat-wood" ref={wrapRef}><div role="status">{error ?? i18n.t('settings.loadingEvalFile')}</div></div>
 
   const hand = (color: Color) => {
     const bottom = (color === Color.BLACK) !== flipped
@@ -244,7 +220,8 @@ export function BoardFlat(props: Board3DProps) {
   const coordFill = settings.boardStyle === 'dark' ? 'rgba(250,232,196,0.92)' : 'rgba(40,22,8,0.85)'
   const dragFrom = drag?.moved && drag.from instanceof Square ? drag.from : null
   return (
-    <div className="ws-flat ws-flat-wood" ref={wrapRef}>
+    <div className="ws-flat ws-flat-wood" ref={wrapRef} aria-busy={loading}>
+      {(loading || error) && <div className="ws-board-loading" role="status">{error ?? i18n.t('settings.loadingEvalFile')}</div>}
       <svg ref={svgRef} xmlns="http://www.w3.org/2000/svg" viewBox={`${-PAD} ${-PAD} ${g.width + 2 * PAD} ${g.height + 2 * PAD}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label={i18n.t('board.shogiBoard')} onPointerMove={onMove} onPointerUp={onUp} onPointerCancel={() => setDrag(null)}>
         <image href={baked.board} x={g.bx} y={g.by} width={g.bw} height={g.bh} preserveAspectRatio="none" />
         <rect className="ws-board-frame" x={g.bx - 6} y={g.by - 6} width={g.bw + 12} height={g.bh + 12} rx={10} fill="none" pointerEvents="none" />

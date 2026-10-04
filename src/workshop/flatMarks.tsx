@@ -1,4 +1,4 @@
-import { PieceType, Square, type ImmutablePosition } from 'tsshogi'
+import { PieceType, Square, type ImmutablePosition, type Color } from 'tsshogi'
 import type { Board3DProps, BoardArrow } from './Board3D'
 import { SQ_D, squareX, squareZ } from './board3d/dimensions'
 import { handSpot } from './board3d/hand'
@@ -7,6 +7,8 @@ import { standCenter } from './board3d/layout'
 const DROP_TYPE: Record<string, PieceType> = { P: PieceType.PAWN, L: PieceType.LANCE, N: PieceType.KNIGHT, S: PieceType.SILVER, G: PieceType.GOLD, B: PieceType.BISHOP, R: PieceType.ROOK }
 
 export type Project = (x: number, z: number) => [number, number]
+
+type HandPoint = (color: Color, type: PieceType) => { x: number; z: number } | null
 
 const hex = (n: number) => `#${n.toString(16).padStart(6, '0')}`
 
@@ -50,13 +52,13 @@ function Tag({ x, y, u, text, color }: { x: number; y: number; u: number; text: 
   )
 }
 
-function Arrow({ p, u, arrow, position, stack }: { p: Project; u: number; arrow: BoardArrow; position: ImmutablePosition; stack: number }) {
+function Arrow({ p, u, arrow, position, stack, handPoint }: { p: Project; u: number; arrow: BoardArrow; position: ImmutablePosition; stack: number; handPoint?: HandPoint }) {
   const to = Square.newByUSI(arrow.usi.slice(2, 4))
   if (!to || !/^([1-9][a-i]|[PLNSGBR]\*)[1-9][a-i]\+?$/.test(arrow.usi)) return null
   let sx: number
   let sz: number
   if (arrow.usi[1] === '*') {
-    const slot = handSpot(position, position.color, DROP_TYPE[arrow.usi[0]]) ?? standCenter(position.color)
+    const slot = handPoint?.(position.color, DROP_TYPE[arrow.usi[0]]) ?? handSpot(position, position.color, DROP_TYPE[arrow.usi[0]]) ?? standCenter(position.color)
     sx = slot.x
     sz = slot.z
   } else {
@@ -150,11 +152,11 @@ export function UnderMarks({ props, p, u }: { props: Board3DProps; p: Project; u
   )
 }
 
-export function OverMarks({ props, p, u, flip, coordFill }: { props: Board3DProps; p: Project; u: number; flip: number; coordFill: string }) {
+export function OverMarks({ props, p, u, flip, coordFill, handPoint }: { props: Board3DProps; p: Project; u: number; flip: number; coordFill: string; handPoint?: HandPoint }) {
   const { arrows, position, selected, selectedColor, checkSquare, stamp, heat, castles } = props
   const stacked = new Map<string, number>()
   const stamped = stamp && Square.newByUSI(stamp.square)
-  const handSlot = selected !== null && !(selected instanceof Square) && selectedColor !== undefined ? (handSpot(position, selectedColor, selected) ?? standCenter(selectedColor)) : null
+  const handSlot = selected !== null && !(selected instanceof Square) && selectedColor !== undefined ? (handPoint?.(selectedColor, selected) ?? handSpot(position, selectedColor, selected) ?? standCenter(selectedColor)) : null
   return (
     <g pointerEvents="none">
       {handSlot && (() => {
@@ -177,7 +179,7 @@ export function OverMarks({ props, p, u, flip, coordFill }: { props: Board3DProp
         const end = arrow.usi.slice(2, 4)
         const stack = stacked.get(end) ?? 0
         if (arrow.label) stacked.set(end, stack + 1)
-        return <Arrow key={`a${i}`} p={p} u={u} arrow={arrow} position={position} stack={stack} />
+        return <Arrow key={`a${i}`} p={p} u={u} arrow={arrow} position={position} stack={stack} handPoint={handPoint} />
       })}
       {checkSquare && (() => {
         const [x, y] = p(squareX(checkSquare.file), squareZ(checkSquare.rank) - 0.5 * flip)

@@ -40,7 +40,7 @@ export type Latest = { readonly current: Board3DProps }
 
 export type Stand = { stand: THREE.Mesh; side: number; legs: THREE.Mesh[] }
 
-export type Body = { obj: THREE.Object3D; v: THREE.Vector3; w: THREE.Vector3; center: THREE.Vector3; half: THREE.Vector3; keepFlat: boolean; grounded: boolean; landed: boolean }
+export type Body = { obj: THREE.Object3D; v: THREE.Vector3; w: THREE.Vector3; center: THREE.Vector3; half: THREE.Vector3; keepFlat: boolean; grounded: boolean; landed: boolean; sleeping?: boolean }
 
 export type Arena = { floor: number; boxes: { minX: number; maxX: number; minZ: number; maxZ: number; top: number }[]; halfX: number; halfZ: number; ceil: number; walls: Wall[] }
 

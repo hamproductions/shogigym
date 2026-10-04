@@ -48,7 +48,8 @@ html {
   inset: 0;
   z-index: -1;
   background: var(--pattern-ink);
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='24'%3E%3Cg fill='none' stroke='%23000'%3E%3Ccircle cx='0' cy='12' r='23'/%3E%3Ccircle cx='0' cy='12' r='17'/%3E%3Ccircle cx='0' cy='12' r='11'/%3E%3Ccircle cx='0' cy='12' r='5'/%3E%3Ccircle cx='48' cy='12' r='23'/%3E%3Ccircle cx='48' cy='12' r='17'/%3E%3Ccircle cx='48' cy='12' r='11'/%3E%3Ccircle cx='48' cy='12' r='5'/%3E%3Ccircle cx='24' cy='24' r='23'/%3E%3Ccircle cx='24' cy='24' r='17'/%3E%3Ccircle cx='24' cy='24' r='11'/%3E%3Ccircle cx='24' cy='24' r='5'/%3E%3C/g%3E%3C/svg%3E") repeat;
+  mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2248%22%20height%3D%2224%22%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M-24%200a24%2024%200%200%201%2048%200Z%22%2F%3E%3Cpath%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%220.7%22%20d%3D%22M-24%200a24%2024%200%200%201%2048%200M-18%200a18%2018%200%200%201%2036%200M-12%200a12%2012%200%200%201%2024%200M-6%200a6%206%200%200%201%2012%200%22%2F%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M24%200a24%2024%200%200%201%2048%200Z%22%2F%3E%3Cpath%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%220.7%22%20d%3D%22M24%200a24%2024%200%200%201%2048%200M30%200a18%2018%200%200%201%2036%200M36%200a12%2012%200%200%201%2024%200M42%200a6%206%200%200%201%2012%200%22%2F%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M0%2012a24%2024%200%200%201%2048%200Z%22%2F%3E%3Cpath%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%220.7%22%20d%3D%22M0%2012a24%2024%200%200%201%2048%200M6%2012a18%2018%200%200%201%2036%200M12%2012a12%2012%200%200%201%2024%200M18%2012a6%206%200%200%201%2012%200%22%2F%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M-24%2024a24%2024%200%200%201%2048%200Z%22%2F%3E%3Cpath%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%220.7%22%20d%3D%22M-24%2024a24%2024%200%200%201%2048%200M-18%2024a18%2018%200%200%201%2036%200M-12%2024a12%2012%200%200%201%2024%200M-6%2024a6%206%200%200%201%2012%200%22%2F%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M24%2024a24%2024%200%200%201%2048%200Z%22%2F%3E%3Cpath%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%220.7%22%20d%3D%22M24%2024a24%2024%200%200%201%2048%200M30%2024a18%2018%200%200%201%2036%200M36%2024a12%2012%200%200%201%2024%200M42%2024a6%206%200%200%201%2012%200%22%2F%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M0%2036a24%2024%200%200%201%2048%200Z%22%2F%3E%3Cpath%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%220.7%22%20d%3D%22M0%2036a24%2024%200%200%201%2048%200M6%2036a18%2018%200%200%201%2036%200M12%2036a12%2012%200%200%201%2024%200M18%2036a6%206%200%200%201%2012%200%22%2F%3E%3C%2Fsvg%3E") repeat;
+  mask-mode: luminance;
   pointer-events: none;
 }
 
@@ -149,5 +150,9 @@ html {
   .ws *::after {
     transition: none !important;
     animation: none !important;
+  }
+
+  .ws .ws-koma-lift {
+    transition: transform 0.16s ease-out, filter 0.16s ease-out !important;
   }
 }

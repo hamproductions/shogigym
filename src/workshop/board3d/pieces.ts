@@ -8,6 +8,8 @@ import { pieceMesh } from './piece'
 import { badgeSprite } from './textures'
 import type { Board3DProps, SceneState } from './types'
 
+const CAPTURE_SEED = Object.fromEntries(Object.values(PieceType).map((type, i) => [type, (i + 1) * 19349663]))
+
 const squarePoint = (sq: Square) => new THREE.Vector3(squareX(sq.file), 0, squareZ(sq.rank))
 
 const board3 = (sfen: string) => sfen.split(' ').slice(0, 3).join(' ')
@@ -32,7 +34,7 @@ function avatarMove(s: SceneState, position: ImmutablePosition, prev: ImmutableP
   const land = s.onLand
   const source = kind === 'drop' && !placed ? s.handMeshes.find((m) => m.userData.color === move.color && m.userData.type === move.pieceType && m.userData.liftable) : undefined
   if (source) source.visible = false
-  const played = s.avatars.playMove({ kind, flip: kind === 'promote' ? pieceMesh(move.pieceType, move.color) : undefined, color: move.color, mesh, from, to: mesh.position.clone(), placed, land: source ? () => (land?.(), s.settle?.()) : land, capture })
+  const played = s.avatars.playMove({ kind, flip: kind === 'promote' ? pieceMesh(move.pieceType, move.color, mesh.userData.grainSeed as number) : undefined, color: move.color, mesh, from, to: mesh.position.clone(), placed, land: source ? () => (land?.(), s.settle?.()) : land, capture })
   if (!played && source) {
     source.visible = true
     queueMicrotask(() => s.settle?.())
@@ -43,13 +45,25 @@ function avatarMove(s: SceneState, position: ImmutablePosition, prev: ImmutableP
 
 export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, prev: ImmutablePosition | null = null, placed = false) {
   const { position, lastMove } = props
+  if (prev) {
+    s.avatars?.reset?.()
+    s.animations.length = 0
+    animate = animate && !!(lastMove && playedMove(prev, position, lastMove))
+  }
+  const grains = new Map(s.pieces.children.filter((mesh) => mesh.userData.square).map((mesh) => [(mesh.userData.square as Square).usi, mesh.userData.grainSeed as number]))
+  const move = prev && lastMove ? playedMove(prev, position, lastMove) : null
+  if (move && move.from instanceof Square) {
+    const seed = grains.get(move.from.usi)
+    grains.delete(move.from.usi)
+    if (seed !== undefined) grains.set(move.to.usi, seed)
+  }
   const held = s.pieces.children.filter((m) => m.userData.held && m.userData.square)
   s.pieces.clear()
   s.handMeshes = []
   let moved: { mesh: THREE.Object3D; color: Color; square: Square } | null = null
   for (const square of position.board.listNonEmptySquares()) {
     const piece = position.board.at(square)!
-    const mesh = pieceMesh(piece.type, piece.color)
+    const mesh = pieceMesh(piece.type, piece.color, grains.get(square.usi) ?? (square.file * 73856093 ^ square.rank * 19349663))
     mesh.position.copy(squarePoint(square))
     mesh.userData.square = square
     mesh.userData.baseY = 0
@@ -65,7 +79,7 @@ export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, pr
       const nth = seen.get(spot.type) ?? 0
       seen.set(spot.type, nth + 1)
       const same = spots.filter((p) => p.type === spot.type).length
-      const mesh = handPieceMesh(spot, color)
+      const mesh = handPieceMesh(spot, color, (nth + 1) * 83492791 + CAPTURE_SEED[spot.type])
       mesh.castShadow = false
       mesh.userData = { color, type: spot.type, baseY: mesh.position.y, liftable: nth === Math.floor(same / 2) }
       s.pieces.add(mesh)

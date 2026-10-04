@@ -1,3 +1,4 @@
+import { useSyncExternalStore } from 'react'
 import type { MoveReview } from '../analysis'
 
 const REVIEWS = 'joseki-practice:reviews:v1'
@@ -15,6 +16,8 @@ function load<T>(key: string): Record<string, T> {
 }
 
 const reviews = load<MoveReview>(REVIEWS)
+const reviewListeners = new Set<() => void>()
+let reviewVersion = 0
 const evals = load<number>(EVALS)
 let timer: ReturnType<typeof setTimeout> | null = null
 
@@ -43,7 +46,16 @@ export const cachedReview = (sfen: string, usi: string): MoveReview | undefined 
 
 export function rememberReview(sfen: string, usi: string, review: MoveReview) {
   reviews[reviewKey(sfen, usi)] = review
+  reviewVersion++
+  reviewListeners.forEach((listener) => listener())
   persist()
+}
+
+export function useReviewVersion() {
+  return useSyncExternalStore((listener) => {
+    reviewListeners.add(listener)
+    return () => { reviewListeners.delete(listener) }
+  }, () => reviewVersion)
 }
 
 export const cachedEval = (sfen: string): number | undefined => evals[strip(sfen)]

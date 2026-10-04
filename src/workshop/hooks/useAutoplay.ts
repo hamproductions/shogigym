@@ -1,9 +1,11 @@
 import { useEffect } from 'react'
+import { applyUsi } from '../../shogi'
 import { mainBranch, strip } from '../lib/book'
 import type { BoardSession } from './useBoardSession'
 
-export function useAutoplay({ preview, setPreview, cursor, setCursor, game, nodes, sfen, ai, playing, setPlaying, play }: BoardSession, bestMove: string | undefined) {
-  const upcoming = preview ? preview.moves[preview.step] : cursor < game.moves.length ? game.moves[cursor] : (mainBranch(nodes?.get(strip(sfen)))?.usi ?? (ai ? bestMove : undefined))
+export function useAutoplay({ preview, setPreview, cursor, setCursor, game, nodes, sfen, ai, playing, setPlaying, play, gameOver }: BoardSession, bestMove: string | undefined) {
+  const candidate = preview ? preview.moves[preview.step] : cursor < game.moves.length ? game.moves[cursor] : gameOver ? undefined : (mainBranch(nodes?.get(strip(sfen)))?.usi ?? (ai && bestMove !== 'resign' && bestMove !== 'win' ? bestMove : undefined))
+  const upcoming = candidate && applyUsi(sfen, candidate) ? candidate : undefined
   useEffect(() => {
     if (!playing) return
     if (!upcoming) {

@@ -14,6 +14,7 @@ import { MODES, isGameMode, type LessonMode } from '../types'
 import { Button } from '../ui/Button'
 import { cx } from '../ui/cx'
 import { useGlide } from '../hooks/useGlide'
+import { restartEngine, useEngineStatus } from '../../engine'
 
 type ModeBarProps = {
   title: string
@@ -51,6 +52,7 @@ function EvalChip({ rate, barShown }: { rate: number; barShown: boolean }) {
 export function ModeBar({ title, instruction, lessonMode, sheetUp, panelHidden, onPanel, spar, evalRate, barShown, onStartOver, tsume, tesuji, lesson, drill }: ModeBarProps) {
   const { t } = useTranslation()
   const settings = useSettings()
+  const engine = useEngineStatus()
   const ja = settings.lang === 'ja'
   const { mode, course, lastMove, prevSfen, plyBase, preview, cursor, toMove, nav, gameOver, game } = useSession()
   const seal = !ja ? <Icon name={MODES.find((m) => m.id === mode)!.icon} size={22} /> : mode === 'lesson' && course ? t(lessonMode === 'study' ? 'modes.sealStudy' : 'modes.sealQuiz') : t(`modes.${mode}.name`)
@@ -59,8 +61,9 @@ export function ModeBar({ title, instruction, lessonMode, sheetUp, panelHidden, 
       <span className="ws-modebar-seal">{seal}</span>
       <span className="ws-modebar-text">
         <strong>{title}</strong>
-        <span>{instruction}</span>
+        <span>{engine.error && isGameMode(mode) ? engine.error : instruction}</span>
       </span>
+      {engine.error && isGameMode(mode) && <Button size="sm" onClick={restartEngine}>{t('tsume.tryAgain')}</Button>}
       <span className="ws-lastmove">
         {lastMove && prevSfen ? (
           <>

@@ -81,26 +81,51 @@ function loadScript(src: string, factory: () => EngineFactory | undefined): Prom
   if (factory()) return Promise.resolve()
   return new Promise((resolve, reject) => {
     const script = document.createElement('script')
+    const timer = setTimeout(() => {
+      script.remove()
+      reject(new Error(`engine timed out loading ${src}`))
+    }, 30000)
     script.src = src
-    script.onload = () => resolve()
-    script.onerror = () => reject(new Error(`failed to load ${src}`))
+    script.onload = () => {
+      clearTimeout(timer)
+      resolve()
+    }
+    script.onerror = () => {
+      clearTimeout(timer)
+      script.remove()
+      reject(new Error(`failed to load ${src}`))
+    }
     document.head.appendChild(script)
   })
 }
 
-function waitFor(engine: UsiModule, command: string, terminator: string, onLine?: (line: string) => void): Promise<void> {
-  return new Promise((resolve) => {
-    const finish = () => {
+function waitFor(engine: UsiModule, command: string, terminator: string, onLine?: (line: string) => void, timeout = 30000): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const clear = () => {
+      clearTimeout(timer)
+      if (pending !== finish) return
       listener = null
       pending = null
+    }
+    const finish = () => {
+      clear()
       resolve()
     }
+    const timer = setTimeout(() => {
+      clear()
+      reject(new Error(`engine timed out waiting for ${terminator}`))
+    }, timeout)
     pending = finish
     listener = (line) => {
       onLine?.(line)
       if (line.startsWith(terminator)) finish()
     }
-    engine.postMessage(command)
+    try {
+      engine.postMessage(command)
+    } catch (error) {
+      clear()
+      reject(error)
+    }
   })
 }
 
@@ -115,7 +140,19 @@ async function boot(kind: EngineKind): Promise<UsiModule> {
   const evalFile = kind === 'nnue' ? await readEvalFile() : null
   if (kind === 'nnue' && !evalFile) throw new Error(i18n.t('engine.noEvalFile'))
   await loadScript(spec.script, spec.factory)
-  const engine = await spec.factory()!()
+  if (id !== session) throw new Error('engine switched')
+  const starting = spec.factory()!()
+  void starting.then((engine) => {
+    if (id !== session) engine.terminate()
+  }).catch(() => undefined)
+  let timer: ReturnType<typeof setTimeout> | undefined
+  const engine = await Promise.race([starting, new Promise<never>((_, reject) => {
+    timer = setTimeout(() => reject(new Error('engine timed out starting')), 30000)
+  })]).finally(() => clearTimeout(timer))
+  if (id !== session) {
+    engine.terminate()
+    throw new Error('engine switched')
+  }
   engine.addMessageListener((line) => {
     if (id === session) listener?.(line)
   })
@@ -123,7 +160,14 @@ async function boot(kind: EngineKind): Promise<UsiModule> {
   let name = ''
   await waitFor(engine, 'usi', 'usiok', (line) => {
     if (line.startsWith('id name ')) name = line.slice(8)
+  }).catch((error) => {
+    engine.terminate()
+    throw error
   })
+  if (id !== session) {
+    engine.terminate()
+    throw new Error('engine switched')
+  }
   engine.postMessage('setoption name USI_Hash value 128')
   engine.postMessage(`setoption name Threads value ${Math.max(1, Math.min(4, (navigator.hardwareConcurrency || 2) - 1))}`)
   spec.options().forEach((option) => engine.postMessage(`setoption name ${option}`))
@@ -132,6 +176,9 @@ async function boot(kind: EngineKind): Promise<UsiModule> {
     if (!line.startsWith('Error')) return
     failure = line
     pending?.()
+  }).catch((error) => {
+    engine.terminate()
+    throw error
   })
   if (id !== session || failure) {
     engine.terminate()
@@ -165,7 +212,7 @@ export function getEngine(): Promise<UsiModule> {
     setStatus({ kind, name: '', error: '' })
     engine.catch((error: Error) => {
       if (active?.engine !== engine) return
-      active = null
+      shutdown()
       setStatus({ error: error.message })
     })
   }
@@ -177,8 +224,12 @@ export function restartEngine() {
   if (engineSupported()) getEngine().catch((error) => console.warn('engine preload failed', error))
 }
 
+let configuredKey = engineKey()
 subscribeSettings(() => {
-  if (active && active.key !== engineKey()) restartEngine()
+  const key = engineKey()
+  if (key === configuredKey) return
+  configuredKey = key
+  restartEngine()
 })
 
 export function parseInfo(line: string): Candidate | null {
@@ -205,14 +256,16 @@ export function analyze(usiPosition: string, { multipv = 3, movetime = 1500, bac
   const result = search(usiPosition, multipv, movetime, background)
   if (!background) {
     cache.set(usiPosition, { multipv, movetime, result })
-    result.catch(() => cache.delete(usiPosition))
+    result.catch(() => {
+      if (cache.get(usiPosition)?.result === result) cache.delete(usiPosition)
+    })
     if (cache.size > 400) cache.delete(cache.keys().next().value!)
   }
   return result
 }
 
 function search(usiPosition: string, multipv: number, movetime: number, background: boolean): Promise<Analysis> {
-  if (searching && interruptible) active?.engine.then((engine) => engine.postMessage('stop'))
+  if (searching && interruptible) current?.postMessage('stop')
   const generation = background ? ++backgroundGeneration : backgroundGeneration
   const run = async () => {
     const engine = await getEngine()
@@ -223,12 +276,22 @@ function search(usiPosition: string, multipv: number, movetime: number, backgrou
     engine.postMessage(usiPosition)
     const lines = new Map<number, Candidate>()
     let bestmove = ''
-    await waitFor(engine, `go movetime ${movetime}`, 'bestmove', (line) => {
-      const info = parseInfo(line)
-      if (info) lines.set(info.multipv, info)
-      if (line.startsWith('bestmove')) bestmove = line.split(' ')[1]
-    })
-    searching = false
+    try {
+      await waitFor(engine, `go movetime ${movetime}`, 'bestmove', (line) => {
+        const info = parseInfo(line)
+        if (info) lines.set(info.multipv, info)
+        if (line.startsWith('bestmove')) bestmove = line.split(' ')[1]
+      }, movetime + 10000)
+    } catch (error) {
+      if (engine === current) {
+        shutdown()
+        setStatus({ error: error instanceof Error ? error.message : String(error) })
+      }
+      throw error
+    } finally {
+      searching = false
+      interruptible = false
+    }
     return { bestmove, candidates: [...lines.values()].sort((a, b) => a.multipv - b.multipv) }
   }
   const result = queue.then(run, run)

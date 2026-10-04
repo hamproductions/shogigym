@@ -15,7 +15,7 @@ export type Baked = { pieces: Map<string, string>; board: string; stand: string 
 
 export const spriteKey = (type: PieceType, color: Color, up: boolean) => `${type}${color}${up ? 'u' : 'd'}`
 
-export function bakeFlat(px: number): Baked {
+export async function bakeFlat(px: number, signal: AbortSignal): Promise<Baked> {
   setBoardDims()
   clearFaceTextures()
   const renderer = createRenderer()
@@ -33,19 +33,24 @@ export function bakeFlat(px: number): Baked {
   camera.up.set(0, 0, -1)
   camera.lookAt(0, 0, 0)
   const pieces = new Map<string, string>()
-  for (const color of [Color.BLACK, Color.WHITE])
-    for (const type of TYPES) {
-      const mesh = pieceMesh(type, color)
-      scene.add(mesh)
-      for (const up of [true, false]) {
-        mesh.rotation.y = up ? 0 : Math.PI
-        renderer.render(scene, camera)
-        pieces.set(spriteKey(type, color, up), renderer.domElement.toDataURL('image/png'))
+  try {
+    for (const color of [Color.BLACK, Color.WHITE])
+      for (const type of TYPES) {
+        await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()))
+        signal.throwIfAborted()
+        const mesh = pieceMesh(type, color)
+        scene.add(mesh)
+        for (const up of [true, false]) {
+          mesh.rotation.y = up ? 0 : Math.PI
+          renderer.render(scene, camera)
+          pieces.set(spriteKey(type, color, up), renderer.domElement.toDataURL('image/png'))
+        }
+        scene.remove(mesh)
       }
-      scene.remove(mesh)
-    }
-  renderer.dispose()
-  renderer.forceContextLoss()
+  } finally {
+    renderer.dispose()
+    renderer.forceContextLoss()
+  }
   const board = (boardTexture(getSettings().boardStyle).image as HTMLCanvasElement).toDataURL('image/jpeg', 0.92)
   const stand = grainTexture(512, 512, [180, 128, 66], 120, 21).toDataURL('image/jpeg', 0.9)
   return { pieces, board, stand }

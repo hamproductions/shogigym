@@ -1,9 +1,13 @@
 import { useState } from 'react'
+import { Color, PieceType, promotedPieceType } from 'tsshogi'
+import { faceText } from '../koma'
+import { useBakedPieces } from '../hooks/useBakedPieces'
+import { spriteKey } from '../board3d/bake'
 import { useTranslation } from 'react-i18next'
 import { say } from '../lib/voice'
 import { EngineSettings } from '../EngineSettings'
-import { PIECE_SETS, pieceUrl, type PieceSet } from '../pieceSets'
-import { PIECE_FINISHES, PIECE_FONTS, playSound, setSettings, useSettings, type BoardStyle, type Environment, type Lang, type PieceFinish, type PieceFont, type PieceStyle } from '../settings'
+import { PIECE_SETS, type PieceSet } from '../pieceSets'
+import { PIECE_FINISHES, PIECE_FONTS, PIECE_MATERIALS, PIECE_GRAINS, pieceFinishOptions, selectedPieceFinish, playSound, setSettings, useSettings, type BoardStyle, type Environment, type Lang, type PieceFinish, type PieceMaterial, type PieceGrain, type PieceFont, type PieceStyle } from '../settings'
 import type { Theme } from '../theme'
 import type { Level } from '../types'
 import { Dialog, DialogHeader } from '../ui/Dialog'
@@ -12,29 +16,27 @@ import { Tabs } from '../ui/Tabs'
 
 type SettingsTab = 'general' | 'board' | 'pieces' | 'play'
 
-const SAMPLE_CODES = ['OU', 'HI', 'KA', 'KI', 'GI', 'FU', 'RY', 'TO'] as const
-type SampleCode = (typeof SAMPLE_CODES)[number]
-const ONE_CHAR: Record<SampleCode, string> = { OU: '王', HI: '飛', KA: '角', KI: '金', GI: '銀', FU: '歩', RY: '龍', TO: 'と' }
-const TWO_CHAR: Record<SampleCode, string> = { OU: '王将', HI: '飛車', KA: '角行', KI: '金将', GI: '銀将', FU: '歩兵', RY: '龍王', TO: 'と' }
+const SAMPLE_TYPES = [PieceType.KING, PieceType.ROOK, PieceType.BISHOP, PieceType.GOLD, PieceType.SILVER, PieceType.PAWN, PieceType.KNIGHT, PieceType.LANCE]
 
 function PieceSample() {
   const { t } = useTranslation()
-  const st = useSettings()
+  const { baked, loading, error } = useBakedPieces()
+  const [flipped, setFlipped] = useState<PieceType[]>([])
   return (
-    <div className="ws-piece-sample" aria-label={t('settings.preview')}>
-      {SAMPLE_CODES.map((code) =>
-        st.pieceSet === 'letters' ? (
-          <span key={code} className={`ws-sample-koma${code === 'RY' || code === 'TO' ? ' promoted' : ''}`} style={{ fontFamily: `"${PIECE_FONTS[st.pieceFont].family}", serif`, fontWeight: PIECE_FONTS[st.pieceFont].weight }}>
-            {[...(st.pieceStyle === 'one' ? ONE_CHAR : TWO_CHAR)[code]].map((c, i, all) => (
-              <i key={i} className={all.length === 1 ? 'one' : ''}>
-                {c}
-              </i>
-            ))}
-          </span>
-        ) : (
-          <img key={code} src={pieceUrl(st.pieceSet, code)} alt={code} />
-        ),
-      )}
+    <div className="ws-piece-sample" aria-label={t('settings.preview')} aria-busy={loading}>
+      {baked ? SAMPLE_TYPES.map((type) => {
+        const promoted = promotedPieceType(type)
+        const canFlip = promoted !== type
+        const on = flipped.includes(type)
+        return (
+          <button key={type} type="button" className="ws-sample-tile" disabled={!canFlip} aria-label={faceText(type, Color.BLACK, 'one')} aria-pressed={canFlip ? on : undefined} onMouseEnter={() => canFlip && setFlipped((prev) => prev.includes(type) ? prev : [...prev, type])} onMouseLeave={() => setFlipped((prev) => prev.filter((item) => item !== type))} onFocus={() => canFlip && setFlipped((prev) => prev.includes(type) ? prev : [...prev, type])} onBlur={() => setFlipped((prev) => prev.filter((item) => item !== type))}>
+            <span className={`ws-sample-flip${on ? ' on' : ''}`}>
+              <img src={baked.pieces.get(spriteKey(type, Color.BLACK, true))} alt="" />
+              {canFlip && <img className="back" src={baked.pieces.get(spriteKey(promoted, Color.BLACK, true))} alt="" />}
+            </span>
+          </button>
+        )
+      }) : <span role="status">{error ?? t('settings.loadingEvalFile')}</span>}
     </div>
   )
 }
@@ -83,13 +85,15 @@ export function SettingsDialog({ onClose, level, onLevel }: { onClose: () => voi
         )}
         {tab === 'pieces' && (
           <>
-            <SegmentedField<PieceSet> label={t('settings.pieceSet')} value={st.pieceSet} options={(Object.keys(PIECE_SETS) as PieceSet[]).map((v) => ({ v, t: PIECE_SETS[v].label }))} onChange={(v) => setSettings({ pieceSet: v })} />
+            <SegmentedField<PieceSet> label={t('settings.pieceSet')} value={st.pieceSet} options={(Object.keys(PIECE_SETS) as PieceSet[]).map((v) => ({ v, t: PIECE_SETS[v].label }))} onChange={(v) => setSettings(v === 'broadcast' ? { pieceSet: v, pieceMaterial: 'plastic', pieceFont: 'kaisho', pieceStyle: 'one', pieceFinish: 'insatsu' } : { pieceSet: v })} />
             <PieceSample />
-            <SegmentedField<PieceFinish> label={t('settings.pieceFinish')} value={st.pieceFinish} options={(Object.keys(PIECE_FINISHES) as PieceFinish[]).map((v) => ({ v, t: PIECE_FINISHES[v].label }))} onChange={(v) => setSettings({ pieceFinish: v })} />
-            <p className="ws-muted ws-credit">{PIECE_FINISHES[st.pieceFinish].hint}</p>
+            <SegmentedField<PieceMaterial> label={st.lang === 'ja' ? '駒材' : 'Material'} value={st.pieceMaterial} options={(Object.keys(PIECE_MATERIALS) as PieceMaterial[]).map((v) => ({ v, t: PIECE_MATERIALS[v].label }))} onChange={(v) => setSettings({ pieceMaterial: v, pieceFinish: pieceFinishOptions(v).includes(st.pieceFinish) ? st.pieceFinish : pieceFinishOptions(v)[0] })} />
+            {st.pieceMaterial !== 'plastic' && <SegmentedField<PieceGrain> label={st.lang === 'ja' ? '木目' : 'Wood grain'} value={st.pieceGrain} options={(Object.keys(PIECE_GRAINS) as PieceGrain[]).map((v) => ({ v, t: PIECE_GRAINS[v].label }))} onChange={(v) => setSettings({ pieceGrain: v })} />}
+            <SegmentedField<PieceFinish> label={t('settings.pieceFinish')} value={selectedPieceFinish()} options={pieceFinishOptions(st.pieceMaterial).map((v) => ({ v, t: PIECE_FINISHES[v].label }))} onChange={(v) => setSettings({ pieceFinish: v })} />
+            <p className="ws-muted ws-credit">{PIECE_FINISHES[selectedPieceFinish()].hint}</p>
             {PIECE_SETS[st.pieceSet].credit && <p className="ws-muted ws-credit">{PIECE_SETS[st.pieceSet].credit}</p>}
-            {st.pieceSet === 'letters' && <SegmentedField<PieceFont> label={t('settings.pieceLettering')} value={st.pieceFont} options={(Object.keys(PIECE_FONTS) as PieceFont[]).map((v) => ({ v, t: PIECE_FONTS[v].label }))} onChange={(v) => setSettings({ pieceFont: v })} />}
-            {st.pieceSet === 'letters' && <SegmentedField<PieceStyle> label={t('settings.pieceFaces')} value={st.pieceStyle} options={[{ v: 'two', t: t('settings.twoCharacters') }, { v: 'one', t: t('settings.oneCharacter') }]} onChange={(v) => setSettings({ pieceStyle: v })} />}
+            {(st.pieceSet === 'letters' || st.pieceSet === 'broadcast') && <SegmentedField<PieceFont> label={t('settings.pieceLettering')} value={st.pieceFont} options={(Object.keys(PIECE_FONTS) as PieceFont[]).map((v) => ({ v, t: PIECE_FONTS[v].label }))} onChange={(v) => setSettings({ pieceFont: v })} />}
+            {(st.pieceSet === 'letters' || st.pieceSet === 'broadcast') && <SegmentedField<PieceStyle> label={t('settings.pieceFaces')} value={st.pieceStyle} options={[{ v: 'two', t: t('settings.twoCharacters') }, { v: 'one', t: t('settings.oneCharacter') }]} onChange={(v) => setSettings({ pieceStyle: v })} />}
           </>
         )}
         {tab === 'play' && (

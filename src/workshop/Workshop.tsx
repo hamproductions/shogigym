@@ -180,7 +180,7 @@ export function Workshop({ routeMode, routeMain }: { routeMode?: string; routeMa
         <Rail mode={mode} onMode={enterMode} compact={layout.compact} view={view} onFlip={() => session.setFlipped((v) => !v)} settingsOpen={showSettings} onSettings={() => setShowSettings(true)} onPalette={() => setPalette(true)} snapshotName={`${SNAPSHOT_NAME}-${mode}-${cursor}`} />
         <section className={`ws-stage${preview || playing || !atEnd ? ' previewing' : ''}`}>
           <button className="ws-fs-exit" onClick={() => view.setHideUi(false)} aria-label={t('workshop.showUi')} title={`${t('workshop.showUi')} (Esc)`}>
-            <Icon name="exitFullscreen" size={18} />
+            <Icon name="panel" size={18} />
             <span>{t('workshop.showUi')} (Esc)</span>
           </button>
           <ModeBar title={title} instruction={instruction} lessonMode={lesson.lessonMode} sheetUp={layout.compact && layout.drawer} panelHidden={layout.panelHidden} onPanel={(hidden) => layout.setPanel({ hidden })} spar={spar} evalRate={evalRate} barShown={evalBar} onStartOver={startOver} tsume={tsume} tesuji={tesuji} lesson={lesson} drill={drill} />

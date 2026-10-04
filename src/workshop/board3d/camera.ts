@@ -33,7 +33,7 @@ export function updateView(s: SceneState, props: Board3DProps, dt: number) {
   const distance = cameraFit(camera.aspect, s.tilt, props.sideRoom ?? 0) / (2 * Math.tan((camera.fov * Math.PI) / 360))
   const angle = 0.02 + s.tilt * 0.8
   const pan = layout.portrait ? 0 : s.tilt * 0.6
-  syncControls(s, !!props.orbit)
+  syncControls(s, !!props.orbit || !!s.flip)
   const near = s.controls ? 0.1 : Math.max(0.1, distance - 45)
   const far = s.controls ? 400 : distance + 120
   if (camera.near !== near || camera.far !== far) {

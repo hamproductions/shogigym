@@ -218,8 +218,8 @@ export function handSpot(position: ImmutablePosition, color: Color, type: PieceT
   return spot ? new THREE.Vector3(spot.x, STAND_TOP, spot.z) : null
 }
 
-export function handPieceMesh(spot: HandSpot, color: Color) {
-  const mesh = pieceMesh(spot.type, color)
+export function handPieceMesh(spot: HandSpot, color: Color, seed = 1) {
+  const mesh = pieceMesh(spot.type, color, seed)
   mesh.rotation.y += spot.rot
   mesh.rotation.z = spot.roll ?? 0
   mesh.scale.setScalar(0.96)

@@ -778,7 +778,7 @@
     "checkmateWon": "詰みです。{{winner}}の勝ち。手を戻すと前の局面を検討できます。",
     "newGameAs_other": "{{side}}で新しく対局しますか？ 現在の対局（{{count}}手）は失われます。",
     "deleteVariation_other": "この変化（{{count}}手）を削除しますか？ 元に戻せません。",
-    "showUi": "UIを表示",
+    "showUi": "操作パネルを表示",
     "hideUi": "UIを隠して盤だけ表示",
     "hideUiShort": "UI非表示",
     "lookAround": "見回す",

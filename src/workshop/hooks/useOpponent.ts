@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { scoreWinRate, usiPosition } from '../../analysis'
-import { analyze, engineSupported } from '../../engine'
+import { analyze, engineSupported, useEngineStatus } from '../../engine'
 import { mainBranch, strategyMove, strip } from '../lib/book'
 import { otherSide } from '../../shogi'
 import { STRENGTH, useSettings } from '../settings'
@@ -11,11 +11,12 @@ export type Reply = { key: string; usi: string; note?: string; source: 'book' | 
 
 export function useOpponent(session: BoardSession, { lessonMode, halted }: { lessonMode: LessonMode; halted: boolean }) {
   const settings = useSettings()
-  const { mode, course, nodes, atEnd, toMove, userSide, liveSfen, preview, play } = session
+  const { epoch } = useEngineStatus()
+  const { mode, course, nodes, atEnd, toMove, userSide, liveSfen, preview, play, gameOver } = session
   const [pending, setPending] = useState<Reply | null>(null)
 
   useEffect(() => {
-    if ((mode !== 'lesson' && mode !== 'spar') || (mode === 'lesson' && !course) || (!atEnd && mode !== 'lesson') || toMove === userSide || halted) return
+    if ((mode !== 'lesson' && mode !== 'spar') || (mode === 'lesson' && !course) || (!atEnd && mode !== 'lesson') || toMove === userSide || halted || gameOver) return
     let cancelled = false
     const book = mode === 'lesson' ? mainBranch(nodes?.get(strip(liveSfen))) : undefined
     const run = async () => {
@@ -30,13 +31,15 @@ export function useOpponent(session: BoardSession, { lessonMode, halted }: { les
       const pick = pool[Math.floor(Math.random() * pool.length)]?.move ?? result.bestmove
       if (!cancelled && pick && pick !== 'resign' && pick !== 'win') setPending({ key: liveSfen, usi: pick, source: 'ai' })
     }
-    run()
+    run().catch((error) => {
+      if (!cancelled) console.warn('opponent analysis failed', error)
+    })
     return () => {
       cancelled = true
     }
-  }, [mode, atEnd, toMove, userSide, liveSfen, nodes, course, settings.opponent, settings.aiStrategy, halted])
+  }, [mode, atEnd, toMove, userSide, liveSfen, nodes, course, settings.opponent, settings.aiStrategy, halted, gameOver, epoch])
 
-  const reply = !preview && pending && pending.key === liveSfen && (atEnd || mode === 'lesson') && (mode === 'lesson' || mode === 'spar') && toMove !== userSide ? pending : null
+  const reply = !halted && !gameOver && !preview && pending && pending.key === liveSfen && (atEnd || mode === 'lesson') && (mode === 'lesson' || mode === 'spar') && toMove !== userSide ? pending : null
 
   useEffect(() => {
     if (!reply || !atEnd || (mode === 'lesson' && lessonMode === 'study')) return

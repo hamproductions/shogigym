@@ -103,9 +103,26 @@ export function Board3D(props: Board3DProps) {
     const releaseFlip = () => {
       if (s.flip) s.flip.release = true
     }
-    window.addEventListener('pointerdown', releaseFlip)
-    window.addEventListener('wheel', releaseFlip, { passive: true })
-    window.addEventListener('keydown', releaseFlip)
+    let flipClick: { id: number; x: number; y: number; moved: boolean } | null = null
+    const onFlipDown = (event: PointerEvent) => {
+      if (!s.flip || !event.isPrimary || event.button !== 0) {
+        flipClick = null
+        return
+      }
+      flipClick = { id: event.pointerId, x: event.clientX, y: event.clientY, moved: false }
+    }
+    const onFlipMove = (event: PointerEvent) => {
+      if (flipClick?.id === event.pointerId && (event.clientX !== flipClick.x || event.clientY !== flipClick.y)) flipClick.moved = true
+    }
+    const onFlipUp = (event: PointerEvent) => {
+      if (flipClick?.id === event.pointerId && !flipClick.moved && event.clientX === flipClick.x && event.clientY === flipClick.y) releaseFlip()
+      flipClick = null
+    }
+    const onFlipCancel = () => { flipClick = null }
+    renderer.domElement.addEventListener('pointerdown', onFlipDown)
+    renderer.domElement.ownerDocument.addEventListener('pointermove', onFlipMove, true)
+    renderer.domElement.ownerDocument.addEventListener('pointerup', onFlipUp, true)
+    renderer.domElement.ownerDocument.addEventListener('pointercancel', onFlipCancel, true)
     s.releaseFlip = releaseFlip
     const onSnapshot = (event: Event) => saveSnapshot(s, (event as CustomEvent<string>).detail)
     window.addEventListener(TABLE_FLIP_EVENT, onFlip)
@@ -119,9 +136,10 @@ export function Board3D(props: Board3DProps) {
     return () => {
       cancelAnimationFrame(frame)
       window.removeEventListener(TABLE_FLIP_EVENT, onFlip)
-      window.removeEventListener('pointerdown', releaseFlip)
-      window.removeEventListener('wheel', releaseFlip)
-      window.removeEventListener('keydown', releaseFlip)
+      renderer.domElement.removeEventListener('pointerdown', onFlipDown)
+      renderer.domElement.ownerDocument.removeEventListener('pointermove', onFlipMove, true)
+      renderer.domElement.ownerDocument.removeEventListener('pointerup', onFlipUp, true)
+      renderer.domElement.ownerDocument.removeEventListener('pointercancel', onFlipCancel, true)
       window.clearTimeout(flipTimer.current)
       window.removeEventListener(SNAPSHOT_EVENT, onSnapshot)
       unbind()

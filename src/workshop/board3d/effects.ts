@@ -133,32 +133,49 @@ function boardMatrix(f: TableFlip, s: SceneState) {
   return new THREE.Matrix4().multiplyMatrices(f.rig.matrix, s.board.matrix)
 }
 
-function pushOutOfBoard(b: Body, c: THREE.Vector3, m: THREE.Matrix4, inverse: THREE.Matrix4, kick: number) {
-  const local = c.clone().applyMatrix4(inverse)
-  const limits = new THREE.Vector3(HALF_W + 0.12, THICK / 2 + 0.12, HALF_D + 0.12)
-  const depth = new THREE.Vector3(limits.x - Math.abs(local.x), limits.y - Math.abs(local.y), limits.z - Math.abs(local.z))
-  if (depth.x <= 0 || depth.y <= 0 || depth.z <= 0) return
-  const k = depth.x < depth.y && depth.x < depth.z ? 'x' : depth.y < depth.z ? 'y' : 'z'
-  local[k] = Math.sign(local[k] || 1) * limits[k]
-  const moved = local.applyMatrix4(m)
-  b.obj.position.add(moved.sub(c))
-  const n = new THREE.Vector3().setFromMatrixColumn(m, k === 'x' ? 0 : k === 'y' ? 1 : 2).normalize().multiplyScalar(Math.sign(c.clone().applyMatrix4(inverse)[k] || 1))
-  const vn = b.v.dot(n)
-  if (vn < 0) b.v.addScaledVector(n, -1.2 * vn)
-  b.v.addScaledVector(n, kick)
-  if (b.v.length() > 32) b.v.setLength(32)
+function pushOutOfBoard(b: Body, m: THREE.Matrix4, kick: number, arena: Arena) {
+  const { center, extent } = orient(b)
+  const bottom = center.y - extent.y
+  const ground = footprintSurface(arena, center, extent)
+  const bodyAxes = axes.map((axis) => axis.clone())
+  const boardAxes = [0, 1, 2].map((index) => new THREE.Vector3().setFromMatrixColumn(m, index).normalize())
+  const delta = center.sub(new THREE.Vector3().setFromMatrixPosition(m))
+  const half = new THREE.Vector3(HALF_W, THICK / 2, HALF_D)
+  const candidates = [...bodyAxes, ...boardAxes, ...bodyAxes.flatMap((a) => boardAxes.map((b) => new THREE.Vector3().crossVectors(a, b)))]
+  let penetration = Infinity
+  let normal: THREE.Vector3 | null = null
+  for (const axis of candidates) {
+    if (axis.lengthSq() < 0.000001) continue
+    axis.normalize()
+    const radius = bodyAxes.reduce((sum, direction, index) => sum + Math.abs(axis.dot(direction)) * b.half.getComponent(index), 0)
+      + boardAxes.reduce((sum, direction, index) => sum + Math.abs(axis.dot(direction)) * half.getComponent(index), 0)
+    const depth = radius - Math.abs(delta.dot(axis))
+    if (depth <= 0) return null
+    const direction = axis.clone().multiplyScalar(delta.dot(axis) < 0 ? -1 : 1)
+    if (direction.y < -0.1 && bottom + direction.y * (depth + 0.002) < ground) continue
+    if (depth < penetration) {
+      penetration = depth
+      normal = direction
+    }
+  }
+  if (!normal) return null
+  b.obj.position.addScaledVector(normal, penetration + 0.002)
+  const vn = b.v.dot(normal)
+  if (vn < 0) b.v.addScaledVector(normal, -(Math.abs(vn) > 3 ? 1.3 : 1) * vn)
+  if (kick) b.v.addScaledVector(normal, kick)
+  return normal
 }
 
-function stepBody(b: Body, f: TableFlip, dt: number, board: { m: THREE.Matrix4; inverse: THREE.Matrix4; kick: number }) {
+function stepBody(b: Body, f: TableFlip, dt: number, board: { m: THREE.Matrix4; kick: number }) {
+  if (b.sleeping) return 0
   const a = f.arena
   const before = b.obj.position.clone()
   b.v.y -= GRAVITY * dt
   b.obj.position.addScaledVector(b.v, dt)
   const angle = b.w.length() * dt
   if (angle) b.obj.quaternion.premultiply(tmpQ.setFromAxisAngle(tmpV.copy(b.w).normalize(), angle))
+  const boardContact = pushOutOfBoard(b, board.m, board.kick, a)
   let { center: c, extent: e } = orient(b)
-  pushOutOfBoard(b, c, board.m, board.inverse, board.kick)
-  ;({ center: c, extent: e } = orient(b))
   for (const k of ['x', 'z'] as const) {
     const limit = k === 'x' ? a.halfX : a.halfZ
     const over = Math.abs(c[k]) + e[k] - limit
@@ -193,7 +210,7 @@ function stepBody(b: Body, f: TableFlip, dt: number, board: { m: THREE.Matrix4; 
     ground = footprintSurface(a, c, e)
   }
   const bottom = c.y - e.y
-  b.grounded = bottom <= ground + 0.002
+  b.grounded = bottom <= ground + 0.002 || !!(boardContact && boardContact.y > 0.5)
   if (bottom >= ground) return 0
   b.obj.position.y += ground - bottom
   if (b.v.y >= 0) return 0
@@ -283,17 +300,31 @@ export function stepTableFlip(s: SceneState, time: number, dt: number, done: () 
         f.dust.burst(p.setY(surface(f.arena, p.x, p.z)), 18, 9)
       }
   }
-  const m = boardMatrix(f, s)
-  const board = { m, inverse: m.clone().invert(), kick: t < SLAM ? 1.5 : 0 }
   let impacts = 0
-  for (const b of f.bodies) {
-    const impact = stepBody(b, f, dt, board)
-    if (impact > 7) {
-      impacts++
-      if (!b.landed && !b.keepFlat) f.dust.burst(orient(b).center.setY(b.obj.position.y), 24, 7)
-      b.landed = true
+  const steps = Math.max(1, Math.ceil(dt / (1 / 120)))
+  const step = dt / steps
+  for (let i = 0; i < steps; i++) {
+    poseBoard(f, Math.max(0, t - dt + step * (i + 1)))
+    const board = { m: boardMatrix(f, s), kick: t < SLAM ? 1.5 / steps : 0 }
+    for (const b of f.bodies) {
+      const impact = stepBody(b, f, step, board)
+      if (impact > 7) {
+        impacts++
+        if (!b.landed && !b.keepFlat) f.dust.burst(orient(b).center.setY(b.obj.position.y), 24, 7)
+        b.landed = true
+      }
+      if (b.sleeping || !b.grounded || b.v.y > 0.1) continue
+      settle(b, step)
+      pushOutOfBoard(b, board.m, 0, f.arena)
+      const { center, extent } = orient(b)
+      const ground = footprintSurface(f.arena, center, extent)
+      if (center.y - extent.y < ground) b.obj.position.y += ground - (center.y - extent.y)
+      if (t > SLAM + 0.5 && b.v.lengthSq() < 0.0025 && b.w.lengthSq() < 0.0025) {
+        b.v.set(0, 0, 0)
+        b.w.set(0, 0, 0)
+        b.sleeping = true
+      }
     }
-    if (b.grounded && b.v.y === 0) settle(b, dt)
   }
   if (impacts && time - f.lastClatter > 90) {
     f.lastClatter = time

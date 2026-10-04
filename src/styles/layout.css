@@ -150,11 +150,29 @@
 }
 
 .ws-flat {
-  position: absolute;
-  inset: 30px 18px;
+  position: relative;
+  inset: auto;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  margin: 30px 18px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.ws-board-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: var(--z-banner);
+  transform: translate(-50%, -50%);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--overlay);
+  color: var(--text);
+  box-shadow: var(--shadow-md);
+  pointer-events: none;
 }
 
 .ws-flat svg {
@@ -180,21 +198,15 @@
   stroke: none;
 }
 
-.ws-stage.previewing .ws-board-frame {
-  stroke: var(--accent);
-  stroke-width: 6px;
-}
-
-.ws-stage.previewing .ws-board-wrap:has(.ws-flat-wood)::after {
-  display: none;
-}
-
 .ws-koma-lift {
-  transition: transform 0.12s ease-out;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.2s ease-out;
 }
 
 .ws-koma-lift.on {
-  transform: translateY(-7px) scale(1.1);
+  transform: translateY(-16px) scale(1.12);
+  filter: drop-shadow(0 8px 5px rgba(0, 0, 0, 0.3));
 }
 
 .ws-panel {
@@ -245,6 +257,44 @@
   flex: 1;
   overflow-y: auto;
   padding: var(--space-4);
+}
+
+.ws-pinned-graph {
+  flex: none;
+  padding: var(--space-4) var(--space-4) 0;
+}
+
+.ws-pinned-graph .ws-graph {
+  margin-bottom: 0;
+}
+
+.ws-move-counts {
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+  font-size: var(--text-sm);
+}
+
+.ws-move-counts h3 {
+  font-size: inherit;
+}
+
+.ws-move-counts dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-1) var(--space-3);
+  margin: var(--space-2) 0 0;
+}
+
+.ws-move-counts dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-1);
+}
+
+.ws-move-counts dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
 }
 
 .ws-nav {
@@ -383,6 +433,7 @@
   }
 
   .ws-flat {
+    margin: 0;
     position: relative;
     inset: auto;
     flex: 1;
@@ -394,7 +445,7 @@
   }
 
   .ws-stage.previewing .ws-board-wrap::after {
-    display: none;
+    inset: 2px;
   }
 
   .ws-panel {
@@ -572,4 +623,10 @@
   .ws-panel .ws-tabs button {
     padding-block: var(--space-1-5);
   }
+}
+
+.ws-board-wrap > .ws-flat {
+  min-width: 0;
+  overflow: hidden;
+  isolation: isolate;
 }

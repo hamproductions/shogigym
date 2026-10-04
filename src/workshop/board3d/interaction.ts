@@ -114,6 +114,10 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
   }
 
   const onDown = (event: PointerEvent) => {
+    if (s.flip) {
+      down = null
+      return
+    }
     ray(event)
     const hit = pick()
     if (!hit) return
@@ -122,6 +126,10 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
   }
 
   const onMove = (event: PointerEvent) => {
+    if (s.flip) {
+      canvas.style.cursor = 'grab'
+      return
+    }
     ray(event)
     const hit = pick()
     canvas.style.cursor = hit ? 'pointer' : 'default'
@@ -142,6 +150,10 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
   }
 
   const onUp = (event: PointerEvent) => {
+    if (s.flip) {
+      down = null
+      return
+    }
     ray(event)
     const hit = pick()
     if (s.drag) {

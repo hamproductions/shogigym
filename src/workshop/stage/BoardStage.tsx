@@ -68,7 +68,7 @@ export function BoardStage({ view, decor, input, commit, mistake, onBack, spar, 
     () => avatarCues({ playing, aiTurn: atEnd && !userTurn && !gameOver && !spar.resigned, resigned: spar.resigned, userColor: sideColor(userSide), toMove: sideColor(toMove), fresh: game.moves.length === 0, gameKey: `${mode}|${game.start}|${course?.id ?? ''}`, lastMove, ply: game.moves.length, stamp }),
     [playing, atEnd, userTurn, gameOver, spar.resigned, userSide, toMove, game.moves.length, game.start, mode, course?.id, lastMove, stamp],
   )
-  const board = { position, flipped, lastMove, selected: selection?.from ?? null, selectedColor: selection?.color, targets: input.targets, arrows: decor.arrows, heat: decor.heat, checkSquare: decor.checkSquare, onSquare: input.onSquare, onHand: input.onHand, onDrop: input.onDrop, movable: userTurn && !gameOver ? position.color : null }
+  const board = { position, flipped, lastMove, selected: selection?.from ?? null, selectedColor: selection?.color, targets: input.targets, arrows: decor.arrows, heat: decor.heat, castles: decor.castles, peek: decor.peekTargets, peekFrom: decor.peekFrom, stamp: decor.stamp, checkSquare: decor.checkSquare, onSquare: input.onSquare, onHand: input.onHand, onDrop: input.onDrop, movable: userTurn && !gameOver ? position.color : null }
   const who = (side: Side) => (mode === 'analyze' || picking || (mode === 'drill' && !hasDrillCard) ? null : side === userSide ? t('workshop.you') : t('workshop.opponent'))
   const plate = (place: 'top' | 'bottom') => {
     const side: Side = (place === 'top') === flipped ? 'sente' : 'gote'
@@ -82,17 +82,13 @@ export function BoardStage({ view, decor, input, commit, mistake, onBack, spar, 
       {settings.environment === 'diagram' || settings.environment === 'broadcast' ? (
         <Board2D style={settings.environment} {...board} tilted={false} />
       ) : settings.environment === 'flat' ? (
-        <BoardFlat {...board} tilted={false} onZones={onZones} castles={decor.castles} peek={decor.peekTargets} peekFrom={decor.peekFrom} stamp={decor.stamp} />
+        <BoardFlat {...board} tilted={false} onZones={onZones} />
       ) : (
         <Board3D
-          key={`${settings.pieceStyle}|${settings.boardStyle}|${settings.pieceFinish}|${settings.coords}|${settings.environment}|${assetsKey}`}
+          key={`${settings.pieceStyle}|${settings.boardStyle}|${settings.pieceFinish}|${settings.pieceMaterial}|${settings.pieceGrain}|${settings.coords}|${settings.environment}|${assetsKey}`}
           {...board}
           tilted={view.tilted && !view.flatView}
-          castles={decor.castles}
           snapKey={`${mode}|${game.start}|${course?.id ?? ''}|${tsume?.problem.id ?? ''}`}
-          peek={decor.peekTargets}
-          peekFrom={decor.peekFrom}
-          stamp={decor.stamp}
           onZones={onZones}
           orbit={view.orbit && !view.flatView}
           sideRoom={0}

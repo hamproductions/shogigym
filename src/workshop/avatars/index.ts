@@ -111,6 +111,7 @@ export function avatarSlot(options: Omit<AvatarOptions, 'environment' | 'base'>)
       start()
     },
     ready: () => !!controller,
+    reset: () => controller?.reset(),
     walls: () => controller?.walls() ?? [],
     inspect: () => controller?.inspect() ?? [],
     swap: (from: THREE.Object3D, to: THREE.Object3D) => controller?.swap(from, to),
@@ -133,7 +134,7 @@ export function avatarSlot(options: Omit<AvatarOptions, 'environment' | 'base'>)
   }
 }
 
-export type AvatarSlot = ReturnType<typeof avatarSlot>
+export type AvatarSlot = Omit<ReturnType<typeof avatarSlot>, 'reset'> & { reset?: () => void }
 
 const GOOD = new Set(['!!', '!', '★', '◎'])
 

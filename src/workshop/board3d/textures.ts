@@ -1,7 +1,7 @@
 import * as THREE from 'three'
-import { PIECE_FONTS, getSettings, type BoardStyle } from '../settings'
+import { PIECE_FONTS, PIECE_MATERIALS, getSettings, type BoardStyle } from '../settings'
 import type { LoadedPiece } from '../pieceSets'
-import { grainTexture } from '../roomFloor'
+import { grainTexture, rng } from '../roomFloor'
 import { CASUAL, HALF_D, HALF_W, MARGIN } from './dimensions'
 import { BOARD_TONE } from '../koma'
 
@@ -75,22 +75,61 @@ const artCache = new Map<string, THREE.Texture>()
 
 export const clearFaceTextures = () => faceCache.clear()
 
-export function artTexture(art: LoadedPiece, key: string) {
+function pieceSurface(seed: number) {
+  const { pieceMaterial, pieceGrain } = getSettings()
+  const tone = PIECE_MATERIALS[pieceMaterial].tone
+  const { canvas, ctx } = canvas2d(256)
+  ctx.fillStyle = `rgb(${tone.join(',')})`
+  ctx.fillRect(0, 0, 256, 256)
+  if (pieceMaterial === 'plastic') return canvas
+  const random = rng(Math.abs(seed) % 2147483646 + 1)
+  const warmth = random() * 4 - 2
+  ctx.fillStyle = `rgba(${warmth > 0 ? '255,225,165' : '125,85,35'},0.035)`
+  ctx.fillRect(0, 0, 256, 256)
+  const phase = random() * Math.PI * 2
+  const bend = 0.012 + random() * 0.012
+  const amplitude = 0.7 + random() * 0.8
+  const knotX = 40 + random() * 176
+  const knotY = 40 + random() * 176
+  let base = -40 + random() * 8
+  while (base < 300) {
+    base += 4 + random() * 7
+    const drift = random() * 2 - 1
+    ctx.strokeStyle = random() < 0.7 ? `rgba(120,78,30,${0.10 + random() * 0.15})` : `rgba(255,245,210,${0.18 + random() * 0.16})`
+    ctx.lineWidth = 0.9 + random() * 1.5
+    ctx.beginPath()
+    for (let y = 0; y <= 256; y += 3) {
+      const flow = Math.sin(y * bend + phase + base * 0.004)
+      const offset = pieceGrain === 'masame' ? flow * 2.5 * amplitude + drift * y * 0.009
+        : pieceGrain === 'itame' ? flow * (14 + Math.abs(base - 128) * 0.09) * amplitude
+        : pieceGrain === 'root' ? Math.atan2(y - knotY, base - knotX) * 13 * amplitude + flow * 10
+        : pieceGrain === 'tiger' ? Math.sin(y * (0.045 + bend) + phase) * (8 + flow * 4) * amplitude
+        : Math.asin(Math.sin(y * bend * 1.7 + phase)) * 18 * amplitude + flow * 5
+      ctx.lineTo(base + offset, y)
+    }
+    ctx.stroke()
+  }
+  return canvas
+}
+
+export function artTexture(art: LoadedPiece, key: string, seed = 1) {
+  key += `|${getSettings().pieceMaterial}|${getSettings().pieceGrain}|${seed}`
   const cached = artCache.get(key)
   if (cached) return cached
-  const canvas = grainTexture(256, 256, [240, 210, 152], 18, key.length)
+  const canvas = pieceSurface(seed)
   canvas.getContext('2d')!.drawImage(art.canvas, 0, 0, 256, 256)
   const texture = srgbTexture(canvas, 8)
   artCache.set(key, texture)
   return texture
 }
 
-export function faceTexture(char: string, promoted: boolean) {
+export function faceTexture(char: string, promoted: boolean, seed = 1) {
+  const broadcast = getSettings().pieceSet === 'broadcast'
   const font = PIECE_FONTS[getSettings().pieceFont] ?? PIECE_FONTS.mincho
-  const key = `${char}${promoted}${font.family}`
+  const key = `${char}${promoted}${font.family}${broadcast}|${getSettings().pieceMaterial}|${getSettings().pieceGrain}|${seed}`
   const cached = faceCache.get(key)
   if (cached) return cached
-  const canvas = grainTexture(256, 256, [240, 210, 152], 18, char.charCodeAt(0))
+  const canvas = pieceSurface(seed)
   const ctx = canvas.getContext('2d')!
   ctx.fillStyle = promoted ? '#9c1c12' : '#0e0804'
   ctx.strokeStyle = ctx.fillStyle
@@ -104,7 +143,7 @@ export function faceTexture(char: string, promoted: boolean) {
   chars.forEach((c, i) => {
     const y = 128 + (i - (chars.length - 1) / 2) * size * 0.98 + 6
     ctx.fillText(c, 128, y)
-    ctx.strokeText(c, 128, y)
+    if (!broadcast) ctx.strokeText(c, 128, y)
   })
   const texture = srgbTexture(canvas, 8)
   faceCache.set(key, texture)

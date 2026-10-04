@@ -797,7 +797,7 @@
     "newGameAs_other": "Start a new game as {{side}}? Your current game ({{count}} moves) will be lost.",
     "deleteVariation_one": "Delete this variation (1 move)? This cannot be undone.",
     "deleteVariation_other": "Delete this variation ({{count}} moves)? This cannot be undone.",
-    "showUi": "Show the interface",
+    "showUi": "Show controls",
     "hideUi": "Hide the interface: board only",
     "hideUiShort": "Hide UI",
     "lookAround": "Look around",

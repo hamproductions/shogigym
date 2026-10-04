@@ -13,7 +13,7 @@ export function useRailTools({ view, onFlip, settingsOpen, onSettings, onPalette
   const { tilted, setTilted, orbit, setOrbit, flatView, showControl, setShowControl, setHideUi, fullscreen, toggleFullscreen } = view
   const primary: RailTool[] = [
     { id: 'flip', icon: 'flip', label: t('workshop.flip'), title: t('workshop.flipTheBoardF'), run: onFlip },
-    { id: 'tilt', icon: 'tilt', label: t('workshop.tilt'), title: t('workshop.tiltTheBoardT'), on: tilted && !flatView, disabled: flatView, run: () => setTilted((v) => !v) },
+    ...(!flatView ? [{ id: 'tilt', icon: 'tilt', label: t('workshop.tilt'), title: t('workshop.tiltTheBoardT'), on: tilted, run: () => setTilted((v) => !v) } satisfies RailTool] : []),
     ...(!flatView ? [{ id: 'orbit', icon: 'orbit', label: t('workshop.lookAround'), title: t('workshop.lookAroundHint'), on: orbit, pressed: orbit, run: () => setOrbit((v) => !v) } satisfies RailTool] : []),
     { id: 'settings', icon: 'gear', label: t('rail.settings'), title: t('workshop.settingsSoundPiecesBoardAi'), on: settingsOpen, labelClass: ja ? 'ws-ja' : 'ws-en', run: onSettings },
   ]

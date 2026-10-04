@@ -1,4 +1,7 @@
 import { useTranslation } from 'react-i18next'
+import { LABELS, type Label } from '../../analysis'
+import { colorSide, positionOf } from '../../shogi'
+import { cachedReview, useReviewVersion } from '../memory'
 import { LessonMap } from '../../components/Flowchart'
 import { useSession } from '../hooks/session'
 import type { Evaluation } from '../hooks/useEvaluation'
@@ -82,7 +85,31 @@ function CoachSection({ model }: { model: PanelModel }) {
       {mode === 'analyze' && analyze.gameNotes && <KifuNotes notes={analyze.gameNotes} moves={game.moves} cursor={cursor} />}
       {isGameMode(mode) && !assist && <p className="ws-muted">{t('workshop.helpIsOffNoRatings')}</p>}
       {isGameMode(mode) && assist && <CoachPane review={coach.review} lastMove={reviewAt > 0 ? game.moves[reviewAt - 1] : undefined} prevSfen={reviewAt > 0 ? sfens[reviewAt - 1] : null} you={mode === 'spar'} bookLast={reviewAt === cursor ? bookLast : bookAtPly(sfens, game.moves, reviewAt)} bookHere={bookHere} sfen={sfen} course={course} onPlay={play} canPlay={userTurn} ai={ai} showBook={mode === 'analyze'} />}
+      {isGameMode(mode) && assist && <MoveCounts />}
     </>
+  )
+}
+
+function MoveCounts() {
+  const { t } = useTranslation()
+  const { game, sfens, userSide } = useSession()
+  useReviewVersion()
+  const counts = new Map<Label, number>()
+  let total = 0
+  for (const [i, usi] of game.moves.entries()) {
+    if (colorSide(positionOf(sfens[i]).color) !== userSide) continue
+    total++
+    const review = cachedReview(sfens[i], usi)
+    if (review) counts.set(review.label, (counts.get(review.label) ?? 0) + 1)
+  }
+  const rated = [...counts.values()].reduce((sum, count) => sum + count, 0)
+  return (
+    <section className="ws-move-counts">
+      <h3>{t('lesson.yourMoves', { value: rated, total })}</h3>
+      <dl>
+        {(Object.entries(LABELS) as [Label, typeof LABELS[Label]][]).map(([label, meta]) => <div key={label} style={{ ['--label' as string]: meta.color }}><dt><span className="ws-move-label">{meta.symbol}</span> {meta.text}</dt><dd>{counts.get(label) ?? 0}</dd></div>)}
+      </dl>
+    </section>
   )
 }
 
@@ -107,15 +134,17 @@ export function PanelBody({ tab, model, overlays = true }: { tab: Tab; model: Pa
   const key = `${mode}|${course?.id ?? ''}|${lesson.lessonMode}|${tab}|${tsume.tsume?.problem.id ?? ''}|${drill.drill?.index ?? ''}`
   const endRate = lesson.done && evaluation.evalSente ? (userSide === 'sente' ? evaluation.senteRate : 1 - evaluation.senteRate) : null
   return (
-    <div className="ws-panel-body" key={key}>
-      {tab === 'moves' && ai && assist && game.moves.length > 0 && isGameMode(mode) && <EvalGraph values={sfens.map((s) => evaluation.evals[strip(s)])} cursor={cursor} onJump={setCursor} />}
-      {overlays && level === 'new' && selection && !(mode === 'lesson' && course) && <PieceGuide sfen={sfen} from={selection.from} />}
-      {tab === 'engine' && <EngineSection model={model} />}
-      {tab === 'coach' && mode === 'lesson' && <LessonPane lesson={lesson} mistake={mistakes.mistake} mistakePreview={mistakes.previewing} level={level} reply={reply} onPlayReply={play} lastNote={bookLast?.branch.note} endRate={endRate} onBack={onBack} />}
-      {overlays && lesson.mapOpen && course && <LessonMap course={course} currentNodeId={nodes?.get(strip(sfen))?.id ?? null} onJump={lesson.jumpTo} onClose={() => lesson.setMapOpen(false)} />}
-      {tab === 'coach' && <CoachSection model={model} />}
-      {tab === 'flow' && <FlowSection model={model} />}
-      {tab === 'moves' && <MovesTab model={model} />}
-    </div>
+    <>
+      {tab === 'moves' && ai && assist && game.moves.length > 0 && isGameMode(mode) && <div className="ws-pinned-graph"><EvalGraph values={sfens.map((s) => evaluation.evals[strip(s)])} cursor={cursor} onJump={setCursor} /></div>}
+      <div className="ws-panel-body" key={key}>
+        {overlays && level === 'new' && selection && !(mode === 'lesson' && course) && <PieceGuide sfen={sfen} from={selection.from} />}
+        {tab === 'engine' && <EngineSection model={model} />}
+        {tab === 'coach' && mode === 'lesson' && <LessonPane lesson={lesson} mistake={mistakes.mistake} mistakePreview={mistakes.previewing} level={level} reply={reply} onPlayReply={play} lastNote={bookLast?.branch.note} endRate={endRate} onBack={onBack} />}
+        {overlays && lesson.mapOpen && course && <LessonMap course={course} currentNodeId={nodes?.get(strip(sfen))?.id ?? null} onJump={lesson.jumpTo} onClose={() => lesson.setMapOpen(false)} />}
+        {tab === 'coach' && <CoachSection model={model} />}
+        {tab === 'flow' && <FlowSection model={model} />}
+        {tab === 'moves' && <MovesTab model={model} />}
+      </div>
+    </>
   )
 }

@@ -317,12 +317,47 @@
   overflow-x: auto;
 }
 
+.ws-sample-tile {
+  flex: 1 0 76px;
+  max-width: 110px;
+  aspect-ratio: 1;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  perspective: 500px;
+  cursor: pointer;
+}
+
+.ws-sample-tile:disabled {
+  opacity: 1;
+  cursor: default;
+}
+
+.ws-sample-flip {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.35s ease;
+}
+
+.ws-sample-flip.on {
+  transform: rotateX(180deg);
+}
+
 .ws-piece-sample img {
-  flex: none;
-  width: 54px;
-  height: 62px;
+  position: absolute;
+  inset: -18%;
+  width: 136%;
+  height: 136%;
+  max-width: none;
   object-fit: contain;
-  filter: drop-shadow(var(--shadow-koma));
+  backface-visibility: hidden;
+}
+
+.ws-piece-sample img.back {
+  transform: rotateX(180deg);
 }
 
 .ws-sample-koma {
@@ -338,7 +373,7 @@
   color: var(--koma-ink);
   line-height: 1;
   clip-path: polygon(50% 0, 86% 13%, 100% 100%, 0 100%, 14% 13%);
-  filter: drop-shadow(var(--shadow-koma));
+  
 }
 
 .ws-sample-koma i {

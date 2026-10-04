@@ -5,7 +5,9 @@ import { useSyncExternalStore } from 'react'
 
 export type PieceStyle = 'two' | 'one'
 export type PieceFont = 'mincho' | 'kaisho' | 'gyosho' | 'antique'
-export type PieceFinish = 'oshi' | 'kaki' | 'hori' | 'horiume' | 'moriage'
+export type PieceFinish = 'insatsu' | 'oshi' | 'molded' | 'kaki' | 'hori' | 'fukabori' | 'horiume' | 'moriage'
+export type PieceMaterial = 'satsuma' | 'mikura' | 'sham' | 'tsubaki' | 'maki' | 'maple' | 'plastic'
+export type PieceGrain = 'itame' | 'masame' | 'root' | 'tiger' | 'lightning'
 export type Environment = 'traditional' | 'casual' | 'flat' | 'diagram' | 'broadcast'
 export type BoardStyle = 'kaya' | 'shin-kaya' | 'dark'
 export type TimeControl = 'none' | '10s' | '3m' | '10m' | '10m30s' | '30m60s' | '5m5s'
@@ -21,6 +23,8 @@ export type Settings = {
   pieceFont: PieceFont
   pieceSet: PieceSet
   pieceFinish: PieceFinish
+  pieceMaterial: PieceMaterial
+  pieceGrain: PieceGrain
   coords: boolean
   environment: Environment
   boardStyle: BoardStyle
@@ -57,11 +61,14 @@ function defaultEnvironment(): Environment {
   }
 }
 
-const DEFAULTS: Settings = { sound: true, voice: true, volume: 0.6, pieceStyle: 'two', pieceFont: 'mincho', pieceSet: 'letters', pieceFinish: 'moriage', coords: true, environment: defaultEnvironment(), boardStyle: 'kaya', thinkMs: 1500, candidates: 3, opponent: 'beginner', aiStrategy: '', mainStrategy: 'shikenbisha', assist: true, timeControl: 'none', lang: navigatorLang(), engine: 'yaneuraou', fvScale: 16, theme: 'system', characters: true, power: false }
+const DEFAULTS: Settings = { sound: true, voice: true, volume: 0.6, pieceStyle: 'two', pieceFont: 'mincho', pieceSet: 'letters', pieceFinish: 'moriage', pieceMaterial: 'satsuma', pieceGrain: 'masame', coords: true, environment: defaultEnvironment(), boardStyle: 'kaya', thinkMs: 1500, candidates: 3, opponent: 'beginner', aiStrategy: '', mainStrategy: 'shikenbisha', assist: true, timeControl: 'none', lang: navigatorLang(), engine: 'yaneuraou', fvScale: 16, theme: 'system', characters: true, power: false }
 
 function read(): Settings {
   try {
-    return { ...DEFAULTS, ...JSON.parse(localStorage.getItem(KEY) ?? '{}') }
+    const saved = JSON.parse(localStorage.getItem(KEY) ?? '{}')
+    if (saved.pieceStyle === 'broadcast') Object.assign(saved, { pieceSet: 'broadcast', pieceStyle: 'one' })
+    if (saved.pieceSet === 'broadcast' && !saved.pieceMaterial) Object.assign(saved, { pieceMaterial: 'plastic', pieceFinish: 'insatsu' })
+    return { ...DEFAULTS, ...saved }
   } catch {
     return DEFAULTS
   }
@@ -210,11 +217,40 @@ export async function loadPieceFont(font: PieceFont) {
   await document.fonts.load(`${spec.weight} 100px "${spec.family}"`, '歩兵王将玉飛車角行金銀桂馬香成龍と')
 }
 
+const optionLabel = (en: string, ja: string) => i18n.language.startsWith('ja') ? ja : en
+
+export const PIECE_MATERIALS: Record<PieceMaterial, { label: string; tone: [number, number, number] }> = {
+  satsuma: { get label() { return optionLabel('Satsuma boxwood', '薩摩つげ') }, tone: [240, 210, 152] },
+  mikura: { get label() { return optionLabel('Mikura boxwood', '御蔵島つげ') }, tone: [246, 216, 144] },
+  sham: { get label() { return optionLabel('Sham-tsuge', 'シャムつげ') }, tone: [225, 196, 140] },
+  tsubaki: { get label() { return optionLabel('Camellia', '椿') }, tone: [235, 209, 179] },
+  maki: { get label() { return optionLabel('Podocarpus', '槇') }, tone: [234, 215, 168] },
+  maple: { get label() { return optionLabel('Maple', 'イタヤ・楓') }, tone: [245, 226, 190] },
+  plastic: { get label() { return optionLabel('Plastic', 'プラスチック') }, tone: [245, 227, 189] },
+}
+
+export const PIECE_GRAINS: Record<PieceGrain, { label: string }> = {
+  itame: { get label() { return optionLabel('Flat grain', '板目') } },
+  masame: { get label() { return optionLabel('Straight grain', '柾目') } },
+  root: { get label() { return optionLabel('Root figure', '根杢') } },
+  tiger: { get label() { return optionLabel('Tiger figure', '虎斑') } },
+  lightning: { get label() { return optionLabel('Lightning figure', '稲妻杢') } },
+}
+
+export const pieceFinishOptions = (material: PieceMaterial): PieceFinish[] => material === 'plastic' ? ['insatsu', 'molded', 'oshi'] : ['insatsu', 'oshi', 'kaki', 'hori', 'fukabori', 'horiume', 'moriage']
+export const selectedPieceFinish = () => {
+  const options = pieceFinishOptions(current.pieceMaterial)
+  return options.includes(current.pieceFinish) ? current.pieceFinish : options[0]
+}
+
 export const PIECE_FINISHES: Record<PieceFinish, { label: string; hint: string; relief: number; gloss: number }> = {
+  insatsu: { get label() { return optionLabel('Printed', '印刷') }, get hint() { return optionLabel('Flat printed characters.', '平面に印刷した文字。') }, relief: 0, gloss: 0 },
+  molded: { get label() { return optionLabel('Molded and painted', '成形・塗装') }, get hint() { return optionLabel('Molded recesses filled with paint.', '成形したくぼみに塗料を充填。') }, relief: -0.006, gloss: 0.25 },
+  fukabori: { get label() { return optionLabel('Deep carved', '深彫り') }, get hint() { return optionLabel('Deeply recessed characters.', '深く彫り込んだ文字。') }, relief: -0.03, gloss: 0.4 },
   oshi: { get label() { return i18n.t('options.stamped') }, get hint() { return i18n.t('options.stampedInkPressedOntoThe') }, relief: 0, gloss: 0 },
   kaki: { get label() { return i18n.t('options.written') }, get hint() { return i18n.t('options.writtenLacquerPaintedStraightOnto') }, relief: 0.004, gloss: 0.7 },
   hori: { get label() { return i18n.t('options.carved') }, get hint() { return i18n.t('options.carvedCharactersCutIntoThe') }, relief: -0.016, gloss: 0.4 },
-  horiume: { get label() { return i18n.t('options.carvedFilled') }, get hint() { return i18n.t('options.carvedThenTheGrooveFilled') }, relief: -0.003, gloss: 1 },
+  horiume: { get label() { return i18n.t('options.carvedFilled') }, get hint() { return i18n.t('options.carvedThenTheGrooveFilled') }, relief: 0, gloss: 1 },
   moriage: { get label() { return i18n.t('options.raisedLacquer') }, get hint() { return i18n.t('options.horiumeThenLacquerBuiltUp') }, relief: 0.012, gloss: 1 },
 }
 

@@ -81,7 +81,11 @@ export function useBoardSession() {
       setPeekFrom(null)
       const at = sfensRef.current[cursor]
       const mv = at ? positionOf(at).createMoveByUSI(usi) : null
-      moveSound(mv?.capturedPieceType ? 'capture' : 'move')
+      if (!mv || !applyUsi(at, usi)) {
+        setPlaying(false)
+        return
+      }
+      moveSound(mv.capturedPieceType ? 'capture' : 'move')
       const g = gameRef.current
       const path = [...g.moves.slice(0, cursor), usi]
       const existing = isGameMode(modeRef.current) ? nodeAt(treeRef.current, path) : null

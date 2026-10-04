@@ -428,6 +428,11 @@
   color: var(--highlight);
 }
 
+.ws-gameover strong:lang(en),
+.ws-preview-seal:lang(en) {
+  letter-spacing: normal;
+}
+
 .ws-gameover .ws-actions {
   justify-content: center;
   margin-top: var(--space-1);
@@ -868,4 +873,10 @@
   max-width: 11em;
   padding-block: var(--space-1);
   font-size: var(--text-sm);
+}
+
+.ws-promote button > img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
 }
