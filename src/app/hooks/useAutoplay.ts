@@ -8,7 +8,7 @@ export function useAutoplay({ mode, preview, setPreview, cursor, setCursor, game
   const candidate = preview ? preview.moves[preview.step] : cursor < game.moves.length ? game.moves[cursor] : gameOver ? undefined : (mainBranch(nodes?.get(strip(sfen)))?.usi ?? (ai && bestMove !== 'resign' && bestMove !== 'win' ? bestMove : undefined))
   const upcoming = candidate && applyUsi(sfen, candidate) ? candidate : undefined
   useEffect(() => {
-    if (mode === 'view') return
+    if (mode === 'view' && !preview && cursor === game.moves.length) return
     if (!playing) {
       lastStep.current = null
       return

@@ -72,7 +72,7 @@ export function ModeBar({ title, instruction, lessonMode, sheetUp, panelHidden, 
       {engine.error && (isGameMode(mode) || mode === 'view') && <Button size="sm" onClick={() => { restartEngine(); if (mode === 'view') watch.toggle() }}>{t('tsume.tryAgain')}</Button>}
       {mode === 'view' && (
         <>
-          <Button size="sm" onClick={watch.started ? watch.toggle : onWatchSetup} disabled={!!watch.result}>
+          <Button size="sm" onClick={watch.started ? watch.toggle : onWatchSetup} disabled={watch.started && !watch.canPlay}>
             <Icon name={watch.running ? 'pause' : 'play'} size={16} />
             {t(!watch.started ? 'newGame.start' : watch.running ? 'watch.pause' : 'watch.resume')}
           </Button>

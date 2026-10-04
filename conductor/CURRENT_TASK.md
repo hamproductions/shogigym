@@ -1,9 +1,10 @@
 # Current task
 
 ## Scope
-Add View mode: two bots play automatically while the user watches with free camera control. Reuse real engine, board rendering and existing settings. View games are temporary: no kifu persistence, autosave or saved-game controls. Preserve pending module/CSS/asset refactor. Commit and push all current changes authorized. No subagents, system/audio changes or new test files authorized.
+Add View mode: two bots play automatically while the user watches with free camera control. Reuse real engine, board rendering and existing settings. View games are temporary: no kifu persistence, autosave or saved-game controls. Preserve pending module/CSS/asset refactor. Previous changes committed and pushed as d0d3b8c. Rewind correction passed TypeScript and is authorized for commit/push. Pawn-drop report withdrawn; no interaction changes retained. No subagents, system/audio changes or new test files authorized.
 
 ## Work
+- View Play from rewind advances recorded history without jumping to latest or calling engine. At live edge, unfinished games continue bots; finished games stop. Pause/resume works during replay.
 - Hidden tabs stop all active/scheduled app audio and reject new effects or speech. Returning does not replay stopped speech. Game progression remains unchanged.
 - Live Play/View games have no review border. Historical navigation pauses View automation; border appears only in historical positions or explicit preview. Review border fills viewport when evaluation bar is absent.
 - New-game setup offers Furigoma, 上手 Sente or 下手 Sente; explicit sides start directly. Difficulty and strategy dropdowns appear only in setup, removed from top bar.
@@ -30,7 +31,7 @@ Brainstorming SKILL.md read 1–EOF, bounded path. Explicit feature request and 
 Implemented separate spectator automation, navigation and controls. Renamed source UI classes to app- and root app-shell, merged Workshop translations into app namespace. Existing game/settings storage keys retained. View skips session persistence and mode snapshot storage; saved-game/rating-save controls excluded. Removed board-shaped ray cutout. Free-camera proximity fade uses actual animated head position, preserves moving hand, and restores avatar when zoomed out. Aggregate TypeScript and production build passed. No browser proof because existing local server is unavailable.
 
 ## Next action
-Commit and push current implementation; verify clean working tree and zero divergence from upstream. Browser visual/audio behavior remains unverified because existing server is unavailable.
+No further implementation requested. Rewind replay is implemented and TypeScript passed; current changes are being synchronized to upstream. Browser visual/audio behavior remains unverified because existing server is unavailable.
 
 ## Correction
 - Source: supplied near-avatar screenshot and explicit manual Start workflow.

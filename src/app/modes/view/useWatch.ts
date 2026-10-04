@@ -14,7 +14,7 @@ export function useWatch(session: BoardSession, load: Load, reviewReady: boolean
   const { t } = useTranslation()
   const settings = useSettings()
   const { epoch } = useEngineStatus()
-  const { mode, game, sfen, sfens, position, gameOver, atEnd, preview, playing, play, ai, setPlaying } = session
+  const { mode, game, sfen, position, gameOver, atEnd, preview, playing, play, ai, setPlaying } = session
   const [bots, setBots] = useState<[AiStrength, AiStrength]>([settings.opponent, settings.opponent])
   const [strategies, setStrategies] = useState<[string, string]>([aiStrategyId(settings.aiStrategy), aiStrategyId(settings.aiStrategy)])
   const [started, setStarted] = useState(false)
@@ -37,14 +37,15 @@ export function useWatch(session: BoardSession, load: Load, reviewReady: boolean
   const ending = state?.game === game ? state.ending : undefined
   const error = state?.game === game ? state.error : undefined
   const result = repetition ?? ending ?? (gameOver ? t('app.checkmateWon', { winner: t(`common.${otherSide(colorSide(position.color))}`) }) : null)
-  const running = mode === 'view' && playing && atEnd && !preview && !result && !error && ai && !tossing
+  const canPlay = started && !tossing && (!atEnd || !result)
+  const running = mode === 'view' && playing && canPlay && !error && (!atEnd || !!preview || ai)
 
   useEffect(() => {
-    if (mode === 'view' && result) setPlaying(false)
-  }, [mode, result, setPlaying])
+    if (mode === 'view' && result && atEnd && !preview) setPlaying(false)
+  }, [mode, result, atEnd, preview, setPlaying])
 
   useEffect(() => {
-    if (!running || (game.moves.length > 0 && !reviewReady)) return
+    if (!running || !atEnd || preview || (game.moves.length > 0 && !reviewReady)) return
     let cancelled = false
     let timer: ReturnType<typeof setTimeout> | undefined
     const level = STRENGTH[strength]
@@ -70,21 +71,17 @@ export function useWatch(session: BoardSession, load: Load, reviewReady: boolean
       cancelled = true
       clearTimeout(timer)
     }
-  }, [running, reviewReady, game, sfen, strength, strategy, epoch, play, session.toMove, t])
+  }, [running, atEnd, preview, reviewReady, game, sfen, strength, strategy, epoch, play, session.toMove, t])
 
   const toggle = () => {
-    if (result || !started || tossing) return
-    setState(null)
-    if (running) session.setPlaying(false)
-    else {
-      session.setPreview(null)
-      session.setCursor(sfens.length - 1)
-      session.setPlaying(true)
-    }
+    if (!canPlay) return
+    if (error) setState((current) => current ? { ...current, error: undefined } : null)
+    session.setPlaying(!playing)
   }
 
   return {
     running,
+    canPlay,
     started,
     result,
     won: !!result && result !== t('watch.repetition'),
