@@ -2,6 +2,13 @@
 
 Notable changes are recorded here when a release is created. Versions follow Semantic Versioning.
 
+## [1.3.2](/compare/v1.3.1...v1.3.2) (2026-10-05)
+
+
+### Bug Fixes
+
+* stabilize responsive controls and correct knight speech dcb7790
+
 ## [1.3.1](/compare/v1.3.0...v1.3.1) (2026-10-05)
 
 
