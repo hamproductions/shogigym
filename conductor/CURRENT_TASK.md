@@ -20,7 +20,7 @@
 - Module bodies compared before formatting: unchanged except imports and course globs.
 - Final lint/format/TypeScript checks passed; production build with /shogilab/ base passed; course validation and diff whitespace passed.
 - Bun alias resolution passed. Existing React warnings remain without suppression.
-- Local release dry-run passed. Actual patch release runs required checks again.
+- Patch release 1.0.1 created with package version, generated changelog, release commit and local v1.0.1 tag. Validation, lint, formatting and production build passed through release hooks. Generated changelog excluded from formatting to preserve release-it output and prevent future release CI failures.
 - localhost:5173 unavailable; browser verification remains unverified. No server or browser started.
 
 ## Closure criteria

@@ -12,3 +12,4 @@ dogfood-output
 src/data/**/*.json
 src/rendering/avatars/handMotion.json
 bun.lock
+CHANGELOG.md
