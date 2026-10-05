@@ -62,4 +62,4 @@
 - Physical iPad disappearing-ink symptom not reproduced; demonstrated resource leaks and excessive rebuilding addressed. No claim of zero leaks across every path.
 
 ## Next action
-Commit remaining changes, run canonical minor release, verify Pages deployment and clean working tree. Tile POV, touch gestures, Diagram overlays and settings localization remain browser-unverified. No captures; owned server/browser stopped.
+Release v1.1.0 published at commit 40621a5; canonical validation/lint/format/build passed, Pages build/deploy succeeded in run 37274954169. Release-it GitHub authentication failed; native gh published the verified tag. No remaining implementation action. Tile POV, touch gestures, Diagram overlays and settings localization remain browser-unverified. No captures; owned server/browser stopped.
