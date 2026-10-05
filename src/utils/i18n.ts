@@ -4,7 +4,7 @@ import en from '@/locales/en.json'
 import ja from '@/locales/ja.json'
 
 i18n.on('languageChanged', (lng) => {
-  document.documentElement.lang = lng
+  if (typeof document !== 'undefined') document.documentElement.lang = lng
 })
 
 void i18n.use(initReactI18next).init({
