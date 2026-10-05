@@ -2,6 +2,18 @@
 
 Notable changes are recorded here when a release is created. Versions follow Semantic Versioning.
 
+# [1.2.0](/compare/v1.1.0...v1.2.0) (2026-10-05)
+
+
+### Bug Fixes
+
+* initialize loading translations during prerender b3e7ca6
+
+
+### Features
+
+* improve mobile board layout and controls 58ca035
+
 # [1.1.0](/compare/v1.0.1...v1.1.0) (2026-10-05)
 
 
