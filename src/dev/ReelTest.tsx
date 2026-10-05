@@ -173,7 +173,7 @@ export default function ReelTest() {
         <div className="app-reel-end" style={{ opacity: clamp01((t - 16.6) / 0.35) }}>
           <strong style={{ transform: `scale(${slam(16.6)})` }}>将棋ジム</strong>
           <span>Shogi Gym · learn openings, beginner to 1–2 dan</span>
-          <em>{'hamproductions.github.io/shogilab'.slice(0, Math.max(0, Math.floor((t - 17.1) * 28)))}</em>
+          <em>{'hamproductions.github.io/shogigym'.slice(0, Math.max(0, Math.floor((t - 17.1) * 28)))}</em>
         </div>
         <div className="app-reel-flash" style={{ opacity: flash }} />
       </div>

@@ -119,6 +119,7 @@ type PreviewFace = PieceType | 'GY'
 const setPreviewCache = new Map<string, Map<PreviewFace, string>>()
 
 function StickyPiecePreview() {
+  const { t } = useTranslation()
   const st = useSettings()
   const [images, setImages] = useState<Map<PreviewFace, string>>(new Map())
   const [loading, setLoading] = useState(true)
@@ -197,7 +198,7 @@ function StickyPiecePreview() {
         })}
       {(loading || error) && (
         <span className="app-preview-status" role="status">
-          {error ?? 'Rendering preview…'}
+          {error ?? t('settings.renderingPreview')}
         </span>
       )}
     </div>
@@ -275,6 +276,7 @@ function FinishSection({ finish }: { finish: PieceFinish }) {
 const finishPreviewCache = new Map<string, Map<string, string[]>>()
 
 function FinishOptions() {
+  const { t } = useTranslation()
   const st = useSettings()
   const key = `finish-coating-v9|${pieceFinishOptions(st.pieceMaterial).join()}|${st.pieceSet}|${st.pieceFont}|${st.pieceStyle}|${st.pieceGuide}|${st.pieceMaterial}|${st.pieceColor}|${st.pieceGrain}`
   const [ready, setReady] = useState<{ key: string; images: Map<string, string[]> }>()
@@ -316,26 +318,26 @@ function FinishOptions() {
   if (!images)
     return (
       <section className="app-finish-options" aria-busy={!error}>
-        <p className="app-muted">Finish</p>
+        <p className="app-muted">{t('settings.finish')}</p>
         <p className="app-muted" role="status">
-          {error ?? 'Rendering finish previews…'}
+          {error ?? t('settings.renderingFinishPreviews')}
         </p>
       </section>
     )
   return (
     <div className="app-finish-options">
       <OptionGroup
-        label="Finish"
+        label={t('settings.finish')}
         options={pieceFinishOptions(st.pieceMaterial).map((key) => ({
           key,
           label: PIECE_FINISHES[key].label,
           preview: (
             <>
               <span className="app-finish-render">
-                {images ? <img src={images.get(`finish:${key}`)?.[0]} alt="" /> : <span role="status">{error ?? 'Rendering…'}</span>}
+                {images ? <img src={images.get(`finish:${key}`)?.[0]} alt="" /> : <span role="status">{error ?? t('settings.renderingPreview')}</span>}
               </span>
               <FinishSection finish={key} />
-              <span className="app-finish-coating">{PIECE_FINISHES[key].coating === 'lacquer' ? 'Urushi lacquer' : 'Paint'}</span>
+              <span className="app-finish-coating">{PIECE_FINISHES[key].coating === 'lacquer' ? t('settings.lacquer') : t('settings.paint')}</span>
             </>
           ),
         }))}
@@ -367,7 +369,7 @@ function DesignOptions() {
   const presets: { key: string; label: string; patch: PieceAppearance }[] = [
     {
       key: 'classic',
-      label: 'Classic',
+      label: t('settings.presetClassic'),
       patch: {
         pieceSet: 'letters',
         pieceFont: 'mincho',
@@ -381,7 +383,7 @@ function DesignOptions() {
     },
     {
       key: 'elegant',
-      label: 'Elegant',
+      label: t('settings.presetElegant'),
       patch: {
         pieceSet: 'ryoko_1kanji',
         pieceFont: 'kaisho',
@@ -395,7 +397,7 @@ function DesignOptions() {
     },
     {
       key: 'plastic',
-      label: 'Plastic',
+      label: t('settings.presetPlastic'),
       patch: {
         pieceSet: 'sunfish_hitomoji',
         pieceFont: 'mincho',
@@ -409,7 +411,7 @@ function DesignOptions() {
     },
     {
       key: 'broadcast',
-      label: 'Broadcast',
+      label: t('settings.presetBroadcast'),
       patch: {
         pieceSet: 'broadcast',
         pieceFont: 'kaisho',
@@ -426,7 +428,7 @@ function DesignOptions() {
     <>
       <StickyPiecePreview />
       <OptionGroup
-        label="Preset"
+        label={t('settings.preset')}
         options={presets.map((preset) => ({
           ...preset,
           preview: <GlyphSample set={preset.patch.pieceSet!} font={preset.patch.pieceFont ?? st.pieceFont} style={preset.patch.pieceStyle} code="KI" />,
@@ -435,7 +437,7 @@ function DesignOptions() {
         onChange={(key) => setSettings(presets.find((preset) => preset.key === key)!.patch)}
       />
       <OptionGroup
-        label="Typeface"
+        label={t('settings.typeface')}
         options={PIECE_TYPEFACES.map((key) => ({
           key,
           label:
@@ -455,17 +457,17 @@ function DesignOptions() {
       />
       {lettering && (
         <OptionGroup
-          label="Font"
+          label={t('settings.font')}
           options={FONTS.map((key) => ({ key, label: PIECE_FONTS[key].label, preview: <GlyphSample set="letters" font={key} /> }))}
           value={st.pieceFont}
           onChange={(key) => setSettings({ pieceFont: key as PieceFont })}
         />
       )}
       <OptionGroup
-        label="Type"
+        label={t('settings.type')}
         options={(twoOnly ? ['two'] : ['one', ...(lettering || paired ? ['two'] : []), 'guide']).map((key) => ({
           key,
-          label: key === 'guide' ? 'One character + guide' : t(key === 'one' ? 'settings.oneCharacter' : 'settings.twoCharacters'),
+          label: key === 'guide' ? t('settings.oneCharacterGuide') : t(key === 'one' ? 'settings.oneCharacter' : 'settings.twoCharacters'),
           preview: (
             <GlyphSample
               set={paired ? pieceSetForFace(currentFamily, key === 'two' ? 'two' : 'one') : st.pieceSet}
@@ -481,10 +483,10 @@ function DesignOptions() {
 
       {st.pieceGuide !== 'none' && (
         <OptionGroup
-          label="Guide style"
+          label={t('settings.guideStyle')}
           options={(['lines', 'dots', 'movement'] as const).map((key) => ({
             key,
-            label: key === 'dots' ? 'Dots' : key === 'movement' ? 'Marks' : 'Lines',
+            label: t(key === 'dots' ? 'settings.guideDots' : key === 'movement' ? 'settings.guideMarks' : 'settings.guideLines'),
             preview: <img className="app-prepared-glyph" src={`${import.meta.env.BASE_URL}pieces/prepared/guides/KI.${key}.png?v=16`} alt="" />,
           }))}
           value={st.pieceGuide}
@@ -492,7 +494,7 @@ function DesignOptions() {
         />
       )}
       <OptionGroup
-        label="Color"
+        label={t('settings.color')}
         options={Object.entries(PIECE_COLORS).map(([key, spec]) => ({
           key,
           label: spec.label,
@@ -502,7 +504,7 @@ function DesignOptions() {
         onChange={(key) => setSettings({ pieceColor: key as typeof st.pieceColor })}
       />
       <OptionGroup
-        label="Material"
+        label={t('settings.material')}
         options={Object.entries(PIECE_MATERIALS).map(([key, spec]) => ({
           key,
           label: spec.label,
@@ -527,7 +529,7 @@ function DesignOptions() {
       />
       {!['plastic', 'glass', 'frostedGlass'].includes(st.pieceMaterial) && (
         <OptionGroup
-          label="Grain"
+          label={t('settings.grain')}
           options={Object.entries(PIECE_GRAINS).map(([key, spec]) => ({
             key,
             label: spec.label,

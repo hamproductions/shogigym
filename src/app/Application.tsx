@@ -253,8 +253,9 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
     speechState.current = { mode, finished: !!result || !!watch.result, restored }
     if (!previous.restored || previous.mode !== mode || previous.finished) return
     if (!(result === 'win' || (mode === 'view' && watch.won)) || !atEnd || !game.moves.length || spar.newGameOpen || pendingFurigoma || watchSetup) return
+    if (session.gameOver) return
     return say('ありがとうございました')
-  }, [result, mode, watch.result, watch.won, restored, atEnd, game.moves.length, spar.newGameOpen, pendingFurigoma, watchSetup])
+  }, [result, mode, watch.result, watch.won, restored, atEnd, game.moves.length, spar.newGameOpen, pendingFurigoma, watchSetup, session.gameOver])
   const evalOn = session.ai && session.assist && (isGameMode(mode) || mode === 'view' || (mode === 'lesson' && !!course && lesson.lessonMode === 'study'))
   const steadyRate = useSteadyRate(evalOn && evaluation.evalFinal ? evaluation.senteRate : null)
   const evalRate = evalOn ? (steadyRate ?? 0.5) : null

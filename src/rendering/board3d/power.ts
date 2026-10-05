@@ -430,7 +430,7 @@ export function createPower(ctx: PowerContext): Power {
     960,
   )
   const stamps = new Map<string, THREE.Texture>()
-  const stampSpecs: Record<string, [string, string]> = { 王手: ['#ff3b2a', 'rgba(255,40,20,0.9)'], 詰み: ['#ffd66b', 'rgba(255,60,20,0.95)'] }
+  const stampSpecs: Record<string, [string, string]> = { 王手: ['#ff3b2a', 'rgba(255,40,20,0.9)'], ありがとうございました: ['#ffd66b', 'rgba(255,60,20,0.95)'] }
   let disposed = false
   void loadBrush().then(() => {
     if (disposed) return
@@ -738,7 +738,7 @@ export function createPower(ctx: PowerContext): Power {
     glowDisc(king, 0xffe0a0, 4, 2.4, 1)
     sparks.spawn(king.clone().setY(0.2), 420, { speed: 10, up: 6, color: 0xffe9b0, color2: 0xff5a10, size: 0.14, life: 1.4, gravity: 7 })
     debris.spawn(king, 60, 5.5)
-    add(0.45, () => undefined, { real: true, done: () => stamp('詰み', 3.2, 0.46, king) })
+    add(0.45, () => undefined, { real: true, done: () => stamp('ありがとうございました', 3.2, 0.46, king) })
     shake(0.9)
     playSound('boom')
   }

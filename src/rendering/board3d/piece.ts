@@ -164,7 +164,7 @@ export function pieceMesh(
   type: PieceType,
   color: Color,
   seed = [...pieceCode(unpromotedPieceType(type), color)].reduce((value, char) => value * 31 + char.charCodeAt(0), color === Color.BLACK ? 17 : 29),
-  segments = 200,
+  segments = 64,
   appearance?: PieceAppearance,
   envMap = environmentMap(),
   flat = false,
@@ -180,6 +180,7 @@ export function pieceMesh(
   const { relief, gloss, kind, coating } = finish(appearance)
   const lacquer = coating === 'lacquer'
   const lm = lacquerMap(inkMap, lacquer ? 0.5 : 0)
+  const normal = relief ? reliefNormal(inkMap, relief * scale, komaWidth(scale), scale, kind) : null
   const face =
     plastic && !relief
       ? new THREE.MeshBasicMaterial({ map })
@@ -193,10 +194,12 @@ export function pieceMesh(
           emissiveIntensity: plastic ? 0.65 : 0,
           roughness: 1,
           roughnessMap: lm,
-          normalMap: relief ? reliefNormal(inkMap, relief * scale, komaWidth(scale), scale, kind) : null,
+          normalMap: normal,
           normalScale: new THREE.Vector2(0.5, 0.5),
           clearcoat: lacquer ? Math.max(0.375, gloss * 0.5) : 0,
           clearcoatMap: lm,
+          clearcoatNormalMap: lacquer ? normal : null,
+          clearcoatNormalScale: new THREE.Vector2(0.5, 0.5),
           clearcoatRoughness: lacquer ? 0.3 : 1,
           specularIntensity: lacquer ? 0.5 : 0.15,
           envMap,
@@ -257,6 +260,7 @@ export function pieceMesh(
       backFace.roughnessMap = lacquerMap(backMap, lacquer ? 0.5 : 0)
       backFace.clearcoatMap = backFace.roughnessMap
       backFace.normalMap = relief ? reliefNormal(backMap, relief * scale, komaWidth(scale), scale, kind) : null
+      backFace.clearcoatNormalMap = lacquer ? backFace.normalMap : null
     }
   }
   const bottom = new THREE.Mesh(pieceBottom(scale), backFace)

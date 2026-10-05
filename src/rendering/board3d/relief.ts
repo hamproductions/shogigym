@@ -43,7 +43,7 @@ export function inkMask(map: THREE.Texture) {
     inkCache.set(map, existing)
     return existing
   }
-  const size = 512
+  const size = SIZE
   const canvas = document.createElement('canvas')
   canvas.width = canvas.height = size
   const ctx = canvas.getContext('2d', { willReadFrequently: true })!
@@ -58,7 +58,7 @@ export function inkMask(map: THREE.Texture) {
     const lum = 0.3 * r + 0.59 * g + 0.11 * b
     hard[i] = glyph ? raw[i * 4 + 3] / 255 : map.userData.lightInk ? (lum > 125 ? 1 : 0) : red || lum < 125 ? 1 : 0
   }
-  const soft = blur(blur(hard, size, 3), size, 3)
+  const soft = blur(blur(hard, size, 2), size, 2)
   const sample: Ink = (u, v) => {
     const fx = Math.min(size - 1.001, Math.max(0, u * (size - 1)))
     const fy = Math.min(size - 1.001, Math.max(0, (1 - v) * (size - 1)))
@@ -102,7 +102,7 @@ export function finishMask(map: THREE.Texture, finish: PieceFinish) {
     profiles.set(finish, sample)
     return sample
   }
-  const size = 512
+  const size = SIZE
   const distance = new Float32Array(size * size)
   for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) distance[y * size + x] = ink(x / (size - 1), 1 - y / (size - 1)) > 0.5 ? size : 0
   for (let y = 1; y < size - 1; y++)
@@ -115,11 +115,11 @@ export function finishMask(map: THREE.Texture, finish: PieceFinish) {
       const i = y * size + x
       distance[i] = Math.min(distance[i], distance[i + 1] + 1, distance[i + size] + 1, distance[i + size - 1] + Math.SQRT2, distance[i + size + 1] + Math.SQRT2)
     }
-  if (glyph) glyphDistanceCache.set(glyph, { distance: Float32Array.from(distance, (value) => Math.min(1, value / 14)), size })
+  if (glyph) glyphDistanceCache.set(glyph, { distance: Float32Array.from(distance, (value) => Math.min(1, value / ((14 * size) / 512))), size })
   const sample: Ink = (u, v) => {
     const x = Math.max(0, Math.min(size - 1, Math.round(u * (size - 1))))
     const y = Math.max(0, Math.min(size - 1, Math.round((1 - v) * (size - 1))))
-    return finishProfile(finish, distance[y * size + x] / 14) * ink(u, v)
+    return finishProfile(finish, distance[y * size + x] / ((14 * size) / 512)) * ink(u, v)
   }
   profiles.set(finish, sample)
   return sample

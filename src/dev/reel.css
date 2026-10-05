@@ -6,7 +6,7 @@
 }
 
 .app-reel-stage,
-.app-reel-stage > * {
+.app-reel-stage > .board3d {
   position: absolute;
   inset: 0;
 }

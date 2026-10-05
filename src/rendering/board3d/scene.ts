@@ -12,7 +12,7 @@ import type { SceneState, Stand } from './types'
 
 export function createRenderer(activateEnvironment = true) {
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
-  renderer.setPixelRatio(Math.min(2, window.devicePixelRatio))
+  renderer.setPixelRatio(Math.min(matchMedia('(pointer: coarse)').matches ? 1 : 2, window.devicePixelRatio))
   renderer.shadowMap.enabled = true
   renderer.shadowMap.type = THREE.PCFShadowMap
   renderer.toneMapping = THREE.ACESFilmicToneMapping
@@ -26,7 +26,8 @@ export function addLights(scene: THREE.Scene) {
   const lamp = new THREE.SpotLight(0xffe8c4, 70, 80, Math.PI / 3, 1, 1.2)
   lamp.position.set(-1.5, 18, 2.5)
   lamp.castShadow = true
-  lamp.shadow.mapSize.set(2048, 2048)
+  const shadowSize = matchMedia('(pointer: coarse)').matches ? 1024 : 2048
+  lamp.shadow.mapSize.set(shadowSize, shadowSize)
   lamp.shadow.bias = -0.0004
   scene.add(lamp, lamp.target)
   const fill = new THREE.DirectionalLight(0x8fa6d8, 0.35)

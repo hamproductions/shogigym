@@ -32,7 +32,7 @@ export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, pos
     }
     if (preview || mode === 'tsume' || cursor === 0) return
     const tesuji = stepped && sfens[cursor - 1] ? detectTesuji(sfens[cursor - 1], game.moves[cursor - 1]) : null
-    if (stepped && position.checked) say(hasLegalMove(position) ? '王手' : '詰み', true)
+    if (stepped && position.checked) say(hasLegalMove(position) ? '王手' : 'ありがとうございました', true)
     if (tesuji) {
       say(tesuji.ja)
       setAnnounce({ side: positionOf(sfens[cursor - 1]).color, name: tesuji.ja, kind: t('app.tesuji'), key: Date.now(), tesuji: true })
