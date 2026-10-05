@@ -377,9 +377,16 @@
   .app-modebar-controls {
     order: 10;
     flex: none;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    max-width: 100%;
     margin-top: 0;
     padding-bottom: max(var(--space-1-5), env(safe-area-inset-bottom));
+  }
+
+  .app-modebar-controls::-webkit-scrollbar {
+    display: none;
   }
 
   .app-modebar.sheet-up .app-modebar-heading {
@@ -418,8 +425,10 @@
   }
 
   .app-modebar-controls .app-btn {
-    min-height: 44px;
-    padding: var(--space-2) var(--space-2-5);
-    font-size: var(--text-sm);
+    flex: none;
+    min-height: 38px;
+    padding: var(--space-1-5) var(--space-2);
+    font-size: var(--text-xs);
+    white-space: nowrap;
   }
 }
