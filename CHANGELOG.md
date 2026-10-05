@@ -2,6 +2,14 @@
 
 Notable changes are recorded here when a release is created. Versions follow Semantic Versioning.
 
+## [1.3.1](/compare/v1.3.0...v1.3.1) (2026-10-05)
+
+
+### Bug Fixes
+
+* compact mobile move lists and preserve icon sizing 7fb600f
+* stabilize tile rendering and responsive panels af5d9ed
+
 # [1.3.0](/compare/v1.2.0...v1.3.0) (2026-10-05)
 
 
