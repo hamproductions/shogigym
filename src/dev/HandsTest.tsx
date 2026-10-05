@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState, type CSSProperties } from 'react'
+import './hands.css'
+import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { Color, Position, Square } from 'tsshogi'
@@ -8,12 +9,13 @@ import { rebuild } from '@/rendering/board3d/pieces'
 import { buildScene, createRenderer } from '@/rendering/board3d/scene'
 import type { Board3DProps, SceneState } from '@/rendering/board3d/types'
 import { loadPieceFont, setSettings, useSettings } from '@/appearance/settings'
+import { loadPieceSet } from '@/appearance/pieceSets'
+import { BoardLoading } from '@/rendering/BoardLoading'
 
 type Room = 'traditional' | 'casual'
 type Pattern = { id: string; label: string; sfen: string; usi: string }
 
 const START = 'lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL'
-const OPENED = 'lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL'
 const FACED = 'lnsgkgsnl/1r5b1/pppp1pppp/9/4p4/4P4/PPPP1PPPP/1B5R1/LNSGKGSNL'
 
 const PATTERNS: Pattern[] = [
@@ -27,8 +29,8 @@ const PATTERNS: Pattern[] = [
   { id: 'capture-w', label: 'Capture · gote 5e5f', sfen: `${FACED} w - 2`, usi: '5e5f' },
   { id: 'promote-b', label: 'Promote · sente 5d5c+', sfen: 'lnsgkgsnl/1r5b1/pppp1pppp/4P4/9/9/PPPP1PPPP/1B5R1/LNSGKGSNL b P 1', usi: '5d5c+' },
   { id: 'promote-w', label: 'Promote · gote 5f5g+', sfen: 'lnsgkgsnl/1r5b1/pppp1pppp/9/9/4p4/PPPP1PPPP/1B5R1/LNSGKGSNL w p 2', usi: '5f5g+' },
-  { id: 'far-b', label: 'Far reach · sente 8h2b+', sfen: `${OPENED} b - 3`, usi: '8h2b+' },
-  { id: 'far-w', label: 'Far reach · gote 2b8h+', sfen: `${OPENED} w - 4`, usi: '2b8h+' },
+  { id: 'far-b', label: 'Far reach · sente 9i9a+', sfen: 'r3k4/9/9/9/9/9/9/9/R3K4 b - 1', usi: '9i9a+' },
+  { id: 'far-w', label: 'Far reach · gote 1a1i+', sfen: '4k3r/9/9/9/9/9/9/9/4K3R w - 2', usi: '1a1i+' },
 ]
 
 const DT = 1 / 60
@@ -94,10 +96,18 @@ export default function HandsTest() {
   const [cut, setCut] = useState(false)
   const [info, setInfo] = useState<AvatarInspect | null>(null)
   const [ready, setReady] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [progress, setProgress] = useState(0)
   const total = framesFor(pattern)
   const api = useRef<{ goto: (f: number) => AvatarInspect | null; camera: (preset: string) => void; total: number } | null>(null)
+  const cameraPose = useRef<{ position: THREE.Vector3; target: THREE.Vector3; follow: boolean } | null>(null)
+  const display = useRef({ show, cut })
+  display.current = { show, cut }
 
   useEffect(() => {
+    setError(null)
+    setReady(false)
+    setProgress(0)
     setSettings({ environment: room })
     setBoardDims()
     const el = host.current!
@@ -106,8 +116,9 @@ export default function HandsTest() {
     const s: SceneState = buildScene(renderer)
     s.room.need()
     const controls = new OrbitControls(s.camera, renderer.domElement)
-    s.camera.position.set(0, 26, 30)
-    controls.target.set(0, 0, 0.4)
+    s.camera.position.copy(cameraPose.current?.position ?? new THREE.Vector3(0, 26, 30))
+    controls.target.copy(cameraPose.current?.target ?? new THREE.Vector3(0, 0, 0.4))
+    controls.update()
     const marks = overlay(s.scene)
     let controller: AvatarController | null = null
     let seed = 1
@@ -120,6 +131,7 @@ export default function HandsTest() {
     let simFrame = -1
     const inspect = () => controller?.inspect().find((a) => a.color === mover) ?? null
     const draw = (a: AvatarInspect | null) => {
+      const { show } = display.current
       for (const m of [marks.target, marks.pinch, marks.piece, marks.pole]) m.visible = !!a && show
       if (!a) return
       marks.target.position.copy(a.target)
@@ -140,7 +152,7 @@ export default function HandsTest() {
         rebuild(s, props(next, pattern.usi), true, prev)
         simFrame = 0
       }
-      for (; simFrame < f; simFrame++) controller.update(DT, 0, !cut)
+      for (; simFrame < f; simFrame++) controller.update(DT, 0, !display.current.cut)
       const a = inspect()
       draw(a)
       if (follow && a) {
@@ -151,7 +163,7 @@ export default function HandsTest() {
       }
       return a
     }
-    let follow = false
+    let follow = cameraPose.current?.follow ?? false
     const camera = (preset: string) => {
       follow = preset === 'hand'
       const a = inspect()
@@ -180,23 +192,37 @@ export default function HandsTest() {
     }
     api.current = { goto, camera, total }
     let live = true
-    void loadPieceFont(st.pieceFont).catch(() => undefined)
-    loadAvatars({
-      root: s.root,
-      camera: s.camera,
-      environment: room,
-      dims: { thick: THICK, leg: LEG, halfW: HALF_W, halfD: HALF_D },
-      base: import.meta.env.BASE_URL,
-      random,
-    }).then((c) => {
-      if (!live) return c.dispose()
-      controller = c
-      s.avatars = slotFor(c)
-      s.settle = () => rebuild(s, props(next, pattern.usi), false)
-      simFrame = -1
-      setInfo(goto(0))
-      setReady(true)
-    })
+    let completed = 0
+    const loaded = () => {
+      if (live) setProgress(++completed / 3)
+    }
+    Promise.all([loadPieceFont(st.pieceFont).then(loaded), loadPieceSet(st.pieceSet, st.pieceGuide).then(loaded)])
+      .then(() =>
+        live
+          ? loadAvatars({
+              root: s.root,
+              camera: s.camera,
+              environment: room,
+              dims: { thick: THICK, leg: LEG, halfW: HALF_W, halfD: HALF_D },
+              base: import.meta.env.BASE_URL,
+              random,
+            })
+          : null,
+      )
+      .then((c) => {
+        if (!c) return
+        if (!live) return c.dispose()
+        loaded()
+        controller = c
+        s.avatars = slotFor(c)
+        s.settle = () => rebuild(s, props(next, pattern.usi), false)
+        simFrame = -1
+        setInfo(goto(0))
+        setReady(true)
+      })
+      .catch((error: unknown) => {
+        if (live) setError(error instanceof Error ? error.message : String(error))
+      })
     const resize = () => {
       renderer.setSize(el.clientWidth, el.clientHeight)
       s.camera.aspect = el.clientWidth / el.clientHeight
@@ -206,6 +232,8 @@ export default function HandsTest() {
     window.addEventListener('resize', resize)
     let raf = 0
     const render = () => {
+      draw(inspect())
+      controller?.update(0, 0, !display.current.cut)
       controls.update()
       renderer.render(s.scene, s.camera)
       raf = requestAnimationFrame(render)
@@ -213,6 +241,7 @@ export default function HandsTest() {
     raf = requestAnimationFrame(render)
     return () => {
       live = false
+      cameraPose.current = { position: s.camera.position.clone(), target: controls.target.clone(), follow }
       cancelAnimationFrame(raf)
       window.removeEventListener('resize', resize)
       controller?.dispose()
@@ -222,7 +251,7 @@ export default function HandsTest() {
       api.current = null
       setReady(false)
     }
-  }, [room, pattern, show, cut, st.pieceFont])
+  }, [room, pattern, st.pieceFont, st.pieceSet, st.pieceGuide, st.pieceStyle, st.pieceMaterial, st.pieceColor, st.pieceGrain, st.pieceFinish])
 
   useEffect(() => {
     if (ready && api.current) setInfo(api.current.goto(frame))
@@ -246,52 +275,46 @@ export default function HandsTest() {
   }, [playing, speed, loop])
 
   const deg = (v?: number) => (v === undefined ? '–' : Math.round((v * 180) / Math.PI).toString())
-  const panel: CSSProperties = {
-    position: 'absolute',
-    top: 8,
-    left: 8,
-    width: 330,
-    maxHeight: 'calc(100% - 16px)',
-    overflow: 'auto',
-    background: 'rgba(20,18,16,.86)',
-    color: '#f3eee6',
-    font: '12px/1.4 system-ui',
-    padding: 10,
-    borderRadius: 8,
-  }
   return (
     <main style={{ position: 'fixed', inset: 0, background: '#111' }}>
       <div ref={host} style={{ position: 'absolute', inset: 0 }} />
-      <div style={panel}>
+      {!ready && <BoardLoading error={error ?? undefined} progress={progress} />}
+      <div className="hands-panel">
         <b>Hand animation · dev</b>
+        {!ready && <div role={error ? 'alert' : 'status'}>{error ?? 'Loading pieces and avatars…'}</div>}
         <div>
           <select value={room} onChange={(e) => setRoom(e.target.value as Room)} aria-label="Room">
             <option value="traditional">Traditional</option>
             <option value="casual">Casual</option>
-          </select>{' '}
-          <select
-            value={pattern.id}
-            onChange={(e) => {
-              setPattern(PATTERNS.find((p) => p.id === e.target.value)!)
-              setFrame(0)
-            }}
-            aria-label="Pattern"
-          >
-            {PATTERNS.map((p) => (
-              <option key={p.id} value={p.id}>
-                {p.label}
-              </option>
-            ))}
           </select>
         </div>
-        <div>
+        <div className="hands-pads" aria-label="Animations">
+          {PATTERNS.map((p) => (
+            <button
+              key={p.id}
+              aria-pressed={pattern.id === p.id}
+              onClick={() => {
+                if (pattern.id === p.id) setInfo(api.current?.goto(0) ?? null)
+                setPattern(p)
+                setFrame(0)
+                setPlaying(true)
+              }}
+            >
+              <strong>{p.label.split(' · ')[0]}</strong>
+              <span>
+                {p.id.endsWith('-b') ? 'Sente' : 'Gote'} · {p.usi}
+              </span>
+            </button>
+          ))}
+        </div>
+        <div className="hands-row" aria-label="Camera">
           {['top', 'tilted', 'hand', 'gote', 'rest'].map((c) => (
             <button key={c} onClick={() => api.current?.camera(c)}>
               {c}
             </button>
           ))}
         </div>
-        <div>
+        <div className="hands-row">
           <button onClick={() => setPlaying((p) => !p)}>{playing ? 'Pause' : 'Play'}</button>
           <button onClick={() => setFrame((f) => Math.max(0, f - 1))}>◀ frame</button>
           <button onClick={() => setFrame((f) => Math.min(total, f + 1))}>frame ▶</button>
@@ -306,7 +329,7 @@ export default function HandsTest() {
             <input type="checkbox" checked={cut} onChange={(e) => setCut(e.target.checked)} /> game cut-away
           </label>
         </div>
-        <div>
+        <div className="hands-row">
           {SPEEDS.map((v) => (
             <button key={v} onClick={() => setSpeed(v)} aria-pressed={speed === v}>
               {v}×
@@ -330,24 +353,27 @@ export default function HandsTest() {
           <span style={{ color: '#ff3b30' }}>● IK target</span> <span style={{ color: '#34c759' }}>● grip point</span>{' '}
           <span style={{ color: '#0a84ff' }}>● piece</span> <span style={{ color: '#ffcc00' }}>→ pole</span>
         </div>
-        <table style={{ width: '100%', fontVariantNumeric: 'tabular-nums' }}>
-          <thead>
-            <tr>
-              <th align="left">bone</th>
-              <th>sample x/y/z°</th>
-              <th>applied x/y/z°</th>
-            </tr>
-          </thead>
-          <tbody>
-            {[...FINGERS, 'RightThumbProximal', 'RightThumbIntermediate', 'RightThumbDistal'].map((key) => (
-              <tr key={key}>
-                <td>{key.replace('Right', '')}</td>
-                <td align="center">{info?.pose?.[key]?.map(deg).join(' / ') ?? '–'}</td>
-                <td align="center">{info?.applied[key]?.map(deg).join(' / ') ?? '–'}</td>
+        <details>
+          <summary>Bone measurements</summary>
+          <table style={{ width: '100%', fontVariantNumeric: 'tabular-nums' }}>
+            <thead>
+              <tr>
+                <th align="left">bone</th>
+                <th>sample x/y/z°</th>
+                <th>applied x/y/z°</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {[...FINGERS, 'RightThumbProximal', 'RightThumbIntermediate', 'RightThumbDistal'].map((key) => (
+                <tr key={key}>
+                  <td>{key.replace('Right', '')}</td>
+                  <td align="center">{info?.pose?.[key]?.map(deg).join(' / ') ?? '–'}</td>
+                  <td align="center">{info?.applied[key]?.map(deg).join(' / ') ?? '–'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </details>
       </div>
     </main>
   )

@@ -16,6 +16,7 @@ export type Board3DProps = {
   flipped: boolean
   tilted: boolean
   orbit?: boolean
+  onOrbitExit?: () => void
   lastMove?: string
   selected: Square | PieceType | null
   selectedColor?: Color
@@ -96,9 +97,22 @@ export type SceneState = {
   tilt: number
   tiltTarget: number
   viewTilted?: boolean
-  animations: { mesh: THREE.Object3D; from: THREE.Vector3; to: THREE.Vector3; start: number; flip?: THREE.Object3D; land?: (() => void) | null }[]
+  animations: {
+    mesh: THREE.Object3D
+    from: THREE.Vector3
+    to: THREE.Vector3
+    start: number
+    duration?: number
+    slide?: boolean
+    fromQ?: THREE.Quaternion
+    toQ?: THREE.Quaternion
+    flip?: THREE.Object3D
+    land?: (() => void) | null
+  }[]
   drag: { mesh: THREE.Object3D; from: Square | PieceType } | null
   controls: OrbitControls | null
+  tilePov?: THREE.Object3D | null
+  tilePovFrame?: THREE.Matrix4 | null
   flip: TableFlip | null
   settled?: boolean
   droppedAt?: number

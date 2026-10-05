@@ -5,9 +5,7 @@ const BRUSH = '"Yuji Boku", "Yuji Syuku", "Shippori Mincho B1", serif'
 let brushReady: Promise<unknown> | null = null
 
 export function loadBrush() {
-  brushReady ??= import('@fontsource/yuji-boku/400.css')
-    .then(() => document.fonts.load(`400 200px ${BRUSH}`, '王手ありがとうございました'))
-    .catch(() => undefined)
+  brushReady ??= import('@fontsource/yuji-boku/400.css').then(() => document.fonts.load(`400 200px ${BRUSH}`, '王手詰み')).catch(() => undefined)
   return brushReady
 }
 
@@ -86,8 +84,6 @@ export function stampTexture(text: string, fill: string, glow: string) {
     const rand = seeded(text.charCodeAt(0) * 31 + text.length)
     inkSwipe(g, w, h, rand)
     g.font = `400 ${text.length > 1 ? 300 : 340}px ${BRUSH}`
-    const size = (text.length > 1 ? 300 : 340) * Math.min(1, (w - 128) / g.measureText(text).width)
-    g.font = `400 ${size}px ${BRUSH}`
     g.textAlign = 'center'
     g.textBaseline = 'middle'
     g.save()

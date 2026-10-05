@@ -21,6 +21,7 @@ import { FAMILIES, STRATEGIES } from '@/data/strategies'
 import { strategyCourses } from '@/utils/book'
 
 type ModeBarProps = {
+  onFlip: () => void
   title: string
   instruction: string
   lessonMode: LessonMode
@@ -59,6 +60,7 @@ function EvalChip({ rate, barShown }: { rate: number; barShown: boolean }) {
 }
 
 export function ModeBar({
+  onFlip,
   title,
   instruction,
   lessonMode,
@@ -183,6 +185,9 @@ export function ModeBar({
           {t('newGame.button')}
         </Button>
       )}
+      <Button size="sm" variant="ghost" onClick={onFlip} title={t('app.flipTheBoardF')} aria-label={t('app.flip')}>
+        <Icon name="flip" size={16} />
+      </Button>
       {evalRate !== null && <EvalChip rate={evalRate} barShown={barShown} />}
       {!panelHidden && (
         <div className="app-mini-nav">

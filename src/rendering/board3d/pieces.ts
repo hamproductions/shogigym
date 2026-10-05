@@ -1,11 +1,12 @@
 import * as THREE from 'three'
 import { Color, PieceType, Square, unpromotedPieceType, type ImmutablePosition } from 'tsshogi'
 import { STAND_TOP, komaDepth, pieceScale, squareX, squareZ } from './dimensions'
-import { handLayout, handPieceMesh, handSpot } from './hand'
+import { handLayout, handSpot } from './hand'
 import { layout, standCenter } from './layout'
 import { drawMarks } from './marks'
-import { pieceMesh } from './piece'
-import { badgeSprite } from './textures'
+import { disposePiece, pieceMesh } from './piece'
+import { badgeSprite, faceTextureRevision } from './textures'
+import { getSettings } from '@/appearance/settings'
 import type { Board3DProps, SceneState } from './types'
 
 const CAPTURE_SEED = Object.fromEntries(Object.values(PieceType).map((type, i) => [type, (i + 1) * 19349663]))
@@ -66,9 +67,52 @@ function avatarMove(s: SceneState, position: ImmutablePosition, prev: ImmutableP
 
 export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, prev: ImmutablePosition | null = null, placed = false) {
   const { position, lastMove } = props
+  const retired = [...s.pieces.children]
+  const previousHands = new Set(s.handMeshes)
+  const handSlides: SceneState['animations'] = []
+  const transforms = new Map(retired.map((mesh) => [mesh, { position: mesh.position.clone(), quaternion: mesh.quaternion.clone(), visible: mesh.visible }]))
+  const flips = new Set(s.animations.map((animation) => animation.flip))
+  const available = new Set(retired.filter((mesh) => mesh.userData.type && !flips.has(mesh)))
+  const settings = getSettings()
+  const appearance = JSON.stringify([
+    faceTextureRevision,
+    settings.environment,
+    settings.pieceSet,
+    settings.pieceFont,
+    settings.pieceStyle,
+    settings.pieceGuide,
+    settings.pieceMaterial,
+    settings.pieceColor,
+    settings.pieceGrain,
+    settings.pieceFinish,
+  ])
+  const take = (candidate: THREE.Object3D | undefined, type: PieceType, color: Color, seed: number) => {
+    const reused = candidate && available.delete(candidate)
+    const mesh = reused ? candidate : pieceMesh(type, color, seed)
+    if (reused && (mesh.userData.appearance !== appearance || mesh.userData.type !== type || mesh.userData.color !== color)) {
+      const next = pieceMesh(type, color, mesh.userData.grainSeed ?? seed)
+      disposePiece(mesh)
+      mesh.clear()
+      ;(mesh as THREE.Mesh).geometry = next.geometry
+      ;(mesh as THREE.Mesh).material = next.material
+      mesh.add(...[...next.children])
+      mesh.castShadow = next.castShadow
+      mesh.receiveShadow = next.receiveShadow
+      Object.assign(mesh.userData, next.userData)
+    }
+    mesh.userData.appearance = appearance
+    mesh.scale.setScalar(1)
+    mesh.rotation.set(0, color === Color.WHITE ? Math.PI : 0, 0)
+    mesh.visible = true
+    return mesh
+  }
   if (prev) {
     s.avatars?.reset?.()
-    for (const animation of s.animations) animation.flip?.removeFromParent()
+    for (const animation of s.animations)
+      if (animation.flip) {
+        animation.flip.removeFromParent()
+        disposePiece(animation.flip)
+      }
     s.animations.length = 0
     animate = animate && !!(lastMove && playedMove(prev, position, lastMove))
   }
@@ -88,9 +132,16 @@ export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, pr
   let moved: { mesh: THREE.Object3D; color: Color; square: Square } | null = null
   for (const square of position.board.listNonEmptySquares()) {
     const piece = position.board.at(square)!
-    const mesh = pieceMesh(piece.type, piece.color, grains.get(square.usi) ?? (square.file * 73856093) ^ (square.rank * 19349663))
+    const source = move?.to.equals(square) ? move.from : square
+    const candidate = [...available].find((mesh) =>
+      source instanceof Square
+        ? (mesh.userData.square as Square | undefined)?.equals(source)
+        : !mesh.userData.square && mesh.userData.type === source && mesh.userData.color === piece.color && mesh.userData.liftable,
+    )
+    const mesh = take(candidate, piece.type, piece.color, grains.get(square.usi) ?? (square.file * 73856093) ^ (square.rank * 19349663))
     mesh.position.copy(squarePoint(square))
     mesh.userData.square = square
+    delete mesh.userData.liftable
     mesh.userData.baseY = 0
     s.pieces.add(mesh)
     if (lastMove && lastMove.slice(2, 4) === square.usi) moved = { mesh, color: piece.color, square }
@@ -104,9 +155,34 @@ export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, pr
       const nth = seen.get(spot.type) ?? 0
       seen.set(spot.type, nth + 1)
       const same = spots.filter((p) => p.type === spot.type).length
-      const mesh = handPieceMesh(spot, color, (nth + 1) * 83492791 + CAPTURE_SEED[spot.type])
+      const candidate =
+        [...available].find((mesh) => !mesh.userData.square && mesh.userData.type === spot.type && mesh.userData.color === color) ??
+        [...available].find((mesh) => move?.capturedPieceType && (mesh.userData.square as Square | undefined)?.equals(move.to))
+      const mesh = take(candidate, spot.type, color, (nth + 1) * 83492791 + CAPTURE_SEED[spot.type])
+      mesh.rotation.y += spot.rot
+      mesh.rotation.z = spot.roll ?? 0
+      mesh.scale.setScalar(0.96)
+      mesh.position.set(spot.x, STAND_TOP + (spot.lift ?? 0), spot.z)
+      const previous = transforms.get(mesh)
+      if (
+        previousHands.has(mesh) &&
+        previous &&
+        ((previous.position.x - spot.x) ** 2 + (previous.position.z - spot.z) ** 2 > 0.000001 || previous.quaternion.angleTo(mesh.quaternion) > 0.001) &&
+        !s.animations.some((animation) => animation.mesh === mesh && animation.to.distanceTo(mesh.position) < 0.001)
+      )
+        handSlides.push({
+          mesh,
+          from: previous.position,
+          to: mesh.position.clone(),
+          fromQ: previous.quaternion,
+          toQ: mesh.quaternion.clone(),
+          start: performance.now(),
+          duration: 550,
+          slide: true,
+        })
       mesh.castShadow = false
-      mesh.userData = { color, type: spot.type, baseY: mesh.position.y, liftable: nth === Math.floor(same / 2) }
+      delete mesh.userData.square
+      Object.assign(mesh.userData, { color, type: spot.type, baseY: mesh.position.y, liftable: nth === Math.floor(same / 2) })
       s.pieces.add(mesh)
       s.handMeshes.push(mesh)
       if (spot.count && spot.count > 1) {
@@ -123,20 +199,24 @@ export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, pr
   }
   for (const old of existing) {
     const square = old.userData.square as Square | undefined
-    const next = square
-      ? s.pieces.children.find((m) => (m.userData.square as Square | undefined)?.equals(square))
-      : s.handMeshes.find(
-          (m) => m.userData.type === old.userData.type && m.userData.color === old.userData.color && m.userData.liftable === old.userData.liftable,
-        )
+    const next = s.pieces.children.includes(old)
+      ? old
+      : square
+        ? s.pieces.children.find((m) => (m.userData.square as Square | undefined)?.equals(square))
+        : s.handMeshes.find(
+            (m) => m.userData.type === old.userData.type && m.userData.color === old.userData.color && m.userData.liftable === old.userData.liftable,
+          )
     if (!next) continue
-    next.position.copy(old.position)
-    next.quaternion.copy(old.quaternion)
-    next.visible = old.visible
+    const transform = transforms.get(old)!
+    next.position.copy(transform.position)
+    next.quaternion.copy(transform.quaternion)
+    next.visible = transform.visible
     for (const animation of s.animations) if (animation.mesh === old) animation.mesh = next
     if (s.drag?.mesh === old) s.drag.mesh = next
   }
   if (!prev) for (const animation of s.animations) if (animation.flip) s.pieces.add(animation.flip)
-  if (moved && lastMove && (animate || placed) && !avatarMove(s, position, prev, lastMove, moved.mesh, placed) && animate) {
+  const carried = moved && lastMove && (animate || placed) ? avatarMove(s, position, prev, lastMove, moved.mesh, placed) : false
+  if (moved && lastMove && !carried && animate) {
     const { mesh } = moved
     const from = placed
       ? mesh.position.clone()
@@ -153,6 +233,11 @@ export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, pr
     s.onLand = null
     mesh.position.copy(from)
   }
+  for (const slide of handSlides) {
+    slide.mesh.position.copy(slide.from)
+    slide.mesh.quaternion.copy(slide.fromQ!)
+    s.animations.push(slide)
+  }
   if (placed) {
     s.onLand?.()
     s.onLand = null
@@ -160,6 +245,7 @@ export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, pr
   for (const mesh of s.pieces.children)
     if (!existing.length && !mesh.userData.held && isLifted(mesh, props)) mesh.position.y = (mesh.userData.baseY as number) + LIFT
   drawMarks(s, props)
+  for (const mesh of retired) if (mesh.parent !== s.pieces) disposePiece(mesh)
 }
 
 const LIFT = 0.45
@@ -192,10 +278,11 @@ export function liftSelected(s: SceneState, props: Board3DProps, dt: number) {
 
 export function stepAnimations(s: SceneState, time: number) {
   for (const anim of [...s.animations]) {
-    const t = Math.min(1, (time - anim.start) / (anim.flip ? 550 : 220))
+    const t = Math.min(1, (time - anim.start) / (anim.duration ?? (anim.flip ? 550 : 220)))
     const e = 1 - Math.pow(1 - t, 3)
     anim.mesh.position.lerpVectors(anim.from, anim.to, e)
-    anim.mesh.position.y = anim.to.y + Math.sin(Math.PI * t) * 0.5
+    if (!anim.slide) anim.mesh.position.y = anim.to.y + Math.sin(Math.PI * t) * 0.5
+    if (anim.fromQ && anim.toQ) anim.mesh.quaternion.slerpQuaternions(anim.fromQ, anim.toQ, e)
     if (anim.flip) {
       anim.flip.position.copy(anim.mesh.position)
       anim.flip.rotation.z = Math.PI * e
@@ -204,7 +291,10 @@ export function stepAnimations(s: SceneState, time: number) {
     if (t >= 1) {
       anim.mesh.position.copy(anim.to)
       anim.mesh.visible = true
-      anim.flip?.removeFromParent()
+      if (anim.flip) {
+        anim.flip.removeFromParent()
+        disposePiece(anim.flip)
+      }
       s.animations.splice(s.animations.indexOf(anim), 1)
       anim.land?.()
     }

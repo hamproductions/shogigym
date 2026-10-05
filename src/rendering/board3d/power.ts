@@ -36,7 +36,7 @@ type Frame = {
   invert: boolean
   scale: number
   light: { at: THREE.Vector3; color: number; power: number } | null
-  orbit: { at: THREE.Vector3; w: number; angle: number; zoom: number } | null
+  orbit: { at: THREE.Vector3; w: number; angle: number; zoom: number; distance?: number; direction?: THREE.Vector3 } | null
 }
 type SparkOptions = {
   speed: number
@@ -430,7 +430,7 @@ export function createPower(ctx: PowerContext): Power {
     960,
   )
   const stamps = new Map<string, THREE.Texture>()
-  const stampSpecs: Record<string, [string, string]> = { 王手: ['#ff3b2a', 'rgba(255,40,20,0.9)'], ありがとうございました: ['#ffd66b', 'rgba(255,60,20,0.95)'] }
+  const stampSpecs: Record<string, [string, string]> = { 王手: ['#ff3b2a', 'rgba(255,40,20,0.9)'], 詰み: ['#ffd66b', 'rgba(255,60,20,0.95)'] }
   let disposed = false
   void loadBrush().then(() => {
     if (disposed) return
@@ -687,7 +687,11 @@ export function createPower(ctx: PowerContext): Power {
   }
 
   const finale = (king: THREE.Vector3) => {
-    const toWorld = () => fx.localToWorld(king.clone().setY(0.4))
+    const bounds = new THREE.Box3()
+    for (const mesh of root.children) if (mesh.userData.armCollider) bounds.expandByObject(mesh)
+    const overview = bounds.isEmpty() ? fx.localToWorld(new THREE.Vector3(0, 0.4, 0)) : bounds.getCenter(new THREE.Vector3())
+    const radius = bounds.isEmpty() ? 0 : bounds.getBoundingSphere(new THREE.Sphere()).radius * 1.4
+    const direction = new THREE.Vector3(-1, 1.4, 1).normalize()
     add(
       0.06,
       (_, f) => {
@@ -700,12 +704,20 @@ export function createPower(ctx: PowerContext): Power {
     add(0.6, (t) => flashTo(0.85 * (1 - t / 0.6) ** 2), { real: true })
     add(2.2, (t) => (frame.scale = Math.min(frame.scale, calm() ? 0.6 : 0.12 + 0.88 * smooth((t - 0.2) / 2))), { real: true })
     add(
-      5.6,
+      Infinity,
       (t) => {
-        frame.dim = Math.max(frame.dim, envelope(t, 0, 0.15, 4.2, 5.6) * 0.86)
+        frame.dim = Math.max(frame.dim, envelope(t, 0, 0.15, 4.2, 5.6) * 0.3)
         frame.red = Math.max(frame.red, envelope(t, 0, 0.15, 1.2, 2.6) * 0.6)
-        const w = smooth((t - 0.25) / 0.9) * (1 - smooth((t - 4.2) / 1.3))
-        frame.orbit = { at: toWorld(), w: calm() ? w * 0.2 : w, angle: 0.75 * smooth(t / 5.6), zoom: 0.42 }
+        const w = smooth((t - 0.25) / 0.9)
+        const fov = Math.atan(Math.tan((camera.fov * Math.PI) / 360) * Math.min(1, camera.aspect))
+        frame.orbit = {
+          at: overview,
+          w,
+          angle: 0,
+          zoom: 0,
+          distance: radius / Math.sin(fov),
+          direction,
+        }
       },
       { real: true },
     )
@@ -738,7 +750,7 @@ export function createPower(ctx: PowerContext): Power {
     glowDisc(king, 0xffe0a0, 4, 2.4, 1)
     sparks.spawn(king.clone().setY(0.2), 420, { speed: 10, up: 6, color: 0xffe9b0, color2: 0xff5a10, size: 0.14, life: 1.4, gravity: 7 })
     debris.spawn(king, 60, 5.5)
-    add(0.45, () => undefined, { real: true, done: () => stamp('ありがとうございました', 3.2, 0.46, king) })
+    add(0.45, () => undefined, { real: true, done: () => stamp('詰み', 3.2, 0.46, king) })
     shake(0.9)
     playSound('boom')
   }
@@ -824,10 +836,15 @@ export function createPower(ctx: PowerContext): Power {
         .sub(orbit.at)
         .applyAxisAngle(UP, orbit.angle * orbit.w)
         .multiplyScalar(1 - orbit.zoom * orbit.w)
+      if (orbit.distance) tmp.setLength(THREE.MathUtils.lerp(tmp.length(), orbit.distance, orbit.w))
+      if (orbit.direction) {
+        const distance = tmp.length()
+        tmp.normalize().lerp(orbit.direction, orbit.w).normalize().multiplyScalar(distance)
+      }
       camera.position.copy(orbit.at).add(tmp)
       aim.lookAt(camera.position, orbit.at, UP)
       aimQ.setFromRotationMatrix(aim)
-      camera.quaternion.slerp(aimQ, orbit.w * 0.85)
+      camera.quaternion.slerp(aimQ, orbit.w)
     }
     right.set(1, 0, 0).applyQuaternion(camera.quaternion)
     up.set(0, 1, 0).applyQuaternion(camera.quaternion)

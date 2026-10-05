@@ -782,7 +782,15 @@
     "presetPlastic": "プラスチック",
     "presetBroadcast": "放送用",
     "renderingPreview": "プレビューを描画中…",
-    "renderingFinishPreviews": "仕上げのプレビューを描画中…"
+    "renderingFinishPreviews": "仕上げのプレビューを描画中…",
+    "pieceSetPreview": "駒セットのプレビュー",
+    "finishCrossSection": "{{finish}}の断面",
+    "kaishoA": "楷書A",
+    "lishogiKanji": "Lishogi・漢字",
+    "simpleKanji": "シンプル漢字",
+    "hitomoji": "一文字",
+    "pixel": "ドット文字",
+    "language": "言語"
   },
   "tabs": {
     "coach": "指導",

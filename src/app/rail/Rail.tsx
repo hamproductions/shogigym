@@ -16,7 +16,6 @@ type RailProps = {
   onMode: (mode: Mode) => void
   compact: boolean
   view: View
-  onFlip: () => void
   settingsOpen: boolean
   onSettings: () => void
   onPalette: () => void
@@ -56,7 +55,7 @@ function useMenuDismiss(open: boolean, close: () => void) {
   }, [open, close])
 }
 
-export function Rail({ mode, onMode, compact, view, onFlip, settingsOpen, onSettings, onPalette, snapshotName }: RailProps) {
+export function Rail({ mode, onMode, compact, view, settingsOpen, onSettings, onPalette, snapshotName }: RailProps) {
   const { t } = useTranslation()
   const ja = useSettings().lang === 'ja'
   const [more, setMore] = useState(false)
@@ -67,9 +66,8 @@ export function Rail({ mode, onMode, compact, view, onFlip, settingsOpen, onSett
     setModeMenu(false)
   }, [])
   useMenuDismiss(more || modeMenu, closeMenus)
-  const { primary, secondary } = useRailTools({
+  const { primary, secondary, top, bottom } = useRailTools({
     view,
-    onFlip,
     settingsOpen,
     onSettings,
     onPalette,
@@ -79,8 +77,9 @@ export function Rail({ mode, onMode, compact, view, onFlip, settingsOpen, onSett
   })
   const { railRef, lastModeRef, capacity } = useRailCapacity()
   const all = [...primary, ...secondary]
-  const inline = compact ? primary : capacity >= all.length ? all : all.slice(0, Math.max(primary.length, capacity - 1))
-  const overflow = compact ? secondary : all.slice(inline.length)
+  const available = capacity - bottom.length - top.length
+  const inline = compact ? [] : available >= all.length ? all : all.slice(0, Math.max(primary.length, available - 1))
+  const overflow = compact ? [...all, ...bottom.filter((tool) => tool.id !== 'settings')] : all.slice(inline.length)
   return (
     <nav className="app-rail" aria-label={t('app.mode')} ref={railRef}>
       <RailSeal />
@@ -117,7 +116,9 @@ export function Rail({ mode, onMode, compact, view, onFlip, settingsOpen, onSett
           </button>
         ))}
       <div className="app-rail-gap" />
-      <SoundButton compact={compact} />
+      {top.map((tool) => (
+        <ToolButton key={tool.id} tool={tool} />
+      ))}
       {inline.map((tool) => (
         <ToolButton key={tool.id} tool={tool} />
       ))}
@@ -146,6 +147,17 @@ export function Rail({ mode, onMode, compact, view, onFlip, settingsOpen, onSett
           )}
         </div>
       )}
+      {bottom
+        .filter((tool) => !compact && tool.id !== 'settings')
+        .map((tool) => (
+          <ToolButton key={tool.id} tool={tool} />
+        ))}
+      <SoundButton compact={compact} />
+      {bottom
+        .filter((tool) => tool.id === 'settings')
+        .map((tool) => (
+          <ToolButton key={tool.id} tool={tool} />
+        ))}
     </nav>
   )
 }

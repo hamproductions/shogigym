@@ -7,6 +7,7 @@ import { UNITS_PER_M, createCharacter, type Character, type HandPose, type Seat 
 import handMotion from './handMotion.json'
 import { clamp01, damp, ease } from './ik'
 import { playSound } from '@/appearance/settings'
+import { disposePiece } from '@/rendering/board3d/piece'
 import {
   AVATAR_MODELS,
   type AvatarInspect,
@@ -242,7 +243,11 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
     step.mesh.visible = true
     step.mesh.rotation.z = 0
     if (step.toQ) step.mesh.quaternion.copy(step.toQ)
-    step.flip?.removeFromParent()
+    if (step.flip) {
+      step.flip.removeFromParent()
+      disposePiece(step.flip)
+      step.flip = null
+    }
     step.done()
   }
 
@@ -257,7 +262,9 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
 
   const aim = (actor: Actor, at: THREE.Vector3, hand: HandPose | null) => {
     const g = actor.char.state.reach
-    const f = actor.char.forward()
+    const f = at.clone().sub(actor.char.vrm.humanoid.getNormalizedBoneNode('rightUpperArm')!.getWorldPosition(new THREE.Vector3())).setY(0)
+    if (f.lengthSq() < 1e-8) f.copy(actor.char.forward())
+    f.normalize()
     const r = actor.char.right()
     g.at.copy(at)
     g.finger.copy(f).addScaledVector(UP, -0.42).addScaledVector(r, -0.1).normalize()
@@ -423,6 +430,7 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
           flip: null,
           done: () => {
             clone.removeFromParent()
+            disposePiece(clone)
             if (capture.hide) capture.hide.visible = true
           },
         })

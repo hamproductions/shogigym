@@ -62,6 +62,7 @@ function addBoard(root: THREE.Group) {
   board.position.y = -THICK / 2
   board.castShadow = true
   board.receiveShadow = true
+  board.userData.armCollider = true
   root.add(board)
   return board
 }
@@ -89,6 +90,7 @@ function addStands(root: THREE.Group) {
     const stand = new THREE.Mesh(new THREE.BoxGeometry(STAND, STAND_SLAB, STAND), material)
     stand.castShadow = true
     stand.receiveShadow = true
+    stand.userData.armCollider = true
     root.add(stand)
     const legs = [new THREE.Mesh(new THREE.CylinderGeometry(0.34, 0.42, 1, 24), material), new THREE.Mesh(new THREE.BoxGeometry(1.9, 0.22, 1.9), material)]
     for (const m of legs) {

@@ -4,7 +4,8 @@ import { getSettings } from '@/appearance/settings'
 import { HALF_D, HALF_W, MARGIN, SQ_D, STAND_TOP, squareX, squareZ } from './dimensions'
 import { handSpot } from './hand'
 import { standCenter } from './layout'
-import { arrowTag, badgeSprite, coordPlane, coordSprite, labelSprite } from './textures'
+import { arrowTag, badgeSprite, coordPlane, coordSprite, faceTextureRevision, labelSprite } from './textures'
+import { layout } from './layout'
 import type { Board3DProps, BoardArrow, SceneState } from './types'
 
 const DROP_TYPE: Record<string, PieceType> = {
@@ -112,8 +113,43 @@ function castleBox({ squares, color, label }: { squares: Square[]; color: string
   return group
 }
 
+const markKeys = new WeakMap<SceneState, string>()
+
 export function drawMarks(s: SceneState, props: Board3DProps) {
   const { lastMove, selected, selectedColor, targets, arrows, position, flipped } = props
+  const settings = getSettings()
+  const key = JSON.stringify([
+    position.sfen,
+    lastMove,
+    selected,
+    selectedColor,
+    targets,
+    arrows,
+    flipped,
+    props.checkSquare,
+    props.peek,
+    props.peekFrom,
+    props.heat,
+    props.castles,
+    props.stamp,
+    settings.coords,
+    settings.boardStyle,
+    layout.portrait,
+    HALF_D,
+    HALF_W,
+    faceTextureRevision,
+  ])
+  if (markKeys.get(s) === key) return
+  markKeys.set(s, key)
+  s.marks.traverse((child) => {
+    if (child instanceof THREE.Mesh) child.geometry.dispose()
+    const material = (child as THREE.Mesh).material
+    for (const item of Array.isArray(material) ? material : material ? [material] : []) {
+      const map = (item as THREE.MeshBasicMaterial).map
+      if (map && !map.userData.shared) map.dispose()
+      item.dispose()
+    }
+  })
   s.marks.clear()
   const tile = (square: Square, color: number, opacity: number) => s.marks.add(flatOnBoard(squareTile(color, opacity), square, 0.004))
   if (lastMove) {

@@ -135,6 +135,7 @@
   }
 
   .app-rail > .app-rail-btn,
+  .app-rail > .app-sound > .app-rail-btn,
   .app-rail > .app-menu-wrap > .app-rail-btn {
     width: 44px;
     height: 44px;
@@ -143,6 +144,7 @@
   }
 
   .app-rail > .app-rail-btn > span,
+  .app-rail > .app-sound > .app-rail-btn > span,
   .app-rail > .app-menu-wrap > .app-rail-btn > span {
     display: none;
   }

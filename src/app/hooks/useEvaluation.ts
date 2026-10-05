@@ -32,8 +32,8 @@ export function useEvaluation({ sfen, ai, toMove }: BoardSession) {
     if (evalCp !== null) updateEvals((e) => (e[evalKey] === evalCp ? e : { ...e, [evalKey]: evalCp }))
   }
   return {
-    analysis,
-    best,
+    analysis: final ? analysis : null,
+    best: final ? best : undefined,
     evalSente,
     evalFinal: !!final && !!evalSente,
     senteRate: evalSente ? scoreWinRate(evalSente) : 0.5,

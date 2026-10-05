@@ -801,7 +801,15 @@
     "presetPlastic": "Plastic",
     "presetBroadcast": "Broadcast",
     "renderingPreview": "Rendering preview…",
-    "renderingFinishPreviews": "Rendering finish previews…"
+    "renderingFinishPreviews": "Rendering finish previews…",
+    "pieceSetPreview": "Piece set preview",
+    "finishCrossSection": "{{finish}} cross-section",
+    "kaishoA": "Kaisho A",
+    "lishogiKanji": "Lishogi Kanji",
+    "simpleKanji": "Simple Kanji",
+    "hitomoji": "One character",
+    "pixel": "Pixel",
+    "language": "Language"
   },
   "tabs": {
     "coach": "Coach",

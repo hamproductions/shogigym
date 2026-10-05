@@ -1,0 +1,65 @@
+.hands-panel {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: min(360px, calc(100% - 24px));
+  max-height: calc(100% - 24px);
+  overflow: auto;
+  padding: 14px;
+  border-radius: 10px;
+  background: rgba(20, 18, 16, 0.94);
+  color: #f3eee6;
+  font: 13px/1.4 system-ui;
+  display: grid;
+  gap: 12px;
+}
+
+.hands-panel button,
+.hands-panel select {
+  padding: 8px 10px;
+  border: 1px solid #665a49;
+  border-radius: 6px;
+  background: #302a22;
+  color: inherit;
+  cursor: pointer;
+}
+
+.hands-panel button:hover,
+.hands-panel button[aria-pressed='true'] {
+  background: #675137;
+  border-color: #c3a06e;
+}
+
+.hands-panel button:focus-visible {
+  outline: 2px solid #c3a06e;
+  outline-offset: 2px;
+}
+
+.hands-pads {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.hands-pads button {
+  min-height: 58px;
+  display: grid;
+  text-align: left;
+  gap: 4px;
+}
+
+.hands-pads span {
+  font-size: 11px;
+  color: #d2c5b4;
+}
+
+.hands-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.hands-panel summary {
+  cursor: pointer;
+}

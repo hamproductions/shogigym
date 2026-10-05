@@ -364,6 +364,13 @@ export function stepTableFlip(s: SceneState, time: number, dt: number, done: () 
   }
   f.dust.step(dt)
   if (!f.release || !f.slammed || f.bodies.some((b) => !b.sleeping)) return
+  resetTableFlip(s)
+  done()
+}
+
+export function resetTableFlip(s: SceneState) {
+  const f = s.flip
+  if (!f) return
   for (const b of f.bodies) b.obj.quaternion.identity()
   for (const b of f.bodies) if (b.keepFlat) b.obj.removeFromParent()
   f.rig.position.set(0, 0, 0)
@@ -372,11 +379,11 @@ export function stepTableFlip(s: SceneState, time: number, dt: number, done: () 
   f.rig.removeFromParent()
   f.dust.points.removeFromParent()
   f.dust.points.geometry.dispose()
+  for (const material of [f.dust.points.material].flat()) material.dispose()
   s.placeStands()
   s.flip = null
   s.pieces.visible = true
   s.marks.visible = true
-  done()
 }
 
 export function flipCameraOffset(s: SceneState, time: number) {

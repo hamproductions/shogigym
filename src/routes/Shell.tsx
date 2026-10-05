@@ -4,7 +4,9 @@ export function Shell() {
       <nav className="app-rail" />
       <section className="app-stage">
         <div className="app-shell-board" />
+        <BoardLoading />
       </section>
     </div>
   )
 }
+import { BoardLoading } from '@/rendering/BoardLoading'

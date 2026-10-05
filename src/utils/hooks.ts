@@ -24,10 +24,13 @@ export function useAnalysis(sfen: string, enabled: boolean, multipv = 3, movetim
     }
     const timer = setTimeout(async () => {
       try {
-        const quick = await analyze(usiPosition(sfen), { multipv, movetime: 300 })
+        const onUpdate = (analysis: Analysis) => {
+          if (!cancelled) setState({ sfen, analysis, error: null })
+        }
+        const quick = await analyze(usiPosition(sfen), { multipv, movetime: 300, onUpdate })
         if (cancelled) return
         setState({ sfen, analysis: quick, error: null })
-        const deep = await analyze(usiPosition(sfen), { multipv, movetime, background: true })
+        const deep = await analyze(usiPosition(sfen), { multipv, movetime, background: true, onUpdate })
         if (deep.candidates.length) {
           settled.set(key, deep)
           if (settled.size > 500) settled.delete(settled.keys().next().value!)

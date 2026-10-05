@@ -83,10 +83,13 @@ export function boardTexture(style: BoardStyle) {
 
 const faceCache = new Map<string, THREE.Texture>()
 const artCache = new Map<string, THREE.Texture>()
+export let faceTextureRevision = 0
 
 export const clearFaceTextures = () => {
   faceCache.clear()
   artCache.clear()
+  glyphCache.clear()
+  faceTextureRevision++
 }
 
 export function pieceSurface(seed: number, appearance?: PieceAppearance) {
@@ -297,6 +300,7 @@ function coordTexture(text: string) {
     ctx.textBaseline = 'middle'
     ctx.fillText(text, 32, 34)
     texture = srgbTexture(canvas, 8)
+    texture.userData.shared = true
     coordCache.set(cacheKey, texture)
   }
   return texture

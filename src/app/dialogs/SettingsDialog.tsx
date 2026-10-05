@@ -66,6 +66,7 @@ function GlyphSample({
   code?: 'FU' | 'KI'
   guide?: 'none' | 'movement' | 'dots' | 'lines'
 }) {
+  const { t } = useTranslation()
   const [sampleGuide] = useState(() => ['KI', 'GI', 'KE', 'KA'][Math.floor(Math.random() * 4)])
   useEffect(() => {
     if (set === 'letters' || set === 'broadcast') void loadPieceFont(font)
@@ -74,7 +75,7 @@ function GlyphSample({
   if (guide === 'lines' || guide === 'dots') {
     const spec = PIECE_FONTS[font]
     return (
-      <svg className="app-guide-sample" width={82} height={82} viewBox="0 0 256 256" aria-label="Character and movement guide">
+      <svg className="app-guide-sample" width={82} height={82} viewBox="0 0 256 256" aria-label={t('settings.oneCharacterGuide')}>
         {set !== 'letters' && set !== 'broadcast' ? (
           <image href={pieceGlyphUrl(set, code)} x={0} y={0} width={256} height={118} preserveAspectRatio="xMidYMid meet" />
         ) : (
@@ -169,7 +170,7 @@ function StickyPiecePreview() {
   const flip = (type: PieceType, on: boolean) =>
     setFlipped((prev) => (on ? (prev.includes(type) ? prev : [...prev, type]) : prev.filter((item) => item !== type)))
   return (
-    <div className="app-sticky-piece-preview app-full-set-preview" aria-label="Piece set preview" aria-busy={loading}>
+    <div className="app-sticky-piece-preview app-full-set-preview" aria-label={t('settings.pieceSetPreview')} aria-busy={loading}>
       {images.size > 0 &&
         SAMPLE_TYPES.map((type) => {
           const promoted: PreviewFace = type === PieceType.KING ? 'GY' : promotedPieceType(type)
@@ -216,9 +217,10 @@ function OptionGroup({
   value: string
   onChange: (key: string) => void
 }) {
+  const { t } = useTranslation()
   return (
     <section
-      className={`app-option-group${label === 'Typeface' ? ' app-typeface-options' : label === 'Type' || label === 'Guide style' ? ' app-type-options' : ''}`}
+      className={`app-option-group${label === t('settings.typeface') ? ' app-typeface-options' : label === t('settings.type') || label === t('settings.guideStyle') ? ' app-type-options' : ''}`}
     >
       <p className="app-muted">{label}</p>
       <div className="app-design-options">
@@ -234,6 +236,7 @@ function OptionGroup({
 }
 
 function FinishSection({ finish }: { finish: PieceFinish }) {
+  const { t } = useTranslation()
   const spec = PIECE_FINISHES[finish]
   const surface = 25
   const profile = Array.from({ length: 41 }, (_, i) => {
@@ -255,7 +258,7 @@ function FinishSection({ finish }: { finish: PieceFinish }) {
   }).join(' ')
   const filled = finish === 'horiume' || finish === 'moriage'
   return (
-    <svg className="app-finish-section" viewBox="0 0 120 60" role="img" aria-label={`${spec.label} cross-section`}>
+    <svg className="app-finish-section" viewBox="0 0 120 60" role="img" aria-label={t('settings.finishCrossSection', { finish: spec.label })}>
       <rect width="120" height="60" fill="#f7f1df" />
       <path d="M4 25H116V56H4Z" fill="#ebc574" />
       {filled && <path d="M40 25H80L60 44Z" fill="#15110d" />}
@@ -444,12 +447,20 @@ function DesignOptions() {
             key === 'sunfish_hitomoji'
               ? 'Sunfish'
               : key === 'kaishoa_one'
-                ? 'Kaisho A'
+                ? t('settings.kaishoA')
                 : key === 'kanji_brown'
                   ? 'Ka-hu'
                   : key === 'shogi_bnw'
                     ? 'Shogi'
-                    : PIECE_SETS[key].label,
+                    : key === '1kanji_3d'
+                      ? t('settings.lishogiKanji')
+                      : key === 'simple_kanji'
+                        ? t('settings.simpleKanji')
+                        : key === 'hitomoji'
+                          ? t('settings.hitomoji')
+                          : key === 'pixel'
+                            ? t('settings.pixel')
+                            : PIECE_SETS[key].label,
           preview: <GlyphSample set={key} font={st.pieceFont} />,
         }))}
         value={currentFamily}
@@ -581,7 +592,7 @@ export function SettingsDialog({ onClose, level, onLevel }: { onClose: () => voi
         {tab === 'general' && (
           <>
             <SegmentedField<Lang>
-              label="Language / 言語"
+              label={t('settings.language')}
               value={st.lang}
               options={[
                 { v: 'en', t: 'English' },

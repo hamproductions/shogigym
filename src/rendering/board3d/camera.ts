@@ -1,8 +1,10 @@
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { Box3, Matrix4, Vector3 } from 'three'
 import { cameraFit, layout } from './layout'
 import type { Board3DProps, SceneState } from './types'
 
 const ease = (dt: number, rate: number) => 1 - Math.exp(-dt * rate)
+const tileDelta = new Matrix4()
 
 function placeCamera(s: SceneState, tilt: number, sideRoom: number) {
   const distance = cameraFit(s.camera.aspect, tilt, sideRoom) / (2 * Math.tan((s.camera.fov * Math.PI) / 360))
@@ -48,6 +50,12 @@ export function updateView(s: SceneState, props: Board3DProps, dt: number) {
     s.controls?.target.set(0, 0, props.tilted ? 0.4 : 0)
   }
   syncControls(s, orbit)
+  if (!props.orbit || (s.tilePov && !s.pieces.children.includes(s.tilePov))) s.tilePov = null
+  if (!s.tilePov) s.tilePovFrame = null
+  if (s.controls) {
+    s.controls.minDistance = s.tilePov ? 0.05 : 6
+    s.controls.maxPolarAngle = s.tilePov ? Math.PI : Math.PI * 0.48
+  }
   const near = s.controls ? 0.1 : Math.max(0.1, distance - 45)
   const far = s.controls ? 400 : distance + 120
   if (camera.near !== near || camera.far !== far) {
@@ -55,7 +63,25 @@ export function updateView(s: SceneState, props: Board3DProps, dt: number) {
     camera.far = far
     camera.updateProjectionMatrix()
   }
-  if (s.controls) s.controls.update()
+  if (s.tilePov) {
+    const tile = s.tilePov
+    tile.updateWorldMatrix(true, false)
+    if (!s.tilePovFrame) {
+      const size = new Box3().setFromObject(tile).getSize(new Vector3())
+      const eye = tile.localToWorld(new Vector3(0, size.y + size.z * 0.4, size.z))
+      const target = tile.localToWorld(new Vector3(0, size.y + size.z * 0.15, -size.z * 4))
+      camera.position.copy(eye)
+      camera.lookAt(target)
+      s.controls?.target.copy(target)
+      s.tilePovFrame = tile.matrixWorld.clone()
+    } else {
+      tileDelta.copy(s.tilePovFrame).invert().premultiply(tile.matrixWorld)
+      camera.position.applyMatrix4(tileDelta)
+      s.controls?.target.applyMatrix4(tileDelta)
+      s.tilePovFrame.copy(tile.matrixWorld)
+    }
+    s.controls?.update()
+  } else if (s.controls) s.controls.update()
   else {
     placeCamera(s, s.tilt, props.sideRoom ?? 0)
   }

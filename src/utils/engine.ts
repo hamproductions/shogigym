@@ -263,10 +263,18 @@ export function parseInfo(line: string): Candidate | null {
 
 const cache = new Map<string, { multipv: number; movetime: number; result: Promise<Analysis> }>()
 
-export function analyze(usiPosition: string, { multipv = 3, movetime = 1500, background = false } = {}): Promise<Analysis> {
+export function analyze(
+  usiPosition: string,
+  {
+    multipv = 3,
+    movetime = 1500,
+    background = false,
+    onUpdate,
+  }: { multipv?: number; movetime?: number; background?: boolean; onUpdate?: (analysis: Analysis) => void } = {},
+): Promise<Analysis> {
   const cached = cache.get(usiPosition)
   if (cached && cached.multipv >= multipv && cached.movetime >= movetime) return cached.result
-  const result = search(usiPosition, multipv, movetime, background)
+  const result = search(usiPosition, multipv, movetime, background, onUpdate)
   if (!background) {
     cache.set(usiPosition, { multipv, movetime, result })
     result.catch(() => {
@@ -277,7 +285,7 @@ export function analyze(usiPosition: string, { multipv = 3, movetime = 1500, bac
   return result
 }
 
-function search(usiPosition: string, multipv: number, movetime: number, background: boolean): Promise<Analysis> {
+function search(usiPosition: string, multipv: number, movetime: number, background: boolean, onUpdate?: (analysis: Analysis) => void): Promise<Analysis> {
   if (searching && interruptible) current?.postMessage('stop')
   const generation = background ? ++backgroundGeneration : backgroundGeneration
   const run = async () => {
@@ -296,7 +304,10 @@ function search(usiPosition: string, multipv: number, movetime: number, backgrou
         'bestmove',
         (line) => {
           const info = parseInfo(line)
-          if (info) lines.set(info.multipv, info)
+          if (info) {
+            lines.set(info.multipv, info)
+            if (info.multipv === 1) onUpdate?.({ bestmove: info.move, candidates: [...lines.values()].sort((a, b) => a.multipv - b.multipv) })
+          }
           if (line.startsWith('bestmove')) bestmove = line.split(' ')[1]
         },
         movetime + 10000,

@@ -200,6 +200,7 @@ export function BoardStage({
             snapKey={`${mode}|${game.start}|${course?.id ?? ''}|${tsume?.problem.id ?? ''}`}
             onZones={onZones}
             orbit={view.orbit && !view.flatView}
+            onOrbitExit={() => view.setOrbit(false)}
             sideRoom={0}
             cues={cues}
           />

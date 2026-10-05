@@ -150,6 +150,17 @@ function pieceBottom(scale: number) {
 const hiddenLid = new THREE.MeshBasicMaterial({ visible: false })
 const sideMaterial = new THREE.MeshStandardMaterial({ color: 0xdcb377, emissive: 0x8a6232, emissiveIntensity: 0.75, roughness: 0.85 })
 
+export function disposePiece(piece: THREE.Object3D) {
+  piece.traverse((child) => {
+    const material = (child as THREE.Mesh).material
+    for (const item of Array.isArray(material) ? material : material ? [material] : []) {
+      if (item === hiddenLid) continue
+      if (child instanceof THREE.Sprite) (item as THREE.SpriteMaterial).map?.dispose()
+      item.dispose()
+    }
+  })
+}
+
 export const pieceFaceUrl = (type: PieceType, color: Color) => (faceMap(type, color).image as HTMLCanvasElement).toDataURL()
 
 function faceMap(type: PieceType, color: Color, seed = 1, appearance?: PieceAppearance) {

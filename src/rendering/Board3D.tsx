@@ -5,7 +5,7 @@ import { Color, type ImmutablePosition } from 'tsshogi'
 import { avatarSlot } from './avatars'
 import { updateView } from '@/rendering/board3d/camera'
 import { HALF_D, HALF_W, LEG, THICK, setBoardDims } from '@/rendering/board3d/dimensions'
-import { flipCameraOffset, saveSnapshot, startTableFlip, stepTableFlip } from '@/rendering/board3d/effects'
+import { flipCameraOffset, resetTableFlip, saveSnapshot, startTableFlip, stepTableFlip } from '@/rendering/board3d/effects'
 import { createFurigoma3D } from '@/rendering/board3d/furigoma'
 import { bindPointer } from '@/rendering/board3d/interaction'
 import { layout, sideStandsFit, zoneReporter } from '@/rendering/board3d/layout'
@@ -115,7 +115,10 @@ export function Board3D(props: Board3DProps) {
       startTableFlip(s)
     }
     const releaseFlip = () => {
-      if (s.flip) s.flip.release = true
+      if (!s.flip) return
+      power.current?.clear()
+      resetTableFlip(s)
+      refresh()
     }
     let flipClick: { id: number; x: number; y: number; moved: boolean } | null = null
     const onFlipDown = (event: PointerEvent) => {
@@ -126,10 +129,10 @@ export function Board3D(props: Board3DProps) {
       flipClick = { id: event.pointerId, x: event.clientX, y: event.clientY, moved: false }
     }
     const onFlipMove = (event: PointerEvent) => {
-      if (flipClick?.id === event.pointerId && (event.clientX !== flipClick.x || event.clientY !== flipClick.y)) flipClick.moved = true
+      if (flipClick?.id === event.pointerId && Math.hypot(event.clientX - flipClick.x, event.clientY - flipClick.y) > 5) flipClick.moved = true
     }
     const onFlipUp = (event: PointerEvent) => {
-      if (flipClick?.id === event.pointerId && !flipClick.moved && event.clientX === flipClick.x && event.clientY === flipClick.y) releaseFlip()
+      if (flipClick?.id === event.pointerId && !flipClick.moved && Math.hypot(event.clientX - flipClick.x, event.clientY - flipClick.y) <= 5) releaseFlip()
       flipClick = null
     }
     const onFlipCancel = () => {
@@ -183,7 +186,7 @@ export function Board3D(props: Board3DProps) {
     previous.current = props.position
     const s = state.current
     if (!s || (piecesReady.current && prev !== null && prev.sfen === props.position.sfen)) return
-    s.releaseFlip?.()
+    resetTableFlip(s)
     window.clearTimeout(flipTimer.current)
     const changed = prev !== null
     const dragged = performance.now() - (s.droppedAt ?? 0) <= 400
@@ -201,7 +204,6 @@ export function Board3D(props: Board3DProps) {
     if (s.onLand && event) fx?.onMove({ ...event, delay: dragged ? 0 : 0.22 })
     if (event?.mate)
       flipTimer.current = window.setTimeout(() => {
-        fx?.clear()
         startTableFlip(s, event.color === Color.BLACK ? Color.WHITE : Color.BLACK)
       }, 4200)
     else if (!event) fx?.clear()

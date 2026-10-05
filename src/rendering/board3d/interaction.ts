@@ -46,8 +46,20 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
   const drop = dropMarker(s.root)
   let down: { pick: Pick; x: number; y: number; pointerId: number } | null = null
   let ghost: THREE.Object3D | null = null
+  let releasedPov = false
+  let orbitDown: { x: number; y: number } | null = null
+  const exitPov = () => {
+    if (s.tilePov) {
+      s.tilePov = null
+      s.tilePovFrame = null
+      releasedPov = true
+    } else {
+      releasedPov = false
+      latest.current.onOrbitExit?.()
+    }
+  }
 
-  const ray = (event: PointerEvent) => {
+  const ray = (event: MouseEvent) => {
     const rect = canvas.getBoundingClientRect()
     pointer.set(((event.clientX - rect.left) / rect.width) * 2 - 1, -((event.clientY - rect.top) / rect.height) * 2 + 1)
     raycaster.setFromCamera(pointer, s.camera)
@@ -118,6 +130,7 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
 
   const onDown = (event: PointerEvent) => {
     if (event.button !== 0 || !event.isPrimary) return
+    orbitDown = latest.current.orbit ? { x: event.clientX, y: event.clientY } : null
     if (s.flip) {
       down = null
       return
@@ -154,6 +167,16 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
   }
 
   const onUp = (event: PointerEvent) => {
+    if (latest.current.orbit && event.button === 0) {
+      ray(event)
+      const click = orbitDown && Math.hypot(event.clientX - orbitDown.x, event.clientY - orbitDown.y) <= 6
+      orbitDown = null
+      if (!raycaster.intersectObjects(s.pieces.children, true).length && click) {
+        exitPov()
+        down = null
+        return
+      }
+    }
     if (!down || event.pointerId !== down.pointerId || event.button !== 0) return
     if (s.flip) {
       down = null
@@ -186,12 +209,54 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
       rebuild()
     }
   }
+  const tilePov = (event: MouseEvent) => {
+    if (!latest.current.orbit || s.flip) return
+    if (event.type === 'contextmenu' && (s.tilePov || releasedPov)) {
+      event.preventDefault()
+      exitPov()
+      return
+    }
+    ray(event)
+    const hit = raycaster.intersectObjects(s.pieces.children, true)[0]
+    if (!hit) {
+      if (event.type === 'contextmenu') {
+        event.preventDefault()
+        exitPov()
+      }
+      return
+    }
+    let tile = hit.object
+    while (tile.parent && tile.parent !== s.pieces) tile = tile.parent
+    if (tile.parent !== s.pieces) return
+    event.preventDefault()
+    cancel()
+    s.tilePov = tile
+    s.tilePovFrame = null
+    releasedPov = false
+  }
+  const unlockPov = (event: KeyboardEvent) => {
+    if (event.key !== 'Escape' || !latest.current.orbit) return
+    event.preventDefault()
+    event.stopImmediatePropagation()
+    exitPov()
+  }
+  const outsidePov = (event: PointerEvent) => {
+    if (latest.current.orbit && event.button === 0 && event.target !== canvas) exitPov()
+  }
+  canvas.addEventListener('contextmenu', tilePov)
+  canvas.addEventListener('dblclick', tilePov)
+  canvas.ownerDocument.addEventListener('keydown', unlockPov, true)
+  canvas.ownerDocument.addEventListener('pointerdown', outsidePov, true)
   canvas.addEventListener('pointercancel', cancel)
   canvas.addEventListener('lostpointercapture', cancel)
   canvas.addEventListener('pointerdown', onDown)
   canvas.addEventListener('pointermove', onMove)
   canvas.addEventListener('pointerup', onUp)
   return () => {
+    canvas.removeEventListener('contextmenu', tilePov)
+    canvas.removeEventListener('dblclick', tilePov)
+    canvas.ownerDocument.removeEventListener('keydown', unlockPov, true)
+    canvas.ownerDocument.removeEventListener('pointerdown', outsidePov, true)
     canvas.removeEventListener('pointercancel', cancel)
     canvas.removeEventListener('lostpointercapture', cancel)
     canvas.removeEventListener('pointerdown', onDown)

@@ -257,7 +257,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
     return say('ありがとうございました')
   }, [result, mode, watch.result, watch.won, restored, atEnd, game.moves.length, spar.newGameOpen, pendingFurigoma, watchSetup, session.gameOver])
   const evalOn = session.ai && session.assist && (isGameMode(mode) || mode === 'view' || (mode === 'lesson' && !!course && lesson.lessonMode === 'study'))
-  const steadyRate = useSteadyRate(evalOn && evaluation.evalFinal ? evaluation.senteRate : null)
+  const steadyRate = useSteadyRate(evalOn && evaluation.evalSente ? evaluation.senteRate : null)
   const evalRate = evalOn ? (steadyRate ?? 0.5) : null
   const evalBar = evalRate !== null && !layout.compact && !view.hideUi
   const newGame = () => load(InitialPositionSFEN.STANDARD, userSide, mode === 'lesson' ? 'analyze' : mode, null)
@@ -317,7 +317,6 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
           onMode={enterMode}
           compact={layout.compact}
           view={view}
-          onFlip={() => session.setFlipped((v) => !v)}
           settingsOpen={showSettings}
           onSettings={() => setShowSettings(true)}
           onPalette={() => setPalette(true)}
@@ -329,6 +328,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
             <span>{t('app.showUi')} (Esc)</span>
           </button>
           <ModeBar
+            onFlip={() => session.setFlipped((v) => !v)}
             title={title}
             instruction={instruction}
             lessonMode={lesson.lessonMode}

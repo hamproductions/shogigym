@@ -25,7 +25,7 @@ type Side = 'right' | 'left'
 export const SEIZA = { hip: 66, ankle: 50, lift: 0.042 }
 const KNEEL = 24
 const THIGH_R = 0.075
-const MAX_LEAN = (62 * Math.PI) / 180
+const MAX_LEAN = (76 * Math.PI) / 180
 const HIP_SHARE = 0.65
 
 function fitSprings(vrm: VRM, k: number) {
@@ -189,6 +189,8 @@ export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, heig
     pole: new THREE.Vector3(),
   })
   const state = fresh()
+  const colliders = root.children.filter((o): o is THREE.Mesh => o instanceof THREE.Mesh && o.userData.armCollider)
+  const obstacles = colliders.map(() => new THREE.Box3())
 
   const fwd = new THREE.Vector3()
   const right = new THREE.Vector3()
@@ -261,7 +263,7 @@ export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, heig
     const sh0 = bone('rightUpperArm').getWorldPosition(plan.sh0).sub(hips).applyQuaternion(plan.q)
     const hd0 = bone('head').getWorldPosition(plan.hd0).sub(hips).applyQuaternion(plan.q)
     const cur = riseShift(state.rise)
-    const edge = root.getWorldPosition(plan.edge).addScaledVector(f, -seat.tableEdge)
+    const table = root.localToWorld(plan.edge.set(0, seat.tableY, 0))
     const reach = armLength() * 0.93
     let best = { lean: 0, rise: 0 }
     let bestCost = Infinity
@@ -274,9 +276,9 @@ export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, heig
         .addScaledVector(UP, shift.u - cur.u)
       for (let lean = 0; lean <= MAX_LEAN; lean += rad(2)) {
         plan.q.setFromAxisAngle(axis, lean)
-        if (tmp2.copy(hd0).applyQuaternion(plan.q).add(base).sub(edge).dot(f) > 0.3 * UNITS_PER_M) break
+        if (tmp2.copy(hd0).applyQuaternion(plan.q).add(base).y < table.y + 0.12 * UNITS_PER_M) break
         const miss = Math.max(0, plan.at.copy(sh0).applyQuaternion(plan.q).add(base).distanceTo(target) - reach)
-        const cost = miss * 100 + lean / MAX_LEAN + rise * 0.8
+        const cost = miss * 100 + lean / MAX_LEAN + rise * 3
         if (cost < bestCost) {
           bestCost = cost
           best = { lean, rise }
@@ -352,6 +354,11 @@ export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, heig
     holder.getWorldQuaternion(worldQ)
     fwd.set(0, 0, s).applyQuaternion(worldQ)
     right.set(rightSign, 0, 0).applyQuaternion(worldQ)
+    colliders.forEach((mesh, i) => {
+      mesh.updateWorldMatrix(true, false)
+      if (!mesh.geometry.boundingBox) mesh.geometry.computeBoundingBox()
+      obstacles[i].copy(mesh.geometry.boundingBox!).applyMatrix4(mesh.matrixWorld)
+    })
 
     for (const side of sides) {
       const g = idle[side.side]
@@ -446,11 +453,11 @@ export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, heig
       }
       pole
         .copy(right)
-        .multiplyScalar(side.sign * 0.8)
-        .addScaledVector(down, 0.7)
+        .multiplyScalar(side.sign * (0.8 + handW * 0.4))
+        .addScaledVector(down, 0.7 - handW * 0.6)
         .addScaledVector(fwd, -0.25)
       if (side.side === state.side) state.pole.copy(pole)
-      const excess = solveArm(side.chain, wrist, pole, handQ)
+      const excess = solveArm(side.chain, wrist, pole, handQ, obstacles)
       if (side.side === state.side) state.excess = excess
       const mirror = side.side === 'right' ? 1 : -1
       side.digits.forEach((b, i) => {

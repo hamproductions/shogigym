@@ -19,6 +19,27 @@ const wristAt = new THREE.Vector3()
 const q1 = new THREE.Quaternion()
 const q2 = new THREE.Quaternion()
 const m1 = new THREE.Matrix4()
+const candidate = new THREE.Vector3()
+const bend = new THREE.Vector3()
+const obstacle = new THREE.Box3()
+
+function penetration(from: THREE.Vector3, to: THREE.Vector3, box: THREE.Box3) {
+  let near = 0
+  let far = 1
+  for (const axis of ['x', 'y', 'z'] as const) {
+    const delta = to[axis] - from[axis]
+    if (Math.abs(delta) < 1e-8) {
+      if (from[axis] < box.min[axis] || from[axis] > box.max[axis]) return 0
+      continue
+    }
+    const a = (box.min[axis] - from[axis]) / delta
+    const b = (box.max[axis] - from[axis]) / delta
+    near = Math.max(near, Math.min(a, b))
+    far = Math.min(far, Math.max(a, b))
+    if (far <= near) return 0
+  }
+  return (far - near) * from.distanceTo(to)
+}
 
 export function armChain(upper: THREE.Object3D, lower: THREE.Object3D, hand: THREE.Object3D): ArmChain {
   return {
@@ -32,7 +53,7 @@ export function armChain(upper: THREE.Object3D, lower: THREE.Object3D, hand: THR
   }
 }
 
-export function solveArm(chain: ArmChain, wrist: THREE.Vector3, pole: THREE.Vector3, handWorld: THREE.Quaternion) {
+export function solveArm(chain: ArmChain, wrist: THREE.Vector3, pole: THREE.Vector3, handWorld: THREE.Quaternion, obstacles: THREE.Box3[] = []) {
   const parent = chain.upper.parent!
   parent.updateWorldMatrix(true, false)
   chain.upper.updateMatrixWorld()
@@ -54,6 +75,34 @@ export function solveArm(chain: ArmChain, wrist: THREE.Vector3, pole: THREE.Vect
     .addScaledVector(dir, cosA * a)
     .addScaledVector(perp, sinA * a)
   wristAt.copy(shoulder).addScaledVector(dir, d)
+  if (obstacles.length) {
+    const radius = (a + b) * 0.05
+    const cost = (at: THREE.Vector3) =>
+      obstacles.reduce((sum, box) => {
+        obstacle.copy(box).expandByScalar(radius)
+        return sum + penetration(shoulder, at, obstacle) + penetration(at, wristAt, obstacle)
+      }, 0)
+    let best = cost(elbow)
+    bend.copy(perp)
+    if (best > 0) {
+      for (let step = 1; step <= 12; step++) {
+        for (const sign of [1, -1]) {
+          candidate
+            .copy(bend)
+            .applyAxisAngle(dir, (sign * step * Math.PI) / 12)
+            .multiplyScalar(sinA * a)
+            .addScaledVector(dir, cosA * a)
+            .add(shoulder)
+          const next = cost(candidate)
+          if (next < best) {
+            best = next
+            elbow.copy(candidate)
+          }
+        }
+        if (best < 1e-6) break
+      }
+    }
+  }
   const parentQ = parent.getWorldQuaternion(q1)
   const local = v1.subVectors(elbow, shoulder).normalize().applyQuaternion(q2.copy(parentQ).invert())
   chain.upper.quaternion.setFromUnitVectors(chain.upperRest, local)
