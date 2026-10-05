@@ -208,7 +208,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
   const studyReply = lesson.waitingForReply ? opponent.reply : null
   const picking = mode === 'lesson' && !course
   const phoneTask =
-    layout.compact && !layout.drawer
+    layout.compact && !layout.drawer && !isGameMode(mode) && mode !== 'view'
       ? spar.erred && coach.review
         ? {
             text: t('app.phoneMistake', {
@@ -259,7 +259,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
   const evalOn = session.ai && session.assist && (isGameMode(mode) || mode === 'view' || (mode === 'lesson' && !!course && lesson.lessonMode === 'study'))
   const steadyRate = useSteadyRate(evalOn && evaluation.evalSente ? evaluation.senteRate : null)
   const evalRate = evalOn ? (steadyRate ?? 0.5) : null
-  const evalBar = evalRate !== null && !layout.compact && !view.hideUi
+  const evalBar = evalRate !== null && !view.hideUi
   const newGame = () => load(InitialPositionSFEN.STANDARD, userSide, mode === 'lesson' ? 'analyze' : mode, null)
   const startOver = () =>
     game.moves.length > 0

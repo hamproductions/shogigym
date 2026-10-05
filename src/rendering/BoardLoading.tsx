@@ -1,4 +1,5 @@
 import './loading.css'
+import '@/utils/i18n'
 import { useTranslation } from 'react-i18next'
 
 export function BoardLoading({ error, progress }: { error?: string; progress?: number }) {

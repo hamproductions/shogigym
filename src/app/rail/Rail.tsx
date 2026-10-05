@@ -1,5 +1,6 @@
 import './rail.css'
 import { useCallback, useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { useTranslation } from 'react-i18next'
 import type { View } from '@/app/hooks/useView'
 import { Icon } from '@/app/icons'
@@ -55,12 +56,27 @@ function useMenuDismiss(open: boolean, close: () => void) {
   }, [open, close])
 }
 
-export function Rail({ mode, onMode, compact, view, settingsOpen, onSettings, onPalette, snapshotName }: RailProps) {
+export function Rail({ mode, onMode, compact: phone, view, settingsOpen, onSettings, onPalette, snapshotName }: RailProps) {
   const { t } = useTranslation()
   const ja = useSettings().lang === 'ja'
   const [more, setMore] = useState(false)
   const [modeMenu, setModeMenu] = useState(false)
   const [moreAt, setMoreAt] = useState<DOMRect | null>(null)
+  const [modeAt, setModeAt] = useState<DOMRect | null>(null)
+  const [tablet, setTablet] = useState(() => window.matchMedia('(pointer: coarse)').matches)
+  useEffect(() => {
+    const media = window.matchMedia('(pointer: coarse)')
+    const sync = () => setTablet(media.matches)
+    media.addEventListener('change', sync)
+    return () => media.removeEventListener('change', sync)
+  }, [])
+  const compact = phone || tablet
+  const menuPosition = (anchor: DOMRect | null) =>
+    anchor
+      ? phone
+        ? { left: Math.max(8, Math.min(anchor.left, window.innerWidth - 240)), top: anchor.bottom + 8 }
+        : { left: anchor.right + 8, top: Math.max(8, Math.min(anchor.top, window.innerHeight - 400)) }
+      : undefined
   const closeMenus = useCallback(() => {
     setMore(false)
     setModeMenu(false)
@@ -75,30 +91,38 @@ export function Rail({ mode, onMode, compact, view, settingsOpen, onSettings, on
     onFlipTable: flipTable,
     onSaveImage: saveBoardImage,
   })
-  const { railRef, lastModeRef, capacity } = useRailCapacity()
-  const all = [...primary, ...secondary]
-  const available = capacity - bottom.length - top.length
-  const inline = compact ? [] : available >= all.length ? all : all.slice(0, Math.max(primary.length, available - 1))
-  const overflow = compact ? [...all, ...bottom.filter((tool) => tool.id !== 'settings')] : all.slice(inline.length)
+  const { railRef, lastModeRef, capacity } = useRailCapacity(compact)
+  const all = [...primary, ...secondary, ...bottom]
+  const available = Math.max(0, capacity - top.length)
+  const inline = available >= all.length ? all : all.slice(0, Math.max(0, available - 1))
+  const overflow = all.slice(inline.length)
   return (
     <nav className="app-rail" aria-label={t('app.mode')} ref={railRef}>
       <RailSeal />
       {compact && (
         <div className="app-menu-wrap app-mode-menu">
-          <button className="app-rail-btn on" onClick={(e) => (e.stopPropagation(), setMore(false), setModeMenu((v) => !v))} aria-expanded={modeMenu}>
+          <button
+            ref={lastModeRef}
+            className="app-rail-btn on"
+            onPointerDown={(e) => e.stopPropagation()}
+            onClick={(e) => (e.stopPropagation(), setModeAt(e.currentTarget.getBoundingClientRect()), setMore(false), setModeMenu((v) => !v))}
+            aria-expanded={modeMenu}
+          >
             <Icon name="menu" size={20} />
             <span>{t(`modes.${mode}.name`)}</span>
           </button>
-          {modeMenu && (
-            <div className="app-more-menu left" onPointerDown={(e) => e.stopPropagation()} onClick={() => setModeMenu(false)}>
-              {MODES.map((m) => (
-                <button key={m.id} className={`app-rail-btn${mode === m.id ? ' on' : ''}`} onClick={() => onMode(m.id)}>
-                  <Icon name={m.icon} size={20} />
-                  <span>{t(`modes.${m.id}.name`)}</span>
-                </button>
-              ))}
-            </div>
-          )}
+          {modeMenu &&
+            createPortal(
+              <div className="app-more-menu" style={menuPosition(modeAt)} onPointerDown={(e) => e.stopPropagation()} onClick={() => setModeMenu(false)}>
+                {MODES.map((m) => (
+                  <button key={m.id} className={`app-rail-btn${mode === m.id ? ' on' : ''}`} onClick={() => onMode(m.id)}>
+                    <Icon name={m.icon} size={20} />
+                    <span>{t(`modes.${m.id}.name`)}</span>
+                  </button>
+                ))}
+              </div>,
+              document.body,
+            )}
         </div>
       )}
       {!compact &&
@@ -119,13 +143,16 @@ export function Rail({ mode, onMode, compact, view, settingsOpen, onSettings, on
       {top.map((tool) => (
         <ToolButton key={tool.id} tool={tool} />
       ))}
-      {inline.map((tool) => (
-        <ToolButton key={tool.id} tool={tool} />
-      ))}
+      {inline
+        .filter((tool) => tool.id !== 'settings')
+        .map((tool) => (
+          <ToolButton key={tool.id} tool={tool} />
+        ))}
       {overflow.length > 0 && (
         <div className="app-menu-wrap">
           <button
             className={`app-rail-btn${more ? ' on' : ''}`}
+            onPointerDown={(e) => e.stopPropagation()}
             onClick={(e) => (e.stopPropagation(), setModeMenu(false), setMoreAt(e.currentTarget.getBoundingClientRect()), setMore((v) => !v))}
             aria-expanded={more}
             title={t('rail.more')}
@@ -133,27 +160,19 @@ export function Rail({ mode, onMode, compact, view, settingsOpen, onSettings, on
             <Icon name="more" size={20} />
             <span>{t('rail.more')}</span>
           </button>
-          {more && (
-            <div
-              className="app-more-menu"
-              style={moreAt && !compact ? { left: moreAt.right + 8, bottom: window.innerHeight - moreAt.bottom } : undefined}
-              onPointerDown={(e) => e.stopPropagation()}
-              onClick={() => setMore(false)}
-            >
-              {overflow.map((tool) => (
-                <ToolButton key={tool.id} tool={tool} />
-              ))}
-            </div>
-          )}
+          {more &&
+            createPortal(
+              <div className="app-more-menu" style={menuPosition(moreAt)} onPointerDown={(e) => e.stopPropagation()} onClick={() => setMore(false)}>
+                {overflow.map((tool) => (
+                  <ToolButton key={tool.id} tool={tool} />
+                ))}
+              </div>,
+              document.body,
+            )}
         </div>
       )}
-      {bottom
-        .filter((tool) => !compact && tool.id !== 'settings')
-        .map((tool) => (
-          <ToolButton key={tool.id} tool={tool} />
-        ))}
       <SoundButton compact={compact} />
-      {bottom
+      {inline
         .filter((tool) => tool.id === 'settings')
         .map((tool) => (
           <ToolButton key={tool.id} tool={tool} />

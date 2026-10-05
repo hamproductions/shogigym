@@ -100,6 +100,13 @@ export function BoardStage({
   const playing = mode === 'spar' || mode === 'view' || (mode === 'lesson' && !!course)
   const sideColor = (side: Side) => (side === 'sente' ? Color.BLACK : Color.WHITE)
   const stamp = decor.stamp
+  const [dismissedNote, setDismissedNote] = useState<string | null>(null)
+  useEffect(() => {
+    setDismissedNote(null)
+    if (!decor.note) return
+    const timer = window.setTimeout(() => setDismissedNote(decor.note), 2000)
+    return () => window.clearTimeout(timer)
+  }, [decor.note, sfen])
   const cues = useMemo(
     () =>
       avatarCues({
@@ -179,50 +186,52 @@ export function BoardStage({
           </Button>
         </div>
       )}
-      {evalRate !== null && <EvalBar rate={evalRate} flipped={flipped} />}
-      <Suspense fallback={<BoardLoading />}>
-        {settings.environment !== 'diagram' &&
-        settings.environment !== 'broadcast' &&
-        settings.environment !== 'flat' &&
-        assetsKey !== `${settings.pieceFont}|${settings.pieceSet}|${settings.pieceGuide}|${settings.boardStyle}` ? (
-          <BoardLoading error={assetsKey.startsWith('error:') ? assetsKey.slice(6) : undefined} />
-        ) : settings.environment === 'diagram' || settings.environment === 'broadcast' ? (
-          <Board2D style={settings.environment} {...board} tilted={false} />
-        ) : settings.environment === 'flat' ? (
-          <BoardFlat {...board} tilted={false} onZones={onZones} />
-        ) : (
-          <Board3D
-            key={`${settings.pieceStyle}|${settings.boardStyle}|${settings.pieceFinish}|${settings.pieceMaterial}|${settings.pieceColor}|${settings.pieceGrain}|${settings.coords}|${settings.environment}|${assetsKey}`}
-            {...board}
-            furigoma={furigoma}
-            onFurigoma={onFurigoma}
-            tilted={view.tilted && !view.flatView}
-            snapKey={`${mode}|${game.start}|${course?.id ?? ''}|${tsume?.problem.id ?? ''}`}
-            onZones={onZones}
-            orbit={view.orbit && !view.flatView}
-            sideRoom={0}
-            cues={cues}
-          />
+      <div className="app-board-scene">
+        {evalRate !== null && <EvalBar rate={evalRate} flipped={flipped} />}
+        <Suspense fallback={<BoardLoading />}>
+          {settings.environment !== 'diagram' &&
+          settings.environment !== 'broadcast' &&
+          settings.environment !== 'flat' &&
+          assetsKey !== `${settings.pieceFont}|${settings.pieceSet}|${settings.pieceGuide}|${settings.boardStyle}` ? (
+            <BoardLoading error={assetsKey.startsWith('error:') ? assetsKey.slice(6) : undefined} />
+          ) : settings.environment === 'diagram' || settings.environment === 'broadcast' ? (
+            <Board2D style={settings.environment} {...board} tilted={false} />
+          ) : settings.environment === 'flat' ? (
+            <BoardFlat {...board} tilted={false} onZones={onZones} />
+          ) : (
+            <Board3D
+              key={`${settings.pieceStyle}|${settings.boardStyle}|${settings.pieceFinish}|${settings.pieceMaterial}|${settings.pieceColor}|${settings.pieceGrain}|${settings.coords}|${settings.environment}|${assetsKey}`}
+              {...board}
+              furigoma={furigoma}
+              onFurigoma={onFurigoma}
+              tilted={view.tilted && !view.flatView}
+              snapKey={`${mode}|${game.start}|${course?.id ?? ''}|${tsume?.problem.id ?? ''}`}
+              onZones={onZones}
+              orbit={view.orbit && !view.flatView}
+              sideRoom={0}
+              cues={cues}
+            />
+          )}
+        </Suspense>
+        {mode !== 'tsume' && !picking && plate('top')}
+        {mode !== 'tsume' && !picking && plate('bottom')}
+        {decor.note && dismissedNote !== decor.note && (
+          <button className="app-peek" onClick={() => setDismissedNote(decor.note)} aria-label={`${decor.note} · ${t('viewer.close')}`}>
+            {decor.note}
+          </button>
         )}
-      </Suspense>
+      </div>
       <BoardBanners mistake={mistake} onBack={onBack} />
       {mode === 'tsume' && <TsumePlate position="top" flipped={flipped} userSide={userSide} />}
       {mode === 'tsume' && <TsumePlate position="bottom" flipped={flipped} userSide={userSide} />}
-      {mode !== 'tsume' && !picking && plate('top')}
       {phoneTask && (
         <button className="app-phone-task" onClick={phoneTask.run}>
           <span>{phoneTask.text}</span>
           <b>{phoneTask.action} ›</b>
         </button>
       )}
-      {mode !== 'tsume' && !picking && plate('bottom')}
       {showGameOver && <GameOverBanner spar={spar} flatView={view.flatView} />}
       {announce && <AnnounceBadge key={announce.key} announce={announce} />}
-      {decor.note && (
-        <div className="app-peek" role="status">
-          {decor.note}
-        </div>
-      )}
       {!decor.note && mode === 'tsume' && tsume && tsume.status === 'playing' && tsume.good === 0 && tsume.hint >= 1 && (
         <div className="app-peek app-phone-only" role="status">
           {t('app.hintTheFirstMoveUses', { piece: firstPieceHint(tsume.problem) })}

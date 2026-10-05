@@ -16,7 +16,7 @@ export function useView(mode?: Mode) {
     if (mode !== 'view') return
     const previous = camera.current
     setOrbit(true)
-    setTilted(true)
+    setTilted(false)
     return () => {
       setOrbit(previous.orbit)
       setTilted(previous.tilted)

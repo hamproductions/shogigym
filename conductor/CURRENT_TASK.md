@@ -1,6 +1,19 @@
 # Current task
 
 ## Scope and authorization
+- Compact mobile heading to one row: mode/title plus inline move number, move and side-to-move; 32px mode badge removes unused vertical space.
+- Mobile bottom toolbar order: flip, takeback, resign, new game; coach adjacent to panel on right. Increase buttons one size step with minimum 44px height.
+- Restore move number, latest move and side-to-move on the right of mobile heading; keep action controls in bottom toolbar.
+- Scene notes dismiss on tap and automatically after two seconds; restart timeout when note or position changes, clear timeout on replacement/unmount.
+- Mobile scene notes remain absolute overlays inside the scene, above player plates; appearing or changing notes must not resize the scene or shift bottom controls. Supersedes the prior note-row layout.
+- Mobile mode controls move to a bottom toolbar while mode/title remain above scene. Loading fallback initializes translation before rendering. Review strip loses redundant rounded card styling. No push/deploy authorized.
+- Restore persistent mobile header panel toggle; keep it accessible above scene notes. Mobile notes occupy their own row below the scene instead of covering player labels or controls. No push/deploy authorized.
+- Side plates inset 8px inside scene frame; derive offsets from shared stage gutter and eval-bar width, removing old hardcoded outer-wrapper offsets.
+- Header remains a separate box; header-to-content gap and outer content gutters share spacing: 12px desktop, 6px mobile, 4px short landscape. Header/frame left and right edges align.
+- Eval bar and scene share one clipped rounded frame with no internal gutter. Halve horizontal board-container padding across viewport layouts.
+- View mode starts top-down with Look around enabled; do not automatically tilt camera. Manual tilt and previous-mode camera restoration remain available.
+- Portaled rail menus must retain shared app button reset, font and focus styles; remove native gray fills and borders introduced by leaving app-shell scope.
+- Fix tablet navigation clutter and その他 overflow: compact touch navigation, portaled viewport-positioned menus, measure actual horizontal/vertical space. Keep tools inline when they fit; その他 appears only for overflow, including Settings/Hide UI/Table flip when space is insufficient. Preserve mobile rendering quality.
 - Current release authorization: commit remaining changes, bump minor from 1.0.1 to 1.1.0 with release-it, push and deploy Pages; verify workflow outcome and clean tree.
 - Diagram uses shared OverMarks for best-arrow labels and drop recommendations; remove divergent arrow path and duplicate check badge.
 - Play and analysis share the selected engine instance. Show first live recommendation immediately, hold displayed arrows during search, replace on completed quick/deep results; evaluation bar streams every primary-PV score. Never hide recommendations during deeper search.
@@ -62,4 +75,4 @@
 - Physical iPad disappearing-ink symptom not reproduced; demonstrated resource leaks and excessive rebuilding addressed. No claim of zero leaks across every path.
 
 ## Next action
-Release v1.1.0 published at commit 40621a5; canonical validation/lint/format/build passed, Pages build/deploy succeeded in run 37274954169. Release-it GitHub authentication failed; native gh published the verified tag. No remaining implementation action. Tile POV, touch gestures, Diagram overlays and settings localization remain browser-unverified. No captures; owned server/browser stopped.
+Mobile layout revision implemented locally: vertical evaluation remains visible with the analysis sheet; duplicate game-mode task/panel prompt removed; player plates overlay the scene; review strip aligns with scene gutters and omits the redundant variation hint; review outline encloses only the scene. Formatting, TypeScript and diff checks passed. Runtime layout remains unverified. No captures or server started. No push/deploy authorized for this revision. Existing local navigation and spacing changes remain uncommitted.

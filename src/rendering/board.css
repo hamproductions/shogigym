@@ -76,7 +76,7 @@
   }
 }
 
-.app-board-wrap > .app-flat {
+.app-board-scene > .app-flat {
   min-width: 0;
   overflow: hidden;
   isolation: isolate;

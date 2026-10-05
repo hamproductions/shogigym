@@ -18,6 +18,7 @@ html {
 }
 
 .app-shell button,
+.app-more-menu button,
 .app-rail,
 .board3d,
 .app-board-wrap {
@@ -54,7 +55,7 @@ html {
   pointer-events: none;
 }
 
-:where(.app-shell) button {
+:where(.app-shell, .app-more-menu) button {
   font: inherit;
   color: inherit;
   background: none;
@@ -63,12 +64,12 @@ html {
   cursor: pointer;
 }
 
-:where(.app-shell) button:disabled {
+:where(.app-shell, .app-more-menu) button:disabled {
   cursor: default;
   opacity: 0.4;
 }
 
-:where(.app-shell) :focus-visible {
+:where(.app-shell, .app-more-menu) :focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 2px;
 }
