@@ -1,4 +1,7 @@
 const paths = {
+  undo: 'M9 5L4 10l5 5M4 10h9a7 7 0 0 1 7 7',
+  resign: 'M5 21V3M5 4h14l-3 4 3 4H5',
+  newGame: 'M12 4v16M4 12h16',
   close: 'M6 6l12 12M18 6L6 18',
   floating: 'M8 3h13v13H8zM3 8v13h13M8 7h13',
   install: 'M12 3v12M7 10l5 5 5-5M4 16v5h16v-5',

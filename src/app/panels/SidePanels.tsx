@@ -39,14 +39,8 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
     setPanel({ width: Math.min(max, Math.max(min, resizeStart.current.width + resizeStart.current.x - e.clientX)) })
   }
   const startHandleSwipe = (e: ReactPointerEvent) => {
-    const startY = e.clientY
-    const up = (ev: PointerEvent) => {
-      window.removeEventListener('pointerup', up)
-      const dy = ev.clientY - startY
-      if (dy < -30) layout.setSheetOpen(true)
-      else if (dy > 30) layout.setSheetOpen(false)
-    }
-    window.addEventListener('pointerup', up)
+    e.preventDefault()
+    e.currentTarget.setPointerCapture(e.pointerId)
   }
   return (
     <>
@@ -83,6 +77,10 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
           className="app-sheet-handle"
           onClick={() => layout.setSheetOpen(!sheetOpen)}
           onPointerDown={startHandleSwipe}
+          onPointerMove={(e) => {
+            if (e.currentTarget.hasPointerCapture(e.pointerId)) layout.resizeSheet(e.clientY)
+          }}
+          onPointerUp={() => layout.persistSheet()}
           aria-label={sheetOpen ? t('app.collapsePanel') : t('app.expandPanel')}
         />
         <div className="app-panel-header">
@@ -91,11 +89,7 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
             value={tab}
             onChange={setTab}
           />
-        </div>
-        <PanelBody tab={tab} model={model} />
-        {!picking && <NavFooter canAutoplay={canAutoplay} watch={model.watch} />}
-        <div className="app-panel-actions">
-          {(!layout.panelSide || layout.floatingAvailable) && (
+          {!compact && (!layout.panelSide || layout.floatingAvailable) && (
             <Button
               variant="icon"
               className="app-panel-dock"
@@ -106,16 +100,20 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
               <Icon name={layout.panelSide ? 'floating' : 'panel'} />
             </Button>
           )}
-          <Button
-            variant="icon"
-            className="app-panel-close"
-            onClick={() => setPanel({ hidden: true })}
-            title={t('app.closeThePanelP')}
-            aria-label={t('app.closeThePanel')}
-          >
-            <Icon name="close" />
-          </Button>
+          {!compact && (
+            <Button
+              variant="icon"
+              className="app-panel-close"
+              onClick={() => setPanel({ hidden: true })}
+              title={t('app.closeThePanelP')}
+              aria-label={t('app.closeThePanel')}
+            >
+              <Icon name="close" />
+            </Button>
+          )}
         </div>
+        <PanelBody tab={tab} model={model} />
+        {!picking && <NavFooter canAutoplay={canAutoplay} watch={model.watch} />}
       </aside>
     </>
   )

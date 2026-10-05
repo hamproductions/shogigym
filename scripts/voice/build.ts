@@ -9,13 +9,15 @@ const OUT = 'public/voice/zundamon'
 const TMP = join(process.env.TMPDIR ?? '/tmp', 'shogi-gym-voice')
 
 const missingOnly = process.argv.includes('--missing')
-if (!missingOnly) rmSync(OUT, { recursive: true, force: true })
+const only = process.argv.find((arg) => arg.startsWith('--only='))?.slice(7)
+if (!missingOnly && !only) rmSync(OUT, { recursive: true, force: true })
 mkdirSync(OUT, { recursive: true })
 mkdirSync(TMP, { recursive: true })
 
 const manifest: Record<string, string> =
-  missingOnly && existsSync(join(OUT, 'manifest.json')) ? JSON.parse(readFileSync(join(OUT, 'manifest.json'), 'utf8')) : {}
+  (missingOnly || only) && existsSync(join(OUT, 'manifest.json')) ? JSON.parse(readFileSync(join(OUT, 'manifest.json'), 'utf8')) : {}
 for (const { text, say, natural } of PHRASES) {
+  if (only && text !== only) continue
   if (missingOnly && manifest[text] && existsSync(join(OUT, manifest[text]))) continue
   const kana = natural ? say : say.replace(/[\u3041-\u3096]/g, (c) => String.fromCharCode(c.charCodeAt(0) + 0x60))
   const query = await (await fetch(`${ENGINE}/audio_query?speaker=${SPEAKER}&text=${encodeURIComponent(kana)}`, { method: 'POST' })).json()
@@ -32,7 +34,7 @@ for (const { text, say, natural } of PHRASES) {
       await fetch(`${ENGINE}/synthesis?speaker=${SPEAKER}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(query) })
     ).arrayBuffer(),
   )
-  const name = `${createHash('sha1').update(text).digest('hex').slice(0, 10)}.webm`
+  const name = `${createHash('sha1').update(`${text}\n${say}`).digest('hex').slice(0, 10)}.webm`
   const wavPath = join(TMP, 'clip.wav')
   writeFileSync(wavPath, wav)
   const ff = Bun.spawnSync([

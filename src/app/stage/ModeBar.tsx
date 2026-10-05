@@ -105,7 +105,7 @@ export function ModeBar({
           {lastMove && prevSfen ? (
             <>
               <span className="app-ply">{t('app.move', { value: plyBase + (preview ? preview.base + preview.step : cursor) })}</span>
-              <strong>{moveText(prevSfen, lastMove)}</strong>
+              <strong title={moveText(prevSfen, lastMove)}>{moveText(prevSfen, lastMove)}</strong>
             </>
           ) : (
             <span className="app-ply">{plyBase > 0 ? t('app.afterMove', { plyBase }) : t('app.startPosition')}</span>
@@ -149,8 +149,12 @@ export function ModeBar({
             onClick={() => setSettings({ assist: !settings.assist })}
             title={settings.assist ? t('app.helpIsOnEvalBar') : t('app.noHelpClickToShow')}
             aria-pressed={settings.assist}
+            aria-label={settings.assist ? t('app.coachOn') : t('app.coachOff')}
           >
-            {settings.assist ? t('app.coachOn') : t('app.coachOff')}
+            <span className="app-control-icon">
+              <Icon name="coach" />
+            </span>
+            <span className="app-control-label">{settings.assist ? t('app.coachOn') : t('app.coachOff')}</span>
           </Button>
         )}
         {mode === 'spar' && game.moves.length > 0 && !gameOver && !spar.resigned && (
@@ -162,11 +166,18 @@ export function ModeBar({
               onClick={spar.takeBack}
               disabled={spar.lastUserMove < 0}
               title={t('app.takeBackYourLastMove3')}
+              aria-label={t('app.takeBack')}
             >
-              {t('app.takeBack')}
+              <span className="app-control-icon">
+                <Icon name="undo" />
+              </span>
+              <span className="app-control-label">{t('app.takeBack')}</span>
             </Button>
-            <Button size="sm" variant="ghost" className="app-resign" onClick={spar.confirmResign}>
-              {t('app.resign')}
+            <Button size="sm" variant="ghost" className="app-resign" onClick={spar.confirmResign} title={t('app.resign')} aria-label={t('app.resign')}>
+              <span className="app-control-icon">
+                <Icon name="resign" />
+              </span>
+              <span className="app-control-label">{t('app.resign')}</span>
             </Button>
           </>
         )}
@@ -185,8 +196,12 @@ export function ModeBar({
             className="app-game-setup"
             onClick={() => spar.setNewGameOpen(true)}
             title={`${STRENGTH[settings.opponent].label} · ${TIME_CONTROLS[settings.timeControl].label}`}
+            aria-label={t('newGame.button')}
           >
-            {t('newGame.button')}
+            <span className="app-control-icon">
+              <Icon name="newGame" />
+            </span>
+            <span className="app-control-label">{t('newGame.button')}</span>
           </Button>
         )}
         <Button size="sm" variant="ghost" className="app-board-flip" onClick={onFlip} title={t('app.flipTheBoardF')} aria-label={t('app.flip')}>

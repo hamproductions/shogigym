@@ -2,7 +2,9 @@
   position: relative;
   z-index: var(--z-hud);
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: flex-end;
   gap: var(--space-3);
   margin: var(--space-3) var(--stage-gutter) 0;
   padding: var(--space-2) var(--space-3) var(--space-2) var(--space-2);
@@ -16,6 +18,26 @@
 .app-modebar-heading,
 .app-modebar-controls {
   display: contents;
+}
+
+.app-modebar-controls .app-btn {
+  flex: none;
+  white-space: nowrap;
+}
+
+.app-control-icon {
+  display: none;
+}
+
+@media (max-width: 820px) {
+  .app-control-icon {
+    display: inline-flex;
+  }
+
+  .app-modebar-controls .app-control-label,
+  .app-modebar-controls .app-mini-wide span {
+    display: none;
+  }
 }
 
 .app-modebar-seal {
@@ -114,6 +136,7 @@
 
 .app-lastmove {
   flex: none;
+  width: 9em;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -121,6 +144,10 @@
 }
 
 .app-lastmove strong {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-family: var(--font-mincho);
   font-weight: var(--weight-heavy);
   font-size: var(--text-xl);
@@ -218,10 +245,6 @@
   .app-modebar > .app-mini-nav {
     display: flex;
     margin-left: auto;
-  }
-
-  .app-modebar .app-mini-wide span {
-    display: inline;
   }
 
   .app-modebar.sheet-up {
@@ -348,9 +371,10 @@
 
   .app-modebar-heading .app-lastmove {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: var(--space-2);
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0;
+    width: 8em;
     margin-left: auto;
   }
 
@@ -378,6 +402,7 @@
     order: 10;
     flex: none;
     flex-wrap: wrap;
+    max-width: 100%;
     margin-top: 0;
     padding-bottom: max(var(--space-1-5), env(safe-area-inset-bottom));
   }
@@ -394,6 +419,17 @@
   .app-modebar-controls .app-mini-nav {
     order: 6;
     margin-left: 0;
+  }
+
+  .app-modebar-controls .app-help-toggle,
+  .app-modebar-controls .app-takeback,
+  .app-modebar-controls .app-resign,
+  .app-modebar-controls .app-game-setup,
+  .app-modebar-controls .app-board-flip,
+  .app-modebar-controls .app-mini-wide {
+    width: 44px;
+    min-height: 44px;
+    justify-content: center;
   }
 
   .app-modebar-controls .app-board-flip {
@@ -418,8 +454,21 @@
   }
 
   .app-modebar-controls .app-btn {
-    min-height: 44px;
-    padding: var(--space-2) var(--space-2-5);
-    font-size: var(--text-sm);
+    flex: none;
+    min-height: 38px;
+    padding: var(--space-1-5) var(--space-2);
+    font-size: var(--text-xs);
+    white-space: nowrap;
+  }
+
+  .app-modebar-controls .app-help-toggle,
+  .app-modebar-controls .app-takeback,
+  .app-modebar-controls .app-resign,
+  .app-modebar-controls .app-game-setup,
+  .app-modebar-controls .app-board-flip,
+  .app-modebar-controls .app-mini-wide {
+    min-width: 44px;
+    height: 44px;
+    padding: 0;
   }
 }

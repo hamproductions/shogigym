@@ -62,8 +62,8 @@ export function useLayout({ mode, needsPicking, welcome, orbit = false }: { mode
   }, [drawer])
 
   const panelHidden = compact ? !drawer : panelPrefs.hidden
-  const floatingAvailable = !orbit && !!zones && zones.over.width >= 280 && zones.over.height >= 240
-  const panelSide = !!panelPrefs.side || !floatingAvailable
+  const floatingAvailable = compact || (!orbit && !!zones && zones.over.width >= 280 && zones.over.height >= 240)
+  const panelSide = !compact && (!!panelPrefs.side || !floatingAvailable)
   const zoned = !compact && !panelSide
   const twoPanels = zoned && floatingAvailable && !panelPrefs.hidden && !!zones && zones.under.width >= 240 && zones.under.height >= 200
 

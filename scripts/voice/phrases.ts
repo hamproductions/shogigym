@@ -44,6 +44,7 @@ export const FORMATIONS: Record<string, string> = {
 }
 
 export const TESUJI: Record<string, string> = {
+  桂頭攻め: 'けいとうぜめ',
   底歩: 'そこふ',
   合わせの歩: 'あわせのふ',
   焦点の歩: 'しょうてんのふ',

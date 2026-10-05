@@ -1,6 +1,17 @@
 # Current task
 
 ## Scope and authorization
+- Wrapped desktop header controls align to the right; heading text keeps its flexible space on the first row.
+- Dock and Close share the desktop panel's top-right header area outside the tabs. Bottom action row removed. Mobile displays neither placement nor extra Close controls.
+- Desktop panel Close moves to a dedicated top-right header button outside the tabs. Dock remains in the footer only when available; no empty footer when docking is unavailable. Mobile still omits the extra Close action.
+- Mobile play controls use icon-only flip, takeback, resign, new game, coach and panel actions with accessible names, tooltips and 44px targets. Desktop labels remain visible; complete controls wrap when necessary.
+- Mobile control rows wrap complete buttons instead of horizontal scrolling; the panel action must remain fully visible. Supersedes PR #2's single-row scrolling control rule.
+- Narrow desktop headers wrap complete controls onto additional rows; buttons do not shrink or wrap Japanese labels vertically, and controls must remain inside the header boundary.
+- Mobile bottom panel restores its visible top drag handle with pointer-captured height resizing and saved height. Desktop placement/close footer is not rendered on mobile.
+- Latest panel correction restores the original full-width mobile bottom panel in the shell grid. Mobile has no side-docking option or placement button and ignores saved desktop side placement. Float/side switching remains desktop-only. Supersedes earlier mobile side-docking and absolute floating-panel behavior.
+- Incorporate PR #2 after reviewing its complete four-file diff: compact rail sizing, non-wrapping horizontally scrollable mobile controls and retained PWA install prompt. Preserve mobile side docking; the PR's Application class change disables that settled behavior. Add HMR cleanup for the early install-prompt listener. No external PR comment or merge requested.
+- Current-move header uses a fixed-width, non-wrapping notation slot to prevent move-dependent layout shifts. Full notation remains available through its title. Mobile metadata stays stacked within the same slot.
+- Corrected 桂頭攻め voice reading to けいとうぜめ and regenerated its clip under a reading-dependent filename to invalidate cached mispronunciation. Targeted voice generation preserves other clips.
 - Floating panels fill the available horizontal zone; saved sidebar width must not constrain floating-panel width. Preserve existing vertical placement and height.
 - Panel placement correction: preserve existing floating layout and expose docking to the side on floating panels. Hide only the return-to-floating action when floating is unavailable. Placement modes are floating and side only; resize applies only to side panels. Dock and close controls remain outside the tab strip.
 - Active correction: recurring head clipping; disappearing ink/black faces after promotion; reduce tile CPU/GPU resource work through reuse/baking; investigate supplied iOS viewport report; wrap mobile move annotations without truncation; replace oversized advantage sentence with compact side/percentage; restore visible mobile resize grip and optional side docking. No new push, release, server launch or system/audio changes authorized.
