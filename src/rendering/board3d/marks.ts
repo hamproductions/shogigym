@@ -52,7 +52,12 @@ export function arrowMesh(arrow: BoardArrow, position: ImmutablePosition, stack 
   const shaft = Math.max(0.01, length - 0.45)
   const w = arrow.dashed ? 0.06 : 0.09
   const head = arrow.dashed ? 0.2 : 0.26
-  const material = new THREE.MeshBasicMaterial({ color: new THREE.Color(arrow.color), transparent: true, opacity: arrow.dashed ? 0.7 : 0.82, depthTest: false })
+  const material = new THREE.MeshBasicMaterial({
+    color: new THREE.Color(arrow.color),
+    transparent: true,
+    opacity: arrow.dashed ? 0.7 : 0.82,
+    depthWrite: false,
+  })
   const tip = new THREE.Shape()
   tip.moveTo(head, shaft)
   tip.lineTo(0, length - 0.1)
@@ -82,7 +87,7 @@ export function arrowMesh(arrow: BoardArrow, position: ImmutablePosition, stack 
     tag.position.set(0, 0.3, -Math.max(0.3, length - 0.1 - stack * 0.55))
     group.add(tag)
   }
-  group.position.copy(start).setY(0.3)
+  group.position.copy(start).setY(0.008)
   group.rotation.y = Math.atan2(-dir.x, -dir.z)
   return group
 }

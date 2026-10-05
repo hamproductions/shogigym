@@ -46,16 +46,11 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
   const drop = dropMarker(s.root)
   let down: { pick: Pick; x: number; y: number; pointerId: number } | null = null
   let ghost: THREE.Object3D | null = null
-  let releasedPov = false
   let orbitDown: { x: number; y: number } | null = null
   const exitPov = () => {
     if (s.tilePov) {
       s.tilePov = null
       s.tilePovFrame = null
-      releasedPov = true
-    } else {
-      releasedPov = false
-      latest.current.onOrbitExit?.()
     }
   }
 
@@ -172,7 +167,7 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
       const click = orbitDown && Math.hypot(event.clientX - orbitDown.x, event.clientY - orbitDown.y) <= 6
       orbitDown = null
       if (!raycaster.intersectObjects(s.pieces.children, true).length && click) {
-        exitPov()
+        if (s.tilePov) exitPov()
         down = null
         return
       }
@@ -211,7 +206,7 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
   }
   const tilePov = (event: MouseEvent) => {
     if (!latest.current.orbit || s.flip) return
-    if (event.type === 'contextmenu' && (s.tilePov || releasedPov)) {
+    if (event.type === 'contextmenu' && s.tilePov) {
       event.preventDefault()
       exitPov()
       return
@@ -232,7 +227,6 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
     cancel()
     s.tilePov = tile
     s.tilePovFrame = null
-    releasedPov = false
   }
   const unlockPov = (event: KeyboardEvent) => {
     if (event.key !== 'Escape' || !latest.current.orbit) return
@@ -241,7 +235,7 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
     exitPov()
   }
   const outsidePov = (event: PointerEvent) => {
-    if (latest.current.orbit && event.button === 0 && event.target !== canvas) exitPov()
+    if (latest.current.orbit && s.tilePov && event.button === 0 && event.target !== canvas) exitPov()
   }
   canvas.addEventListener('contextmenu', tilePov)
   canvas.addEventListener('dblclick', tilePov)

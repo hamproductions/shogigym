@@ -1,9 +1,15 @@
 # Current task
 
 ## Scope and authorization
-- Escape, right-click and outside-tile click release tile lock first; next exit action leaves Look around. Orbit remains enabled while locked.
+- Current release authorization: commit remaining changes, bump minor from 1.0.1 to 1.1.0 with release-it, push and deploy Pages; verify workflow outcome and clean tree.
+- Diagram uses shared OverMarks for best-arrow labels and drop recommendations; remove divergent arrow path and duplicate check badge.
+- Play and analysis share the selected engine instance. Show first live recommendation immediately, hold displayed arrows during search, replace on completed quick/deep results; evaluation bar streams every primary-PV score. Never hide recommendations during deeper search.
+- Across every mode, shared 3D move arrows sit flush on board at the existing 0.008 surface-overlay height, with depth testing so pieces occlude them. Preserve readable arrow labels. TypeScript passed; rendered result unverified.
+- Replace ambiguous crossed-tool Play icon with opposing pentagonal shogi tile outlines; preserve all other icons.
+- Escape, right-click and outside-tile click release tile lock only. None exits Look around; remove existing Escape shortcut that disabled Look around. Orbit remains enabled while locked.
+- Touch camera gestures allow rotation and pinch zoom without panning; desktop mouse controls preserved.
 - Tile POV default camera moves back one tile depth and raises clearance to 40% of tile depth; preserve orbit and follow behavior.
-- Preserve and commit current local work to leave a clean working tree; no push authorized.
+- Preserve and commit current local work to leave a clean working tree.
 - Move recommendations/arrows wait for final analysis; evaluation bar continues using provisional scores.
 - Look around supports right-click or double-click on a tile to follow its POV while retaining orbit controls. Escape or leaving Look around releases lock. Icon source is crossed swords, not shogi pieces.
 - Localize remaining generic settings typeface labels, accessibility descriptions and language label; localized option-group layout must not depend on English text.
@@ -23,7 +29,7 @@
 - Fix ink disappearing after sustained play; reuse tiles rather than recreating them on every move.
 - When capture changes hand layout, tiles already on the stand must slide and rotate into their new positions instead of jumping.
 - Temporary local dev server authorized for verification; stop owned server/browser afterward.
-- No push, new tests, device/system changes or delegates authorized this turn.
+- No new tests, device/system changes or delegates authorized.
 
 ## Implementation
 - Retain tile objects across moves, promotion, capture and hand layouts; refresh changed visuals only.
@@ -56,4 +62,4 @@
 - Physical iPad disappearing-ink symptom not reproduced; demonstrated resource leaks and excessive rebuilding addressed. No claim of zero leaks across every path.
 
 ## Next action
-Local work prepared for commit; aggregate checks passed with existing warnings, and latest exit-order change passed TypeScript/diff checks. Tile POV, exit sequencing and settings localization remain browser-unverified. Deep bend visual verification remains pending; no captures or push authorized. Owned server/browser stopped.
+Commit remaining changes, run canonical minor release, verify Pages deployment and clean working tree. Tile POV, touch gestures, Diagram overlays and settings localization remain browser-unverified. No captures; owned server/browser stopped.

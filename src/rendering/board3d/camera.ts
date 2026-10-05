@@ -1,5 +1,5 @@
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import { Box3, Matrix4, Vector3 } from 'three'
+import { Box3, Matrix4, TOUCH, Vector3 } from 'three'
 import { cameraFit, layout } from './layout'
 import type { Board3DProps, SceneState } from './types'
 
@@ -19,6 +19,7 @@ function syncControls(s: SceneState, orbit: boolean) {
     const controls = new OrbitControls(s.camera, s.renderer.domElement)
     controls.target.set(s.camera.position.x, 0, s.tilt * 0.4)
     controls.enableDamping = true
+    controls.touches.TWO = TOUCH.DOLLY_ROTATE
     controls.maxPolarAngle = Math.PI * 0.48
     controls.minDistance = 6
     controls.maxDistance = Math.max(80, s.camera.position.length() * 2)

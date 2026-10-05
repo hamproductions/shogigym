@@ -72,7 +72,7 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
   const t = customBoard
     ? { ...THEMES[style], bg: `rgb(${tone.board.join(',')})`, board: `rgb(${tone.board.join(',')})`, line: tone.line, coord: tone.line }
     : THEMES[style]
-  const { position, flipped, selected, selectedColor, targets, arrows, lastMove, checkSquare, heat } = props
+  const { position, flipped, selected, selectedColor, targets, lastMove, checkSquare, heat } = props
   const boardW = t.cw * 9
   const boardH = t.ch * 9
   const x0 = t.side
@@ -226,14 +226,15 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
     const bottom = (color === Color.BLACK) !== flipped
     const counts = HAND_ORDER.filter((type) => position.hand(color).count(type) > 0)
     const hx = bottom ? x0 + boardW + 80 + (t.side - 80) / 2 : (t.side - 80) / 2 + 20
-    const startY = bottom ? y0 + boardH - 102 * Math.max(1, counts.length) : y0
+    const step = t.koma ? 102 : 64
+    const startY = bottom ? y0 + boardH - step * Math.max(1, counts.length) - (t.koma ? 0 : 20) : y0 + (t.koma ? 0 : 20)
     counts.forEach((type, i) =>
       tiles.push({
         id: `hand-${color}-${type}`,
         type,
         color,
         x: hx,
-        y: bottom ? startY + 102 * (i + 0.5) : startY + 102 * (counts.length - i - 0.5),
+        y: bottom ? startY + step * (i + 0.5) : startY + step * (counts.length - i - 0.5) + (t.koma ? 0 : 50),
         up: bottom,
         scale: 0.9,
         on: selected === type && selectedColor === color,
@@ -343,48 +344,10 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
           )
         })}
         {!t.koma && targets.map((sq) => <circle key={`t${sq.usi}`} cx={cx(sq)} cy={cy(sq)} r={12} fill="#2a8f4a" opacity={0.75} pointerEvents="none" />)}
-        {!t.koma &&
-          arrows.map((a, i) => {
-            const to = Square.newByUSI(a.usi.slice(2, 4))
-            const from = a.usi[1] === '*' ? null : Square.newByUSI(a.usi.slice(0, 2))
-            if (!to || !from) return null
-            const x1 = cx(from)
-            const y1 = cy(from)
-            const x2 = cx(to)
-            const y2 = cy(to)
-            const len = Math.hypot(x2 - x1, y2 - y1) || 1
-            const ux = (x2 - x1) / len
-            const uy = (y2 - y1) / len
-            const hx = x2 - ux * 26
-            const hy = y2 - uy * 26
-            return (
-              <g key={`a${i}`} opacity={0.8} pointerEvents="none">
-                <line
-                  x1={x1}
-                  y1={y1}
-                  x2={hx}
-                  y2={hy}
-                  stroke={a.color}
-                  strokeWidth={12}
-                  strokeDasharray={a.dashed ? '18 12' : undefined}
-                  strokeLinecap="round"
-                />
-                <path d={`M ${x2} ${y2} L ${hx - uy * 20} ${hy + ux * 20} L ${hx + uy * 20} ${hy - ux * 20} Z`} fill={a.color} />
-              </g>
-            )
-          })}
         <rect x={x0} y={y0} width={boardW} height={boardH} fill="transparent" onClick={onBoard} style={{ cursor: 'pointer' }} />
         {hand(Color.BLACK)}
         {hand(Color.WHITE)}
-        {!t.koma && checkSquare && (
-          <g pointerEvents="none" transform={`translate(${x0 + (col(checkSquare.file) + 0.5) * t.cw} ${y0 + row(checkSquare.rank) * t.ch})`}>
-            <circle r={t.cw * 0.3} fill="#c62a1a" stroke="#fbf6ec" strokeWidth={2} />
-            <text textAnchor="middle" dominantBaseline="central" fontSize={t.cw * 0.22} fontWeight={700} fill="#fff">
-              王手
-            </text>
-          </g>
-        )}
-        {t.koma && <OverMarks props={props} p={project} u={t.cw} flip={sign} coordFill={t.coord} handPoint={handPoint} />}
+        <OverMarks props={props} p={project} u={t.cw} flip={sign} coordFill={t.coord} handPoint={handPoint} />
       </svg>
     </div>
   )

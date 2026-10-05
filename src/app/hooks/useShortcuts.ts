@@ -37,7 +37,7 @@ export function useShortcuts({
   toggleWatch,
 }: Shortcuts) {
   const { preview, promotion, playing, nav, play, setPlaying, setPromotion, setSelection, setPeekFrom, setFlipped, exitPreview, modeRef } = session
-  const { orbit, setOrbit, hideUi, setHideUi, flatView, setTilted, setShowControl } = view
+  const { hideUi, setHideUi, flatView, setTilted, setShowControl } = view
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
@@ -55,7 +55,6 @@ export function useShortcuts({
           setSelection(null)
           return
         }
-        if (orbit) return setOrbit(false)
         if (hideUi) return setHideUi(false)
       }
       if (preview) {

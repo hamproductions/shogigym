@@ -16,7 +16,6 @@ export type Board3DProps = {
   flipped: boolean
   tilted: boolean
   orbit?: boolean
-  onOrbitExit?: () => void
   lastMove?: string
   selected: Square | PieceType | null
   selectedColor?: Color
