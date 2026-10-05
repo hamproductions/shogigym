@@ -2,6 +2,13 @@
 
 Notable changes are recorded here when a release is created. Versions follow Semantic Versioning.
 
+# [1.3.0](/compare/v1.2.0...v1.3.0) (2026-10-05)
+
+
+### Features
+
+* add evaluated books, Bioshogi detection and app installation 2cad9b0
+
 # [1.2.0](/compare/v1.1.0...v1.2.0) (2026-10-05)
 
 
