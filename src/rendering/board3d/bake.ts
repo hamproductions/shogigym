@@ -6,7 +6,7 @@ import { HALF_D, HALF_W, setBoardDims } from './dimensions'
 import { preparePieceEnvironment } from './materials'
 import { pieceMesh } from './piece'
 import { addLights, boardTopMaterial, createRenderer } from './scene'
-import { boardSurface, boardTexture, clearFaceTextures } from './textures'
+import { boardSurface, boardTexture } from './textures'
 
 import { SPRITE_BOX, spriteKey, type Baked } from '@/rendering/sprites'
 
@@ -29,7 +29,6 @@ const TYPES = [
 
 export async function bakeFlat(px: number, signal: AbortSignal, settings: Settings = getSettings()): Promise<Baked> {
   setBoardDims()
-  clearFaceTextures()
   const renderer = createRenderer(false)
   const environment = preparePieceEnvironment(renderer, false)
   renderer.setPixelRatio(1)
@@ -78,7 +77,6 @@ export async function bakePreviews(
   onPreview?: (key: string, images: string[]) => void,
 ) {
   signal.throwIfAborted()
-  clearFaceTextures()
   const renderer = createRenderer(false)
   const environment = preparePieceEnvironment(renderer, false)
   renderer.setPixelRatio(1)

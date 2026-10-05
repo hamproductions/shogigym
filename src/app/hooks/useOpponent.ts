@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { scoreWinRate, usiPosition } from '@/utils/analysis'
 import { analyze, engineSupported, useEngineStatus } from '@/utils/engine'
-import { mainBranch, strategyMove, strip } from '@/utils/book'
+import { mainBranch, resolveAiStrategy, strategyReply, strip } from '@/utils/book'
 import { otherSide } from '@/utils/shogi'
 import { STRENGTH, useSettings } from '@/appearance/settings'
 import type { LessonMode } from '@/app/types'
@@ -12,8 +12,13 @@ export type Reply = { key: string; usi: string; note?: string; source: 'book' | 
 export function useOpponent(session: BoardSession, { lessonMode, halted }: { lessonMode: LessonMode; halted: boolean }) {
   const settings = useSettings()
   const { epoch } = useEngineStatus()
-  const { mode, course, nodes, atEnd, toMove, userSide, liveSfen, preview, play, gameOver } = session
+  const { mode, course, nodes, atEnd, toMove, userSide, liveSfen, preview, play, gameOver, game } = session
   const [pending, setPending] = useState<Reply | null>(null)
+  const fresh = game.moves.length === 0
+  const [strategy, setStrategy] = useState(() => resolveAiStrategy(settings.aiStrategy, otherSide(userSide)))
+  useEffect(() => {
+    if (fresh) setStrategy(resolveAiStrategy(settings.aiStrategy, otherSide(userSide)))
+  }, [fresh, game.start, settings.aiStrategy, userSide])
 
   useEffect(() => {
     if ((mode !== 'lesson' && mode !== 'spar') || (mode === 'lesson' && !course) || (!atEnd && mode !== 'lesson') || toMove === userSide || halted || gameOver)
@@ -22,11 +27,12 @@ export function useOpponent(session: BoardSession, { lessonMode, halted }: { les
     const book = mode === 'lesson' ? mainBranch(nodes?.get(strip(liveSfen))) : undefined
     const run = async () => {
       if (book) return setPending({ key: liveSfen, usi: book.usi, note: book.note, source: 'book' })
-      const planned = mode === 'spar' && settings.aiStrategy ? strategyMove(settings.aiStrategy, otherSide(userSide), liveSfen) : undefined
+      const planned = mode === 'spar' && strategy ? await strategyReply(strategy, otherSide(userSide), liveSfen, game.moves.length) : undefined
+      if (cancelled) return
       if (planned) return setPending({ key: liveSfen, usi: planned.usi, note: planned.note, source: 'book' })
       if (mode === 'lesson' || !engineSupported()) return
       const level = STRENGTH[settings.opponent]
-      const result = await analyze(usiPosition(liveSfen), { multipv: level.pickFrom, movetime: level.movetime })
+      const result = await analyze(usiPosition(liveSfen), { multipv: level.pickFrom, movetime: level.movetime, book: !!strategy })
       const top = result.candidates[0] ? scoreWinRate(result.candidates[0].score) : 0
       const pool = result.candidates.filter((c) => top - scoreWinRate(c.score) <= level.maxLoss)
       const pick = pool[Math.floor(Math.random() * pool.length)]?.move ?? result.bestmove
@@ -38,7 +44,7 @@ export function useOpponent(session: BoardSession, { lessonMode, halted }: { les
     return () => {
       cancelled = true
     }
-  }, [mode, atEnd, toMove, userSide, liveSfen, nodes, course, settings.opponent, settings.aiStrategy, halted, gameOver, epoch])
+  }, [mode, atEnd, toMove, userSide, liveSfen, nodes, course, settings.opponent, strategy, halted, gameOver, epoch, game.moves.length])
 
   const reply =
     !halted &&

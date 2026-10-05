@@ -21,7 +21,15 @@ function playedMove(prev: ImmutablePosition, position: ImmutablePosition, usi: s
   return move && next.doMove(move) && board3(next.sfen) === board3(position.sfen) ? move : null
 }
 
-function avatarMove(s: SceneState, position: ImmutablePosition, prev: ImmutablePosition | null, usi: string, mesh: THREE.Object3D, placed: boolean) {
+function avatarMove(
+  s: SceneState,
+  position: ImmutablePosition,
+  prev: ImmutablePosition | null,
+  usi: string,
+  mesh: THREE.Object3D,
+  placed: boolean,
+  captureSeed?: number,
+) {
   const move = prev && s.avatars?.ready() && playedMove(prev, position, usi)
   if (!move || !s.avatars || !prev) return false
   const from = move.from instanceof Square ? squarePoint(move.from) : handSpot(prev, move.color, move.from)
@@ -32,7 +40,7 @@ function avatarMove(s: SceneState, position: ImmutablePosition, prev: ImmutableP
   const capture =
     captured && type && to
       ? {
-          mesh: pieceMesh(captured.type, captured.color),
+          mesh: pieceMesh(captured.type, captured.color, captureSeed),
           to,
           hide: s.handMeshes.find((m) => m.userData.color === move.color && m.userData.type === type && m.userData.liftable),
         }
@@ -65,10 +73,14 @@ function avatarMove(s: SceneState, position: ImmutablePosition, prev: ImmutableP
   return played
 }
 
-export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, prev: ImmutablePosition | null = null, placed = false) {
+export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, prev: ImmutablePosition | null = null, placed = false, relayout = false) {
   const { position, lastMove } = props
   const retired = [...s.pieces.children]
   const previousHands = new Set(s.handMeshes)
+  if (relayout) {
+    s.avatars?.reset?.()
+    s.animations = s.animations.filter((animation) => !previousHands.has(animation.mesh))
+  }
   const handSlides: SceneState['animations'] = []
   const transforms = new Map(retired.map((mesh) => [mesh, { position: mesh.position.clone(), quaternion: mesh.quaternion.clone(), visible: mesh.visible }]))
   const flips = new Set(s.animations.map((animation) => animation.flip))
@@ -120,6 +132,7 @@ export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, pr
     s.pieces.children.filter((mesh) => mesh.userData.square).map((mesh) => [(mesh.userData.square as Square).usi, mesh.userData.grainSeed as number]),
   )
   const move = prev && lastMove ? playedMove(prev, position, lastMove) : null
+  const captureSeed = move?.capturedPieceType ? grains.get(move.to.usi) : undefined
   if (move && move.from instanceof Square) {
     const seed = grains.get(move.from.usi)
     grains.delete(move.from.usi)
@@ -165,6 +178,7 @@ export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, pr
       mesh.position.set(spot.x, STAND_TOP + (spot.lift ?? 0), spot.z)
       const previous = transforms.get(mesh)
       if (
+        !relayout &&
         previousHands.has(mesh) &&
         previous &&
         ((previous.position.x - spot.x) ** 2 + (previous.position.z - spot.z) ** 2 > 0.000001 || previous.quaternion.angleTo(mesh.quaternion) > 0.001) &&
@@ -199,6 +213,7 @@ export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, pr
   }
   for (const old of existing) {
     const square = old.userData.square as Square | undefined
+    if (!square && (!old.userData.held || relayout) && s.drag?.mesh !== old) continue
     const next = s.pieces.children.includes(old)
       ? old
       : square
@@ -215,7 +230,7 @@ export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, pr
     if (s.drag?.mesh === old) s.drag.mesh = next
   }
   if (!prev) for (const animation of s.animations) if (animation.flip) s.pieces.add(animation.flip)
-  const carried = moved && lastMove && (animate || placed) ? avatarMove(s, position, prev, lastMove, moved.mesh, placed) : false
+  const carried = moved && lastMove && (animate || placed) ? avatarMove(s, position, prev, lastMove, moved.mesh, placed, captureSeed) : false
   if (moved && lastMove && !carried && animate) {
     const { mesh } = moved
     const from = placed
@@ -234,6 +249,7 @@ export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, pr
     mesh.position.copy(from)
   }
   for (const slide of handSlides) {
+    s.animations = s.animations.filter((animation) => animation.mesh !== slide.mesh)
     slide.mesh.position.copy(slide.from)
     slide.mesh.quaternion.copy(slide.fromQ!)
     s.animations.push(slide)

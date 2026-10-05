@@ -8,6 +8,8 @@ import { flipTable, saveBoardImage } from '@/utils/events'
 import { useSettings } from '@/appearance/settings'
 import { MODES, type Mode } from '@/app/types'
 import { RailSeal } from './RailSeal'
+import { Dialog, DialogHeader } from '@/app/ui/Dialog'
+import { useInstallApp } from './useInstallApp'
 import { SoundButton } from './SoundButton'
 import { useRailCapacity } from './useRailCapacity'
 import { useRailTools, type RailTool } from './useRailTools'
@@ -59,6 +61,7 @@ function useMenuDismiss(open: boolean, close: () => void) {
 export function Rail({ mode, onMode, compact: phone, view, settingsOpen, onSettings, onPalette, snapshotName }: RailProps) {
   const { t } = useTranslation()
   const ja = useSettings().lang === 'ja'
+  const installation = useInstallApp()
   const [more, setMore] = useState(false)
   const [modeMenu, setModeMenu] = useState(false)
   const [moreAt, setMoreAt] = useState<DOMRect | null>(null)
@@ -90,6 +93,7 @@ export function Rail({ mode, onMode, compact: phone, view, settingsOpen, onSetti
     snapshotName,
     onFlipTable: flipTable,
     onSaveImage: saveBoardImage,
+    onInstall: installation.installed ? undefined : installation.install,
   })
   const { railRef, lastModeRef, capacity } = useRailCapacity(compact)
   const all = [...primary, ...secondary, ...bottom]
@@ -177,6 +181,14 @@ export function Rail({ mode, onMode, compact: phone, view, settingsOpen, onSetti
         .map((tool) => (
           <ToolButton key={tool.id} tool={tool} />
         ))}
+      {installation.help &&
+        createPortal(
+          <Dialog label={t('rail.install')} onBackdrop={installation.closeHelp}>
+            <DialogHeader title={t('rail.install')} closeLabel={t('settings.closeSettings')} onClose={installation.closeHelp} />
+            <p>{t('rail.installHelp')}</p>
+          </Dialog>,
+          document.body,
+        )}
     </nav>
   )
 }

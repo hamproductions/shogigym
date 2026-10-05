@@ -113,6 +113,8 @@
     "aiStrategy": "AI strategy",
     "whatTheAiPlaysAgainst": "The strategy the AI plays. It follows that strategy's book lines while it can, then thinks for itself.",
     "anyStrategy": "Any strategy",
+    "randomStrategy": "Random strategy",
+    "noStrategy": "No strategy — trust engine",
     "check": "Check",
     "evaluation": "Evaluation",
     "winChance": "Win chance: ☗ {{value}}% / ☖ {{value2}}%",
@@ -647,6 +649,8 @@
     "castleFromWhereTheKing": "Castle, from where the king, golds and silvers stand"
   },
   "rail": {
+    "install": "Install app",
+    "installHelp": "On iPhone or iPad, open Share → Add to Home Screen. On desktop, use your browser’s Install app or Add to Dock menu. If neither option appears, open this page in Safari, Chrome or Edge.",
     "settings": "Settings",
     "control": "Control",
     "more": "More",
@@ -809,7 +813,17 @@
     "simpleKanji": "Simple Kanji",
     "hitomoji": "One character",
     "pixel": "Pixel",
-    "language": "Language"
+    "language": "Language",
+    "cacheBook": "Offline book cache",
+    "downloadFullBook": "Download full Peta · 99 MB / 493 MB installed",
+    "clearBookCache": "Remove download cache",
+    "openingBook": "Opening book",
+    "compactBook": "Peta opening subset · automatically cached as used",
+    "loadingBook": "Importing book…",
+    "importBook": "Import .db",
+    "removeBook": "Remove imported book",
+    "invalidBook": "Choose a YaneuraOu .db book. Extract .7z archives first.",
+    "bookHint": "Play and Watch use evaluated Peta moves while preserving the selected strategy. No strategy and analysis use engine search. Optional imported books stay on this device and load into the engine only when needed. The full Peta book requires about 470 MB plus engine memory; use the compact default on tablets."
   },
   "tabs": {
     "coach": "Coach",

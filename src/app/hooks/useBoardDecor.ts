@@ -44,7 +44,7 @@ type DecorInput = {
 
 export function useBoardDecor(session: BoardSession, input: DecorInput) {
   const { t, i18n } = useTranslation()
-  const { position, sfen, preview, gameOver, cursor, game, peekFrom, mode, course, userSide, userTurn, atEnd, ai, assist, lastMove } = session
+  const { position, sfen, sfens, preview, gameOver, cursor, game, peekFrom, mode, course, userSide, userTurn, atEnd, ai, assist, lastMove } = session
   const {
     analysis,
     showBest,
@@ -129,8 +129,8 @@ export function useBoardDecor(session: BoardSession, input: DecorInput) {
       : (focusNote ?? peekNote ?? (tesujiNote ? t('app.tesuji2', { ja: tesujiNote.ja, en: tesujiNote.en, explain: tesujiNote.explain }) : checkHelp)))
 
   const castles = [Color.BLACK, Color.WHITE].flatMap((color) => {
-    const f = formationOf(position, color)
-    return f.castle && f.castle !== '居玉'
+    const f = formationOf(position, color, { sfens, moves: game.moves, cursor, detectionPreset: game.detectionPreset })
+    return f.castle && f.castle !== '居玉' && f.squares.length
       ? [{ squares: f.squares, color: color === Color.BLACK ? '#b8432f' : '#2f5d9b', label: formationName(f.castle, i18n.language) }]
       : []
   })

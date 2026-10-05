@@ -42,7 +42,7 @@ export function Board3D(props: Board3DProps) {
     if (latest.current.cues) s.avatars.cue(latest.current.cues)
     state.current = s
     if (import.meta.env.DEV) (window as unknown as { __dbg: SceneState }).__dbg = s
-    const refresh = (animate = false) => rebuild(s, latest.current, animate)
+    const refresh = (animate = false, relayout = false) => rebuild(s, latest.current, animate, null, false, relayout)
     s.settle = () => refresh()
     const syncPower = () => {
       const on = getSettings().power
@@ -66,7 +66,7 @@ export function Board3D(props: Board3DProps) {
       layout.portrait = portrait
       layout.narrow = narrow
       s.placeStands()
-      refresh()
+      refresh(false, true)
     }
     const observer = new ResizeObserver(resize)
     observer.observe(el)

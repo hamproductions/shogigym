@@ -25,6 +25,8 @@ The whole app is one screen: a 3D board in a tatami room or a home dining room (
 - **詰将棋 Tsume**: 1手詰 to 7手詰 plus a mixed set. Hints are staged, a King escape overlay is optional, and a solve only counts when it was found without help.
 - **手筋 Tesuji**: Drills where the move to find is a named tesuji (叩きの歩, 突き捨ての歩, 焦点の歩, 垂れ歩, 底歩, 頭金, 両取り, ふんどしの桂, 王手飛車取り …), mined from the book lines and tsume by `scripts/mine-tesuji.ts`, each citing its source position. Plus four hand-entered pawn-tesuji lessons from shogi-rule.com's diagrams. While you play or analyze, a tesuji in the game is named on the board and tagged in the move list.
 - **対局 Play AI**: four strengths. You can choose the AI's strategy (居飛車穴熊, 棒銀, 舟囲い急戦, 左美濃, 相振り飛車 and more); the AI follows that setup's book lines, then thinks for itself.
+  - Random strategy is the default, resolved once per game. No strategy bypasses all opening books and uses engine search.
+  - Evaluated Peta book moves rank matching lesson branches and extend play beyond the lesson lines. The compact subset loads one position shard on demand; missing or unavailable positions fall back to the engine.
   - 待った take-back, resign, and a 王手 warning.
   - A coach comments on each of your moves.
   - Saved positions survive a reload.
@@ -35,9 +37,10 @@ The whole app is one screen: a 3D board in a tatami room or a home dining room (
   - A variation tree (変化): step back anywhere and play a different move for either side.
   - Save games to in-app slots, or copy them as KIF with the variations included.
 - **Formation display**: the strategy and castle of both sides (四間飛車, 本美濃, 穴熊, ミレニアム…) appear beside the board, with a short banner when one is completed.
+  - Bioshogi shape rules track move history, holdings, capture conditions and opening-phase restrictions. Recognized tags survive later board changes; castle outlines require the shape to remain present. Formation announcements stop after non-pawn/non-bishop captures; check and tesuji announcements continue. The browser adapter ports declarative shapes, custom castle rules, move/history techniques and end-of-game tags. Imported handicap metadata is retained for preset-dependent detection. Run `bun scripts/check-bioshogi.ts` to compare all 535 pinned upstream KIF fixtures against recorded Ruby runtime outputs: accumulated player tags, move annotations and final tags. Recorded Zundamon clips cover the detector definitions; formation speech remains limited to the opening. The Ruby runtime and notation/export APIs are not part of this detection port.
 - **Players at the table**: two seated characters move every piece by hand (reach, grip, carry, press), lean in for far squares and bow at the start. A dev-only `/dev/hands` page steps through every hand motion frame by frame.
 - **Power mode** (optional): sparks, shockwaves and light beams on captures, a dimmed room with a red beam for 王手, and a 詰み finale after which the loser flips the table.
-- **Zundamon voice** (VOICEVOX:ずんだもん): reads out openings, castles and tesuji as they appear, calls 王手 and 詰み, counts byoyomi, and greets you at the start and acknowledges the game result once.
+- **Zundamon voice** (VOICEVOX:ずんだもん): reads out openings, castles and tesuji as they appear, calls 王手, says ありがとうございました at checkmate, counts byoyomi, and greets you at the start and acknowledges the game result once.
 - **Eval bar** beside the board, steady between moves, and a take-back-and-retry prompt after a mistake.
 - **Settings**: Classic, Elegant, Plastic and Broadcast presets combine independent typeface, face, color, material, grain and finish settings. Choose one character, two characters, or one character with Lines, Dots or Marks guides. Wood, plastic, glass and frosted glass share the full-set preview and angled finish previews. Board wood, sound, voice, thinking time, candidate lines and knowledge level are configurable; AI strength, strategy and playing order are chosen in the new-game dialog.
 
@@ -87,6 +90,8 @@ bun run check         # lint, formatting and TypeScript checks
 
 The `@/` alias resolves to `src/` in Vite, TypeScript and Bun. Use it for imports across source directories, such as `@/utils/shogi`; same-directory imports stay relative. React Router's generated `+types` imports, asset globs and files outside `src/` keep their explicit relative paths.
 
+Shared modules must initialize without browser globals during development SSR. The i18n module owns its instance and translations; document-language synchronization belongs to the client Root effect, with subscription cleanup. Verify development route requests as well as the production build when changing module initialization.
+
 ## Versions and releases
 
 `package.json` is the version authority. `src/utils/version.ts` reads it directly, and Settings → About displays the same version beside the app name, with repository, changelog and licence links.
@@ -124,7 +129,14 @@ node scripts/validate.mjs               # legality check of every course
 node scripts/solve-tsume.mjs 5 400 500  # solve data/tsume-raw/mate5.sfen with the engine
 node scripts/verify-tsume.mjs --prune   # keep only strict check-only mates
 bun scripts/stats/build.ts --floodgate 2025 --aoba 4 --min 10   # opening statistics -> public/book/
+node scripts/build-formations.mjs       # pinned Bioshogi shape rules -> src/data/formations.json
+bun scripts/build-opening-book.ts /path/to/user_book1.db /path/to/fresh-index.sqlite
+node scripts/build-full-book.mjs /path/to/user_book1.db
 ```
+
+The opening-book builder reads the MIT-licensed [Peta 233 release](https://github.com/yaneurao/YaneuraOu/releases/tag/new_petabook233), indexes the extracted native file, seeds existing lesson positions and expands reachable branches. It writes 24,000 positions and their evaluated alternatives into 64 static shards under `public/books/peta233-v1/`, approximately 7 MB total. Shards are fetched only during strategy-based Play/View, with at most eight retained in memory. Position/move rotation supports both sides independently of the older WASM engine's missing `FlippedBook` option. Use a fresh temporary SQLite index when changing the input book; the native archive and index are not shipped.
+
+Settings → Play AI → Opening book offers a one-click download for the complete Peta database, plus manual `.db` import. The 7 MB compact subset works automatically: required shards load on demand and persist in IndexedDB for offline reuse. Full Peta downloads 99 MB in 59 verified gzip chunks and stores the complete 493 MB native database in IndexedDB. Cancellation preserves completed chunks for retry; successful installation removes temporary compressed chunks. Full assets are separate static files and are never fetched on initial page load. The engine loads the installed database only when strategy play needs a native-book fallback; analysis and No strategy continue using engine search. Loading the full native database can require over 1 GB of memory. Remove the installed book to return to the compact subset alone. Neither book contains every possible opening position; positions outside its coverage fall back to engine search.
 
 `scripts/stats/build.ts` builds the "Played in engine games" table in the What next tab. It streams the newest `--aoba` AobaZero self-play archives (about 10,000 games and 120 MB each) straight from Google Drive through `xz` without writing them to disk (a dropped connection only cuts that file short; the games read so far still count), downloads each Floodgate year in `--floodgate` to `.cache/stats/` (7z needs a seekable file; downloads resume after a dropped connection) and streams it through `bsdtar` without unpacking it, replays the first `--ply` (30) moves of every game that starts from the normal position and has a result, and counts each (position, move) with sente wins, gote wins and draws. Positions seen in at least `--min` games are kept with up to `--moves` (10) moves each, the YaneuraOu new_petabook best move and eval are merged in, and the result is written as 256 JSON shards keyed by a hash of the position (`src/utils/stats.ts` has the same hash). Archives are deleted after aggregation unless `--keep` is passed; a Floodgate year needs about 350 MB of free disk while it is processed. The YaneuraOu book (76 MB) is fetched the same way. To scale up, add years (`--floodgate 2023,2024,2025`) and files (`--aoba 20`), and raise `--min` to keep the output small.
 
@@ -132,7 +144,9 @@ Each course records its source in its `source` field.
 
 ## Sources and licenses
 
-This app is GPL-3.0-or-later.
+App-authored code is GPL-3.0-or-later. Bioshogi-derived formation rules and their adapter are AGPL-3.0; the combined distribution retains the corresponding-source obligations of AGPL section 13. Settings → About links the public source repository. The upstream license and adaptation notice are in `vendor/bioshogi/`.
+
+The evaluated opening subset in `public/books/peta233-v1/` comes from YaneuraOu's MIT-licensed Peta 233 release; its source, extraction scope and release filename are recorded in `manifest.json` and `LICENSE`.
 
 | Part                                                                           | Source                                                                                                                                                                                                                                                                                                                                                                                                 | License                                                                                                            |
 | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |

@@ -1,0 +1,424 @@
+{
+  "source": "https://github.com/yaneurao/YaneuraOu/releases/tag/new_petabook233",
+  "archive": "new_petabook_20250505c.7z",
+  "license": "MIT",
+  "filename": "user_book1.db",
+  "size": 493157464,
+  "compressedSize": 98988484,
+  "sha256": "6d0d91dabb7dc55bbedc4c23dc27d7f0a04a677bc4d92061f086ebb9e7d7bb46",
+  "chunks": [
+    {
+      "file": "000.db.gz",
+      "size": 8388608,
+      "compressedSize": 2014702,
+      "rawSha256": "2c7ba5970c0868aa5c608e9dd15a48f46326296d132d8c71306a688bcd0eb19f",
+      "sha256": "d17265cc8b908d318321487160532de34c78f069a2491e91c420d596eed11775"
+    },
+    {
+      "file": "001.db.gz",
+      "size": 8388608,
+      "compressedSize": 1926564,
+      "rawSha256": "ebb75b15f540b8375474789fc5aa361c4df007baedaabba65efc403f1ff1d80f",
+      "sha256": "2da3305ce58f7cdd88e72103a89060a47eea00b0873c20b91e8a9dc1ea44e589"
+    },
+    {
+      "file": "002.db.gz",
+      "size": 8388608,
+      "compressedSize": 1996747,
+      "rawSha256": "7be527b5a53f1641d81aaa1c38fb977ba253a2805a7b06065af907af2076616b",
+      "sha256": "8419db1320c9c9299ad34369d2cdd79c11adfc015157a9bd7476d839b3e06d3d"
+    },
+    {
+      "file": "003.db.gz",
+      "size": 8388608,
+      "compressedSize": 1993623,
+      "rawSha256": "64852410260b232df46b594b14e69f5e9fc2d3885f446c1c9458909ea49d1f95",
+      "sha256": "c5049c478c940c07cad52b6a6731408b5bd90e7056ee43b8212471e495bf3c19"
+    },
+    {
+      "file": "004.db.gz",
+      "size": 8388608,
+      "compressedSize": 1997363,
+      "rawSha256": "81d974a06fad808174d5e7b0d66c7a7759e1a745b87b9adfe318a2aaa24ea6fe",
+      "sha256": "e74d4cac8086a93e82254f8889b8d79234fce5878272f078a4492d77fd89431f"
+    },
+    {
+      "file": "005.db.gz",
+      "size": 8388608,
+      "compressedSize": 1756881,
+      "rawSha256": "636e6b43aa46b256e140eb1c74696d784f561d3e4dac4a1f74434f736e937727",
+      "sha256": "da8e4feabc9237e9b5204fb8f9bc80b3031aa206bfa370359a6800a750fe7a2e"
+    },
+    {
+      "file": "006.db.gz",
+      "size": 8388608,
+      "compressedSize": 1755306,
+      "rawSha256": "29696b9e58699d3a394a75b464211ad309f55971cf2c71eb6bd50415eb4b0911",
+      "sha256": "5acda91a375fc724fc24d687bb9b65f974ebaf396bcb87824fdacbcc4b01e1fd"
+    },
+    {
+      "file": "007.db.gz",
+      "size": 8388608,
+      "compressedSize": 1550429,
+      "rawSha256": "849f5c2e42490d40bd86103ca510175de33266d199c4af844c94017061683307",
+      "sha256": "784b18d07bfa69294d287b60b0be73c5a5b1f4eba201d7ef443bd2eed7ab6d99"
+    },
+    {
+      "file": "008.db.gz",
+      "size": 8388608,
+      "compressedSize": 1666367,
+      "rawSha256": "b92989b1e0ac210e3bdbeaeeaab0917e885335838f63285f8c74ad27d62e847e",
+      "sha256": "86323a3e023e9ebf74de20ebd54efb9654526dac37b426fbbfbfb08d52288265"
+    },
+    {
+      "file": "009.db.gz",
+      "size": 8388608,
+      "compressedSize": 1678983,
+      "rawSha256": "4dfd1ad7e428fe95f969c75b0f87c2b5f1bd5420aea525f6e3e1de2e2c028934",
+      "sha256": "1f13122cec1ecfe37b01825d2c70d987cd347859779c2c238257a990e78d866a"
+    },
+    {
+      "file": "010.db.gz",
+      "size": 8388608,
+      "compressedSize": 1796973,
+      "rawSha256": "9f286efc7e829d78bb8599d98e5e4e0c49636ffcad9ffa7c175a6cb4f3dd43b1",
+      "sha256": "4df07edd239aa64a47e0b0df31a5c6a3aefd1862ad0c482409c75c7147c47c44"
+    },
+    {
+      "file": "011.db.gz",
+      "size": 8388608,
+      "compressedSize": 1679672,
+      "rawSha256": "c367818f522115ef76b3d979224853149bd9cdfcd53be26e542f4de991f4613e",
+      "sha256": "113873f9a507369f61137b4c1f4e23cd2074e8924edae89ae25696d6134fe93d"
+    },
+    {
+      "file": "012.db.gz",
+      "size": 8388608,
+      "compressedSize": 1700886,
+      "rawSha256": "9e80fce95a3a53402e302618deecacc603ed3476bf40560b95d590640482b073",
+      "sha256": "e6e3a1b3fc3520fa116df9058e71ccf1ed7bc40c82ac371befe83ed8339dac4c"
+    },
+    {
+      "file": "013.db.gz",
+      "size": 8388608,
+      "compressedSize": 1751626,
+      "rawSha256": "651280b8dcf63ba4fa60a62f807cac7b4dfa083c1c8d9fc5d91820bce861d8ac",
+      "sha256": "e8a0e25c3e48e27124fbd0526fe9e73cbe595ef3ba55b7fecd0cab222f7fc15c"
+    },
+    {
+      "file": "014.db.gz",
+      "size": 8388608,
+      "compressedSize": 1658563,
+      "rawSha256": "e5bde5abc0ccaba07325e717271f70f7cbe09c50e375778b9e6f59bf35e94bbf",
+      "sha256": "33e5a80f73c8f5ef50460c5c803e7085a3b57fe17006be29c7eb008044da116b"
+    },
+    {
+      "file": "015.db.gz",
+      "size": 8388608,
+      "compressedSize": 1752929,
+      "rawSha256": "1ee550bf2f79c11392b23f8891cf5c79b1b5d5375230db0e3f3c3d01c5b18586",
+      "sha256": "8cade44d347622a1bcbd0961f6286622df6670c836ca3978e1bc23960db2ad93"
+    },
+    {
+      "file": "016.db.gz",
+      "size": 8388608,
+      "compressedSize": 1753953,
+      "rawSha256": "ba47ebf4c63f6f20f8b62fa04c7fdc501aa030bd04ec8da1a1ced545e5c099fa",
+      "sha256": "215a96537069e5d84671a067b8702987320401bd38107cfc3883c6b4b3dd229f"
+    },
+    {
+      "file": "017.db.gz",
+      "size": 8388608,
+      "compressedSize": 1755074,
+      "rawSha256": "f5b887621ff10dee5dae8ec4f531a906c453dc75e905f5681dcf2f0c7f39a7ca",
+      "sha256": "ad630403524d356ffc812e51a5f90c6a36a915900f9d816a974966b2377d9d77"
+    },
+    {
+      "file": "018.db.gz",
+      "size": 8388608,
+      "compressedSize": 1635926,
+      "rawSha256": "753650777cfb6c8f1c34a4e0a05f9fdc94da92226df7204b6d84659f0e347d0e",
+      "sha256": "f8666690d88e1e88844fa19a20046a1d242bc649d97e1aa89a833124193a3b41"
+    },
+    {
+      "file": "019.db.gz",
+      "size": 8388608,
+      "compressedSize": 1607684,
+      "rawSha256": "12af5e557d7aa0fd9ce73f9f43bc858dda445f0da334c2a47ed072f632abca9f",
+      "sha256": "a617ef21846743e6f557838a52e7f673d1439809609d3f64be19923a6a2be962"
+    },
+    {
+      "file": "020.db.gz",
+      "size": 8388608,
+      "compressedSize": 1672159,
+      "rawSha256": "e87b3ed594ed27b5c239586e14035cb6107b900452f21b836a36e6d127cbc836",
+      "sha256": "693c3010cf8d4ef8ac5b8c41caf7bfe97eef9494835a9b3cb1c6f12a390deb0c"
+    },
+    {
+      "file": "021.db.gz",
+      "size": 8388608,
+      "compressedSize": 1661919,
+      "rawSha256": "514c0f3a6f6fc0842ab36a078765bcd56235bd255eb0ea54857142b4f7172204",
+      "sha256": "44f573e2e86b46691e59926c0d44afa50dca5de25ecd4cc81dbc6de5205d5df0"
+    },
+    {
+      "file": "022.db.gz",
+      "size": 8388608,
+      "compressedSize": 1820093,
+      "rawSha256": "43960f5070343e028354536585eb557497df2ab9175c9791843eb65efc21bdea",
+      "sha256": "075a298fd0a1239b5c4d6f0dd3afadd2442125d4a84cae6d6c6db0c538b647f3"
+    },
+    {
+      "file": "023.db.gz",
+      "size": 8388608,
+      "compressedSize": 1901582,
+      "rawSha256": "20d321145f433048b2a3982abcce2eb0163c3b1564b53d55255b998f081dcabf",
+      "sha256": "96e5ff3ceb0896e4218b099948eabe179539b8c04b267a28fedda305f2516318"
+    },
+    {
+      "file": "024.db.gz",
+      "size": 8388608,
+      "compressedSize": 1955185,
+      "rawSha256": "37f43a4a41e415b7807653c414bc4fd5ea0c51c8af4fb42a39ec67922a51c38c",
+      "sha256": "e845f1910b9a05221946f7e78a0e69db908527bbcfa784c6abc5ca370600a974"
+    },
+    {
+      "file": "025.db.gz",
+      "size": 8388608,
+      "compressedSize": 1485957,
+      "rawSha256": "0350b785e4c0d54c5d5af83b03440a64674e706d582d57ba08960c6a2b3b116f",
+      "sha256": "c3e4a9872bd8970534d662649e43b6262756bd1545d81a818bcc8818e828fdce"
+    },
+    {
+      "file": "026.db.gz",
+      "size": 8388608,
+      "compressedSize": 1589881,
+      "rawSha256": "f8eb612daf54c20c0e4f0c2f45566233720b12f3a08663378f0dd36984cfc667",
+      "sha256": "324ff469dbe1e90d0e340465cfa3c60ce2a171c30e92c74144a202776e4a5d8e"
+    },
+    {
+      "file": "027.db.gz",
+      "size": 8388608,
+      "compressedSize": 1548686,
+      "rawSha256": "8841537f0843c70a78757c4f45b62735aa3455da362f04ffb1a2a26080eb7694",
+      "sha256": "2dd11ec39d1a4cb76886f83651c9975db30952613411af40094da1b4b4aa71b7"
+    },
+    {
+      "file": "028.db.gz",
+      "size": 8388608,
+      "compressedSize": 1493842,
+      "rawSha256": "8f15d29a63e46d594029ccdf3fb9669d7e43f77d68baf894b144db9254378a4b",
+      "sha256": "bfe3bd4b6675ffc576c2f9e869717dc41966d756ecff9163918105c329d150d5"
+    },
+    {
+      "file": "029.db.gz",
+      "size": 8388608,
+      "compressedSize": 1754592,
+      "rawSha256": "560e633993b3772be9ea03e5816985936bc0846ab45ef5bf7cb5e00d53b967cf",
+      "sha256": "f0651e258f742b94341ed608c4189b0d9a1e59cf635a5ddfc0ad0b8e9d8fc95c"
+    },
+    {
+      "file": "030.db.gz",
+      "size": 8388608,
+      "compressedSize": 1356812,
+      "rawSha256": "fbf034b249d6eb4981217c5be6cba48025969058e0aedcf741b3daa908ea8adb",
+      "sha256": "d712ce4fe0412ae5aeff7c7ed62f64b689b6bd4827ad6917035b0f6810b1eaa6"
+    },
+    {
+      "file": "031.db.gz",
+      "size": 8388608,
+      "compressedSize": 1419497,
+      "rawSha256": "4b81bf0051195010472cb5188ebcfa653eadaf30cd2f3c99857eab3ca082225a",
+      "sha256": "c2270d894a52b52ddac427157fecc9ca798f2ac1d7da7ce77fb3b61bb88aa090"
+    },
+    {
+      "file": "032.db.gz",
+      "size": 8388608,
+      "compressedSize": 1525437,
+      "rawSha256": "9681771740ef4bc7ca552dd172814209e80928232d85bdd1aade7bdf0668fa8b",
+      "sha256": "d7e0dd59d8cf3fe8ba6aca4d6f0716845d8bcb9bbdae860bc5dd5bbdf837d0b8"
+    },
+    {
+      "file": "033.db.gz",
+      "size": 8388608,
+      "compressedSize": 1591354,
+      "rawSha256": "841dc74a5a551d86fadbbe1202f891c23ef2bd3568c5385b9e6ba142decf7c62",
+      "sha256": "f4e1e5cf42cfdf7e0f0bf21dac7c5c19f15af69f26648338d70cd9c327cced7f"
+    },
+    {
+      "file": "034.db.gz",
+      "size": 8388608,
+      "compressedSize": 1517901,
+      "rawSha256": "bf9f7ee8096370cff6a106bd146028656684a8f1afad444fa9c7e6ad445ce94a",
+      "sha256": "2e4d6008d89851504c64392d8ccb7d5d76681cd16f0d0c26699cbdb3e813352c"
+    },
+    {
+      "file": "035.db.gz",
+      "size": 8388608,
+      "compressedSize": 1627633,
+      "rawSha256": "c24fa745c3d54a74f7dffce3aac70e3c7fd8dda34cfdb5419f37d398df94c19e",
+      "sha256": "27341acb7085a11830809bf230158cf9fc20e64a03635f34380e21ac767d7bf7"
+    },
+    {
+      "file": "036.db.gz",
+      "size": 8388608,
+      "compressedSize": 1645607,
+      "rawSha256": "acf6edd1a5aaf68ecf7b2498208bf4c1561992773f169228975d575b596fe19d",
+      "sha256": "535522212a3b516d09448e7e1f09bdc2d6b5b02f2c1fdfbc29ae53a1933a8817"
+    },
+    {
+      "file": "037.db.gz",
+      "size": 8388608,
+      "compressedSize": 1529826,
+      "rawSha256": "7223da8d6fa1d7eaade6e8463e028ee6432f400e6a338f4d3ddb99fd6de1f61e",
+      "sha256": "6d7d588ebc3f021774b23e609a6961589d99a6e28682582b5d7c3d25ccb7f611"
+    },
+    {
+      "file": "038.db.gz",
+      "size": 8388608,
+      "compressedSize": 1708254,
+      "rawSha256": "01a1d064cc514b6ce303c82813733e7599950f6d43db20ba8fad88686fc6bd40",
+      "sha256": "8fab6900b5b06d183e561228f57cafe315d545350ae29de3b1de5d743f3869c6"
+    },
+    {
+      "file": "039.db.gz",
+      "size": 8388608,
+      "compressedSize": 1736805,
+      "rawSha256": "010c8d486b027f51414067737730160ed4c36deac625dd395f92e81801612457",
+      "sha256": "4580730b72d557229fa33e9658cd2923b0a2425a2ed4e58074583ca92f453552"
+    },
+    {
+      "file": "040.db.gz",
+      "size": 8388608,
+      "compressedSize": 1632216,
+      "rawSha256": "918491064bbaf54d0000f3d6cb52c472eba331600f20b35c07a9feb8693db291",
+      "sha256": "ddedd85666e55da91f664f90c3b774f85b6813fbfa1a9070126a09739bf4538b"
+    },
+    {
+      "file": "041.db.gz",
+      "size": 8388608,
+      "compressedSize": 1668274,
+      "rawSha256": "3793d883449b9aca7fb2aba8bdd18cce9116ba0e5dc49501dd09516044834f6c",
+      "sha256": "8e15e875f112b172e062b37ed0fbf2bb044b6b7ee0cbbad56744510446a2ec85"
+    },
+    {
+      "file": "042.db.gz",
+      "size": 8388608,
+      "compressedSize": 1915414,
+      "rawSha256": "d541c8891ab97d52806581f0bb0599fdcbb7c885bacbbbd48fab0d24c6b47b10",
+      "sha256": "8b597bbc8b35c7f527dad33d12aa755f1987d2887fbdad25eef7bcc2515311d1"
+    },
+    {
+      "file": "043.db.gz",
+      "size": 8388608,
+      "compressedSize": 1603754,
+      "rawSha256": "5272d2f7adcd72de8c5c4a71a258ff35414a8c86c396018770fc0d52881a7279",
+      "sha256": "5ae0285f7f5a6d7adac1593e694d48ca6b0cbacbc1522c9853d6f8dd7afaf7f4"
+    },
+    {
+      "file": "044.db.gz",
+      "size": 8388608,
+      "compressedSize": 1443939,
+      "rawSha256": "b79bc738c5a782cf0b1af78ba7e90da753a9c3d213a914ded04f4a561d3b989e",
+      "sha256": "94675b8f97321435e376dfa167fafa22c4d73a6b3218920b61c68868282fe198"
+    },
+    {
+      "file": "045.db.gz",
+      "size": 8388608,
+      "compressedSize": 1335914,
+      "rawSha256": "25c70af75e3fd504206df09e7269fd84305012bb05527edbf99f82240e9d466b",
+      "sha256": "bfa7a4541db281ef27c932006bcba5f2d586d61d95385db5da9b71f45606a464"
+    },
+    {
+      "file": "046.db.gz",
+      "size": 8388608,
+      "compressedSize": 1582548,
+      "rawSha256": "8d09f471e8c46bac7905dfd790cc2d50291be78ab8148313af6ff55c28139270",
+      "sha256": "506b1433951d9a65fb9e914fb7cbe2e64298437dd00bab5697898a1d381b8354"
+    },
+    {
+      "file": "047.db.gz",
+      "size": 8388608,
+      "compressedSize": 1614437,
+      "rawSha256": "573b1d9175e787ce4e943be56568babf00e91afed3fa90567e051a11ffdf6ff9",
+      "sha256": "df4e159dbe9506d7bd180468c2e86085d1d9b571e6e881d429d942b0f2db1f1d"
+    },
+    {
+      "file": "048.db.gz",
+      "size": 8388608,
+      "compressedSize": 1670700,
+      "rawSha256": "0a75b1abb4a690aca3798ea44760857832ab31be70d6682118e310facbc5cf42",
+      "sha256": "d38ddfd00cee160de0fac6871ec600e176cfae36bbb061f70e7daef22c250519"
+    },
+    {
+      "file": "049.db.gz",
+      "size": 8388608,
+      "compressedSize": 1754496,
+      "rawSha256": "0a5b54a0f23034176372352d646894b891a80aa8f0918a08ba6f6589ef5dcd5b",
+      "sha256": "3005b3c556cdeb9a326a3fbde16195c0d3ae5c018bb58cfe91601e75ad4a4e57"
+    },
+    {
+      "file": "050.db.gz",
+      "size": 8388608,
+      "compressedSize": 1632884,
+      "rawSha256": "98d01193c43e9c7f835dcda38ee07cf38c5de72dbceca514f742a68f641821ac",
+      "sha256": "aa50bf1670a1cfe390bc4ba86ee851e2e4786fabb62d06001a9515a8fa65b8b3"
+    },
+    {
+      "file": "051.db.gz",
+      "size": 8388608,
+      "compressedSize": 1582756,
+      "rawSha256": "17b2428a3e7bee8caadcf3d8185b549cd10f11d7d4a9fdbaefdba164240f3be7",
+      "sha256": "e2faae3c1313ad710f8352397404487faedf9582e710710be8fc0faaf27f2b60"
+    },
+    {
+      "file": "052.db.gz",
+      "size": 8388608,
+      "compressedSize": 1571524,
+      "rawSha256": "4a997bb51ea7e0f0d8b66b4a7b31bce82cfdf07a06e342bdfd82120e0cd35ab3",
+      "sha256": "462e39175d757424aff860c882aecf1bbb8d6ee43a5f5b0a44bf5893054efb4c"
+    },
+    {
+      "file": "053.db.gz",
+      "size": 8388608,
+      "compressedSize": 1617429,
+      "rawSha256": "53390af8737c8c547fc8a80fa6c8b497d336986a8854ab7ba3a3b40d0227e86a",
+      "sha256": "d48e8fcaeffbbde7e694ddce7bae6947901ee00fc16fc2373ed6fa702fbf7c52"
+    },
+    {
+      "file": "054.db.gz",
+      "size": 8388608,
+      "compressedSize": 1586237,
+      "rawSha256": "c474959b23d95d3df930aa07306e31bbb4cceabe2ff3a1457b1081d39d08de07",
+      "sha256": "169baf0cf6655f3aa89c956a33147317dc44caddb8452a09753abfaccdc15850"
+    },
+    {
+      "file": "055.db.gz",
+      "size": 8388608,
+      "compressedSize": 1728227,
+      "rawSha256": "e24050c6f3384c8e24b75e45d803496c01f82abf2a26b759151fb99682036003",
+      "sha256": "f5c4e1f763561a2d9f9a95af6c1b856ed33c03b34fcb1af2818fd660392aef98"
+    },
+    {
+      "file": "056.db.gz",
+      "size": 8388608,
+      "compressedSize": 1823100,
+      "rawSha256": "4d4914fa1f4475749dccc52e605eae8f6d43246ab2122a4311341ef4046b9ff5",
+      "sha256": "4a74bbaa5fc5683737f7e2228bd7b37934106c28dfab5f0aa8b9a40dafc2b022"
+    },
+    {
+      "file": "057.db.gz",
+      "size": 8388608,
+      "compressedSize": 1775308,
+      "rawSha256": "372b08cfe2557a7328cf2b6b58e10895bad7626edee0e71fc18d4dfbf9dbd337",
+      "sha256": "1d45a024a1ac11616c6be021848c72624cd8169e2116325f900bb10db525ede4"
+    },
+    {
+      "file": "058.db.gz",
+      "size": 6618200,
+      "compressedSize": 1476054,
+      "rawSha256": "d91521b9e2cb520a7193c26dbbba0a56bd3c232bfeedd765f26c89c1e891f842",
+      "sha256": "d06b3645919eb61917fa65dea44049fbe7e3c592652033af7afed514e5c821b4"
+    }
+  ]
+}

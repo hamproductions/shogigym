@@ -112,6 +112,8 @@
     "aiStrategy": "AIの戦法",
     "whatTheAiPlaysAgainst": "AIが指す戦法。定跡がある間はそれに従い、その後は自分で考えます。",
     "anyStrategy": "戦法おまかせ",
+    "randomStrategy": "ランダムな戦法",
+    "noStrategy": "戦法なし・エンジンに任せる",
     "check": "王手",
     "evaluation": "形勢",
     "winChance": "勝率: ☗ {{value}}% / ☖ {{value2}}%",
@@ -633,6 +635,8 @@
     "castleFromWhereTheKing": "囲い（玉・金・銀の位置から判定）"
   },
   "rail": {
+    "install": "アプリを追加",
+    "installHelp": "iPhone・iPadでは共有メニューから「ホーム画面に追加」を選びます。パソコンではブラウザーの「アプリをインストール」または「Dockに追加」を選んでください。表示されない場合はSafari、Chrome、Edgeでこのページを開いてください。",
     "settings": "設定",
     "control": "利",
     "more": "その他",
@@ -790,7 +794,17 @@
     "simpleKanji": "シンプル漢字",
     "hitomoji": "一文字",
     "pixel": "ドット文字",
-    "language": "言語"
+    "language": "言語",
+    "cacheBook": "定跡の端末保存",
+    "downloadFullBook": "完全版ペタ定跡を保存・通信99MB／保存493MB",
+    "clearBookCache": "ダウンロードの保存を削除",
+    "openingBook": "定跡ファイル",
+    "compactBook": "ペタ定跡の序盤抜粋・使用時に自動保存",
+    "loadingBook": "定跡を保存中…",
+    "importBook": ".dbを読み込む",
+    "removeBook": "読み込んだ定跡を削除",
+    "invalidBook": "やねうら王形式の.db定跡を選んでください。.7zは先に解凍してください。",
+    "bookHint": "対局・観戦では選択した戦法を優先し、評価値付きペタ定跡を利用します。「戦法なし」と検討ではエンジンが探索します。追加した定跡はこの端末に保存し、必要時のみエンジンへ読み込みます。完全版ペタ定跡は約470MBとエンジン用のメモリが必要です。タブレットでは標準の序盤抜粋を推奨します。"
   },
   "tabs": {
     "coach": "指導",

@@ -1,8 +1,9 @@
 import { bookLookup } from './kifu'
 import { strategiesAt } from './catalog'
-import { LEGACY_AI_STRATEGY } from '@/data/strategies'
+import { LEGACY_AI_STRATEGY, STRATEGIES } from '@/data/strategies'
 import { COURSES, SETUPS, type Course, type JosekiMove, type JosekiNode } from './model'
 import type { Side } from './shogi'
+import { openingMoves } from './openingBook'
 
 export type CourseNodes = Map<string, JosekiNode>
 export type BookMove = { usi: string; note?: string; kind: string }
@@ -38,12 +39,38 @@ export const strategyCourses = (strategyId: string, side: Side) => {
   return COURSES.filter((c) => strategiesAt(c.baseId, side).includes(id) && !seen.has(c.baseId) && !!seen.add(c.baseId))
 }
 
+export function resolveAiStrategy(id: string, side: Side) {
+  if (id !== 'random') return aiStrategyId(id)
+  const options = STRATEGIES.filter((strategy) => strategyCourses(strategy.id, side).length > 0)
+  return options[Math.floor(Math.random() * options.length)]?.id ?? ''
+}
+
 export function strategyMove(strategyId: string, side: Side, sfen: string) {
   const options = strategyCourses(strategyId, side).flatMap((c) => {
     const pick = mainBranch(courseNodes(c).get(strip(sfen)))
     return pick ? [pick] : []
   })
   return options[Math.floor(Math.random() * options.length)]
+}
+
+export async function strategyReply(strategyId: string, side: Side, sfen: string, ply: number) {
+  if (!strategyId || ply >= 48) return undefined
+  const courses = strategyCourses(strategyId, side)
+  const allowed = courses.flatMap((course) => goodBranches(courseNodes(course).get(strip(sfen))))
+  let evaluated: Awaited<ReturnType<typeof openingMoves>> = []
+  try {
+    evaluated = await openingMoves(sfen)
+  } catch (error) {
+    console.warn('opening book unavailable; using engine fallback', error)
+  }
+  const matching = allowed.length ? evaluated.filter((move) => allowed.some((branch) => branch.usi === move.usi)) : evaluated
+  if (matching.length) {
+    const best = Math.max(...matching.map((move) => move.score))
+    const pool = matching.filter((move) => move.score === best)
+    const pick = pool[Math.floor(Math.random() * pool.length)]
+    return { usi: pick.usi, note: allowed.find((branch) => branch.usi === pick.usi)?.note }
+  }
+  return strategyMove(strategyId, side, sfen)
 }
 
 function neutralNote(note: string | undefined, course: Course) {

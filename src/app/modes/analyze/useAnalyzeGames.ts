@@ -50,7 +50,7 @@ export function useAnalyzeGames(
     if (bad >= 0) return t('app.moveIsNotLegalIn', { value: bad + 1, value2: parsed.moves[bad] })
     const run = () => {
       load(parsed.startSfen, 'sente', 'analyze', null)
-      session.setGame({ start: parsed.startSfen, moves: parsed.moves })
+      session.setGame({ start: parsed.startSfen, moves: parsed.moves, detectionPreset: parsed.detectionPreset, detectionResult: parsed.detectionResult })
       session.setCursor(0)
       setGameNotes({ title: parsed.title, comments: parsed.comments ?? [], ending: parsed.ending, moves: parsed.moves.join(' ') })
       setGameTitle(parsed.title || '')
@@ -93,6 +93,8 @@ export function useAnalyzeGames(
       title,
       savedAt: Date.now(),
       start: game.start,
+      detectionPreset: game.detectionPreset,
+      detectionResult: game.detectionResult,
       moves: tree.children.length ? mainLine(tree) : game.moves,
       tree: tree.children.length ? tree : undefined,
       userSide,
@@ -110,6 +112,8 @@ export function useAnalyzeGames(
       title: `${gameTitle || t('app.analysis')} · ${when}`,
       savedAt: Date.now(),
       start: previous.game.start,
+      detectionPreset: previous.game.detectionPreset,
+      detectionResult: previous.game.detectionResult,
       moves: previous.tree?.children.length ? mainLine(previous.tree) : previous.game.moves,
       tree: previous.tree?.children.length ? previous.tree : undefined,
       userSide: previous.userSide,
@@ -121,7 +125,7 @@ export function useAnalyzeGames(
   const openSlot = (g: StoredGame) => {
     const run = () => {
       load(g.start, g.userSide, 'analyze', null)
-      session.setGame({ start: g.start, moves: g.moves })
+      session.setGame({ start: g.start, moves: g.moves, detectionPreset: g.detectionPreset, detectionResult: g.detectionResult })
       if (g.tree) session.setTree(g.tree)
       session.setCursor(g.moves.length)
       setGameTitle(g.title)
@@ -143,6 +147,8 @@ export function useAnalyzeGames(
       title: t('app.vsAiAs', { side: sideMark(userSide), when }),
       savedAt: Date.now(),
       start: game.start,
+      detectionPreset: game.detectionPreset,
+      detectionResult: game.detectionResult,
       moves: game.moves,
       tree: tree.children.length ? tree : undefined,
       userSide,
@@ -155,7 +161,7 @@ export function useAnalyzeGames(
     const run = () => {
       if (!preserveAnalysis()) return
       load(g.start, g.userSide, 'analyze', null)
-      session.setGame({ start: g.start, moves: g.moves })
+      session.setGame({ start: g.start, moves: g.moves, detectionPreset: g.detectionPreset, detectionResult: g.detectionResult })
       if (g.tree) session.setTree(g.tree)
       session.setCursor(0)
       setGameTitle(g.title)

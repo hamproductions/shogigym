@@ -1,78 +1,59 @@
 # Current task
 
 ## Scope and authorization
-- Compact mobile heading to one row: mode/title plus inline move number, move and side-to-move; 32px mode badge removes unused vertical space.
-- Mobile bottom toolbar order: flip, takeback, resign, new game; coach adjacent to panel on right. Increase buttons one size step with minimum 44px height.
-- Restore move number, latest move and side-to-move on the right of mobile heading; keep action controls in bottom toolbar.
-- Scene notes dismiss on tap and automatically after two seconds; restart timeout when note or position changes, clear timeout on replacement/unmount.
-- Mobile scene notes remain absolute overlays inside the scene, above player plates; appearing or changing notes must not resize the scene or shift bottom controls. Supersedes the prior note-row layout.
-- Mobile mode controls move to a bottom toolbar while mode/title remain above scene. Loading fallback initializes translation before rendering. Review strip loses redundant rounded card styling. No push/deploy authorized.
-- Restore persistent mobile header panel toggle; keep it accessible above scene notes. Mobile notes occupy their own row below the scene instead of covering player labels or controls. No push/deploy authorized.
-- Side plates inset 8px inside scene frame; derive offsets from shared stage gutter and eval-bar width, removing old hardcoded outer-wrapper offsets.
-- Header remains a separate box; header-to-content gap and outer content gutters share spacing: 12px desktop, 6px mobile, 4px short landscape. Header/frame left and right edges align.
-- Eval bar and scene share one clipped rounded frame with no internal gutter. Halve horizontal board-container padding across viewport layouts.
-- View mode starts top-down with Look around enabled; do not automatically tilt camera. Manual tilt and previous-mode camera restoration remain available.
-- Portaled rail menus must retain shared app button reset, font and focus styles; remove native gray fills and borders introduced by leaving app-shell scope.
-- Fix tablet navigation clutter and その他 overflow: compact touch navigation, portaled viewport-positioned menus, measure actual horizontal/vertical space. Keep tools inline when they fit; その他 appears only for overflow, including Settings/Hide UI/Table flip when space is insufficient. Preserve mobile rendering quality.
-- Current release authorization: commit remaining changes, bump minor from 1.0.1 to 1.1.0 with release-it, push and deploy Pages; verify workflow outcome and clean tree.
-- Diagram uses shared OverMarks for best-arrow labels and drop recommendations; remove divergent arrow path and duplicate check badge.
-- Play and analysis share the selected engine instance. Show first live recommendation immediately, hold displayed arrows during search, replace on completed quick/deep results; evaluation bar streams every primary-PV score. Never hide recommendations during deeper search.
-- Across every mode, shared 3D move arrows sit flush on board at the existing 0.008 surface-overlay height, with depth testing so pieces occlude them. Preserve readable arrow labels. TypeScript passed; rendered result unverified.
-- Replace ambiguous crossed-tool Play icon with opposing pentagonal shogi tile outlines; preserve all other icons.
-- Escape, right-click and outside-tile click release tile lock only. None exits Look around; remove existing Escape shortcut that disabled Look around. Orbit remains enabled while locked.
-- Touch camera gestures allow rotation and pinch zoom without panning; desktop mouse controls preserved.
-- Tile POV default camera moves back one tile depth and raises clearance to 40% of tile depth; preserve orbit and follow behavior.
-- Preserve and commit current local work to leave a clean working tree.
-- Move recommendations/arrows wait for final analysis; evaluation bar continues using provisional scores.
-- Look around supports right-click or double-click on a tile to follow its POV while retaining orbit controls. Escape or leaving Look around releases lock. Icon source is crossed swords, not shogi pieces.
-- Localize remaining generic settings typeface labels, accessibility descriptions and language label; localized option-group layout must not depend on English text.
-- Impact win overview follows supplied diagonal screenshot: fixed world direction (-1, 1.4, 1), approximately 45-degree elevation/azimuth, framing board/stands with room margin instead of retaining arbitrary camera orientation. Screenshot inspected; render match unverified.
-- Impact-mode win camera: pull back toward board/stand overview, frame real geometry with environment margin, reduce finale dimming so room remains visible. No screenshot captures.
-- Eval bar: publish live primary-PV engine scores during search and display provisional evaluation without waiting for final analysis; cancelled positions must not update UI.
-- Initial loading: shared spinner/bar across app, board and Hands startup; Hands progress reports three completed asset stages. No screenshot captures.
-- Arm collision: constrain IK elbow bend around actual board and stand geometry; keep hand target and limb lengths. No screenshot captures.
-- Reach posture: active elbow bends outward rather than down; hand approach follows shoulder-to-target direction instead of fixed straight-ahead facing. No screenshot captures.
-- Far reach avatar pose: prefer deeper forward hip/back bending while staying seated; reduce knee-rise preference. No further screenshot captures.
-- Hands debug: preserve camera across setting/pattern changes; present animation choices as direct-trigger pads; extend far-reach examples to opposite board edge.
-- Hands debug page: await font, piece-set and guide assets before first rebuild; show loading/error state and reload when set or guide changes.
-- Toolbar: command palette and Control start the bottom block after the mode list; table flip immediately below Look around; bottom order Hide UI, Full screen, Volume, Settings; Reverse in top bar. Apply surgical-patch (SKILL.md read 1–EOF).
-- Clicking during a table flip must reset immediately; tolerate small pointer movement while preserving camera drags.
-- Fix table-flip reset: position changes must restore board and stands immediately, remove thrown clones and reveal retained tiles instead of waiting for physics to settle.
-- Game-end replacement applies to audio only: keep visual 詰み and spoken ありがとうございました. Restored stamp and original font sizing; previously generated reel media still reflects superseded visual text and has not been rerendered.
-- Fix ink disappearing after sustained play; reuse tiles rather than recreating them on every move.
-- When capture changes hand layout, tiles already on the stand must slide and rotate into their new positions instead of jumping.
-- Temporary local dev server authorized for verification; stop owned server/browser afterward.
-- No new tests, device/system changes or delegates authorized.
+- Add localized PWA installation action to existing rail/space-dependent Others overflow. Native install prompt when supported; manual Home Screen/Dock instructions otherwise; hide action in installed app. Minor release and push authorized; use existing release workflow.
+- Finish detector integration using original upstream fixtures, and generate recorded speech for all emitted Bioshogi definitions; missing voice coverage is implementation work, not a completed integration.
+- Correction gate: prior status understated unfinished voice coverage. Detector parity must use upstream assertions; voice coverage must reconcile generated manifest with detector names.
+- Correct latest screenshot regression: captured pieces float beside empty stands and the drop arrow originates from the displaced hand piece; trace responsive stand layout/piece synchronization before editing.
+- Automatically persist compact book shards in IndexedDB when fetched; no separate compact download button. Full Peta remains an optional download with progress, cancellation and recovery.
+- Complete the Bioshogi analyzer port, including custom detection; do not claim the existing declarative adapter is complete.
+- Implement larger evaluated joseki coverage using the supplied Peta 233 release; keep initial loading small.
+- Default AI strategy is random, resolved once per game. Explicit No strategy uses engine search exclusively.
+- Use Bioshogi declarative rules for strategy/castle tagging; suppress formation announcements after opening combat while retaining check and tesuji speech.
+- Preserve the released v1.2.0 UI/camera/audio behavior. Original upstream fixture verification explicitly requested. Minor bump, commit and push authorized. No screenshots, server launches or device/system changes authorized.
+- User-provided source set: akicho8/bioshogi, shogidb2/joseki, shogi-joseki.com/kisyo.html, YaneuraOu new_petabook233 release and fgfan7 2017-02-09 article.
 
 ## Implementation
-- Retain tile objects across moves, promotion, capture and hand layouts; refresh changed visuals only.
-- Dispose retired materials, hand-count textures and temporary promotion/capture materials.
-- Reuse unchanged overlays; dispose replaced geometry/materials and owned textures while preserving shared coordinate textures.
-- Font invalidation clears glyph cache and advances revision so retained tiles refresh after font loading.
-- Existing stand tiles slide and rotate to updated hand layout over 550ms; retain individual mesh identities and preserve ongoing slide targets.
+- scripts/build-opening-book.ts indexes the extracted native Peta file in temporary SQLite, seeds existing lesson positions and traverses stored branches. Generated subset: 24,000 positions, 359,722 evaluated moves, 64 shards, about 7 MB.
+- src/utils/bookPosition.ts shares position normalization, 180-degree position/move rotation and shard hashing between builder and runtime.
+- src/utils/openingBook.ts reads compact shards from IndexedDB before a four-second network request, retains at most eight decoded shards and validates moves. Invalid cached JSON is removed; failed requests remain retryable.
+- Compact shards persist automatically in IndexedDB when fetched; separate compact download button removed. src/utils/bookDownload.ts and EngineSettings offer optional full download, progress and cancel. Full download caches verified compressed chunks in IndexedDB for resume, decompresses with native DecompressionStream, installs a Blob database and removes temporary chunks after successful installation.
+- scripts/build-full-book.mjs packages the entire original Peta database as 59 gzip chunks: 98,988,484 download bytes, 493,157,464 installed bytes. Full assets are optional, same-origin and excluded from the service-worker cache to prevent duplicate retained storage.
+- MovesPane displays history-derived formation/tactical tags. Announcements distinguish techniques from castles and retain the opening-only formation speech gate.
+- src/utils/book.ts ranks strategy-compatible lesson alternatives by Peta evaluation, extends coverage on lesson misses and falls back to the engine when no usable book move exists. Compact-book lookup stops after 48 played plies.
+- Play/View await book selection with cancellation checks; No strategy bypasses book lookup. Engine search cache separates book-enabled playing searches from analysis/search-only results.
+- Settings optionally imports an extracted YaneuraOu .db into IndexedDB; full file loads into the native engine only on book-enabled search. Rotated native searches preserve move history and rotate PV/bestmove back. Removal/restart provides recovery.
+- Shared binaryStore handles eval/book persistence, stores new files as Blobs, supports old stored Uint8Array evaluation files and waits for transaction completion before reporting success.
+- Bioshogi detection now includes shape, custom, motion/history and finalization adapters. Pinned upstream fixture harness is scripts/check-bioshogi.ts; final parity checks remain active. Import/save/load retains declared handicap metadata. Finished-game tags require known outcome.
+- Voice build includes all Bioshogi definition names plus existing phrases. All 573 required phrases have manifest entries and nonempty files; every manifest audio file decoded through ffmpeg successfully. No speaker playback or device audio changes performed.
+- Formation history uses a bounded active-game cache; labels survive later shape changes, outlines require current shape. Announcement opening gate tolerates pawn/bishop exchanges and stops after other captures.
+- README documents behavior, reproduction, imports and licenses. Bioshogi AGPL license/adaptation notice retained in vendor/bioshogi; Peta subset carries MIT notice/source metadata.
+
+## Skills
+- handing-off-pro-max SKILL.md read 1–EOF for requested wrap-up. Canonical record retained as compact continuation authority; no separate expanded documentation requested.
+- look-at-the-screen SKILL.md read 1–EOF; latest supplied screenshot inspected at original resolution. Visible mismatch recorded above; no visual completion claim until matching runtime inspection.
+- get-your-shit-together SKILL.md read 1–EOF. Correction gate: module-owned DOM synchronization and shared singleton handlers were inappropriate for SSR/HMR; synchronization now belongs to a client effect with cleanup, and i18n owns a fresh instance.
+- lean-build SKILL.md read 1–EOF; bounded integration uses existing Play/View, Settings and engine seams.
 
 ## Evidence
-- Impact finale now pulls back around board/stand bounds with FOV/aspect fit and environment margin, reduces dimming, and retains overview through automatic table flip until reset/new position. TypeScript/diff checks passed. Rendered finale remains unverified; no captures taken.
-- Eval bar final-only gate removed. Engine primary-PV updates stream into current-position analysis during quick/deep search, guarded against cancelled positions. TypeScript/diff checks passed; live engine/browser behavior unverified.
-- Shared BoardLoading now renders spinner/progress bar with reduced-motion support. App and Hands route fallbacks use it; Hands gates startup overlay with completed font, glyph/guide, and avatar stages. TypeScript/diff checks passed. Visual startup result unverified; no captures taken.
-- Board/stand meshes now provide world-space collision bounds to arm IK. Solver checks radius-expanded arm segments and searches alternate elbow bend angles when obstructed, retaining wrist target and bone lengths. TypeScript/diff checks passed; visual collision result remains unverified. No captures taken.
-- Active reach elbow pole now favors lateral bend with reduced downward pull; hand orientation follows horizontal shoulder-to-target direction. TypeScript/diff checks passed. Rendered posture remains unverified; no captures taken.
-- Reach planner now allows 76-degree forward lean, checks head clearance above table instead of restricting forward overhang, and raises knee-rise cost from 0.8 to 3. TypeScript/diff checks passed; rendered pose remains unverified.
-- Hands controls now use paired direct-trigger pads. Browser action selection and room change preserved top-down camera; observed loading state during room reload. TypeScript/diff checks passed. Further screenshots stopped at user request; full far-reach playback remains unverified.
-- frontend-design SKILL.md read 1–EOF; HandsTest source and supplied screenshot inspected. Camera pose retained across scene recreation; overlay/cut-away toggles no longer recreate scene. Direct-trigger paired action pads and collapsed bone measurements added; far reach now spans eight ranks.
-- HandsTest cold load with letters/one/lines rendered board and line guides; frame-forward click worked without browser errors. Screenshot inspected; TypeScript and diff checks passed. Asset initialization now awaits font and piece/guide loader, with visible loading/error state.
-- Toolbar rendered order verified in browser: mode list, spacer, palette, Control, Tilt, Look around, table flip, overflow, Hide UI, Full screen, Volume, Settings. Reverse rendered in top bar. Compact toolbar fits 390px; TypeScript/diff checks passed.
-- Actual browser mouse click during active flip restored the board immediately: flip cleared, tiles visible, board reparented to root. Inspected restored rendering; TypeScript and diff checks passed. Click handler now resets directly and accepts up to 5px pointer jitter.
-- Table-flip reset verified in running WebGL renderer using existing reel clock: active flip hid 40 tiles; subsequent position change restored board parent and visibility, removed all 40 thrown clones, retained 40 tiles. Inspected restored board screenshot. TypeScript and diff checks passed.
-- surgical-patch SKILL.md read 1–EOF (16 lines); relevant tile, texture, hand, avatar, overlay and baking sources read fully.
-- Before overlay fix, 100 refreshes added 2000 GPU geometries.
-- After fix, 500 actual WebGL refreshes held geometries at 272 and textures at 322; same 40 tile objects and ink materials retained.
-- Promotion-in-progress refresh and subsequent capture retained all 40 original tiles; animations completed.
-- Inspected .shots/promo/current/ink-stability.png: ink remains visible. Browser errors empty.
-- bun run check and latest TypeScript check passed; existing lint and Node-version warnings remain.
-- Capture in real WebGL renderer shifted three existing stand tiles: initial positions preserved, halfway positions between endpoints, final positions/quaternions matched targets; retained objects and zero remaining animations. Console errors empty and latest TypeScript/diff checks passed.
-- Owned verification browser and dev server stopped.
-- Physical iPad disappearing-ink symptom not reproduced; demonstrated resource leaks and excessive rebuilding addressed. No claim of zero leaks across every path.
+- Executed actual shipped YaneuraOu WASM through Node: native book options available; FlippedBook absent.
+- Native engine loaded an actual subset-derived .db with one thread and 16 MB hash; BookEvalDiff=0 reduced the start-position alternatives to the two tied best moves and returned 7g7f.
+- bun run check passed with lint and current Node-version warnings. No new test files created.
+- localhost:5173 unavailable. Browser UI, IndexedDB import and physical iPad performance remain unverified; no server/browser launched.
+- All 359,722 subset moves passed legality for both original and rotated sides; shard hashing and rotation round trips passed. Largest shard is 173,734 bytes. Bioshogi fixture matched 四間飛車 ply 9, 美濃囲い ply 19, 腰掛け銀 ply 12 and 箱入り娘 ply 26; rewind/replay did not leak or lose future tags.
+- Production build passed before the boot correction. Development SSR i18n import and language changes pass without document; real React Router development requests for /play, /view and /analyze return HTTP 200. Middleware-only Vite harnesses closed cleanly; no listening server or file watcher started.
+- Deferred native import sequence and rotated White history produced an actual book hit after preserving the original White evaluation threshold: 28 stored moves filtered to the two best choices, returning 2g2f in rotated coordinates.
+- Owned Peta archives, expanded native files and SQLite index removed after verification; generated compact/full assets and source/license metadata remain.
+- Full gzip assets independently reconstructed through native DecompressionStream: all compressed hashes, chunk sizes and concatenated original SHA256 match. Browser download/IndexedDB UI remains unverified because localhost:5173 is unavailable and server launches are not authorized.
 
-## Next action
-Mobile layout revision implemented locally: vertical evaluation remains visible with the analysis sheet; duplicate game-mode task/panel prompt removed; player plates overlay the scene; review strip aligns with scene gutters and omits the redundant variation hint; review outline encloses only the scene. Formatting, TypeScript and diff checks passed. Runtime layout remains unverified. No captures or server started. No push/deploy authorized for this revision. Existing local navigation and spacing changes remain uncommitted.
+## State and immediate next action
+- Release scope: all current implementation and PWA install action, from v1.2.0 to v1.3.0 on main. Latest origin/main fetched with zero divergence before release.
+- Renderer fixes: responsive hand relayout cancels obsolete hand targets; capture clone keeps grain; preview bake avoids global live-texture invalidation; promoted face resources prewarm and mesh remains visible during avatar reach. Source/diff and TypeScript verified; browser/iPad visuals unverified.
+- Existing localhost:5173 unavailable; no server launch authorized. No browser runtime claim.
+- Completed local verification: `UV_THREADPOOL_SIZE=2 GOMAXPROCS=2 bun scripts/check-bioshogi.ts` passed 129,482 assertions with zero failures across 535 original fixtures and 535 actual Ruby mirrored outputs. Includes accumulated player tags, exact move annotations, finalization, voice-name coverage and original position equality. Log: /tmp/shogigym-bioshogi-final.log. Mirrored expectations use Ruby output because MagicSquare is color asymmetric; no symmetry exception or skipped fixture.
+- `UV_THREADPOOL_SIZE=2 GOMAXPROCS=2 bun run check` passed lint, Prettier, route type generation and TypeScript; existing lint/Node-version warnings remain. Log: /tmp/shogigym-check.log. `UV_THREADPOOL_SIZE=2 GOMAXPROCS=2 bun run build` passed production compilation and prerender; log: /tmp/shogigym-build-final.log. `git diff --check` passed. Owned foreground checks exited; no listener/browser launched.
+- Production importer verified through closed middleware-only Vite SSR: held-king metadata retained and White-start winner correct. No listening server or watcher retained.
+- Temporary upstream Ruby checkout/dependencies live under ignored external/bioshogi-oracle; original fixtures/oracle/build scripts remain project-owned reproducible artifacts. External checkout excluded from Git/lint/format to avoid processing upstream dependencies.
+- Local implementation wrapped up. Remaining runtime verification: actual UI IndexedDB download/recovery, full 493 MB native engine load, renderer promotion/stand layout on browser/iPad, and audible pronunciation/playback. Requires a usable authorized runtime; current localhost unavailable. Next action when runtime is available: verify Settings full-book download/recovery and Play/View book hits, then promotion/capture portrait layout. Next release action: commit implementation, run capped release:minor, verify pushed refs and clean working tree.
+
+- PWA install action follows existing rail overflow, hides in installed app, opens native prompt or localized browser instructions. Targeted TypeScript, oxlint, Prettier and diff checks passed; actual native browser prompt remains unverified.

@@ -4,6 +4,7 @@ import { Color, type ImmutablePosition } from 'tsshogi'
 import { formationName, formationOf } from '@/utils/formation'
 import type { ClockFace } from '@/app/modes/spar/useGameClock'
 import { Pill } from '@/app/ui/Pill'
+import { useSession } from '@/app/hooks/session'
 
 export function Plate({
   position,
@@ -19,7 +20,8 @@ export function Plate({
   clock?: ClockFace
 }) {
   const { t, i18n } = useTranslation()
-  const { strategy, castle } = formationOf(position, color)
+  const { sfens, game, cursor } = useSession()
+  const { strategy, castle } = formationOf(position, color, { sfens, moves: game.moves, cursor })
   return (
     <div className={`app-plate ${className}`}>
       {clock && (

@@ -35,9 +35,26 @@ for (const { text, say, natural } of PHRASES) {
   const name = `${createHash('sha1').update(text).digest('hex').slice(0, 10)}.webm`
   const wavPath = join(TMP, 'clip.wav')
   writeFileSync(wavPath, wav)
-  const ff = Bun.spawnSync(['ffmpeg', '-y', '-loglevel', 'error', '-i', wavPath, '-ac', '1', '-c:a', 'libopus', '-b:a', '40k', join(OUT, name)])
+  const ff = Bun.spawnSync([
+    'ffmpeg',
+    '-y',
+    '-loglevel',
+    'error',
+    '-i',
+    wavPath,
+    '-ac',
+    '1',
+    '-threads',
+    '1',
+    '-c:a',
+    'libopus',
+    '-b:a',
+    '40k',
+    join(OUT, name),
+  ])
   if (ff.exitCode !== 0) throw new Error(`ffmpeg failed for ${text}: ${ff.stderr}`)
   manifest[text] = name
+  writeFileSync(join(OUT, 'manifest.json'), JSON.stringify(manifest, null, 1) + '\n')
 }
 writeFileSync(join(OUT, 'manifest.json'), JSON.stringify(manifest, null, 1) + '\n')
 rmSync(TMP, { recursive: true, force: true })

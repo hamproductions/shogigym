@@ -8,6 +8,9 @@ import { inBook, strip } from '@/utils/book'
 import { isBad } from '@/utils/mistake'
 import { toSente } from '@/utils/notation'
 import { cachedReview, rememberReview } from '@/app/memory'
+import type { Color } from 'tsshogi'
+import { type DetectionPreset } from '@/utils/formationTags'
+import { formationMoveTags, formationName } from '@/utils/formation'
 import { detectTesuji } from '@/app/tesuji'
 import { countMoves, isMainLine, nodeAt, type Tree } from '@/app/tree'
 import { Button } from '@/app/ui/Button'
@@ -25,15 +28,33 @@ type MovesPaneProps = {
   onDelete?: (path: string[], size: number) => void
   autoRate?: boolean
   empty?: string
+  detectionPreset?: DetectionPreset
+  detectionResult?: DetectionPreset & { winner?: Color; checkmate?: boolean; impasse?: boolean }
 }
 
 const QUIET_LABELS = ['good', 'excellent', 'best']
 
-export function MovesPane({ sfens, moves, cursor, setCursor, title, onScore, tree, onSwitch, onDelete, autoRate, canRate = true, empty }: MovesPaneProps) {
+export function MovesPane({
+  sfens,
+  moves,
+  cursor,
+  setCursor,
+  title,
+  onScore,
+  tree,
+  onSwitch,
+  onDelete,
+  autoRate,
+  canRate = true,
+  empty,
+  detectionResult,
+  detectionPreset,
+}: MovesPaneProps) {
   const { t, i18n } = useTranslation()
   const [, setTick] = useState(0)
   const listRef = useRef<HTMLOListElement>(null)
   const tesujis = useMemo(() => moves.map((usi, i) => (sfens[i] ? detectTesuji(sfens[i], usi) : null)), [moves, sfens])
+  const detectedTags = useMemo(() => formationMoveTags(sfens, moves, detectionPreset, detectionResult).flat(), [moves, sfens, detectionResult, detectionPreset])
   useEffect(() => {
     const row = listRef.current?.querySelector('button.on') ?? listRef.current?.lastElementChild
     row?.scrollIntoView({ block: 'nearest' })
@@ -125,6 +146,13 @@ export function MovesPane({ sfens, moves, cursor, setCursor, title, onScore, tre
               {i18n.language === 'ja' ? tesuji.ja : tesuji.en}
             </span>
           )}
+          {detectedTags
+            .filter((tag) => tag.ply === i + 1 && tag.annotation !== false && tag.name !== tesuji?.ja)
+            .map((tag) => (
+              <span key={`${tag.kind}|${tag.name}`} className="app-move-tesuji" title={tag.name}>
+                {formationName(tag.name, i18n.language)}
+              </span>
+            ))}
           {label && !QUIET_LABELS.includes(label) && (
             <span className="app-move-label" style={{ ['--label' as string]: LABELS[label].color }} title={LABELS[label].text}>
               {LABELS[label].symbol}

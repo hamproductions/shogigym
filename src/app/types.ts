@@ -1,10 +1,11 @@
+import type { DetectionPreset, DetectionResult } from '@/utils/formationTags'
 import type { IconName } from './icons'
 
 export type Mode = 'lesson' | 'drill' | 'tsume' | 'tesuji' | 'spar' | 'view' | 'analyze'
 export type Tab = 'engine' | 'coach' | 'flow' | 'moves'
 export type Level = 'rules' | 'new'
 export type LessonMode = 'study' | 'quiz'
-export type Game = { start: string; moves: string[] }
+export type Game = { start: string; moves: string[]; detectionPreset?: DetectionPreset; detectionResult?: DetectionResult }
 export type Preview = { base: number; moves: string[]; step: number; title: string }
 export type Score = { right: number; wrong: number; shown?: number; retried?: number }
 export type Confirm = { text: string; run: () => void; yes?: string; no?: string }

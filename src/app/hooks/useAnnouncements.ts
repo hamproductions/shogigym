@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Color } from 'tsshogi'
 import { formationName, formationOf } from '@/utils/formation'
+import { formationTagsAt, formationOpeningAt } from '@/utils/formationTags'
 import { hasLegalMove, positionOf } from '@/utils/shogi'
 import { say } from '@/utils/voice'
 import { detectTesuji, type Tesuji } from '@/app/tesuji'
@@ -21,7 +22,7 @@ export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, pos
   useEffect(() => {
     const stepped = cursor === lastCursor.current + 1
     lastCursor.current = cursor
-    if (announced.current.start !== game.start) {
+    if (announced.current.start !== game.start || cursor === 0) {
       const startPosition = positionOf(game.start)
       const seen = new Set<string>()
       for (const color of [Color.BLACK, Color.WHITE]) {
@@ -38,12 +39,20 @@ export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, pos
       setAnnounce({ side: positionOf(sfens[cursor - 1]).color, name: tesuji.ja, kind: t('app.tesuji'), key: Date.now(), tesuji: true })
       setTesujiNote({ ...tesuji, at: cursor })
     }
+    const tags = formationTagsAt(sfens, game.moves, cursor, game.detectionPreset)
+    if (stepped && !tesuji) {
+      const side = positionOf(sfens[cursor - 1]).color
+      const technique = tags[side === Color.BLACK ? 0 : 1].findLast((tag) => tag.kind === 'technique' && tag.ply === cursor)
+      if (technique) {
+        say(technique.name)
+        setAnnounce({ side, name: formationName(technique.name, i18n.language), kind: t('app.tesuji'), key: Date.now(), tesuji: true })
+      }
+    }
+    if (!formationOpeningAt(sfens, game.moves, cursor, game.detectionPreset)) return
     for (const color of [Color.BLACK, Color.WHITE]) {
-      const f = formationOf(position, color)
-      for (const [name, kind] of [
-        [f.strategy, t('app.strategy')],
-        [f.castle, t('app.castle')],
-      ] as const) {
+      for (const tag of tags[color === Color.BLACK ? 0 : 1].filter((tag) => tag.ply === cursor && tag.kind !== 'technique')) {
+        const name = tag.name
+        const kind = t(tag.kind === 'strategy' ? 'app.strategy' : 'app.castle')
         if (!name || QUIET_NAMES.includes(name)) continue
         const id = `${color}|${name}`
         if (announced.current.seen.has(id)) continue
@@ -54,6 +63,6 @@ export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, pos
         return
       }
     }
-  }, [sfen, preview, mode, cursor, game.start, game.moves, sfens, position, t, setAnnounce, setTesujiNote])
+  }, [sfen, preview, mode, cursor, game.start, game.moves, game.detectionPreset, sfens, position, t, i18n.language, setAnnounce, setTesujiNote])
   return { announce, tesujiNote: tesujiNote && tesujiNote.at === cursor ? tesujiNote : null }
 }

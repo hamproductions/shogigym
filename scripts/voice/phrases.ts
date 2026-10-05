@@ -1,3 +1,5 @@
+import formations from '../../src/data/formations.json'
+
 export type Phrase = { text: string; say: string; natural?: boolean }
 
 const named = (pairs: Record<string, string>, tail: string) => Object.entries(pairs).map(([text, kana]) => ({ text, say: `${kana}${tail}` }))
@@ -69,6 +71,7 @@ const COUNT = ['いち', 'に', 'さん', 'し', 'ご', 'ろく', 'しち', 'は
 export const PHRASES: Phrase[] = [
   ...named(FORMATIONS, ''),
   ...named(TESUJI, ''),
+  ...formations.definitions.filter(({ name }) => !FORMATIONS[name] && !TESUJI[name]).map(({ name }) => ({ text: name, say: name, natural: true })),
   { text: 'あなたの振り歩先です', say: 'あなたのふりふせんです' },
   { text: '振り駒を行います', say: 'ふりごまをおこないます', natural: true },
   ...Array.from({ length: 6 }, (_, n) => ({

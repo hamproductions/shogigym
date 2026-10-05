@@ -441,8 +441,8 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
       const flip = move.flip ?? null
       if (flip) {
         flip.position.copy(move.from)
+        flip.visible = false
         root.add(flip)
-        move.mesh.visible = false
       }
       action.steps.push({
         mesh: move.mesh,

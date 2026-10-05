@@ -1,10 +1,32 @@
-import { Move, Record, RecordFormatType, RecordMetadataKey, detectRecordFormat, exportKIF, importCSA, importJKFString, importKI2, importKIF } from 'tsshogi'
+import {
+  Color,
+  SpecialMoveType,
+  Move,
+  Record,
+  RecordFormatType,
+  RecordMetadataKey,
+  detectRecordFormat,
+  exportKIF,
+  importCSA,
+  importJKFString,
+  importKI2,
+  importKIF,
+} from 'tsshogi'
 import { COURSES, type Course, type JosekiNode } from './model'
 import { applyUsi } from './shogi'
+import type { DetectionPreset, DetectionResult } from './formationTags'
 
 const START = 'lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1'
 
-export type Game = { title: string; startSfen: string; moves: string[]; comments?: string[]; ending?: string }
+export type Game = {
+  title: string
+  startSfen: string
+  moves: string[]
+  comments?: string[]
+  ending?: string
+  detectionPreset?: DetectionPreset
+  detectionResult?: DetectionResult
+}
 
 export function decodeKifuFile(buffer: ArrayBuffer): string {
   const utf8 = new TextDecoder('utf-8', { fatal: false }).decode(buffer)
@@ -69,7 +91,45 @@ export function parseGame(text: string): Game | Error {
   const comments = record.moves.slice(0, moves.length + 1).map((node) => node.comment.trim())
   const last = record.moves[record.moves.length - 1]
   const ending = last && !(last.move instanceof Move) && last.ply > 0 ? `${last.ply % 2 === 1 ? '☗ Sente' : '☖ Gote'}: ${last.displayText}` : undefined
+  const preset = /^手合割[：:]\s*(\S+)/m.exec(data)?.[1]
+  const generalPresets = ['平手', '香落ち', '右香落ち', '角落ち', '飛車落ち', '飛香落ち', '二枚落ち', '二枚持ち', '三枚落ち', '四枚落ち', '六枚落ち']
+  let detectionPreset: DetectionPreset | undefined =
+    preset && generalPresets.includes(preset) ? { hirateLike: ['平手', '香落ち', '右香落ち'].includes(preset), generalPreset: true } : undefined
+  const count = (value: string) => {
+    if (!value) return 1
+    if (/^\d+$/.test(value)) return Number(value)
+    const digits = '〇一二三四五六七八九'
+    if (value.includes('十')) {
+      const [tens, units] = value.split('十')
+      return (tens ? digits.indexOf(tens) : 1) * 10 + (units ? digits.indexOf(units) : 0)
+    }
+    return digits.indexOf(value)
+  }
+  const rawHand = /\bsfen\s+\S+\s+[bw]\s+(\S+)/.exec(data)?.[1] ?? (format === RecordFormatType.SFEN ? data.split(/\s+/)[2] : undefined)
+  const kingHands = [0, 0] as [number, number]
+  for (const [index, owner] of ['先手', '後手'].entries()) {
+    const held = new RegExp(`^${owner}の持駒[：:]([^\\n]+)`, 'm').exec(data)?.[1]
+    const king = held?.match(/[玉王]([〇一二三四五六七八九十\d]*)/)
+    kingHands[index] = king
+      ? count(king[1])
+      : Number(new RegExp(`(\\d*)${index === 0 ? 'K' : 'k'}`).exec(rawHand ?? '')?.[1] || (rawHand?.includes(index === 0 ? 'K' : 'k') ? 1 : 0))
+  }
+  if (kingHands.some(Boolean)) detectionPreset = { ...detectionPreset, kingHands }
+  const type = last && !(last.move instanceof Move) ? last.move.type : undefined
+  const actor = moves.length % 2 ? (record.initialPosition.color === Color.BLACK ? Color.WHITE : Color.BLACK) : record.initialPosition.color
+  const loses = [SpecialMoveType.RESIGN, SpecialMoveType.MATE, SpecialMoveType.TIMEOUT, SpecialMoveType.FOUL_LOSE, SpecialMoveType.LOSE_BY_DEFAULT].some(
+    (value) => value === type,
+  )
+  const wins = [SpecialMoveType.FOUL_WIN, SpecialMoveType.WIN_BY_DEFAULT].some((value) => value === type)
+  const detectionResult: DetectionResult | undefined =
+    loses || wins
+      ? { winner: loses ? (actor === Color.BLACK ? Color.WHITE : Color.BLACK) : actor, checkmate: type === SpecialMoveType.MATE }
+      : type === SpecialMoveType.IMPASS
+        ? { impasse: true }
+        : undefined
   return {
+    detectionResult,
+    detectionPreset,
     title: players.length ? players.join(' vs ') : 'Imported game',
     startSfen: record.initialPosition.sfen,
     moves,

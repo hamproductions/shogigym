@@ -249,7 +249,8 @@ export function WatchOptions({ watch }: { watch: Watch }) {
             value={watch.strategies[index]}
             onChange={(event) => watch.setStrategy(index, event.target.value)}
           >
-            <option value="">{t('app.anyStrategy')}</option>
+            <option value="random">{t('app.randomStrategy')}</option>
+            <option value="">{t('app.noStrategy')}</option>
             {Object.entries(FAMILIES).map(([family, label]) => {
               const choices = STRATEGIES.filter(
                 (strategy) =>

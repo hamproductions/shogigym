@@ -1,6 +1,9 @@
 import { useSyncExternalStore } from 'react'
 import i18n from './i18n'
 import { readEvalFile } from './evalStore'
+import { readBookFile } from './openingBook'
+import { flipBookMove, flipBookPosition } from './bookPosition'
+import { InitialPositionSFEN, Position, Color } from 'tsshogi'
 import { getSettings, subscribeSettings, type EngineKind } from '@/appearance/settings'
 
 type UsiModule = {
@@ -53,6 +56,7 @@ const ENGINES: Record<EngineKind, { script: string; factory: () => EngineFactory
 
 let active: { key: string; engine: Promise<UsiModule> } | null = null
 let current: UsiModule | null = null
+let nativeBook: Promise<boolean> | null = null
 let session = 0
 let listener: ((line: string) => void) | null = null
 let pending: (() => void) | null = null
@@ -206,6 +210,7 @@ function shutdown() {
   const previous = active
   active = null
   current = null
+  nativeBook = null
   session++
   backgroundGeneration++
   pending?.()
@@ -270,31 +275,90 @@ export function analyze(
     movetime = 1500,
     background = false,
     onUpdate,
-  }: { multipv?: number; movetime?: number; background?: boolean; onUpdate?: (analysis: Analysis) => void } = {},
+    book = false,
+  }: { multipv?: number; movetime?: number; background?: boolean; onUpdate?: (analysis: Analysis) => void; book?: boolean } = {},
 ): Promise<Analysis> {
-  const cached = cache.get(usiPosition)
+  const key = `${usiPosition}|book:${book}`
+  const cached = cache.get(key)
   if (cached && cached.multipv >= multipv && cached.movetime >= movetime) return cached.result
-  const result = search(usiPosition, multipv, movetime, background, onUpdate)
+  const result = search(usiPosition, multipv, movetime, background, onUpdate, book)
   if (!background) {
-    cache.set(usiPosition, { multipv, movetime, result })
+    cache.set(key, { multipv, movetime, result })
     result.catch(() => {
-      if (cache.get(usiPosition)?.result === result) cache.delete(usiPosition)
+      if (cache.get(key)?.result === result) cache.delete(key)
     })
     if (cache.size > 400) cache.delete(cache.keys().next().value!)
   }
   return result
 }
 
-function search(usiPosition: string, multipv: number, movetime: number, background: boolean, onUpdate?: (analysis: Analysis) => void): Promise<Analysis> {
+async function prepareBook(engine: UsiModule) {
+  const file = await readBookFile()
+  if (!file) return false
+  if (engine !== current) return false
+  if (!engine.FS) throw new Error('This engine cannot load opening books')
+  engine.FS.writeFile('/user_book1.db', file.bytes)
+  for (const option of [
+    'BookDir value /',
+    'BookFile value user_book1.db',
+    'IgnoreBookPly value true',
+    'BookOnTheFly value true',
+    'BookMoves value 999',
+    'BookEvalDiff value 0',
+    'BookDepthLimit value 0',
+  ])
+    engine.postMessage(`setoption name ${option}`)
+  await waitFor(engine, 'isready', 'readyok')
+  return true
+}
+
+function search(
+  usiPosition: string,
+  multipv: number,
+  movetime: number,
+  background: boolean,
+  onUpdate?: (analysis: Analysis) => void,
+  book = false,
+): Promise<Analysis> {
   if (searching && interruptible) current?.postMessage('stop')
   const generation = background ? ++backgroundGeneration : backgroundGeneration
   const run = async () => {
     const engine = await getEngine()
     if (engine !== current || (background && generation !== backgroundGeneration)) return { bestmove: '', candidates: [] }
+    let command = usiPosition
+    let flipped = false
+    if (getSettings().engine !== 'fairy') {
+      let enabled = false
+      if (book) {
+        nativeBook ??= prepareBook(engine)
+        try {
+          enabled = await nativeBook
+        } catch (error) {
+          if (engine !== current) return { bestmove: '', candidates: [] }
+          nativeBook = Promise.resolve(false)
+          setStatus({ error: error instanceof Error ? error.message : String(error) })
+        }
+      }
+      if (engine !== current || (background && generation !== backgroundGeneration)) return { bestmove: '', candidates: [] }
+      engine.postMessage(`setoption name USI_OwnBook value ${enabled}`)
+      if (enabled) {
+        const [start, moves = ''] = usiPosition.replace(/^position /, '').split(' moves ')
+        const sfen = start === 'startpos' ? InitialPositionSFEN.STANDARD : start.replace(/^sfen /, '')
+        const position = Position.newBySFEN(sfen)
+        if (!position) throw new Error('Invalid opening book position')
+        for (const usi of moves.split(' ').filter(Boolean)) {
+          const move = position.createMoveByUSI(usi)
+          if (!move || !position.doMove(move)) throw new Error('Invalid opening book move history')
+        }
+        flipped = position.color === Color.WHITE
+        engine.postMessage(`setoption name BookEvalBlackLimit value ${flipped ? -140 : 0}`)
+        if (flipped) command = `position sfen ${flipBookPosition(sfen)}${moves ? ` moves ${moves.split(' ').map(flipBookMove).join(' ')}` : ''}`
+      }
+    }
     searching = true
     interruptible = background
     engine.postMessage(`setoption name MultiPV value ${multipv}`)
-    engine.postMessage(usiPosition)
+    engine.postMessage(command)
     const lines = new Map<number, Candidate>()
     let bestmove = ''
     try {
@@ -305,10 +369,14 @@ function search(usiPosition: string, multipv: number, movetime: number, backgrou
         (line) => {
           const info = parseInfo(line)
           if (info) {
+            if (flipped) {
+              info.move = flipBookMove(info.move)
+              info.pv = info.pv.map(flipBookMove)
+            }
             lines.set(info.multipv, info)
             if (info.multipv === 1) onUpdate?.({ bestmove: info.move, candidates: [...lines.values()].sort((a, b) => a.multipv - b.multipv) })
           }
-          if (line.startsWith('bestmove')) bestmove = line.split(' ')[1]
+          if (line.startsWith('bestmove')) bestmove = flipped ? flipBookMove(line.split(' ')[1]) : line.split(' ')[1]
         },
         movetime + 10000,
       )

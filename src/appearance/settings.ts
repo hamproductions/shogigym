@@ -87,7 +87,7 @@ const DEFAULTS: Settings = {
   thinkMs: 1500,
   candidates: 3,
   opponent: 'beginner',
-  aiStrategy: '',
+  aiStrategy: 'random',
   mainStrategy: 'shikenbisha',
   assist: true,
   timeControl: 'none',

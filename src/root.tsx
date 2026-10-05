@@ -56,6 +56,25 @@ export function Layout({ children }: { children: ReactNode }) {
 
 export default function Root() {
   useEffect(() => {
+    let cancelled = false
+    let unsubscribe: (() => void) | undefined
+    void import('@/utils/i18n').then(({ default: i18n }) => {
+      if (cancelled) return
+      const update = (language: string) => {
+        document.documentElement.lang = language
+      }
+      update(i18n.language)
+      i18n.on('languageChanged', update)
+      unsubscribe = () => {
+        i18n.off('languageChanged', update)
+      }
+    })
+    return () => {
+      cancelled = true
+      unsubscribe?.()
+    }
+  }, [])
+  useEffect(() => {
     void import('@/utils/engine').then(({ engineSupported, getEngine }) => {
       if (engineSupported()) getEngine().catch((error) => console.warn('engine preload failed', error))
     })

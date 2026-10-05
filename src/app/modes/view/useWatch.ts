@@ -8,7 +8,7 @@ import { STRENGTH, useSettings, type AiStrength } from '@/appearance/settings'
 import type { BoardSession } from '@/app/hooks/useBoardSession'
 import type { Load } from '@/app/hooks/useModeSwitch'
 import type { Game } from '@/app/types'
-import { aiStrategyId, strategyMove } from '@/utils/book'
+import { aiStrategyId, resolveAiStrategy, strategyReply } from '@/utils/book'
 
 export function useWatch(session: BoardSession, load: Load, reviewReady: boolean, tossing: boolean) {
   const { t } = useTranslation()
@@ -17,22 +17,24 @@ export function useWatch(session: BoardSession, load: Load, reviewReady: boolean
   const { mode, game, sfen, position, gameOver, atEnd, preview, playing, play, ai, setPlaying } = session
   const [bots, setBots] = useState<[AiStrength, AiStrength]>([settings.opponent, settings.opponent])
   const [strategies, setStrategies] = useState<[string, string]>([aiStrategyId(settings.aiStrategy), aiStrategyId(settings.aiStrategy)])
+  const [activeStrategies, setActiveStrategies] = useState<[string, string]>(['', ''])
   const [started, setStarted] = useState(false)
   useEffect(() => {
     if (mode === 'view' && game.moves.length === 0) setStarted(false)
   }, [mode, game])
   const [firstBot, setFirstBot] = useState<'sente' | 'gote'>('sente')
   const strength = bots[session.toMove === firstBot ? 0 : 1]
-  const strategy = strategies[session.toMove === firstBot ? 0 : 1]
+  const strategy = activeStrategies[session.toMove === firstBot ? 0 : 1]
   const start = useCallback(
     (side: 'sente' | 'gote') => {
       setFirstBot(side)
+      setActiveStrategies([resolveAiStrategy(strategies[0], side), resolveAiStrategy(strategies[1], otherSide(side))])
       setStarted(true)
       setPlaying(true)
     },
-    [setPlaying],
+    [setPlaying, strategies],
   )
-  const [state, setState] = useState<{ game: Game; ending?: string; error?: string } | null>(null)
+  const [state, setState] = useState<{ game: Game; ending?: string; error?: string; winner?: 'sente' | 'gote' } | null>(null)
   useEffect(() => {
     if (mode === 'view') setState((current) => (current?.error ? { ...current, error: undefined } : current))
   }, [mode, epoch])
@@ -64,16 +66,17 @@ export function useWatch(session: BoardSession, load: Load, reviewReady: boolean
     let timer: ReturnType<typeof setTimeout> | undefined
     const level = STRENGTH[strength]
     const command = `position sfen ${game.start}${game.moves.length ? ` moves ${game.moves.join(' ')}` : ''}`
-    const planned = strategy ? strategyMove(strategy, session.toMove, sfen) : undefined
-    const analysis = planned
-      ? Promise.resolve({ bestmove: planned.usi, candidates: [] })
-      : analyze(command, { multipv: level.pickFrom, movetime: level.movetime })
+    const analysis = (async () => {
+      const planned = strategy ? await strategyReply(strategy, session.toMove, sfen, game.moves.length) : undefined
+      if (cancelled) return { bestmove: '', candidates: [] }
+      return planned ? { bestmove: planned.usi, candidates: [] } : analyze(command, { multipv: level.pickFrom, movetime: level.movetime, book: !!strategy })
+    })()
     analysis
       .then((analysis) => {
         if (cancelled) return
         if (analysis.bestmove === 'resign' || analysis.bestmove === 'win') {
           const winner = analysis.bestmove === 'win' ? session.toMove : otherSide(session.toMove)
-          setState({ game, ending: t(analysis.bestmove === 'win' ? 'watch.declaration' : 'watch.resigned', { side: t(`common.${winner}`) }) })
+          setState({ game, winner, ending: t(analysis.bestmove === 'win' ? 'watch.declaration' : 'watch.resigned', { side: t(`common.${winner}`) }) })
           return
         }
         const top = analysis.candidates[0] ? scoreWinRate(analysis.candidates[0].score) : 0
@@ -104,6 +107,7 @@ export function useWatch(session: BoardSession, load: Load, reviewReady: boolean
     canPlay,
     started,
     result,
+    winner: state?.game === game ? state.winner : undefined,
     won: !!result && result !== t('watch.repetition'),
     toggle,
     bots,

@@ -262,6 +262,13 @@ export function pieceMesh(
     type === PieceType.KING || type === PieceType.GOLD
       ? faceTexture('', false, seed, { ...appearance, pieceGuide: 'none' })
       : faceMap(reverse, color, seed, appearance)
+  if (type !== PieceType.KING && type !== PieceType.GOLD && !PROMOTED.has(type)) {
+    const reverseInk = faceMap(reverse, color, 1, appearance)
+    carvedTop(scale, reverseInk, segments, appearance)
+    lacquerMap(reverseInk, lacquer ? 0.5 : 0)
+    if (relief) reliefNormal(reverseInk, relief * scale, komaWidth(scale), scale, kind)
+    if (glass) carvedTop(scale, reverseInk, segments, { ...appearance, pieceFinish: 'horiume' })
+  }
   const backFace = glass ? face.clone() : new THREE.MeshBasicMaterial({ map: backMap, side: THREE.DoubleSide })
   if (glass) {
     backFace.map = glyphTexture(backMap)

@@ -20,8 +20,10 @@ self.addEventListener('activate', (event) => event.waitUntil(Promise.all([self.c
 self.addEventListener('fetch', (event) => {
   const request = event.request
   if (request.cache === 'only-if-cached' && request.mode !== 'same-origin') return
-  const sameOrigin = new URL(request.url).origin === self.location.origin
-  if (local || request.method !== 'GET' || !sameOrigin) {
+  const url = new URL(request.url)
+  const sameOrigin = url.origin === self.location.origin
+  const fullBook = url.pathname.includes('/books/peta233-full-v1/')
+  if (fullBook || local || request.method !== 'GET' || !sameOrigin) {
     event.respondWith(fetch(request).then(isolate))
     return
   }

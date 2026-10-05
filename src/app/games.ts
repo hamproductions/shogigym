@@ -1,3 +1,4 @@
+import type { DetectionPreset, DetectionResult } from '@/utils/formationTags'
 import type { Tree } from './tree'
 
 export type GameResult = 'win' | 'loss' | 'resigned' | 'time'
@@ -8,6 +9,8 @@ export type StoredGame = {
   savedAt: number
   start: string
   moves: string[]
+  detectionPreset?: DetectionPreset
+  detectionResult?: DetectionResult
   tree?: Tree
   userSide: 'sente' | 'gote'
   result?: GameResult

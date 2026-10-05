@@ -28,3 +28,4 @@ public/engine
 build
 .react-router
 .cache
+external/

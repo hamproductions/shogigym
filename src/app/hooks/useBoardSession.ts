@@ -111,7 +111,11 @@ export function useBoardSession() {
       const g = gameRef.current
       const path = [...g.moves.slice(0, cursor), usi]
       const existing = isGameMode(modeRef.current) ? nodeAt(treeRef.current, path) : null
-      setGame({ ...g, moves: g.moves[cursor] === usi ? g.moves : existing ? [...path, ...mainContinuation(existing)] : path })
+      setGame({
+        ...g,
+        detectionResult: g.moves[cursor] === usi ? g.detectionResult : undefined,
+        moves: g.moves[cursor] === usi ? g.moves : existing ? [...path, ...mainContinuation(existing)] : path,
+      })
       setCursor(cursor + 1)
     },
     [cursor, sfensRef, gameRef, modeRef, treeRef],
@@ -140,7 +144,7 @@ export function useBoardSession() {
   const keepPreview = () => {
     if (!preview) return
     const kept = preview.moves.slice(0, preview.step)
-    setGame((g) => ({ ...g, moves: [...g.moves.slice(0, preview.base), ...kept] }))
+    setGame((g) => ({ ...g, detectionResult: undefined, moves: [...g.moves.slice(0, preview.base), ...kept] }))
     setCursor(preview.base + kept.length)
     setPreview(null)
     setPlaying(false)
@@ -150,7 +154,7 @@ export function useBoardSession() {
     setPlaying(false)
   }
   const truncate = (length: number) => {
-    setGame((g) => ({ ...g, moves: g.moves.slice(0, length) }))
+    setGame((g) => ({ ...g, detectionResult: undefined, moves: g.moves.slice(0, length) }))
     setCursor(length)
   }
 
