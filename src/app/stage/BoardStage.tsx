@@ -216,9 +216,9 @@ export function BoardStage({
         {mode !== 'tsume' && !picking && plate('top')}
         {mode !== 'tsume' && !picking && plate('bottom')}
         {decor.note && dismissedNote !== decor.note && (
-          <button className="app-peek" onClick={() => setDismissedNote(decor.note)} aria-label={`${decor.note} · ${t('viewer.close')}`}>
+          <div className="app-peek" role="status">
             {decor.note}
-          </button>
+          </div>
         )}
       </div>
       <BoardBanners mistake={mistake} onBack={onBack} />

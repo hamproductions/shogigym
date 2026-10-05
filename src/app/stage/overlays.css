@@ -241,3 +241,42 @@
   height: 72px;
   object-fit: contain;
 }
+
+.app-announce.tesuji {
+  top: var(--space-3);
+  width: max-content;
+  max-width: calc(100% - var(--space-6));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-1-5) var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--overlay);
+  box-shadow: var(--shadow-md);
+  transform: translateX(-50%);
+  animation: none;
+}
+
+.app-announce.tesuji::before {
+  display: none;
+}
+
+.app-announce.tesuji span {
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  letter-spacing: normal;
+}
+
+.app-announce.tesuji strong {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-tight);
+  white-space: normal;
+  letter-spacing: normal;
+  color: var(--text);
+  text-shadow: none;
+  background: none;
+  animation: none;
+}

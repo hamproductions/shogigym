@@ -60,6 +60,7 @@ export function useBoardInput(session: BoardSession, { mistakes, commit, lessonM
     if (preview) return setPreview(null)
     if (picking) return
     if (color !== position.color || !canMove) return
+    setPeekFrom(null)
     if (selection && !(selection.from instanceof Square) && selection.from === type) return setSelection(null)
     dropStaleMistake()
     setSelection({ from: type, color })
@@ -69,6 +70,7 @@ export function useBoardInput(session: BoardSession, { mistakes, commit, lessonM
     if (mode === 'view') return
     if (preview) return setPreview(null)
     if (picking || !canMove) return setSelection(null)
+    setPeekFrom(null)
     attempt(from, to)
   }
 

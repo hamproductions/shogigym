@@ -11,6 +11,7 @@
   font-size: var(--text-sm);
   white-space: nowrap;
   box-shadow: var(--shadow-md);
+  pointer-events: none;
 }
 
 .app-phone-task {

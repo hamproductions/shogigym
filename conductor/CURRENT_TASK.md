@@ -1,77 +1,40 @@
 # Current task
 
-## Scope and authorization
-- Wrapped desktop header controls align to the right; heading text keeps its flexible space on the first row.
-- Dock and Close share the desktop panel's top-right header area outside the tabs. Bottom action row removed. Mobile displays neither placement nor extra Close controls.
-- Desktop panel Close moves to a dedicated top-right header button outside the tabs. Dock remains in the footer only when available; no empty footer when docking is unavailable. Mobile still omits the extra Close action.
-- Mobile play controls use icon-only flip, takeback, resign, new game, coach and panel actions with accessible names, tooltips and 44px targets. Desktop labels remain visible; complete controls wrap when necessary.
-- Mobile control rows wrap complete buttons instead of horizontal scrolling; the panel action must remain fully visible. Supersedes PR #2's single-row scrolling control rule.
-- Narrow desktop headers wrap complete controls onto additional rows; buttons do not shrink or wrap Japanese labels vertically, and controls must remain inside the header boundary.
-- Mobile bottom panel restores its visible top drag handle with pointer-captured height resizing and saved height. Desktop placement/close footer is not rendered on mobile.
-- Latest panel correction restores the original full-width mobile bottom panel in the shell grid. Mobile has no side-docking option or placement button and ignores saved desktop side placement. Float/side switching remains desktop-only. Supersedes earlier mobile side-docking and absolute floating-panel behavior.
-- Incorporate PR #2 after reviewing its complete four-file diff: compact rail sizing, non-wrapping horizontally scrollable mobile controls and retained PWA install prompt. Preserve mobile side docking; the PR's Application class change disables that settled behavior. Add HMR cleanup for the early install-prompt listener. No external PR comment or merge requested.
-- Current-move header uses a fixed-width, non-wrapping notation slot to prevent move-dependent layout shifts. Full notation remains available through its title. Mobile metadata stays stacked within the same slot.
-- Corrected 桂頭攻め voice reading to けいとうぜめ and regenerated its clip under a reading-dependent filename to invalidate cached mispronunciation. Targeted voice generation preserves other clips.
-- Floating panels fill the available horizontal zone; saved sidebar width must not constrain floating-panel width. Preserve existing vertical placement and height.
-- Panel placement correction: preserve existing floating layout and expose docking to the side on floating panels. Hide only the return-to-floating action when floating is unavailable. Placement modes are floating and side only; resize applies only to side panels. Dock and close controls remain outside the tab strip.
-- Active correction: recurring head clipping; disappearing ink/black faces after promotion; reduce tile CPU/GPU resource work through reuse/baking; investigate supplied iOS viewport report; wrap mobile move annotations without truncation; replace oversized advantage sentence with compact side/percentage; restore visible mobile resize grip and optional side docking. No new push, release, server launch or system/audio changes authorized.
-- Add localized PWA installation action to existing rail/space-dependent Others overflow. Native install prompt when supported; manual Home Screen/Dock instructions otherwise; hide action in installed app. Minor release and push authorized; use existing release workflow.
-- Finish detector integration using original upstream fixtures, and generate recorded speech for all emitted Bioshogi definitions; missing voice coverage is implementation work, not a completed integration.
-- Correction gate: prior status understated unfinished voice coverage. Detector parity must use upstream assertions; voice coverage must reconcile generated manifest with detector names.
-- Correct latest screenshot regression: captured pieces float beside empty stands and the drop arrow originates from the displaced hand piece; trace responsive stand layout/piece synchronization before editing.
-- Automatically persist compact book shards in IndexedDB when fetched; no separate compact download button. Full Peta remains an optional download with progress, cancellation and recovery.
-- Complete the Bioshogi analyzer port, including custom detection; do not claim the existing declarative adapter is complete.
-- Implement larger evaluated joseki coverage using the supplied Peta 233 release; keep initial loading small.
-- Default AI strategy is random, resolved once per game. Explicit No strategy uses engine search exclusively.
-- Use Bioshogi declarative rules for strategy/castle tagging; suppress formation announcements after opening combat while retaining check and tesuji speech.
-- Preserve the released v1.2.0 UI/camera/audio behavior. Original upstream fixture verification explicitly requested. Minor bump, commit and push authorized. No screenshots, server launches or device/system changes authorized.
-- User-provided source set: akicho8/bioshogi, shogidb2/joseki, shogi-joseki.com/kisyo.html, YaneuraOu new_petabook233 release and fgfan7 2017-02-09 article.
+## Scope
+- Fix 2D hand selection lifting every copy of a piece type; lift only the picked tile.
+- Influence inspection boxes must not intercept legal drop interaction.
+- Audit every piece and detected-type pronunciation against authoritative readings; correct generated speech inputs/assets where possible.
+- Remove tesuji speech; retain compact visual announcement.
+- Commit, push and patch release authorized. Release target: main, version 1.3.3 using configured release-it workflow. No device or system audio changes authorized.
 
-## Implementation
-- scripts/build-opening-book.ts indexes the extracted native Peta file in temporary SQLite, seeds existing lesson positions and traverses stored branches. Generated subset: 24,000 positions, 359,722 evaluated moves, 64 shards, about 7 MB.
-- src/utils/bookPosition.ts shares position normalization, 180-degree position/move rotation and shard hashing between builder and runtime.
-- src/utils/openingBook.ts reads compact shards from IndexedDB before a four-second network request, retains at most eight decoded shards and validates moves. Invalid cached JSON is removed; failed requests remain retryable.
-- Compact shards persist automatically in IndexedDB when fetched; separate compact download button removed. src/utils/bookDownload.ts and EngineSettings offer optional full download, progress and cancel. Full download caches verified compressed chunks in IndexedDB for resume, decompresses with native DecompressionStream, installs a Blob database and removes temporary chunks after successful installation.
-- scripts/build-full-book.mjs packages the entire original Peta database as 59 gzip chunks: 98,988,484 download bytes, 493,157,464 installed bytes. Full assets are optional, same-origin and excluded from the service-worker cache to prevent duplicate retained storage.
-- MovesPane displays history-derived formation/tactical tags. Announcements distinguish techniques from castles and retain the opening-only formation speech gate.
-- src/utils/book.ts ranks strategy-compatible lesson alternatives by Peta evaluation, extends coverage on lesson misses and falls back to the engine when no usable book move exists. Compact-book lookup stops after 48 played plies.
-- Play/View await book selection with cancellation checks; No strategy bypasses book lookup. Engine search cache separates book-enabled playing searches from analysis/search-only results.
-- Settings optionally imports an extracted YaneuraOu .db into IndexedDB; full file loads into the native engine only on book-enabled search. Rotated native searches preserve move history and rotate PV/bestmove back. Removal/restart provides recovery.
-- Shared binaryStore handles eval/book persistence, stores new files as Blobs, supports old stored Uint8Array evaluation files and waits for transaction completion before reporting success.
-- Bioshogi detection now includes shape, custom, motion/history and finalization adapters. Pinned upstream fixture harness is scripts/check-bioshogi.ts; final parity checks remain active. Import/save/load retains declared handicap metadata. Finished-game tags require known outcome.
-- Voice build includes all Bioshogi definition names plus existing phrases. All 573 required phrases have manifest entries and nonempty files; every manifest audio file decoded through ffmpeg successfully. No speaker playback or device audio changes performed.
-- Formation history uses a bounded active-game cache; labels survive later shape changes, outlines require current shape. Announcement opening gate tolerates pawn/bishop exchanges and stops after other captures.
-- README documents behavior, reproduction, imports and licenses. Bioshogi AGPL license/adaptation notice retained in vendor/bioshogi; Peta subset carries MIT notice/source metadata.
+## Classification and gates
+- Real-testing work: 2D interaction and speech/announcement behavior.
+- get-your-shit-together SKILL.md read 1–EOF (27 lines); real-testing-evidence SKILL.md read 1–EOF (70 lines). No required linked references.
+- Current-session instructions and latest four corrections reconciled.
+- Source investigation in progress; working tree initially clean. Frontend edits and regenerated voice assets now dirty.
 
-## Skills
-- handing-off-pro-max SKILL.md read 1–EOF for requested wrap-up. Canonical record retained as compact continuation authority; no separate expanded documentation requested.
-- look-at-the-screen SKILL.md read 1–EOF; latest supplied screenshot inspected at original resolution. Visible mismatch recorded above; no visual completion claim until matching runtime inspection.
-- get-your-shit-together SKILL.md read 1–EOF. Correction gate: module-owned DOM synchronization and shared singleton handlers were inappropriate for SSR/HMR; synchronization now belongs to a client effect with cleanup, and i18n owns a fresh instance.
-- lean-build SKILL.md read 1–EOF; bounded integration uses existing Play/View, Settings and engine seams.
+## Durable requirements
+- 2D visual hand selection identifies a single physical tile, while legal move selection retains piece type.
+- Decorative influence overlays never consume board/drop pointer events.
+- Tesuji detection remains visible but does not enqueue speech.
+- Voice coverage alone does not establish pronunciation correctness.
 
-## Evidence
-- Executed actual shipped YaneuraOu WASM through Node: native book options available; FlippedBook absent.
-- Native engine loaded an actual subset-derived .db with one thread and 16 MB hash; BookEvalDiff=0 reduced the start-position alternatives to the two tied best moves and returned 7g7f.
-- bun run check passed with lint and current Node-version warnings. No new test files created.
-- localhost:5173 unavailable. Browser UI, IndexedDB import and physical iPad performance remain unverified; no server/browser launched.
-- All 359,722 subset moves passed legality for both original and rotated sides; shard hashing and rotation round trips passed. Largest shard is 173,734 bytes. Bioshogi fixture matched 四間飛車 ply 9, 美濃囲い ply 19, 腰掛け銀 ply 12 and 箱入り娘 ply 26; rewind/replay did not leak or lose future tags.
-- Production build passed before the boot correction. Development SSR i18n import and language changes pass without document; real React Router development requests for /play, /view and /analyze return HTTP 200. Middleware-only Vite harnesses closed cleanly; no listening server or file watcher started.
-- Deferred native import sequence and rotated White history produced an actual book hit after preserving the original White evaluation threshold: 28 stored moves filtered to the two best choices, returning 2g2f in rotated coordinates.
-- Owned Peta archives, expanded native files and SQLite index removed after verification; generated compact/full assets and source/license metadata remain.
-- Full gzip assets independently reconstructed through native DecompressionStream: all compressed hashes, chunk sizes and concatenated original SHA256 match. Browser download/IndexedDB UI remains unverified because localhost:5173 is unavailable and server launches are not authorized.
+## Verification and next action
+- Current priority: finish pronunciation verification. Additional UI investigation stopped after scope correction.
+- Owned browser session `joseki-fixes` and dev process session 61098 closed after verification. Unrelated default browser and existing VOICEVOX engine untouched.
+- Actual SFEN import with three pawns/two silvers: dragging dims exactly one hand tile; clicking selects exactly one physical tile; legal drop committed.
+- Actual influence notice reports pointer-events none; picking a hand tile clears notice.
+- Actual pawn drop on rank four produced silent compact tesuji banner, inspected screenshot; no voice resource request. Desktop banner 138 by 31 px.
+- Mobile flat board inspected at 390 by 844; hand stacks fit. Mobile tesuji interaction unverified; further UI scenarios outside current pronunciation priority.
+- Dictionary and JSA sources corrected 中座, 金沢, 英ちゃん流, 不成, 自陣飛車, 鳥刺し and compound readings. Preferred 三間 variant now さんげん; alternate さんけん is also source-supported.
+- Root independently compared every exact match against the author-maintained shogi dictionary, decoding EUC-JP correctly. Remaining exact-match differences are source-supported variants.
+- All 539 named reading entries inspected. Dictionary metadata distinguishes exact full terms, constituents and literal kana; composition evidence does not establish every coined compound's complete reading.
+- Root independently inspected selected EDICT records for the remaining ordinary stems and the authored ビッグ4 reading source. No pending evidence classification remains.
+- Final 565 enabled phrases passed VOICEVOX phoneme verification. Generation corrects engine substitutions and forces supplied kana where required. Final assets regenerated; manifest coverage verified. Pitch accent and every clip's audible naturalness are not certified.
+- Unsourced names disabled: 金盾囲い, 大盾囲い, GAVA角, 楠本式石田流, 左山囲い, 鬼六流どっかん飛車, やばボーズ流, 双竜双馬陣. No guessed voice fallback.
+- Typecheck passed; scoped lint passed with existing component/export/effect warnings. Diff whitespace and secret-pattern checks passed.
+- Remaining limitation: eight names lack verified complete readings; compound entries sourced by constituents are explicitly not exact-term verification.
+- Immediate next action: commit scoped fixes and referenced generated clips, run configured patch release checks, push main/tag and verify remote release.
 
-## State and immediate next action
-- Release scope: all current implementation and PWA install action, from v1.2.0 to v1.3.0 on main. Latest origin/main fetched with zero divergence before release.
-- Renderer fixes: responsive hand relayout cancels obsolete hand targets; capture clone keeps grain; preview bake avoids global live-texture invalidation; promoted face resources prewarm and mesh remains visible during avatar reach. Source/diff and TypeScript verified; browser/iPad visuals unverified.
-- Existing localhost:5173 unavailable; no server launch authorized. No browser runtime claim.
-- Completed local verification: `UV_THREADPOOL_SIZE=2 GOMAXPROCS=2 bun scripts/check-bioshogi.ts` passed 129,482 assertions with zero failures across 535 original fixtures and 535 actual Ruby mirrored outputs. Includes accumulated player tags, exact move annotations, finalization, voice-name coverage and original position equality. Log: /tmp/shogigym-bioshogi-final.log. Mirrored expectations use Ruby output because MagicSquare is color asymmetric; no symmetry exception or skipped fixture.
-- `UV_THREADPOOL_SIZE=2 GOMAXPROCS=2 bun run check` passed lint, Prettier, route type generation and TypeScript; existing lint/Node-version warnings remain. Log: /tmp/shogigym-check.log. `UV_THREADPOOL_SIZE=2 GOMAXPROCS=2 bun run build` passed production compilation and prerender; log: /tmp/shogigym-build-final.log. `git diff --check` passed. Owned foreground checks exited; no listener/browser launched.
-- Production importer verified through closed middleware-only Vite SSR: held-king metadata retained and White-start winner correct. No listening server or watcher retained.
-- Temporary upstream Ruby checkout/dependencies live under ignored external/bioshogi-oracle; original fixtures/oracle/build scripts remain project-owned reproducible artifacts. External checkout excluded from Git/lint/format to avoid processing upstream dependencies.
-- Local implementation wrapped up. Remaining runtime verification: actual UI IndexedDB download/recovery, full 493 MB native engine load, renderer promotion/stand layout on browser/iPad, and audible pronunciation/playback. Requires a usable authorized runtime; current localhost unavailable. Next action when runtime is available: verify Settings full-book download/recovery and Play/View book hits, then promotion/capture portrait layout. v1.3.0 released through capped release:minor; implementation and release commits plus tag pushed. Mobile panel follow-up included in the same authorized delivery.
-
-- PWA install action follows existing rail overflow, hides in installed app, opens native prompt or localized browser instructions. Targeted TypeScript, oxlint, Prettier and diff checks passed; actual native browser prompt remains unverified.
-
-- Superseded mobile fix: no-wrap annotations and ellipsis clipped useful content. Current correction uses wrapping tags and container-dependent single-column move rows, compact side/percentage meter, prominent mobile drag grip and optional side docking with pointer capture. Aggregate verification pending.
-
-- Correction skill get-your-shit-together read 1–EOF this turn. Source: moves.css truncation, SidePanels/useLayout drag behavior, shader head fade, tile caches. Root owns mobile panels; render_regressions owns ink/resource reuse; appearance_axes fixed undefined zero-width smoothstep and proximity-facing dependency. iOS source review confirms existing 100dvh; full-scene hidden-UI mode now removes app safe-area padding while exit control remains safe. Native status/browser chrome cannot be removed with CSS.
+- Latest pronunciation requirement: every type must use dictionary-backed readings; primary dictionary, Japan Shogi Association and original named-term sources authorized. Unverified readings cannot count as correct.
+- agent-browser SKILL.md read 1–EOF (52 lines); CLI core workflow read completely. frontend-design SKILL.md read 1–EOF (71 lines); look-at-the-screen SKILL.md read 1–EOF (60 lines). Narrow banner change preserves existing tokens, amber tesuji accent, small sans-serif type and top placement.

@@ -19,7 +19,7 @@ const CH = SQ_D * U
 const PAD = 0.08 * U
 const KANJI_NUM = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九']
 
-type Drag = { from: Square | PieceType; color: Color; type: PieceType; x: number; y: number; moved: boolean; id: number }
+type Drag = { from: Square | PieceType; color: Color; type: PieceType; x: number; y: number; moved: boolean; id: number; handIndex?: number }
 
 function geometry(portrait: boolean, narrow: boolean) {
   layout.portrait = portrait
@@ -149,6 +149,7 @@ export function BoardFlat(props: Board3DProps) {
   }, [position, lastMove, flipped, geo, svgRef])
 
   const [drag, setDrag] = useState<Drag | null>(null)
+  const [pickedHand, setPickedHand] = useState<{ color: Color; type: PieceType; index: number; sfen: string; portrait: boolean } | null>(null)
   const dragRef = useLatest(drag)
   const toSvg = (clientX: number, clientY: number) => {
     const m = svgRef.current?.getScreenCTM()
@@ -162,10 +163,11 @@ export function BoardFlat(props: Board3DProps) {
     if (c < 0 || c > 8 || r < 0 || r > 8) return null
     return new Square(flipped ? c + 1 : 9 - c, flipped ? 9 - r : r + 1)
   }
-  const startDrag = (e: ReactPointerEvent, from: Square | PieceType, color: Color, type: PieceType) => {
+  const startDrag = (e: ReactPointerEvent, from: Square | PieceType, color: Color, type: PieceType, handIndex?: number) => {
     const p = toSvg(e.clientX, e.clientY)
+    if (handIndex !== undefined) setPickedHand({ color, type, index: handIndex, sfen: position.sfen, portrait: g.portrait })
     ;(e.currentTarget as Element).setPointerCapture?.(e.pointerId)
-    setDrag({ from, color, type, x: p.x, y: p.y, moved: false, id: e.pointerId })
+    setDrag({ from, color, type, x: p.x, y: p.y, moved: false, id: e.pointerId, handIndex })
   }
   const onBoardDown = (e: ReactPointerEvent) => {
     const p = toSvg(e.clientX, e.clientY)
@@ -201,12 +203,21 @@ export function BoardFlat(props: Board3DProps) {
       </div>
     )
 
+  const hands = new Map([Color.BLACK, Color.WHITE].map((color) => [color, handArrangement(position, color).spots]))
+  const handIndex = (color: Color, type: PieceType) => {
+    const picked = pickedHand
+    if (picked && picked.color === color && picked.type === type && picked.sfen === position.sfen && picked.portrait === g.portrait) return picked.index
+    return hands.get(color)!.findIndex((spot) => spot.type === type)
+  }
+  const handPoint = (color: Color, type: PieceType) => hands.get(color)![handIndex(color, type)] ?? null
+
   const hand = (color: Color) => {
     const bottom = (color === Color.BLACK) !== flipped
     const s = bottom ? g.stands.bottom : g.stands.top
     const sign = flipped ? -1 : 1
-    const spots = handArrangement(position, color)
-      .spots.map((spot, i) => ({ ...spot, i }))
+    const spots = hands
+      .get(color)!
+      .map((spot, i) => ({ ...spot, i }))
       .sort((a, b) => (a.lift ?? 0) - (b.lift ?? 0))
     const size = SPRITE_BOX * U * 0.96
     return (
@@ -216,14 +227,14 @@ export function BoardFlat(props: Board3DProps) {
         {spots.map((spot) => {
           const x = g.ox + sign * spot.x * U
           const y = g.oy + sign * spot.z * U
-          const on = selected === spot.type && selectedColor === color
-          const lifted = drag?.from === spot.type && drag.color === color && drag.moved
+          const on = selected === spot.type && selectedColor === color && spot.i === handIndex(color, spot.type)
+          const lifted = drag?.from === spot.type && drag.color === color && drag.handIndex === spot.i && drag.moved
           return (
             <g
               key={spot.i}
               transform={`translate(${x} ${y}) rotate(${(-spot.rot * 180) / Math.PI})`}
               style={{ cursor: 'pointer' }}
-              onPointerDown={(e) => (movable === color ? startDrag(e, spot.type, color, spot.type) : props.onHand(color, spot.type))}
+              onPointerDown={(e) => (movable === color ? startDrag(e, spot.type, color, spot.type, spot.i) : props.onHand(color, spot.type))}
             >
               <g opacity={lifted ? 0.35 : 1} className={`app-koma-lift${on ? ' on' : ''}`}>
                 <image href={baked.pieces.get(spriteKey(spot.type, color, bottom))} x={-size / 2} y={-size / 2} width={size} height={size} />
@@ -313,7 +324,7 @@ export function BoardFlat(props: Board3DProps) {
         </g>
         {hand(Color.BLACK)}
         {hand(Color.WHITE)}
-        <OverMarks props={props} p={project} u={U} flip={flipped ? -1 : 1} coordFill={coordFill} />
+        <OverMarks props={props} p={project} u={U} flip={flipped ? -1 : 1} coordFill={coordFill} handPoint={handPoint} />
         {drag?.moved && (
           <g transform={`translate(${drag.x} ${drag.y - U * 0.3}) scale(1.12)`} pointerEvents="none">
             <Koma baked={baked} type={drag.type} color={drag.color} up={(drag.color === Color.BLACK) !== flipped} />

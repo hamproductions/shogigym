@@ -35,7 +35,6 @@ export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, pos
     const tesuji = stepped && sfens[cursor - 1] ? detectTesuji(sfens[cursor - 1], game.moves[cursor - 1]) : null
     if (stepped && position.checked) say(hasLegalMove(position) ? '王手' : 'ありがとうございました', true)
     if (tesuji) {
-      say(tesuji.ja)
       setAnnounce({ side: positionOf(sfens[cursor - 1]).color, name: tesuji.ja, kind: t('app.tesuji'), key: Date.now(), tesuji: true })
       setTesujiNote({ ...tesuji, at: cursor })
     }
@@ -44,7 +43,6 @@ export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, pos
       const side = positionOf(sfens[cursor - 1]).color
       const technique = tags[side === Color.BLACK ? 0 : 1].findLast((tag) => tag.kind === 'technique' && tag.ply === cursor)
       if (technique) {
-        say(technique.name)
         setAnnounce({ side, name: formationName(technique.name, i18n.language), kind: t('app.tesuji'), key: Date.now(), tesuji: true })
       }
     }

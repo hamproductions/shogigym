@@ -210,7 +210,7 @@ export function PieceGuide({ sfen, from }: { sfen: string; from: Square | PieceT
       <MoveDiagram steps={info.steps} />
       <div>
         <strong>
-          {kingName} {!ja && <span>{info.reading}</span>}
+          {kingName} {!ja && <span>{kingName === '王将' ? 'ōshō' : info.reading}</span>}
         </strong>
         {!ja && <span className="app-piece-en">{info.en}</span>}
         <p>{info.moves}</p>
