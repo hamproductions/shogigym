@@ -5,7 +5,8 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { Color, PieceType } from 'tsshogi'
 import { preparePieceEnvironment } from '@/rendering/board3d/materials'
-import { pieceMesh } from '@/rendering/board3d/piece'
+import { disposePiece, pieceMesh } from '@/rendering/board3d/piece'
+import { disposeRenderer } from '@/rendering/board3d/scene'
 import { PIECE_FINISHES, loadPieceFont, setSettings, useSettings, type PieceFinish } from '@/appearance/settings'
 import { loadPieceSet } from '@/appearance/pieceSets'
 import { useTranslation } from 'react-i18next'
@@ -51,7 +52,7 @@ export function PieceViewer({ onClose, page }: { onClose: () => void; page?: boo
     renderer.toneMapping = THREE.ACESFilmicToneMapping
     renderer.toneMappingExposure = 0.95
     el.appendChild(renderer.domElement)
-    preparePieceEnvironment(renderer)
+    const environment = preparePieceEnvironment(renderer, false)
     const world = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera(30, 1, 0.05, 50)
     camera.position.set(0, 1.9, 2.1)
@@ -65,14 +66,16 @@ export function PieceViewer({ onClose, page }: { onClose: () => void; page?: boo
     world.add(floor)
     let piece: THREE.Object3D | null = null
     const setPiece = (t: PieceType) => {
-      if (piece) world.remove(piece)
-      piece = pieceMesh(t, Color.BLACK)
+      if (piece) {
+        world.remove(piece)
+        disposePiece(piece)
+      }
+      piece = pieceMesh(t, Color.BLACK, undefined, 64, undefined, environment)
       piece.scale.setScalar(1.6)
       world.add(piece)
     }
     const placeLight = (a: number) => void lamp.position.set(Math.cos(a * Math.PI * 2) * 2, 2.2, Math.sin(a * Math.PI * 2) * 2)
     scene.current = { setPiece, setLight: placeLight }
-    setPiece(PieceType.ROOK)
     placeLight(0.35)
     const controls = new OrbitControls(camera, renderer.domElement)
     controls.target.set(0, 0.1, 0)
@@ -99,14 +102,19 @@ export function PieceViewer({ onClose, page }: { onClose: () => void; page?: boo
       cancelAnimationFrame(frame)
       observer.disconnect()
       controls.dispose()
-      renderer.dispose()
+      if (piece) disposePiece(piece)
+      floor.geometry.dispose()
+      floor.material.dispose()
+      lamp.shadow.dispose()
+      disposeRenderer(renderer)
+      scene.current = null
       el.removeChild(renderer.domElement)
     }
   }, [])
 
   useEffect(() => {
-    scene.current?.setPiece(type)
-  }, [type, st.pieceFinish, ready])
+    if (ready === `${st.pieceFont}|${st.pieceSet}|${st.pieceGuide}`) scene.current?.setPiece(type)
+  }, [type, st.pieceFinish, st.pieceFont, st.pieceSet, st.pieceGuide, ready])
   useEffect(() => {
     scene.current?.setLight(light)
   }, [light])

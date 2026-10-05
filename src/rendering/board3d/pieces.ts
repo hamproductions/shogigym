@@ -3,6 +3,7 @@ import { Color, PieceType, Square, unpromotedPieceType, type ImmutablePosition }
 import { STAND_TOP, komaDepth, pieceScale, squareX, squareZ } from './dimensions'
 import { handLayout, handSpot } from './hand'
 import { layout, standCenter } from './layout'
+import { preparePieceEnvironment } from './materials'
 import { drawMarks } from './marks'
 import { disposePiece, pieceMesh } from './piece'
 import { badgeSprite, faceTextureRevision } from './textures'
@@ -12,6 +13,9 @@ import type { Board3DProps, SceneState } from './types'
 const CAPTURE_SEED = Object.fromEntries(Object.values(PieceType).map((type, i) => [type, (i + 1) * 19349663]))
 
 const squarePoint = (sq: Square) => new THREE.Vector3(squareX(sq.file), 0, squareZ(sq.rank))
+
+const scenePiece = (s: SceneState, type: PieceType, color: Color, seed?: number) =>
+  pieceMesh(type, color, seed, 64, undefined, preparePieceEnvironment(s.renderer, false))
 
 const board3 = (sfen: string) => sfen.split(' ').slice(0, 3).join(' ')
 
@@ -40,7 +44,7 @@ function avatarMove(
   const capture =
     captured && type && to
       ? {
-          mesh: pieceMesh(captured.type, captured.color, captureSeed),
+          mesh: scenePiece(s, captured.type, captured.color, captureSeed),
           to,
           hide: s.handMeshes.find((m) => m.userData.color === move.color && m.userData.type === type && m.userData.liftable),
         }
@@ -56,7 +60,7 @@ function avatarMove(
   if (placed && move.promote) return false
   const played = s.avatars.playMove({
     kind,
-    flip: move.promote ? pieceMesh(move.pieceType, move.color, mesh.userData.grainSeed as number) : undefined,
+    flip: move.promote ? scenePiece(s, move.pieceType, move.color, mesh.userData.grainSeed as number) : undefined,
     color: move.color,
     mesh,
     from,
@@ -100,9 +104,9 @@ export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, pr
   ])
   const take = (candidate: THREE.Object3D | undefined, type: PieceType, color: Color, seed: number) => {
     const reused = candidate && available.delete(candidate)
-    const mesh = reused ? candidate : pieceMesh(type, color, seed)
+    const mesh = reused ? candidate : scenePiece(s, type, color, seed)
     if (reused && (mesh.userData.appearance !== appearance || mesh.userData.type !== type || mesh.userData.color !== color)) {
-      const next = pieceMesh(type, color, mesh.userData.grainSeed ?? seed)
+      const next = scenePiece(s, type, color, mesh.userData.grainSeed ?? seed)
       disposePiece(mesh)
       mesh.clear()
       ;(mesh as THREE.Mesh).geometry = next.geometry
@@ -238,7 +242,7 @@ export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, pr
       : lastMove[1] === '*'
         ? standCenter(moved.color)
         : squarePoint(Square.newByUSI(lastMove.slice(0, 2)) ?? moved.square)
-    const flip = move?.promote ? pieceMesh(move.pieceType, move.color, mesh.userData.grainSeed as number) : undefined
+    const flip = move?.promote ? scenePiece(s, move.pieceType, move.color, mesh.userData.grainSeed as number) : undefined
     if (flip) {
       flip.position.copy(from)
       s.pieces.add(flip)

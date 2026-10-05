@@ -1,6 +1,9 @@
 # Current task
 
 ## Scope and authorization
+- Floating panels fill the available horizontal zone; saved sidebar width must not constrain floating-panel width. Preserve existing vertical placement and height.
+- Panel placement correction: preserve existing floating layout and expose docking to the side on floating panels. Hide only the return-to-floating action when floating is unavailable. Placement modes are floating and side only; resize applies only to side panels. Dock and close controls remain outside the tab strip.
+- Active correction: recurring head clipping; disappearing ink/black faces after promotion; reduce tile CPU/GPU resource work through reuse/baking; investigate supplied iOS viewport report; wrap mobile move annotations without truncation; replace oversized advantage sentence with compact side/percentage; restore visible mobile resize grip and optional side docking. No new push, release, server launch or system/audio changes authorized.
 - Add localized PWA installation action to existing rail/space-dependent Others overflow. Native install prompt when supported; manual Home Screen/Dock instructions otherwise; hide action in installed app. Minor release and push authorized; use existing release workflow.
 - Finish detector integration using original upstream fixtures, and generate recorded speech for all emitted Bioshogi definitions; missing voice coverage is implementation work, not a completed integration.
 - Correction gate: prior status understated unfinished voice coverage. Detector parity must use upstream assertions; voice coverage must reconcile generated manifest with detector names.
@@ -58,4 +61,6 @@
 
 - PWA install action follows existing rail overflow, hides in installed app, opens native prompt or localized browser instructions. Targeted TypeScript, oxlint, Prettier and diff checks passed; actual native browser prompt remains unverified.
 
-- Mobile panel follow-up: move grid columns allow shrinking, notation/rating symbols do not wrap, annotations occupy bounded separate lines, mobile advantage block uses compact typography/grid, shared SVG icons cannot shrink. TypeScript, targeted lint and diff checks passed; no runtime visual claim.
+- Superseded mobile fix: no-wrap annotations and ellipsis clipped useful content. Current correction uses wrapping tags and container-dependent single-column move rows, compact side/percentage meter, prominent mobile drag grip and optional side docking with pointer capture. Aggregate verification pending.
+
+- Correction skill get-your-shit-together read 1–EOF this turn. Source: moves.css truncation, SidePanels/useLayout drag behavior, shader head fade, tile caches. Root owns mobile panels; render_regressions owns ink/resource reuse; appearance_axes fixed undefined zero-width smoothstep and proximity-facing dependency. iOS source review confirms existing 100dvh; full-scene hidden-UI mode now removes app safe-area padding while exit control remains safe. Native status/browser chrome cannot be removed with CSS.

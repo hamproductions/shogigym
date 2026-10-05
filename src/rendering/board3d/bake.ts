@@ -4,8 +4,8 @@ import { getSettings, type PieceAppearance, type BoardStyle, type Settings } fro
 import { grainTexture } from '@/rendering/roomFloor'
 import { HALF_D, HALF_W, setBoardDims } from './dimensions'
 import { preparePieceEnvironment } from './materials'
-import { pieceMesh } from './piece'
-import { addLights, boardTopMaterial, createRenderer } from './scene'
+import { disposePiece, pieceMesh } from './piece'
+import { addLights, boardTopMaterial, createRenderer, disposeRenderer } from './scene'
 import { boardSurface, boardTexture } from './textures'
 
 import { SPRITE_BOX, spriteKey, type Baked } from '@/rendering/sprites'
@@ -58,10 +58,10 @@ export async function bakeFlat(px: number, signal: AbortSignal, settings: Settin
           pieces.set(spriteKey(type, color, up), renderer.domElement.toDataURL('image/png'))
         }
         scene.remove(mesh)
+        disposePiece(mesh)
       }
   } finally {
-    renderer.dispose()
-    renderer.forceContextLoss()
+    disposeRenderer(renderer)
   }
   const board = (boardTexture(settings.boardStyle).image as HTMLCanvasElement).toDataURL('image/jpeg', 0.92)
   const stand = grainTexture(512, 512, [180, 128, 66], 120, 21).toDataURL('image/jpeg', 0.9)
@@ -121,17 +121,14 @@ export async function bakePreviews(
         previewCache.set(cacheKey, image)
         if (previewCache.size > 512) previewCache.delete(previewCache.keys().next().value!)
         scene.remove(mesh)
-        for (const child of mesh.children) ((child as THREE.Mesh).material as THREE.Material).dispose()
-        const side = (mesh.material as THREE.Material[])[1]
-        side.dispose()
+        disposePiece(mesh)
       }
       previews.set(option.key, images)
       onPreview?.(option.key, images)
     }
     return previews
   } finally {
-    renderer.dispose()
-    renderer.forceContextLoss()
+    disposeRenderer(renderer)
   }
 }
 
@@ -167,7 +164,6 @@ export async function bakeBoardPreviews(styles: BoardStyle[], signal: AbortSigna
     return previews
   } finally {
     geometry.dispose()
-    renderer.dispose()
-    renderer.forceContextLoss()
+    disposeRenderer(renderer)
   }
 }

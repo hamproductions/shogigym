@@ -29,8 +29,12 @@ export function EvalGraph({
   return (
     <div className="app-graph">
       <div className="app-graph-axis">
-        <span>{t('graph.senteAhead')}</span>
-        <span>{t('graph.goteAhead')}</span>
+        <span title={t('graph.senteAhead')} aria-label={t('graph.senteAhead')}>
+          ☗
+        </span>
+        <span title={t('graph.goteAhead')} aria-label={t('graph.goteAhead')}>
+          ☖
+        </span>
       </div>
       <svg
         viewBox={`0 0 ${W} ${H}`}

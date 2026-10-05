@@ -33,6 +33,7 @@
   border-radius: var(--radius-sm);
   font-family: var(--font-mincho);
   text-align: left;
+  overflow-wrap: anywhere;
 }
 
 .app-moves button:hover {
@@ -56,7 +57,8 @@
   color: var(--accent-text);
   font-size: var(--text-2xs);
   font-weight: var(--weight-bold);
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .app-move-notation,
@@ -126,13 +128,27 @@
     width: fit-content;
     max-width: 100%;
     margin: var(--space-half) 0 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   .app-moves .app-var .app-var-x {
     min-width: 36px;
     min-height: 32px;
     font-size: var(--glyph-sm);
+  }
+}
+
+@container (max-width: 340px) {
+  .app-move-row {
+    grid-template-columns: 26px minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .app-move-row > :last-child {
+    grid-column: 2;
+  }
+
+  .app-move-tesuji {
+    display: block;
+    margin: var(--space-half) 0 0;
   }
 }

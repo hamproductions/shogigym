@@ -177,27 +177,32 @@ function composeGlyph(ink: HTMLCanvasElement, guide?: HTMLCanvasElement, two = f
 
 export function artTexture(art: LoadedPiece, key: string, seed = 1, appearance?: PieceAppearance) {
   const settings = { ...getSettings(), ...appearance }
+  const lightInk = settings.pieceColor === 'dark' || settings.pieceColor === 'mahogany'
+  const glyphKey = `art|${key}|${settings.pieceStyle}|${settings.pieceGuide}|${lightInk}`
   key += `|${settings.pieceStyle}|${settings.pieceGuide}|${settings.pieceMaterial}|${settings.pieceColor}|${settings.pieceGrain}|${seed}`
   const cached = artCache.get(key)
   if (cached) return cached
   const canvas = pieceSurface(seed, appearance)
-  const ink = canvas2d(256)
-  ink.ctx.drawImage(art.canvas, 0, 0, 256, 256)
-  const lightInk = settings.pieceColor === 'dark' || settings.pieceColor === 'mahogany'
-  if (lightInk) {
-    const image = ink.ctx.getImageData(0, 0, 256, 256)
-    for (let i = 0; i < image.data.length; i += 4) {
-      const red = image.data[i] - image.data[i + 1] > 35 && image.data[i] - image.data[i + 2] > 20
-      const color = red ? [255, 160, 164] : [250, 246, 235]
-      image.data[i] = color[0]
-      image.data[i + 1] = color[1]
-      image.data[i + 2] = color[2]
+  let glyph = glyphCache.get(glyphKey)
+  if (!glyph) {
+    const ink = canvas2d(256)
+    ink.ctx.drawImage(art.canvas, 0, 0, 256, 256)
+    if (lightInk) {
+      const image = ink.ctx.getImageData(0, 0, 256, 256)
+      for (let i = 0; i < image.data.length; i += 4) {
+        const red = image.data[i] - image.data[i + 1] > 35 && image.data[i] - image.data[i + 2] > 20
+        const color = red ? [255, 160, 164] : [250, 246, 235]
+        image.data[i] = color[0]
+        image.data[i + 1] = color[1]
+        image.data[i + 2] = color[2]
+      }
+      ink.ctx.putImageData(image, 0, 0)
     }
-    ink.ctx.putImageData(image, 0, 0)
+    const sourceGuide = settings.pieceGuide === 'none' ? undefined : loadedGuide(art.code, settings.pieceGuide)
+    const guide = settings.pieceGuide === 'lines' ? guideInk(sourceGuide, ink.canvas) : sourceGuide
+    glyph = composeGlyph(ink.canvas, guide, twoCharacterGlyph(settings.pieceSet), settings.pieceGuide === 'movement')
+    glyphCache.set(glyphKey, glyph)
   }
-  const sourceGuide = settings.pieceGuide === 'none' ? undefined : loadedGuide(art.code, settings.pieceGuide)
-  const guide = settings.pieceGuide === 'lines' ? guideInk(sourceGuide, ink.canvas) : sourceGuide
-  const glyph = composeGlyph(ink.canvas, guide, twoCharacterGlyph(settings.pieceSet), settings.pieceGuide === 'movement')
   canvas.getContext('2d')!.drawImage(glyph, 0, 0)
   const texture = srgbTexture(canvas, 8)
   texture.userData.lightInk = lightInk
@@ -242,7 +247,7 @@ export function faceTexture(char: string, promoted: boolean, seed = 1, appearanc
   if (cached) return cached
   const canvas = pieceSurface(seed, appearance)
   const lightInk = settings.pieceColor === 'dark' || settings.pieceColor === 'mahogany'
-  const glyphKey = `${char}|${promoted}|${font.family}|${broadcast}|${lightInk}|${settings.pieceGuide}|${code}`
+  const glyphKey = `${char}|${promoted}|${font.family}|${broadcast}|${lightInk}|${settings.pieceStyle}|${settings.pieceGuide}|${code}`
   let glyph = glyphCache.get(glyphKey)
   if (!glyph) {
     glyph = canvas2d(256).canvas
@@ -276,13 +281,14 @@ export function faceTexture(char: string, promoted: boolean, seed = 1, appearanc
   return texture
 }
 
-const glyphTextures = new WeakMap<THREE.Texture, THREE.Texture>()
+const glyphTextures = new WeakMap<HTMLCanvasElement, THREE.Texture>()
 
 export function glyphTexture(map: THREE.Texture) {
-  let texture = glyphTextures.get(map)
+  const canvas = map.userData.inkCanvas as HTMLCanvasElement
+  let texture = glyphTextures.get(canvas)
   if (!texture) {
-    texture = srgbTexture(map.userData.inkCanvas, 8)
-    glyphTextures.set(map, texture)
+    texture = srgbTexture(canvas, 8)
+    glyphTextures.set(canvas, texture)
   }
   return texture
 }

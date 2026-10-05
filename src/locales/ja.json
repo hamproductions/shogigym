@@ -1,5 +1,7 @@
 {
   "app": {
+    "dockPanelSide": "パネルを横に配置",
+    "floatPanel": "パネルを浮かせる",
     "title": "将棋ジム",
     "somethingWentWrong": "エラーが発生しました",
     "yourProgressAndSettingsAre": "進捗と設定は残っています。リセットで消えるのは開いていた対局だけです。",

@@ -22,7 +22,8 @@
 }
 
 .app-shell.zoned > .app-panel .app-panel-resize {
-  display: none;
+  left: 0;
+  width: 12px;
 }
 
 @media (max-width: 820px) {
@@ -52,6 +53,7 @@
 }
 
 .app-shell.fs {
+  padding: 0;
   grid-template-columns: minmax(0, 1fr);
   grid-template-rows: minmax(0, 1fr);
 }
@@ -70,8 +72,8 @@
 
 .app-shell.fs .app-fs-exit {
   position: fixed;
-  top: 14px;
-  left: 14px;
+  top: max(14px, env(safe-area-inset-top));
+  left: max(14px, env(safe-area-inset-left));
   z-index: var(--z-promote);
   display: inline-flex;
   align-items: center;

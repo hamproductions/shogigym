@@ -258,12 +258,12 @@ export function pieceMesh(
   top.castShadow = !glass
   top.receiveShadow = !plastic && !glass
   const reverse = PROMOTED.has(type) ? unpromotedPieceType(type) : promotedPieceType(type)
+  const reverseInk = type === PieceType.KING || type === PieceType.GOLD ? null : faceMap(reverse, color, 1, appearance)
   const backMap =
     type === PieceType.KING || type === PieceType.GOLD
       ? faceTexture('', false, seed, { ...appearance, pieceGuide: 'none' })
       : faceMap(reverse, color, seed, appearance)
-  if (type !== PieceType.KING && type !== PieceType.GOLD && !PROMOTED.has(type)) {
-    const reverseInk = faceMap(reverse, color, 1, appearance)
+  if (reverseInk && !PROMOTED.has(type)) {
     carvedTop(scale, reverseInk, segments, appearance)
     lacquerMap(reverseInk, lacquer ? 0.5 : 0)
     if (relief) reliefNormal(reverseInk, relief * scale, komaWidth(scale), scale, kind)
@@ -275,9 +275,9 @@ export function pieceMesh(
     backFace.side = THREE.DoubleSide
     backFace.depthWrite = false
     if (backFace instanceof THREE.MeshPhysicalMaterial) {
-      backFace.roughnessMap = lacquerMap(backMap, lacquer ? 0.5 : 0)
+      backFace.roughnessMap = lacquerMap(reverseInk ?? backMap, lacquer ? 0.5 : 0)
       backFace.clearcoatMap = backFace.roughnessMap
-      backFace.normalMap = relief ? reliefNormal(backMap, relief * scale, komaWidth(scale), scale, kind) : null
+      backFace.normalMap = relief ? reliefNormal(reverseInk ?? backMap, relief * scale, komaWidth(scale), scale, kind) : null
       backFace.clearcoatNormalMap = lacquer ? backFace.normalMap : null
     }
   }

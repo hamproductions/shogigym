@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react'
-import { sideStandsFit } from '@/rendering/board3d/dimensions'
 import type { StandZones } from '@/rendering/board3d/types'
-import { useSettings } from '@/appearance/settings'
 import type { Mode } from '@/app/types'
 import { useLatest } from './useLatest'
 
-type PanelPrefs = { width: number; hidden: boolean }
+type PanelPrefs = { width: number; hidden: boolean; side?: boolean }
 
 const PANEL_KEY = 'joseki-practice:panel:v1'
 const SHEET_KEY = 'joseki-practice:sheet:v1'
@@ -34,7 +32,6 @@ export function scrollPanelTop(smooth = false) {
 }
 
 export function useLayout({ mode, needsPicking, welcome, orbit = false }: { mode: Mode; needsPicking: boolean; welcome: boolean; orbit?: boolean }) {
-  const settings = useSettings()
   const [viewport, setViewport] = useState(() => ({ w: window.innerWidth, h: window.innerHeight }))
   const [compact, setCompact] = useState(() => window.matchMedia(PHONE_QUERY).matches)
   const [panelPrefs, setPanelPrefs] = useState(loadPanelPrefs)
@@ -65,14 +62,10 @@ export function useLayout({ mode, needsPicking, welcome, orbit = false }: { mode
   }, [drawer])
 
   const panelHidden = compact ? !drawer : panelPrefs.hidden
-  const zoned =
-    !orbit &&
-    !compact &&
-    settings.environment !== 'diagram' &&
-    settings.environment !== 'broadcast' &&
-    viewport.w >= 1100 &&
-    sideStandsFit(viewport.w - 100, viewport.h - 110)
-  const twoPanels = zoned && !panelPrefs.hidden && !!zones && zones.under.width >= 240 && zones.under.height >= 200
+  const floatingAvailable = !orbit && !!zones && zones.over.width >= 280 && zones.over.height >= 240
+  const panelSide = !!panelPrefs.side || !floatingAvailable
+  const zoned = !compact && !panelSide
+  const twoPanels = zoned && floatingAvailable && !panelPrefs.hidden && !!zones && zones.under.width >= 240 && zones.under.height >= 200
 
   const compactRef = useLatest(compact)
   const panelHiddenRef = useLatest(panelHidden)
@@ -91,7 +84,12 @@ export function useLayout({ mode, needsPicking, welcome, orbit = false }: { mode
   }
   const togglePanel = () => setPanel({ hidden: !panelHiddenRef.current })
 
-  const resizeSheet = (clientY: number) => setSheetH(Math.round(Math.min(78, Math.max(22, 100 - (clientY / window.innerHeight) * 100))))
+  const resizeSheet = (clientY: number) => {
+    const bounds = document.querySelector('.app-shell')?.getBoundingClientRect()
+    const height = bounds?.height ?? window.innerHeight
+    const top = bounds?.top ?? 0
+    setSheetH(Math.round(Math.min(78, Math.max(22, 100 - ((clientY - top) / height) * 100))))
+  }
   const persistSheet = () =>
     setSheetH((h) => {
       try {
@@ -107,6 +105,11 @@ export function useLayout({ mode, needsPicking, welcome, orbit = false }: { mode
     drawer,
     setDrawer,
     panelWidth: panelPrefs.width,
+    panelSide,
+    floatingAvailable,
+    floatingZones: floatingAvailable ? zones : null,
+    viewport,
+    togglePanelSide: () => setPanel({ side: !panelSide }),
     panelPrefsHidden: panelPrefs.hidden,
     panelHidden,
     setPanel,

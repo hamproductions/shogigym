@@ -5,7 +5,7 @@ import { furnishFloor, type RoomDims } from '@/rendering/roomFloor'
 import { CASUAL, HALF_D, HALF_W, LEG, STAND, STAND_SLAB, STAND_TOP, STRIP_D, STRIP_W, THICK } from './dimensions'
 import { layout, standCenter } from './layout'
 import { surroundings } from './surroundings'
-import { environmentMap, preparePieceEnvironment, standMaterial, woodMaterial } from './materials'
+import { environmentMap, preparePieceEnvironment, releasePieceEnvironment, standMaterial, woodMaterial } from './materials'
 import { boardTexture } from './textures'
 import { BOARD_TONE } from '@/rendering/koma'
 import type { SceneState, Stand } from './types'
@@ -19,6 +19,12 @@ export function createRenderer(activateEnvironment = true) {
   renderer.toneMappingExposure = 0.82
   preparePieceEnvironment(renderer, activateEnvironment)
   return renderer
+}
+
+export function disposeRenderer(renderer: THREE.WebGLRenderer) {
+  releasePieceEnvironment(renderer)
+  renderer.dispose()
+  renderer.forceContextLoss()
 }
 
 export function addLights(scene: THREE.Scene) {

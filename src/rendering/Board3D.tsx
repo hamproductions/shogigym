@@ -12,7 +12,7 @@ import { layout, sideStandsFit, zoneReporter } from '@/rendering/board3d/layout'
 import { drawMarks } from '@/rendering/board3d/marks'
 import { liftSelected, rebuild, stepAnimations } from '@/rendering/board3d/pieces'
 import { createPower, moveEvent, type Power } from '@/rendering/board3d/power'
-import { buildScene, createRenderer } from '@/rendering/board3d/scene'
+import { buildScene, createRenderer, disposeRenderer } from '@/rendering/board3d/scene'
 import { clearFaceTextures } from '@/rendering/board3d/textures'
 import type { Board3DProps, SceneState } from '@/rendering/board3d/types'
 import { SNAPSHOT_EVENT, TABLE_FLIP_EVENT } from '@/utils/events'
@@ -174,7 +174,7 @@ export function Board3D(props: Board3DProps) {
       power.current?.dispose()
       power.current = null
       s.controls?.dispose()
-      renderer.dispose()
+      disposeRenderer(renderer)
       el.removeChild(renderer.domElement)
       state.current = null
       piecesReady.current = false

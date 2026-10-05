@@ -1,5 +1,7 @@
 {
   "app": {
+    "dockPanelSide": "Dock panel to the side",
+    "floatPanel": "Float panel",
     "title": "Shogi Gym",
     "somethingWentWrong": "Something went wrong",
     "yourProgressAndSettingsAre": "Your progress and settings are safe. Resetting only clears the game that was open.",

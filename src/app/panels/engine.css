@@ -8,6 +8,12 @@
   font-size: var(--text-lg);
 }
 
+.app-standing-summary {
+  display: none;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
 .app-meter {
   height: 8px;
   margin: var(--space-2) 0 var(--space-1-5);
@@ -100,9 +106,13 @@
     padding-bottom: var(--space-2);
   }
 
-  .app-standing strong {
-    font-size: var(--text-sm);
-    white-space: nowrap;
+  .app-standing .app-standing-detail {
+    display: none;
+  }
+
+  .app-standing-summary {
+    display: block;
+    font-size: var(--text-xs);
   }
 
   .app-standing .app-meter {
@@ -124,5 +134,28 @@
   .app-alt-row strong {
     white-space: nowrap;
     font-size: var(--text-lg);
+  }
+}
+
+@container (max-width: 400px) {
+  .app-standing {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding-block: var(--space-1);
+  }
+
+  .app-standing .app-standing-detail {
+    display: none;
+  }
+
+  .app-standing-summary {
+    display: block;
+    font-size: var(--text-xs);
+  }
+
+  .app-standing .app-meter {
+    flex: 1;
+    margin: 0;
   }
 }

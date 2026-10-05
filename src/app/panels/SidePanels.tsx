@@ -1,39 +1,42 @@
 import './panel-layout.css'
-import type { PointerEvent as ReactPointerEvent } from 'react'
+import { useRef, type PointerEvent as ReactPointerEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Layout } from '@/app/hooks/useLayout'
 import { useSettings } from '@/appearance/settings'
 import { TABS, type Tab } from '@/app/types'
 import { Button } from '@/app/ui/Button'
 import { Tabs } from '@/app/ui/Tabs'
+import { Icon } from '@/app/icons'
 import { NavFooter } from './NavFooter'
 import { PanelBody, type PanelModel } from './PanelBody'
 
 type SidePanelsProps = { layout: Layout; tab: Tab; setTab: (tab: Tab) => void; sheetOpen: boolean; model: PanelModel; canAutoplay: boolean; picking: boolean }
-
-function trackPointer(move: (ev: PointerEvent) => void, done?: (ev: PointerEvent) => void) {
-  const up = (ev: PointerEvent) => {
-    window.removeEventListener('pointermove', move)
-    window.removeEventListener('pointerup', up)
-    done?.(ev)
-  }
-  window.addEventListener('pointermove', move)
-  window.addEventListener('pointerup', up)
-}
 
 export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay, picking }: SidePanelsProps) {
   const { t } = useTranslation()
   const ja = useSettings().lang === 'ja'
   const { compact, zoned, zones, twoPanels, panelPrefsHidden, panelWidth, setPanel } = layout
   const labelClass = ja ? 'app-ja' : 'app-en'
-  const startSheetDrag = (e: ReactPointerEvent) => {
-    e.preventDefault()
-    trackPointer((ev) => layout.resizeSheet(ev.clientY), layout.persistSheet)
+  const resizeStart = useRef({ x: 0, width: panelWidth })
+  const floatingZone = layout.floatingZones?.over
+  const floatingWidth = floatingZone?.width ?? Math.min(panelWidth, layout.viewport.w - 120)
+  const floatingTop = floatingZone?.top ?? 110
+  const floatingRect = {
+    left: floatingZone ? floatingZone.left + floatingZone.width - floatingWidth : layout.viewport.w - floatingWidth - 12,
+    top: floatingTop,
+    width: floatingWidth,
+    height: Math.min(floatingZone?.height ?? layout.viewport.h - floatingTop - 12, layout.viewport.h - floatingTop - 12),
   }
   const startResize = (e: ReactPointerEvent) => {
     e.preventDefault()
-    const startX = e.clientX
-    trackPointer((ev) => setPanel({ width: Math.min(560, Math.max(320, panelWidth + startX - ev.clientX)) }))
+    resizeStart.current = { x: e.clientX, width: e.currentTarget.closest('aside')?.getBoundingClientRect().width ?? panelWidth }
+    e.currentTarget.setPointerCapture(e.pointerId)
+  }
+  const resize = (e: ReactPointerEvent) => {
+    if (!e.currentTarget.hasPointerCapture(e.pointerId)) return
+    const max = compact ? window.innerWidth * 0.7 : 560
+    const min = compact ? Math.min(180, max) : 320
+    setPanel({ width: Math.min(max, Math.max(min, resizeStart.current.width + resizeStart.current.x - e.clientX)) })
   }
   const startHandleSwipe = (e: ReactPointerEvent) => {
     const startY = e.clientY
@@ -57,40 +60,62 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
         className={`app-panel${sheetOpen ? ' open' : ''}`}
         style={
           zoned
-            ? zones && !panelPrefsHidden
+            ? !panelPrefsHidden
               ? picking
-                ? { ...zones.over, height: Math.max(zones.over.height, zones.under.top + zones.under.height - zones.over.top) }
-                : { ...zones.over }
+                ? { ...floatingRect, height: layout.viewport.h - floatingTop - 12 }
+                : floatingRect
               : { display: 'none' }
             : undefined
         }
       >
-        {compact && <div className="app-sheet-grip" role="separator" aria-orientation="horizontal" onPointerDown={startSheetDrag} />}
-        <div className="app-panel-resize" title={t('app.dragToResizeThePanel')} onPointerDown={startResize} />
+        {layout.panelSide && (
+          <div
+            className="app-panel-resize"
+            role="separator"
+            aria-label={t('app.dragToResizeThePanel')}
+            aria-orientation="vertical"
+            title={t('app.dragToResizeThePanel')}
+            onPointerDown={startResize}
+            onPointerMove={resize}
+          />
+        )}
         <button
           className="app-sheet-handle"
           onClick={() => layout.setSheetOpen(!sheetOpen)}
           onPointerDown={startHandleSwipe}
           aria-label={sheetOpen ? t('app.collapsePanel') : t('app.expandPanel')}
         />
-        <Tabs
-          items={TABS.filter((id) => !(twoPanels && id === 'moves')).map((id) => ({ id, label: <span className={labelClass}>{t(`tabs.${id}`)}</span> }))}
-          value={tab}
-          onChange={setTab}
-        >
+        <div className="app-panel-header">
+          <Tabs
+            items={TABS.filter((id) => !(twoPanels && id === 'moves')).map((id) => ({ id, label: <span className={labelClass}>{t(`tabs.${id}`)}</span> }))}
+            value={tab}
+            onChange={setTab}
+          />
+        </div>
+        <PanelBody tab={tab} model={model} />
+        {!picking && <NavFooter canAutoplay={canAutoplay} watch={model.watch} />}
+        <div className="app-panel-actions">
+          {(!layout.panelSide || layout.floatingAvailable) && (
+            <Button
+              variant="icon"
+              className="app-panel-dock"
+              onClick={layout.togglePanelSide}
+              title={t(layout.panelSide ? 'app.floatPanel' : 'app.dockPanelSide')}
+              aria-label={t(layout.panelSide ? 'app.floatPanel' : 'app.dockPanelSide')}
+            >
+              <Icon name={layout.panelSide ? 'floating' : 'panel'} />
+            </Button>
+          )}
           <Button
             variant="icon"
-            size="lg"
             className="app-panel-close"
             onClick={() => setPanel({ hidden: true })}
             title={t('app.closeThePanelP')}
             aria-label={t('app.closeThePanel')}
           >
-            ×
+            <Icon name="close" />
           </Button>
-        </Tabs>
-        <PanelBody tab={tab} model={model} />
-        {!picking && <NavFooter canAutoplay={canAutoplay} watch={model.watch} />}
+        </div>
       </aside>
     </>
   )

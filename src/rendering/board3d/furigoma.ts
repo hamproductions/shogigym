@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import { Color, PieceType, Square } from 'tsshogi'
-import { pieceMesh } from './piece'
+import { disposePiece, pieceMesh } from './piece'
+import { preparePieceEnvironment } from './materials'
 import { playSound } from '@/appearance/settings'
 import type { SceneState } from './types'
 
@@ -14,7 +15,6 @@ export function createFurigoma3D(state: SceneState, onDone: (faces: boolean[]) =
   hidden.forEach((mesh) => {
     mesh.visible = false
   })
-  const materials = new Set<THREE.Material>()
   let completed = false
   const faces = Array.from({ length: 5 }, () => Math.random() < 0.5)
   const bodies: {
@@ -27,14 +27,7 @@ export function createFurigoma3D(state: SceneState, onDone: (faces: boolean[]) =
     settled: boolean
   }[] = []
   for (let i = 0; i < faces.length; i++) {
-    const mesh = pieceMesh(PieceType.PAWN, Color.BLACK, i + 71, 48)
-    mesh.traverse((node) => {
-      const material = (node as THREE.Mesh).material
-      if (!material) return
-      const owned = (Array.isArray(material) ? material : [material]).map((m) => m.clone())
-      owned.forEach((m) => materials.add(m))
-      ;(node as THREE.Mesh).material = Array.isArray(material) ? owned : owned[0]
-    })
+    const mesh = pieceMesh(PieceType.PAWN, Color.BLACK, i + 71, 48, undefined, preparePieceEnvironment(state.renderer, false))
     group.add(mesh)
     mesh.geometry.computeBoundingBox()
     const box = mesh.geometry.boundingBox!
@@ -123,7 +116,7 @@ export function createFurigoma3D(state: SceneState, onDone: (faces: boolean[]) =
       hidden.forEach((mesh) => {
         mesh.visible = true
       })
-      for (const material of materials) material.dispose()
+      for (const { mesh } of bodies) disposePiece(mesh)
     },
   }
 }

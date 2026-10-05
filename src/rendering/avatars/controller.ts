@@ -120,6 +120,7 @@ const FADE_HEAD = [
   'uniform vec4 avatarBoard;',
   'uniform vec3 avatarArms[8];',
   'float avatarArm(vec3 p, int i, float w) {',
+  '  if (w <= 0.0) return 1.0;',
   '  vec3 a = avatarArms[i + 1];',
   '  vec3 d = avatarArms[i + 2] - a;',
   '  float h = dot(p - a, d) / max(dot(d, d), 1e-4);',
@@ -495,7 +496,7 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
       actor.char.headPosition(target)
       const proximity = 1 - THREE.MathUtils.smoothstep(camera.position.distanceTo(target), 0.4 * UNITS_PER_M, 1.2 * UNITS_PER_M)
       const facing = THREE.MathUtils.smoothstep((cam.z * side) / Math.max(1e-3, cam.length()), 0, 0.012)
-      const near = orbit ? proximity * facing : facing
+      const near = orbit ? proximity : Math.max(proximity, facing)
       actor.uniforms.fade.value.set(distance * 0.22, distance * 0.34)
       const top = orbit ? 0 : THREE.MathUtils.smoothstep(cam.y / Math.max(1e-3, cam.length()), 0.78, 0.9)
       actor.uniforms.band.value.set(top, rootAt.y + 0.16 * UNITS_PER_M, near, actor.char.state.reachW > 0.02 ? 0.085 * UNITS_PER_M : 0)

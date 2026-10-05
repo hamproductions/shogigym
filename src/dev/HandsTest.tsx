@@ -6,7 +6,7 @@ import { Color, Position, Square } from 'tsshogi'
 import { loadAvatars, type AvatarController, type AvatarInspect, type AvatarSlot } from '@/rendering/avatars'
 import { HALF_D, HALF_W, LEG, THICK, setBoardDims, squareX, squareZ } from '@/rendering/board3d/dimensions'
 import { rebuild } from '@/rendering/board3d/pieces'
-import { buildScene, createRenderer } from '@/rendering/board3d/scene'
+import { buildScene, createRenderer, disposeRenderer } from '@/rendering/board3d/scene'
 import type { Board3DProps, SceneState } from '@/rendering/board3d/types'
 import { loadPieceFont, setSettings, useSettings } from '@/appearance/settings'
 import { loadPieceSet } from '@/appearance/pieceSets'
@@ -246,7 +246,7 @@ export default function HandsTest() {
       window.removeEventListener('resize', resize)
       controller?.dispose()
       controls.dispose()
-      renderer.dispose()
+      disposeRenderer(renderer)
       el.removeChild(renderer.domElement)
       api.current = null
       setReady(false)

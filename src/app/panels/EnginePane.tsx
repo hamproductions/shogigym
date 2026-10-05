@@ -75,11 +75,20 @@ export function EnginePane({ sfen, toMove, analysis, showBest, setShowBest, onPl
     <div className="app-engine">
       <EngineName />
       <div className="app-standing">
-        <strong>{standing(senteRate)}</strong>
+        <strong className="app-standing-detail">{standing(senteRate)}</strong>
+        <span
+          className="app-standing-summary"
+          title={standing(senteRate)}
+          aria-label={t('engine.winChanceAgainst', { value: Math.round(senteRate * 100), value2: Math.round((1 - senteRate) * 100) })}
+        >
+          {sideMark(senteRate >= 0.5 ? 'sente' : 'gote')} {Math.round(Math.max(senteRate, 1 - senteRate) * 100)}%
+        </span>
         <div className="app-meter" aria-hidden="true">
           <span style={{ width: `${senteRate * 100}%` }} />
         </div>
-        <span className="app-muted">{t('engine.winChanceAgainst', { value: Math.round(senteRate * 100), value2: Math.round((1 - senteRate) * 100) })}</span>
+        <span className="app-muted app-standing-detail">
+          {t('engine.winChanceAgainst', { value: Math.round(senteRate * 100), value2: Math.round((1 - senteRate) * 100) })}
+        </span>
       </div>
 
       <div className="app-best">

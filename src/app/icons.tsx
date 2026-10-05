@@ -1,4 +1,6 @@
 const paths = {
+  close: 'M6 6l12 12M18 6L6 18',
+  floating: 'M8 3h13v13H8zM3 8v13h13M8 7h13',
   install: 'M12 3v12M7 10l5 5 5-5M4 16v5h16v-5',
   study: 'M3 5.5C6 4 9 4 12 6c3-2 6-2 9-.5V19c-3-1.5-6-1.5-9 .5-3-2-6-2-9-.5zM12 6v13.5',
   spar: 'M6.5 3l3 2L11 15H2L3.5 5zM17.5 21l-3-2L13 9h9l-1.5 10z',
