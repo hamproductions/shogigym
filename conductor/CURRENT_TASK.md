@@ -34,7 +34,9 @@
 - Unsourced names disabled: 金盾囲い, 大盾囲い, GAVA角, 楠本式石田流, 左山囲い, 鬼六流どっかん飛車, やばボーズ流, 双竜双馬陣. No guessed voice fallback.
 - Typecheck passed; scoped lint passed with existing component/export/effect warnings. Diff whitespace and secret-pattern checks passed.
 - Remaining limitation: eight names lack verified complete readings; compound entries sourced by constituents are explicitly not exact-term verification.
-- Immediate next action: commit scoped fixes and referenced generated clips, run configured patch release checks, push main/tag and verify remote release.
+- Fixes committed as 8cb1b51. Configured release validation, lint, formatting and production build passed.
+- Release authentication failed because the SSH remote alias was treated as the GitHub API host. Explicit github.com release host corrects that routing; active CLI identity is hamzaabamboo.
+- Immediate next action: run patch release with corrected API host, push main/tag and verify remote release.
 
 - Latest pronunciation requirement: every type must use dictionary-backed readings; primary dictionary, Japan Shogi Association and original named-term sources authorized. Unverified readings cannot count as correct.
 - agent-browser SKILL.md read 1–EOF (52 lines); CLI core workflow read completely. frontend-design SKILL.md read 1–EOF (71 lines); look-at-the-screen SKILL.md read 1–EOF (60 lines). Narrow banner change preserves existing tokens, amber tesuji accent, small sans-serif type and top placement.
