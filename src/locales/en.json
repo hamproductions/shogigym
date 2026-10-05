@@ -775,7 +775,12 @@
     "powerMode": "Power mode",
     "powerModeHint": "Light beams and explosions on captures, a dramatic 王手, and a big finale on 詰み.",
     "voice": "Zundamon voice",
-    "voiceCredit": "Reads out openings, castles, tesuji, check and byoyomi. Voice: VOICEVOX:ずんだもん"
+    "voiceCredit": "Reads out openings, castles, tesuji, check and byoyomi. Voice: VOICEVOX:ずんだもん",
+    "about": "About",
+    "aboutDescription": "Shogi training, play and analysis in your browser.",
+    "repository": "GitHub repository",
+    "changelog": "Changelog",
+    "credits": "Credits and licences"
   },
   "tabs": {
     "coach": "Coach",

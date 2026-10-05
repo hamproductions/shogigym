@@ -40,7 +40,7 @@ import { SegmentedField, SettingRow } from '@/app/ui/Segmented'
 import { Tabs } from '@/app/ui/Tabs'
 import { VERSION } from '@/utils/version'
 
-type SettingsTab = 'general' | 'board' | 'pieces' | 'play'
+type SettingsTab = 'general' | 'board' | 'pieces' | 'play' | 'about'
 const FONTS = Object.keys(PIECE_FONTS) as PieceFont[]
 const BOARD_STYLE_KEYS = Object.keys(BOARD_STYLES) as BoardStyle[]
 const asset = (group: string, key: string) => `${import.meta.env.BASE_URL}previews/${group}/${key}.webp`
@@ -569,6 +569,7 @@ export function SettingsDialog({ onClose, level, onLevel }: { onClose: () => voi
     { id: 'board', label: t('settings.board') },
     { id: 'pieces', label: t('settings.pieces') },
     { id: 'play', label: t('settings.playAi') },
+    { id: 'about', label: t('settings.about') },
   ]
   return (
     <Dialog label={t('settings.settings')} className="app-settings" onBackdrop={onClose}>
@@ -640,23 +641,26 @@ export function SettingsDialog({ onClose, level, onLevel }: { onClose: () => voi
               }}
             />
             {st.voice && <p className="app-muted app-credit">{t('settings.voiceCredit')}</p>}
-            <div
-              className="app-about-section"
-              style={{ marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px solid var(--border-subtle, rgba(255,255,255,0.1))', fontSize: '0.85rem' }}
-            >
-              <p className="app-muted" style={{ margin: 0, opacity: 0.8 }}>
-                Shogi Gym · v{VERSION} ·{' '}
-                <a
-                  href="https://github.com/hamproductions/shogilab"
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{ color: 'var(--text-accent, #60a5fa)', textDecoration: 'underline' }}
-                >
-                  GitHub Repository
-                </a>
-              </p>
-            </div>
           </>
+        )}
+        {tab === 'about' && (
+          <section className="app-about-section">
+            <h3>
+              Shogi Gym 将棋ジム <span className="app-muted">v{VERSION}</span>
+            </h3>
+            <p className="app-muted">{t('settings.aboutDescription')}</p>
+            <div className="app-actions">
+              <a href="https://github.com/hamproductions/shogigym" target="_blank" rel="noreferrer">
+                {t('settings.repository')}
+              </a>
+              <a href="https://github.com/hamproductions/shogigym/blob/main/CHANGELOG.md" target="_blank" rel="noreferrer">
+                {t('settings.changelog')}
+              </a>
+              <a href="https://github.com/hamproductions/shogigym#sources-and-licenses" target="_blank" rel="noreferrer">
+                {t('settings.credits')}
+              </a>
+            </div>
+          </section>
         )}
         {tab === 'board' && (
           <>

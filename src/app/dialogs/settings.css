@@ -62,3 +62,19 @@
     justify-content: flex-start;
   }
 }
+
+.app-about-section h3 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.app-about-section h3 span {
+  font-size: 0.85em;
+}
+
+.app-about-section .app-actions {
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}

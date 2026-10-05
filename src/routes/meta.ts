@@ -1,7 +1,7 @@
 import { mainStrategies, strategyById } from '@/data/strategies'
 
 const SITE = 'Shogi Gym 将棋ジム'
-export const SITE_URL = (import.meta.env.VITE_SITE_URL ?? 'https://hamproductions.github.io/shogilab').replace(/\/$/, '')
+export const SITE_URL = (import.meta.env.VITE_SITE_URL ?? 'https://hamproductions.github.io/shogigym').replace(/\/$/, '')
 
 const MODES: Record<string, { title: string; description: string }> = {
   play: { title: 'Play the AI', description: 'Play shogi against the AI at beginner to full strength, with a coach that explains every move.' },

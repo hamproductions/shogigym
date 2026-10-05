@@ -756,7 +756,12 @@
     "powerMode": "パワーモード",
     "powerModeHint": "駒取りで光と爆発、王手で演出、詰みで大フィナーレ。",
     "voice": "ずんだもんの声",
-    "voiceCredit": "戦法・囲い・手筋・王手・秒読みを読み上げます。音声：VOICEVOX:ずんだもん"
+    "voiceCredit": "戦法・囲い・手筋・王手・秒読みを読み上げます。音声：VOICEVOX:ずんだもん",
+    "about": "このアプリについて",
+    "aboutDescription": "ブラウザーで将棋の学習・対局・検討。",
+    "repository": "GitHub リポジトリ",
+    "changelog": "更新履歴",
+    "credits": "クレジットとライセンス"
   },
   "tabs": {
     "coach": "指導",

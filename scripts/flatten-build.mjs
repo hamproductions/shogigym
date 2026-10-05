@@ -12,7 +12,7 @@ if (base) {
 }
 cpSync(join(out, 'index.html'), join(out, '404.html'))
 
-const site = (process.env.SITE_URL ?? 'https://hamproductions.github.io/shogilab').replace(/\/$/, '')
+const site = (process.env.SITE_URL ?? 'https://hamproductions.github.io/shogigym').replace(/\/$/, '')
 const pages = []
 const walk = (dir, path) => {
   if (existsSync(join(dir, 'index.html'))) pages.push(path)

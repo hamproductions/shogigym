@@ -2,7 +2,7 @@
 
 # Shogi Gym 将棋ジム
 
-**Play it: [hamproductions.github.io/shogilab](https://hamproductions.github.io/shogilab/)**
+**Play it: [hamproductions.github.io/shogigym](https://hamproductions.github.io/shogigym/)**
 
 A free shogi training gym in the browser. Learn openings with study and quiz modes, keep them with spaced review, sharpen tactics with tsume and tesuji drills, play the AI and analyze your games. Everything runs locally, with the YaneuraOu engine compiled to WebAssembly.
 
@@ -16,14 +16,14 @@ The whole app is one screen: a 3D board in a tatami room or a home dining room (
 
 ## Features
 
-- **定跡 Openings**: 110 lessons across 85 matchups for every main strategy, plus castle-breaking (囲い崩し) and sabaki (捌き) techniques, every move taken from a cited source.
+- **定跡 Openings**: Source-cited lessons and matchups for the main strategies, plus castle-breaking (囲い崩し) and sabaki (捌き) techniques, every move taken from a cited source.
   - **Study mode** shows each move with its reason and plays the opponent's reply on your cue.
   - **Quiz mode** asks you to find the moves.
   - A wrong move is graded (Good, Inaccuracy, Mistake, Blunder…), the punishing line plays out on the board, and you are asked to go back and try again.
   - A Lesson map shows every branch of the line.
 - **復習 Review**: spaced repetition per position (4 h, 1 d, 3 d, 1 w and longer; a miss starts the position over). Mistakes from your own games are added automatically.
 - **詰将棋 Tsume**: 1手詰 to 7手詰 plus a mixed set. Hints are staged, a King escape overlay is optional, and a solve only counts when it was found without help.
-- **手筋 Tesuji**: 377 drills where the move to find is a named tesuji (叩きの歩, 突き捨ての歩, 焦点の歩, 垂れ歩, 底歩, 頭金, 両取り, ふんどしの桂, 王手飛車取り …), mined from the book lines and tsume by `scripts/mine-tesuji.ts`, each citing its source position. Plus four hand-entered pawn-tesuji lessons from shogi-rule.com's diagrams. While you play or analyze, a tesuji in the game is named on the board and tagged in the move list.
+- **手筋 Tesuji**: Drills where the move to find is a named tesuji (叩きの歩, 突き捨ての歩, 焦点の歩, 垂れ歩, 底歩, 頭金, 両取り, ふんどしの桂, 王手飛車取り …), mined from the book lines and tsume by `scripts/mine-tesuji.ts`, each citing its source position. Plus four hand-entered pawn-tesuji lessons from shogi-rule.com's diagrams. While you play or analyze, a tesuji in the game is named on the board and tagged in the move list.
 - **対局 Play AI**: four strengths. You can choose the AI's strategy (居飛車穴熊, 棒銀, 舟囲い急戦, 左美濃, 相振り飛車 and more); the AI follows that setup's book lines, then thinks for itself.
   - 待った take-back, resign, and a 王手 warning.
   - A coach comments on each of your moves.
@@ -37,7 +37,7 @@ The whole app is one screen: a 3D board in a tatami room or a home dining room (
 - **Formation display**: the strategy and castle of both sides (四間飛車, 本美濃, 穴熊, ミレニアム…) appear beside the board, with a short banner when one is completed.
 - **Players at the table**: two seated characters move every piece by hand (reach, grip, carry, press), lean in for far squares and bow at the start. A dev-only `/dev/hands` page steps through every hand motion frame by frame.
 - **Power mode** (optional): sparks, shockwaves and light beams on captures, a dimmed room with a red beam for 王手, and a 詰み finale after which the loser flips the table.
-- **Zundamon voice** (VOICEVOX:ずんだもん): reads out openings, castles and tesuji as they appear, calls 王手 and 詰み, counts byoyomi, and greets you at the start and end of a game.
+- **Zundamon voice** (VOICEVOX:ずんだもん): reads out openings, castles and tesuji as they appear, calls 王手 and 詰み, counts byoyomi, and greets you at the start and acknowledges the game result once.
 - **Eval bar** beside the board, steady between moves, and a take-back-and-retry prompt after a mistake.
 - **Settings**: Classic, Elegant, Plastic and Broadcast presets combine independent typeface, face, color, material, grain and finish settings. Choose one character, two characters, or one character with Lines, Dots or Marks guides. Wood, plastic, glass and frosted glass share the full-set preview and angled finish previews. Board wood, sound, voice, thinking time, candidate lines and knowledge level are configurable; AI strength, strategy and playing order are chosen in the new-game dialog.
 
@@ -89,9 +89,9 @@ The `@/` alias resolves to `src/` in Vite, TypeScript and Bun. Use it for import
 
 ## Versions and releases
 
-`package.json` is the version authority. `src/utils/version.ts` reads it directly, and Settings displays the same version without a generated duplicate.
+`package.json` is the version authority. `src/utils/version.ts` reads it directly, and Settings → About displays the same version beside the app name, with repository, changelog and licence links.
 
-Releases use release-it and its conventional-changelog plugin, following the sibling the-sorter workflow. Use conventional commit messages such as `fix: ...`, `feat: ...` and `feat!: ...` so automatic bump selection and release notes reflect the changes.
+Releases use release-it and its conventional-changelog plugin, using conventional commits. Use conventional commit messages such as `fix: ...`, `feat: ...` and `feat!: ...` so automatic bump selection and release notes reflect the changes.
 
 From a clean, current `main` checkout, with a `GITHUB_TOKEN` authorized to create releases for this repository:
 
@@ -103,11 +103,11 @@ bun run release:minor   # explicit minor bump
 bun run release:major   # explicit major bump
 ```
 
-Release commands validate the course data, check lint and formatting, and build before proceeding. A real release updates `package.json`, generates `CHANGELOG.md`, creates a `chore: release vX.Y.Z` commit and `vX.Y.Z` tag, pushes them, and publishes a GitHub release. npm publication is disabled. Pushing the release commit to `main` starts the existing Pages deployment. Adding this workflow does not itself publish a release or bump the current version.
+Release commands validate the course data, check lint and formatting, and build before proceeding. A real release updates `package.json`, generates `CHANGELOG.md`, creates a `chore: release vX.Y.Z` commit and `vX.Y.Z` tag, pushes them, and publishes a GitHub release. npm publication is disabled. Pushing the release commit to `main` starts the existing Pages deployment. Version bumps happen only through an explicit release command.
 
 ## Deploy
 
-Every push to `main` runs `.github/workflows/deploy.yml`. It validates the course data, checks lint and formatting, builds with `BASE_PATH=/<repo>/`, prerenders every mode and strategy page with React Router, and publishes `build/client/` to GitHub Pages. In the repository settings, set Pages → Source to "GitHub Actions" once.
+Every push to `main` runs `.github/workflows/deploy.yml`. It validates the course data, checks lint and formatting, builds with `BASE_PATH=/shogigym/` (derived from the repository name), prerenders every mode and strategy page with React Router, and publishes `build/client/` to GitHub Pages. In the repository settings, set Pages → Source to "GitHub Actions" once.
 
 The engine needs `SharedArrayBuffer`, which requires cross-origin isolation (`Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: require-corp`).
 
