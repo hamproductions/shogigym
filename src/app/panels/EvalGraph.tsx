@@ -1,12 +1,22 @@
 import './eval-graph.css'
 import { useId } from 'react'
 import { useTranslation } from 'react-i18next'
-import { LABELS, type Label } from '../../analysis'
+import { LABELS, type Label } from '@/utils/analysis'
 
 const W = 360
 const H = 88
 
-export function EvalGraph({ values, labels, cursor, onJump }: { values: (number | undefined)[]; labels: (Label | undefined)[]; cursor: number; onJump: (i: number) => void }) {
+export function EvalGraph({
+  values,
+  labels,
+  cursor,
+  onJump,
+}: {
+  values: (number | undefined)[]
+  labels: (Label | undefined)[]
+  cursor: number
+  onJump: (i: number) => void
+}) {
   const { t } = useTranslation()
   const id = useId()
   const n = Math.max(values.length - 1, 1)
@@ -33,8 +43,12 @@ export function EvalGraph({ values, labels, cursor, onJump }: { values: (number 
         }}
       >
         <defs>
-          <clipPath id={`${id}-sente`}><rect width={W} height={H / 2} /></clipPath>
-          <clipPath id={`${id}-gote`}><rect y={H / 2} width={W} height={H / 2} /></clipPath>
+          <clipPath id={`${id}-sente`}>
+            <rect width={W} height={H / 2} />
+          </clipPath>
+          <clipPath id={`${id}-gote`}>
+            <rect y={H / 2} width={W} height={H / 2} />
+          </clipPath>
         </defs>
         <line x1="0" x2={W} y1={H / 2} y2={H / 2} className="app-graph-mid" />
         {area && <path d={area} className="app-graph-area sente" clipPath={`url(#${id}-sente)`} />}
@@ -47,14 +61,27 @@ export function EvalGraph({ values, labels, cursor, onJump }: { values: (number 
           const meta = LABELS[label]
           return (
             <g key={i} className="app-graph-mark" style={{ ['--label' as string]: meta.color }}>
-              <title>{i}: {meta.symbol} {meta.text}</title>
+              <title>
+                {i}: {meta.symbol} {meta.text}
+              </title>
               <circle cx={x(i)} cy={y(value)} r={i === cursor ? 3.5 : 2.5} />
-              {(n <= 32 || i === cursor) && <text x={Math.max(8, Math.min(W - 8, x(i)))} y={Math.max(12, Math.min(H - 4, y(value) - 7))}>{meta.symbol}</text>}
+              {(n <= 32 || i === cursor) && (
+                <text x={Math.max(8, Math.min(W - 8, x(i)))} y={Math.max(12, Math.min(H - 4, y(value) - 7))}>
+                  {meta.symbol}
+                </text>
+              )}
             </g>
           )
         })}
       </svg>
-      {selected && <div className="app-graph-review" style={{ ['--label' as string]: LABELS[selected].color }}><span>{cursor}</span><strong>{LABELS[selected].symbol} {LABELS[selected].text}</strong></div>}
+      {selected && (
+        <div className="app-graph-review" style={{ ['--label' as string]: LABELS[selected].color }}>
+          <span>{cursor}</span>
+          <strong>
+            {LABELS[selected].symbol} {LABELS[selected].text}
+          </strong>
+        </div>
+      )}
     </div>
   )
 }

@@ -1,13 +1,13 @@
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { parseMoves } from 'tsshogi'
-import { mainStrategies } from '../../data/strategies'
-import { COURSES, courseTitle, type Course } from '../../model'
-import { moveText, positionOf } from '../../shogi'
-import { setupOf } from '../lib/book'
-import { openPieceViewer } from '../lib/events'
-import { getSettings, setSettings } from '../../appearance/settings'
-import { MODES, type Mode } from '../types'
+import { mainStrategies } from '@/data/strategies'
+import { COURSES, courseTitle, type Course } from '@/utils/model'
+import { moveText, positionOf } from '@/utils/shogi'
+import { setupOf } from '@/utils/book'
+import { openPieceViewer } from '@/utils/events'
+import { getSettings, setSettings } from '@/appearance/settings'
+import { MODES, type Mode } from '@/app/types'
 
 export type Command = { id: string; label: string; hint?: string; run: () => void }
 
@@ -39,7 +39,15 @@ const ALIASES: Record<string, string> = {
   castle: '囲',
 }
 
-type CommandActions = { sfen: string; setMode: (m: Mode) => void; flip: () => void; tilt: () => void; openCourse: (c: Course) => void; play: (usi: string) => void; newGame: () => void }
+type CommandActions = {
+  sfen: string
+  setMode: (m: Mode) => void
+  flip: () => void
+  tilt: () => void
+  openCourse: (c: Course) => void
+  play: (usi: string) => void
+  newGame: () => void
+}
 
 export function useCommands({ sfen, setMode, flip, tilt, openCourse, play, newGame }: CommandActions) {
   const { t } = useTranslation()
@@ -52,18 +60,39 @@ export function useCommands({ sfen, setMode, flip, tilt, openCourse, play, newGa
         const direct = position.createMoveByUSI(query.trim())
         const [parsed] = direct && position.isValidMove(direct) ? [[direct]] : parseMoves(position, query.trim())
         const move = parsed?.[0]
-        if (move && position.isValidMove(move)) out.push({ id: `play-${move.usi}`, label: t('palette.play', { move: moveText(sfen, move.usi) }), run: () => play(move.usi) })
+        if (move && position.isValidMove(move))
+          out.push({ id: `play-${move.usi}`, label: t('palette.play', { move: moveText(sfen, move.usi) }), run: () => play(move.usi) })
       }
       const base: Command[] = [
-        ...MODES.map((m) => ({ id: `mode-${m.id}`, label: t('palette.modeCommand', { name: t(`modes.${m.id}.name`) }), hint: t(`modes.${m.id}.hint`), run: () => setMode(m.id) })),
+        ...MODES.map((m) => ({
+          id: `mode-${m.id}`,
+          label: t('palette.modeCommand', { name: t(`modes.${m.id}.name`) }),
+          hint: t(`modes.${m.id}.hint`),
+          run: () => setMode(m.id),
+        })),
         { id: 'flip', label: t('palette.flipTheBoard'), hint: 'F', run: flip },
         { id: 'viewer', label: t('palette.pieceViewerDebug'), run: openPieceViewer },
         { id: 'tilt', label: t('palette.tiltTheBoard'), hint: 'T', run: tilt },
         { id: 'new', label: t('palette.newGameFromTheStart'), run: newGame },
-        ...mainStrategies().map((s) => ({ id: `main-${s.id}`, label: `${t('strategy.switchMain')}: ${s.ja}`, hint: s.en, run: () => (setSettings({ mainStrategy: s.id }), setMode('lesson')) })),
-        ...COURSES.map((c) => ({ id: `course-${c.id}`, label: courseTitle(c, getSettings().lang), hint: setupOf(c, getSettings().mainStrategy)?.ja, run: () => openCourse(c) })),
+        ...mainStrategies().map((s) => ({
+          id: `main-${s.id}`,
+          label: `${t('strategy.switchMain')}: ${s.ja}`,
+          hint: s.en,
+          run: () => (setSettings({ mainStrategy: s.id }), setMode('lesson')),
+        })),
+        ...COURSES.map((c) => ({
+          id: `course-${c.id}`,
+          label: courseTitle(c, getSettings().lang),
+          hint: setupOf(c, getSettings().mainStrategy)?.ja,
+          run: () => openCourse(c),
+        })),
       ]
-      const terms = [q, ...Object.entries(ALIASES).filter(([en]) => q.length >= 3 && en.startsWith(q)).map(([, ja]) => ja)]
+      const terms = [
+        q,
+        ...Object.entries(ALIASES)
+          .filter(([en]) => q.length >= 3 && en.startsWith(q))
+          .map(([, ja]) => ja),
+      ]
       return [...out, ...base.filter((c) => !q || terms.some((term) => `${c.label} ${c.hint ?? ''}`.toLowerCase().includes(term)))].slice(0, 12)
     },
     [sfen, setMode, flip, tilt, openCourse, play, newGame, t],

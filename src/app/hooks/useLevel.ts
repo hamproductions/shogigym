@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { Level } from '../types'
+import type { Level } from '@/app/types'
 
 const LEVEL_KEY = 'joseki-practice:level:v1'
 

@@ -105,11 +105,9 @@
 }
 
 @media (max-width: 820px) {
-.app-moves .app-var .app-var-x {
+  .app-moves .app-var .app-var-x {
     min-width: 36px;
     min-height: 32px;
     font-size: var(--glyph-sm);
   }
-
-
 }

@@ -6,7 +6,8 @@ export default {
   mySide: 'sente',
   userSide: 'sente',
   noEngine: true,
-  source: '局面と手はshogi-rule.com「銀の効果的な手筋」(https://www.shogi-rule.com/koma_gin/)の「桂頭の銀」の図をSFENに変換。持ち駒は図に表示がないため、打つ駒などを手順から推定して置いた。(図は2枚の駒のみの部分図。後手は桂馬以外に駒がないため跳ねる手を置いた)。',
+  source:
+    '局面と手はshogi-rule.com「銀の効果的な手筋」(https://www.shogi-rule.com/koma_gin/)の「桂頭の銀」の図をSFENに変換。持ち駒は図に表示がないため、打つ駒などを手順から推定して置いた。(図は2枚の駒のみの部分図。後手は桂馬以外に駒がないため跳ねる手を置いた)。',
   goalFormation: '桂頭の銀: 桂馬の頭に銀を打ち、跳ね先を全て受けつつ桂馬を取りにいく。',
   startSfen: '9/9/9/4n4/9/9/9/9/9 b S 1',
   rootComment: '5四に相手の桂馬がいます。その頭に打つ駒を探しましょう。',

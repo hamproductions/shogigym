@@ -1,13 +1,13 @@
 import * as THREE from 'three'
 import { Color } from 'tsshogi'
-import { getSettings, type BoardStyle } from '../../appearance/settings'
-import { furnishFloor, type RoomDims } from '../roomFloor'
+import { getSettings, type BoardStyle } from '@/appearance/settings'
+import { furnishFloor, type RoomDims } from '@/rendering/roomFloor'
 import { CASUAL, HALF_D, HALF_W, LEG, STAND, STAND_SLAB, STAND_TOP, STRIP_D, STRIP_W, THICK } from './dimensions'
 import { layout, standCenter } from './layout'
 import { surroundings } from './surroundings'
 import { environmentMap, preparePieceEnvironment, standMaterial, woodMaterial } from './materials'
 import { boardTexture } from './textures'
-import { BOARD_TONE } from '../koma'
+import { BOARD_TONE } from '@/rendering/koma'
 import type { SceneState, Stand } from './types'
 
 export function createRenderer(activateEnvironment = true) {
@@ -50,7 +50,14 @@ function addBoard(root: THREE.Group) {
   const style = getSettings().boardStyle
   const tone = BOARD_TONE[style]
   const top = boardTopMaterial(style)
-  const board = new THREE.Mesh(new THREE.BoxGeometry(2 * HALF_W, THICK, 2 * HALF_D), [woodMaterial(tone.edge, 3), woodMaterial(tone.edge, 5), top, woodMaterial([150, 104, 50], 9), woodMaterial(tone.edge, 11), woodMaterial(tone.edge, 13)])
+  const board = new THREE.Mesh(new THREE.BoxGeometry(2 * HALF_W, THICK, 2 * HALF_D), [
+    woodMaterial(tone.edge, 3),
+    woodMaterial(tone.edge, 5),
+    top,
+    woodMaterial([150, 104, 50], 9),
+    woodMaterial(tone.edge, 11),
+    woodMaterial(tone.edge, 13),
+  ])
   board.position.y = -THICK / 2
   board.castShadow = true
   board.receiveShadow = true
@@ -120,5 +127,25 @@ export function buildScene(renderer: THREE.WebGLRenderer): SceneState {
   const pieces = new THREE.Group()
   const marks = new THREE.Group()
   root.add(pieces, marks)
-  return { room: surroundings(root, dims), renderer, scene, camera, root, pieces, marks, board, legs, stands, placeStands, handMeshes: [], tags: [], tilt: 0, tiltTarget: 0, animations: [], drag: null, controls: null, flip: null }
+  return {
+    room: surroundings(root, dims),
+    renderer,
+    scene,
+    camera,
+    root,
+    pieces,
+    marks,
+    board,
+    legs,
+    stands,
+    placeStands,
+    handMeshes: [],
+    tags: [],
+    tilt: 0,
+    tiltTarget: 0,
+    animations: [],
+    drag: null,
+    controls: null,
+    flip: null,
+  }
 }

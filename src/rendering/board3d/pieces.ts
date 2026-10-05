@@ -28,14 +28,34 @@ function avatarMove(s: SceneState, position: ImmutablePosition, prev: ImmutableP
   const captured = move.capturedPieceType && prev.board.at(move.to)
   const type = move.capturedPieceType && unpromotedPieceType(move.capturedPieceType)
   const to = type && handSpot(position, move.color, type)
-  const capture = captured && type && to ? { mesh: pieceMesh(captured.type, captured.color), to, hide: s.handMeshes.find((m) => m.userData.color === move.color && m.userData.type === type && m.userData.liftable) } : undefined
+  const capture =
+    captured && type && to
+      ? {
+          mesh: pieceMesh(captured.type, captured.color),
+          to,
+          hide: s.handMeshes.find((m) => m.userData.color === move.color && m.userData.type === type && m.userData.liftable),
+        }
+      : undefined
   const step = move.from instanceof Square ? Math.max(Math.abs(move.from.file - move.to.file), Math.abs(move.from.rank - move.to.rank)) : 0
   const kind = !(move.from instanceof Square) ? 'drop' : move.promote ? 'promote' : capture ? 'capture' : step <= 1 ? 'slide' : 'carry'
   const land = placed ? null : s.onLand
-  const source = kind === 'drop' && !placed ? s.handMeshes.find((m) => m.userData.color === move.color && m.userData.type === move.pieceType && m.userData.liftable) : undefined
+  const source =
+    kind === 'drop' && !placed
+      ? s.handMeshes.find((m) => m.userData.color === move.color && m.userData.type === move.pieceType && m.userData.liftable)
+      : undefined
   if (source) source.visible = false
   if (placed && move.promote) return false
-  const played = s.avatars.playMove({ kind, flip: move.promote ? pieceMesh(move.pieceType, move.color, mesh.userData.grainSeed as number) : undefined, color: move.color, mesh, from, to: mesh.position.clone(), placed, land: source ? () => (land?.(), s.settle?.()) : land, capture })
+  const played = s.avatars.playMove({
+    kind,
+    flip: move.promote ? pieceMesh(move.pieceType, move.color, mesh.userData.grainSeed as number) : undefined,
+    color: move.color,
+    mesh,
+    from,
+    to: mesh.position.clone(),
+    placed,
+    land: source ? () => (land?.(), s.settle?.()) : land,
+    capture,
+  })
   if (!played && source) {
     source.visible = true
     queueMicrotask(() => s.settle?.())
@@ -52,7 +72,9 @@ export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, pr
     s.animations.length = 0
     animate = animate && !!(lastMove && playedMove(prev, position, lastMove))
   }
-  const grains = new Map(s.pieces.children.filter((mesh) => mesh.userData.square).map((mesh) => [(mesh.userData.square as Square).usi, mesh.userData.grainSeed as number]))
+  const grains = new Map(
+    s.pieces.children.filter((mesh) => mesh.userData.square).map((mesh) => [(mesh.userData.square as Square).usi, mesh.userData.grainSeed as number]),
+  )
   const move = prev && lastMove ? playedMove(prev, position, lastMove) : null
   if (move && move.from instanceof Square) {
     const seed = grains.get(move.from.usi)
@@ -66,7 +88,7 @@ export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, pr
   let moved: { mesh: THREE.Object3D; color: Color; square: Square } | null = null
   for (const square of position.board.listNonEmptySquares()) {
     const piece = position.board.at(square)!
-    const mesh = pieceMesh(piece.type, piece.color, grains.get(square.usi) ?? (square.file * 73856093 ^ square.rank * 19349663))
+    const mesh = pieceMesh(piece.type, piece.color, grains.get(square.usi) ?? (square.file * 73856093) ^ (square.rank * 19349663))
     mesh.position.copy(squarePoint(square))
     mesh.userData.square = square
     mesh.userData.baseY = 0
@@ -101,7 +123,11 @@ export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, pr
   }
   for (const old of existing) {
     const square = old.userData.square as Square | undefined
-    const next = square ? s.pieces.children.find((m) => (m.userData.square as Square | undefined)?.equals(square)) : s.handMeshes.find((m) => m.userData.type === old.userData.type && m.userData.color === old.userData.color && m.userData.liftable === old.userData.liftable)
+    const next = square
+      ? s.pieces.children.find((m) => (m.userData.square as Square | undefined)?.equals(square))
+      : s.handMeshes.find(
+          (m) => m.userData.type === old.userData.type && m.userData.color === old.userData.color && m.userData.liftable === old.userData.liftable,
+        )
     if (!next) continue
     next.position.copy(old.position)
     next.quaternion.copy(old.quaternion)
@@ -112,7 +138,11 @@ export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, pr
   if (!prev) for (const animation of s.animations) if (animation.flip) s.pieces.add(animation.flip)
   if (moved && lastMove && (animate || placed) && !avatarMove(s, position, prev, lastMove, moved.mesh, placed) && animate) {
     const { mesh } = moved
-    const from = placed ? mesh.position.clone() : lastMove[1] === '*' ? standCenter(moved.color) : squarePoint(Square.newByUSI(lastMove.slice(0, 2)) ?? moved.square)
+    const from = placed
+      ? mesh.position.clone()
+      : lastMove[1] === '*'
+        ? standCenter(moved.color)
+        : squarePoint(Square.newByUSI(lastMove.slice(0, 2)) ?? moved.square)
     const flip = move?.promote ? pieceMesh(move.pieceType, move.color, mesh.userData.grainSeed as number) : undefined
     if (flip) {
       flip.position.copy(from)
@@ -127,7 +157,8 @@ export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, pr
     s.onLand?.()
     s.onLand = null
   }
-  for (const mesh of s.pieces.children) if (!existing.length && !mesh.userData.held && isLifted(mesh, props)) mesh.position.y = (mesh.userData.baseY as number) + LIFT
+  for (const mesh of s.pieces.children)
+    if (!existing.length && !mesh.userData.held && isLifted(mesh, props)) mesh.position.y = (mesh.userData.baseY as number) + LIFT
   drawMarks(s, props)
 }
 
@@ -136,7 +167,9 @@ const LIFT = 0.45
 const isLifted = (mesh: THREE.Object3D, props: Board3DProps) => {
   const sel = props.selected
   if (mesh.userData.baseY === undefined || sel === null) return false
-  return sel instanceof Square ? !!(mesh.userData.square as Square | undefined)?.equals(sel) : !!mesh.userData.liftable && mesh.userData.type === sel && mesh.userData.color === props.selectedColor
+  return sel instanceof Square
+    ? !!(mesh.userData.square as Square | undefined)?.equals(sel)
+    : !!mesh.userData.liftable && mesh.userData.type === sel && mesh.userData.color === props.selectedColor
 }
 
 export function liftSelected(s: SceneState, props: Board3DProps, dt: number) {

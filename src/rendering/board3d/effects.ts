@@ -1,11 +1,11 @@
 import * as THREE from 'three'
 import { Color } from 'tsshogi'
-import { SNAPSHOT_NAME } from '../../app/lib/events'
-import { CASUAL_ROOM, ROOM_H, TABLE, TABLE_H, TRADITIONAL_ROOM, ZABUTON, mm } from '../../app/roomMetrics'
-import { playSound } from '../../appearance/settings'
+import { SNAPSHOT_NAME } from '@/utils/events'
+import { CASUAL_ROOM, ROOM_H, TABLE, TABLE_H, TRADITIONAL_ROOM, ZABUTON, mm } from '@/utils/roomMetrics'
+import { playSound } from '@/appearance/settings'
 import { CASUAL, HALF_D, HALF_W, LEG, THICK } from './dimensions'
 import { layout } from './layout'
-import type { Wall } from '../avatars'
+import type { Wall } from '@/rendering/avatars'
 import type { Arena, Body, Dust, SceneState, TableFlip } from './types'
 
 const GRAVITY = 34
@@ -29,7 +29,12 @@ function arena(): Arena {
       const cz = side * (TABLE.halfD + seat / 2 - 2)
       return [block(0, cz, seat / 2, seat / 2, floor + seat + 0.8), block(0, cz + side * (seat / 2 - 0.7), seat / 2, 0.5, floor + seat + mm(420))]
     })
-    const things = [block(12.2, 8.6, 1.8, 1.8, top + 2.85), block(-12.2, -8.6, 1.8, 1.8, top + 2.85), block(12.4, -7.6, 3.6, 3.6, top + 0.5), block(-12.4, 7.6, 3.9, 3.9, top + 3.4)]
+    const things = [
+      block(12.2, 8.6, 1.8, 1.8, top + 2.85),
+      block(-12.2, -8.6, 1.8, 1.8, top + 2.85),
+      block(12.4, -7.6, 3.6, 3.6, top + 0.5),
+      block(-12.4, 7.6, 3.9, 3.9, top + 3.4),
+    ]
     const lamp: Wall = { minX: -mm(200), maxX: mm(200), minZ: -mm(200), maxZ: mm(200), minY: top + mm(560), maxY: floor + ROOM_H }
     return { floor, boxes: [block(0, 0, TABLE.halfW, TABLE.halfD, top), ...chairs, ...things], ...CASUAL_ROOM, ceil: floor + ROOM_H, walls: [lamp] }
   }
@@ -104,7 +109,10 @@ function dustCloud(): Dust {
 
 function body(obj: THREE.Object3D, v: THREE.Vector3, w: THREE.Vector3, keepFlat: boolean): Body {
   const geometry = (obj as THREE.Mesh).geometry
-  const box = geometry && !(obj as THREE.Sprite).isSprite ? (geometry.boundingBox ?? (geometry.computeBoundingBox(), geometry.boundingBox!)) : new THREE.Box3(new THREE.Vector3(-0.15, -0.15, -0.15), new THREE.Vector3(0.15, 0.15, 0.15))
+  const box =
+    geometry && !(obj as THREE.Sprite).isSprite
+      ? (geometry.boundingBox ?? (geometry.computeBoundingBox(), geometry.boundingBox!))
+      : new THREE.Box3(new THREE.Vector3(-0.15, -0.15, -0.15), new THREE.Vector3(0.15, 0.15, 0.15))
   const center = box.getCenter(new THREE.Vector3())
   const half = box.getSize(new THREE.Vector3()).multiplyScalar(0.5).multiply(obj.scale)
   return { obj, v, w, center, half, keepFlat, grounded: false, landed: false }
@@ -146,8 +154,9 @@ function pushOutOfBoard(b: Body, m: THREE.Matrix4, kick: number, arena: Arena) {
   for (const axis of candidates) {
     if (axis.lengthSq() < 0.000001) continue
     axis.normalize()
-    const radius = bodyAxes.reduce((sum, direction, index) => sum + Math.abs(axis.dot(direction)) * b.half.getComponent(index), 0)
-      + boardAxes.reduce((sum, direction, index) => sum + Math.abs(axis.dot(direction)) * half.getComponent(index), 0)
+    const radius =
+      bodyAxes.reduce((sum, direction, index) => sum + Math.abs(axis.dot(direction)) * b.half.getComponent(index), 0) +
+      boardAxes.reduce((sum, direction, index) => sum + Math.abs(axis.dot(direction)) * half.getComponent(index), 0)
     const depth = radius - Math.abs(delta.dot(axis))
     if (depth <= 0) return null
     const direction = axis.clone().multiplyScalar(delta.dot(axis) < 0 ? -1 : 1)
@@ -239,7 +248,9 @@ function launchStands(s: SceneState, way: number): Body[] {
     [stand, ...legs]
       .filter((m) => m.visible)
       .map((m, i) => {
-        const v = layout.portrait ? new THREE.Vector3(random(8), 16 + Math.random() * 6, side * (12 + Math.random() * 6)) : new THREE.Vector3(side * (10 + Math.random() * 8 + i * 2), 14 + Math.random() * 8, -way * (4 + Math.random() * 6))
+        const v = layout.portrait
+          ? new THREE.Vector3(random(8), 16 + Math.random() * 6, side * (12 + Math.random() * 6))
+          : new THREE.Vector3(side * (10 + Math.random() * 8 + i * 2), 14 + Math.random() * 8, -way * (4 + Math.random() * 6))
         return body(m, v, new THREE.Vector3(random(14), random(10), random(14)), false)
       }),
   )
@@ -256,7 +267,17 @@ export function startTableFlip(s: SceneState, by: Color = Color.BLACK) {
   const bodies = [...launchPieces(s, way), ...launchStands(s, way)]
   s.pieces.visible = false
   s.marks.visible = false
-  s.flip = { start: performance.now(), bodies, arena: { ...arena(), walls: s.avatars?.walls() ?? [] }, rig, dust, slammed: false, lastClatter: 0, release: false, way }
+  s.flip = {
+    start: performance.now(),
+    bodies,
+    arena: { ...arena(), walls: s.avatars?.walls() ?? [] },
+    rig,
+    dust,
+    slammed: false,
+    lastClatter: 0,
+    release: false,
+    way,
+  }
   dust.burst(new THREE.Vector3(0, 0, way * HALF_D), 40, 6)
   playSound('bang')
 }
@@ -324,7 +345,11 @@ export function stepTableFlip(s: SceneState, time: number, dt: number, done: () 
       const { center, extent } = orient(b)
       const ground = footprintSurface(f.arena, center, extent)
       if (center.y - extent.y < ground) b.obj.position.y += ground - (center.y - extent.y)
-      const quiet = b.v.lengthSq() < 0.0025 && b.w.lengthSq() < 0.0025 && b.obj.position.distanceToSquared(beforePosition) < 0.000001 && b.obj.quaternion.angleTo(beforeRotation) < 0.0005
+      const quiet =
+        b.v.lengthSq() < 0.0025 &&
+        b.w.lengthSq() < 0.0025 &&
+        b.obj.position.distanceToSquared(beforePosition) < 0.000001 &&
+        b.obj.quaternion.angleTo(beforeRotation) < 0.0005
       b.quietFor = quiet ? (b.quietFor ?? 0) + step : 0
       if (t > SLAM && b.quietFor >= 0.5) {
         b.v.set(0, 0, 0)
@@ -361,7 +386,11 @@ export function flipCameraOffset(s: SceneState, time: number) {
   const shake = Math.max(0, 1 - t / 1.1) * 1.3 + (t > SLAM ? 1.1 * Math.exp(-(t - SLAM) * 7) : 0)
   const punch = 0.2 * Math.sin(Math.PI * Math.min(1, t / 0.5)) * (t < 0.5 ? 1 : 0) + (t > SLAM ? 0.12 * Math.exp(-(t - SLAM) * 9) : 0)
   const target = s.controls ? s.controls.target : new THREE.Vector3()
-  return target.clone().sub(s.camera.position).multiplyScalar(punch).add(new THREE.Vector3(random(shake), random(shake), random(shake)))
+  return target
+    .clone()
+    .sub(s.camera.position)
+    .multiplyScalar(punch)
+    .add(new THREE.Vector3(random(shake), random(shake), random(shake)))
 }
 
 export function saveSnapshot(s: SceneState, name: string) {

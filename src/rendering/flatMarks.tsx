@@ -1,10 +1,18 @@
 import { PieceType, Square, type ImmutablePosition, type Color } from 'tsshogi'
 import type { Board3DProps, BoardArrow } from './Board3D'
-import { SQ_D, squareX, squareZ } from './board3d/dimensions'
-import { handSpot } from './board3d/hand'
-import { standCenter } from './board3d/layout'
+import { SQ_D, squareX, squareZ } from '@/rendering/board3d/dimensions'
+import { handSpot } from '@/rendering/board3d/hand'
+import { standCenter } from '@/rendering/board3d/layout'
 
-const DROP_TYPE: Record<string, PieceType> = { P: PieceType.PAWN, L: PieceType.LANCE, N: PieceType.KNIGHT, S: PieceType.SILVER, G: PieceType.GOLD, B: PieceType.BISHOP, R: PieceType.ROOK }
+const DROP_TYPE: Record<string, PieceType> = {
+  P: PieceType.PAWN,
+  L: PieceType.LANCE,
+  N: PieceType.KNIGHT,
+  S: PieceType.SILVER,
+  G: PieceType.GOLD,
+  B: PieceType.BISHOP,
+  R: PieceType.ROOK,
+}
 
 export type Project = (x: number, z: number) => [number, number]
 
@@ -32,7 +40,14 @@ function Badge({ x, y, size, text, color }: { x: number; y: number; size: number
   return (
     <g transform={`translate(${x} ${y}) scale(${k})`}>
       <circle r={44} fill={color} stroke="#fbf6ec" strokeWidth={5} />
-      <text textAnchor="middle" dominantBaseline="central" fontSize={text.length > 1 ? 40 : 50} fontWeight={700} fontFamily="'Zen Kaku Gothic New', sans-serif" fill="#fff">
+      <text
+        textAnchor="middle"
+        dominantBaseline="central"
+        fontSize={text.length > 1 ? 40 : 50}
+        fontWeight={700}
+        fontFamily="'Zen Kaku Gothic New', sans-serif"
+        fill="#fff"
+      >
         {text}
       </text>
     </g>
@@ -45,20 +60,44 @@ function Tag({ x, y, u, text, color }: { x: number; y: number; u: number; text: 
   return (
     <g transform={`translate(${x} ${y}) scale(${k}) translate(-80 -36)`}>
       <rect x={(160 - w) / 2} y={6} width={w} height={60} rx={14} fill={color} />
-      <text x={80} y={38} textAnchor="middle" dominantBaseline="central" fontSize={46} fontWeight={700} fontFamily="'Zen Kaku Gothic New', sans-serif" fill="#fff">
+      <text
+        x={80}
+        y={38}
+        textAnchor="middle"
+        dominantBaseline="central"
+        fontSize={46}
+        fontWeight={700}
+        fontFamily="'Zen Kaku Gothic New', sans-serif"
+        fill="#fff"
+      >
         {text}
       </text>
     </g>
   )
 }
 
-function Arrow({ p, u, arrow, position, stack, handPoint }: { p: Project; u: number; arrow: BoardArrow; position: ImmutablePosition; stack: number; handPoint?: HandPoint }) {
+function Arrow({
+  p,
+  u,
+  arrow,
+  position,
+  stack,
+  handPoint,
+}: {
+  p: Project
+  u: number
+  arrow: BoardArrow
+  position: ImmutablePosition
+  stack: number
+  handPoint?: HandPoint
+}) {
   const to = Square.newByUSI(arrow.usi.slice(2, 4))
   if (!to || !/^([1-9][a-i]|[PLNSGBR]\*)[1-9][a-i]\+?$/.test(arrow.usi)) return null
   let sx: number
   let sz: number
   if (arrow.usi[1] === '*') {
-    const slot = handPoint?.(position.color, DROP_TYPE[arrow.usi[0]]) ?? handSpot(position, position.color, DROP_TYPE[arrow.usi[0]]) ?? standCenter(position.color)
+    const slot =
+      handPoint?.(position.color, DROP_TYPE[arrow.usi[0]]) ?? handSpot(position, position.color, DROP_TYPE[arrow.usi[0]]) ?? standCenter(position.color)
     sx = slot.x
     sz = slot.z
   } else {
@@ -111,7 +150,16 @@ function Castle({ p, u, castle }: { p: Project; u: number; castle: { squares: Sq
       <rect x={left} y={top} width={width} height={height} fill="none" stroke={castle.color} strokeWidth={t * u} opacity={0.85} />
       <g transform={`translate(${lx} ${ly}) scale(${k}) translate(-128 -32)`}>
         <rect x={4} y={8} width={248} height={48} rx={10} fill={castle.color} />
-        <text x={128} y={34} textAnchor="middle" dominantBaseline="central" fontSize={34} fontWeight={800} fontFamily="'Shippori Mincho B1', serif" fill="#fbf6ec">
+        <text
+          x={128}
+          y={34}
+          textAnchor="middle"
+          dominantBaseline="central"
+          fontSize={34}
+          fontWeight={800}
+          fontFamily="'Shippori Mincho B1', serif"
+          fill="#fbf6ec"
+        >
           {castle.label}
         </text>
       </g>
@@ -152,22 +200,50 @@ export function UnderMarks({ props, p, u }: { props: Board3DProps; p: Project; u
   )
 }
 
-export function OverMarks({ props, p, u, flip, coordFill, handPoint }: { props: Board3DProps; p: Project; u: number; flip: number; coordFill: string; handPoint?: HandPoint }) {
+export function OverMarks({
+  props,
+  p,
+  u,
+  flip,
+  coordFill,
+  handPoint,
+}: {
+  props: Board3DProps
+  p: Project
+  u: number
+  flip: number
+  coordFill: string
+  handPoint?: HandPoint
+}) {
   const { arrows, position, selected, selectedColor, checkSquare, stamp, heat, castles } = props
   const stacked = new Map<string, number>()
   const stamped = stamp && Square.newByUSI(stamp.square)
-  const handSlot = selected !== null && !(selected instanceof Square) && selectedColor !== undefined ? (handPoint?.(selectedColor, selected) ?? handSpot(position, selectedColor, selected) ?? standCenter(selectedColor)) : null
+  const handSlot =
+    selected !== null && !(selected instanceof Square) && selectedColor !== undefined
+      ? (handPoint?.(selectedColor, selected) ?? handSpot(position, selectedColor, selected) ?? standCenter(selectedColor))
+      : null
   return (
     <g pointerEvents="none">
-      {handSlot && (() => {
-        const [x, y] = p(handSlot.x, handSlot.z)
-        return <circle cx={x} cy={y} r={0.46 * u} fill="none" stroke="#c8442f" strokeWidth={0.04 * u} />
-      })()}
+      {handSlot &&
+        (() => {
+          const [x, y] = p(handSlot.x, handSlot.z)
+          return <circle cx={x} cy={y} r={0.46 * u} fill="none" stroke="#c8442f" strokeWidth={0.04 * u} />
+        })()}
       {(heat ?? []).map((h, i) => {
         if (!h.label) return null
         const [x, y] = p(squareX(h.square.file) + 0.32, squareZ(h.square.rank) + 0.3)
         return (
-          <text key={`hl${i}`} x={x} y={y} textAnchor="middle" dominantBaseline="central" fontSize={0.34 * u * (40 / 64)} fontWeight={800} fontFamily="'Shippori Mincho B1', serif" fill={coordFill}>
+          <text
+            key={`hl${i}`}
+            x={x}
+            y={y}
+            textAnchor="middle"
+            dominantBaseline="central"
+            fontSize={0.34 * u * (40 / 64)}
+            fontWeight={800}
+            fontFamily="'Shippori Mincho B1', serif"
+            fill={coordFill}
+          >
             {h.label}
           </text>
         )
@@ -181,14 +257,17 @@ export function OverMarks({ props, p, u, flip, coordFill, handPoint }: { props: 
         if (arrow.label) stacked.set(end, stack + 1)
         return <Arrow key={`a${i}`} p={p} u={u} arrow={arrow} position={position} stack={stack} handPoint={handPoint} />
       })}
-      {checkSquare && (() => {
-        const [x, y] = p(squareX(checkSquare.file), squareZ(checkSquare.rank) - 0.5 * flip)
-        return <Badge x={x} y={y} size={0.62 * u} text="王手" color="#c62a1a" />
-      })()}
-      {stamp && stamped && (() => {
-        const [x, y] = p(squareX(stamped.file) + 0.36 * flip, squareZ(stamped.rank) - 0.36 * flip)
-        return <Badge x={x} y={y} size={0.5 * u} text={stamp.text} color={stamp.color} />
-      })()}
+      {checkSquare &&
+        (() => {
+          const [x, y] = p(squareX(checkSquare.file), squareZ(checkSquare.rank) - 0.5 * flip)
+          return <Badge x={x} y={y} size={0.62 * u} text="王手" color="#c62a1a" />
+        })()}
+      {stamp &&
+        stamped &&
+        (() => {
+          const [x, y] = p(squareX(stamped.file) + 0.36 * flip, squareZ(stamped.rank) - 0.36 * flip)
+          return <Badge x={x} y={y} size={0.5 * u} text={stamp.text} color={stamp.color} />
+        })()}
     </g>
   )
 }

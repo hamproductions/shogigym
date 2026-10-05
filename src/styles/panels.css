@@ -302,45 +302,43 @@
 }
 
 @media (max-width: 820px) {
-.app-practice,
+  .app-practice,
   .app-lesson-pane,
   .app-engine {
     display: flex;
     flex-direction: column;
   }
 
-.app-practice > .app-seg {
+  .app-practice > .app-seg {
     order: 9;
     margin-top: var(--space-3);
   }
 
-.app-practice > .app-tsume-lengths {
+  .app-practice > .app-tsume-lengths {
     order: -3;
     margin: 0 0 var(--space-1-5);
   }
 
-.app-practice > .app-task {
+  .app-practice > .app-task {
     order: -2;
     font-size: var(--text-md);
   }
 
-.app-practice > .app-actions {
+  .app-practice > .app-actions {
     order: -1;
   }
 
-.app-practice > .app-tsume-status {
+  .app-practice > .app-tsume-status {
     order: -2;
     height: auto;
     font-size: var(--text-sm);
   }
 
-.app-tsume-status .app-hint-line {
+  .app-tsume-status .app-hint-line {
     display: none;
   }
 
-.app-card {
+  .app-card {
     margin-top: var(--space-2);
   }
-
-
 }

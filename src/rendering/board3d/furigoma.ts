@@ -1,19 +1,31 @@
 import * as THREE from 'three'
 import { Color, PieceType, Square } from 'tsshogi'
 import { pieceMesh } from './piece'
-import { playSound } from '../../appearance/settings'
+import { playSound } from '@/appearance/settings'
 import type { SceneState } from './types'
 
 export function createFurigoma3D(state: SceneState, onDone: (faces: boolean[]) => void) {
   const group = new THREE.Group()
   state.root.add(group)
   playSound('clatter')
-  const hidden = state.pieces.children.filter((mesh) => mesh.userData.square instanceof Square && mesh.userData.square.rank === 7 && mesh.userData.square.file >= 3 && mesh.userData.square.file <= 7)
-  hidden.forEach((mesh) => { mesh.visible = false })
+  const hidden = state.pieces.children.filter(
+    (mesh) => mesh.userData.square instanceof Square && mesh.userData.square.rank === 7 && mesh.userData.square.file >= 3 && mesh.userData.square.file <= 7,
+  )
+  hidden.forEach((mesh) => {
+    mesh.visible = false
+  })
   const materials = new Set<THREE.Material>()
   let completed = false
   const faces = Array.from({ length: 5 }, () => Math.random() < 0.5)
-  const bodies: { mesh: THREE.Mesh; velocity: THREE.Vector3; spin: THREE.Vector3; corners: THREE.Vector3[]; target: THREE.Quaternion; contacts: number; settled: boolean }[] = []
+  const bodies: {
+    mesh: THREE.Mesh
+    velocity: THREE.Vector3
+    spin: THREE.Vector3
+    corners: THREE.Vector3[]
+    target: THREE.Quaternion
+    contacts: number
+    settled: boolean
+  }[] = []
   for (let i = 0; i < faces.length; i++) {
     const mesh = pieceMesh(PieceType.PAWN, Color.BLACK, i + 71, 48)
     mesh.traverse((node) => {
@@ -30,10 +42,18 @@ export function createFurigoma3D(state: SceneState, onDone: (faces: boolean[]) =
     const yaw = (Math.random() - 0.5) * 0.6
     mesh.position.set((i - 2) * 0.35, 1.8 + Math.random() * 0.4, (i % 2 ? 1 : -1) * 0.25)
     mesh.rotation.set(Math.random() * Math.PI, yaw, (Math.random() - 0.5) * 0.6)
-    bodies.push({ mesh, velocity: new THREE.Vector3((i - 2) * 0.8, 1.2 + Math.random(), (i % 2 ? 1 : -1) * 0.65), spin: new THREE.Vector3(10 + Math.random() * 8, (Math.random() - 0.5) * 3, (Math.random() - 0.5) * 5), corners, target: new THREE.Quaternion().setFromEuler(new THREE.Euler(faces[i] ? 0 : Math.PI, yaw, 0)), contacts: 0, settled: false })
+    bodies.push({
+      mesh,
+      velocity: new THREE.Vector3((i - 2) * 0.8, 1.2 + Math.random(), (i % 2 ? 1 : -1) * 0.65),
+      spin: new THREE.Vector3(10 + Math.random() * 8, (Math.random() - 0.5) * 3, (Math.random() - 0.5) * 5),
+      corners,
+      target: new THREE.Quaternion().setFromEuler(new THREE.Euler(faces[i] ? 0 : Math.PI, yaw, 0)),
+      contacts: 0,
+      settled: false,
+    })
   }
   const point = new THREE.Vector3()
-  const lowest = (body: typeof bodies[number]) => Math.min(...body.corners.map((corner) => point.copy(corner).applyQuaternion(body.mesh.quaternion).y))
+  const lowest = (body: (typeof bodies)[number]) => Math.min(...body.corners.map((corner) => point.copy(corner).applyQuaternion(body.mesh.quaternion).y))
   const stepPhysics = (delta: number) => {
     const dt = Math.min(0.05, delta)
     const steps = Math.max(1, Math.ceil(dt * 120))
@@ -75,20 +95,21 @@ export function createFurigoma3D(state: SceneState, onDone: (faces: boolean[]) =
           }
         }
       }
-      for (let i = 0; i < bodies.length; i++) for (let j = i + 1; j < bodies.length; j++) {
-        const a = bodies[i]
-        const b = bodies[j]
-        if (Math.abs(a.mesh.position.y - b.mesh.position.y) > 0.25) continue
-        const dx = b.mesh.position.x - a.mesh.position.x
-        const dz = b.mesh.position.z - a.mesh.position.z
-        const distance = Math.hypot(dx, dz)
-        if (distance <= 0 || distance >= 0.85) continue
-        const overlap = (0.85 - distance) / 2
-        a.mesh.position.x -= dx / distance * overlap
-        a.mesh.position.z -= dz / distance * overlap
-        b.mesh.position.x += dx / distance * overlap
-        b.mesh.position.z += dz / distance * overlap
-      }
+      for (let i = 0; i < bodies.length; i++)
+        for (let j = i + 1; j < bodies.length; j++) {
+          const a = bodies[i]
+          const b = bodies[j]
+          if (Math.abs(a.mesh.position.y - b.mesh.position.y) > 0.25) continue
+          const dx = b.mesh.position.x - a.mesh.position.x
+          const dz = b.mesh.position.z - a.mesh.position.z
+          const distance = Math.hypot(dx, dz)
+          if (distance <= 0 || distance >= 0.85) continue
+          const overlap = (0.85 - distance) / 2
+          a.mesh.position.x -= (dx / distance) * overlap
+          a.mesh.position.z -= (dz / distance) * overlap
+          b.mesh.position.x += (dx / distance) * overlap
+          b.mesh.position.z += (dz / distance) * overlap
+        }
     }
     if (!completed && bodies.every((body) => body.settled)) {
       completed = true
@@ -99,7 +120,9 @@ export function createFurigoma3D(state: SceneState, onDone: (faces: boolean[]) =
     step: stepPhysics,
     dispose: () => {
       state.root.remove(group)
-      hidden.forEach((mesh) => { mesh.visible = true })
+      hidden.forEach((mesh) => {
+        mesh.visible = true
+      })
       for (const material of materials) material.dispose()
     },
   }

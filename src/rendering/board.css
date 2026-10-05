@@ -52,7 +52,9 @@
 .app-koma-lift {
   transform-box: fill-box;
   transform-origin: center;
-  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.2s ease-out;
+  transition:
+    transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+    filter 0.2s ease-out;
 }
 
 .app-koma-lift.on {
@@ -61,7 +63,7 @@
 }
 
 @media (max-width: 820px) {
-.app-flat {
+  .app-flat {
     margin: 0;
     position: relative;
     inset: auto;
@@ -69,11 +71,9 @@
     min-height: 0;
   }
 
-.app-flat-wood {
+  .app-flat-wood {
     margin: 0;
   }
-
-
 }
 
 .app-board-wrap > .app-flat {

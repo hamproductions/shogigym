@@ -1,8 +1,8 @@
 import './import.css'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { decodeKifuFile } from '../../../kifu'
-import { Button } from '../../ui/Button'
+import { decodeKifuFile } from '@/utils/kifu'
+import { Button } from '@/app/ui/Button'
 
 export function ImportBox({ onImport, open }: { onImport: (text: string) => string | null; open?: boolean }) {
   const { t } = useTranslation()

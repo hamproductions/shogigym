@@ -1,10 +1,10 @@
 import { useTranslation } from 'react-i18next'
-import { LABELS, type MoveReview } from '../../analysis'
-import type { Course } from '../../model'
-import i18n from '../../i18n'
-import { moveText } from '../../shogi'
-import type { BookHit, BookMove } from '../lib/book'
-import { isWeak } from '../lib/mistake'
+import { LABELS, type MoveReview } from '@/utils/analysis'
+import type { Course } from '@/utils/model'
+import i18n from '@/utils/i18n'
+import { moveText } from '@/utils/shogi'
+import type { BookHit, BookMove } from '@/utils/book'
+import { isWeak } from '@/utils/mistake'
 
 type CoachPaneProps = {
   review: MoveReview | null
@@ -23,7 +23,14 @@ type CoachPaneProps = {
 
 const prefixOf = (key: string) => i18n.t(key, { move: '\u0000', line: '\u0000' }).split('\u0000')[0]
 
-function Verdict({ review, lastMove, prevSfen, bookLast, ai, you }: Pick<CoachPaneProps, 'review' | 'bookLast' | 'ai' | 'you'> & { lastMove: string; prevSfen: string }) {
+function Verdict({
+  review,
+  lastMove,
+  prevSfen,
+  bookLast,
+  ai,
+  you,
+}: Pick<CoachPaneProps, 'review' | 'bookLast' | 'ai' | 'you'> & { lastMove: string; prevSfen: string }) {
   const { t } = useTranslation()
   const played = moveText(prevSfen, lastMove)
   if (review)
@@ -37,7 +44,9 @@ function Verdict({ review, lastMove, prevSfen, bookLast, ai, you }: Pick<CoachPa
             {you ? t('coach.yourMove') : ''}
             {played}
           </strong>
-          <span className="app-verdict-label" style={{ ['--label' as string]: LABELS[review.label].color }}>{LABELS[review.label].text}</span>
+          <span className="app-verdict-label" style={{ ['--label' as string]: LABELS[review.label].color }}>
+            {LABELS[review.label].text}
+          </span>
         </div>
         {bookLast?.branch.note && <p className="app-note">{bookLast.branch.note}</p>}
         {bookLast?.branch.kind === 'deviation' && bookLast.branch.punishNote && <p className="app-note warn">{bookLast.branch.punishNote}</p>}
@@ -48,8 +57,11 @@ function Verdict({ review, lastMove, prevSfen, bookLast, ai, you }: Pick<CoachPa
         ))}
         {isWeak(review.label) && review.best.move !== lastMove && !review.reasons.some((r) => r.startsWith(prefixOf('moveFacts.bestWins'))) && (
           <p className="app-reason">
-            {t('coach.betterWas')}<strong>{moveText(prevSfen, review.best.move)}</strong>
-            {review.bestReasons[0] && !review.bestReasons[0].startsWith(prefixOf('moveFacts.engineLine')) ? `: ${review.bestReasons[0]}` : t('coach.betterWasEnd')}
+            {t('coach.betterWas')}
+            <strong>{moveText(prevSfen, review.best.move)}</strong>
+            {review.bestReasons[0] && !review.bestReasons[0].startsWith(prefixOf('moveFacts.engineLine'))
+              ? `: ${review.bestReasons[0]}`
+              : t('coach.betterWasEnd')}
           </p>
         )}
       </>
@@ -62,7 +74,9 @@ function Verdict({ review, lastMove, prevSfen, bookLast, ai, you }: Pick<CoachPa
             {LABELS.book.symbol}
           </span>
           <strong>{played}</strong>
-          <span className="app-verdict-label" style={{ ['--label' as string]: LABELS.book.color }}>{t('coach.bookMove')}</span>
+          <span className="app-verdict-label" style={{ ['--label' as string]: LABELS.book.color }}>
+            {t('coach.bookMove')}
+          </span>
         </div>
         {bookLast.branch.note && <p className="app-note">{bookLast.branch.note}</p>}
       </>
@@ -75,7 +89,9 @@ function Verdict({ review, lastMove, prevSfen, bookLast, ai, you }: Pick<CoachPa
             {LABELS.mistake.symbol}
           </span>
           <strong>{played}</strong>
-          <span className="app-verdict-label" style={{ ['--label' as string]: LABELS.mistake.color }}>{t('coach.knownMistake')}</span>
+          <span className="app-verdict-label" style={{ ['--label' as string]: LABELS.mistake.color }}>
+            {t('coach.knownMistake')}
+          </span>
         </div>
         {(bookLast.branch.punishNote ?? bookLast.branch.note) && <p className="app-note warn">{bookLast.branch.punishNote ?? bookLast.branch.note}</p>}
       </>
@@ -92,7 +108,7 @@ export function CoachPane({ review, lastMove, prevSfen, bookLast, bookHere, sfen
           <Verdict review={review} lastMove={lastMove} prevSfen={prevSfen} bookLast={bookLast} ai={ai} you={you} />
         </div>
       ) : (
-        <p className="app-muted">{course ? course.root.comment ?? course.goalFormation : t('coach.makeAMoveTheCoach')}</p>
+        <p className="app-muted">{course ? (course.root.comment ?? course.goalFormation) : t('coach.makeAMoveTheCoach')}</p>
       )}
       {showBook && bookHere.length > 0 && (
         <div className="app-book">

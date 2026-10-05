@@ -1,22 +1,29 @@
 import { useEffect, useRef, useState } from 'react'
 import { Position } from 'tsshogi'
-import { COURSES } from '../../model'
-import { applyUsi, type Side } from '../../shogi'
-import { setupOf } from '../lib/book'
-import type { Drill } from '../modes/drill/useDrill'
-import type { Spar } from '../modes/spar/useSpar'
-import type { Lesson } from '../modes/lesson/useLesson'
-import type { Tsume, TsumeLength } from '../modes/tsume/useTsume'
-import { PROBLEMS, type ReviewQueue } from '../practice'
-import type { Tree } from '../tree'
-import type { LessonMode, Mode, Score } from '../types'
+import { COURSES } from '@/utils/model'
+import { applyUsi, type Side } from '@/utils/shogi'
+import { setupOf } from '@/utils/book'
+import type { Drill } from '@/app/modes/drill/useDrill'
+import type { Spar } from '@/app/modes/spar/useSpar'
+import type { Lesson } from '@/app/modes/lesson/useLesson'
+import type { Tsume, TsumeLength } from '@/app/modes/tsume/useTsume'
+import { PROBLEMS, type ReviewQueue } from '@/app/practice'
+import type { Tree } from '@/app/tree'
+import type { LessonMode, Mode, Score } from '@/app/types'
 import type { BoardSession } from './useBoardSession'
 import type { ModeSlots, Snapshot } from './useModeSwitch'
 
 const SESSION_KEY = 'joseki-practice:session:v2'
 
 type SavedGame = { start: string; moves: string[]; cursor: number; userSide: Side; tree?: Tree; resigned?: boolean }
-type SavedSession = { mode: Mode; lesson?: { courseId: string; lessonMode: LessonMode; moves: string[]; score?: Score }; spar?: SavedGame; analyze?: SavedGame; tsume?: { problemId: string; length: TsumeLength }; drill?: { queue: ReviewQueue } }
+type SavedSession = {
+  mode: Mode
+  lesson?: { courseId: string; lessonMode: LessonMode; moves: string[]; score?: Score }
+  spar?: SavedGame
+  analyze?: SavedGame
+  tsume?: { problemId: string; length: TsumeLength }
+  drill?: { queue: ReviewQueue }
+}
 
 const readSession = () => JSON.parse(localStorage.getItem(SESSION_KEY) ?? 'null') as SavedSession | null
 
@@ -26,7 +33,15 @@ function replays(start: string, moves: string[]) {
   return !!at
 }
 
-type Persisted = { session: BoardSession; lesson: Lesson; tsume: Tsume; drill: Drill; spar: Spar; slots: ModeSlots; resume: (mode: Mode, snapshot: Snapshot) => void }
+type Persisted = {
+  session: BoardSession
+  lesson: Lesson
+  tsume: Tsume
+  drill: Drill
+  spar: Spar
+  slots: ModeSlots
+  resume: (mode: Mode, snapshot: Snapshot) => void
+}
 
 export function usePersistedSession({ session, lesson, tsume, drill, spar, slots, resume }: Persisted) {
   const { mode, course, game, cursor, userSide, tree } = session
@@ -44,11 +59,31 @@ export function usePersistedSession({ session, lesson, tsume, drill, spar, slots
       const saved: Partial<Record<Mode, Snapshot>> = {}
       for (const m of ['spar', 'analyze'] as const) {
         const g = data[m]
-        if (g && replays(g.start, g.moves)) saved[m] = { game: { start: g.start, moves: g.moves }, cursor: g.cursor, userSide: g.userSide, flipped: g.userSide === 'gote', course: null, lessonMode: 'study', score: { right: 0, wrong: 0 }, tree: g.tree, resigned: g.resigned }
+        if (g && replays(g.start, g.moves))
+          saved[m] = {
+            game: { start: g.start, moves: g.moves },
+            cursor: g.cursor,
+            userSide: g.userSide,
+            flipped: g.userSide === 'gote',
+            course: null,
+            lessonMode: 'study',
+            score: { right: 0, wrong: 0 },
+            tree: g.tree,
+            resigned: g.resigned,
+          }
       }
       const saw = data.lesson
       const c = saw && COURSES.find((x) => x.id === saw.courseId)
-      if (c && saw && replays(c.root.sfen, saw.moves)) saved.lesson = { game: { start: c.root.sfen, moves: saw.moves }, cursor: saw.moves.length, userSide: c.userSide, flipped: c.userSide === 'gote', course: c, lessonMode: saw.lessonMode, score: saw.score ?? { right: 0, wrong: 0 } }
+      if (c && saw && replays(c.root.sfen, saw.moves))
+        saved.lesson = {
+          game: { start: c.root.sfen, moves: saw.moves },
+          cursor: saw.moves.length,
+          userSide: c.userSide,
+          flipped: c.userSide === 'gote',
+          course: c,
+          lessonMode: saw.lessonMode,
+          score: saw.score ?? { right: 0, wrong: 0 },
+        }
       const into = data.mode === 'spar' || data.mode === 'analyze' || data.mode === 'lesson' ? data.mode : 'spar'
       const back = saved[into]
       if (back) {

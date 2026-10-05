@@ -1,18 +1,18 @@
 import './board.css'
 import { Color, PieceType, Square } from 'tsshogi'
-import { HAND_ORDER, PIECE_CHAR } from '../shogi'
+import { HAND_ORDER, PIECE_CHAR } from '@/utils/shogi'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import type { ImmutablePosition } from 'tsshogi'
-import { steppedMove } from '../app/lib/stepped'
-import { useLatest } from '../app/hooks/useLatest'
+import { steppedMove } from '@/utils/stepped'
+import { useLatest } from '@/app/hooks/useLatest'
 import type { Board3DProps } from './Board3D'
-import { PIECE_FONTS, loadPieceFont, playSound, useSettings } from '../appearance/settings'
-import { useSvgBoard } from '../app/hooks/useSvgBoard'
-import { useBakedPieces } from '../app/hooks/useBakedPieces'
+import { PIECE_FONTS, loadPieceFont, playSound, useSettings } from '@/appearance/settings'
+import { useSvgBoard } from '@/app/hooks/useSvgBoard'
+import { useBakedPieces } from '@/app/hooks/useBakedPieces'
 import { SPRITE_BOX, spriteKey } from './sprites'
 import { UnderMarks, OverMarks } from './flatMarks'
 import { BOARD_TONE } from './koma'
-import { SQ_D } from './board3d/dimensions'
+import { SQ_D } from '@/rendering/board3d/dimensions'
 import { useTranslation } from 'react-i18next'
 
 const KANJI_NUM = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九']
@@ -54,7 +54,8 @@ const THEMES = {
   },
 } as const
 
-const komaPath = (w: number, h: number) => `M ${-w * 0.42} ${h * 0.46} L ${w * 0.42} ${h * 0.46} L ${w * 0.34} ${-h * 0.3} L 0 ${-h * 0.46} L ${-w * 0.34} ${-h * 0.3} Z`
+const komaPath = (w: number, h: number) =>
+  `M ${-w * 0.42} ${h * 0.46} L ${w * 0.42} ${h * 0.46} L ${w * 0.34} ${-h * 0.3} L 0 ${-h * 0.46} L ${-w * 0.34} ${-h * 0.3} Z`
 
 export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }) {
   const svgRef = useSvgBoard()
@@ -68,7 +69,9 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
   const settings = useSettings()
   const customBoard = style === 'broadcast' && settings.boardStyle.startsWith('sunfish-')
   const tone = BOARD_TONE[settings.boardStyle]
-  const t = customBoard ? { ...THEMES[style], bg: `rgb(${tone.board.join(',')})`, board: `rgb(${tone.board.join(',')})`, line: tone.line, coord: tone.line } : THEMES[style]
+  const t = customBoard
+    ? { ...THEMES[style], bg: `rgb(${tone.board.join(',')})`, board: `rgb(${tone.board.join(',')})`, line: tone.line, coord: tone.line }
+    : THEMES[style]
   const { position, flipped, selected, selectedColor, targets, arrows, lastMove, checkSquare, heat } = props
   const boardW = t.cw * 9
   const boardH = t.ch * 9
@@ -80,7 +83,9 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
   const row = (rank: number) => (flipped ? 9 - rank : rank - 1)
   const cx = (sq: Square) => x0 + (col(sq.file) + 0.5) * t.cw
   const cy = (sq: Square) => y0 + (row(sq.rank) + 0.5) * t.ch
-  const cell = (sq: Square, fill: string, opacity: number, key: string) => <rect key={key} x={x0 + col(sq.file) * t.cw} y={y0 + row(sq.rank) * t.ch} width={t.cw} height={t.ch} fill={fill} opacity={opacity} pointerEvents="none" />
+  const cell = (sq: Square, fill: string, opacity: number, key: string) => (
+    <rect key={key} x={x0 + col(sq.file) * t.cw} y={y0 + row(sq.rank) * t.ch} width={t.cw} height={t.ch} fill={fill} opacity={opacity} pointerEvents="none" />
+  )
   const glyph = (type: PieceType, color: Color) => (type === PieceType.KING ? (color === Color.BLACK ? '玉' : '王') : PIECE_CHAR[type])
   const onBoard = (event: React.MouseEvent<SVGRectElement>) => {
     const rect = event.currentTarget.getBoundingClientRect()
@@ -103,11 +108,30 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
       const n = position.hand(color).count(type)
       const on = selected === type && selectedColor === color
       return (
-        <g key={type} transform={`translate(${hx} ${y})${bottom ? '' : ' rotate(180)'}`} onClick={() => props.onHand(color, type)} style={{ cursor: 'pointer' }}>
-          <rect x={-t.side / 2 + 6} y={-step / 2} width={t.side - 12} height={step} fill={on && !t.koma ? '#ffd76a' : 'transparent'} opacity={on && !t.koma ? 0.8 : 1} rx={8} />
+        <g
+          key={type}
+          transform={`translate(${hx} ${y})${bottom ? '' : ' rotate(180)'}`}
+          onClick={() => props.onHand(color, type)}
+          style={{ cursor: 'pointer' }}
+        >
+          <rect
+            x={-t.side / 2 + 6}
+            y={-step / 2}
+            width={t.side - 12}
+            height={step}
+            fill={on && !t.koma ? '#ffd76a' : 'transparent'}
+            opacity={on && !t.koma ? 0.8 : 1}
+            rx={8}
+          />
           {t.koma && baked && (
             <g className={`app-koma-lift${on ? ' on' : ''}`}>
-              <image href={baked.pieces.get(spriteKey(type, color, true))} x={-SPRITE_BOX * 45} y={-SPRITE_BOX * 45} width={SPRITE_BOX * 90} height={SPRITE_BOX * 90} />
+              <image
+                href={baked.pieces.get(spriteKey(type, color, true))}
+                x={-SPRITE_BOX * 45}
+                y={-SPRITE_BOX * 45}
+                width={SPRITE_BOX * 90}
+                height={SPRITE_BOX * 90}
+              />
             </g>
           )}
           {!t.koma && (
@@ -118,7 +142,15 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
           {n > 1 && (
             <g transform={t.koma ? `translate(42 -32)${bottom ? '' : ' rotate(180)'}` : undefined}>
               {t.koma && <circle r={21} fill="#2a241e" />}
-              <text textAnchor="middle" y={t.koma ? 0 : 44} dy="0.36em" fontSize={30} fontWeight={700} fontFamily="'Zen Kaku Gothic New', sans-serif" fill={t.koma ? '#fff' : t.piece}>
+              <text
+                textAnchor="middle"
+                y={t.koma ? 0 : 44}
+                dy="0.36em"
+                fontSize={30}
+                fontWeight={700}
+                fontFamily="'Zen Kaku Gothic New', sans-serif"
+                fill={t.koma ? '#fff' : t.piece}
+              >
                 {t.koma ? n : COUNT[n]}
               </text>
             </g>
@@ -126,7 +158,13 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
         </g>
       )
     })
-    const markY = bottom ? (t.koma ? y0 + boardH - step * Math.max(1, counts.length) - 60 : startY - 10) : t.koma ? y0 + step * Math.max(1, counts.length) + 60 : y0 + 20
+    const markY = bottom
+      ? t.koma
+        ? y0 + boardH - step * Math.max(1, counts.length) - 60
+        : startY - 10
+      : t.koma
+        ? y0 + step * Math.max(1, counts.length) + 60
+        : y0 + 20
     return (
       <g key={color}>
         <g transform={`translate(${hx} ${markY})${bottom ? '' : ' rotate(180)'}`}>
@@ -137,7 +175,6 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
               {mark}
             </text>
           )}
-
         </g>
         {items}
       </g>
@@ -158,24 +195,53 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
     const { cx: px, cy: py, ch } = geo.current
     const dx = from ? px(from) - px(to) : 0
     const dy = from ? py(from) - py(to) : -ch
-    const animation = svg?.querySelector(`[data-sq="${to.usi}"]`)?.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: `translate(${dx / 2}px, ${dy / 2 - 12}px) scale(1.12)`, offset: 0.5 }, { transform: 'none' }], { duration: 220, easing: 'ease-out' })
+    const animation = svg
+      ?.querySelector(`[data-sq="${to.usi}"]`)
+      ?.animate(
+        [
+          { transform: `translate(${dx}px, ${dy}px)` },
+          { transform: `translate(${dx / 2}px, ${dy / 2 - 12}px) scale(1.12)`, offset: 0.5 },
+          { transform: 'none' },
+        ],
+        { duration: 220, easing: 'ease-out' },
+      )
     if (!animation) return
     animation.onfinish = () => playSound(stepped.capture ? 'capture' : 'move')
     return () => animation.cancel()
   }, [position, lastMove, flipped, style, svgRef, geo])
   const tiles = position.board.listNonEmptySquares().map((sq) => {
     const piece = position.board.at(sq)!
-    return { id: sq.usi, type: piece.type, color: piece.color, x: cx(sq), y: cy(sq), up: (piece.color === Color.BLACK) !== flipped, scale: 1, on: selected instanceof Square && selected.equals(sq) }
+    return {
+      id: sq.usi,
+      type: piece.type,
+      color: piece.color,
+      x: cx(sq),
+      y: cy(sq),
+      up: (piece.color === Color.BLACK) !== flipped,
+      scale: 1,
+      on: selected instanceof Square && selected.equals(sq),
+    }
   })
   for (const color of [Color.BLACK, Color.WHITE]) {
     const bottom = (color === Color.BLACK) !== flipped
     const counts = HAND_ORDER.filter((type) => position.hand(color).count(type) > 0)
     const hx = bottom ? x0 + boardW + 80 + (t.side - 80) / 2 : (t.side - 80) / 2 + 20
     const startY = bottom ? y0 + boardH - 102 * Math.max(1, counts.length) : y0
-    counts.forEach((type, i) => tiles.push({ id: `hand-${color}-${type}`, type, color, x: hx, y: bottom ? startY + 102 * (i + 0.5) : startY + 102 * (counts.length - i - 0.5), up: bottom, scale: 0.9, on: selected === type && selectedColor === color }))
+    counts.forEach((type, i) =>
+      tiles.push({
+        id: `hand-${color}-${type}`,
+        type,
+        color,
+        x: hx,
+        y: bottom ? startY + 102 * (i + 0.5) : startY + 102 * (counts.length - i - 0.5),
+        up: bottom,
+        scale: 0.9,
+        on: selected === type && selectedColor === color,
+      }),
+    )
   }
   const sign = flipped ? -1 : 1
-  const project = (x: number, z: number): [number, number] => [x0 + (4.5 + sign * x) * t.cw, y0 + (4.5 + sign * z / SQ_D) * t.ch]
+  const project = (x: number, z: number): [number, number] => [x0 + (4.5 + sign * x) * t.cw, y0 + (4.5 + (sign * z) / SQ_D) * t.ch]
   const handPoint = (color: Color, type: PieceType) => {
     const tile = tiles.find((tile) => tile.id === `hand-${color}-${type}`)
     return tile ? { x: ((tile.x - x0) / t.cw - 4.5) * sign, z: ((tile.y - y0) / t.ch - 4.5) * SQ_D * sign } : null
@@ -184,12 +250,25 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
   const lastFrom = lastMove && lastMove[1] !== '*' ? Square.newByUSI(lastMove.slice(0, 2)) : null
   return (
     <div className={`app-flat app-flat-${style}`} aria-busy={loading}>
-      {(loading || error) && <div className="app-board-loading" role="status">{error ?? i18n.t('settings.loadingEvalFile')}</div>}
-      <svg ref={svgRef} xmlns="http://www.w3.org/2000/svg" viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label={i18n.t('board.shogiBoard')}>
+      {(loading || error) && (
+        <div className="app-board-loading" role="status">
+          {error ?? i18n.t('settings.loadingEvalFile')}
+        </div>
+      )}
+      <svg
+        ref={svgRef}
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox={`0 0 ${width} ${height}`}
+        preserveAspectRatio="xMidYMid meet"
+        role="img"
+        aria-label={i18n.t('board.shogiBoard')}
+      >
         <rect width={width} height={height} fill={t.bg} />
         {customBoard && baked && <image href={baked.surface} width={width} height={height} preserveAspectRatio="none" />}
         <rect x={x0} y={y0} width={boardW} height={boardH} fill={customBoard ? 'transparent' : t.board} />
-        {t.koma ? <UnderMarks props={props} p={project} u={t.cw} /> : (
+        {t.koma ? (
+          <UnderMarks props={props} p={project} u={t.cw} />
+        ) : (
           <>
             {lastFrom && cell(lastFrom, style === 'diagram' ? '#9cc3ff' : '#fff2a8', 0.35, 'lf')}
             {lastTo && cell(lastTo, style === 'diagram' ? '#9cc3ff' : '#fff2a8', 0.6, 'lt')}
@@ -206,8 +285,21 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
         ))}
         {!t.koma && [3, 6].flatMap((a) => [3, 6].map((b) => <circle key={`${a}${b}`} cx={x0 + a * t.cw} cy={y0 + b * t.ch} r={5} fill={t.line} />))}
         {Array.from({ length: 9 }, (_, i) => (
-          <g key={`c${i}`} fill={t.coord} fontSize={t.coordSize} fontWeight={t.koma ? 800 : 400} fontFamily="'Shippori Mincho B1', serif" textAnchor="middle" dominantBaseline="central">
-            <text x={x0 + (i + 0.5) * t.cw} y={y0 - t.pad / 2} fontFamily={t.koma ? "'Zen Kaku Gothic New', sans-serif" : undefined} fontWeight={t.koma ? 700 : undefined}>
+          <g
+            key={`c${i}`}
+            fill={t.coord}
+            fontSize={t.coordSize}
+            fontWeight={t.koma ? 800 : 400}
+            fontFamily="'Shippori Mincho B1', serif"
+            textAnchor="middle"
+            dominantBaseline="central"
+          >
+            <text
+              x={x0 + (i + 0.5) * t.cw}
+              y={y0 - t.pad / 2}
+              fontFamily={t.koma ? "'Zen Kaku Gothic New', sans-serif" : undefined}
+              fontWeight={t.koma ? 700 : undefined}
+            >
               {flipped ? i + 1 : 9 - i}
             </text>
             <text x={x0 + boardW + 40} y={y0 + (i + 0.5) * t.ch}>
@@ -223,10 +315,25 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
             <g key={sq.usi} transform={`translate(${cx(sq)} ${cy(sq)})${up ? '' : ' rotate(180)'}`} pointerEvents="none">
               <g data-sq={sq.usi}>
                 <g className={`app-koma-lift${selected instanceof Square && selected.equals(sq) ? ' on' : ''}`}>
-                  {t.koma ? baked && (
-                    <image href={baked.pieces.get(spriteKey(piece.type, piece.color, true))} x={-SPRITE_BOX * 50} y={-SPRITE_BOX * 50} width={SPRITE_BOX * 100} height={SPRITE_BOX * 100} />
+                  {t.koma ? (
+                    baked && (
+                      <image
+                        href={baked.pieces.get(spriteKey(piece.type, piece.color, true))}
+                        x={-SPRITE_BOX * 50}
+                        y={-SPRITE_BOX * 50}
+                        width={SPRITE_BOX * 100}
+                        height={SPRITE_BOX * 100}
+                      />
+                    )
                   ) : (
-                    <text textAnchor="middle" dominantBaseline="central" fontSize={text.length > 1 ? 40 : 62} fontFamily={komaFont} fontWeight={500} fill={PROMOTED.has(piece.type) ? t.promoted : t.piece}>
+                    <text
+                      textAnchor="middle"
+                      dominantBaseline="central"
+                      fontSize={text.length > 1 ? 40 : 62}
+                      fontFamily={komaFont}
+                      fontWeight={500}
+                      fill={PROMOTED.has(piece.type) ? t.promoted : t.piece}
+                    >
                       {text}
                     </text>
                   )}
@@ -235,36 +342,46 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
             </g>
           )
         })}
-        {!t.koma && targets.map((sq) => (
-          <circle key={`t${sq.usi}`} cx={cx(sq)} cy={cy(sq)} r={12} fill="#2a8f4a" opacity={0.75} pointerEvents="none" />
-        ))}
-        {!t.koma && arrows.map((a, i) => {
-          const to = Square.newByUSI(a.usi.slice(2, 4))
-          const from = a.usi[1] === '*' ? null : Square.newByUSI(a.usi.slice(0, 2))
-          if (!to || !from) return null
-          const x1 = cx(from)
-          const y1 = cy(from)
-          const x2 = cx(to)
-          const y2 = cy(to)
-          const len = Math.hypot(x2 - x1, y2 - y1) || 1
-          const ux = (x2 - x1) / len
-          const uy = (y2 - y1) / len
-          const hx = x2 - ux * 26
-          const hy = y2 - uy * 26
-          return (
-            <g key={`a${i}`} opacity={0.8} pointerEvents="none">
-              <line x1={x1} y1={y1} x2={hx} y2={hy} stroke={a.color} strokeWidth={12} strokeDasharray={a.dashed ? '18 12' : undefined} strokeLinecap="round" />
-              <path d={`M ${x2} ${y2} L ${hx - uy * 20} ${hy + ux * 20} L ${hx + uy * 20} ${hy - ux * 20} Z`} fill={a.color} />
-            </g>
-          )
-        })}
+        {!t.koma && targets.map((sq) => <circle key={`t${sq.usi}`} cx={cx(sq)} cy={cy(sq)} r={12} fill="#2a8f4a" opacity={0.75} pointerEvents="none" />)}
+        {!t.koma &&
+          arrows.map((a, i) => {
+            const to = Square.newByUSI(a.usi.slice(2, 4))
+            const from = a.usi[1] === '*' ? null : Square.newByUSI(a.usi.slice(0, 2))
+            if (!to || !from) return null
+            const x1 = cx(from)
+            const y1 = cy(from)
+            const x2 = cx(to)
+            const y2 = cy(to)
+            const len = Math.hypot(x2 - x1, y2 - y1) || 1
+            const ux = (x2 - x1) / len
+            const uy = (y2 - y1) / len
+            const hx = x2 - ux * 26
+            const hy = y2 - uy * 26
+            return (
+              <g key={`a${i}`} opacity={0.8} pointerEvents="none">
+                <line
+                  x1={x1}
+                  y1={y1}
+                  x2={hx}
+                  y2={hy}
+                  stroke={a.color}
+                  strokeWidth={12}
+                  strokeDasharray={a.dashed ? '18 12' : undefined}
+                  strokeLinecap="round"
+                />
+                <path d={`M ${x2} ${y2} L ${hx - uy * 20} ${hy + ux * 20} L ${hx + uy * 20} ${hy - ux * 20} Z`} fill={a.color} />
+              </g>
+            )
+          })}
         <rect x={x0} y={y0} width={boardW} height={boardH} fill="transparent" onClick={onBoard} style={{ cursor: 'pointer' }} />
         {hand(Color.BLACK)}
         {hand(Color.WHITE)}
         {!t.koma && checkSquare && (
           <g pointerEvents="none" transform={`translate(${x0 + (col(checkSquare.file) + 0.5) * t.cw} ${y0 + row(checkSquare.rank) * t.ch})`}>
             <circle r={t.cw * 0.3} fill="#c62a1a" stroke="#fbf6ec" strokeWidth={2} />
-            <text textAnchor="middle" dominantBaseline="central" fontSize={t.cw * 0.22} fontWeight={700} fill="#fff">王手</text>
+            <text textAnchor="middle" dominantBaseline="central" fontSize={t.cw * 0.22} fontWeight={700} fill="#fff">
+              王手
+            </text>
           </g>
         )}
         {t.koma && <OverMarks props={props} p={project} u={t.cw} flip={sign} coordFill={t.coord} handPoint={handPoint} />}

@@ -51,8 +51,8 @@ export type Course = RawCourse & {
 }
 
 const rawFiles = {
-  ...import.meta.glob<string>('../vendor/shiryu-joseki/src/data/joseki/*.json', { eager: true, query: '?raw', import: 'default' }),
-  ...import.meta.glob<string>('./data/joseki/*.json', { eager: true, query: '?raw', import: 'default' }),
+  ...import.meta.glob<string>('../../vendor/shiryu-joseki/src/data/joseki/*.json', { eager: true, query: '?raw', import: 'default' }),
+  ...import.meta.glob<string>('../data/joseki/*.json', { eager: true, query: '?raw', import: 'default' }),
 }
 
 const DERIVED: { id: string; from: string; start: number; end: number; title: string; goalFormation: string }[] = [
@@ -87,12 +87,27 @@ function derive(base: RawCourse, spec: (typeof DERIVED)[number]): RawCourse {
     if (!next?.child) break
     node = next.child
   }
-  return { ...base, id: spec.id, title: spec.title, goalFormation: spec.goalFormation, source: `${base.title}の${spec.start + 1}手目から${spec.end}手目までを切り出したもの。手順と解説は元のコースと同じ出典(${base.source ?? 'Shiryu181/shogi-joseki'})。`, root: cut(node, spec.end - spec.start) }
+  return {
+    ...base,
+    id: spec.id,
+    title: spec.title,
+    goalFormation: spec.goalFormation,
+    source: `${base.title}の${spec.start + 1}手目から${spec.end}手目までを切り出したもの。手順と解説は元のコースと同じ出典(${base.source ?? 'Shiryu181/shogi-joseki'})。`,
+    root: cut(node, spec.end - spec.start),
+  }
 }
 
 const RAW: RawCourse[] = Object.values(rawFiles).map((text) => JSON.parse(text) as RawCourse)
 
-const CATALOG = buildCatalog([...RAW, ...DERIVED.map((d) => derive(RAW.find((r) => r.id === d.from)!, d))])
+const CATALOG = buildCatalog([
+  ...RAW,
+  ...DERIVED.map((d) =>
+    derive(
+      RAW.find((r) => r.id === d.from)!,
+      d,
+    ),
+  ),
+])
 
 export const COURSES: Course[] = CATALOG.courses
 

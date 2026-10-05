@@ -1,11 +1,11 @@
-import problemsData from '../data/tsume.json'
-import i18n from '../i18n'
-import { analyze, engineSupported } from '../engine'
-import { COURSES, SETUPS, findPath, sideToMove, walkNodes, type Course, type JosekiNode } from '../model'
-import { getSettings } from '../appearance/settings'
-import { getCard, isDifficult, isLearned, positionKey } from '../srs'
-import { loadMistakes, type Mistake } from '../mistakes'
-import { applyUsi, colorSide, hasLegalMove, moveText, positionOf, type Side } from '../shogi'
+import problemsData from '@/data/tsume.json'
+import i18n from '@/utils/i18n'
+import { analyze, engineSupported } from '@/utils/engine'
+import { COURSES, SETUPS, findPath, sideToMove, walkNodes, type Course, type JosekiNode } from '@/utils/model'
+import { getSettings } from '@/appearance/settings'
+import { getCard, isDifficult, isLearned, positionKey } from '@/utils/srs'
+import { loadMistakes, type Mistake } from '@/utils/mistakes'
+import { applyUsi, colorSide, hasLegalMove, moveText, positionOf, type Side } from '@/utils/shogi'
 
 export type Problem = { id: string; mate: number; sfen: string; pv: string[] }
 const BASE = problemsData as Problem[]
@@ -77,8 +77,7 @@ export async function defenderMove(problem: Problem, line: string[], sfen: strin
 export const mistakeKey = (id: string) => `mistake#${id}`
 
 export type ReviewItem =
-  | { kind: 'position'; key: string; course: Course; node: JosekiNode; moves: string[] }
-  | { kind: 'mistake'; key: string; mistake: Mistake }
+  { kind: 'position'; key: string; course: Course; node: JosekiNode; moves: string[] } | { kind: 'mistake'; key: string; mistake: Mistake }
 
 export type ReviewQueue = 'due' | 'new' | 'difficult' | 'mistakes'
 
@@ -135,7 +134,10 @@ export function reviewCounts(now = Date.now()) {
 }
 
 export function buildQueue(queue: ReviewQueue, now = Date.now()): ReviewItem[] {
-  if (queue === 'mistakes') return loadMistakes().filter((m) => (getCard(mistakeKey(m.id))?.due ?? 0) <= now).map((mistake) => ({ kind: 'mistake', key: mistakeKey(mistake.id), mistake }))
+  if (queue === 'mistakes')
+    return loadMistakes()
+      .filter((m) => (getCard(mistakeKey(m.id))?.due ?? 0) <= now)
+      .map((mistake) => ({ kind: 'mistake', key: mistakeKey(mistake.id), mistake }))
   const all = trainablePositions()
   const pick =
     queue === 'due'
@@ -154,7 +156,13 @@ export function buildQueue(queue: ReviewQueue, now = Date.now()): ReviewItem[] {
             const c = getCard(i.key)
             return c && isDifficult(c)
           })
-  return pick.map((i) => ({ kind: 'position', key: i.key, course: i.course, node: i.node, moves: (findPath(i.course.root, i.node.id) ?? []).map((b) => b.usi) }))
+  return pick.map((i) => ({
+    kind: 'position',
+    key: i.key,
+    course: i.course,
+    node: i.node,
+    moves: (findPath(i.course.root, i.node.id) ?? []).map((b) => b.usi),
+  }))
 }
 
 export function expectedMoves(item: ReviewItem): string[] {

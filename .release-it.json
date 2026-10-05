@@ -1,0 +1,29 @@
+{
+  "git": {
+    "requireBranch": "main",
+    "requireCleanWorkingDir": true,
+    "commitMessage": "chore: release v${version}",
+    "tagName": "v${version}",
+    "tagAnnotation": "Version ${version}",
+    "commit": true,
+    "tag": true,
+    "push": true
+  },
+  "github": {
+    "release": true,
+    "releaseName": "Release v${version}"
+  },
+  "npm": {
+    "publish": false
+  },
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "preset": "angular",
+      "infile": "CHANGELOG.md",
+      "header": "# Changelog\n\nNotable changes are recorded here when a release is created. Versions follow Semantic Versioning."
+    }
+  },
+  "hooks": {
+    "before:init": ["node scripts/validate.mjs", "bun run lint", "bun run format:check", "bun run build"]
+  }
+}

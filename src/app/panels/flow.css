@@ -18,11 +18,17 @@
   background: var(--card-hover);
 }
 
-.app-lane.book { --tone: var(--warning); }
+.app-lane.book {
+  --tone: var(--warning);
+}
 
-.app-lane.ai { --tone: var(--info); }
+.app-lane.ai {
+  --tone: var(--info);
+}
 
-.app-lane.mistake { --tone: var(--danger); }
+.app-lane.mistake {
+  --tone: var(--danger);
+}
 
 .app-lane-head {
   display: flex;

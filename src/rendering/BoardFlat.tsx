@@ -4,15 +4,15 @@ import { useTranslation } from 'react-i18next'
 import { Color, PieceType, Square, type ImmutablePosition } from 'tsshogi'
 import type { Board3DProps } from './Board3D'
 import { OverMarks, UnderMarks } from './flatMarks'
-import { useLatest } from '../app/hooks/useLatest'
-import { useBakedPieces } from '../app/hooks/useBakedPieces'
-import { useSvgBoard } from '../app/hooks/useSvgBoard'
+import { useLatest } from '@/app/hooks/useLatest'
+import { useBakedPieces } from '@/app/hooks/useBakedPieces'
+import { useSvgBoard } from '@/app/hooks/useSvgBoard'
 import { SPRITE_BOX, spriteKey, type Baked } from './sprites'
-import { HALF_D, HALF_W, MARGIN, SQ_D, STAND, STRIP_D, STRIP_W, setBoardDims } from './board3d/dimensions'
-import { handArrangement } from './board3d/hand'
-import { layout, sideStandsFit, standCenter } from './board3d/layout'
-import { steppedMove } from '../app/lib/stepped'
-import { playSound, useSettings } from '../appearance/settings'
+import { HALF_D, HALF_W, MARGIN, SQ_D, STAND, STRIP_D, STRIP_W, setBoardDims } from '@/rendering/board3d/dimensions'
+import { handArrangement } from '@/rendering/board3d/hand'
+import { layout, sideStandsFit, standCenter } from '@/rendering/board3d/layout'
+import { steppedMove } from '@/utils/stepped'
+import { playSound, useSettings } from '@/appearance/settings'
 
 const U = 100
 const CH = SQ_D * U
@@ -92,7 +92,12 @@ export function BoardFlat(props: Board3DProps) {
       return
     }
     const rect = svg.getBoundingClientRect()
-    const box = (x: number, y: number, w: number, h: number) => ({ l: x * m.a + m.e - rect.left, r: (x + w) * m.a + m.e - rect.left, t: y * m.d + m.f - rect.top, b: (y + h) * m.d + m.f - rect.top })
+    const box = (x: number, y: number, w: number, h: number) => ({
+      l: x * m.a + m.e - rect.left,
+      r: (x + w) * m.a + m.e - rect.left,
+      t: y * m.d + m.f - rect.top,
+      b: (y + h) * m.d + m.f - rect.top,
+    })
     const bd = box(g.bx, g.by, g.bw, g.bh)
     const top = box(g.stands.top.x, g.stands.top.y, g.stands.top.w, g.stands.top.h)
     const bottom = box(g.stands.bottom.x, g.stands.bottom.y, g.stands.bottom.w, g.stands.bottom.h)
@@ -128,7 +133,16 @@ export function BoardFlat(props: Board3DProps) {
     const fy = from ? py(from) : stand.y + stand.h / 2
     const dx = fx - px(to)
     const dy = fy - py(to)
-    const animation = svgRef.current?.querySelector(`[data-sq="${to.usi}"]`)?.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: `translate(${dx / 2}px, ${dy / 2 - 10}px) scale(1.16)`, offset: 0.5 }, { transform: 'none' }], { duration: 220, easing: 'cubic-bezier(0.45, 0, 0.25, 1)' })
+    const animation = svgRef.current
+      ?.querySelector(`[data-sq="${to.usi}"]`)
+      ?.animate(
+        [
+          { transform: `translate(${dx}px, ${dy}px)` },
+          { transform: `translate(${dx / 2}px, ${dy / 2 - 10}px) scale(1.16)`, offset: 0.5 },
+          { transform: 'none' },
+        ],
+        { duration: 220, easing: 'cubic-bezier(0.45, 0, 0.25, 1)' },
+      )
     if (!animation) return
     animation.onfinish = () => playSound(stepped.capture ? 'capture' : 'move')
     return () => animation.cancel()
@@ -180,7 +194,12 @@ export function BoardFlat(props: Board3DProps) {
     else props.onHand(d.color, d.from as PieceType)
   }
 
-  if (!baked) return <div className="app-flat app-flat-wood" ref={wrapRef}><div role="status">{error ?? i18n.t('settings.loadingEvalFile')}</div></div>
+  if (!baked)
+    return (
+      <div className="app-flat app-flat-wood" ref={wrapRef}>
+        <div role="status">{error ?? i18n.t('settings.loadingEvalFile')}</div>
+      </div>
+    )
 
   const hand = (color: Color) => {
     const bottom = (color === Color.BLACK) !== flipped
@@ -200,14 +219,26 @@ export function BoardFlat(props: Board3DProps) {
           const on = selected === spot.type && selectedColor === color
           const lifted = drag?.from === spot.type && drag.color === color && drag.moved
           return (
-            <g key={spot.i} transform={`translate(${x} ${y}) rotate(${(-spot.rot * 180) / Math.PI})`} style={{ cursor: 'pointer' }} onPointerDown={(e) => (movable === color ? startDrag(e, spot.type, color, spot.type) : props.onHand(color, spot.type))}>
+            <g
+              key={spot.i}
+              transform={`translate(${x} ${y}) rotate(${(-spot.rot * 180) / Math.PI})`}
+              style={{ cursor: 'pointer' }}
+              onPointerDown={(e) => (movable === color ? startDrag(e, spot.type, color, spot.type) : props.onHand(color, spot.type))}
+            >
               <g opacity={lifted ? 0.35 : 1} className={`app-koma-lift${on ? ' on' : ''}`}>
                 <image href={baked.pieces.get(spriteKey(spot.type, color, bottom))} x={-size / 2} y={-size / 2} width={size} height={size} />
               </g>
               {spot.count && spot.count > 1 && (
                 <g transform={`rotate(${(spot.rot * 180) / Math.PI}) translate(${U * 0.34} ${-U * 0.36})${bottom ? '' : ' rotate(180)'}`} pointerEvents="none">
                   <circle r={U * 0.17} fill="#2a241e" stroke="#fbf6ec" strokeWidth={2.5} />
-                  <text textAnchor="middle" dominantBaseline="central" fontSize={U * 0.22} fontWeight={700} fontFamily="'Zen Kaku Gothic New', sans-serif" fill="#fff">
+                  <text
+                    textAnchor="middle"
+                    dominantBaseline="central"
+                    fontSize={U * 0.22}
+                    fontWeight={700}
+                    fontFamily="'Zen Kaku Gothic New', sans-serif"
+                    fill="#fff"
+                  >
                     {spot.count}
                   </text>
                 </g>
@@ -219,20 +250,42 @@ export function BoardFlat(props: Board3DProps) {
     )
   }
 
-
   const project = (x: number, z: number): [number, number] => [g.ox + (flipped ? -x : x) * U, g.oy + (flipped ? -z : z) * U]
   const coordFill = settings.boardStyle === 'dark' ? 'rgba(250,232,196,0.92)' : 'rgba(40,22,8,0.85)'
   const dragFrom = drag?.moved && drag.from instanceof Square ? drag.from : null
   return (
     <div className="app-flat app-flat-wood" ref={wrapRef} aria-busy={loading}>
-      {(loading || error) && <div className="app-board-loading" role="status">{error ?? i18n.t('settings.loadingEvalFile')}</div>}
-      <svg ref={svgRef} xmlns="http://www.w3.org/2000/svg" viewBox={`${-PAD} ${-PAD} ${g.width + 2 * PAD} ${g.height + 2 * PAD}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label={i18n.t('board.shogiBoard')} onPointerMove={onMove} onPointerUp={onUp} onPointerCancel={() => setDrag(null)}>
+      {(loading || error) && (
+        <div className="app-board-loading" role="status">
+          {error ?? i18n.t('settings.loadingEvalFile')}
+        </div>
+      )}
+      <svg
+        ref={svgRef}
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox={`${-PAD} ${-PAD} ${g.width + 2 * PAD} ${g.height + 2 * PAD}`}
+        preserveAspectRatio="xMidYMid meet"
+        role="img"
+        aria-label={i18n.t('board.shogiBoard')}
+        onPointerMove={onMove}
+        onPointerUp={onUp}
+        onPointerCancel={() => setDrag(null)}
+      >
         <image href={baked.board} x={g.bx} y={g.by} width={g.bw} height={g.bh} preserveAspectRatio="none" />
         <rect className="app-board-frame" x={g.bx - 6} y={g.by - 6} width={g.bw + 12} height={g.bh + 12} rx={10} fill="none" pointerEvents="none" />
         <UnderMarks props={props} p={project} u={U} />
         {settings.coords &&
           Array.from({ length: 9 }, (_, i) => (
-            <g key={`c${i}`} fill={coordFill} fontSize={U * 0.3} fontWeight={800} fontFamily="'Shippori Mincho B1', serif" textAnchor="middle" dominantBaseline="central" pointerEvents="none">
+            <g
+              key={`c${i}`}
+              fill={coordFill}
+              fontSize={U * 0.3}
+              fontWeight={800}
+              fontFamily="'Shippori Mincho B1', serif"
+              textAnchor="middle"
+              dominantBaseline="central"
+              pointerEvents="none"
+            >
               <text x={gx + (i + 0.5) * U} y={g.by + margin / 2}>
                 {flipped ? i + 1 : 9 - i}
               </text>

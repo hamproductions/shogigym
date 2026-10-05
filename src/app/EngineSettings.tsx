@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { restartEngine, useEngineStatus } from '../engine'
-import { clearEvalFile, saveEvalFile, useEvalFile } from '../evalStore'
-import { getSettings, setSettings, useSettings, type EngineKind } from '../appearance/settings'
-import { Button } from './ui/Button'
-import { SegmentedField, SettingRow } from './ui/Segmented'
+import { restartEngine, useEngineStatus } from '@/utils/engine'
+import { clearEvalFile, saveEvalFile, useEvalFile } from '@/utils/evalStore'
+import { getSettings, setSettings, useSettings, type EngineKind } from '@/appearance/settings'
+import { Button } from '@/app/ui/Button'
+import { SegmentedField, SettingRow } from '@/app/ui/Segmented'
 
 export function EngineSettings() {
   const { t } = useTranslation()
@@ -17,7 +17,16 @@ export function EngineSettings() {
   }
   return (
     <>
-      <SegmentedField<EngineKind> label={t('settings.engine')} value={st.engine} options={[{ v: 'yaneuraou', t: t('settings.yaneuraou') }, { v: 'nnue', t: t('settings.yaneuraouNnue') }, { v: 'fairy', t: t('settings.fairyStockfish') }]} onChange={(v) => setSettings({ engine: v })} />
+      <SegmentedField<EngineKind>
+        label={t('settings.engine')}
+        value={st.engine}
+        options={[
+          { v: 'yaneuraou', t: t('settings.yaneuraou') },
+          { v: 'nnue', t: t('settings.yaneuraouNnue') },
+          { v: 'fairy', t: t('settings.fairyStockfish') },
+        ]}
+        onChange={(v) => setSettings({ engine: v })}
+      />
       {st.engine === 'nnue' && (
         <>
           <SettingRow label={t('settings.evalFile')}>
@@ -47,14 +56,17 @@ export function EngineSettings() {
                 />
               </label>
               {evalFile && (
-                <Button onClick={() => clearEvalFile().then(reload, (failure: Error) => setError(failure.message))}>
-                  {t('settings.removeEvalFile')}
-                </Button>
+                <Button onClick={() => clearEvalFile().then(reload, (failure: Error) => setError(failure.message))}>{t('settings.removeEvalFile')}</Button>
               )}
             </div>
           </SettingRow>
           {error && <p className="app-result wrong">{error}</p>}
-          <SegmentedField label={t('settings.fvScale')} value={st.fvScale} options={[16, 20, 24].map((v) => ({ v, t: String(v) }))} onChange={(v) => setSettings({ fvScale: v })} />
+          <SegmentedField
+            label={t('settings.fvScale')}
+            value={st.fvScale}
+            options={[16, 20, 24].map((v) => ({ v, t: String(v) }))}
+            onChange={(v) => setSettings({ fvScale: v })}
+          />
           <p className="app-muted app-credit">{t('settings.fvScaleHint')}</p>
         </>
       )}
@@ -70,11 +82,19 @@ export function EngineName() {
   const label = { yaneuraou: t('settings.yaneuraou'), nnue: t('settings.yaneuraouNnue'), fairy: t('settings.fairyStockfish') }[st.engine]
   return (
     <>
-      <p className="app-muted app-credit">{t('engine.activeEngine', { name: status.kind === st.engine && status.name ? status.name : `${label} ${status.error ? '' : t('engine.engineStarting')}`.trim() })}</p>
-      {status.kind === st.engine && status.error && <div role="alert">
-        <p className="app-result wrong">{status.error}</p>
-        <Button size="sm" onClick={restartEngine}>{t('tsume.tryAgain')}</Button>
-      </div>}
+      <p className="app-muted app-credit">
+        {t('engine.activeEngine', {
+          name: status.kind === st.engine && status.name ? status.name : `${label} ${status.error ? '' : t('engine.engineStarting')}`.trim(),
+        })}
+      </p>
+      {status.kind === st.engine && status.error && (
+        <div role="alert">
+          <p className="app-result wrong">{status.error}</p>
+          <Button size="sm" onClick={restartEngine}>
+            {t('tsume.tryAgain')}
+          </Button>
+        </div>
+      )}
     </>
   )
 }

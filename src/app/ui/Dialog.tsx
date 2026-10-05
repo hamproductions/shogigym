@@ -1,4 +1,4 @@
-import '../ui/dialog.css'
+import '@/app/ui/dialog.css'
 import type { ReactNode } from 'react'
 import { Button } from './Button'
 import { cx } from './cx'

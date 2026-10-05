@@ -1,5 +1,5 @@
 import { PieceType, Square } from 'tsshogi'
-import { getSettings } from '../../appearance/settings'
+import { getSettings } from '@/appearance/settings'
 
 export const MM_PER_SQUARE = 35.2
 export const SQ_D = 38.6 / MM_PER_SQUARE

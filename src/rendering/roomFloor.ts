@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
-import { CASUAL_ROOM, TABLE, TABLE_H, TATAMI_L, TATAMI_W, TRADITIONAL_ROOM, mm } from '../app/roomMetrics'
+import { CASUAL_ROOM, TABLE, TABLE_H, TATAMI_L, TATAMI_W, TRADITIONAL_ROOM, mm } from '@/utils/roomMetrics'
 
 export type RoomDims = { thick: number; leg: number; halfW: number; halfD: number; floor: THREE.Mesh }
 
@@ -40,7 +40,7 @@ export function grainTexture(width: number, height: number, base: [number, numbe
   ctx.fillStyle = `rgb(${base.join(',')})`
   ctx.fillRect(0, 0, width, height)
   let s = seed
-  const rand = () => ((s = (s * 16807) % 2147483647) / 2147483647)
+  const rand = () => (s = (s * 16807) % 2147483647) / 2147483647
   for (let i = 0; i < lines; i++) {
     const y = rand() * height
     const amp = 2 + rand() * 9
@@ -56,7 +56,8 @@ export function grainTexture(width: number, height: number, base: [number, numbe
   return canvas
 }
 
-export const grain = (key: string, w: number, h: number, base: [number, number, number], lines: number, seed: number) => paint(key, w, h, (ctx) => ctx.drawImage(grainTexture(w, h, base, lines, seed), 0, 0), true)
+export const grain = (key: string, w: number, h: number, base: [number, number, number], lines: number, seed: number) =>
+  paint(key, w, h, (ctx) => ctx.drawImage(grainTexture(w, h, base, lines, seed), 0, 0), true)
 
 export function tableTexture() {
   return once('table', () => {
@@ -185,7 +186,10 @@ export function furnishFloor(root: THREE.Group, dims: RoomDims, casual: boolean)
     floor.geometry = tileUV(new THREE.PlaneGeometry(2 * A, 2 * B).rotateX(-Math.PI / 2), (2 * A) / 34, (2 * B) / 34)
     floor.material = standard('planks', { map: planks(), roughness: 0.55 }, 0.24)
     const tableT = mm(30)
-    const table = new THREE.Mesh(new THREE.BoxGeometry(2 * TABLE.halfW, tableT, 2 * TABLE.halfD).translate(0, top - tableT / 2, 0), standard('table-wood', { map: tableTexture(), roughness: 0.6 }, 0.2))
+    const table = new THREE.Mesh(
+      new THREE.BoxGeometry(2 * TABLE.halfW, tableT, 2 * TABLE.halfD).translate(0, top - tableT / 2, 0),
+      standard('table-wood', { map: tableTexture(), roughness: 0.6 }, 0.2),
+    )
     table.castShadow = table.receiveShadow = true
     root.add(table)
     const glow = new THREE.PointLight(0xffb978, 220, 90, 2)

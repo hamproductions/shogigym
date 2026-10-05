@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { reviewMove, type MoveReview } from '../../analysis'
-import type { JosekiMove, JosekiNode } from '../../model'
-import { moveText } from '../../shogi'
-import { mistakeIsBad, type Mistake, type ShownMistake } from '../lib/mistake'
-import type { Tab } from '../types'
+import { reviewMove, type MoveReview } from '@/utils/analysis'
+import type { JosekiMove, JosekiNode } from '@/utils/model'
+import { moveText } from '@/utils/shogi'
+import { mistakeIsBad, type Mistake, type ShownMistake } from '@/utils/mistake'
+import type { Tab } from '@/app/types'
 import type { BoardSession } from './useBoardSession'
 
 function refutationOf(deviation: JosekiMove | undefined) {

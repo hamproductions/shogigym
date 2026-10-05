@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import { reviewMove, type MoveReview } from '../../analysis'
-import { engineSupported } from '../../engine'
-import { colorSide, positionOf } from '../../shogi'
-import { inBook } from '../lib/book'
-import { cachedReview, rememberReview } from '../memory'
-import { isGameMode } from '../types'
+import { reviewMove, type MoveReview } from '@/utils/analysis'
+import { engineSupported } from '@/utils/engine'
+import { colorSide, positionOf } from '@/utils/shogi'
+import { inBook } from '@/utils/book'
+import { cachedReview, rememberReview } from '@/app/memory'
+import { isGameMode } from '@/app/types'
 import type { BoardSession } from './useBoardSession'
 
 function useReview(sfens: string[], moves: string[], cursor: number, enabled: boolean) {

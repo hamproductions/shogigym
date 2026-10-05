@@ -84,7 +84,9 @@ for (const file of readdirSync(SPEC_DIR).filter((f) => f.endsWith('.mjs'))) {
   const start = Position.newBySFEN(spec.startSfen ?? InitialPositionSFEN.STANDARD)
   if (!start) throw new Error(`${spec.id}: invalid startSfen`)
   const { head } = buildSegment(start, spec.line, undefined, 'n')
-  const { line, startSfen, ...meta } = spec
+  const meta = { ...spec }
+  delete meta.line
+  delete meta.startSfen
   const course = { ...meta, root: { id: 'n0', sfen: start.sfen, comment: spec.rootComment, branches: head.branches } }
   delete course.rootComment
   writeFileSync(`${OUT_DIR}/${spec.id}.json`, JSON.stringify(course, null, 1) + '\n')

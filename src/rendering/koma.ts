@@ -1,7 +1,7 @@
 import { Color, PieceType } from 'tsshogi'
-import { PIECE_CHAR } from '../shogi'
-import { SIDE_COT, TIP_SLOPE, komaWidth } from './board3d/dimensions'
-import type { BoardStyle, PieceStyle } from '../appearance/settings'
+import { PIECE_CHAR } from '@/utils/shogi'
+import { SIDE_COT, TIP_SLOPE, komaWidth } from '@/rendering/board3d/dimensions'
+import type { BoardStyle, PieceStyle } from '@/appearance/settings'
 
 export type Poly = [number, number][]
 
@@ -53,4 +53,3 @@ export function piecePolygon(scale: number): Poly {
     [-xs, ys],
   ]
 }
-

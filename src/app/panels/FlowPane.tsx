@@ -1,11 +1,11 @@
 import './flow.css'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { applyUsi, moveText } from '../../shogi'
-import type { Lane } from '../lib/lanes'
-import { lossClass } from '../lib/score'
-import { loadStats, loadStatsMeta, type PositionStats, type StatsMeta } from '../lib/stats'
-import '../../styles/stats.css'
+import { applyUsi, moveText } from '@/utils/shogi'
+import type { Lane } from '@/utils/lanes'
+import { lossClass } from '@/utils/score'
+import { loadStats, loadStatsMeta, type PositionStats, type StatsMeta } from '@/utils/stats'
+import '@/styles/stats.css'
 
 function laneSteps(sfen: string, moves: string[]) {
   const steps: string[] = []
@@ -46,7 +46,15 @@ function sourceLabel(meta: StatsMeta | null) {
   return [years.length ? `Floodgate ${years.join(', ')}` : '', aoba ? 'AobaZero' : ''].filter(Boolean).join(' + ')
 }
 
-function OpeningStats({ sfen, onPreview, onHover }: { sfen: string; onPreview: (moves: string[], title: string) => void; onHover: (usi: string | null) => void }) {
+function OpeningStats({
+  sfen,
+  onPreview,
+  onHover,
+}: {
+  sfen: string
+  onPreview: (moves: string[], title: string) => void
+  onHover: (usi: string | null) => void
+}) {
   const { t } = useTranslation()
   const { loading, stats, meta } = useOpeningStats(sfen)
   if (loading) return null
@@ -54,7 +62,7 @@ function OpeningStats({ sfen, onPreview, onHover }: { sfen: string; onPreview: (
   const gote = sfen.split(' ')[1] === 'w'
   const book = stats.book
   const bookText = book ? moveText(sfen, book.usi) : ''
-  const bookEval = book ? t('flow.statsEval', { side: (book.eval >= 0) !== gote ? '☗' : '☖', cp: Math.abs(book.eval) }) : ''
+  const bookEval = book ? t('flow.statsEval', { side: book.eval >= 0 !== gote ? '☗' : '☖', cp: Math.abs(book.eval) }) : ''
   return (
     <section className="app-stats" aria-label={t('flow.statsTitle')}>
       <header className="app-stats-head">
@@ -74,7 +82,15 @@ function OpeningStats({ sfen, onPreview, onHover }: { sfen: string; onPreview: (
           const isBook = book?.usi === m.usi
           return (
             <li key={m.usi}>
-              <button className="app-stats-row" onClick={() => onPreview([m.usi], text)} onMouseEnter={() => onHover(m.usi)} onMouseLeave={() => onHover(null)} onFocus={() => onHover(m.usi)} onBlur={() => onHover(null)} title={t('flow.statsRowTitle', { move: text, games: m.games.toLocaleString(), sente: s, gote: g, draw: Math.max(0, 100 - s - g) })}>
+              <button
+                className="app-stats-row"
+                onClick={() => onPreview([m.usi], text)}
+                onMouseEnter={() => onHover(m.usi)}
+                onMouseLeave={() => onHover(null)}
+                onFocus={() => onHover(m.usi)}
+                onBlur={() => onHover(null)}
+                title={t('flow.statsRowTitle', { move: text, games: m.games.toLocaleString(), sente: s, gote: g, draw: Math.max(0, 100 - s - g) })}
+              >
                 <span className="app-stats-move">
                   {text}
                   {isBook && <em className="app-stats-book">{t('flow.statsBookMark')}</em>}
@@ -112,7 +128,17 @@ function OpeningStats({ sfen, onPreview, onHover }: { sfen: string; onPreview: (
   )
 }
 
-export function FlowPane({ lanes, sfen, onPreview, onHover }: { lanes: Lane[]; sfen: string; onPreview: (moves: string[], title: string) => void; onHover: (usi: string | null) => void }) {
+export function FlowPane({
+  lanes,
+  sfen,
+  onPreview,
+  onHover,
+}: {
+  lanes: Lane[]
+  sfen: string
+  onPreview: (moves: string[], title: string) => void
+  onHover: (usi: string | null) => void
+}) {
   const { t } = useTranslation()
   const statsPane = <OpeningStats sfen={sfen} onPreview={onPreview} onHover={onHover} />
   if (!lanes.length)
@@ -128,10 +154,20 @@ export function FlowPane({ lanes, sfen, onPreview, onHover }: { lanes: Lane[]; s
       {lanes.map((lane) => {
         const steps = laneSteps(sfen, lane.moves)
         return (
-          <button key={lane.first} className={`app-lane ${lane.tag}`} onClick={() => onPreview(lane.moves, steps[0])} onMouseEnter={() => onHover(lane.first)} onMouseLeave={() => onHover(null)} onFocus={() => onHover(lane.first)} onBlur={() => onHover(null)}>
+          <button
+            key={lane.first}
+            className={`app-lane ${lane.tag}`}
+            onClick={() => onPreview(lane.moves, steps[0])}
+            onMouseEnter={() => onHover(lane.first)}
+            onMouseLeave={() => onHover(null)}
+            onFocus={() => onHover(lane.first)}
+            onBlur={() => onHover(null)}
+          >
             <span className="app-lane-head">
               <span className="app-lane-tag">{lane.tag === 'book' ? t('flow.book') : lane.tag === 'mistake' ? t('flow.knownMistake') : t('flow.aiLine')}</span>
-              {lane.loss !== undefined && <span className={lossClass(lane.loss)}>{lane.best ? t('flow.best') : lane.loss === 0 ? t('flow.best2') : `−${lane.loss}%`}</span>}
+              {lane.loss !== undefined && (
+                <span className={lossClass(lane.loss)}>{lane.best ? t('flow.best') : lane.loss === 0 ? t('flow.best2') : `−${lane.loss}%`}</span>
+              )}
             </span>
             <span className="app-lane-steps">
               {steps.map((step, i) => (

@@ -1,16 +1,16 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { LABELS, classify, usiPosition, type MoveReview } from '../../analysis'
-import { analyze, engineSupported, scoreToCp } from '../../engine'
-import { loadMistakes, saveMistakes } from '../../mistakes'
-import { colorSide, moveText, positionOf } from '../../shogi'
-import { inBook, strip } from '../lib/book'
-import { isBad } from '../lib/mistake'
-import { toSente } from '../lib/notation'
-import { cachedReview, rememberReview } from '../memory'
-import { detectTesuji } from '../tesuji'
-import { countMoves, isMainLine, nodeAt, type Tree } from '../tree'
-import { Button } from '../ui/Button'
+import { LABELS, classify, usiPosition, type MoveReview } from '@/utils/analysis'
+import { analyze, engineSupported, scoreToCp } from '@/utils/engine'
+import { loadMistakes, saveMistakes } from '@/utils/mistakes'
+import { colorSide, moveText, positionOf } from '@/utils/shogi'
+import { inBook, strip } from '@/utils/book'
+import { isBad } from '@/utils/mistake'
+import { toSente } from '@/utils/notation'
+import { cachedReview, rememberReview } from '@/app/memory'
+import { detectTesuji } from '@/app/tesuji'
+import { countMoves, isMainLine, nodeAt, type Tree } from '@/app/tree'
+import { Button } from '@/app/ui/Button'
 
 type MovesPaneProps = {
   sfens: string[]
@@ -89,7 +89,23 @@ export function MovesPane({ sfens, moves, cursor, setCursor, title, onScore, tre
   const savedIds = new Set(loadMistakes().map((m) => m.id))
   const allSaved = reviews.every((r, i) => !r || !isBad(r.label) || savedIds.has(mistakeId(i)))
   const saveMine = () => {
-    const items = reviews.flatMap((r, i) => (r && isBad(r.label) ? [{ id: mistakeId(i), sfen: sfens[i], played: moves[i], best: r.best.move, bestPv: r.best.pv, label: r.label, reasons: r.reasons, game: title, ply: i + 1 }] : []))
+    const items = reviews.flatMap((r, i) =>
+      r && isBad(r.label)
+        ? [
+            {
+              id: mistakeId(i),
+              sfen: sfens[i],
+              played: moves[i],
+              best: r.best.move,
+              bestPv: r.best.pv,
+              label: r.label,
+              reasons: r.reasons,
+              game: title,
+              ply: i + 1,
+            },
+          ]
+        : [],
+    )
     setSaved(saveMistakes(items))
   }
   const cell = (i: number) => {
@@ -102,7 +118,10 @@ export function MovesPane({ sfens, moves, cursor, setCursor, title, onScore, tre
         <button className={cursor === i + 1 ? 'on' : ''} onClick={() => setCursor(i + 1)}>
           {moveText(sfens[i], usi, moves[i - 1])}
           {tesuji && (
-            <span className="app-move-tesuji" title={t('moves.tesuji', { value: i18n.language === 'ja' ? tesuji.ja : `${tesuji.en} (${tesuji.ja})`, value2: tesuji.explain })}>
+            <span
+              className="app-move-tesuji"
+              title={t('moves.tesuji', { value: i18n.language === 'ja' ? tesuji.ja : `${tesuji.en} (${tesuji.ja})`, value2: tesuji.explain })}
+            >
               {i18n.language === 'ja' ? tesuji.ja : tesuji.en}
             </span>
           )}
@@ -121,7 +140,12 @@ export function MovesPane({ sfens, moves, cursor, setCursor, title, onScore, tre
                   {moveText(sfens[i], c.usi, moves[i - 1])}
                   {c.children.length > 0 && <small> +{countMoves(c)}</small>}
                 </button>
-                <button className="app-var-x" onClick={() => onDelete?.([...moves.slice(0, i), c.usi], countMoves(c) + 1)} aria-label={t('moves.deleteThisVariation')} title={t('moves.deleteThisVariation')}>
+                <button
+                  className="app-var-x"
+                  onClick={() => onDelete?.([...moves.slice(0, i), c.usi], countMoves(c) + 1)}
+                  aria-label={t('moves.deleteThisVariation')}
+                  title={t('moves.deleteThisVariation')}
+                >
                   ×
                 </button>
               </span>

@@ -4,7 +4,8 @@ export default {
   myStrategy: 'shikenbisha',
   opponentStrategy: 'ibisha',
   mySide: 'sente',
-  source: '手順・解説は日々頓死(hibitonshi.com)「角交換四間飛車の序盤定跡と攻め方」(https://hibitonshi.com/kakukoukan-shiken/)に準拠。出典の「△4二金」は4一・5二の両金が動けるため、前手の△5二金右と整合する△4二金上(4一から)と解釈した。',
+  source:
+    '手順・解説は日々頓死(hibitonshi.com)「角交換四間飛車の序盤定跡と攻め方」(https://hibitonshi.com/kakukoukan-shiken/)に準拠。出典の「△4二金」は4一・5二の両金が動けるため、前手の△5二金右と整合する△4二金上(4一から)と解釈した。',
   goalFormation: '角交換後に美濃囲い(玉2八)を作り、▲7六銀・▲6六銀・逆棒銀のいずれかで攻める形。',
   rootComment: '角道を止めずに飛車を振り、自分から角を交換する四間飛車です。',
   line: {

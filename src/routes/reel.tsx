@@ -1,6 +1,6 @@
 import { Suspense, lazy } from 'react'
 
-const ReelTest = import.meta.env.DEV ? lazy(() => import('../dev/ReelTest')) : null
+const ReelTest = import.meta.env.DEV ? lazy(() => import('@/dev/ReelTest')) : null
 
 export async function clientLoader() {
   return null

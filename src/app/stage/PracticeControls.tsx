@@ -1,13 +1,13 @@
 import { useTranslation } from 'react-i18next'
-import type { Drill } from '../modes/drill/useDrill'
-import type { Lesson } from '../modes/lesson/useLesson'
-import type { TesujiTrainer as Tesuji } from '../modes/tesuji/useTesuji'
-import type { Tsume, TsumeLength } from '../modes/tsume/useTsume'
-import { reviewCounts, type ReviewQueue } from '../practice'
-import { TESUJI_KINDS } from '../tesujiDrills'
-import type { LessonMode } from '../types'
-import { Segmented } from '../ui/Segmented'
-import { Button } from '../ui/Button'
+import type { Drill } from '@/app/modes/drill/useDrill'
+import type { Lesson } from '@/app/modes/lesson/useLesson'
+import type { TesujiTrainer as Tesuji } from '@/app/modes/tesuji/useTesuji'
+import type { Tsume, TsumeLength } from '@/app/modes/tsume/useTsume'
+import { reviewCounts, type ReviewQueue } from '@/app/practice'
+import { TESUJI_KINDS } from '@/app/tesujiDrills'
+import type { LessonMode } from '@/app/types'
+import { Segmented } from '@/app/ui/Segmented'
+import { Button } from '@/app/ui/Button'
 
 const LENGTHS: TsumeLength[] = [1, 3, 5, 7, 'all']
 
@@ -18,7 +18,12 @@ export function TsumeControls({ trainer }: { trainer: Tsume }) {
   const done = tsume.status === 'solved' || tsume.status === 'shown'
   return (
     <>
-      <select className="app-field app-bar-select" value={String(tsume.length)} aria-label={t('tsume.problemLength')} onChange={(e) => trainer.start(e.target.value === 'all' ? 'all' : (Number(e.target.value) as TsumeLength))}>
+      <select
+        className="app-field app-bar-select"
+        value={String(tsume.length)}
+        aria-label={t('tsume.problemLength')}
+        onChange={(e) => trainer.start(e.target.value === 'all' ? 'all' : (Number(e.target.value) as TsumeLength))}
+      >
         {LENGTHS.map((n) => (
           <option key={n} value={String(n)}>
             {n === 'all' ? t('tsume.mixed') : t('tsume.mateIn', { n })}
@@ -59,7 +64,16 @@ export function LessonControls({ lesson }: { lesson: Lesson }) {
       <Button size="sm" variant="ghost" onClick={lesson.leave}>
         {t('lesson.lessons')}
       </Button>
-      <Segmented<LessonMode> size="small" label={t('lesson.lessonMode')} value={lesson.lessonMode} options={[{ v: 'study', t: t('lesson.study') }, { v: 'quiz', t: t('lesson.quiz') }]} onChange={lesson.switchLessonMode} />
+      <Segmented<LessonMode>
+        size="small"
+        label={t('lesson.lessonMode')}
+        value={lesson.lessonMode}
+        options={[
+          { v: 'study', t: t('lesson.study') },
+          { v: 'quiz', t: t('lesson.quiz') },
+        ]}
+        onChange={lesson.switchLessonMode}
+      />
       <Button size="sm" variant="ghost" onClick={() => lesson.setMapOpen(true)}>
         {t('lesson.lessonMap')}
       </Button>
@@ -77,7 +91,12 @@ export function ReviewControls({ drill }: { drill: Drill }) {
     { id: 'mistakes', label: t('review.myGameMistakes'), n: counts.mistakes },
   ]
   return (
-    <select className="app-field app-bar-select" value={drill.drill?.queue ?? ''} aria-label={t('review.reviewQueue')} onChange={(e) => e.target.value && drill.start(e.target.value as ReviewQueue)}>
+    <select
+      className="app-field app-bar-select"
+      value={drill.drill?.queue ?? ''}
+      aria-label={t('review.reviewQueue')}
+      onChange={(e) => e.target.value && drill.start(e.target.value as ReviewQueue)}
+    >
       {!drill.drill && <option value="">{t('review.reviewQueue')}</option>}
       {queues.map((q) => (
         <option key={q.id} value={q.id}>

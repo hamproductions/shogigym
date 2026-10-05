@@ -1,5 +1,5 @@
-import { COURSE_SIDES, MATCHUPS, TECHNIQUES, strategyById, type Level, type Text } from './data/strategies'
-import { TITLES_EN } from './data/titlesEn'
+import { COURSE_SIDES, MATCHUPS, TECHNIQUES, strategyById, type Level, type Text } from '@/data/strategies'
+import { TITLES_EN } from '@/data/titlesEn'
 import type { Course, JosekiNode, RawCourse } from './model'
 
 type Side = 'sente' | 'gote'

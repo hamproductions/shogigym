@@ -1,15 +1,23 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { InitialPositionSFEN } from 'tsshogi'
-import { colorSide, positionOf } from '../../../shogi'
-import { record } from '../../../srs'
-import type { BoardArrow } from '../../../rendering/Board3D'
-import type { BoardSession } from '../../hooks/useBoardSession'
-import type { Mistakes } from '../../hooks/useMistake'
-import { buildQueue, expectedMoves, reviewCounts, type ReviewItem, type ReviewQueue } from '../../practice'
-import type { Tab } from '../../types'
+import { colorSide, positionOf } from '@/utils/shogi'
+import { record } from '@/utils/srs'
+import type { BoardArrow } from '@/rendering/Board3D'
+import type { BoardSession } from '@/app/hooks/useBoardSession'
+import type { Mistakes } from '@/app/hooks/useMistake'
+import { buildQueue, expectedMoves, reviewCounts, type ReviewItem, type ReviewQueue } from '@/app/practice'
+import type { Tab } from '@/app/types'
 
-export type DrillState = { queue: ReviewQueue; items: ReviewItem[]; index: number; base: number; result: null | 'right' | 'wrong'; retry: boolean; answered: number }
+export type DrillState = {
+  queue: ReviewQueue
+  items: ReviewItem[]
+  index: number
+  base: number
+  result: null | 'right' | 'wrong'
+  retry: boolean
+  answered: number
+}
 
 const LESSON_GREEN = '#4f8a2a'
 
@@ -74,9 +82,21 @@ export function useDrill(session: BoardSession, { mistakes, setTab }: { mistakes
     return true
   }
 
-  const arrows: BoardArrow[] = item && !session.preview && (drill?.result === 'wrong' || (drill?.queue === 'new' && !drill.result)) ? [{ usi: expectedMoves(item)[0], color: LESSON_GREEN }] : []
+  const arrows: BoardArrow[] =
+    item && !session.preview && (drill?.result === 'wrong' || (drill?.queue === 'new' && !drill.result))
+      ? [{ usi: expectedMoves(item)[0], color: LESSON_GREEN }]
+      : []
 
-  const instruction = () => (item ? (item.kind === 'mistake' && !drill?.result ? t('app.findABetterMoveThan') : drill?.result ? t('app.nextCardWhenYouAre') : drill?.queue === 'new' ? t('app.learnThisMovePlayThe') : t('app.playTheMoveYouLearned')) : t('app.pickWhatToReview'))
+  const instruction = () =>
+    item
+      ? item.kind === 'mistake' && !drill?.result
+        ? t('app.findABetterMoveThan')
+        : drill?.result
+          ? t('app.nextCardWhenYouAre')
+          : drill?.queue === 'new'
+            ? t('app.learnThisMovePlayThe')
+            : t('app.playTheMoveYouLearned')
+      : t('app.pickWhatToReview')
 
   return {
     drill,

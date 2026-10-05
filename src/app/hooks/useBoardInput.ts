@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Color, PieceType, Square } from 'tsshogi'
-import { legalTargets, promotionOptions } from '../../shogi'
-import { sideMark } from '../lib/notation'
-import { sees } from '../pieces'
-import type { LessonMode } from '../types'
+import { legalTargets, promotionOptions } from '@/utils/shogi'
+import { sideMark } from '@/utils/notation'
+import { sees } from '@/app/pieces'
+import type { LessonMode } from '@/app/types'
 import type { BoardSession } from './useBoardSession'
 import type { Mistakes } from './useMistake'
 
@@ -12,7 +12,8 @@ type BoardInputDeps = { mistakes: Mistakes; commit: (usi: string) => void; lesso
 
 export function useBoardInput(session: BoardSession, { mistakes, commit, lessonMode, halted, setNudge }: BoardInputDeps) {
   const { t } = useTranslation()
-  const { mode, course, preview, atEnd, selection, setSelection, position, sfen, peekFrom, setPeekFrom, setPreview, setPlaying, userTurn, setPromotion } = session
+  const { mode, course, preview, atEnd, selection, setSelection, position, sfen, peekFrom, setPeekFrom, setPreview, setPlaying, userTurn, setPromotion } =
+    session
   const canMove = (userTurn && !(mode === 'spar' && halted)) || (mode === 'lesson' && !!course && lessonMode === 'study' && !preview)
   const targets = useMemo(() => (selection ? legalTargets(position, selection.from) : []), [selection, position])
   const picking = mode === 'lesson' && !course

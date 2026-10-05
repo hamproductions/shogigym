@@ -1,12 +1,12 @@
 import { useCallback, useMemo, useState } from 'react'
 import { InitialPositionSFEN, type Color, type Move, type PieceType, type Square } from 'tsshogi'
-import { engineSupported } from '../../engine'
-import type { Course } from '../../model'
-import { applyUsi, colorSide, hasLegalMove, positionOf, type Side } from '../../shogi'
-import { courseNodes } from '../lib/book'
-import { audioContext, getSettings, useSettings } from '../../appearance/settings'
-import { addPath, emptyTree, isMainLine, mainContinuation, nodeAt, type Tree } from '../tree'
-import { isGameMode, type Game, type Mode, type Preview } from '../types'
+import { engineSupported } from '@/utils/engine'
+import type { Course } from '@/utils/model'
+import { applyUsi, colorSide, hasLegalMove, positionOf, type Side } from '@/utils/shogi'
+import { courseNodes } from '@/utils/book'
+import { audioContext, getSettings, useSettings } from '@/appearance/settings'
+import { addPath, emptyTree, isMainLine, mainContinuation, nodeAt, type Tree } from '@/app/tree'
+import { isGameMode, type Game, type Mode, type Preview } from '@/app/types'
 import { useLatest } from './useLatest'
 
 type Selection = { from: Square | PieceType; color: Color } | null
@@ -57,8 +57,25 @@ export function useBoardSession() {
   const sfen = preview && previewSfens ? previewSfens[Math.min(preview.step, previewSfens.length - 1)] : liveSfen
   const position = useMemo(() => positionOf(sfen), [sfen])
   const toMove = colorSide(position.color)
-  const lastMove = preview ? (preview.step > 0 ? preview.moves[preview.step - 1] : preview.base > 0 ? game.moves[preview.base - 1] : undefined) : cursor > 0 ? game.moves[cursor - 1] : undefined
-  const prevSfen = preview && previewSfens ? (preview.step > 0 ? previewSfens[preview.step - 1] : preview.base > 0 ? sfens[preview.base - 1] : null) : cursor > 0 ? sfens[cursor - 1] : null
+  const lastMove = preview
+    ? preview.step > 0
+      ? preview.moves[preview.step - 1]
+      : preview.base > 0
+        ? game.moves[preview.base - 1]
+        : undefined
+    : cursor > 0
+      ? game.moves[cursor - 1]
+      : undefined
+  const prevSfen =
+    preview && previewSfens
+      ? preview.step > 0
+        ? previewSfens[preview.step - 1]
+        : preview.base > 0
+          ? sfens[preview.base - 1]
+          : null
+      : cursor > 0
+        ? sfens[cursor - 1]
+        : null
   const atEnd = cursor === game.moves.length
   const nodes = useMemo(() => (course ? courseNodes(course) : null), [course])
   const userTurn = mode !== 'view' && (mode === 'analyze' || (mode === 'lesson' && !course) || toMove === userSide || (mode === 'spar' && !atEnd))
@@ -140,10 +157,22 @@ export function useBoardSession() {
   const nav = {
     canBack: preview ? preview.step > 0 : cursor > 0,
     canForward: preview ? preview.step < preview.moves.length : !atEnd,
-    first: () => { if (mode === 'view') setPlaying(false); return preview ? setPreview({ ...preview, step: 0 }) : setCursor(0) },
-    back: () => { if (mode === 'view') setPlaying(false); return preview ? setPreview({ ...preview, step: Math.max(0, preview.step - 1) }) : setCursor((c) => Math.max(0, c - 1)) },
-    forward: () => { if (mode === 'view') setPlaying(false); return preview ? setPreview({ ...preview, step: Math.min(preview.moves.length, preview.step + 1) }) : setCursor((c) => Math.min(game.moves.length, c + 1)) },
-    last: () => { if (mode === 'view') setPlaying(false); return preview ? setPreview({ ...preview, step: preview.moves.length }) : setCursor(game.moves.length) },
+    first: () => {
+      if (mode === 'view') setPlaying(false)
+      return preview ? setPreview({ ...preview, step: 0 }) : setCursor(0)
+    },
+    back: () => {
+      if (mode === 'view') setPlaying(false)
+      return preview ? setPreview({ ...preview, step: Math.max(0, preview.step - 1) }) : setCursor((c) => Math.max(0, c - 1))
+    },
+    forward: () => {
+      if (mode === 'view') setPlaying(false)
+      return preview ? setPreview({ ...preview, step: Math.min(preview.moves.length, preview.step + 1) }) : setCursor((c) => Math.min(game.moves.length, c + 1))
+    },
+    last: () => {
+      if (mode === 'view') setPlaying(false)
+      return preview ? setPreview({ ...preview, step: preview.moves.length }) : setCursor(game.moves.length)
+    },
   }
 
   return {

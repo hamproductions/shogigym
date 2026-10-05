@@ -1,4 +1,4 @@
-import { mainStrategies, strategyById } from '../data/strategies'
+import { mainStrategies, strategyById } from '@/data/strategies'
 
 const SITE = 'Shogi Gym 将棋ジム'
 export const SITE_URL = (import.meta.env.VITE_SITE_URL ?? 'https://hamproductions.github.io/shogilab').replace(/\/$/, '')
@@ -22,7 +22,10 @@ export function pageMeta(mode: string | undefined, main: string | undefined) {
     }
   const m = mode ? MODES[mode] : undefined
   if (m) return { title: `${m.title} · ${SITE}`, description: m.description }
-  return { title: SITE, description: 'A free shogi training gym: learn openings for every strategy, review, tsume and tesuji, play the AI and analyze your games.' }
+  return {
+    title: SITE,
+    description: 'A free shogi training gym: learn openings for every strategy, review, tsume and tesuji, play the AI and analyze your games.',
+  }
 }
 
 export const knownMain = (id: string) => mainStrategies().some((s) => s.id === id)

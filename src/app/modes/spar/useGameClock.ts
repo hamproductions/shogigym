@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { Side } from '../../../shogi'
-import { clockTime } from '../../lib/notation'
-import { say } from '../../lib/voice'
-import { TIME_CONTROLS, useSettings } from '../../../appearance/settings'
+import type { Side } from '@/utils/shogi'
+import { clockTime } from '@/utils/notation'
+import { say } from '@/utils/voice'
+import { TIME_CONTROLS, useSettings } from '@/appearance/settings'
 
 type TimeControlSpec = (typeof TIME_CONTROLS)[keyof typeof TIME_CONTROLS]
 type ClockState = { sente: number; gote: number; byo: number; flagged: Side | null }
@@ -12,7 +12,21 @@ export type ClockFace = { text: string; active: boolean; low: boolean; out: bool
 
 const freshClock = (tc: TimeControlSpec): ClockState => ({ sente: tc.main * 1000, gote: tc.main * 1000, byo: tc.byoyomi * 1000, flagged: null })
 
-export function useGameClock({ enabled, toMove, atEnd, moveCount, stopped, userSide }: { enabled: boolean; toMove: Side; atEnd: boolean; moveCount: number; stopped: boolean; userSide: Side }) {
+export function useGameClock({
+  enabled,
+  toMove,
+  atEnd,
+  moveCount,
+  stopped,
+  userSide,
+}: {
+  enabled: boolean
+  toMove: Side
+  atEnd: boolean
+  moveCount: number
+  stopped: boolean
+  userSide: Side
+}) {
   const { t } = useTranslation()
   const settings = useSettings()
   const timeControl = TIME_CONTROLS[settings.timeControl] ?? TIME_CONTROLS.none

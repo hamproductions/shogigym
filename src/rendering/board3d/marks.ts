@@ -1,13 +1,21 @@
 import * as THREE from 'three'
 import { PieceType, Square, type ImmutablePosition } from 'tsshogi'
-import { getSettings } from '../../appearance/settings'
+import { getSettings } from '@/appearance/settings'
 import { HALF_D, HALF_W, MARGIN, SQ_D, STAND_TOP, squareX, squareZ } from './dimensions'
 import { handSpot } from './hand'
 import { standCenter } from './layout'
 import { arrowTag, badgeSprite, coordPlane, coordSprite, labelSprite } from './textures'
 import type { Board3DProps, BoardArrow, SceneState } from './types'
 
-const DROP_TYPE: Record<string, PieceType> = { P: PieceType.PAWN, L: PieceType.LANCE, N: PieceType.KNIGHT, S: PieceType.SILVER, G: PieceType.GOLD, B: PieceType.BISHOP, R: PieceType.ROOK }
+const DROP_TYPE: Record<string, PieceType> = {
+  P: PieceType.PAWN,
+  L: PieceType.LANCE,
+  N: PieceType.KNIGHT,
+  S: PieceType.SILVER,
+  G: PieceType.GOLD,
+  B: PieceType.BISHOP,
+  R: PieceType.ROOK,
+}
 
 const flatOnBoard = <T extends THREE.Object3D>(obj: T, square: Square, y: number) => {
   obj.rotation.x = -Math.PI / 2
@@ -15,7 +23,8 @@ const flatOnBoard = <T extends THREE.Object3D>(obj: T, square: Square, y: number
   return obj
 }
 
-export const squareTile = (color: number, opacity: number) => new THREE.Mesh(new THREE.PlaneGeometry(0.98, 0.98 * SQ_D), new THREE.MeshBasicMaterial({ color, transparent: true, opacity, depthWrite: false }))
+export const squareTile = (color: number, opacity: number) =>
+  new THREE.Mesh(new THREE.PlaneGeometry(0.98, 0.98 * SQ_D), new THREE.MeshBasicMaterial({ color, transparent: true, opacity, depthWrite: false }))
 
 export function squareFrame(inner: number, material: THREE.MeshBasicMaterial) {
   const frame = new THREE.Mesh(new THREE.RingGeometry(inner, 0.69, 4, 1, Math.PI / 4), material)
@@ -127,7 +136,17 @@ export function drawMarks(s: SceneState, props: Board3DProps) {
     ring.position.set(slot.x, STAND_TOP + 0.004, slot.z)
     s.marks.add(ring)
   }
-  for (const target of targets) s.marks.add(flatOnBoard(new THREE.Mesh(new THREE.CircleGeometry(0.12, 24), new THREE.MeshBasicMaterial({ color: 0x5a3a1c, transparent: true, opacity: 0.5, depthWrite: false })), target, 0.006))
+  for (const target of targets)
+    s.marks.add(
+      flatOnBoard(
+        new THREE.Mesh(
+          new THREE.CircleGeometry(0.12, 24),
+          new THREE.MeshBasicMaterial({ color: 0x5a3a1c, transparent: true, opacity: 0.5, depthWrite: false }),
+        ),
+        target,
+        0.006,
+      ),
+    )
   s.tags = []
   const stacked = new Map<string, number>()
   for (const arrow of arrows) {

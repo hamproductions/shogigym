@@ -108,15 +108,13 @@
 }
 
 @media (max-width: 560px) {
-.app-typeface-test-header {
+  .app-typeface-test-header {
     align-items: flex-start;
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-1);
   }
 
-.app-typeface-test-header p {
+  .app-typeface-test-header p {
     text-align: left;
   }
-
-
 }

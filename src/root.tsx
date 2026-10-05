@@ -1,7 +1,7 @@
 import { useEffect, type ReactNode } from 'react'
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, isRouteErrorResponse, useRouteError } from 'react-router'
-import './styles/tokens.css'
-import './styles/base.css'
+import '@/styles/tokens.css'
+import '@/styles/base.css'
 
 const base = import.meta.env.BASE_URL
 
@@ -56,7 +56,7 @@ export function Layout({ children }: { children: ReactNode }) {
 
 export default function Root() {
   useEffect(() => {
-    void import('./engine').then(({ engineSupported, getEngine }) => {
+    void import('@/utils/engine').then(({ engineSupported, getEngine }) => {
       if (engineSupported()) getEngine().catch((error) => console.warn('engine preload failed', error))
     })
   }, [])

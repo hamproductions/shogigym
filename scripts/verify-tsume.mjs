@@ -2,7 +2,10 @@ import { readFileSync, writeFileSync } from 'node:fs'
 import { Position, Square, PieceType } from 'tsshogi'
 
 const hasLegalMove = (p) => {
-  const froms = [...p.board.listNonEmptySquares().filter((s) => p.board.at(s).color === p.color), ...Object.values(PieceType).filter((t) => p.hand(p.color).count(t) > 0)]
+  const froms = [
+    ...p.board.listNonEmptySquares().filter((s) => p.board.at(s).color === p.color),
+    ...Object.values(PieceType).filter((t) => p.hand(p.color).count(t) > 0),
+  ]
   for (const from of froms)
     for (let f = 1; f <= 9; f++)
       for (let r = 1; r <= 9; r++) {

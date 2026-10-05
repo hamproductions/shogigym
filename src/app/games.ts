@@ -2,7 +2,17 @@ import type { Tree } from './tree'
 
 export type GameResult = 'win' | 'loss' | 'resigned' | 'time'
 
-export type StoredGame = { id: string; title: string; savedAt: number; start: string; moves: string[]; tree?: Tree; userSide: 'sente' | 'gote'; result?: GameResult; vsAi?: boolean }
+export type StoredGame = {
+  id: string
+  title: string
+  savedAt: number
+  start: string
+  moves: string[]
+  tree?: Tree
+  userSide: 'sente' | 'gote'
+  result?: GameResult
+  vsAi?: boolean
+}
 
 const KEY = 'joseki-practice:games:v1'
 

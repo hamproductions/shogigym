@@ -6,7 +6,11 @@ const settled = new Map<string, Analysis>()
 
 export function useAnalysis(sfen: string, enabled: boolean, multipv = 3, movetime = 1500) {
   const { epoch } = useEngineStatus()
-  const [state, setState] = useState<{ sfen: string; analysis: Analysis | null; error: string | null; final?: boolean }>({ sfen: '', analysis: null, error: null })
+  const [state, setState] = useState<{ sfen: string; analysis: Analysis | null; error: string | null; final?: boolean }>({
+    sfen: '',
+    analysis: null,
+    error: null,
+  })
   useEffect(() => {
     if (!enabled || !engineSupported()) return
     let cancelled = false

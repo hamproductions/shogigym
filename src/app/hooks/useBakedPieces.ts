@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import type { Baked } from '../../rendering/sprites'
-import { loadBoardStyle } from '../../appearance/boardStyles'
-import { loadPieceSet } from '../../appearance/pieceSets'
-import { loadPieceFont, useSettings, type Settings } from '../../appearance/settings'
+import type { Baked } from '@/rendering/sprites'
+import { loadBoardStyle } from '@/appearance/boardStyles'
+import { loadPieceSet } from '@/appearance/pieceSets'
+import { loadPieceFont, useSettings, type Settings } from '@/appearance/settings'
 
 const bakeCache = new Map<string, Baked>()
 type BakeJob = { controller: AbortController; promise: Promise<Baked>; users: number }
@@ -18,17 +18,26 @@ function acquireBake(key: string, settings: Settings) {
   const job: BakeJob = {
     controller,
     users: 1,
-    promise: Promise.all([loadBoardStyle(settings.boardStyle), loadPieceFont(settings.pieceFont), loadPieceSet(settings.pieceSet, settings.pieceGuide), loadPieceFont('mincho'), import('../../rendering/board3d/bake')]).then(([, , , , { bakeFlat }]) => {
-      controller.signal.throwIfAborted()
-      return bakeFlat(Math.min(512, Math.round(256 * Math.min(2, window.devicePixelRatio || 1))), controller.signal, settings)
-    }).then((baked) => {
-      controller.signal.throwIfAborted()
-      bakeCache.set(key, baked)
-      if (bakeCache.size > 8) bakeCache.delete(bakeCache.keys().next().value!)
-      return baked
-    }).finally(() => {
-      if (jobs.get(key) === job) jobs.delete(key)
-    }),
+    promise: Promise.all([
+      loadBoardStyle(settings.boardStyle),
+      loadPieceFont(settings.pieceFont),
+      loadPieceSet(settings.pieceSet, settings.pieceGuide),
+      loadPieceFont('mincho'),
+      import('@/rendering/board3d/bake'),
+    ])
+      .then(([, , , , { bakeFlat }]) => {
+        controller.signal.throwIfAborted()
+        return bakeFlat(Math.min(512, Math.round(256 * Math.min(2, window.devicePixelRatio || 1))), controller.signal, settings)
+      })
+      .then((baked) => {
+        controller.signal.throwIfAborted()
+        bakeCache.set(key, baked)
+        if (bakeCache.size > 8) bakeCache.delete(bakeCache.keys().next().value!)
+        return baked
+      })
+      .finally(() => {
+        if (jobs.get(key) === job) jobs.delete(key)
+      }),
   }
   jobs.set(key, job)
   return job
@@ -45,11 +54,14 @@ export function useBakedPieces(enabled = true) {
     if (!enabled || bakeCache.has(key)) return
     let live = true
     const job = acquireBake(key, settings)
-    void job.promise.then((baked) => {
-      if (live) setReady(baked)
-    }, (error: unknown) => {
-      if (live && !job.controller.signal.aborted) setFailure({ key, message: error instanceof Error ? error.message : String(error) })
-    })
+    void job.promise.then(
+      (baked) => {
+        if (live) setReady(baked)
+      },
+      (error: unknown) => {
+        if (live && !job.controller.signal.aborted) setFailure({ key, message: error instanceof Error ? error.message : String(error) })
+      },
+    )
     return () => {
       live = false
       if (--job.users === 0) job.controller.abort()

@@ -74,17 +74,15 @@
 }
 
 @media (max-width: 820px) {
-.app-graph {
+  .app-graph {
     padding: 0;
   }
 
-.app-graph svg {
+  .app-graph svg {
     height: 34px;
   }
 
-.app-graph-axis {
+  .app-graph-axis {
     display: none;
   }
-
-
 }

@@ -1,8 +1,8 @@
 import { Square } from 'tsshogi'
-import i18n from '../../../i18n'
-import { positionOf } from '../../../shogi'
-import { PIECE_INFO } from '../../pieces'
-import type { Problem } from '../../practice'
+import i18n from '@/utils/i18n'
+import { positionOf } from '@/utils/shogi'
+import { PIECE_INFO } from '@/app/pieces'
+import type { Problem } from '@/app/practice'
 
 export function firstPieceHint(problem: Problem) {
   const move = positionOf(problem.sfen).createMoveByUSI(problem.pv[0])

@@ -1,14 +1,14 @@
-import '../lesson/lesson.css'
+import '@/app/modes/lesson/lesson.css'
 import { Fragment, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { SETUPS, courseTitle, type Course } from '../../../model'
-import { scrollPanelTop } from '../../hooks/useLayout'
-import { coursesOf } from '../../lib/book'
-import { courseProgress } from '../../practice'
-import { setSettings, useSettings } from '../../../appearance/settings'
-import { mainStrategies, strategyById } from '../../../data/strategies'
-import type { LessonMode, Level } from '../../types'
-import { Button } from '../../ui/Button'
+import { SETUPS, courseTitle, type Course } from '@/utils/model'
+import { scrollPanelTop } from '@/app/hooks/useLayout'
+import { coursesOf } from '@/utils/book'
+import { courseProgress } from '@/app/practice'
+import { setSettings, useSettings } from '@/appearance/settings'
+import { mainStrategies, strategyById } from '@/data/strategies'
+import type { LessonMode, Level } from '@/app/types'
+import { Button } from '@/app/ui/Button'
 
 type PickerProps = { onOpen: (c: Course, sub: LessonMode) => void; level: Level; setupId: string | null; setSetupId: (id: string | null) => void }
 
@@ -21,7 +21,11 @@ function LessonCard({ course, onOpen }: { course: Course; onOpen: PickerProps['o
     <div className="app-lesson-card">
       <span className="app-lesson-title">{courseTitle(course, i18n.language)}</span>
       <span className="app-lesson-meta">
-        <span className={`app-role ${course.notesFromOpponentView ? 'defend' : 'attack'}`}>{t(course.notesFromOpponentView ? 'picker.theyAttackYouDefendAs' : 'picker.youPlay', { side: t(course.userSide === 'sente' ? 'common.sente' : 'common.gote') })}</span>
+        <span className={`app-role ${course.notesFromOpponentView ? 'defend' : 'attack'}`}>
+          {t(course.notesFromOpponentView ? 'picker.theyAttackYouDefendAs' : 'picker.youPlay', {
+            side: t(course.userSide === 'sente' ? 'common.sente' : 'common.gote'),
+          })}
+        </span>
         <span>
           <span title={t('picker.yourMovesInThisLesson')}>{t('picker.rightInQuiz', { learned: progress.learned, total: progress.total })}</span>
         </span>
@@ -62,7 +66,15 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
   const all = SETUPS.map((setup) => ({ setup, courses: coursesOf(setup.courseIds) })).filter((g) => g.courses.length)
   const groups = all.filter((g) => g.setup.technique || g.setup.main === main.id)
   const card = (c: Course) => <LessonCard key={c.id} course={c} onOpen={onOpen} />
-  const search = <input className="app-search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t('picker.searchAnagumaBGinSagimiya')} aria-label={t('picker.searchLessons')} />
+  const search = (
+    <input
+      className="app-search"
+      value={query}
+      onChange={(e) => setQuery(e.target.value)}
+      placeholder={t('picker.searchAnagumaBGinSagimiya')}
+      aria-label={t('picker.searchLessons')}
+    />
+  )
   const hits = q ? all.flatMap((g) => g.courses.filter((c) => `${c.title} ${c.titleEn ?? ''} ${g.setup.ja} ${g.setup.name}`.toLowerCase().includes(q))) : []
   const group = groups.find((g) => g.setup.id === setupId)
   if (group)
@@ -92,7 +104,11 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
               {mains
                 .filter((s) => s.side === wing)
                 .map((s) => (
-                  <button key={s.id} className={`app-main-chip${s.id === main.id ? ' on' : ''}`} onClick={() => (setSettings({ mainStrategy: s.id }), setSetupId(null), setChoosing(false))}>
+                  <button
+                    key={s.id}
+                    className={`app-main-chip${s.id === main.id ? ' on' : ''}`}
+                    onClick={() => (setSettings({ mainStrategy: s.id }), setSetupId(null), setChoosing(false))}
+                  >
                     <strong>{ja ? s.ja : s.en}</strong>
                     <span>{t(`strategy.level${s.level}`)}</span>
                   </button>
@@ -102,7 +118,11 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
         ))}
       </div>
     )
-  const ordered = [...groups.filter((g) => g.setup.basics), ...groups.filter((g) => !g.setup.technique && !g.setup.basics), ...groups.filter((g) => g.setup.technique)]
+  const ordered = [
+    ...groups.filter((g) => g.setup.basics),
+    ...groups.filter((g) => !g.setup.technique && !g.setup.basics),
+    ...groups.filter((g) => g.setup.technique),
+  ]
   return (
     <div className="app-picker">
       <button className="app-main-current" onClick={() => setChoosing(true)}>
@@ -113,26 +133,29 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
       {level === 'new' && <p className="app-picker-intro">{t('picker.clickAnyPieceOnThe')}</p>}
       {search}
       {q && (hits.length ? hits.map(card) : <p className="app-muted">{t('picker.noLessonMatches', { query })}</p>)}
-      {!q && ordered.map(({ setup, courses }, i, all) => {
-        const p = courses.map(courseProgress).reduce((a, b) => ({ learned: a.learned + b.learned, total: a.total + b.total }), { learned: 0, total: 0 })
-        return (
-          <Fragment key={setup.id}>
-            {!setup.technique && !setup.basics && (i === 0 || all[i - 1]?.setup.basics) && <h3 className="app-sub">{t('picker.openingsByWhatYourOpponent')}</h3>}
-            {setup.technique && !all[i - 1]?.setup.technique && <h3 className="app-sub">{t('picker.techniques')}</h3>}
-            <button className="app-setup" onClick={() => setSetupId(setup.id)}>
-              <span className="app-lib-ja">
-                {ja ? setup.ja : setup.name}
-                {setup.basics && p.learned === 0 && <em className="app-start">{t('picker.startHere')}</em>}
-              </span>
-              <span className="app-lib-en">{t('picker.lessonCount', { count: courses.length })}</span>
-              <span className="app-setup-go" aria-hidden="true">
-                ›
-              </span>
-              <i className="app-progress" style={{ width: percent(p) }} />
-            </button>
-          </Fragment>
-        )
-      })}
+      {!q &&
+        ordered.map(({ setup, courses }, i, all) => {
+          const p = courses.map(courseProgress).reduce((a, b) => ({ learned: a.learned + b.learned, total: a.total + b.total }), { learned: 0, total: 0 })
+          return (
+            <Fragment key={setup.id}>
+              {!setup.technique && !setup.basics && (i === 0 || all[i - 1]?.setup.basics) && (
+                <h3 className="app-sub">{t('picker.openingsByWhatYourOpponent')}</h3>
+              )}
+              {setup.technique && !all[i - 1]?.setup.technique && <h3 className="app-sub">{t('picker.techniques')}</h3>}
+              <button className="app-setup" onClick={() => setSetupId(setup.id)}>
+                <span className="app-lib-ja">
+                  {ja ? setup.ja : setup.name}
+                  {setup.basics && p.learned === 0 && <em className="app-start">{t('picker.startHere')}</em>}
+                </span>
+                <span className="app-lib-en">{t('picker.lessonCount', { count: courses.length })}</span>
+                <span className="app-setup-go" aria-hidden="true">
+                  ›
+                </span>
+                <i className="app-progress" style={{ width: percent(p) }} />
+              </button>
+            </Fragment>
+          )
+        })}
       <Credits />
     </div>
   )

@@ -1,11 +1,11 @@
 import { useTranslation } from 'react-i18next'
-import { moveText, positionOf } from '../../../shogi'
-import { sideMark } from '../../lib/notation'
-import { useSettings } from '../../../appearance/settings'
-import { TESUJI_DRILLS, tesujiStats } from '../../tesujiDrills'
+import { moveText, positionOf } from '@/utils/shogi'
+import { sideMark } from '@/utils/notation'
+import { useSettings } from '@/appearance/settings'
+import { TESUJI_DRILLS, tesujiStats } from '@/app/tesujiDrills'
 import type { TesujiState, TesujiTrainer } from './useTesuji'
-import { Button } from '../../ui/Button'
-import { Card } from '../../ui/Card'
+import { Button } from '@/app/ui/Button'
+import { Card } from '@/app/ui/Card'
 
 export function TesujiPane({ trainer, drill, replaying, onBack }: { trainer: TesujiTrainer; drill: TesujiState; replaying: boolean; onBack: () => void }) {
   const { t } = useTranslation()
@@ -21,7 +21,13 @@ export function TesujiPane({ trainer, drill, replaying, onBack }: { trainer: Tes
         {drill.hint || drill.status !== 'asking' ? <strong>{drill.item.tesuji}</strong> : t('tesuji.tesuji')}
         {t('tesuji.findTheEnd')}
       </p>
-      {drill.status === 'asking' && drill.wrong && <p className="app-result wrong">{drill.hint ? t('tesuji.isNotItLookAgain', { move: moveText(sfen, drill.wrong) }) : t('tesuji.isNotItLookAgain2', { move: moveText(sfen, drill.wrong) })}</p>}
+      {drill.status === 'asking' && drill.wrong && (
+        <p className="app-result wrong">
+          {drill.hint
+            ? t('tesuji.isNotItLookAgain', { move: moveText(sfen, drill.wrong) })
+            : t('tesuji.isNotItLookAgain2', { move: moveText(sfen, drill.wrong) })}
+        </p>
+      )}
       {drill.status === 'asking' && drill.hint && <p className="app-note">{drill.item.explain}</p>}
       {drill.status !== 'asking' && (
         <Card tone={drill.status === 'right' ? 'good' : null}>
@@ -41,10 +47,10 @@ export function TesujiPane({ trainer, drill, replaying, onBack }: { trainer: Tes
           </Button>
         </div>
       ) : (
-      <div className="app-actions">
-        {drill.status === 'asking' && !drill.hint && <Button onClick={trainer.hint}>{t('tesuji.hint')}</Button>}
-        {drill.status === 'asking' && <Button onClick={trainer.reveal}>{t('tesuji.showAnswer')}</Button>}
-      </div>
+        <div className="app-actions">
+          {drill.status === 'asking' && !drill.hint && <Button onClick={trainer.hint}>{t('tesuji.hint')}</Button>}
+          {drill.status === 'asking' && <Button onClick={trainer.reveal}>{t('tesuji.showAnswer')}</Button>}
+        </div>
       )}
       <p className="app-muted">{t('tesuji.solvedFirstTryOf', { value: pool.filter((d) => stats.solved.includes(d.id)).length, poolCount: pool.length })}</p>
     </div>

@@ -67,7 +67,6 @@
   color: var(--koma-ink);
   line-height: 1;
   clip-path: polygon(50% 0, 86% 13%, 100% 100%, 0 100%, 14% 13%);
-
 }
 
 .app-sample-koma i {
@@ -84,12 +83,10 @@
 }
 
 @media (max-width: 560px) {
-.app-piece-sample {
+  .app-piece-sample {
     flex-wrap: wrap;
     justify-content: center;
   }
-
-
 }
 
 .app-design-options {
@@ -331,11 +328,9 @@
 }
 
 @media (max-width: 760px) {
-.app-finish-options .app-design-options {
+  .app-finish-options .app-design-options {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-
-
 }
 
 .app-glyph-sample.with-guide {

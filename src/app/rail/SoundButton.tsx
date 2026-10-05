@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Icon } from '../icons'
-import { playSound, setSettings, useSettings } from '../../appearance/settings'
+import { Icon } from '@/app/icons'
+import { playSound, setSettings, useSettings } from '@/appearance/settings'
 
 export function SoundButton({ compact }: { compact: boolean }) {
   const { t } = useTranslation()
@@ -17,13 +17,41 @@ export function SoundButton({ compact }: { compact: boolean }) {
   }
   const nudge = (delta: number) => setSettings({ sound: true, volume: Math.round(Math.min(1, Math.max(0, volume + delta)) * 20) / 20 })
   return (
-    <div className={`app-sound${compact ? ' compact' : ''}${open ? ' open' : ''}`} onMouseEnter={(e) => show(e.currentTarget)} onMouseLeave={() => setAt(null)} onFocus={(e) => show(e.currentTarget)} onBlur={(e) => !e.currentTarget.contains(e.relatedTarget) && setAt(null)}>
-      <button className={`app-rail-btn${muted ? '' : ' on'}`} data-tool="sound" onClick={toggle} onWheel={(e) => nudge(e.deltaY < 0 ? 0.05 : -0.05)} aria-pressed={!muted} title={`${muted ? t('rail.unmute') : t('rail.mute')} (M)`}>
+    <div
+      className={`app-sound${compact ? ' compact' : ''}${open ? ' open' : ''}`}
+      onMouseEnter={(e) => show(e.currentTarget)}
+      onMouseLeave={() => setAt(null)}
+      onFocus={(e) => show(e.currentTarget)}
+      onBlur={(e) => !e.currentTarget.contains(e.relatedTarget) && setAt(null)}
+    >
+      <button
+        className={`app-rail-btn${muted ? '' : ' on'}`}
+        data-tool="sound"
+        onClick={toggle}
+        onWheel={(e) => nudge(e.deltaY < 0 ? 0.05 : -0.05)}
+        aria-pressed={!muted}
+        title={`${muted ? t('rail.unmute') : t('rail.mute')} (M)`}
+      >
         <Icon name={icon} size={20} />
         <span>{muted ? t('rail.muted') : `${Math.round(volume * 100)}%`}</span>
       </button>
-      <div className="app-sound-pop" role="group" aria-label={t('settings.volume')} style={at ? (compact ? { left: at.left + at.width / 2, top: at.bottom + 6 } : { left: at.right + 6, top: at.top + at.height / 2 }) : undefined}>
-        <input type="range" min={0} max={1} step={0.05} value={muted ? 0 : volume} aria-label={t('settings.volume')} onChange={(e) => setSettings({ sound: Number(e.target.value) > 0, volume: Number(e.target.value) })} onPointerUp={() => playSound('move')} onKeyUp={() => playSound('move')} />
+      <div
+        className="app-sound-pop"
+        role="group"
+        aria-label={t('settings.volume')}
+        style={at ? (compact ? { left: at.left + at.width / 2, top: at.bottom + 6 } : { left: at.right + 6, top: at.top + at.height / 2 }) : undefined}
+      >
+        <input
+          type="range"
+          min={0}
+          max={1}
+          step={0.05}
+          value={muted ? 0 : volume}
+          aria-label={t('settings.volume')}
+          onChange={(e) => setSettings({ sound: Number(e.target.value) > 0, volume: Number(e.target.value) })}
+          onPointerUp={() => playSound('move')}
+          onKeyUp={() => playSound('move')}
+        />
       </div>
     </div>
   )

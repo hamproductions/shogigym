@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { useSettings } from '../../appearance/settings'
-import type { Mode } from '../types'
+import { useSettings } from '@/appearance/settings'
+import type { Mode } from '@/app/types'
 
 export function useView(mode?: Mode) {
   const settings = useSettings()
@@ -24,7 +24,8 @@ export function useView(mode?: Mode) {
   }, [mode])
   useEffect(() => {
     const on = (e: KeyboardEvent) => {
-      if (e.key.toLowerCase() !== 'h' || e.metaKey || e.ctrlKey || e.altKey || (e.target instanceof Element && e.target.closest('input, textarea, select'))) return
+      if (e.key.toLowerCase() !== 'h' || e.metaKey || e.ctrlKey || e.altKey || (e.target instanceof Element && e.target.closest('input, textarea, select')))
+        return
       setHideUi((v) => !v)
     }
     window.addEventListener('keydown', on)

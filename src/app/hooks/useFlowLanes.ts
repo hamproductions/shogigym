@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
-import type { Analysis } from '../../engine'
-import { buildLanes, type Lane } from '../lib/lanes'
+import type { Analysis } from '@/utils/engine'
+import { buildLanes, type Lane } from '@/utils/lanes'
 import type { BoardSession } from './useBoardSession'
 
 const NO_LANES: Lane[] = []

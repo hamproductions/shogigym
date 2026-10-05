@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import * as THREE from 'three'
 import { Position, Square } from 'tsshogi'
-import { SQ_D, squareX, squareZ } from '../rendering/board3d/dimensions'
-import { pieceMesh } from '../rendering/board3d/piece'
-import { createPower, moveEvent, type Power } from '../rendering/board3d/power'
+import { SQ_D, squareX, squareZ } from '@/rendering/board3d/dimensions'
+import { pieceMesh } from '@/rendering/board3d/piece'
+import { createPower, moveEvent, type Power } from '@/rendering/board3d/power'
 
 type Kind = 'move' | 'capture' | 'promote' | 'check' | 'mate' | 'captureMate'
 
@@ -104,7 +104,17 @@ function placePieces(stage: Stage, position: Position) {
   return meshes
 }
 
-const panel: CSSProperties = { position: 'fixed', left: 12, top: 12, display: 'flex', flexWrap: 'wrap', gap: 6, maxWidth: 'calc(100vw - 24px)', font: '13px system-ui', zIndex: 2 }
+const panel: CSSProperties = {
+  position: 'fixed',
+  left: 12,
+  top: 12,
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: 6,
+  maxWidth: 'calc(100vw - 24px)',
+  font: '13px system-ui',
+  zIndex: 2,
+}
 const button: CSSProperties = { padding: '6px 10px', borderRadius: 6, border: '1px solid #0004', background: '#fffd', cursor: 'pointer' }
 
 export default function PowerPreview() {

@@ -1,16 +1,16 @@
 import './engine.css'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { describeMove, scoreWinRate } from '../../analysis'
-import { engineSupported, useEngineStatus, type Analysis, type Candidate } from '../../engine'
-import i18n from '../../i18n'
-import { applyUsi, moveText, pvText, type Side } from '../../shogi'
-import { EngineName } from '../EngineSettings'
-import type { BookMove } from '../lib/book'
-import { sideMark, toSente } from '../lib/notation'
-import { lossClass, winLoss } from '../lib/score'
-import { Button } from '../ui/Button'
-import { Pill } from '../ui/Pill'
+import { describeMove, scoreWinRate } from '@/utils/analysis'
+import { engineSupported, useEngineStatus, type Analysis, type Candidate } from '@/utils/engine'
+import i18n from '@/utils/i18n'
+import { applyUsi, moveText, pvText, type Side } from '@/utils/shogi'
+import { EngineName } from '@/app/EngineSettings'
+import type { BookMove } from '@/utils/book'
+import { sideMark, toSente } from '@/utils/notation'
+import { lossClass, winLoss } from '@/utils/score'
+import { Button } from '@/app/ui/Button'
+import { Pill } from '@/app/ui/Pill'
 
 function standing(rate: number) {
   const lead = Math.abs(Math.round(rate * 100) - 50) / 100
@@ -22,18 +22,35 @@ function standing(rate: number) {
   return i18n.t('engine.isWinning', { side })
 }
 
-type EnginePaneProps = { sfen: string; toMove: Side; analysis: Analysis | null; showBest: boolean; setShowBest: (v: boolean) => void; onPlay: (usi: string) => void; canPlay: boolean; book: BookMove[] }
+type EnginePaneProps = {
+  sfen: string
+  toMove: Side
+  analysis: Analysis | null
+  showBest: boolean
+  setShowBest: (v: boolean) => void
+  onPlay: (usi: string) => void
+  canPlay: boolean
+  book: BookMove[]
+}
 
 export function EnginePane({ sfen, toMove, analysis, showBest, setShowBest, onPlay, canPlay, book }: EnginePaneProps) {
   const { t } = useTranslation()
   const [lineOpen, setLineOpen] = useState(false)
   const status = useEngineStatus()
-  if (!engineSupported()) return <div role="alert">
-    <p className="app-muted">{t('engine.theAiNeedsACross')}</p>
-    <Button onClick={() => location.reload()}>{t('engine.reloadPage')}</Button>
-  </div>
+  if (!engineSupported())
+    return (
+      <div role="alert">
+        <p className="app-muted">{t('engine.theAiNeedsACross')}</p>
+        <Button onClick={() => location.reload()}>{t('engine.reloadPage')}</Button>
+      </div>
+    )
   if (status.error) return <EngineName />
-  if (status.loading) return <div role="status" aria-busy="true"><EngineName /></div>
+  if (status.loading)
+    return (
+      <div role="status" aria-busy="true">
+        <EngineName />
+      </div>
+    )
   if (!analysis || !analysis.candidates.length)
     return (
       <>
@@ -62,9 +79,7 @@ export function EnginePane({ sfen, toMove, analysis, showBest, setShowBest, onPl
         <div className="app-meter" aria-hidden="true">
           <span style={{ width: `${senteRate * 100}%` }} />
         </div>
-        <span className="app-muted">
-          {t('engine.winChanceAgainst', { value: Math.round(senteRate * 100), value2: Math.round((1 - senteRate) * 100) })}
-        </span>
+        <span className="app-muted">{t('engine.winChanceAgainst', { value: Math.round(senteRate * 100), value2: Math.round((1 - senteRate) * 100) })}</span>
       </div>
 
       <div className="app-best">

@@ -1,8 +1,8 @@
-import { bookLookup } from '../../kifu'
-import { strategiesAt } from '../../catalog'
-import { LEGACY_AI_STRATEGY } from '../../data/strategies'
-import { COURSES, SETUPS, type Course, type JosekiMove, type JosekiNode } from '../../model'
-import type { Side } from '../../shogi'
+import { bookLookup } from './kifu'
+import { strategiesAt } from './catalog'
+import { LEGACY_AI_STRATEGY } from '@/data/strategies'
+import { COURSES, SETUPS, type Course, type JosekiMove, type JosekiNode } from './model'
+import type { Side } from './shogi'
 
 export type CourseNodes = Map<string, JosekiNode>
 export type BookMove = { usi: string; note?: string; kind: string }
@@ -10,7 +10,8 @@ export type BookHit = { branch: JosekiMove; course: Course }
 
 export const strip = (sfen: string) => sfen.split(' ').slice(0, 3).join(' ')
 
-export const mainBranch = (node: JosekiNode | null | undefined) => node?.branches.find((b) => b.kind === 'main' && b.child) ?? node?.branches.find((b) => b.kind !== 'deviation' && b.child)
+export const mainBranch = (node: JosekiNode | null | undefined) =>
+  node?.branches.find((b) => b.kind === 'main' && b.child) ?? node?.branches.find((b) => b.kind !== 'deviation' && b.child)
 
 export const goodBranches = (node: JosekiNode | null | undefined) => node?.branches.filter((b) => b.kind !== 'deviation' && b.child) ?? []
 
@@ -99,7 +100,8 @@ export function bookAtPly(sfens: string[], moves: string[], ply: number): BookHi
 
 export const inBook = (sfen: string, usi: string) => bookLookup(sfen).some((h) => h.node.branches.some((b) => b.usi === usi && b.kind !== 'deviation'))
 
-export const setupOf = (course: Course, main?: string) => SETUPS.find((s) => s.courseIds.includes(course.id) && (!main || s.technique || s.main === main)) ?? SETUPS.find((s) => s.courseIds.includes(course.id))
+export const setupOf = (course: Course, main?: string) =>
+  SETUPS.find((s) => s.courseIds.includes(course.id) && (!main || s.technique || s.main === main)) ?? SETUPS.find((s) => s.courseIds.includes(course.id))
 
 export const setupsFor = (main: string) => SETUPS.filter((s) => s.main === main)
 

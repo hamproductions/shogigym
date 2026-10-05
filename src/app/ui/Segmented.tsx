@@ -1,4 +1,4 @@
-import '../ui/dialog.css'
+import '@/app/ui/dialog.css'
 import type { ReactNode } from 'react'
 import { cx } from './cx'
 
@@ -9,7 +9,14 @@ export function Segmented<T extends string | number | boolean>({ value, options,
   return (
     <div className={cx('app-seg', size, className)} role="group" aria-label={label}>
       {options.map((o) => (
-        <button key={String(o.v)} type="button" className={value === o.v ? 'on' : ''} aria-pressed={value === o.v} title={o.title} onClick={() => onChange(o.v)}>
+        <button
+          key={String(o.v)}
+          type="button"
+          className={value === o.v ? 'on' : ''}
+          aria-pressed={value === o.v}
+          title={o.title}
+          onClick={() => onChange(o.v)}
+        >
           {o.t}
         </button>
       ))}

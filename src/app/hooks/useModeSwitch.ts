@@ -1,21 +1,31 @@
 import { useCallback, useLayoutEffect, useRef } from 'react'
 import { InitialPositionSFEN } from 'tsshogi'
-import type { Course } from '../../model'
-import type { Side } from '../../shogi'
-import type { Tree } from '../tree'
-import type { Game, LessonMode, Mode, Score, Tab } from '../types'
+import type { Course } from '@/utils/model'
+import type { Side } from '@/utils/shogi'
+import type { Tree } from '@/app/tree'
+import type { Game, LessonMode, Mode, Score, Tab } from '@/app/types'
 import type { BoardSession } from './useBoardSession'
 import type { Mistakes } from './useMistake'
-import type { Lesson } from '../modes/lesson/useLesson'
-import type { Drill } from '../modes/drill/useDrill'
-import type { Tsume } from '../modes/tsume/useTsume'
-import type { TesujiTrainer } from '../modes/tesuji/useTesuji'
-import type { Spar } from '../modes/spar/useSpar'
-import type { AnalyzeGames } from '../modes/analyze/useAnalyzeGames'
+import type { Lesson } from '@/app/modes/lesson/useLesson'
+import type { Drill } from '@/app/modes/drill/useDrill'
+import type { Tsume } from '@/app/modes/tsume/useTsume'
+import type { TesujiTrainer } from '@/app/modes/tesuji/useTesuji'
+import type { Spar } from '@/app/modes/spar/useSpar'
+import type { AnalyzeGames } from '@/app/modes/analyze/useAnalyzeGames'
 import type { Layout } from './useLayout'
 
 export type Load = (start: string, side: Side, mode: Mode, course: Course | null) => void
-export type Snapshot = { game: Game; cursor: number; userSide: Side; flipped: boolean; course: Course | null; lessonMode: LessonMode; score: Score; tree?: Tree; resigned?: boolean }
+export type Snapshot = {
+  game: Game
+  cursor: number
+  userSide: Side
+  flipped: boolean
+  course: Course | null
+  lessonMode: LessonMode
+  score: Score
+  tree?: Tree
+  resigned?: boolean
+}
 type Snapshots = Partial<Record<Mode, Snapshot>>
 
 const RESUMABLE: Mode[] = ['spar', 'analyze', 'lesson']
@@ -36,12 +46,36 @@ export function useModeSlots() {
 
 export type ModeSlots = ReturnType<typeof useModeSlots>
 
-type Modes = { session: BoardSession; lesson: Lesson; drill: Drill; tsume: Tsume; tesuji: TesujiTrainer; spar: Spar; analyze: AnalyzeGames; mistakes: Mistakes; layout: Layout; setTab: (tab: Tab) => void }
+type Modes = {
+  session: BoardSession
+  lesson: Lesson
+  drill: Drill
+  tsume: Tsume
+  tesuji: TesujiTrainer
+  spar: Spar
+  analyze: AnalyzeGames
+  mistakes: Mistakes
+  layout: Layout
+  setTab: (tab: Tab) => void
+}
 
-export function useModeSwitch({ load, setLoader, stash, stashed }: ModeSlots, { session, lesson, drill, tsume, tesuji, spar, analyze, mistakes, layout, setTab }: Modes) {
+export function useModeSwitch(
+  { load, setLoader, stash, stashed }: ModeSlots,
+  { session, lesson, drill, tsume, tesuji, spar, analyze, mistakes, layout, setTab }: Modes,
+) {
   const { mode, game, cursor, userSide, flipped, course, tree, preview } = session
 
-  const snapshot = (): Snapshot => ({ game, cursor, userSide, flipped, course, lessonMode: lesson.lessonMode, score: lesson.score, tree, resigned: spar.resigned })
+  const snapshot = (): Snapshot => ({
+    game,
+    cursor,
+    userSide,
+    flipped,
+    course,
+    lessonMode: lesson.lessonMode,
+    score: lesson.score,
+    tree,
+    resigned: spar.resigned,
+  })
 
   useLayoutEffect(() => {
     setLoader((start, side, nextMode, nextCourse) => {

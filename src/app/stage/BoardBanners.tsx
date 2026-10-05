@@ -1,12 +1,12 @@
 import './banners.css'
 import { useTranslation } from 'react-i18next'
-import { LABELS } from '../../analysis'
-import { moveText } from '../../shogi'
-import { useSession } from '../hooks/session'
-import { mistakeHeadline, mistakeIsBad, mistakeSeal, type ShownMistake } from '../lib/mistake'
-import { mainLine, promote } from '../tree'
-import { isGameMode, type Preview } from '../types'
-import { Button } from '../ui/Button'
+import { LABELS } from '@/utils/analysis'
+import { moveText } from '@/utils/shogi'
+import { useSession } from '@/app/hooks/session'
+import { mistakeHeadline, mistakeIsBad, mistakeSeal, type ShownMistake } from '@/utils/mistake'
+import { mainLine, promote } from '@/app/tree'
+import { isGameMode, type Preview } from '@/app/types'
+import { Button } from '@/app/ui/Button'
 
 function MistakeBanner({ mistake, preview, onBack }: { mistake: ShownMistake; preview: Preview; onBack: () => void }) {
   const { t } = useTranslation()
@@ -31,7 +31,9 @@ function MistakeBanner({ mistake, preview, onBack }: { mistake: ShownMistake; pr
         {t('app.headlineEnd')}
         {playing ? t('app.watchWhatFollows') : preview.step < preview.moves.length ? t('app.paused') : t('app.thatIsHowItContinues')}
       </span>
-      <Button size="sm" onClick={replay}>{playing ? t('app.pause') : t('app.replay')}</Button>
+      <Button size="sm" onClick={replay}>
+        {playing ? t('app.pause') : t('app.replay')}
+      </Button>
       {mode !== 'drill' && (
         <Button size="sm" variant="primary" onClick={onBack}>
           {mode === 'tsume' ? t('tsume.tryAgain') : t('app.goBackAndTryAgain')}
@@ -50,11 +52,15 @@ function PreviewBanner({ preview }: { preview: Preview }) {
       <span>
         {t('app.preview2')}: {preview.title}, <span className="app-nowrap">{t('app.moveOf', { step: preview.step, movesCount: preview.moves.length })}</span>
       </span>
-      <Button size="sm" onClick={() => setPlaying((v) => !v)}>{playing ? t('app.pause') : t('app.play')}</Button>
+      <Button size="sm" onClick={() => setPlaying((v) => !v)}>
+        {playing ? t('app.pause') : t('app.play')}
+      </Button>
       <Button size="sm" onClick={keepPreview} disabled={preview.step === 0}>
         {t('app.keepTheseMoves')}
       </Button>
-      <Button size="sm" onClick={exitPreview}>{t('app.exitPreview')}</Button>
+      <Button size="sm" onClick={exitPreview}>
+        {t('app.exitPreview')}
+      </Button>
     </div>
   )
 }
@@ -102,11 +108,14 @@ function ReviewBanner() {
           t('app.playingTheLine')
         ) : (
           <>
-            {t('app.moveOf2', { cursor, movesCount: game.moves.length })} <strong className="app-branch-tip">{isGameMode(mode) ? t('app.playADifferentMoveTo') : t('app.aMoveHereReplacesWhat')}</strong>
+            {t('app.moveOf2', { cursor, movesCount: game.moves.length })}{' '}
+            <strong className="app-branch-tip">{isGameMode(mode) ? t('app.playADifferentMoveTo') : t('app.aMoveHereReplacesWhat')}</strong>
           </>
         )}
       </span>
-      <Button size="sm" onClick={() => (playing ? setPlaying(false) : (setCursor(game.moves.length), setPlaying(false)))}>{playing ? t('app.pause') : t('app.goToTheLastMove')}</Button>
+      <Button size="sm" onClick={() => (playing ? setPlaying(false) : (setCursor(game.moves.length), setPlaying(false)))}>
+        {playing ? t('app.pause') : t('app.goToTheLastMove')}
+      </Button>
     </div>
   )
 }

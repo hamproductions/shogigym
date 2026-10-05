@@ -40,14 +40,12 @@
 }
 
 @media (max-height: 520px) and (min-width: 821px) {
-.app-evalbar {
+  .app-evalbar {
     width: 18px;
     margin-right: var(--space-1-5);
   }
 
-.app-evalbar-num {
+  .app-evalbar-num {
     font-size: 10px;
   }
-
-
 }

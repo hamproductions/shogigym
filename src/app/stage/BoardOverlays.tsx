@@ -1,15 +1,17 @@
 import './overlays.css'
 import { useTranslation } from 'react-i18next'
 import { Color, promotedPieceType, type Move } from 'tsshogi'
-import { useBakedPieces } from '../hooks/useBakedPieces'
-import { spriteKey } from '../../rendering/sprites'
-import type { Announcement } from '../hooks/useAnnouncements'
-
+import { useBakedPieces } from '@/app/hooks/useBakedPieces'
+import { spriteKey } from '@/rendering/sprites'
+import type { Announcement } from '@/app/hooks/useAnnouncements'
 
 export function AnnounceBadge({ announce }: { announce: Announcement }) {
   const { t } = useTranslation()
   return (
-    <div className={`app-announce ${announce.side === Color.BLACK ? 'sente' : 'gote'}${/[\u3040-\u9fff]/.test(announce.name) ? '' : ' latin'}${announce.tesuji ? ' tesuji' : ''}`} role="status">
+    <div
+      className={`app-announce ${announce.side === Color.BLACK ? 'sente' : 'gote'}${/[\u3040-\u9fff]/.test(announce.name) ? '' : ' latin'}${announce.tesuji ? ' tesuji' : ''}`}
+      role="status"
+    >
       <span>
         {announce.side === Color.BLACK ? t('app.sente') : t('app.gote')} {announce.kind}
       </span>

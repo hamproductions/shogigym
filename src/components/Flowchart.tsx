@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useRef } from 'react'
-import { sideToMove, verdictFor, type Course, type JosekiMove, type JosekiNode, type Verdict } from '../model'
-import { moveText } from '../shogi'
+import { sideToMove, verdictFor, type Course, type JosekiMove, type JosekiNode, type Verdict } from '@/utils/model'
+import { moveText } from '@/utils/shogi'
 import { useTranslation } from 'react-i18next'
-import i18n from '../i18n'
-import { Button } from '../app/ui/Button'
+import i18n from '@/utils/i18n'
+import { Button } from '@/app/ui/Button'
 import './flowchart.css'
 
 type Props = {
@@ -44,13 +44,28 @@ function buildStage(course: Course, parent: JosekiNode, first: JosekiMove, ply: 
   const steps: Step[] = [{ move: first, from: parent, ply }]
   let node = first.child
   let n = ply
-  while (node && node.branches.length === 1 && node.branches[0].child && steps.length < MAX_STEPS && !(node.comment && steps.length >= MIN_STEPS_BEFORE_MILESTONE)) {
+  while (
+    node &&
+    node.branches.length === 1 &&
+    node.branches[0].child &&
+    steps.length < MAX_STEPS &&
+    !(node.comment && steps.length >= MIN_STEPS_BEFORE_MILESTONE)
+  ) {
     n++
     steps.push({ move: node.branches[0], from: node, ply: n })
     node = node.branches[0].child
   }
   const end = steps.at(-1)!.move.child ?? parent
-  const stage: Stage = { key: `${parent.id}-${first.usi}`, steps, end, verdict: verdictFor(course, sideToMove(parent), first.kind), fork, children: [], x: 0, depth: 0 }
+  const stage: Stage = {
+    key: `${parent.id}-${first.usi}`,
+    steps,
+    end,
+    verdict: verdictFor(course, sideToMove(parent), first.kind),
+    fork,
+    children: [],
+    x: 0,
+    depth: 0,
+  }
   if (first.child) stage.children = childrenOf(course, end, n + 1)
   return stage
 }
@@ -99,7 +114,19 @@ function firstSentence(text?: string) {
   return cut > 0 && cut < 70 ? text.slice(0, cut + 1) : text.length > 70 ? `${text.slice(0, 68)}…` : text
 }
 
-function Diagram({ stages, size, currentKey, currentNodeId, onJump }: { stages: Stage[]; size: { w: number; h: number }; currentKey: string | null; currentNodeId: string | null; onJump: (id: string) => void }) {
+function Diagram({
+  stages,
+  size,
+  currentKey,
+  currentNodeId,
+  onJump,
+}: {
+  stages: Stage[]
+  size: { w: number; h: number }
+  currentKey: string | null
+  currentNodeId: string | null
+  onJump: (id: string) => void
+}) {
   const { t } = useTranslation()
   const scroller = useRef<HTMLDivElement>(null)
   const pos = (s: Stage) => ({ left: s.x * (BOX_W + GAP_X), top: s.depth * (BOX_H + GAP_Y) })
@@ -131,7 +158,14 @@ function Diagram({ stages, size, currentKey, currentNodeId, onJump }: { stages: 
               const x2 = b.left + BOX_W / 2
               const y2 = b.top - 2
               const mid = (y1 + y2) / 2
-              return <path key={child.key} d={`M${x1},${y1} C${x1},${mid} ${x2},${mid} ${x2},${y2}`} className={`fc-edge v-${child.verdict}`} markerEnd={`url(#fc-arrow-${child.verdict})`} />
+              return (
+                <path
+                  key={child.key}
+                  d={`M${x1},${y1} C${x1},${mid} ${x2},${mid} ${x2},${y2}`}
+                  className={`fc-edge v-${child.verdict}`}
+                  markerEnd={`url(#fc-arrow-${child.verdict})`}
+                />
+              )
             }),
           )}
         </svg>
@@ -177,7 +211,16 @@ export function LessonMap({ course, currentNodeId, onJump, onClose }: Props & { 
     return () => window.removeEventListener('keydown', onKey)
   }, [onClose])
   const { stages, size } = useMemo(() => {
-    const root: Stage = { key: 'start', steps: [], end: course.root, verdict: 'start', fork: null, children: childrenOf(course, course.root, 1), x: 0, depth: 0 }
+    const root: Stage = {
+      key: 'start',
+      steps: [],
+      end: course.root,
+      verdict: 'start',
+      fork: null,
+      children: childrenOf(course, course.root, 1),
+      x: 0,
+      depth: 0,
+    }
     const { columns, rows } = layout(root)
     return { stages: flatten(root), size: { w: columns * (BOX_W + GAP_X) - GAP_X, h: rows * (BOX_H + GAP_Y) - GAP_Y } }
   }, [course])

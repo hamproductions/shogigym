@@ -10,11 +10,15 @@ export const stripZ = () => HALF_D + 0.25 + STRIP_D / 2
 
 export function standCenter(color: Color) {
   const sign = color === Color.BLACK ? 1 : -1
-  return layout.portrait ? new THREE.Vector3(0, STAND_TOP, sign * stripZ()) : new THREE.Vector3(sign * (HALF_W + 0.4 + STAND / 2), STAND_TOP, sign * (HALF_D - STAND / 2))
+  return layout.portrait
+    ? new THREE.Vector3(0, STAND_TOP, sign * stripZ())
+    : new THREE.Vector3(sign * (HALF_W + 0.4 + STAND / 2), STAND_TOP, sign * (HALF_D - STAND / 2))
 }
 
 export function cameraFit(aspect: number, tilt: number, sideRoom: number) {
-  const fit = layout.portrait ? Math.max((2 * HALF_W + (layout.narrow ? 0.5 : 1.0)) / aspect, 2 * (stripZ() + STRIP_D / 2) + 0.2) : Math.max((2 * (HALF_W + 0.45 + Math.max(STAND, sideRoom)) + 1.4) / aspect, 2 * HALF_D + 1.6)
+  const fit = layout.portrait
+    ? Math.max((2 * HALF_W + (layout.narrow ? 0.5 : 1.0)) / aspect, 2 * (stripZ() + STRIP_D / 2) + 0.2)
+    : Math.max((2 * (HALF_W + 0.45 + Math.max(STAND, sideRoom)) + 1.4) / aspect, 2 * HALF_D + 1.6)
   return fit * (1 + (layout.portrait ? 0.06 : 0.16) * tilt)
 }
 

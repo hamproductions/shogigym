@@ -1,6 +1,6 @@
-import { scoreWinRate } from '../../analysis'
-import type { Analysis } from '../../engine'
-import { bookLookup } from '../../kifu'
+import { scoreWinRate } from './analysis'
+import type { Analysis } from './engine'
+import { bookLookup } from './kifu'
 import { neutralBranch, strip, type CourseNodes } from './book'
 import { winLoss } from './score'
 
@@ -10,7 +10,9 @@ const LANE_ORDER = { book: 0, ai: 1, mistake: 2 }
 
 export function buildLanes(sfen: string, nodes: CourseNodes | null, analysis: Analysis | null): Lane[] {
   const lanes: Lane[] = []
-  const branchesHere = nodes ? (nodes.get(strip(sfen))?.branches ?? []) : bookLookup(sfen).flatMap((h) => h.node.branches.map((b) => neutralBranch(b, h.course)))
+  const branchesHere = nodes
+    ? (nodes.get(strip(sfen))?.branches ?? [])
+    : bookLookup(sfen).flatMap((h) => h.node.branches.map((b) => neutralBranch(b, h.course)))
   for (const b of branchesHere) {
     if (lanes.some((l) => l.first === b.usi)) continue
     const moves = [b.usi]
@@ -19,7 +21,13 @@ export function buildLanes(sfen: string, nodes: CourseNodes | null, analysis: An
       moves.push(n.branches[0].usi)
       n = n.branches[0].child
     }
-    lanes.push({ first: b.usi, moves, tag: b.kind === 'deviation' ? 'mistake' : 'book', note: b.kind === 'deviation' ? (b.punishNote ?? b.note) : b.note, forks: n && n.branches.length > 1 ? n.branches.length : undefined })
+    lanes.push({
+      first: b.usi,
+      moves,
+      tag: b.kind === 'deviation' ? 'mistake' : 'book',
+      note: b.kind === 'deviation' ? (b.punishNote ?? b.note) : b.note,
+      forks: n && n.branches.length > 1 ? n.branches.length : undefined,
+    })
   }
   const candidates = (analysis?.candidates ?? []).filter((c) => /^([1-9][a-i]|[PLNSGBR]\*)[1-9][a-i]\+?$/.test(c.move))
   if (candidates.length) {

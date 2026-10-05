@@ -1,21 +1,21 @@
 import { useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { InitialPositionSFEN } from 'tsshogi'
-import { usiPosition } from '../../../analysis'
-import { analyze, engineSupported } from '../../../engine'
-import { courseTitle, findPath, sideToMove, type Course, type JosekiNode } from '../../../model'
-import { applyUsi, moveText } from '../../../shogi'
-import { positionKey, record } from '../../../srs'
-import type { BoardArrow } from '../../../rendering/Board3D'
-import type { BoardSession } from '../../hooks/useBoardSession'
-import type { Mistakes } from '../../hooks/useMistake'
-import type { Load } from '../../hooks/useModeSwitch'
-import { goodBranches, mainBranch, setupOf, strip } from '../../lib/book'
-import { isWeak } from '../../lib/mistake'
-import { sideMark } from '../../lib/notation'
-import { markOpened } from '../../practice'
-import { playSound } from '../../../appearance/settings'
-import { freshScore, type LessonMode, type Score, type Tab } from '../../types'
+import { usiPosition } from '@/utils/analysis'
+import { analyze, engineSupported } from '@/utils/engine'
+import { courseTitle, findPath, sideToMove, type Course, type JosekiNode } from '@/utils/model'
+import { applyUsi, moveText } from '@/utils/shogi'
+import { positionKey, record } from '@/utils/srs'
+import type { BoardArrow } from '@/rendering/Board3D'
+import type { BoardSession } from '@/app/hooks/useBoardSession'
+import type { Mistakes } from '@/app/hooks/useMistake'
+import type { Load } from '@/app/hooks/useModeSwitch'
+import { goodBranches, mainBranch, setupOf, strip } from '@/utils/book'
+import { isWeak } from '@/utils/mistake'
+import { sideMark } from '@/utils/notation'
+import { markOpened } from '@/app/practice'
+import { playSound } from '@/appearance/settings'
+import { freshScore, type LessonMode, type Score, type Tab } from '@/app/types'
 
 const LESSON_GREEN = '#4f8a2a'
 
@@ -61,7 +61,8 @@ export function useLesson(session: BoardSession, { mistakes, load, setTab, close
   const done = active && atEnd && !preview && !!node && node.branches.filter((b) => b.kind !== 'deviation').length === 0
   const waitingForReply = active && lessonMode === 'study' && !asking && !done && !preview && !mistakes.mistake
   const hidesAnswer = asking && lessonMode === 'quiz' && !showAnswer
-  const arrows: BoardArrow[] = asking && (lessonMode === 'study' || showAnswer) ? good.map((b) => ({ usi: b.usi, color: LESSON_GREEN, dashed: b.kind !== 'main' })) : []
+  const arrows: BoardArrow[] =
+    asking && (lessonMode === 'study' || showAnswer) ? good.map((b) => ({ usi: b.usi, color: LESSON_GREEN, dashed: b.kind !== 'main' })) : []
 
   const reset = () => {
     setJustRight(false)
@@ -152,7 +153,10 @@ export function useLesson(session: BoardSession, { mistakes, load, setTab, close
     if (lessonMode === 'quiz' && !(ok && assisted)) record(positionKey(liveSfen), ok)
     if (!ok) missedHere.current.add(key)
     setJustRight(ok && !assisted && lessonMode === 'quiz')
-    if (ok) setScore((sc) => (showAnswer ? { ...sc, shown: (sc.shown ?? 0) + 1 } : assisted ? { ...sc, retried: (sc.retried ?? 0) + 1 } : { ...sc, right: sc.right + 1 }))
+    if (ok)
+      setScore((sc) =>
+        showAnswer ? { ...sc, shown: (sc.shown ?? 0) + 1 } : assisted ? { ...sc, retried: (sc.retried ?? 0) + 1 } : { ...sc, right: sc.right + 1 },
+      )
     setShowAnswer(false)
     playSound(ok ? 'right' : 'wrong')
     if (ok) {
@@ -162,10 +166,15 @@ export function useLesson(session: BoardSession, { mistakes, load, setTab, close
     }
     setChecking(true)
     void mistakes
-      .show(usi, goodMoves[0], node.branches.find((b) => b.usi === usi))
+      .show(
+        usi,
+        goodMoves[0],
+        node.branches.find((b) => b.usi === usi),
+      )
       .finally(() => setChecking(false))
       .then((verdict) => {
-        if (!verdict || isWeak(verdict.label) || node.branches.some((b) => b.usi === usi && b.kind === 'deviation')) setScore((sc) => ({ ...sc, wrong: sc.wrong + 1 }))
+        if (!verdict || isWeak(verdict.label) || node.branches.some((b) => b.usi === usi && b.kind === 'deviation'))
+          setScore((sc) => ({ ...sc, wrong: sc.wrong + 1 }))
       })
     return true
   }
@@ -174,7 +183,14 @@ export function useLesson(session: BoardSession, { mistakes, load, setTab, close
     if (!course) return t('app.pickATechniqueOrAn')
     if (offBook) return t('app.offTheLessonLineGo')
     if (done) return t('app.lineComplete')
-    if (asking) return lessonMode === 'study' ? (good[0]?.note ? t('app.studyPlayWhy', { move: moveText(liveSfen, good[0].usi), note: good[0].note }) : t('app.studyYourMove', { side: sideMark(userSide) })) : showAnswer ? t('app.answerShownPlayTheGreen') : t('app.yourMoveAsFindThe', { me: sideMark(userSide) })
+    if (asking)
+      return lessonMode === 'study'
+        ? good[0]?.note
+          ? t('app.studyPlayWhy', { move: moveText(liveSfen, good[0].usi), note: good[0].note })
+          : t('app.studyYourMove', { side: sideMark(userSide) })
+        : showAnswer
+          ? t('app.answerShownPlayTheGreen')
+          : t('app.yourMoveAsFindThe', { me: sideMark(userSide) })
     return lessonMode === 'study' ? (compact ? t('app.theirMoveIsShownTap') : t('app.theirMoveIsShownPress')) : t('app.theirReplyComesInA')
   }
 

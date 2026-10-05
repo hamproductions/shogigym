@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import type { BoardSession } from './useBoardSession'
 import type { View } from './useView'
-import { getSettings, setSettings } from '../../appearance/settings'
+import { getSettings, setSettings } from '@/appearance/settings'
 
 type Shortcuts = {
   session: BoardSession
@@ -20,7 +20,22 @@ type Shortcuts = {
   toggleWatch: () => void
 }
 
-export function useShortcuts({ session, view, palette, togglePalette, dialogOpen, closeDialogs, overlayOpen, replyMove, studyMove, commit, autoplayAllowed, togglePanel, toggleEscape, toggleWatch }: Shortcuts) {
+export function useShortcuts({
+  session,
+  view,
+  palette,
+  togglePalette,
+  dialogOpen,
+  closeDialogs,
+  overlayOpen,
+  replyMove,
+  studyMove,
+  commit,
+  autoplayAllowed,
+  togglePanel,
+  toggleEscape,
+  toggleWatch,
+}: Shortcuts) {
   const { preview, promotion, playing, nav, play, setPlaying, setPromotion, setSelection, setPeekFrom, setFlipped, exitPreview, modeRef } = session
   const { orbit, setOrbit, hideUi, setHideUi, flatView, setTilted, setShowControl } = view
   useEffect(() => {
@@ -76,8 +91,7 @@ export function useShortcuts({ session, view, palette, togglePalette, dialogOpen
         const { sound, volume } = getSettings()
         setSettings(sound && volume > 0 ? { sound: false } : { sound: true, volume: volume || 0.6 })
         return
-      }
-      else if (event.key === 't' && !flatView) setTilted((v) => !v)
+      } else if (event.key === 't' && !flatView) setTilted((v) => !v)
       else if (event.key === 'c' && !event.metaKey && !event.ctrlKey) setShowControl((v) => !v)
       else if (event.key === 'k' && modeRef.current === 'tsume') toggleEscape()
       else if (event.key === 'Escape') {

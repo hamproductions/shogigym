@@ -1,24 +1,24 @@
 import './mode-bar.css'
 import { useTranslation } from 'react-i18next'
-import { moveText } from '../../shogi'
-import { useSession } from '../hooks/session'
-import { Icon } from '../icons'
-import { sideMark } from '../lib/notation'
-import type { Spar } from '../modes/spar/useSpar'
-import type { Watch } from '../modes/view/useWatch'
-import type { TesujiTrainer as Tesuji } from '../modes/tesuji/useTesuji'
-import type { Tsume } from '../modes/tsume/useTsume'
+import { moveText } from '@/utils/shogi'
+import { useSession } from '@/app/hooks/session'
+import { Icon } from '@/app/icons'
+import { sideMark } from '@/utils/notation'
+import type { Spar } from '@/app/modes/spar/useSpar'
+import type { Watch } from '@/app/modes/view/useWatch'
+import type { TesujiTrainer as Tesuji } from '@/app/modes/tesuji/useTesuji'
+import type { Tsume } from '@/app/modes/tsume/useTsume'
 import { LessonControls, ReviewControls, TesujiControls, TsumeControls } from './PracticeControls'
-import type { Drill } from '../modes/drill/useDrill'
-import type { Lesson } from '../modes/lesson/useLesson'
-import { STRENGTH, TIME_CONTROLS, setSettings, useSettings, type AiStrength } from '../../appearance/settings'
-import { MODES, isGameMode, type LessonMode } from '../types'
-import { Button } from '../ui/Button'
-import { cx } from '../ui/cx'
-import { useGlide } from '../hooks/useGlide'
-import { engineSupported, restartEngine, useEngineStatus } from '../../engine'
-import { FAMILIES, STRATEGIES } from '../../data/strategies'
-import { strategyCourses } from '../lib/book'
+import type { Drill } from '@/app/modes/drill/useDrill'
+import type { Lesson } from '@/app/modes/lesson/useLesson'
+import { STRENGTH, TIME_CONTROLS, setSettings, useSettings, type AiStrength } from '@/appearance/settings'
+import { MODES, isGameMode, type LessonMode } from '@/app/types'
+import { Button } from '@/app/ui/Button'
+import { cx } from '@/app/ui/cx'
+import { useGlide } from '@/app/hooks/useGlide'
+import { engineSupported, restartEngine, useEngineStatus } from '@/utils/engine'
+import { FAMILIES, STRATEGIES } from '@/data/strategies'
+import { strategyCourses } from '@/utils/book'
 
 type ModeBarProps = {
   title: string
@@ -43,7 +43,10 @@ function EvalChip({ rate, barShown }: { rate: number; barShown: boolean }) {
   const { t } = useTranslation()
   const fill = useGlide<HTMLSpanElement>('width', rate * 100)
   return (
-    <span className={`app-eval-chip${barShown ? ' has-bar' : ''}`} title={t('app.winChance', { value: Math.round(rate * 100), value2: 100 - Math.round(rate * 100) })}>
+    <span
+      className={`app-eval-chip${barShown ? ' has-bar' : ''}`}
+      title={t('app.winChance', { value: Math.round(rate * 100), value2: 100 - Math.round(rate * 100) })}
+    >
       <span className="app-eval-label">{t('app.winChanceShort')}</span>
       <span className="app-eval-track">
         <span ref={fill} style={{ width: `${rate * 100}%` }} />
@@ -55,30 +58,71 @@ function EvalChip({ rate, barShown }: { rate: number; barShown: boolean }) {
   )
 }
 
-export function ModeBar({ title, instruction, lessonMode, sheetUp, panelHidden, onPanel, spar, watch, onWatchSetup, evalRate, barShown, onStartOver, tsume, tesuji, lesson, drill }: ModeBarProps) {
+export function ModeBar({
+  title,
+  instruction,
+  lessonMode,
+  sheetUp,
+  panelHidden,
+  onPanel,
+  spar,
+  watch,
+  onWatchSetup,
+  evalRate,
+  barShown,
+  onStartOver,
+  tsume,
+  tesuji,
+  lesson,
+  drill,
+}: ModeBarProps) {
   const { t } = useTranslation()
   const settings = useSettings()
   const engine = useEngineStatus()
   const unavailable = !engineSupported()
   const ja = settings.lang === 'ja'
   const { mode, course, lastMove, prevSfen, plyBase, preview, cursor, toMove, nav, gameOver, game } = useSession()
-  const seal = !ja ? <Icon name={MODES.find((m) => m.id === mode)!.icon} size={22} /> : mode === 'lesson' && course ? t(lessonMode === 'study' ? 'modes.sealStudy' : 'modes.sealQuiz') : t(`modes.${mode}.name`)
+  const seal = !ja ? (
+    <Icon name={MODES.find((m) => m.id === mode)!.icon} size={22} />
+  ) : mode === 'lesson' && course ? (
+    t(lessonMode === 'study' ? 'modes.sealStudy' : 'modes.sealQuiz')
+  ) : (
+    t(`modes.${mode}.name`)
+  )
   return (
     <header className={`app-modebar${sheetUp ? ' sheet-up' : ''} m-${mode}${mode === 'lesson' ? ` l-${lessonMode}` : ''}`}>
       <span className="app-modebar-seal">{seal}</span>
       <span className="app-modebar-text">
         <strong>{title}</strong>
-        <span role="status" aria-busy={engine.loading}>{unavailable ? t('engine.theAiNeedsACross') : engine.error ? engine.error : engine.loading ? t('engine.loadingEngine') : instruction}</span>
+        <span role="status" aria-busy={engine.loading}>
+          {unavailable ? t('engine.theAiNeedsACross') : engine.error ? engine.error : engine.loading ? t('engine.loadingEngine') : instruction}
+        </span>
       </span>
-      {engine.error && (isGameMode(mode) || mode === 'view') && <Button size="sm" onClick={() => { restartEngine(); if (mode === 'view') watch.toggle() }}>{t('tsume.tryAgain')}</Button>}
-      {unavailable && <Button size="sm" onClick={() => location.reload()}>{t('engine.reloadPage')}</Button>}
+      {engine.error && (isGameMode(mode) || mode === 'view') && (
+        <Button
+          size="sm"
+          onClick={() => {
+            restartEngine()
+            if (mode === 'view') watch.toggle()
+          }}
+        >
+          {t('tsume.tryAgain')}
+        </Button>
+      )}
+      {unavailable && (
+        <Button size="sm" onClick={() => location.reload()}>
+          {t('engine.reloadPage')}
+        </Button>
+      )}
       {mode === 'view' && (
         <>
           <Button size="sm" onClick={watch.started ? watch.toggle : onWatchSetup} disabled={watch.started && !watch.canPlay}>
             <Icon name={watch.running ? 'pause' : 'play'} size={16} />
             {t(!watch.started ? 'newGame.start' : watch.running ? 'watch.pause' : 'watch.resume')}
           </Button>
-          <Button size="sm" onClick={watch.restart}>{t('watch.newGame')}</Button>
+          <Button size="sm" onClick={watch.restart}>
+            {t('watch.newGame')}
+          </Button>
         </>
       )}
       <span className="app-lastmove">
@@ -93,13 +137,26 @@ export function ModeBar({ title, instruction, lessonMode, sheetUp, panelHidden, 
         <span className={`app-turn ${toMove}`}>{t('app.toMove', { side: sideMark(toMove) })}</span>
       </span>
       {(isGameMode(mode) || mode === 'view') && (
-        <Button size="sm" variant="ghost" className={cx('app-help-toggle', settings.assist && 'on')} onClick={() => setSettings({ assist: !settings.assist })} title={settings.assist ? t('app.helpIsOnEvalBar') : t('app.noHelpClickToShow')} aria-pressed={settings.assist}>
+        <Button
+          size="sm"
+          variant="ghost"
+          className={cx('app-help-toggle', settings.assist && 'on')}
+          onClick={() => setSettings({ assist: !settings.assist })}
+          title={settings.assist ? t('app.helpIsOnEvalBar') : t('app.noHelpClickToShow')}
+          aria-pressed={settings.assist}
+        >
           {settings.assist ? t('app.coachOn') : t('app.coachOff')}
         </Button>
       )}
       {mode === 'spar' && game.moves.length > 0 && !gameOver && !spar.resigned && (
         <>
-          <Button size="sm" variant={spar.erred ? 'primary' : 'secondary'} onClick={spar.takeBack} disabled={spar.lastUserMove < 0} title={t('app.takeBackYourLastMove3')}>
+          <Button
+            size="sm"
+            variant={spar.erred ? 'primary' : 'secondary'}
+            onClick={spar.takeBack}
+            disabled={spar.lastUserMove < 0}
+            title={t('app.takeBackYourLastMove3')}
+          >
             {t('app.takeBack')}
           </Button>
           <Button size="sm" variant="ghost" onClick={spar.confirmResign}>
@@ -117,7 +174,12 @@ export function ModeBar({ title, instruction, lessonMode, sheetUp, panelHidden, 
         </Button>
       )}
       {mode === 'spar' && (
-        <Button variant={spar.erred ? 'secondary' : 'primary'} className="app-game-setup" onClick={() => spar.setNewGameOpen(true)} title={`${STRENGTH[settings.opponent].label} · ${TIME_CONTROLS[settings.timeControl].label}`}>
+        <Button
+          variant={spar.erred ? 'secondary' : 'primary'}
+          className="app-game-setup"
+          onClick={() => spar.setNewGameOpen(true)}
+          title={`${STRENGTH[settings.opponent].label} · ${TIME_CONTROLS[settings.timeControl].label}`}
+        >
           {t('newGame.button')}
         </Button>
       )}
@@ -151,21 +213,51 @@ export function ModeBar({ title, instruction, lessonMode, sheetUp, panelHidden, 
 export function WatchOptions({ watch }: { watch: Watch }) {
   const { t } = useTranslation()
   const ja = useSettings().lang === 'ja'
-  return <>
-          {watch.bots.map((strength, index) => (
-            <div key={index} className="app-bot-settings" role="group" aria-label={watch.name(index)}>
-              <span>{watch.name(index)}{watch.side(index) && ` · ${t(`common.${watch.side(index)}`)}`}</span>
-              <select className="app-field" aria-label={t('watch.difficulty', { bot: watch.name(index) })} value={strength} onChange={(event) => watch.setBot(index, event.target.value as AiStrength)}>
-                {(Object.entries(STRENGTH) as [AiStrength, typeof STRENGTH[AiStrength]][]).map(([id, level]) => <option key={id} value={id}>{level.label}</option>)}
-              </select>
-              <select className="app-field" aria-label={t('watch.strategy', { bot: watch.name(index) })} value={watch.strategies[index]} onChange={(event) => watch.setStrategy(index, event.target.value)}>
-                <option value="">{t('app.anyStrategy')}</option>
-                {Object.entries(FAMILIES).map(([family, label]) => {
-                  const choices = STRATEGIES.filter((strategy) => strategy.family === family && (strategyCourses(strategy.id, 'sente').length > 0 || strategyCourses(strategy.id, 'gote').length > 0))
-                  return choices.length ? <optgroup key={family} label={ja ? label.ja : label.en}>{choices.map((strategy) => <option key={strategy.id} value={strategy.id}>{ja ? strategy.ja : strategy.en}</option>)}</optgroup> : null
-                })}
-              </select>
-            </div>
-          ))}
-  </>
+  return (
+    <>
+      {watch.bots.map((strength, index) => (
+        <div key={index} className="app-bot-settings" role="group" aria-label={watch.name(index)}>
+          <span>
+            {watch.name(index)}
+            {watch.side(index) && ` · ${t(`common.${watch.side(index)}`)}`}
+          </span>
+          <select
+            className="app-field"
+            aria-label={t('watch.difficulty', { bot: watch.name(index) })}
+            value={strength}
+            onChange={(event) => watch.setBot(index, event.target.value as AiStrength)}
+          >
+            {(Object.entries(STRENGTH) as [AiStrength, (typeof STRENGTH)[AiStrength]][]).map(([id, level]) => (
+              <option key={id} value={id}>
+                {level.label}
+              </option>
+            ))}
+          </select>
+          <select
+            className="app-field"
+            aria-label={t('watch.strategy', { bot: watch.name(index) })}
+            value={watch.strategies[index]}
+            onChange={(event) => watch.setStrategy(index, event.target.value)}
+          >
+            <option value="">{t('app.anyStrategy')}</option>
+            {Object.entries(FAMILIES).map(([family, label]) => {
+              const choices = STRATEGIES.filter(
+                (strategy) =>
+                  strategy.family === family && (strategyCourses(strategy.id, 'sente').length > 0 || strategyCourses(strategy.id, 'gote').length > 0),
+              )
+              return choices.length ? (
+                <optgroup key={family} label={ja ? label.ja : label.en}>
+                  {choices.map((strategy) => (
+                    <option key={strategy.id} value={strategy.id}>
+                      {ja ? strategy.ja : strategy.en}
+                    </option>
+                  ))}
+                </optgroup>
+              ) : null
+            })}
+          </select>
+        </div>
+      ))}
+    </>
+  )
 }

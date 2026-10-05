@@ -1,9 +1,17 @@
 import { useEffect, useRef } from 'react'
 import { useLocation, useNavigate } from 'react-router'
-import { getSettings, setSettings } from '../../appearance/settings'
-import type { Mode } from '../types'
+import { getSettings, setSettings } from '@/appearance/settings'
+import type { Mode } from '@/app/types'
 
-export const MODE_SLUG: Record<Mode, string> = { spar: 'play', view: 'view', analyze: 'analyze', lesson: 'openings', drill: 'review', tsume: 'tsume', tesuji: 'tesuji' }
+export const MODE_SLUG: Record<Mode, string> = {
+  spar: 'play',
+  view: 'view',
+  analyze: 'analyze',
+  lesson: 'openings',
+  drill: 'review',
+  tsume: 'tsume',
+  tesuji: 'tesuji',
+}
 
 const SLUG_MODE = Object.fromEntries(Object.entries(MODE_SLUG).map(([m, s]) => [s, m as Mode])) as Record<string, Mode>
 

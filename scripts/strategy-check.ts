@@ -1,10 +1,14 @@
 import { readdirSync, readFileSync } from 'node:fs'
-import { buildCatalog, sideOf, strategiesAt } from '../src/catalog'
+import { buildCatalog, sideOf, strategiesAt } from '../src/utils/catalog'
 import { COURSE_SIDES, MATCHUPS, SOURCE_URLS, STRATEGIES, TECHNIQUES, strategyById } from '../src/data/strategies'
-import type { RawCourse } from '../src/model'
+import type { RawCourse } from '../src/utils/model'
 
 const dirs = ['vendor/shiryu-joseki/src/data/joseki', 'src/data/joseki']
-const raws: RawCourse[] = dirs.flatMap((dir) => readdirSync(dir).filter((f) => f.endsWith('.json')).map((f) => JSON.parse(readFileSync(`${dir}/${f}`, 'utf8')) as RawCourse))
+const raws: RawCourse[] = dirs.flatMap((dir) =>
+  readdirSync(dir)
+    .filter((f) => f.endsWith('.json'))
+    .map((f) => JSON.parse(readFileSync(`${dir}/${f}`, 'utf8')) as RawCourse),
+)
 const byId = new Map(raws.map((r) => [r.id, r]))
 const errors: string[] = []
 const fail = (msg: string) => errors.push(msg)
@@ -13,7 +17,8 @@ const techniqueIds = new Set(TECHNIQUES.flatMap((t) => t.courseIds))
 const listed = new Set(MATCHUPS.flatMap((m) => m.courseIds))
 
 for (const raw of raws) {
-  if (!/https?:\/\/\S+|\b[a-z0-9-]+(\.[a-z0-9-]+)*\.(com|jp|org|net)\b/i.test(raw.source ?? '') && !SOURCE_URLS[raw.id]?.length) fail(`${raw.id}: source does not cite a URL`)
+  if (!/https?:\/\/\S+|\b[a-z0-9-]+(\.[a-z0-9-]+)*\.(com|jp|org|net)\b/i.test(raw.source ?? '') && !SOURCE_URLS[raw.id]?.length)
+    fail(`${raw.id}: source does not cite a URL`)
   if (!techniqueIds.has(raw.id) && !listed.has(raw.id)) fail(`${raw.id}: not in any matchup or technique`)
   if (!techniqueIds.has(raw.id) && !COURSE_SIDES[raw.id]) fail(`${raw.id}: no COURSE_SIDES entry`)
 }
@@ -45,7 +50,17 @@ for (const m of MATCHUPS) {
   }
 }
 
-const RAW_WING: Record<string, string> = { shikenbisha: 'furibisha', sankenbisha: 'furibisha', nakabisha: 'furibisha', mukaibisha: 'furibisha', ibisha: 'ibisha', kakugawari: 'ibisha', yagura: 'ibisha', aigakari: 'ibisha', sujichigaikaku: 'ibisha' }
+const RAW_WING: Record<string, string> = {
+  shikenbisha: 'furibisha',
+  sankenbisha: 'furibisha',
+  nakabisha: 'furibisha',
+  mukaibisha: 'furibisha',
+  ibisha: 'ibisha',
+  kakugawari: 'ibisha',
+  yagura: 'ibisha',
+  aigakari: 'ibisha',
+  sujichigaikaku: 'ibisha',
+}
 for (const raw of raws) {
   const sides = COURSE_SIDES[raw.id]
   if (!sides) continue

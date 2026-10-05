@@ -1,5 +1,5 @@
 import { useSyncExternalStore } from 'react'
-import type { MoveReview } from '../analysis'
+import type { MoveReview } from '@/utils/analysis'
 
 const REVIEWS = 'joseki-practice:reviews:v1'
 const EVALS = 'joseki-practice:evals:v1'
@@ -52,10 +52,15 @@ export function rememberReview(sfen: string, usi: string, review: MoveReview) {
 }
 
 export function useReviewVersion() {
-  return useSyncExternalStore((listener) => {
-    reviewListeners.add(listener)
-    return () => { reviewListeners.delete(listener) }
-  }, () => reviewVersion)
+  return useSyncExternalStore(
+    (listener) => {
+      reviewListeners.add(listener)
+      return () => {
+        reviewListeners.delete(listener)
+      }
+    },
+    () => reviewVersion,
+  )
 }
 
 export const cachedEval = (sfen: string): number | undefined => evals[strip(sfen)]

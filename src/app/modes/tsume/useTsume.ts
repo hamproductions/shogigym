@@ -1,16 +1,26 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { BoardArrow } from '../../../rendering/Board3D'
-import type { BoardSession } from '../../hooks/useBoardSession'
-import type { Mistakes } from '../../hooks/useMistake'
-import type { Load } from '../../hooks/useModeSwitch'
-import { sideMark } from '../../lib/notation'
-import { attackerOf, defenderMove, judgeTsumeMove, loadTsumeStats, markTsume, pickProblem, type Problem } from '../../practice'
-import { playSound } from '../../../appearance/settings'
-import type { Tab } from '../../types'
+import type { BoardArrow } from '@/rendering/Board3D'
+import type { BoardSession } from '@/app/hooks/useBoardSession'
+import type { Mistakes } from '@/app/hooks/useMistake'
+import type { Load } from '@/app/hooks/useModeSwitch'
+import { sideMark } from '@/utils/notation'
+import { attackerOf, defenderMove, judgeTsumeMove, loadTsumeStats, markTsume, pickProblem, type Problem } from '@/app/practice'
+import { playSound } from '@/appearance/settings'
+import type { Tab } from '@/app/types'
 
 export type TsumeLength = number | 'all'
-export type TsumeState = { problem: Problem; onBook: boolean; status: 'playing' | 'checking' | 'solved' | 'wrong' | 'shown'; reason?: string; hint: number; length: TsumeLength; good: number; missed?: boolean; seen?: boolean }
+export type TsumeState = {
+  problem: Problem
+  onBook: boolean
+  status: 'playing' | 'checking' | 'solved' | 'wrong' | 'shown'
+  reason?: string
+  hint: number
+  length: TsumeLength
+  good: number
+  missed?: boolean
+  seen?: boolean
+}
 
 const HINT_YELLOW = '#d4a017'
 
@@ -79,7 +89,8 @@ export function useTsume(session: BoardSession, { mistakes, load, setTab }: { mi
     hidesAnswer: mode === 'tsume' && tsume?.status !== 'solved' && tsume?.status !== 'shown',
     arrows: (mode === 'tsume' && tsume && tsume.hint >= 2 && cursor === 0 ? [{ usi: tsume.problem.pv[0], color: HINT_YELLOW }] : []) as BoardArrow[],
     title: tsume ? t('app.tsumeMateIn', { mate: tsume.problem.mate }) : null,
-    instruction: () => (tsume ? t('app.toPlayMateInEvery', { side: sideMark(attackerOf(tsume.problem)), mate: tsume.problem.mate }) : t('app.everyAttackingMoveMustGive')),
+    instruction: () =>
+      tsume ? t('app.toPlayMateInEvery', { side: sideMark(attackerOf(tsume.problem)), mate: tsume.problem.mate }) : t('app.everyAttackingMoveMustGive'),
     start,
     startDefault,
     next: () => tsume && start(tsume.length, tsume.problem.id),

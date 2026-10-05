@@ -206,34 +206,32 @@
 }
 
 @media (max-width: 820px) {
-.app-lesson-top {
+  .app-lesson-top {
     margin-bottom: var(--space-1);
   }
 
-.app-lesson-pane > .app-seg.big {
+  .app-lesson-pane > .app-seg.big {
     order: -1;
     margin-bottom: var(--space-2);
   }
 
-.app-lesson-pane > .app-seg.big button {
+  .app-lesson-pane > .app-seg.big button {
     padding: var(--space-1-5) var(--space-2-5);
   }
 
-.app-lesson-pane > .app-seg.big button span {
+  .app-lesson-pane > .app-seg.big button span {
     display: none;
   }
 
-.app-lesson-pane > .app-card,
+  .app-lesson-pane > .app-card,
   .app-lesson-pane > .app-score {
     order: -1;
     margin: 0 0 var(--space-2-5);
   }
 
-.app-lesson-pane > .app-score {
+  .app-lesson-pane > .app-score {
     order: -2;
   }
-
-
 }
 
 .app-main-current {

@@ -6,7 +6,8 @@ export default {
   mySide: 'sente',
   userSide: 'sente',
   noEngine: true,
-  source: '局面と手はshogi-rule.com「歩の効果的な手筋」(https://www.shogi-rule.com/koma_hu/)の「たたきの歩」の図(中飛車 対 居飛車)をSFENに変換。持ち駒は図に表示がないため、打つ歩と本文で使う角だけを置いた。',
+  source:
+    '局面と手はshogi-rule.com「歩の効果的な手筋」(https://www.shogi-rule.com/koma_hu/)の「たたきの歩」の図(中飛車 対 居飛車)をSFENに変換。持ち駒は図に表示がないため、打つ歩と本文で使う角だけを置いた。',
   goalFormation: 'たたきの歩: 自分が打たれたら嫌なところに歩を叩く。',
   startSfen: 'ln1gr2nl/1ks3g2/pppp1pppp/4s4/9/2P6/PP1P1PP1P/2K1GS1R1/LNSG3NL b BP 1',
   rootComment: '中飛車 対 居飛車でよく見られる形。後手の5筋に歩を叩きます。',

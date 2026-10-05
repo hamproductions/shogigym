@@ -1,11 +1,11 @@
 import './panel-layout.css'
 import type { PointerEvent as ReactPointerEvent } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { Layout } from '../hooks/useLayout'
-import { useSettings } from '../../appearance/settings'
-import { TABS, type Tab } from '../types'
-import { Button } from '../ui/Button'
-import { Tabs } from '../ui/Tabs'
+import type { Layout } from '@/app/hooks/useLayout'
+import { useSettings } from '@/appearance/settings'
+import { TABS, type Tab } from '@/app/types'
+import { Button } from '@/app/ui/Button'
+import { Tabs } from '@/app/ui/Tabs'
 import { NavFooter } from './NavFooter'
 import { PanelBody, type PanelModel } from './PanelBody'
 
@@ -53,12 +53,39 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
           <PanelBody tab="moves" model={model} overlays={false} />
         </aside>
       )}
-      <aside className={`app-panel${sheetOpen ? ' open' : ''}`} style={zoned ? (zones && !panelPrefsHidden ? (picking ? { ...zones.over, height: Math.max(zones.over.height, zones.under.top + zones.under.height - zones.over.top) } : { ...zones.over }) : { display: 'none' }) : undefined}>
+      <aside
+        className={`app-panel${sheetOpen ? ' open' : ''}`}
+        style={
+          zoned
+            ? zones && !panelPrefsHidden
+              ? picking
+                ? { ...zones.over, height: Math.max(zones.over.height, zones.under.top + zones.under.height - zones.over.top) }
+                : { ...zones.over }
+              : { display: 'none' }
+            : undefined
+        }
+      >
         {compact && <div className="app-sheet-grip" role="separator" aria-orientation="horizontal" onPointerDown={startSheetDrag} />}
         <div className="app-panel-resize" title={t('app.dragToResizeThePanel')} onPointerDown={startResize} />
-        <button className="app-sheet-handle" onClick={() => layout.setSheetOpen(!sheetOpen)} onPointerDown={startHandleSwipe} aria-label={sheetOpen ? t('app.collapsePanel') : t('app.expandPanel')} />
-        <Tabs items={TABS.filter((id) => !(twoPanels && id === 'moves')).map((id) => ({ id, label: <span className={labelClass}>{t(`tabs.${id}`)}</span> }))} value={tab} onChange={setTab}>
-          <Button variant="icon" size="lg" className="app-panel-close" onClick={() => setPanel({ hidden: true })} title={t('app.closeThePanelP')} aria-label={t('app.closeThePanel')}>
+        <button
+          className="app-sheet-handle"
+          onClick={() => layout.setSheetOpen(!sheetOpen)}
+          onPointerDown={startHandleSwipe}
+          aria-label={sheetOpen ? t('app.collapsePanel') : t('app.expandPanel')}
+        />
+        <Tabs
+          items={TABS.filter((id) => !(twoPanels && id === 'moves')).map((id) => ({ id, label: <span className={labelClass}>{t(`tabs.${id}`)}</span> }))}
+          value={tab}
+          onChange={setTab}
+        >
+          <Button
+            variant="icon"
+            size="lg"
+            className="app-panel-close"
+            onClick={() => setPanel({ hidden: true })}
+            title={t('app.closeThePanelP')}
+            aria-label={t('app.closeThePanel')}
+          >
             ×
           </Button>
         </Tabs>

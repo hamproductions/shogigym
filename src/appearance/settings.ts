@@ -1,6 +1,6 @@
 import type { PieceSet } from './pieceSets'
-import { applyTheme, type Theme } from '../app/theme'
-import i18n from '../i18n'
+import { applyTheme, type Theme } from '@/utils/theme'
+import i18n from '@/utils/i18n'
 import { useSyncExternalStore } from 'react'
 
 export type PieceStyle = 'two' | 'one'
@@ -47,7 +47,9 @@ export type Settings = {
   power: boolean
 }
 
-export type PieceAppearance = Partial<Pick<Settings, 'pieceSet' | 'pieceFont' | 'pieceStyle' | 'pieceGuide' | 'pieceMaterial' | 'pieceGrain' | 'pieceFinish' | 'pieceColor'>>
+export type PieceAppearance = Partial<
+  Pick<Settings, 'pieceSet' | 'pieceFont' | 'pieceStyle' | 'pieceGuide' | 'pieceMaterial' | 'pieceGrain' | 'pieceFinish' | 'pieceColor'>
+>
 
 const KEY = 'joseki-practice:settings:v1'
 
@@ -67,7 +69,35 @@ function defaultEnvironment(): Environment {
   }
 }
 
-const DEFAULTS: Settings = { sound: true, voice: true, volume: 0.6, pieceStyle: 'two', pieceGuide: 'none', pieceFont: 'mincho', pieceSet: 'letters', pieceFinish: 'moriage', pieceMaterial: 'satsuma', pieceColor: 'natural', pieceGrain: 'masame', coords: true, environment: defaultEnvironment(), boardStyle: 'kaya', thinkMs: 1500, candidates: 3, opponent: 'beginner', aiStrategy: '', mainStrategy: 'shikenbisha', assist: true, timeControl: 'none', lang: navigatorLang(), engine: 'yaneuraou', fvScale: 16, theme: 'system', characters: true, power: false }
+const DEFAULTS: Settings = {
+  sound: true,
+  voice: true,
+  volume: 0.6,
+  pieceStyle: 'two',
+  pieceGuide: 'none',
+  pieceFont: 'mincho',
+  pieceSet: 'letters',
+  pieceFinish: 'moriage',
+  pieceMaterial: 'satsuma',
+  pieceColor: 'natural',
+  pieceGrain: 'masame',
+  coords: true,
+  environment: defaultEnvironment(),
+  boardStyle: 'kaya',
+  thinkMs: 1500,
+  candidates: 3,
+  opponent: 'beginner',
+  aiStrategy: '',
+  mainStrategy: 'shikenbisha',
+  assist: true,
+  timeControl: 'none',
+  lang: navigatorLang(),
+  engine: 'yaneuraou',
+  fvScale: 16,
+  theme: 'system',
+  characters: true,
+  power: false,
+}
 
 function read(): Settings {
   try {
@@ -115,10 +145,38 @@ export function useSettings() {
 }
 
 export const STRENGTH: Record<AiStrength, { label: string; movetime: number; pickFrom: number; maxLoss: number }> = {
-  beginner: { get label() { return i18n.t('options.beginner') }, movetime: 150, pickFrom: 4, maxLoss: 0.2 },
-  club: { get label() { return i18n.t('options.clubPlayer') }, movetime: 300, pickFrom: 3, maxLoss: 0.07 },
-  strong: { get label() { return i18n.t('options.strong') }, movetime: 800, pickFrom: 1, maxLoss: 0 },
-  max: { get label() { return i18n.t('options.fullStrength') }, movetime: 2000, pickFrom: 1, maxLoss: 0 },
+  beginner: {
+    get label() {
+      return i18n.t('options.beginner')
+    },
+    movetime: 150,
+    pickFrom: 4,
+    maxLoss: 0.2,
+  },
+  club: {
+    get label() {
+      return i18n.t('options.clubPlayer')
+    },
+    movetime: 300,
+    pickFrom: 3,
+    maxLoss: 0.07,
+  },
+  strong: {
+    get label() {
+      return i18n.t('options.strong')
+    },
+    movetime: 800,
+    pickFrom: 1,
+    maxLoss: 0,
+  },
+  max: {
+    get label() {
+      return i18n.t('options.fullStrength')
+    },
+    movetime: 2000,
+    pickFrom: 1,
+    maxLoss: 0,
+  },
 }
 
 let audio: AudioContext | null = null
@@ -209,8 +267,7 @@ export function playSound(kind: 'move' | 'capture' | 'right' | 'wrong' | 'comple
       knock(0, 420, 5, 0.5)
       knock(0.02, 1600, 2.5, 0.2)
       for (const [i, f] of [523, 784, 1046].entries()) tone(0.35 + i * 0.08, f, 0.05, 2.2)
-    }
-    else if (kind === 'capture') knock(0, 1250, 2.2, 0.13)
+    } else if (kind === 'capture') knock(0, 1250, 2.2, 0.13)
     else if (kind === 'bang') {
       knock(0, 140, 9, 0.45)
       knock(0, 420, 5, 0.25)
@@ -231,10 +288,38 @@ export function playSound(kind: 'move' | 'capture' | 'right' | 'wrong' | 'comple
 }
 
 export const PIECE_FONTS: Record<PieceFont, { label: string; family: string; weight: number; load: () => Promise<unknown> }> = {
-  mincho: { get label() { return i18n.t('options.mincho') }, family: 'Shippori Mincho B1', weight: 800, load: async () => undefined },
-  kaisho: { get label() { return i18n.t('options.kaisho') }, family: 'Yuji Syuku', weight: 400, load: () => import('@fontsource/yuji-syuku/400.css') },
-  gyosho: { get label() { return i18n.t('options.gySho') }, family: 'Yuji Boku', weight: 400, load: () => import('@fontsource/yuji-boku/400.css') },
-  antique: { get label() { return i18n.t('options.antique') }, family: 'Zen Antique', weight: 400, load: () => import('@fontsource/zen-antique/400.css') },
+  mincho: {
+    get label() {
+      return i18n.t('options.mincho')
+    },
+    family: 'Shippori Mincho B1',
+    weight: 800,
+    load: async () => undefined,
+  },
+  kaisho: {
+    get label() {
+      return i18n.t('options.kaisho')
+    },
+    family: 'Yuji Syuku',
+    weight: 400,
+    load: () => import('@fontsource/yuji-syuku/400.css'),
+  },
+  gyosho: {
+    get label() {
+      return i18n.t('options.gySho')
+    },
+    family: 'Yuji Boku',
+    weight: 400,
+    load: () => import('@fontsource/yuji-boku/400.css'),
+  },
+  antique: {
+    get label() {
+      return i18n.t('options.antique')
+    },
+    family: 'Zen Antique',
+    weight: 400,
+    load: () => import('@fontsource/zen-antique/400.css'),
+  },
 }
 
 export async function loadPieceFont(font: PieceFont) {
@@ -243,35 +328,119 @@ export async function loadPieceFont(font: PieceFont) {
   await document.fonts.load(`${spec.weight} 100px "${spec.family}"`, '歩兵王将玉飛車角行金銀桂馬香成龍と')
 }
 
-const optionLabel = (en: string, ja: string) => i18n.language.startsWith('ja') ? ja : en
+const optionLabel = (en: string, ja: string) => (i18n.language.startsWith('ja') ? ja : en)
 
 export const PIECE_MATERIALS: Record<PieceMaterial, { label: string; tone: [number, number, number] }> = {
-  satsuma: { get label() { return optionLabel('Satsuma boxwood', '薩摩つげ') }, tone: [240, 210, 152] },
-  mikura: { get label() { return optionLabel('Mikura boxwood', '御蔵島つげ') }, tone: [246, 216, 144] },
-  sham: { get label() { return optionLabel('Sham-tsuge', 'シャムつげ') }, tone: [225, 196, 140] },
-  tsubaki: { get label() { return optionLabel('Camellia', '椿') }, tone: [235, 209, 179] },
-  maki: { get label() { return optionLabel('Podocarpus', '槇') }, tone: [234, 215, 168] },
-  maple: { get label() { return optionLabel('Maple', 'イタヤ・楓') }, tone: [245, 226, 190] },
-  plastic: { get label() { return optionLabel('Plastic', 'プラスチック') }, tone: [245, 227, 189] },
-  glass: { get label() { return optionLabel('Glass', 'ガラス') }, tone: [224, 241, 245] },
-  frostedGlass: { get label() { return optionLabel('Frosted glass', 'すりガラス') }, tone: [232, 240, 242] },
+  satsuma: {
+    get label() {
+      return optionLabel('Satsuma boxwood', '薩摩つげ')
+    },
+    tone: [240, 210, 152],
+  },
+  mikura: {
+    get label() {
+      return optionLabel('Mikura boxwood', '御蔵島つげ')
+    },
+    tone: [246, 216, 144],
+  },
+  sham: {
+    get label() {
+      return optionLabel('Sham-tsuge', 'シャムつげ')
+    },
+    tone: [225, 196, 140],
+  },
+  tsubaki: {
+    get label() {
+      return optionLabel('Camellia', '椿')
+    },
+    tone: [235, 209, 179],
+  },
+  maki: {
+    get label() {
+      return optionLabel('Podocarpus', '槇')
+    },
+    tone: [234, 215, 168],
+  },
+  maple: {
+    get label() {
+      return optionLabel('Maple', 'イタヤ・楓')
+    },
+    tone: [245, 226, 190],
+  },
+  plastic: {
+    get label() {
+      return optionLabel('Plastic', 'プラスチック')
+    },
+    tone: [245, 227, 189],
+  },
+  glass: {
+    get label() {
+      return optionLabel('Glass', 'ガラス')
+    },
+    tone: [224, 241, 245],
+  },
+  frostedGlass: {
+    get label() {
+      return optionLabel('Frosted glass', 'すりガラス')
+    },
+    tone: [232, 240, 242],
+  },
 }
 
 export const PIECE_COLORS: Record<PieceColor, { label: string; tone?: [number, number, number] }> = {
-  natural: { get label() { return optionLabel('Natural', '自然色') } },
-  light: { get label() { return optionLabel('Light', '白色') }, tone: [250, 242, 222] },
-  dark: { get label() { return optionLabel('Dark', '黒色') }, tone: [48, 48, 48] },
-  mahogany: { get label() { return optionLabel('Red brown', '赤茶色') }, tone: [130, 43, 30] },
+  natural: {
+    get label() {
+      return optionLabel('Natural', '自然色')
+    },
+  },
+  light: {
+    get label() {
+      return optionLabel('Light', '白色')
+    },
+    tone: [250, 242, 222],
+  },
+  dark: {
+    get label() {
+      return optionLabel('Dark', '黒色')
+    },
+    tone: [48, 48, 48],
+  },
+  mahogany: {
+    get label() {
+      return optionLabel('Red brown', '赤茶色')
+    },
+    tone: [130, 43, 30],
+  },
 }
 
 export const pieceTone = (material: PieceMaterial, color: PieceColor) => PIECE_COLORS[color].tone ?? PIECE_MATERIALS[material].tone
 
 export const PIECE_GRAINS: Record<PieceGrain, { label: string }> = {
-  itame: { get label() { return optionLabel('Flat grain', '板目') } },
-  masame: { get label() { return optionLabel('Straight grain', '柾目') } },
-  root: { get label() { return optionLabel('Root figure', '根杢') } },
-  tiger: { get label() { return optionLabel('Tiger figure', '虎斑') } },
-  lightning: { get label() { return optionLabel('Lightning figure', '稲妻杢') } },
+  itame: {
+    get label() {
+      return optionLabel('Flat grain', '板目')
+    },
+  },
+  masame: {
+    get label() {
+      return optionLabel('Straight grain', '柾目')
+    },
+  },
+  root: {
+    get label() {
+      return optionLabel('Root figure', '根杢')
+    },
+  },
+  tiger: {
+    get label() {
+      return optionLabel('Tiger figure', '虎斑')
+    },
+  },
+  lightning: {
+    get label() {
+      return optionLabel('Lightning figure', '稲妻杢')
+    },
+  },
 }
 
 export const pieceFinishOptions = (_material: PieceMaterial): PieceFinish[] => ['oshi', 'kaki', 'hori', 'horiume', 'moriage']
@@ -281,22 +450,172 @@ export const selectedPieceFinish = () => {
 }
 
 export const PIECE_FINISHES: Record<PieceFinish, { label: string; hint: string; relief: number; gloss: number; coating: 'paint' | 'lacquer' }> = {
-  insatsu: { get label() { return optionLabel('Printed', '印刷') }, get hint() { return optionLabel('Flat printed characters.', '平面に印刷した文字。') }, relief: 0, gloss: 0, coating: 'paint' },
-  molded: { get label() { return optionLabel('Molded and painted', '成形・塗装') }, get hint() { return optionLabel('Molded recesses filled with paint.', '成形したくぼみに塗料を充填。') }, relief: -0.006, gloss: 0.25, coating: 'paint' },
-  fukabori: { get label() { return optionLabel('Deep carved', '深彫り') }, get hint() { return optionLabel('Deeply recessed characters.', '深く彫り込んだ文字。') }, relief: -0.03, gloss: 0.4, coating: 'lacquer' },
-  oshi: { get label() { return i18n.t('options.stamped') }, get hint() { return i18n.t('options.stampedInkPressedOntoThe') }, relief: 0.0015, gloss: 0, coating: 'paint' },
-  kaki: { get label() { return i18n.t('options.written') }, get hint() { return i18n.t('options.writtenLacquerPaintedStraightOnto') }, relief: 0.004, gloss: 0.7, coating: 'lacquer' },
-  hori: { get label() { return i18n.t('options.carved') }, get hint() { return i18n.t('options.carvedCharactersCutIntoThe') }, relief: -0.016, gloss: 0.4, coating: 'lacquer' },
-  horiume: { get label() { return i18n.t('options.carvedFilled') }, get hint() { return i18n.t('options.carvedThenTheGrooveFilled') }, relief: 0, gloss: 1, coating: 'lacquer' },
-  moriage: { get label() { return i18n.t('options.raisedLacquer') }, get hint() { return i18n.t('options.horiumeThenLacquerBuiltUp') }, relief: 0.012, gloss: 1, coating: 'lacquer' },
+  insatsu: {
+    get label() {
+      return optionLabel('Printed', '印刷')
+    },
+    get hint() {
+      return optionLabel('Flat printed characters.', '平面に印刷した文字。')
+    },
+    relief: 0,
+    gloss: 0,
+    coating: 'paint',
+  },
+  molded: {
+    get label() {
+      return optionLabel('Molded and painted', '成形・塗装')
+    },
+    get hint() {
+      return optionLabel('Molded recesses filled with paint.', '成形したくぼみに塗料を充填。')
+    },
+    relief: -0.006,
+    gloss: 0.25,
+    coating: 'paint',
+  },
+  fukabori: {
+    get label() {
+      return optionLabel('Deep carved', '深彫り')
+    },
+    get hint() {
+      return optionLabel('Deeply recessed characters.', '深く彫り込んだ文字。')
+    },
+    relief: -0.03,
+    gloss: 0.4,
+    coating: 'lacquer',
+  },
+  oshi: {
+    get label() {
+      return i18n.t('options.stamped')
+    },
+    get hint() {
+      return i18n.t('options.stampedInkPressedOntoThe')
+    },
+    relief: 0.0015,
+    gloss: 0,
+    coating: 'paint',
+  },
+  kaki: {
+    get label() {
+      return i18n.t('options.written')
+    },
+    get hint() {
+      return i18n.t('options.writtenLacquerPaintedStraightOnto')
+    },
+    relief: 0.004,
+    gloss: 0.7,
+    coating: 'lacquer',
+  },
+  hori: {
+    get label() {
+      return i18n.t('options.carved')
+    },
+    get hint() {
+      return i18n.t('options.carvedCharactersCutIntoThe')
+    },
+    relief: -0.016,
+    gloss: 0.4,
+    coating: 'lacquer',
+  },
+  horiume: {
+    get label() {
+      return i18n.t('options.carvedFilled')
+    },
+    get hint() {
+      return i18n.t('options.carvedThenTheGrooveFilled')
+    },
+    relief: 0,
+    gloss: 1,
+    coating: 'lacquer',
+  },
+  moriage: {
+    get label() {
+      return i18n.t('options.raisedLacquer')
+    },
+    get hint() {
+      return i18n.t('options.horiumeThenLacquerBuiltUp')
+    },
+    relief: 0.012,
+    gloss: 1,
+    coating: 'lacquer',
+  },
 }
 
 export const TIME_CONTROLS: Record<TimeControl, { label: string; hint: string; main: number; byoyomi: number; increment: number }> = {
-  none: { get hint() { return i18n.t('options.noClock') }, get label() { return i18n.t('options.none') }, main: 0, byoyomi: 0, increment: 0 },
-  '10s': { get hint() { return i18n.t('options.everyMoveWithin10Seconds') }, get label() { return i18n.t('options.10S') }, main: 0, byoyomi: 10, increment: 0 },
-  '3m': { get hint() { return i18n.t('options.3MinutesEachThenYou') }, get label() { return i18n.t('options.3Min') }, main: 180, byoyomi: 0, increment: 0 },
-  '10m': { get hint() { return i18n.t('options.10MinutesEachThenYou') }, get label() { return i18n.t('options.10Min') }, main: 600, byoyomi: 0, increment: 0 },
-  '10m30s': { get hint() { return i18n.t('options.10MinutesThen30Seconds') }, get label() { return i18n.t('options.10Min30S') }, main: 600, byoyomi: 30, increment: 0 },
-  '30m60s': { get hint() { return i18n.t('options.30MinutesThen60Seconds') }, get label() { return i18n.t('options.30Min60S') }, main: 1800, byoyomi: 60, increment: 0 },
-  '5m5s': { get hint() { return i18n.t('options.5MinutesPlus5Seconds') }, get label() { return i18n.t('options.5Min5S') }, main: 300, byoyomi: 0, increment: 5 },
+  none: {
+    get hint() {
+      return i18n.t('options.noClock')
+    },
+    get label() {
+      return i18n.t('options.none')
+    },
+    main: 0,
+    byoyomi: 0,
+    increment: 0,
+  },
+  '10s': {
+    get hint() {
+      return i18n.t('options.everyMoveWithin10Seconds')
+    },
+    get label() {
+      return i18n.t('options.10S')
+    },
+    main: 0,
+    byoyomi: 10,
+    increment: 0,
+  },
+  '3m': {
+    get hint() {
+      return i18n.t('options.3MinutesEachThenYou')
+    },
+    get label() {
+      return i18n.t('options.3Min')
+    },
+    main: 180,
+    byoyomi: 0,
+    increment: 0,
+  },
+  '10m': {
+    get hint() {
+      return i18n.t('options.10MinutesEachThenYou')
+    },
+    get label() {
+      return i18n.t('options.10Min')
+    },
+    main: 600,
+    byoyomi: 0,
+    increment: 0,
+  },
+  '10m30s': {
+    get hint() {
+      return i18n.t('options.10MinutesThen30Seconds')
+    },
+    get label() {
+      return i18n.t('options.10Min30S')
+    },
+    main: 600,
+    byoyomi: 30,
+    increment: 0,
+  },
+  '30m60s': {
+    get hint() {
+      return i18n.t('options.30MinutesThen60Seconds')
+    },
+    get label() {
+      return i18n.t('options.30Min60S')
+    },
+    main: 1800,
+    byoyomi: 60,
+    increment: 0,
+  },
+  '5m5s': {
+    get hint() {
+      return i18n.t('options.5MinutesPlus5Seconds')
+    },
+    get label() {
+      return i18n.t('options.5Min5S')
+    },
+    main: 300,
+    byoyomi: 0,
+    increment: 5,
+  },
 }

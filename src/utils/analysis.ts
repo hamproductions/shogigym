@@ -6,16 +6,76 @@ import i18n from './i18n'
 export type Label = 'brilliant' | 'great' | 'best' | 'excellent' | 'good' | 'book' | 'inaccuracy' | 'mistake' | 'miss' | 'blunder'
 
 export const LABELS: Record<Label, { text: string; symbol: string; color: string }> = {
-  brilliant: { get text() { return i18n.t('labels.brilliant') }, symbol: '!!', color: '#1baca6' },
-  great: { get text() { return i18n.t('labels.great') }, symbol: '!', color: '#5c8bb0' },
-  best: { get text() { return i18n.t('labels.best') }, symbol: '★', color: '#81b64c' },
-  excellent: { get text() { return i18n.t('labels.excellent') }, symbol: '◎', color: '#81b64c' },
-  good: { get text() { return i18n.t('labels.good') }, symbol: '○', color: '#95b776' },
-  book: { get text() { return i18n.t('labels.book') }, symbol: '本', color: '#a88865' },
-  inaccuracy: { get text() { return i18n.t('labels.inaccuracy') }, symbol: '?!', color: '#f0c15c' },
-  mistake: { get text() { return i18n.t('labels.mistake') }, symbol: '?', color: '#e58f2a' },
-  miss: { get text() { return i18n.t('labels.miss') }, symbol: '✗', color: '#ee6b55' },
-  blunder: { get text() { return i18n.t('labels.blunder') }, symbol: '??', color: '#ca3431' },
+  brilliant: {
+    get text() {
+      return i18n.t('labels.brilliant')
+    },
+    symbol: '!!',
+    color: '#1baca6',
+  },
+  great: {
+    get text() {
+      return i18n.t('labels.great')
+    },
+    symbol: '!',
+    color: '#5c8bb0',
+  },
+  best: {
+    get text() {
+      return i18n.t('labels.best')
+    },
+    symbol: '★',
+    color: '#81b64c',
+  },
+  excellent: {
+    get text() {
+      return i18n.t('labels.excellent')
+    },
+    symbol: '◎',
+    color: '#81b64c',
+  },
+  good: {
+    get text() {
+      return i18n.t('labels.good')
+    },
+    symbol: '○',
+    color: '#95b776',
+  },
+  book: {
+    get text() {
+      return i18n.t('labels.book')
+    },
+    symbol: '本',
+    color: '#a88865',
+  },
+  inaccuracy: {
+    get text() {
+      return i18n.t('labels.inaccuracy')
+    },
+    symbol: '?!',
+    color: '#f0c15c',
+  },
+  mistake: {
+    get text() {
+      return i18n.t('labels.mistake')
+    },
+    symbol: '?',
+    color: '#e58f2a',
+  },
+  miss: {
+    get text() {
+      return i18n.t('labels.miss')
+    },
+    symbol: '✗',
+    color: '#ee6b55',
+  },
+  blunder: {
+    get text() {
+      return i18n.t('labels.blunder')
+    },
+    symbol: '??',
+    color: '#ca3431',
+  },
 }
 
 export const PIECE_VALUE: Record<PieceType, number> = {
@@ -136,7 +196,12 @@ const squareName = (usi: string) => `${usi[0]}${'一二三四五六七八九'['a
 function isHanging(position: Position, move: Move): boolean {
   const after = position.clone()
   after.doMove(move)
-  return hangingPieces(after, move.color).has(move.to.usi) || (PIECE_VALUE[after.board.at(move.to)!.type] < 4 && attackersOf(after, move.to, after.color).length > 0 && attackersOf(after, move.to, move.color).length === 0)
+  return (
+    hangingPieces(after, move.color).has(move.to.usi) ||
+    (PIECE_VALUE[after.board.at(move.to)!.type] < 4 &&
+      attackersOf(after, move.to, after.color).length > 0 &&
+      attackersOf(after, move.to, move.color).length === 0)
+  )
 }
 
 export function describeMove(sfen: string, usi: string): string[] {
@@ -187,14 +252,24 @@ export function explainMistake(sfen: string, usi: string, best: Candidate, reply
   if (reply) {
     const replyMove = after.createMoveByUSI(reply.move)
     if (replyMove?.capturedPieceType && replyMove.to.equals(move.to))
-      reasons.push(i18n.t('moveFacts.canBeTaken', { piece: pieceName(after.board.at(move.to)!.type), square: squareName(move.to.usi), move: formatMove(after, replyMove) }))
-    else if (isHanging(position, move)) reasons.push(i18n.t('moveFacts.enPrise', { piece: pieceName(after.board.at(move.to)!.type), square: squareName(move.to.usi) }))
+      reasons.push(
+        i18n.t('moveFacts.canBeTaken', {
+          piece: pieceName(after.board.at(move.to)!.type),
+          square: squareName(move.to.usi),
+          move: formatMove(after, replyMove),
+        }),
+      )
+    else if (isHanging(position, move))
+      reasons.push(i18n.t('moveFacts.enPrise', { piece: pieceName(after.board.at(move.to)!.type), square: squareName(move.to.usi) }))
     const { swing, captured } = materialSwing(after, reply.pv, move.color, 6)
     const lost = captured.filter((c) => c.by !== move.color).map((c) => pieceName(c.type))
     if (swing <= -4 && lost.length)
       reasons.push(i18n.t('moveFacts.losesMaterial', { pieces: lost.join(i18n.t('moveFacts.sep')), line: lineText(after.sfen, reply.pv, 3) }))
     const threat = describeMove(after.sfen, reply.move)
-    if (threat.length) reasons.push(i18n.t('moveFacts.strongestReply', { move: formatMove(after, after.createMoveByUSI(reply.move)!), what: threat.join(i18n.t('moveFacts.sep')) }))
+    if (threat.length)
+      reasons.push(
+        i18n.t('moveFacts.strongestReply', { move: formatMove(after, after.createMoveByUSI(reply.move)!), what: threat.join(i18n.t('moveFacts.sep')) }),
+      )
   }
   if (best.move !== usi) {
     const { swing } = materialSwing(position, best.pv, move.color, 6)
@@ -222,14 +297,7 @@ function isSacrifice(sfen: string, usi: string): boolean {
   return given >= 3 && isHanging(position, move)
 }
 
-export function classify(params: {
-  sfen: string
-  usi: string
-  before: Analysis
-  after: Analysis | null
-  inBook: boolean
-  previousLoss?: number
-}): MoveReview {
+export function classify(params: { sfen: string; usi: string; before: Analysis; after: Analysis | null; inBook: boolean; previousLoss?: number }): MoveReview {
   const { sfen, usi, before, after, inBook } = params
   const best = before.candidates[0]
   const reply = after?.candidates[0] ?? null

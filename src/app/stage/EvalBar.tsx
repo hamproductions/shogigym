@@ -1,6 +1,6 @@
 import './eval-bar.css'
 import { useTranslation } from 'react-i18next'
-import { useGlide } from '../hooks/useGlide'
+import { useGlide } from '@/app/hooks/useGlide'
 
 export function EvalBar({ rate, flipped }: { rate: number; flipped: boolean }) {
   const { t } = useTranslation()

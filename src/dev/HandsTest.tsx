@@ -2,12 +2,12 @@ import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { Color, Position, Square } from 'tsshogi'
-import { loadAvatars, type AvatarController, type AvatarInspect, type AvatarSlot } from '../rendering/avatars'
-import { HALF_D, HALF_W, LEG, THICK, setBoardDims, squareX, squareZ } from '../rendering/board3d/dimensions'
-import { rebuild } from '../rendering/board3d/pieces'
-import { buildScene, createRenderer } from '../rendering/board3d/scene'
-import type { Board3DProps, SceneState } from '../rendering/board3d/types'
-import { loadPieceFont, setSettings, useSettings } from '../appearance/settings'
+import { loadAvatars, type AvatarController, type AvatarInspect, type AvatarSlot } from '@/rendering/avatars'
+import { HALF_D, HALF_W, LEG, THICK, setBoardDims, squareX, squareZ } from '@/rendering/board3d/dimensions'
+import { rebuild } from '@/rendering/board3d/pieces'
+import { buildScene, createRenderer } from '@/rendering/board3d/scene'
+import type { Board3DProps, SceneState } from '@/rendering/board3d/types'
+import { loadPieceFont, setSettings, useSettings } from '@/appearance/settings'
 
 type Room = 'traditional' | 'casual'
 type Pattern = { id: string; label: string; sfen: string; usi: string }
@@ -35,19 +35,47 @@ const DT = 1 / 60
 const SPEEDS = [1, 0.5, 0.25, 0.1]
 const FINGERS = ['Index', 'Middle', 'Ring', 'Little'].flatMap((f) => ['Proximal', 'Intermediate', 'Distal'].map((j) => `Right${f}${j}`))
 
-const framesFor = (pattern: Pattern) => Math.round(((Position.newBySFEN(pattern.sfen)!.board.at(Square.newByUSI(pattern.usi.slice(2, 4))!) ? 2 : 1) * 0.66 + 0.7) / DT)
+const framesFor = (pattern: Pattern) =>
+  Math.round(((Position.newBySFEN(pattern.sfen)!.board.at(Square.newByUSI(pattern.usi.slice(2, 4))!) ? 2 : 1) * 0.66 + 0.7) / DT)
 
-const props = (position: Position, lastMove?: string): Board3DProps => ({ position, flipped: false, tilted: true, lastMove, selected: null, targets: [], arrows: [], onSquare: () => undefined, onHand: () => undefined, onDrop: () => undefined })
+const props = (position: Position, lastMove?: string): Board3DProps => ({
+  position,
+  flipped: false,
+  tilted: true,
+  lastMove,
+  selected: null,
+  targets: [],
+  arrows: [],
+  onSquare: () => undefined,
+  onHand: () => undefined,
+  onDrop: () => undefined,
+})
 
 function slotFor(controller: AvatarController): AvatarSlot {
-  return { request: () => undefined, ready: () => true, walls: controller.walls, inspect: controller.inspect, swap: controller.swap, playMove: (move) => (controller.playMove({ ...move, sound: move.kind === 'capture' ? 'capture' : 'move' }), true), cue: controller.cue, update: controller.update, dispose: controller.dispose }
+  return {
+    request: () => undefined,
+    ready: () => true,
+    walls: controller.walls,
+    inspect: controller.inspect,
+    swap: controller.swap,
+    playMove: (move) => (controller.playMove({ ...move, sound: move.kind === 'capture' ? 'capture' : 'move' }), true),
+    cue: controller.cue,
+    update: controller.update,
+    dispose: controller.dispose,
+  }
 }
 
 type Overlay = { target: THREE.Mesh; pinch: THREE.Mesh; piece: THREE.Mesh; pole: THREE.ArrowHelper; axes: THREE.AxesHelper }
 
 function overlay(scene: THREE.Scene): Overlay {
   const dot = (color: number) => new THREE.Mesh(new THREE.SphereGeometry(0.12, 12, 8), new THREE.MeshBasicMaterial({ color, depthTest: false }))
-  const o = { target: dot(0xff3b30), pinch: dot(0x34c759), piece: dot(0x0a84ff), pole: new THREE.ArrowHelper(new THREE.Vector3(0, 1, 0), new THREE.Vector3(), 3, 0xffcc00), axes: new THREE.AxesHelper(0.08) }
+  const o = {
+    target: dot(0xff3b30),
+    pinch: dot(0x34c759),
+    piece: dot(0x0a84ff),
+    pole: new THREE.ArrowHelper(new THREE.Vector3(0, 1, 0), new THREE.Vector3(), 3, 0xffcc00),
+    axes: new THREE.AxesHelper(0.08),
+  }
   for (const m of [o.target, o.pinch, o.piece]) m.renderOrder = 10
   scene.add(o.target, o.pinch, o.piece, o.pole)
   return o
@@ -153,7 +181,14 @@ export default function HandsTest() {
     api.current = { goto, camera, total }
     let live = true
     void loadPieceFont(st.pieceFont).catch(() => undefined)
-    loadAvatars({ root: s.root, camera: s.camera, environment: room, dims: { thick: THICK, leg: LEG, halfW: HALF_W, halfD: HALF_D }, base: import.meta.env.BASE_URL, random }).then((c) => {
+    loadAvatars({
+      root: s.root,
+      camera: s.camera,
+      environment: room,
+      dims: { thick: THICK, leg: LEG, halfW: HALF_W, halfD: HALF_D },
+      base: import.meta.env.BASE_URL,
+      random,
+    }).then((c) => {
       if (!live) return c.dispose()
       controller = c
       s.avatars = slotFor(c)
@@ -211,7 +246,19 @@ export default function HandsTest() {
   }, [playing, speed, loop])
 
   const deg = (v?: number) => (v === undefined ? '–' : Math.round((v * 180) / Math.PI).toString())
-  const panel: CSSProperties = { position: 'absolute', top: 8, left: 8, width: 330, maxHeight: 'calc(100% - 16px)', overflow: 'auto', background: 'rgba(20,18,16,.86)', color: '#f3eee6', font: '12px/1.4 system-ui', padding: 10, borderRadius: 8 }
+  const panel: CSSProperties = {
+    position: 'absolute',
+    top: 8,
+    left: 8,
+    width: 330,
+    maxHeight: 'calc(100% - 16px)',
+    overflow: 'auto',
+    background: 'rgba(20,18,16,.86)',
+    color: '#f3eee6',
+    font: '12px/1.4 system-ui',
+    padding: 10,
+    borderRadius: 8,
+  }
   return (
     <main style={{ position: 'fixed', inset: 0, background: '#111' }}>
       <div ref={host} style={{ position: 'absolute', inset: 0 }} />
@@ -266,12 +313,22 @@ export default function HandsTest() {
             </button>
           ))}
         </div>
-        <input type="range" min={0} max={total} value={frame} onChange={(e) => setFrame(Number(e.target.value))} style={{ width: '100%' }} aria-label="Timeline" />
+        <input
+          type="range"
+          min={0}
+          max={total}
+          value={frame}
+          onChange={(e) => setFrame(Number(e.target.value))}
+          style={{ width: '100%' }}
+          aria-label="Timeline"
+        />
         <div data-testid="hands-status">
-          t {(frame * DT).toFixed(3)} s · frame {frame}/{total} · phase <b>{info?.phase ?? '–'}</b> · {info?.kind ?? '–'} · sample {info && info.sample >= 0 ? info.sample.toFixed(1) : '–'}
+          t {(frame * DT).toFixed(3)} s · frame {frame}/{total} · phase <b>{info?.phase ?? '–'}</b> · {info?.kind ?? '–'} · sample{' '}
+          {info && info.sample >= 0 ? info.sample.toFixed(1) : '–'}
         </div>
         <div>
-          <span style={{ color: '#ff3b30' }}>● IK target</span> <span style={{ color: '#34c759' }}>● grip point</span> <span style={{ color: '#0a84ff' }}>● piece</span> <span style={{ color: '#ffcc00' }}>→ pole</span>
+          <span style={{ color: '#ff3b30' }}>● IK target</span> <span style={{ color: '#34c759' }}>● grip point</span>{' '}
+          <span style={{ color: '#0a84ff' }}>● piece</span> <span style={{ color: '#ffcc00' }}>→ pole</span>
         </div>
         <table style={{ width: '100%', fontVariantNumeric: 'tabular-nums' }}>
           <thead>

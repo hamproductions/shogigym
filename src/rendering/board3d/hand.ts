@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { Color, PieceType, type ImmutablePosition } from 'tsshogi'
-import { HAND_ORDER } from '../../shogi'
+import { HAND_ORDER } from '@/utils/shogi'
 import { SIDE_COT, STAND, STAND_TOP, STRIP_W, komaDepth, komaWidth, pieceScale } from './dimensions'
 import { layout, standCenter } from './layout'
 import { pieceMesh } from './piece'
@@ -144,7 +144,15 @@ function grouped(count: (type: PieceType) => number, expose: number) {
   const stack = (type: PieceType, n: number, e: number): Placed[] => {
     const thick = (komaDepth(pieceScale(type)) + 0.05) * 0.96
     const roll = Math.asin(Math.min(0.9, thick / w(type)))
-    return Array.from({ length: n }, (_, j) => ({ type, x: j * e, z: 0, rot: 0, lift: j ? (w(type) / 2) * Math.sin(roll) + 0.004 : 0, roll: j ? -roll : 0, count: j === n - 1 && n > 1 ? n : undefined }))
+    return Array.from({ length: n }, (_, j) => ({
+      type,
+      x: j * e,
+      z: 0,
+      rot: 0,
+      lift: j ? (w(type) / 2) * Math.sin(roll) + 0.004 : 0,
+      roll: j ? -roll : 0,
+      count: j === n - 1 && n > 1 ? n : undefined,
+    }))
   }
   const sizes = (type: PieceType) => {
     const n = count(type)
@@ -204,10 +212,23 @@ export function handArrangement(position: ImmutablePosition, color: Color): { sp
   const fanned = split.fits ? split : fan(pieces, false)
   const flat = fanned.fits ? undefined : [0.04, 0.02, 0].map((gap) => rows(pieces, gap)).find((a) => a.fits)
   const mode: HandMode = fanned.fits ? 'fan' : flat ? 'rows' : 'grouped'
-  const best = fanned.fits ? fanned : (flat ?? [0.17, 0.14, 0.11, 0.09, 0.07].map((e) => grouped((t) => hand.count(t), e)).find((a) => a.fits) ?? grouped((t) => hand.count(t), 0.07))
+  const best = fanned.fits
+    ? fanned
+    : (flat ?? [0.17, 0.14, 0.11, 0.09, 0.07].map((e) => grouped((t) => hand.count(t), e)).find((a) => a.fits) ?? grouped((t) => hand.count(t), 0.07))
   const ox = -(best.b.minX + best.b.maxX) / 2
   const oz = -(best.b.minZ + best.b.maxZ) / 2
-  return { mode, spots: best.placed.map((p) => ({ type: p.type, x: c.x + sign * (p.x + ox), z: c.z + sign * (p.z + oz), rot: p.rot, lift: p.lift, roll: p.roll, count: p.count })) }
+  return {
+    mode,
+    spots: best.placed.map((p) => ({
+      type: p.type,
+      x: c.x + sign * (p.x + ox),
+      z: c.z + sign * (p.z + oz),
+      rot: p.rot,
+      lift: p.lift,
+      roll: p.roll,
+      count: p.count,
+    })),
+  }
 }
 
 export const handLayout = (position: ImmutablePosition, color: Color) => handArrangement(position, color).spots

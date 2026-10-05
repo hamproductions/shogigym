@@ -6,7 +6,8 @@ export default {
   mySide: 'sente',
   userSide: 'sente',
   noEngine: true,
-  source: '局面と手はshogi-rule.com「飛車の効果的な手筋」(https://www.shogi-rule.com/koma_hisha/)の「飛車には飛車」の図をSFENに変換。持ち駒は図に表示がないため、打つ駒などを手順から推定して置いた。(図は下側の六〜九段のみ表示。上段の駒は置いていない)。',
+  source:
+    '局面と手はshogi-rule.com「飛車の効果的な手筋」(https://www.shogi-rule.com/koma_hisha/)の「飛車には飛車」の図をSFENに変換。持ち駒は図に表示がないため、打つ駒などを手順から推定して置いた。(図は下側の六〜九段のみ表示。上段の駒は置いていない)。',
   goalFormation: '飛車には飛車: 打ち込まれた飛車に飛車を合わせて、打ち込み場所をなくす。',
   startSfen: '9/9/9/9/9/2P1PS3/PPBP1PPPP/3G2SK1/LNr2G1NL b R 1',
   rootComment: '7九に敵の飛車が打ち込まれました。慌てず対処しましょう。',

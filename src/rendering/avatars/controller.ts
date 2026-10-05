@@ -2,12 +2,22 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { VRMLoaderPlugin, VRMUtils, type VRM } from '@pixiv/three-vrm'
 import { Color } from 'tsshogi'
-import { TABLE_H } from '../../app/roomMetrics'
+import { TABLE_H } from '@/utils/roomMetrics'
 import { UNITS_PER_M, createCharacter, type Character, type HandPose, type Seat } from './character'
 import handMotion from './handMotion.json'
 import { clamp01, damp, ease } from './ik'
-import { playSound } from '../../appearance/settings'
-import { AVATAR_MODELS, type AvatarInspect, type AvatarPhase, type Knock, type MotionKind, type AvatarController, type AvatarCues, type AvatarMove, type AvatarOptions } from '.'
+import { playSound } from '@/appearance/settings'
+import {
+  AVATAR_MODELS,
+  type AvatarInspect,
+  type AvatarPhase,
+  type Knock,
+  type MotionKind,
+  type AvatarController,
+  type AvatarCues,
+  type AvatarMove,
+  type AvatarOptions,
+} from '.'
 
 const mm = (n: number) => n / 35.2
 const UP = new THREE.Vector3(0, 1, 0)
@@ -62,11 +72,44 @@ function motion(kind: MotionKind, u: number, shape: HandShape, to: HandShape = s
   )
 }
 
-type Step = { mesh: THREE.Object3D; from: THREE.Vector3; to: THREE.Vector3; fromQ: THREE.Quaternion; toQ: THREE.Quaternion | null; flip: THREE.Object3D | null; done: () => void }
+type Step = {
+  mesh: THREE.Object3D
+  from: THREE.Vector3
+  to: THREE.Vector3
+  fromQ: THREE.Quaternion
+  toQ: THREE.Quaternion | null
+  flip: THREE.Object3D | null
+  done: () => void
+}
 
-type Action = { kind: MotionKind; steps: Step[]; index: number; t: number; wait: number; lock: THREE.Vector3 | null; last: THREE.Vector3 | null; sound: Knock | null; land: (() => void) | null; placed: THREE.Vector3 | null }
+type Action = {
+  kind: MotionKind
+  steps: Step[]
+  index: number
+  t: number
+  wait: number
+  lock: THREE.Vector3 | null
+  last: THREE.Vector3 | null
+  sound: Knock | null
+  land: (() => void) | null
+  placed: THREE.Vector3 | null
+}
 
-type Actor = { color: Color; char: Character; casters: THREE.Mesh[]; uniforms: Fade; action: Action | null; out: number; glance: number; nextGlance: number; focus: THREE.Vector3 | null; focusFor: number; nod: number; bow: number; happyFor: number }
+type Actor = {
+  color: Color
+  char: Character
+  casters: THREE.Mesh[]
+  uniforms: Fade
+  action: Action | null
+  out: number
+  glance: number
+  nextGlance: number
+  focus: THREE.Vector3 | null
+  focusFor: number
+  nod: number
+  bow: number
+  happyFor: number
+}
 
 type Fade = { fade: { value: THREE.Vector2 }; band: { value: THREE.Vector4 }; board: { value: THREE.Vector4 }; arms: { value: THREE.Vector3[] } }
 
@@ -149,7 +192,12 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
   const { root, camera } = options
   const random = options.random ?? Math.random
   let clock = 0
-  const uniforms = AVATAR_MODELS.map((): Fade => ({ fade: { value: new THREE.Vector2() }, band: { value: new THREE.Vector4() }, board: { value: new THREE.Vector4() }, arms: { value: Array.from({ length: 8 }, () => new THREE.Vector3()) } }))
+  const uniforms = AVATAR_MODELS.map((): Fade => ({
+    fade: { value: new THREE.Vector2() },
+    band: { value: new THREE.Vector4() },
+    board: { value: new THREE.Vector4() },
+    arms: { value: Array.from({ length: 8 }, () => new THREE.Vector3()) },
+  }))
   const vrms = await Promise.all(AVATAR_MODELS.map((m, i) => loadVrm(loader, `${options.base}${m.file}`, uniforms[i])))
   const seat = seats(options)
   const boardHalf = new THREE.Vector2(options.dims.halfW + 1.2, options.dims.halfD + 1.2)
@@ -157,7 +205,21 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
     const char = createCharacter(vrms[i], seat[m.color], root, m.height, random)
     const casters: THREE.Mesh[] = []
     char.vrm.scene.traverse((o) => (o as THREE.Mesh).isMesh && casters.push(o as THREE.Mesh))
-    return { color: m.color, char, casters, uniforms: uniforms[i], action: null, out: 1, glance: 0, nextGlance: 3 + random() * 5, focus: null, focusFor: 0, nod: 0, bow: 0, happyFor: 0 }
+    return {
+      color: m.color,
+      char,
+      casters,
+      uniforms: uniforms[i],
+      action: null,
+      out: 1,
+      glance: 0,
+      nextGlance: 3 + random() * 5,
+      focus: null,
+      focusFor: 0,
+      nod: 0,
+      bow: 0,
+      happyFor: 0,
+    }
   })
   for (const a of actors) {
     a.char.state.lookAt.copy(root.localToWorld(new THREE.Vector3(0, 0, 0)))
@@ -239,13 +301,35 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
     const to = gripAt(actor, step.to)
     const prog = (action.index + t / STEP) / action.steps.length
     const carryU = clamp01((t - REACH - CLOSE) / CARRY)
-    const hand = t < REACH ? motion(action.kind, prog, 'open') : t < REACH + CLOSE ? motion(action.kind, prog, 'open', 'grip', ease((t - REACH) / CLOSE)) : t < REACH + CLOSE + CARRY ? motion(action.kind, prog, 'grip', 'press', ease(clamp01((carryU - 0.7) / 0.3))) : motion(action.kind, prog, 'press')
+    const hand =
+      t < REACH
+        ? motion(action.kind, prog, 'open')
+        : t < REACH + CLOSE
+          ? motion(action.kind, prog, 'open', 'grip', ease((t - REACH) / CLOSE))
+          : t < REACH + CLOSE + CARRY
+            ? motion(action.kind, prog, 'grip', 'press', ease(clamp01((carryU - 0.7) / 0.3)))
+            : motion(action.kind, prog, 'press')
     actor.focus = world(step.mesh.position)
     if (t < REACH) {
       const u = t / REACH
-      if (action.last) aim(actor, action.last.clone().lerp(from, ease(u)).addScaledVector(UP, 0.6 * Math.sin(Math.PI * u)), hand)
+      if (action.last)
+        aim(
+          actor,
+          action.last
+            .clone()
+            .lerp(from, ease(u))
+            .addScaledVector(UP, 0.6 * Math.sin(Math.PI * u)),
+          hand,
+        )
       else {
-        aim(actor, from.clone().addScaledVector(UP, 0.5 * (1 - ease(u))).addScaledVector(actor.char.forward(), -0.4 * (1 - ease(u))), hand)
+        aim(
+          actor,
+          from
+            .clone()
+            .addScaledVector(UP, 0.5 * (1 - ease(u)))
+            .addScaledVector(actor.char.forward(), -0.4 * (1 - ease(u))),
+          hand,
+        )
         st.reachW = ease(u)
       }
       return
@@ -311,7 +395,18 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
         release(other.action)
         other.action = null
       }
-    const action: Action = { kind: move.kind, steps: [], index: 0, t: 0, wait: 0, lock: null, last: null, sound: move.sound ?? null, land: move.land ?? null, placed: move.placed ? move.to.clone() : null }
+    const action: Action = {
+      kind: move.kind,
+      steps: [],
+      index: 0,
+      t: 0,
+      wait: 0,
+      lock: null,
+      last: null,
+      sound: move.sound ?? null,
+      land: move.land ?? null,
+      placed: move.placed ? move.to.clone() : null,
+    }
     if (!move.placed) {
       const capture = move.capture
       if (capture) {
@@ -475,8 +570,31 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
       const step = action?.steps[action.index]
       const st = actor.char.state
       const hand = actor.char.vrm.humanoid.getNormalizedBoneNode('rightHand')!
-      const applied = Object.fromEntries(['Index', 'Middle', 'Ring', 'Little'].flatMap((f) => ['Proximal', 'Intermediate', 'Distal'].map((j) => [`Right${f}${j}`, new THREE.Euler().setFromQuaternion(actor.char.vrm.humanoid.getNormalizedBoneNode(`right${f}${j}` as never)!.quaternion).toArray().slice(0, 3) as number[]])))
-      return { color: actor.color, phase: phase(actor), kind: action?.kind ?? null, t: action?.t ?? 0, sample: action ? ((action.index + action.t / STEP) / action.steps.length) * (MOTIONS[action.kind].samples.length - 1) : -1, target: st.reach.at.clone(), pole: st.pole.clone(), pinch: actor.char.pinch().clone(), piece: step ? world(step.mesh.position) : null, hand, pose: st.reach.hand, applied }
+      const applied = Object.fromEntries(
+        ['Index', 'Middle', 'Ring', 'Little'].flatMap((f) =>
+          ['Proximal', 'Intermediate', 'Distal'].map((j) => [
+            `Right${f}${j}`,
+            new THREE.Euler()
+              .setFromQuaternion(actor.char.vrm.humanoid.getNormalizedBoneNode(`right${f}${j}` as never)!.quaternion)
+              .toArray()
+              .slice(0, 3) as number[],
+          ]),
+        ),
+      )
+      return {
+        color: actor.color,
+        phase: phase(actor),
+        kind: action?.kind ?? null,
+        t: action?.t ?? 0,
+        sample: action ? ((action.index + action.t / STEP) / action.steps.length) * (MOTIONS[action.kind].samples.length - 1) : -1,
+        target: st.reach.at.clone(),
+        pole: st.pole.clone(),
+        pinch: actor.char.pinch().clone(),
+        piece: step ? world(step.mesh.position) : null,
+        hand,
+        pose: st.reach.hand,
+        applied,
+      }
     })
 
   const walls = () => actors.map((a) => a.char.wall(a.color === Color.WHITE ? 1 : 0.4))

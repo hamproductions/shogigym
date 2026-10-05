@@ -1,10 +1,10 @@
 import './welcome.css'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Icon } from '../icons'
-import { MODES, type Level } from '../types'
-import { Button } from '../ui/Button'
-import { Dialog } from '../ui/Dialog'
+import { Icon } from '@/app/icons'
+import { MODES, type Level } from '@/app/types'
+import { Button } from '@/app/ui/Button'
+import { Dialog } from '@/app/ui/Dialog'
 
 type WelcomeProps = {
   level: Level

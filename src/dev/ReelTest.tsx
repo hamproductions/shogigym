@@ -1,16 +1,16 @@
 import './reel.css'
 import '@fontsource/yuji-boku/400.css'
 import '@fontsource/shippori-mincho-b1/800.css'
-import '../app/layout.css'
-import '../app/stage/board-layout.css'
-import '../app/stage/board-stage.css'
+import '@/app/layout.css'
+import '@/app/stage/board-layout.css'
+import '@/app/stage/board-stage.css'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { Position } from 'tsshogi'
-import { Board3D } from '../rendering/Board3D'
-import type { SceneState } from '../rendering/board3d/types'
-import { installVirtualClock, startVirtual, stepVirtual } from '../app/lib/virtualClock'
-import { setSettings } from '../appearance/settings'
+import { Board3D } from '@/rendering/Board3D'
+import type { SceneState } from '@/rendering/board3d/types'
+import { installVirtualClock, startVirtual, stepVirtual } from '@/utils/virtualClock'
+import { setSettings } from '@/appearance/settings'
 
 if (new URLSearchParams(location.search).has('capture')) installVirtualClock()
 
@@ -51,7 +51,10 @@ const clamp01 = (u: number) => Math.min(1, Math.max(0, u))
 const env = (t: number, a: number, b: number, fade = 0.25) => clamp01((t - a) / fade) * clamp01((b - t) / fade)
 
 function camera(t: number) {
-  const i = Math.max(0, SHOTS.findIndex((s, k) => t >= s.at && (SHOTS[k + 1]?.at ?? Infinity) > t))
+  const i = Math.max(
+    0,
+    SHOTS.findIndex((s, k) => t >= s.at && (SHOTS[k + 1]?.at ?? Infinity) > t),
+  )
   const a = SHOTS[i]
   const b = SHOTS[i + 1] ?? a
   const u = b === a ? 0 : smooth(clamp01((t - a.at) / (b.at - a.at)))
@@ -122,14 +125,29 @@ export default function ReelTest() {
   return (
     <div className="app-reel">
       <div className="app-reel-stage">
-        <Board3D position={position} flipped={false} tilted={false} orbit lastMove={lastMove} selected={null} targets={[]} arrows={[]} onSquare={() => undefined} onHand={() => undefined} onDrop={() => undefined} />
+        <Board3D
+          position={position}
+          flipped={false}
+          tilted={false}
+          orbit
+          lastMove={lastMove}
+          selected={null}
+          targets={[]}
+          arrows={[]}
+          onSquare={() => undefined}
+          onHand={() => undefined}
+          onDrop={() => undefined}
+        />
       </div>
       <div className="app-reel-overlay">
         <div className="app-reel-title" style={{ opacity: env(t, 0.1, 2.35, 0.12), transform: `scale(${slam(0.1)})` }}>
           <span>SHOGI GYM</span>
           <strong>将棋ジム</strong>
         </div>
-        <div className="app-reel-line" style={{ opacity: env(t, 2.55, 4.85, 0.15), transform: `translateX(${(1 - smooth(clamp01((t - 2.55) / 0.3))) * -60}px)` }}>
+        <div
+          className="app-reel-line"
+          style={{ opacity: env(t, 2.55, 4.85, 0.15), transform: `translateX(${(1 - smooth(clamp01((t - 2.55) / 0.3))) * -60}px)` }}
+        >
           <strong>Learn openings</strong>
           <em>by playing them.</em>
         </div>
@@ -137,7 +155,13 @@ export default function ReelTest() {
           <strong>Every move,</strong>
           <em>explained.</em>
         </div>
-        <div className="app-reel-card" style={{ opacity: env(t, 7.9, 10.15, 0.2), transform: `translate(-50%, -50%) rotate(${-3 + 3 * smooth(clamp01((t - 7.9) / 0.5))}deg) scale(${0.82 + 0.18 * smooth(clamp01((t - 7.9) / 0.45))})` }}>
+        <div
+          className="app-reel-card"
+          style={{
+            opacity: env(t, 7.9, 10.15, 0.2),
+            transform: `translate(-50%, -50%) rotate(${-3 + 3 * smooth(clamp01((t - 7.9) / 0.5))}deg) scale(${0.82 + 0.18 * smooth(clamp01((t - 7.9) / 0.45))})`,
+          }}
+        >
           <img src="/.shots/promo/announce.png" alt="" />
         </div>
         <div className="app-reel-line bottom" style={{ opacity: env(t, 8.1, 10.15, 0.15) }}>

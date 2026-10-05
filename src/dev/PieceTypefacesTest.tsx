@@ -1,10 +1,10 @@
 import './pieces.css'
 import { useEffect, useState } from 'react'
 import { PieceType } from 'tsshogi'
-import { bakePreviews } from '../rendering/board3d/bake'
-import { PIECE_TYPEFACES, pieceSetForFace } from '../appearance/pieceDesigns'
-import { loadPieceSet, PIECE_SETS, type PieceSet } from '../appearance/pieceSets'
-import { loadPieceFont, useSettings, type PieceAppearance } from '../appearance/settings'
+import { bakePreviews } from '@/rendering/board3d/bake'
+import { PIECE_TYPEFACES, pieceSetForFace } from '@/appearance/pieceDesigns'
+import { loadPieceSet, PIECE_SETS, type PieceSet } from '@/appearance/pieceSets'
+import { loadPieceFont, useSettings, type PieceAppearance } from '@/appearance/settings'
 
 const TYPES: { type: PieceType; label: string }[] = [
   { type: PieceType.KING, label: '王' },
@@ -34,12 +34,28 @@ export default function PieceTypefacesTest() {
     setError(undefined)
     const sets = PIECE_TYPEFACES.map((family) => pieceSetForFace(family, st.pieceStyle))
     const uniqueSets = [...new Set(sets)]
-    const appearance = (pieceSet: PieceSet): PieceAppearance => ({ pieceSet, pieceFont: st.pieceFont, pieceStyle: st.pieceStyle, pieceGuide: st.pieceGuide, pieceMaterial: st.pieceMaterial, pieceColor: st.pieceColor, pieceGrain: st.pieceGrain, pieceFinish: st.pieceFinish })
+    const appearance = (pieceSet: PieceSet): PieceAppearance => ({
+      pieceSet,
+      pieceFont: st.pieceFont,
+      pieceStyle: st.pieceStyle,
+      pieceGuide: st.pieceGuide,
+      pieceMaterial: st.pieceMaterial,
+      pieceColor: st.pieceColor,
+      pieceGrain: st.pieceGrain,
+      pieceFinish: st.pieceFinish,
+    })
     const options = PIECE_TYPEFACES.map((family, index) => ({ key: `typeface:${family}`, ...appearance(sets[index]) }))
     void Promise.all([...uniqueSets.map((set) => loadPieceSet(set, st.pieceGuide)), loadPieceFont(st.pieceFont)])
-      .then(() => bakePreviews(options, controller.signal, TYPES.map(({ type }) => type), (previewKey, images) => {
-        if (!controller.signal.aborted) setRows((current) => [...(current ?? []), { set: previewKey.slice('typeface:'.length) as PieceSet, images }])
-      }))
+      .then(() =>
+        bakePreviews(
+          options,
+          controller.signal,
+          TYPES.map(({ type }) => type),
+          (previewKey, images) => {
+            if (!controller.signal.aborted) setRows((current) => [...(current ?? []), { set: previewKey.slice('typeface:'.length) as PieceSet, images }])
+          },
+        ),
+      )
       .then((previews) => {
         if (!controller.signal.aborted) setRows(PIECE_TYPEFACES.map((set) => ({ set, images: previews.get(`typeface:${set}`) ?? [] })))
       })
@@ -52,7 +68,9 @@ export default function PieceTypefacesTest() {
     <main className="app-komadai-test app-typeface-test" aria-busy={!rows && !error}>
       <header className="app-typeface-test-header">
         <h1>Piece typeface renderer</h1>
-        <p>{st.pieceStyle} · {st.pieceGuide} · {st.pieceMaterial} · {st.pieceColor} · {st.pieceGrain} · {st.pieceFinish}</p>
+        <p>
+          {st.pieceStyle} · {st.pieceGuide} · {st.pieceMaterial} · {st.pieceColor} · {st.pieceGrain} · {st.pieceFinish}
+        </p>
       </header>
       {!rows && !error && <p>Rendering with current global settings…</p>}
       {error && <p role="alert">{error}</p>}

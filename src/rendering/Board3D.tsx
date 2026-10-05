@@ -3,22 +3,22 @@ import { useEffect, useRef, useState } from 'react'
 import { BoardLoading } from './BoardLoading'
 import { Color, type ImmutablePosition } from 'tsshogi'
 import { avatarSlot } from './avatars'
-import { updateView } from './board3d/camera'
-import { HALF_D, HALF_W, LEG, THICK, setBoardDims } from './board3d/dimensions'
-import { flipCameraOffset, saveSnapshot, startTableFlip, stepTableFlip } from './board3d/effects'
-import { createFurigoma3D } from './board3d/furigoma'
-import { bindPointer } from './board3d/interaction'
-import { layout, sideStandsFit, zoneReporter } from './board3d/layout'
-import { drawMarks } from './board3d/marks'
-import { liftSelected, rebuild, stepAnimations } from './board3d/pieces'
-import { createPower, moveEvent, type Power } from './board3d/power'
-import { buildScene, createRenderer } from './board3d/scene'
-import { clearFaceTextures } from './board3d/textures'
-import type { Board3DProps, SceneState } from './board3d/types'
-import { SNAPSHOT_EVENT, TABLE_FLIP_EVENT } from '../app/lib/events'
-import { getSettings, playSound, subscribeSettings } from '../appearance/settings'
+import { updateView } from '@/rendering/board3d/camera'
+import { HALF_D, HALF_W, LEG, THICK, setBoardDims } from '@/rendering/board3d/dimensions'
+import { flipCameraOffset, saveSnapshot, startTableFlip, stepTableFlip } from '@/rendering/board3d/effects'
+import { createFurigoma3D } from '@/rendering/board3d/furigoma'
+import { bindPointer } from '@/rendering/board3d/interaction'
+import { layout, sideStandsFit, zoneReporter } from '@/rendering/board3d/layout'
+import { drawMarks } from '@/rendering/board3d/marks'
+import { liftSelected, rebuild, stepAnimations } from '@/rendering/board3d/pieces'
+import { createPower, moveEvent, type Power } from '@/rendering/board3d/power'
+import { buildScene, createRenderer } from '@/rendering/board3d/scene'
+import { clearFaceTextures } from '@/rendering/board3d/textures'
+import type { Board3DProps, SceneState } from '@/rendering/board3d/types'
+import { SNAPSHOT_EVENT, TABLE_FLIP_EVENT } from '@/utils/events'
+import { getSettings, playSound, subscribeSettings } from '@/appearance/settings'
 
-export type { Board3DProps, BoardArrow, StandZones, ZoneRect } from './board3d/types'
+export type { Board3DProps, BoardArrow, StandZones, ZoneRect } from '@/rendering/board3d/types'
 
 export function Board3D(props: Board3DProps) {
   setBoardDims()
@@ -132,7 +132,9 @@ export function Board3D(props: Board3DProps) {
       if (flipClick?.id === event.pointerId && !flipClick.moved && event.clientX === flipClick.x && event.clientY === flipClick.y) releaseFlip()
       flipClick = null
     }
-    const onFlipCancel = () => { flipClick = null }
+    const onFlipCancel = () => {
+      flipClick = null
+    }
     renderer.domElement.addEventListener('pointerdown', onFlipDown)
     renderer.domElement.ownerDocument.addEventListener('pointermove', onFlipMove, true)
     renderer.domElement.ownerDocument.addEventListener('pointerup', onFlipUp, true)
@@ -188,17 +190,20 @@ export function Board3D(props: Board3DProps) {
     const stepped = changed ? moveEvent(prev, props.position, latest.current.lastMove) : null
     const event = power.current ? stepped : null
     const fx = power.current
-    s.onLand = stepped ? () => {
-      playSound(stepped.capture ? 'capture' : 'move')
-      if (event && fx) fx.onMove({ ...event, delay: 0, carried: true })
-    } : null
+    s.onLand = stepped
+      ? () => {
+          playSound(stepped.capture ? 'capture' : 'move')
+          if (event && fx) fx.onMove({ ...event, delay: 0, carried: true })
+        }
+      : null
     rebuild(s, latest.current, changed && (!dragged || !!latest.current.lastMove?.endsWith('+')), prev, changed && dragged)
     piecesReady.current = true
     if (s.onLand && event) fx?.onMove({ ...event, delay: dragged ? 0 : 0.22 })
-    if (event?.mate) flipTimer.current = window.setTimeout(() => {
-      fx?.clear()
-      startTableFlip(s, event.color === Color.BLACK ? Color.WHITE : Color.BLACK)
-    }, 4200)
+    if (event?.mate)
+      flipTimer.current = window.setTimeout(() => {
+        fx?.clear()
+        startTableFlip(s, event.color === Color.BLACK ? Color.WHITE : Color.BLACK)
+      }, 4200)
     else if (!event) fx?.clear()
     s.onLand = null
   }, [props.position])
@@ -220,7 +225,19 @@ export function Board3D(props: Board3DProps) {
 
   useEffect(() => {
     if (state.current) drawMarks(state.current, latest.current)
-  }, [props.selected, props.targets, props.arrows, props.lastMove, props.castles, props.stamp, props.flipped, props.peek, props.peekFrom, props.checkSquare, props.heat])
+  }, [
+    props.selected,
+    props.targets,
+    props.arrows,
+    props.lastMove,
+    props.castles,
+    props.stamp,
+    props.flipped,
+    props.peek,
+    props.peekFrom,
+    props.checkSquare,
+    props.heat,
+  ])
 
   useEffect(() => {
     if (state.current) state.current.tiltTarget = props.tilted ? 1 : 0
@@ -230,5 +247,9 @@ export function Board3D(props: Board3DProps) {
     if (state.current) state.current.settled = false
   }, [props.snapKey])
 
-  return <div className="board3d" ref={host} aria-busy={!ready}>{!ready && <BoardLoading />}</div>
+  return (
+    <div className="board3d" ref={host} aria-busy={!ready}>
+      {!ready && <BoardLoading />}
+    </div>
+  )
 }

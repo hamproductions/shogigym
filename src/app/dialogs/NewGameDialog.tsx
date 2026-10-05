@@ -1,13 +1,13 @@
 import './new-game.css'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FAMILIES, STRATEGIES } from '../../data/strategies'
-import { otherSide, type Side } from '../../shogi'
-import { aiStrategyId, strategyCourses } from '../lib/book'
-import { STRENGTH, TIME_CONTROLS, setSettings, useSettings, type AiStrength, type TimeControl } from '../../appearance/settings'
-import { Button } from '../ui/Button'
-import { Dialog } from '../ui/Dialog'
-import { SegmentedField, SettingRow } from '../ui/Segmented'
+import { FAMILIES, STRATEGIES } from '@/data/strategies'
+import { otherSide, type Side } from '@/utils/shogi'
+import { aiStrategyId, strategyCourses } from '@/utils/book'
+import { STRENGTH, TIME_CONTROLS, setSettings, useSettings, type AiStrength, type TimeControl } from '@/appearance/settings'
+import { Button } from '@/app/ui/Button'
+import { Dialog } from '@/app/ui/Dialog'
+import { SegmentedField, SettingRow } from '@/app/ui/Segmented'
 
 const CLOCK_ORDER: TimeControl[] = ['none', '10s', '3m', '5m5s', '10m', '10m30s', '30m60s']
 
@@ -32,13 +32,34 @@ export function NewGameDialog({ side, onClose, onStart }: { side: Side; onClose:
         ]}
         onChange={(v) => setPick(v as PickSide)}
       />
-      <SegmentedField<AiStrength> label={t('newGame.strength')} value={st.opponent} options={(Object.keys(STRENGTH) as AiStrength[]).map((k) => ({ v: k, t: STRENGTH[k].label }))} onChange={(k) => setSettings({ opponent: k })} />
-      <SegmentedField<TimeControl> label={t('newGame.clock')} value={st.timeControl} options={CLOCK_ORDER.map((k) => ({ v: k, t: TIME_CONTROLS[k].label, title: TIME_CONTROLS[k].hint }))} onChange={(k) => setSettings({ timeControl: k })} />
+      <SegmentedField<AiStrength>
+        label={t('newGame.strength')}
+        value={st.opponent}
+        options={(Object.keys(STRENGTH) as AiStrength[]).map((k) => ({ v: k, t: STRENGTH[k].label }))}
+        onChange={(k) => setSettings({ opponent: k })}
+      />
+      <SegmentedField<TimeControl>
+        label={t('newGame.clock')}
+        value={st.timeControl}
+        options={CLOCK_ORDER.map((k) => ({ v: k, t: TIME_CONTROLS[k].label, title: TIME_CONTROLS[k].hint }))}
+        onChange={(k) => setSettings({ timeControl: k })}
+      />
       <SettingRow label={t('newGame.strategy')}>
-        <select className="app-field" value={aiStrategyId(st.aiStrategy)} aria-label={t('newGame.strategy')} onChange={(e) => setSettings({ aiStrategy: e.target.value })}>
+        <select
+          className="app-field"
+          value={aiStrategyId(st.aiStrategy)}
+          aria-label={t('newGame.strategy')}
+          onChange={(e) => setSettings({ aiStrategy: e.target.value })}
+        >
           <option value="">{t('app.anyStrategy')}</option>
           {Object.entries(FAMILIES).map(([family, label]) => {
-            const options = STRATEGIES.filter((x) => x.family === family && (pick === 'random' ? strategyCourses(x.id, 'sente').length > 0 || strategyCourses(x.id, 'gote').length > 0 : strategyCourses(x.id, otherSide(pick)).length > 0))
+            const options = STRATEGIES.filter(
+              (x) =>
+                x.family === family &&
+                (pick === 'random'
+                  ? strategyCourses(x.id, 'sente').length > 0 || strategyCourses(x.id, 'gote').length > 0
+                  : strategyCourses(x.id, otherSide(pick)).length > 0),
+            )
             return options.length ? (
               <optgroup key={family} label={`${t(options[0].side === 'ibisha' ? 'strategy.ibisha' : 'strategy.furibisha')} · ${ja ? label.ja : label.en}`}>
                 {options.map((x) => (

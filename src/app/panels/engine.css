@@ -91,9 +91,7 @@
 }
 
 @media (max-width: 820px) {
-.app-engine > .app-standing {
+  .app-engine > .app-standing {
     order: -1;
   }
-
-
 }

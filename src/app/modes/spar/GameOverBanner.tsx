@@ -1,9 +1,9 @@
 import './game-over.css'
 import { useTranslation } from 'react-i18next'
-import { useSession } from '../../hooks/session'
-import { flipTable } from '../../lib/events'
+import { useSession } from '@/app/hooks/session'
+import { flipTable } from '@/utils/events'
 import type { Spar } from './useSpar'
-import { Button } from '../../ui/Button'
+import { Button } from '@/app/ui/Button'
 
 export function GameOverBanner({ spar, flatView }: { spar: Spar; flatView: boolean }) {
   const { t } = useTranslation()
@@ -20,7 +20,13 @@ export function GameOverBanner({ spar, flatView }: { spar: Spar; flatView: boole
         : t(mode !== 'spar' ? 'app.wins' : other(toMove) === userSide ? 'app.youWin' : 'app.aiWins', { winner: winner(other(toMove)) })
   return (
     <div className="app-gameover" role="status">
-      <Button variant="icon" className="app-gameover-x" onClick={() => spar.setEndHidden(sfen)} aria-label={t('app.hideThisAndLookAt')} title={t('app.lookAtTheBoard')}>
+      <Button
+        variant="icon"
+        className="app-gameover-x"
+        onClick={() => spar.setEndHidden(sfen)}
+        aria-label={t('app.hideThisAndLookAt')}
+        title={t('app.lookAtTheBoard')}
+      >
         ×
       </Button>
       <strong>{headline}</strong>

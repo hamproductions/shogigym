@@ -6,7 +6,8 @@ export default {
   mySide: 'sente',
   userSide: 'sente',
   noEngine: true,
-  source: '局面と手はshogi-rule.com「歩の効果的な手筋」(https://www.shogi-rule.com/koma_hu/)の「中合いの歩」の図をSFENに変換。持ち駒は図に表示がないため、打つ駒などを手順から推定して置いた。(後手2四の駒は桂として読んだ)。',
+  source:
+    '局面と手はshogi-rule.com「歩の効果的な手筋」(https://www.shogi-rule.com/koma_hu/)の「中合いの歩」の図をSFENに変換。持ち駒は図に表示がないため、打つ駒などを手順から推定して置いた。(後手2四の駒は桂として読んだ)。',
   goalFormation: '中合いの歩: 相手の角筋を止めたいとき、歩をぶつけて取らせてから金と歩で受ける。',
   startSfen: 'lnsgkgs1l/1r7/ppppppppp/3b3n1/9/9/5PPPP/4G1SK1/5G1NL b P 1',
   rootComment: '相手の角筋が気になる局面です。角道に歩を上げる手を探しましょう。',

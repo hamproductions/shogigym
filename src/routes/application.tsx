@@ -2,7 +2,7 @@ import { Suspense, lazy } from 'react'
 import { Outlet, useParams } from 'react-router'
 import { Shell } from './Shell'
 
-const Application = lazy(() => import('../app/Application').then((m) => ({ default: m.Application })))
+const Application = lazy(() => import('@/app/Application').then((m) => ({ default: m.Application })))
 
 export async function clientLoader() {
   return null

@@ -1,6 +1,14 @@
 import * as THREE from 'three'
 
-export type ArmChain = { upper: THREE.Object3D; lower: THREE.Object3D; hand: THREE.Object3D; upperRest: THREE.Vector3; lowerRest: THREE.Vector3; a: number; b: number }
+export type ArmChain = {
+  upper: THREE.Object3D
+  lower: THREE.Object3D
+  hand: THREE.Object3D
+  upperRest: THREE.Vector3
+  lowerRest: THREE.Vector3
+  a: number
+  b: number
+}
 
 const v1 = new THREE.Vector3()
 const v2 = new THREE.Vector3()
@@ -13,7 +21,15 @@ const q2 = new THREE.Quaternion()
 const m1 = new THREE.Matrix4()
 
 export function armChain(upper: THREE.Object3D, lower: THREE.Object3D, hand: THREE.Object3D): ArmChain {
-  return { upper, lower, hand, upperRest: lower.position.clone().normalize(), lowerRest: hand.position.clone().normalize(), a: lower.position.length(), b: hand.position.length() }
+  return {
+    upper,
+    lower,
+    hand,
+    upperRest: lower.position.clone().normalize(),
+    lowerRest: hand.position.clone().normalize(),
+    a: lower.position.length(),
+    b: hand.position.length(),
+  }
 }
 
 export function solveArm(chain: ArmChain, wrist: THREE.Vector3, pole: THREE.Vector3, handWorld: THREE.Quaternion) {
@@ -33,7 +49,10 @@ export function solveArm(chain: ArmChain, wrist: THREE.Vector3, pole: THREE.Vect
   const perp = v3.copy(pole).addScaledVector(dir, -pole.dot(dir))
   if (perp.lengthSq() < 1e-8) perp.set(0, -1, 0).addScaledVector(dir, -dir.y)
   perp.normalize()
-  elbow.copy(shoulder).addScaledVector(dir, cosA * a).addScaledVector(perp, sinA * a)
+  elbow
+    .copy(shoulder)
+    .addScaledVector(dir, cosA * a)
+    .addScaledVector(perp, sinA * a)
   wristAt.copy(shoulder).addScaledVector(dir, d)
   const parentQ = parent.getWorldQuaternion(q1)
   const local = v1.subVectors(elbow, shoulder).normalize().applyQuaternion(q2.copy(parentQ).invert())

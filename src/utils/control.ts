@@ -1,5 +1,5 @@
 import { Color, Square, type ImmutablePosition } from 'tsshogi'
-import { sees } from '../pieces'
+import { sees } from '@/app/pieces'
 
 export type ControlCell = { s: Square[]; g: Square[] }
 type HeatCell = { square: Square; color: number; opacity: number; label?: string }
@@ -26,7 +26,12 @@ export function controlMap(sfen: string, position: ImmutablePosition) {
 export function controlHeat(control: Map<string, ControlCell>): HeatCell[] {
   return [...control.entries()].map(([usi, c]) => {
     const d = c.s.length - c.g.length
-    return { square: Square.newByUSI(usi)!, color: d > 0 ? SENTE_BLUE : d < 0 ? GOTE_RED : CONTESTED, opacity: Math.min(0.42, 0.14 + 0.1 * Math.abs(d || 1)), label: String(Math.max(c.s.length, c.g.length) && (d === 0 ? c.s.length : Math.abs(d))) }
+    return {
+      square: Square.newByUSI(usi)!,
+      color: d > 0 ? SENTE_BLUE : d < 0 ? GOTE_RED : CONTESTED,
+      opacity: Math.min(0.42, 0.14 + 0.1 * Math.abs(d || 1)),
+      label: String(Math.max(c.s.length, c.g.length) && (d === 0 ? c.s.length : Math.abs(d))),
+    }
   })
 }
 

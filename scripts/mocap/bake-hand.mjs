@@ -6,7 +6,12 @@ const { Hand } = await import(resolve(kalidokitDir, 'dist/kalidokit.umd.js'))
 
 const CLIPS = {
   slide: ['gDkfPTeSL4k.mp4', 0, 99, 'Plain move: hand comes in flat, index and middle fingers on top of the piece, slide it one square and press'],
-  carry: ['Kca2IJ5fY0Q.mp4', 0, 99, 'Longer move: pinch with thumb, index and middle, lift and carry low, set down and press with index and middle pointing down'],
+  carry: [
+    'Kca2IJ5fY0Q.mp4',
+    0,
+    99,
+    'Longer move: pinch with thumb, index and middle, lift and carry low, set down and press with index and middle pointing down',
+  ],
   drop: ['VEoAIDb_A_Q.mp4', 0, 5.8, 'Drop from hand: piece held upright between fingers and thumb, set down on the square, press with index and middle'],
   capture: ['Ect3MPJkxqg.mp4', 0, 99, 'Capture: take the opponent piece off the square, then bring your own piece in and press'],
   promote: ['jPGNz64Q6DY.mp4', 0, 99, 'Promotion: pinch, lift, turn the piece over in the fingers, set it down and press'],
@@ -15,7 +20,8 @@ const SAMPLES = 24
 const sources = inputs.map((p) => JSON.parse(readFileSync(p, 'utf8')))
 const round = (v) => Math.round(v * 1000) / 1000
 const result = {
-  source: 'Japan Shogi Association, 将棋の指し方（手つきの所作） playlist (youtube.com/playlist?list=PL3Yk9nXcisMu8VawUEyTOJnF_jGc6yqkb). MediaPipe Hand Landmarker world landmarks, smoothed, solved to VRM right-hand finger bone rotations with Kalidokit Hand.solve (radians, XYZ euler, Kalidokit convention)',
+  source:
+    'Japan Shogi Association, 将棋の指し方（手つきの所作） playlist (youtube.com/playlist?list=PL3Yk9nXcisMu8VawUEyTOJnF_jGc6yqkb). MediaPipe Hand Landmarker world landmarks, smoothed, solved to VRM right-hand finger bone rotations with Kalidokit Hand.solve (radians, XYZ euler, Kalidokit convention)',
   moves: {},
 }
 for (const [kind, [clip, lo, hi, about]] of Object.entries(CLIPS)) {

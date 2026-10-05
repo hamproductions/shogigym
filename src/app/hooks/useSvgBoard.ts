@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { SNAPSHOT_EVENT, SNAPSHOT_NAME } from '../lib/events'
+import { SNAPSHOT_EVENT, SNAPSHOT_NAME } from '@/utils/events'
 
 export function useSvgBoard() {
   const svgRef = useRef<SVGSVGElement>(null)

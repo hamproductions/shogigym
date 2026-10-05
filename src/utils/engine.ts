@@ -1,7 +1,7 @@
 import { useSyncExternalStore } from 'react'
 import i18n from './i18n'
 import { readEvalFile } from './evalStore'
-import { getSettings, subscribeSettings, type EngineKind } from './appearance/settings'
+import { getSettings, subscribeSettings, type EngineKind } from '@/appearance/settings'
 
 type UsiModule = {
   addMessageListener: (listener: (line: string) => void) => void
@@ -38,8 +38,16 @@ export type Analysis = {
 export type EngineStatus = { kind: EngineKind; name: string; error: string; loading: boolean; epoch: number }
 
 const ENGINES: Record<EngineKind, { script: string; factory: () => EngineFactory | undefined; options: () => string[] }> = {
-  yaneuraou: { script: `${import.meta.env.BASE_URL}engine/yaneuraou.k-p.js`, factory: () => window.YaneuraOu_K_P, options: () => ['USI_OwnBook value false', 'PvInterval value 0'] },
-  nnue: { script: `${import.meta.env.BASE_URL}engine/yaneuraou.halfkp.noeval.js`, factory: () => window.YaneuraOu_HalfKP_noeval, options: () => ['USI_OwnBook value false', 'PvInterval value 0', 'EvalDir value .', 'EvalFile value nn.bin', `FV_SCALE value ${getSettings().fvScale}`] },
+  yaneuraou: {
+    script: `${import.meta.env.BASE_URL}engine/yaneuraou.k-p.js`,
+    factory: () => window.YaneuraOu_K_P,
+    options: () => ['USI_OwnBook value false', 'PvInterval value 0'],
+  },
+  nnue: {
+    script: `${import.meta.env.BASE_URL}engine/yaneuraou.halfkp.noeval.js`,
+    factory: () => window.YaneuraOu_HalfKP_noeval,
+    options: () => ['USI_OwnBook value false', 'PvInterval value 0', 'EvalDir value .', 'EvalFile value nn.bin', `FV_SCALE value ${getSettings().fvScale}`],
+  },
   fairy: { script: `${import.meta.env.BASE_URL}engine/fairy/stockfish.js`, factory: () => window.Stockfish, options: () => ['USI_Variant value shogi'] },
 }
 
@@ -142,13 +150,18 @@ async function boot(kind: EngineKind): Promise<UsiModule> {
   await loadScript(spec.script, spec.factory)
   if (id !== session) throw new Error('engine switched')
   const starting = spec.factory()!()
-  void starting.then((engine) => {
-    if (id !== session) engine.terminate()
-  }).catch(() => undefined)
+  void starting
+    .then((engine) => {
+      if (id !== session) engine.terminate()
+    })
+    .catch(() => undefined)
   let timer: ReturnType<typeof setTimeout> | undefined
-  const engine = await Promise.race([starting, new Promise<never>((_, reject) => {
-    timer = setTimeout(() => reject(new Error('engine timed out starting')), 30000)
-  })]).finally(() => clearTimeout(timer))
+  const engine = await Promise.race([
+    starting,
+    new Promise<never>((_, reject) => {
+      timer = setTimeout(() => reject(new Error('engine timed out starting')), 30000)
+    }),
+  ]).finally(() => clearTimeout(timer))
   if (id !== session) {
     engine.terminate()
     throw new Error('engine switched')
@@ -277,11 +290,17 @@ function search(usiPosition: string, multipv: number, movetime: number, backgrou
     const lines = new Map<number, Candidate>()
     let bestmove = ''
     try {
-      await waitFor(engine, `go movetime ${movetime}`, 'bestmove', (line) => {
-        const info = parseInfo(line)
-        if (info) lines.set(info.multipv, info)
-        if (line.startsWith('bestmove')) bestmove = line.split(' ')[1]
-      }, movetime + 10000)
+      await waitFor(
+        engine,
+        `go movetime ${movetime}`,
+        'bestmove',
+        (line) => {
+          const info = parseInfo(line)
+          if (info) lines.set(info.multipv, info)
+          if (line.startsWith('bestmove')) bestmove = line.split(' ')[1]
+        },
+        movetime + 10000,
+      )
     } catch (error) {
       if (engine === current) {
         shutdown()

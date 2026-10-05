@@ -81,15 +81,7 @@ export const PIECE_CHAR: Record<PieceType, string> = {
   [PieceType.DRAGON]: '龍',
 }
 
-export const HAND_ORDER = [
-  PieceType.ROOK,
-  PieceType.BISHOP,
-  PieceType.GOLD,
-  PieceType.SILVER,
-  PieceType.KNIGHT,
-  PieceType.LANCE,
-  PieceType.PAWN,
-]
+export const HAND_ORDER = [PieceType.ROOK, PieceType.BISHOP, PieceType.GOLD, PieceType.SILVER, PieceType.KNIGHT, PieceType.LANCE, PieceType.PAWN]
 
 export function hasLegalMove(position: ImmutablePosition): boolean {
   const hand = position.hand(position.color)
@@ -110,8 +102,10 @@ export function reachable(sfen: string, square: Square): Square[] {
 
 export function kingSquare(sfen: string, color: Color): Square | null {
   const position = positionOf(sfen)
-  return position.board.listNonEmptySquares().find((s) => {
-    const p = position.board.at(s)!
-    return p.color === color && p.type === PieceType.KING
-  }) ?? null
+  return (
+    position.board.listNonEmptySquares().find((s) => {
+      const p = position.board.at(s)!
+      return p.color === color && p.type === PieceType.KING
+    }) ?? null
+  )
 }

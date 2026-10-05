@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
 import { reactRouter } from '@react-router/dev/vite'
 import { defineConfig, type Plugin } from 'vite'
 
@@ -27,6 +28,7 @@ const compactJoseki = (): Plugin => ({
 
 export default defineConfig({
   base: process.env.BASE_PATH ?? '/',
+  resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
   plugins: [compactJoseki(), woff2Only(), reactRouter()],
   build: {
     chunkSizeWarningLimit: 1500,

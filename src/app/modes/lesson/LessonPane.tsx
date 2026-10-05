@@ -1,24 +1,30 @@
 import './lesson.css'
 import { useTranslation } from 'react-i18next'
-import { LABELS } from '../../../analysis'
-import i18n from '../../../i18n'
-import { SETUPS, type Course } from '../../../model'
-import { moveText } from '../../../shogi'
-import { useSession } from '../../hooks/session'
-import { coursesOf, mainBranch, setupOf } from '../../lib/book'
-import { mistakeHeadline, mistakeIsBad, type ShownMistake } from '../../lib/mistake'
-import { sideMark } from '../../lib/notation'
-import { moveGloss } from '../../pieces'
-import type { Level, Score } from '../../types'
-import { Button } from '../../ui/Button'
-import { Card } from '../../ui/Card'
+import { LABELS } from '@/utils/analysis'
+import i18n from '@/utils/i18n'
+import { SETUPS, type Course } from '@/utils/model'
+import { moveText } from '@/utils/shogi'
+import { useSession } from '@/app/hooks/session'
+import { coursesOf, mainBranch, setupOf } from '@/utils/book'
+import { mistakeHeadline, mistakeIsBad, type ShownMistake } from '@/utils/mistake'
+import { sideMark } from '@/utils/notation'
+import { moveGloss } from '@/app/pieces'
+import type { Level, Score } from '@/app/types'
+import { Button } from '@/app/ui/Button'
+import { Card } from '@/app/ui/Card'
 import { OpeningPicker } from './OpeningPicker'
 import type { Lesson } from './useLesson'
 
 function quizSummary({ right, wrong, shown = 0, retried = 0 }: Score) {
   if (right === 0 && retried === 0 && (shown > 0 || wrong > 0)) return i18n.t('lesson.youNeededHelpForEvery')
-  if (wrong === 0 && shown === 0 && retried === 0) return right === 1 ? i18n.t('lesson.yourMoveWasRightNo') : i18n.t('lesson.allMovesRightNoMistakes', { right })
-  const parts = [i18n.t('lesson.firstTry', { count: right }), retried ? i18n.t('lesson.afterWrongTry', { count: retried }) : '', shown ? i18n.t('lesson.answersShown', { count: shown }) : '', wrong ? i18n.t('lesson.wrongTries', { count: wrong }) : ''].filter(Boolean)
+  if (wrong === 0 && shown === 0 && retried === 0)
+    return right === 1 ? i18n.t('lesson.yourMoveWasRightNo') : i18n.t('lesson.allMovesRightNoMistakes', { right })
+  const parts = [
+    i18n.t('lesson.firstTry', { count: right }),
+    retried ? i18n.t('lesson.afterWrongTry', { count: retried }) : '',
+    shown ? i18n.t('lesson.answersShown', { count: shown }) : '',
+    wrong ? i18n.t('lesson.wrongTries', { count: wrong }) : '',
+  ].filter(Boolean)
   return i18n.t('lesson.quizAgainUntilClean', { parts: parts.join(i18n.t('lesson.listSeparator')) })
 }
 
@@ -55,9 +61,7 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
   return (
     <div className="app-lesson-pane">
       {progress && progress.total > 0 && (
-        <span className="app-progress-count">
-          {t('lesson.yourMoves', { value: Math.min(progress.done, progress.total), total: progress.total })}
-        </span>
+        <span className="app-progress-count">{t('lesson.yourMoves', { value: Math.min(progress.done, progress.total), total: progress.total })}</span>
       )}
       {lessonMode === 'quiz' && (score.right > 0 || score.wrong > 0 || justRight) && (
         <p className="app-score">
@@ -85,9 +89,15 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
               ))}
             </ul>
           )}
-          {mistake.verdict && !mistake.note && mistake.verdict.reasons.length === 0 && <p>{mistakeIsBad(mistake) ? t('lesson.theOpponentGetsTheBetter') : t('lesson.nothingGoesWrongRightAway')}</p>}
+          {mistake.verdict && !mistake.note && mistake.verdict.reasons.length === 0 && (
+            <p>{mistakeIsBad(mistake) ? t('lesson.theOpponentGetsTheBetter') : t('lesson.nothingGoesWrongRightAway')}</p>
+          )}
           <p className="app-muted">
-            {lessonMode === 'study' ? (mistake.verdict && mistake.verdict.best.move !== mistake.expected && mistake.verdict.best.move !== mistake.usi ? t('lesson.theLessonMoveIsThe', { move: moveText(sfen, mistake.expected), move2: moveText(sfen, mistake.verdict.best.move) }) : t('lesson.theLessonMoveIs', { move: moveText(sfen, mistake.expected) })) : ''}
+            {lessonMode === 'study'
+              ? mistake.verdict && mistake.verdict.best.move !== mistake.expected && mistake.verdict.best.move !== mistake.usi
+                ? t('lesson.theLessonMoveIsThe', { move: moveText(sfen, mistake.expected), move2: moveText(sfen, mistake.verdict.best.move) })
+                : t('lesson.theLessonMoveIs', { move: moveText(sfen, mistake.expected) })
+              : ''}
             {playing ? t('lesson.theBoardIsPlayingOut') : t('lesson.thatIsHowItContinues')}
           </p>
           <Button variant="primary" onClick={onBack}>
@@ -141,7 +151,13 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
         </Card>
       ) : asking ? (
         <Card>
-          {mistake && !mistakePreview && <p key={`${mistake.base}:${mistake.usi}`} ref={reveal} className="app-result wrong">{mistakeIsBad(mistake) ? t('lesson.wasLabel', { move: moveText(sfen, mistake.usi), label: (mistake.verdict ? LABELS[mistake.verdict.label] : LABELS.mistake).text }) : t('lesson.isNotThisLessonS', { move: moveText(sfen, mistake.usi) })}</p>}
+          {mistake && !mistakePreview && (
+            <p key={`${mistake.base}:${mistake.usi}`} ref={reveal} className="app-result wrong">
+              {mistakeIsBad(mistake)
+                ? t('lesson.wasLabel', { move: moveText(sfen, mistake.usi), label: (mistake.verdict ? LABELS[mistake.verdict.label] : LABELS.mistake).text })
+                : t('lesson.isNotThisLessonS', { move: moveText(sfen, mistake.usi) })}
+            </p>
+          )}
           {lessonMode === 'study' || showAnswer ? (
             <>
               <strong>{t('lesson.yourMoveAs', { side })}</strong>

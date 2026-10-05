@@ -2,7 +2,7 @@ import { spawn, spawnSync } from 'node:child_process'
 import { existsSync, mkdirSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs'
 import { createInterface } from 'node:readline'
 import { InitialPositionSFEN, Position, importCSA, parseCSAMove } from 'tsshogi'
-import { statsKey, statsShard, type RawPosition, type StatsMeta } from '../../src/app/lib/stats'
+import { statsKey, statsShard, type RawPosition, type StatsMeta } from '../../src/utils/stats'
 
 const args = process.argv.slice(2)
 const arg = (name: string, fallback: string) => {
@@ -141,7 +141,11 @@ mkdirSync(CACHE, { recursive: true })
 
 for (const file of await aobaFiles()) {
   const url = `https://drive.usercontent.google.com/download?id=${file.id}&export=download&confirm=t`
-  await readGames(`aobazero:${file.name}`, `curl -sSL --retry 3 '${url}' | xz -dc | LC_ALL=C grep -aE '^(PI|P[1-9+-]|/|%|[+-])' | cut -c1-24`, (line) => line === '/')
+  await readGames(
+    `aobazero:${file.name}`,
+    `curl -sSL --retry 3 '${url}' | xz -dc | LC_ALL=C grep -aE '^(PI|P[1-9+-]|/|%|[+-])' | cut -c1-24`,
+    (line) => line === '/',
+  )
 }
 
 for (const year of FLOODGATE_YEARS) {
@@ -158,7 +162,10 @@ for (const [key, moveMap] of table) {
   const rows = [...moveMap].map(([usi, [n, s, g]]) => [usi, n, s, g] as [string, number, number, number])
   const total = rows.reduce((sum, r) => sum + r[1], 0)
   if (total < MIN_GAMES) continue
-  const m = rows.filter((r) => r[1] >= Math.max(2, total * 0.005)).sort((a, b) => b[1] - a[1]).slice(0, MAX_MOVES)
+  const m = rows
+    .filter((r) => r[1] >= Math.max(2, total * 0.005))
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, MAX_MOVES)
   kept.set(key, { n: total, m })
 }
 table.clear()
@@ -177,7 +184,13 @@ for (const [key, value] of kept) {
   shards.get(id)![key] = value
 }
 for (const [id, shard] of shards) writeFileSync(`${OUT}/${id}.json`, JSON.stringify(shard))
-const meta: StatsMeta = { games: sourceGames.reduce((s, x) => s + x.games, 0), sources: sourceGames, minGames: MIN_GAMES, maxPly: MAX_PLY, built: new Date().toISOString().slice(0, 10) }
+const meta: StatsMeta = {
+  games: sourceGames.reduce((s, x) => s + x.games, 0),
+  sources: sourceGames,
+  minGames: MIN_GAMES,
+  maxPly: MAX_PLY,
+  built: new Date().toISOString().slice(0, 10),
+}
 writeFileSync(`${OUT}/meta.json`, JSON.stringify(meta, null, 2))
 const bytes = readdirSync(OUT).reduce((s, f) => s + statSync(`${OUT}/${f}`).size, 0)
 console.log(`wrote ${shards.size} shards, ${(bytes / 1024 / 1024).toFixed(2)} MB to ${OUT}`)

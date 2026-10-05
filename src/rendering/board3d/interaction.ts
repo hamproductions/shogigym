@@ -90,7 +90,10 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
 
   const startDrag = (from: Pick) => {
     if (from.kind === 'arrow') return
-    const mesh = from.kind === 'square' ? s.pieces.children.find((m) => (m.userData.square as Square | undefined)?.equals(from.square)) : s.handMeshes.find((m) => m.userData.type === from.type && m.userData.color === from.color)
+    const mesh =
+      from.kind === 'square'
+        ? s.pieces.children.find((m) => (m.userData.square as Square | undefined)?.equals(from.square))
+        : s.handMeshes.find((m) => m.userData.type === from.type && m.userData.color === from.color)
     if (!mesh) return
     const toMove = latest.current.movable === undefined ? latest.current.position.color : latest.current.movable
     const owner = from.kind === 'square' ? latest.current.position.board.at(from.square)?.color : from.color

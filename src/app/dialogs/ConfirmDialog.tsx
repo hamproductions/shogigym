@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { Confirm } from '../types'
-import { Button } from '../ui/Button'
-import { Dialog } from '../ui/Dialog'
+import type { Confirm } from '@/app/types'
+import { Button } from '@/app/ui/Button'
+import { Dialog } from '@/app/ui/Dialog'
 
 const CLICK_THROUGH_MS = 250
 

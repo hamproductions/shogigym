@@ -1,7 +1,7 @@
 import { Suspense, lazy } from 'react'
 import { useNavigate } from 'react-router'
 
-const PieceViewer = lazy(() => import('../features/piece-viewer/PieceViewer').then((m) => ({ default: m.PieceViewer })))
+const PieceViewer = lazy(() => import('@/features/piece-viewer/PieceViewer').then((m) => ({ default: m.PieceViewer })))
 
 export async function clientLoader() {
   return null

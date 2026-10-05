@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import type { PieceFinish } from '../../appearance/settings'
+import type { PieceFinish } from '@/appearance/settings'
 
 type Ink = (u: number, v: number) => number
 
@@ -47,7 +47,7 @@ export function inkMask(map: THREE.Texture) {
   const canvas = document.createElement('canvas')
   canvas.width = canvas.height = size
   const ctx = canvas.getContext('2d', { willReadFrequently: true })!
-  ctx.drawImage(glyph ?? map.image as HTMLCanvasElement, 0, 0, size, size)
+  ctx.drawImage(glyph ?? (map.image as HTMLCanvasElement), 0, 0, size, size)
   const raw = ctx.getImageData(0, 0, size, size).data
   const hard = new Float32Array(size * size)
   for (let i = 0; i < hard.length; i++) {
@@ -56,7 +56,7 @@ export function inkMask(map: THREE.Texture) {
     const b = raw[i * 4 + 2]
     const red = r > 110 && r - g > 55 && r - b > 55
     const lum = 0.3 * r + 0.59 * g + 0.11 * b
-    hard[i] = glyph ? raw[i * 4 + 3] / 255 : map.userData.lightInk ? lum > 125 ? 1 : 0 : red || lum < 125 ? 1 : 0
+    hard[i] = glyph ? raw[i * 4 + 3] / 255 : map.userData.lightInk ? (lum > 125 ? 1 : 0) : red || lum < 125 ? 1 : 0
   }
   const soft = blur(blur(hard, size, 3), size, 3)
   const sample: Ink = (u, v) => {
@@ -105,14 +105,16 @@ export function finishMask(map: THREE.Texture, finish: PieceFinish) {
   const size = 512
   const distance = new Float32Array(size * size)
   for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) distance[y * size + x] = ink(x / (size - 1), 1 - y / (size - 1)) > 0.5 ? size : 0
-  for (let y = 1; y < size - 1; y++) for (let x = 1; x < size - 1; x++) {
-    const i = y * size + x
-    distance[i] = Math.min(distance[i], distance[i - 1] + 1, distance[i - size] + 1, distance[i - size - 1] + Math.SQRT2, distance[i - size + 1] + Math.SQRT2)
-  }
-  for (let y = size - 2; y > 0; y--) for (let x = size - 2; x > 0; x--) {
-    const i = y * size + x
-    distance[i] = Math.min(distance[i], distance[i + 1] + 1, distance[i + size] + 1, distance[i + size - 1] + Math.SQRT2, distance[i + size + 1] + Math.SQRT2)
-  }
+  for (let y = 1; y < size - 1; y++)
+    for (let x = 1; x < size - 1; x++) {
+      const i = y * size + x
+      distance[i] = Math.min(distance[i], distance[i - 1] + 1, distance[i - size] + 1, distance[i - size - 1] + Math.SQRT2, distance[i - size + 1] + Math.SQRT2)
+    }
+  for (let y = size - 2; y > 0; y--)
+    for (let x = size - 2; x > 0; x--) {
+      const i = y * size + x
+      distance[i] = Math.min(distance[i], distance[i + 1] + 1, distance[i + size] + 1, distance[i + size - 1] + Math.SQRT2, distance[i + size + 1] + Math.SQRT2)
+    }
   if (glyph) glyphDistanceCache.set(glyph, { distance: Float32Array.from(distance, (value) => Math.min(1, value / 14)), size })
   const sample: Ink = (u, v) => {
     const x = Math.max(0, Math.min(size - 1, Math.round(u * (size - 1))))

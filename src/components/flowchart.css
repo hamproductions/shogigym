@@ -41,14 +41,32 @@
   stroke-width: 2;
 }
 
-.fc-edge.v-good { stroke: var(--fc-good); }
-.fc-edge.v-book { stroke: var(--fc-book); }
-.fc-edge.v-mistake { stroke: var(--fc-mistake); stroke-dasharray: 5 4; }
-.fc-edge.v-opponent-mistake { stroke: var(--fc-opp); stroke-dasharray: 5 4; }
-.fc-head-good { fill: var(--fc-good); }
-.fc-head-book { fill: var(--fc-book); }
-.fc-head-mistake { fill: var(--fc-mistake); }
-.fc-head-opponent-mistake { fill: var(--fc-opp); }
+.fc-edge.v-good {
+  stroke: var(--fc-good);
+}
+.fc-edge.v-book {
+  stroke: var(--fc-book);
+}
+.fc-edge.v-mistake {
+  stroke: var(--fc-mistake);
+  stroke-dasharray: 5 4;
+}
+.fc-edge.v-opponent-mistake {
+  stroke: var(--fc-opp);
+  stroke-dasharray: 5 4;
+}
+.fc-head-good {
+  fill: var(--fc-good);
+}
+.fc-head-book {
+  fill: var(--fc-book);
+}
+.fc-head-mistake {
+  fill: var(--fc-mistake);
+}
+.fc-head-opponent-mistake {
+  fill: var(--fc-opp);
+}
 
 .fc-box {
   position: absolute;
@@ -60,7 +78,10 @@
   border-radius: var(--radius-lg);
   background: var(--card);
   text-align: left;
-  box-shadow: inset 3px 0 0 var(--fc-accent, var(--fc-book)), inset 0 0 0 1px var(--border), var(--shadow-sm);
+  box-shadow:
+    inset 3px 0 0 var(--fc-accent, var(--fc-book)),
+    inset 0 0 0 1px var(--border),
+    var(--shadow-sm);
   transition: background var(--dur-fast);
 }
 
@@ -68,11 +89,21 @@
   background: var(--card-hover);
 }
 
-.fc-box.v-good { --fc-accent: var(--fc-good); }
-.fc-box.v-book { --fc-accent: var(--fc-book); }
-.fc-box.v-mistake { --fc-accent: var(--fc-mistake); }
-.fc-box.v-opponent-mistake { --fc-accent: var(--fc-opp); }
-.fc-box.v-start { --fc-accent: var(--text-muted); }
+.fc-box.v-good {
+  --fc-accent: var(--fc-good);
+}
+.fc-box.v-book {
+  --fc-accent: var(--fc-book);
+}
+.fc-box.v-mistake {
+  --fc-accent: var(--fc-mistake);
+}
+.fc-box.v-opponent-mistake {
+  --fc-accent: var(--fc-opp);
+}
+.fc-box.v-start {
+  --fc-accent: var(--text-muted);
+}
 
 .fc-box.current {
   outline: 2px solid var(--accent);
@@ -140,7 +171,9 @@
   border-radius: var(--radius-xl);
   background: var(--panel);
   color: var(--text);
-  box-shadow: inset 0 0 0 1px var(--border), var(--shadow-lg);
+  box-shadow:
+    inset 0 0 0 1px var(--border),
+    var(--shadow-lg);
 }
 
 .fc-overlay-box .fc-scroll {

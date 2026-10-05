@@ -1,8 +1,8 @@
 import * as THREE from 'three'
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js'
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
-import { loadPieceFont } from '../appearance/settings'
-import { CASUAL_ROOM, ROOM_H, TABLE, TABLE_H, TATAMI_W, TRADITIONAL_ROOM, ZABUTON, mm } from '../app/roomMetrics'
+import { loadPieceFont } from '@/appearance/settings'
+import { CASUAL_ROOM, ROOM_H, TABLE, TABLE_H, TATAMI_W, TRADITIONAL_ROOM, ZABUTON, mm } from '@/utils/roomMetrics'
 import { grain, grainTexture, once, paint, rng, standard, tableTexture, tileUV, type Draw, type RoomDims } from './roomFloor'
 
 export function zabutonTexture() {
@@ -286,14 +286,16 @@ const panel = (s: Side, u0: number, u1: number, y0: number, y1: number, d: numbe
   return onWall(g, s, (u0 + u1) / 2, (y0 + y1) / 2, d)
 }
 
-const beam = (s: Side, u0: number, u1: number, y0: number, y1: number, d0: number, d1: number) => onWall(new THREE.BoxGeometry(u1 - u0, y1 - y0, d1 - d0), s, (u0 + u1) / 2, (y0 + y1) / 2, (d0 + d1) / 2)
+const beam = (s: Side, u0: number, u1: number, y0: number, y1: number, d0: number, d1: number) =>
+  onWall(new THREE.BoxGeometry(u1 - u0, y1 - y0, d1 - d0), s, (u0 + u1) / 2, (y0 + y1) / 2, (d0 + d1) / 2)
 
 const box = (w: number, h: number, d: number, x: number, y: number, z: number) => new THREE.BoxGeometry(w, h, d).translate(x, y, z)
 
-const lathe = (points: [number, number][], segments = 24) => new THREE.LatheGeometry(
-  points.map(([r, y]) => new THREE.Vector2(r, y)),
-  segments,
-)
+const lathe = (points: [number, number][], segments = 24) =>
+  new THREE.LatheGeometry(
+    points.map(([r, y]) => new THREE.Vector2(r, y)),
+    segments,
+  )
 
 const place = (g: THREE.BufferGeometry, x: number, y: number, z: number, yaw = 0) => g.rotateY(yaw).translate(x, y, z)
 
@@ -357,7 +359,14 @@ export function buildRoom(root: THREE.Group, dims: RoomDims) {
   const lacquer = standard('lacquer', { color: 0x1b120c, roughness: 0.22 }, 0.3)
   const plaster = standard('plaster', { map: paint('plaster', 256, 256, plasterDraw('#cdbb96', 4), true), roughness: 0.95 }, 0.42)
   const alcove = standard('alcove', { map: paint('plaster', 256, 256, plasterDraw('#cdbb96', 4), true), color: 0xd8ccb8, roughness: 0.95 }, 0.34)
-  const shoji = standard('shoji', { map: paint('shoji', 512, 1024, shojiDraw(false)), emissive: 0xfff4dc, emissiveMap: paint('shoji-glow', 512, 1024, shojiDraw(true)), emissiveIntensity: 0.55, roughness: 0.9, alphaTest: 0.5 })
+  const shoji = standard('shoji', {
+    map: paint('shoji', 512, 1024, shojiDraw(false)),
+    emissive: 0xfff4dc,
+    emissiveMap: paint('shoji-glow', 512, 1024, shojiDraw(true)),
+    emissiveIntensity: 0.55,
+    roughness: 0.9,
+    alphaTest: 0.5,
+  })
   const fusuma = standard('fusuma', { map: paint('fusuma', 512, 1024, fusumaDraw), roughness: 0.8 }, 0.4)
   const ceilingMat = standard('ceiling', { map: paint('ceiling', 512, 512, ceilingDraw, true), roughness: 0.75 }, 0.42)
   const toko = standard('toko', { map: grain('toko', 512, 256, [96, 58, 32], 80, 29), roughness: 0.3 }, 0.3)
@@ -423,10 +432,50 @@ export function buildRoom(root: THREE.Group, dims: RoomDims) {
     put(parts, lacquer, beam(s, -A + post / 2, -0.8, floorY, tokoTop, -0.6, 1.6))
     put(parts, toko, beam(s, -A, 0, floorY, tokoTop - 0.05, -D, -0.6))
     put(parts, alcove, panel(s, -A, A, floorY, ceil, -D, plasterTile))
-    put(parts, alcove, onWall(tileUV(new THREE.PlaneGeometry(D, ceil - floorY).rotateY(Math.PI / 2), D / plasterTile, (ceil - floorY) / plasterTile), s, -A, (floorY + ceil) / 2, -D / 2))
-    put(parts, alcove, onWall(tileUV(new THREE.PlaneGeometry(D, ceil - floorY).rotateY(-Math.PI / 2), D / plasterTile, (ceil - floorY) / plasterTile), s, A, (floorY + ceil) / 2, -D / 2))
-    put(parts, alcove, onWall(tileUV(new THREE.PlaneGeometry(D, ceil - floorY).rotateY(-Math.PI / 2), D / plasterTile, (ceil - floorY) / plasterTile), s, -0.7, (floorY + ceil) / 2, -D / 2))
-    put(parts, alcove, onWall(tileUV(new THREE.PlaneGeometry(D, ceil - floorY).rotateY(Math.PI / 2), D / plasterTile, (ceil - floorY) / plasterTile), s, 0.7, (floorY + ceil) / 2, -D / 2))
+    put(
+      parts,
+      alcove,
+      onWall(
+        tileUV(new THREE.PlaneGeometry(D, ceil - floorY).rotateY(Math.PI / 2), D / plasterTile, (ceil - floorY) / plasterTile),
+        s,
+        -A,
+        (floorY + ceil) / 2,
+        -D / 2,
+      ),
+    )
+    put(
+      parts,
+      alcove,
+      onWall(
+        tileUV(new THREE.PlaneGeometry(D, ceil - floorY).rotateY(-Math.PI / 2), D / plasterTile, (ceil - floorY) / plasterTile),
+        s,
+        A,
+        (floorY + ceil) / 2,
+        -D / 2,
+      ),
+    )
+    put(
+      parts,
+      alcove,
+      onWall(
+        tileUV(new THREE.PlaneGeometry(D, ceil - floorY).rotateY(-Math.PI / 2), D / plasterTile, (ceil - floorY) / plasterTile),
+        s,
+        -0.7,
+        (floorY + ceil) / 2,
+        -D / 2,
+      ),
+    )
+    put(
+      parts,
+      alcove,
+      onWall(
+        tileUV(new THREE.PlaneGeometry(D, ceil - floorY).rotateY(Math.PI / 2), D / plasterTile, (ceil - floorY) / plasterTile),
+        s,
+        0.7,
+        (floorY + ceil) / 2,
+        -D / 2,
+      ),
+    )
     put(parts, log, onWall(new THREE.CylinderGeometry(mm(62), mm(70), ceil - floorY, 20), s, 0, (floorY + ceil) / 2, 0))
     put(parts, toko, beam(s, 0.7, A, floorY, floorY + mm(40), -D, 0.6))
     const shelfA = floorY + mm(1050)
@@ -446,9 +495,18 @@ export function buildRoom(root: THREE.Group, dims: RoomDims) {
     const scrollW = mm(470)
     const scrollTop = floorY + mm(2150)
     const scrollH = mm(1600)
-    put(parts, standard('scroll', { map: scrollTexture(), roughness: 0.85 }, 0.4), onWall(new THREE.PlaneGeometry(scrollW, scrollH), s, sx, scrollTop - scrollH / 2, -D + 0.25))
+    put(
+      parts,
+      standard('scroll', { map: scrollTexture(), roughness: 0.85 }, 0.4),
+      onWall(new THREE.PlaneGeometry(scrollW, scrollH), s, sx, scrollTop - scrollH / 2, -D + 0.25),
+    )
     put(parts, darkWood, onWall(new THREE.CylinderGeometry(0.42, 0.42, scrollW + 0.2, 14).rotateZ(Math.PI / 2), s, sx, scrollTop - scrollH - 0.2, -D + 0.6))
-    for (const e of [-1, 1]) put(parts, lacquer, onWall(new THREE.CylinderGeometry(0.55, 0.5, 1.1, 14).rotateZ(Math.PI / 2), s, sx + e * (scrollW / 2 + 0.6), scrollTop - scrollH - 0.2, -D + 0.6))
+    for (const e of [-1, 1])
+      put(
+        parts,
+        lacquer,
+        onWall(new THREE.CylinderGeometry(0.55, 0.5, 1.1, 14).rotateZ(Math.PI / 2), s, sx + e * (scrollW / 2 + 0.6), scrollTop - scrollH - 0.2, -D + 0.6),
+      )
     put(parts, darkWood, onWall(new THREE.BoxGeometry(scrollW + 0.2, 0.5, 0.35), s, sx, scrollTop - 0.1, -D + 0.45))
     put(parts, darkWood, onWall(new THREE.CylinderGeometry(0.05, 0.05, mm(260), 4), s, sx, scrollTop + mm(130), -D + 0.3))
     bake(parts, groups.nz)
@@ -458,7 +516,30 @@ export function buildRoom(root: THREE.Group, dims: RoomDims) {
     const vy = tokoTop
     put(parts, lacquer, place(box(mm(300), mm(25), mm(300), 0, mm(12.5), 0), vx, vy, vz))
     const celadon = standard('celadon', { color: 0x8fb09c, roughness: 0.22 }, 0.25)
-    put(parts, celadon, place(lathe([[0, 0], [1.6, 0], [2.4, 1.2], [2.8, 3.2], [2.5, 5.2], [1.3, 6.6], [1.0, 7.4], [1.35, 7.9], [1.15, 7.9], [0.85, 7.2]], 28), vx, vy + mm(25), vz))
+    put(
+      parts,
+      celadon,
+      place(
+        lathe(
+          [
+            [0, 0],
+            [1.6, 0],
+            [2.4, 1.2],
+            [2.8, 3.2],
+            [2.5, 5.2],
+            [1.3, 6.6],
+            [1.0, 7.4],
+            [1.35, 7.9],
+            [1.15, 7.9],
+            [0.85, 7.2],
+          ],
+          28,
+        ),
+        vx,
+        vy + mm(25),
+        vz,
+      ),
+    )
     const stem = standard('stem', { color: 0x4a3a22, roughness: 0.8 }, 0.25)
     const leaf = standard('leaf', { color: 0x2f4a26, roughness: 0.6 }, 0.25)
     const bloom = standard('bloom', { color: 0xb3242c, roughness: 0.55 }, 0.25)
@@ -475,7 +556,11 @@ export function buildRoom(root: THREE.Group, dims: RoomDims) {
       put(parts, stem, g)
       for (let k = 0; k < 4; k++) {
         const p = base.clone().addScaledVector(dir, len * (0.45 + k * 0.17))
-        const lg = new THREE.SphereGeometry(1, 8, 6).scale(1.5, 0.12, 0.75).rotateX((r() - 0.5) * 1.2).rotateY(r() * Math.PI * 2).rotateZ((r() - 0.5) * 0.8)
+        const lg = new THREE.SphereGeometry(1, 8, 6)
+          .scale(1.5, 0.12, 0.75)
+          .rotateX((r() - 0.5) * 1.2)
+          .rotateY(r() * Math.PI * 2)
+          .rotateZ((r() - 0.5) * 0.8)
         put(parts, leaf, lg.translate(p.x + (r() - 0.5) * 1.2, p.y, p.z + (r() - 0.5) * 1.2))
       }
       const tip = base.clone().addScaledVector(dir, len + 0.3)
@@ -518,13 +603,110 @@ export function buildRoom(root: THREE.Group, dims: RoomDims) {
     const tx = sgn * 15.5
     const tz = sgn * (dims.halfD + 10)
     const local = (g: THREE.BufferGeometry, x: number, y: number, z: number) => g.translate(x, y, z).rotateY(yaw).translate(tx, floorY, tz)
-    put(parts, lacquer, local(lathe([[0, 0], [4.2, 0], [4.4, 0.7], [4.55, 0.75], [4.4, 0.3], [0, 0.3]], 32), 0, 0, 0))
-    put(parts, clay, local(lathe([[0, 0], [1.3, 0], [1.9, 0.4], [2.2, 1.3], [2.0, 2.3], [1.3, 2.7], [1.25, 2.8]], 20), -1.6, 0.3, -1.2))
-    put(parts, clay, local(lathe([[0, 0], [1.3, 0], [1.2, 0.2], [0.55, 0.38], [0.3, 0.5], [0.32, 0.75], [0, 0.8]], 16), -1.6, 3.05, -1.2))
+    put(
+      parts,
+      lacquer,
+      local(
+        lathe(
+          [
+            [0, 0],
+            [4.2, 0],
+            [4.4, 0.7],
+            [4.55, 0.75],
+            [4.4, 0.3],
+            [0, 0.3],
+          ],
+          32,
+        ),
+        0,
+        0,
+        0,
+      ),
+    )
+    put(
+      parts,
+      clay,
+      local(
+        lathe(
+          [
+            [0, 0],
+            [1.3, 0],
+            [1.9, 0.4],
+            [2.2, 1.3],
+            [2.0, 2.3],
+            [1.3, 2.7],
+            [1.25, 2.8],
+          ],
+          20,
+        ),
+        -1.6,
+        0.3,
+        -1.2,
+      ),
+    )
+    put(
+      parts,
+      clay,
+      local(
+        lathe(
+          [
+            [0, 0],
+            [1.3, 0],
+            [1.2, 0.2],
+            [0.55, 0.38],
+            [0.3, 0.5],
+            [0.32, 0.75],
+            [0, 0.8],
+          ],
+          16,
+        ),
+        -1.6,
+        3.05,
+        -1.2,
+      ),
+    )
     put(parts, clay, local(new THREE.CylinderGeometry(0.18, 0.36, 2.2, 8).rotateZ(-Math.PI / 4), 0.85, 2.3, -1.2))
     put(parts, clay, local(new THREE.CylinderGeometry(0.3, 0.34, 3.2, 8).rotateX(Math.PI / 2 - 0.15), -1.6, 2.0, -4.6))
-    put(parts, darkWood, local(lathe([[0, 0], [1.7, 0], [1.75, 0.25], [1.2, 0.3], [0, 0.3]], 20), 1.8, 0.3, 1.6))
-    put(parts, cupMat, local(lathe([[0, 0], [0.9, 0], [0.95, 0.2], [1.12, 2.5], [1.02, 2.5], [0.86, 0.45], [0, 0.45]], 20), 1.8, 0.6, 1.6))
+    put(
+      parts,
+      darkWood,
+      local(
+        lathe(
+          [
+            [0, 0],
+            [1.7, 0],
+            [1.75, 0.25],
+            [1.2, 0.3],
+            [0, 0.3],
+          ],
+          20,
+        ),
+        1.8,
+        0.3,
+        1.6,
+      ),
+    )
+    put(
+      parts,
+      cupMat,
+      local(
+        lathe(
+          [
+            [0, 0],
+            [0.9, 0],
+            [0.95, 0.2],
+            [1.12, 2.5],
+            [1.02, 2.5],
+            [0.86, 0.45],
+            [0, 0.45],
+          ],
+          20,
+        ),
+        1.8,
+        0.6,
+        1.6,
+      ),
+    )
     put(parts, tea, local(new THREE.CircleGeometry(1.0, 20).rotateX(-Math.PI / 2), 1.8, 2.6, 1.6))
     put(parts, bamboo, local(new RoundedBoxGeometry(0.75, 0.5, mm(215), 2, 0.2), 5.6, 0.25, -4.5))
     bake(parts, groups.items, true, true)
@@ -535,19 +717,54 @@ export function buildRoom(root: THREE.Group, dims: RoomDims) {
   const lampH = mm(330)
   const lampY = floorY + mm(1480)
   const lampR = mm(190)
-  const washi = standard('lantern', { color: 0xfff3dc, emissive: 0xffcf96, emissiveIntensity: 1.25, emissiveMap: paint('lantern', 256, 256, lanternDraw, true), roughness: 1 })
-  put(parts, washi, lathe([[0, -lampH / 2], [lampR * 0.72, -lampH / 2], [lampR * 0.94, -lampH * 0.28], [lampR, 0], [lampR * 0.94, lampH * 0.28], [lampR * 0.72, lampH / 2], [0, lampH / 2]], 32).translate(0, lampY, 0))
-  for (const sgn of [1, -1]) put(parts, darkWood, new THREE.TorusGeometry(lampR * 0.72, 0.18, 6, 32).rotateX(Math.PI / 2).translate(0, lampY + (sgn * lampH) / 2, 0))
+  const washi = standard('lantern', {
+    color: 0xfff3dc,
+    emissive: 0xffcf96,
+    emissiveIntensity: 1.25,
+    emissiveMap: paint('lantern', 256, 256, lanternDraw, true),
+    roughness: 1,
+  })
+  put(
+    parts,
+    washi,
+    lathe(
+      [
+        [0, -lampH / 2],
+        [lampR * 0.72, -lampH / 2],
+        [lampR * 0.94, -lampH * 0.28],
+        [lampR, 0],
+        [lampR * 0.94, lampH * 0.28],
+        [lampR * 0.72, lampH / 2],
+        [0, lampH / 2],
+      ],
+      32,
+    ).translate(0, lampY, 0),
+  )
+  for (const sgn of [1, -1])
+    put(parts, darkWood, new THREE.TorusGeometry(lampR * 0.72, 0.18, 6, 32).rotateX(Math.PI / 2).translate(0, lampY + (sgn * lampH) / 2, 0))
   put(parts, darkWood, new THREE.CylinderGeometry(0.07, 0.07, ceil - lampY - lampH / 2, 4).translate(0, (ceil + lampY + lampH / 2) / 2, 0))
   bake(parts, lamp)
-  const paper = standard('andon', { color: 0xfff2da, emissive: 0xffc27e, emissiveIntensity: 1.1, emissiveMap: paint('andon', 128, 256, andonDraw), roughness: 1, side: THREE.DoubleSide })
+  const paper = standard('andon', {
+    color: 0xfff2da,
+    emissive: 0xffc27e,
+    emissiveIntensity: 1.1,
+    emissiveMap: paint('andon', 128, 256, andonDraw),
+    roughness: 1,
+    side: THREE.DoubleSide,
+  })
   const aw = mm(300)
   const ah = mm(760)
   for (const [x, z] of [
     [A - 10, -B + 10],
     [-A + 10, B - 10],
   ]) {
-    for (const [sx, sz] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) put(parts, kyoWood, box(0.55, ah, 0.55, x + (sx * aw) / 2, floorY + ah / 2, z + (sz * aw) / 2))
+    for (const [sx, sz] of [
+      [-1, -1],
+      [1, -1],
+      [-1, 1],
+      [1, 1],
+    ])
+      put(parts, kyoWood, box(0.55, ah, 0.55, x + (sx * aw) / 2, floorY + ah / 2, z + (sz * aw) / 2))
     for (const y of [mm(40), mm(150), ah - 0.25]) {
       put(parts, kyoWood, box(aw, 0.45, 0.45, x, floorY + y, z - aw / 2))
       put(parts, kyoWood, box(aw, 0.45, 0.45, x, floorY + y, z + aw / 2))
@@ -555,7 +772,15 @@ export function buildRoom(root: THREE.Group, dims: RoomDims) {
       put(parts, kyoWood, box(0.45, 0.45, aw, x + aw / 2, floorY + y, z))
     }
     put(parts, kyoWood, box(aw - 0.4, 0.3, aw - 0.4, x, floorY + mm(150), z))
-    for (let k = 0; k < 4; k++) put(parts, paper, new THREE.PlaneGeometry(aw - 0.5, ah - mm(150) - 1.2).translate(0, 0, aw / 2 - 0.05).rotateY((k * Math.PI) / 2).translate(x, floorY + mm(150) + (ah - mm(150)) / 2, z))
+    for (let k = 0; k < 4; k++)
+      put(
+        parts,
+        paper,
+        new THREE.PlaneGeometry(aw - 0.5, ah - mm(150) - 1.2)
+          .translate(0, 0, aw / 2 - 0.05)
+          .rotateY((k * Math.PI) / 2)
+          .translate(x, floorY + mm(150) + (ah - mm(150)) / 2, z),
+      )
   }
   bake(parts, groups.items)
 
@@ -596,7 +821,6 @@ const lanternDraw: Draw = (ctx, w, h) => {
   ctx.fillStyle = 'rgba(150,110,60,0.45)'
   for (let y = 0; y < h; y += 32) ctx.fillRect(0, y, w, 3)
 }
-
 
 const wallpaperDraw: Draw = (ctx, w, h) => {
   ctx.fillStyle = '#ece5d6'
@@ -718,7 +942,15 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
   const tableT = mm(30)
 
   const parts: Parts = new Map()
-  const groups = { px: new THREE.Group(), nx: new THREE.Group(), pz: new THREE.Group(), nz: new THREE.Group(), up: new THREE.Group(), items: new THREE.Group(), table: new THREE.Group() }
+  const groups = {
+    px: new THREE.Group(),
+    nx: new THREE.Group(),
+    pz: new THREE.Group(),
+    nz: new THREE.Group(),
+    up: new THREE.Group(),
+    items: new THREE.Group(),
+    table: new THREE.Group(),
+  }
   root.add(...Object.values(groups))
   const sides = { px: { ry: -Math.PI / 2, half: A }, nx: { ry: Math.PI / 2, half: A }, pz: { ry: Math.PI, half: B }, nz: { ry: 0, half: B } }
 
@@ -759,24 +991,66 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
     const cx = mm(900)
     put(parts, oak, beam(s, cx - mm(800), cx + mm(800), floorY + mm(60), floorY + mm(820), 0.2, mm(420)))
     put(parts, oak, beam(s, cx - mm(820), cx + mm(820), floorY + mm(820), floorY + mm(850), 0.2, mm(440)))
-    for (const k of [-1, 0, 1]) put(parts, walnut, beam(s, cx + k * mm(530) - 0.1, cx + k * mm(530) + 0.1, floorY + mm(90), floorY + mm(800), mm(420), mm(420) + 0.1))
+    for (const k of [-1, 0, 1])
+      put(parts, walnut, beam(s, cx + k * mm(530) - 0.1, cx + k * mm(530) + 0.1, floorY + mm(90), floorY + mm(800), mm(420), mm(420) + 0.1))
     put(parts, walnut, beam(s, cx - mm(800), cx + mm(800), floorY + mm(440), floorY + mm(450), mm(420), mm(420) + 0.1))
-    put(parts, standard('clock', { map: paint('clock', 256, 256, clockDraw), roughness: 0.4 }, 0.35), onWall(new THREE.CircleGeometry(mm(140), 32), s, cx, floorY + mm(1900), 1.15))
+    put(
+      parts,
+      standard('clock', { map: paint('clock', 256, 256, clockDraw), roughness: 0.4 }, 0.35),
+      onWall(new THREE.CircleGeometry(mm(140), 32), s, cx, floorY + mm(1900), 1.15),
+    )
     put(parts, walnut, onWall(new THREE.CylinderGeometry(mm(160), mm(160), 1.1, 32, 1, true).rotateX(Math.PI / 2), s, cx, floorY + mm(1900), 0.6))
     put(parts, walnut, onWall(new THREE.RingGeometry(mm(140), mm(160), 32), s, cx, floorY + mm(1900), 1.15))
-    put(parts, standard('art', { map: paint('art', 384, 256, artDraw), roughness: 0.7 }, 0.35), onWall(new THREE.PlaneGeometry(mm(450), mm(300)), s, cx - mm(500), floorY + mm(1320), 0.5))
+    put(
+      parts,
+      standard('art', { map: paint('art', 384, 256, artDraw), roughness: 0.7 }, 0.35),
+      onWall(new THREE.PlaneGeometry(mm(450), mm(300)), s, cx - mm(500), floorY + mm(1320), 0.5),
+    )
     put(parts, walnut, beam(s, cx - mm(500) - mm(245), cx - mm(500) + mm(245), floorY + mm(1320) - mm(170), floorY + mm(1320) + mm(170), 0, 0.45))
     bake(parts, groups.pz)
     const kettle = standard('kettle', { color: 0xe8e4dc, roughness: 0.3 }, 0.25)
-    const sb = (x: number, z: number) => [-(x), floorY + mm(850), B - z] as const
+    const sb = (x: number, z: number) => [-x, floorY + mm(850), B - z] as const
     const [kx, ky, kz] = sb(cx + mm(450), mm(200))
-    put(parts, kettle, lathe([[0, 0], [2.6, 0], [2.8, 1], [2.6, 5.4], [2.0, 6.2], [0, 6.4]], 20).translate(kx, ky, kz))
+    put(
+      parts,
+      kettle,
+      lathe(
+        [
+          [0, 0],
+          [2.6, 0],
+          [2.8, 1],
+          [2.6, 5.4],
+          [2.0, 6.2],
+          [0, 6.4],
+        ],
+        20,
+      ).translate(kx, ky, kz),
+    )
     put(parts, sash, new THREE.TorusGeometry(1.6, 0.3, 6, 12, Math.PI).translate(kx, ky + 6.2, kz))
     put(parts, sash, new THREE.CylinderGeometry(0.25, 0.5, 2.2, 8).rotateZ(Math.PI / 3).translate(kx + 2.8, ky + 4.4, kz))
     const [bx, by, bz] = sb(cx - mm(300), mm(210))
-    put(parts, standard('basket', { color: 0xb48c5a, roughness: 0.9 }, 0.25), lathe([[0, 0], [4.2, 0], [5.4, 3.2], [5.0, 3.2], [3.8, 0.4], [0, 0.4]], 18).translate(bx, by, bz))
+    put(
+      parts,
+      standard('basket', { color: 0xb48c5a, roughness: 0.9 }, 0.25),
+      lathe(
+        [
+          [0, 0],
+          [4.2, 0],
+          [5.4, 3.2],
+          [5.0, 3.2],
+          [3.8, 0.4],
+          [0, 0.4],
+        ],
+        18,
+      ).translate(bx, by, bz),
+    )
     const fruit = standard('apple', { color: 0xb8322a, roughness: 0.45 }, 0.25)
-    for (const [ox, oz] of [[-1.5, 0], [1.4, 0.8], [0.2, -1.6]]) put(parts, fruit, new THREE.SphereGeometry(1.4, 12, 10).translate(bx + ox, by + 1.9, bz + oz))
+    for (const [ox, oz] of [
+      [-1.5, 0],
+      [1.4, 0.8],
+      [0.2, -1.6],
+    ])
+      put(parts, fruit, new THREE.SphereGeometry(1.4, 12, 10).translate(bx + ox, by + 1.9, bz + oz))
     bake(parts, groups.pz)
   }
 
@@ -787,7 +1061,11 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
     const y0 = floorY + mm(700)
     const y1 = floorY + mm(2050)
     wallRun(s, A, [[w0, w1, y0, y1]])
-    put(parts, standard('glass', { map: paint('glass', 512, 512, glassDraw), roughness: 0.05, metalness: 0.2, transparent: true, depthWrite: false }), panel(s, w0, w1, y0, y1, -1.0))
+    put(
+      parts,
+      standard('glass', { map: paint('glass', 512, 512, glassDraw), roughness: 0.05, metalness: 0.2, transparent: true, depthWrite: false }),
+      panel(s, w0, w1, y0, y1, -1.0),
+    )
     put(parts, sash, beam(s, w0, w0 + 1.2, y0, y1, -1.6, 0.6))
     put(parts, sash, beam(s, w1 - 1.2, w1, y0, y1, -1.6, 0.6))
     put(parts, sash, beam(s, w0, w1, y1 - 1.2, y1, -1.6, 0.6))
@@ -810,14 +1088,31 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
       g.computeVertexNormals()
       put(parts, curtain, onWall(g, s, (u0 + u1) / 2, floorY + 2 + height / 2, 2.8))
     }
-    const sheer = standard('sheer', { color: 0xffffff, roughness: 1, transparent: true, opacity: 0.32, emissive: 0xffffff, emissiveIntensity: 0.25, depthWrite: false })
+    const sheer = standard('sheer', {
+      color: 0xffffff,
+      roughness: 1,
+      transparent: true,
+      opacity: 0.32,
+      emissive: 0xffffff,
+      emissiveIntensity: 0.25,
+      depthWrite: false,
+    })
     const g = new THREE.PlaneGeometry(w1 - w0 - 8, y1 - y0 + 4, 60, 1)
     const pos = g.getAttribute('position') as THREE.BufferAttribute
     for (let i = 0; i < pos.count; i++) pos.setZ(i, Math.sin(pos.getX(i) * 1.3) * 0.35)
     g.computeVertexNormals()
     put(parts, sheer, onWall(g, s, 0, (y0 + y1) / 2 + 1, 2.0))
     bake(parts, groups.nz)
-    const sun = new THREE.Mesh(new THREE.PlaneGeometry(w1 - w0, 30).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({ map: paint('sun', 256, 128, sunDraw), transparent: true, opacity: 0.32, blending: THREE.AdditiveBlending, depthWrite: false }))
+    const sun = new THREE.Mesh(
+      new THREE.PlaneGeometry(w1 - w0, 30).rotateX(-Math.PI / 2),
+      new THREE.MeshBasicMaterial({
+        map: paint('sun', 256, 128, sunDraw),
+        transparent: true,
+        opacity: 0.32,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+      }),
+    )
     sun.position.set(6, floorY + 0.06, -B + 19)
     sun.geometry.applyMatrix4(new THREE.Matrix4().makeShear(0, 0, 0, 0, 0.3, 0))
     groups.items.add(sun)
@@ -825,7 +1120,11 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
 
   {
     const s = sides.nx
-    put(parts, standard('art2', { map: paint('art', 384, 256, artDraw), roughness: 0.7 }, 0.35), panel(s, -mm(380), mm(380), floorY + mm(1250), floorY + mm(1250) + mm(500), 0.5))
+    put(
+      parts,
+      standard('art2', { map: paint('art', 384, 256, artDraw), roughness: 0.7 }, 0.35),
+      panel(s, -mm(380), mm(380), floorY + mm(1250), floorY + mm(1250) + mm(500), 0.5),
+    )
     put(parts, oak, beam(s, -mm(400), mm(400), floorY + mm(1230), floorY + mm(1770), 0, 0.45))
     bake(parts, groups.nx)
     const sofa = standard('sofa', { color: 0x6f7f8e, roughness: 0.95 }, 0.3)
@@ -844,12 +1143,21 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
     }
     put(parts, pillow, rb(3.4, 10, 10, 1.6, x0 + 10.5, floorY + 12.6 + 5.2, -15))
     put(parts, pillow2, rb(3.4, 9, 9, 1.6, x0 + 10.6, floorY + 12.6 + 4.6, 14.5))
-    for (const [x, z] of [[x0 + 2, -len / 2 + 2], [x0 + depth - 2, -len / 2 + 2], [x0 + 2, len / 2 - 2], [x0 + depth - 2, len / 2 - 2]]) put(parts, walnut, new THREE.CylinderGeometry(0.5, 0.35, 2.4, 8).translate(x, floorY + 1.2, z))
+    for (const [x, z] of [
+      [x0 + 2, -len / 2 + 2],
+      [x0 + depth - 2, -len / 2 + 2],
+      [x0 + 2, len / 2 - 2],
+      [x0 + depth - 2, len / 2 - 2],
+    ])
+      put(parts, walnut, new THREE.CylinderGeometry(0.5, 0.35, 2.4, 8).translate(x, floorY + 1.2, z))
     const rugX0 = x0 + depth - 6
     const rugX1 = -18
     const rug = new THREE.BoxGeometry(rugX1 - rugX0, 0.3, mm(1600))
     bake(parts, groups.nx, true, true)
-    const rugMesh = new THREE.Mesh(rug.translate((rugX0 + rugX1) / 2, floorY + 0.15, 0), standard('rug', { map: paint('rug', 512, 768, rugDraw), roughness: 1 }, 0.18))
+    const rugMesh = new THREE.Mesh(
+      rug.translate((rugX0 + rugX1) / 2, floorY + 0.15, 0),
+      standard('rug', { map: paint('rug', 512, 768, rugDraw), roughness: 1 }, 0.18),
+    )
     rugMesh.receiveShadow = true
     groups.items.add(rugMesh)
     const lx = x0 + 7
@@ -871,7 +1179,8 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
     const t = 0.7
     put(parts, oak, box(shelfX1 - shelfX0, h, t, (shelfX0 + shelfX1) / 2, floorY + h / 2, z0 + t / 2))
     put(parts, oak, box(shelfX1 - shelfX0, h, t, (shelfX0 + shelfX1) / 2, floorY + h / 2, -z0 - t / 2))
-    for (let i = 0; i <= levels; i++) put(parts, oak, box(shelfX1 - shelfX0, t, w, (shelfX0 + shelfX1) / 2, floorY + 1.2 + (i * (h - 1.2 - t)) / levels + t / 2, 0))
+    for (let i = 0; i <= levels; i++)
+      put(parts, oak, box(shelfX1 - shelfX0, t, w, (shelfX0 + shelfX1) / 2, floorY + 1.2 + (i * (h - 1.2 - t)) / levels + t / 2, 0))
     put(parts, oak, box(shelfX1 - shelfX0, 1.2, w, (shelfX0 + shelfX1) / 2, floorY + 0.6, 0))
     put(parts, walnut, box(0.2, h, w, shelfX1 - 0.1, floorY + h / 2, 0))
     bake(parts, groups.px, true, false)
@@ -895,7 +1204,11 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
         const bh = Math.min(gap - t - 0.4, 6 + r() * 3)
         const bd = 4.2 + r() * 2.4
         const lean = r() < 0.06 ? 0.22 : 0
-        const m = new THREE.Matrix4().compose(new THREE.Vector3(shelfX1 - 0.3 - bd / 2, y + bh / 2 + (lean ? 0.2 : 0), z + bw / 2), new THREE.Quaternion().setFromEuler(new THREE.Euler(lean, 0, 0)), new THREE.Vector3(bd, bh, bw))
+        const m = new THREE.Matrix4().compose(
+          new THREE.Vector3(shelfX1 - 0.3 - bd / 2, y + bh / 2 + (lean ? 0.2 : 0), z + bw / 2),
+          new THREE.Quaternion().setFromEuler(new THREE.Euler(lean, 0, 0)),
+          new THREE.Vector3(bd, bh, bw),
+        )
         mats.push(m)
         colors.push(new THREE.Color(palette[Math.floor(r() * palette.length)]))
         z += bw + (lean ? 1.6 : 0.05)
@@ -910,18 +1223,66 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
     const potMat = standard('pot-white', { color: 0xf0ece4, roughness: 0.4 }, 0.25)
     const succ = standard('succ', { color: 0x6e9a5c, roughness: 0.7 }, 0.25)
     const y1 = floorY + 1.2 + t + gap
-    put(parts, potMat, lathe([[0, 0], [1.6, 0], [1.9, 2.6], [1.7, 2.6], [0, 2.4]], 16).translate(shelfX1 - 4, y1, z0 + w * 0.7))
-    for (let k = 0; k < 7; k++) put(parts, succ, new THREE.SphereGeometry(0.8, 8, 6).scale(0.6, 1.3, 0.6).rotateZ((k - 3) * 0.3).translate(shelfX1 - 4 + (k % 3 - 1) * 0.5, y1 + 3.2, z0 + w * 0.7 + (k - 3) * 0.3))
+    put(
+      parts,
+      potMat,
+      lathe(
+        [
+          [0, 0],
+          [1.6, 0],
+          [1.9, 2.6],
+          [1.7, 2.6],
+          [0, 2.4],
+        ],
+        16,
+      ).translate(shelfX1 - 4, y1, z0 + w * 0.7),
+    )
+    for (let k = 0; k < 7; k++)
+      put(
+        parts,
+        succ,
+        new THREE.SphereGeometry(0.8, 8, 6)
+          .scale(0.6, 1.3, 0.6)
+          .rotateZ((k - 3) * 0.3)
+          .translate(shelfX1 - 4 + ((k % 3) - 1) * 0.5, y1 + 3.2, z0 + w * 0.7 + (k - 3) * 0.3),
+      )
     const y3 = floorY + 1.2 + t + 3 * gap
-    put(parts, standard('photo', { map: paint('art', 384, 256, artDraw), roughness: 0.5 }, 0.3), new THREE.PlaneGeometry(mm(180), mm(130)).rotateY(-Math.PI / 2).rotateZ(0).translate(shelfX1 - 3.2, y3 + 2.3, z0 + w * 0.17))
+    put(
+      parts,
+      standard('photo', { map: paint('art', 384, 256, artDraw), roughness: 0.5 }, 0.3),
+      new THREE.PlaneGeometry(mm(180), mm(130))
+        .rotateY(-Math.PI / 2)
+        .rotateZ(0)
+        .translate(shelfX1 - 3.2, y3 + 2.3, z0 + w * 0.17),
+    )
     put(parts, walnut, box(0.3, mm(150), mm(200), shelfX1 - 3, y3 + 2.3, z0 + w * 0.17))
     bake(parts, groups.px)
 
     const px = A - 11
     const pz = -B + 11
     const terracotta = standard('terracotta', { color: 0xb5643c, roughness: 0.85 }, 0.22)
-    put(parts, terracotta, lathe([[0, 0], [3.6, 0], [4.8, 10], [5.2, 10.4], [5.2, 11], [4.6, 11], [4.3, 10.2], [0, 9.8]], 24).translate(px, floorY, pz))
-    put(parts, standard('soil', { color: 0x3a2a1c, roughness: 1 }, 0.2), new THREE.CircleGeometry(4.5, 20).rotateX(-Math.PI / 2).translate(px, floorY + 10.2, pz))
+    put(
+      parts,
+      terracotta,
+      lathe(
+        [
+          [0, 0],
+          [3.6, 0],
+          [4.8, 10],
+          [5.2, 10.4],
+          [5.2, 11],
+          [4.6, 11],
+          [4.3, 10.2],
+          [0, 9.8],
+        ],
+        24,
+      ).translate(px, floorY, pz),
+    )
+    put(
+      parts,
+      standard('soil', { color: 0x3a2a1c, roughness: 1 }, 0.2),
+      new THREE.CircleGeometry(4.5, 20).rotateX(-Math.PI / 2).translate(px, floorY + 10.2, pz),
+    )
     bake(parts, groups.items, true, false)
     const leaves: THREE.Matrix4[] = []
     const stems: THREE.BufferGeometry[] = []
@@ -936,7 +1297,13 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
       g.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir)).translate(base.x, base.y, base.z)
       stems.push(g)
       const q = new THREE.Quaternion().setFromEuler(new THREE.Euler(-0.5 - r() * 0.6, -yaw + Math.PI / 2, 0, 'YXZ'))
-      leaves.push(new THREE.Matrix4().compose(tip.add(new THREE.Vector3(Math.cos(yaw), -0.6, Math.sin(yaw)).multiplyScalar(2.2)), q, new THREE.Vector3(3.2 + r() * 1.6, 0.2, 5 + r() * 2.5)))
+      leaves.push(
+        new THREE.Matrix4().compose(
+          tip.add(new THREE.Vector3(Math.cos(yaw), -0.6, Math.sin(yaw)).multiplyScalar(2.2)),
+          q,
+          new THREE.Vector3(3.2 + r() * 1.6, 0.2, 5 + r() * 2.5),
+        ),
+      )
     }
     for (const g of stems) put(parts, standard('plant-stem', { color: 0x4e6e36, roughness: 0.7 }, 0.22), g)
     bake(parts, groups.items)
@@ -951,15 +1318,37 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
 
   {
     const panelW = mm(600)
-    put(parts, standard('ceiling-white', { color: 0xf4f1ea, roughness: 0.95 }, 0.42), new THREE.PlaneGeometry(2 * A, 2 * B).rotateX(Math.PI / 2).translate(0, ceil, 0))
-    put(parts, standard('ceiling-light', { color: 0xffffff, emissive: 0xfff3e0, emissiveIntensity: 0.3, roughness: 0.6 }), lathe([[0, -mm(110)], [panelW / 2 - 2, -mm(100)], [panelW / 2, -mm(60)], [panelW / 2, 0]], 48).translate(0, ceil, 0))
+    put(
+      parts,
+      standard('ceiling-white', { color: 0xf4f1ea, roughness: 0.95 }, 0.42),
+      new THREE.PlaneGeometry(2 * A, 2 * B).rotateX(Math.PI / 2).translate(0, ceil, 0),
+    )
+    put(
+      parts,
+      standard('ceiling-light', { color: 0xffffff, emissive: 0xfff3e0, emissiveIntensity: 0.3, roughness: 0.6 }),
+      lathe(
+        [
+          [0, -mm(110)],
+          [panelW / 2 - 2, -mm(100)],
+          [panelW / 2, -mm(60)],
+          [panelW / 2, 0],
+        ],
+        48,
+      ).translate(0, ceil, 0),
+    )
     bake(parts, groups.up)
   }
 
   {
     const wood = standard('table-wood', { map: tableTexture(), roughness: 0.6 }, 0.2)
     const legH = TABLE_H - tableT
-    for (const [sx, sz] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) put(parts, wood, box(1.6, legH, 1.6, sx * (tableW / 2 - 2.4), top - tableT - legH / 2, sz * (tableD / 2 - 2.4)))
+    for (const [sx, sz] of [
+      [-1, -1],
+      [1, -1],
+      [-1, 1],
+      [1, 1],
+    ])
+      put(parts, wood, box(1.6, legH, 1.6, sx * (tableW / 2 - 2.4), top - tableT - legH / 2, sz * (tableD / 2 - 2.4)))
     for (const sz of [-1, 1]) put(parts, wood, box(tableW - 5, 2.4, 0.6, 0, top - tableT - 1.2, sz * (tableD / 2 - 2.4)))
     for (const sx of [-1, 1]) put(parts, wood, box(0.6, 2.4, tableD - 5, sx * (tableW / 2 - 2.4), top - tableT - 1.2, 0))
     const chairWood = standard('chair-wood', { map: grain('chair', 256, 256, [132, 90, 56], 50, 71), roughness: 0.55 }, 0.25)
@@ -970,14 +1359,20 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
       const cz = side * (tableD / 2 + seat / 2 - 2)
       put(parts, chairWood, new RoundedBoxGeometry(seat, 1, seat, 2, 0.3).translate(0, floorY + seatH - 0.5, cz))
       put(parts, cushion, new RoundedBoxGeometry(seat - 1.4, 0.8, seat - 1.6, 3, 0.35).translate(0, floorY + seatH + 0.35, cz - side * 0.3))
-      for (const [sx, sz] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) {
+      for (const [sx, sz] of [
+        [-1, -1],
+        [1, -1],
+        [-1, 1],
+        [1, 1],
+      ]) {
         const back = sz === side
         const h = back ? seatH + mm(420) : seatH - 1
         put(parts, chairWood, new THREE.CylinderGeometry(0.45, 0.38, h, 8).translate(sx * (seat / 2 - 0.7), floorY + h / 2, cz + sz * (seat / 2 - 0.7)))
       }
       const backTop = floorY + seatH + mm(420)
       put(parts, chairWood, new RoundedBoxGeometry(seat, 2.6, 0.8, 2, 0.3).translate(0, backTop - 1.3, cz + side * (seat / 2 - 0.7)))
-      for (const sx of [-1, 0, 1]) put(parts, chairWood, box(0.8, mm(420) - 3.6, 0.45, sx * 2.6, floorY + seatH + (mm(420) - 3.6) / 2, cz + side * (seat / 2 - 0.7)))
+      for (const sx of [-1, 0, 1])
+        put(parts, chairWood, box(0.8, mm(420) - 3.6, 0.45, sx * 2.6, floorY + seatH + (mm(420) - 3.6) / 2, cz + side * (seat / 2 - 0.7)))
     }
     bake(parts, groups.table, true, true)
 
@@ -989,18 +1384,87 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
     const senbei = standard('senbei', { color: 0xa8692e, roughness: 0.8 })
     const bowl = standard('bowl', { map: grain('bowl', 256, 256, [150, 100, 60], 40, 83), roughness: 0.4 })
     const mikan = standard('mikan', { color: 0xf08a1c, roughness: 0.6 })
-    for (const [x, z, mat, yaw] of [[12.2, 8.6, mugA, 0.6], [-12.2, -8.6, mugB, 3.6]] as const) {
+    for (const [x, z, mat, yaw] of [
+      [12.2, 8.6, mugA, 0.6],
+      [-12.2, -8.6, mugB, 3.6],
+    ] as const) {
       put(parts, cork, new THREE.CylinderGeometry(1.8, 1.8, 0.15, 24).translate(x, top + 0.075, z))
-      put(parts, mat, lathe([[0, 0], [1.05, 0], [1.15, 0.15], [1.2, 2.7], [1.08, 2.7], [1.02, 0.35], [0, 0.35]], 24).translate(x, top + 0.15, z))
-      put(parts, mat, new THREE.TorusGeometry(0.7, 0.17, 8, 14, Math.PI).rotateZ(-Math.PI / 2).translate(1.15, 1.45, 0).rotateY(yaw).translate(x, top + 0.15, z))
+      put(
+        parts,
+        mat,
+        lathe(
+          [
+            [0, 0],
+            [1.05, 0],
+            [1.15, 0.15],
+            [1.2, 2.7],
+            [1.08, 2.7],
+            [1.02, 0.35],
+            [0, 0.35],
+          ],
+          24,
+        ).translate(x, top + 0.15, z),
+      )
+      put(
+        parts,
+        mat,
+        new THREE.TorusGeometry(0.7, 0.17, 8, 14, Math.PI)
+          .rotateZ(-Math.PI / 2)
+          .translate(1.15, 1.45, 0)
+          .rotateY(yaw)
+          .translate(x, top + 0.15, z),
+      )
       put(parts, coffee, new THREE.CircleGeometry(1.06, 20).rotateX(-Math.PI / 2).translate(x, top + 2.3, z))
     }
     const [sx, sz] = [12.4, -7.6]
-    put(parts, plate, lathe([[0, 0], [2.4, 0], [3.5, 0.45], [3.6, 0.5], [3.4, 0.5], [2.3, 0.15], [0, 0.15]], 28).translate(sx, top, sz))
-    for (const [ox, oz, oy, tilt] of [[-0.9, -0.6, 0.2, 0], [1.0, -0.4, 0.2, 0.06], [0.1, 1.0, 0.2, -0.05], [0.2, -0.1, 0.5, 0.12]]) put(parts, senbei, new THREE.CylinderGeometry(1.3, 1.3, 0.25, 18).rotateZ(tilt).translate(sx + ox, top + oy + 0.15, sz + oz))
+    put(
+      parts,
+      plate,
+      lathe(
+        [
+          [0, 0],
+          [2.4, 0],
+          [3.5, 0.45],
+          [3.6, 0.5],
+          [3.4, 0.5],
+          [2.3, 0.15],
+          [0, 0.15],
+        ],
+        28,
+      ).translate(sx, top, sz),
+    )
+    for (const [ox, oz, oy, tilt] of [
+      [-0.9, -0.6, 0.2, 0],
+      [1.0, -0.4, 0.2, 0.06],
+      [0.1, 1.0, 0.2, -0.05],
+      [0.2, -0.1, 0.5, 0.12],
+    ])
+      put(parts, senbei, new THREE.CylinderGeometry(1.3, 1.3, 0.25, 18).rotateZ(tilt).translate(sx + ox, top + oy + 0.15, sz + oz))
     const [bx, bz] = [-12.4, 7.6]
-    put(parts, bowl, lathe([[0, 0], [1.8, 0], [3.6, 1.6], [3.9, 2.4], [3.7, 2.4], [3.3, 1.6], [1.6, 0.3], [0, 0.3]], 28).translate(bx, top, bz))
-    for (const [ox, oz, oy] of [[-1.1, -0.5, 1.1], [1.1, -0.6, 1.1], [0, 1.1, 1.1], [0.1, -0.1, 2.3]]) put(parts, mikan, new THREE.SphereGeometry(1.15, 14, 10).scale(1, 0.82, 1).translate(bx + ox, top + oy, bz + oz))
+    put(
+      parts,
+      bowl,
+      lathe(
+        [
+          [0, 0],
+          [1.8, 0],
+          [3.6, 1.6],
+          [3.9, 2.4],
+          [3.7, 2.4],
+          [3.3, 1.6],
+          [1.6, 0.3],
+          [0, 0.3],
+        ],
+        28,
+      ).translate(bx, top, bz),
+    )
+    for (const [ox, oz, oy] of [
+      [-1.1, -0.5, 1.1],
+      [1.1, -0.6, 1.1],
+      [0, 1.1, 1.1],
+      [0.1, -0.1, 2.3],
+    ])
+      put(parts, mikan, new THREE.SphereGeometry(1.15, 14, 10).scale(1, 0.82, 1).translate(bx + ox, top + oy, bz + oz))
     bake(parts, groups.table, true, false)
   }
 
@@ -1009,9 +1473,40 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
   const lampY = top + mm(560)
   const shadeR = mm(200)
   const shadeMat = standard('pendant', { color: 0xc58f48, roughness: 0.6, side: THREE.DoubleSide }, 0.45)
-  put(parts, shadeMat, lathe([[shadeR, 0], [shadeR * 0.95, 1.2], [shadeR * 0.75, 3.6], [shadeR * 0.45, 5.4], [0.9, 6.3], [0.4, 6.6]], 36).translate(0, lampY, 0))
-  put(parts, standard('pendant-glow', { color: 0xfff1d8, emissive: 0xffc98e, emissiveIntensity: 1.4, roughness: 1, side: THREE.BackSide }), lathe([[shadeR - 0.12, 0.05], [shadeR * 0.95 - 0.12, 1.2], [shadeR * 0.75 - 0.12, 3.6], [shadeR * 0.45 - 0.12, 5.3], [0, 6.2]], 36).translate(0, lampY, 0))
-  put(parts, standard('bulb', { color: 0xffffff, emissive: 0xffe2b0, emissiveIntensity: 2.2 }), new THREE.SphereGeometry(1.3, 16, 12).translate(0, lampY + 2.2, 0))
+  put(
+    parts,
+    shadeMat,
+    lathe(
+      [
+        [shadeR, 0],
+        [shadeR * 0.95, 1.2],
+        [shadeR * 0.75, 3.6],
+        [shadeR * 0.45, 5.4],
+        [0.9, 6.3],
+        [0.4, 6.6],
+      ],
+      36,
+    ).translate(0, lampY, 0),
+  )
+  put(
+    parts,
+    standard('pendant-glow', { color: 0xfff1d8, emissive: 0xffc98e, emissiveIntensity: 1.4, roughness: 1, side: THREE.BackSide }),
+    lathe(
+      [
+        [shadeR - 0.12, 0.05],
+        [shadeR * 0.95 - 0.12, 1.2],
+        [shadeR * 0.75 - 0.12, 3.6],
+        [shadeR * 0.45 - 0.12, 5.3],
+        [0, 6.2],
+      ],
+      36,
+    ).translate(0, lampY, 0),
+  )
+  put(
+    parts,
+    standard('bulb', { color: 0xffffff, emissive: 0xffe2b0, emissiveIntensity: 2.2 }),
+    new THREE.SphereGeometry(1.3, 16, 12).translate(0, lampY + 2.2, 0),
+  )
   put(parts, sash, new THREE.CylinderGeometry(0.07, 0.07, ceil - lampY - 6.6, 4).translate(0, (ceil + lampY + 6.6) / 2, 0))
   put(parts, sash, new THREE.CylinderGeometry(1.6, 1.6, 0.5, 20).translate(0, ceil - 0.25, 0))
   bake(parts, lamp)

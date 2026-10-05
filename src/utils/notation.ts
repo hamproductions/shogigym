@@ -1,6 +1,6 @@
 import { Color, type Square } from 'tsshogi'
-import { applyUsi, type Side } from '../../shogi'
-import type { Score } from '../../engine'
+import { applyUsi, type Side } from './shogi'
+import type { Score } from './engine'
 
 export const sideMark = (side: Side | Color) => (side === 'sente' || side === Color.BLACK ? '☗' : '☖')
 

@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { colorSide, positionOf } from '../../../shogi'
-import type { BoardArrow } from '../../../rendering/Board3D'
-import type { BoardSession } from '../../hooks/useBoardSession'
-import type { Mistakes } from '../../hooks/useMistake'
-import type { Load } from '../../hooks/useModeSwitch'
-import { sideMark } from '../../lib/notation'
-import { playSound } from '../../../appearance/settings'
-import { markTesuji, pickTesuji, type TesujiDrill } from '../../tesujiDrills'
-import type { Tab } from '../../types'
+import { colorSide, positionOf } from '@/utils/shogi'
+import type { BoardArrow } from '@/rendering/Board3D'
+import type { BoardSession } from '@/app/hooks/useBoardSession'
+import type { Mistakes } from '@/app/hooks/useMistake'
+import type { Load } from '@/app/hooks/useModeSwitch'
+import { sideMark } from '@/utils/notation'
+import { playSound } from '@/appearance/settings'
+import { markTesuji, pickTesuji, type TesujiDrill } from '@/app/tesujiDrills'
+import type { Tab } from '@/app/types'
 
 export type TesujiState = { item: TesujiDrill; filter: string; status: 'asking' | 'right' | 'shown'; missed: boolean; hint: boolean; wrong?: string }
 
@@ -49,7 +49,12 @@ export function useTesuji(session: BoardSession, { mistakes, load, setTab }: { m
     hidesAnswer: active && drill?.status === 'asking',
     arrows,
     title: `${t('app.tesuji')}: ${drill && drill.filter !== 'all' ? drill.filter : t('app.mixed')}`,
-    instruction: () => (drill ? (drill.status === 'asking' ? t('app.toMoveFindTheTesuji', { side: sideMark(session.position.color) }) : t('app.nextDrillWhenYouAre')) : t('app.findTheTesuji')),
+    instruction: () =>
+      drill
+        ? drill.status === 'asking'
+          ? t('app.toMoveFindTheTesuji', { side: sideMark(session.position.color) })
+          : t('app.nextDrillWhenYouAre')
+        : t('app.findTheTesuji'),
     start,
     startDefault: () => start(drill?.filter ?? 'all'),
     next: () => drill && start(drill.filter, drill.item.id),

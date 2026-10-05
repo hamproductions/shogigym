@@ -1,16 +1,31 @@
 import * as THREE from 'three'
 import { Color, PieceType } from 'tsshogi'
-import { getSettings, type PieceAppearance, type BoardStyle, type Settings } from '../../appearance/settings'
-import { grainTexture } from '../roomFloor'
+import { getSettings, type PieceAppearance, type BoardStyle, type Settings } from '@/appearance/settings'
+import { grainTexture } from '@/rendering/roomFloor'
 import { HALF_D, HALF_W, setBoardDims } from './dimensions'
 import { preparePieceEnvironment } from './materials'
 import { pieceMesh } from './piece'
 import { addLights, boardTopMaterial, createRenderer } from './scene'
 import { boardSurface, boardTexture, clearFaceTextures } from './textures'
 
-import { SPRITE_BOX, spriteKey, type Baked } from '../sprites'
+import { SPRITE_BOX, spriteKey, type Baked } from '@/rendering/sprites'
 
-const TYPES = [PieceType.PAWN, PieceType.LANCE, PieceType.KNIGHT, PieceType.SILVER, PieceType.GOLD, PieceType.BISHOP, PieceType.ROOK, PieceType.KING, PieceType.PROM_PAWN, PieceType.PROM_LANCE, PieceType.PROM_KNIGHT, PieceType.PROM_SILVER, PieceType.HORSE, PieceType.DRAGON]
+const TYPES = [
+  PieceType.PAWN,
+  PieceType.LANCE,
+  PieceType.KNIGHT,
+  PieceType.SILVER,
+  PieceType.GOLD,
+  PieceType.BISHOP,
+  PieceType.ROOK,
+  PieceType.KING,
+  PieceType.PROM_PAWN,
+  PieceType.PROM_LANCE,
+  PieceType.PROM_KNIGHT,
+  PieceType.PROM_SILVER,
+  PieceType.HORSE,
+  PieceType.DRAGON,
+]
 
 export async function bakeFlat(px: number, signal: AbortSignal, settings: Settings = getSettings()): Promise<Baked> {
   setBoardDims()
@@ -56,13 +71,22 @@ export async function bakeFlat(px: number, signal: AbortSignal, settings: Settin
 
 const previewCache = new Map<string, string>()
 
-export async function bakePreviews(options: ({ key: string; color?: Color; types?: PieceType[] } & PieceAppearance)[], signal: AbortSignal, types = [PieceType.KING, PieceType.PAWN, PieceType.PROM_PAWN], onPreview?: (key: string, images: string[]) => void) {
+export async function bakePreviews(
+  options: ({ key: string; color?: Color; types?: PieceType[] } & PieceAppearance)[],
+  signal: AbortSignal,
+  types = [PieceType.KING, PieceType.PAWN, PieceType.PROM_PAWN],
+  onPreview?: (key: string, images: string[]) => void,
+) {
   signal.throwIfAborted()
   clearFaceTextures()
   const renderer = createRenderer(false)
   const environment = preparePieceEnvironment(renderer, false)
   renderer.setPixelRatio(1)
-  renderer.setSize(options.some((option) => option.key.startsWith('finish:')) ? 384 : 192, options.some((option) => option.key.startsWith('finish:')) ? 384 : 192, false)
+  renderer.setSize(
+    options.some((option) => option.key.startsWith('finish:')) ? 384 : 192,
+    options.some((option) => option.key.startsWith('finish:')) ? 384 : 192,
+    false,
+  )
   renderer.setClearColor(0x000000, 0)
   const scene = new THREE.Scene()
   addLights(scene)

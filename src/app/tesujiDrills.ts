@@ -1,10 +1,12 @@
-import data from '../data/tesuji-drills.json'
+import data from '@/data/tesuji-drills.json'
 
 export type TesujiDrill = { id: string; tesuji: string; en: string; explain: string; sfen: string; answer: string; from: string; note?: string }
 
 export const TESUJI_DRILLS = data as TesujiDrill[]
 
-export const TESUJI_KINDS = [...new Set(TESUJI_DRILLS.map((d) => d.tesuji))].sort((a, b) => TESUJI_DRILLS.filter((d) => d.tesuji === b).length - TESUJI_DRILLS.filter((d) => d.tesuji === a).length)
+export const TESUJI_KINDS = [...new Set(TESUJI_DRILLS.map((d) => d.tesuji))].sort(
+  (a, b) => TESUJI_DRILLS.filter((d) => d.tesuji === b).length - TESUJI_DRILLS.filter((d) => d.tesuji === a).length,
+)
 
 const KEY = 'joseki-practice:tesuji:v1'
 

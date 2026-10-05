@@ -1,11 +1,11 @@
 import * as THREE from 'three'
 import { PieceType } from 'tsshogi'
-import { PIECE_FONTS, pieceTone, getSettings, type BoardStyle, type PieceAppearance } from '../../appearance/settings'
-import { loadedGuide, twoCharacterGlyph, type LoadedPiece } from '../../appearance/pieceSets'
-import { grainTexture, rng } from '../roomFloor'
+import { PIECE_FONTS, pieceTone, getSettings, type BoardStyle, type PieceAppearance } from '@/appearance/settings'
+import { loadedGuide, twoCharacterGlyph, type LoadedPiece } from '@/appearance/pieceSets'
+import { grainTexture, rng } from '@/rendering/roomFloor'
 import { CASUAL, HALF_D, HALF_W, MARGIN, komaWidth, pieceScale } from './dimensions'
-import { BOARD_STYLES, loadedBoard } from '../../appearance/boardStyles'
-import { BOARD_TONE, piecePolygon } from '../koma'
+import { BOARD_STYLES, loadedBoard } from '@/appearance/boardStyles'
+import { BOARD_TONE, piecePolygon } from '@/rendering/koma'
 
 export function srgbTexture(canvas: HTMLCanvasElement, anisotropy = 1) {
   const texture = new THREE.CanvasTexture(canvas)
@@ -96,7 +96,7 @@ export function pieceSurface(seed: number, appearance?: PieceAppearance) {
   ctx.fillStyle = `rgb(${tone.join(',')})`
   ctx.fillRect(0, 0, 256, 256)
   if (pieceMaterial === 'plastic' || pieceMaterial === 'glass' || pieceMaterial === 'frostedGlass') return canvas
-  const random = rng(Math.abs(seed) % 2147483646 + 1)
+  const random = rng((Math.abs(seed) % 2147483646) + 1)
   const warmth = random() * 4 - 2
   ctx.fillStyle = `rgba(${warmth > 0 ? '255,225,165' : '125,85,35'},0.035)`
   ctx.fillRect(0, 0, 256, 256)
@@ -109,16 +109,21 @@ export function pieceSurface(seed: number, appearance?: PieceAppearance) {
   while (base < 300) {
     base += 4 + random() * 7
     const drift = random() * 2 - 1
-    ctx.strokeStyle = random() < 0.7 ? `rgba(120,78,30,${0.10 + random() * 0.15})` : `rgba(255,245,210,${0.18 + random() * 0.16})`
+    ctx.strokeStyle = random() < 0.7 ? `rgba(120,78,30,${0.1 + random() * 0.15})` : `rgba(255,245,210,${0.18 + random() * 0.16})`
     ctx.lineWidth = 0.9 + random() * 1.5
     ctx.beginPath()
     for (let y = 0; y <= 256; y += 3) {
       const flow = Math.sin(y * bend + phase + base * 0.004)
-      const offset = pieceGrain === 'masame' ? flow * 2.5 * amplitude + drift * y * 0.009
-        : pieceGrain === 'itame' ? flow * (14 + Math.abs(base - 128) * 0.09) * amplitude
-        : pieceGrain === 'root' ? Math.atan2(y - knotY, base - knotX) * 13 * amplitude + flow * 10
-        : pieceGrain === 'tiger' ? Math.sin(y * (0.045 + bend) + phase) * (8 + flow * 4) * amplitude
-        : Math.asin(Math.sin(y * bend * 1.7 + phase)) * 18 * amplitude + flow * 5
+      const offset =
+        pieceGrain === 'masame'
+          ? flow * 2.5 * amplitude + drift * y * 0.009
+          : pieceGrain === 'itame'
+            ? flow * (14 + Math.abs(base - 128) * 0.09) * amplitude
+            : pieceGrain === 'root'
+              ? Math.atan2(y - knotY, base - knotX) * 13 * amplitude + flow * 10
+              : pieceGrain === 'tiger'
+                ? Math.sin(y * (0.045 + bend) + phase) * (8 + flow * 4) * amplitude
+                : Math.asin(Math.sin(y * bend * 1.7 + phase)) * 18 * amplitude + flow * 5
       ctx.lineTo(base + offset, y)
     }
     ctx.stroke()
@@ -130,8 +135,7 @@ function guideInk(guide: HTMLCanvasElement | undefined, ink: HTMLCanvasElement) 
   if (!guide) return guide
   const pixels = ink.getContext('2d')!.getImageData(0, 0, ink.width, ink.height).data
   let index = 0
-  for (let i = 4; i < pixels.length; i += 4)
-    if (pixels[i + 3] > pixels[index + 3]) index = i
+  for (let i = 4; i < pixels.length; i += 4) if (pixels[i + 3] > pixels[index + 3]) index = i
   const { canvas, ctx } = canvas2d(guide.width, guide.height)
   ctx.drawImage(guide, 0, 0)
   ctx.globalCompositeOperation = 'source-in'
@@ -150,10 +154,10 @@ function composeGlyph(ink: HTMLCanvasElement, guide?: HTMLCanvasElement, two = f
   const faceWidth = canvas.width - left * 2
   const faceHeight = canvas.height - top - top / 2
   const draw = (image: HTMLCanvasElement, boxTop: number, boxHeight: number) => {
-    const factor = two && !guide ? boxHeight * scale / canvas.height / image.height : faceWidth * width / canvas.width / image.width
-    const fit = guide ? Math.min(factor, boxHeight * scale / canvas.height / image.height) : factor
-    const drawWidth = image.width * fit * canvas.width / width
-    const drawHeight = image.height * fit * canvas.height / scale
+    const factor = two && !guide ? (boxHeight * scale) / canvas.height / image.height : (faceWidth * width) / canvas.width / image.width
+    const fit = guide ? Math.min(factor, (boxHeight * scale) / canvas.height / image.height) : factor
+    const drawWidth = (image.width * fit * canvas.width) / width
+    const drawHeight = (image.height * fit * canvas.height) / scale
     ctx.drawImage(image, left + (faceWidth - drawWidth) / 2, boxTop + (boxHeight - drawHeight) / 2, drawWidth, drawHeight)
   }
   if (!guide || marks) {
@@ -240,7 +244,7 @@ export function faceTexture(char: string, promoted: boolean, seed = 1, appearanc
   if (!glyph) {
     glyph = canvas2d(256).canvas
     const ctx = glyph.getContext('2d')!
-    ctx.fillStyle = lightInk ? promoted ? '#ffa0a4' : '#faf6eb' : promoted ? '#9c1c12' : '#0e0804'
+    ctx.fillStyle = lightInk ? (promoted ? '#ffa0a4' : '#faf6eb') : promoted ? '#9c1c12' : '#0e0804'
     ctx.strokeStyle = ctx.fillStyle
     ctx.lineWidth = font.weight >= 700 ? 3 : 7
     ctx.lineJoin = 'round'
@@ -306,7 +310,10 @@ export function coordSprite(text: string) {
 }
 
 export function coordPlane(text: string, size: number, flipped: boolean) {
-  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(size, size), new THREE.MeshBasicMaterial({ map: coordTexture(text), transparent: true, depthWrite: false }))
+  const mesh = new THREE.Mesh(
+    new THREE.PlaneGeometry(size, size),
+    new THREE.MeshBasicMaterial({ map: coordTexture(text), transparent: true, depthWrite: false }),
+  )
   mesh.rotation.set(-Math.PI / 2, 0, flipped ? Math.PI : 0)
   mesh.renderOrder = 0
   return mesh

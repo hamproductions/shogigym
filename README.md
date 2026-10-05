@@ -1,6 +1,6 @@
 <p align="center"><img src=".github/media/banner.png" alt="Shogi Gym 将棋ジム" width="100%"></p>
 
-# Shogi Gym 将棋ジム · v1.0.0
+# Shogi Gym 将棋ジム
 
 **Play it: [hamproductions.github.io/shogilab](https://hamproductions.github.io/shogilab/)**
 
@@ -28,6 +28,7 @@ The whole app is one screen: a 3D board in a tatami room or a home dining room (
   - 待った take-back, resign, and a 王手 warning.
   - A coach comments on each of your moves.
   - Saved positions survive a reload.
+- **観戦 View**: watch two bots with a free camera, per-move coach analysis and arrows. Configure 上手 / 下手 strength, strategy and playing order in the setup dialog; Start runs furigoma when random order is selected. Pause, rewind and replay the recorded moves, then resume live play. Games pause at the end for a manual restart and are not saved as kifu.
 - **検討 Analyze**:
   - Import KIF, KI2, CSA, JKF, USI, SFEN or USEN; Shift_JIS files work, and player names, comments and the result are shown.
   - Rate every move, with an eval graph you can click.
@@ -38,7 +39,7 @@ The whole app is one screen: a 3D board in a tatami room or a home dining room (
 - **Power mode** (optional): sparks, shockwaves and light beams on captures, a dimmed room with a red beam for 王手, and a 詰み finale after which the loser flips the table.
 - **Zundamon voice** (VOICEVOX:ずんだもん): reads out openings, castles and tesuji as they appear, calls 王手 and 詰み, counts byoyomi, and greets you at the start and end of a game.
 - **Eval bar** beside the board, steady between moves, and a take-back-and-retry prompt after a mistake.
-- **Settings**: piece set (drawn letters in four brush styles, or the 菱湖 Ryoko / Brown / Light artwork sets) with a live preview, piece faces (二字 / 一字), board wood, sound, AI thinking time, number of candidate lines, AI strength, and a knowledge level ("I know the rules" / "New to shogi"), which is also asked once on the first visit.
+- **Settings**: Classic, Elegant, Plastic and Broadcast presets combine independent typeface, face, color, material, grain and finish settings. Choose one character, two characters, or one character with Lines, Dots or Marks guides. Wood, plastic, glass and frosted glass share the full-set preview and angled finish previews. Board wood, sound, voice, thinking time, candidate lines and knowledge level are configurable; AI strength, strategy and playing order are chosen in the new-game dialog.
 
 ## Run locally
 
@@ -46,19 +47,73 @@ The whole app is one screen: a 3D board in a tatami room or a home dining room (
 bun install        # postinstall copies the engine into public/engine
 bun run dev        # http://localhost:5173
 bun run build      # prerendered static site in build/client/ (needs Node 22.22+)
-bun run lint
+bun run check      # Oxlint, Prettier and TypeScript
+bun run fix        # Oxlint autofix, then Prettier formatting
 node scripts/validate.mjs   # every joseki move and demo line is legal
 ```
 
+## Development pages and structure
+
+Development pages are available only with `bun run dev` and are excluded from production routes:
+
+| Route          | Purpose                                                |
+| -------------- | ------------------------------------------------------ |
+| `/dev/komadai` | Captured-piece stand layouts                           |
+| `/dev/pieces`  | All typefaces rendered with global appearance settings |
+| `/dev/hands`   | Hand motion inspection                                 |
+| `/dev/reel`    | Deterministic animation capture                        |
+
+- `src/app/`: application modes, hooks, dialogs, rail, panels and stage.
+- `src/utils/`: shared analysis, engine/evaluation storage, course catalog/model, rules and kifu, formation detection, review storage, translation setup, hooks, notation, scoring, book/statistics, board control, events, voice, theme, room dimensions and animation helpers. Shared consumers import these directly; no barrel bundles them together. Only framework entry files (`root.tsx` and `routes.ts`) remain at the `src/` root.
+- `src/appearance/`: piece sets, appearance settings and board styles.
+- `src/rendering/`: board renderers, 3D scene and avatar animation.
+- `src/dev/`: development pages and their CSS, loaded only by development routes.
+- `src/data/`: course, strategy and drill data.
+
+Heavy renderers, dialogs and development pages load through dynamic imports with their CSS. The 3D board loading state includes scene and piece assets. Everything in `public/` is copied to the deployed site as separate static assets; it is not bundled into JavaScript, but unused files there still contribute to deployment size. Build output in `build/` and generated router types in `.react-router/` are disposable and ignored by Git.
+
+## Code quality and imports
+
+Oxlint checks JavaScript and TypeScript, including React hook rules. Prettier formats maintained source and configuration with two-space indentation, single quotes and no semicolons. Generated output, third-party source and static asset/data directories are excluded from formatting.
+
+```sh
+bun run lint          # check lint rules
+bun run lint:fix      # apply safe lint fixes
+bun run format        # format source, configuration and README
+bun run format:check  # verify formatting without writes
+bun run fix           # lint autofix and formatting
+bun run check         # lint, formatting and TypeScript checks
+```
+
+The `@/` alias resolves to `src/` in Vite, TypeScript and Bun. Use it for imports across source directories, such as `@/utils/shogi`; same-directory imports stay relative. React Router's generated `+types` imports, asset globs and files outside `src/` keep their explicit relative paths.
+
+## Versions and releases
+
+`package.json` is the version authority. `src/utils/version.ts` reads it directly, and Settings displays the same version without a generated duplicate.
+
+Releases use release-it and its conventional-changelog plugin, following the sibling the-sorter workflow. Use conventional commit messages such as `fix: ...`, `feat: ...` and `feat!: ...` so automatic bump selection and release notes reflect the changes.
+
+From a clean, current `main` checkout, with a `GITHUB_TOKEN` authorized to create releases for this repository:
+
+```sh
+bun run release:dry-run  # preview; no version, commit, tag, push or release writes
+bun run release         # choose bump from conventional commits
+bun run release:patch   # explicit patch bump
+bun run release:minor   # explicit minor bump
+bun run release:major   # explicit major bump
+```
+
+Release commands validate the course data, check lint and formatting, and build before proceeding. A real release updates `package.json`, generates `CHANGELOG.md`, creates a `chore: release vX.Y.Z` commit and `vX.Y.Z` tag, pushes them, and publishes a GitHub release. npm publication is disabled. Pushing the release commit to `main` starts the existing Pages deployment. Adding this workflow does not itself publish a release or bump the current version.
+
 ## Deploy
 
-Every push to `main` runs `.github/workflows/deploy.yml`. It validates the course data, lints, builds with `BASE_PATH=/<repo>/`, prerenders every mode and strategy page with React Router, and publishes `build/client/` to GitHub Pages. In the repository settings, set Pages → Source to "GitHub Actions" once.
+Every push to `main` runs `.github/workflows/deploy.yml`. It validates the course data, checks lint and formatting, builds with `BASE_PATH=/<repo>/`, prerenders every mode and strategy page with React Router, and publishes `build/client/` to GitHub Pages. In the repository settings, set Pages → Source to "GitHub Actions" once.
 
 The engine needs `SharedArrayBuffer`, which requires cross-origin isolation (`Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: require-corp`).
 
 - **GitHub Pages** cannot send these headers. `public/coi-sw.js` is a small service worker that adds them on the client, and the page reloads once the first time it installs.
 - **Other hosts:** Netlify and Cloudflare Pages read `public/_headers`, and Vercel reads `vercel.json`.
-- **Without isolation**, lessons, review and tsume still work, but the AI features are disabled.
+- **Without isolation**, lessons, review and tsume still work, but the AI features are disabled and offer a page reload. Engine startup shows a loading state; startup and analysis errors show the actual error and a retry action rather than remaining on an analysis placeholder.
 
 ## Data scripts
 
@@ -71,7 +126,7 @@ node scripts/verify-tsume.mjs --prune   # keep only strict check-only mates
 bun scripts/stats/build.ts --floodgate 2025 --aoba 4 --min 10   # opening statistics -> public/book/
 ```
 
-`scripts/stats/build.ts` builds the "Played in engine games" table in the What next tab. It streams the newest `--aoba` AobaZero self-play archives (about 10,000 games and 120 MB each) straight from Google Drive through `xz` without writing them to disk (a dropped connection only cuts that file short; the games read so far still count), downloads each Floodgate year in `--floodgate` to `.cache/stats/` (7z needs a seekable file; downloads resume after a dropped connection) and streams it through `bsdtar` without unpacking it, replays the first `--ply` (30) moves of every game that starts from the normal position and has a result, and counts each (position, move) with sente wins, gote wins and draws. Positions seen in at least `--min` games are kept with up to `--moves` (10) moves each, the YaneuraOu new_petabook best move and eval are merged in, and the result is written as 256 JSON shards keyed by a hash of the position (`src/app/lib/stats.ts` has the same hash). Archives are deleted after aggregation unless `--keep` is passed; a Floodgate year needs about 350 MB of free disk while it is processed. The YaneuraOu book (76 MB) is fetched the same way. To scale up, add years (`--floodgate 2023,2024,2025`) and files (`--aoba 20`), and raise `--min` to keep the output small.
+`scripts/stats/build.ts` builds the "Played in engine games" table in the What next tab. It streams the newest `--aoba` AobaZero self-play archives (about 10,000 games and 120 MB each) straight from Google Drive through `xz` without writing them to disk (a dropped connection only cuts that file short; the games read so far still count), downloads each Floodgate year in `--floodgate` to `.cache/stats/` (7z needs a seekable file; downloads resume after a dropped connection) and streams it through `bsdtar` without unpacking it, replays the first `--ply` (30) moves of every game that starts from the normal position and has a result, and counts each (position, move) with sente wins, gote wins and draws. Positions seen in at least `--min` games are kept with up to `--moves` (10) moves each, the YaneuraOu new_petabook best move and eval are merged in, and the result is written as 256 JSON shards keyed by a hash of the position (`src/utils/stats.ts` has the same hash). Archives are deleted after aggregation unless `--keep` is passed; a Floodgate year needs about 350 MB of free disk while it is processed. The YaneuraOu book (76 MB) is fetched the same way. To scale up, add years (`--floodgate 2023,2024,2025`) and files (`--aoba 20`), and raise `--min` to keep the output small.
 
 Each course records its source in its `source` field.
 
@@ -79,30 +134,30 @@ Each course records its source in its `source` field.
 
 This app is GPL-3.0-or-later.
 
-| Part | Source | License |
-|---|---|---|
-| Engine | YaneuraOu, WASM build `@mizarjp/yaneuraou.k-p` (github.com/mizar/YaneuraOu.wasm) | GPL-3.0 |
-| Engine (optional) | YaneuraOu NNUE (HalfKP 256x2-32-32), WASM build `@mizarjp/yaneuraou.halfkp.noeval` (github.com/mizar/YaneuraOu.wasm); no evaluation file is bundled, the user loads their own nn.bin | GPL-3.0 |
-| Engine (optional) | Fairy-Stockfish, WASM build `fairy-stockfish-nnue.wasm` (github.com/fairy-stockfish/fairy-stockfish.wasm) | GPL-3.0 |
-| Rules, notation, kifu I/O | tsshogi (github.com/sunfish-shogi/tsshogi) | MIT |
-| 3D rendering | three.js | MIT |
-| Room panoramas (`public/sky/ninomaru_teien.jpg`, `residential_garden.jpg`) | Poly Haven HDRIs "Ninomaru Teien" (Greg Zaal) and "Residential Garden" (Greg Zaal, Rico Cilliers), tonemapped JPGs downscaled to 4096 px (polyhaven.com) | CC0 1.0 |
-| VRM loading | @pixiv/three-vrm (github.com/pixiv/three-vrm) | MIT |
-| Voice clips (`public/voice/zundamon/`) | VOICEVOX:ずんだもん, recorded offline with the VOICEVOX engine by `scripts/voice/build.ts` (opening, castle and tesuji names, 王手/詰み, byoyomi count) | VOICEVOX ずんだもん音源利用規約 (zunko.jp/con_ongen_kiyaku.html): free use with the credit 「VOICEVOX:ずんだもん」 |
-| Hand poses (`src/rendering/avatars/handMotion.json`) | Finger rotations baked offline by `scripts/mocap/` with MediaPipe Hand Landmarker (Apache-2.0) and Kalidokit (MIT) from landmarks of the Japan Shogi Association 手つき videos; only derived joint angles are shipped, no video | Derived data |
-| Seated players (`public/avatars/sendagaya-shino.vrm`, `sakurada-fumiriya.vrm`) | VRoid Studio β sample models "Sendagaya Shino" and "Sakurada Fumiriya" by pixiv Inc. (vroid.pixiv.help/hc/en-us/articles/360013482714 and /360014788554 state CC0; conditions overview at /4402614652569; VRM files via github.com/madjin/vrm-samples; VRM meta: licenseName CC0, allowedUserName Everyone, commercialUssageName Allow); textures downscaled to 1024 px and thumbnails shrunk for size | CC0 1.0 |
-| Joseki courses in `vendor/shiryu-joseki` | github.com/Shiryu181/shogi-joseki (commit in `vendor/shiryu-joseki/SOURCE_COMMIT`, re-vendored with `node scripts/build-courses.mjs --vendor <checkout> <commit>`), lines from shogilounge.com, hibitonshi.com, shogi-joutatsu.com, shogi-rule.com and ameblo.jp shogi blogs, as cited in each course's `source` | GPL-3.0 |
-| 将棋ルール.com courses (`shogirule--*`) | Move sequences from the game files published at shogi-rule.com/joseki_index/. The closing summaries are written here from the moves and final position; no text from the site is reproduced, only its one-word evaluation (互角/先手優勢/後手優勢) is cited | Attribution; moves are game records |
-| 角交換四間飛車 | hibitonshi.com/kakukoukan-shiken/ | Moves and notes adapted from the article |
-| ミレニアム | shogijam.com, "四間飛車対ミレニアムの激しい定跡" game file | Attribution; moves are a game record |
-| 相振り飛車 | thirdfilerook.jp, "相振り飛車の基礎知識 三間飛車VS四間飛車とは" | Attribution |
-| 藤井システム, 左美濃, 囲い崩し diagrams | Wikipedia (en "Fujii System"; ja 左美濃, 美濃囲い, 舟囲い) | CC BY-SA |
-| Opening statistics, AobaZero (`public/book/`) | Self-play game records of AobaZero (github.com/kobanium/aobazero; archives linked from www.yss-aya.com/aobazero/), aggregated to per-position move counts and results. These are training games, whose first 30 moves include deliberate exploration noise, so rare moves there can be weaker than engine play | Public domain (the README says everything except the aobaz engine is public domain) |
-| Opening statistics, Floodgate (`public/book/`) | Floodgate computer-shogi server game archives (wdoor.c.u-tokyo.ac.jp/shogi/), used only as aggregated move counts and results; no game record, player name or rating is shipped | No license stated; aggregate counts only |
-| Engine book move (`public/book/`) | YaneuraOu new_petabook "新ペタショック定跡 233万局面" (github.com/yaneurao/YaneuraOu/releases/tag/new_petabook233), best move and eval for positions in the statistics | MIT |
-| Tsume problems | YaneuraOu 5M mate-problem set (yaneuraou.yaneu.com/2020/12/25/christmas-present/), solutions computed and re-verified here | None claimed |
-| Move-label thresholds | chess.com expected-points model | n/a |
-| Review intervals | Chessable MoveTrainer schedule | n/a |
-| Fonts | Shippori Mincho B1, Zen Kaku Gothic New, Yuji Syuku, Yuji Boku, Zen Antique (via Fontsource) | OFL-1.1 |
-| Piece set 菱湖 Ryoko (`assets/pieces/ryoko_1kanji`) | Ryoko_1Kanji by nexxogen, from lishogi (github.com/WandererXII/lishogi) | CC BY-SA 4.0 |
-| Piece sets Brown / Light (`assets/pieces/kanji_brown`, `kanji_light`) | kanji_brown and kanji_light by Ka-hu, from lishogi | CC BY 4.0 |
+| Part                                                                           | Source                                                                                                                                                                                                                                                                                                                                                                                                 | License                                                                                                            |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| Engine                                                                         | YaneuraOu, WASM build `@mizarjp/yaneuraou.k-p` (github.com/mizar/YaneuraOu.wasm)                                                                                                                                                                                                                                                                                                                       | GPL-3.0                                                                                                            |
+| Engine (optional)                                                              | YaneuraOu NNUE (HalfKP 256x2-32-32), WASM build `@mizarjp/yaneuraou.halfkp.noeval` (github.com/mizar/YaneuraOu.wasm); no evaluation file is bundled, the user loads their own nn.bin                                                                                                                                                                                                                   | GPL-3.0                                                                                                            |
+| Engine (optional)                                                              | Fairy-Stockfish, WASM build `fairy-stockfish-nnue.wasm` (github.com/fairy-stockfish/fairy-stockfish.wasm)                                                                                                                                                                                                                                                                                              | GPL-3.0                                                                                                            |
+| Rules, notation, kifu I/O                                                      | tsshogi (github.com/sunfish-shogi/tsshogi)                                                                                                                                                                                                                                                                                                                                                             | MIT                                                                                                                |
+| 3D rendering                                                                   | three.js                                                                                                                                                                                                                                                                                                                                                                                               | MIT                                                                                                                |
+| Room panoramas (`public/sky/ninomaru_teien.jpg`, `residential_garden.jpg`)     | Poly Haven HDRIs "Ninomaru Teien" (Greg Zaal) and "Residential Garden" (Greg Zaal, Rico Cilliers), tonemapped JPGs downscaled to 4096 px (polyhaven.com)                                                                                                                                                                                                                                               | CC0 1.0                                                                                                            |
+| VRM loading                                                                    | @pixiv/three-vrm (github.com/pixiv/three-vrm)                                                                                                                                                                                                                                                                                                                                                          | MIT                                                                                                                |
+| Voice clips (`public/voice/zundamon/`)                                         | VOICEVOX:ずんだもん, recorded offline with the VOICEVOX engine by `scripts/voice/build.ts` (opening, castle and tesuji names, 王手/詰み, byoyomi count)                                                                                                                                                                                                                                                | VOICEVOX ずんだもん音源利用規約 (zunko.jp/con_ongen_kiyaku.html): free use with the credit 「VOICEVOX:ずんだもん」 |
+| Hand poses (`src/rendering/avatars/handMotion.json`)                           | Finger rotations baked offline by `scripts/mocap/` with MediaPipe Hand Landmarker (Apache-2.0) and Kalidokit (MIT) from landmarks of the Japan Shogi Association 手つき videos; only derived joint angles are shipped, no video                                                                                                                                                                        | Derived data                                                                                                       |
+| Seated players (`public/avatars/sendagaya-shino.vrm`, `sakurada-fumiriya.vrm`) | VRoid Studio β sample models "Sendagaya Shino" and "Sakurada Fumiriya" by pixiv Inc. (vroid.pixiv.help/hc/en-us/articles/360013482714 and /360014788554 state CC0; conditions overview at /4402614652569; VRM files via github.com/madjin/vrm-samples; VRM meta: licenseName CC0, allowedUserName Everyone, commercialUssageName Allow); textures downscaled to 1024 px and thumbnails shrunk for size | CC0 1.0                                                                                                            |
+| Joseki courses in `vendor/shiryu-joseki`                                       | github.com/Shiryu181/shogi-joseki (commit in `vendor/shiryu-joseki/SOURCE_COMMIT`, re-vendored with `node scripts/build-courses.mjs --vendor <checkout> <commit>`), lines from shogilounge.com, hibitonshi.com, shogi-joutatsu.com, shogi-rule.com and ameblo.jp shogi blogs, as cited in each course's `source`                                                                                       | GPL-3.0                                                                                                            |
+| 将棋ルール.com courses (`shogirule--*`)                                        | Move sequences from the game files published at shogi-rule.com/joseki_index/. The closing summaries are written here from the moves and final position; no text from the site is reproduced, only its one-word evaluation (互角/先手優勢/後手優勢) is cited                                                                                                                                            | Attribution; moves are game records                                                                                |
+| 角交換四間飛車                                                                 | hibitonshi.com/kakukoukan-shiken/                                                                                                                                                                                                                                                                                                                                                                      | Moves and notes adapted from the article                                                                           |
+| ミレニアム                                                                     | shogijam.com, "四間飛車対ミレニアムの激しい定跡" game file                                                                                                                                                                                                                                                                                                                                             | Attribution; moves are a game record                                                                               |
+| 相振り飛車                                                                     | thirdfilerook.jp, "相振り飛車の基礎知識 三間飛車VS四間飛車とは"                                                                                                                                                                                                                                                                                                                                        | Attribution                                                                                                        |
+| 藤井システム, 左美濃, 囲い崩し diagrams                                        | Wikipedia (en "Fujii System"; ja 左美濃, 美濃囲い, 舟囲い)                                                                                                                                                                                                                                                                                                                                             | CC BY-SA                                                                                                           |
+| Opening statistics, AobaZero (`public/book/`)                                  | Self-play game records of AobaZero (github.com/kobanium/aobazero; archives linked from www.yss-aya.com/aobazero/), aggregated to per-position move counts and results. These are training games, whose first 30 moves include deliberate exploration noise, so rare moves there can be weaker than engine play                                                                                         | Public domain (the README says everything except the aobaz engine is public domain)                                |
+| Opening statistics, Floodgate (`public/book/`)                                 | Floodgate computer-shogi server game archives (wdoor.c.u-tokyo.ac.jp/shogi/), used only as aggregated move counts and results; no game record, player name or rating is shipped                                                                                                                                                                                                                        | No license stated; aggregate counts only                                                                           |
+| Engine book move (`public/book/`)                                              | YaneuraOu new_petabook "新ペタショック定跡 233万局面" (github.com/yaneurao/YaneuraOu/releases/tag/new_petabook233), best move and eval for positions in the statistics                                                                                                                                                                                                                                 | MIT                                                                                                                |
+| Tsume problems                                                                 | YaneuraOu 5M mate-problem set (yaneuraou.yaneu.com/2020/12/25/christmas-present/), solutions computed and re-verified here                                                                                                                                                                                                                                                                             | None claimed                                                                                                       |
+| Move-label thresholds                                                          | chess.com expected-points model                                                                                                                                                                                                                                                                                                                                                                        | n/a                                                                                                                |
+| Review intervals                                                               | Chessable MoveTrainer schedule                                                                                                                                                                                                                                                                                                                                                                         | n/a                                                                                                                |
+| Fonts                                                                          | Shippori Mincho B1, Zen Kaku Gothic New, Yuji Syuku, Yuji Boku, Zen Antique (via Fontsource)                                                                                                                                                                                                                                                                                                           | OFL-1.1                                                                                                            |
+| Piece set 菱湖 Ryoko (`assets/pieces/ryoko_1kanji`)                            | Ryoko_1Kanji by nexxogen, from lishogi (github.com/WandererXII/lishogi)                                                                                                                                                                                                                                                                                                                                | CC BY-SA 4.0                                                                                                       |
+| Piece sets Brown / Light (`assets/pieces/kanji_brown`, `kanji_light`)          | kanji_brown and kanji_light by Ka-hu, from lishogi                                                                                                                                                                                                                                                                                                                                                     | CC BY 4.0                                                                                                          |

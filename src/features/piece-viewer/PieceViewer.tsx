@@ -1,16 +1,16 @@
 import './viewer.css'
-import '../../app/ui/dialog.css'
+import '@/app/ui/dialog.css'
 import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { Color, PieceType } from 'tsshogi'
-import { preparePieceEnvironment } from '../../rendering/board3d/materials'
-import { pieceMesh } from '../../rendering/board3d/piece'
-import { PIECE_FINISHES, loadPieceFont, setSettings, useSettings, type PieceFinish } from '../../appearance/settings'
-import { loadPieceSet } from '../../appearance/pieceSets'
+import { preparePieceEnvironment } from '@/rendering/board3d/materials'
+import { pieceMesh } from '@/rendering/board3d/piece'
+import { PIECE_FINISHES, loadPieceFont, setSettings, useSettings, type PieceFinish } from '@/appearance/settings'
+import { loadPieceSet } from '@/appearance/pieceSets'
 import { useTranslation } from 'react-i18next'
-import { DialogHeader } from '../../app/ui/Dialog'
-import { Segmented, SettingRow } from '../../app/ui/Segmented'
+import { DialogHeader } from '@/app/ui/Dialog'
+import { Segmented, SettingRow } from '@/app/ui/Segmented'
 
 const TYPES: { type: PieceType; label: string }[] = [
   { type: PieceType.KING, label: '王' },
@@ -113,15 +113,33 @@ export function PieceViewer({ onClose, page }: { onClose: () => void; page?: boo
 
   return (
     <div className={page ? 'app-viewer-page' : 'app-palette-back'} onPointerDown={page ? undefined : onClose}>
-      <div className={`app-dialog app-viewer${page ? ' page' : ''}`} role="dialog" aria-label={t('viewer.pieceViewer')} onPointerDown={(e) => e.stopPropagation()}>
+      <div
+        className={`app-dialog app-viewer${page ? ' page' : ''}`}
+        role="dialog"
+        aria-label={t('viewer.pieceViewer')}
+        onPointerDown={(e) => e.stopPropagation()}
+      >
         <DialogHeader title={t('viewer.pieceViewer')} closeLabel={t('viewer.close')} onClose={onClose} />
         <div className="app-viewer-stage" ref={host} />
         <p className="app-muted">{t('viewer.dragToRotateScrollOr')}</p>
         <Segmented size="small" value={type} options={TYPES.map((x) => ({ v: x.type, t: x.label }))} onChange={setType} />
-        <Segmented<PieceFinish> size="small" value={st.pieceFinish} options={(Object.keys(PIECE_FINISHES) as PieceFinish[]).map((f) => ({ v: f, t: PIECE_FINISHES[f].label }))} onChange={(f) => setSettings({ pieceFinish: f })} />
+        <Segmented<PieceFinish>
+          size="small"
+          value={st.pieceFinish}
+          options={(Object.keys(PIECE_FINISHES) as PieceFinish[]).map((f) => ({ v: f, t: PIECE_FINISHES[f].label }))}
+          onChange={(f) => setSettings({ pieceFinish: f })}
+        />
         <p className="app-muted">{PIECE_FINISHES[st.pieceFinish].hint}</p>
         <SettingRow label={t('viewer.lightDirection')}>
-          <input type="range" min={0} max={1} step={0.01} value={light} aria-label={t('viewer.lightDirection')} onChange={(e) => setLight(Number(e.target.value))} />
+          <input
+            type="range"
+            min={0}
+            max={1}
+            step={0.01}
+            value={light}
+            aria-label={t('viewer.lightDirection')}
+            onChange={(e) => setLight(Number(e.target.value))}
+          />
         </SettingRow>
       </div>
     </div>

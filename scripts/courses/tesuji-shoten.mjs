@@ -6,7 +6,8 @@ export default {
   mySide: 'sente',
   userSide: 'sente',
   noEngine: true,
-  source: '局面と手はshogi-rule.com「歩の効果的な手筋」(https://www.shogi-rule.com/koma_hu/)の「焦点の歩」の図をSFENに変換。持ち駒は図に表示がないため、打つ歩だけを置いた。',
+  source:
+    '局面と手はshogi-rule.com「歩の効果的な手筋」(https://www.shogi-rule.com/koma_hu/)の「焦点の歩」の図をSFENに変換。持ち駒は図に表示がないため、打つ歩だけを置いた。',
   goalFormation: '焦点の歩: 多くの駒が利いている地点に打つ。どの駒で取っても、どこかの利きが消える。',
   startSfen: 'lnsgkg1nl/6rb1/pppppp2p/9/6SR1/9/PPPPPP2P/1B7/LNSGKGSNL b P 1',
   rootComment: '3三には後手の飛車・角・桂馬が利いています。',

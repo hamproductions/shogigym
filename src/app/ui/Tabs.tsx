@@ -7,7 +7,14 @@ export function Tabs<T extends string>({ items, value, onChange, className, chil
   return (
     <div className={cx('app-tabs', className)} role="tablist">
       {items.map((item) => (
-        <button key={item.id} type="button" role="tab" aria-selected={value === item.id} className={value === item.id ? 'on' : ''} onClick={() => onChange(item.id)}>
+        <button
+          key={item.id}
+          type="button"
+          role="tab"
+          aria-selected={value === item.id}
+          className={value === item.id ? 'on' : ''}
+          onClick={() => onChange(item.id)}
+        >
           {item.label}
         </button>
       ))}

@@ -1,14 +1,14 @@
 import type * as THREE from 'three'
-import type { RoomDims } from '../roomFloor'
+import type { RoomDims } from '@/rendering/roomFloor'
 import { CASUAL } from './dimensions'
 
-type RoomModule = typeof import('../room')
+type RoomModule = typeof import('@/rendering/room')
 
 let loading: Promise<RoomModule> | null = null
 let loaded: RoomModule | null = null
 
 const loadRoom = () =>
-  (loading ??= import('../room').then((m) => {
+  (loading ??= import('@/rendering/room').then((m) => {
     loaded = m
     return m
   }))

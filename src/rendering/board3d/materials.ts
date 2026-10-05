@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
-import { grainTexture } from '../roomFloor'
+import { grainTexture } from '@/rendering/roomFloor'
 import { srgbTexture } from './textures'
 
 const envs = new WeakMap<THREE.WebGLRenderer, THREE.Texture>()
@@ -21,7 +21,15 @@ export function preparePieceEnvironment(renderer: THREE.WebGLRenderer, activate 
 }
 
 export function woodMaterial(base: [number, number, number], seed: number) {
-  return new THREE.MeshPhysicalMaterial({ map: srgbTexture(grainTexture(512, 512, base, 120, seed)), roughness: 0.5, metalness: 0, clearcoat: 0.35, clearcoatRoughness: 0.32, envMap: pieceEnv, envMapIntensity: 0.35 })
+  return new THREE.MeshPhysicalMaterial({
+    map: srgbTexture(grainTexture(512, 512, base, 120, seed)),
+    roughness: 0.5,
+    metalness: 0,
+    clearcoat: 0.35,
+    clearcoatRoughness: 0.32,
+    envMap: pieceEnv,
+    envMapIntensity: 0.35,
+  })
 }
 
 export const standMaterial = () => woodMaterial([180, 128, 66], 21)

@@ -1,22 +1,27 @@
 # Current task
 
-## Scope
-Fix inconsistent Japanese sidebar typography and provide clear AI engine loading/error recovery. User reports deployed engine recovered itself; preserve working initialization. Workspace main at ebb9230 includes prior pushed spectator/refactor changes. Current request authorizes committing and pushing these fixes to main for deployment. No server/system/audio changes or new tests authorized.
+## Scope and authorization
+- Move Komadai development page to /dev/komadai.
+- Consolidate shared modules in src/utils; root retains React Router entries.
+- Configure release-it semantic versioning and update README.
+- Configure Oxlint/Prettier, @/ source aliases, autofix and formatting; enforce formatting in CI and release checks.
+- Current requests authorize committing all changes, bumping patch from 1.0.0 to 1.0.1, tagging and pushing main.
+- No GitHub release publication, server/system changes or new tests required.
 
-## Evidence
-- Failing URL supplied: https://hamproductions.github.io/shogilab/view . Deployed navigation redirects to /view/ and returns no COOP/COEP headers; isolation depends on existing service worker.
-- Supplied sidebar screenshot shows larger heavy Mincho mode/settings labels mixed with small sans tool labels. rail.css applies app-ja typography separately.
-- Existing engine has startup/handshake/search timeouts and error status. AI panel previously displayed analysis pending even after failure; isolation errors had no reload action.
-
-## Changes
-- Sidebar labels use shared sans font, compact size and bold weight; Japanese mode labels no longer use display Mincho or seal spacing.
-- Engine status explicitly tracks loading; startup completion/failure clears it. Header and AI panel expose loading state.
-- Failed engine panel displays real error with Retry; unsupported isolation shows Reload page.
-- View retry clears error state without accidentally pausing playback; successful engine reboot clears stale View errors.
-- Root/service worker initialization unchanged after user reported recovery.
+## Implementation
+- src/utils owns root-level shared modules and previous app/lib helpers, theme and roomMetrics. All consumers and data globs updated.
+- Vite, TypeScript and Bun resolve @/ to src. Generated React Router +types imports stay relative.
+- Settings reads version directly from package.json.
+- release-it handles version, changelog, release commits and tags. npm publishing disabled. GitHub release publishing configured for explicitly invoked full releases; disabled for this patch bump.
+- README documents current modes, customization, development routes, structure, aliases, quality commands, loading/error recovery and releases.
+- Safe-refactor SKILL.md read 1–EOF (16 lines); GYST SKILL.md read 1–EOF (27 lines).
 
 ## Verification
-Agent-browser SKILL.md 1–EOF (52 lines) and CLI core guide read fully. One isolated muted session used. Production navigation succeeded but subsequent eval context was about:blank; no app-runtime proof claimed. TypeScript, lint, data validation and production build with /shogilab/ base passed. Diff whitespace checks passed. Owned browser closed; no active sessions remain.
+- Module bodies compared before formatting: unchanged except imports and course globs.
+- Final lint/format/TypeScript checks passed; production build with /shogilab/ base passed; course validation and diff whitespace passed.
+- Bun alias resolution passed. Existing React warnings remain without suppression.
+- Local release dry-run passed. Actual patch release runs required checks again.
+- localhost:5173 unavailable; browser verification remains unverified. No server or browser started.
 
-## Next action
-Commit and push verified source changes to main. Browser visual/recovery behavior remains unverified against this source.
+## Closure criteria
+Patch 1.0.1 committed and tagged; main and tag pushed; working tree clean and local main matches fetched origin/main.

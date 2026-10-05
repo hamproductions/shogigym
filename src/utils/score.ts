@@ -1,5 +1,5 @@
-import { scoreWinRate } from '../../analysis'
-import type { Score } from '../../engine'
+import { scoreWinRate } from './analysis'
+import type { Score } from './engine'
 
 export const winLoss = (bestRate: number, score: Score) => Math.max(0, Math.round((bestRate - scoreWinRate(score)) * 100))
 

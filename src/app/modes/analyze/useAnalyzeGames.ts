@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { exportGame, parseGame } from '../../../kifu'
-import { applyUsi } from '../../../shogi'
-import type { BoardSession } from '../../hooks/useBoardSession'
-import type { Load, Snapshot } from '../../hooks/useModeSwitch'
-import { savedAtLabel, sideMark } from '../../lib/notation'
-import { deleteGame, gameId, loadGames, storeGame, type GameResult, type StoredGame } from '../../games'
-import { STRENGTH, useSettings } from '../../../appearance/settings'
-import { allLines, countMoves, mainLine } from '../../tree'
-import { isGameMode, type Confirm, type Tab } from '../../types'
+import { exportGame, parseGame } from '@/utils/kifu'
+import { applyUsi } from '@/utils/shogi'
+import type { BoardSession } from '@/app/hooks/useBoardSession'
+import type { Load, Snapshot } from '@/app/hooks/useModeSwitch'
+import { savedAtLabel, sideMark } from '@/utils/notation'
+import { deleteGame, gameId, loadGames, storeGame, type GameResult, type StoredGame } from '@/app/games'
+import { STRENGTH, useSettings } from '@/appearance/settings'
+import { allLines, countMoves, mainLine } from '@/app/tree'
+import { isGameMode, type Confirm, type Tab } from '@/app/types'
 
 export type GameNotes = { title: string; comments: string[]; ending?: string; moves: string }
 
@@ -25,7 +25,16 @@ function firstIllegalMove(start: string, moves: string[]) {
   return valid < moves.length ? valid : -1
 }
 
-export function useAnalyzeGames(session: BoardSession, { load, setTab, setConfirm, analysisSnapshot, onSaveError }: { load: Load; setTab: (tab: Tab) => void; setConfirm: (confirm: Confirm) => void; analysisSnapshot: () => Snapshot | undefined; onSaveError: () => void }) {
+export function useAnalyzeGames(
+  session: BoardSession,
+  {
+    load,
+    setTab,
+    setConfirm,
+    analysisSnapshot,
+    onSaveError,
+  }: { load: Load; setTab: (tab: Tab) => void; setConfirm: (confirm: Confirm) => void; analysisSnapshot: () => Snapshot | undefined; onSaveError: () => void },
+) {
   const { t } = useTranslation()
   const settings = useSettings()
   const { mode, game, tree, userSide, course } = session
@@ -48,7 +57,13 @@ export function useAnalyzeGames(session: BoardSession, { load, setTab, setConfir
       setTab('moves')
     }
     const variations = countMoves(tree) - mainLine(tree).length
-    if (mode === 'analyze' && game.moves.length > 0) setConfirm({ text: t(variations > 0 ? 'app.loadGameReplaceVariations' : 'app.loadGameReplace', { count: parsed.moves.length, current: game.moves.length }), run, yes: t('app.loadIt'), no: t('app.cancel') })
+    if (mode === 'analyze' && game.moves.length > 0)
+      setConfirm({
+        text: t(variations > 0 ? 'app.loadGameReplaceVariations' : 'app.loadGameReplace', { count: parsed.moves.length, current: game.moves.length }),
+        run,
+        yes: t('app.loadIt'),
+        no: t('app.cancel'),
+      })
     else run()
     return null
   }
@@ -56,7 +71,16 @@ export function useAnalyzeGames(session: BoardSession, { load, setTab, setConfir
   const exportKif = () => {
     const lines = isGameMode(mode) && tree.children.length ? allLines(tree) : [game.moves]
     const ai = `Shogi Gym AI (${STRENGTH[settings.opponent].label})`
-    const names = mode === 'spar' ? (userSide === 'sente' ? { sente: t('app.you'), gote: ai } : { sente: ai, gote: t('app.you') }) : gameNotes?.title && gameNotes.title !== IMPORTED ? { title: gameNotes.title } : course ? { title: course.title } : {}
+    const names =
+      mode === 'spar'
+        ? userSide === 'sente'
+          ? { sente: t('app.you'), gote: ai }
+          : { sente: ai, gote: t('app.you') }
+        : gameNotes?.title && gameNotes.title !== IMPORTED
+          ? { title: gameNotes.title }
+          : course
+            ? { title: course.title }
+            : {}
     return exportGame(game.start, lines, names)
   }
 
@@ -64,7 +88,15 @@ export function useAnalyzeGames(session: BoardSession, { load, setTab, setConfir
     const id = slotId ?? String(Date.now())
     const when = savedAtLabel(new Date())
     const title = mode === 'spar' ? t('app.vsAiAs', { side: sideMark(userSide), when }) : `${gameTitle || t('app.analysis')} · ${when}`
-    const ok = storeGame({ id, title, savedAt: Date.now(), start: game.start, moves: tree.children.length ? mainLine(tree) : game.moves, tree: tree.children.length ? tree : undefined, userSide })
+    const ok = storeGame({
+      id,
+      title,
+      savedAt: Date.now(),
+      start: game.start,
+      moves: tree.children.length ? mainLine(tree) : game.moves,
+      tree: tree.children.length ? tree : undefined,
+      userSide,
+    })
     if (ok) setSlotId(id)
     return ok
   }
@@ -73,7 +105,15 @@ export function useAnalyzeGames(session: BoardSession, { load, setTab, setConfir
     const previous = mode === 'analyze' ? { game, tree, userSide } : analysisSnapshot()
     if (!previous || (!previous.game.moves.length && !previous.tree?.children.length)) return true
     const when = savedAtLabel(new Date())
-    const ok = storeGame({ id: crypto.randomUUID(), title: `${gameTitle || t('app.analysis')} · ${when}`, savedAt: Date.now(), start: previous.game.start, moves: previous.tree?.children.length ? mainLine(previous.tree) : previous.game.moves, tree: previous.tree?.children.length ? previous.tree : undefined, userSide: previous.userSide })
+    const ok = storeGame({
+      id: crypto.randomUUID(),
+      title: `${gameTitle || t('app.analysis')} · ${when}`,
+      savedAt: Date.now(),
+      start: previous.game.start,
+      moves: previous.tree?.children.length ? mainLine(previous.tree) : previous.game.moves,
+      tree: previous.tree?.children.length ? previous.tree : undefined,
+      userSide: previous.userSide,
+    })
     if (!ok) onSaveError()
     return ok
   }
@@ -88,7 +128,8 @@ export function useAnalyzeGames(session: BoardSession, { load, setTab, setConfir
       setSlotId(g.id)
       setTab('moves')
     }
-    if (mode === 'analyze' && game.moves.length > 0 && slotId !== g.id) setConfirm({ text: t('app.openTheGameOnThe', { title: g.title }), run, yes: t('app.openIt'), no: t('app.cancel') })
+    if (mode === 'analyze' && game.moves.length > 0 && slotId !== g.id)
+      setConfirm({ text: t('app.openTheGameOnThe', { title: g.title }), run, yes: t('app.openIt'), no: t('app.cancel') })
     else run()
   }
 
@@ -97,7 +138,17 @@ export function useAnalyzeGames(session: BoardSession, { load, setTab, setConfir
     const id = gameId(game.start, game.moves)
     if (loadGames().some((g) => g.id === id)) return
     const when = savedAtLabel(new Date())
-    storeGame({ id, title: t('app.vsAiAs', { side: sideMark(userSide), when }), savedAt: Date.now(), start: game.start, moves: game.moves, tree: tree.children.length ? tree : undefined, userSide, result, vsAi: true })
+    storeGame({
+      id,
+      title: t('app.vsAiAs', { side: sideMark(userSide), when }),
+      savedAt: Date.now(),
+      start: game.start,
+      moves: game.moves,
+      tree: tree.children.length ? tree : undefined,
+      userSide,
+      result,
+      vsAi: true,
+    })
   }
 
   const reviewSlot = (g: StoredGame, _confirmReplace: number) => {

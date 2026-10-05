@@ -6,14 +6,15 @@ export default {
   mySide: 'sente',
   userSide: 'sente',
   noEngine: true,
-  source: '局面と手はshogi-rule.com「桂馬の効果的な手筋」(https://www.shogi-rule.com/koma_keima/)の「ふんどしの桂」の図をSFENに変換。持ち駒は図に表示がないため、打つ駒などを手順から推定して置いた。',
+  source:
+    '局面と手はshogi-rule.com「桂馬の効果的な手筋」(https://www.shogi-rule.com/koma_keima/)の「ふんどしの桂」の図をSFENに変換。持ち駒は図に表示がないため、打つ駒などを手順から推定して置いた。',
   goalFormation: 'ふんどしの桂: 跳ね先の両方に駒がある場所へ桂馬を打ち、どちらか一方を確実に取る。',
   startSfen: 'lnsgkgsnl/1r7/pppp1pppp/4p4/9/9/9/9/9 b N 1',
   rootComment: '5三に桂馬を打つと、跳ね先の6一と4一の両方に金がいます。',
   line: {
     moves: 'N*5c',
     notes: {
-      0: '桂馬の跳ね先の両方に相手の駒がある所へ打ちます。'
+      0: '桂馬の跳ね先の両方に相手の駒がある所へ打ちます。',
     },
     comment: '出典は矢印で両取りを示す図のみ。後手の4一金が逃げた場合の取り込みは手順の補足です。',
   },

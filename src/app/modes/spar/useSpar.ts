@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { reviewMove } from '../../../analysis'
-import { saveMistakes } from '../../../mistakes'
-import { applyUsi, colorSide, hasLegalMove, positionOf } from '../../../shogi'
-import type { BoardSession } from '../../hooks/useBoardSession'
-import type { Mistakes } from '../../hooks/useMistake'
-import type { CoachReview } from '../../hooks/useMoveReview'
-import type { Load } from '../../hooks/useModeSwitch'
-import { isBad } from '../../lib/mistake'
-import { sideMark } from '../../lib/notation'
-import { cachedReview, rememberReview } from '../../memory'
-import { removeBranch } from '../../tree'
-import type { Confirm, Tab } from '../../types'
+import { reviewMove } from '@/utils/analysis'
+import { saveMistakes } from '@/utils/mistakes'
+import { applyUsi, colorSide, hasLegalMove, positionOf } from '@/utils/shogi'
+import type { BoardSession } from '@/app/hooks/useBoardSession'
+import type { Mistakes } from '@/app/hooks/useMistake'
+import type { CoachReview } from '@/app/hooks/useMoveReview'
+import type { Load } from '@/app/hooks/useModeSwitch'
+import { isBad } from '@/utils/mistake'
+import { sideMark } from '@/utils/notation'
+import { cachedReview, rememberReview } from '@/app/memory'
+import { removeBranch } from '@/app/tree'
+import type { Confirm, Tab } from '@/app/types'
 import { useGameClock } from './useGameClock'
 
 type SparDeps = {
@@ -28,7 +28,10 @@ type SparDeps = {
   onOpenAnalyze?: () => void
 }
 
-export function useSpar(session: BoardSession, { load, setTab, coach, mistakes, setNudge, setConfirm, forgetReply, openInAnalyze, preserveAnalysis, paused = false, onOpenAnalyze }: SparDeps) {
+export function useSpar(
+  session: BoardSession,
+  { load, setTab, coach, mistakes, setNudge, setConfirm, forgetReply, openInAnalyze, preserveAnalysis, paused = false, onOpenAnalyze }: SparDeps,
+) {
   const { t } = useTranslation()
   const { mode, game, sfens, cursor, userSide, atEnd, toMove, gameOver, ai, position, userTurn } = session
   const [resigned, setResigned] = useState(false)
@@ -57,7 +60,19 @@ export function useSpar(session: BoardSession, { load, setTab, coach, mistakes, 
     const before = sfens[reviewAt - 1]
     const usi = game.moves[reviewAt - 1]
     if (!before || !usi || colorSide(positionOf(before).color) !== userSide) return
-    const added = saveMistakes([{ id: `${before}|${usi}`, sfen: before, played: usi, best: review.best.move, bestPv: review.best.pv, label: review.label, reasons: review.reasons, game: t('app.yourGameVsTheAi'), ply: reviewAt }])
+    const added = saveMistakes([
+      {
+        id: `${before}|${usi}`,
+        sfen: before,
+        played: usi,
+        best: review.best.move,
+        bestPv: review.best.pv,
+        label: review.label,
+        reasons: review.reasons,
+        game: t('app.yourGameVsTheAi'),
+        ply: reviewAt,
+      },
+    ])
     if (added) setNudge(t('app.savedToReviewYouWill'))
   }, [review, reviewAt, mode, userSide, sfens, game.moves, t, setNudge])
 
@@ -98,7 +113,18 @@ export function useSpar(session: BoardSession, { load, setTab, coach, mistakes, 
     run()
   }
 
-  const instruction = () => (resigned ? t('app.youResignedReviewTheGame') : position.checked && !hasLegalMove(position) ? t('app.checkmateTheGameIsOver') : !atEnd ? t('app.lookingBackAtEarlierMoves') : userTurn ? (position.checked ? t('app.checkYourKingIsIn') : t('app.yourMove')) : t('app.theAiIsThinking'))
+  const instruction = () =>
+    resigned
+      ? t('app.youResignedReviewTheGame')
+      : position.checked && !hasLegalMove(position)
+        ? t('app.checkmateTheGameIsOver')
+        : !atEnd
+          ? t('app.lookingBackAtEarlierMoves')
+          : userTurn
+            ? position.checked
+              ? t('app.checkYourKingIsIn')
+              : t('app.yourMove')
+            : t('app.theAiIsThinking')
 
   return {
     resigned,

@@ -32,5 +32,9 @@ export async function loadStats(sfen: string): Promise<PositionStats | null> {
   if (!shards.has(shard)) shards.set(shard, fetchJson<Record<string, RawPosition>>(`${base()}${shard}.json`, {}))
   const raw = (await shards.get(shard))?.[key]
   if (!raw) return null
-  return { games: raw.n, moves: raw.m.map(([usi, games, senteWins, goteWins]) => ({ usi, games, senteWins, goteWins })), book: raw.b ? { usi: raw.b[0], eval: raw.b[1] } : undefined }
+  return {
+    games: raw.n,
+    moves: raw.m.map(([usi, games, senteWins, goteWins]) => ({ usi, games, senteWins, goteWins })),
+    book: raw.b ? { usi: raw.b[0], eval: raw.b[1] } : undefined,
+  }
 }

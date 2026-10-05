@@ -39,7 +39,9 @@
   font-weight: 400;
   font-size: 170px;
   line-height: 1;
-  text-shadow: 0 0 40px rgba(232, 80, 40, 0.7), 0 6px 0 rgba(0, 0, 0, 0.5);
+  text-shadow:
+    0 0 40px rgba(232, 80, 40, 0.7),
+    0 6px 0 rgba(0, 0, 0, 0.5);
 }
 
 .app-reel-line {
@@ -90,7 +92,9 @@
   width: 62%;
   border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 0 2px rgba(232, 163, 60, 0.6);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.7),
+    0 0 0 2px rgba(232, 163, 60, 0.6);
 }
 
 .app-reel-card img {

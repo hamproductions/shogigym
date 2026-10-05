@@ -1,13 +1,22 @@
 import * as THREE from 'three'
 import { Color, type ImmutablePosition, type PieceType } from 'tsshogi'
-import { hasLegalMove } from '../../shogi'
-import { playSound } from '../../appearance/settings'
+import { hasLegalMove } from '@/utils/shogi'
+import { playSound } from '@/appearance/settings'
 import { squareX, squareZ } from './dimensions'
 import { pieceMesh } from './piece'
 import { glowTexture, loadBrush, ringTexture, stampTexture } from './powerTextures'
 
 export type PowerSquare = { file: number; rank: number }
-export type PowerMove = { to: PowerSquare; color: Color; capture?: { type: PieceType; color: Color } | null; check?: PowerSquare | null; mate?: boolean; promoted?: boolean; delay?: number; carried?: boolean }
+export type PowerMove = {
+  to: PowerSquare
+  color: Color
+  capture?: { type: PieceType; color: Color } | null
+  check?: PowerSquare | null
+  mate?: boolean
+  promoted?: boolean
+  delay?: number
+  carried?: boolean
+}
 export type PowerContext = { scene: THREE.Scene; root: THREE.Object3D; camera: THREE.PerspectiveCamera; renderer: THREE.WebGLRenderer }
 export type Power = {
   onMove: (move: PowerMove) => void
@@ -20,8 +29,27 @@ export type Power = {
 }
 
 type Fx = { t0: number; real: boolean; f: number; dur: number; tick: (t: number, f: number) => void; done?: () => void }
-type Frame = { dim: number; red: number; flash: number; invert: boolean; scale: number; light: { at: THREE.Vector3; color: number; power: number } | null; orbit: { at: THREE.Vector3; w: number; angle: number; zoom: number } | null }
-type SparkOptions = { speed: number; up?: number; color: number; color2?: number; size: number; life: number; gravity?: number; drag?: number; flat?: boolean; spread?: number }
+type Frame = {
+  dim: number
+  red: number
+  flash: number
+  invert: boolean
+  scale: number
+  light: { at: THREE.Vector3; color: number; power: number } | null
+  orbit: { at: THREE.Vector3; w: number; angle: number; zoom: number } | null
+}
+type SparkOptions = {
+  speed: number
+  up?: number
+  color: number
+  color2?: number
+  size: number
+  life: number
+  gravity?: number
+  drag?: number
+  flat?: boolean
+  spread?: number
+}
 
 const SPARKS = 1800
 const DEBRIS = 120
@@ -31,7 +59,8 @@ const local = (sq: PowerSquare, y = 0) => new THREE.Vector3(squareX(sq.file), y,
 const clamp01 = (x: number) => Math.min(1, Math.max(0, x))
 const easeOut = (x: number) => 1 - (1 - clamp01(x)) ** 3
 const smooth = (x: number) => clamp01(x) * clamp01(x) * (3 - 2 * clamp01(x))
-const envelope = (t: number, a: number, b: number, c: number, d: number) => (t <= a || t >= d ? 0 : t < b ? (t - a) / (b - a) : t <= c ? 1 : 1 - (t - c) / (d - c))
+const envelope = (t: number, a: number, b: number, c: number, d: number) =>
+  t <= a || t >= d ? 0 : t < b ? (t - a) / (b - a) : t <= c ? 1 : 1 - (t - c) / (d - c)
 const calm = () => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches
 const board3 = (sfen: string) => sfen.split(' ').slice(0, 3).join(' ')
 
@@ -42,7 +71,14 @@ export function moveEvent(prev: ImmutablePosition, position: ImmutablePosition, 
   if (!move || !next.doMove(move) || board3(next.sfen) !== board3(position.sfen)) return null
   const victim = prev.board.at(move.to)
   const king = position.checked ? position.board.findKing(position.color) : undefined
-  return { to: move.to, color: move.color, capture: victim ? { type: victim.type, color: victim.color } : null, check: king ?? null, mate: !!king && !hasLegalMove(position), promoted: move.promote }
+  return {
+    to: move.to,
+    color: move.color,
+    capture: victim ? { type: victim.type, color: victim.color } : null,
+    check: king ?? null,
+    mate: !!king && !hasLegalMove(position),
+    promoted: move.promote,
+  }
 }
 
 const sparkVertex = `
@@ -85,7 +121,14 @@ function sparkField() {
   geometry.setAttribute('aColor', new THREE.BufferAttribute(color, 3))
   geometry.setAttribute('aSize', new THREE.BufferAttribute(size, 1))
   geometry.setAttribute('aAlpha', new THREE.BufferAttribute(alpha, 1))
-  const material = new THREE.ShaderMaterial({ uniforms: { uScale: { value: 400 } }, vertexShader: sparkVertex, fragmentShader: sparkFragment, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending })
+  const material = new THREE.ShaderMaterial({
+    uniforms: { uScale: { value: 400 } },
+    vertexShader: sparkVertex,
+    fragmentShader: sparkFragment,
+    transparent: true,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+  })
   const points = new THREE.Points(geometry, material)
   points.frustumCulled = false
   points.renderOrder = 20
@@ -272,7 +315,15 @@ function beam(color: number, radius: number, o: { fromTop?: boolean; fade?: bool
     { r: radius * 0.32, color: 0xffffff },
   ].map(({ r, color: c }) => {
     const material = new THREE.ShaderMaterial({
-      uniforms: { uColor: { value: new THREE.Color(c) }, uOpacity: { value: 0 }, uGrow: { value: 0 }, uFromTop: { value: o.fromTop ? 1 : 0 }, uFade: { value: o.fade ? 1 : 0 }, uFlow: { value: o.flow ? 1 : 0 }, uTime: { value: 0 } },
+      uniforms: {
+        uColor: { value: new THREE.Color(c) },
+        uOpacity: { value: 0 },
+        uGrow: { value: 0 },
+        uFromTop: { value: o.fromTop ? 1 : 0 },
+        uFade: { value: o.fade ? 1 : 0 },
+        uFlow: { value: o.flow ? 1 : 0 },
+        uTime: { value: 0 },
+      },
       vertexShader: beamVertex,
       fragmentShader: beamFragment,
       transparent: true,
@@ -341,9 +392,43 @@ export function createPower(ctx: PowerContext): Power {
     hud.add(mesh)
     return mesh
   }
-  const vignette = hudMat(new THREE.ShaderMaterial({ uniforms: { uDim: { value: 0 }, uRed: { value: 0 } }, vertexShader: hudVertex, fragmentShader: vignetteFragment, transparent: true, depthTest: false, depthWrite: false }), 900)
-  const flash = hudMat(new THREE.MeshBasicMaterial({ color: 0xfff6e8, transparent: true, opacity: 0, depthTest: false, depthWrite: false, toneMapped: false, blending: THREE.AdditiveBlending }), 950)
-  const invert = hudMat(new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, depthTest: false, depthWrite: false, toneMapped: false, blending: THREE.CustomBlending, blendEquation: THREE.AddEquation, blendSrc: THREE.OneMinusDstColorFactor, blendDst: THREE.ZeroFactor }), 960)
+  const vignette = hudMat(
+    new THREE.ShaderMaterial({
+      uniforms: { uDim: { value: 0 }, uRed: { value: 0 } },
+      vertexShader: hudVertex,
+      fragmentShader: vignetteFragment,
+      transparent: true,
+      depthTest: false,
+      depthWrite: false,
+    }),
+    900,
+  )
+  const flash = hudMat(
+    new THREE.MeshBasicMaterial({
+      color: 0xfff6e8,
+      transparent: true,
+      opacity: 0,
+      depthTest: false,
+      depthWrite: false,
+      toneMapped: false,
+      blending: THREE.AdditiveBlending,
+    }),
+    950,
+  )
+  const invert = hudMat(
+    new THREE.MeshBasicMaterial({
+      color: 0xffffff,
+      transparent: true,
+      depthTest: false,
+      depthWrite: false,
+      toneMapped: false,
+      blending: THREE.CustomBlending,
+      blendEquation: THREE.AddEquation,
+      blendSrc: THREE.OneMinusDstColorFactor,
+      blendDst: THREE.ZeroFactor,
+    }),
+    960,
+  )
   const stamps = new Map<string, THREE.Texture>()
   const stampSpecs: Record<string, [string, string]> = { 王手: ['#ff3b2a', 'rgba(255,40,20,0.9)'], 詰み: ['#ffd66b', 'rgba(255,60,20,0.95)'] }
   let disposed = false
@@ -384,7 +469,14 @@ export function createPower(ctx: PowerContext): Power {
   const flashTo = (amount: number) => (frame.flash = Math.max(frame.flash, amount * (calm() ? 0.3 : 1)))
 
   const flat = (map: THREE.Texture, color: number, at: THREE.Vector3, normal = true) => {
-    const material = new THREE.MeshBasicMaterial({ map, color, transparent: true, depthWrite: false, toneMapped: false, blending: normal ? THREE.AdditiveBlending : THREE.NormalBlending })
+    const material = new THREE.MeshBasicMaterial({
+      map,
+      color,
+      transparent: true,
+      depthWrite: false,
+      toneMapped: false,
+      blending: normal ? THREE.AdditiveBlending : THREE.NormalBlending,
+    })
     const mesh = new THREE.Mesh(floorPlane, material)
     mesh.position.copy(at)
     mesh.renderOrder = 12
@@ -515,7 +607,15 @@ export function createPower(ctx: PowerContext): Power {
     impactFrame(at, move.capture ? 1.3 : 0.8)
     ringWave(at, gold ? 0xffc94a : 0xfff0d0, 0.3, gold ? 2.4 : 1.5, 0.4, 0.9)
     glowDisc(at, gold ? 0xffb030 : 0xffe2b0, 1.1, 0.3, 0.8)
-    sparks.spawn(at.clone().setY(0.1), gold ? 70 : 28, { speed: gold ? 5 : 3.6, up: 2.4, color: gold ? 0xffd040 : 0xffd9a0, color2: gold ? 0xffffff : 0xff9a40, size: 0.09, life: 0.5, flat: true })
+    sparks.spawn(at.clone().setY(0.1), gold ? 70 : 28, {
+      speed: gold ? 5 : 3.6,
+      up: 2.4,
+      color: gold ? 0xffd040 : 0xffd9a0,
+      color2: gold ? 0xffffff : 0xff9a40,
+      size: 0.09,
+      life: 0.5,
+      flat: true,
+    })
     add(0.25, (t) => glowLight(at.clone().setY(1.2), gold ? 0xffc040 : 0xffe0b0, 7 * (1 - t / 0.25)))
     if (gold) skyBeam(at, 0xffc23a, 0.32, 18, 0.18, 0.35)
     punch(move.capture ? 0.32 : 0.12)
@@ -599,12 +699,16 @@ export function createPower(ctx: PowerContext): Power {
     )
     add(0.6, (t) => flashTo(0.85 * (1 - t / 0.6) ** 2), { real: true })
     add(2.2, (t) => (frame.scale = Math.min(frame.scale, calm() ? 0.6 : 0.12 + 0.88 * smooth((t - 0.2) / 2))), { real: true })
-    add(5.6, (t) => {
-      frame.dim = Math.max(frame.dim, envelope(t, 0, 0.15, 4.2, 5.6) * 0.86)
-      frame.red = Math.max(frame.red, envelope(t, 0, 0.15, 1.2, 2.6) * 0.6)
-      const w = smooth((t - 0.25) / 0.9) * (1 - smooth((t - 4.2) / 1.3))
-      frame.orbit = { at: toWorld(), w: calm() ? w * 0.2 : w, angle: 0.75 * smooth(t / 5.6), zoom: 0.42 }
-    }, { real: true })
+    add(
+      5.6,
+      (t) => {
+        frame.dim = Math.max(frame.dim, envelope(t, 0, 0.15, 4.2, 5.6) * 0.86)
+        frame.red = Math.max(frame.red, envelope(t, 0, 0.15, 1.2, 2.6) * 0.6)
+        const w = smooth((t - 0.25) / 0.9) * (1 - smooth((t - 4.2) / 1.3))
+        frame.orbit = { at: toWorld(), w: calm() ? w * 0.2 : w, angle: 0.75 * smooth(t / 5.6), zoom: 0.42 }
+      },
+      { real: true },
+    )
     const pillar = beam(0xffd27a, 0.95, { fromTop: true, fade: true })
     pillar.group.position.copy(king)
     pillar.length(44)
@@ -615,7 +719,18 @@ export function createPower(ctx: PowerContext): Power {
         const o = envelope(t, 0, 0.08, 3.4, 5.2)
         pillar.set(o * (0.85 + 0.15 * Math.sin(t * 30)), easeOut(t / 0.3), sim)
         glowLight(king.clone().setY(2), 0xffd080, 45 * o)
-        if (t < 3.4) sparks.spawn(king.clone().setY(0.2), 3, { speed: 1.2, up: 7, color: 0xffe08a, color2: 0xffffff, size: 0.13, life: 1.6, gravity: -2.5, drag: 0.6, spread: 1.4 })
+        if (t < 3.4)
+          sparks.spawn(king.clone().setY(0.2), 3, {
+            speed: 1.2,
+            up: 7,
+            color: 0xffe08a,
+            color2: 0xffffff,
+            size: 0.13,
+            life: 1.6,
+            gravity: -2.5,
+            drag: 0.6,
+            spread: 1.4,
+          })
       },
       { done: () => (fx.remove(pillar.group), pillar.dispose()) },
     )
@@ -704,7 +819,11 @@ export function createPower(ctx: PowerContext): Power {
     savedQ.copy(camera.quaternion)
     const orbit = frame.orbit
     if (orbit && orbit.w > 0.001) {
-      tmp.copy(camera.position).sub(orbit.at).applyAxisAngle(UP, orbit.angle * orbit.w).multiplyScalar(1 - orbit.zoom * orbit.w)
+      tmp
+        .copy(camera.position)
+        .sub(orbit.at)
+        .applyAxisAngle(UP, orbit.angle * orbit.w)
+        .multiplyScalar(1 - orbit.zoom * orbit.w)
       camera.position.copy(orbit.at).add(tmp)
       aim.lookAt(camera.position, orbit.at, UP)
       aimQ.setFromRotationMatrix(aim)

@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { scoreWinRate } from '../../analysis'
-import { scoreToCp } from '../../engine'
-import { useAnalysis } from '../../hooks'
-import { strip } from '../lib/book'
-import { toSente } from '../lib/notation'
-import { allEvals, rememberEval } from '../memory'
-import { useSettings } from '../../appearance/settings'
+import { scoreWinRate } from '@/utils/analysis'
+import { scoreToCp } from '@/utils/engine'
+import { useAnalysis } from '@/utils/hooks'
+import { strip } from '@/utils/book'
+import { toSente } from '@/utils/notation'
+import { allEvals, rememberEval } from '@/app/memory'
+import { useSettings } from '@/appearance/settings'
 import type { BoardSession } from './useBoardSession'
 
 type Evals = Record<string, number>
@@ -31,7 +31,17 @@ export function useEvaluation({ sfen, ai, toMove }: BoardSession) {
     setSeen({ evalKey, evalCp })
     if (evalCp !== null) updateEvals((e) => (e[evalKey] === evalCp ? e : { ...e, [evalKey]: evalCp }))
   }
-  return { analysis, best, evalSente, evalFinal: !!final && !!evalSente, senteRate: evalSente ? scoreWinRate(evalSente) : 0.5, evals, recordEval, showBest, setShowBest }
+  return {
+    analysis,
+    best,
+    evalSente,
+    evalFinal: !!final && !!evalSente,
+    senteRate: evalSente ? scoreWinRate(evalSente) : 0.5,
+    evals,
+    recordEval,
+    showBest,
+    setShowBest,
+  }
 }
 
 export type Evaluation = ReturnType<typeof useEvaluation>

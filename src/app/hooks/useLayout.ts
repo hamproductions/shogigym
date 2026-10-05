@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { sideStandsFit } from '../../rendering/board3d/dimensions'
-import type { StandZones } from '../../rendering/board3d/types'
-import { useSettings } from '../../appearance/settings'
-import type { Mode } from '../types'
+import { sideStandsFit } from '@/rendering/board3d/dimensions'
+import type { StandZones } from '@/rendering/board3d/types'
+import { useSettings } from '@/appearance/settings'
+import type { Mode } from '@/app/types'
 import { useLatest } from './useLatest'
 
 type PanelPrefs = { width: number; hidden: boolean }
@@ -65,7 +65,13 @@ export function useLayout({ mode, needsPicking, welcome, orbit = false }: { mode
   }, [drawer])
 
   const panelHidden = compact ? !drawer : panelPrefs.hidden
-  const zoned = !orbit && !compact && settings.environment !== 'diagram' && settings.environment !== 'broadcast' && viewport.w >= 1100 && sideStandsFit(viewport.w - 100, viewport.h - 110)
+  const zoned =
+    !orbit &&
+    !compact &&
+    settings.environment !== 'diagram' &&
+    settings.environment !== 'broadcast' &&
+    viewport.w >= 1100 &&
+    sideStandsFit(viewport.w - 100, viewport.h - 110)
   const twoPanels = zoned && !panelPrefs.hidden && !!zones && zones.under.width >= 240 && zones.under.height >= 200
 
   const compactRef = useLatest(compact)
@@ -96,7 +102,25 @@ export function useLayout({ mode, needsPicking, welcome, orbit = false }: { mode
       return h
     })
 
-  return { compact, drawer, setDrawer, panelWidth: panelPrefs.width, panelPrefsHidden: panelPrefs.hidden, panelHidden, setPanel, togglePanel, zoned, twoPanels, zones, setZones, sheetH, resizeSheet, persistSheet, sheetOpen, setSheetOpen }
+  return {
+    compact,
+    drawer,
+    setDrawer,
+    panelWidth: panelPrefs.width,
+    panelPrefsHidden: panelPrefs.hidden,
+    panelHidden,
+    setPanel,
+    togglePanel,
+    zoned,
+    twoPanels,
+    zones,
+    setZones,
+    sheetH,
+    resizeSheet,
+    persistSheet,
+    sheetOpen,
+    setSheetOpen,
+  }
 }
 
 export type Layout = ReturnType<typeof useLayout>

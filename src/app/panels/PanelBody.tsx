@@ -1,34 +1,34 @@
 import { Suspense, lazy } from 'react'
 import { useTranslation } from 'react-i18next'
-import { LABELS, type Label } from '../../analysis'
-import { colorSide, positionOf } from '../../shogi'
-import { cachedReview, useReviewVersion } from '../memory'
-import { useSession } from '../hooks/session'
-import type { Evaluation } from '../hooks/useEvaluation'
-import type { Mistakes } from '../hooks/useMistake'
-import type { CoachReview } from '../hooks/useMoveReview'
-import type { Reply } from '../hooks/useOpponent'
-import { bookAtPly, strip, type BookHit, type BookMove } from '../lib/book'
-import type { Lane } from '../lib/lanes'
-import { mistakeIsBad } from '../lib/mistake'
-import type { AnalyzeGames } from '../modes/analyze/useAnalyzeGames'
-import type { Drill } from '../modes/drill/useDrill'
-import type { Lesson } from '../modes/lesson/useLesson'
-import type { Spar } from '../modes/spar/useSpar'
-import type { Watch } from '../modes/view/useWatch'
-import type { TesujiTrainer } from '../modes/tesuji/useTesuji'
-import type { Tsume } from '../modes/tsume/useTsume'
-import { PieceGuide } from '../pieces'
-import { isGameMode, type Confirm, type Level, type Tab } from '../types'
-import { Button } from '../ui/Button'
+import { LABELS, type Label } from '@/utils/analysis'
+import { colorSide, positionOf } from '@/utils/shogi'
+import { cachedReview, useReviewVersion } from '@/app/memory'
+import { useSession } from '@/app/hooks/session'
+import type { Evaluation } from '@/app/hooks/useEvaluation'
+import type { Mistakes } from '@/app/hooks/useMistake'
+import type { CoachReview } from '@/app/hooks/useMoveReview'
+import type { Reply } from '@/app/hooks/useOpponent'
+import { bookAtPly, strip, type BookHit, type BookMove } from '@/utils/book'
+import type { Lane } from '@/utils/lanes'
+import { mistakeIsBad } from '@/utils/mistake'
+import type { AnalyzeGames } from '@/app/modes/analyze/useAnalyzeGames'
+import type { Drill } from '@/app/modes/drill/useDrill'
+import type { Lesson } from '@/app/modes/lesson/useLesson'
+import type { Spar } from '@/app/modes/spar/useSpar'
+import type { Watch } from '@/app/modes/view/useWatch'
+import type { TesujiTrainer } from '@/app/modes/tesuji/useTesuji'
+import type { Tsume } from '@/app/modes/tsume/useTsume'
+import { PieceGuide } from '@/app/pieces'
+import { isGameMode, type Confirm, type Level, type Tab } from '@/app/types'
+import { Button } from '@/app/ui/Button'
 
-const LessonMap = lazy(() => import('../../components/Flowchart').then((m) => ({ default: m.LessonMap })))
-const ImportBox = lazy(() => import('../modes/analyze/ImportBox').then((m) => ({ default: m.ImportBox })))
-const KifuNotes = lazy(() => import('../modes/analyze/KifuNotes').then((m) => ({ default: m.KifuNotes })))
-const ReviewPane = lazy(() => import('../modes/drill/ReviewPane').then((m) => ({ default: m.ReviewPane })))
-const LessonPane = lazy(() => import('../modes/lesson/LessonPane').then((m) => ({ default: m.LessonPane })))
-const TesujiPane = lazy(() => import('../modes/tesuji/TesujiPane').then((m) => ({ default: m.TesujiPane })))
-const TsumePane = lazy(() => import('../modes/tsume/TsumePane').then((m) => ({ default: m.TsumePane })))
+const LessonMap = lazy(() => import('@/components/Flowchart').then((m) => ({ default: m.LessonMap })))
+const ImportBox = lazy(() => import('@/app/modes/analyze/ImportBox').then((m) => ({ default: m.ImportBox })))
+const KifuNotes = lazy(() => import('@/app/modes/analyze/KifuNotes').then((m) => ({ default: m.KifuNotes })))
+const ReviewPane = lazy(() => import('@/app/modes/drill/ReviewPane').then((m) => ({ default: m.ReviewPane })))
+const LessonPane = lazy(() => import('@/app/modes/lesson/LessonPane').then((m) => ({ default: m.LessonPane })))
+const TesujiPane = lazy(() => import('@/app/modes/tesuji/TesujiPane').then((m) => ({ default: m.TesujiPane })))
+const TsumePane = lazy(() => import('@/app/modes/tsume/TsumePane').then((m) => ({ default: m.TsumePane })))
 const CoachPane = lazy(() => import('./CoachPane').then((m) => ({ default: m.CoachPane })))
 const EnginePane = lazy(() => import('./EnginePane').then((m) => ({ default: m.EnginePane })))
 const EvalGraph = lazy(() => import('./EvalGraph').then((m) => ({ default: m.EvalGraph })))
@@ -66,12 +66,30 @@ function EngineSection({ model }: { model: PanelModel }) {
   const live = ai && assist && !spoilerFree && !gameOver
   return (
     <>
-      {!ai && <div role="alert"><p className="app-muted">{t('app.theAiNeedsACross')}</p><Button onClick={() => location.reload()}>{t('engine.reloadPage')}</Button></div>}
+      {!ai && (
+        <div role="alert">
+          <p className="app-muted">{t('app.theAiNeedsACross')}</p>
+          <Button onClick={() => location.reload()}>{t('engine.reloadPage')}</Button>
+        </div>
+      )}
       {ai && spoilerFree && <p className="app-muted">{t('app.theAiStaysQuietUntil')}</p>}
-      {ai && !spoilerFree && gameOver && <p className="app-muted">{t('app.checkmateWon', { winner: t(toMove === 'sente' ? 'common.gote' : 'common.sente') })}</p>}
+      {ai && !spoilerFree && gameOver && (
+        <p className="app-muted">{t('app.checkmateWon', { winner: t(toMove === 'sente' ? 'common.gote' : 'common.sente') })}</p>
+      )}
       {!assist && <p className="app-muted">{t('app.helpIsOffTurnIt')}</p>}
       {live && (mode === 'lesson' || mode === 'drill') && <p className="app-note">{t('engine.lessonNote')}</p>}
-      {live && <EnginePane sfen={sfen} toMove={toMove} analysis={evaluation.analysis} showBest={evaluation.showBest} setShowBest={evaluation.setShowBest} onPlay={play} canPlay={userTurn && mode !== 'lesson' && mode !== 'drill'} book={bookHere} />}
+      {live && (
+        <EnginePane
+          sfen={sfen}
+          toMove={toMove}
+          analysis={evaluation.analysis}
+          showBest={evaluation.showBest}
+          setShowBest={evaluation.setShowBest}
+          onPlay={play}
+          canPlay={userTurn && mode !== 'lesson' && mode !== 'drill'}
+          book={bookHere}
+        />
+      )}
     </>
   )
 }
@@ -83,14 +101,39 @@ function CoachSection({ model }: { model: PanelModel }) {
   const { reviewAt } = coach
   return (
     <>
-      {mode === 'tesuji' && tesuji.drill && <TesujiPane trainer={tesuji} drill={tesuji.drill} replaying={!!mistakes.mistake && mistakes.previewing} onBack={onBack} />}
+      {mode === 'tesuji' && tesuji.drill && (
+        <TesujiPane trainer={tesuji} drill={tesuji.drill} replaying={!!mistakes.mistake && mistakes.previewing} onBack={onBack} />
+      )}
       {mode === 'tsume' && tsume.tsume && <TsumePane trainer={tsume} tsume={tsume.tsume} banner={!!mistakes.mistake && !!preview} onBack={onBack} />}
-      {mode === 'drill' && <ReviewPane trainer={drill} startSfen={drill.item ? sfens[drill.drill?.base ?? 0] : null} mistakePreview={mistakes.previewing} mistakeOk={!!mistakes.mistake && !mistakeIsBad(mistakes.mistake)} onOpenGame={(g) => analyze.reviewSlot(g, analyzeMoves)} />}
+      {mode === 'drill' && (
+        <ReviewPane
+          trainer={drill}
+          startSfen={drill.item ? sfens[drill.drill?.base ?? 0] : null}
+          mistakePreview={mistakes.previewing}
+          mistakeOk={!!mistakes.mistake && !mistakeIsBad(mistakes.mistake)}
+          onOpenGame={(g) => analyze.reviewSlot(g, analyzeMoves)}
+        />
+      )}
       {mode === 'analyze' && <ImportBox onImport={analyze.importGame} />}
       {mode === 'view' && <p className="app-note">{t('watch.description')}</p>}
       {mode === 'analyze' && analyze.gameNotes && <KifuNotes notes={analyze.gameNotes} moves={game.moves} cursor={cursor} />}
       {(isGameMode(mode) || mode === 'view') && !assist && <p className="app-muted">{t('app.helpIsOffNoRatings')}</p>}
-      {(isGameMode(mode) || mode === 'view') && assist && <CoachPane review={coach.review} lastMove={reviewAt > 0 ? game.moves[reviewAt - 1] : undefined} prevSfen={reviewAt > 0 ? sfens[reviewAt - 1] : null} you={mode === 'spar'} bookLast={reviewAt === cursor ? bookLast : bookAtPly(sfens, game.moves, reviewAt)} bookHere={bookHere} sfen={sfen} course={course} onPlay={play} canPlay={userTurn} ai={ai} showBook={mode === 'analyze'} />}
+      {(isGameMode(mode) || mode === 'view') && assist && (
+        <CoachPane
+          review={coach.review}
+          lastMove={reviewAt > 0 ? game.moves[reviewAt - 1] : undefined}
+          prevSfen={reviewAt > 0 ? sfens[reviewAt - 1] : null}
+          you={mode === 'spar'}
+          bookLast={reviewAt === cursor ? bookLast : bookAtPly(sfens, game.moves, reviewAt)}
+          bookHere={bookHere}
+          sfen={sfen}
+          course={course}
+          onPlay={play}
+          canPlay={userTurn}
+          ai={ai}
+          showBook={mode === 'analyze'}
+        />
+      )}
       {isGameMode(mode) && assist && <MoveCounts />}
     </>
   )
@@ -113,7 +156,14 @@ function MoveCounts() {
     <section className="app-move-counts">
       <h3>{t('lesson.yourMoves', { value: rated, total })}</h3>
       <dl>
-        {(Object.entries(LABELS) as [Label, typeof LABELS[Label]][]).map(([label, meta]) => <div key={label} style={{ ['--label' as string]: meta.color }}><dt><span className="app-move-label">{meta.symbol}</span> {meta.text}</dt><dd>{counts.get(label) ?? 0}</dd></div>)}
+        {(Object.entries(LABELS) as [Label, (typeof LABELS)[Label]][]).map(([label, meta]) => (
+          <div key={label} style={{ ['--label' as string]: meta.color }}>
+            <dt>
+              <span className="app-move-label">{meta.symbol}</span> {meta.text}
+            </dt>
+            <dd>{counts.get(label) ?? 0}</dd>
+          </div>
+        ))}
       </dl>
     </section>
   )
@@ -128,7 +178,9 @@ function FlowSection({ model }: { model: PanelModel }) {
       {spoilerFree && <p className="app-muted">{t('app.findTheMoveYourselfFirst')}</p>}
       {!spoilerFree && gameOver && <p className="app-muted">{t('app.theGameIsOverCheckmate')}</p>}
       {!assist && <p className="app-muted">{t('app.helpIsOffTurnIt2')}</p>}
-      {assist && !spoilerFree && !gameOver && <FlowPane lanes={lanes} sfen={lanesSfen} onPreview={(moves, title) => startPreview(moves, title)} onHover={onHoverLane} />}
+      {assist && !spoilerFree && !gameOver && (
+        <FlowPane lanes={lanes} sfen={lanesSfen} onPreview={(moves, title) => startPreview(moves, title)} onHover={onHoverLane} />
+      )}
     </>
   )
 }
@@ -142,12 +194,35 @@ export function PanelBody({ tab, model, overlays = true }: { tab: Tab; model: Pa
   const endRate = lesson.done && evaluation.evalSente ? (userSide === 'sente' ? evaluation.senteRate : 1 - evaluation.senteRate) : null
   return (
     <Suspense fallback={null}>
-      {tab === 'moves' && ai && assist && game.moves.length > 0 && (isGameMode(mode) || mode === 'view') && <div className="app-pinned-graph"><EvalGraph values={sfens.map((s) => evaluation.evals[strip(s)])} labels={sfens.map((_, i) => i > 0 ? cachedReview(sfens[i - 1], game.moves[i - 1])?.label : undefined)} cursor={cursor} onJump={setCursor} /></div>}
+      {tab === 'moves' && ai && assist && game.moves.length > 0 && (isGameMode(mode) || mode === 'view') && (
+        <div className="app-pinned-graph">
+          <EvalGraph
+            values={sfens.map((s) => evaluation.evals[strip(s)])}
+            labels={sfens.map((_, i) => (i > 0 ? cachedReview(sfens[i - 1], game.moves[i - 1])?.label : undefined))}
+            cursor={cursor}
+            onJump={setCursor}
+          />
+        </div>
+      )}
       <div className="app-panel-body" key={key}>
         {overlays && level === 'new' && selection && !(mode === 'lesson' && course) && <PieceGuide sfen={sfen} from={selection.from} />}
         {tab === 'engine' && <EngineSection model={model} />}
-        {tab === 'coach' && mode === 'lesson' && <LessonPane lesson={lesson} mistake={mistakes.mistake} mistakePreview={mistakes.previewing} level={level} reply={reply} onPlayReply={play} lastNote={bookLast?.branch.note} endRate={endRate} onBack={onBack} />}
-        {overlays && lesson.mapOpen && course && <LessonMap course={course} currentNodeId={nodes?.get(strip(sfen))?.id ?? null} onJump={lesson.jumpTo} onClose={() => lesson.setMapOpen(false)} />}
+        {tab === 'coach' && mode === 'lesson' && (
+          <LessonPane
+            lesson={lesson}
+            mistake={mistakes.mistake}
+            mistakePreview={mistakes.previewing}
+            level={level}
+            reply={reply}
+            onPlayReply={play}
+            lastNote={bookLast?.branch.note}
+            endRate={endRate}
+            onBack={onBack}
+          />
+        )}
+        {overlays && lesson.mapOpen && course && (
+          <LessonMap course={course} currentNodeId={nodes?.get(strip(sfen))?.id ?? null} onJump={lesson.jumpTo} onClose={() => lesson.setMapOpen(false)} />
+        )}
         {tab === 'coach' && <CoachSection model={model} />}
         {tab === 'flow' && <FlowSection model={model} />}
         {tab === 'moves' && <MovesTab model={model} />}
