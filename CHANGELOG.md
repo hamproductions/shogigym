@@ -2,6 +2,20 @@
 
 Notable changes are recorded here when a release is created. Versions follow Semantic Versioning.
 
+# [1.1.0](/compare/v1.0.1...v1.1.0) (2026-10-05)
+
+
+### Bug Fixes
+
+* reduce board rendering cost and localize piece settings 9a09457
+* stabilize board rendering and camera interactions 9c0ed22
+
+
+### Features
+
+* add About version and rename repository references 51e11e1
+* add tile viewpoints and stabilize analysis overlays ae1ac09
+
 ## 1.0.1 (2026-10-05)
 
 
