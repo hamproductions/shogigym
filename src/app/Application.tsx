@@ -309,7 +309,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
   return (
     <SessionContext.Provider value={session}>
       <div
-        className={`app-shell${view.hideUi ? ' fs' : ''}${layout.zoned ? ' zoned' : layout.panelHidden ? ' panel-hidden' : ''}${layout.compact && layout.drawer ? ' drawer-open' : ''}${layout.compact && layout.panelSide ? ' panel-side' : ''}${layout.sheetH ? ' sheet-set' : ''}`}
+        className={`app-shell${view.hideUi ? ' fs' : ''}${layout.zoned ? ' zoned' : layout.panelHidden ? ' panel-hidden' : ''}${layout.compact && layout.drawer ? ' drawer-open' : ''}${!layout.compact && layout.panelSide ? ' panel-side' : ''}${layout.sheetH ? ' sheet-set' : ''}`}
         style={{ ['--panel-w' as string]: `${layout.panelWidth}px`, ['--sheet-h' as string]: layout.sheetH ?? undefined }}
       >
         <Rail

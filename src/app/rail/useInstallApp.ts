@@ -2,8 +2,17 @@ import { useEffect, useState } from 'react'
 
 type InstallPrompt = Event & { prompt: () => Promise<{ outcome: 'accepted' | 'dismissed' }> }
 
+let globalInstallPrompt: InstallPrompt | null = null
+
+if (typeof window !== 'undefined') {
+  window.addEventListener('beforeinstallprompt', (event: Event) => {
+    event.preventDefault()
+    globalInstallPrompt = event as InstallPrompt
+  })
+}
+
 export function useInstallApp() {
-  const [prompt, setPrompt] = useState<InstallPrompt | null>(null)
+  const [prompt, setPrompt] = useState<InstallPrompt | null>(() => globalInstallPrompt)
   const [installed, setInstalled] = useState(false)
   const [help, setHelp] = useState(false)
   useEffect(() => {
@@ -21,10 +30,12 @@ export function useInstallApp() {
     const sync = () => setInstalled(media.matches || !!(navigator as Navigator & { standalone?: boolean }).standalone)
     const available = (event: Event) => {
       event.preventDefault()
+      globalInstallPrompt = event as InstallPrompt
       setPrompt(event as InstallPrompt)
     }
     const complete = () => {
       setInstalled(true)
+      globalInstallPrompt = null
       setPrompt(null)
       setHelp(false)
     }
@@ -39,10 +50,12 @@ export function useInstallApp() {
     }
   }, [])
   const install = async () => {
-    if (!prompt) return setHelp(true)
+    const activePrompt = prompt || globalInstallPrompt
+    if (!activePrompt) return setHelp(true)
+    globalInstallPrompt = null
     setPrompt(null)
     try {
-      await prompt.prompt()
+      await activePrompt.prompt()
     } catch {
       setHelp(true)
     }
