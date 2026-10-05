@@ -93,5 +93,36 @@
 @media (max-width: 820px) {
   .app-engine > .app-standing {
     order: -1;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: var(--space-1) var(--space-2);
+    padding-bottom: var(--space-2);
+  }
+
+  .app-standing strong {
+    font-size: var(--text-sm);
+    white-space: nowrap;
+  }
+
+  .app-standing .app-meter {
+    margin: 0;
+  }
+
+  .app-standing > .app-muted {
+    grid-column: 1 / -1;
+    font-size: var(--text-xs);
+    white-space: nowrap;
+  }
+
+  .app-best-row,
+  .app-alt-row {
+    flex-wrap: wrap;
+  }
+
+  .app-best-row strong,
+  .app-alt-row strong {
+    white-space: nowrap;
+    font-size: var(--text-lg);
   }
 }

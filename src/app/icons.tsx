@@ -43,6 +43,7 @@ export function Icon({ name, size = 20 }: { name: IconName; size?: number }) {
     <svg
       width={size}
       height={size}
+      style={{ flexShrink: 0 }}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"

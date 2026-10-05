@@ -137,7 +137,7 @@ export function MovesPane({
     return (
       <div key={i} className={[siblings.length ? 'has-vars' : '', tree && !isMainLine(tree, moves.slice(0, i + 1)) ? 'in-var' : ''].join(' ')}>
         <button className={cursor === i + 1 ? 'on' : ''} onClick={() => setCursor(i + 1)}>
-          {moveText(sfens[i], usi, moves[i - 1])}
+          <span className="app-move-notation">{moveText(sfens[i], usi, moves[i - 1])}</span>
           {tesuji && (
             <span
               className="app-move-tesuji"
