@@ -2,6 +2,14 @@
 
 Notable changes are recorded here when a release is created. Versions follow Semantic Versioning.
 
+## [1.3.3](/compare/v1.3.2...v1.3.3) (2026-10-05)
+
+
+### Bug Fixes
+
+* correct piece selection and sourced speech readings 8cb1b51
+* route releases to GitHub API with SSH aliases 9c38e58
+
 ## [1.3.2](/compare/v1.3.1...v1.3.2) (2026-10-05)
 
 
