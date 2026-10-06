@@ -177,3 +177,11 @@ export function reliefNormal(map: THREE.Texture, relief: number, w: number, h: n
   byRelief.set(key, texture)
   return texture
 }
+
+// Frees the GPU copies of the maps derived from a face texture (lacquer and relief normal).
+export function releaseDerived(map: THREE.Texture) {
+  for (const cache of [lacquerCache, normalCache]) {
+    for (const texture of cache.get(map)?.values() ?? []) texture.dispose()
+    cache.delete(map)
+  }
+}

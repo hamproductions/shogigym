@@ -698,6 +698,16 @@ export function SettingsDialog({ onClose, level, onLevel }: { onClose: () => voi
               ]}
               onChange={(v) => setSettings({ coords: v })}
             />
+            <SegmentedField
+              label={t('settings.showTesuji')}
+              value={st.showTesuji}
+              options={[
+                { v: true, t: t('settings.on') },
+                { v: false, t: t('settings.off') },
+              ]}
+              onChange={(v) => setSettings({ showTesuji: v })}
+            />
+            <p className="app-muted app-credit">{t('settings.showTesujiHint')}</p>
             <BoardOptions />
             {(st.environment === 'traditional' || st.environment === 'casual') && (
               <SegmentedField
