@@ -48,6 +48,18 @@ function nearestOnPolygon(poly: Poly, x: number, y: number): [number, number] {
   return best
 }
 
+// Half the piece outline's width at height y, so grain on a tapered wall stays parallel to its edge.
+function halfWidthAt(poly: Poly, y: number) {
+  let half = 0
+  for (let i = 0; i < poly.length; i++) {
+    const [ax, ay] = poly[i]
+    const [bx, by] = poly[(i + 1) % poly.length]
+    if (ay === by || y < Math.min(ay, by) || y > Math.max(ay, by)) continue
+    half = Math.max(half, Math.abs(ax + ((bx - ax) * (y - ay)) / (by - ay)))
+  }
+  return half
+}
+
 const bodyCache = new Map<number, THREE.ExtrudeGeometry>()
 
 function pieceBody(scale: number) {
@@ -65,6 +77,7 @@ function pieceBody(scale: number) {
   const uv = geometry.attributes.uv
   const pos = geometry.attributes.position
   const depth = komaDepth(scale)
+  const poly = piecePolygon(scale)
   const sideGroup = geometry.groups.find((group) => group.materialIndex === 1)
   const sideStart = sideGroup?.start ?? Infinity
   const sideEnd = sideGroup ? sideGroup.start + sideGroup.count : -1
@@ -72,11 +85,16 @@ function pieceBody(scale: number) {
   const isSide = new Uint8Array(uv.count)
   for (let i = sideStart; i < sideEnd; i++) isSide[index ? index.getX(i) : i] = 1
   for (let i = 0; i < uv.count; i++) {
-    const x = uv.getX(i)
-    const y = uv.getY(i)
-    // Walls get wood grain running along the piece length instead of the top-down projection.
-    if (isSide[i]) uv.setXY(i, (pos.getZ(i) + 0.025) / (depth + 0.05), x / w + y / h)
-    else uv.setXY(i, x / w + 0.5, y / h + 0.5)
+    const x = pos.getX(i)
+    const y = pos.getY(i)
+    // Grain runs along the piece length on every face; walls continue the top face's UVs at the edge and
+    // slide sideways with depth, as if the piece was cut from one block of wood.
+    if (!isSide[i]) {
+      uv.setXY(i, x / w + 0.5, y / h + 0.5)
+      continue
+    }
+    const half = halfWidthAt(poly, y)
+    uv.setXY(i, (half ? x / (2 * half) : x / w) + 0.5 + ((pos.getZ(i) - depth) / depth) * 0.6, y / h + 0.5)
   }
   for (let i = 0; i < pos.count; i++) {
     const t = (pos.getY(i) + h * 0.5) / h
