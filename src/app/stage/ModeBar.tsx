@@ -102,14 +102,16 @@ export function ModeBar({
           </span>
         </span>
         <span className="app-lastmove">
-          {lastMove && prevSfen ? (
-            <>
-              <span className="app-ply">{t('app.move', { value: plyBase + (preview ? preview.base + preview.step : cursor) })}</span>
-              <strong title={moveText(prevSfen, lastMove)}>{moveText(prevSfen, lastMove)}</strong>
-            </>
-          ) : (
-            <span className="app-ply">{plyBase > 0 ? t('app.afterMove', { plyBase }) : t('app.startPosition')}</span>
-          )}
+          <span className="app-ply">
+            {lastMove && prevSfen
+              ? t('app.move', { value: plyBase + (preview ? preview.base + preview.step : cursor) })
+              : plyBase > 0
+                ? t('app.afterMove', { plyBase })
+                : t('app.startPosition')}
+          </span>
+          <strong title={lastMove && prevSfen ? moveText(prevSfen, lastMove) : undefined}>
+            {lastMove && prevSfen ? moveText(prevSfen, lastMove) : '\u00a0'}
+          </strong>
           <span className={`app-turn ${toMove}`}>{t('app.toMove', { side: sideMark(toMove) })}</span>
         </span>
       </div>

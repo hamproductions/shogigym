@@ -1,6 +1,6 @@
 import './board.css'
 import { useEffect, useRef, useState } from 'react'
-import { BoardLoading } from './BoardLoading'
+import { BoardLoading, type BoardLoadingState } from './BoardLoading'
 import { Color, type ImmutablePosition } from 'tsshogi'
 import { avatarSlot } from './avatars'
 import { updateView } from '@/rendering/board3d/camera'
@@ -10,9 +10,12 @@ import { createFurigoma3D } from '@/rendering/board3d/furigoma'
 import { bindPointer } from '@/rendering/board3d/interaction'
 import { layout, sideStandsFit, zoneReporter } from '@/rendering/board3d/layout'
 import { drawMarks } from '@/rendering/board3d/marks'
-import { liftSelected, rebuild, stepAnimations } from '@/rendering/board3d/pieces'
+import { liftSelected, piecePreparation, rebuild, stepAnimations } from '@/rendering/board3d/pieces'
 import { createPower, moveEvent, type Power } from '@/rendering/board3d/power'
-import { buildScene, createRenderer, disposeRenderer } from '@/rendering/board3d/scene'
+import { buildScene, createRenderer, disposeRenderer, disposeScene } from '@/rendering/board3d/scene'
+import { preparePieceEnvironment } from '@/rendering/board3d/materials'
+import * as THREE from 'three'
+import { disposePiece, pieceMesh } from '@/rendering/board3d/piece'
 import { clearFaceTextures } from '@/rendering/board3d/textures'
 import type { Board3DProps, SceneState } from '@/rendering/board3d/types'
 import { SNAPSHOT_EVENT, TABLE_FLIP_EVENT } from '@/utils/events'
@@ -24,6 +27,7 @@ export function Board3D(props: Board3DProps) {
   setBoardDims()
   const host = useRef<HTMLDivElement>(null)
   const [ready, setReady] = useState(false)
+  const [loadingState, setLoadingState] = useState<BoardLoadingState>({ phase: 'pieces', done: 0, total: 1 })
   const piecesReady = useRef(false)
   const state = useRef<SceneState | null>(null)
   const latest = useRef(props)
@@ -32,6 +36,7 @@ export function Board3D(props: Board3DProps) {
   const power = useRef<Power | null>(null)
   const flipTimer = useRef(0)
   const furigoma = useRef<ReturnType<typeof createFurigoma3D> | null>(null)
+  const appearance = useRef<string | undefined>(undefined)
 
   useEffect(() => {
     const el = host.current!
@@ -42,7 +47,9 @@ export function Board3D(props: Board3DProps) {
     if (latest.current.cues) s.avatars.cue(latest.current.cues)
     state.current = s
     if (import.meta.env.DEV) (window as unknown as { __dbg: SceneState }).__dbg = s
-    const refresh = (animate = false, relayout = false) => rebuild(s, latest.current, animate, null, false, relayout)
+    const refresh = (animate = false, relayout = false) => {
+      if (piecesReady.current && latest.current.assetsReady !== false) rebuild(s, latest.current, animate, null, false, relayout)
+    }
     s.settle = () => refresh()
     const syncPower = () => {
       const on = getSettings().power
@@ -54,9 +61,13 @@ export function Board3D(props: Board3DProps) {
     }
     syncPower()
     const unsubscribePower = subscribeSettings(syncPower)
+    const frameTimes: number[] = []
+    const pixelRatioLimit = Math.min(matchMedia('(pointer: coarse)').matches ? 1.5 : 2, window.devicePixelRatio)
 
     const resize = () => {
       const { clientWidth: w, clientHeight: h } = el
+      renderer.setPixelRatio(Math.min(renderer.getPixelRatio(), pixelRatioLimit, Math.sqrt(2500000 / Math.max(1, w * h))))
+      frameTimes.length = 0
       renderer.setSize(w, h)
       s.camera.aspect = w / h
       s.camera.updateProjectionMatrix()
@@ -80,9 +91,32 @@ export function Board3D(props: Board3DProps) {
     let rendered = false
     let live = true
     let boardFontReady = false
+    let compiling = false
+    const compiled = new WeakMap<THREE.Material, number>()
+    const programsReady = () => {
+      const pending = new Map<THREE.Material, number>()
+      s.scene.traverse((object) => {
+        const material = (object as THREE.Mesh).material
+        for (const item of Array.isArray(material) ? material : material ? [material] : [])
+          if (compiled.get(item) !== item.version) pending.set(item, item.version)
+      })
+      if (!compiling && pending.size) {
+        compiling = true
+        void renderer.compileAsync(s.scene, s.camera).then(() => {
+          if (!live) return
+          pending.forEach((version, material) => compiled.set(material, version))
+          compiling = false
+        })
+      }
+      return !compiling
+    }
     const loop = (time: number) => {
       const dt = Math.min(0.5, (time - (s.lastTime ?? time)) / 1000)
       s.lastTime = time
+      if (renderer.domElement.parentElement !== el) {
+        frame = requestAnimationFrame(loop)
+        return
+      }
       if (s.tiltTarget > 0 || latest.current.orbit || s.flip) {
         s.room.need()
         s.avatars?.request()
@@ -97,14 +131,30 @@ export function Board3D(props: Board3DProps) {
       const shake = flipCameraOffset(s, time)
       if (shake) s.camera.position.add(shake)
       const restoreCamera = power.current?.applyCamera()
-      renderer.render(s.scene, s.camera)
-      if (!rendered && piecesReady.current && boardFontReady) {
+      const drew = programsReady()
+      if (drew) renderer.render(s.scene, s.camera)
+      if (
+        drew &&
+        piecesReady.current &&
+        latest.current.assetsReady !== false &&
+        appearance.current === latest.current.appearanceKey &&
+        document.visibilityState === 'visible' &&
+        dt > 0
+      ) {
+        frameTimes.push(dt * 1000)
+        if (frameTimes.length === 60) {
+          frameTimes.sort((a, b) => a - b)
+          if (frameTimes[30] > 20 && renderer.getPixelRatio() > 1) renderer.setPixelRatio(Math.max(1, renderer.getPixelRatio() - 0.25))
+          frameTimes.length = 0
+        }
+      } else frameTimes.length = 0
+      if (drew && !rendered && piecesReady.current && boardFontReady) {
         rendered = true
         setReady(true)
+        if (!performance.getEntriesByName('board-first-frame').length) performance.mark('board-first-frame')
       }
       restoreCamera?.()
       if (shake) s.camera.position.sub(shake)
-      if (!performance.getEntriesByName('board-first-frame').length) performance.mark('board-first-frame')
       reportZones()
       frame = requestAnimationFrame(loop)
     }
@@ -140,6 +190,15 @@ export function Board3D(props: Board3DProps) {
     }
     // A browser may drop the GL context under memory pressure; once restored, rebuild every texture and piece.
     const onContextRestored = () => {
+      const environment = preparePieceEnvironment(renderer)
+      s.scene.traverse((object) => {
+        const material = (object as THREE.Mesh).material
+        for (const item of Array.isArray(material) ? material : material ? [material] : [])
+          if (item instanceof THREE.MeshStandardMaterial && item.envMap) {
+            item.envMap = environment
+            item.needsUpdate = true
+          }
+      })
       clearFaceTextures()
       refresh()
     }
@@ -155,8 +214,6 @@ export function Board3D(props: Board3DProps) {
 
     document.fonts.load('800 64px "Shippori Mincho B1"').then(() => {
       if (!live) return
-      clearFaceTextures()
-      refresh()
       boardFontReady = true
     })
 
@@ -175,20 +232,23 @@ export function Board3D(props: Board3DProps) {
       window.removeEventListener(SNAPSHOT_EVENT, onSnapshot)
       unbind()
       cancelPrefetch()
+      s.room.dispose()
       s.avatars?.dispose()
       observer.disconnect()
       unsubscribePower()
       power.current?.dispose()
       power.current = null
       s.controls?.dispose()
+      disposeScene(s.scene)
       disposeRenderer(renderer)
-      el.removeChild(renderer.domElement)
+      if (renderer.domElement.parentElement === el) el.removeChild(renderer.domElement)
       state.current = null
       piecesReady.current = false
     }
   }, [])
 
   useEffect(() => {
+    if (!piecesReady.current || props.assetsReady === false || appearance.current !== props.appearanceKey) return
     const prev = previous.current
     previous.current = props.position
     const s = state.current
@@ -215,7 +275,70 @@ export function Board3D(props: Board3DProps) {
       }, 4200)
     else if (!event) fx?.clear()
     s.onLand = null
-  }, [props.position])
+  }, [props.position, props.assetsReady, props.appearanceKey])
+
+  useEffect(() => {
+    const s = state.current
+    if (!s || props.assetsReady === false) return
+    if (piecesReady.current && appearance.current === props.appearanceKey) {
+      setReady(true)
+      return
+    }
+    let live = true
+    let frame = 0
+    const initial = !piecesReady.current
+    setReady(false)
+    const settings = getSettings()
+    const pending = piecePreparation(s, latest.current.position)
+    const total = pending.length
+    let done = 0
+    setLoadingState({ phase: 'pieces', done, total: Math.max(1, total) })
+    const uploaded = new Set<THREE.Texture>()
+    const uploads: THREE.Texture[] = []
+    let piece: THREE.Object3D | null = null
+    const prepare = () => {
+      if (!live) return
+      const deadline = performance.now() + 6
+      do {
+        const texture = uploads.shift()
+        if (texture) {
+          s.renderer.initTexture(texture)
+          continue
+        }
+        if (piece) {
+          disposePiece(piece)
+          piece = null
+          setLoadingState({ phase: 'pieces', done: ++done, total })
+        }
+        const next = pending.shift()
+        if (!next) break
+        piece = pieceMesh(next.type, next.color, next.grainSeed, 24, settings, preparePieceEnvironment(s.renderer, false))
+        for (const resource of piece.userData.pieceResources as Set<THREE.Texture | THREE.BufferGeometry>)
+          if (resource instanceof THREE.Texture && !uploaded.has(resource)) {
+            uploaded.add(resource)
+            uploads.push(resource)
+          }
+      } while (performance.now() < deadline)
+      if (uploads.length || pending.length || piece) {
+        frame = requestAnimationFrame(prepare)
+        return
+      }
+      s.avatars?.reset?.()
+      resetTableFlip(s)
+      rebuild(s, latest.current, false)
+      piecesReady.current = true
+      previous.current = latest.current.position
+      appearance.current = props.appearanceKey
+      setLoadingState({ phase: 'shaders', done: 0, total: 1 })
+      if (!initial) setReady(true)
+    }
+    frame = requestAnimationFrame(prepare)
+    return () => {
+      live = false
+      cancelAnimationFrame(frame)
+      if (piece) disposePiece(piece)
+    }
+  }, [props.appearanceKey, props.assetsReady])
 
   useEffect(() => {
     const scene = state.current
@@ -258,7 +381,7 @@ export function Board3D(props: Board3DProps) {
 
   return (
     <div className="board3d" ref={host} aria-busy={!ready}>
-      {!ready && <BoardLoading />}
+      {!ready && <BoardLoading state={props.assetsReady === false ? props.loadingState : loadingState} />}
     </div>
   )
 }

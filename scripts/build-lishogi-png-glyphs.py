@@ -62,11 +62,19 @@ def extract(image, piece_set):
                 interior[y, xs[0] + 1:xs[-1]] = True
         region &= interior
         coverage = np.clip((140 - lum) / 100, 0, 1)
+        ink = (lum < 90) & region & (px[:, :, 3] >= 250)
+        padded = np.pad(ink, 3)
+        adjacent = np.logical_or.reduce([padded[dy:dy + h, dx:dx + w] for dy in range(7) for dx in range(7)])
+        highlights = (rgb.max(axis=2) - rgb.min(axis=2) < 30) & (lum >= 140) & adjacent
+        coverage[highlights] = 1
         alpha = np.rint(px[:, :, 3] * coverage * region * (px[:, :, 3] >= 250)).astype(np.uint8)
         alpha = without_specks(alpha)
     out = np.zeros_like(px)
     out[:, :, :3] = [18, 12, 6]
-    out[:, :, :3][red] = [156, 28, 18]
+    if piece_set == 'pixel':
+        out[:, :, :3][red] = [156, 28, 18]
+    elif np.count_nonzero(red & (alpha > 127)) > np.count_nonzero(alpha > 127) / 4:
+        out[:, :, :3] = [156, 28, 18]
     out[:, :, 3] = alpha
     return Image.fromarray(out)
 

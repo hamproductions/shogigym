@@ -13,17 +13,21 @@ const loadRoom = () =>
     return m
   }))
 
-export type Surroundings = { need: () => void; prefetch: () => () => void }
+export type Surroundings = { need: () => void; prefetch: () => () => void; dispose: () => void }
 
 export function surroundings(root: THREE.Group, dims: RoomDims): Surroundings {
   let built = false
+  let disposed = false
   const build = (m: RoomModule) => {
-    if (built) return
+    if (built || disposed) return
     built = true
     if (CASUAL) m.buildCasual(root, dims)
     else m.buildRoom(root, dims)
   }
   return {
+    dispose: () => {
+      disposed = true
+    },
     need: () => {
       if (built) return
       if (loaded) build(loaded)

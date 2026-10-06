@@ -7,6 +7,7 @@ import { CASUAL, HALF_D, HALF_W, MARGIN, komaWidth, pieceScale } from './dimensi
 import { BOARD_STYLES, loadedBoard } from '@/appearance/boardStyles'
 import { BOARD_TONE, piecePolygon } from '@/rendering/koma'
 import { releaseDerived } from './relief'
+import { cacheResource, evictResource } from './resources'
 
 // The table is the largest thing on screen in the locked camera, so it gets the texels. Touch devices keep the
 // smaller size to stay inside their GPU memory.
@@ -99,10 +100,8 @@ export function boardTexture(style: BoardStyle, scale = BOARD_SCALE) {
   return srgbTexture(canvas, 8)
 }
 
-// three.js never frees GPU memory for a texture until dispose() is called, so every cache here is bounded and
-// disposes what it drops. Disposing a texture a live mesh still uses is safe: it is simply re-uploaded on next use.
-const TEXTURE_LIMIT = 256
-const GLYPH_LIMIT = 512
+const TEXTURE_LIMIT = 96
+const GLYPH_LIMIT = 96
 const faceCache = new Map<string, THREE.Texture>()
 const artCache = new Map<string, THREE.Texture>()
 const clearHooks = new Set<() => void>()
@@ -116,10 +115,11 @@ export function releaseTexture(texture: THREE.Texture) {
   releaseDerived(texture)
   const ink = texture.userData.inkCanvas as HTMLCanvasElement | undefined
   if (ink) {
-    glyphTextures.get(ink)?.dispose()
+    const glyph = glyphTextures.get(ink)
+    if (glyph) evictResource(glyph)
     glyphTextures.delete(ink)
   }
-  texture.dispose()
+  evictResource(texture)
 }
 
 export function recall<K, T>(cache: Map<K, T>, key: K) {
@@ -132,6 +132,7 @@ export function recall<K, T>(cache: Map<K, T>, key: K) {
 }
 
 export function remember<K, T extends THREE.Texture>(cache: Map<K, T>, key: K, texture: T, limit = TEXTURE_LIMIT) {
+  cacheResource(texture)
   cache.set(key, texture)
   while (cache.size > limit) {
     const [oldKey, old] = cache.entries().next().value!
@@ -352,7 +353,7 @@ export function glyphTexture(map: THREE.Texture) {
   const canvas = map.userData.inkCanvas as HTMLCanvasElement
   let texture = glyphTextures.get(canvas)
   if (!texture) {
-    texture = srgbTexture(canvas, 8)
+    texture = cacheResource(srgbTexture(canvas, 8))
     glyphTextures.set(canvas, texture)
   }
   return texture

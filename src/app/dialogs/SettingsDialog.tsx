@@ -95,6 +95,8 @@ function GlyphSample({
     )
   }
   const guideClass = guide === 'none' ? '' : guide === 'movement' ? ' with-marks' : ' with-guide'
+  if (set !== 'letters' && set !== 'broadcast' && guide === 'none')
+    return <img className="app-prepared-glyph" src={pieceGlyphUrl(set, code)} alt={faceText(type, Color.BLACK, style)} />
   if (set !== 'letters' && set !== 'broadcast')
     return (
       <span className={`app-glyph-sample${guideClass}`}>

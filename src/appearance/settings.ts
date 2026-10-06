@@ -250,10 +250,11 @@ function sweep(when: number, from: number, to: number, gain: number, length: num
   osc.stop(ac.currentTime + when + length)
 }
 
-export function playSound(kind: 'move' | 'capture' | 'right' | 'wrong' | 'complete' | 'bang' | 'clatter' | 'thump' | 'heartbeat' | 'boom') {
+export function playSound(kind: 'move' | 'capture' | 'komadai' | 'right' | 'wrong' | 'complete' | 'bang' | 'clatter' | 'thump' | 'heartbeat' | 'boom') {
   if (!current.sound || document.hidden) return
   try {
-    if (kind === 'move') knock(0, 1900, 1.4, 0.09)
+    if (kind === 'komadai') knock(0, 2400, 0.65, 0.045)
+    else if (kind === 'move') knock(0, 1900, 1.4, 0.09)
     else if (kind === 'thump') {
       sweep(0, 150, 38, 0.8, 0.5)
       knock(0, 110, 6, 0.3)

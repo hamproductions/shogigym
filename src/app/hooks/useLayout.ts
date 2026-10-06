@@ -7,7 +7,7 @@ type PanelPrefs = { width: number; hidden: boolean; side?: boolean }
 
 const PANEL_KEY = 'joseki-practice:panel:v1'
 const SHEET_KEY = 'joseki-practice:sheet:v1'
-const PHONE_QUERY = '(max-width: 820px)'
+const PHONE_QUERY = '(max-width: 820px), (max-width: 1024px) and (orientation: portrait)'
 
 function loadPanelPrefs(): PanelPrefs {
   try {

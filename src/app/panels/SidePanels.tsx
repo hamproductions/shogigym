@@ -18,6 +18,8 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
   const { compact, zoned, zones, twoPanels, panelPrefsHidden, panelWidth, setPanel } = layout
   const labelClass = ja ? 'app-ja' : 'app-en'
   const resizeStart = useRef({ x: 0, width: panelWidth })
+  const sheetGesture = useRef<{ pointerId: number; startY: number; moved: boolean } | null>(null)
+  const suppressSheetClick = useRef(false)
   const floatingZone = layout.floatingZones?.over
   const floatingWidth = floatingZone?.width ?? Math.min(panelWidth, layout.viewport.w - 120)
   const floatingTop = floatingZone?.top ?? 110
@@ -41,6 +43,22 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
   const startHandleSwipe = (e: ReactPointerEvent) => {
     e.preventDefault()
     e.currentTarget.setPointerCapture(e.pointerId)
+    sheetGesture.current = { pointerId: e.pointerId, startY: e.clientY, moved: false }
+    suppressSheetClick.current = false
+  }
+  const moveHandleSwipe = (e: ReactPointerEvent) => {
+    const gesture = sheetGesture.current
+    if (!gesture || gesture.pointerId !== e.pointerId || !e.currentTarget.hasPointerCapture(e.pointerId)) return
+    if (!gesture.moved && Math.abs(e.clientY - gesture.startY) < 6) return
+    gesture.moved = true
+    layout.resizeSheet(e.clientY)
+  }
+  const finishHandleSwipe = (e: ReactPointerEvent, cancelled = false) => {
+    const gesture = sheetGesture.current
+    if (!gesture || gesture.pointerId !== e.pointerId) return
+    if (gesture.moved) layout.persistSheet()
+    sheetGesture.current = null
+    suppressSheetClick.current = !cancelled && gesture.moved
   }
   return (
     <>
@@ -75,12 +93,18 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
         )}
         <button
           className="app-sheet-handle"
-          onClick={() => layout.setSheetOpen(!sheetOpen)}
-          onPointerDown={startHandleSwipe}
-          onPointerMove={(e) => {
-            if (e.currentTarget.hasPointerCapture(e.pointerId)) layout.resizeSheet(e.clientY)
+          onClick={(e) => {
+            if (suppressSheetClick.current && e.detail > 0) {
+              suppressSheetClick.current = false
+              return
+            }
+            layout.setSheetOpen(!sheetOpen)
           }}
-          onPointerUp={() => layout.persistSheet()}
+          onPointerDown={startHandleSwipe}
+          onPointerMove={moveHandleSwipe}
+          onPointerUp={finishHandleSwipe}
+          onPointerCancel={(e) => finishHandleSwipe(e, true)}
+          onLostPointerCapture={(e) => finishHandleSwipe(e, true)}
           aria-label={sheetOpen ? t('app.collapsePanel') : t('app.expandPanel')}
         />
         <div className="app-panel-header">

@@ -236,10 +236,10 @@
   }
 }
 
-.app-promote button > img {
+.app-promotion-face {
   width: 72px;
   height: 72px;
-  object-fit: contain;
+  background-repeat: no-repeat;
 }
 
 .app-announce.tesuji {

@@ -433,6 +433,7 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
             clone.removeFromParent()
             disposePiece(clone)
             if (capture.hide) capture.hide.visible = true
+            playSound('komadai')
           },
         })
       }
@@ -442,7 +443,8 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
       const flip = move.flip ?? null
       if (flip) {
         flip.position.copy(move.from)
-        flip.visible = false
+        flip.visible = true
+        move.mesh.visible = false
         root.add(flip)
       }
       action.steps.push({

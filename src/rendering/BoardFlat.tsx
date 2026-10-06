@@ -144,8 +144,17 @@ export function BoardFlat(props: Board3DProps) {
         { duration: 220, easing: 'cubic-bezier(0.45, 0, 0.25, 1)' },
       )
     if (!animation) return
-    animation.onfinish = () => playSound(stepped.capture ? 'capture' : 'move')
-    return () => animation.cancel()
+    let sounded = false
+    const land = () => {
+      if (sounded) return
+      sounded = true
+      playSound(stepped.capture ? 'capture' : 'move')
+    }
+    animation.onfinish = land
+    return () => {
+      animation.cancel()
+      if (stepped.capture) land()
+    }
   }, [position, lastMove, flipped, geo, svgRef])
 
   const [drag, setDrag] = useState<Drag | null>(null)

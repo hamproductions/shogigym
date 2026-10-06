@@ -6,7 +6,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { Color, PieceType } from 'tsshogi'
 import { preparePieceEnvironment } from '@/rendering/board3d/materials'
 import { disposePiece, pieceMesh } from '@/rendering/board3d/piece'
-import { disposeRenderer } from '@/rendering/board3d/scene'
+import { createRenderer, disposeRenderer } from '@/rendering/board3d/scene'
 import { PIECE_FINISHES, loadPieceFont, setSettings, useSettings, type PieceFinish } from '@/appearance/settings'
 import { loadPieceSet } from '@/appearance/pieceSets'
 import { useTranslation } from 'react-i18next'
@@ -46,7 +46,11 @@ export function PieceViewer({ onClose, page }: { onClose: () => void; page?: boo
 
   useEffect(() => {
     const el = host.current!
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
+    const renderer = createRenderer(false)
+    const parent = renderer.domElement.parentElement
+    const size = renderer.getSize(new THREE.Vector2())
+    const ratio = renderer.getPixelRatio()
+    const exposure = renderer.toneMappingExposure
     renderer.setPixelRatio(Math.min(2, devicePixelRatio))
     renderer.shadowMap.enabled = true
     renderer.toneMapping = THREE.ACESFilmicToneMapping
@@ -109,6 +113,10 @@ export function PieceViewer({ onClose, page }: { onClose: () => void; page?: boo
       disposeRenderer(renderer)
       scene.current = null
       el.removeChild(renderer.domElement)
+      renderer.setPixelRatio(ratio)
+      renderer.setSize(size.x, size.y)
+      renderer.toneMappingExposure = exposure
+      if (parent?.isConnected) parent.appendChild(renderer.domElement)
     }
   }, [])
 

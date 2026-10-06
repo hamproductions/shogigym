@@ -26,12 +26,13 @@
   width: 12px;
 }
 
-@media (max-width: 820px) {
+@media (max-width: 820px), (max-width: 1024px) and (orientation: portrait) {
   .app-shell.panel-hidden {
     grid-template-columns: minmax(0, 1fr);
   }
 
   .app-shell.drawer-open {
+    padding-bottom: 0;
     grid-template-rows: auto minmax(0, 1fr) fit-content(max(30dvh, calc(100dvh - 57px - min(516px, 131vw))));
   }
 

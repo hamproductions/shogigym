@@ -9,30 +9,85 @@ import { environmentMap, preparePieceEnvironment, releasePieceEnvironment, stand
 import { boardTexture } from './textures'
 import { BOARD_TONE } from '@/rendering/koma'
 import type { SceneState, Stand } from './types'
+import { disposePiece } from './piece'
+
+let sharedRenderer: THREE.WebGLRenderer | null = null
+let rendererUsers = 0
+let releaseTimer = 0
 
 export function createRenderer(activateEnvironment = true) {
+  window.clearTimeout(releaseTimer)
+  if (sharedRenderer) {
+    preparePieceEnvironment(sharedRenderer, activateEnvironment)
+    rendererUsers++
+    return sharedRenderer
+  }
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
-  renderer.setPixelRatio(Math.min(matchMedia('(pointer: coarse)').matches ? 2 : 3, window.devicePixelRatio))
+  renderer.setPixelRatio(Math.min(matchMedia('(pointer: coarse)').matches ? 1.5 : 2, window.devicePixelRatio))
   renderer.shadowMap.enabled = true
   renderer.shadowMap.type = THREE.PCFShadowMap
   renderer.toneMapping = THREE.ACESFilmicToneMapping
   renderer.toneMappingExposure = 0.82
   preparePieceEnvironment(renderer, activateEnvironment)
+  renderer.domElement.addEventListener('webglcontextrestored', () => {
+    releasePieceEnvironment(renderer)
+    preparePieceEnvironment(renderer)
+  })
+  sharedRenderer = renderer
+  rendererUsers++
   return renderer
 }
 
 export function disposeRenderer(renderer: THREE.WebGLRenderer) {
+  if (renderer === sharedRenderer) {
+    if (--rendererUsers > 0) return
+    releaseTimer = window.setTimeout(() => {
+      if (rendererUsers || sharedRenderer !== renderer) return
+      sharedRenderer = null
+      destroyRenderer(renderer)
+    }, 4000)
+    return
+  }
+  destroyRenderer(renderer)
+}
+
+function destroyRenderer(renderer: THREE.WebGLRenderer) {
   releasePieceEnvironment(renderer)
   renderer.dispose()
   renderer.forceContextLoss()
 }
 
-export function addLights(scene: THREE.Scene) {
+export function disposeScene(scene: THREE.Scene) {
+  const geometries = new Set<THREE.BufferGeometry>()
+  const materials = new Set<THREE.Material>()
+  const textures = new Set<THREE.Texture>()
+  const pieces = new Set<THREE.Object3D>()
+  scene.traverse((object) => {
+    if (!object.userData.pieceResources) return
+    object.traverse((child) => pieces.add(child))
+    disposePiece(object)
+  })
+  scene.traverse((object) => {
+    if (pieces.has(object)) return
+    if (object instanceof THREE.Light) object.dispose()
+    const mesh = object as THREE.Mesh
+    if (mesh.geometry) geometries.add(mesh.geometry)
+    for (const material of Array.isArray(mesh.material) ? mesh.material : mesh.material ? [mesh.material] : []) {
+      materials.add(material)
+      for (const [key, value] of Object.entries(material)) if (key !== 'envMap' && value instanceof THREE.Texture) textures.add(value)
+    }
+  })
+  textures.forEach((texture) => texture.dispose())
+  materials.forEach((material) => material.dispose())
+  geometries.forEach((geometry) => geometry.dispose())
+  scene.clear()
+}
+
+export function addLights(scene: THREE.Scene, shadowSize = matchMedia('(pointer: coarse)').matches ? 512 : 1024) {
   scene.add(new THREE.HemisphereLight(0xe8e0d0, 0x3a2a18, 0.9))
   const lamp = new THREE.SpotLight(0xffe8c4, 70, 80, Math.PI / 3, 1, 1.2)
   lamp.position.set(-1.5, 18, 2.5)
   lamp.castShadow = true
-  const shadowSize = matchMedia('(pointer: coarse)').matches ? 1024 : 2048
   lamp.shadow.mapSize.set(shadowSize, shadowSize)
   lamp.shadow.bias = -0.0004
   scene.add(lamp, lamp.target)

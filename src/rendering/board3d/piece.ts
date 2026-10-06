@@ -7,6 +7,9 @@ import { PROMOTED, faceText, piecePolygon, type Poly } from '@/rendering/koma'
 import { environmentMap } from './materials'
 import { finishMask, lacquerMap, reliefNormal } from './relief'
 import { artTexture, faceTexture, glyphTexture, onFaceTexturesCleared, pieceSurface, recall, remember, srgbTexture } from './textures'
+import { cacheResource, evictResource, retainResource, releaseResource } from './resources'
+
+const grainVariant = (seed: number) => [1, 19349663, 83492791, 73856093][Math.abs(seed - 1) % 4]
 
 const finish = (appearance?: PieceAppearance) => {
   const settings = { ...getSettings(), ...appearance }
@@ -115,16 +118,16 @@ function pieceBody(scale: number) {
   }
   geometry.computeVertexNormals()
   geometry.rotateX(-Math.PI / 2)
-  bodyCache.set(scale, geometry)
+  bodyCache.set(scale, cacheResource(geometry))
   return geometry
 }
 
 // Carved faces are keyed by glyph canvas; bounded, and dropped geometry is disposed so its GPU buffers are freed.
-const TOP_LIMIT = 192
+const TOP_LIMIT = 48
 const topCache = new Map<object, Map<number, THREE.BufferGeometry>>()
 const flatCache = new Map<number, THREE.BufferGeometry>()
 
-const disposeTops = (byScale: Map<number, THREE.BufferGeometry>) => byScale.forEach((geometry) => geometry.dispose())
+const disposeTops = (byScale: Map<number, THREE.BufferGeometry>) => byScale.forEach(evictResource)
 
 onFaceTexturesCleared(() => {
   topCache.forEach(disposeTops)
@@ -149,7 +152,7 @@ function flatTop(scale: number) {
   }
   geometry.computeVertexNormals()
   geometry.rotateX(-Math.PI / 2)
-  flatCache.set(scale, geometry)
+  flatCache.set(scale, cacheResource(geometry))
   return geometry
 }
 
@@ -204,7 +207,7 @@ function carvedTop(scale: number, map: THREE.Texture, segments: number, appearan
   geometry.setIndex(index)
   geometry.computeVertexNormals()
   geometry.rotateX(-Math.PI / 2)
-  byScale.set(key, geometry)
+  byScale.set(key, cacheResource(geometry))
   return geometry
 }
 
@@ -227,7 +230,7 @@ function pieceBottom(scale: number) {
   }
   geometry.computeVertexNormals()
   geometry.translate(0, -0.02, 0)
-  bottomCache.set(scale, geometry)
+  bottomCache.set(scale, cacheResource(geometry))
   return geometry
 }
 
@@ -236,11 +239,12 @@ const sideMaterial = new THREE.MeshStandardMaterial({ color: 0xdcb377, emissive:
 
 const sideTextures = new Map<string, THREE.Texture>()
 onFaceTexturesCleared(() => {
-  sideTextures.forEach((texture) => texture.dispose())
+  sideTextures.forEach(evictResource)
   sideTextures.clear()
 })
 
 function sideTexture(seed: number, appearance?: PieceAppearance) {
+  seed = grainVariant(seed)
   const { pieceMaterial, pieceGrain, pieceColor } = { ...getSettings(), ...appearance }
   const key = `${seed}/${pieceMaterial}/${pieceGrain}/${pieceColor}`
   let texture = recall(sideTextures, key)
@@ -252,12 +256,15 @@ function sideTexture(seed: number, appearance?: PieceAppearance) {
     ctx.fillRect(0, 0, surface.width, surface.height)
     texture = srgbTexture(surface)
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping
-    remember(sideTextures, key, texture, 64)
+    remember(sideTextures, key, texture, 24)
   }
   return texture
 }
 
 export function disposePiece(piece: THREE.Object3D) {
+  const resources = piece.userData.pieceResources as Set<THREE.Texture | THREE.BufferGeometry> | undefined
+  resources?.forEach(releaseResource)
+  resources?.clear()
   piece.traverse((child) => {
     const material = (child as THREE.Mesh).material
     for (const item of Array.isArray(material) ? material : material ? [material] : []) {
@@ -271,6 +278,7 @@ export function disposePiece(piece: THREE.Object3D) {
 export const pieceFaceUrl = (type: PieceType, color: Color) => (faceMap(type, color).image as HTMLCanvasElement).toDataURL()
 
 function faceMap(type: PieceType, color: Color, seed = 1, appearance?: PieceAppearance) {
+  seed = grainVariant(seed)
   const gote = color === Color.WHITE
   const set = appearance?.pieceSet ?? getSettings().pieceSet
   const art = set && set !== 'letters' ? loadedPiece(set, pieceCode(type, gote && type === PieceType.KING ? Color.WHITE : Color.BLACK)) : undefined
@@ -282,7 +290,7 @@ export function pieceMesh(
   type: PieceType,
   color: Color,
   seed = [...pieceCode(unpromotedPieceType(type), color)].reduce((value, char) => value * 31 + char.charCodeAt(0), color === Color.BLACK ? 17 : 29),
-  segments = 64,
+  segments = 24,
   appearance?: PieceAppearance,
   envMap = environmentMap(),
   flat = false,
@@ -412,6 +420,15 @@ export function pieceMesh(
     mesh.add(frontSurface, backSurface)
   }
   if (color === Color.WHITE) mesh.rotation.y = Math.PI
+  const resources = new Set<THREE.Texture | THREE.BufferGeometry>()
+  mesh.traverse((object) => {
+    const child = object as THREE.Mesh
+    if (child.geometry) resources.add(child.geometry)
+    for (const material of Array.isArray(child.material) ? child.material : child.material ? [child.material] : [])
+      for (const [key, value] of Object.entries(material)) if (key !== 'envMap' && value instanceof THREE.Texture) resources.add(value)
+  })
+  resources.forEach(retainResource)
+  mesh.userData.pieceResources = resources
   return mesh
 }
 

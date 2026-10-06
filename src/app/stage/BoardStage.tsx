@@ -26,6 +26,7 @@ import { AnnounceBadge, PromotionPicker, TsumePlate } from './BoardOverlays'
 import { BoardBanners } from './BoardBanners'
 import { BoardLoading } from '@/rendering/BoardLoading'
 import { Button } from '@/app/ui/Button'
+import { usePromotionFaces } from '@/app/hooks/useBakedPieces'
 
 import type { StandZones } from '@/rendering/board3d/types'
 
@@ -54,11 +55,21 @@ type BoardStageProps = {
 
 function usePieceAssetsKey() {
   const settings = useSettings()
-  const [ready, setReady] = useState('mincho')
+  const [ready, setReady] = useState('')
+  const [progress, setProgress] = useState(0)
   useEffect(() => {
     let live = true
-    setReady('')
-    Promise.all([loadPieceFont(settings.pieceFont), loadPieceSet(settings.pieceSet, settings.pieceGuide), loadBoardStyle(settings.boardStyle)])
+    let done = 0
+    setProgress(0)
+    const loaded = () => {
+      if (live) setProgress(++done)
+    }
+    Promise.all([
+      loadPieceFont(settings.pieceFont).then(loaded),
+      loadPieceSet(settings.pieceSet, settings.pieceGuide).then(loaded),
+      loadBoardStyle(settings.boardStyle).then(loaded),
+      document.fonts.load('800 64px "Shippori Mincho B1"').then(loaded),
+    ])
       .catch((error: unknown) => {
         if (live) setReady(`error:${error instanceof Error ? error.message : String(error)}`)
         throw error
@@ -71,7 +82,7 @@ function usePieceAssetsKey() {
       live = false
     }
   }, [settings.pieceFont, settings.pieceSet, settings.pieceGuide, settings.boardStyle])
-  return ready
+  return { key: ready, progress: { phase: 'assets' as const, done: progress, total: 4 } }
 }
 
 export function BoardStage({
@@ -94,7 +105,9 @@ export function BoardStage({
 }: BoardStageProps) {
   const { t } = useTranslation()
   const settings = useSettings()
-  const assetsKey = usePieceAssetsKey()
+  const { key: assetsKey, progress: assetProgress } = usePieceAssetsKey()
+  const assetsReady = assetsKey === `${settings.pieceFont}|${settings.pieceSet}|${settings.pieceGuide}|${settings.boardStyle}`
+  const { faces: promotionFaces, error: promotionError, progress: previewProgress } = usePromotionFaces(assetsReady)
   const { mode, course, game, position, flipped, userSide, lastMove, selection, promotion, gameOver, sfen, atEnd, userTurn, toMove } = useSession()
   const picking = mode === 'lesson' && !course
   const playing = mode === 'spar' || mode === 'view' || (mode === 'lesson' && !!course)
@@ -192,15 +205,18 @@ export function BoardStage({
           {settings.environment !== 'diagram' &&
           settings.environment !== 'broadcast' &&
           settings.environment !== 'flat' &&
-          assetsKey !== `${settings.pieceFont}|${settings.pieceSet}|${settings.pieceGuide}|${settings.boardStyle}` ? (
-            <BoardLoading error={assetsKey.startsWith('error:') ? assetsKey.slice(6) : undefined} />
+          (!assetsKey || assetsKey.startsWith('error:') || promotionError) ? (
+            <BoardLoading error={promotionError ?? (assetsKey.startsWith('error:') ? assetsKey.slice(6) : undefined)} state={assetProgress} />
           ) : settings.environment === 'diagram' || settings.environment === 'broadcast' ? (
             <Board2D style={settings.environment} {...board} tilted={false} />
           ) : settings.environment === 'flat' ? (
             <BoardFlat {...board} tilted={false} onZones={onZones} />
           ) : (
             <Board3D
-              key={`${settings.pieceStyle}|${settings.boardStyle}|${settings.pieceFinish}|${settings.pieceMaterial}|${settings.pieceColor}|${settings.pieceGrain}|${settings.coords}|${settings.environment}|${assetsKey}`}
+              key={`${settings.boardStyle}|${settings.coords}|${settings.environment}`}
+              assetsReady={assetsReady && !!promotionFaces}
+              loadingState={assetsReady ? previewProgress : assetProgress}
+              appearanceKey={`${settings.pieceStyle}|${settings.pieceFinish}|${settings.pieceMaterial}|${settings.pieceColor}|${settings.pieceGrain}|${assetsKey}`}
               {...board}
               furigoma={furigoma}
               onFurigoma={onFurigoma}
@@ -237,7 +253,7 @@ export function BoardStage({
           {t('app.hintTheFirstMoveUses', { piece: firstPieceHint(tsume.problem) })}
         </div>
       )}
-      {promotion && <PromotionPicker options={promotion} onPick={commit} onCancel={input.cancelPromotion} />}
+      {promotion && <PromotionPicker options={promotion} faces={promotionFaces} onPick={commit} onCancel={input.cancelPromotion} />}
     </div>
   )
 }

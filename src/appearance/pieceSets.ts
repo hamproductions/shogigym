@@ -205,7 +205,8 @@ export const loadedGuide = (code: string, guide: PieceGuide) => guides.get(`${co
 
 export const loadedPiece = (set: PieceSet, code: string) => loaded.get(`${glyphSource(set)}/${code}`)
 
-export const pieceGlyphUrl = (set: PieceSet, code: string) => `${import.meta.env.BASE_URL}pieces/prepared/${glyphSource(set)}/${code}.png?v=18`
+export const pieceGlyphUrl = (set: PieceSet, code: string) =>
+  `${import.meta.env.BASE_URL}pieces/prepared/${glyphSource(set)}/${code}.png?v=${glyphSource(set).startsWith('portella') ? 19 : 18}`
 
 function imageCanvas(image: HTMLImageElement) {
   const canvas = document.createElement('canvas')
@@ -256,7 +257,7 @@ export async function loadPieceSet(set: PieceSet, guide: PieceGuide = 'none') {
     await Promise.all(
       codes.map(async (code) => {
         if (loaded.has(`${source}/${code}`)) return
-        const image = await loadImage(`${import.meta.env.BASE_URL}pieces/prepared/${source}/${code}.png?v=18`)
+        const image = await loadImage(pieceGlyphUrl(set, code))
         loaded.set(`${source}/${code}`, { canvas: imageCanvas(image), code, size: 256 })
       }),
     )

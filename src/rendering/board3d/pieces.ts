@@ -15,7 +15,7 @@ const CAPTURE_SEED = Object.fromEntries(Object.values(PieceType).map((type, i) =
 const squarePoint = (sq: Square) => new THREE.Vector3(squareX(sq.file), 0, squareZ(sq.rank))
 
 const scenePiece = (s: SceneState, type: PieceType, color: Color, seed?: number) =>
-  pieceMesh(type, color, seed, 48, undefined, preparePieceEnvironment(s.renderer, false))
+  pieceMesh(type, color, seed, 24, undefined, preparePieceEnvironment(s.renderer, false))
 
 const board3 = (sfen: string) => sfen.split(' ').slice(0, 3).join(' ')
 
@@ -75,6 +75,29 @@ function avatarMove(
   }
   if (played && !placed) s.onLand = null
   return played
+}
+
+export function piecePreparation(s: SceneState, position: ImmutablePosition) {
+  const grains = new Map(s.pieces.children.filter((mesh) => mesh.userData.square).map((mesh) => [mesh.userData.square.usi, mesh.userData.grainSeed as number]))
+  const pending = position.board.listNonEmptySquares().map((square) => ({
+    ...position.board.at(square)!,
+    grainSeed: (grains.get(square.usi) ?? square.file * 73856093) ^ (square.rank * 19349663),
+  }))
+  for (const color of [Color.BLACK, Color.WHITE]) {
+    const seen = new Map<PieceType, number>()
+    for (const spot of handLayout(position, color)) {
+      const nth = seen.get(spot.type) ?? 0
+      seen.set(spot.type, nth + 1)
+      pending.push({ type: spot.type, color, grainSeed: (nth + 1) * 83492791 + CAPTURE_SEED[spot.type] })
+    }
+  }
+  const seen = new Set<string>()
+  return pending.filter((piece) => {
+    const key = `${piece.type}|${piece.color}|${Math.abs(piece.grainSeed - 1) % 4}`
+    if (seen.has(key)) return false
+    seen.add(key)
+    return true
+  })
 }
 
 export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, prev: ImmutablePosition | null = null, placed = false, relayout = false) {

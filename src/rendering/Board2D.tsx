@@ -206,8 +206,17 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
         { duration: 220, easing: 'ease-out' },
       )
     if (!animation) return
-    animation.onfinish = () => playSound(stepped.capture ? 'capture' : 'move')
-    return () => animation.cancel()
+    let sounded = false
+    const land = () => {
+      if (sounded) return
+      sounded = true
+      playSound(stepped.capture ? 'capture' : 'move')
+    }
+    animation.onfinish = land
+    return () => {
+      animation.cancel()
+      if (stepped.capture) land()
+    }
   }, [position, lastMove, flipped, style, svgRef, geo])
   const tiles = position.board.listNonEmptySquares().map((sq) => {
     const piece = position.board.at(sq)!

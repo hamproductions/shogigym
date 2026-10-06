@@ -5,18 +5,16 @@ import { handArrangement, handPieceMesh, type HandMode } from './hand'
 import { layout, standCenter } from './layout'
 import { preparePieceEnvironment, standMaterial } from './materials'
 import { disposePiece } from './piece'
-import { disposeRenderer } from './scene'
+import { createRenderer, disposeRenderer } from './scene'
+import { createCapture } from './capture'
 
 export type HandSnapshot = { url: string; mode: HandMode }
 
 export function handSnapshots(sfens: string[], px: number): HandSnapshot[] {
   setBoardDims()
   const portrait = layout.portrait
-  const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true })
-  renderer.setPixelRatio(1)
-  renderer.setSize(px, px)
-  renderer.toneMapping = THREE.ACESFilmicToneMapping
-  renderer.toneMappingExposure = 0.82
+  const renderer = createRenderer(false)
+  const target = createCapture(px)
   const environment = preparePieceEnvironment(renderer, false)
   const material = standMaterial(environment)
   const out: HandSnapshot[] = []
@@ -41,12 +39,12 @@ export function handSnapshots(sfens: string[], px: number): HandSnapshot[] {
       const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 50)
       camera.position.set(c.x, 6.2, c.z + 4.2)
       camera.lookAt(c.x, STAND_TOP, c.z)
-      renderer.render(scene, camera)
-      out.push({ url: renderer.domElement.toDataURL('image/png'), mode })
+      out.push({ url: target.render(renderer, scene, camera).toDataURL('image/png'), mode })
       for (const piece of pieces) disposePiece(piece)
       stand.geometry.dispose()
     }
   } finally {
+    target.dispose()
     layout.portrait = portrait
     material.map?.dispose()
     material.dispose()

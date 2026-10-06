@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { Color, PieceType, Square } from 'tsshogi'
 import { squareAt, squareX, squareZ } from './dimensions'
 import { squareFrame, squareTile } from './marks'
-import { ghostPiece } from './piece'
+import { disposePiece, ghostPiece } from './piece'
 import type { Latest, SceneState } from './types'
 
 type Pick = { kind: 'square'; square: Square } | { kind: 'hand'; color: Color; type: PieceType } | { kind: 'arrow'; usi: string }
@@ -40,6 +40,8 @@ function dropMarker(root: THREE.Group) {
 
 export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) {
   const canvas = s.renderer.domElement
+  const host = canvas.parentElement
+  const active = () => canvas.parentElement === host
   const raycaster = new THREE.Raycaster()
   const pointer = new THREE.Vector2()
   const plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0)
@@ -91,7 +93,10 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
   }
 
   const clearGhost = () => {
-    if (ghost) s.marks.remove(ghost)
+    if (ghost) {
+      s.marks.remove(ghost)
+      disposePiece(ghost)
+    }
     ghost = null
   }
 
@@ -124,6 +129,7 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
   }
 
   const onDown = (event: PointerEvent) => {
+    if (!active()) return
     if (event.button !== 0 || !event.isPrimary) return
     orbitDown = latest.current.orbit ? { x: event.clientX, y: event.clientY } : null
     if (s.flip) {
@@ -138,6 +144,7 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
   }
 
   const onMove = (event: PointerEvent) => {
+    if (!active()) return
     if (s.flip) {
       canvas.style.cursor = 'grab'
       return
@@ -162,6 +169,7 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
   }
 
   const onUp = (event: PointerEvent) => {
+    if (!active()) return
     if (latest.current.orbit && event.button === 0) {
       ray(event)
       const click = orbitDown && Math.hypot(event.clientX - orbitDown.x, event.clientY - orbitDown.y) <= 6
@@ -205,6 +213,7 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
     }
   }
   const tilePov = (event: MouseEvent) => {
+    if (!active()) return
     if (!latest.current.orbit || s.flip) return
     if (event.type === 'contextmenu' && s.tilePov) {
       event.preventDefault()
@@ -229,12 +238,14 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
     s.tilePovFrame = null
   }
   const unlockPov = (event: KeyboardEvent) => {
+    if (!active()) return
     if (event.key !== 'Escape' || !latest.current.orbit) return
     event.preventDefault()
     event.stopImmediatePropagation()
     exitPov()
   }
   const outsidePov = (event: PointerEvent) => {
+    if (!active()) return
     if (latest.current.orbit && s.tilePov && event.button === 0 && event.target !== canvas) exitPov()
   }
   canvas.addEventListener('contextmenu', tilePov)

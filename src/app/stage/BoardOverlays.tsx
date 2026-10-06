@@ -1,8 +1,7 @@
 import './overlays.css'
 import { useTranslation } from 'react-i18next'
 import { Color, promotedPieceType, type Move } from 'tsshogi'
-import { useBakedPieces } from '@/app/hooks/useBakedPieces'
-import { spriteKey } from '@/rendering/sprites'
+import type { PromotionAtlas } from '@/rendering/sprites'
 import type { Announcement } from '@/app/hooks/useAnnouncements'
 
 export function AnnounceBadge({ announce }: { announce: Announcement }) {
@@ -20,14 +19,35 @@ export function AnnounceBadge({ announce }: { announce: Announcement }) {
   )
 }
 
-export function PromotionPicker({ options, onPick, onCancel }: { options: Move[]; onPick: (usi: string) => void; onCancel: () => void }) {
+export function PromotionPicker({
+  options,
+  faces,
+  onPick,
+  onCancel,
+}: {
+  options: Move[]
+  faces: PromotionAtlas | null
+  onPick: (usi: string) => void
+  onCancel: () => void
+}) {
   const { t } = useTranslation()
-  const { baked } = useBakedPieces()
   return (
     <div className="app-promote" role="dialog" aria-label={t('app.promote')}>
       {options.map((m) => (
         <button key={m.usi} className={m.promote ? 'yes' : 'no'} onClick={() => onPick(m.usi)}>
-          <img src={baked?.pieces.get(spriteKey(m.promote ? promotedPieceType(m.pieceType) : m.pieceType, m.color, true))} alt="" />
+          <span
+            className="app-promotion-face"
+            style={
+              faces
+                ? {
+                    backgroundImage: `url(${faces.image})`,
+                    backgroundSize: `${faces.columns * 100}% ${faces.rows * 100}%`,
+                    backgroundPosition: `${((faces.types.indexOf(m.promote ? promotedPieceType(m.pieceType) : m.pieceType) % faces.columns) / (faces.columns - 1)) * 100}% ${(Math.floor(faces.types.indexOf(m.promote ? promotedPieceType(m.pieceType) : m.pieceType) / faces.columns) / (faces.rows - 1)) * 100}%`,
+                  }
+                : undefined
+            }
+            aria-hidden="true"
+          />
           <span>{m.promote ? t('app.promote2') : t('app.donTPromote')}</span>
         </button>
       ))}

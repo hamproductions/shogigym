@@ -3,6 +3,7 @@ import type { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js
 import type { Color, ImmutablePosition, PieceType, Square } from 'tsshogi'
 import type { AvatarCues, AvatarSlot, Wall } from '@/rendering/avatars'
 import type { Surroundings } from './surroundings'
+import type { BoardLoadingState } from '@/rendering/BoardLoading'
 
 export type BoardArrow = { usi: string; color: string; dashed?: boolean; label?: string }
 
@@ -10,6 +11,9 @@ export type ZoneRect = { left: number; top: number; width: number; height: numbe
 export type StandZones = { under: ZoneRect; over: ZoneRect; board: ZoneRect }
 
 export type Board3DProps = {
+  assetsReady?: boolean
+  loadingState?: BoardLoadingState
+  appearanceKey?: string
   position: ImmutablePosition
   furigoma?: boolean
   onFurigoma?: (faces: boolean[]) => void

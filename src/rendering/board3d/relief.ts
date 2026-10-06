@@ -1,15 +1,27 @@
 import * as THREE from 'three'
 import type { PieceFinish } from '@/appearance/settings'
+import { cacheResource, evictResource } from './resources'
 
 type Ink = (u: number, v: number) => number
+type Derived = { owners: Set<THREE.Texture>; textures: Map<string, THREE.Texture> }
 
 const SIZE = 256
 const inkCache = new WeakMap<THREE.Texture, Ink>()
 const glyphInkCache = new WeakMap<HTMLCanvasElement, Ink>()
 const glyphDistanceCache = new WeakMap<HTMLCanvasElement, { distance: Float32Array; size: number }>()
-const lacquerCache = new WeakMap<THREE.Texture, Map<number, THREE.Texture>>()
+const lacquerCache = new WeakMap<object, Derived>()
 const profileCache = new WeakMap<THREE.Texture, Map<PieceFinish, Ink>>()
-const normalCache = new WeakMap<THREE.Texture, Map<number, THREE.Texture>>()
+const normalCache = new WeakMap<object, Derived>()
+
+const glyphSource = (map: THREE.Texture): object => map.userData.glyphCanvas ?? map
+
+function derived(cache: WeakMap<object, Derived>, map: THREE.Texture) {
+  const source = glyphSource(map)
+  let entry = cache.get(source)
+  if (!entry) cache.set(source, (entry = { owners: new Set(), textures: new Map() }))
+  entry.owners.add(map)
+  return entry.textures
+}
 
 function blur(src: Float32Array, size: number, radius: number) {
   const tmp = new Float32Array(src.length)
@@ -125,20 +137,19 @@ export function finishMask(map: THREE.Texture, finish: PieceFinish) {
   return sample
 }
 
-function dataTexture(fill: (data: Uint8ClampedArray, x: number, y: number, o: number) => void) {
-  const canvas = document.createElement('canvas')
-  canvas.width = canvas.height = SIZE
-  const ctx = canvas.getContext('2d')!
-  const img = ctx.createImageData(SIZE, SIZE)
-  for (let y = 0; y < SIZE; y++) for (let x = 0; x < SIZE; x++) fill(img.data, x, y, (y * SIZE + x) * 4)
-  ctx.putImageData(img, 0, 0)
-  return new THREE.CanvasTexture(canvas)
+function dataTexture(fill: (data: Uint8Array, x: number, y: number, o: number) => void) {
+  const data = new Uint8Array(SIZE * SIZE * 4)
+  for (let y = 0; y < SIZE; y++) for (let x = 0; x < SIZE; x++) fill(data, x, y, ((SIZE - y - 1) * SIZE + x) * 4)
+  const texture = new THREE.DataTexture(data, SIZE, SIZE)
+  texture.magFilter = texture.minFilter = THREE.LinearFilter
+  texture.needsUpdate = true
+  return cacheResource(texture)
 }
 
 export function lacquerMap(map: THREE.Texture, gloss: number) {
-  let byGloss = lacquerCache.get(map)
-  if (!byGloss) lacquerCache.set(map, (byGloss = new Map()))
-  const cached = byGloss.get(gloss)
+  const byGloss = derived(lacquerCache, map)
+  const key = String(gloss)
+  const cached = byGloss.get(key)
   if (cached) return cached
   const ink = inkMask(map)
   const texture = dataTexture((data, x, y, o) => {
@@ -148,14 +159,13 @@ export function lacquerMap(map: THREE.Texture, gloss: number) {
     data[o + 2] = 0
     data[o + 3] = 255
   })
-  byGloss.set(gloss, texture)
+  byGloss.set(key, texture)
   return texture
 }
 
 export function reliefNormal(map: THREE.Texture, relief: number, w: number, h: number, finish: PieceFinish) {
-  let byRelief = normalCache.get(map)
-  if (!byRelief) normalCache.set(map, (byRelief = new Map()))
-  const key = relief * 100 + ['insatsu', 'oshi', 'molded', 'kaki', 'hori', 'fukabori', 'horiume', 'moriage'].indexOf(finish)
+  const byRelief = derived(normalCache, map)
+  const key = `${relief}|${w}|${h}|${finish}`
   const cached = byRelief.get(key)
   if (cached) return cached
   const ink = finishMask(map, finish)
@@ -180,8 +190,13 @@ export function reliefNormal(map: THREE.Texture, relief: number, w: number, h: n
 
 // Frees the GPU copies of the maps derived from a face texture (lacquer and relief normal).
 export function releaseDerived(map: THREE.Texture) {
+  const source = glyphSource(map)
   for (const cache of [lacquerCache, normalCache]) {
-    for (const texture of cache.get(map)?.values() ?? []) texture.dispose()
-    cache.delete(map)
+    const entry = cache.get(source)
+    if (!entry) continue
+    entry.owners.delete(map)
+    if (entry.owners.size) continue
+    entry.textures.forEach(evictResource)
+    cache.delete(source)
   }
 }
