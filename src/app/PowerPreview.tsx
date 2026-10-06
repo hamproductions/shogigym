@@ -158,8 +158,8 @@ export default function PowerPreview() {
 
     const step = (dt: number) => {
       clock += dt
-      for (const p of pending.filter((p) => p.at <= clock)) p.fn()
-      pending = pending.filter((p) => p.at > clock)
+      for (const item of pending.filter((entry) => entry.at <= clock)) item.fn()
+      pending = pending.filter((entry) => entry.at > clock)
       setView()
       power.update(dt)
       const sdt = dt * power.timeScale()
@@ -227,7 +227,7 @@ export default function PowerPreview() {
     placePieces(stage, Position.newBySFEN(SCENES.move.sfen)!)
 
     if (import.meta.env.DEV)
-      (globalThis as unknown as { __power: unknown }).__power = {
+      (globalThis as unknown as { powerDebug: unknown }).powerDebug = {
         power,
         scene,
         run,
@@ -252,7 +252,7 @@ export default function PowerPreview() {
       observer.disconnect()
       power.dispose()
       renderer.dispose()
-      el.removeChild(renderer.domElement)
+      renderer.domElement.remove()
       api.current = null
     }
   }, [])

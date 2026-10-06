@@ -1,5 +1,5 @@
 import { Color, Square, type ImmutablePosition } from 'tsshogi'
-import { sees } from '@/app/pieces'
+import { sees } from '@/app/pieceInfo'
 
 export interface ControlCell {
   s: Square[]

@@ -15,6 +15,11 @@ interface WelcomeProps {
   onLookAround: () => void
 }
 
+function stepClass(n: number, step: number) {
+  if (n === step) return 'on'
+  return n < step ? 'done' : ''
+}
+
 export function WelcomeDialog({ level, onPreviewLevel, onLearnBasics, onPlayAi, onTsume, onLookAround }: WelcomeProps) {
   const { t } = useTranslation()
   const [step, setStep] = useState(0)
@@ -26,7 +31,7 @@ export function WelcomeDialog({ level, onPreviewLevel, onLearnBasics, onPlayAi, 
     <Dialog label={t('app.welcome')} className="app-welcome">
       <div className="app-steps" aria-hidden="true">
         {[0, 1, 2].map((n) => (
-          <i key={n} className={n === step ? 'on' : n < step ? 'done' : ''} />
+          <i key={n} className={stepClass(n, step)} />
         ))}
       </div>
       {step === 0 && (

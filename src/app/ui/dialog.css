@@ -1,3 +1,17 @@
+:where(dialog.app-dialog) {
+  position: static;
+  height: auto;
+  margin: 0;
+  border: 0;
+}
+
+:where(fieldset.app-seg) {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
 .app-palette-back {
   position: fixed;
   inset: 0;

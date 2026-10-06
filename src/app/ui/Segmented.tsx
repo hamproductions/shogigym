@@ -18,7 +18,7 @@ interface SegmentedProps<T> {
 
 export function Segmented<T extends string | number | boolean>({ value, options, onChange, label, size, className }: SegmentedProps<T>) {
   return (
-    <div className={cx('app-seg', size, className)} role="group" aria-label={label}>
+    <fieldset className={cx('app-seg', size, className)} aria-label={label}>
       {options.map((o) => (
         <button
           key={String(o.v)}
@@ -31,7 +31,7 @@ export function Segmented<T extends string | number | boolean>({ value, options,
           {o.t}
         </button>
       ))}
-    </div>
+    </fieldset>
   )
 }
 

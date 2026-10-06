@@ -9,15 +9,17 @@ const CLICK_THROUGH_MS = 250
 export function ConfirmDialog({ confirm, onClose }: { confirm: Confirm; onClose: () => void }) {
   const { t } = useTranslation()
   const openedAt = useRef(0)
+  const keepPlaying = useRef<HTMLButtonElement>(null)
   useEffect(() => {
     openedAt.current = performance.now()
-  }, [confirm])
+    keepPlaying.current?.focus()
+  }, [])
   const settled = () => performance.now() - openedAt.current > CLICK_THROUGH_MS
   return (
     <Dialog label={t('app.confirm')} role="alertdialog" onBackdrop={() => settled() && onClose()}>
       <p>{confirm.text}</p>
       <div className="app-actions">
-        <Button onClick={onClose} autoFocus>
+        <Button ref={keepPlaying} onClick={onClose}>
           {confirm.no ?? t('app.keepPlaying')}
         </Button>
         <Button

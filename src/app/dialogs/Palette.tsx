@@ -18,7 +18,7 @@ export function Palette({ commands, onClose }: { commands: (q: string) => Comman
   }
   return (
     <div className="app-palette-back" onPointerDown={onClose}>
-      <div className="app-palette" onPointerDown={(e) => e.stopPropagation()} role="dialog" aria-label={t('palette.commandPalette')}>
+      <dialog open className="app-palette" onPointerDown={(e) => e.stopPropagation()} aria-label={t('palette.commandPalette')}>
         <input
           ref={input}
           value={query}
@@ -31,7 +31,7 @@ export function Palette({ commands, onClose }: { commands: (q: string) => Comman
             if (e.key === 'Escape') onClose()
             else if (e.key === 'ArrowDown') setIndex((i) => Math.min(items.length - 1, i + 1))
             else if (e.key === 'ArrowUp') setIndex((i) => Math.max(0, i - 1))
-            else if (e.key === 'Enter') run(items[index])
+            else if (e.key === 'Enter' && !e.nativeEvent.isComposing) run(items[index])
           }}
         />
         <ul>
@@ -45,7 +45,7 @@ export function Palette({ commands, onClose }: { commands: (q: string) => Comman
           ))}
           {items.length === 0 && <li className="app-muted app-empty">{t('palette.noMatchTryALine')}</li>}
         </ul>
-      </div>
+      </dialog>
     </div>
   )
 }

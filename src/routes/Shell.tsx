@@ -1,3 +1,5 @@
+import { BoardLoading } from '@/rendering/BoardLoading'
+
 export function Shell() {
   return (
     <div className="app-shell app-shell" aria-busy="true">
@@ -9,4 +11,3 @@ export function Shell() {
     </div>
   )
 }
-import { BoardLoading } from '@/rendering/BoardLoading'

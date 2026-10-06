@@ -14,9 +14,9 @@ interface DialogProps {
 export function Dialog({ label, className, role = 'dialog', onBackdrop, children }: DialogProps) {
   return (
     <div className="app-palette-back" onPointerDown={onBackdrop}>
-      <div className={cx('app-dialog', className)} role={role} aria-modal="true" aria-label={label} onPointerDown={(e) => e.stopPropagation()}>
+      <dialog open className={cx('app-dialog', className)} role={role} aria-modal="true" aria-label={label} onPointerDown={(e) => e.stopPropagation()}>
         {children}
-      </div>
+      </dialog>
     </div>
   )
 }

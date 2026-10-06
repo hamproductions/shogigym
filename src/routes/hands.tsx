@@ -1,6 +1,7 @@
 import { Suspense, lazy } from 'react'
 import { BoardLoading } from '@/rendering/BoardLoading'
 
+const loadingFallback = <BoardLoading />
 const HandsTest = import.meta.env.DEV ? lazy(() => import('@/dev/HandsTest')) : null
 
 export async function clientLoader() {
@@ -14,7 +15,7 @@ export function HydrateFallback() {
 export default function HandsRoute() {
   if (!HandsTest) return null
   return (
-    <Suspense fallback={<BoardLoading />}>
+    <Suspense fallback={loadingFallback}>
       <HandsTest />
     </Suspense>
   )

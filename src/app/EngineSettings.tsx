@@ -8,15 +8,20 @@ import { getSettings, setSettings, useSettings, type EngineKind } from '@/appear
 import { Button } from '@/app/ui/Button'
 import { SegmentedField, SettingRow } from '@/app/ui/Segmented'
 
+function reload() {
+  if (getSettings().engine === 'nnue') restartEngine()
+}
+
+function errorMessage(failure: unknown) {
+  return failure instanceof Error ? failure.message : String(failure)
+}
+
 export function EngineSettings() {
   const { t } = useTranslation()
   const st = useSettings()
   const evalFile = useEvalFile()
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
-  const reload = () => {
-    if (getSettings().engine === 'nnue') restartEngine()
-  }
   return (
     <>
       <SegmentedField<EngineKind>
@@ -41,13 +46,13 @@ export function EngineSettings() {
                   accept=".bin"
                   disabled={busy}
                   onChange={async (e) => {
-                    const file = e.target.files?.[0]
+                    const picked = e.target.files?.[0]
                     e.target.value = ''
-                    if (!file) return
+                    if (!picked) return
                     setBusy(true)
                     setError('')
                     try {
-                      await saveEvalFile(file)
+                      await saveEvalFile(picked)
                       reload()
                     } catch (failure) {
                       setError((failure as Error).message)
@@ -95,8 +100,8 @@ function OpeningBookSettings() {
     try {
       await downloadFullBook(abort.signal, setProgress)
       restartEngine()
-    } catch (error) {
-      if (!abort.signal.aborted) setError(error instanceof Error ? error.message : String(error))
+    } catch (failure) {
+      if (!abort.signal.aborted) setError(errorMessage(failure))
     } finally {
       controller.current = null
       setProgress(null)
@@ -115,16 +120,16 @@ function OpeningBookSettings() {
               accept=".db"
               disabled={busy}
               onChange={async (event) => {
-                const file = event.target.files?.[0]
+                const picked = event.target.files?.[0]
                 event.target.value = ''
-                if (!file) return
+                if (!picked) return
                 setBusy(true)
                 setError('')
                 try {
-                  await saveBookFile(file)
+                  await saveBookFile(picked)
                   restartEngine()
-                } catch (error) {
-                  setError(error instanceof Error ? error.message : String(error))
+                } catch (failure) {
+                  setError(errorMessage(failure))
                 } finally {
                   setBusy(false)
                 }
@@ -140,8 +145,8 @@ function OpeningBookSettings() {
                 try {
                   await clearBookFile()
                   restartEngine()
-                } catch (error) {
-                  setError(error instanceof Error ? error.message : String(error))
+                } catch (failure) {
+                  setError(errorMessage(failure))
                 } finally {
                   setBusy(false)
                 }
@@ -157,7 +162,7 @@ function OpeningBookSettings() {
           <Button disabled={busy || !!file} onClick={download}>
             {t('settings.downloadFullBook')}
           </Button>
-          <Button disabled={busy} onClick={() => clearBookDownloadCache().catch((error: Error) => setError(error.message))}>
+          <Button disabled={busy} onClick={() => clearBookDownloadCache().catch((failure: Error) => setError(failure.message))}>
             {t('settings.clearBookCache')}
           </Button>
           {progress && (

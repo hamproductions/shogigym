@@ -27,6 +27,24 @@ const isolationScript = `if (globalThis.isSecureContext && 'serviceWorker' in na
   navigator.serviceWorker.register('${base}coi-sw.js?mode=${import.meta.env.MODE}', { scope: '${base}' }).then(reloadWhenControlled)
 }`
 
+function setDocumentLanguage(language: string) {
+  document.documentElement.lang = language
+}
+
+function errorText(error: unknown) {
+  if (isRouteErrorResponse(error)) return `${error.status} ${error.statusText}`
+  return error instanceof Error ? error.message : String(error)
+}
+
+function resetSession() {
+  try {
+    localStorage.removeItem('joseki-practice:session:v2')
+  } catch (problem) {
+    console.warn('session not cleared', problem)
+  }
+  location.reload()
+}
+
 export function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="ja" suppressHydrationWarning>
@@ -40,7 +58,10 @@ export function Layout({ children }: { children: ReactNode }) {
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        {/* Static build-time inline scripts (no user input); React would HTML-escape script children, which breaks `&&`. */}
+        {/* oxlint-disable-next-line react/no-danger -- trusted constant string, not user content */}
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {/* oxlint-disable-next-line react/no-danger -- trusted constant string, not user content */}
         <script dangerouslySetInnerHTML={{ __html: isolationScript }} />
         <Meta />
         <Links />
@@ -60,13 +81,10 @@ export default function Root() {
     let unsubscribe: (() => void) | undefined
     void import('@/utils/i18n').then(({ default: i18n }) => {
       if (cancelled) return
-      const update = (language: string) => {
-        document.documentElement.lang = language
-      }
-      update(i18n.language)
-      i18n.on('languageChanged', update)
+      setDocumentLanguage(i18n.language)
+      i18n.on('languageChanged', setDocumentLanguage)
       unsubscribe = () => {
-        i18n.off('languageChanged', update)
+        i18n.off('languageChanged', setDocumentLanguage)
       }
     })
     return () => {
@@ -84,20 +102,12 @@ export default function Root() {
 
 export function ErrorBoundary() {
   const error = useRouteError()
-  const message = isRouteErrorResponse(error) ? `${error.status} ${error.statusText}` : error instanceof Error ? error.message : String(error)
-  const reset = () => {
-    try {
-      localStorage.removeItem('joseki-practice:session:v2')
-    } catch (problem) {
-      console.warn('session not cleared', problem)
-    }
-    location.reload()
-  }
+  const message = errorText(error)
   return (
     <div className="app-crash">
       <h1>Something went wrong / エラーが発生しました</h1>
       <p>{message}</p>
-      <button onClick={reset}>Reset the open game and reload / 開いている対局をリセットして再読み込み</button>
+      <button onClick={resetSession}>Reset the open game and reload / 開いている対局をリセットして再読み込み</button>
     </div>
   )
 }
