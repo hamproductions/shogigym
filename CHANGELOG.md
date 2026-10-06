@@ -2,6 +2,13 @@
 
 Notable changes are recorded here when a release is created. Versions follow Semantic Versioning.
 
+## [1.3.7](/compare/v1.3.6...v1.3.7) (2026-10-06)
+
+
+### Bug Fixes
+
+* preserve recovery state and responsive controls 28ae6dd
+
 ## [1.3.6](/compare/v1.3.5...v1.3.6) (2026-10-06)
 
 
