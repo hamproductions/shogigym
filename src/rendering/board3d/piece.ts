@@ -103,7 +103,7 @@ function pieceBody(scale: number) {
     }
     const sink = (pos.getZ(i) - depth) / depth
     if (isEnd[i]) {
-      uv.setXY(i, x / w + 0.5, y / h + 0.5 + sink * 0.8)
+      uv.setXY(i, x / w + 0.5, y / h + 0.5 + sink * 0.1)
       continue
     }
     const half = halfWidthAt(poly, y)
@@ -201,7 +201,12 @@ function sideTexture(seed: number, appearance?: PieceAppearance) {
   const key = `${seed}/${pieceMaterial}/${pieceGrain}/${pieceColor}`
   let texture = sideTextures.get(key)
   if (!texture) {
-    texture = srgbTexture(pieceSurface(seed, appearance))
+    const surface = pieceSurface(seed, appearance)
+    // Calm the grain so the walls read as clean wood next to the carved face.
+    const ctx = surface.getContext('2d')!
+    ctx.fillStyle = `rgba(${pieceTone(pieceMaterial, pieceColor).join(',')},0.5)`
+    ctx.fillRect(0, 0, surface.width, surface.height)
+    texture = srgbTexture(surface)
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping
     sideTextures.set(key, texture)
   }
