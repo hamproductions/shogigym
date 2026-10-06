@@ -63,9 +63,18 @@
 - Final TypeScript, formatting and whitespace checks pass. No tests added.
 
 ## Immediate next action
-- Publish patch release and verify clean main. Menu-anchor browser closed; existing dev server retained.
+- Publish follow-up patch release and verify clean main. Close resize-hands browser; retain existing dev server.
 
 ## Current camera and menu correction
 - Floating capacity remains overhead-based; current-camera projected board and komadai bounds determine dynamic free rectangles on each side. Panels adapt position and width without changing camera fit.
 - Rail menus use measured dimensions and live button bounds rather than a fixed 400px height; resize and captured scroll update placement.
 - Real headed browser overhead, tilted and pointer-rotated screenshots inspected; panels avoid board and komadai. Menu screenshot at 2048x1050 shows short menu adjacent to its button. TypeScript passed.
+
+## Follow-up patch
+- v1.3.6 commit and tag pushed; GitHub release creation remains pending.
+- Error boundary now offers state-preserving reload, separate collapsed reset, localized Japanese/English copy and existing theme pattern. Saved language loads before app initialization.
+- Temporary real Root failure used for error-boundary browser verification, then removed. Japanese desktop and English mobile screenshots inspected; Reload preserves exact saved session.
+- Rail capacity measures tallest actual tool and observes button size changes. At 1024x768, More and its Full screen entry are visible in inspected screenshot; physical iPad Safari unverified.
+- Stand/hand relayout waits for piece assets and rebuilds together before draw. Captured-piece position imported through UI, resized across side/strip layouts; strip screenshot inspected and hand alignment confirmed.
+- TypeScript passes. Complete release hook validation, lint, formatting and build remain next.
+- frontend-design SKILL.md read 1–EOF for narrow recovery-page styling.

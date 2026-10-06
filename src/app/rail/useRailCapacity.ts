@@ -18,13 +18,17 @@ export function useRailCapacity(compact: boolean) {
       const anchor = last.getBoundingClientRect()
       const padding = parseFloat(horizontal ? style.paddingRight : style.paddingBottom) || 0
       const free = horizontal ? bounds.right - anchor.right - padding : bounds.bottom - anchor.bottom - padding
-      const size = horizontal ? 44 : last.offsetHeight
+      const size = horizontal
+        ? 44
+        : Math.max(last.offsetHeight, ...Array.from(rail.querySelectorAll<HTMLButtonElement>('.app-rail-btn'), (button) => button.offsetHeight))
       const gap = parseFloat(style.gap) || RAIL_GAP
       setCapacity(Math.max(0, Math.floor(free / (size + gap)) - 1))
     }
     measure()
     const observer = new ResizeObserver(measure)
     observer.observe(rail)
+    if (lastModeRef.current) observer.observe(lastModeRef.current)
+    rail.querySelectorAll('.app-rail-btn').forEach((button) => observer.observe(button))
     return () => observer.disconnect()
   }, [compact])
   return { railRef, lastModeRef, capacity }

@@ -43,7 +43,8 @@ html {
   overflow: hidden;
 }
 
-.app-shell::before {
+.app-shell::before,
+.app-crash-screen::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -98,21 +99,41 @@ html {
   display: none;
 }
 
-.app-crash {
-  max-width: 520px;
-  margin: 18vh auto 0;
+.app-crash-screen {
+  position: relative;
+  isolation: isolate;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
   padding: var(--space-6);
+  background: var(--surface-0);
+}
+
+.app-crash {
+  width: min(100%, 520px);
+  padding: clamp(24px, 6vw, 48px);
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   background: var(--panel);
   color: var(--text);
   font-family: var(--font-sans);
+  line-height: var(--leading-normal);
   box-shadow: var(--shadow-md);
+}
+
+.app-crash img {
+  margin-bottom: var(--space-4);
 }
 
 .app-crash h1 {
   margin: 0 0 var(--space-3);
   font-family: var(--font-mincho);
   font-size: var(--text-xl);
+}
+
+.app-crash p {
+  color: var(--text-muted);
+  margin: 0 0 var(--space-4);
 }
 
 .app-crash button {
@@ -123,6 +144,38 @@ html {
   color: var(--accent-contrast);
   font: inherit;
   cursor: pointer;
+}
+
+.app-crash details {
+  margin-top: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.app-crash summary {
+  cursor: pointer;
+  width: fit-content;
+}
+
+.app-crash details p,
+.app-crash pre {
+  margin-top: var(--space-3);
+}
+
+.app-crash pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: var(--text-xs);
+}
+
+.app-crash .app-crash-reset {
+  background: var(--surface-2);
+  color: var(--text-muted);
+}
+
+.app-crash :focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
 }
 
 @media (max-width: 820px), (max-width: 1024px) and (orientation: portrait) {

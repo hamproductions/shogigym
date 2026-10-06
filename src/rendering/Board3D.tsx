@@ -71,6 +71,7 @@ export function Board3D(props: Board3DProps) {
     let pixelRatio = renderer.getPixelRatio()
     let resizePending = true
     let bufferPending = false
+    let relayoutPending = false
 
     const resize = () => {
       const { clientWidth: w, clientHeight: h } = el
@@ -94,10 +95,7 @@ export function Board3D(props: Board3DProps) {
         const ratio = cameraFit(s.camera.aspect, s.tilt, latest.current.sideRoom ?? 0) / previousFit
         s.camera.position.sub(s.controls.target).multiplyScalar(ratio).add(s.controls.target)
       }
-      if (relayout) {
-        s.placeStands()
-        refresh(false, true)
-      }
+      if (relayout) relayoutPending = true
     }
     const observer = new ResizeObserver(() => {
       resizePending = true
@@ -139,6 +137,10 @@ export function Board3D(props: Board3DProps) {
         return
       }
       if (resizePending) resize()
+      if (relayoutPending && piecesReady.current && latest.current.assetsReady !== false) {
+        refresh(false, true)
+        relayoutPending = false
+      }
       if (s.tiltTarget > 0 || latest.current.orbit || s.flip) {
         s.room.need()
         s.avatars?.request()
