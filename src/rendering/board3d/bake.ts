@@ -95,7 +95,7 @@ async function bakeFlatWith(renderer: THREE.WebGLRenderer, environment: THREE.Te
     catcher.material.dispose()
     disposeScene(scene)
   }
-  const board = (boardTexture(settings.boardStyle).image as HTMLCanvasElement).toDataURL('image/jpeg', 0.92)
+  const board = (boardTexture(settings.boardStyle, 1).image as HTMLCanvasElement).toDataURL('image/jpeg', 0.92)
   const stand = grainTexture(512, 512, [180, 128, 66], 120, 21).toDataURL('image/jpeg', 0.9)
   return { pieces, board, surface: boardSurface(settings.boardStyle, 1024, 1120).toDataURL(), stand }
 }
@@ -194,7 +194,7 @@ async function bakeBoardPreviewsWith(renderer: THREE.WebGLRenderer, environment:
     for (const style of styles) {
       await nextFrame()
       signal.throwIfAborted()
-      const material = boardTopMaterial(style, environment)
+      const material = boardTopMaterial(style, environment, 1)
       const board = new THREE.Mesh(geometry, material)
       scene.add(board)
       renderer.render(scene, camera)
