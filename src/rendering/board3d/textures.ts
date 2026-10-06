@@ -8,6 +8,13 @@ import { BOARD_STYLES, loadedBoard } from '@/appearance/boardStyles'
 import { BOARD_TONE, piecePolygon } from '@/rendering/koma'
 import { releaseDerived } from './relief'
 
+// The table is the largest thing on screen in the locked camera, so it gets the texels. Touch devices keep the
+// smaller size to stay inside their GPU memory.
+const COARSE = typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches
+const FACE = 256
+const FACE_SCALE = 1
+export const BOARD_SCALE = COARSE ? 1.5 : 3
+
 export function srgbTexture(canvas: HTMLCanvasElement, anisotropy = 1) {
   const texture = new THREE.CanvasTexture(canvas)
   texture.colorSpace = THREE.SRGBColorSpace
@@ -30,7 +37,15 @@ function canvas2d(width: number, height = width, readback = false) {
 }
 
 export function boardSurface(style: BoardStyle, width: number, height: number) {
-  if (!BOARD_STYLES[style].source) return grainTexture(width, height, BOARD_TONE[style].board, 260, 7)
+  if (!BOARD_STYLES[style].source) {
+    // Grain strokes are fixed-width in pixels, so draw them at the base density and let the lines/marks stay sharp.
+    const base = Math.min(width, 1024)
+    const grain = grainTexture(base, Math.round((height * base) / width), BOARD_TONE[style].board, 260, 7)
+    if (base === width) return grain
+    const { canvas, ctx } = canvas2d(width, height)
+    ctx.drawImage(grain, 0, 0, width, height)
+    return canvas
+  }
   const image = loadedBoard(style)
   if (!image) throw new Error(`Board surface not loaded: ${BOARD_STYLES[style].label}`)
   const { canvas, ctx } = canvas2d(width, height)
@@ -38,11 +53,12 @@ export function boardSurface(style: BoardStyle, width: number, height: number) {
   return canvas
 }
 
-export function boardTexture(style: BoardStyle) {
+export function boardTexture(style: BoardStyle, scale = BOARD_SCALE) {
   const sizeW = 1024
   const sizeH = Math.round((sizeW * HALF_D) / HALF_W)
-  const canvas = boardSurface(style, sizeW, sizeH)
+  const canvas = boardSurface(style, Math.round(sizeW * scale), Math.round(sizeH * scale))
   const ctx = canvas.getContext('2d')!
+  ctx.scale(scale, scale)
   const mx = (MARGIN / (2 * HALF_W)) * sizeW
   const my = (MARGIN / (2 * HALF_D)) * sizeH
   const cw = (sizeW - mx * 2) / 9
@@ -137,7 +153,8 @@ export const clearFaceTextures = () => {
 export function pieceSurface(seed: number, appearance?: PieceAppearance) {
   const { pieceMaterial, pieceGrain, pieceColor } = { ...getSettings(), ...appearance }
   const tone = pieceTone(pieceMaterial, pieceColor)
-  const { canvas, ctx } = canvas2d(256)
+  const { canvas, ctx } = canvas2d(FACE)
+  ctx.scale(FACE_SCALE, FACE_SCALE)
   ctx.fillStyle = `rgb(${tone.join(',')})`
   ctx.fillRect(0, 0, 256, 256)
   if (pieceMaterial === 'plastic' || pieceMaterial === 'glass' || pieceMaterial === 'frostedGlass') return canvas
@@ -227,10 +244,10 @@ export function artTexture(art: LoadedPiece, key: string, seed = 1, appearance?:
   const canvas = pieceSurface(seed, appearance)
   let glyph = glyphCache.get(glyphKey)
   if (!glyph) {
-    const ink = canvas2d(256, 256, true)
-    ink.ctx.drawImage(art.canvas, 0, 0, 256, 256)
+    const ink = canvas2d(FACE, FACE, true)
+    ink.ctx.drawImage(art.canvas, 0, 0, FACE, FACE)
     if (lightInk) {
-      const image = ink.ctx.getImageData(0, 0, 256, 256)
+      const image = ink.ctx.getImageData(0, 0, FACE, FACE)
       for (let i = 0; i < image.data.length; i += 4) {
         const red = image.data[i] - image.data[i + 1] > 35 && image.data[i] - image.data[i + 2] > 20
         const color = red ? [255, 160, 164] : [250, 246, 235]
@@ -291,13 +308,16 @@ export function faceTexture(char: string, promoted: boolean, seed = 1, appearanc
   const key = `${char}${promoted}${font.family}${broadcast}|${set}|${settings.pieceMaterial}|${settings.pieceColor}|${settings.pieceGrain}|${settings.pieceGuide}|${code}|${seed}`
   const cached = recall(faceCache, key)
   if (cached) return cached
+  // Until the font has loaded the canvas silently draws the fallback face; never cache that.
+  const fontReady = document.fonts.check(`${font.weight} 100px "${font.family}"`, char)
   const canvas = pieceSurface(seed, appearance)
   const lightInk = settings.pieceColor === 'dark' || settings.pieceColor === 'mahogany'
   const glyphKey = `${char}|${promoted}|${font.family}|${broadcast}|${lightInk}|${settings.pieceStyle}|${settings.pieceGuide}|${code}`
   let glyph = glyphCache.get(glyphKey)
   if (!glyph) {
-    glyph = canvas2d(256, 256, true).canvas
+    glyph = canvas2d(FACE, FACE, true).canvas
     const ctx = glyph.getContext('2d')!
+    ctx.scale(FACE_SCALE, FACE_SCALE)
     ctx.fillStyle = lightInk ? (promoted ? '#ffa0a4' : '#faf6eb') : promoted ? '#9c1c12' : '#0e0804'
     ctx.strokeStyle = ctx.fillStyle
     ctx.lineWidth = font.weight >= 700 ? 3 : 7
@@ -316,14 +336,14 @@ export function faceTexture(char: string, promoted: boolean, seed = 1, appearanc
     const guide = settings.pieceGuide === 'lines' ? guideInk(sourceGuide, glyph) : sourceGuide
     if (settings.pieceGuide !== 'none' && !guide) throw new Error(`Guide not loaded: ${code}/${settings.pieceGuide}`)
     glyph = composeGlyph(normalizeInk(glyph), guide, settings.pieceStyle === 'two', settings.pieceGuide === 'movement')
-    rememberGlyph(glyphKey, glyph)
+    if (fontReady) rememberGlyph(glyphKey, glyph)
   }
   canvas.getContext('2d')!.drawImage(glyph, 0, 0)
   const texture = srgbTexture(canvas, 8)
   texture.userData.lightInk = lightInk
   texture.userData.glyphCanvas = glyph
   texture.userData.inkCanvas = glyph
-  return remember(faceCache, key, texture)
+  return fontReady ? remember(faceCache, key, texture) : texture
 }
 
 const glyphTextures = new WeakMap<HTMLCanvasElement, THREE.Texture>()
