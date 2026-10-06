@@ -1,8 +1,7 @@
 import './board.css'
 import { useEffect, useLayoutEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { PieceType } from 'tsshogi'
-import { Color, Square, type ImmutablePosition } from 'tsshogi'
+import { Color, Square, type ImmutablePosition, type PieceType } from 'tsshogi'
 import type { Board3DProps } from './Board3D'
 import { OverMarks, UnderMarks } from './flatMarks'
 import { useLatest } from '@/app/hooks/useLatest'
@@ -102,15 +101,15 @@ export function BoardFlat(props: Board3DProps) {
       return
     }
     const rect = svg.getBoundingClientRect()
-    const box = (x: number, y: number, w: number, h: number) => ({
+    const screenBox = (x: number, y: number, w: number, h: number) => ({
       l: x * m.a + m.e - rect.left,
       r: (x + w) * m.a + m.e - rect.left,
       t: y * m.d + m.f - rect.top,
       b: (y + h) * m.d + m.f - rect.top,
     })
-    const bd = box(g.bx, g.by, g.bw, g.bh)
-    const top = box(g.stands.top.x, g.stands.top.y, g.stands.top.w, g.stands.top.h)
-    const bottom = box(g.stands.bottom.x, g.stands.bottom.y, g.stands.bottom.w, g.stands.bottom.h)
+    const bd = screenBox(g.bx, g.by, g.bw, g.bh)
+    const top = screenBox(g.stands.top.x, g.stands.top.y, g.stands.top.w, g.stands.top.h)
+    const bottom = screenBox(g.stands.bottom.x, g.stands.bottom.y, g.stands.bottom.w, g.stands.bottom.h)
     const w = rect.width
     const h = rect.height
     const gap = 12
@@ -209,7 +208,7 @@ export function BoardFlat(props: Board3DProps) {
   if (!baked)
     return (
       <div className="app-flat app-flat-wood" ref={wrapRef}>
-        <div role="status">{error ?? i18n.t('settings.loadingEvalFile')}</div>
+        <output>{error ?? i18n.t('settings.loadingEvalFile')}</output>
       </div>
     )
 
@@ -225,26 +224,25 @@ export function BoardFlat(props: Board3DProps) {
     const bottom = (color === Color.BLACK) !== flipped
     const s = bottom ? g.stands.bottom : g.stands.top
     const sign = flipped ? -1 : 1
-    const spots = hands
-      .get(color)!
-      .map((spot, i) => ({ ...spot, i }))
-      .sort((a, b) => (a.lift ?? 0) - (b.lift ?? 0))
+    const colorSpots = hands.get(color)!
+    const order = colorSpots.map((_, i) => i).toSorted((a, b) => (colorSpots[a].lift ?? 0) - (colorSpots[b].lift ?? 0))
     const size = SPRITE_BOX * U * 0.96
     return (
       <g key={color}>
         <image href={baked.stand} x={s.x} y={s.y} width={s.w} height={s.h} preserveAspectRatio="none" />
         <rect x={s.x} y={s.y} width={s.w} height={s.h} fill="none" stroke="rgba(60,34,12,0.5)" strokeWidth={2} />
-        {spots.map((spot) => {
+        {order.map((i) => {
+          const spot = colorSpots[i]
           const x = g.ox + sign * spot.x * U
           const y = g.oy + sign * spot.z * U
-          const on = selected === spot.type && selectedColor === color && spot.i === handIndex(color, spot.type)
-          const lifted = drag?.from === spot.type && drag.color === color && drag.handIndex === spot.i && drag.moved
+          const on = selected === spot.type && selectedColor === color && i === handIndex(color, spot.type)
+          const lifted = drag?.from === spot.type && drag.color === color && drag.handIndex === i && drag.moved
           return (
             <g
-              key={spot.i}
+              key={i}
               transform={`translate(${x} ${y}) rotate(${(-spot.rot * 180) / Math.PI})`}
               style={{ cursor: 'pointer' }}
-              onPointerDown={(e) => (movable === color ? startDrag(e, spot.type, color, spot.type, spot.i) : props.onHand(color, spot.type))}
+              onPointerDown={(e) => (movable === color ? startDrag(e, spot.type, color, spot.type, i) : props.onHand(color, spot.type))}
             >
               <g opacity={lifted ? 0.35 : 1} className={`app-koma-lift${on ? ' on' : ''}`}>
                 <image href={baked.pieces.get(spriteKey(spot.type, color, bottom))} x={-size / 2} y={-size / 2} width={size} height={size} />
@@ -276,16 +274,13 @@ export function BoardFlat(props: Board3DProps) {
   const dragFrom = drag?.moved && drag.from instanceof Square ? drag.from : null
   return (
     <div className="app-flat app-flat-wood" ref={wrapRef} aria-busy={loading}>
-      {(loading || error) && (
-        <div className="app-board-loading" role="status">
-          {error ?? i18n.t('settings.loadingEvalFile')}
-        </div>
-      )}
+      {(loading || error) && <output className="app-board-loading">{error ?? i18n.t('settings.loadingEvalFile')}</output>}
       <svg
         ref={svgRef}
         xmlns="http://www.w3.org/2000/svg"
         viewBox={`${-PAD} ${-PAD} ${g.width + 2 * PAD} ${g.height + 2 * PAD}`}
         preserveAspectRatio="xMidYMid meet"
+        // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- inline interactive SVG cannot be an <img>; role="img" is the standard way to expose it as one image
         role="img"
         aria-label={i18n.t('board.shogiBoard')}
         onPointerMove={onMove}

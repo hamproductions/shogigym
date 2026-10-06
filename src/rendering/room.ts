@@ -335,7 +335,9 @@ function skyDome(file: string) {
   const sky = new THREE.Mesh(
     once('sky-geometry', () => new THREE.SphereGeometry(100, 64, 32)),
     once(`sky:${file}`, () => {
-      const map = new THREE.TextureLoader().load(`${import.meta.env.BASE_URL}sky/${file}`)
+      const map = new THREE.TextureLoader().load(`${import.meta.env.BASE_URL}sky/${file}`, undefined, undefined, (error) =>
+        console.warn(`Failed to load sky texture ${file}`, error),
+      )
       map.colorSpace = THREE.SRGBColorSpace
       map.wrapS = THREE.RepeatWrapping
       map.repeat.x = -1
@@ -384,7 +386,7 @@ export function buildRoom(root: THREE.Group, dims: RoomDims) {
     for (const u of posts) put(parts, hinoki, beam(s, u - post / 2, u + post / 2, floorY, ceil, -post / 2, post / 2))
     const runs: [number, number][] = []
     let start = -len
-    for (const [a, b] of [...skipNageshi].sort((p, q) => p[0] - q[0])) {
+    for (const [a, b] of skipNageshi.toSorted((p, q) => p[0] - q[0])) {
       if (a > start) runs.push([start, a])
       start = b
     }
@@ -596,7 +598,8 @@ export function buildRoom(root: THREE.Group, dims: RoomDims) {
     const cz = sgn * (dims.halfD + ZABUTON.gap)
     const cushion = new THREE.Mesh(new RoundedBoxGeometry(ZABUTON.w, ZABUTON.h, ZABUTON.d, 4, 0.7), zabuton)
     cushion.position.set(0, floorY + ZABUTON.h / 2, cz)
-    cushion.castShadow = cushion.receiveShadow = true
+    cushion.castShadow = true
+    cushion.receiveShadow = true
     groups.items.add(cushion)
     const kx = -sgn * 13.5
     put(parts, fabric, place(new RoundedBoxGeometry(3.4, 1.6, mm(450), 3, 0.7), kx, floorY + mm(300) - 0.8, cz + sgn * 1, yaw))
@@ -934,6 +937,14 @@ const sunDraw: Draw = (ctx, w, h) => {
   ctx.fillRect(w / 2 + 6, 16, w / 2 - 22, h - 32)
 }
 
+const rb = (w: number, h: number, d: number, r: number, x: number, y: number, z: number) => new RoundedBoxGeometry(w, h, d, 3, r).translate(x, y, z)
+
+const bookSkip = (level: number) => {
+  if (level === 1) return [0.55, 0.85]
+  if (level === 3) return [0.05, 0.3]
+  return null
+}
+
 export function buildCasual(root: THREE.Group, dims: RoomDims) {
   const top = -dims.thick
   const floorY = top - TABLE_H
@@ -1136,7 +1147,6 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
     const x0 = -A
     const len = mm(1800)
     const depth = mm(850)
-    const rb = (w: number, h: number, d: number, r: number, x: number, y: number, z: number) => new RoundedBoxGeometry(w, h, d, 3, r).translate(x, y, z)
     put(parts, sofa, rb(depth - 1, 6, len - 4, 0.8, x0 + depth / 2, floorY + 2.4 + 3, 0))
     put(parts, sofa, rb(4.5, mm(800) - 2.4, len - 2, 1.2, x0 + 2.6, floorY + 2.4 + (mm(800) - 2.4) / 2, 0))
     for (const z of [-1, 1]) put(parts, sofa, rb(depth, mm(600) - 2.4, 4.5, 1.4, x0 + depth / 2, floorY + 2.4 + (mm(600) - 2.4) / 2, z * (len / 2 - 2.25)))
@@ -1196,7 +1206,7 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
       const y = floorY + 1.2 + t + i * gap
       let z = z0 + t + 0.3
       const end = -z0 - t - 0.3
-      const skip = i === 1 ? [0.55, 0.85] : i === 3 ? [0.05, 0.3] : null
+      const skip = bookSkip(i)
       while (z < end - 0.8) {
         const f = (z - z0) / w
         if (skip && f > skip[0] && f < skip[1]) {

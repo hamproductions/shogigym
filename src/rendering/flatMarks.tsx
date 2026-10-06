@@ -167,6 +167,16 @@ function Castle({ p, u, castle }: { p: Project; u: number; castle: { squares: Sq
   )
 }
 
+function keyed<T>(items: readonly T[], keyOf: (item: T) => string) {
+  const seen = new Map<string, number>()
+  return items.map((item) => {
+    const base = keyOf(item)
+    const n = seen.get(base) ?? 0
+    seen.set(base, n + 1)
+    return { item, key: n ? `${base}#${n}` : base }
+  })
+}
+
 export function UnderMarks({ props, p, u }: { props: Board3DProps; p: Project; u: number }) {
   const { lastMove, selected, targets, checkSquare, peek, peekFrom, heat } = props
   const to = lastMove ? Square.newByUSI(lastMove.slice(2, 4)) : null
@@ -193,8 +203,8 @@ export function UnderMarks({ props, p, u }: { props: Board3DProps; p: Project; u
         </g>
       ))}
       {peekFrom && <Tile p={p} u={u} square={peekFrom} color={0xc8442f} opacity={0.22} />}
-      {(heat ?? []).map((h, i) => (
-        <Tile key={`h${i}`} p={p} u={u} square={h.square} color={h.color} opacity={h.opacity} />
+      {keyed(heat ?? [], (h) => `h${h.square.usi}`).map(({ item: h, key }) => (
+        <Tile key={key} p={p} u={u} square={h.square} color={h.color} opacity={h.opacity} />
       ))}
     </g>
   )
@@ -229,12 +239,12 @@ export function OverMarks({
           const [x, y] = p(handSlot.x, handSlot.z)
           return <circle cx={x} cy={y} r={0.46 * u} fill="none" stroke="#c8442f" strokeWidth={0.04 * u} />
         })()}
-      {(heat ?? []).map((h, i) => {
+      {keyed(heat ?? [], (h) => `hl${h.square.usi}`).map(({ item: h, key }) => {
         if (!h.label) return null
         const [x, y] = p(squareX(h.square.file) + 0.32, squareZ(h.square.rank) + 0.3)
         return (
           <text
-            key={`hl${i}`}
+            key={key}
             x={x}
             y={y}
             textAnchor="middle"
@@ -248,14 +258,14 @@ export function OverMarks({
           </text>
         )
       })}
-      {(castles ?? []).map((c, i) => (
-        <Castle key={`c${i}`} p={p} u={u} castle={c} />
+      {keyed(castles ?? [], (c) => `c${c.label}${c.squares.map((sq) => sq.usi).join('')}`).map(({ item: c, key }) => (
+        <Castle key={key} p={p} u={u} castle={c} />
       ))}
-      {arrows.map((arrow, i) => {
+      {keyed(arrows, (arrow) => `a${arrow.usi}`).map(({ item: arrow, key }) => {
         const end = arrow.usi.slice(2, 4)
         const stack = stacked.get(end) ?? 0
         if (arrow.label) stacked.set(end, stack + 1)
-        return <Arrow key={`a${i}`} p={p} u={u} arrow={arrow} position={position} stack={stack} handPoint={handPoint} />
+        return <Arrow key={key} p={p} u={u} arrow={arrow} position={position} stack={stack} handPoint={handPoint} />
       })}
       {checkSquare &&
         (() => {

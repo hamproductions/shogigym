@@ -1,9 +1,9 @@
 import './loading.css'
-import '@/utils/i18n'
+import i18n from '@/utils/i18n'
 import { useTranslation } from 'react-i18next'
 
 export function BoardLoading({ error, progress }: { error?: string; progress?: number }) {
-  const { t } = useTranslation()
+  const { t } = useTranslation(undefined, { i18n })
   return (
     <div className="board-loading" role={error ? 'alert' : 'status'} aria-busy={!error}>
       <div className="board-loading-content">

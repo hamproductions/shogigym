@@ -84,6 +84,17 @@ function goal(): Goal {
   return { at: new THREE.Vector3(), finger: new THREE.Vector3(), palm: new THREE.Vector3(), curl: 0, grip: false, hand: null }
 }
 
+const kneel = (rise: number) => SEIZA.hip + (KNEEL - SEIZA.hip) * rise
+
+const setGoal = (g: Goal, at: THREE.Vector3, finger: THREE.Vector3, palm: THREE.Vector3, curl: number, grip: boolean) => {
+  g.at.copy(at)
+  g.finger.copy(finger).normalize()
+  g.palm.copy(palm).normalize()
+  g.curl = curl
+  g.grip = grip
+  return g
+}
+
 export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, height: number, random: () => number) {
   const holder = new THREE.Group()
   root.add(holder)
@@ -126,9 +137,9 @@ export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, heig
     foot: bone(`${side}Foot`),
     out: side === 'right' ? 1 : -1,
   }))
+  const legBySign = new Map(legs.map((l) => [l.out, l]))
   const rightSign = Math.sign(rest('rightUpperLeg').x) || 1
   const qa = new THREE.Quaternion()
-  const kneel = (rise: number) => SEIZA.hip + (KNEEL - SEIZA.hip) * rise
   const poseLegs = (rise: number) => {
     for (const leg of legs) {
       leg.upper.quaternion.setFromAxisAngle(AY, rad(leg.out * rightSign * s * 7)).multiply(qa.setFromAxisAngle(AX, -s * rad(kneel(rise))))
@@ -227,15 +238,6 @@ export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, heig
   const think = goal()
   const guard = { right: goal(), left: goal() }
   const worldQ = new THREE.Quaternion()
-
-  const setGoal = (g: Goal, at: THREE.Vector3, finger: THREE.Vector3, palm: THREE.Vector3, curl: number, grip: boolean) => {
-    g.at.copy(at)
-    g.finger.copy(finger).normalize()
-    g.palm.copy(palm).normalize()
-    g.curl = curl
-    g.grip = grip
-    return g
-  }
 
   const resolve = (side: (typeof sides)[number], g: Goal, outWrist: THREE.Vector3, outQ: THREE.Quaternion) => {
     const palm = tmp2.copy(g.palm).addScaledVector(g.finger, -g.palm.dot(g.finger))
@@ -376,7 +378,7 @@ export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, heig
 
     for (const side of sides) {
       const g = idle[side.side]
-      const leg = legs.find((l) => l.out === side.sign)!
+      const leg = legBySign.get(side.sign)!
       const hip = leg.upper.getWorldPosition(tmp)
       const knee = leg.lower.getWorldPosition(new THREE.Vector3())
       if (seat.style === 'chair') {
@@ -443,8 +445,7 @@ export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, heig
     for (const side of sides) {
       resolve(side, idle[side.side], wrist, handQ)
       let { curl } = idle[side.side]
-      let hand: HandPose | null = null
-      let handW = 0
+      const reaching = side.side === state.side && state.reachW > 0.001
       if (side.side === 'right' && state.think > 0.001) {
         resolve(side, think, wristB, handQB)
         wrist.lerp(wristB, state.think)
@@ -457,14 +458,14 @@ export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, heig
         handQ.slerp(handQB, state.flinch)
         curl += (guard[side.side].curl - curl) * state.flinch
       }
-      if (side.side === state.side && state.reachW > 0.001) {
+      if (reaching) {
         resolve(side, state.reach, wristB, handQB)
         wrist.lerp(wristB, state.reachW)
         handQ.slerp(handQB, state.reachW)
         curl += (state.reach.curl - curl) * state.reachW
-        hand = state.reach.hand
-        handW = state.reachW
       }
+      const hand: HandPose | null = reaching ? state.reach.hand : null
+      const handW = reaching ? state.reachW : 0
       pole
         .copy(right)
         .multiplyScalar(side.sign * (0.8 + handW * 0.4))
@@ -489,15 +490,15 @@ export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, heig
         tip.add(b).addScaledVector(b.sub(a), 0.7)
       }
       tip.divideScalar(side.pads.length)
-      const leg = legs.find((l) => l.out === side.sign)!
+      const leg = legBySign.get(side.sign)!
       const hipAt = leg.upper.getWorldPosition(thighA)
-      const thigh = leg.lower.getWorldPosition(thighB).sub(hipAt)
+      const thighVec = leg.lower.getWorldPosition(thighB).sub(hipAt)
       let sink = -Infinity
       for (const [mid, end] of side.tips) {
         const a = mid.getWorldPosition(tmp)
         const p = end.getWorldPosition(tmp2).multiplyScalar(1.7).addScaledVector(a, -0.7)
-        const h = Math.min(1, Math.max(0, p.clone().sub(hipAt).dot(thigh) / thigh.lengthSq()))
-        sink = Math.max(sink, THIGH_R * UNITS_PER_M - p.distanceTo(hipAt.clone().addScaledVector(thigh, h)))
+        const h = Math.min(1, Math.max(0, p.clone().sub(hipAt).dot(thighVec) / thighVec.lengthSq()))
+        sink = Math.max(sink, THIGH_R * UNITS_PER_M - p.distanceTo(hipAt.clone().addScaledVector(thighVec, h)))
       }
       const resting = 1 - Math.max(state.reachW * (side.side === state.side ? 1 : 0), state.think * (side.side === 'right' ? 1 : 0), state.flinch)
       side.lift = resting > 0.5 ? Math.max(0, damp(side.lift, side.lift + sink + 0.004 * UNITS_PER_M, 10, dt)) : damp(side.lift, 0, 4, dt)

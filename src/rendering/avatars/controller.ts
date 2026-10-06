@@ -193,6 +193,54 @@ function seats(options: AvatarOptions): Record<Color, Seat> {
   return { [Color.BLACK]: seat(1), [Color.WHITE]: seat(-1) }
 }
 
+const knock = (action: Action) => {
+  if (action.sound) playSound(action.sound)
+  action.land?.()
+  action.sound = null
+  action.land = null
+}
+
+const finish = (step: Step) => {
+  step.mesh.position.copy(step.to)
+  step.mesh.visible = true
+  step.mesh.rotation.z = 0
+  if (step.toQ) step.mesh.quaternion.copy(step.toQ)
+  if (step.flip) {
+    step.flip.removeFromParent()
+    disposePiece(step.flip)
+    step.flip = null
+  }
+  step.done()
+}
+
+const release = (action: Action) => {
+  for (const step of action.steps.slice(action.index)) finish(step)
+  action.index = action.steps.length
+  action.sound = null
+  action.land = null
+}
+
+const arc = (u: number) => ease(Math.min(1, u / 0.3, (1 - u) / 0.3))
+
+function handAt(kind: MotionKind, t: number, prog: number, carryU: number) {
+  if (t < REACH) return motion(kind, prog, 'open')
+  if (t < REACH + CLOSE) return motion(kind, prog, 'open', 'grip', ease((t - REACH) / CLOSE))
+  if (t < REACH + CLOSE + CARRY) return motion(kind, prog, 'grip', 'press', ease(clamp01((carryU - 0.7) / 0.3)))
+  return motion(kind, prog, 'press')
+}
+
+function phaseAt(t: number): AvatarPhase {
+  if (t < REACH) return 'reach'
+  if (t < REACH + CLOSE) return 'grip'
+  if (t < REACH + CLOSE + CARRY * 0.85) return 'carry'
+  if (t < REACH + CLOSE + CARRY) return 'place'
+  return 'press'
+}
+
+function flinchTarget(actorColor: Color, flip: number) {
+  return (actorColor === Color.BLACK) === flip > 0 ? 0.4 : 1
+}
+
 export async function createAvatars(options: AvatarOptions): Promise<AvatarController> {
   const loader = new GLTFLoader()
   loader.register((parser) => new VRMLoaderPlugin(parser))
@@ -237,33 +285,6 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
   const actorOf = (color: Color) => actors.find((a) => a.color === color)!
   const world = (p: THREE.Vector3) => root.localToWorld(p.clone())
 
-  const knock = (action: Action) => {
-    if (action.sound) playSound(action.sound)
-    action.land?.()
-    action.sound = null
-    action.land = null
-  }
-
-  const finish = (step: Step) => {
-    step.mesh.position.copy(step.to)
-    step.mesh.visible = true
-    step.mesh.rotation.z = 0
-    if (step.toQ) step.mesh.quaternion.copy(step.toQ)
-    if (step.flip) {
-      step.flip.removeFromParent()
-      disposePiece(step.flip)
-      step.flip = null
-    }
-    step.done()
-  }
-
-  const release = (action: Action) => {
-    for (const step of action.steps.slice(action.index)) finish(step)
-    action.index = action.steps.length
-    action.sound = null
-    action.land = null
-  }
-
   const gripAt = (actor: Actor, p: THREE.Vector3) => world(p).addScaledVector(UP, GRIP_Y).addScaledVector(actor.char.forward(), 0.12)
 
   const aim = (actor: Actor, at: THREE.Vector3, hand: HandPose | null) => {
@@ -279,8 +300,6 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
     g.grip = true
     g.hand = hand
   }
-
-  const arc = (u: number) => ease(Math.min(1, u / 0.3, (1 - u) / 0.3))
 
   const stepAction = (actor: Actor, dt: number) => {
     const { action } = actor
@@ -314,14 +333,7 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
     const to = gripAt(actor, step.to)
     const prog = (action.index + t / STEP) / action.steps.length
     const carryU = clamp01((t - REACH - CLOSE) / CARRY)
-    const hand =
-      t < REACH
-        ? motion(action.kind, prog, 'open')
-        : t < REACH + CLOSE
-          ? motion(action.kind, prog, 'open', 'grip', ease((t - REACH) / CLOSE))
-          : t < REACH + CLOSE + CARRY
-            ? motion(action.kind, prog, 'grip', 'press', ease(clamp01((carryU - 0.7) / 0.3)))
-            : motion(action.kind, prog, 'press')
+    const hand = handAt(action.kind, t, prog, carryU)
     actor.focus = world(step.mesh.position)
     if (t < REACH) {
       const u = t / REACH
@@ -509,7 +521,7 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
       const shadows = near < 0.5 && top < 0.5
       if (actor.casters[0]?.castShadow !== shadows) for (const m of actor.casters) m.castShadow = shadows
       const st = actor.char.state
-      st.flinchTarget = flinch ? ((actor.color === Color.BLACK) === flip > 0 ? 0.4 : 1) : 0
+      st.flinchTarget = flinch ? flinchTarget(actor.color, flip) : 0
       stepAction(actor, dt)
       const busy = !!actor.action
       st.thinkTarget = cues.thinking === actor.color && !busy && st.reachW < 0.3 ? 1 : 0
@@ -575,7 +587,7 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
     const { action } = actor
     if (!action) return actor.char.state.reachW > 0.01 ? 'withdraw' : 'idle'
     const { t } = action
-    return t < REACH ? 'reach' : t < REACH + CLOSE ? 'grip' : t < REACH + CLOSE + CARRY * 0.85 ? 'carry' : t < REACH + CLOSE + CARRY ? 'place' : 'press'
+    return phaseAt(t)
   }
 
   const inspect = (): AvatarInspect[] =>

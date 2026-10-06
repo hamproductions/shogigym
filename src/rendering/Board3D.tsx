@@ -1,5 +1,5 @@
 import './board.css'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { BoardLoading } from './BoardLoading'
 import { Color, type ImmutablePosition } from 'tsshogi'
 import { avatarSlot } from './avatars'
@@ -27,7 +27,9 @@ export function Board3D(props: Board3DProps) {
   const piecesReady = useRef(false)
   const state = useRef<SceneState | null>(null)
   const latest = useRef(props)
-  latest.current = props
+  useLayoutEffect(() => {
+    latest.current = props
+  })
   const previous = useRef<ImmutablePosition | null>(null)
   const power = useRef<Power | null>(null)
   const flipTimer = useRef<ReturnType<typeof setTimeout>>(undefined)
@@ -41,7 +43,7 @@ export function Board3D(props: Board3DProps) {
     s.avatars = avatarSlot({ root: s.root, camera: s.camera, dims: { thick: THICK, leg: LEG, halfW: HALF_W, halfD: HALF_D } })
     if (latest.current.cues) s.avatars.cue(latest.current.cues)
     state.current = s
-    if (import.meta.env.DEV) (globalThis as unknown as { __dbg: SceneState }).__dbg = s
+    if (import.meta.env.DEV) Reflect.set(globalThis, '__dbg', s)
     const refresh = (animate = false, relayout = false) => rebuild(s, latest.current, animate, null, false, relayout)
     s.settle = () => refresh()
     const syncPower = () => {
@@ -182,7 +184,7 @@ export function Board3D(props: Board3DProps) {
       power.current = null
       s.controls?.dispose()
       disposeRenderer(renderer)
-      el.removeChild(renderer.domElement)
+      renderer.domElement.remove()
       state.current = null
       piecesReady.current = false
     }
@@ -232,29 +234,22 @@ export function Board3D(props: Board3DProps) {
     if (state.current && props.cues) state.current.avatars?.cue(props.cues)
   }, [props.cues])
 
+  const { selected, targets, arrows, lastMove, castles, stamp, flipped, peek, peekFrom, checkSquare, heat } = props
   useEffect(() => {
-    if (state.current) drawMarks(state.current, latest.current)
-  }, [
-    props.selected,
-    props.targets,
-    props.arrows,
-    props.lastMove,
-    props.castles,
-    props.stamp,
-    props.flipped,
-    props.peek,
-    props.peekFrom,
-    props.checkSquare,
-    props.heat,
-  ])
+    if (state.current)
+      drawMarks(state.current, { ...latest.current, selected, targets, arrows, lastMove, castles, stamp, flipped, peek, peekFrom, checkSquare, heat })
+  }, [selected, targets, arrows, lastMove, castles, stamp, flipped, peek, peekFrom, checkSquare, heat])
 
   useEffect(() => {
     if (state.current) state.current.tiltTarget = props.tilted ? 1 : 0
   }, [props.tilted])
 
+  const seenSnapKey = useRef(props.snapKey)
   useEffect(() => {
-    if (state.current) state.current.settled = false
-  }, [props.snapKey])
+    if (!state.current || seenSnapKey.current === props.snapKey) return
+    seenSnapKey.current = props.snapKey
+    state.current.settled = false
+  })
 
   return (
     <div className="board3d" ref={host} aria-busy={!ready}>

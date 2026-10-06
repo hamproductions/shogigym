@@ -121,6 +121,10 @@ export function basisQuaternion(x: THREE.Vector3, hint: THREE.Vector3, out: THRE
   return out.setFromRotationMatrix(m1.makeBasis(ax, ay, az))
 }
 
-export const ease = (t: number) => (t <= 0 ? 0 : t >= 1 ? 1 : t * t * (3 - 2 * t))
+export const ease = (t: number) => {
+  if (t <= 0) return 0
+  if (t >= 1) return 1
+  return t * t * (3 - 2 * t)
+}
 export const clamp01 = (t: number) => Math.min(1, Math.max(0, t))
 export const damp = (from: number, to: number, rate: number, dt: number) => from + (to - from) * (1 - Math.exp(-rate * dt))

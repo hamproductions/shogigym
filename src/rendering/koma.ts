@@ -37,7 +37,8 @@ export const BOARD_TONE: Record<BoardStyle, { board: [number, number, number]; e
 export function faceText(type: PieceType, color: Color, style: PieceStyle) {
   const one = style !== 'two'
   if (type === PieceType.KING && color === Color.WHITE) return one ? '玉' : '玉将'
-  return one ? (type === PieceType.KING ? '王' : PIECE_CHAR[type]) : FACE[type]
+  if (!one) return FACE[type]
+  return type === PieceType.KING ? '王' : PIECE_CHAR[type]
 }
 
 export function piecePolygon(scale: number): Poly {

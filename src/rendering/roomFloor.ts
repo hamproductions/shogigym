@@ -33,7 +33,10 @@ export function paint(key: string, w: number, h: number, draw: Draw, repeat = fa
     const texture = new THREE.CanvasTexture(canvas)
     texture.colorSpace = THREE.SRGBColorSpace
     texture.anisotropy = 8
-    if (repeat) texture.wrapS = texture.wrapT = THREE.RepeatWrapping
+    if (repeat) {
+      texture.wrapS = THREE.RepeatWrapping
+      texture.wrapT = THREE.RepeatWrapping
+    }
     return texture
   })
 }
@@ -69,7 +72,8 @@ export function tableTexture() {
   return once('table', () => {
     const texture = new THREE.CanvasTexture(grainTexture(1024, 1024, [122, 82, 50], 180, 31))
     texture.colorSpace = THREE.SRGBColorSpace
-    texture.wrapS = texture.wrapT = THREE.RepeatWrapping
+    texture.wrapS = THREE.RepeatWrapping
+    texture.wrapT = THREE.RepeatWrapping
     texture.repeat.set(1, 1)
     texture.anisotropy = 8
     return texture
@@ -196,7 +200,8 @@ export function furnishFloor(root: THREE.Group, dims: RoomDims, casual: boolean)
       new THREE.BoxGeometry(2 * TABLE.halfW, tableT, 2 * TABLE.halfD).translate(0, top - tableT / 2, 0),
       standard('table-wood', { map: tableTexture(), roughness: 0.6 }, 0.2),
     )
-    table.castShadow = table.receiveShadow = true
+    table.castShadow = true
+    table.receiveShadow = true
     root.add(table)
     const glow = new THREE.PointLight(0xffb978, 220, 90, 2)
     glow.position.set(-A + 7, floorY + mm(1450), -mm(1800) / 2 - 7)
