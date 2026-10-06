@@ -2,6 +2,22 @@
 
 Notable changes are recorded here when a release is created. Versions follow Semantic Versioning.
 
+## [1.3.5](/compare/v1.3.3...v1.3.5) (2026-10-06)
+
+
+### Bug Fixes
+
+* **3d:** bound and dispose piece textures, cut polygon count; add tesuji toggle 8296b34
+* **3d:** run all bakes on one shared renderer; don't cache glyphs before the font loads 7578b8e
+* remove empty feedback space from study cards ff29f55
+* share 3d renderer and batch tile previews 2e2be52
+* stabilize mobile controls and synthesize piece clacks 7b74387
+
+
+### Features
+
+* **3d:** sharper table in the locked camera a4d9617
+
 ## [1.3.4](/compare/v1.3.3...v1.3.4) (2026-10-06)
 
 
