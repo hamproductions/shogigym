@@ -84,6 +84,14 @@ function pieceBody(scale: number) {
   const index = geometry.index
   const isSide = new Uint8Array(uv.count)
   for (let i = sideStart; i < sideEnd; i++) isSide[index ? index.getX(i) : i] = 1
+  // Walls facing along the piece length show the board's cross-section, so their grain runs through the thickness.
+  const isEnd = new Uint8Array(uv.count)
+  if (!index)
+    for (let i = sideStart; i + 2 < sideEnd; i += 3) {
+      const nx = (pos.getY(i + 1) - pos.getY(i)) * (pos.getZ(i + 2) - pos.getZ(i)) - (pos.getZ(i + 1) - pos.getZ(i)) * (pos.getY(i + 2) - pos.getY(i))
+      const ny = (pos.getZ(i + 1) - pos.getZ(i)) * (pos.getX(i + 2) - pos.getX(i)) - (pos.getX(i + 1) - pos.getX(i)) * (pos.getZ(i + 2) - pos.getZ(i))
+      if (Math.abs(ny) > Math.abs(nx)) isEnd[i] = isEnd[i + 1] = isEnd[i + 2] = 1
+    }
   for (let i = 0; i < uv.count; i++) {
     const x = pos.getX(i)
     const y = pos.getY(i)
@@ -93,8 +101,13 @@ function pieceBody(scale: number) {
       uv.setXY(i, x / w + 0.5, y / h + 0.5)
       continue
     }
+    const sink = (pos.getZ(i) - depth) / depth
+    if (isEnd[i]) {
+      uv.setXY(i, x / w + 0.5, y / h + 0.5 + sink * 0.8)
+      continue
+    }
     const half = halfWidthAt(poly, y)
-    uv.setXY(i, (half ? x / (2 * half) : x / w) + 0.5 + ((pos.getZ(i) - depth) / depth) * 0.6, y / h + 0.5)
+    uv.setXY(i, (half ? x / (2 * half) : x / w) + 0.5 + sink * 0.6, y / h + 0.5)
   }
   for (let i = 0; i < pos.count; i++) {
     const t = (pos.getY(i) + h * 0.5) / h
