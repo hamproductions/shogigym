@@ -2,6 +2,13 @@
 
 Notable changes are recorded here when a release is created. Versions follow Semantic Versioning.
 
+## [1.3.4](/compare/v1.3.3...v1.3.4) (2026-10-06)
+
+
+### Bug Fixes
+
+* apply wood grain texture to piece side faces
+
 ## [1.3.3](/compare/v1.3.2...v1.3.3) (2026-10-05)
 
 
