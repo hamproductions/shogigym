@@ -38,6 +38,12 @@
   color: #f1eadb;
 }
 
+@media (max-width: 820px), (max-width: 1024px) and (orientation: portrait) {
+  .app-evalbar {
+    display: none;
+  }
+}
+
 @media (max-height: 520px) and (min-width: 821px) {
   .app-evalbar-num {
     font-size: 10px;

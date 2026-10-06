@@ -37,7 +37,7 @@
   }
 
   .with-eval .app-board-scene > .app-peek {
-    left: calc(var(--eval-bar-width) + var(--space-2));
+    left: var(--space-2);
   }
 
   .app-peek.app-phone-only {
@@ -48,7 +48,9 @@
 
   .app-phone-task {
     order: 4;
+    flex: none;
     display: flex;
+    height: calc(2em * var(--leading-tight) + 2 * var(--space-2-5));
     align-items: center;
     gap: var(--space-2-5);
     margin: var(--space-1-5) var(--space-2) var(--space-half);
@@ -65,6 +67,8 @@
   .app-phone-task span {
     flex: 1;
     min-width: 0;
+    max-height: calc(2em * var(--leading-tight));
+    overflow-y: auto;
   }
 
   .app-phone-task b {

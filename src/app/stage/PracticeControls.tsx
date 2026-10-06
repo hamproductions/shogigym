@@ -61,9 +61,6 @@ export function LessonControls({ lesson }: { lesson: Lesson }) {
   const { t } = useTranslation()
   return (
     <>
-      <Button size="sm" variant="ghost" onClick={lesson.leave}>
-        {t('lesson.lessons')}
-      </Button>
       <Segmented<LessonMode>
         size="small"
         label={t('lesson.lessonMode')}
@@ -74,9 +71,6 @@ export function LessonControls({ lesson }: { lesson: Lesson }) {
         ]}
         onChange={lesson.switchLessonMode}
       />
-      <Button size="sm" variant="ghost" onClick={() => lesson.setMapOpen(true)}>
-        {t('lesson.lessonMap')}
-      </Button>
     </>
   )
 }

@@ -16,7 +16,9 @@
 }
 
 .app-modebar-heading,
-.app-modebar-controls {
+.app-modebar-controls,
+.app-modebar-tools,
+.app-modebar-evaluation {
   display: contents;
 }
 
@@ -174,6 +176,10 @@
   flex: none;
   display: flex;
   gap: var(--space-1);
+}
+
+.app-mini-nav.panel-open .app-mini-step {
+  display: none;
 }
 
 .app-mini-nav .app-btn {
@@ -401,23 +407,57 @@
   .app-modebar-controls {
     order: 10;
     flex: none;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    gap: var(--space-1);
     max-width: 100%;
     margin-top: 0;
     padding-bottom: max(var(--space-1-5), env(safe-area-inset-bottom));
+  }
+
+  .app-modebar-evaluation {
+    order: 9;
+    flex: none;
+    display: flex;
+    margin: 0 var(--stage-gutter) var(--space-1);
+  }
+
+  .app-modebar-evaluation .app-eval-chip,
+  .app-modebar-evaluation .app-eval-chip.has-bar {
+    display: inline-flex;
+    flex: 1;
+    height: 28px;
+  }
+
+  .app-modebar-tools {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    flex: 1;
+    min-width: 0;
+    height: 38px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .app-modebar-tools > * {
+    flex-shrink: 0;
   }
 
   .app-modebar.sheet-up .app-modebar-heading {
     display: none;
   }
 
-  .app-modebar-controls .app-lastmove,
-  .app-modebar-controls .app-mini-nav > .app-btn:not(.app-mini-wide) {
+  .app-modebar-controls .app-lastmove {
     display: none;
+  }
+
+  .app-modebar-controls .app-mini-nav .app-mini-step {
+    display: inline-flex;
   }
 
   .app-modebar-controls .app-mini-nav {
     order: 6;
+    gap: var(--space-half);
     margin-left: 0;
   }
 
@@ -455,20 +495,36 @@
 
   .app-modebar-controls .app-btn {
     flex: none;
+    width: 38px;
+    min-width: 38px;
+    height: 38px;
     min-height: 38px;
-    padding: var(--space-1-5) var(--space-2);
+    padding: 0;
+    justify-content: center;
     font-size: var(--text-xs);
     white-space: nowrap;
   }
 
-  .app-modebar-controls .app-help-toggle,
-  .app-modebar-controls .app-takeback,
-  .app-modebar-controls .app-resign,
-  .app-modebar-controls .app-game-setup,
-  .app-modebar-controls .app-board-flip,
-  .app-modebar-controls .app-mini-wide {
-    min-width: 44px;
-    height: 44px;
+  .app-modebar-controls .app-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .app-modebar-controls .app-seg {
+    gap: var(--space-1);
+  }
+
+  .app-modebar-controls .app-seg button {
+    height: 38px;
+    width: 46px;
+    min-width: 46px;
     padding: 0;
+    font-size: var(--text-xs);
+  }
+}
+
+@media (max-width: 360px) {
+  .app-modebar-controls {
+    margin-inline: var(--space-half);
   }
 }

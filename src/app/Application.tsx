@@ -314,6 +314,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
       >
         <Rail
           mode={mode}
+          onLessonBack={mode === 'lesson' && course ? lesson.leave : undefined}
           onMode={enterMode}
           compact={layout.compact}
           view={view}

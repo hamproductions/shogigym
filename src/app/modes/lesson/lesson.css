@@ -344,3 +344,24 @@
   background: color-mix(in srgb, var(--danger, #c0392b) 18%, transparent);
   color: var(--danger, #c0392b);
 }
+
+.app-lesson-feedback {
+  height: calc(2em * var(--leading-normal) + 2 * var(--space-3));
+  overflow-y: auto;
+  margin-bottom: var(--space-2);
+}
+
+.app-lesson-feedback > p {
+  margin: 0;
+}
+
+.app-lesson-pane > .app-score {
+  height: calc(1em * var(--leading-normal));
+  overflow-x: auto;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.app-lesson-pane > .app-score > span {
+  flex-shrink: 0;
+}

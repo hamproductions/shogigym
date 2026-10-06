@@ -1,4 +1,5 @@
 const paths = {
+  back: 'M19 12H5M11 6l-6 6 6 6',
   undo: 'M9 5L4 10l5 5M4 10h9a7 7 0 0 1 7 7',
   resign: 'M5 21V3M5 4h14l-3 4 3 4H5',
   newGame: 'M12 4v16M4 12h16',

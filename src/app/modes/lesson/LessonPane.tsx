@@ -46,8 +46,6 @@ type LessonPaneProps = {
   onBack: () => void
 }
 
-const reveal = (el: HTMLElement | null) => el?.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
-
 export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPlayReply, lastNote, endRate, onBack }: LessonPaneProps) {
   const { t } = useTranslation()
   const { course, liveSfen: sfen, userSide, lastMove, prevSfen, playing, preview, atEnd } = useSession()
@@ -63,14 +61,13 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
       {progress && progress.total > 0 && (
         <span className="app-progress-count">{t('lesson.yourMoves', { value: Math.min(progress.done, progress.total), total: progress.total })}</span>
       )}
-      {lessonMode === 'quiz' && (score.right > 0 || score.wrong > 0 || justRight) && (
+      {lessonMode === 'quiz' && (
         <p className="app-score">
           <span className="right">✓ {score.right}</span>
           <span className="wrong">✗ {score.wrong}</span>
           {justRight && !mistake && !done && <span className="app-just-right">{t('lesson.rightThatIsTheLesson')}</span>}
         </p>
       )}
-      {checking && <p className="app-muted">{t('lesson.checkingThatMove')}</p>}
       {mistakePreview && mistake ? (
         <Card tone={mistakeIsBad(mistake) ? 'bad' : 'good'}>
           <div className="app-verdict-head">
@@ -151,13 +148,17 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
         </Card>
       ) : asking ? (
         <Card>
-          {mistake && !mistakePreview && (
-            <p key={`${mistake.base}:${mistake.usi}`} ref={reveal} className="app-result wrong">
-              {mistakeIsBad(mistake)
-                ? t('lesson.wasLabel', { move: moveText(sfen, mistake.usi), label: (mistake.verdict ? LABELS[mistake.verdict.label] : LABELS.mistake).text })
-                : t('lesson.isNotThisLessonS', { move: moveText(sfen, mistake.usi) })}
-            </p>
-          )}
+          <div className="app-lesson-feedback" role="status">
+            {checking ? (
+              <p className="app-muted">{t('lesson.checkingThatMove')}</p>
+            ) : mistake && !mistakePreview ? (
+              <p className="app-result wrong">
+                {mistakeIsBad(mistake)
+                  ? t('lesson.wasLabel', { move: moveText(sfen, mistake.usi), label: (mistake.verdict ? LABELS[mistake.verdict.label] : LABELS.mistake).text })
+                  : t('lesson.isNotThisLessonS', { move: moveText(sfen, mistake.usi) })}
+              </p>
+            ) : null}
+          </div>
           {lessonMode === 'study' || showAnswer ? (
             <>
               <strong>{t('lesson.yourMoveAs', { side })}</strong>

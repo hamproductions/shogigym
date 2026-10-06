@@ -33,7 +33,7 @@
 
   .app-shell.drawer-open {
     padding-bottom: 0;
-    grid-template-rows: auto minmax(0, 1fr) fit-content(max(30dvh, calc(100dvh - 57px - min(516px, 131vw))));
+    grid-template-rows: auto minmax(0, 1fr) max(30dvh, calc(100dvh - 57px - min(516px, 131vw)));
   }
 
   .app-shell.drawer-open.sheet-set {

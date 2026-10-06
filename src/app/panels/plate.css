@@ -79,6 +79,12 @@
   left: calc(var(--eval-bar-width) + var(--space-2));
 }
 
+@media (max-width: 820px), (max-width: 1024px) and (orientation: portrait) {
+  .app-board-wrap.with-eval .app-plate {
+    left: var(--space-2);
+  }
+}
+
 @media (max-height: 520px) and (min-width: 821px) {
   .app-plate {
     font-size: var(--text-xs);

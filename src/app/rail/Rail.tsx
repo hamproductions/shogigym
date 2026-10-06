@@ -22,6 +22,7 @@ type RailProps = {
   settingsOpen: boolean
   onSettings: () => void
   onPalette: () => void
+  onLessonBack?: () => void
   snapshotName: string
 }
 
@@ -58,7 +59,7 @@ function useMenuDismiss(open: boolean, close: () => void) {
   }, [open, close])
 }
 
-export function Rail({ mode, onMode, compact: phone, view, settingsOpen, onSettings, onPalette, snapshotName }: RailProps) {
+export function Rail({ mode, onMode, compact: phone, view, settingsOpen, onSettings, onPalette, onLessonBack, snapshotName }: RailProps) {
   const { t } = useTranslation()
   const ja = useSettings().lang === 'ja'
   const installation = useInstallApp()
@@ -103,6 +104,11 @@ export function Rail({ mode, onMode, compact: phone, view, settingsOpen, onSetti
   return (
     <nav className="app-rail" aria-label={t('app.mode')} ref={railRef}>
       <RailSeal />
+      {onLessonBack && (
+        <button className="app-rail-btn app-lesson-back" onClick={onLessonBack} title={t('lesson.lessons')} aria-label={t('lesson.lessons')}>
+          <Icon name="back" size={20} />
+        </button>
+      )}
       {compact && (
         <div className="app-menu-wrap app-mode-menu">
           <button

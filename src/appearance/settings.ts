@@ -2,6 +2,7 @@ import type { PieceSet } from './pieceSets'
 import { applyTheme, type Theme } from '@/utils/theme'
 import i18n from '@/utils/i18n'
 import { useSyncExternalStore } from 'react'
+import { playClack } from './clack'
 
 export type PieceStyle = 'two' | 'one'
 export type PieceGuide = 'none' | 'movement' | 'dots' | 'lines'
@@ -253,8 +254,8 @@ function sweep(when: number, from: number, to: number, gain: number, length: num
 export function playSound(kind: 'move' | 'capture' | 'komadai' | 'right' | 'wrong' | 'complete' | 'bang' | 'clatter' | 'thump' | 'heartbeat' | 'boom') {
   if (!current.sound || document.hidden) return
   try {
-    if (kind === 'komadai') knock(0, 2400, 0.65, 0.045)
-    else if (kind === 'move') knock(0, 1900, 1.4, 0.09)
+    if (kind === 'komadai') playClack(audioContext(), 'komadai', 0.45 * current.volume, trackAudio)
+    else if (kind === 'move') playClack(audioContext(), 'board', current.volume, trackAudio)
     else if (kind === 'thump') {
       sweep(0, 150, 38, 0.8, 0.5)
       knock(0, 110, 6, 0.3)
@@ -270,7 +271,7 @@ export function playSound(kind: 'move' | 'capture' | 'komadai' | 'right' | 'wron
       knock(0, 420, 5, 0.5)
       knock(0.02, 1600, 2.5, 0.2)
       for (const [i, f] of [523, 784, 1046].entries()) tone(0.35 + i * 0.08, f, 0.05, 2.2)
-    } else if (kind === 'capture') knock(0, 1250, 2.2, 0.13)
+    } else if (kind === 'capture') playClack(audioContext(), 'board', current.volume, trackAudio)
     else if (kind === 'bang') {
       knock(0, 140, 9, 0.45)
       knock(0, 420, 5, 0.25)

@@ -18,7 +18,11 @@ export const compactShard = (index: number) => binaryStore('shogigym:compact-boo
 export const compactUrl = (index: number) => `${import.meta.env.BASE_URL}books/peta233-v1/${index.toString(16).padStart(2, '0')}.json`
 export type BookProgress = { done: number; total: number }
 
-type FullManifest = { size: number; compressedSize: number; chunks: { file: string; size: number; compressedSize: number; sha256: string }[] }
+type FullManifest = {
+  size: number
+  compressedSize: number
+  chunks: { file: string; size: number; compressedSize: number; sha256: string; rawSha256: string }[]
+}
 export async function downloadFullBook(signal: AbortSignal, progress: (value: BookProgress) => void) {
   const base = `${import.meta.env.BASE_URL}books/peta233-full-v1/`
   const response = await fetch(`${base}manifest.json`, { signal })
@@ -40,11 +44,14 @@ export async function downloadFullBook(signal: AbortSignal, progress: (value: Bo
     }
     const digest = await crypto.subtle.digest('SHA-256', cached.bytes as BufferSource)
     const hash = [...new Uint8Array(digest)].map((value) => value.toString(16).padStart(2, '0')).join('')
-    if (cached.size !== chunk.compressedSize || hash !== chunk.sha256) {
+    const compressed = cached.size === chunk.compressedSize && hash === chunk.sha256
+    const decoded = cached.size === chunk.size && hash === chunk.rawSha256
+    if (!compressed && !decoded) {
       await store.clear()
       throw new Error(`Opening book: invalid chunk ${chunk.file}`)
     }
-    const blob = await new Response(new Blob([cached.bytes as BlobPart]).stream().pipeThrough(new DecompressionStream('gzip'))).blob()
+    const source = new Blob([cached.bytes as BlobPart])
+    const blob = compressed ? await new Response(source.stream().pipeThrough(new DecompressionStream('gzip'))).blob() : source
     if (blob.size !== chunk.size) throw new Error(`Opening book: invalid size ${chunk.file}`)
     blobs.push(blob)
     done += chunk.compressedSize
