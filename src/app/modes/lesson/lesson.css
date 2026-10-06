@@ -365,3 +365,24 @@
 .app-lesson-pane > .app-score > span {
   flex-shrink: 0;
 }
+
+.app-lesson-pane.study > .app-card {
+  position: relative;
+}
+
+.app-lesson-feedback.floating {
+  position: absolute;
+  bottom: calc(100% + var(--space-2));
+  left: 0;
+  right: 0;
+  height: auto;
+  max-height: calc(2em * var(--leading-normal) + 2 * var(--space-3));
+  margin: 0;
+  background: var(--surface-1);
+  border-radius: var(--radius-md);
+  z-index: var(--z-hud);
+}
+
+.app-lesson-feedback.floating:empty {
+  display: none;
+}

@@ -1,6 +1,7 @@
 # Current task
 
 ## Current scope
+- Active correction: study prompt had empty quiz feedback reservation above content. Reserve feedback only in quiz; study feedback floats above card without affecting flow. Study gap verified removed at 390px and 1440px: prompt sits 12px below card top; empty feedback height zero. Quiz reservation remains 72px; checking retains identical board/bar/panel/prompt bounds. TypeScript, lint and formatting pass.
 - Latest correction completed: top rail icon-only lesson-return arrow; lesson flow-chart and verbose return buttons removed from bottom bar. All compact bottom icons 18px, buttons 38×38px, study/quiz segments 46×38px. Full lesson row fits at 320px without scrolling.
 - Correction skills read: get-your-shit-together 1–EOF/27 and look-at-the-screen 1–EOF/60; both supplied screenshots inspected.
 - Mobile bottom controls contain previous/next and panel toggle in one fixed row with panel open or closed. Extra tools scroll horizontally; evaluation occupies a separate strip above controls.
@@ -9,8 +10,8 @@
 - Approved native shogi clack integration remains complete: board Original 4, komadai Original 5; no recording playback in application.
 
 ## Permissions and runtime
-- Current authorization: commit patch on main, close all repository PRs, synchronize main and leave working tree clean. No release or deployment requested; no active Goal.
-- User explicitly authorized leaving localhost dev server running. Foreground session 90502 at http://127.0.0.1:5173 remains running; do not stop it during cleanup.
+- Current authorization: commit patch on main, close all repository PRs, synchronize main and leave working tree clean. No new commit, push, release or deployment authorized this turn; no active Goal.
+- User explicitly authorized leaving localhost dev server running. Foreground session 81111 at http://127.0.0.1:5173 runs after a free-port check; do not stop it during cleanup.
 - Owned muted headed browser book-fetch used for QA; closed after final checks. Preexisting default session untouched.
 
 ## Implementation
@@ -59,3 +60,10 @@
 - Open PRs 8 and 2 closed without merge.
 - Sound audition samples retained locally and excluded through .git/info/exclude.
 - Main refreshed from origin; patch commit is the only local lead. Task record cleanup committed before synchronization.
+
+## Server instruction repair
+- unfuck-yourself read 1–EOF/60; audit uses current conversation requests/tool results only.
+- Blanket server-start and dead-server-restart bans in .awesome-agent/shared/core_profile.md:35/51 caused unnecessary permission gating; prior process exit cause unavailable, not asserted as a crash.
+- Both clauses replaced: start/restart project-local dev commands on free ports without asking; reuse matching listeners or select another port, preserve unrelated services, respect leave-running authorization.
+- Existing isolated prompt-unification check passed; canonical prompt regenerated with existing renderer, installed Codex/Claude/Gemini links verified. No full configuration sync or unrelated system changes.
+- Runtime resumed successfully and original study-card fix inspected. Owned study-gap browser closed after final checks; dev server retained by standing authorization.

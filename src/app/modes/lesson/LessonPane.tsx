@@ -57,7 +57,7 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
   const theirs = reply ?? mainBranch(lesson.node)
   const endComment = done ? lesson.node?.comment : undefined
   return (
-    <div className="app-lesson-pane">
+    <div className={`app-lesson-pane ${lessonMode}`}>
       {progress && progress.total > 0 && (
         <span className="app-progress-count">{t('lesson.yourMoves', { value: Math.min(progress.done, progress.total), total: progress.total })}</span>
       )}
@@ -148,7 +148,7 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
         </Card>
       ) : asking ? (
         <Card>
-          <div className="app-lesson-feedback" role="status">
+          <div className={`app-lesson-feedback${lessonMode === 'study' ? ' floating' : ''}`} role="status">
             {checking ? (
               <p className="app-muted">{t('lesson.checkingThatMove')}</p>
             ) : mistake && !mistakePreview ? (
