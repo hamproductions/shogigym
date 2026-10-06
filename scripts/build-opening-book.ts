@@ -13,11 +13,11 @@ const insert = db.prepare('INSERT OR REPLACE INTO positions VALUES (?, ?)')
 const flush = db.transaction((batch: [string, string][]) => {
   for (const row of batch) insert.run(...row)
 })
-let key = ''
+let currentKey = ''
 let moves: [string, number, number][] = []
 let batch: [string, string][] = []
 const save = () => {
-  if (key && moves.length) batch.push([key, JSON.stringify(moves)])
+  if (currentKey && moves.length) batch.push([currentKey, JSON.stringify(moves)])
   if (batch.length >= 1000) {
     flush(batch)
     batch = []
@@ -27,7 +27,7 @@ if (!db.query<{ count: number }, []>('SELECT count(*) AS count FROM positions').
   for await (const line of createInterface({ input: createReadStream(input), crlfDelay: Infinity })) {
     if (line.startsWith('sfen ')) {
       save()
-      key = strip(line.slice(5))
+      currentKey = strip(line.slice(5))
       moves = []
     } else if (/^(?:[1-9][a-i]|[PLNSGBR]\*)[1-9][a-i]/.test(line)) {
       const [usi, , score, depth] = line.trim().split(/\s+/)
@@ -49,7 +49,7 @@ const seed = (node: { sfen: string; branches: { child: typeof node | null }[] })
   for (const branch of node.branches) if (branch.child) seed(branch.child)
 }
 for (const directory of ['src/data/joseki', 'vendor/shiryu-joseki/src/data/joseki']) {
-  for (const file of readdirSync(directory).filter((file) => file.endsWith('.json'))) seed((await Bun.file(`${directory}/${file}`).json()).root)
+  for (const file of readdirSync(directory).filter((name) => name.endsWith('.json'))) seed((await Bun.file(`${directory}/${file}`).json()).root)
 }
 const seen = new Set<string>()
 const shards: Record<string, [string, number, number][]>[] = Array.from({ length: 64 }, () => ({}))
@@ -69,7 +69,7 @@ for (let cursor = 0; cursor < queue.length && count < 24000; cursor++) {
       const move = position.createMoveByUSI(usi)
       return move && position.isValidMove(move)
     })
-    .sort((a, b) => b[1] - a[1])
+    .toSorted((a, b) => b[1] - a[1])
   if (!entries.length) continue
   shards[bookShard(key)][key] = entries
   count++

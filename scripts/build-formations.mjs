@@ -45,13 +45,22 @@ const fields = [
   'add_to_self',
   'add_to_opponent',
 ]
+const kindFor = (index, name) => {
+  if (index === 1) return 'castle'
+  return index >= 2 && !['居飛車', '振り飛車'].includes(name) ? 'technique' : 'strategy'
+}
+const parseValue = (value) => {
+  if (value === 'true') return true
+  if (value === 'false') return false
+  return /^\d+$/.test(value) ? Number(value) : value.replace(/^:|"/g, '')
+}
 const rules = []
 const missing = []
 const definitions = []
 for (const [index, source] of sources.slice(1).entries()) {
-  for (const line of source.split('\n').filter((line) => /^\s*\{ key:/.test(line))) {
-    const name = line.match(/key: "([^"]+)"/)[1]
-    const definition = { name, kind: index === 1 ? 'castle' : index >= 2 && !['居飛車', '振り飛車'].includes(name) ? 'technique' : 'strategy' }
+  for (const line of source.split('\n').filter((entry) => /^\s*\{ key:/.test(entry))) {
+    const [, name] = line.match(/key: "([^"]+)"/)
+    const definition = { name, kind: kindFor(index, name) }
     for (const field of ['add_to_self', 'add_to_opponent']) {
       const value = line.match(new RegExp(`${field}:\\s*"([^"]+)"`))?.[1]
       if (value) definition[field] = value
@@ -64,27 +73,26 @@ for (const [index, source] of sources.slice(1).entries()) {
     }
     const cells = []
     let rank = 0
-    for (const line of body.split('\n')) {
-      const match = line
+    for (const row of body.split('\n')) {
+      const match = row
         .replace(/\s*#.*$/, '')
         .trim()
         .match(/^\|(.*)\|([一二三四五六七八九])?$/)
       if (!match) continue
       rank = match[2] ? ranks.indexOf(match[2]) + 1 : rank + 1
       const tokens = [...match[1].matchAll(/([ v!@*?~^])([^ v!@*?~^])/g)]
-      if (tokens.length !== 9) throw new Error(`${name}: unsupported board row ${line}`)
-      tokens.forEach((token, index) => {
+      if (tokens.length !== 9) throw new Error(`${name}: unsupported board row ${row}`)
+      tokens.forEach((token, column) => {
         if (token[2] === '・') return
         if (!pieces[token[2]] && !'●○★☆◆■□◇'.includes(token[2])) throw new Error(`${name}: ${token[0]}`)
-        cells.push([9 - index, rank, token[1].trim(), pieces[token[2]] ?? token[2]])
+        cells.push([9 - column, rank, token[1].trim(), pieces[token[2]] ?? token[2]])
       })
     }
-    const rule = { name, kind: index === 1 ? 'castle' : index >= 2 && !['居飛車', '振り飛車'].includes(name) ? 'technique' : 'strategy', cells }
+    const rule = { name, kind: kindFor(index, name), cells }
     if (index === 0) rule.preset_is = 'hirate_like'
     for (const field of fields) {
       const value = line.match(new RegExp(`${field}:\\s*(nil|true|false|\\d+|:[\\w]+|"[^"]+")`))?.[1]
-      if (value && value !== 'nil')
-        rule[field] = value === 'true' ? true : value === 'false' ? false : /^\d+$/.test(value) ? Number(value) : value.replace(/^:|"/g, '')
+      if (value && value !== 'nil') rule[field] = parseValue(value)
     }
     for (const field of ['hold_piece_eq', 'op_hold_piece_eq', 'hold_piece_in', 'hold_piece_not_in']) {
       const value = line.match(new RegExp(`${field}:\\s*"([^"]+)"`))?.[1]

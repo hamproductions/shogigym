@@ -7,7 +7,7 @@ import { statsKey, statsShard, type RawPosition, type StatsMeta } from '../../sr
 const args = process.argv.slice(2)
 const arg = (name: string, fallback: string) => {
   const i = args.indexOf(`--${name}`)
-  return i !== -1 ? args[i + 1] : fallback
+  return i === -1 ? fallback : args[i + 1]
 }
 const FLOODGATE_YEARS = arg('floodgate', '2025').split(',').filter(Boolean)
 const AOBA_FILES = Number(arg('aoba', '3'))
@@ -110,7 +110,7 @@ async function aobaFiles() {
   if (!folder) throw new Error('no AobaZero kifu folder found')
   const view = await (await fetch(`https://drive.google.com/embeddedfolderview?id=${folder}`)).text()
   const files = [...view.matchAll(/file\/d\/([\w-]+)[\s\S]*?flip-entry-title">(arch\d+\.csa\.xz)/g)].map((m) => ({ id: m[1], name: m[2] }))
-  return files.sort((a, b) => a.name.localeCompare(b.name)).slice(-AOBA_FILES)
+  return files.toSorted((a, b) => a.name.localeCompare(b.name)).slice(-AOBA_FILES)
 }
 
 async function readPetabook(keys: Set<string>) {
@@ -164,7 +164,7 @@ for (const [key, moveMap] of table) {
   if (total < MIN_GAMES) continue
   const m = rows
     .filter((r) => r[1] >= Math.max(2, total * 0.005))
-    .sort((a, b) => b[1] - a[1])
+    .toSorted((a, b) => b[1] - a[1])
     .slice(0, MAX_MOVES)
   kept.set(key, { n: total, m })
 }

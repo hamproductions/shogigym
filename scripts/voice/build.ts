@@ -49,9 +49,9 @@ for (const { text, say, natural } of PHRASES) {
       const accent = Math.max(1, Math.min(query.accent_phrases[0].accent, moras.length))
       corrected = `${moras.slice(0, accent).join('')}'${moras.slice(accent).join('')}`
     }
-    const response = await fetch(`${ENGINE}/accent_phrases?speaker=${SPEAKER}&is_kana=true&text=${encodeURIComponent(corrected)}`, { method: 'POST' })
-    if (!response.ok) throw new Error(`Kana correction failed for ${text}: ${response.status}`)
-    query.accent_phrases = await response.json()
+    const correction = await fetch(`${ENGINE}/accent_phrases?speaker=${SPEAKER}&is_kana=true&text=${encodeURIComponent(corrected)}`, { method: 'POST' })
+    if (!correction.ok) throw new Error(`Kana correction failed for ${text}: ${correction.status}`)
+    query.accent_phrases = await correction.json()
     if (phonetic(kana) !== phonetic(spoken())) throw new Error(`Reading mismatch for ${text}: ${kana} → ${spoken()}`)
     console.log(`Corrected engine reading: ${text}`)
   }

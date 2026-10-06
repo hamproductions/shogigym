@@ -54,6 +54,8 @@ interface State {
   usedCounts: [Partial<Record<PieceType, number>>, Partial<Record<PieceType, number>>]
 }
 const rules = data.rules as Rule[]
+const definitionByName = new Map<string, (typeof data.definitions)[number]>()
+for (const entry of data.definitions) if (!definitionByName.has(entry.name)) definitionByName.set(entry.name, entry)
 const side = (color: Color) => (color === Color.BLACK ? 0 : 1)
 const square = (color: Color, file: number, rank: number) => (color === Color.BLACK ? new Square(file, rank) : new Square(10 - file, 10 - rank))
 const code = (position: ImmutablePosition, at: Square) => {
@@ -62,16 +64,18 @@ const code = (position: ImmutablePosition, at: Square) => {
 }
 const silverValue = (type: PieceType) => ![PieceType.PAWN, PieceType.LANCE, PieceType.KNIGHT].includes(type)
 
+const opponentOf = (color: Color) => (color === Color.BLACK ? Color.WHITE : Color.BLACK)
+
 function matches(rule: Rule, position: ImmutablePosition, color: Color, state: State, event?: Event) {
   const hand = position.hand(color)
   const held = Object.fromEntries(hand.counts.map(({ type, count }) => [pieceTypeToSFEN(type), count]).filter(([, count]) => count))
-  const opposite = color === Color.BLACK ? Color.WHITE : Color.BLACK
+  const opposite = opponentOf(color)
   if (rule.outbreak_skip && state.outbreak) return false
   if (rule.kill_count_lteq !== undefined && state.kills > rule.kill_count_lteq) return false
   if (rule.preset_is && !(rule.preset_is === 'hirate_like' ? state.hirate : rule.preset_is === 'x_taden' && state.generalPreset)) return false
   if (rule.turn_max !== undefined && (event?.ply ?? 0) > rule.turn_max) return false
   if (rule.turn_eq !== undefined && event?.ply !== rule.turn_eq) return false
-  if (rule.order_key && color !== (rule.order_key === 'order_first' ? state.first : state.first === Color.BLACK ? Color.WHITE : Color.BLACK)) return false
+  if (rule.order_key && color !== (rule.order_key === 'order_first' ? state.first : opponentOf(state.first))) return false
   if (rule.drop_only && event?.from) return false
   if (rule.kill_only && !event?.captured) return false
   if (rule.has_pawn_then_skip && hand.count(PieceType.PAWN)) return false
@@ -125,7 +129,7 @@ function add(state: State, color: Color, rule: Rule, ply: number, detectedPly = 
   if (tags.some((tag) => tag.name === rule.name && (!repeat || tag.ply === ply))) return
   if (rule.name === '居飛車' && tags.some((tag) => tag.name === '振り飛車')) return
   if (rule.name === '振り飛車' && tags.some((tag) => tag.name === '居飛車')) return
-  const definition = data.definitions.find((definition) => definition.name === rule.name)
+  const definition = definitionByName.get(rule.name)
   tags.push({
     name: rule.name,
     kind: rule.kind,
@@ -138,11 +142,16 @@ function add(state: State, color: Color, rule: Rule, ply: number, detectedPly = 
   })
   for (const [name, owner] of [
     [definition?.add_to_self, color],
-    [definition?.add_to_opponent, color === Color.BLACK ? Color.WHITE : Color.BLACK],
+    [definition?.add_to_opponent, opponentOf(color)],
   ] as const) {
-    const extra = data.definitions.find((definition) => definition.name === name)
+    const extra = name ? definitionByName.get(name) : undefined
     if (extra) add(state, owner, { name: extra.name, kind: extra.kind as Rule['kind'], cells: [] }, ply, detectedPly, false, false)
   }
+}
+
+function motionKind(name: string): Rule['kind'] {
+  if (name === '右玉') return 'strategy'
+  return ['天空の城', 'オリオン囲い'].includes(name) ? 'castle' : 'technique'
 }
 
 function detect(position: ImmutablePosition, color: Color, state: State, event?: Event, sfens: string[] = [], moves: string[] = []) {
@@ -166,14 +175,7 @@ function detect(position: ImmutablePosition, color: Color, state: State, event?:
       { sfens, moves },
       state.tags[side(color)].map((tag) => tag.name),
     ))
-      add(
-        state,
-        color,
-        { name, kind: ['右玉'].includes(name) ? 'strategy' : ['天空の城', 'オリオン囲い'].includes(name) ? 'castle' : 'technique', cells: [] },
-        event.ply,
-        event.ply,
-        true,
-      )
+      add(state, color, { name, kind: motionKind(name), cells: [] }, event.ply, event.ply, true)
   }
   for (const tag of detectCustom(
     position,
@@ -184,7 +186,7 @@ function detect(position: ImmutablePosition, color: Color, state: State, event?:
     !state.outbreak,
     state.hirate,
     state.generalPreset,
-    state.tags[side(color)].map((tag) => tag.name),
+    state.tags[side(color)].map((existing) => existing.name),
   )) {
     add(
       state,
@@ -293,15 +295,16 @@ export function formationOpeningAt(sfens: string[], moves: string[], cursor: num
 }
 
 export function finalizeFormationTags(sfens: string[], moves: string[], result: DetectionResult = {}) {
-  const tags = formationTagsAt(sfens, moves, moves.length, {
+  const detected = formationTagsAt(sfens, moves, moves.length, {
     hirateLike: result.hirateLike,
     generalPreset: result.generalPreset,
     kingHands: result.kingHands,
-  }).map((list) => [...list]) as [FormationTag[], FormationTag[]]
+  })
+  const tags: [FormationTag[], FormationTag[]] = [[...detected[0]], [...detected[1]]]
   const state = cache.states[moves.length]
   const position = positionOf(sfens[moves.length])
   const has = (color: Color, name: string) => tags[side(color)].some((tag) => tag.name === name)
-  const add = (color: Color, name: string, kind: FormationTag['kind'] = 'technique') => {
+  const addTag = (color: Color, name: string, kind: FormationTag['kind'] = 'technique') => {
     if (!has(color, name))
       tags[side(color)].push({
         name,
@@ -315,19 +318,19 @@ export function finalizeFormationTags(sfens: string[], moves: string[], result: 
   if (state.hirate && state.outbreak) {
     for (const color of players) {
       if (!tags[side(color)].some((tag) => tag.kind === 'castle' || (tag.kind === 'strategy' && !['居飛車', '振り飛車'].includes(tag.name)))) {
-        if (result.winner === color) add(color, '名人に定跡なし')
-        add(color, '力戦', 'strategy')
+        if (result.winner === color) addTag(color, '名人に定跡なし')
+        addTag(color, '力戦', 'strategy')
       }
-      if (!has(color, '振り飛車') && !has(color, '居飛車')) add(color, '居飛車', 'strategy')
-      if (state.firstKingMove[side(color)] === null || state.firstKingMove[side(color)]! >= state.outbreakPly!) add(color, '居玉', 'castle')
-      add(color, state.outbreakPly! - 1 < 42.0553 ? '急戦' : '持久戦')
+      if (!has(color, '振り飛車') && !has(color, '居飛車')) addTag(color, '居飛車', 'strategy')
+      if (state.firstKingMove[side(color)] === null || state.firstKingMove[side(color)]! >= state.outbreakPly!) addTag(color, '居玉', 'castle')
+      addTag(color, state.outbreakPly! - 1 < 42.0553 ? '急戦' : '持久戦')
     }
   }
-  if (state.hirate && state.kills) for (const color of players) add(color, moves.length < 89.4866 ? '短手数' : '長手数')
+  if (state.hirate && state.kills) for (const color of players) addTag(color, moves.length < 89.4866 ? '短手数' : '長手数')
   for (const name of ['居飛車', '振り飛車', '居玉', '穴熊', '入玉'])
-    if (players.every((color) => has(color, name))) for (const color of players) add(color, `相${name}`)
-  if (players.filter((color) => has(color, '振り飛車')).length === 1) for (const color of players) add(color, '対抗形')
-  if (result.impasse && state.hirate) for (const color of players) add(color, '持将棋')
+    if (players.every((color) => has(color, name))) for (const color of players) addTag(color, `相${name}`)
+  if (players.filter((color) => has(color, '振り飛車')).length === 1) for (const color of players) addTag(color, '対抗形')
+  if (result.impasse && state.hirate) for (const color of players) addTag(color, '持将棋')
   for (const color of players) if (has(color, '振り飛車')) tags[side(color)] = tags[side(color)].filter((tag) => tag.name !== '雁木戦法')
   const { winner } = result
   if (winner !== undefined) {
@@ -364,9 +367,9 @@ export function finalizeFormationTags(sfens: string[], moves: string[], result: 
       position.hand(winner).count(PieceType.BISHOP)
     const diff = score(winner) - score(loser)
     if (state.hirate && state.outbreak) {
-      if (!majorCount && has(winner, '大駒全ブッチ')) add(winner, '屍の舞')
-      if (diff > 3800) add(winner, '駒得は正義')
-      if (diff < -3800) add(loser, '駒の持ち腐れ')
+      if (!majorCount && has(winner, '大駒全ブッチ')) addTag(winner, '屍の舞')
+      if (diff > 3800) addTag(winner, '駒得は正義')
+      if (diff < -3800) addTag(loser, '駒の持ち腐れ')
       const king = owned(loser).find((at) => position.board.at(at)!.type === PieceType.KING)
       if (king && [1, 9].includes(king.file) && king.rank === (loser === Color.BLACK ? 9 : 1) && score(winner) >= 52990) {
         const inward = king.file === 1 ? 1 : -1,
@@ -378,12 +381,12 @@ export function finalizeFormationTags(sfens: string[], moves: string[], result: 
             [inward, forward],
           ].every(([dx, dy]) => position.board.at(new Square(king.file + dx, king.rank + dy))?.color === loser)
         )
-          add(winner, '穴熊の姿焼き')
+          addTag(winner, '穴熊の姿焼き')
       }
     }
     if (state.generalPreset && state.outbreak) {
-      if (moves.length < 89.4866 / 2 && diff >= 6000) add(loser, '道場出禁')
-      for (const color of players) if (has(color, '玉単騎') || has(color, '全駒')) add(color, '道場出禁')
+      if (moves.length < 89.4866 / 2 && diff >= 6000) addTag(loser, '道場出禁')
+      for (const color of players) if (has(color, '玉単騎') || has(color, '全駒')) addTag(color, '道場出禁')
       if (
         position.hand(winner).counts.every(({ count }) => !count) &&
         owned(winner).length <
@@ -391,16 +394,16 @@ export function finalizeFormationTags(sfens: string[], moves: string[], result: 
             .board.listNonEmptySquares()
             .filter((at) => positionOf(sfens[0]).board.at(at)?.color === winner).length
       )
-        add(winner, 'ミニマリスト')
+        addTag(winner, 'ミニマリスト')
     }
     if (result.checkmate) {
       const king = owned(loser).find((at) => position.board.at(at)!.type === PieceType.KING)
-      if (king?.file === 5 && king.rank === 5) add(winner, '都詰め')
-      if (king && [1, 9].includes(king.file) && king.rank === (loser === Color.BLACK ? 9 : 1)) add(winner, '雪隠詰め')
+      if (king?.file === 5 && king.rank === 5) addTag(winner, '都詰め')
+      if (king && [1, 9].includes(king.file) && king.rank === (loser === Color.BLACK ? 9 : 1)) addTag(winner, '雪隠詰め')
       if (moves.length) {
         const before = positionOf(sfens[moves.length - 1]),
           move = before.createMoveByUSI(moves.at(-1)!)
-        if (move && unpromotedPieceType(position.board.at(move.to)!.type) === PieceType.KNIGHT) add(winner, '吊るし桂')
+        if (move && unpromotedPieceType(position.board.at(move.to)!.type) === PieceType.KNIGHT) addTag(winner, '吊るし桂')
       }
     }
   }
@@ -426,7 +429,7 @@ export function currentFormation(position: ImmutablePosition, color: Color, tags
     (tags.findLast((tag) => tag.kind === 'strategy' && !['居飛車', '振り飛車'].includes(tag.name)) ?? tags.findLast((tag) => tag.kind === 'strategy'))?.name ??
     null
   const castle = tags.findLast((tag) => tag.kind === 'castle')
-  const rule = rules.find((rule) => rule.name === castle?.name)
+  const rule = rules.find((candidate) => candidate.name === castle?.name)
   const state: State = {
     tags: [[], []],
     kills: 0,
@@ -437,12 +440,13 @@ export function currentFormation(position: ImmutablePosition, color: Color, tags
     generalPreset: true,
     usedCounts: [{}, {}],
   }
-  const squares =
-    rule && matches({ ...rule, turn_eq: undefined, kill_only: false, order_key: undefined }, position, color, state)
-      ? castle!.squares
-      : castle?.name.includes('穴熊') && castle.squares.some((at) => position.board.at(at)?.type === PieceType.KING && position.board.at(at)?.color === color)
-        ? castle.squares.filter((at) => position.board.at(at)?.color === color)
-        : []
+  let squares: Square[] = []
+  if (castle && rule && matches({ ...rule, turn_eq: undefined, kill_only: false, order_key: undefined }, position, color, state)) ({ squares } = castle)
+  else if (
+    castle?.name.includes('穴熊') &&
+    castle.squares.some((at) => position.board.at(at)?.type === PieceType.KING && position.board.at(at)?.color === color)
+  )
+    squares = castle.squares.filter((at) => position.board.at(at)?.color === color)
   const unmoved = position.board.at(square(color, 5, 9))?.type === PieceType.KING && position.board.at(square(color, 5, 9))?.color === color
   return { strategy, castle: castle?.name ?? (unmoved ? '居玉' : null), squares }
 }

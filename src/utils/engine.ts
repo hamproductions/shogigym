@@ -13,6 +13,12 @@ interface UsiModule {
   FS?: { writeFile: (path: string, data: Uint8Array) => void }
 }
 
+// USI engine command channel (YaneuraOu/Fairy wasm module), not window/Worker postMessage, so there is no target origin.
+function send(engine: UsiModule, command: string) {
+  // oxlint-disable-next-line unicorn/require-post-message-target-origin -- UsiModule.postMessage takes a single USI command string, not a cross-window message
+  engine.postMessage(command)
+}
+
 type EngineFactory = () => Promise<UsiModule>
 
 declare global {
@@ -102,15 +108,15 @@ function loadScript(src: string, factory: () => EngineFactory | undefined): Prom
       reject(new Error(`engine timed out loading ${src}`))
     }, 30000)
     script.src = src
-    script.onload = () => {
+    script.addEventListener('load', () => {
       clearTimeout(timer)
       resolve()
-    }
-    script.onerror = () => {
+    })
+    script.addEventListener('error', () => {
       clearTimeout(timer)
       script.remove()
       reject(new Error(`failed to load ${src}`))
-    }
+    })
     document.head.append(script)
   })
 }
@@ -137,7 +143,7 @@ function waitFor(engine: UsiModule, command: string, terminator: string, onLine?
       if (line.startsWith(terminator)) finish()
     }
     try {
-      engine.postMessage(command)
+      send(engine, command)
     } catch (error) {
       clear()
       reject(error)
@@ -189,9 +195,9 @@ async function boot(kind: EngineKind): Promise<UsiModule> {
     engine.terminate()
     throw new Error('engine switched')
   }
-  engine.postMessage('setoption name USI_Hash value 128')
-  engine.postMessage(`setoption name Threads value ${Math.max(1, Math.min(4, (navigator.hardwareConcurrency || 2) - 1))}`)
-  spec.options().forEach((option) => engine.postMessage(`setoption name ${option}`))
+  send(engine, 'setoption name USI_Hash value 128')
+  send(engine, `setoption name Threads value ${Math.max(1, Math.min(4, (navigator.hardwareConcurrency || 2) - 1))}`)
+  spec.options().forEach((option) => send(engine, `setoption name ${option}`))
   let failure = ''
   await waitFor(engine, 'isready', 'readyok', (line) => {
     if (!line.startsWith('Error')) return
@@ -311,7 +317,7 @@ async function prepareBook(engine: UsiModule) {
     'BookEvalDiff value 0',
     'BookDepthLimit value 0',
   ])
-    engine.postMessage(`setoption name ${option}`)
+    send(engine, `setoption name ${option}`)
   await waitFor(engine, 'isready', 'readyok')
   return true
 }
@@ -324,7 +330,7 @@ function search(
   onUpdate?: (analysis: Analysis) => void,
   book = false,
 ): Promise<Analysis> {
-  if (searching && interruptible) current?.postMessage('stop')
+  if (searching && interruptible && current) send(current, 'stop')
   const generation = background ? ++backgroundGeneration : backgroundGeneration
   const run = async () => {
     const engine = await getEngine()
@@ -344,7 +350,7 @@ function search(
         }
       }
       if (engine !== current || (background && generation !== backgroundGeneration)) return { bestmove: '', candidates: [] }
-      engine.postMessage(`setoption name USI_OwnBook value ${enabled}`)
+      send(engine, `setoption name USI_OwnBook value ${enabled}`)
       if (enabled) {
         const [start, moves = ''] = usiPosition.replace(/^position /, '').split(' moves ')
         const sfen = start === 'startpos' ? InitialPositionSFEN.STANDARD : start.replace(/^sfen /, '')
@@ -355,14 +361,14 @@ function search(
           if (!move || !position.doMove(move)) throw new Error('Invalid opening book move history')
         }
         flipped = position.color === Color.WHITE
-        engine.postMessage(`setoption name BookEvalBlackLimit value ${flipped ? -140 : 0}`)
+        send(engine, `setoption name BookEvalBlackLimit value ${flipped ? -140 : 0}`)
         if (flipped) command = `position sfen ${flipBookPosition(sfen)}${moves ? ` moves ${moves.split(' ').map(flipBookMove).join(' ')}` : ''}`
       }
     }
     searching = true
     interruptible = background
-    engine.postMessage(`setoption name MultiPV value ${multipv}`)
-    engine.postMessage(command)
+    send(engine, `setoption name MultiPV value ${multipv}`)
+    send(engine, command)
     const lines = new Map<number, Candidate>()
     let bestmove = ''
     try {
@@ -378,7 +384,7 @@ function search(
               info.pv = info.pv.map(flipBookMove)
             }
             lines.set(info.multipv, info)
-            if (info.multipv === 1) onUpdate?.({ bestmove: info.move, candidates: [...lines.values()].sort((a, b) => a.multipv - b.multipv) })
+            if (info.multipv === 1) onUpdate?.({ bestmove: info.move, candidates: [...lines.values()].toSorted((a, b) => a.multipv - b.multipv) })
           }
           if (line.startsWith('bestmove')) bestmove = flipped ? flipBookMove(line.split(' ')[1]) : line.split(' ')[1]
         },
@@ -394,7 +400,7 @@ function search(
       searching = false
       interruptible = false
     }
-    return { bestmove, candidates: [...lines.values()].sort((a, b) => a.multipv - b.multipv) }
+    return { bestmove, candidates: [...lines.values()].toSorted((a, b) => a.multipv - b.multipv) }
   }
   const result = queue.then(run, run)
   queue = result.catch(() => undefined)

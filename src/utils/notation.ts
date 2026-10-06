@@ -8,7 +8,10 @@ const rankKanji = (rank: number) => '一二三四五六七八九'[rank - 1]
 
 export const squareName = (square: Square) => `${square.file}${rankKanji(square.rank)}`
 
-export const toSente = (score: Score, mover: Side): Score => (mover === 'sente' ? score : 'cp' in score ? { cp: -score.cp } : { mate: -score.mate })
+export function toSente(score: Score, mover: Side): Score {
+  if (mover === 'sente') return score
+  return 'cp' in score ? { cp: -score.cp } : { mate: -score.mate }
+}
 
 export const sfenAfter = (start: string, moves: string[]) => moves.reduce((s, usi) => applyUsi(s, usi) ?? s, start)
 

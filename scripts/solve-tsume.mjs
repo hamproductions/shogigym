@@ -2,28 +2,33 @@ import { createRequire } from 'node:module'
 import { readFileSync, writeFileSync, existsSync } from 'node:fs'
 
 const require = createRequire(import.meta.url)
-const YaneuraOu = require('@mizarjp/yaneuraou.k-p')
+const createEngine = require('@mizarjp/yaneuraou.k-p')
 
 const [mateLength, limit = '400', movetime = '400'] = process.argv.slice(2)
 const input = `data/tsume-raw/mate${mateLength}.sfen`
 const output = 'src/data/tsume.json'
 
-const engine = await YaneuraOu()
+const engine = await createEngine()
 let listener = null
 engine.addMessageListener((line) => listener?.(line))
+// USI engine command channel (emscripten module), not window/Worker postMessage, so there is no target origin.
+const post = (command) => {
+  // oxlint-disable-next-line unicorn/require-post-message-target-origin -- engine.postMessage takes a single USI command string, not a cross-window message
+  engine.postMessage(command)
+}
 const send = (command, terminator, onLine) =>
   new Promise((resolve) => {
     listener = (line) => {
       onLine?.(line)
       if (line.startsWith(terminator)) resolve()
     }
-    engine.postMessage(command)
+    post(command)
   })
 
 await send('usi', 'usiok')
-engine.postMessage('setoption name Threads value 2')
-engine.postMessage('setoption name USI_Hash value 64')
-engine.postMessage('setoption name USI_OwnBook value false')
+post('setoption name Threads value 2')
+post('setoption name USI_Hash value 64')
+post('setoption name USI_OwnBook value false')
 await send('isready', 'readyok')
 
 const existing = existsSync(output) ? JSON.parse(readFileSync(output, 'utf8')) : []
@@ -34,8 +39,8 @@ const solved = []
 for (const [i, sfen] of sfens.entries()) {
   if (known.has(sfen)) continue
   let last = null
-  engine.postMessage('usinewgame')
-  engine.postMessage(`position sfen ${sfen}`)
+  post('usinewgame')
+  post(`position sfen ${sfen}`)
   await send(`go movetime ${movetime}`, 'bestmove', (line) => {
     if (line.startsWith('info') && line.includes(' pv ')) last = line
   })

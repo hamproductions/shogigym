@@ -27,9 +27,9 @@ const result = {
 for (const [kind, [clip, lo, hi, about]] of Object.entries(CLIPS)) {
   const byT = new Map()
   for (const src of sources) for (const fr of src[clip].frames) if (fr.t >= lo && fr.t <= hi && !byT.has(fr.t)) byT.set(fr.t, fr.world)
-  const rows = [...byT.entries()].sort((a, b) => a[0] - b[0])
-  const t0 = rows[0][0]
-  const t1 = rows.at(-1)[0]
+  const rows = [...byT.entries()].toSorted((a, b) => a[0] - b[0])
+  const [[t0]] = rows
+  const [t1] = rows.at(-1)
   const samples = []
   for (let k = 0; k < SAMPLES; k++) {
     const t = t0 + ((t1 - t0) * k) / (SAMPLES - 1)

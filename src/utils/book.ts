@@ -91,7 +91,7 @@ export function neutralBranch<T extends { note?: string; punishNote?: string }>(
   return { ...branch, note: neutralNote(branch.note, course), punishNote: neutralNote(branch.punishNote, course) }
 }
 
-const lessonsFirst = (sfen: string) => [...bookLookup(sfen)].sort((a, b) => Number(a.course.notesFromOpponentView) - Number(b.course.notesFromOpponentView))
+const lessonsFirst = (sfen: string) => [...bookLookup(sfen)].toSorted((a, b) => Number(a.course.notesFromOpponentView) - Number(b.course.notesFromOpponentView))
 
 function uniqueBook(sfen: string): BookMove[] {
   const seen = new Map<string, BookMove>()

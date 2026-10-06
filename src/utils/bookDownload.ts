@@ -2,16 +2,16 @@ import { binaryStore } from './binaryStore'
 import { saveBookFile } from './openingBook'
 
 export const clearCompactBook = async () => {
-  for (let index = 0; index < 64; index++) await compactShard(index).clear()
+  await Promise.all(Array.from({ length: 64 }, (_, index) => compactShard(index).clear()))
   await binaryStore('shogigym:compact-book', 'complete').clear()
 }
 export async function clearBookDownloadCache() {
   await clearCompactBook()
   await new Promise<void>((resolve, reject) => {
     const request = indexedDB.deleteDatabase('shogigym:full-book-download')
-    request.onsuccess = () => resolve()
-    request.onerror = () => reject(request.error)
-    request.onblocked = () => reject(new Error('Opening book download is still active'))
+    request.addEventListener('success', () => resolve())
+    request.addEventListener('error', () => reject(request.error))
+    request.addEventListener('blocked', () => reject(new Error('Opening book download is still active')))
   })
 }
 export const compactShard = (index: number) => binaryStore('shogigym:compact-book', String(index))
@@ -38,9 +38,9 @@ export async function downloadFullBook(signal: AbortSignal, progress: (value: Bo
     const store = binaryStore('shogigym:full-book-download', chunk.file)
     let cached = await store.read()
     if (!cached) {
-      const response = await fetch(base + chunk.file, { signal })
-      if (!response.ok) throw new Error(`Opening book: HTTP ${response.status}`)
-      const bytes = new Uint8Array(await response.arrayBuffer())
+      const chunkResponse = await fetch(base + chunk.file, { signal })
+      if (!chunkResponse.ok) throw new Error(`Opening book: HTTP ${chunkResponse.status}`)
+      const bytes = new Uint8Array(await chunkResponse.arrayBuffer())
       signal.throwIfAborted()
       await store.save(new File([bytes], chunk.file))
       cached = { name: chunk.file, size: bytes.length, bytes }
@@ -61,5 +61,5 @@ export async function downloadFullBook(signal: AbortSignal, progress: (value: Bo
   const file = new File(blobs, 'user_book1.db')
   if (file.size !== manifest.size) throw new Error('Opening book: incomplete download')
   await saveBookFile(file)
-  for (const chunk of manifest.chunks) await binaryStore('shogigym:full-book-download', chunk.file).clear()
+  await Promise.all(manifest.chunks.map((chunk) => binaryStore('shogigym:full-book-download', chunk.file).clear()))
 }

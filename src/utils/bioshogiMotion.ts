@@ -54,7 +54,13 @@ const weight: Record<PieceType, number> = {
   dragon: 2200,
 }
 const forward = (piece: Piece) => piece.type !== unpromotedPieceType(piece.type) || ![PieceType.BISHOP, PieceType.KNIGHT].includes(piece.type)
+const edge = (square: Square) => Math.min(square.file - 1, 9 - square.file)
 const distance = (a: Square, b: Square) => Math.max(Math.abs(a.file - b.file), Math.abs(a.rank - b.rank))
+
+function unpromotedName(base: PieceType) {
+  if (base === PieceType.BISHOP) return '角不成'
+  return base === PieceType.ROOK ? '飛車不成' : '銀不成'
+}
 
 export function detectMotion(
   position: ImmutablePosition,
@@ -72,7 +78,6 @@ export function detectMotion(
   const at = event.to
   const row = (square: Square) => (color === Color.BLACK ? square.rank - 1 : 9 - square.rank)
   const file = (square: Square) => (color === Color.BLACK ? square.file : 10 - square.file)
-  const edge = (square: Square) => Math.min(square.file - 1, 9 - square.file)
   const base = unpromotedPieceType(soldier.type)
   const promoted = base !== soldier.type
   const drop = !event.from
@@ -136,7 +141,7 @@ export function detectMotion(
   const pawnUp = is([0, -1], PieceType.PAWN)
   const knightUp = is([0, -1], PieceType.KNIGHT)
   const noCapture = event.capturedType === undefined
-  const leftRight = file(at) === 5 ? 0 : file(at) < 5 ? 1 : -1
+  const leftRight = Math.sign(5 - file(at))
   const newMove = !drop
 
   if (!promoted && [PieceType.ROOK, PieceType.BISHOP].includes(base)) {
@@ -380,7 +385,7 @@ export function detectMotion(
       all.reduce((sum, square) => {
         const p = position.board.at(square)!
         return sum + (p.color === owner ? weight[p.type] : 0)
-      }, 0) + position.hand(owner).counts.reduce((sum, { type, count }) => sum + (type === PieceType.KING ? 40000 : weight[type] * 1.05) * count, 0)
+      }, 0) + position.hand(owner).counts.reduce((sum, { type, count: amount }) => sum + (type === PieceType.KING ? 40000 : weight[type] * 1.05) * amount, 0)
     add(
       '天空の城',
       event.generalPreset &&
@@ -508,6 +513,6 @@ export function detectMotion(
   if (soldier.type === PieceType.SILVER || (soldier.type === PieceType.KING && newMove))
     add('オリオン囲い', event.generalPreset && !!king && front.every((v) => is(v, PieceType.SILVER, color, king)) && lateral.every((v) => empty(v, king)))
   if ([PieceType.BISHOP, PieceType.ROOK, PieceType.SILVER].includes(soldier.type) && newMove && event.from)
-    add(base === PieceType.BISHOP ? '角不成' : base === PieceType.ROOK ? '飛車不成' : '銀不成', row(at) <= 2 || row(event.from) <= 2)
+    add(unpromotedName(base), row(at) <= 2 || row(event.from) <= 2)
   return result
 }

@@ -170,7 +170,7 @@ function attackedEnemies(position: Position, move: Move): PieceType[] {
     if (!piece || piece.color === move.color || piece.type === PieceType.KING) continue
     if (attackersOf(after, square, move.color).some((s) => s.equals(move.to))) out.push(piece.type)
   }
-  return out.sort((a, b) => PIECE_VALUE[b] - PIECE_VALUE[a])
+  return out.toSorted((a, b) => PIECE_VALUE[b] - PIECE_VALUE[a])
 }
 
 function attackersOf(position: Position, square: Square, color: Color): Square[] {
@@ -299,13 +299,13 @@ function isSacrifice(sfen: string, usi: string): boolean {
 
 export function classify(params: { sfen: string; usi: string; before: Analysis; after: Analysis | null; inBook: boolean; previousLoss?: number }): MoveReview {
   const { sfen, usi, before, after, inBook } = params
-  const best = before.candidates[0]
+  const [best] = before.candidates
   const reply = after?.candidates[0] ?? null
   const afterScore = reply ? negate(reply.score) : best.score
   const bestWp = scoreWinRate(best.score)
   const userWp = scoreWinRate(afterScore)
   const loss = Math.max(0, best.move === usi ? 0 : bestWp - userWp)
-  const second = before.candidates[1]
+  const [, second] = before.candidates
   const onlyMove = second ? bestWp - scoreWinRate(second.score) >= 0.1 : false
 
   let label: Label

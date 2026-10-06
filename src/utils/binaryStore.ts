@@ -19,17 +19,17 @@ export function binaryStore(namespace: string, key: string) {
   const run = async <T>(mode: IDBTransactionMode, action: (store: IDBObjectStore) => IDBRequest<T>) => {
     const db = await new Promise<IDBDatabase>((resolve, reject) => {
       const request = indexedDB.open(namespace, 1)
-      request.onupgradeneeded = () => request.result.createObjectStore('files')
-      request.onsuccess = () => resolve(request.result)
-      request.onerror = () => reject(request.error)
+      request.addEventListener('upgradeneeded', () => request.result.createObjectStore('files'))
+      request.addEventListener('success', () => resolve(request.result))
+      request.addEventListener('error', () => reject(request.error))
     })
     try {
       return await new Promise<T>((resolve, reject) => {
         const transaction = db.transaction('files', mode)
         const request = action(transaction.objectStore('files'))
-        transaction.oncomplete = () => resolve(request.result)
-        transaction.onerror = () => reject(transaction.error)
-        transaction.onabort = () => reject(transaction.error ?? new Error('File storage aborted'))
+        transaction.addEventListener('complete', () => resolve(request.result))
+        transaction.addEventListener('error', () => reject(transaction.error))
+        transaction.addEventListener('abort', () => reject(transaction.error ?? new Error('File storage aborted')))
       })
     } finally {
       db.close()
@@ -38,7 +38,8 @@ export function binaryStore(namespace: string, key: string) {
   return {
     read: async (): Promise<BinaryFile | null> => {
       const file = await run<BinaryFile | (Info & { blob: Blob }) | undefined>('readonly', (store) => store.get(key))
-      return file ? ('bytes' in file ? file : { name: file.name, size: file.size, bytes: new Uint8Array(await file.blob.arrayBuffer()) }) : null
+      if (!file) return null
+      return 'bytes' in file ? file : { name: file.name, size: file.size, bytes: new Uint8Array(await file.blob.arrayBuffer()) }
     },
     save: async (file: File) => {
       await run('readwrite', (store) => {

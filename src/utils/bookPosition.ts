@@ -7,8 +7,8 @@ export function flipBookPosition(sfen: string) {
   const [board, turn, hand, ply = '1'] = sfen.split(' ')
   const rotated = board
     .split('/')
-    .reverse()
-    .map((rank) => (rank.match(/\+?[a-zA-Z]|[1-9]/g) ?? []).reverse().map(swap).join(''))
+    .toReversed()
+    .map((rank) => (rank.match(/\+?[a-zA-Z]|[1-9]/g) ?? []).toReversed().map(swap).join(''))
     .join('/')
   return `${rotated} ${turn === 'b' ? 'w' : 'b'} ${swap(hand)} ${ply}`
 }

@@ -4,16 +4,20 @@ interface Timer {
   every: number
 }
 
-const real = {
-  raf: globalThis.requestAnimationFrame.bind(window),
-  caf: globalThis.cancelAnimationFrame.bind(window),
+const captureReal = () => ({
+  raf: globalThis.requestAnimationFrame.bind(globalThis),
+  caf: globalThis.cancelAnimationFrame.bind(globalThis),
   now: performance.now.bind(performance),
   date: Date.now.bind(Date),
-  setTimeout: globalThis.setTimeout.bind(window),
-  clearTimeout: globalThis.clearTimeout.bind(window),
-  setInterval: globalThis.setInterval.bind(window),
-  clearInterval: globalThis.clearInterval.bind(window),
-}
+  setTimeout: globalThis.setTimeout.bind(globalThis),
+  clearTimeout: globalThis.clearTimeout.bind(globalThis),
+  setInterval: globalThis.setInterval.bind(globalThis),
+  clearInterval: globalThis.clearInterval.bind(globalThis),
+})
+
+// Captured lazily (first install/start, before anything is patched) so merely importing this module never touches browser globals.
+let realClock: ReturnType<typeof captureReal> | null = null
+const getReal = () => (realClock ??= captureReal())
 
 let on = false
 let clock = 0
@@ -22,7 +26,17 @@ let next = 1_000_000
 const frames = new Map<number, FrameRequestCallback>()
 const timers = new Map<number, Timer>()
 
+const schedule = (every: boolean) =>
+  ((cb: TimerHandler, ms = 0, ...args: unknown[]) => {
+    const real = getReal()
+    const run = () => (typeof cb === 'function' ? cb(...args) : undefined)
+    if (!on) return every ? real.setInterval(run, ms) : real.setTimeout(run, ms)
+    timers.set(++next, { due: clock + Math.max(0, ms), run, every: every ? Math.max(1, ms) : 0 })
+    return next
+  }) as typeof globalThis.setTimeout
+
 export function installVirtualClock() {
+  const real = getReal()
   performance.now = () => (on ? clock : real.now())
   Date.now = () => (on ? offset + clock : real.date())
   globalThis.requestAnimationFrame = (cb) => {
@@ -33,13 +47,6 @@ export function installVirtualClock() {
   globalThis.cancelAnimationFrame = (id) => {
     if (!frames.delete(id)) real.caf(id)
   }
-  const schedule = (every: boolean) =>
-    ((cb: TimerHandler, ms = 0, ...args: unknown[]) => {
-      const run = () => (typeof cb === 'function' ? cb(...args) : undefined)
-      if (!on) return every ? real.setInterval(run, ms) : real.setTimeout(run, ms)
-      timers.set(++next, { due: clock + Math.max(0, ms), run, every: every ? Math.max(1, ms) : 0 })
-      return next
-    }) as typeof globalThis.setTimeout
   globalThis.setTimeout = schedule(false)
   globalThis.setInterval = schedule(true) as typeof globalThis.setInterval
   globalThis.clearTimeout = ((id?: number) => {
@@ -49,6 +56,7 @@ export function installVirtualClock() {
 }
 
 export function startVirtual() {
+  const real = getReal()
   clock = real.now()
   offset = real.date() - clock
   on = true
@@ -56,6 +64,7 @@ export function startVirtual() {
 }
 
 export function stepVirtual(ms: number) {
+  const real = getReal()
   const until = clock + ms
   for (;;) {
     let first: [number, Timer] | null = null

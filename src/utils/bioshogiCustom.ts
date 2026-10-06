@@ -47,7 +47,7 @@ export function detectCustom(
   ) => found.push({ name, kind, color: target, squares, ply, repeat, annotation })
   const owned = ownerSquares(position, color)
   const kings = owned.filter((at) => position.board.at(at)!.type === PieceType.KING)
-  const king = kings[0]
+  const [king] = kings
   const onlyKing = kings.length === 1
   const moved = event && position.board.at(event.to)
   if (onlyKing && king && [1, 9].includes(king.file)) {
@@ -163,9 +163,11 @@ export function detectCustom(
     }
     const enemy = ownerSquares(position, opposite(color))
     if (generalPreset) {
-      const count = (types: PieceType[]) =>
-        owned.filter((at) => types.includes(base(position.board.at(at)!.type))).length + types.reduce((n, type) => n + position.hand(color).count(type), 0)
-      if (enemy.length === 1 && position.hand(opposite(color)).counts.every(({ count }) => !count)) add('全駒')
+      const count = (types: PieceType[]) => {
+        const wanted = new Set(types)
+        return owned.filter((at) => wanted.has(base(position.board.at(at)!.type))).length + types.reduce((n, type) => n + position.hand(color).count(type), 0)
+      }
+      if (enemy.length === 1 && position.hand(opposite(color)).counts.every((entry) => !entry.count)) add('全駒')
       if ([PieceType.GOLD, PieceType.SILVER].includes(base(captured.type)) && count([PieceType.GOLD, PieceType.SILVER]) === 8) add('金銀コンプリート')
       if (major(captured.type) && count([PieceType.ROOK, PieceType.BISHOP]) === 4) add('大駒コンプリート')
       if (base(captured.type) === PieceType.PAWN && count([PieceType.PAWN]) >= 18) add('ポーンハンター')
@@ -221,7 +223,7 @@ export function detectCustom(
         }
         return (at.rank - 1) * 9 + 9 - at.file
       }
-      const other = horses.sort((a, b) => order(a) - order(b))[0]
+      const [other] = horses.toSorted((a, b) => order(a) - order(b))
       add(other && near(other) ? '双馬結界' : '守りの馬', 'technique', color, [], event.ply, !(other && near(other)))
     }
   }

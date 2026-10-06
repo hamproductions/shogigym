@@ -17,8 +17,9 @@ const load = (text: string) => {
       .then(async (m) => {
         const file = m[text]
         if (!file) return null
-        const data = await (await fetch(`${BASE}${file}`)).arrayBuffer()
-        return audioContext().decodeAudioData(data)
+        const response = await fetch(`${BASE}${file}`)
+        if (!response.ok) return null
+        return audioContext().decodeAudioData(await response.arrayBuffer())
       })
       .catch(() => null)
     clips.set(text, clip)

@@ -81,7 +81,7 @@ const byKind = new Map<string, Drill[]>()
 for (const d of out) byKind.set(d.tesuji, [...(byKind.get(d.tesuji) ?? []), d])
 const capped = [...byKind.values()].flatMap((list) => {
   const book = list.filter((d) => d.id.startsWith('book-'))
-  const rest = list.filter((d) => !d.id.startsWith('book-')).sort(() => rand() - 0.5)
+  const rest = list.filter((d) => !d.id.startsWith('book-')).toSorted(() => rand() - 0.5)
   return [...book, ...rest].slice(0, Math.max(150, book.length))
 })
 out.length = 0

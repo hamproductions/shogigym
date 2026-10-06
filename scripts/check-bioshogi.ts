@@ -25,13 +25,14 @@ const oracle = JSON.parse(gunzipSync(await readFile('vendor/bioshogi/oracle.json
 if (oracle.revision !== definitions.revision) throw new Error('Oracle revision differs from detector revision')
 const manifest = JSON.parse(await readFile('vendor/bioshogi/fixture-manifest.json', 'utf8')) as { revision: string; paths: string[] }
 if (manifest.revision !== oracle.revision || manifest.paths.length !== oracle.records.length) throw new Error('Fixture manifest differs from oracle')
-const fixtureFiles = manifest.paths.map((path) => path.replaceAll('/', '__')).sort()
-if (JSON.stringify(fixtureFiles) !== JSON.stringify(oracle.records.map((record) => record.file).sort()))
+const fixtureFiles = manifest.paths.map((path) => path.replaceAll('/', '__')).toSorted()
+if (JSON.stringify(fixtureFiles) !== JSON.stringify(oracle.records.map((entry) => entry.file).toSorted()))
   throw new Error('Oracle fixture paths differ from manifest')
 const voices = JSON.parse(await readFile('public/voice/zundamon/manifest.json', 'utf8')) as Record<string, string>
 const presets = ['平手', '香落ち', '右香落ち', '角落ち', '飛車落ち', '飛香落ち', '二枚落ち', '二枚持ち', '三枚落ち', '四枚落ち', '六枚落ち']
-const names = (tags: Tags) => [...new Set(Object.values(tags).flat())].sort()
-const actualNames = (tags: FormationTag[]) => [...new Set(tags.map((tag) => tag.name))].sort()
+const otherColor = (color: Color) => (color === Color.BLACK ? Color.WHITE : Color.BLACK)
+const names = (tags: Tags) => [...new Set(Object.values(tags).flat())].toSorted()
+const actualNames = (tags: FormationTag[]) => [...new Set(tags.map((tag) => tag.name))].toSorted()
 let assertions = 0
 const failures: string[] = []
 const emitted = new Set<string>()
@@ -58,7 +59,7 @@ for (const item of oracle.records) {
   if (item.plies !== moves.length) throw new Error(`${item.file}: ply count differs`)
   const preset: DetectionPreset =
     item.preset && presets.includes(item.preset) ? { hirateLike: ['平手', '香落ち', '右香落ち'].includes(item.preset), generalPreset: true } : {}
-  const initialHand = item.initialSfen.split(' ')[2]
+  const [, , initialHand] = item.initialSfen.split(' ')
   const heldKings = (symbol: string) => Number(new RegExp(`(\\d*)${symbol}`).exec(initialHand)?.[1] || (initialHand.includes(symbol) ? 1 : 0))
   const kingHands: [number, number] = [heldKings('K'), heldKings('k')]
   if (kingHands.some(Boolean)) preset.kingHands = kingHands
@@ -68,7 +69,9 @@ for (const item of oracle.records) {
     (type) => type === ending,
   )
   const wins = [SpecialMoveType.FOUL_WIN, SpecialMoveType.WIN_BY_DEFAULT].some((type) => type === ending)
-  const winner = loses ? (position.color === Color.BLACK ? Color.WHITE : Color.BLACK) : wins ? position.color : undefined
+  let winner: Color | undefined
+  if (loses) winner = otherColor(position.color)
+  else if (wins) winner = position.color
   const result: DetectionResult = { ...preset, winner, checkmate: ending === SpecialMoveType.MATE, impasse: ending === SpecialMoveType.IMPASS }
   const normalized = (sfen: string) => {
     const fields = sfen.split(' ')
@@ -99,14 +102,14 @@ for (const item of oracle.records) {
     compare(`${item.file}:final:${side}`, names(item.final[side]), actualNames(final[side]))
     final[side].forEach((tag) => emitted.add(tag.name))
   }
-  const mirror = oracle.mirroredRecords.find((record) => record.file === item.file)
+  const mirror = oracle.mirroredRecords.find((entry) => entry.file === item.file)
   if (!mirror || mirror.error || mirror.plies !== moves.length) throw new Error(`${item.file}: mirrored oracle missing or invalid`)
   const mirroredSfens = sfens.map(flipBookPosition)
   const mirroredMoves = moves.map(flipBookMove)
   const mirroredResult: DetectionResult = {
     ...result,
     kingHands: preset.kingHands ? [preset.kingHands[1], preset.kingHands[0]] : undefined,
-    winner: winner === undefined ? undefined : winner === Color.BLACK ? Color.WHITE : Color.BLACK,
+    winner: winner === undefined ? undefined : otherColor(winner),
   }
   for (let ply = 0; ply <= moves.length; ply++) {
     const expected = ply ? mirror.events[ply - 1].accumulated : mirror.initial

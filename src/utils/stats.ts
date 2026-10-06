@@ -25,7 +25,8 @@ export interface StatsMeta {
 export const statsKey = (sfen: string) => sfen.split(' ').slice(0, 3).join(' ')
 
 export function statsShard(key: string) {
-  let h = 0x811c9dc5
+  // prettier-ignore
+  let h = 0x811C9DC5
   for (let i = 0; i < key.length; i++) h = Math.imul(h ^ key.charCodeAt(i), 0x01000193)
   return (h >>> 0).toString(16).padStart(8, '0').slice(0, 2)
 }

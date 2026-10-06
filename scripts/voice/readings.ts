@@ -1792,17 +1792,15 @@ const EXACT_READINGS = new Set([
   '魔方陣',
 ])
 
-export const READING_EVIDENCE: Record<string, 'exact' | 'constituent' | 'literal' | 'pending' | 'unresolved'> = Object.fromEntries(
-  Object.entries(READINGS).map(([name, reading]) => [
-    name,
-    reading === null
-      ? 'unresolved'
-      : /^[ぁ-ゖァ-ヺー]+$/.test(name)
-        ? 'literal'
-        : EXACT_READINGS.has(name)
-          ? 'exact'
-          : READING_SOURCES[name]?.length
-            ? 'constituent'
-            : 'pending',
-  ]),
+type ReadingEvidence = 'exact' | 'constituent' | 'literal' | 'pending' | 'unresolved'
+
+function readingEvidence(name: string, reading: string | null): ReadingEvidence {
+  if (reading === null) return 'unresolved'
+  if (/^[ぁ-ゖァ-ヺー]+$/.test(name)) return 'literal'
+  if (EXACT_READINGS.has(name)) return 'exact'
+  return READING_SOURCES[name]?.length ? 'constituent' : 'pending'
+}
+
+export const READING_EVIDENCE: Record<string, ReadingEvidence> = Object.fromEntries(
+  Object.entries(READINGS).map(([name, reading]) => [name, readingEvidence(name, reading)]),
 )

@@ -48,5 +48,5 @@ export function buildLanes(sfen: string, nodes: CourseNodes | null, analysis: An
       else lanes.push({ first: c.move, moves: c.pv.slice(0, 6), tag: 'ai', loss, best })
     }
   }
-  return lanes.sort((a, b) => LANE_ORDER[a.tag] - LANE_ORDER[b.tag])
+  return lanes.toSorted((a, b) => LANE_ORDER[a.tag] - LANE_ORDER[b.tag])
 }

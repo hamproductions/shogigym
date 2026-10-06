@@ -34,24 +34,48 @@ export function decodeKifuFile(buffer: ArrayBuffer): string {
   return new TextDecoder('shift_jis').decode(buffer)
 }
 
+function importRecord(format: RecordFormatType | undefined, data: string): Record | Error {
+  switch (format) {
+    case RecordFormatType.KIF:
+      return importKIF(data)
+    case RecordFormatType.KI2:
+      return importKI2(data)
+    case RecordFormatType.CSA:
+      return importCSA(data)
+    case RecordFormatType.JKF:
+      return importJKFString(data)
+    case RecordFormatType.USEN:
+      return Record.newByUSEN(data)
+    case RecordFormatType.SFEN:
+      return Record.newByUSI(`sfen ${data}`)
+    default:
+      return Record.newByUSI(data)
+  }
+}
+
+const otherColor = (color: Color) => (color === Color.BLACK ? Color.WHITE : Color.BLACK)
+
+function sfenKingCount(hand: string | undefined, symbol: string) {
+  const digits = new RegExp(`(\\d*)${symbol}`).exec(hand ?? '')?.[1]
+  return Number(digits || (hand?.includes(symbol) ? 1 : 0))
+}
+
+function kingHandCount(value: string) {
+  if (!value) return 1
+  if (/^\d+$/.test(value)) return Number(value)
+  const digits = '〇一二三四五六七八九'
+  if (value.includes('十')) {
+    const [tens, units] = value.split('十')
+    return (tens ? digits.indexOf(tens) : 1) * 10 + (units ? digits.indexOf(units) : 0)
+  }
+  return digits.indexOf(value)
+}
+
 export function parseGame(text: string): Game | Error {
   const data = text.trim()
   if (!data) return new Error('Paste a kifu first.')
   const format = detectRecordFormat(data)
-  const record: Record | Error =
-    format === RecordFormatType.KIF
-      ? importKIF(data)
-      : format === RecordFormatType.KI2
-        ? importKI2(data)
-        : format === RecordFormatType.CSA
-          ? importCSA(data)
-          : format === RecordFormatType.JKF
-            ? importJKFString(data)
-            : format === RecordFormatType.USEN
-              ? Record.newByUSEN(data)
-              : format === RecordFormatType.SFEN
-                ? Record.newByUSI(`sfen ${data}`)
-                : Record.newByUSI(data)
+  const record = importRecord(format, data)
   if (record instanceof Error) {
     const bad = /^Invalid move: (\S+)/.exec(record.message)?.[1]
     const tokens = /\bmoves\b/.test(data)
@@ -95,38 +119,25 @@ export function parseGame(text: string): Game | Error {
   const generalPresets = ['平手', '香落ち', '右香落ち', '角落ち', '飛車落ち', '飛香落ち', '二枚落ち', '二枚持ち', '三枚落ち', '四枚落ち', '六枚落ち']
   let detectionPreset: DetectionPreset | undefined =
     preset && generalPresets.includes(preset) ? { hirateLike: ['平手', '香落ち', '右香落ち'].includes(preset), generalPreset: true } : undefined
-  const count = (value: string) => {
-    if (!value) return 1
-    if (/^\d+$/.test(value)) return Number(value)
-    const digits = '〇一二三四五六七八九'
-    if (value.includes('十')) {
-      const [tens, units] = value.split('十')
-      return (tens ? digits.indexOf(tens) : 1) * 10 + (units ? digits.indexOf(units) : 0)
-    }
-    return digits.indexOf(value)
-  }
   const rawHand = /\bsfen\s+\S+\s+[bw]\s+(\S+)/.exec(data)?.[1] ?? (format === RecordFormatType.SFEN ? data.split(/\s+/)[2] : undefined)
   const kingHands = [0, 0] as [number, number]
   for (const [index, owner] of ['先手', '後手'].entries()) {
     const held = new RegExp(`^${owner}の持駒[：:]([^\\n]+)`, 'm').exec(data)?.[1]
     const king = held?.match(/[玉王]([〇一二三四五六七八九十\d]*)/)
-    kingHands[index] = king
-      ? count(king[1])
-      : Number(new RegExp(`(\\d*)${index === 0 ? 'K' : 'k'}`).exec(rawHand ?? '')?.[1] || (rawHand?.includes(index === 0 ? 'K' : 'k') ? 1 : 0))
+    const kingChar = index === 0 ? 'K' : 'k'
+    if (king) kingHands[index] = kingHandCount(king[1])
+    else kingHands[index] = sfenKingCount(rawHand, kingChar)
   }
   if (kingHands.some(Boolean)) detectionPreset = { ...detectionPreset, kingHands }
   const type = last && !(last.move instanceof Move) ? last.move.type : undefined
-  const actor = moves.length % 2 ? (record.initialPosition.color === Color.BLACK ? Color.WHITE : Color.BLACK) : record.initialPosition.color
+  const actor = moves.length % 2 ? otherColor(record.initialPosition.color) : record.initialPosition.color
   const loses = [SpecialMoveType.RESIGN, SpecialMoveType.MATE, SpecialMoveType.TIMEOUT, SpecialMoveType.FOUL_LOSE, SpecialMoveType.LOSE_BY_DEFAULT].some(
     (value) => value === type,
   )
   const wins = [SpecialMoveType.FOUL_WIN, SpecialMoveType.WIN_BY_DEFAULT].some((value) => value === type)
-  const detectionResult: DetectionResult | undefined =
-    loses || wins
-      ? { winner: loses ? (actor === Color.BLACK ? Color.WHITE : Color.BLACK) : actor, checkmate: type === SpecialMoveType.MATE }
-      : type === SpecialMoveType.IMPASS
-        ? { impasse: true }
-        : undefined
+  let detectionResult: DetectionResult | undefined
+  if (loses || wins) detectionResult = { winner: loses ? otherColor(actor) : actor, checkmate: type === SpecialMoveType.MATE }
+  else if (type === SpecialMoveType.IMPASS) detectionResult = { impasse: true }
   return {
     detectionResult,
     detectionPreset,

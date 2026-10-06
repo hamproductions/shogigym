@@ -49,7 +49,8 @@ export function sideOf(raw: RawCourse, strategy: string): Side | null {
   if (!sides) return null
   const [sente, gote] = [sides[0].includes(strategy), sides[1].includes(strategy)]
   if (sente && gote) return primarySide(raw)
-  return sente ? 'sente' : gote ? 'gote' : null
+  if (sente) return 'sente'
+  return gote ? 'gote' : null
 }
 
 export const strategiesAt = (baseId: string, side: Side) => COURSE_SIDES[baseId]?.[side === 'sente' ? 0 : 1] ?? []
@@ -80,6 +81,16 @@ export function buildCatalog(raws: RawCourse[]) {
     courses.set(id, course)
     return course
   }
+  const strategySets = new Map<string, Set<string>>()
+  const strategiesSetAt = (baseId: string, side: Side) => {
+    const key = `${baseId}@${side}`
+    let set = strategySets.get(key)
+    if (!set) {
+      set = new Set(strategiesAt(baseId, side))
+      strategySets.set(key, set)
+    }
+    return set
+  }
   const explicit = new Map<string, { raw: RawCourse; side: Side }[]>()
   for (const mu of MATCHUPS)
     explicit.set(
@@ -94,9 +105,9 @@ export function buildCatalog(raws: RawCourse[]) {
     const own = explicit.get(mu.id)!
     const list = [...own]
     const candidates = MATCHUPS.filter((r) => r.main === mu.vs && r.vs === mu.main)
-      .flatMap((r) => explicit.get(r.id)!.map(({ raw, side }) => ({ raw, side: other(side) })))
-      .filter(({ raw, side }) => strategiesAt(raw.id, side).includes(mu.main))
-      .sort((a, b) => Number(a.side !== a.raw.mySide) - Number(b.side !== b.raw.mySide))
+      .flatMap((r) => (explicit.get(r.id) ?? []).map(({ raw, side }) => ({ raw, side: other(side) })))
+      .filter(({ raw, side }) => strategiesSetAt(raw.id, side).has(mu.main))
+      .toSorted((a, b) => Number(a.side !== a.raw.mySide) - Number(b.side !== b.raw.mySide))
     for (const c of candidates) if (!list.some((o) => o.side === c.side && (o.raw.id === c.raw.id || sameGame(o.raw, c.raw)))) list.push(c)
     const main = strategyById(mu.main)
     const vs = strategyById(mu.vs)
