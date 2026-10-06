@@ -6,7 +6,7 @@ import { komaDepth, komaTaper, komaWidth, pieceScale } from './dimensions'
 import { PROMOTED, faceText, piecePolygon, type Poly } from '@/rendering/koma'
 import { environmentMap } from './materials'
 import { finishMask, lacquerMap, reliefNormal } from './relief'
-import { artTexture, faceTexture, glyphTexture } from './textures'
+import { artTexture, faceTexture, glyphTexture, pieceSurface, srgbTexture } from './textures'
 
 const finish = (appearance?: PieceAppearance) => {
   const settings = { ...getSettings(), ...appearance }
@@ -63,8 +63,21 @@ function pieceBody(scale: number) {
     bevelSegments: 2,
   })
   const uv = geometry.attributes.uv
-  for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) / w + 0.5, uv.getY(i) / h + 0.5)
   const pos = geometry.attributes.position
+  const depth = komaDepth(scale)
+  const sideGroup = geometry.groups.find((group) => group.materialIndex === 1)
+  const sideStart = sideGroup?.start ?? Infinity
+  const sideEnd = sideGroup ? sideGroup.start + sideGroup.count : -1
+  const index = geometry.index
+  const isSide = new Uint8Array(uv.count)
+  for (let i = sideStart; i < sideEnd; i++) isSide[index ? index.getX(i) : i] = 1
+  for (let i = 0; i < uv.count; i++) {
+    const x = uv.getX(i)
+    const y = uv.getY(i)
+    // Walls get wood grain running along the piece length instead of the top-down projection.
+    if (isSide[i]) uv.setXY(i, (pos.getZ(i) + 0.025) / (depth + 0.05), x / w + y / h)
+    else uv.setXY(i, x / w + 0.5, y / h + 0.5)
+  }
   for (let i = 0; i < pos.count; i++) {
     const t = (pos.getY(i) + h * 0.5) / h
     pos.setZ(i, pos.getZ(i) * (1 - (1 - komaTaper(scale)) * Math.min(1, Math.max(0, t))))
@@ -149,6 +162,20 @@ function pieceBottom(scale: number) {
 
 const hiddenLid = new THREE.MeshBasicMaterial({ visible: false })
 const sideMaterial = new THREE.MeshStandardMaterial({ color: 0xdcb377, emissive: 0x8a6232, emissiveIntensity: 0.75, roughness: 0.85 })
+
+const sideTextures = new Map<string, THREE.Texture>()
+
+function sideTexture(seed: number, appearance?: PieceAppearance) {
+  const { pieceMaterial, pieceGrain, pieceColor } = { ...getSettings(), ...appearance }
+  const key = `${seed}/${pieceMaterial}/${pieceGrain}/${pieceColor}`
+  let texture = sideTextures.get(key)
+  if (!texture) {
+    texture = srgbTexture(pieceSurface(seed, appearance))
+    texture.wrapS = texture.wrapT = THREE.RepeatWrapping
+    sideTextures.set(key, texture)
+  }
+  return texture
+}
 
 export function disposePiece(piece: THREE.Object3D) {
   piece.traverse((child) => {
@@ -242,12 +269,17 @@ export function pieceMesh(
           envMapIntensity: frosted ? 0.2 : 0.6,
           side: THREE.FrontSide,
         })
+  const sideGrain = !plastic && !glass ? sideTexture(seed, appearance) : null
   const side = glass
     ? glassMaterial()
     : settings.pieceColor !== 'natural' || plastic
-      ? new THREE.MeshBasicMaterial({ color: `rgb(${tone.map((channel) => Math.round(channel * 0.9)).join(',')})` })
+      ? new THREE.MeshBasicMaterial({ color: sideGrain ? 0xe6e6e6 : `rgb(${tone.map((channel) => Math.round(channel * 0.9)).join(',')})`, map: sideGrain })
       : sideMaterial.clone()
-  if (!plastic && !glass && settings.pieceColor === 'natural') side.color.set(`rgb(${tone.join(',')})`)
+  if (!plastic && !glass && settings.pieceColor === 'natural') {
+    side.color.set(0xffffff)
+    side.map = sideGrain
+    if (side instanceof THREE.MeshStandardMaterial) side.emissiveMap = sideGrain
+  }
   const mesh = new THREE.Mesh(pieceBody(scale), [hiddenLid, side])
   mesh.userData.grainSeed = seed
   mesh.userData.type = type
