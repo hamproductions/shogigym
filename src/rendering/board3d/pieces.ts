@@ -19,6 +19,27 @@ const scenePiece = (s: SceneState, type: PieceType, color: Color, seed?: number)
 
 const board3 = (sfen: string) => sfen.split(' ').slice(0, 3).join(' ')
 
+function moveKind(move: { from: Square | PieceType; promote: boolean }, capture: unknown, step: number) {
+  if (!(move.from instanceof Square)) return 'drop'
+  if (move.promote) return 'promote'
+  if (capture) return 'capture'
+  return step <= 1 ? 'slide' : 'carry'
+}
+
+function successor(s: SceneState, old: THREE.Object3D, square: Square | undefined) {
+  if (s.pieces.children.includes(old)) return old
+  if (square) return s.pieces.children.find((m) => (m.userData.square as Square | undefined)?.equals(square))
+  return s.handMeshes.find(
+    (m) => m.userData.type === old.userData.type && m.userData.color === old.userData.color && m.userData.liftable === old.userData.liftable,
+  )
+}
+
+function animationOrigin(placed: boolean, mesh: THREE.Object3D, lastMove: string, moved: { color: Color; square: Square }) {
+  if (placed) return mesh.position.clone()
+  if (lastMove[1] === '*') return standCenter(moved.color)
+  return squarePoint(Square.newByUSI(lastMove.slice(0, 2)) ?? moved.square)
+}
+
 function playedMove(prev: ImmutablePosition, position: ImmutablePosition, usi: string) {
   const next = prev.clone()
   const move = next.createMoveByUSI(usi)
@@ -50,7 +71,7 @@ function avatarMove(
         }
       : undefined
   const step = move.from instanceof Square ? Math.max(Math.abs(move.from.file - move.to.file), Math.abs(move.from.rank - move.to.rank)) : 0
-  const kind = move.from instanceof Square ? (move.promote ? 'promote' : capture ? 'capture' : step <= 1 ? 'slide' : 'carry') : 'drop'
+  const kind = moveKind(move, capture, step)
   const land = placed ? null : s.onLand
   const source =
     kind === 'drop' && !placed
@@ -218,13 +239,7 @@ export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, pr
   for (const old of existing) {
     const square = old.userData.square as Square | undefined
     if (!square && (!old.userData.held || relayout) && s.drag?.mesh !== old) continue
-    const next = s.pieces.children.includes(old)
-      ? old
-      : square
-        ? s.pieces.children.find((m) => (m.userData.square as Square | undefined)?.equals(square))
-        : s.handMeshes.find(
-            (m) => m.userData.type === old.userData.type && m.userData.color === old.userData.color && m.userData.liftable === old.userData.liftable,
-          )
+    const next = successor(s, old, square)
     if (!next) continue
     const transform = transforms.get(old)!
     next.position.copy(transform.position)
@@ -237,11 +252,7 @@ export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, pr
   const carried = moved && lastMove && (animate || placed) ? avatarMove(s, position, prev, lastMove, moved.mesh, placed, captureSeed) : false
   if (moved && lastMove && !carried && animate) {
     const { mesh } = moved
-    const from = placed
-      ? mesh.position.clone()
-      : lastMove[1] === '*'
-        ? standCenter(moved.color)
-        : squarePoint(Square.newByUSI(lastMove.slice(0, 2)) ?? moved.square)
+    const from = animationOrigin(placed, mesh, lastMove, moved)
     const flip = move?.promote ? scenePiece(s, move.pieceType, move.color, mesh.userData.grainSeed as number) : undefined
     if (flip) {
       flip.position.copy(from)
@@ -297,7 +308,8 @@ export function liftSelected(s: SceneState, props: Board3DProps, dt: number) {
 }
 
 export function stepAnimations(s: SceneState, time: number) {
-  for (const anim of [...s.animations]) {
+  const running = [...s.animations]
+  for (const anim of running) {
     const t = Math.min(1, (time - anim.start) / (anim.duration ?? (anim.flip ? 550 : 220)))
     const e = 1 - (1 - t) ** 3
     anim.mesh.position.lerpVectors(anim.from, anim.to, e)

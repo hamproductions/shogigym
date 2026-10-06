@@ -99,18 +99,20 @@ function ring(row: PieceType[], r: number, gap: number, liftBase: number): Place
   })
 }
 
+const moved = (p: Placed, x: number, z: number): Placed => ({ ...p, x, z })
+
 function rows(pieces: PieceType[], gap: number) {
   const placed: Placed[] = []
   let rest = [...pieces]
   let r = 1e4
   let ringIndex = 0
   while (rest.length) {
-    let row: PieceType[] = []
+    const row: PieceType[] = []
     const rowH = Math.max(...rest.slice(0, 1).map(h))
     for (const t of rest) {
       const b = bounds(ring([...row, t], r + rowH / 2, gap, ringIndex * 0.03))
       if (row.length && (b.maxX - b.minX > INNER || big(row[0]) !== big(t))) break
-      row = [...row, t]
+      row.push(t)
     }
     const ringH = Math.max(...row.map(h))
     placed.push(...ring(row, r + ringH / 2, gap, ringIndex * 0.03))
@@ -138,11 +140,11 @@ function fan(pieces: PieceType[], split: boolean) {
   const fans: Placed[][] = []
   let rest = [...pieces]
   while (rest.length) {
-    let row: PieceType[] = []
+    const row: PieceType[] = []
     for (const t of rest) {
       const b = bounds(fanRow([...row, t], 0))
       if (row.length && (b.maxX - b.minX > INNER || (split && big(row[0]) !== big(t)))) break
-      row = [...row, t]
+      row.push(t)
     }
     fans.push(fanRow(row, fans.length * 0.03))
     rest = rest.slice(row.length)
@@ -151,7 +153,7 @@ function fan(pieces: PieceType[], split: boolean) {
   for (const row of fans) {
     const b = bounds(row)
     const ox = -(b.minX + b.maxX) / 2
-    const shifted = (dz: number) => row.map((p) => ({ ...p, x: p.x + ox, z: p.z - b.minZ + dz }))
+    const shifted = (dz: number) => row.map((p) => moved(p, p.x + ox, p.z - b.minZ + dz))
     if (!placed.length) {
       placed.push(...shifted(0))
       continue
@@ -164,23 +166,24 @@ function fan(pieces: PieceType[], split: boolean) {
   return settle(placed)
 }
 
+function stack(type: PieceType, n: number, e: number): Placed[] {
+  const thick = (komaDepth(pieceScale(type)) + 0.05) * 0.96
+  const roll = Math.asin(Math.min(0.9, thick / w(type)))
+  return Array.from({ length: n }, (_, j) => ({
+    type,
+    x: j * e,
+    z: 0,
+    rot: 0,
+    lift: j ? (w(type) / 2) * Math.sin(roll) + 0.004 : 0,
+    roll: j ? -roll : 0,
+    count: j === n - 1 && n > 1 ? n : undefined,
+  }))
+}
+
 function grouped(count: (type: PieceType) => number, expose: number) {
   interface Group {
     type: PieceType
     n: number
-  }
-  const stack = (type: PieceType, n: number, e: number): Placed[] => {
-    const thick = (komaDepth(pieceScale(type)) + 0.05) * 0.96
-    const roll = Math.asin(Math.min(0.9, thick / w(type)))
-    return Array.from({ length: n }, (_, j) => ({
-      type,
-      x: j * e,
-      z: 0,
-      rot: 0,
-      lift: j ? (w(type) / 2) * Math.sin(roll) + 0.004 : 0,
-      roll: j ? -roll : 0,
-      count: j === n - 1 && n > 1 ? n : undefined,
-    }))
   }
   const sizes = (type: PieceType) => {
     const n = count(type)
@@ -188,7 +191,7 @@ function grouped(count: (type: PieceType) => number, expose: number) {
   }
   const span = (line: Group[], e: number) => line.reduce((sum, g) => sum + w(g.type) + (g.n - 1) * e, 0) + 0.08 * (line.length - 1)
   const lines: Group[][] = []
-  for (const tier of TIERS.map((tier) => tier.flatMap(sizes)).filter((tier) => tier.length)) {
+  for (const tier of TIERS.map((names) => names.flatMap(sizes)).filter((groups) => groups.length)) {
     let line: Group[] = []
     for (const g of tier) {
       if (line.length && span([...line, g], expose) > INNER - 0.04) {
@@ -206,11 +209,11 @@ function grouped(count: (type: PieceType) => number, expose: number) {
     let u = 0
     const row: Placed[] = []
     for (const g of line) {
-      row.push(...stack(g.type, g.n, e).map((p) => ({ ...p, x: p.x + u + w(g.type) / 2 })))
+      row.push(...stack(g.type, g.n, e).map((p) => moved(p, p.x + u + w(g.type) / 2, p.z)))
       u += w(g.type) + (g.n - 1) * e + 0.08
     }
     const b = bounds(row)
-    return row.map((p) => ({ ...p, x: p.x - (b.minX + b.maxX) / 2, z: p.z - b.minZ }))
+    return row.map((p) => moved(p, p.x - (b.minX + b.maxX) / 2, p.z - b.minZ))
   })
   const heights = placedRows.map((row) => {
     const b = bounds(row)
@@ -221,7 +224,7 @@ function grouped(count: (type: PieceType) => number, expose: number) {
   const placed: Placed[] = []
   let v = 0
   placedRows.forEach((row, k) => {
-    placed.push(...row.map((p) => ({ ...p, z: p.z + v })))
+    placed.push(...row.map((p) => moved(p, p.x, p.z + v)))
     v += heights[k] + vgap
   })
   return settle(placed)
@@ -239,10 +242,17 @@ export function handArrangement(position: ImmutablePosition, color: Color): { sp
   const split = fan(pieces, true)
   const fanned = split.fits ? split : fan(pieces, false)
   const flat = fanned.fits ? undefined : [0.04, 0.02, 0].map((gap) => rows(pieces, gap)).find((a) => a.fits)
-  const mode: HandMode = fanned.fits ? 'fan' : flat ? 'rows' : 'grouped'
-  const best = fanned.fits
-    ? fanned
-    : (flat ?? [0.17, 0.14, 0.11, 0.09, 0.07].map((e) => grouped((t) => hand.count(t), e)).find((a) => a.fits) ?? grouped((t) => hand.count(t), 0.07))
+  let mode: HandMode = 'fan'
+  let best = fanned
+  if (!fanned.fits) {
+    if (flat) {
+      mode = 'rows'
+      best = flat
+    } else {
+      mode = 'grouped'
+      best = [0.17, 0.14, 0.11, 0.09, 0.07].map((e) => grouped((t) => hand.count(t), e)).find((a) => a.fits) ?? grouped((t) => hand.count(t), 0.07)
+    }
+  }
   const ox = -(best.b.minX + best.b.maxX) / 2
   const oz = -(best.b.minZ + best.b.maxZ) / 2
   return {

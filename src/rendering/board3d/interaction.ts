@@ -1,6 +1,5 @@
 import * as THREE from 'three'
-import type { Color, PieceType } from 'tsshogi'
-import { Square } from 'tsshogi'
+import { Square, type Color, type PieceType } from 'tsshogi'
 import { squareAt, squareX, squareZ } from './dimensions'
 import { squareFrame, squareTile } from './marks'
 import { ghostPiece } from './piece'
@@ -8,8 +7,8 @@ import type { Latest, SceneState } from './types'
 
 type Pick = { kind: 'square'; square: Square } | { kind: 'hand'; color: Color; type: PieceType } | { kind: 'arrow'; usi: string }
 
-const LEGAL = { fill: 0x3fae5a, edge: 0x1f7a3a, opacity: 0.55 }
-const ILLEGAL = { fill: 0x8a8a8a, edge: 0x5a5a5a, opacity: 0.3 }
+const LEGAL = { fill: 0x3FAE5A, edge: 0x1F7A3A, opacity: 0.55 }
+const ILLEGAL = { fill: 0x8A8A8A, edge: 0x5A5A5A, opacity: 0.3 }
 
 const squareOwner = (object: THREE.Object3D) => {
   let o: THREE.Object3D | null = object
@@ -75,13 +74,13 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
         return { tag, d: Math.hypot(((p.x - pointer.x) * rect.width) / 2, ((p.y - pointer.y) * rect.height) / 2) }
       })
       .filter((t) => t.d < 22)
-      .sort((a, b) => a.d - b.d)[0]
+      .toSorted((a, b) => a.d - b.d)[0]
   }
 
   const pick = (): Pick | null => {
     const tag = latest.current.onArrow && nearTag()
     if (tag) return { kind: 'arrow', usi: tag.tag.userData.usi as string }
-    const handHit = raycaster.intersectObjects(s.handMeshes, false)[0]
+    const [handHit] = raycaster.intersectObjects(s.handMeshes, false)
     if (handHit) return { kind: 'hand', ...(handHit.object.userData as { color: Color; type: PieceType }) }
     const pieceHit = raycaster.intersectObjects(s.pieces.children, true).find((h) => squareOwner(h.object))
     const owner = pieceHit && squareOwner(pieceHit.object)
@@ -213,7 +212,7 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
       return
     }
     ray(event)
-    const hit = raycaster.intersectObjects(s.pieces.children, true)[0]
+    const [hit] = raycaster.intersectObjects(s.pieces.children, true)
     if (!hit) {
       if (event.type === 'contextmenu') {
         event.preventDefault()

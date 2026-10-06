@@ -43,3 +43,8 @@ export function woodMaterial(base: [number, number, number], seed: number, envMa
 }
 
 export const standMaterial = (envMap = pieceEnv) => woodMaterial([180, 128, 66], 21, envMap)
+
+export const materialList = (material: THREE.Material | THREE.Material[] | undefined): THREE.Material[] => {
+  if (Array.isArray(material)) return material
+  return material ? [material] : []
+}

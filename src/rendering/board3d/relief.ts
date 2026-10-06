@@ -45,7 +45,8 @@ export function inkMask(map: THREE.Texture) {
   }
   const size = SIZE
   const canvas = document.createElement('canvas')
-  canvas.width = canvas.height = size
+  canvas.width = size
+  canvas.height = size
   const ctx = canvas.getContext('2d', { willReadFrequently: true })!
   ctx.drawImage(glyph ?? (map.image as HTMLCanvasElement), 0, 0, size, size)
   const raw = ctx.getImageData(0, 0, size, size).data
@@ -56,7 +57,9 @@ export function inkMask(map: THREE.Texture) {
     const b = raw[i * 4 + 2]
     const red = r > 110 && r - g > 55 && r - b > 55
     const lum = 0.3 * r + 0.59 * g + 0.11 * b
-    hard[i] = glyph ? raw[i * 4 + 3] / 255 : map.userData.lightInk ? (lum > 125 ? 1 : 0) : red || lum < 125 ? 1 : 0
+    if (glyph) hard[i] = raw[i * 4 + 3] / 255
+    else if (map.userData.lightInk) hard[i] = lum > 125 ? 1 : 0
+    else hard[i] = red || lum < 125 ? 1 : 0
   }
   const soft = blur(blur(hard, size, 2), size, 2)
   const sample: Ink = (u, v) => {
@@ -127,7 +130,8 @@ export function finishMask(map: THREE.Texture, finish: PieceFinish) {
 
 function dataTexture(fill: (data: Uint8ClampedArray, x: number, y: number, o: number) => void) {
   const canvas = document.createElement('canvas')
-  canvas.width = canvas.height = SIZE
+  canvas.width = SIZE
+  canvas.height = SIZE
   const ctx = canvas.getContext('2d')!
   const img = ctx.createImageData(SIZE, SIZE)
   for (let y = 0; y < SIZE; y++) for (let x = 0; x < SIZE; x++) fill(img.data, x, y, (y * SIZE + x) * 4)

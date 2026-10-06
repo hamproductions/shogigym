@@ -4,7 +4,7 @@ import { PIECE_FINISHES, pieceTone, getSettings, type PieceAppearance, pieceFini
 import { loadedPiece, pieceCode } from '@/appearance/pieceSets'
 import { komaDepth, komaTaper, komaWidth, pieceScale } from './dimensions'
 import { PROMOTED, faceText, piecePolygon, type Poly } from '@/rendering/koma'
-import { environmentMap } from './materials'
+import { environmentMap, materialList } from './materials'
 import { finishMask, lacquerMap, reliefNormal } from './relief'
 import { artTexture, faceTexture, glyphTexture, onFaceTexturesCleared, pieceSurface, recall, remember, srgbTexture } from './textures'
 
@@ -90,7 +90,11 @@ function pieceBody(scale: number) {
     for (let i = sideStart; i + 2 < sideEnd; i += 3) {
       const nx = (pos.getY(i + 1) - pos.getY(i)) * (pos.getZ(i + 2) - pos.getZ(i)) - (pos.getZ(i + 1) - pos.getZ(i)) * (pos.getY(i + 2) - pos.getY(i))
       const ny = (pos.getZ(i + 1) - pos.getZ(i)) * (pos.getX(i + 2) - pos.getX(i)) - (pos.getX(i + 1) - pos.getX(i)) * (pos.getZ(i + 2) - pos.getZ(i))
-      if (Math.abs(ny) > Math.abs(nx)) isEnd[i] = isEnd[i + 1] = isEnd[i + 2] = 1
+      if (Math.abs(ny) > Math.abs(nx)) {
+        isEnd[i] = 1
+        isEnd[i + 1] = 1
+        isEnd[i + 2] = 1
+      }
     }
   for (let i = 0; i < uv.count; i++) {
     const x = pos.getX(i)
@@ -232,7 +236,7 @@ function pieceBottom(scale: number) {
 }
 
 const hiddenLid = new THREE.MeshBasicMaterial({ visible: false })
-const sideMaterial = new THREE.MeshStandardMaterial({ color: 0xdcb377, emissive: 0x8a6232, emissiveIntensity: 0.75, roughness: 0.85 })
+const sideMaterial = new THREE.MeshStandardMaterial({ color: 0xDCB377, emissive: 0x8A6232, emissiveIntensity: 0.75, roughness: 0.85 })
 
 const sideTextures = new Map<string, THREE.Texture>()
 onFaceTexturesCleared(() => {
@@ -251,7 +255,8 @@ function sideTexture(seed: number, appearance?: PieceAppearance) {
     ctx.fillStyle = `rgba(${pieceTone(pieceMaterial, pieceColor).join(',')},0.5)`
     ctx.fillRect(0, 0, surface.width, surface.height)
     texture = srgbTexture(surface)
-    texture.wrapS = texture.wrapT = THREE.RepeatWrapping
+    texture.wrapS = THREE.RepeatWrapping
+    texture.wrapT = THREE.RepeatWrapping
     remember(sideTextures, key, texture, 64)
   }
   return texture
@@ -260,7 +265,7 @@ function sideTexture(seed: number, appearance?: PieceAppearance) {
 export function disposePiece(piece: THREE.Object3D) {
   piece.traverse((child) => {
     const { material } = child as THREE.Mesh
-    for (const item of Array.isArray(material) ? material : material ? [material] : []) {
+    for (const item of materialList(material)) {
       if (item === hiddenLid) continue
       if (child instanceof THREE.Sprite) (item as THREE.SpriteMaterial).map?.dispose()
       item.dispose()
@@ -307,7 +312,7 @@ export function pieceMesh(
           transparent: glass,
           alphaTest: glass ? 0.01 : 0,
           depthWrite: !glass,
-          emissive: plastic ? 0xffffff : 0x000000,
+          emissive: plastic ? 0xFFFFFF : 0x000000,
           emissiveMap: plastic ? map : null,
           emissiveIntensity: plastic ? 0.65 : 0,
           roughness: 1,
@@ -350,13 +355,13 @@ export function pieceMesh(
           side: THREE.FrontSide,
         })
   const sideGrain = !plastic && !glass ? sideTexture(seed, appearance) : null
-  const side = glass
-    ? glassMaterial()
-    : settings.pieceColor !== 'natural' || plastic
-      ? new THREE.MeshBasicMaterial({ color: sideGrain ? 0xe6e6e6 : `rgb(${tone.map((channel) => Math.round(channel * 0.9)).join(',')})`, map: sideGrain })
-      : sideMaterial.clone()
+  let side: THREE.MeshBasicMaterial | THREE.MeshPhysicalMaterial | THREE.MeshStandardMaterial
+  if (glass) side = glassMaterial()
+  else if (settings.pieceColor !== 'natural' || plastic)
+    side = new THREE.MeshBasicMaterial({ color: sideGrain ? 0xE6E6E6 : `rgb(${tone.map((channel) => Math.round(channel * 0.9)).join(',')})`, map: sideGrain })
+  else side = sideMaterial.clone()
   if (!plastic && !glass && settings.pieceColor === 'natural') {
-    side.color.set(0xffffff)
+    side.color.set(0xFFFFFF)
     side.map = sideGrain
     if (side instanceof THREE.MeshStandardMaterial) side.emissiveMap = sideGrain
   }
@@ -419,7 +424,7 @@ export function ghostPiece(type: PieceType, color: Color) {
   const ghost = pieceMesh(type, color)
   ghost.traverse((o) => {
     const m = (o as THREE.Mesh).material
-    for (const mat of Array.isArray(m) ? m : m ? [m] : []) {
+    for (const mat of materialList(m)) {
       const clone = mat.clone()
       clone.transparent = true
       clone.opacity = 0.4

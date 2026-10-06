@@ -65,7 +65,7 @@
     "unicorn/no-console-spaces": "error",
     "unicorn/empty-brace-spaces": "error",
     "unicorn/throw-new-error": "error",
-    "unicorn/number-literal-case": "error",
+    "unicorn/number-literal-case": "off",
     "unicorn/no-zero-fractions": "error",
     "unicorn/consistent-existence-index-check": "warn",
     "unicorn/consistent-empty-array-spread": "warn",

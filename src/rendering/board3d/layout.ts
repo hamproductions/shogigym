@@ -1,8 +1,9 @@
 import * as THREE from 'three'
 import { Color } from 'tsshogi'
 import { HALF_D, HALF_W, STAND, STAND_TOP, STRIP_D } from './dimensions'
-export { sideStandsFit } from './dimensions'
 import type { Latest, SceneState, StandZones } from './types'
+
+export { sideStandsFit } from './dimensions'
 
 export const layout = { portrait: false, narrow: false }
 

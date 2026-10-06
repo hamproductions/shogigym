@@ -159,16 +159,28 @@ export function pieceSurface(seed: number, appearance?: PieceAppearance) {
     ctx.beginPath()
     for (let y = 0; y <= 256; y += 3) {
       const flow = Math.sin(y * bend + phase + base * 0.004)
-      const offset =
-        pieceGrain === 'masame'
-          ? flow * 2.5 * amplitude + drift * y * 0.009
-          : pieceGrain === 'itame'
-            ? flow * (14 + Math.abs(base - 128) * 0.09) * amplitude
-            : pieceGrain === 'root'
-              ? Math.atan2(y - knotY, base - knotX) * 13 * amplitude + flow * 10
-              : pieceGrain === 'tiger'
-                ? Math.sin(y * (0.045 + bend) + phase) * (8 + flow * 4) * amplitude
-                : Math.asin(Math.sin(y * bend * 1.7 + phase)) * 18 * amplitude + flow * 5
+      let offset: number
+      switch (pieceGrain) {
+        case 'masame': {
+          offset = flow * 2.5 * amplitude + drift * y * 0.009
+          break
+        }
+        case 'itame': {
+          offset = flow * (14 + Math.abs(base - 128) * 0.09) * amplitude
+          break
+        }
+        case 'root': {
+          offset = Math.atan2(y - knotY, base - knotX) * 13 * amplitude + flow * 10
+          break
+        }
+        case 'tiger': {
+          offset = Math.sin(y * (0.045 + bend) + phase) * (8 + flow * 4) * amplitude
+          break
+        }
+        default: {
+          offset = Math.asin(Math.sin(y * bend * 1.7 + phase)) * 18 * amplitude + flow * 5
+        }
+      }
       ctx.lineTo(base + offset, y)
     }
     ctx.stroke()
@@ -189,11 +201,16 @@ function guideInk(guide: HTMLCanvasElement | undefined, ink: HTMLCanvasElement) 
   return canvas
 }
 
+function glyphInk(lightInk: boolean, promoted: boolean) {
+  if (lightInk) return promoted ? '#ffa0a4' : '#faf6eb'
+  return promoted ? '#9c1c12' : '#0e0804'
+}
+
 function composeGlyph(ink: HTMLCanvasElement, guide?: HTMLCanvasElement, two = false, marks = false) {
   const { canvas, ctx } = canvas2d(ink.width)
   const scale = pieceScale(PieceType.KING)
   const width = komaWidth(scale)
-  const [x, y] = piecePolygon(scale)[2]
+  const [, , [x, y]] = piecePolygon(scale)
   const left = canvas.width * (0.5 - x / width)
   const top = canvas.height * (0.5 - y / scale)
   const faceWidth = canvas.width - left * 2
@@ -233,10 +250,10 @@ export function artTexture(art: LoadedPiece, key: string, seed = 1, appearance?:
       const image = ink.ctx.getImageData(0, 0, 256, 256)
       for (let i = 0; i < image.data.length; i += 4) {
         const red = image.data[i] - image.data[i + 1] > 35 && image.data[i] - image.data[i + 2] > 20
-        const color = red ? [255, 160, 164] : [250, 246, 235]
-        image.data[i] = color[0]
-        image.data[i + 1] = color[1]
-        image.data[i + 2] = color[2]
+        const [cr, cg, cb] = red ? [255, 160, 164] : [250, 246, 235]
+        image.data[i] = cr
+        image.data[i + 1] = cg
+        image.data[i + 2] = cb
       }
       ink.ctx.putImageData(image, 0, 0)
     }
@@ -298,7 +315,7 @@ export function faceTexture(char: string, promoted: boolean, seed = 1, appearanc
   if (!glyph) {
     glyph = canvas2d(256, 256, true).canvas
     const ctx = glyph.getContext('2d')!
-    ctx.fillStyle = lightInk ? (promoted ? '#ffa0a4' : '#faf6eb') : promoted ? '#9c1c12' : '#0e0804'
+    ctx.fillStyle = glyphInk(lightInk, promoted)
     ctx.strokeStyle = ctx.fillStyle
     ctx.lineWidth = font.weight >= 700 ? 3 : 7
     ctx.lineJoin = 'round'

@@ -1,8 +1,9 @@
 import type * as THREE from 'three'
+import type * as Room from '@/rendering/room'
 import type { RoomDims } from '@/rendering/roomFloor'
 import { CASUAL } from './dimensions'
 
-type RoomModule = typeof import('@/rendering/room')
+type RoomModule = typeof Room
 
 let loading: Promise<RoomModule> | null = null
 let loaded: RoomModule | null = null
@@ -12,6 +13,8 @@ const loadRoom = () =>
     loaded = m
     return m
   }))
+
+const idle = (run: () => void) => (typeof globalThis.requestIdleCallback === 'function' ? globalThis.requestIdleCallback(run) : globalThis.setTimeout(run, 0))
 
 export interface Surroundings {
   need: () => void
@@ -33,8 +36,6 @@ export function surroundings(root: THREE.Group, dims: RoomDims): Surroundings {
       else void loadRoom().then(build)
     },
     prefetch: () => {
-      const idle = (run: () => void) =>
-        typeof globalThis.requestIdleCallback === 'function' ? globalThis.requestIdleCallback(run) : globalThis.setTimeout(run, 0)
       const timer = globalThis.setTimeout(() => idle(() => void loadRoom()), 3000)
       return () => globalThis.clearTimeout(timer)
     },

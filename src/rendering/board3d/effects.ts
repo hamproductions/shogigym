@@ -140,15 +140,15 @@ function boardMatrix(f: TableFlip, s: SceneState) {
   return new THREE.Matrix4().multiplyMatrices(f.rig.matrix, s.board.matrix)
 }
 
-function pushOutOfBoard(b: Body, m: THREE.Matrix4, kick: number, arena: Arena) {
+function pushOutOfBoard(b: Body, m: THREE.Matrix4, kick: number, room: Arena) {
   const { center, extent } = orient(b)
   const bottom = center.y - extent.y
-  const ground = footprintSurface(arena, center, extent)
+  const ground = footprintSurface(room, center, extent)
   const bodyAxes = axes.map((axis) => axis.clone())
   const boardAxes = [0, 1, 2].map((index) => new THREE.Vector3().setFromMatrixColumn(m, index).normalize())
   const delta = center.sub(new THREE.Vector3().setFromMatrixPosition(m))
   const half = new THREE.Vector3(HALF_W, THICK / 2, HALF_D)
-  const candidates = [...bodyAxes, ...boardAxes, ...bodyAxes.flatMap((a) => boardAxes.map((b) => new THREE.Vector3().crossVectors(a, b)))]
+  const candidates = [...bodyAxes, ...boardAxes, ...bodyAxes.flatMap((a) => boardAxes.map((boardAxis) => new THREE.Vector3().crossVectors(a, boardAxis)))]
   let penetration = Infinity
   let normal: THREE.Vector3 | null = null
   for (const axis of candidates) {
