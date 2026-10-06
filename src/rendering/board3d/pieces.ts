@@ -15,7 +15,7 @@ const CAPTURE_SEED = Object.fromEntries(Object.values(PieceType).map((type, i) =
 const squarePoint = (sq: Square) => new THREE.Vector3(squareX(sq.file), 0, squareZ(sq.rank))
 
 const scenePiece = (s: SceneState, type: PieceType, color: Color, seed?: number) =>
-  pieceMesh(type, color, seed, 64, undefined, preparePieceEnvironment(s.renderer, false))
+  pieceMesh(type, color, seed, 48, undefined, preparePieceEnvironment(s.renderer, false))
 
 const board3 = (sfen: string) => sfen.split(' ').slice(0, 3).join(' ')
 

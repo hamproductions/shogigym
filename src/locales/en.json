@@ -778,6 +778,8 @@
     "candidateMoves": "Candidate moves",
     "lineCount_one": "1 line",
     "lineCount_other": "{{count}} lines",
+    "showTesuji": "Show tesuji",
+    "showTesujiHint": "Name tesuji and techniques in the move list, on the board and in pop-up banners.",
     "powerMode": "Power mode",
     "powerModeHint": "Light beams and explosions on captures, a dramatic 王手, and a big finale on 詰み.",
     "voice": "Zundamon voice",

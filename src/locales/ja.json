@@ -759,6 +759,8 @@
     "fvScaleHint": "評価関数に合わせた値: 水匠5は24、Háoは20、その他の多くは16。",
     "candidateMoves": "候補手の数",
     "lineCount_other": "{{count}}手順",
+    "showTesuji": "手筋を表示",
+    "showTesujiHint": "棋譜・盤上・ポップアップに手筋や技の名前を表示します。",
     "powerMode": "パワーモード",
     "powerModeHint": "駒取りで光と爆発、王手で演出、詰みで大フィナーレ。",
     "voice": "ずんだもんの声",

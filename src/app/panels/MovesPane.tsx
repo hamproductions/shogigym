@@ -14,6 +14,7 @@ import { formationMoveTags, formationName } from '@/utils/formation'
 import { detectTesuji } from '@/app/tesuji'
 import { countMoves, isMainLine, nodeAt, type Tree } from '@/app/tree'
 import { Button } from '@/app/ui/Button'
+import { useSettings } from '@/appearance/settings'
 
 type MovesPaneProps = {
   sfens: string[]
@@ -51,6 +52,7 @@ export function MovesPane({
   detectionPreset,
 }: MovesPaneProps) {
   const { t, i18n } = useTranslation()
+  const { showTesuji } = useSettings()
   const [, setTick] = useState(0)
   const listRef = useRef<HTMLOListElement>(null)
   const tesujis = useMemo(() => moves.map((usi, i) => (sfens[i] ? detectTesuji(sfens[i], usi) : null)), [moves, sfens])
@@ -133,7 +135,7 @@ export function MovesPane({
     const usi = moves[i]
     const label = labels?.[i]
     const siblings = tree ? (nodeAt(tree, moves.slice(0, i))?.children ?? []).filter((c) => c.usi !== usi) : []
-    const tesuji = tesujis[i]
+    const tesuji = showTesuji ? tesujis[i] : null
     return (
       <div key={i} className={[siblings.length ? 'has-vars' : '', tree && !isMainLine(tree, moves.slice(0, i + 1)) ? 'in-var' : ''].join(' ')}>
         <button className={cursor === i + 1 ? 'on' : ''} onClick={() => setCursor(i + 1)}>
@@ -147,7 +149,7 @@ export function MovesPane({
             </span>
           )}
           {detectedTags
-            .filter((tag) => tag.ply === i + 1 && tag.annotation !== false && tag.name !== tesuji?.ja)
+            .filter((tag) => tag.ply === i + 1 && tag.annotation !== false && tag.name !== tesuji?.ja && (showTesuji || tag.kind !== 'technique'))
             .map((tag) => (
               <span key={`${tag.kind}|${tag.name}`} className="app-move-tesuji" title={tag.name}>
                 {formationName(tag.name, i18n.language)}

@@ -6,6 +6,7 @@ import { grainTexture, rng } from '@/rendering/roomFloor'
 import { CASUAL, HALF_D, HALF_W, MARGIN, komaWidth, pieceScale } from './dimensions'
 import { BOARD_STYLES, loadedBoard } from '@/appearance/boardStyles'
 import { BOARD_TONE, piecePolygon } from '@/rendering/koma'
+import { releaseDerived } from './relief'
 
 export function srgbTexture(canvas: HTMLCanvasElement, anisotropy = 1) {
   const texture = new THREE.CanvasTexture(canvas)
@@ -20,11 +21,12 @@ function sprite(canvas: HTMLCanvasElement, renderOrder: number) {
   return s
 }
 
-function canvas2d(width: number, height = width) {
+// Canvases that get read back with getImageData must be CPU-backed, or the browser keeps shuttling them off the GPU.
+function canvas2d(width: number, height = width, readback = false) {
   const canvas = document.createElement('canvas')
   canvas.width = width
   canvas.height = height
-  return { canvas, ctx: canvas.getContext('2d')! }
+  return { canvas, ctx: canvas.getContext('2d', readback ? { willReadFrequently: true } : undefined)! }
 }
 
 export function boardSurface(style: BoardStyle, width: number, height: number) {
@@ -81,14 +83,54 @@ export function boardTexture(style: BoardStyle) {
   return srgbTexture(canvas, 8)
 }
 
+// three.js never frees GPU memory for a texture until dispose() is called, so every cache here is bounded and
+// disposes what it drops. Disposing a texture a live mesh still uses is safe: it is simply re-uploaded on next use.
+const TEXTURE_LIMIT = 256
+const GLYPH_LIMIT = 512
 const faceCache = new Map<string, THREE.Texture>()
 const artCache = new Map<string, THREE.Texture>()
+const clearHooks = new Set<() => void>()
 export let faceTextureRevision = 0
 
+export const onFaceTexturesCleared = (hook: () => void) => {
+  clearHooks.add(hook)
+}
+
+export function releaseTexture(texture: THREE.Texture) {
+  releaseDerived(texture)
+  const ink = texture.userData.inkCanvas as HTMLCanvasElement | undefined
+  if (ink) {
+    glyphTextures.get(ink)?.dispose()
+    glyphTextures.delete(ink)
+  }
+  texture.dispose()
+}
+
+export function recall<K, T>(cache: Map<K, T>, key: K) {
+  const hit = cache.get(key)
+  if (hit !== undefined) {
+    cache.delete(key)
+    cache.set(key, hit)
+  }
+  return hit
+}
+
+export function remember<K, T extends THREE.Texture>(cache: Map<K, T>, key: K, texture: T, limit = TEXTURE_LIMIT) {
+  cache.set(key, texture)
+  while (cache.size > limit) {
+    const [oldKey, old] = cache.entries().next().value!
+    cache.delete(oldKey)
+    releaseTexture(old)
+  }
+  return texture
+}
+
 export const clearFaceTextures = () => {
+  for (const texture of [...faceCache.values(), ...artCache.values()]) releaseTexture(texture)
   faceCache.clear()
   artCache.clear()
   glyphCache.clear()
+  for (const hook of clearHooks) hook()
   faceTextureRevision++
 }
 
@@ -136,10 +178,10 @@ export function pieceSurface(seed: number, appearance?: PieceAppearance) {
 
 function guideInk(guide: HTMLCanvasElement | undefined, ink: HTMLCanvasElement) {
   if (!guide) return guide
-  const pixels = ink.getContext('2d')!.getImageData(0, 0, ink.width, ink.height).data
+  const pixels = ink.getContext('2d', { willReadFrequently: true })!.getImageData(0, 0, ink.width, ink.height).data
   let index = 0
   for (let i = 4; i < pixels.length; i += 4) if (pixels[i + 3] > pixels[index + 3]) index = i
-  const { canvas, ctx } = canvas2d(guide.width, guide.height)
+  const { canvas, ctx } = canvas2d(guide.width, guide.height, true)
   ctx.drawImage(guide, 0, 0)
   ctx.globalCompositeOperation = 'source-in'
   ctx.fillStyle = `rgb(${pixels[index]},${pixels[index + 1]},${pixels[index + 2]})`
@@ -180,12 +222,12 @@ export function artTexture(art: LoadedPiece, key: string, seed = 1, appearance?:
   const lightInk = settings.pieceColor === 'dark' || settings.pieceColor === 'mahogany'
   const glyphKey = `art|${key}|${settings.pieceStyle}|${settings.pieceGuide}|${lightInk}`
   key += `|${settings.pieceStyle}|${settings.pieceGuide}|${settings.pieceMaterial}|${settings.pieceColor}|${settings.pieceGrain}|${seed}`
-  const cached = artCache.get(key)
+  const cached = recall(artCache, key)
   if (cached) return cached
   const canvas = pieceSurface(seed, appearance)
   let glyph = glyphCache.get(glyphKey)
   if (!glyph) {
-    const ink = canvas2d(256)
+    const ink = canvas2d(256, 256, true)
     ink.ctx.drawImage(art.canvas, 0, 0, 256, 256)
     if (lightInk) {
       const image = ink.ctx.getImageData(0, 0, 256, 256)
@@ -201,21 +243,25 @@ export function artTexture(art: LoadedPiece, key: string, seed = 1, appearance?:
     const sourceGuide = settings.pieceGuide === 'none' ? undefined : loadedGuide(art.code, settings.pieceGuide)
     const guide = settings.pieceGuide === 'lines' ? guideInk(sourceGuide, ink.canvas) : sourceGuide
     glyph = composeGlyph(ink.canvas, guide, twoCharacterGlyph(settings.pieceSet), settings.pieceGuide === 'movement')
-    glyphCache.set(glyphKey, glyph)
+    rememberGlyph(glyphKey, glyph)
   }
   canvas.getContext('2d')!.drawImage(glyph, 0, 0)
   const texture = srgbTexture(canvas, 8)
   texture.userData.lightInk = lightInk
   texture.userData.glyphCanvas = glyph
   texture.userData.inkCanvas = glyph
-  artCache.set(key, texture)
-  return texture
+  return remember(artCache, key, texture)
 }
 
 const glyphCache = new Map<string, HTMLCanvasElement>()
 
+function rememberGlyph(key: string, glyph: HTMLCanvasElement) {
+  glyphCache.set(key, glyph)
+  if (glyphCache.size > GLYPH_LIMIT) glyphCache.delete(glyphCache.keys().next().value!)
+}
+
 function normalizeInk(source: HTMLCanvasElement) {
-  const pixels = source.getContext('2d')!.getImageData(0, 0, source.width, source.height).data
+  const pixels = source.getContext('2d', { willReadFrequently: true })!.getImageData(0, 0, source.width, source.height).data
   let left = source.width
   let top = source.height
   let right = 0
@@ -243,14 +289,14 @@ export function faceTexture(char: string, promoted: boolean, seed = 1, appearanc
   const font = PIECE_FONTS[appearance?.pieceFont ?? getSettings().pieceFont] ?? PIECE_FONTS.mincho
   const settings = { ...getSettings(), ...appearance }
   const key = `${char}${promoted}${font.family}${broadcast}|${set}|${settings.pieceMaterial}|${settings.pieceColor}|${settings.pieceGrain}|${settings.pieceGuide}|${code}|${seed}`
-  const cached = faceCache.get(key)
+  const cached = recall(faceCache, key)
   if (cached) return cached
   const canvas = pieceSurface(seed, appearance)
   const lightInk = settings.pieceColor === 'dark' || settings.pieceColor === 'mahogany'
   const glyphKey = `${char}|${promoted}|${font.family}|${broadcast}|${lightInk}|${settings.pieceStyle}|${settings.pieceGuide}|${code}`
   let glyph = glyphCache.get(glyphKey)
   if (!glyph) {
-    glyph = canvas2d(256).canvas
+    glyph = canvas2d(256, 256, true).canvas
     const ctx = glyph.getContext('2d')!
     ctx.fillStyle = lightInk ? (promoted ? '#ffa0a4' : '#faf6eb') : promoted ? '#9c1c12' : '#0e0804'
     ctx.strokeStyle = ctx.fillStyle
@@ -270,15 +316,14 @@ export function faceTexture(char: string, promoted: boolean, seed = 1, appearanc
     const guide = settings.pieceGuide === 'lines' ? guideInk(sourceGuide, glyph) : sourceGuide
     if (settings.pieceGuide !== 'none' && !guide) throw new Error(`Guide not loaded: ${code}/${settings.pieceGuide}`)
     glyph = composeGlyph(normalizeInk(glyph), guide, settings.pieceStyle === 'two', settings.pieceGuide === 'movement')
-    glyphCache.set(glyphKey, glyph)
+    rememberGlyph(glyphKey, glyph)
   }
   canvas.getContext('2d')!.drawImage(glyph, 0, 0)
   const texture = srgbTexture(canvas, 8)
   texture.userData.lightInk = lightInk
   texture.userData.glyphCanvas = glyph
   texture.userData.inkCanvas = glyph
-  faceCache.set(key, texture)
-  return texture
+  return remember(faceCache, key, texture)
 }
 
 const glyphTextures = new WeakMap<HTMLCanvasElement, THREE.Texture>()

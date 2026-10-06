@@ -45,6 +45,7 @@ export type Settings = {
   theme: Theme
   characters: boolean
   power: boolean
+  showTesuji: boolean
 }
 
 export type PieceAppearance = Partial<
@@ -97,6 +98,7 @@ const DEFAULTS: Settings = {
   theme: 'system',
   characters: true,
   power: false,
+  showTesuji: true,
 }
 
 function read(): Settings {

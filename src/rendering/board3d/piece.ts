@@ -6,7 +6,7 @@ import { komaDepth, komaTaper, komaWidth, pieceScale } from './dimensions'
 import { PROMOTED, faceText, piecePolygon, type Poly } from '@/rendering/koma'
 import { environmentMap } from './materials'
 import { finishMask, lacquerMap, reliefNormal } from './relief'
-import { artTexture, faceTexture, glyphTexture, pieceSurface, srgbTexture } from './textures'
+import { artTexture, faceTexture, glyphTexture, onFaceTexturesCleared, pieceSurface, recall, remember, srgbTexture } from './textures'
 
 const finish = (appearance?: PieceAppearance) => {
   const settings = { ...getSettings(), ...appearance }
@@ -119,13 +119,53 @@ function pieceBody(scale: number) {
   return geometry
 }
 
-const topCache = new WeakMap<object, Map<number, THREE.BufferGeometry>>()
+// Carved faces are keyed by glyph canvas; bounded, and dropped geometry is disposed so its GPU buffers are freed.
+const TOP_LIMIT = 192
+const topCache = new Map<object, Map<number, THREE.BufferGeometry>>()
+const flatCache = new Map<number, THREE.BufferGeometry>()
+
+const disposeTops = (byScale: Map<number, THREE.BufferGeometry>) => byScale.forEach((geometry) => geometry.dispose())
+
+onFaceTexturesCleared(() => {
+  topCache.forEach(disposeTops)
+  topCache.clear()
+})
+
+// A print or lacquer face with no relief is a plain tapered plane: triangulate the outline instead of a dense grid.
+function flatTop(scale: number) {
+  const cached = flatCache.get(scale)
+  if (cached) return cached
+  const w = komaWidth(scale)
+  const geometry = new THREE.ShapeGeometry(pieceShape(scale))
+  const pos = geometry.attributes.position
+  const uv = geometry.attributes.uv
+  const top = komaDepth(scale) + 0.024
+  for (let i = 0; i < pos.count; i++) {
+    const x = pos.getX(i)
+    const y = pos.getY(i)
+    const v = y / scale + 0.5
+    uv.setXY(i, x / w + 0.5, v)
+    pos.setZ(i, top * (1 - (1 - komaTaper(scale)) * Math.min(1, Math.max(0, v))))
+  }
+  geometry.computeVertexNormals()
+  geometry.rotateX(-Math.PI / 2)
+  flatCache.set(scale, geometry)
+  return geometry
+}
 
 function carvedTop(scale: number, map: THREE.Texture, segments: number, appearance?: PieceAppearance) {
   const glyph = map.userData.glyph ?? map.userData.glyphCanvas ?? map
-  let byScale = topCache.get(glyph)
-  if (!byScale) topCache.set(glyph, (byScale = new Map()))
   const spec = finish(appearance)
+  if (!spec.relief) return flatTop(scale)
+  let byScale = recall(topCache, glyph)
+  if (!byScale) {
+    topCache.set(glyph, (byScale = new Map()))
+    if (topCache.size > TOP_LIMIT) {
+      const [oldKey, old] = topCache.entries().next().value!
+      topCache.delete(oldKey)
+      disposeTops(old)
+    }
+  }
   const depth = spec.relief
   const key =
     ((Math.round(scale * 1000) * 1000 + Math.round(depth * 10000)) * 1000 + segments) * 10 +
@@ -195,11 +235,15 @@ const hiddenLid = new THREE.MeshBasicMaterial({ visible: false })
 const sideMaterial = new THREE.MeshStandardMaterial({ color: 0xdcb377, emissive: 0x8a6232, emissiveIntensity: 0.75, roughness: 0.85 })
 
 const sideTextures = new Map<string, THREE.Texture>()
+onFaceTexturesCleared(() => {
+  sideTextures.forEach((texture) => texture.dispose())
+  sideTextures.clear()
+})
 
 function sideTexture(seed: number, appearance?: PieceAppearance) {
   const { pieceMaterial, pieceGrain, pieceColor } = { ...getSettings(), ...appearance }
   const key = `${seed}/${pieceMaterial}/${pieceGrain}/${pieceColor}`
-  let texture = sideTextures.get(key)
+  let texture = recall(sideTextures, key)
   if (!texture) {
     const surface = pieceSurface(seed, appearance)
     // Calm the grain so the walls read as clean wood next to the carved face.
@@ -208,7 +252,7 @@ function sideTexture(seed: number, appearance?: PieceAppearance) {
     ctx.fillRect(0, 0, surface.width, surface.height)
     texture = srgbTexture(surface)
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping
-    sideTextures.set(key, texture)
+    remember(sideTextures, key, texture, 64)
   }
   return texture
 }

@@ -5,6 +5,7 @@ import { formationName, formationOf } from '@/utils/formation'
 import { formationTagsAt, formationOpeningAt } from '@/utils/formationTags'
 import { hasLegalMove, positionOf } from '@/utils/shogi'
 import { say } from '@/utils/voice'
+import { useSettings } from '@/appearance/settings'
 import { detectTesuji, type Tesuji } from '@/app/tesuji'
 import type { BoardSession } from './useBoardSession'
 import { useTransient } from './useTransient'
@@ -15,6 +16,7 @@ const QUIET_NAMES = ['居玉', '居飛車']
 
 export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, position }: BoardSession) {
   const { t, i18n } = useTranslation()
+  const { showTesuji } = useSettings()
   const [announce, setAnnounce] = useTransient<Announcement>(1800)
   const [tesujiNote, setTesujiNote] = useTransient<Tesuji & { at: number }>(6000)
   const announced = useRef<{ start: string; seen: Set<string> }>({ start: '', seen: new Set() })
@@ -32,7 +34,7 @@ export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, pos
       announced.current = { start: game.start, seen }
     }
     if (preview || mode === 'tsume' || cursor === 0) return
-    const tesuji = stepped && sfens[cursor - 1] ? detectTesuji(sfens[cursor - 1], game.moves[cursor - 1]) : null
+    const tesuji = showTesuji && stepped && sfens[cursor - 1] ? detectTesuji(sfens[cursor - 1], game.moves[cursor - 1]) : null
     if (stepped && position.checked) say(hasLegalMove(position) ? '王手' : 'ありがとうございました', true)
     if (tesuji) {
       setAnnounce({ side: positionOf(sfens[cursor - 1]).color, name: tesuji.ja, kind: t('app.tesuji'), key: Date.now(), tesuji: true })
@@ -42,7 +44,7 @@ export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, pos
     if (stepped && !tesuji) {
       const side = positionOf(sfens[cursor - 1]).color
       const technique = tags[side === Color.BLACK ? 0 : 1].findLast((tag) => tag.kind === 'technique' && tag.ply === cursor)
-      if (technique) {
+      if (showTesuji && technique) {
         setAnnounce({ side, name: formationName(technique.name, i18n.language), kind: t('app.tesuji'), key: Date.now(), tesuji: true })
       }
     }
@@ -61,6 +63,6 @@ export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, pos
         return
       }
     }
-  }, [sfen, preview, mode, cursor, game.start, game.moves, game.detectionPreset, sfens, position, t, i18n.language, setAnnounce, setTesujiNote])
-  return { announce, tesujiNote: tesujiNote && tesujiNote.at === cursor ? tesujiNote : null }
+  }, [sfen, preview, mode, cursor, game.start, game.moves, game.detectionPreset, sfens, position, t, i18n.language, setAnnounce, setTesujiNote, showTesuji])
+  return { announce, tesujiNote: showTesuji && tesujiNote && tesujiNote.at === cursor ? tesujiNote : null }
 }

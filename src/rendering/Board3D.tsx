@@ -138,6 +138,12 @@ export function Board3D(props: Board3DProps) {
     const onFlipCancel = () => {
       flipClick = null
     }
+    // A browser may drop the GL context under memory pressure; once restored, rebuild every texture and piece.
+    const onContextRestored = () => {
+      clearFaceTextures()
+      refresh()
+    }
+    renderer.domElement.addEventListener('webglcontextrestored', onContextRestored)
     renderer.domElement.addEventListener('pointerdown', onFlipDown)
     renderer.domElement.ownerDocument.addEventListener('pointermove', onFlipMove, true)
     renderer.domElement.ownerDocument.addEventListener('pointerup', onFlipUp, true)
@@ -160,6 +166,7 @@ export function Board3D(props: Board3DProps) {
       furigoma.current?.dispose()
       furigoma.current = null
       window.removeEventListener(TABLE_FLIP_EVENT, onFlip)
+      renderer.domElement.removeEventListener('webglcontextrestored', onContextRestored)
       renderer.domElement.removeEventListener('pointerdown', onFlipDown)
       renderer.domElement.ownerDocument.removeEventListener('pointermove', onFlipMove, true)
       renderer.domElement.ownerDocument.removeEventListener('pointerup', onFlipUp, true)
