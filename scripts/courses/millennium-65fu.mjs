@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'shikenbisha-vs-millennium--65fu',
   title: '四間飛車(後手) vs ミレニアム(▲3七桂型・△6五歩〜△5五歩の仕掛け)',
   myStrategy: 'shikenbisha',
@@ -29,3 +29,5 @@ export default {
     comment: 'ここまで定跡。ミレニアムの弱点は、と金攻め(6八の銀がと金に弱い)、5七角の角頭、桂頭を含む7筋です。',
   },
 }
+
+export default course

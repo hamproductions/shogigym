@@ -22,7 +22,7 @@ const LANE_AMBER = '#e0a23a'
 const SENTE_BLUE = '#1f7ae0'
 const GOTE_RED = '#d2402a'
 
-type DecorInput = {
+interface DecorInput {
   analysis: Analysis | null
   showBest: boolean
   tab: Tab
@@ -119,7 +119,7 @@ export function useBoardDecor(session: BoardSession, input: DecorInput) {
   const pieceAt = (sq: Square) => `${PIECE_INFO[position.board.at(sq)!.type].ja.slice(0, 1)}${squareName(sq)}`
   const focusNote =
     focusSquare && focusCell
-      ? `${squareName(focusSquare)}: ☗ ${focusCell.s.length ? focusCell.s.map(pieceAt).join(' ') : t('app.none')} · ☖ ${focusCell.g.length ? focusCell.g.map(pieceAt).join(' ') : t('app.none')}${focusCell.s.length !== focusCell.g.length ? t('app.controlsIt', { value: focusCell.s.length > focusCell.g.length ? '☗' : '☖' }) : focusCell.s.length ? t('app.contested') : ''}`
+      ? `${squareName(focusSquare)}: ☗ ${focusCell.s.length ? focusCell.s.map(pieceAt).join(' ') : t('app.none')} · ☖ ${focusCell.g.length ? focusCell.g.map(pieceAt).join(' ') : t('app.none')}${focusCell.s.length === focusCell.g.length ? (focusCell.s.length ? t('app.contested') : '') : t('app.controlsIt', { value: focusCell.s.length > focusCell.g.length ? '☗' : '☖' })}`
       : null
   const checkHelp = mode === 'spar' && position.checked && userTurn && atEnd && !gameOver && !preview ? t('app.checkYourKingIsAttacked') : null
   const note =
@@ -135,13 +135,13 @@ export function useBoardDecor(session: BoardSession, input: DecorInput) {
       : []
   })
   const reviewedMove = !preview && reviewAt > 0 ? game.moves[reviewAt - 1] : undefined
-  const stamp = !assist
-    ? null
-    : review && reviewedMove
+  const stamp = assist
+    ? review && reviewedMove
       ? { square: reviewedMove.slice(2, 4), text: LABELS[review.label].symbol, color: LABELS[review.label].color }
       : lastMove && bookLast
         ? { square: lastMove.slice(2, 4), text: '本', color: '#a88865' }
         : null
+    : null
 
   return {
     arrows,

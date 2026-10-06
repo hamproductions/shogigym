@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'tesuji--hisha-ni-hisha',
   title: '手筋: 飛車には飛車',
   myStrategy: 'shikenbisha',
@@ -21,3 +21,5 @@ export default {
     comment: '桂馬が取られるように見えても、飛車を合わせることで局面が収まります。',
   },
 }
+
+export default course

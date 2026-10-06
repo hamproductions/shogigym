@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'shogirule--37-2',
   title: '先手四間飛車 対 後手急戦 (2)(将棋ルール.com)',
   myStrategy: 'shikenbisha',
@@ -16,3 +16,5 @@ export default {
       '後手は△6四銀・△7五歩と7筋から攻め、△7七角成で先手の飛車を手にして△7六馬と馬を作った。先手は▲7三歩・▲7四歩で後手の飛車を7三で取り、▲6三歩成から▲7一飛と打ち込んだ。双方が相手玉に迫る寄せ合いの局面。出典の形勢判断は互角。',
   },
 }
+
+export default course

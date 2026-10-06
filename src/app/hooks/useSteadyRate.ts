@@ -6,11 +6,11 @@ export function useSteadyRate(rate: number | null) {
   useEffect(() => {
     if (rate === null) return
     const wait = Math.max(0, 450 - (performance.now() - committed.current))
-    const id = window.setTimeout(() => {
+    const id = globalThis.setTimeout(() => {
       committed.current = performance.now()
       setShown((s) => (s !== null && Math.abs(s - rate) < 0.01 ? s : rate))
     }, wait)
-    return () => window.clearTimeout(id)
+    return () => globalThis.clearTimeout(id)
   }, [rate])
   return shown
 }

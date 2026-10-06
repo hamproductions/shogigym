@@ -6,7 +6,7 @@ import { moveText } from '@/utils/shogi'
 import type { BookHit, BookMove } from '@/utils/book'
 import { isWeak } from '@/utils/mistake'
 
-type CoachPaneProps = {
+interface CoachPaneProps {
   review: MoveReview | null
   lastMove?: string
   prevSfen: string | null

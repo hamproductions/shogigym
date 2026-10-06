@@ -1,7 +1,26 @@
-export type MoveStat = { usi: string; games: number; senteWins: number; goteWins: number }
-export type PositionStats = { games: number; moves: MoveStat[]; book?: { usi: string; eval: number } }
-export type RawPosition = { n: number; m: [string, number, number, number][]; b?: [string, number] }
-export type StatsMeta = { games: number; sources: { id: string; games: number }[]; minGames: number; maxPly: number; built: string }
+export interface MoveStat {
+  usi: string
+  games: number
+  senteWins: number
+  goteWins: number
+}
+export interface PositionStats {
+  games: number
+  moves: MoveStat[]
+  book?: { usi: string; eval: number }
+}
+export interface RawPosition {
+  n: number
+  m: [string, number, number, number][]
+  b?: [string, number]
+}
+export interface StatsMeta {
+  games: number
+  sources: { id: string; games: number }[]
+  minGames: number
+  maxPly: number
+  built: string
+}
 
 export const statsKey = (sfen: string) => sfen.split(' ').slice(0, 3).join(' ')
 

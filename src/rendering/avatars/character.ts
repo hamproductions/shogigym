@@ -4,11 +4,25 @@ import { armChain, basisQuaternion, damp, solveArm, type ArmChain } from './ik'
 
 export const UNITS_PER_M = 1000 / 35.2
 
-export type Seat = { x: number; z: number; floor: number; style: 'seiza' | 'chair'; tableY: number; tableEdge: number }
+export interface Seat {
+  x: number
+  z: number
+  floor: number
+  style: 'seiza' | 'chair'
+  tableY: number
+  tableEdge: number
+}
 
 export type HandPose = Record<string, number[]>
 
-export type Goal = { at: THREE.Vector3; finger: THREE.Vector3; palm: THREE.Vector3; curl: number; grip: boolean; hand: HandPose | null }
+export interface Goal {
+  at: THREE.Vector3
+  finger: THREE.Vector3
+  palm: THREE.Vector3
+  curl: number
+  grip: boolean
+  hand: HandPose | null
+}
 
 export type Character = ReturnType<typeof createCharacter>
 
@@ -246,7 +260,7 @@ export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, heig
     q: new THREE.Quaternion(),
   }
   const armLength = () => {
-    const chain = sides.find((x) => x.side === state.side)!.chain
+    const { chain } = sides.find((x) => x.side === state.side)!
     const a = chain.upper.getWorldPosition(tmp)
     const b = chain.lower.getWorldPosition(tmp2)
     const ab = a.distanceTo(b)
@@ -428,7 +442,7 @@ export function createCharacter(vrm: VRM, seat: Seat, root: THREE.Object3D, heig
 
     for (const side of sides) {
       resolve(side, idle[side.side], wrist, handQ)
-      let curl = idle[side.side].curl
+      let { curl } = idle[side.side]
       let hand: HandPose | null = null
       let handW = 0
       if (side.side === 'right' && state.think > 0.001) {

@@ -15,8 +15,15 @@ import type { ModeSlots, Snapshot } from './useModeSwitch'
 
 const SESSION_KEY = 'joseki-practice:session:v2'
 
-type SavedGame = { start: string; moves: string[]; cursor: number; userSide: Side; tree?: Tree; resigned?: boolean }
-type SavedSession = {
+interface SavedGame {
+  start: string
+  moves: string[]
+  cursor: number
+  userSide: Side
+  tree?: Tree
+  resigned?: boolean
+}
+interface SavedSession {
   mode: Mode
   lesson?: { courseId: string; lessonMode: LessonMode; moves: string[]; score?: Score }
   spar?: SavedGame
@@ -33,7 +40,7 @@ function replays(start: string, moves: string[]) {
   return !!at
 }
 
-type Persisted = {
+interface Persisted {
   session: BoardSession
   lesson: Lesson
   tsume: Tsume
@@ -113,7 +120,7 @@ export function usePersistedSession({ session, lesson, tsume, drill, spar, slots
       return
     }
     try {
-      const next: SavedSession = { ...(readSession() ?? {}), mode }
+      const next: SavedSession = { ...readSession(), mode }
       if (mode === 'lesson' && course) next.lesson = { courseId: course.id, lessonMode, moves: game.moves.slice(0, cursor), score }
       if (mode === 'spar') next.spar = { start: game.start, moves: game.moves, cursor, userSide, tree, resigned: resigned || undefined }
       if (mode === 'analyze') next.analyze = { start: game.start, moves: game.moves, cursor, userSide, tree }

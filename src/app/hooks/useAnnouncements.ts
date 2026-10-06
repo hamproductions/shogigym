@@ -10,7 +10,13 @@ import { detectTesuji, type Tesuji } from '@/app/tesuji'
 import type { BoardSession } from './useBoardSession'
 import { useTransient } from './useTransient'
 
-export type Announcement = { side: Color; name: string; kind: string; key: number; tesuji?: boolean }
+export interface Announcement {
+  side: Color
+  name: string
+  kind: string
+  key: number
+  tesuji?: boolean
+}
 
 const QUIET_NAMES = ['居玉', '居飛車']
 
@@ -51,7 +57,7 @@ export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, pos
     if (!formationOpeningAt(sfens, game.moves, cursor, game.detectionPreset)) return
     for (const color of [Color.BLACK, Color.WHITE]) {
       for (const tag of tags[color === Color.BLACK ? 0 : 1].filter((tag) => tag.ply === cursor && tag.kind !== 'technique')) {
-        const name = tag.name
+        const { name } = tag
         const kind = t(tag.kind === 'strategy' ? 'app.strategy' : 'app.castle')
         if (!name || QUIET_NAMES.includes(name)) continue
         const id = `${color}|${name}`

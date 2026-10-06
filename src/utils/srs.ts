@@ -2,7 +2,7 @@ const HOUR = 3600_000
 const DAY = 24 * HOUR
 export const LADDER = [4 * HOUR, DAY, 3 * DAY, 7 * DAY, 14 * DAY, 30 * DAY, 90 * DAY, 180 * DAY]
 
-export type Card = {
+export interface Card {
   key: string
   level: number
   due: number

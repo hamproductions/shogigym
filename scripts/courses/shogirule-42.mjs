@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'shogirule--42',
   title: '先手四間飛車 対 後手右四間(将棋ルール.com)',
   myStrategy: 'shikenbisha',
@@ -15,3 +15,5 @@ export default {
       '後手は△6四歩・△5四銀・△6二飛の右四間で6筋を狙いつつ、△1二香〜△1一玉と穴熊に入りかけている。先手は▲5六銀から▲4五銀と銀を交換し、▲2五銀と打って3四の歩を狙う。1一の後手玉は7七の角と同じ斜めの筋にいる。出典の形勢判断は互角。',
   },
 }
+
+export default course

@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'shikenbisha-vs-aifuri--2fu',
   title: '相振り飛車: 四間飛車(先手) vs 三間飛車・2歩を手持ちにする手筋',
   myStrategy: 'shikenbisha',
@@ -21,3 +21,5 @@ export default {
     comment: '第5図。2歩を手持ちにし、飛車は8筋に転換しました。',
   },
 }
+
+export default course

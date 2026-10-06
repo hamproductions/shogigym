@@ -12,7 +12,7 @@ import type { SceneState, Stand } from './types'
 
 export function createRenderer(activateEnvironment = true) {
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
-  renderer.setPixelRatio(Math.min(matchMedia('(pointer: coarse)').matches ? 1 : 2, window.devicePixelRatio))
+  renderer.setPixelRatio(Math.min(matchMedia('(pointer: coarse)').matches ? 1 : 2, globalThis.devicePixelRatio))
   renderer.shadowMap.enabled = true
   renderer.shadowMap.type = THREE.PCFShadowMap
   renderer.toneMapping = THREE.ACESFilmicToneMapping

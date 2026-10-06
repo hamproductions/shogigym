@@ -7,7 +7,12 @@ import { getCard, isDifficult, isLearned, positionKey } from '@/utils/srs'
 import { loadMistakes, type Mistake } from '@/utils/mistakes'
 import { applyUsi, colorSide, hasLegalMove, moveText, positionOf, type Side } from '@/utils/shogi'
 
-export type Problem = { id: string; mate: number; sfen: string; pv: string[] }
+export interface Problem {
+  id: string
+  mate: number
+  sfen: string
+  pv: string[]
+}
 const BASE = problemsData as Problem[]
 
 const MATE_IN_ONE: Problem[] = BASE.filter((p) => p.mate === 3 && p.pv.length >= 3).flatMap((p) => {
@@ -18,7 +23,10 @@ const MATE_IN_ONE: Problem[] = BASE.filter((p) => p.mate === 3 && p.pv.length >=
 export const PROBLEMS = [...MATE_IN_ONE, ...BASE]
 
 const STATS_KEY = 'joseki-practice:tsume:v1'
-export type TsumeStats = { solved: string[]; failed: string[] }
+export interface TsumeStats {
+  solved: string[]
+  failed: string[]
+}
 
 export function loadTsumeStats(): TsumeStats {
   try {
@@ -81,7 +89,13 @@ export type ReviewItem =
 
 export type ReviewQueue = 'due' | 'new' | 'difficult' | 'mistakes'
 
-type Spot = { key: string; course: Course; node: JosekiNode; depth: number; alts: { course: Course; node: JosekiNode; depth: number }[] }
+interface Spot {
+  key: string
+  course: Course
+  node: JosekiNode
+  depth: number
+  alts: { course: Course; node: JosekiNode; depth: number }[]
+}
 const positionsCache = new Map<string, Spot[]>()
 
 export const coursesForMain = (main: string) => {

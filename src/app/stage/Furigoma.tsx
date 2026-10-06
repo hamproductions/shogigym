@@ -34,8 +34,8 @@ export function Furigoma({ onDone, onCancel, spectator = false }: { onDone: (sid
         onCancel()
       }
     }
-    window.addEventListener('keydown', cancel, true)
-    return () => window.removeEventListener('keydown', cancel, true)
+    globalThis.addEventListener('keydown', cancel, true)
+    return () => globalThis.removeEventListener('keydown', cancel, true)
   }, [onCancel])
   useEffect(() => {
     if (sprites.loading || !sprites.baked) return

@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'tesuji--wariuchi-gin-kin',
   title: '手筋: 割り打ちの銀(金と金の間)',
   myStrategy: 'shikenbisha',
@@ -19,3 +19,5 @@ export default {
     comment: '斜め後ろに動ける駒は玉と角以外にないため、多くの駒の弱点を突けます。',
   },
 }
+
+export default course

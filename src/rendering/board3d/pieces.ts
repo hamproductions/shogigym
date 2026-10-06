@@ -50,7 +50,7 @@ function avatarMove(
         }
       : undefined
   const step = move.from instanceof Square ? Math.max(Math.abs(move.from.file - move.to.file), Math.abs(move.from.rank - move.to.rank)) : 0
-  const kind = !(move.from instanceof Square) ? 'drop' : move.promote ? 'promote' : capture ? 'capture' : step <= 1 ? 'slide' : 'carry'
+  const kind = move.from instanceof Square ? (move.promote ? 'promote' : capture ? 'capture' : step <= 1 ? 'slide' : 'carry') : 'drop'
   const land = placed ? null : s.onLand
   const source =
     kind === 'drop' && !placed
@@ -111,7 +111,7 @@ export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, pr
       mesh.clear()
       ;(mesh as THREE.Mesh).geometry = next.geometry
       ;(mesh as THREE.Mesh).material = next.material
-      mesh.add(...[...next.children])
+      mesh.add(...next.children)
       mesh.castShadow = next.castShadow
       mesh.receiveShadow = next.receiveShadow
       Object.assign(mesh.userData, next.userData)
@@ -299,7 +299,7 @@ export function liftSelected(s: SceneState, props: Board3DProps, dt: number) {
 export function stepAnimations(s: SceneState, time: number) {
   for (const anim of [...s.animations]) {
     const t = Math.min(1, (time - anim.start) / (anim.duration ?? (anim.flip ? 550 : 220)))
-    const e = 1 - Math.pow(1 - t, 3)
+    const e = 1 - (1 - t) ** 3
     anim.mesh.position.lerpVectors(anim.from, anim.to, e)
     if (!anim.slide) anim.mesh.position.y = anim.to.y + Math.sin(Math.PI * t) * 0.5
     if (anim.fromQ && anim.toQ) anim.mesh.quaternion.slerpQuaternions(anim.fromQ, anim.toQ, e)

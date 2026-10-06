@@ -9,7 +9,12 @@ import { openPieceViewer } from '@/utils/events'
 import { getSettings, setSettings } from '@/appearance/settings'
 import { MODES, type Mode } from '@/app/types'
 
-export type Command = { id: string; label: string; hint?: string; run: () => void }
+export interface Command {
+  id: string
+  label: string
+  hint?: string
+  run: () => void
+}
 
 const ALIASES: Record<string, string> = {
   mino: '美濃',
@@ -39,7 +44,7 @@ const ALIASES: Record<string, string> = {
   castle: '囲',
 }
 
-type CommandActions = {
+interface CommandActions {
   sfen: string
   setMode: (m: Mode) => void
   flip: () => void

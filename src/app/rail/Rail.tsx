@@ -14,7 +14,7 @@ import { SoundButton } from './SoundButton'
 import { useRailCapacity } from './useRailCapacity'
 import { useRailTools, type RailTool } from './useRailTools'
 
-type RailProps = {
+interface RailProps {
   mode: Mode
   onMode: (mode: Mode) => void
   compact: boolean
@@ -49,11 +49,11 @@ function useMenuDismiss(open: boolean, close: () => void) {
       e.stopPropagation()
       close()
     }
-    window.addEventListener('pointerdown', close)
-    window.addEventListener('keydown', key, true)
+    globalThis.addEventListener('pointerdown', close)
+    globalThis.addEventListener('keydown', key, true)
     return () => {
-      window.removeEventListener('pointerdown', close)
-      window.removeEventListener('keydown', key, true)
+      globalThis.removeEventListener('pointerdown', close)
+      globalThis.removeEventListener('keydown', key, true)
     }
   }, [open, close])
 }
@@ -66,9 +66,9 @@ export function Rail({ mode, onMode, compact: phone, view, settingsOpen, onSetti
   const [modeMenu, setModeMenu] = useState(false)
   const [moreAt, setMoreAt] = useState<DOMRect | null>(null)
   const [modeAt, setModeAt] = useState<DOMRect | null>(null)
-  const [tablet, setTablet] = useState(() => window.matchMedia('(pointer: coarse)').matches)
+  const [tablet, setTablet] = useState(() => globalThis.matchMedia('(pointer: coarse)').matches)
   useEffect(() => {
-    const media = window.matchMedia('(pointer: coarse)')
+    const media = globalThis.matchMedia('(pointer: coarse)')
     const sync = () => setTablet(media.matches)
     media.addEventListener('change', sync)
     return () => media.removeEventListener('change', sync)
@@ -77,8 +77,8 @@ export function Rail({ mode, onMode, compact: phone, view, settingsOpen, onSetti
   const menuPosition = (anchor: DOMRect | null) =>
     anchor
       ? phone
-        ? { left: Math.max(8, Math.min(anchor.left, window.innerWidth - 240)), top: anchor.bottom + 8 }
-        : { left: anchor.right + 8, top: Math.max(8, Math.min(anchor.top, window.innerHeight - 400)) }
+        ? { left: Math.max(8, Math.min(anchor.left, globalThis.innerWidth - 240)), top: anchor.bottom + 8 }
+        : { left: anchor.right + 8, top: Math.max(8, Math.min(anchor.top, globalThis.innerHeight - 400)) }
       : undefined
   const closeMenus = useCallback(() => {
     setMore(false)

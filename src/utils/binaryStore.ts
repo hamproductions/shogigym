@@ -1,6 +1,9 @@
 import { useSyncExternalStore } from 'react'
 
-type Info = { name: string; size: number }
+interface Info {
+  name: string
+  size: number
+}
 export type BinaryFile = Info & { bytes: Uint8Array }
 
 export function binaryStore(namespace: string, key: string) {

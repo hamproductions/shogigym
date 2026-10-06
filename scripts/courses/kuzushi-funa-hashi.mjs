@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'kuzushi--funa-hashi',
   title: '囲い崩し: 舟囲いの端攻め(△9五歩▲同歩△9八歩)',
   myStrategy: 'shikenbisha',
@@ -23,3 +23,5 @@ export default {
       '舟囲いは8七の地点や端が弱く、横からの攻めでも7筋の玉には当たりが強くなります。▲9八同香と取らずに▲8八玉でも、歩が多ければ△9九歩成▲同玉△9七歩などの攻めが続きます。',
   },
 }
+
+export default course

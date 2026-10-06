@@ -5,10 +5,30 @@ export type Mode = 'lesson' | 'drill' | 'tsume' | 'tesuji' | 'spar' | 'view' | '
 export type Tab = 'engine' | 'coach' | 'flow' | 'moves'
 export type Level = 'rules' | 'new'
 export type LessonMode = 'study' | 'quiz'
-export type Game = { start: string; moves: string[]; detectionPreset?: DetectionPreset; detectionResult?: DetectionResult }
-export type Preview = { base: number; moves: string[]; step: number; title: string }
-export type Score = { right: number; wrong: number; shown?: number; retried?: number }
-export type Confirm = { text: string; run: () => void; yes?: string; no?: string }
+export interface Game {
+  start: string
+  moves: string[]
+  detectionPreset?: DetectionPreset
+  detectionResult?: DetectionResult
+}
+export interface Preview {
+  base: number
+  moves: string[]
+  step: number
+  title: string
+}
+export interface Score {
+  right: number
+  wrong: number
+  shown?: number
+  retried?: number
+}
+export interface Confirm {
+  text: string
+  run: () => void
+  yes?: string
+  no?: string
+}
 
 export const MODES: { id: Mode; icon: IconName }[] = [
   { id: 'spar', icon: 'spar' },

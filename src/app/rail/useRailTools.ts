@@ -3,7 +3,7 @@ import type { View } from '@/app/hooks/useView'
 import type { IconName } from '@/app/icons'
 import { useSettings } from '@/appearance/settings'
 
-export type RailTool = {
+export interface RailTool {
   id: string
   icon: IconName
   label: string
@@ -15,7 +15,7 @@ export type RailTool = {
   run: () => void
 }
 
-type ToolActions = {
+interface ToolActions {
   view: View
   settingsOpen: boolean
   onSettings: () => void
@@ -31,11 +31,12 @@ export function useRailTools({ view, settingsOpen, onSettings, onPalette, snapsh
   const ja = useSettings().lang === 'ja'
   const { tilted, setTilted, orbit, setOrbit, flatView, showControl, setShowControl, setHideUi, fullscreen, toggleFullscreen } = view
   const primary: RailTool[] = [
-    ...(!flatView
-      ? [{ id: 'tilt', icon: 'tilt', label: t('app.tilt'), title: t('app.tiltTheBoardT'), on: tilted, run: () => setTilted((v) => !v) } satisfies RailTool]
-      : []),
-    ...(!flatView
-      ? [
+    ...(flatView
+      ? []
+      : [{ id: 'tilt', icon: 'tilt', label: t('app.tilt'), title: t('app.tiltTheBoardT'), on: tilted, run: () => setTilted((v) => !v) } satisfies RailTool]),
+    ...(flatView
+      ? []
+      : [
           {
             id: 'orbit',
             icon: 'orbit',
@@ -45,9 +46,8 @@ export function useRailTools({ view, settingsOpen, onSettings, onPalette, snapsh
             pressed: orbit,
             run: () => setOrbit((v) => !v),
           } satisfies RailTool,
-        ]
-      : []),
-    ...(!flatView ? [{ id: 'tableflip', icon: 'tableflip', label: t('rail.tableFlip'), run: onFlipTable } satisfies RailTool] : []),
+        ]),
+    ...(flatView ? [] : [{ id: 'tableflip', icon: 'tableflip', label: t('rail.tableFlip'), run: onFlipTable } satisfies RailTool]),
   ]
   const secondary: RailTool[] = [
     { id: 'image', icon: 'image', label: t('rail.exportImage'), run: () => onSaveImage(snapshotName) },

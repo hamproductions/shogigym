@@ -83,10 +83,10 @@ for (let cursor = 0; cursor < queue.length && count < 24000; cursor++) {
 db.close()
 const output = 'public/books/peta233-v1'
 mkdirSync(output, { recursive: true })
-for (let i = 0; i < shards.length; i++) writeFileSync(`${output}/${i.toString(16).padStart(2, '0')}.json`, JSON.stringify(shards[i]) + '\n')
+for (let i = 0; i < shards.length; i++) writeFileSync(`${output}/${i.toString(16).padStart(2, '0')}.json`, `${JSON.stringify(shards[i])}\n`)
 writeFileSync(
   `${output}/manifest.json`,
-  JSON.stringify(
+  `${JSON.stringify(
     {
       source: 'https://github.com/yaneurao/YaneuraOu/releases/tag/new_petabook233',
       archive: 'new_petabook_20250505c.7z',
@@ -98,6 +98,6 @@ writeFileSync(
     },
     null,
     2,
-  ) + '\n',
+  )}\n`,
 )
 console.log(`${count} positions, ${branches} evaluated moves`)

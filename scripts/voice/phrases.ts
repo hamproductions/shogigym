@@ -1,7 +1,11 @@
 import formations from '../../src/data/formations.json'
 import { READINGS } from './readings'
 
-export type Phrase = { text: string; say: string; natural?: boolean }
+export interface Phrase {
+  text: string
+  say: string
+  natural?: boolean
+}
 
 const readingsFor = (names: string[]): Record<string, string> =>
   Object.fromEntries(

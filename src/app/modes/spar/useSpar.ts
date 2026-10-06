@@ -14,7 +14,7 @@ import { removeBranch } from '@/app/tree'
 import type { Confirm, Tab } from '@/app/types'
 import { useGameClock } from './useGameClock'
 
-type SparDeps = {
+interface SparDeps {
   load: Load
   setTab: (tab: Tab) => void
   coach: CoachReview
@@ -118,13 +118,13 @@ export function useSpar(
       ? t('app.youResignedReviewTheGame')
       : position.checked && !hasLegalMove(position)
         ? t('app.checkmateTheGameIsOver')
-        : !atEnd
-          ? t('app.lookingBackAtEarlierMoves')
-          : userTurn
+        : atEnd
+          ? userTurn
             ? position.checked
               ? t('app.checkYourKingIsIn')
               : t('app.yourMove')
             : t('app.theAiIsThinking')
+          : t('app.lookingBackAtEarlierMoves')
 
   return {
     resigned,

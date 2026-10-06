@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'shogirule--48',
   title: '後手四間飛車 対 角換わり棒銀(将棋ルール.com)',
   myStrategy: 'shikenbisha',
@@ -16,3 +16,5 @@ export default {
       '先手の棒銀(▲2七銀〜▲2六銀)に後手は△4五歩・△3五歩で反発した。角交換のあと先手は▲7七角〜▲3三角成で桂を取って▲1一馬と香も取り、後手は△6四角〜△1九角成で香を取って馬を作った。1九の後手の馬は先手陣に利き、1一の先手の馬は後手玉から遠い。出典の形勢判断は後手優勢。',
   },
 }
+
+export default course

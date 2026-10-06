@@ -13,7 +13,7 @@ export function sideStandsFit(w: number, h: number) {
   setBoardDims()
   const side = Math.min(w / (2 * (HALF_W + 0.45 + STAND)), h / (2 * HALF_D + 0.6))
   const sd = w < 560 ? 0.95 : 1.15
-  const strips = Math.min(w / (2 * HALF_W + (w < 560 ? 0.5 : 1.0)), h / (2 * (HALF_D + 0.3 + sd) + 0.2))
+  const strips = Math.min(w / (2 * HALF_W + (w < 560 ? 0.5 : 1)), h / (2 * (HALF_D + 0.3 + sd) + 0.2))
   return side >= strips * 0.97
 }
 
@@ -37,7 +37,7 @@ export function setBoardDims() {
 const KOMA_MM: [PieceType[], number, number, number, number][] = [
   [[PieceType.KING], 32.5, 29.3, 9.6, 3.93],
   [[PieceType.ROOK, PieceType.BISHOP, PieceType.DRAGON, PieceType.HORSE], 31.5, 28.3, 9.3, 3.81],
-  [[PieceType.GOLD, PieceType.SILVER, PieceType.PROM_SILVER], 30.5, 27.3, 9.0, 3.68],
+  [[PieceType.GOLD, PieceType.SILVER, PieceType.PROM_SILVER], 30.5, 27.3, 9, 3.68],
   [[PieceType.KNIGHT, PieceType.PROM_KNIGHT], 29.5, 26.3, 8.7, 3.56],
   [[PieceType.LANCE, PieceType.PROM_LANCE], 29.5, 24.1, 8.4, 3.26],
   [[PieceType.PAWN, PieceType.PROM_PAWN], 28.3, 23.1, 8.1, 3.17],

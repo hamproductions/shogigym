@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'tesuji--keito-gin',
   title: '手筋: 桂頭の銀',
   myStrategy: 'shikenbisha',
@@ -21,3 +21,5 @@ export default {
     comment: '「桂頭の銀定跡なり」の格言通り、桂馬キラーとして力を発揮します。',
   },
 }
+
+export default course

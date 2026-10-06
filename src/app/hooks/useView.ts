@@ -28,8 +28,8 @@ export function useView(mode?: Mode) {
         return
       setHideUi((v) => !v)
     }
-    window.addEventListener('keydown', on)
-    return () => window.removeEventListener('keydown', on)
+    globalThis.addEventListener('keydown', on)
+    return () => globalThis.removeEventListener('keydown', on)
   }, [])
   useEffect(() => {
     const on = () => setFullscreen(!!document.fullscreenElement)

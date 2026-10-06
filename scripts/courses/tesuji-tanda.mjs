@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'tesuji--tanda-fu',
   title: '手筋: 単打の歩',
   myStrategy: 'shikenbisha',
@@ -21,3 +21,5 @@ export default {
     comment: '出典では銀で取った場合も解説されています(金が取れる)。',
   },
 }
+
+export default course

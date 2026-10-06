@@ -31,7 +31,7 @@ for (const pr of problems) {
   else kept.push(pr)
 }
 if (process.argv.includes('--prune')) {
-  writeFileSync('src/data/tsume.json', JSON.stringify(kept) + '\n')
+  writeFileSync('src/data/tsume.json', `${JSON.stringify(kept)}\n`)
   console.log(`pruned ${bad}`)
   bad = 0
 }

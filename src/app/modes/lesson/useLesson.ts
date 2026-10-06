@@ -19,7 +19,13 @@ import { freshScore, type LessonMode, type Score, type Tab } from '@/app/types'
 
 const LESSON_GREEN = '#4f8a2a'
 
-type LessonDeps = { mistakes: Mistakes; load: Load; setTab: (tab: Tab) => void; closeSheet: () => void; compact: boolean }
+interface LessonDeps {
+  mistakes: Mistakes
+  load: Load
+  setTab: (tab: Tab) => void
+  closeSheet: () => void
+  compact: boolean
+}
 
 export function useLesson(session: BoardSession, { mistakes, load, setTab, closeSheet, compact }: LessonDeps) {
   const { t, i18n } = useTranslation()

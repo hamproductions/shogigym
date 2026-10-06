@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'tesuji--toomi-kaku',
   title: '手筋: 遠見の角',
   myStrategy: 'shikenbisha',
@@ -19,3 +19,5 @@ export default {
     comment: '「遠見の角に好手あり」の格言通り、角は遠くから打つと威力を発揮します。',
   },
 }
+
+export default course

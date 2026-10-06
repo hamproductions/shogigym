@@ -30,18 +30,18 @@ export function Board3D(props: Board3DProps) {
   latest.current = props
   const previous = useRef<ImmutablePosition | null>(null)
   const power = useRef<Power | null>(null)
-  const flipTimer = useRef(0)
+  const flipTimer = useRef<ReturnType<typeof setTimeout>>(undefined)
   const furigoma = useRef<ReturnType<typeof createFurigoma3D> | null>(null)
 
   useEffect(() => {
     const el = host.current!
     const renderer = createRenderer()
-    el.appendChild(renderer.domElement)
+    el.append(renderer.domElement)
     const s = buildScene(renderer)
     s.avatars = avatarSlot({ root: s.root, camera: s.camera, dims: { thick: THICK, leg: LEG, halfW: HALF_W, halfD: HALF_D } })
     if (latest.current.cues) s.avatars.cue(latest.current.cues)
     state.current = s
-    if (import.meta.env.DEV) (window as unknown as { __dbg: SceneState }).__dbg = s
+    if (import.meta.env.DEV) (globalThis as unknown as { __dbg: SceneState }).__dbg = s
     const refresh = (animate = false, relayout = false) => rebuild(s, latest.current, animate, null, false, relayout)
     s.settle = () => refresh()
     const syncPower = () => {
@@ -150,8 +150,8 @@ export function Board3D(props: Board3DProps) {
     renderer.domElement.ownerDocument.addEventListener('pointercancel', onFlipCancel, true)
     s.releaseFlip = releaseFlip
     const onSnapshot = (event: Event) => saveSnapshot(s, (event as CustomEvent<string>).detail)
-    window.addEventListener(TABLE_FLIP_EVENT, onFlip)
-    window.addEventListener(SNAPSHOT_EVENT, onSnapshot)
+    globalThis.addEventListener(TABLE_FLIP_EVENT, onFlip)
+    globalThis.addEventListener(SNAPSHOT_EVENT, onSnapshot)
 
     document.fonts.load('800 64px "Shippori Mincho B1"').then(() => {
       if (!live) return
@@ -165,14 +165,14 @@ export function Board3D(props: Board3DProps) {
       cancelAnimationFrame(frame)
       furigoma.current?.dispose()
       furigoma.current = null
-      window.removeEventListener(TABLE_FLIP_EVENT, onFlip)
+      globalThis.removeEventListener(TABLE_FLIP_EVENT, onFlip)
       renderer.domElement.removeEventListener('webglcontextrestored', onContextRestored)
       renderer.domElement.removeEventListener('pointerdown', onFlipDown)
       renderer.domElement.ownerDocument.removeEventListener('pointermove', onFlipMove, true)
       renderer.domElement.ownerDocument.removeEventListener('pointerup', onFlipUp, true)
       renderer.domElement.ownerDocument.removeEventListener('pointercancel', onFlipCancel, true)
-      window.clearTimeout(flipTimer.current)
-      window.removeEventListener(SNAPSHOT_EVENT, onSnapshot)
+      globalThis.clearTimeout(flipTimer.current)
+      globalThis.removeEventListener(SNAPSHOT_EVENT, onSnapshot)
       unbind()
       cancelPrefetch()
       s.avatars?.dispose()
@@ -194,7 +194,7 @@ export function Board3D(props: Board3DProps) {
     const s = state.current
     if (!s || (piecesReady.current && prev !== null && prev.sfen === props.position.sfen)) return
     resetTableFlip(s)
-    window.clearTimeout(flipTimer.current)
+    globalThis.clearTimeout(flipTimer.current)
     const changed = prev !== null
     const dragged = performance.now() - (s.droppedAt ?? 0) <= 400
     const stepped = changed ? moveEvent(prev, props.position, latest.current.lastMove) : null
@@ -210,7 +210,7 @@ export function Board3D(props: Board3DProps) {
     piecesReady.current = true
     if (s.onLand && event) fx?.onMove({ ...event, delay: dragged ? 0 : 0.22 })
     if (event?.mate)
-      flipTimer.current = window.setTimeout(() => {
+      flipTimer.current = globalThis.setTimeout(() => {
         startTableFlip(s, event.color === Color.BLACK ? Color.WHITE : Color.BLACK)
       }, 4200)
     else if (!event) fx?.clear()

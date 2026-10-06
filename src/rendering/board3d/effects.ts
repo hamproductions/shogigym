@@ -108,7 +108,7 @@ function dustCloud(): Dust {
 }
 
 function body(obj: THREE.Object3D, v: THREE.Vector3, w: THREE.Vector3, keepFlat: boolean): Body {
-  const geometry = (obj as THREE.Mesh).geometry
+  const { geometry } = obj as THREE.Mesh
   const box =
     geometry && !(obj as THREE.Sprite).isSprite
       ? (geometry.boundingBox ?? (geometry.computeBoundingBox(), geometry.boundingBox!))
@@ -286,7 +286,7 @@ function poseBoard(f: TableFlip, t: number) {
   const pivot = new THREE.Vector3(0, CASUAL ? -THICK : -THICK - LEG, -f.way * (CASUAL ? HALF_D / 3 : HALF_D))
   const u = Math.min(1, Math.max(0, (t - 0.04) / (SLAM - 0.04)))
   const k = (t - SLAM) / 0.45
-  const angle = Math.PI * Math.pow(u, 1.35) - (k > 0 && k < 1 ? 0.24 * Math.sin(Math.PI * k) * (1 - k) : 0)
+  const angle = Math.PI * u ** 1.35 - (k > 0 && k < 1 ? 0.24 * Math.sin(Math.PI * k) * (1 - k) : 0)
   f.rig.rotation.set(-f.way * angle, 0, 0)
   f.rig.position.copy(pivot).sub(pivot.clone().applyEuler(f.rig.rotation))
   f.rig.position.y += 5.5 * Math.sin(Math.PI * Math.min(1, t / SLAM))

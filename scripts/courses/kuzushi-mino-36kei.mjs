@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'kuzushi--mino-36kei',
   title: '囲い崩し: 美濃囲いに△3六桂',
   myStrategy: 'ibisha',
@@ -22,3 +22,5 @@ export default {
       '王手飛車がかかり、美濃側は受けきれません。美濃を寄せる急所は4九(後手なら6一)の金を動かすことで、3九に角や銀を打つ展開になると美濃の玉は寄ってしまいます。',
   },
 }
+
+export default course

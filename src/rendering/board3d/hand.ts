@@ -5,12 +5,37 @@ import { SIDE_COT, STAND, STAND_TOP, STRIP_W, komaDepth, komaWidth, pieceScale }
 import { layout, standCenter } from './layout'
 import { pieceMesh } from './piece'
 
-export type HandSpot = { type: PieceType; x: number; z: number; rot: number; count?: number; lift?: number; roll?: number }
+export interface HandSpot {
+  type: PieceType
+  x: number
+  z: number
+  rot: number
+  count?: number
+  lift?: number
+  roll?: number
+}
 export type HandMode = 'strip' | 'fan' | 'rows' | 'grouped'
 
-type Placed = { type: PieceType; x: number; z: number; rot: number; lift: number; roll?: number; count?: number }
-type Bounds = { minX: number; maxX: number; minZ: number; maxZ: number }
-type Attempt = { placed: Placed[]; b: Bounds; fits: boolean }
+interface Placed {
+  type: PieceType
+  x: number
+  z: number
+  rot: number
+  lift: number
+  roll?: number
+  count?: number
+}
+interface Bounds {
+  minX: number
+  maxX: number
+  minZ: number
+  maxZ: number
+}
+interface Attempt {
+  placed: Placed[]
+  b: Bounds
+  fits: boolean
+}
 
 const BIG = HAND_ORDER.filter((t) => t !== PieceType.PAWN)
 const CAPTURE_ORDER = [PieceType.ROOK, PieceType.BISHOP, PieceType.GOLD, PieceType.SILVER, PieceType.KNIGHT, PieceType.LANCE, PieceType.PAWN]
@@ -140,7 +165,10 @@ function fan(pieces: PieceType[], split: boolean) {
 }
 
 function grouped(count: (type: PieceType) => number, expose: number) {
-  type Group = { type: PieceType; n: number }
+  interface Group {
+    type: PieceType
+    n: number
+  }
   const stack = (type: PieceType, n: number, e: number): Placed[] => {
     const thick = (komaDepth(pieceScale(type)) + 0.05) * 0.96
     const roll = Math.asin(Math.min(0.9, thick / w(type)))

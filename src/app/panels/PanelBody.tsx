@@ -35,7 +35,7 @@ const EvalGraph = lazy(() => import('./EvalGraph').then((m) => ({ default: m.Eva
 const FlowPane = lazy(() => import('./FlowPane').then((m) => ({ default: m.FlowPane })))
 const MovesTab = lazy(() => import('./MovesTab').then((m) => ({ default: m.MovesTab })))
 
-export type PanelModel = {
+export interface PanelModel {
   analyzeMoves: number
   lesson: Lesson
   drill: Drill

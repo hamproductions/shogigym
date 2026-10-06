@@ -1,5 +1,6 @@
 import * as THREE from 'three'
-import { Color, PieceType, Square } from 'tsshogi'
+import type { Color, PieceType } from 'tsshogi'
+import { Square } from 'tsshogi'
 import { squareAt, squareX, squareZ } from './dimensions'
 import { squareFrame, squareTile } from './marks'
 import { ghostPiece } from './piece'

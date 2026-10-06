@@ -1,14 +1,18 @@
-type Timer = { due: number; run: () => void; every: number }
+interface Timer {
+  due: number
+  run: () => void
+  every: number
+}
 
 const real = {
-  raf: window.requestAnimationFrame.bind(window),
-  caf: window.cancelAnimationFrame.bind(window),
+  raf: globalThis.requestAnimationFrame.bind(window),
+  caf: globalThis.cancelAnimationFrame.bind(window),
   now: performance.now.bind(performance),
   date: Date.now.bind(Date),
-  setTimeout: window.setTimeout.bind(window),
-  clearTimeout: window.clearTimeout.bind(window),
-  setInterval: window.setInterval.bind(window),
-  clearInterval: window.clearInterval.bind(window),
+  setTimeout: globalThis.setTimeout.bind(window),
+  clearTimeout: globalThis.clearTimeout.bind(window),
+  setInterval: globalThis.setInterval.bind(window),
+  clearInterval: globalThis.clearInterval.bind(window),
 }
 
 let on = false
@@ -21,12 +25,12 @@ const timers = new Map<number, Timer>()
 export function installVirtualClock() {
   performance.now = () => (on ? clock : real.now())
   Date.now = () => (on ? offset + clock : real.date())
-  window.requestAnimationFrame = (cb) => {
+  globalThis.requestAnimationFrame = (cb) => {
     if (!on) return real.raf(cb)
     frames.set(++next, cb)
     return next
   }
-  window.cancelAnimationFrame = (id) => {
+  globalThis.cancelAnimationFrame = (id) => {
     if (!frames.delete(id)) real.caf(id)
   }
   const schedule = (every: boolean) =>
@@ -35,13 +39,13 @@ export function installVirtualClock() {
       if (!on) return every ? real.setInterval(run, ms) : real.setTimeout(run, ms)
       timers.set(++next, { due: clock + Math.max(0, ms), run, every: every ? Math.max(1, ms) : 0 })
       return next
-    }) as typeof window.setTimeout
-  window.setTimeout = schedule(false)
-  window.setInterval = schedule(true) as typeof window.setInterval
-  window.clearTimeout = ((id?: number) => {
+    }) as typeof globalThis.setTimeout
+  globalThis.setTimeout = schedule(false)
+  globalThis.setInterval = schedule(true) as typeof globalThis.setInterval
+  globalThis.clearTimeout = ((id?: number) => {
     if (id !== undefined && !timers.delete(id)) real.clearTimeout(id)
-  }) as typeof window.clearTimeout
-  window.clearInterval = window.clearTimeout as typeof window.clearInterval
+  }) as typeof globalThis.clearTimeout
+  globalThis.clearInterval = globalThis.clearTimeout as typeof globalThis.clearInterval
 }
 
 export function startVirtual() {

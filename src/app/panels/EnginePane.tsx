@@ -22,7 +22,7 @@ function standing(rate: number) {
   return i18n.t('engine.isWinning', { side })
 }
 
-type EnginePaneProps = {
+interface EnginePaneProps {
   sfen: string
   toMove: Side
   analysis: Analysis | null

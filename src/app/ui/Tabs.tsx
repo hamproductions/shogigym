@@ -1,7 +1,13 @@
 import type { ReactNode } from 'react'
 import { cx } from './cx'
 
-type TabsProps<T> = { items: { id: T; label: ReactNode }[]; value: T; onChange: (id: T) => void; className?: string; children?: ReactNode }
+interface TabsProps<T> {
+  items: { id: T; label: ReactNode }[]
+  value: T
+  onChange: (id: T) => void
+  className?: string
+  children?: ReactNode
+}
 
 export function Tabs<T extends string>({ items, value, onChange, className, children }: TabsProps<T>) {
   return (

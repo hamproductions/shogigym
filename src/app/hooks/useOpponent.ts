@@ -7,7 +7,12 @@ import { STRENGTH, useSettings } from '@/appearance/settings'
 import type { LessonMode } from '@/app/types'
 import type { BoardSession } from './useBoardSession'
 
-export type Reply = { key: string; usi: string; note?: string; source: 'book' | 'ai' }
+export interface Reply {
+  key: string
+  usi: string
+  note?: string
+  source: 'book' | 'ai'
+}
 
 export function useOpponent(session: BoardSession, { lessonMode, halted }: { lessonMode: LessonMode; halted: boolean }) {
   const settings = useSettings()

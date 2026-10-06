@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'shogirule--33',
   title: '先手四間飛車 対 穴熊(将棋ルール.com)',
   myStrategy: 'shikenbisha',
@@ -16,3 +16,5 @@ export default {
       '後手は△1二香〜△1一玉、△2二銀と△3一金・△3二金で穴熊を固めた。先手は▲6五歩・▲7五歩のあと飛車を6六から7六へ回し、▲5六銀・▲8八角と駒組みを進めたが、後手も△7二飛で7筋に備えている。先手の飛車は後手玉と反対の左辺にあり、穴熊を攻め崩すまでには手数がかかる。出典の形勢判断は後手優勢。',
   },
 }
+
+export default course

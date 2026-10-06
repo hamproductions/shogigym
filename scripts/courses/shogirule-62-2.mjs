@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'shogirule--62-2',
   title: '先手三間飛車「石田流」対 後手△6二飛(将棋ルール.com)',
   myStrategy: 'sankenbisha',
@@ -15,3 +15,5 @@ export default {
       '後手は△5四銀・△6二飛と銀と飛車を6筋に集め、△6五歩から角を交換して△6五銀と銀を前に出した。先手は角交換を▲8八同飛と飛車で取り返し、▲7七銀で銀の進出に備える。双方とも角を持ち駒にしている。出典の形勢判断は互角。',
   },
 }
+
+export default course

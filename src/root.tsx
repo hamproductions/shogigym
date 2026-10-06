@@ -16,9 +16,9 @@ const themeScript = `(() => {
   document.querySelector('meta[name="theme-color"]').setAttribute('content', dark ? '#1c1814' : '#f4eee3')
 })()`
 
-const isolationScript = `if (window.isSecureContext && 'serviceWorker' in navigator) {
+const isolationScript = `if (globalThis.isSecureContext && 'serviceWorker' in navigator) {
   const reloadWhenControlled = () => {
-    if (!window.crossOriginIsolated && navigator.serviceWorker.controller && !sessionStorage.getItem('coi-controlled-reload')) {
+    if (!globalThis.crossOriginIsolated && navigator.serviceWorker.controller && !sessionStorage.getItem('coi-controlled-reload')) {
       sessionStorage.setItem('coi-controlled-reload', '1')
       location.reload()
     }

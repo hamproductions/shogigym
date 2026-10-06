@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'tesuji--hara-gin-kei',
   title: '手筋: 腹銀(桂との連携)',
   myStrategy: 'shikenbisha',
@@ -21,3 +21,5 @@ export default {
     comment: '銀と金の2枚で、玉の逃げ場がなくなります。',
   },
 }
+
+export default course

@@ -1,7 +1,11 @@
 import { PIECE_SETS, type PieceSet } from './pieceSets'
 import type { PieceAppearance } from './settings'
 
-type PieceDesign = { key: PieceSet; label: string; patch: PieceAppearance }
+interface PieceDesign {
+  key: PieceSet
+  label: string
+  patch: PieceAppearance
+}
 
 const design = (key: PieceSet, patch: PieceAppearance = {}): PieceDesign => ({
   key,

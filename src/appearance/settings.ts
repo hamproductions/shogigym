@@ -17,7 +17,7 @@ export type AiStrength = 'beginner' | 'club' | 'strong' | 'max'
 export type Lang = 'en' | 'ja'
 export type EngineKind = 'yaneuraou' | 'nnue' | 'fairy'
 
-export type Settings = {
+export interface Settings {
   sound: boolean
   voice: boolean
   volume: number
@@ -207,7 +207,7 @@ function knock(when: number, pitch: number, gain: number, length: number) {
   const source = ac.createBufferSource()
   const buffer = ac.createBuffer(1, Math.floor(ac.sampleRate * length), ac.sampleRate)
   const data = buffer.getChannelData(0)
-  for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / data.length, 6)
+  for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / data.length) ** 6
   source.buffer = buffer
   const filter = ac.createBiquadFilter()
   filter.type = 'bandpass'

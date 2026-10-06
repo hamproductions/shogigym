@@ -1,8 +1,16 @@
 import { Color, Square, type ImmutablePosition } from 'tsshogi'
 import { sees } from '@/app/pieces'
 
-export type ControlCell = { s: Square[]; g: Square[] }
-type HeatCell = { square: Square; color: number; opacity: number; label?: string }
+export interface ControlCell {
+  s: Square[]
+  g: Square[]
+}
+interface HeatCell {
+  square: Square
+  color: number
+  opacity: number
+  label?: string
+}
 
 const SENTE_BLUE = 0x1f7ae0
 const GOTE_RED = 0xd2402a
@@ -36,5 +44,5 @@ export function controlHeat(control: Map<string, ControlCell>): HeatCell[] {
 }
 
 export function focusHeat(square: Square, cell: ControlCell): HeatCell {
-  return { square, color: cell.s.length !== cell.g.length ? (cell.s.length > cell.g.length ? SENTE_BLUE : GOTE_RED) : CONTESTED, opacity: 0.35 }
+  return { square, color: cell.s.length === cell.g.length ? CONTESTED : cell.s.length > cell.g.length ? SENTE_BLUE : GOTE_RED, opacity: 0.35 }
 }

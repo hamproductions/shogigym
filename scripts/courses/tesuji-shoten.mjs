@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'tesuji--shoten-fu',
   title: '手筋: 焦点の歩',
   myStrategy: 'shikenbisha',
@@ -17,3 +17,5 @@ export default {
     comment: '出典では桂・飛・角それぞれで取った場合を解説しています(桂で取ると銀が取れる)。',
   },
 }
+
+export default course

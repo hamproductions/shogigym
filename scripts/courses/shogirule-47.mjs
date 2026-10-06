@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'shogirule--47',
   title: '後手四間飛車 対 ４五歩急戦(将棋ルール.com)',
   myStrategy: 'shikenbisha',
@@ -16,3 +16,5 @@ export default {
       '先手は▲4五歩から4筋で戦いを起こし、▲2三角と打って▲3四角成で馬を作った。後手は△4五飛と飛車を出たが、▲4七銀で4筋からの成り込みは受けられ、3三の桂は3四の馬に狙われている。後手は△8四桂・△3七歩で手を作っている。出典の形勢判断は互角。',
   },
 }
+
+export default course

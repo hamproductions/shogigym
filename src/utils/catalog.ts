@@ -4,7 +4,7 @@ import type { Course, JosekiNode, RawCourse } from './model'
 
 type Side = 'sente' | 'gote'
 
-export type Setup = {
+export interface Setup {
   id: string
   main: string | null
   vs: string | null

@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Color, PieceType, Square } from 'tsshogi'
+import type { Color } from 'tsshogi'
+import { PieceType, Square } from 'tsshogi'
 import { legalTargets, promotionOptions } from '@/utils/shogi'
 import { sideMark } from '@/utils/notation'
 import { sees } from '@/app/pieces'
@@ -8,7 +9,13 @@ import type { LessonMode } from '@/app/types'
 import type { BoardSession } from './useBoardSession'
 import type { Mistakes } from './useMistake'
 
-type BoardInputDeps = { mistakes: Mistakes; commit: (usi: string) => void; lessonMode: LessonMode; halted: boolean; setNudge: (text: string) => void }
+interface BoardInputDeps {
+  mistakes: Mistakes
+  commit: (usi: string) => void
+  lessonMode: LessonMode
+  halted: boolean
+  setNudge: (text: string) => void
+}
 
 export function useBoardInput(session: BoardSession, { mistakes, commit, lessonMode, halted, setNudge }: BoardInputDeps) {
   const { t } = useTranslation()

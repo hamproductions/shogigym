@@ -3,7 +3,11 @@ import { positionOf } from './shogi'
 import i18n from './i18n'
 import { bookPosition, bookShard, flipBookMove } from './bookPosition'
 
-export type OpeningMove = { usi: string; score: number; depth: number }
+export interface OpeningMove {
+  usi: string
+  score: number
+  depth: number
+}
 type Shard = Record<string, [string, number, number][]>
 const store = binaryStore('shogigym:book', 'yaneuraou')
 export const readBookFile = store.read

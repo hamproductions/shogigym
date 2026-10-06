@@ -1,8 +1,21 @@
 import { Color, PieceType, Square, unpromotedPieceType, type ImmutablePosition } from 'tsshogi'
 import { positionOf } from './shogi'
 
-export type Detection = { name: string; color: Color; kind: 'castle' | 'technique'; squares: Square[]; ply: number; repeat: boolean; annotation: boolean }
-export type DetectionEvent = { to: Square; from: Square | null; captured: boolean; ply: number }
+export interface Detection {
+  name: string
+  color: Color
+  kind: 'castle' | 'technique'
+  squares: Square[]
+  ply: number
+  repeat: boolean
+  annotation: boolean
+}
+export interface DetectionEvent {
+  to: Square
+  from: Square | null
+  captured: boolean
+  ply: number
+}
 const opposite = (color: Color) => (color === Color.BLACK ? Color.WHITE : Color.BLACK)
 const base = unpromotedPieceType
 const major = (type: PieceType) => [PieceType.ROOK, PieceType.BISHOP].includes(base(type))

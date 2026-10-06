@@ -34,7 +34,7 @@ function nextCourseAfter(course: Course) {
   return siblings[siblings.findIndex((c) => c.id === course.id) + 1] ?? coursesOf(SETUPS.slice(SETUPS.indexOf(setup!) + 1).flatMap((s) => s.courseIds))[0]
 }
 
-type LessonPaneProps = {
+interface LessonPaneProps {
   lesson: Lesson
   mistake: ShownMistake | null
   mistakePreview: boolean

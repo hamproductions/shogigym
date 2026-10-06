@@ -1,7 +1,12 @@
 import { Color, type ImmutablePosition } from 'tsshogi'
 import { currentFormation, finalizeFormationTags, formationTagsAt, type DetectionPreset, type DetectionResult } from './formationTags'
 
-type FormationHistory = { sfens: string[]; moves: string[]; cursor: number; detectionPreset?: DetectionPreset }
+interface FormationHistory {
+  sfens: string[]
+  moves: string[]
+  cursor: number
+  detectionPreset?: DetectionPreset
+}
 
 export function formationOf(position: ImmutablePosition, color: Color, history?: FormationHistory) {
   const tags = history ? formationTagsAt(history.sfens, history.moves, history.cursor, history.detectionPreset)[color === Color.BLACK ? 0 : 1] : undefined

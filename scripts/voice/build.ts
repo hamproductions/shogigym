@@ -95,8 +95,8 @@ for (const { text, say, natural } of PHRASES) {
   ])
   if (ff.exitCode !== 0) throw new Error(`ffmpeg failed for ${text}: ${ff.stderr}`)
   manifest[text] = name
-  writeFileSync(join(OUT, 'manifest.json'), JSON.stringify(manifest, null, 1) + '\n')
+  writeFileSync(join(OUT, 'manifest.json'), `${JSON.stringify(manifest, null, 1)}\n`)
 }
-if (!verifyOnly) writeFileSync(join(OUT, 'manifest.json'), JSON.stringify(manifest, null, 1) + '\n')
+if (!verifyOnly) writeFileSync(join(OUT, 'manifest.json'), `${JSON.stringify(manifest, null, 1)}\n`)
 rmSync(TMP, { recursive: true, force: true })
 console.log(verifyOnly ? `Verified phonemes for ${PHRASES.length} phrases` : `${Object.keys(manifest).length} clips in ${OUT}`)

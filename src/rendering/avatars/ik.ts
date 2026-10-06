@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 
-export type ArmChain = {
+export interface ArmChain {
   upper: THREE.Object3D
   lower: THREE.Object3D
   hand: THREE.Object3D

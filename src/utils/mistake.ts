@@ -1,7 +1,13 @@
 import { LABELS, type Label, type MoveReview } from './analysis'
 import i18n from './i18n'
 
-export type Mistake = { usi: string; loss: number | null; known: boolean; verdict?: MoveReview; reason?: string }
+export interface Mistake {
+  usi: string
+  loss: number | null
+  known: boolean
+  verdict?: MoveReview
+  reason?: string
+}
 export type ShownMistake = Mistake & { base: number; expected: string; note?: string }
 
 const WEAK_LABELS: Label[] = ['inaccuracy', 'mistake', 'miss', 'blunder']

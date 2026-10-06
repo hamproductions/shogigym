@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'shogirule--60',
   title: '後手一手損角換わり 対 先手棒銀(将棋ルール.com)',
   myStrategy: 'kakugawari',
@@ -15,3 +15,5 @@ export default {
       '後手の一手損角換わりに先手は棒銀で▲2七銀→▲2六銀と出て、▲1五歩から端を攻めた。△同歩▲同銀△同香▲同香と銀と香を交換し、△1三歩の受けに▲1二歩と垂らして端に拠点を作った。先手は角と香、後手は角と銀を持ち駒にしている。出典の形勢判断は互角。',
   },
 }
+
+export default course

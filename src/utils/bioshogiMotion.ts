@@ -1,7 +1,7 @@
 import { Color, PieceType, Position, Square, unpromotedPieceType, type ImmutablePosition, type Piece } from 'tsshogi'
 
 type Vector = readonly [number, number]
-export type MotionEvent = {
+export interface MotionEvent {
   to: Square
   from: Square | null
   ply: number

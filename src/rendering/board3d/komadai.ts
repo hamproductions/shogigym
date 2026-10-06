@@ -7,11 +7,14 @@ import { preparePieceEnvironment, standMaterial } from './materials'
 import { disposePiece } from './piece'
 import { disposeRenderer } from './scene'
 
-export type HandSnapshot = { url: string; mode: HandMode }
+export interface HandSnapshot {
+  url: string
+  mode: HandMode
+}
 
 export function handSnapshots(sfens: string[], px: number): HandSnapshot[] {
   setBoardDims()
-  const portrait = layout.portrait
+  const { portrait } = layout
   const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true })
   renderer.setPixelRatio(1)
   renderer.setSize(px, px)

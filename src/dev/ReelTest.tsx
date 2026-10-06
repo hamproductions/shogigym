@@ -14,8 +14,16 @@ import { setSettings } from '@/appearance/settings'
 
 if (new URLSearchParams(location.search).has('capture')) installVirtualClock()
 
-type Shot = { at: number; pos: [number, number, number]; look: [number, number, number] }
-type Beat = { at: number; sfen?: string; usi?: string }
+interface Shot {
+  at: number
+  pos: [number, number, number]
+  look: [number, number, number]
+}
+interface Beat {
+  at: number
+  sfen?: string
+  usi?: string
+}
 
 const START = 'lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1'
 const MATE = 'ln1gkg1nl/6+P2/2sppps1p/2p3p2/p8/P1P1P3P/2NP1PP2/3s1KSR1/L1+b2G1NL w R2Pbgp 42'
@@ -28,8 +36,8 @@ const MOVES: Beat[] = [
   { at: 6.5, usi: '3a2b' },
   { at: 10.2, sfen: MATE },
   { at: 10.6, usi: 'B*5g' },
-  { at: 12.0, usi: '4h5h' },
-  { at: 13.0, usi: '7i6i' },
+  { at: 12, usi: '4h5h' },
+  { at: 13, usi: '7i6i' },
 ]
 
 const SHOTS: Shot[] = [
@@ -91,7 +99,7 @@ export default function ReelTest() {
     let frame = 0
     const tick = () => {
       const now = (performance.now() - startAt.current) / 1000
-      const s = (window as unknown as { __dbg?: SceneState }).__dbg
+      const s = (globalThis as unknown as { __dbg?: SceneState }).__dbg
       if (s?.controls) {
         const c = camera(now)
         s.camera.position.set(...c.pos)

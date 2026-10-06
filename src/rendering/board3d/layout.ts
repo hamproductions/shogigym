@@ -17,7 +17,7 @@ export function standCenter(color: Color) {
 
 export function cameraFit(aspect: number, tilt: number, sideRoom: number) {
   const fit = layout.portrait
-    ? Math.max((2 * HALF_W + (layout.narrow ? 0.5 : 1.0)) / aspect, 2 * (stripZ() + STRIP_D / 2) + 0.2)
+    ? Math.max((2 * HALF_W + (layout.narrow ? 0.5 : 1)) / aspect, 2 * (stripZ() + STRIP_D / 2) + 0.2)
     : Math.max((2 * (HALF_W + 0.45 + Math.max(STAND, sideRoom)) + 1.4) / aspect, 2 * HALF_D + 1.6)
   return fit * (1 + (layout.portrait ? 0.06 : 0.16) * tilt)
 }

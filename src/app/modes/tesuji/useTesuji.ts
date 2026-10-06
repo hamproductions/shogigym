@@ -10,7 +10,14 @@ import { playSound } from '@/appearance/settings'
 import { markTesuji, pickTesuji, type TesujiDrill } from '@/app/tesujiDrills'
 import type { Tab } from '@/app/types'
 
-export type TesujiState = { item: TesujiDrill; filter: string; status: 'asking' | 'right' | 'shown'; missed: boolean; hint: boolean; wrong?: string }
+export interface TesujiState {
+  item: TesujiDrill
+  filter: string
+  status: 'asking' | 'right' | 'shown'
+  missed: boolean
+  hint: boolean
+  wrong?: string
+}
 
 const ANSWER_GREEN = '#4f8a2a'
 

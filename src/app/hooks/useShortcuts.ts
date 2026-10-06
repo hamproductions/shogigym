@@ -3,7 +3,7 @@ import type { BoardSession } from './useBoardSession'
 import type { View } from './useView'
 import { getSettings, setSettings } from '@/appearance/settings'
 
-type Shortcuts = {
+interface Shortcuts {
   session: BoardSession
   view: View
   palette: boolean
@@ -99,7 +99,7 @@ export function useShortcuts({
       } else return
       setSelection(null)
     }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
+    globalThis.addEventListener('keydown', onKey)
+    return () => globalThis.removeEventListener('keydown', onKey)
   })
 }

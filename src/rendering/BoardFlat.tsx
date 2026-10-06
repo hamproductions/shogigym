@@ -1,7 +1,8 @@
 import './board.css'
 import { useEffect, useLayoutEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Color, PieceType, Square, type ImmutablePosition } from 'tsshogi'
+import type { PieceType } from 'tsshogi'
+import { Color, Square, type ImmutablePosition } from 'tsshogi'
 import type { Board3DProps } from './Board3D'
 import { OverMarks, UnderMarks } from './flatMarks'
 import { useLatest } from '@/app/hooks/useLatest'
@@ -19,7 +20,16 @@ const CH = SQ_D * U
 const PAD = 0.08 * U
 const KANJI_NUM = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九']
 
-type Drag = { from: Square | PieceType; color: Color; type: PieceType; x: number; y: number; moved: boolean; id: number; handIndex?: number }
+interface Drag {
+  from: Square | PieceType
+  color: Color
+  type: PieceType
+  x: number
+  y: number
+  moved: boolean
+  id: number
+  handIndex?: number
+}
 
 function geometry(portrait: boolean, narrow: boolean) {
   layout.portrait = portrait
@@ -67,7 +77,7 @@ export function BoardFlat(props: Board3DProps) {
     observer.observe(el)
     return () => observer.disconnect()
   }, [])
-  const zoned = !!props.onZones && window.innerWidth >= 1100 && sideStandsFit(window.innerWidth - 100, window.innerHeight - 110)
+  const zoned = !!props.onZones && globalThis.innerWidth >= 1100 && sideStandsFit(globalThis.innerWidth - 100, globalThis.innerHeight - 110)
   const g = geometry(!(zoned || sideStandsFit(box.w, box.h)), box.w < 560)
   const margin = MARGIN * U
   const { baked, loading, error } = useBakedPieces()
@@ -128,7 +138,7 @@ export function BoardFlat(props: Board3DProps) {
     const from = lastMove[1] === '*' ? null : Square.newByUSI(lastMove.slice(0, 2))
     const { g: at, cx: px, cy: py } = geo.current
     const mover = position.board.at(to)?.color ?? Color.BLACK
-    const stand = (mover === Color.BLACK) !== flipped ? at.stands.bottom : at.stands.top
+    const stand = (mover === Color.BLACK) === flipped ? at.stands.top : at.stands.bottom
     const fx = from ? px(from) : stand.x + stand.w / 2
     const fy = from ? py(from) : stand.y + stand.h / 2
     const dx = fx - px(to)

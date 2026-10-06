@@ -16,9 +16,16 @@ export async function clearBookDownloadCache() {
 }
 export const compactShard = (index: number) => binaryStore('shogigym:compact-book', String(index))
 export const compactUrl = (index: number) => `${import.meta.env.BASE_URL}books/peta233-v1/${index.toString(16).padStart(2, '0')}.json`
-export type BookProgress = { done: number; total: number }
+export interface BookProgress {
+  done: number
+  total: number
+}
 
-type FullManifest = { size: number; compressedSize: number; chunks: { file: string; size: number; compressedSize: number; sha256: string }[] }
+interface FullManifest {
+  size: number
+  compressedSize: number
+  chunks: { file: string; size: number; compressedSize: number; sha256: string }[]
+}
 export async function downloadFullBook(signal: AbortSignal, progress: (value: BookProgress) => void) {
   const base = `${import.meta.env.BASE_URL}books/peta233-full-v1/`
   const response = await fetch(`${base}manifest.json`, { signal })

@@ -10,7 +10,7 @@ import { playSound } from '@/appearance/settings'
 import type { Tab } from '@/app/types'
 
 export type TsumeLength = number | 'all'
-export type TsumeState = {
+export interface TsumeState {
   problem: Problem
   onBook: boolean
   status: 'playing' | 'checking' | 'solved' | 'wrong' | 'shown'

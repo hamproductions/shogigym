@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'shikenbisha-vs-ibisha--kakukoukan',
   title: '角交換四間飛車(先手)',
   myStrategy: 'shikenbisha',
@@ -110,3 +110,5 @@ export default {
     ],
   },
 }
+
+export default course

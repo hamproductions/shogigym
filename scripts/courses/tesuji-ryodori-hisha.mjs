@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'tesuji--ryodori-hisha',
   title: '手筋: 飛車の両取り',
   myStrategy: 'shikenbisha',
@@ -19,3 +19,5 @@ export default {
     comment: '飛車の十字の利きを活かした両取りです。',
   },
 }
+
+export default course

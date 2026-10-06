@@ -6,9 +6,19 @@ import { say } from '@/utils/voice'
 import { TIME_CONTROLS, useSettings } from '@/appearance/settings'
 
 type TimeControlSpec = (typeof TIME_CONTROLS)[keyof typeof TIME_CONTROLS]
-type ClockState = { sente: number; gote: number; byo: number; flagged: Side | null }
+interface ClockState {
+  sente: number
+  gote: number
+  byo: number
+  flagged: Side | null
+}
 
-export type ClockFace = { text: string; active: boolean; low: boolean; out: boolean }
+export interface ClockFace {
+  text: string
+  active: boolean
+  low: boolean
+  out: boolean
+}
 
 const freshClock = (tc: TimeControlSpec): ClockState => ({ sente: tc.main * 1000, gote: tc.main * 1000, byo: tc.byoyomi * 1000, flagged: null })
 
@@ -53,7 +63,7 @@ export function useGameClock({
     if (!running) return
     let last = performance.now()
     const side = toMove
-    const id = window.setInterval(() => {
+    const id = globalThis.setInterval(() => {
       const now = performance.now()
       const dt = now - last
       last = now
@@ -66,7 +76,7 @@ export function useGameClock({
         return byo > 0 ? { ...c, [side]: 0, byo } : { ...c, [side]: 0, byo: 0, flagged: side }
       })
     }, 100)
-    return () => window.clearInterval(id)
+    return () => globalThis.clearInterval(id)
   }, [running, toMove, timeControl])
 
   const spoken = useRef('')

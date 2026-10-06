@@ -2,7 +2,13 @@ import * as THREE from 'three'
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 import { CASUAL_ROOM, TABLE, TABLE_H, TATAMI_L, TATAMI_W, TRADITIONAL_ROOM, mm } from '@/utils/roomMetrics'
 
-export type RoomDims = { thick: number; leg: number; halfW: number; halfD: number; floor: THREE.Mesh }
+export interface RoomDims {
+  thick: number
+  leg: number
+  halfW: number
+  halfD: number
+  floor: THREE.Mesh
+}
 
 const cache = new Map<string, unknown>()
 
@@ -175,7 +181,7 @@ function tatamiGeometry(A: number, B: number) {
 }
 
 export function furnishFloor(root: THREE.Group, dims: RoomDims, casual: boolean) {
-  const floor = dims.floor
+  const { floor } = dims
   root.add(floor)
   floor.rotation.set(0, 0, 0)
   if (casual) {

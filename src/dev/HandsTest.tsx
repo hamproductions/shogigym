@@ -13,7 +13,12 @@ import { loadPieceSet } from '@/appearance/pieceSets'
 import { BoardLoading } from '@/rendering/BoardLoading'
 
 type Room = 'traditional' | 'casual'
-type Pattern = { id: string; label: string; sfen: string; usi: string }
+interface Pattern {
+  id: string
+  label: string
+  sfen: string
+  usi: string
+}
 
 const START = 'lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL'
 const FACED = 'lnsgkgsnl/1r5b1/pppp1pppp/9/4p4/4P4/PPPP1PPPP/1B5R1/LNSGKGSNL'
@@ -67,7 +72,13 @@ function slotFor(controller: AvatarController): AvatarSlot {
   }
 }
 
-type Overlay = { target: THREE.Mesh; pinch: THREE.Mesh; piece: THREE.Mesh; pole: THREE.ArrowHelper; axes: THREE.AxesHelper }
+interface Overlay {
+  target: THREE.Mesh
+  pinch: THREE.Mesh
+  piece: THREE.Mesh
+  pole: THREE.ArrowHelper
+  axes: THREE.AxesHelper
+}
 
 function overlay(scene: THREE.Scene): Overlay {
   const dot = (color: number) => new THREE.Mesh(new THREE.SphereGeometry(0.12, 12, 8), new THREE.MeshBasicMaterial({ color, depthTest: false }))
@@ -112,7 +123,7 @@ export default function HandsTest() {
     setBoardDims()
     const el = host.current!
     const renderer = createRenderer()
-    el.appendChild(renderer.domElement)
+    el.append(renderer.domElement)
     const s: SceneState = buildScene(renderer)
     s.room.need()
     const controls = new OrbitControls(s.camera, renderer.domElement)
@@ -180,7 +191,7 @@ export default function HandsTest() {
           while (hips?.parent && !/hips/i.test(hips.name)) hips = hips.parent
           let rest: THREE.Object3D | null = null
           hips?.traverse((o) => {
-            if (!rest && /_L_Hand$/.test(o.name)) rest = o
+            if (!rest && o.name.endsWith('_L_Hand')) rest = o
           })
           const t = rest ? s.root.worldToLocal((rest as THREE.Object3D).getWorldPosition(new THREE.Vector3())) : at
           return [new THREE.Vector3(t.x + Math.sign(t.x || 1) * 7, t.y + 3, t.z + near * 2.5), t]
@@ -229,7 +240,7 @@ export default function HandsTest() {
       s.camera.updateProjectionMatrix()
     }
     resize()
-    window.addEventListener('resize', resize)
+    globalThis.addEventListener('resize', resize)
     let raf = 0
     const render = () => {
       draw(inspect())
@@ -243,7 +254,7 @@ export default function HandsTest() {
       live = false
       cameraPose.current = { position: s.camera.position.clone(), target: controls.target.clone(), follow }
       cancelAnimationFrame(raf)
-      window.removeEventListener('resize', resize)
+      globalThis.removeEventListener('resize', resize)
       controller?.dispose()
       controls.dispose()
       disposeRenderer(renderer)

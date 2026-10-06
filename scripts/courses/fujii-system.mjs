@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'shikenbisha-vs-anaguma--fujii',
   title: '四間飛車 vs 居飛車穴熊(先手・藤井システム)',
   myStrategy: 'shikenbisha',
@@ -24,3 +24,5 @@ export default {
       '藤井システムの基本形。玉は居玉のまま、角筋・右桂・端歩で穴熊の完成前に攻めかかります。相手が香を1二に上がって穴熊に入ってきたら▲2五桂、▲4五歩で角筋を開けて攻めます。逆に相手が早い戦いを仕掛けてきたら、▲4八玉〜▲3九玉と美濃囲いに切り替えます。',
   },
 }
+
+export default course

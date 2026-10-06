@@ -9,7 +9,7 @@ import { Card } from '@/app/ui/Card'
 
 export function TesujiPane({ trainer, drill, replaying, onBack }: { trainer: TesujiTrainer; drill: TesujiState; replaying: boolean; onBack: () => void }) {
   const { t } = useTranslation()
-  const lang = useSettings().lang
+  const { lang } = useSettings()
   const stats = tesujiStats()
   const pool = TESUJI_DRILLS.filter((d) => drill.filter === 'all' || d.tesuji === drill.filter)
   const { sfen } = drill.item

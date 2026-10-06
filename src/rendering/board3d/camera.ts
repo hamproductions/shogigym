@@ -67,7 +67,12 @@ export function updateView(s: SceneState, props: Board3DProps, dt: number) {
   if (s.tilePov) {
     const tile = s.tilePov
     tile.updateWorldMatrix(true, false)
-    if (!s.tilePovFrame) {
+    if (s.tilePovFrame) {
+      tileDelta.copy(s.tilePovFrame).invert().premultiply(tile.matrixWorld)
+      camera.position.applyMatrix4(tileDelta)
+      s.controls?.target.applyMatrix4(tileDelta)
+      s.tilePovFrame.copy(tile.matrixWorld)
+    } else {
       const size = new Box3().setFromObject(tile).getSize(new Vector3())
       const eye = tile.localToWorld(new Vector3(0, size.y + size.z * 0.4, size.z))
       const target = tile.localToWorld(new Vector3(0, size.y + size.z * 0.15, -size.z * 4))
@@ -75,11 +80,6 @@ export function updateView(s: SceneState, props: Board3DProps, dt: number) {
       camera.lookAt(target)
       s.controls?.target.copy(target)
       s.tilePovFrame = tile.matrixWorld.clone()
-    } else {
-      tileDelta.copy(s.tilePovFrame).invert().premultiply(tile.matrixWorld)
-      camera.position.applyMatrix4(tileDelta)
-      s.controls?.target.applyMatrix4(tileDelta)
-      s.tilePovFrame.copy(tile.matrixWorld)
     }
     s.controls?.update()
   } else if (s.controls) s.controls.update()

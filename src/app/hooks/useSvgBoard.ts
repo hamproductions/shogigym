@@ -21,8 +21,8 @@ export function useSvgBoard() {
       }
       img.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(new XMLSerializer().serializeToString(svg))}`
     }
-    window.addEventListener(SNAPSHOT_EVENT, onSnapshot)
-    return () => window.removeEventListener(SNAPSHOT_EVENT, onSnapshot)
+    globalThis.addEventListener(SNAPSHOT_EVENT, onSnapshot)
+    return () => globalThis.removeEventListener(SNAPSHOT_EVENT, onSnapshot)
   }, [])
   return svgRef
 }

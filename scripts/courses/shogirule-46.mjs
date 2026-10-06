@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'shogirule--46',
   title: '後手四間飛車「立石流」(将棋ルール.com)',
   myStrategy: 'shikenbisha',
@@ -16,3 +16,5 @@ export default {
       '後手は△4二飛から△3五歩・△4五歩と位を取り、角交換のあと飛車を4四→2四→3四と動かして3筋に構えた。△3三桂が飛車と連携し、玉は△8二玉・△7二銀の美濃。先手は▲2六飛・▲4六銀・▲1五歩で右辺から反撃を狙う。双方が角を持ち駒にしている。出典の形勢判断は互角。',
   },
 }
+
+export default course

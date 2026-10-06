@@ -58,7 +58,7 @@ function boardTexture() {
 
 function buildStage() {
   const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true })
-  renderer.setPixelRatio(Math.min(2, window.devicePixelRatio))
+  renderer.setPixelRatio(Math.min(2, globalThis.devicePixelRatio))
   renderer.shadowMap.enabled = true
   renderer.toneMapping = THREE.ACESFilmicToneMapping
   renderer.toneMappingExposure = 0.82
@@ -132,7 +132,7 @@ export default function PowerPreview() {
     const el = host.current!
     const stage = buildStage()
     const { renderer, scene, camera, root } = stage
-    el.appendChild(renderer.domElement)
+    el.append(renderer.domElement)
     const power: Power = createPower({ scene, root, camera, renderer })
     let anim: { mesh: THREE.Object3D; from: THREE.Vector3; to: THREE.Vector3; t: number } | null = null
     let paused = false
@@ -165,7 +165,7 @@ export default function PowerPreview() {
       const sdt = dt * power.timeScale()
       if (anim) {
         anim.t = Math.min(1, anim.t + sdt / 0.22)
-        const e = 1 - Math.pow(1 - anim.t, 3)
+        const e = 1 - (1 - anim.t) ** 3
         anim.mesh.position.lerpVectors(anim.from, anim.to, e)
         anim.mesh.position.y = Math.sin(Math.PI * anim.t) * 0.5
         if (anim.t >= 1) anim = null
@@ -227,7 +227,7 @@ export default function PowerPreview() {
     placePieces(stage, Position.newBySFEN(SCENES.move.sfen)!)
 
     if (import.meta.env.DEV)
-      (window as unknown as { __power: unknown }).__power = {
+      (globalThis as unknown as { __power: unknown }).__power = {
         power,
         scene,
         run,

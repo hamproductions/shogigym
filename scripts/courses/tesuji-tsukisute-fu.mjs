@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'tesuji--tsukisute-fu',
   title: '手筋: 突き捨ての歩',
   myStrategy: 'shikenbisha',
@@ -21,3 +21,5 @@ export default {
     comment: '金を取る角成が受からないため、超優勢です。',
   },
 }
+
+export default course

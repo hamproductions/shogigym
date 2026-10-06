@@ -1,10 +1,10 @@
-export type Text = { ja: string; en: string }
+export interface Text { ja: string; en: string }
 
 export type Wing = 'ibisha' | 'furibisha'
 
 export type Level = 1 | 2 | 3
 
-export type Strategy = {
+export interface Strategy {
   id: string
   side: Wing
   family: string
@@ -16,7 +16,7 @@ export type Strategy = {
   generic?: boolean
 }
 
-export type Matchup = {
+export interface Matchup {
   id: string
   main: string
   vs: string
@@ -28,7 +28,7 @@ export type Matchup = {
   sources?: string[]
 }
 
-export type Technique = { id: string; ja: string; en: string; intro: Text; plan: Text; sources: string[]; courseIds: string[] }
+export interface Technique { id: string; ja: string; en: string; intro: Text; plan: Text; sources: string[]; courseIds: string[] }
 
 export const FAMILIES: Record<string, Text> = {
   shiken: { ja: '四間飛車', en: 'Fourth File Rook' },

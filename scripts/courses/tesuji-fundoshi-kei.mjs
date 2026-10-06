@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'tesuji--fundoshi-kei',
   title: '手筋: ふんどしの桂',
   myStrategy: 'shikenbisha',
@@ -19,3 +19,5 @@ export default {
     comment: '出典は矢印で両取りを示す図のみ。後手の4一金が逃げた場合の取り込みは手順の補足です。',
   },
 }
+
+export default course

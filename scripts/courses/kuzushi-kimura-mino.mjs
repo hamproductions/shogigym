@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'kuzushi--kimura-mino',
   title: '囲い崩し: 木村美濃に△3五歩▲同歩△3六歩',
   myStrategy: 'ibisha',
@@ -22,3 +22,5 @@ export default {
       '玉に紐がないため、一旦王手がかかると為す術もなく即詰みか一手一手の寄りになりやすい。7八飛型の三間飛車や5八飛型の中飛車でも△6九角が同じ狙いになります。',
   },
 }
+
+export default course

@@ -269,7 +269,10 @@ function flipU(g: THREE.BufferGeometry) {
   return g
 }
 
-type Side = { ry: number; half: number }
+interface Side {
+  ry: number
+  half: number
+}
 
 function onWall(g: THREE.BufferGeometry, s: Side, u: number, y: number, d: number) {
   g.rotateY(s.ry)
@@ -490,7 +493,7 @@ export function buildRoom(root: THREE.Group, dims: RoomDims) {
     put(parts, toko, beam(s, 0.7, A, tenbukuro, tenbukuro + mm(30), -D, -0.6))
     put(parts, fusuma, panel(s, 0.7, A / 2, tenbukuro + mm(30), lintel, -1.2))
     put(parts, fusuma, panel(s, A / 2, A, tenbukuro + mm(30), lintel, -1.2, 0, true))
-    put(parts, toko, beam(s, 0.7, A, lintel - 0.2, lintel + mm(45), -D, -1.0))
+    put(parts, toko, beam(s, 0.7, A, lintel - 0.2, lintel + mm(45), -D, -1))
     const sx = -A / 2
     const scrollW = mm(470)
     const scrollTop = floorY + mm(2150)
@@ -528,7 +531,7 @@ export function buildRoom(root: THREE.Group, dims: RoomDims) {
             [2.8, 3.2],
             [2.5, 5.2],
             [1.3, 6.6],
-            [1.0, 7.4],
+            [1, 7.4],
             [1.35, 7.9],
             [1.15, 7.9],
             [0.85, 7.2],
@@ -599,7 +602,7 @@ export function buildRoom(root: THREE.Group, dims: RoomDims) {
     put(parts, fabric, place(new RoundedBoxGeometry(3.4, 1.6, mm(450), 3, 0.7), kx, floorY + mm(300) - 0.8, cz + sgn * 1, yaw))
     put(parts, kyoWood, place(box(0.7, mm(300) - 2.2, 1.6, 0, 0, mm(150)), kx, floorY + (mm(300) - 2.2) / 2 + 0.6, cz + sgn * 1, yaw))
     put(parts, kyoWood, place(box(0.7, mm(300) - 2.2, 1.6, 0, 0, -mm(150)), kx, floorY + (mm(300) - 2.2) / 2 + 0.6, cz + sgn * 1, yaw))
-    put(parts, kyoWood, place(new RoundedBoxGeometry(3.0, 0.6, mm(400), 2, 0.25), kx, floorY + 0.3, cz + sgn * 1, yaw))
+    put(parts, kyoWood, place(new RoundedBoxGeometry(3, 0.6, mm(400), 2, 0.25), kx, floorY + 0.3, cz + sgn * 1, yaw))
     const tx = sgn * 15.5
     const tz = sgn * (dims.halfD + 10)
     const local = (g: THREE.BufferGeometry, x: number, y: number, z: number) => g.translate(x, y, z).rotateY(yaw).translate(tx, floorY, tz)
@@ -633,7 +636,7 @@ export function buildRoom(root: THREE.Group, dims: RoomDims) {
             [1.3, 0],
             [1.9, 0.4],
             [2.2, 1.3],
-            [2.0, 2.3],
+            [2, 2.3],
             [1.3, 2.7],
             [1.25, 2.8],
           ],
@@ -666,7 +669,7 @@ export function buildRoom(root: THREE.Group, dims: RoomDims) {
       ),
     )
     put(parts, clay, local(new THREE.CylinderGeometry(0.18, 0.36, 2.2, 8).rotateZ(-Math.PI / 4), 0.85, 2.3, -1.2))
-    put(parts, clay, local(new THREE.CylinderGeometry(0.3, 0.34, 3.2, 8).rotateX(Math.PI / 2 - 0.15), -1.6, 2.0, -4.6))
+    put(parts, clay, local(new THREE.CylinderGeometry(0.3, 0.34, 3.2, 8).rotateX(Math.PI / 2 - 0.15), -1.6, 2, -4.6))
     put(
       parts,
       darkWood,
@@ -707,7 +710,7 @@ export function buildRoom(root: THREE.Group, dims: RoomDims) {
         1.6,
       ),
     )
-    put(parts, tea, local(new THREE.CircleGeometry(1.0, 20).rotateX(-Math.PI / 2), 1.8, 2.6, 1.6))
+    put(parts, tea, local(new THREE.CircleGeometry(1, 20).rotateX(-Math.PI / 2), 1.8, 2.6, 1.6))
     put(parts, bamboo, local(new RoundedBoxGeometry(0.75, 0.5, mm(215), 2, 0.2), 5.6, 0.25, -4.5))
     bake(parts, groups.items, true, true)
   }
@@ -1020,7 +1023,7 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
           [2.6, 0],
           [2.8, 1],
           [2.6, 5.4],
-          [2.0, 6.2],
+          [2, 6.2],
           [0, 6.4],
         ],
         20,
@@ -1037,7 +1040,7 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
           [0, 0],
           [4.2, 0],
           [5.4, 3.2],
-          [5.0, 3.2],
+          [5, 3.2],
           [3.8, 0.4],
           [0, 0.4],
         ],
@@ -1064,12 +1067,12 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
     put(
       parts,
       standard('glass', { map: paint('glass', 512, 512, glassDraw), roughness: 0.05, metalness: 0.2, transparent: true, depthWrite: false }),
-      panel(s, w0, w1, y0, y1, -1.0),
+      panel(s, w0, w1, y0, y1, -1),
     )
     put(parts, sash, beam(s, w0, w0 + 1.2, y0, y1, -1.6, 0.6))
     put(parts, sash, beam(s, w1 - 1.2, w1, y0, y1, -1.6, 0.6))
     put(parts, sash, beam(s, w0, w1, y1 - 1.2, y1, -1.6, 0.6))
-    put(parts, sash, beam(s, w0, w1, y0, y0 + 1.0, -1.6, 0.6))
+    put(parts, sash, beam(s, w0, w1, y0, y0 + 1, -1.6, 0.6))
     put(parts, sash, beam(s, -0.6, 0.6, y0, y1, -1.4, -0.4))
     put(parts, oak, beam(s, w0 - 1.2, w1 + 1.2, y0 - 0.7, y0, -1.6, 2.4))
     const rodY = y1 + 3.5
@@ -1101,7 +1104,7 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
     const pos = g.getAttribute('position') as THREE.BufferAttribute
     for (let i = 0; i < pos.count; i++) pos.setZ(i, Math.sin(pos.getX(i) * 1.3) * 0.35)
     g.computeVertexNormals()
-    put(parts, sheer, onWall(g, s, 0, (y0 + y1) / 2 + 1, 2.0))
+    put(parts, sheer, onWall(g, s, 0, (y0 + y1) / 2 + 1, 2))
     bake(parts, groups.nz)
     const sun = new THREE.Mesh(
       new THREE.PlaneGeometry(w1 - w0, 30).rotateX(-Math.PI / 2),
@@ -1435,8 +1438,8 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
     )
     for (const [ox, oz, oy, tilt] of [
       [-0.9, -0.6, 0.2, 0],
-      [1.0, -0.4, 0.2, 0.06],
-      [0.1, 1.0, 0.2, -0.05],
+      [1, -0.4, 0.2, 0.06],
+      [0.1, 1, 0.2, -0.05],
       [0.2, -0.1, 0.5, 0.12],
     ])
       put(parts, senbei, new THREE.CylinderGeometry(1.3, 1.3, 0.25, 18).rotateZ(tilt).translate(sx + ox, top + oy + 0.15, sz + oz))

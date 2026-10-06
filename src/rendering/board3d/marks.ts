@@ -3,9 +3,8 @@ import { PieceType, Square, type ImmutablePosition } from 'tsshogi'
 import { getSettings } from '@/appearance/settings'
 import { HALF_D, HALF_W, MARGIN, SQ_D, STAND_TOP, squareX, squareZ } from './dimensions'
 import { handSpot } from './hand'
-import { standCenter } from './layout'
+import { standCenter, layout } from './layout'
 import { arrowTag, badgeSprite, coordPlane, coordSprite, faceTextureRevision, labelSprite } from './textures'
-import { layout } from './layout'
 import type { Board3DProps, BoardArrow, SceneState } from './types'
 
 const DROP_TYPE: Record<string, PieceType> = {
@@ -148,9 +147,9 @@ export function drawMarks(s: SceneState, props: Board3DProps) {
   markKeys.set(s, key)
   s.marks.traverse((child) => {
     if (child instanceof THREE.Mesh) child.geometry.dispose()
-    const material = (child as THREE.Mesh).material
+    const { material } = child as THREE.Mesh
     for (const item of Array.isArray(material) ? material : material ? [material] : []) {
-      const map = (item as THREE.MeshBasicMaterial).map
+      const { map } = item as THREE.MeshBasicMaterial
       if (map && !map.userData.shared) map.dispose()
       item.dispose()
     }

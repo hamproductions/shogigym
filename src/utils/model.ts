@@ -5,9 +5,13 @@ export type { Setup } from './catalog'
 
 export type MoveKind = 'main' | 'alt' | 'deviation'
 
-export type MoveDemo = { title: string; usi: string[]; text: string }
+export interface MoveDemo {
+  title: string
+  usi: string[]
+  text: string
+}
 
-export type JosekiMove = {
+export interface JosekiMove {
   usi: string
   kind: MoveKind
   note?: string
@@ -18,14 +22,14 @@ export type JosekiMove = {
   child: JosekiNode | null
 }
 
-export type JosekiNode = {
+export interface JosekiNode {
   id: string
   sfen: string
   comment?: string
   branches: JosekiMove[]
 }
 
-export type RawCourse = {
+export interface RawCourse {
   id: string
   title: string
   titleEn?: string

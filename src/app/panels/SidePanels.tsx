@@ -10,7 +10,15 @@ import { Icon } from '@/app/icons'
 import { NavFooter } from './NavFooter'
 import { PanelBody, type PanelModel } from './PanelBody'
 
-type SidePanelsProps = { layout: Layout; tab: Tab; setTab: (tab: Tab) => void; sheetOpen: boolean; model: PanelModel; canAutoplay: boolean; picking: boolean }
+interface SidePanelsProps {
+  layout: Layout
+  tab: Tab
+  setTab: (tab: Tab) => void
+  sheetOpen: boolean
+  model: PanelModel
+  canAutoplay: boolean
+  picking: boolean
+}
 
 export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay, picking }: SidePanelsProps) {
   const { t } = useTranslation()
@@ -34,7 +42,7 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
   }
   const resize = (e: ReactPointerEvent) => {
     if (!e.currentTarget.hasPointerCapture(e.pointerId)) return
-    const max = compact ? window.innerWidth * 0.7 : 560
+    const max = compact ? globalThis.innerWidth * 0.7 : 560
     const min = compact ? Math.min(180, max) : 320
     setPanel({ width: Math.min(max, Math.max(min, resizeStart.current.width + resizeStart.current.x - e.clientX)) })
   }
@@ -54,11 +62,11 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
         className={`app-panel${sheetOpen ? ' open' : ''}`}
         style={
           zoned
-            ? !panelPrefsHidden
-              ? picking
+            ? panelPrefsHidden
+              ? { display: 'none' }
+              : picking
                 ? { ...floatingRect, height: layout.viewport.h - floatingTop - 12 }
                 : floatingRect
-              : { display: 'none' }
             : undefined
         }
       >

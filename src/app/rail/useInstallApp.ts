@@ -10,8 +10,8 @@ const retainInstallPrompt = (event: Event) => {
 }
 
 if (typeof window !== 'undefined') {
-  window.addEventListener('beforeinstallprompt', retainInstallPrompt)
-  import.meta.hot?.dispose(() => window.removeEventListener('beforeinstallprompt', retainInstallPrompt))
+  globalThis.addEventListener('beforeinstallprompt', retainInstallPrompt)
+  import.meta.hot?.dispose(() => globalThis.removeEventListener('beforeinstallprompt', retainInstallPrompt))
 }
 
 export function useInstallApp() {
@@ -25,11 +25,11 @@ export function useInstallApp() {
       event.stopPropagation()
       setHelp(false)
     }
-    window.addEventListener('keydown', close, true)
-    return () => window.removeEventListener('keydown', close, true)
+    globalThis.addEventListener('keydown', close, true)
+    return () => globalThis.removeEventListener('keydown', close, true)
   }, [help])
   useEffect(() => {
-    const media = window.matchMedia('(display-mode: standalone), (display-mode: fullscreen)')
+    const media = globalThis.matchMedia('(display-mode: standalone), (display-mode: fullscreen)')
     const sync = () => setInstalled(media.matches || !!(navigator as Navigator & { standalone?: boolean }).standalone)
     const available = (event: Event) => {
       event.preventDefault()
@@ -44,12 +44,12 @@ export function useInstallApp() {
     }
     sync()
     media.addEventListener('change', sync)
-    window.addEventListener('beforeinstallprompt', available)
-    window.addEventListener('appinstalled', complete)
+    globalThis.addEventListener('beforeinstallprompt', available)
+    globalThis.addEventListener('appinstalled', complete)
     return () => {
       media.removeEventListener('change', sync)
-      window.removeEventListener('beforeinstallprompt', available)
-      window.removeEventListener('appinstalled', complete)
+      globalThis.removeEventListener('beforeinstallprompt', available)
+      globalThis.removeEventListener('appinstalled', complete)
     }
   }, [])
   const install = async () => {

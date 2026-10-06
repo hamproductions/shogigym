@@ -10,7 +10,12 @@ import { STRENGTH, useSettings } from '@/appearance/settings'
 import { allLines, countMoves, mainLine } from '@/app/tree'
 import { isGameMode, type Confirm, type Tab } from '@/app/types'
 
-export type GameNotes = { title: string; comments: string[]; ending?: string; moves: string }
+export interface GameNotes {
+  title: string
+  comments: string[]
+  ending?: string
+  moves: string
+}
 
 const IMPORTED = 'Imported game'
 

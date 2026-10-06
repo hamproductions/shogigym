@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'shogirule--35-3',
   title: '先手四間飛車「藤井システム」 (3)(将棋ルール.com)',
   myStrategy: 'shikenbisha',
@@ -16,3 +16,5 @@ export default {
       '先手は居玉から▲4八玉〜▲3九玉と美濃の位置へ玉を移した。7筋で△7五歩から戦いになり、▲7八飛・▲6六角のあと▲3三角成△同桂で角を交換、▲7六飛で歩を取り返した。双方が角を持ち駒にしており、打ち込みの隙を探し合う中盤に入る。出典の形勢判断は互角。',
   },
 }
+
+export default course

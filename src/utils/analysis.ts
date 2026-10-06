@@ -113,7 +113,7 @@ export const negate = (score: Score): Score => ('cp' in score ? { cp: -score.cp 
 
 export const scoreForSide = (score: Score, scoreSide: Side, viewer: Side): Score => (scoreSide === viewer ? score : negate(score))
 
-export type MoveReview = {
+export interface MoveReview {
   usi: string
   label: Label
   loss: number

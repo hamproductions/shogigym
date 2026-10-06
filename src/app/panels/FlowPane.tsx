@@ -60,9 +60,9 @@ function OpeningStats({
   if (loading) return null
   if (!stats) return <p className="app-stats-empty app-muted">{t('flow.statsNone', { ply: meta?.maxPly ?? 30 })}</p>
   const gote = sfen.split(' ')[1] === 'w'
-  const book = stats.book
+  const { book } = stats
   const bookText = book ? moveText(sfen, book.usi) : ''
-  const bookEval = book ? t('flow.statsEval', { side: book.eval >= 0 !== gote ? '☗' : '☖', cp: Math.abs(book.eval) }) : ''
+  const bookEval = book ? t('flow.statsEval', { side: book.eval >= 0 === gote ? '☖' : '☗', cp: Math.abs(book.eval) }) : ''
   return (
     <section className="app-stats" aria-label={t('flow.statsTitle')}>
       <header className="app-stats-head">

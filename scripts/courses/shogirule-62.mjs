@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'shogirule--62',
   title: '先手三間飛車「石田流」(将棋ルール.com)',
   myStrategy: 'sankenbisha',
@@ -15,3 +15,5 @@ export default {
       '先手は▲7五歩・▲7八飛から玉を2八まで囲い、▲6六歩で角道を止めて▲7六飛と飛車を浮いた。7五の歩と7六の飛車が石田流の骨格。後手は△6二銀→△6三銀と左銀を出し、△8五歩・△7二金で7筋の攻めに備える。出典の形勢判断は先手優勢。',
   },
 }
+
+export default course

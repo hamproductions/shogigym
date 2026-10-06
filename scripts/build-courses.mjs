@@ -74,7 +74,7 @@ if (vendorArg > 0) {
   mkdirSync(to, { recursive: true })
   for (const file of readdirSync(from).filter((f) => f.endsWith('.json') && !f.startsWith('_'))) copyFileSync(`${from}/${file}`, `${to}/${file}`)
   for (const file of ['LICENSE', 'DESIGN.md']) copyFileSync(`${checkout}/${file}`, `${VENDOR_DIR}/${file}`)
-  writeFileSync(`${VENDOR_DIR}/SOURCE_COMMIT`, commit + '\n')
+  writeFileSync(`${VENDOR_DIR}/SOURCE_COMMIT`, `${commit}\n`)
   console.log(`vendored ${readdirSync(to).length} courses from ${commit}`)
 }
 
@@ -89,6 +89,6 @@ for (const file of readdirSync(SPEC_DIR).filter((f) => f.endsWith('.mjs'))) {
   delete meta.startSfen
   const course = { ...meta, root: { id: 'n0', sfen: start.sfen, comment: spec.rootComment, branches: head.branches } }
   delete course.rootComment
-  writeFileSync(`${OUT_DIR}/${spec.id}.json`, JSON.stringify(course, null, 1) + '\n')
+  writeFileSync(`${OUT_DIR}/${spec.id}.json`, `${JSON.stringify(course, null, 1)}\n`)
   console.log(`built ${spec.id}`)
 }

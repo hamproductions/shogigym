@@ -5,7 +5,7 @@ import { detectCustom } from './bioshogiCustom'
 import { detectMotion } from './bioshogiMotion'
 
 type Cell = [number, number, string, string]
-type Rule = {
+interface Rule {
   name: string
   kind: 'strategy' | 'castle' | 'technique'
   cells: Cell[]
@@ -28,7 +28,7 @@ type Rule = {
   add_to_self?: string
   add_to_opponent?: string
 }
-export type FormationTag = {
+export interface FormationTag {
   name: string
   kind: 'strategy' | 'castle' | 'technique'
   squares: Square[]
@@ -36,8 +36,13 @@ export type FormationTag = {
   detectedPly?: number
   annotation?: boolean
 }
-type Event = { to: Square; from: Square | null; captured: boolean; ply: number }
-type State = {
+interface Event {
+  to: Square
+  from: Square | null
+  captured: boolean
+  ply: number
+}
+interface State {
   tags: [FormationTag[], FormationTag[]]
   kills: number
   outbreak: boolean
@@ -200,14 +205,18 @@ function detect(position: ImmutablePosition, color: Color, state: State, event?:
       tag.annotation,
     )
     if (event && tag.ply < event.ply)
-      for (let ply = tag.ply; ply < event.ply; ply++) {
+      for (let { ply } = tag; ply < event.ply; ply++) {
         const prior = cache.states[ply]
         if (prior) add(prior, tag.color, { name: tag.name, kind: tag.kind, cells: [] }, tag.ply, event.ply, tag.repeat, tag.annotation)
       }
   }
 }
 
-export type DetectionPreset = { hirateLike?: boolean; generalPreset?: boolean; kingHands?: [number, number] }
+export interface DetectionPreset {
+  hirateLike?: boolean
+  generalPreset?: boolean
+  kingHands?: [number, number]
+}
 export type DetectionResult = { winner?: Color; checkmate?: boolean; impasse?: boolean } & DetectionPreset
 
 let cache: { preset?: string; sfens: string[]; moves: string[]; states: State[] } = { sfens: [], moves: [], states: [] }
@@ -320,7 +329,7 @@ export function finalizeFormationTags(sfens: string[], moves: string[], result: 
   if (players.filter((color) => has(color, '振り飛車')).length === 1) for (const color of players) add(color, '対抗形')
   if (result.impasse && state.hirate) for (const color of players) add(color, '持将棋')
   for (const color of players) if (has(color, '振り飛車')) tags[side(color)] = tags[side(color)].filter((tag) => tag.name !== '雁木戦法')
-  const winner = result.winner
+  const { winner } = result
   if (winner !== undefined) {
     const loser = winner === Color.BLACK ? Color.WHITE : Color.BLACK
     const owned = (color: Color) => position.board.listNonEmptySquares().filter((at) => position.board.at(at)!.color === color)

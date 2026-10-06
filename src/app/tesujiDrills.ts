@@ -1,6 +1,15 @@
 import data from '@/data/tesuji-drills.json'
 
-export type TesujiDrill = { id: string; tesuji: string; en: string; explain: string; sfen: string; answer: string; from: string; note?: string }
+export interface TesujiDrill {
+  id: string
+  tesuji: string
+  en: string
+  explain: string
+  sfen: string
+  answer: string
+  from: string
+  note?: string
+}
 
 export const TESUJI_DRILLS = data as TesujiDrill[]
 

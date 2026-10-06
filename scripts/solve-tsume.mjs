@@ -47,7 +47,7 @@ for (const [i, sfen] of sfens.entries()) {
   if ((i + 1) % 50 === 0) console.log(`${i + 1}/${sfens.length} checked, ${solved.length} confirmed`)
 }
 
-writeFileSync(output, JSON.stringify([...existing, ...solved]) + '\n')
+writeFileSync(output, `${JSON.stringify([...existing, ...solved])}\n`)
 console.log(`mate${mateLength}: ${solved.length} confirmed of ${sfens.length}`)
 engine.terminate()
 process.exit(0)

@@ -7,7 +7,7 @@ import { statsKey, statsShard, type RawPosition, type StatsMeta } from '../../sr
 const args = process.argv.slice(2)
 const arg = (name: string, fallback: string) => {
   const i = args.indexOf(`--${name}`)
-  return i >= 0 ? args[i + 1] : fallback
+  return i !== -1 ? args[i + 1] : fallback
 }
 const FLOODGATE_YEARS = arg('floodgate', '2025').split(',').filter(Boolean)
 const AOBA_FILES = Number(arg('aoba', '3'))

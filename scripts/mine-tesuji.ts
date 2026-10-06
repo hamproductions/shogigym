@@ -2,8 +2,20 @@ import { readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { detectTesuji } from '../src/app/tesuji'
 import { applyUsi } from '../src/utils/shogi'
 
-type Node = { sfen: string; branches: { usi: string; kind: string; note?: string; child?: Node }[] }
-type Drill = { id: string; tesuji: string; en: string; explain: string; sfen: string; answer: string; from: string; note?: string }
+interface Node {
+  sfen: string
+  branches: { usi: string; kind: string; note?: string; child?: Node }[]
+}
+interface Drill {
+  id: string
+  tesuji: string
+  en: string
+  explain: string
+  sfen: string
+  answer: string
+  from: string
+  note?: string
+}
 
 const out: Drill[] = []
 const seen = new Set<string>()
@@ -33,7 +45,7 @@ for (const dir of ['src/data/joseki', 'vendor/shiryu-joseki/src/data/joseki']) {
 
 const tsume = JSON.parse(readFileSync('src/data/tsume.json', 'utf8')) as { id: string; mate: number; sfen: string; pv: string[] }[]
 for (const p of tsume) {
-  let sfen = p.sfen
+  let { sfen } = p
   p.pv.forEach((usi, i) => {
     if (i % 2 === 0) {
       const t = detectTesuji(sfen, usi)

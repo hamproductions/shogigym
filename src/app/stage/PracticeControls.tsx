@@ -13,7 +13,7 @@ const LENGTHS: TsumeLength[] = [1, 3, 5, 7, 'all']
 
 export function TsumeControls({ trainer }: { trainer: Tsume }) {
   const { t } = useTranslation()
-  const tsume = trainer.tsume
+  const { tsume } = trainer
   if (!tsume) return null
   const done = tsume.status === 'solved' || tsume.status === 'shown'
   return (
@@ -39,7 +39,7 @@ export function TsumeControls({ trainer }: { trainer: Tsume }) {
 
 export function TesujiControls({ trainer }: { trainer: Tesuji }) {
   const { t } = useTranslation()
-  const drill = trainer.drill
+  const { drill } = trainer
   if (!drill) return null
   return (
     <>

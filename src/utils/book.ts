@@ -6,8 +6,15 @@ import type { Side } from './shogi'
 import { openingMoves } from './openingBook'
 
 export type CourseNodes = Map<string, JosekiNode>
-export type BookMove = { usi: string; note?: string; kind: string }
-export type BookHit = { branch: JosekiMove; course: Course }
+export interface BookMove {
+  usi: string
+  note?: string
+  kind: string
+}
+export interface BookHit {
+  branch: JosekiMove
+  course: Course
+}
 
 export const strip = (sfen: string) => sfen.split(' ').slice(0, 3).join(' ')
 

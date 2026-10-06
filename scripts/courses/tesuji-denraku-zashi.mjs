@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'tesuji--denraku-zashi',
   title: '手筋: 田楽刺し',
   myStrategy: 'shikenbisha',
@@ -19,3 +19,5 @@ export default {
     comment: '角が逃げても、後ろに並んだ金に香車の利きが残ります。',
   },
 }
+
+export default course

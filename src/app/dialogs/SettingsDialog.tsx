@@ -281,7 +281,7 @@ const finishPreviewCache = new Map<string, Map<string, string[]>>()
 function FinishOptions() {
   const { t } = useTranslation()
   const st = useSettings()
-  const key = `finish-coating-v9|${pieceFinishOptions(st.pieceMaterial).join()}|${st.pieceSet}|${st.pieceFont}|${st.pieceStyle}|${st.pieceGuide}|${st.pieceMaterial}|${st.pieceColor}|${st.pieceGrain}`
+  const key = `finish-coating-v9|${pieceFinishOptions(st.pieceMaterial).join(',')}|${st.pieceSet}|${st.pieceFont}|${st.pieceStyle}|${st.pieceGuide}|${st.pieceMaterial}|${st.pieceColor}|${st.pieceGrain}`
   const [ready, setReady] = useState<{ key: string; images: Map<string, string[]> }>()
   const [error, setError] = useState<string>()
   const images = finishPreviewCache.get(key) ?? (ready?.key === key ? ready.images : undefined)

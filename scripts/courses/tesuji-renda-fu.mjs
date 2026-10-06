@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'tesuji--renda-fu',
   title: '手筋: 連打の歩',
   myStrategy: 'shikenbisha',
@@ -23,3 +23,5 @@ export default {
     comment: 'ポイントは常に自分の手番になるように歩を連打し続けることです。',
   },
 }
+
+export default course

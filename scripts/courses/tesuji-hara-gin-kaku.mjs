@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'tesuji--hara-gin-kaku',
   title: '手筋: 腹銀(角との連携)',
   myStrategy: 'shikenbisha',
@@ -21,3 +21,5 @@ export default {
     comment: '数手先を見越した手筋で難易度は高めですが、終盤で威力を発揮します。',
   },
 }
+
+export default course

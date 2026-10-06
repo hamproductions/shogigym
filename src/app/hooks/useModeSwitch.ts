@@ -15,7 +15,7 @@ import type { AnalyzeGames } from '@/app/modes/analyze/useAnalyzeGames'
 import type { Layout } from './useLayout'
 
 export type Load = (start: string, side: Side, mode: Mode, course: Course | null) => void
-export type Snapshot = {
+export interface Snapshot {
   game: Game
   cursor: number
   userSide: Side
@@ -46,7 +46,7 @@ export function useModeSlots() {
 
 export type ModeSlots = ReturnType<typeof useModeSlots>
 
-type Modes = {
+interface Modes {
   session: BoardSession
   lesson: Lesson
   drill: Drill

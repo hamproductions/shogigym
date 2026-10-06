@@ -1,4 +1,7 @@
-export type Tree = { usi: string; children: Tree[] }
+export interface Tree {
+  usi: string
+  children: Tree[]
+}
 
 export const emptyTree = (): Tree => ({ usi: '', children: [] })
 
@@ -7,7 +10,7 @@ export function addPath(root: Tree, moves: string[]): Tree {
   const walk = (node: Tree, i: number): Tree => {
     if (i >= moves.length) return node
     const at = node.children.findIndex((c) => c.usi === moves[i])
-    if (at < 0) {
+    if (at === -1) {
       changed = true
       return { ...node, children: [...node.children, walk({ usi: moves[i], children: [] }, i + 1)] }
     }

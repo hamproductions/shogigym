@@ -6,8 +6,11 @@ import { squareX, squareZ } from './dimensions'
 import { pieceMesh } from './piece'
 import { glowTexture, loadBrush, ringTexture, stampTexture } from './powerTextures'
 
-export type PowerSquare = { file: number; rank: number }
-export type PowerMove = {
+export interface PowerSquare {
+  file: number
+  rank: number
+}
+export interface PowerMove {
   to: PowerSquare
   color: Color
   capture?: { type: PieceType; color: Color } | null
@@ -17,8 +20,13 @@ export type PowerMove = {
   delay?: number
   carried?: boolean
 }
-export type PowerContext = { scene: THREE.Scene; root: THREE.Object3D; camera: THREE.PerspectiveCamera; renderer: THREE.WebGLRenderer }
-export type Power = {
+export interface PowerContext {
+  scene: THREE.Scene
+  root: THREE.Object3D
+  camera: THREE.PerspectiveCamera
+  renderer: THREE.WebGLRenderer
+}
+export interface Power {
   onMove: (move: PowerMove) => void
   update: (dt: number) => void
   applyCamera: () => () => void
@@ -28,8 +36,15 @@ export type Power = {
   dispose: () => void
 }
 
-type Fx = { t0: number; real: boolean; f: number; dur: number; tick: (t: number, f: number) => void; done?: () => void }
-type Frame = {
+interface Fx {
+  t0: number
+  real: boolean
+  f: number
+  dur: number
+  tick: (t: number, f: number) => void
+  done?: () => void
+}
+interface Frame {
   dim: number
   red: number
   flash: number
@@ -38,7 +53,7 @@ type Frame = {
   light: { at: THREE.Vector3; color: number; power: number } | null
   orbit: { at: THREE.Vector3; w: number; angle: number; zoom: number; distance?: number; direction?: THREE.Vector3 } | null
 }
-type SparkOptions = {
+interface SparkOptions {
   speed: number
   up?: number
   color: number
@@ -829,7 +844,7 @@ export function createPower(ctx: PowerContext): Power {
   const applyCamera = () => {
     savedP.copy(camera.position)
     savedQ.copy(camera.quaternion)
-    const orbit = frame.orbit
+    const { orbit } = frame
     if (orbit && orbit.w > 0.001) {
       tmp
         .copy(camera.position)

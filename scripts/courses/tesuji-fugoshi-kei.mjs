@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'tesuji--fugoshi-kei',
   title: '手筋: 歩越しの桂馬',
   myStrategy: 'shikenbisha',
@@ -21,3 +21,5 @@ export default {
     comment: '玉が2二に逃げた場合も、3二金から詰みです。',
   },
 }
+
+export default course

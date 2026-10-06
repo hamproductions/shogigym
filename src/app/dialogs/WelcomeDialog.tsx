@@ -6,7 +6,7 @@ import { MODES, type Level } from '@/app/types'
 import { Button } from '@/app/ui/Button'
 import { Dialog } from '@/app/ui/Dialog'
 
-type WelcomeProps = {
+interface WelcomeProps {
   level: Level
   onPreviewLevel: (level: Level) => void
   onLearnBasics: () => void

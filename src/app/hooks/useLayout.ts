@@ -3,7 +3,11 @@ import type { StandZones } from '@/rendering/board3d/types'
 import type { Mode } from '@/app/types'
 import { useLatest } from './useLatest'
 
-type PanelPrefs = { width: number; hidden: boolean; side?: boolean }
+interface PanelPrefs {
+  width: number
+  hidden: boolean
+  side?: boolean
+}
 
 const PANEL_KEY = 'joseki-practice:panel:v1'
 const SHEET_KEY = 'joseki-practice:sheet:v1'
@@ -32,8 +36,8 @@ export function scrollPanelTop(smooth = false) {
 }
 
 export function useLayout({ mode, needsPicking, welcome, orbit = false }: { mode: Mode; needsPicking: boolean; welcome: boolean; orbit?: boolean }) {
-  const [viewport, setViewport] = useState(() => ({ w: window.innerWidth, h: window.innerHeight }))
-  const [compact, setCompact] = useState(() => window.matchMedia(PHONE_QUERY).matches)
+  const [viewport, setViewport] = useState(() => ({ w: globalThis.innerWidth, h: globalThis.innerHeight }))
+  const [compact, setCompact] = useState(() => globalThis.matchMedia(PHONE_QUERY).matches)
   const [panelPrefs, setPanelPrefs] = useState(loadPanelPrefs)
   const [drawer, setDrawer] = useState(false)
   const [sheetH, setSheetH] = useState(loadSheetHeight)
@@ -41,12 +45,12 @@ export function useLayout({ mode, needsPicking, welcome, orbit = false }: { mode
   const [zones, setZones] = useState<StandZones | null>(null)
 
   useEffect(() => {
-    const on = () => setViewport({ w: window.innerWidth, h: window.innerHeight })
-    window.addEventListener('resize', on)
-    return () => window.removeEventListener('resize', on)
+    const on = () => setViewport({ w: globalThis.innerWidth, h: globalThis.innerHeight })
+    globalThis.addEventListener('resize', on)
+    return () => globalThis.removeEventListener('resize', on)
   }, [])
   useEffect(() => {
-    const mq = window.matchMedia(PHONE_QUERY)
+    const mq = globalThis.matchMedia(PHONE_QUERY)
     const on = () => setCompact(mq.matches)
     mq.addEventListener('change', on)
     return () => mq.removeEventListener('change', on)
@@ -86,7 +90,7 @@ export function useLayout({ mode, needsPicking, welcome, orbit = false }: { mode
 
   const resizeSheet = (clientY: number) => {
     const bounds = document.querySelector('.app-shell')?.getBoundingClientRect()
-    const height = bounds?.height ?? window.innerHeight
+    const height = bounds?.height ?? globalThis.innerHeight
     const top = bounds?.top ?? 0
     setSheetH(Math.round(Math.min(78, Math.max(22, 100 - ((clientY - top) / height) * 100))))
   }

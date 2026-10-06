@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'tesuji--tataki-fu',
   title: '手筋: たたきの歩',
   myStrategy: 'shikenbisha',
@@ -17,3 +17,5 @@ export default {
     comment: '中飛車側からしたらかなり嫌な手です。',
   },
 }
+
+export default course

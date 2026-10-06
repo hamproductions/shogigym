@@ -20,7 +20,7 @@ import { engineSupported, restartEngine, useEngineStatus } from '@/utils/engine'
 import { FAMILIES, STRATEGIES } from '@/data/strategies'
 import { strategyCourses } from '@/utils/book'
 
-type ModeBarProps = {
+interface ModeBarProps {
   onFlip: () => void
   title: string
   instruction: string
@@ -84,12 +84,14 @@ export function ModeBar({
   const unavailable = !engineSupported()
   const ja = settings.lang === 'ja'
   const { mode, course, lastMove, prevSfen, plyBase, preview, cursor, toMove, nav, gameOver, game } = useSession()
-  const seal = !ja ? (
-    <Icon name={MODES.find((m) => m.id === mode)!.icon} size={22} />
-  ) : mode === 'lesson' && course ? (
-    t(lessonMode === 'study' ? 'modes.sealStudy' : 'modes.sealQuiz')
+  const seal = ja ? (
+    mode === 'lesson' && course ? (
+      t(lessonMode === 'study' ? 'modes.sealStudy' : 'modes.sealQuiz')
+    ) : (
+      t(`modes.${mode}.name`)
+    )
   ) : (
-    t(`modes.${mode}.name`)
+    <Icon name={MODES.find((m) => m.id === mode)!.icon} size={22} />
   )
   return (
     <header className={`app-modebar${sheetUp ? ' sheet-up' : ''} m-${mode}${mode === 'lesson' ? ` l-${lessonMode}` : ''}`}>
@@ -134,7 +136,7 @@ export function ModeBar({
           <>
             <Button size="sm" onClick={watch.started ? watch.toggle : onWatchSetup} disabled={watch.started && !watch.canPlay}>
               <Icon name={watch.running ? 'pause' : 'play'} size={16} />
-              {t(!watch.started ? 'newGame.start' : watch.running ? 'watch.pause' : 'watch.resume')}
+              {t(watch.started ? (watch.running ? 'watch.pause' : 'watch.resume') : 'newGame.start')}
             </Button>
             <Button size="sm" onClick={watch.restart}>
               {t('watch.newGame')}

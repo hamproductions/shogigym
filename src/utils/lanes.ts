@@ -4,7 +4,15 @@ import { bookLookup } from './kifu'
 import { neutralBranch, strip, type CourseNodes } from './book'
 import { winLoss } from './score'
 
-export type Lane = { first: string; moves: string[]; tag: 'book' | 'mistake' | 'ai'; note?: string; loss?: number; forks?: number; best?: boolean }
+export interface Lane {
+  first: string
+  moves: string[]
+  tag: 'book' | 'mistake' | 'ai'
+  note?: string
+  loss?: number
+  forks?: number
+  best?: boolean
+}
 
 const LANE_ORDER = { book: 0, ai: 1, mistake: 2 }
 

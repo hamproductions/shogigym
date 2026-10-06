@@ -6,7 +6,7 @@ import { flipBookMove, flipBookPosition } from './bookPosition'
 import { InitialPositionSFEN, Position, Color } from 'tsshogi'
 import { getSettings, subscribeSettings, type EngineKind } from '@/appearance/settings'
 
-type UsiModule = {
+interface UsiModule {
   addMessageListener: (listener: (line: string) => void) => void
   postMessage: (command: string) => void
   terminate: () => void
@@ -16,16 +16,14 @@ type UsiModule = {
 type EngineFactory = () => Promise<UsiModule>
 
 declare global {
-  interface Window {
-    YaneuraOu_K_P?: EngineFactory
-    YaneuraOu_HalfKP_noeval?: EngineFactory
-    Stockfish?: EngineFactory
-  }
+  var YaneuraOu_K_P: EngineFactory | undefined
+  var YaneuraOu_HalfKP_noeval: EngineFactory | undefined
+  var Stockfish: EngineFactory | undefined
 }
 
 export type Score = { cp: number } | { mate: number }
 
-export type Candidate = {
+export interface Candidate {
   multipv: number
   move: string
   score: Score
@@ -33,25 +31,31 @@ export type Candidate = {
   depth: number
 }
 
-export type Analysis = {
+export interface Analysis {
   bestmove: string
   candidates: Candidate[]
 }
 
-export type EngineStatus = { kind: EngineKind; name: string; error: string; loading: boolean; epoch: number }
+export interface EngineStatus {
+  kind: EngineKind
+  name: string
+  error: string
+  loading: boolean
+  epoch: number
+}
 
 const ENGINES: Record<EngineKind, { script: string; factory: () => EngineFactory | undefined; options: () => string[] }> = {
   yaneuraou: {
     script: `${import.meta.env.BASE_URL}engine/yaneuraou.k-p.js`,
-    factory: () => window.YaneuraOu_K_P,
+    factory: () => globalThis.YaneuraOu_K_P,
     options: () => ['USI_OwnBook value false', 'PvInterval value 0'],
   },
   nnue: {
     script: `${import.meta.env.BASE_URL}engine/yaneuraou.halfkp.noeval.js`,
-    factory: () => window.YaneuraOu_HalfKP_noeval,
+    factory: () => globalThis.YaneuraOu_HalfKP_noeval,
     options: () => ['USI_OwnBook value false', 'PvInterval value 0', 'EvalDir value .', 'EvalFile value nn.bin', `FV_SCALE value ${getSettings().fvScale}`],
   },
-  fairy: { script: `${import.meta.env.BASE_URL}engine/fairy/stockfish.js`, factory: () => window.Stockfish, options: () => ['USI_Variant value shogi'] },
+  fairy: { script: `${import.meta.env.BASE_URL}engine/fairy/stockfish.js`, factory: () => globalThis.Stockfish, options: () => ['USI_Variant value shogi'] },
 }
 
 let active: { key: string; engine: Promise<UsiModule> } | null = null
@@ -107,7 +111,7 @@ function loadScript(src: string, factory: () => EngineFactory | undefined): Prom
       script.remove()
       reject(new Error(`failed to load ${src}`))
     }
-    document.head.appendChild(script)
+    document.head.append(script)
   })
 }
 
@@ -142,7 +146,7 @@ function waitFor(engine: UsiModule, command: string, terminator: string, onLine?
 }
 
 export function engineSupported(): boolean {
-  return typeof SharedArrayBuffer !== 'undefined' && window.crossOriginIsolated
+  return typeof SharedArrayBuffer !== 'undefined' && globalThis.crossOriginIsolated
 }
 
 async function boot(kind: EngineKind): Promise<UsiModule> {

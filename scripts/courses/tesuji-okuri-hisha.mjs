@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'tesuji--okuri-hisha',
   title: '手筋: 飛車の送りの手筋',
   myStrategy: 'shikenbisha',
@@ -25,3 +25,5 @@ export default {
     comment: '玉に金を取らせることで、飛車の利きから守り駒を剥がす手筋です。',
   },
 }
+
+export default course

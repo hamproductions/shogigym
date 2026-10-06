@@ -50,7 +50,7 @@ const pending = new Map<BoardStyle, Promise<void>>()
 export const loadedBoard = (style: BoardStyle) => loaded.get(style)
 
 export function loadBoardStyle(style: BoardStyle): Promise<void> {
-  const source = BOARD_STYLES[style].source
+  const { source } = BOARD_STYLES[style]
   if (!source || loaded.has(style)) return Promise.resolve()
   const existing = pending.get(style)
   if (existing) return existing

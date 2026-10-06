@@ -16,7 +16,7 @@ import { countMoves, isMainLine, nodeAt, type Tree } from '@/app/tree'
 import { Button } from '@/app/ui/Button'
 import { useSettings } from '@/appearance/settings'
 
-type MovesPaneProps = {
+interface MovesPaneProps {
   sfens: string[]
   moves: string[]
   cursor: number

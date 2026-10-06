@@ -74,14 +74,14 @@ function pieceBody(scale: number) {
     bevelSize: 0.025,
     bevelSegments: 2,
   })
-  const uv = geometry.attributes.uv
+  const { uv } = geometry.attributes
   const pos = geometry.attributes.position
   const depth = komaDepth(scale)
   const poly = piecePolygon(scale)
   const sideGroup = geometry.groups.find((group) => group.materialIndex === 1)
   const sideStart = sideGroup?.start ?? Infinity
   const sideEnd = sideGroup ? sideGroup.start + sideGroup.count : -1
-  const index = geometry.index
+  const { index } = geometry
   const isSide = new Uint8Array(uv.count)
   for (let i = sideStart; i < sideEnd; i++) isSide[index ? index.getX(i) : i] = 1
   // Walls facing along the piece length show the board's cross-section, so their grain runs through the thickness.
@@ -138,7 +138,7 @@ function flatTop(scale: number) {
   const w = komaWidth(scale)
   const geometry = new THREE.ShapeGeometry(pieceShape(scale))
   const pos = geometry.attributes.position
-  const uv = geometry.attributes.uv
+  const { uv } = geometry.attributes
   const top = komaDepth(scale) + 0.024
   for (let i = 0; i < pos.count; i++) {
     const x = pos.getX(i)
@@ -215,7 +215,7 @@ function pieceBottom(scale: number) {
   if (cached) return cached
   const geometry = new THREE.ShapeGeometry(pieceShape(scale))
   const pos = geometry.attributes.position
-  const uv = geometry.attributes.uv
+  const { uv } = geometry.attributes
   for (let i = 0; i < uv.count; i++) uv.setXY(i, 0.5 - pos.getX(i) / komaWidth(scale), pos.getY(i) / scale + 0.5)
   geometry.rotateX(-Math.PI / 2)
   geometry.scale(1, -1, 1)
@@ -259,7 +259,7 @@ function sideTexture(seed: number, appearance?: PieceAppearance) {
 
 export function disposePiece(piece: THREE.Object3D) {
   piece.traverse((child) => {
-    const material = (child as THREE.Mesh).material
+    const { material } = child as THREE.Mesh
     for (const item of Array.isArray(material) ? material : material ? [material] : []) {
       if (item === hiddenLid) continue
       if (child instanceof THREE.Sprite) (item as THREE.SpriteMaterial).map?.dispose()

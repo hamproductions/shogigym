@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'tesuji--hikae-kei',
   title: '手筋: 控えの桂',
   myStrategy: 'shikenbisha',
@@ -19,3 +19,5 @@ export default {
     comment: '時間が経つほど効果を発揮する手筋で、陣形を崩す狙いや他の攻めとの連動に使います。',
   },
 }
+
+export default course

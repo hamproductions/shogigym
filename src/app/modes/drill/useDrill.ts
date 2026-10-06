@@ -9,7 +9,7 @@ import type { Mistakes } from '@/app/hooks/useMistake'
 import { buildQueue, expectedMoves, reviewCounts, type ReviewItem, type ReviewQueue } from '@/app/practice'
 import type { Tab } from '@/app/types'
 
-export type DrillState = {
+export interface DrillState {
   queue: ReviewQueue
   items: ReviewItem[]
   index: number

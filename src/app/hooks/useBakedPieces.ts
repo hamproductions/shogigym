@@ -5,7 +5,11 @@ import { loadPieceSet } from '@/appearance/pieceSets'
 import { loadPieceFont, useSettings, type Settings } from '@/appearance/settings'
 
 const bakeCache = new Map<string, Baked>()
-type BakeJob = { controller: AbortController; promise: Promise<Baked>; users: number }
+interface BakeJob {
+  controller: AbortController
+  promise: Promise<Baked>
+  users: number
+}
 const jobs = new Map<string, BakeJob>()
 
 function acquireBake(key: string, settings: Settings) {
@@ -27,7 +31,7 @@ function acquireBake(key: string, settings: Settings) {
     ])
       .then(([, , , , { bakeFlat }]) => {
         controller.signal.throwIfAborted()
-        return bakeFlat(Math.min(512, Math.round(256 * Math.min(2, window.devicePixelRatio || 1))), controller.signal, settings)
+        return bakeFlat(Math.min(512, Math.round(256 * Math.min(2, globalThis.devicePixelRatio || 1))), controller.signal, settings)
       })
       .then((baked) => {
         controller.signal.throwIfAborted()

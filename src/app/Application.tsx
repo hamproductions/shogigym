@@ -181,8 +181,8 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
 
   useEffect(() => {
     const open = () => setShowViewer(true)
-    window.addEventListener(VIEWER_EVENT, open)
-    return () => window.removeEventListener(VIEWER_EVENT, open)
+    globalThis.addEventListener(VIEWER_EVENT, open)
+    return () => globalThis.removeEventListener(VIEWER_EVENT, open)
   }, [])
   useEffect(() => {
     scrollPanelTop()
@@ -232,9 +232,8 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
       : null
   const autoplayAllowed = isGameMode(mode) || !!preview
   const finished = mode === 'spar' && (session.gameOver || spar.resigned || !!spar.flagged)
-  const result = !finished
-    ? null
-    : spar.resigned
+  const result = finished
+    ? spar.resigned
       ? 'resigned'
       : spar.flagged
         ? spar.flagged === userSide
@@ -243,6 +242,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
         : session.toMove === userSide
           ? 'loss'
           : 'win'
+    : null
   useEffect(() => {
     if (!result) return
     analyze.saveFinished(result)
@@ -301,7 +301,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
   }
   const settings = useSettings()
   const three = settings.environment === 'traditional' || settings.environment === 'casual'
-  const mainStrategy = settings.mainStrategy
+  const { mainStrategy } = settings
   const firstLesson = COURSES.find(
     (c) => c.id === (SETUPS.find((x) => x.basics && x.main === mainStrategy) ?? SETUPS.find((x) => x.main === mainStrategy) ?? SETUPS[0]).courseIds[0],
   )

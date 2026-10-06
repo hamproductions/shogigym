@@ -51,7 +51,7 @@ export function PieceViewer({ onClose, page }: { onClose: () => void; page?: boo
     renderer.shadowMap.enabled = true
     renderer.toneMapping = THREE.ACESFilmicToneMapping
     renderer.toneMappingExposure = 0.95
-    el.appendChild(renderer.domElement)
+    el.append(renderer.domElement)
     const environment = preparePieceEnvironment(renderer, false)
     const world = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera(30, 1, 0.05, 50)

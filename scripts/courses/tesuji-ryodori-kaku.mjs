@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'tesuji--ryodori-kaku',
   title: '手筋: 両取りの角(王手飛車)',
   myStrategy: 'shikenbisha',
@@ -19,3 +19,5 @@ export default {
     comment: '角の斜めの利きで王手と飛車取りを同時にかける、最も有名な両取りです。',
   },
 }
+
+export default course

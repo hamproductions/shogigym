@@ -4,12 +4,26 @@ import type { Color, ImmutablePosition, PieceType, Square } from 'tsshogi'
 import type { AvatarCues, AvatarSlot, Wall } from '@/rendering/avatars'
 import type { Surroundings } from './surroundings'
 
-export type BoardArrow = { usi: string; color: string; dashed?: boolean; label?: string }
+export interface BoardArrow {
+  usi: string
+  color: string
+  dashed?: boolean
+  label?: string
+}
 
-export type ZoneRect = { left: number; top: number; width: number; height: number }
-export type StandZones = { under: ZoneRect; over: ZoneRect; board: ZoneRect }
+export interface ZoneRect {
+  left: number
+  top: number
+  width: number
+  height: number
+}
+export interface StandZones {
+  under: ZoneRect
+  over: ZoneRect
+  board: ZoneRect
+}
 
-export type Board3DProps = {
+export interface Board3DProps {
   position: ImmutablePosition
   furigoma?: boolean
   onFurigoma?: (faces: boolean[]) => void
@@ -38,11 +52,17 @@ export type Board3DProps = {
   cues?: AvatarCues
 }
 
-export type Latest = { readonly current: Board3DProps }
+export interface Latest {
+  readonly current: Board3DProps
+}
 
-export type Stand = { stand: THREE.Mesh; side: number; legs: THREE.Mesh[] }
+export interface Stand {
+  stand: THREE.Mesh
+  side: number
+  legs: THREE.Mesh[]
+}
 
-export type Body = {
+export interface Body {
   obj: THREE.Object3D
   v: THREE.Vector3
   w: THREE.Vector3
@@ -55,7 +75,7 @@ export type Body = {
   quietFor?: number
 }
 
-export type Arena = {
+export interface Arena {
   floor: number
   boxes: { minX: number; maxX: number; minZ: number; maxZ: number; top: number }[]
   halfX: number
@@ -64,7 +84,7 @@ export type Arena = {
   walls: Wall[]
 }
 
-export type TableFlip = {
+export interface TableFlip {
   start: number
   bodies: Body[]
   arena: Arena
@@ -76,9 +96,13 @@ export type TableFlip = {
   way: number
 }
 
-export type Dust = { points: THREE.Points; burst: (at: THREE.Vector3, count: number, power: number) => void; step: (dt: number) => void }
+export interface Dust {
+  points: THREE.Points
+  burst: (at: THREE.Vector3, count: number, power: number) => void
+  step: (dt: number) => void
+}
 
-export type SceneState = {
+export interface SceneState {
   room: Surroundings
   avatars?: AvatarSlot
   renderer: THREE.WebGLRenderer

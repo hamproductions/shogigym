@@ -53,7 +53,7 @@ for (const [index, source] of sources.slice(1).entries()) {
     const name = line.match(/key: "([^"]+)"/)[1]
     const definition = { name, kind: index === 1 ? 'castle' : index >= 2 && !['居飛車', '振り飛車'].includes(name) ? 'technique' : 'strategy' }
     for (const field of ['add_to_self', 'add_to_opponent']) {
-      const value = line.match(new RegExp(`${field}:\\s*\"([^\"]+)\"`))?.[1]
+      const value = line.match(new RegExp(`${field}:\\s*"([^"]+)"`))?.[1]
       if (value) definition[field] = value
     }
     definitions.push(definition)
@@ -95,6 +95,6 @@ for (const [index, source] of sources.slice(1).entries()) {
 }
 await writeFile(
   'src/data/formations.json',
-  JSON.stringify({ source: 'akicho8/bioshogi', revision, license: 'AGPL-3.0', rules, definitions, custom: missing }, null, 2) + '\n',
+  `${JSON.stringify({ source: 'akicho8/bioshogi', revision, license: 'AGPL-3.0', rules, definitions, custom: missing }, null, 2)}\n`,
 )
 console.log(`${rules.length} shape rules; ${missing.length} non-shape definitions`)

@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'tesuji--mino-kuzushi',
   title: '手筋: 美濃崩し',
   myStrategy: 'shikenbisha',
@@ -21,3 +21,5 @@ export default {
     comment: 'ポイントは玉を狙えるラインに角を配置することです。控えの桂や継ぎ桂と組み合わせるとさらに効果的です。',
   },
 }
+
+export default course

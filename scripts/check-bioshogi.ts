@@ -7,7 +7,7 @@ import { formationMoveTags } from '../src/utils/formation'
 import { flipBookMove, flipBookPosition } from '../src/utils/bookPosition'
 
 type Tags = Record<'attack' | 'defense' | 'technique' | 'note', string[]>
-type OracleRecord = {
+interface OracleRecord {
   file: string
   preset?: string
   initial: Tags[]
@@ -63,7 +63,7 @@ for (const item of oracle.records) {
   const kingHands: [number, number] = [heldKings('K'), heldKings('k')]
   if (kingHands.some(Boolean)) preset.kingHands = kingHands
   const last = record.moves.at(-1)!
-  const ending = !(last.move instanceof Move) ? last.move.type : undefined
+  const ending = last.move instanceof Move ? undefined : last.move.type
   const loses = [SpecialMoveType.RESIGN, SpecialMoveType.MATE, SpecialMoveType.TIMEOUT, SpecialMoveType.FOUL_LOSE, SpecialMoveType.LOSE_BY_DEFAULT].some(
     (type) => type === ending,
   )

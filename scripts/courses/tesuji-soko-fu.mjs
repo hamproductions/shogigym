@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'tesuji--soko-fu',
   title: '手筋: 底歩',
   myStrategy: 'shikenbisha',
@@ -19,3 +19,5 @@ export default {
     comment: 'この金は捨てるつもりで指します。崩すのに何手もかかるため、終盤の詰む詰まないの勝負で威力を発揮します。',
   },
 }
+
+export default course

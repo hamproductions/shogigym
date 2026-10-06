@@ -40,7 +40,7 @@ for await (const data of createReadStream(input, { highWaterMark: chunkSize })) 
 if (pending.length) await save(pending)
 await writeFile(
   `${output}/manifest.json`,
-  JSON.stringify(
+  `${JSON.stringify(
     {
       source: 'https://github.com/yaneurao/YaneuraOu/releases/tag/new_petabook233',
       archive: 'new_petabook_20250505c.7z',
@@ -53,7 +53,7 @@ await writeFile(
     },
     null,
     2,
-  ) + '\n',
+  )}\n`,
 )
 const license = await readFile('public/books/peta233-v1/LICENSE', 'utf8')
 await writeFile(

@@ -3,7 +3,13 @@ import type { ReactNode } from 'react'
 import { Button } from './Button'
 import { cx } from './cx'
 
-type DialogProps = { label: string; className?: string; role?: 'dialog' | 'alertdialog'; onBackdrop?: () => void; children: ReactNode }
+interface DialogProps {
+  label: string
+  className?: string
+  role?: 'dialog' | 'alertdialog'
+  onBackdrop?: () => void
+  children: ReactNode
+}
 
 export function Dialog({ label, className, role = 'dialog', onBackdrop, children }: DialogProps) {
   return (

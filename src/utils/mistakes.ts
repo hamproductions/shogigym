@@ -1,6 +1,6 @@
 import type { Label } from './analysis'
 
-export type Mistake = {
+export interface Mistake {
   id: string
   sfen: string
   played: string

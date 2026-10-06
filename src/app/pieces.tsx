@@ -4,7 +4,11 @@ import { positionOf } from '@/utils/shogi'
 import { useTranslation } from 'react-i18next'
 import i18n from '@/utils/i18n'
 
-type Step = { dx: number; dy: number; slide?: boolean }
+interface Step {
+  dx: number
+  dy: number
+  slide?: boolean
+}
 
 const KING_STEPS: Step[] = [-1, 0, 1].flatMap((dx) => [-1, 0, 1].map((dy) => ({ dx, dy }))).filter((s) => s.dx || s.dy)
 const GOLD_STEPS: Step[] = KING_STEPS.filter((s) => !(s.dy === 1 && s.dx !== 0))
@@ -250,8 +254,8 @@ export function sees(sfen: string, square: Square): Square[] {
   const dir = piece.color === Color.BLACK ? 1 : -1
   const out: Square[] = []
   for (const step of PIECE_INFO[piece.type].steps) {
-    let file = square.file
-    let rank = square.rank
+    let { file } = square
+    let { rank } = square
     for (;;) {
       file -= step.dx * dir
       rank += step.dy * dir

@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'shogirule--40',
   title: '後手四間飛車 対 先手棒銀(将棋ルール.com)',
   myStrategy: 'shikenbisha',
@@ -16,3 +16,5 @@ export default {
       '先手は▲3七銀〜▲2六銀の棒銀に▲3八飛・▲3五歩を加え、3筋から攻める構え。後手は△1二香と香を先に逃がし、飛車を△3二飛と3筋へ回して、角を△5一角〜△6二角と引いた。6二の角は4四と3五の歩がどけば2六の銀に当たる筋にいる。出典の形勢判断は互角。',
   },
 }
+
+export default course

@@ -33,7 +33,7 @@ const Board2D = lazy(() => import('@/rendering/Board2D').then((m) => ({ default:
 const BoardFlat = lazy(() => import('@/rendering/BoardFlat').then((m) => ({ default: m.BoardFlat })))
 const Board3D = lazy(() => import('@/rendering/Board3D').then((m) => ({ default: m.Board3D })))
 
-type BoardStageProps = {
+interface BoardStageProps {
   furigoma?: boolean
   onFurigoma?: (faces: boolean[]) => void
   evalRate: number | null
@@ -99,13 +99,13 @@ export function BoardStage({
   const picking = mode === 'lesson' && !course
   const playing = mode === 'spar' || mode === 'view' || (mode === 'lesson' && !!course)
   const sideColor = (side: Side) => (side === 'sente' ? Color.BLACK : Color.WHITE)
-  const stamp = decor.stamp
+  const { stamp } = decor
   const [dismissedNote, setDismissedNote] = useState<string | null>(null)
   useEffect(() => {
     setDismissedNote(null)
     if (!decor.note) return
-    const timer = window.setTimeout(() => setDismissedNote(decor.note), 2000)
-    return () => window.clearTimeout(timer)
+    const timer = globalThis.setTimeout(() => setDismissedNote(decor.note), 2000)
+    return () => globalThis.clearTimeout(timer)
   }, [decor.note, sfen])
   const cues = useMemo(
     () =>
@@ -157,7 +157,7 @@ export function BoardStage({
   const sparEnded = mode === 'spar' && (spar.resigned || !!spar.flagged)
   const showGameOver = ((gameOver && game.moves.length > 0 && isGameMode(mode)) || sparEnded) && spar.endHidden !== sfen
   return (
-    <div className={`app-board-wrap${evalRate !== null ? ' with-eval' : ''}`}>
+    <div className={`app-board-wrap${evalRate === null ? '' : ' with-eval'}`}>
       {mode === 'spar' && spar.furigomaBanner && (
         <div
           className="app-furigoma-banner"

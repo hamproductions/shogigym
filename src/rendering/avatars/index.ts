@@ -6,7 +6,7 @@ export type Knock = 'move' | 'capture'
 
 export type MotionKind = 'slide' | 'carry' | 'drop' | 'capture' | 'promote'
 
-export type AvatarMove = {
+export interface AvatarMove {
   kind: MotionKind
   flip?: THREE.Object3D
   sound?: Knock | null
@@ -19,13 +19,26 @@ export type AvatarMove = {
   capture?: { mesh: THREE.Object3D; to: THREE.Vector3; hide?: THREE.Object3D }
 }
 
-export type AvatarCues = { thinking: Color | null; resigned: Color | null; bowKey: string; nodKey: string; nodColor: Color | null }
+export interface AvatarCues {
+  thinking: Color | null
+  resigned: Color | null
+  bowKey: string
+  nodKey: string
+  nodColor: Color | null
+}
 
-export type Wall = { minX: number; maxX: number; minZ: number; maxZ: number; minY?: number; maxY?: number }
+export interface Wall {
+  minX: number
+  maxX: number
+  minZ: number
+  maxZ: number
+  minY?: number
+  maxY?: number
+}
 
 export type AvatarPhase = 'reach' | 'grip' | 'carry' | 'place' | 'press' | 'withdraw' | 'idle'
 
-export type AvatarInspect = {
+export interface AvatarInspect {
   color: Color
   phase: AvatarPhase
   kind: MotionKind | null
@@ -40,7 +53,7 @@ export type AvatarInspect = {
   applied: Record<string, number[]>
 }
 
-export type AvatarController = {
+export interface AvatarController {
   playMove: (move: AvatarMove) => void
   cue: (cues: AvatarCues) => void
   update: (dt: number, flip: number, orbit: boolean) => void
@@ -51,7 +64,7 @@ export type AvatarController = {
   dispose: () => void
 }
 
-export type AvatarOptions = {
+export interface AvatarOptions {
   root: THREE.Object3D
   camera: THREE.Camera
   environment: 'traditional' | 'casual'
@@ -111,9 +124,9 @@ export function avatarSlot(options: Omit<AvatarOptions, 'environment' | 'base'>)
     else if (wanted) start()
   })
   const idle = environment
-    ? window.setTimeout(
+    ? globalThis.setTimeout(
         () =>
-          (window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 1)))(() => {
+          (globalThis.requestIdleCallback ?? ((cb: () => void) => globalThis.setTimeout(cb, 1)))(() => {
             if (!enabled()) return
             prefetchAvatars()
             wanted = true
@@ -144,7 +157,7 @@ export function avatarSlot(options: Omit<AvatarOptions, 'environment' | 'base'>)
     update: (dt: number, flip: number, orbit: boolean) => controller?.update(dt, flip, orbit),
     dispose: () => {
       disposed = true
-      window.clearTimeout(idle)
+      globalThis.clearTimeout(idle)
       unsubscribe()
       drop()
     },
@@ -155,7 +168,7 @@ export type AvatarSlot = Omit<ReturnType<typeof avatarSlot>, 'reset'> & { reset?
 
 const GOOD = new Set(['!!', '!', '★', '◎'])
 
-export type CueInput = {
+export interface CueInput {
   playing: boolean
   aiTurn: boolean
   resigned: boolean

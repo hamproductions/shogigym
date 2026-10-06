@@ -125,7 +125,7 @@ export function useWatch(session: BoardSession, load: Load, reviewReady: boolean
     },
     title: t('watch.title'),
     instruction: () =>
-      !ai ? t('engine.theAiNeedsACross') : (error ?? result ?? (tossing ? t('watch.tossing') : running ? t('watch.playing') : t('watch.paused'))),
+      ai ? (error ?? result ?? (tossing ? t('watch.tossing') : running ? t('watch.playing') : t('watch.paused'))) : t('engine.theAiNeedsACross'),
   }
 }
 

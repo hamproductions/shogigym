@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'tesuji--nidan-rocket',
   title: '手筋: 2段ロケット',
   myStrategy: 'shikenbisha',
@@ -21,3 +21,5 @@ export default {
     comment: '香車が上、飛車が下ですが、逆でも2段ロケットです。状況に応じて使い分けます。',
   },
 }
+
+export default course

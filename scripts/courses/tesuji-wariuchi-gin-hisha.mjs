@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'tesuji--wariuchi-gin-hisha',
   title: '手筋: 割り打ちの銀(飛車と金の間)',
   myStrategy: 'shikenbisha',
@@ -19,3 +19,5 @@ export default {
     comment: '飛車を取られないように動かすと、金が取れます。',
   },
 }
+
+export default course

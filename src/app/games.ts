@@ -3,7 +3,7 @@ import type { Tree } from './tree'
 
 export type GameResult = 'win' | 'loss' | 'resigned' | 'time'
 
-export type StoredGame = {
+export interface StoredGame {
   id: string
   title: string
   savedAt: number

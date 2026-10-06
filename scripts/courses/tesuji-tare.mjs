@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'tesuji--tare-fu',
   title: '手筋: 垂れ歩',
   myStrategy: 'shikenbisha',
@@ -17,3 +17,5 @@ export default {
     comment: 'これで後手は2三への歩の成り込みを防ぐ受けがなくなります。',
   },
 }
+
+export default course

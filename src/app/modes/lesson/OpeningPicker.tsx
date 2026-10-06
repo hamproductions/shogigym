@@ -10,7 +10,12 @@ import { mainStrategies, strategyById } from '@/data/strategies'
 import type { LessonMode, Level } from '@/app/types'
 import { Button } from '@/app/ui/Button'
 
-type PickerProps = { onOpen: (c: Course, sub: LessonMode) => void; level: Level; setupId: string | null; setSetupId: (id: string | null) => void }
+interface PickerProps {
+  onOpen: (c: Course, sub: LessonMode) => void
+  level: Level
+  setupId: string | null
+  setSetupId: (id: string | null) => void
+}
 
 const percent = ({ learned, total }: { learned: number; total: number }) => `${total ? (learned / total) * 100 : 0}%`
 

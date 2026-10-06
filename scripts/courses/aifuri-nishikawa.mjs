@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'shikenbisha-vs-aifuri--nishikawa',
   title: '相振り飛車: 西川流(先手) vs 三間飛車・△3六歩には四間飛車',
   myStrategy: 'shikenbisha',
@@ -19,3 +19,5 @@ export default {
     comment: '第3図。詳しくは西川六段の「これからの相振り飛車」。',
   },
 }
+
+export default course

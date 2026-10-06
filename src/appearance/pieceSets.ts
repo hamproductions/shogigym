@@ -186,7 +186,11 @@ const CODE: Record<PieceType, string> = {
 
 export const pieceCode = (type: PieceType, color: Color) => (type === PieceType.KING && color === Color.WHITE ? 'GY' : CODE[type])
 
-export type LoadedPiece = { canvas: HTMLCanvasElement; code: string; size: number }
+export interface LoadedPiece {
+  canvas: HTMLCanvasElement
+  code: string
+  size: number
+}
 
 export const GUIDE_SETS = new Set<PieceSet>([
   'dewitt_czech',

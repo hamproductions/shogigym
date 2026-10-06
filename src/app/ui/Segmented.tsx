@@ -2,8 +2,19 @@ import '@/app/ui/dialog.css'
 import type { ReactNode } from 'react'
 import { cx } from './cx'
 
-type Option<T> = { v: T; t: ReactNode; title?: string }
-type SegmentedProps<T> = { value: T; options: Option<T>[]; onChange: (v: T) => void; label?: string; size?: 'small' | 'big'; className?: string }
+interface Option<T> {
+  v: T
+  t: ReactNode
+  title?: string
+}
+interface SegmentedProps<T> {
+  value: T
+  options: Option<T>[]
+  onChange: (v: T) => void
+  label?: string
+  size?: 'small' | 'big'
+  className?: string
+}
 
 export function Segmented<T extends string | number | boolean>({ value, options, onChange, label, size, className }: SegmentedProps<T>) {
   return (

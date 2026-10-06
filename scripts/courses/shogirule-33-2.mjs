@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'shogirule--33-2',
   title: '先手四間飛車 対 穴熊 (2)(将棋ルール.com)',
   myStrategy: 'shikenbisha',
@@ -16,3 +16,5 @@ export default {
       '後手は△1一玉・△2二銀・△3一金と穴熊に入ったが、もう1枚の金は4三にあり、玉の周りは金銀2枚だけ。先手は▲3八銀・▲4七金・▲3七桂で美濃を整え、▲5五歩△同歩▲同銀で銀を5五へ進めた。6筋の飛車と5五の銀で中央から6筋を攻める態勢。出典の形勢判断は互角。',
   },
 }
+
+export default course

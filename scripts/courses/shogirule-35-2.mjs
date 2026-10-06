@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'shogirule--35-2',
   title: '先手四間飛車「藤井システム」 (2)(将棋ルール.com)',
   myStrategy: 'shikenbisha',
@@ -16,3 +16,5 @@ export default {
       '後手が△1二香〜△1一玉と穴熊に入る途中で、先手は▲4五歩から角を交換し、▲3五歩・▲1四歩と突き捨てて端の香を交換、▲3四歩と打って3三の桂を攻めた。後手の香は1四まで引き出され、1筋の守りが薄くなっている。出典の形勢判断は先手優勢。',
   },
 }
+
+export default course

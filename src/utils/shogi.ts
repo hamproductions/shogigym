@@ -17,7 +17,7 @@ export function moveText(sfen: string, usi: string, lastUsi?: string): string {
   const move = position.createMoveByUSI(usi)
   if (!move) return usi
   const text = formatMove(position, move)
-  return lastUsi && lastUsi.slice(2, 4) === usi.slice(2, 4) ? text.slice(0, 1) + '同' + text.slice(3) : text
+  return lastUsi && lastUsi.slice(2, 4) === usi.slice(2, 4) ? `${text.slice(0, 1)}同${text.slice(3)}` : text
 }
 
 export function pvText(sfen: string, pv: string[], limit = 8): string {
@@ -28,7 +28,7 @@ export function pvText(sfen: string, pv: string[], limit = 8): string {
     const move = position.createMoveByUSI(usi)
     if (!move || !position.isValidMove(move)) break
     const text = formatMove(position, move)
-    out.push(last && last.slice(2, 4) === usi.slice(2, 4) ? text.slice(0, 1) + '同' + text.slice(3) : text)
+    out.push(last && last.slice(2, 4) === usi.slice(2, 4) ? `${text.slice(0, 1)}同${text.slice(3)}` : text)
     position.doMove(move)
     last = usi
   }

@@ -2,7 +2,7 @@ export type Theme = 'system' | 'light' | 'dark'
 
 export const THEME_COLORS = { light: '#f4eee3', dark: '#1c1814' } as const
 
-const darkQuery = window.matchMedia('(prefers-color-scheme: dark)')
+const darkQuery = globalThis.matchMedia('(prefers-color-scheme: dark)')
 let chosen: Theme = 'system'
 
 function syncThemeColor() {

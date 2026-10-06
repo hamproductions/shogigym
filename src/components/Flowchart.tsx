@@ -6,15 +6,19 @@ import i18n from '@/utils/i18n'
 import { Button } from '@/app/ui/Button'
 import './flowchart.css'
 
-type Props = {
+interface Props {
   course: Course
   currentNodeId: string | null
   onJump: (nodeId: string) => void
 }
 
-type Step = { move: JosekiMove; from: JosekiNode; ply: number }
+interface Step {
+  move: JosekiMove
+  from: JosekiNode
+  ply: number
+}
 
-type Stage = {
+interface Stage {
   key: string
   steps: Step[]
   end: JosekiNode
@@ -194,7 +198,7 @@ function Diagram({
                 <span className="fc-moves">{t('lessonMap.initialPosition')}</span>
               )}
               <span className="fc-note">{firstSentence(s.end.comment ?? s.steps.at(-1)?.move.punishNote ?? s.steps.at(-1)?.move.note)}</span>
-              {insideAt >= 0 && <span className="fc-progress" style={{ width: `${((insideAt + 1) / s.steps.length) * 100}%` }} />}
+              {insideAt !== -1 && <span className="fc-progress" style={{ width: `${((insideAt + 1) / s.steps.length) * 100}%` }} />}
             </button>
           )
         })}
@@ -207,8 +211,8 @@ export function LessonMap({ course, currentNodeId, onJump, onClose }: Props & { 
   const { t } = useTranslation()
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose()
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
+    globalThis.addEventListener('keydown', onKey)
+    return () => globalThis.removeEventListener('keydown', onKey)
   }, [onClose])
   const { stages, size } = useMemo(() => {
     const root: Stage = {

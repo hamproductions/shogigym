@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'shogirule--29',
   title: '先手矢倉 対 後手急戦(阿久津流)(将棋ルール.com)',
   myStrategy: 'yagura',
@@ -15,3 +15,5 @@ export default {
       '先手が▲6九玉・▲6七金右・▲7七銀と矢倉を組み進める間に、後手は△7四歩・△5三銀右・△8五歩と攻めの形を作り、玉を4一に置いたまま△5五歩と中央から仕掛けた。先手の囲いはまだ完成していない。出典の形勢判断は先手優勢。',
   },
 }
+
+export default course

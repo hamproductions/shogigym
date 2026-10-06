@@ -2,7 +2,11 @@ import { Color, PieceType, Square } from 'tsshogi'
 import { applyUsi, positionOf } from '@/utils/shogi'
 import { sees } from './pieces'
 
-export type Tesuji = { ja: string; en: string; explain: string }
+export interface Tesuji {
+  ja: string
+  en: string
+  explain: string
+}
 
 const VALUABLE = new Set([PieceType.ROOK, PieceType.BISHOP, PieceType.GOLD, PieceType.SILVER, PieceType.DRAGON, PieceType.HORSE])
 

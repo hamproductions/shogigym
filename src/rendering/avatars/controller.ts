@@ -73,7 +73,7 @@ function motion(kind: MotionKind, u: number, shape: HandShape, to: HandShape = s
   )
 }
 
-type Step = {
+interface Step {
   mesh: THREE.Object3D
   from: THREE.Vector3
   to: THREE.Vector3
@@ -83,7 +83,7 @@ type Step = {
   done: () => void
 }
 
-type Action = {
+interface Action {
   kind: MotionKind
   steps: Step[]
   index: number
@@ -96,7 +96,7 @@ type Action = {
   placed: THREE.Vector3 | null
 }
 
-type Actor = {
+interface Actor {
   color: Color
   char: Character
   casters: THREE.Mesh[]
@@ -112,7 +112,12 @@ type Actor = {
   happyFor: number
 }
 
-type Fade = { fade: { value: THREE.Vector2 }; band: { value: THREE.Vector4 }; board: { value: THREE.Vector4 }; arms: { value: THREE.Vector3[] } }
+interface Fade {
+  fade: { value: THREE.Vector2 }
+  band: { value: THREE.Vector4 }
+  board: { value: THREE.Vector4 }
+  arms: { value: THREE.Vector3[] }
+}
 
 const FADE_HEAD = [
   'uniform vec2 avatarFade;',
@@ -278,7 +283,7 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
   const arc = (u: number) => ease(Math.min(1, u / 0.3, (1 - u) / 0.3))
 
   const stepAction = (actor: Actor, dt: number) => {
-    const action = actor.action
+    const { action } = actor
     const st = actor.char.state
     if (!action) {
       actor.out += dt
@@ -289,7 +294,7 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
     }
     actor.out = 0
     action.t += dt
-    const t = action.t
+    const { t } = action
     if (action.placed) {
       if (t >= REACH) knock(action)
       const u = clamp01(t / REACH)
@@ -383,7 +388,7 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
   const pinchAt = new THREE.Vector3()
   const hold = new THREE.Vector3()
   const attach = (actor: Actor, dt: number) => {
-    const action = actor.action
+    const { action } = actor
     const step = action?.steps[action.index]
     if (!action || !step || action.t < REACH + CLOSE) return
     const reached = clamp01(1.5 - actor.char.pinch().distanceTo(actor.char.state.reach.at) / 0.6)
@@ -416,7 +421,7 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
       placed: move.placed ? move.to.clone() : null,
     }
     if (!move.placed) {
-      const capture = move.capture
+      const { capture } = move
       if (capture) {
         const clone = capture.mesh
         clone.position.copy(move.to)
@@ -567,15 +572,15 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
   }
 
   const phase = (actor: Actor): AvatarPhase => {
-    const action = actor.action
+    const { action } = actor
     if (!action) return actor.char.state.reachW > 0.01 ? 'withdraw' : 'idle'
-    const t = action.t
+    const { t } = action
     return t < REACH ? 'reach' : t < REACH + CLOSE ? 'grip' : t < REACH + CLOSE + CARRY * 0.85 ? 'carry' : t < REACH + CLOSE + CARRY ? 'place' : 'press'
   }
 
   const inspect = (): AvatarInspect[] =>
     actors.map((actor) => {
-      const action = actor.action
+      const { action } = actor
       const step = action?.steps[action.index]
       const st = actor.char.state
       const hand = actor.char.vrm.humanoid.getNormalizedBoneNode('rightHand')!

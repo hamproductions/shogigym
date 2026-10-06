@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'shogirule--41-2',
   title: '先手四間飛車 対 後手左美濃 (2)(将棋ルール.com)',
   myStrategy: 'shikenbisha',
@@ -16,3 +16,5 @@ export default {
       '先手は▲2六歩・▲2七銀・▲3八金で銀冠を完成させ、▲6六銀・▲6五歩で6筋の位を取った。後手は玉を△2三からさらに△1二へ寄せ、△2三銀・△3二金・△4三金で固めて△3一角と引いた。双方が組み上がった持久戦の入り口。出典の形勢判断は互角。',
   },
 }
+
+export default course

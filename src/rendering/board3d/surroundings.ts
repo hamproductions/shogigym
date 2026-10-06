@@ -13,7 +13,10 @@ const loadRoom = () =>
     return m
   }))
 
-export type Surroundings = { need: () => void; prefetch: () => () => void }
+export interface Surroundings {
+  need: () => void
+  prefetch: () => () => void
+}
 
 export function surroundings(root: THREE.Group, dims: RoomDims): Surroundings {
   let built = false
@@ -30,9 +33,10 @@ export function surroundings(root: THREE.Group, dims: RoomDims): Surroundings {
       else void loadRoom().then(build)
     },
     prefetch: () => {
-      const idle = (run: () => void) => (typeof window.requestIdleCallback === 'function' ? window.requestIdleCallback(run) : window.setTimeout(run, 0))
-      const timer = window.setTimeout(() => idle(() => void loadRoom()), 3000)
-      return () => window.clearTimeout(timer)
+      const idle = (run: () => void) =>
+        typeof globalThis.requestIdleCallback === 'function' ? globalThis.requestIdleCallback(run) : globalThis.setTimeout(run, 0)
+      const timer = globalThis.setTimeout(() => idle(() => void loadRoom()), 3000)
+      return () => globalThis.clearTimeout(timer)
     },
   }
 }

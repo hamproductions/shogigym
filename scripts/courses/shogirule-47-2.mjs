@@ -1,4 +1,4 @@
-export default {
+const course = {
   id: 'shogirule--47-2',
   title: '後手四間飛車 対 ４五歩急戦 (2)(将棋ルール.com)',
   myStrategy: 'shikenbisha',
@@ -16,3 +16,5 @@ export default {
       '後手は△5四銀〜△6五銀〜△7六銀と銀を先手陣の奥まで進め、▲4四歩には△同角ではなく△同飛と飛車で取った。7六の銀は先手玉の頭(7七)に利いており、先手は攻めより先に受けの手が必要になる。出典の形勢判断は後手優勢。',
   },
 }
+
+export default course
