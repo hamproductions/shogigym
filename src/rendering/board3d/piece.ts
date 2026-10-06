@@ -236,7 +236,7 @@ function pieceBottom(scale: number) {
 }
 
 const hiddenLid = new THREE.MeshBasicMaterial({ visible: false })
-const sideMaterial = new THREE.MeshStandardMaterial({ color: 0xDCB377, emissive: 0x8A6232, emissiveIntensity: 0.75, roughness: 0.85 })
+const sideMaterial = new THREE.MeshStandardMaterial({ color: 0xdcb377, emissive: 0x8a6232, emissiveIntensity: 0.75, roughness: 0.85 })
 
 const sideTextures = new Map<string, THREE.Texture>()
 onFaceTexturesCleared(() => {
@@ -312,7 +312,7 @@ export function pieceMesh(
           transparent: glass,
           alphaTest: glass ? 0.01 : 0,
           depthWrite: !glass,
-          emissive: plastic ? 0xFFFFFF : 0x000000,
+          emissive: plastic ? 0xffffff : 0x000000,
           emissiveMap: plastic ? map : null,
           emissiveIntensity: plastic ? 0.65 : 0,
           roughness: 1,
@@ -358,10 +358,10 @@ export function pieceMesh(
   let side: THREE.MeshBasicMaterial | THREE.MeshPhysicalMaterial | THREE.MeshStandardMaterial
   if (glass) side = glassMaterial()
   else if (settings.pieceColor !== 'natural' || plastic)
-    side = new THREE.MeshBasicMaterial({ color: sideGrain ? 0xE6E6E6 : `rgb(${tone.map((channel) => Math.round(channel * 0.9)).join(',')})`, map: sideGrain })
+    side = new THREE.MeshBasicMaterial({ color: sideGrain ? 0xe6e6e6 : `rgb(${tone.map((channel) => Math.round(channel * 0.9)).join(',')})`, map: sideGrain })
   else side = sideMaterial.clone()
   if (!plastic && !glass && settings.pieceColor === 'natural') {
-    side.color.set(0xFFFFFF)
+    side.color.set(0xffffff)
     side.map = sideGrain
     if (side instanceof THREE.MeshStandardMaterial) side.emissiveMap = sideGrain
   }

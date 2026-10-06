@@ -224,7 +224,7 @@ function sparkField() {
 
 function debrisField() {
   const geometry = new THREE.BoxGeometry(0.16, 0.05, 0.1)
-  const material = new THREE.MeshStandardMaterial({ color: 0xD9A865, emissive: 0x5A3810, emissiveIntensity: 0.4, roughness: 0.75 })
+  const material = new THREE.MeshStandardMaterial({ color: 0xd9a865, emissive: 0x5a3810, emissiveIntensity: 0.4, roughness: 0.75 })
   const mesh = new THREE.InstancedMesh(geometry, material, DEBRIS)
   mesh.frustumCulled = false
   const pos = Array.from({ length: DEBRIS }, () => new THREE.Vector3())
@@ -332,7 +332,7 @@ function beam(color: number, radius: number, o: { fromTop?: boolean; fade?: bool
   const group = new THREE.Group()
   const layers = [
     { r: radius, color },
-    { r: radius * 0.32, color: 0xFFFFFF },
+    { r: radius * 0.32, color: 0xffffff },
   ].map(({ r, color: c }) => {
     const material = new THREE.ShaderMaterial({
       uniforms: {
@@ -399,7 +399,7 @@ export function createPower(ctx: PowerContext): Power {
   const sparks = sparkField()
   const debris = debrisField()
   fx.add(sparks.points, debris.mesh)
-  const light = new THREE.PointLight(0xFFFFFF, 0, 14, 1.6)
+  const light = new THREE.PointLight(0xffffff, 0, 14, 1.6)
   fx.add(light)
   const plane = new THREE.PlaneGeometry(1, 1)
   const floorPlane = new THREE.PlaneGeometry(2, 2).rotateX(-Math.PI / 2)
@@ -425,7 +425,7 @@ export function createPower(ctx: PowerContext): Power {
   )
   const flash = hudMat(
     new THREE.MeshBasicMaterial({
-      color: 0xFFF6E8,
+      color: 0xfff6e8,
       transparent: true,
       opacity: 0,
       depthTest: false,
@@ -437,7 +437,7 @@ export function createPower(ctx: PowerContext): Power {
   )
   const invert = hudMat(
     new THREE.MeshBasicMaterial({
-      color: 0xFFFFFF,
+      color: 0xffffff,
       transparent: true,
       depthTest: false,
       depthWrite: false,
@@ -524,7 +524,7 @@ export function createPower(ctx: PowerContext): Power {
   }
 
   const impactFrame = (at: THREE.Vector3, size: number) => {
-    const white = flat(ringMap, 0xFFFFFF, at.clone().setY(0.06))
+    const white = flat(ringMap, 0xffffff, at.clone().setY(0.06))
     const ink = flat(ringMap, 0x000000, at.clone().setY(0.06), false)
     white.mesh.scale.setScalar(size)
     ink.mesh.scale.setScalar(size * 1.25)
@@ -556,7 +556,7 @@ export function createPower(ctx: PowerContext): Power {
   }
 
   const ghost = (at: THREE.Vector3, type: PieceType, color: Color) => {
-    const material = new THREE.MeshBasicMaterial({ color: 0xFFF1D6, transparent: true, depthWrite: false, toneMapped: false, blending: THREE.AdditiveBlending })
+    const material = new THREE.MeshBasicMaterial({ color: 0xfff1d6, transparent: true, depthWrite: false, toneMapped: false, blending: THREE.AdditiveBlending })
     const mesh = pieceMesh(type, color)
     mesh.traverse((o) => {
       if ((o as THREE.Mesh).isMesh) {
@@ -581,7 +581,7 @@ export function createPower(ctx: PowerContext): Power {
         done: () => {
           fx.remove(mesh)
           material.dispose()
-          sparks.spawn(at.clone().setY(1.8), 50, { speed: 4, color: 0xFFFFFF, color2: 0xFFC070, size: 0.1, life: 0.6, gravity: 4 })
+          sparks.spawn(at.clone().setY(1.8), 50, { speed: 4, color: 0xffffff, color2: 0xffc070, size: 0.1, life: 0.6, gravity: 4 })
         },
       },
     )
@@ -625,29 +625,29 @@ export function createPower(ctx: PowerContext): Power {
   const baseImpact = (at: THREE.Vector3, move: PowerMove) => {
     const gold = move.promoted
     impactFrame(at, move.capture ? 1.3 : 0.8)
-    ringWave(at, gold ? 0xFFC94A : 0xFFF0D0, 0.3, gold ? 2.4 : 1.5, 0.4, 0.9)
-    glowDisc(at, gold ? 0xFFB030 : 0xFFE2B0, 1.1, 0.3, 0.8)
+    ringWave(at, gold ? 0xffc94a : 0xfff0d0, 0.3, gold ? 2.4 : 1.5, 0.4, 0.9)
+    glowDisc(at, gold ? 0xffb030 : 0xffe2b0, 1.1, 0.3, 0.8)
     sparks.spawn(at.clone().setY(0.1), gold ? 70 : 28, {
       speed: gold ? 5 : 3.6,
       up: 2.4,
-      color: gold ? 0xFFD040 : 0xFFD9A0,
-      color2: gold ? 0xFFFFFF : 0xFF9A40,
+      color: gold ? 0xffd040 : 0xffd9a0,
+      color2: gold ? 0xffffff : 0xff9a40,
       size: 0.09,
       life: 0.5,
       flat: true,
     })
-    add(0.25, (t) => glowLight(at.clone().setY(1.2), gold ? 0xFFC040 : 0xFFE0B0, 7 * (1 - t / 0.25)))
-    if (gold) skyBeam(at, 0xFFC23A, 0.32, 18, 0.18, 0.35)
+    add(0.25, (t) => glowLight(at.clone().setY(1.2), gold ? 0xffc040 : 0xffe0b0, 7 * (1 - t / 0.25)))
+    if (gold) skyBeam(at, 0xffc23a, 0.32, 18, 0.18, 0.35)
     punch(move.capture ? 0.32 : 0.12)
   }
 
   const captureImpact = (at: THREE.Vector3, move: PowerMove) => {
-    ringWave(at, 0xFFFFFF, 0.5, 6.5, 0.7, 1)
-    ringWave(at, 0xFF8A3A, 0.3, 5, 0.55, 0.8)
-    glowDisc(at, 0xFFD8A0, 2.6, 0.45, 1)
-    sparks.spawn(at.clone().setY(0.15), 160, { speed: 7.5, up: 4, color: 0xFFE6B0, color2: 0xFF7020, size: 0.11, life: 0.8 })
+    ringWave(at, 0xffffff, 0.5, 6.5, 0.7, 1)
+    ringWave(at, 0xff8a3a, 0.3, 5, 0.55, 0.8)
+    glowDisc(at, 0xffd8a0, 2.6, 0.45, 1)
+    sparks.spawn(at.clone().setY(0.15), 160, { speed: 7.5, up: 4, color: 0xffe6b0, color2: 0xff7020, size: 0.11, life: 0.8 })
     debris.spawn(at, 36, 4.2)
-    skyBeam(at, 0xFFF0C8, 0.46, 26, 0.16, 0.4)
+    skyBeam(at, 0xfff0c8, 0.46, 26, 0.16, 0.4)
     if (move.capture && !move.carried) ghost(at.clone().setY(0), move.capture.type, move.capture.color)
     add(0.15, () => (frame.scale = Math.min(frame.scale, calm() ? 0.7 : 0.3)), { real: true })
     add(0.14, (t) => flashTo(0.22 * (1 - t / 0.14)), { real: true })
@@ -662,13 +662,13 @@ export function createPower(ctx: PowerContext): Power {
     const b = king.clone().setY(0.38)
     const dir = b.clone().sub(a)
     const len = Math.max(0.01, dir.length())
-    const ray = beam(0xFF3020, 0.24, { flow: true })
+    const ray = beam(0xff3020, 0.24, { flow: true })
     ray.group.position.copy(a)
     ray.group.quaternion.setFromUnitVectors(UP, dir.normalize())
     ray.length(len)
     fx.add(ray.group)
-    const ring = flat(ringMap, 0xFF2A1A, king.clone().setY(0.05))
-    const halo = flat(glowMap, 0xFF2010, king.clone().setY(0.045))
+    const ring = flat(ringMap, 0xff2a1a, king.clone().setY(0.05))
+    const halo = flat(glowMap, 0xff2010, king.clone().setY(0.045))
     let stopAt = Infinity
     const entry = add(
       Infinity,
@@ -686,7 +686,7 @@ export function createPower(ctx: PowerContext): Power {
           frame.dim = Math.max(frame.dim, smooth(t / 0.25) * (0.78 - 0.4 * smooth((t - 1.4) / 0.8)) * out)
           frame.red = Math.max(frame.red, (0.5 + 0.5 * (1 - smooth((t - 1.4) / 0.8))) * out)
         }
-        glowLight(king.clone().setY(1), 0xFF2A1A, (4 + 6 * beat) * out)
+        glowLight(king.clone().setY(1), 0xff2a1a, (4 + 6 * beat) * out)
         if (t - stopAt > 0.3) entry.dur = t
       },
       {
@@ -741,7 +741,7 @@ export function createPower(ctx: PowerContext): Power {
       },
       { real: true },
     )
-    const pillar = beam(0xFFD27A, 0.95, { fromTop: true, fade: true })
+    const pillar = beam(0xffd27a, 0.95, { fromTop: true, fade: true })
     pillar.group.position.copy(king)
     pillar.length(44)
     fx.add(pillar.group)
@@ -750,13 +750,13 @@ export function createPower(ctx: PowerContext): Power {
       (t) => {
         const o = envelope(t, 0, 0.08, 3.4, 5.2)
         pillar.set(o * (0.85 + 0.15 * Math.sin(t * 30)), easeOut(t / 0.3), sim)
-        glowLight(king.clone().setY(2), 0xFFD080, 45 * o)
+        glowLight(king.clone().setY(2), 0xffd080, 45 * o)
         if (t < 3.4)
           sparks.spawn(king.clone().setY(0.2), 3, {
             speed: 1.2,
             up: 7,
-            color: 0xFFE08A,
-            color2: 0xFFFFFF,
+            color: 0xffe08a,
+            color2: 0xffffff,
             size: 0.13,
             life: 1.6,
             gravity: -2.5,
@@ -766,9 +766,9 @@ export function createPower(ctx: PowerContext): Power {
       },
       { done: () => (fx.remove(pillar.group), pillar.dispose()) },
     )
-    for (const [i, c] of [0xFFFFFF, 0xFFC84A, 0xFF6A2A].entries()) add(0.16 * i + 0.001, () => undefined, { done: () => ringWave(king, c, 0.5, 11, 1.1, 1) })
-    glowDisc(king, 0xFFE0A0, 4, 2.4, 1)
-    sparks.spawn(king.clone().setY(0.2), 420, { speed: 10, up: 6, color: 0xFFE9B0, color2: 0xFF5A10, size: 0.14, life: 1.4, gravity: 7 })
+    for (const [i, c] of [0xffffff, 0xffc84a, 0xff6a2a].entries()) add(0.16 * i + 0.001, () => undefined, { done: () => ringWave(king, c, 0.5, 11, 1.1, 1) })
+    glowDisc(king, 0xffe0a0, 4, 2.4, 1)
+    sparks.spawn(king.clone().setY(0.2), 420, { speed: 10, up: 6, color: 0xffe9b0, color2: 0xff5a10, size: 0.14, life: 1.4, gravity: 7 })
     debris.spawn(king, 60, 5.5)
     add(0.45, () => undefined, { real: true, done: () => stamp('詰み', 3.2, 0.46, king) })
     shake(0.9)

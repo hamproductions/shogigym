@@ -29,9 +29,9 @@ export function handSnapshots(sfens: string[], px: number): HandSnapshot[] {
       const position = Position.newBySFEN(sfen)
       if (!position) continue
       const scene = new THREE.Scene()
-      scene.background = new THREE.Color(0x1B2230)
-      scene.add(new THREE.HemisphereLight(0xE8E0D0, 0x3A2A18, 1.2))
-      const sun = new THREE.DirectionalLight(0xFFE8C4, 1.6)
+      scene.background = new THREE.Color(0x1b2230)
+      scene.add(new THREE.HemisphereLight(0xe8e0d0, 0x3a2a18, 1.2))
+      const sun = new THREE.DirectionalLight(0xffe8c4, 1.6)
       sun.position.set(-1, 10, 2)
       scene.add(sun)
       const { spots, mode } = handArrangement(position, Color.BLACK)

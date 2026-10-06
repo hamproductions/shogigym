@@ -1,5 +1,5 @@
 const CACHE = 'shogigym-v1'
-const local = new URL(self.location.href).searchParams.get('mode') === 'development'
+const local = new URL(globalThis.location.href).searchParams.get('mode') === 'development'
 
 const isolate = (response) => {
   if (response.status === 0) return response
@@ -10,18 +10,18 @@ const isolate = (response) => {
   return new Response(response.body, { status: response.status, statusText: response.statusText, headers })
 }
 
-self.addEventListener('install', (event) => {
-  self.skipWaiting()
+globalThis.addEventListener('install', (event) => {
+  globalThis.skipWaiting()
   if (!local) event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(['./', 'manifest.webmanifest', 'favicon.svg', 'icon-192.png', 'icon-512.png'])))
 })
 
-self.addEventListener('activate', (event) => event.waitUntil(Promise.all([self.clients.claim(), caches.keys().then((keys) => Promise.all(keys.filter((k) => k.startsWith('shogigym-') && k !== CACHE).map((k) => caches.delete(k))))])))
+globalThis.addEventListener('activate', (event) => event.waitUntil(Promise.all([globalThis.clients.claim(), caches.keys().then((keys) => Promise.all(keys.filter((k) => k.startsWith('shogigym-') && k !== CACHE).map((k) => caches.delete(k))))])))
 
-self.addEventListener('fetch', (event) => {
-  const request = event.request
+globalThis.addEventListener('fetch', (event) => {
+  const { request } = event
   if (request.cache === 'only-if-cached' && request.mode !== 'same-origin') return
   const url = new URL(request.url)
-  const sameOrigin = url.origin === self.location.origin
+  const sameOrigin = url.origin === globalThis.location.origin
   const fullBook = url.pathname.includes('/books/peta233-full-v1/')
   if (fullBook || local || request.method !== 'GET' || !sameOrigin) {
     event.respondWith(fetch(request).then(isolate))

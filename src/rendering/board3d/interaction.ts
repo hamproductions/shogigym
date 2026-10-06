@@ -7,8 +7,8 @@ import type { Latest, SceneState } from './types'
 
 type Pick = { kind: 'square'; square: Square } | { kind: 'hand'; color: Color; type: PieceType } | { kind: 'arrow'; usi: string }
 
-const LEGAL = { fill: 0x3FAE5A, edge: 0x1F7A3A, opacity: 0.55 }
-const ILLEGAL = { fill: 0x8A8A8A, edge: 0x5A5A5A, opacity: 0.3 }
+const LEGAL = { fill: 0x3fae5a, edge: 0x1f7a3a, opacity: 0.55 }
+const ILLEGAL = { fill: 0x8a8a8a, edge: 0x5a5a5a, opacity: 0.3 }
 
 const squareOwner = (object: THREE.Object3D) => {
   let o: THREE.Object3D | null = object

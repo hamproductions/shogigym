@@ -12,12 +12,9 @@ interface HeatCell {
   label?: string
 }
 
-// prettier-ignore
-const SENTE_BLUE = 0x1F7AE0
-// prettier-ignore
-const GOTE_RED = 0xD2402A
-// prettier-ignore
-const CONTESTED = 0x9A5AD0
+const SENTE_BLUE = 0x1f7ae0
+const GOTE_RED = 0xd2402a
+const CONTESTED = 0x9a5ad0
 
 export const EMPTY_CELL: ControlCell = { s: [], g: [] }
 

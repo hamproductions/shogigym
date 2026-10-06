@@ -159,19 +159,19 @@ export function drawMarks(s: SceneState, props: Board3DProps) {
   const tile = (square: Square, color: number, opacity: number) => s.marks.add(flatOnBoard(squareTile(color, opacity), square, 0.004))
   if (lastMove) {
     const to = Square.newByUSI(lastMove.slice(2, 4))
-    if (to) tile(to, 0xE8A63A, 0.55)
+    if (to) tile(to, 0xe8a63a, 0.55)
     if (lastMove[1] !== '*') {
       const from = Square.newByUSI(lastMove.slice(0, 2))
-      if (from) tile(from, 0xE8A63A, 0.38)
+      if (from) tile(from, 0xe8a63a, 0.38)
     }
   }
-  if (props.checkSquare) tile(props.checkSquare, 0xE0301E, 0.6)
+  if (props.checkSquare) tile(props.checkSquare, 0xe0301e, 0.6)
   if (selected instanceof Square) {
-    tile(selected, 0xFFF1C9, 0.45)
-    s.marks.add(flatOnBoard(squareFrame(0.66, new THREE.MeshBasicMaterial({ color: 0xC8442F, depthWrite: false })), selected, 0.006))
+    tile(selected, 0xfff1c9, 0.45)
+    s.marks.add(flatOnBoard(squareFrame(0.66, new THREE.MeshBasicMaterial({ color: 0xc8442f, depthWrite: false })), selected, 0.006))
   }
   if (selected !== null && !(selected instanceof Square) && selectedColor !== undefined) {
-    const ring = new THREE.Mesh(new THREE.RingGeometry(0.44, 0.48, 40), new THREE.MeshBasicMaterial({ color: 0xC8442F }))
+    const ring = new THREE.Mesh(new THREE.RingGeometry(0.44, 0.48, 40), new THREE.MeshBasicMaterial({ color: 0xc8442f }))
     const slot = handSpot(position, selectedColor, selected) ?? standCenter(selectedColor)
     ring.rotation.x = -Math.PI / 2
     ring.position.set(slot.x, STAND_TOP + 0.004, slot.z)
@@ -182,7 +182,7 @@ export function drawMarks(s: SceneState, props: Board3DProps) {
       flatOnBoard(
         new THREE.Mesh(
           new THREE.CircleGeometry(0.12, 24),
-          new THREE.MeshBasicMaterial({ color: 0x5A3A1C, transparent: true, opacity: 0.5, depthWrite: false }),
+          new THREE.MeshBasicMaterial({ color: 0x5a3a1c, transparent: true, opacity: 0.5, depthWrite: false }),
         ),
         target,
         0.006,
@@ -209,10 +209,10 @@ export function drawMarks(s: SceneState, props: Board3DProps) {
       s.marks.add(rank)
     }
   for (const sq of props.peek ?? []) {
-    tile(sq, 0xC8442F, 0.26)
-    s.marks.add(flatOnBoard(squareFrame(0.62, new THREE.MeshBasicMaterial({ color: 0xB33A26, transparent: true, opacity: 0.7, depthWrite: false })), sq, 0.005))
+    tile(sq, 0xc8442f, 0.26)
+    s.marks.add(flatOnBoard(squareFrame(0.62, new THREE.MeshBasicMaterial({ color: 0xb33a26, transparent: true, opacity: 0.7, depthWrite: false })), sq, 0.005))
   }
-  if (props.peekFrom) tile(props.peekFrom, 0xC8442F, 0.22)
+  if (props.peekFrom) tile(props.peekFrom, 0xc8442f, 0.22)
   for (const heat of props.heat ?? []) {
     tile(heat.square, heat.color, heat.opacity)
     if (heat.label) {

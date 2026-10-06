@@ -1,5 +1,6 @@
 .app-viewer {
   width: min(560px, 100%);
+  max-width: none;
 }
 
 .app-viewer > .app-seg {
