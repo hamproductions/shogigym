@@ -12,7 +12,7 @@ import type { SceneState, Stand } from './types'
 
 export function createRenderer(activateEnvironment = true) {
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
-  renderer.setPixelRatio(Math.min(matchMedia('(pointer: coarse)').matches ? 1 : 2, globalThis.devicePixelRatio))
+  renderer.setPixelRatio(Math.min(matchMedia('(pointer: coarse)').matches ? 2 : 3, globalThis.devicePixelRatio))
   renderer.shadowMap.enabled = true
   renderer.shadowMap.type = THREE.PCFShadowMap
   renderer.toneMapping = THREE.ACESFilmicToneMapping
@@ -49,8 +49,15 @@ function addFloor(root: THREE.Group): RoomDims {
   return dims
 }
 
-export function boardTopMaterial(style: BoardStyle, envMap = environmentMap()) {
-  return new THREE.MeshPhysicalMaterial({ map: boardTexture(style), roughness: 0.55, clearcoat: 0.15, clearcoatRoughness: 0.45, envMap, envMapIntensity: 0.25 })
+export function boardTopMaterial(style: BoardStyle, envMap = environmentMap(), scale?: number) {
+  return new THREE.MeshPhysicalMaterial({
+    map: boardTexture(style, scale),
+    roughness: 0.55,
+    clearcoat: 0.15,
+    clearcoatRoughness: 0.45,
+    envMap,
+    envMapIntensity: 0.25,
+  })
 }
 
 function addBoard(root: THREE.Group) {
