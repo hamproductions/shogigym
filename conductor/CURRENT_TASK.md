@@ -1,75 +1,61 @@
 # Current task
 
-## Scope and authorization
-- Atlas baking requested across preview and sprite paths. Promotion atlas contains twelve faces, shared by both players, with one render/readback/PNG and CSS cropping. Remove per-tile frame waits from promotion preparation. Settings groups now render once per option and crop; flat sprites render one atlas per side and crop. Real-GPU promotion atlas crops and settings preview strip inspected in the running app; flat sprite atlas inspected after switching the running app to flat mode.
-- Loading UI must show actual phases and completed-item counts. Investigate Portella holes in glyphs and preserve authentic 3D promotion previews, prepared with the board in the shared context.
-- Additional requirements: promotion choices must reuse prepared face images instead of rebaking on each picker opening; rendering quality should adapt to device capacity and screen size.
-- Ensure settings facesets, glyph fonts, front/reverse and guide previews render correctly. Bake reusable assets for speed and bounded memory.
-- Investigate progressive 3D ink loss, black promotion undersides and freezes; implement an evidence-backed solution.
-- Also fix iPad empty bottom space and sheet drag behavior; restore successive capture sounds and add a small clack when the captured tile lands on the komadai.
-- Patch checks passed and real-GPU promotion/settings/flat atlas screenshots inspected; commit and push in progress.
-- Local investigation and fixes authorized. Temporary server approved; LAN access requested for iPad testing. Commit and push authorized for this patch. No PR, deployment, device or audio changes authorized.
-- Branch: fix/3d-rendering-lifetime, based on fetched origin/main 74a86f5.
+## Current scope
+- Latest correction completed: top rail icon-only lesson-return arrow; lesson flow-chart and verbose return buttons removed from bottom bar. All compact bottom icons 18px, buttons 38×38px, study/quiz segments 46×38px. Full lesson row fits at 320px without scrolling.
+- Correction skills read: get-your-shit-together 1–EOF/27 and look-at-the-screen 1–EOF/60; both supplied screenshots inspected.
+- Mobile bottom controls contain previous/next and panel toggle in one fixed row with panel open or closed. Extra tools scroll horizontally; evaluation occupies a separate strip above controls.
+- Quiz score and two-line feedback have reserved space; incorrect moves and engine checking do not insert rows or trigger panel scrolling. Mobile preview banners are positioned overlays.
+- Full Peta book downloader accepts hash-verified compressed or browser-decoded chunks. Local Vite HTTP gzip decoding previously caused invalid-chunk rejection.
+- Approved native shogi clack integration remains complete: board Original 4, komadai Original 5; no recording playback in application.
 
-## Source of truth
-- Supplied rendering handoff fully read from remote branch; document absent from merged main.
-- PR #7 rendering commits are merged into current main; previous open-PR state is stale.
-- Root cause and real-GPU long-session validation remain unproven.
-- Direction: sequential renderer usage, bounded shared texture resources and stable scene lifetime.
-- Preserve appearance options and promotion behavior. Software GL does not establish real-GPU correctness.
-- Follow CLAUDE.md identity, branch and release rules. No agent attribution or unsolicited PR.
+## Permissions and runtime
+- Current authorization: commit patch on main, close all repository PRs, synchronize main and leave working tree clean. No release or deployment requested; no active Goal.
+- User explicitly authorized leaving localhost dev server running. Foreground session 90502 at http://127.0.0.1:5173 remains running; do not stop it during cleanup.
+- Owned muted headed browser book-fetch used for QA; closed after final checks. Preexisting default session untouched.
 
-## Gates and evidence
-- systematic-debugging SKILL.md read 1–EOF, 283 lines. Root-cause investigation active.
-- Current session requirements reconciled; no prior-session reads.
-- Initial checkout clean; fast-forwarded main by 15 commits before creating investigation branch.
-- Read current textures.ts and relief.ts completely; tracking cache eviction and derived texture ownership.
+## Implementation
+- src/appearance/clack.ts builds live native oscillator and filtered generated-noise graphs. Prepared periodic waves, noise buffers and gain curves cached per AudioContext/profile. Every source tracked and graph disconnected after completion.
+- src/appearance/clack.json contains synthesis parameters only: 24 resonant oscillators and 12 shaped-noise bands per profile, frequency/amplitude envelopes, 2 ms measured contact envelope with 0.5 ms gain knots and audition level calibration.
+- Board: +4 dB low shelf at 900 Hz, -4 dB body bell at 1 kHz/Q0.8.
+- Komadai: -2 dB low shelf at 900 Hz, same body cut, -10 dB high shelf at 6500 Hz and frequency multiplier 0.95; less table thud.
+- settings.ts routes move/capture to board profile and komadai to its distinct profile at reduced gain, respecting sound toggle, volume and visibility suppression. Existing animation callers unchanged.
+- src/appearance/clack.pcm.txt deleted; no reference PCM decoder or recorded waveform dependency remains in app sound implementation.
+- sound-samples/native-compare.html and native-board.wav/native-komadai.wav preserve approved audition. Reference recordings used only for analysis/comparison.
 
-## Correction and architecture
-- Settings changes are the primary reproduction trigger; prioritize unified renderer architecture.
-- Mistake to avoid: treating shared bake queue as unified rendering while the board still remounts separately.
-- Source: BoardStage appearance key, Board3D cleanup, bake renderer ownership and Three texture disposal listeners.
-- Rule: tile appearance changes preserve the board renderer, scene and avatars; previews use the same context.
-- Action: implement retained renderer ownership and render-target preview capture with state restoration.
-- Real GPU verified settings preserve identities and create no new contexts. Classic/Elegant repeated cycle plateau: 260 geometries, 339 textures. Forced context loss/restore recovers visible ink. Main-app promotion and consecutive captures render; 45ms clacks coincide with captured-tile komadai coordinates, 600ms before board landing. Autoplay consecutive captures both retain clacks at 1100ms cadence. Physical audio remains muted; original long-session failure unproven.
+## Verification
+- Browser native OfflineAudioContext rendering of actual app module matches reviewed WAVs: relative waveform error 0.0142% board, 0.0161% komadai, within PCM16 quantization; 36 tracked sources per event, 250 ms, 48 kHz. Peaks 0.888/0.874 at full audition gain.
+- Real headed study move emitted 24 board-profile oscillators plus separate existing success tones. Sound toggled off through M; actual reply advanced without any new oscillator starts.
+- Real analysis-board capture performed by pointer selection and promotion: captured tile landing emitted komadai frequencies, followed 576 ms later by board frequencies on capturing tile landing. Result position inspected in native-capture-after.png.
+- Current runtime screenshots: dogfood-output/clack-mobile/native-capture-before.png and native-capture-after.png. No browser errors.
+- TypeScript, targeted lint, formatting and diff whitespace checks passed. Checks capped with UV_THREADPOOL_SIZE=2; no new tests created. Dev server reports existing Node 22.12/version warning but ran successfully.
+- Physical browser output muted; sound character previously reviewed by user in personal Chrome comparison.
 
-## Skill coverage
-- get-your-shit-together 1–EOF (27 lines), real-testing-evidence 1–EOF (70 lines), agent-browser 1–EOF (52 lines).
-- agent-browser core workflow read completely; systematic-debugging/root-cause-tracing.md 1–EOF (169 lines).
+## Earlier completed scope
+- Compact study drawer independent of content; horizontal evaluation above bottom controls; fixed two-line instruction banner with internal scrolling.
+- Actual mobile/tablet/desktop states inspected at 320/390/690/834/1440 px. Short/wrapped banner keeps board/control bounds unchanged.
 
-## Initial-load correction
-- Portella asset extraction removed bright neutral ink highlights and classified warm antialiased edges as red. Updated extraction to recover neutral highlights adjacent to dark strokes and normalize ink color per glyph; regenerated both Portella sets and changed their asset URL revision to 19. Portella option glyph and board screenshot inspected; source promoted pawn uses black ink, preserved in extracted glyph.
-- Flat promotion preview replacement rejected. Promotion picker now consumes decoded 3D render-target images precomputed for both sides with the board's shared renderer. Board readiness waits for those images; picker does not start a bake. Runtime first opening inspected with both 192px images complete.
-- Loading UI reports artwork/font jobs, 3D preview counts, piece preparation/upload counts and shader phase. Progress tracks completed work; shader wait is indeterminate.
-- Replay flicker is reported as current-move header growth shifting the board. Prior renderer-focused investigation missed the visible layout trigger. Verify starting-position and move header bounds, reserve the move label row, then replay through moves in the running browser.
-- Current move label now always has ply, move and turn rows, including an empty reserved move row at the starting position. Header bounds verified unchanged during replay; physical-iPad FPS remains unverified.
-- Additional active request: investigate sub-60 FPS. Measure actual CPU/GPU frame workload before selecting rendering-quality or animation changes.
-- User authorizes reducing rendering quality. Main board and warmup relief segments reduced 48 to 24, default piece segments 64 to 24; pixel-ratio cap reduced to 1.5 touch / 2 desktop; shadow maps 512 touch / 1024 desktop. Glyph faces remain 256px.
-- Aggregate bun run check passed after header and quality changes. Existing lint and Node warnings remain. Heavier-scene browser commands stalled; owned daemon/browser terminated, relaunch in progress with headed env on every command to avoid unintended headless relaunch.
-- Header runtime comparison at 834×1194: starting position and played moves both heading 59.5px, board y118.5px / height1007.5px. Mac top-view visible sample median16.665ms / p9516.67ms; does not establish physical-iPad FPS.
-- Promotion setup displayed the promoted destination mesh at the source before pickup. Show the original face immediately and hide the promoted mesh until landing; verify reach, carry and placement in the running harness.
-- First 3D frame freezes the full page on the physical iPad. Existing preparation only handled appearance changes; initial position rebuild and board-font refresh still create all pieces synchronously. Prior checks did not establish initial-load responsiveness.
-- Immediate target: yield during cold piece preparation and GPU upload; preserve working renderer and settings, then verify first-load responsiveness in headed browser.
-- Initial rebuild and font-triggered duplicate rebuild removed. Preparation processes jobs within a 6ms frame budget; shaders compile asynchronously before rendering. Normal/lacquer maps shared by glyph across grain variants.
-- Latest real-GPU reload: complete board frame at 1101ms; Settings input starts at 740ms before completion, input delay 92ms. A later 213ms long task remains; zero-stall and physical-iPad responsiveness are not established. Renderer memory 218 geometries / 159 textures for the current saved position.
-- PNG faceset option glyphs render as direct images without vertical-writing wrapper. All option cards inspected at 834px; physical Safari remains unverified.
+## Skills read
+- stop-inventing 1–EOF/79; get-your-shit-together 1–EOF/27; show-me 1–EOF/93; look-at-the-screen 1–EOF/60.
+- surgical-patch 1–EOF/16; ui-density 1–EOF/155; agent-browser 1–EOF/52 plus full required CLI guide; real-testing-evidence 1–EOF/70.
 
-## Next action
-- Physical iPad test URL: http://192.168.3.60:5173. Mac en0 address read directly; LAN HTTP returned 200. Temporary dev server authorized and running on localhost:5173, owned exec session 12867, bound to 0.0.0.0 for requested iPad testing; stop after device testing finishes.
-- Isolated headed browser rendering uses mock keychain/basic password store and mute-audio. Existing default session untouched. GPU confirmed ANGLE Metal Apple M2 Pro.
-- Isolated rendering browser used for current atlas verification. Existing default session untouched. LAN server remains available for ongoing requested physical-iPad testing.
-- look-at-the-screen SKILL.md 1–EOF (60 lines). Baseline screenshot inspected; onboarding footer clipped at initial short viewport, enlarged viewport used to complete onboarding.
-- iPad helper completed; root independently verified 768px drag and inspected corrected 834px and 1024px portrait screenshots. No physical iPad proof yet.
+## Current verification
+- Real pointer quiz wrong move 9g9f at 390px: board, bar, panel, card, prompt and answer button bounds identical before/after. Engine checking and final feedback for alternative 2g2f also retain exact bounds, including prompt and answer button.
+- Bottom controls inspected at 320/390/834/1440px, panel open/closed; previous/next navigation exercised through actual buttons. Mobile control row remains 56px; no page overflow at 320px.
+- Study tablet evaluation visibly occupies separate strip above one control row.
+- Full-book download completed through actual localhost settings UI: user_book1.db 470.3 MB saved; progress/cancel disappeared, no error. Owned QA book subsequently removed through UI.
+- Current evidence in dogfood-output/clack-mobile: quiz-wrong-fixed.png, quiz-320-fixed.png, quiz-panel-hidden.png, controls-desktop.png, study-tablet-controls.png, book-download-complete.png; each inspected.
+- TypeScript, targeted lint, formatting and whitespace checks pass. No new tests.
+- Final evaluated wrong-move screenshot quiz-final-wrong.png inspected; no browser errors. Owned book-fetch browser closed; only preexisting default remains. Authorized dev server left running. Patch committed on main as 7b74387.
 
-## Implementation and verification state
-- Shared renderer leases now cover board, queued bake jobs, hand snapshots and piece viewer; bake capture uses render targets plus OutputPass color conversion.
-- Tile settings preserve scene/avatar identities; preparation yields between pieces. Four grain variants replace per-piece texture seeds.
-- Explicit cached/live resource ownership defers eviction until last user; normal/lacquer textures use typed pixels.
-- Removed incorrect capture-start sounds from all board modes. Small clack now runs in the avatar capture-transfer completion after placement on the komadai, including interrupted transfers settled there. Runtime timing verified in dev harness and main app; clack coordinates equal both komadai positions.
-- At 768×1024, downward pointer drag shrinks sheet and retains release size; screenshots inspected, document overflow zero. At 834×1194 desktop columns leave the board narrow and excessive vertical room. Compact layout now includes portrait viewports through 1024px; 834×1194 and 1024×1366 screenshots inspected with controls at bottom and no extra bottom gap.
-- Delegate skill coverage: surgical-patch 1–EOF (16 lines), look-at-the-screen 1–EOF (60), GYST 1–EOF (27).
-- Fresh reload on real GPU: 158 textures versus earlier 244; this is a changed-grain comparison, not a certified same-design benchmark.
-- Aggregate check passed after atlas changes; existing lint warnings and Node version warning remain.
-- Latest aggregate bun run check passed after promotion visibility, glyph-derived sharing and 6ms preparation changes. git diff --check passed. Existing lint warnings and Node version warning remain.
-- Promotion harness inspected: frame 0 shows original pawn at 5d, frame 27 carries and turns it, frame 82 shows promoted tile at 5c.
-- Gote promotion inspected at frame 0 and 82: original face remains at 5f before pickup, promoted face appears at 5g after landing.
+## Compact controls verification
+- Both supplied screenshots inspected; inconsistent button sizing and verbose bottom actions were the defect.
+- Real headed browser checked 390px and 320px, panel open/closed. All seven lesson controls visible in one row; 320px tool width equals content width, page width 320px.
+- Top return arrow clicked and lesson picker appeared. Bottom flow-chart and lesson-return buttons absent.
+- Current screenshots compact-controls-390.png, compact-controls-320.png and compact-controls-panel-open.png inspected.
+- TypeScript and formatting pass; targeted lint has only existing Application effect warnings. No new tests. Patch committed on main as 7b74387.
+- Owned compact-controls browser closed after verification; authorized localhost server retained.
+
+## Repository cleanup
+- Open PRs 8 and 2 closed without merge.
+- Sound audition samples retained locally and excluded through .git/info/exclude.
+- Main refreshed from origin; patch commit is the only local lead. Task record cleanup committed before synchronization.
