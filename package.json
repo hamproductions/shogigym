@@ -1,7 +1,7 @@
 {
   "name": "joseki-practice",
   "private": true,
-  "version": "1.3.5",
+  "version": "1.3.6",
   "type": "module",
   "scripts": {
     "postinstall": "mkdir -p public/engine && cp node_modules/@mizarjp/yaneuraou.k-p/lib/yaneuraou.k-p.js node_modules/@mizarjp/yaneuraou.k-p/lib/yaneuraou.k-p.wasm node_modules/@mizarjp/yaneuraou.k-p/lib/yaneuraou.k-p.worker.js node_modules/@mizarjp/yaneuraou.halfkp.noeval/lib/yaneuraou.halfkp.noeval.js node_modules/@mizarjp/yaneuraou.halfkp.noeval/lib/yaneuraou.halfkp.noeval.wasm node_modules/@mizarjp/yaneuraou.halfkp.noeval/lib/yaneuraou.halfkp.noeval.worker.js public/engine/ && mkdir -p public/engine/fairy && cp node_modules/fairy-stockfish-nnue.wasm/stockfish.js node_modules/fairy-stockfish-nnue.wasm/stockfish.wasm node_modules/fairy-stockfish-nnue.wasm/stockfish.worker.js public/engine/fairy/",

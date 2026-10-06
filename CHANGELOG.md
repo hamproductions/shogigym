@@ -2,6 +2,13 @@
 
 Notable changes are recorded here when a release is created. Versions follow Semantic Versioning.
 
+## [1.3.6](/compare/v1.3.5...v1.3.6) (2026-10-06)
+
+
+### Bug Fixes
+
+* stabilize board rendering and adaptive panels 70a71fb
+
 ## [1.3.5](/compare/v1.3.3...v1.3.5) (2026-10-06)
 
 
