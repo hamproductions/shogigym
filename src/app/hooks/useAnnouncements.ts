@@ -20,7 +20,7 @@ export interface Announcement {
 
 const QUIET_NAMES = ['居玉', '居飛車']
 
-export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, position }: BoardSession) {
+export function useAnnouncements({ preview, mode, cursor, game, sfens, position }: BoardSession) {
   const { t, i18n } = useTranslation()
   const { showTesuji } = useSettings()
   const [announce, setAnnounce] = useTransient<Announcement>(1800)
@@ -56,7 +56,7 @@ export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, pos
     }
     if (!formationOpeningAt(sfens, game.moves, cursor, game.detectionPreset)) return
     for (const color of [Color.BLACK, Color.WHITE]) {
-      for (const tag of tags[color === Color.BLACK ? 0 : 1].filter((tag) => tag.ply === cursor && tag.kind !== 'technique')) {
+      for (const tag of tags[color === Color.BLACK ? 0 : 1].filter((entry) => entry.ply === cursor && entry.kind !== 'technique')) {
         const { name } = tag
         const kind = t(tag.kind === 'strategy' ? 'app.strategy' : 'app.castle')
         if (!name || QUIET_NAMES.includes(name)) continue
@@ -69,6 +69,6 @@ export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, pos
         return
       }
     }
-  }, [sfen, preview, mode, cursor, game.start, game.moves, game.detectionPreset, sfens, position, t, i18n.language, setAnnounce, setTesujiNote, showTesuji])
+  }, [preview, mode, cursor, game.start, game.moves, game.detectionPreset, sfens, position, t, i18n.language, setAnnounce, setTesujiNote, showTesuji])
   return { announce, tesujiNote: showTesuji && tesujiNote && tesujiNote.at === cursor ? tesujiNote : null }
 }

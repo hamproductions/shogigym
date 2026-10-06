@@ -62,8 +62,8 @@ export function useBakedPieces(enabled = true) {
       (baked) => {
         if (live) setReady(baked)
       },
-      (error: unknown) => {
-        if (live && !job.controller.signal.aborted) setFailure({ key, message: error instanceof Error ? error.message : String(error) })
+      (cause: unknown) => {
+        if (live && !job.controller.signal.aborted) setFailure({ key, message: cause instanceof Error ? cause.message : String(cause) })
       },
     )
     return () => {

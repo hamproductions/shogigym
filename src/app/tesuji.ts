@@ -1,6 +1,6 @@
 import { Color, PieceType, Square } from 'tsshogi'
 import { applyUsi, positionOf } from '@/utils/shogi'
-import { sees } from './pieces'
+import { sees } from './pieceInfo'
 
 export interface Tesuji {
   ja: string

@@ -1,3 +1,4 @@
+import type { TFunction } from 'i18next'
 import { useTranslation } from 'react-i18next'
 import { pvText } from '@/utils/shogi'
 import { sideMark } from '@/utils/notation'
@@ -6,21 +7,16 @@ import { firstPieceHint } from './firstPiece'
 import type { Tsume, TsumeState } from './useTsume'
 import { Button } from '@/app/ui/Button'
 
+function solvedText(t: TFunction, tsume: TsumeState) {
+  if (tsume.seen) return t('tsume.mateSolvedAfterSeeingThe')
+  if (tsume.hint >= 2) return t('tsume.mateSolvedAfterTheFirst')
+  return tsume.missed ? t('tsume.mateSolvedOnASecond') : t('tsume.mateSolved')
+}
+
 function TsumeStatus({ tsume }: { tsume: TsumeState }) {
   const { t } = useTranslation()
   if (tsume.status === 'checking') return <p className="app-muted">{t('tsume.checkingYourMove')}</p>
-  if (tsume.status === 'solved')
-    return (
-      <p className="app-result right">
-        {tsume.seen
-          ? t('tsume.mateSolvedAfterSeeingThe')
-          : tsume.hint >= 2
-            ? t('tsume.mateSolvedAfterTheFirst')
-            : tsume.missed
-              ? t('tsume.mateSolvedOnASecond')
-              : t('tsume.mateSolved')}
-      </p>
-    )
+  if (tsume.status === 'solved') return <p className="app-result right">{solvedText(t, tsume)}</p>
   if (tsume.status === 'wrong')
     return <p className="app-result wrong">{tsume.reason ? t('tsume.notMateBecause', { reason: tsume.reason }) : t('tsume.notMate')}</p>
   if (tsume.status === 'shown')
@@ -44,6 +40,7 @@ export function TsumePane({ trainer, tsume, banner, onBack }: { trainer: Tsume; 
   const { t } = useTranslation()
   const stats = loadTsumeStats()
   const pool = PROBLEMS.filter((p) => tsume.length === 'all' || p.mate === tsume.length)
+  const solved = new Set(stats.solved)
   return (
     <div className="app-practice">
       <p className="app-task app-phone-only">
@@ -71,7 +68,7 @@ export function TsumePane({ trainer, tsume, banner, onBack }: { trainer: Tsume; 
           {pvText(tsume.problem.sfen, tsume.problem.pv, tsume.problem.mate)}
         </p>
       )}
-      <p className="app-muted">{t('tsume.solvedOfInThisSet', { value: pool.filter((p) => stats.solved.includes(p.id)).length, poolCount: pool.length })}</p>
+      <p className="app-muted">{t('tsume.solvedOfInThisSet', { value: pool.filter((p) => solved.has(p.id)).length, poolCount: pool.length })}</p>
     </div>
   )
 }

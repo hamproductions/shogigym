@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import type { TFunction } from 'i18next'
 import { useTranslation } from 'react-i18next'
 import { Record } from 'tsshogi'
 import { scoreWinRate } from '@/utils/analysis'
@@ -10,21 +11,58 @@ import type { Load } from '@/app/hooks/useModeSwitch'
 import type { Game } from '@/app/types'
 import { aiStrategyId, resolveAiStrategy, strategyReply } from '@/utils/book'
 
+interface WatchState {
+  game: Game
+  ending?: string
+  error?: string
+  errorEpoch?: number
+  winner?: 'sente' | 'gote'
+}
+
+interface WatchInput {
+  state: WatchState | null
+  epoch: number
+  repetition: string | null
+  started: boolean
+  tossing: boolean
+}
+
+function deriveWatch(
+  t: TFunction,
+  { game, position, gameOver, atEnd, preview, playing, ai, mode }: BoardSession,
+  { state, epoch, repetition, started, tossing }: WatchInput,
+) {
+  const current = state?.game === game ? state : null
+  const ending = current?.ending
+  const error = current && current.errorEpoch === epoch ? current.error : undefined
+  const result = repetition ?? ending ?? (gameOver ? t('app.checkmateWon', { winner: t(`common.${otherSide(colorSide(position.color))}`) }) : null)
+  const canPlay = started && !tossing && (!atEnd || !result)
+  const running = mode === 'view' && playing && canPlay && !error && (!atEnd || !!preview || ai)
+  return { ending, error, winner: current?.winner, result, canPlay, running }
+}
+
 export function useWatch(session: BoardSession, load: Load, reviewReady: boolean, tossing: boolean) {
   const { t } = useTranslation()
   const settings = useSettings()
   const { epoch } = useEngineStatus()
-  const { mode, game, sfen, position, gameOver, atEnd, preview, playing, play, ai, setPlaying } = session
+  const { mode, game, sfen, atEnd, preview, playing, play, ai, setPlaying } = session
   const [bots, setBots] = useState<[AiStrength, AiStrength]>([settings.opponent, settings.opponent])
   const [strategies, setStrategies] = useState<[string, string]>([aiStrategyId(settings.aiStrategy), aiStrategyId(settings.aiStrategy)])
   const [activeStrategies, setActiveStrategies] = useState<[string, string]>(['', ''])
   const [started, setStarted] = useState(false)
-  useEffect(() => {
-    if (mode === 'view' && game.moves.length === 0) setStarted(false)
-  }, [mode, game])
+  const [state, setState] = useState<WatchState | null>(null)
+  const [seen, setSeen] = useState({ mode, game })
+  if (seen.mode !== mode || seen.game !== game) {
+    setSeen({ mode, game })
+    if (mode === 'view') {
+      if (game.moves.length === 0) setStarted(false)
+      if (seen.mode !== mode) setState((current) => (current?.error ? { ...current, error: undefined } : current))
+    }
+  }
   const [firstBot, setFirstBot] = useState<'sente' | 'gote'>('sente')
-  const strength = bots[session.toMove === firstBot ? 0 : 1]
-  const strategy = activeStrategies[session.toMove === firstBot ? 0 : 1]
+  const botIndex = session.toMove === firstBot ? 0 : 1
+  const strength = bots[botIndex]
+  const strategy = activeStrategies[botIndex]
   const start = useCallback(
     (side: 'sente' | 'gote') => {
       setFirstBot(side)
@@ -34,10 +72,6 @@ export function useWatch(session: BoardSession, load: Load, reviewReady: boolean
     },
     [setPlaying, strategies],
   )
-  const [state, setState] = useState<{ game: Game; ending?: string; error?: string; winner?: 'sente' | 'gote' } | null>(null)
-  useEffect(() => {
-    if (mode === 'view') setState((current) => (current?.error ? { ...current, error: undefined } : current))
-  }, [mode, epoch])
   const repetition = useMemo(() => {
     if (mode !== 'view') return null
     const record = new Record(positionOf(game.start))
@@ -50,11 +84,7 @@ export function useWatch(session: BoardSession, load: Load, reviewReady: boolean
       ? t('watch.repetition')
       : t('watch.perpetualCheck', { side: t(`common.${otherSide(colorSide(record.perpetualCheck))}`) })
   }, [mode, game, t])
-  const ending = state?.game === game ? state.ending : undefined
-  const error = state?.game === game ? state.error : undefined
-  const result = repetition ?? ending ?? (gameOver ? t('app.checkmateWon', { winner: t(`common.${otherSide(colorSide(position.color))}`) }) : null)
-  const canPlay = started && !tossing && (!atEnd || !result)
-  const running = mode === 'view' && playing && canPlay && !error && (!atEnd || !!preview || ai)
+  const { error, winner, result, canPlay, running } = deriveWatch(t, session, { state, epoch, repetition, started, tossing })
 
   useEffect(() => {
     if (mode === 'view' && result && atEnd && !preview) setPlaying(false)
@@ -66,29 +96,29 @@ export function useWatch(session: BoardSession, load: Load, reviewReady: boolean
     let timer: ReturnType<typeof setTimeout> | undefined
     const level = STRENGTH[strength]
     const command = `position sfen ${game.start}${game.moves.length ? ` moves ${game.moves.join(' ')}` : ''}`
-    const analysis = (async () => {
+    const search = (async () => {
       const planned = strategy ? await strategyReply(strategy, session.toMove, sfen, game.moves.length) : undefined
       if (cancelled) return { bestmove: '', candidates: [] }
       return planned ? { bestmove: planned.usi, candidates: [] } : analyze(command, { multipv: level.pickFrom, movetime: level.movetime, book: !!strategy })
     })()
-    analysis
-      .then((analysis) => {
+    search
+      .then((outcome) => {
         if (cancelled) return
-        if (analysis.bestmove === 'resign' || analysis.bestmove === 'win') {
-          const winner = analysis.bestmove === 'win' ? session.toMove : otherSide(session.toMove)
-          setState({ game, winner, ending: t(analysis.bestmove === 'win' ? 'watch.declaration' : 'watch.resigned', { side: t(`common.${winner}`) }) })
+        if (outcome.bestmove === 'resign' || outcome.bestmove === 'win') {
+          const victor = outcome.bestmove === 'win' ? session.toMove : otherSide(session.toMove)
+          setState({ game, winner: victor, ending: t(outcome.bestmove === 'win' ? 'watch.declaration' : 'watch.resigned', { side: t(`common.${victor}`) }) })
           return
         }
-        const top = analysis.candidates[0] ? scoreWinRate(analysis.candidates[0].score) : 0
-        const pool = analysis.candidates.filter((c) => top - scoreWinRate(c.score) <= level.maxLoss)
-        const usi = pool[Math.floor(Math.random() * pool.length)]?.move ?? analysis.bestmove
+        const top = outcome.candidates[0] ? scoreWinRate(outcome.candidates[0].score) : 0
+        const pool = outcome.candidates.filter((c) => top - scoreWinRate(c.score) <= level.maxLoss)
+        const usi = pool[Math.floor(Math.random() * pool.length)]?.move ?? outcome.bestmove
         if (!usi || !applyUsi(sfen, usi)) throw new Error(t('watch.invalidMove'))
         timer = setTimeout(() => {
           if (!cancelled) play(usi)
         }, 900)
       })
       .catch((cause: unknown) => {
-        if (!cancelled) setState({ game, error: cause instanceof Error ? cause.message : String(cause) })
+        if (!cancelled) setState({ game, error: cause instanceof Error ? cause.message : String(cause), errorEpoch: epoch })
       })
     return () => {
       cancelled = true
@@ -107,16 +137,18 @@ export function useWatch(session: BoardSession, load: Load, reviewReady: boolean
     canPlay,
     started,
     result,
-    winner: state?.game === game ? state.winner : undefined,
+    winner,
     won: !!result && result !== t('watch.repetition'),
     toggle,
     bots,
     strategies,
-    setStrategy: (index: number, value: string) =>
-      setStrategies((current) => current.map((strategy, i) => (i === index ? value : strategy)) as [string, string]),
-    setBot: (index: number, value: AiStrength) => setBots((current) => current.map((bot, i) => (i === index ? value : bot)) as [AiStrength, AiStrength]),
+    setStrategy: (index: number, value: string) => setStrategies((current) => current.map((entry, i) => (i === index ? value : entry)) as [string, string]),
+    setBot: (index: number, value: AiStrength) => setBots((current) => current.map((entry, i) => (i === index ? value : entry)) as [AiStrength, AiStrength]),
     start,
-    side: (index: number) => (started ? (index === 0 ? firstBot : otherSide(firstBot)) : null),
+    side: (index: number) => {
+      if (!started) return null
+      return index === 0 ? firstBot : otherSide(firstBot)
+    },
     name: (index: number) => t(index === 0 ? 'watch.kamite' : 'watch.shimote'),
     bot: (side: 'sente' | 'gote') => t(side === firstBot ? 'watch.kamite' : 'watch.shimote'),
     restart: () => {
@@ -124,8 +156,13 @@ export function useWatch(session: BoardSession, load: Load, reviewReady: boolean
       load(game.start, 'sente', 'view', null)
     },
     title: t('watch.title'),
-    instruction: () =>
-      ai ? (error ?? result ?? (tossing ? t('watch.tossing') : running ? t('watch.playing') : t('watch.paused'))) : t('engine.theAiNeedsACross'),
+    instruction: () => {
+      if (!ai) return t('engine.theAiNeedsACross')
+      const known = error ?? result
+      if (known !== null && known !== undefined) return known
+      if (tossing) return t('watch.tossing')
+      return running ? t('watch.playing') : t('watch.paused')
+    },
   }
 }
 

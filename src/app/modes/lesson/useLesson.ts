@@ -19,6 +19,12 @@ import { freshScore, type LessonMode, type Score, type Tab } from '@/app/types'
 
 const LESSON_GREEN = '#4f8a2a'
 
+function scoreAfterRight(sc: Score, showAnswer: boolean, assisted: boolean): Score {
+  if (showAnswer) return { ...sc, shown: (sc.shown ?? 0) + 1 }
+  if (assisted) return { ...sc, retried: (sc.retried ?? 0) + 1 }
+  return { ...sc, right: sc.right + 1 }
+}
+
 interface LessonDeps {
   mistakes: Mistakes
   load: Load
@@ -27,9 +33,43 @@ interface LessonDeps {
   compact: boolean
 }
 
+function lessonProgress(course: Course | null, cursor: number, moves: string[]) {
+  if (!course) return null
+  let node: JosekiNode | null | undefined = course.root
+  let total = 0
+  let done = 0
+  let ply = 0
+  while (node) {
+    const next = mainBranch(node)
+    if (!next) break
+    if (sideToMove(node) === course.userSide) {
+      total++
+      if (ply < cursor && moves[ply] === next.usi) done++
+    }
+    node = next.child
+    ply++
+  }
+  return { done, total }
+}
+
+function deriveLesson(session: BoardSession, lessonMode: LessonMode, showAnswer: boolean, hasMistake: boolean) {
+  const { mode, course, nodes, liveSfen, preview, toMove, userSide, atEnd } = session
+  const active = mode === 'lesson' && !!course
+  const node = active ? nodes?.get(strip(liveSfen)) : undefined
+  const good = goodBranches(node)
+  const asking = active && !preview && toMove === userSide && good.length > 0
+  const offBook = active && !preview && !nodes?.get(strip(liveSfen))
+  const done = active && atEnd && !preview && !!node && node.branches.filter((b) => b.kind !== 'deviation').length === 0
+  const waitingForReply = active && lessonMode === 'study' && !asking && !done && !preview && !hasMistake
+  const hidesAnswer = asking && lessonMode === 'quiz' && !showAnswer
+  const arrows: BoardArrow[] =
+    asking && (lessonMode === 'study' || showAnswer) ? good.map((b) => ({ usi: b.usi, color: LESSON_GREEN, dashed: b.kind !== 'main' })) : []
+  return { active, node, good, asking, offBook, done, waitingForReply, hidesAnswer, arrows }
+}
+
 export function useLesson(session: BoardSession, { mistakes, load, setTab, closeSheet, compact }: LessonDeps) {
   const { t, i18n } = useTranslation()
-  const { mode, course, nodes, liveSfen, cursor, game, preview, toMove, userSide, atEnd, play } = session
+  const { course, nodes, liveSfen, cursor, game, preview, toMove, userSide, play } = session
   const [lessonMode, setLessonMode] = useState<LessonMode>('study')
   const [showAnswer, setShowAnswer] = useState(false)
   const [score, setScore] = useState<Score>(freshScore)
@@ -40,35 +80,9 @@ export function useLesson(session: BoardSession, { mistakes, load, setTab, close
   const [mapOpen, setMapOpen] = useState(false)
   const missedHere = useRef(new Set<string>())
 
-  const progress = useMemo(() => {
-    if (!course) return null
-    let node: JosekiNode | null | undefined = course.root
-    let total = 0
-    let done = 0
-    let ply = 0
-    while (node) {
-      const next = mainBranch(node)
-      if (!next) break
-      if (sideToMove(node) === course.userSide) {
-        total++
-        if (ply < cursor && game.moves[ply] === next.usi) done++
-      }
-      node = next.child
-      ply++
-    }
-    return { done, total }
-  }, [course, cursor, game.moves])
+  const progress = useMemo(() => lessonProgress(course, cursor, game.moves), [course, cursor, game.moves])
 
-  const active = mode === 'lesson' && !!course
-  const node = active ? nodes?.get(strip(liveSfen)) : undefined
-  const good = goodBranches(node)
-  const asking = active && !preview && toMove === userSide && good.length > 0
-  const offBook = active && !preview && !nodes?.get(strip(liveSfen))
-  const done = active && atEnd && !preview && !!node && node.branches.filter((b) => b.kind !== 'deviation').length === 0
-  const waitingForReply = active && lessonMode === 'study' && !asking && !done && !preview && !mistakes.mistake
-  const hidesAnswer = asking && lessonMode === 'quiz' && !showAnswer
-  const arrows: BoardArrow[] =
-    asking && (lessonMode === 'study' || showAnswer) ? good.map((b) => ({ usi: b.usi, color: LESSON_GREEN, dashed: b.kind !== 'main' })) : []
+  const { active, node, good, asking, offBook, done, waitingForReply, hidesAnswer, arrows } = deriveLesson(session, lessonMode, showAnswer, !!mistakes.mistake)
 
   const reset = () => {
     setJustRight(false)
@@ -159,10 +173,7 @@ export function useLesson(session: BoardSession, { mistakes, load, setTab, close
     if (lessonMode === 'quiz' && !(ok && assisted)) record(positionKey(liveSfen), ok)
     if (!ok) missedHere.current.add(key)
     setJustRight(ok && !assisted && lessonMode === 'quiz')
-    if (ok)
-      setScore((sc) =>
-        showAnswer ? { ...sc, shown: (sc.shown ?? 0) + 1 } : assisted ? { ...sc, retried: (sc.retried ?? 0) + 1 } : { ...sc, right: sc.right + 1 },
-      )
+    if (ok) setScore((sc) => scoreAfterRight(sc, showAnswer, assisted))
     setShowAnswer(false)
     playSound(ok ? 'right' : 'wrong')
     if (ok) {
@@ -189,15 +200,15 @@ export function useLesson(session: BoardSession, { mistakes, load, setTab, close
     if (!course) return t('app.pickATechniqueOrAn')
     if (offBook) return t('app.offTheLessonLineGo')
     if (done) return t('app.lineComplete')
-    if (asking)
-      return lessonMode === 'study'
-        ? good[0]?.note
-          ? t('app.studyPlayWhy', { move: moveText(liveSfen, good[0].usi), note: good[0].note })
-          : t('app.studyYourMove', { side: sideMark(userSide) })
-        : showAnswer
-          ? t('app.answerShownPlayTheGreen')
-          : t('app.yourMoveAsFindThe', { me: sideMark(userSide) })
-    return lessonMode === 'study' ? (compact ? t('app.theirMoveIsShownTap') : t('app.theirMoveIsShownPress')) : t('app.theirReplyComesInA')
+    if (asking) {
+      if (lessonMode === 'study') {
+        const note = good[0]?.note
+        return note ? t('app.studyPlayWhy', { move: moveText(liveSfen, good[0].usi), note }) : t('app.studyYourMove', { side: sideMark(userSide) })
+      }
+      return showAnswer ? t('app.answerShownPlayTheGreen') : t('app.yourMoveAsFindThe', { me: sideMark(userSide) })
+    }
+    if (lessonMode !== 'study') return t('app.theirReplyComesInA')
+    return compact ? t('app.theirMoveIsShownTap') : t('app.theirMoveIsShownPress')
   }
 
   return {

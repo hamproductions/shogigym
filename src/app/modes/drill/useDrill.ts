@@ -87,16 +87,12 @@ export function useDrill(session: BoardSession, { mistakes, setTab }: { mistakes
       ? [{ usi: expectedMoves(item)[0], color: LESSON_GREEN }]
       : []
 
-  const instruction = () =>
-    item
-      ? item.kind === 'mistake' && !drill?.result
-        ? t('app.findABetterMoveThan')
-        : drill?.result
-          ? t('app.nextCardWhenYouAre')
-          : drill?.queue === 'new'
-            ? t('app.learnThisMovePlayThe')
-            : t('app.playTheMoveYouLearned')
-      : t('app.pickWhatToReview')
+  const instruction = () => {
+    if (!item) return t('app.pickWhatToReview')
+    if (drill?.result) return t('app.nextCardWhenYouAre')
+    if (item.kind === 'mistake') return t('app.findABetterMoveThan')
+    return drill?.queue === 'new' ? t('app.learnThisMovePlayThe') : t('app.playTheMoveYouLearned')
+  }
 
   return {
     drill,

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import type { StandZones } from '@/rendering/board3d/types'
 import type { Mode } from '@/app/types'
 import { useLatest } from './useLatest'
@@ -35,26 +35,53 @@ export function scrollPanelTop(smooth = false) {
   else body?.scrollTo(0, 0)
 }
 
-export function useLayout({ mode, needsPicking, welcome, orbit = false }: { mode: Mode; needsPicking: boolean; welcome: boolean; orbit?: boolean }) {
-  const [viewport, setViewport] = useState(() => ({ w: globalThis.innerWidth, h: globalThis.innerHeight }))
-  const [compact, setCompact] = useState(() => globalThis.matchMedia(PHONE_QUERY).matches)
-  const [panelPrefs, setPanelPrefs] = useState(loadPanelPrefs)
-  const [drawer, setDrawer] = useState(false)
-  const [sheetH, setSheetH] = useState(loadSheetHeight)
-  const [sheetOpen, setSheetOpen] = useState<boolean | null>(null)
-  const [zones, setZones] = useState<StandZones | null>(null)
+const subscribeCompact = (onChange: () => void) => {
+  const mq = globalThis.matchMedia(PHONE_QUERY)
+  mq.addEventListener('change', onChange)
+  return () => mq.removeEventListener('change', onChange)
+}
+const isCompact = () => globalThis.matchMedia(PHONE_QUERY).matches
+const serverCompact = () => false
 
-  useEffect(() => {
-    const on = () => setViewport({ w: globalThis.innerWidth, h: globalThis.innerHeight })
-    globalThis.addEventListener('resize', on)
-    return () => globalThis.removeEventListener('resize', on)
-  }, [])
-  useEffect(() => {
-    const mq = globalThis.matchMedia(PHONE_QUERY)
-    const on = () => setCompact(mq.matches)
-    mq.addEventListener('change', on)
-    return () => mq.removeEventListener('change', on)
-  }, [])
+function usePanelPrefs() {
+  const [panelPrefs, setPanelPrefs] = useState(loadPanelPrefs)
+  const latest = useRef(panelPrefs)
+  const updatePrefs = (patch: Partial<PanelPrefs>) => {
+    const next = { ...latest.current, ...patch }
+    latest.current = next
+    setPanelPrefs(next)
+    try {
+      localStorage.setItem(PANEL_KEY, JSON.stringify(next))
+    } catch (error) {
+      console.warn('panel prefs not persisted', error)
+    }
+  }
+  return [panelPrefs, updatePrefs] as const
+}
+
+function useSheetHeight() {
+  const [sheetH, setSheetH] = useState(loadSheetHeight)
+  const latest = useRef(sheetH)
+  const resizeSheet = (clientY: number) => {
+    const bounds = document.querySelector('.app-shell')?.getBoundingClientRect()
+    const height = bounds?.height ?? globalThis.innerHeight
+    const top = bounds?.top ?? 0
+    const next = Math.round(Math.min(78, Math.max(22, 100 - ((clientY - top) / height) * 100)))
+    latest.current = next
+    setSheetH(next)
+  }
+  const persistSheet = () => {
+    try {
+      if (latest.current) localStorage.setItem(SHEET_KEY, String(latest.current))
+    } catch (error) {
+      console.warn('sheet size not persisted', error)
+    }
+  }
+  return { sheetH, resizeSheet, persistSheet }
+}
+
+function useDrawer(compact: boolean, needsPicking: boolean, mode: Mode, welcome: boolean) {
+  const [drawer, setDrawer] = useState(false)
   const pickKey = `${compact}|${needsPicking}|${mode}|${welcome}`
   const [openedFor, setOpenedFor] = useState('')
   if (openedFor !== pickKey) {
@@ -64,45 +91,42 @@ export function useLayout({ mode, needsPicking, welcome, orbit = false }: { mode
   useEffect(() => {
     if (drawer) scrollPanelTop()
   }, [drawer])
+  return [drawer, setDrawer] as const
+}
 
-  const panelHidden = compact ? !drawer : panelPrefs.hidden
+function panelGeometry(compact: boolean, orbit: boolean, zones: StandZones | null, panelPrefs: PanelPrefs) {
   const floatingAvailable = compact || (!orbit && !!zones && zones.over.width >= 280 && zones.over.height >= 240)
   const panelSide = !compact && (!!panelPrefs.side || !floatingAvailable)
   const zoned = !compact && !panelSide
   const twoPanels = zoned && floatingAvailable && !panelPrefs.hidden && !!zones && zones.under.width >= 240 && zones.under.height >= 200
+  return { floatingAvailable, panelSide, zoned, twoPanels }
+}
+
+export function useLayout({ mode, needsPicking, welcome, orbit = false }: { mode: Mode; needsPicking: boolean; welcome: boolean; orbit?: boolean }) {
+  const [viewport, setViewport] = useState(() => ({ w: globalThis.innerWidth, h: globalThis.innerHeight }))
+  const compact = useSyncExternalStore(subscribeCompact, isCompact, serverCompact)
+  const [panelPrefs, updatePrefs] = usePanelPrefs()
+  const [drawer, setDrawer] = useDrawer(compact, needsPicking, mode, welcome)
+  const { sheetH, resizeSheet, persistSheet } = useSheetHeight()
+  const [sheetOpen, setSheetOpen] = useState<boolean | null>(null)
+  const [zones, setZones] = useState<StandZones | null>(null)
+
+  useEffect(() => {
+    const on = () => setViewport({ w: globalThis.innerWidth, h: globalThis.innerHeight })
+    globalThis.addEventListener('resize', on)
+    return () => globalThis.removeEventListener('resize', on)
+  }, [])
+  const panelHidden = compact ? !drawer : panelPrefs.hidden
+  const { floatingAvailable, panelSide, zoned, twoPanels } = panelGeometry(compact, orbit, zones, panelPrefs)
 
   const compactRef = useLatest(compact)
   const panelHiddenRef = useLatest(panelHidden)
 
   const setPanel = (patch: Partial<PanelPrefs>) => {
     if (compactRef.current && patch.hidden !== undefined) return setDrawer(!patch.hidden)
-    setPanelPrefs((prev) => {
-      const next = { ...prev, ...patch }
-      try {
-        localStorage.setItem(PANEL_KEY, JSON.stringify(next))
-      } catch (error) {
-        console.warn('panel prefs not persisted', error)
-      }
-      return next
-    })
+    updatePrefs(patch)
   }
   const togglePanel = () => setPanel({ hidden: !panelHiddenRef.current })
-
-  const resizeSheet = (clientY: number) => {
-    const bounds = document.querySelector('.app-shell')?.getBoundingClientRect()
-    const height = bounds?.height ?? globalThis.innerHeight
-    const top = bounds?.top ?? 0
-    setSheetH(Math.round(Math.min(78, Math.max(22, 100 - ((clientY - top) / height) * 100))))
-  }
-  const persistSheet = () =>
-    setSheetH((h) => {
-      try {
-        if (h) localStorage.setItem(SHEET_KEY, String(h))
-      } catch (error) {
-        console.warn('sheet size not persisted', error)
-      }
-      return h
-    })
 
   return {
     compact,

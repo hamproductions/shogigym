@@ -76,16 +76,10 @@ export function useAnalyzeGames(
   const exportKif = () => {
     const lines = isGameMode(mode) && tree.children.length ? allLines(tree) : [game.moves]
     const ai = `Shogi Gym AI (${STRENGTH[settings.opponent].label})`
-    const names =
-      mode === 'spar'
-        ? userSide === 'sente'
-          ? { sente: t('app.you'), gote: ai }
-          : { sente: ai, gote: t('app.you') }
-        : gameNotes?.title && gameNotes.title !== IMPORTED
-          ? { title: gameNotes.title }
-          : course
-            ? { title: course.title }
-            : {}
+    let names: { sente?: string; gote?: string; title?: string } = {}
+    if (mode === 'spar') names = userSide === 'sente' ? { sente: t('app.you'), gote: ai } : { sente: ai, gote: t('app.you') }
+    else if (gameNotes?.title && gameNotes.title !== IMPORTED) names = { title: gameNotes.title }
+    else if (course) names = { title: course.title }
     return exportGame(game.start, lines, names)
   }
 

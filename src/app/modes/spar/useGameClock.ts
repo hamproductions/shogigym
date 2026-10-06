@@ -43,7 +43,6 @@ export function useGameClock({
   const clockOn = timeControl.main + timeControl.byoyomi > 0
   const [clock, setClock] = useState(() => freshClock(timeControl))
   const running = enabled && clockOn && !stopped && atEnd && !clock.flagged && moveCount > 0
-  const movesSeen = useRef(moveCount)
 
   const [clockSpec, setClockSpec] = useState(timeControl)
   if (clockSpec !== timeControl) {
@@ -51,13 +50,18 @@ export function useGameClock({
     setClock(freshClock(timeControl))
   }
 
-  useEffect(() => {
-    const before = movesSeen.current
-    movesSeen.current = moveCount
-    if (!enabled || !clockOn || moveCount <= before || !atEnd) return
-    const mover: Side = toMove === 'sente' ? 'gote' : 'sente'
-    setClock((c) => ({ ...c, [mover]: c[mover] + (c[mover] > 0 || !timeControl.byoyomi ? timeControl.increment * 1000 : 0), byo: timeControl.byoyomi * 1000 }))
-  }, [moveCount, enabled, clockOn, atEnd, toMove, timeControl])
+  const [movesSeen, setMovesSeen] = useState(moveCount)
+  if (movesSeen !== moveCount) {
+    setMovesSeen(moveCount)
+    if (enabled && clockOn && moveCount > movesSeen && atEnd) {
+      const mover: Side = toMove === 'sente' ? 'gote' : 'sente'
+      setClock((c) => ({
+        ...c,
+        [mover]: c[mover] + (c[mover] > 0 || !timeControl.byoyomi ? timeControl.increment * 1000 : 0),
+        byo: timeControl.byoyomi * 1000,
+      }))
+    }
+  }
 
   useEffect(() => {
     if (!running) return
@@ -110,7 +114,8 @@ export function useGameClock({
     if (!enabled || !clockOn) return undefined
     const active = running && toMove === side
     const inByo = clock[side] <= 0 && timeControl.byoyomi > 0
-    const ms = inByo ? (toMove === side ? clock.byo : timeControl.byoyomi * 1000) : clock[side]
+    let ms = clock[side]
+    if (inByo) ms = toMove === side ? clock.byo : timeControl.byoyomi * 1000
     const total = Math.ceil(ms / 1000)
     return { text: inByo ? t('app.byoyomi', { total }) : clockTime(total), active, low: active && total <= 10, out: clock.flagged === side }
   }

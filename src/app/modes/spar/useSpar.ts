@@ -113,18 +113,13 @@ export function useSpar(
     run()
   }
 
-  const instruction = () =>
-    resigned
-      ? t('app.youResignedReviewTheGame')
-      : position.checked && !hasLegalMove(position)
-        ? t('app.checkmateTheGameIsOver')
-        : atEnd
-          ? userTurn
-            ? position.checked
-              ? t('app.checkYourKingIsIn')
-              : t('app.yourMove')
-            : t('app.theAiIsThinking')
-          : t('app.lookingBackAtEarlierMoves')
+  const instruction = () => {
+    if (resigned) return t('app.youResignedReviewTheGame')
+    if (position.checked && !hasLegalMove(position)) return t('app.checkmateTheGameIsOver')
+    if (!atEnd) return t('app.lookingBackAtEarlierMoves')
+    if (!userTurn) return t('app.theAiIsThinking')
+    return position.checked ? t('app.checkYourKingIsIn') : t('app.yourMove')
+  }
 
   return {
     resigned,

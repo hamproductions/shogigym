@@ -1,7 +1,7 @@
 import { Square } from 'tsshogi'
 import i18n from '@/utils/i18n'
 import { positionOf } from '@/utils/shogi'
-import { PIECE_INFO } from '@/app/pieces'
+import { PIECE_INFO } from '@/app/pieceInfo'
 import type { Problem } from '@/app/practice'
 
 export function firstPieceHint(problem: Problem) {

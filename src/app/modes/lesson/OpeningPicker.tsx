@@ -57,11 +57,99 @@ function Credits() {
   )
 }
 
-export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProps) {
-  const { t } = useTranslation()
+interface Group {
+  setup: (typeof SETUPS)[number]
+  courses: Course[]
+}
+type Strategy = ReturnType<typeof mainStrategies>[number]
+
+function ScrollTopOnMount() {
   useEffect(() => {
     scrollPanelTop()
-  }, [setupId])
+  }, [])
+  return null
+}
+
+function SetupView({ group, ja, onBack, onOpen }: { group: Group; ja: boolean; onBack: () => void; onOpen: PickerProps['onOpen'] }) {
+  const { t } = useTranslation()
+  return (
+    <div className="app-picker">
+      <button className="app-back" onClick={onBack}>
+        {t('picker.back')}
+      </button>
+      <h2 className="app-picker-title">{ja ? group.setup.ja : group.setup.name}</h2>
+      <p className="app-picker-intro">{ja ? group.setup.intro.ja : group.setup.intro.en}</p>
+      {group.setup.plan && <p className="app-picker-intro plan">{ja ? group.setup.plan.ja : group.setup.plan.en}</p>}
+      {group.courses.map((c) => (
+        <LessonCard key={c.id} course={c} onOpen={onOpen} />
+      ))}
+    </div>
+  )
+}
+
+function MainChooser({
+  mains,
+  main,
+  ja,
+  onBack,
+  onPick,
+}: {
+  mains: Strategy[]
+  main: Strategy
+  ja: boolean
+  onBack: () => void
+  onPick: (id: string) => void
+}) {
+  const { t } = useTranslation()
+  return (
+    <div className="app-picker">
+      <button className="app-back" onClick={onBack}>
+        {t('picker.back')}
+      </button>
+      <h2 className="app-picker-title">{t('strategy.chooseMain')}</h2>
+      {(['furibisha', 'ibisha'] as const).map((wing) => (
+        <Fragment key={wing}>
+          <h3 className="app-sub">{t(`strategy.${wing}`)}</h3>
+          <div className="app-main-grid">
+            {mains
+              .filter((s) => s.side === wing)
+              .map((s) => (
+                <button key={s.id} className={`app-main-chip${s.id === main.id ? ' on' : ''}`} onClick={() => onPick(s.id)}>
+                  <strong>{ja ? s.ja : s.en}</strong>
+                  <span>{t(`strategy.level${s.level}`)}</span>
+                </button>
+              ))}
+          </div>
+        </Fragment>
+      ))}
+    </div>
+  )
+}
+
+function SetupRow({ group, ja, heading, onOpen }: { group: Group; ja: boolean; heading: string | null; onOpen: () => void }) {
+  const { t } = useTranslation()
+  const { setup, courses } = group
+  const p = courses.map(courseProgress).reduce((a, b) => ({ learned: a.learned + b.learned, total: a.total + b.total }), { learned: 0, total: 0 })
+  return (
+    <>
+      {heading && <h3 className="app-sub">{heading}</h3>}
+      <button className="app-setup" onClick={onOpen}>
+        <span className="app-lib-ja">
+          {ja ? setup.ja : setup.name}
+          {setup.basics && p.learned === 0 && <em className="app-start">{t('picker.startHere')}</em>}
+        </span>
+        <span className="app-lib-en">{t('picker.lessonCount', { count: courses.length })}</span>
+        <span className="app-setup-go" aria-hidden="true">
+          ›
+        </span>
+        <i className="app-progress" style={{ width: percent(p) }} />
+      </button>
+    </>
+  )
+}
+
+function PickerBody({ onOpen, level, setupId, setSetupId }: PickerProps) {
+  const { t } = useTranslation()
   const [query, setQuery] = useState('')
   const { lang, mainStrategy } = useSettings()
   const ja = lang === 'ja'
@@ -82,52 +170,25 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
   )
   const hits = q ? all.flatMap((g) => g.courses.filter((c) => `${c.title} ${c.titleEn ?? ''} ${g.setup.ja} ${g.setup.name}`.toLowerCase().includes(q))) : []
   const group = groups.find((g) => g.setup.id === setupId)
-  if (group)
-    return (
-      <div className="app-picker">
-        <button className="app-back" onClick={() => setSetupId(null)}>
-          {t('picker.back')}
-        </button>
-        <h2 className="app-picker-title">{ja ? group.setup.ja : group.setup.name}</h2>
-        <p className="app-picker-intro">{ja ? group.setup.intro.ja : group.setup.intro.en}</p>
-        {group.setup.plan && <p className="app-picker-intro plan">{ja ? group.setup.plan.ja : group.setup.plan.en}</p>}
-        {group.courses.map(card)}
-      </div>
-    )
-  const mains = mainStrategies()
-  if (choosing)
-    return (
-      <div className="app-picker">
-        <button className="app-back" onClick={() => setChoosing(false)}>
-          {t('picker.back')}
-        </button>
-        <h2 className="app-picker-title">{t('strategy.chooseMain')}</h2>
-        {(['furibisha', 'ibisha'] as const).map((wing) => (
-          <Fragment key={wing}>
-            <h3 className="app-sub">{t(`strategy.${wing}`)}</h3>
-            <div className="app-main-grid">
-              {mains
-                .filter((s) => s.side === wing)
-                .map((s) => (
-                  <button
-                    key={s.id}
-                    className={`app-main-chip${s.id === main.id ? ' on' : ''}`}
-                    onClick={() => (setSettings({ mainStrategy: s.id }), setSetupId(null), setChoosing(false))}
-                  >
-                    <strong>{ja ? s.ja : s.en}</strong>
-                    <span>{t(`strategy.level${s.level}`)}</span>
-                  </button>
-                ))}
-            </div>
-          </Fragment>
-        ))}
-      </div>
-    )
+  if (group) return <SetupView group={group} ja={ja} onBack={() => setSetupId(null)} onOpen={onOpen} />
+  if (choosing) {
+    const pick = (id: string) => {
+      setSettings({ mainStrategy: id })
+      setSetupId(null)
+      setChoosing(false)
+    }
+    return <MainChooser mains={mainStrategies()} main={main} ja={ja} onBack={() => setChoosing(false)} onPick={pick} />
+  }
   const ordered = [
     ...groups.filter((g) => g.setup.basics),
     ...groups.filter((g) => !g.setup.technique && !g.setup.basics),
     ...groups.filter((g) => g.setup.technique),
   ]
+  const headingFor = ({ setup }: Group, i: number) => {
+    if (!setup.technique && !setup.basics && (i === 0 || ordered[i - 1]?.setup.basics)) return t('picker.openingsByWhatYourOpponent')
+    if (setup.technique && !ordered[i - 1]?.setup.technique) return t('picker.techniques')
+    return null
+  }
   return (
     <div className="app-picker">
       <button className="app-main-current" onClick={() => setChoosing(true)}>
@@ -138,30 +199,17 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
       {level === 'new' && <p className="app-picker-intro">{t('picker.clickAnyPieceOnThe')}</p>}
       {search}
       {q && (hits.length ? hits.map(card) : <p className="app-muted">{t('picker.noLessonMatches', { query })}</p>)}
-      {!q &&
-        ordered.map(({ setup, courses }, i, all) => {
-          const p = courses.map(courseProgress).reduce((a, b) => ({ learned: a.learned + b.learned, total: a.total + b.total }), { learned: 0, total: 0 })
-          return (
-            <Fragment key={setup.id}>
-              {!setup.technique && !setup.basics && (i === 0 || all[i - 1]?.setup.basics) && (
-                <h3 className="app-sub">{t('picker.openingsByWhatYourOpponent')}</h3>
-              )}
-              {setup.technique && !all[i - 1]?.setup.technique && <h3 className="app-sub">{t('picker.techniques')}</h3>}
-              <button className="app-setup" onClick={() => setSetupId(setup.id)}>
-                <span className="app-lib-ja">
-                  {ja ? setup.ja : setup.name}
-                  {setup.basics && p.learned === 0 && <em className="app-start">{t('picker.startHere')}</em>}
-                </span>
-                <span className="app-lib-en">{t('picker.lessonCount', { count: courses.length })}</span>
-                <span className="app-setup-go" aria-hidden="true">
-                  ›
-                </span>
-                <i className="app-progress" style={{ width: percent(p) }} />
-              </button>
-            </Fragment>
-          )
-        })}
+      {!q && ordered.map((g, i) => <SetupRow key={g.setup.id} group={g} ja={ja} heading={headingFor(g, i)} onOpen={() => setSetupId(g.setup.id)} />)}
       <Credits />
     </div>
+  )
+}
+
+export function OpeningPicker(props: PickerProps) {
+  return (
+    <>
+      <ScrollTopOnMount key={props.setupId ?? ''} />
+      <PickerBody {...props} />
+    </>
   )
 }

@@ -56,12 +56,10 @@ export function useTesuji(session: BoardSession, { mistakes, load, setTab }: { m
     hidesAnswer: active && drill?.status === 'asking',
     arrows,
     title: `${t('app.tesuji')}: ${drill && drill.filter !== 'all' ? drill.filter : t('app.mixed')}`,
-    instruction: () =>
-      drill
-        ? drill.status === 'asking'
-          ? t('app.toMoveFindTheTesuji', { side: sideMark(session.position.color) })
-          : t('app.nextDrillWhenYouAre')
-        : t('app.findTheTesuji'),
+    instruction: () => {
+      if (!drill) return t('app.findTheTesuji')
+      return drill.status === 'asking' ? t('app.toMoveFindTheTesuji', { side: sideMark(session.position.color) }) : t('app.nextDrillWhenYouAre')
+    },
     start,
     startDefault: () => start(drill?.filter ?? 'all'),
     next: () => drill && start(drill.filter, drill.item.id),

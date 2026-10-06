@@ -21,9 +21,13 @@ export function useOpponent(session: BoardSession, { lessonMode, halted }: { les
   const [pending, setPending] = useState<Reply | null>(null)
   const fresh = game.moves.length === 0
   const [strategy, setStrategy] = useState(() => resolveAiStrategy(settings.aiStrategy, otherSide(userSide)))
-  useEffect(() => {
-    if (fresh) setStrategy(resolveAiStrategy(settings.aiStrategy, otherSide(userSide)))
-  }, [fresh, game.start, settings.aiStrategy, userSide])
+  // A fresh game re-resolves the AI strategy (it may be random); leaving the fresh state forgets the key so the next fresh game rolls again.
+  const strategyKey = fresh ? `${game.start}|${settings.aiStrategy}|${userSide}` : null
+  const [resolvedFor, setResolvedFor] = useState(strategyKey)
+  if (resolvedFor !== strategyKey) {
+    setResolvedFor(strategyKey)
+    if (strategyKey !== null) setStrategy(resolveAiStrategy(settings.aiStrategy, otherSide(userSide)))
+  }
 
   useEffect(() => {
     if ((mode !== 'lesson' && mode !== 'spar') || (mode === 'lesson' && !course) || (!atEnd && mode !== 'lesson') || toMove === userSide || halted || gameOver)
@@ -44,7 +48,7 @@ export function useOpponent(session: BoardSession, { lessonMode, halted }: { les
       if (!cancelled && pick && pick !== 'resign' && pick !== 'win') setPending({ key: liveSfen, usi: pick, source: 'ai' })
     }
     run().catch((error) => {
-      if (!cancelled) console.warn('opponent analysis failed', error)
+      if (!cancelled) console.warn('opponent analysis failed', error, { engineEpoch: epoch })
     })
     return () => {
       cancelled = true

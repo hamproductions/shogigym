@@ -50,7 +50,8 @@ export function markTsume(id: string, key: 'solved' | 'failed') {
 export function pickProblem(length: number | 'all', exclude?: string): Problem {
   const stats = loadTsumeStats()
   const pool = PROBLEMS.filter((p) => (length === 'all' || p.mate === length) && p.id !== exclude)
-  const unsolved = pool.filter((p) => !stats.solved.includes(p.id))
+  const solved = new Set(stats.solved)
+  const unsolved = pool.filter((p) => !solved.has(p.id))
   const from = unsolved.length ? unsolved : pool
   return from[Math.floor(Math.random() * from.length)]
 }
@@ -135,6 +136,7 @@ export function courseProgress(course: Course) {
 export function reviewCounts(now = Date.now()) {
   const all = trainablePositions()
   return {
+    now,
     due: all.filter((i) => (getCard(i.key)?.due ?? Infinity) <= now).length,
     new: all.filter((i) => !getCard(i.key)).length,
     difficult: all.filter((i) => {
@@ -147,29 +149,36 @@ export function reviewCounts(now = Date.now()) {
   }
 }
 
+function newestPositions(all: Spot[]): Spot[] {
+  const opened = openedCourses()
+  const rank = (id: string) => {
+    const at = opened.indexOf(id)
+    return at === -1 ? opened.length : at
+  }
+  return all
+    .filter((i) => !getCard(i.key))
+    .map((i) => {
+      const best = i.alts.reduce((top, a) => (rank(a.course.id) < rank(top.course.id) ? a : top), i.alts[0])
+      return { key: i.key, alts: i.alts, course: best.course, node: best.node, depth: best.depth }
+    })
+    .toSorted((a, b) => rank(a.course.id) - rank(b.course.id) || a.course.id.localeCompare(b.course.id) || a.depth - b.depth)
+    .slice(0, 10)
+}
+
 export function buildQueue(queue: ReviewQueue, now = Date.now()): ReviewItem[] {
   if (queue === 'mistakes')
     return loadMistakes()
       .filter((m) => (getCard(mistakeKey(m.id))?.due ?? 0) <= now)
       .map((mistake) => ({ kind: 'mistake', key: mistakeKey(mistake.id), mistake }))
   const all = trainablePositions()
-  const pick =
-    queue === 'due'
-      ? all.filter((i) => (getCard(i.key)?.due ?? Infinity) <= now)
-      : queue === 'new'
-        ? (() => {
-            const opened = openedCourses()
-            const rank = (id: string) => (opened.includes(id) ? opened.indexOf(id) : opened.length)
-            return all
-              .filter((i) => !getCard(i.key))
-              .map((i) => ({ ...i, ...i.alts.reduce((best, a) => (rank(a.course.id) < rank(best.course.id) ? a : best), i.alts[0]) }))
-              .sort((a, b) => rank(a.course.id) - rank(b.course.id) || a.course.id.localeCompare(b.course.id) || a.depth - b.depth)
-              .slice(0, 10)
-          })()
-        : all.filter((i) => {
-            const c = getCard(i.key)
-            return c && isDifficult(c)
-          })
+  let pick: typeof all
+  if (queue === 'due') pick = all.filter((i) => (getCard(i.key)?.due ?? Infinity) <= now)
+  else if (queue === 'new') pick = newestPositions(all)
+  else
+    pick = all.filter((i) => {
+      const c = getCard(i.key)
+      return c && isDifficult(c)
+    })
   return pick.map((i) => ({
     kind: 'position',
     key: i.key,

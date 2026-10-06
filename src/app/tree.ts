@@ -36,8 +36,9 @@ export function nodeAt(root: Tree, path: string[]): Tree | null {
 export function mainContinuation(node: Tree | null): string[] {
   const out: string[] = []
   while (node && node.children.length) {
-    node = node.children[0]
-    out.push(node.usi)
+    const [next] = node.children
+    out.push(next.usi)
+    node = next
   }
   return out
 }
@@ -49,8 +50,9 @@ export function mainLine(root: Tree): string[] {
 export function isMainLine(root: Tree, path: string[]): boolean {
   let node: Tree = root
   for (const usi of path) {
-    if (node.children[0]?.usi !== usi) return false
-    node = node.children[0]
+    const [first] = node.children
+    if (first?.usi !== usi) return false
+    node = first
   }
   return true
 }

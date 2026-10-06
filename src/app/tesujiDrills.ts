@@ -13,9 +13,10 @@ export interface TesujiDrill {
 
 export const TESUJI_DRILLS = data as TesujiDrill[]
 
-export const TESUJI_KINDS = [...new Set(TESUJI_DRILLS.map((d) => d.tesuji))].sort(
-  (a, b) => TESUJI_DRILLS.filter((d) => d.tesuji === b).length - TESUJI_DRILLS.filter((d) => d.tesuji === a).length,
-)
+const KIND_COUNTS = new Map<string, number>()
+for (const d of TESUJI_DRILLS) KIND_COUNTS.set(d.tesuji, (KIND_COUNTS.get(d.tesuji) ?? 0) + 1)
+
+export const TESUJI_KINDS = [...KIND_COUNTS.keys()].toSorted((a, b) => KIND_COUNTS.get(b)! - KIND_COUNTS.get(a)!)
 
 const KEY = 'joseki-practice:tesuji:v1'
 

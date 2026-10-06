@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { useLocation, useNavigate } from 'react-router'
+import { useNavigate } from 'react-router'
 import { getSettings, setSettings } from '@/appearance/settings'
 import type { Mode } from '@/app/types'
 
@@ -15,16 +15,20 @@ export const MODE_SLUG: Record<Mode, string> = {
 
 const SLUG_MODE = Object.fromEntries(Object.entries(MODE_SLUG).map(([m, s]) => [s, m as Mode])) as Record<string, Mode>
 
+function targetModeOf(routeMain: string | undefined, routeMode: string | undefined): Mode | null {
+  if (routeMain) return 'lesson'
+  return routeMode ? (SLUG_MODE[routeMode] ?? null) : null
+}
+
 export function useRouteMode(mode: Mode, enterMode: (m: Mode) => void, routeMode: string | undefined, routeMain: string | undefined, ready: boolean) {
   const navigate = useNavigate()
-  const { pathname } = useLocation()
   const target = useRef<Mode | null>(null)
   const pending = useRef<string | null>(null)
 
   useEffect(() => {
     if (routeMain && getSettings().mainStrategy !== routeMain) setSettings({ mainStrategy: routeMain })
-    target.current = routeMain ? 'lesson' : routeMode ? (SLUG_MODE[routeMode] ?? null) : null
-  }, [pathname, routeMain, routeMode])
+    target.current = targetModeOf(routeMain, routeMode)
+  }, [routeMain, routeMode])
 
   useEffect(() => {
     if (!ready) return

@@ -12,16 +12,15 @@ export function GamesBox({ games }: { games: AnalyzeGames }) {
   const [view, setView] = useState<'none' | 'saved' | 'load'>('none')
   const current = games.slotId
   const stored = loadGames()
+  const save = () => {
+    if (!games.saveSlot()) return setNote(t('games.couldNotSaveBrowserStorage'))
+    setNote(current ? t('games.savedUpdatedThisSlot') : t('games.savedToYourGames'))
+  }
   const toggle = (next: 'saved' | 'load') => setView(view === next ? 'none' : next)
   return (
     <div className="app-games">
       <div className="app-actions">
-        <Button
-          size="sm"
-          onClick={() =>
-            setNote(games.saveSlot() ? (current ? t('games.savedUpdatedThisSlot') : t('games.savedToYourGames')) : t('games.couldNotSaveBrowserStorage'))
-          }
-        >
+        <Button size="sm" onClick={save}>
           {current ? t('games.saveChanges') : t('games.saveGame')}
         </Button>
         <Button size="sm" on={view === 'saved'} onClick={() => toggle('saved')}>
