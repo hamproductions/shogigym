@@ -291,6 +291,8 @@ export function faceTexture(char: string, promoted: boolean, seed = 1, appearanc
   const key = `${char}${promoted}${font.family}${broadcast}|${set}|${settings.pieceMaterial}|${settings.pieceColor}|${settings.pieceGrain}|${settings.pieceGuide}|${code}|${seed}`
   const cached = recall(faceCache, key)
   if (cached) return cached
+  // Until the font has loaded the canvas silently draws the fallback face; never cache that.
+  const fontReady = document.fonts.check(`${font.weight} 100px "${font.family}"`, char)
   const canvas = pieceSurface(seed, appearance)
   const lightInk = settings.pieceColor === 'dark' || settings.pieceColor === 'mahogany'
   const glyphKey = `${char}|${promoted}|${font.family}|${broadcast}|${lightInk}|${settings.pieceStyle}|${settings.pieceGuide}|${code}`
@@ -316,14 +318,14 @@ export function faceTexture(char: string, promoted: boolean, seed = 1, appearanc
     const guide = settings.pieceGuide === 'lines' ? guideInk(sourceGuide, glyph) : sourceGuide
     if (settings.pieceGuide !== 'none' && !guide) throw new Error(`Guide not loaded: ${code}/${settings.pieceGuide}`)
     glyph = composeGlyph(normalizeInk(glyph), guide, settings.pieceStyle === 'two', settings.pieceGuide === 'movement')
-    rememberGlyph(glyphKey, glyph)
+    if (fontReady) rememberGlyph(glyphKey, glyph)
   }
   canvas.getContext('2d')!.drawImage(glyph, 0, 0)
   const texture = srgbTexture(canvas, 8)
   texture.userData.lightInk = lightInk
   texture.userData.glyphCanvas = glyph
   texture.userData.inkCanvas = glyph
-  return remember(faceCache, key, texture)
+  return fontReady ? remember(faceCache, key, texture) : texture
 }
 
 const glyphTextures = new WeakMap<HTMLCanvasElement, THREE.Texture>()
