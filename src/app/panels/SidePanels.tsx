@@ -1,5 +1,5 @@
 import './panel-layout.css'
-import { useRef, type PointerEvent as ReactPointerEvent } from 'react'
+import { useRef, useState, type PointerEvent as ReactPointerEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Layout } from '@/app/hooks/useLayout'
 import { useSettings } from '@/appearance/settings'
@@ -12,10 +12,42 @@ import { PanelBody, type PanelModel } from './PanelBody'
 
 type SidePanelsProps = { layout: Layout; tab: Tab; setTab: (tab: Tab) => void; sheetOpen: boolean; model: PanelModel; canAutoplay: boolean; picking: boolean }
 
+function LeftPanel({
+  zone,
+  tab,
+  setTab,
+  model,
+  labelClass,
+}: {
+  zone: NonNullable<Layout['zones']>['under']
+  tab: Tab
+  setTab: (tab: Tab) => void
+  model: PanelModel
+  labelClass: string
+}) {
+  const { t } = useTranslation()
+  const [selected, setSelected] = useState<Tab>('moves')
+  const active = tab === 'flow' || tab === 'moves' ? tab : selected
+  return (
+    <aside className="app-panel app-panel-left" style={{ ...zone }}>
+      <Tabs
+        items={(['moves', 'flow'] as Tab[]).map((id) => ({ id, label: <span className={labelClass}>{t(`tabs.${id}`)}</span> }))}
+        value={active}
+        onChange={(id) => {
+          setSelected(id)
+          if (tab === 'flow' || tab === 'moves') setTab('coach')
+        }}
+      />
+      <PanelBody tab={active} model={model} overlays={false} />
+    </aside>
+  )
+}
+
 export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay, picking }: SidePanelsProps) {
   const { t } = useTranslation()
   const ja = useSettings().lang === 'ja'
   const { compact, zoned, zones, twoPanels, panelPrefsHidden, panelWidth, setPanel } = layout
+  const rightTab = twoPanels && (tab === 'moves' || tab === 'flow') ? 'coach' : tab
   const labelClass = ja ? 'app-ja' : 'app-en'
   const resizeStart = useRef({ x: 0, width: panelWidth })
   const sheetGesture = useRef<{ pointerId: number; startY: number; moved: boolean } | null>(null)
@@ -62,12 +94,7 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
   }
   return (
     <>
-      {twoPanels && zones && !picking && (
-        <aside className="app-panel app-panel-left" style={{ ...zones.under }}>
-          <Tabs items={[{ id: 'moves', label: <span className={labelClass}>{t('tabs.moves')}</span> }]} value="moves" onChange={() => undefined} />
-          <PanelBody tab="moves" model={model} overlays={false} />
-        </aside>
-      )}
+      {twoPanels && zones && !picking && <LeftPanel zone={zones.under} tab={tab} setTab={setTab} model={model} labelClass={labelClass} />}
       <aside
         className={`app-panel${sheetOpen ? ' open' : ''}`}
         style={
@@ -109,8 +136,11 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
         />
         <div className="app-panel-header">
           <Tabs
-            items={TABS.filter((id) => !(twoPanels && id === 'moves')).map((id) => ({ id, label: <span className={labelClass}>{t(`tabs.${id}`)}</span> }))}
-            value={tab}
+            items={TABS.filter((id) => !(twoPanels && (id === 'moves' || id === 'flow'))).map((id) => ({
+              id,
+              label: <span className={labelClass}>{t(`tabs.${id}`)}</span>,
+            }))}
+            value={rightTab}
             onChange={setTab}
           />
           {!compact && (!layout.panelSide || layout.floatingAvailable) && (
@@ -136,7 +166,7 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
             </Button>
           )}
         </div>
-        <PanelBody tab={tab} model={model} />
+        <PanelBody tab={rightTab} model={model} />
         {!picking && <NavFooter canAutoplay={canAutoplay} watch={model.watch} />}
       </aside>
     </>

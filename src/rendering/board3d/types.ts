@@ -8,7 +8,7 @@ import type { BoardLoadingState } from '@/rendering/BoardLoading'
 export type BoardArrow = { usi: string; color: string; dashed?: boolean; label?: string }
 
 export type ZoneRect = { left: number; top: number; width: number; height: number }
-export type StandZones = { under: ZoneRect; over: ZoneRect; board: ZoneRect }
+export type StandZones = { under: ZoneRect; over: ZoneRect; board: ZoneRect; floatingAvailable?: boolean }
 
 export type Board3DProps = {
   assetsReady?: boolean

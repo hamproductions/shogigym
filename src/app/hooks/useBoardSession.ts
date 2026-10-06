@@ -81,7 +81,7 @@ export function useBoardSession() {
   const userTurn = mode !== 'view' && (mode === 'analyze' || (mode === 'lesson' && !course) || toMove === userSide || (mode === 'spar' && !atEnd))
   const gameOver = !preview && !hasLegalMove(position)
   const ai = engineSupported() && !course?.noEngine
-  const assist = settings.assist || !isGameMode(mode)
+  const assist = settings.assist || (!isGameMode(mode) && mode !== 'view')
   const onVariation = isGameMode(mode) && cursor > 0 && !isMainLine(tree, game.moves.slice(0, cursor))
 
   const [treeSource, setTreeSource] = useState({ game, mode })

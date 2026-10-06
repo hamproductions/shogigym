@@ -1,5 +1,5 @@
 import './rail.css'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useTranslation } from 'react-i18next'
 import type { View } from '@/app/hooks/useView'
@@ -59,14 +59,44 @@ function useMenuDismiss(open: boolean, close: () => void) {
   }, [open, close])
 }
 
+function RailMenu({ anchor, phone, close, children }: { anchor: HTMLElement | null; phone: boolean; close: () => void; children: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null)
+  useLayoutEffect(() => {
+    const menu = ref.current
+    if (!menu || !anchor) return
+    const place = () => {
+      const bounds = anchor.getBoundingClientRect()
+      const left = phone ? bounds.left : bounds.right + 8
+      const top = phone ? bounds.bottom + 8 : bounds.top
+      menu.style.left = `${Math.max(8, Math.min(left, window.innerWidth - menu.offsetWidth - 8))}px`
+      menu.style.top = `${Math.max(8, Math.min(top, window.innerHeight - menu.offsetHeight - 8))}px`
+    }
+    place()
+    const observer = new ResizeObserver(place)
+    observer.observe(menu)
+    window.addEventListener('resize', place)
+    window.addEventListener('scroll', place, true)
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('resize', place)
+      window.removeEventListener('scroll', place, true)
+    }
+  }, [anchor, phone])
+  return (
+    <div ref={ref} className="app-more-menu" onPointerDown={(e) => e.stopPropagation()} onClick={close}>
+      {children}
+    </div>
+  )
+}
+
 export function Rail({ mode, onMode, compact: phone, view, settingsOpen, onSettings, onPalette, onLessonBack, snapshotName }: RailProps) {
   const { t } = useTranslation()
   const ja = useSettings().lang === 'ja'
   const installation = useInstallApp()
   const [more, setMore] = useState(false)
   const [modeMenu, setModeMenu] = useState(false)
-  const [moreAt, setMoreAt] = useState<DOMRect | null>(null)
-  const [modeAt, setModeAt] = useState<DOMRect | null>(null)
+  const [moreAt, setMoreAt] = useState<HTMLElement | null>(null)
+  const [modeAt, setModeAt] = useState<HTMLElement | null>(null)
   const [tablet, setTablet] = useState(() => window.matchMedia('(pointer: coarse)').matches)
   useEffect(() => {
     const media = window.matchMedia('(pointer: coarse)')
@@ -75,12 +105,6 @@ export function Rail({ mode, onMode, compact: phone, view, settingsOpen, onSetti
     return () => media.removeEventListener('change', sync)
   }, [])
   const compact = phone || tablet
-  const menuPosition = (anchor: DOMRect | null) =>
-    anchor
-      ? phone
-        ? { left: Math.max(8, Math.min(anchor.left, window.innerWidth - 240)), top: anchor.bottom + 8 }
-        : { left: anchor.right + 8, top: Math.max(8, Math.min(anchor.top, window.innerHeight - 400)) }
-      : undefined
   const closeMenus = useCallback(() => {
     setMore(false)
     setModeMenu(false)
@@ -115,7 +139,7 @@ export function Rail({ mode, onMode, compact: phone, view, settingsOpen, onSetti
             ref={lastModeRef}
             className="app-rail-btn on"
             onPointerDown={(e) => e.stopPropagation()}
-            onClick={(e) => (e.stopPropagation(), setModeAt(e.currentTarget.getBoundingClientRect()), setMore(false), setModeMenu((v) => !v))}
+            onClick={(e) => (e.stopPropagation(), setModeAt(e.currentTarget), setMore(false), setModeMenu((v) => !v))}
             aria-expanded={modeMenu}
           >
             <Icon name="menu" size={20} />
@@ -123,14 +147,14 @@ export function Rail({ mode, onMode, compact: phone, view, settingsOpen, onSetti
           </button>
           {modeMenu &&
             createPortal(
-              <div className="app-more-menu" style={menuPosition(modeAt)} onPointerDown={(e) => e.stopPropagation()} onClick={() => setModeMenu(false)}>
+              <RailMenu anchor={modeAt} phone={phone} close={() => setModeMenu(false)}>
                 {MODES.map((m) => (
                   <button key={m.id} className={`app-rail-btn${mode === m.id ? ' on' : ''}`} onClick={() => onMode(m.id)}>
                     <Icon name={m.icon} size={20} />
                     <span>{t(`modes.${m.id}.name`)}</span>
                   </button>
                 ))}
-              </div>,
+              </RailMenu>,
               document.body,
             )}
         </div>
@@ -163,7 +187,7 @@ export function Rail({ mode, onMode, compact: phone, view, settingsOpen, onSetti
           <button
             className={`app-rail-btn${more ? ' on' : ''}`}
             onPointerDown={(e) => e.stopPropagation()}
-            onClick={(e) => (e.stopPropagation(), setModeMenu(false), setMoreAt(e.currentTarget.getBoundingClientRect()), setMore((v) => !v))}
+            onClick={(e) => (e.stopPropagation(), setModeMenu(false), setMoreAt(e.currentTarget), setMore((v) => !v))}
             aria-expanded={more}
             title={t('rail.more')}
           >
@@ -172,11 +196,11 @@ export function Rail({ mode, onMode, compact: phone, view, settingsOpen, onSetti
           </button>
           {more &&
             createPortal(
-              <div className="app-more-menu" style={menuPosition(moreAt)} onPointerDown={(e) => e.stopPropagation()} onClick={() => setMore(false)}>
+              <RailMenu anchor={moreAt} phone={phone} close={() => setMore(false)}>
                 {overflow.map((tool) => (
                   <ToolButton key={tool.id} tool={tool} />
                 ))}
-              </div>,
+              </RailMenu>,
               document.body,
             )}
         </div>

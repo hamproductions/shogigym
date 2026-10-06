@@ -140,12 +140,21 @@ export function ModeBar({
           )}
           {mode === 'view' && (
             <>
-              <Button size="sm" onClick={watch.started ? watch.toggle : onWatchSetup} disabled={watch.started && !watch.canPlay}>
+              <Button
+                size="sm"
+                onClick={watch.started ? watch.toggle : onWatchSetup}
+                disabled={watch.started && !watch.canPlay}
+                title={t(!watch.started ? 'newGame.start' : watch.running ? 'watch.pause' : 'watch.resume')}
+                aria-label={t(!watch.started ? 'newGame.start' : watch.running ? 'watch.pause' : 'watch.resume')}
+              >
                 <Icon name={watch.running ? 'pause' : 'play'} size={16} />
-                {t(!watch.started ? 'newGame.start' : watch.running ? 'watch.pause' : 'watch.resume')}
+                <span className="app-control-label">{t(!watch.started ? 'newGame.start' : watch.running ? 'watch.pause' : 'watch.resume')}</span>
               </Button>
-              <Button size="sm" onClick={watch.restart}>
-                {t('watch.newGame')}
+              <Button size="sm" onClick={watch.restart} title={t('watch.newGame')} aria-label={t('watch.newGame')}>
+                <span className="app-control-icon">
+                  <Icon name="newGame" size={16} />
+                </span>
+                <span className="app-control-label">{t('watch.newGame')}</span>
               </Button>
             </>
           )}

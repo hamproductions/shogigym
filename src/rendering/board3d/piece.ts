@@ -261,9 +261,9 @@ function sideTexture(seed: number, appearance?: PieceAppearance) {
   return texture
 }
 
-export function disposePiece(piece: THREE.Object3D) {
+export function disposePiece(piece: THREE.Object3D, keepCached = false) {
   const resources = piece.userData.pieceResources as Set<THREE.Texture | THREE.BufferGeometry> | undefined
-  resources?.forEach(releaseResource)
+  resources?.forEach((resource) => releaseResource(resource, keepCached))
   resources?.clear()
   piece.traverse((child) => {
     const material = (child as THREE.Mesh).material

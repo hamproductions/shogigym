@@ -31,7 +31,7 @@ export function scrollPanelTop(smooth = false) {
   else body?.scrollTo(0, 0)
 }
 
-export function useLayout({ mode, needsPicking, welcome, orbit = false }: { mode: Mode; needsPicking: boolean; welcome: boolean; orbit?: boolean }) {
+export function useLayout({ mode, needsPicking, welcome }: { mode: Mode; needsPicking: boolean; welcome: boolean }) {
   const [viewport, setViewport] = useState(() => ({ w: window.innerWidth, h: window.innerHeight }))
   const [compact, setCompact] = useState(() => window.matchMedia(PHONE_QUERY).matches)
   const [panelPrefs, setPanelPrefs] = useState(loadPanelPrefs)
@@ -62,10 +62,13 @@ export function useLayout({ mode, needsPicking, welcome, orbit = false }: { mode
   }, [drawer])
 
   const panelHidden = compact ? !drawer : panelPrefs.hidden
-  const floatingAvailable = compact || (!orbit && !!zones && zones.over.width >= 280 && zones.over.height >= 240)
+  const floatingAvailable =
+    !compact &&
+    !!zones &&
+    (zones.floatingAvailable ?? (zones.over.width >= 280 && zones.over.height >= 240 && zones.under.width >= 280 && zones.under.height >= 240))
   const panelSide = !compact && (!!panelPrefs.side || !floatingAvailable)
   const zoned = !compact && !panelSide
-  const twoPanels = zoned && floatingAvailable && !panelPrefs.hidden && !!zones && zones.under.width >= 240 && zones.under.height >= 200
+  const twoPanels = zoned && !panelPrefs.hidden && !!zones
 
   const compactRef = useLatest(compact)
   const panelHiddenRef = useLatest(panelHidden)

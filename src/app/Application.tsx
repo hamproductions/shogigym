@@ -89,7 +89,6 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
     mode,
     needsPicking: (mode === 'lesson' && !course) || (mode === 'drill' && !drill.drill?.items.length),
     welcome: levels.welcome,
-    orbit: view.orbit && !view.flatView,
   })
   const lesson = useLesson(session, { mistakes, load, setTab, closeSheet: () => layout.setSheetOpen(false), compact: layout.compact })
   const tsume = useTsume(session, { mistakes, load, setTab })

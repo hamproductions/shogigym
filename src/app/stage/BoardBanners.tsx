@@ -121,9 +121,9 @@ function ReviewBanner() {
 }
 
 export function BoardBanners({ mistake, onBack }: { mistake: ShownMistake | null; onBack: () => void }) {
-  const { preview, onVariation, playing, atEnd } = useSession()
+  const { mode, preview, onVariation, playing, atEnd } = useSession()
   if (preview) return mistake ? <MistakeBanner mistake={mistake} preview={preview} onBack={onBack} /> : <PreviewBanner preview={preview} />
   if (onVariation) return <BranchBanner />
-  if (playing || !atEnd) return <ReviewBanner />
+  if (!atEnd || (playing && mode !== 'view' && mode !== 'spar')) return <ReviewBanner />
   return null
 }

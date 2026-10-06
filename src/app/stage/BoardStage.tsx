@@ -107,8 +107,8 @@ export function BoardStage({
   const settings = useSettings()
   const { key: assetsKey, progress: assetProgress } = usePieceAssetsKey()
   const assetsReady = assetsKey === `${settings.pieceFont}|${settings.pieceSet}|${settings.pieceGuide}|${settings.boardStyle}`
-  const { faces: promotionFaces, error: promotionError, progress: previewProgress } = usePromotionFaces(assetsReady)
   const { mode, course, game, position, flipped, userSide, lastMove, selection, promotion, gameOver, sfen, atEnd, userTurn, toMove } = useSession()
+  const { faces: promotionFaces } = usePromotionFaces(assetsReady && !!promotion)
   const picking = mode === 'lesson' && !course
   const playing = mode === 'spar' || mode === 'view' || (mode === 'lesson' && !!course)
   const sideColor = (side: Side) => (side === 'sente' ? Color.BLACK : Color.WHITE)
@@ -205,8 +205,8 @@ export function BoardStage({
           {settings.environment !== 'diagram' &&
           settings.environment !== 'broadcast' &&
           settings.environment !== 'flat' &&
-          (!assetsKey || assetsKey.startsWith('error:') || promotionError) ? (
-            <BoardLoading error={promotionError ?? (assetsKey.startsWith('error:') ? assetsKey.slice(6) : undefined)} state={assetProgress} />
+          (!assetsKey || assetsKey.startsWith('error:')) ? (
+            <BoardLoading error={assetsKey.startsWith('error:') ? assetsKey.slice(6) : undefined} state={assetProgress} />
           ) : settings.environment === 'diagram' || settings.environment === 'broadcast' ? (
             <Board2D style={settings.environment} {...board} tilted={false} />
           ) : settings.environment === 'flat' ? (
@@ -214,8 +214,8 @@ export function BoardStage({
           ) : (
             <Board3D
               key={`${settings.boardStyle}|${settings.coords}|${settings.environment}`}
-              assetsReady={assetsReady && !!promotionFaces}
-              loadingState={assetsReady ? previewProgress : assetProgress}
+              assetsReady={assetsReady}
+              loadingState={assetProgress}
               appearanceKey={`${settings.pieceStyle}|${settings.pieceFinish}|${settings.pieceMaterial}|${settings.pieceColor}|${settings.pieceGrain}|${assetsKey}`}
               {...board}
               furigoma={furigoma}

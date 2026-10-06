@@ -1,69 +1,71 @@
 # Current task
 
-## Current scope
-- Active correction: study prompt had empty quiz feedback reservation above content. Reserve feedback only in quiz; study feedback floats above card without affecting flow. Study gap verified removed at 390px and 1440px: prompt sits 12px below card top; empty feedback height zero. Quiz reservation remains 72px; checking retains identical board/bar/panel/prompt bounds. TypeScript, lint and formatting pass.
-- Latest correction completed: top rail icon-only lesson-return arrow; lesson flow-chart and verbose return buttons removed from bottom bar. All compact bottom icons 18px, buttons 38×38px, study/quiz segments 46×38px. Full lesson row fits at 320px without scrolling.
-- Correction skills read: get-your-shit-together 1–EOF/27 and look-at-the-screen 1–EOF/60; both supplied screenshots inspected.
-- Mobile bottom controls contain previous/next and panel toggle in one fixed row with panel open or closed. Extra tools scroll horizontally; evaluation occupies a separate strip above controls.
-- Quiz score and two-line feedback have reserved space; incorrect moves and engine checking do not insert rows or trigger panel scrolling. Mobile preview banners are positioned overlays.
-- Full Peta book downloader accepts hash-verified compressed or browser-decoded chunks. Local Vite HTTP gzip decoding previously caused invalid-chunk rejection.
-- Approved native shogi clack integration remains complete: board Original 4, komadai Original 5; no recording playback in application.
+## Scope
+- Latest correction: fit board and komadai to all available canvas space first. Panels use remaining gaps only; no panel-driven camera sizing or reservation.
+- Floating requires two panels. If either remaining gap cannot fit its panel, dock one with all four tabs. Camera angle and orbit do not affect eligibility.
+- Resolve narrow pixel-boundary disagreement and automatic switching after resizing. Preserve explicit dock preference across resizing; automatic geometry fallback does not overwrite it.
+- Floating tabs split moves/future left and coach/evaluation right. Compact watch controls use icons without overlapping labels.
+- Preserve previous renderer/memory, coach, replay styling and install overflow fixes. Patch release and clean worktree requested.
 
-## Permissions and runtime
-- Current authorization: commit patch on main, close all repository PRs, synchronize main and leave working tree clean. No new commit, push, release or deployment authorized this turn; no active Goal.
-- User explicitly authorized leaving localhost dev server running. Foreground session 81111 at http://127.0.0.1:5173 runs after a free-port check; do not stop it during cleanup.
-- Owned muted headed browser book-fetch used for QA; closed after final checks. Preexisting default session untouched.
+## Authorization
+- Local implementation and real browser verification authorized. Commit and patch release authorized by current request.
+- Existing dev server session 81111 at http://127.0.0.1:5173 may remain running.
+- Use one isolated muted browser; preserve preexisting default session.
 
-## Implementation
-- src/appearance/clack.ts builds live native oscillator and filtered generated-noise graphs. Prepared periodic waves, noise buffers and gain curves cached per AudioContext/profile. Every source tracked and graph disconnected after completion.
-- src/appearance/clack.json contains synthesis parameters only: 24 resonant oscillators and 12 shaped-noise bands per profile, frequency/amplitude envelopes, 2 ms measured contact envelope with 0.5 ms gain knots and audition level calibration.
-- Board: +4 dB low shelf at 900 Hz, -4 dB body bell at 1 kHz/Q0.8.
-- Komadai: -2 dB low shelf at 900 Hz, same body cut, -10 dB high shelf at 6500 Hz and frequency multiplier 0.95; less table thud.
-- settings.ts routes move/capture to board profile and komadai to its distinct profile at reduced gain, respecting sound toggle, volume and visibility suppression. Existing animation callers unchanged.
-- src/appearance/clack.pcm.txt deleted; no reference PCM decoder or recorded waveform dependency remains in app sound implementation.
-- sound-samples/native-compare.html and native-board.wav/native-komadai.wav preserve approved audition. Reference recordings used only for analysis/comparison.
+## Findings
+- Renderer already shared between board and preview bakes; Board3D scene mount effect has no appearance dependency.
+- Appearance preparation uploads textures, then rebuilds pieces on same scene.
+- View autoplay uses session playing for live AI and replay. BoardBanners treats every playing state as replay.
+- Best arrows and stamps check assist, but reply and preview arrows bypass it.
 
-## Verification
-- Browser native OfflineAudioContext rendering of actual app module matches reviewed WAVs: relative waveform error 0.0142% board, 0.0161% komadai, within PCM16 quantization; 36 tracked sources per event, 250 ms, 48 kHz. Peaks 0.888/0.874 at full audition gain.
-- Real headed study move emitted 24 board-profile oscillators plus separate existing success tones. Sound toggled off through M; actual reply advanced without any new oscillator starts.
-- Real analysis-board capture performed by pointer selection and promotion: captured tile landing emitted komadai frequencies, followed 576 ms later by board frequencies on capturing tile landing. Result position inspected in native-capture-after.png.
-- Current runtime screenshots: dogfood-output/clack-mobile/native-capture-before.png and native-capture-after.png. No browser errors.
-- TypeScript, targeted lint, formatting and diff whitespace checks passed. Checks capped with UV_THREADPOOL_SIZE=2; no new tests created. Dev server reports existing Node 22.12/version warning but ran successfully.
-- Physical browser output muted; sound character previously reviewed by user in personal Chrome comparison.
+## Skills and evidence
+- get-your-shit-together 1–EOF/27; look-at-the-screen 1–EOF/60; agent-browser 1–EOF/52 plus required CLI guide; real-testing-evidence 1–EOF/70.
+- Earlier unfuck-yourself 1–EOF/60 repaired free-port project server authorization; supplied current rules include repair.
+- Current resize verification uses the real headed Apple M2 Pro GPU browser.
 
-## Earlier completed scope
-- Compact study drawer independent of content; horizontal evaluation above bottom controls; fixed two-line instruction banner with internal scrolling.
-- Actual mobile/tablet/desktop states inspected at 320/390/690/834/1440 px. Short/wrapped banner keeps board/control bounds unchanged.
+## Implementation and verification
+- View assist now respects the settings toggle; live AI at the latest position no longer enters ReviewBanner.
+- Piece disposal releases unused GPU allocations while retaining cache source data. Preparation retains uploads until rebuild, then frees unused variants; cancellation frees unused uploads too.
+- Promotion atlas is requested only for the picker and cannot block board readiness. Appearance changes retain the visible board.
+- Install moved to the end of the rail priority list.
+- Real headed Apple M2 Pro/ANGLE Metal browser: pre-fix presets raised textures from 196 to 292 to 376. Fresh final code remained at 166–170 across classic, plastic, elegant, broadcast and classic again. Same renderer, scene and avatars; no context loss.
+- Real live AI advanced with coach off: arrows empty, stamp null, evaluation absent, no replay banner or previewing class. Screenshot view-coach-off-live.png inspected.
+- Imported isolated promotion position through normal UI; pointer move 5c5b opened both rendered choices, selecting promotion landed promPawn at 5b on same renderer/scene. Screenshot tile-promotion-fixed.png inspected.
+- Actual history navigation retains previewing styling and review banner.
+- Desktop at 1200px height shows all tools; 1050px moves settings/install to menu while fullscreen remains inline. Mobile 390px menu inspected with install last, no horizontal overflow. Screenshots install-overflow-fixed.png and install-overflow-mobile.png inspected.
+- TypeScript and formatting pass; targeted lint has existing React effect/ref warnings only. No tests added. Final aggregate TypeScript, formatting and whitespace checks passed; targeted lint retains existing warnings only.
 
-## Skills read
-- stop-inventing 1–EOF/79; get-your-shit-together 1–EOF/27; show-me 1–EOF/93; look-at-the-screen 1–EOF/60.
-- surgical-patch 1–EOF/16; ui-density 1–EOF/155; agent-browser 1–EOF/52 plus full required CLI guide; real-testing-evidence 1–EOF/70.
+## Resize implementation and verification
+- Board3D keeps existing mount effect, renderer ref, scene and avatars. ResizeObserver only sets a pending flag; plain closure variables hold dimensions and pixel ratio.
+- Canvas CSS stays at 100% of host. Camera/layout adapt in render loop; setDrawingBufferSize runs once immediately before a draw. Adaptive pixel-ratio changes queue the same path.
+- Real desktop viewport resizing, desktop separator drag, mobile viewport and mobile sheet drag inspected. Canvas/host bounds match; renderer and scene identity unchanged, zero context losses or browser errors.
+- Runtime resize instrumentation confirms every observed buffer resize was drawn before next animation frame. Screenshots resize-desktop.png, resize-mobile.png and resize-mobile-panel.png inspected.
+- TypeScript and formatting pass; targeted lint reports only existing ref warning. No tests added.
 
-## Current verification
-- Real pointer quiz wrong move 9g9f at 390px: board, bar, panel, card, prompt and answer button bounds identical before/after. Engine checking and final feedback for alternative 2g2f also retain exact bounds, including prompt and answer button.
-- Bottom controls inspected at 320/390/834/1440px, panel open/closed; previous/next navigation exercised through actual buttons. Mobile control row remains 56px; no page overflow at 320px.
-- Study tablet evaluation visibly occupies separate strip above one control row.
-- Full-book download completed through actual localhost settings UI: user_book1.db 470.3 MB saved; progress/cancel disappeared, no error. Owned QA book subsequently removed through UI.
-- Current evidence in dogfood-output/clack-mobile: quiz-wrong-fixed.png, quiz-320-fixed.png, quiz-panel-hidden.png, controls-desktop.png, study-tablet-controls.png, book-download-complete.png; each inspected.
-- TypeScript, targeted lint, formatting and whitespace checks pass. No new tests.
-- Final evaluated wrong-move screenshot quiz-final-wrong.png inspected; no browser errors. Owned book-fetch browser closed; only preexisting default remains. Authorized dev server left running. Patch committed on main as 7b74387.
+## Responsive correction verification
+- Root causes: orbit camera retained distance after aspect/layout changes; orbit disabled floating eligibility; live camera projection moved panel zones.
+- Resize now scales orbit-camera offset by old/new fit ratio, preserving direction and relative zoom. Same renderer and scene retained.
+- Floating zones use an independent overhead camera; orbit no longer gates eligibility. Floating capacity takes precedence over explicit preference; floating requires both panels to fit remaining gaps without changing camera fitting.
+- Real headed GPU browser: overhead, tilted and pointer-rotated views retain floating panels; tilt and orbit drag leave panel bounds identical. Desktop 1992x1248 to 1100x900 and back adapts camera and board/stand arrangement. Mobile 390x844 inspected. Manual dock then float works in free camera.
+- Current screenshots floating-overhead-fixed.png, floating-tilted.png, floating-orbit-rotated.png, resize-free-camera-narrow.png and resize-mobile-current.png inspected. Same scene throughout; no lost context or browser errors.
+- tsc -b, formatting and whitespace checks pass. Targeted lint retains existing warnings. No new tests.
 
-## Compact controls verification
-- Both supplied screenshots inspected; inconsistent button sizing and verbose bottom actions were the defect.
-- Real headed browser checked 390px and 320px, panel open/closed. All seven lesson controls visible in one row; 320px tool width equals content width, page width 320px.
-- Top return arrow clicked and lesson picker appeared. Bottom flow-chart and lesson-return buttons absent.
-- Current screenshots compact-controls-390.png, compact-controls-320.png and compact-controls-panel-open.png inspected.
-- TypeScript and formatting pass; targeted lint has only existing Application effect warnings. No new tests. Patch committed on main as 7b74387.
-- Owned compact-controls browser closed after verification; authorized localhost server retained.
+## Compact watch correction
+- Fixed-width compact buttons retained full watch labels, causing text collision. Watch controls now follow existing icon/label pattern with accessible names and tooltips.
+- Real headed live AI pause and paused play states inspected at 390px and 320px; controls remain one row without overlapping text. Screenshots watch-controls-mobile-fixed.png and watch-controls-320-fixed.png inspected.
+- tsc -b, formatting and whitespace checks pass.
 
-## Repository cleanup
-- Open PRs 8 and 2 closed without merge.
-- Sound audition samples retained locally and excluded through .git/info/exclude.
-- Main refreshed from origin; patch commit is the only local lead. Task record cleanup committed before synchronization.
+## Two-panel correction
+- Removed panel sizing reservations and viewport-minus-constant eligibility estimates. Board camera fit remains independent of panel size and visibility.
+- Zone reporter projects the full available canvas, adding back docked width, and predicts standard side komadai even when current docked renderer uses strips. Both remaining gaps must meet 280x240 before floating.
+- Zone updates retain 0.01px precision instead of 6px buckets. Explicit docking persists across viewport changes; automatic fallback remains geometry-driven when floating is selected.
+- Real browser final verification: 1638x1344 docks, adjacent 1639x1344 floats two panels; both screenshots inspected with board unobscured. Explicit docking stays docked when resized to 2048x1228; explicit floating restores two panels. Hiding floating panels leaves camera fit unchanged; hidden UI fits full canvas. Same scene and no context loss.
+- Final TypeScript, formatting and whitespace checks pass. No tests added.
 
-## Server instruction repair
-- unfuck-yourself read 1–EOF/60; audit uses current conversation requests/tool results only.
-- Blanket server-start and dead-server-restart bans in .awesome-agent/shared/core_profile.md:35/51 caused unnecessary permission gating; prior process exit cause unavailable, not asserted as a crash.
-- Both clauses replaced: start/restart project-local dev commands on free ports without asking; reuse matching listeners or select another port, preserve unrelated services, respect leave-running authorization.
-- Existing isolated prompt-unification check passed; canonical prompt regenerated with existing renderer, installed Codex/Claude/Gemini links verified. No full configuration sync or unrelated system changes.
-- Runtime resumed successfully and original study-card fix inspected. Owned study-gap browser closed after final checks; dev server retained by standing authorization.
+## Immediate next action
+- Publish patch release and verify clean main. Menu-anchor browser closed; existing dev server retained.
+
+## Current camera and menu correction
+- Floating capacity remains overhead-based; current-camera projected board and komadai bounds determine dynamic free rectangles on each side. Panels adapt position and width without changing camera fit.
+- Rail menus use measured dimensions and live button bounds rather than a fixed 400px height; resize and captured scroll update placement.
+- Real headed browser overhead, tilted and pointer-rotated screenshots inspected; panels avoid board and komadai. Menu screenshot at 2048x1050 shows short menu adjacent to its button. TypeScript passed.

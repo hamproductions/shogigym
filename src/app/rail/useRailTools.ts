@@ -49,10 +49,7 @@ export function useRailTools({ view, settingsOpen, onSettings, onPalette, snapsh
       : []),
     ...(!flatView ? [{ id: 'tableflip', icon: 'tableflip', label: t('rail.tableFlip'), run: onFlipTable } satisfies RailTool] : []),
   ]
-  const secondary: RailTool[] = [
-    { id: 'image', icon: 'image', label: t('rail.exportImage'), run: () => onSaveImage(snapshotName) },
-    ...(onInstall ? [{ id: 'install', icon: 'install', label: t('rail.install'), run: onInstall } satisfies RailTool] : []),
-  ]
+  const secondary: RailTool[] = [{ id: 'image', icon: 'image', label: t('rail.exportImage'), run: () => onSaveImage(snapshotName) }]
   const bottom: RailTool[] = [
     { id: 'hide', icon: 'panel', label: t('app.hideUiShort'), title: `${t('app.hideUi')} (H)`, run: () => setHideUi(true) },
     ...(document.fullscreenEnabled
@@ -77,6 +74,7 @@ export function useRailTools({ view, settingsOpen, onSettings, onPalette, snapsh
       labelClass: ja ? 'app-ja' : 'app-en',
       run: onSettings,
     },
+    ...(onInstall ? [{ id: 'install', icon: 'install', label: t('rail.install'), run: onInstall } satisfies RailTool] : []),
   ]
   const top: RailTool[] = [
     { id: 'palette', icon: 'command', label: '⌘K', title: t('app.searchLinesAndCommandsK'), run: onPalette },

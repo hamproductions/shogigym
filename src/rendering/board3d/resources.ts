@@ -24,8 +24,12 @@ export function retainResource(resource: Resource) {
   entry(resource).users++
 }
 
-export function releaseResource(resource: Resource) {
+export function disposeUnusedResource(resource: Resource) {
+  if (!entry(resource).users) resource.dispose()
+}
+
+export function releaseResource(resource: Resource, keepCached = true) {
   const state = entry(resource)
   if (state.users) state.users--
-  if (!state.users && !state.cached) resource.dispose()
+  if (!state.users && (!state.cached || !keepCached)) resource.dispose()
 }

@@ -8,7 +8,7 @@ import { HALF_D, HALF_W, LEG, THICK, setBoardDims } from '@/rendering/board3d/di
 import { flipCameraOffset, resetTableFlip, saveSnapshot, startTableFlip, stepTableFlip } from '@/rendering/board3d/effects'
 import { createFurigoma3D } from '@/rendering/board3d/furigoma'
 import { bindPointer } from '@/rendering/board3d/interaction'
-import { layout, sideStandsFit, zoneReporter } from '@/rendering/board3d/layout'
+import { cameraFit, layout, sideStandsFit, zoneReporter } from '@/rendering/board3d/layout'
 import { drawMarks } from '@/rendering/board3d/marks'
 import { liftSelected, piecePreparation, rebuild, stepAnimations } from '@/rendering/board3d/pieces'
 import { createPower, moveEvent, type Power } from '@/rendering/board3d/power'
@@ -17,6 +17,7 @@ import { preparePieceEnvironment } from '@/rendering/board3d/materials'
 import * as THREE from 'three'
 import { disposePiece, pieceMesh } from '@/rendering/board3d/piece'
 import { clearFaceTextures } from '@/rendering/board3d/textures'
+import { disposeUnusedResource } from '@/rendering/board3d/resources'
 import type { Board3DProps, SceneState } from '@/rendering/board3d/types'
 import { SNAPSHOT_EVENT, TABLE_FLIP_EVENT } from '@/utils/events'
 import { getSettings, playSound, subscribeSettings } from '@/appearance/settings'
@@ -41,6 +42,8 @@ export function Board3D(props: Board3DProps) {
   useEffect(() => {
     const el = host.current!
     const renderer = createRenderer()
+    renderer.domElement.style.width = '100%'
+    renderer.domElement.style.height = '100%'
     el.appendChild(renderer.domElement)
     const s = buildScene(renderer)
     s.avatars = avatarSlot({ root: s.root, camera: s.camera, dims: { thick: THICK, leg: LEG, halfW: HALF_W, halfD: HALF_D } })
@@ -63,25 +66,43 @@ export function Board3D(props: Board3DProps) {
     const unsubscribePower = subscribeSettings(syncPower)
     const frameTimes: number[] = []
     const pixelRatioLimit = Math.min(matchMedia('(pointer: coarse)').matches ? 1.5 : 2, window.devicePixelRatio)
+    let width = 0
+    let height = 0
+    let pixelRatio = renderer.getPixelRatio()
+    let resizePending = true
+    let bufferPending = false
 
     const resize = () => {
       const { clientWidth: w, clientHeight: h } = el
-      renderer.setPixelRatio(Math.min(renderer.getPixelRatio(), pixelRatioLimit, Math.sqrt(2500000 / Math.max(1, w * h))))
+      if (!w || !h) return
+      resizePending = false
+      pixelRatio = Math.min(pixelRatio, pixelRatioLimit, Math.sqrt(2500000 / (w * h)))
+      if (width === w && height === h && renderer.getPixelRatio() === pixelRatio) return
+      width = w
+      height = h
+      bufferPending = true
       frameTimes.length = 0
-      renderer.setSize(w, h)
+      const previousFit = cameraFit(s.camera.aspect, s.tilt, latest.current.sideRoom ?? 0)
       s.camera.aspect = w / h
       s.camera.updateProjectionMatrix()
       const narrow = w < 560
       const portrait = !sideStandsFit(w, h)
-      if (portrait === layout.portrait && narrow === layout.narrow) return
+      const relayout = portrait !== layout.portrait || narrow !== layout.narrow
       layout.portrait = portrait
       layout.narrow = narrow
-      s.placeStands()
-      refresh(false, true)
+      if (s.controls && !s.tilePov && !s.flip) {
+        const ratio = cameraFit(s.camera.aspect, s.tilt, latest.current.sideRoom ?? 0) / previousFit
+        s.camera.position.sub(s.controls.target).multiplyScalar(ratio).add(s.controls.target)
+      }
+      if (relayout) {
+        s.placeStands()
+        refresh(false, true)
+      }
     }
-    const observer = new ResizeObserver(resize)
+    const observer = new ResizeObserver(() => {
+      resizePending = true
+    })
     observer.observe(el)
-    resize()
 
     const unbind = bindPointer(s, latest, refresh)
     const cancelPrefetch = s.room.prefetch()
@@ -117,6 +138,7 @@ export function Board3D(props: Board3DProps) {
         frame = requestAnimationFrame(loop)
         return
       }
+      if (resizePending) resize()
       if (s.tiltTarget > 0 || latest.current.orbit || s.flip) {
         s.room.need()
         s.avatars?.request()
@@ -132,7 +154,13 @@ export function Board3D(props: Board3DProps) {
       if (shake) s.camera.position.add(shake)
       const restoreCamera = power.current?.applyCamera()
       const drew = programsReady()
-      if (drew) renderer.render(s.scene, s.camera)
+      if (drew) {
+        if (bufferPending) {
+          renderer.setDrawingBufferSize(width, height, pixelRatio)
+          bufferPending = false
+        }
+        renderer.render(s.scene, s.camera)
+      }
       if (
         drew &&
         piecesReady.current &&
@@ -144,7 +172,10 @@ export function Board3D(props: Board3DProps) {
         frameTimes.push(dt * 1000)
         if (frameTimes.length === 60) {
           frameTimes.sort((a, b) => a - b)
-          if (frameTimes[30] > 20 && renderer.getPixelRatio() > 1) renderer.setPixelRatio(Math.max(1, renderer.getPixelRatio() - 0.25))
+          if (frameTimes[30] > 20 && pixelRatio > 1) {
+            pixelRatio = Math.max(1, pixelRatio - 0.25)
+            resizePending = true
+          }
           frameTimes.length = 0
         }
       } else frameTimes.length = 0
@@ -287,7 +318,7 @@ export function Board3D(props: Board3DProps) {
     let live = true
     let frame = 0
     const initial = !piecesReady.current
-    setReady(false)
+    if (initial) setReady(false)
     const settings = getSettings()
     const pending = piecePreparation(s, latest.current.position)
     const total = pending.length
@@ -306,7 +337,7 @@ export function Board3D(props: Board3DProps) {
           continue
         }
         if (piece) {
-          disposePiece(piece)
+          disposePiece(piece, true)
           piece = null
           setLoadingState({ phase: 'pieces', done: ++done, total })
         }
@@ -326,6 +357,7 @@ export function Board3D(props: Board3DProps) {
       s.avatars?.reset?.()
       resetTableFlip(s)
       rebuild(s, latest.current, false)
+      uploaded.forEach(disposeUnusedResource)
       piecesReady.current = true
       previous.current = latest.current.position
       appearance.current = props.appearanceKey
@@ -337,6 +369,7 @@ export function Board3D(props: Board3DProps) {
       live = false
       cancelAnimationFrame(frame)
       if (piece) disposePiece(piece)
+      uploaded.forEach(disposeUnusedResource)
     }
   }, [props.appearanceKey, props.assetsReady])
 
