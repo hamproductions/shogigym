@@ -1,6 +1,7 @@
 import type { PieceSet } from './pieceSets'
 import { applyTheme, type Theme } from '@/utils/theme'
 import i18n from '@/utils/i18n'
+import { scheduleClack } from '@/utils/clack'
 import { useSyncExternalStore } from 'react'
 
 export type PieceStyle = 'two' | 'one'
@@ -220,6 +221,11 @@ function knock(when: number, pitch: number, gain: number, length: number) {
   source.start(ac.currentTime + when)
 }
 
+function clack(when: number, pitch: number, gain: number, ring = 1) {
+  const ac = audioContext()
+  scheduleClack(ac, ac.destination, ac.currentTime + when, pitch, gain * current.volume, ring, trackAudio)
+}
+
 function tone(when: number, freq: number, gain: number, length: number) {
   const ac = audioContext()
   const osc = ac.createOscillator()
@@ -253,8 +259,8 @@ function sweep(when: number, from: number, to: number, gain: number, length: num
 export function playSound(kind: 'move' | 'capture' | 'komadai' | 'right' | 'wrong' | 'complete' | 'bang' | 'clatter' | 'thump' | 'heartbeat' | 'boom') {
   if (!current.sound || document.hidden) return
   try {
-    if (kind === 'komadai') knock(0, 2400, 0.65, 0.045)
-    else if (kind === 'move') knock(0, 1900, 1.4, 0.09)
+    if (kind === 'komadai') clack(0, 3000, 0.35, 0.7)
+    else if (kind === 'move') clack(0, 2300, 0.55)
     else if (kind === 'thump') {
       sweep(0, 150, 38, 0.8, 0.5)
       knock(0, 110, 6, 0.3)
@@ -270,12 +276,12 @@ export function playSound(kind: 'move' | 'capture' | 'komadai' | 'right' | 'wron
       knock(0, 420, 5, 0.5)
       knock(0.02, 1600, 2.5, 0.2)
       for (const [i, f] of [523, 784, 1046].entries()) tone(0.35 + i * 0.08, f, 0.05, 2.2)
-    } else if (kind === 'capture') knock(0, 1250, 2.2, 0.13)
+    } else if (kind === 'capture') clack(0, 1900, 0.7, 1.3)
     else if (kind === 'bang') {
       knock(0, 140, 9, 0.45)
       knock(0, 420, 5, 0.25)
       knock(0.02, 1100, 2.5, 0.12)
-    } else if (kind === 'clatter') for (let i = 0; i < 4; i++) knock(i * 0.035 + Math.random() * 0.03, 1400 + Math.random() * 1400, 0.9, 0.07)
+    } else if (kind === 'clatter') for (let i = 0; i < 4; i++) clack(i * 0.035 + Math.random() * 0.03, 1800 + Math.random() * 1600, 0.5)
     else if (kind === 'right') {
       tone(0, 880, 0.12, 0.18)
       tone(0.09, 1320, 0.1, 0.22)
