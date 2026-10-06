@@ -56,11 +56,11 @@ export function loadBoardStyle(style: BoardStyle): Promise<void> {
   if (existing) return existing
   const promise = new Promise<void>((resolve, reject) => {
     const image = new Image()
-    image.onload = () => {
+    image.addEventListener('load', () => {
       loaded.set(style, image)
       resolve()
-    }
-    image.onerror = () => reject(new Error(`Could not load ${BOARD_STYLES[style].label}`))
+    })
+    image.addEventListener('error', () => reject(new Error(`Could not load ${BOARD_STYLES[style].label}`)))
     image.src = `${import.meta.env.BASE_URL}boards/sunfish/${source}.svg`
   }).finally(() => pending.delete(style))
   pending.set(style, promise)

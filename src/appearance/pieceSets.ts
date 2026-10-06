@@ -213,7 +213,8 @@ export const pieceGlyphUrl = (set: PieceSet, code: string) => `${import.meta.env
 
 function imageCanvas(image: HTMLImageElement) {
   const canvas = document.createElement('canvas')
-  canvas.width = canvas.height = 256
+  canvas.width = 256
+  canvas.height = 256
   canvas.getContext('2d')!.drawImage(image, 0, 0, 256, 256)
   return canvas
 }
@@ -221,8 +222,8 @@ function imageCanvas(image: HTMLImageElement) {
 function loadImage(url: string) {
   return new Promise<HTMLImageElement>((resolve, reject) => {
     const image = new Image(256, 256)
-    image.onload = () => resolve(image)
-    image.onerror = () => reject(new Error(`Could not load piece asset: ${url}`))
+    image.addEventListener('load', () => resolve(image))
+    image.addEventListener('error', () => reject(new Error(`Could not load piece asset: ${url}`)))
     image.src = url
   })
 }

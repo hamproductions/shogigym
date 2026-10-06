@@ -1,5 +1,6 @@
 import './flow.css'
 import { useEffect, useState } from 'react'
+import type { TFunction } from 'i18next'
 import { useTranslation } from 'react-i18next'
 import { applyUsi, moveText } from '@/utils/shogi'
 import type { Lane } from '@/utils/lanes'
@@ -8,10 +9,10 @@ import { loadStats, loadStatsMeta, type PositionStats, type StatsMeta } from '@/
 import '@/styles/stats.css'
 
 function laneSteps(sfen: string, moves: string[]) {
-  const steps: string[] = []
+  const steps: { id: string; text: string }[] = []
   let at = sfen
   for (const usi of moves) {
-    steps.push(moveText(at, usi))
+    steps.push({ id: `${steps.length}-${usi}`, text: moveText(at, usi) })
     const next = applyUsi(at, usi)
     if (!next) break
     at = next
@@ -36,6 +37,13 @@ function useOpeningStats(sfen: string) {
 }
 
 const THIN_SAMPLE = 200
+
+const LANE_TAG_KEYS = { book: 'flow.book', mistake: 'flow.knownMistake', ai: 'flow.aiLine' } as const
+
+function laneLossText(lane: Lane, t: TFunction) {
+  if (lane.best) return t('flow.best')
+  return lane.loss === 0 ? t('flow.best2') : `−${lane.loss}%`
+}
 
 const pct = (n: number, total: number) => (total ? Math.round((n / total) * 100) : 0)
 
@@ -157,23 +165,21 @@ export function FlowPane({
           <button
             key={lane.first}
             className={`app-lane ${lane.tag}`}
-            onClick={() => onPreview(lane.moves, steps[0])}
+            onClick={() => onPreview(lane.moves, steps[0].text)}
             onMouseEnter={() => onHover(lane.first)}
             onMouseLeave={() => onHover(null)}
             onFocus={() => onHover(lane.first)}
             onBlur={() => onHover(null)}
           >
             <span className="app-lane-head">
-              <span className="app-lane-tag">{lane.tag === 'book' ? t('flow.book') : lane.tag === 'mistake' ? t('flow.knownMistake') : t('flow.aiLine')}</span>
-              {lane.loss !== undefined && (
-                <span className={lossClass(lane.loss)}>{lane.best ? t('flow.best') : lane.loss === 0 ? t('flow.best2') : `−${lane.loss}%`}</span>
-              )}
+              <span className="app-lane-tag">{t(LANE_TAG_KEYS[lane.tag])}</span>
+              {lane.loss !== undefined && <span className={lossClass(lane.loss)}>{laneLossText(lane, t)}</span>}
             </span>
             <span className="app-lane-steps">
               {steps.map((step, i) => (
-                <span key={i} className={i === 0 ? 'first' : ''}>
+                <span key={step.id} className={i === 0 ? 'first' : ''}>
                   {i > 0 && <i aria-hidden="true">→</i>}
-                  {step}
+                  {step.text}
                 </span>
               ))}
               {lane.forks && <span className="app-muted">{t('flow.thenChoices', { forks: lane.forks })}</span>}

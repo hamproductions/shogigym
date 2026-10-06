@@ -3,6 +3,11 @@
   margin-bottom: var(--space-3);
 }
 
+.app-graph-hit {
+  display: block;
+  width: 100%;
+}
+
 .app-graph svg {
   display: block;
   width: 100%;

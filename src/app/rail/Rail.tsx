@@ -1,5 +1,5 @@
 import './rail.css'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { createPortal } from 'react-dom'
 import { useTranslation } from 'react-i18next'
 import type { View } from '@/app/hooks/useView'
@@ -41,45 +41,67 @@ function ToolButton({ tool }: { tool: RailTool }) {
   )
 }
 
+const COARSE_POINTER = '(pointer: coarse)'
+
+function subscribeCoarsePointer(onChange: () => void) {
+  const media = globalThis.matchMedia(COARSE_POINTER)
+  media.addEventListener('change', onChange)
+  return () => media.removeEventListener('change', onChange)
+}
+
+const coarsePointerSnapshot = () => globalThis.matchMedia(COARSE_POINTER).matches
+
+function useCoarsePointer() {
+  return useSyncExternalStore(subscribeCoarsePointer, coarsePointerSnapshot, () => false)
+}
+
+const subscribeNothing = () => () => undefined
+const bodyElement = () => document.body
+const noElementOnServer = () => null
+
+/** The element menus and dialogs are portalled into; null while rendering on the server. */
+function usePortalRoot() {
+  return useSyncExternalStore(subscribeNothing, bodyElement, noElementOnServer)
+}
+
 function useMenuDismiss(open: boolean, close: () => void) {
+  const closeRef = useRef(close)
+  useEffect(() => {
+    closeRef.current = close
+  }, [close])
   useEffect(() => {
     if (!open) return
+    const dismiss = () => closeRef.current()
     const key = (e: KeyboardEvent) => {
       if (e.key !== 'Escape') return
       e.stopPropagation()
-      close()
+      closeRef.current()
     }
-    globalThis.addEventListener('pointerdown', close)
+    globalThis.addEventListener('pointerdown', dismiss)
     globalThis.addEventListener('keydown', key, true)
     return () => {
-      globalThis.removeEventListener('pointerdown', close)
+      globalThis.removeEventListener('pointerdown', dismiss)
       globalThis.removeEventListener('keydown', key, true)
     }
-  }, [open, close])
+  }, [open])
 }
 
 export function Rail({ mode, onMode, compact: phone, view, settingsOpen, onSettings, onPalette, snapshotName }: RailProps) {
   const { t } = useTranslation()
   const ja = useSettings().lang === 'ja'
   const installation = useInstallApp()
+  const portalRoot = usePortalRoot()
   const [more, setMore] = useState(false)
   const [modeMenu, setModeMenu] = useState(false)
   const [moreAt, setMoreAt] = useState<DOMRect | null>(null)
   const [modeAt, setModeAt] = useState<DOMRect | null>(null)
-  const [tablet, setTablet] = useState(() => globalThis.matchMedia('(pointer: coarse)').matches)
-  useEffect(() => {
-    const media = globalThis.matchMedia('(pointer: coarse)')
-    const sync = () => setTablet(media.matches)
-    media.addEventListener('change', sync)
-    return () => media.removeEventListener('change', sync)
-  }, [])
+  const tablet = useCoarsePointer()
   const compact = phone || tablet
-  const menuPosition = (anchor: DOMRect | null) =>
-    anchor
-      ? phone
-        ? { left: Math.max(8, Math.min(anchor.left, globalThis.innerWidth - 240)), top: anchor.bottom + 8 }
-        : { left: anchor.right + 8, top: Math.max(8, Math.min(anchor.top, globalThis.innerHeight - 400)) }
-      : undefined
+  const menuPosition = (anchor: DOMRect | null) => {
+    if (!anchor) return undefined
+    if (phone) return { left: Math.max(8, Math.min(anchor.left, globalThis.innerWidth - 240)), top: anchor.bottom + 8 }
+    return { left: anchor.right + 8, top: Math.max(8, Math.min(anchor.top, globalThis.innerHeight - 400)) }
+  }
   const closeMenus = useCallback(() => {
     setMore(false)
     setModeMenu(false)
@@ -95,7 +117,7 @@ export function Rail({ mode, onMode, compact: phone, view, settingsOpen, onSetti
     onSaveImage: saveBoardImage,
     onInstall: installation.installed ? undefined : installation.install,
   })
-  const { railRef, lastModeRef, capacity } = useRailCapacity(compact)
+  const { railRef, lastModeRef, capacity } = useRailCapacity()
   const all = [...primary, ...secondary, ...bottom]
   const available = Math.max(0, capacity - top.length)
   const inline = available >= all.length ? all : all.slice(0, Math.max(0, available - 1))
@@ -116,8 +138,15 @@ export function Rail({ mode, onMode, compact: phone, view, settingsOpen, onSetti
             <span>{t(`modes.${mode}.name`)}</span>
           </button>
           {modeMenu &&
+            portalRoot &&
             createPortal(
-              <div className="app-more-menu" style={menuPosition(modeAt)} onPointerDown={(e) => e.stopPropagation()} onClick={() => setModeMenu(false)}>
+              <div
+                className="app-more-menu"
+                role="presentation"
+                style={menuPosition(modeAt)}
+                onPointerDown={(e) => e.stopPropagation()}
+                onClick={() => setModeMenu(false)}
+              >
                 {MODES.map((m) => (
                   <button key={m.id} className={`app-rail-btn${mode === m.id ? ' on' : ''}`} onClick={() => onMode(m.id)}>
                     <Icon name={m.icon} size={20} />
@@ -125,7 +154,7 @@ export function Rail({ mode, onMode, compact: phone, view, settingsOpen, onSetti
                   </button>
                 ))}
               </div>,
-              document.body,
+              portalRoot,
             )}
         </div>
       )}
@@ -165,13 +194,20 @@ export function Rail({ mode, onMode, compact: phone, view, settingsOpen, onSetti
             <span>{t('rail.more')}</span>
           </button>
           {more &&
+            portalRoot &&
             createPortal(
-              <div className="app-more-menu" style={menuPosition(moreAt)} onPointerDown={(e) => e.stopPropagation()} onClick={() => setMore(false)}>
+              <div
+                className="app-more-menu"
+                role="presentation"
+                style={menuPosition(moreAt)}
+                onPointerDown={(e) => e.stopPropagation()}
+                onClick={() => setMore(false)}
+              >
                 {overflow.map((tool) => (
                   <ToolButton key={tool.id} tool={tool} />
                 ))}
               </div>,
-              document.body,
+              portalRoot,
             )}
         </div>
       )}
@@ -182,12 +218,13 @@ export function Rail({ mode, onMode, compact: phone, view, settingsOpen, onSetti
           <ToolButton key={tool.id} tool={tool} />
         ))}
       {installation.help &&
+        portalRoot &&
         createPortal(
           <Dialog label={t('rail.install')} onBackdrop={installation.closeHelp}>
             <DialogHeader title={t('rail.install')} closeLabel={t('settings.closeSettings')} onClose={installation.closeHelp} />
             <p>{t('rail.installHelp')}</p>
           </Dialog>,
-          document.body,
+          portalRoot,
         )}
     </nav>
   )

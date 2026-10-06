@@ -47,6 +47,9 @@
 }
 
 .app-panel-resize {
+  margin: 0;
+  overflow: visible;
+  border: 0;
   position: absolute;
   top: 0;
   bottom: 0;

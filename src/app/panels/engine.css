@@ -159,3 +159,7 @@
     margin: 0;
   }
 }
+
+.app-engine-status {
+  display: block;
+}

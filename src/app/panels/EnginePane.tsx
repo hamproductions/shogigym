@@ -47,9 +47,9 @@ export function EnginePane({ sfen, toMove, analysis, showBest, setShowBest, onPl
   if (status.error) return <EngineName />
   if (status.loading)
     return (
-      <div role="status" aria-busy="true">
+      <output className="app-engine-status" aria-busy="true">
         <EngineName />
-      </div>
+      </output>
     )
   if (!analysis || !analysis.candidates.length)
     return (

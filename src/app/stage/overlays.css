@@ -20,7 +20,17 @@
 .app-promote {
   position: absolute;
   top: 50%;
+  right: auto;
+  bottom: auto;
   left: 50%;
+  width: auto;
+  max-width: none;
+  height: auto;
+  max-height: none;
+  margin: 0;
+  overflow: visible;
+  border: 0;
+  color: inherit;
   z-index: var(--z-promote);
   transform: translate(-50%, -50%);
   display: flex;

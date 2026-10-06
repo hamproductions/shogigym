@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, type CSSProperties } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Icon } from '@/app/icons'
+import { Icon, type IconName } from '@/app/icons'
 import { playSound, setSettings, useSettings } from '@/appearance/settings'
 
 export function SoundButton({ compact }: { compact: boolean }) {
@@ -10,7 +10,11 @@ export function SoundButton({ compact }: { compact: boolean }) {
   const open = !!at
   const show = (el: HTMLElement) => setAt(el.getBoundingClientRect())
   const muted = !sound || volume === 0
-  const icon = muted ? 'mute' : volume < 0.45 ? 'soundLow' : 'sound'
+  let icon: IconName = 'sound'
+  if (muted) icon = 'mute'
+  else if (volume < 0.45) icon = 'soundLow'
+  let popStyle: CSSProperties | undefined
+  if (at) popStyle = compact ? { left: at.left + at.width / 2, top: at.bottom + 6 } : { left: at.right + 6, top: at.top + at.height / 2 }
   const toggle = () => {
     if (muted) setSettings({ sound: true, volume: volume === 0 ? 0.6 : volume })
     else setSettings({ sound: false })
@@ -35,12 +39,7 @@ export function SoundButton({ compact }: { compact: boolean }) {
         <Icon name={icon} size={20} />
         <span>{muted ? t('rail.muted') : `${Math.round(volume * 100)}%`}</span>
       </button>
-      <div
-        className="app-sound-pop"
-        role="group"
-        aria-label={t('settings.volume')}
-        style={at ? (compact ? { left: at.left + at.width / 2, top: at.bottom + 6 } : { left: at.right + 6, top: at.top + at.height / 2 }) : undefined}
-      >
+      <fieldset className="app-sound-pop" aria-label={t('settings.volume')} style={popStyle}>
         <input
           type="range"
           min={0}
@@ -52,7 +51,7 @@ export function SoundButton({ compact }: { compact: boolean }) {
           onPointerUp={() => playSound('move')}
           onKeyUp={() => playSound('move')}
         />
-      </div>
+      </fieldset>
     </div>
   )
 }

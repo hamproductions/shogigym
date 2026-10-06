@@ -36,48 +36,50 @@ export function EvalGraph({
           ☖
         </span>
       </div>
-      <svg
-        viewBox={`0 0 ${W} ${H}`}
-        preserveAspectRatio="none"
-        role="img"
+      <button
+        type="button"
+        className="app-graph-hit"
         aria-label={t('graph.evaluationByMove')}
         onClick={(e) => {
+          if (e.detail === 0) return
           const rect = e.currentTarget.getBoundingClientRect()
           onJump(Math.round(((e.clientX - rect.left) / rect.width) * n))
         }}
       >
-        <defs>
-          <clipPath id={`${id}-sente`}>
-            <rect width={W} height={H / 2} />
-          </clipPath>
-          <clipPath id={`${id}-gote`}>
-            <rect y={H / 2} width={W} height={H / 2} />
-          </clipPath>
-        </defs>
-        <line x1="0" x2={W} y1={H / 2} y2={H / 2} className="app-graph-mid" />
-        {area && <path d={area} className="app-graph-area sente" clipPath={`url(#${id}-sente)`} />}
-        {area && <path d={area} className="app-graph-area gote" clipPath={`url(#${id}-gote)`} />}
-        {line && <path d={line} className="app-graph-line" />}
-        <line x1={x(cursor)} x2={x(cursor)} y1="0" y2={H} className="app-graph-cursor" />
-        {labels.map((label, i) => {
-          const value = values[i]
-          if (!label || value === undefined) return null
-          const meta = LABELS[label]
-          return (
-            <g key={i} className="app-graph-mark" style={{ ['--label' as string]: meta.color }}>
-              <title>
-                {i}: {meta.symbol} {meta.text}
-              </title>
-              <circle cx={x(i)} cy={y(value)} r={i === cursor ? 3.5 : 2.5} />
-              {(n <= 32 || i === cursor) && (
-                <text x={Math.max(8, Math.min(W - 8, x(i)))} y={Math.max(12, Math.min(H - 4, y(value) - 7))}>
-                  {meta.symbol}
-                </text>
-              )}
-            </g>
-          )
-        })}
-      </svg>
+        <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <clipPath id={`${id}-sente`}>
+              <rect width={W} height={H / 2} />
+            </clipPath>
+            <clipPath id={`${id}-gote`}>
+              <rect y={H / 2} width={W} height={H / 2} />
+            </clipPath>
+          </defs>
+          <line x1="0" x2={W} y1={H / 2} y2={H / 2} className="app-graph-mid" />
+          {area && <path d={area} className="app-graph-area sente" clipPath={`url(#${id}-sente)`} />}
+          {area && <path d={area} className="app-graph-area gote" clipPath={`url(#${id}-gote)`} />}
+          {line && <path d={line} className="app-graph-line" />}
+          <line x1={x(cursor)} x2={x(cursor)} y1="0" y2={H} className="app-graph-cursor" />
+          {labels.map((label, i) => {
+            const value = values[i]
+            if (!label || value === undefined) return null
+            const meta = LABELS[label]
+            return (
+              <g key={i} className="app-graph-mark" style={{ ['--label' as string]: meta.color }}>
+                <title>
+                  {i}: {meta.symbol} {meta.text}
+                </title>
+                <circle cx={x(i)} cy={y(value)} r={i === cursor ? 3.5 : 2.5} />
+                {(n <= 32 || i === cursor) && (
+                  <text x={Math.max(8, Math.min(W - 8, x(i)))} y={Math.max(12, Math.min(H - 4, y(value) - 7))}>
+                    {meta.symbol}
+                  </text>
+                )}
+              </g>
+            )
+          })}
+        </svg>
+      </button>
       {selected && (
         <div className="app-graph-review" style={{ ['--label' as string]: LABELS[selected].color }}>
           <span>{cursor}</span>

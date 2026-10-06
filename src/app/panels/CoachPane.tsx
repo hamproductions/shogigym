@@ -23,6 +23,77 @@ interface CoachPaneProps {
 
 const prefixOf = (key: string) => i18n.t(key, { move: '\u0000', line: '\u0000' }).split('\u0000')[0]
 
+function VerdictHead({ color, symbol, name, label }: { color: string; symbol: string; name: string; label: string }) {
+  return (
+    <div className="app-verdict-head">
+      <span className="app-badge" style={{ ['--label' as string]: color }}>
+        {symbol}
+      </span>
+      <strong>{name}</strong>
+      <span className="app-verdict-label" style={{ ['--label' as string]: color }}>
+        {label}
+      </span>
+    </div>
+  )
+}
+
+function BetterMove({ review, prevSfen }: { review: MoveReview; prevSfen: string }) {
+  const { t } = useTranslation()
+  const [reason] = review.bestReasons
+  return (
+    <p className="app-reason">
+      {t('coach.betterWas')}
+      <strong>{moveText(prevSfen, review.best.move)}</strong>
+      {reason && !reason.startsWith(prefixOf('moveFacts.engineLine')) ? `: ${reason}` : t('coach.betterWasEnd')}
+    </p>
+  )
+}
+
+function ReviewVerdict({
+  review,
+  lastMove,
+  prevSfen,
+  bookLast,
+  you,
+}: Pick<CoachPaneProps, 'bookLast' | 'you'> & { review: MoveReview; lastMove: string; prevSfen: string }) {
+  const { t } = useTranslation()
+  const { color, symbol, text } = LABELS[review.label]
+  const showBetter = isWeak(review.label) && review.best.move !== lastMove && !review.reasons.some((r) => r.startsWith(prefixOf('moveFacts.bestWins')))
+  return (
+    <>
+      <VerdictHead color={color} symbol={symbol} name={`${you ? t('coach.yourMove') : ''}${moveText(prevSfen, lastMove)}`} label={text} />
+      {bookLast?.branch.note && <p className="app-note">{bookLast.branch.note}</p>}
+      {bookLast?.branch.kind === 'deviation' && bookLast.branch.punishNote && <p className="app-note warn">{bookLast.branch.punishNote}</p>}
+      {review.reasons.slice(0, 2).map((r) => (
+        <p key={r} className="app-reason">
+          {r}
+        </p>
+      ))}
+      {showBetter && <BetterMove review={review} prevSfen={prevSfen} />}
+    </>
+  )
+}
+
+function BookVerdict({ bookLast, played }: { bookLast: BookHit; played: string }) {
+  const { t } = useTranslation()
+  const { branch } = bookLast
+  if (branch.kind !== 'deviation') {
+    return (
+      <>
+        <VerdictHead color={LABELS.book.color} symbol={LABELS.book.symbol} name={played} label={t('coach.bookMove')} />
+        {branch.note && <p className="app-note">{branch.note}</p>}
+      </>
+    )
+  }
+  const note = branch.punishNote ?? branch.note
+  return (
+    <>
+      <VerdictHead color={LABELS.mistake.color} symbol={LABELS.mistake.symbol} name={played} label={t('coach.knownMistake')} />
+      {note && <p className="app-note warn">{note}</p>}
+    </>
+  )
+}
+
 function Verdict({
   review,
   lastMove,
@@ -33,69 +104,8 @@ function Verdict({
 }: Pick<CoachPaneProps, 'review' | 'bookLast' | 'ai' | 'you'> & { lastMove: string; prevSfen: string }) {
   const { t } = useTranslation()
   const played = moveText(prevSfen, lastMove)
-  if (review)
-    return (
-      <>
-        <div className="app-verdict-head">
-          <span className="app-badge" style={{ ['--label' as string]: LABELS[review.label].color }}>
-            {LABELS[review.label].symbol}
-          </span>
-          <strong>
-            {you ? t('coach.yourMove') : ''}
-            {played}
-          </strong>
-          <span className="app-verdict-label" style={{ ['--label' as string]: LABELS[review.label].color }}>
-            {LABELS[review.label].text}
-          </span>
-        </div>
-        {bookLast?.branch.note && <p className="app-note">{bookLast.branch.note}</p>}
-        {bookLast?.branch.kind === 'deviation' && bookLast.branch.punishNote && <p className="app-note warn">{bookLast.branch.punishNote}</p>}
-        {review.reasons.slice(0, 2).map((r) => (
-          <p key={r} className="app-reason">
-            {r}
-          </p>
-        ))}
-        {isWeak(review.label) && review.best.move !== lastMove && !review.reasons.some((r) => r.startsWith(prefixOf('moveFacts.bestWins'))) && (
-          <p className="app-reason">
-            {t('coach.betterWas')}
-            <strong>{moveText(prevSfen, review.best.move)}</strong>
-            {review.bestReasons[0] && !review.bestReasons[0].startsWith(prefixOf('moveFacts.engineLine'))
-              ? `: ${review.bestReasons[0]}`
-              : t('coach.betterWasEnd')}
-          </p>
-        )}
-      </>
-    )
-  if (bookLast && bookLast.branch.kind !== 'deviation')
-    return (
-      <>
-        <div className="app-verdict-head">
-          <span className="app-badge" style={{ ['--label' as string]: LABELS.book.color }}>
-            {LABELS.book.symbol}
-          </span>
-          <strong>{played}</strong>
-          <span className="app-verdict-label" style={{ ['--label' as string]: LABELS.book.color }}>
-            {t('coach.bookMove')}
-          </span>
-        </div>
-        {bookLast.branch.note && <p className="app-note">{bookLast.branch.note}</p>}
-      </>
-    )
-  if (bookLast)
-    return (
-      <>
-        <div className="app-verdict-head">
-          <span className="app-badge" style={{ ['--label' as string]: LABELS.mistake.color }}>
-            {LABELS.mistake.symbol}
-          </span>
-          <strong>{played}</strong>
-          <span className="app-verdict-label" style={{ ['--label' as string]: LABELS.mistake.color }}>
-            {t('coach.knownMistake')}
-          </span>
-        </div>
-        {(bookLast.branch.punishNote ?? bookLast.branch.note) && <p className="app-note warn">{bookLast.branch.punishNote ?? bookLast.branch.note}</p>}
-      </>
-    )
+  if (review) return <ReviewVerdict review={review} lastMove={lastMove} prevSfen={prevSfen} bookLast={bookLast} you={you} />
+  if (bookLast) return <BookVerdict bookLast={bookLast} played={played} />
   return <p className="app-muted">{ai ? t('coach.checking', { move: played }) : t('coach.isOffTheBookTurn', { move: played })}</p>
 }
 

@@ -29,6 +29,7 @@ interface Stage {
   depth: number
 }
 
+const BRANCH_ORDER = ['main', 'alt', 'deviation']
 const MAX_STEPS = 10
 const MIN_STEPS_BEFORE_MILESTONE = 4
 const BOX_W = 164
@@ -75,8 +76,9 @@ function buildStage(course: Course, parent: JosekiNode, first: JosekiMove, ply: 
 }
 
 function childrenOf(course: Course, node: JosekiNode, ply: number): Stage[] {
-  const ordered = [...node.branches].sort((a, b) => ['main', 'alt', 'deviation'].indexOf(a.kind) - ['main', 'alt', 'deviation'].indexOf(b.kind))
-  const fork = ordered.length > 1 ? (sideToMove(node) === course.userSide ? 'yours' : 'theirs') : null
+  const ordered = node.branches.toSorted((a, b) => BRANCH_ORDER.indexOf(a.kind) - BRANCH_ORDER.indexOf(b.kind))
+  let fork: Stage['fork'] = null
+  if (ordered.length > 1) fork = sideToMove(node) === course.userSide ? 'yours' : 'theirs'
   return ordered.map((b) => buildStage(course, node, b, ply, fork))
 }
 
@@ -115,7 +117,8 @@ function summary(stage: Stage) {
 function firstSentence(text?: string) {
   if (!text) return ''
   const cut = text.search(/[。．.!?]/)
-  return cut > 0 && cut < 70 ? text.slice(0, cut + 1) : text.length > 70 ? `${text.slice(0, 68)}…` : text
+  if (cut > 0 && cut < 70) return text.slice(0, cut + 1)
+  return text.length > 70 ? `${text.slice(0, 68)}…` : text
 }
 
 function Diagram({
@@ -137,6 +140,7 @@ function Diagram({
 
   useEffect(() => {
     const box = scroller.current
+    if (currentKey === null) return
     const el = box?.querySelector<HTMLElement>('.fc-box.current')
     if (!box || !el) return
     box.scrollTo({ left: el.offsetLeft - box.clientWidth / 2 + BOX_W / 2, top: el.offsetTop - box.clientHeight / 3, behavior: 'smooth' })
@@ -234,8 +238,8 @@ export function LessonMap({ course, currentNodeId, onJump, onClose }: Props & { 
   }, [stages, currentNodeId, course.root.id])
   return (
     <div className="fc">
-      <div className="fc-overlay" onMouseDown={onClose}>
-        <div className="fc-overlay-box" onMouseDown={(e) => e.stopPropagation()}>
+      <div className="fc-overlay" onPointerDown={onClose}>
+        <div className="fc-overlay-box" onPointerDown={(e) => e.stopPropagation()}>
           <div className="fc-head">
             <strong>{t('lessonMap.lessonMap', { title: course.title })}</strong>
             <Button size="sm" variant="ghost" onClick={onClose}>

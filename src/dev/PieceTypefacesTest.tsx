@@ -23,15 +23,20 @@ const TYPES: { type: PieceType; label: string }[] = [
   { type: PieceType.PROM_PAWN, label: 'と' },
 ]
 
+interface Run {
+  key: string
+  rows?: { set: PieceSet; images: string[] }[]
+  error?: string
+}
+
 export default function PieceTypefacesTest() {
   const st = useSettings()
-  const [rows, setRows] = useState<{ set: PieceSet; images: string[] }[]>()
-  const [error, setError] = useState<string>()
+  const [run, setRun] = useState<Run>({ key: '' })
   const key = `${st.pieceFont}|${st.pieceStyle}|${st.pieceGuide}|${st.pieceMaterial}|${st.pieceColor}|${st.pieceGrain}|${st.pieceFinish}`
+  const rows = run.key === key ? run.rows : undefined
+  const error = run.key === key ? run.error : undefined
   useEffect(() => {
     const controller = new AbortController()
-    setRows(undefined)
-    setError(undefined)
     const sets = PIECE_TYPEFACES.map((family) => pieceSetForFace(family, st.pieceStyle))
     const uniqueSets = [...new Set(sets)]
     const appearance = (pieceSet: PieceSet): PieceAppearance => ({
@@ -52,15 +57,18 @@ export default function PieceTypefacesTest() {
           controller.signal,
           TYPES.map(({ type }) => type),
           (previewKey, images) => {
-            if (!controller.signal.aborted) setRows((current) => [...(current ?? []), { set: previewKey.slice('typeface:'.length) as PieceSet, images }])
+            if (!controller.signal.aborted) {
+              const row = { set: previewKey.slice('typeface:'.length) as PieceSet, images }
+              setRun((current) => ({ key, rows: [...(current.key === key ? (current.rows ?? []) : []), row] }))
+            }
           },
         ),
       )
       .then((previews) => {
-        if (!controller.signal.aborted) setRows(PIECE_TYPEFACES.map((set) => ({ set, images: previews.get(`typeface:${set}`) ?? [] })))
+        if (!controller.signal.aborted) setRun({ key, rows: PIECE_TYPEFACES.map((set) => ({ set, images: previews.get(`typeface:${set}`) ?? [] })) })
       })
       .catch((reason: unknown) => {
-        if (!controller.signal.aborted) setError(String(reason))
+        if (!controller.signal.aborted) setRun((current) => ({ key, rows: current.key === key ? current.rows : undefined, error: String(reason) }))
       })
     return () => controller.abort()
   }, [key, st.pieceFont, st.pieceStyle, st.pieceGuide, st.pieceMaterial, st.pieceColor, st.pieceGrain, st.pieceFinish])

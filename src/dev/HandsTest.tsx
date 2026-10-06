@@ -8,7 +8,7 @@ import { HALF_D, HALF_W, LEG, THICK, setBoardDims, squareX, squareZ } from '@/re
 import { rebuild } from '@/rendering/board3d/pieces'
 import { buildScene, createRenderer, disposeRenderer } from '@/rendering/board3d/scene'
 import type { Board3DProps, SceneState } from '@/rendering/board3d/types'
-import { loadPieceFont, setSettings, useSettings } from '@/appearance/settings'
+import { loadPieceFont, setSettings, useSettings, type Settings } from '@/appearance/settings'
 import { loadPieceSet } from '@/appearance/pieceSets'
 import { BoardLoading } from '@/rendering/BoardLoading'
 
@@ -80,8 +80,9 @@ interface Overlay {
   axes: THREE.AxesHelper
 }
 
+const dot = (color: number) => new THREE.Mesh(new THREE.SphereGeometry(0.12, 12, 8), new THREE.MeshBasicMaterial({ color, depthTest: false }))
+
 function overlay(scene: THREE.Scene): Overlay {
-  const dot = (color: number) => new THREE.Mesh(new THREE.SphereGeometry(0.12, 12, 8), new THREE.MeshBasicMaterial({ color, depthTest: false }))
   const o = {
     target: dot(0xff3b30),
     pinch: dot(0x34c759),
@@ -92,6 +93,36 @@ function overlay(scene: THREE.Scene): Overlay {
   for (const m of [o.target, o.pinch, o.piece]) m.renderOrder = 10
   scene.add(o.target, o.pinch, o.piece, o.pole)
   return o
+}
+
+const deg = (v?: number) => (v === undefined ? '–' : Math.round((v * 180) / Math.PI).toString())
+
+interface RunStatus {
+  key: string
+  ready: boolean
+  error: string | null
+  progress: number
+}
+
+type PieceLook = Pick<Settings, 'pieceFont' | 'pieceSet' | 'pieceGuide' | 'pieceStyle' | 'pieceMaterial' | 'pieceColor' | 'pieceGrain' | 'pieceFinish'>
+
+const runKeyOf = (room: Room, pattern: Pattern, settings: PieceLook) =>
+  [
+    room,
+    pattern.id,
+    settings.pieceFont,
+    settings.pieceSet,
+    settings.pieceGuide,
+    settings.pieceStyle,
+    settings.pieceMaterial,
+    settings.pieceColor,
+    settings.pieceGrain,
+    settings.pieceFinish,
+  ].join('|')
+
+function nextFrame(frame: number, steps: number, last: number, loop: boolean) {
+  if (frame + steps <= last) return frame + steps
+  return loop ? 0 : frame
 }
 
 export default function HandsTest() {
@@ -106,19 +137,23 @@ export default function HandsTest() {
   const [show, setShow] = useState(true)
   const [cut, setCut] = useState(false)
   const [info, setInfo] = useState<AvatarInspect | null>(null)
-  const [ready, setReady] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const [progress, setProgress] = useState(0)
+  const [status, setStatus] = useState<RunStatus>({ key: '', ready: false, error: null, progress: 0 })
+  const { pieceFont, pieceSet, pieceGuide, pieceStyle, pieceMaterial, pieceColor, pieceGrain, pieceFinish } = st
+  const runKey = runKeyOf(room, pattern, { pieceFont, pieceSet, pieceGuide, pieceStyle, pieceMaterial, pieceColor, pieceGrain, pieceFinish })
+  const current = status.key === runKey
+  const ready = current && status.ready
+  const error = current ? status.error : null
+  const progress = current ? status.progress : 0
   const total = framesFor(pattern)
   const api = useRef<{ goto: (f: number) => AvatarInspect | null; camera: (preset: string) => void; total: number } | null>(null)
   const cameraPose = useRef<{ position: THREE.Vector3; target: THREE.Vector3; follow: boolean } | null>(null)
   const display = useRef({ show, cut })
-  display.current = { show, cut }
+  useEffect(() => {
+    display.current = { show, cut }
+  }, [show, cut])
 
   useEffect(() => {
-    setError(null)
-    setReady(false)
-    setProgress(0)
+    const key = runKeyOf(room, pattern, { pieceFont, pieceSet, pieceGuide, pieceStyle, pieceMaterial, pieceColor, pieceGrain, pieceFinish })
     setSettings({ environment: room })
     setBoardDims()
     const el = host.current!
@@ -138,21 +173,21 @@ export default function HandsTest() {
     const next = prev.clone()
     next.doMove(next.createMoveByUSI(pattern.usi)!)
     const mover = prev.color
-    const total = framesFor(pattern)
+    const lastFrame = framesFor(pattern)
     let simFrame = -1
     const inspect = () => controller?.inspect().find((a) => a.color === mover) ?? null
     const draw = (a: AvatarInspect | null) => {
-      const { show } = display.current
-      for (const m of [marks.target, marks.pinch, marks.piece, marks.pole]) m.visible = !!a && show
+      const { show: overlays } = display.current
+      for (const m of [marks.target, marks.pinch, marks.piece, marks.pole]) m.visible = !!a && overlays
       if (!a) return
       marks.target.position.copy(a.target)
       marks.pinch.position.copy(a.pinch)
-      marks.piece.visible = show && !!a.piece
+      marks.piece.visible = overlays && !!a.piece
       if (a.piece) marks.piece.position.copy(a.piece)
       marks.pole.position.copy(a.target)
       marks.pole.setDirection(a.pole.clone().normalize())
       if (marks.axes.parent !== a.hand) a.hand.add(marks.axes)
-      marks.axes.visible = show
+      marks.axes.visible = overlays
     }
     const goto = (f: number) => {
       if (!controller) return null
@@ -201,13 +236,14 @@ export default function HandsTest() {
       controls.target.copy(views[preset][1])
       controls.update()
     }
-    api.current = { goto, camera, total }
+    api.current = { goto, camera, total: lastFrame }
     let live = true
     let completed = 0
     const loaded = () => {
-      if (live) setProgress(++completed / 3)
+      completed++
+      if (live) setStatus({ key, ready: false, error: null, progress: completed / 3 })
     }
-    Promise.all([loadPieceFont(st.pieceFont).then(loaded), loadPieceSet(st.pieceSet, st.pieceGuide).then(loaded)])
+    Promise.all([loadPieceFont(pieceFont).then(loaded), loadPieceSet(pieceSet, pieceGuide).then(loaded)])
       .then(() =>
         live
           ? loadAvatars({
@@ -229,10 +265,10 @@ export default function HandsTest() {
         s.settle = () => rebuild(s, props(next, pattern.usi), false)
         simFrame = -1
         setInfo(goto(0))
-        setReady(true)
+        setStatus({ key, ready: true, error: null, progress: completed / 3 })
       })
-      .catch((error: unknown) => {
-        if (live) setError(error instanceof Error ? error.message : String(error))
+      .catch((failure: unknown) => {
+        if (live) setStatus({ key, ready: false, error: failure instanceof Error ? failure.message : String(failure), progress: completed / 3 })
       })
     const resize = () => {
       renderer.setSize(el.clientWidth, el.clientHeight)
@@ -258,11 +294,10 @@ export default function HandsTest() {
       controller?.dispose()
       controls.dispose()
       disposeRenderer(renderer)
-      el.removeChild(renderer.domElement)
+      renderer.domElement.remove()
       api.current = null
-      setReady(false)
     }
-  }, [room, pattern, st.pieceFont, st.pieceSet, st.pieceGuide, st.pieceStyle, st.pieceMaterial, st.pieceColor, st.pieceGrain, st.pieceFinish])
+  }, [room, pattern, pieceFont, pieceSet, pieceGuide, pieceStyle, pieceMaterial, pieceColor, pieceGrain, pieceFinish])
 
   useEffect(() => {
     if (ready && api.current) setInfo(api.current.goto(frame))
@@ -278,14 +313,13 @@ export default function HandsTest() {
       last = now
       const steps = Math.floor(acc / DT)
       acc -= steps * DT
-      if (steps) setFrame((f) => (f + steps > (api.current?.total ?? 0) ? (loop ? 0 : f) : f + steps))
+      if (steps) setFrame((f) => nextFrame(f, steps, api.current?.total ?? 0, loop))
       raf = requestAnimationFrame(tick)
     }
     raf = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(raf)
   }, [playing, speed, loop])
 
-  const deg = (v?: number) => (v === undefined ? '–' : Math.round((v * 180) / Math.PI).toString())
   return (
     <main style={{ position: 'fixed', inset: 0, background: '#111' }}>
       <div ref={host} style={{ position: 'absolute', inset: 0 }} />

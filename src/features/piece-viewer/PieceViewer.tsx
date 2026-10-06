@@ -42,7 +42,7 @@ export function PieceViewer({ onClose, page }: { onClose: () => void; page?: boo
       live = false
     }
   }, [st.pieceFont, st.pieceSet, st.pieceGuide])
-  const scene = useRef<{ setPiece: (t: PieceType) => void; setLight: (a: number) => void } | null>(null)
+  const scene = useRef<{ setPiece: (next: PieceType) => void; setLight: (a: number) => void } | null>(null)
 
   useEffect(() => {
     const el = host.current!
@@ -65,12 +65,12 @@ export function PieceViewer({ onClose, page }: { onClose: () => void; page?: boo
     floor.receiveShadow = true
     world.add(floor)
     let piece: THREE.Object3D | null = null
-    const setPiece = (t: PieceType) => {
+    const setPiece = (next: PieceType) => {
       if (piece) {
         world.remove(piece)
         disposePiece(piece)
       }
-      piece = pieceMesh(t, Color.BLACK, undefined, 64, undefined, environment)
+      piece = pieceMesh(next, Color.BLACK, undefined, 64, undefined, environment)
       piece.scale.setScalar(1.6)
       world.add(piece)
     }
@@ -91,15 +91,14 @@ export function PieceViewer({ onClose, page }: { onClose: () => void; page?: boo
     const observer = new ResizeObserver(resize)
     observer.observe(el)
     resize()
-    let frame = 0
     const loop = () => {
       controls.update()
       renderer.render(world, camera)
-      frame = requestAnimationFrame(loop)
     }
     loop()
+    renderer.setAnimationLoop(loop)
     return () => {
-      cancelAnimationFrame(frame)
+      renderer.setAnimationLoop(null)
       observer.disconnect()
       controls.dispose()
       if (piece) disposePiece(piece)
@@ -108,12 +107,13 @@ export function PieceViewer({ onClose, page }: { onClose: () => void; page?: boo
       lamp.shadow.dispose()
       disposeRenderer(renderer)
       scene.current = null
-      el.removeChild(renderer.domElement)
+      renderer.domElement.remove()
     }
   }, [])
 
   useEffect(() => {
     if (ready === `${st.pieceFont}|${st.pieceSet}|${st.pieceGuide}`) scene.current?.setPiece(type)
+    // oxlint-disable-next-line react/exhaustive-effect-dependencies -- pieceMesh reads the finish from the settings store, so the piece must be rebuilt when it changes
   }, [type, st.pieceFinish, st.pieceFont, st.pieceSet, st.pieceGuide, ready])
   useEffect(() => {
     scene.current?.setLight(light)
@@ -121,12 +121,7 @@ export function PieceViewer({ onClose, page }: { onClose: () => void; page?: boo
 
   return (
     <div className={page ? 'app-viewer-page' : 'app-palette-back'} onPointerDown={page ? undefined : onClose}>
-      <div
-        className={`app-dialog app-viewer${page ? ' page' : ''}`}
-        role="dialog"
-        aria-label={t('viewer.pieceViewer')}
-        onPointerDown={(e) => e.stopPropagation()}
-      >
+      <dialog open className={`app-dialog app-viewer${page ? ' page' : ''}`} aria-label={t('viewer.pieceViewer')} onPointerDown={(e) => e.stopPropagation()}>
         <DialogHeader title={t('viewer.pieceViewer')} closeLabel={t('viewer.close')} onClose={onClose} />
         <div className="app-viewer-stage" ref={host} />
         <p className="app-muted">{t('viewer.dragToRotateScrollOr')}</p>
@@ -149,7 +144,7 @@ export function PieceViewer({ onClose, page }: { onClose: () => void; page?: boo
             onChange={(e) => setLight(Number(e.target.value))}
           />
         </SettingRow>
-      </div>
+      </dialog>
     </div>
   )
 }

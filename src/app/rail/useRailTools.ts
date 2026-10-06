@@ -1,3 +1,4 @@
+import { useSyncExternalStore } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { View } from '@/app/hooks/useView'
 import type { IconName } from '@/app/icons'
@@ -26,8 +27,13 @@ interface ToolActions {
   onInstall?: () => void
 }
 
+const subscribeNothing = () => () => undefined
+const fullscreenSupported = () => document.fullscreenEnabled
+const fullscreenUnsupportedOnServer = () => false
+
 export function useRailTools({ view, settingsOpen, onSettings, onPalette, snapshotName, onFlipTable, onSaveImage, onInstall }: ToolActions) {
   const { t } = useTranslation()
+  const canFullscreen = useSyncExternalStore(subscribeNothing, fullscreenSupported, fullscreenUnsupportedOnServer)
   const ja = useSettings().lang === 'ja'
   const { tilted, setTilted, orbit, setOrbit, flatView, showControl, setShowControl, setHideUi, fullscreen, toggleFullscreen } = view
   const primary: RailTool[] = [
@@ -55,7 +61,7 @@ export function useRailTools({ view, settingsOpen, onSettings, onPalette, snapsh
   ]
   const bottom: RailTool[] = [
     { id: 'hide', icon: 'panel', label: t('app.hideUiShort'), title: `${t('app.hideUi')} (H)`, run: () => setHideUi(true) },
-    ...(document.fullscreenEnabled
+    ...(canFullscreen
       ? [
           {
             id: 'fullscreen',

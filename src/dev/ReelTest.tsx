@@ -79,18 +79,20 @@ export default function ReelTest() {
 
   useEffect(() => {
     setSettings({ lang: 'en', environment: 'traditional', characters: true, power: true, sound: false, coords: true })
-    const w = window as unknown as { __reel: () => void; __capture: () => void; __frame: (ms: number) => Promise<void> }
-    w.__reel = () => {
-      done.current = 0
-      startAt.current = performance.now()
-      setT(0)
-    }
-    w.__capture = () => {
-      done.current = 0
-      startAt.current = startVirtual()
-      setT(0)
-    }
-    w.__frame = stepVirtual
+    // Hooks for the external capture script.
+    Object.assign(globalThis, {
+      __reel: () => {
+        done.current = 0
+        startAt.current = performance.now()
+        setT(0)
+      },
+      __capture: () => {
+        done.current = 0
+        startAt.current = startVirtual()
+        setT(0)
+      },
+      __frame: stepVirtual,
+    })
   }, [])
 
   const running = t >= 0
@@ -99,7 +101,7 @@ export default function ReelTest() {
     let frame = 0
     const tick = () => {
       const now = (performance.now() - startAt.current) / 1000
-      const s = (globalThis as unknown as { __dbg?: SceneState }).__dbg
+      const s = Reflect.get(globalThis, '__dbg') as SceneState | undefined
       if (s?.controls) {
         const c = camera(now)
         s.camera.position.set(...c.pos)

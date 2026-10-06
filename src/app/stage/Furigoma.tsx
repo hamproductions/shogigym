@@ -9,6 +9,118 @@ import { useBakedPieces } from '@/app/hooks/useBakedPieces'
 import { spriteKey } from '@/rendering/sprites'
 import { say, sayFurigomaResult } from '@/utils/voice'
 
+type Translate = (key: string, options?: Record<string, unknown>) => string
+
+interface FallingPawn {
+  image: HTMLImageElement
+  z: number
+  yaw: number
+  x: number
+  y: number
+  vx: number
+  vy: number
+  angle: number
+  spin: number
+  target: number
+  contacts: number
+  settled: boolean
+}
+
+function resultText({ spectator, ja, pawns, side, t }: { spectator: boolean; ja: boolean; pawns: number; side: Side; t: Translate }) {
+  const tokins = 5 - pawns
+  if (spectator) return t('watch.furigomaResult', { pawns, tokins, side: t(`common.${side}`) })
+  if (ja) return `歩${pawns}枚・と金${tokins}枚：あなたは${side === 'sente' ? '先手' : '後手'}`
+  return `${pawns} pawns · ${tokins} tokins: you play ${side === 'sente' ? 'Sente' : 'Gote'}`
+}
+
+function pieceLabel(face: boolean, ja: boolean) {
+  if (face) return ja ? '歩' : 'Pawn'
+  return ja ? 'と金' : 'Tokin'
+}
+
+function statusText({ error, result, loading, ja }: { error: boolean; result: string | null; loading: boolean; ja: boolean }) {
+  if (error) return ja ? '振り駒を読み込めませんでした' : 'Could not load furigoma'
+  if (result !== null) return result
+  if (loading) return ja ? '振り駒を読み込んでいます…' : 'Loading furigoma…'
+  return ja ? '歩を投げています…' : 'Tossing five pawns…'
+}
+
+function startHint({ spectator, ja, t }: { spectator: boolean; ja: boolean; t: Translate }) {
+  if (spectator) return t('watch.starting')
+  return ja ? 'どこかをクリックして対局開始' : 'Click anywhere to start'
+}
+
+function createPawn(host: HTMLElement, face: boolean, i: number, ja: boolean): FallingPawn {
+  const image = document.createElement('img')
+  image.alt = pieceLabel(face, ja)
+  Object.assign(image.style, {
+    position: 'absolute',
+    width: '22%',
+    height: '34%',
+    objectFit: 'contain',
+    left: '50%',
+    top: '58%',
+    transformOrigin: 'center',
+  })
+  host.append(image)
+  return {
+    image,
+    z: (i % 2 ? 0.13 : -0.12) + (Math.random() - 0.5) * 0.1,
+    yaw: Math.random() * 360,
+    x: (i - 2) * 0.035,
+    y: 0.85 + Math.random() * 0.1,
+    vx: (i - 2) * 0.18,
+    vy: 0.6 + Math.random() * 0.4,
+    angle: Math.random() * Math.PI,
+    spin: 12 + Math.random() * 6,
+    target: face ? 0 : Math.PI,
+    contacts: 0,
+    settled: false,
+  }
+}
+
+function stepPawn(item: FallingPawn, dt: number) {
+  item.vy -= 3 * dt
+  item.y += item.vy * dt
+  item.x += item.vx * dt
+  item.angle += item.spin * dt
+  if (item.y < 0) {
+    item.y = 0
+    item.vy *= -0.32
+    item.vx *= 0.8
+    item.spin *= 0.65
+    if (!item.contacts) playSound('move')
+    item.contacts++
+    if (item.contacts > 2 && item.vy < 0.1) {
+      item.vy = 0
+      item.angle = item.target + (item.angle - item.target) * Math.exp(-dt * 18)
+      if (Math.abs(item.angle - item.target) < 0.015 && Math.abs(item.vx) < 0.01) {
+        item.angle = item.target
+        item.settled = true
+      }
+    }
+  }
+  if (Math.abs(item.x) > 0.4) {
+    item.x = Math.sign(item.x) * 0.4
+    item.vx *= -0.35
+  }
+}
+
+function separatePawns(items: FallingPawn[]) {
+  for (let i = 0; i < items.length; i++)
+    for (let j = i + 1; j < items.length; j++) {
+      const a = items[i]
+      const b = items[j]
+      if (a.y > 0.1 || b.y > 0.1) continue
+      const distance = b.x - a.x
+      if (Math.abs(distance) >= 0.145) continue
+      const separation = (0.145 - Math.abs(distance)) / 2
+      const direction = distance >= 0 ? 1 : -1
+      a.x -= direction * separation
+      b.x += direction * separation
+    }
+}
+
 export function Furigoma({ onDone, onCancel, spectator = false }: { onDone: (side: Side) => void; onCancel: () => void; spectator?: boolean }) {
   const { t } = useTranslation()
   const settings = useSettings()
@@ -45,47 +157,14 @@ export function Furigoma({ onDone, onCancel, spectator = false }: { onDone: (sid
     let frame = 0
     const finish = (faces: boolean[]) => {
       const pawns = faces.filter(Boolean).length
-      const side: Side = pawns >= 3 ? 'sente' : 'gote'
-      setResult(
-        spectator
-          ? t('watch.furigomaResult', { pawns, tokins: 5 - pawns, side: t(`common.${side}`) })
-          : ja
-            ? `歩${pawns}枚・と金${5 - pawns}枚：あなたは${side === 'sente' ? '先手' : '後手'}`
-            : `${pawns} pawns · ${5 - pawns} tokins: you play ${side === 'sente' ? 'Sente' : 'Gote'}`,
-      )
+      const winner: Side = pawns >= 3 ? 'sente' : 'gote'
+      setResult(resultText({ spectator, ja, pawns, side: winner, t }))
       sayFurigomaResult(pawns, spectator)
-      setSide(side)
+      setSide(winner)
     }
     if (host.current && sprites.baked) {
       const faces = Array.from({ length: 5 }, () => Math.random() < 0.5)
-      const items = faces.map((face, i) => {
-        const image = document.createElement('img')
-        image.alt = face ? (ja ? '歩' : 'Pawn') : ja ? 'と金' : 'Tokin'
-        Object.assign(image.style, {
-          position: 'absolute',
-          width: '22%',
-          height: '34%',
-          objectFit: 'contain',
-          left: '50%',
-          top: '58%',
-          transformOrigin: 'center',
-        })
-        host.current!.append(image)
-        return {
-          image,
-          z: (i % 2 ? 0.13 : -0.12) + (Math.random() - 0.5) * 0.1,
-          yaw: Math.random() * 360,
-          x: (i - 2) * 0.035,
-          y: 0.85 + Math.random() * 0.1,
-          vx: (i - 2) * 0.18,
-          vy: 0.6 + Math.random() * 0.4,
-          angle: Math.random() * Math.PI,
-          spin: 12 + Math.random() * 6,
-          target: face ? 0 : Math.PI,
-          contacts: 0,
-          settled: false,
-        }
-      })
+      const items = faces.map((face, i) => createPawn(host.current!, face, i, ja))
       setLoading(false)
       let previous = performance.now()
       const render = (now: number) => {
@@ -93,48 +172,12 @@ export function Furigoma({ onDone, onCancel, spectator = false }: { onDone: (sid
         const dt = Math.min(0.03, (now - previous) / 1000)
         previous = now
         items.forEach((item) => {
-          if (!item.settled) {
-            item.vy -= 3 * dt
-            item.y += item.vy * dt
-            item.x += item.vx * dt
-            item.angle += item.spin * dt
-            if (item.y < 0) {
-              item.y = 0
-              item.vy *= -0.32
-              item.vx *= 0.8
-              item.spin *= 0.65
-              if (!item.contacts) playSound('move')
-              item.contacts++
-              if (item.contacts > 2 && item.vy < 0.1) {
-                item.vy = 0
-                item.angle = item.target + (item.angle - item.target) * Math.exp(-dt * 18)
-                if (Math.abs(item.angle - item.target) < 0.015 && Math.abs(item.vx) < 0.01) {
-                  item.angle = item.target
-                  item.settled = true
-                }
-              }
-            }
-            if (Math.abs(item.x) > 0.4) {
-              item.x = Math.sign(item.x) * 0.4
-              item.vx *= -0.35
-            }
-          }
+          if (!item.settled) stepPawn(item, dt)
           const pawn = Math.cos(item.angle) >= 0
           item.image.src = sprites.baked!.pieces.get(spriteKey(pawn ? PieceType.PAWN : PieceType.PROM_PAWN, Color.BLACK, true))!
           item.image.style.transform = `translate(calc(-50% + ${item.x * host.current!.clientWidth}px), calc(-50% - ${(item.y * 0.55 - item.z) * host.current!.clientHeight}px)) scaleY(${Math.max(0.06, Math.abs(Math.cos(item.angle)))}) rotate(${item.y > 0 ? item.angle * 15 : item.yaw}deg)`
         })
-        for (let i = 0; i < items.length; i++)
-          for (let j = i + 1; j < items.length; j++) {
-            const a = items[i]
-            const b = items[j]
-            if (a.y > 0.1 || b.y > 0.1) continue
-            const distance = b.x - a.x
-            if (Math.abs(distance) >= 0.145) continue
-            const separation = (0.145 - Math.abs(distance)) / 2
-            const direction = distance >= 0 ? 1 : -1
-            a.x -= direction * separation
-            b.x += direction * separation
-          }
+        separatePawns(items)
         if (items.some((item) => !item.settled)) frame = requestAnimationFrame(render)
         else finish(faces)
       }
@@ -145,9 +188,10 @@ export function Furigoma({ onDone, onCancel, spectator = false }: { onDone: (sid
         items.forEach(({ image }) => image.remove())
       }
     }
-  }, [settings.pieceFont, settings.pieceSet, ja, sprites.baked, sprites.loading, spectator, t])
+  }, [ja, sprites.baked, sprites.loading, spectator, t])
   return (
     <div
+      role="presentation"
       onClick={(event) => {
         if ((event.target as HTMLElement).closest('button')) return
         if (side) done.current(side)
@@ -167,12 +211,8 @@ export function Furigoma({ onDone, onCancel, spectator = false }: { onDone: (sid
             margin: '16px 0',
           }}
         />
-        <p role="status">
-          {sprites.error
-            ? ja
-              ? '振り駒を読み込めませんでした'
-              : 'Could not load furigoma'
-            : (result ?? (loading ? (ja ? '振り駒を読み込んでいます…' : 'Loading furigoma…') : ja ? '歩を投げています…' : 'Tossing five pawns…'))}
+        <p>
+          <output>{statusText({ error: !!sprites.error, result, loading, ja })}</output>
         </p>
         <div className="app-actions">
           <Button
@@ -184,7 +224,7 @@ export function Furigoma({ onDone, onCancel, spectator = false }: { onDone: (sid
           >
             {ja ? 'キャンセル' : 'Cancel'}
           </Button>
-          {side && <span>{spectator ? t('watch.starting') : ja ? 'どこかをクリックして対局開始' : 'Click anywhere to start'}</span>}
+          {side && <span>{startHint({ spectator, ja, t })}</span>}
         </div>
       </Dialog>
     </div>

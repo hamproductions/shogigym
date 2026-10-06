@@ -7,6 +7,8 @@ export function NavFooter({ canAutoplay, watch }: { canAutoplay: boolean; watch:
   const { t } = useTranslation()
   const { mode, game, preview, playing, setPlaying, nav } = useSession()
   const running = mode === 'view' ? watch.running : playing
+  let playTitle = playing ? t('app.pauseSpace') : t('app.playTheLineForwardSpace')
+  if (mode === 'view') playTitle = t(running ? 'watch.pause' : 'watch.resume')
   return (
     <footer className="app-nav" hidden={game.moves.length === 0 && !preview}>
       <button onClick={nav.first} disabled={!nav.canBack} title={t('app.startHome')}>
@@ -19,7 +21,7 @@ export function NavFooter({ canAutoplay, watch }: { canAutoplay: boolean; watch:
         className="app-play"
         onClick={() => (mode === 'view' ? watch.toggle() : setPlaying((v) => !v))}
         disabled={mode === 'view' ? !watch.canPlay : !playing && !canAutoplay}
-        title={mode === 'view' ? t(running ? 'watch.pause' : 'watch.resume') : playing ? t('app.pauseSpace') : t('app.playTheLineForwardSpace')}
+        title={playTitle}
         aria-pressed={running}
       >
         <Icon name={running ? 'pause' : 'play'} />

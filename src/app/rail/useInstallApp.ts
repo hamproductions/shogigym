@@ -9,7 +9,7 @@ const retainInstallPrompt = (event: Event) => {
   globalInstallPrompt = event as InstallPrompt
 }
 
-if (typeof window !== 'undefined') {
+if (typeof document !== 'undefined') {
   globalThis.addEventListener('beforeinstallprompt', retainInstallPrompt)
   import.meta.hot?.dispose(() => globalThis.removeEventListener('beforeinstallprompt', retainInstallPrompt))
 }

@@ -90,6 +90,10 @@
 }
 
 .app-bot-settings {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
   display: flex;
   align-items: center;
   gap: var(--space-1);
@@ -116,7 +120,7 @@
 }
 
 .app-modebar-text strong,
-.app-modebar-text span {
+.app-modebar-text :is(span, output) {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -129,7 +133,7 @@
   line-height: var(--leading-snug);
 }
 
-.app-modebar-text span {
+.app-modebar-text :is(span, output) {
   color: var(--text-muted);
   font-size: var(--text-sm);
 }
@@ -235,7 +239,7 @@
   .app-modebar.sheet-up > .app-modebar-text,
   .app-modebar.sheet-up > .app-eval-chip,
   .app-modebar.sheet-up > .app-help-toggle,
-  .app-modebar-text span,
+  .app-modebar-text :is(span, output),
   .app-modebar .app-turn,
   .app-modebar > .app-lastmove,
   .app-modebar > .app-mini-nav > .app-btn:not(.app-mini-wide) {
@@ -324,7 +328,7 @@
     font-size: var(--text-md);
   }
 
-  .app-modebar-text span,
+  .app-modebar-text :is(span, output),
   .app-modebar .app-turn,
   .app-modebar .app-ply {
     display: none;

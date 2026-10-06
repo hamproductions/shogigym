@@ -59,11 +59,9 @@ export interface PanelModel {
   setConfirm: (confirm: Confirm) => void
 }
 
-function EngineSection({ model }: { model: PanelModel }) {
+function EngineNotices({ spoilerFree }: { spoilerFree: boolean }) {
   const { t } = useTranslation()
-  const { mode, ai, assist, gameOver, toMove, sfen, userTurn, play } = useSession()
-  const { spoilerFree, evaluation, bookHere } = model
-  const live = ai && assist && !spoilerFree && !gameOver
+  const { ai, assist, gameOver, toMove } = useSession()
   return (
     <>
       {!ai && (
@@ -77,28 +75,46 @@ function EngineSection({ model }: { model: PanelModel }) {
         <p className="app-muted">{t('app.checkmateWon', { winner: t(toMove === 'sente' ? 'common.gote' : 'common.sente') })}</p>
       )}
       {!assist && <p className="app-muted">{t('app.helpIsOffTurnIt')}</p>}
-      {live && (mode === 'lesson' || mode === 'drill') && <p className="app-note">{t('engine.lessonNote')}</p>}
-      {live && (
-        <EnginePane
-          sfen={sfen}
-          toMove={toMove}
-          analysis={evaluation.analysis}
-          showBest={evaluation.showBest}
-          setShowBest={evaluation.setShowBest}
-          onPlay={play}
-          canPlay={userTurn && mode !== 'lesson' && mode !== 'drill'}
-          book={bookHere}
-        />
-      )}
     </>
   )
 }
 
-function CoachSection({ model }: { model: PanelModel }) {
+function LiveEngine({ model }: { model: PanelModel }) {
   const { t } = useTranslation()
-  const { mode, game, cursor, sfens, sfen, course, assist, ai, userTurn, play, preview } = useSession()
-  const { tesuji, tsume, drill, analyze, mistakes, coach, bookHere, bookLast, onBack, analyzeMoves } = model
-  const { reviewAt } = coach
+  const { mode, toMove, sfen, userTurn, play } = useSession()
+  const { evaluation, bookHere } = model
+  return (
+    <>
+      {(mode === 'lesson' || mode === 'drill') && <p className="app-note">{t('engine.lessonNote')}</p>}
+      <EnginePane
+        sfen={sfen}
+        toMove={toMove}
+        analysis={evaluation.analysis}
+        showBest={evaluation.showBest}
+        setShowBest={evaluation.setShowBest}
+        onPlay={play}
+        canPlay={userTurn && mode !== 'lesson' && mode !== 'drill'}
+        book={bookHere}
+      />
+    </>
+  )
+}
+
+function EngineSection({ model }: { model: PanelModel }) {
+  const { ai, assist, gameOver } = useSession()
+  const { spoilerFree } = model
+  return (
+    <>
+      <EngineNotices spoilerFree={spoilerFree} />
+      {ai && assist && !spoilerFree && !gameOver && <LiveEngine model={model} />}
+    </>
+  )
+}
+
+function TrainerPanes({ model }: { model: PanelModel }) {
+  const { t } = useTranslation()
+  const { mode, game, cursor, sfens, preview } = useSession()
+  const { tesuji, tsume, drill, analyze, mistakes, onBack, analyzeMoves } = model
   return (
     <>
       {mode === 'tesuji' && tesuji.drill && (
@@ -117,23 +133,41 @@ function CoachSection({ model }: { model: PanelModel }) {
       {mode === 'analyze' && <ImportBox onImport={analyze.importGame} />}
       {mode === 'view' && <p className="app-note">{t('watch.description')}</p>}
       {mode === 'analyze' && analyze.gameNotes && <KifuNotes notes={analyze.gameNotes} moves={game.moves} cursor={cursor} />}
-      {(isGameMode(mode) || mode === 'view') && !assist && <p className="app-muted">{t('app.helpIsOffNoRatings')}</p>}
-      {(isGameMode(mode) || mode === 'view') && assist && (
-        <CoachPane
-          review={coach.review}
-          lastMove={reviewAt > 0 ? game.moves[reviewAt - 1] : undefined}
-          prevSfen={reviewAt > 0 ? sfens[reviewAt - 1] : null}
-          you={mode === 'spar'}
-          bookLast={reviewAt === cursor ? bookLast : bookAtPly(sfens, game.moves, reviewAt)}
-          bookHere={bookHere}
-          sfen={sfen}
-          course={course}
-          onPlay={play}
-          canPlay={userTurn}
-          ai={ai}
-          showBook={mode === 'analyze'}
-        />
-      )}
+    </>
+  )
+}
+
+function CoachFeedback({ model }: { model: PanelModel }) {
+  const { t } = useTranslation()
+  const { mode, game, cursor, sfens, sfen, course, assist, ai, userTurn, play } = useSession()
+  const { coach, bookHere, bookLast } = model
+  const { reviewAt } = coach
+  if (!isGameMode(mode) && mode !== 'view') return null
+  if (!assist) return <p className="app-muted">{t('app.helpIsOffNoRatings')}</p>
+  return (
+    <CoachPane
+      review={coach.review}
+      lastMove={reviewAt > 0 ? game.moves[reviewAt - 1] : undefined}
+      prevSfen={reviewAt > 0 ? sfens[reviewAt - 1] : null}
+      you={mode === 'spar'}
+      bookLast={reviewAt === cursor ? bookLast : bookAtPly(sfens, game.moves, reviewAt)}
+      bookHere={bookHere}
+      sfen={sfen}
+      course={course}
+      onPlay={play}
+      canPlay={userTurn}
+      ai={ai}
+      showBook={mode === 'analyze'}
+    />
+  )
+}
+
+function CoachSection({ model }: { model: PanelModel }) {
+  const { mode, assist } = useSession()
+  return (
+    <>
+      <TrainerPanes model={model} />
+      <CoachFeedback model={model} />
       {isGameMode(mode) && assist && <MoveCounts />}
     </>
   )
@@ -185,44 +219,66 @@ function FlowSection({ model }: { model: PanelModel }) {
   )
 }
 
+function PinnedGraph({ model }: { model: PanelModel }) {
+  const { mode, game, sfens, cursor, setCursor, ai, assist } = useSession()
+  if (!ai || !assist || game.moves.length === 0 || (!isGameMode(mode) && mode !== 'view')) return null
+  return (
+    <div className="app-pinned-graph">
+      <EvalGraph
+        values={sfens.map((s) => model.evaluation.evals[strip(s)])}
+        labels={sfens.map((_, i) => (i > 0 ? cachedReview(sfens[i - 1], game.moves[i - 1])?.label : undefined))}
+        cursor={cursor}
+        onJump={setCursor}
+      />
+    </div>
+  )
+}
+
+function LessonCoach({ model }: { model: PanelModel }) {
+  const { userSide, play } = useSession()
+  const { lesson, mistakes, evaluation, level, reply, bookLast, onBack } = model
+  let endRate: number | null = null
+  if (lesson.done && evaluation.evalSente) endRate = userSide === 'sente' ? evaluation.senteRate : 1 - evaluation.senteRate
+  return (
+    <LessonPane
+      lesson={lesson}
+      mistake={mistakes.mistake}
+      mistakePreview={mistakes.previewing}
+      level={level}
+      reply={reply}
+      onPlayReply={play}
+      lastNote={bookLast?.branch.note}
+      endRate={endRate}
+      onBack={onBack}
+    />
+  )
+}
+
+function SelectionGuide({ level }: { level: Level }) {
+  const { mode, course, sfen, selection } = useSession()
+  if (level !== 'new' || !selection || (mode === 'lesson' && course)) return null
+  return <PieceGuide sfen={sfen} from={selection.from} />
+}
+
+function MapOverlay({ lesson }: { lesson: Lesson }) {
+  const { course, sfen, nodes } = useSession()
+  if (!lesson.mapOpen || !course) return null
+  return <LessonMap course={course} currentNodeId={nodes?.get(strip(sfen))?.id ?? null} onJump={lesson.jumpTo} onClose={() => lesson.setMapOpen(false)} />
+}
+
 export function PanelBody({ tab, model, overlays = true }: { tab: Tab; model: PanelModel; overlays?: boolean }) {
-  const session = useSession()
+  const { mode, course } = useSession()
   useReviewVersion()
-  const { mode, course, game, sfens, sfen, cursor, setCursor, selection, ai, assist, userSide, nodes, play } = session
-  const { lesson, tsume, drill, mistakes, evaluation, level, reply, bookLast, onBack } = model
+  const { lesson, tsume, drill, level } = model
   const key = `${mode}|${course?.id ?? ''}|${lesson.lessonMode}|${tab}|${tsume.tsume?.problem.id ?? ''}|${drill.drill?.index ?? ''}`
-  const endRate = lesson.done && evaluation.evalSente ? (userSide === 'sente' ? evaluation.senteRate : 1 - evaluation.senteRate) : null
   return (
     <Suspense fallback={null}>
-      {tab === 'moves' && ai && assist && game.moves.length > 0 && (isGameMode(mode) || mode === 'view') && (
-        <div className="app-pinned-graph">
-          <EvalGraph
-            values={sfens.map((s) => evaluation.evals[strip(s)])}
-            labels={sfens.map((_, i) => (i > 0 ? cachedReview(sfens[i - 1], game.moves[i - 1])?.label : undefined))}
-            cursor={cursor}
-            onJump={setCursor}
-          />
-        </div>
-      )}
+      {tab === 'moves' && <PinnedGraph model={model} />}
       <div className="app-panel-body" key={key}>
-        {overlays && level === 'new' && selection && !(mode === 'lesson' && course) && <PieceGuide sfen={sfen} from={selection.from} />}
+        {overlays && <SelectionGuide level={level} />}
         {tab === 'engine' && <EngineSection model={model} />}
-        {tab === 'coach' && mode === 'lesson' && (
-          <LessonPane
-            lesson={lesson}
-            mistake={mistakes.mistake}
-            mistakePreview={mistakes.previewing}
-            level={level}
-            reply={reply}
-            onPlayReply={play}
-            lastNote={bookLast?.branch.note}
-            endRate={endRate}
-            onBack={onBack}
-          />
-        )}
-        {overlays && lesson.mapOpen && course && (
-          <LessonMap course={course} currentNodeId={nodes?.get(strip(sfen))?.id ?? null} onJump={lesson.jumpTo} onClose={() => lesson.setMapOpen(false)} />
-        )}
+        {tab === 'coach' && mode === 'lesson' && <LessonCoach model={model} />}
+        {overlays && <MapOverlay lesson={lesson} />}
         {tab === 'coach' && <CoachSection model={model} />}
         {tab === 'flow' && <FlowSection model={model} />}
         {tab === 'moves' && <MovesTab model={model} />}

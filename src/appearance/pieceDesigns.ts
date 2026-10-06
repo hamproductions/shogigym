@@ -71,5 +71,11 @@ export const pieceFamily = (set: PieceSet): PieceSet => Object.values(PIECE_FACE
 export const pieceSetForFace = (set: PieceSet, style: 'one' | 'two') => PIECE_FACE_PAIRS[set]?.[style === 'one' ? 0 : 1] ?? set
 
 export const PIECE_TYPEFACES: PieceSet[] = [
-  ...new Set<PieceSet>(['letters', ...LISHOGI_DESIGNS.map((design) => pieceFamily(design.key)), 'sunfish_hitomoji', 'sunfish_gothic', 'kaishoa_one']),
+  ...new Set<PieceSet>([
+    'letters',
+    ...LISHOGI_DESIGNS.map((lishogiDesign) => pieceFamily(lishogiDesign.key)),
+    'sunfish_hitomoji',
+    'sunfish_gothic',
+    'kaishoa_one',
+  ]),
 ].filter((set) => set !== 'glass')

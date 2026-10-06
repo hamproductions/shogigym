@@ -208,6 +208,9 @@
 }
 
 .app-sound-pop {
+  min-width: 0;
+  margin: 0;
+  border: 0;
   position: fixed;
   z-index: var(--z-dialog);
   display: none;

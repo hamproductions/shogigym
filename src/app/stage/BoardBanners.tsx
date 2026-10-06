@@ -16,8 +16,11 @@ function MistakeBanner({ mistake, preview, onBack }: { mistake: ShownMistake; pr
     if (preview.step >= preview.moves.length) setPreview({ ...preview, step: 1 })
     setPlaying(true)
   }
+  let followText = t('app.thatIsHowItContinues')
+  if (playing) followText = t('app.watchWhatFollows')
+  else if (preview.step < preview.moves.length) followText = t('app.paused')
   return (
-    <div className={`app-preview mistake${mistakeIsBad(mistake) ? '' : ' ok'}`} role="status">
+    <output className={`app-preview mistake${mistakeIsBad(mistake) ? '' : ' ok'}`}>
       <span className="app-preview-seal">{mistakeSeal(mistake)}</span>
       {mode === 'drill' && (
         <span className="app-short">
@@ -29,7 +32,7 @@ function MistakeBanner({ mistake, preview, onBack }: { mistake: ShownMistake; pr
       <span>
         {mistakeHeadline(moveText(sfens[mistake.base], mistake.usi), mistake)}
         {t('app.headlineEnd')}
-        {playing ? t('app.watchWhatFollows') : preview.step < preview.moves.length ? t('app.paused') : t('app.thatIsHowItContinues')}
+        {followText}
       </span>
       <Button size="sm" onClick={replay}>
         {playing ? t('app.pause') : t('app.replay')}
@@ -39,7 +42,7 @@ function MistakeBanner({ mistake, preview, onBack }: { mistake: ShownMistake; pr
           {mode === 'tsume' ? t('tsume.tryAgain') : t('app.goBackAndTryAgain')}
         </Button>
       )}
-    </div>
+    </output>
   )
 }
 
@@ -47,7 +50,7 @@ function PreviewBanner({ preview }: { preview: Preview }) {
   const { t } = useTranslation()
   const { playing, setPlaying, keepPreview, exitPreview } = useSession()
   return (
-    <div className="app-preview" role="status">
+    <output className="app-preview">
       <span className="app-preview-seal">{t('app.preview')}</span>
       <span>
         {t('app.preview2')}: {preview.title}, <span className="app-nowrap">{t('app.moveOf', { step: preview.step, movesCount: preview.moves.length })}</span>
@@ -61,7 +64,7 @@ function PreviewBanner({ preview }: { preview: Preview }) {
       <Button size="sm" onClick={exitPreview}>
         {t('app.exitPreview')}
       </Button>
-    </div>
+    </output>
   )
 }
 
@@ -76,7 +79,7 @@ function BranchBanner() {
     setCursor(i)
   }
   return (
-    <div className="app-preview branch" role="status">
+    <output className="app-preview branch">
       <span className="app-preview-seal">{t('app.branch')}</span>
       <span>
         {atEnd ? (
@@ -93,7 +96,7 @@ function BranchBanner() {
       <Button size="sm" onClick={() => setTree((tr) => promote(tr, game.moves))} title={t('app.makeThisVariationTheMain')}>
         {t('app.makeItMain')}
       </Button>
-    </div>
+    </output>
   )
 }
 
@@ -101,7 +104,7 @@ function ReviewBanner() {
   const { t } = useTranslation()
   const { mode, playing, setPlaying, cursor, game, setCursor } = useSession()
   return (
-    <div className="app-preview" role="status">
+    <output className="app-preview">
       <span className="app-preview-seal">{playing ? t('app.play') : t('app.review2')}</span>
       <span>
         {playing ? (
@@ -116,7 +119,7 @@ function ReviewBanner() {
       <Button size="sm" onClick={() => (playing ? setPlaying(false) : (setCursor(game.moves.length), setPlaying(false)))}>
         {playing ? t('app.pause') : t('app.goToTheLastMove')}
       </Button>
-    </div>
+    </output>
   )
 }
 

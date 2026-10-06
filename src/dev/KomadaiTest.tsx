@@ -43,6 +43,7 @@ export default function KomadaiTest() {
     return () => {
       live = false
     }
+    // oxlint-disable-next-line react/exhaustive-effect-dependencies -- handSnapshots reads the finish from the settings store, so the snapshots must be re-rendered when it changes
   }, [st.pieceFont, st.pieceSet, st.pieceGuide, st.pieceFinish])
   return (
     <main className="app-komadai-test">
@@ -54,7 +55,7 @@ export default function KomadaiTest() {
             <h2>{s.title}</h2>
             <div className="app-komadai-grid">
               {shots[k].map((shot, i) => (
-                <figure key={i}>
+                <figure key={s.order.slice(0, i + 1).join('')}>
                   <img src={shot.url} alt={`${i + 1} pieces`} width={180} height={180} />
                   <figcaption>
                     {i + 1}: {s.order.slice(0, i + 1).join('')} · {shot.mode}

@@ -59,6 +59,217 @@ function EvalChip({ rate, barShown }: { rate: number; barShown: boolean }) {
   )
 }
 
+function ModeSeal({ lessonMode }: { lessonMode: LessonMode }) {
+  const { t } = useTranslation()
+  const ja = useSettings().lang === 'ja'
+  const { mode, course } = useSession()
+  if (!ja) {
+    const icon = MODES.find((m) => m.id === mode)?.icon
+    return icon ? <Icon name={icon} size={22} /> : null
+  }
+  if (mode === 'lesson' && course) return t(lessonMode === 'study' ? 'modes.sealStudy' : 'modes.sealQuiz')
+  return t(`modes.${mode}.name`)
+}
+
+function EngineStatusText({ instruction }: { instruction: string }) {
+  const { t } = useTranslation()
+  const engine = useEngineStatus()
+  let status = instruction
+  if (!engineSupported()) status = t('engine.theAiNeedsACross')
+  else if (engine.error) status = engine.error
+  else if (engine.loading) status = t('engine.loadingEngine')
+  return <output aria-busy={engine.loading}>{status}</output>
+}
+
+function LastMove() {
+  const { t } = useTranslation()
+  const { lastMove, prevSfen, plyBase, preview, cursor, toMove } = useSession()
+  return (
+    <span className="app-lastmove">
+      {lastMove && prevSfen ? (
+        <>
+          <span className="app-ply">{t('app.move', { value: plyBase + (preview ? preview.base + preview.step : cursor) })}</span>
+          <strong title={moveText(prevSfen, lastMove)}>{moveText(prevSfen, lastMove)}</strong>
+        </>
+      ) : (
+        <span className="app-ply">{plyBase > 0 ? t('app.afterMove', { plyBase }) : t('app.startPosition')}</span>
+      )}
+      <span className={`app-turn ${toMove}`}>{t('app.toMove', { side: sideMark(toMove) })}</span>
+    </span>
+  )
+}
+
+function EngineRecovery({ watch }: { watch: Watch }) {
+  const { t } = useTranslation()
+  const engine = useEngineStatus()
+  const { mode } = useSession()
+  return (
+    <>
+      {engine.error && (isGameMode(mode) || mode === 'view') && (
+        <Button
+          size="sm"
+          onClick={() => {
+            restartEngine()
+            if (mode === 'view') watch.toggle()
+          }}
+        >
+          {t('tsume.tryAgain')}
+        </Button>
+      )}
+      {!engineSupported() && (
+        <Button size="sm" onClick={() => location.reload()}>
+          {t('engine.reloadPage')}
+        </Button>
+      )}
+    </>
+  )
+}
+
+function WatchControls({ watch, onWatchSetup }: { watch: Watch; onWatchSetup: () => void }) {
+  const { t } = useTranslation()
+  const { mode } = useSession()
+  if (mode !== 'view') return null
+  let watchKey = 'newGame.start'
+  if (watch.started) watchKey = watch.running ? 'watch.pause' : 'watch.resume'
+  return (
+    <>
+      <Button size="sm" onClick={watch.started ? watch.toggle : onWatchSetup} disabled={watch.started && !watch.canPlay}>
+        <Icon name={watch.running ? 'pause' : 'play'} size={16} />
+        {t(watchKey)}
+      </Button>
+      <Button size="sm" onClick={watch.restart}>
+        {t('watch.newGame')}
+      </Button>
+    </>
+  )
+}
+
+function AssistToggle() {
+  const { t } = useTranslation()
+  const settings = useSettings()
+  const { mode } = useSession()
+  if (!isGameMode(mode) && mode !== 'view') return null
+  return (
+    <Button
+      size="sm"
+      variant="ghost"
+      className={cx('app-help-toggle', settings.assist && 'on')}
+      onClick={() => setSettings({ assist: !settings.assist })}
+      title={settings.assist ? t('app.helpIsOnEvalBar') : t('app.noHelpClickToShow')}
+      aria-pressed={settings.assist}
+      aria-label={settings.assist ? t('app.coachOn') : t('app.coachOff')}
+    >
+      <span className="app-control-icon">
+        <Icon name="coach" />
+      </span>
+      <span className="app-control-label">{settings.assist ? t('app.coachOn') : t('app.coachOff')}</span>
+    </Button>
+  )
+}
+
+function SparMoveControls({ spar }: { spar: Spar }) {
+  const { t } = useTranslation()
+  const { mode, game, gameOver } = useSession()
+  if (mode !== 'spar' || game.moves.length === 0 || gameOver || spar.resigned) return null
+  return (
+    <>
+      <Button
+        size="sm"
+        variant={spar.erred ? 'primary' : 'secondary'}
+        className="app-takeback"
+        onClick={spar.takeBack}
+        disabled={spar.lastUserMove < 0}
+        title={t('app.takeBackYourLastMove3')}
+        aria-label={t('app.takeBack')}
+      >
+        <span className="app-control-icon">
+          <Icon name="undo" />
+        </span>
+        <span className="app-control-label">{t('app.takeBack')}</span>
+      </Button>
+      <Button size="sm" variant="ghost" className="app-resign" onClick={spar.confirmResign} title={t('app.resign')} aria-label={t('app.resign')}>
+        <span className="app-control-icon">
+          <Icon name="resign" />
+        </span>
+        <span className="app-control-label">{t('app.resign')}</span>
+      </Button>
+    </>
+  )
+}
+
+function ModeControls({ lesson, drill, tsume, tesuji }: { lesson: Lesson; drill: Drill; tsume: Tsume; tesuji: Tesuji }) {
+  const { mode, course } = useSession()
+  return (
+    <>
+      {mode === 'lesson' && course && <LessonControls lesson={lesson} />}
+      {mode === 'drill' && <ReviewControls drill={drill} />}
+      {mode === 'tsume' && <TsumeControls trainer={tsume} />}
+      {mode === 'tesuji' && <TesujiControls trainer={tesuji} />}
+    </>
+  )
+}
+
+function StartOverButton({ onStartOver }: { onStartOver: () => void }) {
+  const { t } = useTranslation()
+  const { mode, game } = useSession()
+  if (mode === 'spar' || mode === 'view' || mode === 'tsume' || mode === 'tesuji' || game.moves.length === 0) return null
+  return (
+    <Button size="sm" variant="ghost" onClick={onStartOver} title={t('app.startOver')} aria-label={t('app.startOver')}>
+      <Icon name="reset" size={16} />
+    </Button>
+  )
+}
+
+function SparSetupButton({ spar }: { spar: Spar }) {
+  const { t } = useTranslation()
+  const settings = useSettings()
+  const { mode } = useSession()
+  if (mode !== 'spar') return null
+  return (
+    <Button
+      variant={spar.erred ? 'secondary' : 'primary'}
+      className="app-game-setup"
+      onClick={() => spar.setNewGameOpen(true)}
+      title={`${STRENGTH[settings.opponent].label} · ${TIME_CONTROLS[settings.timeControl].label}`}
+      aria-label={t('newGame.button')}
+    >
+      <span className="app-control-icon">
+        <Icon name="newGame" />
+      </span>
+      <span className="app-control-label">{t('newGame.button')}</span>
+    </Button>
+  )
+}
+
+function PanelNav({ panelHidden, onPanel }: { panelHidden: boolean; onPanel: (hidden: boolean) => void }) {
+  const { t } = useTranslation()
+  const { nav } = useSession()
+  if (!panelHidden) {
+    return (
+      <div className="app-mini-nav">
+        <Button size="sm" className="app-mini-wide" onClick={() => onPanel(true)} title={t('app.boardOnlyHideThePanel')} aria-label={t('app.hideThePanel')}>
+          <Icon name="panel" size={16} />
+          <span>{t('app.hidePanel')}</span>
+        </Button>
+      </div>
+    )
+  }
+  return (
+    <div className="app-mini-nav">
+      <Button size="sm" onClick={nav.back} disabled={!nav.canBack} title={t('app.back')} aria-label={t('app.back2')}>
+        <Icon name="prev" size={16} />
+      </Button>
+      <Button size="sm" onClick={nav.forward} disabled={!nav.canForward} title={t('app.forward')} aria-label={t('app.forward2')}>
+        <Icon name="next" size={16} />
+      </Button>
+      <Button size="sm" className="app-mini-wide" onClick={() => onPanel(false)} title={t('app.showThePanelP')} aria-label={t('app.showThePanel')}>
+        <Icon name="panel" size={16} />
+        <span>{t('app.panel')}</span>
+      </Button>
+    </div>
+  )
+}
+
 export function ModeBar({
   onFlip,
   title,
@@ -79,159 +290,32 @@ export function ModeBar({
   drill,
 }: ModeBarProps) {
   const { t } = useTranslation()
-  const settings = useSettings()
-  const engine = useEngineStatus()
-  const unavailable = !engineSupported()
-  const ja = settings.lang === 'ja'
-  const { mode, course, lastMove, prevSfen, plyBase, preview, cursor, toMove, nav, gameOver, game } = useSession()
-  const seal = ja ? (
-    mode === 'lesson' && course ? (
-      t(lessonMode === 'study' ? 'modes.sealStudy' : 'modes.sealQuiz')
-    ) : (
-      t(`modes.${mode}.name`)
-    )
-  ) : (
-    <Icon name={MODES.find((m) => m.id === mode)!.icon} size={22} />
-  )
+  const { mode } = useSession()
   return (
     <header className={`app-modebar${sheetUp ? ' sheet-up' : ''} m-${mode}${mode === 'lesson' ? ` l-${lessonMode}` : ''}`}>
       <div className="app-modebar-heading">
-        <span className="app-modebar-seal">{seal}</span>
+        <span className="app-modebar-seal">
+          <ModeSeal lessonMode={lessonMode} />
+        </span>
         <span className="app-modebar-text">
           <strong>{title}</strong>
-          <span role="status" aria-busy={engine.loading}>
-            {unavailable ? t('engine.theAiNeedsACross') : engine.error ? engine.error : engine.loading ? t('engine.loadingEngine') : instruction}
-          </span>
+          <EngineStatusText instruction={instruction} />
         </span>
-        <span className="app-lastmove">
-          {lastMove && prevSfen ? (
-            <>
-              <span className="app-ply">{t('app.move', { value: plyBase + (preview ? preview.base + preview.step : cursor) })}</span>
-              <strong title={moveText(prevSfen, lastMove)}>{moveText(prevSfen, lastMove)}</strong>
-            </>
-          ) : (
-            <span className="app-ply">{plyBase > 0 ? t('app.afterMove', { plyBase }) : t('app.startPosition')}</span>
-          )}
-          <span className={`app-turn ${toMove}`}>{t('app.toMove', { side: sideMark(toMove) })}</span>
-        </span>
+        <LastMove />
       </div>
       <div className="app-modebar-controls">
-        {engine.error && (isGameMode(mode) || mode === 'view') && (
-          <Button
-            size="sm"
-            onClick={() => {
-              restartEngine()
-              if (mode === 'view') watch.toggle()
-            }}
-          >
-            {t('tsume.tryAgain')}
-          </Button>
-        )}
-        {unavailable && (
-          <Button size="sm" onClick={() => location.reload()}>
-            {t('engine.reloadPage')}
-          </Button>
-        )}
-        {mode === 'view' && (
-          <>
-            <Button size="sm" onClick={watch.started ? watch.toggle : onWatchSetup} disabled={watch.started && !watch.canPlay}>
-              <Icon name={watch.running ? 'pause' : 'play'} size={16} />
-              {t(watch.started ? (watch.running ? 'watch.pause' : 'watch.resume') : 'newGame.start')}
-            </Button>
-            <Button size="sm" onClick={watch.restart}>
-              {t('watch.newGame')}
-            </Button>
-          </>
-        )}
-        {(isGameMode(mode) || mode === 'view') && (
-          <Button
-            size="sm"
-            variant="ghost"
-            className={cx('app-help-toggle', settings.assist && 'on')}
-            onClick={() => setSettings({ assist: !settings.assist })}
-            title={settings.assist ? t('app.helpIsOnEvalBar') : t('app.noHelpClickToShow')}
-            aria-pressed={settings.assist}
-            aria-label={settings.assist ? t('app.coachOn') : t('app.coachOff')}
-          >
-            <span className="app-control-icon">
-              <Icon name="coach" />
-            </span>
-            <span className="app-control-label">{settings.assist ? t('app.coachOn') : t('app.coachOff')}</span>
-          </Button>
-        )}
-        {mode === 'spar' && game.moves.length > 0 && !gameOver && !spar.resigned && (
-          <>
-            <Button
-              size="sm"
-              variant={spar.erred ? 'primary' : 'secondary'}
-              className="app-takeback"
-              onClick={spar.takeBack}
-              disabled={spar.lastUserMove < 0}
-              title={t('app.takeBackYourLastMove3')}
-              aria-label={t('app.takeBack')}
-            >
-              <span className="app-control-icon">
-                <Icon name="undo" />
-              </span>
-              <span className="app-control-label">{t('app.takeBack')}</span>
-            </Button>
-            <Button size="sm" variant="ghost" className="app-resign" onClick={spar.confirmResign} title={t('app.resign')} aria-label={t('app.resign')}>
-              <span className="app-control-icon">
-                <Icon name="resign" />
-              </span>
-              <span className="app-control-label">{t('app.resign')}</span>
-            </Button>
-          </>
-        )}
-        {mode === 'lesson' && course && <LessonControls lesson={lesson} />}
-        {mode === 'drill' && <ReviewControls drill={drill} />}
-        {mode === 'tsume' && <TsumeControls trainer={tsume} />}
-        {mode === 'tesuji' && <TesujiControls trainer={tesuji} />}
-        {mode !== 'spar' && mode !== 'view' && mode !== 'tsume' && mode !== 'tesuji' && game.moves.length > 0 && (
-          <Button size="sm" variant="ghost" onClick={onStartOver} title={t('app.startOver')} aria-label={t('app.startOver')}>
-            <Icon name="reset" size={16} />
-          </Button>
-        )}
-        {mode === 'spar' && (
-          <Button
-            variant={spar.erred ? 'secondary' : 'primary'}
-            className="app-game-setup"
-            onClick={() => spar.setNewGameOpen(true)}
-            title={`${STRENGTH[settings.opponent].label} · ${TIME_CONTROLS[settings.timeControl].label}`}
-            aria-label={t('newGame.button')}
-          >
-            <span className="app-control-icon">
-              <Icon name="newGame" />
-            </span>
-            <span className="app-control-label">{t('newGame.button')}</span>
-          </Button>
-        )}
+        <EngineRecovery watch={watch} />
+        <WatchControls watch={watch} onWatchSetup={onWatchSetup} />
+        <AssistToggle />
+        <SparMoveControls spar={spar} />
+        <ModeControls lesson={lesson} drill={drill} tsume={tsume} tesuji={tesuji} />
+        <StartOverButton onStartOver={onStartOver} />
+        <SparSetupButton spar={spar} />
         <Button size="sm" variant="ghost" className="app-board-flip" onClick={onFlip} title={t('app.flipTheBoardF')} aria-label={t('app.flip')}>
           <Icon name="flip" size={16} />
         </Button>
         {evalRate !== null && <EvalChip rate={evalRate} barShown={barShown} />}
-        {!panelHidden && (
-          <div className="app-mini-nav">
-            <Button size="sm" className="app-mini-wide" onClick={() => onPanel(true)} title={t('app.boardOnlyHideThePanel')} aria-label={t('app.hideThePanel')}>
-              <Icon name="panel" size={16} />
-              <span>{t('app.hidePanel')}</span>
-            </Button>
-          </div>
-        )}
-        {panelHidden && (
-          <div className="app-mini-nav">
-            <Button size="sm" onClick={nav.back} disabled={!nav.canBack} title={t('app.back')} aria-label={t('app.back2')}>
-              <Icon name="prev" size={16} />
-            </Button>
-            <Button size="sm" onClick={nav.forward} disabled={!nav.canForward} title={t('app.forward')} aria-label={t('app.forward2')}>
-              <Icon name="next" size={16} />
-            </Button>
-            <Button size="sm" className="app-mini-wide" onClick={() => onPanel(false)} title={t('app.showThePanelP')} aria-label={t('app.showThePanel')}>
-              <Icon name="panel" size={16} />
-              <span>{t('app.panel')}</span>
-            </Button>
-          </div>
-        )}
+        <PanelNav panelHidden={panelHidden} onPanel={onPanel} />
       </div>
     </header>
   )
@@ -243,7 +327,7 @@ export function WatchOptions({ watch }: { watch: Watch }) {
   return (
     <>
       {watch.bots.map((strength, index) => (
-        <div key={index} className="app-bot-settings" role="group" aria-label={watch.name(index)}>
+        <fieldset key={watch.name(index)} className="app-bot-settings" aria-label={watch.name(index)}>
           <span>
             {watch.name(index)}
             {watch.side(index) && ` · ${t(`common.${watch.side(index)}`)}`}
@@ -284,7 +368,7 @@ export function WatchOptions({ watch }: { watch: Watch }) {
               ) : null
             })}
           </select>
-        </div>
+        </fieldset>
       ))}
     </>
   )
