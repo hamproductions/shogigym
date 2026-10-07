@@ -394,7 +394,7 @@ export function pieceMesh(
   mesh.userData.color = color
   mesh.castShadow = !glass
   mesh.receiveShadow = !glass
-  const top = new THREE.Mesh(carvedTop(scale, inkMap, segments, appearance), face)
+  const top = new THREE.Mesh(glass && relief < 0 ? flatTop(scale) : carvedTop(scale, inkMap, segments, appearance), face)
   if (glass) top.position.y = 0.028
   top.castShadow = !glass
   top.receiveShadow = !glass

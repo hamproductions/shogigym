@@ -26,28 +26,8 @@
   font-weight: var(--weight-bold);
 }
 
-.app-plate-formation {
-  display: grid;
-  gap: 1px;
-  padding: var(--space-1) var(--space-2);
-  border-left: 2px solid #b8860b;
-  line-height: 1.2;
-}
-
-.app-plate-formation.castle {
-  border-color: #c8442f;
-}
-
-.app-plate-formation small {
-  color: var(--text-muted);
-  font-size: var(--text-2xs);
-  letter-spacing: 0.08em;
-}
-
-.app-plate-formation strong {
-  font-family: 'Shippori Mincho B1', serif;
-  font-size: var(--text-md);
-  font-weight: var(--weight-bold);
+.app-plate .app-pill {
+  font-size: var(--text-sm);
 }
 
 .app-clock {
@@ -77,7 +57,7 @@
 }
 
 @media (max-width: 820px), (max-width: 1024px) and (orientation: portrait) {
-  .app-board-scene .app-plate {
+  .app-board-scene > .app-plate {
     font-size: var(--text-sm);
     gap: var(--space-1);
   }
@@ -86,8 +66,8 @@
     padding-left: 0;
   }
 
-  .app-plate-formation strong {
-    font-size: var(--text-sm);
+  .app-plate .app-pill {
+    font-size: var(--text-xs);
   }
 
   .app-shell.drawer-open .app-plate {
@@ -99,20 +79,8 @@
   left: calc(var(--eval-bar-width) + var(--space-2));
 }
 
-.app-board-wrap.with-eval .app-board-caption {
-  left: calc(var(--eval-bar-width) + var(--space-2));
-}
-
-.app-board-caption > .app-plate {
-  left: auto;
-}
-
 @media (max-width: 820px), (max-width: 1024px) and (orientation: portrait) {
   .app-board-wrap.with-eval .app-plate {
-    left: var(--space-2);
-  }
-
-  .app-board-wrap.with-eval .app-board-caption {
     left: var(--space-2);
   }
 }
@@ -123,7 +91,7 @@
     padding-block: 0;
   }
 
-  .app-plate-formation {
+  .app-plate .app-pill {
     display: none;
   }
 }
