@@ -1,4 +1,5 @@
 import { useCallback } from 'react'
+import { useNavigate } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import { parseMoves } from 'tsshogi'
 import { mainStrategies } from '@/data/strategies'
@@ -51,6 +52,7 @@ type CommandActions = {
 
 export function useCommands({ sfen, setMode, flip, tilt, openCourse, play, newGame }: CommandActions) {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   return useCallback(
     (query: string): Command[] => {
       const q = query.trim().toLowerCase()
@@ -72,6 +74,7 @@ export function useCommands({ sfen, setMode, flip, tilt, openCourse, play, newGa
         })),
         { id: 'flip', label: t('palette.flipTheBoard'), hint: 'F', run: flip },
         { id: 'viewer', label: t('palette.pieceViewerDebug'), run: openPieceViewer },
+        { id: 'taikyoku', label: t('palette.taikyoku'), hint: '大局将棋', run: () => void navigate('/taikyoku') },
         { id: 'tilt', label: t('palette.tiltTheBoard'), hint: 'T', run: tilt },
         { id: 'new', label: t('palette.newGameFromTheStart'), run: newGame },
         ...mainStrategies().map((s) => ({
@@ -95,6 +98,6 @@ export function useCommands({ sfen, setMode, flip, tilt, openCourse, play, newGa
       ]
       return [...out, ...base.filter((c) => !q || terms.some((term) => `${c.label} ${c.hint ?? ''}`.toLowerCase().includes(term)))].slice(0, 12)
     },
-    [sfen, setMode, flip, tilt, openCourse, play, newGame, t],
+    [sfen, setMode, flip, tilt, openCourse, play, newGame, navigate, t],
   )
 }

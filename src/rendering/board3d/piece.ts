@@ -133,7 +133,10 @@ function pieceBody(scale: number) {
 }
 
 // Carved faces are keyed by glyph canvas; bounded, and dropped geometry is disposed so its GPU buffers are freed.
-const TOP_LIMIT = 48
+let TOP_LIMIT = 48
+export const setTopCacheLimit = (n: number) => {
+  TOP_LIMIT = n
+}
 const topCache = new Map<object, Map<number, THREE.BufferGeometry>>()
 const flatCache = new Map<number, THREE.BufferGeometry>()
 
@@ -296,6 +299,9 @@ function faceMap(type: PieceType, color: Color, seed = 1, appearance?: PieceAppe
   return faceTexture(faceText(type, color, appearance?.pieceStyle ?? getSettings().pieceStyle), PROMOTED.has(type), seed, appearance, pieceCode(type, color))
 }
 
+/** A face that is not a shogi PieceType (variant boards): glyph text, promoted-ink flag, guide code and tile size. */
+export type CustomFace = { text: string; promoted: boolean; code: string; scale: number }
+
 export function pieceMesh(
   type: PieceType,
   color: Color,
@@ -304,10 +310,14 @@ export function pieceMesh(
   appearance?: PieceAppearance,
   envMap = environmentMap(),
   flat = false,
+  custom?: CustomFace,
 ) {
-  const scale = pieceScale(type)
-  const map = faceMap(type, color, seed, appearance)
-  const inkMap = faceMap(type, color, 1, appearance)
+  const scale = custom?.scale ?? pieceScale(type)
+  // Custom faces share one grain variant per glyph so hundreds of distinct tiles stay cheap; the sides still vary by seed.
+  const frontMap = (grain: number) =>
+    custom ? faceTexture(custom.text, custom.promoted, 1, appearance, custom.code, true) : faceMap(type, color, grain, appearance)
+  const map = frontMap(seed)
+  const inkMap = frontMap(1)
   const settings = { ...getSettings(), ...appearance }
   const plastic = settings.pieceMaterial === 'plastic'
   const frosted = settings.pieceMaterial === 'frostedGlass'
@@ -392,18 +402,17 @@ export function pieceMesh(
   mesh.userData.grainSeed = seed
   mesh.userData.type = type
   mesh.userData.color = color
+  if (custom) mesh.userData.custom = custom
   mesh.castShadow = !glass
   mesh.receiveShadow = !glass
   const top = new THREE.Mesh(glass && relief < 0 ? flatTop(scale) : carvedTop(scale, inkMap, segments, appearance), face)
   if (glass) top.position.y = 0.028
   top.castShadow = !glass
   top.receiveShadow = !glass
+  const blankBack = !!custom || type === PieceType.KING || type === PieceType.GOLD
   const reverse = PROMOTED.has(type) ? unpromotedPieceType(type) : promotedPieceType(type)
-  const reverseInk = type === PieceType.KING || type === PieceType.GOLD ? null : faceMap(reverse, color, 1, appearance)
-  const backMap =
-    type === PieceType.KING || type === PieceType.GOLD
-      ? faceTexture('', false, seed, { ...appearance, pieceGuide: 'none' })
-      : faceMap(reverse, color, seed, appearance)
+  const reverseInk = blankBack ? null : faceMap(reverse, color, 1, appearance)
+  const backMap = blankBack ? faceTexture('', false, custom ? 1 : seed, { ...appearance, pieceGuide: 'none' }) : faceMap(reverse, color, seed, appearance)
   if (reverseInk && !PROMOTED.has(type)) {
     carvedTop(scale, reverseInk, segments, appearance)
     lacquerMap(reverseInk, lacquer ? 0.5 : 0)

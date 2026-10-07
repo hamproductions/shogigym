@@ -10,6 +10,10 @@ const MODES: Record<string, { title: string; description: string }> = {
   openings: { title: 'Openings', description: 'Learn shogi openings for your main strategy with study and quiz modes, from beginner to amateur 1–2 dan.' },
   review: { title: 'Review', description: 'Spaced repetition of the positions you have learned and the mistakes from your games.' },
   tsume: { title: 'Tsume', description: 'Shogi checkmate puzzles (詰将棋) from 1 to 7 moves, with staged hints.' },
+  taikyoku: {
+    title: 'Taikyoku shogi 大局将棋',
+    description: 'Play 36×36 Taikyoku shogi, the biggest shogi variant ever played, against an engine that runs in your browser.',
+  },
   tesuji: { title: 'Tesuji', description: 'Find the tactical trick: pawn tesuji, forks, focal points and more.' },
 }
 

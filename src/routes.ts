@@ -8,6 +8,7 @@ export default [
     route('openings/:main', 'routes/page.tsx', { id: 'openings-main' }),
   ]),
   route('viewer', 'routes/viewer.tsx'),
+  route('taikyoku', 'routes/taikyoku.tsx'),
   ...(env.NODE_ENV === 'production'
     ? []
     : [

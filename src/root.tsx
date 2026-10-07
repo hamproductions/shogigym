@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactNode } from 'react'
-import { Links, Meta, Outlet, Scripts, ScrollRestoration, isRouteErrorResponse, useRouteError } from 'react-router'
+import { Links, Meta, Outlet, Scripts, ScrollRestoration, isRouteErrorResponse, useLocation, useRouteError } from 'react-router'
 import '@/styles/tokens.css'
 import '@/styles/base.css'
 
@@ -76,11 +76,14 @@ export default function Root() {
       unsubscribe?.()
     }
   }, [])
+  // the Taikyoku page brings its own engine; skip the shogi engine preload there
+  const taikyoku = /\/taikyoku\/?$/.test(useLocation().pathname)
   useEffect(() => {
+    if (taikyoku) return
     void import('@/utils/engine').then(({ engineSupported, getEngine }) => {
       if (engineSupported()) getEngine().catch((error) => console.warn('engine preload failed', error))
     })
-  }, [])
+  }, [taikyoku])
   return <Outlet />
 }
 

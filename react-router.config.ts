@@ -7,5 +7,5 @@ export default {
   appDirectory: 'src',
   ssr: false,
   basename: process.env.BASE_PATH ?? '/',
-  prerender: ['/', ...MODES.map((m) => `/${m}`), ...mainStrategies().map((s) => `/openings/${s.id}`)],
+  prerender: ['/', '/taikyoku', ...MODES.map((m) => `/${m}`), ...mainStrategies().map((s) => `/openings/${s.id}`)],
 } satisfies Config

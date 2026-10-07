@@ -586,7 +586,8 @@
     "commandPalette": "Command palette",
     "searchLinesTypeAMove": "Search lines, type a move like 76歩 or 7g7f, or a command",
     "noMatchTryALine": "No match. Try a line name like mino or anaguma, or a move like 76歩.",
-    "modeCommand": "{{name}} mode"
+    "modeCommand": "{{name}} mode",
+    "taikyoku": "Taikyoku shogi (36×36 fun mode)"
   },
   "picker": {
     "theyAttackYouDefendAs": "You defend as {{side}}",
@@ -950,5 +951,97 @@
     "bestWins": "The best move {{move}} wins material: {{line}}",
     "bestDoes": "{{move}} {{what}}",
     "engineLine": "Engine line: {{line}}"
+  },
+  "taikyoku": {
+    "back": "Back to Shogi Gym",
+    "board": "Taikyoku shogi board",
+    "sente": "Sente",
+    "gote": "Gote",
+    "armies": "Pieces on the board",
+    "legal": "{{n}} legal moves",
+    "ply": "move {{n}}",
+    "hint": "Tap one of your pieces (bottom of the board) to see where it can go. Pinch or scroll to zoom, drag to pan.",
+    "promotesTo": "Promotes to {{piece}}",
+    "noPromotion": "Never promotes",
+    "royal": "royal",
+    "jitto": "Jitto (pass)",
+    "jittoHint": "The Lion-style stay-in-place move: the turn passes and nothing changes.",
+    "new": "New game",
+    "undo": "Undo",
+    "commentary": "Commentary",
+    "eval": "Engine’s take: {{cp}} (depth {{depth}})",
+    "status": {
+      "loading": "Warming up 804 pieces…",
+      "yourMove": "Your move (Sente)",
+      "thinking": "The engine is thinking",
+      "auto": "Engine vs engine",
+      "won": "{{who}} wins — every royal piece is gone",
+      "limit": "Move limit reached: declared a draw",
+      "error": "The engine could not start"
+    },
+    "auto": {
+      "start": "Watch engines",
+      "stop": "Stop"
+    },
+    "strength": {
+      "label": "Engine",
+      "nap": "Napping",
+      "normal": "Awake",
+      "deep": "Brooding"
+    },
+    "zoom": {
+      "fit": "Fit the whole board",
+      "mine": "Zoom to your side",
+      "last": "Zoom to the last move",
+      "view": "Switch between the 3D board and the flat map"
+    },
+    "opt": {
+      "title": "Pick the move",
+      "move": "Move",
+      "igui": "Eat in place (igui)",
+      "via": "Via {{square}}",
+      "promote": "promote",
+      "cancel": "Cancel"
+    },
+    "marathon": {
+      "title": "The 2004 marathon",
+      "clock": "At the pace of the only recorded TV game (3,805 moves in 32 h 41 m) this one has taken {{time}}."
+    },
+    "say": {
+      "open": [
+        "804 pieces, 1,296 squares. Please pack a lunch.",
+        "Sente moves first. Only 488 options for your opening move.",
+        "Welcome to the largest shogi ever played. Snacks are strongly recommended."
+      ],
+      "capture": [
+        "{who} takes {n} with the {piece}.",
+        "The {piece} removes {n} and nobody blinks.",
+        "{n} pieces gone. {own} were friendly fire.",
+        "A capture! 800-odd pieces to go."
+      ],
+      "igui": ["The {piece} eats {who}’s victim without moving. Efficient. Rude.", "Igui! Dinner without leaving the table."],
+      "jitto": ["The {piece} sits very still. Jitto: the turn passes.", "{who} passes with a dignified stare."],
+      "promote": ["The {piece} gets promoted. Congratulations on the new kanji.", "Promotion! The tile flips and the kanji changes."],
+      "royal": ["A royal piece has fallen.", "One less royal. The court is nervous."],
+      "milestone": ["Move {ply}. The record game lasted 3,805.", "Move {ply} already. Stretch your legs."],
+      "quiet": [
+        "The {piece} shuffles forward.",
+        "{who} shifts the {piece}. 1,295 squares are still watching.",
+        "A quiet move by the {piece}. Taikyoku is mostly quiet moves.",
+        "The {piece} advances; nothing is on fire yet."
+      ]
+    },
+    "facts": {
+      "title": "Under the hood",
+      "items": [
+        "36 × 36 = 1,296 squares, 402 pieces per side, 209 piece types and 301 move classes (promotions included).",
+        "There are 488 legal moves in the opening position, and well over 900 in a typical middlegame.",
+        "There is no check or checkmate: you win by capturing every royal piece (the king and the crown prince).",
+        "The engine is TaikyokuShogi-Stockfish (GPLv3), compiled to WebAssembly and running in this tab: alpha-beta search with material evaluation, depth 3 in about 54,000 nodes.",
+        "Fairy-Stockfish cannot play this: its boards stop at 12 × 10 squares, with bitboards and 7-bit squares, far below 1,296.",
+        "The only well-documented game (Japanese TV, 2004) took 3,805 moves and 32 hours 41 minutes."
+      ]
+    },
+    "setup": "Setting up the pieces… {{done}} / {{total}}"
   }
 }

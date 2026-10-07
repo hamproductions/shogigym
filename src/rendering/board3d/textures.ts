@@ -100,8 +100,13 @@ export function boardTexture(style: BoardStyle, scale = BOARD_SCALE) {
   return srgbTexture(canvas, 8)
 }
 
-const TEXTURE_LIMIT = 96
-const GLYPH_LIMIT = 96
+let TEXTURE_LIMIT = 96
+let GLYPH_LIMIT = 96
+
+/** Boards with hundreds of distinct tiles raise the face caches so tiles are not rebuilt while in play. */
+export const setFaceCacheLimit = (n: number) => {
+  TEXTURE_LIMIT = GLYPH_LIMIT = n
+}
 const faceCache = new Map<string, THREE.Texture>()
 const artCache = new Map<string, THREE.Texture>()
 const clearHooks = new Set<() => void>()
@@ -207,8 +212,8 @@ function guideInk(guide: HTMLCanvasElement | undefined, ink: HTMLCanvasElement) 
   return canvas
 }
 
-function composeGlyph(ink: HTMLCanvasElement, guide?: HTMLCanvasElement, two = false, marks = false) {
-  const { canvas, ctx } = canvas2d(ink.width)
+function composeGlyph(ink: HTMLCanvasElement, guide?: HTMLCanvasElement, two = false, marks = false, readback = false) {
+  const { canvas, ctx } = canvas2d(ink.width, ink.width, readback)
   const scale = pieceScale(PieceType.KING)
   const width = komaWidth(scale)
   const [x, y] = piecePolygon(scale)[2]
@@ -278,7 +283,7 @@ function rememberGlyph(key: string, glyph: HTMLCanvasElement) {
   if (glyphCache.size > GLYPH_LIMIT) glyphCache.delete(glyphCache.keys().next().value!)
 }
 
-function normalizeInk(source: HTMLCanvasElement) {
+function normalizeInk(source: HTMLCanvasElement, readback = false) {
   const pixels = source.getContext('2d', { willReadFrequently: true })!.getImageData(0, 0, source.width, source.height).data
   let left = source.width
   let top = source.height
@@ -292,7 +297,7 @@ function normalizeInk(source: HTMLCanvasElement) {
         right = Math.max(right, x + 1)
         bottom = Math.max(bottom, y + 1)
       }
-  const { canvas, ctx } = canvas2d(source.width)
+  const { canvas, ctx } = canvas2d(source.width, source.width, readback)
   if (right <= left || bottom <= top) return canvas
   const factor = Math.min(canvas.width / (right - left), canvas.height / (bottom - top))
   const width = (right - left) * factor
@@ -301,7 +306,8 @@ function normalizeInk(source: HTMLCanvasElement) {
   return canvas
 }
 
-export function faceTexture(char: string, promoted: boolean, seed = 1, appearance?: PieceAppearance, code = 'FU') {
+// `readback` keeps the glyph canvas CPU-backed for boards that derive relief maps from hundreds of distinct glyphs.
+export function faceTexture(char: string, promoted: boolean, seed = 1, appearance?: PieceAppearance, code = 'FU', readback = false) {
   const set = appearance?.pieceSet ?? getSettings().pieceSet
   const broadcast = set === 'broadcast'
   const font = PIECE_FONTS[appearance?.pieceFont ?? getSettings().pieceFont] ?? PIECE_FONTS.mincho
@@ -336,7 +342,7 @@ export function faceTexture(char: string, promoted: boolean, seed = 1, appearanc
     const sourceGuide = settings.pieceGuide === 'none' ? undefined : loadedGuide(code, settings.pieceGuide)
     const guide = settings.pieceGuide === 'lines' ? guideInk(sourceGuide, glyph) : sourceGuide
     if (settings.pieceGuide !== 'none' && !guide) throw new Error(`Guide not loaded: ${code}/${settings.pieceGuide}`)
-    glyph = composeGlyph(normalizeInk(glyph), guide, settings.pieceStyle === 'two', settings.pieceGuide === 'movement')
+    glyph = composeGlyph(normalizeInk(glyph, readback), guide, settings.pieceStyle === 'two', settings.pieceGuide === 'movement', readback)
     if (fontReady) rememberGlyph(glyphKey, glyph)
   }
   canvas.getContext('2d')!.drawImage(glyph, 0, 0)

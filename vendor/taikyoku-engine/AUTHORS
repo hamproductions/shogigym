@@ -1,0 +1,50 @@
+# AUTHORS — TaikyokuShogi-Stockfish
+
+Este proyecto es obra derivada. La cadena de atribución, en orden:
+
+## Código
+
+- **Stockfish** (https://github.com/official-stockfish/Stockfish), GPLv3.
+  Chasis de búsqueda, gestión de tiempo, TT, historiales, arquitectura NNUE y
+  disciplina de bench. Todos sus autores, listados en el AUTHORS de Stockfish.
+
+- **Terachess-Stockfish** (https://github.com/Belzedar94/Terachess-Stockfish),
+  GPLv3. Chasis de partida real de este proyecto: Square ancho, historiales
+  bucketed, datagen embebido conforme al contrato de OpenBench, formato binario
+  versionado con round-trip doble, trainer `terannue` y el arnés completo de
+  verificacion (engine_check, mass_perft, parity_gate, check_label_units,
+  fixed_nodes_match, parallel_match, sprt, data_scaling, merge_shards).
+
+- **Free Software Foundation** — texto de la GPLv3 en Copying.txt.
+
+## Reglas de la variante
+
+Taikyoku shogi es de dominio publico (periodo Edo, siglos XVI-XVII). La
+reconstruccion moderna de sus reglas se debe a:
+
+- **梅林勲 (Umebayashi Isao) y 岡野伸 (Okano Shin)**,
+  『改訂版 世界の将棋・古代から現代まで』(将棋天国社, 2000) — fuente citada por
+  la Wikipedia japonesa de 大局将棋 y origen de la tabla de setup y de las
+  reglas globales usadas aqui.
+
+- **梅林勲**, 『世界の将棋』(Sekai no Shogi), 1997 — origen de la notacion de
+  movimientos y del simbolo cuyo significado la propia fuente declara
+  desconocido (ver TAIKYOKU_SPEC.md §5.4).
+
+- **George Hodges**, "Ten Shogi Variants" (2002) — medidas fisicas del tablero.
+
+- **L. Lynn Smith** — traduccion al ingles de Sekai no Shogi publicada en
+  The Chess Variant Pages.
+
+- **H. G. Muller** — notacion Betza y los Interactive Diagrams que hicieron
+  transcribible la tabla de movimientos; HaChu como oraculo parcial del
+  subconjunto Chu.
+
+- Los editores de **Wikipedia EN (Taikyoku shogi)** y **JA (大局将棋)**, que
+  consolidaron ambas transcripciones. Son las dos fuentes independientes cuyo
+  cotejo constituye la base de docs/rules-sources.md.
+
+## Contribucion original de este proyecto
+
+Las referencias de perft de Taikyoku shogi (oracle/perft_refs.json) son
+originales: no existe ninguna publicada. Se ofrecen bajo la misma licencia.

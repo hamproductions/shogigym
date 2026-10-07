@@ -15,3 +15,4 @@ src/rendering/avatars/handMotion.json
 bun.lock
 CHANGELOG.md
 sound-samples
+src/features/taikyoku/catalog.json
