@@ -2,6 +2,22 @@
 
 Notable changes are recorded here when a release is created. Versions follow Semantic Versioning.
 
+# [1.4.0](/compare/v1.3.8...v1.4.0) (2026-10-07)
+
+
+### Bug Fixes
+
+* announcement stamp uses a single kanji and sits on the ink on mobile 4503af2
+* keep the bottom player plate clear of the eval bar 74ff1b1
+* rebuild the 3D board after the GL context is lost and not restored 1cedf76
+* use two-kanji announcement stamps (手筋/囲い/戦法) e58ff30
+
+
+### Features
+
+* bring Taikyoku board and controls to shared game presentation 1a9e83a
+* Taikyoku shogi (大局将棋) fun mode on the shared 3D renderer 5a22fd3
+
 ## [1.3.8](/compare/v1.3.7...v1.3.8) (2026-10-07)
 
 
