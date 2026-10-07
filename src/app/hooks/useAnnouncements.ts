@@ -10,7 +10,7 @@ import { detectTesuji, type Tesuji } from '@/app/tesuji'
 import type { BoardSession } from './useBoardSession'
 import { useTransient } from './useTransient'
 
-// `seal` is a single kanji so the stamp fits at any size, whatever language the UI is in.
+// `seal` is a fixed two-kanji stamp so it fits the seal box, whatever language the UI is in.
 export type Announcement = { side: Color; name: string; kind: string; seal: string; key: number; tesuji?: boolean }
 
 const QUIET_NAMES = ['居玉', '居飛車']
@@ -42,7 +42,7 @@ export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, pos
       else if (!three) say('ありがとうございました', true)
     }
     if (tesuji) {
-      setAnnounce({ side: positionOf(sfens[cursor - 1]).color, name: tesuji.ja, kind: t('app.tesuji'), seal: '妙', key: Date.now(), tesuji: true })
+      setAnnounce({ side: positionOf(sfens[cursor - 1]).color, name: tesuji.ja, kind: t('app.tesuji'), seal: '手筋', key: Date.now(), tesuji: true })
       setTesujiNote({ ...tesuji, at: cursor })
     }
     const tags = formationTagsAt(sfens, game.moves, cursor, game.detectionPreset)
@@ -50,7 +50,7 @@ export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, pos
       const side = positionOf(sfens[cursor - 1]).color
       const technique = tags[side === Color.BLACK ? 0 : 1].findLast((tag) => tag.kind === 'technique' && tag.ply === cursor)
       if (showTesuji && technique) {
-        setAnnounce({ side, name: formationName(technique.name, i18n.language), kind: t('app.tesuji'), seal: '妙', key: Date.now(), tesuji: true })
+        setAnnounce({ side, name: formationName(technique.name, i18n.language), kind: t('app.tesuji'), seal: '手筋', key: Date.now(), tesuji: true })
       }
     }
     if (!formationOpeningAt(sfens, game.moves, cursor, game.detectionPreset)) return
@@ -64,7 +64,7 @@ export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, pos
         announced.current.seen.add(id)
         if (!stepped) continue
         say(name)
-        setAnnounce({ side: color, name: formationName(name, i18n.language), kind, seal: tag.kind === 'strategy' ? '戦' : '囲', key: Date.now() })
+        setAnnounce({ side: color, name: formationName(name, i18n.language), kind, seal: tag.kind === 'strategy' ? '戦法' : '囲い', key: Date.now() })
         return
       }
     }
