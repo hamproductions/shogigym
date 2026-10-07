@@ -330,7 +330,7 @@ function clearOfBoard(lamp: THREE.Vector3, radius: number) {
 
 function skyDome(file: string) {
   const sky = new THREE.Mesh(
-    once('sky-geometry', () => new THREE.SphereGeometry(100, 64, 32)),
+    once('sky-geometry', () => new THREE.SphereGeometry(100, 32, 16)),
     once(`sky:${file}`, () => {
       const map = new THREE.TextureLoader().load(`${import.meta.env.BASE_URL}sky/${file}`)
       map.colorSpace = THREE.SRGBColorSpace
@@ -591,12 +591,12 @@ export function buildRoom(root: THREE.Group, dims: RoomDims) {
   for (const sgn of [1, -1]) {
     const yaw = sgn === 1 ? 0 : Math.PI
     const cz = sgn * (dims.halfD + ZABUTON.gap)
-    const cushion = new THREE.Mesh(new RoundedBoxGeometry(ZABUTON.w, ZABUTON.h, ZABUTON.d, 4, 0.7), zabuton)
+    const cushion = new THREE.Mesh(new RoundedBoxGeometry(ZABUTON.w, ZABUTON.h, ZABUTON.d, 2, 0.7), zabuton)
     cushion.position.set(0, floorY + ZABUTON.h / 2, cz)
     cushion.castShadow = cushion.receiveShadow = true
     groups.items.add(cushion)
     const kx = -sgn * 13.5
-    put(parts, fabric, place(new RoundedBoxGeometry(3.4, 1.6, mm(450), 3, 0.7), kx, floorY + mm(300) - 0.8, cz + sgn * 1, yaw))
+    put(parts, fabric, place(new RoundedBoxGeometry(3.4, 1.6, mm(450), 2, 0.7), kx, floorY + mm(300) - 0.8, cz + sgn * 1, yaw))
     put(parts, kyoWood, place(box(0.7, mm(300) - 2.2, 1.6, 0, 0, mm(150)), kx, floorY + (mm(300) - 2.2) / 2 + 0.6, cz + sgn * 1, yaw))
     put(parts, kyoWood, place(box(0.7, mm(300) - 2.2, 1.6, 0, 0, -mm(150)), kx, floorY + (mm(300) - 2.2) / 2 + 0.6, cz + sgn * 1, yaw))
     put(parts, kyoWood, place(new RoundedBoxGeometry(3.0, 0.6, mm(400), 2, 0.25), kx, floorY + 0.3, cz + sgn * 1, yaw))
@@ -1133,7 +1133,7 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
     const x0 = -A
     const len = mm(1800)
     const depth = mm(850)
-    const rb = (w: number, h: number, d: number, r: number, x: number, y: number, z: number) => new RoundedBoxGeometry(w, h, d, 3, r).translate(x, y, z)
+    const rb = (w: number, h: number, d: number, r: number, x: number, y: number, z: number) => new RoundedBoxGeometry(w, h, d, 2, r).translate(x, y, z)
     put(parts, sofa, rb(depth - 1, 6, len - 4, 0.8, x0 + depth / 2, floorY + 2.4 + 3, 0))
     put(parts, sofa, rb(4.5, mm(800) - 2.4, len - 2, 1.2, x0 + 2.6, floorY + 2.4 + (mm(800) - 2.4) / 2, 0))
     for (const z of [-1, 1]) put(parts, sofa, rb(depth, mm(600) - 2.4, 4.5, 1.4, x0 + depth / 2, floorY + 2.4 + (mm(600) - 2.4) / 2, z * (len / 2 - 2.25)))
@@ -1307,7 +1307,7 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
     }
     for (const g of stems) put(parts, standard('plant-stem', { color: 0x4e6e36, roughness: 0.7 }, 0.22), g)
     bake(parts, groups.items)
-    const leafMesh = new THREE.InstancedMesh(new THREE.SphereGeometry(1, 12, 8), standard('monstera', { roughness: 0.55, emissive: 0x0e1c0c }), leaves.length)
+    const leafMesh = new THREE.InstancedMesh(new THREE.SphereGeometry(1, 8, 6), standard('monstera', { roughness: 0.55, emissive: 0x0e1c0c }), leaves.length)
     leaves.forEach((m, i) => {
       leafMesh.setMatrixAt(i, m)
       leafMesh.setColorAt(i, new THREE.Color(0x2f6a34).offsetHSL(0, 0, (r() - 0.5) * 0.08))
@@ -1358,7 +1358,7 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
     for (const side of [1, -1]) {
       const cz = side * (tableD / 2 + seat / 2 - 2)
       put(parts, chairWood, new RoundedBoxGeometry(seat, 1, seat, 2, 0.3).translate(0, floorY + seatH - 0.5, cz))
-      put(parts, cushion, new RoundedBoxGeometry(seat - 1.4, 0.8, seat - 1.6, 3, 0.35).translate(0, floorY + seatH + 0.35, cz - side * 0.3))
+      put(parts, cushion, new RoundedBoxGeometry(seat - 1.4, 0.8, seat - 1.6, 2, 0.35).translate(0, floorY + seatH + 0.35, cz - side * 0.3))
       for (const [sx, sz] of [
         [-1, -1],
         [1, -1],
@@ -1464,7 +1464,7 @@ export function buildCasual(root: THREE.Group, dims: RoomDims) {
       [0, 1.1, 1.1],
       [0.1, -0.1, 2.3],
     ])
-      put(parts, mikan, new THREE.SphereGeometry(1.15, 14, 10).scale(1, 0.82, 1).translate(bx + ox, top + oy, bz + oz))
+      put(parts, mikan, new THREE.SphereGeometry(1.15, 10, 8).scale(1, 0.82, 1).translate(bx + ox, top + oy, bz + oz))
     bake(parts, groups.table, true, false)
   }
 

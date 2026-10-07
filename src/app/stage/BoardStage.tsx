@@ -37,6 +37,7 @@ const Board3D = lazy(() => import('@/rendering/Board3D').then((m) => ({ default:
 type BoardStageProps = {
   furigoma?: boolean
   onFurigoma?: (faces: boolean[]) => void
+  onMoveLanded: (sfen: string) => void
   evalRate: number | null
   view: View
   decor: ReturnType<typeof useBoardDecor>
@@ -102,6 +103,7 @@ export function BoardStage({
   evalRate,
   furigoma,
   onFurigoma,
+  onMoveLanded,
 }: BoardStageProps) {
   const { t } = useTranslation()
   const settings = useSettings()
@@ -220,6 +222,7 @@ export function BoardStage({
               {...board}
               furigoma={furigoma}
               onFurigoma={onFurigoma}
+              onMoveLanded={onMoveLanded}
               tilted={view.tilted && !view.flatView}
               snapKey={`${mode}|${game.start}|${course?.id ?? ''}|${tsume?.problem.id ?? ''}`}
               onZones={onZones}
@@ -230,12 +233,14 @@ export function BoardStage({
           )}
         </Suspense>
         {mode !== 'tsume' && !picking && plate('top')}
-        {mode !== 'tsume' && !picking && plate('bottom')}
-        {decor.note && dismissedNote !== decor.note && (
-          <div className="app-peek" role="status">
-            {decor.note}
-          </div>
-        )}
+        <div className="app-board-caption">
+          {decor.note && dismissedNote !== decor.note && (
+            <div className="app-peek" role="status">
+              {decor.note}
+            </div>
+          )}
+          {mode !== 'tsume' && !picking && plate('bottom')}
+        </div>
       </div>
       <BoardBanners mistake={mistake} onBack={onBack} />
       {mode === 'tsume' && <TsumePlate position="top" flipped={flipped} userSide={userSide} />}

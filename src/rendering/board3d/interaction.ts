@@ -140,6 +140,8 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
     const hit = pick()
     if (!hit) return
     down = { pick: hit, x: event.clientX, y: event.clientY, pointerId: event.pointerId }
+    const owner = hit.kind === 'square' ? latest.current.position.board.at(hit.square)?.color : hit.kind === 'hand' ? hit.color : null
+    if (s.controls && owner != null && owner === latest.current.movable) s.controls.enabled = false
     canvas.setPointerCapture(event.pointerId)
   }
 
@@ -154,7 +156,7 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
     canvas.style.cursor = hit ? 'pointer' : 'default'
     if (!down || event.pointerId !== down.pointerId) return
     const moved = Math.hypot(event.clientX - down.x, event.clientY - down.y) > 6
-    if (s.controls && !s.drag && (event.clientX !== down.x || event.clientY !== down.y)) down = null
+    if (s.controls?.enabled && !s.drag && (event.clientX !== down.x || event.clientY !== down.y)) down = null
     if (!down) return
     if (!s.drag && moved) startDrag(down.pick)
     if (!s.drag) return
@@ -170,11 +172,12 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
 
   const onUp = (event: PointerEvent) => {
     if (!active()) return
+    if (s.controls) s.controls.enabled = true
     if (latest.current.orbit && event.button === 0) {
       ray(event)
       const click = orbitDown && Math.hypot(event.clientX - orbitDown.x, event.clientY - orbitDown.y) <= 6
       orbitDown = null
-      if (!raycaster.intersectObjects(s.pieces.children, true).length && click) {
+      if (!down && !raycaster.intersectObjects(s.pieces.children, true).length && click) {
         if (s.tilePov) exitPov()
         down = null
         return
@@ -204,6 +207,7 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
   }
 
   const cancel = () => {
+    if (s.controls) s.controls.enabled = true
     down = null
     if (s.drag) {
       s.drag = null

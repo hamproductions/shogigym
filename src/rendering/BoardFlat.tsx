@@ -293,7 +293,7 @@ export function BoardFlat(props: Board3DProps) {
       >
         <image href={baked.board} x={g.bx} y={g.by} width={g.bw} height={g.bh} preserveAspectRatio="none" />
         <rect className="app-board-frame" x={g.bx - 6} y={g.by - 6} width={g.bw + 12} height={g.bh + 12} rx={10} fill="none" pointerEvents="none" />
-        <UnderMarks props={props} p={project} u={U} />
+        <UnderMarks props={props} p={project} u={U} handPoint={handPoint} />
         {settings.coords &&
           Array.from({ length: 9 }, (_, i) => (
             <g
@@ -333,7 +333,7 @@ export function BoardFlat(props: Board3DProps) {
         </g>
         {hand(Color.BLACK)}
         {hand(Color.WHITE)}
-        <OverMarks props={props} p={project} u={U} flip={flipped ? -1 : 1} coordFill={coordFill} handPoint={handPoint} />
+        <OverMarks props={props} p={project} u={U} coordFill={coordFill} handPoint={handPoint} />
         {drag?.moved && (
           <g transform={`translate(${drag.x} ${drag.y - U * 0.3}) scale(1.12)`} pointerEvents="none">
             <Koma baked={baked} type={drag.type} color={drag.color} up={(drag.color === Color.BLACK) !== flipped} />

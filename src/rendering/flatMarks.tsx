@@ -76,21 +76,7 @@ function Tag({ x, y, u, text, color }: { x: number; y: number; u: number; text: 
   )
 }
 
-function Arrow({
-  p,
-  u,
-  arrow,
-  position,
-  stack,
-  handPoint,
-}: {
-  p: Project
-  u: number
-  arrow: BoardArrow
-  position: ImmutablePosition
-  stack: number
-  handPoint?: HandPoint
-}) {
+function Arrow({ p, u, arrow, position, handPoint }: { p: Project; u: number; arrow: BoardArrow; position: ImmutablePosition; handPoint?: HandPoint }) {
   const to = Square.newByUSI(arrow.usi.slice(2, 4))
   if (!to || !/^([1-9][a-i]|[PLNSGBR]\*)[1-9][a-i]\+?$/.test(arrow.usi)) return null
   let sx: number
@@ -119,15 +105,7 @@ function Arrow({
   const [x0, y0] = p(sx, sz)
   const [x1, y1] = p(ex, ez)
   const angle = (Math.atan2(y1 - y0, x1 - x0) * 180) / Math.PI - 90
-  const along = Math.max(0.3, length - 0.1 - stack * 0.55)
-  const ux = (x1 - x0) / (length * u)
-  const uy = (y1 - y0) / (length * u)
-  return (
-    <>
-      <path d={parts.join(' ')} transform={`translate(${x0} ${y0}) rotate(${angle}) scale(${u})`} fill={arrow.color} opacity={arrow.dashed ? 0.7 : 0.82} />
-      {arrow.label && <Tag x={x0 + ux * along * u} y={y0 + uy * along * u} u={u} text={arrow.label} color={arrow.color} />}
-    </>
-  )
+  return <path d={parts.join(' ')} transform={`translate(${x0} ${y0}) rotate(${angle}) scale(${u})`} fill={arrow.color} opacity={arrow.dashed ? 0.7 : 0.82} />
 }
 
 function Castle({ p, u, castle }: { p: Project; u: number; castle: { squares: Square[]; color: string; label: string } }) {
@@ -167,55 +145,66 @@ function Castle({ p, u, castle }: { p: Project; u: number; castle: { squares: Sq
   )
 }
 
-export function UnderMarks({ props, p, u }: { props: Board3DProps; p: Project; u: number }) {
-  const { lastMove, selected, targets, checkSquare, peek, peekFrom, heat } = props
+export function UnderMarks({
+  props,
+  p,
+  u,
+  handPoint,
+  markersOnly = false,
+}: {
+  props: Board3DProps
+  p: Project
+  u: number
+  handPoint?: HandPoint
+  markersOnly?: boolean
+}) {
+  const { lastMove, selected, targets, checkSquare, peek, peekFrom, heat, arrows, position } = props
   const to = lastMove ? Square.newByUSI(lastMove.slice(2, 4)) : null
   const from = lastMove && lastMove[1] !== '*' ? Square.newByUSI(lastMove.slice(0, 2)) : null
   return (
     <g pointerEvents="none">
-      {to && <Tile p={p} u={u} square={to} color={0xe8a63a} opacity={0.55} />}
-      {from && <Tile p={p} u={u} square={from} color={0xe8a63a} opacity={0.38} />}
-      {checkSquare && <Tile p={p} u={u} square={checkSquare} color={0xe0301e} opacity={0.6} />}
-      {selected instanceof Square && (
-        <>
-          <Tile p={p} u={u} square={selected} color={0xfff1c9} opacity={0.45} />
-          <Frame p={p} u={u} square={selected} inner={0.66} color="#c8442f" />
-        </>
-      )}
-      {targets.map((sq) => {
-        const [x, y] = p(squareX(sq.file), squareZ(sq.rank))
-        return <circle key={sq.usi} cx={x} cy={y} r={0.12 * u} fill="#5a3a1c" opacity={0.5} />
-      })}
-      {(peek ?? []).map((sq) => (
-        <g key={`p${sq.usi}`}>
-          <Tile p={p} u={u} square={sq} color={0xc8442f} opacity={0.26} />
-          <Frame p={p} u={u} square={sq} inner={0.62} color="#b33a26" opacity={0.7} />
+      {!markersOnly && (
+        <g>
+          {to && <Tile p={p} u={u} square={to} color={0xe8a63a} opacity={0.55} />}
+          {from && <Tile p={p} u={u} square={from} color={0xe8a63a} opacity={0.38} />}
+          {checkSquare && (
+            <>
+              <Tile p={p} u={u} square={checkSquare} color={0xe0301e} opacity={0.6} />
+              <Frame p={p} u={u} square={checkSquare} inner={0.6} color="#c62a1a" />
+            </>
+          )}
+          {selected instanceof Square && (
+            <>
+              <Tile p={p} u={u} square={selected} color={0xfff1c9} opacity={0.45} />
+              <Frame p={p} u={u} square={selected} inner={0.66} color="#c8442f" />
+            </>
+          )}
+          {targets.map((sq) => {
+            const [x, y] = p(squareX(sq.file), squareZ(sq.rank))
+            return <circle key={sq.usi} cx={x} cy={y} r={0.12 * u} fill="#5a3a1c" opacity={0.5} />
+          })}
+          {(peek ?? []).map((sq) => (
+            <g key={`p${sq.usi}`}>
+              <Tile p={p} u={u} square={sq} color={0xc8442f} opacity={0.26} />
+              <Frame p={p} u={u} square={sq} inner={0.62} color="#b33a26" opacity={0.7} />
+            </g>
+          ))}
+          {peekFrom && <Tile p={p} u={u} square={peekFrom} color={0xc8442f} opacity={0.22} />}
+          {(heat ?? []).map((h, i) => (
+            <Tile key={`h${i}`} p={p} u={u} square={h.square} color={h.color} opacity={h.opacity} />
+          ))}
         </g>
-      ))}
-      {peekFrom && <Tile p={p} u={u} square={peekFrom} color={0xc8442f} opacity={0.22} />}
-      {(heat ?? []).map((h, i) => (
-        <Tile key={`h${i}`} p={p} u={u} square={h.square} color={h.color} opacity={h.opacity} />
+      )}
+      {arrows.map((arrow, i) => (
+        <Arrow key={`a${i}`} p={p} u={u} arrow={arrow} position={position} handPoint={handPoint} />
       ))}
     </g>
   )
 }
 
-export function OverMarks({
-  props,
-  p,
-  u,
-  flip,
-  coordFill,
-  handPoint,
-}: {
-  props: Board3DProps
-  p: Project
-  u: number
-  flip: number
-  coordFill: string
-  handPoint?: HandPoint
-}) {
-  const { arrows, position, selected, selectedColor, checkSquare, stamp, heat, castles } = props
+export function OverMarks({ props, p, u, coordFill, handPoint }: { props: Board3DProps; p: Project; u: number; coordFill: string; handPoint?: HandPoint }) {
+  const { position, selected, selectedColor, heat, castles, arrows, stamp } = props
+  const flip = props.flipped ? -1 : 1
   const stacked = new Map<string, number>()
   const stamped = stamp && Square.newByUSI(stamp.square)
   const handSlot =
@@ -252,20 +241,17 @@ export function OverMarks({
         <Castle key={`c${i}`} p={p} u={u} castle={c} />
       ))}
       {arrows.map((arrow, i) => {
-        const end = arrow.usi.slice(2, 4)
-        const stack = stacked.get(end) ?? 0
-        if (arrow.label) stacked.set(end, stack + 1)
-        return <Arrow key={`a${i}`} p={p} u={u} arrow={arrow} position={position} stack={stack} handPoint={handPoint} />
+        const to = Square.newByUSI(arrow.usi.slice(2, 4))
+        if (!arrow.label || !to) return null
+        const stack = stacked.get(to.usi) ?? 0
+        stacked.set(to.usi, stack + 1)
+        const [x, y] = p(squareX(to.file), squareZ(to.rank) + (0.49 - stack * 0.25) * SQ_D * flip)
+        return <Tag key={`a${i}`} x={x} y={y} u={u} text={arrow.label} color={arrow.color} />
       })}
-      {checkSquare &&
-        (() => {
-          const [x, y] = p(squareX(checkSquare.file), squareZ(checkSquare.rank) - 0.5 * flip)
-          return <Badge x={x} y={y} size={0.62 * u} text="王手" color="#c62a1a" />
-        })()}
       {stamp &&
         stamped &&
         (() => {
-          const [x, y] = p(squareX(stamped.file) + 0.36 * flip, squareZ(stamped.rank) - 0.36 * flip)
+          const [x, y] = p(squareX(stamped.file) + 0.48 * flip, squareZ(stamped.rank) - 0.48 * SQ_D * flip)
           return <Badge x={x} y={y} size={0.5 * u} text={stamp.text} color={stamp.color} />
         })()}
     </g>

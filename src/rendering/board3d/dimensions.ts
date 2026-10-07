@@ -1,6 +1,9 @@
 import { PieceType, Square } from 'tsshogi'
 import { getSettings } from '@/appearance/settings'
 
+export const compactRendering = () => matchMedia('(max-width: 820px), (pointer: coarse)').matches
+export const pieceSegments = () => (compactRendering() ? 16 : 24)
+
 export const MM_PER_SQUARE = 35.2
 export const SQ_D = 38.6 / MM_PER_SQUARE
 export const STAND_TOP = -8 / MM_PER_SQUARE

@@ -78,16 +78,17 @@ export function useBoardSession() {
         : null
   const atEnd = cursor === game.moves.length
   const nodes = useMemo(() => (course ? courseNodes(course) : null), [course])
-  const userTurn = mode !== 'view' && (mode === 'analyze' || (mode === 'lesson' && !course) || toMove === userSide || (mode === 'spar' && !atEnd))
+  const userTurn =
+    mode === 'view' ? !playing && !preview : mode === 'analyze' || (mode === 'lesson' && !course) || toMove === userSide || (mode === 'spar' && !atEnd)
   const gameOver = !preview && !hasLegalMove(position)
   const ai = engineSupported() && !course?.noEngine
   const assist = settings.assist || (!isGameMode(mode) && mode !== 'view')
-  const onVariation = isGameMode(mode) && cursor > 0 && !isMainLine(tree, game.moves.slice(0, cursor))
+  const onVariation = (isGameMode(mode) || mode === 'view') && cursor > 0 && !isMainLine(tree, game.moves.slice(0, cursor))
 
   const [treeSource, setTreeSource] = useState({ game, mode })
   if (treeSource.game !== game || treeSource.mode !== mode) {
     setTreeSource({ game, mode })
-    if (isGameMode(mode)) setTree((t) => addPath(t, game.moves))
+    if (isGameMode(mode) || mode === 'view') setTree((t) => addPath(t, game.moves))
   }
 
   const play = useCallback(
@@ -110,7 +111,7 @@ export function useBoardSession() {
       }
       const g = gameRef.current
       const path = [...g.moves.slice(0, cursor), usi]
-      const existing = isGameMode(modeRef.current) ? nodeAt(treeRef.current, path) : null
+      const existing = isGameMode(modeRef.current) || modeRef.current === 'view' ? nodeAt(treeRef.current, path) : null
       setGame({
         ...g,
         detectionResult: g.moves[cursor] === usi ? g.detectionResult : undefined,

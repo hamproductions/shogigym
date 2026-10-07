@@ -12,7 +12,7 @@ import type { PanelModel } from './PanelBody'
 
 export function MovesTab({ model }: { model: PanelModel }) {
   const { t } = useTranslation()
-  const { mode, preview, previewSfens, sfens, game, cursor, setCursor, setPreview, setGame, tree, setTree, gameOver, userSide } = useSession()
+  const { mode, preview, previewSfens, sfens, game, cursor, setCursor, setPreview, setGame, setPlaying, tree, setTree, gameOver, userSide } = useSession()
   const { analyze, spar, watch, evaluation, setConfirm } = model
   const mate = useMemo(() => {
     const final = positionOf(sfens.at(-1)!)
@@ -59,11 +59,12 @@ export function MovesTab({ model }: { model: PanelModel }) {
         setCursor={setCursor}
         title={title}
         onScore={evaluation.recordEval}
-        tree={isGameMode(mode) ? tree : null}
+        tree={isGameMode(mode) || mode === 'view' ? tree : null}
         autoRate={analyze.autoRating}
         canRate={mode !== 'view' && (mode === 'analyze' || gameOver || spar.resigned)}
         empty={isGameMode(mode) || mode === 'view' ? undefined : t('moves.noMovesYetSolve')}
         onSwitch={(path) => {
+          if (mode === 'view') setPlaying(false)
           setGame((g) => ({ ...g, detectionResult: undefined, moves: [...path, ...mainContinuation(nodeAt(tree, path))] }))
           setCursor(path.length)
         }}

@@ -109,7 +109,7 @@ function ReviewBanner() {
         ) : (
           <>
             {t('app.moveOf2', { cursor, movesCount: game.moves.length })}{' '}
-            <strong className="app-branch-tip">{isGameMode(mode) ? t('app.playADifferentMoveTo') : t('app.aMoveHereReplacesWhat')}</strong>
+            <strong className="app-branch-tip">{isGameMode(mode) || mode === 'view' ? t('app.playADifferentMoveTo') : t('app.aMoveHereReplacesWhat')}</strong>
           </>
         )}
       </span>

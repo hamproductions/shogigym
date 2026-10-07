@@ -64,6 +64,16 @@ function halfWidthAt(poly: Poly, y: number) {
 }
 
 const bodyCache = new Map<number, THREE.ExtrudeGeometry>()
+const glassBodyCache = new Map<number, THREE.ExtrudeGeometry>()
+
+function glassBody(scale: number) {
+  let geometry = glassBodyCache.get(scale)
+  if (!geometry) {
+    geometry = cacheResource(pieceBody(scale).clone().translate(0, 0.026, 0))
+    glassBodyCache.set(scale, geometry)
+  }
+  return geometry
+}
 
 function pieceBody(scale: number) {
   const cached = bodyCache.get(scale)
@@ -307,76 +317,87 @@ export function pieceMesh(
   const lacquer = coating === 'lacquer'
   const lm = lacquerMap(inkMap, lacquer ? 0.5 : 0)
   const normal = relief ? reliefNormal(inkMap, relief * scale, komaWidth(scale), scale, kind) : null
-  const face =
-    plastic && !relief
-      ? new THREE.MeshBasicMaterial({ map })
-      : new THREE.MeshPhysicalMaterial({
-          map: glass ? glyphTexture(map) : map,
-          transparent: glass,
-          alphaTest: glass ? 0.01 : 0,
-          depthWrite: !glass,
-          emissive: plastic ? 0xffffff : 0x000000,
-          emissiveMap: plastic ? map : null,
-          emissiveIntensity: plastic ? 0.65 : 0,
-          roughness: 1,
-          roughnessMap: lm,
-          normalMap: normal,
-          normalScale: new THREE.Vector2(0.5, 0.5),
-          clearcoat: lacquer ? Math.max(0.375, gloss * 0.5) : 0,
-          clearcoatMap: lm,
-          clearcoatNormalMap: lacquer ? normal : null,
-          clearcoatNormalScale: new THREE.Vector2(0.5, 0.5),
-          clearcoatRoughness: lacquer ? 0.3 : 1,
-          specularIntensity: lacquer ? 0.5 : 0.15,
-          envMap,
-          envMapIntensity: lacquer ? 0.35 : 0.08,
-        })
+  const face = new THREE.MeshPhysicalMaterial({
+    map: glass ? glyphTexture(map) : map,
+    transparent: false,
+    forceSinglePass: glass,
+    alphaTest: glass ? 0.5 : 0,
+    depthWrite: true,
+    emissive: plastic ? 0xffffff : 0x000000,
+    emissiveMap: plastic ? map : null,
+    emissiveIntensity: plastic ? 0.08 : 0,
+    roughness: plastic ? 0.42 : 1,
+    roughnessMap: plastic ? null : lm,
+    normalMap: normal,
+    normalScale: new THREE.Vector2(0.5, 0.5),
+    clearcoat: plastic ? 0.35 : lacquer ? Math.max(0.375, gloss * 0.5) : 0,
+    clearcoatMap: lm,
+    clearcoatNormalMap: lacquer ? normal : null,
+    clearcoatNormalScale: new THREE.Vector2(0.5, 0.5),
+    clearcoatRoughness: plastic || lacquer ? 0.3 : 1,
+    specularIntensity: plastic ? 1 : lacquer ? 0.5 : 0.15,
+    envMap,
+    envMapIntensity: plastic ? 0.65 : lacquer ? 0.35 : 0.08,
+  })
   const tone = pieceTone(settings.pieceMaterial, settings.pieceColor)
   const glassMaterial = () =>
     flat
       ? new THREE.MeshBasicMaterial({
           color: `rgb(${tone.join(',')})`,
           transparent: true,
-          opacity: frosted ? 0.62 : 0.28,
+          opacity: frosted ? 0.35 : 0.28,
           depthWrite: false,
           side: THREE.FrontSide,
         })
       : new THREE.MeshPhysicalMaterial({
           color: `rgb(${tone.join(',')})`,
-          roughness: frosted ? 0.75 : 0.06,
+          roughness: frosted ? 0.3 : 0.06,
           metalness: 0,
-          transmission: 0,
+          transmission: 1,
           ior: 1.5,
           thickness: komaDepth(scale),
-          transparent: true,
-          opacity: frosted ? 0.62 : 0.28,
-          depthWrite: false,
+          attenuationColor: new THREE.Color(`rgb(${tone.join(',')})`),
+          attenuationDistance: frosted ? 8 : 2,
+          transparent: false,
+          opacity: 1,
+          depthWrite: true,
           clearcoat: frosted ? 0.08 : 0.5,
-          clearcoatRoughness: frosted ? 0.8 : 0.15,
+          clearcoatRoughness: frosted ? 0.4 : 0.15,
           envMap,
           envMapIntensity: frosted ? 0.2 : 0.6,
-          side: THREE.FrontSide,
+          side: THREE.DoubleSide,
+          forceSinglePass: true,
         })
   const sideGrain = !plastic && !glass ? sideTexture(seed, appearance) : null
   const side = glass
     ? glassMaterial()
-    : settings.pieceColor !== 'natural' || plastic
-      ? new THREE.MeshBasicMaterial({ color: sideGrain ? 0xe6e6e6 : `rgb(${tone.map((channel) => Math.round(channel * 0.9)).join(',')})`, map: sideGrain })
-      : sideMaterial.clone()
+    : plastic
+      ? new THREE.MeshPhysicalMaterial({
+          color: `rgb(${tone.join(',')})`,
+          roughness: 0.45,
+          clearcoat: 0.35,
+          clearcoatRoughness: 0.3,
+          envMap,
+          envMapIntensity: 0.65,
+        })
+      : settings.pieceColor !== 'natural'
+        ? new THREE.MeshBasicMaterial({ color: sideGrain ? 0xe6e6e6 : `rgb(${tone.map((channel) => Math.round(channel * 0.9)).join(',')})`, map: sideGrain })
+        : sideMaterial.clone()
   if (!plastic && !glass && settings.pieceColor === 'natural') {
     side.color.set(0xffffff)
     side.map = sideGrain
     if (side instanceof THREE.MeshStandardMaterial) side.emissiveMap = sideGrain
   }
-  const mesh = new THREE.Mesh(pieceBody(scale), [hiddenLid, side])
+  const mesh = new THREE.Mesh(glass ? glassBody(scale) : pieceBody(scale), glass ? side : [hiddenLid, side])
   mesh.userData.grainSeed = seed
   mesh.userData.type = type
   mesh.userData.color = color
   mesh.castShadow = !glass
   mesh.receiveShadow = !glass
   const top = new THREE.Mesh(carvedTop(scale, inkMap, segments, appearance), face)
+  if (glass) top.position.y = 0.028
   top.castShadow = !glass
-  top.receiveShadow = !plastic && !glass
+  top.receiveShadow = !glass
   const reverse = PROMOTED.has(type) ? unpromotedPieceType(type) : promotedPieceType(type)
   const reverseInk = type === PieceType.KING || type === PieceType.GOLD ? null : faceMap(reverse, color, 1, appearance)
   const backMap =
@@ -393,7 +414,7 @@ export function pieceMesh(
   if (glass) {
     backFace.map = glyphTexture(backMap)
     backFace.side = THREE.DoubleSide
-    backFace.depthWrite = false
+    backFace.depthWrite = true
     if (backFace instanceof THREE.MeshPhysicalMaterial) {
       backFace.roughnessMap = lacquerMap(reverseInk ?? backMap, lacquer ? 0.5 : 0)
       backFace.clearcoatMap = backFace.roughnessMap
@@ -402,23 +423,9 @@ export function pieceMesh(
     }
   }
   const bottom = new THREE.Mesh(pieceBottom(scale), backFace)
-  if (glass) bottom.position.y = 0.022
+  if (glass) bottom.position.y = 0.0202
   bottom.castShadow = !glass
   mesh.add(top, bottom)
-  if (glass) {
-    const frontSurface = new THREE.Mesh(carvedTop(scale, inkMap, segments, { ...appearance, pieceFinish: 'horiume' }), glassMaterial())
-    frontSurface.position.y = -0.001
-    const backMaterial = glassMaterial()
-    backMaterial.side = THREE.DoubleSide
-    const backSurface = new THREE.Mesh(pieceBottom(scale), backMaterial)
-    backSurface.position.y = 0.021
-    bottom.renderOrder = 1
-    backSurface.renderOrder = 2
-    mesh.renderOrder = 3
-    frontSurface.renderOrder = 4
-    top.renderOrder = 5
-    mesh.add(frontSurface, backSurface)
-  }
   if (color === Color.WHITE) mesh.rotation.y = Math.PI
   const resources = new Set<THREE.Texture | THREE.BufferGeometry>()
   mesh.traverse((object) => {
@@ -429,6 +436,7 @@ export function pieceMesh(
   })
   resources.forEach(retainResource)
   mesh.userData.pieceResources = resources
+  mesh.userData.pieceFactory = pieceMesh
   return mesh
 }
 

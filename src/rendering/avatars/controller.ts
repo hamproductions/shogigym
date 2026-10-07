@@ -8,6 +8,7 @@ import handMotion from './handMotion.json'
 import { clamp01, damp, ease } from './ik'
 import { playSound } from '@/appearance/settings'
 import { disposePiece } from '@/rendering/board3d/piece'
+import { animatedBounds } from './bounds'
 import {
   AVATAR_MODELS,
   type AvatarInspect,
@@ -100,6 +101,8 @@ type Actor = {
   color: Color
   char: Character
   casters: THREE.Mesh[]
+  outlines: { material: THREE.Material; visible: boolean }[]
+  updateBounds: () => void
   uniforms: Fade
   action: Action | null
   out: number
@@ -211,6 +214,10 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
       color: m.color,
       char,
       casters,
+      outlines: [...new Set(casters.flatMap((mesh) => (Array.isArray(mesh.material) ? mesh.material : [mesh.material])))]
+        .filter((material) => (material as { isOutline?: boolean }).isOutline)
+        .map((material) => ({ material, visible: material.visible })),
+      updateBounds: animatedBounds(char.vrm.scene),
       uniforms: uniforms[i],
       action: null,
       out: 1,
@@ -227,6 +234,7 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
     a.char.state.lookAt.copy(root.localToWorld(new THREE.Vector3(0, 0, 0)))
     a.char.update(1 / 60)
     a.char.settle()
+    a.updateBounds()
   }
   let cues: AvatarCues = { thinking: null, resigned: null, bowKey: '', nodKey: '', nodColor: null }
   const actorOf = (color: Color) => actors.find((a) => a.color === color)!
@@ -499,6 +507,7 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
       const proximity = 1 - THREE.MathUtils.smoothstep(camera.position.distanceTo(target), 0.4 * UNITS_PER_M, 1.2 * UNITS_PER_M)
       const facing = THREE.MathUtils.smoothstep((cam.z * side) / Math.max(1e-3, cam.length()), 0, 0.012)
       const near = orbit ? proximity : Math.max(proximity, facing)
+      for (const { material, visible } of actor.outlines) material.visible = visible && near <= 0.5
       actor.uniforms.fade.value.set(distance * 0.22, distance * 0.34)
       const top = orbit ? 0 : THREE.MathUtils.smoothstep(cam.y / Math.max(1e-3, cam.length()), 0.78, 0.9)
       actor.uniforms.band.value.set(top, rootAt.y + 0.16 * UNITS_PER_M, near, actor.char.state.reachW > 0.02 ? 0.085 * UNITS_PER_M : 0)
@@ -541,6 +550,7 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
       }
       st.lookAt.lerp(target, 1 - Math.exp(-dt * 8))
       actor.char.update(dt)
+      actor.updateBounds()
       actor.char.arms(actor.uniforms.arms.value)
       for (const v of actor.uniforms.arms.value.slice(4)) v.setScalar(1e6)
       attach(actor, dt)
@@ -565,6 +575,7 @@ export async function createAvatars(options: AvatarOptions): Promise<AvatarContr
       actor.char.state.lookAt.copy(root.localToWorld(new THREE.Vector3(0, 0, 0)))
       actor.char.update(1 / 60)
       actor.char.settle()
+      actor.updateBounds()
     }
   }
 

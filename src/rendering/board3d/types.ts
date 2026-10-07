@@ -17,6 +17,7 @@ export type Board3DProps = {
   position: ImmutablePosition
   furigoma?: boolean
   onFurigoma?: (faces: boolean[]) => void
+  onMoveLanded?: (sfen: string) => void
   flipped: boolean
   tilted: boolean
   orbit?: boolean

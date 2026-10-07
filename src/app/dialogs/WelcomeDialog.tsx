@@ -24,14 +24,19 @@ export function WelcomeDialog({ level, onPreviewLevel, onLearnBasics, onPlayAi, 
   }
   return (
     <Dialog label={t('app.welcome')} className="app-welcome">
-      <div className="app-steps" aria-hidden="true">
-        {[0, 1, 2].map((n) => (
-          <i key={n} className={n === step ? 'on' : n < step ? 'done' : ''} />
-        ))}
+      <div className="app-welcome-head">
+        <div className="app-steps" aria-hidden="true">
+          {[0, 1, 2].map((n) => (
+            <i key={n} className={n === step ? 'on' : n < step ? 'done' : ''} />
+          ))}
+        </div>
+        <Button variant="icon" size="lg" onClick={onLookAround} aria-label={t('viewer.close')}>
+          <Icon name="close" />
+        </Button>
       </div>
+      <h2>{t(step === 0 ? 'app.welcomeToShogilab' : step === 1 ? 'app.howTheScreenWorks' : 'app.whereDoYouWantTo')}</h2>
       {step === 0 && (
         <>
-          <h2>{t('app.welcomeToShogilab')}</h2>
           <p>{t('app.learnShogi')}</p>
           <div className="app-welcome-choices">
             <button className={level === 'new' ? 'primary' : ''} onClick={() => pickLevel('new')}>
@@ -47,7 +52,6 @@ export function WelcomeDialog({ level, onPreviewLevel, onLearnBasics, onPlayAi, 
       )}
       {step === 1 && (
         <>
-          <h2>{t('app.howTheScreenWorks')}</h2>
           <ul className="app-tour">
             {MODES.map((m) => (
               <li key={m.id}>
@@ -75,7 +79,6 @@ export function WelcomeDialog({ level, onPreviewLevel, onLearnBasics, onPlayAi, 
       )}
       {step === 2 && (
         <>
-          <h2>{t('app.whereDoYouWantTo')}</h2>
           <div className="app-welcome-choices">
             <button className="primary" onClick={onLearnBasics}>
               <strong>{t('app.learnTheBasicFourthFile')}</strong>

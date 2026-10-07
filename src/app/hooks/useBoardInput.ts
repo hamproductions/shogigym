@@ -29,7 +29,6 @@ export function useBoardInput(session: BoardSession, { mistakes, commit, lessonM
   }
 
   const onSquare = (square: Square) => {
-    if (mode === 'view') return
     setPlaying(false)
     if (preview) return setPreview(null)
     if (!atEnd && (mode === 'tsume' || mode === 'drill')) return
@@ -56,10 +55,10 @@ export function useBoardInput(session: BoardSession, { mistakes, commit, lessonM
   }
 
   const onHand = (color: Color, type: PieceType) => {
-    if (mode === 'view') return
     if (preview) return setPreview(null)
     if (picking) return
     if (color !== position.color || !canMove) return
+    setPlaying(false)
     setPeekFrom(null)
     if (selection && !(selection.from instanceof Square) && selection.from === type) return setSelection(null)
     dropStaleMistake()
@@ -67,9 +66,9 @@ export function useBoardInput(session: BoardSession, { mistakes, commit, lessonM
   }
 
   const onDrop = (from: Square | PieceType, to: Square) => {
-    if (mode === 'view') return
     if (preview) return setPreview(null)
     if (picking || !canMove) return setSelection(null)
+    setPlaying(false)
     setPeekFrom(null)
     attempt(from, to)
   }

@@ -16,7 +16,8 @@ const QUIET_NAMES = ['居玉', '居飛車']
 
 export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, position }: BoardSession) {
   const { t, i18n } = useTranslation()
-  const { showTesuji } = useSettings()
+  const { showTesuji, environment } = useSettings()
+  const three = environment === 'traditional' || environment === 'casual'
   const [announce, setAnnounce] = useTransient<Announcement>(1800)
   const [tesujiNote, setTesujiNote] = useTransient<Tesuji & { at: number }>(6000)
   const announced = useRef<{ start: string; seen: Set<string> }>({ start: '', seen: new Set() })
@@ -35,7 +36,10 @@ export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, pos
     }
     if (preview || mode === 'tsume' || cursor === 0) return
     const tesuji = showTesuji && stepped && sfens[cursor - 1] ? detectTesuji(sfens[cursor - 1], game.moves[cursor - 1]) : null
-    if (stepped && position.checked) say(hasLegalMove(position) ? '王手' : 'ありがとうございました', true)
+    if (stepped && position.checked) {
+      if (hasLegalMove(position)) say('王手', true)
+      else if (!three) say('ありがとうございました', true)
+    }
     if (tesuji) {
       setAnnounce({ side: positionOf(sfens[cursor - 1]).color, name: tesuji.ja, kind: t('app.tesuji'), key: Date.now(), tesuji: true })
       setTesujiNote({ ...tesuji, at: cursor })
@@ -63,6 +67,25 @@ export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, pos
         return
       }
     }
-  }, [sfen, preview, mode, cursor, game.start, game.moves, game.detectionPreset, sfens, position, t, i18n.language, setAnnounce, setTesujiNote, showTesuji])
-  return { announce, tesujiNote: showTesuji && tesujiNote && tesujiNote.at === cursor ? tesujiNote : null }
+  }, [
+    sfen,
+    preview,
+    mode,
+    cursor,
+    game.start,
+    game.moves,
+    game.detectionPreset,
+    sfens,
+    position,
+    t,
+    i18n.language,
+    setAnnounce,
+    setTesujiNote,
+    showTesuji,
+    three,
+  ])
+  const onMoveLanded = (landedSfen: string) => {
+    if (landedSfen === sfen && !preview && mode !== 'tsume' && cursor > 0 && position.checked && !hasLegalMove(position)) say('ありがとうございました', true)
+  }
+  return { announce, onMoveLanded, tesujiNote: showTesuji && tesujiNote && tesujiNote.at === cursor ? tesujiNote : null }
 }

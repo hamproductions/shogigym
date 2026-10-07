@@ -6,6 +6,17 @@
   line-height: var(--leading-normal);
 }
 
+.app-welcome-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+
+.app-welcome-head .app-steps {
+  margin-bottom: 0;
+}
+
 .app-steps {
   display: flex;
   gap: var(--space-1-5);

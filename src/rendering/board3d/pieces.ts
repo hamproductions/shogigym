@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { Color, PieceType, Square, unpromotedPieceType, type ImmutablePosition } from 'tsshogi'
-import { STAND_TOP, komaDepth, pieceScale, squareX, squareZ } from './dimensions'
+import { STAND_TOP, komaDepth, pieceScale, pieceSegments, squareX, squareZ } from './dimensions'
 import { handLayout, handSpot } from './hand'
 import { layout, standCenter } from './layout'
 import { preparePieceEnvironment } from './materials'
@@ -15,7 +15,7 @@ const CAPTURE_SEED = Object.fromEntries(Object.values(PieceType).map((type, i) =
 const squarePoint = (sq: Square) => new THREE.Vector3(squareX(sq.file), 0, squareZ(sq.rank))
 
 const scenePiece = (s: SceneState, type: PieceType, color: Color, seed?: number) =>
-  pieceMesh(type, color, seed, 24, undefined, preparePieceEnvironment(s.renderer, false))
+  pieceMesh(type, color, seed, pieceSegments(), undefined, preparePieceEnvironment(s.renderer, false))
 
 const board3 = (sfen: string) => sfen.split(' ').slice(0, 3).join(' ')
 
@@ -128,7 +128,10 @@ export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, pr
   const take = (candidate: THREE.Object3D | undefined, type: PieceType, color: Color, seed: number) => {
     const reused = candidate && available.delete(candidate)
     const mesh = reused ? candidate : scenePiece(s, type, color, seed)
-    if (reused && (mesh.userData.appearance !== appearance || mesh.userData.type !== type || mesh.userData.color !== color)) {
+    if (
+      reused &&
+      (mesh.userData.pieceFactory !== pieceMesh || mesh.userData.appearance !== appearance || mesh.userData.type !== type || mesh.userData.color !== color)
+    ) {
       const next = scenePiece(s, type, color, mesh.userData.grainSeed ?? seed)
       disposePiece(mesh)
       mesh.clear()

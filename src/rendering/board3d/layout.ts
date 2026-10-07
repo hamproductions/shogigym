@@ -25,6 +25,8 @@ export function cameraFit(aspect: number, tilt: number, sideRoom: number, portra
 
 export function zoneReporter(s: SceneState, latest: Latest) {
   let zoneKey = ''
+  let previous: number[] = []
+  let previousCallback: Latest['current']['onZones']
   const camera = s.camera.clone()
   const box = (b: THREE.Box3, w: number, h: number) => {
     const xs: number[] = []
@@ -40,6 +42,11 @@ export function zoneReporter(s: SceneState, latest: Latest) {
   return () => {
     const cb = latest.current.onZones
     if (!cb) return
+    if (cb !== previousCallback) {
+      previousCallback = cb
+      previous = []
+      zoneKey = ''
+    }
     if (s.flip) return
     if (Math.abs((latest.current.flipped ? Math.PI : 0) - s.root.rotation.y) > 0.002) return
     const canvas = s.renderer.domElement
@@ -47,6 +54,26 @@ export function zoneReporter(s: SceneState, latest: Latest) {
     const docked = shell && !shell.matches('.zoned, .panel-hidden, .fs') ? shell.querySelector<HTMLElement>(':scope > .app-panel') : null
     const w = canvas.clientWidth + (docked?.offsetWidth ?? 0)
     const h = canvas.clientHeight
+    const rect = canvas.getBoundingClientRect()
+    const scene = canvas.closest('.app-board-scene')
+    const captions = Array.from(scene?.querySelectorAll<HTMLElement>('.app-plate.top, .app-board-caption') ?? [])
+      .map((element) => element.getBoundingClientRect())
+      .filter((bounds) => bounds.width && bounds.height)
+    const inputs = [
+      w,
+      h,
+      rect.left,
+      rect.top,
+      +!!docked,
+      ...captions.flatMap((bounds) => [bounds.left, bounds.top, bounds.right, bounds.bottom]),
+      latest.current.sideRoom ?? 0,
+      ...s.camera.matrixWorld.elements,
+      ...s.camera.projectionMatrix.elements,
+      ...s.board.matrixWorld.elements,
+      ...s.stands.flatMap(({ stand }) => stand.matrixWorld.elements),
+    ]
+    if (inputs.length === previous.length && inputs.every((value, index) => value === previous[index])) return
+    previous = inputs
     if (!sideStandsFit(w, h)) {
       if (zoneKey !== 'none') {
         zoneKey = 'none'
@@ -68,7 +95,6 @@ export function zoneReporter(s: SceneState, latest: Latest) {
     })
     const top = a.t < c.t ? a : c
     const bottom = a.t < c.t ? c : a
-    const rect = canvas.getBoundingClientRect()
     const gap = 12
     const W = Math.max(0, Math.min(bd.l - gap - 16, w - 16 - bd.r - gap))
     const H = Math.max(0, Math.min(h - 48 - top.b - gap, bottom.t - gap - 48))
@@ -93,6 +119,7 @@ export function zoneReporter(s: SceneState, latest: Latest) {
           bottom: rect.top + Math.max(...points.map((p) => ((1 - p.y) / 2) * h)),
         }
       })
+      obstacles.push(...captions.map(({ left, right, top, bottom }) => ({ left, right, top, bottom })))
       for (const zone of [zones.under, zones.over]) {
         const left = zone === zones.under
         let spaces = [

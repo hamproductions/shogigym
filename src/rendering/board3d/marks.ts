@@ -33,7 +33,16 @@ export function squareFrame(inner: number, material: THREE.MeshBasicMaterial) {
   return frame
 }
 
-export function arrowMesh(arrow: BoardArrow, position: ImmutablePosition, stack = 0) {
+function boardMarker(sprite: THREE.Sprite, width: number, height: number, flipped: boolean) {
+  const material = new THREE.MeshBasicMaterial({ map: sprite.material.map, transparent: true, depthTest: false, depthWrite: false })
+  sprite.material.dispose()
+  const marker = new THREE.Mesh(new THREE.PlaneGeometry(width, height), material)
+  marker.renderOrder = 13
+  marker.rotation.set(-Math.PI / 2, 0, flipped ? Math.PI : 0)
+  return marker
+}
+
+export function arrowMesh(arrow: BoardArrow, position: ImmutablePosition, stack = 0, flipped = false) {
   const mover = position.color
   const to = Square.newByUSI(arrow.usi.slice(2, 4))
   if (!to || !/^([1-9][a-i]|[PLNSGBR]\*)[1-9][a-i]\+?$/.test(arrow.usi)) return new THREE.Group()
@@ -81,14 +90,18 @@ export function arrowMesh(arrow: BoardArrow, position: ImmutablePosition, stack 
   mesh.rotation.x = -Math.PI / 2
   const group = new THREE.Group()
   group.add(mesh)
-  if (arrow.label) {
-    const tag = arrowTag(arrow.label, arrow.color)
-    tag.userData.usi = arrow.usi
-    tag.position.set(0, 0.3, -Math.max(0.3, length - 0.1 - stack * 0.55))
-    group.add(tag)
-  }
   group.position.copy(start).setY(0.008)
   group.rotation.y = Math.atan2(-dir.x, -dir.z)
+  if (arrow.label) {
+    const flip = flipped ? -1 : 1
+    const tag = boardMarker(arrowTag(arrow.label, arrow.color), 0.56, 0.25, flipped)
+    tag.userData.usi = arrow.usi
+    tag.position.set(end.x, 0.004, end.z + (0.49 - stack * 0.25) * SQ_D * flip)
+    tag.position.sub(group.position).applyAxisAngle(new THREE.Vector3(0, 1, 0), -group.rotation.y)
+    tag.position.y = 0.004
+    tag.rotation.z -= group.rotation.y
+    group.add(tag)
+  }
   return group
 }
 
@@ -194,7 +207,7 @@ export function drawMarks(s: SceneState, props: Board3DProps) {
     const end = arrow.usi.slice(2, 4)
     const stack = stacked.get(end) ?? 0
     if (arrow.label) stacked.set(end, stack + 1)
-    const group = arrowMesh(arrow, position, stack)
+    const group = arrowMesh(arrow, position, stack, !!flipped)
     group.traverse((o) => o.userData.usi && s.tags.push(o))
     s.marks.add(group)
   }
@@ -223,16 +236,12 @@ export function drawMarks(s: SceneState, props: Board3DProps) {
     }
   }
   for (const castle of props.castles ?? []) s.marks.add(castleBox(castle))
-  if (props.checkSquare) {
-    const check = badgeSprite('王手', '#c62a1a')
-    check.scale.setScalar(0.62)
-    check.position.set(squareX(props.checkSquare.file), 0.75, squareZ(props.checkSquare.rank) - 0.5 * flip)
-    s.marks.add(check)
-  }
+  if (props.checkSquare)
+    s.marks.add(flatOnBoard(squareFrame(0.6, new THREE.MeshBasicMaterial({ color: 0xc62a1a, depthWrite: false })), props.checkSquare, 0.007))
   const stamp = props.stamp && Square.newByUSI(props.stamp.square)
   if (props.stamp && stamp) {
-    const badge = badgeSprite(props.stamp.text, props.stamp.color)
-    badge.position.set(squareX(stamp.file) + 0.36 * flip, 0.55, squareZ(stamp.rank) - 0.36 * flip)
+    const badge = boardMarker(badgeSprite(props.stamp.text, props.stamp.color), 0.5, 0.5, !!flipped)
+    badge.position.set(squareX(stamp.file) + 0.48 * flip, 0.012, squareZ(stamp.rank) - 0.48 * SQ_D * flip)
     s.marks.add(badge)
   }
   const animating = new Set(s.animations.map((a) => a.mesh))

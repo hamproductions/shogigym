@@ -1,20 +1,44 @@
 import './overlays.css'
 import { useTranslation } from 'react-i18next'
+import type { CSSProperties } from 'react'
 import { Color, promotedPieceType, type Move } from 'tsshogi'
 import type { PromotionAtlas } from '@/rendering/sprites'
 import type { Announcement } from '@/app/hooks/useAnnouncements'
 
 export function AnnounceBadge({ announce }: { announce: Announcement }) {
   const { t } = useTranslation()
+  const japanese = /[\u3040-\u9fff]/.test(announce.name)
   return (
     <div
-      className={`app-announce ${announce.side === Color.BLACK ? 'sente' : 'gote'}${/[\u3040-\u9fff]/.test(announce.name) ? '' : ' latin'}${announce.tesuji ? ' tesuji' : ''}`}
+      className={`app-announce ${announce.side === Color.BLACK ? 'sente' : 'gote'}${japanese ? '' : ' latin'}${announce.tesuji ? ' tesuji' : ''}`}
+      style={{ '--glyph-count': [...announce.name].length } as CSSProperties}
       role="status"
     >
-      <span>
-        {announce.side === Color.BLACK ? t('app.sente') : t('app.gote')} {announce.kind}
-      </span>
-      <strong>{announce.name}</strong>
+      <div className="app-announce-layout">
+        <div className="app-announce-content">
+          <div className="app-announce-meta">
+            <span>{announce.side === Color.BLACK ? t('app.sente') : t('app.gote')}</span>
+            <span>{announce.kind}</span>
+          </div>
+          <strong>
+            {japanese ? (
+              <>
+                <span className="app-announce-readable">{announce.name}</span>
+                {[...announce.name].map((glyph, i) => (
+                  <span key={i} style={{ '--glyph-index': i } as CSSProperties} aria-hidden="true">
+                    {glyph}
+                  </span>
+                ))}
+              </>
+            ) : (
+              announce.name
+            )}
+          </strong>
+        </div>
+        <span className="app-announce-seal" aria-hidden="true">
+          {announce.kind}
+        </span>
+      </div>
     </div>
   )
 }

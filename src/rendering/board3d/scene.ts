@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { Color } from 'tsshogi'
 import { getSettings, type BoardStyle } from '@/appearance/settings'
 import { furnishFloor, type RoomDims } from '@/rendering/roomFloor'
-import { CASUAL, HALF_D, HALF_W, LEG, STAND, STAND_SLAB, STAND_TOP, STRIP_D, STRIP_W, THICK } from './dimensions'
+import { CASUAL, HALF_D, HALF_W, LEG, STAND, STAND_SLAB, STAND_TOP, STRIP_D, STRIP_W, THICK, compactRendering } from './dimensions'
 import { layout, standCenter } from './layout'
 import { surroundings } from './surroundings'
 import { environmentMap, preparePieceEnvironment, releasePieceEnvironment, standMaterial, woodMaterial } from './materials'
@@ -23,7 +23,7 @@ export function createRenderer(activateEnvironment = true) {
     return sharedRenderer
   }
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
-  renderer.setPixelRatio(Math.min(matchMedia('(pointer: coarse)').matches ? 1.5 : 2, window.devicePixelRatio))
+  renderer.setPixelRatio(Math.min(compactRendering() ? 1.5 : 2, window.devicePixelRatio))
   renderer.shadowMap.enabled = true
   renderer.shadowMap.type = THREE.PCFShadowMap
   renderer.toneMapping = THREE.ACESFilmicToneMapping
@@ -83,7 +83,7 @@ export function disposeScene(scene: THREE.Scene) {
   scene.clear()
 }
 
-export function addLights(scene: THREE.Scene, shadowSize = matchMedia('(pointer: coarse)').matches ? 512 : 1024) {
+export function addLights(scene: THREE.Scene, shadowSize = compactRendering() ? 512 : 1024) {
   scene.add(new THREE.HemisphereLight(0xe8e0d0, 0x3a2a18, 0.9))
   const lamp = new THREE.SpotLight(0xffe8c4, 70, 80, Math.PI / 3, 1, 1.2)
   lamp.position.set(-1.5, 18, 2.5)

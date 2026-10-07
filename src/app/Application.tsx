@@ -117,7 +117,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
   const { enterMode, resume } = useModeSwitch(slots, { session, lesson, drill, tsume, tesuji, spar, analyze, mistakes, layout, setTab })
   const restored = usePersistedSession({ session, lesson, tsume, drill, spar, slots, resume })
   useRouteMode(mode, enterMode, routeMode, routeMain, restored)
-  const { announce, tesujiNote } = useAnnouncements(session)
+  const { announce, tesujiNote, onMoveLanded } = useAnnouncements(session)
   const flow = useFlowLanes(session, evaluation.analysis)
   const upcoming = useAutoplay(session, evaluation.best?.move)
   const bookHere = useMemo(() => bookMovesAt(sfen, nodes), [sfen, nodes])
@@ -125,9 +125,13 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
   const { mistake } = mistakes
 
   const commit = (usi: string) => {
-    if (mode === 'view') return
     session.setPromotion(null)
     session.setPeekFrom(null)
+    if (mode === 'view') {
+      session.setPlaying(false)
+      session.play(usi)
+      return
+    }
     if (mode === 'tesuji' && tesuji.drill) return tesuji.commit(usi)
     if (mode === 'tsume' && tsume.tsume) return tsume.commit(usi)
     if (lesson.commit(usi) || drill.commit(usi)) return
@@ -353,6 +357,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
               const pawns = faces.filter(Boolean).length
               sayFurigomaResult(pawns, mode === 'view')
             }}
+            onMoveLanded={onMoveLanded}
             evalRate={evalBar ? evalRate : null}
             view={view}
             decor={decor}
