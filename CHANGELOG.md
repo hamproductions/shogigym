@@ -2,6 +2,15 @@
 
 Notable changes are recorded here when a release is created. Versions follow Semantic Versioning.
 
+## [1.3.8](/compare/v1.3.7...v1.3.8) (2026-10-07)
+
+
+### Bug Fixes
+
+* improve board rendering and interaction b0cbc01
+* remove loading spinner, keep progress bar 870b3dc
+* restore compact plates and visible glass ink e4d64f9
+
 ## [1.3.7](/compare/v1.3.6...v1.3.7) (2026-10-06)
 
 
