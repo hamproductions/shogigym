@@ -5,6 +5,11 @@
   background: var(--surface-0);
 }
 
+.tk-shell .app-move-notation {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
 .tk-canvas {
   display: block;
   width: 100%;

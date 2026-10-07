@@ -1,6 +1,8 @@
 # Current task
 
 ## Scope and permissions
+- Current patch authorization: commit move-notation/wrapping correction and publish v1.4.1 on main. Fetch latest origin before integration; run required release validation, capped lint, formatting and build. Preserve active dev server; no independent browser requested.
+- Latest move-list screenshot inspected: English names and same/promotion words were concatenated with Japanese coordinates, while shared notation spans prevented wrapping. Match main-game Japanese kifu notation independently of interface language; apply variant-scoped wrapping for long rows.
 - Release completed: feature commit1a9e83a, version commit353c7f5, v1.4.0 published at https://github.com/hamproductions/shogigym/releases/tag/v1.4.0. Remote main and annotated tag resolve to release commit. Native Git uploads failed with GitHub internal errors; Git database API reproduced identical signed commits/trees before non-force main update; subsequent tag push succeeded. Required release checks passed. No exhaustive runtime parity or FPS claim.
 - Release checks: dataset validation passed, capped lint passed with warnings, formatting and credential-pattern scan passed. After permissions restoration, full production build passed including Taikyoku prerender. Main integration is a fast-forward; feature already contains latest origin/main. Release target v1.4.0 using project release-it workflow and personal GitHub identity.
 - Current release authorization: commit completed Taikyoku changes, integrate latest main, publish minor version and push main/release tag. Fetch origin completed; preserve active dev server. Required release-it validation/lint/format/build must pass. No independent browser during active testing.

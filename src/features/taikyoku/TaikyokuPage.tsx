@@ -361,9 +361,9 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
   const plies = game?.moves.length ?? 0
   const formatEntry = (entry: TimelineEntry, previous?: EngineMove, compact = false) => {
     const { move, piece, side } = entry
-    const destination = previous && same(previous.to, move.to) ? (lang === 'ja' ? '同' : 'same') : squareName(move.to)
+    const destination = previous && same(previous.to, move.to) ? '同' : squareName(move.to)
     const via = move.mid ? ` (${squareName(move.from)} → ${squareName(move.mid)} → ${squareName(move.to)})` : ` (${squareName(move.from)})`
-    return `${side === 'b' ? '☗' : '☖'}${destination}${pieceName(piece.key)}${move.promote ? (lang === 'ja' ? '成' : ' promotion') : ''}${compact ? '' : via}`
+    return `${side === 'b' ? '☗' : '☖'}${destination}${catalog[piece.key]?.k || piece.key}${move.promote ? '成' : ''}${compact ? '' : via}`
   }
   const moveLabel = (index: number) => (timelineEntries[index] ? formatEntry(timelineEntries[index], timelineEntries[index - 1]?.move) : '')
 
