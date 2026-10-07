@@ -334,7 +334,7 @@
 
   .app-announce-layout {
     gap: var(--space-3);
-    transform: translateY(10px);
+    transform: translateY(2px);
   }
 
   .app-announce-meta {
@@ -347,9 +347,9 @@
     width: 16px;
   }
   .app-announce-seal {
-    width: 28px;
-    height: 34px;
-    font-size: 14px;
+    width: 30px;
+    height: 48px;
+    font-size: 16px;
   }
 }
 

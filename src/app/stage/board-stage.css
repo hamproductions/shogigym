@@ -11,6 +11,10 @@
   pointer-events: none;
 }
 
+.app-board-wrap.with-eval .app-board-caption {
+  left: calc(var(--eval-bar-width) + var(--space-2));
+}
+
 .app-board-caption > .app-plate,
 .app-board-caption > .app-peek {
   position: static;
@@ -61,6 +65,10 @@
   }
 
   .with-eval .app-board-scene > .app-peek {
+    left: var(--space-2);
+  }
+
+  .app-board-wrap.with-eval .app-board-caption {
     left: var(--space-2);
   }
 

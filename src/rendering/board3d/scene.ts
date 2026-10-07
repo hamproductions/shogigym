@@ -6,7 +6,7 @@ import { CASUAL, HALF_D, HALF_W, LEG, STAND, STAND_SLAB, STAND_TOP, STRIP_D, STR
 import { layout, standCenter } from './layout'
 import { surroundings } from './surroundings'
 import { environmentMap, preparePieceEnvironment, releasePieceEnvironment, standMaterial, woodMaterial } from './materials'
-import { boardTexture } from './textures'
+import { boardTexture, clearFaceTextures } from './textures'
 import { BOARD_TONE } from '@/rendering/koma'
 import type { SceneState, Stand } from './types'
 import { disposePiece } from './piece'
@@ -17,6 +17,13 @@ let releaseTimer = 0
 
 export function createRenderer(activateEnvironment = true) {
   window.clearTimeout(releaseTimer)
+  // A lock screen or memory pressure can leave the shared context dead; reusing it would draw nothing forever.
+  if (sharedRenderer?.getContext().isContextLost()) {
+    destroyRenderer(sharedRenderer)
+    clearFaceTextures()
+    sharedRenderer = null
+    rendererUsers = 0
+  }
   if (sharedRenderer) {
     preparePieceEnvironment(sharedRenderer, activateEnvironment)
     rendererUsers++

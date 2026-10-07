@@ -25,7 +25,13 @@ import { getSettings, playSound, subscribeSettings } from '@/appearance/settings
 
 export type { Board3DProps, BoardArrow, StandZones, ZoneRect } from '@/rendering/board3d/types'
 
+// A dead GL context (lock screen, memory pressure) cannot be repaired in place, so rebuild the scene on a fresh renderer.
 export function Board3D(props: Board3DProps) {
+  const [epoch, setEpoch] = useState(0)
+  return <Board3DScene key={epoch} {...props} onContextLost={() => setEpoch((n) => n + 1)} />
+}
+
+function Board3DScene(props: Board3DProps & { onContextLost: () => void }) {
   setBoardDims()
   const host = useRef<HTMLDivElement>(null)
   const [ready, setReady] = useState(false)
@@ -257,8 +263,10 @@ export function Board3D(props: Board3DProps) {
     const onFlipCancel = () => {
       flipClick = null
     }
+    let lostTimer = 0
     // A browser may drop the GL context under memory pressure; once restored, rebuild every texture and piece.
     const onContextRestored = () => {
+      window.clearTimeout(lostTimer)
       const environment = preparePieceEnvironment(renderer)
       s.scene.traverse((object) => {
         const material = (object as THREE.Mesh).material
@@ -272,6 +280,22 @@ export function Board3D(props: Board3DProps) {
       refresh()
       updateShadows(true)
     }
+    const recoverIfLost = () => {
+      if (live && renderer.getContext().isContextLost()) latest.current.onContextLost()
+    }
+    // Give the browser a moment to restore the context on its own before rebuilding.
+    const onContextLost = () => {
+      window.clearTimeout(lostTimer)
+      lostTimer = window.setTimeout(recoverIfLost, 1500)
+    }
+    const onReturn = () => {
+      if (document.visibilityState === 'hidden') return
+      window.clearTimeout(lostTimer)
+      lostTimer = window.setTimeout(recoverIfLost, 1000)
+    }
+    renderer.domElement.addEventListener('webglcontextlost', onContextLost)
+    document.addEventListener('visibilitychange', onReturn)
+    window.addEventListener('pageshow', onReturn)
     renderer.domElement.addEventListener('webglcontextrestored', onContextRestored)
     renderer.domElement.addEventListener('pointerdown', onFlipDown)
     renderer.domElement.ownerDocument.addEventListener('pointermove', onFlipMove, true)
@@ -289,6 +313,10 @@ export function Board3D(props: Board3DProps) {
 
     return () => {
       live = false
+      window.clearTimeout(lostTimer)
+      renderer.domElement.removeEventListener('webglcontextlost', onContextLost)
+      document.removeEventListener('visibilitychange', onReturn)
+      window.removeEventListener('pageshow', onReturn)
       cancelAnimationFrame(frame)
       furigoma.current?.dispose()
       furigoma.current = null
