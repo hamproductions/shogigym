@@ -18,7 +18,6 @@ export function BoardLoading({ error, progress, state }: { error?: string; progr
   return (
     <div className="board-loading" role={error ? 'alert' : 'status'} aria-busy={!error}>
       <div className="board-loading-content">
-        {!error && <span className="board-loading-spinner" aria-hidden="true" />}
         <span>{error ?? label}</span>
         {!error && <progress className="board-loading-progress" max={1} value={value} aria-label={label} />}
         {!error && value !== undefined && <span className="board-loading-percent">{Math.round(value * 100)}%</span>}
