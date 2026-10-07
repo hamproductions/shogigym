@@ -1,7 +1,7 @@
 # Current task
 
 ## Scope and result
-- Current authorization: commit current rendering and interaction changes locally; provide an iPad LAN preview. No push, release or deployment authorized.
+- Current authorization: publish patch release v1.3.8 using the repository release command. Current patches committed; fetched and merged origin/main loading-progress fix. Preserve active previews; no independent browser testing.
 - iPad preview: http://192.168.3.60:5174, dev server bound to 0.0.0.0, session 63428. LAN HTTP responds 200. Preserve this preview and existing localhost:5173 server for active testing. Physical iPad behavior unverified.
 - Latest sizing fixes: floating panel free-space calculation now excludes actual formation/caption bounds instead of assuming a 48px footer; hot-refresh replaces the zone reporter without replacing renderer. Notes and bottom formation strip share a stacked caption container. Tab underline no longer uses negative bottom margin. Sound popup updates its anchor on scroll, viewport resize and rotation, and clamps to viewport edges.
 - Runtime proof: desktop floating left panel bottom 500.797, formation strip top 512.813, 12px gap; screenshot inspected. At 768x1024, sound popup remains within viewport after rotation (left 590, right 758), below sound button; portrait panel tabs inspected with flush underline. TypeScript and whitespace checks pass.
