@@ -1,13 +1,35 @@
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { applyUsi } from '@/utils/shogi'
 import { mainBranch, strip } from '@/utils/book'
 import type { BoardSession } from './useBoardSession'
+
+export function useMovePlayback(playing: boolean, ready: boolean, available: boolean, step: () => void, stop: () => void, cursor: number) {
+  const lastStep = useRef<number | null>(null)
+  useEffect(() => {
+    if (!playing) {
+      lastStep.current = null
+      return
+    }
+    if (!ready) return
+    if (!available) {
+      stop()
+      return
+    }
+    const timer = setTimeout(
+      () => {
+        lastStep.current = performance.now()
+        step()
+      },
+      lastStep.current === null ? 0 : Math.max(0, 1100 - (performance.now() - lastStep.current)),
+    )
+    return () => clearTimeout(timer)
+  }, [playing, ready, available, step, stop, cursor])
+}
 
 export function useAutoplay(
   { mode, preview, setPreview, cursor, setCursor, game, nodes, sfen, ai, playing, setPlaying, play, gameOver }: BoardSession,
   bestMove: string | undefined,
 ) {
-  const lastStep = useRef<number | null>(null)
   const candidate = preview
     ? preview.moves[preview.step]
     : cursor < game.moves.length
@@ -16,26 +38,13 @@ export function useAutoplay(
         ? undefined
         : (mainBranch(nodes?.get(strip(sfen)))?.usi ?? (ai && bestMove !== 'resign' && bestMove !== 'win' ? bestMove : undefined))
   const upcoming = candidate && applyUsi(sfen, candidate) ? candidate : undefined
-  useEffect(() => {
-    if (mode === 'view' && !preview && cursor === game.moves.length) return
-    if (!playing) {
-      lastStep.current = null
-      return
-    }
-    if (!upcoming) {
-      setPlaying(false)
-      return
-    }
-    const timer = setTimeout(
-      () => {
-        lastStep.current = performance.now()
-        if (preview) setPreview({ ...preview, step: preview.step + 1 })
-        else if (cursor < game.moves.length) setCursor(cursor + 1)
-        else play(upcoming)
-      },
-      lastStep.current === null ? 0 : Math.max(0, 1100 - (performance.now() - lastStep.current)),
-    )
-    return () => clearTimeout(timer)
-  }, [mode, playing, upcoming, cursor, game.moves.length, play, preview, setPreview, setCursor, setPlaying])
+  const step = useCallback(() => {
+    if (!upcoming) return
+    if (preview) setPreview({ ...preview, step: preview.step + 1 })
+    else if (cursor < game.moves.length) setCursor(cursor + 1)
+    else play(upcoming)
+  }, [upcoming, preview, setPreview, cursor, game.moves.length, setCursor, play])
+  const stop = useCallback(() => setPlaying(false), [setPlaying])
+  useMovePlayback(playing, mode !== 'view' || !!preview || cursor < game.moves.length, !!upcoming, step, stop, cursor)
   return mode === 'view' ? undefined : upcoming
 }

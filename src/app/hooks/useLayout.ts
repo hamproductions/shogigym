@@ -31,7 +31,7 @@ export function scrollPanelTop(smooth = false) {
   else body?.scrollTo(0, 0)
 }
 
-export function useLayout({ mode, needsPicking, welcome }: { mode: Mode; needsPicking: boolean; welcome: boolean }) {
+export function useLayout({ mode, needsPicking, welcome }: { mode: Mode | 'taikyoku'; needsPicking: boolean; welcome: boolean }) {
   const [viewport, setViewport] = useState(() => ({ w: window.innerWidth, h: window.innerHeight }))
   const [compact, setCompact] = useState(() => window.matchMedia(PHONE_QUERY).matches)
   const [panelPrefs, setPanelPrefs] = useState(loadPanelPrefs)

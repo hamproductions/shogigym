@@ -353,7 +353,7 @@ function FinishOptions() {
   )
 }
 
-function DesignOptions() {
+function DesignOptions({ customFace = false }: { customFace?: boolean } = {}) {
   const { t } = useTranslation()
   const st = useSettings()
   const currentFamily = pieceFamily(st.pieceSet)
@@ -431,44 +431,48 @@ function DesignOptions() {
   ]
   return (
     <>
-      <StickyPiecePreview />
-      <OptionGroup
-        label={t('settings.preset')}
-        options={presets.map((preset) => ({
-          ...preset,
-          preview: <GlyphSample set={preset.patch.pieceSet!} font={preset.patch.pieceFont ?? st.pieceFont} style={preset.patch.pieceStyle} code="KI" />,
-        }))}
-        value={presets.find((preset) => Object.entries(preset.patch).every(([key, value]) => st[key as keyof typeof st] === value))?.key ?? ''}
-        onChange={(key) => setSettings(presets.find((preset) => preset.key === key)!.patch)}
-      />
-      <OptionGroup
-        label={t('settings.typeface')}
-        options={PIECE_TYPEFACES.map((key) => ({
-          key,
-          label:
-            key === 'sunfish_hitomoji'
-              ? 'Sunfish'
-              : key === 'kaishoa_one'
-                ? t('settings.kaishoA')
-                : key === 'kanji_brown'
-                  ? 'Ka-hu'
-                  : key === 'shogi_bnw'
-                    ? 'Shogi'
-                    : key === '1kanji_3d'
-                      ? t('settings.lishogiKanji')
-                      : key === 'simple_kanji'
-                        ? t('settings.simpleKanji')
-                        : key === 'hitomoji'
-                          ? t('settings.hitomoji')
-                          : key === 'pixel'
-                            ? t('settings.pixel')
-                            : PIECE_SETS[key].label,
-          preview: <GlyphSample set={key} font={st.pieceFont} />,
-        }))}
-        value={currentFamily}
-        onChange={(key) => changeFamily(key as PieceSet)}
-      />
-      {lettering && (
+      {!customFace && (
+        <>
+          <StickyPiecePreview />
+          <OptionGroup
+            label={t('settings.preset')}
+            options={presets.map((preset) => ({
+              ...preset,
+              preview: <GlyphSample set={preset.patch.pieceSet!} font={preset.patch.pieceFont ?? st.pieceFont} style={preset.patch.pieceStyle} code="KI" />,
+            }))}
+            value={presets.find((preset) => Object.entries(preset.patch).every(([key, value]) => st[key as keyof typeof st] === value))?.key ?? ''}
+            onChange={(key) => setSettings(presets.find((preset) => preset.key === key)!.patch)}
+          />
+          <OptionGroup
+            label={t('settings.typeface')}
+            options={PIECE_TYPEFACES.map((key) => ({
+              key,
+              label:
+                key === 'sunfish_hitomoji'
+                  ? 'Sunfish'
+                  : key === 'kaishoa_one'
+                    ? t('settings.kaishoA')
+                    : key === 'kanji_brown'
+                      ? 'Ka-hu'
+                      : key === 'shogi_bnw'
+                        ? 'Shogi'
+                        : key === '1kanji_3d'
+                          ? t('settings.lishogiKanji')
+                          : key === 'simple_kanji'
+                            ? t('settings.simpleKanji')
+                            : key === 'hitomoji'
+                              ? t('settings.hitomoji')
+                              : key === 'pixel'
+                                ? t('settings.pixel')
+                                : PIECE_SETS[key].label,
+              preview: <GlyphSample set={key} font={st.pieceFont} />,
+            }))}
+            value={currentFamily}
+            onChange={(key) => changeFamily(key as PieceSet)}
+          />
+        </>
+      )}
+      {(lettering || customFace) && (
         <OptionGroup
           label={t('settings.font')}
           options={FONTS.map((key) => ({ key, label: PIECE_FONTS[key].label, preview: <GlyphSample set="letters" font={key} /> }))}
@@ -476,35 +480,39 @@ function DesignOptions() {
           onChange={(key) => setSettings({ pieceFont: key as PieceFont })}
         />
       )}
-      <OptionGroup
-        label={t('settings.type')}
-        options={(twoOnly ? ['two'] : ['one', ...(lettering || paired ? ['two'] : []), 'guide']).map((key) => ({
-          key,
-          label: key === 'guide' ? t('settings.oneCharacterGuide') : t(key === 'one' ? 'settings.oneCharacter' : 'settings.twoCharacters'),
-          preview: (
-            <GlyphSample
-              set={paired ? pieceSetForFace(currentFamily, key === 'two' ? 'two' : 'one') : st.pieceSet}
-              font={st.pieceFont}
-              style={key === 'two' ? 'two' : 'one'}
-              guide={key === 'guide' ? (st.pieceGuide === 'none' ? 'lines' : st.pieceGuide) : 'none'}
-            />
-          ),
-        }))}
-        value={st.pieceGuide === 'none' ? faces : 'guide'}
-        onChange={(key) => changeFace(key === 'guide' ? (st.pieceGuide === 'none' ? 'lines' : st.pieceGuide) : key)}
-      />
+      {!customFace && (
+        <>
+          <OptionGroup
+            label={t('settings.type')}
+            options={(twoOnly ? ['two'] : ['one', ...(lettering || paired ? ['two'] : []), 'guide']).map((key) => ({
+              key,
+              label: key === 'guide' ? t('settings.oneCharacterGuide') : t(key === 'one' ? 'settings.oneCharacter' : 'settings.twoCharacters'),
+              preview: (
+                <GlyphSample
+                  set={paired ? pieceSetForFace(currentFamily, key === 'two' ? 'two' : 'one') : st.pieceSet}
+                  font={st.pieceFont}
+                  style={key === 'two' ? 'two' : 'one'}
+                  guide={key === 'guide' ? (st.pieceGuide === 'none' ? 'lines' : st.pieceGuide) : 'none'}
+                />
+              ),
+            }))}
+            value={st.pieceGuide === 'none' ? faces : 'guide'}
+            onChange={(key) => changeFace(key === 'guide' ? (st.pieceGuide === 'none' ? 'lines' : st.pieceGuide) : key)}
+          />
 
-      {st.pieceGuide !== 'none' && (
-        <OptionGroup
-          label={t('settings.guideStyle')}
-          options={(['lines', 'dots', 'movement'] as const).map((key) => ({
-            key,
-            label: t(key === 'dots' ? 'settings.guideDots' : key === 'movement' ? 'settings.guideMarks' : 'settings.guideLines'),
-            preview: <img className="app-prepared-glyph" src={`${import.meta.env.BASE_URL}pieces/prepared/guides/KI.${key}.png?v=16`} alt="" />,
-          }))}
-          value={st.pieceGuide}
-          onChange={(key) => setSettings({ pieceGuide: key as typeof st.pieceGuide })}
-        />
+          {st.pieceGuide !== 'none' && (
+            <OptionGroup
+              label={t('settings.guideStyle')}
+              options={(['lines', 'dots', 'movement'] as const).map((key) => ({
+                key,
+                label: t(key === 'dots' ? 'settings.guideDots' : key === 'movement' ? 'settings.guideMarks' : 'settings.guideLines'),
+                preview: <img className="app-prepared-glyph" src={`${import.meta.env.BASE_URL}pieces/prepared/guides/KI.${key}.png?v=16`} alt="" />,
+              }))}
+              value={st.pieceGuide}
+              onChange={(key) => setSettings({ pieceGuide: key as typeof st.pieceGuide })}
+            />
+          )}
+        </>
       )}
       <OptionGroup
         label={t('settings.color')}
@@ -557,7 +565,7 @@ function DesignOptions() {
       <FinishOptions />
 
       <p className="app-muted app-credit">{PIECE_FINISHES[selectedPieceFinish()].hint}</p>
-      {PIECE_SETS[st.pieceSet].credit && <p className="app-muted app-credit">{PIECE_SETS[st.pieceSet].credit}</p>}
+      {!customFace && PIECE_SETS[st.pieceSet].credit && <p className="app-muted app-credit">{PIECE_SETS[st.pieceSet].credit}</p>}
     </>
   )
 }
@@ -575,7 +583,19 @@ function BoardOptions() {
   )
 }
 
-export function SettingsDialog({ onClose, level, onLevel }: { onClose: () => void; level: Level; onLevel: (l: Level) => void }) {
+export function SettingsDialog({
+  onClose,
+  level,
+  onLevel,
+  availableTabs,
+  customFace = false,
+}: {
+  onClose: () => void
+  level?: Level
+  onLevel?: (l: Level) => void
+  availableTabs?: SettingsTab[]
+  customFace?: boolean
+}) {
   const { t } = useTranslation()
   const st = useSettings()
   const [tab, setTab] = useState<SettingsTab>('general')
@@ -589,7 +609,7 @@ export function SettingsDialog({ onClose, level, onLevel }: { onClose: () => voi
   return (
     <Dialog label={t('settings.settings')} className="app-settings" onBackdrop={onClose}>
       <DialogHeader title={t('settings.settings')} closeLabel={t('settings.closeSettings')} closeTitle={t('settings.closeEsc')} onClose={onClose} />
-      <Tabs items={tabs} value={tab} onChange={setTab} />
+      <Tabs items={availableTabs ? tabs.filter(({ id }) => availableTabs.includes(id)) : tabs} value={tab} onChange={setTab} />
       <div className="app-settings-body">
         {tab === 'general' && (
           <>
@@ -612,15 +632,17 @@ export function SettingsDialog({ onClose, level, onLevel }: { onClose: () => voi
               ]}
               onChange={(v) => setSettings({ theme: v })}
             />
-            <SegmentedField<Level>
-              label={t('settings.shogiKnowledge')}
-              value={level}
-              options={[
-                { v: 'rules', t: t('settings.iKnowTheRules') },
-                { v: 'new', t: t('settings.newToShogi') },
-              ]}
-              onChange={onLevel}
-            />
+            {level && onLevel && (
+              <SegmentedField<Level>
+                label={t('settings.shogiKnowledge')}
+                value={level}
+                options={[
+                  { v: 'rules', t: t('settings.iKnowTheRules') },
+                  { v: 'new', t: t('settings.newToShogi') },
+                ]}
+                onChange={onLevel}
+              />
+            )}
             <SegmentedField
               label={t('settings.soundEffects')}
               value={st.sound}
@@ -643,19 +665,23 @@ export function SettingsDialog({ onClose, level, onLevel }: { onClose: () => voi
                 onMouseUp={() => playSound('move')}
               />
             </SettingRow>
-            <SegmentedField
-              label={t('settings.voice')}
-              value={st.voice}
-              options={[
-                { v: true, t: t('settings.on') },
-                { v: false, t: t('settings.off') },
-              ]}
-              onChange={(v) => {
-                setSettings({ voice: v })
-                if (v) say('四間飛車', true)
-              }}
-            />
-            {st.voice && <p className="app-muted app-credit">{t('settings.voiceCredit')}</p>}
+            {!customFace && (
+              <>
+                <SegmentedField
+                  label={t('settings.voice')}
+                  value={st.voice}
+                  options={[
+                    { v: true, t: t('settings.on') },
+                    { v: false, t: t('settings.off') },
+                  ]}
+                  onChange={(v) => {
+                    setSettings({ voice: v })
+                    if (v) say('四間飛車', true)
+                  }}
+                />
+                {st.voice && <p className="app-muted app-credit">{t('settings.voiceCredit')}</p>}{' '}
+              </>
+            )}
           </>
         )}
         {tab === 'about' && (
@@ -743,7 +769,7 @@ export function SettingsDialog({ onClose, level, onLevel }: { onClose: () => voi
         )}
         {tab === 'pieces' && (
           <>
-            <DesignOptions />
+            <DesignOptions customFace={customFace} />
           </>
         )}
         {tab === 'play' && (

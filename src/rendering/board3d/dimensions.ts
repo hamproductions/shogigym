@@ -14,9 +14,13 @@ export const STRIP_D = 1.15
 
 export function sideStandsFit(w: number, h: number) {
   setBoardDims()
-  const side = Math.min(w / (2 * (HALF_W + 0.45 + STAND)), h / (2 * HALF_D + 0.6))
+  return sideStandsFitFor(w, h, HALF_W, HALF_D, STAND)
+}
+
+export function sideStandsFitFor(w: number, h: number, halfW: number, halfD: number, stand: number) {
+  const side = Math.min(w / (2 * (halfW + 0.45 + stand)), h / (2 * halfD + 0.6))
   const sd = w < 560 ? 0.95 : 1.15
-  const strips = Math.min(w / (2 * HALF_W + (w < 560 ? 0.5 : 1.0)), h / (2 * (HALF_D + 0.3 + sd) + 0.2))
+  const strips = Math.min(w / (2 * halfW + (w < 560 ? 0.5 : 1.0)), h / (2 * (halfD + 0.3 + sd) + 0.2))
   return side >= strips * 0.97
 }
 

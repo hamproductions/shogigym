@@ -5,11 +5,12 @@ Source of the engine behind `/taikyoku`. It is TaikyokuShogi-Stockfish by Belzed
 licensed GPL-3.0 (`COPYING`, `AUTHORS`). It is not Fairy-Stockfish: Fairy-Stockfish boards stop at 12×10
 squares (128-bit bitboards, 7-bit squares), far below Taikyoku's 36×36 = 1,296.
 
-Files copied unchanged: `position.cpp/h`, `search.cpp/h`, `nnue.cpp/h`, `tt.h`, `types.h`, `rules_data.h`
+Files copied unchanged: `search.cpp/h`, `nnue.cpp/h`, `tt.h`, `types.h`, `rules_data.h`
 (generated from the Wikipedia piece rules by the upstream `make rules`).
 
 Local changes:
 
+- `position.cpp/h`: dynamic control output and bounded source-target deduplication; range-capture rank blockers permit ordinary enemy capture on a clear path, while preventing traversal beyond the blocker.
 - `uci.cpp`: the blocking `uci_loop()` is split into `uci_init()` and `uci_handle(line)`; native `main`,
   datagen, bench and NNUE options are removed. The default hash is 16 MB.
 - `wasm_api.cpp`: `tk_init()` and `tk_command(line)` for the worker (`public/taikyoku/worker.js`).

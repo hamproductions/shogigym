@@ -332,7 +332,7 @@ export function faceTexture(char: string, promoted: boolean, seed = 1, appearanc
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
     const chars = [...char]
-    const size = chars.length === 1 ? 176 : 116
+    const size = chars.length === 1 ? 176 : chars.length <= 2 ? 116 : 224 / chars.length
     ctx.font = `${font.weight} ${size}px "${font.family}", "Shippori Mincho B1", serif`
     chars.forEach((c, i) => {
       const y = 128 + (i - (chars.length - 1) / 2) * size * 0.98 + 6
@@ -342,7 +342,7 @@ export function faceTexture(char: string, promoted: boolean, seed = 1, appearanc
     const sourceGuide = settings.pieceGuide === 'none' ? undefined : loadedGuide(code, settings.pieceGuide)
     const guide = settings.pieceGuide === 'lines' ? guideInk(sourceGuide, glyph) : sourceGuide
     if (settings.pieceGuide !== 'none' && !guide) throw new Error(`Guide not loaded: ${code}/${settings.pieceGuide}`)
-    glyph = composeGlyph(normalizeInk(glyph, readback), guide, settings.pieceStyle === 'two', settings.pieceGuide === 'movement', readback)
+    glyph = composeGlyph(normalizeInk(glyph, readback), guide, settings.pieceStyle === 'two' || chars.length > 2, settings.pieceGuide === 'movement', readback)
     if (fontReady) rememberGlyph(glyphKey, glyph)
   }
   canvas.getContext('2d')!.drawImage(glyph, 0, 0)

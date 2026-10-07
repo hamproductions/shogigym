@@ -2,6 +2,7 @@ import './rail.css'
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router'
 import type { View } from '@/app/hooks/useView'
 import { Icon } from '@/app/icons'
 import { flipTable, saveBoardImage } from '@/utils/events'
@@ -24,9 +25,13 @@ type RailProps = {
   onPalette: () => void
   onLessonBack?: () => void
   snapshotName: string
+  tools?: RailTool[]
+  navigation?: boolean
+  onBack?: () => void
+  backLabel?: string
 }
 
-function ToolButton({ tool }: { tool: RailTool }) {
+export function ToolButton({ tool }: { tool: RailTool }) {
   return (
     <button
       className={`app-rail-btn${tool.on ? ' on' : ''}`}
@@ -89,8 +94,23 @@ function RailMenu({ anchor, phone, close, children }: { anchor: HTMLElement | nu
   )
 }
 
-export function Rail({ mode, onMode, compact: phone, view, settingsOpen, onSettings, onPalette, onLessonBack, snapshotName }: RailProps) {
+export function Rail({
+  mode,
+  onMode,
+  compact: phone,
+  view,
+  settingsOpen,
+  onSettings,
+  onPalette,
+  onLessonBack,
+  snapshotName,
+  tools,
+  navigation = true,
+  onBack,
+  backLabel,
+}: RailProps) {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const ja = useSettings().lang === 'ja'
   const installation = useInstallApp()
   const [more, setMore] = useState(false)
@@ -110,7 +130,7 @@ export function Rail({ mode, onMode, compact: phone, view, settingsOpen, onSetti
     setModeMenu(false)
   }, [])
   useMenuDismiss(more || modeMenu, closeMenus)
-  const { primary, secondary, top, bottom } = useRailTools({
+  const defaults = useRailTools({
     view,
     settingsOpen,
     onSettings,
@@ -120,20 +140,35 @@ export function Rail({ mode, onMode, compact: phone, view, settingsOpen, onSetti
     onSaveImage: saveBoardImage,
     onInstall: installation.installed ? undefined : installation.install,
   })
+  const { primary, secondary, top, bottom } = tools
+    ? {
+        primary: tools.filter((tool) => !['control', 'palette', 'settings', 'hide', 'fullscreen'].includes(tool.id)),
+        secondary: [],
+        top: defaults.top,
+        bottom: tools.filter((tool) => ['settings', 'hide', 'fullscreen'].includes(tool.id)),
+      }
+    : defaults
   const { railRef, lastModeRef, capacity } = useRailCapacity(compact)
   const all = [...primary, ...secondary, ...bottom]
+  const extras: RailTool[] = navigation ? [{ id: 'taikyoku', icon: 'spar', label: t('palette.taikyoku'), run: () => void navigate('/taikyoku') }] : []
   const available = Math.max(0, capacity - top.length)
-  const inline = available >= all.length ? all : all.slice(0, Math.max(0, available - 1))
-  const overflow = all.slice(inline.length)
+  const inline = available >= all.length + (extras.length ? 1 : 0) ? all : all.slice(0, Math.max(0, available - 1))
+  const overflow = [...all.slice(inline.length), ...extras]
   return (
     <nav className="app-rail" aria-label={t('app.mode')} ref={railRef}>
       <RailSeal />
+      {onBack && (
+        <button ref={lastModeRef} className="app-rail-btn" onClick={onBack} title={backLabel} aria-label={backLabel}>
+          <Icon name="back" size={20} />
+          <span>{backLabel}</span>
+        </button>
+      )}
       {onLessonBack && (
         <button className="app-rail-btn app-lesson-back" onClick={onLessonBack} title={t('lesson.lessons')} aria-label={t('lesson.lessons')}>
           <Icon name="back" size={20} />
         </button>
       )}
-      {compact && (
+      {navigation && compact && (
         <div className="app-menu-wrap app-mode-menu">
           <button
             ref={lastModeRef}
@@ -159,7 +194,8 @@ export function Rail({ mode, onMode, compact: phone, view, settingsOpen, onSetti
             )}
         </div>
       )}
-      {!compact &&
+      {navigation &&
+        !compact &&
         MODES.map((m, i) => (
           <button
             key={m.id}

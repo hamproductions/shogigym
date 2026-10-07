@@ -17,17 +17,63 @@ export function standCenter(color: Color) {
 }
 
 export function cameraFit(aspect: number, tilt: number, sideRoom: number, portrait = layout.portrait, narrow = layout.narrow) {
+  return cameraFitFor(aspect, tilt, sideRoom, { halfW: HALF_W, halfD: HALF_D, stand: STAND, stripD: STRIP_D, stripZ: stripZ() }, portrait, narrow)
+}
+
+export function cameraFitFor(
+  aspect: number,
+  tilt: number,
+  sideRoom: number,
+  dims: { halfW: number; halfD: number; stand: number; stripD: number; stripZ: number },
+  portrait = false,
+  narrow = false,
+) {
   const fit = portrait
-    ? Math.max((2 * HALF_W + (narrow ? 0.5 : 1.0)) / aspect, 2 * (stripZ() + STRIP_D / 2) + 0.2)
-    : Math.max((2 * (HALF_W + 0.45 + Math.max(STAND, sideRoom)) + 1.4) / aspect, 2 * HALF_D + 1.6)
+    ? Math.max((2 * dims.halfW + (narrow ? 0.5 : 1.0)) / aspect, 2 * (dims.stripZ + dims.stripD / 2) + 0.2)
+    : Math.max((2 * (dims.halfW + 0.45 + Math.max(dims.stand, sideRoom)) + 1.4) / aspect, 2 * dims.halfD + 1.6)
   return fit * (1 + (portrait ? 0.06 : 0.16) * tilt)
 }
 
 export function zoneReporter(s: SceneState, latest: Latest) {
+  return projectedZoneReporter({
+    renderer: s.renderer,
+    camera: s.camera,
+    onZones: () => latest.current.onZones,
+    ready: () => !s.flip && Math.abs((latest.current.flipped ? Math.PI : 0) - s.root.rotation.y) <= 0.002,
+    sideRoom: () => latest.current.sideRoom ?? 0,
+    inputs: () => [...s.board.matrixWorld.elements, ...s.stands.flatMap(({ stand }) => stand.matrixWorld.elements)],
+    fits: sideStandsFit,
+    fit: (aspect, sideRoom, narrow) => cameraFit(aspect, 0, sideRoom, false, narrow),
+    board: () => new THREE.Box3().setFromObject(s.board),
+    stands: () =>
+      [-1, 1].map((sign) => {
+        const x = sign * (HALF_W + 0.4 + STAND / 2)
+        const z = sign * (HALF_D - STAND / 2)
+        return new THREE.Box3(new THREE.Vector3(x - STAND / 2, STAND_TOP, z - STAND / 2), new THREE.Vector3(x + STAND / 2, STAND_TOP, z + STAND / 2))
+      }),
+    obstacles: () => [s.board, ...s.stands.map(({ stand }) => stand)].map((object) => new THREE.Box3().setFromObject(object)),
+  })
+}
+
+type ZoneProjection = {
+  renderer: THREE.WebGLRenderer
+  camera: THREE.PerspectiveCamera
+  onZones: () => ((zones: StandZones | null) => void) | undefined
+  ready: () => boolean
+  sideRoom: () => number
+  inputs: () => number[]
+  fits: (width: number, height: number) => boolean
+  fit: (aspect: number, sideRoom: number, narrow: boolean) => number
+  board: () => THREE.Box3
+  stands: () => THREE.Box3[]
+  obstacles: () => THREE.Box3[]
+}
+
+export function projectedZoneReporter(options: ZoneProjection) {
   let zoneKey = ''
   let previous: number[] = []
-  let previousCallback: Latest['current']['onZones']
-  const camera = s.camera.clone()
+  let previousCallback: ReturnType<ZoneProjection['onZones']>
+  const camera = options.camera.clone()
   const box = (b: THREE.Box3, w: number, h: number) => {
     const xs: number[] = []
     const ys: number[] = []
@@ -40,16 +86,15 @@ export function zoneReporter(s: SceneState, latest: Latest) {
     return { l: Math.min(...xs), r: Math.max(...xs), t: Math.min(...ys), b: Math.max(...ys) }
   }
   return () => {
-    const cb = latest.current.onZones
+    const cb = options.onZones()
     if (!cb) return
     if (cb !== previousCallback) {
       previousCallback = cb
       previous = []
       zoneKey = ''
     }
-    if (s.flip) return
-    if (Math.abs((latest.current.flipped ? Math.PI : 0) - s.root.rotation.y) > 0.002) return
-    const canvas = s.renderer.domElement
+    if (!options.ready()) return
+    const canvas = options.renderer.domElement
     const shell = canvas.closest('.app-shell')
     const docked = shell && !shell.matches('.zoned, .panel-hidden, .fs') ? shell.querySelector<HTMLElement>(':scope > .app-panel') : null
     const w = canvas.clientWidth + (docked?.offsetWidth ?? 0)
@@ -66,15 +111,14 @@ export function zoneReporter(s: SceneState, latest: Latest) {
       rect.top,
       +!!docked,
       ...captions.flatMap((bounds) => [bounds.left, bounds.top, bounds.right, bounds.bottom]),
-      latest.current.sideRoom ?? 0,
-      ...s.camera.matrixWorld.elements,
-      ...s.camera.projectionMatrix.elements,
-      ...s.board.matrixWorld.elements,
-      ...s.stands.flatMap(({ stand }) => stand.matrixWorld.elements),
+      options.sideRoom(),
+      ...options.camera.matrixWorld.elements,
+      ...options.camera.projectionMatrix.elements,
+      ...options.inputs(),
     ]
     if (inputs.length === previous.length && inputs.every((value, index) => value === previous[index])) return
     previous = inputs
-    if (!sideStandsFit(w, h)) {
+    if (!options.fits(w, h)) {
       if (zoneKey !== 'none') {
         zoneKey = 'none'
         cb(null)
@@ -82,17 +126,14 @@ export function zoneReporter(s: SceneState, latest: Latest) {
       return
     }
     camera.aspect = w / h
-    const distance = cameraFit(camera.aspect, 0, latest.current.sideRoom ?? 0, false, w < 560) / (2 * Math.tan((camera.fov * Math.PI) / 360))
+    camera.fov = options.camera.fov
+    const distance = options.fit(camera.aspect, options.sideRoom(), w < 560) / (2 * Math.tan((camera.fov * Math.PI) / 360))
     camera.position.set(0, distance, distance * 0.02)
     camera.lookAt(0, 0, 0)
     camera.updateProjectionMatrix()
     camera.updateMatrixWorld()
-    const bd = box(new THREE.Box3().setFromObject(s.board), w, h)
-    const [a, c] = [-1, 1].map((sign) => {
-      const x = sign * (HALF_W + 0.4 + STAND / 2)
-      const z = sign * (HALF_D - STAND / 2)
-      return box(new THREE.Box3(new THREE.Vector3(x - STAND / 2, STAND_TOP, z - STAND / 2), new THREE.Vector3(x + STAND / 2, STAND_TOP, z + STAND / 2)), w, h)
-    })
+    const bd = box(options.board(), w, h)
+    const [a, c] = options.stands().map((bounds) => box(bounds, w, h))
     const top = a.t < c.t ? a : c
     const bottom = a.t < c.t ? c : a
     const gap = 12
@@ -107,10 +148,9 @@ export function zoneReporter(s: SceneState, latest: Latest) {
       over: { left: rect.left + bd.r + gap, top: rect.top + bottom.t - gap - H, width: W, height: H },
     }
     if (!docked && zones.floatingAvailable) {
-      const obstacles = [s.board, ...s.stands.map(({ stand }) => stand)].map((object) => {
-        const bounds = new THREE.Box3().setFromObject(object)
+      const obstacles = options.obstacles().map((bounds) => {
         const points = [bounds.min.x, bounds.max.x].flatMap((x) =>
-          [bounds.min.y, bounds.max.y].flatMap((y) => [bounds.min.z, bounds.max.z].map((z) => new THREE.Vector3(x, y, z).project(s.camera))),
+          [bounds.min.y, bounds.max.y].flatMap((y) => [bounds.min.z, bounds.max.z].map((z) => new THREE.Vector3(x, y, z).project(options.camera))),
         )
         return {
           left: rect.left + Math.min(...points.map((p) => ((p.x + 1) / 2) * w)),

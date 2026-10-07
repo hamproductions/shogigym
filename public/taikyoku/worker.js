@@ -13,8 +13,12 @@ const ready = createTaikyoku({
 })
 
 onmessage = async ({ data }) => {
-  const mod = await ready
-  current = data.id
-  mod.ccall('tk_command', 'number', ['string'], [data.cmd])
-  postMessage({ type: 'done', id: data.id })
+  try {
+    const mod = await ready
+    current = data.id
+    mod.ccall('tk_command', 'number', ['string'], [data.cmd])
+    postMessage({ type: 'done', id: data.id })
+  } catch (error) {
+    postMessage({ type: 'error', id: data.id, error: error instanceof Error ? error.message : String(error) })
+  }
 }

@@ -1,5 +1,5 @@
 import './engine.css'
-import { useState } from 'react'
+import { useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { describeMove, scoreWinRate } from '@/utils/analysis'
 import { engineSupported, useEngineStatus, type Analysis, type Candidate } from '@/utils/engine'
@@ -35,7 +35,6 @@ type EnginePaneProps = {
 
 export function EnginePane({ sfen, toMove, analysis, showBest, setShowBest, onPlay, canPlay, book }: EnginePaneProps) {
   const { t } = useTranslation()
-  const [lineOpen, setLineOpen] = useState(false)
   const status = useEngineStatus()
   if (!engineSupported())
     return (
@@ -58,9 +57,6 @@ export function EnginePane({ sfen, toMove, analysis, showBest, setShowBest, onPl
         <p className="app-muted">{t('engine.analysingThePosition')}</p>
       </>
     )
-  const [best, ...others] = analysis.candidates
-  const bestRate = scoreWinRate(best.score)
-  const senteRate = scoreWinRate(toSente(best.score, toMove))
   const why = (usi: string) => {
     const note = book.find((b) => b.usi === usi)?.note
     const what = describeMove(sfen, usi)
@@ -72,8 +68,53 @@ export function EnginePane({ sfen, toMove, analysis, showBest, setShowBest, onPl
     return after ? moveText(after, c.pv[1]) : null
   }
   return (
+    <EngineResultPane
+      analysis={analysis}
+      toMove={toMove}
+      showBest={showBest}
+      setShowBest={setShowBest}
+      onPlay={onPlay}
+      canPlay={canPlay}
+      name={<EngineName />}
+      formatMove={(move) => moveText(sfen, move)}
+      formatPv={(pv) => pvText(sfen, pv, 8)}
+      why={why}
+      answer={answer}
+      isBook={(move) => book.some((b) => b.usi === move)}
+    />
+  )
+}
+
+export function EngineResultPane({
+  analysis,
+  toMove,
+  showBest,
+  setShowBest,
+  onPlay,
+  canPlay,
+  name,
+  formatMove,
+  formatPv,
+  why = () => '',
+  answer = () => null,
+  isBook = () => false,
+}: Omit<EnginePaneProps, 'sfen' | 'book' | 'analysis'> & {
+  analysis: Analysis
+  name: ReactNode
+  formatMove: (move: string) => string
+  formatPv: (pv: string[]) => string
+  why?: (move: string) => string
+  answer?: (candidate: Candidate) => string | null
+  isBook?: (move: string) => boolean
+}) {
+  const { t } = useTranslation()
+  const [lineOpen, setLineOpen] = useState(false)
+  const [best, ...others] = analysis.candidates
+  const bestRate = scoreWinRate(best.score)
+  const senteRate = scoreWinRate(toSente(best.score, toMove))
+  return (
     <div className="app-engine">
-      <EngineName />
+      {name}
       <div className="app-standing">
         <strong className="app-standing-detail">{standing(senteRate)}</strong>
         <span
@@ -94,8 +135,8 @@ export function EnginePane({ sfen, toMove, analysis, showBest, setShowBest, onPl
       <div className="app-best">
         <span className="app-muted">{t('engine.bestMoveFor', { side: sideMark(toMove) })}</span>
         <div className="app-best-row">
-          <strong>{moveText(sfen, best.move)}</strong>
-          {book.some((b) => b.usi === best.move) && <Pill>{t('engine.book')}</Pill>}
+          <strong>{formatMove(best.move)}</strong>
+          {isBook(best.move) && <Pill>{t('engine.book')}</Pill>}
           {canPlay && (
             <Button size="sm" variant="primary" onClick={() => onPlay(best.move)}>
               {t('engine.playIt')}
@@ -112,7 +153,7 @@ export function EnginePane({ sfen, toMove, analysis, showBest, setShowBest, onPl
         return (
           <div key={c.multipv} className="app-alt">
             <div className="app-alt-row">
-              <strong>{moveText(sfen, c.move)}</strong>
+              <strong>{formatMove(c.move)}</strong>
               <span className={lossClass(loss)}>{loss === 0 ? t('engine.justAsGood') : t('engine.winChance', { loss })}</span>
               {canPlay && (
                 <Button size="sm" onClick={() => onPlay(c.move)}>
@@ -128,7 +169,7 @@ export function EnginePane({ sfen, toMove, analysis, showBest, setShowBest, onPl
       <button className="app-more" onClick={() => setLineOpen((v) => !v)}>
         {lineOpen ? t('engine.hideTheLine') : t('engine.seeHowTheBestLine')}
       </button>
-      {lineOpen && <p className="app-pv">{pvText(sfen, best.pv, 8)}</p>}
+      {lineOpen && <p className="app-pv">{formatPv(best.pv)}</p>}
 
       <label className="app-toggle">
         <input type="checkbox" checked={showBest} onChange={(e) => setShowBest(e.target.checked)} />

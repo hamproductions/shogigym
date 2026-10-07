@@ -4,9 +4,14 @@ import type { Score } from './engine'
 
 export const sideMark = (side: Side | Color) => (side === 'sente' || side === Color.BLACK ? '☗' : '☖')
 
-const rankKanji = (rank: number) => '一二三四五六七八九'[rank - 1]
+export const rankKanji = (rank: number): string => {
+  const digits = '一二三四五六七八九'
+  if (rank < 10) return digits[rank - 1]
+  const tens = Math.floor(rank / 10)
+  return `${tens === 1 ? '' : digits[tens - 1]}十${rank % 10 ? digits[(rank % 10) - 1] : ''}`
+}
 
-export const squareName = (square: Square) => `${square.file}${rankKanji(square.rank)}`
+export const squareName = (square: Pick<Square, 'file' | 'rank'>) => `${square.file}${rankKanji(square.rank)}`
 
 export const toSente = (score: Score, mover: Side): Score => (mover === 'sente' ? score : 'cp' in score ? { cp: -score.cp } : { mate: -score.mate })
 

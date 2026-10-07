@@ -42,6 +42,8 @@ public:
     std::string tsn() const;
 
     int  gen_moves(Move* out) const;                 // pseudo-legal == legal
+    int  gen_moves(Color side, Move* out);
+    void gen_controls(Color side, std::vector<Move>& out);
     int  gen_captures(Move* out) const;              // solo las que capturan
     void do_move(const Move& m, StateInfo& st);
     void undo_move(const Move& m);
@@ -79,7 +81,7 @@ public:
     static int16_t dirDelta[NDIR][2];
 
 private:
-    template <bool CapturesOnly> int generate(Move* out) const;
+    template <bool CapturesOnly, bool Controls = false> int generate(Move* out, std::vector<Move>* controls = nullptr) const;
 
     int16_t board[NCELL];
     int8_t  owner[NCELL];

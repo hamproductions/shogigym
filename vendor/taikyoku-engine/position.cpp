@@ -122,9 +122,10 @@ Value Position::see_value(const Move& m) const {
 
 // Deduplicación por EFECTO con tabla hash abierta: dos jugadas son la misma si
 // producen la misma posición. En el spike esto era O(n^2) y dominaba el coste.
-template <bool CapturesOnly>
-int Position::generate(Move* out) const {
+template <bool CapturesOnly, bool Controls>
+int Position::generate(Move* out, std::vector<Move>* controls) const {
     int n = 0;
+    std::vector<uint64_t> coverage(Controls ? (NSQ * NSQ + 63) / 64 : 0);
 
     // R-16, incidente real: deduplicar DESPUES de generar desbordaba el buffer.
     // Un solo movedor de gancho en tablero abierto produce ~10.000 jugadas en
@@ -132,9 +133,28 @@ int Position::generate(Move* out) const {
     // por encima de MAX_MOVES=8192, aunque tras deduplicar sean <=1.295. La
     // deduplicacion es ahora parte de la INSERCION: `out[]` solo contiene
     // jugadas unicas y `n` nunca supera el branching real.
-    if (++dedupGen == 0) { std::fill(dedupStamp.begin(), dedupStamp.end(), 0u); dedupGen = 1; }
+    if constexpr (!Controls) {
+        if (++dedupGen == 0) { std::fill(dedupStamp.begin(), dedupStamp.end(), 0u); dedupGen = 1; }
+    }
 
     auto push = [&](const Move& m) {
+        if constexpr (Controls) {
+            if (m.kind() == JITTO) return;
+            auto add = [&](int target) {
+                if (target == m.from()) return;
+                int index = sqOfCell(m.from()) * NSQ + sqOfCell(target);
+                uint64_t mask = uint64_t(1) << (index & 63);
+                if (coverage[index >> 6] & mask) return;
+                coverage[index >> 6] |= mask;
+                controls->emplace_back(m.from(), target, -1, NORMAL, false);
+                ++n;
+            };
+            add(m.to());
+            int cells[64];
+            int nc = capture_cells(m, cells);
+            for (int i = 0; i < nc; ++i) add(cells[i]);
+            return;
+        }
         // Camino rapido: para NORMAL/JUMPSLIDE/HOP/HOOK la unica casilla que se
         // vacia es `to`. Solo AREA2/IGUI/RANGECAP necesitan el calculo completo
         // (y son una minoria de las jugadas). Esto era el punto caliente.
@@ -166,6 +186,10 @@ int Position::generate(Move* out) const {
     };
 
     auto emit = [&](int from, int to, int mid, MoveKind k) {
+        if constexpr (Controls) {
+            push(Move(from, to, mid, k, false));
+            return;
+        }
         int pt = board[from];
         int16_t tgt = PIECES[pt].promotesTo;
         bool zone = false;
@@ -203,10 +227,10 @@ int Position::generate(Move* out) const {
                         int o = owner[cur];
                         if (o == WALL) break;
                         if (o == EMPTY_SQ) {
-                            if (a.mode != 2 && !CapturesOnly) emit(c, cur, -1, NORMAL);
+                            if ((Controls ? a.mode != 1 : a.mode != 2) && !CapturesOnly) emit(c, cur, -1, NORMAL);
                             continue;
                         }
-                        if (o != stm && a.mode != 1) emit(c, cur, -1, NORMAL);
+                        if ((Controls || o != stm) && a.mode != 1) emit(c, cur, -1, NORMAL);
                         break;
                     }
                 }
@@ -214,8 +238,8 @@ int Position::generate(Move* out) const {
             case 1:                                    // jump
                 for (int d = 0; d < a.nDir; ++d) {
                     int t = c + dirDelta[a.dirOff + d][stm], o = owner[t];
-                    if (o == WALL || o == stm) continue;
-                    if ((o == EMPTY_SQ && a.mode == 2) || (o != EMPTY_SQ && a.mode == 1)) continue;
+                    if (o == WALL || (!Controls && o == stm)) continue;
+                    if (Controls ? a.mode == 1 : ((o == EMPTY_SQ && a.mode == 2) || (o != EMPTY_SQ && a.mode == 1))) continue;
                     if (CapturesOnly && o == EMPTY_SQ) continue;
                     emit(c, t, -1, NORMAL);
                 }
@@ -227,14 +251,14 @@ int Position::generate(Move* out) const {
                     for (int di = 0; di < 2; ++di) {
                         if (di == 1 && a.d1 == 0) break;
                         int land = c + dd * dists[di], o = owner[land];
-                        if (o == WALL || o == stm) continue;
+                        if (o == WALL || (!Controls && o == stm)) continue;
                         if (!CapturesOnly || o != EMPTY_SQ) emit(c, land, c + dd, JUMPSLIDE);
                         if (o != EMPTY_SQ) continue;
                         int cur = land;
                         for (int s2 = 0; s2 < a.tail; ++s2) {
                             cur += dd;
                             int o2 = owner[cur];
-                            if (o2 == WALL || o2 == stm) break;
+                            if (o2 == WALL || (!Controls && o2 == stm)) break;
                             if (!CapturesOnly || o2 != EMPTY_SQ) emit(c, cur, land, JUMPSLIDE);
                             if (o2 != EMPTY_SQ) break;
                         }
@@ -252,7 +276,7 @@ int Position::generate(Move* out) const {
                             if (!CapturesOnly) emit(c, cur, scr ? c : -1, scr ? HOP : NORMAL);
                             continue;
                         }
-                        if (o != stm) emit(c, cur, scr ? c : -1, scr ? HOP : NORMAL);
+                        if (Controls || o != stm) emit(c, cur, scr ? c : -1, scr ? HOP : NORMAL);
                         if (++scr > a.screens) break;
                     }
                 }
@@ -269,7 +293,7 @@ int Position::generate(Move* out) const {
                         cur += dd;
                         int o = owner[cur];
                         if (o == WALL) break;
-                        if (o != stm && (!CapturesOnly || o != EMPTY_SQ)) emit(c, cur, -1, NORMAL);
+                        if ((Controls || o != stm) && (!CapturesOnly || o != EMPTY_SQ)) emit(c, cur, -1, NORMAL);
                         if (o != EMPTY_SQ) break;
                         int pds[2] = {deltaOf(sg * p0f, sg * p0r), deltaOf(sg * p1f, sg * p1r)};
                         for (int q = 0; q < 2; ++q) {
@@ -277,7 +301,7 @@ int Position::generate(Move* out) const {
                             while (true) {
                                 c2 += pds[q];
                                 int o2 = owner[c2];
-                                if (o2 == WALL || o2 == stm) break;
+                                if (o2 == WALL || (!Controls && o2 == stm)) break;
                                 if (!CapturesOnly || o2 != EMPTY_SQ) emit(c, c2, cur, HOOK);
                                 if (o2 != EMPTY_SQ) break;
                             }
@@ -290,8 +314,9 @@ int Position::generate(Move* out) const {
                                              {1,1},{1,-1},{-1,1},{-1,-1}};
                 for (int i = 0; i < 8; ++i) {
                     int s1 = c + deltaOf(KD[i][0], KD[i][1]), o1 = owner[s1];
-                    if (o1 == WALL || o1 == stm) continue;
+                    if (o1 == WALL || (!Controls && o1 == stm)) continue;
                     if (!CapturesOnly || o1 != EMPTY_SQ) emit(c, s1, -1, AREA2);
+                    if (o1 == stm) continue;
                     for (int j = 0; j < 8; ++j) {
                         int s2 = s1 + deltaOf(KD[j][0], KD[j][1]);
                         if (s2 == c) {
@@ -301,7 +326,7 @@ int Position::generate(Move* out) const {
                             continue;
                         }
                         int o2 = owner[s2];
-                        if (o2 == WALL || o2 == stm) continue;
+                        if (o2 == WALL || (!Controls && o2 == stm)) continue;
                         if (CapturesOnly && o1 == EMPTY_SQ && o2 == EMPTY_SQ) continue;
                         emit(c, s2, s1, AREA2);
                     }
@@ -317,7 +342,11 @@ int Position::generate(Move* out) const {
                         int o = owner[cur];
                         if (o == WALL) break;
                         if (o != EMPTY_SQ) {
-                            if (PIECES[board[cur]].rankCap <= myr) break;
+                            if (PIECES[board[cur]].rankCap <= myr) {
+                                if (!anyCap && (Controls || o != stm))
+                                    push(Move(c, cur, -1, NORMAL, false));
+                                break;
+                            }
                             anyCap = true;
                         }
                         if (!CapturesOnly || anyCap || o != EMPTY_SQ)
@@ -333,6 +362,20 @@ int Position::generate(Move* out) const {
 }
 
 int Position::gen_moves(Move* out) const { return generate<false>(out); }
+int Position::gen_moves(Color side, Move* out) {
+    int previous = stm;
+    stm = side;
+    int n = generate<false>(out);
+    stm = previous;
+    return n;
+}
+void Position::gen_controls(Color side, std::vector<Move>& out) {
+    int previous = stm;
+    stm = side;
+    out.clear();
+    generate<false, true>(nullptr, &out);
+    stm = previous;
+}
 int Position::gen_captures(Move* out) const { return generate<true>(out); }
 
 // ------------------------------------------------------------- do / undo

@@ -33,6 +33,9 @@ export function squareFrame(inner: number, material: THREE.MeshBasicMaterial) {
   return frame
 }
 
+export const moveTarget = () =>
+  new THREE.Mesh(new THREE.CircleGeometry(0.12, 24), new THREE.MeshBasicMaterial({ color: 0x5a3a1c, transparent: true, opacity: 0.5, depthWrite: false }))
+
 function boardMarker(sprite: THREE.Sprite, width: number, height: number, flipped: boolean) {
   const material = new THREE.MeshBasicMaterial({ map: sprite.material.map, transparent: true, depthTest: false, depthWrite: false })
   sprite.material.dispose()
@@ -56,6 +59,10 @@ export function arrowMesh(arrow: BoardArrow, position: ImmutablePosition, stack 
     if (!from) return new THREE.Group()
     start = new THREE.Vector3(squareX(from.file), 0.05, squareZ(from.rank))
   }
+  return arrowBetween(arrow, start, end, stack, flipped)
+}
+
+export function arrowBetween(arrow: Omit<BoardArrow, 'usi'> & { usi?: string }, start: THREE.Vector3, end: THREE.Vector3, stack = 0, flipped = false) {
   const dir = end.clone().sub(start)
   const length = dir.length()
   const shaft = Math.max(0.01, length - 0.45)
@@ -190,17 +197,7 @@ export function drawMarks(s: SceneState, props: Board3DProps) {
     ring.position.set(slot.x, STAND_TOP + 0.004, slot.z)
     s.marks.add(ring)
   }
-  for (const target of targets)
-    s.marks.add(
-      flatOnBoard(
-        new THREE.Mesh(
-          new THREE.CircleGeometry(0.12, 24),
-          new THREE.MeshBasicMaterial({ color: 0x5a3a1c, transparent: true, opacity: 0.5, depthWrite: false }),
-        ),
-        target,
-        0.006,
-      ),
-    )
+  for (const target of targets) s.marks.add(flatOnBoard(moveTarget(), target, 0.006))
   s.tags = []
   const stacked = new Map<string, number>()
   for (const arrow of arrows) {

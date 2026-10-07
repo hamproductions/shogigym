@@ -255,6 +255,20 @@ bool uci_handle(const std::string& line) {
                   << " material " << (rootPos.material(rootPos.side_to_move())
                                       - rootPos.material(~rootPos.side_to_move()))
                   << std::endl;
+    } else if (tok == "inspect") {
+        static Move buf[MAX_MOVES];
+        static std::vector<Move> controls;
+        for (Color side : {BLACK, WHITE}) {
+            char color = side == BLACK ? 'b' : 'w';
+            int n = rootPos.gen_moves(side, buf);
+            std::cout << "moves " << color << " " << n;
+            for (int i = 0; i < n; ++i) std::cout << " " << move_to_str(buf[i]);
+            std::cout << "\n";
+            rootPos.gen_controls(side, controls);
+            std::cout << "control " << color;
+            for (const Move& m : controls) std::cout << " " << move_to_str(m);
+            std::cout << std::endl;
+        }
     } else if (tok == "moves") {
         static Move buf[MAX_MOVES];
         int n = rootPos.gen_moves(buf);

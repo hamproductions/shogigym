@@ -22,7 +22,7 @@ const MOVE_RE = /^([a-zA-J])(\d{1,2})([a-zA-J])(\d{1,2})(?:\/([a-zA-J])(\d{1,2})
 
 const fileOf = (ch: string) => (ch >= 'a' ? ch.charCodeAt(0) - 96 : ch.charCodeAt(0) - 64 + 26)
 
-export const fileLabel = (file: number) => String.fromCharCode(file <= 26 ? 96 + file : 64 + file - 26)
+export const fileLabel = (file: number) => String(file)
 
 export const squareName = ({ file, rank }: Pos) => `${fileLabel(file)}${rank}`
 
@@ -74,9 +74,21 @@ export const cellAt = (grid: Grid, { file, rank }: Pos) => grid[rank - 1]?.[file
 
 export type Score = { cp: number; depth: number }
 
-export function parseInfo(line: string): Score | null {
+export type EngineInfo = Score & { pv: EngineMove[] }
+
+export function parseInfo(line: string): EngineInfo | null {
   const m = /^info depth (\d+) score cp (-?\d+)/.exec(line)
-  return m ? { depth: Number(m[1]), cp: Number(m[2]) } : null
+  if (!m) return null
+  const tokens = line.split(' ')
+  const at = tokens.indexOf('pv')
+  const pv =
+    at < 0
+      ? []
+      : tokens
+          .slice(at + 1)
+          .map(parseMove)
+          .filter((move): move is EngineMove => !!move)
+  return { depth: Number(m[1]), cp: Number(m[2]), pv }
 }
 
 /** Face text for a tile: at most two characters, as the shared tile renderer lays out. */

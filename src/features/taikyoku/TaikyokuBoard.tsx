@@ -1,7 +1,18 @@
-import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from 'react'
-import { SIZE, catalog, fileLabel, type EngineMove, type Pos, type Snapshot } from './notation'
+import * as THREE from 'three'
+import { BOARD_TONE } from '@/rendering/koma'
+import { arrowBetween } from '@/rendering/board3d/marks'
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useLayoutEffect, useRef } from 'react'
+import { useSettings, getSettings, loadPieceFont, PIECE_FONTS, playSound } from '@/appearance/settings'
+import { boardSurface } from '@/rendering/board3d/textures'
+import { SQ_D } from '@/rendering/board3d/dimensions'
+import { SPRITE_BOX } from '@/rendering/sprites'
+import { taikyokuPiece } from './pieces'
+import { bakeTaikyoku, bakedKey, taikyokuSprites } from './bake'
+import { SIZE, fileLabel, type Cell, type EngineMove, type Pos, type Snapshot } from './notation'
 
 export type TargetKind = 'step' | 'capture' | 'via'
+export type TaikyokuArrow = { move: EngineMove; color: string; dashed?: boolean; label?: string }
+export type ControlCell = { b: Pos[]; w: Pos[] }
 
 export type BoardHandle = {
   fit: () => void
@@ -14,8 +25,15 @@ type Props = {
   inspected: Pos | null
   targets: Map<string, TargetKind>
   last: EngineMove | null
+  animate?: boolean
+  peekTargets?: Pos[]
+  arrows?: TaikyokuArrow[]
+  control?: Map<string, ControlCell>
+  showControl?: boolean
   lang: 'ja' | 'en'
   onCell: (pos: Pos) => void
+  onProgress?: (done: number, total: number) => void
+  onError?: (message: string) => void
 }
 
 type Camera = { x: number; y: number; s: number }
@@ -23,24 +41,29 @@ type Camera = { x: number; y: number; s: number }
 const MIN_FIT = 0.85
 const MAX_CELL = 96
 const TAP_SLOP = 6
-const GLYPH_FONT = '"Shippori Mincho B1", "Yu Mincho", "Hiragino Mincho ProN", serif'
 
 export const keyOf = ({ file, rank }: Pos) => `${file},${rank}`
 
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v))
 
-// Unit pentagon (pointing up) for a shogi tile, in cell units around the cell centre.
-const TILE: [number, number][] = [
-  [0, -0.47],
-  [0.31, -0.3],
-  [0.4, 0.45],
-  [-0.4, 0.45],
-  [-0.31, -0.3],
-]
-
 export const TaikyokuBoard = forwardRef<BoardHandle, Props>(function TaikyokuBoard(props, ref) {
+  const settings = useSettings()
+  const appearanceKey = JSON.stringify([
+    settings.pieceFont,
+    settings.pieceStyle,
+    settings.pieceSet,
+    settings.pieceMaterial,
+    settings.pieceFinish,
+    settings.pieceColor,
+    settings.pieceGrain,
+  ])
+  const sprites = useRef(taikyokuSprites(settings))
+  const surface = useRef<HTMLCanvasElement | null>(null)
   const canvas = useRef<HTMLCanvasElement>(null)
   const cam = useRef<Camera>({ x: SIZE / 2, y: SIZE / 2, s: 12 })
+  const previous = useRef<{ snap: Snapshot; last: EngineMove | null } | null>(null)
+  const movement = useRef<{ from: Snapshot; move: EngineMove; piece: Cell; start: number; timing: Animation; capture: boolean; land: () => void } | null>(null)
+  const arrowPaths = useRef<{ path: Path2D; arrow: TaikyokuArrow; stack: number }[]>([])
   const fitted = useRef(true)
   const frame = useRef(0)
   const tween = useRef<{ from: Camera; to: Camera; start: number } | null>(null)
@@ -53,7 +76,7 @@ export const TaikyokuBoard = forwardRef<BoardHandle, Props>(function TaikyokuBoa
   }
   const fitScale = () => {
     const { w, h } = viewport()
-    return Math.min(w, h) / (SIZE + 2)
+    return Math.min(w / (SIZE + 2), h / ((SIZE + 2) * SQ_D))
   }
 
   const draw = useCallback(() => {
@@ -69,21 +92,30 @@ export const TaikyokuBoard = forwardRef<BoardHandle, Props>(function TaikyokuBoa
     }
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
     ctx.clearRect(0, 0, w, h)
-    const { snap, selected, inspected, targets, last, lang } = latest.current
+    const { snap, selected, inspected, targets, last, lang, control, showControl, peekTargets } = latest.current
+    const active = movement.current
+    const duration = active?.move.mid ? 440 : 220
+    const progress = active ? clamp((performance.now() - active.start) / duration, 0, 1) : 1
+    if (active && progress === 1) {
+      active.land()
+      active.timing.cancel()
+      movement.current = null
+    }
     const { x, y, s } = cam.current
     const css = getComputedStyle(c)
     const token = (name: string, fallback: string) => css.getPropertyValue(name).trim() || fallback
     const toX = (file: number) => w / 2 + (file - 1 - x) * s // left edge of a cell
-    const toY = (rank: number) => h / 2 + (SIZE - rank - y) * s // top edge of a cell
+    const toY = (rank: number) => h / 2 + (SIZE - rank - y) * s * SQ_D // top edge of a cell
     const f0 = clamp(Math.floor(x - w / 2 / s) + 1, 1, SIZE)
     const f1 = clamp(Math.ceil(x + w / 2 / s) + 1, 1, SIZE)
-    const r0 = clamp(SIZE - Math.ceil(y + h / 2 / s) + 1, 1, SIZE)
-    const r1 = clamp(SIZE - Math.floor(y - h / 2 / s), 1, SIZE)
+    const r0 = clamp(SIZE - Math.ceil(y + h / 2 / s / SQ_D) + 1, 1, SIZE)
+    const r1 = clamp(SIZE - Math.floor(y - h / 2 / s / SQ_D), 1, SIZE)
 
     // board
     ctx.fillStyle = token('--kaya-light', '#e2b56c')
-    ctx.fillRect(toX(1), toY(SIZE), SIZE * s, SIZE * s)
-    ctx.strokeStyle = 'rgb(60 40 15 / 0.45)'
+    ctx.fillRect(toX(1), toY(SIZE), SIZE * s, SIZE * s * SQ_D)
+    if (surface.current) ctx.drawImage(surface.current, toX(1), toY(SIZE), SIZE * s, SIZE * s * SQ_D)
+    ctx.strokeStyle = BOARD_TONE[getSettings().boardStyle].line
     ctx.lineWidth = Math.max(0.5, s / 40)
     ctx.beginPath()
     for (let f = f0; f <= f1 + 1; f++) {
@@ -96,14 +128,14 @@ export const TaikyokuBoard = forwardRef<BoardHandle, Props>(function TaikyokuBoa
     }
     ctx.stroke()
     ctx.lineWidth = Math.max(1, s / 14)
-    ctx.strokeRect(toX(1), toY(SIZE), SIZE * s, SIZE * s)
+    ctx.strokeRect(toX(1), toY(SIZE), SIZE * s, SIZE * s * SQ_D)
 
     // the two armies' camps fade in when zoomed out
     if (s < 9) {
       ctx.fillStyle = 'rgb(255 255 255 / 0.1)'
-      ctx.fillRect(toX(1), toY(12), SIZE * s, 12 * s)
+      ctx.fillRect(toX(1), toY(12), SIZE * s, 12 * s * SQ_D)
       ctx.fillStyle = 'rgb(60 20 10 / 0.07)'
-      ctx.fillRect(toX(1), toY(SIZE), SIZE * s, 12 * s)
+      ctx.fillRect(toX(1), toY(SIZE), SIZE * s, 12 * s * SQ_D)
     }
 
     // coordinates in the margin
@@ -120,105 +152,157 @@ export const TaikyokuBoard = forwardRef<BoardHandle, Props>(function TaikyokuBoa
       }
       for (let r = r0; r <= r1; r++) {
         if (r % step) continue
-        ctx.fillText(String(r), toX(1) - s * 0.5, toY(r) + s / 2)
-        ctx.fillText(String(r), toX(SIZE) + s * 1.5, toY(r) + s / 2)
+        ctx.fillText(String(r), toX(1) - s * 0.5, toY(r) + (s * SQ_D) / 2)
+        ctx.fillText(String(r), toX(SIZE) + s * 1.5, toY(r) + (s * SQ_D) / 2)
       }
     }
 
     const tint = (pos: Pos, color: string) => {
       ctx.fillStyle = color
-      ctx.fillRect(toX(pos.file), toY(pos.rank), s, s)
+      ctx.fillRect(toX(pos.file) + s * 0.01, toY(pos.rank) + s * SQ_D * 0.01, s * 0.98, s * SQ_D * 0.98)
     }
-    if (last) {
-      tint(last.from, 'rgb(70 120 200 / 0.28)')
-      tint(last.to, 'rgb(70 120 200 / 0.42)')
-      if (last.mid) tint(last.mid, 'rgb(70 120 200 / 0.18)')
-    }
-    if (inspected) tint(inspected, 'rgb(120 80 200 / 0.3)')
-    if (selected) tint(selected, 'rgb(240 190 60 / 0.6)')
-
-    // pieces
-    const detail = s >= 11
-    for (let r = r0; r <= r1; r++) {
-      for (let f = f0; f <= f1; f++) {
-        const cell = snap.grid[r - 1][f - 1]
-        if (!cell) continue
-        const cx = toX(f) + s / 2
-        const cy = toY(r) + s / 2
-        const black = cell.side === 'b'
-        const info = catalog[cell.key]
-        if (s < 5) {
-          ctx.fillStyle = black ? '#2a1d12' : '#c4442a'
-          ctx.fillRect(toX(f) + s * 0.12, toY(r) + s * 0.12, s * 0.76, s * 0.76)
-          continue
+    if (showControl && control) {
+      for (let rank = r0; rank <= r1; rank++) {
+        for (let file = f0; file <= f1; file++) {
+          const cell = control.get(keyOf({ file, rank }))
+          if (!cell || (!cell.b.length && !cell.w.length)) continue
+          const difference = cell.b.length - cell.w.length
+          const color = difference > 0 ? '31 122 224' : difference < 0 ? '210 64 42' : '154 90 208'
+          tint({ file, rank }, `rgb(${color} / ${Math.min(0.42, 0.14 + 0.1 * Math.abs(difference || 1))})`)
         }
-        ctx.save()
-        ctx.translate(cx, cy)
-        ctx.scale(s, s)
-        if (!black) ctx.rotate(Math.PI)
-        ctx.beginPath()
-        TILE.forEach(([px, py], i) => (i ? ctx.lineTo(px, py) : ctx.moveTo(px, py)))
-        ctx.closePath()
-        ctx.fillStyle = black ? token('--koma-light', '#f6e3b4') : '#e8c58c'
-        ctx.fill()
-        ctx.lineWidth = Math.max(0.025, 0.9 / s)
-        ctx.strokeStyle = black ? '#3b2a18' : '#8a2a18'
-        ctx.stroke()
-        if (detail) {
-          const glyph = (!black && info?.k2) || info?.k || ''
-          const promoted = cell.key.startsWith('+')
-          ctx.fillStyle = promoted ? token('--koma-red', '#b3261e') : token('--koma-ink', '#1d140c')
-          ctx.textAlign = 'center'
-          ctx.textBaseline = 'middle'
-          const chars = [...(glyph || cell.key.replace('+', ''))]
-          if (!glyph) {
-            ctx.font = `700 0.3px ${GLYPH_FONT}`
-            ctx.fillText(chars.join(''), 0, 0.12)
-          } else {
-            const size = chars.length === 1 ? 0.52 : chars.length === 2 ? 0.34 : 0.25
-            ctx.font = `600 ${size}px ${GLYPH_FONT}`
-            const gap = size * 1.02
-            const top = 0.14 - ((chars.length - 1) * gap) / 2
-            chars.forEach((ch, i) => ctx.fillText(ch, 0, top + i * gap))
-          }
-        }
-        ctx.restore()
       }
     }
-
-    // move hints
+    if (last) {
+      tint(last.from, 'rgb(232 166 58 / 0.38)')
+      tint(last.to, 'rgb(232 166 58 / 0.55)')
+      if (last.mid) tint(last.mid, 'rgb(232 166 58 / 0.38)')
+    }
+    if (inspected) tint(inspected, 'rgb(200 68 47 / 0.22)')
+    const squareFrame = (pos: Pos, inner: number, color: string) => {
+      const outer = 0.69 * Math.SQRT1_2
+      const inset = inner * Math.SQRT1_2
+      ctx.fillStyle = color
+      ctx.beginPath()
+      const cx = toX(pos.file) + s / 2
+      const cy = toY(pos.rank) + (s * SQ_D) / 2
+      ctx.rect(cx - outer * s, cy - outer * s * SQ_D, outer * s * 2, outer * s * SQ_D * 2)
+      ctx.rect(cx - inset * s, cy - inset * s * SQ_D, inset * s * 2, inset * s * SQ_D * 2)
+      ctx.fill('evenodd')
+    }
+    if (selected) {
+      tint(selected, 'rgb(255 241 201 / 0.45)')
+      squareFrame(selected, 0.66, '#c8442f')
+    }
+    for (const pos of peekTargets ?? []) {
+      if (pos.file < f0 || pos.file > f1 || pos.rank < r0 || pos.rank > r1) continue
+      tint(pos, 'rgb(200 68 47 / 0.26)')
+      squareFrame(pos, 0.62, 'rgb(179 58 38 / 0.7)')
+    }
     targets.forEach((kind, key) => {
       const [file, rank] = key.split(',').map(Number)
-      if (file < f0 - 1 || file > f1 + 1 || rank < r0 - 1 || rank > r1 + 1) return
-      const cx = toX(file) + s / 2
-      const cy = toY(rank) + s / 2
+      if (file < f0 || file > f1 || rank < r0 || rank > r1) return
       ctx.beginPath()
-      if (kind === 'via') {
-        ctx.setLineDash([s * 0.12, s * 0.08])
-        ctx.strokeStyle = '#d99a1c'
-        ctx.lineWidth = Math.max(1.5, s / 10)
-        ctx.strokeRect(toX(file) + s * 0.1, toY(rank) + s * 0.1, s * 0.8, s * 0.8)
-        ctx.setLineDash([])
-      } else if (kind === 'capture') {
-        ctx.arc(cx, cy, s * 0.46, 0, Math.PI * 2)
-        ctx.strokeStyle = '#d23b25'
-        ctx.lineWidth = Math.max(1.5, s / 9)
-        ctx.stroke()
-      } else {
-        ctx.arc(cx, cy, Math.max(2.5, s * 0.17), 0, Math.PI * 2)
-        ctx.fillStyle = 'rgb(47 97 24 / 0.85)'
+      if (kind === 'via') squareFrame({ file, rank }, 0.56, '#d99a1c')
+      else {
+        ctx.arc(toX(file) + s / 2, toY(rank) + (s * SQ_D) / 2, s * 0.12, 0, Math.PI * 2)
+        ctx.fillStyle = 'rgb(90 58 28 / 0.5)'
         ctx.fill()
       }
     })
-    if (last && s >= 4) {
-      const a = { x: toX(last.from.file) + s / 2, y: toY(last.from.rank) + s / 2 }
-      const b = { x: toX(last.to.file) + s / 2, y: toY(last.to.rank) + s / 2 }
-      ctx.strokeStyle = 'rgb(70 120 200 / 0.7)'
-      ctx.lineWidth = Math.max(1, s / 12)
+    ctx.save()
+    ctx.translate(w / 2 + (SIZE / 2 - x) * s, h / 2 + (SIZE / 2 - y) * s * SQ_D)
+    ctx.scale(s, s)
+    for (const { path, arrow } of arrowPaths.current) {
+      ctx.fillStyle = arrow.color
+      ctx.globalAlpha = arrow.dashed ? 0.7 : 0.82
+      ctx.fill(path)
+    }
+    ctx.restore()
+
+    const drawPiece = (cell: Cell, cx: number, cy: number, lift = 0, scale = 1) => {
+      const image = sprites.current.get(bakedKey(cell))
+      if (!image) return
+      const width = s * SPRITE_BOX * scale
+      ctx.save()
+      ctx.translate(cx, cy - lift)
+      if (cell.side === 'w') ctx.rotate(Math.PI)
+      ctx.drawImage(image, -width / 2, -width / 2, width, width)
+      ctx.restore()
+    }
+    for (let rank = r0; rank <= r1; rank++) {
+      for (let file = f0; file <= f1; file++) {
+        const destination = active && progress < 1 && active.move.to.file === file && active.move.to.rank === rank
+        const cell = snap.grid[rank - 1][file - 1]
+        if (cell && !destination) {
+          const lifted = selected?.file === file && selected.rank === rank
+          if (lifted) {
+            ctx.shadowColor = 'rgba(0,0,0,0.3)'
+            ctx.shadowBlur = s * 0.05
+            ctx.shadowOffsetY = s * 0.08
+          }
+          drawPiece(cell, toX(file) + s / 2, toY(rank) + (s * SQ_D) / 2, lifted ? s * 0.16 : 0, lifted ? 1.12 : 1)
+          ctx.shadowColor = 'transparent'
+          ctx.shadowBlur = ctx.shadowOffsetY = 0
+        }
+        if (!active || progress === 1) continue
+        const captured = active.from.grid[rank - 1][file - 1]
+        const via = active.move.mid?.file === file && active.move.mid.rank === rank
+        if (captured && !(active.move.from.file === file && active.move.from.rank === rank) && (!cell || destination) && progress < (via ? 0.5 : 1)) {
+          drawPiece(captured, toX(file) + s / 2, toY(rank) + (s * SQ_D) / 2)
+        }
+      }
+    }
+    if (active && progress < 1) {
+      const halfway = active.move.mid
+      const firstLeg = !halfway || progress < 0.5
+      const from = firstLeg ? active.move.from : halfway!
+      const to = firstLeg && halfway ? halfway : active.move.to
+      const t = halfway ? (firstLeg ? progress * 2 : progress * 2 - 1) : progress
+      active.timing.currentTime = t * 220
+      const ease = active.timing.effect?.getComputedTiming().progress ?? t
+      const lift = 1 - Math.abs(2 * ease - 1)
+      drawPiece(
+        active.piece,
+        toX(from.file) + (to.file - from.file) * s * ease + s / 2,
+        toY(from.rank) - (to.rank - from.rank) * s * SQ_D * ease + (s * SQ_D) / 2,
+        lift * s * 0.1,
+        1 + lift * 0.16,
+      )
+      frame.current = requestAnimationFrame(draw)
+    }
+    if (showControl && control) {
+      ctx.font = `800 ${(s * 0.34 * 40) / 64}px "Shippori Mincho B1", serif`
+      ctx.textAlign = 'center'
+      ctx.textBaseline = 'middle'
+      ctx.fillStyle = getSettings().boardStyle.endsWith('dark') ? 'rgba(250,232,196,0.92)' : 'rgba(40,22,8,0.85)'
+      for (let rank = r0; rank <= r1; rank++) {
+        for (let file = f0; file <= f1; file++) {
+          const cell = control.get(keyOf({ file, rank }))
+          if (!cell || (!cell.b.length && !cell.w.length)) continue
+          const difference = cell.b.length - cell.w.length
+          ctx.fillText(String(difference === 0 ? cell.b.length : Math.abs(difference)), toX(file) + s * 0.82, toY(rank) + s * (SQ_D / 2 + 0.3))
+        }
+      }
+    }
+
+    for (const { arrow, stack } of arrowPaths.current) {
+      if (!arrow.label) continue
+      const to = arrow.move.to
+      const k = (s * 0.56) / 160
+      const labelWidth = Math.min(152, [...arrow.label].reduce((sum, ch) => sum + (ch.charCodeAt(0) > 255 ? 46 : 26), 0) + 28)
+      ctx.save()
+      ctx.translate(toX(to.file) + s / 2, toY(to.rank) + s * SQ_D * (0.99 - stack * 0.25))
+      ctx.scale(k, k)
+      ctx.fillStyle = arrow.color
       ctx.beginPath()
-      ctx.moveTo(a.x, a.y)
-      ctx.lineTo(b.x, b.y)
-      ctx.stroke()
+      ctx.roundRect(-labelWidth / 2, -30, labelWidth, 60, 14)
+      ctx.fill()
+      ctx.fillStyle = '#fff'
+      ctx.font = '700 46px "Zen Kaku Gothic New", sans-serif'
+      ctx.textAlign = 'center'
+      ctx.textBaseline = 'middle'
+      ctx.fillText(arrow.label, 0, 2)
+      ctx.restore()
     }
     void lang
   }, [])
@@ -232,7 +316,7 @@ export const TaikyokuBoard = forwardRef<BoardHandle, Props>(function TaikyokuBoa
     const { w, h } = viewport()
     c.s = clamp(c.s, fitScale() * MIN_FIT, MAX_CELL)
     const mx = Math.max(0, SIZE / 2 + 1 - w / 2 / c.s)
-    const my = Math.max(0, SIZE / 2 + 1 - h / 2 / c.s)
+    const my = Math.max(0, SIZE / 2 + 1 - h / 2 / c.s / SQ_D)
     c.x = clamp(c.x, SIZE / 2 - mx, SIZE / 2 + mx)
     c.y = clamp(c.y, SIZE / 2 - my, SIZE / 2 + my)
   }, [])
@@ -293,10 +377,10 @@ export const TaikyokuBoard = forwardRef<BoardHandle, Props>(function TaikyokuBoa
       const c = cam.current
       const { w, h } = viewport()
       const wx = c.x + (px - w / 2) / c.s
-      const wy = c.y + (py - h / 2) / c.s
+      const wy = c.y + (py - h / 2) / c.s / SQ_D
       c.s = clamp(c.s * factor, fitScale() * MIN_FIT, MAX_CELL)
       c.x = wx - (px - w / 2) / c.s
-      c.y = wy - (py - h / 2) / c.s
+      c.y = wy - (py - h / 2) / c.s / SQ_D
       fitted.current = false
       constrain()
       schedule()
@@ -327,7 +411,7 @@ export const TaikyokuBoard = forwardRef<BoardHandle, Props>(function TaikyokuBoa
       travelled += Math.hypot(now.x - prev.x, now.y - prev.y)
       if (travelled > TAP_SLOP) {
         cam.current.x -= (now.x - prev.x) / cam.current.s
-        cam.current.y -= (now.y - prev.y) / cam.current.s
+        cam.current.y -= (now.y - prev.y) / cam.current.s / SQ_D
         fitted.current = false
         constrain()
         schedule()
@@ -341,7 +425,7 @@ export const TaikyokuBoard = forwardRef<BoardHandle, Props>(function TaikyokuBoa
       const { w, h } = viewport()
       const c = cam.current
       const file = Math.floor(c.x + (p.x - w / 2) / c.s) + 1
-      const rank = SIZE - Math.floor(c.y + (p.y - h / 2) / c.s)
+      const rank = SIZE - Math.floor(c.y + (p.y - h / 2) / c.s / SQ_D)
       if (file >= 1 && file <= SIZE && rank >= 1 && rank <= SIZE) latest.current.onCell({ file, rank })
     }
     const wheel = (e: WheelEvent) => {
@@ -361,19 +445,133 @@ export const TaikyokuBoard = forwardRef<BoardHandle, Props>(function TaikyokuBoa
       el.removeEventListener('pointerup', up)
       el.removeEventListener('pointercancel', up)
       el.removeEventListener('wheel', wheel)
+      if (movement.current?.capture) movement.current.land()
+      movement.current?.timing.cancel()
+      movement.current = null
+      tween.current = null
       cancelAnimationFrame(frame.current)
       frame.current = 0
     }
   }, [constrain, schedule])
 
+  useLayoutEffect(() => {
+    const before = previous.current
+    previous.current = { snap: props.snap, last: props.last }
+    if (movement.current?.capture) movement.current.land()
+    movement.current?.timing.cancel()
+    movement.current = null
+    const move = props.last
+    if (!props.animate || !before || !move || before.snap === props.snap) return
+    const piece = before.snap.grid[move.from.rank - 1]?.[move.from.file - 1]
+    const arrived = props.snap.grid[move.to.rank - 1]?.[move.to.file - 1]
+    if (!piece || !arrived || piece.side !== arrived.side || arrived.key !== (move.promote ? `+${piece.key}` : piece.key)) return
+    const capture = before.snap.counts.b + before.snap.counts.w > props.snap.counts.b + props.snap.counts.w
+    const timing = new Animation(new KeyframeEffect(null, [], { duration: 220, fill: 'both', easing: 'cubic-bezier(0.45, 0, 0.25, 1)' }), document.timeline)
+    timing.pause()
+    let sounded = false
+    const land = () => {
+      if (sounded) return
+      sounded = true
+      playSound(capture ? 'capture' : 'move')
+    }
+    movement.current = { from: before.snap, move, piece, start: performance.now(), timing, capture, land }
+    schedule()
+  }, [props.snap, props.last, props.animate, schedule])
+
   useEffect(() => {
     schedule()
-  }, [props.snap, props.selected, props.inspected, props.targets, props.last, props.lang, schedule])
+  }, [
+    props.snap,
+    props.selected,
+    props.inspected,
+    props.targets,
+    props.last,
+    props.lang,
+    props.control,
+    props.showControl,
+    props.peekTargets,
+    props.arrows,
+    schedule,
+  ])
 
-  // fonts load late: repaint once they are ready
   useEffect(() => {
-    void document.fonts?.load(`600 20px ${GLYPH_FONT}`, '歩兵王将').then(schedule)
-  }, [schedule])
+    const position = ({ file, rank }: Pos) => new THREE.Vector3(file - 0.5 - SIZE / 2, 0, (SIZE / 2 + 0.5 - rank) * SQ_D)
+    const stacked = new Map<string, number>()
+    arrowPaths.current = (props.arrows ?? []).map((arrow) => {
+      const path = new Path2D()
+      const points = [arrow.move.from, ...(arrow.move.mid ? [arrow.move.mid] : []), arrow.move.to]
+      for (let leg = 1; leg < points.length; leg++) {
+        const group = arrowBetween({ color: arrow.color, dashed: arrow.dashed }, position(points[leg - 1]), position(points[leg]))
+        group.updateMatrixWorld(true)
+        group.traverse((object) => {
+          if (!(object instanceof THREE.Mesh)) return
+          const geometry = object.geometry
+          const vertices = geometry.attributes.position
+          const indices = geometry.index
+          const point = new THREE.Vector3()
+          for (let triangle = 0; triangle < (indices?.count ?? vertices.count); triangle += 3) {
+            for (let corner = 0; corner < 3; corner++) {
+              point.fromBufferAttribute(vertices, indices ? indices.getX(triangle + corner) : triangle + corner).applyMatrix4(object.matrixWorld)
+              if (corner) path.lineTo(point.x, point.z)
+              else path.moveTo(point.x, point.z)
+            }
+            path.closePath()
+          }
+          geometry.dispose()
+          for (const material of Array.isArray(object.material) ? object.material : [object.material]) material.dispose()
+        })
+      }
+      const key = keyOf(arrow.move.to)
+      const stack = stacked.get(key) ?? 0
+      if (arrow.label) stacked.set(key, stack + 1)
+      return { path, arrow, stack }
+    })
+    schedule()
+  }, [props.arrows, schedule])
+
+  useEffect(() => {
+    surface.current = boardSurface(settings.boardStyle, 1024, Math.round(1024 * SQ_D))
+    schedule()
+  }, [settings.boardStyle, schedule])
+
+  useEffect(() => {
+    const appearance = getSettings()
+    sprites.current = taikyokuSprites(appearance)
+    const controller = new AbortController()
+    const cells = [
+      ...new Map(
+        props.snap.grid.flatMap((row) => row.flatMap((cell) => (cell && !sprites.current.has(bakedKey(cell)) ? [[bakedKey(cell), cell] as const] : []))),
+      ).values(),
+    ]
+    if (!cells.length) {
+      latest.current.onProgress?.(1, 1)
+      schedule()
+      return
+    }
+    latest.current.onProgress?.(0, cells.length)
+    let done = 0
+    const prepare = async () => {
+      await loadPieceFont(appearance.pieceFont)
+      const font = PIECE_FONTS[appearance.pieceFont]
+      const glyphs = cells.map(({ key, side }) => taikyokuPiece(key, side).face.text).join('')
+      await document.fonts.load(`${font.weight} 100px "${font.family}"`, glyphs)
+      controller.signal.throwIfAborted()
+      await bakeTaikyoku(
+        cells,
+        controller.signal,
+        (key, image) => {
+          sprites.current.set(key, image)
+          latest.current.onProgress?.(++done, cells.length)
+          schedule()
+        },
+        appearance,
+      )
+    }
+    void prepare().catch((error: unknown) => {
+      if (!controller.signal.aborted) latest.current.onError?.(error instanceof Error ? error.message : String(error))
+    })
+    return () => controller.abort()
+  }, [props.snap, appearanceKey, schedule])
 
   return <canvas ref={canvas} className="tk-canvas" role="img" aria-label="Taikyoku shogi board" />
 })

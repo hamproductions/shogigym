@@ -13,7 +13,7 @@ import { SPRITE_BOX, spriteKey, type Baked } from '@/rendering/sprites'
 
 let queue: Promise<unknown> = Promise.resolve()
 
-function withBakeRenderer<T>(job: (renderer: THREE.WebGLRenderer, environment: THREE.Texture) => Promise<T>): Promise<T> {
+export function withBakeRenderer<T>(job: (renderer: THREE.WebGLRenderer, environment: THREE.Texture) => Promise<T>): Promise<T> {
   const run = queue.then(async () => {
     const renderer = createRenderer(false)
     try {

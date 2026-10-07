@@ -953,6 +953,11 @@
     "engineLine": "Engine line: {{line}}"
   },
   "taikyoku": {
+    "hud": "Toggle HUD panel",
+    "game": "Game",
+    "movement": "Movement",
+    "history": "Moves",
+    "camera": "WASD move · drag orbit · right drag pan · wheel zoom",
     "back": "Back to Shogi Gym",
     "board": "Taikyoku shogi board",
     "sente": "Sente",
@@ -968,16 +973,23 @@
     "jittoHint": "The Lion-style stay-in-place move: the turn passes and nothing changes.",
     "new": "New game",
     "undo": "Undo",
+    "engineMove": "Engine move",
+    "victory": {
+      "title": "Win condition",
+      "rule": "Capture every opposing royal. Kings and crown princes count; check and checkmate do not apply. Tap a royal to find it."
+    },
     "commentary": "Commentary",
     "eval": "Engine’s take: {{cp}} (depth {{depth}})",
     "status": {
+      "noLegal": "No legal moves — game stopped",
       "loading": "Warming up 804 pieces…",
       "yourMove": "Your move (Sente)",
+      "paused": "Gote to move — engine paused",
       "thinking": "The engine is thinking",
       "auto": "Engine vs engine",
       "won": "{{who}} wins — every royal piece is gone",
-      "limit": "Move limit reached: declared a draw",
-      "error": "The engine could not start"
+      "limit": "Engine history limit reached — game paused",
+      "error": "Engine failed — start a new game to retry"
     },
     "auto": {
       "start": "Watch engines",
@@ -1042,6 +1054,7 @@
         "The only well-documented game (Japanese TV, 2004) took 3,805 moves and 32 hours 41 minutes."
       ]
     },
+    "state": { "invalid": "Invalid Taikyoku game state. Current game kept.", "loading": "Restoring game…" },
     "setup": "Setting up the pieces… {{done}} / {{total}}"
   }
 }

@@ -1,4 +1,5 @@
 import './mode-bar.css'
+import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { moveText } from '@/utils/shogi'
 import { useSession } from '@/app/hooks/session'
@@ -40,7 +41,43 @@ type ModeBarProps = {
   drill: Drill
 }
 
-function EvalChip({ rate, barShown }: { rate: number; barShown: boolean }) {
+export function ModeBarHeading({
+  seal,
+  title,
+  instruction,
+  ply,
+  lastMove,
+  turn,
+  busy,
+}: {
+  seal: ReactNode
+  title: string
+  instruction: string
+  ply: string
+  lastMove?: string
+  turn: 'sente' | 'gote'
+  busy?: boolean
+}) {
+  const { t } = useTranslation()
+  return (
+    <div className="app-modebar-heading">
+      <span className="app-modebar-seal">{seal}</span>
+      <span className="app-modebar-text">
+        <strong>{title}</strong>
+        <span role="status" aria-busy={busy}>
+          {instruction}
+        </span>
+      </span>
+      <span className="app-lastmove">
+        <span className="app-ply">{ply}</span>
+        <strong title={lastMove}>{lastMove ?? '\u00a0'}</strong>
+        <span className={`app-turn ${turn}`}>{t('app.toMove', { side: sideMark(turn) })}</span>
+      </span>
+    </div>
+  )
+}
+
+export function EvalChip({ rate, barShown }: { rate: number; barShown: boolean }) {
   const { t } = useTranslation()
   const fill = useGlide<HTMLSpanElement>('width', rate * 100)
   return (
@@ -93,28 +130,21 @@ export function ModeBar({
   )
   return (
     <header className={`app-modebar${sheetUp ? ' sheet-up' : ''} m-${mode}${mode === 'lesson' ? ` l-${lessonMode}` : ''}`}>
-      <div className="app-modebar-heading">
-        <span className="app-modebar-seal">{seal}</span>
-        <span className="app-modebar-text">
-          <strong>{title}</strong>
-          <span role="status" aria-busy={engine.loading}>
-            {unavailable ? t('engine.theAiNeedsACross') : engine.error ? engine.error : engine.loading ? t('engine.loadingEngine') : instruction}
-          </span>
-        </span>
-        <span className="app-lastmove">
-          <span className="app-ply">
-            {lastMove && prevSfen
-              ? t('app.move', { value: plyBase + (preview ? preview.base + preview.step : cursor) })
-              : plyBase > 0
-                ? t('app.afterMove', { plyBase })
-                : t('app.startPosition')}
-          </span>
-          <strong title={lastMove && prevSfen ? moveText(prevSfen, lastMove) : undefined}>
-            {lastMove && prevSfen ? moveText(prevSfen, lastMove) : '\u00a0'}
-          </strong>
-          <span className={`app-turn ${toMove}`}>{t('app.toMove', { side: sideMark(toMove) })}</span>
-        </span>
-      </div>
+      <ModeBarHeading
+        seal={seal}
+        title={title}
+        instruction={unavailable ? t('engine.theAiNeedsACross') : engine.error ? engine.error : engine.loading ? t('engine.loadingEngine') : instruction}
+        busy={engine.loading}
+        ply={
+          lastMove && prevSfen
+            ? t('app.move', { value: plyBase + (preview ? preview.base + preview.step : cursor) })
+            : plyBase > 0
+              ? t('app.afterMove', { plyBase })
+              : t('app.startPosition')
+        }
+        lastMove={lastMove && prevSfen ? moveText(prevSfen, lastMove) : undefined}
+        turn={toMove}
+      />
       {evalRate !== null && (
         <div className="app-modebar-evaluation">
           <EvalChip rate={evalRate} barShown={barShown} />

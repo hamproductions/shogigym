@@ -294,7 +294,7 @@ export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, pr
   for (const mesh of retired) if (mesh.parent !== s.pieces) disposePiece(mesh)
 }
 
-const LIFT = 0.45
+export const LIFT = 0.45
 
 const isLifted = (mesh: THREE.Object3D, props: Board3DProps) => {
   const sel = props.selected
@@ -322,27 +322,33 @@ export function liftSelected(s: SceneState, props: Board3DProps, dt: number) {
   }
 }
 
+export type PieceAnimation = SceneState['animations'][number]
+
+export function stepPieceAnimation(anim: PieceAnimation, time: number) {
+  const t = Math.min(1, (time - anim.start) / (anim.duration ?? (anim.flip ? 550 : 220)))
+  const e = 1 - Math.pow(1 - t, 3)
+  anim.mesh.position.lerpVectors(anim.from, anim.to, e)
+  if (!anim.slide) anim.mesh.position.y = anim.to.y + Math.sin(Math.PI * t) * 0.5
+  if (anim.fromQ && anim.toQ) anim.mesh.quaternion.slerpQuaternions(anim.fromQ, anim.toQ, e)
+  if (anim.flip) {
+    anim.flip.position.copy(anim.mesh.position)
+    anim.flip.rotation.z = Math.PI * e
+    anim.flip.position.y += komaDepth(pieceScale(anim.flip.userData.type ?? anim.mesh.userData.type ?? PieceType.KING)) * e
+  }
+  if (t < 1) return false
+  anim.mesh.position.copy(anim.to)
+  anim.mesh.visible = true
+  if (anim.flip) {
+    anim.flip.removeFromParent()
+    disposePiece(anim.flip)
+  }
+  return true
+}
+
 export function stepAnimations(s: SceneState, time: number) {
   for (const anim of [...s.animations]) {
-    const t = Math.min(1, (time - anim.start) / (anim.duration ?? (anim.flip ? 550 : 220)))
-    const e = 1 - Math.pow(1 - t, 3)
-    anim.mesh.position.lerpVectors(anim.from, anim.to, e)
-    if (!anim.slide) anim.mesh.position.y = anim.to.y + Math.sin(Math.PI * t) * 0.5
-    if (anim.fromQ && anim.toQ) anim.mesh.quaternion.slerpQuaternions(anim.fromQ, anim.toQ, e)
-    if (anim.flip) {
-      anim.flip.position.copy(anim.mesh.position)
-      anim.flip.rotation.z = Math.PI * e
-      anim.flip.position.y += komaDepth(pieceScale(anim.flip.userData.type ?? anim.mesh.userData.type ?? PieceType.KING)) * e
-    }
-    if (t >= 1) {
-      anim.mesh.position.copy(anim.to)
-      anim.mesh.visible = true
-      if (anim.flip) {
-        anim.flip.removeFromParent()
-        disposePiece(anim.flip)
-      }
-      s.animations.splice(s.animations.indexOf(anim), 1)
-      anim.land?.()
-    }
+    if (!stepPieceAnimation(anim, time)) continue
+    s.animations.splice(s.animations.indexOf(anim), 1)
+    anim.land?.()
   }
 }

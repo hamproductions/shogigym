@@ -1,27 +1,49 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
-import { Color, PieceType } from 'tsshogi'
-import { PIECE_FONTS, getSettings, loadPieceFont, playSound, type PieceAppearance } from '@/appearance/settings'
+import { PIECE_FONTS, getSettings, loadPieceFont, playSound } from '@/appearance/settings'
 import { BOARD_TONE } from '@/rendering/koma'
-import { planks, standard, tileUV } from '@/rendering/roomFloor'
-import { LEG, SQ_D, THICK, compactRendering, pieceScale, pieceSegments, setBoardDims } from '@/rendering/board3d/dimensions'
+import { furnishFloor } from '@/rendering/roomFloor'
+import { buildRoom } from '@/rendering/room'
+import { mm, ROOM_H, TRADITIONAL_ROOM } from '@/utils/roomMetrics'
+import { SQ_D, compactRendering, pieceSegments, sideStandsFitFor } from '@/rendering/board3d/dimensions'
 import { environmentMap, preparePieceEnvironment, woodMaterial } from '@/rendering/board3d/materials'
 import { disposePiece, pieceMesh, setTopCacheLimit } from '@/rendering/board3d/piece'
-import { createRenderer, disposeRenderer, disposeScene } from '@/rendering/board3d/scene'
+import { arrowBetween, moveTarget, squareFrame, squareTile } from '@/rendering/board3d/marks'
+import { LIFT, stepPieceAnimation, type PieceAnimation } from '@/rendering/board3d/pieces'
+import { cameraFitFor, projectedZoneReporter } from '@/rendering/board3d/layout'
+import type { StandZones } from '@/rendering/board3d/types'
+import { addLights, createRenderer, disposeRenderer, disposeScene } from '@/rendering/board3d/scene'
 import { boardSurface, coordPlane, setFaceCacheLimit, srgbTexture } from '@/rendering/board3d/textures'
-import { SIZE, catalog, fileLabel, glyphOf, same, type Cell, type EngineMove, type Pos, type Snapshot } from './notation'
+import { SIZE, catalog, fileLabel, same, type Cell, type EngineMove, type Pos, type Snapshot } from './notation'
+import { taikyokuPiece } from './pieces'
+import { PieceInstances } from './instances'
+import { CAPTURE_BOX, createCaptures } from './captures'
+import type { CaptureEntry } from './useTaikyoku'
 import type { TargetKind } from './TaikyokuBoard'
 
-export type Marks = { selected: Pos | null; inspected: Pos | null; targets: Map<string, TargetKind>; last: EngineMove | null }
+export type TaikyokuArrow = { move: EngineMove; color: string; dashed?: boolean; label?: string }
 
-export type SceneCallbacks = { onCell: (pos: Pos) => void; onProgress: (done: number, total: number) => void }
+export type Marks = {
+  selected: Pos | null
+  inspected: Pos | null
+  targets: Map<string, TargetKind>
+  last: EngineMove | null
+  control?: Map<string, { b: Pos[]; w: Pos[] }>
+  showControl?: boolean
+  arrows?: TaikyokuArrow[]
+  peekTargets?: Pos[]
+}
+
+export type SceneCallbacks = { onCell: (pos: Pos) => void; onProgress: (done: number, total: number) => void; onZones?: (zones: StandZones | null) => void }
 
 const HX = SIZE / 2
 const HZ = (SIZE / 2) * SQ_D
 const EDGE = 0.9
 const FOV = 30
 const MAX_TARGETS = 1500
+const THICK = mm(182)
+const LEG = mm(95)
 
 export const squareX = (file: number) => file - 0.5 - HX
 export const squareZ = (rank: number) => (SIZE / 2 + 0.5 - rank) * SQ_D
@@ -29,24 +51,13 @@ const fileAt = (x: number) => Math.round(x + HX + 0.5)
 const rankAt = (z: number) => Math.round(SIZE / 2 + 0.5 - z / SQ_D)
 const indexOf = ({ file, rank }: Pos) => (rank - 1) * SIZE + (file - 1)
 
-// Tile sizes follow the shogi ones: the bigger the piece's worth, the bigger the tile.
-function tileScale(key: string) {
-  const info = catalog[key]
-  if (!info) return pieceScale(PieceType.PAWN)
-  if (info.r) return pieceScale(PieceType.KING)
-  if (info.v >= 450) return pieceScale(PieceType.ROOK)
-  if (info.v >= 300) return pieceScale(PieceType.GOLD)
-  if (info.v >= 150) return pieceScale(PieceType.KNIGHT)
-  return pieceScale(PieceType.PAWN)
-}
-
 const hash = (text: string) => {
   let h = 17
   for (const ch of text) h = (h * 31 + ch.charCodeAt(0)) | 0
   return Math.abs(h) + 1
 }
 
-type Tween = { mesh: THREE.Object3D; from: THREE.Vector3; to: THREE.Vector3; start: number; duration: number; arc: number; done?: () => void }
+type Tween = PieceAnimation & { next?: THREE.Vector3; prepareFinal?: () => void; done?: () => void }
 type Fade = { mesh: THREE.Object3D; start: number }
 type View = { position: THREE.Vector3; target: THREE.Vector3 }
 
@@ -58,30 +69,55 @@ export class TaikyokuScene {
   private camera = new THREE.PerspectiveCamera(FOV, 1, 0.1, 500)
   private controls: OrbitControls
   private pieces = new THREE.Group()
+  private instances = new PieceInstances(this.pieces)
+  private captureStore: Awaited<ReturnType<typeof createCaptures>> | null = null
+  private captures: CaptureEntry[] = []
+  private captureGeneration = 0
+  private board: THREE.Mesh | null = null
+  private reportZones: () => void
+  private sideRoom = 0
+  private snapshot: Snapshot | null = null
+  private appearanceKey = ''
+  private fontGeneration = 0
   private marks = new THREE.Group()
+  private room = new THREE.Group()
   private cells = new Map<number, THREE.Object3D>()
   private pending = new Map<number, Cell>()
   private total = 0
   private tweens: Tween[] = []
   private fades: Fade[] = []
   private view: { from: View; to: View; start: number; duration: number } | null = null
-  private sun: THREE.DirectionalLight
-  private shadowTarget = new THREE.Vector3(1e9, 0, 0)
+  private sun: THREE.SpotLight
   private dirty = true
   private shadowDirty = true
   private shown = -1
   private fontsReady = false
   private frame = 0
+  private lifted: number | null = null
   private size: { w: number; h: number } | null = null
   private observer: ResizeObserver
-  private appearance: PieceAppearance
   private ray = new THREE.Raycaster()
   private dots: THREE.InstancedMesh
-  private rings: THREE.InstancedMesh
   private frames: THREE.InstancedMesh
+  private selectedFrame: THREE.Mesh
+  private focusedTile: THREE.Mesh
+  private peekTiles: THREE.InstancedMesh
+  private peekFrames: THREE.InstancedMesh
+  private arrowMarks = new THREE.Group()
+  private arrowKey = ''
+  private heat = new Map<string, THREE.InstancedMesh>()
+  private heatLabels = new Map<number, THREE.InstancedMesh>()
+  private keys = new Set<string>()
+  private previousFrame = 0
+  private forward = new THREE.Vector3()
+  private strafe = new THREE.Vector3()
+  private travel = new THREE.Vector3()
   private tiles: Record<'selected' | 'inspected' | 'from' | 'to', THREE.Mesh>
   private down: { x: number; y: number; time: number } | null = null
   private disposed = false
+  private fitted = true
+  private viewport = new THREE.Vector2()
+  private textures = new Map<THREE.Texture, number>()
   private listeners: (() => void)[] = []
 
   private host: HTMLElement
@@ -90,28 +126,39 @@ export class TaikyokuScene {
   constructor(host: HTMLElement, callbacks: SceneCallbacks) {
     this.host = host
     this.callbacks = callbacks
-    setBoardDims()
     // hundreds of distinct tiles: keep their faces and carved tops cached instead of rebuilding them
     setFaceCacheLimit(480)
     setTopCacheLimit(480)
-    this.appearance = { pieceSet: 'letters', pieceGuide: 'none', ...(compactRendering() ? { pieceFinish: 'insatsu' as const } : {}) }
     const { renderer, scene, camera } = this
-    scene.background = new THREE.Color(0x1c1814)
-    scene.fog = new THREE.Fog(0x1c1814, 150, 420)
+    scene.add(this.room)
     this.sun = this.addLights()
     this.addFloor()
     this.addBoard()
+    this.prepareCaptures()
+    this.appearanceKey = this.pieceAppearanceKey()
     scene.add(this.pieces, this.marks)
+    scene.traverse((object) => {
+      const material = (object as THREE.Mesh).material
+      for (const item of Array.isArray(material) ? material : material ? [material] : [])
+        for (const value of Object.values(item)) if (value instanceof THREE.Texture) this.textures.set(value, value.version)
+    })
 
     this.tiles = {
-      selected: this.tile(0xf0be3c, 0.55),
-      inspected: this.tile(0x7850c8, 0.35),
-      from: this.tile(0x4678c8, 0.3),
-      to: this.tile(0x4678c8, 0.45),
+      selected: this.tile(0xfff1c9, 0.45),
+      inspected: this.tile(0xc8442f, 0.22),
+      from: this.tile(0xe8a63a, 0.38),
+      to: this.tile(0xe8a63a, 0.55),
     }
     const flat = (geometry: THREE.BufferGeometry) => geometry.rotateX(-Math.PI / 2).scale(1, 1, SQ_D)
-    this.dots = this.instanced(flat(new THREE.CircleGeometry(0.17, 20)), 0x2f6118, 0.9)
-    this.rings = this.instanced(flat(new THREE.RingGeometry(0.4, 0.5, 28)), 0xd23b25, 0.95)
+    this.selectedFrame = squareFrame(0.66, new THREE.MeshBasicMaterial({ color: 0xc8442f, depthWrite: false }))
+    this.selectedFrame.rotation.x = -Math.PI / 2
+    this.selectedFrame.position.y = 0.006
+    this.selectedFrame.visible = false
+    this.marks.add(this.selectedFrame, this.arrowMarks)
+    this.focusedTile = this.tile(0x9a5ad0, 0.35)
+    this.peekTiles = this.batch(squareTile(0xc8442f, 0.26), 0.004)
+    this.peekFrames = this.batch(squareFrame(0.62, new THREE.MeshBasicMaterial({ color: 0xb33a26, transparent: true, opacity: 0.7, depthWrite: false })), 0.005)
+    this.dots = this.batch(moveTarget(), 0.006)
     this.frames = this.instanced(flat(new THREE.RingGeometry(0.4, 0.5, 4, 1, Math.PI / 4)), 0xd99a1c, 0.95)
 
     const dom = renderer.domElement
@@ -119,12 +166,16 @@ export class TaikyokuScene {
     host.appendChild(dom)
     this.controls = new OrbitControls(camera, dom)
     this.controls.enableDamping = true
-    this.controls.screenSpacePanning = false
-    this.controls.mouseButtons = { LEFT: THREE.MOUSE.PAN, MIDDLE: THREE.MOUSE.DOLLY, RIGHT: THREE.MOUSE.ROTATE }
-    this.controls.touches = { ONE: THREE.TOUCH.PAN, TWO: THREE.TOUCH.DOLLY_ROTATE }
-    this.controls.minDistance = 3
-    this.controls.maxDistance = 130
-    this.controls.maxPolarAngle = Math.PI * 0.48
+    this.controls.screenSpacePanning = true
+    this.controls.mouseButtons = { LEFT: THREE.MOUSE.ROTATE, MIDDLE: THREE.MOUSE.DOLLY, RIGHT: THREE.MOUSE.PAN }
+    this.controls.touches = { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_PAN }
+    this.controls.minDistance = 2 * SQ_D
+    this.setZoomBounds()
+    this.controls.maxPolarAngle = Math.PI
+    this.controls.addEventListener('start', () => {
+      this.view = null
+      this.fitted = false
+    })
     this.controls.addEventListener('change', () => (this.dirty = true))
     this.resetView(false)
 
@@ -133,12 +184,52 @@ export class TaikyokuScene {
     })
     this.observer.observe(host)
     this.size = { w: host.clientWidth, h: host.clientHeight }
-    this.listen(dom, 'pointerdown', (e) => (this.down = { x: e.clientX, y: e.clientY, time: performance.now() }))
-    this.listen(dom, 'pointerup', (e) => this.pointerUp(e))
-    void this.loadFonts().then(() => {
-      this.fontsReady = true
-      this.dirty = true
+    this.listen(dom, 'pointerdown', (e) => {
+      host.focus({ preventScroll: true })
+      this.down = e.button === 0 ? { x: e.clientX, y: e.clientY, time: performance.now() } : null
     })
+    this.listen(dom, 'pointerup', (e) => this.pointerUp(e))
+    this.listen(host, 'keydown', (e) => {
+      const target = e.target
+      if (
+        e.altKey ||
+        e.ctrlKey ||
+        e.metaKey ||
+        e.shiftKey ||
+        (target instanceof HTMLElement && (target.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON'].includes(target.tagName)))
+      ) {
+        this.keys.clear()
+        return
+      }
+      const key = e.key.toLowerCase()
+      if (!['w', 'a', 's', 'd'].includes(key)) return
+      e.preventDefault()
+      this.keys.add(key)
+      this.view = null
+      this.fitted = false
+    })
+    this.listen(host, 'keyup', (e) => this.keys.delete(e.key.toLowerCase()))
+    this.listen(host, 'focusout', () => this.keys.clear())
+    const clearKeys = () => this.keys.clear()
+    window.addEventListener('blur', clearKeys)
+    this.listeners.push(() => window.removeEventListener('blur', clearKeys))
+    this.reportZones = projectedZoneReporter({
+      renderer,
+      camera,
+      onZones: () => this.callbacks.onZones,
+      ready: () => !!this.board && !!this.captureStore,
+      sideRoom: () => this.sideRoom,
+      inputs: () => [
+        ...(this.board?.matrixWorld.elements ?? []),
+        ...(this.captureStore?.boxes() ?? []).flatMap((box) => [...box.min.toArray(), ...box.max.toArray()]),
+      ],
+      fits: (width, height) => sideStandsFitFor(width, height, HX + EDGE, HZ + EDGE, this.fitDimensions().stand),
+      fit: (aspect, sideRoom, narrow) => cameraFitFor(aspect, 0, sideRoom, this.fitDimensions(), false, narrow),
+      board: () => new THREE.Box3().setFromObject(this.board!),
+      stands: () => this.captureStore!.boxes(),
+      obstacles: () => [new THREE.Box3().setFromObject(this.board!), ...this.captureStore!.boxes()],
+    })
+    this.prepareFonts()
     this.loop()
   }
 
@@ -147,42 +238,62 @@ export class TaikyokuScene {
     const font = getSettings().pieceFont
     await loadPieceFont(font).catch(() => undefined)
     const chars = new Set<string>()
-    for (const key of Object.keys(catalog)) for (const side of ['b', 'w'] as const) for (const ch of glyphOf(key, side)) chars.add(ch)
+    for (const info of Object.values(catalog)) for (const ch of info.k + (info.k2 ?? '')) chars.add(ch)
     const spec = PIECE_FONTS[font]
     await document.fonts.load(`${spec.weight} 100px "${spec.family}"`, [...chars].join('')).catch(() => undefined)
+  }
+
+  private prepareFonts() {
+    const generation = ++this.fontGeneration
+    this.fontsReady = false
+    void this.loadFonts().then(() => {
+      if (this.disposed || generation !== this.fontGeneration) return
+      this.fontsReady = true
+      this.dirty = true
+    })
+  }
+
+  private pieceAppearanceKey() {
+    const settings = getSettings()
+    return JSON.stringify([
+      settings.pieceMaterial,
+      settings.pieceFinish,
+      settings.pieceColor,
+      settings.pieceGrain,
+      settings.pieceFont,
+      settings.pieceStyle,
+      settings.pieceSet,
+    ])
+  }
+
+  syncAppearance() {
+    const key = this.pieceAppearanceKey()
+    if (key === this.appearanceKey) return
+    this.appearanceKey = key
+    this.finishAnimations()
+    for (const mesh of this.cells.values()) this.drop(mesh)
+    this.cells.clear()
+    this.prepareCaptures()
+    this.prepareFonts()
+    if (this.snapshot) this.setPosition(this.snapshot, null)
+    this.shadowDirty = this.dirty = true
   }
 
   // --- building the room -------------------------------------------------
 
   private addLights() {
-    const { scene } = this
-    scene.add(new THREE.HemisphereLight(0xe8e0d0, 0x3a2a18, 1.05))
-    const sun = new THREE.DirectionalLight(0xffe8c4, 1.7)
-    sun.castShadow = true
-    const mapSize = compactRendering() ? 1024 : 2048
-    sun.shadow.mapSize.set(mapSize, mapSize)
-    sun.shadow.camera.left = sun.shadow.camera.bottom = -17
-    sun.shadow.camera.right = sun.shadow.camera.top = 17
-    sun.shadow.camera.near = 1
-    sun.shadow.camera.far = 70
-    sun.shadow.bias = -0.0004
-    sun.shadow.normalBias = 0.02
-    sun.shadow.autoUpdate = false
-    scene.add(sun, sun.target)
-    const fill = new THREE.DirectionalLight(0x8fa6d8, 0.35)
-    fill.position.set(8, 6, -6)
-    scene.add(fill)
-    return sun
+    addLights(this.scene, compactRendering() ? 1024 : 2048)
+    const lamp = this.scene.children.find((object): object is THREE.SpotLight => object instanceof THREE.SpotLight && object.castShadow)!
+    lamp.shadow.autoUpdate = false
+    return lamp
   }
 
   private addFloor() {
-    const floor = new THREE.Mesh(
-      tileUV(new THREE.PlaneGeometry(900, 900).rotateX(-Math.PI / 2), 900 / 34, 900 / 34),
-      standard('planks-board', { map: planks(), roughness: 0.55 }, 0.24),
-    )
-    floor.position.y = -THICK - LEG
+    const floor = new THREE.Mesh()
     floor.receiveShadow = true
-    this.scene.add(floor)
+    const dims = { thick: THICK, leg: LEG, halfW: HX + EDGE, halfD: HZ + EDGE, floor }
+    furnishFloor(this.room, dims, false)
+    buildRoom(this.room, dims)
   }
 
   private addBoard() {
@@ -201,6 +312,7 @@ export class TaikyokuScene {
       woodMaterial(tone.edge, 11),
       woodMaterial(tone.edge, 13),
     ])
+    this.board = board
     board.position.y = -THICK / 2
     board.castShadow = true
     board.receiveShadow = true
@@ -213,7 +325,7 @@ export class TaikyokuScene {
       [-1, 1],
       [1, 1],
     ]) {
-      const leg = new THREE.Mesh(new THREE.CylinderGeometry(2.2, 1.4, LEG, 28), legMaterial)
+      const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.9, 0.55, LEG, 24), legMaterial)
       leg.position.set(sx * (HX - 4), -THICK - LEG / 2, sz * (HZ - 4))
       leg.castShadow = true
       this.scene.add(leg)
@@ -247,21 +359,55 @@ export class TaikyokuScene {
     }
   }
 
+  private prepareCaptures() {
+    const generation = ++this.captureGeneration
+    this.captureStore?.dispose()
+    this.captureStore = null
+    void createCaptures({
+      parent: this.scene,
+      make: (cell) => this.make(cell),
+      position: (pos) => new THREE.Vector3(squareX(pos.file), 0, squareZ(pos.rank)),
+      floorY: -THICK - LEG,
+      onInvalidate: () => {
+        this.shadowDirty = this.dirty = true
+      },
+    })
+      .then((store) => {
+        if (this.disposed || generation !== this.captureGeneration) return store.dispose()
+        this.captureStore = store
+        store.sync(this.captures, false)
+        if (this.fitted) this.resetView(false)
+        this.shadowDirty = this.dirty = true
+      })
+      .catch((error) => console.warn('capture physics not loaded', error))
+  }
+
   private tile(color: number, opacity: number) {
-    const mesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(1, SQ_D).rotateX(-Math.PI / 2),
-      new THREE.MeshBasicMaterial({
-        color,
-        transparent: true,
-        opacity,
-        depthWrite: false,
-        polygonOffset: true,
-        polygonOffsetFactor: -3,
-        polygonOffsetUnits: -3,
-      }),
-    )
-    mesh.position.y = 0.012
+    const mesh = squareTile(color, opacity)
+    const material = mesh.material as THREE.MeshBasicMaterial
+    material.polygonOffset = true
+    material.polygonOffsetFactor = -2
+    material.polygonOffsetUnits = -2
+    mesh.renderOrder = 3
+    mesh.rotation.x = -Math.PI / 2
+    mesh.position.y = 0.004
     mesh.visible = false
+    this.marks.add(mesh)
+    return mesh
+  }
+
+  private batch(source: THREE.Mesh, y: number) {
+    const material = source.material as THREE.MeshBasicMaterial
+    material.polygonOffset = true
+    material.polygonOffsetFactor = -1
+    material.polygonOffsetUnits = -1
+    source.rotation.x = -Math.PI / 2
+    source.updateMatrix()
+    source.geometry.applyMatrix4(source.matrix)
+    const mesh = new THREE.InstancedMesh(source.geometry, source.material, MAX_TARGETS)
+    mesh.count = 0
+    mesh.position.y = y
+    mesh.frustumCulled = false
     this.marks.add(mesh)
     return mesh
   }
@@ -291,13 +437,36 @@ export class TaikyokuScene {
 
   private fitView(): View {
     const aspect = this.camera.aspect || 1
-    const distance = Math.max((2 * HX + 5) / aspect, 2 * HZ + 5) / (2 * Math.tan((FOV * Math.PI) / 360))
-    const angle = 0.3
+    const angle = 0.82
+    const extent = cameraFitFor(aspect, 1, this.sideRoom, this.fitDimensions())
+    const distance = Math.min(extent / (2 * Math.tan((FOV * Math.PI) / 360)), (ROOM_H - THICK - LEG - mm(20)) / Math.cos(angle))
+    this.camera.fov = (2 * Math.atan(extent / (2 * distance)) * 180) / Math.PI
+    this.camera.updateProjectionMatrix()
     return { target: new THREE.Vector3(0, 0, 0), position: new THREE.Vector3(0, Math.cos(angle) * distance, Math.sin(angle) * distance) }
+  }
+
+  private fitDimensions() {
+    const boxes = this.captureStore?.boxes()
+    const extent = boxes?.length ? Math.max(...boxes.flatMap((box) => [Math.abs(box.min.x), Math.abs(box.max.x)])) : HX + CAPTURE_BOX.width + 1.8
+    return { halfW: HX + EDGE, halfD: HZ + EDGE, stand: extent - HX - EDGE - 0.4, stripD: 0, stripZ: HZ + EDGE + 0.25 }
+  }
+
+  setSideRoom(sideRoom: number) {
+    if (this.sideRoom === sideRoom) return
+    this.sideRoom = sideRoom
+    if (this.fitted) this.resetView(false)
+    this.dirty = true
   }
 
   private resetView(animate: boolean) {
     this.moveTo(this.fitView(), animate)
+  }
+
+  private setZoomBounds() {
+    const radius = Math.hypot(TRADITIONAL_ROOM.halfX, TRADITIONAL_ROOM.halfZ, ROOM_H / 2)
+    this.controls.maxDistance = 2 * radius
+    this.camera.far = this.controls.maxDistance + 2 * radius
+    this.camera.updateProjectionMatrix()
   }
 
   private moveTo(to: View, animate: boolean) {
@@ -313,10 +482,12 @@ export class TaikyokuScene {
   }
 
   fit() {
+    this.fitted = true
     this.resetView(true)
   }
 
   focus(pos: Pos, cellPx = 40) {
+    this.fitted = false
     const height = this.host.clientHeight || 600
     // the 2D map's pixels-per-cell, translated to how many board squares fill the view
     const cells = Math.max(6, Math.min(30, height / (cellPx * 2.2)))
@@ -329,16 +500,16 @@ export class TaikyokuScene {
   // --- pieces ------------------------------------------------------------
 
   private make(cell: Cell) {
-    const color = cell.side === 'b' ? Color.BLACK : Color.WHITE
+    const { type, color, face } = taikyokuPiece(cell.key, cell.side)
     const mesh = pieceMesh(
-      PieceType.PAWN,
+      type,
       color,
       hash(cell.key + cell.side),
       pieceSegments(),
-      this.appearance,
+      { pieceGuide: 'none' },
       preparePieceEnvironment(this.renderer, false),
       false,
-      { text: glyphOf(cell.key, cell.side), promoted: cell.key.startsWith('+'), code: cell.key, scale: tileScale(cell.key) },
+      face,
     )
     mesh.userData.cell = cell
     return mesh
@@ -349,28 +520,41 @@ export class TaikyokuScene {
   }
 
   private retire(mesh: THREE.Object3D, fade: boolean) {
+    this.instances.remove(mesh)
+    this.pieces.add(mesh)
     if (fade) this.fades.push({ mesh, start: performance.now() })
     else this.drop(mesh)
   }
 
   private drop(mesh: THREE.Object3D) {
+    this.instances.remove(mesh)
     this.pieces.remove(mesh)
     disposePiece(mesh, true)
   }
 
   private finishAnimations() {
     for (const t of this.tweens.splice(0)) {
-      t.mesh.position.copy(t.to)
+      stepPieceAnimation(t, t.start + (t.duration ?? (t.flip ? 550 : 220)))
+      if (t.next) {
+        t.from.copy(t.to)
+        t.to = t.next
+        t.next = undefined
+        t.prepareFinal?.()
+        stepPieceAnimation(t, t.start + (t.duration ?? (t.flip ? 550 : 220)))
+      }
       t.done?.()
+      if (!t.done) this.instances.add(t.mesh)
     }
     for (const f of this.fades.splice(0)) this.drop(f.mesh)
   }
 
   setPosition(snap: Snapshot, last: EngineMove | null) {
+    const previous = this.snapshot
+    this.snapshot = snap
     this.finishAnimations()
     const grid = snap.grid
     const now = performance.now()
-    const moving = last && !same(last.from, last.to) ? last : null
+    const moving = last
     let landing: Tween | null = null
 
     if (moving) {
@@ -378,26 +562,39 @@ export class TaikyokuScene {
       const target = grid[moving.to.rank - 1][moving.to.file - 1]
       if (mesh && target && (mesh.userData.cell as Cell).side === target.side) {
         const from = mesh.position.clone()
+        this.instances.remove(mesh)
+        this.pieces.add(mesh)
         const to = new THREE.Vector3(squareX(moving.to.file), 0, squareZ(moving.to.rank))
-        const steps = Math.max(Math.abs(moving.from.file - moving.to.file), Math.abs(moving.from.rank - moving.to.rank) * SQ_D)
         const promoted = (mesh.userData.cell as Cell).key !== target.key
-        landing = { mesh, from, to, start: now, duration: Math.min(620, 240 + steps * 28), arc: steps > 1.6 ? 0.9 : 0.35 }
+        const capture = !!previous && previous.counts.b + previous.counts.w > snap.counts.b + snap.counts.w
+        landing = { mesh, from, to, start: now, land: () => playSound(capture ? 'capture' : 'move') }
         this.cells.delete(indexOf(moving.from))
         const captured = this.cells.get(indexOf(moving.to))
-        if (captured) {
+        if (captured && captured !== mesh) {
           this.cells.delete(indexOf(moving.to))
           this.retire(captured, true)
         }
+        if (moving.mid) {
+          landing.next = to
+          landing.to = new THREE.Vector3(squareX(moving.mid.file), 0, squareZ(moving.mid.rank))
+        }
         if (promoted) {
-          // the old face stays up while the tile travels; the promoted face appears at landing
-          landing.done = () => {
-            this.drop(mesh)
+          const animation = landing
+          const promote = () => {
             const fresh = this.make(target)
-            this.place(fresh, moving.to)
+            fresh.position.copy(animation.from)
+            fresh.visible = false
             this.pieces.add(fresh)
-            this.cells.set(indexOf(moving.to), fresh)
-            this.shadowDirty = this.dirty = true
+            animation.mesh = fresh
+            animation.flip = mesh
+            animation.done = () => {
+              this.instances.add(fresh)
+              this.cells.set(indexOf(moving.to), fresh)
+              this.shadowDirty = this.dirty = true
+            }
           }
+          if (landing.next) landing.prepareFinal = promote
+          else promote()
         } else this.cells.set(indexOf(moving.to), mesh)
         this.tweens.push(landing)
       }
@@ -411,7 +608,7 @@ export class TaikyokuScene {
         const want = grid[rank - 1][file - 1]
         const have = this.cells.get(idx)
         const haveCell = have?.userData.cell as Cell | undefined
-        const promotionLanding = landing && !landing.done?.length && moving && same(moving.to, { file, rank }) && landing.done
+        const promotionLanding = landing && moving && same(moving.to, { file, rank }) && (landing.flip || landing.prepareFinal)
         if (want && have && haveCell && haveCell.key === want.key && haveCell.side === want.side) continue
         if (promotionLanding) continue
         if (have) {
@@ -425,6 +622,7 @@ export class TaikyokuScene {
     if (this.pending.size) this.callbacks.onProgress(this.total - this.pending.size, this.total)
     else this.callbacks.onProgress(1, 1)
     if (landing) landing.start = now
+    this.instances.update()
     this.shadowDirty = this.dirty = true
   }
 
@@ -432,51 +630,168 @@ export class TaikyokuScene {
     if (!this.pending.size || !this.fontsReady) return
     const target = this.controls.target
     const order = [...this.pending.entries()].sort(([a], [b]) => {
-      const da = Math.hypot((a % SIZE) + 0.5 - HX - target.x, Math.floor(a / SIZE) + 0.5 - HX - target.z)
-      const db = Math.hypot((b % SIZE) + 0.5 - HX - target.x, Math.floor(b / SIZE) + 0.5 - HX - target.z)
+      const da = Math.hypot(squareX((a % SIZE) + 1) - target.x, squareZ(Math.floor(a / SIZE) + 1) - target.z)
+      const db = Math.hypot(squareX((b % SIZE) + 1) - target.x, squareZ(Math.floor(b / SIZE) + 1) - target.z)
       return da - db
     })
     const started = performance.now()
     for (const [idx, cell] of order) {
       // a long first build hands control back to input every frame
-      if (performance.now() - started > 16) break
+      if (performance.now() - started > 8) break
       this.pending.delete(idx)
       const mesh = this.make(cell)
       this.place(mesh, { file: (idx % SIZE) + 1, rank: Math.floor(idx / SIZE) + 1 })
-      this.pieces.add(mesh)
+      this.instances.add(mesh)
       this.cells.set(idx, mesh)
     }
     this.callbacks.onProgress(this.total - this.pending.size, this.total)
     if (!this.pending.size) this.total = 0
+    this.instances.update()
     this.shadowDirty = this.dirty = true
+  }
+
+  setCaptures(captures: CaptureEntry[], animate: boolean) {
+    this.finishAnimations()
+    const added = captures.slice(this.captures.length)
+    this.captures = captures.slice()
+    this.captureStore?.sync(captures, animate, animate)
+    if (animate && this.captureStore) {
+      for (const record of added) {
+        const index = indexOf(record.from)
+        const mesh = this.cells.get(index)
+        const origin = mesh?.position.clone() ?? new THREE.Vector3(squareX(record.from.file), 0, squareZ(record.from.rank))
+        if (mesh) {
+          this.instances.remove(mesh)
+          this.cells.delete(index)
+        }
+        this.captureStore.throw(record, mesh, origin)
+      }
+      this.instances.update()
+    }
+    this.shadowDirty = this.dirty = true
+  }
+
+  private stepCaptures(delta: number) {
+    if (this.captureStore?.tick(delta)) this.shadowDirty = this.dirty = true
   }
 
   // --- marks -------------------------------------------------------------
 
-  setMarks({ selected, inspected, targets, last }: Marks) {
+  setMarks({ selected, inspected, targets, last, control, showControl, arrows, peekTargets }: Marks) {
+    this.lifted = selected ? indexOf(selected) : null
     const put = (mesh: THREE.Mesh, pos: Pos | null) => {
       mesh.visible = !!pos
       if (pos) mesh.position.set(squareX(pos.file), mesh.position.y, squareZ(pos.rank))
     }
     put(this.tiles.selected, selected)
-    put(this.tiles.inspected, inspected)
+    put(this.selectedFrame, selected)
+    const piece = inspected && this.snapshot?.grid[inspected.rank - 1]?.[inspected.file - 1]
+    put(this.tiles.inspected, piece ? inspected : null)
+    put(this.focusedTile, inspected && !piece ? inspected : null)
+    const focus = inspected ? control?.get(`${inspected.file},${inspected.rank}`) : undefined
+    const difference = (focus?.b.length ?? 0) - (focus?.w.length ?? 0)
+    ;(this.focusedTile.material as THREE.MeshBasicMaterial).color.setHex(difference > 0 ? 0x1f7ae0 : difference < 0 ? 0xd2402a : 0x9a5ad0)
     put(this.tiles.from, last?.from ?? null)
     put(this.tiles.to, last && !same(last.from, last.to) ? last.to : null)
-    const counts = { step: 0, capture: 0, via: 0 }
-    const meshes = { step: this.dots, capture: this.rings, via: this.frames }
-    const m = new THREE.Matrix4()
+    this.dots.count = this.frames.count = 0
+    const matrix = new THREE.Matrix4()
     targets.forEach((kind, key) => {
-      const mesh = meshes[kind]
-      if (counts[kind] >= MAX_TARGETS) return
+      const mesh = kind === 'via' ? this.frames : this.dots
+      if (mesh.count >= MAX_TARGETS) return
       const [file, rank] = key.split(',').map(Number)
-      m.makeTranslation(squareX(file), 0, squareZ(rank))
-      mesh.setMatrixAt(counts[kind]++, m)
+      matrix.makeTranslation(squareX(file), 0, squareZ(rank))
+      mesh.setMatrixAt(mesh.count++, matrix)
     })
-    for (const kind of ['step', 'capture', 'via'] as const) {
-      meshes[kind].count = counts[kind]
-      meshes[kind].instanceMatrix.needsUpdate = true
+    this.dots.instanceMatrix.needsUpdate = this.frames.instanceMatrix.needsUpdate = true
+    this.peekTiles.count = this.peekFrames.count = 0
+    const covered = [...(peekTargets ?? []), ...(!piece && focus ? [...focus.b, ...focus.w] : [])]
+    const seen = new Set<string>()
+    for (const pos of covered) {
+      const key = `${pos.file},${pos.rank}`
+      if (seen.has(key) || this.peekTiles.count >= MAX_TARGETS) continue
+      seen.add(key)
+      matrix.makeTranslation(squareX(pos.file), 0, squareZ(pos.rank))
+      this.peekTiles.setMatrixAt(this.peekTiles.count++, matrix)
+      this.peekFrames.setMatrixAt(this.peekFrames.count++, matrix)
     }
+    this.peekTiles.instanceMatrix.needsUpdate = this.peekFrames.instanceMatrix.needsUpdate = true
+    this.setArrows(arrows ?? [])
+    this.setControl(showControl ? control : undefined)
     this.dirty = true
+  }
+
+  private setArrows(arrows: TaikyokuArrow[]) {
+    const key = JSON.stringify(arrows)
+    if (key === this.arrowKey) return
+    this.arrowKey = key
+    this.arrowMarks.traverse((object) => {
+      if (!(object instanceof THREE.Mesh)) return
+      object.geometry.dispose()
+      for (const material of Array.isArray(object.material) ? object.material : [object.material]) {
+        const map = (material as THREE.MeshBasicMaterial).map
+        if (map && !map.userData.shared) map.dispose()
+        material.dispose()
+      }
+    })
+    this.arrowMarks.clear()
+    const stacked = new Map<string, number>()
+    for (const arrow of arrows) {
+      const points = [arrow.move.from, ...(arrow.move.mid ? [arrow.move.mid] : []), arrow.move.to]
+      const destination = `${arrow.move.to.file},${arrow.move.to.rank}`
+      const stack = stacked.get(destination) ?? 0
+      if (arrow.label) stacked.set(destination, stack + 1)
+      for (let index = 1; index < points.length; index++) {
+        const from = points[index - 1]
+        const to = points[index]
+        if (same(from, to)) continue
+        this.arrowMarks.add(
+          arrowBetween(
+            { ...arrow, label: index === points.length - 1 ? arrow.label : undefined, usi: arrow.move.text },
+            new THREE.Vector3(squareX(from.file), 0.05, squareZ(from.rank)),
+            new THREE.Vector3(squareX(to.file), 0.05, squareZ(to.rank)),
+            stack,
+          ),
+        )
+      }
+    }
+  }
+
+  private setControl(control?: Marks['control']) {
+    for (const mesh of [...this.heat.values(), ...this.heatLabels.values()]) mesh.count = 0
+    const matrix = new THREE.Matrix4()
+    for (const [key, cell] of control ?? []) {
+      if (!cell.b.length && !cell.w.length) continue
+      const [file, rank] = key.split(',').map(Number)
+      if (!Number.isInteger(file) || !Number.isInteger(rank) || file < 1 || file > SIZE || rank < 1 || rank > SIZE) continue
+      const difference = cell.b.length - cell.w.length
+      const color = difference > 0 ? 0x1f7ae0 : difference < 0 ? 0xd2402a : 0x9a5ad0
+      const opacity = Math.min(0.42, 0.14 + 0.1 * Math.abs(difference || 1))
+      const batch = `${color}/${opacity}`
+      let tile = this.heat.get(batch)
+      if (!tile) {
+        tile = this.batch(squareTile(color, opacity), 0.004)
+        tile.position.y = 0.004
+        tile.renderOrder = 1
+        this.heat.set(batch, tile)
+      }
+      matrix.makeTranslation(squareX(file), 0, squareZ(rank))
+      tile.setMatrixAt(tile.count++, matrix)
+      const count = difference ? Math.abs(difference) : cell.b.length
+      let label = this.heatLabels.get(count)
+      if (!label) {
+        const source = coordPlane(String(count), 0.34, false)
+        source.geometry.rotateX(-Math.PI / 2)
+        label = new THREE.InstancedMesh(source.geometry, source.material, SIZE * SIZE)
+        label.count = 0
+        label.frustumCulled = false
+        label.renderOrder = 2
+        this.marks.add(label)
+        this.heatLabels.set(count, label)
+      }
+      matrix.makeTranslation(squareX(file) + 0.32, 0.06, squareZ(rank) + 0.3)
+      label.setMatrixAt(label.count++, matrix)
+    }
+    for (const mesh of [...this.heat.values(), ...this.heatLabels.values()]) mesh.instanceMatrix.needsUpdate = true
   }
 
   // --- input -------------------------------------------------------------
@@ -492,9 +807,22 @@ export class TaikyokuScene {
     if (!down || Math.hypot(e.clientX - down.x, e.clientY - down.y) > 6 || performance.now() - down.time > 700) return
     const rect = this.renderer.domElement.getBoundingClientRect()
     this.ray.setFromCamera(new THREE.Vector2(((e.clientX - rect.left) / rect.width) * 2 - 1, -((e.clientY - rect.top) / rect.height) * 2 + 1), this.camera)
+    const pieces = [...this.cells.values()]
+    for (const mesh of pieces) mesh.updateMatrixWorld(true)
+    const tile = this.ray.intersectObjects(pieces, true)[0]
+    if (tile) {
+      let object: THREE.Object3D | null = tile.object
+      while (object && !object.userData.cell) object = object.parent
+      if (object) {
+        for (const [index, mesh] of this.cells) {
+          if (mesh !== object) continue
+          this.callbacks.onCell({ file: (index % SIZE) + 1, rank: Math.floor(index / SIZE) + 1 })
+          return
+        }
+      }
+    }
     const hit = new THREE.Vector3()
-    // aim at the middle of a standing tile rather than the board, so tall tiles are hit where they look
-    if (!this.ray.ray.intersectPlane(new THREE.Plane(new THREE.Vector3(0, 1, 0), -0.3), hit)) return
+    if (!this.ray.ray.intersectPlane(new THREE.Plane(new THREE.Vector3(0, 1, 0), 0), hit)) return
     const pos = { file: fileAt(hit.x), rank: rankAt(hit.z) }
     if (pos.file >= 1 && pos.file <= SIZE && pos.rank >= 1 && pos.rank <= SIZE) this.callbacks.onCell(pos)
   }
@@ -505,18 +833,22 @@ export class TaikyokuScene {
     if (this.disposed) return
     this.frame = requestAnimationFrame(this.loop)
     const now = performance.now()
+    const delta = this.previousFrame ? Math.min(0.05, (now - this.previousFrame) / 1000) : 0
+    this.previousFrame = now
     const { renderer, camera, controls } = this
-    if (
-      this.size &&
-      (this.size.w !== renderer.domElement.clientWidth ||
-        renderer.getSize(new THREE.Vector2()).x !== this.size.w ||
-        renderer.getSize(new THREE.Vector2()).y !== this.size.h)
-    ) {
+    for (const [texture, version] of this.textures)
+      if (texture.version !== version) {
+        this.textures.set(texture, texture.version)
+        this.dirty = true
+      }
+    renderer.getSize(this.viewport)
+    if (this.size && (this.viewport.x !== this.size.w || this.viewport.y !== this.size.h || camera.aspect !== this.size.w / this.size.h)) {
       const { w, h } = this.size
       if (w > 0 && h > 0) {
         renderer.setSize(w, h, false)
         camera.aspect = w / h
-        camera.updateProjectionMatrix()
+        this.setZoomBounds()
+        if (this.fitted) this.resetView(false)
         this.dirty = true
       }
     }
@@ -528,10 +860,30 @@ export class TaikyokuScene {
       if (k >= 1) this.view = null
       this.dirty = true
     }
+    this.moveCamera(delta)
     controls.update()
+    const near = Math.max(0.1, Math.min(1, controls.getDistance() * 0.01))
+    if (camera.near !== near) {
+      camera.near = near
+      camera.updateProjectionMatrix()
+    }
     this.keepOnBoard()
+    this.keepCameraClear()
     this.animate(now)
     this.pump()
+    const settling = 1 - Math.exp(-delta * 18)
+    for (const [index, mesh] of this.cells) {
+      if (this.tweens.some((tween) => tween.mesh === mesh || tween.flip === mesh)) continue
+      const target = index === this.lifted ? LIFT : 0
+      const height = target ? target : Math.abs(mesh.position.y) < 0.001 ? 0 : mesh.position.y * (1 - settling)
+      if (height === mesh.position.y) continue
+      this.instances.remove(mesh)
+      mesh.position.y = height
+      this.instances.add(mesh)
+      this.dirty = this.shadowDirty = true
+    }
+    this.instances.update()
+    this.stepCaptures(delta)
     if (!this.dirty) return
     // while the first 800 tiles are still being built, repaint at each quarter instead of every frame
     if (this.pending.size && this.total) {
@@ -540,33 +892,77 @@ export class TaikyokuScene {
       this.shown = built
     } else this.shown = -1
     this.dirty = false
+    this.reportZones()
     this.followSun()
     renderer.render(this.scene, camera)
   }
 
   private keepOnBoard() {
     const t = this.controls.target
-    const x = Math.max(-HX, Math.min(HX, t.x))
-    const z = Math.max(-HZ, Math.min(HZ, t.z))
-    if (x !== t.x || z !== t.z) {
+    const clearance = mm(20)
+    const x = THREE.MathUtils.clamp(t.x, -TRADITIONAL_ROOM.halfX + clearance, TRADITIONAL_ROOM.halfX - clearance)
+    const y = THREE.MathUtils.clamp(t.y, -THICK - LEG + clearance, ROOM_H - THICK - LEG - clearance)
+    const z = THREE.MathUtils.clamp(t.z, -TRADITIONAL_ROOM.halfZ + clearance, TRADITIONAL_ROOM.halfZ - clearance)
+    if (x !== t.x || y !== t.y || z !== t.z) {
       this.camera.position.x += x - t.x
+      this.camera.position.y += y - t.y
       this.camera.position.z += z - t.z
       t.x = x
+      t.y = y
       t.z = z
     }
-    t.y = 0
+  }
+
+  private moveCamera(delta: number) {
+    if (!this.keys.size) return
+    this.camera.getWorldDirection(this.forward)
+    this.forward.y = 0
+    if (this.forward.lengthSq() < 0.0001) this.forward.set(0, 1, 0).applyQuaternion(this.camera.quaternion).setY(0)
+    if (this.forward.lengthSq() < 0.0001) this.forward.set(0, 0, -1)
+    this.forward.normalize()
+    this.strafe.set(-this.forward.z, 0, this.forward.x)
+    this.travel
+      .copy(this.forward)
+      .multiplyScalar(Number(this.keys.has('w')) - Number(this.keys.has('s')))
+      .addScaledVector(this.strafe, Number(this.keys.has('d')) - Number(this.keys.has('a')))
+    if (!this.travel.lengthSq()) return
+    this.travel.normalize().multiplyScalar(20 * delta)
+    this.camera.position.add(this.travel)
+    this.controls.target.add(this.travel)
+    this.dirty = true
+  }
+
+  private keepCameraClear() {
+    const position = this.camera.position
+    const clearance = mm(20) + this.camera.near * Math.hypot(1, Math.tan((this.camera.fov * Math.PI) / 360) * Math.hypot(1, this.camera.aspect))
+    const floor = -THICK - LEG + clearance
+    const x = THREE.MathUtils.clamp(position.x, -TRADITIONAL_ROOM.halfX + clearance, TRADITIONAL_ROOM.halfX - clearance)
+    const z = THREE.MathUtils.clamp(position.z, -TRADITIONAL_ROOM.halfZ + clearance, TRADITIONAL_ROOM.halfZ - clearance)
+    let y = THREE.MathUtils.clamp(position.y, floor, -THICK - LEG + ROOM_H - clearance)
+    if (Math.abs(x) < HX + EDGE + clearance && Math.abs(z) < HZ + EDGE + clearance && y > -THICK - clearance && y < clearance)
+      y = y > -THICK / 2 ? clearance : -THICK - clearance
+    if (x === position.x && y === position.y && z === position.z) return
+    position.set(x, y, z)
+    this.camera.lookAt(this.controls.target)
+    this.dirty = true
   }
 
   private animate(now: number) {
     if (this.tweens.length || this.fades.length) this.dirty = this.shadowDirty = true
     this.tweens = this.tweens.filter((t) => {
-      const k = Math.min(1, Math.max(0, (now - t.start) / t.duration))
-      t.mesh.position.lerpVectors(t.from, t.to, ease(k))
-      t.mesh.position.y = Math.sin(Math.PI * k) * t.arc
-      if (k < 1) return true
-      t.mesh.position.copy(t.to)
-      playSound('move')
+      if (!stepPieceAnimation(t, now)) return true
+      if (t.next) {
+        t.from.copy(t.to)
+        t.to = t.next
+        t.next = undefined
+        t.start = now
+        t.prepareFinal?.()
+        return true
+      }
+      t.land?.()
       t.done?.()
+      if (!t.done) this.instances.add(t.mesh)
+      this.instances.update()
       return false
     })
     this.fades = this.fades.filter((f) => {
@@ -579,14 +975,8 @@ export class TaikyokuScene {
     })
   }
 
-  // the shadow window follows what the camera looks at and only re-renders when something changed
   private followSun() {
-    const target = this.controls.target
-    if (this.shadowTarget.distanceTo(target) > 4) this.shadowDirty = true
     if (!this.shadowDirty) return
-    this.shadowTarget.copy(target)
-    this.sun.target.position.copy(target)
-    this.sun.position.set(target.x - 5, 26, target.z + 8)
     this.sun.shadow.needsUpdate = true
     this.shadowDirty = false
   }
@@ -598,10 +988,17 @@ export class TaikyokuScene {
     this.listeners.forEach((off) => off())
     this.controls.dispose()
     this.finishAnimations()
+    this.instances.dispose()
+    this.captureStore?.dispose()
+    for (const mesh of this.cells.values()) {
+      mesh.removeFromParent()
+      disposePiece(mesh)
+    }
     const dom = this.renderer.domElement
     dom.remove()
     this.cells.clear()
     this.pending.clear()
+    this.textures.clear()
     disposeScene(this.scene)
     disposeRenderer(this.renderer)
   }

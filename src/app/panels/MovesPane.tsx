@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState, type ReactNode, type Ref } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LABELS, classify, usiPosition, type MoveReview } from '@/utils/analysis'
 import { analyze, engineSupported, scoreToCp } from '@/utils/engine'
@@ -34,6 +34,19 @@ type MovesPaneProps = {
 }
 
 const QUIET_LABELS = ['good', 'excellent', 'best']
+
+export function MoveRows({ count, cell, listRef, title }: { count: number; cell: (i: number) => ReactNode; listRef?: Ref<HTMLOListElement>; title?: string }) {
+  return (
+    <ol className="app-moves" ref={listRef} title={title}>
+      {Array.from({ length: Math.ceil(count / 2) }, (_, r) => (
+        <li key={r} className="app-move-row">
+          <span className="app-move-no">{r + 1}.</span>
+          {[2 * r, 2 * r + 1].map((i) => (i < count ? cell(i) : <span key={i} />))}
+        </li>
+      ))}
+    </ol>
+  )
+}
 
 export function MovesPane({
   sfens,
@@ -208,14 +221,7 @@ export function MovesPane({
           </>
         )}
       </div>
-      <ol className="app-moves" ref={listRef} title={t('moves.bookMoveInaccuracyMistakeBlunder')}>
-        {Array.from({ length: Math.ceil(moves.length / 2) }, (_, r) => (
-          <li key={r} className="app-move-row">
-            <span className="app-move-no">{r + 1}.</span>
-            {[2 * r, 2 * r + 1].map((i) => (i < moves.length ? cell(i) : <span key={i} />))}
-          </li>
-        ))}
-      </ol>
+      <MoveRows count={moves.length} cell={cell} listRef={listRef} title={t('moves.bookMoveInaccuracyMistakeBlunder')} />
     </div>
   )
 }
