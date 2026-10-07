@@ -36,7 +36,7 @@ export function AnnounceBadge({ announce }: { announce: Announcement }) {
           </strong>
         </div>
         <span className="app-announce-seal" aria-hidden="true">
-          {announce.kind}
+          {announce.seal}
         </span>
       </div>
     </div>
