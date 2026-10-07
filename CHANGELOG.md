@@ -2,6 +2,13 @@
 
 Notable changes are recorded here when a release is created. Versions follow Semantic Versioning.
 
+## [1.4.1](/compare/v1.4.0...v1.4.1) (2026-10-07)
+
+
+### Bug Fixes
+
+* match Taikyoku move notation and wrap long entries 9c4f882
+
 # [1.4.0](/compare/v1.3.8...v1.4.0) (2026-10-07)
 
 
