@@ -1,6 +1,7 @@
 # Current task
 
 ## Scope and permissions
+- Release completed: feature commit1a9e83a, version commit353c7f5, v1.4.0 published at https://github.com/hamproductions/shogigym/releases/tag/v1.4.0. Remote main and annotated tag resolve to release commit. Native Git uploads failed with GitHub internal errors; Git database API reproduced identical signed commits/trees before non-force main update; subsequent tag push succeeded. Required release checks passed. No exhaustive runtime parity or FPS claim.
 - Release checks: dataset validation passed, capped lint passed with warnings, formatting and credential-pattern scan passed. After permissions restoration, full production build passed including Taikyoku prerender. Main integration is a fast-forward; feature already contains latest origin/main. Release target v1.4.0 using project release-it workflow and personal GitHub identity.
 - Current release authorization: commit completed Taikyoku changes, integrate latest main, publish minor version and push main/release tag. Fetch origin completed; preserve active dev server. Required release-it validation/lint/format/build must pass. No independent browser during active testing.
 - Latest loading report: port5173 had no listener. Restarted normal dev server on5173, foreground session65793; startup reports ready. Previous exit cause unknown. Preserve server for active testing.
@@ -75,4 +76,4 @@
 - Current-session requirements reconciled; supplied screenshots inspected at full resolution. Canonical task record replaces stale state, contains no raw chat.
 
 ## Immediate next action
-- Commit feature changes, fast-forward main, run minor release and push main/tag, then verify clean synchronized branch and published release. Preserve running dev server. UI runtime/performance gaps above remain distinct from release checks.
+- Preserve active dev server and release state. Release is published; future work resumes only for user-requested defects. Browser runtime/performance gaps above remain separate from passed release checks.
