@@ -168,7 +168,7 @@ export const STRENGTH: Record<AiStrength, { label: string; movetime: number; pic
     get label() {
       return i18n.t('options.strong')
     },
-    movetime: 800,
+    movetime: 1200,
     pickFrom: 1,
     maxLoss: 0,
   },
@@ -176,7 +176,7 @@ export const STRENGTH: Record<AiStrength, { label: string; movetime: number; pic
     get label() {
       return i18n.t('options.fullStrength')
     },
-    movetime: 2000,
+    movetime: 3000,
     pickFrom: 1,
     maxLoss: 0,
   },

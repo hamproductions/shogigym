@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { restartEngine, useEngineStatus } from '@/utils/engine'
 import { clearEvalFile, saveEvalFile, useEvalFile } from '@/utils/evalStore'
+import { downloadEvalFile, evalManifest, type EvalManifest } from '@/utils/evalDownload'
 import { clearBookDownloadCache, downloadFullBook, type BookProgress } from '@/utils/bookDownload'
 import { clearBookFile, saveBookFile, useBookFile } from '@/utils/openingBook'
 import { getSettings, setSettings, useSettings, type EngineKind } from '@/appearance/settings'
@@ -29,6 +30,7 @@ export function EngineSettings() {
         ]}
         onChange={(v) => setSettings({ engine: v })}
       />
+      <EvalDownload />
       {st.engine === 'nnue' && (
         <>
           <SettingRow label={t('settings.evalFile')}>
@@ -74,6 +76,65 @@ export function EngineSettings() {
       )}
       <p className="app-muted app-credit">{t('settings.engineHint')}</p>
       {st.engine !== 'fairy' && <OpeningBookSettings />}
+    </>
+  )
+}
+
+function EvalDownload() {
+  const { t } = useTranslation()
+  const st = useSettings()
+  const evalFile = useEvalFile()
+  const controller = useRef<AbortController | null>(null)
+  const [manifest, setManifest] = useState<EvalManifest | null>(null)
+  const [progress, setProgress] = useState<BookProgress | null>(null)
+  const [error, setError] = useState('')
+  useEffect(() => {
+    const abort = new AbortController()
+    evalManifest(abort.signal).then(setManifest, () => undefined)
+    return () => abort.abort()
+  }, [])
+  useEffect(() => () => controller.current?.abort(), [])
+  if (!manifest || evalFile?.name === manifest.name) return null
+  const download = async () => {
+    const abort = new AbortController()
+    controller.current = abort
+    setError('')
+    setProgress({ done: 0, total: manifest.size })
+    try {
+      await downloadEvalFile(manifest, abort.signal, setProgress)
+      const fvScale = manifest.fvScale ?? 24
+      const unchanged = st.engine === 'nnue' && st.fvScale === fvScale
+      setSettings({ engine: 'nnue', fvScale })
+      if (unchanged) restartEngine()
+    } catch (failure) {
+      if (!abort.signal.aborted) setError(failure instanceof Error ? failure.message : String(failure))
+    } finally {
+      controller.current = null
+      setProgress(null)
+    }
+  }
+  return (
+    <>
+      <SettingRow label={t('settings.strongerAi')}>
+        <div className="app-actions">
+          <Button disabled={!!progress} onClick={download}>
+            {t('settings.downloadEval', { name: manifest.name, size: (manifest.size / 1048576).toFixed(0) })}
+          </Button>
+          {progress && (
+            <>
+              <progress value={progress.done} max={progress.total} aria-label={t('settings.loadingEvalFile')} />
+              <span>{Math.round((progress.done / progress.total) * 100)}%</span>
+              <Button onClick={() => controller.current?.abort()}>{t('app.cancel')}</Button>
+            </>
+          )}
+        </div>
+      </SettingRow>
+      <p className="app-muted app-credit">{t('settings.strongerAiHint')}</p>
+      {error && (
+        <p className="app-result wrong" role="alert">
+          {error}
+        </p>
+      )}
     </>
   )
 }
