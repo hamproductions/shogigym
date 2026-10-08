@@ -2,6 +2,13 @@
 
 Notable changes are recorded here when a release is created. Versions follow Semantic Versioning.
 
+## [1.4.2](/compare/v1.4.1...v1.4.2) (2026-10-08)
+
+
+### Performance Improvements
+
+* instance game pieces and flatten Taikyoku faces 927f47f
+
 ## [1.4.1](/compare/v1.4.0...v1.4.1) (2026-10-07)
 
 
