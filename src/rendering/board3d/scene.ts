@@ -10,6 +10,7 @@ import { boardTexture, clearFaceTextures } from './textures'
 import { BOARD_TONE } from '@/rendering/koma'
 import type { SceneState, Stand } from './types'
 import { disposePiece } from './piece'
+import { PieceInstances } from './instances'
 
 let sharedRenderer: THREE.WebGLRenderer | null = null
 let rendererUsers = 0
@@ -204,7 +205,9 @@ export function buildScene(renderer: THREE.WebGLRenderer): SceneState {
   const { stands, placeStands } = addStands(root)
   const pieces = new THREE.Group()
   const marks = new THREE.Group()
+  const batches = new THREE.Group()
   root.add(pieces, marks)
+  root.add(batches)
   return {
     room: surroundings(root, dims),
     renderer,
@@ -212,6 +215,7 @@ export function buildScene(renderer: THREE.WebGLRenderer): SceneState {
     camera,
     root,
     pieces,
+    instances: new PieceInstances(batches, true),
     marks,
     board,
     legs,

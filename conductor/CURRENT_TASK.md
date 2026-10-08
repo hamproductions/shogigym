@@ -1,81 +1,68 @@
 # Current task
 
 ## Scope and permissions
-- Patch release completed: notation/wrapping fix9c4f882, version commit5d80e36, v1.4.1 pushed to main/tag and published at https://github.com/hamproductions/shogigym/releases/tag/v1.4.1. Dataset validation, capped lint, formatting and full production build passed via release-it. Preserve active dev server; no independent browser requested. Pages deployment is a separate provider check.
-- Latest move-list screenshot inspected: English names and same/promotion words were concatenated with Japanese coordinates, while shared notation spans prevented wrapping. Match main-game Japanese kifu notation independently of interface language; apply variant-scoped wrapping for long rows.
-- Release completed: feature commit1a9e83a, version commit353c7f5, v1.4.0 published at https://github.com/hamproductions/shogigym/releases/tag/v1.4.0. Remote main and annotated tag resolve to release commit. Native Git uploads failed with GitHub internal errors; Git database API reproduced identical signed commits/trees before non-force main update; subsequent tag push succeeded. Required release checks passed. No exhaustive runtime parity or FPS claim.
-- Release checks: dataset validation passed, capped lint passed with warnings, formatting and credential-pattern scan passed. After permissions restoration, full production build passed including Taikyoku prerender. Main integration is a fast-forward; feature already contains latest origin/main. Release target v1.4.0 using project release-it workflow and personal GitHub identity.
-- Current release authorization: commit completed Taikyoku changes, integrate latest main, publish minor version and push main/release tag. Fetch origin completed; preserve active dev server. Required release-it validation/lint/format/build must pass. No independent browser during active testing.
-- Latest loading report: port5173 had no listener. Restarted normal dev server on5173, foreground session65793; startup reports ready. Previous exit cause unknown. Preserve server for active testing.
-- Add Taikyoku navigation to main rail その他 menu on every viewport, reserving menu-button capacity even when ordinary tools all fit. Variant Back-only navigation remains unchanged.
-- Clicking the focused tile or square again clears active selection, tracked inspection, route and move choice before legal-target handling; shared lift settles and focus overlays disappear.
-- Post-move settling correction: physical lift follows active selected piece only, not persistent inspection. Committing a move clears active selection, so tile settles while tracked details and overlays remain.
-- Latest click failure: remove fixed-height0.3 picking plane; raycast actual board-piece geometry first (including lifted pieces), then board surface for empty squares. Preserve drag threshold.
-- Capture-rule correction: rank restrictions govern jumping over pieces; adjacent or clear-path enemy capture remains legal. Native range generator now emits ordinary capture of equal/higher-ranked enemy before stopping when no piece was crossed. Friendly equal/higher ranks and all traversal beyond blockers remain disallowed. Earlier categorical no-capture explanation and guide were incorrect and replaced. Rebuild shipped WASM before completion.
-- Selected-piece lift: 3D omitted physical selection lift; now applies shared LIFT and settling to focused piece through instance updates.
-- Latest capture and arrow screenshots inspected: tracked own-piece inspection now accepts native legal move/capture clicks; inspected empty squares and their controlling-source arrows persist across unrelated moves, updating from current controls. Selected routes persist until their source moves or selection changes.
-- Latest diagram screenshot inspected: centered actual baked koma replaces text-box center, add square grid around it. Use same sprite cache/bake renderer and piece appearance settings.
-- Latest docked-start screenshot inspected: retained renderer size can match new host while new camera aspect remains1. Include camera aspect mismatch in resize initialization; projected floating layout camera now copies live field of view.
-- Supplied Takami diagram and article fully inspected: reference encodes red step dots, red sliding lines and blue jumping/multi-step marks around centered piece. Replace full-board minimap with centered rule diagram sourced from native ATOMS/DIRS/ATOM_OFF/PIECES; article governs visual vocabulary, native Taikyoku engine governs variant rules.
-- Latest movement screenshot inspected: remove80-entry native dropdown; render actual engine destinations in interactive board diagram, choosing a route highlights its full path on board. Piece info panel remains selected across turns and follows movement.
-- Latest close-up inspected: wood streaks interrupt heat fills. Add local overlay polygon depth bias/draw order and distance-adaptive camera near plane to improve depth precision at Taikyoku scale; preserve shared color/opacity values.
-- Latest screenshot shows 3D fitted nearly overhead. Default fit angle changed to main tilted-camera0.82 radians; maintain free orbit and physical room bounds.
-- Latest selection requirement: keep inspected piece across turns and follow it to its destination, show shared route arrows and visible movement description. Spoken versus visible announcements question remains pending; spoken output not assumed.
-- Latest screenshots inspected: control-map overlay patchiness with variant near plane1mm versus main0.1 units; duplicate floating board controls removed and focus actions retained in rail.
-- Latest capture correction: transfer captured board meshes directly into physical throws from their actual squares; remove duplicate fade/recreated-box-spawn path for live captures.
-- Latest rail correction: retain logo and Back as navigation, restore shared audio/volume, settings, command palette, control map, view/fit, UI visibility and fullscreen utilities. Exclude main mode navigation only.
-- Latest rail defect: Back-only simplification removed shared koma branding. Restore existing RailSeal above Back without restoring mode navigation.
-- Latest rail correction supersedes full navigation parity: variant rail contains only Back; preserve shared board/HUD controls. Diagnose and reduce rendering lag without adding browser sessions during active testing.
-- Latest screenshot corrections: enforce camera inside actual room floor/walls/ceiling, pin shared evaluation graph to moves panel as main does, and remove source-route metadata from compact last-move heading.
-- All three latest screenshots inspected fully. Active user testing: source validation only; preserve server and do not start another browser.
-- Bring Taikyoku on feat/taikyoku-shogi to existing main-game board/HUD parity, with variant-native rules and genuine engine results.
-- User preview: http://localhost:5173/taikyoku. Port was free; restarted normal development command with host 0.0.0.0 and port5173, session73961. HTTP route returned200; leave server running as requested.
-- No characters. No commit, push, deploy, system/device changes or new test files.
-- Latest capture-box correction: compact 350 × 280 × 160 mm kaya boxes, one per capturer; physical unordered piles may rise naturally. Oversized orientation-envelope sizing removed.
-- Explicit HUD parity check authorized one isolated headed browser session taikyoku-parity. Pre-existing default/ia992 sessions unrelated; preserve them. Own comparison browser closed after CLI capture failures; final session list contains only unrelated default/ia992.
+- Latest task: publish verified instancing and Taikyoku flat-face work on main as patch v1.4.2. Instancing applies to both; flat-face geometry applies only to Taikyoku. Preserve normal carving.
+- Enable normal 9×9 3D instancing, including per-instance grain textures across both sides.
+- Preserve geometry, glyphs, grain, materials, finishes, dimensions, interaction, animation, avatars and snapshots.
+- Current request authorizes main-branch integration and patch release, including commits, version/tag, push and GitHub release. Existing verified implementation and performance document are release scope.
+- Preserve development server at localhost:5173; started this session with bun run dev --host 0.0.0.0 --port 5173, foreground session81731. HTTP200 verified.
 
-## Requirements and implementation
-- Rail now shares main Rail with navigation disabled and explicit Back, preserving RailSeal/SoundButton, palette/control map and variant view/fit/settings/hide/fullscreen tools.
-- Live capture sync defers generic spawns, removes captured meshes from board instance batches and hands those meshes/origins to physics throw immediately; loaded-history piles still settle via physics.
-- Full shared traditional room at real scale. 35.2 × 38.6 mm squares; playing area 1267.2 × 1389.6 mm. Shared physical koma meshes and full variant glyphs; stationary pieces instanced, resource caches retained, incremental preparation and demand rendering.
-- Freely rotatable 3D; left orbit/right pan/wheel zoom, WASD, scene-derived zoom bounds and board/floor camera clearance.
-- Baked 2D uses shared bake renderer, piece capture and cached actual koma sprites; animated moves and selected-piece lift.
-- Shared squareTile/squareFrame/moveTarget/arrowBetween overlays. Gold last move, cream/red selection, legal destination dots, inspected-piece covered squares including friendly defense, controlling-source arrows and control counts.
-- Shared stepPieceAnimation drives 3D 220 ms moves, promotion flips and multi-step waypoints. Both views invoke shared playSound(move/capture) at landing; no character integration.
-- Back-only variant rail restored per latest correction. Shared ModeBarHeading, player plates, EvalBar/EvalChip, SidePanel/FloatingPanel, useLayout and generic projectedZoneReporter policy retained. Shared coach Button markup corrected after screenshot exposed missing Button classes.
-- Shared MovesPane MoveRows for actual side/piece/destination notation; shared numeric/kanji coordinates extended through rank36, same-square and promotion notation, source and multi-step routes.
-- Genuine native search PV arrows, readable validated native PV metadata and shared EngineResultPane. No fabricated MultiPV alternatives; native engine supports one PV.
-- Shared EvalGraph shows actual per-ply native evaluations. Shared useMovePlayback cadence and MoveNavigation preserve history, animate adjacent forward replay and leave opponent autoplay paused. Header/manual engine controls separate from historical playback.
-- Native terminal condition: all opposing royals captured. Visible royal counters/locations and victory overlay; no invented checkmate or captured-piece drops.
-- Captures tracked from native position differences with CaptureEntry.by ownership, including friendly captures. Real Rapier convex koma colliders, gravity, thrown trajectories, collisions, sleeping/instancing and two compact kaya boxes.
-- Full history/cursor/strength/evaluations autosaved under variant-specific browser key. JSON download/file import; import validates every move through native engine and restores piece/capture metadata transactionally.
-- Native control generation uses dynamic edge vectors and bounded source-target bitmap rather than fixed legal buffer/effect hash. Current shipped WASM rebuilt.
+## Implementation
+- Shared PieceInstances moved to src/rendering/board3d/instances.ts; Taikyoku re-export preserves existing batching behavior.
+- Normal retains original objects for picking/animation; render uses instance batches and restores source visibility in finally. Rebuild/teardown dispose batches; snapshots use same path.
+- src/rendering/board3d/instanceTextures.ts packs original CanvasTexture pixels into DataArrayTexture layers. map and emissiveMap use per-instance layer attributes and minimal shader hooks, preserving physical-material lighting and other maps.
+- Matching geometry/material/sampling properties batch across different texture identities. Original grain, repeat/filter/mipmap/color-space settings and orientation preserved. Compatible map/emissive arrays share storage.
+- Texture variants enabled independently of retained-object mode. Taikyoku board and settled captures use arrays for map, emissiveMap, roughnessMap and clearcoatMap; CanvasTexture and RGBA unsigned-byte DataTexture supported. Batches partition at128 layers per slot. Transparent/transmissive/custom-hook pieces remain ordinary meshes.
+- Existing geometry, dimension, material, texture-generation and appearance files unchanged. AGENTS.md now explicitly requires appearance preservation.
 
-## Verified evidence
-- Native executable verified adjacent and clear-path captures of enemy 大将 and 王将, no traversal beyond either, friendly blockers, capture-only generation, control generation and capture do/undo. Shipped WASM rebuilt and independently executed: adjacent royal/general capture and blocker traversal passed. Application TypeScript and diff whitespace passed. Existing loaded workers need page reload; live user interaction remains unverified.
-- Latest source changes preserve inspected selection on normal moves, follow moving piece destinations, show selected-piece control coverage and chosen-route arrows/descriptions; duplicate floating controls removed, focus actions moved to rail. Screenshot-driven tilted fit and overlay depth precision changes implemented. Latest aggregate application TypeScript and diff whitespace checks passed. Visible behavior remains unverified during active user testing.
-- Latest screenshot corrections implemented: camera and orbit target bounded by architectural room volume, fit field of view adapts below ceiling, shared graph pinned outside moves scroll body, header excludes source route and wraps long names.
-- Rendering source corrections: cache material signatures by material version, update only dirty instance batches, skip idle zone projection/layout reads. Direct Three.js instance harness passed add/remove/restore and confirmed idle matrix-upload version unchanged.
-- Latest application TypeScript check passed; scoped single-thread lint returned warnings only; diff whitespace validation passed. No independent browser launched during active user testing.
-- Application TypeScript check: bunx tsc --project tsconfig.app.json --noEmit passed after aggregate integration.
-- Scoped oxlint --threads=1: no errors; React refs/effect warnings remain. Scoped formatting applied; git diff --check passed.
-- Root independently executed current WASM: opening legal moves 488/side; inspection preserves native position/legal output; dense position emits 9940 unique controls safely.
-- Real headed browser main-game screenshot inspected; initial Taikyoku and later shared rail/evaluation/engine-arrow screenshot inspected. Later screenshot preceded compact box correction.
-- Browser UI confirmed readable move1 notation, actual engine action, capture counts, shared coach toggle, evaluation graph and best-arrow checkbox.
-- Browser UI rewind to cursor0, playback to cursor1 preserved complete history and left engine paused; autosave retained cursor/evaluations. Reload restored saved game. No page errors on that check.
-- Shared avatar files have zero diff after cancelled variant character work.
+## Verification
+- Application TypeScript passed; scoped single-thread lint passed; formatting and diff whitespace passed.
+- Earlier direct Three.js harness verified transforms, motion, membership, fallback, visibility restoration, cleanup and Taikyoku idle updates.
+- Real headed browser normal-instancing on localhost:5173/play and /analyze, Apple M2 Pro ANGLE Metal GPU, drawing buffer1152×471 DPR1. Complete screenshots directly inspected.
+- Starting board:19 batches versus43 before texture arrays. All18 pawns share body/front/back instance batches, including both sides.
+- Same-scene original versus array rendering:163 versus62 draw calls, triangles63395 both. Reduction101 calls /61.96 percent. Initial exact-texture batching measured164 versus87 in an earlier scene.
+- Framebuffer comparison:46 changed channels /2170368, mean delta0.0000705, maximum22; same tiny residual as prior batching. Near-identical pixels, not exact equality or exhaustive appearance validation.
+- Real pointer selected7七 pawn, visible lift and legal target inspected; clicked7六 and confirmed moved pawn, completed animation and avatar interaction.19 batches retained, browser errors empty.
+- After move, direct original/array draws168 versus67, triangles62702 both; framebuffer49 changed channels, mean0.0001046, max28.
+- Settled post-move four alternating windows,60 measured frames each: original median CPU1.135/1.265ms, arrays1.215/1.160ms; median frame interval16.655–16.660ms both, p95 approximately16.92–17.05ms. No consistent CPU/FPS improvement demonstrated; draw calls clearly reduced. Earlier animated sampling had large tail spikes and does not establish settled performance.
+- No claim of exhaustive material, capture, promotion, mobile or GPU-time verification.
 
-## Unverified or remaining checks
-- Latest camera/header/graph rendering and frame-rate improvement require user-preview confirmation; source checks are not visual or performance proof.
-- Final compact-box rendering, final full-screen visual parity, movement frames/sound output and saved-file roundtrip need runtime confirmation. No claim of exhaustive board parity yet.
-- Browser screenshot RPCs stalled and one failed with daemon busy/resource unavailable. Stop owned CLI calls, close exact taikyoku-parity session; preserve unrelated sessions/server.
-- Floating panels depend on exact shared geometry/space thresholds; last1280×577 Taikyoku runtime remained docked. Both main/variant use same policy.
-- 2D/camera interaction completeness, real capture pile stability, FPS and full royal-elimination flow remain unverified.
+## Skill coverage
+- safe-refactor1–EOF/16; real-testing-evidence1–EOF/70; get-your-shit-together1–EOF/27; agent-browser1–EOF/52; look-at-the-screen1–EOF/60. Agent-browser core and trust-boundary guide read through EOF.
+- Relevant normal renderer files, piece factory, texture and relief generation and shader chunks read through EOF.
 
-## Skill gates
-- verification-before-completion fully read1–EOF/120 for current release; fresh check evidence required before release claims.
-- Full reads: get-your-shit-together1–EOF/27; grilling1–EOF/28; frontend-design1–EOF/71; real-testing-evidence1–EOF/70; look-at-the-screen1–EOF/60; agent-browser1–EOF/52 plus complete CLI core and trust-boundary guide.
-- Current-session requirements reconciled; supplied screenshots inspected at full resolution. Canonical task record replaces stale state, contains no raw chat.
+## Previous normal-board completion
+- Measurement hooks restored; owned browser closed. Development server remains HTTP200.
+- Report normal-board draw-call reduction and appearance preservation; CPU/FPS improvement unproven.
+
+## Taikyoku flat-face trial
+- Latest request explicitly authorizes removing variant face relief for this experiment. Normal carving remains unchanged.
+- CustomFace now accepts relief:false; shared factory uses flatTop and omits relief normal map while preserving body, grain/glyph textures, dimensions, coating and gloss settings.
+- taikyokuPiece supplies relief:false, covering live 3D, physical captures, promotion and baked2D through the shared factory. Temporary benchmark scene flags/debug hook removed from source.
+- Real headed browser taikyoku-flat, localhost:5173/taikyoku, Apple M2 Pro ANGLE Metal;804 starting pieces,1152×471 drawing buffer DPR1. Full board and matching close-up carved/flat screenshots directly inspected.
+- Both modes:230 batches and622 draw calls when redrawing shadows. Carved piece triangles968820, flat45024; full render including shadows1949359 versus101767.
+- EXT_disjoint_timer_query_webgl2 measurements,70 rendered frames each / first10 discarded.59 ready GPU queries per mode; GPU disjoint false. Carved median GPU3.640083ms; flat1.797875ms, repeat1.858208ms. Flat cuts measured GPU render time49–51 percent under this view.
+- CPU medians carved2.55ms, flat2.66ms, repeat2.45ms. No consistent CPU speedup or device-wide FPS claim. All timing draws forced shadow updates, equivalent across modes.
+- Latest application TypeScript, scoped single-thread lint, formatting passed. Browser errors empty. Completed baked2D and final3D previews directly inspected, no loading indicator or browser errors. Measurement globals removed; owned taikyoku-flat browser closed.
+
+## Taikyoku texture-array verification
+- Current real headed browser A/B,804 pieces,1152×471 drawing buffer:230 versus16 batches;622 versus194 total draw calls including forced shadows;101767 triangles unchanged.
+- Framebuffer comparison: all2170368 channels identical,0 changed channels, maximum and mean difference0. Full rendered screenshot inspected; browser errors empty.
+-70 frames per measurement, first10 discarded,60 ready GPU queries, disjointfalse. Exact-material baseline CPU median2.335ms / GPU1.783375ms; arrays CPU0.905ms / GPU1.726166ms; arrays repeat CPU0.945ms / GPU1.533624ms. CPU submission reduction demonstrated; GPU improvement smaller and variable after flat geometry.
+- Capture batching enabled through shared manager; capture gameplay and other finishes not exhaustively verified. No FPS or device-wide speedup claim.
+- Temporary measurement hook removed from source. Screenshot conductor/taikyoku-arrays.png is local evidence, not a commit deliverable.
+
+## Gameplay and performance follow-up
+- Focused durable documentation: docs/performance/piece-instancing.md. Explicitly distinguishes both-mode instancing from Taikyoku-only flat geometry, records implementation, measurement conditions, initial and post-gameplay results and limits.
+- Real normal analyze pointer workflow:7g7f,3c3d,8h2b capture and promotion.3 moves, captured bishop in hand, dragon horse displayed, animation settled, screenshot inspected.
+- Normal post-gameplay alternating70-frame windows /60 valid queries: original calls305/306, CPU1.750/2.095ms, GPU1.172083/1.203208ms; instancing calls108/106, CPU1.310/1.135ms, GPU1.251874/1.343500ms. Mean of window medians:64.98% fewer calls,36.41% lower CPU; GPU9.27% higher. Avatar motion causes minor triangle-count variation, no exact full-scene equivalence claim.
+- Real Taikyoku pointer selected/lifted18-eleven pawn, moved18-twelve. Actual engine replied19-thirty-three to19-three Great General;788 board pieces,16 captures,393/395 counts,3 capture batches, animation settled, screenshots inspected, browser errors empty.
+- Post-gameplay board-only arrays comparison, capture arrays unchanged:230→16 board batches,634→206 calls,101807 triangles identical. CPU2.730/2.600→1.305/1.200ms; GPU0.815833/0.933374→0.884125/0.863541ms.60 valid queries per window, disjointfalse.67.51% fewer calls,53.00% lower CPU, GPU essentially unchanged.
+
+## Patch release
+- Fetched origin; main and origin/main divergence0/0 before release. Git identity hamzaabamboo@gmail.com; GitHub CLI switched to hamzaabamboo.
+- verification-before-completion SKILL.md read1–EOF,120 lines. Release workflow .release-it.json read fully: dataset validation, lint, formatting, production build, version/changelog/commit/tag/push, GitHub release.
+- Local screenshots excluded from release; implementation, performance documentation and compact task record included.
 
 ## Immediate next action
-- Preserve active dev server and release state. Release is published; future work resumes only for user-requested defects. Browser runtime/performance gaps above remain separate from passed release checks.
+- Format changed files, validate release scope, commit implementation, run capped release:patch, verify remote tag/release and workflow status.

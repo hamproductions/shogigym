@@ -101,6 +101,7 @@ export function piecePreparation(s: SceneState, position: ImmutablePosition) {
 }
 
 export function rebuild(s: SceneState, props: Board3DProps, animate: boolean, prev: ImmutablePosition | null = null, placed = false, relayout = false) {
+  s.instances.dispose()
   const { position, lastMove } = props
   const retired = [...s.pieces.children]
   const previousHands = new Set(s.handMeshes)

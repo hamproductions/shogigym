@@ -23,6 +23,6 @@ export function taikyokuPiece(key: string, side: Side) {
   const type = types[text] ?? PieceType.PAWN
   const color = side === 'b' ? Color.BLACK : Color.WHITE
   const base = catalog[key.replace(/^\+/, '')]?.k ?? ''
-  const face: CustomFace = { text, promoted: key.startsWith('+'), code: key, scale: pieceScale(types[base] ?? PieceType.PAWN) }
+  const face: CustomFace = { text, promoted: key.startsWith('+'), code: key, scale: pieceScale(types[base] ?? PieceType.PAWN), relief: false }
   return { type, color, face }
 }

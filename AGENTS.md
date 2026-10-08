@@ -5,3 +5,7 @@ When the user is actively testing the app, implement requested changes directly 
 # Variant presentation
 
 Taikyoku uses the main game's traditional room, physical square and koma dimensions, piece renderer and baked 2D pipeline. Preserve material, finish and font settings. Variant rules govern captures and victory; show royal targets and remaining royals explicitly. Do not replace shared presentation with simplified independent drawing or scale characters and pieces to fit the board.
+
+# Instanced presentation
+
+Instancing is a rendering optimization only. Preserve existing piece geometry, physical dimensions, glyphs, textures, grain, material and finish settings, transforms and shadows in both normal and Taikyoku boards. Use ordinary rendering when a material or custom render hook is incompatible; never simplify appearance to enable batching.

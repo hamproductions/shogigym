@@ -401,7 +401,7 @@ export function flipCameraOffset(s: SceneState, time: number) {
 }
 
 export function saveSnapshot(s: SceneState, name: string) {
-  s.renderer.render(s.scene, s.camera)
+  s.instances.render(s.pieces, () => s.renderer.render(s.scene, s.camera))
   const a = document.createElement('a')
   a.href = s.renderer.domElement.toDataURL('image/png')
   a.download = `${name || SNAPSHOT_NAME}.png`

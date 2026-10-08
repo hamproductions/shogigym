@@ -300,7 +300,7 @@ function faceMap(type: PieceType, color: Color, seed = 1, appearance?: PieceAppe
 }
 
 /** A face that is not a shogi PieceType (variant boards): glyph text, promoted-ink flag, guide code and tile size. */
-export type CustomFace = { text: string; promoted: boolean; code: string; scale: number }
+export type CustomFace = { text: string; promoted: boolean; code: string; scale: number; relief?: boolean }
 
 export function pieceMesh(
   type: PieceType,
@@ -323,7 +323,8 @@ export function pieceMesh(
   const frosted = settings.pieceMaterial === 'frostedGlass'
   const glass = settings.pieceMaterial === 'glass' || frosted
   if (glass) segments = Math.min(segments, 48)
-  const { relief, gloss, kind, coating } = finish(appearance)
+  const { relief: finishRelief, gloss, kind, coating } = finish(appearance)
+  const relief = custom?.relief === false ? 0 : finishRelief
   const lacquer = coating === 'lacquer'
   const lm = lacquerMap(inkMap, lacquer ? 0.5 : 0)
   const normal = relief ? reliefNormal(inkMap, relief * scale, komaWidth(scale), scale, kind) : null
@@ -405,7 +406,7 @@ export function pieceMesh(
   if (custom) mesh.userData.custom = custom
   mesh.castShadow = !glass
   mesh.receiveShadow = !glass
-  const top = new THREE.Mesh(glass && relief < 0 ? flatTop(scale) : carvedTop(scale, inkMap, segments, appearance), face)
+  const top = new THREE.Mesh(custom?.relief === false || (glass && relief < 0) ? flatTop(scale) : carvedTop(scale, inkMap, segments, appearance), face)
   if (glass) top.position.y = 0.028
   top.castShadow = !glass
   top.receiveShadow = !glass

@@ -45,7 +45,7 @@ class Captures {
   readonly bins: Record<Side, THREE.Vector3>
   private group = new THREE.Group()
   private boxMeshes: Record<Side, THREE.Mesh[]> = { b: [], w: [] }
-  private instances = new PieceInstances(this.group)
+  private instances = new PieceInstances(this.group, false, true)
   private records: CaptureRecord[] = []
   private pending: Pending[] = []
   private tiles: Tile[] = []

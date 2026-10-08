@@ -3,6 +3,7 @@ import type { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js
 import type { Color, ImmutablePosition, PieceType, Square } from 'tsshogi'
 import type { AvatarCues, AvatarSlot, Wall } from '@/rendering/avatars'
 import type { Surroundings } from './surroundings'
+import type { PieceInstances } from './instances'
 import type { BoardLoadingState } from '@/rendering/BoardLoading'
 
 export type BoardArrow = { usi: string; color: string; dashed?: boolean; label?: string }
@@ -91,6 +92,7 @@ export type SceneState = {
   camera: THREE.PerspectiveCamera
   root: THREE.Group
   pieces: THREE.Group
+  instances: PieceInstances
   marks: THREE.Group
   board: THREE.Mesh
   legs: THREE.Mesh[]

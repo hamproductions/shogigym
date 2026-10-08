@@ -69,7 +69,7 @@ export class TaikyokuScene {
   private camera = new THREE.PerspectiveCamera(FOV, 1, 0.1, 500)
   private controls: OrbitControls
   private pieces = new THREE.Group()
-  private instances = new PieceInstances(this.pieces)
+  private instances = new PieceInstances(this.pieces, false, true)
   private captureStore: Awaited<ReturnType<typeof createCaptures>> | null = null
   private captures: CaptureEntry[] = []
   private captureGeneration = 0

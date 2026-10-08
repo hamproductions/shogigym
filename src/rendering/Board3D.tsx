@@ -182,7 +182,7 @@ function Board3DScene(props: Board3DProps & { onContextLost: () => void }) {
           updateShadows()
         }
         try {
-          renderer.render(s.scene, s.camera)
+          s.instances.render(s.pieces, () => renderer.render(s.scene, s.camera))
           s.scene.traverse((object) => {
             const material = (object as THREE.Mesh).material
             for (const item of Array.isArray(material) ? material : material ? [material] : []) compiled.set(item, item.version)
@@ -337,6 +337,7 @@ function Board3DScene(props: Board3DProps & { onContextLost: () => void }) {
       power.current?.dispose()
       power.current = null
       s.controls?.dispose()
+      s.instances.dispose()
       disposeScene(s.scene)
       disposeRenderer(renderer)
       if (renderer.domElement.parentElement === el) el.removeChild(renderer.domElement)
