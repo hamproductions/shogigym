@@ -1,5 +1,5 @@
 import { readFileSync, readdirSync } from 'node:fs'
-import { InitialPositionSFEN, Position } from 'tsshogi'
+import { Color, InitialPositionSFEN, Position } from 'tsshogi'
 
 const dir = 'src/data/curriculum'
 const catalog = JSON.parse(readFileSync(`${dir}/catalog.json`, 'utf8'))
@@ -34,6 +34,7 @@ for (const topic of content) {
       continue
     }
     if (!example.notes?.every(text) || example.notes.length !== example.moves.length) errors.push(`Invalid notes ${topic.id}`)
+    if (position.board.isChecked(position.color === Color.BLACK ? Color.WHITE : Color.BLACK)) errors.push(`Invalid starting check ${topic.id}`)
     if (example.userSide && !['sente', 'gote'].includes(example.userSide)) errors.push(`Invalid teaching side ${topic.id}`)
     for (const [ply, usi] of example.moves.entries()) {
       const move = position.createMoveByUSI(usi)

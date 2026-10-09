@@ -47,7 +47,196 @@
     "answer": {
       "ja": "銀は動けません。成銀は金と同じなので真横へ動けます。",
       "en": "An unpromoted silver cannot. A promoted silver moves as a gold and can."
-    }
+    },
+    "examples": [
+      {
+        "title": {
+          "ja": "玉の斜め移動",
+          "en": "King: one diagonal step"
+        },
+        "startSfen": "k8/9/9/9/4K4/9/9/9/9 b - 1",
+        "userSide": "sente",
+        "moves": [
+          "5e4d"
+        ],
+        "notes": [
+          {
+            "ja": "玉の斜め移動を確認します。独自の簡略局面です。",
+            "en": "A king moves one square diagonally; the destination must be unattacked. This is an original simplified position."
+          }
+        ]
+      },
+      {
+        "title": {
+          "ja": "飛車の横移動",
+          "en": "Rook: an open rank"
+        },
+        "startSfen": "k8/9/9/9/4R4/9/9/9/K8 b - 1",
+        "userSide": "sente",
+        "moves": [
+          "5e2e"
+        ],
+        "notes": [
+          {
+            "ja": "飛車の横移動を確認します。独自の簡略局面です。",
+            "en": "A rook slides horizontally through empty squares. This is an original simplified position."
+          }
+        ]
+      },
+      {
+        "title": {
+          "ja": "角の斜め移動",
+          "en": "Bishop: an open diagonal"
+        },
+        "startSfen": "1k7/9/9/9/4B4/9/9/9/K8 b - 1",
+        "userSide": "sente",
+        "moves": [
+          "5e2b"
+        ],
+        "notes": [
+          {
+            "ja": "角の斜め移動を確認します。独自の簡略局面です。",
+            "en": "A bishop slides diagonally; decline optional promotion for this movement example. This is an original simplified position."
+          }
+        ]
+      },
+      {
+        "title": {
+          "ja": "金の横移動",
+          "en": "Gold: one sideways step"
+        },
+        "startSfen": "k8/9/9/9/4G4/9/9/9/K8 b - 1",
+        "userSide": "sente",
+        "moves": [
+          "5e4e"
+        ],
+        "notes": [
+          {
+            "ja": "金の横移動を確認します。独自の簡略局面です。",
+            "en": "A gold can move one square sideways. This is an original simplified position."
+          }
+        ]
+      },
+      {
+        "title": {
+          "ja": "銀の斜め後退",
+          "en": "Silver: retreat diagonally"
+        },
+        "startSfen": "k8/9/9/9/4S4/9/9/9/K8 b - 1",
+        "userSide": "sente",
+        "moves": [
+          "5e4f"
+        ],
+        "notes": [
+          {
+            "ja": "銀の斜め後退を確認します。独自の簡略局面です。",
+            "en": "An unpromoted silver can retreat diagonally, unlike a gold. This is an original simplified position."
+          }
+        ]
+      },
+      {
+        "title": {
+          "ja": "桂の跳躍",
+          "en": "Knight: jump over a blocker"
+        },
+        "startSfen": "k8/9/9/4P4/4N4/9/9/9/K8 b - 1",
+        "userSide": "sente",
+        "moves": [
+          "5e4c"
+        ],
+        "notes": [
+          {
+            "ja": "桂の跳躍を確認します。独自の簡略局面です。",
+            "en": "A knight jumps two ranks forward and one file sideways, even over a friendly blocker. Decline optional promotion here. This is an original simplified position."
+          }
+        ]
+      },
+      {
+        "title": {
+          "ja": "香の直進",
+          "en": "Lance: forward along a file"
+        },
+        "startSfen": "k8/9/9/9/4L4/9/9/9/K8 b - 1",
+        "userSide": "sente",
+        "moves": [
+          "5e5b"
+        ],
+        "notes": [
+          {
+            "ja": "香の直進を確認します。独自の簡略局面です。",
+            "en": "A lance slides forward through an open file. Decline optional promotion here. This is an original simplified position."
+          }
+        ]
+      },
+      {
+        "title": {
+          "ja": "歩の一歩",
+          "en": "Pawn: one forward step"
+        },
+        "startSfen": "k8/9/9/9/4P4/9/9/9/K8 b - 1",
+        "userSide": "sente",
+        "moves": [
+          "5e5d"
+        ],
+        "notes": [
+          {
+            "ja": "歩の一歩を確認します。独自の簡略局面です。",
+            "en": "A pawn moves one square straight forward. This is an original simplified position."
+          }
+        ]
+      },
+      {
+        "title": {
+          "ja": "龍の斜め移動",
+          "en": "Dragon: added diagonal step"
+        },
+        "startSfen": "k8/9/9/9/4+R4/9/9/9/K8 b - 1",
+        "userSide": "sente",
+        "moves": [
+          "5e4d"
+        ],
+        "notes": [
+          {
+            "ja": "龍の斜め移動を確認します。独自の簡略局面です。",
+            "en": "A dragon retains rook movement and adds a one-square diagonal move. This is an original simplified position."
+          }
+        ]
+      },
+      {
+        "title": {
+          "ja": "馬の横移動",
+          "en": "Horse: added sideways step"
+        },
+        "startSfen": "1k7/9/9/9/4+B4/9/9/9/K8 b - 1",
+        "userSide": "sente",
+        "moves": [
+          "5e4e"
+        ],
+        "notes": [
+          {
+            "ja": "馬の横移動を確認します。独自の簡略局面です。",
+            "en": "A horse retains bishop movement and adds a one-square orthogonal move. This is an original simplified position."
+          }
+        ]
+      },
+      {
+        "title": {
+          "ja": "成銀の横移動",
+          "en": "Promoted silver: gold movement"
+        },
+        "startSfen": "k8/9/9/9/4+S4/9/9/9/K8 b - 1",
+        "userSide": "sente",
+        "moves": [
+          "5e4e"
+        ],
+        "notes": [
+          {
+            "ja": "成銀の横移動を確認します。独自の簡略局面です。",
+            "en": "A promoted silver moves as a gold, so a sideways step is legal. This is an original simplified position."
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "722",
@@ -72,7 +261,87 @@
     "answer": {
       "ja": "敵陣からの移動なら成れます。打つときは必ず生駒で、次の移動から成りの条件を判定します。",
       "en": "It may promote on a move leaving the zone. A drop is always unpromoted; assess promotion on a later move."
-    }
+    },
+    "examples": [
+      {
+        "title": {
+          "ja": "敵陣へ入って成る",
+          "en": "Promote when entering the zone"
+        },
+        "startSfen": "k8/9/9/4S4/9/9/9/9/K8 b - 1",
+        "userSide": "sente",
+        "moves": [
+          "5d4c+"
+        ],
+        "notes": [
+          {
+            "ja": "銀を敵陣へ進めて成ります。独自の簡略局面です。",
+            "en": "Move the silver into the promotion zone and promote. This is an original simplified position."
+          }
+        ]
+      },
+      {
+        "title": {
+          "ja": "敵陣から出ても成れる",
+          "en": "Promote when leaving the zone"
+        },
+        "startSfen": "k8/9/4S4/9/9/9/9/9/K8 b - 1",
+        "userSide": "sente",
+        "moves": [
+          "5c4d+"
+        ],
+        "notes": [
+          {
+            "ja": "移動元が敵陣なので、外へ出る手でも成れます。",
+            "en": "The starting square lies in the promotion zone, so promotion is legal even when leaving it."
+          }
+        ]
+      },
+      {
+        "title": {
+          "ja": "不成の後に成る",
+          "en": "Promote after declining once"
+        },
+        "startSfen": "k8/9/9/4S4/9/9/9/9/K8 b - 1",
+        "userSide": "sente",
+        "moves": [
+          "5d4c",
+          "9a8a",
+          "4c5b+"
+        ],
+        "notes": [
+          {
+            "ja": "銀を不成で敵陣へ進めます。",
+            "en": "Enter the zone without promoting the silver."
+          },
+          {
+            "ja": "後手の玉の移動は、ルールを確認するための例示応手です。",
+            "en": "White makes an illustrative waiting move; this is a rules example, not a forced tactical line."
+          },
+          {
+            "ja": "敵陣内の次の移動で成れます。不成を選んでも機会は残ります。",
+            "en": "Promote on the next move within the zone. Declining earlier did not remove the opportunity."
+          }
+        ]
+      },
+      {
+        "title": {
+          "ja": "最奥段では必ず成る",
+          "en": "Mandatory last-rank promotion"
+        },
+        "startSfen": "k8/4P4/9/9/9/9/9/9/K8 b - 1",
+        "userSide": "sente",
+        "moves": [
+          "5b5a+"
+        ],
+        "notes": [
+          {
+            "ja": "歩は最奥段で行き所がなくなるため、必ず成ります。",
+            "en": "The pawn must promote on the last rank because an unpromoted pawn would have no future move."
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "738",
@@ -97,7 +366,53 @@
     "answer": {
       "ja": "打てません。取った時点で歩に戻り、歩の打ち方と禁じ手が適用されます。",
       "en": "No. It reverts to a pawn when captured and follows pawn-drop restrictions."
-    }
+    },
+    "examples": [
+      {
+        "title": {
+          "ja": "と金を取って歩として打つ",
+          "en": "Capture a tokin and reuse its pawn"
+        },
+        "startSfen": "k8/9/9/9/4R2+p1/9/9/9/K8 b - 1",
+        "userSide": "sente",
+        "moves": [
+          "5e2e",
+          "9a8a",
+          "P*4c"
+        ],
+        "notes": [
+          {
+            "ja": "相手のと金を取り、持ち駒では歩に戻ることを確認します。独自の簡略局面です。",
+            "en": "Capture the enemy tokin. It changes ownership and becomes an unpromoted pawn in hand. This is an original simplified position."
+          },
+          {
+            "ja": "後手は例示応手として玉を動かします。",
+            "en": "White moves its king as an illustrative reply."
+          },
+          {
+            "ja": "取った歩を敵陣へ打ちます。打った瞬間には成れません。",
+            "en": "Drop the captured pawn into the promotion zone. A drop never promotes immediately."
+          }
+        ]
+      },
+      {
+        "title": {
+          "ja": "持ち駒を打って王手",
+          "en": "A checking drop"
+        },
+        "startSfen": "4k4/9/9/9/9/9/9/9/K8 b R 1",
+        "userSide": "sente",
+        "moves": [
+          "R*5d"
+        ],
+        "notes": [
+          {
+            "ja": "空きマスへ飛車を打って王手します。打つ手も一手です。",
+            "en": "Drop a rook onto an empty square to give check. The drop consumes the entire turn."
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "746",
@@ -624,7 +939,46 @@
     "answer": {
       "ja": "守備の歩の後ろにと金を作る拠点を置き、別の攻め駒の打ち込みと組み合わせるためです。",
       "en": "To establish a promotion foothold behind the displaced pawn and combine it with another attacker."
-    }
+    },
+    "examples": [
+      {
+        "title": {
+          "ja": "継ぎ歩から垂れ歩へ",
+          "en": "Successive pawns into a dangling pawn"
+        },
+        "startSfen": "k8/9/7p1/9/9/9/9/9/K8 b 3P 1",
+        "userSide": "sente",
+        "moves": [
+          "P*2d",
+          "2c2d",
+          "P*2e",
+          "2d2e",
+          "P*2d"
+        ],
+        "notes": [
+          {
+            "ja": "独自の簡略局面です。まず歩を捨てて相手の歩を誘います。",
+            "en": "This original simplified position isolates the pattern. Sacrifice the first pawn to lure the enemy pawn."
+          },
+          {
+            "ja": "後手が歩を取った応手を示します。",
+            "en": "The illustrated reply captures the dropped pawn."
+          },
+          {
+            "ja": "もう一枚歩を捨て、相手の歩をさらに前へ誘います。",
+            "en": "Sacrifice a second pawn to lure the defender farther forward."
+          },
+          {
+            "ja": "相手の歩が2五まで進み、後ろに空間ができます。",
+            "en": "The enemy pawn advances to 2e, leaving space behind it."
+          },
+          {
+            "ja": "空いた2四へ垂れ歩を打ち、次の2三歩成を狙います。応手は強制ではありません。",
+            "en": "Drop the dangling pawn behind it, threatening promotion on 2c. The illustrated captures are not forced."
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "1783",
@@ -950,7 +1304,53 @@
     "answer": {
       "ja": "同じ筋に自分の生の歩がないか確認し、二歩を避けます。",
       "en": "Check for your own unpromoted pawn on that file to avoid nifu."
-    }
+    },
+    "examples": [
+      {
+        "title": {
+          "ja": "垂れ歩をと金にする",
+          "en": "Turn a dangling pawn into a tokin"
+        },
+        "startSfen": "k8/9/9/9/9/9/9/9/K8 b P 1",
+        "userSide": "sente",
+        "moves": [
+          "P*2d",
+          "9a8a",
+          "2d2c+"
+        ],
+        "notes": [
+          {
+            "ja": "独自の簡略局面で、次の成りを狙う垂れ歩を打ちます。",
+            "en": "In this original simplified position, drop a pawn one step short of the promotion zone."
+          },
+          {
+            "ja": "後手は例示応手として玉を動かします。実戦では相手の受けも読みます。",
+            "en": "White makes an illustrative king move. In a real game, calculate the defender’s alternatives."
+          },
+          {
+            "ja": "歩を敵陣へ進めて成ります。成りの脅威が垂れ歩の狙いです。",
+            "en": "Advance into the zone and promote. The promotion threat is the purpose of the dangling pawn."
+          }
+        ]
+      },
+      {
+        "title": {
+          "ja": "金底の歩",
+          "en": "A bottom pawn beneath a gold"
+        },
+        "startSfen": "k8/9/9/9/9/9/9/4G4/K8 b P 1",
+        "userSide": "sente",
+        "moves": [
+          "P*5i"
+        ],
+        "notes": [
+          {
+            "ja": "独自の簡略局面です。金の下に歩を打って支えます。5筋に生の歩がないので二歩ではありません。",
+            "en": "This original simplified position shows a pawn dropped beneath a gold to support it. There is no other unpromoted pawn on file 5, so the drop avoids nifu."
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "1486",
@@ -1071,7 +1471,36 @@
     "answer": {
       "ja": "戻れません。真後ろへの移動がないため、斜めへ進める場合と退路が異なります。",
       "en": "No. It cannot move straight backward; a diagonal advance has different retreat options."
-    }
+    },
+    "examples": [
+      {
+        "title": {
+          "ja": "割打ちの銀",
+          "en": "A splitting silver fork"
+        },
+        "startSfen": "k8/9/3g1g3/9/9/9/9/9/K8 b S 1",
+        "userSide": "sente",
+        "moves": [
+          "S*5d",
+          "6c7c",
+          "5d4c+"
+        ],
+        "notes": [
+          {
+            "ja": "独自の簡略局面です。二枚の金を同時に狙う銀を打ちます。",
+            "en": "This original simplified position drops a silver to attack both golds."
+          },
+          {
+            "ja": "後手が一方の金を逃がす応手を示します。",
+            "en": "White saves one gold in the illustrated reply."
+          },
+          {
+            "ja": "もう一方の金を取りながら成ります。実戦では交換後の囲いも評価します。",
+            "en": "Capture the other gold and promote. In a full position, also evaluate the castle after any recapture."
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "1516",
@@ -1096,7 +1525,26 @@
     "answer": {
       "ja": "金の横利きは玉の横への逃げを塞ぎます。銀にはその横利きがありません。",
       "en": "A gold’s sideways control closes lateral escapes; an unpromoted silver lacks it."
-    }
+    },
+    "examples": [
+      {
+        "title": {
+          "ja": "支えのある頭金",
+          "en": "A supported head-gold mate"
+        },
+        "startSfen": "4k4/9/4P4/9/9/9/9/9/K8 b G 1",
+        "userSide": "sente",
+        "moves": [
+          "G*5b"
+        ],
+        "notes": [
+          {
+            "ja": "独自の簡略局面です。歩に支えられた頭金で、玉の逃げ道も塞ぎます。",
+            "en": "This original simplified position ends with a head-gold mate: the pawn protects the gold, which covers all remaining king escapes."
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "1586",
@@ -1121,7 +1569,36 @@
     "answer": {
       "ja": "歩が動くと角の王手が玉に通るピンなら、玉をさらす捕獲は違法だからです。",
       "en": "A pinned pawn cannot move if that exposes its king to the bishop’s check."
-    }
+    },
+    "examples": [
+      {
+        "title": {
+          "ja": "王手飛車取りの角",
+          "en": "A bishop fork of king and rook"
+        },
+        "startSfen": "2r3k2/9/9/9/9/9/9/9/K8 b B 1",
+        "userSide": "sente",
+        "moves": [
+          "B*5c",
+          "3a2a",
+          "5c7a+"
+        ],
+        "notes": [
+          {
+            "ja": "独自の簡略局面です。角を打ち、玉と飛車を同時に狙います。",
+            "en": "This original simplified position drops a bishop to attack the king and rook on opposite diagonals."
+          },
+          {
+            "ja": "後手は王手を逃れるため玉を動かします。",
+            "en": "White moves its king out of check in the illustrated reply."
+          },
+          {
+            "ja": "残った飛車を取り、角を馬に成ります。",
+            "en": "Capture the rook and promote the bishop to a horse."
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "1541",
@@ -1146,7 +1623,36 @@
     "answer": {
       "ja": "玉が守っていた駒を浮かせたり、龍と金銀で詰ませる配置へ誘導します。",
       "en": "It can unprotect a defender or attract the king into a dragon-and-general mating net."
-    }
+    },
+    "examples": [
+      {
+        "title": {
+          "ja": "縦横を使う十字飛車",
+          "en": "A rook fork along rank and file"
+        },
+        "startSfen": "k8/4n4/9/9/7s1/9/9/9/K8 b R 1",
+        "userSide": "sente",
+        "moves": [
+          "R*5e",
+          "5b4d",
+          "5e2e"
+        ],
+        "notes": [
+          {
+            "ja": "独自の簡略局面です。飛車を打ち、同じ段の銀と同じ筋の桂を狙います。",
+            "en": "This original simplified position drops a rook to attack a silver along the rank and a knight along the file."
+          },
+          {
+            "ja": "後手が桂を跳ねて逃がす応手を示します。",
+            "en": "White saves the knight with a jump in the illustrated reply."
+          },
+          {
+            "ja": "もう一方の銀を取ります。飛車の縦横の利きが両取りを作りました。",
+            "en": "Capture the remaining silver. The rook’s orthogonal lines created the fork."
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "2676",
