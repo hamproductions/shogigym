@@ -30,7 +30,7 @@ function Principle({ review }: { review: MoveReview }) {
   if (tag === 'other') return null
   return (
     <p className="app-note warn">
-      <strong>{t(`dojo.weak.${tag}.name`)}.</strong> {t(`dojo.weak.${tag}.fix`)}
+      <strong>{t(`report.weak.${tag}.name`)}.</strong> {t(`report.weak.${tag}.fix`)}
     </p>
   )
 }

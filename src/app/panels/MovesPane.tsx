@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef, useState, type ReactNode, type Ref } from '
 import { useTranslation } from 'react-i18next'
 import { LABELS, classify, usiPosition, type MoveReview } from '@/utils/analysis'
 import { analyze, engineSupported, scoreToCp } from '@/utils/engine'
-import { weaknessOf } from '@/utils/learning'
 import { loadMistakes, saveMistakes } from '@/utils/mistakes'
 import { colorSide, moveText, positionOf } from '@/utils/shogi'
 import { inBook, strip } from '@/utils/book'
@@ -139,7 +138,6 @@ export function MovesPane({
               reasons: r.reasons,
               game: title,
               ply: i + 1,
-              tag: weaknessOf({ ply: i + 1, ...r }),
             },
           ]
         : [],

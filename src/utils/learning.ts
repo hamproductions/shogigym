@@ -1,14 +1,13 @@
-import { LABELS, scoreWinRate, type Label, type MoveReview } from './analysis'
+import { scoreWinRate, type Label, type MoveReview } from './analysis'
 import type { Score } from './engine'
 import i18n from './i18n'
-import { applyUsi, colorSide, positionOf } from './shogi'
+import { applyUsi, colorSide, positionOf, type Side } from './shogi'
 import { isBad } from './mistake'
 import type { Mistake } from './mistakes'
 
 /**
- * Deterministic learning analytics. Everything here is derived from data the
- * app already stores (rated moves, saved games, saved mistakes, spaced-repetition
- * cards), so it works with a handful of games and needs no server or LLM.
+ * Stateless game analysis: given one game and the engine ratings of its moves,
+ * say what went wrong and how to fix it. Nothing here is stored.
  */
 
 export type Phase = 'opening' | 'middle' | 'endgame'
@@ -45,251 +44,80 @@ export function weaknessOf({ ply, loss, before, after, reasons = [] }: Swing): W
   return 'other'
 }
 
-export const weaknessOfMistake = (m: Pick<Mistake, 'label' | 'ply' | 'reasons'> & { tag?: string }): Weakness =>
-  (WEAKNESSES as string[]).includes(m.tag ?? '') ? (m.tag as Weakness) : weaknessOf({ ply: m.ply, label: m.label, reasons: m.reasons })
+export const weaknessOfMistake = (m: Pick<Mistake, 'label' | 'ply' | 'reasons'>): Weakness => weaknessOf({ ply: m.ply, label: m.label, reasons: m.reasons })
 
 /** Accuracy-style score 0–100 from mean win-chance loss (0 = perfect). */
 export const scoreFromLoss = (meanLoss: number) => Math.max(0, Math.min(100, Math.round(100 - meanLoss * 400)))
 
-export type RatedMove = {
-  gameId: string
-  ply: number
-  sfen: string
-  usi: string
-  review: MoveReview
-}
+export type GameLike = { start: string; moves: string[] }
+export type MoveRef = { ply: number; sfen: string; usi: string }
+export type RatedMove = MoveRef & { review: MoveReview }
+export type Problem = RatedMove & { tag: Weakness }
 
-export type GameLike = {
-  id: string
-  start: string
-  moves: string[]
-  userSide: 'sente' | 'gote'
-  vsAi?: boolean
-  result?: string
-  title?: string
-  savedAt?: number
-}
-
-/** The player's own moves that have a stored engine rating. */
-export function ratedMoves(games: GameLike[], reviewOf: (sfen: string, usi: string) => MoveReview | undefined): RatedMove[] {
-  const out: RatedMove[] = []
-  for (const g of games) {
-    if (!g.vsAi) continue
-    let at: string | null = g.start
-    for (let i = 0; i < g.moves.length && at; i++) {
-      const usi = g.moves[i]
-      if (colorSide(positionOf(at).color) === g.userSide) {
-        const review = reviewOf(at, usi)
-        if (review) out.push({ gameId: g.id, ply: i + 1, sfen: at, usi, review })
-      }
-      at = applyUsi(at, usi)
-    }
+/** The player's own moves in the game. */
+export function playerMoves(game: GameLike, side: Side): MoveRef[] {
+  const out: MoveRef[] = []
+  let at: string | null = game.start
+  for (let i = 0; i < game.moves.length && at; i++) {
+    if (colorSide(positionOf(at).color) === side) out.push({ ply: i + 1, sfen: at, usi: game.moves[i] })
+    at = applyUsi(at, game.moves[i])
   }
   return out
 }
 
-type Bucket = { moves: number; loss: number }
-const bucket = (): Bucket => ({ moves: 0, loss: 0 })
-const add = (b: Bucket, loss: number) => {
-  b.moves++
-  b.loss += loss
-}
-const readout = (b: Bucket, min: number) => ({ moves: b.moves, score: b.moves >= min ? scoreFromLoss(b.loss / b.moves) : null })
-
-export type Highlight = RatedMove & { rank: number }
-
-const PRAISE_RANK: Partial<Record<Label, number>> = { brilliant: 3, great: 2, best: 1 }
-
-export type Profile = {
-  games: number
-  movesRated: number
-  record: { win: number; loss: number; other: number }
+export type Report = {
+  total: number
+  rated: number
+  accuracy: number | null
   phases: Record<Phase, { moves: number; score: number | null }>
-  traits: { accuracy: number | null; tactics: number | null; conversion: number | null; tenacity: number | null }
-  weaknesses: { tag: Weakness; count: number; example?: Pick<Mistake, 'id' | 'sfen' | 'played' | 'best' | 'ply'> }[]
-  highlights: Highlight[]
-  labelCounts: Partial<Record<Label, number>>
-  strongest: Phase | null
-  weakest: Phase | null
+  good: number
+  problems: Problem[]
+  patterns: { tag: Weakness; count: number }[]
+  praise: RatedMove[]
 }
 
-const MIN_PHASE = 6
-const MIN_TRAIT = 5
+const MIN_SCORE = 3
+const PRAISE: Partial<Record<Label, number>> = { brilliant: 3, great: 2, best: 1 }
+const SOLID: Label[] = ['brilliant', 'great', 'best', 'excellent', 'good', 'book']
 
-export function buildProfile(games: GameLike[], mistakes: Mistake[], reviewOf: (sfen: string, usi: string) => MoveReview | undefined): Profile {
-  const moves = ratedMoves(games, reviewOf)
-  const phases: Record<Phase, Bucket> = { opening: bucket(), middle: bucket(), endgame: bucket() }
-  const all = bucket()
-  const ahead = bucket()
-  const behind = bucket()
-  const labelCounts: Profile['labelCounts'] = {}
-  let severe = 0
-  for (const m of moves) {
-    const { loss, label, before } = m.review
-    add(phases[phaseOf(m.ply)], loss)
-    add(all, loss)
-    labelCounts[label] = (labelCounts[label] ?? 0) + 1
-    if (label === 'blunder' || label === 'miss') severe++
-    else if (label === 'mistake') severe += 0.5
-    const wr = scoreWinRate(before)
-    if (wr >= 0.65) add(ahead, loss)
-    else if (wr <= 0.35) add(behind, loss)
+export function buildReport(game: GameLike, side: Side, reviewOf: (sfen: string, usi: string) => MoveReview | undefined): Report {
+  const mine = playerMoves(game, side)
+  const rated: RatedMove[] = mine.flatMap((m) => {
+    const review = reviewOf(m.sfen, m.usi)
+    return review ? [{ ...m, review }] : []
+  })
+  const sums: Record<Phase, [number, number]> = { opening: [0, 0], middle: [0, 0], endgame: [0, 0] }
+  let loss = 0
+  let good = 0
+  for (const m of rated) {
+    const bucket = sums[phaseOf(m.ply)]
+    bucket[0]++
+    bucket[1] += m.review.loss
+    loss += m.review.loss
+    if (SOLID.includes(m.review.label)) good++
   }
-
-  const found = new Map<string, { tag: Weakness; example: NonNullable<Profile['weaknesses'][number]['example']> }>()
-  for (const m of moves) {
-    if (!isBad(m.review.label)) continue
-    const id = `${m.sfen}|${m.usi}`
-    found.set(id, {
-      tag: weaknessOf({ ply: m.ply, ...m.review }),
-      example: { id, sfen: m.sfen, played: m.usi, best: m.review.best.move, ply: m.ply },
-    })
-  }
-  for (const m of mistakes)
-    if (!found.has(m.id)) found.set(m.id, { tag: weaknessOfMistake(m), example: { id: m.id, sfen: m.sfen, played: m.played, best: m.best, ply: m.ply } })
-  const tally = new Map<Weakness, Profile['weaknesses'][number]>()
-  for (const { tag, example } of found.values()) {
-    const row = tally.get(tag) ?? { tag, count: 0, example }
-    row.count++
-    tally.set(tag, row)
-  }
-
-  const phaseScores = PHASES.map((p) => ({ p, ...readout(phases[p], MIN_PHASE) })).filter((r) => r.score !== null) as {
-    p: Phase
-    moves: number
-    score: number
-  }[]
-  const ranked = [...phaseScores].sort((a, b) => b.score - a.score)
-
-  const highlights = moves
-    .flatMap((m): Highlight[] => {
-      const rank = PRAISE_RANK[m.review.label]
-      return rank ? [{ ...m, rank }] : []
-    })
-    .sort((a, b) => b.rank - a.rank || PHASES.indexOf(phaseOf(b.ply)) - PHASES.indexOf(phaseOf(a.ply)) || b.ply - a.ply)
-    .slice(0, 5)
-
+  const score = (n: number, l: number) => (n >= MIN_SCORE ? scoreFromLoss(l / n) : null)
+  const problems = rated
+    .filter((m) => isBad(m.review.label))
+    .map((m): Problem => ({ ...m, tag: weaknessOf({ ply: m.ply, ...m.review }) }))
+    .sort((a, b) => b.review.loss - a.review.loss)
+  const tally = new Map<Weakness, number>()
+  for (const p of problems) tally.set(p.tag, (tally.get(p.tag) ?? 0) + 1)
   return {
-    games: new Set(moves.map((m) => m.gameId)).size,
-    movesRated: moves.length,
-    record: games.reduce(
-      (r, g) =>
-        g.vsAi
-          ? g.result === 'win'
-            ? { ...r, win: r.win + 1 }
-            : g.result === 'loss' || g.result === 'resigned' || g.result === 'time'
-              ? { ...r, loss: r.loss + 1 }
-              : { ...r, other: r.other + 1 }
-          : r,
-      { win: 0, loss: 0, other: 0 },
-    ),
+    total: mine.length,
+    rated: rated.length,
+    accuracy: score(rated.length, loss),
     phases: {
-      opening: readout(phases.opening, MIN_PHASE),
-      middle: readout(phases.middle, MIN_PHASE),
-      endgame: readout(phases.endgame, MIN_PHASE),
+      opening: { moves: sums.opening[0], score: score(...sums.opening) },
+      middle: { moves: sums.middle[0], score: score(...sums.middle) },
+      endgame: { moves: sums.endgame[0], score: score(...sums.endgame) },
     },
-    traits: {
-      accuracy: readout(all, MIN_PHASE).score,
-      tactics: moves.length >= MIN_PHASE ? Math.max(0, Math.min(100, Math.round(100 - (severe / moves.length) * 400))) : null,
-      conversion: readout(ahead, MIN_TRAIT).score,
-      tenacity: readout(behind, MIN_TRAIT).score,
-    },
-    weaknesses: [...tally.values()].sort((a, b) => b.count - a.count),
-    highlights,
-    labelCounts,
-    strongest: ranked.length > 1 ? ranked[0].p : null,
-    weakest: ranked.length > 1 ? ranked.at(-1)!.p : null,
+    good,
+    problems,
+    patterns: [...tally.entries()].map(([tag, count]) => ({ tag, count })).sort((a, b) => b.count - a.count),
+    praise: rated
+      .filter((m) => PRAISE[m.review.label])
+      .sort((a, b) => PRAISE[b.review.label]! - PRAISE[a.review.label]! || b.ply - a.ply)
+      .slice(0, 3),
   }
-}
-
-export const highlightLabel = (h: Highlight) => LABELS[h.review.label]
-
-/* ---------- Curriculum: milestones and today's plan ---------- */
-
-export type Route =
-  | { kind: 'drill'; queue: 'due' | 'new' | 'difficult' | 'mistakes' }
-  | { kind: 'tsume'; length: 1 | 3 | 5 | 7 }
-  | { kind: 'tesuji' }
-  | { kind: 'lesson'; courseId?: string }
-  | { kind: 'spar' }
-  | { kind: 'analyze' }
-
-export const WEAKNESS_ROUTE: Record<Weakness, Route> = {
-  missedMate: { kind: 'tsume', length: 3 },
-  allowedMate: { kind: 'drill', queue: 'mistakes' },
-  hangs: { kind: 'drill', queue: 'mistakes' },
-  allowedTactic: { kind: 'tesuji' },
-  slippedWin: { kind: 'drill', queue: 'mistakes' },
-  openingSlip: { kind: 'drill', queue: 'new' },
-  other: { kind: 'drill', queue: 'mistakes' },
-}
-
-export type Snapshot = {
-  due: number
-  mistakesDue: number
-  difficult: number
-  newPositions: number
-  learned: number
-  started: number
-  tsumeSolved: number
-  tsumeByLength: Record<number, number>
-  tesujiSolved: number
-  openedLessons: number
-  lessonToContinue?: { id: string; title: string; learned: number; total: number }
-  gamesPlayed: number
-  mistakesSaved: number
-  streak: number
-  practisedToday: boolean
-}
-
-export type Milestone = { id: string; done: boolean; route: Route }
-
-export function journey(s: Snapshot): Milestone[] {
-  return [
-    { id: 'lesson', done: s.openedLessons >= 1, route: { kind: 'lesson' } },
-    { id: 'memorize', done: s.started >= 5, route: { kind: 'drill', queue: 'new' } },
-    { id: 'mate1', done: s.tsumeSolved >= 3, route: { kind: 'tsume', length: 1 } },
-    { id: 'game', done: s.gamesPlayed >= 1, route: { kind: 'spar' } },
-    { id: 'learnFromGame', done: s.mistakesSaved >= 1, route: { kind: 'analyze' } },
-    { id: 'learned25', done: s.learned >= 25, route: { kind: 'drill', queue: 'new' } },
-    { id: 'streak3', done: s.streak >= 3, route: { kind: 'drill', queue: 'due' } },
-  ]
-}
-
-export type PlanItem = { id: string; route: Route; count?: number; minutes: number; focus?: Weakness; detail?: string }
-
-/** Tsume level that matches what the player already solves. */
-export function tsumeLevel(byLength: Record<number, number>): 1 | 3 | 5 | 7 {
-  if ((byLength[5] ?? 0) >= 10) return 7
-  if ((byLength[3] ?? 0) >= 10) return 5
-  if ((byLength[1] ?? 0) >= 10) return 3
-  return 1
-}
-
-export function todaysPlan(s: Snapshot, profile: Profile): PlanItem[] {
-  const items: PlanItem[] = []
-  if (s.due > 0) items.push({ id: 'due', route: { kind: 'drill', queue: 'due' }, count: s.due, minutes: Math.min(15, Math.max(2, Math.ceil(s.due / 3))) })
-  if (s.mistakesDue > 0)
-    items.push({
-      id: 'mistakes',
-      route: { kind: 'drill', queue: 'mistakes' },
-      count: s.mistakesDue,
-      minutes: Math.min(15, Math.max(2, Math.ceil(s.mistakesDue / 2))),
-    })
-  const top = profile.weaknesses.find((w) => w.tag !== 'other')
-  if (top && top.tag === 'missedMate') items.push({ id: 'focusMate', route: WEAKNESS_ROUTE.missedMate, minutes: 5, focus: top.tag, count: top.count })
-  if (s.lessonToContinue && s.openedLessons > 0)
-    items.push({
-      id: 'continueLesson',
-      route: { kind: 'lesson', courseId: s.lessonToContinue.id },
-      minutes: 5,
-      detail: s.lessonToContinue.title,
-      count: s.lessonToContinue.total - s.lessonToContinue.learned,
-    })
-  else if (s.openedLessons === 0) items.push({ id: 'startLesson', route: { kind: 'lesson' }, minutes: 5, detail: s.lessonToContinue?.title })
-  if (s.difficult > 0) items.push({ id: 'difficult', route: { kind: 'drill', queue: 'difficult' }, count: s.difficult, minutes: 3 })
-  if (s.due === 0 && s.newPositions > 0) items.push({ id: 'learnNew', route: { kind: 'drill', queue: 'new' }, count: Math.min(10, s.newPositions), minutes: 5 })
-  items.push({ id: 'tsume', route: { kind: 'tsume', length: tsumeLevel(s.tsumeByLength) }, minutes: 3 })
-  if (s.gamesPlayed < 3 || profile.games === 0) items.push({ id: 'play', route: { kind: 'spar' }, minutes: 15 })
-  return items.slice(0, 5)
 }

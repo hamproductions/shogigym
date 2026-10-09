@@ -25,7 +25,7 @@ function Principle({ tag }: { tag: Weakness }) {
   if (tag === 'other') return null
   return (
     <p className="app-note">
-      <strong>{t(`dojo.weak.${tag}.name`)}.</strong> {t(`dojo.weak.${tag}.fix`)}
+      <strong>{t(`report.weak.${tag}.name`)}.</strong> {t(`report.weak.${tag}.fix`)}
     </p>
   )
 }

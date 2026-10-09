@@ -12,7 +12,6 @@ export type RailTool = {
   pressed?: boolean
   disabled?: boolean
   labelClass?: string
-  badge?: number
   run: () => void
 }
 
@@ -25,11 +24,10 @@ type ToolActions = {
   onFlipTable: () => void
   onSaveImage: (name: string) => void
   onInstall?: () => void
-  onDojo?: () => void
-  dojoDue?: number
+  onReport?: () => void
 }
 
-export function useRailTools({ view, settingsOpen, onSettings, onPalette, snapshotName, onFlipTable, onSaveImage, onInstall, onDojo, dojoDue }: ToolActions) {
+export function useRailTools({ view, settingsOpen, onSettings, onPalette, snapshotName, onFlipTable, onSaveImage, onInstall, onReport }: ToolActions) {
   const { t } = useTranslation()
   const ja = useSettings().lang === 'ja'
   const { tilted, setTilted, orbit, setOrbit, flatView, showControl, setShowControl, setHideUi, fullscreen, toggleFullscreen } = view
@@ -80,7 +78,7 @@ export function useRailTools({ view, settingsOpen, onSettings, onPalette, snapsh
     ...(onInstall ? [{ id: 'install', icon: 'install', label: t('rail.install'), run: onInstall } satisfies RailTool] : []),
   ]
   const top: RailTool[] = [
-    ...(onDojo ? [{ id: 'dojo', icon: 'dojo', label: t('dojo.rail'), title: t('dojo.railTitle'), badge: dojoDue, run: onDojo } satisfies RailTool] : []),
+    ...(onReport ? [{ id: 'report', icon: 'report', label: t('report.rail'), title: t('report.railTitle'), run: onReport } satisfies RailTool] : []),
     { id: 'palette', icon: 'command', label: '⌘K', title: t('app.searchLinesAndCommandsK'), run: onPalette },
     {
       id: 'control',

@@ -1,4 +1,3 @@
-import { logActivity } from '@/utils/activity'
 import problemsData from '@/data/tsume.json'
 import i18n from '@/utils/i18n'
 import { analyze, engineSupported } from '@/utils/engine'
@@ -30,7 +29,6 @@ export function loadTsumeStats(): TsumeStats {
 }
 
 export function markTsume(id: string, key: 'solved' | 'failed') {
-  logActivity('tsume')
   const stats = loadTsumeStats()
   const next = { ...stats, [key]: [...new Set([...stats[key], id])] }
   try {
@@ -182,7 +180,6 @@ export function openedCourses(): string[] {
 }
 
 export function markOpened(id: string) {
-  logActivity('lesson')
   try {
     localStorage.setItem(OPENED_KEY, JSON.stringify([id, ...openedCourses().filter((x) => x !== id)].slice(0, 20)))
   } catch (error) {

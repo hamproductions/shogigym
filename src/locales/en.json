@@ -1064,56 +1064,41 @@
     },
     "setup": "Setting up the pieces… {{done}} / {{total}}"
   },
-  "dojo": {
-    "title": "Dojo",
-    "rail": "Dojo",
-    "railTitle": "Your training plan, skills and progress",
-    "streak_one": "{{count}}-day streak",
-    "streak_other": "{{count}}-day streak",
-    "streakLabel": "Practice streak: {{count}} days",
-    "practisedToday": "You practised today. Nice.",
-    "keepStreak": "Practise today to keep it going.",
-    "startStreak": "Do one thing today to start a streak.",
-    "nextStep": "Next step · {{done}} of {{total}} done",
-    "go": "Go",
-    "today": "Today's plan",
-    "start": "Start",
-    "minutes_one": "{{count}} min",
-    "minutes_other": "{{count}} min",
-    "skills": "Your skills",
-    "slips": "Where you slip",
-    "praise": "What you did well",
-    "path": "Learning path",
-    "praiseIntro": "Moves that matched or beat the engine's choice. Repeat these ideas.",
-    "praiseMove": "move {{ply}} · {{label}}",
-    "example": "e.g. {{move}} on move {{ply}}",
-    "summary": "Across {{games}} game(s), the coach rated {{moves}} of your moves. {{solid}} ({{percent}}%) were Good or better.",
-    "strongest": "Strongest: {{phase}} ({{score}}). Keep doing what you do there.",
-    "trainWeakest": "Train my {{phase}}",
-    "scaleNote": "Scores are 0–100 from how much winning chance each move gave up. More games make them more reliable.",
-    "noProfile_one": "Play or import a game and the coach will draw your skill profile. {{count}} more rated move needed.",
-    "noProfile_other": "Play or import a game and the coach will draw your skill profile. {{count}} more rated moves needed.",
-    "playGame": "Play the AI",
-    "importGame": "Import a game",
-    "privacy": "Everything here is computed on your device from your own games and practice. Nothing is uploaded.",
+  "report": {
+    "title": "Game report",
+    "rail": "Report",
+    "railTitle": "Analyse this game: what went wrong and how to fix it",
+    "sideLabel": "Report for",
+    "sente": "Sente ☗",
+    "gote": "Gote ☖",
+    "rating": "Rating your moves… {{done}} of {{total}}",
+    "noEngine": "The engine is not available in this browser, so only moves already rated during play are included.",
+    "tooShort": "Play a few more moves, then open the report.",
+    "noRated": "None of your moves are rated yet.",
+    "summary": "You played {{total}} moves. {{good}} were Good or better ({{percent}}%).",
+    "accuracy": "Accuracy {{score}}",
+    "phases": "By phase",
     "phase": {
       "opening": "Opening",
       "middle": "Middlegame",
       "endgame": "Endgame"
     },
-    "axis": {
-      "opening": "Opening",
-      "middle": "Middle",
-      "endgame": "Endgame",
-      "tactics": "Tactics",
-      "conversion": "Converting",
-      "tenacity": "Tenacity"
+    "few": "too few moves",
+    "pattern": "Your main pattern",
+    "patternCount": "{{name}} · {{count}} time(s)",
+    "problems": "Moves to fix",
+    "clean": "No big mistakes in this game. Nice play.",
+    "played": "Move {{ply}}: you played {{played}} ({{loss}}% win chance lost)",
+    "better": "Better: {{move}}",
+    "show": "Show on board",
+    "praise": "What went well",
+    "praiseMove": "move {{ply}} · {{label}}",
+    "fixWith": {
+      "tsume": "Mate puzzles",
+      "tesuji": "Fork drills",
+      "lesson": "Learn openings"
     },
-    "advice": {
-      "opening": "Weakest: {{phase}} ({{score}}). You leave the book early. Memorise more lines so the first 30 moves are automatic.",
-      "middle": "Weakest: {{phase}} ({{score}}). Plans drift in the middle. Replay your own mistakes and look for the better move.",
-      "endgame": "Weakest: {{phase}} ({{score}}). Games slip away late. Mate puzzles train exactly this."
-    },
+    "privacy": "Worked out from this game only. Nothing is saved.",
     "weak": {
       "missedMate": {
         "name": "Missed a forced mate",
@@ -1143,85 +1128,6 @@
         "name": "Overlooked a tactic",
         "fix": "Your move allowed a strong reply: a fork, a capture or a drop. Before moving, list the opponent's forcing replies: checks, captures and forks."
       }
-    },
-    "drill": {
-      "tsume": "Mate drills",
-      "opening": "Learn lines",
-      "mistakes": "Replay mistakes",
-      "tesuji": "Fork drills"
-    },
-    "plan": {
-      "due": {
-        "title": "Review {{count}} due position(s)",
-        "why": "Spaced repetition: reviewing on time is what makes lines stick."
-      },
-      "mistakes": {
-        "title": "Fix {{count}} mistake(s) from your games",
-        "why": "Try the better move from the exact position where you went wrong."
-      },
-      "focusMate": {
-        "title": "Mate drills: {{focus}}",
-        "why": "You missed a forced mate {{count}} time(s). Short mate puzzles train this."
-      },
-      "continueLesson": {
-        "title": "Continue: {{detail}}",
-        "why": "{{count}} position(s) left to learn in this line."
-      },
-      "startLesson": {
-        "title": "Study your first opening",
-        "why": "Study mode shows each move with the reason, then quizzes you."
-      },
-      "difficult": {
-        "title": "Practise {{count}} difficult position(s)",
-        "why": "You missed these several times. Slow, focused repetition fixes them."
-      },
-      "learnNew": {
-        "title": "Learn {{count}} new positions",
-        "why": "Nothing is due, so this is the best time to learn something new."
-      },
-      "tsume": {
-        "title": "Mate puzzle warm-up",
-        "why": "Short puzzles at your level keep your attack sharp."
-      },
-      "play": {
-        "title": "Play a practice game",
-        "why": "The coach rates your moves, saves mistakes and builds your skill profile."
-      }
-    },
-    "journey": {
-      "lesson": {
-        "title": "Study your first opening",
-        "why": "Pick a strategy and walk through it move by move. Each move comes with a reason, so you learn ideas, not just moves."
-      },
-      "memorize": {
-        "title": "Memorise 5 positions",
-        "why": "Spaced repetition brings each position back just before you forget it."
-      },
-      "mate1": {
-        "title": "Solve 3 mate-in-one puzzles",
-        "why": "Seeing a mate in one is the first attacking skill. It also stops you missing mates in games."
-      },
-      "game": {
-        "title": "Play your first game",
-        "why": "A game against the AI is a safe place to use what you learned. The coach comments on every move."
-      },
-      "learnFromGame": {
-        "title": "Save a mistake to practise",
-        "why": "Your own mistakes are the best lessons. Review a game in Analyze, or finish a game vs the AI."
-      },
-      "learned25": {
-        "title": "Learn 25 positions",
-        "why": "A solid base of memorised opening moves means fewer decisions in the opening."
-      },
-      "streak3": {
-        "title": "Practise 3 days in a row",
-        "why": "Short daily practice beats one long session."
-      }
-    },
-    "solid": {
-      "opening": "{{phase}} is your lowest phase ({{score}}), but it is still solid. Small gains here.",
-      "middle": "{{phase}} is your lowest phase ({{score}}), but it is still solid. Small gains here.",
-      "endgame": "{{phase}} is your lowest phase ({{score}}), but it is still solid. Mate puzzles would sharpen it further."
     }
   }
 }

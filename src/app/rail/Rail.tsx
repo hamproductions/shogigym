@@ -23,8 +23,7 @@ type RailProps = {
   settingsOpen: boolean
   onSettings: () => void
   onPalette: () => void
-  onDojo?: () => void
-  dojoDue?: number
+  onReport?: () => void
   onLessonBack?: () => void
   snapshotName: string
   tools?: RailTool[]
@@ -45,7 +44,6 @@ export function ToolButton({ tool }: { tool: RailTool }) {
     >
       <Icon name={tool.icon} size={20} />
       <span className={tool.labelClass}>{tool.label}</span>
-      {!!tool.badge && <b className="app-rail-badge">{tool.badge > 99 ? '99+' : tool.badge}</b>}
     </button>
   )
 }
@@ -105,8 +103,7 @@ export function Rail({
   settingsOpen,
   onSettings,
   onPalette,
-  onDojo,
-  dojoDue,
+  onReport,
   onLessonBack,
   snapshotName,
   tools,
@@ -144,8 +141,7 @@ export function Rail({
     onFlipTable: flipTable,
     onSaveImage: saveBoardImage,
     onInstall: installation.installed ? undefined : installation.install,
-    onDojo,
-    dojoDue,
+    onReport,
   })
   const { primary, secondary, top, bottom } = tools
     ? {

@@ -36,11 +36,10 @@ The whole app is one screen: a 3D board in a tatami room or a home dining room (
   - Rate every move, with an eval graph you can click.
   - A variation tree (変化): step back anywhere and play a different move for either side.
   - Save games to in-app slots, or copy them as KIF with the variations included.
-- **道場 Dojo**: The training hub on the rail (a badge shows how many reviews are waiting).
-  - **Today's plan** is built from your own data: due reviews, mistakes from your games, the lesson to continue, difficult positions, a mate puzzle at your level, a practice game.
-  - **Skill profile**: a radar of opening, middlegame and endgame accuracy plus tactics, converting an advantage and tenacity when behind, computed from the coach's ratings of your games. It works with a handful of games and is deterministic: no server or LLM.
-  - **Where you slip**: bad moves are tagged (missed mate, walked into mate, left pieces hanging, let a win slip, opening slip) and each tag routes to the drill that fixes it. The coach and the Review card state the matching principle after such a mistake.
-  - **What you did well** lists your best moves, plus a practice streak and a seven-step learning path for newcomers.
+- **Game report**: In Play AI or Analyze, the Report button on the rail analyses the game you just played and shows what to fix. Nothing is saved: it is worked out from that one game.
+  - It rates your moves with the engine, scores opening, middlegame and endgame, and names your main pattern (missed mate, walked into mate, left pieces hanging, overlooked a tactic, let a win slip, opening slip) with a plain-language fix and a button to the matching drill.
+  - "Moves to fix" lists your worst moves with the better move and the reason; Show on board jumps to that position. It also points out your best moves.
+  - The coach and the Review card state the same principle after a concrete mistake.
 - **Import**: paste a kifu, use the clipboard button, open a file, or drop a `.kif` / `.csa` file anywhere on the page.
 - **Taikyoku shogi (大局将棋) fun mode** at `/taikyoku`: the 36×36 board with 804 pieces on the same 3D tile renderer (carved wooden tiles, wood board, lights and shadows), a flat map view, and an engine that runs in a Web Worker. Play Sente against it, or watch two engines play each other against the clock of the 2004 TV marathon. See `vendor/taikyoku-engine/README.md`.
 - **Formation display**: the strategy and castle of both sides (四間飛車, 本美濃, 穴熊, ミレニアム…) appear beside the board, with a short banner when one is completed.

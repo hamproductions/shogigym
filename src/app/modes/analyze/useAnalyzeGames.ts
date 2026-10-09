@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { logActivity } from '@/utils/activity'
 import { exportGame, parseGame } from '@/utils/kifu'
 import { applyUsi } from '@/utils/shogi'
 import type { BoardSession } from '@/app/hooks/useBoardSession'
@@ -142,7 +141,6 @@ export function useAnalyzeGames(
     if (game.moves.length < 2) return
     const id = gameId(game.start, game.moves)
     if (loadGames().some((g) => g.id === id)) return
-    logActivity('game')
     const when = savedAtLabel(new Date())
     storeGame({
       id,

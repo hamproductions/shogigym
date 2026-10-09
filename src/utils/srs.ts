@@ -1,5 +1,3 @@
-import { logActivity } from './activity'
-
 const HOUR = 3600_000
 const DAY = 24 * HOUR
 export const LADDER = [4 * HOUR, DAY, 3 * DAY, 7 * DAY, 14 * DAY, 30 * DAY, 90 * DAY, 180 * DAY]
@@ -61,7 +59,6 @@ export function record(key: string, correct: boolean, now = Date.now()) {
     },
   }
   save()
-  logActivity('review')
 }
 
 export const isDue = (key: string, now = Date.now()) => {
