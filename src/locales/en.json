@@ -1138,12 +1138,17 @@
       "other": {
         "name": "Other inaccuracies",
         "fix": "Positional errors with no single cause. Replay them and compare with the better move."
+      },
+      "allowedTactic": {
+        "name": "Overlooked a tactic",
+        "fix": "Your move allowed a strong reply: a fork, a capture or a drop. Before moving, list the opponent's forcing replies: checks, captures and forks."
       }
     },
     "drill": {
       "tsume": "Mate drills",
       "opening": "Learn lines",
-      "mistakes": "Replay mistakes"
+      "mistakes": "Replay mistakes",
+      "tesuji": "Fork drills"
     },
     "plan": {
       "due": {
@@ -1212,6 +1217,11 @@
         "title": "Practise 3 days in a row",
         "why": "Short daily practice beats one long session."
       }
+    },
+    "solid": {
+      "opening": "{{phase}} is your lowest phase ({{score}}), but it is still solid. Small gains here.",
+      "middle": "{{phase}} is your lowest phase ({{score}}), but it is still solid. Small gains here.",
+      "endgame": "{{phase}} is your lowest phase ({{score}}), but it is still solid. Mate puzzles would sharpen it further."
     }
   }
 }

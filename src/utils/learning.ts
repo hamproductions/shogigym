@@ -2,7 +2,7 @@ import { LABELS, scoreWinRate, type Label, type MoveReview } from './analysis'
 import type { Score } from './engine'
 import i18n from './i18n'
 import { applyUsi, colorSide, positionOf } from './shogi'
-import { isBad, isWeak } from './mistake'
+import { isBad } from './mistake'
 import type { Mistake } from './mistakes'
 
 /**
@@ -14,16 +14,16 @@ import type { Mistake } from './mistakes'
 export type Phase = 'opening' | 'middle' | 'endgame'
 export const PHASES: Phase[] = ['opening', 'middle', 'endgame']
 const OPENING_END = 30
-const MIDDLE_END = 80
+const MIDDLE_END = 100
 
 export const phaseOf = (ply: number): Phase => (ply <= OPENING_END ? 'opening' : ply <= MIDDLE_END ? 'middle' : 'endgame')
 
-export type Weakness = 'missedMate' | 'allowedMate' | 'hangs' | 'slippedWin' | 'openingSlip' | 'other'
-export const WEAKNESSES: Weakness[] = ['missedMate', 'allowedMate', 'hangs', 'slippedWin', 'openingSlip', 'other']
+export type Weakness = 'missedMate' | 'allowedMate' | 'hangs' | 'allowedTactic' | 'slippedWin' | 'openingSlip' | 'other'
+export const WEAKNESSES: Weakness[] = ['missedMate', 'allowedMate', 'hangs', 'allowedTactic', 'slippedWin', 'openingSlip', 'other']
 
 const mateFor = (score: Score | undefined) => (score && 'mate' in score ? score.mate : 0)
 const reasonPrefix = (key: string, lng: string) =>
-  i18n.t(key, { lng, move: '\u0000', line: '\u0000', piece: '\u0000', pieces: '\u0000', square: '\u0000', count: 0 }).split('\u0000')[0]
+  i18n.t(key, { lng, move: '\u0000', line: '\u0000', piece: '\u0000', pieces: '\u0000', square: '\u0000', count: 0, what: '\u0000' }).split('\u0000')[0]
 
 function reasonsMention(reasons: string[], keys: string[]) {
   const prefixes = keys.flatMap((key) => ['en', 'ja'].map((lng) => reasonPrefix(key, lng))).filter((p) => p.length > 1)
@@ -39,6 +39,7 @@ export function weaknessOf({ ply, loss, before, after, reasons = [] }: Swing): W
   if (mateBefore > 0 && mateAfter <= 0) return 'missedMate'
   if ((mateAfter < 0 && mateBefore >= 0) || (mateBefore >= 0 && reasonsMention(reasons, ['moveFacts.allowsMate']))) return 'allowedMate'
   if (reasonsMention(reasons, ['moveFacts.enPrise', 'moveFacts.losesMaterial'])) return 'hangs'
+  if (reasonsMention(reasons, ['moveFacts.strongestReply'])) return 'allowedTactic'
   if (before && after && scoreWinRate(before) >= 0.7 && scoreWinRate(after) < 0.5) return 'slippedWin'
   if (ply <= OPENING_END && (loss === undefined || loss > 0)) return 'openingSlip'
   return 'other'
@@ -122,13 +123,14 @@ export function buildProfile(games: GameLike[], mistakes: Mistake[], reviewOf: (
   const ahead = bucket()
   const behind = bucket()
   const labelCounts: Profile['labelCounts'] = {}
-  let weak = 0
+  let severe = 0
   for (const m of moves) {
     const { loss, label, before } = m.review
     add(phases[phaseOf(m.ply)], loss)
     add(all, loss)
     labelCounts[label] = (labelCounts[label] ?? 0) + 1
-    if (isWeak(label)) weak++
+    if (label === 'blunder' || label === 'miss') severe++
+    else if (label === 'mistake') severe += 0.5
     const wr = scoreWinRate(before)
     if (wr >= 0.65) add(ahead, loss)
     else if (wr <= 0.35) add(behind, loss)
@@ -188,7 +190,7 @@ export function buildProfile(games: GameLike[], mistakes: Mistake[], reviewOf: (
     },
     traits: {
       accuracy: readout(all, MIN_PHASE).score,
-      tactics: moves.length >= MIN_PHASE ? Math.max(0, Math.min(100, Math.round(100 - (weak / moves.length) * 300))) : null,
+      tactics: moves.length >= MIN_PHASE ? Math.max(0, Math.min(100, Math.round(100 - (severe / moves.length) * 400))) : null,
       conversion: readout(ahead, MIN_TRAIT).score,
       tenacity: readout(behind, MIN_TRAIT).score,
     },
@@ -216,6 +218,7 @@ export const WEAKNESS_ROUTE: Record<Weakness, Route> = {
   missedMate: { kind: 'tsume', length: 3 },
   allowedMate: { kind: 'drill', queue: 'mistakes' },
   hangs: { kind: 'drill', queue: 'mistakes' },
+  allowedTactic: { kind: 'tesuji' },
   slippedWin: { kind: 'drill', queue: 'mistakes' },
   openingSlip: { kind: 'drill', queue: 'new' },
   other: { kind: 'drill', queue: 'mistakes' },

@@ -12,8 +12,14 @@ import { journey, todaysPlan, WEAKNESS_ROUTE, WEAKNESSES, type Phase, type Profi
 
 type DojoProps = { onClose: () => void; onRoute: (route: Route) => void }
 
+/** Above this a phase is not called a weakness. */
+const SOLID = 75
+
 const AXES = ['opening', 'middle', 'endgame', 'tactics', 'conversion', 'tenacity'] as const
 type Axis = (typeof AXES)[number]
+
+const drillLabel = (route: Route) =>
+  route.kind === 'tsume' ? 'tsume' : route.kind === 'tesuji' ? 'tesuji' : route.kind === 'drill' && route.queue === 'new' ? 'opening' : 'mistakes'
 
 function axisValue(profile: Profile, axis: Axis) {
   return axis === 'opening' || axis === 'middle' || axis === 'endgame' ? profile.phases[axis].score : profile.traits[axis]
@@ -133,7 +139,10 @@ export function DojoDialog({ onClose, onRoute }: DojoProps) {
                     {t('dojo.strongest', { phase: phaseName(profile.strongest), score: profile.phases[profile.strongest].score })}
                   </p>
                   <p className="app-dojo-focus">
-                    {t(`dojo.advice.${profile.weakest}`, { phase: phaseName(profile.weakest), score: profile.phases[profile.weakest].score })}
+                    {t(`dojo.${(profile.phases[profile.weakest].score ?? 0) >= SOLID ? 'solid' : 'advice'}.${profile.weakest}`, {
+                      phase: phaseName(profile.weakest),
+                      score: profile.phases[profile.weakest].score,
+                    })}
                   </p>
                   <Button
                     size="sm"
@@ -184,9 +193,7 @@ export function DojoDialog({ onClose, onRoute }: DojoProps) {
                   )}
                 </div>
                 <Button size="sm" onClick={() => go(WEAKNESS_ROUTE[w.tag])}>
-                  {t(
-                    `dojo.drill.${WEAKNESS_ROUTE[w.tag].kind === 'tsume' ? 'tsume' : (WEAKNESS_ROUTE[w.tag] as { queue?: string }).queue === 'new' ? 'opening' : 'mistakes'}`,
-                  )}
+                  {t(`dojo.drill.${drillLabel(WEAKNESS_ROUTE[w.tag])}`)}
                 </Button>
               </li>
             ))}
