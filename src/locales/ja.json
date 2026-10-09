@@ -253,7 +253,9 @@
     "winChanceShort": "勝率",
     "panelShort": "指導・形勢・この先・棋譜。◀ ▶ で手を進めたり戻したり。",
     "skipTour": "スキップ",
-    "learnShogi": "初心者からアマ初段・二段までの序盤を学ぶ工房です。得意戦法(振り飛車・居飛車)を選び、出典付きの定跡を学習し、クイズで確認し、詰将棋を解き、AIと対局できます。将棋はどのくらい知っていますか？"
+    "learnShogi": "初心者からアマ初段・二段までの序盤を学ぶ工房です。得意戦法(振り飛車・居飛車)を選び、出典付きの定跡を学習し、クイズで確認し、詰将棋を解き、AIと対局できます。将棋はどのくらい知っていますか？",
+    "learnTheRulesFirst": "ルールから学ぶ",
+    "learnTheRulesFirstHint": "盤・駒・動き方・駒の取り方を、図を見ながら順番に学びます。"
   },
   "board": {
     "none": "なし",
@@ -348,7 +350,11 @@
     "kifKi2CsaUsiOr": "KIF、KI2、CSA、USI、SFEN形式",
     "pasteAGameRecordHere": "ここに棋譜を貼り付け",
     "loadIt": "読み込む",
-    "openAFile": "ファイルを開く"
+    "openAFile": "ファイルを開く",
+    "pasteFromClipboard": "貼り付けて読み込む",
+    "clipboardEmpty": "クリップボードが空です。先に棋譜をコピーしてください。",
+    "clipboardBlocked": "ブラウザがクリップボードへのアクセスを拒否しました。下の欄に貼り付けてください。",
+    "dropHint": "ヒント: .kif / .csa ファイルをページのどこにドロップしても読み込めます。棋譜はご自身でサイトからダウンロードして取り込んでください。"
   },
   "graph": {
     "senteAhead": "先手有利",
@@ -426,7 +432,16 @@
     "listSeparator": "、",
     "quizAgainUntilClean": "{{parts}}。ミスなしになるまで繰り返しましょう。",
     "wasLabel": "{{move}}は{{label}}でした。もう一度。",
-    "noBookReply": "ここから先の定跡はありません。下から自由に指して試せます。"
+    "noBookReply": "ここから先の定跡はありません。下から自由に指して試せます。",
+    "series": "レッスンの章",
+    "previousSequence": "前の章",
+    "nextSequence": "次の章",
+    "sequenceOf": "第{{value}}章 / 全{{total}}章",
+    "randomQuiz": "ランダム出題",
+    "nextQuestion": "次の問題",
+    "backToArticle": "レッスンの目次に戻る",
+    "nextArticle": "次のレッスンへ",
+    "randomTally": "ランダム出題 · {{count}}問目 · これまで ✓{{right}} ✗{{wrong}}"
   },
   "lessonMap": {
     "start": "開始",
@@ -695,7 +710,15 @@
       "resigned": "投了",
       "time": "時間切れ",
       "none": "保存"
-    }
+    },
+    "thisGame": "この対局",
+    "hint": "ヒント",
+    "moreHint": "動かす駒は？",
+    "hintWhy": "実戦の手の問題点：",
+    "hintPiece": "{{square}}の{{piece}}を使います。",
+    "hintDrop": "持駒の{{piece}}を打ちます。",
+    "backToGame": "対局の分析に戻る",
+    "principleSep": "："
   },
   "settings": {
     "general": "一般",
@@ -819,7 +842,8 @@
     "coach": "指導",
     "engine": "形勢",
     "flow": "この先",
-    "moves": "棋譜"
+    "moves": "棋譜",
+    "report": "分析"
   },
   "tesuji": {
     "tesujiType": "手筋の種類",
@@ -834,7 +858,8 @@
     "hint": "ヒント",
     "showAnswer": "答えを見る",
     "solvedFirstTryOf": "一発正解: {{value}} / {{poolCount}}",
-    "missesIt": "手筋を逃しています"
+    "missesIt": "手筋を逃しています",
+    "hintIdea": "この局面の手筋は「{{tesuji}}」。{{explain}}この局面のどこで使えるか探しましょう。"
   },
   "tsume": {
     "pieces": "駒",
@@ -1031,7 +1056,83 @@
         "詳しく記録された唯一の対局（2004年・テレビ）は3,805手、32時間41分でした。"
       ]
     },
-    "state": { "invalid": "大局将棋の保存データを読み込めません。現在の対局は変更されていません。", "loading": "対局を復元しています…" },
+    "state": {
+      "invalid": "大局将棋の保存データを読み込めません。現在の対局は変更されていません。",
+      "loading": "対局を復元しています…"
+    },
     "setup": "駒を並べています… {{done}} / {{total}}"
+  },
+  "report": {
+    "title": "対局レポート",
+    "rail": "レポート",
+    "railTitle": "この対局を分析: 問題点と直し方",
+    "sideLabel": "対象",
+    "sente": "先手 ☗",
+    "gote": "後手 ☖",
+    "rating": "あなたの手を判定中… {{done}}/{{total}}",
+    "noEngine": "このブラウザではエンジンが使えないため、対局中に判定済みの手だけを対象にします。",
+    "tooShort": "もう少し指してからレポートを開いてください。",
+    "noRated": "まだ判定済みの手がありません。",
+    "summary": "あなたは{{total}}手を指し、{{good}}手（{{percent}}%）が「良い」以上でした。",
+    "accuracy": "正確さ {{score}}",
+    "phases": "局面ごと",
+    "phase": {
+      "opening": "序盤",
+      "middle": "中盤",
+      "endgame": "終盤"
+    },
+    "few": "手数が少ない",
+    "pattern": "いちばん多いミス",
+    "patternCount": "{{name}} · {{count}}回",
+    "problems": "直したい手",
+    "clean": "大きなミスはありませんでした。見事です。",
+    "played": "{{ply}}手目: {{played}}（勝率 {{loss}}% 損）",
+    "better": "おすすめ: {{move}}",
+    "show": "盤面で見る",
+    "praise": "よく指せた手",
+    "praiseMove": "{{ply}}手目 · {{label}}",
+    "fixWith": {
+      "tsume": "詰将棋",
+      "tesuji": "両取りの練習",
+      "lesson": "定跡を学ぶ"
+    },
+    "privacy": "この対局だけから算出しています。何も保存されません。",
+    "weak": {
+      "missedMate": {
+        "name": "詰みを逃した",
+        "fix": "詰みがあったのに別の手を指しました。優勢なときは、まず王手を全部読んでから指しましょう。"
+      },
+      "allowedMate": {
+        "name": "詰まされる手を指した",
+        "fix": "相手に詰まされる手を指しました。指す前に「次に相手はどんな王手をかけられるか」を確認しましょう。"
+      },
+      "hangs": {
+        "name": "駒をタダで取られた",
+        "fix": "駒をタダ取りされたり不利な交換になりました。指す前に「相手は何を取れるか」を確認しましょう。"
+      },
+      "slippedWin": {
+        "name": "勝ちを逃した",
+        "fix": "明らかに優勢だったのに差が縮みました。優勢なときは、駒交換で簡単にして自玉を固めてから攻めましょう。"
+      },
+      "openingSlip": {
+        "name": "序盤のミス",
+        "fix": "最初の30手以内の悪手です。定跡を覚えて、応手を考えなくても指せるようにしましょう。"
+      },
+      "other": {
+        "name": "その他の疑問手",
+        "fix": "原因が一つに絞れない形勢判断のミスです。並べ直して、より良い手と見比べましょう。"
+      },
+      "allowedTactic": {
+        "name": "相手の手筋を見落とした",
+        "fix": "両取りや駒取り、打ち込みなどの強い応手を許しました。指す前に、相手の王手・駒取り・両取りを順に確認しましょう。"
+      }
+    },
+    "showDetails": "直したい手（{{count}}）と好手を見る",
+    "hideDetails": "詳細を隠す",
+    "afterGame": "対局が終わると自動で分析します。今すぐ見るには左のレポートを押してください。",
+    "expand": "全画面で見る",
+    "practiceMistakes": "この対局のミスを練習（{{count}}問）",
+    "practiceHint": "自分の対局の局面から、より良い手を見つけます。",
+    "lesson": "レッスン：{{title}}"
   }
 }

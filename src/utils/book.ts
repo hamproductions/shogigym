@@ -4,6 +4,7 @@ import { LEGACY_AI_STRATEGY, STRATEGIES } from '@/data/strategies'
 import { COURSES, SETUPS, type Course, type JosekiMove, type JosekiNode } from './model'
 import type { Side } from './shogi'
 import { openingMoves } from './openingBook'
+import lessonNotesEn from '@/data/lesson-notes-en.json'
 
 export type CourseNodes = Map<string, JosekiNode>
 export type BookMove = { usi: string; note?: string; kind: string }
@@ -18,16 +19,30 @@ export const goodBranches = (node: JosekiNode | null | undefined) => node?.branc
 
 const nodesCache = new Map<string, CourseNodes>()
 
-export function courseNodes(course: Course): CourseNodes {
-  const cached = nodesCache.get(course.id)
+export const lessonText = (text: string | undefined, en: string | undefined, lang: string, course: Pick<Course, 'baseId'>) =>
+  lang === 'ja' ? text : (en ?? (text && (lessonNotesEn as Record<string, Record<string, string>>)[course.baseId]?.[text]) ?? text)
+
+export function courseNodes(course: Course, lang = 'ja'): CourseNodes {
+  const key = `${course.id}:${lang}`
+  const cached = nodesCache.get(key)
   if (cached) return cached
   const map: CourseNodes = new Map()
   const walk = (node: JosekiNode) => {
-    if (!map.has(strip(node.sfen))) map.set(strip(node.sfen), node)
+    if (!map.has(strip(node.sfen)))
+      map.set(strip(node.sfen), {
+        ...node,
+        comment: lessonText(node.comment, node.commentEn, lang, course),
+        branches: node.branches.map((branch) => ({
+          ...branch,
+          note: lessonText(branch.note, branch.noteEn, lang, course),
+          aim: lessonText(branch.aim, undefined, lang, course),
+          punishNote: lessonText(branch.punishNote, undefined, lang, course),
+        })),
+      })
     node.branches.forEach((b) => b.child && walk(b.child))
   }
   walk(course.root)
-  nodesCache.set(course.id, map)
+  nodesCache.set(key, map)
   return map
 }
 

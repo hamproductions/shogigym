@@ -1,6 +1,16 @@
 import data from '@/data/tesuji-drills.json'
 
-export type TesujiDrill = { id: string; tesuji: string; en: string; explain: string; sfen: string; answer: string; from: string; note?: string }
+export type TesujiDrill = {
+  id: string
+  tesuji: string
+  en: string
+  explain: string
+  explainJa?: string
+  sfen: string
+  answer: string
+  from: string
+  note?: string
+}
 
 export const TESUJI_DRILLS = data as TesujiDrill[]
 
@@ -28,8 +38,12 @@ export function markTesuji(id: string, firstTry: boolean) {
   }
 }
 
+const GROUPS: Record<string, string[]> = { 両取り: ['両取り', 'ふんどしの桂', '王手飛車取り'] }
+
+export const inTesujiFilter = (drill: TesujiDrill, filter: string) => filter === 'all' || (GROUPS[filter] ?? [filter]).includes(drill.tesuji)
+
 export function pickTesuji(filter: string, exclude?: string): TesujiDrill | undefined {
-  const pool = TESUJI_DRILLS.filter((d) => (filter === 'all' || d.tesuji === filter) && d.id !== exclude)
+  const pool = TESUJI_DRILLS.filter((d) => inTesujiFilter(d, filter) && d.id !== exclude)
   const solved = new Set(tesujiStats().solved)
   const fresh = pool.filter((d) => !solved.has(d.id))
   const from = fresh.length ? fresh : pool

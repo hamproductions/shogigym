@@ -25,6 +25,7 @@ import { isGameMode } from '@/app/types'
 import { AnnounceBadge, PromotionPicker, TsumePlate } from './BoardOverlays'
 import { BoardBanners } from './BoardBanners'
 import { BoardLoading } from '@/rendering/BoardLoading'
+import { SourceIllustration } from '@/app/modes/lesson/SourceIllustration'
 import { Button } from '@/app/ui/Button'
 import { usePromotionFaces } from '@/app/hooks/useBakedPieces'
 
@@ -109,7 +110,7 @@ export function BoardStage({
   const settings = useSettings()
   const { key: assetsKey, progress: assetProgress } = usePieceAssetsKey()
   const assetsReady = assetsKey === `${settings.pieceFont}|${settings.pieceSet}|${settings.pieceGuide}|${settings.boardStyle}`
-  const { mode, course, game, position, flipped, userSide, lastMove, selection, promotion, gameOver, sfen, atEnd, userTurn, toMove } = useSession()
+  const { mode, course, game, position, flipped, userSide, lastMove, selection, promotion, gameOver, sfen, atEnd, userTurn, toMove, sourceMarks } = useSession()
   const { faces: promotionFaces } = usePromotionFaces(assetsReady && !!promotion)
   const picking = mode === 'lesson' && !course
   const playing = mode === 'spar' || mode === 'view' || (mode === 'lesson' && !!course)
@@ -242,6 +243,13 @@ export function BoardStage({
           {mode !== 'tsume' && !picking && plate('bottom')}
         </div>
       </div>
+      {mode === 'lesson' && sourceMarks?.illustration && sourceMarks.at === sfen.split(' ')[0] && (
+        <div className="app-source-illustration">
+          <div>
+            <SourceIllustration diagram={sourceMarks.illustration} />
+          </div>
+        </div>
+      )}
       <BoardBanners mistake={mistake} onBack={onBack} />
       {mode === 'tsume' && <TsumePlate position="top" flipped={flipped} userSide={userSide} />}
       {mode === 'tsume' && <TsumePlate position="bottom" flipped={flipped} userSide={userSide} />}

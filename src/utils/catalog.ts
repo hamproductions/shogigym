@@ -17,6 +17,19 @@ export type Setup = {
   courseIds: string[]
   technique?: boolean
   basics?: boolean
+  path?: string[]
+  check?: { question: Text; answer: Text }
+}
+
+export type LessonEntry = {
+  id: string
+  order: number
+  title: Text
+  path: string[]
+  intro: Text
+  source: string
+  check?: { question: Text; answer: Text }
+  courses: RawCourse[]
 }
 
 const other = (side: Side): Side => (side === 'sente' ? 'gote' : 'sente')
@@ -54,7 +67,7 @@ export function sideOf(raw: RawCourse, strategy: string): Side | null {
 
 export const strategiesAt = (baseId: string, side: Side) => COURSE_SIDES[baseId]?.[side === 'sente' ? 0 : 1] ?? []
 
-export function buildCatalog(raws: RawCourse[]) {
+export function buildCatalog(raws: RawCourse[], lessons: LessonEntry[] = []) {
   const byId = new Map(raws.map((r) => [r.id, r]))
   const courses = new Map<string, Course>()
   const setups: Setup[] = []
@@ -130,6 +143,20 @@ export function buildCatalog(raws: RawCourse[]) {
         const raw = byId.get(id)
         return raw ? [make(raw, primarySide(raw), tech.id, null, null).id] : []
       }),
+    })
+  for (const lesson of lessons)
+    setups.push({
+      id: `lesson-${lesson.id}`,
+      main: null,
+      vs: null,
+      name: lesson.title.en,
+      ja: lesson.title.ja,
+      intro: lesson.intro,
+      level: 1,
+      sources: [lesson.source],
+      path: lesson.path,
+      check: lesson.check,
+      courseIds: lesson.courses.map((raw) => make(raw, primarySide(raw), `lesson-${lesson.id}`, null, null).id),
     })
   return { courses: [...courses.values()], setups }
 }

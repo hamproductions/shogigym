@@ -27,6 +27,7 @@ import { useModeSlots, useModeSwitch } from '@/app/hooks/useModeSwitch'
 import { useMoveReview } from '@/app/hooks/useMoveReview'
 import { useOpponent } from '@/app/hooks/useOpponent'
 import { usePersistedSession } from '@/app/hooks/usePersistedSession'
+import { useKifuDrop } from '@/app/hooks/useKifuDrop'
 import { useRouteMode } from '@/app/hooks/useRouteMode'
 import { useShortcuts } from '@/app/hooks/useShortcuts'
 import { useTransient } from '@/app/hooks/useTransient'
@@ -44,18 +45,22 @@ import { useWatch } from '@/app/modes/view/useWatch'
 import { useTesuji } from '@/app/modes/tesuji/useTesuji'
 import { useTsume } from '@/app/modes/tsume/useTsume'
 import { SidePanels } from '@/app/panels/SidePanels'
+import { useLineAhead } from '@/app/hooks/useLineAhead'
+import { saveMistakes } from '@/utils/mistakes'
 import { useSteadyRate } from '@/app/hooks/useSteadyRate'
 import { say, sayFurigomaResult } from '@/utils/voice'
 import { Rail } from '@/app/rail/Rail'
+import { ORIGIN_KEY, RETURN_EVENT, store } from '@/app/modes/lesson/reading'
 import { BoardStage } from '@/app/stage/BoardStage'
 import { ModeBar, WatchOptions } from '@/app/stage/ModeBar'
 import { Button } from '@/app/ui/Button'
 import { Dialog } from '@/app/ui/Dialog'
 import { SegmentedField } from '@/app/ui/Segmented'
-import { isGameMode, type Confirm, type Tab } from './types'
+import { isGameMode, type Confirm, type Mode, type Tab } from './types'
 
 const ConfirmDialog = lazy(() => import('@/app/dialogs/ConfirmDialog').then((m) => ({ default: m.ConfirmDialog })))
 const NewGameDialog = lazy(() => import('@/app/dialogs/NewGameDialog').then((m) => ({ default: m.NewGameDialog })))
+const ReportDialog = lazy(() => import('@/app/dialogs/ReportDialog').then((m) => ({ default: m.ReportDialog })))
 const Palette = lazy(() => import('@/app/dialogs/Palette').then((m) => ({ default: m.Palette })))
 const SettingsDialog = lazy(() => import('@/app/dialogs/SettingsDialog').then((m) => ({ default: m.SettingsDialog })))
 const WelcomeDialog = lazy(() => import('@/app/dialogs/WelcomeDialog').then((m) => ({ default: m.WelcomeDialog })))
@@ -68,6 +73,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
   const { mode, course, preview, sfen, nodes, prevSfen, lastMove, cursor, atEnd, playing, userSide, game } = session
   const [tab, setTab] = useState<Tab>('coach')
   const [palette, setPalette] = useState(false)
+  const [report, setReport] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [showViewer, setShowViewer] = useState(false)
   const [watchSetup, setWatchSetup] = useState(false)
@@ -100,6 +106,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
     analysisSnapshot: () => slots.stashed('analyze'),
     onSaveError: () => setNudge(t('games.couldNotSaveBrowserStorage')),
   })
+  useKifuDrop(analyze.importGame, setNudge)
   const spar = useSpar(session, {
     load,
     setTab,
@@ -116,7 +123,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
   const opponent = useOpponent(session, { lessonMode: lesson.lessonMode, halted: spar.halted })
   const { enterMode, resume } = useModeSwitch(slots, { session, lesson, drill, tsume, tesuji, spar, analyze, mistakes, layout, setTab })
   const restored = usePersistedSession({ session, lesson, tsume, drill, spar, slots, resume })
-  useRouteMode(mode, enterMode, routeMode, routeMain, restored)
+  useRouteMode(mode, enterMode, routeMode, routeMain, restored, lesson.leave)
   const { announce, tesujiNote, onMoveLanded } = useAnnouncements(session)
   const flow = useFlowLanes(session, evaluation.analysis)
   const upcoming = useAutoplay(session, evaluation.best?.move)
@@ -182,6 +189,14 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
     return () => clearTimeout(timer)
   }, [mode, pendingFurigoma, furigomaFaces, watch.start])
 
+  useEffect(() => {
+    const back = (event: Event) => {
+      enterMode((event as CustomEvent<Mode>).detail)
+      setTab('report')
+    }
+    window.addEventListener(RETURN_EVENT, back)
+    return () => window.removeEventListener(RETURN_EVENT, back)
+  })
   useEffect(() => {
     const open = () => setShowViewer(true)
     window.addEventListener(VIEWER_EVENT, open)
@@ -281,6 +296,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
     newGame,
   })
 
+  const lineAhead = useLineAhead(session, lesson)
   useShortcuts({
     session,
     view,
@@ -296,6 +312,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
     togglePanel: layout.togglePanel,
     toggleEscape: tsume.toggleEscape,
     toggleWatch: watch.toggle,
+    lineAhead,
   })
 
   const welcomeDone = (next?: () => void) => () => {
@@ -324,6 +341,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
           settingsOpen={showSettings}
           onSettings={() => setShowSettings(true)}
           onPalette={() => setPalette(true)}
+          onReport={isGameMode(mode) && game.moves.length > 0 ? () => (setTab('report'), layout.setPanel({ hidden: false })) : undefined}
           snapshotName={`${SNAPSHOT_NAME}-${mode}-${cursor}`}
         />
         <section className={`app-stage${preview || !atEnd || (playing && mode !== 'view' && mode !== 'spar') ? ' previewing' : ''}`}>
@@ -401,6 +419,21 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
             onHoverLane: flow.setHoverLane,
             onBack: goBack,
             setConfirm,
+            onReportRoute: (route) => {
+              const from = mode
+              enterMode(route)
+              store(ORIGIN_KEY, from)
+              if (route === 'tesuji') tesuji.start('両取り')
+            },
+            onReportExpand: () => setReport(true),
+            onReportPractice: (items) => (saveMistakes(items), enterMode('drill', items)),
+            onReturnTo: (m) => (enterMode(m), setTab('report')),
+            onReportLesson: (id) => {
+              const from = mode
+              enterMode('lesson')
+              lesson.setPickerSetup(`lesson-${id}`)
+              store(ORIGIN_KEY, from)
+            },
           }}
           canAutoplay={!!upcoming && autoplayAllowed}
           picking={picking || (mode === 'drill' && !drill.item)}
@@ -522,6 +555,18 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
               </div>
             </div>
           )}
+          {report && (
+            <ReportDialog
+              game={game}
+              userSide={userSide}
+              onShow={(ply) => session.setCursor(ply - 1)}
+              onRoute={(route) => {
+                enterMode(route)
+                if (route === 'tesuji') tesuji.start('両取り')
+              }}
+              onClose={() => setReport(false)}
+            />
+          )}
           {palette && <Palette commands={commands} onClose={() => setPalette(false)} />}
           {confirm && <ConfirmDialog confirm={confirm} onClose={() => setConfirm(null)} />}
           {showSettings && <SettingsDialog onClose={() => setShowSettings(false)} level={levels.level} onLevel={levels.setLevel} />}
@@ -530,6 +575,10 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
             <WelcomeDialog
               level={levels.level}
               onPreviewLevel={levels.previewLevel}
+              onLearnRules={welcomeDone(() => {
+                load(InitialPositionSFEN.STANDARD, 'sente', 'lesson', null)
+                lesson.setPickerSetup('lesson-656')
+              })}
               onLearnBasics={welcomeDone(() => firstLesson && lesson.open(firstLesson, 'study'))}
               onPlayAi={welcomeDone(() => load(InitialPositionSFEN.STANDARD, 'sente', 'spar', null))}
               onTsume={welcomeDone(() => enterMode('tsume'))}

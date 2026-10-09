@@ -2,20 +2,24 @@ import { useTranslation } from 'react-i18next'
 import { useSession } from '@/app/hooks/session'
 import { Icon } from '@/app/icons'
 import type { Watch } from '@/app/modes/view/useWatch'
+import type { Lesson } from '@/app/modes/lesson/useLesson'
+import { useLineAhead } from '@/app/hooks/useLineAhead'
 
-export function NavFooter({ canAutoplay, watch }: { canAutoplay: boolean; watch: Watch }) {
+export function NavFooter({ canAutoplay, watch, lesson }: { canAutoplay: boolean; watch: Watch; lesson: Lesson }) {
   const { t } = useTranslation()
-  const { mode, game, preview, playing, setPlaying, nav } = useSession()
+  const session = useSession()
+  const { mode, game, preview, playing, setPlaying, nav } = session
   const running = mode === 'view' ? watch.running : playing
+  const ahead = useLineAhead(session, lesson)
   return (
     <MoveNavigation
-      hidden={game.moves.length === 0 && !preview}
+      hidden={game.moves.length === 0 && !preview && !ahead}
       first={nav.first}
       back={nav.back}
-      forward={nav.forward}
-      last={nav.last}
+      forward={(ahead ?? nav).forward}
+      last={(ahead ?? nav).last}
       canBack={nav.canBack}
-      canForward={nav.canForward}
+      canForward={nav.canForward || !!ahead}
       running={running}
       canPlay={mode === 'view' ? watch.canPlay : playing || canAutoplay}
       toggle={() => (mode === 'view' ? watch.toggle() : setPlaying((v) => !v))}

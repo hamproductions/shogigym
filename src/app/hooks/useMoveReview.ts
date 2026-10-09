@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { reviewMove, type MoveReview } from '@/utils/analysis'
 import { engineSupported } from '@/utils/engine'
-import { colorSide, positionOf } from '@/utils/shogi'
+import { colorSide, engineReady, positionOf } from '@/utils/shogi'
 import { inBook } from '@/utils/book'
 import { cachedReview, rememberReview } from '@/app/memory'
 import { isGameMode } from '@/app/types'
@@ -11,7 +11,7 @@ function useReview(sfens: string[], moves: string[], cursor: number, enabled: bo
   const [state, setState] = useState<{ key: string; review: MoveReview } | null>(null)
   const key = cursor > 0 ? `${sfens[cursor - 1]}|${moves[cursor - 1]}` : ''
   useEffect(() => {
-    if (!key || !enabled || !engineSupported()) return
+    if (!key || !enabled || !engineSupported() || !engineReady(key.split('|')[0])) return
     let cancelled = false
     const [prev, usi] = key.split('|')
     const known = cachedReview(prev, usi)

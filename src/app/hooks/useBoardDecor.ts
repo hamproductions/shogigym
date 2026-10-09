@@ -44,7 +44,8 @@ type DecorInput = {
 
 export function useBoardDecor(session: BoardSession, input: DecorInput) {
   const { t, i18n } = useTranslation()
-  const { position, sfen, sfens, preview, gameOver, cursor, game, peekFrom, mode, course, userSide, userTurn, atEnd, ai, assist, lastMove } = session
+  const { position, sfen, sfens, preview, gameOver, cursor, game, peekFrom, mode, course, userSide, userTurn, atEnd, ai, assist, lastMove, sourceMarks } =
+    session
   const {
     analysis,
     showBest,
@@ -69,7 +70,12 @@ export function useBoardDecor(session: BoardSession, input: DecorInput) {
   const peekSquare = peekFrom && position.board.at(peekFrom) ? peekFrom : null
   const focusSquare = peekFrom && !position.board.at(peekFrom) ? peekFrom : null
   const focusCell: ControlCell | null = focusSquare ? (control.get(focusSquare.usi) ?? EMPTY_CELL) : null
-  const heat = [...(showControl ? controlHeat(control) : []), ...(focusSquare && focusCell ? [focusHeat(focusSquare, focusCell)] : [])]
+  const reading = mode === 'lesson' && !preview && sourceMarks?.at === sfen.split(' ')[0] ? sourceMarks : null
+  const heat = [
+    ...(reading?.heat ?? []),
+    ...(showControl ? controlHeat(control) : []),
+    ...(focusSquare && focusCell ? [focusHeat(focusSquare, focusCell)] : []),
+  ]
 
   const arrows: BoardArrow[] = []
   const best = analysis?.candidates[0]
@@ -77,7 +83,7 @@ export function useBoardDecor(session: BoardSession, input: DecorInput) {
     for (const c of analysis!.candidates.slice(1)) if (c.move !== best.move) arrows.push({ usi: c.move, color: SHU, dashed: true })
     arrows.push({ usi: best.move, color: SHU, label: t('app.best') })
   }
-  arrows.push(...modeArrows)
+  arrows.push(...modeArrows, ...(reading?.arrows ?? []))
   if (assist && review && isWeak(review.label) && tab === 'coach' && review.reply && reviewAt === cursor && !preview)
     arrows.push({ usi: review.reply.move, color: REFUTE_BLUE })
   if (reply) arrows.push({ usi: reply.usi, color: REPLY_BLUE })

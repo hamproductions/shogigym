@@ -24,9 +24,10 @@ type ToolActions = {
   onFlipTable: () => void
   onSaveImage: (name: string) => void
   onInstall?: () => void
+  onReport?: () => void
 }
 
-export function useRailTools({ view, settingsOpen, onSettings, onPalette, snapshotName, onFlipTable, onSaveImage, onInstall }: ToolActions) {
+export function useRailTools({ view, settingsOpen, onSettings, onPalette, snapshotName, onFlipTable, onSaveImage, onInstall, onReport }: ToolActions) {
   const { t } = useTranslation()
   const ja = useSettings().lang === 'ja'
   const { tilted, setTilted, orbit, setOrbit, flatView, showControl, setShowControl, setHideUi, fullscreen, toggleFullscreen } = view
@@ -77,6 +78,7 @@ export function useRailTools({ view, settingsOpen, onSettings, onPalette, snapsh
     ...(onInstall ? [{ id: 'install', icon: 'install', label: t('rail.install'), run: onInstall } satisfies RailTool] : []),
   ]
   const top: RailTool[] = [
+    ...(onReport ? [{ id: 'report', icon: 'report', label: t('report.rail'), title: t('report.railTitle'), run: onReport } satisfies RailTool] : []),
     { id: 'palette', icon: 'command', label: '⌘K', title: t('app.searchLinesAndCommandsK'), run: onPalette },
     {
       id: 'control',

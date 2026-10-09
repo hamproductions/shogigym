@@ -2,7 +2,7 @@ import type { DetectionPreset, DetectionResult } from '@/utils/formationTags'
 import type { IconName } from './icons'
 
 export type Mode = 'lesson' | 'drill' | 'tsume' | 'tesuji' | 'spar' | 'view' | 'analyze'
-export type Tab = 'engine' | 'coach' | 'flow' | 'moves'
+export type Tab = 'engine' | 'coach' | 'report' | 'flow' | 'moves'
 export type Level = 'rules' | 'new'
 export type LessonMode = 'study' | 'quiz'
 export type Game = { start: string; moves: string[]; detectionPreset?: DetectionPreset; detectionResult?: DetectionResult }
@@ -20,7 +20,7 @@ export const MODES: { id: Mode; icon: IconName }[] = [
   { id: 'view', icon: 'orbit' },
 ]
 
-export const TABS: Tab[] = ['coach', 'engine', 'flow', 'moves']
+export const TABS: Tab[] = ['coach', 'report', 'engine', 'flow', 'moves']
 
 export const isGameMode = (mode: Mode) => mode === 'spar' || mode === 'analyze'
 

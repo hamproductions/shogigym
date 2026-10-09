@@ -15,11 +15,19 @@ export const MODE_SLUG: Record<Mode, string> = {
 
 const SLUG_MODE = Object.fromEntries(Object.entries(MODE_SLUG).map(([m, s]) => [s, m as Mode])) as Record<string, Mode>
 
-export function useRouteMode(mode: Mode, enterMode: (m: Mode) => void, routeMode: string | undefined, routeMain: string | undefined, ready: boolean) {
+export function useRouteMode(
+  mode: Mode,
+  enterMode: (m: Mode) => void,
+  routeMode: string | undefined,
+  routeMain: string | undefined,
+  ready: boolean,
+  openLessonPicker: () => void,
+) {
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const target = useRef<Mode | null>(null)
   const pending = useRef<string | null>(null)
+  const lessonRoute = useRef<string | null>(null)
 
   useEffect(() => {
     if (routeMain && getSettings().mainStrategy !== routeMain) setSettings({ mainStrategy: routeMain })
@@ -28,6 +36,13 @@ export function useRouteMode(mode: Mode, enterMode: (m: Mode) => void, routeMode
 
   useEffect(() => {
     if (!ready) return
+    if (!routeMain) lessonRoute.current = null
+    else if (lessonRoute.current !== pathname) {
+      lessonRoute.current = pathname
+      target.current = null
+      openLessonPicker()
+      return
+    }
     const want = target.current
     if (want && want !== mode) return enterMode(want)
     target.current = null

@@ -18,6 +18,7 @@ type Shortcuts = {
   togglePanel: () => void
   toggleEscape: () => void
   toggleWatch: () => void
+  lineAhead: { forward: () => void; last: () => void } | null
 }
 
 export function useShortcuts({
@@ -35,6 +36,7 @@ export function useShortcuts({
   togglePanel,
   toggleEscape,
   toggleWatch,
+  lineAhead,
 }: Shortcuts) {
   const { preview, promotion, playing, nav, play, setPlaying, setPromotion, setSelection, setPeekFrom, setFlipped, exitPreview, modeRef } = session
   const { hideUi, setHideUi, flatView, setTilted, setShowControl } = view
@@ -45,8 +47,6 @@ export function useShortcuts({
         togglePalette()
         return
       }
-      if (palette || (event.target as HTMLElement).tagName === 'INPUT' || (event.target as HTMLElement).tagName === 'TEXTAREA') return
-      if (event.key === ' ' && document.activeElement instanceof HTMLElement && document.activeElement.tagName === 'BUTTON') document.activeElement.blur()
       if (event.key === 'Escape') {
         if (dialogOpen) return closeDialogs()
         if (overlayOpen) return
@@ -57,6 +57,13 @@ export function useShortcuts({
         }
         if (hideUi) return setHideUi(false)
       }
+      const target = event.target instanceof HTMLElement ? event.target : null
+      if (
+        palette ||
+        target?.closest('input, textarea, select, [contenteditable="true"], [role="tab"]') ||
+        ((event.key === ' ' || event.key === 'Enter') && target?.closest('button, a, summary, [role="button"]'))
+      )
+        return
       if (preview) {
         if (event.key === 'ArrowRight') nav.forward()
         else if (event.key === 'ArrowLeft') nav.back()
@@ -81,9 +88,9 @@ export function useShortcuts({
         return
       }
       if (event.key === 'ArrowLeft') nav.back()
-      else if (event.key === 'ArrowRight') nav.forward()
+      else if (event.key === 'ArrowRight') (lineAhead ?? nav).forward()
       else if (event.key === 'Home') nav.first()
-      else if (event.key === 'End') nav.last()
+      else if (event.key === 'End') (lineAhead ?? nav).last()
       else if (event.key === 'f') setFlipped((v) => !v)
       else if (event.key === 'p') togglePanel()
       else if (event.key === 'm' && !event.metaKey && !event.ctrlKey) {

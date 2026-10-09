@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { LABELS, classify, usiPosition, type MoveReview } from '@/utils/analysis'
 import { analyze, engineSupported, scoreToCp } from '@/utils/engine'
 import { loadMistakes, saveMistakes } from '@/utils/mistakes'
-import { colorSide, moveText, positionOf } from '@/utils/shogi'
+import { colorSide, engineReady, moveText, positionOf } from '@/utils/shogi'
 import { inBook, strip } from '@/utils/book'
 import { isBad } from '@/utils/mistake'
 import { toSente } from '@/utils/notation'
@@ -82,7 +82,7 @@ export function MovesPane({
   const rateRef = useRef<() => Promise<void>>(async () => undefined)
   const autoStarted = useRef(false)
   useEffect(() => {
-    if (!autoRate || autoStarted.current || rated || progress !== null || moves.length === 0 || !engineSupported()) return
+    if (!autoRate || autoStarted.current || rated || progress !== null || moves.length === 0 || !engineSupported() || !sfens.every(engineReady)) return
     autoStarted.current = true
     void rateRef.current()
   })
@@ -202,7 +202,7 @@ export function MovesPane({
   return (
     <div>
       <div className="app-rate">
-        {engineSupported() && canRate && progress === null && !rated && (
+        {engineSupported() && sfens.every(engineReady) && canRate && progress === null && !rated && (
           <Button size="sm" onClick={rate}>
             {labels ? t('moves.rateTheRemainingMoves') : t('moves.rateEveryMove')}
           </Button>

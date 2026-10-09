@@ -22,7 +22,43 @@
     "answer": {
       "ja": "できません。駒を一枚打つだけで一手が完了し、相手の手番になります。",
       "en": "No. One drop completes your turn; the opponent moves next."
-    }
+    },
+    "examples": [
+      {
+        "title": {
+          "ja": "飛車を横に動かす",
+          "en": "Move the rook sideways"
+        },
+        "startSfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+        "moves": [
+          "2h5h"
+        ],
+        "notes": [
+          {
+            "ja": "飛車は横に進めます。途中に駒がないことを確認しましょう。",
+            "en": "The rook can move horizontally. Check that no piece blocks the path."
+          }
+        ],
+        "sourceDiagramId": "setup"
+      },
+      {
+        "title": {
+          "ja": "持駒の角を打つ",
+          "en": "Drop a bishop from hand"
+        },
+        "startSfen": "lnsgkgsnl/1r7/p1pppp1pp/1p4p2/9/2P6/PP1PPPPPP/1S5R1/LN1GKGSNL b Bb 1",
+        "moves": [
+          "B*5e"
+        ],
+        "notes": [
+          {
+            "ja": "取った角は先手の持駒です。空いている５五へ打ちます。",
+            "en": "The captured bishop is in Black’s hand. Drop it on the empty 5e square."
+          }
+        ],
+        "sourceDiagramId": "drop"
+      }
+    ]
   },
   {
     "id": "615",
@@ -64,7 +100,8 @@
             "ja": "玉の斜め移動を確認します。独自の簡略局面です。",
             "en": "A king moves one square diagonally; the destination must be unattacked. This is an original simplified position."
           }
-        ]
+        ],
+        "quizTargets": true
       },
       {
         "title": {
@@ -81,7 +118,8 @@
             "ja": "飛車の横移動を確認します。独自の簡略局面です。",
             "en": "A rook slides horizontally through empty squares. This is an original simplified position."
           }
-        ]
+        ],
+        "quizTargets": true
       },
       {
         "title": {
@@ -98,7 +136,8 @@
             "ja": "角の斜め移動を確認します。独自の簡略局面です。",
             "en": "A bishop slides diagonally; decline optional promotion for this movement example. This is an original simplified position."
           }
-        ]
+        ],
+        "quizTargets": true
       },
       {
         "title": {
@@ -115,7 +154,8 @@
             "ja": "金の横移動を確認します。独自の簡略局面です。",
             "en": "A gold can move one square sideways. This is an original simplified position."
           }
-        ]
+        ],
+        "quizTargets": true
       },
       {
         "title": {
@@ -132,7 +172,8 @@
             "ja": "銀の斜め後退を確認します。独自の簡略局面です。",
             "en": "An unpromoted silver can retreat diagonally, unlike a gold. This is an original simplified position."
           }
-        ]
+        ],
+        "quizTargets": true
       },
       {
         "title": {
@@ -149,7 +190,8 @@
             "ja": "桂の跳躍を確認します。独自の簡略局面です。",
             "en": "A knight jumps two ranks forward and one file sideways, even over a friendly blocker. Decline optional promotion here. This is an original simplified position."
           }
-        ]
+        ],
+        "quizTargets": true
       },
       {
         "title": {
@@ -166,7 +208,8 @@
             "ja": "香の直進を確認します。独自の簡略局面です。",
             "en": "A lance slides forward through an open file. Decline optional promotion here. This is an original simplified position."
           }
-        ]
+        ],
+        "quizTargets": true
       },
       {
         "title": {
@@ -183,7 +226,8 @@
             "ja": "歩の一歩を確認します。独自の簡略局面です。",
             "en": "A pawn moves one square straight forward. This is an original simplified position."
           }
-        ]
+        ],
+        "quizTargets": true
       },
       {
         "title": {
@@ -200,7 +244,8 @@
             "ja": "龍の斜め移動を確認します。独自の簡略局面です。",
             "en": "A dragon retains rook movement and adds a one-square diagonal move. This is an original simplified position."
           }
-        ]
+        ],
+        "quizTargets": true
       },
       {
         "title": {
@@ -217,7 +262,8 @@
             "ja": "馬の横移動を確認します。独自の簡略局面です。",
             "en": "A horse retains bishop movement and adds a one-square orthogonal move. This is an original simplified position."
           }
-        ]
+        ],
+        "quizTargets": true
       },
       {
         "title": {
@@ -234,7 +280,8 @@
             "ja": "成銀の横移動を確認します。独自の簡略局面です。",
             "en": "A promoted silver moves as a gold, so a sideways step is legal. This is an original simplified position."
           }
-        ]
+        ],
+        "quizTargets": true
       }
     ]
   },
@@ -1086,7 +1133,7 @@
     "paragraphs": [
       {
         "ja": "金矢倉は7七銀で飛車先を受け、金銀の壁の中へ玉を入れる相居飛車の基本です。カニ囲いは途中の速い形、片矢倉は7八玉で手数を節約、銀矢倉は6七を銀に替えて連結を改善します。総矢倉と菱矢倉は金銀四枚で守る分、攻めの銀を使いにくくなります。矢倉穴熊はさらに深く潜る発展形です。",
-        "en": "Gold Yagura uses a silver on7g to guard the rook-pawn front and brings the king inside coordinated generals. Crab is a faster intermediate shelter; Half Yagura saves time with the king on7h. Silver Yagura substitutes a silver on6g for improved connection. Complete and Diamond Yagura use all four generals, reducing attacking resources. Yagura Anaguma deepens the shelter further."
+        "en": "Gold Yagura uses a silver on 7g to guard the rook-pawn front and brings the king inside coordinated generals. Crab is a faster intermediate shelter; Half Yagura saves time with the king on 7h. Silver Yagura substitutes a silver on 6g for improved connection. Complete and Diamond Yagura use all four generals, reducing attacking resources. Yagura Anaguma deepens the shelter further."
       },
       {
         "ja": "菊水矢倉は玉を最下段に残し縦に備える一方、横に弱くなります。銀立ち矢倉は銀を前に出して上から攻める構想です。へこみ矢倉は低い配置で横に強く斜めに注意し、カブト囲いは角換わりで使う発展前の形です。記事の見出し「ポナンザ囲い」は本文でBonanza由来のボナンザ囲いとして説明され、手数を省くが下段が薄い形です。",
@@ -1094,7 +1141,7 @@
       },
       {
         "ja": "土居矢倉は左金を5八に使うバランス型、右矢倉は左右を反転させ相振り飛車で用います。雁木は矢倉と関連する出だしから現れますが、別の囲いです。基本の組み方はカニから6六歩・7七銀・6七金、角を退かして7九玉〜8八玉です。相手の急戦と横攻めを受けられる順番を選びます。",
-        "en": "Doi Yagura develops the left gold to5h for balance. Right Yagura mirrors the structure for Double Ranging Rook. Gangi can share an opening route with Yagura but is a distinct castle. A basic route develops Crab, then6f pawn,7g silver,6g gold, clears the bishop, and brings the king through7i to8h. Adapt the order to early attacks and lateral threats."
+        "en": "Doi Yagura develops the left gold to 5h for balance. Right Yagura mirrors the structure for Double Ranging Rook. Gangi can share an opening route with Yagura but is a distinct castle. A basic route develops Crab, then 6f pawn, 7g silver, 6g gold, clears the bishop, and brings the king through 7i to 8h. Adapt the order to early attacks and lateral threats."
       }
     ],
     "question": {
@@ -1103,7 +1150,7 @@
     },
     "answer": {
       "ja": "片矢倉は7八玉で手数を省きます。総矢倉は金銀四枚を守りに使い、攻めの戦力を減らします。",
-      "en": "Half Yagura saves construction time with7h king; Complete Yagura commits all four generals and reduces attacking force."
+      "en": "Half Yagura saves construction time with 7h king; Complete Yagura commits all four generals and reduces attacking force."
     }
   },
   {
@@ -1115,7 +1162,7 @@
     "paragraphs": [
       {
         "ja": "横歩取りや相掛かりでは飛角が早く動き、深い囲いを作る手数がない場合があります。中住まいは玉を5八へ一マス上げ、左右の戦いに対応するバランスを求める形です。金銀の配置は一つに固定されません。玉の前や斜めの隙を消し、大駒の打ち込みと王手飛車に注意して駒組みします。",
-        "en": "Side Pawn Capture and Double Wing Attack can activate major pieces before a deep castle is practical. Central King advances the king one square to5h and seeks balanced coverage of both wings. Its generals do not have one compulsory arrangement. Cover frontal and diagonal gaps while watching major-piece drops and king–rook forks; balance is useful, but a centrally placed king is not automatically safe."
+        "en": "Side Pawn Capture and Double Wing Attack can activate major pieces before a deep castle is practical. Central King advances the king one square to 5h and seeks balanced coverage of both wings. Its generals do not have one compulsory arrangement. Cover frontal and diagonal gaps while watching major-piece drops and king–rook forks; balance is useful, but a centrally placed king is not automatically safe."
       },
       {
         "ja": "中原囲いは中原流相掛かりの構想と結び付いた囲いで、いちご囲いも相掛かりで使われる別の配置です。いちごの名称由来は記事でも確定していません。これらは矢倉のような厚い壁を急いで作るより、攻めの手数と隙の少ない陣形を重視します。展開が落ち着けば相掛かりから矢倉へ発展することもあります。",
@@ -1128,7 +1175,7 @@
     },
     "answer": {
       "ja": "決まっていません。5八へ上がった玉を中心に、戦型の隙を消す配置を選びます。",
-      "en": "No. The king on5h is central; the generals’ arrangement depends on the opening’s threats."
+      "en": "No. The king on 5h is central; the generals’ arrangement depends on the opening’s threats."
     }
   },
   {
@@ -1140,11 +1187,11 @@
     "paragraphs": [
       {
         "ja": "舟囲いは玉を6八〜7八へ寄せ、右金を5八へ上げる速い対振り飛車の構えです。少ない手数を急戦に回せる一方、金銀の厚い連結はまだなく、長期の攻めには弱さが出ます。相手が仕掛けず時間があれば左美濃や穴熊へ発展できます。完成だけを急がず、飛角の交換後の横攻めも見ます。",
-        "en": "Boat castle quickly moves the king through6h to7h and develops the right gold to5h against Ranging Rook. The saved tempi support a quick attack, but its generals are not yet a thick connected wall. Extended pressure can expose that thinness. If the enemy delays contact, evolve toward Left Mino or Anaguma, while accounting for lateral attacks after major-piece exchanges."
+        "en": "Boat castle quickly moves the king through 6h to 7h and develops the right gold to 5h against Ranging Rook. The saved tempi support a quick attack, but its generals are not yet a thick connected wall. Extended pressure can expose that thinness. If the enemy delays contact, evolve toward Left Mino or Anaguma, while accounting for lateral attacks after major-piece exchanges."
       },
       {
         "ja": "7九銀型は基本形、6八銀型は銀を攻守どちらに使うか保留、5七銀型は左銀を攻めに使う方針です。箱入り娘は金を寄せて厚くしますが玉の逃げ道が狭くなります。エルモ囲いは金を7九に使い、金銀の連結を改善した急戦向きの形です。守りを増すほど常に得ではなく、仕掛けに使う銀と手数を比較します。",
-        "en": "The7i-silver version is the basic shape. A6h silver keeps its eventual attacking or defensive role flexible; advancing it to5g supports attack. Boxed Daughter adds gold coverage but restricts king escapes. Elmo uses a gold on7i for improved connections in quick-attack play. Extra defense is not free: compare the silver you need for the offensive plan and the tempi consumed before contact."
+        "en": "The 7i-silver version is the basic shape. A6h silver keeps its eventual attacking or defensive role flexible; advancing it to 5g supports attack. Boxed Daughter adds gold coverage but restricts king escapes. Elmo uses a gold on 7i for improved connections in quick-attack play. Extra defense is not free: compare the silver you need for the offensive plan and the tempi consumed before contact."
       }
     ],
     "question": {
@@ -1165,7 +1212,7 @@
     "paragraphs": [
       {
         "ja": "左美濃は居飛車側で玉を左へ囲い、舟囲いから角を7七へ退かし8八玉・7八銀などで組みます。横の連結がよい反面、角頭と玉の斜めの入口が弱点です。銀冠は銀で上部を覆い、銀冠穴熊はそこから深く潜ります。居角左美濃は角を8八に残して手数と角の攻撃線を活かす急戦型です。",
-        "en": "Left Mino shelters a Static Rook king on the left. A common Boat-to-Mino route clears the bishop to7g and uses8h king and7h silver. Horizontal connections help, but the bishop’s head and diagonal entrance can be weaknesses. Silver Crown covers the upper front; Silver-Crown Anaguma deepens that shell. Bishop-in-place Left Mino keeps the bishop on8h to save time and preserve attacking diagonals."
+        "en": "Left Mino shelters a Static Rook king on the left. A common Boat-to-Mino route clears the bishop to 7g and uses 8h king and 7h silver. Horizontal connections help, but the bishop’s head and diagonal entrance can be weaknesses. Silver Crown covers the upper front; Silver-Crown Anaguma deepens that shell. Bishop-in-place Left Mino keeps the bishop on 8h to save time and preserve attacking diagonals."
       },
       {
         "ja": "天守閣美濃は玉を一段上へ上げて斜めの攻めの線から外しますが、玉頭には注意します。四枚美濃は攻め銀も守りに使い、端玉銀冠（米長玉）は玉を端へ逃がします。王手がかかりにくい形を狙うのであって永久に王手不能ではありません。端美濃（串カツ）は端の玉と香の配置で一手を省きますが、端攻めが大きな弱点です。",
@@ -1194,7 +1241,7 @@
       },
       {
         "ja": "松尾流は6七・7八の金で角頭を補強し、攻め銀を加える形もあります。ビッグ4は金銀四枚を集中させます。銀冠穴熊は左美濃・銀冠から、矢倉穴熊は相居飛車の矢倉から発展します。ミレニアム（トーチカ）は香でなく桂の下へ玉を置き角の線を外す関連形です。串カツ（端美濃）は玉と香の上下を入れ替えますが、端に弱い点を比較します。",
-        "en": "Matsuo style reinforces the bishop’s head with golds on6g and7h and can recruit another silver. Big Four concentrates all four generals. Silver-Crown Anaguma develops from Left Mino; Yagura Anaguma develops from Yagura in Double Static Rook. Millennium, or Tochka, shelters under the knight rather than the lance to avoid the bishop’s line. Kushikatsu reverses the king–lance ordering but exposes the edge."
+        "en": "Matsuo style reinforces the bishop’s head with golds on 6g and 7h and can recruit another silver. Big Four concentrates all four generals. Silver-Crown Anaguma develops from Left Mino; Yagura Anaguma develops from Yagura in Double Static Rook. Millennium, or Tochka, shelters under the knight rather than the lance to avoid the bishop’s line. Kushikatsu reverses the king–lance ordering but exposes the edge."
       }
     ],
     "question": {
@@ -1215,11 +1262,11 @@
     "paragraphs": [
       {
         "ja": "本美濃は玉を2八、銀を3八へ置き、左金を5八へつなぐ基本形です。片美濃は左金をまだ接続しない速い形です。高美濃は上部とコビンを補強し、銀冠はさらに銀を上へ進めて玉頭と端を厚くします。一方で金銀が上がるほど下段や横の守りが変わるため、発展が常に無条件に得とは限りません。",
-        "en": "Full Mino commonly uses2h king,3h silver, and a connected left gold on5h. Half Mino omits that left gold for speed. High Mino reinforces the upper front and diagonal entrance; Silver Crown advances the silver further against frontal and edge pressure. Raising generals changes lateral and back-rank coverage, so an upgrade is not automatically better against every attack direction."
+        "en": "Full Mino commonly uses 2h king, 3h silver, and a connected left gold on 5h. Half Mino omits that left gold for speed. High Mino reinforces the upper front and diagonal entrance; Silver Crown advances the silver further against frontal and edge pressure. Raising generals changes lateral and back-rank coverage, so an upgrade is not automatically better against every attack direction."
       },
       {
         "ja": "ダイヤモンド美濃は金銀四枚、木村美濃は少ない守備駒でコビンを補い、銀美濃は5八を銀、金美濃は3八を金にします。ちょんまげ美濃は二筋の歩を伸ばした陽動振り飛車型、坊主美濃はその歩が消えて玉頭が薄い形です。左美濃は居飛車側の関連形です。横の連結だけでなく、斜めと端の攻めを常に調べます。",
-        "en": "Diamond Mino uses all four generals. Kimura Mino covers the diagonal entrance with fewer defenders. Silver Mino substitutes a silver on5h; Gold Mino puts a gold on3h. Topknot Mino has an advanced second-file pawn after a feigned Static Rook setup; Bald Mino has lost that pawn, weakening the king’s front. Left Mino is the Static Rook counterpart. Inspect diagonals and the edge, not just horizontal connections."
+        "en": "Diamond Mino uses all four generals. Kimura Mino covers the diagonal entrance with fewer defenders. Silver Mino substitutes a silver on 5h; Gold Mino puts a gold on 3h. Topknot Mino has an advanced second-file pawn after a feigned Static Rook setup; Bald Mino has lost that pawn, weakening the king’s front. Left Mino is the Static Rook counterpart. Inspect diagonals and the edge, not just horizontal connections."
       }
     ],
     "question": {
@@ -1240,16 +1287,16 @@
     "paragraphs": [
       {
         "ja": "相振り飛車では飛車が相手玉の上から攻めることが多く、金無双は並んだ二枚の金で上部を受けます。2八銀は玉の横の逃げ道を塞ぐ壁銀で、横攻めとコビンの「ウサギの耳」が弱点です。相手の出方によって銀を1七〜2六へ出す、または2六歩〜2七銀と壁を解消する構想があります。",
-        "en": "Double Ranging Rook often sends rook pressure toward the opposing king’s front. Gold Fortress places two golds side by side to meet that attack. Its2h silver can form a wall blocking the king’s lateral escape, while diagonal entrances—the rabbit’s ears—remain weaknesses. Depending on the position, move the silver through1g toward2f or prepare2f pawn and2g silver to remove the wall."
+        "en": "Double Ranging Rook often sends rook pressure toward the opposing king’s front. Gold Fortress places two golds side by side to meet that attack. Its 2h silver can form a wall blocking the king’s lateral escape, while diagonal entrances—the rabbit’s ears—remain weaknesses. Depending on the position, move the silver through 1g toward 2f or prepare 2f pawn and 2g silver to remove the wall."
       },
       {
         "ja": "美濃を使うなら3九玉型もあり、高美濃は上部の守りを増します。対抗形でよくある3七桂は相振りでは同じように跳ねられるとは限りません。右矢倉は縦に強い発展形、穴熊はより深く囲う構想で、4八金など上部の受けを重視します。相手の飛車の筋、端攻め、組むまでの手数を比較して選びます。",
-        "en": "Mino can keep the king on3i in this matchup, and High Mino adds frontal coverage. The3g knight development familiar from Static-versus-Ranging games may be inappropriate here. Right Yagura strengthens vertical defense; Anaguma deepens the shelter with arrangements such as a4h gold to address frontal pressure. Compare the enemy rook file, edge attack, and construction time instead of transplanting a castle plan unchanged."
+        "en": "Mino can keep the king on 3i in this matchup, and High Mino adds frontal coverage. The 3g knight development familiar from Static-versus-Ranging games may be inappropriate here. Right Yagura strengthens vertical defense; Anaguma deepens the shelter with arrangements such as a 4h gold to address frontal pressure. Compare the enemy rook file, edge attack, and construction time instead of transplanting a castle plan unchanged."
       }
     ],
     "question": {
       "ja": "金無双の2八銀は守り駒なのに、なぜ弱点にもなりますか？",
-      "en": "Why can Gold Fortress’s defensive silver on2h become a weakness?"
+      "en": "Why can Gold Fortress’s defensive silver on 2h become a weakness?"
     },
     "answer": {
       "ja": "玉の横への逃げ道を塞ぐ壁銀になり、横攻めを受けた玉が逃げにくくなるためです。",
@@ -1442,7 +1489,7 @@
         "notes": [
           {
             "ja": "5五の桂は6三の金と4三の飛車を同時に狙います。",
-            "en": "The knight on5e attacks the gold on6c and rook on4c."
+            "en": "The knight on 5e attacks the gold on 6c and rook on 4c."
           }
         ]
       }
@@ -1555,7 +1602,7 @@
     "paragraphs": [
       {
         "ja": "角は斜めに長く利き、先手7六歩・後手3四歩で角道が開きます。角交換後は好きな空きマスへの打ち込みが可能になり、双方の自陣の隙が重要です。馬は角の動きに縦横一マスが加わり、自陣へ引くと近接と遠距離を同時に守れます。「馬の守りは金銀三枚」は働きを示す目安で、固定の価値ではありません。",
-        "en": "A bishop controls long diagonals, opened by sente’s7g–7f or gote’s3c–3d. Exchanging bishops creates drop opportunities across the board and makes gaps in both camps significant. A horse adds one-square orthogonal movement and can defend near and distant targets after retreating. The proverb comparing its defense to three generals describes potential activity, not a fixed material equivalence."
+        "en": "A bishop controls long diagonals, opened by sente’s 7g–7f or gote’s 3c–3d. Exchanging bishops creates drop opportunities across the board and makes gaps in both camps significant. A horse adds one-square orthogonal movement and can defend near and distant targets after retreating. The proverb comparing its defense to three generals describes potential activity, not a fixed material equivalence."
       },
       {
         "ja": "角の両取りには王手飛車があり、相手の角で線を遮られる受けも読みます。筋違いの角打ちは二つの成り込みを狙います。角と桂の攻めでは、角の線にいる歩を動けなくして桂を守るピンが働くことがあります。攻防の角は自玉の詰めろを消しながら相手へ詰めろを作る一手で、攻めと守りの両方の対角線を確認します。",
@@ -1984,6 +2031,10 @@
     },
     "paragraphs": [
       {
+        "ja": "盤は記事の原図どおりに再現しています。原図にない玉は追加していません。練習時の持駒は記事に記載された指し手に必要な駒だけを設定しています。",
+        "en": "The board reproduces the article diagrams. Omitted kings have not been added. Practice supplies only the hand pieces required by the moves explicitly described in the article."
+      },
+      {
         "ja": "片美濃には一段飛車と金銀の打ち込みを協力させます。守りの金を動かして、銀や角の王手金取りを狙う形が基本です。香を使うときは成る場所を残して控えて打ちます。本美濃には中心側の金を桂で追い、と金を作って剥がす攻めがあります。",
         "en": "Against incomplete Mino, a back-rank rook can cooperate with a gold or silver drop that displaces the defensive gold and enables a checking fork. A lance should retain promotion space. Against full Mino, attacking the inner gold with a knight and making a tokin provides a slower, economical way to remove the defenders."
       },
@@ -2003,10 +2054,10 @@
     "examples": [
       {
         "title": {
-          "ja": "金を動かして王手金取り",
-          "en": "Displace the gold, then fork with check"
+          "ja": "図1-1　片美濃囲いと1段飛車",
+          "en": "Figure 1-1"
         },
-        "startSfen": "3g1R3/1k7/9/9/9/9/9/9/4K4 b GS 1",
+        "startSfen": "ln1g3R1/1ks6/pppp5/9/9/9/9/9/9 b GS 1",
         "moves": [
           "G*6b",
           "6a6b",
@@ -2014,18 +2065,174 @@
         ],
         "notes": [
           {
-            "ja": "金をぶつけて守りの金を一段目から動かします。簡略化したオリジナル局面です。",
-            "en": "Offer the gold to displace the defensive gold from the back rank. This is a simplified original position."
+            "ja": "金を６二へ打ち、守りの金を誘い出します。",
+            "en": "Drop a gold on 6b to draw out the defensive gold."
           },
           {
-            "ja": "金で取ると飛車の横利きが通ります。この取り方に対する手筋を示します。",
-            "en": "Capturing opens the rook’s horizontal line. This variation demonstrates the response to that capture."
+            "ja": "後手は６一の金で取ります。",
+            "en": "White captures with the gold from 6a."
           },
           {
-            "ja": "銀は玉と金を同時に狙い、飛車に守られています。",
-            "en": "The rook protects the silver, which checks the king and attacks the gold simultaneously."
+            "ja": "７一へ銀を打ち、王手金取りをかけます。",
+            "en": "Drop a silver on 7a with check, also attacking the gold."
           }
-        ]
+        ],
+        "sourceDiagramId": "1"
+      },
+      {
+        "title": {
+          "ja": "図2-1　持駒が香車の場合は？",
+          "en": "Figure 2-1"
+        },
+        "startSfen": "ln1g3R1/1ks6/ppp6/3p5/9/9/9/9/9 b SL 1",
+        "moves": [
+          "L*6c",
+          "6a7a",
+          "6c6b+",
+          "7a6b",
+          "S*7a"
+        ],
+        "notes": [
+          {
+            "ja": "香を６三へ打ち、成る場所を残します。",
+            "en": "Drop the lance on 6c, leaving room to promote."
+          },
+          {
+            "ja": "金が７一へ逃げます。",
+            "en": "The gold retreats to 7a."
+          },
+          {
+            "ja": "香を６二へ進めて成ります。",
+            "en": "Advance the lance to 6b and promote."
+          },
+          {
+            "ja": "金が成香を取ります。",
+            "en": "The gold captures the promoted lance."
+          },
+          {
+            "ja": "７一の銀打ちで王手金取りです。",
+            "en": "Drop the silver on 7a for a checking fork."
+          }
+        ],
+        "sourceDiagramId": "4"
+      },
+      {
+        "title": {
+          "ja": "図3-1　安い駒だけで攻める",
+          "en": "Figure 3-1"
+        },
+        "startSfen": "ln1g3R1/1ks1g4/ppppp4/9/9/9/9/9/9 b NP 1",
+        "moves": [
+          "N*4d",
+          "5b6b",
+          "P*5b"
+        ],
+        "notes": [
+          {
+            "ja": "４四へ桂を打ち、５二の金を狙います。",
+            "en": "Drop a knight on 4d, attacking the gold on 5b."
+          },
+          {
+            "ja": "金が６二へ寄ります。",
+            "en": "The gold moves sideways to 6b."
+          },
+          {
+            "ja": "５二へ歩を打ち、と金作りを狙います。その後の狙いは原図３−３で確認できます。",
+            "en": "Drop a pawn on 5b to prepare a tokin. The later attacking aim is shown separately in Figure3-3."
+          }
+        ],
+        "sourceDiagramId": "9"
+      },
+      {
+        "title": {
+          "ja": "図4-1　まだまだ美濃は安全に見えるが",
+          "en": "Figure 4-1"
+        },
+        "startSfen": "ln1g3R1/1ks1g4/pppp5/6B2/9/9/9/9/9 b S 1",
+        "moves": [
+          "3d5b+",
+          "6a5b",
+          "S*7a",
+          "8b9b",
+          "G*8b"
+        ],
+        "notes": [
+          {
+            "ja": "角で５二の金を取り、成ります。",
+            "en": "Capture the gold on 5b with the bishop and promote."
+          },
+          {
+            "ja": "６一の金で馬を取る応手を確認します。",
+            "en": "Examine White capturing the horse with the gold from 6a."
+          },
+          {
+            "ja": "７一へ銀を打って王手します。",
+            "en": "Drop a silver on 7a with check."
+          },
+          {
+            "ja": "玉が９二へ逃げます。",
+            "en": "The king escapes to 9b."
+          },
+          {
+            "ja": "取った金を８二へ打って詰みです。",
+            "en": "Drop the captured gold on 8b for mate."
+          }
+        ],
+        "sourceDiagramId": "12"
+      },
+      {
+        "title": {
+          "ja": "図5-1　角の位置が1マス違う",
+          "en": "Figure 5-1"
+        },
+        "startSfen": "ln1g3R1/1ks1g4/pppp5/5B3/9/9/9/9/9 b S 1",
+        "moves": [
+          "S*7a",
+          "8b9b",
+          "2a6a+"
+        ],
+        "notes": [
+          {
+            "ja": "７一へ銀を打ち、角と飛車の利きを使って王手します。",
+            "en": "Drop a silver on 7a, supported by bishop and rook lines."
+          },
+          {
+            "ja": "玉が９二へ逃げます。",
+            "en": "The king escapes to 9b."
+          },
+          {
+            "ja": "飛車で６一の金を取り、成ります。同銀には８二金で詰むため、龍を取れません。",
+            "en": "Capture the gold on 6a with the rook and promote. Capturing this dragon with the silver would allow a gold drop on 8b for mate."
+          }
+        ],
+        "sourceDiagramId": "15"
+      },
+      {
+        "title": {
+          "ja": "図6-1 　すでに良さそうな局面",
+          "en": "Figure 6-1"
+        },
+        "startSfen": "lnkg3R1/2s1g2R1/pppp5/9/9/9/9/9/9 b - 1",
+        "moves": [
+          "2b5b+",
+          "7a8b",
+          "2a6a+"
+        ],
+        "notes": [
+          {
+            "ja": "二段目の飛車で５二の金を取り、成ります。",
+            "en": "Capture the gold on 5b with the second-rank rook and promote."
+          },
+          {
+            "ja": "玉が８二へ逃げます。",
+            "en": "The king escapes to 8b."
+          },
+          {
+            "ja": "もう一枚の飛車で６一の金を取り、成ります。龍を取るともう一枚の龍で寄せられます。",
+            "en": "Capture the gold on 6a with the other rook and promote. The dragons cooperate to prevent an effective recapture."
+          }
+        ],
+        "sourceDiagramId": "18"
       }
     ]
   },
@@ -2052,7 +2259,191 @@
     "answer": {
       "ja": "歩が動くと角の斜線が玉へ通り、王手を解消できないためです。",
       "en": "Moving the pawn uncovers a bishop check, so the capture does not remove check."
-    }
+    },
+    "examples": [
+      {
+        "title": {
+          "ja": "角と桂馬のコビン攻め",
+          "en": "Attack diagonally with bishop and knight"
+        },
+        "startSfen": "ln1g5/1ks1g4/pppp5/9/4B4/9/9/9/9 b GN 1",
+        "moves": [
+          "N*7d",
+          "8b7a",
+          "G*8b"
+        ],
+        "notes": [
+          {
+            "ja": "桂を７四へ打ち、角の利きを使って王手します。",
+            "en": "Drop the knight on 7d, using the bishop line to support the check."
+          },
+          {
+            "ja": "玉が７一へ逃げます。",
+            "en": "The king escapes to 7a."
+          },
+          {
+            "ja": "８二へ金を打って詰みです。",
+            "en": "Drop a gold on 8b for mate."
+          }
+        ],
+        "sourceDiagramId": "1-1"
+      },
+      {
+        "title": {
+          "ja": "歩と金でコビンを守る",
+          "en": "Defend the diagonal with pawn and gold"
+        },
+        "startSfen": "9/9/9/9/4b4/9/5PPPP/4G1SK1/5G1NL b - 1",
+        "moves": [
+          "4g4f",
+          "5e4f",
+          "5h4g"
+        ],
+        "notes": [
+          {
+            "ja": "４七の歩を４六へ進めます。",
+            "en": "Advance the pawn from 4g to 4f."
+          },
+          {
+            "ja": "角が歩を取ります。",
+            "en": "The bishop captures the pawn."
+          },
+          {
+            "ja": "金を４七へ上がり、角を狙いながら３六への桂打ちを防ぎます。",
+            "en": "Develop the gold to 4g, attacking the bishop while preventing the knight drop on 3f."
+          }
+        ],
+        "sourceDiagramId": "a-1"
+      },
+      {
+        "title": {
+          "ja": "詰めろをかけて飛車を狙う",
+          "en": "Threaten mate while attacking the rook"
+        },
+        "startSfen": "ln1g5/1ks1g4/pppp5/9/6P2/9/7p1/7r1/9 b B 1",
+        "moves": [
+          "B*5e"
+        ],
+        "notes": [
+          {
+            "ja": "５五へ角を打ちます。７四桂からの詰めろと、２八の飛車取りを同時に狙います。原文では受けの具体的な手が省略されています。",
+            "en": "Drop a bishop on 5e, threatening the knight-and-gold mate while attacking the rook on 2h. The source does not specify the defensive reply."
+          }
+        ],
+        "sourceDiagramId": "2-1"
+      },
+      {
+        "title": {
+          "ja": "先に桂を打って王手飛車",
+          "en": "Drop the knight first for a checking fork"
+        },
+        "startSfen": "ln1g5/1ks1g4/pppp5/9/6P2/9/9/7r1/9 b BN 1",
+        "moves": [
+          "N*7d",
+          "7c7d",
+          "B*5e"
+        ],
+        "notes": [
+          {
+            "ja": "２七の歩がない形では、先に７四へ桂を打ちます。",
+            "en": "With the 2g pawn absent, drop the knight on 7d first."
+          },
+          {
+            "ja": "歩が桂を取ります。",
+            "en": "The pawn captures the knight."
+          },
+          {
+            "ja": "５五へ角を打ち、王手飛車をかけます。",
+            "en": "Drop the bishop on 5e for a checking fork against the rook."
+          }
+        ],
+        "sourceDiagramId": "b-1"
+      },
+      {
+        "title": {
+          "ja": "金を入手してから詰ませる",
+          "en": "Acquire the gold before giving check"
+        },
+        "startSfen": "ln1g3R1/1ks1g4/pppp5/9/4B4/9/9/9/9 b N 1",
+        "moves": [
+          "2a6a+",
+          "7b6a",
+          "N*7d",
+          "8b7a",
+          "G*8b"
+        ],
+        "notes": [
+          {
+            "ja": "飛車で６一の金を取り、成ります。",
+            "en": "Capture the gold on 6a with the rook and promote."
+          },
+          {
+            "ja": "銀が龍を取ります。",
+            "en": "The silver captures the dragon."
+          },
+          {
+            "ja": "７四へ桂を打って王手します。",
+            "en": "Drop the knight on 7d with check."
+          },
+          {
+            "ja": "玉が７一へ逃げます。",
+            "en": "The king escapes to 7a."
+          },
+          {
+            "ja": "先に取った金を８二へ打って詰みです。",
+            "en": "Drop the gold acquired earlier on 8b for mate."
+          }
+        ],
+        "sourceDiagramId": "3-1"
+      },
+      {
+        "title": {
+          "ja": "継ぎ桂で詰ませる",
+          "en": "Mate with successive knights"
+        },
+        "startSfen": "ln1g5/1ks1g4/pppp5/9/P8/1NP6/9/9/L8 b BGN 1",
+        "moves": [
+          "N*7d",
+          "7c7d",
+          "8f7d",
+          "8b7c",
+          "B*8b",
+          "7c7d",
+          "G*7e"
+        ],
+        "notes": [
+          {
+            "ja": "持駒の桂を７四へ打ちます。",
+            "en": "Drop the knight in hand on 7d."
+          },
+          {
+            "ja": "歩が桂を取ります。",
+            "en": "The pawn captures that knight."
+          },
+          {
+            "ja": "８六の桂で取り返し、王手を続けます。",
+            "en": "Recapture with the knight from 8f, continuing the check."
+          },
+          {
+            "ja": "玉が７三へ逃げます。",
+            "en": "The king escapes to 7c."
+          },
+          {
+            "ja": "８二へ角を打ち、６四への逃げ道を防ぎます。",
+            "en": "Drop the bishop on 8b to prevent escape through 6d."
+          },
+          {
+            "ja": "玉が７四の桂を取ります。",
+            "en": "The king captures the knight on 7d."
+          },
+          {
+            "ja": "７五へ金を打って詰みです。",
+            "en": "Drop a gold on 7e for mate."
+          }
+        ],
+        "sourceDiagramId": "4-1"
+      }
+    ]
   },
   {
     "id": "1070",

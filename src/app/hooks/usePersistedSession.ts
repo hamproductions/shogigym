@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Position } from 'tsshogi'
 import { COURSES } from '@/utils/model'
+import type { Course } from '@/utils/model'
 import { applyUsi, type Side } from '@/utils/shogi'
 import { setupOf } from '@/utils/book'
 import type { Drill } from '@/app/modes/drill/useDrill'
@@ -18,7 +19,7 @@ const SESSION_KEY = 'joseki-practice:session:v2'
 type SavedGame = { start: string; moves: string[]; cursor: number; userSide: Side; tree?: Tree; resigned?: boolean }
 type SavedSession = {
   mode: Mode
-  lesson?: { courseId: string; lessonMode: LessonMode; moves: string[]; score?: Score }
+  lesson?: { courseId: string; lessonMode: LessonMode; moves: string[]; score?: Score; attempts?: Snapshot['lessonAttempts'] }
   spar?: SavedGame
   analyze?: SavedGame
   tsume?: { problemId: string; length: TsumeLength }
@@ -73,17 +74,21 @@ export function usePersistedSession({ session, lesson, tsume, drill, spar, slots
           }
       }
       const saw = data.lesson
-      const c = saw && COURSES.find((x) => x.id === saw.courseId)
-      if (c && saw && replays(c.root.sfen, saw.moves))
-        saved.lesson = {
-          game: { start: c.root.sfen, moves: saw.moves },
-          cursor: saw.moves.length,
-          userSide: c.userSide,
-          flipped: c.userSide === 'gote',
-          course: c,
-          lessonMode: saw.lessonMode,
-          score: saw.score ?? { right: 0, wrong: 0 },
-        }
+      const lessonSnapshot = (c: Course | undefined): Snapshot | undefined =>
+        c && saw && replays(c.root.sfen, saw.moves)
+          ? {
+              game: { start: c.root.sfen, moves: saw.moves },
+              cursor: saw.moves.length,
+              userSide: c.userSide,
+              flipped: c.userSide === 'gote',
+              course: c,
+              lessonMode: saw.lessonMode,
+              score: saw.score ?? { right: 0, wrong: 0 },
+              lessonAttempts: saw.attempts,
+            }
+          : undefined
+      const lessonNow = lessonSnapshot(saw && COURSES.find((x) => x.id === saw.courseId))
+      if (lessonNow) saved.lesson = lessonNow
       const into = data.mode === 'spar' || data.mode === 'analyze' || data.mode === 'lesson' ? data.mode : 'spar'
       const back = saved[into]
       if (back) {
@@ -102,7 +107,7 @@ export function usePersistedSession({ session, lesson, tsume, drill, spar, slots
     }
   }, [lesson, tsume, drill, spar, slots, resume])
 
-  const { lessonMode, score } = lesson
+  const { lessonMode, score, showAnswer, attempts } = lesson
   const problem = tsume.tsume
   const drillState = drill.drill
   const { resigned } = spar
@@ -114,7 +119,10 @@ export function usePersistedSession({ session, lesson, tsume, drill, spar, slots
     }
     try {
       const next: SavedSession = { ...(readSession() ?? {}), mode }
-      if (mode === 'lesson' && course) next.lesson = { courseId: course.id, lessonMode, moves: game.moves.slice(0, cursor), score }
+      if (mode === 'lesson') {
+        if (course) next.lesson = { courseId: course.id, lessonMode, moves: game.moves.slice(0, cursor), score, attempts: attempts() }
+        else delete next.lesson
+      }
       if (mode === 'spar') next.spar = { start: game.start, moves: game.moves, cursor, userSide, tree, resigned: resigned || undefined }
       if (mode === 'analyze') next.analyze = { start: game.start, moves: game.moves, cursor, userSide, tree }
       if (mode === 'tsume' && problem) next.tsume = { problemId: problem.problem.id, length: problem.length }
@@ -123,7 +131,7 @@ export function usePersistedSession({ session, lesson, tsume, drill, spar, slots
     } catch (error) {
       console.warn('session not saved', error)
     }
-  }, [ready, mode, course, lessonMode, game, cursor, userSide, score, tree, problem, drillState, resigned])
+  }, [ready, mode, course, lessonMode, game, cursor, userSide, score, showAnswer, attempts, tree, problem, drillState, resigned])
 
   return ready
 }

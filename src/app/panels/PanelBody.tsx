@@ -19,8 +19,10 @@ import type { Watch } from '@/app/modes/view/useWatch'
 import type { TesujiTrainer } from '@/app/modes/tesuji/useTesuji'
 import type { Tsume } from '@/app/modes/tsume/useTsume'
 import { PieceGuide } from '@/app/pieces'
-import { isGameMode, type Confirm, type Level, type Tab } from '@/app/types'
+import { isGameMode, type Confirm, type Level, type Mode, type Tab } from '@/app/types'
 import { Button } from '@/app/ui/Button'
+import type { FixRoute } from '@/app/dialogs/ReportDialog'
+import type { Mistake } from '@/utils/mistakes'
 
 const LessonMap = lazy(() => import('@/components/Flowchart').then((m) => ({ default: m.LessonMap })))
 const ImportBox = lazy(() => import('@/app/modes/analyze/ImportBox').then((m) => ({ default: m.ImportBox })))
@@ -29,6 +31,7 @@ const ReviewPane = lazy(() => import('@/app/modes/drill/ReviewPane').then((m) =>
 const LessonPane = lazy(() => import('@/app/modes/lesson/LessonPane').then((m) => ({ default: m.LessonPane })))
 const TesujiPane = lazy(() => import('@/app/modes/tesuji/TesujiPane').then((m) => ({ default: m.TesujiPane })))
 const TsumePane = lazy(() => import('@/app/modes/tsume/TsumePane').then((m) => ({ default: m.TsumePane })))
+const GameReport = lazy(() => import('@/app/dialogs/ReportDialog').then((m) => ({ default: m.GameReport })))
 const CoachPane = lazy(() => import('./CoachPane').then((m) => ({ default: m.CoachPane })))
 const EnginePane = lazy(() => import('./EnginePane').then((m) => ({ default: m.EnginePane })))
 const EvalGraph = lazy(() => import('./EvalGraph').then((m) => ({ default: m.EvalGraph })))
@@ -57,6 +60,11 @@ export type PanelModel = {
   onHoverLane: (usi: string | null) => void
   onBack: () => void
   setConfirm: (confirm: Confirm) => void
+  onReportRoute: (route: FixRoute) => void
+  onReportExpand: () => void
+  onReportPractice: (items: Mistake[]) => void
+  onReturnTo: (mode: Mode) => void
+  onReportLesson: (topicId: string) => void
 }
 
 function EngineSection({ model }: { model: PanelModel }) {
@@ -112,6 +120,7 @@ function CoachSection({ model }: { model: PanelModel }) {
           mistakePreview={mistakes.previewing}
           mistakeOk={!!mistakes.mistake && !mistakeIsBad(mistakes.mistake)}
           onOpenGame={(g) => analyze.reviewSlot(g, analyzeMoves)}
+          onReturn={drill.origin ? () => model.onReturnTo(drill.origin!) : undefined}
         />
       )}
       {mode === 'analyze' && <ImportBox onImport={analyze.importGame} />}
@@ -207,6 +216,19 @@ export function PanelBody({ tab, model, overlays = true }: { tab: Tab; model: Pa
       <div className="app-panel-body" key={key}>
         {overlays && level === 'new' && selection && !(mode === 'lesson' && course) && <PieceGuide sfen={sfen} from={selection.from} />}
         {tab === 'engine' && <EngineSection model={model} />}
+        {tab === 'report' && isGameMode(mode) && game.moves.length > 0 && (
+          <GameReport
+            key={game.start}
+            game={game}
+            userSide={userSide}
+            rate
+            onShow={(ply) => setCursor(ply - 1)}
+            onRoute={model.onReportRoute}
+            onExpand={model.onReportExpand}
+            onPractice={model.onReportPractice}
+            onLesson={model.onReportLesson}
+          />
+        )}
         {tab === 'coach' && mode === 'lesson' && (
           <LessonPane
             lesson={lesson}

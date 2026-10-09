@@ -1,21 +1,23 @@
-import { useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { InitialPositionSFEN } from 'tsshogi'
 import { usiPosition } from '@/utils/analysis'
 import { analyze, engineSupported } from '@/utils/engine'
 import { courseTitle, findPath, sideToMove, type Course, type JosekiNode } from '@/utils/model'
-import { applyUsi, moveText } from '@/utils/shogi'
+import { applyUsi, engineReady, moveText, positionOf } from '@/utils/shogi'
 import { positionKey, record } from '@/utils/srs'
 import type { BoardArrow } from '@/rendering/Board3D'
 import type { BoardSession } from '@/app/hooks/useBoardSession'
 import type { Mistakes } from '@/app/hooks/useMistake'
-import type { Load } from '@/app/hooks/useModeSwitch'
-import { goodBranches, mainBranch, setupOf, strip } from '@/utils/book'
+import type { Load, Snapshot } from '@/app/hooks/useModeSwitch'
+import { courseNodes, goodBranches, mainBranch, setupOf, strip } from '@/utils/book'
 import { isWeak } from '@/utils/mistake'
 import { sideMark } from '@/utils/notation'
 import { markOpened } from '@/app/practice'
 import { playSound } from '@/appearance/settings'
 import { freshScore, type LessonMode, type Score, type Tab } from '@/app/types'
+import { moveGloss } from '@/app/pieces'
+import { figureMarks } from './figureMarks'
 
 const LESSON_GREEN = '#4f8a2a'
 
@@ -25,7 +27,7 @@ export function useLesson(session: BoardSession, { mistakes, load, setTab, close
   const { t, i18n } = useTranslation()
   const { mode, course, nodes, liveSfen, cursor, game, preview, toMove, userSide, atEnd, play } = session
   const [lessonMode, setLessonMode] = useState<LessonMode>('study')
-  const [showAnswer, setShowAnswer] = useState(false)
+  const [answerAt, setAnswerAt] = useState<string | null>(null)
   const [score, setScore] = useState<Score>(freshScore)
   const [jumped, setJumped] = useState(false)
   const [justRight, setJustRight] = useState(false)
@@ -33,6 +35,11 @@ export function useLesson(session: BoardSession, { mistakes, load, setTab, close
   const [pickerSetup, setPickerSetup] = useState<string | null>(null)
   const [mapOpen, setMapOpen] = useState(false)
   const missedHere = useRef(new Set<string>())
+  const answeredHere = useRef(new Set<string>())
+  const shownHere = useRef(new Set<string>())
+  const attempts = useCallback(() => ({ answered: [...answeredHere.current], missed: [...missedHere.current], shown: [...shownHere.current] }), [])
+  const answerKey = `${cursor}:${strip(liveSfen)}`
+  const showAnswer = answerAt === answerKey
 
   const progress = useMemo(() => {
     if (!course) return null
@@ -56,23 +63,62 @@ export function useLesson(session: BoardSession, { mistakes, load, setTab, close
   const active = mode === 'lesson' && !!course
   const node = active ? nodes?.get(strip(liveSfen)) : undefined
   const good = goodBranches(node)
+  const { setSourceMarks } = session
+  const figures = node?.figures
+  useEffect(() => {
+    if (active) setSourceMarks(figures ? figureMarks(figures, liveSfen, cursor === 0) : null)
+  }, [active, figures, liveSfen, cursor, setSourceMarks])
   const asking = active && !preview && toMove === userSide && good.length > 0
   const offBook = active && !preview && !nodes?.get(strip(liveSfen))
   const done = active && atEnd && !preview && !!node && node.branches.filter((b) => b.kind !== 'deviation').length === 0
   const waitingForReply = active && lessonMode === 'study' && !asking && !done && !preview && !mistakes.mistake
   const hidesAnswer = asking && lessonMode === 'quiz' && !showAnswer
+  const quizTask = (() => {
+    if (course?.quizPrompt) return i18n.language === 'ja' ? course.quizPrompt.ja : course.quizPrompt.en
+    if (!course?.quizTargets || !good[0]) return undefined
+    const usi = good[0].usi
+    const position = positionOf(liveSfen)
+    const promoted = position.createMoveByUSI(`${usi}+`)
+    const decline = !usi.endsWith('+') && promoted && position.isValidMove(promoted)
+    return moveGloss(liveSfen, usi) + (decline ? (i18n.language === 'ja' ? ' 成らずに指してください。' : ' Do not promote.') : '')
+  })()
   const arrows: BoardArrow[] =
     asking && (lessonMode === 'study' || showAnswer) ? good.map((b) => ({ usi: b.usi, color: LESSON_GREEN, dashed: b.kind !== 'main' })) : []
 
   const reset = () => {
     setJustRight(false)
-    setShowAnswer(false)
+    setAnswerAt(null)
     setScore(freshScore())
     missedHere.current = new Set()
+    answeredHere.current = new Set()
+    shownHere.current = new Set()
     setJumped(false)
   }
 
-  const restore = (snapshot: { lessonMode: LessonMode; score: Score }) => {
+  const restore = (snapshot: Snapshot) => {
+    missedHere.current = new Set(snapshot.lessonAttempts?.missed ?? [])
+    answeredHere.current = new Set(snapshot.lessonAttempts?.answered ?? [])
+    shownHere.current = new Set(snapshot.lessonAttempts?.shown ?? [])
+    let at = snapshot.game.start
+    for (const usi of snapshot.game.moves.slice(0, snapshot.cursor)) {
+      const next = applyUsi(at, usi)
+      if (!next) break
+      at = next
+    }
+    const key = `${snapshot.cursor}:${strip(at)}`
+    setAnswerAt(shownHere.current.has(key) ? key : null)
+    if (!snapshot.lessonAttempts && snapshot.course) {
+      let sfen = snapshot.game.start
+      const nodes = courseNodes(snapshot.course)
+      for (const [ply, usi] of snapshot.game.moves.entries()) {
+        const node = nodes.get(strip(sfen))
+        if (node && sideToMove(node) === snapshot.course.userSide && goodBranches(node).some((branch) => branch.usi === usi))
+          answeredHere.current.add(`${ply}:${strip(sfen)}`)
+        const next = applyUsi(sfen, usi)
+        if (!next) break
+        sfen = next
+      }
+    }
     setLessonMode(snapshot.lessonMode)
     setScore(snapshot.score)
   }
@@ -92,10 +138,10 @@ export function useLesson(session: BoardSession, { mistakes, load, setTab, close
   }
 
   const switchLessonMode = (m: LessonMode) => {
-    if (m === 'quiz' && course && lessonMode !== 'quiz' && game.moves.length > 0) return open(course, 'quiz')
+    if (m === lessonMode) return
+    if (m === 'quiz' && course) return open(course, 'quiz')
     setLessonMode(m)
-    setShowAnswer(false)
-    setScore(freshScore())
+    setAnswerAt(null)
   }
 
   const jumpTo = (nodeId: string) => {
@@ -132,7 +178,10 @@ export function useLesson(session: BoardSession, { mistakes, load, setTab, close
 
   const previewTheirMove = async (usi: string) => {
     const after = applyUsi(liveSfen, usi)
-    const line = after && engineSupported() ? ((await analyze(usiPosition(after), { multipv: 1, movetime: 700 })).candidates[0]?.pv.slice(0, 5) ?? []) : []
+    const line =
+      after && engineSupported() && engineReady(after)
+        ? ((await analyze(usiPosition(after), { multipv: 1, movetime: 700 })).candidates[0]?.pv.slice(0, 5) ?? [])
+        : []
     session.setSelection(null)
     mistakes.setMistake(null)
     session.startPreview([usi, ...line], t('app.ifTheyPlay', { move: moveText(liveSfen, usi) }), 1)
@@ -147,17 +196,19 @@ export function useLesson(session: BoardSession, { mistakes, load, setTab, close
     }
     const goodMoves = good.map((b) => b.usi)
     if (!node || !goodMoves.length) return false
-    const key = strip(liveSfen)
+    const key = `${cursor}:${strip(liveSfen)}`
     const ok = goodMoves.includes(usi)
-    const assisted = showAnswer || missedHere.current.has(key)
-    if (lessonMode === 'quiz' && !(ok && assisted)) record(positionKey(liveSfen), ok)
+    const answered = answeredHere.current.has(key)
+    const shown = showAnswer || shownHere.current.has(key)
+    const assisted = shown || missedHere.current.has(key)
+    if (lessonMode === 'quiz' && !answered && !(ok && assisted)) record(positionKey(liveSfen), ok)
     if (!ok) missedHere.current.add(key)
-    setJustRight(ok && !assisted && lessonMode === 'quiz')
-    if (ok)
-      setScore((sc) =>
-        showAnswer ? { ...sc, shown: (sc.shown ?? 0) + 1 } : assisted ? { ...sc, retried: (sc.retried ?? 0) + 1 } : { ...sc, right: sc.right + 1 },
-      )
-    setShowAnswer(false)
+    setJustRight(ok && !answered && !assisted && lessonMode === 'quiz')
+    if (ok && !answered) {
+      answeredHere.current.add(key)
+      setScore((sc) => (shown ? { ...sc, shown: (sc.shown ?? 0) + 1 } : assisted ? { ...sc, retried: (sc.retried ?? 0) + 1 } : { ...sc, right: sc.right + 1 }))
+    }
+    setAnswerAt(null)
     playSound(ok ? 'right' : 'wrong')
     if (ok) {
       mistakes.setMistake(null)
@@ -173,7 +224,7 @@ export function useLesson(session: BoardSession, { mistakes, load, setTab, close
       )
       .finally(() => setChecking(false))
       .then((verdict) => {
-        if (!verdict || isWeak(verdict.label) || node.branches.some((b) => b.usi === usi && b.kind === 'deviation'))
+        if (!answered && (!verdict || isWeak(verdict.label) || node.branches.some((b) => b.usi === usi && b.kind === 'deviation')))
           setScore((sc) => ({ ...sc, wrong: sc.wrong + 1 }))
       })
     return true
@@ -190,15 +241,19 @@ export function useLesson(session: BoardSession, { mistakes, load, setTab, close
           : t('app.studyYourMove', { side: sideMark(userSide) })
         : showAnswer
           ? t('app.answerShownPlayTheGreen')
-          : t('app.yourMoveAsFindThe', { me: sideMark(userSide) })
+          : (quizTask ?? t('app.yourMoveAsFindThe', { me: sideMark(userSide) }))
     return lessonMode === 'study' ? (compact ? t('app.theirMoveIsShownTap') : t('app.theirMoveIsShownPress')) : t('app.theirReplyComesInA')
   }
 
   return {
     lessonMode,
     score,
+    attempts,
     showAnswer,
-    revealAnswer: () => setShowAnswer(true),
+    revealAnswer: () => {
+      shownHere.current.add(answerKey)
+      setAnswerAt(answerKey)
+    },
     jumped,
     justRight,
     checking,
@@ -214,6 +269,7 @@ export function useLesson(session: BoardSession, { mistakes, load, setTab, close
     done,
     waitingForReply,
     hidesAnswer,
+    quizTask,
     arrows,
     title: course ? `${lessonMode === 'study' ? t('app.study') : t('app.quiz')}: ${courseTitle(course, i18n.language)}` : t('app.openingsPickALesson'),
     instruction,

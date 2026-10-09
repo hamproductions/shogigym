@@ -1,3 +1,4 @@
+import { Square } from 'tsshogi'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { colorSide, positionOf } from '@/utils/shogi'
@@ -10,7 +11,7 @@ import { playSound } from '@/appearance/settings'
 import { markTesuji, pickTesuji, type TesujiDrill } from '@/app/tesujiDrills'
 import type { Tab } from '@/app/types'
 
-export type TesujiState = { item: TesujiDrill; filter: string; status: 'asking' | 'right' | 'shown'; missed: boolean; hint: boolean; wrong?: string }
+export type TesujiState = { item: TesujiDrill; filter: string; status: 'asking' | 'right' | 'shown'; missed: boolean; hint: number; wrong?: string }
 
 const ANSWER_GREEN = '#4f8a2a'
 
@@ -23,7 +24,7 @@ export function useTesuji(session: BoardSession, { mistakes, load, setTab }: { m
     const item = pickTesuji(filter, exclude)
     if (!item) return
     load(item.sfen, colorSide(positionOf(item.sfen).color), 'tesuji', null)
-    setDrill({ item, filter, status: 'asking', missed: false, hint: false })
+    setDrill({ item, filter, status: 'asking', missed: false, hint: 0 })
     setTab('coach')
   }
 
@@ -58,7 +59,16 @@ export function useTesuji(session: BoardSession, { mistakes, load, setTab }: { m
     start,
     startDefault: () => start(drill?.filter ?? 'all'),
     next: () => drill && start(drill.filter, drill.item.id),
-    hint: () => drill && setDrill({ ...drill, hint: true, missed: true }),
+    hint: () => {
+      if (!drill) return
+      setDrill({ ...drill, hint: drill.hint + 1, missed: true })
+      const usi = drill.item.answer
+      if (drill.hint >= 1 && usi[1] !== '*') {
+        const from = Square.newByUSI(usi.slice(0, 2))
+        const piece = from && positionOf(drill.item.sfen).board.at(from)
+        if (from && piece) session.setSelection({ from, color: piece.color })
+      }
+    },
     reveal: () => {
       if (!drill) return
       setDrill({ ...drill, status: 'shown', missed: true })

@@ -1,5 +1,7 @@
-import { buildCatalog } from './catalog'
+import { buildCatalog, type LessonEntry } from './catalog'
 import { positionOf, colorSide, type Side } from './shogi'
+import type { Text } from '@/data/strategies'
+import type { LessonFigure } from './curriculum'
 
 export type { Setup } from './catalog'
 
@@ -11,6 +13,7 @@ export type JosekiMove = {
   usi: string
   kind: MoveKind
   note?: string
+  noteEn?: string
   aim?: string
   openEnded?: boolean
   demos?: MoveDemo[]
@@ -22,6 +25,8 @@ export type JosekiNode = {
   id: string
   sfen: string
   comment?: string
+  commentEn?: string
+  figures?: LessonFigure[]
   branches: JosekiMove[]
 }
 
@@ -43,6 +48,9 @@ export type Course = RawCourse & {
   userSide: Side
   notesFromOpponentView: boolean
   noEngine?: boolean
+  quizTargets?: boolean
+  quizPrompt?: Text
+  series?: { topicId: string; ids: string[]; random?: boolean }
   setupId: string
   baseId: string
   main: string | null
@@ -98,16 +106,22 @@ function derive(base: RawCourse, spec: (typeof DERIVED)[number]): RawCourse {
 }
 
 const RAW: RawCourse[] = Object.values(rawFiles).map((text) => JSON.parse(text) as RawCourse)
+const LESSONS = Object.values(import.meta.glob<string>('../data/lessons/*.json', { eager: true, query: '?raw', import: 'default' }))
+  .map((text) => JSON.parse(text) as LessonEntry)
+  .sort((a, b) => a.order - b.order)
 
-const CATALOG = buildCatalog([
-  ...RAW,
-  ...DERIVED.map((d) =>
-    derive(
-      RAW.find((r) => r.id === d.from)!,
-      d,
+const CATALOG = buildCatalog(
+  [
+    ...RAW,
+    ...DERIVED.map((d) =>
+      derive(
+        RAW.find((r) => r.id === d.from)!,
+        d,
+      ),
     ),
-  ),
-])
+  ],
+  LESSONS,
+)
 
 export const COURSES: Course[] = CATALOG.courses
 

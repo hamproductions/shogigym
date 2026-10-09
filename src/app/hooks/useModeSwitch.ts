@@ -8,6 +8,8 @@ import type { BoardSession } from './useBoardSession'
 import type { Mistakes } from './useMistake'
 import type { Lesson } from '@/app/modes/lesson/useLesson'
 import type { Drill } from '@/app/modes/drill/useDrill'
+import type { Mistake } from '@/utils/mistakes'
+import { ORIGIN_KEY, store } from '@/app/modes/lesson/reading'
 import type { Tsume } from '@/app/modes/tsume/useTsume'
 import type { TesujiTrainer } from '@/app/modes/tesuji/useTesuji'
 import type { Spar } from '@/app/modes/spar/useSpar'
@@ -23,6 +25,7 @@ export type Snapshot = {
   course: Course | null
   lessonMode: LessonMode
   score: Score
+  lessonAttempts?: { answered: string[]; missed: string[]; shown?: string[] }
   tree?: Tree
   resigned?: boolean
 }
@@ -73,6 +76,7 @@ export function useModeSwitch(
     course,
     lessonMode: lesson.lessonMode,
     score: lesson.score,
+    lessonAttempts: lesson.attempts(),
     tree,
     resigned: spar.resigned,
   })
@@ -98,10 +102,11 @@ export function useModeSwitch(
     if (back.tree) session.setTree(back.tree)
   }
 
-  const enterMode = (m: Mode) => {
+  const enterMode = (m: Mode, practice?: Mistake[]) => {
+    store(ORIGIN_KEY, null)
     if (m === mode && m === 'lesson' && course && !preview) return lesson.leave()
-    if (m === mode) return
-    if (mode !== 'view') stash(mode, snapshot())
+    if (m === mode && !practice) return
+    if (mode !== 'view' && m !== mode) stash(mode, snapshot())
     tsume.setShowEscape(false)
     session.setPeekFrom(null)
     setTab('coach')
@@ -113,7 +118,7 @@ export function useModeSwitch(
     }
     if (m === 'tesuji') return tesuji.startDefault()
     if (m === 'tsume') return tsume.startDefault()
-    if (m === 'drill') return drill.startDefault()
+    if (m === 'drill') return practice ? drill.practice(practice, mode) : drill.startDefault()
     if (m === 'lesson') return lesson.leave()
     load(InitialPositionSFEN.STANDARD, 'sente', m, null)
   }

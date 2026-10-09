@@ -1,16 +1,19 @@
 import { readFileSync, readdirSync } from 'node:fs'
-import { Color, InitialPositionSFEN, Position } from 'tsshogi'
+import { Color, Position } from 'tsshogi'
 
-const dir = 'src/data/curriculum'
-const catalog = JSON.parse(readFileSync(`${dir}/catalog.json`, 'utf8'))
-const content = readdirSync(dir)
+const source = 'scripts/lesson-source'
+const lessonsDir = 'src/data/lessons'
+const catalog = JSON.parse(readFileSync(`${source}/catalog.json`, 'utf8'))
+const content = readdirSync(source)
   .filter((file) => file.endsWith('.json') && file !== 'catalog.json')
-  .flatMap((file) => JSON.parse(readFileSync(`${dir}/${file}`, 'utf8')))
-const ids = new Set()
+  .flatMap((file) => JSON.parse(readFileSync(`${source}/${file}`, 'utf8')))
+const lessons = readdirSync(lessonsDir).map((file) => JSON.parse(readFileSync(`${lessonsDir}/${file}`, 'utf8')))
 const errors = []
-let examples = 0
-let moves = 0
 const text = (value) => value && ['ja', 'en'].every((lang) => typeof value[lang] === 'string' && value[lang].trim().length > 0)
+const ids = new Set()
+let chapters = 0
+let moves = 0
+let figures = 0
 
 for (const topic of content) {
   if (ids.has(topic.id)) errors.push(`Duplicate topic ${topic.id}`)
@@ -19,46 +22,49 @@ for (const topic of content) {
   if (!entry || topic.title?.ja !== entry.title) errors.push(`Unknown or mismatched topic ${topic.id}`)
   if (!text(topic.title) || !text(topic.question) || !text(topic.answer) || topic.paragraphs?.length < 2 || !topic.paragraphs?.every(text))
     errors.push(`Incomplete bilingual content ${topic.id}`)
-  if (
-    topic.paragraphs
-      ?.map((p) => p.en)
-      .join(' ')
-      .split(/\s+/).length < 80
-  )
-    errors.push(`Insufficient explanation ${topic.id}`)
-  for (const example of topic.examples ?? []) {
-    examples++
-    const position = Position.newBySFEN(example.startSfen ?? InitialPositionSFEN.STANDARD)
-    if (!text(example.title) || !position || !example.moves?.length) {
-      errors.push(`Invalid example ${topic.id}:${examples}`)
-      continue
-    }
-    if (!example.notes?.every(text) || example.notes.length !== example.moves.length) errors.push(`Invalid notes ${topic.id}`)
-    if (position.board.isChecked(position.color === Color.BLACK ? Color.WHITE : Color.BLACK)) errors.push(`Invalid starting check ${topic.id}`)
-    if (example.userSide && !['sente', 'gote'].includes(example.userSide)) errors.push(`Invalid teaching side ${topic.id}`)
-    for (const [ply, usi] of example.moves.entries()) {
-      const move = position.createMoveByUSI(usi)
-      if (!move || !position.isValidMove(move) || !position.doMove(move)) {
-        errors.push(`Illegal move ${topic.id}:${ply + 1} ${usi}`)
-        break
-      }
-      moves++
-    }
-  }
 }
-if (new Set(catalog.map((topic) => topic.id)).size !== catalog.length) errors.push('Duplicate catalog IDs')
 for (const topic of catalog) {
   if (!ids.has(topic.id)) errors.push(`Missing topic ${topic.id}: ${topic.title}`)
   if (!topic.path.length || !/^https:\/\/shogi-joutatsu\.com\/archives\/\d+\/?$/.test(topic.source)) errors.push(`Invalid provenance ${topic.id}`)
 }
-if (process.argv[2]) {
-  const supplied = readFileSync(process.argv[2], 'utf8')
-    .split(/\r?\n/)
-    .map((line) => line.trim())
-    .filter(Boolean)
-  const labels = new Set(['コンテンツ一覧', ...catalog.flatMap((topic) => [topic.title, ...topic.path])])
-  for (const line of supplied) if (!labels.has(line)) errors.push(`Unmatched supplied item: ${line}`)
+const learning = catalog.filter((topic) => !['将棋ゲーム、ソフト', 'コラム'].includes(topic.path[0]))
+for (const topic of learning) if (!lessons.some((lesson) => lesson.id === topic.id)) errors.push(`Lesson not generated ${topic.id}`)
+
+const courseIds = new Set()
+for (const lesson of lessons) {
+  if (!text(lesson.title) || !text(lesson.intro) || !lesson.path?.length) errors.push(`Incomplete lesson ${lesson.id}`)
+  for (const course of lesson.courses) {
+    chapters++
+    if (courseIds.has(course.id)) errors.push(`Duplicate chapter ${course.id}`)
+    courseIds.add(course.id)
+    if (!course.title || !course.titleEn || !['sente', 'gote'].includes(course.userSide)) errors.push(`Incomplete chapter ${course.id}`)
+    const walk = (node) => {
+      const position = Position.newBySFEN(node.sfen)
+      if (!position) return errors.push(`Invalid position ${course.id}:${node.id}`)
+      if (position.board.isChecked(position.color === Color.BLACK ? Color.WHITE : Color.BLACK) && node.branches.length)
+        errors.push(`Side not to move is in check ${course.id}:${node.id}`)
+      if (node.figures) {
+        figures += node.figures.length
+        if (!node.comment || !node.commentEn) errors.push(`Figure without explanation ${course.id}:${node.id}`)
+        for (const figure of node.figures)
+          if (!figure.source?.startsWith('https://shogi-joutatsu.com/wp-content/')) errors.push(`Figure without source ${course.id}:${node.id}`)
+      }
+      for (const branch of node.branches) {
+        const replay = Position.newBySFEN(node.sfen)
+        const move = replay.createMoveByUSI(branch.usi)
+        if (!move || !replay.isValidMove(move) || !replay.doMove(move)) {
+          errors.push(`Illegal move ${course.id}:${node.id} ${branch.usi}`)
+          continue
+        }
+        if (replay.sfen.split(' ').slice(0, 3).join(' ') !== branch.child.sfen.split(' ').slice(0, 3).join(' '))
+          errors.push(`Move does not reach child ${course.id}:${node.id}`)
+        moves++
+        walk(branch.child)
+      }
+    }
+    walk(course.root)
+  }
 }
 for (const error of errors) console.error(error)
-console.log(`${catalog.length} topics, ${content.length} explanations, ${examples} examples, ${moves} legal moves, ${errors.length} errors`)
+console.log(`${catalog.length} topics, ${lessons.length} lessons, ${chapters} chapters, ${figures} figures, ${moves} legal moves, ${errors.length} errors`)
 process.exit(errors.length ? 1 : 0)

@@ -9,13 +9,14 @@ import { Dialog } from '@/app/ui/Dialog'
 type WelcomeProps = {
   level: Level
   onPreviewLevel: (level: Level) => void
+  onLearnRules: () => void
   onLearnBasics: () => void
   onPlayAi: () => void
   onTsume: () => void
   onLookAround: () => void
 }
 
-export function WelcomeDialog({ level, onPreviewLevel, onLearnBasics, onPlayAi, onTsume, onLookAround }: WelcomeProps) {
+export function WelcomeDialog({ level, onPreviewLevel, onLearnRules, onLearnBasics, onPlayAi, onTsume, onLookAround }: WelcomeProps) {
   const { t } = useTranslation()
   const [step, setStep] = useState(0)
   const pickLevel = (next: Level) => {
@@ -80,7 +81,11 @@ export function WelcomeDialog({ level, onPreviewLevel, onLearnBasics, onPlayAi, 
       {step === 2 && (
         <>
           <div className="app-welcome-choices">
-            <button className="primary" onClick={onLearnBasics}>
+            <button className="primary" onClick={onLearnRules}>
+              <strong>{t('app.learnTheRulesFirst')}</strong>
+              <span>{t('app.learnTheRulesFirstHint')}</span>
+            </button>
+            <button onClick={onLearnBasics}>
               <strong>{t('app.learnTheBasicFourthFile')}</strong>
               <span>{t('app.studyModeWalksYouThrough')}</span>
             </button>

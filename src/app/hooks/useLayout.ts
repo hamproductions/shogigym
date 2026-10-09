@@ -65,7 +65,8 @@ export function useLayout({ mode, needsPicking, welcome }: { mode: Mode | 'taiky
   const floatingAvailable =
     !compact &&
     !!zones &&
-    (zones.floatingAvailable ?? (zones.over.width >= 280 && zones.over.height >= 240 && zones.under.width >= 280 && zones.under.height >= 240))
+    (zones.floatingAvailable ?? (zones.over.width >= 280 && zones.over.height >= 240 && zones.under.width >= 280 && zones.under.height >= 240)) &&
+    (!needsPicking || (zones.over.width >= 320 && zones.over.height >= Math.max(520, viewport.h * 0.75)))
   const panelSide = !compact && (!!panelPrefs.side || !floatingAvailable)
   const zoned = !compact && !panelSide
   const twoPanels = zoned && !panelPrefs.hidden && !!zones

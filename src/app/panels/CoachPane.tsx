@@ -5,6 +5,7 @@ import i18n from '@/utils/i18n'
 import { moveText } from '@/utils/shogi'
 import type { BookHit, BookMove } from '@/utils/book'
 import { isWeak } from '@/utils/mistake'
+import { weaknessOf } from '@/utils/learning'
 
 type CoachPaneProps = {
   review: MoveReview | null
@@ -22,6 +23,17 @@ type CoachPaneProps = {
 }
 
 const prefixOf = (key: string) => i18n.t(key, { move: '\u0000', line: '\u0000' }).split('\u0000')[0]
+
+function Principle({ review }: { review: MoveReview }) {
+  const { t } = useTranslation()
+  const tag = weaknessOf({ ply: Infinity, ...review })
+  if (tag === 'other') return null
+  return (
+    <p className="app-note warn">
+      <strong>{t(`report.weak.${tag}.name`)}.</strong> {t(`report.weak.${tag}.fix`)}
+    </p>
+  )
+}
 
 function Verdict({
   review,
@@ -55,6 +67,7 @@ function Verdict({
             {r}
           </p>
         ))}
+        {isWeak(review.label) && <Principle review={review} />}
         {isWeak(review.label) && review.best.move !== lastMove && !review.reasons.some((r) => r.startsWith(prefixOf('moveFacts.bestWins'))) && (
           <p className="app-reason">
             {t('coach.betterWas')}

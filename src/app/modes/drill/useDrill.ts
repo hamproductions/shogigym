@@ -6,8 +6,9 @@ import { record } from '@/utils/srs'
 import type { BoardArrow } from '@/rendering/Board3D'
 import type { BoardSession } from '@/app/hooks/useBoardSession'
 import type { Mistakes } from '@/app/hooks/useMistake'
-import { buildQueue, expectedMoves, reviewCounts, type ReviewItem, type ReviewQueue } from '@/app/practice'
-import type { Tab } from '@/app/types'
+import { buildQueue, expectedMoves, mistakeKey, reviewCounts, type ReviewItem, type ReviewQueue } from '@/app/practice'
+import type { Mistake } from '@/utils/mistakes'
+import type { Mode, Tab } from '@/app/types'
 
 export type DrillState = {
   queue: ReviewQueue
@@ -20,6 +21,7 @@ export type DrillState = {
 }
 
 const LESSON_GREEN = '#4f8a2a'
+const ORIGIN_KEY = 'joseki-practice:drill-origin:v1'
 
 export function useDrill(session: BoardSession, { mistakes, setTab }: { mistakes: Mistakes; setTab: (tab: Tab) => void }) {
   const { t } = useTranslation()
@@ -65,7 +67,34 @@ export function useDrill(session: BoardSession, { mistakes, setTab }: { mistakes
     setTab('coach')
   }
 
-  const start = (queue: ReviewQueue) => show(queue, buildQueue(queue), 0)
+  const start = (queue: ReviewQueue) => {
+    setOrigin(undefined)
+    show(queue, buildQueue(queue), 0)
+  }
+  const [origin, setOriginState] = useState<Mode | undefined>(() => {
+    try {
+      return (sessionStorage.getItem(ORIGIN_KEY) as Mode | null) ?? undefined
+    } catch {
+      return undefined
+    }
+  })
+  const setOrigin = (mode: Mode | undefined) => {
+    setOriginState(mode)
+    try {
+      if (mode) sessionStorage.setItem(ORIGIN_KEY, mode)
+      else sessionStorage.removeItem(ORIGIN_KEY)
+    } catch {
+      void 0
+    }
+  }
+  const practice = (list: Mistake[], from?: Mode) => {
+    setOrigin(from)
+    show(
+      'mistakes',
+      list.map((mistake) => ({ kind: 'mistake', key: mistakeKey(mistake.id), mistake })),
+      0,
+    )
+  }
   const startDefault = () => {
     const counts = reviewCounts()
     start(counts.due === 0 && counts.mistakes > 0 ? 'mistakes' : 'due')
@@ -108,6 +137,8 @@ export function useDrill(session: BoardSession, { mistakes, setTab }: { mistakes
     instruction,
     start,
     startDefault,
+    practice,
+    origin,
     next: () => drill && show(drill.queue, drill.items, drill.index + 1, false, drill.answered),
     retry: () => drill && show(drill.queue, drill.items, drill.index, true, drill.answered),
     commit,

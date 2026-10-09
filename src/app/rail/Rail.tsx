@@ -23,6 +23,7 @@ type RailProps = {
   settingsOpen: boolean
   onSettings: () => void
   onPalette: () => void
+  onReport?: () => void
   onLessonBack?: () => void
   snapshotName: string
   tools?: RailTool[]
@@ -102,6 +103,7 @@ export function Rail({
   settingsOpen,
   onSettings,
   onPalette,
+  onReport,
   onLessonBack,
   snapshotName,
   tools,
@@ -139,6 +141,7 @@ export function Rail({
     onFlipTable: flipTable,
     onSaveImage: saveBoardImage,
     onInstall: installation.installed ? undefined : installation.install,
+    onReport,
   })
   const { primary, secondary, top, bottom } = tools
     ? {

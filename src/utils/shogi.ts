@@ -109,3 +109,16 @@ export function kingSquare(sfen: string, color: Color): Square | null {
     }) ?? null
   )
 }
+
+const PIECE_LIMIT: Record<string, number> = { K: 2, R: 2, B: 2, G: 4, S: 4, N: 4, L: 4, P: 18 }
+
+export function engineReady(sfen: string) {
+  const [board, , hands = '-'] = sfen.split(' ')
+  if (!board.includes('K') || !board.includes('k')) return false
+  const counts: Record<string, number> = {}
+  for (const ch of board.replace(/[+\d/]/g, '')) counts[ch.toUpperCase()] = (counts[ch.toUpperCase()] ?? 0) + 1
+  for (const [, n, p] of hands === '-' ? [] : hands.matchAll(/(\d*)([A-Za-z])/g)) counts[p.toUpperCase()] = (counts[p.toUpperCase()] ?? 0) + Number(n || 1)
+  if (board.split('K').length !== 2 || board.split('k').length !== 2 || !Object.entries(PIECE_LIMIT).every(([p, n]) => counts[p] === n)) return false
+  const position = Position.newBySFEN(sfen)
+  return !!position && !position.board.isChecked(position.color === Color.BLACK ? Color.WHITE : Color.BLACK)
+}

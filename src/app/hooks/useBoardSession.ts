@@ -2,14 +2,22 @@ import { useCallback, useMemo, useState } from 'react'
 import { InitialPositionSFEN, type Color, type Move, type PieceType, type Square } from 'tsshogi'
 import { engineSupported } from '@/utils/engine'
 import type { Course } from '@/utils/model'
-import { applyUsi, colorSide, hasLegalMove, positionOf, type Side } from '@/utils/shogi'
+import { applyUsi, colorSide, engineReady, hasLegalMove, positionOf, type Side } from '@/utils/shogi'
 import { courseNodes } from '@/utils/book'
 import { audioContext, getSettings, useSettings } from '@/appearance/settings'
 import { addPath, emptyTree, isMainLine, mainContinuation, nodeAt, type Tree } from '@/app/tree'
 import { isGameMode, type Game, type Mode, type Preview } from '@/app/types'
+import type { BoardArrow } from '@/rendering/Board3D'
+import type { SourceDiagram } from '@/utils/curriculum'
 import { useLatest } from './useLatest'
 
 type Selection = { from: Square | PieceType; color: Color } | null
+export type SourceMarks = {
+  at: string
+  arrows: BoardArrow[]
+  heat: { square: Square; color: number; opacity: number; label?: string }[]
+  illustration?: Pick<SourceDiagram, 'crop' | 'pieces'>
+}
 
 export function useBoardSession() {
   const settings = useSettings()
@@ -26,6 +34,7 @@ export function useBoardSession() {
   const [playing, setPlaying] = useState(false)
   const [tree, setTree] = useState<Tree>(emptyTree)
   const [plyBase, setPlyBase] = useState(0)
+  const [sourceMarks, setSourceMarks] = useState<SourceMarks | null>(null)
 
   const sfens = useMemo(() => {
     const out = [game.start]
@@ -77,11 +86,11 @@ export function useBoardSession() {
         ? sfens[cursor - 1]
         : null
   const atEnd = cursor === game.moves.length
-  const nodes = useMemo(() => (course ? courseNodes(course) : null), [course])
+  const nodes = useMemo(() => (course ? courseNodes(course, settings.lang) : null), [course, settings.lang])
   const userTurn =
     mode === 'view' ? !playing && !preview : mode === 'analyze' || (mode === 'lesson' && !course) || toMove === userSide || (mode === 'spar' && !atEnd)
   const gameOver = !preview && !hasLegalMove(position)
-  const ai = engineSupported() && !course?.noEngine
+  const ai = engineSupported() && !course?.noEngine && engineReady(sfen)
   const assist = settings.assist || (!isGameMode(mode) && mode !== 'view')
   const onVariation = (isGameMode(mode) || mode === 'view') && cursor > 0 && !isMainLine(tree, game.moves.slice(0, cursor))
 
@@ -122,7 +131,7 @@ export function useBoardSession() {
     [cursor, sfensRef, gameRef, modeRef, treeRef],
   )
 
-  const reset = (start: string, side: Side, nextMode: Mode, nextCourse: Course | null) => {
+  const reset = useCallback((start: string, side: Side, nextMode: Mode, nextCourse: Course | null) => {
     setPreview(null)
     setPlaying(false)
     setTree(emptyTree())
@@ -136,7 +145,8 @@ export function useBoardSession() {
     setCourse(nextCourse)
     setSelection(null)
     setPromotion(null)
-  }
+    setSourceMarks(null)
+  }, [])
 
   const startPreview = (moves: string[], title: string, step = 0) => {
     setPreview({ base: cursor, moves, step, title })
@@ -208,6 +218,8 @@ export function useBoardSession() {
     setTree,
     plyBase,
     setPlyBase,
+    sourceMarks,
+    setSourceMarks,
     sfens,
     previewSfens,
     liveSfen,

@@ -3,7 +3,8 @@ import { useRef, useState, type ReactNode, type PointerEvent as ReactPointerEven
 import { useTranslation } from 'react-i18next'
 import type { Layout } from '@/app/hooks/useLayout'
 import { useSettings } from '@/appearance/settings'
-import { TABS, type Tab } from '@/app/types'
+import { TABS, isGameMode, type Tab } from '@/app/types'
+import { useSession } from '@/app/hooks/session'
 import { Button } from '@/app/ui/Button'
 import { Tabs } from '@/app/ui/Tabs'
 import { Icon } from '@/app/icons'
@@ -58,9 +59,11 @@ function LeftPanel({
 
 export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay, picking }: SidePanelsProps) {
   const { t } = useTranslation()
+  const { mode, game } = useSession()
+  const reportable = isGameMode(mode) && game.moves.length > 0
   const ja = useSettings().lang === 'ja'
   const { compact, zones, twoPanels, setPanel } = layout
-  const rightTab = twoPanels && (tab === 'moves' || tab === 'flow') ? 'coach' : tab
+  const rightTab = (twoPanels && (tab === 'moves' || tab === 'flow')) || (tab === 'report' && !reportable) ? 'coach' : tab
   const labelClass = ja ? 'app-ja' : 'app-en'
   return (
     <>
@@ -68,11 +71,10 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
       <SidePanel
         layout={layout}
         sheetOpen={sheetOpen}
-        picking={picking}
         header={
           <div className="app-panel-header">
             <Tabs
-              items={TABS.filter((id) => !(twoPanels && (id === 'moves' || id === 'flow'))).map((id) => ({
+              items={TABS.filter((id) => !(twoPanels && (id === 'moves' || id === 'flow')) && (id !== 'report' || reportable)).map((id) => ({
                 id,
                 label: <span className={labelClass}>{t(`tabs.${id}`)}</span>,
               }))}
@@ -103,7 +105,7 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
             )}
           </div>
         }
-        footer={!picking && <NavFooter canAutoplay={canAutoplay} watch={model.watch} />}
+        footer={!picking && <NavFooter canAutoplay={canAutoplay} watch={model.watch} lesson={model.lesson} />}
       >
         <PanelBody tab={rightTab} model={model} />
       </SidePanel>
@@ -114,14 +116,12 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
 export function SidePanel({
   layout,
   sheetOpen,
-  picking = false,
   header,
   children,
   footer,
 }: {
   layout: Layout
   sheetOpen: boolean
-  picking?: boolean
   header: ReactNode
   children: ReactNode
   footer?: ReactNode
@@ -172,18 +172,7 @@ export function SidePanel({
     suppressSheetClick.current = !cancelled && gesture.moved
   }
   return (
-    <aside
-      className={`app-panel${sheetOpen ? ' open' : ''}`}
-      style={
-        zoned
-          ? !panelPrefsHidden
-            ? picking
-              ? { ...floatingRect, height: layout.viewport.h - floatingTop - 12 }
-              : floatingRect
-            : { display: 'none' }
-          : undefined
-      }
-    >
+    <aside className={`app-panel${sheetOpen ? ' open' : ''}`} style={zoned ? (!panelPrefsHidden ? floatingRect : { display: 'none' }) : undefined}>
       {layout.panelSide && (
         <div
           className="app-panel-resize"
