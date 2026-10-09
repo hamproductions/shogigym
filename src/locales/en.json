@@ -34,7 +34,7 @@
     "wasAMistakeTryAgain": "{{move}} was a mistake. Try again.",
     "isAFineMoveBut": "{{move}} is a fine move, but not this lesson's. Find the book move.",
     "previewWatchItPlayOut": "Preview: watch it play out, then keep these moves or exit the preview.",
-    "pickATechniqueOrAn": "Pick a technique or an opening, then Study or Quiz.",
+    "pickATechniqueOrAn": "Choose a topic to read, check your understanding, or practice on the board.",
     "offTheLessonLineGo": "Off the lesson line. Go back to it, or explore in Analyze.",
     "lineComplete": "Line complete.",
     "answerShownPlayTheGreen": "Answer shown: play the green arrow.",
@@ -81,7 +81,7 @@
     "fullScreen2": "Full screen",
     "study": "Study",
     "quiz": "Quiz",
-    "openingsPickALesson": "Openings: pick a lesson",
+    "openingsPickALesson": "Learn shogi: choose a topic",
     "tsumeMateIn": "Tsume: mate in {{mate}}",
     "reviewCardOf": "Review card {{value}} of {{itemsCount}}",
     "review": "Review",
@@ -472,8 +472,8 @@
     "sealStudy": "Study",
     "sealQuiz": "Quiz",
     "lesson": {
-      "name": "Openings",
-      "hint": "Learn opening lines: study them, then quiz yourself"
+      "name": "Learn",
+      "hint": "Learn rules, tactics, openings and more; read, practice and quiz yourself"
     },
     "drill": {
       "name": "Review",

@@ -1,6 +1,7 @@
 import '@/app/modes/lesson/lesson.css'
 import { Fragment, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useParams } from 'react-router'
 import { SETUPS, courseTitle, type Course } from '@/utils/model'
 import { scrollPanelTop } from '@/app/hooks/useLayout'
 import { coursesOf } from '@/utils/book'
@@ -9,6 +10,7 @@ import { setSettings, useSettings } from '@/appearance/settings'
 import { mainStrategies, strategyById } from '@/data/strategies'
 import type { LessonMode, Level } from '@/app/types'
 import { Button } from '@/app/ui/Button'
+import { Curriculum } from './Curriculum'
 
 type PickerProps = { onOpen: (c: Course, sub: LessonMode) => void; level: Level; setupId: string | null; setSetupId: (id: string | null) => void }
 
@@ -54,6 +56,7 @@ function Credits() {
 
 export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProps) {
   const { t } = useTranslation()
+  const { main: routeMain } = useParams()
   useEffect(() => {
     scrollPanelTop()
   }, [setupId])
@@ -61,6 +64,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
   const { lang, mainStrategy } = useSettings()
   const ja = lang === 'ja'
   const [choosing, setChoosing] = useState(false)
+  const [library, setLibrary] = useState(!routeMain)
   const main = strategyById(mainStrategy) ?? mainStrategies()[0]
   const q = query.trim().toLowerCase()
   const all = SETUPS.map((setup) => ({ setup, courses: coursesOf(setup.courseIds) })).filter((g) => g.courses.length)
@@ -77,6 +81,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
   )
   const hits = q ? all.flatMap((g) => g.courses.filter((c) => `${c.title} ${c.titleEn ?? ''} ${g.setup.ja} ${g.setup.name}`.toLowerCase().includes(q))) : []
   const group = groups.find((g) => g.setup.id === setupId)
+  if (library) return <Curriculum onOpen={onOpen} onBack={() => setLibrary(false)} />
   if (group)
     return (
       <div className="app-picker">
@@ -125,6 +130,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
   ]
   return (
     <div className="app-picker">
+      <Button onClick={() => setLibrary(true)}>{ja ? 'すべての学習項目' : 'All learning topics'}</Button>
       <button className="app-main-current" onClick={() => setChoosing(true)}>
         <span>{t('strategy.yourMain')}</span>
         <strong>{ja ? main.ja : main.en}</strong>

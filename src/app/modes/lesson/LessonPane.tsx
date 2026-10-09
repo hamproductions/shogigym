@@ -30,6 +30,7 @@ function quizSummary({ right, wrong, shown = 0, retried = 0 }: Score) {
 
 function nextCourseAfter(course: Course) {
   const setup = setupOf(course)
+  if (!setup) return null
   const siblings = coursesOf(setup?.courseIds ?? [])
   return siblings[siblings.findIndex((c) => c.id === course.id) + 1] ?? coursesOf(SETUPS.slice(SETUPS.indexOf(setup!) + 1).flatMap((s) => s.courseIds))[0]
 }

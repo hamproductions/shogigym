@@ -1,0 +1,2066 @@
+[
+  {
+    "id": "656",
+    "title": {
+      "ja": "将棋の遊び方、対局の大まかな流れ",
+      "en": "How a shogi game works"
+    },
+    "paragraphs": [
+      {
+        "ja": "将棋は9×9の盤で二人が交互に指すゲームです。各自20枚、合計40枚の駒をすべて表向きに配置し、先手と後手を決めます。王と玉は名称が違っても同じ駒です。駒は線の交点ではなくマスの中に置き、取った駒は相手にも見える駒台に並べます。",
+        "en": "Shogi is played by two players on 81 squares. Each starts with 20 unpromoted pieces; decide who moves first before beginning. The characters 王 and 玉 identify equivalent kings. Pieces occupy squares, not line intersections. Captured pieces belong to the capturer and stay visible beside the board, ready to return as reinforcements."
+      },
+      {
+        "ja": "自分の手番には盤上の駒を一枚動かすか、持ち駒を空きマスに一枚打ちます。移動と打つ操作を同じ手番で行ったり、パスしたりはできません。相手玉を詰ませることが目的で、実際には玉を取る前に詰みや投了で終わります。駒取りだけでなく、自玉を守ることも必要です。",
+        "en": "Each turn consists of exactly one board move or one drop onto an empty square. You cannot move and drop together, or pass. Capture occurs by moving onto an enemy piece with a legal move. The goal is to checkmate the opposing king; the game ends before a king is physically captured, often through resignation. Protect your own king while pursuing that goal."
+      }
+    ],
+    "question": {
+      "ja": "持ち駒を打った後、同じ手番で別の駒を動かせますか？",
+      "en": "After dropping a piece, may you move another piece on the same turn?"
+    },
+    "answer": {
+      "ja": "できません。駒を一枚打つだけで一手が完了し、相手の手番になります。",
+      "en": "No. One drop completes your turn; the opponent moves next."
+    }
+  },
+  {
+    "id": "615",
+    "title": {
+      "ja": "駒の動き",
+      "en": "Piece movement"
+    },
+    "paragraphs": [
+      {
+        "ja": "玉は周囲八方向に一マス、飛車は縦横、角は斜めに何マスでも進みます。金は前方三マスと左右と真後ろ、銀は前方三マスと斜め後ろ二マスに一マス動きます。歩は一マス前、香は何マスでも前へ、桂は二マス前と一マス横を組み合わせて跳びます。前の向きは駒の所有者によって反対です。",
+        "en": "The king moves one square in any direction; rook and bishop slide along orthogonal and diagonal lines. A gold moves one square forward, sideways, backward, or diagonally forward. A silver moves straight forward or along any one-square diagonal. Pawns advance one square; lances slide forward; knights jump two squares forward and one sideways. Forward is relative to the piece’s owner."
+      },
+      {
+        "ja": "飛車・角・香は途中の駒を飛び越せず、味方の駒があるマスには進めません。桂だけは途中の駒を飛び越します。龍は飛車の動きに斜め一マス、馬は角の動きに縦横一マスが加わります。成った歩・香・桂・銀は金の動きです。金の斜め後ろと銀の横・真後ろが動けない点を区別しましょう。",
+        "en": "Sliding pieces stop at blockers; friendly pieces cannot be captured. Only knights jump over intervening pieces. A dragon adds one-square diagonals to rook movement; a horse adds one-square orthogonal moves to bishop movement. Promoted pawn, lance, knight, and silver move as golds. Distinguish the gold’s missing backward diagonals from the silver’s missing sideways and straight-backward moves."
+      }
+    ],
+    "question": {
+      "ja": "銀を真横へ一マス動かせますか？成銀ならどうですか？",
+      "en": "Can a silver move one square sideways? What about a promoted silver?"
+    },
+    "answer": {
+      "ja": "銀は動けません。成銀は金と同じなので真横へ動けます。",
+      "en": "An unpromoted silver cannot. A promoted silver moves as a gold and can."
+    }
+  },
+  {
+    "id": "722",
+    "title": {
+      "ja": "駒の成り方",
+      "en": "Promotion conditions"
+    },
+    "paragraphs": [
+      {
+        "ja": "敵陣は相手側の三段です。成れる駒を敵陣に入れる、敵陣内で動かす、敵陣から外へ動かす、そのいずれでも移動の一部として成れます。打った瞬間には成れず、動かさずに裏返すだけの手もありません。玉と金は成れず、成駒を自分の意思で元に戻すこともできません。",
+        "en": "The promotion zone is the opponent’s three ranks. A promotable piece may promote when its move starts or finishes inside that zone: entering, moving within, and leaving all qualify. Promotion accompanies a move; dropping into the zone or simply turning a stationary piece over does not qualify. Kings and golds never promote, and promoted pieces cannot voluntarily revert."
+      },
+      {
+        "ja": "歩・香・桂・銀は成ると金の動き、飛車は龍、角は馬になります。不成を選んでも、後の移動が条件を満たせば再び成れます。ただし歩と香が最奥段、桂が最奥の二段に進む場合は必ず成ります。動ける場所がなくなる生駒は置けません。銀の斜め後退や桂の跳躍を残す不成には意味があります。",
+        "en": "Pawn, lance, knight, and silver promote to gold movement; rook and bishop become dragon and horse. Declining once does not remove a later opportunity. Promotion is compulsory for pawns and lances reaching the last rank and knights reaching either last rank, because their unpromoted movement would become impossible. A silver’s backward diagonal or a knight’s jump can justify declining optional promotion."
+      }
+    ],
+    "question": {
+      "ja": "敵陣から外へ出る銀は成れますか？敵陣へ打つ銀は？",
+      "en": "May a silver promote while leaving the zone? May it promote when dropped there?"
+    },
+    "answer": {
+      "ja": "敵陣からの移動なら成れます。打つときは必ず生駒で、次の移動から成りの条件を判定します。",
+      "en": "It may promote on a move leaving the zone. A drop is always unpromoted; assess promotion on a later move."
+    }
+  },
+  {
+    "id": "738",
+    "title": {
+      "ja": "駒の取り方、持駒の使い方",
+      "en": "Captures and pieces in hand"
+    },
+    "paragraphs": [
+      {
+        "ja": "駒を合法的に相手の駒のマスへ動かすと、その駒を取って持ち駒にできます。龍やと金などを取っても、持ち駒では飛車や歩に戻します。自分の駒は取れません。持ち駒は隠さず表向きに並べ、自分の手番に空きマスへ一枚だけ打ちます。打つ手で相手の駒を直接取ることはありません。",
+        "en": "A legal move onto an enemy piece captures it. The captured piece changes ownership and returns to its unpromoted form: a dragon becomes a rook in hand, a tokin a pawn. Friendly pieces cannot be captured. Keep your hand visible and unpromoted. A drop places one held piece on an empty square and consumes the entire turn; it does not capture an occupied square."
+      },
+      {
+        "ja": "持ち駒は敵陣にも打てますが、その場で成ることはありません。王手する打ち手も可能です。ただし二歩、打ち歩詰め、行き所のない駒の打ちは禁止です。銀や桂は攻めの追加戦力、金は玉の近くの守備、歩は相手の利きを遮る受けや駒を誘う攻めに使えます。枚数の上限を別に設けるルールはありません。",
+        "en": "Drops can enter enemy territory or give check, but never promote immediately. Pawn drops must avoid a second unpromoted pawn on the same file and immediate pawn-drop mate. Pawns and lances cannot be dropped on the last rank; knights cannot occupy the last two. Hands enable both reinforcement and defense: silver and knight often attack, gold can repair a castle, and pawn drops can block or lure."
+      }
+    ],
+    "question": {
+      "ja": "取ったと金を、と金のまま打てますか？",
+      "en": "Can a captured tokin be dropped as a tokin?"
+    },
+    "answer": {
+      "ja": "打てません。取った時点で歩に戻り、歩の打ち方と禁じ手が適用されます。",
+      "en": "No. It reverts to a pawn when captured and follows pawn-drop restrictions."
+    }
+  },
+  {
+    "id": "746",
+    "title": {
+      "ja": "王手と詰み、勝敗の決め方",
+      "en": "Check, mate, and game results"
+    },
+    "paragraphs": [
+      {
+        "ja": "王手は相手玉へ駒の利きが届いた状態です。王手された側は玉を逃がす、王手駒を取る、飛車・角・香の長い利きに合駒するなどして、直ちに王手を解消しなければなりません。逃げ先も相手の利きに入ってはいけません。桂や隣接する駒の王手には途中のマスがないので合駒できません。",
+        "en": "Check means an enemy piece attacks the king. The checked player must remove that attack immediately by moving the king, capturing the checker, or blocking a sliding attack where possible. A king cannot flee to another attacked square. Knight checks and adjacent checks cannot be interposed against because there is no intermediate square to occupy. Count all enemy attacks before choosing an escape."
+      },
+      {
+        "ja": "どの合法手でも王手を解消できなければ詰みで、玉を実際に取る前に勝敗が決まります。王手と口で言う義務はありません。投了でも対局は終わり、反則や時間切れも負けになります。千日手や入玉は別の規定によります。初心者が詰みまで指して確認すること自体はマナー違反ではありません。",
+        "en": "Checkmate occurs when no legal reply removes check; the king is not physically captured. Announcing check aloud is optional. Resignation also ends the game, while illegal moves or expiration of the applicable clock can lose it. Repetition and entering-king situations have separate rules. Beginners may continue to a visible mate to learn the pattern rather than feeling obliged to resign as early as professionals."
+      }
+    ],
+    "question": {
+      "ja": "王手駒を玉で取れそうなら、必ず王手を解消できますか？",
+      "en": "Does capturing the checking piece with the king always solve check?"
+    },
+    "answer": {
+      "ja": "いいえ。その駒が別の相手駒に守られていれば、玉で取る手は違法です。",
+      "en": "No. If another enemy piece protects the checker, the king’s capture is illegal."
+    }
+  },
+  {
+    "id": "813",
+    "title": {
+      "ja": "反則、禁じ手について",
+      "en": "Illegal moves"
+    },
+    "paragraphs": [
+      {
+        "ja": "指した手を戻す待った、二手続けて指す、駒の動きに反する移動、条件外の成り、成駒での打ちは正式な対局では反則です。自玉を相手の利きにさらす手や王手放置も許されません。練習で指し直しを認めるなら開始前に取り決め、正式なルールと区別しましょう。",
+        "en": "Formal play prohibits takebacks, two consecutive moves, movement outside a piece’s powers, invalid promotion, and promoted drops. A move that leaves your king attacked is illegal, including ignoring an existing check. Agree beforehand if a teaching game permits corrections; that agreement is a learning arrangement rather than the standard competitive rule. Check movement and king safety before considering whether a move is tactically attractive."
+      },
+      {
+        "ja": "二歩は同じ筋に自分の生の歩が二枚ある状態で、と金は数えません。持ち歩を打ってその手で詰ませる打ち歩詰めは禁止ですが、歩を進める詰みや逃げ道がある歩打ち王手は合法です。歩・香の最奥段、桂の最奥二段への生駒の配置も禁止です。連続王手で千日手を成立させた側は負けになります。",
+        "en": "Nifu means two of your unpromoted pawns on one file; tokins do not count. An immediately mating pawn drop is prohibited, but a pawn move delivering mate or a pawn drop giving escapable check is legal. Unpromoted pawns and lances cannot occupy the last rank; knights cannot occupy the last two. Repetition produced by one side’s uninterrupted checks loses for the checking side."
+      }
+    ],
+    "question": {
+      "ja": "と金と生の歩が同じ筋にあれば二歩ですか？",
+      "en": "Is a tokin and an unpromoted pawn on the same file nifu?"
+    },
+    "answer": {
+      "ja": "二歩ではありません。同じ筋の生の歩だけを数えます。",
+      "en": "No. Only unpromoted pawns count for nifu."
+    }
+  },
+  {
+    "id": "758",
+    "title": {
+      "ja": "千日手",
+      "en": "Fourfold repetition"
+    },
+    "paragraphs": [
+      {
+        "ja": "千日手は同じ局面が四回現れることです。盤上の配置だけでなく、両者の持ち駒と手番も一致している必要があります。初めての局面も一回として数えるので、同じ短い手順を必ず四周しなければならないという意味ではありません。似た形や同じ玉の位置だけでは千日手になりません。",
+        "en": "Repetition requires the same complete position four times: board arrangement, both hands, and side to move must match. The initial occurrence counts, so this is not a requirement to repeat a fixed loop four additional times. Similar formations or repeated king squares are insufficient when another piece, a hand, or the turn differs. Track the whole position rather than only the moves being repeated."
+      },
+      {
+        "ja": "通常の千日手は決着をつけず、採用ルールによって先後を交換した指し直しや引き分けになります。片方が繰り返しの間ずっと王手をかけていた場合は、その側の反則負けです。後手が先手を得るために千日手を狙うことはありますが、持ち時間の引継ぎや加算条件も確認して判断します。",
+        "en": "Ordinary repetition is unresolved play: the governing rules may prescribe a replay with colors exchanged or a draw. Uninterrupted checking throughout the repetition instead loses for the checking player. Repetition can be a deliberate defensive or opening choice, especially when a replay changes who moves first. Clock carryover and any time adjustment affect that decision; consult the actual event or app rules."
+      }
+    ],
+    "question": {
+      "ja": "盤上が同じでも持ち駒が違う場合、同じ局面として数えますか？",
+      "en": "If the board matches but the hands differ, does it count as the same position?"
+    },
+    "answer": {
+      "ja": "数えません。盤上、持ち駒、手番のすべてが同じでなければなりません。",
+      "en": "No. Board, hands, and side to move must all agree."
+    }
+  },
+  {
+    "id": "932",
+    "title": {
+      "ja": "入玉の扱い、持将棋と宣言法およびトライルール",
+      "en": "Entering king, impasse, and try"
+    },
+    "paragraphs": [
+      {
+        "ja": "入玉は玉が敵陣に入ることで、それだけで勝ちや引き分けにはなりません。駒の点数は飛角が各五点、玉以外の小駒が各一点、玉が零点で、成っても同じです。24点法の持将棋では双方の盤上と持ち駒を合計し、双方24点以上などの条件と合意を確認します。記事で扱う制度と対局先の現行規定を混同しないことが大切です。",
+        "en": "An entering king is a king in enemy territory, not an automatic victory or draw. For impasse scoring, rooks and bishops are worth five points, other non-king pieces one, and kings zero; promotion changes nothing. The source’s 24-point impasse scheme considers each player’s board and hand, with both reaching 24 and agreeing to impasse. Distinguish these explained rule systems from the actual rules adopted by your event."
+      },
+      {
+        "ja": "宣言は自分の手番、王手なしの入玉、敵陣の玉以外の自駒十枚以上が前提で、点数は敵陣の自駒と持ち駒だけを数えます。記事の24点宣言は24〜30点が引き分け、31点以上が勝ちです。27点法では先手28点・後手27点以上で勝ちになります。トライは先手5一・後手5九へ合法に玉を進めて勝つ別ルールです。手数上限も対局規定によります。",
+        "en": "Declaration requires your turn, a king in the enemy camp not in check, and at least ten other friendly pieces there; count only those camp pieces and your hand. The source’s 24-point declaration gives a draw at 24–30 and a win at 31+. Under its 27-point scheme, sente needs 28 and gote 27 to win. Try is a separate rule: legally reaching 5a for sente or 5i for gote wins. Move limits depend on the governing rules."
+      }
+    ],
+    "question": {
+      "ja": "入玉宣言の点数に、自陣に残った飛車を加えられますか？",
+      "en": "May a rook still in your own camp count toward a declaration?"
+    },
+    "answer": {
+      "ja": "加えられません。宣言では敵陣内の自駒と持ち駒だけを数えます。",
+      "en": "No. Declaration counts friendly pieces in the enemy camp and pieces in hand only."
+    }
+  },
+  {
+    "id": "1127",
+    "title": {
+      "ja": "対局時のマナー",
+      "en": "Etiquette during and after play"
+    },
+    "paragraphs": [
+      {
+        "ja": "対面では対局前後に挨拶し、投了するなら明確に伝えます。駒を乱暴に叩かず、持ち駒を見やすく置き、指した手を勝手に戻しません。第三者は対局中に候補手や過去の改善手を教えてはいけません。反則の指摘と戦略の助言は別で、指導対局なら許される内容を事前に合意します。",
+        "en": "In face-to-face play, greet your opponent, acknowledge the result, and state resignation clearly. Handle pieces calmly, keep hands visible, and do not retract completed moves. Spectators must not supply candidate moves or point out missed opportunities while a game continues. Reporting a rules violation differs from strategic advice; teaching games should establish their guidance and correction arrangements before starting."
+      },
+      {
+        "ja": "感想戦は互いの考えや分岐点を確認するよい機会ですが、オンラインで毎回必須とは限りません。王手の発声は義務でもマナー上の必須でもありません。不成は合法な選択で、銀桂香の動きを残す意味や打ち歩詰めを避ける理由もあります。相手を侮るために手を抜くような振る舞いは避け、合法手と礼儀を区別しましょう。",
+        "en": "Post-game analysis lets both players compare plans and critical alternatives, although online platforms do not universally require it. Calling check is optional, both legally and socially. Nonpromotion is a legal choice with tactical reasons, including preserving a silver or knight’s movement and avoiding pawn-drop mate. Avoid deliberately patronizing your opponent, but do not confuse a useful legal underpromotion with a rules offense."
+      }
+    ],
+    "question": {
+      "ja": "観戦者が「さっきの手なら銀を取れた」と対局中に教えてよいですか？",
+      "en": "May a spectator point out a missed silver capture during the game?"
+    },
+    "answer": {
+      "ja": "いけません。対局後の感想戦まで戦略の助言は控えます。",
+      "en": "No. Save strategic suggestions for analysis after the game."
+    }
+  },
+  {
+    "id": "1137",
+    "title": {
+      "ja": "将棋駒の並べ方、伊藤流と大橋流",
+      "en": "Setup: Ōhashi and Itō styles"
+    },
+    "paragraphs": [
+      {
+        "ja": "自分から見て最下段は左から香桂銀金玉金銀桂香、二段目は左に角・右に飛車、三段目は歩九枚です。先手の飛車は2八、角は8八で、後手は反対向きの対応位置です。王と玉の性能は同じで、格上が王を持つのは慣習です。最終配置が正しければ、並べる順番を間違えても反則にはなりません。",
+        "en": "From each player’s viewpoint, the back rank is lance, knight, silver, gold, king, gold, silver, knight, lance. The next rank holds bishop on the left and rook on the right; nine pawns form the third. Sente’s rook is on 2h and bishop on 8h, with gote’s setup rotated. 王 and 玉 have identical powers; the senior player’s use of 王 is a convention."
+      },
+      {
+        "ja": "大橋流は玉、左金・右金、左銀・右銀、左桂・右桂、左香・右香、角、飛車、そして中央から左右へ歩を並べます。伊藤流は玉金銀桂まで同様ですが、先に歩を左から右へ並べ、左香・右香・角・飛車を最後に置きます。遠くまで利く駒を後回しにする配慮です。駒台も種類別に、重ねず見えるように整えます。",
+        "en": "Ōhashi style starts with the king, then paired golds, silvers, knights, and lances from left to right, followed by bishop, rook, and pawns from the center outward. Itō style shares the king-through-knights sequence, places pawns left to right, then adds left lance, right lance, bishop, and rook. Delaying long-range pieces is a courtesy. The order is ceremonial; correct final placement matters for legality."
+      }
+    ],
+    "question": {
+      "ja": "伊藤流で歩を香より先に置く理由と、並べ順の法的扱いは？",
+      "en": "Why does Itō style place pawns before lances, and is the order legally mandatory?"
+    },
+    "answer": {
+      "ja": "相手陣に長い利きが直接向かないようにする配慮です。順番は作法で、正しい初期配置なら違反ではありません。",
+      "en": "It delays long-range attacks toward the opponent. The sequence is etiquette, not a legality requirement."
+    }
+  },
+  {
+    "id": "1106",
+    "title": {
+      "ja": "振り駒による先手と後手の決め方",
+      "en": "Furigoma: deciding who moves first"
+    },
+    "paragraphs": [
+      {
+        "ja": "先後が未定の対局では、上座側の歩五枚を振って表の歩と裏のと金を数える振り駒を行います。歩が多ければその側が先手、と金が多ければ相手が先手です。記録係が振る正式な場面では、振った人自身が対局者とは限りません。どちら側の歩を使うかと対応を先に確認します。",
+        "en": "Furigoma decides colors when they are not already assigned. Toss five pawns belonging to the designated upper-seat player. More pawn faces makes that player sente; more tokin faces makes the other player sente. In formal play a recorder may toss them, so the person performing the toss is not necessarily the player awarded the first move. Establish the mapping before counting."
+      },
+      {
+        "ja": "立った駒や重なった駒は判定から除き、残りで表裏が同数なら振り直します。五枚でも除外後は同数になり得ます。並べた歩を一時的に使ったなら元に戻して対局を始めます。友人同士は別の合意した方法も使え、オンラインはシステムの割当によります。振り駒の演出と実際のサーバー判定は同じものとは限りません。",
+        "en": "Exclude standing or overlapping pieces, then count the remaining clear faces. If pawn and tokin counts tie, toss again; five pieces can still yield a tie after exclusions. Restore the pawns to their starting squares before play. Casual players may agree on another fair method. Online assignment follows the platform’s system, so a displayed tossing animation need not represent a physical random process."
+      }
+    ],
+    "question": {
+      "ja": "歩二枚、と金二枚、立った駒一枚ならどう決めますか？",
+      "en": "Two pawn faces, two tokin faces, and one standing piece: what happens?"
+    },
+    "answer": {
+      "ja": "立った駒を除外すると同数なので、振り直します。",
+      "en": "Exclude the standing piece; the remaining faces tie, so toss again."
+    }
+  },
+  {
+    "id": "8083",
+    "title": {
+      "ja": "持ち時間のルール",
+      "en": "Time controls and clock handling"
+    },
+    "paragraphs": [
+      {
+        "ja": "切れ負けは持ち時間を使い切ると負けです。秒読みは基本時間の後に一手ごとの制限があり、その未使用分は通常貯まりません。フィッシャー方式は一手完了ごとに時間を加算し、早く指せば残り時間を増やせます。例えば30秒秒読みと5秒加算は別の制度で、どちらも単なる合計時間とは異なります。",
+        "en": "Sudden death loses when the total clock expires. Byōyomi allows a fixed period for each move after main time; unused seconds normally do not accumulate. Fischer controls add an increment after each completed move, allowing quick play to build a reserve. Thirty-second byōyomi and a five-second increment are different mechanisms. Confirm which one applies before deciding how much time a critical position can consume."
+      },
+      {
+        "ja": "チェスクロックは連続して時間を測り、記事のストップウォッチ方式は一分未満を切り捨てます。考慮時間は規定回数の追加時間で、無限の秒読みではありません。離席中も手番の時間は進み、正式な休憩は別扱いです。記事では遅刻の三倍控除や一時間での不戦敗、封じ手、千日手の時間引継ぎと不足時の同量加算も扱いますが、数値と採用方式は棋戦ごとに確認します。",
+        "en": "Chess clocks measure continuously; the source’s stopwatch scheme rounds sub-minute thinking down. Extra consideration periods are a finite reserve, not unlimited extensions. Leaving the board still consumes time on your turn; scheduled breaks differ. The article also explains triple lateness deductions, forfeiture after an hour, sealed moves, and replay clock carryover with equal additions when required. Exact allowances and tournament schedules belong to the adopted rules, not a universal shogi clock."
+      }
+    ],
+    "question": {
+      "ja": "秒読み30秒で10秒で指した場合、次の手に20秒を足せますか？",
+      "en": "With 30-second byōyomi, does a ten-second move add twenty seconds to your next turn?"
+    },
+    "answer": {
+      "ja": "通常は足せません。次の手も30秒です。時間が蓄積する加算方式とは異なります。",
+      "en": "Normally no. The next turn still has thirty seconds; accumulation belongs to increment controls."
+    }
+  },
+  {
+    "id": "5361",
+    "title": {
+      "ja": "詰将棋の遊び方、ルール",
+      "en": "Tsume-shogi rules"
+    },
+    "paragraphs": [
+      {
+        "ja": "詰将棋は攻方が最初に指し、毎回王手を続けて玉方を詰ませる問題です。三手詰は攻方、玉方、攻方の合計三手で、攻方の手だけを数えるわけではありません。駒の動き、成り、二歩、打ち歩詰めなどは指し将棋と同じです。一つの逃げ方だけでなく、すべての合法的な応手を読んで詰みを確認します。",
+        "en": "Tsume-shogi starts with the attacker, who must give check on every attacking turn until mate. A three-move problem counts attacker, defender, attacker: both sides’ moves contribute. Normal movement, promotion, nifu, and pawn-drop-mate restrictions still apply. Finding one cooperative variation is not a solution; every legal defense must be met with a mating continuation, including captures, king moves, and useful interpositions."
+      },
+      {
+        "ja": "玉方は最長になる応手を選び、盤上と攻方の持ち駒にない残りの駒を合駒などに使えます。通常の駒総数を超えることはありません。取られても局面を変えず詰みを先延ばしするだけの無駄合いは、詰将棋では手数に数えません。攻方の駒取りで得た持ち駒も使えます。まず一手詰で逃げ道と王手駒の守りを確かめます。",
+        "en": "The defender chooses a longest resistance and may use pieces not on the board or in the attacker’s hand, within the normal piece inventory. Futile interpositions that only delay an unchanged mate are excluded by tsume convention; useful blocks must be examined. Captures can supply the attacker with new material. Begin with mate-in-one patterns and explicitly test escape squares and protection of the checking piece."
+      }
+    ],
+    "question": {
+      "ja": "三手詰の解答で玉の一つの逃げ方だけを詰ませれば十分ですか？",
+      "en": "Is mating after one possible king escape enough to solve a three-move problem?"
+    },
+    "answer": {
+      "ja": "不十分です。他の逃げ方、王手駒の取り方、合駒にも詰みが続くことを確認します。",
+      "en": "No. Every legal king move, capture, and useful block must also lead to mate."
+    },
+    "practice": {
+      "tsume": 1
+    }
+  },
+  {
+    "id": "1512",
+    "title": {
+      "ja": "駒の価値と特徴",
+      "en": "Piece value and roles"
+    },
+    "paragraphs": [
+      {
+        "ja": "駒の価値は飛車・角、金・銀、桂・香、歩の順を大まかな目安にします。記事の飛10・角8・金6・銀5・桂4・香3・歩1は学習用で、公式の得点でも全局面共通の評価でもありません。玉の安全、働き、成りや持ち駒の使い道によって価値は変わります。詰みに必要な桂は使えない飛車より重要になることもあります。",
+        "en": "A useful starting order is rook and bishop, gold and silver, knight and lance, then pawn. The article’s illustrative 10/8/6/5/4/3/1 values are teaching estimates, not official scoring or a universal evaluation. King safety, activity, promotion, and useful drops change practical value. A knight delivering mate can matter more than an inactive rook."
+      },
+      {
+        "ja": "飛角は遠くから攻め、金は玉を囲い、銀は攻守に使います。桂は戻れないため跳ぶ時機を読み、香は低い位置から長い利きを残します。馬は守りにも強力です。と金は金の動きで攻め、取られても相手には歩しか渡らないので、安い材料で守備駒をはがす役割に向きます。",
+        "en": "Rook and bishop create long-range pressure; golds usually shelter the king, while silvers serve either role. Knights need careful timing because they cannot retreat; lances preserve pressure from low ranks. Horses can be formidable defenders. A tokin attacks like a gold but yields only a pawn when captured, making it efficient for removing expensive defenders without giving equivalent material back."
+      }
+    ],
+    "question": {
+      "ja": "駒の価値の数表だけで、終盤の交換を決めてよいですか？",
+      "en": "Should a material table alone determine an endgame exchange?"
+    },
+    "answer": {
+      "ja": "いいえ。詰みの速さ、自玉の安全、交換後の駒の働きを先に確認します。",
+      "en": "No. Check mating speed, your king’s safety, and the pieces’ activity after the exchange."
+    }
+  },
+  {
+    "id": "1021",
+    "title": {
+      "ja": "駒得の考え方",
+      "en": "Material gain and exchanges"
+    },
+    "paragraphs": [
+      {
+        "ja": "同じ駒を互いに取れば枚数の損得はなくても、配置と持ち駒が変わります。香を渡して角を取るように、低い価値の駒と引き換えに高い駒を得るのが駒得です。交換は一手だけでなく最後の取り返しまで数え、相手に渡す持ち駒が自玉を攻める可能性も調べます。",
+        "en": "Equal exchanges may leave the material balance unchanged while transforming positions and hands. Giving a lance for a bishop is ordinarily material gain: you surrender the less valuable piece and obtain the more valuable one. Evaluate an exchange through its final recapture, not just its first capture, and consider how the opponent can use the newly acquired piece against your king."
+      },
+      {
+        "ja": "二枚替えは一枚と二枚の交換です。金銀二枚と飛車、銀桂と角などは、両方の駒が働くかと玉の堅さで評価が変わります。浮き駒への両取りは駒得の手段ですが、王手などの切り返しがないかを読みます。中盤の駒得は有力な指針でも、相手が先に詰ませるなら勝ちを保証しません。",
+        "en": "Two-for-one exchanges compare combined force rather than individual ranks. Gold plus silver for a rook, or silver plus knight for a bishop, depend on whether both acquired pieces work and which king is safer. Forks against loose pieces can win material, but checks and tactical counterattacks may change the outcome. Material gain guides middlegame decisions; it never outweighs being mated first."
+      }
+    ],
+    "question": {
+      "ja": "角を渡して銀と桂を得る交換は、桂が角より安いから必ず損ですか？",
+      "en": "Is bishop for silver and knight always bad because a knight is cheaper than a bishop?"
+    },
+    "answer": {
+      "ja": "いいえ。銀と桂の合計の働き、玉の安全、交換後の手番を評価します。",
+      "en": "No. Evaluate their combined activity, king safety, and the resulting initiative."
+    }
+  },
+  {
+    "id": "3271",
+    "title": {
+      "ja": "攻め方と受け方の基本",
+      "en": "Basic attack and defense"
+    },
+    "paragraphs": [
+      {
+        "ja": "取られそうな駒を守る方法は、逃がす、長い利きを合駒で遮る、別の駒の利きを足して取り返せるようにする、の三つです。受ける駒そのものを安い攻め駒に取られると損する場合があります。ヒモを付けても交換の損得や自玉への王手まで読まなければ、守ったことにはなりません。",
+        "en": "Three basic defenses are moving the threatened piece, interposing against a sliding attack, and protecting it so a capture can be recaptured. A blocking piece may itself be lost to a cheaper attacker. Adding protection is not automatically adequate: calculate the full exchange and any checks against your king. A defended gold can still be a profitable target if the attacker gives only a pawn for it."
+      },
+      {
+        "ja": "攻めではヒモのない浮き駒を探し、相手が一手で両方を救えない両取りを狙います。飛車の縦横、角の対角線、桂の跳躍を使うと離れた駒を同時に攻められます。単に取れるマスだけでなく、取った後に自分の駒がどうなるかを確認します。相手が王手で手番を奪う応手にも注意します。",
+        "en": "On attack, search for loose pieces and forks that make two threats at once. A rook’s orthogonal lines, bishop diagonals, or knight jumps can connect targets that appear far apart. Check what happens to your own piece after it captures, not merely whether the first capture is legal. The opponent may gain time with check or capture the forking piece instead of rescuing a target."
+      }
+    ],
+    "question": {
+      "ja": "香に狙われた金へ銀のヒモを付ければ、必ず損を防げますか？",
+      "en": "Does protecting a gold with a silver always prevent loss against a lance?"
+    },
+    "answer": {
+      "ja": "いいえ。金を取られて香を取り返す交換では、一般に金と香の駒損が残ります。",
+      "en": "No. Losing the gold and recapturing only a lance usually still loses material."
+    }
+  },
+  {
+    "id": "1821",
+    "title": {
+      "ja": "王手、詰み、詰めろ、必至って？",
+      "en": "Check, mate threat, and unavoidable mate"
+    },
+    "paragraphs": [
+      {
+        "ja": "王手は今玉に利きが届き、詰みはその王手に合法な逃れがない状態です。詰めろは王手をしていなくても、放置すると次に詰ませる手順がある状態です。必至は詰めろを受けで消せない状態です。「次に詰む」は必ず一手詰という意味ではなく、次の攻撃開始から詰みがあることを含みます。",
+        "en": "Check attacks the king now; mate means no legal response removes that check. A tsumerō is a mate threat: if ignored, the attacker can begin a mating continuation on the next turn. Hisshi is a mate threat that defensive play cannot remove. A threat to mate next turn need not mean a single mating move; it can initiate a longer forced sequence."
+      },
+      {
+        "ja": "意味のない王手は相手玉を安全な場所へ追い出します。詰みがあれば直ちに詰ませ、なければ逃げ道を塞ぐ詰めろや必至を考えます。ただし自玉が先に詰むなら、相手への必至だけでは勝てません。自玉の詰めろを受ける、王手を続けて勝つ、攻防の手を指すという比較が必要です。",
+        "en": "Aimless checks may drive the king to safety. If mate exists, execute it; otherwise consider closing escape squares with a mate threat or unavoidable mate. Hisshi against the opponent is insufficient if your own king can be mated first. Compare defense, a winning sequence of checks, and moves that attack while guarding your king. The distinction between checking and threatening mate determines which side has time."
+      }
+    ],
+    "question": {
+      "ja": "自玉に詰めろがあるとき、相手へ必至をかければ必ず勝ちですか？",
+      "en": "Does creating hisshi always win when your own king is under a mate threat?"
+    },
+    "answer": {
+      "ja": "いいえ。相手が先に自玉を詰ませられるなら負けます。先に詰ます王手の連続か受けが必要です。",
+      "en": "No. The opponent can mate your king first; you need a winning checking sequence or an adequate defense."
+    },
+    "practice": {
+      "tsume": 3
+    }
+  },
+  {
+    "id": "2911",
+    "title": {
+      "ja": "指し方の基本方針",
+      "en": "A practical plan for each game stage"
+    },
+    "paragraphs": [
+      {
+        "ja": "序盤は飛角の道を開き、攻める場所と玉の避難先を決めます。中盤は駒の接触と交換が始まり、飛車の成り込みや有利な交換で終盤の戦力を準備します。終盤は玉を捕まえる競争になり、駒の価値より手数と自玉の安全が優先されます。段階は手数で固定されず、局面の性質で判断します。",
+        "en": "In the opening, open lines for the major pieces and choose an attack and a king shelter. In the middlegame, contact and exchanges prepare endgame force through promotion and favorable trades. In the endgame, the race to catch kings makes tempo and safety more important than ordinary material values. These stages are properties of the position, not fixed move-number boundaries."
+      },
+      {
+        "ja": "飛角銀桂を攻めに使い、金二枚と銀一枚を玉の守りにするのは基本形です。龍や馬で小駒を取り、持ち駒を補充して複数の駒で攻めを続けます。四枚の攻めは目安であって枚数だけで成功は決まりません。相手の成り込みを防ぎ、不要な持ち駒を渡さず、自玉に詰みがあるかを毎手確認します。",
+        "en": "A common balance attacks with rook, bishop, silver, and knight while two golds and a silver defend the king. Dragons or horses can capture small pieces and replenish the hand for sustained attacks. The proverb about four attackers is a heuristic, not a numerical guarantee. Meanwhile prevent enemy promotion, avoid supplying dangerous drops, and check your own king’s mating risk after every exchange."
+      }
+    ],
+    "question": {
+      "ja": "中盤で得になる駒取りが、終盤では悪手になる理由は？",
+      "en": "Why might a profitable middlegame capture become a bad endgame move?"
+    },
+    "answer": {
+      "ja": "駒を取る一手の間に自玉が詰むことや、相手玉を捕まえる手番を失うことがあるからです。",
+      "en": "It may spend the turn needed to prevent mate or finish the opponent’s king."
+    }
+  },
+  {
+    "id": "3156",
+    "title": {
+      "ja": "序盤の指し方、考え方",
+      "en": "Opening development"
+    },
+    "paragraphs": [
+      {
+        "ja": "初手の▲7六歩は角道、▲2六歩は飛車先を開く代表例です。飛車先の歩交換は歩を手持ちにし、飛車の道を通し、銀や桂の進出地点を作ります。ただし交換後の侵入地点が金銀に守られていれば、飛車を走るだけでは突破できません。銀を進めて攻め駒を足す準備をします。",
+        "en": "Sente’s 7g–7f opens the bishop diagonal; 2g–2f begins rook-pawn development. Exchanging the rook pawn supplies a pawn in hand, opens the file, and frees advance squares for silver or knight. The exchange does not guarantee invasion when golds or silvers defend the entry point. Develop an attacking silver rather than sending the rook unsupported into a defended promotion square."
+      },
+      {
+        "ja": "守りでは相手の飛車先の交換地点に利きを足し、玉を金銀三枚で囲います。例えば7七の銀は8六を守ります。囲いは飛車と反対側に作り、相手の速い仕掛けに間に合う順序を選びます。横歩の獲得にも手数の費用があり、定跡の条件が分からないまま歩得だけを優先しないことが大切です。",
+        "en": "On defense, add control to the opponent’s pawn-exchange square and build a shelter with coordinated generals. A silver on 7g, for example, protects 8f against the enemy rook. Usually castle opposite your rook and use an order that survives early contact. A side-pawn capture has a development cost: without understanding its opening conditions, do not prioritize an extra pawn over piece activity and king safety."
+      }
+    ],
+    "question": {
+      "ja": "飛車先の歩交換には、歩を取る以外にどんな利点がありますか？",
+      "en": "Besides obtaining a pawn, what does a rook-pawn exchange achieve?"
+    },
+    "answer": {
+      "ja": "飛車の道が通り、銀や桂の進出地点も空きます。侵入できるかは相手の守備を別に確認します。",
+      "en": "It opens the rook file and advance squares for supporting pieces; invasion still depends on enemy defense."
+    }
+  },
+  {
+    "id": "3198",
+    "title": {
+      "ja": "中盤の指し方、考え方",
+      "en": "Middlegame planning"
+    },
+    "paragraphs": [
+      {
+        "ja": "中盤は駒をぶつけ、交換しながら相手陣への入口を作る段階です。飛車だけでは足りない場所へ銀や香の利きを加え、攻めの数を増やします。ただし単に攻め駒の枚数が守備駒より多いだけでは足りず、取り合う順番、駒の価値、成り、王手やピンを読んで突破が成立するか確かめます。",
+        "en": "The middlegame turns development into contact and exchanges that open entry points. Add a silver or lance to a file where the rook alone cannot break through. Counting attackers and defenders helps, but a numerical surplus is not a proof: capture order, piece values, promotion, checks, and pins determine whether the exchange really works. Read the resulting position rather than relying on arithmetic alone."
+      },
+      {
+        "ja": "有利な交換と龍・馬作りは終盤の戦力を増やします。持ち角の王手飛車や浮き駒への両取りは、相手に受けを強制しながら材料を得る方法です。明確な攻めがなければ玉の守りを改善できますが、相手の脅威を無視して囲うのは危険です。攻めを継続できる持ち駒と、自玉の安全を同時に評価します。",
+        "en": "Favorable exchanges and promoted major pieces supply force for the endgame. A bishop check-fork or an attack on loose pieces can gain material while forcing a response. If no sound attack exists, improve your king shelter, but not at the cost of ignoring an immediate enemy threat. Evaluate whether your hand can sustain pressure and whether the same exchanges weaken your own king."
+      }
+    ],
+    "question": {
+      "ja": "攻めが二枚、守りが一枚なら、必ず攻めは成功しますか？",
+      "en": "Do two attackers against one defender guarantee a successful attack?"
+    },
+    "answer": {
+      "ja": "保証しません。交換順、駒の価値、王手などを含む具体的な読みが必要です。",
+      "en": "No. Concrete capture order, material values, and forcing replies must be checked."
+    }
+  },
+  {
+    "id": "3239",
+    "title": {
+      "ja": "終盤の指し方、考え方",
+      "en": "Endgame speed and finishing"
+    },
+    "paragraphs": [
+      {
+        "ja": "終盤は囲いと玉への攻めが具体化した段階です。相手玉の逃げ道を狭め、守りの金を安い駒で狙い、取った金銀を次の攻めに使います。龍は攻めの軸になりますが、無理な駒取りで手番を失わないようにします。自玉の詰めろを確認し、駒得より詰ませる速さを優先する局面を見極めます。",
+        "en": "The endgame begins when attacks on castles and kings become concrete. Restrict escape routes, target defensive golds with cheaper pieces, and reuse captured generals to continue pressure. A dragon can anchor the attack, but unnecessary harvesting may lose the decisive tempo. Inspect mate threats against your own king and identify when speed toward mate matters more than acquiring another piece."
+      },
+      {
+        "ja": "頭金は、玉の前に金を置き、その金を別の駒で守る基本の詰み形です。飛車を捨てて金を取る手でも、取り返した玉にその金を打って詰ませるなら勝ちです。詰みがなければ桂香を補充する、守備駒をはがす、逃げ道を塞ぐ準備をします。王手できるというだけで追い回さず、詰め上がりから逆算します。",
+        "en": "Head-gold mate places a protected gold directly in front of the king. Sacrificing a rook to capture a gold can be correct when the newly acquired gold mates the king after recapture. Without immediate mate, replenish useful knights or lances, remove defenders, or close escape squares. Work backward from a mating pattern; giving check is not by itself a reason to chase the king."
+      }
+    ],
+    "question": {
+      "ja": "飛車と金の交換で駒損でも、すぐ詰ませられるならどう評価しますか？",
+      "en": "How should you evaluate a rook-for-gold sacrifice that forces immediate mate?"
+    },
+    "answer": {
+      "ja": "勝ちです。詰みが確実なら通常の駒の損得より勝敗を優先します。",
+      "en": "It wins. A proven mate takes priority over ordinary material balance."
+    },
+    "practice": {
+      "tsume": 3
+    }
+  },
+  {
+    "id": "2590",
+    "title": {
+      "ja": "角交換された時の指し方",
+      "en": "Playing after a bishop exchange"
+    },
+    "paragraphs": [
+      {
+        "ja": "角交換後は双方の持ち角が盤全体の隙を狙います。五筋の歩を不用意に突くと自陣に斜めの通路ができ、角を打たれて馬を作られることがあります。一段目の金を残す形や一段飛車の横利きで隙を守りますが、その分玉の囲いが薄くなることもあり、守りの配置を全体で比較します。",
+        "en": "After a bishop exchange, both hands can exploit gaps across the board. An unnecessary central-pawn push can create a diagonal route for a bishop drop and promotion. Keeping a back-rank gold or using a back-rank rook’s horizontal control can cover those gaps, but may reduce castle development. Evaluate the entire defensive arrangement rather than applying a proverb without checking the actual drop squares."
+      },
+      {
+        "ja": "攻めでは王手飛車、二つの成り込みを狙う筋違い角、組みかけの美濃の空きマスへの角打ちを探します。相手も同じ狙いを持つので、玉と飛車が一つの対角線に並ぶ配置を避けます。居飛車なら角換わり、振り飛車なら角交換四間飛車の駒組みを学ぶと、角打ちを防ぎながら攻める方針が立ちます。",
+        "en": "Look for check-forks, off-diagonal drops threatening promotion on two routes, and gaps inside an unfinished Mino castle. The opponent has the same opportunities, so avoid aligning king and rook on a vulnerable diagonal. Bishop Exchange for Static Rook and Bishop-Exchange Fourth File Rook provide coherent development plans that balance your own bishop threats against prevention of enemy drops."
+      }
+    ],
+    "question": {
+      "ja": "角交換後に五筋の歩を突く前、何を調べますか？",
+      "en": "What should you inspect before pushing the central pawn after a bishop exchange?"
+    },
+    "answer": {
+      "ja": "空いた斜めの道から角を打って馬を作る筋や、王手飛車の隙が生まれないかを調べます。",
+      "en": "Check whether the opened diagonal allows a promoting bishop drop or a king–rook fork."
+    }
+  },
+  {
+    "id": "1067",
+    "title": {
+      "ja": "両取りの6パターン",
+      "en": "Six fork patterns"
+    },
+    "paragraphs": [
+      {
+        "ja": "桂のふんどしは跳び先二つ、角の両取りは対角線、十字飛車は縦横の利き、香の田楽刺しは同じ筋に重なる駒を狙います。田楽刺しでは前の駒が動くと奥の駒に利きが届きますが、歩の合駒などの対処を読みます。王手飛車は玉への応手を強制するため、とくに強い両取りです。",
+        "en": "A knight fork uses its two jump targets; bishop forks use diagonals; a cross-rook fork uses rank and file. A lance skewer attacks aligned pieces: moving the front piece exposes the rear target. Read blocks and counterattacks rather than assuming every alignment wins. A king–rook fork is particularly forcing because the king’s check must be answered before the rook can be rescued."
+      },
+      {
+        "ja": "割り打ちの銀は斜めの利きで金や飛車を同時に狙い、取った後に銀を取り返されても相手の囲いを乱せることがあります。近づいた大駒への金銀の両取りも六つ目の重要な形です。両取りが見えても、王手による切り返しや両取り駒を取る手で消える場合があります。二つの狙いが両方実行できるかまで確認します。",
+        "en": "A splitting silver attacks golds or rooks on diagonals; even when recaptured after taking a gold, it may damage the castle. Gold and silver forks against nearby major pieces complete the six-pattern set. Apparent forks can be neutralized by a countercheck or capture of the forking piece. Verify both threatened captures and the opponent’s forcing resources before declaring material won."
+      }
+    ],
+    "question": {
+      "ja": "両取りをかけたら、相手は必ずどちらかを逃がすしかありませんか？",
+      "en": "After a fork, must the opponent always move one of the targets?"
+    },
+    "answer": {
+      "ja": "いいえ。両取り駒を取る、王手で切り返す、両方を守る手も確認します。",
+      "en": "No. They may capture the forking piece, countercheck, or defend both targets."
+    },
+    "examples": [
+      {
+        "title": {
+          "ja": "銀の両取り：独自の練習図",
+          "en": "Silver fork: original practice position"
+        },
+        "startSfen": "4k4/9/3g1r3/9/9/9/9/9/4K4 b S 1",
+        "moves": [
+          "S*5d"
+        ],
+        "notes": [
+          {
+            "ja": "5四の銀が6三の金と4三の飛車を同時に狙います。",
+            "en": "The silver on 5d attacks the gold on 6c and rook on 4c."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "8322",
+    "title": {
+      "ja": "三歩持ったら継ぎ歩に垂れ歩",
+      "en": "Successive and dangling pawns"
+    },
+    "paragraphs": [
+      {
+        "ja": "継ぎ歩は相手の歩の前に歩を続けて捨て、守備の歩を前へ誘う手筋です。すぐ飛車で取り返す場合と違って、相手陣の歩がいた場所やその後ろのマスを空けます。垂れ歩はその空間に歩を打ち、次のと金作りを狙います。三枚の持ち歩は二回の誘いと一枚の垂れ歩を組み合わせる材料です。",
+        "en": "Successive pawns offer pawn sacrifices repeatedly in front of an enemy pawn, drawing it away from its defensive post. Unlike immediate rook recapture, this can open the square behind that pawn. A dangling pawn then occupies the opened space and threatens to promote. Three pawns in hand supply two lures and a third pawn to leave behind the displaced defender."
+      },
+      {
+        "ja": "先手なら▲2四歩、△同歩、▲2五歩、△同歩、▲2四歩のように組み合わせます。ただし二歩にならない筋が必要です。穴熊や美濃では、歩を吊り上げて銀桂の打ち込みとと金作りを重ねると守備駒をはがせます。遅い攻めなので、自玉が先に危なくならないか、垂らした歩を取られないかを確認します。",
+        "en": "For sente, a typical pattern offers pawns on 2d and 2e before dropping behind the defender on 2d. Your own file must be free of an unpromoted pawn. Against Anaguma or Mino, combine the displaced pawn with silver or knight penetration and tokin creation. This is preparation rather than instant mate: check whether the dangling pawn survives and whether your own king has time."
+      }
+    ],
+    "question": {
+      "ja": "継ぎ歩の後すぐ取り返さず、歩を垂らす狙いは？",
+      "en": "Why leave a dangling pawn instead of immediately recapturing after successive pawns?"
+    },
+    "answer": {
+      "ja": "守備の歩の後ろにと金を作る拠点を置き、別の攻め駒の打ち込みと組み合わせるためです。",
+      "en": "To establish a promotion foothold behind the displaced pawn and combine it with another attacker."
+    }
+  },
+  {
+    "id": "1783",
+    "title": {
+      "ja": "金はトドメに残せ",
+      "en": "Keep a gold for the finish"
+    },
+    "paragraphs": [
+      {
+        "ja": "頭金は金の横利きと斜め前の利きで逃げ道を塞ぐ基本形です。玉の前へ打つ金は別の駒で守る必要があります。銀には横利きがないので、最後に銀を残すと横へ逃げられる形があります。銀を先に使って玉を下段へ追い、金を最後に打つ順序を、詰め上がりから逆に考えます。",
+        "en": "Head-gold mate exploits a gold’s sideways and forward-diagonal control. A gold placed in front of the king needs protection from another piece. A silver lacks sideways movement, so saving it for the finish may leave a lateral escape. Use the silver earlier to drive the king back, then retain the gold for the final net. Work backward from the desired mating position."
+      },
+      {
+        "ja": "連続の頭金、玉を上へ誘ってから頭金、銀などを捨てて玉を誘導、金を取りながら詰ます、といった形を組み合わせます。金を取るために飛車を捨てても、その金で詰ませるなら成功です。格言は金を絶対に捨てない命令ではありません。必要なら最初の金を捨て、別の金を最後に残す読みもあります。",
+        "en": "Combine consecutive gold checks, a sacrifice luring the king upward, silver attraction, and capturing a gold before delivering mate. A rook sacrifice is justified if the captured gold supplies the finish. The proverb does not prohibit every gold sacrifice: a first gold may be offered while another is retained for mate. Confirm all king escapes rather than trusting the phrase alone."
+      }
+    ],
+    "question": {
+      "ja": "「金はトドメに残せ」は、金の捨て駒を絶対に禁止する意味ですか？",
+      "en": "Does keeping a gold for the finish forbid all gold sacrifices?"
+    },
+    "answer": {
+      "ja": "違います。詰め上がりに必要な金を残せば、途中で別の金を捨てる手も成立します。",
+      "en": "No. Another gold may be sacrificed if the required finishing gold remains available."
+    },
+    "examples": [
+      {
+        "title": {
+          "ja": "頭金：独自の練習図",
+          "en": "Head-gold mate: original practice position"
+        },
+        "startSfen": "4k4/9/4P4/9/9/9/9/9/4K4 b G 1",
+        "moves": [
+          "G*5b"
+        ],
+        "notes": [
+          {
+            "ja": "5三の歩が金を守り、金が玉の逃げ道をすべて押さえます。",
+            "en": "The pawn on 5c protects the gold, whose control closes every king escape."
+          }
+        ]
+      },
+      {
+        "title": {
+          "ja": "銀を先に、金を最後に：独自の練習図",
+          "en": "Silver first, gold last: original practice position"
+        },
+        "startSfen": "9/4k4/9/3PPP3/9/9/9/9/4K4 b GS 1",
+        "moves": [
+          "S*5c",
+          "5b4a",
+          "G*4b"
+        ],
+        "notes": [
+          {
+            "ja": "銀を先に打ち、4一玉には4二金。5一玉なら5二金、6一玉なら6二金です。",
+            "en": "Use the silver first. After 4a, gold on 4b mates; 5a is met by gold on 5b and 6a by gold on 6b."
+          },
+          {
+            "ja": "玉が４一へ逃げました。５一や６一へ逃げる変化も、金を残せば詰みます。",
+            "en": "The king escapes to 4a. Keeping the gold also mates against the alternative escapes to 5a and 6a."
+          },
+          {
+            "ja": "４二金は５三の銀に守られ、玉の逃げ道を全て塞ぎます。",
+            "en": "The silver on 5c protects the gold on 4b, which covers every king escape."
+          }
+        ]
+      }
+    ],
+    "practice": {
+      "tsume": 3
+    }
+  },
+  {
+    "id": "6068",
+    "title": {
+      "ja": "将棋初心者向けのオススメの囲い",
+      "en": "Four beginner castles"
+    },
+    "paragraphs": [
+      {
+        "ja": "囲いは飛車から離れた場所に玉を置き、金銀をつなげて守る陣形です。金二枚と銀一枚はよくある基本で、もう一枚の銀を攻めに使います。横・縦・斜めのどこから攻められるかで、同じ枚数でも守りの働きは変わります。完成形だけでなく、組む途中で相手の仕掛けに間に合うかも比較します。",
+        "en": "A castle separates the king from the rook’s battle area and connects defensive generals. Two golds and one silver are a common base, leaving another silver for attack. Equal piece counts do not mean equal safety: defenses differ against horizontal, vertical, and diagonal pressure. Compare the construction phase as well as the final shape, especially whether an early attack arrives before the shelter is ready."
+      },
+      {
+        "ja": "相居飛車には縦の攻めを受ける矢倉、居飛車対振り飛車には速く組める舟囲い、振り飛車対居飛車には横の連結が強い美濃が代表例です。相振り飛車では上からの攻めに備える金無双が使われます。舟囲いの薄さや金無双の壁銀など弱点もあるので、相手の戦型と攻めの方向を見て選びます。",
+        "en": "Yagura is a common answer to frontal pressure in Double Static Rook. Boat castle develops quickly against Ranging Rook, while Mino connects well against lateral attacks in the opposite matchup. Double Ranging Rook often uses Gold Fortress against frontal pressure. Each has weaknesses, including Boat’s thin shelter and Gold Fortress’s wall silver, so choose by the enemy attack direction rather than memorizing a universal strongest castle."
+      }
+    ],
+    "question": {
+      "ja": "振り飛車を指せば、相手の作戦に関係なく美濃が最適ですか？",
+      "en": "Is Mino always the best castle whenever you play Ranging Rook?"
+    },
+    "answer": {
+      "ja": "違います。相振り飛車の上部攻めには金無双、高美濃、右矢倉なども比較します。",
+      "en": "No. Against frontal Double Ranging Rook attacks, compare Gold Fortress, High Mino, and Right Yagura."
+    }
+  },
+  {
+    "id": "5958",
+    "title": {
+      "ja": "矢倉系の囲い一覧",
+      "en": "Yagura castle family"
+    },
+    "paragraphs": [
+      {
+        "ja": "金矢倉は7七銀で飛車先を受け、金銀の壁の中へ玉を入れる相居飛車の基本です。カニ囲いは途中の速い形、片矢倉は7八玉で手数を節約、銀矢倉は6七を銀に替えて連結を改善します。総矢倉と菱矢倉は金銀四枚で守る分、攻めの銀を使いにくくなります。矢倉穴熊はさらに深く潜る発展形です。",
+        "en": "Gold Yagura uses a silver on7g to guard the rook-pawn front and brings the king inside coordinated generals. Crab is a faster intermediate shelter; Half Yagura saves time with the king on7h. Silver Yagura substitutes a silver on6g for improved connection. Complete and Diamond Yagura use all four generals, reducing attacking resources. Yagura Anaguma deepens the shelter further."
+      },
+      {
+        "ja": "菊水矢倉は玉を最下段に残し縦に備える一方、横に弱くなります。銀立ち矢倉は銀を前に出して上から攻める構想です。へこみ矢倉は低い配置で横に強く斜めに注意し、カブト囲いは角換わりで使う発展前の形です。記事の見出し「ポナンザ囲い」は本文でBonanza由来のボナンザ囲いとして説明され、手数を省くが下段が薄い形です。",
+        "en": "Kikusui keeps the king on the back rank against frontal attacks but weakens lateral defense. Standing-Silver Yagura advances the silver for a frontal attack. Sunken Yagura lowers the structure, improving lateral resistance while exposing diagonals. Helmet is a common Bishop Exchange starting shelter. The source’s heading says Ponanza, but its text identifies Bonanza castle: a faster structure with a thinner back rank."
+      },
+      {
+        "ja": "土居矢倉は左金を5八に使うバランス型、右矢倉は左右を反転させ相振り飛車で用います。雁木は矢倉と関連する出だしから現れますが、別の囲いです。基本の組み方はカニから6六歩・7七銀・6七金、角を退かして7九玉〜8八玉です。相手の急戦と横攻めを受けられる順番を選びます。",
+        "en": "Doi Yagura develops the left gold to5h for balance. Right Yagura mirrors the structure for Double Ranging Rook. Gangi can share an opening route with Yagura but is a distinct castle. A basic route develops Crab, then6f pawn,7g silver,6g gold, clears the bishop, and brings the king through7i to8h. Adapt the order to early attacks and lateral threats."
+      }
+    ],
+    "question": {
+      "ja": "片矢倉と総矢倉の主な交換条件は？",
+      "en": "What tradeoffs distinguish Half Yagura from Complete Yagura?"
+    },
+    "answer": {
+      "ja": "片矢倉は7八玉で手数を省きます。総矢倉は金銀四枚を守りに使い、攻めの戦力を減らします。",
+      "en": "Half Yagura saves construction time with7h king; Complete Yagura commits all four generals and reduces attacking force."
+    }
+  },
+  {
+    "id": "6062",
+    "title": {
+      "ja": "中住まい系の囲い一覧",
+      "en": "Central-king castle family"
+    },
+    "paragraphs": [
+      {
+        "ja": "横歩取りや相掛かりでは飛角が早く動き、深い囲いを作る手数がない場合があります。中住まいは玉を5八へ一マス上げ、左右の戦いに対応するバランスを求める形です。金銀の配置は一つに固定されません。玉の前や斜めの隙を消し、大駒の打ち込みと王手飛車に注意して駒組みします。",
+        "en": "Side Pawn Capture and Double Wing Attack can activate major pieces before a deep castle is practical. Central King advances the king one square to5h and seeks balanced coverage of both wings. Its generals do not have one compulsory arrangement. Cover frontal and diagonal gaps while watching major-piece drops and king–rook forks; balance is useful, but a centrally placed king is not automatically safe."
+      },
+      {
+        "ja": "中原囲いは中原流相掛かりの構想と結び付いた囲いで、いちご囲いも相掛かりで使われる別の配置です。いちごの名称由来は記事でも確定していません。これらは矢倉のような厚い壁を急いで作るより、攻めの手数と隙の少ない陣形を重視します。展開が落ち着けば相掛かりから矢倉へ発展することもあります。",
+        "en": "Nakahara castle belongs to the Nakahara Double Wing Attack approach; Strawberry is another shelter used in that opening. The source does not establish the Strawberry name’s origin. These formations prioritize attacking tempo and limiting tactical entry points rather than immediately building a Yagura-style wall. If the position allows slower development, Double Wing Attack can still evolve into a more substantial Yagura shelter."
+      }
+    ],
+    "question": {
+      "ja": "中住まいの定義として、金銀の配置まで一つに決まっていますか？",
+      "en": "Does Central King require one fixed gold-and-silver arrangement?"
+    },
+    "answer": {
+      "ja": "決まっていません。5八へ上がった玉を中心に、戦型の隙を消す配置を選びます。",
+      "en": "No. The king on5h is central; the generals’ arrangement depends on the opening’s threats."
+    }
+  },
+  {
+    "id": "6044",
+    "title": {
+      "ja": "舟囲い系の囲い一覧",
+      "en": "Boat castle family"
+    },
+    "paragraphs": [
+      {
+        "ja": "舟囲いは玉を6八〜7八へ寄せ、右金を5八へ上げる速い対振り飛車の構えです。少ない手数を急戦に回せる一方、金銀の厚い連結はまだなく、長期の攻めには弱さが出ます。相手が仕掛けず時間があれば左美濃や穴熊へ発展できます。完成だけを急がず、飛角の交換後の横攻めも見ます。",
+        "en": "Boat castle quickly moves the king through6h to7h and develops the right gold to5h against Ranging Rook. The saved tempi support a quick attack, but its generals are not yet a thick connected wall. Extended pressure can expose that thinness. If the enemy delays contact, evolve toward Left Mino or Anaguma, while accounting for lateral attacks after major-piece exchanges."
+      },
+      {
+        "ja": "7九銀型は基本形、6八銀型は銀を攻守どちらに使うか保留、5七銀型は左銀を攻めに使う方針です。箱入り娘は金を寄せて厚くしますが玉の逃げ道が狭くなります。エルモ囲いは金を7九に使い、金銀の連結を改善した急戦向きの形です。守りを増すほど常に得ではなく、仕掛けに使う銀と手数を比較します。",
+        "en": "The7i-silver version is the basic shape. A6h silver keeps its eventual attacking or defensive role flexible; advancing it to5g supports attack. Boxed Daughter adds gold coverage but restricts king escapes. Elmo uses a gold on7i for improved connections in quick-attack play. Extra defense is not free: compare the silver you need for the offensive plan and the tempi consumed before contact."
+      }
+    ],
+    "question": {
+      "ja": "舟囲いから必ず穴熊まで組んでから攻めるべきですか？",
+      "en": "Must you complete Anaguma before attacking from Boat castle?"
+    },
+    "answer": {
+      "ja": "いいえ。舟囲いのまま急戦する構想もあり、相手の速度と自分の攻めを比べます。",
+      "en": "No. Boat supports immediate quick attacks; compare enemy speed and your offensive setup."
+    }
+  },
+  {
+    "id": "6007",
+    "title": {
+      "ja": "左美濃系の囲い一覧",
+      "en": "Left Mino castle family"
+    },
+    "paragraphs": [
+      {
+        "ja": "左美濃は居飛車側で玉を左へ囲い、舟囲いから角を7七へ退かし8八玉・7八銀などで組みます。横の連結がよい反面、角頭と玉の斜めの入口が弱点です。銀冠は銀で上部を覆い、銀冠穴熊はそこから深く潜ります。居角左美濃は角を8八に残して手数と角の攻撃線を活かす急戦型です。",
+        "en": "Left Mino shelters a Static Rook king on the left. A common Boat-to-Mino route clears the bishop to7g and uses8h king and7h silver. Horizontal connections help, but the bishop’s head and diagonal entrance can be weaknesses. Silver Crown covers the upper front; Silver-Crown Anaguma deepens that shell. Bishop-in-place Left Mino keeps the bishop on8h to save time and preserve attacking diagonals."
+      },
+      {
+        "ja": "天守閣美濃は玉を一段上へ上げて斜めの攻めの線から外しますが、玉頭には注意します。四枚美濃は攻め銀も守りに使い、端玉銀冠（米長玉）は玉を端へ逃がします。王手がかかりにくい形を狙うのであって永久に王手不能ではありません。端美濃（串カツ）は端の玉と香の配置で一手を省きますが、端攻めが大きな弱点です。",
+        "en": "Tower Mino advances the king one rank to move away from a diagonal attack, while requiring care above the king. Four-General Mino recruits the attacking silver. Edge-King Silver Crown, also called Yonenaga King, relocates the king toward the edge to reduce checking routes, not make check permanently impossible. Edge Mino or Kushikatsu saves a construction tempo but becomes vulnerable to edge attacks."
+      }
+    ],
+    "question": {
+      "ja": "銀冠へ発展させる主な狙いと注意点は？",
+      "en": "Why develop Left Mino into Silver Crown, and what must you still consider?"
+    },
+    "answer": {
+      "ja": "角頭を銀で補強します。必要な手数、下段の隙、端の攻めと自分の攻めの速度も確認します。",
+      "en": "It reinforces the bishop’s head with a silver; still assess time, back-rank gaps, edge pressure, and offensive speed."
+    }
+  },
+  {
+    "id": "6021",
+    "title": {
+      "ja": "穴熊系の囲い一覧",
+      "en": "Anaguma castle family"
+    },
+    "paragraphs": [
+      {
+        "ja": "穴熊は香を上げ、その下の隅へ玉を潜らせ、銀で蓋をして金を連結する囲いです。居飛車穴熊は左、振り飛車穴熊は右に組むのが基本です。作る手数が多く、守備に駒を使うほど攻めは細くなります。逃げ道が少ないため、堅いという理由だけで仕掛けを放置すると姿焼きのように一方的に崩されます。",
+        "en": "Anaguma raises the lance, tucks the king into the corner beneath it, closes the entrance with a silver, and connects golds. Static Rook usually castles left; Ranging Rook right. Construction is slow, and committing more generals narrows your attack. Few escape routes make sustained one-sided pressure dangerous: solidity is not permission to ignore an enemy attack while your own offense disappears."
+      },
+      {
+        "ja": "松尾流は6七・7八の金で角頭を補強し、攻め銀を加える形もあります。ビッグ4は金銀四枚を集中させます。銀冠穴熊は左美濃・銀冠から、矢倉穴熊は相居飛車の矢倉から発展します。ミレニアム（トーチカ）は香でなく桂の下へ玉を置き角の線を外す関連形です。串カツ（端美濃）は玉と香の上下を入れ替えますが、端に弱い点を比較します。",
+        "en": "Matsuo style reinforces the bishop’s head with golds on6g and7h and can recruit another silver. Big Four concentrates all four generals. Silver-Crown Anaguma develops from Left Mino; Yagura Anaguma develops from Yagura in Double Static Rook. Millennium, or Tochka, shelters under the knight rather than the lance to avoid the bishop’s line. Kushikatsu reverses the king–lance ordering but exposes the edge."
+      }
+    ],
+    "question": {
+      "ja": "穴熊の「姿焼き」が起こる理由は？",
+      "en": "What makes a one-sided Anaguma siege possible?"
+    },
+    "answer": {
+      "ja": "守備に駒と手数を使い、自分の攻めが切れると、逃げ道の少ない玉を相手がゆっくり攻められるからです。",
+      "en": "Heavy defensive commitment can leave no counterattack, allowing a slow siege of a king with few escapes."
+    }
+  },
+  {
+    "id": "5985",
+    "title": {
+      "ja": "美濃囲い系の囲い一覧",
+      "en": "Mino castle family"
+    },
+    "paragraphs": [
+      {
+        "ja": "本美濃は玉を2八、銀を3八へ置き、左金を5八へつなぐ基本形です。片美濃は左金をまだ接続しない速い形です。高美濃は上部とコビンを補強し、銀冠はさらに銀を上へ進めて玉頭と端を厚くします。一方で金銀が上がるほど下段や横の守りが変わるため、発展が常に無条件に得とは限りません。",
+        "en": "Full Mino commonly uses2h king,3h silver, and a connected left gold on5h. Half Mino omits that left gold for speed. High Mino reinforces the upper front and diagonal entrance; Silver Crown advances the silver further against frontal and edge pressure. Raising generals changes lateral and back-rank coverage, so an upgrade is not automatically better against every attack direction."
+      },
+      {
+        "ja": "ダイヤモンド美濃は金銀四枚、木村美濃は少ない守備駒でコビンを補い、銀美濃は5八を銀、金美濃は3八を金にします。ちょんまげ美濃は二筋の歩を伸ばした陽動振り飛車型、坊主美濃はその歩が消えて玉頭が薄い形です。左美濃は居飛車側の関連形です。横の連結だけでなく、斜めと端の攻めを常に調べます。",
+        "en": "Diamond Mino uses all four generals. Kimura Mino covers the diagonal entrance with fewer defenders. Silver Mino substitutes a silver on5h; Gold Mino puts a gold on3h. Topknot Mino has an advanced second-file pawn after a feigned Static Rook setup; Bald Mino has lost that pawn, weakening the king’s front. Left Mino is the Static Rook counterpart. Inspect diagonals and the edge, not just horizontal connections."
+      }
+    ],
+    "question": {
+      "ja": "高美濃や銀冠へ上げると、どの方向の守りも必ず改善しますか？",
+      "en": "Does developing High Mino or Silver Crown improve defense in every direction?"
+    },
+    "answer": {
+      "ja": "違います。上部は厚くても下段や横が薄くなる場合があり、相手の攻めの方向で選びます。",
+      "en": "No. Stronger upper coverage can weaken back-rank or lateral coverage; choose by enemy pressure."
+    }
+  },
+  {
+    "id": "6053",
+    "title": {
+      "ja": "金無双、相振り飛車の囲い一覧",
+      "en": "Gold Fortress and Double Ranging Rook castles"
+    },
+    "paragraphs": [
+      {
+        "ja": "相振り飛車では飛車が相手玉の上から攻めることが多く、金無双は並んだ二枚の金で上部を受けます。2八銀は玉の横の逃げ道を塞ぐ壁銀で、横攻めとコビンの「ウサギの耳」が弱点です。相手の出方によって銀を1七〜2六へ出す、または2六歩〜2七銀と壁を解消する構想があります。",
+        "en": "Double Ranging Rook often sends rook pressure toward the opposing king’s front. Gold Fortress places two golds side by side to meet that attack. Its2h silver can form a wall blocking the king’s lateral escape, while diagonal entrances—the rabbit’s ears—remain weaknesses. Depending on the position, move the silver through1g toward2f or prepare2f pawn and2g silver to remove the wall."
+      },
+      {
+        "ja": "美濃を使うなら3九玉型もあり、高美濃は上部の守りを増します。対抗形でよくある3七桂は相振りでは同じように跳ねられるとは限りません。右矢倉は縦に強い発展形、穴熊はより深く囲う構想で、4八金など上部の受けを重視します。相手の飛車の筋、端攻め、組むまでの手数を比較して選びます。",
+        "en": "Mino can keep the king on3i in this matchup, and High Mino adds frontal coverage. The3g knight development familiar from Static-versus-Ranging games may be inappropriate here. Right Yagura strengthens vertical defense; Anaguma deepens the shelter with arrangements such as a4h gold to address frontal pressure. Compare the enemy rook file, edge attack, and construction time instead of transplanting a castle plan unchanged."
+      }
+    ],
+    "question": {
+      "ja": "金無双の2八銀は守り駒なのに、なぜ弱点にもなりますか？",
+      "en": "Why can Gold Fortress’s defensive silver on2h become a weakness?"
+    },
+    "answer": {
+      "ja": "玉の横への逃げ道を塞ぐ壁銀になり、横攻めを受けた玉が逃げにくくなるためです。",
+      "en": "It blocks lateral king escape, making a horizontal attack harder to flee."
+    }
+  },
+  {
+    "id": "6076",
+    "title": {
+      "ja": "マイナーな囲い一覧",
+      "en": "Unusual castles and their tradeoffs"
+    },
+    "paragraphs": [
+      {
+        "ja": "アヒル囲いは低いバランス型で、金銀の打ち込みの隙を減らし、大駒を交換して攻めを続ける構想と結び付きます。音無しの構えは角道を開けずに組み、後で引き角を使います。多伝囲い（銀多伝）は主に二枚落ちの下手の定跡に現れ、平手の囲いと同じ条件で評価してはいけません。",
+        "en": "Duck castle uses a low balanced setup to reduce general-drop entry points and supports attacks that may exchange major pieces. Silent Formation develops without opening the bishop diagonal, then uses a retreating bishop plan. Silver Taden belongs chiefly to the lower-side repertoire in two-piece handicap. Its success there does not establish the same value in even play, where the missing enemy rook and bishop are present."
+      },
+      {
+        "ja": "串カツは玉を角の線から外す一方で端攻めに弱く、ちょんまげ美濃は伸ばした二筋歩、坊主美濃は消えた二筋歩が玉頭の問題になります。無敵囲い（最強囲い）という名前は強さの保証ではなく、初心者が作りがちな形を指す通称です。名前より、金銀の連結、玉の逃げ道、打ち込みと攻めの方向を確認します。",
+        "en": "Kushikatsu avoids a bishop line at the cost of edge vulnerability. Topknot Mino’s advanced second-file pawn and Bald Mino’s absent one create distinct frontal weaknesses. Invincible Castle, also called Strongest Castle, is a nickname for a familiar beginner arrangement, not a guarantee of strength. Assess connected generals, king escape routes, drop squares, and the likely direction of attack rather than trusting a memorable name."
+      }
+    ],
+    "question": {
+      "ja": "「無敵囲い」という名称から、囲いの堅さを判断できますか？",
+      "en": "Can the name Invincible Castle establish its defensive strength?"
+    },
+    "answer": {
+      "ja": "できません。具体的な連結、逃げ道、弱点を調べて評価します。",
+      "en": "No. Evaluate its actual connections, escape routes, and weaknesses."
+    }
+  },
+  {
+    "id": "1629",
+    "title": {
+      "ja": "歩兵の動き、手筋と使い方",
+      "en": "Pawn tactics"
+    },
+    "paragraphs": [
+      {
+        "ja": "歩は一マス前へ進み、と金は金の動きになります。自陣の壁である一方、飛角を使うために交換して道を開く役割もあります。垂れ歩は次の成りを狙い、継ぎ歩は歩を連続で捨てて敵の歩を前へ誘います。叩きの歩は守備駒を動かし、焦点の歩は複数の守備駒の連結点を攻めて取り方による隙を作ります。",
+        "en": "Pawns advance one square and promote to gold movement. They form a defensive wall, but exchanging them can release rook and bishop lines. Dangling pawns threaten promotion; successive pawn sacrifices pull an enemy pawn forward. A striking pawn forces a defender to move, while a focal-point pawn attacks a square shared by several defenders, exploiting the gaps created by either capture."
+      },
+      {
+        "ja": "歩の連打は戻れない香などを繰り返し前へ誘います。控えの歩は相手の垂れ歩から一マス空けて受け、進出を止めます。底歩は自陣最下段から金を守り、金底の歩は横からの崩しに強い連結です。ただし二歩と打ち歩詰めは確認し、相手に渡す歩も資源になります。と金は安い材料で金銀をはがす攻めに使います。",
+        "en": "Repeated pawn strikes can trap a lance that cannot retreat. A reserved pawn defends one square behind an enemy dangling pawn’s advance. A bottom pawn supports a gold from the back rank, strengthening horizontal resistance. Always check nifu and pawn-drop mate; sacrificed pawns also enrich the opponent’s hand. Tokins efficiently remove generals because they move like golds but return only pawns when captured."
+      }
+    ],
+    "question": {
+      "ja": "金底の歩がよい形でも、打つ前に必ず確認する禁じ手は？",
+      "en": "Before dropping a bottom pawn beneath a gold, which restriction must you inspect?"
+    },
+    "answer": {
+      "ja": "同じ筋に自分の生の歩がないか確認し、二歩を避けます。",
+      "en": "Check for your own unpromoted pawn on that file to avoid nifu."
+    }
+  },
+  {
+    "id": "1486",
+    "title": {
+      "ja": "香車の動き、手筋と使い方",
+      "en": "Lance tactics"
+    },
+    "paragraphs": [
+      {
+        "ja": "香は前へ長く利きますが戻れず、成香は金の動きです。低い段に打つと射程を残せますが、歩の連打で前へ誘われる弱点があります。相手の歩の裏側へ打つと、二歩のため新しい歩で追われない場合があります。田楽刺しは同じ筋の前後の駒を狙い、前の駒が逃げると奥の高い駒を取る手筋です。",
+        "en": "A lance has long forward reach but cannot retreat; its promoted form moves as a gold. Low drops preserve reach, while repeated pawn strikes can lure it into danger. Dropping behind an enemy pawn may prevent another pawn drop on that file because of nifu. A lance skewer targets aligned pieces: when the front piece moves away, the valuable piece behind it becomes capturable."
+      },
+      {
+        "ja": "二段ロケットは飛車と香、または二枚の香を同じ筋に重ね、前の攻め駒を後ろで支えます。香を飛車の前へ置くか後ろへ置くかは、突破地点と詰みの形で決めます。底香は金の下から守る受けで、二歩で底歩を打てない時にも候補です。歩で同じ守りができるなら、安い歩を残せるかと香の攻めの用途を比較します。",
+        "en": "A two-stage rocket stacks rook and lance, or two lances, so the rear piece supports penetration. Whether the lance goes before or behind the rook depends on the entry square and mating net. A bottom lance defends a gold from below, including positions where nifu prevents a bottom pawn. If a pawn offers the same protection, compare the cheaper defense with preserving the lance for attack."
+      }
+    ],
+    "question": {
+      "ja": "香を相手の歩の裏側に打つと、歩で追われにくい理由は？",
+      "en": "Why can a lance behind an enemy pawn be harder to chase with pawn drops?"
+    },
+    "answer": {
+      "ja": "同じ筋に相手の歩が残り、香の前へ新たな歩を打つと相手の二歩になる場合があるからです。",
+      "en": "The enemy’s existing pawn may make a new blocking pawn on that file illegal through nifu."
+    },
+    "examples": [
+      {
+        "title": {
+          "ja": "田楽刺し：独自の練習図",
+          "en": "Lance skewer: original practice position"
+        },
+        "startSfen": "k3r4/9/4b4/9/9/9/9/9/4K4 b L 1",
+        "moves": [
+          "L*5g",
+          "5c4b",
+          "5g5a+"
+        ],
+        "notes": [
+          {
+            "ja": "角が斜めへ逃げると、同じ筋の奥にある飛車へ香の利きが通ります。",
+            "en": "When the bishop moves diagonally away, the lance’s file opens toward the rook behind it."
+          },
+          {
+            "ja": "角が４二へ逃げ、５筋の香と飛車の間が空きました。",
+            "en": "The bishop retreats to 4b, clearing the fifth file between the lance and rook."
+          },
+          {
+            "ja": "奥の飛車を取り、香を成ります。手前の角と奥の飛車が同じ筋に並んだ弱点を利用しました。",
+            "en": "Capture the rook behind the bishop and promote. The skewer exploits the two pieces aligned on the same file."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "1331",
+    "title": {
+      "ja": "桂馬の動き、手筋と使い方",
+      "en": "Knight tactics"
+    },
+    "paragraphs": [
+      {
+        "ja": "桂は前二マスと横一マスを跳び、途中の駒を飛び越します。むやみに跳ねると桂頭へ歩を打たれ、戻れず取られます。銀などで桂頭を守るか、具体的な狙いができるまで待つことも大切です。ふんどしの桂は二つの跳び先への両取りで、持ち桂を得た側も渡した側も警戒します。",
+        "en": "A knight jumps two squares forward and one sideways, ignoring intervening pieces. Premature development can allow a pawn on its head, trapping a piece unable to retreat. Protect the head with a silver or wait for a concrete purpose. The knight fork uses both jump targets, so gaining a knight in hand creates threats that both players must check across the board."
+      },
+      {
+        "ja": "歩頭の桂は歩に取らせて金などの打つ場所を作り、つるし桂は玉から離れた桂の王手で詰ませます。控えの桂は次の跳躍を狙う低い位置への打ち、継ぎ桂は桂の利く地点へ別の桂を足して突破を続けます。三段目での不成は跳躍を残せますが、最奥二段では必ず成ります。狙いと桂頭への反撃を同時に読みます。",
+        "en": "A knight on a pawn’s head invites capture to create a drop square. A hanging-knight mate checks from beyond the king’s capture range. Reserved knights prepare a later jump; successive knights reinforce a square already controlled by another knight. Optional nonpromotion on the third rank preserves the jump, but the last two ranks require promotion. Read the attack and retaliation against the knight’s head together."
+      }
+    ],
+    "question": {
+      "ja": "控えの桂と、すぐ王手する桂打ちの違いは？",
+      "en": "How does a reserved knight differ from an immediate checking drop?"
+    },
+    "answer": {
+      "ja": "控えの桂は次の跳躍の拠点を作る準備手で、今すぐ王手とは限りません。",
+      "en": "It prepares a future jump from a lower square and need not give check now."
+    },
+    "examples": [
+      {
+        "title": {
+          "ja": "ふんどしの桂：独自の練習図",
+          "en": "Knight fork: original practice position"
+        },
+        "startSfen": "4k4/9/3g1r3/9/9/9/9/9/4K4 b N 1",
+        "moves": [
+          "N*5e"
+        ],
+        "notes": [
+          {
+            "ja": "5五の桂は6三の金と4三の飛車を同時に狙います。",
+            "en": "The knight on5e attacks the gold on6c and rook on4c."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "1313",
+    "title": {
+      "ja": "銀将の動き、手筋と使い方",
+      "en": "Silver tactics"
+    },
+    "paragraphs": [
+      {
+        "ja": "銀は前と四つの斜めへ一マス動き、横と真後ろには動けません。斜めに進めば戻る経路を残しやすいので「千鳥に使う」構想が基本です。二枚のうち一枚を攻め、一枚を囲いに使うことがよくあります。成ると金の動きになるため、斜め後ろの逃げ道を残す不成が必要な場面もあります。",
+        "en": "A silver moves forward and along all four one-square diagonals, but not sideways or straight backward. Zigzag development often preserves a retreat route better than a straight advance. A common setup uses one silver to attack and the other in the castle. Promotion changes it to gold movement, so declining can be necessary when a backward diagonal matters to the continuation."
+      },
+      {
+        "ja": "割り打ちの銀は金や飛車へ両取りをかけ、銀金交換になっても守備の金をはがせます。桂頭の銀は桂の前へ置き、桂が跳ねた後も斜めの利きで捕まえる形です。腹銀は玉の横から逃げ道や成る地点を押さえ、王手をせず複数の詰みを作る手筋です。腹銀という形だけで必至を保証せず、相手の受けをすべて確認します。",
+        "en": "A splitting silver forks golds or rooks and can remove a castle gold even after recapture. A silver on a knight’s head can cover the knight’s jump destinations. A belly silver beside the king restricts exits and promotion squares, creating several mate threats without check. The shape alone does not prove hisshi: examine every defense and your own king’s safety before relying on the net."
+      }
+    ],
+    "question": {
+      "ja": "銀を真っすぐ一マス前へ進めた時、元のマスへ戻れますか？",
+      "en": "Can an unpromoted silver return immediately after a straight forward move?"
+    },
+    "answer": {
+      "ja": "戻れません。真後ろへの移動がないため、斜めへ進める場合と退路が異なります。",
+      "en": "No. It cannot move straight backward; a diagonal advance has different retreat options."
+    }
+  },
+  {
+    "id": "1516",
+    "title": {
+      "ja": "金将の動き、手筋と使い方",
+      "en": "Gold tactics"
+    },
+    "paragraphs": [
+      {
+        "ja": "金は縦横と斜め前へ動き、玉の近くで隣接する弱点をまとめて守ります。銀では同時に守れない横の二地点を金なら受けられることがあります。持ち金は終盤の受けにも詰めにも重要なので、一般の駒価値表より実際の用途を優先します。守備の金を動かすときは囲いの連結が切れないか調べます。",
+        "en": "A gold covers orthogonal squares and forward diagonals, making it effective near the king. It can defend adjacent lateral drop squares that a silver cannot cover together. A gold in hand is valuable for both endgame repair and mating, sometimes exceeding ordinary material rankings in practical value. Before moving a defensive gold, inspect whether the castle’s connections and escape coverage disappear."
+      },
+      {
+        "ja": "頭金は玉の前の守られた金で逃げ道を塞ぐ詰みです。金を最後に残し、銀の捨て駒で玉を誘導する順があります。尻金は玉の後ろから金の前向きの利きで王手を続け、横へ滑らせて追う手筋です。どちらも支える飛角や歩と協力します。金なら必ず詰むのではなく、金の斜め後ろの穴と相手の駒による取り返しを確認します。",
+        "en": "Head-gold mate places a protected gold in front of the king. A silver sacrifice can attract the king before the finishing gold arrives. Rear-gold tactics check from behind, shifting sideways to keep pressure with the gold’s forward control. Both cooperate with supporting major pieces or pawns. Gold alone is not a mating guarantee: account for its missing backward diagonals and possible enemy captures."
+      }
+    ],
+    "question": {
+      "ja": "金を詰めに使う時、銀との動きの違いで特に重要な点は？",
+      "en": "Which movement difference matters especially when choosing gold or silver to finish mate?"
+    },
+    "answer": {
+      "ja": "金の横利きは玉の横への逃げを塞ぎます。銀にはその横利きがありません。",
+      "en": "A gold’s sideways control closes lateral escapes; an unpromoted silver lacks it."
+    }
+  },
+  {
+    "id": "1586",
+    "title": {
+      "ja": "角行の動き、手筋と使い方",
+      "en": "Bishop and horse tactics"
+    },
+    "paragraphs": [
+      {
+        "ja": "角は斜めに長く利き、先手7六歩・後手3四歩で角道が開きます。角交換後は好きな空きマスへの打ち込みが可能になり、双方の自陣の隙が重要です。馬は角の動きに縦横一マスが加わり、自陣へ引くと近接と遠距離を同時に守れます。「馬の守りは金銀三枚」は働きを示す目安で、固定の価値ではありません。",
+        "en": "A bishop controls long diagonals, opened by sente’s7g–7f or gote’s3c–3d. Exchanging bishops creates drop opportunities across the board and makes gaps in both camps significant. A horse adds one-square orthogonal movement and can defend near and distant targets after retreating. The proverb comparing its defense to three generals describes potential activity, not a fixed material equivalence."
+      },
+      {
+        "ja": "角の両取りには王手飛車があり、相手の角で線を遮られる受けも読みます。筋違いの角打ちは二つの成り込みを狙います。角と桂の攻めでは、角の線にいる歩を動けなくして桂を守るピンが働くことがあります。攻防の角は自玉の詰めろを消しながら相手へ詰めろを作る一手で、攻めと守りの両方の対角線を確認します。",
+        "en": "Bishop forks include king–rook check-forks, but an opposing bishop can sometimes block the diagonal. Off-diagonal drops threaten promotion along two routes. Bishop–knight attacks may pin a pawn against the king so it cannot capture the knight. An attack-and-defense bishop both removes a mate threat and creates one against the opponent; verify both diagonals rather than judging only the attacking line."
+      }
+    ],
+    "question": {
+      "ja": "角の利き上に玉と歩が並ぶ時、歩で桂を取れないことがある理由は？",
+      "en": "Why might a pawn aligned with its king on a bishop diagonal be unable to capture a knight?"
+    },
+    "answer": {
+      "ja": "歩が動くと角の王手が玉に通るピンなら、玉をさらす捕獲は違法だからです。",
+      "en": "A pinned pawn cannot move if that exposes its king to the bishop’s check."
+    }
+  },
+  {
+    "id": "1541",
+    "title": {
+      "ja": "飛車の動き、手筋と使い方",
+      "en": "Rook and dragon tactics"
+    },
+    "paragraphs": [
+      {
+        "ja": "飛車は縦横、龍はさらに斜め一マスに利きます。歩交換で道を開き、敵陣へ成り込むのが基本の攻めです。十字飛車は縦横の浮き駒を同時に狙いますが、駒の遮りと王手による切り返しを読みます。持ち飛車は敵陣への打ちが有力でも、すぐ取られる場所や自玉が先に詰む攻めは避けます。",
+        "en": "Rooks slide along ranks and files; dragons add one-square diagonal control. Pawn exchanges open promotion routes. A cross-rook fork attacks loose pieces on perpendicular lines, but blockers and counterchecks can overturn the apparent gain. Enemy-camp drops are useful for a rook in hand, provided the drop survives and your own king is not mated while you pursue the attack."
+      },
+      {
+        "ja": "自陣飛車は敵の飛車打ちを遮り、交換後の金の配置を変えて隙を消す受けです。一間龍は玉と龍の間に一マスある形で、間の守備駒をピンにし金銀の打ち込みを支えます。送りの手筋は玉を捨て駒で動かし、玉が守っていた駒を浮かせて取ります。龍の遠い利きと斜め一マスの働きの両方を使います。",
+        "en": "A defensive rook drop can meet invasion and improve a gold’s placement after exchange. A one-gap dragon net uses a single intervening square to pin defenders and support general drops. Attraction tactics sacrifice a piece to move the king away from a piece it protects, then capture that loosened defender. Combine the dragon’s sliding lines and short diagonal control when evaluating the resulting net."
+      }
+    ],
+    "question": {
+      "ja": "送りの手筋で、捨て駒により相手玉を動かす狙いは？",
+      "en": "What does an attraction sacrifice achieve by moving the enemy king?"
+    },
+    "answer": {
+      "ja": "玉が守っていた駒を浮かせたり、龍と金銀で詰ませる配置へ誘導します。",
+      "en": "It can unprotect a defender or attract the king into a dragon-and-general mating net."
+    }
+  },
+  {
+    "id": "2676",
+    "title": {
+      "ja": "棒銀戦法の基本と定跡まとめ",
+      "en": "Climbing Silver basics"
+    },
+    "paragraphs": [
+      {
+        "ja": "棒銀は飛車先の歩と銀を協力させ、守備駒を交換して飛車の侵入を狙います。銀を端へ進める順と３筋から斜めに進める順があり、相手の端歩と角の利きによって使い分けます。銀だけが孤立しないように、飛車と歩の働きを確認しましょう。",
+        "en": "Climbing Silver combines the rook, rook-file pawn, and an advancing silver to exchange defenders and open a promotion route. The silver can approach along the edge or diagonally through the third file. Choose its route from the enemy edge pawn and bishop coverage, keeping the rook and pawn involved rather than advancing an isolated silver."
+      },
+      {
+        "ja": "端歩で銀を追われても、飛車先の歩突きが反撃になることがあります。銀を取ると歩成りで角や金を狙えるか、歩を取ると銀で取り返せるかを読みます。銀を交換できただけで成功と決めず、その後の飛車の侵入と相手の反撃まで確認します。",
+        "en": "An edge pawn attacking the silver may permit a counterattack with the rook pawn. Calculate the pawn-promotion threat if the silver is captured, and the silver recapture if the pushed pawn is taken. Exchanging silvers is only one step: verify the ensuing rook entry and the opponent’s counterplay before committing."
+      }
+    ],
+    "question": {
+      "ja": "銀を追われたら何を読む？",
+      "en": "What do you calculate when the silver is attacked?"
+    },
+    "answer": {
+      "ja": "飛車先の歩突きによる反撃と、銀を取られた場合の補償です。",
+      "en": "Calculate the rook-pawn counterattack and compensation if the silver is captured."
+    }
+  },
+  {
+    "id": "2695",
+    "title": {
+      "ja": "棒銀の中盤戦",
+      "en": "Climbing Silver middlegames"
+    },
+    "paragraphs": [
+      {
+        "ja": "攻めの銀と守りの銀を交換した後は、飛車を安全な位置へ引く手もあります。銀と歩を持駒にして、弱くなった囲いを別の場所から狙えます。同じ筋で攻め続ける必要はなく、飛車を追われる危険と守備駒を剥がした効果を比較します。",
+        "en": "After exchanging the attacking silver for a defending silver, retreating the rook can protect your gains and leave useful silver and pawn drops. The attack need not stay on the same file. Compare the weakened enemy defense with the risk of exposing your rook, and choose a continuation that keeps your pieces effective."
+      },
+      {
+        "ja": "端では歩を交換して香の頭に歩を打つ手や、銀で桂を狙う手があります。垂れ歩と二枚の香を組み合わせる攻めもありますが、銀香交換は駒損です。後の角打ちの両取りまで見えても、全体の収支と攻めの継続を確認して採用しましょう。",
+        "en": "Edge continuations include a pawn above the lance, a silver attacking the knight, and a dangling pawn supported by two lances. Exchanging a silver for a lance loses material, however. Even a later bishop fork may not recover that loss. Assess the complete balance and continuing threats instead of assuming every edge combination is favorable."
+      }
+    ],
+    "question": {
+      "ja": "銀香交換では何を評価する？",
+      "en": "What must you assess in a silver-for-lance exchange?"
+    },
+    "answer": {
+      "ja": "駒損を上回る攻めの継続や囲いへの打撃があるかです。",
+      "en": "Whether continuing threats and damage to the castle compensate for the material loss."
+    }
+  },
+  {
+    "id": "6549",
+    "title": {
+      "ja": "棒銀vs振り飛車の基本",
+      "en": "Climbing Silver versus Ranging Rook"
+    },
+    "paragraphs": [
+      {
+        "ja": "振り飛車相手では角が端の銀の進路に利いていることがあります。１五へ銀を出す前に、相手の角と端歩、自分の１六の歩の支えを確認しましょう。端を止められたら３筋の歩交換から銀を斜めに進める順が候補になります。",
+        "en": "Against Ranging Rook, the bishop may cover the square your silver wants on the edge. Before advancing, inspect that diagonal, the enemy edge pawn, and support from your own pawn. A blocked edge can make a third-file pawn exchange and diagonal silver advance more suitable. The actual defenders determine which route works."
+      },
+      {
+        "ja": "３五の銀を歩で追われても２筋の歩突きで反撃する手があります。銀を取ると歩成りから角を狙われるかを読みます。相手が３筋の歩を取らなければ、飛車を３筋へ振って角頭に飛車・銀・歩の利きを集中する構想もあります。",
+        "en": "A rook-file pawn push can counter a pawn attacking your silver on the third file. Calculate whether taking the silver allows promotion against the bishop. If the opponent declines the third-file exchange, moving your rook onto that file can concentrate rook, silver, and pawn against the bishop’s head. Do not treat an advanced silver alone as proof of success."
+      }
+    ],
+    "question": {
+      "ja": "端の銀の進路を妨げる大駒は？",
+      "en": "Which major piece can obstruct the edge silver?"
+    },
+    "answer": {
+      "ja": "斜線で銀の進出地点を狙う相手の角です。",
+      "en": "The enemy bishop can cover the silver’s intended square along its diagonal."
+    }
+  },
+  {
+    "id": "6540",
+    "title": {
+      "ja": "棒銀で使われる囲い",
+      "en": "Castles for Climbing Silver"
+    },
+    "paragraphs": [
+      {
+        "ja": "棒銀の囲いは相手の戦型と攻める速さで選びます。矢倉は正面に強い反面手数が必要です。カニ囲いは早いですが薄く、反撃への備えを読みます。角交換のある将棋では、カブト囲いで角打ちの隙を減らす考え方があります。",
+        "en": "Choose the castle from the opponent’s opening and the time available. Yagura offers frontal resistance but takes preparation; Crab Castle develops quickly with a thinner defense. Helmet Castle can reduce bishop-drop weaknesses in bishop-exchange games. None of these names guarantees safety: inspect the actual gaps and counterattacks before sending the silver forward."
+      },
+      {
+        "ja": "振り飛車には舟囲いが基本候補です。７九銀型と６八金型では守備駒の配置や発展の余地が違います。攻めの銀が前へ出た後に残る守りと、相手の角や飛車の進路を確認し、囲う手数と攻めの速度を両立させましょう。",
+        "en": "Boat Castle is a practical option against Ranging Rook. Its silver-on-7i and gold-on-6h forms leave different defenders and development possibilities. Consider what remains around your king after the attacking silver advances, and how the opponent’s rook and bishop can reach it. Balance the time spent castling with the timing of your attack."
+      }
+    ],
+    "question": {
+      "ja": "カニ囲いの交換条件は？",
+      "en": "What tradeoff comes with Crab Castle?"
+    },
+    "answer": {
+      "ja": "早く組める代わりに守りが薄くなります。",
+      "en": "It develops quickly at the cost of a thinner defense."
+    }
+  },
+  {
+    "id": "1854",
+    "title": {
+      "ja": "初心者向け、1手詰の問題",
+      "en": "Mate-in-one patterns"
+    },
+    "paragraphs": [
+      {
+        "ja": "１手詰では頭金、一間龍、つるし桂、馬と桂の協力、空き王手を確認します。桂は成ると利きが変わるため、不成でなければ詰まない形があります。似た図でも駒の所属や位置が違えば解答が変わるので、一つずつ確かめます。",
+        "en": "Mate-in-one patterns include head gold, a one-square-gap dragon, a checking knight, horse-and-knight cooperation, and discovered check. A knight may need to remain unpromoted because promotion changes its coverage. Similar diagrams can have different answers when a pawn changes ownership or a defender moves; identify the pieces before choosing a familiar pattern."
+      },
+      {
+        "ja": "王手の駒を守るだけでなく、全ての逃げ道と取り方を調べます。金や銀の打ち場所が龍の横利きを遮ることがあります。守備駒で取ると別の王手が通る形や、取っても受けにならない無駄な合駒も確認して、詰みを判断しましょう。",
+        "en": "Check every escape and capture as well as protection of the checking piece. A gold or silver drop can block your dragon’s horizontal line. Capturing the checking piece may uncover another check, while an apparent interposition may simply be captured without altering the result. Prove that no legal defense remains instead of trusting the diagram’s appearance."
+      }
+    ],
+    "question": {
+      "ja": "龍の前への駒打ちで確認することは？",
+      "en": "What should you check before dropping in front of a dragon?"
+    },
+    "answer": {
+      "ja": "龍の利きを遮って逃げ道を作っていないかです。",
+      "en": "Ensure the drop does not block the dragon and create an escape."
+    },
+    "practice": {
+      "tsume": 1
+    }
+  },
+  {
+    "id": "4633",
+    "title": {
+      "ja": "初級者向け、3手詰の問題①",
+      "en": "Mate in three: gold and major-piece cooperation"
+    },
+    "paragraphs": [
+      {
+        "ja": "３手詰は最後の１手詰を思い浮かべ、その形へ導く初手を探します。頭金では銀を先に使って金を残す順や、銀を捨てて玉を誘う順があります。金から使うと最後の銀では斜めの逃げ道を塞げないことがあるので比較します。",
+        "en": "Start mate in three by recognizing the final mate-in-one shape. Head-gold patterns often use the silver first and save the gold, or sacrifice a silver to lure the king onto a mating square. Reversing the order can leave a diagonal escape that the final silver cannot cover. Work backward, then verify the sequence forward."
+      },
+      {
+        "ja": "一間龍では守備駒が取れない理由を龍の利きから確認します。歩頭の桂は歩を動かして銀を打つ場所を作ります。馬と金の組合せでは、玉の逃げ方や桂を取る応手によって最後の手が変わります。全ての２手目に詰みがあるかを調べましょう。",
+        "en": "A one-square-gap dragon can prevent a defender’s capture by exposing the king. A knight above a pawn can open a square for a silver drop. Horse-and-gold combinations may have different finishes when the king runs or a defender captures the knight. Test every second-move defense, not merely the variation you noticed first."
+      }
+    ],
+    "question": {
+      "ja": "主変化だけでは不十分な理由は？",
+      "en": "Why is the main variation alone insufficient?"
+    },
+    "answer": {
+      "ja": "別の逃げ方、取り方、合駒にも詰みが必要だからです。",
+      "en": "Alternative escapes, captures, and interpositions must also lead to mate."
+    },
+    "practice": {
+      "tsume": 3
+    }
+  },
+  {
+    "id": "19",
+    "title": {
+      "ja": "初級者向け、3手詰の問題②",
+      "en": "Mate in three: flank gold and forced blockage"
+    },
+    "paragraphs": [
+      {
+        "ja": "腹金は端の玉の横へ金を置く詰み形です。上への逃げ道がなく、金も取れないことが条件です。飛車を捨てて玉を誘う順や、守備の飛車を動かして玉の横へ馬を作る順を考えます。端にいるだけでは詰みと判断できません。",
+        "en": "Flank gold mates an edge king when upward escapes are closed and the gold cannot be captured. A rook sacrifice can lure the king into this shape, or move a defensive rook so a horse can finish beside the king. Edge placement alone is insufficient: verify protection, upward exits, and every other legal defense."
+      },
+      {
+        "ja": "合駒の利かない形へ玉を近づける捨て駒も重要です。金頭の桂は、金に桂を取らせると頭金が生じる含みを持ちます。玉を落としてから桂を使う５手の応用もあります。詰将棋では無駄な合駒を手数に数えませんが、実戦の合法な手順とは区別します。",
+        "en": "Sacrifices can bring the king close enough that interposition becomes ineffective. A knight above a defensive gold may threaten head gold if captured, while covering escapes if the king moves. A longer version first forces the king backward before using the knight. Tsume conventions omit futile interpositions from the stated length; actual play still uses individual legal moves."
+      }
+    ],
+    "question": {
+      "ja": "腹金で確認する条件は？",
+      "en": "What conditions must flank gold satisfy?"
+    },
+    "answer": {
+      "ja": "玉の逃げ道がなく、金を取れず、他の受けもないことです。",
+      "en": "There must be no escape, capture of the gold, or other legal defense."
+    },
+    "practice": {
+      "tsume": 3
+    }
+  },
+  {
+    "id": "109",
+    "title": {
+      "ja": "詰将棋で覚える寄せの手筋①",
+      "en": "Five mating sacrifices"
+    },
+    "paragraphs": [
+      {
+        "ja": "送りの手筋は玉を動かして守備駒との連絡を切ります。逃げ道に捨てる手は、取った相手の駒で退路を塞ぎます。守備駒移動法では、頭金を防ぐ銀などを動かして詰みの地点への利きを外します。取らない応手も調べて成立を確認します。",
+        "en": "A sending sacrifice moves the king away from a defender it protects. A sacrifice on an escape square makes an enemy piece occupy that route. Defender displacement draws a guard away from the intended mating square. These techniques require calculation against declining the sacrifice too; a favorable capture sequence alone does not establish forced mate."
+      },
+      {
+        "ja": "歩頭の桂は歩を前へ動かして金を打つ場所を作ります。危険地帯へ誘う手は玉を近づけて飛車の王手への合駒をなくすなど、詰み形へ導きます。完成する形から逆算し、どの駒や逃げ道が障害かを特定して、それを変える王手を探しましょう。",
+        "en": "A knight above a pawn forces it forward and clears a gold-drop square. Luring the king into danger can eliminate an interposition against a rook check. Picture the final mate, identify the defender or exit preventing it, and find a checking move that changes that obstacle. This connects pattern knowledge to concrete calculation rather than random checking."
+      }
+    ],
+    "question": {
+      "ja": "守備駒移動法で先に特定するものは？",
+      "en": "What do you identify first in defender displacement?"
+    },
+    "answer": {
+      "ja": "詰みを防ぐ駒と、その駒が守っている地点です。",
+      "en": "Identify the defender preventing mate and the mating square it controls."
+    },
+    "practice": {
+      "tsume": 3
+    }
+  },
+  {
+    "id": "5325",
+    "title": {
+      "ja": "詰将棋で覚える寄せの手筋②",
+      "en": "Five more mating techniques"
+    },
+    "paragraphs": [
+      {
+        "ja": "焦点の捨て駒は複数の守備駒が利く場所を利用します。どちらで取っても他方の利きを遮る形を読みます。大駒を離して打つと次に成る場所を確保できますが、離しすぎると中合いで逃れられることもあるので、打ち場所は正確に選びます。",
+        "en": "A focal-point sacrifice uses a square controlled by multiple defenders: whichever captures may block the other defender’s line. Dropping a major piece at a distance can preserve space for promotion on the next move. Too much distance may permit a remote interposition, however. The correct drop square follows from calculation, not an unconditional instruction to drop far away."
+      },
+      {
+        "ja": "退路封鎖では合駒させて逃げ道を塞ぎます。邪魔駒消去法は自分の駒が邪魔な場合に王手で捨てて取り除きます。玉を下段へ落とすと逃げ道を減らせることもあります。五つの手筋を目的で区別し、取らない応手にも寄せがあるか調べます。",
+        "en": "Forced interposition can seal an escape. Clearance removes your own obstructing piece through a checking sacrifice. Forcing the king onto its back rank can also reduce its options. Distinguish these techniques by what they change: a defensive line, promotion space, an escape, your own obstruction, or king location. Verify alternatives before treating the resulting pattern as forced."
+      }
+    ],
+    "question": {
+      "ja": "邪魔駒消去法の邪魔駒とは？",
+      "en": "Whose piece is removed in clearance?"
+    },
+    "answer": {
+      "ja": "自分の攻めや利きを妨げている自分の駒です。",
+      "en": "Your own piece obstructing your attack or coverage."
+    },
+    "practice": {
+      "tsume": 3
+    }
+  },
+  {
+    "id": "7368",
+    "title": {
+      "ja": "詰めろ、必至のコツ",
+      "en": "Creating tsumero and hisshi"
+    },
+    "paragraphs": [
+      {
+        "ja": "詰めろは次に詰ます脅威で、必至はその詰みを防ぐ手がない状態です。控えた銀で玉の上への逃げ道を押さえ、金を最後に打つ形が基本になります。飛車を二段目へ打つと横利きで上への逃げ道をまとめて塞ぐこともできます。",
+        "en": "Tsumero threatens mate next turn; hisshi means no defensive move can prevent the threatened mate. A silver held behind the intended gold-drop square can control upward escapes while saving the gold for the finish. A rook across the second rank can serve a similar purpose by restricting the king’s upward movement without checking immediately."
+      },
+      {
+        "ja": "相手の盤上の銀や持駒の金が受けに使えるかを調べます。頭金を防がれたら桂の王手に切り替えるなど、複数の詰み形を用意することがあります。自玉への王手や詰みも実戦では重要です。形だけで必至と決めず、相手の逃げ・取り・駒打ちを読みます。",
+        "en": "Inspect defensive silvers on the board and golds in hand. If head gold is prevented, a checking knight may supply an alternative mate. In a real game, also check attacks against your own king: an unanswerable defensive threat does not prevent the opponent from mating you first. Prove the claim against escapes, captures, and defensive drops."
+      }
+    ],
+    "question": {
+      "ja": "詰めろと必至の違いは？",
+      "en": "How does hisshi differ from tsumero?"
+    },
+    "answer": {
+      "ja": "詰めろは受けられる場合があり、必至は詰みを防ぐ受けがありません。",
+      "en": "Tsumero may be defendable; hisshi has no defense that prevents the threatened mate."
+    }
+  },
+  {
+    "id": "2375",
+    "title": {
+      "ja": "終盤、寄せから詰みまでの考え方",
+      "en": "From castle attack to mate"
+    },
+    "paragraphs": [
+      {
+        "ja": "玉を直接攻めにくければ、玉の近くの金を狙うのが寄せの出発点です。駒の数を足す直接の攻めは分かりやすいですが、一か所に攻め駒が集まり重くなることがあります。相手が取らずに金を逃げたり、歩を動かして逃げ道を作る応手も読みます。",
+        "en": "When direct king attack is difficult, target a nearby defensive gold. Adding attackers is straightforward but can crowd your pieces and slow the attack. The opponent need not capture: a gold retreat or pawn move opening an escape may undermine your plan. Compare those defenses before deciding that numerical pressure alone produces a decisive attack."
+      },
+      {
+        "ja": "玉を動かして金を浮き駒にする間接の攻めは、攻め駒を動きやすくします。盤上の攻め駒を急いで交換せず、働きを残すことも大切です。一方で龍を切って二つの詰み筋を同時に作る必至が最速の場合もあります。駒得より寄せの速度と自玉の安全を評価します。",
+        "en": "Indirect attacks can move the king away from its gold and keep your attackers mobile. Avoid exchanging effective attacking pieces prematurely. In other positions, sacrificing a dragon creates two mating threats that cannot both be stopped and is the fastest finish. Evaluate king safety and the speed of the resulting attack rather than maximizing material in every variation."
+      }
+    ],
+    "question": {
+      "ja": "直接の攻めが重くなる理由は？",
+      "en": "Why can a direct attack become heavy?"
+    },
+    "answer": {
+      "ja": "攻め駒が一か所に集まり、逃げた玉を追いにくくなるためです。",
+      "en": "Crowded attackers become less mobile and may struggle to pursue an escaping king."
+    }
+  },
+  {
+    "id": "6808",
+    "title": {
+      "ja": "印刷用の詰将棋",
+      "en": "Using printable tsume exercises"
+    },
+    "paragraphs": [
+      {
+        "ja": "出典は１手詰１４問と３手詰１１問の印刷用教材を紹介しています。問題のみ、解答のみ、両方をまとめた版を分けて使える構成です。問題だけを先に解き、解答を後から照合すれば、手を見ただけで解けたつもりになることを避けられます。",
+        "en": "The source provides printable sets of fourteen mate-in-one problems and eleven mate-in-three problems, with separate question, answer, and combined versions. Separating questions from answers supports active solving: decide the checking move and calculate defenses before consulting the solution. These are source worksheet counts, not a claim about the number of puzzles available in this app."
+      },
+      {
+        "ja": "１手詰では逃げ道と取り方を全部確認し、３手詰では相手の別の応手にも最後の詰みがあるかを調べます。間違えた問題は日を改めて解き直し、手順だけでなく手筋の目的を説明します。出典教材を個人利用以外で配布・使用する場合は、出典の利用条件を確認します。",
+        "en": "For mate in one, verify every escape and capture; for mate in three, verify the finish against alternative defenses. Revisit missed problems and explain the tactical purpose rather than merely recalling coordinates. If using or distributing the source worksheets beyond personal study, consult their usage terms. The practice button here opens the app’s own existing puzzle collection."
+      },
+      {
+        "ja": "印刷用教材は出典ページ（https://shogi-joutatsu.com/archives/6808）から入手できます。１手詰はtsumeshogi1_question_answer.pdf、３手詰はtsumeshogi3_question_answer.pdfで、問題だけ・解答だけの版も同じページにあります。",
+        "en": "Download the source worksheets from https://shogi-joutatsu.com/archives/6808: tsumeshogi1_question_answer.pdf for mate in one and tsumeshogi3_question_answer.pdf for mate in three. Separate question-only and answer-only versions are linked on that page."
+      }
+    ],
+    "question": {
+      "ja": "解答を別にして練習する目的は？",
+      "en": "Why keep answers separate during practice?"
+    },
+    "answer": {
+      "ja": "自力で王手と全ての応手を読み、理解を確認するためです。",
+      "en": "It forces independent calculation of the check and all defenses before verification."
+    },
+    "practice": {
+      "tsume": 3
+    }
+  },
+  {
+    "id": "2646",
+    "title": {
+      "ja": "美濃囲い崩しの手筋①　横から攻める",
+      "en": "Breaking Mino from the side"
+    },
+    "paragraphs": [
+      {
+        "ja": "片美濃には一段飛車と金銀の打ち込みを協力させます。守りの金を動かして、銀や角の王手金取りを狙う形が基本です。香を使うときは成る場所を残して控えて打ちます。本美濃には中心側の金を桂で追い、と金を作って剥がす攻めがあります。",
+        "en": "Against incomplete Mino, a back-rank rook can cooperate with a gold or silver drop that displaces the defensive gold and enables a checking fork. A lance should retain promotion space. Against full Mino, attacking the inner gold with a knight and making a tokin provides a slower, economical way to remove the defenders."
+      },
+      {
+        "ja": "角の位置が一つ違うだけで、金を取って成る順と銀を打つ順が変わります。飛車と角の利きで守備駒の取り返しを封じることが狙いです。二枚飛車でも同じ考え方を使えます。端歩の位置や相手の持駒を確認し、基本形からの違いを読みましょう。",
+        "en": "A small change in bishop location can switch the correct continuation from capturing a gold to dropping a silver. Rook-and-bishop lines can prevent apparent recaptures by exposing the king; two rooks can achieve a similar effect. Inspect edge pawns, available drops, and alternative defenses instead of assuming the familiar castle shape guarantees the same combination."
+      }
+    ],
+    "question": {
+      "ja": "香を控えて打つ理由は？",
+      "en": "Why drop the lance with space in front of it?"
+    },
+    "answer": {
+      "ja": "金が逃げても香を成って追撃できる場所を残すためです。",
+      "en": "It preserves a promotion square so the attack can continue after the gold retreats."
+    },
+    "examples": [
+      {
+        "title": {
+          "ja": "金を動かして王手金取り",
+          "en": "Displace the gold, then fork with check"
+        },
+        "startSfen": "3g1R3/1k7/9/9/9/9/9/9/4K4 b GS 1",
+        "moves": [
+          "G*6b",
+          "6a6b",
+          "S*7a"
+        ],
+        "notes": [
+          {
+            "ja": "金をぶつけて守りの金を一段目から動かします。簡略化したオリジナル局面です。",
+            "en": "Offer the gold to displace the defensive gold from the back rank. This is a simplified original position."
+          },
+          {
+            "ja": "金で取ると飛車の横利きが通ります。この取り方に対する手筋を示します。",
+            "en": "Capturing opens the rook’s horizontal line. This variation demonstrates the response to that capture."
+          },
+          {
+            "ja": "銀は玉と金を同時に狙い、飛車に守られています。",
+            "en": "The rook protects the silver, which checks the king and attacks the gold simultaneously."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "2615",
+    "title": {
+      "ja": "美濃囲い崩しの手筋②　コビン攻め",
+      "en": "Breaking Mino diagonally"
+    },
+    "paragraphs": [
+      {
+        "ja": "コビン攻めは玉へ向かう角の斜線を利用します。桂で王手したとき、歩で桂を取ると角の王手が通る形を狙います。最後の金がないと詰まない場合があるので、先に飛車で守りの金を取って持駒にする順も検討します。",
+        "en": "Diagonal Mino attacks combine a bishop line with a checking knight. A pawn may be unable to capture the knight because doing so exposes the king to the bishop. The final gold can be essential: sometimes the rook must first capture a defensive gold, even at the cost of the rook, to supply the mating drop."
+      },
+      {
+        "ja": "角打ちで詰めろと飛車取りを同時に狙えますが、飛車を逃がしながら角の利きを遮る受けがないかを確認します。二枚の桂を使う継ぎ桂も有力です。守る側は歩を進め、角を取る手と桂の打ち込みを防ぐ金上がりを用意するなど、斜線を遮る方法を考えます。",
+        "en": "A bishop drop can combine a mating threat with a rook attack, but the rook may escape while blocking the diagonal. Successive knights can force another breakthrough. Defensively, a pawn advance and gold development can interfere with the bishop and cover knight-entry squares. The move order depends on exact pawn placement and whether the final mating gold is already available."
+      }
+    ],
+    "question": {
+      "ja": "桂を歩で取れない理由は？",
+      "en": "Why might a pawn be unable to capture the checking knight?"
+    },
+    "answer": {
+      "ja": "歩が動くと角の斜線が玉へ通り、王手を解消できないためです。",
+      "en": "Moving the pawn uncovers a bishop check, so the capture does not remove check."
+    }
+  },
+  {
+    "id": "1070",
+    "title": {
+      "ja": "美濃囲い崩しの手筋③　相振り飛車での攻め方",
+      "en": "Breaking Mino in Double Ranging Rook"
+    },
+    "paragraphs": [
+      {
+        "ja": "相振り飛車では飛車・銀・歩・角を縦の攻めに集中します。角交換後の筋違い角で守備の急所へ利きを足す形と、６六角から叩きの歩を使う形があります。銀を取り返す前に歩を叩き、相手の合駒する場所を消す手順が重要な場合があります。",
+        "en": "Double Ranging Rook attacks concentrate rook, silver, pawn, and bishop vertically. After bishop exchange, a wrong-color bishop drop can add an attacker to a defensive entry square. With the bishop on its original color complex, tapping pawns may displace defenders. A pawn sacrifice before recapturing a silver can prevent the defender from interposing on the next rook check."
+      },
+      {
+        "ja": "端では歩を捨てて香の頭へ歩を打ち、前に出た香を桂や銀で狙います。棒銀と端攻めを組み合わせ、銀香交換から二枚香で攻める構想もありますが駒損を評価します。香を取る手筋は、直ちに詰ますのではなく、駒得と囲いの弱体化を狙う場合もあります。",
+        "en": "Edge attacks sacrifice a pawn and drop another above the lance, then target the advanced lance with a knight or silver. Climbing Silver can combine with the edge attack, sometimes accepting a silver-for-lance exchange to introduce two lances. Evaluate that material cost. Winning the edge lance can also be a gradual weakening operation rather than an immediate mating attack."
+      }
+    ],
+    "question": {
+      "ja": "銀を取り返す前の歩の叩きの目的は？",
+      "en": "Why tap with a pawn before recapturing the silver?"
+    },
+    "answer": {
+      "ja": "相手の駒や玉を動かして、後の飛車の王手への合駒を防ぐためです。",
+      "en": "It displaces a defender or king and prevents an interposition against the ensuing rook check."
+    }
+  },
+  {
+    "id": "2276",
+    "title": {
+      "ja": "矢倉囲い崩しの手筋①　横からの崩し方",
+      "en": "Breaking Yagura from the side"
+    },
+    "paragraphs": [
+      {
+        "ja": "矢倉を横から攻めるときは、二段目の龍と銀打ちで玉に近い金を狙います。４一銀に金を引く受けと寄る受けでは続きが違い、金を取って攻めを足す順や龍を切る順を比較します。相手の持駒に金があると、同じ銀打ちが受けられる場合があります。",
+        "en": "A second-rank dragon and silver drops can target the gold beside a Yagura king. Different gold retreats require different continuations: capture and reinforce in one line, sacrifice the dragon in another. A defensive gold in hand can invalidate the familiar nonchecking silver drop, so inspect both players’ hands before selecting a memorized attacking sequence."
+      },
+      {
+        "ja": "持駒が豊富なら、銀の王手で玉を引き出して金・角・桂を使う寄せを考えます。歩頭の桂で最後の金打ちの場所を作る手順もあります。銀一枚だけなら別の金を狙って角を狭める攻めも候補です。詰みと、囲いを乱して駒得する攻めを区別しましょう。",
+        "en": "With sufficient pieces in hand, a checking silver sacrifice can draw the king out for gold, bishop, and knight cooperation. A knight above a pawn may clear the finishing drop square. With only one silver, attacking another gold can instead restrict the bishop and win material. Distinguish a forced mate from an attack that merely damages the castle."
+      }
+    ],
+    "question": {
+      "ja": "同じ銀打ちが失敗する要因は？",
+      "en": "What can make the same silver drop fail?"
+    },
+    "answer": {
+      "ja": "相手の持駒が増え、金打ちなどの新しい受けができることです。",
+      "en": "Additional defensive pieces in hand can provide a new gold-drop defense."
+    }
+  },
+  {
+    "id": "2313",
+    "title": {
+      "ja": "矢倉囲い崩しの手筋②　玉頭攻めと端攻め",
+      "en": "Breaking Yagura from the head and edge"
+    },
+    "paragraphs": [
+      {
+        "ja": "端の位を使う攻めでは歩を連打して香を吊り上げ、隅の銀捨てで玉を移します。香を十分に動かす前に銀を捨てると、次の龍の攻めが詰めろにならない場合があります。似た順でも、最後に金を打つ地点が空くかを確認しましょう。",
+        "en": "An advanced edge pawn supports repeated pawn taps that draw the lance forward. A corner silver sacrifice can then move the king away from its defenders. Sacrificing the silver before displacing the lance far enough may leave the rook continuation without a mating threat. Verify the final gold-drop square rather than relying on a similar-looking sequence."
+      },
+      {
+        "ja": "玉頭では歩頭の桂や香の成り込みを、横の龍と組み合わせます。金で取る場合と玉で取る場合の違いを読み、取った金や桂を寄せに再利用します。玉を下段へ落とすのが基本でも、上へ誘って守りから離す方が速い局面もあるので、格言だけで判断しません。",
+        "en": "At the king’s head, a knight above a pawn or a promoting lance can cooperate with a dragon from the side. Calculate separately when a gold captures and when the king captures, reusing captured golds or knights in the finish. Although forcing a king backward is often useful, drawing it forward away from its guards can sometimes be faster."
+      }
+    ],
+    "question": {
+      "ja": "端の銀捨ての前に香を動かす理由は？",
+      "en": "Why displace the lance before the corner silver sacrifice?"
+    },
+    "answer": {
+      "ja": "後の金打ちの地点を確保し、龍の攻めを詰めろにするためです。",
+      "en": "It clears the gold-drop square needed to make the ensuing dragon attack a mating threat."
+    }
+  },
+  {
+    "id": "3014",
+    "title": {
+      "ja": "穴熊崩しの手筋",
+      "en": "Breaking Anaguma"
+    },
+    "paragraphs": [
+      {
+        "ja": "穴熊の２筋には香・桂・叩きの歩を集中します。継ぎ歩で相手の歩を進め、垂れ歩を拠点にして金銀桂を打ち込む構想もあります。相手が歩を取らずに守りを足す受けを読み、龍を切ってと金を作る攻めと比較します。",
+        "en": "Attack Anaguma’s second file with lance, knight, and tapping pawns. Successive pawns can draw the enemy pawn forward and establish a dangling-pawn base for further drops. The opponent may decline the pawn and reinforce instead. Compare that defense with a dragon sacrifice that produces a tokin; the attack depends on the actual guards and available hands."
+      },
+      {
+        "ja": "３三への働きかけで桂を跳ねさせると守りの連絡が変わります。龍取りをかけられても逃げず、角を打って守備の銀を動かす手が有効な場合があります。角の斜線で銀の取り返しを封じる攻めも重要です。囲いが再生する時間を与えないように、詰めろの継続を読みましょう。",
+        "en": "Working on the third-file entry square can force the knight to jump and disrupt defensive connections. A threatened dragon need not always retreat: a bishop sacrifice may displace the defending silver while keeping mating threats alive. Bishop diagonals can also prevent recaptures by exposing the king. Calculate continuous threats so the defender cannot rebuild the castle during a pause."
+      }
+    ],
+    "question": {
+      "ja": "桂を跳ねさせる狙いは？",
+      "en": "Why force the defensive knight to jump?"
+    },
+    "answer": {
+      "ja": "穴熊の守備の連絡や、侵入を防ぐ利きを変えるためです。",
+      "en": "It changes defensive connections and coverage of attacking entry squares."
+    }
+  },
+  {
+    "id": "3048",
+    "title": {
+      "ja": "舟囲い崩しの手筋",
+      "en": "Breaking Boat Castle"
+    },
+    "paragraphs": [
+      {
+        "ja": "舟囲いは銀や金の位置によって攻め方が変わります。３一銀型には二段飛車と５三銀を協力させ、角を足してから守備駒を交換します。角の位置によって攻防の利きも違います。玉に近い攻め駒を、働きが残るうちに急いで清算しないようにします。",
+        "en": "Boat Castle attacks depend on the silver and gold locations. Against the back-rank-silver form, a second-rank rook and advanced silver can cooperate, with a bishop added before exchanging guards. Different bishop squares supply different attacking and defensive coverage. Avoid clearing effective attackers prematurely: keeping a piece near the king can preserve the finishing threat."
+      },
+      {
+        "ja": "４二銀型には玉を２二へ誘って金を浮かせる送りの手筋があります。相手に角があると角合わせの受けがあるため、先に歩頭の桂で別の打ち場所を作る順を読みます。４二金型には控えた香や焦点の香打ちが候補で、玉・金・桂の各取り方を比較します。",
+        "en": "Against the advanced-silver form, a sending sacrifice can draw the king away from its gold. An enemy bishop in hand may enable bishop interposition, making a preliminary knight sacrifice necessary. Against the advanced-gold form, consider a reserved lance or focal-point lance sacrifice. Calculate king, gold, and knight captures separately because each creates a different continuation."
+      }
+    ],
+    "question": {
+      "ja": "舟囲いを見て最初に確認する配置は？",
+      "en": "Which placements should you inspect first in Boat Castle?"
+    },
+    "answer": {
+      "ja": "守りの銀と金の位置、飛車の段、相手の持駒です。",
+      "en": "Inspect the defensive silver and gold, your rook’s rank, and the opponent’s hand."
+    }
+  },
+  {
+    "id": "875",
+    "title": {
+      "ja": "金無双崩しの手筋",
+      "en": "Breaking Gold Fortress"
+    },
+    "paragraphs": [
+      {
+        "ja": "金無双への端攻めでは、角・桂・飛車と二枚以上の歩を協力させます。香で歩を取る受けと銀で取る受けでは、香を吊り上げて銀を狭める順や、角を切って銀を打つ順に分かれます。必要な持ち歩を数え、相手の最善の受けまで読みます。",
+        "en": "Edge attacks on Gold Fortress combine bishop, knight, rook, and multiple pawns. A lance capture and a silver capture lead to different plans: draw the lance forward to restrict the silver, or sacrifice the bishop and introduce a silver. Count the required pawns and calculate the defender’s best response rather than assuming the first tap must be accepted."
+      },
+      {
+        "ja": "角交換後は、飛車取りと守りの銀への攻めを兼ねる角打ちや、筋違い角で棒銀へ利きを足す構想があります。玉のコビンは継ぎ歩と垂れ歩で拠点を作り、銀と桂を交換して飛車を参加させる攻めが狙いです。攻めの形を目標に駒組みを進めます。",
+        "en": "After bishop exchange, a bishop drop can attack the rook and defensive silver together, or add support to a Climbing Silver entry. The king’s diagonal weakness can be approached with successive and dangling pawns, followed by silver-and-knight exchanges and rook participation. Build toward these coordinated positions, checking the required pieces and pawn supply before selecting the plan."
+      }
+    ],
+    "question": {
+      "ja": "端の歩を取る駒によって何が変わる？",
+      "en": "What changes depending on who captures the edge pawn?"
+    },
+    "answer": {
+      "ja": "香を狙う順か、角を切って銀を使う順かなど、続く攻め方が変わります。",
+      "en": "The continuation changes, including targeting the lance or sacrificing the bishop to introduce a silver."
+    }
+  },
+  {
+    "id": "4271",
+    "title": {
+      "ja": "初段になるための勉強法",
+      "en": "Studying toward first dan"
+    },
+    "paragraphs": [
+      {
+        "ja": "初段を目指す学習は、得意戦法、苦手戦型への対策、手筋、短い詰みの四つを柱にします。得意戦法は定跡書で体系的に学び、苦手な急戦や奇襲には序盤で崩れない対応を用意します。段級位はサービスによって違うため、到達時期や本を読んだ効果を保証にはしません。",
+        "en": "Study toward first dan through four connected skills: a familiar opening, responses to difficult opponents’ systems, tactical techniques, and reliable short mates. Use an opening book to develop your main system and prepare practical answers to aggressive lines that currently cause early losses. Rankings differ across services, so study duration and book completion do not guarantee a particular rank."
+      },
+      {
+        "ja": "３手詰を見つける練習では、相手玉だけでなく自玉の危険も調べます。本で覚えた手筋を対局で試し、失敗した位置を振り返って復習します。詰み形を覚えるのか、読みを深くするのか、利きの見落としを減らすのかを決めて練習すると、課題に合う学習になります。",
+        "en": "Practice recognizing three-move mates against both kings, then test learned tactics in games and review the positions where they failed. Choose a purpose for each exercise: recognizing a mating pattern, maintaining a deeper mental board, or avoiding missed piece coverage. This ties practice to a concrete weakness instead of treating repeated puzzle solving as an automatic route to promotion."
+      }
+    ],
+    "question": {
+      "ja": "学習の四つの柱は？",
+      "en": "What are the four study priorities?"
+    },
+    "answer": {
+      "ja": "得意戦法、苦手戦型への対策、手筋、短い詰みです。",
+      "en": "Your main opening, difficult opposing systems, tactics, and short mates."
+    },
+    "practice": {
+      "tsume": 3
+    }
+  },
+  {
+    "id": "3776",
+    "title": {
+      "ja": "定跡書を使った勉強法",
+      "en": "Learning from opening books"
+    },
+    "paragraphs": [
+      {
+        "ja": "初めての定跡書は、初手から説明され、大きな図で重要な分岐を追える本を選びます。まず全体の構成と各章の狙いを把握し、複雑な変化を一度で全て覚えようとしません。次の一手形式と通しの解説形式では学び方が違うので、自分が読み続けられる形式を選びます。",
+        "en": "For a first opening book, prefer explanations from the initial moves and diagrams that make the important branches easy to follow. First identify the overall structure and each chapter’s purpose; do not expect to master every variation in one reading. Question-based books and continuous explanations support different habits, so choose a format you can use consistently."
+      },
+      {
+        "ja": "学んだ戦法を実戦で試し、迷った局面や本から外れた指し手を記録して戻ります。本にない変化は、駒の働きと王の安全を自分で評価してから検討します。出典は四間飛車、中飛車、石田流、矢倉、角換わり、横歩取りの入門書を挙げており、自分の得意戦法に対応する一冊から始められます。",
+        "en": "Try the opening in games and return to the relevant chapter after a difficult position or an unfamiliar deviation. Evaluate piece activity and king safety before checking analysis. The source lists introductions to Fourth File Rook, Central Rook, Ishida, Yagura, Bishop Exchange, and Side Pawn Capture. Start with the system you actually play and use games to guide deeper reading."
+      }
+    ],
+    "question": {
+      "ja": "実戦の後に本へ戻る目的は？",
+      "en": "Why revisit the book after a game?"
+    },
+    "answer": {
+      "ja": "迷った局面を具体的な分岐に結びつけ、指し手の意味を理解するためです。",
+      "en": "Connect the actual difficulty to its branch and understand the purpose of the moves."
+    }
+  },
+  {
+    "id": "580",
+    "title": {
+      "ja": "終盤のコツと勉強法",
+      "en": "Studying the three endgame stages"
+    },
+    "paragraphs": [
+      {
+        "ja": "終盤は囲い崩し、寄せ、詰みの三段階として整理できます。囲い崩しでは安い駒で玉の近くの金を狙います。寄せでは攻め駒を盤上に残して連携を強め、すぐに清算しない手も考えます。詰みがないときは、無理な王手より詰めろや必至で逃げ道を塞ぐことが有効です。",
+        "en": "Organize endgame study into breaking the castle, assembling the mating attack, and delivering mate. Cheap pieces can attack the gold beside the king; active attackers should sometimes remain on the board instead of being exchanged immediately. When forced mate is absent, a nonchecking mating threat can restrict the king more effectively than an impatient check that drives it into safety."
+      },
+      {
+        "ja": "三手詰で読みの基礎を作り、囲い崩しと必至の問題を組み合わせます。実戦に近い問題では駒を取る普通の手や駒余りも扱えるため、作品性の強い詰将棋とは役割が違います。自分が苦手なのが守備駒を剥がす段階か、攻めを配置する段階か、最後の詰みかを振り返ります。",
+        "en": "Combine basic three-move mates with castle-breaking and hisshi exercises. Practical positions may involve ordinary captures and unused pieces, complementing artistic tsume compositions rather than replacing them. Review whether your losses arise while removing guards, positioning attackers, or finding the final mate. Select the next exercise from that diagnosis, keeping your own king’s safety part of every practical calculation."
+      }
+    ],
+    "question": {
+      "ja": "詰将棋だけでは補いにくい段階は？",
+      "en": "Which stages need practice beyond tsume alone?"
+    },
+    "answer": {
+      "ja": "囲いの守備駒を剥がす段階と、王手せずに寄せを作る段階です。",
+      "en": "Removing castle defenders and constructing nonchecking mating threats."
+    },
+    "practice": {
+      "tsume": 3
+    }
+  },
+  {
+    "id": "2418",
+    "title": {
+      "ja": "詰将棋を利用した勉強法",
+      "en": "Choosing tsume practice by purpose"
+    },
+    "paragraphs": [
+      {
+        "ja": "詰将棋は詰み形を覚えるだけでなく、頭の中で駒を動かし、局面を正確に保つ訓練になります。王手と全ての応手を読むことで、長い変化でも利きや駒の位置を見失わない力を育てます。一方で、作品としての詰将棋だけでは実戦の囲い崩しや王手しない寄せを全て扱えません。",
+        "en": "Tsume trains more than mating-pattern memory: it develops the ability to move pieces mentally and preserve an accurate position through a variation. Checking every defense helps maintain coverage and piece locations. Artistic compositions alone do not cover every practical castle-breaking or nonchecking attacking technique, however. Their training value depends on the skill you intend to develop."
+      },
+      {
+        "ja": "実戦の終盤を鍛えるなら実戦形を、長い読みを鍛えるなら比較的易しい長手数を、利きの見落としを減らすなら短くても注意が必要な問題を選びます。実戦の詰みでは駒余りがあっても勝ちです。解答だけを暗記せず、なぜ別の王手や取り方が失敗するかを説明して復習します。",
+        "en": "Choose practical shapes for game endings, relatively easy longer sequences for mental-board endurance, and short but exacting problems for overlooked coverage. Unused pieces do not invalidate a real-game mate. Review why alternative checks or captures fail rather than memorizing only the answer. Pair this work with practical attack and defense study so calculation transfers to positions without a forced checking sequence."
+      }
+    ],
+    "question": {
+      "ja": "読みを深くする練習にはどんな問題が合う？",
+      "en": "What problems suit deeper visualization practice?"
+    },
+    "answer": {
+      "ja": "手数が長くても難しすぎない、局面を頭で追える問題です。",
+      "en": "Longer but manageable problems that require maintaining the position mentally."
+    },
+    "practice": {
+      "tsume": 3
+    }
+  },
+  {
+    "id": "386",
+    "title": {
+      "ja": "5手詰のコツ",
+      "en": "Moving from mate in three to mate in five"
+    },
+    "paragraphs": [
+      {
+        "ja": "５手詰でつまずく原因は、初手の手筋が見えない、途中の局面を頭で保てない、最後の詰みを誤認するなどに分かれます。初手が浮かばないなら３手詰の捨て駒や守備駒移動を復習します。手数だけで難しさは決まらず、短くても難しい問題があります。",
+        "en": "Difficulty with mate in five can have distinct causes: missing the first tactical idea, losing track of the intermediate board, or mistaking the final position for mate. If no candidate emerges, revisit sacrifices and defender displacement in mate in three. Length alone does not determine difficulty; a short problem can require more precise recognition than a longer straightforward sequence."
+      },
+      {
+        "ja": "途中まで読めても続かない場合は、比較的易しい５手詰で局面を保つ練習をします。最後を間違えるなら頭金や一間龍を意識して１手詰と３手詰を解き直します。５手詰は短い手筋の組合せとして考えられることが多いですが、全ての応手を読む確認は省略できません。",
+        "en": "Use manageable five-move problems when you can find the idea but cannot visualize its continuation. If your final position is wrong, revisit head-gold and one-square-gap-dragon patterns with one- and three-move exercises. Many five-move solutions combine shorter techniques, but this is a study aid, not permission to omit alternative defenses or assume a particular pattern must work."
+      }
+    ],
+    "question": {
+      "ja": "途中の図を見失う場合の対策は？",
+      "en": "What helps when you lose the intermediate board?"
+    },
+    "answer": {
+      "ja": "比較的易しい長めの問題で、駒の位置と利きを正確に追います。",
+      "en": "Practice manageable longer sequences while tracking locations and coverage accurately."
+    },
+    "practice": {
+      "tsume": 5
+    }
+  },
+  {
+    "id": "3411",
+    "title": {
+      "ja": "初心者向けの棋書",
+      "en": "Selecting introductory books"
+    },
+    "paragraphs": [
+      {
+        "ja": "入門書は数ページを読んで説明が理解できるかを確かめます。レビューは点数だけでなく、読者がどこまで指せるかを見ると判断しやすくなります。出典は羽生善治のみるみる強くなる将棋入門、符号を使わない将棋の指し方入門、将棋入門ドリルステップ、１手詰ハンドブックを紹介しています。",
+        "en": "Assess an introductory book by whether you understand a sample of its explanations. Reviews are more useful when they describe the reader’s actual playing level. The source presents Habu’s introductory series, an introduction without move notation, the Shogi Introduction Drill Step series, and the Mate-in-One Handbook. They address different needs rather than forming a compulsory purchase list."
+      },
+      {
+        "ja": "ルールを固めたい人、符号が読書の障害になる人、問題を解いて覚えたい人、詰み形を練習したい人では適した本が違います。読む目的を一つ選び、学んだ内容を盤や対局で使って確かめます。出典の電子書籍の割引や読み放題の案内は、現在の価格や対象作品を保証するものではありません。",
+        "en": "Choose from your immediate need: rules, notation barriers, active drills, or mating-pattern practice. Use the learned idea on a board or in a game to check understanding. Historical ebook discounts and subscription promotions in the source do not establish current prices or availability. The educational distinction matters more than collecting every volume or choosing solely from a high review score."
+      }
+    ],
+    "question": {
+      "ja": "本を選ぶ前に決めることは？",
+      "en": "What should you decide before choosing an introductory book?"
+    },
+    "answer": {
+      "ja": "ルール、符号、問題演習、詰み形のどれを学びたいかです。",
+      "en": "Decide whether you need rules, notation support, drills, or mating patterns."
+    }
+  },
+  {
+    "id": "452",
+    "title": {
+      "ja": "おすすめの詰将棋の本",
+      "en": "Selecting tsume collections"
+    },
+    "paragraphs": [
+      {
+        "ja": "詰将棋の本は手数と実際の難易度を分けて選びます。出典は浦野真彦のハンドブック、高橋道雄の実戦形シリーズ、飯野健二の実戦型シリーズ、羽生の五手詰を比較しています。１手詰で利きを確認し、３手詰で基本手筋を覚えてから、解ける範囲の５手以上へ進みます。",
+        "en": "Select a tsume collection by both length and actual difficulty. The source compares Urano’s handbooks, Takahashi’s practical-position series, Iino’s practical collections, and Habu’s five-move problems. Use mate in one to verify coverage, mate in three to learn short techniques, and manageable five-move or longer problems to extend calculation. A stated move count does not promise an easy solution."
+      },
+      {
+        "ja": "級位との対応は出典の学習目安であり、問題集を終えれば昇級するという保証ではありません。同じ問題を再び解くときも相手の全ての逃げ方を確かめます。５手が難しすぎるなら易しい５手の実戦形へ移るか、３手の詰み形を復習してから戻る方法があります。",
+        "en": "Rank ranges in the source are study guidance, not promotion guarantees. On repeat attempts, still verify all defensive alternatives rather than recalling a coordinate sequence. If five-move problems are too difficult, try easier practical five-move shapes or return to three-move patterns before advancing again. The useful collection is one that challenges a specific skill while remaining possible to study accurately."
+      }
+    ],
+    "question": {
+      "ja": "手数だけで本の難易度を判断できる？",
+      "en": "Can length alone establish a collection’s difficulty?"
+    },
+    "answer": {
+      "ja": "できません。手筋、変化の数、形の見やすさも影響します。",
+      "en": "No. Tactical ideas, defensive branches, and pattern visibility also matter."
+    },
+    "practice": {
+      "tsume": 3
+    }
+  },
+  {
+    "id": "6578",
+    "title": {
+      "ja": "矢倉戦法の棋書",
+      "en": "Yagura reading paths"
+    },
+    "paragraphs": [
+      {
+        "ja": "矢倉の本は戦法の全体像、駒組み、手筋、専門研究で分けて選びます。出典の序盤完全ガイド相居飛車編と矢倉・角換わりの教科書は全体像、矢倉の基本は駒組みと考え方、羽生の頭脳３は相矢倉の詳しい変化を扱う位置づけです。",
+        "en": "Choose Yagura reading by purpose: an opening overview, development principles, tactical techniques, or specialized analysis. The source places the Static Rook opening guide and Yagura/Bishop Exchange textbook at the overview stage, Yagura Basics at development, and Habu’s Brain volume three at detailed mutual-Yagura study. These categories help match a book to an actual gap in your play."
+      },
+      {
+        "ja": "矢倉囲いを極める７７の手筋は攻めと受け、これからの相矢倉は相矢倉研究、矢倉の新常識は急戦の研究に対応します。古い定跡書も基本形の意味を学べますが、出典が最新型と呼ぶ内容を現在の最新研究とは扱いません。実戦で現れた分岐を選んで読み、指し手の理由を説明します。",
+        "en": "The seventy-seven-technique collection addresses attack and defense; Korekara no Aiyagura focuses on mutual Yagura, while Yagura no Shin-joshiki focuses on rapid-attack research. Older books can teach foundational structure, but the source’s description of a line as new does not establish present-day theory. Select a branch from your games and explain its move purposes before studying another specialization."
+      }
+    ],
+    "question": {
+      "ja": "手筋を学ぶ本と定跡書の違いは？",
+      "en": "How does a technique collection differ from an opening book?"
+    },
+    "answer": {
+      "ja": "局面の攻め受けの型を学ぶか、駒組みから分岐を追うかが違います。",
+      "en": "One teaches recurring attacking and defensive patterns; the other follows development and opening branches."
+    }
+  },
+  {
+    "id": "5171",
+    "title": {
+      "ja": "角換わりの棋書",
+      "en": "Bishop Exchange reading paths"
+    },
+    "paragraphs": [
+      {
+        "ja": "角換わりは棒銀、早繰り銀、腰掛け銀をまず区別します。出典のひと目の角換わりは初手からの基礎、角換わり初段の常識は基本形と４五桂急戦などの整理に対応します。角を持駒にした後の打ち込みの隙も、銀の進路と一緒に確認することが大切です。",
+        "en": "Begin Bishop Exchange study by distinguishing Climbing Silver, Rushing Silver, and Reclining Silver. The source presents Hitome no Kakugawari for foundations from the first moves and Kakugawari Shodan no Joshiki for basic structures and knight-led rapid attacks. When comparing systems, inspect bishop-drop weaknesses alongside silver development; the exchanged bishop changes the tactical demands of the position."
+      },
+      {
+        "ja": "角換わりの新常識は４八金・２九飛型、神速の２五歩型ガイドは専門的な速い仕掛けの研究に対応します。具体的な配置を理解してから専門書へ進みます。出典の最新という表現や必勝という書名は、現在の評価や勝利を保証しません。学ぶ形が自分の実戦に現れるかを確かめましょう。",
+        "en": "The specialized guides cover the gold-on-4h/rook-on-2i structure and the rapid attack associated with the pawn on 2e. Understand the specific setup before treating their variations as reusable advice. Historical claims of novelty and a title’s winning language do not guarantee a current evaluation or result. Choose the specialization that actually arises in your own Bishop Exchange games."
+      }
+    ],
+    "question": {
+      "ja": "専門書へ進む前に分ける三つの銀の形は？",
+      "en": "Which three silver systems should you distinguish first?"
+    },
+    "answer": {
+      "ja": "棒銀、早繰り銀、腰掛け銀です。",
+      "en": "Climbing Silver, Rushing Silver, and Reclining Silver."
+    }
+  },
+  {
+    "id": "7415",
+    "title": {
+      "ja": "横歩取りの棋書",
+      "en": "Side Pawn Capture reading paths"
+    },
+    "paragraphs": [
+      {
+        "ja": "横歩取りの本は全体の基本と、先後別の専門戦型を分けます。出典のひと目の横歩取りは入門、早分かり横歩取り定跡ガイドは両側の基礎を扱う位置づけです。飛車の位置と角打ちの隙を確かめ、覚えた一つの手順を異なる配置へそのまま当てはめないようにします。",
+        "en": "Separate Side Pawn Capture foundations from side-specific specialized systems. The source uses Hitome no Yokofudori as an introduction and the quick opening guide for broader study from both sides. Track rook placement and bishop-drop opportunities carefully. A learned tactical sequence may depend on exact development, so do not transfer it unchanged to a superficially similar opening position."
+      },
+      {
+        "ja": "最重要テーマは青野流や勇気流、相横歩取りのすべては相横歩取り、藤森式青野流は先手の攻め、超急戦のすべては後手の速い仕掛けに対応します。超急戦の本は攻める側だけでなく、罠を避けたい側にも役立つ読み方があります。出典の専門分類を使い、自分の手番と課題で選びます。",
+        "en": "The thematic study covers Aono and Yuki systems; the mutual Side Pawn Capture guide focuses on that branch. Fujimori’s Aono book addresses the first player’s attack, while the ultra-rapid-attack collection studies the second player’s forcing attempts. A sharp attacking book can also teach the opponent how to avoid traps. Match the reading to your side and recurring difficulty."
+      }
+    ],
+    "question": {
+      "ja": "超急戦の本を先手側で読む目的は？",
+      "en": "Why study a second-player rapid-attack book as the first player?"
+    },
+    "answer": {
+      "ja": "相手の仕掛けと罠を知り、安全な対応を準備するためです。",
+      "en": "Learn the opponent’s forcing ideas and traps so you can prepare safe responses."
+    }
+  },
+  {
+    "id": "6986",
+    "title": {
+      "ja": "三間飛車、石田流の棋書",
+      "en": "Third File Rook and Ishida reading paths"
+    },
+    "paragraphs": [
+      {
+        "ja": "ノーマル三間飛車と石田流は別の学習対象として選びます。三間飛車のコツは四間飛車の知識を前提にする部分があり、三間飛車新時代はトマホークなど穴熊への専門的な構想を扱う位置づけです。まず自分が角道を閉じる形と早く攻める形のどちらを学ぶかを決めます。",
+        "en": "Treat normal Third File Rook and Ishida as distinct study choices. The source notes that the Third File Rook tips collection assumes some Fourth File Rook knowledge, while the new-era collection studies specialized plans such as Tomahawk against Anaguma. Decide whether you need closed-bishop-diagonal development or an active Ishida setup before selecting detailed variations."
+      },
+      {
+        "ja": "ひと目の石田流は初手からの問題形式、石田流の基本の本組みと７七角型は本格的な駒組み、早石田と角交換型は序盤の乱戦に対応します。早い角交換で迷うなら後者の分野を学び、落ち着いた本組みを磨きたいなら前者を選びます。出典の新時代は現在の最新評価を意味しません。",
+        "en": "Hitome no Ishida introduces the system through questions from the initial moves. The basic Ishida books divide into the established setup with bishop-on-7g structures and early Ishida/bishop-exchange complications. Choose the latter if early exchanges cause confusion, and the former for organized development. A historical book title describing a new era does not establish the latest theoretical assessment."
+      }
+    ],
+    "question": {
+      "ja": "石田流の本を分ける大きな基準は？",
+      "en": "What is a major distinction between Ishida study books?"
+    },
+    "answer": {
+      "ja": "本組みの駒組みを学ぶか、早石田と角交換の乱戦を学ぶかです。",
+      "en": "Established development versus early Ishida and bishop-exchange complications."
+    }
+  },
+  {
+    "id": "4084",
+    "title": {
+      "ja": "四間飛車の棋書",
+      "en": "Fourth File Rook reading paths"
+    },
+    "paragraphs": [
+      {
+        "ja": "出典は振り飛車定跡基本のキを、棒銀対策や相振り・角交換の基礎を知る入門に位置づけます。四間飛車上達法は指し手の意味と大局観を重視します。手順だけを覚えず、駒を交換する狙い、囲いの違い、反撃を始める条件を説明できるように読みます。",
+        "en": "The source places Furibisha Joseki Kihon no Ki at the introductory stage, including responses to Climbing Silver and basic double-ranging and bishop-exchange situations. Fourth File Rook Improvement emphasizes reasoning and positional judgment. Read for why pieces are exchanged, how castles change the evaluation, and when counterplay becomes possible rather than memorizing an isolated move sequence."
+      },
+      {
+        "ja": "藤井猛の四間飛車を指しこなす本は、１巻が急戦、２巻が居飛車穴熊、３巻が左美濃と藤井システムという構成です。渡辺明の四間飛車破りは急戦編と穴熊編で居飛車側の視点を学べます。相手側の構想を知ることも、自分の戦法の弱点を理解する練習になります。",
+        "en": "Fujii’s three-volume series separates rapid attacks, Static Rook Anaguma, and Left Mino/Fujii System study. Watanabe’s anti-Fourth File Rook books separate rapid attacks and Anaguma from the Static Rook perspective. Studying the opponent’s intended setup helps identify your own opening’s weaknesses and timing constraints. Select the volume corresponding to the opposition you regularly meet rather than treating all defenses as one branch."
+      }
+    ],
+    "question": {
+      "ja": "相手側の本を読む利点は？",
+      "en": "What is the benefit of reading the opponent’s perspective?"
+    },
+    "answer": {
+      "ja": "相手の狙う配置と仕掛けを知り、自分の弱点や反撃の条件を理解できます。",
+      "en": "It reveals their setup and attack, clarifying your weaknesses and counterattack conditions."
+    }
+  },
+  {
+    "id": "6613",
+    "title": {
+      "ja": "中飛車の棋書",
+      "en": "Central Rook reading paths"
+    },
+    "paragraphs": [
+      {
+        "ja": "ひと目の中飛車はゴキゲン中飛車を初手から、なんでも中飛車は中飛車を軸に戦う入門として出典に紹介されます。戸辺流こだわりのゴキゲン中飛車は詳しい基礎、中飛車の基本ゴキゲン中飛車編は問題形式の基礎という違いがあります。まず飛車先と銀の役割を理解します。",
+        "en": "The source presents Hitome no Nakabisha as an introduction to Cheerful Central Rook from the first moves and Nandemo Nakabisha as a Central Rook-centered beginner repertoire. Tobe’s dedicated collection offers broader foundations, while the basic Central Rook book uses questions. Begin by understanding the central pawn and attacking silver roles before comparing specialized defenses."
+      },
+      {
+        "ja": "専門研究では一直線穴熊、超速３七銀、相振りでの左穴熊を分けます。一直線穴熊徹底ガイドと速攻ゴキゲン中飛車破りは居飛車の視点も学べます。対振り革命中飛車左穴熊は相振り向けの構想です。現在の対局で苦手な相手の形に対応する分野を選び、古い本の評価は固定しません。",
+        "en": "Specialized study distinguishes direct Anaguma, rapid silver development on 3g, and Left Anaguma against another Ranging Rook. The anti-Central Rook guides supply the Static Rook perspective; the Left Anaguma book addresses double-ranging plans. Choose the topic from your recurring opponent’s setup. Historical assessments remain useful study context but should not be treated as permanently settled evaluations."
+      }
+    ],
+    "question": {
+      "ja": "相振りへの対策を探すときの専門分野は？",
+      "en": "Which specialization addresses double-ranging opponents?"
+    },
+    "answer": {
+      "ja": "中飛車左穴熊の構想です。",
+      "en": "Central Rook Left Anaguma plans."
+    }
+  },
+  {
+    "id": "961",
+    "title": {
+      "ja": "相振り飛車の棋書",
+      "en": "Double Ranging Rook reading paths"
+    },
+    "paragraphs": [
+      {
+        "ja": "藤井猛の相振り飛車を指しこなす本は、１巻が金無双中心、２巻が美濃、３・４巻が３三角戦法の応用という出典の分類です。相振りは対抗形と攻める向きが違うため、囲いの名前だけでなく、縦の攻めと端の弱点を学びます。全てを一度に暗記する必要はありません。",
+        "en": "The source divides Fujii’s Double Ranging Rook series into Gold Fortress foundations, Mino play, and later bishop-on-3c applications. Attack directions differ from Static-versus-Ranging Rook games, so study vertical pressure and edge weaknesses rather than relying on a castle’s familiar name. Build understanding of the basic plans before attempting every advanced branch."
+      },
+      {
+        "ja": "相振り戦の絶対手筋１０５は序盤から終盤の技術、囲いの破り方は縦からの美濃や穴熊崩しにも対応します。専門書は石田流の相振り編、角交換四間飛車最新ガイド、中飛車左穴熊へ分かれます。自分の飛車の位置と角交換の有無を軸に、実戦で使う分野を選びましょう。",
+        "en": "The 105-technique collection covers recurring ideas across game stages, while the castle-breaking collection includes vertical attacks against Mino and Anaguma. Specialized reading divides into Ishida against ranging systems, Bishop Exchange Fourth File Rook, and Central Rook Left Anaguma. Match the book to your rook’s file and whether bishops have been exchanged; these conditions change the plans you can actually use."
+      }
+    ],
+    "question": {
+      "ja": "相振りの専門書を選ぶ軸は？",
+      "en": "What guides specialized Double Ranging Rook reading?"
+    },
+    "answer": {
+      "ja": "自分の飛車の位置、角交換の有無、相手の囲いです。",
+      "en": "Your rook’s file, bishop-exchange status, and the opponent’s castle."
+    }
+  }
+]

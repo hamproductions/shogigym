@@ -34,7 +34,7 @@
     "wasAMistakeTryAgain": "{{move}}は悪手でした。もう一度。",
     "isAFineMoveBut": "{{move}}も悪くない手ですが、このレッスンの手ではありません。定跡の手を探しましょう。",
     "previewWatchItPlayOut": "プレビュー中: 進行を見てから、この手順を残すかプレビューを終了します。",
-    "pickATechniqueOrAn": "手筋か定跡を選んで、学習かクイズを始めましょう。",
+    "pickATechniqueOrAn": "項目を選び、解説と理解の確認、盤上の練習へ進みましょう。",
     "offTheLessonLineGo": "レッスンの手順から外れました。戻るか、検討で調べましょう。",
     "lineComplete": "この手順は完了です。",
     "answerShownPlayTheGreen": "正解を表示中: 緑の矢印の手を指しましょう。",
@@ -80,7 +80,7 @@
     "fullScreen2": "全画面",
     "study": "学習",
     "quiz": "クイズ",
-    "openingsPickALesson": "定跡: レッスンを選ぶ",
+    "openingsPickALesson": "将棋を学ぶ: 項目を選ぶ",
     "tsumeMateIn": "詰将棋: {{mate}}手詰",
     "reviewCardOf": "復習 {{value}} / {{itemsCount}}",
     "review": "復習",
@@ -461,8 +461,8 @@
     "sealStudy": "研究",
     "sealQuiz": "試験",
     "lesson": {
-      "name": "定跡",
-      "hint": "定跡の手順を学習し、クイズで確認します"
+      "name": "学習",
+      "hint": "ルール、手筋、定跡などを解説と盤上の練習で学びます"
     },
     "drill": {
       "name": "復習",

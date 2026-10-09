@@ -1,0 +1,733 @@
+[
+  {
+    "id": "922",
+    "title": {
+      "ja": "無料の詰将棋スマホアプリ",
+      "en": "Free mate-puzzle apps"
+    },
+    "paragraphs": [
+      {
+        "ja": "詰将棋アプリは、短い時間でも王手の候補と玉の逃げ道を読む練習に使えます。記事では「みんなの詰将棋」、詰将棋パラダイス、各種の詰将棋集や電子書籍を紹介しています。まずは一手詰、次に三手詰を選び、盤を動かす前に最後まで考えましょう。",
+        "en": "A mate-puzzle app gives short, repeatable practice in finding checks and closing escape squares. The source introduces Minna no Tsume Shogi, Tsume Shogi Paradise, puzzle collections and electronic books. Start with mate in one, then mate in three; visualize the complete line before moving a piece."
+      },
+      {
+        "ja": "正解の初手だけでなく、玉が逃げる、王手駒を取る、合駒する場合も確認します。解けなかった問題は答えを見て終わりにせず、翌日に解き直します。記事の無料範囲や対応端末は掲載時の情報なので、利用前に現在の説明を確認してください。",
+        "en": "Check defenses as well as the first move: escape, capture of the checking piece, and interposition. After seeing an answer, solve that position again the next day. Free tiers and supported devices in the article describe its publication period; consult the current app description before installing. This curriculum supplies related practice below rather than claiming to reproduce those external puzzle collections."
+      }
+    ],
+    "question": {
+      "ja": "答えを見た問題をどう復習しますか？",
+      "en": "How should you review a puzzle after seeing its answer?"
+    },
+    "answer": {
+      "ja": "翌日に盤を動かさず解き直し、すべての合法な応手を確認します。",
+      "en": "Solve it again without moving the pieces and explain every legal defense."
+    },
+    "practice": {
+      "tsume": 1
+    }
+  },
+  {
+    "id": "422",
+    "title": {
+      "ja": "無料ネット対局アプリ",
+      "en": "Choosing an online shogi app"
+    },
+    "paragraphs": [
+      {
+        "ja": "ネット対局では、対戦相手の強さだけでなく持ち時間と棋譜の保存方法も重要です。記事では将棋ウォーズ、将棋クエスト、81Dojo、百鍛将棋を比較しています。短時間の自動マッチングは多く指す練習に向き、長めの対局は読みを深める練習に向きます。",
+        "en": "When choosing an online shogi app, compare time controls and record export as well as opponent strength. The source discusses Shogi Wars, Shogi Quest, 81Dojo and Hyakutan Shogi. Short automatic matches encourage frequent play, while longer games let you calculate variations and explain your decisions."
+      },
+      {
+        "ja": "対局数を増やすだけでは同じ失敗を繰り返します。一局ごとに棋譜を保存し、駒をただで取られた場面と最初に計画を失った場面を探しましょう。広告、無料対局数、料金、操作画面は変わるため、記事の数字を現行の契約条件として扱わないでください。",
+        "en": "Save each game and locate both the first hanging piece and the first position where you lost your plan. Pick a service whose controls you understand, including resignation and time expiration, before a rated match. Advertising, free-game limits, fees and interface details change; the article is a comparison of services, not a guarantee of their current commercial terms."
+      }
+    ],
+    "question": {
+      "ja": "読みを鍛えたいときに比較する設定は？",
+      "en": "Which setting matters when you want deeper calculation?"
+    },
+    "answer": {
+      "ja": "持ち時間と秒読みを比較し、考えてから指せる形式を選びます。",
+      "en": "Compare main time and byoyomi, choosing a format that allows you to calculate before moving."
+    }
+  },
+  {
+    "id": "1678",
+    "title": {
+      "ja": "将棋ウォーズ初段の棋力は？",
+      "en": "What does Shogi Wars first dan mean?"
+    },
+    "paragraphs": [
+      {
+        "ja": "初段はそのサービス内での成績を表す目安です。道場、大会、他のアプリの初段と完全に同じとは限りません。記事はウォーズ初段を目指すために、得意戦法を一つ作り、苦手な相手の戦法への対応を用意し、短い詰みや歩の手筋を身につけることを勧めています。",
+        "en": "First dan indicates results within a particular playing system. It does not guarantee an identical rank at a club, tournament or another app. The article emphasizes a dependable opening, answers to difficult opposing formations, practical short mates and pawn tactics as useful foundations for reaching Shogi Wars first dan."
+      },
+      {
+        "ja": "目標は定跡の長い暗記より、序盤で駒を失わず、中盤で攻め駒を協力させ、終盤で王手だけに頼らないことです。直近の敗局を見て、失点が序盤・中盤・終盤のどこに集中するか記録すると、段位の比較より次の練習が明確になります。",
+        "en": "Measure progress through your own games: avoid losing pieces in development, coordinate attacking pieces in the middlegame, and look for threats beyond checks in the endgame. Classify recent losses by the phase where the decisive error occurred. That produces a concrete training target; a rough rank comparison or a single promotion game does not diagnose your strengths."
+      }
+    ],
+    "question": {
+      "ja": "他アプリの初段と同じ強さですか？",
+      "en": "Is first dan identical across apps?"
+    },
+    "answer": {
+      "ja": "同一とは限りません。対戦集団や持ち時間、昇段制度が異なります。",
+      "en": "No. Player pools, time controls and promotion systems differ."
+    }
+  },
+  {
+    "id": "4356",
+    "title": {
+      "ja": "将棋ウォーズ全エフェクト集",
+      "en": "Understanding the Shogi Wars effects collection"
+    },
+    "paragraphs": [
+      {
+        "ja": "将棋ウォーズのエフェクトは、囲い、戦法、手筋、特殊イベントなどを認識して表示する演出です。記事の一覧は掲載時のコレクション資料であり、現在の全エフェクト数や正確な検出条件を保証するものではありません。戦法名を学ぶ入口として使いましょう。",
+        "en": "Shogi Wars effects recognize castles, openings, tactics and special events. The article catalogs the collection at its publication date; it is not a live inventory or a specification of the detection algorithm. Use a recognized name as a prompt to study the underlying position, not as proof that the move was good."
+      },
+      {
+        "ja": "例えば棒銀は銀と飛車の協力、石田流は浮き飛車・桂・角の配置、美濃は横からの攻めへの強さが学習の中心です。星の多さや色は収集の情報で、局面の評価ではありません。棋譜を戻し、表示された時点の駒の配置と実際の狙いを自分の言葉で説明します。",
+        "en": "For example, learn the cooperation of silver and rook in Climbing Silver, the rook-knight-bishop arrangement in Ishida, and Mino’s resistance to lateral attack. Rarity stars and collection colors describe rewards rather than position evaluation. Revisit the triggering position in the record and identify the arrangement, its intended attack, and the opponent’s counterplay. A rare effect can appear in a losing position."
+      }
+    ],
+    "question": {
+      "ja": "珍しいエフェクトは好手の証拠ですか？",
+      "en": "Does a rare effect prove a good move?"
+    },
+    "answer": {
+      "ja": "いいえ。認識された形と局面の良し悪しは別です。",
+      "en": "No. Recognition of a pattern and the quality of the position are separate."
+    }
+  },
+  {
+    "id": "4483",
+    "title": {
+      "ja": "将棋ウォーズの囲いエフェクト",
+      "en": "Castle effects in Shogi Wars"
+    },
+    "paragraphs": [
+      {
+        "ja": "囲いのエフェクトは、美濃、矢倉、穴熊などの特徴的な配置を知るきっかけになります。ただし金銀を指定位置に置くだけでは安全とは限りません。相手の飛車の方向、角筋、玉頭の歩、駒の連結と逃げ道を確認して初めて囲いを評価できます。",
+        "en": "Castle effects introduce recognizable formations such as Mino, Yagura and Anaguma. Putting golds and silvers on named squares does not by itself make a king safe. Evaluate the enemy rook’s direction, bishop diagonals, pawns in front of the king, connections between defenders and escape squares."
+      },
+      {
+        "ja": "記事の一覧は掲載時の記録です。収集目的で余分な手をかけると、急戦に間に合わない場合があります。囲いを作った棋譜では、完成までの手数と最初に攻められた弱点を見比べましょう。囲いの名前に加え、その配置が縦・横・端のどの攻めに強いかを覚えると実戦で使えます。",
+        "en": "The source’s collection list is historical. Spending extra moves to obtain an effect may leave you late against a quick attack. In a recorded game, compare the time needed to build the castle with the first weak square attacked. Learn which directions the formation resists—vertical, lateral or edge attacks—and which defender must remain in place. Formation recognition is useful only when paired with that positional explanation."
+      }
+    ],
+    "question": {
+      "ja": "囲いの完成表示の後にも確認することは？",
+      "en": "What still needs checking after a castle effect appears?"
+    },
+    "answer": {
+      "ja": "相手の攻撃方向、金銀の連結、玉の逃げ道です。",
+      "en": "The opponent’s attack direction, defender connections and king escape squares."
+    }
+  },
+  {
+    "id": "4545",
+    "title": {
+      "ja": "将棋ウォーズの手筋エフェクト",
+      "en": "Tactic effects in Shogi Wars"
+    },
+    "paragraphs": [
+      {
+        "ja": "記事はたたきの歩、垂れ歩、底歩、田楽刺し、ふんどしの桂、桂頭の銀、割打ちの銀、腹銀、遠見の角、玉の早逃げを紹介しています。歩の手筋は相手の配置を乱し、両取りは二つの駒を同時に狙い、腹銀は王手せず逃げ道を狭めます。",
+        "en": "The source introduces striking, dangling and bottom pawns; lance skewers; knight and silver forks; a silver on a knight’s head; belly silver; distant bishops; and early king escapes. Pawn tactics disrupt coordination, forks attack two targets, and a belly silver can restrict a king without giving check."
+      },
+      {
+        "ja": "表示された手筋が成立したかは、その次の応手で判断します。たたきの歩なら取った駒がどこへ誘われるか、割打ちなら銀を取られないか、遠見の角なら角筋を止められないかを読みます。記事のエフェクト検出と実際の手筋の成立は同じものではありません。",
+        "en": "Test the actual continuation. For a striking pawn, ask where the capturing defender is drawn; for a silver fork, check whether the silver can be captured; for a distant bishop, examine possible blockers. Early escape is preventative defense, not permission to abandon every attack. An animation recognizes a motif; calculation determines whether that motif works in the specific game."
+      }
+    ],
+    "question": {
+      "ja": "腹銀が王手でなくても有効なのはなぜ？",
+      "en": "Why can a belly silver be effective without check?"
+    },
+    "answer": {
+      "ja": "玉の横から逃げ道を制限し、次の詰みを狙えるためです。",
+      "en": "It restricts nearby escape squares and can threaten mate on the next move."
+    }
+  },
+  {
+    "id": "4458",
+    "title": {
+      "ja": "将棋ウォーズの特殊エフェクト",
+      "en": "Special effects and event collections"
+    },
+    "paragraphs": [
+      {
+        "ja": "特殊エフェクトには棋士を題材にした演出、期間限定イベント、穴熊から桂を跳ねる形などが含まれます。記事には未確認の出現条件もあります。掲載時の噂を確定した操作手順として扱わず、限定イベントと通常の局面認識を区別しましょう。",
+        "en": "Special effects include player-themed animations, limited events and unusual position motifs. The source also discusses unconfirmed trigger rumors. Distinguish historical event rewards from normal pattern recognition; do not treat a rumored condition as a reliable instruction for the current app."
+      },
+      {
+        "ja": "穴熊の桂を跳ねれば攻め駒が増えますが、桂が守っていた地点や玉の周囲が薄くなります。エフェクトより、跳ねた後に相手が使える王手と角打ちを確認することが大切です。棋士名や称号入りの演出も、その棋士の現在の肩書や成績を表すとは限りません。",
+        "en": "An Anaguma knight jump may strengthen an attack while removing protection around the king. Before jumping, inspect newly available checks and bishop drops. Player-themed collection names can preserve an old rank or title, so they are not current biographical records. The useful lesson is to connect entertaining labels with board consequences and historical context rather than chase a reward at the expense of the position."
+      }
+    ],
+    "question": {
+      "ja": "穴熊の桂跳ねで何を失う可能性がありますか？",
+      "en": "What can an Anaguma knight jump cost?"
+    },
+    "answer": {
+      "ja": "玉周辺の守備と、桂が押さえていた地点の安全です。",
+      "en": "King protection and control of squares previously guarded by the knight."
+    }
+  },
+  {
+    "id": "4347",
+    "title": {
+      "ja": "将棋ウォーズ　指導対局",
+      "en": "Learning from a teaching game"
+    },
+    "paragraphs": [
+      {
+        "ja": "指導対局では、勝敗より自分の判断を説明してもらうことが目的です。記事はウォーズ内の指導対局制度を紹介していますが、利用条件、棋士の参加予定、料金は掲載時の情報です。現在のサービス案内を確認し、棋力に合う手合いを選びます。",
+        "en": "A teaching game is an opportunity to expose decisions that deserve explanation, rather than simply to collect a win. The article describes a Shogi Wars teaching-game service; access conditions, professional appearances and fees belong to its publication period. Check the current service information and choose a suitable handicap."
+      },
+      {
+        "ja": "対局前に得意戦法と聞きたい点を一つ決め、対局後は序盤の組み方、最初の仕掛け、寄せの判断を棋譜から確認しましょう。アプリ内では詳細な感想戦がない形式もあるので、棋譜保存が重要です。強い相手の好手を丸暗記するより、自分の悪手の理由を一つ直す方が再現できます。",
+        "en": "Before playing, choose one opening and one question you want clarified. Afterward, review development, the first commitment to an attack, and the decision to finish or defend. Some online formats do not include a detailed discussion, making record export especially valuable. Identify one mistaken decision and its replacement; memorizing an expert’s impressive sequence without the reason is much harder to transfer to your next game."
+      }
+    ],
+    "question": {
+      "ja": "指導対局から持ち帰る具体的な成果は？",
+      "en": "What concrete result should you take from a teaching game?"
+    },
+    "answer": {
+      "ja": "自分の判断の問題点と、次の対局で使える改善を一つです。",
+      "en": "One explained decision error and one improvement you can use in the next game."
+    }
+  },
+  {
+    "id": "3338",
+    "title": {
+      "ja": "将棋ウォーズの昇級条件",
+      "en": "Shogi Wars promotion progress"
+    },
+    "paragraphs": [
+      {
+        "ja": "ウォーズの段級位と達成率は、そのサービスの昇級制度による表示です。記事は内部レートと表示達成率の関係、昇段や降段の条件を説明していますが、具体的な閾値は過去の仕様です。表示の変化を棋力の直線的な増減と解釈しないようにしましょう。",
+        "en": "Shogi Wars ranks and progress percentages reflect the service’s own promotion system. The article explains a relationship between hidden rating and displayed progress, together with historical promotion and demotion thresholds. Those implementation details are not a verified specification of the current app. A percentage change does not measure a linear change in playing strength."
+      },
+      {
+        "ja": "強い相手への一勝と弱い相手への一勝で変化が違っても不自然ではありません。短い連勝や連敗は相手や持ち時間にも左右されます。昇段を目指す場合は、達成率を追うだけでなく、終盤の見落とし、時間切れ、序盤の駒損を分けて集計し、最も多い原因を練習しましょう。",
+        "en": "Different opponents can produce different rating changes. Short streaks also depend on matchmaking and time controls, so diagnose progress over a useful span of games. Separate losses caused by missed mates, time expiration and early material loss. Train the most frequent cause, then examine whether it recurs. This gives you an actionable route toward promotion without reverse-engineering an undocumented percentage formula."
+      }
+    ],
+    "question": {
+      "ja": "達成率だけで上達を判断しにくい理由は？",
+      "en": "Why is progress percentage an incomplete measure of improvement?"
+    },
+    "answer": {
+      "ja": "相手の強さや内部評価、短期の成績に影響され、失敗の原因が分からないためです。",
+      "en": "It depends on opponents and short-term results and does not identify the cause of your errors."
+    }
+  },
+  {
+    "id": "340",
+    "title": {
+      "ja": "将棋ウォーズ、棋力レーダチャート",
+      "en": "Reading a shogi skill radar"
+    },
+    "paragraphs": [
+      {
+        "ja": "棋力レーダーには攻撃、守備、戦術、速度、芸術、終盤などの指標が表示されます。記事は指標の意味について推測も含めて説明しており、公開された採点式ではありません。低い項目を見つけても、その名称だけで自分の弱点を断定しないでください。",
+        "en": "A skill radar presents categories such as attack, defense, strategy, speed, artistry and endgame. The source discusses possible interpretations, including conjectures, rather than a published scoring algorithm. A low spoke is a prompt for investigation, not a precise diagnosis of a weakness."
+      },
+      {
+        "ja": "守備が低いなら直近の敗局で受けるべき場面を確認し、終盤が低いなら詰みの見落としと不必要な王手を探します。実際の棋譜に同じ失敗があるかを照合し、その原因に合う課題を選びましょう。グラフの形を整えるために無理な手を指すより、局面に必要な判断を身につける方が有効です。",
+        "en": "If defense looks weak, inspect games where you should have defended; if endgame looks weak, find missed mates and unnecessary checks. Confirm a repeated board-level error before choosing an exercise. Improving the graph by forcing unusual moves can worsen real play. Use the display alongside saved games and time-use information, then test whether a specific improvement changes the decisions that actually lose games."
+      }
+    ],
+    "question": {
+      "ja": "レーダーの低い項目を見つけた後の行動は？",
+      "en": "What should follow identification of a low radar category?"
+    },
+    "answer": {
+      "ja": "棋譜で同種の失敗が実際に繰り返されているか確認します。",
+      "en": "Check your records for a recurring error that actually corresponds to that category."
+    }
+  },
+  {
+    "id": "4173",
+    "title": {
+      "ja": "将棋ウォーズの棋譜をソフトで解析する方法",
+      "en": "Exporting a game for analysis"
+    },
+    "paragraphs": [
+      {
+        "ja": "棋譜を解析するには、対局の記録をKIFなどの対応形式で取り出し、ぴよ将棋、ShogiGUI、KENTOなどで読み込みます。記事には更新前の取得方法も残っており、外部サービスや画面の変更で使えなくなることがあります。まず現在の公式な保存・共有機能を確認しましょう。",
+        "en": "To analyze a game, export its record in a supported format such as KIF and import it into a viewer or analysis tool such as Piyo Shogi, ShogiGUI or KENTO. The source preserves older export methods that may no longer work after service changes. Start with the service’s current save or share function."
+      },
+      {
+        "ja": "読み込み後は先後、開始局面、手数、最終局面を元の対局と照合します。駒落ち棋譜を平手として読むと、評価も手順も無意味になります。エンジンを回す前に自分で疑問の局面を選び、候補手を記録してから比較すると、単に評価値を見るより学習になります。",
+        "en": "After import, compare sides, initial position, move count and final position with the original game. A handicap game interpreted as a standard start produces meaningless analysis. Before asking an engine, choose a position and write your candidate moves. Compare those candidates with the tool’s continuation and identify the missed response. Export is a means to review decisions, not an analysis result in itself."
+      }
+    ],
+    "question": {
+      "ja": "読み込めた棋譜で最初に照合する情報は？",
+      "en": "What should you verify immediately after importing a record?"
+    },
+    "answer": {
+      "ja": "先後、開始局面、手数と最終局面です。",
+      "en": "Sides, initial position, move count and final position."
+    }
+  },
+  {
+    "id": "5024",
+    "title": {
+      "ja": "将棋クエストの昇級条件",
+      "en": "Shogi Quest ratings and promotion"
+    },
+    "paragraphs": [
+      {
+        "ja": "将棋クエストではレーティングと段級位は関連していても同じ表示ではありません。記事はレートと連勝などの昇級条件、初期の暫定評価を説明しています。対局数が少ない時期には、負けたのに表示レートが上がる場合もあるとしています。これは通常の確定レートとは扱いが異なるためです。",
+        "en": "Shogi Quest rating and rank are related but distinct displays. The article describes rating thresholds, winning streak conditions and an initial provisional period. It explains that a displayed rating can sometimes rise after a loss during early calibration, when the system is still estimating strength from limited evidence."
+      },
+      {
+        "ja": "記事の具体的な数値は掲載時の条件として扱い、現在のヘルプと照合してください。段位が一度の最高到達を残す形式なら、現在のレートとずれることもあります。レート、バッジ、持ち時間を区別して比較し、負け方の分析を優先することで、昇段条件の追跡だけに偏らず練習できます。",
+        "en": "Treat the article’s exact numbers as historical conditions and compare them with current help before relying on them. A badge that preserves a past achievement can diverge from a present rating. Compare like time controls and distinguish current rating from rank history. Review the actual causes of losses instead of assuming that every badge change or provisional adjustment reflects a new skill gained or lost."
+      }
+    ],
+    "question": {
+      "ja": "負けたのにレートが上がる説明として記事が挙げるものは？",
+      "en": "What explanation does the article give for a rating rise after a loss?"
+    },
+    "answer": {
+      "ja": "対局数の少ない暫定評価期間では、評価の補正が行われるためです。",
+      "en": "During provisional calibration, the rating estimate may be adjusted from limited game evidence."
+    }
+  },
+  {
+    "id": "553",
+    "title": {
+      "ja": "スマホアプリ「ぴよ将棋」",
+      "en": "Practicing with Piyo Shogi"
+    },
+    "paragraphs": [
+      {
+        "ja": "ぴよ将棋はコンピュータ対局と棋譜検討に使えるアプリです。記事は段階別の強さ、戦法指定、棋譜の読み込み、評価グラフなどを紹介しています。勝てる設定だけでなく、少し難しい相手に同じ戦法を繰り返し、序盤の理解を試す使い方が有効です。",
+        "en": "Piyo Shogi combines computer opponents with game-record review. The source introduces strength levels, opening choices, record import and evaluation graphs. Practice an opening against a slightly challenging opponent and repeat the positions where your plan failed, rather than always selecting a level you can comfortably beat."
+      },
+      {
+        "ja": "対局後は評価値が大きく動いた場面を一つ選び、自分の手と候補手の続きを比べます。最善手だけを見ても、相手の応手を知らなければ次の対局で使えません。古い記事の外部棋譜取得ボタンやレベル数は現在の画面と異なる場合がありますが、記録を保存して検討する学習手順は共通です。",
+        "en": "After playing, choose one major evaluation swing and compare the continuations after your move and an alternative. A best-move label is insufficient without the opponent’s reply. Older import buttons and level counts in the article may differ from the current interface, but the learning cycle remains useful: save the game, isolate a decision, calculate an alternative, then replay that position against the computer."
+      }
+    ],
+    "question": {
+      "ja": "評価が落ちた一手を見つけたら何を比較しますか？",
+      "en": "What should you compare after finding an evaluation drop?"
+    },
+    "answer": {
+      "ja": "自分の手と代わりの候補手について、相手の最善応手まで比較します。",
+      "en": "Compare your move and an alternative through the opponent’s strongest reply."
+    }
+  },
+  {
+    "id": "172",
+    "title": {
+      "ja": "将棋ソフトelmoの導入方法",
+      "en": "Understanding an elmo installation"
+    },
+    "paragraphs": [
+      {
+        "ja": "elmoは将棋エンジンと評価データを組み合わせて使う解析環境として記事で紹介されています。記事の手順は古いWindows向け構成で、ShogiGUI、実行ファイル、評価ファイル、定跡ファイルを準備してエンジンを登録します。画面だけ入れても解析エンジンが動くとは限りません。",
+        "en": "The article introduces an older Windows elmo setup using a GUI, engine executable, evaluation data and an optional opening book. ShogiGUI provides the interface; the engine performs the search. Installing a viewer alone does not supply a functioning engine, and files from incompatible versions may fail to load."
+      },
+      {
+        "ja": "配布元の説明で対応OS、CPU命令、評価形式を照合し、専用フォルダで小さな局面から動作確認します。読みの深さを上げる前に、スレッド数とメモリを端末に合う範囲に制限します。掲載時のダウンロード先やファイル名を現在の最新版と決めつけず、セットの互換性を確認することが重要です。",
+        "en": "Check the distributor’s requirements for operating system, CPU instructions and evaluation format. Keep the setup in its own folder and test a small position first. Limit threads and memory before increasing search depth. The source’s download locations and filenames describe its historical configuration, not necessarily a current release. Compatibility between the executable and evaluation data matters more than reproducing old screenshots."
+      }
+    ],
+    "question": {
+      "ja": "GUIを入れただけで解析できない理由は？",
+      "en": "Why might installing a GUI alone not enable analysis?"
+    },
+    "answer": {
+      "ja": "探索するエンジン本体と、そのエンジンに対応する評価データも必要だからです。",
+      "en": "A compatible engine executable and its required evaluation data are also needed."
+    }
+  },
+  {
+    "id": "345",
+    "title": {
+      "ja": "将棋ウォーズの棋譜を「elmo」で解析する方法",
+      "en": "Analyzing a Shogi Wars game with elmo"
+    },
+    "paragraphs": [
+      {
+        "ja": "記事はウォーズの棋譜を取得し、ShogiGUIに読み込み、elmoで解析する流れを説明しています。棋譜をコピーする外部サービスは変更されるため、まず現在利用できる方法で記録を保存します。単一局面の検討と全局の自動解析は目的が違います。",
+        "en": "The source describes obtaining a Shogi Wars record, importing it into ShogiGUI and analyzing with elmo. External copying services can change, so use a currently supported export path. Single-position investigation tests a particular idea; whole-game analysis helps locate decisions worth investigating."
+      },
+      {
+        "ja": "評価値の正負が先手基準か手番基準かを確認し、深さや時間の違う値を単純比較しないでください。悪手候補の局面で自分の手を選び、エンジンの応手を追って、駒損や詰みの原因を説明します。全局に評価値を付けるだけでは復習にならず、一つの修正を次の対局で使うことが目標です。",
+        "en": "Confirm whether evaluation signs are shown from Black’s perspective or the side to move. Scores produced with different search budgets are not directly comparable. At a suspected mistake, play your candidate and follow the engine’s strongest response until the material loss or mating threat becomes clear. Annotating an entire game with numbers is only the starting point; carry one explained correction into your next game."
+      }
+    ],
+    "question": {
+      "ja": "後手の対局で負の値は常に悪いですか？",
+      "en": "Is a negative score always bad when you played White?"
+    },
+    "answer": {
+      "ja": "表示が先手基準なら負は後手有利です。まず評価の基準を確認します。",
+      "en": "If scores use Black’s perspective, negative favors White. Check the display convention first."
+    }
+  },
+  {
+    "id": "8297",
+    "title": {
+      "ja": "将棋のタイトル戦とは？",
+      "en": "How professional title matches work"
+    },
+    "paragraphs": [
+      {
+        "ja": "記事で紹介する八大タイトルは竜王、名人、叡王、王位、王座、棋王、王将、棋聖です。各棋戦の予選で挑戦者を決め、その挑戦者が保持者と番勝負を行います。段位は棋士の資格を示し、タイトルは特定の棋戦の王者を示すため、同じものではありません。",
+        "en": "The source introduces eight major titles: Ryuo, Meijin, Eio, Oi, Oza, Kio, Osho and Kisei. Each competition selects a challenger who faces the defending holder in a match. A professional dan rank and a title describe different things: a title identifies the winner of a particular championship."
+      },
+      {
+        "ja": "七番勝負は先に四勝、五番勝負は先に三勝で決着します。永世称号の資格は各棋戦の獲得条件によって決まり、現在のタイトル保持とは区別します。記事の保持者一覧や賞金は掲載時の情報です。観戦では番勝負の勝敗、持ち時間、挑戦者の選抜方式を確認すると位置づけが分かります。",
+        "en": "A best-of-seven match requires four wins; a best-of-five requires three. Lifetime-title qualifications have championship-specific conditions and do not mean the player currently holds that title. Holder lists and prize figures in the article are dated information. When following a match, identify its score, time control and challenger-selection route before interpreting a result; a single game loss does not necessarily transfer the title."
+      }
+    ],
+    "question": {
+      "ja": "五番勝負で一局負けたら失冠しますか？",
+      "en": "Does one loss in a best-of-five match transfer the title?"
+    },
+    "answer": {
+      "ja": "いいえ。先に三勝した側が番勝負を制します。",
+      "en": "No. The first player to win three games wins the match."
+    }
+  },
+  {
+    "id": "4137",
+    "title": {
+      "ja": "竜王戦とは？ルールと仕組み",
+      "en": "The Ryuo championship"
+    },
+    "paragraphs": [
+      {
+        "ja": "竜王戦では一組から六組までのランキング戦と、挑戦者を決める決勝トーナメントを区別します。下位組からも本戦への道がありますが、組によって勝ち上がりの条件や本戦での位置が異なります。組の優勝者がそのまま竜王になるわけではありません。",
+        "en": "The Ryuo system separates ranking tournaments in six groups from the final competition that selects a title challenger. Lower-group players can reach the final bracket, but qualifying places and entry positions differ by group. Winning a ranking group is an achievement distinct from winning the Ryuo title."
+      },
+      {
+        "ja": "記事で説明する七番勝負は保持者と挑戦者が先に四勝を争い、各八時間の二日制で指します。一日目の終わりには次の手を封じ、翌日に開封します。ランキング戦の昇降級、挑戦権、タイトル獲得を別々に追うと、同じ一勝がどの段階の成績か理解できます。具体的な賞金や参加枠は掲載時の資料です。",
+        "en": "In the match format described by the source, holder and challenger play a best-of-seven with eight hours each over two days per game. A sealed move bridges the overnight adjournment. Track group promotion, challenger selection and title acquisition separately: a win in one stage does not imply victory in another. Exact prize amounts and entry allocations in the article are historical reference details, not a live announcement."
+      }
+    ],
+    "question": {
+      "ja": "六組優勝は竜王獲得と同じですか？",
+      "en": "Is winning Group Six the same as becoming Ryuo?"
+    },
+    "answer": {
+      "ja": "違います。組の成績と、本戦での挑戦権、保持者との番勝負を区別します。",
+      "en": "No. Group results, winning the challenger competition and beating the holder are separate stages."
+    }
+  },
+  {
+    "id": "4164",
+    "title": {
+      "ja": "名人戦とは？ルールと仕組み",
+      "en": "The Meijin championship"
+    },
+    "paragraphs": [
+      {
+        "ja": "名人への挑戦者は順位戦の最上位であるA級から決まります。下位級の棋士は毎年のリーグで昇級を重ねる必要があり、竜王戦のように下位組から同じ期の本戦を勝ち上がる制度とは違います。A級の最高成績者が複数ならプレーオフで挑戦者を決めます。",
+        "en": "The Meijin challenger comes from Class A of the Juni ranking leagues. Players in lower classes must earn successive promotions over seasons, unlike a tournament route that permits a lower-group player to reach the title match in the same cycle. Tied leaders in Class A require a playoff to determine the challenger."
+      },
+      {
+        "ja": "記事の名人戦七番勝負は各九時間、二日制で、先に四勝した棋士が名人になります。封じ手は中断時の次の手を事前に確定させる仕組みです。名人という歴史的称号、現在の実力制棋戦、永世名人の資格を混同しないようにしましょう。掲載時の保持者や成績表は現在の速報ではありません。",
+        "en": "The source describes a best-of-seven title match with nine hours each over two days and four wins needed. A sealed move commits the next decision before the overnight break. Distinguish the historical Meijin designation, the modern competitive championship and lifetime-Meijin qualification. The article’s holder and season results are dated context, not live standings; the key learning target is the route from league performance to the title match."
+      }
+    ],
+    "question": {
+      "ja": "下位級の一度の優勝だけで名人に挑戦できますか？",
+      "en": "Can a single lower-class league win earn a Meijin challenge?"
+    },
+    "answer": {
+      "ja": "できません。A級へ昇級し、そこで挑戦者に選ばれる必要があります。",
+      "en": "No. The player must reach Class A and earn the challenge there."
+    }
+  },
+  {
+    "id": "8156",
+    "title": {
+      "ja": "叡王戦とは？ルールと仕組み",
+      "en": "The Eio championship"
+    },
+    "paragraphs": [
+      {
+        "ja": "叡王戦は段位別の予選から本戦へ進む仕組みを持つ棋戦として紹介されています。段位の区分は対戦表を作るためのもので、八段や九段だから本戦の勝利が保証されるわけではありません。本戦の勝者が保持者への挑戦権を得ます。",
+        "en": "The Eio competition described in the article uses professional-dan preliminary groups leading into a main bracket. Dan divisions organize qualification; a high dan does not guarantee victory in the final tournament. Winning the challenger competition earns a match against the defending title holder."
+      },
+      {
+        "ja": "記事は棋戦が一般棋戦からタイトル戦に変わった歴史も扱います。初期の方式と後年の方式には違いがあるため、昔の七番勝負や特殊な持ち時間を後年の五番勝負と混ぜないでください。記事で紹介する五番勝負は先に三勝が必要です。観戦する期の規定を確認し、保持者一覧を最新の事実として扱わないことが大切です。",
+        "en": "The article also traces the transition from an ordinary competition to a title championship. Earlier match systems and time controls differ from the later best-of-five arrangement, so do not combine historical rules into one format. The described five-game title match requires three wins. When watching a specific season, identify that season’s regulations; dated holder tables and sponsorship descriptions are context rather than current results."
+      }
+    ],
+    "question": {
+      "ja": "叡王戦の昔と後年の制度を読むときの注意点は？",
+      "en": "What matters when comparing early and later Eio formats?"
+    },
+    "answer": {
+      "ja": "同じ期の番勝負と持ち時間を組にして確認し、異なる時代の規則を混ぜないことです。",
+      "en": "Match the series length and time control to the same season instead of mixing rules from different eras."
+    }
+  },
+  {
+    "id": "8260",
+    "title": {
+      "ja": "王位戦とは？ルールと仕組み",
+      "en": "The Oi championship"
+    },
+    "paragraphs": [
+      {
+        "ja": "王位戦は予選の後、紅組と白組の二つのリーグで挑戦者を絞る方式が特徴です。各組の優勝者が挑戦者決定戦を戦い、その勝者が王位に挑戦します。リーグ優勝、挑戦者決定戦の勝利、タイトル獲得は三つの異なる成果です。",
+        "en": "The Oi route described in the source features red and white challenger leagues after qualification. Their winners meet to decide which player challenges the defending Oi. Winning a league, winning that challenger final and taking the title are three distinct achievements, even though all belong to the same championship cycle."
+      },
+      {
+        "ja": "記事で説明するタイトル戦は各八時間の二日制、七番勝負で先に四勝です。リーグでは挑戦権だけでなく翌期の残留にも成績が関係するため、首位でない対局も重要になります。観戦では組の順位、残留争い、挑戦者決定戦、番勝負を順に追いましょう。歴代表は掲載時の資料として扱います。",
+        "en": "The title match described is a two-day best-of-seven with eight hours each and four wins required. League results also affect qualification or retention for the following cycle, giving games beyond the championship race significance. Follow group standings, retention, the challenger final and the title match in sequence. The historical winners table is a publication-period reference and should not be mistaken for a live season update."
+      }
+    ],
+    "question": {
+      "ja": "紅組の優勝だけで王位への挑戦者になりますか？",
+      "en": "Does winning the red league alone make someone the Oi challenger?"
+    },
+    "answer": {
+      "ja": "いいえ。白組の優勝者との挑戦者決定戦も勝つ必要があります。",
+      "en": "No. The player must also win the challenger final against the white-league winner."
+    }
+  },
+  {
+    "id": "8274",
+    "title": {
+      "ja": "王座戦とは？ルールと仕組み",
+      "en": "The Oza championship"
+    },
+    "paragraphs": [
+      {
+        "ja": "王座戦は一次予選、二次予選、挑戦者決定トーナメントを経て挑戦者を決める棋戦です。記事は全棋士に加えて選抜された女流棋士も参加する制度を紹介しています。シードは予選の免除や開始段階を決めるもので、挑戦権の保証ではありません。",
+        "en": "The Oza competition selects a challenger through preliminary tournaments and a final challenger bracket. The source describes participation by professional players and selected women professionals. A seed determines the stage at which someone enters; it does not award the title challenge automatically."
+      },
+      {
+        "ja": "記事で説明する番勝負は五番勝負、各五時間で、先に三勝した方が王座になります。王座の長期獲得による称号は「名誉王座」と呼ばれ、現在の王座保持とは区別します。棋譜を見る際は予選なのか番勝負なのかを確認し、同じ棋戦でも対局の意味が異なることを意識しましょう。参加枠や保持者表は掲載時の情報です。",
+        "en": "The described title match is a best-of-five with five hours per player and three wins needed. The long-term distinction is called Honorary Oza, separate from currently holding Oza. Before interpreting a record, establish whether it is a qualifier or a title-match game; identical competition names can label different stakes. Participant quotas and holder lists in the source belong to its publication context rather than a current fixture announcement."
+      }
+    ],
+    "question": {
+      "ja": "五番勝負で二勝二敗の場合、あと何勝必要ですか？",
+      "en": "At 2–2 in a best-of-five, how many more wins are needed?"
+    },
+    "answer": {
+      "ja": "一勝です。三勝目を挙げた側が番勝負を制します。",
+      "en": "One. The third win decides the match."
+    }
+  },
+  {
+    "id": "8287",
+    "title": {
+      "ja": "棋王戦とは？ルールと仕組み",
+      "en": "The Kio championship"
+    },
+    "paragraphs": [
+      {
+        "ja": "棋王戦の特徴は、本戦の上位に敗者復活の道があることです。記事の方式ではベスト四以上で二敗失格制となり、勝者組の優勝者と敗者復活の優勝者が挑戦者決定戦を戦います。一度負けたら全員終了という通常のトーナメントとは異なります。",
+        "en": "Kio has a distinctive second-chance route near the top of its challenger tournament. In the format described, the final-four stage uses a two-loss elimination system. The undefeated bracket winner meets the winner of the recovery bracket, rather than everyone being eliminated immediately by one defeat."
+      },
+      {
+        "ja": "挑戦者決定戦では勝者組側は一勝でよく、敗者復活側は二連勝が必要です。そこで選ばれた挑戦者が、保持者と五番勝負で三勝を争います。この変則二番勝負とタイトル戦の五番勝負を混同しないでください。記事の時間設定や選抜枠は掲載時の制度を説明しており、見る期の規定と照合します。",
+        "en": "In that challenger final, the undefeated player needs one win; the recovery-bracket player needs two consecutive wins. The successful challenger then faces the holder in a separate best-of-five requiring three wins. Do not confuse the asymmetric challenger final with the championship match. The article’s time settings and qualifying allocations describe its period; check the regulations of the season you are following before applying exact details."
+      }
+    ],
+    "question": {
+      "ja": "敗者復活側が挑戦者決定戦の一局目に勝つとどうなりますか？",
+      "en": "What follows a first-game win by the recovery-bracket player?"
+    },
+    "answer": {
+      "ja": "もう一局必要です。敗者復活側は二連勝しなければ挑戦権を得られません。",
+      "en": "A second game is required. The recovery-bracket player must win both games to earn the challenge."
+    }
+  },
+  {
+    "id": "8292",
+    "title": {
+      "ja": "王将戦とは？ルールと仕組み",
+      "en": "The Osho championship"
+    },
+    "paragraphs": [
+      {
+        "ja": "王将戦は予選トーナメントの後、挑戦者決定リーグを行う方式として紹介されています。記事の七人リーグでは総当たりで最高成績を争い、成績は翌期の残留にも関係します。挑戦権争いと残留争いが同時に進む点が観戦の見どころです。",
+        "en": "The Osho route described in the source progresses from preliminary tournaments to a challenger league. Its seven-player round robin selects the leading challenger while results also affect retention for the next cycle. Games matter both at the top of the standings and near the retention boundary."
+      },
+      {
+        "ja": "記事で説明する番勝負は各八時間の二日制で、七番勝負の四勝が必要です。予選、リーグ、番勝負では持ち時間が同一とは限らず、短い予選の棋譜を二日制の感覚で評価しないようにします。王将という駒の名前、王将戦のタイトル、永世王将の資格は区別して理解します。歴代の保持者は掲載時の一覧です。",
+        "en": "The described title match uses eight hours each over two days and requires four wins in a best-of-seven. Preliminary, league and match stages can have different time budgets, so interpret decisions in their actual time-control context. Distinguish the king-piece name, the Osho championship and lifetime-Osho qualification. The source’s holder list is historical reference, not a current competition feed or a guarantee of unchanged tournament regulations."
+      }
+    ],
+    "question": {
+      "ja": "リーグで首位以外の棋士の対局も重要なのはなぜ？",
+      "en": "Why do non-leading players’ league games still matter?"
+    },
+    "answer": {
+      "ja": "翌期のリーグ残留にも成績が影響するためです。",
+      "en": "Results also influence retention in the league for the next cycle."
+    }
+  },
+  {
+    "id": "8144",
+    "title": {
+      "ja": "棋聖戦とは？ルールと仕組み",
+      "en": "The Kisei championship"
+    },
+    "paragraphs": [
+      {
+        "ja": "棋聖戦は一次予選、二次予選、決勝トーナメントから挑戦者を決める方式として紹介されています。記事の制度では予選段階によって持ち時間が異なり、決勝トーナメントの優勝者が保持者に挑戦します。タイトル戦は五番勝負で先に三勝です。",
+        "en": "The Kisei route described in the article uses first and second preliminaries followed by a final challenger tournament. Time budgets vary by qualifying stage, and the final tournament winner earns a match against the holder. The championship itself is a best-of-five requiring three wins."
+      },
+      {
+        "ja": "棋聖戦には年二回開催されていた時代があるため、期数と年数は必ずしも一致しません。通算五期という永世資格の説明を五年連続保持と読み替えないでください。棋譜を選ぶときは対局の期、段階、持ち時間を確認します。記事の記録や保持者の肩書は掲載時の情報で、現在の速報ではありません。",
+        "en": "Kisei once ran twice a year, so edition numbers do not map directly to elapsed years. The article’s lifetime qualification of five total titles is different from five consecutive calendar years. When selecting games to study, identify the edition, competition stage and time control before comparing them. Historical records and player labels in the source are dated context; they are not current standings and do not change the board lessons in an old game."
+      }
+    ],
+    "question": {
+      "ja": "通算五期と五期連続は同じ条件ですか？",
+      "en": "Are five total titles and five consecutive titles the same condition?"
+    },
+    "answer": {
+      "ja": "違います。通算には間に失冠した期があっても含められます。",
+      "en": "No. A total can include wins separated by periods without the title."
+    }
+  },
+  {
+    "id": "4096",
+    "title": {
+      "ja": "順位戦、A級棋士とは？ルールと仕組み",
+      "en": "Juni leagues and Class A"
+    },
+    "paragraphs": [
+      {
+        "ja": "順位戦は下からC級二組、C級一組、B級二組、B級一組、A級の五クラスです。A級の最高成績者が名人に挑戦します。記事ではA級とB級一組は総当たり、人数の多い下位級は選ばれた相手と対戦する方式を説明しています。段位と順位戦のクラスは別の制度です。",
+        "en": "Juni leagues have five classes: C2, C1, B2, B1 and A in ascending order. Class A’s leader earns the Meijin challenge. The source distinguishes round-robin schedules in the upper classes from selected-opponent schedules in larger lower classes. Professional dan rank and Juni class are separate systems; the same dan can appear in different classes."
+      },
+      {
+        "ja": "上位級の降級と、下位級で積み重なる降級点は仕組みが異なります。フリークラスは順位戦に参加しない区分で、全ての棋戦から離れる意味ではありません。順位表では勝敗だけでなく同成績時の順位や昇降級条件も確認します。人数、昇級枠、現在の参加棋士は期によって変わるため、記事の表を現行の名簿と決めつけません。",
+        "en": "Direct relegation in upper classes differs from accumulated relegation points below. Free Class means nonparticipation in Juni, not withdrawal from every professional competition. Read league tables with their tie-ordering and promotion rules, rather than comparing wins alone. Class sizes, quotas and participants can change by season, so the article’s roster is a historical example. Learn the system before interpreting any individual player’s placement."
+      }
+    ],
+    "question": {
+      "ja": "フリークラスはプロ棋戦すべてに出場しない意味ですか？",
+      "en": "Does Free Class mean playing in no professional tournaments?"
+    },
+    "answer": {
+      "ja": "いいえ。順位戦に参加しない区分で、他棋戦への参加とは別です。",
+      "en": "No. It concerns Juni participation and is separate from participation in other tournaments."
+    }
+  },
+  {
+    "id": "7921",
+    "title": {
+      "ja": "印刷用の将棋盤",
+      "en": "Making a printable shogi board"
+    },
+    "paragraphs": [
+      {
+        "ja": "紙の盤でも九筋九段の八十一マスがあれば将棋を指せます。対局者から見て筋番号は右から左へ一から九、段は上から下へ一から九です。駒は相手側を向けて置き、成れる駒には裏面や別の目印を用意します。",
+        "en": "A paper board needs nine files and nine ranks: 81 squares. From Black’s view, file numbers run from right to left and ranks from top to bottom. Point each piece toward the opponent and provide a reverse face or another clear promotion marker for every promotable piece."
+      },
+      {
+        "ja": "記事はカラーと白黒のPDFを紹介し、個人利用以外は利用規約の確認を求めています。このアプリでは独自に作成した印刷用盤をダウンロードできます。盤外に双方の持ち駒置き場を確保し、印刷後は初期配置と駒の数を確認してください。小さな駒を使う場合は、マスの大きさと文字の読みやすさを優先します。",
+        "en": "The source offers color and monochrome PDFs and asks users to consult its terms for uses beyond personal use. This app supplies an independently drawn printable board below. Leave room outside the grid for both players’ captured pieces, then check the initial arrangement and piece count. Scale the printed sheet to readable squares; an attractive board is not useful if piece direction or promotion cannot be distinguished."
+      }
+    ],
+    "question": {
+      "ja": "盤外に必要な場所は何ですか？",
+      "en": "What space is needed outside the grid?"
+    },
+    "answer": {
+      "ja": "双方の持ち駒を、盤上の駒と区別して置ける場所です。",
+      "en": "Separate areas for each player’s pieces in hand."
+    }
+  },
+  {
+    "id": "6825",
+    "title": {
+      "ja": "一番難しい詰将棋は？",
+      "en": "Why short mate problems can be difficult"
+    },
+    "paragraphs": [
+      {
+        "ja": "詰将棋の難しさは手数だけで決まりません。記事は三谷郁夫作の七手詰、橋本孝治作「ミクロコスモス」、縫田光司作「最後の審判」を紹介しています。七手でも遠い駒の利きを止める限定の角打ちを発見する必要があれば難問になります。",
+        "en": "Mate-problem difficulty is not determined by length alone. The source discusses Ikuo Mitani’s seven-move problem, Koji Hashimoto’s Microcosmos and Koji Nuita’s Last Judgment. A short problem can be difficult when the key is a precisely placed bishop that interferes with a distant defending line rather than an obvious close-range attack."
+      },
+      {
+        "ja": "ミクロコスモスは千五百二十五手という長大な作品として紹介され、最後の審判は連続王手の反復と打ち歩詰めの解釈を題材にしています。記事の最長記録や未解決という表現は掲載時の説明です。ここでは作品図を無断複製せず、関連する短い練習で全盤の利き、合駒、合法性を確認します。",
+        "en": "Microcosmos is discussed as a 1,525-ply composition, while Last Judgment explores interaction between repeated checks and the prohibition of pawn-drop mate. Record claims and descriptions of unresolved interpretation are publication-period statements, not current certifications. The related short practice below develops checks and defenses; it is not a reproduction of those compositions. Inspect the whole board and test interpositions instead of assuming the closest attacking piece must move."
+      }
+    ],
+    "question": {
+      "ja": "短手数でも難問になる要因は？",
+      "en": "What can make a short mate problem difficult?"
+    },
+    "answer": {
+      "ja": "遠い駒の利きや、合駒を含む限定の手を読む必要があることです。",
+      "en": "Distant piece effects and precisely constrained moves involving defensive interpositions."
+    },
+    "practice": {
+      "tsume": 3
+    }
+  },
+  {
+    "id": "1212",
+    "title": {
+      "ja": "桂馬や香車の裏の文字",
+      "en": "Reading promoted-piece characters"
+    },
+    "paragraphs": [
+      {
+        "ja": "飛車の裏は龍王、角の裏は龍馬を表し、盤面図では龍・竜、馬と略されます。銀、桂、香、歩の裏は金の崩し字ですが、元の駒を区別するため崩し方が違います。金と玉は成らず、裏返す駒ではありません。",
+        "en": "A promoted rook bears Dragon King, often abbreviated 龍 or 竜, and a promoted bishop bears Dragon Horse, abbreviated 馬. The reverse faces of silver, knight, lance and pawn use differently cursive forms of 金, reflecting their gold-like movement while preserving distinct identities. Gold and king do not promote."
+      },
+      {
+        "ja": "印刷された局面図では成銀・成桂・成香を全・圭・杏と表す場合があり、と金は「と」です。動きが金と同じでも、取られた時には元の駒に戻るため種類の区別は必要です。文字が違う図を読む際は、駒の向き、元の種類、成りの状態をそれぞれ確認しましょう。",
+        "en": "Printed diagrams may use 全 for promoted silver, 圭 for promoted knight and 杏 for promoted lance; と identifies a promoted pawn. Their movement matches a gold, but capture returns each to its original type, so the distinction matters. When reading an unfamiliar font, check direction, original type and promotion separately. Identifying every gold-moving piece simply as a gold would give the wrong pieces in hand after exchanges."
+      }
+    ],
+    "question": {
+      "ja": "成桂と金は同じ動きなのに区別する理由は？",
+      "en": "Why distinguish a promoted knight from a gold if they move alike?"
+    },
+    "answer": {
+      "ja": "取られると成桂は桂に戻り、金とは異なる持ち駒になるためです。",
+      "en": "On capture, the promoted knight returns to a knight rather than becoming a gold."
+    }
+  },
+  {
+    "id": "648",
+    "title": {
+      "ja": "初心者におすすめの将棋盤セット",
+      "en": "Choosing a first physical shogi set"
+    },
+    "paragraphs": [
+      {
+        "ja": "初めての盤駒は素材と収納方法を中心に選びます。木製は感触や駒音、プラスチックは手入れと扱いやすさ、マグネット式は携帯性が特徴です。価格や木材の格より、文字が読めて駒を動かしやすく、成りを区別できることを優先しましょう。",
+        "en": "Choose a first set around material and storage needs. Wood offers a distinctive feel, plastic is generally easier to maintain, and magnetic sets favor portability. Prioritize readable characters, comfortable piece movement and clear promoted faces over prestigious wood or decorative finish. Board and pieces sold as a matched set reduce sizing mismatches."
+      },
+      {
+        "ja": "折り畳み式は収納しやすい一方、蝶番や継ぎ目を確認する必要があります。一枚板は安定しますが置き場所を取り、シート盤は丸めて運べます。駒台や持ち駒を置く余白も確保します。記事の商品と価格は掲載時の例であり、現在の販売や推奨を保証しません。実物の寸法と保管場所を先に比べましょう。",
+        "en": "A folding board saves space but its hinge and seam deserve inspection; a solid board is stable but bulkier, and a sheet board can roll up. Allow space for pieces in hand as well as the grid. Products and prices in the source are historical examples, not promises of availability or current recommendations. Compare actual dimensions with your table and storage space before choosing a material."
+      }
+    ],
+    "question": {
+      "ja": "旅行用と家での練習用で比べる点は？",
+      "en": "What differs when choosing a travel set versus a home practice set?"
+    },
+    "answer": {
+      "ja": "携帯性と、盤の安定・マスの大きさ・文字の読みやすさの優先順位です。",
+      "en": "The priority given to portability versus stability, square size and readability."
+    }
+  }
+]
