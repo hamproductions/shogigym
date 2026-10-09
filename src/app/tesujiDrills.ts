@@ -1,3 +1,4 @@
+import { logActivity } from '@/utils/activity'
 import data from '@/data/tesuji-drills.json'
 
 export type TesujiDrill = { id: string; tesuji: string; en: string; explain: string; sfen: string; answer: string; from: string; note?: string }
@@ -19,6 +20,7 @@ export function tesujiStats(): { solved: string[]; failed: string[] } {
 }
 
 export function markTesuji(id: string, firstTry: boolean) {
+  logActivity('tesuji')
   const s = tesujiStats()
   const next = firstTry ? { ...s, solved: [...new Set([...s.solved, id])] } : { ...s, failed: [...new Set([...s.failed, id])] }
   try {

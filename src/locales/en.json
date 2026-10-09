@@ -356,7 +356,11 @@
     "kifKi2CsaUsiOr": "KIF, KI2, CSA, USI or SFEN",
     "pasteAGameRecordHere": "Paste a game record here",
     "loadIt": "Load it",
-    "openAFile": "Open a file"
+    "openAFile": "Open a file",
+    "pasteFromClipboard": "Paste & load",
+    "clipboardEmpty": "The clipboard is empty. Copy a kifu first.",
+    "clipboardBlocked": "The browser blocked clipboard access. Paste into the box instead.",
+    "dropHint": "Tip: drop a .kif / .csa file anywhere on the page to load it. Download your records from the site yourself and import them here."
   },
   "graph": {
     "senteAhead": "Sente ahead",
@@ -1054,7 +1058,160 @@
         "The only well-documented game (Japanese TV, 2004) took 3,805 moves and 32 hours 41 minutes."
       ]
     },
-    "state": { "invalid": "Invalid Taikyoku game state. Current game kept.", "loading": "Restoring game…" },
+    "state": {
+      "invalid": "Invalid Taikyoku game state. Current game kept.",
+      "loading": "Restoring game…"
+    },
     "setup": "Setting up the pieces… {{done}} / {{total}}"
+  },
+  "dojo": {
+    "title": "Dojo",
+    "rail": "Dojo",
+    "railTitle": "Your training plan, skills and progress",
+    "streak_one": "{{count}}-day streak",
+    "streak_other": "{{count}}-day streak",
+    "streakLabel": "Practice streak: {{count}} days",
+    "practisedToday": "You practised today. Nice.",
+    "keepStreak": "Practise today to keep it going.",
+    "startStreak": "Do one thing today to start a streak.",
+    "nextStep": "Next step · {{done}} of {{total}} done",
+    "go": "Go",
+    "today": "Today's plan",
+    "start": "Start",
+    "minutes_one": "{{count}} min",
+    "minutes_other": "{{count}} min",
+    "skills": "Your skills",
+    "slips": "Where you slip",
+    "praise": "What you did well",
+    "path": "Learning path",
+    "praiseIntro": "Moves that matched or beat the engine's choice. Repeat these ideas.",
+    "praiseMove": "move {{ply}} · {{label}}",
+    "example": "e.g. {{move}} on move {{ply}}",
+    "summary": "Across {{games}} game(s), the coach rated {{moves}} of your moves. {{solid}} ({{percent}}%) were Good or better.",
+    "strongest": "Strongest: {{phase}} ({{score}}). Keep doing what you do there.",
+    "trainWeakest": "Train my {{phase}}",
+    "scaleNote": "Scores are 0–100 from how much winning chance each move gave up. More games make them more reliable.",
+    "noProfile_one": "Play or import a game and the coach will draw your skill profile. {{count}} more rated move needed.",
+    "noProfile_other": "Play or import a game and the coach will draw your skill profile. {{count}} more rated moves needed.",
+    "playGame": "Play the AI",
+    "importGame": "Import a game",
+    "privacy": "Everything here is computed on your device from your own games and practice. Nothing is uploaded.",
+    "phase": {
+      "opening": "Opening",
+      "middle": "Middlegame",
+      "endgame": "Endgame"
+    },
+    "axis": {
+      "opening": "Opening",
+      "middle": "Middle",
+      "endgame": "Endgame",
+      "tactics": "Tactics",
+      "conversion": "Converting",
+      "tenacity": "Tenacity"
+    },
+    "advice": {
+      "opening": "Weakest: {{phase}} ({{score}}). You leave the book early. Memorise more lines so the first 30 moves are automatic.",
+      "middle": "Weakest: {{phase}} ({{score}}). Plans drift in the middle. Replay your own mistakes and look for the better move.",
+      "endgame": "Weakest: {{phase}} ({{score}}). Games slip away late. Mate puzzles train exactly this."
+    },
+    "weak": {
+      "missedMate": {
+        "name": "Missed a forced mate",
+        "fix": "You had a mate and played something else. Before every move in a won position, check every checking move first."
+      },
+      "allowedMate": {
+        "name": "Walked into mate",
+        "fix": "A move let your opponent mate you. Before moving, ask: what checks can they make next?"
+      },
+      "hangs": {
+        "name": "Left pieces hanging",
+        "fix": "A piece could be taken for free or traded badly. Before moving, ask: what does my opponent capture now?"
+      },
+      "slippedWin": {
+        "name": "Let a win slip",
+        "fix": "You were clearly ahead and gave it back. When ahead: simplify, trade, and cover your king before attacking."
+      },
+      "openingSlip": {
+        "name": "Opening slip",
+        "fix": "A weak move in the first 30 moves. Learn the book lines until the reply is automatic."
+      },
+      "other": {
+        "name": "Other inaccuracies",
+        "fix": "Positional errors with no single cause. Replay them and compare with the better move."
+      }
+    },
+    "drill": {
+      "tsume": "Mate drills",
+      "opening": "Learn lines",
+      "mistakes": "Replay mistakes"
+    },
+    "plan": {
+      "due": {
+        "title": "Review {{count}} due position(s)",
+        "why": "Spaced repetition: reviewing on time is what makes lines stick."
+      },
+      "mistakes": {
+        "title": "Fix {{count}} mistake(s) from your games",
+        "why": "Try the better move from the exact position where you went wrong."
+      },
+      "focusMate": {
+        "title": "Mate drills: {{focus}}",
+        "why": "You missed a forced mate {{count}} time(s). Short mate puzzles train this."
+      },
+      "continueLesson": {
+        "title": "Continue: {{detail}}",
+        "why": "{{count}} position(s) left to learn in this line."
+      },
+      "startLesson": {
+        "title": "Study your first opening",
+        "why": "Study mode shows each move with the reason, then quizzes you."
+      },
+      "difficult": {
+        "title": "Practise {{count}} difficult position(s)",
+        "why": "You missed these several times. Slow, focused repetition fixes them."
+      },
+      "learnNew": {
+        "title": "Learn {{count}} new positions",
+        "why": "Nothing is due, so this is the best time to learn something new."
+      },
+      "tsume": {
+        "title": "Mate puzzle warm-up",
+        "why": "Short puzzles at your level keep your attack sharp."
+      },
+      "play": {
+        "title": "Play a practice game",
+        "why": "The coach rates your moves, saves mistakes and builds your skill profile."
+      }
+    },
+    "journey": {
+      "lesson": {
+        "title": "Study your first opening",
+        "why": "Pick a strategy and walk through it move by move. Each move comes with a reason, so you learn ideas, not just moves."
+      },
+      "memorize": {
+        "title": "Memorise 5 positions",
+        "why": "Spaced repetition brings each position back just before you forget it."
+      },
+      "mate1": {
+        "title": "Solve 3 mate-in-one puzzles",
+        "why": "Seeing a mate in one is the first attacking skill. It also stops you missing mates in games."
+      },
+      "game": {
+        "title": "Play your first game",
+        "why": "A game against the AI is a safe place to use what you learned. The coach comments on every move."
+      },
+      "learnFromGame": {
+        "title": "Save a mistake to practise",
+        "why": "Your own mistakes are the best lessons. Review a game in Analyze, or finish a game vs the AI."
+      },
+      "learned25": {
+        "title": "Learn 25 positions",
+        "why": "A solid base of memorised opening moves means fewer decisions in the opening."
+      },
+      "streak3": {
+        "title": "Practise 3 days in a row",
+        "why": "Short daily practice beats one long session."
+      }
+    }
   }
 }

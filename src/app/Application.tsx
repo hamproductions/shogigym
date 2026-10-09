@@ -9,7 +9,9 @@ import '@fontsource/zen-kaku-gothic-new/700.css'
 import '@/styles/controls.css'
 import './layout.css'
 import '@/styles/panels.css'
-import { COURSES, SETUPS } from '@/utils/model'
+import { COURSES, SETUPS, courseById } from '@/utils/model'
+import { openedCourses } from '@/app/practice'
+import type { Route } from '@/utils/learning'
 import { useCommands } from '@/app/dialogs/commands'
 import { useSettings } from '@/appearance/settings'
 import { SessionContext } from '@/app/hooks/session'
@@ -27,6 +29,8 @@ import { useModeSlots, useModeSwitch } from '@/app/hooks/useModeSwitch'
 import { useMoveReview } from '@/app/hooks/useMoveReview'
 import { useOpponent } from '@/app/hooks/useOpponent'
 import { usePersistedSession } from '@/app/hooks/usePersistedSession'
+import { useKifuDrop } from '@/app/hooks/useKifuDrop'
+import { useDue } from '@/app/hooks/useDue'
 import { useRouteMode } from '@/app/hooks/useRouteMode'
 import { useShortcuts } from '@/app/hooks/useShortcuts'
 import { useTransient } from '@/app/hooks/useTransient'
@@ -56,6 +60,7 @@ import { isGameMode, type Confirm, type Tab } from './types'
 
 const ConfirmDialog = lazy(() => import('@/app/dialogs/ConfirmDialog').then((m) => ({ default: m.ConfirmDialog })))
 const NewGameDialog = lazy(() => import('@/app/dialogs/NewGameDialog').then((m) => ({ default: m.NewGameDialog })))
+const DojoDialog = lazy(() => import('@/app/dialogs/DojoDialog').then((m) => ({ default: m.DojoDialog })))
 const Palette = lazy(() => import('@/app/dialogs/Palette').then((m) => ({ default: m.Palette })))
 const SettingsDialog = lazy(() => import('@/app/dialogs/SettingsDialog').then((m) => ({ default: m.SettingsDialog })))
 const WelcomeDialog = lazy(() => import('@/app/dialogs/WelcomeDialog').then((m) => ({ default: m.WelcomeDialog })))
@@ -68,6 +73,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
   const { mode, course, preview, sfen, nodes, prevSfen, lastMove, cursor, atEnd, playing, userSide, game } = session
   const [tab, setTab] = useState<Tab>('coach')
   const [palette, setPalette] = useState(false)
+  const [dojo, setDojo] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [showViewer, setShowViewer] = useState(false)
   const [watchSetup, setWatchSetup] = useState(false)
@@ -77,6 +83,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
   const [confirm, setConfirm] = useState<Confirm | null>(null)
   const [nudge, setNudge] = useTransient<string>(2200)
   const levels = useLevel()
+  const dojoDue = useDue()
   const view = useView(mode)
   const slots = useModeSlots()
   const { load } = slots
@@ -100,6 +107,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
     analysisSnapshot: () => slots.stashed('analyze'),
     onSaveError: () => setNudge(t('games.couldNotSaveBrowserStorage')),
   })
+  useKifuDrop(analyze.importGame, setNudge)
   const spar = useSpar(session, {
     load,
     setTab,
@@ -309,6 +317,22 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
     (c) => c.id === (SETUPS.find((x) => x.basics && x.main === mainStrategy) ?? SETUPS.find((x) => x.main === mainStrategy) ?? SETUPS[0]).courseIds[0],
   )
 
+  const runRoute = (route: Route) => {
+    if (route.kind === 'drill') {
+      enterMode('drill')
+      return drill.start(route.queue)
+    }
+    if (route.kind === 'tsume') {
+      enterMode('tsume')
+      return tsume.start(route.length)
+    }
+    if (route.kind === 'lesson') {
+      const target = (route.courseId && courseById(route.courseId)) || (!openedCourses().length ? firstLesson : undefined)
+      return target ? lesson.open(target, 'study') : enterMode('lesson')
+    }
+    enterMode(route.kind)
+  }
+
   return (
     <SessionContext.Provider value={session}>
       <div
@@ -324,6 +348,8 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
           settingsOpen={showSettings}
           onSettings={() => setShowSettings(true)}
           onPalette={() => setPalette(true)}
+          onDojo={() => setDojo(true)}
+          dojoDue={dojoDue}
           snapshotName={`${SNAPSHOT_NAME}-${mode}-${cursor}`}
         />
         <section className={`app-stage${preview || !atEnd || (playing && mode !== 'view' && mode !== 'spar') ? ' previewing' : ''}`}>
@@ -522,6 +548,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
               </div>
             </div>
           )}
+          {dojo && <DojoDialog onClose={() => setDojo(false)} onRoute={runRoute} />}
           {palette && <Palette commands={commands} onClose={() => setPalette(false)} />}
           {confirm && <ConfirmDialog confirm={confirm} onClose={() => setConfirm(null)} />}
           {showSettings && <SettingsDialog onClose={() => setShowSettings(false)} level={levels.level} onLevel={levels.setLevel} />}

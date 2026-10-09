@@ -8,6 +8,7 @@ import { moveText } from '@/utils/shogi'
 import { sfenAfter, sideMark } from '@/utils/notation'
 import { expectedMoves, reviewCounts, type ReviewItem, type ReviewQueue } from '@/app/practice'
 import type { Drill, DrillState } from './useDrill'
+import { weaknessOfMistake, type Weakness } from '@/utils/learning'
 import { Button } from '@/app/ui/Button'
 import { Card } from '@/app/ui/Card'
 
@@ -17,6 +18,16 @@ function untilText(ms: number) {
   const hours = Math.round(minutes / 60)
   if (hours < 48) return i18n.t('review.inH', { hours })
   return i18n.t('review.inDays', { count: Math.round(hours / 24) })
+}
+
+function Principle({ tag }: { tag: Weakness }) {
+  const { t } = useTranslation()
+  if (tag === 'other') return null
+  return (
+    <p className="app-note">
+      <strong>{t(`dojo.weak.${tag}.name`)}.</strong> {t(`dojo.weak.${tag}.fix`)}
+    </p>
+  )
 }
 
 type Counts = ReturnType<typeof reviewCounts>
@@ -82,6 +93,7 @@ function ReviewCard({
           {item.mistake.reasons[0]}
         </p>
       )}
+      {item.kind === 'mistake' && drill.result === 'wrong' && !drill.retry && <Principle tag={weaknessOfMistake(item.mistake)} />}
       <div className="app-actions">
         {drill.result && <Button onClick={onRetry}>{t('review.tryItAgain')}</Button>}
         <Button variant={drill.result ? 'primary' : 'secondary'} onClick={onNext}>

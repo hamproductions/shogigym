@@ -21,11 +21,28 @@ export function ImportBox({ onImport, open }: { onImport: (text: string) => stri
         <span className="app-lib-ja">{t('games.importAGame')}</span>
         <span className="app-lib-en">{t('games.kifKi2CsaUsiOr')}</span>
       </summary>
+      <p className="app-muted">{t('games.dropHint')}</p>
       <textarea className="app-field" value={text} onChange={(e) => setText(e.target.value)} rows={4} placeholder={t('games.pasteAGameRecordHere')} />
       <div className="app-actions">
         <Button size="sm" variant="primary" onClick={() => setError(onImport(text))} disabled={!text.trim()}>
           {t('games.loadIt')}
         </Button>
+        {typeof navigator !== 'undefined' && !!navigator.clipboard?.readText && (
+          <Button
+            size="sm"
+            onClick={async () => {
+              try {
+                const pasted = await navigator.clipboard.readText()
+                setText(pasted)
+                setError(pasted.trim() ? onImport(pasted) : t('games.clipboardEmpty'))
+              } catch {
+                setError(t('games.clipboardBlocked'))
+              }
+            }}
+          >
+            {t('games.pasteFromClipboard')}
+          </Button>
+        )}
         <label className="app-btn sm app-file">
           {t('games.openAFile')}
           <input

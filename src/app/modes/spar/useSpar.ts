@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { reviewMove } from '@/utils/analysis'
+import { weaknessOf } from '@/utils/learning'
 import { saveMistakes } from '@/utils/mistakes'
 import { applyUsi, colorSide, hasLegalMove, positionOf } from '@/utils/shogi'
 import type { BoardSession } from '@/app/hooks/useBoardSession'
@@ -71,6 +72,7 @@ export function useSpar(
         reasons: review.reasons,
         game: t('app.yourGameVsTheAi'),
         ply: reviewAt,
+        tag: weaknessOf({ ply: reviewAt, ...review }),
       },
     ])
     if (added) setNudge(t('app.savedToReviewYouWill'))

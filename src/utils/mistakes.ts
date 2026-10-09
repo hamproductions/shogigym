@@ -10,6 +10,8 @@ export type Mistake = {
   reasons: string[]
   game: string
   ply: number
+  /** Primary weakness category (see utils/learning.ts), set when the mistake is saved. */
+  tag?: string
 }
 
 const KEY = 'joseki-practice:mistakes:v1'
