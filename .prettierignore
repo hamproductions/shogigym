@@ -16,3 +16,5 @@ bun.lock
 CHANGELOG.md
 sound-samples
 src/features/taikyoku/catalog.json
+scripts/lesson-source
+scripts/source-lesson-lines.json
