@@ -2,6 +2,22 @@
 
 Notable changes are recorded here when a release is created. Versions follow Semantic Versioning.
 
+## [1.4.3](/compare/v1.4.2...v1.4.3) (2026-10-10)
+
+
+### Bug Fixes
+
+* calibrate Dojo analytics against real engine ratings e370259
+
+
+### Features
+
+* add complete shogi learning curriculum 149f19a
+* add core rules and tactics board exercises 56ad4cb
+* add Dojo learning hub with skill profile, weakness routing and streaks 8d9ce2b
+* guided lessons built from one documented converter 636b0ae
+* unify lessons into the course catalog and integrate game report c8a5d12
+
 ## [1.4.2](/compare/v1.4.1...v1.4.2) (2026-10-08)
 
 
