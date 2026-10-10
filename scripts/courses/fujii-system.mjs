@@ -1,6 +1,7 @@
 export default {
   id: 'shikenbisha-vs-anaguma--fujii',
   title: '四間飛車 vs 居飛車穴熊(先手・藤井システム)',
+  titleEn: 'Fourth File Rook vs Static Rook Anaguma (Fujii System)',
   myStrategy: 'shikenbisha',
   opponentStrategy: 'ibisha',
   mySide: 'sente',
@@ -13,7 +14,7 @@ export default {
     moves: '7g7f 3c3d 6g6f 8c8d 2h6h 7a6b 1g1f 5a4b 3i3h 4b3b 7i7h 5c5d 7h6g 6a5b 1f1e 6b5c 6i5h 8d8e 8h7g 2b3c 4g4f 3b2b 3g3f 4c4d 2i3g 5b4c 6f6e 4a3b 3h4g',
     notes: {
       4: '角道を止めて飛車を6筋へ。四間飛車です。',
-      6: '玉を囲う前に端歩を突きます。相手が穴熊を目指すなら、居玉のまま1筋から速攻をかけるのが藤井システムの特徴です。',
+      6: '▲1六歩。まだ玉は動かさず、先に端を伸ばしておきます。藤井システムは、相手が穴熊に潜る準備をしている間に、玉を5九に置いたまま攻めに出る作戦です。',
       12: '銀を6七へ進めます。',
       14: '端歩を5段目まで突き越し、端攻めの準備をします。',
       24: '右桂を3七へ跳ねて攻めに参加させます。',

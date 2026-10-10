@@ -11,6 +11,7 @@ import { mainStrategies, strategyById } from '@/data/strategies'
 import type { LessonMode, Level } from '@/app/types'
 import { Button } from '@/app/ui/Button'
 import { LessonCard } from './LessonCard'
+import { LessonReferences } from './LessonReferences'
 import { CATEGORIES, STRATEGY_GROUP, categoryOf, groupOf, isOpeningBasics, josekiGroupOf, type Category } from './library'
 import { ORIGIN_KEY, RANDOM_KEY, returnToGame, store, stored } from './reading'
 
@@ -157,15 +158,19 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
             ))}
           </>
         )}
-        {open.setup.sources.length > 0 && (
-          <p className="app-muted">
-            {ja ? '出典：' : 'Source: '}
-            {open.setup.sources.map((url) => (
-              <a key={url} href={url} target="_blank" rel="noreferrer">
-                {url}
-              </a>
-            ))}
-          </p>
+        {open.setup.references ? (
+          <LessonReferences references={open.setup.references} ja={ja} className="app-muted" />
+        ) : (
+          open.setup.sources.length > 0 && (
+            <p className="app-muted">
+              {ja ? '出典：' : 'Source: '}
+              {open.setup.sources.map((url) => (
+                <a key={url} href={url} target="_blank" rel="noreferrer">
+                  {url}
+                </a>
+              ))}
+            </p>
+          )
         )}
       </div>
     )

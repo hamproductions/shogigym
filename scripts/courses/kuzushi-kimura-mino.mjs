@@ -1,6 +1,7 @@
 export default {
   id: 'kuzushi--kimura-mino',
   title: '囲い崩し: 木村美濃に△3五歩▲同歩△3六歩',
+  titleEn: 'Breaking Kimura Mino: △3五歩 ▲同歩 △3六歩',
   myStrategy: 'ibisha',
   opponentStrategy: 'shikenbisha',
   mySide: 'gote',

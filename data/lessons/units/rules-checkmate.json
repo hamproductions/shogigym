@@ -1,0 +1,265 @@
+{
+  "id": "rules-checkmate",
+  "order": 50,
+  "path": ["はじめての将棋", "ルール"],
+  "title": {
+    "ja": "王手と詰み、勝ち負け",
+    "en": "Check, checkmate and how games end"
+  },
+  "intro": {
+    "ja": "王手は「次に玉を取るぞ」という手、詰みは「どう応じても玉が取られる」状態です。王手をかけられたらどう応じるのか、詰みとはどんな形か、そして対局がどんなときに終わるのかを、小さな局面で順に整理します。",
+    "en": "A check says \"I will take your king next move\", and checkmate means no reply can save the king. You will sort out how to answer a check, what a mate looks like, and the different ways a game can end, using small positions."
+  },
+  "check": {
+    "question": {
+      "ja": "王手をかけたり、相手を詰ませたりするときに、「王手」「詰み」と声に出して言う必要はありますか？",
+      "en": "When you give check or checkmate your opponent, do you have to say \"check\" or \"mate\" out loud?"
+    },
+    "answer": {
+      "ja": "ありません。声に出す決まりはなく、手を指すだけで構いません。王手に気づかず放置すると反則になるので、相手の手は毎回自分で確かめます。",
+      "en": "No. There is no rule to announce it; just make the move. Leaving your king in check is a foul, though, so you have to look at every opposing move yourself."
+    }
+  },
+  "references": [
+    {
+      "title": "王手 (Wikipedia日本語版)",
+      "url": "https://ja.wikipedia.org/wiki/王手",
+      "license": "CC BY-SA 4.0",
+      "adapted": false
+    },
+    {
+      "title": "詰み (Wikipedia日本語版)",
+      "url": "https://ja.wikipedia.org/wiki/詰み",
+      "license": "CC BY-SA 4.0",
+      "adapted": false
+    },
+    {
+      "title": "王手と詰み、勝敗の決め方",
+      "url": "https://shogi-joutatsu.com/archives/746",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "王手をかける方法",
+        "en": "Giving check"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/9/R8/4N4/7B1/9/9/4K4 b P 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手の玉は５一にいます。先手は飛車、桂、角と、歩の持ち駒で攻めます。「次の一手で玉を取れる」状態を作る手が王手です。王手のかけ方は、駒ごとにいくつもあります。",
+            "en": "White's king is on 5a. Black has a rook, knight and bishop, and a pawn in hand. A move that threatens to capture the king on the next turn is called 王手 (check), and each piece has its own way of delivering one."
+          }
+        },
+        {
+          "moves": ["9d5d"],
+          "text": {
+            "ja": "飛車が５四に入ると、５筋の真上に玉が見えます。王手です。後手は次の手で、この王手を必ず解かなければなりません。放っておけば玉を取られて負けます。",
+            "en": "The rook moves to 5d and now looks straight up the file at the king. That is check. White must resolve it on the very next move, otherwise the king is taken and the game is lost."
+          },
+          "marks": {
+            "arrows": ["5d5a"]
+          }
+        },
+        {
+          "moves": ["5a4a"],
+          "text": {
+            "ja": "後手は玉を４一へ逃がして王手を外しました。王手は手を指した側が一方的に押し付けるものではなく、受ける側にもいくつかの対応が許されます。次の章で整理します。",
+            "en": "White steps the king to 4a and the check is over. A check is not simply forced on the opponent; the defender has several ways to meet it. The next chapter sorts them out."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["2f1e"],
+          "text": {
+            "ja": "角が２六から１五へ動きました。１五は玉の斜めの筋の上で、間の４二・３三・２四が空いているので、角の利きが玉に届いて王手です。",
+            "en": "The bishop moves from 2f to 1e. That square lies on the king's diagonal, and with 4b, 3c and 2d empty, the bishop attacks the king: check."
+          },
+          "steps": []
+        },
+        {
+          "from": 0,
+          "moves": ["5e4c"],
+          "text": {
+            "ja": "桂が５五から４三へ跳びました。桂は前に二マス、横に一マスの先を攻めるので、５一の玉に王手です。",
+            "en": "The knight jumps from 5e to 4c. A knight attacks the square two ahead and one to the side, so it checks the king on 5a."
+          },
+          "steps": []
+        },
+        {
+          "from": 0,
+          "moves": ["P*5b"],
+          "text": {
+            "ja": "持ち駒の歩を玉の前の５二に打ちました。歩は真正面の一マスを攻めるので王手です。歩での王手も、打ち歩詰めにならなければ反則ではありません。",
+            "en": "The pawn in hand is dropped on 5b right in front of the king. A pawn attacks the square straight ahead, so it is check. Checking with a pawn drop is legal as long as it does not checkmate."
+          },
+          "steps": []
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "王手を外す三つの方法",
+        "en": "Three ways out of check"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k8/9/9/9/4r4/9/9/7B1/4KG3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "今度は先手の玉が５九にいて、後手の飛車が５五から王手をかけています。王手を外す方法は三つあります。玉が逃げる、王手している駒を取る、間に駒を入れて利きを遮る（合駒）。まず、飛車を取る手から見ましょう。",
+            "en": "This time Black's king on 5i is in check from White's rook on 5e. There are three ways out: move the king, capture the checking piece, or put a piece between them to block (an interposition, called 合駒 aigoma). Start with capturing the rook."
+          },
+          "marks": {
+            "boxes": ["5e"]
+          }
+        },
+        {
+          "moves": ["2h5e"],
+          "text": {
+            "ja": "２八の角が斜めに走って、５五の飛車を取りました。王手の元がなくなり、しかも大きな駒を得しています。取れるなら、これがいちばん良い応じ方になることが多い手です。",
+            "en": "The bishop on 2h runs along the diagonal and takes the rook on 5e. The source of the check is gone and Black has won a big piece. When it is possible, capturing is often the best way out."
+          },
+          "marks": {
+            "last": "5e"
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["5i6i"],
+          "text": {
+            "ja": "玉を５九から６九へ動かしました。飛車の利きは５筋と五段目だけなので、これで王手は外れます。逃げる先が相手の駒の利きの中だと、そこへは動けません。",
+            "en": "The king steps from 5i to 6i. The rook only covers the 5-file and the fifth rank, so the check is over. A king may not step to a square the enemy attacks."
+          },
+          "steps": []
+        },
+        {
+          "from": 0,
+          "moves": ["4i5h"],
+          "text": {
+            "ja": "金を５八に動かして、飛車と玉の間に入れました。これが合駒です。飛・角・香のような遠くから利く駒の王手にだけ使えます。ただし、入れた駒は飛車に取られる恐れがあります。",
+            "en": "The gold moves to 5h, between rook and king. That is an interposition. It only works against long-range checkers such as the rook, bishop and lance, and the blocker can itself be captured by the rook."
+          },
+          "steps": []
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "詰み：飛車二枚で挟む",
+        "en": "Mate with two rooks"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1R7/R8/9/9/9/9/9/4K4 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手の玉は５一にいて、先手は飛車を２枚持っています。８二の飛車は二段目をすべて押さえ、９三の飛車は王手の準備をしています。王手が詰みになるのは、玉の逃げ道がすべて消えたときです。",
+            "en": "White's king is on 5a, and Black owns two rooks. The rook on 8b controls the whole second rank, and the rook on 9c is ready to give check. A check becomes checkmate when every escape square is gone."
+          },
+          "marks": {
+            "boxes": ["4b", "5b", "6b"]
+          }
+        },
+        {
+          "moves": ["9c9a"],
+          "text": {
+            "ja": "９三の飛車が９一に上がりました。一段目に王手がかかります。玉が横の４一・６一へ動いても、飛車の利きは続いているので逃げられません。二段目へ逃げようにも８二の飛車が睨んでいます。間に入れる駒も、飛車を取れる駒もないので、詰みです。",
+            "en": "The rook on 9c goes up to 9a, checking along the first rank. If the king steps sideways to 4a or 6a, it is still on the rook's line. Fleeing to the second rank runs into the rook on 8b. Nothing can block or capture, so it is checkmate."
+          },
+          "marks": {
+            "boxes": ["4a", "6a", "4b", "5b", "6b"],
+            "last": "9a"
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["8b8a"],
+          "text": {
+            "ja": "こちらは８二の飛車を一段目へ上げた手です。王手ですが、二段目が空いたので、玉は４二・５二・６二のどれかへ逃げられます。逃げ道が残っている王手は、詰みではありません。",
+            "en": "Here the rook on 8b is raised to the first rank instead. It is check, but the second rank is now open, so the king can flee to 4b, 5b or 6b. A check that leaves an escape is not mate."
+          },
+          "steps": []
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "詰み：桂馬の王手は合駒できない",
+        "en": "Mate by a knight check"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "7gk/7bl/9/9/6N2/9/9/9/4K4 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手の玉は１一の隅にいて、まわりを自分の金・角・香が固めています。玉自身の逃げ道は残っておらず、先手には３五の桂が控えています。守りの固い玉が、桂の一撃で詰まされる形です。",
+            "en": "White's king sits in the corner on 1a, hemmed in by its own gold, bishop and lance. It has no square to step to, and Black's knight waits on 3e. A tightly packed king can fall to a single knight check."
+          },
+          "marks": {
+            "boxes": ["2a", "1b", "2b"]
+          }
+        },
+        {
+          "moves": ["3e2c"],
+          "text": {
+            "ja": "桂が２三へ跳んで王手です。桂は途中の駒を飛び越えて攻めるので、間に駒を入れる合駒ができません。後手が２三の桂を取れる駒もなく、玉の逃げ場もないので、詰みです。",
+            "en": "The knight jumps to 2c with check. A knight leaps over everything in between, so there is no gap to block. No White piece can capture the knight on 2c and the king has no square, so it is checkmate."
+          },
+          "marks": {
+            "last": "2c"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "対局が終わるとき",
+        "en": "How a game ends"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "7gk/7bl/7N1/9/9/9/9/9/4K4 w - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "これは前の章の詰みの局面です。後手の番ですが、王手を外す手が一つもありません。将棋では、この形になった時点で先手の勝ちが決まり、玉を実際に取る必要はありません。",
+            "en": "This is the mate from the previous chapter. It is gote's turn, but there is no move that ends the check. In shogi the result is settled the moment this position appears; nobody needs to physically take the king."
+          }
+        },
+        {
+          "text": {
+            "ja": "実際の対局の多くは、詰みの一歩手前で、負けを悟った側が「負けました」と言って終わります。これが投了です。勝ち目のないまま指し続けるのは自由ですが、礼儀として早めに投了することも多くあります。",
+            "en": "Most real games end a little earlier, when the losing side sees the end coming and says \"I resign\". That is 投了 (tōryō). You may keep playing a lost position, but resigning in good time is customary."
+          }
+        },
+        {
+          "text": {
+            "ja": "勝ち負けのつく終わり方は、ほかにも二つあります。一つは反則（二歩や王手放置など。次のレッスンで扱います）で、した側が負けます。もう一つは持ち時間切れで、時計のある対局では切れた側が負けます。",
+            "en": "Two other endings also produce a winner. One is a foul, such as nifu or ignoring a check (covered in the next lesson), which loses for the side that committed it. The other is running out of time on the clock, which loses for the side whose time ran out."
+          }
+        },
+        {
+          "text": {
+            "ja": "引き分けに近い終わり方もあります。同じ局面が繰り返されて決着がつかない「千日手」と、両方の玉が敵陣に入って詰ませられない「持将棋」です。どちらも、決まった条件を満たすと指し直しや引き分けになります。",
+            "en": "There are also drawn endings. Sennichite is a repetition of the same position with no way forward, and jishōgi occurs when both kings reach the opponent's camp and neither can be mated. Under set conditions each leads to a replay or a draw."
+          }
+        }
+      ]
+    }
+  ]
+}

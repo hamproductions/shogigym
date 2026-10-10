@@ -1,6 +1,7 @@
 export default {
   id: 'kuzushi--funa-hashi',
   title: '囲い崩し: 舟囲いの端攻め(△9五歩▲同歩△9八歩)',
+  titleEn: 'Breaking the Boat castle: edge attack (△9五歩 ▲同歩 △9八歩)',
   myStrategy: 'shikenbisha',
   opponentStrategy: 'ibisha',
   mySide: 'gote',

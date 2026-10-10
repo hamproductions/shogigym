@@ -5,7 +5,7 @@
   "opponentStrategy": "aigakari",
   "mySide": "gote",
   "source": "進行は将棋大図書館(shogilounge.com)「相掛かり棒銀の定跡」の基本図までの指し手と同じ対局を、後手側から見たもの(2026-08)",
-  "goalFormation": "お互いに飛車先の歩を交換し合い、飛車を8四に引いて角道を開けたところ。持ち駒に歩が1枚ある、開放的な形。",
+  "goalFormation": "両者が飛車先の歩を交換し、後手は飛車を8四へ引いて角の通り道を開けた。手駒に歩が一枚ずつあり、駒がぶつかりやすい形。",
   "goalSfen": "lnsgk1snl/6g2/p1pppp3/7pp/9/2P2Pp1P/PP1PP4/1SGK2S2/LN3G1NL b RBPrb2p 1",
   "root": {
     "id": "n0",

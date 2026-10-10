@@ -1,0 +1,418 @@
+{
+  "id": "rules-setup",
+  "order": 80,
+  "path": [
+    "はじめての将棋",
+    "ルール"
+  ],
+  "title": {
+    "ja": "駒の並べ方・先手後手の決め方・持ち時間・マナー",
+    "en": "Setting up, choosing colours, clocks and etiquette"
+  },
+  "intro": {
+    "ja": "対局を始める前に知っておきたいことをまとめます。駒を並べる二つの作法（大橋流と伊藤流）、先手と後手を決める振り駒、持ち時間の三つの型、そして対局中のマナーです。駒の並べ方は実際に盤の上で一枚ずつ置いて確かめます。",
+    "en": "This lesson gathers what you should know before a game starts: the two traditional ways of setting out the pieces (Ohashi and Ito), the furigoma toss that decides colours, three ways clocks work, and manners at the board. The setup is practised by placing the pieces one by one."
+  },
+  "check": {
+    "question": {
+      "ja": "駒を並べるとき、飛車は先手から見てどちら側に置きますか？",
+      "en": "When setting up, on which side of the board does Black place the rook?"
+    },
+    "answer": {
+      "ja": "先手から見て右側（２八）です。角は左側（８八）です。後手も自分から見て同じ位置、つまり盤上では先手と点対称になります。",
+      "en": "On Black's right, at 2h; the bishop goes on the left at 8h. White uses the same squares seen from his own side, so the two armies are point-symmetric."
+    }
+  },
+  "references": [
+    {
+      "title": "将棋 (Wikipedia日本語版)",
+      "url": "https://ja.wikipedia.org/wiki/将棋",
+      "license": "CC BY-SA 4.0",
+      "adapted": false
+    },
+    {
+      "title": "将棋駒の並べ方、伊藤流と大橋流",
+      "url": "https://shogi-joutatsu.com/archives/1137",
+      "license": "All rights reserved",
+      "adapted": false
+    },
+    {
+      "title": "振り駒による先手と後手の決め方",
+      "url": "https://shogi-joutatsu.com/archives/1106",
+      "license": "All rights reserved",
+      "adapted": false
+    },
+    {
+      "title": "持ち時間のルール",
+      "url": "https://shogi-joutatsu.com/archives/8083",
+      "license": "All rights reserved",
+      "adapted": false
+    },
+    {
+      "title": "対局時のマナー",
+      "url": "https://shogi-joutatsu.com/archives/1127",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "大橋流：下の段から中央寄りに",
+        "en": "Ohashi style: bottom rank first, centre outward"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/9/9/9/9/9/9/4K4 b RB2G2S2N2L9Prb2g2s2n2l9p 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "盤には両玉だけが置かれ、残りの駒は両者の手元にあります。駒を並べる作法には流派があり、プロの多くが使う大橋流を見ていきます。ここでは先手の置いた駒と、同じ位置に向かい合う後手の駒を交互に並べていきます。",
+            "en": "Only the two kings are on the board; every other piece is in hand. The way pieces are set out has schools, and we start with the Ohashi style, used by most professionals. The two players set out matching pieces alternately."
+          }
+        },
+        {
+          "moves": [
+            "G*6i",
+            "G*4a",
+            "G*4i",
+            "G*6a"
+          ],
+          "text": {
+            "ja": "まず金を、玉に近い方から左右の順に置きます。後手は自分から見て同じ位置、つまり盤を半回転させた位置に置きます。",
+            "en": "The golds go first, next to the king, one on each side. White places his pieces at the same spots seen from his own side, which means the board rotated half a turn."
+          },
+          "marks": {
+            "last": "6a"
+          }
+        },
+        {
+          "moves": [
+            "S*7i",
+            "S*3a",
+            "S*3i",
+            "S*7a",
+            "N*8i",
+            "N*2a",
+            "N*2i",
+            "N*8a",
+            "L*9i",
+            "L*1a",
+            "L*1i",
+            "L*9a"
+          ],
+          "text": {
+            "ja": "次に銀、桂、香の順に、やはり玉に近い方から外側へ置いていきます。最下段（九段目）が左右ともそろいました。",
+            "en": "Then the silvers, knights and lances, again from the inner squares outward. The bottom rank is now complete on both sides."
+          },
+          "marks": {
+            "last": "9a"
+          }
+        },
+        {
+          "moves": [
+            "B*8h",
+            "B*2b",
+            "R*2h",
+            "R*8b"
+          ],
+          "text": {
+            "ja": "八段目に進みます。角を左（８八）、飛車を右（２八）に置きます。飛車が右にあることは、将棋の配置で一番まちがえやすい点です。",
+            "en": "On to the second rank from the bottom: bishop on the left (8h), rook on the right (2h). The rook on the right is the easiest part of the setup to get wrong."
+          },
+          "marks": {
+            "last": "8b"
+          }
+        },
+        {
+          "moves": [
+            "P*5g",
+            "P*5c",
+            "P*6g",
+            "P*4c",
+            "P*4g",
+            "P*6c",
+            "P*7g",
+            "P*3c",
+            "P*3g",
+            "P*7c",
+            "P*8g",
+            "P*2c",
+            "P*2g",
+            "P*8c",
+            "P*9g",
+            "P*1c",
+            "P*1g"
+          ],
+          "text": {
+            "ja": "最後は歩です。中央の５筋から始めて左右に広げます。この図では後手の９三の歩を残してあり、これを置けば初期配置が完成して、先手が最初の一手を指せます。",
+            "en": "Pawns come last, starting at the centre 5-file and spreading outward. In this figure White's pawn on 9c is still missing; placing it completes the setup and Black may play the first move."
+          },
+          "marks": {
+            "last": "1g"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "伊藤流：飛・角・香を最後に",
+        "en": "Ito style: rook, bishop and lances last"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/9/9/9/9/9/9/4K4 b RB2G2S2N2L9Prb2g2s2n2l9p 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "もう一つの流派が伊藤流です。大橋流と違い、相手の陣に向かって利きを持つ飛車・角・香車を最後に置くのが特徴です。まず大橋流と同じように、金・銀・桂を並べます。",
+            "en": "The other school is the Ito style. Its distinguishing feature is that the rook, bishop and lances, which point toward the opponent's camp, are placed last. It starts like Ohashi with golds, silvers and knights."
+          }
+        },
+        {
+          "moves": [
+            "G*6i",
+            "G*4a",
+            "G*4i",
+            "G*6a",
+            "S*7i",
+            "S*3a",
+            "S*3i",
+            "S*7a",
+            "N*8i",
+            "N*2a",
+            "N*2i",
+            "N*8a"
+          ],
+          "text": {
+            "ja": "金、銀、桂の順に、玉に近い方から置きます。",
+            "en": "Golds, silvers and knights, from the inner squares outward."
+          },
+          "marks": {
+            "last": "8a"
+          }
+        },
+        {
+          "moves": [
+            "P*9g",
+            "P*1c",
+            "P*8g",
+            "P*2c",
+            "P*7g",
+            "P*3c",
+            "P*6g",
+            "P*4c",
+            "P*5g",
+            "P*5c",
+            "P*4g",
+            "P*6c",
+            "P*3g",
+            "P*7c",
+            "P*2g",
+            "P*8c",
+            "P*1g",
+            "P*9c"
+          ],
+          "text": {
+            "ja": "ここで大橋流とは違い、歩を左端から順番に並べます。先手は９筋から１筋へ、後手は先手から見て同じ向きに進めます。",
+            "en": "Here it departs from Ohashi: the pawns are set out in order from the left edge. Black goes from the 9-file to the 1-file, and White follows the same direction from his own side."
+          },
+          "marks": {
+            "last": "9c"
+          }
+        },
+        {
+          "moves": [
+            "L*9i",
+            "L*1a",
+            "L*1i",
+            "L*9a",
+            "B*8h",
+            "B*2b",
+            "R*2h"
+          ],
+          "text": {
+            "ja": "最後に香、香、角、飛の順で並べます。後手の飛車を８二に置けば、大橋流と同じ初期配置になります。どの順で置いても反則ではなく、完成した配置が正しければ問題ありません。",
+            "en": "Finally lance, lance, bishop, rook. White's rook on 8b is the last piece to go down, and the result is the same starting setup as in the Ohashi style. No order is a rule violation; what matters is that the finished position is correct."
+          },
+          "marks": {
+            "last": "2h"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "振り駒で先手を決める",
+        "en": "Deciding who moves first: furigoma"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/9/9/1PPP+P+P3/9/9/9/4K4 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手と後手を決める正式な方法が「振り駒」です。上位の人（上座の対局者）の歩を５枚取り、手の中で混ぜて盤の上に振ります。駒は表（歩）か裏（と金）の面が上を向きます。",
+            "en": "The formal way to decide colours is furigoma. Five of the senior player's pawns are shaken in the hands and thrown onto the board; each lands with the pawn side or the tokin side facing up."
+          }
+        },
+        {
+          "text": {
+            "ja": "図は歩が３枚、と金が２枚出た結果です。歩が多く出たので、振った人が先手になります。と金が多ければ、振った人が後手になります。",
+            "en": "In the figure three pawns and two tokin came up. Pawns are in the majority, so the player who threw is Black. Had tokin been in the majority, the thrower would be White."
+          }
+        },
+        {
+          "text": {
+            "ja": "５枚で五枚なら引き分けはありませんが、縦に立った駒や上に乗った駒は無効として取り除くので、有効な駒が二対二に割れることがあります。そのときは最初からやり直しです。",
+            "en": "Five pieces cannot tie, but a piece standing on edge or resting on another is thrown out, so the valid ones can split two and two. In that case the throw is repeated from scratch."
+          }
+        },
+        {
+          "text": {
+            "ja": "プロの対局では記録係が振ります。記録係のいない対局では、目上の人が振るのが一般的です。ジャンケンで決めることもありますが、作法を知っておくと正式な場で困りません。",
+            "en": "In professional games the record keeper does it. Without one, the more senior player usually throws. Rock-paper-scissors is also used casually, but knowing furigoma helps at formal events."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "持ち時間の三つの形",
+        "en": "Three ways of limiting thinking time"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "将棋では、一手ごとに考えた時間が自分の持ち時間から引かれていきます。相手が指している間は減りません。持ち時間の扱いは大きく三つの型に分かれます。",
+            "en": "Time spent thinking is deducted from your own clock, and nothing is deducted while your opponent is on the move. Clock rules come in three broad types."
+          }
+        },
+        {
+          "moves": [
+            "7g7f",
+            "3c3d"
+          ],
+          "text": {
+            "ja": "一つ目は「指し切り」、別名「切れ負け」です。決められた時間を使い終えたら、その時点で負けが決まります。やさしい仕組みなのでアマチュアの大会やネットでよく使われますが、局面が良くても時計に負けることがあります。",
+            "en": "First is sashikiri (lose on time). When the time is gone, you lose at once. It is simple and common in amateur events and online play, but a winning position can be lost on the clock."
+          },
+          "marks": {
+            "last": "3d"
+          }
+        },
+        {
+          "moves": [
+            "2g2f",
+            "8c8d"
+          ],
+          "text": {
+            "ja": "二つ目は「秒読み」。持ち時間を使い切っても負けにならず、その後は一手を決められた秒数以内に指し続けます。プロの棋戦の基本で、長い対局では日をまたぐ「封じ手」という方法もあります。",
+            "en": "Second is byoyomi. When the main time runs out you do not lose; instead each move must be played within a fixed number of seconds. It is the norm in professional games, and in two-day games the last move of the day is sealed (fuujite)."
+          },
+          "marks": {
+            "last": "8d"
+          }
+        },
+        {
+          "moves": [
+            "2f2e",
+            "8d8e"
+          ],
+          "text": {
+            "ja": "三つ目は「フィッシャールール」。一手指すたびに時間が少し加算されます。急いで指せば時間が増え、難しい局面のために貯めることもできます。",
+            "en": "Third is the Fischer rule. A little time is added after each move you make. Moving quickly builds up your reserve, which you can spend later on a difficult position."
+          },
+          "marks": {
+            "last": "8e"
+          }
+        },
+        {
+          "text": {
+            "ja": "対局前に、どの型で何分なのかを必ず確認します。時計を押し忘れたり、相手の時計を勝手に止めたりしないことも大切です。",
+            "en": "Before the game, confirm which type is used and how long it is. Remember to press the clock after each move, and never stop the opponent's clock."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "対局の前後とあいだのマナー",
+        "en": "Courtesy before, during and after a game"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "対局が始まる前に「お願いします」と挨拶します。負けを認めるときは「負けました」とはっきり言います。礼儀というだけでなく、勝敗をお互いにはっきりさせる意味もあります。",
+            "en": "Greet your opponent before play. When you resign, say so clearly. It is courtesy, and it also makes the result unmistakable for both of you."
+          }
+        },
+        {
+          "text": {
+            "ja": "一度指した手は戻せません。駒から手を離した時点で着手と見なされます。気軽に遊ぶときは「待った」を許すこともありますが、大会や道場では厳禁です。",
+            "en": "A move cannot be taken back once played; letting go of the piece completes the move. Casual games sometimes allow a take-back, but at tournaments and clubs it is strictly forbidden."
+          }
+        },
+        {
+          "text": {
+            "ja": "持ち駒は、相手からも見えるように駒台の上に置きます。手の中に隠したり、重ねて枚数をわかりにくくしたりしてはいけません。",
+            "en": "Keep captured pieces on the stand where your opponent can see them. Do not hide them in your hand or stack them so the count is unclear."
+          }
+        },
+        {
+          "text": {
+            "ja": "対局を見ている人は、口出しをしてはいけません。次の手の助言はもちろん、「さっきはこちらが良かった」といった指摘も、終局まで胸にしまっておきます。",
+            "en": "Spectators must not interfere. Advice on the next move is out, and so are remarks like 'the other move was better'; keep them until the game is over."
+          }
+        },
+        {
+          "text": {
+            "ja": "対局後は感想戦をします。別の手を並べて、よかった手や悪かった手をお互いに検討します。上達に一番つながる時間です。",
+            "en": "After the game comes the post-mortem. Replay other moves and discuss the good and bad ones together. It is the most useful part for improving."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "「成れるのに成らない」はどう見られるか",
+        "en": "Declining promotion: how it is perceived"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/9/1R7/9/9/9/9/4K4 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "成るかどうかは自由ですが、実際の対局では「成れるのに成らない」手に暗黙の評価があります。８筋の先手の飛車が敵陣に入る場面で考えましょう。",
+            "en": "Promotion is optional by rule, but in practice declining when you could promote carries a certain impression. Consider Black's rook about to enter the promotion zone on the 8-file."
+          }
+        },
+        {
+          "moves": [
+            "8d8c+"
+          ],
+          "text": {
+            "ja": "▲８三飛成。飛車・角・歩は、成るとほぼ確実に働きが増える駒です。成れる局面では成るのが基本です。",
+            "en": "Rook to 8c with promotion. For rook, bishop and pawn, promotion almost always makes the piece stronger, so promote whenever you can."
+          },
+          "marks": {
+            "last": "8c"
+          }
+        },
+        {
+          "text": {
+            "ja": "銀・桂・香は、成ると動きが変わるので、成らないのも立派な選択です。飛車・角・歩をあえて成らないと、真剣に指していないように受け取られることがあるため、特別な理由がなければ成りましょう。",
+            "en": "Silver, knight and lance change how they move when promoted, so staying unpromoted is a legitimate choice. Declining with a rook, bishop or pawn can look like not taking the game seriously, so promote unless there is a clear reason."
+          }
+        }
+      ]
+    }
+  ]
+}

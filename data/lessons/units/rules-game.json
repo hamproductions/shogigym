@@ -1,0 +1,207 @@
+{
+  "id": "rules-game",
+  "order": 10,
+  "path": ["はじめての将棋", "ルール"],
+  "title": {
+    "ja": "将棋の目的と対局の流れ",
+    "en": "The goal of shogi and how a game runs"
+  },
+  "intro": {
+    "ja": "将棋は二人で交互に一手ずつ指し、相手の王を逃げられない状態に追い込めば勝ちというゲームです。このレッスンでは、盤と駒の並び、一手でできること、そして勝負がつく瞬間までを、小さな局面を動かしながらひと通り確かめます。",
+    "en": "Shogi is a two-player game in which you take turns making one move each, and you win by trapping the opponent's king so that it cannot escape. This lesson walks through the board and the starting setup, what you can do on a turn, and the moment a game is decided, using small positions you can play through."
+  },
+  "check": {
+    "question": {
+      "ja": "自分の番に、盤上の駒を動かすことも持ち駒を打つこともしたくありません。何もせずに順番を相手に回せますか？",
+      "en": "On your turn you would rather neither move a piece nor drop one. Can you simply hand the turn back to your opponent?"
+    },
+    "answer": {
+      "ja": "できません。将棋に「パス」はなく、自分の番には必ず、駒を動かすか持ち駒を打つかのどちらか一手を指します。",
+      "en": "No. Shogi has no passing. On each turn you must make exactly one move: either move a piece on the board or drop a piece from your hand."
+    }
+  },
+  "references": [
+    {
+      "title": "将棋 (Wikipedia日本語版)",
+      "url": "https://ja.wikipedia.org/wiki/将棋",
+      "license": "CC BY-SA 4.0",
+      "adapted": false
+    },
+    {
+      "title": "将棋の遊び方、対局の大まかな流れ",
+      "url": "https://shogi-joutatsu.com/archives/656",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "盤と駒、先手と後手",
+        "en": "The board, the pieces, Black and White"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "盤は縦横9×9の81マスで、駒はマスの中に置きます。駒は一人20枚、合わせて40枚。手前の三段が自分の陣地で、最初の並びは両者とも同じ形です。後列に王・金・銀・桂・香、二段目に飛車と角、三段目に歩が並びます。",
+            "en": "The board is a 9×9 grid of 81 squares, and pieces stand inside the squares. Each player has 20 pieces, 40 in all. The three ranks nearest you are your camp, and both sides start in the same formation: king, golds, silvers, knights and lances on the back rank, rook and bishop on the second, and nine pawns on the third."
+          },
+          "marks": {
+            "dashed": [
+              "9g", "8g", "7g", "6g", "5g", "4g", "3g", "2g", "1g",
+              "9h", "8h", "7h", "6h", "5h", "4h", "3h", "2h", "1h",
+              "9i", "8i", "7i", "6i", "5i", "4i", "3i", "2i", "1i"
+            ]
+          }
+        },
+        {
+          "moves": ["7g7f"],
+          "text": {
+            "ja": "先に指す側を先手、あとから指す側を後手と呼びます。ここでは下側が先手で、７六歩と一歩進めて対局が始まりました。先手と後手は、友人同士ならじゃんけんで決めてもかまいません。",
+            "en": "The player who moves first is called sente (Black) and the other gote (White). Here the bottom side is sente, and the game begins with the pawn push ▲7六歩. Among friends, who goes first can be decided by rock-paper-scissors."
+          },
+          "marks": {
+            "arrows": ["7g7f"]
+          }
+        },
+        {
+          "moves": ["3c3d"],
+          "text": {
+            "ja": "次は後手の番です。後手も歩を一つ進めました。こうして一手ずつ交互に指していきます。",
+            "en": "Now it is gote's turn, and gote pushes a pawn one step as well. From here the two players alternate, one move each."
+          },
+          "marks": {
+            "arrows": ["3c3d"]
+          }
+        },
+        {
+          "moves": ["2g2f", "8c8d"],
+          "text": {
+            "ja": "駒には種類ごとに動き方が決まっていて、一手で動かせる駒は一枚だけです。先手が２六歩、後手が８四歩と応じました。駒の動きは次のレッスンで一つずつ見ていきます。",
+            "en": "Each type of piece has its own way of moving, and you may move only one piece per turn. Sente played ▲2六歩 and gote answered △8四歩. The next lesson goes through the piece movements one by one."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "相手の駒を取る",
+        "en": "Capturing"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "8k/9/9/9/4p4/9/4R4/9/K8 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手の飛車の前には、後手の歩が一枚います。将棋では、自分の駒が動ける先に相手の駒がいれば、そのマスに入って相手の駒を取れます。自分の駒がいるマスには入れません。",
+            "en": "Black's rook faces a White pawn. If a piece can move to a square occupied by an enemy piece, it may go there and capture it. It can never enter a square held by its own side."
+          },
+          "marks": {
+            "arrows": ["5g5e"]
+          }
+        },
+        {
+          "moves": ["5g5e"],
+          "text": {
+            "ja": "飛車が５五へ進んで歩を取りました。取った駒は捨てるのではなく、自分の持ち駒として駒台に置きます。ゲームから消えたのではなく、先手の手の中に移ったのです。",
+            "en": "The rook moves to 5e and takes the pawn. A captured piece is not discarded: it goes to your piece stand as a piece in hand. It has not left the game, it has changed owners."
+          },
+          "marks": {
+            "last": "5e"
+          }
+        },
+        {
+          "moves": ["1a2a"],
+          "text": {
+            "ja": "後手の番になり、後手は玉を動かしました。先手の駒台には歩が一枚あります。持ち駒は相手に見えるように置くのが決まりで、何枚でも持てます。",
+            "en": "It is now gote's turn, and gote moves the king. Black's stand holds one pawn. Pieces in hand are kept in view of the opponent, and there is no limit to how many you can hold."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "動かすか、打つか",
+        "en": "Move a piece or drop one"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/9/9/9/9/4P4/9/4K4 b R 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手は飛車を一枚持っています。自分の番にできることは二種類だけです。盤上の自分の駒を一枚動かすか、持ち駒を空いているマスに置く（打つ）か。どちらを選んでも、その一手で番は相手に移ります。",
+            "en": "Black holds a rook in hand. There are only two things you can do on a turn: move one of your pieces on the board, or put a piece from your hand on an empty square (a drop). Either way, the turn then passes to your opponent."
+          }
+        },
+        {
+          "moves": ["R*8b"],
+          "text": {
+            "ja": "飛車を８二に打ちました。持ち駒は、他の駒がいないマスならどこにでも打てます。打った手が一手なので、同じ番にさらに駒を動かすことはできません。",
+            "en": "The rook is dropped on 8b. A piece in hand may go on any square that is not occupied. The drop is the whole move, so nothing else can be moved on the same turn."
+          },
+          "marks": {
+            "last": "8b"
+          }
+        },
+        {
+          "moves": ["5a4a", "5g5f"],
+          "text": {
+            "ja": "後手が玉を動かしたあと、今度は盤上の歩を動かしました。このように、一手ごとに「動かす」と「打つ」を好きに選べます。何もしない手や、続けて二回指すことは認められません。",
+            "en": "After gote moves the king, Black this time moves the pawn on the board. On each turn you may freely pick between moving and dropping. Doing nothing, or moving twice in a row, is not allowed."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "勝負がつくとき",
+        "en": "When the game is decided"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/4P4/9/9/9/9/9/4K4 b G 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "目的は相手の王を討ち取ることです。次に王を取れる手をかけることを「王手」と言い、王手された側は必ずそれを防がなければなりません。後手の玉は５一、先手は金を持っています。",
+            "en": "The aim is to capture the opponent's king. A move that threatens to capture the king next turn is called 王手 (check), and the side in check must deal with it immediately. White's king stands on 5a and Black has a gold in hand."
+          },
+          "marks": {
+            "boxes": ["5a"]
+          }
+        },
+        {
+          "moves": ["G*5b"],
+          "text": {
+            "ja": "玉のすぐ前に金を打ちました。玉は４一・６一・４二・６二のどこにも逃げられず、金を取ろうとしても５三の歩が守っているので取れません。王手を防ぐ手がもうないこの形が「詰み」です。",
+            "en": "The gold is dropped right in front of the king. It covers 4a, 6a, 4b and 6b, and the king cannot take it because the pawn on 5c protects it. When check can no longer be answered, the position is 詰み (checkmate)."
+          },
+          "marks": {
+            "last": "5b"
+          }
+        },
+        {
+          "text": {
+            "ja": "詰みになった時点で対局は終わり、詰ませた側の勝ちです。玉を実際に取る必要はなく、「王手」や「詰み」と声に出す必要もありません。負けを認めて自分から終えるのが「投了」で、実戦ではほとんどの対局が投了か詰みで終わります。なお、同じ局面の繰り返しなどで引き分けになる特別な場合もあります。",
+            "en": "The game ends the moment checkmate appears, and the player who delivered it wins. Nobody has to actually take the king, and nobody has to announce check or mate. Conceding by yourself is called 投了 (resigning), and most real games end by mate or resignation. A few special situations, such as repeating the same position, can instead end in a draw."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["G*4b"],
+          "text": {
+            "ja": "同じ王手でも、金を４二に打つと守りがありません。玉が金を取るだけで王手は消えます。王手がかかっても、逃れられるうちは詰みではありません。",
+            "en": "This is check too, but a gold on 4b has no protector. The king simply captures it and the check is gone. As long as the king can get out of check, it is not mate."
+          }
+        }
+      ]
+    }
+  ]
+}

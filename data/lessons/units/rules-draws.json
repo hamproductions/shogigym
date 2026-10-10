@@ -1,0 +1,372 @@
+{
+  "id": "rules-draws",
+  "order": 70,
+  "path": [
+    "はじめての将棋",
+    "ルール"
+  ],
+  "title": {
+    "ja": "千日手と持将棋（入玉）",
+    "en": "Repetition and the impasse (entering king)"
+  },
+  "intro": {
+    "ja": "同じ局面が繰り返される「千日手」と、両方の玉が敵陣に入って詰ませられなくなる「持将棋」は、盤上の詰みでは決着しない例外的な終わり方です。何回目で千日手になるのか、王手を続けた側がなぜ負けになるのか、入玉した後は点数をどう数えるのかを、小さな局面で確かめます。",
+    "en": "Repetition (sennichite) and the impasse (jishogi), where both kings reach the far zone, are unusual endings that are not decided by checkmate. You will see on small positions when a repetition counts, why the side giving perpetual check loses, and how points are counted after the kings enter."
+  },
+  "check": {
+    "question": {
+      "ja": "同じ局面（盤面・持ち駒・手番がすべて同じ）が３回出たところです。次に同じ局面がもう一度出るとどうなりますか？",
+      "en": "The same position (board, hands and side to move identical) has appeared three times. What happens when it appears once more?"
+    },
+    "answer": {
+      "ja": "４回目の出現で千日手が成立し、原則は引き分け（プロでは先後を入れ替えて指し直し）です。ただし王手の連続でその局面になった場合は、王手をかけ続けた側の負けです。",
+      "en": "On the fourth occurrence it is sennichite: in principle a draw (in pro games a replay with colours swapped). If the position came about through continuous checks, the side giving them loses."
+    }
+  },
+  "references": [
+    {
+      "title": "入玉・持将棋 (Wikipedia日本語版)",
+      "url": "https://ja.wikipedia.org/wiki/入玉",
+      "license": "CC BY-SA 4.0",
+      "adapted": false
+    },
+    {
+      "title": "千日手 (Wikipedia日本語版)",
+      "url": "https://ja.wikipedia.org/wiki/千日手",
+      "license": "CC BY-SA 4.0",
+      "adapted": false
+    },
+    {
+      "title": "千日手",
+      "url": "https://shogi-joutatsu.com/archives/758",
+      "license": "All rights reserved",
+      "adapted": false
+    },
+    {
+      "title": "入玉の扱い、持将棋と宣言法およびトライルール",
+      "url": "https://shogi-joutatsu.com/archives/932",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "同じ局面が四度現れたら",
+        "en": "When the same position appears four times"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1r7/9/9/9/9/9/7R1/4K4 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "２八に先手の飛車、８二に後手の飛車がいるだけの静かな局面です。ここで両者が飛車を一つ動かしては元に戻す、という往復をしたら何が起こるでしょうか。この局面が「同じ局面」の１回目になります。",
+            "en": "Black's rook sits on 2h and White's on 8b in a quiet position. What happens if both players just move a rook out and back again and again? This is the first occurrence of the position."
+          }
+        },
+        {
+          "moves": [
+            "2h2g",
+            "8b8c",
+            "2g2h",
+            "8c8b"
+          ],
+          "text": {
+            "ja": "▲２七飛、△８三飛、▲２八飛、△８二飛。四手指して、盤面も持ち駒も手番もすべて最初と同じになりました。同じ局面が２回目に現れたことになります。この段階ではまだ何も起こりません。",
+            "en": "Rook to 2g, rook to 8c, rook back to 2h, rook back to 8b. After four moves the board, the hands and the side to move are all as at the start: the second occurrence. Nothing special happens yet."
+          },
+          "marks": {
+            "last": "8b"
+          }
+        },
+        {
+          "moves": [
+            "2h2g",
+            "8b8c",
+            "2g2h",
+            "8c8b"
+          ],
+          "text": {
+            "ja": "もう一周すると３回目です。３回までは何度同じ局面になっても勝負はそのまま続きます。「盤面だけでなく、持ち駒と手番まで同じ」であることが数える条件で、どれか一つでも違えば別の局面です。",
+            "en": "Another lap makes three occurrences. Up to three times, play simply goes on. What counts is a match in the board, the pieces in hand and the side to move; if any one of them differs it is a different position."
+          },
+          "marks": {
+            "last": "8b"
+          }
+        },
+        {
+          "moves": [
+            "2h2g",
+            "8b8c",
+            "2g2h",
+            "8c8b"
+          ],
+          "text": {
+            "ja": "さらに一周して、最初の局面が４回目に現れました。これが千日手です。対局はここで打ち切られ、特別な扱いで決着します（次の章）。",
+            "en": "One more lap and the starting position has appeared a fourth time. This is sennichite (repetition). The game is stopped here and settled by special handling (next chapter)."
+          },
+          "marks": {
+            "last": "8b"
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 2,
+          "moves": [
+            "2h3h"
+          ],
+          "text": {
+            "ja": "３回目の局面で飛車を３八へ動かせば、別の局面になって数え直しです。千日手にしたくない側は、このように途中で手を変えます。これを「打開」と呼ぶことがあります。",
+            "en": "On the third occurrence, moving the rook to 3h creates a different position and the count restarts. A player who wants to avoid repetition deviates like this. It is sometimes called breaking out of the loop."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "王手を続けている側が負ける",
+        "en": "The side giving perpetual check loses"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "5k3/9/9/9/9/9/9/4R4/8K b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手玉は４一、先手の飛車は５八です。いま王手はかかっていません。この飛車で王手を続けると、後手玉が逃げ続けて同じ局面が巡ります。",
+            "en": "White's king is on 4a and Black's rook on 5h; there is no check yet. If the rook keeps giving check and the king keeps stepping aside, the same position cycles."
+          }
+        },
+        {
+          "moves": [
+            "5h4h",
+            "4a5a"
+          ],
+          "text": {
+            "ja": "▲４八飛と動くと４筋が通って王手です。△５一玉。後手は筋から外れる逃げ方を選びました。",
+            "en": "Rook to 4h opens the 4-file and checks the king on 4a. The king steps to 5a, off that file."
+          },
+          "marks": {
+            "last": "5a"
+          }
+        },
+        {
+          "moves": [
+            "4h5h",
+            "5a4a"
+          ],
+          "text": {
+            "ja": "▲５八飛で今度は５筋から王手、△４一玉。最初の局面に戻りました（２回目）。先手の指した手はここまですべて王手です。",
+            "en": "Rook back to 5h checks along the 5-file and the king returns to 4a. This is the starting position again (second occurrence), and every move Black has made was a check."
+          },
+          "marks": {
+            "last": "4a"
+          }
+        },
+        {
+          "moves": [
+            "5h4h",
+            "4a5a",
+            "4h5h",
+            "5a4a"
+          ],
+          "text": {
+            "ja": "もう一周して３回目です。まだ続行できます。",
+            "en": "One more lap makes three occurrences. Play can still continue."
+          },
+          "marks": {
+            "last": "4a"
+          }
+        },
+        {
+          "moves": [
+            "5h4h",
+            "4a5a",
+            "4h5h",
+            "5a4a"
+          ],
+          "text": {
+            "ja": "４回目の出現です。ふつうの千日手なら引き分けですが、ここまで先手の手がすべて王手だったので、王手を続けた先手の反則負けになります。逃げ続けた後手には何の咎もありません。",
+            "en": "The position has now appeared four times. A plain repetition would be a draw, but every Black move was a check, so Black loses by foul. White, who merely kept escaping, is not penalised."
+          },
+          "marks": {
+            "last": "4a"
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 3,
+          "moves": [
+            "5h5g"
+          ],
+          "text": {
+            "ja": "繰り返しの途中に、王手ではない手が一手でも混ざっていれば、反則にはなりません。この変化では３回目で飛車を５七に引き、王手の連続を自分から断ち切りました。",
+            "en": "If even one move in the cycle is not a check, there is no foul. Here Black withdraws the rook to 5g on the third occurrence and breaks the chain of checks himself."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "千日手のあと：引き分けと指し直し",
+        "en": "After repetition: draw and replay"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "千日手は勝ち負けのつかない終わり方なので、原則として引き分け扱いです。ただしプロの公式戦では、引き分けで終わらせずに、同じ組み合わせで先手と後手を入れ替えて最初から指し直します。",
+            "en": "Repetition produces no winner, so it is treated as a draw in principle. In professional official games, however, the same two players start again with colours swapped instead of leaving it at a draw."
+          }
+        },
+        {
+          "text": {
+            "ja": "指し直しの持ち時間は、千日手になった時点の残り時間を引き継ぐのが基本です。ただし短くなりすぎた場合は、少ない方が一定の時間になるように双方へ同じ時間が足されます。",
+            "en": "The replayed game normally carries over each player's remaining time. If one side is very low, equal time is added to both players until the smaller reserve reaches a set minimum."
+          }
+        },
+        {
+          "text": {
+            "ja": "指し直し局では先後が逆になります。先に指せる側がやや有利と言われるので、後手を持たされた棋士があえて繰り返しになる進行を選び、次の一局で先手を取ろうとすることがあります。先手側は、その狙いを避けて自分から形を変えるのが普通です。",
+            "en": "Moving first is thought to be a slight advantage, so a player with White may deliberately steer toward repetition to get Black in the replay. Black, in turn, often avoids it by changing the position."
+          }
+        },
+        {
+          "text": {
+            "ja": "アマチュアの大会では指し直す時間がないことも多く、引き分けとするか、別の基準で勝敗を決めます。参加する大会の規定を事前に確認しましょう。",
+            "en": "Amateur events often have no time for a replay, so they either call it a draw or decide by another criterion. Check the rules of the event you enter."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "入玉：玉が敵陣に入る",
+        "en": "Entering king: the king reaches the far zone"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "9/9/9/4K4/9/4k4/9/9/9 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手玉は４段目、後手玉は６段目にいます。先手の敵陣は１〜３段目、後手の敵陣は７〜９段目です。玉が自分の敵陣に入ることを「入玉」といいます。",
+            "en": "Black's king is on the 4th rank and White's on the 6th. Black's promotion zone is ranks 1-3, White's is ranks 7-9. A king that reaches its own opponent-side zone has entered (nyugyoku)."
+          }
+        },
+        {
+          "moves": [
+            "5d5c"
+          ],
+          "text": {
+            "ja": "▲５三玉。先手玉が敵陣に入りました。敵陣の奥には、玉を挟み撃ちにできる味方の駒が少ないため、ここまで来た玉は簡単には詰みません。",
+            "en": "King to 5c. Black's king has entered the zone. Deep in enemy territory there are few attackers around it, so a king that gets here is hard to mate."
+          },
+          "marks": {
+            "last": "5c",
+            "dashed": [
+              "9c",
+              "8c",
+              "7c",
+              "6c",
+              "5c",
+              "4c",
+              "3c",
+              "2c",
+              "1c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5f5g"
+          ],
+          "text": {
+            "ja": "△５七玉。後手玉も入玉しました。双方の玉が入玉している状態を「相入玉」といいます。こうなると、お互いに詰ますのも詰まされるのも難しく、盤上の決着がつきにくくなります。",
+            "en": "King to 5g. White has entered as well. When both kings have entered it is called mutual entry (ai-nyugyoku). Mating either king becomes very hard, and a decision on the board is unlikely."
+          },
+          "marks": {
+            "last": "5g",
+            "dashed": [
+              "9g",
+              "8g",
+              "7g",
+              "6g",
+              "5g",
+              "4g",
+              "3g",
+              "2g",
+              "1g"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "そこで、詰みの代わりに駒の点数で判断します。飛車と角は５点、玉は０点、それ以外の駒（成駒も同じ）は１点です。初期配置の全部の駒は、5+5+17で27点になります。",
+            "en": "So the game is judged by points instead of mate. Rook and bishop are worth 5, the king 0, and every other piece (promoted pieces too) 1. A full starting army is 5+5+17 = 27 points."
+          }
+        },
+        {
+          "text": {
+            "ja": "プロの24点法では、双方の玉が入玉していて、双方が24点以上あり、両者が合意すれば「持将棋」として引き分けになります。どちらかが続けたければ続行です。",
+            "en": "In the professional 24-point rule, if both kings have entered, both sides have at least 24 points and both agree, the game is a jishogi (impasse) draw. If either side wants to continue, play goes on."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "一人で終わらせる「宣言」",
+        "en": "Ending it alone: the declaration"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "1+R1+SK2+B+L/2+P1G1+P2/2N1P1P2/9/9/9/9/6k2/9 b RGSNL2P 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手番です。先手玉は１段目にいて、王手はかかっていません。持将棋は両者の合意が必要でしたが、条件を満たした側が自分の手番で宣言するやり方もあります。まず条件を確かめましょう。",
+            "en": "It is Black's move. Black's king is on the first rank and not in check. An impasse draw needs both players to agree, but a player who meets the conditions can instead declare on his own turn. Check the conditions first."
+          }
+        },
+        {
+          "text": {
+            "ja": "条件の一つ目は、玉を除いて敵陣に10枚以上の自分の駒があることです。枠で囲った駒は10枚あります。盤上でも敵陣の外にいる駒は数えません。",
+            "en": "First condition: at least ten of your own pieces, not counting the king, must stand in the enemy zone. The boxed pieces are exactly ten. Pieces on the board outside the zone do not count."
+          },
+          "marks": {
+            "boxes": [
+              "8a",
+              "6a",
+              "2a",
+              "1a",
+              "7b",
+              "5b",
+              "3b",
+              "7c",
+              "5c",
+              "3c"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "二つ目は点数です。敵陣の駒が18点（龍5・馬5・他は各1）、持ち駒が飛5・金銀桂香で4・歩2で計11点、合計29点です。プロの宣言法では24〜30点は引き分け、31点以上で勝ちなので、この局面は引き分け止まりです。",
+            "en": "Second is the score. The zone pieces are worth 18 (dragon 5, horse 5, the rest 1 each) and the hand adds rook 5, gold-silver-knight-lance 4 and two pawns 2, 11 in all: 29 total. In the professional declaration, 24-30 is a draw and 31 or more a win, so this is only a draw."
+          }
+        },
+        {
+          "text": {
+            "ja": "アマチュアで広く使われる27点法では、先手は28点以上、後手は27点以上あれば宣言で勝ちです。同じ29点でも、先手のこの局面は宣言勝ちになります。点数の基準は大会やアプリで違うので、対局前に確認しましょう。",
+            "en": "Under the 27-point rule common in amateur play, Black needs 28 and White 27 to win by declaration. The same 29 points therefore wins for Black here. Thresholds differ between events and apps, so check before you play."
+          }
+        }
+      ]
+    }
+  ]
+}

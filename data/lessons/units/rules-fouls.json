@@ -1,0 +1,292 @@
+{
+  "id": "rules-fouls",
+  "order": 60,
+  "path": ["はじめての将棋", "ルール"],
+  "title": {
+    "ja": "反則",
+    "en": "Fouls"
+  },
+  "intro": {
+    "ja": "将棋では、禁じられた手を指すとその時点で負けになります。特に気をつけたいのが、二歩、打ち歩詰め、行き所のない駒、玉を王手にさらす手、連続王手の千日手の五つです。それぞれ、どんな局面で起こりやすいのかを、小さな局面で確かめます。",
+    "en": "In shogi, playing a forbidden move loses the game on the spot. The ones to watch for are nifu, a pawn-drop mate, a piece with no move left, exposing your king to capture, and perpetual check. Small positions show where each of them tends to arise."
+  },
+  "check": {
+    "question": {
+      "ja": "自分の歩が一枚ある筋に、成ってできた「と金」もあります。その筋に、持ち駒の歩をもう一枚打てますか？",
+      "en": "You have an unpromoted pawn on a file and also a tokin on that same file. May you drop another pawn from your hand on that file?"
+    },
+    "answer": {
+      "ja": "打てません。同じ筋に表の歩が二枚あると二歩です。と金は数えないので、歩が一枚もなくてと金だけがその筋にあるなら、歩を打っても二歩ではありません。",
+      "en": "No, a second unpromoted pawn on the file is nifu. A tokin does not count, so if only tokin stand on a file, you may drop a pawn there."
+    }
+  },
+  "references": [
+    {
+      "title": "反則 (将棋) (Wikipedia日本語版)",
+      "url": "https://ja.wikipedia.org/wiki/反則_(将棋)",
+      "license": "CC BY-SA 4.0",
+      "adapted": false
+    },
+    {
+      "title": "将棋のルール (Wikipedia日本語版)",
+      "url": "https://ja.wikipedia.org/wiki/将棋のルール",
+      "license": "CC BY-SA 4.0",
+      "adapted": false
+    },
+    {
+      "title": "反則、禁じ手について",
+      "url": "https://shogi-joutatsu.com/archives/813",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "二歩：同じ筋に歩を二枚置かない",
+        "en": "Nifu: no two pawns on a file"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/1p7/6+P2/9/4P4/9/9/4K4 b 2P 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手は５六に歩を持っていて、さらに持ち駒の歩が二枚あります。同じ筋（縦の列）に、自分の歩を二枚並べてはいけません。これが二歩です。点線の筋には歩を打てません。",
+            "en": "Black has a pawn on 5f and two more in hand. You may never have two of your own pawns on the same file; that is nifu. A pawn cannot be dropped anywhere on the dashed file."
+          },
+          "marks": {
+            "dashed": ["5b", "5c", "5d", "5e", "5g", "5h"]
+          }
+        },
+        {
+          "moves": ["P*3f", "5a4a"],
+          "text": {
+            "ja": "３筋には３四にと金がいますが、これは数えません。成った歩は別の駒なので、歩として打つことができます。",
+            "en": "The 3-file has a tokin on 3d, but it does not count. A promoted pawn is a different piece, so a pawn may be dropped on that file."
+          },
+          "marks": {
+            "last": "3f"
+          }
+        },
+        {
+          "moves": ["P*8e"],
+          "text": {
+            "ja": "８筋には後手の歩がいます。数えるのは自分の歩だけなので、相手の歩があっても問題ありません。歩を打つときは、その筋に自分の歩がいないかを毎回確かめます。",
+            "en": "There is a White pawn on the 8-file. Only your own pawns count, so enemy pawns are no obstacle. Before every pawn drop, check whether you already have a pawn on that file."
+          },
+          "marks": {
+            "last": "8e"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "打ち歩詰め：持ち駒の歩で詰ませてはいけない",
+        "en": "Pawn-drop mate is forbidden"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "7lk/7p1/9/9/8L/9/9/9/4K4 b P 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手の玉は１一。２一には自分の香、２二には自分の歩がいて、動ける場所がありません。先手は歩を持ち、１五には香がいます。",
+            "en": "White's king is on 1a, with its own lance on 2a and pawn on 2b leaving it no square to go to. Black has a pawn in hand and a lance on 1e."
+          },
+          "marks": {
+            "boxes": ["2a", "2b"]
+          }
+        },
+        {
+          "text": {
+            "ja": "ここで１二に歩を打てば王手です。１二の歩は１五の香が守っていて玉は取れず、他に逃げ道も、取れる駒もないので、詰みです。",
+            "en": "A pawn dropped on 1b would check the king. The lance on 1e protects that pawn, so the king cannot take it, and nothing else can escape or capture: it would be checkmate."
+          },
+          "marks": {
+            "arrows": ["1e1b"],
+            "boxes": ["1b"]
+          }
+        },
+        {
+          "text": {
+            "ja": "しかし持ち駒の歩を打って詰ませる手は禁止されています。これが打ち歩詰めで、指すと反則負けです。ほかの駒を打つ詰みや、持ち駒の歩を打つ王手でも詰みにならない手は問題ありません。",
+            "en": "Dropping a pawn from hand to give mate is forbidden. This is uchifuzume, and playing it loses the game. Mating by dropping any other piece is fine, and so is a pawn-drop check that is not mate."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "歩を突いて詰ますのは反則ではない",
+        "en": "Mating by pushing a pawn is allowed"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "7lk/7p1/8P/9/8L/9/9/9/4K4 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "前の章と同じ後手の囲いですが、先手の歩は持ち駒ではなく、すでに盤上の１三にいます。歩の後ろの１五には香がいます。",
+            "en": "White's setup is the same as before, but Black's pawn is not in hand: it is already on the board at 1c, with the lance behind it on 1e."
+          },
+          "marks": {
+            "boxes": ["1c", "1e"]
+          }
+        },
+        {
+          "moves": ["1c1b+"],
+          "text": {
+            "ja": "１三の歩が１二へ進み、成って詰みです。こうして盤にある歩を突いて詰ますのは「突き歩詰め」で、問題なく指せます。禁じられているのは、手元から打った歩で詰ます場合だけです。",
+            "en": "The pawn on 1c steps to 1b and promotes, giving checkmate. Mating by pushing a pawn already on the board is called tsukifuzume, and it is perfectly legal. Only a mate with a pawn dropped from hand is banned."
+          },
+          "marks": {
+            "last": "1b"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "行き所のない駒",
+        "en": "Pieces with nowhere to go"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/P7L/1N7/9/9/9/9/4K4 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "歩と香を一段目に、桂を一段目か二段目に、成らずに置くことは禁止です。そこでは次に動ける先がなくなってしまうからです。この三つは、そうなる手を指すときは必ず成ります。",
+            "en": "A pawn or lance may not end a move unpromoted on the first rank, nor a knight on the first or second rank, because it would then have no move left. When a move would put them there, they must promote."
+          }
+        },
+        {
+          "moves": ["8d7b+", "5a4a"],
+          "text": {
+            "ja": "桂が７二へ跳びました。桂が二段目に着く手は、成桂にするしかありません。成れば金と同じに動けます。",
+            "en": "The knight jumps to 7b. A knight landing on the second rank has to become a promoted knight, which then moves like a gold."
+          },
+          "marks": {
+            "last": "7b"
+          }
+        },
+        {
+          "moves": ["9c9b", "4a5a"],
+          "text": {
+            "ja": "歩を９二に進めました。二段目の歩はまだ１つ前へ進めるので、成らなくても大丈夫です。",
+            "en": "The pawn advances to 9b. A pawn on the second rank still has a square ahead of it, so promoting is not compulsory."
+          },
+          "marks": {
+            "last": "9b"
+          }
+        },
+        {
+          "moves": ["9b9a+", "5a4a"],
+          "text": {
+            "ja": "次に９一へ進む手は、必ず成ります。一段目の歩は動けなくなるからです。",
+            "en": "Advancing to 9a next must be a promotion, because a pawn on the first rank would be stuck."
+          },
+          "marks": {
+            "last": "9a"
+          }
+        },
+        {
+          "moves": ["1c1a+"],
+          "text": {
+            "ja": "香も同じで、１一へ着く手は成香にします。なお、これらの駒を持ち駒から一段目や、桂の場合は二段目に打つことも、成れないため禁止です。",
+            "en": "The lance is the same: a move to 1a has to promote. Dropping these pieces from hand onto the first rank, or onto the second as well in the knight's case, is also banned, since a drop cannot promote."
+          },
+          "marks": {
+            "last": "1a"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "玉を取られる手と、王手の見落とし",
+        "en": "Leaving the king capturable"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "8k/4r4/9/9/9/9/9/4G4/4K4 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手の玉の前に金がいて、その先の５二に後手の飛車がいます。金が５筋の盾になっているので、まだ王手ではありません。しかしこの金が筋から外れると、飛車が玉に届き、玉を取られる形になります。",
+            "en": "Black's king has a gold in front of it, and White's rook sits further up on 5b. The gold is shielding the king on the 5-file, so there is no check yet. If the gold leaves the file, the rook reaches the king, which could then be captured."
+          },
+          "marks": {
+            "boxes": ["5h"],
+            "dashed": ["4h", "6h", "4g", "6g"]
+          }
+        },
+        {
+          "moves": ["5h5g"],
+          "text": {
+            "ja": "点線のマスへ金を動かす手は反則で、自分の玉を王手にさらしてしまいます。５七へ一歩前に出る手なら、金は同じ筋に残って盾の役目を続けるので指せます。自玉が取られる形を自分で作る手は、どんな駒でも指せません。",
+            "en": "Moving the gold to any dashed square is a foul, because it exposes your own king to check. Stepping forward to 5g keeps the gold on the same file, still acting as the shield, so that is legal. No piece may make a move that leaves your own king open to capture."
+          },
+          "marks": {
+            "last": "5g"
+          }
+        },
+        {
+          "text": {
+            "ja": "王手を受けているのに別の手を指して放置するのも、同じ種類の反則です。そのほか、続けて二回指す、いったん指した手を取り消す（待った）、動けないマスへ駒を動かす、成れない駒を裏返す、なども反則です。友だち同士の対局では、その手を指し直すだけにする場合も多くあります。",
+            "en": "Playing some other move while your king is in check is the same kind of foul. Also fouls: making two moves in a row, taking back a move you have just played (matta), moving a piece to a square it cannot reach, and turning over a piece that cannot promote. Among friends, the move is often simply replayed."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "連続王手の千日手",
+        "en": "Perpetual check"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "8k/9/9/9/7R1/9/9/9/4K4 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "同じ局面が4回現れると千日手で、ふつうは引き分け（指し直し）です。ただし、その間ずっと王手をかけ続けていた側は、反則負けになります。この場面で確かめましょう。後手の玉は１一です。",
+            "en": "When the same position occurs four times, the game is a sennichite and normally drawn (or replayed). If one side has been giving check the whole time, however, that side loses by foul. Here is an example. White's king is on 1a."
+          }
+        },
+        {
+          "moves": ["2e1e", "1a2a"],
+          "text": {
+            "ja": "飛車が１五に移り、１筋から王手です。玉は２一へ逃げました。この「飛車１五、玉２一」の組を、先に頭に置いておきましょう。",
+            "en": "The rook moves to 1e and checks along the 1-file, and the king slips to 2a. Keep this pair in mind: rook on 1e, king on 2a."
+          },
+          "marks": {
+            "last": "1e"
+          }
+        },
+        {
+          "moves": ["1e2e", "2a1a"],
+          "text": {
+            "ja": "飛車が２五へ戻って今度は２筋から王手、玉は１一へ戻りました。局面は最初と同じ形です。",
+            "en": "The rook returns to 2e, now checking along the 2-file, and the king goes back to 1a. The position matches the one we started from."
+          },
+          "marks": {
+            "last": "2e"
+          }
+        },
+        {
+          "moves": ["2e1e", "1a2a"],
+          "text": {
+            "ja": "二回目の「飛車１五、玉２一」です。このまま同じ局面が四回現れるまで王手を続けると、王手をかけていた先手の反則負けになります。指す側は途中で別の手に変えなければなりません。",
+            "en": "This is the second round of rook to 1e, king to 2a. If the checks continue until the same position has appeared four times, Black, who keeps checking, loses by foul. The checking side must deviate before that."
+          },
+          "marks": {
+            "last": "1e"
+          }
+        }
+      ]
+    }
+  ]
+}

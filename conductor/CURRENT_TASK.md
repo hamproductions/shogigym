@@ -1,100 +1,35 @@
 # Current task
 
 ## Objective
-One unified learning system: every lesson (existing joseki/tesuji/kuzushi courses and the converted shogi-joutatsu lessons) stored in the same course format, listed in one catalog by category, with joseki chosen by strategy. Goal: extraction complete + learning flow intuitive.
+Copyright audit and overhaul of all learning content on branch `audit/lesson-copyright` (created from `main` 4ed7ce0). Non-commercial project, but nothing may rely on that: no copied or closely paraphrased text, no copied creative positions (tsume, constructed teaching diagrams), no reproduced site structure/collections. Content is rewritten from understanding, in original words and original structure; free sources (Wikipedia CC BY-SA, MIT/CC0 data) may be adapted with attribution.
 
-## Request ledger (current session, ordered; latest correction wins)
-1. /goal: read handoff, finish extraction/conversion of lessons, flawless intuitive learning — extraction DONE (2242 figures, 1254 replayable lines, 0 validator errors); UX IN PROGRESS.
-2. Lesson navigation, one-by-one + random quiz — done, browser-verified.
-3. Panel must not block board; quiz prompt clear; no empty block — done, browser-verified.
-4. Lesson must flow like the source lesson (order, text) — done.
-5. Game analysis overview from the other branch, obvious place, full report — done (分析 tab, ⤢ full screen).
-6. Systematic UX improvement as new user; seamless practice loop; real hints; 両取り → fork drills — done, browser-verified.
-7. No jargon (従来の定跡練習) — superseded by 9–12.
-8. No browsers right now; do what the user asks, decide without asking.
-9. One joseki section; organize by category; user selects strategy; never hide the existing 定跡 feature.
-10. Unify properly: no parallel lesson system; lessons saved in the universal course format and embedded in the same catalog/player/progress.
-11. "Article lesson" is not a concept: a lesson is a lesson (no 記事レッスン wording anywhere).
-12. /ask-matt answered; /what-did-i-say, /get-your-shit-together, /unfuck-yourself invoked → ledger + audit + repair (this section), then execute 10–11.
-- Non-actions: no commit/push/PR; no browser unless needed for final verification and user allows; no questions where the user said decide.
+## Requirements (current session)
+1. Work on a separate branch.
+2. All lessons/courses copyright-compliant; where a source cannot be used, find free alternatives (Wikipedia etc.).
+3. Game records are not copyrightable; annotated game records and collections of records can be. Sites with copyright notices are reference-only.
+4. No plagiarism: study each lesson, understand it, write genuinely original explanations (not sentence-by-sentence paraphrase).
+5. Use Sonnet subagents for bulk writing; verify their output myself.
+- Non-actions: no push, merge, PR, history rewrite or deploy without explicit approval in the current turn.
 
-## Audit (2026-10-10)
-- Failure: converted lessons built as a parallel model (diagrams JSON + separate reader, quiz, progress, catalog). Every later request (two joseki sections, conflicting entries, hidden 定跡, "article lesson") was patched in navigation instead of fixing the data model.
-- Stage: planning/architecture at conversion time; repeated at each correction (UI-layer patches).
-- Escape: no check that new content uses existing course format; corrections answered by menu reshuffles; then blocked on A/B question despite the user having said to decide.
-- Repair: AGENTS.md rule (unified lesson format); execute conversion below; no blocking questions.
+## Audit findings (2026-10-10)
+- shogi-joutatsu.com (footer Copyright©): 171 lessons in `data/lessons/` + `src/data/lessons/` hold verbatim captions/headings, near-verbatim "paraphrases" (checked article 1001), English translations, the site's article index as catalog; 1手詰/3手詰/寄せ problem sets are composed tsume (copyrightable works). All public on `main`, in history, deployed on Pages. No raw HTML/images ever committed (`.cache` ignored).
+- shogi-rule.com (利用規約 forbids 転載・複製・翻訳 and imitation of 情報の構造): 30 `shogirule--*` courses = its kif files verbatim; 26 `tesuji--*` courses = its constructed diagrams.
+- hibitonshi (kakukoukan), shogijam (millennium), thirdfilerook (aifuri ×2): comments follow the articles' explanations.
+- Vendored Shiryu181 joseki (GPL, 45 files): lines follow shogilounge/hibitonshi/shogi-joutatsu/ameblo 基本図 move orders; comment originality to be checked by overlap tool.
+- Low risk: Wikipedia kuzushi/fujii/hidarimino courses (CC BY-SA, attributed), YaneuraOu tsume (computer-generated), Peta book (MIT).
 
-## Plan (decided)
-- Lesson = Setup (catalog entry: title, intro, category). Chapter = Course in RawCourse JSON (universal format).
-- Builder emits `src/data/lessons/<topic>.json` = { lesson setup meta, courses: RawCourse[] }: consecutive figures joined by their move lists form one chapter tree; node comments = figure title + explanation; a figure not reachable from the previous one starts a new chapter.
-- Catalog/model load these like every other course; hub lists Setups by category (はじめての将棋 / 上達 / 定跡→strategy). One player, one progress, one quiz/drill. Remove the separate reader/series/random paths after parity.
-- Done 2026-10-10 (typecheck/lint/validator only; no browser — user stopped browser use; disk 808 MiB free blocks vite build):
-  - `scripts/build-lessons.ts` → `src/data/lessons/*.json`: 171 lessons (incl. 15 text-only), 1378 chapters (1273 figure chapters + 105 examples), 5235 legal moves, 2475 figure nodes; validator 0 errors.
-  - Catalog loads lessons as Setups (`path`, `check`); `node.figures` drive marks/illustration in the normal player (`figureMarks.ts`, useLesson effect).
-  - Library = `OpeningPicker.tsx`: home → はじめての将棋 / 上達のためのテクニック / 定跡; lesson page = overview, 最初から学ぶ, ランダム出題, chapter cards, 理解度チェック, source; 定跡 = strategy chooser + that strategy's lessons + matchups + other joseki groups. Technique courses sit under 手筋/囲い崩し.
-  - Chapter bar (prev/next, random tally, back to contents, next lesson) works for every lesson set (LessonPane seriesOf by setup).
-  - Removed: Curriculum.tsx reader, curriculum-index.json, diagrams in src, line-course/series/random-by-article code, openTopic. Report lesson links + welcome rules open lesson setups.
-- Not done: browser verification of the unified library and player; 24 one-sided setup move lists exist only as text in comments; tsume-related practice from old topics not carried over.
-- 2026-10-10 later: committed c8a5d12 + merge 7ede360 (origin report history, -s ours after verifying content present) + 1224289; pushed branch and main (fast-forward). Minor release NOT run: disk ~350 MiB free, release hook runs full build.
-- Guide rework (uncommitted, typechecked, validator 0 errors): figure-to-figure moves worked out by search (`scripts/infer-moves.ts`, prose order preferred, 218 links); lessons open to intro + 始める + collapsed 目次; `LessonGuide.tsx` = figure title/explanation, action (play arrowed move, opponent auto-replies), 次へ at chapter end, review (check question, クイズで確認, 次のレッスン) at lesson end; squares named in the explanation highlighted.
-- Pipeline (2026-10-10, final): source = `data/lessons/figures` + `data/lessons/topics` (committed); converter `scripts/lessons/build.ts` (+ infer-moves) → `src/data/lessons` via `bun run lessons`; never patch output. Result: 171 lessons, 1133 chapters, 2430 figures (0 source figures missing), 5518 legal moves, 87 prose-stated links, 44 variations, 0 errors.
-- Lesson file fixes 2026-10-10: each lesson has one designed side (from its figures' orientation, lesson-wide; gote: ゴキゲン中飛車, 鬼殺し対策, パックマン, 石田流対策 etc.); 159 move links invented by figure-diff search (not stated in source) removed — those figures start their own chapter. 1334 chapters, 5375 legal moves, 0 errors. No side toggle. Guide pauses on every figure (次へ plays the opponent's move).
-- Guide (2026-10-10, latest): move-by-move navigation (→/次の手 plays next move, ←/戻る takes one back by truncating), main line linear; variations optional via 「変化：…」 at branch point (or one move after), 本線に戻る returns to where the learner left; chapter end → next chapter; lesson end → review. No auto-replies.
-- Next action: user-approved browser check (library → lesson → chapter study/quiz → random → back; report link; crop illustration lesson 1629).
+## Plan
+1. Overlap checker: fetch source article text into `.cache/sources/` (ignored); flag shared substrings / n-gram containment and copied positions.
+2. New authored lesson format `data/lessons/units/<id>.json` (own curriculum/taxonomy) + rewritten builder/validator; drop extraction scripts and source-figure data.
+3. Rewrite lessons in batches (Sonnet writers; original positions for tesuji/tsume/崩し; joseki lines verified legal + engine/book), checker must pass.
+4. Replace `tesuji--*`, `shogirule--*`; rewrite comments of medium-risk courses; check vendored comments.
+5. Update AGENTS.md lesson rule, docs/lessons.md, README sources table; rebuild tesuji drills; typecheck/validate.
+6. Report: history rewrite + Pages redeploy needed to remove old content from public — user decision.
 
-## Extraction pipeline (replaces per-image hand transcription)
-
-- Work dir `.cache/extract/` (ignored). Scripts: grid.py (line detection), cells.py/run_cells.py (cell glyphs), cluster.py (leader clustering), margins.py (hand/coordinate glyphs), recognize.py (board+hands+orientation+flags), render.py (source-vs-recognized sheets).
-- Labels: `cluster_labels.json` (248 board-glyph clusters), `hand_labels.json` (hand-text clusters), `top_labels.json` (file digits → flipped-board detection). Every cluster verified visually with 5 members incl. farthest-from-mean (vlab_*/vhand_*). Fixed: 207=inverted 金, 83=gote と, 130=+S, 146=+N, 200=+P; hand 243=五, 285=三, 300=arabic 2, 189=桂香 composite.
-- Overrides `overrides.json`: arrow-obscured castle-building cells, komadai-style superscript hands, 8 wood-piece boards transcribed manually (932 boards cross-checked against prose point totals 28/26 and 10-piece declaration example).
-- Result `recognized.json`: 2023 standard 9×9 boards, 0 unresolved cells. Seeds 39/39 exact; all 175 flagged boards reviewed side by side; random audit 36/36 correct. Three boards faithfully show impossible piece counts (source illustrations) → display only.
-- Not yet handled: 372 non-standard images (crops, multi-board, rule illustrations, photos/covers). Next: classify and represent (crop-relative format; non-boards excluded with reason).
-
-## Export (done)
-
-- `.cache/extract/sequences.py` → ordered per-article occurrences (boards + crops.json crops/pieces/manual boards). `crops.json` = hand transcription of 85 non-standard rule illustrations (crop-relative panels), verified side-by-side (review/crops_*.png); non-boards excluded with reason.
-- `scripts/build-source-lessons.ts` (bun) → `src/data/curriculum/diagrams/<article>.json` (156 files, 2242 diagrams). Lines = prose move lists (図X からの指し手 … （図Y）) parsed with tsshogi parseMoves, replayed from source figure, accepted only when result placement == target figure (1101 lines; 156 rejected, logged .cache/extract/line-failures.json). Hidden hands: only drop-required pieces added for practice.
-- Captions en via 2 sonnet agents (.cache/extract/i18n/en_*.json, 2169 keys, spot-checked 25).
-- Old seed rule17 was wrong (rook 6八 not 5八); old curriculum-diagrams.json superseded.
-
-## App (done, verified in headed browser)
-
-- `src/utils/curriculum.ts`: lazy per-article diagrams (import.meta.glob), `lineCourse`/`curriculumLineCourse` (learner = side making the final move), `series` (all playable sequences in article). `src/data/curriculum-index.json` counts for list subtitles.
-- Reader (`Curriculum.tsx`): position stepper (‹ select ›, `[`/`]`), board loads `{start, verified moves}` so ← → / move chips replay source moves; source marks (last-move highlight, arrows, boxes) via `session.sourceMarks`; crop/piece illustrations overlay the board (`SourceIllustration.tsx`, `source-reader.css`); honest notes (partial, hidden hands, gote view).
-- Practice: "Study them in order" (series), "Random quiz"; LessonPane series bar (back to article, ‹ n/m ›, random), done-card next sequence/next question. Study-mode forward/last step through the line (NavFooter).
-- Welcome: "Learn the rules first" opens article 656.
-- Validator re-replays all 1101 lines: 0 errors. tsc/oxlint clean. Old seed file deleted (rule17 seed was wrong).
-- User feedback (this session): lesson navigation weak when moving forward; wants one-by-one progression and random quizzes → addressed above.
-
-## Critic pass (done)
-
-- 12 findings from independent critic; fixed: arrow keys after button clicks (useShortcuts guard), stale illustration/marks after leaving, `[`/`]` only (no PageUp/Down, modifier/dialog guard), random-mode ‹ disabled, running random tally (sessionStorage), load error + retry, back-to-article restores topic+figure (also after reload), next-article at series end, quiz prompt wording, a11y labels/aria-live/aria-current, storage message misuse. Shared `useLineAhead` for footer and keys. Not done: random flag not persisted across full reload (resumes as ordered sequence).
-
-## Article flow + fixes (2026-10-10)
-
-- Per-figure article explanation: `.cache/extract/segments.py` extracts the text after each caption (+ TOC section heading); paraphrased ja/en by subagents (`i18n/step_*.json`, 2182 keys; spot-checked), headings `headings_en.json`. Export adds `explain`/`section`; 2168/2242 figures have explanations.
-- Reader = article order: section → moves into figure → figure title → explanation → Back/Next; summary collapsed. Line lessons show from-figure explanation at start, target explanation on completion.
-- Quiz: prompt "記事の手順を再現します。ねらい：…。次の手を指してください。"; reserved feedback space moved below prompt.
-- Panel: reader panel no longer stretches past its free zone over komadai/board; docks when free zone < 320×520.
-- Engine: `engineReady` (both kings, full 40-piece set) gates analysis/review/rating; fixes WASM crashes on partial source figures.
-- Rejected lines (146) checked: suspicious targets match sources; rejections are article text/figure discrepancies, left unreplayable rather than invented.
-- Full-app sweep: 156 articles / 2242 figures render correctly, 0 mismatches.
-
-## Completion pass (2026-10-10)
-
-- Explanations: 2242/2242 figures (after-text paraphrase 2168; before-text paraphrase `step_before.json`; worksheet hints and 30 hand-written from source sentences/captions in `step_manual.json`). Validator now requires an explanation per figure.
-- Move lists: 1111 replayable + 141 figures carrying the article's stated moves (`statedMoves`) marked as not replayable because they don't reach the drawn figure — every article move list reaches the learner.
-- Random quiz verified with real moves on the 2D board: wrong move ✗1, correct drop ✓1, tally carried across questions (3問目 ✓1 ✗1), random mode survives reload, back-to-article lands on current figure.
-- Full sweep: 156 articles / 2242 figures, 0 title mismatches, 0 missing explanations, 141 stated-move notes. Engine warnings only under <200ms burst switching (worker termination); 0 at human pace and 0 per figure in isolation.
-
-## Move-list reconciliation + crash fixes (2026-10-10)
-
-- Builder reconciles article move lists that don't replay: stage 1 substitutions (≤2), stage 2 insert/skip (≤2), stage 3 near substitutions (≤4, same square/piece), plus untouched-square figure adjustment; accepted only when the result is unique and reaches the drawn figure. Every change is disclosed per move (reader list + lesson notes; `correctionText`). Degenerate repairs (empty / self-referencing) rejected.
-- Result: 1212 replayable lines; one-sided setup lines (article omits replies) replay move by move in the reader; 40 figures still stated-only (article text genuinely ambiguous or contradictory).
-- Engine crash root cause: positions where the side not to move is in check (illegal) fed to YaneuraOu. `engineReady` rejects them; builder flips turn on such figures; validator rejects them.
-- Validator: explanation per figure, legal turn, strict study-course replay, degenerate lines.
-- Verified: full engine-active sweep 156 articles / 2242 figures, 0 mismatches, 0 missing explanations, 0 console errors; all 1212 lines replay via app semantics.
-
-## State
-
-- Dev server (bun) on 5173 started this session; nothing committed/pushed (no authorization).
+## State (2026-10-10, after correction)
+- Correction: usage burned by 11 parallel Sonnet writers + Opus orchestration on a 146-unit plan; user ordered no subagent spam, work smart.
+- Mistake: oversized scope (90 opening lessons duplicating joseki courses) and fan-out, against the cheap-single-worker rule. Rule added to AGENTS.md.
+- Compliance done: copied lessons, tesuji--* and shogirule--* courses removed; strategies.ts remapped (empty matchups say 「収録している手順はまだない」); vendored + 4 course notes rewritten; README/docs/AGENTS updated; app shows lesson references.
+- Content: 9 units (rules ×8 + basics-mate-words) pass check-unit; 1 salvaged course gokigen-vs-chousoku--56fu passes check-course and is wired.
+- Verification: `bun run lessons` 0 errors, check-originality 0/8399 flagged, validate.mjs 0 errors, strategy-check 0 errors, `bun run check` exit 0. Uncommitted (no commit authorization).
+- Next: reduced curriculum ~25 units (remaining basics ×8, tesuji ×9, castles/attacks/endgame few), written sequentially; user decides commit/merge/history rewrite.

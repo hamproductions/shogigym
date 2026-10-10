@@ -577,7 +577,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
               onPreviewLevel={levels.previewLevel}
               onLearnRules={welcomeDone(() => {
                 load(InitialPositionSFEN.STANDARD, 'sente', 'lesson', null)
-                lesson.setPickerSetup('lesson-656')
+                lesson.setPickerSetup('lesson-rules-game')
               })}
               onLearnBasics={welcomeDone(() => firstLesson && lesson.open(firstLesson, 'study'))}
               onPlayAi={welcomeDone(() => load(InitialPositionSFEN.STANDARD, 'sente', 'spar', null))}

@@ -1,0 +1,260 @@
+{
+  "id": "rules-promotion",
+  "order": 30,
+  "path": [
+    "はじめての将棋",
+    "ルール"
+  ],
+  "title": {
+    "ja": "成り：駒が強くなるしくみ",
+    "en": "Promotion: how pieces get stronger"
+  },
+  "intro": {
+    "ja": "相手側の三段（敵陣）に駒が関わる一手を指すと、その駒を裏返して強い駒に変えられます。ここでは、どの手で成れるのか、成らない選択がどんなときに役立つのか、そして必ず成らなければならない場面を、実際に盤の上で動かして確かめます。",
+    "en": "When a move involves the three ranks on your opponent's side (the promotion zone), you may turn the moved piece over and make it stronger. Here you play out on the board which moves allow promotion, when declining is useful, and when promotion is compulsory."
+  },
+  "check": {
+    "question": {
+      "ja": "持ち駒の銀を敵陣のマスに打ちました。打ったその手で成銀にできますか？",
+      "en": "You drop a silver from your hand onto a square in the promotion zone. Can it become a promoted silver on that same move?"
+    },
+    "answer": {
+      "ja": "できません。打った駒は必ず表のまま置きます。次にその銀を敵陣の中で動かせば、そのときに成るかどうか選べます。",
+      "en": "No. A dropped piece always goes down unpromoted. When that silver next moves within the zone, you may choose to promote it then."
+    }
+  },
+  "references": [
+    {
+      "title": "将棋のルール (Wikipedia日本語版)",
+      "url": "https://ja.wikipedia.org/wiki/将棋のルール",
+      "license": "CC BY-SA 4.0"
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "敵陣に入る手で成る",
+        "en": "Promoting as a piece enters the zone"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/9/7P1/9/9/9/9/4K4 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "盤の奥の三段、一段目から三段目までが先手にとっての敵陣です。２四の歩はまだその手前にいます。",
+            "en": "For Black, the far three ranks (ranks 1 to 3) are the promotion zone. The pawn on 2d is still one step short of it."
+          },
+          "marks": {
+            "dashed": [
+              "9a",
+              "8a",
+              "7a",
+              "6a",
+              "5a",
+              "4a",
+              "3a",
+              "2a",
+              "1a",
+              "9b",
+              "8b",
+              "7b",
+              "6b",
+              "5b",
+              "4b",
+              "3b",
+              "2b",
+              "1b",
+              "9c",
+              "8c",
+              "7c",
+              "6c",
+              "5c",
+              "4c",
+              "3c",
+              "2c",
+              "1c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2d2c+"
+          ],
+          "text": {
+            "ja": "２三は敵陣の一マス目です。歩をそこへ進めたこの一手で、裏返すかどうかを決められます。裏返した歩は「と金」と呼び、金と同じく前・斜め前・横・真後ろの六方向へ動けます。",
+            "en": "Pushing the pawn to 2c gives you the choice to promote on that move. Promoted, it turns over into a tokin, which moves like a gold in six directions."
+          }
+        },
+        {
+          "moves": [
+            "5a4a",
+            "2c3b"
+          ],
+          "text": {
+            "ja": "と金は横にも斜め前にも動けます。歩のままでは真っすぐ前にしか進めなかったので、働きが大きく変わりました。",
+            "en": "The tokin can step sideways and diagonally forward. As a pawn it could only go straight ahead, so its usefulness has changed a lot."
+          },
+          "marks": {
+            "last": "3b"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "敵陣の中で動く手、敵陣から出る手でも成れる",
+        "en": "Moves inside the zone and moves leaving it"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "8k/9/2R6/9/9/9/9/9/K8 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手の飛車はすでに敵陣の７三にいます。敵陣に入った手で成らなかった駒でも、次の機会はまだあります。",
+            "en": "Black's rook already stands inside the zone on 7c. Even if a piece did not promote when it entered, there are later chances."
+          }
+        },
+        {
+          "moves": [
+            "7c7b+"
+          ],
+          "text": {
+            "ja": "７三から７二へ。出発点も到着点も敵陣ですが、これでも裏返せます。飛車の裏は「龍」で、まっすぐ何マスでも進める力はそのまま、斜めにも一マスずつ動けるようになります。",
+            "en": "A move from one zone square to another also allows promotion. The rook becomes a dragon, adding a one-square diagonal step to its straight lines."
+          }
+        },
+        {
+          "moves": [
+            "1a2a"
+          ],
+          "text": {
+            "ja": "成れる手はもう一種類あります。敵陣にいた駒が外へ出ていく手です。この章の最初の局面に戻ると、その例を「変化」として見られます。",
+            "en": "There is one more kind of move that allows promotion: a piece leaving the zone. Go back to the first position of this chapter to see it as a variation."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": [
+            "7c7f+"
+          ],
+          "text": {
+            "ja": "７三から７六へ、敵陣の外に出る手です。出発点が敵陣の中なので、この手でも龍に成れます。",
+            "en": "Here the rook goes from 7c down to 7f, outside the zone. Because it started inside the zone, this move may promote too."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "あえて成らない",
+        "en": "Choosing not to promote"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/9/3S5/9/9/9/9/4K4 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "裏返すかどうかは、ほとんどの場合あなたが決めます。銀の場合、裏にすると金と同じ動きに変わる代わりに、斜め後ろの二マスへは戻れなくなります。",
+            "en": "Promotion is usually optional. A promoted silver moves like a gold, but in exchange it loses its diagonal backward steps."
+          }
+        },
+        {
+          "moves": [
+            "6d6c"
+          ],
+          "text": {
+            "ja": "６三へ入っても、成らずに銀のまま置くことができます（不成）。斜め後ろへ戻る道を残したいときの選び方です。",
+            "en": "The silver can enter 6c and stay a silver (declining promotion). That keeps its diagonal retreat available."
+          }
+        },
+        {
+          "moves": [
+            "5a4b",
+            "6c5b+"
+          ],
+          "text": {
+            "ja": "一度成らなかった駒も、次に敵陣の中で動いたときに改めて成るかどうかを選べます。ここでは５二へ動いて成銀にしました。",
+            "en": "A piece that declined once can choose again the next time it moves within the zone. Here it moves to 5b and becomes a promoted silver."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "成らないと動けなくなる駒",
+        "en": "Pieces that must promote"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k8/9/9/2N5P/9/9/9/9/8K b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "歩・香は一段目に、桂は一段目と二段目に表のまま置くと、その先どこにも動けません。そうなる手を指すときは、必ず成ります。",
+            "en": "A pawn or lance on the last rank, or a knight on the last two ranks, would have no move left. When a move puts them there, promotion is compulsory."
+          }
+        },
+        {
+          "moves": [
+            "7d6b+"
+          ],
+          "text": {
+            "ja": "桂が二段目の６二へ跳ねる手です。桂のままでは次に跳べるマスが盤の外になるので、成桂にするしかありません。",
+            "en": "The knight jumps to 6b on the second rank. As a knight it would have nowhere to jump next, so it has to become a promoted knight."
+          }
+        },
+        {
+          "moves": [
+            "9a9b",
+            "1d1c"
+          ],
+          "text": {
+            "ja": "一方、歩が三段目の１三に進む手は成らなくても構いません。三段目なら、歩のままでもまだ前に進めるからです。",
+            "en": "On the other hand, the pawn advancing to 1c on the third rank need not promote: from there it can still move forward."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "打った駒はそのままでは成れない",
+        "en": "Dropped pieces arrive unpromoted"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/9/9/9/9/9/9/4K4 b S 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手は銀を一枚持っています。持ち駒を盤に打つときは、敵陣のマスであっても表のまま打ちます。",
+            "en": "Black has a silver in hand. A piece dropped from the hand is always placed unpromoted, even on a square inside the zone."
+          }
+        },
+        {
+          "moves": [
+            "S*3b"
+          ],
+          "text": {
+            "ja": "３二に銀を打ちました。打ったこの手では成れません。",
+            "en": "The silver is dropped on 3b. It cannot promote on the move it is dropped."
+          }
+        },
+        {
+          "moves": [
+            "5a6a",
+            "3b4a+"
+          ],
+          "text": {
+            "ja": "次に敵陣の中で銀を動かすと、そこで初めて成るかどうかを選べます。４一へ動いて成銀にしました。",
+            "en": "Once the silver moves within the zone, the choice appears. It moves to 4a and promotes."
+          }
+        }
+      ]
+    }
+  ]
+}

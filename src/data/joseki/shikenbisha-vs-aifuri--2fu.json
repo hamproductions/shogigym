@@ -5,17 +5,17 @@
  "myStrategy": "shikenbisha",
  "opponentStrategy": "sankenbisha",
  "mySide": "sente",
- "source": "開始局面と手順は三間飛車のひとくちメモ「相振り飛車の基礎知識 三間飛車VS四間飛車とは」(https://thirdfilerook.jp/about-third-file-rook-vs-fourth-file-rook/)の第4図(18手目△4三銀まで)〜第5図(25手目▲8四飛まで)に準拠。開始局面は第4図をSFENに変換し、第5図と一致することを確認、全手を合法手検証済み。",
- "goalFormation": "6筋と8筋の歩を交換して2歩を手持ちにし、飛車を戦いやすい8筋へ転換した形(第5図)。",
+ "source": "手順は三間飛車のひとくちメモの相振り飛車の解説を参考(https://thirdfilerook.jp/about-third-file-rook-vs-fourth-file-rook/)。開始局面をSFENに起こし、全手を合法手検証済み。解説はこのアプリのために書き下ろし。",
+ "goalFormation": "8筋と6筋の歩を捨てて取り返し、歩を二枚手持ちにしながら飛車を8筋へ回す。相手の玉に近い筋で飛車が働く。",
  "root": {
   "id": "n0",
   "sfen": "lnsg3nl/2k1g1rb1/ppppps1pp/5p3/1P1P2p2/2P6/P1B1PPPPP/2SR1K3/LN1G1GSNL b - 1",
-  "comment": "第4図。相振り飛車の四間飛車は、玉を深く囲う相手に対して争点がずれがちで損な戦法と言われますが、6七の地点が守られていて▲6五角を打たれる隙がない安定感があります。ここから四間飛車で有名な、6筋と8筋の歩をまとめて交換する手筋を指します。",
+  "comment": "先手が四間飛車、後手が三間飛車の相振り飛車。双方が飛車を振るので、飛車先の歩を使った小さな交換が戦いの出だしになります。ここでは8筋と6筋の歩を連続して突き捨て、飛車を6筋から8筋へ移す流れを覚えます。",
   "branches": [
    {
     "usi": "8e8d",
     "kind": "main",
-    "note": "まず8筋の歩を突き捨てます。局面によって歩を突く順番で微妙な紛れが生じます。",
+    "note": "8五の歩を8四に突き出す。取られても構わない捨て歩で、後手の8筋の歩を一つ前に引き出す狙い。",
     "child": {
      "id": "n_0",
      "sfen": "lnsg3nl/2k1g1rb1/ppppps1pp/1P3p3/3P2p2/2P6/P1B1PPPPP/2SR1K3/LN1G1GSNL w - 1",
@@ -30,7 +30,7 @@
          {
           "usi": "6e6d",
           "kind": "main",
-          "note": "続けて6筋の歩も突き捨てます。",
+          "note": "同じ要領で6筋の歩を突き出す。後手の歩が6四に上がると、飛車で取れる形になる。",
           "child": {
            "id": "n_2",
            "sfen": "lnsg3nl/2k1g1rb1/p1ppps1pp/1p1P1p3/6p2/2P6/P1B1PPPPP/2SR1K3/LN1G1GSNL w p 1",
@@ -45,7 +45,7 @@
                {
                 "usi": "6h6d",
                 "kind": "main",
-                "note": "飛車で6筋の歩を取ります。",
+                "note": "6八の飛車で6四の歩を取る。歩を一枚得た代わりに、飛車が敵陣近くに出ていく。",
                 "child": {
                  "id": "n_4",
                  "sfen": "lnsg3nl/2k1g1rb1/p1p1ps1pp/1p1R1p3/6p2/2P6/P1B1PPPPP/2S2K3/LN1G1GSNL w P2p 1",
@@ -53,6 +53,7 @@
                   {
                    "usi": "P*6c",
                    "kind": "main",
+                   "note": "後手は歩を打って飛車を追い、6筋にとどまれなくする。",
                    "child": {
                     "id": "n_5",
                     "sfen": "lnsg3nl/2k1g1rb1/p1ppps1pp/1p1R1p3/6p2/2P6/P1B1PPPPP/2S2K3/LN1G1GSNL b Pp 1",
@@ -60,12 +61,12 @@
                      {
                       "usi": "6d8d",
                       "kind": "main",
-                      "note": "飛車を8筋に転換。2歩を手持ちにしつつ、戦いやすい8筋に飛車が回れて一石二鳥です。",
+                      "note": "飛車を8四へ滑らせ、取れる歩をもう一枚拾う。8筋は後手玉に近く、飛車の働きが大きい。これで歩の持ち駒が二枚になった。",
                       "child": {
                        "id": "n_6",
                        "sfen": "lnsg3nl/2k1g1rb1/p1ppps1pp/1R3p3/6p2/2P6/P1B1PPPPP/2S2K3/LN1G1GSNL w 2Pp 1",
                        "branches": [],
-                       "comment": "第5図。2歩を手持ちにし、飛車は8筋に転換しました。"
+                       "comment": "歩を二枚手持ちにし、飛車は8筋に回った局面。以後は持ち歩を使って、8筋から後手陣に圧力をかける。"
                       }
                      }
                     ]

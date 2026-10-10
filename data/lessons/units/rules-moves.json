@@ -1,0 +1,320 @@
+{
+  "id": "rules-moves",
+  "order": 20,
+  "path": ["はじめての将棋", "ルール"],
+  "title": {
+    "ja": "駒の動き",
+    "en": "How the pieces move"
+  },
+  "intro": {
+    "ja": "将棋の駒は種類ごとに動ける方向と距離が決まっています。王・金・銀、飛車・角、桂・香・歩、そして成った駒の順に、盤上のどのマスへ行けるかを色枠で示しながら確かめます。最後に指す手を見て、動き方を体で覚えましょう。",
+    "en": "Every kind of shogi piece has its own directions and range. In this lesson you go through the king, gold and silver, rook and bishop, knight, lance and pawn, and then the promoted pieces, with boxes showing exactly which squares each can reach. Seeing a move played at the end helps it stick."
+  },
+  "check": {
+    "question": {
+      "ja": "銀を、真横のとなりのマスに動かせますか？ 金ならどうでしょう？",
+      "en": "Can a silver step to the square directly beside it? What about a gold?"
+    },
+    "answer": {
+      "ja": "銀は真横にも真後ろにも動けません。動けるのは前、斜め前の二方向、斜め後ろの二方向です。金は真横にも真後ろにも動けますが、斜め後ろには動けません。",
+      "en": "A silver cannot move sideways or straight back; it goes forward, diagonally forward and diagonally backward. A gold can move sideways and straight back, but not diagonally backward."
+    }
+  },
+  "references": [
+    {
+      "title": "将棋の駒 (Wikipedia日本語版)",
+      "url": "https://ja.wikipedia.org/wiki/将棋の駒",
+      "license": "CC BY-SA 4.0",
+      "adapted": false
+    },
+    {
+      "title": "駒の動き",
+      "url": "https://shogi-joutatsu.com/archives/615",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "王・金・銀：一マスずつ歩く駒",
+        "en": "King, gold and silver: the one-step pieces"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/9/9/2G3S2/9/9/4K4/9 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "盤上に先手の王・金・銀があります。この三つはどれも一度に一マスしか進めません。違うのは進める方向だけです。王から順に、動けるマスを枠で見ていきましょう。上が敵陣の側です。",
+            "en": "Black's king, gold and silver stand on the board. All three advance only one square per move; they differ in which directions are open. The boxes show the reachable squares, starting with the king. The top of the board is the enemy side."
+          }
+        },
+        {
+          "text": {
+            "ja": "王は、縦・横・斜めの八方向すべてに一マスずつ動けます。ただし相手の駒が次に取れるマスには入れません。王は取られたら負けなので、いちばん大切な駒です。",
+            "en": "The king moves one square in any of the eight directions. It may not step onto a square the enemy could capture next turn. Losing the king loses the game, so it is the most important piece."
+          },
+          "marks": {
+            "boxes": ["5g", "4g", "6g", "4h", "6h", "4i", "5i", "6i"]
+          }
+        },
+        {
+          "text": {
+            "ja": "金は、前・斜め前の三方向に加えて、真横と真後ろにも動けます。計六方向です。斜め後ろだけが欠けている、と覚えると間違えにくくなります。金は成れません。",
+            "en": "The gold moves forward, diagonally forward, sideways and straight back: six directions in all. Remember it as the piece that lacks only the two diagonal backward steps. A gold cannot promote."
+          },
+          "marks": {
+            "boxes": ["7d", "8d", "6d", "8e", "6e", "7f"]
+          }
+        },
+        {
+          "text": {
+            "ja": "銀は、前・斜め前の三方向と、斜め後ろの二方向、計五方向です。金と違って真横と真後ろには動けませんが、斜め後ろへ引くことはできます。",
+            "en": "The silver moves forward, diagonally forward and diagonally backward: five directions. Unlike the gold it cannot go sideways or straight back, but it can retreat diagonally."
+          },
+          "marks": {
+            "boxes": ["3d", "4d", "2d", "4f", "2f"]
+          }
+        },
+        {
+          "moves": ["7e8e", "5a4a", "3e4f"],
+          "text": {
+            "ja": "金が７五から真横の８五へ、銀が３五から斜め後ろの４六へ動きました。どちらも、もう一方の駒にはできない動きです。横に動きたいなら金、斜めに引きたいなら銀、と使い分けます。",
+            "en": "The gold slid sideways from 7e to 8e, and the silver stepped diagonally back from 3e to 4f. Each is a move the other piece cannot make. Sideways is the gold's job; the diagonal retreat is the silver's."
+          },
+          "marks": {
+            "last": "4f"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "飛車と角：遠くまで走る駒",
+        "en": "Rook and bishop: the long-range pieces"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "8k/9/2p6/4p4/2R6/9/7B1/9/4K4 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手の飛車は７五、角は２七にいます。この二つは、駒にぶつかるまで何マスでも一直線に進めます。ただし他の駒を飛び越えることはできません。",
+            "en": "Black's rook is on 7e and the bishop on 2g. Both slide any number of squares in a straight line until they meet another piece. They can never jump over a piece."
+          }
+        },
+        {
+          "text": {
+            "ja": "飛車は縦と横、四方向に走ります。７三には後手の歩がいるので、７四までは進めて、７三なら歩を取って止まります。７二より先へは行けません。",
+            "en": "The rook runs along files and ranks, four directions in all. A White pawn stands on 7c, so the rook can go as far as 7d, or take the pawn on 7c and stop there. 7b and beyond are out of reach."
+          },
+          "marks": {
+            "boxes": ["7d", "7c", "7f", "7g", "7h", "7i", "8e", "9e", "6e", "5e", "4e", "3e", "2e", "1e"]
+          }
+        },
+        {
+          "moves": ["7e7c", "1a1b"],
+          "text": {
+            "ja": "飛車が７三の歩を取りました。取る駒は、その駒のいるマスに入って止まります。取った先からさらに進むことはできません。",
+            "en": "The rook captures the pawn on 7c. A capturing piece lands on the enemy's square and stops there; it cannot continue past it."
+          },
+          "marks": {
+            "last": "7c"
+          }
+        },
+        {
+          "text": {
+            "ja": "角は斜め四方向に走ります。５四には後手の歩がいるので、手前の４五までは進め、５四なら取れます。マスの色が変わらないので、角は同じ色のマスの上しか動けません。",
+            "en": "The bishop runs along the four diagonals. A White pawn stands on 5d, so the bishop can reach 4e, or capture on 5d. It never changes square color, so it stays on squares of the color it started on."
+          },
+          "marks": {
+            "boxes": ["3f", "4e", "5d", "1f", "3h", "4i", "1h"]
+          }
+        },
+        {
+          "moves": ["2g5d"],
+          "text": {
+            "ja": "角が５四の歩を取りました。この先の６三・７二・８一は空いていますが、取った手はそこで止まります。",
+            "en": "The bishop takes the pawn on 5d. The squares beyond (6c, 7b, 8a) are empty, but a capture ends the move on the captured piece's square."
+          },
+          "marks": {
+            "last": "5d"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "龍と馬：飛車・角が成った駒",
+        "en": "Dragon and horse: the promoted rook and bishop"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "8k/9/9/9/2+R6/9/6+B2/9/K8 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "７五に龍（成った飛車）、３七に馬（成った角）がいます。どちらも元の駒の力はそのまま持ち、さらに王のように一マス動く力が加わっています。将棋でも最強クラスの二枚です。",
+            "en": "A dragon (promoted rook) stands on 7e and a horse (promoted bishop) on 3g. Each keeps all the power of the original piece and adds the king's one-step move. They are the two strongest pieces in the game."
+          }
+        },
+        {
+          "text": {
+            "ja": "龍は、飛車の縦横の走りに、斜め四方向へ一マスずつの動きが加わります。盤の中央に置くと、広い範囲に睨みが利きます。",
+            "en": "The dragon keeps the rook's long lines and adds one-square steps in the four diagonal directions. Placed centrally it controls a huge area."
+          },
+          "marks": {
+            "boxes": ["7a", "7b", "7c", "7d", "7f", "7g", "7h", "7i", "9e", "8e", "6e", "5e", "4e", "3e", "2e", "1e", "8d", "6d", "8f", "6f"]
+          }
+        },
+        {
+          "text": {
+            "ja": "馬は、角の斜めの走りに、縦横四方向へ一マスずつの動きが加わります。角が苦手な隣のマスにも手が届くようになるのが強みです。",
+            "en": "The horse keeps the bishop's diagonal runs and adds one-square steps up, down, left and right. It now reaches the adjacent squares a bishop could not."
+          },
+          "marks": {
+            "boxes": ["2f", "1e", "4f", "5e", "6d", "7c", "8b", "9a", "2h", "1i", "4h", "5i", "3f", "3h", "2g", "4g"]
+          }
+        },
+        {
+          "moves": ["7e6d", "1a2a", "3g4g"],
+          "text": {
+            "ja": "龍が斜めに一歩の６四へ、馬が真横に一歩の４七へ動きました。飛車や角のままではできなかった動きで、どちらも王のように一マス動いています。",
+            "en": "The dragon stepped one square diagonally to 6d and the horse stepped one square sideways to 4g. These are moves a plain rook or bishop could not make."
+          },
+          "marks": {
+            "last": "4g"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "桂・香・歩：前にしか進めない駒",
+        "en": "Knight, lance and pawn: pieces that only go forward"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/8p/5p3/4P4/4N4/P7L/9/4K4 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "桂・香・歩には共通点があります。どれも後ろや横へは戻れません。そのぶん、前へ進む力に個性があります。５六の桂、１七の香、９七の歩を順に見ましょう。",
+            "en": "The knight, lance and pawn share one trait: none of them can retreat or move sideways. Each has its own way of advancing. Look at the knight on 5f, the lance on 1g and the pawn on 9g in turn."
+          }
+        },
+        {
+          "text": {
+            "ja": "桂は、前に二マス進んでから左右どちらかへ一マスずれた、二か所にだけ跳べます。間に駒があっても飛び越えられるのが特徴で、すぐ前の５五に自分の歩がいても関係ありません。",
+            "en": "The knight jumps to one of two squares: two ahead and one to either side. It is the only piece that can leap over others, so the pawn on 5e right in front does not matter."
+          },
+          "marks": {
+            "boxes": ["4d", "6d"]
+          }
+        },
+        {
+          "moves": ["5f4d", "5a6a"],
+          "text": {
+            "ja": "桂が４四へ跳んで後手の歩を取りました。桂は跳び先がいつも前方にあり、跳んだら戻れません。",
+            "en": "The knight jumps to 4d and captures the White pawn. A knight's landing squares are always ahead of it, and it can never jump back."
+          },
+          "marks": {
+            "last": "4d"
+          }
+        },
+        {
+          "text": {
+            "ja": "香は、前にだけ何マスでも進めます。１三に後手の歩がいるので、１六から１四までの空きマスと、歩を取る１三までが行き先です。飛車の前半分だけを持った駒、と覚えられます。",
+            "en": "The lance runs straight ahead any number of squares. A White pawn stands on 1c, so its options are the empty squares 1f to 1d, or the capture on 1c. Think of it as half a rook, forward only."
+          },
+          "marks": {
+            "boxes": ["1f", "1e", "1d", "1c"]
+          }
+        },
+        {
+          "moves": ["1g1c", "6a5a"],
+          "text": {
+            "ja": "香が１三の歩を取って止まりました。香が走れるのは前方だけなので、敵陣に深く入ると身動きが取りづらくなります。",
+            "en": "The lance captures the pawn on 1c and stops. Since it only runs forward, a lance deep in enemy territory has little room left."
+          },
+          "marks": {
+            "last": "1c"
+          }
+        },
+        {
+          "text": {
+            "ja": "歩は、前へ一マスだけ進みます。最も弱い駒ですが、数が多く、持ち駒にするとたいへん役に立ちます。",
+            "en": "The pawn steps one square forward. It is the weakest piece, but there are many of them, and as a piece in hand it is very useful."
+          },
+          "marks": {
+            "boxes": ["9f"]
+          }
+        },
+        {
+          "moves": ["9g9f"],
+          "text": {
+            "ja": "歩が９六へ進みました。歩は動くのと同じ、すぐ前の一マスで相手の駒を取ります。斜め前の駒は取れません。",
+            "en": "The pawn advances to 9f. It captures on the same square it moves to, the one directly ahead; a piece diagonally in front is out of its reach."
+          },
+          "marks": {
+            "last": "9f"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "成銀・成桂・成香・と金は金と同じ",
+        "en": "Promoted silver, knight, lance and pawn move like a gold"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/9/9/1+P2+L2+N1/9/9/4+S4/8K b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "銀・桂・香・歩が成ると、四つとも金と同じ動きになります。盤上にはと金、成香、成桂、成銀が一枚ずつ。裏返した駒は、成る前の力を忘れて金の動きをします。",
+            "en": "When a silver, knight, lance or pawn promotes, it takes on the gold's move in every case. On the board are a tokin, a promoted lance, a promoted knight and a promoted silver. A promoted piece forgets its old movement and moves like a gold."
+          }
+        },
+        {
+          "text": {
+            "ja": "と金（成った歩）は、前・斜め前・横・真後ろの六方向へ一マス動きます。歩のときは前にしか進めなかったのが大きな違いです。",
+            "en": "The tokin (promoted pawn) steps one square forward, diagonally forward, sideways or straight back. As a pawn it could only go forward, which is a big change."
+          },
+          "marks": {
+            "boxes": ["8d", "9d", "7d", "9e", "7e", "8f"]
+          }
+        },
+        {
+          "text": {
+            "ja": "成香も同じ六方向です。香車は走る力がありましたが、成るとその力を手放し、一マスずつ動くようになります。",
+            "en": "The promoted lance has the same six directions. The lance could run far, but promoting trades that range for the flexibility of a gold."
+          },
+          "marks": {
+            "boxes": ["5d", "4d", "6d", "4e", "6e", "5f"]
+          }
+        },
+        {
+          "text": {
+            "ja": "成桂も同様です。桂馬の跳ぶ力はなくなりますが、横や後ろへ動けるようになり、動けなくなる心配もなくなります。",
+            "en": "The promoted knight is the same. It loses its jump but gains sideways and backward steps, and it can no longer be stranded."
+          },
+          "marks": {
+            "boxes": ["2d", "1d", "3d", "1e", "3e", "2f"]
+          }
+        },
+        {
+          "text": {
+            "ja": "成銀は、斜め後ろには引けなくなる代わりに、真横と真後ろに動けるようになります。金と同じ動きなので、玉のそばで守りにも使えます。",
+            "en": "The promoted silver loses its diagonal retreats and gains sideways and straight-back steps. Since it moves exactly like a gold, it can also guard the king."
+          },
+          "marks": {
+            "boxes": ["5g", "4g", "6g", "4h", "6h", "5i"]
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,388 @@
+{
+ "id": "gokigen-vs-chousoku--56fu",
+ "title": "ゴキゲン中飛車 vs 超速3七銀(後手・△5六歩)",
+ "myStrategy": "nakabisha",
+ "opponentStrategy": "ibisha",
+ "mySide": "gote",
+ "source": "手順は定跡の基本形をもとに、やねうら王の新ペタショック定跡(MIT)の候補手とエンジン検証で構成。解説はこのアプリのために書き下ろし。",
+ "goalFormation": "△5六歩から飛車で歩を取り、角交換を経て7六の歩まで取った形。歩を2枚得て、飛車を7筋に回して先手の右辺の攻めに備える。",
+ "root": {
+  "id": "n0",
+  "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+  "comment": "後手のゴキゲン中飛車で、先手が銀を3七に出す超速の形を選んだときの進め方を学びます。5筋に歩を伸ばして角交換を防ぎ、先手の銀が3七から4六へ出てくる前に、△5六歩と突いて中飛車を働かせるのが狙いです。",
+  "branches": [
+   {
+    "usi": "7g7f",
+    "kind": "main",
+    "note": "先手は角道を開けます。",
+    "child": {
+     "id": "n_0",
+     "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL w - 1",
+     "branches": [
+      {
+       "usi": "3c3d",
+       "kind": "main",
+       "note": "後手も角道を開けて、お互いに角交換が可能な形です。",
+       "child": {
+        "id": "n_1",
+        "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL b - 1",
+        "branches": [
+         {
+          "usi": "2g2f",
+          "kind": "main",
+          "child": {
+           "id": "n_2",
+           "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P4P1/PP1PPPP1P/1B5R1/LNSGKGSNL w - 1",
+           "branches": [
+            {
+             "usi": "5c5d",
+             "kind": "main",
+             "note": "5筋の歩を突くのがゴキゲン中飛車の第一歩。中飛車にする準備です。",
+             "child": {
+              "id": "n_3",
+              "sfen": "lnsgkgsnl/1r5b1/pppp1p1pp/4p1p2/9/2P4P1/PP1PPPP1P/1B5R1/LNSGKGSNL b - 1",
+              "branches": [
+               {
+                "usi": "2f2e",
+                "kind": "main",
+                "child": {
+                 "id": "n_4",
+                 "sfen": "lnsgkgsnl/1r5b1/pppp1p1pp/4p1p2/7P1/2P6/PP1PPPP1P/1B5R1/LNSGKGSNL w - 1",
+                 "branches": [
+                  {
+                   "usi": "8b5b",
+                   "kind": "main",
+                   "note": "飛車を中央の5筋に振ります。この形がゴキゲン中飛車です。",
+                   "child": {
+                    "id": "n_5",
+                    "sfen": "lnsgkgsnl/4r2b1/pppp1p1pp/4p1p2/7P1/2P6/PP1PPPP1P/1B5R1/LNSGKGSNL b - 1",
+                    "branches": [
+                     {
+                      "usi": "5i6h",
+                      "kind": "main",
+                      "child": {
+                       "id": "n_6",
+                       "sfen": "lnsgkgsnl/4r2b1/pppp1p1pp/4p1p2/7P1/2P6/PP1PPPP1P/1B1K3R1/LNSG1GSNL w - 1",
+                       "branches": [
+                        {
+                         "usi": "5d5e",
+                         "kind": "main",
+                         "note": "5五歩と進めると、先手の角のにらみが5筋で止まります。後手の角が3三に寄っても、角交換を恐れずに済みます。",
+                         "child": {
+                          "id": "n_7",
+                          "sfen": "lnsgkgsnl/4r2b1/pppp1p1pp/6p2/4p2P1/2P6/PP1PPPP1P/1B1K3R1/LNSG1GSNL b - 1",
+                          "branches": [
+                           {
+                            "usi": "3i4h",
+                            "kind": "main",
+                            "note": "先手は銀を4八に上げ、次に3七へ進める準備をします。これが超速の入り口です。",
+                            "child": {
+                             "id": "n_8",
+                             "sfen": "lnsgkgsnl/4r2b1/pppp1p1pp/6p2/4p2P1/2P6/PP1PPPP1P/1B1K1S1R1/LNSG1G1NL w - 1",
+                             "branches": [
+                              {
+                               "usi": "2b3c",
+                               "kind": "main",
+                               "note": "後手は角を3三に引き、玉の守りと中央の両方を見ます。",
+                               "child": {
+                                "id": "n_9",
+                                "sfen": "lnsgkgsnl/4r4/pppp1pbpp/6p2/4p2P1/2P6/PP1PPPP1P/1B1K1S1R1/LNSG1G1NL b - 1",
+                                "branches": [
+                                 {
+                                  "usi": "3g3f",
+                                  "kind": "main",
+                                  "note": "3七の歩を3六に突いて、銀が3七に出る場所を空けます。",
+                                  "child": {
+                                   "id": "n_10",
+                                   "sfen": "lnsgkgsnl/4r4/pppp1pbpp/6p2/4p2P1/2P3P2/PP1PPP2P/1B1K1S1R1/LNSG1G1NL w - 1",
+                                   "branches": [
+                                    {
+                                     "usi": "3a4b",
+                                     "kind": "main",
+                                     "note": "銀を4二に上げて、玉の周りを固めます。",
+                                     "child": {
+                                      "id": "n_11",
+                                      "sfen": "lnsgkg1nl/4rs3/pppp1pbpp/6p2/4p2P1/2P3P2/PP1PPP2P/1B1K1S1R1/LNSG1G1NL b - 1",
+                                      "branches": [
+                                       {
+                                        "usi": "6h7h",
+                                        "kind": "main",
+                                        "note": "先手も玉を7八に寄せて、飛車や角の動きに備えます。",
+                                        "child": {
+                                         "id": "n_12",
+                                         "sfen": "lnsgkg1nl/4rs3/pppp1pbpp/6p2/4p2P1/2P3P2/PP1PPP2P/1BK2S1R1/LNSG1G1NL w - 1",
+                                         "branches": [
+                                          {
+                                           "usi": "5a6b",
+                                           "kind": "main",
+                                           "note": "玉を6二に寄せて、中飛車の飛車の近くに玉がいない形にします。",
+                                           "child": {
+                                            "id": "n_13",
+                                            "sfen": "lnsg1g1nl/3krs3/pppp1pbpp/6p2/4p2P1/2P3P2/PP1PPP2P/1BK2S1R1/LNSG1G1NL b - 1",
+                                            "branches": [
+                                             {
+                                              "usi": "4h3g",
+                                              "kind": "main",
+                                              "note": "先手の銀が3七に着きました。ここから4六へ進めば5五の歩を狙われます。",
+                                              "child": {
+                                               "id": "n_14",
+                                               "sfen": "lnsg1g1nl/3krs3/pppp1pbpp/6p2/4p2P1/2P3P2/PP1PPPS1P/1BK4R1/LNSG1G1NL w - 1",
+                                               "branches": [
+                                                {
+                                                 "usi": "6b7b",
+                                                 "kind": "main",
+                                                 "note": "玉をさらに7二へ寄せて、居玉を避けます。",
+                                                 "child": {
+                                                  "id": "n_15",
+                                                  "sfen": "lnsg1g1nl/2k1rs3/pppp1pbpp/6p2/4p2P1/2P3P2/PP1PPPS1P/1BK4R1/LNSG1G1NL b - 1",
+                                                  "branches": [
+                                                   {
+                                                    "usi": "9g9f",
+                                                    "kind": "main",
+                                                    "note": "先手は端歩を突いて、玉の逃げ道を作ります。",
+                                                    "child": {
+                                                     "id": "n_16",
+                                                     "sfen": "lnsg1g1nl/2k1rs3/pppp1pbpp/6p2/4p2P1/P1P3P2/1P1PPPS1P/1BK4R1/LNSG1G1NL w - 1",
+                                                     "branches": [
+                                                      {
+                                                       "usi": "5e5f",
+                                                       "kind": "main",
+                                                       "note": "後手の狙いの一手。5六に歩を突いて、先手の5七の歩に当てます。先手が取れば飛車で取り返せます。",
+                                                       "child": {
+                                                        "id": "n_17",
+                                                        "sfen": "lnsg1g1nl/2k1rs3/pppp1pbpp/6p2/7P1/P1P1p1P2/1P1PPPS1P/1BK4R1/LNSG1G1NL b - 1",
+                                                        "branches": [
+                                                         {
+                                                          "usi": "5g5f",
+                                                          "kind": "main",
+                                                          "note": "先手は同歩と取るのが自然です。取らないと、5六の歩が先手陣の中央を締め付けます。",
+                                                          "child": {
+                                                           "id": "nb0_0",
+                                                           "sfen": "lnsg1g1nl/2k1rs3/pppp1pbpp/6p2/7P1/P1P1P1P2/1P1P1PS1P/1BK4R1/LNSG1G1NL w P 1",
+                                                           "branches": [
+                                                            {
+                                                             "usi": "5b5f",
+                                                             "kind": "main",
+                                                             "note": "飛車で歩を取り返します。5筋に飛車が出て、先手の陣形を横から見る形です。",
+                                                             "child": {
+                                                              "id": "nb0_1",
+                                                              "sfen": "lnsg1g1nl/2k2s3/pppp1pbpp/6p2/7P1/P1P1r1P2/1P1P1PS1P/1BK4R1/LNSG1G1NL b Pp 1",
+                                                              "branches": [
+                                                               {
+                                                                "usi": "8h3c+",
+                                                                "kind": "main",
+                                                                "note": "先手は角交換に出ます。",
+                                                                "child": {
+                                                                 "id": "nb0_2",
+                                                                 "sfen": "lnsg1g1nl/2k2s3/pppp1p+Bpp/6p2/7P1/P1P1r1P2/1P1P1PS1P/2K4R1/LNSG1G1NL w BPp 1",
+                                                                 "branches": [
+                                                                  {
+                                                                   "usi": "4b3c",
+                                                                   "kind": "main",
+                                                                   "note": "銀で取り返し、3三に銀が入って玉の守りも固まります。",
+                                                                   "child": {
+                                                                    "id": "nb0_3",
+                                                                    "sfen": "lnsg1g1nl/2k6/pppp1pspp/6p2/7P1/P1P1r1P2/1P1P1PS1P/2K4R1/LNSG1G1NL b BPbp 1",
+                                                                    "branches": [
+                                                                     {
+                                                                      "usi": "3g4f",
+                                                                      "kind": "main",
+                                                                      "note": "先手は銀を4六に出して、中央に厚みを持たせます。",
+                                                                      "child": {
+                                                                       "id": "nb0_4",
+                                                                       "sfen": "lnsg1g1nl/2k6/pppp1pspp/6p2/7P1/P1P1rSP2/1P1P1P2P/2K4R1/LNSG1G1NL w BPbp 1",
+                                                                       "branches": [
+                                                                        {
+                                                                         "usi": "5f7f",
+                                                                         "kind": "main",
+                                                                         "note": "飛車を7六まで運んで歩を取ります。飛車が先手陣の脇腹に回り込む手です。",
+                                                                         "child": {
+                                                                          "id": "nb0_5",
+                                                                          "sfen": "lnsg1g1nl/2k6/pppp1pspp/6p2/7P1/P1r2SP2/1P1P1P2P/2K4R1/LNSG1G1NL b BPb2p 1",
+                                                                          "branches": [
+                                                                           {
+                                                                            "usi": "8i7g",
+                                                                            "kind": "main",
+                                                                            "note": "桂馬を跳ねて7筋を守ります。",
+                                                                            "child": {
+                                                                             "id": "nb0_6",
+                                                                             "sfen": "lnsg1g1nl/2k6/pppp1pspp/6p2/7P1/P1r2SP2/1PNP1P2P/2K4R1/L1SG1G1NL w BPb2p 1",
+                                                                             "branches": [
+                                                                              {
+                                                                               "usi": "7f7d",
+                                                                               "kind": "main",
+                                                                               "note": "飛車を7四に引いて安全を確保し、7筋の歩を狙います。",
+                                                                               "child": {
+                                                                                "id": "nb0_7",
+                                                                                "sfen": "lnsg1g1nl/2k6/pppp1pspp/2r3p2/7P1/P4SP2/1PNP1P2P/2K4R1/L1SG1G1NL b BPb2p 1",
+                                                                                "branches": [],
+                                                                                "comment": "歩を2枚得て、飛車も働いています。先手に主導権を渡さずに済むのが、5六に歩を突いて飛車を動かす狙いです。"
+                                                                               }
+                                                                              }
+                                                                             ]
+                                                                            }
+                                                                           }
+                                                                          ]
+                                                                         }
+                                                                        }
+                                                                       ]
+                                                                      }
+                                                                     }
+                                                                    ]
+                                                                   }
+                                                                  }
+                                                                 ]
+                                                                }
+                                                               }
+                                                              ]
+                                                             }
+                                                            }
+                                                           ]
+                                                          }
+                                                         },
+                                                         {
+                                                          "usi": "8h3c+",
+                                                          "kind": "alt",
+                                                          "note": "同歩と取る前に、先に角を交換する手順です。",
+                                                          "aim": "歩を取る前に角交換を済ませて、後手の出方を見たい。",
+                                                          "child": {
+                                                           "id": "nb1_0",
+                                                           "sfen": "lnsg1g1nl/2k1rs3/pppp1p+Bpp/6p2/7P1/P1P1p1P2/1P1PPPS1P/2K4R1/LNSG1G1NL w B 1",
+                                                           "branches": [
+                                                            {
+                                                             "usi": "4b3c",
+                                                             "kind": "main",
+                                                             "note": "銀で取り返して形を整えます。",
+                                                             "child": {
+                                                              "id": "nb1_1",
+                                                              "sfen": "lnsg1g1nl/2k1r4/pppp1pspp/6p2/7P1/P1P1p1P2/1P1PPPS1P/2K4R1/LNSG1G1NL b Bb 1",
+                                                              "branches": [
+                                                               {
+                                                                "usi": "5g5f",
+                                                                "kind": "main",
+                                                                "note": "ここで5六の歩を取ります。",
+                                                                "child": {
+                                                                 "id": "nb1_2",
+                                                                 "sfen": "lnsg1g1nl/2k1r4/pppp1pspp/6p2/7P1/P1P1P1P2/1P1P1PS1P/2K4R1/LNSG1G1NL w BPb 1",
+                                                                 "branches": [
+                                                                  {
+                                                                   "usi": "5b5f",
+                                                                   "kind": "main",
+                                                                   "note": "飛車で取り返し、再び5筋に飛車が出ます。",
+                                                                   "child": {
+                                                                    "id": "nb1_3",
+                                                                    "sfen": "lnsg1g1nl/2k6/pppp1pspp/6p2/7P1/P1P1r1P2/1P1P1PS1P/2K4R1/LNSG1G1NL b BPbp 1",
+                                                                    "branches": [
+                                                                     {
+                                                                      "usi": "3g4f",
+                                                                      "kind": "main",
+                                                                      "note": "銀を4六に進めて中央を厚くします。",
+                                                                      "child": {
+                                                                       "id": "nb1_4",
+                                                                       "sfen": "lnsg1g1nl/2k6/pppp1pspp/6p2/7P1/P1P1rSP2/1P1P1P2P/2K4R1/LNSG1G1NL w BPbp 1",
+                                                                       "branches": [
+                                                                        {
+                                                                         "usi": "5f7f",
+                                                                         "kind": "main",
+                                                                         "note": "飛車は7六の歩を取ります。",
+                                                                         "child": {
+                                                                          "id": "nb1_5",
+                                                                          "sfen": "lnsg1g1nl/2k6/pppp1pspp/6p2/7P1/P1r2SP2/1P1P1P2P/2K4R1/LNSG1G1NL b BPb2p 1",
+                                                                          "branches": [
+                                                                           {
+                                                                            "usi": "8i7g",
+                                                                            "kind": "main",
+                                                                            "note": "桂馬を跳ねて7筋を守ります。",
+                                                                            "child": {
+                                                                             "id": "nb1_6",
+                                                                             "sfen": "lnsg1g1nl/2k6/pppp1pspp/6p2/7P1/P1r2SP2/1PNP1P2P/2K4R1/L1SG1G1NL w BPb2p 1",
+                                                                             "branches": [
+                                                                              {
+                                                                               "usi": "7f5f",
+                                                                               "kind": "main",
+                                                                               "note": "飛車を5筋に戻して、中央の押さえを続けます。",
+                                                                               "child": {
+                                                                                "id": "nb1_7",
+                                                                                "sfen": "lnsg1g1nl/2k6/pppp1pspp/6p2/7P1/P3rSP2/1PNP1P2P/2K4R1/L1SG1G1NL b BPb2p 1",
+                                                                                "branches": [],
+                                                                                "comment": "手順が前後しても、5六に出た歩を飛車で取り、飛車を横に動かす考え方は同じです。"
+                                                                               }
+                                                                              }
+                                                                             ]
+                                                                            }
+                                                                           }
+                                                                          ]
+                                                                         }
+                                                                        }
+                                                                       ]
+                                                                      }
+                                                                     }
+                                                                    ]
+                                                                   }
+                                                                  }
+                                                                 ]
+                                                                }
+                                                               }
+                                                              ]
+                                                             }
+                                                            }
+                                                           ]
+                                                          }
+                                                         }
+                                                        ]
+                                                       }
+                                                      }
+                                                     ]
+                                                    }
+                                                   }
+                                                  ]
+                                                 }
+                                                }
+                                               ]
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          }
+                                         ]
+                                        }
+                                       }
+                                      ]
+                                     }
+                                    }
+                                   ]
+                                  }
+                                 }
+                                ]
+                               }
+                              }
+                             ]
+                            }
+                           }
+                          ]
+                         }
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

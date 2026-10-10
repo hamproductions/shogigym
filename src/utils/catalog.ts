@@ -19,7 +19,10 @@ export type Setup = {
   basics?: boolean
   path?: string[]
   check?: { question: Text; answer: Text }
+  references?: LessonReference[]
 }
+
+export type LessonReference = { title: string; url: string; license: string; adapted?: boolean }
 
 export type LessonEntry = {
   id: string
@@ -28,6 +31,7 @@ export type LessonEntry = {
   path: string[]
   intro: Text
   source: string
+  references?: LessonReference[]
   check?: { question: Text; answer: Text }
   courses: RawCourse[]
 }
@@ -153,7 +157,8 @@ export function buildCatalog(raws: RawCourse[], lessons: LessonEntry[] = []) {
       ja: lesson.title.ja,
       intro: lesson.intro,
       level: 1,
-      sources: [lesson.source],
+      sources: (lesson.references ?? []).map((ref) => ref.url),
+      references: lesson.references ?? [],
       path: lesson.path,
       check: lesson.check,
       courseIds: lesson.courses.map((raw) => make(raw, primarySide(raw), `lesson-${lesson.id}`, null, null).id),

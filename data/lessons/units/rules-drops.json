@@ -1,0 +1,229 @@
+{
+  "id": "rules-drops",
+  "order": 40,
+  "path": ["はじめての将棋", "ルール"],
+  "title": {
+    "ja": "持ち駒を打つ",
+    "en": "Pieces in hand and drops"
+  },
+  "intro": {
+    "ja": "将棋では、取った相手の駒を自分の駒として使えます。これが他のボードゲームにない最大の特徴です。取った駒がどう扱われるか、どこにでも打てる自由と、打てない場所の決まり、成れないという注意点を、局面で確かめます。",
+    "en": "In shogi, a piece you capture becomes yours to use. This is the feature that most sets the game apart. Here you see how captured pieces are treated, the freedom of dropping them almost anywhere, the squares where a drop is not allowed, and the point that a dropped piece never arrives promoted."
+  },
+  "check": {
+    "question": {
+      "ja": "相手の「と金」を取りました。駒台には何の駒として置きますか？ また、その駒を盤に打つときは、どちら向きに打ちますか？",
+      "en": "You capture an enemy tokin. What piece does it become on your stand, and which face does it show when you drop it back on the board?"
+    },
+    "answer": {
+      "ja": "歩として、表向きに駒台へ置きます。盤に打つときも歩の表向きです。取った駒が成駒でも、持ち駒は必ず成る前の姿に戻ります。",
+      "en": "It becomes a pawn, placed face up on the stand, and it is dropped as a plain pawn. Even if the captured piece was promoted, a piece in hand always returns to its unpromoted form."
+    }
+  },
+  "references": [
+    {
+      "title": "将棋のルール (Wikipedia日本語版)",
+      "url": "https://ja.wikipedia.org/wiki/将棋のルール",
+      "license": "CC BY-SA 4.0",
+      "adapted": false
+    },
+    {
+      "title": "駒の取り方、持駒の使い方",
+      "url": "https://shogi-joutatsu.com/archives/738",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "取った駒は表向きの持ち駒になる",
+        "en": "A captured piece goes to your stand unpromoted"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "8k/9/4+p4/9/9/9/4R4/9/K8 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手の飛車の前に、後手の「と金」がいます。と金は歩が成った駒です。これを取るとどうなるかを見ましょう。",
+            "en": "A White tokin stands in front of Black's rook. A tokin is a promoted pawn. See what happens when it is captured."
+          },
+          "marks": {
+            "arrows": ["5g5c"]
+          }
+        },
+        {
+          "moves": ["5g5c"],
+          "text": {
+            "ja": "飛車が５三のと金を取りました。駒台に載るのは、と金ではなく裏返す前の歩です。成駒は取られると元の駒に戻り、必ず表向きで持ち駒になります。",
+            "en": "The rook takes the tokin on 5c. What lands on the stand is not a tokin but the pawn it was before promotion. A promoted piece reverts when captured and always enters your hand face up."
+          },
+          "marks": {
+            "last": "5c"
+          }
+        },
+        {
+          "moves": ["1a2a", "P*8d"],
+          "text": {
+            "ja": "この歩を、次の手で空いている８四に打ちました。持ち駒を使う手も一手に数えられます。取った駒を自分の駒として使えるので、駒の取り合いはそのまま戦力の増減になります。",
+            "en": "That pawn is dropped on the empty square 8d next. Using a piece from hand counts as a full move. Since captured pieces become yours, every exchange directly changes each side's strength."
+          },
+          "marks": {
+            "last": "8d"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "空いているマスならどこにでも打てる",
+        "en": "Drop on any empty square"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "r7k/9/9/9/9/9/9/9/4K4 b B 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手は角を持っています。持ち駒は、他の駒がいないマスならどこへでも、自分の番に好きなだけ選んで打てます。盤上の駒のように動き方の制限を受けませんが、すでに駒があるマスには打てません。",
+            "en": "Black has a bishop in hand. On your turn you may put a piece from hand on any square that is empty, wherever you like. No movement rule restricts where it lands, but an occupied square is off limits."
+          }
+        },
+        {
+          "moves": ["B*5e"],
+          "text": {
+            "ja": "角を５五に打つと、角の斜めの利きが一度に二つの駒を狙います。一つは１一の玉で、これは王手です。もう一つは９一の飛車です。打った駒は、次の自分の番からふつうの角として動けます。",
+            "en": "Dropping the bishop on 5e makes its diagonals aim at two pieces at once. One is the king on 1a, so this is check. The other is the rook on 9a. A dropped piece moves as normal from your next turn onward."
+          },
+          "marks": {
+            "boxes": ["1a", "9a"],
+            "last": "5e"
+          }
+        },
+        {
+          "moves": ["1a1b"],
+          "text": {
+            "ja": "後手は王手を外すために玉を動かすしかありません。角を取れる駒も、間に入れる駒も後手にはないからです。",
+            "en": "Gote has to move the king out of check, since nothing can capture the bishop or step between it and the king."
+          }
+        },
+        {
+          "moves": ["5e9a+"],
+          "text": {
+            "ja": "角が飛車を取りました。９一は敵陣なので、成って馬にもできます。持ち駒を打つだけで、盤上の駒の動きでは作れない同時の狙いが生まれます。",
+            "en": "The bishop captures the rook. 9a is inside the promotion zone, so it also promotes to a horse. A single drop can create a double threat that moving pieces on the board often cannot."
+          },
+          "marks": {
+            "last": "9a"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "敵陣に打っても成らない",
+        "en": "Dropping in the promotion zone"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k8/9/9/9/9/9/9/9/4K4 b S 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "持ち駒は必ず表向き、つまり成る前の姿で打ちます。敵陣の三段のどこに打っても、その手で裏返すことはできません。",
+            "en": "A piece in hand is always dropped face up, in its unpromoted form. Even on any of the three enemy ranks it cannot be turned over on the move that drops it."
+          }
+        },
+        {
+          "moves": ["S*3c"],
+          "text": {
+            "ja": "銀を敵陣の３三に打ちました。銀のまま置かれ、成銀にはなりません。",
+            "en": "The silver is dropped on 3c inside the zone. It stays a plain silver."
+          },
+          "marks": {
+            "last": "3c"
+          }
+        },
+        {
+          "moves": ["9a8a", "3c2b+"],
+          "text": {
+            "ja": "打った銀が敵陣の中で動いたとき、初めて成るかどうかを選べます。ここでは２二へ動いて成銀になりました。",
+            "en": "Once the dropped silver moves within the zone, the choice of promoting finally arises. Here it moves to 2b and becomes a promoted silver."
+          },
+          "marks": {
+            "last": "2b"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "打てない場所がある",
+        "en": "Squares where a drop is not allowed"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "8k/9/9/9/9/9/9/9/4K4 b NLP 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "どこにでも打てるとはいえ、打った駒がその先で動けなくなる場所は禁止されています。先手は桂・香・歩を一枚ずつ持っています。この三つはどれも前にしか進めない駒です。",
+            "en": "Although drops are nearly unrestricted, you may not put a piece where it would have no move at all. Black holds a knight, a lance and a pawn, all pieces that can only go forward."
+          }
+        },
+        {
+          "text": {
+            "ja": "歩と香は、一段目に打てません。そこにいると、前にもう進めないからです。",
+            "en": "A pawn or a lance cannot be dropped on the first rank. From there it could never move forward again."
+          },
+          "marks": {
+            "dashed": ["9a", "8a", "7a", "6a", "5a", "4a", "3a", "2a", "1a"]
+          }
+        },
+        {
+          "text": {
+            "ja": "桂は跳ぶのに二段分の余裕が要るので、一段目と二段目に打てません。三段目なら、そこからさらに一段目へ跳べるので打てます。",
+            "en": "A knight needs two ranks of space to jump, so it cannot be dropped on the first or second rank. From the third rank it can still jump to the first, so that is fine."
+          },
+          "marks": {
+            "dashed": [
+              "9a", "8a", "7a", "6a", "5a", "4a", "3a", "2a", "1a",
+              "9b", "8b", "7b", "6b", "5b", "4b", "3b", "2b", "1b"
+            ]
+          }
+        },
+        {
+          "moves": ["N*7c", "1a2a"],
+          "text": {
+            "ja": "桂を７三に打ちました。三段目なので問題ありません。",
+            "en": "The knight is dropped on 7c. The third rank is allowed."
+          },
+          "marks": {
+            "last": "7c"
+          }
+        },
+        {
+          "moves": ["L*9b", "2a1a"],
+          "text": {
+            "ja": "香を９二に打ちました。二段目なら、あと一マス前へ進めるので打てます。",
+            "en": "The lance is dropped on 9b. On the second rank it can still advance one more square, so this is legal."
+          },
+          "marks": {
+            "last": "9b"
+          }
+        },
+        {
+          "moves": ["P*5b"],
+          "text": {
+            "ja": "歩も５二に打てます。ただし歩には、同じ縦の列に自分の歩を二枚置いてはいけないという決まりもあります（二歩）。これは「反則」のレッスンで扱います。",
+            "en": "The pawn can go to 5b as well. Pawns have one more restriction: you may not have two of your own on the same file (nifu). That is covered in the lesson on fouls."
+          },
+          "marks": {
+            "last": "5b"
+          }
+        }
+      ]
+    }
+  ]
+}

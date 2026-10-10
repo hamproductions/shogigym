@@ -1,6 +1,7 @@
 export default {
   id: 'kuzushi--mino-36kei',
   title: '囲い崩し: 美濃囲いに△3六桂',
+  titleEn: 'Breaking Mino: knight drop △3六桂',
   myStrategy: 'ibisha',
   opponentStrategy: 'shikenbisha',
   mySide: 'gote',

@@ -16,12 +16,12 @@ export type FixRoute = 'tsume' | 'tesuji' | 'lesson'
 const FIX_ROUTE: Partial<Record<Weakness, FixRoute>> = { missedMate: 'tsume', allowedTactic: 'tesuji', openingSlip: 'lesson' }
 const MIN_MOVES = 4
 const LESSONS: Record<Weakness, string[]> = {
-  missedMate: ['1821', '109'],
-  allowedMate: ['3271', '7368'],
-  hangs: ['1021', '1512'],
-  allowedTactic: ['1067'],
-  slippedWin: ['2375'],
-  openingSlip: ['3156'],
+  missedMate: ['basics-mate-words', 'endgame-mate-tesuji'],
+  allowedMate: ['basics-attack-defense', 'endgame-tsumero'],
+  hangs: ['basics-value'],
+  allowedTactic: ['basics-forks'],
+  slippedWin: ['endgame-yose'],
+  openingSlip: ['basics-opening'],
   other: [],
 }
 

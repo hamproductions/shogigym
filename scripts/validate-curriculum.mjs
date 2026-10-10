@@ -13,7 +13,9 @@ const ids = new Set()
 for (const lesson of lessons) {
   if (ids.has(lesson.id)) errors.push(`Duplicate lesson ${lesson.id}`)
   ids.add(lesson.id)
-  if (!/^https:\/\/shogi-joutatsu\.com\/archives\/\d+\/?$/.test(lesson.source)) errors.push(`Invalid provenance ${lesson.id}`)
+  if (!lesson.source?.trim() || !Array.isArray(lesson.references)) errors.push(`Missing provenance ${lesson.id}`)
+  for (const ref of lesson.references ?? [])
+    if (!ref.title || !/^https:\/\//.test(ref.url ?? '') || !ref.license) errors.push(`Incomplete reference ${lesson.id}`)
   if (lesson.check && (!text(lesson.check.question) || !text(lesson.check.answer))) errors.push(`Incomplete check question ${lesson.id}`)
 }
 
@@ -33,8 +35,6 @@ for (const lesson of lessons) {
       if (node.figures) {
         figures += node.figures.length
         if (!node.comment || !node.commentEn) errors.push(`Figure without explanation ${course.id}:${node.id}`)
-        for (const figure of node.figures)
-          if (!figure.source?.startsWith('https://shogi-joutatsu.com/wp-content/')) errors.push(`Figure without source ${course.id}:${node.id}`)
       }
       for (const branch of node.branches) {
         const replay = Position.newBySFEN(node.sfen)

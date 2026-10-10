@@ -7,6 +7,7 @@ import { sideMark } from '@/utils/notation'
 import { useSession } from '@/app/hooks/session'
 import { Button } from '@/app/ui/Button'
 import type { Lesson } from './useLesson'
+import { LessonReferences } from './LessonReferences'
 
 type Series = {
   shuffle: (() => void) | null
@@ -258,14 +259,7 @@ export function LessonGuide({ course, lesson, series }: Props) {
             {line}
           </p>
         ))}
-        {setup?.sources[0] && (
-          <p className="app-guide-source">
-            {setup.id.endsWith('-practice') ? (ja ? 'このアプリの練習問題・参考記事：' : 'App practice, based on: ') : ja ? '出典：' : 'Source: '}
-            <a href={setup.sources[0]} target="_blank" rel="noreferrer">
-              {setup.sources[0].replace(/^https:\/\//, '')}
-            </a>
-          </p>
-        )}
+        {setup?.references && <LessonReferences references={setup.references} ja={ja} className="app-guide-source" />}
         {end && (
           <div className="app-guide-review">
             <strong>{ja ? 'おさらい' : 'Review'}</strong>
