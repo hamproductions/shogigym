@@ -251,7 +251,7 @@ export function OverMarks({ props, p, u, coordFill, handPoint }: { props: Board3
       {stamp &&
         stamped &&
         (() => {
-          const [x, y] = p(squareX(stamped.file) + 0.48 * flip, squareZ(stamped.rank) - 0.48 * SQ_D * flip)
+          const [x, y] = p(squareX(stamped.file) + 0.3 * flip, squareZ(stamped.rank) - 0.3 * SQ_D * flip)
           return <Badge x={x} y={y} size={0.5 * u} text={stamp.text} color={stamp.color} />
         })()}
     </g>
