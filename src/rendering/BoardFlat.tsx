@@ -1,9 +1,9 @@
 import './board.css'
-import { useEffect, useLayoutEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react'
+import { memo, useEffect, useLayoutEffect, useRef, useState, type PointerEvent as ReactPointerEvent, type ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Color, PieceType, Square, type ImmutablePosition } from 'tsshogi'
 import type { Board3DProps } from './Board3D'
-import { OverMarks, UnderMarks } from './flatMarks'
+import { OverMarks, UnderMarks, type HandPoint, type Project } from './flatMarks'
 import { useLatest } from '@/app/hooks/useLatest'
 import { useBakedPieces } from '@/app/hooks/useBakedPieces'
 import { useSvgBoard } from '@/app/hooks/useSvgBoard'
@@ -51,6 +51,55 @@ function Koma({ baked, type, color, up }: { baked: Baked; type: PieceType; color
   const size = SPRITE_BOX * U
   return <image href={baked.pieces.get(spriteKey(type, color, up))} x={-size / 2} y={-size / 2} width={size} height={size} />
 }
+
+type Marks<T> = { props: Board3DProps; p: Project; u: number; handPoint?: HandPoint; layout: string } & T
+// Drag moves re-render BoardFlat per pointer event; the projection callbacks are new each time,
+// so memoise on the data they close over instead.
+const sameMarks = (a: Marks<object>, b: Marks<object>) =>
+  a.props === b.props &&
+  a.u === b.u &&
+  a.layout === b.layout &&
+  (a as Marks<{ coordFill?: string }>).coordFill === (b as Marks<{ coordFill?: string }>).coordFill
+const MemoUnder = memo(UnderMarks as unknown as (x: Marks<object>) => ReactElement, sameMarks)
+const MemoOver = memo(OverMarks as unknown as (x: Marks<{ coordFill: string }>) => ReactElement, sameMarks)
+
+const PieceLayer = memo(function PieceLayer({
+  position,
+  baked,
+  flipped,
+  selected,
+  lifted,
+  gx,
+  gy,
+}: {
+  position: ImmutablePosition
+  baked: NonNullable<ReturnType<typeof useBakedPieces>['baked']>
+  flipped: boolean
+  selected: Board3DProps['selected']
+  lifted: Square | null
+  gx: number
+  gy: number
+}) {
+  return (
+    <g pointerEvents="none">
+      {position.board.listNonEmptySquares().map((sq) => {
+        const piece = position.board.at(sq)!
+        const up = (piece.color === Color.BLACK) !== flipped
+        const col = flipped ? sq.file - 1 : 9 - sq.file
+        const row = flipped ? 9 - sq.rank : sq.rank - 1
+        return (
+          <g key={sq.usi} transform={`translate(${gx + (col + 0.5) * U} ${gy + (row + 0.5) * CH})`} opacity={lifted?.equals(sq) ? 0.35 : 1}>
+            <g data-sq={sq.usi}>
+              <g className={`app-koma-lift${selected instanceof Square && selected.equals(sq) ? ' on' : ''}`}>
+                <Koma baked={baked} type={piece.type} color={piece.color} up={up} />
+              </g>
+            </g>
+          </g>
+        )
+      })}
+    </g>
+  )
+})
 
 export function BoardFlat(props: Board3DProps) {
   const { position, flipped, selected, selectedColor, lastMove, movable } = props
@@ -115,7 +164,7 @@ export function BoardFlat(props: Board3DProps) {
     if (key === zoneKey.current) return
     zoneKey.current = key
     report(zones)
-  })
+  }, [box.w, box.h, zoned, g.portrait, !!props.onZones])
   const previous = useRef<ImmutablePosition | null>(null)
   useLayoutEffect(() => {
     svgRef.current?.getAnimations({ subtree: true }).forEach((animation) => animation.cancel())
@@ -272,6 +321,7 @@ export function BoardFlat(props: Board3DProps) {
 
   const project = (x: number, z: number): [number, number] => [g.ox + (flipped ? -x : x) * U, g.oy + (flipped ? -z : z) * U]
   const coordFill = settings.boardStyle === 'dark' ? 'rgba(250,232,196,0.92)' : 'rgba(40,22,8,0.85)'
+  const layoutKey = `${g.ox}|${g.oy}|${flipped}|${g.portrait}|${U}|${pickedHand ? pickedHand.index : ''}`
   const dragFrom = drag?.moved && drag.from instanceof Square ? drag.from : null
   return (
     <div className="app-flat app-flat-wood" ref={wrapRef} aria-busy={loading}>
@@ -293,7 +343,7 @@ export function BoardFlat(props: Board3DProps) {
       >
         <image href={baked.board} x={g.bx} y={g.by} width={g.bw} height={g.bh} preserveAspectRatio="none" />
         <rect className="app-board-frame" x={g.bx - 6} y={g.by - 6} width={g.bw + 12} height={g.bh + 12} rx={10} fill="none" pointerEvents="none" />
-        <UnderMarks props={props} p={project} u={U} handPoint={handPoint} />
+        <MemoUnder props={props} p={project} u={U} layout={layoutKey} />
         {settings.coords &&
           Array.from({ length: 9 }, (_, i) => (
             <g
@@ -315,25 +365,10 @@ export function BoardFlat(props: Board3DProps) {
             </g>
           ))}
         <rect x={gx} y={gy} width={9 * U} height={9 * CH} fill="transparent" onPointerDown={onBoardDown} style={{ cursor: 'pointer', touchAction: 'none' }} />
-        <g pointerEvents="none">
-          {position.board.listNonEmptySquares().map((sq) => {
-            const piece = position.board.at(sq)!
-            const up = (piece.color === Color.BLACK) !== flipped
-            const lifted = dragFrom?.equals(sq)
-            return (
-              <g key={sq.usi} transform={`translate(${cx(sq)} ${cy(sq)})`} opacity={lifted ? 0.35 : 1}>
-                <g data-sq={sq.usi}>
-                  <g className={`app-koma-lift${selected instanceof Square && selected.equals(sq) ? ' on' : ''}`}>
-                    <Koma baked={baked} type={piece.type} color={piece.color} up={up} />
-                  </g>
-                </g>
-              </g>
-            )
-          })}
-        </g>
+        <PieceLayer position={position} baked={baked} flipped={!!flipped} selected={selected} lifted={dragFrom} gx={gx} gy={gy} />
         {hand(Color.BLACK)}
         {hand(Color.WHITE)}
-        <OverMarks props={props} p={project} u={U} coordFill={coordFill} handPoint={handPoint} />
+        <MemoOver props={props} p={project} u={U} coordFill={coordFill} handPoint={handPoint} layout={layoutKey} />
         {drag?.moved && (
           <g transform={`translate(${drag.x} ${drag.y - U * 0.3}) scale(1.12)`} pointerEvents="none">
             <Koma baked={baked} type={drag.type} color={drag.color} up={(drag.color === Color.BLACK) !== flipped} />

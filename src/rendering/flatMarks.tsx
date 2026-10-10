@@ -16,7 +16,7 @@ const DROP_TYPE: Record<string, PieceType> = {
 
 export type Project = (x: number, z: number) => [number, number]
 
-type HandPoint = (color: Color, type: PieceType) => { x: number; z: number } | null
+export type HandPoint = (color: Color, type: PieceType) => { x: number; z: number } | null
 
 const hex = (n: number) => `#${n.toString(16).padStart(6, '0')}`
 
@@ -95,12 +95,12 @@ function Arrow({ p, u, arrow, position, handPoint }: { p: Project; u: number; ar
   const ex = squareX(to.file)
   const ez = squareZ(to.rank)
   const length = Math.hypot(ex - sx, ez - sz)
-  const shaft = Math.max(0.01, length - 0.45)
+  const shaft = Math.max(0.01, length - 0.4)
   const w = arrow.dashed ? 0.06 : 0.09
   const head = arrow.dashed ? 0.2 : 0.26
   const segment = arrow.dashed ? 0.16 : shaft
   const gap = arrow.dashed ? 0.1 : 0
-  const parts: string[] = [`M ${head} ${shaft} L 0 ${length - 0.1} L ${-head} ${shaft} Z`]
+  const parts: string[] = [`M ${head} ${shaft} L 0 ${length} L ${-head} ${shaft} Z`]
   for (let y = 0; y < shaft - 0.001; y += segment + gap) parts.push(`M ${-w} ${y} H ${w} V ${Math.min(shaft, y + segment)} H ${-w} Z`)
   const [x0, y0] = p(sx, sz)
   const [x1, y1] = p(ex, ez)
@@ -145,20 +145,8 @@ function Castle({ p, u, castle }: { p: Project; u: number; castle: { squares: Sq
   )
 }
 
-export function UnderMarks({
-  props,
-  p,
-  u,
-  handPoint,
-  markersOnly = false,
-}: {
-  props: Board3DProps
-  p: Project
-  u: number
-  handPoint?: HandPoint
-  markersOnly?: boolean
-}) {
-  const { lastMove, selected, targets, checkSquare, peek, peekFrom, heat, arrows, position } = props
+export function UnderMarks({ props, p, u, markersOnly = false }: { props: Board3DProps; p: Project; u: number; markersOnly?: boolean }) {
+  const { lastMove, selected, targets, checkSquare, peek, peekFrom, heat } = props
   const to = lastMove ? Square.newByUSI(lastMove.slice(2, 4)) : null
   const from = lastMove && lastMove[1] !== '*' ? Square.newByUSI(lastMove.slice(0, 2)) : null
   return (
@@ -195,9 +183,6 @@ export function UnderMarks({
           ))}
         </g>
       )}
-      {arrows.map((arrow, i) => (
-        <Arrow key={`a${i}`} p={p} u={u} arrow={arrow} position={position} handPoint={handPoint} />
-      ))}
     </g>
   )
 }
@@ -240,6 +225,9 @@ export function OverMarks({ props, p, u, coordFill, handPoint }: { props: Board3
       {(castles ?? []).map((c, i) => (
         <Castle key={`c${i}`} p={p} u={u} castle={c} />
       ))}
+      {arrows.map((arrow, i) => (
+        <Arrow key={`a${i}`} p={p} u={u} arrow={arrow} position={position} handPoint={handPoint} />
+      ))}
       {arrows.map((arrow, i) => {
         const to = Square.newByUSI(arrow.usi.slice(2, 4))
         if (!arrow.label || !to) return null
@@ -251,7 +239,7 @@ export function OverMarks({ props, p, u, coordFill, handPoint }: { props: Board3
       {stamp &&
         stamped &&
         (() => {
-          const [x, y] = p(squareX(stamped.file) + 0.48 * flip, squareZ(stamped.rank) - 0.48 * SQ_D * flip)
+          const [x, y] = p(squareX(stamped.file) + 0.3 * flip, squareZ(stamped.rank) - 0.3 * SQ_D * flip)
           return <Badge x={x} y={y} size={0.5 * u} text={stamp.text} color={stamp.color} />
         })()}
     </g>
