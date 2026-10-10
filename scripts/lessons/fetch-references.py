@@ -1,17 +1,30 @@
 import hashlib
 import html
 import re
+import subprocess
 import sys
 import time
 from pathlib import Path
 from urllib.parse import quote, urlsplit, urlunsplit
 from urllib.request import Request, urlopen
 
-out = Path('.cache/reference')
-out.mkdir(parents=True, exist_ok=True)
-urls = Path('scripts/lessons/reference-urls.txt').read_text().split()
-for url in urls:
-    path = out / (hashlib.md5(url.encode()).hexdigest()[:10] + '.txt')
+ARTICLE = re.compile(r'^https://shogi-joutatsu\.com/archives/(\d+)/?$')
+articles = Path('.cache/curriculum-source')
+pages = Path('.cache/reference')
+for folder in (articles, pages):
+    folder.mkdir(parents=True, exist_ok=True)
+
+old = Path('.cache/old')
+if not old.exists():
+    old.mkdir(parents=True)
+    subprocess.run('git archive 4ed7ce0 data/lessons src/data/joseki | tar -x -C .cache/old', shell=True, check=True)
+    (old / 'data/lessons').rename(old / 'lessons')
+    (old / 'src/data/joseki').rename(old / 'joseki')
+    print('restored .cache/old from 4ed7ce0')
+
+for url in Path('scripts/lessons/reference-urls.txt').read_text().split():
+    match = ARTICLE.match(url)
+    path = articles / f'{match.group(1)}.txt' if match else pages / (hashlib.md5(url.encode()).hexdigest()[:10] + '.txt')
     if path.exists():
         continue
     parts = urlsplit(url)

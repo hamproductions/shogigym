@@ -26,10 +26,8 @@ Copyright audit and overhaul of all learning content on branch `audit/lesson-cop
 5. Update AGENTS.md lesson rule, docs/lessons.md, README sources table; rebuild tesuji drills; typecheck/validate.
 6. Report: history rewrite + Pages redeploy needed to remove old content from public — user decision.
 
-## State (2026-10-10, after correction)
-- Correction: usage burned by 11 parallel Sonnet writers + Opus orchestration on a 146-unit plan; user ordered no subagent spam, work smart.
-- Mistake: oversized scope (90 opening lessons duplicating joseki courses) and fan-out, against the cheap-single-worker rule. Rule added to AGENTS.md.
-- Compliance done: copied lessons, tesuji--* and shogirule--* courses removed; strategies.ts remapped (empty matchups say 「収録している手順はまだない」); vendored + 4 course notes rewritten; README/docs/AGENTS updated; app shows lesson references.
-- Content: 9 units (rules ×8 + basics-mate-words) pass check-unit; 1 salvaged course gokigen-vs-chousoku--56fu passes check-course and is wired.
-- Verification: `bun run lessons` 0 errors, check-originality 0/8399 flagged, validate.mjs 0 errors, strategy-check 0 errors, `bun run check` exit 0. Committed ac24259 on `audit/lesson-copyright` and pushed (HTTPS via gh credential; SSH key denied); full handoff `conductor/HANDOFF_2026-10-10.md`.
-- Next: reduced curriculum ~25 units (remaining basics ×8, tesuji ×9, castles/attacks/endgame few), written sequentially; user decides commit/merge/history rewrite.
+## State (2026-10-10)
+- Job: rebuild the WHOLE collection — all 146 units in `conductor/lesson-rebuild/plan.json` + 29 replacement courses — not only the first 9. Full handoff with every unit/course row, status, method, commands: `conductor/HANDOFF_2026-10-10.md`.
+- Done: compliance removals; 9 units (rules ×8, basics-mate-words); 1 replacement course (gokigen-vs-chousoku--56fu); 4 course + 20 vendored note rewrites; gates green; branch pushed.
+- Method: one Sonnet writer at a time, ≤5 units/job, briefs in `conductor/lesson-rebuild/`; orchestrator verifies each unit (checks + line-by-line accuracy read).
+- Next action: writer job for table A TODO rows rules-tsume, basics-value, basics-attack-defense, basics-plan, basics-opening.

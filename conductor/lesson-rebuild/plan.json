@@ -1,0 +1,1767 @@
+[
+ {
+  "id": "rules-game",
+  "path": [
+   "はじめての将棋",
+   "ルール"
+  ],
+  "title": "将棋の目的と対局の流れ",
+  "study": [
+   656
+  ],
+  "order": 10
+ },
+ {
+  "id": "rules-moves",
+  "path": [
+   "はじめての将棋",
+   "ルール"
+  ],
+  "title": "駒の動き",
+  "study": [
+   615
+  ],
+  "order": 20
+ },
+ {
+  "id": "rules-promotion",
+  "path": [
+   "はじめての将棋",
+   "ルール"
+  ],
+  "title": "成り",
+  "study": [
+   722
+  ],
+  "order": 30
+ },
+ {
+  "id": "rules-drops",
+  "path": [
+   "はじめての将棋",
+   "ルール"
+  ],
+  "title": "持ち駒を打つ",
+  "study": [
+   738
+  ],
+  "order": 40
+ },
+ {
+  "id": "rules-checkmate",
+  "path": [
+   "はじめての将棋",
+   "ルール"
+  ],
+  "title": "王手と詰み、勝ち負け",
+  "study": [
+   746
+  ],
+  "order": 50
+ },
+ {
+  "id": "rules-fouls",
+  "path": [
+   "はじめての将棋",
+   "ルール"
+  ],
+  "title": "反則",
+  "study": [
+   813
+  ],
+  "order": 60
+ },
+ {
+  "id": "rules-draws",
+  "path": [
+   "はじめての将棋",
+   "ルール"
+  ],
+  "title": "千日手と持将棋（入玉）",
+  "study": [
+   758,
+   932
+  ],
+  "order": 70
+ },
+ {
+  "id": "rules-setup",
+  "path": [
+   "はじめての将棋",
+   "ルール"
+  ],
+  "title": "駒の並べ方・先手後手の決め方・持ち時間・マナー",
+  "study": [
+   1137,
+   1106,
+   8083,
+   1127
+  ],
+  "order": 80
+ },
+ {
+  "id": "rules-tsume",
+  "path": [
+   "はじめての将棋",
+   "ルール"
+  ],
+  "title": "詰将棋のルール",
+  "study": [
+   5361
+  ],
+  "order": 90
+ },
+ {
+  "id": "basics-value",
+  "path": [
+   "はじめての将棋",
+   "基本の考え方"
+  ],
+  "title": "駒の価値と駒得",
+  "study": [
+   1512,
+   1021
+  ],
+  "order": 100
+ },
+ {
+  "id": "basics-attack-defense",
+  "path": [
+   "はじめての将棋",
+   "基本の考え方"
+  ],
+  "title": "攻めと受けの基本",
+  "study": [
+   3271
+  ],
+  "order": 110
+ },
+ {
+  "id": "basics-mate-words",
+  "path": [
+   "はじめての将棋",
+   "基本の考え方"
+  ],
+  "title": "詰み・詰めろ・必至",
+  "study": [
+   1821
+  ],
+  "order": 120
+ },
+ {
+  "id": "basics-plan",
+  "path": [
+   "はじめての将棋",
+   "基本の考え方"
+  ],
+  "title": "指し方の基本方針",
+  "study": [
+   2911
+  ],
+  "order": 130
+ },
+ {
+  "id": "basics-opening",
+  "path": [
+   "はじめての将棋",
+   "基本の考え方"
+  ],
+  "title": "序盤の考え方",
+  "study": [
+   3156
+  ],
+  "order": 140
+ },
+ {
+  "id": "basics-middlegame",
+  "path": [
+   "はじめての将棋",
+   "基本の考え方"
+  ],
+  "title": "中盤の考え方",
+  "study": [
+   3198
+  ],
+  "order": 150
+ },
+ {
+  "id": "basics-endgame",
+  "path": [
+   "はじめての将棋",
+   "基本の考え方"
+  ],
+  "title": "終盤の考え方",
+  "study": [
+   3239,
+   580
+  ],
+  "order": 160
+ },
+ {
+  "id": "basics-bishop-trade",
+  "path": [
+   "はじめての将棋",
+   "基本の考え方"
+  ],
+  "title": "角交換のあとの注意",
+  "study": [
+   2590
+  ],
+  "order": 170
+ },
+ {
+  "id": "basics-forks",
+  "path": [
+   "はじめての将棋",
+   "基本の考え方"
+  ],
+  "title": "両取り",
+  "study": [
+   1067
+  ],
+  "order": 180
+ },
+ {
+  "id": "tesuji-pawn",
+  "path": [
+   "上達のためのテクニック",
+   "手筋"
+  ],
+  "title": "歩の手筋",
+  "study": [
+   1629
+  ],
+  "order": 190
+ },
+ {
+  "id": "tesuji-lance",
+  "path": [
+   "上達のためのテクニック",
+   "手筋"
+  ],
+  "title": "香の手筋",
+  "study": [
+   1486
+  ],
+  "order": 200
+ },
+ {
+  "id": "tesuji-knight",
+  "path": [
+   "上達のためのテクニック",
+   "手筋"
+  ],
+  "title": "桂の手筋",
+  "study": [
+   1331
+  ],
+  "order": 210
+ },
+ {
+  "id": "tesuji-silver",
+  "path": [
+   "上達のためのテクニック",
+   "手筋"
+  ],
+  "title": "銀の手筋",
+  "study": [
+   1313
+  ],
+  "order": 220
+ },
+ {
+  "id": "tesuji-gold",
+  "path": [
+   "上達のためのテクニック",
+   "手筋"
+  ],
+  "title": "金の手筋",
+  "study": [
+   1516
+  ],
+  "order": 230
+ },
+ {
+  "id": "tesuji-bishop",
+  "path": [
+   "上達のためのテクニック",
+   "手筋"
+  ],
+  "title": "角の手筋",
+  "study": [
+   1586
+  ],
+  "order": 240
+ },
+ {
+  "id": "tesuji-rook",
+  "path": [
+   "上達のためのテクニック",
+   "手筋"
+  ],
+  "title": "飛車の手筋",
+  "study": [
+   1541
+  ],
+  "order": 250
+ },
+ {
+  "id": "proverb-three-pawns",
+  "path": [
+   "上達のためのテクニック",
+   "手筋"
+  ],
+  "title": "格言：三歩持ったら継ぎ歩と垂れ歩",
+  "study": [
+   8322
+  ],
+  "order": 260
+ },
+ {
+  "id": "proverb-gold-last",
+  "path": [
+   "上達のためのテクニック",
+   "手筋"
+  ],
+  "title": "格言：金はとどめに残せ",
+  "study": [
+   1783
+  ],
+  "order": 270
+ },
+ {
+  "id": "castles-first",
+  "path": [
+   "上達のためのテクニック",
+   "囲い"
+  ],
+  "title": "はじめに覚える囲い",
+  "study": [
+   6068
+  ],
+  "order": 280
+ },
+ {
+  "id": "castles-yagura",
+  "path": [
+   "上達のためのテクニック",
+   "囲い"
+  ],
+  "title": "矢倉の仲間",
+  "study": [
+   5958
+  ],
+  "order": 290
+ },
+ {
+  "id": "castles-nakazumai",
+  "path": [
+   "上達のためのテクニック",
+   "囲い"
+  ],
+  "title": "中住まいの仲間",
+  "study": [
+   6062
+  ],
+  "order": 300
+ },
+ {
+  "id": "castles-funa",
+  "path": [
+   "上達のためのテクニック",
+   "囲い"
+  ],
+  "title": "舟囲いの仲間",
+  "study": [
+   6044
+  ],
+  "order": 310
+ },
+ {
+  "id": "castles-hidarimino",
+  "path": [
+   "上達のためのテクニック",
+   "囲い"
+  ],
+  "title": "左美濃の仲間",
+  "study": [
+   6007
+  ],
+  "order": 320
+ },
+ {
+  "id": "castles-anaguma",
+  "path": [
+   "上達のためのテクニック",
+   "囲い"
+  ],
+  "title": "穴熊の仲間",
+  "study": [
+   6021
+  ],
+  "order": 330
+ },
+ {
+  "id": "castles-mino",
+  "path": [
+   "上達のためのテクニック",
+   "囲い"
+  ],
+  "title": "美濃囲いの仲間",
+  "study": [
+   5985
+  ],
+  "order": 340
+ },
+ {
+  "id": "castles-aifuri",
+  "path": [
+   "上達のためのテクニック",
+   "囲い"
+  ],
+  "title": "相振り飛車の囲い",
+  "study": [
+   6053
+  ],
+  "order": 350
+ },
+ {
+  "id": "castles-other",
+  "path": [
+   "上達のためのテクニック",
+   "囲い"
+  ],
+  "title": "そのほかの囲い",
+  "study": [
+   6076
+  ],
+  "order": 360
+ },
+ {
+  "id": "attack-mino-side",
+  "path": [
+   "上達のためのテクニック",
+   "囲い崩し"
+  ],
+  "title": "美濃囲いを横から崩す",
+  "study": [
+   2646
+  ],
+  "order": 370
+ },
+ {
+  "id": "attack-mino-kobin",
+  "path": [
+   "上達のためのテクニック",
+   "囲い崩し"
+  ],
+  "title": "美濃囲いをコビンから崩す",
+  "study": [
+   2615
+  ],
+  "order": 380
+ },
+ {
+  "id": "attack-mino-aifuri",
+  "path": [
+   "上達のためのテクニック",
+   "囲い崩し"
+  ],
+  "title": "相振り飛車での美濃崩し",
+  "study": [
+   1070
+  ],
+  "order": 390
+ },
+ {
+  "id": "attack-yagura-side",
+  "path": [
+   "上達のためのテクニック",
+   "囲い崩し"
+  ],
+  "title": "矢倉を横から崩す",
+  "study": [
+   2276
+  ],
+  "order": 400
+ },
+ {
+  "id": "attack-yagura-head",
+  "path": [
+   "上達のためのテクニック",
+   "囲い崩し"
+  ],
+  "title": "矢倉の玉頭と端を攻める",
+  "study": [
+   2313
+  ],
+  "order": 410
+ },
+ {
+  "id": "attack-anaguma",
+  "path": [
+   "上達のためのテクニック",
+   "囲い崩し"
+  ],
+  "title": "穴熊を崩す",
+  "study": [
+   3014
+  ],
+  "order": 420
+ },
+ {
+  "id": "attack-funa",
+  "path": [
+   "上達のためのテクニック",
+   "囲い崩し"
+  ],
+  "title": "舟囲いを崩す",
+  "study": [
+   3048
+  ],
+  "order": 430
+ },
+ {
+  "id": "attack-kinmusou",
+  "path": [
+   "上達のためのテクニック",
+   "囲い崩し"
+  ],
+  "title": "金無双を崩す",
+  "study": [
+   875
+  ],
+  "order": 440
+ },
+ {
+  "id": "endgame-yose",
+  "path": [
+   "上達のためのテクニック",
+   "終盤"
+  ],
+  "title": "寄せの考え方",
+  "study": [
+   2375
+  ],
+  "order": 450
+ },
+ {
+  "id": "endgame-tsumero",
+  "path": [
+   "上達のためのテクニック",
+   "終盤"
+  ],
+  "title": "詰めろと必至のかけ方",
+  "study": [
+   7368
+  ],
+  "order": 460
+ },
+ {
+  "id": "endgame-mate1",
+  "path": [
+   "上達のためのテクニック",
+   "終盤"
+  ],
+  "title": "1手詰の見つけ方",
+  "study": [
+   1854
+  ],
+  "order": 470
+ },
+ {
+  "id": "endgame-mate3",
+  "path": [
+   "上達のためのテクニック",
+   "終盤"
+  ],
+  "title": "3手詰の考え方",
+  "study": [
+   4633,
+   19,
+   386
+  ],
+  "order": 480
+ },
+ {
+  "id": "endgame-mate-tesuji",
+  "path": [
+   "上達のためのテクニック",
+   "終盤"
+  ],
+  "title": "詰みに使う手筋",
+  "study": [
+   109,
+   5325
+  ],
+  "order": 490
+ },
+ {
+  "id": "endgame-tsume-study",
+  "path": [
+   "上達のためのテクニック",
+   "終盤"
+  ],
+  "title": "詰将棋の解き方と練習法",
+  "study": [
+   2418
+  ],
+  "order": 500
+ },
+ {
+  "id": "ibisha-basics",
+  "path": [
+   "戦法・定跡",
+   "居飛車"
+  ],
+  "title": "居飛車の基本",
+  "study": [
+   4717,
+   7230
+  ],
+  "order": 510
+ },
+ {
+  "id": "bougin-basics",
+  "path": [
+   "戦法・定跡",
+   "棒銀"
+  ],
+  "title": "棒銀の基本",
+  "study": [
+   2676
+  ],
+  "order": 520
+ },
+ {
+  "id": "bougin-middlegame",
+  "path": [
+   "戦法・定跡",
+   "棒銀"
+  ],
+  "title": "棒銀の中盤",
+  "study": [
+   2695
+  ],
+  "order": 530
+ },
+ {
+  "id": "bougin-vs-furibisha",
+  "path": [
+   "戦法・定跡",
+   "棒銀"
+  ],
+  "title": "棒銀で振り飛車と戦う",
+  "study": [
+   6549
+  ],
+  "order": 540
+ },
+ {
+  "id": "bougin-castles",
+  "path": [
+   "戦法・定跡",
+   "棒銀"
+  ],
+  "title": "棒銀と合わせる囲い",
+  "study": [
+   6540
+  ],
+  "order": 550
+ },
+ {
+  "id": "yagura-build",
+  "path": [
+   "戦法・定跡",
+   "矢倉"
+  ],
+  "title": "矢倉の組み方",
+  "study": [
+   1852
+  ],
+  "order": 560
+ },
+ {
+  "id": "yagura-bougin",
+  "path": [
+   "戦法・定跡",
+   "矢倉"
+  ],
+  "title": "矢倉棒銀",
+  "study": [
+   3457
+  ],
+  "order": 570
+ },
+ {
+  "id": "yagura-aiyagura",
+  "path": [
+   "戦法・定跡",
+   "矢倉"
+  ],
+  "title": "相矢倉の駒組み",
+  "study": [
+   7747
+  ],
+  "order": 580
+ },
+ {
+  "id": "yagura-37gin",
+  "path": [
+   "戦法・定跡",
+   "矢倉"
+  ],
+  "title": "相矢倉の3七銀戦法",
+  "study": [
+   2105
+  ],
+  "order": 590
+ },
+ {
+  "id": "yagura-waki",
+  "path": [
+   "戦法・定跡",
+   "矢倉"
+  ],
+  "title": "脇システム",
+  "study": [
+   7819
+  ],
+  "order": 600
+ },
+ {
+  "id": "yagura-suzume",
+  "path": [
+   "戦法・定跡",
+   "矢倉"
+  ],
+  "title": "雀刺し",
+  "study": [
+   5928
+  ],
+  "order": 610
+ },
+ {
+  "id": "yagura-vs-bougin",
+  "path": [
+   "戦法・定跡",
+   "矢倉"
+  ],
+  "title": "矢倉で一直線棒銀を迎え撃つ",
+  "study": [
+   2947
+  ],
+  "order": 620
+ },
+ {
+  "id": "yagura-vs-migishiken",
+  "path": [
+   "戦法・定跡",
+   "矢倉"
+  ],
+  "title": "矢倉で右四間飛車を迎え撃つ",
+  "study": [
+   4917
+  ],
+  "order": 630
+ },
+ {
+  "id": "yagura-vs-hidarimino",
+  "path": [
+   "戦法・定跡",
+   "矢倉"
+  ],
+  "title": "矢倉で居角左美濃急戦を迎え撃つ",
+  "study": [
+   4848
+  ],
+  "order": 640
+ },
+ {
+  "id": "gangi",
+  "path": [
+   "戦法・定跡",
+   "矢倉"
+  ],
+  "title": "雁木",
+  "study": [
+   5845,
+   5896
+  ],
+  "order": 650
+ },
+ {
+  "id": "kakugawari-basics",
+  "path": [
+   "戦法・定跡",
+   "角換わり"
+  ],
+  "title": "角換わりの基本",
+  "study": [
+   2865
+  ],
+  "order": 660
+ },
+ {
+  "id": "kakugawari-bougin",
+  "path": [
+   "戦法・定跡",
+   "角換わり"
+  ],
+  "title": "角換わり棒銀",
+  "study": [
+   3497
+  ],
+  "order": 670
+ },
+ {
+  "id": "kakugawari-hayakuri",
+  "path": [
+   "戦法・定跡",
+   "角換わり"
+  ],
+  "title": "角換わり早繰り銀",
+  "study": [
+   6645
+  ],
+  "order": 680
+ },
+ {
+  "id": "kakugawari-koshikake",
+  "path": [
+   "戦法・定跡",
+   "角換わり"
+  ],
+  "title": "角換わり腰掛け銀",
+  "study": [
+   6677,
+   6736
+  ],
+  "order": 690
+ },
+ {
+  "id": "kakugawari-45kei",
+  "path": [
+   "戦法・定跡",
+   "角換わり"
+  ],
+  "title": "角換わり▲4五桂の速攻",
+  "study": [
+   6704
+  ],
+  "order": 700
+ },
+ {
+  "id": "kakugawari-ittezon",
+  "path": [
+   "戦法・定跡",
+   "角換わり"
+  ],
+  "title": "一手損角換わり",
+  "study": [
+   6765
+  ],
+  "order": 710
+ },
+ {
+  "id": "aigakari-basics",
+  "path": [
+   "戦法・定跡",
+   "相掛かり"
+  ],
+  "title": "相掛かりの基本",
+  "study": [
+   5873
+  ],
+  "order": 720
+ },
+ {
+  "id": "aigakari-bougin",
+  "path": [
+   "戦法・定跡",
+   "相掛かり"
+  ],
+  "title": "相掛かり棒銀",
+  "study": [
+   7182
+  ],
+  "order": 730
+ },
+ {
+  "id": "hineribisha",
+  "path": [
+   "戦法・定跡",
+   "相掛かり"
+  ],
+  "title": "ひねり飛車",
+  "study": [
+   7205
+  ],
+  "order": 740
+ },
+ {
+  "id": "yokofu-basics",
+  "path": [
+   "戦法・定跡",
+   "横歩取り"
+  ],
+  "title": "横歩取りの基本",
+  "study": [
+   3783
+  ],
+  "order": 750
+ },
+ {
+  "id": "yokofu-23fu",
+  "path": [
+   "戦法・定跡",
+   "横歩取り"
+  ],
+  "title": "横歩取り△2三歩",
+  "study": [
+   7031
+  ],
+  "order": 760
+ },
+ {
+  "id": "yokofu-45kaku",
+  "path": [
+   "戦法・定跡",
+   "横歩取り"
+  ],
+  "title": "横歩取り△4五角",
+  "study": [
+   3826
+  ],
+  "order": 770
+ },
+ {
+  "id": "aiyokofu",
+  "path": [
+   "戦法・定跡",
+   "横歩取り"
+  ],
+  "title": "相横歩取り",
+  "study": [
+   7071
+  ],
+  "order": 780
+ },
+ {
+  "id": "yokofu-85hisha",
+  "path": [
+   "戦法・定跡",
+   "横歩取り"
+  ],
+  "title": "横歩取り△3三角型",
+  "study": [
+   7105
+  ],
+  "order": 790
+ },
+ {
+  "id": "yokofu-aono",
+  "path": [
+   "戦法・定跡",
+   "横歩取り"
+  ],
+  "title": "青野流",
+  "study": [
+   4314
+  ],
+  "order": 800
+ },
+ {
+  "id": "yokofu-yuuki",
+  "path": [
+   "戦法・定跡",
+   "横歩取り"
+  ],
+  "title": "勇気流",
+  "study": [
+   7137
+  ],
+  "order": 810
+ },
+ {
+  "id": "yokofu-avoid",
+  "path": [
+   "戦法・定跡",
+   "横歩取り"
+  ],
+  "title": "横歩取りを避ける指し方",
+  "study": [
+   6496
+  ],
+  "order": 820
+ },
+ {
+  "id": "taifuri-basics",
+  "path": [
+   "戦法・定跡",
+   "対振り飛車"
+  ],
+  "title": "対振り飛車の基本",
+  "study": [
+   7238
+  ],
+  "order": 830
+ },
+ {
+  "id": "taifuri-bougin",
+  "path": [
+   "戦法・定跡",
+   "対振り飛車"
+  ],
+  "title": "対振り棒銀",
+  "study": [
+   7254
+  ],
+  "order": 840
+ },
+ {
+  "id": "taifuri-46gin",
+  "path": [
+   "戦法・定跡",
+   "対振り飛車"
+  ],
+  "title": "4六銀左急戦",
+  "study": [
+   7282
+  ],
+  "order": 850
+ },
+ {
+  "id": "taifuri-elmo",
+  "path": [
+   "戦法・定跡",
+   "対振り飛車"
+  ],
+  "title": "elmo囲い急戦",
+  "study": [
+   7936
+  ],
+  "order": 860
+ },
+ {
+  "id": "taifuri-anaguma",
+  "path": [
+   "戦法・定跡",
+   "対振り飛車"
+  ],
+  "title": "居飛車穴熊",
+  "study": [
+   7339
+  ],
+  "order": 870
+ },
+ {
+  "id": "taifuri-millennium",
+  "path": [
+   "戦法・定跡",
+   "対振り飛車"
+  ],
+  "title": "ミレニアム",
+  "study": [
+   7988
+  ],
+  "order": 880
+ },
+ {
+  "id": "taifuri-45hayashikake",
+  "path": [
+   "戦法・定跡",
+   "対振り飛車"
+  ],
+  "title": "4五歩早仕掛け",
+  "study": [
+   974
+  ],
+  "order": 890
+ },
+ {
+  "id": "taifuri-ponpon",
+  "path": [
+   "戦法・定跡",
+   "対振り飛車"
+  ],
+  "title": "ポンポン桂",
+  "study": [
+   8008
+  ],
+  "order": 900
+ },
+ {
+  "id": "taifuri-vs-hayaishida",
+  "path": [
+   "戦法・定跡",
+   "対振り飛車"
+  ],
+  "title": "早石田の△4五角に備える",
+  "study": [
+   7962
+  ],
+  "order": 910
+ },
+ {
+  "id": "taifuri-bougin-ishida",
+  "path": [
+   "戦法・定跡",
+   "対振り飛車"
+  ],
+  "title": "石田流に棒金",
+  "study": [
+   4502
+  ],
+  "order": 920
+ },
+ {
+  "id": "taifuri-chousoku",
+  "path": [
+   "戦法・定跡",
+   "対振り飛車"
+  ],
+  "title": "ゴキゲン中飛車に超速",
+  "study": [
+   7863
+  ],
+  "order": 930
+ },
+ {
+  "id": "taifuri-vs-kakukoukan",
+  "path": [
+   "戦法・定跡",
+   "対振り飛車"
+  ],
+  "title": "角交換四間飛車に4七銀型",
+  "study": [
+   2204
+  ],
+  "order": 940
+ },
+ {
+  "id": "mukai-build",
+  "path": [
+   "戦法・定跡",
+   "向かい飛車"
+  ],
+  "title": "向かい飛車の組み方",
+  "study": [
+   8037
+  ],
+  "order": 950
+ },
+ {
+  "id": "mukai-attack",
+  "path": [
+   "戦法・定跡",
+   "向かい飛車"
+  ],
+  "title": "向かい飛車の攻め方",
+  "study": [
+   8048
+  ],
+  "order": 960
+ },
+ {
+  "id": "sanken-basics",
+  "path": [
+   "戦法・定跡",
+   "三間飛車"
+  ],
+  "title": "三間飛車の基本",
+  "study": [
+   6896
+  ],
+  "order": 970
+ },
+ {
+  "id": "sanken-vs-bougin",
+  "path": [
+   "戦法・定跡",
+   "三間飛車"
+  ],
+  "title": "三間飛車で棒銀を受ける",
+  "study": [
+   6934
+  ],
+  "order": 980
+ },
+ {
+  "id": "sanken-tomahawk",
+  "path": [
+   "戦法・定跡",
+   "三間飛車"
+  ],
+  "title": "トマホーク",
+  "study": [
+   6970
+  ],
+  "order": 990
+ },
+ {
+  "id": "ishida-basics",
+  "path": [
+   "戦法・定跡",
+   "三間飛車"
+  ],
+  "title": "石田流の基本",
+  "study": [
+   6200
+  ],
+  "order": 1000
+ },
+ {
+  "id": "ishida-honkumi",
+  "path": [
+   "戦法・定跡",
+   "三間飛車"
+  ],
+  "title": "石田流本組み",
+  "study": [
+   6436
+  ],
+  "order": 1010
+ },
+ {
+  "id": "ishida-attack",
+  "path": [
+   "戦法・定跡",
+   "三間飛車"
+  ],
+  "title": "石田流本組みからの仕掛け",
+  "study": [
+   6460
+  ],
+  "order": 1020
+ },
+ {
+  "id": "hayaishida",
+  "path": [
+   "戦法・定跡",
+   "三間飛車"
+  ],
+  "title": "早石田（升田式）",
+  "study": [
+   5256
+  ],
+  "order": 1030
+ },
+ {
+  "id": "ishida-43",
+  "path": [
+   "戦法・定跡",
+   "三間飛車"
+  ],
+  "title": "4→3戦法",
+  "study": [
+   6814
+  ],
+  "order": 1040
+ },
+ {
+  "id": "shiken-basics",
+  "path": [
+   "戦法・定跡",
+   "四間飛車"
+  ],
+  "title": "四間飛車の基本",
+  "study": [
+   2426
+  ],
+  "order": 1050
+ },
+ {
+  "id": "shiken-castles",
+  "path": [
+   "戦法・定跡",
+   "四間飛車"
+  ],
+  "title": "四間飛車の囲い",
+  "study": [
+   2472
+  ],
+  "order": 1060
+ },
+ {
+  "id": "shiken-patterns",
+  "path": [
+   "戦法・定跡",
+   "四間飛車"
+  ],
+  "title": "四間飛車の駒組みの型",
+  "study": [
+   2491
+  ],
+  "order": 1070
+ },
+ {
+  "id": "shiken-vs-igyoku-bougin",
+  "path": [
+   "戦法・定跡",
+   "四間飛車"
+  ],
+  "title": "居玉棒銀を受ける",
+  "study": [
+   2519
+  ],
+  "order": 1080
+ },
+ {
+  "id": "shiken-vs-funa-bougin",
+  "path": [
+   "戦法・定跡",
+   "四間飛車"
+  ],
+  "title": "舟囲い棒銀を受ける",
+  "study": [
+   2556
+  ],
+  "order": 1090
+ },
+ {
+  "id": "shiken-vs-yagura",
+  "path": [
+   "戦法・定跡",
+   "四間飛車"
+  ],
+  "title": "四間飛車対矢倉",
+  "study": [
+   1741
+  ],
+  "order": 1100
+ },
+ {
+  "id": "shiken-vs-migishiken",
+  "path": [
+   "戦法・定跡",
+   "四間飛車"
+  ],
+  "title": "四間飛車対右四間飛車",
+  "study": [
+   1699
+  ],
+  "order": 1110
+ },
+ {
+  "id": "shiken-vs-anaguma",
+  "path": [
+   "戦法・定跡",
+   "四間飛車"
+  ],
+  "title": "四間飛車対居飛車穴熊",
+  "study": [
+   2744
+  ],
+  "order": 1120
+ },
+ {
+  "id": "shiken-tateishi",
+  "path": [
+   "戦法・定跡",
+   "四間飛車"
+  ],
+  "title": "立石流",
+  "study": [
+   1001
+  ],
+  "order": 1130
+ },
+ {
+  "id": "fujii-build",
+  "path": [
+   "戦法・定跡",
+   "四間飛車"
+  ],
+  "title": "藤井システムの組み方",
+  "study": [
+   7420
+  ],
+  "order": 1140
+ },
+ {
+  "id": "fujii-vs-anaguma",
+  "path": [
+   "戦法・定跡",
+   "四間飛車"
+  ],
+  "title": "藤井システム対居飛車穴熊",
+  "study": [
+   7418
+  ],
+  "order": 1150
+ },
+ {
+  "id": "fujii-vs-hidarimino",
+  "path": [
+   "戦法・定跡",
+   "四間飛車"
+  ],
+  "title": "藤井システム対左美濃",
+  "study": [
+   7495
+  ],
+  "order": 1160
+ },
+ {
+  "id": "fujii-vs-kyusen",
+  "path": [
+   "戦法・定跡",
+   "四間飛車"
+  ],
+  "title": "藤井システム対急戦",
+  "study": [
+   7513
+  ],
+  "order": 1170
+ },
+ {
+  "id": "gokigen-basics",
+  "path": [
+   "戦法・定跡",
+   "中飛車"
+  ],
+  "title": "ゴキゲン中飛車の基本",
+  "study": [
+   5040
+  ],
+  "order": 1180
+ },
+ {
+  "id": "nakabisha-sente",
+  "path": [
+   "戦法・定跡",
+   "中飛車"
+  ],
+  "title": "先手中飛車",
+  "study": [
+   6593
+  ],
+  "order": 1190
+ },
+ {
+  "id": "gokigen-castles",
+  "path": [
+   "戦法・定跡",
+   "中飛車"
+  ],
+  "title": "中飛車の囲い",
+  "study": [
+   6566
+  ],
+  "order": 1200
+ },
+ {
+  "id": "gokigen-attack",
+  "path": [
+   "戦法・定跡",
+   "中飛車"
+  ],
+  "title": "ゴキゲン中飛車の攻め筋",
+  "study": [
+   5619
+  ],
+  "order": 1210
+ },
+ {
+  "id": "gokigen-vs-choukyusen",
+  "path": [
+   "戦法・定跡",
+   "中飛車"
+  ],
+  "title": "超急戦に備える",
+  "study": [
+   5461
+  ],
+  "order": 1220
+ },
+ {
+  "id": "gokigen-vs-chousoku",
+  "path": [
+   "戦法・定跡",
+   "中飛車"
+  ],
+  "title": "超速3七銀を受ける",
+  "study": [
+   6514
+  ],
+  "order": 1230
+ },
+ {
+  "id": "gokigen-vs-anaguma",
+  "path": [
+   "戦法・定跡",
+   "中飛車"
+  ],
+  "title": "一直線穴熊と戦う",
+  "study": [
+   6174
+  ],
+  "order": 1240
+ },
+ {
+  "id": "kakukoukan-shiken",
+  "path": [
+   "戦法・定跡",
+   "角交換振り飛車"
+  ],
+  "title": "角交換四間飛車",
+  "study": [
+   1247
+  ],
+  "order": 1250
+ },
+ {
+  "id": "kakukoukan-gyakubougin",
+  "path": [
+   "戦法・定跡",
+   "角交換振り飛車"
+  ],
+  "title": "逆棒銀",
+  "study": [
+   7605
+  ],
+  "order": 1260
+ },
+ {
+  "id": "direct-mukai",
+  "path": [
+   "戦法・定跡",
+   "角交換振り飛車"
+  ],
+  "title": "ダイレクト向かい飛車",
+  "study": [
+   7645
+  ],
+  "order": 1270
+ },
+ {
+  "id": "legspe",
+  "path": [
+   "戦法・定跡",
+   "角交換振り飛車"
+  ],
+  "title": "レグスペ",
+  "study": [
+   7700
+  ],
+  "order": 1280
+ },
+ {
+  "id": "aifuri-basics",
+  "path": [
+   "戦法・定跡",
+   "相振り飛車"
+  ],
+  "title": "相振り飛車の基本",
+  "study": [
+   829
+  ],
+  "order": 1290
+ },
+ {
+  "id": "aifuri-ishida-vs-naka",
+  "path": [
+   "戦法・定跡",
+   "相振り飛車"
+  ],
+  "title": "石田流対中飛車",
+  "study": [
+   777
+  ],
+  "order": 1300
+ },
+ {
+  "id": "aifuri-vs-ishida",
+  "path": [
+   "戦法・定跡",
+   "相振り飛車"
+  ],
+  "title": "角交換四間飛車で石田流と戦う",
+  "study": [
+   362
+  ],
+  "order": 1310
+ },
+ {
+  "id": "aifuri-hidari-anaguma",
+  "path": [
+   "戦法・定跡",
+   "相振り飛車"
+  ],
+  "title": "中飛車左穴熊",
+  "study": [
+   6154
+  ],
+  "order": 1320
+ },
+ {
+  "id": "kishu-onigoroshi",
+  "path": [
+   "戦法・定跡",
+   "奇襲と対策"
+  ],
+  "title": "鬼殺しと対策",
+  "study": [
+   2807
+  ],
+  "order": 1330
+ },
+ {
+  "id": "kishu-sujichigai",
+  "path": [
+   "戦法・定跡",
+   "奇襲と対策"
+  ],
+  "title": "筋違い角と対策",
+  "study": [
+   5001
+  ],
+  "order": 1340
+ },
+ {
+  "id": "kishu-pacman",
+  "path": [
+   "戦法・定跡",
+   "奇襲と対策"
+  ],
+  "title": "パックマン",
+  "study": [
+   2840
+  ],
+  "order": 1350
+ },
+ {
+  "id": "kishu-ahiru",
+  "path": [
+   "戦法・定跡",
+   "奇襲と対策"
+  ],
+  "title": "アヒル戦法と対策",
+  "study": [
+   5283
+  ],
+  "order": 1360
+ },
+ {
+  "id": "kishu-migishiken-hidarimino",
+  "path": [
+   "戦法・定跡",
+   "奇襲と対策"
+  ],
+  "title": "右四間飛車左美濃",
+  "study": [
+   4961
+  ],
+  "order": 1370
+ },
+ {
+  "id": "ureshino-basics",
+  "path": [
+   "戦法・定跡",
+   "嬉野流"
+  ],
+  "title": "嬉野流の基本",
+  "study": [
+   5608,
+   5519
+  ],
+  "order": 1380
+ },
+ {
+  "id": "ureshino-new",
+  "path": [
+   "戦法・定跡",
+   "嬉野流"
+  ],
+  "title": "新嬉野流",
+  "study": [
+   5571
+  ],
+  "order": 1390
+ },
+ {
+  "id": "ureshino-vs-bougin",
+  "path": [
+   "戦法・定跡",
+   "嬉野流"
+  ],
+  "title": "嬉野流対棒銀",
+  "study": [
+   5546
+  ],
+  "order": 1400
+ },
+ {
+  "id": "ureshino-vs-shiken",
+  "path": [
+   "戦法・定跡",
+   "嬉野流"
+  ],
+  "title": "嬉野流対四間飛車",
+  "study": [
+   5584
+  ],
+  "order": 1410
+ },
+ {
+  "id": "ureshino-counter",
+  "path": [
+   "戦法・定跡",
+   "嬉野流"
+  ],
+  "title": "嬉野流を三間飛車で迎え撃つ",
+  "study": [
+   5499
+  ],
+  "order": 1420
+ },
+ {
+  "id": "handicap-8",
+  "path": [
+   "戦法・定跡",
+   "駒落ち"
+  ],
+  "title": "八枚落ち",
+  "study": [
+   4747
+  ],
+  "order": 1430
+ },
+ {
+  "id": "handicap-6",
+  "path": [
+   "戦法・定跡",
+   "駒落ち"
+  ],
+  "title": "六枚落ち",
+  "study": [
+   4779
+  ],
+  "order": 1440
+ },
+ {
+  "id": "handicap-4",
+  "path": [
+   "戦法・定跡",
+   "駒落ち"
+  ],
+  "title": "四枚落ち",
+  "study": [
+   4815
+  ],
+  "order": 1450
+ },
+ {
+  "id": "handicap-2",
+  "path": [
+   "戦法・定跡",
+   "駒落ち"
+  ],
+  "title": "二枚落ち",
+  "study": [
+   4878
+  ],
+  "order": 1460
+ }
+]
