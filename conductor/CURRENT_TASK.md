@@ -31,5 +31,5 @@ Copyright audit and overhaul of all learning content on branch `audit/lesson-cop
 - Mistake: oversized scope (90 opening lessons duplicating joseki courses) and fan-out, against the cheap-single-worker rule. Rule added to AGENTS.md.
 - Compliance done: copied lessons, tesuji--* and shogirule--* courses removed; strategies.ts remapped (empty matchups say 「収録している手順はまだない」); vendored + 4 course notes rewritten; README/docs/AGENTS updated; app shows lesson references.
 - Content: 9 units (rules ×8 + basics-mate-words) pass check-unit; 1 salvaged course gokigen-vs-chousoku--56fu passes check-course and is wired.
-- Verification: `bun run lessons` 0 errors, check-originality 0/8399 flagged, validate.mjs 0 errors, strategy-check 0 errors, `bun run check` exit 0. Uncommitted (no commit authorization).
+- Verification: `bun run lessons` 0 errors, check-originality 0/8399 flagged, validate.mjs 0 errors, strategy-check 0 errors, `bun run check` exit 0. Committed ac24259 on `audit/lesson-copyright` and pushed (HTTPS via gh credential; SSH key denied); full handoff `conductor/HANDOFF_2026-10-10.md`.
 - Next: reduced curriculum ~25 units (remaining basics ×8, tesuji ×9, castles/attacks/endgame few), written sequentially; user decides commit/merge/history rewrite.
