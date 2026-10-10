@@ -277,7 +277,7 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
         {customBoard && baked && <image href={baked.surface} width={width} height={height} preserveAspectRatio="none" />}
         <rect x={x0} y={y0} width={boardW} height={boardH} fill={customBoard ? 'transparent' : t.board} />
         {t.koma ? (
-          <UnderMarks props={props} p={project} u={t.cw} handPoint={handPoint} />
+          <UnderMarks props={props} p={project} u={t.cw} />
         ) : (
           <>
             {lastFrom && cell(lastFrom, style === 'diagram' ? '#9cc3ff' : '#fff2a8', 0.35, 'lf')}
@@ -287,7 +287,7 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
             {selected instanceof Square && cell(selected, '#ffd76a', 0.7, 'sel')}
           </>
         )}
-        {!t.koma && <UnderMarks props={props} p={project} u={t.cw} handPoint={handPoint} markersOnly />}
+        {!t.koma && <UnderMarks props={props} p={project} u={t.cw} markersOnly />}
         {Array.from({ length: 10 }, (_, i) => (
           <g key={i} stroke={t.line} strokeWidth={i === 0 || i === 9 ? t.frame : t.koma ? 1 : 1.6}>
             <line x1={x0 + i * t.cw} y1={y0} x2={x0 + i * t.cw} y2={y0 + boardH} />
