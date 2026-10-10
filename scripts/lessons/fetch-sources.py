@@ -86,7 +86,7 @@ class Article(HTMLParser):
 
 cache = Path('.cache/curriculum-source')
 cache.mkdir(parents=True, exist_ok=True)
-manifest_path = Path('scripts/lesson-source/catalog.json')
+manifest_path = Path('data/lessons/topics/catalog.json')
 
 if sys.argv[1] == 'catalog':
     doc = fetch('https://shogi-joutatsu.com/')

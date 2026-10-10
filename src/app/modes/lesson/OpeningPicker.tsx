@@ -110,25 +110,52 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
         <h2 className="app-picker-title">{name(open.setup)}</h2>
         <p className="app-picker-intro app-lesson-overview">{ja ? open.setup.intro.ja : open.setup.intro.en}</p>
         {open.setup.plan && <p className="app-picker-intro plan">{ja ? open.setup.plan.ja : open.setup.plan.en}</p>}
-        {open.courses.length > 0 && (
-          <div className="app-actions">
-            <Button variant="primary" onClick={() => (store(RANDOM_KEY, null), onOpen(open.courses[0], 'study'))}>
-              {ja ? '最初から学ぶ' : 'Start from the beginning'}
-            </Button>
-            {quizzable.length > 1 && <Button onClick={random}>{t('lesson.randomQuiz')}</Button>}
-          </div>
-        )}
-        {open.courses.map((course) => (
-          <LessonCard key={course.id} course={course} prefix={name(open.setup)} onOpen={(c, mode) => (store(RANDOM_KEY, null), onOpen(c, mode))} />
-        ))}
-        {open.setup.check && (
-          <details className="app-lesson-check">
-            <summary>
-              {ja ? '理解度チェック：' : 'Check: '}
-              {ja ? open.setup.check.question.ja : open.setup.check.question.en}
-            </summary>
-            <p>{ja ? open.setup.check.answer.ja : open.setup.check.answer.en}</p>
-          </details>
+        {open.setup.path ? (
+          <>
+            {open.courses.length > 0 && (
+              <Button variant="primary" className="app-guide-start" onClick={() => (store(RANDOM_KEY, null), onOpen(open.courses[0], 'study'))}>
+                {ja ? '始める' : 'Start'}
+              </Button>
+            )}
+            {open.courses.length === 0 && open.setup.check && (
+              <details className="app-lesson-check">
+                <summary>{ja ? open.setup.check.question.ja : open.setup.check.question.en}</summary>
+                <p>{ja ? open.setup.check.answer.ja : open.setup.check.answer.en}</p>
+              </details>
+            )}
+            {open.courses.length > 1 && (
+              <details className="app-lesson-toc">
+                <summary>{ja ? `目次（${open.courses.length}）` : `Contents (${open.courses.length})`}</summary>
+                <ol>
+                  {open.courses.map((course) => {
+                    const title = ja ? course.title : (course.titleEn ?? course.title)
+                    const prefix = `${name(open.setup)}: `
+                    return (
+                      <li key={course.id}>
+                        <button onClick={() => (store(RANDOM_KEY, null), onOpen(course, 'study'))}>
+                          {title.startsWith(prefix) ? title.slice(prefix.length) : title}
+                        </button>
+                      </li>
+                    )
+                  })}
+                </ol>
+              </details>
+            )}
+          </>
+        ) : (
+          <>
+            {open.courses.length > 0 && (
+              <div className="app-actions">
+                <Button variant="primary" onClick={() => (store(RANDOM_KEY, null), onOpen(open.courses[0], 'study'))}>
+                  {ja ? '最初から学ぶ' : 'Start from the beginning'}
+                </Button>
+                {quizzable.length > 1 && <Button onClick={random}>{t('lesson.randomQuiz')}</Button>}
+              </div>
+            )}
+            {open.courses.map((course) => (
+              <LessonCard key={course.id} course={course} prefix={name(open.setup)} onOpen={(c, mode) => (store(RANDOM_KEY, null), onOpen(c, mode))} />
+            ))}
+          </>
         )}
         {open.setup.sources.length > 0 && (
           <p className="app-muted">

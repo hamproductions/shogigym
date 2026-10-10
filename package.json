@@ -18,7 +18,8 @@
     "release:patch": "release-it patch --ci",
     "release:minor": "release-it minor --ci",
     "release:major": "release-it major --ci",
-    "release:dry-run": "release-it --dry-run --ci"
+    "release:dry-run": "release-it --dry-run --ci",
+    "lessons": "bun scripts/lessons/build.ts && node scripts/validate-curriculum.mjs"
   },
   "dependencies": {
     "@dimforge/rapier3d-compat": "^0.21.0",

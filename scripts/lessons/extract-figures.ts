@@ -24,7 +24,7 @@ type Occ = {
 
 const WORK = '.cache/extract'
 const SOURCE = '.cache/curriculum-source'
-const OUT = '.cache/extract/diagrams'
+const OUT = 'data/lessons/figures'
 const INITIAL = 'lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL'
 const KANJI_RANK = '一二三四五六七八九'
 
@@ -40,7 +40,7 @@ const readJson = (path: string) => (existsSync(path) ? JSON.parse(readFileSync(p
 const steps: Record<string, Text> = {}
 for (const file of readdirSync(`${WORK}/i18n`).filter((f) => /^step_\w+\.json$/.test(f)))
   for (const [key, value] of Object.entries(readJson(`${WORK}/i18n/${file}`) as Record<string, Text>)) if (value.ja && value.en) steps[key] = value
-const manualLines: Record<string, Record<string, Omit<Line, 'text'>>> = readJson('scripts/source-lesson-lines.json')
+const manualLines: Record<string, Record<string, Omit<Line, 'text'>>> = readJson('scripts/lessons/source-lesson-lines.json')
 const segments: Record<string, { heading: string }> = readJson(`${WORK}/segments.json`)
 const headingsEn: Record<string, string> = readJson(`${WORK}/i18n/headings_en.json`)
 const norm = (s: string) => s.normalize('NFKC').replace(/\s+/g, ' ').trim()

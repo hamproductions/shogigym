@@ -65,9 +65,10 @@ export function useLesson(session: BoardSession, { mistakes, load, setTab, close
   const good = goodBranches(node)
   const { setSourceMarks } = session
   const figures = node?.figures
+  const figureText = node?.comment
   useEffect(() => {
-    if (active) setSourceMarks(figures ? figureMarks(figures, liveSfen, cursor === 0) : null)
-  }, [active, figures, liveSfen, cursor, setSourceMarks])
+    if (active) setSourceMarks(figures ? figureMarks(figures, liveSfen, cursor === 0, figureText) : null)
+  }, [active, figures, figureText, liveSfen, cursor, setSourceMarks])
   const asking = active && !preview && toMove === userSide && good.length > 0
   const offBook = active && !preview && !nodes?.get(strip(liveSfen))
   const done = active && atEnd && !preview && !!node && node.branches.filter((b) => b.kind !== 'deviation').length === 0

@@ -17,6 +17,7 @@ import { courseProgress } from '@/app/practice'
 import type { LessonMode } from '@/app/types'
 import { RANDOM_KEY, store, stored } from './reading'
 import { OpeningPicker } from './OpeningPicker'
+import { LessonGuide } from './LessonGuide'
 import type { Lesson } from './useLesson'
 
 const TALLY_KEY = 'joseki-practice:random-quiz:v1'
@@ -43,7 +44,7 @@ function seriesOf(course: Course, lesson: Lesson) {
   const setup = setupOf(course)
   if (!setup) return null
   const siblings = coursesOf(setup.courseIds)
-  const at = siblings.findIndex((c) => c.id === course.id)
+  const at = siblings.findIndex((c) => c.baseId === course.baseId)
   const random = stored(RANDOM_KEY) === setup.id
   const quizzable = siblings.filter((c) => courseProgress(c).total > 0)
   const peers = setup.path ? SETUPS.filter((s) => s.path?.join('/') === setup.path?.join('/')) : []
@@ -58,7 +59,7 @@ function seriesOf(course: Course, lesson: Lesson) {
     lesson.open(next, mode)
   }
   const pick = () => {
-    const others = quizzable.filter((c) => c.id !== course.id)
+    const others = quizzable.filter((c) => c.baseId !== course.baseId)
     return others[Math.floor(Math.random() * others.length)] ?? quizzable[0]
   }
   const leaveTo = (id: string) => {
@@ -123,6 +124,12 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
   const whatIf = preview && !mistake ? preview.title : null
   const theirs = reply ?? mainBranch(lesson.node)
   const endComment = done ? lesson.node?.comment : undefined
+  if (setupOf(course)?.path && lessonMode === 'study' && !(mistakePreview && mistake) && !offBook && !whatIf)
+    return (
+      <div className="app-lesson-pane study">
+        <LessonGuide course={course} lesson={lesson} series={series} />
+      </div>
+    )
   return (
     <div className={`app-lesson-pane ${lessonMode}`}>
       {series && (
