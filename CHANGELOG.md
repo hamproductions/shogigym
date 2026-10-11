@@ -2,6 +2,13 @@
 
 Notable changes are recorded here when a release is created. Versions follow Semantic Versioning.
 
+## [1.4.4](/compare/v1.4.3...v1.4.4) (2026-10-11)
+
+
+### Bug Fixes
+
+* complete original curriculum and lesson presentation b2400f9
+
 ## [1.4.3](/compare/v1.4.2...v1.4.3) (2026-10-10)
 
 
