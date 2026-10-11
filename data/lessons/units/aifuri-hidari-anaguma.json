@@ -1,0 +1,124 @@
+{
+  "id": "aifuri-hidari-anaguma",
+  "order": 1320,
+  "path": ["戦法・定跡", "相振り飛車"],
+  "title": {
+    "ja": "中飛車で左穴熊を選ぶ条件",
+    "en": "Choosing a left Anaguma with Central Rook"
+  },
+  "intro": {
+    "ja": "相振り飛車でも、先手の中飛車は玉を左へ運べます。左穴熊は９九の玉、９八の香、８八の銀と金の連絡を実際の盤で確認して初めて評価できます。囲う一手の間に後手の３筋と５筋がどう動くかを読み、攻めと補強を選び分けます。",
+    "en": "In double Ranging Rook, Sente's Central Rook can place its king on the left. Judge a left Anaguma by its actual king on 9i, lance on 9h, silver on 8h, and connected golds. Each castle move gives Gote a turn, so compare third- and fifth-file contact before adding more cover."
+  },
+  "check": {
+    "question": {
+      "ja": "先手が９九玉・９八香・８八銀・７八金を作っても、後手の３筋の歩が迫っています。『穴熊ができたから安全』と言い切れますか？",
+      "en": "Sente has K9i, L9h, S8h and G7h, but Gote's third-file pawn is advancing. Is the completed Anaguma automatically safe?"
+    },
+    "answer": {
+      "ja": "言い切れません。玉の出口と金銀の連絡に加え、３筋で歩を取った後の飛車同士の取り返し、５筋の攻めに残す手数を確認します。",
+      "en": "No. Check the king's exits and connected defenders, then calculate rook recaptures after third-file pawn contact and the time still available for the fifth-file plan."
+    }
+  },
+  "references": [
+    {
+      "title": "中飛車左穴熊の指し方",
+      "url": "https://shogi-joutatsu.com/archives/6154",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": { "ja": "玉を隅へ入れる一手", "en": "The tempo that tucks the king into the corner" },
+      "side": "sente",
+      "kind": "position",
+      "start": "9/2k3rb1/5s3/5pp2/4P4/4R4/2B6/LSG6/1K7 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手は５六飛を中央に置き、左側に８九玉・９八香・８八銀・７八金を配置しています。玉はまだ隅に入っていません。後手は３二飛と３四歩を持ち、囲いの途中でも手を進められます。",
+            "en": "Sente has a central rook on 5f and a left-side K8i, L9h, S8h, G7h shelter. The king has not yet entered the corner. Gote has R3b and P3d and can use the turn Sente spends on castling."
+          },
+          "marks": { "boxes": ["8i", "9i", "9h", "8h", "7h", "3d"] }
+        },
+        {
+          "moves": ["8i9i", "3d3e"],
+          "text": {
+            "ja": "▲９九玉で玉は香の下に入りました。後手は一例として△３五歩と進めています。玉を動かす手は守りの形を変えますが、相手にも攻めの準備を一手与えるとわかります。",
+            "en": "K8i–9i puts the king behind the lance. Gote's sample reply P3d–3e advances its own attack. The king move improves the shelter's shape while giving Gote a full turn to prepare contact."
+          },
+          "marks": { "arrows": ["8i9i", "3d3e"], "boxes": ["9i", "3e"] }
+        },
+        {
+          "text": {
+            "ja": "９九玉でも、８八銀と７八金の連絡や９筋の逃げ道を毎回点検します。３筋の歩が進んだからといって直ちに詰むわけでも、穴熊だけで反撃が消えるわけでもありません。",
+            "en": "Even with K9i, inspect the S8h–G7h connection and the ninth-file escape route. The third-file pawn advance is neither immediate mate nor an attack erased by the castle label."
+          }
+        }
+      ]
+    },
+    {
+      "title": { "ja": "組んでいる間の３筋を数える", "en": "Count the third-file recaptures during construction" },
+      "side": "sente",
+      "kind": "position",
+      "start": "9/2k4b1/9/5pr2/6p2/4R4/6P2/L1G6/1KS6 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手は８九玉・９八香・７八金で、７九銀をまだ８八へ上げていません。後手の飛車３四と歩３五が３筋を押しています。中央の５六飛が３六へ横に届くかも、囲いの手順に関わります。",
+            "en": "Sente has K8i, L9h, G7h and a silver still on 7i. Gote's R3d and P3e press the third file. The central rook on 5f can reach 3f through 4f, a fact that affects the castle tempo."
+          },
+          "marks": { "boxes": ["7i", "8h", "3e", "3g", "5f"] }
+        },
+        {
+          "moves": ["7i8h", "3e3f"],
+          "text": {
+            "ja": "▲８八銀で穴熊の銀を置きました。後手が△３六歩と来るのはここでの一例です。先手の３七歩で取ったあと、後手飛車だけを見ず自分の５六飛も数えます。",
+            "en": "S7i–8h places the Anaguma silver. Gote's P3e–3f is one sample challenge. After Sente's pawn on 3g takes it, count both Gote's rook and Sente's rook on 5f."
+          },
+          "marks": { "arrows": ["7i8h", "3e3f"], "boxes": ["3g"] }
+        },
+        {
+          "moves": ["3g3f", "3d3f", "5f3f"],
+          "text": {
+            "ja": "▲同歩△同飛なら▲同飛で後手の飛車を取れます。５六から３六への途中の４六は空いています。後手は飛車で取る以外の応手を選べるため、この交換だけで優勢とは決めません。",
+            "en": "If P3g×3f is met by R3d×3f, R5f×3f captures Gote's rook; 4f is empty. Gote need not recapture with the rook, so this sample does not establish an overall advantage."
+          },
+          "marks": { "arrows": ["5f3f"], "last": "3f" }
+        }
+      ]
+    },
+    {
+      "title": { "ja": "中央で歩を交換する前に", "en": "Before exchanging central pawns" },
+      "side": "sente",
+      "kind": "position",
+      "start": "9/2k4b1/4p4/5pr2/4P1p2/4R4/9/LSG6/K8 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手は９九玉の左穴熊と５六飛・５五歩を持ちます。後手には５三歩と３四飛があり、５四に銀はありません。この局面で中央を開くと飛車がどこへ出るかを見ます。",
+            "en": "Sente has the K9i left Anaguma, R5f and P5e. Gote has P5c and R3d, with no silver defending 5d. In this position, central contact may give Sente's rook a square to occupy."
+          },
+          "marks": { "boxes": ["5e", "5c", "5d", "3d"] }
+        },
+        {
+          "moves": ["5e5d", "5c5d"],
+          "text": {
+            "ja": "▲５四歩に△同歩と応じた例です。先手の歩は取られますが、５五が空くので５六の飛車は５四へ進めます。後手が歩で応じることは強制ではありません。",
+            "en": "This sample has Gote meet P5e–5d with P5c×5d. Sente's pawn is lost, but 5e becomes empty and the rook on 5f can reach 5d. Gote's pawn capture is optional."
+          },
+          "marks": { "arrows": ["5c5d"], "boxes": ["5e"] }
+        },
+        {
+          "moves": ["5f5d"],
+          "text": {
+            "ja": "▲同飛で５四の歩を取り、互いに一歩を持ちます。この飛車の進出を選べるのは、５四をすぐ取る後手銀がいない局面だからです。後手の３四飛も残るので、ここからの形勢は別に読みます。",
+            "en": "R5f×5d takes the pawn, leaving each side with one pawn in hand. This advance is available because no Gote silver can immediately recapture on 5d. Gote's R3d remains active, so the resulting position still needs evaluation."
+          },
+          "marks": { "arrows": ["5f5d"], "last": "5d" }
+        }
+      ]
+    }
+  ]
+}

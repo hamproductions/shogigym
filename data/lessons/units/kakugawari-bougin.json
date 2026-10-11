@@ -1,0 +1,178 @@
+{
+  "id": "kakugawari-bougin",
+  "order": 670,
+  "path": ["戦法・定跡", "角換わり"],
+  "title": {
+    "ja": "角換わり棒銀は隣の筋と角打ちを数える",
+    "en": "Bishop-Exchange Climbing Silver: Count Adjacent Files and Bishop Drops"
+  },
+  "intro": {
+    "ja": "棒銀は飛車の近くに銀を進め、歩の接触点へ攻め駒を足す構想です。角換わりでは双方が角を持つため、銀が前へ出た升も飛車が歩を取った升も角打ちの目標になります。３筋、端、２筋を別々に見て、取り返しと反撃を一手ずつ数えます。",
+    "en": "Climbing Silver brings a silver near the rook and adds it to a pawn contact. In Bishop Exchange, both players hold bishops, so an advanced silver or rook can become a drop target. These positions separate third-file contact, an edge opportunity, and second-file rook activity, with the defender's replies counted at each step."
+  },
+  "check": {
+    "question": {
+      "ja": "銀２六が３筋で歩を取り返した後、なぜ角５三を確認しますか？",
+      "en": "Why check a bishop drop on 5c after the silver from 2f recaptures on the third file?"
+    },
+    "answer": {
+      "ja": "角５三は４四を通って銀３五へ利きます。銀で取れることと、取った後も銀を置けることは別なので、次の角打ちを数えます。",
+      "en": "A bishop on 5c attacks a silver on 3e through 4d. Being able to recapture a pawn does not mean the silver can remain on that square; count the next bishop drop."
+    }
+  },
+  "references": [
+    {
+      "title": "角換わり棒銀",
+      "url": "https://shogi-joutatsu.com/archives/3497",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "銀２六を３筋の取り返しに使う",
+        "en": "Use the Silver on 2f for a Third-File Recapture"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1r7/5s3/6p2/9/6PS1/9/7R1/3K5 b Bb 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手の銀２六は飛車２八の前にいますが、３五にも斜め前へ進めます。先手歩３六と後手歩３四が接触すれば、銀で取った後の位置まで考えます。双方が角を持っています。",
+            "en": "Sente's silver on 2f is in front of the rook on 2h, but it can also step diagonally to 3e. With pawns on 3f and 3d, plan beyond the pawn contact to the square the silver will occupy. Both players hold a bishop."
+          }
+        },
+        {
+          "moves": ["3f3e", "3d3e"],
+          "text": {
+            "ja": "先手歩が３五へ出ると、後手が歩で取る応手を選びました。銀２六は３五の歩を取れますが、そこに居続けられるかはまだ決まっていません。",
+            "en": "Sente pushes to 3e and Gote chooses to capture with its pawn. The silver on 2f can recapture on 3e, but whether it can remain there is a separate question."
+          }
+        },
+        {
+          "moves": ["2f3e"],
+          "text": {
+            "ja": "銀が３五の歩を取りました。銀３五は４四へも進めますが、後手が角を５三に打てば４四を経てこの銀を狙えます。取った駒と、攻め駒が狙われる危険を両方数えます。",
+            "en": "The silver captures the pawn on 3e. It can advance again toward 4d, yet Gote can also drop a bishop on 5c, whose diagonal through 4d attacks this silver. Count the captured pawn and the risk to the attacking piece together."
+          }
+        },
+        {
+          "moves": ["B*5c"],
+          "text": {
+            "ja": "後手角５三は銀３五へ利いています。角打ちは後手が選んだ応手で、銀を必ず取れるという意味ではありません。先手銀の逃げ道も盤上で確かめます。",
+            "en": "Gote chooses the bishop drop on 5c, attacking the silver on 3e. This does not mean the silver is inevitably lost. Inspect its available retreat squares on the board."
+          }
+        },
+        {
+          "moves": ["3e4f"],
+          "text": {
+            "ja": "銀は４六へ引けます。銀の取り返しで歩を得ても、後手に角を盤上へ出す機会を渡しました。次は角の利きと飛車２八の働きを合わせて評価します。",
+            "en": "The silver can retreat to 4f. The recapture won a pawn but gave Gote an opportunity to place its bishop on the board. The next assessment is about that bishop's lines and the rook on 2h."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "端の香車がいない時だけ銀の取り返しを比べる",
+        "en": "An Edge Recapture Changes When the Lance Is Gone"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1r7/9/8p/9/7SP/9/7R1/3K5 b BLb 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手銀２六の横には端歩１六があり、後手歩は１四です。この局面では後手の香車１一がすでに盤上になく、先手の持駒に香があります。端で銀が歩を取った後の取り手を、この配置だけで数えます。",
+            "en": "Sente's silver is on 2f beside its edge pawn on 1f, facing Gote's pawn on 1d. Gote's lance is already absent from 1a and Sente holds a lance. Count recaptures for this position; the missing lance changes the edge calculation."
+          }
+        },
+        {
+          "moves": ["1f1e", "1d1e"],
+          "text": {
+            "ja": "先手が端歩を進め、後手が取る例です。先手銀２六は１五へ出て歩を取り返せます。後手香が１一に残る局面なら、同じ計算にはなりません。",
+            "en": "Sente advances the edge pawn and Gote chooses to capture it. The silver on 2f can recapture on 1e. If Gote still had a lance on 1a, the same exchange would need a different calculation."
+          }
+        },
+        {
+          "moves": ["2f1e"],
+          "text": {
+            "ja": "銀１五が後手歩を取りました。端の香による取り返しはありませんが、後手は角を持っています。４二から３三・２四を通る斜線が銀１五へ届きます。",
+            "en": "The silver captures Gote's pawn on 1e. There is no lance recapture along the edge, but Gote still has a bishop in hand. From 4b, a diagonal through 3c and 2d reaches the silver on 1e."
+          }
+        },
+        {
+          "moves": ["B*4b"],
+          "text": {
+            "ja": "後手が角４二を選んで銀１五を狙いました。端の香がなくても、銀をその升へ置きっぱなしにできるとは限りません。角を打つ手を相手が選ぶ前提で逃げ道を確認します。",
+            "en": "Gote chooses a bishop drop on 4b to attack the silver on 1e. Removing the lance did not guarantee that the silver could stay on the edge. Check its retreat under this particular reply."
+          }
+        },
+        {
+          "moves": ["1e2f"],
+          "text": {
+            "ja": "銀は２六へ戻ります。先手は端の歩を交換し、後手は持角を盤上に置きました。香車不在という条件と角打ちの反撃を合わせて、この交換を評価します。",
+            "en": "The silver returns to 2f. Sente has exchanged edge pawns while Gote has committed a bishop to the board. Evaluate the trade using both conditions: the absent lance and the bishop-drop reply."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["2f1e", "1d1e"],
+          "text": {
+            "ja": "歩を先に動かさず銀だけ１五へ出ると、後手歩１四が銀を取れます。香車がないことだけを見て銀を進めず、相手の歩が利く１五を先に確認します。",
+            "en": "If the silver advances to 1e without moving the pawn first, Gote's pawn on 1d captures it. The absence of the lance does not remove the pawn's control of 1e."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "飛車先を開くには銀の位置を先に変える",
+        "en": "Clear the Rook's File Before Opening It"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1r7/9/7p1/7P1/7S1/9/7R1/3K5 b Bb 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手飛車２八の前に銀２六、その先に歩２五があります。銀が２六にいる間、飛車は２五へ進めません。銀を横の３五へ使う手には、攻めを足す意味と飛車の通路を作る意味があります。",
+            "en": "Sente's rook on 2h has its own silver on 2f ahead of it and a pawn on 2e farther forward. While the silver stays on 2f, the rook cannot reach 2e. Moving the silver toward 3e both redeploys it and clears a route for the rook."
+          }
+        },
+        {
+          "moves": ["2f3e", "2d2e"],
+          "text": {
+            "ja": "銀を３五へ出すと、後手が歩２四で先手歩２五を取る応手を選びました。飛車の前から銀も歩も消え、飛車２八が２五の後手歩を取れます。",
+            "en": "After the silver moves to 3e, Gote chooses to capture Sente's pawn on 2e with its pawn from 2d. Both the silver and pawn have now left the rook's path, so the rook on 2h can recapture at 2e."
+          }
+        },
+        {
+          "moves": ["2h2e"],
+          "text": {
+            "ja": "飛車が２五で歩を取りました。先手は歩を持ちますが、飛車２五は角を打たれる斜線にも入ります。持角を使った相手の受けを調べます。",
+            "en": "The rook captures the pawn on 2e and Sente gains a pawn in hand. The rook is also exposed to diagonals from a bishop drop. Check the defender's bishop-in-hand response."
+          }
+        },
+        {
+          "moves": ["B*5b"],
+          "text": {
+            "ja": "後手角５二は４三・３四を経て飛車２五を狙います。銀３五が前に出ても飛車を守るわけではありません。先手は取った歩と飛車の退路を両方数えます。",
+            "en": "Gote's bishop on 5b attacks the rook on 2e through 4c and 3d. The advanced silver on 3e does not defend the rook. Sente must count both the pawn gained and the rook's retreat."
+          }
+        },
+        {
+          "moves": ["2e2h"],
+          "text": {
+            "ja": "飛車は２八へ引けます。銀をどかして歩を取る順は合法でも、角打ちを一手使わせる代わりに飛車も二度動きました。後手が歩を取らなければ、この飛車の進出は強制できません。",
+            "en": "The rook can return to 2h. Clearing the silver made the capture legal, but the bishop drop required the rook to move again. Gote need not choose the pawn capture that allows this sequence."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,177 @@
+{
+  "id": "fujii-vs-hidarimino",
+  "order": 1160,
+  "path": ["戦法・定跡", "四間飛車"],
+  "title": {"ja": "藤井システムから天守閣美濃をどう測るか", "en": "Reading a Tenshukaku Mino from a Fujii System setup"},
+  "intro": {
+    "ja": "天守閣美濃は玉が２三のように三段目へ出るため、穴熊とは玉頭の距離が違います。先手は４筋や玉頭へ近づく手を探せますが、飛車先の反撃を無視してよいわけではありません。仕掛けがまだ具体的でなければ玉を寄せ、歩交換が始まれば取り返す駒と相手の守りを数えます。",
+    "en": "A Tenshukaku Mino can put its king on the third rank, such as 2c, much closer to pawn-head contact than an Anaguma king. Sente can probe the fourth file and the king's head, but must still answer rook-file counterplay. When no attack is ready, moving the king is an option; once pawns meet, count recaptures and defenders."
+  },
+  "check": {
+    "question": {
+      "ja": "後手２三玉・２四歩・３四歩に先手が▲３五歩とぶつけ、後手が△同歩と取った局面です。先手４六銀で取り返すと、次に２四歩を銀で取る前に何を確かめますか？",
+      "en": "Against Gote K2c, P2d and P3d, Sente pushes P3e and Gote answers Px3e. After S4f–3e recaptures, what must Sente check before assuming the silver can take P2d?"
+    },
+    "answer": {
+      "ja": "後手４二金が３三へ動けば２四歩を守ります。▲３五銀は歩を取り返して前進しましたが、玉頭の歩をさらに取れるかは後手の次の配置次第です。",
+      "en": "G4b–3c can protect P2d. S3e has recaptured the pawn and advanced, but its next capture on the king's head depends on Gote's reply."
+    }
+  },
+  "references": [
+    {"title": "藤井システムvs天守閣美濃(左美濃)", "url": "https://shogi-joutatsu.com/archives/7495", "license": "All rights reserved", "adapted": false}
+  ],
+  "chapters": [
+    {
+      "title": {"ja": "仕掛けがない一手を玉の移動に使う", "en": "Spend a quiet turn on the king"},
+      "side": "sente",
+      "kind": "position",
+      "start": "b7l/1r2ggs2/5p1k1/1p7/9/9/1PB6/3RG1S2/4KG3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手玉は２三、銀３二・金４二と５二で天守閣美濃の骨格を作っています。先手は５九玉・６八飛ですが、４筋の先手歩も銀の前進もまだありません。急いで攻めを名乗るより、８筋の歩と自玉の位置を見ます。",
+            "en": "Gote has K2c, S3b and golds on 4b and 5b, the core of a Tenshukaku Mino. Sente has K5i and R6h, but no fourth-file pawn contact or silver advance yet. The useful question is how to spend this quiet turn while watching Gote's eighth-file pawn."
+          },
+          "marks": {"boxes": ["2c", "3b", "4b", "5i", "8d"], "arrows": ["5i4h"]}
+        },
+        {
+          "moves": ["5i4h", "5b5c"],
+          "text": {
+            "ja": "▲４八玉に後手が△５三金と中央を補う例です。後手はこの二手で８筋の歩を進めていないので、先手は続けて玉を寄せる余地があります。金が５三へ出たことも、次の４筋の利きを数える材料です。",
+            "en": "After K4h, the sample G5c develops Gote's central gold. Gote has not advanced the eighth-file pawn during these turns, so Sente has time to consider another king move. The gold's new square also changes later fourth-file coverage."
+          },
+          "marks": {"last": "5c", "boxes": ["8d", "4h"]}
+        },
+        {
+          "moves": ["4h3i"],
+          "text": {
+            "ja": "▲３九玉は居玉５九から二手使った移動です。後手玉２三への攻めがまだ成立していないこの盤面では、自玉を移した後で８筋と４筋の接触を再評価できます。後手の攻めが一手早い別局面なら同じ手順を機械的に選びません。",
+            "en": "K3i completes Sente's two-turn move away from 5i. In this board no immediate attack on K2c has been demonstrated, so Sente can improve king placement and reassess eighth- and fourth-file contact. A faster Gote attack would change that timing."
+          },
+          "marks": {"last": "3i", "boxes": ["2c", "8d"]}
+        }
+      ]
+    },
+    {
+      "title": {"ja": "玉頭の歩を銀で取る前に金を見る", "en": "Before taking a king-head pawn, count the gold"},
+      "side": "sente",
+      "kind": "position",
+      "start": "b7l/1r2ggs2/7k1/6pp1/9/5SP2/1PB6/3RG4/5GK2 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手玉２三の前に２四歩、隣に３四歩があります。先手は３六歩と４六銀を並べています。３筋の歩を交換できても、その次の２四歩には後手４二金が近づけるため、玉頭を一気に破る順とは決めません。",
+            "en": "Gote's K2c has P2d in front and P3d beside it. Sente has P3f and S4f. A third-file exchange can move the silver forward, but G4b may then cover P2d. That defender must be counted before calling it a king-head break."
+          },
+          "marks": {"arrows": ["3f3e", "4f3e"], "boxes": ["2c", "2d", "4b"]}
+        },
+        {
+          "moves": ["3f3e", "3d3e"],
+          "text": {
+            "ja": "▲３五歩に後手が△同歩と応じた枝です。後手歩は３五に出て先手歩を取りました。先手銀４六は３五を斜めに取れますが、後手がこの交換を選ぶ義務はありません。",
+            "en": "In the sample P3e Px3e, Gote's pawn reaches 3e and captures Sente's pawn. S4f can take it diagonally. Gote did not have to choose this exchange."
+          },
+          "marks": {"last": "3e", "arrows": ["4f3e"]}
+        },
+        {
+          "moves": ["4f3e", "4b3c"],
+          "text": {
+            "ja": "▲同銀で３五の歩を取り、銀を玉頭へ近づけます。後手が△３三金と出れば２四歩を金が守るため、▲２四銀と続けて歩を取れるとは限りません。先手が得たのは銀の前進で、玉の攻略は次の応手次第です。",
+            "en": "Sx3e recaptures the pawn and advances toward the king's head. In the sample G3c, Gote's gold covers P2d, so an automatic Sx2d is not established. Sente has gained an active silver square; the result still depends on Gote's next defense."
+          },
+          "marks": {"last": "3c", "boxes": ["3e", "2d", "2c"]}
+        }
+      ]
+    },
+    {
+      "title": {"ja": "４筋で歩を取り返した銀にも守りが当たる", "en": "A fourth-file recapture still meets a defender"},
+      "side": "sente",
+      "kind": "position",
+      "start": "b7l/1r2ggs2/7k1/5p3/9/4SP3/1PB6/3RG1S2/5GK2 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手４六歩・５六銀が後手４四歩に向き合っています。後手玉は穴熊の１一ではなく２三にいて、金４二は４筋の一歩後ろです。歩を交換して銀が４五に出ても、金が４三へ寄れば前進先は制限されます。",
+            "en": "Sente's P4f and S5f face Gote's P4d. Gote's king is on 2c rather than Anaguma's 1a, and G4b sits behind the fourth-file contact. Even if the pawn exchange puts Sente's silver on 4e, a gold move to 4c can limit its next advance."
+          },
+          "marks": {"arrows": ["4f4e", "5f4e"], "boxes": ["4d", "4b", "2c"]}
+        },
+        {
+          "moves": ["4f4e", "4d4e"],
+          "text": {
+            "ja": "▲４五歩に△同歩と取った例です。後手歩は４五へ出ました。銀５六ならこの歩を取れますが、歩の取り合いだけで４筋が突破できるわけではありません。",
+            "en": "After P4e Px4e, Gote's pawn stands on 4e. S5f can recapture it. The exchange alone does not prove Sente has broken through the fourth file."
+          },
+          "marks": {"last": "4e", "arrows": ["5f4e"]}
+        },
+        {
+          "moves": ["5f4e", "4b4c"],
+          "text": {
+            "ja": "▲同銀で歩を取り返せます。後手が△４三金と出る枝では、先手銀４五が次に４四へ進む道を金が守ります。さらに押す前に金との交換と、８二飛からの反撃を比較します。",
+            "en": "Sx4e recaptures the pawn. If Gote answers G4c, the gold guards 4d against the silver's next step. Before pushing farther, compare that exchange with counterplay from R8b."
+          },
+          "marks": {"last": "4c", "boxes": ["4e", "4d", "8b"]}
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["4f4e", "4b4c", "4e4d", "4c4d"],
+          "text": {
+            "ja": "後手が４五歩を取らず△４三金と支える枝では、▲４四歩で後手歩を取れても△同金が残ります。歩を取った直後の取り返しまで数えると、先手の銀が４五へ進む本筋とは別の局面になります。",
+            "en": "If Gote supports P4d with G4c instead of capturing P4e, Sente's Px4d takes the pawn but Gx4d recaptures. This is a different position from the main silver advance; count the gold recapture before choosing it."
+          }
+        }
+      ]
+    },
+    {
+      "title": {"ja": "８筋の交換は最後の取り手まで数える", "en": "Count the last recapture on the eighth file"},
+      "side": "sente",
+      "kind": "position",
+      "start": "b7l/1r2ggs2/7k1/9/9/1p7/1P2B4/3RG4/2S2GK2 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手８六歩と８二飛が先手８七歩に接触しています。先手玉は３九ですが、６八飛・７九銀はまだ左側に残りました。８筋の歩を取る前に、後手飛車が取り返した先の８八を何で守れるか見ます。",
+            "en": "Gote's P8f and R8b press Sente's P8g. Sente's king is on 3i, while R6h and S7i remain on the left. Before taking the pawn, identify who will protect 8h if Gote's rook recaptures on 8f."
+          },
+          "marks": {"arrows": ["8g8f", "8b8f", "6h8h"], "boxes": ["7i", "8h", "3i"]}
+        },
+        {
+          "moves": ["8g8f", "8b8f"],
+          "text": {
+            "ja": "▲同歩に後手が△同飛と取った例では、先手と後手が８筋の歩を一枚ずつ取り合いました。後手飛車は８六に出ていますが、飛車をただで取れる位置ではありません。",
+            "en": "In the sample Px8f Rx8f, each side has captured one pawn on the eighth file. Gote's rook now stands on 8f, but it is not simply a free rook for Sente."
+          },
+          "marks": {"last": "8f", "boxes": ["6h", "7i"]}
+        },
+        {
+          "moves": ["6h8h"],
+          "text": {
+            "ja": "▲８八飛と向かい合わせると、先手７九銀が８八の飛車を守ります。後手が飛車を引く選択もあります。取る場合だけ、最後の銀の取り返しまで読んでおきます。",
+            "en": "R8h directly contests the rook. S7i protects Sente's rook on 8h. Gote may sidestep rather than exchange; if Gote captures, count Sente's final silver recapture."
+          },
+          "marks": {"last": "8h", "arrows": ["8f8h+", "7i8h"]}
+        },
+        {
+          "moves": ["8f8h+", "7i8h"],
+          "text": {
+            "ja": "△８八飛成で先手飛車を取る枝なら▲同銀で成飛車を取れます。飛車交換後の先手銀は８八に出ており、玉は３九です。双方の飛車打ちの場所を改めて比べる必要があり、この交換だけで優劣は決まりません。",
+            "en": "If Gote chooses Rx8h+, Sx8h captures the dragon. Sente's silver is now on 8h and its king remains on 3i. Both sides have a rook in hand, so the exchange alone does not settle the position; examine rook-drop squares next."
+          },
+          "marks": {"last": "8h", "boxes": ["8h", "3i", "2c"]}
+        }
+      ],
+      "variations": [
+        {
+          "from": 2,
+          "moves": ["8f7f"],
+          "text": {
+            "ja": "後手が飛車交換を避けて△７六飛と横へ動く選択もあります。７九銀で守った８八飛だけを見て終わらず、７筋へ移った飛車の次の利きを調べます。",
+            "en": "Gote can also sidestep with R7f instead of exchanging. Protecting R8h with S7i solves only the immediate capture; examine the rook's new seventh-file reach next."
+          }
+        }
+      ]
+    }
+  ]
+}

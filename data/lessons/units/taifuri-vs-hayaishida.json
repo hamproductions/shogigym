@@ -1,0 +1,57 @@
+{
+  "id": "taifuri-vs-hayaishida",
+  "order": 910,
+  "path": ["戦法・定跡", "対振り飛車"],
+  "title": { "ja": "早石田への角打ちは通路から読む", "en": "Read the lanes before dropping a bishop against Quick Ishida" },
+  "intro": {
+    "ja": "早石田の飛車が７筋に浮いた時、後手の４五角打ちは駒取りを作れる一方、相手の飛車や銀にも応手がある。角の斜め筋だけでなく、７筋の飛車が横へ動ける道、４五を守る先手の駒、８筋からの反撃を並べて判断する。角を持っているだけで打ち得になるわけではない。",
+    "en": "When a Quick Ishida rook floats on the seventh file, Gote's bishop drop on 4e can create threats, but the rook and silver may also answer it. Compare the bishop's diagonals with the rook's horizontal lane, Sente's defenders of 4e and Gote's eighth-file counterplay. Having a bishop in hand does not make its drop profitable by itself."
+  },
+  "check": {
+    "question": { "ja": "後手が４五角を打って３六銀を狙う。先手７六飛から３六まで横に駒がない時、銀を取る前に何を調べる？", "en": "Gote drops a bishop on 4e and targets Sente's silver on 3f. If Sente's rook on 7f has a clear path across to 3f, what must Gote check before taking the silver?" },
+    "answer": { "ja": "角が３六銀を取った後、７六飛が６六・５六・４六を通って３六角を取り返せる。６六などに先手の駒があればこの取り返しは変わる。", "en": "After the bishop takes the silver on 3f, the rook can pass through 6f, 5f and 4f to recapture it. A Sente piece on 6f or another transit square changes that calculation." }
+  },
+  "references": [{ "title": "vs早石田 △4五角からの乱戦", "url": "https://shogi-joutatsu.com/archives/7962", "license": "All rights reserved", "adapted": false }],
+  "chapters": [
+    {
+      "title": { "ja": "飛車の横道が空いている", "en": "The Ishida rook has a clear cross-board lane" },
+      "side": "gote", "kind": "position",
+      "start": "9/1r1skg3/9/1p4p2/2P6/2R3S2/1P1G3P1/9/4K4 w Bb 1",
+      "steps": [
+        { "text": { "ja": "先手飛車は７六、歩は７五で早石田の前進形。後手は角を持ち、４五に打てば３六銀と６七金の斜め筋ができる。ただし先手飛車の７六から３六への横道も空いている。", "en": "Sente's rook on 7f and pawn on 7e form an advanced Quick Ishida shape. Gote holds a bishop; a drop on 4e would point at the silver on 3f and gold on 6g. The rook's horizontal path from 7f to 3f is also clear." }, "marks": { "arrows": ["7f3f"], "boxes": ["4e", "3f", "6g"] } },
+        { "moves": ["B*4e"], "text": { "ja": "４五角を打った。３六銀と６七金の二枚取りに見えるが、両方を実際に取れるとは限らない。先手のどの駒が斜め筋を外れ、何が角を取り返すかを見る。", "en": "Gote drops the bishop on 4e. It appears to fork the silver on 3f and gold on 6g, but that does not prove both captures are sound. Check Sente's escapes and recaptures." }, "marks": { "arrows": ["4e3f", "4e6g"], "boxes": ["7f", "3f"] } },
+        { "moves": ["6g6h", "4e3f", "7f3f"], "text": { "ja": "先手が金を６八へ引き、後手角が３六銀を取った例。７六飛は６六・５六・４六を通って３六角を取り返せる。後手は銀を得る代わりに角を渡したので、この応手を見落として４五角を決めない。", "en": "In this sample Sente retreats its gold to 6h, then Gote takes the silver on 3f. The rook travels through 6f, 5f and 4f to capture that bishop. Gote has obtained a silver but given up its bishop; the drop must be judged with this recapture included." }, "marks": { "last": "3f", "boxes": ["6f", "5f", "4f"] } }
+      ]
+    },
+    {
+      "title": { "ja": "６六歩が飛車の道を塞ぐ", "en": "A pawn on 6f obstructs the rook" },
+      "side": "gote", "kind": "position",
+      "start": "9/1r1skg3/9/1p4p2/2P6/2RP2S2/1P1G3P1/9/4K4 w Bb 1",
+      "steps": [
+        { "text": { "ja": "先ほどと違い、先手歩が６六にいる。先手７六飛はこの歩を越えて３六に横移動できない。後手角４五からの銀取りと金取りを考える時、この一マスの違いが取り返しを変える。", "en": "Now Sente has a pawn on 6f. Its rook on 7f cannot pass through that friendly pawn to reach 3f. This single occupied square changes the recapture after a bishop drop on 4e." }, "marks": { "boxes": ["6f", "7f", "3f", "6g"] } },
+        { "moves": ["B*4e", "6g6h"], "text": { "ja": "後手が４五角を打ち、先手が６七金を６八へ引いた一例。３六銀にはまだ角が当たり、７六飛の横利きは６六歩で止まる。金を引く手は先手の一選択で、強制ではない。", "en": "Gote drops on 4e and Sente chooses to retreat its gold from 6g to 6h. The bishop still attacks the silver on 3f, while Sente's pawn on 6f blocks the rook's recapture. The gold retreat is a sample choice, not a forced move." }, "marks": { "arrows": ["4e3f"], "boxes": ["6f", "3f"] } },
+        { "moves": ["4e3f", "7f7h"], "text": { "ja": "角が３六銀を取り、先手飛車は７八へ引いた。この順では後手は銀を持ち、角は３六に残る。ただし角の安全や先手の別の手は次の局面で読む必要があり、これだけで優勢とは言えない。", "en": "The bishop takes the silver on 3f and Sente retreats its rook to 7h. In this line Gote holds a silver and the bishop remains on 3f. Its future safety and Sente's other defenses still need evaluation; this sample does not prove an overall advantage." }, "marks": { "last": "3f", "boxes": ["6f", "7h"] } }
+      ],
+      "variations": [
+        { "from": 0, "moves": ["B*4e", "3f4g", "4e6g+"], "text": { "ja": "先手が銀を４七へ引いて金を残す例では、後手角は５六を通って６七金を取り、敵陣で成れる。先手がこの受けを選ぶ必要はないので、角打ちの条件付きの狙いとして読む。", "en": "If Sente saves the silver on 4g and leaves the gold on 6g, Gote's bishop can pass through 5f, capture the gold and promote. Sente need not choose this reply; it shows the drop's conditional alternative target." } }
+      ]
+    },
+    {
+      "title": { "ja": "４五を銀に守らせた時", "en": "When a silver guards 4e" },
+      "side": "gote", "kind": "position",
+      "start": "9/1r1skg3/9/1p4p2/2P6/2R1S4/1P1G3P1/9/4K4 w Bb 1",
+      "steps": [
+        { "text": { "ja": "先手銀は５六にいて４五へ斜めに進める。後手の持ち角を４五へ打てるかどうかは、打った後の先手の一手で調べる。先手７五歩と７六飛への対応は、角打ち以外にもある。", "en": "Sente's silver on 5f can move diagonally to 4e. Judge a bishop drop on that square by Sente's immediate reply. Gote can also address the advanced pawn on 7e and rook on 7f without spending its bishop." }, "marks": { "arrows": ["5f4e"], "boxes": ["4e", "8d"] } },
+        { "moves": ["B*4e", "5f4e"], "text": { "ja": "この盤の４五角打ちは、５六銀に同銀と取られる。後手は角を失い、先手の持ち角が増えた。４五という名前だけで打たず、先手銀の利きを数える。", "en": "Here a bishop dropped on 4e is captured at once by Sente's silver from 5f. Gote loses the bishop and Sente gains another one in hand. The named square is not a reason to ignore its defender." }, "marks": { "last": "4e", "boxes": ["5f"] } },
+        { "text": { "ja": "角を失った後で８筋を進めても、その角は戻らない。飛車７六に対して８筋の歩を使う案は、角を手元に残した元の局面から比較する。", "en": "An eighth-file push after losing the bishop does not restore it. Compare that pawn plan from the original position, while Gote still holds the bishop and can choose its use later." } }
+      ],
+      "variations": [
+        { "from": 0, "moves": ["8d8e", "7f7h", "8e8f"], "text": { "ja": "角を温存して８五歩を進め、先手飛車が７八へ引いた例では、さらに８六歩で先手８七歩と接触できる。先手が８六の歩を取るかどうかで８二飛の働きは変わるため、後手の攻めが確定したわけではない。", "en": "Gote can preserve the bishop and advance its eighth-file pawn to 8e. After this sample rook retreat to 7h, another push to 8f contacts Sente's pawn on 8g. Whether Sente captures there changes how Gote's rook on 8b participates; this is not a forced breakthrough." },
+          "steps": [
+            { "moves": ["8g8f", "8b8f"], "text": { "ja": "先手が８七歩で８六歩を取る場合、後手８二飛は空いた８三・８四・８五を通って８六歩を取り返せる。この取り返しも先手の選択に依存し、次の飛車の安全を別に読む。", "en": "If Sente's pawn from 8g captures on 8f, Gote's rook on 8b can pass through the empty 8c, 8d and 8e squares to recapture it. This line depends on Sente's choice, and the rook's subsequent safety remains a separate question." } }
+          ]
+        }
+      ]
+    }
+  ]
+}

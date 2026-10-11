@@ -6,7 +6,7 @@ export function LessonReferences({ references, ja, className }: { references: Le
       {ja ? 'このアプリのために書き下ろした教材です。' : 'Written for this app.'}
       {references.map((ref) => (
         <span key={ref.url}>
-          {' '}
+          <br />
           {ref.adapted ? (ja ? '翻案元：' : 'Adapted from: ') : ja ? '参考：' : 'See also: '}
           <a href={ref.url} target="_blank" rel="noreferrer">
             {ref.title}

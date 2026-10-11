@@ -1,0 +1,126 @@
+{
+  "id": "proverb-gold-last",
+  "order": 270,
+  "path": ["上達のためのテクニック", "手筋"],
+  "title": {
+    "ja": "金を残す理由を逃げ道から読む",
+    "en": "Save the Gold for the Square It Covers"
+  },
+  "intro": {
+    "ja": "「金はトドメに残せ」は、金の横と真後ろへの利きが最後の逃げ道を塞ぐことに注目する格言です。金を手元に残すだけでは詰みません。先に動かす駒が守られているか、玉がどこへ逃げられるか、最後の金を相手玉に取られないかを一手ずつ確かめます。金をすぐ使うほうが正しい局面もあります。",
+    "en": "The proverb about saving a gold for the finish points to the escape squares its sideways and backward reach can cover. Merely keeping a gold in hand does not create mate. Check whether the preparatory piece is protected, where the king may move, and whether the final gold can be captured. Sometimes using the gold immediately is correct."
+  },
+  "check": {
+    "question": {
+      "ja": "最後の一手に銀ではなく金を選ぶとき、王手以外に何を調べますか？",
+      "en": "When choosing a gold instead of a silver for the final check, what must you inspect besides the check itself?"
+    },
+    "answer": {
+      "ja": "玉の横の逃げ道、金を玉に取られないための支え、ほかの空きマスを調べます。銀では塞げない横のマスを金が押さえるなら、その差が詰みを決めます。",
+      "en": "Inspect sideways escape squares, the support preventing the king from taking the gold, and every other adjacent square. A gold may mate when its sideways control closes an escape that a silver leaves open."
+    }
+  },
+  "references": [
+    {
+      "title": "金はトドメに残せ",
+      "url": "https://shogi-joutatsu.com/archives/1783",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "銀で玉を動かし、金で横を塞ぐ",
+        "en": "Move the king with silver, close the side with gold"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k8/3R5/2S6/9/9/9/9/9/8K b G 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手玉９一に対し、先手は銀７三、飛車６二、持ち金一枚を持っています。銀を８二へ出すと王手になり、飛車６二が銀８二を横から守ります。金はその後の玉の位置を見て使います。",
+            "en": "Gote's king is on ９一. Sente has a silver on ７三, a rook on ６二, and one gold in hand. Moving the silver to ８二 checks the king; the rook on ６二 protects that silver along the second rank. Hold the gold until the king's reply is visible."
+          }
+        },
+        {
+          "moves": ["7c8b"],
+          "text": {
+            "ja": "▲８二銀の王手。後手玉は８二の銀を取れません。飛車が７二を通って８二を守っています。ここでは玉が９二へ逃げる順を見ます。",
+            "en": "▲８二銀 checks. The king cannot capture the silver on ８二 because the rook protects it through ７二. Follow the king's move to ９二."
+          }
+        },
+        {
+          "moves": ["9a9b"],
+          "text": {
+            "ja": "△９二玉。銀８二は９一と８一を押さえていますが、横隣の９二には利きません。そこで持ち金を使います。",
+            "en": "△９二玉. The silver on ８二 covers ９一 and ８一, but not the square beside it on ９二. Now the gold in hand has a specific job."
+          }
+        },
+        {
+          "moves": ["G*9c"],
+          "text": {
+            "ja": "▲９三金で詰みです。金は９二に王手し、横の８三も押さえます。９三の金は銀８二が守り、８二の銀は飛車６二が守ります。９一と８一も銀の利きにあり、玉に安全な移動先はありません。",
+            "en": "▲９三金 mates. The gold checks ９二 and covers the sideways escape to ８三. The silver on ８二 protects the gold on ９三, while the rook on ６二 protects the silver. The silver also covers ９一 and ８一, leaving the king no safe move."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "銀を最後に残すと横へ逃げる",
+        "en": "A final silver leaves a sideways exit"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "9/kS1R5/9/9/9/9/9/9/8K b S 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手玉９二の横に先手の銀８二がいて、飛車６二が銀を守っています。この局面で持ち駒が金ではなく銀なら、９三に打つ王手の結果が変わります。",
+            "en": "Gote's king is on ９二 beside Sente's silver on ８二, which the rook on ６二 protects. If the piece in hand is a silver rather than a gold, a checking drop on ９三 has a different result."
+          }
+        },
+        {
+          "moves": ["S*9c"],
+          "text": {
+            "ja": "▲９三銀で王手。銀８二が９三の銀を守るため、玉は９三の銀を取れません。しかし新しい銀は横の８三を押さえません。",
+            "en": "▲９三銀 checks. The silver on ８二 protects the new silver on ９三, so the king cannot capture it. The new silver does not cover the sideways square ８三."
+          }
+        },
+        {
+          "moves": ["9b8c"],
+          "text": {
+            "ja": "△８三玉と逃げられました。飛車６二は８三を利かず、二枚の銀にも８三への利きはありません。同じ場所への王手でも、金の横の利きが詰みを分けます。",
+            "en": "△８三玉 escapes. The rook on ６二 does not attack ８三, and neither silver covers it. The gold's sideways control is what made the earlier check a mate."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "すぐ詰むなら金を待たせない",
+        "en": "Use the gold now when it already mates"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "5k3/9/9/3B5/9/9/9/9/8K b GS 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手玉４一の前の４二は空いています。先手の角６四は５三を通って４二を守ります。金を後まで残す必要があるかは、今４二へ打ったときの全ての逃げ道で決めます。",
+            "en": "The square ４二 in front of Gote's king on ４一 is empty. Sente's bishop on ６四 protects it through ５三. Whether to keep the gold for later depends on every king escape after a gold drop there now."
+          }
+        },
+        {
+          "moves": ["G*4b"],
+          "text": {
+            "ja": "▲４二金で詰みです。金は玉４一に王手し、３一、５一、３二、５二を押さえます。玉が４二の金を取ることも角６四の利きでできません。金を残すという格言は、すでにある詰みを見送る理由にはなりません。",
+            "en": "▲４二金 mates. It checks the king on ４一 and covers ３一, ５一, ３二, and ５二. The bishop on ６四 protects the gold from capture by the king. The proverb is no reason to postpone a mate already on the board."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,188 @@
+{
+  "id": "basics-opening",
+  "order": 140,
+  "path": ["はじめての将棋", "基本の考え方"],
+  "title": {
+    "ja": "駒を働かせて玉を守る",
+    "en": "Develop Pieces While Securing the King"
+  },
+  "intro": {
+    "ja": "序盤は先に進んだ駒の数では測れません。桂で相手の配置に問いを投げ、銀や飛車が交換を支え、開いた筋の侵入先を守りながら玉の位置を整えます。攻めと守りの利きを盤上で確かめましょう。",
+    "en": "An opening is not measured by how many pieces have advanced. Use a knight to challenge the opponent’s formation, coordinate a silver and rook through an exchange, guard the squares along an open file, and settle the king where your pieces support it."
+  },
+  "check": {
+    "question": {
+      "ja": "序盤に駒を前へ出す前、どの升を確かめますか？",
+      "en": "Which squares should you check before advancing a piece in the opening?"
+    },
+    "answer": {
+      "ja": "進出先だけでなく、その駒を支える味方の利き、相手の飛車や角が入る筋、玉の移動先の安全を確かめます。",
+      "en": "Check the destination, the friendly pieces that support it, the files and diagonals the opponent’s rook or bishop can enter, and the safety of the king’s next square."
+    }
+  },
+  "references": [
+    {
+      "title": "序盤の指し方、考え方",
+      "url": "https://shogi-joutatsu.com/archives/3156",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "支えを用意して桂を跳ねる",
+        "en": "Support a knight before it jumps"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k8/9/9/9/6g2/9/9/4S4/6N1K b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手の桂３九は、４七へ跳ねると後手の金３五に当たります。４七には先手の銀５八も利いています。狙いの駒だけでなく、その進出先を支える駒があるかを見てください。",
+            "en": "The attacker’s knight on ３九 can jump to ４七 and attack the defender’s gold on ３五. The attacker’s silver on ５八 also protects ４七. Check what supports a piece’s destination as well as which target it attacks."
+          }
+        },
+        {
+          "text": {
+            "ja": "金に働きかけながら、銀の支えが残る升へ桂を進めてください。",
+            "en": "Bring the knight to a square where it pressures the gold and remains supported by the silver."
+          }
+        },
+        {
+          "moves": ["3i4g"],
+          "text": {
+            "ja": "▲４七桂で金３五を攻めました。桂は戻りにくい駒なので、相手の応手だけでなく、進んだ後に逃げ道や支援が残っているかも確かめます。",
+            "en": "▲４七桂 attacks the gold on ３五. A knight can have difficulty retreating, so check both the opponent’s reply and whether support or an escape route remains after it advances."
+          }
+        },
+        {
+          "moves": ["3e3f"],
+          "text": {
+            "ja": "△３六金で金が桂へ近づきました。後手の金は次に４七へ進めますが、その升には銀５八が利いています。前へ出た駒を取られそうに見えたら、取り返せる駒まで数えてから判断します。",
+            "en": "△３六金 brings the gold closer to the knight. The gold could move to ４七, but the silver on ５八 protects that square. If an advanced piece appears capturable, count the pieces that could recapture before deciding whether it is lost."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "銀と飛車で交換を読み切る",
+        "en": "Calculate an exchange with silver and rook"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k8/5s3/4g4/5S3/9/9/9/9/4R3K b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手の金５三は銀４四の斜め前にあり、後手の銀４二がその金を支えています。先手の飛車５九は同じ筋を通っていて、銀が動いた後の取り返しにも参加できます。最初の一手だけで交換の結果を決めないでください。",
+            "en": "The defender’s gold on ５三 is diagonally ahead of the attacker’s silver on ４四, and the defender’s silver on ４二 protects it. The attacker’s rook on ５九 is on the same file and can join after the first capture. Do not judge the exchange from its first move."
+          }
+        },
+        {
+          "text": {
+            "ja": "銀で金を取り、相手の取り返しの後に飛車が何を取れるかまで読みます。",
+            "en": "Take the gold with the silver, then calculate what the rook can capture after the opponent recaptures."
+          }
+        },
+        {
+          "moves": ["4d5c"],
+          "text": {
+            "ja": "▲５三銀で金を取りました。金は先手の持駒に入りましたが、先手の銀は後手の銀の利きに進んでいます。",
+            "en": "▲５三銀 captures the gold. It enters the attacker’s hand, but the silver has moved onto the defender’s silver line."
+          }
+        },
+        {
+          "moves": ["4b5c"],
+          "text": {
+            "ja": "△５三銀で先手の銀を取り返しました。５九の飛車から５三までの道は空いています。",
+            "en": "△５三銀 recaptures the attacker’s silver. The file from the rook on ５九 to ５三 is now clear."
+          }
+        },
+        {
+          "moves": ["5i5c"],
+          "text": {
+            "ja": "▲５三飛で後手の銀も取りました。銀は一枚ずつ持駒へ移り、先手は最初に取った金を残します。交換では、守り駒と攻め駒がどう連携するかを最後の取り返しまで追います。",
+            "en": "▲５三飛 captures the defender’s silver. Each side gains a silver in hand, and the attacker keeps the gold taken first. Trace the full sequence to see how a supporting rook changes the result."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "飛車の侵入先に利きを残す",
+        "en": "Keep a defended square on the rook’s file"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k8/2r6/9/9/9/9/2GS5/9/8K b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手の飛車７二から７筋は空いています。先手の金７七を６六へ動かすと、飛車が７六へ進める形になりますが、銀６七はその升を守っています。駒を筋から外すときは、相手の侵入先に利きが残るかも見ます。",
+            "en": "The defender’s rook on ７二 has an open route down the seventh file. If the attacker’s gold on ７七 moves to ６六, the rook could enter ７六, but the silver on ６七 protects that square. When clearing a file, check whether the opponent’s entry squares remain defended."
+          }
+        },
+        {
+          "text": {
+            "ja": "金を飛車の筋から外し、銀の守備がどう働くかを確かめてください。",
+            "en": "Move the gold off the rook’s file and check how the silver’s protection works."
+          }
+        },
+        {
+          "moves": ["7g6f"],
+          "text": {
+            "ja": "▲６六金で７七が空きました。飛車が縦に進める升は増えますが、筋が開いたことだけで侵入が成功するとは限りません。",
+            "en": "▲６六金 clears ７七. More squares along the file are open, but an open route alone does not mean the invasion will succeed."
+          }
+        },
+        {
+          "moves": ["7b7f"],
+          "text": {
+            "ja": "△７六飛と飛車が進みました。先手は銀６七でこの飛車を取れます。",
+            "en": "△７六飛 brings the rook down the file. The attacker’s silver on ６七 can capture it."
+          }
+        },
+        {
+          "moves": ["6g7f"],
+          "text": {
+            "ja": "▲７六銀で飛車を取りました。相手の大駒が筋へ入る前に、守る升とそこへ利かせる駒を確認しておけば、無理な侵入を咎められます。",
+            "en": "▲７六銀 captures the rook. By checking the squares you need to defend and the pieces that cover them before a major piece enters, you can punish an unsupported invasion."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "玉の移動先を金で支える",
+        "en": "Move the king behind a gold’s protection"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k8/9/9/9/9/9/3S5/3GG4/4K4 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手の玉５九の近くでは、金６八が５九を守り、金５八は４九と６九に利いています。銀６七は金５八を支えています。玉が動く先と元の升を別々の駒が守れる配置です。",
+            "en": "Near the attacker’s king on ５九, the gold on ６八 protects ５九, while the gold on ５八 controls ４九 and ６九. The silver on ６七 supports the gold on ５八. Different pieces protect the king’s destination and its original square."
+          }
+        },
+        {
+          "text": {
+            "ja": "金の利きがある升へ玉を移し、残った金が元の升を守れるかを見てください。",
+            "en": "Move the king to a square protected by a gold, then check whether the other gold still covers its original square."
+          }
+        },
+        {
+          "moves": ["5i4i"],
+          "text": {
+            "ja": "▲４九玉と移りました。金５八が新しい升を守り、金６八は５九に残る利きを保っています。玉を囲う形は駒の並びを覚えるだけでは作れません。移動先の守りと、動かした後に生じる穴を同時に確かめます。",
+            "en": "▲４九玉 moves the king. The gold on ５八 protects its new square, while the gold on ６八 still covers ５九. A king shelter is more than memorizing a formation: check the destination’s protection and the squares left behind by each move."
+          }
+        }
+      ]
+    }
+  ]
+}

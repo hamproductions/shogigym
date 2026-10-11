@@ -1,0 +1,254 @@
+{
+  "id": "shiken-castles",
+  "order": 1060,
+  "path": [
+    "戦法・定跡",
+    "四間飛車"
+  ],
+  "title": {
+    "ja": "四間飛車の美濃を選び直す",
+    "en": "Choosing a Mino shelter in Fourth File Rook"
+  },
+  "intro": {
+    "ja": "四間飛車では、６筋の飛車から離れた２八玉の周りに守りを作れます。片美濃から金を加える手、高美濃で上へ利きを足す手、銀冠へ組み替える手には、それぞれ一手の費用があります。どの駒がどのマスを守るか、相手の歩が近づく前に数えます。",
+    "en": "In Fourth File Rook, the king on 2h can be sheltered away from the rook on the sixth file. Adding a second gold to Half Mino, raising it into High Mino, and converting to Silver Crown each cost moves. Count the squares each defender covers before an opposing pawn reaches them."
+  },
+  "check": {
+    "question": {
+      "ja": "２八玉・２七銀・３八金・４七金の銀冠で、３八金は２七銀と２八玉の両方を守りますか？",
+      "en": "In a Silver Crown with K2h, S2g, G3h and G4g, does the gold on 3h defend both the silver on 2g and the king on 2h?"
+    },
+    "answer": {
+      "ja": "はい。３八金から２七銀と４七金は前斜め、２八玉は横一マスです。ただし後手の歩が３筋を進む場合は、歩と守備駒の利きを改めて数えます。",
+      "en": "Yes. The gold on 3h defends the silver on 2g and the gold on 4g diagonally forward, and the king on 2h sideways. If Gote advances a pawn on the third file, count the pawn and defenders again."
+    }
+  },
+  "references": [
+    {
+      "title": "四間飛車で使う囲い",
+      "url": "https://shogi-joutatsu.com/archives/2472",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "５八へ金を使うか、中央の歩を急ぐか",
+        "en": "Spend a move on the second gold or address the center"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "3gk4/1r5b1/pp2p1s2/5p3/9/2PP5/PPB1PPPPP/3R2SK1/3G1G3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "２八玉を３八銀と４九金で囲った片美濃です。もう一枚の金は６九に残り、５筋には先手５七歩と後手５三歩があります。後手の中央の歩がまだ遠いなら、金を５八へ寄せる一手を選べます。",
+            "en": "K2h with S3h and G4i is a Half Mino. Sente's other gold remains on 6i, while the fifth-file pawns are on 5g and 5c. With Gote's central pawn still distant, Sente can spend a move bringing that gold to 5h."
+          },
+          "marks": {
+            "boxes": [
+              "2h",
+              "3h",
+              "4i",
+              "6i",
+              "5h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6i5h",
+            "5c5d"
+          ],
+          "text": {
+            "ja": "▲５八金で金二枚が玉側に集まり、本美濃の基本形になりました。△５四歩は中央に圧力をかける一例です。５八金は５七歩を後ろから守りますが、後手が次に何を指すかまで決める手ではありません。",
+            "en": "G5h brings both golds to the king's wing and completes the basic full Mino. Gote's P5d is one way to add central pressure. The gold on 5h protects Sente's pawn on 5g from behind; it does not determine Gote's next choice."
+          },
+          "marks": {
+            "last": "5d",
+            "boxes": [
+              "5h",
+              "5g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5g5f",
+            "8c8d"
+          ],
+          "text": {
+            "ja": "▲５六歩で５筋の歩を前に出し、後手は一例として△８四歩です。５八金の一手を使った後は、５六歩が金の直接の守りから離れたことも確認します。後手が５筋を急ぐなら、歩の取り合いと玉の安全を改めて比較します。",
+            "en": "P5f advances Sente's central pawn; Gote's sample reply is P8d. After investing a move in G5h, note that the pawn on 5f is no longer directly defended by that gold. If Gote accelerates the fifth file, reassess the pawn exchange and king safety."
+          },
+          "marks": {
+            "last": "8d",
+            "boxes": [
+              "5f",
+              "5h"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "銀冠への途中にできる空所",
+        "en": "The gap during a Silver Crown conversion"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "3gk4/1r5b1/pp2p4/6pp1/9/2PP1P3/PPB1PGPPP/3R2SK1/5G3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手は２八玉・３八銀・４七金・４九金の高美濃です。銀を２七へ上げたい場合、まず２七歩を動かす必要があります。後手３四歩と２四歩が見えるので、組み替えの途中でも上部の歩を監視します。",
+            "en": "Sente has a High Mino with K2h, S3h, G4g and G4i. The pawn on 2g must move before the silver can rise to that square. Gote's pawns on 3d and 2d make it useful to monitor the upper edge throughout the conversion."
+          },
+          "marks": {
+            "arrows": [
+              "2g2f",
+              "3h2g",
+              "4i3h"
+            ],
+            "boxes": [
+              "3d",
+              "2d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2g2f",
+            "8c8d"
+          ],
+          "text": {
+            "ja": "▲２六歩で銀の行き先を空け、後手は△８四歩とした例です。まだ３八銀が玉の隣にいて、３八は埋まっています。銀冠は歩を突いた一手だけでは完成しません。",
+            "en": "P2f opens the silver's destination, and Gote's P8d is a sample waiting move. Sente's silver still occupies 3h next to the king. Advancing the pawn alone does not complete a Silver Crown."
+          },
+          "marks": {
+            "last": "8d",
+            "boxes": [
+              "2g",
+              "3h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3h2g",
+            "3d3e"
+          ],
+          "text": {
+            "ja": "▲２七銀の直後は３八が空き、４九金はまだ３八に移っていません。後手の△３五歩は一例で、次に３筋へ圧力を加える余地があります。この中間形で３八金がいるつもりで受けを数えるのは誤りです。",
+            "en": "Immediately after S2g, 3h is vacant and the gold remains on 4i. Gote's sample P3e adds pressure on the third file. While this intermediate shape lasts, Sente must not count a gold on 3h that has not moved there yet."
+          },
+          "marks": {
+            "last": "3e",
+            "boxes": [
+              "3h",
+              "4i",
+              "3g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4i3h"
+          ],
+          "text": {
+            "ja": "▲３八金で銀冠の連結ができました。３八金は２七銀を前斜め、２八玉を横から守ります。ただし後手の３五歩が次に３六へ来る可能性は残るので、囲いの名前だけで安全とは判断しません。",
+            "en": "G3h connects the Silver Crown. From 3h, the gold protects S2g diagonally forward and K2h sideways. Gote's pawn on 3e can still approach 3f; the castle's name alone does not settle its safety."
+          },
+          "marks": {
+            "last": "3h",
+            "boxes": [
+              "2g",
+              "2h",
+              "3f"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "４七金の守備範囲を使う",
+        "en": "Use the raised gold's actual coverage"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "3gk4/1r5b1/pp2p1s2/5p3/9/2PP5/PPB1PPPPP/3RG1SK1/5G3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "本美濃の金は５八と４九にあります。後手４四歩は４筋を見ていますが、先手４七歩があるままでは５八金を４七へ上げられません。歩を動かす一手と金を上げる一手を分けて考えます。",
+            "en": "The full Mino has golds on 5h and 4i. Gote's pawn on 4d points toward the fourth file, but Sente's pawn on 4g blocks the gold's route from 5h to 4g. Advancing the pawn and raising the gold are separate moves."
+          },
+          "marks": {
+            "arrows": [
+              "4g4f",
+              "5h4g"
+            ],
+            "boxes": [
+              "4d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4g4f",
+            "8c8d"
+          ],
+          "text": {
+            "ja": "▲４六歩で４七を空けました。△８四歩はその間に後手も進めた一例です。まだ金は５八なので、４六歩の守りを４七金に期待することはできません。",
+            "en": "P4f clears 4g. Gote uses the intervening move for a sample P8d. The gold is still on 5h, so Sente cannot yet count a gold on 4g as a defender of the pawn on 4f."
+          },
+          "marks": {
+            "last": "8d",
+            "boxes": [
+              "4f",
+              "5h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5h4g",
+            "4d4e"
+          ],
+          "text": {
+            "ja": "▲４七金で高美濃の形になり、金は３六・４六・５六を直接守ります。後手が△４五歩と寄せた場合、４六歩は金に支えられています。ただし５八が空いたので、この金の上昇が中央の守りにも影響したことを見落としません。",
+            "en": "G4g makes a High Mino shape and directly covers 3f, 4f and 5f. If Gote advances P4e as shown, Sente's pawn on 4f has gold support. Moving the gold also vacated 5h, changing the defense of the center."
+          },
+          "marks": {
+            "last": "4e",
+            "boxes": [
+              "3f",
+              "4f",
+              "5f",
+              "5h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4f4e"
+          ],
+          "text": {
+            "ja": "この応手では▲同歩と取れます。４七金は４五の歩を守っていないため、金を上げただけで４筋の突破が保証されるわけではありません。後手が別の駒で４五へ利きを足すなら、その駒も数えてから踏み込みます。",
+            "en": "In this sample, Px4e takes Gote's pawn. The gold on 4g does not defend the pawn now on 4e, so raising the gold alone does not guarantee a fourth-file breakthrough. Count any additional Gote defender of 4e before committing."
+          },
+          "marks": {
+            "last": "4e",
+            "boxes": [
+              "4g",
+              "4e"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

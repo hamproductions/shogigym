@@ -1,0 +1,213 @@
+{
+  "id": "kakugawari-basics",
+  "order": 660,
+  "path": ["戦法・定跡", "角換わり"],
+  "title": {
+    "ja": "角換わりは角を持ってからの配置を読む",
+    "en": "Bishop Exchange: Read the Board After the Trade"
+  },
+  "intro": {
+    "ja": "角を交換すると双方の持駒に角が加わり、空いた斜線にいつでも角を打てます。この講座では、取り返す駒の選択、飛車先の歩交換後の角打ち、銀の進路を別々の局面で考えます。形の名前より、打たれた角が何を狙うかを一手ごとに確かめます。",
+    "en": "A bishop exchange puts a bishop in each player's hand, making open diagonals potential drop lanes. These positions ask which piece should recapture, what changes after rook-file pawn contact, and where the attacking silver can safely go. At each move, check what a newly dropped bishop can actually attack."
+  },
+  "check": {
+    "question": {
+      "ja": "角交換の直後、飛車先の歩を取る前に何を確認しますか？",
+      "en": "After a bishop exchange, what should you check before taking a rook-file pawn?"
+    },
+    "answer": {
+      "ja": "取った後の飛車の位置から、相手の角打ちが飛車や玉に利く斜線を作るか確認します。銀の進路も、歩が空けた升と角の利きで選びます。",
+      "en": "Check the rook's destination for bishop-drop diagonals aimed at the rook or king. The vacated pawn squares and those same diagonals also determine which silver route is viable."
+    }
+  },
+  "references": [
+    {
+      "title": "角換わりの基本、最初の駒組み",
+      "url": "https://shogi-joutatsu.com/archives/2865",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "取り返す駒で残る守りを変える",
+        "en": "Recapture with the Piece Whose Role You Can Spare"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1r4b2/9/9/3B5/2SG5/9/7R1/3K5 w - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手角６五と後手角３二が斜線で向かい合っています。先手の金６六と銀７六はどちらも６五へ取り返せます。角がなくなった後、どちらを前へ出すと守りが残るかを比べます。",
+            "en": "Sente's bishop on 6e and Gote's bishop on 3b face each other along a diagonal. Both Sente's gold on 6f and silver on 7f can recapture on 6e. Compare the defender left behind after the bishops leave the board."
+          }
+        },
+        {
+          "moves": ["3b6e", "6f6e"],
+          "text": {
+            "ja": "後手が角を取り、先手は金で取り返しました。双方が角を持ち、先手金６五は元の６六から前進しています。後手の角打ちがこの金へ届く斜線を探します。",
+            "en": "Gote takes the bishop and Sente recaptures with the gold. Each side now has a bishop in hand, while Sente's gold has advanced from 6f to 6e. Look for a bishop-drop diagonal that reaches it."
+          }
+        },
+        {
+          "moves": ["B*4c"],
+          "text": {
+            "ja": "後手角４三は５四を通って金６五を狙います。角交換そのものではなく、交換後に空いた５四が金への通路になりました。先手は金を逃がす手も検討できます。",
+            "en": "Gote's bishop drop on 4c attacks the gold on 6e through the empty square 5d. The trade made that diagonal usable; it did not settle the position. Sente can consider moving the gold."
+          }
+        },
+        {
+          "moves": ["6e6f"],
+          "text": {
+            "ja": "金は６六へ戻れます。この往復で手数を使うので、最初の取り返しを金にするか銀にするかは相手の角打ちを見て決めます。",
+            "en": "The gold can return to 6f, but the round trip costs a move. The recapturing piece should be chosen with the opponent's available bishop drops in view."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["3b6e", "7f6e", "B*4c"],
+          "text": {
+            "ja": "銀７六で角を取り返す別案では、金６六が残ります。後手角４三は今度は銀６五を狙うため、銀が安全になったわけではありません。取り返しの選択は守りの配置と角打ちの両方を変えます。",
+            "en": "Recapturing with the silver from 7f leaves the gold on 6f. The same bishop drop on 4c now attacks the silver on 6e instead, so the silver is not automatically safe. The recapture choice changes both the remaining shelter and the target of a bishop drop."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "飛車が歩を取った升に角の利きを数える",
+        "en": "Count Bishop Lines to the Rook After Pawn Contact"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1r7/9/7p1/9/7P1/2S6/4G2R1/3K5 b Bb 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "すでに双方が角を持ち、先手飛車２八の前には歩２六があります。後手歩２四とぶつかると飛車が前へ出る可能性があります。出た先で角が打てる斜線を先に探します。",
+            "en": "Both players already hold a bishop. Sente's rook on 2h sits behind its pawn on 2f, facing Gote's pawn on 2d. Before opening the file, locate diagonals to any square the rook may occupy."
+          }
+        },
+        {
+          "moves": ["2f2e", "2d2e", "2h2e"],
+          "text": {
+            "ja": "先手歩を後手歩が取り、先手飛車が２五で取り返した例です。飛車が歩を取っても、２五に居座れるかは別問題です。４三から３四を経て２五へ届く線があります。",
+            "en": "Gote's pawn captures Sente's advanced pawn, and Sente's rook recaptures on 2e. Taking a pawn does not guarantee that the rook can remain there: the diagonal from 4c through 3d reaches 2e."
+          }
+        },
+        {
+          "moves": ["B*4c"],
+          "text": {
+            "ja": "後手角４三が飛車２五を斜めに狙います。先手は飛車を引けばよい場合でも、歩交換のために出た飛車がもう一手必要になったことを数えます。後手には角を打たない応手もあります。",
+            "en": "Gote chooses to drop a bishop on 4c, attacking the rook on 2e diagonally. Even when Sente can retreat, the rook excursion needs another move. Gote has other replies, so this is a test of the open diagonal rather than a forced line."
+          }
+        },
+        {
+          "moves": ["2e2h"],
+          "text": {
+            "ja": "飛車は２八へ戻れます。歩が消えた２筋は開きましたが、後手角４三も盤上に残りました。交換の損得を言う前に、角を追う手と自玉６九への利きを調べます。",
+            "en": "The rook returns to 2h. The second file is open, while Gote's bishop remains on the board. Before judging the exchange, inspect whether the bishop can be challenged and whether its lines reach Sente's king on 6i."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "２筋へ出る銀と角打ちの反撃",
+        "en": "An Advancing Silver Can Become a Bishop Target"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1r7/6sp1/9/7P1/9/6S2/7R1/3K5 b Bb 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手銀３七は２六へ出ると歩２五を支えます。しかし後手は角を持ち、５三から４四・３五を通る斜線も空いています。銀を出した直後の受けを確かめます。",
+            "en": "Sente's silver on 3g can move to 2f and support its pawn on 2e. Gote holds a bishop, and the diagonal from 5c through 4d and 3e is clear. Check the reply immediately after the silver advances."
+          }
+        },
+        {
+          "moves": ["3g2f", "2c2d"],
+          "text": {
+            "ja": "後手が２四へ歩を出した例では、先手歩２五が取れます。後手銀３三も２四へ利くので、銀２六を含めて駒の取り合いを数えます。",
+            "en": "If Gote pushes its pawn to 2d, Sente's pawn on 2e can capture it. Gote's silver on 3c also controls 2d, so the silver on 2f must be included in the sequence."
+          }
+        },
+        {
+          "moves": ["2e2d", "3c2d", "2f2e"],
+          "text": {
+            "ja": "後手銀が２四の歩を取り、先手銀が２五へ進んで後手銀を狙います。先手の銀は前へ出ましたが、後手が歩を押す選択をしなければこの形にはなりません。",
+            "en": "Gote's silver captures on 2d, and Sente's silver advances to 2e to attack it. This is a Gote-chosen pawn exchange, not a position Sente can force merely by placing the silver on 2f."
+          }
+        },
+        {
+          "text": {
+            "ja": "銀２五からは２四へ直進できますが、後手銀は逃げる手もあります。角を持つ相手には、銀が２六にいる間に角５三から狙われる別筋も比べてから進みます。",
+            "en": "From 2e the silver controls 2d, but Gote's silver can move away. Because Gote holds a bishop, compare the other branch in which the silver is attacked on 2f before choosing this route."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["3g2f", "B*5c"],
+          "text": {
+            "ja": "後手が歩を動かさず角５三を打つと、４四・３五を通って先手銀２六に利きます。銀を前に出す前に角の持駒を数える理由がここにあります。",
+            "en": "If Gote keeps the pawn in place and drops a bishop on 5c, its diagonal through 4d and 3e attacks Sente's silver on 2f. This is why the bishop in hand matters before the silver advances."
+          },
+          "steps": [
+            {
+              "moves": ["2f3g"],
+              "text": {
+                "ja": "銀は３七へ戻れますが、先手は前進の一手を使い、後手は角を盤上に置きました。角を打つだけで後手有利とは決まりません。次の角の逃げ道と先手の反撃を確認します。",
+                "en": "The silver can return to 3g. Sente has spent a move advancing it, while Gote has committed the bishop to the board. The drop alone proves no advantage; examine the bishop's escape squares and Sente's possible counterplay."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "中央へ使う銀は取り返しと角の反撃まで読む",
+        "en": "A Central Silver Needs a Recapture Plan"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1r7/9/3ps4/9/3P1P1P1/5S3/4G2R1/3K5 b Bb 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手銀４七を５六へ出すと、６五へも利きます。後手には歩６四と銀５四があり、６筋で歩が交換されると取り返しが続く形です。角を持つ双方にとって、６五へ進んだ駒も角打ちの目標になります。",
+            "en": "Sente's silver on 4g can develop to 5f, from which it controls 6e. Gote's pawn on 6d and silver on 5d can contest that square. With bishops in both hands, a piece advanced to 6e may also become a bishop-drop target."
+          }
+        },
+        {
+          "moves": ["4g5f", "6d6e", "6f6e"],
+          "text": {
+            "ja": "後手が６五に歩を進め、先手歩６六が取った例です。先手銀５六が６五に利いていても、後手銀５四にも同じ升への利きがあります。",
+            "en": "Gote chooses to push the sixth-file pawn and Sente's pawn from 6f captures it on 6e. Sente's silver on 5f controls 6e, but so does Gote's silver on 5d."
+          }
+        },
+        {
+          "moves": ["5d6e", "5f6e"],
+          "text": {
+            "ja": "後手銀が先手歩を取り、先手銀がその後手銀を取り返しました。先手は銀を持ちますが、銀６五が安全かどうかはまだ決まっていません。",
+            "en": "Gote's silver captures the pawn, and Sente's silver recaptures that silver. Sente gains a silver in hand, but the safety of its own silver on 6e remains to be tested."
+          }
+        },
+        {
+          "moves": ["B*4c"],
+          "text": {
+            "ja": "後手角４三は、空いた５四を経て先手銀６五を狙います。中央へ銀を使う案には取り返す力がある一方、前へ出た銀への角打ちも生じます。相手が６筋を開かなければこの交換は強制できません。",
+            "en": "Gote's bishop on 4c attacks the advanced silver through the vacated 5d square. The central silver route gives Sente a recapture on 6e, but also exposes the resulting silver to a drop. Gote is not obliged to open this file."
+          }
+        }
+      ]
+    }
+  ]
+}

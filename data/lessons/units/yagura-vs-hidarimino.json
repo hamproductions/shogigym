@@ -1,0 +1,188 @@
+{
+  "id": "yagura-vs-hidarimino",
+  "order": 640,
+  "path": ["戦法・定跡", "矢倉"],
+  "title": {
+    "ja": "居角左美濃急戦を矢倉側から受ける",
+    "en": "Defend a Yagura Against Bishop-in-Place Left Mino"
+  },
+  "intro": {
+    "ja": "後手が角を２二に置いたまま左美濃を作ったら、先手の矢倉は囲いの完成だけを急がず、歩がぶつかる升を先に調べます。３筋・４筋の歩の後ろに桂や銀がいるか、角の斜線を何が遮るかで取り方が変わります。８筋の飛車が玉側に入る場合も、銀と金がどの順に取り返せるかを確かめます。",
+    "en": "When Gote keeps the bishop on 2b and forms a Left Mino, Sente's Yagura must examine the contact squares before spending more moves on the castle. A knight or silver behind the third- and fourth-file pawns changes the recapture order, while pawn moves can open the bishop's diagonal. If Gote's rook enters on the king's side, count the silver and gold recaptures there as well."
+  },
+  "check": {
+    "question": {
+      "ja": "後手角２二を動かしていなくても、先手が４筋の歩を取る前に角道を確認するのはなぜですか？",
+      "en": "Why check Gote's bishop line before taking a fourth-file pawn even though the bishop has not moved from 2b?"
+    },
+    "answer": {
+      "ja": "後手歩４四が４五へ進むと４四が空き、角２二は３三・４四を通れます。角が５五・６六へ向かう線を、先手の６六歩や金６七がどう受けるかまで数えてから歩交換を判断します。",
+      "en": "When Gote's pawn leaves 4d for 4e, the route from the bishop on 2b through 3c and 4d opens. Before accepting the pawn exchange, check its continuation toward 5e and 6f and how Sente's pawn on 6f and gold on 6g cover it."
+    }
+  },
+  "references": [
+    {
+      "title": "矢倉戦法vs居角左美濃急戦",
+      "url": "https://shogi-joutatsu.com/archives/4848",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "３筋の歩に桂が続くかを見てから取る",
+        "en": "Count the Knight Behind the Third-File Pawn"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "6k2/1r2ggsb1/7n1/5pp2/9/3P1SP2/1PSG3P1/1KG4R1/4B4 w - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手は玉８八・金７八と６七・銀７七の矢倉を持ちます。後手は玉３一、銀３二、金４二と５二の左美濃に、動かしていない角２二を残しています。後手歩３四の後ろには桂２三がいて、３五で歩を交換すると桂もそこへ跳ねられます。",
+            "en": "Sente has a Yagura core with king 8h, golds 7h and 6g, and silver 7g. Gote has a Left Mino shelter of king 3a, silver 3b, golds 4b and 5b, with its bishop still on 2b. Behind Gote's pawn on 3d, a knight on 2c can jump to 3e after a pawn exchange."
+          }
+        },
+        {
+          "moves": ["3d3e", "3f3e"],
+          "text": {
+            "ja": "後手が歩を３五へ進め、先手歩３六が取る一例です。先手に歩が入っても、後手桂２三は３五の歩を取れます。次の取り手を見ないで歩得と結論しません。",
+            "en": "Gote advances the pawn to 3e and Sente's pawn from 3f takes it. Sente gains a pawn in hand, but Gote's knight on 2c can capture that pawn on 3e. Do not judge the exchange from the first capture alone."
+          }
+        },
+        {
+          "moves": ["2c3e"],
+          "text": {
+            "ja": "後手桂が３五へ跳ねて歩を取った場合、先手銀４六は３五へ斜め前に進めます。銀の位置が違えば同じ取り返しはできないため、実際の配置を確かめます。",
+            "en": "If Gote's knight captures on 3e, Sente's silver on 4f can recapture diagonally forward. That recapture depends on the silver's actual square; it is not a property of the Yagura castle by itself."
+          }
+        },
+        {
+          "moves": ["4f3e"],
+          "text": {
+            "ja": "銀が桂を取った形です。後手は桂を差し出す義務がなく、３筋の歩交換を選ばない手もあります。先手はこの取り手を用意した上で、銀３五が次に４四の歩などから狙われるかを読みます。",
+            "en": "The silver captures the knight in this chosen line. Gote need not offer the knight or even choose the third-file exchange. Sente should also check what can attack the advanced silver on 3e next, including the pawn on 4d."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "４筋の交換後は角道と６六の歩を照合する",
+        "en": "After Fourth-File Contact, Recheck the Bishop Line"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "6k2/1r2ggsb1/7n1/4sp3/9/3PSP3/1PSG3P1/1KG4R1/4B4 w - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手の左美濃と居角２二はそのまま、今度は歩４四・銀５四が４筋を見ています。先手は歩４六と銀５六を置いています。４四の歩が動く前は角２二から４四への斜線をその歩が塞ぎ、動いた後は角が通れるようになります。",
+            "en": "Gote keeps the Left Mino and bishop on 2b, with pawn 4d and silver 5d now pressing the fourth file. Sente has pawn 4f and silver 5f. While Gote's pawn occupies 4d it blocks the bishop's route through that square; moving it opens the route."
+          }
+        },
+        {
+          "moves": ["4d4e", "4f4e"],
+          "text": {
+            "ja": "後手歩が４五へ来て先手歩が取った例です。先手は歩を持ちますが、後手銀５四が４五を取れるので交換はまだ終わりません。",
+            "en": "Gote pushes the pawn to 4e and Sente's pawn captures it. Sente gets a pawn in hand, but Gote's silver on 5d can recapture on 4e."
+          }
+        },
+        {
+          "moves": ["5d4e", "5f4e"],
+          "text": {
+            "ja": "後手銀が歩を取り、先手銀５六が４五で銀を取り返します。銀交換を選んだ後手は別の応手もできます。いま４四は空升なので、後手角２二は３三を通って４四へ出られます。",
+            "en": "Gote's silver takes the pawn and Sente's silver from 5f recaptures it on 4e. Gote could choose another response. With 4d now empty, Gote's bishop on 2b can travel through 3c onto 4d."
+          }
+        },
+        {
+          "moves": ["2b4d"],
+          "text": {
+            "ja": "後手が角を４四へ出した例です。角は５五を経て６六の先手歩を見ますが、その歩は金６七に守られています。角が出たことだけで歩や矢倉が失われるとは決めず、４筋の銀交換で得た駒と守りの利きを比べます。",
+            "en": "Gote chooses to develop the bishop to 4d. It points through 5e toward Sente's pawn on 6f, which Sente's gold on 6g protects. The bishop's appearance alone does not win that pawn or the castle; weigh it against the pieces gained in the silver exchange."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "７七の銀をかわす時も金の利きを残す",
+        "en": "Move the 7g Silver Without Losing the Gold's Cover"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "6k2/1r2ggsb1/9/6p2/1n7/3P5/1PSG3P1/1KG4R1/4B4 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手桂８五は７七の先手銀を狙います。先手歩６六は角２二から３三・４四・５五を経て７七へ向かう斜線を６六で止め、金６七は７七を守っています。桂だけでなく、この二つの守りも見て銀の行き先を選びます。",
+            "en": "Gote's knight on 8e targets Sente's silver on 7g. Sente's pawn on 6f blocks the bishop diagonal from 2b through 3c, 4d, and 5e toward 7g; Sente's gold on 6g also protects 7g. Consider both supports when choosing where the silver goes."
+          }
+        },
+        {
+          "moves": ["7g8f"],
+          "text": {
+            "ja": "先手銀が８六へ出れば桂の着地点７七が空きます。６六の歩は動かしていないので角道も開きません。ただし８六の銀の安全は、後手の別の駒も見て判断します。",
+            "en": "Sente moves the silver to 8f, vacating the knight's landing square on 7g. The pawn on 6f still blocks the bishop diagonal. The safety of the silver on 8f must still be checked against Gote's other pieces."
+          }
+        },
+        {
+          "moves": ["8e7g+", "6g7g"],
+          "text": {
+            "ja": "後手が空いた７七へ桂を跳ねて成った場合、金６七が成桂を取れます。後手はこの桂跳ねを選ぶ必要はありません。銀をかわした後も、７七への金の利きを残したことがこの応手を可能にしています。",
+            "en": "If Gote jumps the knight into the vacant 7g and promotes, Sente's gold from 6g captures it. Gote need not choose this knight jump. Keeping the gold's protection of 7g makes this particular recapture possible."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "８筋を放置する手と銀で取る手の差",
+        "en": "Compare Ignoring the Eighth File with a Silver Capture"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "6k2/1r2ggsb1/9/5pp2/9/1psP5/1PSG3P1/1KG4R1/4B4 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手は歩８六・銀７六・飛車８二を先手玉８八の前に集めています。先手銀７七は７六の銀を取れます。玉の前の歩８七を取られると金７八が８七へ出るため、銀をどこに残すかで飛車の取り返しが変わります。",
+            "en": "Gote has pawn 8f, silver 7f, and rook 8b in front of Sente's king on 8h. Sente's silver on 7g can capture the attacking silver on 7f. If Gote's pawn takes 8g, Sente's gold from 7h may go to 8g, so the silver's location changes the rook recapture."
+          }
+        },
+        {
+          "moves": ["7g7f"],
+          "text": {
+            "ja": "先手銀で後手銀７六を取ります。後手銀が８七と７七の両方へ利く状態を解き、先手銀を７六に残します。後手は８筋の歩を進める以外の応手も選べます。",
+            "en": "Sente's silver captures Gote's silver on 7f. This removes a piece that controlled both 8g and 7g and leaves Sente's silver on 7f. Gote can choose a reply other than the eighth-file pawn advance."
+          }
+        },
+        {
+          "moves": ["8f8g+", "7h8g"],
+          "text": {
+            "ja": "後手歩が８七の歩を取って成った例です。先手金７八がそのと金を取ります。後手飛車８二から８七までの道は空きましたが、先手銀７六は金が出た８七へ斜め後ろに利きます。",
+            "en": "Gote's pawn captures Sente's pawn on 8g and promotes; Sente's gold from 7h captures the tokin. The rook's route from 8b to 8g is now clear, but Sente's silver on 7f can move diagonally backward to recapture on 8g."
+          }
+        },
+        {
+          "moves": ["8b8g+", "7f8g"],
+          "text": {
+            "ja": "後手が飛車で金を取って成るなら、先手銀７六が龍を取れます。飛車を差し出すのは後手の任意の手で、強制の勝ち筋ではありません。先手にとって大切なのは、先に７六の銀を取ったため８七への取り手が一枚残ったことです。",
+            "en": "If Gote captures the gold with the rook and promotes, Sente's silver from 7f captures the dragon. Offering the rook is Gote's choice, not a forced winning line. Sente's earlier silver capture left a recapturer for 8g."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["2g2f", "8f8g+", "7h8g", "8b8g+", "8h9i"],
+          "text": {
+            "ja": "先手が別の筋の歩を進めるだけなら、後手歩は８七で成り、金で取った後に後手飛車が８七の金を取って成れます。この図では後手銀７六が龍８七を守るため、先手玉８八は９九へ逃げる例になります。後手の攻めが必勝という意味ではなく、７七の銀を動かさない一手で取り返しの配置が変わる比較です。",
+            "en": "If Sente merely advances the pawn on 2g, Gote can promote the pawn on 8g. After Sente's gold captures it, Gote's rook captures the gold and promotes. Here Gote's silver on 7f protects the dragon on 8g, so Sente's king retreats from 8h to 9i in this example. This does not prove a forced win; it shows how a quiet move leaves a different recapture arrangement."
+          }
+        }
+      ]
+    }
+  ]
+}

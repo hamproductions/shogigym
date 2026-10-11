@@ -1,0 +1,120 @@
+{
+  "id": "kakukoukan-shiken",
+  "order": 1250,
+  "path": ["戦法・定跡", "振り飛車"],
+  "title": {"ja": "角交換四間飛車の角と飛車を数える", "en": "Count bishop drops and rook paths in Fourth File Rook"},
+  "intro": {
+    "ja": "角交換後の四間飛車では、６筋に移した飛車と双方の持ち角を同時に見ます。角打ちが駒に当たっても相手の受けは一つではなく、飛車先の歩交換も取り返しまで数える必要があります。角を打つ側も受ける側も、６筋の空きマスを先に確認します。",
+    "en": "After a bishop exchange in Fourth File Rook, read the rook's sixth-file path alongside both bishops in hand. A bishop drop may attack two pieces without forcing a gain; a rook-file pawn exchange also needs a recapture count. Both sides must check the open squares on the sixth file before committing a bishop."
+  },
+  "check": {
+    "question": {
+      "ja": "先手６八飛で６七・６六・６五が空き、後手は角を持っています。後手△６五角が先手３八銀を斜めに狙っても、先手に６八飛からの直接の応手はありますか？",
+      "en": "Sente has R6h with 6g, 6f and 6e empty. If Gote drops B*6e to attack S3h diagonally, can the rook answer directly?"
+    },
+    "answer": {
+      "ja": "▲６五飛と角を取れます。６八飛の縦の利きが６五まで通っているため、△６五角はこの配置では銀取りより先に飛車で取られます。６筋に駒が挟まれば結論は変わるので、空きマスを確認します。",
+      "en": "Yes: Rx6e captures the bishop. R6h has a clear vertical line to 6e, so this particular drop loses the bishop before its attack on S3h matters. A blocker on the sixth file would change the answer."
+    }
+  },
+  "references": [
+    {"title": "角交換四間飛車の駒組み", "url": "https://shogi-joutatsu.com/archives/1247", "license": "All rights reserved", "adapted": false}
+  ],
+  "chapters": [
+    {
+      "title": {"ja": "持ち角が見る二つの方向", "en": "Two rays from one bishop drop"},
+      "side": "sente",
+      "kind": "position",
+      "start": "1r7/5k3/7s1/1p7/9/2P6/2S6/3R1GSK1/3G5 b Bb 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手飛車は６八、両者の角は持ち駒です。後手８一飛と２三銀は一見離れていますが、４五に打つ角からは別々の斜線で見えます。角打ち後に後手がどちらを動かせるかまで読みます。",
+            "en": "Sente's rook is on 6h and both sides hold a bishop. Gote's R8a and S2c look far apart, yet a bishop on 4e would sight each along a different diagonal. Read Gote's response before calling the drop a gain."
+          },
+          "marks": {"arrows": ["4e8a", "4e2c"], "boxes": ["8a", "2c"]}
+        },
+        {
+          "moves": ["B*4e"],
+          "text": {
+            "ja": "▲４五角は５四・６三・７二を通って８一飛を、３四を通って２三銀を狙います。両取りの形ですが、後手には飛車をかわす手も、別の駒で角に働きかける手もあります。",
+            "en": "B*4e attacks R8a through 5d, 6c and 7b, and S2c through 3d. It is a fork in this position, but Gote can move the rook or challenge the bishop in another way."
+          },
+          "marks": {"last": "4e", "arrows": ["4e8a", "4e2c"]}
+        },
+        {
+          "moves": ["8a8b", "4e2c+"],
+          "text": {
+            "ja": "後手が△８二飛と引く例なら、▲２三角成で銀を取れます。後手飛車は残り、先手は銀を得て馬を作りました。ただし後手の持ち角と次の応手があるため、この二手だけで全局面の優劣は決まりません。",
+            "en": "If Gote retreats R8b, Bx2c+ captures the silver and promotes. Gote keeps the rook; Sente gets a silver and a horse. Gote still has a bishop in hand and another turn, so the sample does not settle the game."
+          },
+          "marks": {"last": "2c", "boxes": ["8b", "2c"]}
+        }
+      ]
+    },
+    {
+      "title": {"ja": "８筋で飛車が出た場所を角で問う", "en": "Challenge the advanced rook with a bishop"},
+      "side": "sente",
+      "kind": "position",
+      "start": "9/1r3kg2/9/1p7/9/1P7/2P6/3R1GSK1/3G5 w Bb 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手８四歩と先手８六歩が向かい合い、後手飛車は８二です。先手は角を持っていますが、８筋の交換が起きる前に決め打ちで角を使う必要はありません。後手飛車がどこまで進むかで打ち場所を選びます。",
+            "en": "Gote's P8d faces Sente's P8f, with R8b behind it. Sente holds a bishop, but its useful drop square depends on how far the rook advances after contact."
+          },
+          "marks": {"boxes": ["8b", "8d", "8f", "3b"]}
+        },
+        {
+          "moves": ["8d8e", "8f8e", "8b8e"],
+          "text": {
+            "ja": "△８五歩、▲同歩、△同飛の例では、後手飛車が８五へ出ます。後手は先手歩を取り、先手は後手歩を取りました。先手はここで８五の飛車だけでなく、３二金への斜線も一緒に確認できます。",
+            "en": "In the sample P8e, Px8e, Rx8e, Gote's rook reaches 8e. Each side has taken a pawn. Sente can now inspect both the rook and the line toward G3b before choosing a bishop drop."
+          },
+          "marks": {"last": "8e", "boxes": ["8e", "3b"]}
+        },
+        {
+          "moves": ["B*7f"],
+          "text": {
+            "ja": "▲７六角は８五飛を隣の斜めから、３二金を６五・５四・４三越しに狙います。後手が飛車を引く以外にも、持ち角で角筋を遮るなどの応手があります。飛車や金を取れることは決まっていないので、実際の受けを読んでから仕掛けます。",
+            "en": "B*7f attacks R8e on one diagonal and G3b through 6e, 5d and 4c on the other. Gote may retreat the rook or use the bishop in hand to interfere. Neither capture is forced without examining that defense."
+          },
+          "marks": {"last": "7f", "arrows": ["7f8e", "7f3b"]}
+        }
+      ]
+    },
+    {
+      "title": {"ja": "６筋の空白は角打ちの落とし穴にもなる", "en": "An open rook file can refute a bishop drop"},
+      "side": "sente",
+      "kind": "position",
+      "start": "9/1r3k3/9/9/9/9/9/3R1GSK1/9 w b 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手は角を持ち、先手の３八銀は６五からの斜線上にいます。ただし先手６八飛の前には６七・６六・６五に駒がありません。角を打つ側は銀だけでなく飛車の縦の利きも確認します。",
+            "en": "Gote holds a bishop and Sente's S3h lies on a diagonal from 6e. Yet R6h has an empty path through 6g and 6f to that drop square. The side dropping a bishop must count the rook's vertical ray too."
+          },
+          "marks": {"arrows": ["6h6e", "6e3h"], "boxes": ["6g", "6f"]}
+        },
+        {
+          "moves": ["B*6e", "6h6e"],
+          "text": {
+            "ja": "△６五角と打つと、先手は▲同飛で角を取れます。角の３八銀取りは飛車の取り返しより遅く、この配置では角打ちが成立しません。６筋に一枚でも駒が入れば、再計算が必要です。",
+            "en": "After B*6e, Rx6e captures the bishop before it can attack S3h. This drop fails with the sixth file clear. Add a blocker and the calculation changes."
+          },
+          "marks": {"last": "6e", "boxes": ["3h", "6e"]}
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["4b3b", "6h6f"],
+          "text": {
+            "ja": "後手が角をすぐ打たず△３二玉と寄り、先手が▲６六飛と浮く一例です。玉位置と飛車の利きはそれぞれ変わりました。角を使うなら、この新しい盤面で打ち場所を探し直します。",
+            "en": "A sample quiet alternative is K3b and R6f. Both the king's position and the rook's reach have changed. Any bishop drop must be recalculated from this new board."
+          }
+        }
+      ]
+    }
+  ]
+}

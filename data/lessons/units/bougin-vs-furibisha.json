@@ -1,0 +1,163 @@
+{
+  "id": "bougin-vs-furibisha",
+  "order": 540,
+  "path": ["戦法・定跡", "居飛車"],
+  "title": {
+    "ja": "振り飛車には角筋と反撃を見て棒銀を使う",
+    "en": "Adapt Climbing Silver to the Bishop Line and Rook Counterplay"
+  },
+  "intro": {
+    "ja": "振り飛車に対して銀を進めるときは、敵陣への到達よりも、その升に角・歩・飛車がどう利くかが先です。６筋へ振った後手飛車を例に、銀の通路を選び、歩で角頭に圧力をかけ、相手の反撃に合わせて玉側の守りを整えます。示す後手の応手は選択例であり、同じ銀の進出がどの形でも成功するわけではありません。",
+    "en": "Against a ranging rook, the first question is not how far the silver can advance but which bishop, pawn, and rook lines meet its next square. With Gote's rook on the sixth file, these positions ask Sente to choose a silver route, pressure a bishop with a pawn, and adjust king safety when Gote counters. Each Gote reply shown is one choice, not a forced sequence or a universal promise of success."
+  },
+  "check": {
+    "question": {
+      "ja": "振り飛車に棒銀を進める前、銀の行き先と自玉について何を確かめますか？",
+      "en": "Before advancing Climbing Silver against a ranging rook, what must you check about its destination and your king?"
+    },
+    "answer": {
+      "ja": "角の斜線と歩・飛車の利きをたどり、銀が取られた後の駒損まで読みます。相手が飛車筋や歩を動かせるなら、攻めの速度だけでなく玉側の守りに必要な一手も比べます。",
+      "en": "Trace the bishop diagonal and the pawn and rook controls, including what happens if the silver is captured. If Gote can open a rook file or advance a pawn, compare the attack's timing with the move needed to protect the king."
+    }
+  },
+  "references": [
+    {
+      "title": "棒銀vs振り飛車の基本",
+      "url": "https://shogi-joutatsu.com/archives/6549",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "銀を出す前に角の斜線をたどる",
+        "en": "Trace the bishop ray before choosing a silver square"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/3r2g2/4b2p1/9/7P1/9/7S1/1BK4R1/3G5 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手の飛車は６二、角は５三です。２七の銀をそのまま２六へ出すと、角は４四・３五を通って２六に届きます。銀を前へ進めるという形だけで手を選ばず、先に角筋の空升を数えます。",
+            "en": "Gote's rook is on 6b and bishop on 5c. A direct silver move from 2g to 2f enters the bishop's diagonal through 4d and 3e. Before following a familiar silver route, count the empty squares along that ray."
+          }
+        },
+        {
+          "moves": ["2g3f"],
+          "text": {
+            "ja": "▲３六銀は２六への角筋を避けます。ただし、銀が安全な升へ出たことと攻めが成立したことは別です。次の升に後手の飛車がどう利くかも見ます。",
+            "en": "▲３六銀 stays off the bishop's line to 2f. Reaching a safe square does not itself establish an attack; the rook's control over the next target still matters."
+          }
+        },
+        {
+          "moves": ["6b6d", "3f4e"],
+          "text": {
+            "ja": "この例の後手は△６四飛と出て横の５四を守り、先手は▲４五銀と中央へ寄りました。銀４五から５四を狙えても、飛車６四も５四に利いています。双方の利きが重なる場所では、銀をさらに出す前に交換後の駒を数え直します。",
+            "en": "Gote chooses △６四飛, adding rook control to 5d, and Sente brings the silver toward the center with ▲４五銀. The silver on 4e can approach 5d, but the rook on 6d also controls it. Recount the defenders before committing the silver to that square."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["2g2f", "5c2f", "2h2f"],
+          "text": {
+            "ja": "▲２六銀なら△同角▲同飛という交換もあります。飛車２八は２七が空くため角を取り返せますが、銀は盤上から消え、飛車が２六へ出ます。角と銀を交換した結果まで見て選ぶ手であり、△同角で一方的に銀を失うわけではありません。",
+            "en": "The direct ▲２六銀 permits △同角▲同飛. Sente's rook can recapture because 2g is vacated, but the silver leaves the board and the rook lands on 2f. Evaluate the resulting bishop-for-silver exchange; △同角 does not win the silver for free."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "角頭の歩に金が応じる場合",
+        "en": "Pressure the bishop's head, then read the gold reply"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/3r5/3gb4/9/4PS3/9/9/2K4R1/3G5 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手の飛車６二、金６三、角５三に対し、先手の歩５五と銀４五が連携しています。５筋の歩を進めると角５三の頭へ近づきますが、金６三も５四に利いています。金に取らせた後、銀で取り返せるかを確認します。",
+            "en": "Against Gote's rook on 6b, gold on 6c, and bishop on 5c, Sente's pawn on 5e works with the silver on 4e. Advancing the pawn approaches the bishop's head, while the gold also controls 5d. Check the silver's recapture before offering that pawn."
+          }
+        },
+        {
+          "moves": ["5e5d", "6c5d"],
+          "text": {
+            "ja": "▲５四歩に対し、この分岐では後手が△同金を選びました。角は前へ直進できず、金が歩を取った結果、銀４五が金５四を取れる形になります。後手には角を引くなど別の受けもあります。",
+            "en": "Gote chooses △同金 against ▲５四歩 in this line. The bishop cannot move straight forward to take the pawn; the gold's capture leaves it on a square attacked by Sente's silver. Gote can also choose another defense, including a bishop retreat."
+          }
+        },
+        {
+          "moves": ["4e5d", "6b6d"],
+          "text": {
+            "ja": "▲同銀で金を取りましたが、後手は△６四飛と出て横から銀５四に当てます。先手がこの応手を見落とすと、得た金と引き換えに銀を失いかねません。駒得を数える時点は、相手の次の利きまで含めます。",
+            "en": "▲同銀 takes the gold, but Gote chooses △６四飛 and attacks the silver on 5d from the side. Sente must include that rook move when assessing the exchange; the gold capture does not make the silver safe to leave there."
+          }
+        },
+        {
+          "moves": ["5d4e"],
+          "text": {
+            "ja": "▲４五銀と引けば、先手は取った金を持ち、銀を盤上に残せます。これは後手が５四の歩を金で取ってから飛車を６四へ出した場合の結果です。他の応手でも同じ駒得が得られるとは限りません。",
+            "en": "▲４五銀 retreats, keeping the captured gold in hand and the silver on the board. This material result follows Gote's particular gold capture and rook move; another Gote reply need not yield the same exchange."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["5e5d", "5c4b"],
+          "text": {
+            "ja": "後手が△４二角と引けば、先手の歩５四は残り、金は６三のままです。角を後退させましたが、金は取れていません。金を取る順を後手に強制できると考えず、５四の歩の支えと次の反撃を読み直します。",
+            "en": "If Gote retreats with △４二角, Sente's pawn remains on 5d and the gold stays on 6c. Sente has gained space but not the gold. The gold capture cannot be forced by this pawn push alone; reassess the pawn's support and Gote's next counter."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "反撃の歩を見て玉側に一手を使う",
+        "en": "Protect the king as Gote makes room for the rook"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/3r5/4b4/3p5/4PS3/9/9/1BK4R1/3G5 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手の銀４五と歩５五は角５三を圧迫できます。一方、後手には歩６四と飛車６二があり、６筋の歩を進めれば飛車の通路が変わります。攻めの一手を指した後、相手の歩がどこへ進めるかを読みます。",
+            "en": "Sente's silver on 4e and pawn on 5e can press the bishop on 5c. Gote also has a pawn on 6d and rook on 6b. A pawn advance changes access along the sixth file, so calculate Gote's pawn reply before treating the bishop pressure as a free tempo."
+          }
+        },
+        {
+          "moves": ["5e5d", "6d6e"],
+          "text": {
+            "ja": "▲５四歩で角頭へ近づいたところ、この例の後手は△６五歩と突きました。６四が空き、飛車６二はそこへ進めるようになります。歩６五はまだ自分の飛車の前にいるため、この瞬間に飛車が６八まで直通しているわけではありません。",
+            "en": "After ▲５四歩 approaches the bishop's head, Gote chooses △６五歩. The move vacates 6d, allowing the rook on 6b to advance there. Gote's pawn on 6e still blocks the rook farther down the file, so this is developing counterplay, not an immediate open rook line to 6h."
+          }
+        },
+        {
+          "moves": ["6i6h", "6b6d"],
+          "text": {
+            "ja": "先手は▲６八金と玉７八の隣へ金を上がり、後手は△６四飛と出ました。金６八は玉の近くに守りを増やしますが、後手の歩６五と飛車６四は残ります。次に歩が進めるか、角を引くかを見て、攻めの銀と玉の守りの優先順位を再評価します。",
+            "en": "Sente brings the gold beside the king with ▲６八金, and Gote chooses △６四飛. The gold adds local cover, while Gote's pawn on 6e and rook on 6d remain active. Reassess the silver attack against possible pawn advances and bishop retreats; neither side's plan is settled by this sample line."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["5e5d", "5c4b"],
+          "text": {
+            "ja": "後手が△４二角と引く選択もあります。５四の歩は角をただちに取れなくなり、６四の歩も元の位置に残ります。先手は後手の角と歩の配置を見て、銀を進めるか玉側へ一手を使うか選び直します。",
+            "en": "Gote can instead retreat the bishop to 4b. Sente's pawn on 5d no longer threatens an immediate bishop capture, and Gote's pawn remains on 6d. The changed bishop and pawn placement calls for a fresh choice between silver activity and king protection."
+          }
+        }
+      ]
+    }
+  ]
+}

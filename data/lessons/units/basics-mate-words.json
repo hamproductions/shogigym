@@ -1,35 +1,26 @@
 {
   "id": "basics-mate-words",
   "order": 120,
-  "path": [
-    "はじめての将棋",
-    "基本の考え方"
-  ],
+  "path": ["はじめての将棋", "基本の考え方"],
   "title": {
-    "ja": "詰み・詰めろ・必至",
-    "en": "Checkmate, mate threats and unstoppable threats"
+    "ja": "王手から詰みまで",
+    "en": "From Check to Checkmate"
   },
   "intro": {
-    "ja": "終盤では「王手」「詰み」「詰めろ」「必至」という四つの言葉が飛び交います。似ているようで意味は違い、どれを指すかで勝ち負けが決まります。小さな局面を動かしながら、それぞれが盤上でどんな状態なのかを順に見分けていきます。",
-    "en": "Four words keep coming up in the endgame: check, checkmate, a mate threat (tsumero) and an unstoppable threat (hisshi). They sound alike but describe different situations, and choosing the right one decides games. You will move small positions and learn to tell each state apart on the board."
+    "ja": "終盤では、相手玉への攻めと自玉の危険を同じ手番の中で比べます。王手が届くか、次に詰みがあるか、その詰みを相手が消せるかを読み分けて、一手の急ぎ方を決めます。",
+    "en": "In the endgame, compare threats to both kings before spending a move. Check whether the king is attacked, whether mate is threatened next, and whether the defender can remove that threat."
   },
   "check": {
     "question": {
-      "ja": "王手ではない静かな手で、相手の受けをすべて封じ、次の詰みを避けられない形にしました。この状態を何と呼びますか？",
-      "en": "With a quiet move that is not check, you have shut off every defence, so the next mate cannot be avoided. What is this state called?"
+      "ja": "自玉に次の詰みが見えていても、攻めを続けてよいのはどんな場合ですか？",
+      "en": "When may you continue attacking even though your king faces mate next?"
     },
     "answer": {
-      "ja": "必至です。次の一手で詰ます手があるだけの状態（詰めろ）は、相手が受ければ消えますが、必至は受けようがありません。",
-      "en": "It is hisshi. A mere mate threat (tsumero) disappears if the opponent defends against it, but with hisshi there is no defence."
+      "ja": "相手玉を今すぐ詰ませる合法手がある場合です。王手だけでなく、相手に逃げ道や受けがないことまで確かめます。",
+      "en": "When you have a legal move that checkmates the opposing king immediately. Verify that it is mate, with no escape or defence, rather than relying on check alone."
     }
   },
   "references": [
-    {
-      "title": "王手 (Wikipedia日本語版)",
-      "url": "https://ja.wikipedia.org/wiki/王手",
-      "license": "CC BY-SA 4.0",
-      "adapted": false
-    },
     {
       "title": "王手、詰み、詰めろ、必至って？",
       "url": "https://shogi-joutatsu.com/archives/1821",
@@ -40,315 +31,186 @@
   "chapters": [
     {
       "title": {
-        "ja": "王手と、そのかわし方",
-        "en": "Check and the three ways to meet it"
+        "ja": "二つの玉の危険と手番を比べる",
+        "en": "Compare both kings and the move order"
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/7b1/9/9/1R7/9/9/9/4K4 b p 1",
+      "start": "8k/9/7G1/9/9/9/1g7/9/K8 b Gg 1",
       "steps": [
         {
           "text": {
-            "ja": "先手の飛車は８五にいて、後手玉は５一です。飛車の利きは玉に届いていないので、まだ王手ではありません。後手は角を２二に置き、持ち駒に歩が一枚あります。",
-            "en": "Black’s rook stands on 8e and White’s king on 5a. The rook does not reach the king yet, so it is not check. White has a bishop on 2b and one pawn in hand."
+            "ja": "先手玉９九には、後手の金８七と持駒の金があります。△９八金打とされれば、後手金が打った金を支えるため先手玉は詰みます。",
+            "en": "The attacker’s king on ９九 faces a gold in hand and the defender’s gold on ８七. △９八金打 would be mate: the gold on ８七 protects the dropped gold."
           }
         },
         {
-          "moves": [
-            "8e5e"
-          ],
           "text": {
-            "ja": "飛車が５五へ横に動き、５筋に乗って玉へ利きが届きました。次に玉を取れる状態です。これが王手で、指された側は必ずその王手を解消しなければなりません。",
-            "en": "The rook slides to 5e and now attacks the king along the 5th file. The king could be captured next move: that is check, and the player in check must get out of it at once."
-          },
-          "marks": {
-            "arrows": [
-              "5e5a"
-            ]
+            "ja": "一方、後手玉１一の近くには先手の金２三があります。持駒を使って相手玉を今すぐ詰ませる手があるか探してください。",
+            "en": "Meanwhile, the attacker has a gold on ２三 near the defender’s king on １一. Find out whether a piece in hand can deliver mate immediately."
           }
         },
         {
-          "moves": [
-            "5a6a"
-          ],
+          "moves": ["G*1b"],
           "text": {
-            "ja": "解消のしかたは三つあります。一つ目は玉が利きの外へ逃げること。６一へ寄れば飛車の利きから外れます。５筋に沿って動く手や、利きのあるマスへの手は指せません。",
-            "en": "There are three ways to resolve a check. The first is moving the king off the attacked line: 6a is safe. Squares on the rook’s file or any other attacked square are not allowed."
-          },
-          "marks": {
-            "last": "6a"
-          }
-        }
-      ],
-      "variations": [
-        {
-          "from": 1,
-          "moves": [
-            "2b5e"
-          ],
-          "text": {
-            "ja": "二つ目は、王手をかけている駒を取ってしまうこと。２二の角は斜めに利いており、途中にコマがないので５五の飛車をそのまま取れます。",
-            "en": "The second way is capturing the piece that gives check. The bishop on 2b runs along the diagonal with nothing in between, so it simply takes the rook on 5e."
+            "ja": "▲１二金打は詰みです。打った金は２三の金に守られ、玉は逃げられず、打った金も取れません。",
+            "en": "▲１二金打 is checkmate. The gold is protected by the piece on ２三, and the king can neither escape nor capture the dropped gold."
           }
         },
         {
-          "from": 1,
-          "moves": [
-            "P*5c"
-          ],
           "text": {
-            "ja": "三つ目は、飛車と玉の間に駒を打つか動かして線をさえぎること（合駒）です。持ち駒の歩を５三へ打つと、飛車の利きはそこで止まります。飛車・角・香のような遠くまで利く駒の王手にしか使えません。",
-            "en": "The third way is interposing a piece between rook and king (aigoma). Dropping the pawn on 5c stops the rook’s line there. This only works against long-range checkers such as a rook, bishop or lance."
+            "ja": "自玉に次の詰みがあっても、合法な詰みを今決めれば相手に手番は回りません。これは詰みまで読み切れた場合の判断です。王手だけで逃げ道を与える手なら、自玉を守る必要があります。",
+            "en": "Even with mate threatened against your own king, an immediate legal checkmate ends the game before the opponent moves. This choice depends on proving mate; a check that leaves an escape does not replace a needed defence."
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "詰みとは何か",
-        "en": "What checkmate is"
+        "ja": "王手への返事を確かめる",
+        "en": "Check the replies to a check"
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/9/4P4/9/9/9/9/9/4K4 b G 1",
+      "start": "8k/9/9/9/9/9/9/9/K8 b R 1",
       "steps": [
         {
           "text": {
-            "ja": "後手玉は５一の隅近く、先手の歩が５三に控えています。持ち駒は金が一枚。ここへ金を打つ場所を考えます。",
-            "en": "White’s king is on 5a, with Black’s pawn waiting on 5c and one gold in Black’s hand. Where should the gold go?"
+            "ja": "後手玉１一は盤端にいます。先手は持駒の飛車を使って、玉へ届く筋を作れます。",
+            "en": "The defender’s king is on the edge at １一. The attacker can use the rook in hand to open a line toward it."
           }
         },
         {
-          "moves": [
-            "G*5b"
-          ],
           "text": {
-            "ja": "玉の頭、５二へ金を打ちます。金は後手玉に王手をかけ、さらに４一・６一・４二・６二の逃げ道へも利いています。玉は金を取りに行けるでしょうか。いいえ、５三の歩が金を支えているので取ると逆に玉が取られます。逃げる・取る・合駒の三つがすべて消えたので、後手玉は詰みです。",
-            "en": "The gold drops on 5b, right in front of the king. It gives check and also covers 4a, 6a, 4b and 6b. Can the king take it? No: the pawn on 5c protects the gold, so capturing would put the king en prise. Running, capturing and interposing are all gone, so this is checkmate."
-          },
-          "marks": {
-            "boxes": [
-              "4a",
-              "6a",
-              "4b",
-              "6b"
-            ]
-          }
-        }
-      ],
-      "variations": [
-        {
-          "from": 0,
-          "moves": [
-            "G*4b"
-          ],
-          "text": {
-            "ja": "同じ王手でも、４二への金は支えがありません。",
-            "en": "The same gold on 4b is also check, but nothing supports it."
-          },
-          "steps": [
-            {
-              "moves": [
-                "5a4b"
-              ],
-              "text": {
-                "ja": "玉が金を取って王手は消え、先手は金を失っただけです。王手であることと詰みであることは別で、詰みは「どれでもかわせない王手」だけを指します。",
-                "en": "The king simply takes the gold, the check is gone and Black has lost a piece. A check is not automatically checkmate: checkmate is a check that none of the three answers can meet."
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "title": {
-        "ja": "詰めろ：次に詰みがある状態",
-        "en": "Tsumero: a mate is threatened"
-      },
-      "side": "sente",
-      "kind": "position",
-      "start": "4k4/9/8p/4P4/9/9/9/9/4K4 b G 1",
-      "steps": [
-        {
-          "text": {
-            "ja": "先手の歩は５四、持ち駒は金一枚。後手は玉のほかに端の歩が一枚あるだけです。いまは王手ではなく、すぐ詰ませる手もありません。",
-            "en": "Black’s pawn is on 5d with one gold in hand. Besides the king, White has only a pawn on the edge. There is no check and no immediate mate yet."
+            "ja": "玉へ直接利きを通し、後手にその攻撃を消す手を求める飛車打ちを探してください。",
+            "en": "Find a rook drop that attacks the king directly and makes the defender answer that attack."
           }
         },
         {
-          "moves": [
-            "5d5c"
-          ],
+          "moves": ["R*1d"],
           "text": {
-            "ja": "歩を５三へ進めました。王手ではありませんが、いま手番が先手に戻れば▲５二金で詰みます。このように「放っておくと次の一手で詰まされる」状態が詰めろです。成らずに進めたのは、歩のままで金を支えるためです。",
-            "en": "The pawn steps to 5c. It is not check, but if it were Black’s turn again, ▲G*5b would be mate. A position where the opponent will mate on the next move unless you react is called tsumero. The pawn does not promote because it needs to stay a pawn to support the gold on 5b."
-          },
-          "marks": {
-            "arrows": [
-              "G*5b"
-            ]
+            "ja": "▲１四飛打で、１筋を通って後手玉に王手がかかります。王手は玉への攻撃なので、後手は次の自分の手でその利きをなくさなければなりません。",
+            "en": "▲１四飛打 checks the king along the first file. Check is an attack on the king, so the defender must remove that attack with its reply."
           }
         },
         {
-          "moves": [
-            "5a6a"
-          ],
+          "moves": ["1a2a"],
           "text": {
-            "ja": "後手は玉を６一へ寄せて詰めろを外しました。詰めろは「必ず勝ち」ではなく、受けがあれば消える脅しです。",
-            "en": "White steps the king to 6a and the threat vanishes. A tsumero is a threat, not a win: a defence can remove it."
-          }
-        },
-        {
-          "moves": [
-            "G*5b",
-            "6a7a"
-          ],
-          "text": {
-            "ja": "今度は金を打っても、玉は７一へ逃げられて詰みません。受けられたあとに続けて王手を重ねても、玉を逃がすだけになる例です。",
-            "en": "Now the gold drop is only check: the king escapes to 7a. Following a defended threat with more checks just chases the king away."
-          }
-        }
-      ],
-      "variations": [
-        {
-          "from": 1,
-          "moves": [
-            "1c1d",
-            "G*5b"
-          ],
-          "text": {
-            "ja": "後手が詰めろを無視して別の手を指すと、金を打って詰みです。詰めろをかけられたら、必ず何か受けなければなりません。",
-            "en": "If White ignores the threat and plays elsewhere, the gold drop mates. When someone makes a tsumero against you, you must answer it."
+            "ja": "△２一玉と横へ逃げられます。王手はかかっていますが、この局面は詰みではありません。王手を見つけたら、玉の逃げ道や攻撃駒を取る手、長い利きを遮る手が残っているかを調べます。",
+            "en": "△２一玉 steps sideways out of the line. The king was in check, but this position was not mate. After finding a check, look for king escapes, captures of the checking piece, and blocks against a long-range attack."
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "必至：受けがない詰めろ",
-        "en": "Hisshi: a threat nobody can stop"
+        "ja": "玉の逃げ先を打った駒でふさぐ",
+        "en": "Use the checking piece to seal the exits"
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/9/2G3S1p/4P4/9/9/9/9/4K4 b G 1",
+      "start": "8k/9/7G1/9/9/9/9/9/K8 b G 1",
       "steps": [
         {
           "text": {
-            "ja": "前の章に似た形ですが、先手の金が７三、銀が３三に加わりました。この二枚が後手玉のどこを押さえているか見てください。先手の番です。",
-            "en": "This looks like the previous chapter, but Black now has a gold on 7c and a silver on 3c. Look at which squares those two pieces watch. It is Black’s move."
-          },
-          "marks": {
-            "boxes": [
-              "6b",
-              "4b"
-            ]
+            "ja": "後手玉１一のすぐそばに、先手の金２三があります。金を１二へ打てば玉に届きますが、取られたり逃げられたりしないかも確認します。",
+            "en": "The attacker’s gold on ２三 is near the defender’s king on １一. A gold drop on １二 reaches the king, but check whether the king can capture it or escape."
           }
         },
         {
-          "moves": [
-            "5d5c"
-          ],
           "text": {
-            "ja": "歩が５三に進みました。これは詰めろです。さらに玉の動ける先を考えると、受ける手が一つも残っていません。",
-            "en": "The pawn goes to 5c, another tsumero. Now check which defences White has: there is none."
+            "ja": "持駒の金を使って王手をかけ、打った金の周囲も押さえる手を選んでください。",
+            "en": "Use the gold in hand to check the king while controlling the squares around the dropped piece."
           }
         },
         {
-          "moves": [
-            "5a4a",
-            "G*4b"
-          ],
+          "moves": ["G*1b"],
           "text": {
-            "ja": "玉が４一へ逃げれば、４二の金が銀に支えられて詰みです。６一なら▲６二金（７三の金が支え）。歩を動かして間を置いても、▲５二金で終わりです。どの手にも詰みが待っているので、この形を必至といいます。",
-            "en": "If the king steps to 4a, the gold on 4b (backed by the silver) mates. On 6a the gold drops to 6b, backed by the gold on 7c. Waiting with the pawn allows G*5b. Every reply loses to a mate, so this is hisshi."
-          },
-          "marks": {
-            "boxes": [
-              "4b",
-              "6b"
-            ]
-          }
-        }
-      ],
-      "variations": [
-        {
-          "from": 1,
-          "moves": [
-            "5a6a",
-            "G*6b"
-          ],
-          "text": {
-            "ja": "６一へ逃げた場合の詰みです。６二に打った金は７三の金が支えているため、玉は取れず、逃げ場もありません。",
-            "en": "The other escape square, 6a, loses to a gold on 6b: the gold on 7c supports it, so the king can neither take nor flee."
-          }
-        },
-        {
-          "from": 1,
-          "moves": [
-            "1c1d",
-            "G*5b"
-          ],
-          "text": {
-            "ja": "玉を動かさず端の歩を突いて様子を見ても、▲５二金で詰みです。",
-            "en": "Playing a waiting move with the edge pawn does not help either: the gold drop on 5b is mate."
-          }
-        },
-        {
-          "from": 0,
-          "moves": [
-            "G*5b",
-            "5a5b"
-          ],
-          "text": {
-            "ja": "焦って先に金を打つと、まだ歩が５三に届いていないので玉に取られてしまいます。必至をかける手と、いま王手をかける手では、結果がまるで違います。",
-            "en": "Rushing the gold drop first fails: the pawn is not yet on 5c, so the king takes it. Making a hisshi and delivering a check right now lead to very different results."
+            "ja": "▲１二金打で王手です。金自身が２一と２二への逃げ道を押さえ、２三の金が打った金を守ります。後手玉には合法な応手がなく、これが詰みです。",
+            "en": "▲１二金打 checks. The dropped gold controls the king’s exits at ２一 and ２二, while the gold on ２三 protects it. The defender has no legal reply, so this is checkmate."
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "自玉の詰めろを先に見る",
-        "en": "Look at your own king before attacking"
+        "ja": "次の詰みを見せて玉を動かす",
+        "en": "Threaten mate and make the king move"
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/9/2G3S1p/4P4/9/9/4p4/5S3/4K4 b Gg 1",
+      "start": "8k/9/9/7G1/9/9/1p7/9/K8 b G 1",
       "steps": [
         {
           "text": {
-            "ja": "上の形に先手の自陣が加わりました。後手の歩が５七まで来ていて、後手は持ち駒に金を持っています。先手には▲５三歩の必至がありますが、その前に自分の玉を見ましょう。",
-            "en": "Black’s own camp now appears. A White pawn has reached 5g and White holds a gold. Black has the hisshi move ▲5c, but first look at Black’s own king."
-          },
-          "marks": {
-            "boxes": [
-              "5g"
-            ]
+            "ja": "後手玉１一はまだ王手ではありません。先手の金２四を一升進めて、持駒の金１二打が詰みになる形を作ってください。",
+            "en": "The defender’s king on １一 is not in check. Move the attacker’s gold on ２四 one square forward to prepare a mating gold drop on １二."
           }
         },
         {
-          "moves": [
-            "4h5g"
-          ],
+          "moves": ["2d2c"],
           "text": {
-            "ja": "後手の狙いは△５八金で、５七の歩が支えているため玉は取れません。つまり先手玉にも詰めろがかかっています。そこで銀で歩を取り、金の支えをなくしました。相手を詰ます手が一手早いときは別ですが、そうでなければ自玉の詰めろを先に消すのが基本です。",
-            "en": "White threatens a gold drop on 5h, supported by the pawn on 5g, so Black’s king is also under a tsumero. The silver takes that pawn and removes the support. Unless Black can mate first, removing your own tsumero comes before any attack."
-          },
-          "marks": {
-            "last": "5g"
+            "ja": "▲２三金と進みました。後手玉への王手ではありませんが、玉が１一に残れば次の▲１二金打で詰みます。このように、今は王手でなくても次に詰みがある状態を詰めろといいます。",
+            "en": "▲２三金 advances without checking the king. If it stays on １一, ▲１二金打 will mate next. A position with no check now but mate threatened on the next move is called a mate threat."
+          }
+        },
+        {
+          "moves": ["1a2a"],
+          "text": {
+            "ja": "△２一玉と先に逃げれば、金１二打の詰み筋から外れます。詰めろは今すぐ負けた状態ではなく、相手に一手の受けを選ばせる脅威です。",
+            "en": "△２一玉 moves before the attack and leaves the planned mating drop behind. A mate threat is not an immediate loss; it gives the defender one move to change the position."
+          }
+        },
+        {
+          "moves": ["G*1b"],
+          "text": {
+            "ja": "それでも▲１二金打と王手をかけると、△３一玉ともう一升逃げられます。最初の詰めろは受けで消え、同じ金打ちは王手でも詰みにはなりません。",
+            "en": "If ▲１二金打 is tried anyway, △３一玉 escapes again. The original threat was answered; the same gold drop now gives check but does not checkmate."
+          }
+        },
+        {
+          "moves": ["2a3a"],
+          "text": {
+            "ja": "△３一玉は金１二の利きからも外れます。詰めろをかけた側も、相手の受けで盤面が変わった後に同じ詰み筋が残るか読み直します。",
+            "en": "△３一玉 leaves the gold’s reach as well. After the defender changes the position, recalculate whether the original mating line still works."
           }
         }
-      ],
-      "variations": [
+      ]
+    },
+    {
+      "title": {
+        "ja": "受けても詰みが残る形を作る",
+        "en": "Create a mate threat that survives defence"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "8k/9/9/7G1/9/9/1p7/9/K6R1 b G 1",
+      "steps": [
         {
-          "from": 0,
-          "moves": [
-            "5d5c",
-            "G*5h"
-          ],
           "text": {
-            "ja": "先手が自分の必至を急ぐと、後手に△５八金と打たれて先手玉が詰みます。必至をかけても、自玉が先に詰まされては負けです。",
-            "en": "If Black hurries with the hisshi, White drops a gold on 5h and Black’s king is mated first. A hisshi is worthless if your own king falls one move earlier."
+            "ja": "ここでも先手金２四を２三へ進めると、１二への金打ちが見えます。今回は先手飛車２九も、後手玉の逃げ先２一を押さえています。",
+            "en": "Here the attacker can again advance the gold from ２四 to ２三 and prepare a drop on １二. The rook on ２九 also controls the king’s escape square at ２一."
+          }
+        },
+        {
+          "moves": ["2d2c"],
+          "text": {
+            "ja": "▲２三金と進みました。王手ではありませんが、後手玉の１一は動ける升がなく、次の▲１二金打を防ぐ持駒もありません。後手には８七の歩を動かす手は残っていますが、それでは詰みを止められません。",
+            "en": "▲２三金 advances without check. The defender’s king on １一 has no safe square, and the defender has no piece in hand to stop ▲１二金打. The pawn on ８七 can still move, but that does not prevent mate."
+          }
+        },
+        {
+          "moves": ["8g8h"],
+          "text": {
+            "ja": "△８八歩と別の場所で指しても、玉の周囲は変わりません。詰みを避ける応手がなく、次に詰む形が必至です。",
+            "en": "△８八歩 plays elsewhere, leaving the king’s position unchanged. Since no reply can prevent the coming mate, this is an unavoidable mate threat."
+          }
+        },
+        {
+          "moves": ["G*1b"],
+          "text": {
+            "ja": "▲１二金打で詰みです。飛車が２一、金が２二と１二を押さえ、打った金は２三の金に守られています。必至は王手ではありませんが、受けても次の詰みが残る形です。",
+            "en": "▲１二金打 is mate. The rook controls ２一, the gold controls ２二, and the gold on ２三 protects the drop. An unavoidable mate threat is not check, but the mate remains after every defence."
           }
         }
       ]

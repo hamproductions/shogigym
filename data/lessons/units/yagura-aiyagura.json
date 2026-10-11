@@ -1,0 +1,203 @@
+{
+  "id": "yagura-aiyagura",
+  "order": 580,
+  "path": ["戦法・定跡", "矢倉"],
+  "title": {
+    "ja": "相矢倉は玉の通路と歩の取り返しから考える",
+    "en": "Mutual Yagura: Clear the King's Route and Count Recaptures"
+  },
+  "intro": {
+    "ja": "相矢倉では双方が金銀を玉の前に連結しても、完成を急ぐ順番は盤上の脅威で変わります。先手の玉８八・金７八と６七・銀７七、後手の玉２二・金３二と４三・銀３三という芯を確認し、角が玉の升を空けられるか、相手の飛車筋で歩を取った後に何が取り返すかを読みます。早い入城も、接触している歩を守れるときに選ぶ手です。",
+    "en": "In mutual Yagura, both players link golds and silver in front of their kings, but the right move order depends on immediate threats. Identify Sente's core of king 8h, golds 7h and 6g, silver 7g, and Gote's mirrored core of king 2b, golds 3b and 4c, silver 3c. Then check whether the bishop has cleared the king's destination and who can recapture after a pawn is taken on a rook file. Enter the castle early only when the contact squares are covered."
+  },
+  "check": {
+    "question": {
+      "ja": "相矢倉で玉を８八へ入れる前に、何を盤上で確かめますか？",
+      "en": "Before moving the king to 8h in mutual Yagura, what should you verify on the board?"
+    },
+    "answer": {
+      "ja": "角が８八を空けていること、７八・６七の金と７七の銀が連結すること、接触する歩を取った後に飛車と守備駒のどちらが最後に取り返すかを確かめます。銀がまだ６八なら、玉の移動より７七への守備参加が先になる局面もあります。",
+      "en": "Confirm that 8h is clear of the bishop, the golds on 7h and 6g connect with the silver on 7g, and the full recapture order on any contacted rook file. If the silver is still on 6h, bringing it to 7g may be more urgent than moving the king."
+    }
+  },
+  "references": [
+    {
+      "title": "相矢倉の駒組み",
+      "url": "https://shogi-joutatsu.com/archives/7747",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "角が空けた升へ玉を入れる",
+        "en": "Enter the Square the Bishop Vacates"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "9/1r1b2gk1/1p2pgs2/2p4p1/9/PPPPP4/2SG3P1/1BG4R1/2K6 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手は玉２二・金３二と４三・銀３三で矢倉の芯を作っています。先手も金７八と６七・銀７七は並びましたが、玉は７九、角は８八です。９筋の歩が９六へ進んでいるため９七が空き、角の移動先になります。",
+            "en": "Gote has the Yagura core: king 2b, golds 3b and 4c, silver 3c. Sente has golds 7h and 6g with silver 7g, but the king remains on 7i and the bishop occupies 8h. The ninth-file pawn is already on 9f, leaving 9g free as a bishop destination."
+          }
+        },
+        {
+          "moves": ["8h9g"],
+          "text": {
+            "ja": "角を９七へ移すと８八が空きます。ただし９七の角は８六の歩に斜線を塞がれているので、この移動だけを角の活用と考えず、玉の通路を確保した手と見ます。",
+            "en": "The bishop moves to 9g and frees 8h. Sente's pawn on 8f still blocks its diagonal, so this is a king-route decision rather than an immediate claim that the bishop is active."
+          }
+        },
+        {
+          "moves": ["5c5d"],
+          "text": {
+            "ja": "後手が５筋の歩を進めた例です。この一手では８八に新しい利きが生じません。手番を交互に進めながら、玉の行き先をもう一度確認します。",
+            "en": "Gote chooses a fifth-file pawn advance. This particular move does not add an attack on 8h. After each opposing move, recheck the king's destination rather than assuming the route stays safe."
+          }
+        },
+        {
+          "moves": ["7i8h"],
+          "text": {
+            "ja": "玉が８八へ入り、先手も玉８八・金７八と６七・銀７七の芯になります。双方が矢倉でも、８筋と５筋の歩や角の働きは異なります。形の完成だけで次の攻めを決めず、開く筋を読む必要があります。",
+            "en": "The king enters 8h, completing Sente's core of king 8h, golds 7h and 6g, silver 7g. Both players now have Yagura cores, but their pawn and bishop activity differs. The shared castle name does not decide which file to open next."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "飛車筋の歩は最後の取り手まで数える",
+        "en": "Count the Last Recapture on the Rook File"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "9/2rb2gk1/5gs2/2p4p1/9/P1P6/2SG3P1/1KG4R1/4B4 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手は飛車７二と歩７四を並べ、先手の歩７六へ圧力をかけています。先手は矢倉の芯を完成していますが、銀７七のまま歩を取ると、７筋に飛車が出た後の取り手が足りません。８六が空いていることに注目します。",
+            "en": "Gote's rook on 7b stands behind the pawn on 7d and pressures Sente's pawn on 7f. Sente has a complete Yagura core, yet a pawn exchange on this file needs a final recapturer. Square 8f is open for the silver."
+          }
+        },
+        {
+          "moves": ["7g8f"],
+          "text": {
+            "ja": "銀を８六へ出すと７五に利きが加わります。矢倉の銀７七を一時的に外すため、玉の守りは薄くなりますが、この局面では７筋の歩と飛車の取り合いを具体的に変えます。",
+            "en": "The silver on 8f now controls 7e. This temporarily removes the silver from the Yagura core and changes the king's cover, so use the move for its concrete effect on the seventh-file exchange."
+          }
+        },
+        {
+          "moves": ["7d7e"],
+          "text": {
+            "ja": "後手が歩を７五へ寄せる例です。飛車が後ろにいるので、先手は歩を取った先まで読まなくてはいけません。",
+            "en": "Suppose Gote advances the pawn to 7e. The rook is behind it, so Sente must calculate beyond the first pawn capture."
+          }
+        },
+        {
+          "moves": ["7f7e"],
+          "text": {
+            "ja": "先手の歩が７五の歩を取ります。銀８六が７五を守っている点が、銀を動かす前との違いです。",
+            "en": "Sente's pawn captures on 7e. The difference from the unprepared position is that the silver on 8f protects that square."
+          }
+        },
+        {
+          "moves": ["7b7e"],
+          "text": {
+            "ja": "後手が飛車で歩を取ることを選んだ場合です。飛車の通り道７三・７四は空いていますが、７五には先手銀の利きが残っています。後手が飛車を出さずに別の手を選ぶこともできます。",
+            "en": "If Gote chooses to take that pawn with the rook, 7c and 7d are clear, but the silver still controls 7e. Gote can decline this rook capture; the line illustrates the recapture count, not a forced choice."
+          }
+        },
+        {
+          "moves": ["8f7e"],
+          "text": {
+            "ja": "先手銀が７五の飛車を取ります。飛車を前へ出すときは、この最後の取り手を後手も計算する必要があります。銀を動かさない別例では飛車が７五に残るため、同じ歩の応酬でも評価は変わります。",
+            "en": "The silver captures the rook on 7e. Gote must account for this last recapture before choosing the rook advance. Without the preparatory silver move, the same pawn contact leaves the rook on 7e."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["2g2f", "7d7e", "7f7e", "7b7e"],
+          "text": {
+            "ja": "先手が別筋の歩を進め、後手が同じ７筋の応酬を選んだ場合、後手飛車は７五に残ります。銀７七は７五へ一手で届きません。ここから先の守り方は別に読む必要があり、後手飛車の進出だけで勝敗が決まるわけではありません。",
+            "en": "If Sente spends the move on another file and Gote chooses this same exchange, Gote's rook remains on 7e. The silver on 7g cannot reach 7e in one move. Sente still has defensive choices, so rook entry alone is not a verdict on the game."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "銀の連結を見てから早囲いを選ぶ",
+        "en": "Check the Silver Link Before an Early King Move"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "9/2br2gk1/5gs2/7p1/3p5/PP1P5/B2G3P1/2GS3R1/2K6 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手の角は９七に退いて８八を空けていますが、銀はまだ６八です。後手は飛車６二・歩６五で先手の歩６六に接触しています。玉を先に入れるかどうかは、６六の歩を取られた後の取り返しで判断します。",
+            "en": "Sente's bishop on 9g has cleared 8h, but the silver remains on 6h. Gote's rook on 6b and pawn on 6e contact Sente's pawn on 6f. Whether to move the king first depends on the recapture order at 6f."
+          }
+        },
+        {
+          "moves": ["6h7g"],
+          "text": {
+            "ja": "銀を７七へ入れ、金６七を取り返せる配置にします。玉はまだ７九でも、金７八・６七と銀７七の連結を先に作る意味があります。",
+            "en": "The silver reaches 7g and can now recapture a piece on 6f after the gold moves there. Sente has the linked defenders in place even though the king is still on 7i."
+          }
+        },
+        {
+          "moves": ["6e6f"],
+          "text": {
+            "ja": "後手が歩で６六の歩を取る例を追います。歩が６五から動くと、飛車６二から６六までの縦の通路も空きます。",
+            "en": "In this sample continuation, Gote's pawn captures on 6f. Its departure from 6e also clears the rook's vertical route from 6b toward 6f."
+          }
+        },
+        {
+          "moves": ["6g6f"],
+          "text": {
+            "ja": "金６七で歩を取り返します。後手飛車が同じ升でこの金を取るなら、次に先手銀７七の利きを考えなくてはいけません。",
+            "en": "The gold from 6g recaptures the pawn. If Gote then uses the rook to take this gold on the same square, the silver on 7g is the next defender in the sequence."
+          }
+        },
+        {
+          "moves": ["6b6f"],
+          "text": {
+            "ja": "後手が飛車で金を取ることを選んだ場合です。途中の６三・６四・６五は空いていますが、６六の飛車は銀７七の斜め前にあります。",
+            "en": "If Gote chooses the rook capture, squares 6c, 6d, and 6e are clear. The rook on 6f now sits on the silver's forward diagonal from 7g. This rook capture is optional, not a forced defense."
+          }
+        },
+        {
+          "moves": ["7g6f"],
+          "text": {
+            "ja": "銀が飛車を取り返します。後手がこの飛車の取り合いを避ければ、別の局面になりますが、少なくとも銀を７七へ入れた一手が６六の守備を変えたことは明確です。",
+            "en": "The silver recaptures the rook. Gote may choose a different continuation, but this line proves exactly what the silver move changes in the 6f exchange."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["7i8h", "6e6f", "6g6f", "6b6f"],
+          "text": {
+            "ja": "玉を先に８八へ動かし、後手が同じ歩・飛車の取り合いを選ぶと、銀は６八のままで６六の飛車を直ちに取れません。８八は空いていても、接触中の筋の守備が先という例です。",
+            "en": "If Sente moves the king to 8h first and Gote chooses the same pawn-and-rook exchange, the silver is still on 6h and cannot recapture the rook on 6f immediately. An open king square does not settle the timing while a contacted file needs another defender."
+          }
+        },
+        {
+          "from": 1,
+          "moves": ["2d2e", "7i8h"],
+          "text": {
+            "ja": "銀７七の後、後手が６筋を開かず２筋の歩を進めた例なら、先手は６六の取り返しを用意したまま玉を８八へ入れます。早い入城の可否は、相手の具体的な次の一手で変わります。",
+            "en": "If Gote advances the second-file pawn instead of opening the sixth file, Sente can bring the king to 8h while keeping the 6f recapture covered. The case for early castling changes with Gote's actual next move."
+          }
+        }
+      ]
+    }
+  ]
+}

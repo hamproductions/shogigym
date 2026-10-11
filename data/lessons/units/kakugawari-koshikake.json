@@ -1,0 +1,226 @@
+{
+  "id": "kakugawari-koshikake",
+  "order": 690,
+  "path": ["戦法・定跡", "角換わり"],
+  "title": {
+    "ja": "角換わり腰掛け銀は取り返しと反撃の時刻を選ぶ",
+    "en": "Bishop-Exchange Reclining Silver: Time the Recapture"
+  },
+  "intro": {
+    "ja": "腰掛け銀では右銀を５六に置き、４五と６五の両方へ利かせます。その銀を使う前に、歩の接触、桂の跳び先、飛車先の通路を別々に数える必要があります。金４八・飛車２九の形でも角打ちの危険は消えないため、実際に空いた斜線と守備駒を確かめます。",
+    "en": "Reclining Silver places the right silver on 5f, where it controls both 4e and 6e. Before using it, count the pawn contact, the knight's landing square, and the rook's file separately. Gold on 4h with rook on 2i can still leave bishop-drop targets; inspect the actual diagonal and defender on each board."
+  },
+  "check": {
+    "question": {
+      "ja": "金４八・飛車２九の形なら角打ちを無視してよいですか？",
+      "en": "Can you ignore bishop drops once the gold is on 4h and rook on 2i?"
+    },
+    "answer": {
+      "ja": "いいえ。空いた斜線ごとに狙われる駒と取り返す駒を数えます。この講座の例では角６四が桂３七を狙い、金が３八へ動けば桂を取り返せます。",
+      "en": "No. Count the target and recapturer on each open diagonal. In the shown position, a bishop on 6d attacks the knight on 3g; moving the gold to 3h supplies a recapture."
+    }
+  },
+  "references": [
+    {
+      "title": "角換わり腰掛け銀　木村定跡",
+      "url": "https://shogi-joutatsu.com/archives/6677",
+      "license": "All rights reserved",
+      "adapted": false
+    },
+    {
+      "title": "角換わり腰掛け銀　▲4八金▲2九飛型",
+      "url": "https://shogi-joutatsu.com/archives/6736",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "銀５六は二つの斜め前を守る",
+        "en": "The Silver on 5f Covers Two Forward Diagonals"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1r7/9/3p5/9/3P1P3/5S3/2KG5/7R1 b Bb 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手右銀４七は５六へ出られます。そこから４五と６五へ利くため、後手歩６四との接触にも参加できます。ただし歩を動かした後に角を打てる升も変わります。",
+            "en": "Sente's right silver on 4g can develop to 5f. From there it controls 4e and 6e, including a contact with Gote's pawn on 6d. Moving the pawns also changes the squares available for a bishop drop."
+          }
+        },
+        {
+          "moves": ["4g5f", "6d6e"],
+          "text": {
+            "ja": "銀５六を置いた後、後手が歩６五を選びました。先手歩６六はその歩を取れます。銀５六が６五に利いているので、取った歩への追加の守りもあります。",
+            "en": "After the silver reaches 5f, Gote chooses to push to 6e. Sente's pawn on 6f can capture that pawn, with the silver on 5f adding protection to the resulting square."
+          }
+        },
+        {
+          "moves": ["6f6e", "B*4c"],
+          "text": {
+            "ja": "先手歩６五が後手歩を取り、後手は角４三を打って５四越しにその歩を狙いました。先手銀５六は歩６五を守るので、角が取れば銀で取り返せます。角打ちは後手が選んだ受けの一例です。",
+            "en": "Sente's pawn captures on 6e, and Gote chooses a bishop drop on 4c, attacking it through 5d. Sente's silver on 5f protects that pawn and could recapture the bishop if Gote took it. The drop is one optional defense."
+          }
+        },
+        {
+          "text": {
+            "ja": "角を打たれたから歩６五を直ちに逃がす必要はありません。まず銀５六から６五への利きを数え、角をほかへ動かす手も調べます。銀を５六へ出す時刻は、この守りが必要かで判断します。",
+            "en": "The pawn on 6e need not move merely because the bishop attacks it. First count the silver's protection, then examine other bishop moves. The useful timing of the silver development depends on whether this coverage is needed."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 2,
+          "moves": ["7h7i", "4c6e", "5f6e"],
+          "text": {
+            "ja": "先手が玉を７九へ寄せ、後手が角で歩６五を取る選択をした場合、銀５六が角を取り返します。後手は角を犠牲にする義務がなく、この枝は６五の守りを確かめるためのものです。",
+            "en": "If Sente moves its king to 7i and Gote then chooses to capture the pawn on 6e with the bishop, Sente's silver from 5f recaptures that bishop. Gote is not obliged to make this sacrifice; this branch verifies the defender on 6e."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "桂が６五へ跳ねた後も飛車先を数える",
+        "en": "After the Knight Jump, Count the Rook File Separately"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1r7/9/3ps2p1/7P1/3PS4/2N6/2KG5/7R1 b Bb 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手桂７七は６五へ跳べます。銀５六も６五へ利きますが、後手には歩６四と銀５四があります。桂を使った後の取り返しと、飛車２九の前にある歩２五を別々に追います。",
+            "en": "Sente's knight on 7g can jump to 6e, a square also controlled by its silver on 5f. Gote has a pawn on 6d and silver on 5d. Track that knight contact separately from Sente's pawn on 2e in front of the rook on 2i."
+          }
+        },
+        {
+          "moves": ["6f6e", "6d6e", "7g6e"],
+          "text": {
+            "ja": "先手歩を後手歩が６五で取り、桂７七がその歩を取り返しました。後手銀５四も桂６五を取れるため、ここで交換が終わったとは言えません。",
+            "en": "Gote's pawn captures Sente's pawn on 6e, and the knight from 7g recaptures that pawn. Gote's silver on 5d can still capture the knight, so the exchange is not finished."
+          }
+        },
+        {
+          "moves": ["5d6e", "5f6e"],
+          "text": {
+            "ja": "後手銀が桂を取り、先手銀５六が後手銀を取り返した例です。先手は銀を持ち、後手は桂を持ちます。後手が銀を取らずに退けば別の局面になるので、駒得だけで仕掛けを決めません。",
+            "en": "Gote chooses to take the knight, and Sente's silver recaptures Gote's silver on 6e. Sente holds a silver and Gote a knight. Another Gote reply would change the position, so this material count is conditional."
+          }
+        },
+        {
+          "moves": ["2d2e", "2i2e", "B*5b"],
+          "text": {
+            "ja": "別の筋では後手歩２四が先手歩２五を取り、先手飛車２九が歩を取り返しました。後手角５二は４三・３四越しに飛車２五を狙います。桂銀の交換後も飛車先は独立に数えます。",
+            "en": "On another file Gote's pawn from 2d captures Sente's pawn on 2e, and the rook from 2i recaptures that pawn. Gote's bishop drop on 5b attacks the rook on 2e through 4c and 3d. Count the rook file independently of the knight and silver trade."
+          }
+        },
+        {
+          "moves": ["2e2i"],
+          "text": {
+            "ja": "飛車は２九へ引けます。歩を取り返せた事実と、角打ちのために飛車を戻す一手が必要だった事実を分けて考えます。",
+            "en": "The rook can retreat to 2i. Separate the pawn it recaptured from the extra rook move required by the bishop drop."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 3,
+          "moves": ["7h7i", "5b2e"],
+          "text": {
+            "ja": "飛車を引かず玉７九を選ぶと、この盤面では後手角５二が飛車２五を取れます。玉移動は角筋を見落とした例で、後手にこの角取りを強制する意図はありません。",
+            "en": "If Sente moves the king to 7i instead of retreating the rook, Gote's bishop from 5b can capture the rook on 2e on this board. The king move illustrates a missed diagonal; Gote is not forced to choose that capture."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "金４八・飛車２九でも空いた斜線を塞ぐ",
+        "en": "Gold 4h and Rook 2i Still Need a Bishop-Drop Answer"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1r7/9/1p7/9/4S4/6N2/3G3R1/2K2G3 b Bb 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手は銀５六と桂３七を置き、金は４九、飛車は２八です。飛車を２九へ引き、金を４八へ出す選択を見ます。この形でも５五・４六が空けば角６四から桂３七へ斜線が通ります。",
+            "en": "Sente has silver 5f and knight 3g, with a gold on 4i and rook on 2h. Consider retreating the rook to 2i and moving the gold to 4h. Even in that formation, empty 5e and 4f leave a bishop diagonal from 6d to the knight on 3g."
+          }
+        },
+        {
+          "moves": ["2h2i", "8d8e", "4i4h"],
+          "text": {
+            "ja": "先手飛車２九・金４八になりました。後手の歩８五はこの例の待ち手で、実戦では別の手もあります。金４八から３八へ動けることが桂３七の守りに関係します。",
+            "en": "Sente reaches rook 2i and gold 4h. Gote's pawn move to 8e is a sample intervening move; other replies are possible. From 4h the gold can step to 3h, which matters for the knight on 3g."
+          }
+        },
+        {
+          "moves": ["B*6d", "4h3h"],
+          "text": {
+            "ja": "後手角６四が５五・４六を通って桂３七を狙います。先手金４八を３八へ移すと、桂３七を金が守ります。金４八型だから角打ちがないのではなく、この斜線に取り返しを用意した形です。",
+            "en": "Gote drops a bishop on 6d, attacking the knight on 3g through 5e and 4f. Sente moves the gold from 4h to 3h, where it protects the knight. The formation is not immune to drops; here it supplies a recapture on this diagonal."
+          }
+        },
+        {
+          "moves": ["6d3g+", "3h3g"],
+          "text": {
+            "ja": "後手が角で桂を取って成るなら、金３八が成角を取り返せます。後手は角を犠牲にしなくてもよく、この枝は桂３七への利きと金の守りを確認するための例です。",
+            "en": "If Gote chooses to capture the knight and promote, Sente's gold on 3h recaptures the horse on 3g. Gote need not sacrifice the bishop; the line verifies the attack on the knight and the gold's defense."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "８筋の歩は取る順番で守りが変わる",
+        "en": "Eighth-File Timing Changes the Recapture"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1r7/9/1p7/9/4S4/1PS3N2/3G1G3/2K4R1 w Bb 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "右銀５六で攻めを考える時も、後手飛車８二と歩８四を見ます。先手歩８七の隣には銀７七があり、８六へ利いています。後手が歩を進めた時、先に８筋を押すか待つかで取り返す駒が変わります。",
+            "en": "While Sente considers an attack with the right silver on 5f, Gote's rook on 8b and pawn on 8d still matter. Sente's pawn on 8g has a silver on 7g beside it, covering 8f. Pushing the pawn early or waiting changes which piece must recapture."
+          }
+        },
+        {
+          "moves": ["8d8e", "7i6i"],
+          "text": {
+            "ja": "後手歩８五に対し、先手は玉を６九へ寄せて８七の歩を保ちました。ここでは後手がさらに８六へ出ると、歩８七が取れます。玉の位置と８筋の距離も変わります。",
+            "en": "Against Gote's pawn on 8e, Sente moves the king to 6i and keeps its pawn on 8g. If Gote advances again to 8f in this line, that pawn can capture it. The king has also moved farther from the eighth-file contact."
+          }
+        },
+        {
+          "moves": ["8e8f", "8g8f"],
+          "text": {
+            "ja": "後手歩８六を先手歩が取りました。先手歩８六は銀７七に守られ、後手飛車８二が歩を取れば銀で飛車を取り返せます。後手は飛車を出す義務がありません。",
+            "en": "Sente's pawn captures Gote's pawn on 8f. The silver on 7g protects it, so a rook capture from 8b would allow a silver recapture. Gote is free to choose another reply."
+          }
+        },
+        {
+          "text": {
+            "ja": "同じ８筋でも、歩８七を先に８六へ出すと後手歩がその歩を取れます。その場合は銀で取り返した升へ飛車が来るため、手番の順番が重要です。右銀５六を攻めに使う前に、左銀７七を守りへ残す理由もここにあります。",
+            "en": "On the same file, pushing the pawn from 8g to 8f too early lets Gote's pawn capture it. Sente would then need the silver to recapture, allowing Gote's rook to enter on that square. The move order explains why the left silver on 7g remains a defender while the right silver is used for attack."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["8d8e", "8g8f", "8e8f", "7g8f", "8b8f"],
+          "text": {
+            "ja": "先手がすぐ歩８六を進め、後手がそれを取る枝です。先手銀７七で後手歩を取ると、後手飛車８二が銀８六を取れます。後手がこの順を選ぶとは限りませんが、歩で取る本手順との違いは明確です。",
+            "en": "In the early-push branch, Gote's pawn takes Sente's pawn on 8f. If Sente recaptures with the silver from 7g, Gote's rook from 8b can capture that silver. Gote need not choose this sequence, but it makes the contrast with the pawn recapture in the main line concrete."
+          }
+        }
+      ]
+    }
+  ]
+}

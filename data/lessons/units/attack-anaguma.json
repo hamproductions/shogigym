@@ -1,0 +1,105 @@
+{
+  "id": "attack-anaguma",
+  "order": 420,
+  "path": ["上達のためのテクニック", "囲い崩し"],
+  "title": {
+    "ja": "穴熊の外側から守備の取り返しを数える",
+    "en": "Count Recaptures at the Outside of Anaguma"
+  },
+  "intro": {
+    "ja": "穴熊は隅の玉と、その前の香車・銀・金がつながって初めて働きます。攻めるときは玉に近い駒へ急ぐ前に、外側の金を取った後の取り返しや、端の香車を交換した後の攻め駒の位置を数えます。新しい局所図で二つの攻めと、守る側が一手で取り返しを増やす例を比べます。どの順も相手の応手を固定した例で、詰みや囲いの崩壊を断定しません。",
+    "en": "Anaguma works through the connection between a corner king and the lance, silver, and gold in front of it. Before rushing toward the king, count recaptures on an outer gold and where your attacker lands after an edge-lance exchange. These new local positions compare two attacks with a defender that uses one tempo to add a recapture. The lines use sample replies; they do not claim mate or automatic collapse."
+  },
+  "check": {
+    "question": {
+      "ja": "穴熊の外側の駒を取る前に、何を最後まで数えますか？",
+      "en": "What should you count through before taking an outer Anaguma defender?"
+    },
+    "answer": {
+      "ja": "守備駒の取り返しと、それに続く自分の取り返しまで調べます。準備の一手で別の金がそのマスへ利く場合は、同じ交換でも駒の収支が変わります。",
+      "en": "Count the defender's recapture and your next recapture. If a preparation move lets another gold cover that square, the same exchange can have a different material result."
+    }
+  },
+  "references": [
+    {
+      "title": "穴熊崩しの手筋",
+      "url": "https://shogi-joutatsu.com/archives/3014",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "外側の金二枚を飛車と角で交換する",
+        "en": "Use rook and bishop against two outer golds"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "kn7/lsg6/1ppg5/9/9/6B2/9/3R5/8K b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手玉９一は香９二の後ろに入り、桂８一・銀８二・金７二が周囲を固めます。さらに金６三が外側に出ています。先手飛車６八は金６三を縦に狙い、角３六は４五・５四を通して同じ６三へ利きます。金７二の取り返しを先に数えます。",
+            "en": "Gote's king on ９一 sits behind the lance on ９二, with knight ８一, silver ８二, and gold ７二 nearby. Another gold stands outside on ６三. Sente's rook on ６八 attacks that gold up the file, and the bishop on ３六 also reaches ６三 through ４五 and ５四. Count the gold on ７二 as a recapturer."
+          }
+        },
+        {
+          "moves": ["6h6c+", "7b6c", "3f6c+"],
+          "text": {
+            "ja": "▲６三飛成で外側の金を取り、後手が△同金とした例です。▲同角成で二枚目の金を取り返し、馬６三が残ります。飛車と金二枚の交換ですが、隅の玉・香・銀・桂はまだ盤上にあります。△同金は後手の選択で、ほかの受けに同じ収支を当てはめません。",
+            "en": "▲６三飛成 takes the outer gold. If Gote chooses △同金, ▲同角成 recaptures the second gold and leaves a promoted bishop on ６三. The line trades a rook for two golds while the corner king, lance, silver, and knight remain. Gote's gold recapture is optional; other defenses require a new count."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "端の香交換で角を外側へ通す",
+        "en": "Use an edge-lance exchange to advance the bishop"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "kn7/lsg6/p8/9/P8/9/3B5/L8/8K b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手玉９一の前に香９二があり、金７二・銀８二・桂８一が隣のマスを守ります。先手の歩９五と香９八は端に並び、角６七は７六・８五を経て９四へ利きます。端の交換後も香車９二が残ることに注意します。",
+            "en": "A lance stands on ９二 in front of Gote's corner king, with gold ７二, silver ８二, and knight ８一 nearby. Sente has a pawn on ９五 and lance on ９八; the bishop on ６七 reaches ９四 through ７六 and ８五. The defending lance on ９二 remains after the pawn exchange."
+          }
+        },
+        {
+          "moves": ["9e9d", "9c9d", "9h9d", "9b9d", "6g9d"],
+          "text": {
+            "ja": "▲９四歩を△同歩と取った例では、▲同香に△同香と香車同士が交換されます。▲同角で角が９四へ進み、８三を通して金７二を斜めに狙います。次は後手の手番なので、金の移動や角筋の遮断も検討できます。端の歩や香車を取らない選択もあり、金取りは強制の駒得ではありません。",
+            "en": "In the sample ▲９四歩 △同歩, ▲同香 is met by △同香, exchanging the lances. ▲同角 advances the bishop to ９四, where it points through ８三 toward the gold on ７二. Gote moves next and can consider moving that gold or blocking the diagonal. Either edge capture can also be declined; the attack is not a forced material gain."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "一手待つと金が角の進入先を守る",
+        "en": "One extra move lets a gold guard the bishop's entry"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "kn7/lsg6/p8/9/P8/9/3B5/L8/8K b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先ほどと同じ端の局面です。香車を一段だけ上げてから歩を交換すると、後手は金７二を８三へ移す時間を得ます。金８三は香車の交換後に角が入る９四へ利きます。",
+            "en": "This is the same edge position. Advancing the lance one square before exchanging pawns gives Gote time to move the gold from ７二 to ８三. A gold on ８三 covers ９四, the bishop's entry square after the lance exchange."
+          }
+        },
+        {
+          "moves": ["9h9g", "7b8c", "9e9d", "9c9d", "9g9d", "9b9d", "6g9d", "8c9d"],
+          "text": {
+            "ja": "▲９七香に△８三金を許した一例です。同じ歩・香の交換から▲同角としても、△同金で角まで取られます。歩同士と香車同士が消えた後、先手は角を失うため、前の図と収支が違います。△８三金は一つの守り方で、ほかの応手や先手の方針転換も検討します。",
+            "en": "In this sample, ▲９七香 allows △８三金. Repeating the pawn and lance exchanges now ends with ▲同角 △同金, losing Sente's bishop too. The pawns and lances cancel, while Sente loses a bishop, unlike the earlier line. △８三金 is one defensive choice; other replies and a change of attacking plan remain possible."
+          }
+        }
+      ]
+    }
+  ]
+}

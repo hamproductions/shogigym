@@ -1,0 +1,217 @@
+{
+  "id": "basics-plan",
+  "order": 130,
+  "path": ["はじめての将棋", "基本の考え方"],
+  "title": {
+    "ja": "局面に合わせて方針を変える",
+    "en": "Adapt Your Plan to the Position"
+  },
+  "intro": {
+    "ja": "指し手の方針は手数だけでは決まりません。駒の通り道を作る段階、駒が接触して交換を読む段階、玉の逃げ道を消して勝ち切る段階と、盤面の変化に合わせて目的を切り替えます。",
+    "en": "Move number alone does not determine your plan. Open routes while pieces are still behind one another, calculate exchanges when they meet, and look for a finish when the kings lose their escape squares."
+  },
+  "check": {
+    "question": {
+      "ja": "駒を取る手を選ぶ前に、どこまで読みますか？",
+      "en": "How far should you read before choosing a capture?"
+    },
+    "answer": {
+      "ja": "相手の取り返しとその次の応手まで進め、両方の持駒と玉の安全がどう変わるかを確かめます。",
+      "en": "Follow the opponent’s recapture and the next reply, then check how both hands and both kings’ safety change."
+    }
+  },
+  "references": [
+    {
+      "title": "指し方の基本方針",
+      "url": "https://shogi-joutatsu.com/archives/2911",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "閉じた利きを通して次の仕事を作る",
+        "en": "Open a route for a piece to work"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "8k/9/9/6g2/9/9/3P5/2B6/K8 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手の角７八から後手の金３四へ斜めの道がありますが、途中の６七には先手の歩がいて角の利きを止めています。今は金を取る手より、角を使える形にすることが先です。",
+            "en": "A diagonal runs from the attacker’s bishop on ７八 toward the defender’s gold on ３四, but the attacker’s pawn on ６七 blocks it. The first task is to make the bishop useful, not to take the gold immediately."
+          }
+        },
+        {
+          "text": {
+            "ja": "歩を一つ進めて６七を空け、角の道を通す手を選んでください。",
+            "en": "Advance the pawn one square to clear ６七 and open the bishop’s route."
+          }
+        },
+        {
+          "moves": ["6g6f"],
+          "text": {
+            "ja": "▲６六歩で歩が６七を離れました。角の利きは５六と４五を通り、３四の金まで届きます。駒を進める一手が、別の駒の働く範囲も変えました。",
+            "en": "▲６六歩 clears ６七. The bishop now reaches the gold on ３四 through ５六 and ４五. One pawn move has changed the area another piece can influence."
+          }
+        },
+        {
+          "text": {
+            "ja": "盤面に相手の駒とまだ接触していない間は、使えていない利きを減らす手が候補になります。道が開いた後は、相手の受けと自玉の安全も見ながら次の働き先を選びます。",
+            "en": "Before the pieces meet, consider moves that release blocked lines. Once a route opens, choose the next target while checking the opponent’s defence and your own king’s safety."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "駒の仕事と玉の近くを整える",
+        "en": "Give pieces useful jobs and guard the king"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "8k/9/9/9/3B1R3/4S4/9/1G7/K8 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手の飛車４五と角６五は遠くの升まで利きを伸ばせます。銀５六は中央にいて、攻める側にも自玉へ戻る側にも動けます。金８八は玉９九のそばで、近い升を支えています。",
+            "en": "The attacker’s rook on ４五 and bishop on ６五 can reach distant squares. The silver on ５六 can turn toward the attack or return toward its king. The gold on ８八 stays near the king on ９九 and controls nearby squares."
+          }
+        },
+        {
+          "text": {
+            "ja": "駒の役目は固定されていません。飛車や角も道が塞がれば働けず、金も危険が遠のけば前へ動けます。銀を前線へ送る前に、玉の逃げ道と金の利きが残るかを確認してください。",
+            "en": "A piece’s job is not permanent. A rook or bishop loses influence when its route is blocked, and a gold can advance when danger moves away. Before sending the silver forward, check that the king still has room and the gold still covers nearby squares."
+          }
+        },
+        {
+          "text": {
+            "ja": "攻め役を増やすことだけを目標にせず、玉の周りに必要な守りが残っているかを数えます。相手の攻めが遠いなら一枚を前へ回し、玉への筋が近づいたら守りへ戻す判断もあります。",
+            "en": "Do not measure progress only by how many pieces have advanced. Keep enough protection around the king; a piece can move forward while danger is distant and return when an attack approaches."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "交換は取り返しまで数える",
+        "en": "Count an exchange through the recapture"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k8/4r4/9/9/4s4/5G3/9/9/4R3K b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手の金４六は後手の銀５五を取れます。ただし、その升には後手の飛車５二が利いています。先に取った一枚だけで得かどうかを決めないでください。",
+            "en": "The attacker’s gold on ４六 can capture the defender’s silver on ５五, but the defender’s rook on ５二 controls that square. Do not judge the exchange from the first capture alone."
+          }
+        },
+        {
+          "moves": ["4f5e"],
+          "text": {
+            "ja": "▲５五金と銀を取りました。銀は先手の持駒に入りましたが、金は飛車の利きに進んでいます。",
+            "en": "▲５五金 captures the silver. It enters the attacker’s hand, while the gold has moved onto the rook’s line."
+          }
+        },
+        {
+          "moves": ["5b5e"],
+          "text": {
+            "ja": "△５五飛で金を取り返されました。ここで先手の飛車５九が同じ筋から取り返せるかを見ます。",
+            "en": "△５五飛 recaptures the gold. Now check whether the attacker’s rook on ５九 can take back along the same file."
+          }
+        },
+        {
+          "moves": ["5i5e"],
+          "text": {
+            "ja": "▲５五飛で後手の飛車も取れます。交換後、先手の持駒には銀と飛車、後手の持駒には金が加わります。駒がぶつかった局面では、最後の取り返しまで進めてから損得を比べます。",
+            "en": "▲５五飛 captures the defender’s rook. After the sequence, the attacker holds a silver and a rook, while the defender holds a gold. When pieces collide, compare the result only after tracing the final recapture."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "金を取る間に玉が逃げる",
+        "en": "A material grab gives the king time to escape"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k8/9/1G7/5g3/9/9/9/9/5R2K b G 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手の金４四を先手の飛車４九で取ることもできます。一方、先手の金８三は後手玉９一の近くにあり、持駒の金を使えば詰みを狙える形です。",
+            "en": "The attacker’s rook on ４九 can take the defender’s gold on ４四. At the same time, the attacker’s gold on ８三 is near the defender’s king on ９一, and a gold in hand can create a mating attack."
+          }
+        },
+        {
+          "text": {
+            "ja": "飛車で金を取った後、後手玉に逃げる時間ができないか、手順をたどってください。",
+            "en": "Trace what happens to the king if the rook takes the gold first."
+          }
+        },
+        {
+          "moves": ["4i4d"],
+          "text": {
+            "ja": "▲４四飛で金を取りました。駒得にはなりますが、後手に玉を動かす手番が渡ります。",
+            "en": "▲４四飛 captures the gold and gains material, but the defender now gets a turn to move the king."
+          }
+        },
+        {
+          "moves": ["9a8a"],
+          "text": {
+            "ja": "△８一玉と逃げました。先手が次に金を打っても、玉の周囲には逃げ道が残ります。",
+            "en": "△８一玉 escapes. If the attacker drops a gold now, the king still has room to get away."
+          }
+        },
+        {
+          "moves": ["G*9b"],
+          "text": {
+            "ja": "▲９二金打は王手ですが、後手玉はさらに逃げられます。駒を取れたことと勝ちが決まったことは別です。",
+            "en": "▲９二金打 gives check, but the king can escape again. Winning material and securing the game are different results."
+          }
+        },
+        {
+          "moves": ["8a7a"],
+          "text": {
+            "ja": "△７一玉とかわされました。玉が危険な局面では、相手に一手を渡す前に詰みの有無を確かめます。",
+            "en": "△７一玉 steps away. When the king is exposed, check for mate before giving the opponent another turn."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "詰みが見えたら目的を切り替える",
+        "en": "Switch goals when mate is available"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k8/9/1G7/5g3/9/9/9/9/5R2K b G 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "ひとつ前と同じ局面です。飛車で４四の金を取る手より、９一の玉へ持駒の金を打つ手が先に決着するかを比べてください。",
+            "en": "This is the same position as before. Compare taking the gold on ４四 with using the gold in hand to settle the game against the king on ９一."
+          }
+        },
+        {
+          "moves": ["G*9b"],
+          "text": {
+            "ja": "▲９二金打で詰みです。金は８三の金に守られ、後手玉は盤端で逃げられる升も打った金を取る手もありません。",
+            "en": "▲９二金打 is checkmate. The gold on ８三 protects the drop, and the king at the edge has neither an escape square nor a safe capture of the gold."
+          }
+        },
+        {
+          "text": {
+            "ja": "この局面では金を一枚得る計画より、玉を詰ませる手が優先です。局面の段階は手数で区切られません。駒がまだ働けないなら道を作り、交換が始まれば最後まで数え、玉の逃げ道が消えたら勝ちを決める手を探します。",
+            "en": "Here, checkmate takes priority over winning one more piece. The phase of a game is not set by move count: open routes when pieces are inactive, calculate full exchanges when they meet, and look for a finish when the king runs out of exits."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 export const TITLES_EN: Record<string, string> = {
+  'gokigen-vs-chousoku--56fu': 'Gokigen Central Rook vs Super Rapid Silver: P5f Counter',
   'aigakari--bougin': 'Double Wing Attack: Climbing Silver',
   'aigakari--gote': 'Double Wing Attack (basic setup)',
   'hayaishida--basic': 'Early Ishida (basic attack)',

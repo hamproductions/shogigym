@@ -1,0 +1,211 @@
+{
+  "id": "gangi",
+  "order": 650,
+  "path": ["戦法・定跡", "雁木"],
+  "title": {
+    "ja": "雁木は右銀と玉の位置で利きを変える",
+    "en": "Gangi Changes with the Right Silver and King"
+  },
+  "intro": {
+    "ja": "雁木では左銀６七を軸にし、右銀を４七へ置くか５七へ置くかで守る筋が変わります。この講座では歩の接触点と銀の取り返しを使って、二つの配置の役割を見分けます。玉を左へ寄せる場合も中央寄りに置く場合も、相手の飛車と歩がどの方向から近づくかを先に確認します。",
+    "en": "Gangi uses the left silver on 6g as a central anchor. Choosing 4g or 5g for the right silver changes which pawns it can support. These composed positions compare the recaptures at a pawn contact and the consequences of placing the king farther left or nearer the center. Check the opposing rook and pawn lanes before committing to either king route."
+  },
+  "check": {
+    "question": {
+      "ja": "右銀４七と右銀５七では、先手歩３六・６六への利きがどう違いますか？",
+      "en": "How does the right silver's coverage of Sente's pawns on 3f and 6f differ between 4g and 5g?"
+    },
+    "answer": {
+      "ja": "銀４七は３六へ斜め前に、銀５七は６六へ斜め前に利きます。どちらも万能ではなく、相手が争う筋と左銀６七・金の取り返しを見て選びます。",
+      "en": "A silver on 4g controls 3f diagonally forward; on 5g it controls 6f. Neither square is universally better. Choose after checking the file Gote contests and the available recaptures by the left silver on 6g and the golds."
+    }
+  },
+  "references": [
+    {
+      "title": "雁木囲いの組み方",
+      "url": "https://shogi-joutatsu.com/archives/5845",
+      "license": "All rights reserved",
+      "adapted": false
+    },
+    {
+      "title": "ツノ銀雁木の手順と組み方",
+      "url": "https://shogi-joutatsu.com/archives/5896",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "右銀の行き先を相手の争点から選ぶ",
+        "en": "Choose the Right Silver from the Contested File"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "5k3/1r2g1gb1/7n1/3pspp2/1p7/3PPPP2/1P1S3P1/1BG1GS1R1/3K5 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手は左銀６七、金７八・５八、玉６九の雁木を組みかけ、右銀を４八に置いています。４七と５七はどちらも空升です。後手歩３四には桂２三が続き、６四には銀５四が続くので、右銀が受ける筋を見て進路を決めます。",
+            "en": "Sente is developing Gangi with left silver 6g, golds 7h and 5h, king 6i, and the right silver on 4h. Both 4g and 5g are vacant. Gote has a knight behind the third-file pawn and a silver near the sixth-file pawn, so the silver route should reflect the contact point."
+          }
+        },
+        {
+          "moves": ["4h4g"],
+          "text": {
+            "ja": "右銀４七は３六へ利きます。まだ桂２三を取れるわけではありませんが、後手が３五で歩交換を選ぶなら、先手は３筋の受け方を数えやすくなります。",
+            "en": "On 4g the right silver controls 3f. It does not capture Gote's knight on 2c from here, but it gives Sente another piece to include when Gote chooses third-file contact."
+          }
+        },
+        {
+          "moves": ["3d3e", "3f3e", "2c3e"],
+          "text": {
+            "ja": "後手が歩を３五へ進め、先手歩が取り、後手桂がその歩を取った例です。銀４七は３六へ進めば、３五の桂を前から狙えます。後手が桂を出さなければ、この続きを先手が強制することはできません。",
+            "en": "Gote's pawn advances to 3e, Sente's pawn captures, and Gote chooses to recapture with the knight from 2c. The silver on 4g can move to 3f and attack that knight from directly behind. Gote is not forced to offer the knight."
+          }
+        },
+        {
+          "moves": ["4g3f"],
+          "text": {
+            "ja": "銀３六は桂３五を利きに入れます。桂が逃げる升や、先手の銀３六が反対に狙われる手を続けて調べます。右銀４七の形を選ぶ理由は、この局面での具体的な利きです。",
+            "en": "The silver on 3f now attacks the knight on 3e. The knight can seek another square, and the advanced silver can become a target. This exact control, rather than a general claim about the shape, is the reason to consider 4g."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["4h5g", "6d6e", "6f6e", "5d6e", "5g6f"],
+          "text": {
+            "ja": "代わりに銀５七へ進めた形では、後手歩６四が６五へ来て先手歩が取り、後手銀５四が取り返した後、右銀５七が６六へ出て銀６五を見られます。同じ右銀でも４七からは一手で６六へ届きません。これも後手が選んだ交換の一例で、優劣を決める手順ではありません。",
+            "en": "With the right silver on 5g instead, after Gote pushes the sixth-file pawn, Sente's pawn captures and Gote's silver from 5d recaptures, the right silver can step to 6f and attack it. A silver on 4g cannot reach 6f in one move. This is one Gote-chosen exchange, not a verdict on either formation."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "５七銀なら６筋で左右の銀をつなぐ",
+        "en": "At 5g, Link Both Silvers on the Sixth File"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "5k3/1r2g1gb1/9/3psp3/1p7/3PPP3/1P1SS2P1/1BG1G2R1/3K5 w - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手の左銀６七と右銀５七が並ぶ雁木です。後手歩６四の後ろには銀５四がいます。６五で歩を取るなら、右銀５七が６六へ進んだ後に左銀６七が何を取れるかまで数えます。",
+            "en": "This Gangi has left silver 6g and right silver 5g. Gote's silver on 5d sits behind its sixth-file pawn on 6d. If the pawns meet on 6e, count what the left silver can recapture after the right silver moves to 6f."
+          }
+        },
+        {
+          "moves": ["6d6e", "6f6e", "5d6e"],
+          "text": {
+            "ja": "後手歩６五を先手歩６六が取り、後手銀がその歩を取り返しました。右銀５七からは、空いた６六へ斜め前に出て後手銀６五を見られます。",
+            "en": "Sente's pawn takes Gote's pawn on 6e, and Gote's silver recaptures the pawn. Sente's right silver from 5g can move diagonally forward to the now empty 6f and attack the silver on 6e."
+          }
+        },
+        {
+          "moves": ["5g6f"],
+          "text": {
+            "ja": "先手銀６六は後手銀６五を狙い、左銀６七は先手銀６六を守っています。後手が銀で６六を取る選択をした場合、左銀が取り返せます。",
+            "en": "Sente's silver on 6f attacks Gote's silver on 6e and is protected by the left silver on 6g. If Gote chooses a capture on 6f, that left silver can recapture."
+          }
+        },
+        {
+          "moves": ["6e6f", "6g6f"],
+          "text": {
+            "ja": "後手銀が先手銀を取り、左銀６七が後手銀を取り返した例です。左右の銀が一手ずつ受けに参加した結果であり、後手がこの交換を強制されるわけではありません。銀６六が前へ出た後の玉６九と金の距離も確認します。",
+            "en": "Gote's silver captures Sente's right silver, and Sente's left silver recaptures it. Both silvers contributed in sequence. Gote may avoid this exchange, and Sente must still assess how far the remaining silver on 6f is from the king on 6i and the golds."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "４七銀は５六へ出て４筋の交換を支える",
+        "en": "From 4g, Develop to 5f for Fourth-File Contact"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "5k3/1r2g1gb1/9/3psp3/1p7/3P1P3/1P1SPS1P1/1BG1G2R1/3K5 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "今度は右銀４七の雁木で、先手歩５七がまだ残っています。銀を５六へ出しても歩５七とは重ならず、４五へ利きを足せます。後手には歩４四と銀５四があるため、先手の狙いは後手の応手次第です。",
+            "en": "Here the Gangi right silver starts on 4g, while Sente's pawn remains on 5g. The silver can develop to the vacant 5f and then cover 4e. Gote has pawn 4d and silver 5d, so the resulting exchange depends on Gote's choices."
+          }
+        },
+        {
+          "moves": ["4g5f", "4d4e"],
+          "text": {
+            "ja": "先手銀が５六へ出た後、後手が４五へ歩を進める例です。先手歩４六が取ると、後手銀５四も４五へ来られます。先手銀５六をそこまでの取り手に含めます。",
+            "en": "Sente develops the silver to 5f and Gote chooses a fourth-file pawn push. If Sente's pawn on 4f captures, Gote's silver on 5d can recapture; Sente's silver on 5f must be included in the count."
+          }
+        },
+        {
+          "moves": ["4f4e", "5d4e", "5f4e"],
+          "text": {
+            "ja": "歩、後手銀、先手銀の順に４五で取った例です。先手は銀を持ちますが、後手角２二は歩４四が動いたため３三を通って４四へ出られます。銀得だけを見て角道を忘れません。",
+            "en": "In this chosen sequence Sente's pawn takes the pawn, Gote's silver takes the pawn, and Sente's silver takes that silver on 4e. Sente gains a silver in hand, but moving Gote's pawn off 4d also opens a route for its bishop through 3c to 4d."
+          }
+        },
+        {
+          "moves": ["2b4d"],
+          "text": {
+            "ja": "後手角が４四へ出た後は５五を経て６六の先手歩を見ます。先手左銀６七が６六の歩を守っています。角が出た一手だけで先手が得とも後手が突破とも言わず、４五の銀と６六の歩を両方確認します。",
+            "en": "Gote's bishop develops to 4d and points through 5e toward Sente's pawn on 6f. The left silver on 6g protects that pawn. Neither the silver capture nor the bishop move alone establishes an advantage; check both the advanced silver on 4e and the defended pawn on 6f."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "玉の進路は飛車の筋と歩の接触で決める",
+        "en": "Choose a King Route from the Rook and Pawn Lanes"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "5k3/1r2g1gb1/9/3psp3/1p7/3P1P3/1P1SPS1P1/1BG1G2R1/3K5 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "左右の銀６七・４七と金７八・５八は同じでも、玉６九を左へ運ぶか、中央寄りに残すかで飛車の攻めとの距離が変わります。後手飛車８二の前に歩８五があり、４筋には歩４四と銀５四があります。二つの進路を相手の具体的な仕掛けで比較します。",
+            "en": "The silvers on 6g and 4g and golds on 7h and 5h are fixed, while Sente's king on 6i can choose a route. Gote's rook on 8b has a pawn on 8e ahead of it; Gote also has a pawn on 4d and silver on 5d. Compare the king routes against these actual points of contact."
+          }
+        },
+        {
+          "moves": ["6i7i", "8e8f", "8g8f"],
+          "text": {
+            "ja": "玉７九へ寄せた後、後手が８筋の歩を出し、先手歩８七が取った例です。後手飛車８二は８六の歩を取れますが、その飛車が居座れるかは金７八の動きを見て決まります。",
+            "en": "After the king moves toward 7i, Gote pushes the eighth-file pawn and Sente's pawn from 8g captures it. Gote's rook can capture the pawn on 8f, but the gold on 7h can contest that rook."
+          }
+        },
+        {
+          "moves": ["8b8f", "7h8g"],
+          "text": {
+            "ja": "後手飛車が歩を取り、金７八が８七へ出て８六の飛車を前から狙います。玉７九の近くから金が離れる代価があるため、この一手だけを安全と決めません。後手が飛車を引く応手もあります。",
+            "en": "Gote's rook captures the pawn, and Sente's gold from 7h moves to 8g to attack that rook on 8f. The gold has left the king's neighborhood, so the move has a defensive cost. Gote can withdraw the rook."
+          }
+        },
+        {
+          "moves": ["8f8b"],
+          "text": {
+            "ja": "後手が飛車を８二へ引いた例です。玉７九は８筋の接触点に近い一方、右側の歩４四からは離れています。どちらの筋を相手が早く動かせるかを見て玉の位置を選びます。",
+            "en": "Gote chooses to return the rook to 8b. King 7i is relatively near the eighth-file contact and farther from Gote's fourth-file pawn. The useful king route depends on which attack Gote can actually develop first."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["6i5i", "4d4e", "4f4e", "5d4e", "4g5f"],
+          "text": {
+            "ja": "玉を５九へ寄せる別案では、後手が４五へ歩を進め、先手歩が取ると後手銀５四が４五を取り返せます。先手銀４七は５六へ出てその銀を狙えますが、玉は４筋の争点に近くなります。５九は右玉の完成形ではなく、次の玉の移動と守りを決める途中の位置です。",
+            "en": "An alternative moves the king to 5i. If Gote then pushes on 4e, Sente's pawn captures, and Gote's silver recaptures, Sente's silver from 4g can step to 5f and attack that silver. The king is now nearer the fourth-file contact. This is an intermediate king square, not a completed Right-King Gangi."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,151 @@
+{
+  "id": "ureshino-new",
+  "order": 1390,
+  "path": ["戦法・定跡", "嬉野流"],
+  "title": {
+    "ja": "新嬉野流：角を引く前の選択",
+    "en": "New Ureshino: decide before retreating the bishop"
+  },
+  "intro": {
+    "ja": "新嬉野流では６八へ出た左銀を５七へ進めても、８八角をすぐには引かない選択があります。５六歩に銀の支えを付けられる一方、銀や歩がもう一歩進むと守りの利きも変わります。角を８八に残す理由、引く条件、銀が左へ出た後の取り返しを別々の盤面で調べます。",
+    "en": "New Ureshino can develop the left silver from 6h to 5g while leaving B8h in place. That silver supports P5f, but its protection changes as pieces advance. These positions ask when to retain or retreat the bishop, and what the silver can safely take on the left."
+  },
+  "check": {
+    "question": {
+      "ja": "５七銀が５六歩を守っていても、５六歩を５五へ進めた後の同じ銀は何を守れなくなりますか？",
+      "en": "S5g protects P5f. What changes if Sente pushes that pawn to 5e?"
+    },
+    "answer": {
+      "ja": "５七銀は５六へは前進できますが、５五へ二段進んで取り返すことはできません。第一章の分岐では△５四飛が▲５五歩を取れます。角も７七の歩で遮られているため、その歩を取り戻す手は示されていません。",
+      "en": "The silver can recapture on 5f, not two ranks ahead on 5e. In chapter one's optional branch, R5d×5e takes the advanced pawn. P7g blocks B8h's route to 5e, so the illustrated continuation does not regain that pawn."
+    }
+  },
+  "references": [
+    {
+      "title": "新嬉野流の駒組み",
+      "url": "https://shogi-joutatsu.com/archives/5571",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": { "ja": "銀の支えは５六で数える", "en": "Count the silver's support on 5f" },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/4r2b1/9/5p3/9/4P2P1/1PP6/1BGS3R1/4KG3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "６八銀と５六歩があり、角は８八に残っています。後手５二飛は５六歩を縦に狙えます。まず銀を５七へ動かしたとき、５六の取り返しがどう変わるかを見ます。",
+            "en": "Sente has S6h, P5f and B8h. Gote's R5b has an open line down to P5f. Moving the silver to 5g changes the recapture on that exact square while the bishop stays put."
+          },
+          "marks": { "boxes": ["6h", "5g", "5f", "5b", "8h"] }
+        },
+        {
+          "moves": ["6h5g"],
+          "text": {
+            "ja": "▲５七銀で５六歩に銀の利きが付きます。ただし飛車取りが消えたという意味ではありません。後手が歩を取る順と、歩を進めさせる順では収支が違います。",
+            "en": "S6h–5g now protects P5f. It does not remove every fifth-file attack; compare a direct rook capture with a line where the pawn advances first."
+          },
+          "marks": { "arrows": ["6h5g"], "boxes": ["5f"] }
+        },
+        {
+          "moves": ["5b5f", "5g5f"],
+          "text": {
+            "ja": "後手があえて△５六飛と歩を取れば▲同銀で飛車を取れます。これは５六という地点の守りを示す任意の悪い応手であり、後手に飛車を差し出す義務はありません。",
+            "en": "If Gote voluntarily plays R5b×5f, S5g×5f captures the rook. This optional error demonstrates the defender on 5f; Gote is free to choose another move."
+          },
+          "marks": { "arrows": ["5g5f"], "last": "5f" }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": ["5b5d", "5f5e", "5d5e", "5i4h", "5e5b"],
+          "text": {
+            "ja": "別の一例で△５四飛に▲５五歩と伸ばすと、△同飛で歩を取られます。▲４八玉、△５二飛はその後の任意の進行です。７七歩が角の斜線を止め、５七銀も５五へは届きません。",
+            "en": "In a different sample, R5b–5d, P5f–5e, R5d×5e takes the pawn. K5i–4h and R5e–5b are optional continuations. P7g blocks B8h's diagonal, while S5g does not reach 5e."
+          },
+          "marks": { "boxes": ["5f", "5e"], "last": "5b" }
+        }
+      ]
+    },
+    {
+      "title": { "ja": "角を残し、交換を見てから引く", "en": "Retreat only after checking the bishop exchange" },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1r7/4s4/1p3bp2/9/2P1P2P1/1P2S4/1BG4R1/4KG3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手は５七銀を先に置き、角を８八に残しています。後手４四角と８八角は５五・６六・７七を通じて向かい合い、４四角は５三銀に守られています。ここでは角交換をするか、角を引いて保持するかが選択です。",
+            "en": "Sente's S5g developed before B8h retreated. The bishops face each other along 5e, 6f and 7g, and Gote's S5c protects B4d. Sente can consider a bishop exchange or keep the bishop by retreating it."
+          },
+          "marks": { "boxes": ["8h", "4d", "5c", "7i"] }
+        },
+        {
+          "moves": ["8h7i", "8d8e"],
+          "text": {
+            "ja": "▲７九角は駒を取り合わずに角を残す選択です。続く△８五歩の後も、７九からの斜線は５七銀で止まります。角を移しただけで遠くの歩に利いたと判断しないでください。",
+            "en": "Here B8h–7i declines the exchange, and Gote advances P8d–8e. The new diagonal from 7i through 6h still stops at S5g. A retreat alone does not activate the bishop."
+          },
+          "marks": { "arrows": ["8h7i"], "boxes": ["5g", "6h"] }
+        },
+        {
+          "moves": ["2f2e"],
+          "text": {
+            "ja": "▲２五歩は飛車先を進めつつ５七銀を据え置きます。後手はほかの手も選べますが、この盤面で銀を６六へ急ぐと４四角が届くことを先に確認します。",
+            "en": "P2f–2e develops the rook file while leaving S5g in place. This does not force Gote's reply. Before moving the silver to 6f, inspect B4d's line through 5e to 6f."
+          },
+          "marks": { "arrows": ["2f2e"], "boxes": ["6f", "4d"] }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": ["5g6f", "4d6f"],
+          "text": {
+            "ja": "△８五歩の直後に▲６六銀と出ると、この図では△同角が６六の銀を取ります。角を７九へ引いたため、先手角は６六に取り返しに行けません。角を残す選択には、銀の進出先を数え直す負担があります。",
+            "en": "After P8d–8e, an immediate S5g–6f lets B4d×6f take the silver in this position. B7i no longer recaptures on 6f. Preserving the bishop means recalculating the silver's next square."
+          },
+          "marks": { "arrows": ["4d6f"], "last": "6f" }
+        }
+      ]
+    },
+    {
+      "title": { "ja": "左銀の歩取りと飛車の取り返しを分ける", "en": "Separate a silver pawn gain from the rook recapture" },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1r5b1/9/1pp2p3/9/2P1P2P1/1P2S4/1BG2K1R1/6G2 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "角を８八に残し、５七銀から左の歩へ向かう局面です。後手には７四歩と８四歩があり、８四歩は８二飛に守られています。銀で７筋の歩を取れても、８筋の歩まで同じように取れるとは限りません。",
+            "en": "B8h has not retreated, and S5g can approach Gote's P7d. Gote also has P8d backed by R8b. A silver capture on the seventh file does not make the adjacent eighth-file pawn free."
+          },
+          "marks": { "boxes": ["5g", "7d", "8d", "8b"] }
+        },
+        {
+          "moves": ["5g6f", "7d7e", "6f7e"],
+          "text": {
+            "ja": "▲６六銀の後、後手が△７五歩と進める一例なら▲同銀で歩を取れます。後手は７五の歩を進める義務はありません。銀が７五へ出た後は、８四の歩に８二飛の縦の利きがあることを忘れません。",
+            "en": "If Gote chooses P7d–7e after S5g–6f, S6f×7e takes that pawn. The pawn push is optional. From 7e the silver also eyes P8d, but R8b stands behind that pawn."
+          },
+          "marks": { "arrows": ["6f7e"], "last": "7e", "boxes": ["8d", "8b"] }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": ["5a4b", "7e8d", "8b8d"],
+          "text": {
+            "ja": "後手が△４二玉と指した場合、▲８四銀と歩を取ること自体はできます。しかし△同飛で銀を失います。７五銀が得た一歩を、守られた別の歩まで取りに行って失わないようにします。",
+            "en": "If Gote plays K5a–4b, S7e×8d can take the pawn, but R8b×8d then captures the silver. The first pawn gain does not justify taking a second pawn without counting its rook defender."
+          },
+          "marks": { "arrows": ["8b8d"], "last": "8d" }
+        }
+      ]
+    }
+  ]
+}

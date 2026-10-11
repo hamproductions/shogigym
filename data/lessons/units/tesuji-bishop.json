@@ -1,0 +1,147 @@
+{
+  "id": "tesuji-bishop",
+  "order": 240,
+  "path": ["上達のためのテクニック", "手筋"],
+  "title": {
+    "ja": "角筋の先と手前を読む",
+    "en": "Read Both Ends of a Bishop's Line"
+  },
+  "intro": {
+    "ja": "角は遮る駒がない斜めの線を進みます。打つ場所や途中の歩一枚で、守る場所と狙う駒が変わります。敵陣で成った馬は角の長い斜めの利きに加え、前後左右へ一マス動けます。三つの局面で、先に自玉への攻撃を受けること、線を開けた後の応手を読むこと、成った直後に増える一歩を使うことを練習します。",
+    "en": "A bishop travels along clear diagonals. One drop square or one pawn on its route changes both its defensive reach and its targets. After promotion, a horse keeps the long diagonals and gains one-square orthogonal moves. These positions practice answering an attack on your king, reading the reply after opening a line, and using the horse's new step."
+  },
+  "check": {
+    "question": {
+      "ja": "歩を動かして角筋を開けた後、角で狙う駒をすぐ取れると判断してよいですか？",
+      "en": "Once a pawn opens your bishop's line, can you assume the bishop will capture its target?"
+    },
+    "answer": {
+      "ja": "いいえ。角筋が通っても相手に一手あります。狙う駒が逃げる手や角筋を遮る手を確認し、実際の応手で目標が残った場合だけ取りを示します。",
+      "en": "No. The defender gets a move after the line opens. Check whether the target can move or the diagonal can be blocked; the capture shown works only if the target remains available."
+    }
+  },
+  "references": [
+    {
+      "title": "角行の動き、手筋と使い方",
+      "url": "https://shogi-joutatsu.com/archives/1586",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "王手を遮りながら飛車へ利かす",
+        "en": "Block a check while pointing at the rook"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k8/9/9/5r3/b8/9/9/1S7/4K4 b B 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手の角９五は８六、７七、６八を通って玉５九を王手しています。先手の持ち角を７七へ打てば王手を遮り、６六、５五の先にいる飛車４四へも利きます。銀８八が７七を守っている点も確かめます。",
+            "en": "Gote's bishop on ９五 checks the king on ５九 along ８六, ７七, and ６八. Dropping Sente's bishop on ７七 blocks that check and points through ６六 and ５五 toward the rook on ４四. The silver on ８八 protects the drop square."
+          }
+        },
+        {
+          "moves": ["B*7g"],
+          "text": {
+            "ja": "▲７七角。角一枚で玉への線を遮り、飛車も狙いました。ただし後手の角が７七の角を取る応手を選べます。",
+            "en": "▲７七角 both intercepts the line to the king and attacks the rook. Gote can answer by capturing the dropped bishop."
+          }
+        },
+        {
+          "moves": ["9e7g"],
+          "text": {
+            "ja": "△７七角で先手の角を取られました。後手の角が７七から玉５九へ利くため、銀で取り返して王手を消す必要があります。",
+            "en": "△７七角 captures Sente's bishop. From ７七 the Gote bishop still points at the king on ５九, so Sente must remove it."
+          }
+        },
+        {
+          "moves": ["8h7g"],
+          "text": {
+            "ja": "▲７七銀で角を取り返し、王手を解きました。この順では飛車を取れません。角打ちの価値は、相手の応手ごとに守りと攻めを分けて評価します。",
+            "en": "▲７七銀 recaptures the bishop and ends the check. This line does not win the rook. Judge the defensive and attacking effects of the bishop drop against each available reply."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "歩が空ける斜めの道",
+        "en": "Clear a diagonal with a pawn"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k8/9/2r6/9/9/5P3/9/7B1/8K b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "角２八から飛車７三へは３七、４六、５五、６四を通る斜めの線があります。今は先手の歩４六がその途中を塞いでいます。歩を４五へ進めれば４六が空きます。",
+            "en": "The diagonal from Sente's bishop on ２八 to Gote's rook on ７三 runs through ３七, ４六, ５五, and ６四. Sente's pawn on ４六 currently blocks it. Advancing that pawn to ４五 empties ４六."
+          }
+        },
+        {
+          "moves": ["4f4e"],
+          "text": {
+            "ja": "▲４五歩で角筋が飛車７三まで通りました。後手が飛車を残して玉を動かす応手を見ます。",
+            "en": "▲４五歩 opens the bishop's line to the rook on ７三. Follow the response in which Gote moves the king and leaves the rook in place."
+          }
+        },
+        {
+          "moves": ["9a9b"],
+          "text": {
+            "ja": "△９二玉。飛車は７三に残り、角と飛車の間に駒はありません。",
+            "en": "△９二玉 leaves the rook on ７三, with no piece between it and the bishop."
+          }
+        },
+        {
+          "moves": ["2h7c+"],
+          "text": {
+            "ja": "▲７三角成で飛車を取り、馬になりました。後手が飛車を逃がす手や線を遮る手を選べば、この取りは成立しません。",
+            "en": "▲７三角成 captures the rook and promotes to a horse. A rook move or an interposition by Gote would change the result."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "成った後の横一マス",
+        "en": "Use the horse's one sideways step"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k8/3np4/9/6B2/9/9/9/9/8K b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "角３四から歩５二を取る道には４三を通ります。５二で成れば馬になり、角にはない横一マスの移動が加わります。桂６二はその横一マスにいます。",
+            "en": "The bishop on ３四 can reach the pawn on ５二 through ４三. Promotion on ５二 creates a horse with a one-square sideways step that a bishop lacks. Gote's knight on ６二 stands beside the destination."
+          }
+        },
+        {
+          "moves": ["3d5b+"],
+          "text": {
+            "ja": "▲５二角成で歩を取りました。馬５二は桂６二へ横に動けますが、後手には桂を逃がす一手があります。",
+            "en": "▲５二角成 captures the pawn. The horse on ５二 can move sideways to the knight on ６二, but Gote gets a turn to move the knight."
+          }
+        },
+        {
+          "moves": ["9a9b"],
+          "text": {
+            "ja": "△９二玉で桂６二が残りました。馬と桂は同じ段で隣り合っています。",
+            "en": "△９二玉 leaves the knight on ６二, adjacent to the horse on the same rank."
+          }
+        },
+        {
+          "moves": ["5b6b"],
+          "text": {
+            "ja": "▲６二馬で桂を取りました。角のままなら５二から６二へ横に進めません。桂を動かす応手には別の計算が必要です。",
+            "en": "▲６二馬 captures the knight. An unpromoted bishop on ５二 could not make that sideways move. A knight retreat would require a different calculation."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,343 @@
+{
+ "id": "tateishi--gote",
+ "title": "後手立石流：３筋へ浮く条件",
+ "titleEn": "Gote Tateishi Style: When the Rook Can Shift to the Third File",
+ "myStrategy": "shikenbisha",
+ "opponentStrategy": "ibisha",
+ "mySide": "gote",
+ "userSide": "gote",
+ "source": "後手四間飛車と立石流の基本形をもとに、やねうら王の新ペタショック定跡（MIT）の候補手とエンジン検証で手順を構成。解説はこのアプリのために書き下ろし。",
+ "goalFormation": "後手は４二飛から４五歩で４四を空け、飛車４四へ浮いた。３五歩に先手が応じて３五で歩を取り、３四への飛車移動は先手歩３五に取られるため保留。後手玉は８二へ進み、先手玉は６八。",
+ "goalLabel": "３筋の歩が飛車の横移動を変える",
+ "goalSfen": "lns2g1nl/1kg4b1/1pppps1pp/p4r3/5pPP1/P1PPP4/1P1S1P2P/1B1KGS1R1/LN1G3NL b P 1",
+ "root": {
+  "id": "n0",
+  "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+  "comment": "後手の四間飛車は４二に置く。４五歩で４四を空けて飛車を浮かせ、３五歩で隣の筋も動かす。先手が３五の歩を取るかどうかで、飛車４四から３四への横移動を選び直す。",
+  "branches": [
+   {
+    "usi": "7g7f",
+    "kind": "main",
+    "child": {
+     "id": "n_0",
+     "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL w - 1",
+     "branches": [
+      {
+       "usi": "4c4d",
+       "kind": "main",
+       "note": "後手は４筋の歩を先に進める。後の飛車４二への横移動を妨げない。",
+       "child": {
+        "id": "n_1",
+        "sfen": "lnsgkgsnl/1r5b1/ppppp1ppp/5p3/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL b - 1",
+        "branches": [
+         {
+          "usi": "2g2f",
+          "kind": "main",
+          "child": {
+           "id": "n_2",
+           "sfen": "lnsgkgsnl/1r5b1/ppppp1ppp/5p3/9/2P4P1/PP1PPPP1P/1B5R1/LNSGKGSNL w - 1",
+           "branches": [
+            {
+             "usi": "8b4b",
+             "kind": "main",
+             "note": "△４二飛。後手から見た四間飛車は４筋に飛車を置く。",
+             "child": {
+              "id": "n_3",
+              "sfen": "lnsgkgsnl/5r1b1/ppppp1ppp/5p3/9/2P4P1/PP1PPPP1P/1B5R1/LNSGKGSNL b - 1",
+              "branches": [
+               {
+                "usi": "2f2e",
+                "kind": "main",
+                "child": {
+                 "id": "n_4",
+                 "sfen": "lnsgkgsnl/5r1b1/ppppp1ppp/5p3/7P1/2P6/PP1PPPP1P/1B5R1/LNSGKGSNL w - 1",
+                 "branches": [
+                  {
+                   "usi": "4d4e",
+                   "kind": "main",
+                   "note": "△４五歩で４四を空ける。浮き飛車に必要な升を歩の前進で作る。",
+                   "child": {
+                    "id": "n_5",
+                    "sfen": "lnsgkgsnl/5r1b1/ppppp1ppp/9/5p1P1/2P6/PP1PPPP1P/1B5R1/LNSGKGSNL b - 1",
+                    "branches": [
+                     {
+                      "usi": "6g6f",
+                      "kind": "main",
+                      "child": {
+                       "id": "n_6",
+                       "sfen": "lnsgkgsnl/5r1b1/ppppp1ppp/9/5p1P1/2PP5/PP2PPP1P/1B5R1/LNSGKGSNL w - 1",
+                       "branches": [
+                        {
+                         "usi": "4b4d",
+                         "kind": "main",
+                         "note": "△４四飛。後手の飛車は４五歩の後ろに浮く。",
+                         "child": {
+                          "id": "n_7",
+                          "sfen": "lnsgkgsnl/7b1/ppppp1ppp/5r3/5p1P1/2PP5/PP2PPP1P/1B5R1/LNSGKGSNL b - 1",
+                          "branches": [
+                           {
+                            "usi": "3g3f",
+                            "kind": "main",
+                            "child": {
+                             "id": "n_8",
+                             "sfen": "lnsgkgsnl/7b1/ppppp1ppp/5r3/5p1P1/2PP2P2/PP2PP2P/1B5R1/LNSGKGSNL w - 1",
+                             "branches": [
+                              {
+                               "usi": "3c3d",
+                               "kind": "main",
+                               "note": "△３四歩で３三を空ける。さらに歩が進めば飛車の横移動先も生まれる。",
+                               "child": {
+                                "id": "n_9",
+                                "sfen": "lnsgkgsnl/7b1/ppppp2pp/5rp2/5p1P1/2PP2P2/PP2PP2P/1B5R1/LNSGKGSNL b - 1",
+                                "branches": [
+                                 {
+                                  "usi": "3i4h",
+                                  "kind": "main",
+                                  "child": {
+                                   "id": "n_10",
+                                   "sfen": "lnsgkgsnl/7b1/ppppp2pp/5rp2/5p1P1/2PP2P2/PP2PP2P/1B3S1R1/LNSGKG1NL w - 1",
+                                   "branches": [
+                                    {
+                                     "usi": "3d3e",
+                                     "kind": "main",
+                                     "note": "△３五歩で３四が空く。先手歩３六に接し、次の応手で飛車の行き先が変わる。",
+                                     "child": {
+                                      "id": "n_11",
+                                      "sfen": "lnsgkgsnl/7b1/ppppp2pp/5r3/5ppP1/2PP2P2/PP2PP2P/1B3S1R1/LNSGKG1NL b - 1",
+                                      "branches": [
+                                       {
+                                        "usi": "3f3e",
+                                        "kind": "main",
+                                        "note": "先手が３五の後手歩を取る。先手歩３五が３四を支配するので、後手飛車はすぐ３四へ寄れない。",
+                                        "child": {
+                                         "id": "nb0_0",
+                                         "sfen": "lnsgkgsnl/7b1/ppppp2pp/5r3/5pPP1/2PP5/PP2PP2P/1B3S1R1/LNSGKG1NL w P 1",
+                                         "branches": [
+                                          {
+                                           "usi": "5a6b",
+                                           "kind": "main",
+                                           "note": "後手は飛車を４四に残して玉６二。３筋へ出る前に相手の歩の位置を尊重する。",
+                                           "child": {
+                                            "id": "nb0_1",
+                                            "sfen": "lnsg1gsnl/3k3b1/ppppp2pp/5r3/5pPP1/2PP5/PP2PP2P/1B3S1R1/LNSGKG1NL b P 1",
+                                            "branches": [
+                                             {
+                                              "usi": "7i7h",
+                                              "kind": "main",
+                                              "child": {
+                                               "id": "nb0_2",
+                                               "sfen": "lnsg1gsnl/3k3b1/ppppp2pp/5r3/5pPP1/2PP5/PP2PP2P/1BS2S1R1/LN1GKG1NL w P 1",
+                                               "branches": [
+                                                {
+                                                 "usi": "6b7b",
+                                                 "kind": "main",
+                                                 "note": "後手玉７二。浮き飛車を維持しつつ囲いを進める。",
+                                                 "child": {
+                                                  "id": "nb0_3",
+                                                  "sfen": "lnsg1gsnl/2k4b1/ppppp2pp/5r3/5pPP1/2PP5/PP2PP2P/1BS2S1R1/LN1GKG1NL b P 1",
+                                                  "branches": [
+                                                   {
+                                                    "usi": "4i5h",
+                                                    "kind": "main",
+                                                    "note": "先手金５八。先手も玉を動かす準備を続ける。",
+                                                    "child": {
+                                                     "id": "nb0_4",
+                                                     "sfen": "lnsg1gsnl/2k4b1/ppppp2pp/5r3/5pPP1/2PP5/PP2PP2P/1BS1GS1R1/LN1GK2NL w P 1",
+                                                     "branches": [
+                                                      {
+                                                       "usi": "9c9d",
+                                                       "kind": "main",
+                                                       "child": {
+                                                        "id": "nb0_5",
+                                                        "sfen": "lnsg1gsnl/2k4b1/1pppp2pp/p4r3/5pPP1/2PP5/PP2PP2P/1BS1GS1R1/LN1GK2NL b P 1",
+                                                        "branches": [
+                                                         {
+                                                          "usi": "9g9f",
+                                                          "kind": "main",
+                                                          "note": "先手９六歩で端を合わせる。３五歩への応手だけで序盤を決めない。",
+                                                          "child": {
+                                                           "id": "nb0_6",
+                                                           "sfen": "lnsg1gsnl/2k4b1/1pppp2pp/p4r3/5pPP1/P1PP5/1P2PP2P/1BS1GS1R1/LN1GK2NL w P 1",
+                                                           "branches": [
+                                                            {
+                                                             "usi": "3a3b",
+                                                             "kind": "main",
+                                                             "note": "後手銀３二。飛車４四が動けない間、銀を中央寄りへ展開する。",
+                                                             "child": {
+                                                              "id": "nb0_7",
+                                                              "sfen": "lnsg1g1nl/2k3sb1/1pppp2pp/p4r3/5pPP1/P1PP5/1P2PP2P/1BS1GS1R1/LN1GK2NL b P 1",
+                                                              "branches": [
+                                                               {
+                                                                "usi": "7h6g",
+                                                                "kind": "main",
+                                                                "note": "先手銀６七。６六歩の後ろに銀を置く。",
+                                                                "child": {
+                                                                 "id": "nb0_8",
+                                                                 "sfen": "lnsg1g1nl/2k3sb1/1pppp2pp/p4r3/5pPP1/P1PP5/1P1SPP2P/1B2GS1R1/LN1GK2NL w P 1",
+                                                                 "branches": [
+                                                                  {
+                                                                   "usi": "3b4c",
+                                                                   "kind": "main",
+                                                                   "note": "後手銀４三。４五歩の後ろで飛車とともに中央を支える。",
+                                                                   "child": {
+                                                                    "id": "nb0_9",
+                                                                    "sfen": "lnsg1g1nl/2k4b1/1pppps1pp/p4r3/5pPP1/P1PP5/1P1SPP2P/1B2GS1R1/LN1GK2NL b P 1",
+                                                                    "branches": [
+                                                                     {
+                                                                      "usi": "5i6h",
+                                                                      "kind": "main",
+                                                                      "note": "先手玉６八。角８八が残るので８八への移動はまだできない。",
+                                                                      "child": {
+                                                                       "id": "nb0_10",
+                                                                       "sfen": "lnsg1g1nl/2k4b1/1pppps1pp/p4r3/5pPP1/P1PP5/1P1SPP2P/1B1KGS1R1/LN1G3NL w P 1",
+                                                                       "branches": [
+                                                                        {
+                                                                         "usi": "7b8b",
+                                                                         "kind": "main",
+                                                                         "note": "後手玉８二。飛車４四と玉の距離を取り、３四の升が空くかを見続ける。",
+                                                                         "child": {
+                                                                          "id": "nb0_11",
+                                                                          "sfen": "lnsg1g1nl/1k5b1/1pppps1pp/p4r3/5pPP1/P1PP5/1P1SPP2P/1B1KGS1R1/LN1G3NL b P 1",
+                                                                          "branches": [
+                                                                           {
+                                                                            "usi": "5g5f",
+                                                                            "kind": "main",
+                                                                            "note": "先手５六歩。中央の歩を進め、３筋の歩だけに頼らず活動する。",
+                                                                            "child": {
+                                                                             "id": "nb0_12",
+                                                                             "sfen": "lnsg1g1nl/1k5b1/1pppps1pp/p4r3/5pPP1/P1PPP4/1P1S1P2P/1B1KGS1R1/LN1G3NL w P 1",
+                                                                             "branches": [
+                                                                              {
+                                                                               "usi": "6a7b",
+                                                                               "kind": "main",
+                                                                               "note": "後手金７二。玉８二の隣を補強し、４四飛を維持する。",
+                                                                               "child": {
+                                                                                "id": "nb0_13",
+                                                                                "sfen": "lns2g1nl/1kg4b1/1pppps1pp/p4r3/5pPP1/P1PPP4/1P1S1P2P/1B1KGS1R1/LN1G3NL b P 1",
+                                                                                "branches": [],
+                                                                                "comment": "先手歩３五がある限り、４四飛から３四飛と寄れば歩に取られる。後手は無理に定型へ進めず、４筋の浮き飛車と玉・銀の配置を使いながら次の接触を待つ。"
+                                                                               }
+                                                                              }
+                                                                             ]
+                                                                            }
+                                                                           }
+                                                                          ]
+                                                                         }
+                                                                        }
+                                                                       ]
+                                                                      }
+                                                                     }
+                                                                    ]
+                                                                   }
+                                                                  }
+                                                                 ]
+                                                                }
+                                                               }
+                                                              ]
+                                                             }
+                                                            }
+                                                           ]
+                                                          }
+                                                         }
+                                                        ]
+                                                       }
+                                                      }
+                                                     ]
+                                                    }
+                                                   }
+                                                  ]
+                                                 }
+                                                }
+                                               ]
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          }
+                                         ]
+                                        }
+                                       },
+                                       {
+                                        "usi": "5i6h",
+                                        "kind": "deviation",
+                                        "note": "先手が３五歩を取らずに玉を６八へ動かす別の順。",
+                                        "punishNote": "先手が３筋の接触を一手遅らせると、後手は飛車を３四へ寄せてから歩を取り返せる。",
+                                        "child": {
+                                         "id": "nb1_0",
+                                         "sfen": "lnsgkgsnl/7b1/ppppp2pp/5r3/5ppP1/2PP2P2/PP2PP2P/1B1K1S1R1/LNSG1G1NL w - 1",
+                                         "branches": [
+                                          {
+                                           "usi": "4d3d",
+                                           "kind": "main",
+                                           "note": "後手は空いた３四へ飛車を寄せる。３五にはまだ後手歩がいる。",
+                                           "child": {
+                                            "id": "nb1_1",
+                                            "sfen": "lnsgkgsnl/7b1/ppppp2pp/6r2/5ppP1/2PP2P2/PP2PP2P/1B1K1S1R1/LNSG1G1NL b - 1",
+                                            "branches": [
+                                             {
+                                              "usi": "3f3e",
+                                              "kind": "main",
+                                              "note": "先手が３五の歩を取ると、先手歩が３五に残る。",
+                                              "child": {
+                                               "id": "nb1_2",
+                                               "sfen": "lnsgkgsnl/7b1/ppppp2pp/6r2/5pPP1/2PP5/PP2PP2P/1B1K1S1R1/LNSG1G1NL w P 1",
+                                               "branches": [
+                                                {
+                                                 "usi": "3d3e",
+                                                 "kind": "main",
+                                                 "note": "後手飛車３四が３五の先手歩を取り返す。双方が歩を一枚持ち、後手飛車は３五へ出た。",
+                                                 "child": {
+                                                  "id": "nb1_3",
+                                                  "sfen": "lnsgkgsnl/7b1/ppppp2pp/9/5prP1/2PP5/PP2PP2P/1B1K1S1R1/LNSG1G1NL b Pp 1",
+                                                  "branches": [],
+                                                  "comment": "３筋の歩の位置が一手違うだけで、後手飛車の横移動が合法でも安全性が変わる。交換後の飛車３五と先手２五歩も比べる。"
+                                                 }
+                                                }
+                                               ]
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          }
+                                         ]
+                                        }
+                                       }
+                                      ]
+                                     }
+                                    }
+                                   ]
+                                  }
+                                 }
+                                ]
+                               }
+                              }
+                             ]
+                            }
+                           }
+                          ]
+                         }
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

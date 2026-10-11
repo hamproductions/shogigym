@@ -1,51 +1,76 @@
 {
  "id": "kuzushi--funa-hashi",
- "title": "囲い崩し: 舟囲いの端攻め(△9五歩▲同歩△9八歩)",
- "titleEn": "Breaking the Boat castle: edge attack (△9五歩 ▲同歩 △9八歩)",
+ "title": "舟囲い崩し：桂打ちで玉と角を同時に狙う",
+ "titleEn": "Breaking the Boat Castle: A Knight Drop Forks King and Bishop",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "gote",
  "userSide": "gote",
- "source": "局面と手順はWikipedia日本語版「舟囲い」(https://ja.wikipedia.org/wiki/舟囲い)の「崩し方」節の図(△9八歩まで、持ち駒は先手 角桂歩2・後手 飛角)と同節の解説に準拠(CC BY-SA)。図の局面をSFENに変換し、全手を合法手検証済み。",
- "goalFormation": "持ち駒に飛車があるとき、玉側の端を歩で釣り上げて飛車を端から打ち込む。",
+ "source": "舟囲いの守備位置を題材にアプリ用の練習局面と手順を独自に作成。合法手・王手・駒の収支はやねうら王（https://github.com/yaneurao/YaneuraOu）のエンジンと局面再生で検証し、解説は書き下ろし。",
+ "goalFormation": "後手桂７六の王手に先手玉が７七へ逃げると、桂８八成で角を取れる。先手玉が８八の成桂を取り返しても、後手は角を持ち駒に加え、先手は桂を持つ。舟囲いの金銀が残るため、これを詰みや必勝とは呼ばない。",
+ "goalLabel": "桂と角を交換し、舟囲いの角を外す",
+ "goalSfen": "ln1gkgsnl/5r1b1/ppp1ppppp/3ps4/2P6/3P5/PP2PPPPP/1KS1G2R1/L2G2SNL w Nb 1",
  "root": {
   "id": "n0",
-  "sfen": "ln1g4l/1ks3g2/1ppp1s2p/6pp1/P3Pp3/2P6/1P1PS1P1P/p1K1GS1R1/LN1G3NL b BN2Prb 1",
-  "comment": "振り飛車側が玉のいる端から△9五歩▲同歩△9八歩としたところ。持ち駒に飛車を持つと、玉側の端を歩で同香と釣り上げて飛車をこちら側から打つ端攻めの手筋が生じます。",
+  "sfen": "ln1gkgsnl/5r1b1/ppp1ppppp/3ps4/2P6/3P5/PP2PPPPP/1BSKG2R1/L2G2SNL w n 1",
+  "comment": "この局面は対局から切り出した記録ではなく、舟囲いの玉６八・銀７八・金６九と５八・角８八を置いた練習用の合成図。後手の飛車４二と持ち桂一枚も明示している。７筋の先手歩は７五まで進み、７六には歩がいない。桂を７六へ打てるか、まず玉への利きを数える。",
   "branches": [
    {
-    "usi": "9i9h",
+    "usi": "N*7f",
     "kind": "main",
-    "note": "▲9八同香と取ると…",
+    "note": "後手桂７六打。桂は６八玉と８八角を同時に狙う。６八玉への王手なので、先手はまず玉の応手が必要。",
     "child": {
      "id": "n_0",
-     "sfen": "ln1g4l/1ks3g2/1ppp1s2p/6pp1/P3Pp3/2P6/1P1PS1P1P/L1K1GS1R1/1N1G3NL w BN3Prb 1",
+     "sfen": "ln1gkgsnl/5r1b1/ppp1ppppp/3ps4/2P6/2nP5/PP2PPPPP/1BSKG2R1/L2G2SNL b - 1",
      "branches": [
       {
-       "usi": "R*9i",
+       "usi": "6h7g",
        "kind": "main",
-       "note": "香が浮いた9九に飛車を打ち込むのが狙い。",
+       "note": "先手玉７七。桂の王手を避け、次の８八で成桂を玉で取り返せる位置へ進む。",
        "child": {
         "id": "n_1",
-        "sfen": "ln1g4l/1ks3g2/1ppp1s2p/6pp1/P3Pp3/2P6/1P1PS1P1P/L1K1GS1R1/rN1G3NL b BN3Pb 1",
+        "sfen": "ln1gkgsnl/5r1b1/ppp1ppppp/3ps4/2P6/2nP5/PPK1PPPPP/1BS1G2R1/L2G2SNL w - 1",
         "branches": [
          {
-          "usi": "7h8h",
+          "usi": "7f8h+",
           "kind": "main",
-          "note": "▲8八玉と逃げても…",
+          "note": "後手桂８八成。７六桂が８八角を取り、敵陣で成る。後手の持ち駒に角が入る。",
           "child": {
            "id": "n_2",
-           "sfen": "ln1g4l/1ks3g2/1ppp1s2p/6pp1/P3Pp3/2P6/1P1PS1P1P/LK2GS1R1/rN1G3NL w BN3Pb 1",
+           "sfen": "ln1gkgsnl/5r1b1/ppp1ppppp/3ps4/2P6/3P5/PPK1PPPPP/1+nS1G2R1/L2G2SNL b b 1",
            "branches": [
             {
-             "usi": "B*7g",
+             "usi": "7g8h",
              "kind": "main",
-             "note": "持ち駒に角(または金銀の金気2枚)があると△7七角の手段が生じます。",
+             "note": "先手玉８八。７七玉が成桂を取り、先手は桂を持ち駒に戻す。桂と角の交換がここで確定する。",
              "child": {
               "id": "n_3",
-              "sfen": "ln1g4l/1ks3g2/1ppp1s2p/6pp1/P3Pp3/2P6/1PbPS1P1P/LK2GS1R1/rN1G3NL b BN3P 1",
-              "branches": [],
-              "comment": "舟囲いは8七の地点や端が弱く、横からの攻めでも7筋の玉には当たりが強くなります。▲9八同香と取らずに▲8八玉でも、歩が多ければ△9九歩成▲同玉△9七歩などの攻めが続きます。"
+              "sfen": "ln1gkgsnl/5r1b1/ppp1ppppp/3ps4/2P6/3P5/PP2PPPPP/1KS1G2R1/L2G2SNL w Nb 1",
+              "branches": [
+               {
+                "usi": "B*4e",
+                "kind": "alt",
+                "note": "後手角４五打。得た角を置くと、５六・６七を通って７八銀に斜線が向くかを確認する。",
+                "child": {
+                 "id": "nb0_0",
+                 "sfen": "ln1gkgsnl/5r1b1/ppp1ppppp/3ps4/2P2b3/3P5/PP2PPPPP/1KS1G2R1/L2G2SNL b N 1",
+                 "branches": [
+                  {
+                   "usi": "7h7g",
+                   "kind": "main",
+                   "note": "先手銀７七。７八銀を一つ前へ進める応手。ただし角４五から７八へは５六・６七・７八の線であり、銀が７七へ動けばその当たりは消える。",
+                   "child": {
+                    "id": "nb0_1",
+                    "sfen": "ln1gkgsnl/5r1b1/ppp1ppppp/3ps4/2P2b3/3P5/PPS1PPPPP/1K2G2R1/L2G2SNL w N 1",
+                    "branches": [],
+                    "comment": "角を持った後でも、どこへ打つかは別問題。銀を動かす余地があり、角打ちだけで舟囲いが崩れたとは言えない。"
+                   }
+                  }
+                 ]
+                }
+               }
+              ],
+              "comment": "後手は持ち桂を使い、角を取って桂を渡した。先手の玉は８八へ移ったが、銀７八・金６九と５八は残る。駒の交換と玉の形を評価し、即詰みとは決めつけない。"
              }
             }
            ]

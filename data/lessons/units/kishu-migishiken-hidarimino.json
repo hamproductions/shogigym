@@ -1,0 +1,145 @@
+{
+  "id": "kishu-migishiken-hidarimino",
+  "order": 1370,
+  "path": ["戦法・定跡", "奇襲対策"],
+  "title": {
+    "ja": "左美濃から四筋を動かす条件",
+    "en": "When to open the fourth file from Left Mino"
+  },
+  "intro": {
+    "ja": "右四間飛車では飛車を４筋へ置き、左美濃では８八玉を７八銀・６九金・５八金で囲います。この組み合わせでも、歩を交換する順番と角道の変化を見ずに仕掛けることはできません。４筋を支える駒、玉の斜線、桂の着地点を別々の局面で確かめます。",
+    "en": "Right Fourth File Rook places Sente's rook on the fourth file; Left Mino shelters K8h with S7h, G6i and G5h. The combination still needs a checked move order. These positions separate rook support on the fourth file, a bishop diagonal toward the king, and the knight's landing square."
+  },
+  "check": {
+    "question": {
+      "ja": "３七桂を４五へ跳ねる前に、後手の５三銀がどこへ動くと３三の桂取りが成立し、どこへ動くと取り返されるかを確認する理由は？",
+      "en": "Before jumping N3g–4e, why should Sente inspect whether Gote's S5c moves to 6d or 4d?"
+    },
+    "answer": {
+      "ja": "桂の３三への着地点を守る駒が変わるからです。第三章では△６四銀なら▲３三桂成で歩を取れますが、△４四銀なら▲３三桂成に△同銀があります。どちらも後手の任意の応手です。",
+      "en": "Those silver squares change the recapture on 3c. In chapter three, S5c–6d permits N4e×3c+ to take the pawn, while S5c–4d allows S4d×3c after that capture. Both are optional Gote replies."
+    }
+  },
+  "references": [
+    {
+      "title": "右四間飛車左美濃の定跡",
+      "url": "https://shogi-joutatsu.com/archives/4961",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": { "ja": "歩を取らせて飛車を四筋へ出す", "en": "Support the fourth-file pawn with a rook lift" },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1r7/5p3/9/9/4SP3/1P4N2/1KS1GR3/3G5 b Bb 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手は８八玉・７八銀・６九金・５八金の左美濃、４八飛・５六銀・３七桂の攻撃陣です。角交換済みで双方が角を持ち、先手４六歩と後手４三歩が残っています。４五には５六銀と３七桂の利きがあります。",
+            "en": "Sente has the Left Mino core K8h, S7h, G6i, G5h, with R4h, S5f and N3g ready on the right. Bishops have been exchanged. Sente's P4f faces Gote's P4c, and S5f plus N3g both control 4e."
+          },
+          "marks": { "boxes": ["8h", "7h", "6i", "5h", "4h", "4e", "5f", "3g"] }
+        },
+        {
+          "moves": ["4f4e", "4c4d", "4h4f"],
+          "text": {
+            "ja": "▲４五歩に後手が△４四歩と受けた一例です。▲４六飛は４六の歩が前へ出た後なので指せます。飛車を歩の直後に置き、後手が４五歩を取るかどうかを問います。後手は別の受け方も選べます。",
+            "en": "After P4f–4e, this sample has Gote answer P4c–4d. Sente can lift R4h–4f because P4f has vacated that square. The rook now sits behind P4e and asks whether Gote will capture it; Gote has other replies."
+          },
+          "marks": { "arrows": ["4h4f"], "boxes": ["4e", "4d"] }
+        },
+        {
+          "moves": ["4d4e", "4f4e"],
+          "text": {
+            "ja": "△４五歩で先手歩を取るなら▲同飛で後手歩を取り返します。４五飛は５六銀と３七桂に守られています。ただし後手が角を持つ盤面なので、この交換だけで飛車の安全や優勢を断定できません。",
+            "en": "If P4d×4e takes Sente's pawn, R4f×4e recaptures Gote's pawn. S5f and N3g protect the rook on 4e. Gote still has a bishop in hand, so the exchange alone does not prove the rook is safe or that Sente is better."
+          },
+          "marks": { "arrows": ["4f4e"], "last": "4e", "boxes": ["5f", "3g"] }
+        }
+      ]
+    },
+    {
+      "title": { "ja": "角が７七を離れると玉への線が変わる", "en": "A bishop move changes the king's diagonal" },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/9/9/9/5P3/2B3N2/1KS1GR3/3G5 b b 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "左美濃の８八玉の前には７七角があります。後手は角を持っていますが、７七角がいる間は５五へ打つ角の斜線が６六・７七で止まります。攻めのために角を動かす前に、後手の角打ちを数えます。",
+            "en": "B7g stands in front of Sente's K8h. Gote has a bishop in hand, but a bishop dropped on 5e would meet Sente's bishop at 7g along 6f and 7g before reaching the king. Moving B7g changes that line."
+          },
+          "marks": { "boxes": ["5e", "6f", "7g", "8h"] }
+        },
+        {
+          "moves": ["7g8f", "B*5e"],
+          "text": {
+            "ja": "▲８六角と移ると７七が空き、ここで△５五角打は６六・７七を通る８八玉への王手です。角を移った手そのものが悪いと決まったわけではなく、後手が角を持ち、途中が空いた場合に生じる王手です。",
+            "en": "After B7g–8f, B*5e checks K8h through the newly empty 6f and 7g. This does not condemn every bishop move; it shows the check available when Gote holds a bishop and those intermediate squares are open."
+          },
+          "marks": { "arrows": ["7g8f"], "boxes": ["5e", "8h"] }
+        },
+        {
+          "moves": ["7h7g"],
+          "text": {
+            "ja": "▲７七銀で角の斜線に合駒できます。銀は５五角に狙われますが、王手を受ける合法手です。角打ちを即勝ちと見ず、７七の銀を取る手と玉の取り返しまで確かめます。",
+            "en": "S7h–7g interposes on the bishop's line and answers the check. The silver can be attacked, so the drop is not an automatic win; the next capture and king recapture must also be counted."
+          },
+          "marks": { "arrows": ["7h7g"], "last": "7g" }
+        },
+        {
+          "moves": ["5e7g+", "8h7g"],
+          "text": {
+            "ja": "この一例で△７七角成と銀を取れば▲同玉で馬を取れます。後手は別の継続を選べるため、銀合いが万能とは言えません。先手は角道を開ける際、この受けまで含めて時間を計ります。",
+            "en": "If Gote chooses B5e×7g+, K8h×7g takes the horse in this sparse position. Gote has other continuations, so interposing the silver is not a universal defense. The lesson is to budget for this check before moving the bishop."
+          },
+          "marks": { "arrows": ["8h7g"], "last": "7g" }
+        }
+      ]
+    },
+    {
+      "title": { "ja": "４五桂の後は銀の位置で３三を数える", "en": "Count the recapture after the knight reaches 4e" },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1r7/4s1p2/9/9/3PSP3/1PB3N2/1KS1GR3/3G5 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手は左美濃を保ち、４八飛・５六銀・３七桂を使います。６六歩が７七角の斜線を止めているため、３三歩を角で直接取る形ではありません。３七桂は４五へ跳べ、そこから３三と５三を狙います。",
+            "en": "Sente keeps the Left Mino core and has R4h, S5f and N3g ready. P6f blocks B7g's route toward 3c, so the bishop is not already attacking that pawn. N3g can jump to 4e and then target 3c and 5c."
+          },
+          "marks": { "boxes": ["6f", "7g", "3g", "4e", "3c", "5c"] }
+        },
+        {
+          "moves": ["3g4e"],
+          "text": {
+            "ja": "▲４五桂は３三歩に当たりますが、桂が歩を取れるかは後手５三銀の移動先で変わります。後手の応手を一つに決めつけず、二つの移動先を比べます。",
+            "en": "N3g–4e attacks P3c, but the value of that threat depends on Gote's S5c. Compare two optional silver moves rather than assuming one forced reply."
+          },
+          "marks": { "arrows": ["3g4e"], "boxes": ["5c", "3c"] }
+        },
+        {
+          "moves": ["5c6d", "4e3c+"],
+          "text": {
+            "ja": "△６四銀と離れた場合は▲３三桂成で歩を取れます。６四銀は３三に届かないので、この図では成桂をすぐ取り返せません。ただし△６四銀は後手の任意の一手で、この順だけで優勢とは決まりません。",
+            "en": "If Gote chooses S5c–6d, N4e×3c+ takes the pawn. The silver on 6d cannot recapture on 3c in this position. That silver move is optional, and this pawn gain alone does not establish an advantage."
+          },
+          "marks": { "arrows": ["4e3c"], "last": "3c" }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": ["5c4d", "4e3c+", "4d3c"],
+          "text": {
+            "ja": "後手が△４四銀と出れば、▲３三桂成で歩を取っても△同銀で成桂を取られます。４四銀は３三へ斜め後ろに戻れます。先手は桂の交換を選ぶ必要はありません。",
+            "en": "If Gote instead plays S5c–4d, N4e×3c+ takes the pawn but S4d×3c captures the promoted knight. The silver can move diagonally back from 4d to 3c. Sente need not choose this exchange."
+          },
+          "marks": { "arrows": ["4d3c"], "last": "3c" }
+        }
+      ]
+    }
+  ]
+}

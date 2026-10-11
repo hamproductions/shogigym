@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs'
+import { readFileSync, realpathSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { reactRouter } from '@react-router/dev/vite'
 import { defineConfig, type Plugin } from 'vite'
@@ -44,6 +44,6 @@ export default defineConfig({
       },
     },
   },
-  server: { headers: crossOriginIsolation },
+  server: { headers: crossOriginIsolation, fs: { allow: ['.', realpathSync('node_modules')] } },
   preview: { headers: crossOriginIsolation },
 })

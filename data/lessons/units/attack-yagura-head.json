@@ -1,0 +1,105 @@
+{
+  "id": "attack-yagura-head",
+  "order": 410,
+  "path": ["上達のためのテクニック", "囲い崩し"],
+  "title": {
+    "ja": "矢倉の玉頭と端を攻める前に守備駒を数える",
+    "en": "Count the Defenders Before Pressing a Yagura Head or Edge"
+  },
+  "intro": {
+    "ja": "矢倉の玉頭を攻めるときは、歩の交換後に同じ筋へ入れる駒と、その駒を取る銀を確かめます。端では、歩の交換が飛車の侵入路になるかを調べます。どちらも相手の応手が一つに決まるわけではありません。新しい局所図で、攻めが働く条件と、準備に一手かけたときの守り手を比べます。",
+    "en": "At the king's head, check which piece can enter after a pawn exchange and whether a silver can recapture it. At the edge, ask whether that exchange opens a rook route. Neither defender response is forced. These new local positions compare an active attack with the defensive tempo that an extra preparation move allows."
+  },
+  "check": {
+    "question": {
+      "ja": "玉頭の歩を交換する前に、攻める側は何を確認しますか？",
+      "en": "What should the attacker verify before exchanging pawns at the king's head?"
+    },
+    "answer": {
+      "ja": "歩が消えた筋を後続の香車などが使えるか、その駒を取る守備駒にさらに取り返せるかを確認します。相手が歩を取らない手や、先に攻め駒を狙う手も検討します。",
+      "en": "Check whether the cleared file gives a following piece an entry square and whether you can recapture a defender that takes it. Also examine a declined pawn capture or a move that attacks your supporting piece first."
+    }
+  },
+  "references": [
+    {
+      "title": "矢倉囲い崩しの手筋② 玉頭攻めと端攻め",
+      "url": "https://shogi-joutatsu.com/archives/2313",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "７筋の香車を角で支えて銀と交換する",
+        "en": "Support a seventh-file lance with the bishop"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "9/2kg5/2psg4/9/2P6/9/5B3/2L6/8K b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手玉７二の内側では金６二・５三が斜めにつながり、銀６三が玉頭を守ります。先手の歩７五を交換すれば、香車７八が７筋を上がれます。銀６三は香車７四を取れるため、角４七の斜め筋が７四に通るかが大切です。",
+            "en": "Inside Gote's king on ７二, the golds on ６二 and ５三 form a diagonal connection, with a silver on ６三 covering the head. Exchanging Sente's pawn on ７五 can clear the seventh file for the lance on ７八. Because the silver can take a lance on ７四, check the bishop's diagonal from ４七 to that square."
+          }
+        },
+        {
+          "moves": ["7e7d", "7c7d", "7h7d", "6c7d", "4g7d"],
+          "text": {
+            "ja": "▲７四歩を△同歩と取った例では、▲同香が７筋から玉に王手します。△同銀なら▲同角で銀を取り、角７四が香車のいたマスを占めます。この局面では香車と銀の交換です。後手が歩を取らない応手もあり、この交換は強制ではありません。",
+            "en": "If Gote accepts ▲７四歩 with △同歩, ▲同香 checks along the seventh file. After the sample △同銀, ▲同角 captures that silver and occupies the lance's former square. This line exchanges a lance for a silver. Gote can decline the pawn capture, so the exchange is not forced."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "９筋の交換を飛車の成り込みに変える",
+        "en": "Turn a ninth-file exchange into rook entry"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "9/2kg5/p2sg4/9/P8/9/9/R8/8K b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手玉７二の内側に金６二・５三と銀６三があり、外側の端には歩９三があります。先手の歩９五と飛車９八が同じ筋に並びます。端の歩を交換できれば、９筋を飛車が上がる余地ができます。",
+            "en": "Gote's king on ７二 has golds on ６二 and ５三 and a silver on ６三 toward the center, with a pawn on the ninth-file edge. Sente's pawn on ９五 and rook on ９八 share that file. A pawn exchange can clear a path for the rook."
+          }
+        },
+        {
+          "moves": ["9e9d", "9c9d", "9h9d", "6b7c", "9d9c+"],
+          "text": {
+            "ja": "▲９四歩に△同歩なら▲同飛で端の歩を取ります。後手が玉頭を補強する△７三金を選んだ例では、▲９三飛成が８三を通してその金を横から狙います。ただし金７三は玉７二に守られ、龍でただで取れるわけではありません。どちらの後手の応手も一例です。",
+            "en": "If Gote answers ▲９四歩 with △同歩, ▲同飛 takes the edge pawn. In this sample Gote reinforces the king's head with △７三金; ▲９三飛成 then attacks that gold across ８三. The king on ７二 protects the gold on ７三, so the dragon cannot take it for free. Both Gote replies are examples."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "準備の一手で玉頭の歩を狙われる",
+        "en": "An extra preparation move exposes the head pawn"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "9/2kg5/2psg4/9/2P6/9/5B3/2L6/8K b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "７筋の歩を押せる同じ局面です。角の位置を変えてから攻めると、後手は金５三を６四へ出す時間を得ます。金が７四への取り返しにも加われるかを、同じ交換手順で確認します。",
+            "en": "This is the same position in which Sente can push the seventh-file pawn. If Sente first repositions the bishop, Gote has time to move the gold from ５三 to ６四. Replay the exchange to see whether that gold can join the recaptures on ７四."
+          }
+        },
+        {
+          "moves": ["4g5f", "5c6d", "7e7d", "7c7d", "7h7d", "6c7d", "5f7d", "6d7d"],
+          "text": {
+            "ja": "▲５六角に△６四金と進む一例です。この金は歩７五を狙うだけでなく、７四にも横から利きます。同じ歩交換から▲同香、△同銀、▲同角と進めても、△同金で角を取られます。歩同士は消え、先手は香車と角を失って銀一枚を得るため、最初の攻めとは収支が変わります。△６四金も歩の取り方も後手の選択です。",
+            "en": "One sample is ▲５六角 △６四金. The gold threatens the pawn on ７五 and also controls ７四 sideways. After the same pawn exchange, ▲同香 △同銀 ▲同角 is now met by △同金, which takes the bishop. Both pawns have gone; Sente has spent a lance and bishop for one silver, a different material result from the immediate attack. Gote's gold move and pawn captures are sample choices."
+          }
+        }
+      ]
+    }
+  ]
+}

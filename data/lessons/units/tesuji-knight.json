@@ -1,0 +1,157 @@
+{
+  "id": "tesuji-knight",
+  "order": 210,
+  "path": ["上達のためのテクニック", "手筋"],
+  "title": {
+    "ja": "桂の着地点から次の一手を読む",
+    "en": "Read Beyond the Knight's Landing Square"
+  },
+  "intro": {
+    "ja": "桂は前へ二段、横へ一筋の二か所に跳び、途中の駒を越えます。真前や後ろには動けません。成桂になると金と同じ一マスの動きに変わり、跳ぶ力はなくなります。着地点を選ぶときは、取れる駒だけでなく、そこを守る駒と次の桂の利きを一緒に調べましょう。持ち桂は動けなくなる最終二段には打てません。",
+    "en": "A knight jumps two ranks forward and one file sideways, passing over pieces between. It cannot step straight ahead or retreat. After promotion it moves one square like a gold and no longer jumps. Before choosing a landing square, examine its defender and the knight's next targets, not only the piece it can take now. A knight in hand cannot be dropped on either of the last two ranks."
+  },
+  "check": {
+    "question": {
+      "ja": "桂が敵陣三段目へ跳ねられるとき、成るかどうかを何で決めますか？",
+      "en": "When a knight can land on the third rank, how do you decide whether to promote?"
+    },
+    "answer": {
+      "ja": "成桂の一マスの利きと、不成の桂が次に跳べる二か所を比べます。次の跳躍で取る駒があるなら、成らない選択も検討します。",
+      "en": "Compare the promoted knight's one-square reach with the two squares the unpromoted knight can jump to next. If a valuable target lies on a next jump, consider declining promotion."
+    }
+  },
+  "references": [
+    {
+      "title": "桂馬の動き、手筋と使い方",
+      "url": "https://shogi-joutatsu.com/archives/1331",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "味方の歩を越えて銀を取る",
+        "en": "Jump over your pawn to take a silver"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k8/9/9/9/4s4/3P5/3N5/9/8K b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手の桂６七と後手の銀５五の間には味方の歩６六がいます。歩が前をふさいでいても、桂はその上を越えて５五へ跳べます。桂の着地点を二か所とも盤上で探してください。",
+            "en": "Sente's pawn on ６六 stands between the knight on ６七 and Gote's silver on ５五. That pawn blocks a sliding piece, but a knight jumps over it. Locate both landing squares before choosing the silver capture."
+          }
+        },
+        {
+          "moves": ["6g5e"],
+          "text": {
+            "ja": "▲５五桂で銀を取りました。６七からは５五と７五が桂の着地点です。６六の歩は移動の邪魔にならず、真前の６五へ桂は進めません。",
+            "en": "▲５五桂 takes the silver. From ６七 the knight could land on ５五 or ７五; the pawn on ６六 does not block either jump, and ６五 straight ahead is not a knight move."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "次の跳躍を残して成らない",
+        "en": "Decline promotion to keep the next jump"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k5r2/9/9/9/4N4/9/9/9/8K b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "桂５五から４三へ跳ぶと、敵陣三段目なので成るか不成かを選べます。後手の飛車３一へ次に跳ぶ利きを残したいなら、４三では成らない手を考えます。飛車が逃げる応手もあるため、捕獲を確定とは数えません。",
+            "en": "A knight on ５五 can jump to ４三, where promotion is optional. Remaining unpromoted preserves a later jump to Gote's rook on ３一. The rook may move away, so this is a threat rather than a guaranteed capture."
+          }
+        },
+        {
+          "moves": ["5e4c"],
+          "text": {
+            "ja": "▲４三桂不成。ここで成ると金の動きになり、３一の飛車へ跳べなくなります。後手が別の場所を動かした場合の続きも見ます。",
+            "en": "▲４三桂不成 keeps the knight's jump. Promoting here would change it to gold movement and remove the route to the rook on ３一. Follow a line where Gote moves elsewhere."
+          }
+        },
+        {
+          "moves": ["9a9b"],
+          "text": {
+            "ja": "△９二玉。この応手では飛車３一が残りました。桂は４三から３一へ跳べます。",
+            "en": "△９二玉 leaves the rook on ３一. The unpromoted knight can still jump from ４三 to that square."
+          }
+        },
+        {
+          "moves": ["4c3a+"],
+          "text": {
+            "ja": "▲３一桂成で飛車を取りました。最終段への桂の移動では成りが必要です。４三で成らず、次の跳躍で成る順を区別します。",
+            "en": "▲３一桂成 captures the rook. A knight moving onto the last rank must promote. Distinguish declining promotion on ４三 from promoting on the later capture."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "玉から離れた場所で王手する",
+        "en": "Check from beyond the king's reach"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "9/6k2/9/9/9/9/9/9/K8 b N 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手玉３二に対し、桂を４四へ打てば二段先の３二へ利きが届きます。桂は玉の隣にいないため、玉がその場で桂を取ることはできません。ただし、逃げ道が残るなら詰みとは呼びません。",
+            "en": "Against the king on ３二, a knight dropped on ４四 attacks from two ranks away. The king cannot capture the knight from its current square because the knight is not adjacent. This is check, but it is not mate if the king can escape."
+          }
+        },
+        {
+          "moves": ["N*4d"],
+          "text": {
+            "ja": "▲４四桂で王手です。桂が利くのは３二と５二の二か所。後手玉が隣の２二へ逃げられるか確かめます。",
+            "en": "▲４四桂 checks the king. The knight attacks ３二 and ５二; check whether the king can move to the neighboring square ２二."
+          }
+        },
+        {
+          "moves": ["3b2b"],
+          "text": {
+            "ja": "△２二玉と逃げられました。桂の離れた王手は有効でも、この配置では詰みではありません。王手の後は玉の合法な逃げ先まで確認します。",
+            "en": "△２二玉 escapes. The distant knight check worked, but it did not mate in this position. After giving check, inspect the king's legal destinations."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "取れる歩の後ろにいる金を読む",
+        "en": "See the gold behind the capturable pawn"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k8/9/5g3/4p4/9/3N5/9/9/8K b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "桂６六から５四の歩を取れます。しかし後手の金４三は５四へ利いています。歩一枚だけを見て跳ぶ前に、着地点を守る金の応手を読みます。",
+            "en": "The knight on ６六 can jump to take Gote's pawn on ５四. Gote's gold on ４三 also reaches ５四. Before jumping for one pawn, calculate the gold's reply on the landing square."
+          }
+        },
+        {
+          "moves": ["6f5d"],
+          "text": {
+            "ja": "▲５四桂で歩を取りました。後手の手番になり、４三の金の利きは５四に残っています。歩を取った桂をすぐに動かすことはできません。",
+            "en": "▲５四桂 captures the pawn. It is now Gote's turn, and the gold on ４三 still attacks ５四. Sente cannot move the knight away before Gote replies."
+          }
+        },
+        {
+          "moves": ["4c5d"],
+          "text": {
+            "ja": "△５四金で桂を取られました。桂は障害物を越えられますが、着地点で相手の利きから逃れる特別な動きはありません。",
+            "en": "△５四金 captures the knight. Jumping over intervening pieces does not protect the knight once it lands on a defended square."
+          }
+        }
+      ]
+    }
+  ]
+}

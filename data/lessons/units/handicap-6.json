@@ -1,0 +1,163 @@
+{
+  "id": "handicap-6",
+  "order": 1440,
+  "path": ["戦法・定跡", "駒落ち"],
+  "title": {
+    "ja": "六枚落ち：端の守り駒を数える",
+    "en": "Six-Piece Handicap: Count the Edge Defenders"
+  },
+  "intro": {
+    "ja": "六枚落ちの上手は飛車・角・左右の桂・香を外すが、銀二枚と金二枚、玉、歩は残る。上手が先に指す。端に桂香がなくても銀は端を守れるので、下手は歩・飛車・角が通る筋と銀の利きを一手ごとに照合する。",
+    "en": "In a six-piece handicap, Gote removes the rook, bishop, both knights and both lances, but retains both silvers, both golds, the king and all pawns. Gote moves first. Missing edge pieces do not leave the edge undefended: Sente must compare pawn, rook and bishop lines against the remaining silvers on each move."
+  },
+  "check": {
+    "question": {
+      "ja": "第三章で上手の３三歩が３四へ動くと、下手の５五角は２二を見られる。そこで上手銀が３一から２二へ出る手を無条件の受けにできないのはなぜか。",
+      "en": "In chapter three, Gote's pawn leaves 3c for 3d, opening B5e's line to 2b. Why cannot Gote use S3a–2b as an unconditional edge defense?"
+    },
+    "answer": {
+      "ja": "角筋の４四・３三が空き、▲２二角成で２二銀を取れるから。上手が△３二金と馬を追う手はあるが、銀を取らせた後なので守りの成功とはいえない。△４二銀のような別の移動を局面ごとに比べる。",
+      "en": "With 4d and 3c empty, B2b+ captures the silver on 2b. Gote may chase the horse with G3b, but that does not undo the silver loss. Compare another silver move, such as S4b, in the actual position."
+    }
+  },
+  "references": [
+    {
+      "title": "6枚落ち定跡",
+      "url": "https://shogi-joutatsu.com/archives/4779",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "上手の初手から銀の端守りを見つける",
+        "en": "See the Silver's Edge Defense from Gote's First Move"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "2sg1gs2/3k5/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "上手が５一玉を６二へ動かした直後。上手には７一銀と３一銀が残り、持ち駒にも落とした六枚はない。下手はまだ７七歩で角、２七歩で飛車を塞いでいる。香桂が端にないだけで突破とは決めない。",
+            "en": "Gote has made the first move, K5a–6b. Its silvers remain on 7a and 3a; the six removed pieces are not in hand. Sente's P7g and P2g still block the bishop and rook. The absence of Gote's lances and knights alone does not prove an edge breakthrough."
+          },
+          "marks": { "boxes": ["7a", "3a", "7g", "2g"] }
+        },
+        {
+          "moves": ["2g2f", "1c1d", "7g7f"],
+          "text": {
+            "ja": "▲２六歩で飛車の前を開け、後手が１筋の歩を進めた例で▲７六歩と角道も開ける。下手の大駒を使う準備と、上手が端の升を変える一手を同時に見る。",
+            "en": "P2f clears the rook's file. After Gote's sample P1d, P7f also opens the bishop's diagonal. Sente is activating major pieces while Gote changes the edge contact."
+          },
+          "marks": { "arrows": ["7g7f"], "boxes": ["1d", "3a"] }
+        },
+        {
+          "moves": ["3a2b", "8h7g"],
+          "text": {
+            "ja": "△２二銀なら上手銀は１三へ利く。▲７七角で角を使えるようにしても、１筋の守りは消えていない。上手は銀を２二へ出す代わりに別の駒組みも選べる。",
+            "en": "If Gote develops S2b, that silver covers 1c. B7g develops Sente's bishop, but it does not remove the edge defender. Gote can choose another silver move instead."
+          },
+          "marks": { "arrows": ["8h7g"], "boxes": ["2b", "1c"] }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "１筋の歩と飛車を同じ線に置く",
+        "en": "Keep the Edge Pawn and Rook on One Line"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "2sg1g3/3k3s1/ppppppppp/9/9/2P5P/PPBPPPPP1/8R/LNSGKGSNL b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "下手は１八飛の前に１六歩を置き、上手は２二銀で１三を守る。７七角は使えるが、現在の角筋は３三歩で止まる。１筋だけの歩交換でも、銀がどこへ出るかで飛車の使い方が変わる。",
+            "en": "Sente has R1h behind P1f; Gote's S2b covers 1c. B7g is developed, but Gote's P3c blocks its current diagonal. Even a simple edge-pawn exchange changes with the silver's destination."
+          },
+          "marks": { "boxes": ["1h", "1f", "2b", "1c", "3c"] }
+        },
+        {
+          "moves": ["1f1e", "1c1d", "1e1d"],
+          "text": {
+            "ja": "▲１五歩に△１四歩と合わせる例なら▲同歩。下手は上手の歩を取るが、次に２二銀が１三へ進める。歩が１四にある間は飛車の前もまだふさがる。",
+            "en": "If Gote meets P1e with P1d, P1d takes that pawn. Sente has gained Gote's edge pawn, but S2b can move to 1c. Sente's own pawn on 1d still stands in front of the rook."
+          },
+          "marks": { "arrows": ["1e1d"], "boxes": ["1d", "2b"] }
+        },
+        {
+          "moves": ["2b1c", "1h1e"],
+          "text": {
+            "ja": "△１三銀なら▲１五飛と歩の後ろへ近づく。銀が１四歩を取れば飛車が銀を取り返せるが、銀には１筋を離れて飛車を攻める移動もある。",
+            "en": "Against S1c, R1e moves closer behind the pawn. If the silver takes P1d, the rook can recapture it; the silver can also leave the file and attack the rook instead."
+          },
+          "marks": { "arrows": ["1h1e"], "boxes": ["1c", "1d", "1e"] }
+        },
+        {
+          "moves": ["1c2d", "1e1h"],
+          "text": {
+            "ja": "例の△２四銀は１五飛へ利くので、▲１八飛と引く。１四歩は残り、上手銀は２四へ進んだ。下手が歩を取った事実だけで、攻めが続くとはいえない。",
+            "en": "S2d attacks R1e, so the sample rook retreats to 1h. Sente keeps P1d, while Gote's silver has advanced to 2d. Winning one pawn does not settle the ensuing attack."
+          },
+          "marks": { "arrows": ["1e1h"], "boxes": ["2d", "1d"] }
+        }
+      ],
+      "variations": [
+        {
+          "from": 2,
+          "moves": ["1c1d", "1e1d", "4a3b", "1d1c+"],
+          "text": {
+            "ja": "△１四銀と歩を取る分岐なら▲同飛で銀を取れる。例の△３二金の後は▲１三飛成で龍になる。ただし△１四銀と△３二金を上手が選んだ場合であり、成りを強制できるという意味ではない。",
+            "en": "If Gote chooses S1d to capture the pawn, R1d takes the silver. After the sample G3b, R1c+ promotes. The sequence depends on both optional Gote replies; Sente cannot force this promotion from the starting position."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "角筋が開く前後で銀の退路を比べる",
+        "en": "Recount the Silver's Route When the Bishop Line Opens"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "2sg1gs2/3k5/ppppppppp/9/4B3P/2P3P2/PP1PPP1P1/8R/LNSGKGSNL b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "下手は５五角・３六歩・１五歩・１八飛。上手の３三歩が５五角から２二への斜線を塞ぎ、３一銀はまだ２二へ移れる。１筋を進める前に、３筋の歩で角筋が変わるかを確認する。",
+            "en": "Sente has B5e, P3f, P1e and R1h. Gote's P3c blocks the bishop line to 2b, so S3a can currently consider that square. Check how the third-file pawn contact changes the line before committing further on the edge."
+          },
+          "marks": { "boxes": ["5e", "3c", "3a", "2b", "1e"] }
+        },
+        {
+          "moves": ["3f3e", "3c3d", "3e3d"],
+          "text": {
+            "ja": "▲３五歩に△３四歩と合わせる例なら▲同歩で上手の歩を取る。３三が空いたので、５五角から４四・３三・２二へ斜線が通る。ここで上手銀が２二へ行くと角に取られる。",
+            "en": "If Gote meets P3e with P3d, P3d takes the pawn. Vacating 3c opens B5e's diagonal through 4d and 3c to 2b. A silver moved to 2b would then be capturable by the bishop."
+          },
+          "marks": { "arrows": ["3e3d"], "boxes": ["3c", "2b"] }
+        },
+        {
+          "moves": ["3a4b", "1e1d", "1c1d", "1h1d"],
+          "text": {
+            "ja": "後手が△４二銀と角筋を避ける例では、▲１四歩△同歩▲同飛と１筋の歩を交換できる。飛車はまだ１四で、上手の金銀も盤上に残る。角が２二を見ていることと、端の突破が確定することは別である。",
+            "en": "With the sample S4b avoiding the bishop line, P1d, P1d and R1d exchange edge pawns. The rook is still on 1d and Gote retains its golds and silvers. Control of 2b does not by itself guarantee an edge breakthrough."
+          },
+          "marks": { "arrows": ["1h1d"], "boxes": ["2b", "1d"] }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": ["3a2b", "5e2b+", "4a3b", "2b5e"],
+          "text": {
+            "ja": "角筋が開いた後で△２二銀を選ぶなら▲同角成で銀を取れる。後手は△３二金で馬を追えるが、▲５五馬と引ける。銀を取れたのは後手が２二へ銀を置いた場合だけ。",
+            "en": "If Gote instead puts the silver on 2b after the diagonal opens, B2b+ captures it. G3b can chase the horse, which retreats to 5e. That silver gain depends on Gote voluntarily choosing S2b."
+          }
+        }
+      ]
+    }
+  ]
+}

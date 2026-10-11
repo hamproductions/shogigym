@@ -1,0 +1,158 @@
+{
+  "id": "ureshino-vs-shiken",
+  "order": 1410,
+  "path": [
+    "戦法・定跡",
+    "嬉野流"
+  ],
+  "title": {
+    "ja": "嬉野流対四間飛車：接点を選ぶ",
+    "en": "Ureshino versus Fourth File Rook: Choose the Contact"
+  },
+  "intro": {
+    "ja": "嬉野流の左銀を５七へ使った形でも、銀をさらに進める前に四間飛車の歩・飛車・角がどの升に利いているかを数える。四筋の歩交換、角道が開く瞬間、七筋の歩が角の動きを妨げるかどうかを、局面ごとに判断する。",
+    "en": "With the Ureshino left silver developed to 5g, count the squares controlled by the Fourth File Rook's pawn, rook and bishop before advancing that silver again. Judge the fourth-file exchange, the moment a bishop diagonal opens, and whether the seventh-file pawn obstructs a recapture in the actual position."
+  },
+  "chapters": [
+    {
+      "title": {
+        "ja": "四筋の歩を飛車で受ける",
+        "en": "Meet the Fourth-File Pawn with the Rook"
+      },
+      "start": "4k4/5r1b1/4s4/5p3/9/4P2P1/2P1SP3/1B5R1/3GKG3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手の飛車は四筋、歩は４四。先手の４七歩を前から守る駒はない。王を６八へ寄せてから、２八の飛車を４八へ回せるか確かめる。７七歩は後手角の８八への直線も遮っている。",
+            "en": "Gote's rook sits on the fourth file behind the pawn on 4d. Sente's pawn on 4g has no frontal defender. Move the king to 6h, then test whether the rook can shift from 2h to 4h. The pawn on 7g also blocks Gote's bishop line to 8h."
+          }
+        },
+        {
+          "moves": [
+            "5i6h",
+            "4d4e",
+            "2h4h"
+          ],
+          "text": {
+            "ja": "△４五歩なら▲４八飛。４七歩の後方に飛車を置き、後手が歩を進めるかどうかを見る。角道の遮断に使う７七歩はまだ動かさない。",
+            "en": "If Gote advances P4e, R4h puts the rook behind Sente's 4g pawn. Wait to see whether Gote pushes again; leave the 7g pawn in place as a bishop-line screen."
+          }
+        },
+        {
+          "moves": [
+            "4e4f",
+            "4g4f",
+            "4b4f",
+            "4h4f"
+          ],
+          "text": {
+            "ja": "後手がさらに△４六歩と進め、歩を取り合い、△同飛まで選んだ場合の一例。▲同飛で後手飛車を取れる。後手には途中で別の手もあるので、歩の前進だけで飛車が取れるわけではない。",
+            "en": "This is one possible continuation if Gote pushes P4f, exchanges pawns, and chooses R4f. Sente can then capture that rook with R4f. Gote has alternatives before the rook capture; the pawn advance alone does not guarantee a rook gain."
+          }
+        }
+      ],
+      "side": "sente",
+      "kind": "position"
+    },
+    {
+      "title": {
+        "ja": "角道が開いた後の交換",
+        "en": "Exchange Only After the Diagonal Opens"
+      },
+      "start": "9/1k3r1s1/6b2/5p3/9/2P1P2P1/2B1S4/3KG2R1/3G5 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "７七角と３三角は４四歩に隔てられている。先手が２筋を伸ばしても、その一手で角交換は成立しない。後手が４筋の歩を動かした場合だけ、７七角の斜線を数え直す。",
+            "en": "The pawn on 4d separates Sente's bishop on 7g from Gote's bishop on 3c. Advancing the rook-file pawn does not itself enable an exchange. Recount the diagonal only if Gote moves the fourth-file pawn."
+          }
+        },
+        {
+          "moves": [
+            "2f2e",
+            "4d4e",
+            "7g3c+",
+            "2b3c"
+          ],
+          "text": {
+            "ja": "△４五歩を選ぶと４四が空き、▲３三角成で後手角を取れる。ただし後手の２二銀が△同銀と取り返す。互いに角を手にする交換であり、▲２五歩や角交換だけから優劣は決まらない。",
+            "en": "If Gote chooses P4e, 4d becomes empty and B3c+ takes Gote's bishop. Gote's silver on 2b recaptures the horse. Both sides acquire a bishop in hand; neither P2e nor this exchange alone establishes an advantage."
+          }
+        }
+      ],
+      "side": "sente",
+      "kind": "position"
+    },
+    {
+      "title": {
+        "ja": "７筋の歩で角の取り返しを変える",
+        "en": "Use the Seventh-File Pawn to Enable Recapture"
+      },
+      "start": "9/1k3r3/4s1b2/5p3/9/4P2P1/2P1S4/1BK1G2R1/3G5 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手角は８八、銀は５七。７七歩があるまま銀を６六へ出すと、角は７七を通れず６六を守れない。先に７六歩と動かせば、後手の４四歩が動いて角道が開いた局面で、角による取り返しを用意できる。",
+            "en": "Sente's bishop is on 8h and the silver on 5g. With the pawn still on 7g, the bishop cannot pass through 7g to protect a silver on 6f. Moving P7f first prepares a bishop recapture if Gote's 4d pawn later vacates the diagonal."
+          }
+        },
+        {
+          "moves": [
+            "7g7f",
+            "4d4e",
+            "5g6f"
+          ],
+          "text": {
+            "ja": "△４五歩で後手角の３三―６六の斜線が開く。そこで銀を６六に置くなら、７七が空いた先手角の８八―７七―６六の利きも確認する。角による取り返しがあるだけで、銀の進出が必ず得とはいえない。",
+            "en": "P4e opens Gote's bishop diagonal from 3c toward 6f. If Sente places the silver on 6f, the now-empty 7g square lets the bishop on 8h support that silver. The possible recapture does not, by itself, make the silver advance profitable."
+          }
+        },
+        {
+          "moves": [
+            "3c6f",
+            "8h6f"
+          ],
+          "text": {
+            "ja": "後手が△６六角と銀を取る場合は▲同角。先手は銀を失う一方で後手角を取り、後手は先手銀を手にする。この交換を選ぶ前に、角を６六に置いた後の飛車筋と王の安全を調べる。",
+            "en": "If Gote chooses B6f to take the silver, Sente replies B6f. Sente loses a silver and gains Gote's bishop; Gote gains the silver. Before choosing this exchange, examine the rook lines and king safety with Sente's bishop now on 6f."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": [
+            "5g6f",
+            "4d4e",
+            "2f2e",
+            "3c6f"
+          ],
+          "text": {
+            "ja": "７七歩を残して銀だけ６六へ出すと、△４五歩で角道を開かれた後、別の手を指した場合に△６六角で銀を取られる。８八角の斜線は７七歩で止まり、先の本譜と同じ▲同角はできない。",
+            "en": "If Sente leaves P7g in place and moves only the silver to 6f, Gote can open the bishop line with P4e. After a further Sente move, B6f takes the silver; P7g still blocks the bishop on 8h, so the recapture shown in the main line is unavailable."
+          }
+        }
+      ],
+      "side": "sente",
+      "kind": "position"
+    }
+  ],
+  "check": {
+    "question": {
+      "ja": "後手角３三・歩４四、先手角８八・歩７七。先手が銀を６六へ出したいとき、後手の△４五歩から△６六角を考える前に、先手は何を確認する？",
+      "en": "Gote has B3c and P4d; Sente has B8h and P7g. Before advancing the silver to 6f against a possible P4e and B6f, what must Sente check?"
+    },
+    "answer": {
+      "ja": "７七歩が８八角の６六への斜線を塞いでいるか。▲７六歩で７七を空ければ、後手が４四歩を動かして角で６六銀を取る場合、▲同角で角を取り返せる。ただし交換後の飛車筋と王の安全も調べる。",
+      "en": "Check whether P7g blocks the bishop on 8h from 6f. After P7f clears 7g, if Gote moves the 4d pawn and later captures S6f with the bishop, Sente can recapture that bishop. Still assess the rook lines and king safety after the exchange."
+    }
+  },
+  "references": [
+    {
+      "title": "嬉野流vs四間飛車",
+      "url": "https://shogi-joutatsu.com/archives/5584",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ]
+}

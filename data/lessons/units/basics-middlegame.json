@@ -1,0 +1,180 @@
+{
+  "id": "basics-middlegame",
+  "order": 150,
+  "path": ["はじめての将棋", "基本の考え方"],
+  "title": {
+    "ja": "ぶつかった駒から次の形を読む",
+    "en": "Read What Comes After the Pieces Meet"
+  },
+  "intro": {
+    "ja": "駒が接触したら、一手だけで候補を比べません。目標の升へ届く駒、交換後に持駒へ入る駒、応手のあとに玉と攻め役がどう変わるかを読みます。急ぐ筋がなければ守りを整え、次の接触に備えます。",
+    "en": "When pieces meet, compare more than the first move. Track which pieces reach the contested square, what enters each hand after an exchange, and how the king and attackers are placed after the reply. If no forcing line is ready, improve your position before the next contact."
+  },
+  "check": {
+    "question": {
+      "ja": "駒がぶつかった局面で、最初の取りを選ぶ前に何を読みますか？",
+      "en": "When pieces collide, what should you read before choosing the first capture?"
+    },
+    "answer": {
+      "ja": "相手の取り返しとその次の応手まで進め、盤上に残る駒、双方の持駒、玉の安全を比べます。",
+      "en": "Follow the opponent’s recapture and the next reply, then compare the pieces left on the board, both hands, and each king’s safety."
+    }
+  },
+  "references": [
+    {
+      "title": "中盤の指し方、考え方",
+      "url": "https://shogi-joutatsu.com/archives/3198",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "目標の升へ届く駒を数える",
+        "en": "Count the pieces that reach the target square"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k8/9/9/5s3/4g4/5S3/9/1B7/8K b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手の金５五は銀４四に守られています。先手の銀４六も金に届き、角８八は７七と６六を通って５五を狙っています。取れるかを考える前に、攻めと守りの駒がこの升でどう重なるか確かめます。",
+            "en": "The defender’s gold on ５五 is protected by the silver on ４四. The attacker’s silver on ４六 also reaches the gold, and the bishop on ８八 has a clear diagonal through ７七 and ６六 to ５五. Before capturing, check how many pieces from each side can reach the contested square."
+          }
+        },
+        {
+          "text": {
+            "ja": "先手が銀で金を取ったとき、後手の銀はどこへ動けますか。さらに、その銀を取れる先手の駒が残っているかも盤上で追ってください。",
+            "en": "If the attacker’s silver takes the gold, where can the defender’s silver move? Then check whether another attacking piece can reach that same square."
+          }
+        },
+        {
+          "text": {
+            "ja": "銀４六が５五の金を取れば、銀４四が同じ升へ取り返せます。その後も角８八の道が空いていれば角が５五へ入れます。升へ届く駒の数だけで決めず、交換の順番と最後に残る駒を確かめてから始めるか選びます。",
+            "en": "If the silver on ４六 takes the gold on ５五, the silver on ４四 can recapture there. If the diagonal remains clear, the bishop on ８八 can then reach ５五. Do not decide from a count alone; follow the order of captures and see which pieces remain before starting the exchange."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "三手先まで交換を確かめる",
+        "en": "Follow an exchange through the third move"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k8/9/6s2/5b3/4G4/9/9/5R3/8K b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手の角４四は銀３三に支えられています。先手の飛車４八で取る手は見えますが、その後に銀が飛車を取り返せます。金５五も４四へ利いているので、最後の一手まで進めて手持ちの駒を比較します。",
+            "en": "The defender’s bishop on ４四 is supported by the silver on ３三. The attacker’s rook on ４八 can take it, but the silver can recapture the rook. The gold on ５五 also reaches ４四, so follow the line to its final move and compare the pieces in each hand."
+          }
+        },
+        {
+          "text": {
+            "ja": "飛車で角を取り、銀の取り返しに金を使う順を読みます。",
+            "en": "Take the bishop with the rook, then use the gold after the silver recaptures."
+          }
+        },
+        {
+          "moves": ["4h4d"],
+          "text": {
+            "ja": "▲４四飛で角を取りました。角は先手の持駒に入りますが、飛車は銀３三の利きに進んでいます。",
+            "en": "▲４四飛 captures the bishop. It enters the attacker’s hand, but the rook has moved onto the defender’s silver line."
+          }
+        },
+        {
+          "moves": ["3c4d"],
+          "text": {
+            "ja": "△４四銀で飛車を取られました。先手の金５五は４四へ進めます。",
+            "en": "△４四銀 captures the rook. The attacker’s gold on ５五 can move to ４四."
+          }
+        },
+        {
+          "moves": ["5e4d"],
+          "text": {
+            "ja": "▲４四金で銀を取りました。先手の持駒には角と銀、後手には飛車が入ります。取った枚数だけでなく、駒の価値と玉の安全、次に使える手番も合わせて交換の結果を見ます。",
+            "en": "▲４四金 captures the silver. The attacker holds a bishop and silver, while the defender holds a rook. Judge the result by the pieces gained, the kings’ safety, and which side can use the next turn effectively."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "王手には支えのある合駒を選ぶ",
+        "en": "Answer check with a supported block"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k7r/9/9/9/9/9/7G1/7S1/8K b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手の飛車１一は１筋を通り、先手玉１九に王手をかけています。金２七を１七へ動かせば飛車の道をふさげます。銀２八はその升を守っているため、飛車が金を取っても銀で取り返せる形です。",
+            "en": "The defender’s rook on １一 checks the attacker’s king on １九 down the open file. Moving the gold from ２七 to １七 blocks the rook’s path. The silver on ２八 protects that square, so it can recapture if the rook takes the gold."
+          }
+        },
+        {
+          "text": {
+            "ja": "王を逃がす手だけでなく、飛車の道を止めて支えを残す合駒を選んでください。",
+            "en": "Choose a block that stops the rook and remains supported, rather than moving the king automatically."
+          }
+        },
+        {
+          "moves": ["2g1g"],
+          "text": {
+            "ja": "▲１七金で王手を防ぎました。金が取られたときの取り返しも合わせて考えます。",
+            "en": "▲１七金 blocks the check. Also account for what can recapture if the gold is taken."
+          }
+        },
+        {
+          "moves": ["1a1g"],
+          "text": {
+            "ja": "△１七飛と金を取ると、銀２八が１七へ進んで飛車を取れます。",
+            "en": "△１七飛 takes the gold, allowing the silver on ２八 to capture the rook on １七."
+          }
+        },
+        {
+          "moves": ["2h1g"],
+          "text": {
+            "ja": "▲１七銀で飛車を取り返しました。王手を受ける場面でも、受けに使う駒の守りと、相手が取った後の応手を数えます。",
+            "en": "▲１七銀 recaptures the rook. Even while answering check, check what protects the blocking piece and what reply follows if the opponent captures it."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "急ぐ手がなければ玉を安全な升へ",
+        "en": "When there is no forcing move, secure the king"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k8/9/9/9/9/9/2G6/2SG5/3K5 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "この盤面にはすぐ取れる駒も王手もありません。先手玉６九は銀７八が守り、金６八は５八に利いています。金７七は６八を支えています。次の交換を始める前に、玉を金の利きがある升へ移す余地があります。",
+            "en": "There is no immediate capture or check in this position. The silver on ７八 protects the attacker’s king on ６九, the gold on ６八 controls ５八, and the gold on ７七 supports the gold on ６八. Before starting another exchange, the king can move to a square covered by a gold."
+          }
+        },
+        {
+          "text": {
+            "ja": "金が守る升へ玉を移し、元の位置も銀が支えられるか確かめてください。",
+            "en": "Move the king to the square protected by the gold, and check that the silver still covers its original square."
+          }
+        },
+        {
+          "moves": ["6i5h"],
+          "text": {
+            "ja": "▲５八玉と寄りました。金６八が新しい位置を守り、銀７八は６九への利きを残しています。明確な攻めがない手番も、守りのつながりを確かめて次の戦いに備えられます。",
+            "en": "▲５八玉 moves the king. The gold on ６八 protects its new square, and the silver on ７八 still covers ６九. A turn without a clear attack can strengthen the links in your defence before the next battle."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "id": "kishu-sujichigai",
+  "order": 1340,
+  "path": ["戦法・定跡", "奇襲対策"],
+  "title": {
+    "ja": "筋違い角の斜線と着地点を読む",
+    "en": "Read an off-axis bishop's line and landing square"
+  },
+  "intro": {
+    "ja": "角交換の後に先手が４五へ角を打ったとき、後手は角をすぐ追う必要があるとは限りません。斜線上の歩が動くと何が露出するか、角を攻める駒がどこから来るか、角が成る地点を誰が取れるかを盤面ごとに確かめます。ここでは後手の三つの異なる選択を扱います。",
+    "en": "After an exchange, Sente may drop a bishop on 4e. Gote need not chase it automatically. Check what a pawn move exposes along its diagonal, which piece can attack the bishop, and who can recapture it on a promotion square. These positions give Gote three distinct decisions."
+  },
+  "check": {
+    "question": {
+      "ja": "▲４五角の斜線が後手の飛車へ向かうとき、その途中に自分の歩があれば飛車は今すぐ取られますか？",
+      "en": "If Sente's B4e points toward Gote's rook but Gote's pawn stands between them, can the bishop capture the rook immediately?"
+    },
+    "answer": {
+      "ja": "取れません。歩が斜線を遮っています。ただしその歩を進めた後には角道が通る場合があるので、歩を動かす前に飛車の位置と角の着地点への取り返しを確認します。",
+      "en": "No. The pawn blocks the diagonal. Before advancing it, check whether the rook becomes exposed and whether a piece can recapture the bishop on its landing square."
+    }
+  },
+  "references": [
+    {
+      "title": "筋違い角対策",
+      "url": "https://shogi-joutatsu.com/archives/5001",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": { "ja": "歩を動かす前に飛車の退路を作る", "en": "Reposition the rook before opening the diagonal" },
+      "side": "gote",
+      "kind": "position",
+      "start": "3k5/2r6/3p5/9/5B3/9/2P6/9/4K4 w b 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "４五の先手角から７二の飛車へは５四・６三を通ります。今は後手の６三歩が間にあるので飛車は取れません。６三歩をすぐ６四へ進めると、７二まで角道が開きます。",
+            "en": "The line from B4e to Gote's rook on 7b passes through 5d and 6c. P6c currently blocks it. If that pawn advances to 6d immediately, the bishop gains a path to the rook."
+          },
+          "marks": { "boxes": ["4e", "6c", "7b"], "arrows": ["4e7b"] }
+        },
+        {
+          "moves": ["7b7a", "7g7f", "6c6d"],
+          "text": {
+            "ja": "先に△７一飛と下がり、先手が７六歩と進めた例で△６四歩。角の斜線は開きましたが、飛車は元の７二にいません。後手は７二へ角が成ってきた場合の取り返しも残しています。先手の７六歩は一例で、待つ義務はありません。",
+            "en": "R7b–7a comes first. After the illustrative P7g–7f, Gote can advance P6c–6d. The diagonal is open, but the rook has left 7b and can recapture a bishop that lands there. Sente's pawn move is only one possible reply."
+          },
+          "marks": { "arrows": ["7b7a", "6c6d"], "boxes": ["7b"] }
+        },
+        {
+          "moves": ["4e7b+", "7a7b"],
+          "text": {
+            "ja": "この例で▲７二角成なら△同飛で馬を取れます。先手は別の角の使い方を選べるため、これを角打ち全体への強制手順とは考えません。要点は歩を動かす順番と飛車の位置です。",
+            "en": "If Sente chooses B4e–7b+, R7a×7b captures the horse in this line. Sente can use the bishop differently; this is a move-order lesson about the pawn and rook, not a forced answer to every bishop drop."
+          },
+          "marks": { "arrows": ["7a7b"], "last": "7b" }
+        }
+      ]
+    },
+    {
+      "title": { "ja": "桂で角を追い、逃げ先を数える", "en": "Attack the bishop with a knight and count its exits" },
+      "side": "gote",
+      "kind": "position",
+      "start": "3k3n1/4r4/4p4/9/5B3/9/9/9/4K4 w b 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手の２一桂は３三に跳べます。そこから桂は４五の角を攻めます。５三歩の後ろには５二飛がいるので、角の逃げ道５四も安全とは限りません。",
+            "en": "Gote's knight on 2a can jump to 3c, where it attacks B4e. Gote's rook is behind P5c, so 5d is not automatically a safe bishop retreat."
+          },
+          "marks": { "boxes": ["2a", "3c", "4e", "5d"] }
+        },
+        {
+          "moves": ["2a3c"],
+          "text": {
+            "ja": "△３三桂は４五角に当てる手です。角を捕まえたわけではなく、先手にはほかの退路や交換の選択が残ります。まずは５四へ逃げた場合だけを調べます。",
+            "en": "N2a–3c attacks the bishop on 4e. It does not trap the bishop: Sente has other moves and possible exchanges. Test the particular retreat to 5d."
+          },
+          "marks": { "arrows": ["2a3c"], "boxes": ["4e", "5d"] }
+        },
+        {
+          "moves": ["4e5d", "5c5d"],
+          "text": {
+            "ja": "▲５四角には△同歩で角を取れます。５三歩は後手にとって前方の５四へ進み、飛車も５筋に控えています。これは先手が悪い逃げ先を選んだ条件付きの結果です。",
+            "en": "Against B4e–5d, P5c×5d captures the bishop. Gote's pawn moves forward from 5c to 5d; the rook remains behind it on the fifth file. The gain depends on Sente choosing this retreat."
+          },
+          "marks": { "arrows": ["5c5d"], "last": "5d" }
+        }
+      ]
+    },
+    {
+      "title": { "ja": "成り込みの着地点を金で守る", "en": "Guard the bishop's promotion square with a gold" },
+      "side": "gote",
+      "kind": "position",
+      "start": "4k4/4g4/1r7/9/5B3/9/9/9/4K4 w b 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "４五角は５四・６三を通って７二に成れます。７二の馬は８三の飛車に近づきますが、後手の５二金は６二へ動くと７二を守れます。",
+            "en": "B4e can travel through 5d and 6c to promote on 7b, where the horse would attack the rook on 8c. Gote's gold on 5b can move to 6b and cover that landing square."
+          },
+          "marks": { "boxes": ["4e", "7b", "8c", "5b", "6b"] }
+        },
+        {
+          "moves": ["5b6b"],
+          "text": {
+            "ja": "△６二金は７二を横から守ります。飛車を直接動かさなくても、角が成る地点に取り返しを用意できる配置です。",
+            "en": "G5b–6b guards 7b from the side. Gote prepares a recapture on the promotion square without moving the rook itself."
+          },
+          "marks": { "arrows": ["5b6b"], "boxes": ["7b"] }
+        },
+        {
+          "moves": ["4e7b+", "6b7b"],
+          "text": {
+            "ja": "ここで▲７二角成を選ぶなら△同金で馬を取れます。角には別の斜線や手待ちがあるため、金上がりだけで筋違い角を無力化したとは言えません。着地点の守備が成立する範囲を示す例です。",
+            "en": "If Sente now chooses B4e–7b+, G6b×7b takes the horse. Sente can use the bishop elsewhere, so this does not neutralize every off-axis bishop plan. It establishes exactly what this gold move defends."
+          },
+          "marks": { "arrows": ["6b7b"], "last": "7b" }
+        }
+      ]
+    }
+  ]
+}

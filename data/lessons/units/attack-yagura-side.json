@@ -1,0 +1,105 @@
+{
+  "id": "attack-yagura-side",
+  "order": 400,
+  "path": ["上達のためのテクニック", "囲い崩し"],
+  "title": {
+    "ja": "矢倉の横攻めは金の支えを一枚ずつ数える",
+    "en": "Count Each Defender in a Lateral Yagura Attack"
+  },
+  "intro": {
+    "ja": "矢倉の金が横から狙える位置にいても、別の金がその金を支えていれば一手の攻めでは足りません。飛車が取った後の取り返しと、次の駒が入るマスまで数えます。ここでは飛車・桂・角を重ねる攻めと、角で金を交換して飛車の筋を通す攻めを、いずれも新しい局所図で扱います。守る側が一手使って金をずらせる場合も比べ、詰みや優勢を形だけで決めません。",
+    "en": "A Yagura gold may be exposed from the side while another gold still supports it. Count the first capture, its recapture, and the next attacker. These new local positions show a rook-knight-bishop attack and a bishop exchange that opens a rook file. A defender may spend a turn moving the target gold; neither mate nor advantage follows from the castle name alone."
+  },
+  "check": {
+    "question": {
+      "ja": "金を飛車で取った後、別の金に飛車を取られる形では何を確認しますか？",
+      "en": "What should you check when a second gold can recapture your rook?"
+    },
+    "answer": {
+      "ja": "取り返した金のマスを次の駒が取れるか、その駒も相手に取られないかを確かめます。金が先に逃げる時間がある場合は、その交換自体が起こりません。",
+      "en": "Check whether your next piece can take the recapturing gold and whether that piece is safe. If the gold has time to move first, the proposed exchange may never happen."
+    }
+  },
+  "references": [
+    {
+      "title": "矢倉囲い崩しの手筋① 横からの崩し方",
+      "url": "https://shogi-joutatsu.com/archives/2276",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "外側の金を飛車で取り桂を続ける",
+        "en": "Follow a rook capture with a knight on the outer gold"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "1r7/6gk1/2R2gs2/9/4N4/2B6/9/9/K8 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手玉２二の周りに金３二・４三と銀３三があります。飛車７三は金４三を横から狙いますが、金３二も４三へ利いています。先手桂５五が４三へ跳べることと、角７六の斜め筋が４三へ通ることを確認します。",
+            "en": "Around Gote's king on ２二 are golds on ３二 and ４三 and a silver on ３三. Sente's rook on ７三 attacks the outer gold along the rank, while the gold on ３二 protects it. Sente's knight on ５五 can jump to ４三, and the bishop on ７六 also reaches that square diagonally."
+          }
+        },
+        {
+          "moves": ["7c4c", "3b4c", "5e4c+"],
+          "text": {
+            "ja": "▲４三飛で外側の金を取り、後手が△同金と取り返した例です。▲同桂成なら二枚目の金も取り、成桂４三は角７六に支えられます。銀３三は横隣の４三へは動けません。ただし△同金は後手の選択であり、ほかの受けに対して同じ駒得を断定しません。",
+            "en": "▲４三飛 takes the outer gold, and this sample has Gote recapture with △同金. ▲同桂成 takes the second gold; the promoted knight on ４三 is protected by the bishop on ７六. The silver on ３三 cannot move sideways to ４三. Gote's gold recapture is optional, so this exact material gain is conditional."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "角で金を替えて飛車の筋を開く",
+        "en": "Trade the bishop to open a rook file"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "6r2/2kg5/3sg4/9/9/7B1/9/9/K3R4 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手玉７二には金６二・５三と銀６三が付いています。角２六の斜め筋は３五・４四を通って金５三に届き、金６二はその金を支えます。先手飛車５九は５筋が空いています。",
+            "en": "Gote's king on ７二 has golds on ６二 and ５三 and a silver on ６三. Sente's bishop on ２六 reaches the gold on ５三 through ３五 and ４四. The gold on ６二 supports it, while Sente's rook on ５九 has a clear fifth file."
+          }
+        },
+        {
+          "moves": ["2f5c+", "6b5c", "5i5c"],
+          "text": {
+            "ja": "▲５三角成で一枚目の金を取ります。後手が△同金と応じた場合、▲同飛で二枚目の金を取り、飛車が５三まで進みます。角と金二枚の交換となる局面例ですが、後手は金で取り返さずに別の応手を選べます。銀６三は５三の飛車を横から直接取れません。",
+            "en": "▲５三角成 takes the first gold. If Gote replies △同金, ▲同飛 takes the second gold and brings the rook to ５三. This sample exchanges a bishop for two golds, but Gote can decline the gold recapture. The silver on ６三 cannot take the rook on ５三 by moving sideways."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "攻めを一手待つと金の位置が変わる",
+        "en": "One preparation move can let the gold move away"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "6r2/2kg5/3sg4/9/4p4/7B1/9/9/K3R4 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "前の図と同じく角２六は金５三を狙いますが、今度は後手歩５五もあります。飛車５九を上げれば歩５五への圧力が増す一方、後手にも金を移す手番が渡ります。",
+            "en": "The bishop on ２六 still targets the gold on ５三, but this position adds Gote's pawn on ５五. Lifting Sente's rook on ５九 increases pressure on that pawn while giving Gote time to move the gold."
+          }
+        },
+        {
+          "moves": ["5i5h", "5c6d"],
+          "text": {
+            "ja": "▲５八飛に後手が△６四金と移した例です。飛車５八は歩５五を縦に狙えますが、角２六の狙いだった５三にはもう金がありません。金６四は銀６三に隣接して残ります。歩への圧力と失った金取りを比較し、すぐに金を取る順と同一視しません。",
+            "en": "After ▲５八飛, this sample has Gote move the gold to ６四. The rook on ５八 pressures the pawn on ５五, but the gold has left the bishop's target square ５三. On ６四 the gold remains beside the silver on ６三. Compare the new pawn pressure with the lost gold target; it is a different line from capturing the gold immediately."
+          }
+        }
+      ]
+    }
+  ]
+}

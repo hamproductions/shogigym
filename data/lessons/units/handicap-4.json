@@ -1,0 +1,163 @@
+{
+  "id": "handicap-4",
+  "order": 1450,
+  "path": ["戦法・定跡", "駒落ち"],
+  "title": {
+    "ja": "四枚落ち：桂と銀の守りを越える前に",
+    "en": "Four-Piece Handicap: Count Knights and Silvers First"
+  },
+  "intro": {
+    "ja": "四枚落ちでは上手が飛車・角・左右の香を外し、桂・銀・金は二枚ずつ残す。上手が先に指す。下手は空いた端や飛車先を見つけても、桂の跳び先、銀の取り返し、金の支えまで数えてから歩を進める。",
+    "en": "In a four-piece handicap, Gote removes the rook, bishop and both lances but retains both knights, silvers and golds. Gote moves first. Before pushing into an apparently open edge or rook file, Sente counts knight jumps, silver recaptures and gold support."
+  },
+  "check": {
+    "question": {
+      "ja": "第二章で上手が△３三桂と跳ねた後、下手が▲３三飛成と桂を取ると何が起こるか。",
+      "en": "In chapter two, after Gote jumps N3c, what happens if Sente captures that knight with R3c+?"
+    },
+    "answer": {
+      "ja": "上手の４二金が３三へ利いているので、△同金で龍を取られる。桂は取れても飛車を渡すため、この局面の桂取りを無料の成りとは呼べない。",
+      "en": "Gote's gold on 4b protects 3c and captures the dragon with G3c. Sente gains a knight but loses the rook; the knight capture is not a free promotion."
+    }
+  },
+  "references": [
+    {
+      "title": "4枚落ち定跡",
+      "url": "https://shogi-joutatsu.com/archives/4815",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "空いた端にも二枚の守りがある",
+        "en": "An Empty Edge Can Still Have Two Defenders"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "1nsg1gsn1/3k5/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "上手は初手に５一玉を６二へ動かした。香は両端から落としているが、８一桂と７一銀は残る。下手の９七歩を進める前に、９三を守る桂の跳び先と銀の道を見ておく。",
+            "en": "Gote has already made the first move, K5a–6b. The lances are absent, but N8a and S7a remain. Before advancing Sente's P9g, identify the knight's jump to 9c and the silver's route toward that same square."
+          },
+          "marks": { "boxes": ["8a", "7a", "9c", "9g"] }
+        },
+        {
+          "moves": ["9g9f", "7c7d", "9f9e"],
+          "text": {
+            "ja": "下手が歩を９五へ伸ばす間、上手も７四歩を進める。端に上手香がなくても、９三の歩と８一桂は盤上にあり、次の歩交換は相手の選択で変わる。",
+            "en": "Sente extends the pawn to 9e while Gote advances P7d in this sample. Gote has no edge lance, but P9c and N8a remain; the next pawn contact depends on Gote's reply."
+          },
+          "marks": { "arrows": ["9f9e"], "boxes": ["9c", "8a"] }
+        },
+        {
+          "moves": ["9c9d", "9e9d", "7a8b"],
+          "text": {
+            "ja": "△９四歩に▲同歩と取った場合、△８二銀は９三を守る。８二銀は９三へ進め、８一桂も９三へ跳べる。下手は９四歩を成る前に二つの取り返しを数える。",
+            "en": "If Gote plays P9d and Sente captures it, S8b adds another defender of 9c. The silver can move to 9c, and N8a can jump there. Sente must count both before promoting P9d."
+          },
+          "marks": { "arrows": ["7a8b"], "boxes": ["9c", "8b", "8a"] }
+        },
+        {
+          "moves": ["7g7f"],
+          "text": {
+            "ja": "本譜では歩成を急がず▲７六歩で角道を開く。９四歩を残したまま、次に使う大駒を増やす選択である。角道を開けただけで端の守りが消えるわけではない。",
+            "en": "The sample leaves P9d in place and opens the bishop diagonal with P7f. It adds another active piece without assuming the two defenders of 9c have disappeared."
+          },
+          "marks": { "arrows": ["7g7f"], "boxes": ["9d", "9c"] }
+        }
+      ],
+      "variations": [
+        {
+          "from": 2,
+          "moves": ["9d9c+", "8b9c", "9i9c", "8a9c"],
+          "text": {
+            "ja": "▲９三歩成に△同銀、▲同香、△同桂と進む一例。下手は上手の歩と銀を取り、上手は下手の歩と香を取る。香を取られた手順まで見てから端の交換を判断する。",
+            "en": "One optional line is P9c+, S9c, L9c and N9c. Sente takes Gote's pawn and silver; Gote takes Sente's pawn and lance. Count the knight's final recapture before judging the edge exchange."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "飛車先の桂取りに金の利きを数える",
+        "en": "Count Gold Support before Taking the Knight"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "1nsg2sn1/3k1g3/pppppp1pp/6p2/9/6P2/PPPPPP1PP/1B4R2/LNSGKGSNL b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "下手飛車は３八、歩は３六。上手の３四歩に向かう縦筋は空いており、上手の４二金は３三を守る。２一桂は３三へ跳べるので、飛車が前に出た後の升を先に数える。",
+            "en": "Sente has R3h behind P3f, facing Gote's P3d. Gote's G4b covers 3c, and N2a can jump there. Before advancing the rook, count who controls its next square."
+          },
+          "marks": { "boxes": ["3h", "3f", "3d", "3c", "4b", "2a"] }
+        },
+        {
+          "moves": ["3f3e", "3d3e", "3h3e"],
+          "text": {
+            "ja": "▲３五歩に△同歩と応じた一例なら▲同飛。双方の３筋歩を交換し、下手の飛車が３五に出る。上手は歩を取らない手もあり、この飛車の位置は強制されない。",
+            "en": "If Gote captures P3e, R3e recaptures, exchanging the third-file pawns. Gote may decline the pawn capture, so Sente cannot assume this rook placement from the initial position."
+          },
+          "marks": { "arrows": ["3h3e"], "boxes": ["3c", "4b"] }
+        },
+        {
+          "moves": ["2a3c", "3e3h"],
+          "text": {
+            "ja": "△３三桂と跳ねると、桂は飛車の縦筋に入るが４二金の支えがある。本譜は▲３八飛と戻り、桂を取って飛車を渡す交換を避ける。桂の進出自体は上手の手得として残る。",
+            "en": "N3c enters the rook's file, but G4b supports it. The sample R3h avoids trading the rook for that knight. Gote has developed the knight while Sente retreats."
+          },
+          "marks": { "arrows": ["2a3c"], "boxes": ["3c", "4b"] }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": ["2a3c", "3e3c+", "4b3c"],
+          "text": {
+            "ja": "▲３三飛成で桂を取る分岐なら、△同金で龍を取られる。下手は桂を得るが飛車を失う。３三の金の利きがある限り、単純な桂取りを駒得とは言えない。",
+            "en": "If Sente chooses R3c+ to take the knight, G4b×3c takes the dragon. Sente gains a knight but loses the rook. The supported capture is not a free promotion."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "四筋の歩を銀で取り返す条件",
+        "en": "When a Silver Recapture Opens the Fourth File"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "1nsg1g1n1/3k2s2/ppppppppp/9/5P3/5S3/PPPPP1PPP/1B3R3/LNSGKG1NL b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "下手は４五歩・４六銀・４八飛を並べ、上手は４三歩・３二銀・４一金を残す。４筋歩を交換すると４四の駒を銀と飛車のどちらが取り返すかが変わる。銀を前に出す前に飛車の縦筋も確認する。",
+            "en": "Sente has P4e, S4f and R4h; Gote has P4c, S3b and G4a. A fourth-file pawn exchange changes which piece can recapture on 4d. Check the rook's vertical route before moving the silver."
+          },
+          "marks": { "boxes": ["4e", "4f", "4h", "4c", "3b"] }
+        },
+        {
+          "moves": ["4e4d", "4c4d", "4f5e"],
+          "text": {
+            "ja": "▲４四歩に△同歩と応じる例。▲５五銀は４四の歩へ斜めに利く。上手の歩取りは選択であり、銀が４四の歩を取る前に、上手の銀による支えを調べる。",
+            "en": "If Gote captures P4d, S5e attacks the pawn on 4d diagonally. Gote's pawn capture is optional; before taking that pawn with the silver, inspect Gote's remaining silver."
+          },
+          "marks": { "arrows": ["4f5e"], "boxes": ["4d", "3b"] }
+        },
+        {
+          "moves": ["3b4c", "5e4d", "4c4d", "4h4d"],
+          "text": {
+            "ja": "△４三銀と支えた場合、▲４四銀△同銀▲同飛で銀を交換し、双方の４筋歩も交換される。最後の飛車は４四に残り、まだ敵陣で成ったわけではない。上手が銀を出さない応手もある。",
+            "en": "If Gote supports 4d with S4c, S4d, S4d and R4d exchange the silvers as well as the fourth-file pawns. The rook ends on 4d without promotion. Gote has alternatives to moving the silver to 4c."
+          },
+          "marks": { "arrows": ["4h4d"], "last": "4d" }
+        }
+      ]
+    }
+  ]
+}

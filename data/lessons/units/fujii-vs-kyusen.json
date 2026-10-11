@@ -1,0 +1,148 @@
+{
+  "id": "fujii-vs-kyusen",
+  "order": 1170,
+  "path": ["戦法・定跡", "四間飛車"],
+  "title": {"ja": "藤井システムで急戦の接触を数える", "en": "Counting contact against a quick attack in the Fujii System"},
+  "intro": {
+    "ja": "藤井システムでも相手が８筋・７筋を急ぐなら、囲う手と受ける手の順番が問題になります。玉を動かす前に歩の取り合いを確認し、銀が歩を取った先では次の取り手を数えます。飛車交換は角の利きと交換後の持ち駒まで見て選びます。",
+    "en": "When Gote presses the eighth and seventh files early, a Fujii System position becomes a move-order problem. Resolve immediate pawn contact before moving the king, and count the next recapture when a silver takes a pawn. Judge a rook exchange by its bishop support and the resulting hands."
+  },
+  "check": {
+    "question": {
+      "ja": "先手８七歩の前に後手８六歩がいて、先手玉は５九です。玉を４八へ動かす前に、先手はどの歩の取り合いを処理できますか？",
+      "en": "Gote's pawn stands on 8f in front of Sente's P8g, while Sente's king remains on 5i. Which pawn contact can Sente resolve before moving K4h?"
+    },
+    "answer": {
+      "ja": "▲８六歩で後手歩を取れます。先に▲４八玉とすると、この盤面では△８七歩成で先手歩を取られます。▲同歩の後も後手に銀や飛車の応手があるので、８筋が解決したと決めずに再計算します。",
+      "en": "Px8f captures Gote's pawn. If Sente first plays K4h on this board, P8g+ captures Sente's pawn. After Px8f, Gote still has silver and rook replies, so recalculate rather than treating the eighth file as settled."
+    }
+  },
+  "references": [
+    {"title": "藤井システムvs居飛車急戦", "url": "https://shogi-joutatsu.com/archives/7513", "license": "All rights reserved", "adapted": false}
+  ],
+  "chapters": [
+    {
+      "title": {"ja": "玉を寄せる前に８七歩の接触を解く", "en": "Answer the eighth-file contact before moving the king"},
+      "side": "sente",
+      "kind": "position",
+      "start": "b7l/1r2gk3/2s6/9/9/1p7/1PB6/3RG1S2/4KG3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手玉は５九、飛車６八、角７七です。後手８六歩が８七歩に当たり、後手７三銀・８二飛も左辺にあります。ここで玉を動かせるかは、８七歩を放置した一手後を見て決めます。",
+            "en": "Sente has K5i, R6h and B7g. Gote's P8f attacks P8g, with S7c and R8b behind the contact. Whether Sente has time for a king move depends on the next pawn move if P8g is left alone."
+          },
+          "marks": {"arrows": ["8g8f", "8f8g+"], "boxes": ["5i", "8g", "7c"]}
+        },
+        {
+          "moves": ["8g8f", "7c7d"],
+          "text": {
+            "ja": "▲同歩で先手は８六の歩を取り、後手が△７四銀と銀を進める例です。８六歩は７七角にも守られていますが、後手銀が動いたので次の８筋の取り合いは改めて数えます。",
+            "en": "Px8f captures Gote's pawn. In this sample Gote develops S7d. B7g also protects Sente's pawn on 8f, but the silver's new square changes the next eighth-file calculation."
+          },
+          "marks": {"last": "7d", "boxes": ["8f", "7g", "7d"]}
+        },
+        {
+          "moves": ["5i4h"],
+          "text": {
+            "ja": "目の前の歩を取ってから▲４八玉と移ります。銀７四が次にどこへ出るかで受け方は変わりますが、この順では８七歩を一手で失う問題は消えました。玉移動が常に最善という意味ではありません。",
+            "en": "Only after resolving the pawn contact does Sente move K4h. Gote's S7d still has future routes, but the immediate loss of P8g is gone in this line. This does not make the king move automatically best in every quick-attack position."
+          },
+          "marks": {"last": "4h", "boxes": ["8f", "7d"]}
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["5i4h", "8f8g+"],
+          "text": {
+            "ja": "先に▲４八玉とする枝では、△８七歩成で先手歩を取られます。角７七は８六には利きますが、８七の歩を歩で取り返す一手は失いました。",
+            "en": "If Sente moves K4h first, P8g+ captures Sente's pawn. B7g controls 8f, but the chance to meet the pawn on 8f with Px8f has passed."
+          }
+        }
+      ]
+    },
+    {
+      "title": {"ja": "７筋では銀の取り返しまで一組で読む", "en": "Read the silver recapture on the seventh file"},
+      "side": "sente",
+      "kind": "position",
+      "start": "b7l/1r2gk3/9/3s5/1pp6/2P6/1B1S5/3RG1S2/5GK2 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手７五歩が先手７六歩に当たり、後手銀は６四です。先手は６七銀と８七角を残し、玉を３九へ寄せています。７五の歩を取るなら、後手銀が同じ地点へ来たあと７六をどの駒が守るかまで見ます。",
+            "en": "Gote's P7e contacts Sente's P7f, with Gote S6d behind it. Sente has S6g, B8g and K3i. If Sente captures P7e, count the defender of 7f after Gote's Sx7e."
+          },
+          "marks": {"arrows": ["7f7e", "6d7e", "6g7f"], "boxes": ["7e", "6g", "3i"]}
+        },
+        {
+          "moves": ["7f7e", "6d7e"],
+          "text": {
+            "ja": "▲同歩に後手が△同銀と取った例です。後手銀７五は先手歩を取れましたが、先手銀６七も空いた７六へ動けます。この銀をただ取られたと数えないことが第一歩です。",
+            "en": "In the sample Px7e Sx7e, Gote's silver captures Sente's pawn. Sente's S6g can now move to the vacated 7f square. Do not stop the count at Gote's silver capture."
+          },
+          "marks": {"last": "7e", "arrows": ["6g7f"], "boxes": ["7f"]}
+        },
+        {
+          "moves": ["6g7f", "7e6d"],
+          "text": {
+            "ja": "▲７六銀で７五銀へ利きを作り、後手が△６四銀と引く枝です。８七角が７六銀を守るため、後手銀が７六を取る別の枝でも取り返しが残ります。歩は双方一枚ずつ交換しましたが、８筋の歩と飛車も残り、先手の優勢を宣言する局面ではありません。",
+            "en": "S7f attacks Gote's S7e; in this sample Gote retreats S6d. B8g protects S7f, so another Gote choice to capture the silver can be recaptured. Each side has traded one pawn, but the eighth-file pawn and rook remain active; no advantage is established."
+          },
+          "marks": {"last": "6d", "boxes": ["7f", "8e", "8b"]}
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": ["6g7f", "7e7f", "8g7f"],
+          "text": {
+            "ja": "後手が銀を引かず△７六銀と先手銀を取れば、▲同角で８七角が銀を取り返せます。銀交換にはなりますが、角が７六へ出た後の８筋の反撃は別に評価します。",
+            "en": "If Gote captures S7f instead of retreating, Bx7f recaptures Gote's silver. The silvers are exchanged, while B7f's exposure to eighth-file counterplay still needs evaluation."
+          }
+        }
+      ]
+    },
+    {
+      "title": {"ja": "６筋の飛車交換に角が参加する", "en": "A bishop joins the sixth-file rook exchange"},
+      "side": "sente",
+      "kind": "position",
+      "start": "8l/4gk3/1b2s4/3r5/1p7/3P5/2B6/3RG1S2/5GK2 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手６六歩の前に後手６四飛がいて、後手８三角は７四を通って６五を守ります。先手７七角の斜線は６六歩で止まっています。歩を動かせば角筋が通りますが、飛車の取り合いでは後手角の利きも数えます。",
+            "en": "Sente's P6f faces Gote's R6d. Gote's B8c covers 6e through 7d. P6f also blocks B7g's diagonal; moving it opens a bishop line, but the opposing bishop remains relevant to any rook exchange."
+          },
+          "marks": {"arrows": ["6f6e", "8c6e"], "boxes": ["6d", "6h", "8c"]}
+        },
+        {
+          "moves": ["6f6e", "6d6e"],
+          "text": {
+            "ja": "▲６五歩で７七角の斜線が開き、後手が△同飛と歩を取る例です。先手６八飛は６五の飛車を取れますが、後手８三角も６五を守っています。飛車だけを数えて交換得と決めません。",
+            "en": "P6e opens B7g's diagonal. In this sample Gote answers Rx6e, capturing the pawn. R6h can take the rook on 6e, but B8c also protects that square. Count both major pieces before judging the exchange."
+          },
+          "marks": {"last": "6e", "arrows": ["6h6e", "8c6e"]}
+        },
+        {
+          "moves": ["6h6e", "8c6e"],
+          "text": {
+            "ja": "▲同飛△同角で双方の飛車が持ち駒になり、後手角は６五へ出ます。先手角７七の道も開きましたが、この盤面では６五角をただで取れるわけではありません。自玉３九への飛車打ちと後手玉４二への飛車打ちを比べます。",
+            "en": "Rx6e Bx6e puts a rook in each player's hand and leaves Gote's bishop on 6e. Sente's B7g now has an open diagonal, but it cannot simply capture B6e. Compare rook-drop targets against K3i and K4b before choosing this exchange."
+          },
+          "marks": {"last": "6e", "boxes": ["7g", "3i", "4b"]}
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["6f6e", "6d7d", "6h6f"],
+          "text": {
+            "ja": "後手が△７四飛と横へよけて交換を断る枝では、先手は▲６六飛と浮き、６五歩の後ろへ回れます。飛車交換は後手の義務ではなく、７筋へ移った飛車の利きを調べ直します。",
+            "en": "Gote can decline the exchange with R7d. Sente may lift R6f behind P6e in this sample. The rook exchange is optional; reassess the rook's seventh-file reach."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "id": "kishu-onigoroshi",
+  "order": 1330,
+  "path": ["戦法・定跡", "奇襲対策"],
+  "title": {
+    "ja": "鬼殺しの桂跳ねを受ける数え方",
+    "en": "Count the targets of an Oni-goroshi knight"
+  },
+  "intro": {
+    "ja": "早く６五に跳ねた先手の桂は、次に５三と７三を狙います。後手は桂そのものを追う前に、その二つの着地点を誰が守るか数えましょう。守り駒の位置によって、桂を取れる手も、歩を逃がすだけでは足りない手もあります。",
+    "en": "Sente's early knight on 6e attacks 5c and 7c. Before chasing it, Gote should count who controls both landing squares. The actual defender placement decides whether a knight capture can be recaptured and whether moving one pawn is enough."
+  },
+  "check": {
+    "question": {
+      "ja": "先手桂が６五にいるとき、後手が７三歩だけを７四へ動かしました。５三歩は安全になりましたか？",
+      "en": "With Sente's knight on 6e, Gote moves only the pawn from 7c to 7d. Is the pawn on 5c now safe?"
+    },
+    "answer": {
+      "ja": "いいえ。桂は６五から５三へも跳べます。５三に取り返す駒がいなければ▲５三桂成で歩を取られます。",
+      "en": "No. The knight can also jump from 6e to 5c. Without a recapturer there, N6e×5c+ takes the pawn."
+    }
+  },
+  "references": [
+    {
+      "title": "鬼殺し対策",
+      "url": "https://shogi-joutatsu.com/archives/2807",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": { "ja": "銀で桂の二つの行き先を見る", "en": "One silver covers both knight destinations" },
+      "side": "gote",
+      "kind": "position",
+      "start": "4k4/1r5b1/2pps4/9/3N5/3P5/9/1B7/4K4 w - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手桂は６五から５三と７三へ跳べます。後手には５三銀と７三歩があり、銀を動かせる６四は空いています。７三歩だけを見ず、５三歩がないこの盤面で桂の次の手を数えます。",
+            "en": "Sente's knight on 6e can jump to 5c or 7c. Gote has S5c and P7c, with 6d empty. Count both knight destinations, even though this board has no pawn on 5c."
+          },
+          "marks": { "boxes": ["6e", "5c", "7c", "6d"] }
+        },
+        {
+          "moves": ["5c6d"],
+          "text": {
+            "ja": "△６四銀は６五の桂に当たり、同時に７三の歩を守ります。銀は６四から７三へ斜め後ろに戻れるためです。ここでは先手が桂を進める場合を見ます。",
+            "en": "S5c–6d attacks the knight on 6e and also guards P7c: the silver can move diagonally backward from 6d to 7c. The next line assumes Sente nevertheless advances the knight."
+          },
+          "marks": { "arrows": ["5c6d"], "boxes": ["6e", "7c"] }
+        },
+        {
+          "moves": ["6e7c+", "6d7c"],
+          "text": {
+            "ja": "▲７三桂成で歩を取っても、△同銀で成桂を取れます。先手はこの交換を選ぶ必要はなく、後手も銀が６四から７三へ届くことを盤上で確認しただけです。",
+            "en": "If N6e×7c+ takes the pawn, S6d×7c recaptures the promoted knight. Sente is not forced to choose this exchange; the point is the silver's exact coverage from 6d."
+          },
+          "marks": { "arrows": ["6d7c"], "last": "7c" }
+        }
+      ]
+    },
+    {
+      "title": { "ja": "飛車を歩の後ろへ回す", "en": "Put the rook behind the threatened pawn" },
+      "side": "gote",
+      "kind": "position",
+      "start": "5k3/1r7/2p1p4/9/3N5/3P5/9/1B7/4K4 w - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手の５三歩と７三歩はどちらも６五桂の跳び先です。飛車は８二にいて、５二まで横の通路が空いています。７三歩だけを動かすより、５三の取り返しを作る手を考えます。",
+            "en": "Both P5c and P7c are knight targets from 6e. Gote's rook stands on 8b, with an open route to 5b. Gote can add a recapturer behind P5c instead of moving only P7c."
+          },
+          "marks": { "boxes": ["8b", "5b", "5c", "6e"] }
+        },
+        {
+          "moves": ["8b5b"],
+          "text": {
+            "ja": "△５二飛で５三歩を飛車が縦に守ります。６二と７二は空いているので横移動できます。先手が桂で５三を取るかは任意ですが、取った場合の取り返しを確かめます。",
+            "en": "R8b–5b puts the rook directly behind P5c. Squares 7b and 6b are empty, so the transfer is legal. Sente need not capture on 5c, but that try now has a concrete reply."
+          },
+          "marks": { "arrows": ["8b5b"], "boxes": ["5c"] }
+        },
+        {
+          "moves": ["6e5c+", "5b5c"],
+          "text": {
+            "ja": "▲５三桂成で歩を取るなら△同飛で成桂を取れます。後手飛車は５三に出て５筋を利かせますが、実戦の安全性は先手のほかの駒と持ち駒にも左右されます。",
+            "en": "If N6e×5c+ takes the pawn, R5b×5c captures the promoted knight. The rook then works on the fifth file, but its practical safety still depends on Sente's other pieces and hands."
+          },
+          "marks": { "arrows": ["5b5c"], "last": "5c" }
+        }
+      ]
+    },
+    {
+      "title": { "ja": "片方の歩だけ逃がした場合", "en": "Moving only one target" },
+      "side": "gote",
+      "kind": "position",
+      "start": "4k4/1r5b1/2p1p4/9/3N5/3P5/9/1B7/4K4 w - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手桂の行き先は５三と７三です。後手の飛車は８二のまま、５三歩の後ろにはいません。７三歩だけを動かしても、別の跳び先が残る配置です。",
+            "en": "Sente's knight still attacks 5c and 7c. Gote's rook remains on 8b rather than behind P5c. Moving only the pawn on 7c leaves the other knight target available."
+          },
+          "marks": { "boxes": ["7c", "5c", "5b"] }
+        },
+        {
+          "moves": ["7c7d", "6e5c+"],
+          "text": {
+            "ja": "△７四歩で７三の歩は桂の利きから外れますが、▲５三桂成で５三歩を取られます。この手順だけで先手勝ちとは決まりません。ただ、片方だけを守ったつもりで桂のもう一方の跳び先を忘れるのは損です。",
+            "en": "P7c–7d moves one pawn away, but N6e×5c+ takes the other. This does not prove a Sente win; it shows the material cost of overlooking the knight's second landing square."
+          },
+          "marks": { "arrows": ["6e5c"], "last": "5c" }
+        },
+        {
+          "text": {
+            "ja": "桂を受けるときは、取られそうな駒を一枚だけ見るのでなく、桂が跳ぶ二か所、そこへ取り返せる駒、玉への王手を順に点検します。",
+            "en": "When defending, inspect both knight destinations, every available recapturer, and any check on the king rather than protecting only the first visible pawn."
+          }
+        }
+      ]
+    }
+  ]
+}

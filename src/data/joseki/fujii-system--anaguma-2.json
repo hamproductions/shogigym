@@ -1,0 +1,381 @@
+{
+ "id": "fujii-system--anaguma-2",
+ "title": "藤井システム対穴熊：２五桂の二つの狙い",
+ "titleEn": "Fujii System vs Anaguma: Read Both Targets of the 2e Knight",
+ "myStrategy": "shikenbisha",
+ "opponentStrategy": "ibisha-anaguma",
+ "mySide": "sente",
+ "userSide": "sente",
+ "source": "藤井システムと居飛車穴熊の基本形から、序盤の候補手はやねうら王の新ペタショック定跡（MIT）を参照。右桂と端の応酬はエンジンで検証して独自に構成し、解説は書き下ろし。",
+ "goalFormation": "先手は玉を５九に残して６八飛・４七銀・５八金を作り、右桂を３七から２五へ跳ねる。２五桂は後手の３三角と１三歩を見るが、後手が角を４四へかわすと、１三歩を取っても２二銀が桂を取り返す。先手は５六歩で中央を保ち、後手の７四歩にも備える。",
+ "goalLabel": "２五桂の標的と４四角の応手",
+ "goalSfen": "lns4nk/1r2g1gsl/p2p1p1pp/2p1pbp2/1p5NP/2PPPPP2/PPB2S1P1/2SRG4/LN1GK3L b - 1",
+ "root": {
+  "id": "n0",
+  "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+  "comment": "玉を５九に置いたまま、銀・金・桂を使って相手の穴熊の完成手と競争する。桂２五の二つの利きを確認し、後手が角を逃がしたときに端の歩を取る価値と銀の取り返しを数える。",
+  "branches": [
+   {
+    "usi": "7g7f",
+    "kind": "main",
+    "child": {
+     "id": "n_0",
+     "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL w - 1",
+     "branches": [
+      {
+       "usi": "3c3d",
+       "kind": "main",
+       "child": {
+        "id": "n_1",
+        "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL b - 1",
+        "branches": [
+         {
+          "usi": "6g6f",
+          "kind": "main",
+          "child": {
+           "id": "n_2",
+           "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2PP5/PP2PPPPP/1B5R1/LNSGKGSNL w - 1",
+           "branches": [
+            {
+             "usi": "8c8d",
+             "kind": "main",
+             "child": {
+              "id": "n_3",
+              "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/1p4p2/9/2PP5/PP2PPPPP/1B5R1/LNSGKGSNL b - 1",
+              "branches": [
+               {
+                "usi": "7i7h",
+                "kind": "main",
+                "note": "左銀を７八へ。後手の８筋を見ながら、角を７七へ引ける形にする。",
+                "child": {
+                 "id": "n_4",
+                 "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/1p4p2/9/2PP5/PP2PPPPP/1BS4R1/LN1GKGSNL w - 1",
+                 "branches": [
+                  {
+                   "usi": "8d8e",
+                   "kind": "main",
+                   "child": {
+                    "id": "n_5",
+                    "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/6p2/1p7/2PP5/PP2PPPPP/1BS4R1/LN1GKGSNL b - 1",
+                    "branches": [
+                     {
+                      "usi": "8h7g",
+                      "kind": "main",
+                      "note": "７七角が８六へ利く。後手８五歩の先を無条件には通さない。",
+                      "child": {
+                       "id": "n_6",
+                       "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/6p2/1p7/2PP5/PPB1PPPPP/2S4R1/LN1GKGSNL w - 1",
+                       "branches": [
+                        {
+                         "usi": "2b3c",
+                         "kind": "main",
+                         "child": {
+                          "id": "n_7",
+                          "sfen": "lnsgkgsnl/1r7/p1ppppbpp/6p2/1p7/2PP5/PPB1PPPPP/2S4R1/LN1GKGSNL b - 1",
+                          "branches": [
+                           {
+                            "usi": "2h6h",
+                            "kind": "main",
+                            "note": "飛車を６八へ。玉を右へ運ぶ代わりに、右銀と右桂を使う余地を残す。",
+                            "child": {
+                             "id": "n_8",
+                             "sfen": "lnsgkgsnl/1r7/p1ppppbpp/6p2/1p7/2PP5/PPB1PPPPP/2SR5/LN1GKGSNL w - 1",
+                             "branches": [
+                              {
+                               "usi": "1a1b",
+                               "kind": "main",
+                               "child": {
+                                "id": "n_9",
+                                "sfen": "lnsgkgsn1/1r6l/p1ppppbpp/6p2/1p7/2PP5/PPB1PPPPP/2SR5/LN1GKGSNL b - 1",
+                                "branches": [
+                                 {
+                                  "usi": "3i4h",
+                                  "kind": "main",
+                                  "note": "右銀を４八へ。４七へ出る前に４六歩で通路を空ける。",
+                                  "child": {
+                                   "id": "n_10",
+                                   "sfen": "lnsgkgsn1/1r6l/p1ppppbpp/6p2/1p7/2PP5/PPB1PPPPP/2SR1S3/LN1GKG1NL w - 1",
+                                   "branches": [
+                                    {
+                                     "usi": "5a4b",
+                                     "kind": "main",
+                                     "child": {
+                                      "id": "n_11",
+                                      "sfen": "lnsg1gsn1/1r3k2l/p1ppppbpp/6p2/1p7/2PP5/PPB1PPPPP/2SR1S3/LN1GKG1NL b - 1",
+                                      "branches": [
+                                       {
+                                        "usi": "4g4f",
+                                        "kind": "main",
+                                        "child": {
+                                         "id": "n_12",
+                                         "sfen": "lnsg1gsn1/1r3k2l/p1ppppbpp/6p2/1p7/2PP1P3/PPB1P1PPP/2SR1S3/LN1GKG1NL w - 1",
+                                         "branches": [
+                                          {
+                                           "usi": "4b3b",
+                                           "kind": "main",
+                                           "child": {
+                                            "id": "n_13",
+                                            "sfen": "lnsg1gsn1/1r4k1l/p1ppppbpp/6p2/1p7/2PP1P3/PPB1P1PPP/2SR1S3/LN1GKG1NL b - 1",
+                                            "branches": [
+                                             {
+                                              "usi": "4h4g",
+                                              "kind": "main",
+                                              "note": "４七銀で右側に厚みを作る。玉はまだ５九におり、攻める時期と玉の位置を一緒に判断する。",
+                                              "child": {
+                                               "id": "n_14",
+                                               "sfen": "lnsg1gsn1/1r4k1l/p1ppppbpp/6p2/1p7/2PP1P3/PPB1PSPPP/2SR5/LN1GKG1NL w - 1",
+                                               "branches": [
+                                                {
+                                                 "usi": "3b2b",
+                                                 "kind": "main",
+                                                 "note": "後手玉は２二へ。角３三を盤上に残したまま穴熊へ潜る。",
+                                                 "child": {
+                                                  "id": "n_15",
+                                                  "sfen": "lnsg1gsn1/1r5kl/p1ppppbpp/6p2/1p7/2PP1P3/PPB1PSPPP/2SR5/LN1GKG1NL b - 1",
+                                                  "branches": [
+                                                   {
+                                                    "usi": "4i5h",
+                                                    "kind": "main",
+                                                    "child": {
+                                                     "id": "n_16",
+                                                     "sfen": "lnsg1gsn1/1r5kl/p1ppppbpp/6p2/1p7/2PP1P3/PPB1PSPPP/2SRG4/LN1GK2NL w - 1",
+                                                     "branches": [
+                                                      {
+                                                       "usi": "2b1a",
+                                                       "kind": "main",
+                                                       "note": "後手玉が１一へ。１二香の下に入り、次に２二銀で入口をふさげる。",
+                                                       "child": {
+                                                        "id": "n_17",
+                                                        "sfen": "lnsg1gsnk/1r6l/p1ppppbpp/6p2/1p7/2PP1P3/PPB1PSPPP/2SRG4/LN1GK2NL b - 1",
+                                                        "branches": [
+                                                         {
+                                                          "usi": "1g1f",
+                                                          "kind": "main",
+                                                          "child": {
+                                                           "id": "n_18",
+                                                           "sfen": "lnsg1gsnk/1r6l/p1ppppbpp/6p2/1p7/2PP1P2P/PPB1PSPP1/2SRG4/LN1GK2NL w - 1",
+                                                           "branches": [
+                                                            {
+                                                             "usi": "3a2b",
+                                                             "kind": "main",
+                                                             "note": "後手銀が２二へ。角３三を守る３二金も続けるが、先手は端の歩を伸ばす。",
+                                                             "child": {
+                                                              "id": "n_19",
+                                                              "sfen": "lnsg1g1nk/1r5sl/p1ppppbpp/6p2/1p7/2PP1P2P/PPB1PSPP1/2SRG4/LN1GK2NL b - 1",
+                                                              "branches": [
+                                                               {
+                                                                "usi": "1f1e",
+                                                                "kind": "main",
+                                                                "note": "１五歩で端に接点を作る。まだ１四は空き、後手が端の歩を動かすかが後の桂の狙いを変える。",
+                                                                "child": {
+                                                                 "id": "n_20",
+                                                                 "sfen": "lnsg1g1nk/1r5sl/p1ppppbpp/6p2/1p6P/2PP1P3/PPB1PSPP1/2SRG4/LN1GK2NL w - 1",
+                                                                 "branches": [
+                                                                  {
+                                                                   "usi": "4a3b",
+                                                                   "kind": "main",
+                                                                   "child": {
+                                                                    "id": "n_21",
+                                                                    "sfen": "lnsg3nk/1r4gsl/p1ppppbpp/6p2/1p6P/2PP1P3/PPB1PSPP1/2SRG4/LN1GK2NL b - 1",
+                                                                    "branches": [
+                                                                     {
+                                                                      "usi": "3g3f",
+                                                                      "kind": "main",
+                                                                      "note": "３六歩で３七を空け、右桂が跳ねる道を作る。",
+                                                                      "child": {
+                                                                       "id": "n_22",
+                                                                       "sfen": "lnsg3nk/1r4gsl/p1ppppbpp/6p2/1p6P/2PP1PP2/PPB1PS1P1/2SRG4/LN1GK2NL w - 1",
+                                                                       "branches": [
+                                                                        {
+                                                                         "usi": "6a5b",
+                                                                         "kind": "main",
+                                                                         "child": {
+                                                                          "id": "n_23",
+                                                                          "sfen": "lns4nk/1r2g1gsl/p1ppppbpp/6p2/1p6P/2PP1PP2/PPB1PS1P1/2SRG4/LN1GK2NL b - 1",
+                                                                          "branches": [
+                                                                           {
+                                                                            "usi": "2i3g",
+                                                                            "kind": "main",
+                                                                            "note": "右桂は３七へ。次の２五桂で３三角と１三歩の二つを同時に見る。",
+                                                                            "child": {
+                                                                             "id": "n_24",
+                                                                             "sfen": "lns4nk/1r2g1gsl/p1ppppbpp/6p2/1p6P/2PP1PP2/PPB1PSNP1/2SRG4/LN1GK3L w - 1",
+                                                                             "branches": [
+                                                                              {
+                                                                               "usi": "5c5d",
+                                                                               "kind": "main",
+                                                                               "note": "後手５四歩は中央を伸ばす一例。次の桂の利きへの対応を別に考える必要がある。",
+                                                                               "child": {
+                                                                                "id": "n_25",
+                                                                                "sfen": "lns4nk/1r2g1gsl/p1pp1pbpp/4p1p2/1p6P/2PP1PP2/PPB1PSNP1/2SRG4/LN1GK3L b - 1",
+                                                                                "branches": [
+                                                                                 {
+                                                                                  "usi": "3g2e",
+                                                                                  "kind": "main",
+                                                                                  "note": "２五桂と跳ねる。桂は３三の角と１三の歩に届くが、どちらを取れるかは後手の応手次第。",
+                                                                                  "child": {
+                                                                                   "id": "n_26",
+                                                                                   "sfen": "lns4nk/1r2g1gsl/p1pp1pbpp/4p1p2/1p5NP/2PP1PP2/PPB1PS1P1/2SRG4/LN1GK3L w - 1",
+                                                                                   "branches": [
+                                                                                    {
+                                                                                     "usi": "3c4d",
+                                                                                     "kind": "main",
+                                                                                     "note": "後手角は４四へかわす。３三角の標的を消し、２二銀は１三への取り返しを残す。",
+                                                                                     "child": {
+                                                                                      "id": "n_27",
+                                                                                      "sfen": "lns4nk/1r2g1gsl/p1pp1p1pp/4pbp2/1p5NP/2PP1PP2/PPB1PS1P1/2SRG4/LN1GK3L b - 1",
+                                                                                      "branches": [
+                                                                                       {
+                                                                                        "usi": "5g5f",
+                                                                                        "kind": "main",
+                                                                                        "note": "先手は５六歩で中央の形を整える。桂が１三を取れば２二銀が取り返せることも確認する。",
+                                                                                        "child": {
+                                                                                         "id": "n_28",
+                                                                                         "sfen": "lns4nk/1r2g1gsl/p1pp1p1pp/4pbp2/1p5NP/2PPPPP2/PPB2S1P1/2SRG4/LN1GK3L w - 1",
+                                                                                         "branches": [
+                                                                                          {
+                                                                                           "usi": "7c7d",
+                                                                                           "kind": "main",
+                                                                                           "note": "後手７四歩は７筋からの進出を用意する。先手は端だけを見ず、角４四と８筋の飛車も数える。",
+                                                                                           "child": {
+                                                                                            "id": "n_29",
+                                                                                            "sfen": "lns4nk/1r2g1gsl/p2p1p1pp/2p1pbp2/1p5NP/2PPPPP2/PPB2S1P1/2SRG4/LN1GK3L b - 1",
+                                                                                            "branches": [
+                                                                                             {
+                                                                                              "usi": "2e1c+",
+                                                                                              "kind": "alt",
+                                                                                              "note": "先手が１三歩を桂で取って成る。端の歩一枚を得る。",
+                                                                                              "child": {
+                                                                                               "id": "nb0_0",
+                                                                                               "sfen": "lns4nk/1r2g1gsl/p2p1p1p+N/2p1pbp2/1p6P/2PPPPP2/PPB2S1P1/2SRG4/LN1GK3L w P 1",
+                                                                                               "branches": [
+                                                                                                {
+                                                                                                 "usi": "2b1c",
+                                                                                                 "kind": "main",
+                                                                                                 "note": "後手２二銀が１三の成桂を取る。先手は歩、後手は桂を持つ。",
+                                                                                                 "child": {
+                                                                                                  "id": "nb0_1",
+                                                                                                  "sfen": "lns4nk/1r2g1g1l/p2p1p1ps/2p1pbp2/1p6P/2PPPPP2/PPB2S1P1/2SRG4/LN1GK3L b Pn 1",
+                                                                                                  "branches": [],
+                                                                                                  "comment": "端の歩だけを取る桂の投入は、２二銀の取り返しを許す。角が４四へ逃げた後は桂の使い方を変える。"
+                                                                                                 }
+                                                                                                }
+                                                                                               ]
+                                                                                              }
+                                                                                             },
+                                                                                             {
+                                                                                              "usi": "4f4e",
+                                                                                              "kind": "alt",
+                                                                                              "note": "先手が４五歩と進め、４四角への接点を作る。次の４四歩も候補になる。",
+                                                                                              "child": {
+                                                                                               "id": "nb1_0",
+                                                                                               "sfen": "lns4nk/1r2g1gsl/p2p1p1pp/2p1pbp2/1p3P1NP/2PPP1P2/PPB2S1P1/2SRG4/LN1GK3L w - 1",
+                                                                                               "branches": [
+                                                                                                {
+                                                                                                 "usi": "4d5c",
+                                                                                                 "kind": "main",
+                                                                                                 "note": "後手角は５三へ引ける。５二金の前に置き、角を直ちに失う形ではない。",
+                                                                                                 "child": {
+                                                                                                  "id": "nb1_1",
+                                                                                                  "sfen": "lns4nk/1r2g1gsl/p2pbp1pp/2p1p1p2/1p3P1NP/2PPP1P2/PPB2S1P1/2SRG4/LN1GK3L b - 1",
+                                                                                                  "branches": [],
+                                                                                                  "comment": "４筋の歩で角を追えても、後手に退路があれば角得は確定しない。桂と歩を両方前に出す前に、玉の位置も見直す。"
+                                                                                                 }
+                                                                                                }
+                                                                                               ]
+                                                                                              }
+                                                                                             }
+                                                                                            ],
+                                                                                            "comment": "２五桂の二つの標的は同時に取れない。後手が角を４四へかわすと１三の歩は残るが、２二銀の取り返しも残る。先手は桂を急いで捨てず、５筋と４筋の歩を整え、後手の７筋の進出も見て選ぶ。"
+                                                                                           }
+                                                                                          }
+                                                                                         ]
+                                                                                        }
+                                                                                       }
+                                                                                      ]
+                                                                                     }
+                                                                                    }
+                                                                                   ]
+                                                                                  }
+                                                                                 }
+                                                                                ]
+                                                                               }
+                                                                              }
+                                                                             ]
+                                                                            }
+                                                                           }
+                                                                          ]
+                                                                         }
+                                                                        }
+                                                                       ]
+                                                                      }
+                                                                     }
+                                                                    ]
+                                                                   }
+                                                                  }
+                                                                 ]
+                                                                }
+                                                               }
+                                                              ]
+                                                             }
+                                                            }
+                                                           ]
+                                                          }
+                                                         }
+                                                        ]
+                                                       }
+                                                      }
+                                                     ]
+                                                    }
+                                                   }
+                                                  ]
+                                                 }
+                                                }
+                                               ]
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          }
+                                         ]
+                                        }
+                                       }
+                                      ]
+                                     }
+                                    }
+                                   ]
+                                  }
+                                 }
+                                ]
+                               }
+                              }
+                             ]
+                            }
+                           }
+                          ]
+                         }
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

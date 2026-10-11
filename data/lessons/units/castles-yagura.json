@@ -1,0 +1,129 @@
+{
+  "id": "castles-yagura",
+  "order": 290,
+  "path": ["上達のためのテクニック", "囲い"],
+  "title": {
+    "ja": "矢倉の仲間を利きで選ぶ",
+    "en": "Choose a Yagura Shape by Its Coverage"
+  },
+  "intro": {
+    "ja": "矢倉の仲間には、金を前へ出す形、銀を増やす形、玉を浅く置く形、金を低く構える形があります。名前の違いを暗記するより、７筋と８筋のどのマスを守り、どの駒を攻めに残せるかを比べましょう。この教材の盤面は判断する部分に絞った局面です。周囲の駒や相手の飛車が変われば、同じ囲いでも安全度は変わります。",
+    "en": "The Yagura family includes shapes that raise a gold, add a silver, keep the king shallower, or lower a gold. Compare the seventh- and eighth-file squares they cover and which pieces remain for attack instead of memorizing names alone. These boards isolate the decision being taught. Other pieces and the opposing rook's location can change the safety of the same castle."
+  },
+  "check": {
+    "question": {
+      "ja": "銀を７七から７六へ進める前に、利きが増えるマスと失うマスをどう調べますか？",
+      "en": "Before advancing a silver from ７七 to ７六, how do you check the squares gained and lost?"
+    },
+    "answer": {
+      "ja": "７六の銀は８五など前方を攻め、７七の銀が守っていた８六などには利かなくなります。銀７六を守る金があるか、８筋の空いたマスを相手が使えるかを両方見ます。",
+      "en": "The silver on ７六 attacks forward squares such as ８五, but stops covering squares such as ８六 that it guarded from ７七. Check both whether a gold protects the advanced silver and whether the opponent can use the newly uncovered eighth-file squares."
+    }
+  },
+  "references": [
+    {
+      "title": "矢倉系の囲い一覧",
+      "url": "https://shogi-joutatsu.com/archives/5958",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "７六の歩を誰が守るか",
+        "en": "Who protects the pawn on ７六?"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/2r6/9/9/9/2P6/2S6/1KGG5/9 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "玉８八、銀７七、金７八・６八という矢倉の骨格です。後手飛車７二は７筋を見ています。いま歩７六は銀７七に守られていますが、金６八を上げれば別の支えもできます。",
+            "en": "Sente has a Yagura core: king ８八, silver ７七, and golds ７八 and ６八. Gote's rook on ７二 looks down the seventh file. The silver currently protects the pawn on ７六; raising the gold adds a second defender."
+          }
+        },
+        {
+          "moves": ["6h6g"],
+          "text": {
+            "ja": "▲６七金。金６七は歩７六と銀７七の両方を守り、金７八は銀７七を支えています。この金矢倉型では、歩を取られた後に７筋がどう開くかも検討します。６七を銀にする銀矢倉型なら、同じマスでも金と利きが違うため、守るマスを数え直します。",
+            "en": "▲６七金 protects both the pawn on ７六 and the silver on ７七; the gold on ７八 also supports that silver. In this Gold Yagura core, still calculate how the seventh file opens if the pawn falls. A Silver Yagura puts a silver on ６七 instead, changing its coverage; count the defended squares again rather than treating the pieces as interchangeable."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "一手早い入城先を比べる",
+        "en": "Compare an earlier king destination"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/9/9/9/2P6/1PSG5/3G5/3K5 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "玉６九、金６七・６八、銀７七です。金６八が７八を横から守る一方、玉はまだ中央寄りにいます。８八まで運ぶ前に７八へ入る手を比較します。",
+            "en": "Sente's king is on ６九, golds on ６七 and ６八, and silver on ７七. The gold on ６八 covers ７八 sideways, while the king remains near the center. Compare entering ７八 now with continuing farther to ８八 later."
+          }
+        },
+        {
+          "moves": ["6i7h"],
+          "text": {
+            "ja": "▲７八玉。金６八の利きに入って玉を一手で中央から離せます。これを片矢倉型として使うなら、８筋側の距離を省いた利点と、玉７八が残る位置への相手の利きを比べます。カニ囲いのような途中形で戦い始める場合も、完成までの手数だけで安全とは決められません。",
+            "en": "▲７八玉 reaches a square protected by the gold on ６八 and leaves the center in one move. In a Half Yagura plan, compare the saved king move with the opponent's control of the king's remaining square on ７八. The same timing question applies when fighting from an intermediate shape such as Crab castle: fewer construction moves do not by themselves make the king safe."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "銀を攻めに使うと守りが変わる",
+        "en": "Advancing the silver trades coverage for reach"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/9/9/1p7/9/2SG5/1KG6/9 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "玉８八、金７八・６七、銀７七は基本の矢倉に近い配置です。後手の歩８五が前にあり、先手は銀でその歩へ圧力をかけたいところです。銀７七は現在８六を守っています。",
+            "en": "King ８八, golds ７八 and ６七, and silver ７七 make a familiar Yagura core. Gote's pawn on ８五 offers a target for the silver. Before advancing, note that the silver on ７七 currently protects ８六."
+          }
+        },
+        {
+          "moves": ["7g7f"],
+          "text": {
+            "ja": "▲７六銀。銀は８五の歩を狙い、金６七が７六の銀を守ります。一方、８六への銀の利きは消えました。銀立ち矢倉型を選ぶなら、攻めの働きと８筋の守備の減少を一緒に評価します。守りに銀をもう一枚加える総矢倉や菱矢倉とは、使える攻め駒の数も異なります。",
+            "en": "▲７六銀 attacks the pawn on ８五, and the gold on ６七 protects the advanced silver. The silver no longer covers ８六. A Raised Silver Yagura plan gains attacking reach while giving up some eighth-file coverage. Adding another silver to a defensive Yagura, as in fuller variants, changes how many attacking pieces remain available."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "横の飛車筋には金を低くする選択",
+        "en": "Lower a gold when the rook attacks laterally"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/9/9/9/2P6/2SG5/1KG2r3/9 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "玉８八、金７八・６七、銀７七に対し、後手の飛車４八が八段目を横に見ています。金７八が飛車筋を止めていますが、６八は空いています。前を厚くするだけでなく、下段で受ける形も考えます。",
+            "en": "Gote's rook on ４八 looks across the eighth rank toward Sente's king on ８八. The gold on ７八 blocks the line, while ６八 is empty. With a silver on ７七 and gold on ６七, Sente can consider a lower defense instead of only reinforcing the front."
+          }
+        },
+        {
+          "moves": ["6g6h"],
+          "text": {
+            "ja": "▲６八金。飛車が５八を通って６八を取る筋には、金７八と銀７七が６八を守ります。へこみ矢倉型の低い金は横への受けを増やしますが、金６七が守っていた歩７六は銀７七だけの支えになります。右矢倉のように囲う側を反転する形でも、どの利きが増減するかで判断します。雁木は似た出だしから生じても別の囲いです。",
+            "en": "▲６八金 puts the gold directly in the rook's path. The gold on ７八 and silver on ７七 protect ６八 if the rook captures there through ５八. This lower Dented Yagura arrangement adds lateral resistance, but the pawn on ７六 loses the gold's protection and keeps only the silver as defender. Even when the castle is mirrored as Right Yagura, judge the changed coverage. Gangi can arise from related opening choices but is a separate castle."
+          }
+        }
+      ]
+    }
+  ]
+}

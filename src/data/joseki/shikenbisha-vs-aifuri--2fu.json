@@ -1,72 +1,301 @@
 {
  "id": "shikenbisha-vs-aifuri--2fu",
- "title": "相振り飛車: 四間飛車(先手) vs 三間飛車・2歩を手持ちにする手筋",
- "titleEn": "Double Ranging Rook: Fourth File Rook vs Third File Rook, winning two pawns in hand",
+ "title": "相振り飛車：六筋の交換から八筋へ転じる",
+ "titleEn": "Double Ranging Rook: From a Sixth-File Exchange to the Eighth File",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "sankenbisha",
  "mySide": "sente",
- "source": "手順は三間飛車のひとくちメモの相振り飛車の解説を参考(https://thirdfilerook.jp/about-third-file-rook-vs-fourth-file-rook/)。開始局面をSFENに起こし、全手を合法手検証済み。解説はこのアプリのために書き下ろし。",
- "goalFormation": "8筋と6筋の歩を捨てて取り返し、歩を二枚手持ちにしながら飛車を8筋へ回す。相手の玉に近い筋で飛車が働く。",
+ "userSide": "sente",
+ "source": "先手四間飛車対後手三間飛車の標準的な駒組みを踏まえ、手順・分岐・解説をアプリ用に独自に作成。序盤は同梱のMITライセンスPetaShogi定跡、合法手と局面評価はやねうら王（https://github.com/yaneurao/YaneuraOu）で確認した。",
+ "goalFormation": "先手飛車は六筋の歩交換で得た歩を持ったまま六八へ戻り、空いた七八を通って八八へ移る。後手が八筋の歩を取る例では飛車が八六の歩を取り、先手の持ち歩は二枚になる。後手も歩を一枚持ち、八六飛車には相手の攻めや退路を読む必要がある。",
+ "goalLabel": "六筋、次に八筋の歩を交換して二歩を持つ",
+ "goalSfen": "lnkg1gsnl/2s3rb1/p1ppp2pp/5pp2/9/1RP6/P1B1PPPPP/4G1K2/LNSG2SNL w 2Pp 1",
  "root": {
   "id": "n0",
-  "sfen": "lnsg3nl/2k1g1rb1/ppppps1pp/5p3/1P1P2p2/2P6/P1B1PPPPP/2SR1K3/LN1G1GSNL b - 1",
-  "comment": "先手が四間飛車、後手が三間飛車の相振り飛車。双方が飛車を振るので、飛車先の歩を使った小さな交換が戦いの出だしになります。ここでは8筋と6筋の歩を連続して突き捨て、飛車を6筋から8筋へ移す流れを覚えます。",
+  "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+  "comment": "初形から先手飛車を六筋、後手飛車を三筋へ振る相振り飛車。二歩を持つのは相手がそれぞれの歩交換に応じた場合に限る。まず六筋で飛車を使い、八筋へ移るときは角が八八を空けているか確かめる。",
   "branches": [
    {
-    "usi": "8e8d",
+    "usi": "7g7f",
     "kind": "main",
-    "note": "8五の歩を8四に突き出す。取られても構わない捨て歩で、後手の8筋の歩を一つ前に引き出す狙い。",
     "child": {
      "id": "n_0",
-     "sfen": "lnsg3nl/2k1g1rb1/ppppps1pp/1P3p3/3P2p2/2P6/P1B1PPPPP/2SR1K3/LN1G1GSNL w - 1",
+     "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL w - 1",
      "branches": [
       {
-       "usi": "8c8d",
+       "usi": "3c3d",
        "kind": "main",
        "child": {
         "id": "n_1",
-        "sfen": "lnsg3nl/2k1g1rb1/p1ppps1pp/1p3p3/3P2p2/2P6/P1B1PPPPP/2SR1K3/LN1G1GSNL b p 1",
+        "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL b - 1",
         "branches": [
          {
-          "usi": "6e6d",
+          "usi": "6g6f",
           "kind": "main",
-          "note": "同じ要領で6筋の歩を突き出す。後手の歩が6四に上がると、飛車で取れる形になる。",
           "child": {
            "id": "n_2",
-           "sfen": "lnsg3nl/2k1g1rb1/p1ppps1pp/1p1P1p3/6p2/2P6/P1B1PPPPP/2SR1K3/LN1G1GSNL w p 1",
+           "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2PP5/PP2PPPPP/1B5R1/LNSGKGSNL w - 1",
            "branches": [
             {
-             "usi": "6c6d",
+             "usi": "8b3b",
              "kind": "main",
+             "note": "後手飛車３二。後手が三筋に飛車を振り、先手は次に六筋へ飛車を移す。",
              "child": {
               "id": "n_3",
-              "sfen": "lnsg3nl/2k1g1rb1/p1p1ps1pp/1p1p1p3/6p2/2P6/P1B1PPPPP/2SR1K3/LN1G1GSNL b 2p 1",
+              "sfen": "lnsgkgsnl/6rb1/pppppp1pp/6p2/9/2PP5/PP2PPPPP/1B5R1/LNSGKGSNL b - 1",
               "branches": [
                {
-                "usi": "6h6d",
+                "usi": "2h6h",
                 "kind": "main",
-                "note": "6八の飛車で6四の歩を取る。歩を一枚得た代わりに、飛車が敵陣近くに出ていく。",
+                "note": "先手飛車６八。六筋の歩の後ろに飛車を置き、交換が起きたときの取り返しを用意する。",
                 "child": {
                  "id": "n_4",
-                 "sfen": "lnsg3nl/2k1g1rb1/p1p1ps1pp/1p1R1p3/6p2/2P6/P1B1PPPPP/2S2K3/LN1G1GSNL w P2p 1",
+                 "sfen": "lnsgkgsnl/6rb1/pppppp1pp/6p2/9/2PP5/PP2PPPPP/1B1R5/LNSGKGSNL w - 1",
                  "branches": [
                   {
-                   "usi": "P*6c",
+                   "usi": "8c8d",
                    "kind": "main",
-                   "note": "後手は歩を打って飛車を追い、6筋にとどまれなくする。",
                    "child": {
                     "id": "n_5",
-                    "sfen": "lnsg3nl/2k1g1rb1/p1ppps1pp/1p1R1p3/6p2/2P6/P1B1PPPPP/2S2K3/LN1G1GSNL b Pp 1",
+                    "sfen": "lnsgkgsnl/6rb1/p1pppp1pp/1p4p2/9/2PP5/PP2PPPPP/1B1R5/LNSGKGSNL b - 1",
                     "branches": [
                      {
-                      "usi": "6d8d",
+                      "usi": "5i4h",
                       "kind": "main",
-                      "note": "飛車を8四へ滑らせ、取れる歩をもう一枚拾う。8筋は後手玉に近く、飛車の働きが大きい。これで歩の持ち駒が二枚になった。",
                       "child": {
                        "id": "n_6",
-                       "sfen": "lnsg3nl/2k1g1rb1/p1ppps1pp/1R3p3/6p2/2P6/P1B1PPPPP/2S2K3/LN1G1GSNL w 2Pp 1",
-                       "branches": [],
-                       "comment": "歩を二枚手持ちにし、飛車は8筋に回った局面。以後は持ち歩を使って、8筋から後手陣に圧力をかける。"
+                       "sfen": "lnsgkgsnl/6rb1/p1pppp1pp/1p4p2/9/2PP5/PP2PPPPP/1B1R1K3/LNSG1GSNL w - 1",
+                       "branches": [
+                        {
+                         "usi": "8d8e",
+                         "kind": "main",
+                         "child": {
+                          "id": "n_7",
+                          "sfen": "lnsgkgsnl/6rb1/p1pppp1pp/6p2/1p7/2PP5/PP2PPPPP/1B1R1K3/LNSG1GSNL b - 1",
+                          "branches": [
+                           {
+                            "usi": "8h7g",
+                            "kind": "main",
+                            "note": "先手角７七。八八が空いたので、後で飛車を六八から八八へ横移動できる。六筋歩が動くと角７七から２二への斜線も開くため、後手の角への備えを確かめる。",
+                            "child": {
+                             "id": "n_8",
+                             "sfen": "lnsgkgsnl/6rb1/p1pppp1pp/6p2/1p7/2PP5/PPB1PPPPP/3R1K3/LNSG1GSNL w - 1",
+                             "branches": [
+                              {
+                               "usi": "7a7b",
+                               "kind": "main",
+                               "child": {
+                                "id": "n_9",
+                                "sfen": "ln1gkgsnl/2s3rb1/p1pppp1pp/6p2/1p7/2PP5/PPB1PPPPP/3R1K3/LNSG1GSNL b - 1",
+                                "branches": [
+                                 {
+                                  "usi": "4h3h",
+                                  "kind": "main",
+                                  "child": {
+                                   "id": "n_10",
+                                   "sfen": "ln1gkgsnl/2s3rb1/p1pppp1pp/6p2/1p7/2PP5/PPB1PPPPP/3R2K2/LNSG1GSNL w - 1",
+                                   "branches": [
+                                    {
+                                     "usi": "4c4d",
+                                     "kind": "main",
+                                     "note": "後手歩４四。先手角７七と後手角２二を結ぶ斜線上に歩を置き、六筋の歩が動いても角が直ちにぶつからないようにする。",
+                                     "child": {
+                                      "id": "n_11",
+                                      "sfen": "ln1gkgsnl/2s3rb1/p1ppp2pp/5pp2/1p7/2PP5/PPB1PPPPP/3R2K2/LNSG1GSNL b - 1",
+                                      "branches": [
+                                       {
+                                        "usi": "4i5h",
+                                        "kind": "main",
+                                        "note": "先手金５八。飛車６八の近くで金を使い、六筋交換前に玉側の形を整える。",
+                                        "child": {
+                                         "id": "n_12",
+                                         "sfen": "ln1gkgsnl/2s3rb1/p1ppp2pp/5pp2/1p7/2PP5/PPB1PPPPP/3RG1K2/LNSG2SNL w - 1",
+                                         "branches": [
+                                          {
+                                           "usi": "6c6d",
+                                           "kind": "main",
+                                           "child": {
+                                            "id": "n_13",
+                                            "sfen": "ln1gkgsnl/2s3rb1/p1p1p2pp/3p1pp2/1p7/2PP5/PPB1PPPPP/3RG1K2/LNSG2SNL b - 1",
+                                            "branches": [
+                                             {
+                                              "usi": "6f6e",
+                                              "kind": "main",
+                                              "note": "先手歩６五。六筋の歩が接触し、後手が取るかどうかを決める。",
+                                              "child": {
+                                               "id": "n_14",
+                                               "sfen": "ln1gkgsnl/2s3rb1/p1p1p2pp/3p1pp2/1p1P5/2P6/PPB1PPPPP/3RG1K2/LNSG2SNL w - 1",
+                                               "branches": [
+                                                {
+                                                 "usi": "6d6e",
+                                                 "kind": "main",
+                                                 "note": "後手歩６五。後手は先手の歩を取り、持ち歩を一枚得る。",
+                                                 "child": {
+                                                  "id": "n_15",
+                                                  "sfen": "ln1gkgsnl/2s3rb1/p1p1p2pp/5pp2/1p1p5/2P6/PPB1PPPPP/3RG1K2/LNSG2SNL b p 1",
+                                                  "branches": [
+                                                   {
+                                                    "usi": "6h6e",
+                                                    "kind": "main",
+                                                    "note": "先手飛車６五。飛車が後手の歩を取り返し、先手も持ち歩を一枚得る。",
+                                                    "child": {
+                                                     "id": "n_16",
+                                                     "sfen": "ln1gkgsnl/2s3rb1/p1p1p2pp/5pp2/1p1R5/2P6/PPB1PPPPP/4G1K2/LNSG2SNL w Pp 1",
+                                                     "branches": [
+                                                      {
+                                                       "usi": "P*6c",
+                                                       "kind": "main",
+                                                       "note": "後手歩６三打。後手は先ほど得た歩を六筋へ戻す。７二銀が６三を守るため、飛車６五で歩を取れば銀に飛車を取り返される。",
+                                                       "child": {
+                                                        "id": "nb0_0",
+                                                        "sfen": "ln1gkgsnl/2s3rb1/p1ppp2pp/5pp2/1p1R5/2P6/PPB1PPPPP/4G1K2/LNSG2SNL b P 1",
+                                                        "branches": [
+                                                         {
+                                                          "usi": "6e6h",
+                                                          "kind": "main",
+                                                          "note": "先手飛車６八。六五の前線から下がり、八筋へ横移動する余地を作る。",
+                                                          "child": {
+                                                           "id": "nb0_1",
+                                                           "sfen": "ln1gkgsnl/2s3rb1/p1ppp2pp/5pp2/1p7/2P6/PPB1PPPPP/3RG1K2/LNSG2SNL w P 1",
+                                                           "branches": [
+                                                            {
+                                                             "usi": "5a6b",
+                                                             "kind": "main",
+                                                             "note": "後手玉６二。玉は先手飛車と同じ六筋へ移るが、両者の間には後手歩６三が残る。",
+                                                             "child": {
+                                                              "id": "nb0_2",
+                                                              "sfen": "ln1g1gsnl/2sk2rb1/p1ppp2pp/5pp2/1p7/2P6/PPB1PPPPP/3RG1K2/LNSG2SNL b P 1",
+                                                              "branches": [
+                                                               {
+                                                                "usi": "8g8f",
+                                                                "kind": "main",
+                                                                "note": "先手歩８六。先手は八筋で歩を合わせる。八筋の交換はまだ成立していない。",
+                                                                "child": {
+                                                                 "id": "nb0_3",
+                                                                 "sfen": "ln1g1gsnl/2sk2rb1/p1ppp2pp/5pp2/1p7/1PP6/P1B1PPPPP/3RG1K2/LNSG2SNL w P 1",
+                                                                 "branches": [
+                                                                  {
+                                                                   "usi": "8e8f",
+                                                                   "kind": "main",
+                                                                   "note": "後手歩８六。後手は先手の歩を取り、再び一枚の持ち歩を得る。八六の後手歩はまだ盤上にある。",
+                                                                   "child": {
+                                                                    "id": "nb0_4",
+                                                                    "sfen": "ln1g1gsnl/2sk2rb1/p1ppp2pp/5pp2/9/1pP6/P1B1PPPPP/3RG1K2/LNSG2SNL b Pp 1",
+                                                                    "branches": [
+                                                                     {
+                                                                      "usi": "6h8h",
+                                                                      "kind": "main",
+                                                                      "note": "先手飛車８八。六八から七八を通る横移動で、八六の歩を同じ筋から狙う。",
+                                                                      "child": {
+                                                                       "id": "nb0b0_0",
+                                                                       "sfen": "ln1g1gsnl/2sk2rb1/p1ppp2pp/5pp2/9/1pP6/P1B1PPPPP/1R2G1K2/LNSG2SNL w Pp 1",
+                                                                       "branches": [
+                                                                        {
+                                                                         "usi": "6b7a",
+                                                                         "kind": "main",
+                                                                         "note": "後手玉７一。六二から玉を引いて七筋へ寄せる。八筋の歩８六は残る。",
+                                                                         "child": {
+                                                                          "id": "nb0b0_1",
+                                                                          "sfen": "lnkg1gsnl/2s3rb1/p1ppp2pp/5pp2/9/1pP6/P1B1PPPPP/1R2G1K2/LNSG2SNL b Pp 1",
+                                                                          "branches": [
+                                                                           {
+                                                                            "usi": "8h8f",
+                                                                            "kind": "main",
+                                                                            "note": "先手飛車８六。八八から八七を通って後手の歩を取り、先手の持ち歩は二枚。後手の持ち歩も一枚残る。",
+                                                                            "child": {
+                                                                             "id": "nb0b0_2",
+                                                                             "sfen": "lnkg1gsnl/2s3rb1/p1ppp2pp/5pp2/9/1RP6/P1B1PPPPP/4G1K2/LNSG2SNL w 2Pp 1",
+                                                                             "branches": [],
+                                                                             "comment": "先手は二枚の歩を持ち、飛車は八六で働く。後手も一枚の歩を持ち、玉を７一へ寄せている。持ち歩の枚数だけで形勢を断定しない。"
+                                                                            }
+                                                                           }
+                                                                          ]
+                                                                         }
+                                                                        }
+                                                                       ]
+                                                                      }
+                                                                     },
+                                                                     {
+                                                                      "usi": "7g8f",
+                                                                      "kind": "alt",
+                                                                      "note": "先手角８六。七七角でも後手の歩を取れて、先手の持ち歩は二枚になる。ただし飛車は六八に残り、角が八六へ前進した別の配置になる。",
+                                                                      "child": {
+                                                                       "id": "nb0b1_0",
+                                                                       "sfen": "ln1g1gsnl/2sk2rb1/p1ppp2pp/5pp2/9/1BP6/P3PPPPP/3RG1K2/LNSG2SNL w 2Pp 1",
+                                                                       "branches": [],
+                                                                       "comment": "角８六はこの局面では合法な取り方。八筋の飛車進出を学ぶ主順とは別の分岐として扱う。"
+                                                                      }
+                                                                     }
+                                                                    ],
+                                                                    "comment": "ここから八六の歩を何で取るかを比べる。飛車を使うなら、六八から八八へ通る七八と八八が空いている。"
+                                                                   }
+                                                                  }
+                                                                 ]
+                                                                }
+                                                               }
+                                                              ]
+                                                             }
+                                                            }
+                                                           ]
+                                                          }
+                                                         }
+                                                        ]
+                                                       }
+                                                      },
+                                                      {
+                                                       "usi": "7b6c",
+                                                       "kind": "alt",
+                                                       "note": "後手銀６三。七二銀が六筋へ出て、六五飛車の前方へ守りを足す。後手は持ち歩を温存している。",
+                                                       "child": {
+                                                        "id": "nb1_0",
+                                                        "sfen": "ln1gkgsnl/6rb1/p1psp2pp/5pp2/1p1R5/2P6/PPB1PPPPP/4G1K2/LNSG2SNL b Pp 1",
+                                                        "branches": [
+                                                         {
+                                                          "usi": "6e6h",
+                                                          "kind": "main",
+                                                          "note": "先手飛車６八。銀との接触を急がず飛車を戻す。双方の持ち歩はこの時点で一枚ずつ。",
+                                                          "child": {
+                                                           "id": "nb1_1",
+                                                           "sfen": "ln1gkgsnl/6rb1/p1psp2pp/5pp2/1p7/2P6/PPB1PPPPP/3RG1K2/LNSG2SNL w Pp 1",
+                                                           "branches": [],
+                                                           "comment": "歩６三打が唯一の応手ではない。後手銀６三という具体的な配置変更に応じて、飛車の働きを再評価する。"
+                                                          }
+                                                         }
+                                                        ]
+                                                       }
+                                                      }
+                                                     ],
+                                                     "comment": "先手の六筋の歩交換は成立した。後手には別の応手もあり、飛車６五の位置だけで八筋への転換が保証されるわけではない。"
+                                                    }
+                                                   }
+                                                  ]
+                                                 }
+                                                }
+                                               ]
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          }
+                                         ]
+                                        }
+                                       }
+                                      ]
+                                     }
+                                    }
+                                   ]
+                                  }
+                                 }
+                                ]
+                               }
+                              }
+                             ]
+                            }
+                           }
+                          ]
+                         }
+                        }
+                       ]
                       }
                      }
                     ]

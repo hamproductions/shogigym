@@ -1,0 +1,193 @@
+{
+  "id": "aigakari-basics",
+  "order": 720,
+  "path": ["戦法・定跡", "相掛かり"],
+  "title": {
+    "ja": "相掛かりで飛車先と背後を両方見る",
+    "en": "Watch Both Rook Files in Aigakari"
+  },
+  "intro": {
+    "ja": "相掛かりでは双方が飛車先の歩を伸ばしますが、飛車だけを見て進めると反対側から入られます。角道を閉じている歩、飛車の進入口を守る金、交換後の飛車の置き場を確かめましょう。先に歩をぶつけた側が得をするかは、相手の応手と盤上の利きで決まります。",
+    "en": "In Aigakari both players advance their rook pawns, so an attack on one file can coincide with an entry on the other. Check the pawns closing the bishop diagonals, the gold guarding a rook entry square, and where the rook can stand after an exchange. Whether the first pawn contact helps depends on the actual replies and defenders."
+  },
+  "check": {
+    "question": {
+      "ja": "後手飛車が８六、先手歩が８七、先手金が７八です。後手が△８七飛成とすると、先手はどの駒で取り返せますか。",
+      "en": "Gote's rook is on 8f, Sente has a pawn on 8g and a gold on 7h. If Gote plays ...Rx8g+, which piece can Sente use to recapture?"
+    },
+    "answer": {
+      "ja": "７八金で▲同金と取れます。金が６八などへ離れていたら、この取り返しはありません。",
+      "en": "The gold on 7h can play Gx8g. If that gold had moved away, this particular recapture would not be available."
+    }
+  },
+  "references": [
+    {
+      "title": "相掛かりの基本、最初の駒組み",
+      "url": "https://shogi-joutatsu.com/archives/5873",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "角道が閉じている間を知る",
+        "en": "Know when the bishop diagonals are closed"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1r4gb1/6pp1/9/1p5P1/9/1PP1PS3/1BG4R1/4K4 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "双方の飛車先には８五歩と２五歩があります。一方、先手角の７七方向は自分の歩、後手角の３三方向も自分の歩で閉じています。飛車先の戦いと角交換はまだ別の問題です。",
+            "en": "Both rook pawns have advanced to 8e and 2e. Sente's own pawn on 7g blocks its bishop, while Gote's pawn on 3c blocks the bishop on 2b. Rook-file pressure and a bishop exchange are separate questions for now."
+          },
+          "marks": { "boxes": ["8e", "2e", "7g", "3c"] }
+        },
+        {
+          "moves": ["7g7f", "3c3d"],
+          "text": {
+            "ja": "この例では▲７六歩と△３四歩で両方の角道が開きました。飛車先の歩だけを見続けると、次に角同士が向き合う変化を見落とします。",
+            "en": "In this sample both players open their diagonals with P-7f and ...P-3d. Continuing to watch only the rook pawns would miss that the bishops now face each other."
+          },
+          "marks": { "arrows": ["7g7f", "3c3d"], "boxes": ["8h", "2b"] }
+        },
+        {
+          "moves": ["8h2b+", "3b2b"],
+          "text": {
+            "ja": "▲２二角成△同金は、この配置で可能な角交換の一例です。後手金は３二から２二へ移っても２三には利いています。双方が角道の歩を動かしたので、飛車先に加えて角交換後の金の位置も判断材料になります。",
+            "en": "Bx2b+ ...Gx2b is one bishop trade available in this position. Even after moving from 3b to 2b, Gote's gold still controls 2c. Since both sides moved their diagonal pawns, the gold's new location joins the rook-file decision."
+          },
+          "marks": { "last": "2b", "boxes": ["2c", "8f"] }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "金が守る進入口",
+        "en": "The entry square guarded by the gold"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/6gb1/6pp1/9/7P1/1r7/1PP1PS3/1BG4R1/4K4 w Pp 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手飛車は８六、先手歩は８七、金は７八です。角道は７七歩と３三歩で閉じたままです。８七へ飛車が入る前に、そこを守る金の利きを数えます。",
+            "en": "Gote's rook is on 8f; Sente's pawn is on 8g and gold on 7h. Pawns on 7g and 3c still close the bishop diagonals. Before allowing a rook entry on 8g, count the gold's control of that square."
+          },
+          "marks": { "boxes": ["8f", "8g", "7h"] }
+        },
+        {
+          "moves": ["8f8g+", "7h8g"],
+          "text": {
+            "ja": "△８七飛成なら▲同金で飛車を取れます。後手が本当に飛車を入れるかは任意ですが、この図では８七を無防備なマスとは扱えません。",
+            "en": "If Gote chooses ...Rx8g+, Gx8g captures the rook. Gote is not obliged to enter, but 8g is not an undefended square in this position."
+          },
+          "marks": { "last": "8g", "arrows": ["8f8g", "7h8g"] }
+        },
+        {
+          "text": {
+            "ja": "金が７八にいる意味は、金を動かした後に同じ応手があるかで確かめられます。飛車先の交換を急ぐ前に、相手の飛車が入る地点の守りを残せるかを考えます。",
+            "en": "The value of the gold on 7h becomes clear when you ask whether the same recapture exists after it moves away. Before rushing an exchange on your own rook file, preserve the defender of the opponent's entry square if it is needed."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "浮き飛車で横の取り返しを作る",
+        "en": "A floating rook can recapture across the rank"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1r4gb1/6pp1/7R1/1p7/9/1PP1PS3/1BG6/4K4 b Pp 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手飛車は２四に出ています。後手２三歩が飛車を狙うため、まず飛車の置き場を選びます。８筋では後手歩が８五、先手歩が８七に向かい合っています。",
+            "en": "Sente's rook is on 2d, under the pawn on 2c. It needs a new square. On the opposite flank Gote's pawn is on 8e and Sente's on 8g, so rook placement can affect a later 8-file exchange."
+          },
+          "marks": { "boxes": ["2d", "2c", "8e", "8g"] }
+        },
+        {
+          "moves": ["2d2f", "8e8f"],
+          "text": {
+            "ja": "▲２六飛と浮いてから、後手が△８六歩と突く例です。２六飛は３六から７六まで空いた横段を通じて８六を見ていますが、８六にはまだ後手歩があります。",
+            "en": "Sente floats the rook to 2f; Gote answers with the sample pawn push ...P-8f. The rook now has an open horizontal route toward 8f, but Gote's pawn currently occupies the target."
+          },
+          "marks": { "arrows": ["2d2f", "8e8f"], "boxes": ["2f", "8f"] }
+        },
+        {
+          "moves": ["8g8f", "8b8f"],
+          "text": {
+            "ja": "▲同歩△同飛と進むと、後手飛車が８六の歩を取ります。しかし先手飛車は２六におり、間の３六から７六が空いています。この応手は後手の選択例で、強制ではありません。",
+            "en": "After Px8f ...Rx8f, Gote's rook has captured Sente's pawn. Sente's rook on 2f now has a clear path through 3f–7f. Gote's rook capture is an optional illustrative reply, not a forced continuation."
+          },
+          "marks": { "last": "8f", "boxes": ["2f", "8f"] }
+        },
+        {
+          "moves": ["2f8f"],
+          "text": {
+            "ja": "▲同飛で８六飛を取れます。これは後手が歩を交換してから飛車を８六へ出た場合だけの横利きです。浮き飛車がいつでも得という意味ではなく、空いた段と相手飛車の位置が条件です。",
+            "en": "Rx8f takes Gote's rook. This cross-rank recapture exists only if Gote chooses that pawn exchange and then places the rook on 8f. A floating rook is useful here because the rank is clear and the opposing rook lands on it."
+          },
+          "marks": { "last": "8f", "arrows": ["2f8f"] }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["2d2h", "8e8f", "8g8f", "8b8f"],
+          "text": {
+            "ja": "▲２八飛と深く引く選択も合法です。この場合は２六飛からの横の取り返しがなく、後手飛車は８六に残ります。ただし７八金は８七を守るため、後手が次に８七へ入れるとは限りません。",
+            "en": "R-2h is also legal. In this branch Sente cannot recapture horizontally from 2f, so Gote's rook remains on 8f. Yet the gold on 7h guards 8g; Gote still cannot assume a safe entry there."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "反対側の金を外した代価",
+        "en": "The cost of moving the opposite-flank defender"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/6gb1/6pp1/9/9/1r7/1PP1PS3/1BG4R1/4K4 b Pp 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手飛車は２八、後手飛車は８六、先手金は７八です。７八金は８七歩を守ります。自分の飛車を使う準備だけに目を向けると、この金の役目を忘れがちです。",
+            "en": "Sente's rook is on 2h and Gote's on 8f. The gold on 7h protects Sente's pawn on 8g. Thinking only about how to activate your own rook can hide that defensive task."
+          },
+          "marks": { "boxes": ["2h", "8f", "8g", "7h"] }
+        },
+        {
+          "moves": ["7h6h", "8f8g+"],
+          "text": {
+            "ja": "この例で▲６八金と外すと、後手は△８七飛成で歩を取れます。７八からなら取れた飛車を、６八金では８七で取り返せません。龍は８八角にも迫るので、先手は次の受けを考える必要があります。",
+            "en": "If Sente moves the gold to 6h in this example, ...Rx8g+ takes the pawn. From 6h the gold cannot recapture a rook on 8g, unlike from 7h. The promoted rook also threatens the bishop on 8h, so Sente must now find a defense."
+          },
+          "marks": { "last": "8g", "boxes": ["6h", "8h"] }
+        },
+        {
+          "text": {
+            "ja": "後手の飛車侵入は、金が動いた場合の一例です。▲６八金が常に悪手という結論ではありません。相手飛車の位置と８七の守りが重なったときに、金の移動が何を失うかを数えます。",
+            "en": "The rook entry is a response to this particular gold move. G-6h is not universally bad; assess what it abandons when the opposing rook is already lined up against 8g."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["5i6h", "8f8g+", "7h8g"],
+          "text": {
+            "ja": "代わりに▲６八玉として金を７八に残せば、この後手応手には▲同金で飛車を取れます。玉を動かす手の優劣ではなく、８七を守る金を残したことが差です。",
+            "en": "If Sente instead plays K-6h while keeping the gold on 7h, ...Rx8g+ can be met by Gx8g. The difference in this sample is the gold remaining on its defensive square, not a blanket verdict about the king move."
+          }
+        }
+      ]
+    }
+  ]
+}

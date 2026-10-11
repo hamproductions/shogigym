@@ -1,0 +1,129 @@
+{
+  "id": "attack-mino-side",
+  "order": 370,
+  "path": ["上達のためのテクニック", "囲い崩し"],
+  "title": {
+    "ja": "美濃を横から攻めるときは取り返しを数える",
+    "en": "Count Recaptures in a Side Attack on Mino"
+  },
+  "intro": {
+    "ja": "美濃囲いを横から攻めるときは、金を取れるかだけでなく、金を支える銀、飛車が入れる筋、玉の逃げ道を順に調べます。ここでは先手が後手の２筋側に組んだ美濃型を攻める新しい局所図を使います。歩で外側の筋を開く攻めと、飛車・角で金を狙う攻めを、取り返しの失敗例とも比べます。後手の応手は分岐の一例で、示した順以外も選べます。",
+    "en": "When attacking Mino from the side, count more than the gold you might capture: inspect its supporting silver, the file a rook can enter, and the king's exits. These new local positions place Gote's Mino-style shelter near the second file. Compare a pawn break on the outer file and a rook-bishop attack with an exchange that fails. Gote's replies are sample branches, not forced choices."
+  },
+  "check": {
+    "question": {
+      "ja": "飛車で金を取り返せるなら、歩をと金にする攻めは必ず成功しますか？",
+      "en": "If a rook can recapture a gold, does promoting a pawn into that gold always work?"
+    },
+    "answer": {
+      "ja": "いいえ。飛車を取り返せる銀が残っていれば、交換の最後に飛車を失う場合があります。相手の金銀の利きと、玉の逃げ道まで数えて判断します。",
+      "en": "No. A silver may recapture the rook after it takes the gold. Count the whole exchange, then check the king's exits before judging the attack."
+    }
+  },
+  "references": [
+    {
+      "title": "美濃囲い崩しの手筋① 横から攻める",
+      "url": "https://shogi-joutatsu.com/archives/2646",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "と金を支えても銀の取り返しは残る",
+        "en": "A supported tokin can still lose its rook"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "9/5gsk1/9/5P3/9/9/9/9/K4R3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手は玉２二・銀３二・金４二です。先手の歩４四が進めば、と金が金４二を狙い、飛車４九も４筋を支えます。ただし銀３二が４三へ利いていることを先に確かめます。",
+            "en": "Gote has a king on ２二, silver on ３二, and gold on ４二. Sente's pawn on ４四 can promote and attack that gold, with the rook on ４九 behind it. First notice that the silver also controls ４三."
+          }
+        },
+        {
+          "moves": ["4d4c+", "4b4c", "4i4c", "3b4c"],
+          "text": {
+            "ja": "▲４三歩成に対して後手が△同金と取る例です。▲同飛で金を取れても、△同銀が残っています。歩と飛車を金と交換する順なので、この図では飛車の支えだけを根拠に踏み込めません。後手は最初から別の受けも選べます。",
+            "en": "One sample reply to ▲４三歩成 is △同金. Sente can take that gold with ▲同飛, but △同銀 then captures the rook. This line trades a pawn and rook for the gold; rook support alone does not justify the promotion here. Gote can choose a different first reply."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "歩で外側の筋を開き飛車を通す",
+        "en": "Open the outer file for the rook with a pawn break"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "5g3/6sk1/5p3/5P3/9/9/9/9/K4R3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "玉２二・銀３二・金４一の美濃型に対し、先手は４筋の歩同士を向かい合わせ、飛車４九をその後ろに置いています。歩４四が動けば、空いた４四を通って飛車が上がれます。銀３二が４三へ利いているので、歩を取られた後まで数えます。",
+            "en": "Against Gote's king on ２二, silver on ３二, and gold on ４一, Sente has opposing pawns on ４四 and ４三 with a rook behind the pawn on ４九. Advancing the pawn clears ４四 for the rook's route. The silver controls ４三, so count the line through its recapture."
+          }
+        },
+        {
+          "moves": ["4d4c+", "3b4c", "4i4c"],
+          "text": {
+            "ja": "▲４三歩成は歩を取りながら成ります。後手が△同銀と取る例では、▲同飛で銀を取り、飛車が４三へ進みます。飛車の前には４二が空いており、金４一を縦に狙う形です。後手は△同銀を選ばずに受けられるため、銀得や金取りが必ず実現するとは言えません。",
+            "en": "▲４三歩成 captures the pawn while promoting. In the sample reply △同銀, ▲同飛 takes the silver and brings the rook to ４三. With ４二 empty, it now bears down on the gold at ４一. Gote need not choose the silver capture, so neither the silver gain nor the continuing gold threat is forced."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "飛車の横利きに角を重ねる",
+        "en": "Back a lateral rook attack with a bishop"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "5g3/2R2gsk1/9/9/2B6/9/9/9/K8 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "飛車７二が横から金４二を狙います。金４一も４二を支えるため、飛車だけなら交換になります。角７五の斜め筋が６四・５三を通って４二へ届くか、盤上で追ってください。",
+            "en": "The rook on ７二 attacks the gold on ４二 along the second rank. A second gold on ４一 supports it, so the rook alone would be exchanged. Trace the bishop's diagonal from ７五 through ６四 and ５三 to ４二."
+          }
+        },
+        {
+          "moves": ["7b4b", "4a4b", "7e4b+"],
+          "text": {
+            "ja": "▲４二飛で金を取り、後手が△同金と応じた場合、▲同角成で二枚目の金を取ります。飛車と金二枚の交換に加えて馬が残る例ですが、△同金は強制ではありません。金を取る前に、角の通り道と後手の別の応手を確認します。",
+            "en": "After ▲４二飛 takes the first gold, this sample has Gote reply △同金. ▲同角成 then takes the second gold and leaves a horse after Sente has spent a rook. The gold recapture is optional; verify the bishop's route and Gote's alternatives before starting the exchange."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "王手の後も玉の出口を探す",
+        "en": "Find the king's exit after a rook check"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "5g3/6sk1/4R4/7P1/9/4B4/9/9/K8 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手の飛車５三は２三へ横移動できます。後手玉２二の前で王手になりますが、銀３二は２三へ進めます。歩２四と角５六の利きを含めて、銀が飛車を取った後の局面まで見ます。",
+            "en": "Sente's rook on ５三 can cross to ２三 and check the king on ２二. Gote's silver on ３二 can also reach ２三. Include Sente's pawn on ２四 and bishop on ５六 when examining a silver capture of the rook."
+          }
+        },
+        {
+          "moves": ["5c2c+", "3b2c", "2d2c+", "2b3a"],
+          "text": {
+            "ja": "▲２三飛成に△同銀なら、▲同歩成が王手です。角５六がと金２三を斜めに守るため玉は取れません。しかし図の後手玉は△３一玉と逃げられます。銀を取って王手を続けた例であり、詰みや攻めの成功を証明する順ではありません。後手には銀で取る以外の応手もあります。",
+            "en": "If Gote answers ▲２三飛成 with △同銀, ▲同歩成 checks again. The bishop on ５六 protects the tokin on ２三, so the king cannot take it. In this position Gote can escape with △３一玉. This sample wins the silver and continues the checks; it does not establish mate or a successful attack. Gote also has replies other than the silver capture."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "id": "shiken-vs-funa-bougin",
+  "order": 1090,
+  "path": ["戦法・定跡", "四間飛車"],
+  "title": {
+    "ja": "舟囲い棒銀に飛車角の配置を合わせる",
+    "en": "Place rook and bishop against a castled Climbing Silver"
+  },
+  "intro": {
+    "ja": "後手が３二玉の舟囲いを用意してから棒銀を出す局面では、居玉への速攻と同じ時間勘定にはなりません。先手は飛車を移す先で歩を守れるか、角を引いた後もどのマスに利くかを確かめます。大駒交換も、互いの持ち駒と打ち込み場所を見てから選びます。",
+    "en": "When Gote prepares a Boat castle with the king on 3b before advancing Climbing Silver, the timing differs from an attack by an uncastled king. Sente must check whether a rook shift protects the contact pawn and which squares a retreating bishop still covers. Judge any major-piece exchange by the resulting hands and drop squares."
+  },
+  "check": {
+    "question": {
+      "ja": "８筋で双方の飛車を交換して後手銀が８四に残ったら、美濃囲いだけを理由に先手有利と決められますか？",
+      "en": "If the rooks are traded on the eighth file and a Gote silver remains on 8d, does Sente's Mino castle alone prove an advantage?"
+    },
+    "answer": {
+      "ja": "決められません。双方が持つ飛車の打ち込み場所、８四銀の働き、舟囲いと美濃囲いの実際の受けを比べます。",
+      "en": "No. Compare rook-drop squares for both sides, the activity of the silver on 8d, and the concrete defenses of Boat and Mino."
+    }
+  },
+  "references": [
+    {
+      "title": "四間飛車vs棒銀②　舟囲い棒銀",
+      "url": "https://shogi-joutatsu.com/archives/2556",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "８筋へ移す飛車に守る歩はあるか",
+        "en": "Does the rerouted rook defend the contact pawn?"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "5gs2/1r2g1kb1/9/1sp6/1p7/2PP5/PPBSPPPPP/3RG1SK1/5G3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手は３二玉・４一金・５二金・３一銀・２二角の舟囲いに入り、８四銀と８五歩で攻めています。先手は２八玉の美濃囲いで、６八飛から８八への横道は７八が空いています。８筋の歩を守る目的で飛車を移すかを調べます。",
+            "en": "Gote has a Boat shelter with K3b, golds on 4a and 5b, S3a and B2b, plus attacking S8d and P8e. Sente has a Mino king on 2h. The square 7h is open between R6h and 8h, allowing a rook shift aimed at the eighth-file pawn."
+          },
+          "marks": { "arrows": ["6h8h"], "boxes": ["8g", "8e", "7h"] }
+        },
+        {
+          "moves": ["6h8h", "8e8f"],
+          "text": {
+            "ja": "▲８八飛に対し、後手が△８六歩と接触した例です。８八飛はまだ８七歩の後ろにいるので、先手は８七歩で８六を取れます。後手が別の筋で先攻するなら、飛車を８筋へ移した手数が役立つか再検討します。",
+            "en": "After R8h, Gote's sample P8f makes pawn contact. The rook remains behind Sente's pawn on 8g, which can capture the pawn on 8f. A Gote attack on another file would change whether the rook shift was well timed."
+          },
+          "marks": { "last": "8f", "arrows": ["8g8f"], "boxes": ["8h"] }
+        },
+        {
+          "moves": ["8g8f"],
+          "text": {
+            "ja": "▲同歩で先手歩が８六に出ました。８八飛は８七が空いたため８六歩を縦に守り、７七角も８六へ斜めに利いています。後手８二飛は自分の８四銀に縦道を塞がれており、今は８六歩を取れません。銀が動いた後も、この二枚の守りを数え直します。",
+            "en": "Px8f places Sente's pawn on 8f. With 8g vacated, R8h protects it along the file, while B7g also covers it diagonally. Gote's rook on 8b cannot capture the pawn now because its own silver on 8d blocks the file. Recount both defenders if that silver moves."
+          },
+          "marks": { "last": "8f", "arrows": ["8h8f", "7g8f"], "boxes": ["8b"] }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "角を引いても８六への斜線を残す",
+        "en": "Retreat the bishop while keeping the 8f diagonal"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "5gs2/1r2g1kb1/9/1sp6/1p7/2PP5/PPBSPPPPP/1R2G1SK1/5G3 w - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手飛車はすでに８八、角は７七、銀は６七です。後手７四歩の前進先７五を見ながら、角を引くなら６八と５九が空いているか確かめます。この図では６八に駒がなく、５九へ斜めに引けます。",
+            "en": "Sente's rook is already on 8h, bishop on 7g and silver on 6g. Before retreating the bishop against Gote's pawn on 7d, check the path through 6h to 5i. Both squares are empty in this position."
+          },
+          "marks": { "arrows": ["7g5i"], "boxes": ["6h", "5i", "7d"] }
+        },
+        {
+          "moves": ["7d7e", "7g5i"],
+          "text": {
+            "ja": "後手が△７五歩と進めた例で、先手は▲５九角と引きました。角は６八・７七を通って８六へ届く斜線を残します。一方、７七から８六へ一歩で利いた形とは違い、途中の７七を相手に塞がれる可能性があります。",
+            "en": "After Gote's sample P7e, B5i retreats along 6h. The bishop still points toward 8f through 6h and 7g. Unlike the short diagonal from 7g, this longer line can be interrupted on 7g."
+          },
+          "marks": { "last": "5i", "arrows": ["5i8f"], "boxes": ["7g", "7e"] }
+        },
+        {
+          "moves": ["7e7f", "6g7f"],
+          "text": {
+            "ja": "後手が△７六歩で先手歩を取るなら、▲同銀で７六に取り返せます。６七銀が７六へ利いていたことが、この枝の受けの根拠です。後手８四銀は７五へ動けるため、先手銀が前に出た後の利きも続けて読みます。",
+            "en": "If Gote takes Sente's pawn with Px7f, Sx7f recaptures. The silver's control of 7f from 6g is the concrete defense in this branch. Gote's silver on 8d can still move to 7e, so the advanced Sente silver must be reassessed."
+          },
+          "marks": { "last": "7f", "arrows": ["8d7e"], "boxes": ["5i", "8f"] }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "飛車交換後の一手を交換前に調べる",
+        "en": "Inspect the next move before trading rooks"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "5gs2/4g1kb1/2s6/1rp6/9/1RPP5/P1BSPPPPP/4G1SK1/5G3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "８六の先手飛車と８四の後手飛車は８五を挟んで向き合っています。後手７三銀は８四飛を斜め前から守り、両玉はそれぞれ美濃と舟囲いです。飛車を取る前に、後手銀が８四へ取り返した後の局面を想像します。",
+            "en": "Sente's rook on 8f faces Gote's rook on 8d across 8e. Gote's silver on 7c guards the rook on 8d diagonally forward; the kings have Mino and Boat shelters. Before capturing the rook, visualize the position after the silver recaptures on 8d."
+          },
+          "marks": { "arrows": ["8f8d", "7c8d"], "boxes": ["2h", "3b"] }
+        },
+        {
+          "moves": ["8f8d", "7c8d"],
+          "text": {
+            "ja": "▲８四飛△同銀で互いに飛車を持ち、後手銀が８四に残りました。先手は相手飛車を取りましたが、自分の飛車も失っています。ここからの打ち込み場所と８四銀の働きを比較せず、囲いの形だけで優劣は決められません。",
+            "en": "After Rx8d Sx8d, both sides hold a rook and Gote's silver remains on 8d. Sente captured a rook but also lost its own. Compare drop squares and that silver's activity before judging the exchange by castle shape."
+          },
+          "marks": { "last": "8d", "boxes": ["8h", "6h", "3b", "2h"] }
+        },
+        {
+          "text": {
+            "ja": "例えば先手は８八に飛車を打てますが、その一手で後手玉が詰むわけではありません。後手にも飛車打ちの権利があり、先手５八金・４九金の周りの空所を調べる必要があります。飛車交換は目的ではなく、交換後に安全な次の手があるかを測る材料です。",
+            "en": "For example, Sente may drop a rook on 8h, but that move does not mate Gote's king. Gote can also drop a rook, so the empty squares around Sente's golds on 5h and 4i need checking. The trade is a decision about the resulting position, not an end in itself."
+          },
+          "marks": { "boxes": ["8h", "5h", "4i", "8d"] }
+        }
+      ]
+    }
+  ]
+}

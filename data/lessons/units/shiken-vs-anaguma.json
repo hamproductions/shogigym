@@ -1,0 +1,161 @@
+{
+  "id": "shiken-vs-anaguma",
+  "order": 1120,
+  "path": ["戦法・定跡", "四間飛車"],
+  "title": {
+    "ja": "居飛車穴熊への仕掛けを守りの数から選ぶ",
+    "en": "Choose a Fourth File Rook attack by counting Anaguma's defenders"
+  },
+  "intro": {
+    "ja": "居飛車穴熊を目指す後手にも、玉が移動中の局面と、端を金銀で守った局面があります。先手四間飛車は４筋の歩交換、端の取り合い、右桂の接触を別々に読みます。早く動けば必ず得をするわけではなく、相手の受けに使える一手と自玉の状態を比べます。",
+    "en": "Gote's king passes through an unfinished shelter before it reaches a defended Anaguma corner. Sente's Fourth File Rook can examine fourth-file pawn contact, an edge exchange, and a right-knight attack as separate choices. Acting early helps only when the actual defenders and Sente's own king position justify it."
+  },
+  "check": {
+    "question": {
+      "ja": "後手１一玉・１二香・２二銀・３二金に対して、先手の１五歩が△１四歩と接触したあと、▲同歩に△２三金と上がられたら、端の歩は無条件で突破できますか？",
+      "en": "Gote has K1a, L1b, S2b and G3b. After P1d meets Sente's P1e and Sente captures, Gote moves G3b to 2c. Is an edge breakthrough then automatic?"
+    },
+    "answer": {
+      "ja": "できません。２三金は１四を守り、１三への成り込み後も香・金で取り返す筋があります。先手は端に使う歩と香、後手の金の移動を最後まで数えます。",
+      "en": "No. G2c protects 1d, and a promotion on 1c can lead to a lance and gold recapture sequence. Count the pawn and lance spent on the edge as well as Gote's displaced gold."
+    }
+  },
+  "references": [
+    {
+      "title": "四間飛車vs居飛車穴熊",
+      "url": "https://shogi-joutatsu.com/archives/2744",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "玉が端へ着く前に４筋の歩を回収する",
+        "en": "Recover the fourth-file pawn while the king is still travelling"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "2b3s2/1r2g1gkl/1p1s2p2/5p3/9/2PS1P3/1P7/2B1GRSK1/5G3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手玉は２二、香は１二、銀はまだ３一です。先手は２八玉・３八銀・４九金・５八金を置き、飛車を４八へ移しています。４筋には後手４四歩と先手４六歩があり、後手６三銀はまだ４五を守りません。",
+            "en": "Gote's king is on 2b, its lance on 1b, and the silver has not left 3a for the corner. Sente has a sheltered king and has shifted the rook to 4h. P4d faces P4f; Gote's silver on 6c does not yet cover 4e."
+          },
+          "marks": { "boxes": ["2b", "3a", "4d", "4f"], "arrows": ["4f4e", "4h4e"] }
+        },
+        {
+          "moves": ["4f4e", "4d4e"],
+          "text": {
+            "ja": "▲４五歩に後手が△同歩と応じた例です。先手の歩は取られましたが、４六・４七は空き、４八飛が４五の歩を縦に狙えます。後手が歩を取らず銀を寄せるなら、別の局面として読み直します。",
+            "en": "In this sample Gote accepts P4e with Px4e. Sente's pawn is gone, while 4f and 4g are clear in front of R4h. The rook can capture the pawn on 4e. If Gote declines and improves a defender instead, recalculate from that new position."
+          },
+          "marks": { "last": "4e", "arrows": ["4h4e"] }
+        },
+        {
+          "moves": ["4h4e"],
+          "text": {
+            "ja": "▲４五飛で歩を取り返しました。７八角は６七・５六を通って４五飛を支えます。後手は６三銀を５四へ出して次に４五を狙えるため、歩を回収した飛車をそのまま置けるとは限りません。",
+            "en": "Rx4e recovers Gote's pawn. B7h supports the rook through the open squares 6g and 5f. Gote can bring S6c to 5d, where it would attack 4e on the next turn, so the rook need not remain on 4e."
+          },
+          "marks": { "last": "4e", "arrows": ["7h4e", "6c5d"], "boxes": ["4e"] }
+        },
+        {
+          "moves": ["6c5d", "4e4h"],
+          "text": {
+            "ja": "△５四銀と追われた例では▲４八飛と引き、銀の４五への利きから離れます。先手は歩を一枚取り返した一方、後手銀は中央へ進みました。次の攻めを急ぐ前に、後手８筋の飛車と自玉側の受けを確認します。",
+            "en": "After the sample S5d, R4h retreats from the silver's control of 4e. Sente has recovered a pawn, while Gote has developed a silver toward the center. The next attack still depends on Gote's eighth-file rook and the safety of Sente's king."
+          },
+          "marks": { "last": "4h", "boxes": ["5d", "8b", "2h"] }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "囲い終えた端には金の受けがある",
+        "en": "The finished corner has a gold reply to an edge exchange"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "8k/1r4gsl/5g2p/9/8P/5P3/2B6/3RG1SK1/5G2L w - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手は１一玉・１二香・２二銀・３二金で端に玉を収め、先手１五歩と後手１三歩が向かい合います。先手１九香の前は空いていますが、３二金が２三へ出れば１四を守ります。端の接触を香の突破と即断しません。",
+            "en": "Gote has K1a, L1b, S2b and G3b around the corner. Sente's pawn on 1e faces P1c, and the path ahead of L1i is open. Gote's G3b can move to 2c and defend 1d, so pawn contact is not automatically a lance breakthrough."
+          },
+          "marks": { "boxes": ["1a", "1b", "2b", "3b"], "arrows": ["3b2c"] }
+        },
+        {
+          "moves": ["1c1d", "1e1d"],
+          "text": {
+            "ja": "△１四歩▲同歩で先手歩が１四へ出ます。この歩は次に１三へ進んで成れますが、後手には金を近づけてから取る選択があります。飛車が６筋にいるので、この端の歩は飛車で直接支えていません。",
+            "en": "After P1d Px1d, Sente's pawn stands on 1d and could promote on 1c next. Gote can first move a gold toward it. R6h does not directly defend this edge pawn, so the edge sequence must be counted on its own."
+          },
+          "marks": { "last": "1d", "arrows": ["1d1c+", "3b2c"] }
+        },
+        {
+          "moves": ["3b2c", "1d1c+", "1b1c"],
+          "text": {
+            "ja": "△２三金の例では▲１三歩成を△同香で取れます。先手の歩は後手香を１三へ呼びましたが、香を取るだけでは２三金が取り返す位置にいます。後手がこの金を動かさなければ、受けの数も変わります。",
+            "en": "In the sample G2c line, Sente promotes on 1c and Gote's lance captures the tokin. The pawn has drawn the lance to 1c, but G2c is positioned to recapture a Sente lance that takes it. A different gold move would change that count."
+          },
+          "marks": { "last": "1c", "arrows": ["1i1c", "2c1c"] }
+        },
+        {
+          "moves": ["1i1c", "2c1c"],
+          "text": {
+            "ja": "▲同香で香を取って王手をかけても、△同金で後手が香を取り返します。この枝では端の歩と香を双方が交換し、後手金が１三に出ました。金の位置が変わったことは今後の攻め筋ですが、この交換だけで穴熊が崩れたとはいえません。",
+            "en": "Lx1c captures Gote's lance with check, but Gx1c recaptures. In this line both sides exchange the edge pawn and lance, and Gote's gold ends on 1c. That displacement may matter later; the exchange by itself has not dismantled the shelter."
+          },
+          "marks": { "last": "1c", "boxes": ["1a", "1c", "2b"] }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "右桂で角銀を触るときは金の取り返しまで読む",
+        "en": "Count the gold recapture when the right knight contacts bishop and silver"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "9/1r2g1gkl/1p2bps2/9/9/3P1P3/2B3N2/3RG1SK1/5G3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手３七桂は４五へ跳べます。後手５三角と３三銀は４五桂の両側にありますが、３三銀は３二金が守っています。後手玉はまだ２二で、先手は２八玉の美濃側に寄せています。",
+            "en": "Sente's knight on 3g can jump to 4e, between Gote's B5c and S3c. The silver on 3c is protected by G3b. Gote's king remains on 2b while Sente's king is on the Mino side at 2h."
+          },
+          "marks": { "arrows": ["3g4e", "4e3c", "4e5c"], "boxes": ["3b", "2b"] }
+        },
+        {
+          "moves": ["3g4e"],
+          "text": {
+            "ja": "▲４五桂は５三角と３三銀の両方へ利きます。後手が角を逃がす一手だけで銀まで失うと決めつけず、後手の歩や金の応手を含めて読みます。先手６六歩は７七角から後手陣へ伸びる斜線をいまは塞いでいます。",
+            "en": "N4e attacks both B5c and S3c. Do not assume that moving the bishop concedes an undefended silver: Gote still has pawn and gold responses. Sente's P6f currently blocks B7g's long diagonal toward Gote's camp."
+          },
+          "marks": { "last": "4e", "arrows": ["4e3c", "4e5c"], "boxes": ["6f"] }
+        },
+        {
+          "moves": ["5c6d", "4e3c+", "3b3c"],
+          "text": {
+            "ja": "後手が△６四角と退く例なら▲３三桂成で銀を取れますが、△同金で桂も取られます。先手は桂を使って銀を得た一方、後手金は３三へ進みました。この交換の価値は６筋の飛車や玉の危険と合わせて判断します。",
+            "en": "If Gote chooses B6d, Nx3c+ captures the silver, but Gx3c takes the knight. Sente has traded a knight for a silver while Gote's gold moves to 3c. Assess the exchange together with the rook on the sixth file and both kings, not as a free silver."
+          },
+          "marks": { "last": "3c", "boxes": ["3c", "6d", "2b"] }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": ["4c4d", "4e3c+", "3b3c"],
+          "text": {
+            "ja": "後手が角をすぐ逃がさず△４四歩と突く枝でも、▲３三桂成△同金という銀桂交換は可能です。ただし△４四歩は次に４五へ進む桂取りも作るので、桂を放置して囲いに一手かける余裕があるとは限りません。",
+            "en": "Gote can instead push P4d, threatening to advance onto the knight's 4e square. Nx3c+ Gx3c still trades Sente's knight for Gote's silver in this branch. Sente cannot assume there is time for an unrelated castle move while the knight is being challenged."
+          }
+        }
+      ]
+    }
+  ]
+}

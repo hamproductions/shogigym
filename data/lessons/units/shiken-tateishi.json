@@ -1,0 +1,163 @@
+{
+  "id": "shiken-tateishi",
+  "order": 1130,
+  "path": ["戦法・定跡", "四間飛車"],
+  "title": {
+    "ja": "立石流の浮き飛車を角打ちと打ち込みから考える",
+    "en": "Tateishi-style floating rook through bishop drops and rook-drop safety"
+  },
+  "intro": {
+    "ja": "立石流では四間飛車から角道を開き、飛車を浮かせて７筋へ移る構想を使います。角交換や飛車交換は形だけで得にならず、相手の速い飛車先と持ち角の打ち場所で価値が変わります。次の三局面で、進出の条件と自陣に残す守りを数えます。",
+    "en": "Tateishi-style play opens the bishop diagonal from a Fourth File Rook setup and may float the rook toward the seventh file. Neither a bishop exchange nor a rook exchange is valuable by shape alone: an opposing rook-file attack and legal drop squares change the calculation. These positions test when to advance and what protection must remain at home."
+  },
+  "check": {
+    "question": {
+      "ja": "後手が角を持ち、先手６八飛・５六歩・４六銀・８八角の局面。５筋の歩を動かさず▲６六飛と浮くと、△４四角は何を同時に狙いますか？",
+      "en": "Gote has a bishop in hand against Sente R6h, P5f, S4f and B8h. If Sente floats to R6f without first moving P5f, what does B*4d threaten?"
+    },
+    "answer": {
+      "ja": "５五・６六の空いた斜線で６六飛を狙います。飛車が７六へ避けると、さらに７七を通って８八角へ斜線が伸びます。５五歩を置けばこの角筋を遮れますが、４六銀で５五を守ることも確認します。",
+      "en": "The empty 5e square lets the dropped bishop attack R6f. If the rook shifts to 7f, the diagonal also opens through 7g to B8h. A pawn on 5e blocks it, and S4f must cover that pawn."
+    }
+  },
+  "references": [
+    {
+      "title": "立石流四間飛車の指し方",
+      "url": "https://shogi-joutatsu.com/archives/1001",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "角道を開けても８筋の速さを数える",
+        "en": "Opening the bishop diagonal does not stop an eighth-file attack"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "5gs2/1r2g1kb1/9/9/1p7/2PP5/1P7/1B1RG1SK1/5G3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手６八飛・８八角の間には６六歩があり、後手２二角への斜線を閉じています。後手８五歩は次に８六へ進めます。先手が角道を開く手を選んでも、８筋の交換が消えるわけではありません。",
+            "en": "Sente's P6f blocks the diagonal from B8h toward Gote's B2b. Gote already has P8e ready to push toward 8f. Opening the bishop line does not erase the eighth-file pawn contact."
+          },
+          "marks": { "arrows": ["6f6e", "8e8f"], "boxes": ["8h", "2b"] }
+        },
+        {
+          "moves": ["6f6e", "8e8f", "8g8f"],
+          "text": {
+            "ja": "▲６五歩で角筋を通したあと、後手が△８六歩と来た例です。▲同歩で先手歩は８六に出ますが、後手８二飛からは８三・８四・８五が空き、飛車で取り返す手があります。後手が角交換を選ぶとは限りません。",
+            "en": "P6e opens Sente's bishop line. In the sample reply P8f Px8f, Gote's rook on 8b can travel through the now-empty 8c, 8d and 8e squares to capture the pawn. Gote need not accept a bishop exchange."
+          },
+          "marks": { "last": "8f", "arrows": ["8b8f", "8h2b"] }
+        },
+        {
+          "moves": ["8b8f", "8h2b+", "3b2b"],
+          "text": {
+            "ja": "△同飛に▲２二角成と角を交換する枝では、△同玉で後手も角を持ちます。先手は８八角を失い、後手飛車は８六に残っています。角交換そのものを成果とせず、飛車の侵入点と双方の角打ちを続けて読みます。",
+            "en": "After Rx8f, Sente can play Bx2b+ and Gote can recapture with Kx2b. Both players now hold a bishop, while Gote's rook remains on 8f. The exchange alone does not decide the position; the rook's access and each side's bishop drops remain relevant."
+          },
+          "marks": { "last": "2b", "boxes": ["8f", "2b", "6h"] }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "５五歩を盾にして７筋へ浮く",
+        "en": "Use P5e as a screen before floating to the seventh file"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "5g3/1r2g1k2/p4s3/1p7/2P6/4PS3/9/1B1RG1SK1/5G3 b b 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手は７五歩を先に置き、６八飛を浮かせて７筋に寄せたい形です。ただし後手は角を持ち、４四への角打ちは５五・６六・７七・８八と斜めに伸びます。今の５五は空き、４六銀は５五を守れる位置にあります。",
+            "en": "Sente already has P7e and wants to float R6h toward the seventh file. Gote holds a bishop: a drop on 4d runs along 5e, 6f, 7g and B8h. The square 5e is currently empty, while S4f can defend a pawn placed there."
+          },
+          "marks": { "arrows": ["4d8h", "5f5e", "6h6f"], "boxes": ["4f", "5e"] }
+        },
+        {
+          "moves": ["5f5e", "9c9d"],
+          "text": {
+            "ja": "▲５五歩を置くと４四角から６六へ続く斜線は５五で止まります。△９四歩は別の筋を指した一例で、角打ちを諦めた意味ではありません。５五歩は４六銀の前斜めの利きで守られます。",
+            "en": "P5e blocks the diagonal from a future B*4d toward 6f. Gote's P9d is only a sample move elsewhere, not a promise to abandon bishop-drop play. S4f protects the pawn on 5e diagonally."
+          },
+          "marks": { "last": "9d", "arrows": ["4f5e"], "boxes": ["5e"] }
+        },
+        {
+          "moves": ["6h6f", "B*4d", "6f7f"],
+          "text": {
+            "ja": "▲６六飛から７六へ横移動すると、浮き飛車が７五歩の後ろに並びます。後手の△４四角は５五歩に当たりますが、その歩がある間は６六飛を直接狙えません。角を捨てる受けなら銀の取り返しまで数えます。",
+            "en": "R6f and R7f place the floating rook behind P7e. Gote's B*4d attacks P5e but cannot directly attack R6f through that occupied square. If Gote chooses to take the pawn, Sente's silver recapture must be counted."
+          },
+          "marks": { "last": "7f", "boxes": ["7e", "5e", "4d"] }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["6h6f", "B*4d", "6f7f", "4d8h+"],
+          "text": {
+            "ja": "５五を空けたまま先に▲６六飛とすると、△４四角が飛車を狙います。▲７六飛と避けた例では△８八角成が７七を通って先手角を取ります。角打ちの利きは飛車が動いた後も読み直します。",
+            "en": "If Sente floats to R6f while 5e is still empty, B*4d attacks the rook. In the sample R7f escape, Bx8h+ passes through the vacated 6f and 7g squares to capture Sente's bishop. The bishop line must be checked again after the rook moves."
+          }
+        },
+        {
+          "from": 2,
+          "moves": ["4d5e", "4f5e"],
+          "text": {
+            "ja": "後手が△５五角で歩を取る枝なら▲同銀で角を取り返せます。後手はこの交換を選ぶ義務はなく、先手も５五歩を無償の盾と考えず、４六銀の支えが残るかを確かめます。",
+            "en": "If Gote chooses Bx5e to take the screening pawn, Sx5e captures the bishop. Gote need not make that exchange; Sente's point is to retain S4f's protection of the screen, not to assume a cost-free pawn advance."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "飛車交換後に空く６九を調べる",
+        "en": "Inspect 6i before accepting a rook exchange"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "2s6/1krg5/1p7/9/2R6/9/9/1B4SK1/L2G1G3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手７五飛と後手７二飛が向かい合い、後手６二金が７二を守っています。先手は２八玉・３八銀・４九金に加えて６九金を置き、６九は今は空いていません。飛車交換を選ぶなら、後で金を動かす位置も決めておきます。",
+            "en": "Sente's rook on 7e faces Gote's rook on 7b, which is protected by G6b. Sente has K2h, S3h, G4i and another gold on 6i. The square 6i is currently occupied; its availability after the rook exchange depends on the gold's next move."
+          },
+          "marks": { "arrows": ["7e7b", "6b7b"], "boxes": ["6i", "4i", "9i"] }
+        },
+        {
+          "moves": ["7e7b+", "6b7b"],
+          "text": {
+            "ja": "▲７二飛成に△同金で双方が飛車を持ちました。後手金は７二へ動き、先手６九金はそのままです。ここから飛車をどこへ打てるかは、交換前の飛車の働きとは別に確認します。",
+            "en": "Rx7b+ Gx7b trades the rooks and moves Gote's gold to 7b. Both players now hold a rook, while Sente's G6i remains at home. Legal rook-drop squares after the exchange are a separate question from the rooks' former activity."
+          },
+          "marks": { "last": "7b", "boxes": ["6i", "7b"] }
+        },
+        {
+          "moves": ["6i5h", "R*6i"],
+          "text": {
+            "ja": "▲５八金と寄せて６九を空けた例では、後手に△６九飛の打ち場所ができます。この飛車は５九を通って４九金に横から利き、９九香へも７九・８九を通って届きます。後手が必ず打つわけではありませんが、交換を有利と決める前に数えるべき筋です。",
+            "en": "In the sample G5h move, 6i becomes vacant and Gote can choose R*6i. The dropped rook attacks G4i along the open 5i square and also reaches L9i through 7i and 8i. The drop is optional, but these targets must be counted before declaring the rook exchange favorable."
+          },
+          "marks": { "last": "6i", "arrows": ["6i4i", "6i9i"], "boxes": ["5h"] }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": ["6i6h", "R*6i", "6h6i"],
+          "text": {
+            "ja": "先手が▲６八金と真上へ上がった枝では、後手が同じ△６九飛を打つと▲同金で取れます。６九が空いたという条件だけで飛車打ちの成否は決まらず、隣の金が取り返せるかも必要です。",
+            "en": "If Sente instead moves G6h straight up, the same Gote R*6i would allow Gx6i. An empty 6i alone does not make the drop good; the adjacent gold's recapture also matters. Gote is free to choose another rook drop."
+          }
+        }
+      ]
+    }
+  ]
+}

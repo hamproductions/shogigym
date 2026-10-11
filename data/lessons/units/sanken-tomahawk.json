@@ -1,0 +1,138 @@
+{
+  "id": "sanken-tomahawk",
+  "order": 990,
+  "path": ["戦法・定跡", "三間飛車"],
+  "title": {
+    "ja": "トマホーク",
+    "en": "Tomahawk"
+  },
+  "intro": {
+    "ja": "トマホークは三間飛車から右桂を端へ回し、角と桂で穴熊側の守りへ圧力をかける構想です。桂の着地点は１三と３三ですが、どちらも守備駒を数えずに飛び込めません。この講座では、桂の狙いが成立する条件と、攻めを急いだ時の飛車先の反撃を別の局面で調べます。",
+    "en": "Tomahawk uses Sente's right knight from a Third File Rook setup, bringing it around the edge to pressure an Anaguma-style shelter with the bishop. The knight aims at 1c and 3c, but neither landing square can be judged without counting defenders. These positions examine when the knight and bishop work together and how a rushed attack can expose Sente to rook-file counterplay."
+  },
+  "check": {
+    "question": {
+      "ja": "先手桂が２五にいて後手の３三歩を狙っています。▲３三桂成の前に何を調べますか？",
+      "en": "Sente's knight on 2e attacks Gote's pawn on 3c. What must you check before N3c+?"
+    },
+    "answer": {
+      "ja": "３三を取った桂を銀や金で取り返せるか数えます。取られるなら、その後に角が３三へ届くか、さらに角を取る守備駒があるかまで確認します。",
+      "en": "Count which silvers or golds can recapture the knight on 3c. If it is taken, check whether your bishop reaches 3c and whether another defender can then take that bishop."
+    }
+  },
+  "references": [
+    {
+      "title": "ノーマル三間飛車 トマホーク",
+      "url": "https://shogi-joutatsu.com/archives/6970",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": { "ja": "２五桂が作る二つの行き先", "en": "The two landing squares from 2e" },
+      "side": "sente",
+      "kind": "position",
+      "start": "6g1k/1r5sl/6p1p/1p7/9/2PB4P/1P6N/2R2GK2/9 b - 1",
+      "steps": [
+        {
+          "text": { "ja": "先手は７八飛の三間飛車で、右桂は１七にいます。後手は１一玉・１二香・２二銀・３一金で角側の穴熊に似た守りを作っています。桂を跳ぶ前に、１三と３三の歩を誰が守るか確かめます。", "en": "Sente has a rook on 7h and the right knight on 1g. Gote's king on 1a, lance on 1b, silver on 2b and gold on 3a form a corner shelter resembling Anaguma. Before jumping, identify the defenders of the pawns on 1c and 3c." },
+          "marks": { "arrows": ["1g2e"], "boxes": ["1c", "3c"] }
+        },
+        {
+          "moves": ["1g2e"],
+          "text": { "ja": "▲２五桂で桂は１三と３三の両方へ届きます。１三の歩の後ろには１二香があり、３三の歩は２二銀から取り返せる位置です。二つを同時に狙っていても、どちらかが無条件に取れるわけではありません。", "en": "N2e attacks both 1c and 3c. The lance on 1b stands behind the edge pawn, while the silver on 2b can recapture on 3c. Two targets do not mean either capture is free." },
+          "marks": { "last": "2e", "arrows": ["2e1c", "2e3c"] }
+        },
+        {
+          "moves": ["1c1d"],
+          "text": { "ja": "後手が△１四歩と歩をかわす一例です。１三は空きましたが、桂がそこへ成れば２二銀が１三へ進んで取る手を持ちます。３三の歩を狙う手も残るので、桂をすぐ交換するかは角の道と手番で判断します。", "en": "P1d is one possible way for Gote to move the edge pawn. Square 1c becomes empty, but a knight promoting there can be met by Gote's silver moving from 2b to 1c. The pawn on 3c remains a target; whether to trade the knight now depends on the bishop line and timing." },
+          "marks": { "last": "1d", "boxes": ["1c", "3c"] }
+        }
+      ]
+    },
+    {
+      "title": { "ja": "桂を渡して角を通す条件", "en": "When a knight trade opens the bishop" },
+      "side": "sente",
+      "kind": "position",
+      "start": "6g1k/1r5sl/6p1p/1p7/7N1/2PB4P/1P7/2R2GK2/9 b - 1",
+      "steps": [
+        {
+          "text": { "ja": "２五桂が３三歩を狙います。後手の２二銀は３三へ取り返せますが、先手角は６六から５五・４四を通って３三へ届きます。この図では３一金は３三を直接守らないので、桂と角を一組として数えます。", "en": "The knight on 2e attacks the pawn on 3c. Gote's silver on 2b can recapture there, while Sente's bishop on 6f has a clear diagonal through 5e and 4d to 3c. Gote's gold on 3a does not directly defend 3c in this position, so count the knight and bishop together." },
+          "marks": { "arrows": ["2e3c", "6f3c"], "boxes": ["3a", "3c"] }
+        },
+        {
+          "moves": ["2e3c+", "2b3c"],
+          "text": { "ja": "▲３三桂成で歩を取り、後手は△同銀と銀で取り返す一例です。先手は桂を渡した代わりに歩を持ち、３三に出た銀が角の対角線に載りました。後手が別の応手を選べばこの配置にはなりません。", "en": "N3c+ takes the pawn, and Sx3c is one sample recapture. Sente has given a knight for a pawn, but the silver now sits on the bishop's diagonal. Gote can choose a different reply, so this is a conditional line." },
+          "marks": { "last": "3c", "arrows": ["6f3c"] }
+        },
+        {
+          "moves": ["6f3c+", "3a2b"],
+          "text": { "ja": "▲３三角成で銀を取り、１一玉への斜めの王手になります。後手は△２二金と３一の金を間に入れ、同時に３三の馬へ利きを作る受けを選びました。先手は歩と銀を得て桂を渡し、角は馬のまま残っていますが、金をただで取れる形ではありません。", "en": "Bx3c+ takes the silver and gives diagonal check to the king on 1a. G2b interposes the gold from 3a and attacks the horse on 3c. Sente has gained a pawn and silver for the knight, with a horse still on the board, but the gold on 2b is not a free capture." },
+          "marks": { "last": "2b", "boxes": ["3c", "2b", "1a"] }
+        },
+        {
+          "moves": ["3c5e"],
+          "text": { "ja": "馬を５五へ引けば、金の取り返しを受けずに駒を残せます。この順で角を馬のまま残せたのは、後手銀が３三で角に取られ、次の金が２二で王手を遮ったためです。ほかの守備駒が３三に加わるなら計算をやり直します。", "en": "The horse retreats to 5e instead of offering itself to the gold. In this shown line it remains on the board because the silver recaptured on 3c along the bishop's path and the gold interposed on 2b. An extra defender of 3c would change the calculation." },
+          "marks": { "last": "5e", "boxes": ["3c"] }
+        }
+      ]
+    },
+    {
+      "title": { "ja": "金が一段違うと交換も変わる", "en": "One gold square changes the trade" },
+      "side": "sente",
+      "kind": "position",
+      "start": "8k/1r4gsl/6p2/1p7/7N1/2PB4P/1P7/2R2GK2/9 b - 1",
+      "steps": [
+        {
+          "text": { "ja": "今度は後手金が３二、銀が２二で玉は１一です。桂は同じ２五にいて３三歩を狙いますが、３二金が３三へ進めます。金と銀がともに３三を守るため、先ほどより取り返しが一手多くなります。", "en": "Now Gote's gold is on 3b and silver on 2b, with king on 1a. Sente's knight still attacks the pawn on 3c, but both the gold and silver defend that square. This adds another recapture to the earlier calculation." },
+          "marks": { "boxes": ["3b", "3c", "2b"] }
+        },
+        {
+          "moves": ["2e3c+", "3b3c"],
+          "text": { "ja": "▲３三桂成に△同金。桂は歩を得ましたが、後手金が３三に残り、角の道に入ります。ここで角で取るだけなら次に誰が３三へ来るか、さらに数えます。", "en": "N3c+ takes the pawn and Gx3c recaptures. The gold now sits on 3c in the bishop's path. Before taking it, count the next defender of that square." },
+          "marks": { "last": "3c", "arrows": ["6f3c"] }
+        },
+        {
+          "moves": ["6f3c+", "2b3c"],
+          "text": { "ja": "▲３三角成で金を取っても△同銀で馬を取り返されます。先手が得たのは歩と金で、渡したのは桂と角です。前の図と同じ桂の跳び先でも、２二銀が残っているため交換の中身が変わりました。", "en": "Even after Bx3c+ takes the gold, Sx3c recaptures the horse. Sente gained a pawn and gold but gave up a knight and bishop. The knight used the same landing square as before; the extra silver on 2b changed the trade." },
+          "marks": { "last": "3c", "boxes": ["3b"] }
+        }
+      ]
+    },
+    {
+      "title": { "ja": "端を見ている間の飛車先", "en": "Rook-file counterplay while the knight advances" },
+      "side": "sente",
+      "kind": "position",
+      "start": "8k/1r4gsl/6p1p/9/1p7/2PB5/1P6N/2R6/4KGS2 b - 1",
+      "steps": [
+        {
+          "text": { "ja": "右桂は１七で、先手玉はまだ５九。後手は８二飛と８五歩を持ち、８七の歩に近づいています。桂を端から使う構想は残りますが、この図では玉と８筋を同時に点検します。", "en": "The right knight is on 1g and Sente's king remains on 5i. Gote has a rook on 8b and pawn on 8e approaching Sente's pawn on 8g. The edge-knight plan remains available, but king safety and the eighth file need attention together." },
+          "marks": { "arrows": ["1g2e", "8e8f"], "boxes": ["5i", "8g"] }
+        },
+        {
+          "moves": ["1g2e", "8e8f"],
+          "text": { "ja": "▲２五桂を急ぐと、この一例では△８六歩と歩が当たります。桂は１三・３三を狙えますが、８筋の歩への応手を省略できません。端の攻めが速いかどうかは、ここからの取り合い次第です。", "en": "If Sente rushes N2e, Gote can use this turn for P8f in the sample line. The knight attacks 1c and 3c, but it does not answer the pawn contact on the eighth file. Relative attack speed depends on the following exchanges." },
+          "marks": { "last": "8f", "boxes": ["2e", "8g"] }
+        },
+        {
+          "moves": ["8g8f", "8b8f"],
+          "text": { "ja": "▲同歩、△同飛で歩を交換し、後手飛車が８六へ出ました。先手は桂を使えていますが、５九玉のまま飛車の横への利きも生じています。後手も飛車を出したことで、飛車交換に応じるかを選ぶ必要があります。", "en": "After Px8f Rx8f, the pawns have been exchanged and Gote's rook reaches 8f. Sente has developed the knight, but the rook now has lateral reach while Sente's king is still on 5i. Gote must also decide whether to accept a rook exchange after advancing this far." },
+          "marks": { "last": "8f", "boxes": ["5i", "7h"] }
+        },
+        {
+          "moves": ["7h8h"],
+          "text": { "ja": "▲８八飛と回って８筋の飛車に向き合いました。６六角は７七を通って８八を守っています。後手が△８八飛成と交換するなら角で取り返せますが、双方が飛車を持つため５九玉の安全は改めて問題になります。", "en": "R8h faces Gote's rook on the same file. Sente's bishop on 6f protects 8h through 7g. If Gote chooses Rx8h+, the bishop can recapture, but both sides then hold a rook and the king on 5i needs fresh safety analysis." },
+          "marks": { "last": "8h", "arrows": ["6f8h"] }
+        }
+      ],
+      "variations": [
+        {
+          "from": 3,
+          "moves": ["8f8h+", "6f8h"],
+          "text": { "ja": "交換を選んだ後手の△８八飛成には▲同角。先手は龍を取り、後手は先手飛車を持ち駒にしたので、飛車は双方の持ち駒になります。これは選択可能な枝であり、攻めの成功や玉の安全を証明しません。", "en": "On Gote's optional Rx8h+, Bx8h takes the dragon. Each side receives a rook in hand from the exchange. This branch establishes a legal recapture, not that Sente's attack succeeds or the exposed king is safe." }
+        }
+      ]
+    }
+  ]
+}

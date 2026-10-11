@@ -1,0 +1,129 @@
+{
+  "id": "sanken-basics",
+  "order": 970,
+  "path": ["戦法・定跡", "三間飛車"],
+  "title": {
+    "ja": "三間飛車の基本",
+    "en": "Third File Rook fundamentals"
+  },
+  "intro": {
+    "ja": "先手の三間飛車では飛車を７筋へ移し、その筋の歩と協力させます。ただ飛車を振るだけでなく、相手の８筋に角がどう働くかを確かめ、玉を囲う時間も選びます。この講座では、飛車の位置、角の利き、玉の移動を別々の局面で判断します。",
+    "en": "In Sente's Third File Rook, the rook moves to the seventh file and works with that file's pawn. The transfer is only part of the plan: check how the bishop meets pressure on the eighth file and when the king has time to seek shelter. These positions separate the rook, bishop and king decisions."
+  },
+  "check": {
+    "question": {
+      "ja": "先手の飛車を７八に置き、相手の８筋の歩が近づいています。囲いに一手使う前に、何を確認しますか？",
+      "en": "Sente's rook is on 7h and the opponent's eighth-file pawn is approaching. What should you check before spending a move on the castle?"
+    },
+    "answer": {
+      "ja": "８六で歩がぶつかった後の取り合いを数え、角などが８六を守るか確認します。守りが足りなければ、玉の移動より先にその筋へ対応します。",
+      "en": "Count the captures after the pawns meet on 8f and check whether a bishop or another piece covers that square. If the defense is insufficient, address the file before moving the king."
+    }
+  },
+  "references": [
+    {
+      "title": "ノーマル三間飛車、最初の駒組み",
+      "url": "https://shogi-joutatsu.com/archives/6896",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": { "ja": "７筋へ飛車を合わせる", "en": "Align the rook with the seventh file" },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1r1s1g1b1/2p2p3/1p7/9/9/1PP2P3/1B1R5/2S1KG3 b - 1",
+      "steps": [
+        {
+          "text": { "ja": "飛車は６八、７筋の歩は７七にあります。７八が空いているので、飛車は一手で隣の筋へ移れます。移動後も、７筋の歩を前へ出せる道があるか見ます。", "en": "The rook is on 6h and the seventh-file pawn on 7g. Square 7h is clear, so the rook can shift one file in a single move. After the shift, check whether the pawn can still advance ahead of it." },
+          "marks": { "arrows": ["6h7h"], "boxes": ["7g"] }
+        },
+        {
+          "moves": ["6h7h"],
+          "text": { "ja": "▲７八飛で三間飛車の位置になりました。飛車が歩の後方にいるため、７筋の歩が進めば飛車の縦の利きも伸びます。ただし、歩が残る間は飛車がその先を直接攻めているわけではありません。", "en": "R7h establishes the Third File Rook placement. The rook sits behind its pawn, so advancing that pawn may lengthen the rook's file. While the pawn remains in front, the rook does not attack beyond it directly." },
+          "marks": { "last": "7h", "boxes": ["7g"] }
+        },
+        {
+          "moves": ["4c4d", "7g7f"],
+          "text": { "ja": "相手が４筋の歩を進めたあと、▲７六歩で７筋の歩を一つ前へ。飛車と歩は同じ筋にいますが、飛車が７六を守るには間の７七が空いている必要があります。この局面では空いています。", "en": "After Gote advances the fourth-file pawn, P7f moves Sente's pawn one step. The rook and pawn share a file; the rook protects 7f because 7g, the intervening square, is empty here." },
+          "marks": { "arrows": ["7h7f"], "boxes": ["7g", "7f"] }
+        },
+        {
+          "moves": ["5a6a", "7f7e"],
+          "text": { "ja": "▲７五歩と進めても、歩と飛車の間に味方の駒が入らない限り７筋の連携は続きます。一方、△７四歩なら歩同士が接近します。交換するかどうかは、取り返した後の飛車と銀の位置を見て決めます。", "en": "P7e keeps the rook behind the pawn as long as no friendly piece blocks the file. If Gote answers with P7d, the pawns approach contact. Whether to exchange them depends on the rook and silver placements after the recaptures." },
+          "marks": { "last": "7e", "boxes": ["7c"] }
+        }
+      ]
+    },
+    {
+      "title": { "ja": "８筋の歩を角で監視する", "en": "Use the bishop to monitor the eighth file" },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1r5b1/2p6/1p3p3/9/2PB5/1P7/2R6/2S1KG3 b - 1",
+      "steps": [
+        {
+          "text": { "ja": "先手角は６六にいて８四の歩へ斜めに利いています。しかし８二の飛車も８四を守っています。▲８四角と歩を取れば飛車に角を取られるので、角の利きだけで得とは判断できません。", "en": "Sente's bishop on 6f sees the pawn on 8d, but Gote's rook on 8b also protects it. Capturing on 8d with the bishop would allow the rook to take it; an attacked pawn is not necessarily a free pawn." },
+          "marks": { "arrows": ["6f8d", "8b8d"], "boxes": ["8d"] }
+        },
+        {
+          "moves": ["6f7g"],
+          "text": { "ja": "▲７七角と引くと、角の斜めの利きは８六へ向きます。歩を取る手ではなく、次の８筋の接点を守る配置換えです。角を動かす前後で、８四への利きと８六への利きが変わった点を比べてください。", "en": "B7g turns the bishop's diagonal toward 8f. This is a defensive repositioning, not a pawn capture. Compare the bishop's former pressure on 8d with its new coverage of the coming contact square, 8f." },
+          "marks": { "last": "7g", "arrows": ["7g8f"] }
+        },
+        {
+          "moves": ["8d8e"],
+          "text": { "ja": "△８五歩で歩が近づきました。次に△８六歩と来ても、先手の▲同歩で取り返す手を考える際には角の８六への利きも数えられます。ただし相手は別の筋を使うこともでき、これだけで攻めが消えるわけではありません。", "en": "P8e brings the pawn closer. If Gote next plays P8f, the bishop's coverage of 8f belongs in the count when Sente considers recapturing with the pawn on 8g. Gote may choose another file, so this single defense does not end the attack." },
+          "marks": { "last": "8e", "boxes": ["8f"] }
+        }
+      ]
+    },
+    {
+      "title": { "ja": "角交換を盤面で判断する", "en": "Judge a bishop trade from the board" },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1r7/2p3b2/1p7/9/3B5/1PS6/2R2K3/5GS2 w - 1",
+      "steps": [
+        {
+          "text": { "ja": "後手の角は３三、先手角は６六で向かい合っています。後手番なので角交換が起こり得ます。飛車を７八に置いたことだけを理由に交換を禁止するのではなく、取り返す駒とその後の８筋を確かめます。", "en": "Gote's bishop on 3c faces Sente's on 6f, and it is Gote's turn. A bishop trade is possible. The rook's placement on 7h alone does not forbid a trade; identify the recapturing piece and inspect the eighth file afterward." },
+          "marks": { "arrows": ["3c6f"], "boxes": ["7g"] }
+        },
+        {
+          "moves": ["3c6f", "7g6f"],
+          "text": { "ja": "△６六角に▲同銀。７七の銀が６六へ進んで角を取り、双方が角を持ちました。先手の７八飛は残っていますが、角が８筋を守る形ではなくなっています。", "en": "After Bx6f Sx6f, Sente's silver from 7g takes the bishop. Each side now has a bishop in hand. Sente's rook remains on 7h, but a bishop no longer guards the eighth file." },
+          "marks": { "last": "6f", "boxes": ["8g", "8d"] }
+        },
+        {
+          "text": { "ja": "ここで次の△８五歩から８筋が近づく可能性を数えます。角交換そのものに決まった評価はありません。持ち角の打ち場所、６六の銀の働き、８筋の受けに使える手番を一緒に調べます。", "en": "From here, consider whether P8e can bring pressure closer. The trade has no fixed verdict: examine bishop-drop squares, the silver on 6f, and the time available to defend the eighth file." }
+        }
+      ]
+    },
+    {
+      "title": { "ja": "囲いへ移る手番を選ぶ", "en": "Choose when to build the shelter" },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1r1s3b1/2p6/1p3p3/9/9/1PB6/2R1G1K2/5GS2 b - 1",
+      "steps": [
+        {
+          "text": { "ja": "飛車は７八、角は７七で８六を見ています。玉は３八、銀は３九、金は４九と５八です。８筋にまだ一手の余裕があり、右側の守りを連結する時間があるか検討します。", "en": "The rook is on 7h and the bishop on 7g covers 8f. Sente's king is on 3h, with silver on 3i and golds on 4i and 5h. There is still a move before eighth-file pawn contact, so consider whether the right-side defenders can connect in time." },
+          "marks": { "boxes": ["2h", "3h", "4h", "8f"] }
+        },
+        {
+          "moves": ["3h2h"],
+          "text": { "ja": "▲２八玉で飛車と反対側へ玉を寄せます。これは囲いの完成ではありません。３九の銀と４九の金がまだ離れているので、次の攻めの速さを見ながら続けます。", "en": "K2h moves the king away from its rook. The shelter is not complete: the silver on 3i and gold on 4i still need to connect. Continue only after checking the speed of Gote's attack." },
+          "marks": { "last": "2h", "boxes": ["3i", "4i"] }
+        },
+        {
+          "moves": ["8d8e", "3i3h"],
+          "text": { "ja": "△８五歩に▲３八銀。銀は玉の左側へ出て、２八の玉を支えます。後手の８筋の歩は８五まで来たので、次の△８六歩に対する歩の取り合いも同時に点検します。", "en": "After P8e, S3h places the silver beside the king on 2h. Gote's pawn has reached 8e, so the pawn exchange after a possible P8f must be checked at the same time." },
+          "marks": { "last": "3h", "boxes": ["8e", "8f"] }
+        },
+        {
+          "moves": ["7c7d", "4i4h"],
+          "text": { "ja": "△７四歩の間に▲４八金と上がり、２八玉・３八銀・４八金のつながりを作りました。これは美濃囲いの基本的な骨格です。ただし角が７七を離れれば８六の守りも変わるため、囲いだけを見て指し続けません。", "en": "While Gote plays P7d, G4h connects the king on 2h, silver on 3h and gold on 4h, forming a basic Mino core. If the bishop leaves 7g, its defense of 8f changes; the castle cannot be considered in isolation." },
+          "marks": { "last": "4h", "boxes": ["2h", "3h", "4h", "8f"] }
+        }
+      ]
+    }
+  ]
+}

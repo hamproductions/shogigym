@@ -1,0 +1,310 @@
+{
+ "id": "yokofu-vs-85hisha--58gyoku",
+ "title": "横歩取り対△８五飛：５八玉と桂の利き",
+ "titleEn": "Side Pawn Picker vs R8e: K5h and the Knight’s Reach",
+ "myStrategy": "yokofudori",
+ "opponentStrategy": "yoko-85hi",
+ "mySide": "sente",
+ "userSide": "sente",
+ "source": "横歩取りと△８五飛の基本配置をもとに、やねうら王の新ペタショック定跡（MIT）の候補手とエンジン検証で手順を構成。解説はこのアプリのために書き下ろし。",
+ "goalFormation": "先手は３四の横歩を飛車で取り、後手飛車８五を見て玉を５八へ上げた。後手の歩８六打には桂７七で飛車８五に当て、後手は飛車を２五へ横移動。先手は２八に歩を打って２筋を受け、７筋の歩を７五へ進めた。８六の後手歩、２五飛、４四角、３六飛の利きを比べて続ける局面。",
+ "goalLabel": "桂７七で飛車８五を問い、２筋を受ける",
+ "goalSfen": "lnsgkg1nl/6s2/p1pppp2p/5b3/2P4r1/1p4R2/P1NPPPP1P/1BG1K2P1/L1S2GSNL w 2Pp 1",
+ "root": {
+  "id": "n0",
+  "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+  "comment": "後手飛車８五に対して先手玉を５八へ上げ、横歩を取った飛車３四をすぐ引かずに構える。８筋に歩を打たれたら桂７七の利きは飛車８五へ届くが、後手は飛車を横へ逃がせる。桂の当たりだけで駒得を決めず、２筋の受けと７筋の前進を続けて見る。",
+  "branches": [
+   {
+    "usi": "7g7f",
+    "kind": "main",
+    "child": {
+     "id": "n_0",
+     "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL w - 1",
+     "branches": [
+      {
+       "usi": "3c3d",
+       "kind": "main",
+       "child": {
+        "id": "n_1",
+        "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL b - 1",
+        "branches": [
+         {
+          "usi": "2g2f",
+          "kind": "main",
+          "child": {
+           "id": "n_2",
+           "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P4P1/PP1PPPP1P/1B5R1/LNSGKGSNL w - 1",
+           "branches": [
+            {
+             "usi": "8c8d",
+             "kind": "main",
+             "child": {
+              "id": "n_3",
+              "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/1p4p2/9/2P4P1/PP1PPPP1P/1B5R1/LNSGKGSNL b - 1",
+              "branches": [
+               {
+                "usi": "2f2e",
+                "kind": "main",
+                "child": {
+                 "id": "n_4",
+                 "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/1p4p2/7P1/2P6/PP1PPPP1P/1B5R1/LNSGKGSNL w - 1",
+                 "branches": [
+                  {
+                   "usi": "8d8e",
+                   "kind": "main",
+                   "child": {
+                    "id": "n_5",
+                    "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/6p2/1p5P1/2P6/PP1PPPP1P/1B5R1/LNSGKGSNL b - 1",
+                    "branches": [
+                     {
+                      "usi": "6i7h",
+                      "kind": "main",
+                      "note": "先手金７八。８筋の歩交換が起きる前に金を上げる。",
+                      "child": {
+                       "id": "n_6",
+                       "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/6p2/1p5P1/2P6/PP1PPPP1P/1BG4R1/LNS1KGSNL w - 1",
+                       "branches": [
+                        {
+                         "usi": "8e8f",
+                         "kind": "main",
+                         "child": {
+                          "id": "n_7",
+                          "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/6p2/7P1/1pP6/PP1PPPP1P/1BG4R1/LNS1KGSNL b - 1",
+                          "branches": [
+                           {
+                            "usi": "8g8f",
+                            "kind": "main",
+                            "note": "先手歩８六が後手歩を取る。",
+                            "child": {
+                             "id": "n_8",
+                             "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/6p2/7P1/1PP6/P2PPPP1P/1BG4R1/LNS1KGSNL w P 1",
+                             "branches": [
+                              {
+                               "usi": "8b8f",
+                               "kind": "main",
+                               "note": "△同飛。後手飛車が８六の先手歩を取る。",
+                               "child": {
+                                "id": "n_9",
+                                "sfen": "lnsgkgsnl/7b1/p1pppp1pp/6p2/7P1/1rP6/P2PPPP1P/1BG4R1/LNS1KGSNL b Pp 1",
+                                "branches": [
+                                 {
+                                  "usi": "2e2d",
+                                  "kind": "main",
+                                  "note": "先手２四歩。２筋の歩を交換する。",
+                                  "child": {
+                                   "id": "n_10",
+                                   "sfen": "lnsgkgsnl/7b1/p1pppp1pp/6pP1/9/1rP6/P2PPPP1P/1BG4R1/LNS1KGSNL w Pp 1",
+                                   "branches": [
+                                    {
+                                     "usi": "2c2d",
+                                     "kind": "main",
+                                     "note": "△同歩。後手歩２三が２四の先手歩を取る。",
+                                     "child": {
+                                      "id": "n_11",
+                                      "sfen": "lnsgkgsnl/7b1/p1pppp2p/6pp1/9/1rP6/P2PPPP1P/1BG4R1/LNS1KGSNL b P2p 1",
+                                      "branches": [
+                                       {
+                                        "usi": "2h2d",
+                                        "kind": "main",
+                                        "note": "先手飛車２四。２四の後手歩を取り、横へ動ける位置に出る。",
+                                        "child": {
+                                         "id": "n_12",
+                                         "sfen": "lnsgkgsnl/7b1/p1pppp2p/6pR1/9/1rP6/P2PPPP1P/1BG6/LNS1KGSNL w 2P2p 1",
+                                         "branches": [
+                                          {
+                                           "usi": "8f8b",
+                                           "kind": "main",
+                                           "note": "△８二飛。後手飛車を引き、先手飛車が３四の歩を取るかを見る。",
+                                           "child": {
+                                            "id": "n_13",
+                                            "sfen": "lnsgkgsnl/1r5b1/p1pppp2p/6pR1/9/2P6/P2PPPP1P/1BG6/LNS1KGSNL b 2P2p 1",
+                                            "branches": [
+                                             {
+                                              "usi": "2d3d",
+                                              "kind": "main",
+                                              "note": "先手飛車３四。３四の後手歩を取る横歩取り。",
+                                              "child": {
+                                               "id": "n_14",
+                                               "sfen": "lnsgkgsnl/1r5b1/p1pppp2p/6R2/9/2P6/P2PPPP1P/1BG6/LNS1KGSNL w 3P2p 1",
+                                               "branches": [
+                                                {
+                                                 "usi": "8b8e",
+                                                 "kind": "main",
+                                                 "note": "△８五飛。後手飛車を８五に浮かせ、８筋と横筋の両方に備える。",
+                                                 "child": {
+                                                  "id": "n_15",
+                                                  "sfen": "lnsgkgsnl/7b1/p1pppp2p/6R2/1r7/2P6/P2PPPP1P/1BG6/LNS1KGSNL b 3P2p 1",
+                                                  "branches": [
+                                                   {
+                                                    "usi": "5i5h",
+                                                    "kind": "main",
+                                                    "note": "先手玉５八。飛車３四をすぐ引かず、玉を中央へ一つ上げる。７八金がいるので８筋の歩打ちも確認する。",
+                                                    "child": {
+                                                     "id": "n_16",
+                                                     "sfen": "lnsgkgsnl/7b1/p1pppp2p/6R2/1r7/2P6/P2PPPP1P/1BG1K4/LNS2GSNL w 3P2p 1",
+                                                     "branches": [
+                                                      {
+                                                       "usi": "P*8f",
+                                                       "kind": "main",
+                                                       "note": "△８六歩打。後手は飛車８五の前に歩を置き、８七への前進を狙う。",
+                                                       "child": {
+                                                        "id": "nb0_0",
+                                                        "sfen": "lnsgkgsnl/7b1/p1pppp2p/6R2/1r7/1pP6/P2PPPP1P/1BG1K4/LNS2GSNL b 3Pp 1",
+                                                        "branches": [
+                                                         {
+                                                          "usi": "8i7g",
+                                                          "kind": "main",
+                                                          "note": "先手桂７七。８九桂が跳ね、８五飛に利く。角８八からの斜線は桂７七が塞ぐ点も確認する。",
+                                                          "child": {
+                                                           "id": "nb0_1",
+                                                           "sfen": "lnsgkgsnl/7b1/p1pppp2p/6R2/1r7/1pP6/P1NPPPP1P/1BG1K4/L1S2GSNL w 3Pp 1",
+                                                           "branches": [
+                                                            {
+                                                             "usi": "8e2e",
+                                                             "kind": "main",
+                                                             "note": "△２五飛。８五飛を横に移し、桂７七が取る筋を外れる。２筋へ飛車が来たため先手も受けを考える。",
+                                                             "child": {
+                                                              "id": "nb0_2",
+                                                              "sfen": "lnsgkgsnl/7b1/p1pppp2p/6R2/7r1/1pP6/P1NPPPP1P/1BG1K4/L1S2GSNL b 3Pp 1",
+                                                              "branches": [
+                                                               {
+                                                                "usi": "P*2h",
+                                                                "kind": "main",
+                                                                "note": "先手歩２八打。２筋の進入地点を歩で押さえ、３九銀の利きで守る。",
+                                                                "child": {
+                                                                 "id": "nb0_3",
+                                                                 "sfen": "lnsgkgsnl/7b1/p1pppp2p/6R2/7r1/1pP6/P1NPPPP1P/1BG1K2P1/L1S2GSNL w 2Pp 1",
+                                                                 "branches": [
+                                                                  {
+                                                                   "usi": "2b4d",
+                                                                   "kind": "main",
+                                                                   "note": "△４四角。後手角は２二から３三を通って４四へ移る。５五・６六を経て７七桂を見るが、先手金７八も７七を守る。",
+                                                                   "child": {
+                                                                    "id": "nb0_4",
+                                                                    "sfen": "lnsgkgsnl/9/p1pppp2p/5bR2/7r1/1pP6/P1NPPPP1P/1BG1K2P1/L1S2GSNL b 2Pp 1",
+                                                                    "branches": [
+                                                                     {
+                                                                      "usi": "7f7e",
+                                                                      "kind": "main",
+                                                                      "note": "先手７五歩。７六の歩を進め、７筋にも争点を作る。",
+                                                                      "child": {
+                                                                       "id": "nb0_5",
+                                                                       "sfen": "lnsgkgsnl/9/p1pppp2p/5bR2/2P4r1/1p7/P1NPPPP1P/1BG1K2P1/L1S2GSNL w 2Pp 1",
+                                                                       "branches": [
+                                                                        {
+                                                                         "usi": "3a3b",
+                                                                         "kind": "main",
+                                                                         "note": "△３二銀。後手は角４四の近くに銀を上げる。",
+                                                                         "child": {
+                                                                          "id": "nb0_6",
+                                                                          "sfen": "lnsgkg1nl/6s2/p1pppp2p/5bR2/2P4r1/1p7/P1NPPPP1P/1BG1K2P1/L1S2GSNL b 2Pp 1",
+                                                                          "branches": [
+                                                                           {
+                                                                            "usi": "3d3f",
+                                                                            "kind": "main",
+                                                                            "note": "先手飛車３六。３四から３五を通って二段引き、７筋の歩と２筋の受けを見比べる。",
+                                                                            "child": {
+                                                                             "id": "nb0_7",
+                                                                             "sfen": "lnsgkg1nl/6s2/p1pppp2p/5b3/2P4r1/1p4R2/P1NPPPP1P/1BG1K2P1/L1S2GSNL w 2Pp 1",
+                                                                             "branches": [],
+                                                                             "comment": "桂７七は飛車８五に当たるが、後手は２五へ逃がした。歩２八で２筋を受けた先手は、角４四から７七桂への斜線にも注意しながら歩７五と飛車３六を選ぶ。玉５八の位置だけで安全を決めず、桂７七と金７八の利きも読む。"
+                                                                            }
+                                                                           }
+                                                                          ]
+                                                                         }
+                                                                        }
+                                                                       ]
+                                                                      }
+                                                                     }
+                                                                    ]
+                                                                   }
+                                                                  }
+                                                                 ]
+                                                                }
+                                                               }
+                                                              ]
+                                                             }
+                                                            }
+                                                           ]
+                                                          }
+                                                         }
+                                                        ]
+                                                       }
+                                                      },
+                                                      {
+                                                       "usi": "8e2e",
+                                                       "kind": "alt",
+                                                       "note": "後手が歩８六打より先に飛車を２五へ横移動する。",
+                                                       "child": {
+                                                        "id": "nb1_0",
+                                                        "sfen": "lnsgkgsnl/7b1/p1pppp2p/6R2/7r1/2P6/P2PPPP1P/1BG1K4/LNS2GSNL b 3P2p 1",
+                                                        "branches": [
+                                                         {
+                                                          "usi": "P*2h",
+                                                          "kind": "main",
+                                                          "note": "先手歩２八打。飛車２五の前の筋を先に受ける。桂７七で飛車８五を狙う局面とは手順が変わる。",
+                                                          "child": {
+                                                           "id": "nb1_1",
+                                                           "sfen": "lnsgkgsnl/7b1/p1pppp2p/6R2/7r1/2P6/P2PPPP1P/1BG1K2P1/LNS2GSNL w 2P2p 1",
+                                                           "branches": [],
+                                                           "comment": "同じ８五飛の形でも、後手が先に飛車を移せば桂７七の当たりは生じない。８筋の歩打ちが実際に入ったかを確認する。"
+                                                          }
+                                                         }
+                                                        ]
+                                                       }
+                                                      }
+                                                     ]
+                                                    }
+                                                   }
+                                                  ]
+                                                 }
+                                                }
+                                               ]
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          }
+                                         ]
+                                        }
+                                       }
+                                      ]
+                                     }
+                                    }
+                                   ]
+                                  }
+                                 }
+                                ]
+                               }
+                              }
+                             ]
+                            }
+                           }
+                          ]
+                         }
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

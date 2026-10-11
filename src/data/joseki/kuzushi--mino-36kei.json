@@ -1,50 +1,121 @@
 {
  "id": "kuzushi--mino-36kei",
- "title": "囲い崩し: 美濃囲いに△3六桂",
- "titleEn": "Breaking Mino: knight drop △3六桂",
+ "title": "美濃囲い：桂で金と角を同時に狙う",
+ "titleEn": "Mino Castle: A Knight Fork of Gold and Bishop",
  "myStrategy": "ibisha",
  "opponentStrategy": "shikenbisha",
  "mySide": "gote",
  "userSide": "gote",
- "source": "局面と手順はWikipedia日本語版「美濃囲い」(https://ja.wikipedia.org/wiki/美濃囲い)の図「美濃囲いの有名なくずし例」と同節の解説に準拠(CC BY-SA)。図の局面(△3六桂と打たれた局面、持ち駒は先手 銀桂歩2・後手 角銀歩)をSFENに変換し、全手を合法手検証済み。",
- "goalFormation": "美濃囲いは3六への桂打ちと角のにらみに弱い。△3六桂を▲同歩と取らせて△8八飛成〜△5五角の王手飛車を決める。",
+ "source": "美濃囲いの玉２八・銀３八・金４九と補助の金５八を用い、アプリ用の練習局面・手順・解説を独自に作成。合法手と評価はやねうら王（https://github.com/yaneurao/YaneuraOu）で確認した。",
+ "goalFormation": "後手の桂６六打は金５八と角７八を同時に狙う。先手が角で３四の歩を取る例では、桂が金５八を取る。残る金４九は桂を取り返して５八へ移るが、後手は金を持ち、先手は桂と歩を持っている。囲いが崩れ切ったとは言えず、手番ごとに次の脅威を数える。",
+ "goalLabel": "桂で金を取り、残る金を４九から動かす",
+ "goalSfen": "ln1gkgsnl/1r5b1/pp1pp2pp/2p2pB2/2sP5/9/PPP1PPPPP/3RG1SK1/L1S4NL w NPg 1",
  "root": {
   "id": "n0",
-  "sfen": "l+R3g1nl/3sg1k2/p2p1p1p1/2P1p1p1p/3P5/6n1P/P3PPPP1/LB2G1SK1/1r3G1NL b SN2Pbsp 1",
-  "comment": "△3六桂と打たれた局面。一段飛車と角のにらみがあると、美濃囲いは△3六桂であっという間に寄ってしまいやすい。▲1八玉は△1七銀、▲1七玉は△2八銀で、どちらも△4九飛成で金を手に入れると詰む。ここでは▲同歩と取った場合を確かめます。",
+  "sfen": "ln1gkgsnl/1r5b1/pp1pp2pp/2p2pp2/2sP5/9/PPP1PPPPP/2BRG1SK1/L1S2G1NL w n 1",
+  "comment": "実戦棋譜ではなく、玉２八・銀３八・金４九と金５八の美濃側を置いた合成練習局面。後手は先に得た桂を一枚持ち、先手の左桂８九は盤上にない。後手の７筋歩は７四、銀は７五に進み、銀が６六を守る。先手の６筋歩は６五まで進んでいる。桂打ちの前に、先手角７八の反撃筋も読む。",
   "branches": [
    {
-    "usi": "3g3f",
+    "usi": "N*6f",
     "kind": "main",
-    "note": "△3六桂を▲同歩と取ると…",
+    "note": "後手桂６六打。桂は５八金と７八角の両方に当たり、７五銀が桂６六を守る。",
     "child": {
      "id": "n_0",
-     "sfen": "l+R3g1nl/3sg1k2/p2p1p1p1/2P1p1p1p/3P5/6P1P/P3PP1P1/LB2G1SK1/1r3G1NL w S2N2Pbsp 1",
+     "sfen": "ln1gkgsnl/1r5b1/pp1pp2pp/2p2pp2/2sP5/3n5/PPP1PPPPP/2BRG1SK1/L1S2G1NL b - 1",
      "branches": [
       {
-       "usi": "8i8h+",
+       "usi": "7h3d",
        "kind": "main",
-       "note": "飛車を切って龍を8八に引き寄せます。",
+       "note": "先手角３四。角７八は６七・５六・４五を通って３四の歩を取り、先手は歩を持つ。３四はまだ成れる段ではない。",
        "child": {
-        "id": "n_1",
-        "sfen": "l+R3g1nl/3sg1k2/p2p1p1p1/2P1p1p1p/3P5/6P1P/P3PP1P1/L+r2G1SK1/5G1NL b S2N2P2bsp 1",
+        "id": "nb0_0",
+        "sfen": "ln1gkgsnl/1r5b1/pp1pp2pp/2p2pB2/2sP5/3n5/PPP1PPPPP/3RG1SK1/L1S2G1NL w P 1",
         "branches": [
          {
-          "usi": "8a8h",
+          "usi": "6f5h+",
           "kind": "main",
+          "note": "後手桂５八成。桂６六が金５八を取り、後手は金を持つ。これは玉２八への王手ではない。",
           "child": {
-           "id": "n_2",
-           "sfen": "l4g1nl/3sg1k2/p2p1p1p1/2P1p1p1p/3P5/6P1P/P3PP1P1/L+R2G1SK1/5G1NL w RS2N2P2bsp 1",
+           "id": "nb0_1",
+           "sfen": "ln1gkgsnl/1r5b1/pp1pp2pp/2p2pB2/2sP5/9/PPP1PPPPP/3R+n1SK1/L1S2G1NL b Pg 1",
            "branches": [
             {
-             "usi": "B*5e",
+             "usi": "4i5h",
              "kind": "main",
-             "note": "△5五角が王手飛車。玉と8八の龍を同時に狙います。",
+             "note": "先手金５八。４九金が成桂を取り、先手は桂を持つ。５八に金が戻っても４九は空き、先手角３四も働くため、寄せの成否は未確定。",
              "child": {
-              "id": "n_3",
-              "sfen": "l4g1nl/3sg1k2/p2p1p1p1/2P1p1p1p/3Pb4/6P1P/P3PP1P1/L+R2G1SK1/5G1NL b RS2N2Pbsp 1",
+              "id": "nb0_2",
+              "sfen": "ln1gkgsnl/1r5b1/pp1pp2pp/2p2pB2/2sP5/9/PPP1PPPPP/3RG1SK1/L1S4NL w NPg 1",
               "branches": [],
-              "comment": "王手飛車がかかり、美濃側は受けきれません。美濃を寄せる急所は4九(後手なら6一)の金を動かすことで、3九に角や銀を打つ展開になると美濃の玉は寄ってしまいます。"
+              "comment": "後手は桂を渡して金を得た。先手も歩と桂を持ち、角を３四へ進めている。金を取っただけで詰みや必至とは判定せず、次の手番の受けと反撃を読む。"
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {
+       "usi": "7h6g",
+       "kind": "deviation",
+       "note": "先手角６七。角を桂の狙いから退けるが、５八金はまだ桂６六に狙われている。",
+       "punishNote": "角だけを退けても、金５八への桂の利きは消えない。",
+       "child": {
+        "id": "nb1_0",
+        "sfen": "ln1gkgsnl/1r5b1/pp1pp2pp/2p2pp2/2sP5/3n5/PPPBPPPPP/3RG1SK1/L1S2G1NL w - 1",
+        "branches": [
+         {
+          "usi": "6f5h+",
+          "kind": "main",
+          "note": "後手桂５八成。金を取り、後手の持ち駒に金が加わる。",
+          "child": {
+           "id": "nb1_1",
+           "sfen": "ln1gkgsnl/1r5b1/pp1pp2pp/2p2pp2/2sP5/9/PPPBPPPPP/3R+n1SK1/L1S2G1NL b g 1",
+           "branches": [
+            {
+             "usi": "4i5h",
+             "kind": "main",
+             "note": "先手金５八。４九金が成桂を取り、先手は桂を持つ。",
+             "child": {
+              "id": "nb1_2",
+              "sfen": "ln1gkgsnl/1r5b1/pp1pp2pp/2p2pp2/2sP5/9/PPPBPPPPP/3RG1SK1/L1S4NL w Ng 1",
+              "branches": [],
+              "comment": "この変化は先手角を７八から６七へ移す選択。主順の３四角による歩得は起きず、同じ金桂の交換でも盤上の攻め駒が異なる。"
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {
+       "usi": "5h4h",
+       "kind": "deviation",
+       "note": "先手金４八。５八金を逃がして玉側を補うが、角７八が残る。",
+       "punishNote": "金を逃がすだけでは７八角が残り、桂と角の交換になる。",
+       "child": {
+        "id": "nb2_0",
+        "sfen": "ln1gkgsnl/1r5b1/pp1pp2pp/2p2pp2/2sP5/3n5/PPP1PPPPP/2BR1GSK1/L1S2G1NL w - 1",
+        "branches": [
+         {
+          "usi": "6f7h+",
+          "kind": "main",
+          "note": "後手桂７八成。桂が角を取り、後手は角を持つ。",
+          "child": {
+           "id": "nb2_1",
+           "sfen": "ln1gkgsnl/1r5b1/pp1pp2pp/2p2pp2/2sP5/9/PPP1PPPPP/2+nR1GSK1/L1S2G1NL b b 1",
+           "branches": [
+            {
+             "usi": "6h7h",
+             "kind": "main",
+             "note": "先手飛車７八。６八飛車が成桂を取り、先手は桂を持つ。",
+             "child": {
+              "id": "nb2_2",
+              "sfen": "ln1gkgsnl/1r5b1/pp1pp2pp/2p2pp2/2sP5/9/PPP1PPPPP/2R2GSK1/L1S2G1NL w Nb 1",
+              "branches": [],
+              "comment": "先手は飛車で桂を取り返せるため、後手の角得も無償ではない。金４八と飛車７八への配置変化まで確認する。"
              }
             }
            ]
@@ -53,7 +124,8 @@
         ]
        }
       }
-     ]
+     ],
+     "comment": "両取りでも、先手は角を逃がしながら攻める余地がある。桂で何を取れるかだけでなく、先手の取り返しと角の行き先を確かめる。"
     }
    }
   ]

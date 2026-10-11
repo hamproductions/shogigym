@@ -1,0 +1,399 @@
+{
+ "id": "ishida-vs-ibisha--honkumi",
+ "title": "石田流本組み対居飛車：桂と角の配置を８筋の攻めに結びつける",
+ "titleEn": "Full Ishida Formation vs Static Rook: Coordinate Knight and Bishop",
+ "myStrategy": "ishida",
+ "opponentStrategy": "ibisha",
+ "mySide": "sente",
+ "userSide": "sente",
+ "source": "石田流本組みと居飛車の基本配置をもとに、序盤の候補手はやねうら王の新ペタショック定跡（MIT）を参照。８筋と６筋の応酬は合法手とエンジンで検証して独自に構成し、解説は書き下ろし。",
+ "goalFormation": "先手は７五歩・７六飛・７七桂・９七角・６七銀を並べ、玉２八と３八銀で自陣を整えた。後手は８二飛と８五歩を保ち、６五歩で先手６六歩を取った。先手桂７七は６五の後手歩を取り返せる。角９七は自分の７五歩で斜線が止まるが、８六での取り返しには使える。",
+ "goalLabel": "浮き飛車・桂・角をそろえ、６筋と８筋を別々に数える",
+ "goalSfen": "ln3ksnl/1r2g1g2/2ps1pbp1/p3p1p1p/1pPp5/P1R6/BPNSPPPPP/6SK1/L2G1G1NL b p 1",
+ "root": {
+  "id": "n0",
+  "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+  "comment": "石田流本組みを作るとき、７六飛だけに攻めを任せない。７七桂と９七角の働き、後手飛車がいる８筋と歩がぶつかる６筋を、それぞれ実際の盤上で数える。",
+  "branches": [
+   {
+    "usi": "7g7f",
+    "kind": "main",
+    "child": {
+     "id": "n_0",
+     "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL w - 1",
+     "branches": [
+      {
+       "usi": "3c3d",
+       "kind": "main",
+       "child": {
+        "id": "n_1",
+        "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL b - 1",
+        "branches": [
+         {
+          "usi": "7f7e",
+          "kind": "main",
+          "note": "先手７五歩。７六が空き、飛車を７八から７六へ浮かせられる。",
+          "child": {
+           "id": "n_2",
+           "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/2P6/9/PP1PPPPPP/1B5R1/LNSGKGSNL w - 1",
+           "branches": [
+            {
+             "usi": "8c8d",
+             "kind": "main",
+             "child": {
+              "id": "n_3",
+              "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/1p4p2/2P6/9/PP1PPPPPP/1B5R1/LNSGKGSNL b - 1",
+              "branches": [
+               {
+                "usi": "2h7h",
+                "kind": "main",
+                "child": {
+                 "id": "n_4",
+                 "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/1p4p2/2P6/9/PP1PPPPPP/1BR6/LNSGKGSNL w - 1",
+                 "branches": [
+                  {
+                   "usi": "8d8e",
+                   "kind": "main",
+                   "note": "後手８五歩。先手が８六歩で接した場合、後手８六同歩の取り返しを確認する。",
+                   "child": {
+                    "id": "n_5",
+                    "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/6p2/1pP6/9/PP1PPPPPP/1BR6/LNSGKGSNL b - 1",
+                    "branches": [
+                     {
+                      "usi": "7h7f",
+                      "kind": "main",
+                      "note": "先手７六飛。７五歩の後ろから７筋を支え、横にも移動できる。",
+                      "child": {
+                       "id": "n_6",
+                       "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/6p2/1pP6/2R6/PP1PPPPPP/1B7/LNSGKGSNL w - 1",
+                       "branches": [
+                        {
+                         "usi": "5a4b",
+                         "kind": "main",
+                         "child": {
+                          "id": "n_7",
+                          "sfen": "lnsg1gsnl/1r3k1b1/p1pppp1pp/6p2/1pP6/2R6/PP1PPPPPP/1B7/LNSGKGSNL b - 1",
+                          "branches": [
+                           {
+                            "usi": "6g6f",
+                            "kind": "main",
+                            "child": {
+                             "id": "n_8",
+                             "sfen": "lnsg1gsnl/1r3k1b1/p1pppp1pp/6p2/1pP6/2RP5/PP2PPPPP/1B7/LNSGKGSNL w - 1",
+                             "branches": [
+                              {
+                               "usi": "4a3b",
+                               "kind": "main",
+                               "child": {
+                                "id": "n_9",
+                                "sfen": "lnsg2snl/1r3kgb1/p1pppp1pp/6p2/1pP6/2RP5/PP2PPPPP/1B7/LNSGKGSNL b - 1",
+                                "branches": [
+                                 {
+                                  "usi": "5i4h",
+                                  "kind": "main",
+                                  "child": {
+                                   "id": "n_10",
+                                   "sfen": "lnsg2snl/1r3kgb1/p1pppp1pp/6p2/1pP6/2RP5/PP2PPPPP/1B3K3/LNSG1GSNL w - 1",
+                                   "branches": [
+                                    {
+                                     "usi": "6a5b",
+                                     "kind": "main",
+                                     "child": {
+                                      "id": "n_11",
+                                      "sfen": "lns3snl/1r2gkgb1/p1pppp1pp/6p2/1pP6/2RP5/PP2PPPPP/1B3K3/LNSG1GSNL b - 1",
+                                      "branches": [
+                                       {
+                                        "usi": "4h3h",
+                                        "kind": "main",
+                                        "child": {
+                                         "id": "n_12",
+                                         "sfen": "lns3snl/1r2gkgb1/p1pppp1pp/6p2/1pP6/2RP5/PP2PPPPP/1B4K2/LNSG1GSNL w - 1",
+                                         "branches": [
+                                          {
+                                           "usi": "7a6b",
+                                           "kind": "main",
+                                           "child": {
+                                            "id": "n_13",
+                                            "sfen": "ln4snl/1r1sgkgb1/p1pppp1pp/6p2/1pP6/2RP5/PP2PPPPP/1B4K2/LNSG1GSNL b - 1",
+                                            "branches": [
+                                             {
+                                              "usi": "3h2h",
+                                              "kind": "main",
+                                              "note": "先手玉を２八へ。後手飛車８二から離したが、囲いの完成を意味する手ではない。",
+                                              "child": {
+                                               "id": "n_14",
+                                               "sfen": "ln4snl/1r1sgkgb1/p1pppp1pp/6p2/1pP6/2RP5/PP2PPPPP/1B5K1/LNSG1GSNL w - 1",
+                                               "branches": [
+                                                {
+                                                 "usi": "2b3c",
+                                                 "kind": "main",
+                                                 "child": {
+                                                  "id": "n_15",
+                                                  "sfen": "ln4snl/1r1sgkg2/p1ppppbpp/6p2/1pP6/2RP5/PP2PPPPP/1B5K1/LNSG1GSNL b - 1",
+                                                  "branches": [
+                                                   {
+                                                    "usi": "3i3h",
+                                                    "kind": "main",
+                                                    "child": {
+                                                     "id": "n_16",
+                                                     "sfen": "ln4snl/1r1sgkg2/p1ppppbpp/6p2/1pP6/2RP5/PP2PPPPP/1B4SK1/LNSG1G1NL w - 1",
+                                                     "branches": [
+                                                      {
+                                                       "usi": "5c5d",
+                                                       "kind": "main",
+                                                       "child": {
+                                                        "id": "n_17",
+                                                        "sfen": "ln4snl/1r1sgkg2/p1pp1pbpp/4p1p2/1pP6/2RP5/PP2PPPPP/1B4SK1/LNSG1G1NL b - 1",
+                                                        "branches": [
+                                                         {
+                                                          "usi": "7i6h",
+                                                          "kind": "main",
+                                                          "child": {
+                                                           "id": "n_18",
+                                                           "sfen": "ln4snl/1r1sgkg2/p1pp1pbpp/4p1p2/1pP6/2RP5/PP2PPPPP/1B1S2SK1/LN1G1G1NL w - 1",
+                                                           "branches": [
+                                                            {
+                                                             "usi": "1c1d",
+                                                             "kind": "main",
+                                                             "child": {
+                                                              "id": "n_19",
+                                                              "sfen": "ln4snl/1r1sgkg2/p1pp1pbp1/4p1p1p/1pP6/2RP5/PP2PPPPP/1B1S2SK1/LN1G1G1NL b - 1",
+                                                              "branches": [
+                                                               {
+                                                                "usi": "6h6g",
+                                                                "kind": "main",
+                                                                "note": "銀を６七へ。６六歩と７六飛に近い位置で、次の中央の接点を見守る。",
+                                                                "child": {
+                                                                 "id": "n_20",
+                                                                 "sfen": "ln4snl/1r1sgkg2/p1pp1pbp1/4p1p1p/1pP6/2RP5/PP1SPPPPP/1B4SK1/LN1G1G1NL w - 1",
+                                                                 "branches": [
+                                                                  {
+                                                                   "usi": "9c9d",
+                                                                   "kind": "main",
+                                                                   "child": {
+                                                                    "id": "n_21",
+                                                                    "sfen": "ln4snl/1r1sgkg2/2pp1pbp1/p3p1p1p/1pP6/2RP5/PP1SPPPPP/1B4SK1/LN1G1G1NL b - 1",
+                                                                    "branches": [
+                                                                     {
+                                                                      "usi": "9g9f",
+                                                                      "kind": "main",
+                                                                      "note": "先手９六歩。９七の歩が動き、角がそこへ移れるようになる。",
+                                                                      "child": {
+                                                                       "id": "n_22",
+                                                                       "sfen": "ln4snl/1r1sgkg2/2pp1pbp1/p3p1p1p/1pP6/P1RP5/1P1SPPPPP/1B4SK1/LN1G1G1NL w - 1",
+                                                                       "branches": [
+                                                                        {
+                                                                         "usi": "6c6d",
+                                                                         "kind": "main",
+                                                                         "child": {
+                                                                          "id": "n_23",
+                                                                          "sfen": "ln4snl/1r1sgkg2/2p2pbp1/p2pp1p1p/1pP6/P1RP5/1P1SPPPPP/1B4SK1/LN1G1G1NL b - 1",
+                                                                          "branches": [
+                                                                           {
+                                                                            "usi": "8h9g",
+                                                                            "kind": "main",
+                                                                            "note": "先手角９七。８六には角が届く一方、その先の７五は自分の歩でふさがっている。",
+                                                                            "child": {
+                                                                             "id": "n_24",
+                                                                             "sfen": "ln4snl/1r1sgkg2/2p2pbp1/p2pp1p1p/1pP6/P1RP5/BP1SPPPPP/6SK1/LN1G1G1NL w - 1",
+                                                                             "branches": [
+                                                                              {
+                                                                               "usi": "6b6c",
+                                                                               "kind": "main",
+                                                                               "note": "後手銀６三。６二銀が一段前へ出て、６四歩の後方に位置する。",
+                                                                               "child": {
+                                                                                "id": "n_25",
+                                                                                "sfen": "ln4snl/1r2gkg2/2ps1pbp1/p2pp1p1p/1pP6/P1RP5/BP1SPPPPP/6SK1/LN1G1G1NL b - 1",
+                                                                                "branches": [
+                                                                                 {
+                                                                                  "usi": "8i7g",
+                                                                                  "kind": "main",
+                                                                                  "note": "先手桂７七。６五と８五に跳ねられ、二つの歩の接点を見られる。",
+                                                                                  "child": {
+                                                                                   "id": "n_26",
+                                                                                   "sfen": "ln4snl/1r2gkg2/2ps1pbp1/p2pp1p1p/1pP6/P1RP5/BPNSPPPPP/6SK1/L2G1G1NL w - 1",
+                                                                                   "branches": [
+                                                                                    {
+                                                                                     "usi": "4b4a",
+                                                                                     "kind": "main",
+                                                                                     "note": "後手玉４一。４二から一段戻す一例で、金３二・５二はそのまま盤上に残る。",
+                                                                                     "child": {
+                                                                                      "id": "n_27",
+                                                                                      "sfen": "ln3ksnl/1r2g1g2/2ps1pbp1/p2pp1p1p/1pP6/P1RP5/BPNSPPPPP/6SK1/L2G1G1NL b - 1",
+                                                                                      "branches": [
+                                                                                       {
+                                                                                        "usi": "6f6e",
+                                                                                        "kind": "main",
+                                                                                        "note": "先手６五歩。６六歩を進め、後手６四歩に接する。",
+                                                                                        "child": {
+                                                                                         "id": "n_28",
+                                                                                         "sfen": "ln3ksnl/1r2g1g2/2ps1pbp1/p2pp1p1p/1pPP5/P1R6/BPNSPPPPP/6SK1/L2G1G1NL w - 1",
+                                                                                         "branches": [
+                                                                                          {
+                                                                                           "usi": "6d6e",
+                                                                                           "kind": "main",
+                                                                                           "note": "後手６五同歩。６四歩が先手歩を取り、後手は歩を一枚持つ。",
+                                                                                           "child": {
+                                                                                            "id": "n_29",
+                                                                                            "sfen": "ln3ksnl/1r2g1g2/2ps1pbp1/p3p1p1p/1pPp5/P1R6/BPNSPPPPP/6SK1/L2G1G1NL b p 1",
+                                                                                            "branches": [
+                                                                                             {
+                                                                                              "usi": "7g6e",
+                                                                                              "kind": "alt",
+                                                                                              "note": "先手桂６五。７七桂で６五の後手歩を取り、先手も歩を一枚持つ。",
+                                                                                              "child": {
+                                                                                               "id": "nb0_0",
+                                                                                               "sfen": "ln3ksnl/1r2g1g2/2ps1pbp1/p3p1p1p/1pPN5/P1R6/BP1SPPPPP/6SK1/L2G1G1NL w Pp 1",
+                                                                                               "branches": [
+                                                                                                {
+                                                                                                 "usi": "6c6d",
+                                                                                                 "kind": "main",
+                                                                                                 "note": "後手銀６四。６三銀が前へ出て、６五桂に近づく一例。",
+                                                                                                 "child": {
+                                                                                                  "id": "nb0_1",
+                                                                                                  "sfen": "ln3ksnl/1r2g1g2/2p2pbp1/p2sp1p1p/1pPN5/P1R6/BP1SPPPPP/6SK1/L2G1G1NL b Pp 1",
+                                                                                                  "branches": [
+                                                                                                   {
+                                                                                                    "usi": "6e7c+",
+                                                                                                    "kind": "main",
+                                                                                                    "note": "先手桂７三成。６五桂が７三歩を取りながら成り、先手の持ち歩は二枚になる。",
+                                                                                                    "child": {
+                                                                                                     "id": "nb0_2",
+                                                                                                     "sfen": "ln3ksnl/1r2g1g2/2+N2pbp1/p2sp1p1p/1pP6/P1R6/BP1SPPPPP/6SK1/L2G1G1NL w 2Pp 1",
+                                                                                                     "branches": [],
+                                                                                                     "comment": "桂で歩を取り返す場合、７三への跳ねも候補となる。ただし後手６四銀などの追い方は一例で、成桂だけで攻めが決まるわけではない。"
+                                                                                                    }
+                                                                                                   }
+                                                                                                  ]
+                                                                                                 }
+                                                                                                }
+                                                                                               ]
+                                                                                              }
+                                                                                             },
+                                                                                             {
+                                                                                              "usi": "8g8f",
+                                                                                              "kind": "alt",
+                                                                                              "note": "先手８六歩。後手８五歩に接して８筋を交換する選択。",
+                                                                                              "child": {
+                                                                                               "id": "nb1_0",
+                                                                                               "sfen": "ln3ksnl/1r2g1g2/2ps1pbp1/p3p1p1p/1pPp5/PPR6/B1NSPPPPP/6SK1/L2G1G1NL w p 1",
+                                                                                               "branches": [
+                                                                                                {
+                                                                                                 "usi": "8e8f",
+                                                                                                 "kind": "main",
+                                                                                                 "note": "後手８六同歩。８五歩が先手歩を取り、後手に歩が一枚入る。",
+                                                                                                 "child": {
+                                                                                                  "id": "nb1_1",
+                                                                                                  "sfen": "ln3ksnl/1r2g1g2/2ps1pbp1/p3p1p1p/2Pp5/PpR6/B1NSPPPPP/6SK1/L2G1G1NL b 2p 1",
+                                                                                                  "branches": [
+                                                                                                   {
+                                                                                                    "usi": "9g8f",
+                                                                                                    "kind": "main",
+                                                                                                    "note": "先手８六同角。９七角が８六の後手歩を取り、先手にも歩が一枚入る。",
+                                                                                                    "child": {
+                                                                                                     "id": "nb1_2",
+                                                                                                     "sfen": "ln3ksnl/1r2g1g2/2ps1pbp1/p3p1p1p/2Pp5/PBR6/2NSPPPPP/6SK1/L2G1G1NL w P2p 1",
+                                                                                                     "branches": [],
+                                                                                                     "comment": "角９七は７五歩の向こう側へ通れなくても、隣の８六には届く。後手飛車８二も同じ８筋にいるので、ここで角を置いたままにするかは次の手を調べる。"
+                                                                                                    }
+                                                                                                   }
+                                                                                                  ]
+                                                                                                 }
+                                                                                                }
+                                                                                               ]
+                                                                                              }
+                                                                                             }
+                                                                                            ],
+                                                                                            "comment": "７七桂は６五・８五、９七角は８六という別々の升を見る。６五に進んだ後手歩は７七桂で取れるが、桂が７七を離れた後の飛車７六と角９七の働きも読み直す。"
+                                                                                           }
+                                                                                          }
+                                                                                         ]
+                                                                                        }
+                                                                                       }
+                                                                                      ]
+                                                                                     }
+                                                                                    }
+                                                                                   ]
+                                                                                  }
+                                                                                 }
+                                                                                ]
+                                                                               }
+                                                                              }
+                                                                             ]
+                                                                            }
+                                                                           }
+                                                                          ]
+                                                                         }
+                                                                        }
+                                                                       ]
+                                                                      }
+                                                                     }
+                                                                    ]
+                                                                   }
+                                                                  }
+                                                                 ]
+                                                                }
+                                                               }
+                                                              ]
+                                                             }
+                                                            }
+                                                           ]
+                                                          }
+                                                         }
+                                                        ]
+                                                       }
+                                                      }
+                                                     ]
+                                                    }
+                                                   }
+                                                  ]
+                                                 }
+                                                }
+                                               ]
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          }
+                                         ]
+                                        }
+                                       }
+                                      ]
+                                     }
+                                    }
+                                   ]
+                                  }
+                                 }
+                                ]
+                               }
+                              }
+                             ]
+                            }
+                           }
+                          ]
+                         }
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

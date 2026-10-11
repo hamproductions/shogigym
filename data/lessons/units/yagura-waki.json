@@ -1,0 +1,177 @@
+{
+  "id": "yagura-waki",
+  "order": 600,
+  "path": ["戦法・定跡", "矢倉"],
+  "title": {
+    "ja": "脇システムで角交換の前後を読む",
+    "en": "Read Both Sides of the Bishop Exchange in Waki Yagura"
+  },
+  "intro": {
+    "ja": "脇システムでは相矢倉の角が向かい合い、交換する側と取り返す駒の選択が次の形を変えます。ここでは独立した局面を使い、角を持った後の打ち場所、玉の前で動けない銀、攻め銀を支える角を確かめます。角交換だけで有利不利は決まらず、交換後の斜線と銀の位置まで読みます。",
+    "en": "Waki Yagura brings bishops face to face within mutual Yagura. The player who starts an exchange and the piece that recaptures determine the next shape. These composed positions examine bishop drops, a pinned castle silver, and bishop support for an attacking silver. An exchange alone says nothing conclusive about advantage; read the diagonals and silver placements afterward."
+  },
+  "check": {
+    "question": {
+      "ja": "相矢倉で角交換を選ぶ前に、交換後の何を数えますか？",
+      "en": "Before choosing a bishop exchange in mutual Yagura, what must you count afterward?"
+    },
+    "answer": {
+      "ja": "どの銀や金が角を取り返して守りから離れるか、双方の持ち角を打てる斜線、玉へ通る筋を遮る歩や銀、攻め銀を支える駒を確かめます。交換した順だけから優劣を決めません。",
+      "en": "Check which silver or gold recaptures and leaves its defensive post, the diagonals available to both bishops in hand, pieces that block a line to the king, and support for the attacking silver. Move order alone does not establish an advantage."
+    }
+  },
+  "references": [
+    {
+      "title": "脇システム",
+      "url": "https://shogi-joutatsu.com/archives/7819",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "角を取る順で動く銀が変わる",
+        "en": "Exchange Order Changes Which Silver Moves"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "9/1r4gk1/5gs2/pp3b1p1/9/P2B5/2SGS2P1/1KG4R1/9 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手角６六と後手角４四が５五を挟んで向かい合っています。双方に玉と金銀の矢倉の芯があり、後手角４四には銀３三、先手角６六には攻め銀５七が利いています。どちらから取るかで、取り返しに進む銀が違います。",
+            "en": "Sente's bishop on 6f faces Gote's bishop on 4d across 5e. Both sides have Yagura cores. Gote's silver on 3c can recapture on 4d, while Sente's additional silver on 5g can recapture on 6f. The exchange initiator determines which silver advances."
+          }
+        },
+        {
+          "moves": ["6f4d"],
+          "text": {
+            "ja": "先手から角４四を取ると、先手は角を持ちます。ただし４四は後手銀３三の斜め前なので、角がそのまま残るとは考えません。",
+            "en": "Sente captures the bishop on 4d and gains a bishop in hand. But 4d lies on the forward diagonal of Gote's silver on 3c, so the capturing bishop should not be counted as a lasting piece on that square."
+          }
+        },
+        {
+          "moves": ["3c4d"],
+          "text": {
+            "ja": "後手銀が角を取り返し、双方が角を持ちます。後手は矢倉の銀３三を４四へ出した一方、先手の銀５七は残っています。後手は金で取る選択もあるため、この結果はこの応手を選んだ場合です。",
+            "en": "Gote's silver recaptures, leaving both players with a bishop in hand. Gote has moved its castle silver from 3c to 4d; Sente's attacking silver remains on 5g. Gote could choose a different recapturer, so this describes the selected line only."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["2g2f", "4d6f", "5g6f"],
+          "text": {
+            "ja": "先手が２筋の歩を進め、後手から角６六を取る例では、先手銀５七が６六へ取り返します。今度は先手の攻め銀が動き、後手の守り銀３三が残ります。どちらの順も角一枚ずつを持つだけで、銀の進出を自動的な得とは評価できません。",
+            "en": "If Sente advances the second-file pawn and Gote chooses to take the bishop on 6f, Sente's silver from 5g recaptures. Now Sente's attacking silver moves while Gote's castle silver stays on 3c. Both players again hold a bishop; neither silver advance is automatically a gain."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "持ち角の斜線で銀が動けなくなる",
+        "en": "A Bishop Drop Can Pin the Castle Silver"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "9/1r4gk1/5gs2/pp5p1/9/P4S3/2SG3P1/1KG4R1/9 w BPb 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "角交換後の仮想局面です。先手は角と歩、後手は角を持ち、先手玉８八の前には銀７七がいます。後手が角を打つときは、銀を取れるかだけでなく、銀の後ろの玉まで一直線になるかを確認します。",
+            "en": "In this composed post-exchange position, Sente holds a bishop and pawn, Gote holds a bishop, and Sente's castle silver stands on 7g in front of the king on 8h. A bishop drop may matter because of the king behind the silver, not simply because the silver is attacked."
+          }
+        },
+        {
+          "moves": ["B*4d"],
+          "text": {
+            "ja": "後手の角４四は５五・６六・７七を通って玉８八へ向かいます。銀７七が線を遮っているため、今すぐ王手ではありません。しかし銀を８六へ動かすと玉が角にさらされ、その移動はこのままでは指せません。",
+            "en": "Gote's bishop on 4d points through 5e and 6f to the silver on 7g and king on 8h. The silver blocks the line, so the drop is not check. Moving the silver to 8f now would expose the king and is illegal."
+          }
+        },
+        {
+          "moves": ["P*6f"],
+          "text": {
+            "ja": "先手は持ち歩を６六へ打って斜線を途中で止めます。６筋に別の先手歩はなく二歩になりません。金６七が歩６六を守るので、後手角がその歩を取っても金で取り返せます。",
+            "en": "Sente drops its pawn on 6f to interrupt the diagonal. There is no other Sente pawn on the sixth file, so the drop is legal. The gold on 6g defends 6f; if the bishop takes the pawn, the gold can recapture."
+          }
+        },
+        {
+          "moves": ["2d2e"],
+          "text": {
+            "ja": "後手が２筋の歩を進める例です。６六の歩が残る限り、角４四から玉への斜線は途中で止まっています。ただし後手が６六を狙う手は引き続き読みます。",
+            "en": "Gote chooses a second-file pawn move in this sample line. While Sente's pawn remains on 6f, the bishop's line to the king is blocked. Sente must still watch for later attacks on that pawn."
+          }
+        },
+        {
+          "moves": ["7g8f"],
+          "text": {
+            "ja": "歩６六が線を遮ったままなら銀７七を８六へ動かせます。守り銀を玉の前から外す代償もあるので、動かせることと動かすべきことは別です。",
+            "en": "With the pawn still blocking the diagonal, the silver can legally move from 7g to 8f. That removes a castle defender, so a legal move is not automatically the best strategic choice."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": ["B*6f", "4d6f", "6g6f"],
+          "text": {
+            "ja": "歩の代わりに持ち角を６六へ打っても線は止まります。後手が角４四で交換を選べば金６七で取り返せますが、その金は６六へ出て矢倉の連結から外れます。持ち角の使い方は守りの形も変えます。",
+            "en": "Dropping Sente's bishop on 6f also blocks the line. If Gote chooses to exchange there, the gold on 6g recaptures, but that gold leaves its Yagura post. How a player uses a bishop in hand changes the castle's shape as well."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "角を打つなら銀の進出先まで支える",
+        "en": "Use the Bishop to Support the Silver's Destination"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "9/1r4gk1/5gs2/pp5p1/9/P4S3/2SG3P1/1KG4R1/9 b Bb 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "双方が角を持ち、先手の攻め銀は４六です。先手銀を５五へ出すなら、後ろから支える利きがあるかを先に見ます。角の打ち場所６六は空き、金６七がその角を守れます。",
+            "en": "Both sides hold a bishop and Sente's attacking silver is on 4f. Before advancing the silver to 5e, look for a piece that can protect its destination. Square 6f is open for a bishop drop and Sente's gold on 6g can protect that bishop."
+          }
+        },
+        {
+          "moves": ["B*6f"],
+          "text": {
+            "ja": "角６六を打つと５五に利き、銀４六の進出先を支えます。角は３三の銀へも斜線を向けますが、そこは金３二・４三に守られているので、すぐ取って得をするとは限りません。",
+            "en": "The bishop on 6f controls 5e, supporting the silver's intended square. Its longer diagonal also reaches the silver on 3c, but Gote's golds defend that silver; a capture there is not automatically profitable."
+          }
+        },
+        {
+          "moves": ["8d8e"],
+          "text": {
+            "ja": "後手が８筋の歩を進める例です。この一手では５五の角の利きは消えませんが、次の８筋の接触を無視してよいという意味ではありません。",
+            "en": "Gote advances the eighth-file pawn in this example. This move does not remove the bishop's control of 5e, though Sente still needs to watch the next contact on the eighth file."
+          }
+        },
+        {
+          "moves": ["4f5e"],
+          "text": {
+            "ja": "銀を５五へ進めると角６六が一手後ろから支えます。相手は持ち角を別の場所にも打てるため、この配置は攻めの足場であって強制的な駒得ではありません。",
+            "en": "The silver reaches 5e, supported by the bishop one square behind on 6f. Gote still has a bishop in hand and other replies, so this is a supported attacking post rather than a forced material gain."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": ["B*4d", "6f4d", "4c4d"],
+          "text": {
+            "ja": "後手が角４四を打って角６六との交換を選んでも、先手角で取り、後手金４三で取り返せます。双方が再び角を持ち、後手金は４四へ出ます。先手の角打ちが無条件に銀５五を実現するわけではありません。",
+            "en": "If Gote drops a bishop on 4d to offer another exchange, Sente's bishop captures it and Gote's gold from 4c recaptures. Both sides hold bishops again and Gote's gold has moved to 4d. The first bishop drop therefore does not guarantee the silver's advance."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "id": "endgame-yose",
+  "order": 450,
+  "path": ["上達のためのテクニック", "終盤"],
+  "title": {
+    "ja": "寄せは王手・逃げ道・自玉を一緒に読む",
+    "en": "Read Checks, Exits, and Your Own King in the Endgame"
+  },
+  "intro": {
+    "ja": "寄せでは、王手を続けることより、攻め駒が守られているか、玉が次にどこへ動けるか、自玉に先着されないかを確かめることが大切です。四つの新しい局面で、王手の着地点、取り返しの順序、逃げ道をふさぐ準備、相手の反撃を順に読みます。示す後手の応手は一例で、詰みや必至を主張するものではありません。",
+    "en": "A useful endgame decision counts more than consecutive checks: is the attacking piece protected, where can the king go next, and can the opponent reach your king first? Four new positions examine a supported checking square, recapture order, preparation against a flight square, and an opposing counterattack. Gote's replies are illustrative; none of these lines proves mate or an unavoidable threat."
+  },
+  "check": {
+    "question": {
+      "ja": "寄せの候補手を選ぶ前に、王手以外の何を数えますか？",
+      "en": "Before choosing an endgame move, what must you count besides checks?"
+    },
+    "answer": {
+      "ja": "攻め駒の着地点を守る駒、取り返し後の駒の収支、相手玉の逃げ道、自玉への反撃の速さです。相手の応手を一つに決めつけずに比べます。",
+      "en": "Count protection of the attacking square, material after every recapture, the opposing king's exits, and the speed of the counterattack on your own king. Compare more than one legal defense."
+    }
+  },
+  "references": [
+    {
+      "title": "終盤、寄せから詰みまでの考え方",
+      "url": "https://shogi-joutatsu.com/archives/2375",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "王手の着地点を先に守る",
+        "en": "Protect the checking square before using it"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "9/5ks2/2R6/9/9/9/9/9/K8 b G 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手玉４二に金を打つなら、５三が候補です。先手飛車７三は６三を通して５三を守ります。王手の駒を玉でただ取りされないことを確かめてから、玉の行き先を数えます。",
+            "en": "With Gote's king on ４二, a gold drop on ５三 is a checking candidate. Sente's rook on ７三 protects that square through ６三. First verify that the king cannot take the dropped piece for free; then count its exits."
+          }
+        },
+        {
+          "moves": ["G*5c", "4b3a", "7c7a+"],
+          "text": {
+            "ja": "▲５三金は４二の玉に王手。△３一玉と逃げる例なら、▲７一飛成で一段目から再び王手をかけられます。３一まで逃げられたことも事実で、これだけで詰みとは言えません。後手はほかの合法な逃げ先や受けも検討できます。",
+            "en": "▲５三金 checks the king on ４二. In the sample line △３一玉, ▲７一飛成 gives another check along the first rank. The king did reach ３一, so this is not a mating proof. Gote can examine other legal exits and defenses."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "取り返しの順序で飛車を残す",
+        "en": "Use the recapture order that keeps the rook"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "9/4gk3/2R6/3GP4/9/9/9/9/K8 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手の歩５四は５三で成れます。飛車７三は６三越しに５三へ届き、金６四も５三を守ります。一方、後手金５二は５三へ取れます。飛車を先に５三へ出すと金に取られ、金で取り返しても飛車と金の交換になるので、歩から使う順序を調べます。",
+            "en": "Sente's pawn on ５四 can promote on ５三. The rook on ７三 reaches ５三 through ６三, and the gold on ６四 protects it too. Gote's gold on ５二 can also take on ５三. Entering with the rook first would let that gold take it, leaving only a gold recapture of the rook; examine the pawn-first order instead."
+          }
+        },
+        {
+          "moves": ["5d5c+", "5b5c", "7c5c"],
+          "text": {
+            "ja": "▲５三歩成に△同金を選んだ場合、▲同飛で金を取ります。飛車５三は金６四に守られるため、玉４二はその飛車を取れません。歩と金の交換を得た一例ですが、後手がと金を取らずに玉を動かすなどの応手は別に読みます。",
+            "en": "If Gote chooses △同金 after ▲５三歩成, ▲同飛 takes that gold. Sente's gold on ６四 protects the rook on ５三, so the king on ４二 cannot capture it. This example gains a gold for the pawn; Gote can instead consider moving the king or declining the tokin."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "相手の歩が開ける逃げ道を読む",
+        "en": "Prepare for the exit an opposing pawn can open"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "9/4k4/5p3/9/1R7/9/9/9/K8 b S 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手玉５二の斜め下、４三は後手歩でふさがれています。しかし歩４三が４四へ進めば、４三は玉の逃げ道になります。先手飛車８五の進入だけを急ぐ前に、その空くマスを銀で押さえます。",
+            "en": "Gote's pawn on ４三 currently occupies a square below the king on ５二. If that pawn advances to ４四, ４三 becomes a possible king exit. Before rushing the rook in from ８五, Sente can cover the square that may open."
+          }
+        },
+        {
+          "moves": ["S*5d", "4c4d", "8e8b+"],
+          "text": {
+            "ja": "▲５四銀は４三に利きます。△４四歩と進む例で▲８二飛成とすると、龍は５二の玉を横から王手します。このとき４三は空いていても銀５四が利くので、玉はそこへ逃げられません。ただし、後手には歩を動かさない受けもあり、この順だけで寄せ切りとはしません。",
+            "en": "▲５四銀 covers ４三. In the sample continuation △４四歩 ▲８二飛成, the dragon checks the king on ５二 along the second rank. Although ４三 is now vacant, the silver on ５四 prevents the king from escaping there. Gote need not advance the pawn, and this line alone does not finish the game."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "自玉への到達速度も数える",
+        "en": "Count the opponent's route to your king"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "9/7k1/5R3/r8/9/9/P8/9/K8 b G 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手は金を打って後手玉２二を追えますが、後手飛車９四は先手歩９七を狙っています。歩を取って成ると９九の自玉へ同じ筋から王手がかかるため、攻めの一手だけでなく、後手が次に届くマスも数えます。",
+            "en": "Sente can check the king on ２二 with a gold drop, but Gote's rook on ９四 eyes the pawn on ９七. Capturing it with promotion would bring a rook check down the same file against Sente's king on ９九. Count the opponent's next reachable square as well as your own attack."
+          }
+        },
+        {
+          "moves": ["G*3c", "2b1a", "3c2c", "9d9g+"],
+          "text": {
+            "ja": "▲３三金は飛車４三に守られた王手です。△１一玉に▲２三金と迫る例では、後手は△９七飛成で歩を取り、９九の先手玉へ王手を返せます。王手を一度かけても自玉への反撃は消えません。先手はこの反撃に応じる必要があり、金打ちを勝ち筋と断定できません。",
+            "en": "▲３三金 is a check protected by the rook on ４三. In the sample continuation △１一玉 ▲２三金, Gote can capture the pawn with △９七飛成 and return check against Sente's king on ９九. One check has not removed the counterattack; Sente must answer it, so the gold drop cannot be called a forced win."
+          }
+        }
+      ]
+    }
+  ]
+}

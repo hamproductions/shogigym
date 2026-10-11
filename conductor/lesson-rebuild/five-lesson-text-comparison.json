@@ -1,0 +1,1536 @@
+{
+  "scope": "5レッスン、102組の日本語・英語本文。参照記事の全文と本文単位で比較。",
+  "limitations": "文字一致は意味の近い言い換えを証明しない。Wikipediaの比較は別途ルール節の意味比較であり、この文字一致表には含まれない。参照タイトル・URL・ライセンスは教材本文から除外。",
+  "rows": [
+    {
+      "lesson": "rules-game",
+      "field": ".title",
+      "ja": "将棋の目的と対局の流れ",
+      "en": "The goal of shogi and how a game unfolds",
+      "source": ".cache/curriculum-source/656.txt",
+      "closest_literal_run": {
+        "characters": 5,
+        "line": 51,
+        "phrase": "対局の流れ"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "導入・題名・確認問題は各章の独自例を要約。共有されるのは将棋のルール・手筋・囲いの名称と原理。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "rules-game",
+      "field": ".intro",
+      "ja": "将棋の一局は、先手と後手が合法な一手を交互に選び、詰みや投了などで終わります。まず終局の条件を見てから、初期配置、手番の移り方、取った駒と持ち駒の関係を順に確かめます。",
+      "en": "A shogi game unfolds as sente and gote take turns choosing one legal move, and ends with checkmate, resignation, or another result. We will look at how a game ends first, then trace the starting position, alternating turns, and the relationship between captured pieces and pieces in hand.",
+      "source": ".cache/curriculum-source/656.txt",
+      "closest_literal_run": {
+        "characters": 6,
+        "line": 67,
+        "phrase": "先手と後手が"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "導入・題名・確認問題は各章の独自例を要約。共有されるのは将棋のルール・手筋・囲いの名称と原理。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "rules-game",
+      "field": ".check.question",
+      "ja": "詰みになったあと、勝った側は相手の玉を盤から取る必要がありますか？",
+      "en": "After checkmate, must the winner capture the opponent's king to finish the game?",
+      "source": ".cache/curriculum-source/656.txt",
+      "closest_literal_run": {
+        "characters": 8,
+        "line": 65,
+        "phrase": "る必要があります"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "導入・題名・確認問題は各章の独自例を要約。共有されるのは将棋のルール・手筋・囲いの名称と原理。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "rules-game",
+      "field": ".check.answer",
+      "ja": "いいえ。詰みが成立した時点で対局は終わります。実戦では詰みが確定する前に投了して終わることもあります。",
+      "en": "No. The game ends when checkmate is established. In practical play, a player may resign before mate is forced.",
+      "source": ".cache/curriculum-source/656.txt",
+      "closest_literal_run": {
+        "characters": 4,
+        "line": 30,
+        "phrase": "こともあ"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "導入・題名・確認問題は各章の独自例を要約。共有されるのは将棋のルール・手筋・囲いの名称と原理。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "rules-game",
+      "field": ".chapters[0].title",
+      "ja": "詰みで勝敗が決まる",
+      "en": "Checkmate decides the game",
+      "source": ".cache/curriculum-source/656.txt",
+      "closest_literal_run": {
+        "characters": 3,
+        "line": 67,
+        "phrase": "が決ま"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "独自の詰み局面の説明。元記事の玉を取る説明とは異なる。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "rules-game",
+      "field": ".chapters[0].steps[0].text",
+      "ja": "終局の形から見ます。後手の玉は９一、歩は８一と９三にあります。先手は８三に金があり、持ち駒の飛車を使えます。目標は玉を盤から取り除くことではなく、王手から逃れる手段をなくすことです。",
+      "en": "Start near the end of a game. Gote's king is on 9a, with pawns on 8a and 9c. Sente has a gold on 8c and a rook in hand. The aim is to leave the king with no legal escape from check, not to capture it.",
+      "source": ".cache/curriculum-source/656.txt",
+      "closest_literal_run": {
+        "characters": 4,
+        "line": 65,
+        "phrase": "あります"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "独自の詰み局面の説明。元記事の玉を取る説明とは異なる。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "rules-game",
+      "field": ".chapters[0].steps[1].text",
+      "ja": "先手は飛車を９二に打ちました。飛車の利きが９一の玉に届くので王手です。王手を受けた側は、次の自分の手でその危険を解消しなければなりません。",
+      "en": "Sente drops the rook on 9b. Its file reaches the king on 9a, so this is check. The checked player must remove the threat on their next turn.",
+      "source": ".cache/curriculum-source/656.txt",
+      "closest_literal_run": {
+        "characters": 5,
+        "line": 100,
+        "phrase": "しなければ"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "独自の詰み局面の説明。元記事の玉を取る説明とは異なる。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "rules-game",
+      "field": ".chapters[0].steps[2].text",
+      "ja": "後手玉の移動先は８一・８二・９二です。８一は後手自身の歩が占め、８二と９二は先手の金が押さえています。後手の歩を動かしても王手は消えません。９二の飛車を玉で取る手も、金に守られているためできません。王手に対する合法な応手がない状態を詰みと呼びます。",
+      "en": "The king could try 8a, 8b, or 9b. Its own pawn occupies 8a, while sente's gold guards 8b and the rook's square at 9b. Moving either gote pawn leaves the check unanswered, and the king cannot capture the rook because the gold protects it. With no legal reply to the check, this is checkmate.",
+      "source": ".cache/curriculum-source/656.txt",
+      "closest_literal_run": {
+        "characters": 4,
+        "line": 57,
+        "phrase": "ています"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "独自の詰み局面の説明。元記事の玉を取る説明とは異なる。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "rules-game",
+      "field": ".chapters[0].steps[3].text",
+      "ja": "詰みが成立すると勝負が決まり、玉を実際に取る必要はありません。詰みを待たずに負けを認めて対局を終えることを投了といいます。千日手など、勝敗がつかない終わり方もあります。",
+      "en": "Once checkmate is established, the game is decided; nobody needs to capture the king. A player may also concede before mate by resigning. Some games end without a winner, such as by repetition.",
+      "source": ".cache/curriculum-source/656.txt",
+      "closest_literal_run": {
+        "characters": 9,
+        "line": 57,
+        "phrase": "る必要はありません"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "独自の詰み局面の説明。元記事の玉を取る説明とは異なる。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "rules-game",
+      "field": ".chapters[1].title",
+      "ja": "手番は一手ずつ移る",
+      "en": "Turns pass one move at a time",
+      "source": ".cache/curriculum-source/656.txt",
+      "closest_literal_run": {
+        "characters": 2,
+        "line": 74,
+        "phrase": "手番"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "初期配置から交互の手番を示す一般的なルール。元記事の対局準備順を踏襲しない。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "rules-game",
+      "field": ".chapters[1].steps[0].text",
+      "ja": "先手は盤の手前側、後手は向こう側から始めます。両者の初期配置は同じで、先手が最初の一手を指したあと、後手が応じます。",
+      "en": "Sente starts on the near side of the board and gote on the far side. Both use the same initial formation: sente makes the first move, then gote replies.",
+      "source": ".cache/curriculum-source/656.txt",
+      "closest_literal_run": {
+        "characters": 4,
+        "line": 31,
+        "phrase": "から始め"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "初期配置から交互の手番を示す一般的なルール。元記事の対局準備順を踏襲しない。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "rules-game",
+      "field": ".chapters[1].steps[1].text",
+      "ja": "先手は２筋の歩を一つ進めました。この一手を指し終えると、先手の番はいったん終わります。",
+      "en": "Sente advances the pawn on the second file by one square. Once this move is complete, sente's turn is over.",
+      "source": ".cache/curriculum-source/656.txt",
+      "closest_literal_run": {
+        "characters": 3,
+        "line": 20,
+        "phrase": "ります"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "初期配置から交互の手番を示す一般的なルール。元記事の対局準備順を踏襲しない。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "rules-game",
+      "field": ".chapters[1].steps[2].text",
+      "ja": "後手も８筋の歩を進めます。駒を動かすと、次に指す側も交代します。",
+      "en": "Gote advances the pawn on the eighth file. Moving a piece also passes the turn to the other player.",
+      "source": ".cache/curriculum-source/656.txt",
+      "closest_literal_run": {
+        "characters": 5,
+        "line": 17,
+        "phrase": "駒を動かす"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "初期配置から交互の手番を示す一般的なルール。元記事の対局準備順を踏襲しない。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "rules-game",
+      "field": ".chapters[1].steps[3].text",
+      "ja": "先手に番が戻りました。盤面がどう変わっても、両者は一手ずつ交互に指して局面を進めます。",
+      "en": "The turn returns to sente. Whatever changes on the board, the two players continue by alternating one move at a time.",
+      "source": ".cache/curriculum-source/656.txt",
+      "closest_literal_run": {
+        "characters": 2,
+        "line": 6,
+        "phrase": "ます"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "初期配置から交互の手番を示す一般的なルール。元記事の対局準備順を踏襲しない。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "rules-game",
+      "field": ".chapters[2].title",
+      "ja": "取った駒は手元に残る",
+      "en": "Captured pieces change sides",
+      "source": ".cache/curriculum-source/656.txt",
+      "closest_literal_run": {
+        "characters": 5,
+        "line": 85,
+        "phrase": "取った駒は"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "独自の飛車による歩の捕獲局面と持ち駒の説明。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "rules-game",
+      "field": ".chapters[2].steps[0].text",
+      "ja": "両者は玉・飛車・金・銀を一枚ずつ、歩を二枚ずつ持っています。先手の飛車は２七、後手の歩は２四にあります。飛車で歩を取った後も、飛車は盤上に残り、歩は先手の持ち駒になります。",
+      "en": "Each side has a king, rook, gold, silver, and two pawns. Sente's rook is on 2g and gote's pawn is on 2d. After the rook captures the pawn, the rook stays on the board and the pawn enters sente's hand.",
+      "source": ".cache/curriculum-source/656.txt",
+      "closest_literal_run": {
+        "characters": 5,
+        "line": 50,
+        "phrase": "になります"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "独自の飛車による歩の捕獲局面と持ち駒の説明。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "rules-game",
+      "field": ".chapters[2].steps[1].text",
+      "ja": "飛車が２四まで進み、後手の歩を取りました。歩は盤上から消え、先手の持ち駒に一枚加わります。",
+      "en": "The rook travels to 2d and captures gote's pawn. The pawn leaves the board and is added to sente's hand.",
+      "source": ".cache/curriculum-source/656.txt",
+      "closest_literal_run": {
+        "characters": 4,
+        "line": 85,
+        "phrase": "盤上から"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "独自の飛車による歩の捕獲局面と持ち駒の説明。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "rules-game",
+      "field": ".chapters[2].steps[2].text",
+      "ja": "盤面の飛車は２四にありますが、持ち駒欄には取った歩が表示されています。駒を取ると対局から失われず、元の駒種のまま取った側の持ち駒になり、後の自分の番に打てます。",
+      "en": "Sente's rook remains on 2d, while the captured pawn appears in sente's hand. A captured piece stays in the game as a piece of its original type, ready for its new owner to drop on a later turn.",
+      "source": ".cache/curriculum-source/656.txt",
+      "closest_literal_run": {
+        "characters": 5,
+        "line": 75,
+        "phrase": "自分の番に"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "独自の飛車による歩の捕獲局面と持ち駒の説明。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "rules-game",
+      "field": ".chapters[3].title",
+      "ja": "持ち駒を使う一手",
+      "en": "Spend a turn to drop a piece",
+      "source": ".cache/curriculum-source/656.txt",
+      "closest_literal_run": {
+        "characters": 4,
+        "line": 94,
+        "phrase": "持ち駒を"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "独自の銀打ち・玉移動・歩移動で一手を使うことを示す。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "rules-game",
+      "field": ".chapters[3].steps[0].text",
+      "ja": "両者は持ち駒の銀を一枚ずつ持ち、盤上には玉と歩があります。自分の番には、盤の駒を動かす手と、持ち駒を打つ手のどちらかを選びます。",
+      "en": "Each side has a silver in hand, as well as a king and pawn on the board. On a turn, the player chooses either to move a board piece or to drop a piece in hand.",
+      "source": ".cache/curriculum-source/656.txt",
+      "closest_literal_run": {
+        "characters": 6,
+        "line": 74,
+        "phrase": "ます自分の番"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "独自の銀打ち・玉移動・歩移動で一手を使うことを示す。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "rules-game",
+      "field": ".chapters[3].steps[1].text",
+      "ja": "銀を４五に打ちました。持ち駒を打つこと自体で一手を使うため、この番にもう一枚動かすことはできません。打つ場所は空きマスに限られ、駒ごとの制限も守ります。",
+      "en": "Sente drops the silver on 4e. The drop uses the whole turn, so another piece cannot move immediately afterward. A drop must go on an empty square and obey the restrictions for that piece.",
+      "source": ".cache/curriculum-source/656.txt",
+      "closest_literal_run": {
+        "characters": 4,
+        "line": 74,
+        "phrase": "駒を打つ"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "独自の銀打ち・玉移動・歩移動で一手を使うことを示す。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "rules-game",
+      "field": ".chapters[3].steps[2].text",
+      "ja": "後手は玉を７一から８一へ動かしました。先手に番が戻ったら、今度は盤上の駒を動かすこともできます。",
+      "en": "Gote moves the king from 7a to 8a. When the turn returns to sente, a piece already on the board can be moved instead.",
+      "source": ".cache/curriculum-source/656.txt",
+      "closest_literal_run": {
+        "characters": 8,
+        "line": 78,
+        "phrase": "盤上の駒を動かす"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "独自の銀打ち・玉移動・歩移動で一手を使うことを示す。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "rules-game",
+      "field": ".chapters[3].steps[3].text",
+      "ja": "先手は５七の歩を５六へ進めました。打つ手を選んだ次の番に、盤上の駒を選んでもかまいません。動かす手と打つ手は、番ごとに切り替えられます。",
+      "en": "Sente advances the pawn from 5g to 5f. On a later turn, the player may choose a board move after having dropped a piece. Moving and dropping are choices made anew each turn.",
+      "source": ".cache/curriculum-source/656.txt",
+      "closest_literal_run": {
+        "characters": 5,
+        "line": 78,
+        "phrase": "盤上の駒を"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "独自の銀打ち・玉移動・歩移動で一手を使うことを示す。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "rules-game",
+      "field": ".chapters[3].steps[4].text",
+      "ja": "指さずに順番を渡すパスはありません。毎回、打ち方の制限も含めて合法な一手を選びます。二歩や打ち歩詰めなど、打つとき固有の決まりは「持ち駒を打つ」レッスンで確認します。",
+      "en": "There is no pass that hands over a turn without moving. Each turn requires one legal move, including all restrictions on drops. The separate lesson on drops covers rules such as nifu and uchi-fuzume.",
+      "source": ".cache/curriculum-source/656.txt",
+      "closest_literal_run": {
+        "characters": 6,
+        "line": 57,
+        "phrase": "はありません"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "独自の銀打ち・玉移動・歩移動で一手を使うことを示す。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".title",
+      "ja": "歩一枚で相手の応手を変える",
+      "en": "Change the Reply with a Pawn",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 5,
+        "line": 113,
+        "phrase": "枚で相手の"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "導入・題名・確認問題は各章の独自例を要約。共有されるのは将棋のルール・手筋・囲いの名称と原理。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".intro",
+      "ja": "歩は前へ一マスだけ進みますが、置く場所によって相手の進路を止め、守り駒を動かし、成る道を作れます。歩が敵陣へ進んで成ると金と同じ動きのと金になり、取られると相手の持ち駒では歩に戻ります。歩を打つ前には、その筋に自分の未成の歩がないかも確認しましょう。各局面では、歩を置いた直後だけでなく、相手の応手の後まで読みます。",
+      "en": "A pawn advances one square, yet its placement can block a route, move a defender, or prepare promotion. A pawn promoted in enemy territory moves like a gold as a tokin; when captured, it returns to its captor's hand as a pawn. Before a drop, also check that you have no unpromoted pawn on that file. In each position, calculate beyond the drop and through the defender's reply.",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 5,
+        "line": 44,
+        "phrase": "と同じ動き"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "導入・題名・確認問題は各章の独自例を要約。共有されるのは将棋のルール・手筋・囲いの名称と原理。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".check.question",
+      "ja": "歩を打って相手の金を動かす構想では、歩を取らせた後に何を確認しますか？",
+      "en": "When you drop a pawn to draw a gold away, what must you verify after the gold takes it?",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 5,
+        "line": 172,
+        "phrase": "歩を打って"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "導入・題名・確認問題は各章の独自例を要約。共有されるのは将棋のルール・手筋・囲いの名称と原理。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".check.answer",
+      "ja": "金の移動先と次の歩への応手を読み、最後に狙う駒へ自分の駒の利きが実際に通るか確かめます。相手が歩を取らない応手もあるため、取りを強制したとは数えません。",
+      "en": "Trace the gold's new square and its reply to any second pawn, then verify that your own piece can actually reach the final target. The defender may decline the pawn, so do not treat the capture as forced.",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 4,
+        "line": 98,
+        "phrase": "えません"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "導入・題名・確認問題は各章の独自例を要約。共有されるのは将棋のルール・手筋・囲いの名称と原理。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".chapters[0].title",
+      "ja": "一マス控えて進路を止める",
+      "en": "Hold a square behind the advancing pawn",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 2,
+        "line": 11,
+        "phrase": "控え"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "控えの歩という一般手筋を独自の４筋局面で示す。元記事では５番目の手筋。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".chapters[0].steps[0].text",
+      "ja": "後手の歩４五は先手玉４九へ向かっています。持ち歩を４七に打てば、後手の歩が４六へ進んだときに取り返せる形です。一マス空ける控えの歩が、進路の先を押さえます。",
+      "en": "Gote's pawn on ４五 is advancing toward Sente's king on ４九. A pawn dropped on ４七 leaves one square between them: if Gote advances to ４六, your pawn can capture it. The reserve pawn controls the next square rather than meeting the pawn immediately.",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 5,
+        "line": 166,
+        "phrase": "っています"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "控えの歩という一般手筋を独自の４筋局面で示す。元記事では５番目の手筋。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".chapters[0].steps[1].text",
+      "ja": "▲４七歩。後手がそのまま歩を進める場合を見ます。別の手を選ばれれば、この交換は起こりません。",
+      "en": "▲４七歩. Follow the line where Gote continues the pawn advance. Another reply would change this exchange.",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 4,
+        "line": 61,
+        "phrase": "りません"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "控えの歩という一般手筋を独自の４筋局面で示す。元記事では５番目の手筋。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".chapters[0].steps[2].text",
+      "ja": "△４六歩で二枚の歩が隣り合いました。４七の歩は前の４六へ進みながら後手の歩を取れます。",
+      "en": "△４六歩 puts the pawns beside each other. The pawn on ４七 can step forward to ４六 and capture Gote's pawn.",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 4,
+        "line": 86,
+        "phrase": "手の歩を"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "控えの歩という一般手筋を独自の４筋局面で示す。元記事では５番目の手筋。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".chapters[0].steps[3].text",
+      "ja": "▲４六歩で進んできた歩を取りました。歩を打った時点で止めたと判断せず、相手が進んだ後に取れる位置かを確認します。",
+      "en": "▲４六歩 captures the advancing pawn. The drop mattered because the pawn could make this capture after Gote advanced, not merely because it occupied a nearby square.",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 4,
+        "line": 86,
+        "phrase": "進んだ後"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "控えの歩という一般手筋を独自の４筋局面で示す。元記事では５番目の手筋。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".chapters[1].title",
+      "ja": "金の下に歩を残す",
+      "en": "Leave a pawn beneath the gold",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 4,
+        "line": 172,
+        "phrase": "金の下に"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "底歩という一般手筋を飛車対金の局面で示す。元記事の舟囲いの寄せ手順ではない。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".chapters[1].steps[0].text",
+      "ja": "後手の飛車５一は先手の金５八を縦に狙っています。歩を最下段の５九へ打つ底歩なら、飛車が金を取った後に歩で取り返す筋を作れます。まず二歩にならないことを確認します。",
+      "en": "Gote's rook on ５一 points down the file at Sente's gold on ５八. A pawn on the back rank at ５九, a bottom pawn, can recapture the rook if it takes the gold. Check that the file has no other unpromoted Sente pawn before dropping.",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 6,
+        "line": 168,
+        "phrase": "狙っています"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "底歩という一般手筋を飛車対金の局面で示す。元記事の舟囲いの寄せ手順ではない。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".chapters[1].steps[1].text",
+      "ja": "▲５九歩。金はまだ５八にいますが、飛車で取る場合の代償が変わりました。後手が飛車で金を取る応手を確かめます。",
+      "en": "▲５九歩 leaves the gold on ５八 and changes the cost of a rook capture. Consider the reply where Gote takes the gold with the rook.",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 4,
+        "line": 109,
+        "phrase": "飛車で金"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "底歩という一般手筋を飛車対金の局面で示す。元記事の舟囲いの寄せ手順ではない。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".chapters[1].steps[2].text",
+      "ja": "△５八飛で金を取られました。５九の歩は一つ前の５八へ進んで飛車を取れます。",
+      "en": "△５八飛 takes the gold. The pawn on ５九 can advance one square to ５八 and capture the rook.",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 3,
+        "line": 36,
+        "phrase": "れます"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "底歩という一般手筋を飛車対金の局面で示す。元記事の舟囲いの寄せ手順ではない。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".chapters[1].steps[3].text",
+      "ja": "▲５八歩で飛車を取り返しました。底歩は金を取らせない保証ではなく、飛車で取った場合の交換を変える守りです。",
+      "en": "▲５八歩 recaptures the rook. The bottom pawn does not guarantee that the gold survives; it changes the exchange if the rook takes it.",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 4,
+        "line": 139,
+        "phrase": "しました"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "底歩という一般手筋を飛車対金の局面で示す。元記事の舟囲いの寄せ手順ではない。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".chapters[2].title",
+      "ja": "成りを予告して守り駒を動かす",
+      "en": "Threaten promotion to move a defender",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 2,
+        "line": 11,
+        "phrase": "して"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "垂れ歩の成りを桂の応手で説明。元記事の角逃げの対比ではない。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".chapters[2].steps[0].text",
+      "ja": "後手の桂６二の近くへ歩を打ちます。６四から６三へ進めば敵陣に入り、と金へ成れます。ただし、歩を打った直後に成れるわけではありません。後手の応手を一手挟んで読みます。",
+      "en": "Drop a pawn near Gote's knight on ６二. From ６四 it can advance to ６三, enter enemy territory, and promote to a tokin. Promotion is not immediate; calculate Gote's intervening reply.",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 6,
+        "line": 86,
+        "phrase": "歩を打ちます"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "垂れ歩の成りを桂の応手で説明。元記事の角逃げの対比ではない。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".chapters[2].steps[1].text",
+      "ja": "▲６四歩で次の６三歩成を狙います。ここでは後手が桂を５四へ跳ねる応手を見ます。",
+      "en": "▲６四歩 threatens ６三歩成 next turn. In this line, Gote responds by jumping the knight to ５四.",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 5,
+        "line": 74,
+        "phrase": "三歩成を狙"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "垂れ歩の成りを桂の応手で説明。元記事の角逃げの対比ではない。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".chapters[2].steps[2].text",
+      "ja": "△５四桂。桂は６二から離れましたが、６三へ進む歩を取る位置には来ていません。",
+      "en": "△５四桂 moves the knight away from ６二. It does not land where it can capture the pawn's advance to ６三.",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 3,
+        "line": 61,
+        "phrase": "ません"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "垂れ歩の成りを桂の応手で説明。元記事の角逃げの対比ではない。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".chapters[2].steps[3].text",
+      "ja": "▲６三歩成でと金を作りました。相手が別の守り方を選べば成れない可能性もあるため、実戦では歩を打つ前にその応手も調べます。",
+      "en": "▲６三歩成 makes a tokin. Another defensive reply might prevent this promotion, so in a game you must examine those replies before choosing the drop.",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 4,
+        "line": 98,
+        "phrase": "歩を打つ"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "垂れ歩の成りを桂の応手で説明。元記事の角逃げの対比ではない。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".chapters[3].title",
+      "ja": "銀を動かして角の道を開く",
+      "en": "Move the silver off the bishop's line",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 3,
+        "line": 55,
+        "phrase": "かして"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "銀を動かして角筋を開ける独自局面。元記事の金銀の焦点・穴熊の例とは異なる。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".chapters[3].steps[0].text",
+      "ja": "角３七と飛車７三の間に後手の銀６四がいます。銀を角で直接取ると金５三に取り返されます。歩を６五へ打てば銀を攻めながら、銀が前へ出た場合に角の道を開けます。",
+      "en": "Gote's silver on ６四 blocks the diagonal from Sente's bishop on ３七 to Gote's rook on ７三. Capturing the silver directly would let the gold on ５三 recapture the bishop. A pawn on ６五 attacks the silver and may clear the diagonal if the silver steps forward.",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 3,
+        "line": 11,
+        "phrase": "います"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "銀を動かして角筋を開ける独自局面。元記事の金銀の焦点・穴熊の例とは異なる。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".chapters[3].steps[1].text",
+      "ja": "▲６五歩。銀がこの歩を取る応手では、６四が空きます。別の応手なら角の道が開くとは限りません。",
+      "en": "▲６五歩 attacks the silver. If the silver captures this pawn, ６四 becomes empty. Other replies do not necessarily open the bishop's path.",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 5,
+        "line": 125,
+        "phrase": "がこの歩を"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "銀を動かして角筋を開ける独自局面。元記事の金銀の焦点・穴熊の例とは異なる。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".chapters[3].steps[2].text",
+      "ja": "△６五銀で歩を取られました。角から４六、５五、６四、７三へ続く斜めの道にはもう銀がいません。",
+      "en": "△６五銀 captures the pawn. The diagonal from the bishop through ４六, ５五, and ６四 to ７三 is now clear.",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 3,
+        "line": 58,
+        "phrase": "取られ"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "銀を動かして角筋を開ける独自局面。元記事の金銀の焦点・穴熊の例とは異なる。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".chapters[3].steps[3].text",
+      "ja": "▲７三角成で飛車を取って馬になりました。歩で銀を取るのが目的ではなく、銀が動いた後の角の利きを利用する順番でした。",
+      "en": "▲７三角成 captures the rook and promotes the bishop. The purpose of the pawn was not to win the silver; it was to use the bishop's line after the silver moved.",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 5,
+        "line": 144,
+        "phrase": "車を取って"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "銀を動かして角筋を開ける独自局面。元記事の金銀の焦点・穴熊の例とは異なる。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".chapters[4].title",
+      "ja": "二枚目の歩まで応手を読む",
+      "en": "Calculate the reply to the second pawn",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 2,
+        "line": 11,
+        "phrase": "の歩"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "二枚の歩で金を角筋へ誘う例。元記事の歩の吊り上げ・垂れ歩の連結とは異なる。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".chapters[4].steps[0].text",
+      "ja": "先手は歩を二枚持ち、角３七の斜め先に後手の金５二がいます。６三へ歩を打つと、次の６二歩成が金５二を狙います。ここでは金が歩を取り続ける場合を読みますが、取りは強制されません。",
+      "en": "Sente holds two pawns, with a bishop on ３七 and Gote's gold on ５二. A pawn on ６三 threatens to promote on ６二 and attack the gold. This line examines a gold that keeps accepting the pawns; those captures are not forced.",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 4,
+        "line": 62,
+        "phrase": "れません"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "二枚の歩で金を角筋へ誘う例。元記事の歩の吊り上げ・垂れ歩の連結とは異なる。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".chapters[4].steps[1].text",
+      "ja": "▲６三歩。金が６三の歩を取ると、金は角の斜めの道へ近づきます。",
+      "en": "▲６三歩 threatens promotion. If the gold takes it on ６三, the gold moves closer to the bishop's diagonal.",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 3,
+        "line": 17,
+        "phrase": "ると金"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "二枚の歩で金を角筋へ誘う例。元記事の歩の吊り上げ・垂れ歩の連結とは異なる。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".chapters[4].steps[2].text",
+      "ja": "△６三金で一枚目の歩を取られました。二枚目を６四へ打つ前に、６四の歩を金が取った後の配置を読みます。",
+      "en": "△６三金 captures the first pawn. Before using the second pawn on ６四, calculate where the gold will stand if it takes that one too.",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 3,
+        "line": 58,
+        "phrase": "取られ"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "二枚の歩で金を角筋へ誘う例。元記事の歩の吊り上げ・垂れ歩の連結とは異なる。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".chapters[4].steps[3].text",
+      "ja": "▲６四歩で金６三を攻めます。金が歩を取るなら６四へ進み、角３七から４六、５五を経て金へ利きが届きます。",
+      "en": "▲６四歩 attacks the gold on ６三. If the gold captures it, the gold moves to ６四, which the bishop on ３七 reaches through ４六 and ５五.",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 3,
+        "line": 40,
+        "phrase": "きます"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "二枚の歩で金を角筋へ誘う例。元記事の歩の吊り上げ・垂れ歩の連結とは異なる。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".chapters[4].steps[4].text",
+      "ja": "△６四金で二枚目も取られました。金は角筋の６四にいるため、次は角で取れます。",
+      "en": "△６四金 captures the second pawn. The gold now stands on ６四, directly on the bishop's diagonal.",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 3,
+        "line": 36,
+        "phrase": "れます"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "二枚の歩で金を角筋へ誘う例。元記事の歩の吊り上げ・垂れ歩の連結とは異なる。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "tesuji-pawn",
+      "field": ".chapters[4].steps[5].text",
+      "ja": "▲６四角で金を取りました。二枚の歩を使っても、金がどちらかを取らずに別の場所へ逃げればこの捕獲は成立しません。歩を打つたびに相手の選択を読み直します。",
+      "en": "▲６四角 captures the gold. The result depends on Gote taking both pawns; if the gold declines either one or moves elsewhere, this capture does not follow. Recalculate the defender's choices after every drop.",
+      "source": ".cache/curriculum-source/1629.txt",
+      "closest_literal_run": {
+        "characters": 7,
+        "line": 82,
+        "phrase": "枚の歩を使って"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "二枚の歩で金を角筋へ誘う例。元記事の歩の吊り上げ・垂れ歩の連結とは異なる。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "castles-mino",
+      "field": ".title",
+      "ja": "美濃の金銀と玉頭を読み分ける",
+      "en": "Read Mino's Generals and King-Head Squares",
+      "source": ".cache/curriculum-source/5985.txt",
+      "closest_literal_run": {
+        "characters": 3,
+        "line": 72,
+        "phrase": "美濃の"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "導入・題名・確認問題は各章の独自例を要約。共有されるのは将棋のルール・手筋・囲いの名称と原理。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "castles-mino",
+      "field": ".intro",
+      "ja": "振り飛車で玉を右に囲う美濃には、金を一枚だけ寄せる片美濃、二枚をつなぐ本美濃、金を高くして上部を補う高美濃、銀を冠の位置へ出す銀冠があります。形が変わるたびに横の飛車筋、玉の斜め前、２筋の歩を調べます。左の金銀を守りに加える選択は、攻めに使える駒と手数も変えます。",
+      "en": "Ranging Rook can shelter the king on the right with Half Mino, connect a second gold for full Mino, raise a gold for High Mino, or put a silver above the king in Silver Crown. Each change affects a lateral rook line, the diagonal above the king, or the second-file pawn. Committing more generals also changes the time and material left for attack.",
+      "source": ".cache/curriculum-source/5985.txt",
+      "closest_literal_run": {
+        "characters": 5,
+        "line": 14,
+        "phrase": "振り飛車で"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "導入・題名・確認問題は各章の独自例を要約。共有されるのは将棋のルール・手筋・囲いの名称と原理。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "castles-mino",
+      "field": ".check.question",
+      "ja": "美濃の金５八を４七に上げるとき、４七で増える利きと５八で失う利きをどう確かめますか？",
+      "en": "When raising a Mino gold from ５八 to ４七, how do you check the coverage gained and lost?",
+      "source": ".cache/curriculum-source/5985.txt",
+      "closest_literal_run": {
+        "characters": 3,
+        "line": 8,
+        "phrase": "めます"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "導入・題名・確認問題は各章の独自例を要約。共有されるのは将棋のルール・手筋・囲いの名称と原理。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "castles-mino",
+      "field": ".check.answer",
+      "ja": "金４七が３六や桂３七を守れるか、元の５八で止めていた横の飛車筋が開かないかを盤上で調べます。高くしただけで安全になるとは決めません。",
+      "en": "Check whether the gold on ４七 protects squares such as ３六 and a knight on ３七, and whether leaving ５八 opens a lateral rook line. Raising the gold alone does not establish safety.",
+      "source": ".cache/curriculum-source/5985.txt",
+      "closest_literal_run": {
+        "characters": 3,
+        "line": 72,
+        "phrase": "ます高"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "導入・題名・確認問題は各章の独自例を要約。共有されるのは将棋のルール・手筋・囲いの名称と原理。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "castles-mino",
+      "field": ".chapters[0].title",
+      "ja": "片美濃に二枚目の金をつなぐ",
+      "en": "Connect the second gold to Half Mino",
+      "source": ".cache/curriculum-source/5985.txt",
+      "closest_literal_run": {
+        "characters": 3,
+        "line": 17,
+        "phrase": "片美濃"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "片美濃から金をつなぐ一般的な形を横の飛車筋との関係で説明。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "castles-mino",
+      "field": ".chapters[0].steps[0].text",
+      "ja": "玉２八、銀３八、金４九の片美濃型で、もう一枚の金５九が残っています。後手飛車７八は６八・５八を通って右へ利きます。金５九を上げて５八に置けば飛車筋に入るので、支えを確認します。",
+      "en": "Sente has a Half Mino core: king ２八, silver ３八, gold ４九, with the other gold on ５九. Gote's rook on ７八 sees through ６八 and ５八. Raising the gold to ５八 puts it in that rook line, so first check its support.",
+      "source": ".cache/curriculum-source/5985.txt",
+      "closest_literal_run": {
+        "characters": 6,
+        "line": 82,
+        "phrase": "もう一枚の金"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "片美濃から金をつなぐ一般的な形を横の飛車筋との関係で説明。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "castles-mino",
+      "field": ".chapters[0].steps[1].text",
+      "ja": "▲５八金で本美濃型の二枚の金がつながります。金４九は５八を斜め前に守り、飛車７八の横筋は金５八で止まります。囲いへ一手使う価値は、飛車筋を止める必要と先手の攻めの速さを比べて決めます。",
+      "en": "▲５八金 connects the two golds in a full Mino core. The gold on ４九 protects ５八 diagonally forward, and the rook line from ７八 stops at the new gold. Whether to spend this move on defense depends on that rook threat and the pace of Sente's own attack.",
+      "source": ".cache/curriculum-source/5985.txt",
+      "closest_literal_run": {
+        "characters": 3,
+        "line": 5,
+        "phrase": "り飛車"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "片美濃から金をつなぐ一般的な形を横の飛車筋との関係で説明。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "castles-mino",
+      "field": ".chapters[1].title",
+      "ja": "金を高くして桂の支えを増やす",
+      "en": "Raise a gold to support the forward knight",
+      "source": ".cache/curriculum-source/5985.txt",
+      "closest_literal_run": {
+        "characters": 2,
+        "line": 5,
+        "phrase": "して"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "高美濃の金の移動を桂の支えと失う利きで説明。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "castles-mino",
+      "field": ".chapters[1].steps[0].text",
+      "ja": "玉２八、銀３八、金５八・４九、桂３七の本美濃型です。後手歩３六が桂３七を攻めています。金５八を４七に上げると、桂の支えと前方への利きがどう変わるか見ます。",
+      "en": "Sente has king ２八, silver ３八, golds ５八 and ４九, and knight ３七. Gote's pawn on ３六 attacks that knight. Raising the gold from ５八 to ４七 changes both knight support and forward coverage.",
+      "source": ".cache/curriculum-source/5985.txt",
+      "closest_literal_run": {
+        "characters": 4,
+        "line": 31,
+        "phrase": "の本美濃"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "高美濃の金の移動を桂の支えと失う利きで説明。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "castles-mino",
+      "field": ".chapters[1].steps[1].text",
+      "ja": "▲４七金。金４七は桂３七を横から守り、歩３六にも斜め前に利きます。銀３八も桂３七を守っています。この高美濃型は上部の守りを増やしましたが、金が去った５八から横の飛車筋が伸びる局面なら別の対処が必要です。",
+      "en": "▲４七金 protects the knight on ３七 sideways and attacks the pawn on ３六 diagonally forward. The silver on ３八 also protects that knight. This High Mino core adds upper coverage, but an opposing rook could exploit the vacated ５八 square in a different position.",
+      "source": ".cache/curriculum-source/5985.txt",
+      "closest_literal_run": {
+        "characters": 5,
+        "line": 64,
+        "phrase": "っています"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "高美濃の金の移動を桂の支えと失う利きで説明。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "castles-mino",
+      "field": ".chapters[2].title",
+      "ja": "銀冠は王手を止める場所まで確認する",
+      "en": "Silver Crown must answer the actual rook check",
+      "source": ".cache/curriculum-source/5985.txt",
+      "closest_literal_run": {
+        "characters": 2,
+        "line": 19,
+        "phrase": "銀冠"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "銀冠を横の飛車王手への合駒で検証。元記事の分類説明にはない。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "castles-mino",
+      "field": ".chapters[2].steps[0].text",
+      "ja": "玉２八、銀２七、桂３七、金４七・４九は銀冠の上部の骨格です。後手飛車４八は３八が空いているため、玉２八へ横から王手しています。金４九を３八へ動かせば、王手を遮れるかを確かめます。",
+      "en": "King ２八, silver ２七, knight ３七, and golds ４七 and ４九 form the upper core of Silver Crown. Gote's rook on ４八 checks laterally through the empty ３八 square. Test whether moving the lower gold to ３八 blocks the check.",
+      "source": ".cache/curriculum-source/5985.txt",
+      "closest_literal_run": {
+        "characters": 5,
+        "line": 99,
+        "phrase": "しています"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "銀冠を横の飛車王手への合駒で検証。元記事の分類説明にはない。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "castles-mino",
+      "field": ".chapters[2].steps[1].text",
+      "ja": "▲３八金で飛車４八と玉２八の間を塞ぎました。銀２七は金３八を斜め後ろに守り、玉２八も金３八を守ります。上部の銀があるだけでは下段の王手は消えません。相手の飛車がどの段にいるかで、銀冠の弱点を調べます。",
+      "en": "▲３八金 interposes between the rook and the king. The silver on ２七 protects the gold diagonally backward, and the king on ２八 also guards it. A silver above the king does not by itself stop a lower-rank check; the rook's actual rank determines the danger.",
+      "source": ".cache/curriculum-source/5985.txt",
+      "closest_literal_run": {
+        "characters": 3,
+        "line": 7,
+        "phrase": "がある"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "銀冠を横の飛車王手への合駒で検証。元記事の分類説明にはない。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "castles-mino",
+      "field": ".chapters[3].title",
+      "ja": "２筋の歩を上げる前に飛車筋を見る",
+      "en": "Check the rook file before advancing the head pawn",
+      "source": ".cache/curriculum-source/5985.txt",
+      "closest_literal_run": {
+        "characters": 3,
+        "line": 91,
+        "phrase": "筋の歩"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "２筋の歩を進めた後の飛車筋を読む独自例。城名と一般的な弱点は共通。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "castles-mino",
+      "field": ".chapters[3].steps[0].text",
+      "ja": "玉２八、銀３八、金５八・４九の美濃型です。先手歩２七の前方に後手飛車２二がいます。歩を２六へ上げると、玉頭の歩が飛車の筋で狙われるかを確認します。",
+      "en": "Sente has a Mino core with king ２八, silver ３八, and golds ５八 and ４九. Gote's rook on ２二 stands ahead of Sente's pawn on ２七. Before advancing the pawn to ２六, check whether the rook will target it along the file.",
+      "source": ".cache/curriculum-source/5985.txt",
+      "closest_literal_run": {
+        "characters": 3,
+        "line": 5,
+        "phrase": "います"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "２筋の歩を進めた後の飛車筋を読む独自例。城名と一般的な弱点は共通。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "castles-mino",
+      "field": ".chapters[3].steps[1].text",
+      "ja": "▲２六歩。飛車２二から２六までの間に駒はなく、歩２六は次に取られる可能性があります。銀３八は２七を守りますが、２六には利きません。２六歩を残すちょんまげ美濃型か、歩を失って玉頭が空く坊主美濃型かは、後手の応手で変わります。",
+      "en": "▲２六歩 leaves no piece between Gote's rook on ２二 and the pawn on ２六, so the pawn may be captured next. The silver on ３八 protects ２七, not ２六. Whether this becomes a Chonmage Mino with the advanced pawn or a pawnless Bozu Mino depends on Gote's reply.",
+      "source": ".cache/curriculum-source/5985.txt",
+      "closest_literal_run": {
+        "characters": 7,
+        "line": 24,
+        "phrase": "ちょんまげ美濃"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "２筋の歩を進めた後の飛車筋を読む独自例。城名と一般的な弱点は共通。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "shiken-basics",
+      "field": ".title",
+      "ja": "四間飛車の飛車・玉・角",
+      "en": "The rook, king and bishop in Fourth File Rook",
+      "source": ".cache/curriculum-source/2426.txt",
+      "closest_literal_run": {
+        "characters": 5,
+        "line": 1,
+        "phrase": "四間飛車の"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "導入・題名・確認問題は各章の独自例を要約。共有されるのは将棋のルール・手筋・囲いの名称と原理。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "shiken-basics",
+      "field": ".intro",
+      "ja": "先手の四間飛車は飛車を６筋へ移し、玉を反対側で囲う構想です。ただし飛車の移動だけでは後手の８筋の歩を止められません。角を７七に置く受けと、角交換を選ぶ場合の持ち角の危険を、別々の盤面で確かめます。",
+      "en": "Sente's Fourth File Rook shifts the rook to the sixth file and usually shelters the king on the other wing. That rook move alone does not stop Gote's eighth-file pawn. These positions show a bishop defense from 7g and the bishop-drop risk that can remain after an exchange.",
+      "source": ".cache/curriculum-source/2426.txt",
+      "closest_literal_run": {
+        "characters": 6,
+        "line": 54,
+        "phrase": "飛車は飛車を"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "導入・題名・確認問題は各章の独自例を要約。共有されるのは将棋のルール・手筋・囲いの名称と原理。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "shiken-basics",
+      "field": ".check.question",
+      "ja": "先手角が７七、歩が８七にある局面で、△８六歩▲同歩△同飛と進んだら、先手はどの駒で８六飛を取れますか？",
+      "en": "With Sente's bishop on 7g and pawn on 8g, after P8f Px8f Rx8f, which piece can capture Gote's rook?",
+      "source": ".cache/curriculum-source/2426.txt",
+      "closest_literal_run": {
+        "characters": 7,
+        "line": 102,
+        "phrase": "六歩同歩同飛と"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "導入・題名・確認問題は各章の独自例を要約。共有されるのは将棋のルール・手筋・囲いの名称と原理。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "shiken-basics",
+      "field": ".check.answer",
+      "ja": "７七の角です。７七から８六は斜め一マスで、８六の後手飛車に利いています。ただし後手が必ず飛車で歩を取るわけではありません。",
+      "en": "The bishop on 7g can capture the rook on 8f along a one-square diagonal. Gote is not obliged to make that rook capture.",
+      "source": ".cache/curriculum-source/2426.txt",
+      "closest_literal_run": {
+        "characters": 4,
+        "line": 54,
+        "phrase": "ています"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "導入・題名・確認問題は各章の独自例を要約。共有されるのは将棋のルール・手筋・囲いの名称と原理。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "shiken-basics",
+      "field": ".chapters[0].title",
+      "ja": "飛車を６筋、玉を右へ",
+      "en": "Shift the rook left and the king right",
+      "source": ".cache/curriculum-source/2426.txt",
+      "closest_literal_run": {
+        "characters": 3,
+        "line": 12,
+        "phrase": "飛車を"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "飛車と玉を分ける一般概念。省略局面で８筋への受けの優先度を比較。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "shiken-basics",
+      "field": ".chapters[0].steps[0].text",
+      "ja": "先手飛車は２八、玉は５九です。６八までの飛車の横道は空き、６筋には先手６六歩があります。飛車を６八へ動かすと四間飛車の形になりますが、８五の後手歩は別に見なければなりません。",
+      "en": "Sente's rook is on 2h and king on 5i. The rook's horizontal route to 6h is clear, with a Sente pawn on 6f ahead of it. Moving the rook gives a Fourth File Rook shape, while Gote's pawn on 8e still demands attention.",
+      "source": ".cache/curriculum-source/2426.txt",
+      "closest_literal_run": {
+        "characters": 11,
+        "line": 78,
+        "phrase": "四間飛車の形になります"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "飛車と玉を分ける一般概念。省略局面で８筋への受けの優先度を比較。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "shiken-basics",
+      "field": ".chapters[0].steps[1].text",
+      "ja": "▲６八飛で飛車を左へ移し、後手は一例として△５四歩と進めました。飛車と玉を同じ側に集めず、玉は右へ寄せる余地を残します。後手が別の手で８筋を急げば、玉の移動より８筋への受けが先になる場合もあります。",
+      "en": "R6h shifts the rook left; Gote's sample reply is P5d. Sente can now move the king toward the opposite wing. If Gote accelerates the eighth file instead, defending that file may take priority over a king move.",
+      "source": ".cache/curriculum-source/2426.txt",
+      "closest_literal_run": {
+        "characters": 5,
+        "line": 74,
+        "phrase": "もあります"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "飛車と玉を分ける一般概念。省略局面で８筋への受けの優先度を比較。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "shiken-basics",
+      "field": ".chapters[0].steps[2].text",
+      "ja": "▲４八玉と一歩離した後、後手が△８六歩と突いた例です。飛車を６八に置いた事実は８六の歩を取っていません。先手８七歩で取り合うか、角の配置を変えるかを具体的に数えます。",
+      "en": "K4h moves the king away from the rook, and Gote's sample P8f brings the eighth-file pawns into contact. The rook on 6h has not answered the pawn on 8f. Sente must count a pawn capture or a bishop-based defense from this actual position.",
+      "source": ".cache/curriculum-source/2426.txt",
+      "closest_literal_run": {
+        "characters": 4,
+        "line": 54,
+        "phrase": "っていま"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "飛車と玉を分ける一般概念。省略局面で８筋への受けの優先度を比較。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "shiken-basics",
+      "field": ".chapters[0].steps[3].text",
+      "ja": "ここでは▲同歩と取りました。後手８二飛は８六の先手歩を取れますが、角はまだ８八にいます。飛車を取らせる前に角が７七へ届くかを調べる必要があり、次章では角を先に配置した場合を比べます。",
+      "en": "Here Px8f takes the pawn. Gote's rook on 8b can capture Sente's pawn on 8f, while Sente's bishop is still on 8h. Compare the next position, where the bishop was placed on 7g before this contact.",
+      "source": ".cache/curriculum-source/2426.txt",
+      "closest_literal_run": {
+        "characters": 5,
+        "line": 97,
+        "phrase": "した場合を"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "飛車と玉を分ける一般概念。省略局面で８筋への受けの優先度を比較。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "shiken-basics",
+      "field": ".chapters[1].title",
+      "ja": "７七角が８六を守る条件",
+      "en": "When the bishop on 7g covers 8f",
+      "source": ".cache/curriculum-source/2426.txt",
+      "closest_literal_run": {
+        "characters": 2,
+        "line": 89,
+        "phrase": "七角"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "元記事と同じ標準的な８筋の交換と７七角の利き。文章と全体構成は異なるが例題の論点は共通。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "shiken-basics",
+      "field": ".chapters[1].steps[0].text",
+      "ja": "先手は６八飛、２八玉・３八銀・４九金で飛車と玉を分け、角を７七に置きました。８七歩はまだ盤上にあり、後手８五歩が８六へ来られます。７七角が８六に利くことを、実際の取り合いで確認します。",
+      "en": "Sente has separated the rook on 6h from a king on 2h, silver on 3h and gold on 4i, and placed the bishop on 7g. The pawn on 8g remains, while Gote's pawn on 8e can advance. Count the bishop's control of 8f through the actual exchange.",
+      "source": ".cache/curriculum-source/2426.txt",
+      "closest_literal_run": {
+        "characters": 4,
+        "line": 85,
+        "phrase": "きました"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "元記事と同じ標準的な８筋の交換と７七角の利き。文章と全体構成は異なるが例題の論点は共通。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "shiken-basics",
+      "field": ".chapters[1].steps[1].text",
+      "ja": "△８六歩▲同歩という一例です。先手歩が８六へ来たため、後手飛車は８二から縦に取れます。ただし後手飛車が８六に来れば、７七角の斜め一マスに入ります。",
+      "en": "After the sample P8f Px8f, Sente's pawn stands on 8f. Gote's rook can take it from 8b, but a rook on 8f would enter the bishop's diagonal from 7g.",
+      "source": ".cache/curriculum-source/2426.txt",
+      "closest_literal_run": {
+        "characters": 4,
+        "line": 102,
+        "phrase": "六歩同歩"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "元記事と同じ標準的な８筋の交換と７七角の利き。文章と全体構成は異なるが例題の論点は共通。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "shiken-basics",
+      "field": ".chapters[1].steps[2].text",
+      "ja": "後手が△同飛と取る枝では、▲同角で飛車を取れます。７七角が８六を守るという意味は、この一手の利きです。後手は飛車で取る義務がなく、角を置けば無条件に８筋が安全になるわけでもありません。",
+      "en": "If Gote chooses Rx8f, Bx8f captures the rook. This one-square diagonal is the concrete meaning of the bishop's eighth-file defense. Gote can decline the rook capture, and the bishop alone does not make the entire file safe.",
+      "source": ".cache/curriculum-source/2426.txt",
+      "closest_literal_run": {
+        "characters": 6,
+        "line": 74,
+        "phrase": "るという意味"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "元記事と同じ標準的な８筋の交換と７七角の利き。文章と全体構成は異なるが例題の論点は共通。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "shiken-basics",
+      "field": ".chapters[2].title",
+      "ja": "角交換後の王手を先に消す",
+      "en": "Prepare for a checking bishop drop after exchange",
+      "source": ".cache/curriculum-source/2426.txt",
+      "closest_literal_run": {
+        "characters": 3,
+        "line": 20,
+        "phrase": "角交換"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "角交換後の５五角打ちと４六歩の遮断を比較。元記事の角交換拒否と８筋突破の論証とは異なる。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "shiken-basics",
+      "field": ".chapters[2].steps[0].text",
+      "ja": "先手は６八飛と２八玉・３八銀・４九金・５八金の美濃系の守りを持ち、角は８八にいます。後手角は２二で、途中の７七から３三まで空いています。角を交換すれば双方に持ち角が生じるので、玉に届く角打ちを先に考えます。",
+      "en": "Sente has a rook on 6h and a Mino-style king cover with K2h, S3h and golds on 4i and 5h. Its bishop is on 8h, Gote's on 2b, and the diagonal between them is open. An exchange gives both sides a bishop in hand, so check possible drops against the king first.",
+      "source": ".cache/curriculum-source/2426.txt",
+      "closest_literal_run": {
+        "characters": 4,
+        "line": 54,
+        "phrase": "ています"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "角交換後の５五角打ちと４六歩の遮断を比較。元記事の角交換拒否と８筋突破の論証とは異なる。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "shiken-basics",
+      "field": ".chapters[2].steps[1].text",
+      "ja": "▲２二角成△同銀と交換し、双方が角を持ちました。先手玉２八へは、後手が５五に角を打つと４六・３七を通る斜線が届きます。交換を選んだ後は、その王手をどう変えるかが次の判断です。",
+      "en": "After Bx2b+ Sx2b, both players hold a bishop. From 5e, a Gote bishop could check Sente's king on 2h through 4f and 3g. The next decision after choosing the exchange is how to change that checking line.",
+      "source": ".cache/curriculum-source/2426.txt",
+      "closest_literal_run": {
+        "characters": 3,
+        "line": 56,
+        "phrase": "をどう"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "角交換後の５五角打ちと４六歩の遮断を比較。元記事の角交換拒否と８筋突破の論証とは異なる。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "shiken-basics",
+      "field": ".chapters[2].steps[2].text",
+      "ja": "▲４六歩で５五から２八へ続く線を４六の先手歩で止めました。後手が△５五角と打つ例でも、この図では王手になりません。ただし４六歩そのものは角に狙われるため、角交換を無条件の得と考えません。",
+      "en": "P4f places Sente's pawn on the checking diagonal from 5e to 2h. Gote's sample B*5e is therefore not check in this position. That pawn can itself become a bishop target, so the exchange is not an automatic gain.",
+      "source": ".cache/curriculum-source/2426.txt",
+      "closest_literal_run": {
+        "characters": 5,
+        "line": 114,
+        "phrase": "手になりま"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "角交換後の５五角打ちと４六歩の遮断を比較。元記事の角交換拒否と８筋突破の論証とは異なる。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "shiken-basics",
+      "field": ".chapters[2].variations[0].text",
+      "ja": "角交換後に▲１六歩と端を進めた枝では、４六が空いたままです。この図の△５五角は４六・３七を通って２八玉への王手になります。角交換そのものが常に悪いのではなく、交換後の一手が玉の安全を変えます。",
+      "en": "If Sente instead plays P1f after the exchange, 4f stays empty. Here B*5e checks the king on 2h through 4f and 3g. The exchange is not universally bad; Sente's follow-up changes the king's safety.",
+      "source": ".cache/curriculum-source/2426.txt",
+      "closest_literal_run": {
+        "characters": 6,
+        "line": 114,
+        "phrase": "手になります"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "角交換後の５五角打ちと４六歩の遮断を比較。元記事の角交換拒否と８筋突破の論証とは異なる。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "attack-funa",
+      "field": ".title",
+      "ja": "舟囲いの外側の歩と金を狙う",
+      "en": "Attack the Outer Pawn and Gold of a Boat Castle",
+      "source": ".cache/curriculum-source/3048.txt",
+      "closest_literal_run": {
+        "characters": 4,
+        "line": 8,
+        "phrase": "舟囲いの"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "導入・題名・確認問題は各章の独自例を要約。共有されるのは将棋のルール・手筋・囲いの名称と原理。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "attack-funa",
+      "field": ".intro",
+      "ja": "舟囲いでは玉を飛車から離し、銀と二枚の金を短い手数で近くに置きます。攻める側は囲いの名から薄さを決めず、外側の歩を交換した後の飛車の位置と、金を取った後の取り返しを数えます。ここでは舟の基本配置を残した新しい局所図で、歩を使う進入と角・飛車の連係を試し、守る側の一手で攻め筋が変わる例を比べます。",
+      "en": "A Boat castle moves the king away from its rook and keeps a silver and two golds nearby with relatively few moves. Judge its defense from the actual lines: where a rook lands after a pawn exchange, and who can recapture a gold. These new local positions retain a Boat shelter while comparing a pawn-led entry, a bishop-rook exchange, and a defensive move that changes the calculation.",
+      "source": ".cache/curriculum-source/3048.txt",
+      "closest_literal_run": {
+        "characters": 5,
+        "line": 50,
+        "phrase": "と金を取っ"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "導入・題名・確認問題は各章の独自例を要約。共有されるのは将棋のルール・手筋・囲いの名称と原理。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "attack-funa",
+      "field": ".check.question",
+      "ja": "飛車で舟囲いの外側の歩を取る前に、何を確認しますか？",
+      "en": "What should you verify before using a rook to take a pawn outside the Boat castle?",
+      "source": ".cache/curriculum-source/3048.txt",
+      "closest_literal_run": {
+        "characters": 4,
+        "line": 8,
+        "phrase": "舟囲いの"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "導入・題名・確認問題は各章の独自例を要約。共有されるのは将棋のルール・手筋・囲いの名称と原理。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "attack-funa",
+      "field": ".check.answer",
+      "ja": "飛車の通り道に加え、その歩を金などが守っていないかを調べます。守り駒が一手で加われば、同じ歩交換後でも飛車取り返しの収支が変わります。",
+      "en": "Check the rook's path and whether a gold or other piece protects the pawn. One defensive move can change the material result even after the same pawn exchange.",
+      "source": ".cache/curriculum-source/3048.txt",
+      "closest_literal_run": {
+        "characters": 4,
+        "line": 109,
+        "phrase": "ていない"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "導入・題名・確認問題は各章の独自例を要約。共有されるのは将棋のルール・手筋・囲いの名称と原理。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "attack-funa",
+      "field": ".chapters[0].title",
+      "ja": "６筋の歩交換から飛車を前へ出す",
+      "en": "Use a sixth-file pawn exchange to advance the rook",
+      "source": ".cache/curriculum-source/3048.txt",
+      "closest_literal_run": {
+        "characters": 2,
+        "line": 5,
+        "phrase": "から"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "独自の６筋歩交換と飛車の進出。元記事の銀打ちからの寄せではない。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "attack-funa",
+      "field": ".chapters[0].steps[0].text",
+      "ja": "後手の舟囲いは玉３二、銀３一、金４一・５二、角２二です。外側には歩６三と進んだ歩５四があります。先手の歩６五と飛車６八が同じ筋にあるため、歩が消えた後に飛車がどこまで進めるかを調べます。",
+      "en": "Gote's Boat shelter has king ３二, silver ３一, golds ４一 and ５二, and bishop ２二. Outside it stand a pawn on ６三 and an advanced pawn on ５四. Sente's pawn on ６五 and rook on ６八 share a file; calculate where the rook can enter once the pawns leave it.",
+      "source": ".cache/curriculum-source/3048.txt",
+      "closest_literal_run": {
+        "characters": 5,
+        "line": 39,
+        "phrase": "の舟囲いは"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "独自の６筋歩交換と飛車の進出。元記事の銀打ちからの寄せではない。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "attack-funa",
+      "field": ".chapters[0].steps[1].text",
+      "ja": "▲６四歩を△同歩と取った例では、▲同飛で歩を取り返して飛車が６四へ進みます。飛車６四は横隣の歩５四を狙い、後手はその歩を動かすか守るかを選べます。△同歩は後手の選択で、この順だけで金や玉を取れるわけではありません。",
+      "en": "If Gote accepts ▲６四歩 with △同歩, ▲同飛 recaptures and advances the rook to ６四. From there it attacks the adjacent pawn on ５四; Gote may move or defend that pawn. The pawn capture is optional, and this line alone does not win a gold or the king.",
+      "source": ".cache/curriculum-source/3048.txt",
+      "closest_literal_run": {
+        "characters": 5,
+        "line": 90,
+        "phrase": "ありません"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "独自の６筋歩交換と飛車の進出。元記事の銀打ちからの寄せではない。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "attack-funa",
+      "field": ".chapters[1].title",
+      "ja": "角で王手し金を飛車で取り返す",
+      "en": "Check with the bishop, then recapture the gold with the rook",
+      "source": ".cache/curriculum-source/3048.txt",
+      "closest_literal_run": {
+        "characters": 4,
+        "line": 136,
+        "phrase": "で王手し"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "独自の角王手・金の取り返し・飛車での再捕獲。元記事の送り手筋とは異なる。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "attack-funa",
+      "field": ".chapters[1].steps[0].text",
+      "ja": "玉３二・銀３一・金４一と５二・角２二の舟囲いで、歩４三が角７六の斜め筋を止めています。先手飛車４八は４筋に別の駒がなければ４三へ届きます。角で歩を取った後、金５二が取り返せることまで数えます。",
+      "en": "The Boat shelter again has king ３二, silver ３一, golds ４一 and ５二, and bishop ２二. A pawn on ４三 blocks the bishop's diagonal from ７六. Sente's rook on ４八 can reach ４三 if the fourth file stays clear. Count the gold on ５二 as the bishop's recapturer.",
+      "source": ".cache/curriculum-source/3048.txt",
+      "closest_literal_run": {
+        "characters": 4,
+        "line": 39,
+        "phrase": "の舟囲い"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "独自の角王手・金の取り返し・飛車での再捕獲。元記事の送り手筋とは異なる。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "attack-funa",
+      "field": ".chapters[1].steps[1].text",
+      "ja": "▲４三角成で歩を取り、馬４三は玉３二へ斜めに王手します。後手が△同金と取った場合、▲同飛で金を取り返し、飛車４三が金４一を縦に狙います。先手は角と金を交換して歩も得ますが、△同金は一例です。金が別の受けを選べば同じ収支は保証されません。",
+      "en": "▲４三角成 takes the pawn and checks the king on ３二 diagonally. If Gote answers △同金, ▲同飛 recaptures that gold, and the rook on ４三 points up the file toward the gold on ４一. Sente has exchanged bishop for gold and gained a pawn, but the gold recapture is a sample defense; another reply changes the result.",
+      "source": ".cache/curriculum-source/3048.txt",
+      "closest_literal_run": {
+        "characters": 4,
+        "line": 43,
+        "phrase": "同金と取"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "独自の角王手・金の取り返し・飛車での再捕獲。元記事の送り手筋とは異なる。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "attack-funa",
+      "field": ".chapters[2].title",
+      "ja": "金を上げると飛車の歩取りが変わる",
+      "en": "A gold move changes the rook's pawn capture",
+      "source": ".cache/curriculum-source/3048.txt",
+      "closest_literal_run": {
+        "characters": 3,
+        "line": 5,
+        "phrase": "飛車の"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "同一の歩交換に金の守備を加えて収支の変化を示す独自比較。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "attack-funa",
+      "field": ".chapters[2].steps[0].text",
+      "ja": "最初の６筋の局面に戻ります。飛車６八を先に一段上げると、後手は金５二を５三へ進める時間を得ます。金５三が歩５四を守るかを、歩交換の後で確かめます。",
+      "en": "Return to the sixth-file position. If Sente first lifts the rook from ６八, Gote gains time to raise the gold on ５二 to ５三. Check whether that gold protects the pawn on ５四 after the pawn exchange.",
+      "source": ".cache/curriculum-source/3048.txt",
+      "closest_literal_run": {
+        "characters": 3,
+        "line": 42,
+        "phrase": "後手は"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "同一の歩交換に金の守備を加えて収支の変化を示す独自比較。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    },
+    {
+      "lesson": "attack-funa",
+      "field": ".chapters[2].steps[1].text",
+      "ja": "▲６七飛に△５三金とした一例です。歩交換後の飛車６四は依然として歩５四を横から狙いますが、その歩には金５三が利いています。直ちに飛車で歩５四を取れば金に取り返されるため、先ほどと同じ歩取りとは考えられません。金を上げる手は後手の選択で、別の攻め筋も残ります。",
+      "en": "One sample is ▲６七飛 △５三金. After the pawn exchange, the rook on ６四 still attacks the pawn on ５四 along the rank, but the gold on ５三 now protects it. An immediate rook capture of that pawn would let the gold recapture. The gold move is Gote's choice; Sente can look for another plan.",
+      "source": ".cache/curriculum-source/3048.txt",
+      "closest_literal_run": {
+        "characters": 5,
+        "line": 119,
+        "phrase": "考えられま"
+      },
+      "english_check": "日本語の元資料との意味・説明順序の比較。英語の文字一致検査ではない。",
+      "comparison_note": "同一の歩交換に金の守備を加えて収支の変化を示す独自比較。",
+      "verdict": "近接した言い換え・元記事の翻訳を示す具体的根拠は見つからない。"
+    }
+  ]
+}

@@ -1,0 +1,340 @@
+{
+ "id": "fujii-system--anaguma-3",
+ "title": "藤井システム対穴熊：４筋を銀で取り返す",
+ "titleEn": "Fujii System vs Anaguma: Recapture on the Fourth File with Silver",
+ "myStrategy": "shikenbisha",
+ "opponentStrategy": "ibisha-anaguma",
+ "mySide": "sente",
+ "userSide": "sente",
+ "source": "藤井システムと居飛車穴熊の基本形から、序盤の候補手はやねうら王の新ペタショック定跡（MIT）を参照。４筋の銀の応酬はエンジンで検証して独自に構成し、解説は書き下ろし。",
+ "goalFormation": "先手は玉を５九に残し、６八飛・５八金・５六銀を作る。後手が１一玉・１二香・２二銀と穴熊へ進む間に、先手は４筋の歩を交換したあと銀で４五を取り返す。３四歩も取れる場合、２三歩には後手銀の取り返しがある。",
+ "goalLabel": "４筋の銀の取り返し",
+ "goalSfen": "lnsg3nk/1r4gsl/p1ppp1bpp/6S2/1p7/2PP5/PPB1P1PPP/2SRG4/LN1GK2NL b 2Pp 1",
+ "root": {
+  "id": "n0",
+  "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+  "comment": "玉を５九に保つ藤井システムの形から、右銀を４七・５六へ出して４筋に働かせる。歩を取られた後の銀の取り返しと、進んだ銀がどの歩まで取れるかを実際の守りで確かめる。",
+  "branches": [
+   {
+    "usi": "7g7f",
+    "kind": "main",
+    "child": {
+     "id": "n_0",
+     "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL w - 1",
+     "branches": [
+      {
+       "usi": "3c3d",
+       "kind": "main",
+       "child": {
+        "id": "n_1",
+        "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL b - 1",
+        "branches": [
+         {
+          "usi": "6g6f",
+          "kind": "main",
+          "note": "６六歩で角筋を閉じる。６八飛と７七角を組むための準備。",
+          "child": {
+           "id": "n_2",
+           "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2PP5/PP2PPPPP/1B5R1/LNSGKGSNL w - 1",
+           "branches": [
+            {
+             "usi": "8c8d",
+             "kind": "main",
+             "child": {
+              "id": "n_3",
+              "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/1p4p2/9/2PP5/PP2PPPPP/1B5R1/LNSGKGSNL b - 1",
+              "branches": [
+               {
+                "usi": "2h6h",
+                "kind": "main",
+                "note": "飛車を６八へ。玉を動かさず、４筋の銀を先に使う余地を作る。",
+                "child": {
+                 "id": "n_4",
+                 "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/1p4p2/9/2PP5/PP2PPPPP/1B1R5/LNSGKGSNL w - 1",
+                 "branches": [
+                  {
+                   "usi": "8d8e",
+                   "kind": "main",
+                   "child": {
+                    "id": "n_5",
+                    "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/6p2/1p7/2PP5/PP2PPPPP/1B1R5/LNSGKGSNL b - 1",
+                    "branches": [
+                     {
+                      "usi": "8h7g",
+                      "kind": "main",
+                      "note": "７七角が８六に利く。後手が８五歩まで伸ばしても、次の８筋を数えて受けられる。",
+                      "child": {
+                       "id": "n_6",
+                       "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/6p2/1p7/2PP5/PPB1PPPPP/3R5/LNSGKGSNL w - 1",
+                       "branches": [
+                        {
+                         "usi": "2b3c",
+                         "kind": "main",
+                         "child": {
+                          "id": "n_7",
+                          "sfen": "lnsgkgsnl/1r7/p1ppppbpp/6p2/1p7/2PP5/PPB1PPPPP/3R5/LNSGKGSNL b - 1",
+                          "branches": [
+                           {
+                            "usi": "7i7h",
+                            "kind": "main",
+                            "child": {
+                             "id": "n_8",
+                             "sfen": "lnsgkgsnl/1r7/p1ppppbpp/6p2/1p7/2PP5/PPB1PPPPP/2SR5/LN1GKGSNL w - 1",
+                             "branches": [
+                              {
+                               "usi": "1a1b",
+                               "kind": "main",
+                               "child": {
+                                "id": "n_9",
+                                "sfen": "lnsgkgsn1/1r6l/p1ppppbpp/6p2/1p7/2PP5/PPB1PPPPP/2SR5/LN1GKGSNL b - 1",
+                                "branches": [
+                                 {
+                                  "usi": "3i4h",
+                                  "kind": "main",
+                                  "note": "右銀を４八へ。４六歩で通路を空けてから４七へ進める。",
+                                  "child": {
+                                   "id": "n_10",
+                                   "sfen": "lnsgkgsn1/1r6l/p1ppppbpp/6p2/1p7/2PP5/PPB1PPPPP/2SR1S3/LN1GKG1NL w - 1",
+                                   "branches": [
+                                    {
+                                     "usi": "5a4b",
+                                     "kind": "main",
+                                     "child": {
+                                      "id": "n_11",
+                                      "sfen": "lnsg1gsn1/1r3k2l/p1ppppbpp/6p2/1p7/2PP5/PPB1PPPPP/2SR1S3/LN1GKG1NL b - 1",
+                                      "branches": [
+                                       {
+                                        "usi": "4g4f",
+                                        "kind": "main",
+                                        "child": {
+                                         "id": "n_12",
+                                         "sfen": "lnsg1gsn1/1r3k2l/p1ppppbpp/6p2/1p7/2PP1P3/PPB1P1PPP/2SR1S3/LN1GKG1NL w - 1",
+                                         "branches": [
+                                          {
+                                           "usi": "4b3b",
+                                           "kind": "main",
+                                           "child": {
+                                            "id": "n_13",
+                                            "sfen": "lnsg1gsn1/1r4k1l/p1ppppbpp/6p2/1p7/2PP1P3/PPB1P1PPP/2SR1S3/LN1GKG1NL b - 1",
+                                            "branches": [
+                                             {
+                                              "usi": "4h4g",
+                                              "kind": "main",
+                                              "note": "４七銀の位置から５六へ進めば、４五を銀で取り返せる。",
+                                              "child": {
+                                               "id": "n_14",
+                                               "sfen": "lnsg1gsn1/1r4k1l/p1ppppbpp/6p2/1p7/2PP1P3/PPB1PSPPP/2SR5/LN1GKG1NL w - 1",
+                                               "branches": [
+                                                {
+                                                 "usi": "3b2b",
+                                                 "kind": "main",
+                                                 "note": "後手玉は２二へ。先手は居玉で攻めるか、玉を移すかを戦いの接点から判断する。",
+                                                 "child": {
+                                                  "id": "n_15",
+                                                  "sfen": "lnsg1gsn1/1r5kl/p1ppppbpp/6p2/1p7/2PP1P3/PPB1PSPPP/2SR5/LN1GKG1NL b - 1",
+                                                  "branches": [
+                                                   {
+                                                    "usi": "4i5h",
+                                                    "kind": "main",
+                                                    "child": {
+                                                     "id": "n_16",
+                                                     "sfen": "lnsg1gsn1/1r5kl/p1ppppbpp/6p2/1p7/2PP1P3/PPB1PSPPP/2SRG4/LN1GK2NL w - 1",
+                                                     "branches": [
+                                                      {
+                                                       "usi": "2b1a",
+                                                       "kind": "main",
+                                                       "note": "後手玉が１一へ入り、１二香の下に潜る。先手は玉を５九に残して手を攻めに使う。",
+                                                       "child": {
+                                                        "id": "n_17",
+                                                        "sfen": "lnsg1gsnk/1r6l/p1ppppbpp/6p2/1p7/2PP1P3/PPB1PSPPP/2SRG4/LN1GK2NL b - 1",
+                                                        "branches": [
+                                                         {
+                                                          "usi": "4g5f",
+                                                          "kind": "main",
+                                                          "note": "銀を５六へ。４五への斜め前の利きが、次の歩交換で重要になる。",
+                                                          "child": {
+                                                           "id": "n_18",
+                                                           "sfen": "lnsg1gsnk/1r6l/p1ppppbpp/6p2/1p7/2PPSP3/PPB1P1PPP/2SRG4/LN1GK2NL w - 1",
+                                                           "branches": [
+                                                            {
+                                                             "usi": "4c4d",
+                                                             "kind": "main",
+                                                             "note": "後手４四歩で先手４六歩に近づく。４筋の歩の取り方を決める局面。",
+                                                             "child": {
+                                                              "id": "n_19",
+                                                              "sfen": "lnsg1gsnk/1r6l/p1ppp1bpp/5pp2/1p7/2PPSP3/PPB1P1PPP/2SRG4/LN1GK2NL b - 1",
+                                                              "branches": [
+                                                               {
+                                                                "usi": "4f4e",
+                                                                "kind": "main",
+                                                                "note": "４五歩と進める。後手が同歩なら歩は失うが、５六銀から４五を取り返せる。",
+                                                                "child": {
+                                                                 "id": "n_20",
+                                                                 "sfen": "lnsg1gsnk/1r6l/p1ppp1bpp/5pp2/1p3P3/2PPS4/PPB1P1PPP/2SRG4/LN1GK2NL w - 1",
+                                                                 "branches": [
+                                                                  {
+                                                                   "usi": "4d4e",
+                                                                   "kind": "main",
+                                                                   "note": "後手が４五歩と取る一例。後手も歩を一枚手にする。",
+                                                                   "child": {
+                                                                    "id": "n_21",
+                                                                    "sfen": "lnsg1gsnk/1r6l/p1ppp1bpp/6p2/1p3p3/2PPS4/PPB1P1PPP/2SRG4/LN1GK2NL b p 1",
+                                                                    "branches": [
+                                                                     {
+                                                                      "usi": "5f4e",
+                                                                      "kind": "main",
+                                                                      "note": "５六銀で４五の歩を取る。先手も歩を得て、銀は４五へ進む。",
+                                                                      "child": {
+                                                                       "id": "n_22",
+                                                                       "sfen": "lnsg1gsnk/1r6l/p1ppp1bpp/6p2/1p3S3/2PP5/PPB1P1PPP/2SRG4/LN1GK2NL w Pp 1",
+                                                                       "branches": [
+                                                                        {
+                                                                         "usi": "3a2b",
+                                                                         "kind": "main",
+                                                                         "note": "後手銀は２二へ。穴熊を進めるが、先手銀の３四歩への利きは残る。",
+                                                                         "child": {
+                                                                          "id": "n_23",
+                                                                          "sfen": "lnsg1g1nk/1r5sl/p1ppp1bpp/6p2/1p3S3/2PP5/PPB1P1PPP/2SRG4/LN1GK2NL b Pp 1",
+                                                                          "branches": [
+                                                                           {
+                                                                            "usi": "4e3d",
+                                                                            "kind": "main",
+                                                                            "note": "銀が３四の歩を取る。先手は歩を二枚持つが、銀は相手陣に近づいた。",
+                                                                            "child": {
+                                                                             "id": "n_24",
+                                                                             "sfen": "lnsg1g1nk/1r5sl/p1ppp1bpp/6S2/1p7/2PP5/PPB1P1PPP/2SRG4/LN1GK2NL w 2Pp 1",
+                                                                             "branches": [
+                                                                              {
+                                                                               "usi": "4a3b",
+                                                                               "kind": "main",
+                                                                               "note": "後手金を３二へ。２三歩と先手銀の距離を見てから次の攻めを選ぶ。",
+                                                                               "child": {
+                                                                                "id": "n_25",
+                                                                                "sfen": "lnsg3nk/1r4gsl/p1ppp1bpp/6S2/1p7/2PP5/PPB1P1PPP/2SRG4/LN1GK2NL b 2Pp 1",
+                                                                                "branches": [
+                                                                                 {
+                                                                                  "usi": "3d2c+",
+                                                                                  "kind": "alt",
+                                                                                  "note": "３四銀が２三歩を取って成る。先手はさらに歩を取る。",
+                                                                                  "child": {
+                                                                                   "id": "nb0_0",
+                                                                                   "sfen": "lnsg3nk/1r4gsl/p1ppp1b+Sp/9/1p7/2PP5/PPB1P1PPP/2SRG4/LN1GK2NL w 3Pp 1",
+                                                                                   "branches": [
+                                                                                    {
+                                                                                     "usi": "2b2c",
+                                                                                     "kind": "main",
+                                                                                     "note": "２二銀が２三の成銀を取る。歩を一枚増やすために銀を失う。",
+                                                                                     "child": {
+                                                                                      "id": "nb0_1",
+                                                                                      "sfen": "lnsg3nk/1r4g1l/p1ppp1bsp/9/1p7/2PP5/PPB1P1PPP/2SRG4/LN1GK2NL b 3Psp 1",
+                                                                                      "branches": [],
+                                                                                      "comment": "進める升があっても、取り返しの枚数を先に数える。２三歩はただではない。"
+                                                                                     }
+                                                                                    }
+                                                                                   ]
+                                                                                  }
+                                                                                 },
+                                                                                 {
+                                                                                  "usi": "6f6e",
+                                                                                  "kind": "alt",
+                                                                                  "note": "６五歩で飛車の筋にも接点を作る。ただし６筋の歩はまだ交換されていない。",
+                                                                                  "child": {
+                                                                                   "id": "nb1_0",
+                                                                                   "sfen": "lnsg3nk/1r4gsl/p1ppp1bpp/6S2/1p1P5/2P6/PPB1P1PPP/2SRG4/LN1GK2NL w 2Pp 1",
+                                                                                   "branches": [
+                                                                                    {
+                                                                                     "usi": "6c6d",
+                                                                                     "kind": "main",
+                                                                                     "note": "後手も６四歩と進めて向かい合う。先手は次の取り返しを改めて数える。",
+                                                                                     "child": {
+                                                                                      "id": "nb1_1",
+                                                                                      "sfen": "lnsg3nk/1r4gsl/p1p1p1bpp/3p2S2/1p1P5/2P6/PPB1P1PPP/2SRG4/LN1GK2NL b 2Pp 1",
+                                                                                      "branches": [],
+                                                                                      "comment": "４筋で得た持ち歩があっても、６筋の前進は別の戦い。銀を進めた後の玉の位置も確認する。"
+                                                                                     }
+                                                                                    }
+                                                                                   ]
+                                                                                  }
+                                                                                 }
+                                                                                ],
+                                                                                "comment": "４筋の歩を銀で取り返すと、銀は３四の歩にも届く。ただし３四まで進んだ銀が２三の歩を取ると、２二銀が取り返す。穴熊の玉へ急ぐ前に、持ち歩と銀の安全を分けて考える。"
+                                                                               }
+                                                                              }
+                                                                             ]
+                                                                            }
+                                                                           }
+                                                                          ]
+                                                                         }
+                                                                        }
+                                                                       ]
+                                                                      }
+                                                                     }
+                                                                    ]
+                                                                   }
+                                                                  }
+                                                                 ]
+                                                                }
+                                                               }
+                                                              ]
+                                                             }
+                                                            }
+                                                           ]
+                                                          }
+                                                         }
+                                                        ]
+                                                       }
+                                                      }
+                                                     ]
+                                                    }
+                                                   }
+                                                  ]
+                                                 }
+                                                }
+                                               ]
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          }
+                                         ]
+                                        }
+                                       }
+                                      ]
+                                     }
+                                    }
+                                   ]
+                                  }
+                                 }
+                                ]
+                               }
+                              }
+                             ]
+                            }
+                           }
+                          ]
+                         }
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

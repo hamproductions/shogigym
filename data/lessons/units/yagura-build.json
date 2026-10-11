@@ -1,0 +1,150 @@
+{
+  "id": "yagura-build",
+  "order": 560,
+  "path": ["囲い", "矢倉"],
+  "title": {
+    "ja": "相手の利きを見ながら矢倉の芯を作る",
+    "en": "Build the Yagura Core While Reading the Opponent"
+  },
+  "intro": {
+    "ja": "矢倉の目標は玉８八、金７八・６七、銀７七がつながる形です。そこへ向かう間も相手は歩や飛車を動かします。角が玉の通路をふさぐときは退路を作り、飛車先に歩が迫ればその升の守り駒を数えます。示す手順は特定の局面での一例で、囲いの組み順を固定するものではありません。",
+    "en": "A recognizable Yagura core links the king on 8h with golds on 7h and 6g and a silver on 7g. The opponent can move a pawn or rook during construction. Clear a path for the bishop and king, then count the defenders of any rook-pawn entry square. Each line here is a response to its own position, not a universal construction order."
+  },
+  "check": {
+    "question": {
+      "ja": "矢倉を完成させる直前、角の位置と相手の飛車先について何を確認しますか？",
+      "en": "Just before finishing a Yagura, what must you check about your bishop and the opponent's rook pawn?"
+    },
+    "answer": {
+      "ja": "角が８八と７九のどちらをふさぐかを見て、玉が実際に通れる道を選びます。相手の歩が進む升に何枚の駒が利くか、歩交換後に飛車を取れるかも盤上で確かめます。",
+      "en": "Check whether the bishop occupies 8h or 7i and choose a king route that is actually open. Count the pieces covering the pawn's next square and calculate any rook capture after the pawn exchange."
+    }
+  },
+  "references": [
+    {
+      "title": "矢倉囲いの組み方",
+      "url": "https://shogi-joutatsu.com/archives/1852",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "角の退路を変えてから玉を入れる",
+        "en": "Choose a bishop exit before bringing in the king"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4kg3/5r1b1/6p2/5p3/9/2PP5/PP7/1BGSG2R1/3K5 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手は玉６九、金７八・５八、銀６八、角８八の途中形です。歩７六・６六はすでに進み、７七と６七は空いています。後手の飛車４二と歩４四が動く中、まず銀を７七へ置いて前方の守りを作ります。まだ矢倉の完成形とは呼びません。",
+            "en": "Sente begins with the king on 6i, golds on 7h and 5h, silver on 6h, and bishop on 8h. The pawns on 7f and 6f have already opened 7g and 6g. As Gote's rook on 4b and pawn on 4d develop, first move the silver to 7g to give the front of the future castle a defender. This remains an intermediate shape."
+          }
+        },
+        {
+          "moves": ["6h7g", "4d4e"],
+          "text": {
+            "ja": "▲７七銀に後手は△４五歩を選びました。銀が７七へ出ると６八が空き、角８八は７九を経て５七へ引く通路を使えます。角を退かさず玉を８八へ入れることはできません。",
+            "en": "Gote chooses △４五歩 after ▲７七銀. Vacating 6h opens a bishop route from 8h through 7i to 5g. The king cannot occupy 8h while its own bishop remains there."
+          }
+        },
+        {
+          "moves": ["8h7i", "3c3d", "7i5g", "4b4d"],
+          "text": {
+            "ja": "▲７九角から▲５七角へ移る間に、後手は３筋の歩を進めて飛車を４四へ出しました。角５七は８八と７九を空けます。銀７七と金７八は動かさずに、次は金５八を６七へ上げられます。",
+            "en": "Sente moves the bishop via 7i to 5g while Gote advances the third-file pawn and brings the rook to 4d. The bishop now vacates both 8h and 7i. Sente can next move the gold from 5h to 6g without disturbing the silver on 7g or gold on 7h."
+          }
+        },
+        {
+          "moves": ["5h6g", "2b3c", "6i7i", "4a5b", "7i8h"],
+          "text": {
+            "ja": "▲６七金で金銀の外枠をつくり、玉は▲７九玉から▲８八玉へ進みました。途中の後手の角・金の移動も盤上で確認します。終点で玉８八、金７八・６七、銀７七がそろい、この局面で初めて矢倉の芯が完成します。飛車４四や歩４五の影響は引き続き読む必要があります。",
+            "en": "▲６七金 links the defenders, and the king travels through 7i to 8h. Gote's bishop and gold also move between these turns. The final position has king 8h, golds 7h and 6g, and silver 7g: only now is the Yagura core complete. Gote's rook on 4d and pawn on 4e still need attention."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "玉が７九にいるなら角は別の出口を選ぶ",
+        "en": "When the king occupies 7i, find another bishop exit"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/5r3/9/5p3/9/2PP5/2SG5/1BG4R1/2K6 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "玉７九、角８八、金７八・６七、銀７七の局面です。玉が７九にいるので、角を８八から７九へ引く道はふさがっています。一方、９七には先手の駒がなく、角がそこへ出られるかを確かめます。",
+            "en": "Here the king already occupies 7i, the bishop remains on 8h, and golds on 7h and 6g support the silver on 7g. The king blocks a bishop retreat to 7i. Square 9g is empty, so test that different exit before moving the king."
+          }
+        },
+        {
+          "moves": ["8h9g", "4d4e"],
+          "text": {
+            "ja": "▲９七角で８八を空け、後手は△４五歩を選びました。角９七が安全かどうかは敵の飛車・歩の配置次第ですが、この局面の飛車４二と歩４五は角９七を直接取れません。",
+            "en": "▲９七角 frees 8h, and Gote chooses △４五歩. The safety of 9g depends on the opposing pieces; in this position Gote's rook on 4b and pawn on 4e do not capture the bishop there."
+          }
+        },
+        {
+          "moves": ["7i8h", "4b4d", "9g8f"],
+          "text": {
+            "ja": "▲８八玉で金７八・６七、銀７七と玉がつながり、後手の△４四飛を見て角は▲８六角へ移りました。玉の通路を確保するための角移動でも、終点の角筋は局面ごとに読みます。この別経路は９七が空いている場合だけ使えます。",
+            "en": "▲８八玉 completes the Yagura core with golds on 7h and 6g and silver on 7g. After Gote's △４四飛, the bishop shifts to 8f. Its new diagonal still requires evaluation; this exit through 9g was available only because that square was empty."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "飛車先の歩は角の利きまで含めて受ける",
+        "en": "Include the bishop when answering rook-pawn pressure"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/5r1b1/9/9/5p3/6S2/2SGBP3/2G4R1/2K6 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "玉７九は８八へ入れますが、後手は飛車４二と歩４五を同じ筋に置いています。先手は歩４七、角５七で４六を二つの駒から見ています。角５七を動かすかどうかで、飛車が歩交換のあと４六へ出る手への応じ方が変わります。",
+            "en": "The king on 7i can enter 8h, but Gote has a rook on 4b behind a pawn on 4e. Sente's pawn on 4g and bishop on 5g both affect the exchange square 4f. Moving that bishop changes the answer if the rook later lands there."
+          }
+        },
+        {
+          "moves": ["7i8h", "4e4f"],
+          "text": {
+            "ja": "▲８八玉で玉８八・金７八と６七・銀７七の矢倉の芯が完成し、後手は△４六歩と突きました。歩４七で取り返すなら、その後に飛車４二が４六へ進めるかを読みます。囲いの完成だけで手番を安全に使えたとは判断しません。",
+            "en": "▲８八玉 completes the Yagura core, and Gote chooses △４六歩. If Sente's pawn on 4g captures it, check whether the rook on 4b can then advance to 4f. Finishing the castle does not by itself settle this pawn exchange."
+          }
+        },
+        {
+          "moves": ["4g4f", "4b4f"],
+          "text": {
+            "ja": "この分岐の△同飛は４六の先手歩を取ります。しかし角５七が４六に利いているため、後手飛車は無条件に歩を取れません。角を動かす前にこの斜線を確認します。",
+            "en": "In this sample line △同飛 takes Sente's pawn on 4f. The bishop on 5g also controls 4f, so the rook capture is not free. Check that diagonal before moving the bishop elsewhere."
+          }
+        },
+        {
+          "moves": ["5g4f"],
+          "text": {
+            "ja": "▲同角で飛車を取りました。この駒得は後手が△同飛を選んだ場合だけで、後手は別の手を指せます。要点は、角５七を残したまま歩を取れば４六の飛車に応じられるという守りの枚数です。",
+            "en": "▲同角 takes the rook. That material gain exists only if Gote chooses the rook capture; Gote has other replies. The useful fact is that keeping the bishop on 5g gives Sente a recapture on 4f after the pawn exchange."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["5g4h", "4e4f", "4g4f", "4b4f"],
+          "text": {
+            "ja": "角を先に▲４八角と引くと、この例の△４六歩▲同歩△同飛に対し、４八の角は４六へ縦には動けません。飛車を取る読みは角５七の配置が条件でした。後手の飛車取りを誘うためだけに角を引く順は選びません。",
+            "en": "If the bishop first retreats to 4h, the sample △４六歩▲同歩△同飛 leaves it unable to capture the rook straight up the file. The rook recapture depended on the bishop remaining on 5g. Recheck the defender before choosing a bishop move."
+          }
+        }
+      ]
+    }
+  ]
+}

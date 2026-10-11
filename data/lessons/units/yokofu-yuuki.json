@@ -1,0 +1,60 @@
+{
+  "id": "yokofu-yuuki",
+  "order": 810,
+  "path": ["戦法・定跡", "横歩取り"],
+  "title": { "ja": "勇気流で選ぶ玉の位置", "en": "Choosing the king's square in the Yuuki style" },
+  "intro": {
+    "ja": "横歩を取った先手飛車を３四に残すとき、５八玉なら青野流、６八玉なら勇気流という選択がある。６八玉は７八金に利く一方、玉の斜め筋と前に出た飛車の安全を別々に読まなければならない。３六歩・３七桂の準備を、実際の利きと相手の持ち角に合わせて使う。",
+    "en": "With Sente's side-pawn rook left on 3d, a king move to 5h identifies the Aono style, while 6h identifies the Yuuki style. From 6h the king protects the gold on 7h, but the king's diagonal and advanced rook still need separate checks. Develop the 3f pawn and 3g knight only with the actual threats and bishop drops in view."
+  },
+  "check": {
+    "question": { "ja": "６八玉・７八金の形で、後手銀が８七から７八の金を取った。７八がほかの後手駒に守られていないなら、先手玉に何ができるか？", "en": "With Sente's king on 6h and gold on 7h, Gote's silver captures the gold from 8g. If no other Gote piece guards 7h, what can Sente's king do?" },
+    "answer": { "ja": "６八玉で７八の銀を取り返せる。５八玉なら同じ取り返しはできないが、７八に別の後手の利きがあれば６八玉でも再確認が必要。", "en": "The king can recapture the silver on 7h from 6h. A king on 5h cannot make that recapture, and even from 6h the move must be rechecked if another Gote piece guards 7h." }
+  },
+  "references": [{ "title": "横歩取り勇気流", "url": "https://shogi-joutatsu.com/archives/7137", "license": "All rights reserved", "adapted": false }],
+  "chapters": [
+    {
+      "title": { "ja": "７八金を玉で支える意味", "en": "What king support for the 7h gold changes" },
+      "side": "sente", "kind": "position",
+      "start": "4k4/5g3/6b2/6R2/9/9/1s4P2/2G6/4K2N1 b Pp 1",
+      "steps": [
+        { "text": { "ja": "先手飛車は３四、玉は５九、金は７八。後手銀８七が金を狙っている。玉を５八と６八のどちらへ動かすかで、７八への守りが変わる。", "en": "Sente's rook is on 3d, king on 5i and gold on 7h. Gote's silver on 8g attacks that gold. Moving the king to 5h or 6h changes who protects 7h." }, "marks": { "arrows": ["5i6h", "5i5h", "8g7h"], "boxes": ["7h"] } },
+        { "moves": ["5i6h"], "text": { "ja": "６八玉と寄った。玉は７八金に隣接して利きを足す。この盤では７八に後手角３三の利きはなく、銀だけで金を取る手は玉の取り返しを許す。", "en": "The king moves to 6h, directly defending the adjacent gold on 7h. On this board Gote's bishop on 3c does not guard 7h, so a silver capture there permits a king recapture." }, "marks": { "arrows": ["6h7h"], "boxes": ["3c", "7h"] } },
+        { "moves": ["8g7h+", "6h7h"], "text": { "ja": "例として後手銀が７八金を取って成ると、先手玉がその成銀を取る。金と銀の交換になり、先手は銀を持つ。後手に別の駒が７八を守る局面なら同じ玉の取り返しは成立しないこともある。", "en": "In this sample, Gote's silver captures the gold on 7h and promotes; Sente's king recaptures the promoted silver. The exchange gives Sente a silver in hand and Gote a gold. Another Gote defender of 7h could change whether that king recapture is legal." }, "marks": { "boxes": ["7h"] } },
+        { "text": { "ja": "６八玉の価値は、どの駒が７八へ届くかという局面上の事実で測る。金を支えることと、玉全体が安全であることは同じではない。", "en": "The value of 6h is measured by the actual defenders and attackers of 7h. Defending the gold does not by itself prove that the king's whole position is safe." } }
+      ],
+      "variations": [
+        { "from": 0, "moves": ["5i5h", "8g7h+"], "text": { "ja": "５八玉を選ぶと、７八を取った成銀へ玉は一手で届かない。同じ銀の攻めでも玉の配置で取り返しが変わる。", "en": "With the king on 5h, it cannot recapture the promoted silver on 7h in one move. The same silver attack has a different result because of the king's square." } }
+      ]
+    },
+    {
+      "title": { "ja": "３五歩が飛車の交換を支える", "en": "The 3e pawn backs a rook exchange" },
+      "side": "sente", "kind": "position",
+      "start": "4k2s1/1r3g3/4p1b2/6R2/9/6P2/6N2/2GK5/9 b Pp 1",
+      "steps": [
+        { "text": { "ja": "６八玉・７八金を残し、先手は３六歩と３七桂まで進めている。３四飛車の後ろはまだ空いている。桂をすぐ４五へ跳ぶ前に、３五へ歩を進めた場合の交換を考える。", "en": "Sente has the king on 6h, gold on 7h, pawn on 3f and knight on 3g. The rook on 3d has no pawn directly behind it yet. Before jumping the knight to 4e, consider what advancing the pawn to 3e changes." }, "marks": { "arrows": ["3f3e", "3g4e"], "boxes": ["3d"] } },
+        { "moves": ["3f3e", "8b8d"], "text": { "ja": "３五歩は３四飛車を後ろから守る。後手飛車が８四に来ると両飛車は同じ段に並ぶが、この盤では後手が３四の飛車を取れば先手歩が取り返せる。飛車交換の損得はその先まで必要だ。", "en": "The pawn on 3e now guards the rook on 3d. Gote moves its rook to 8d, aligning both rooks on the fourth rank. If Gote captures the rook on 3d in this position, Sente's pawn can recapture; the full value of that exchange still needs calculation." }, "marks": { "arrows": ["8d3d", "3e3d"], "boxes": ["3e", "3d"] } },
+        { "moves": ["3g4e", "3c2b"], "text": { "ja": "桂を４五へ跳ねると３三角と５三歩を狙う。ここでは角が２二へ引いた。５三歩は４二金にも守られているので、桂跳ねを即座の駒得とみなさず、飛車交換への備えと合わせて読む。", "en": "The knight jumps to 4e, pointing at Gote's bishop on 3c and pawn on 5c. Here the bishop retreats to 2b. The gold on 4b guards 5c, so the jump does not immediately win material; keep the rook-exchange calculation in view." }, "marks": { "boxes": ["2b", "5c", "3e"] } },
+        { "text": { "ja": "この例の歩は飛車を支えるが、３五に歩を置く一手で角や銀への対策がすべて済むわけではない。桂の攻めと飛車の退路を別々に確認する。", "en": "The pawn supports the rook in this example, but one pawn move does not answer every bishop or silver idea. Verify the knight attack and rook exits separately." } }
+      ],
+      "variations": [
+        { "from": 1, "moves": ["3g4e", "8d3d", "3e3d"], "text": { "ja": "桂を跳ねたあと後手が８四飛で３四飛を取るなら、３五歩が３四の飛車を取り返す。双方が飛車を持つ交換であり、先手の一方的な得とは言えない。", "en": "If Gote's rook captures Sente's rook on 3d after the knight jump, the pawn from 3e recaptures. Each side gains a rook in hand; this is not an automatic gain for Sente." } }
+      ]
+    },
+    {
+      "title": { "ja": "角打ちの王手と飛車取りを防ぐ", "en": "Prevent a bishop drop that checks and attacks the rook" },
+      "side": "sente", "kind": "position",
+      "start": "4k4/5g3/9/7R1/9/6P2/6N2/2GK5/9 b b 1",
+      "steps": [
+        { "text": { "ja": "先手玉６八、飛車２四、後手は角を持っている。３五へ角を打たれると、４六・５七を通って６八玉への王手になり、同時に２四飛車も斜めに狙われる。先手番で飛車の位置を変えたい。", "en": "Sente's king is on 6h, its rook on 2d, and Gote has a bishop in hand. A bishop drop on 3e would check along 4f and 5g toward 6h while also attacking the rook on 2d. Sente can adjust the rook first." }, "marks": { "arrows": ["3e6h", "3e2d"], "boxes": ["2d"] } },
+        { "moves": ["2d2e"], "text": { "ja": "飛車を２五へ下げた。今度３五角打ちなら、２五飛車が横からその角を取れる。玉の斜め筋そのものは空いているので、角打ちを無条件に消したわけではない。", "en": "The rook retreats to 2e. If Gote now drops a bishop on 3e, the rook can capture it sideways from 2e. The king's diagonal remains open, so this does not eliminate every possible bishop drop." }, "marks": { "arrows": ["2e3e"], "boxes": ["6h", "3e"] } },
+        { "moves": ["5a5b", "3f3e"], "text": { "ja": "後手玉が５二へ動いたあと、先手歩を３五へ進めた。この升には後手角を打てなくなった。手順は一例で、相手が別の角打ちを選べるかは盤全体を調べる。", "en": "After Gote's king moves to 5b, Sente advances the pawn to 3e. Gote can no longer drop a bishop on that occupied square. This sample does not rule out bishop drops elsewhere on a fuller board." }, "marks": { "boxes": ["3e", "2e", "6h"] } },
+        { "text": { "ja": "６八玉が７八金を守る利点と、３五角のような玉への斜め筋は同時に存在する。飛車の升を変える一手が両方の標的への利きをどう変えるか、駒を動かして確かめる。", "en": "The king on 6h can defend the gold on 7h while still lying on a bishop diagonal. Moving the rook changes one target of a fork; judge both targets on the resulting board." } }
+      ],
+      "variations": [
+        { "from": 0, "moves": ["7h7g", "B*3e", "6h5h", "3e2d"], "text": { "ja": "先に７八金を７七へ動かした例では、３五角打ちが王手飛車取りになる。玉が５八へ逃げると、角は２四飛車を取れる。この手順は空いている斜め筋を見落とした場合の具体例だ。", "en": "In this sample alternative Sente first moves the gold from 7h to 7g. Gote's B*3e then checks and attacks the rook. After the king escapes to 5h, the bishop captures the rook on 2d. This shows the cost of overlooking the open diagonal." } },
+        { "from": 1, "moves": ["B*3e", "2e3e"], "text": { "ja": "２五飛車の後に３五角を打つと、飛車がその角を横から取って王手を解ける。飛車の退路が角打ちへの応手も兼ねる。", "en": "After the rook reaches 2e, a bishop drop on 3e can be met by R2e3e, capturing the bishop and ending the check. The rook retreat also supplies a reply to this particular drop." } }
+      ]
+    }
+  ]
+}

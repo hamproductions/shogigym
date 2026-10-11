@@ -1,0 +1,129 @@
+{
+  "id": "endgame-tsumero",
+  "order": 460,
+  "path": ["上達のためのテクニック", "終盤"],
+  "title": {
+    "ja": "王手と詰めろを分け、必至は受けまで調べる",
+    "en": "Separate Checks from Mate Threats, Then Test the Defenses"
+  },
+  "intro": {
+    "ja": "王手は今の玉への攻撃、詰めろは相手が受けなければ次に詰む手です。必至を言うには、合法な受けをすべて考え、それでも詰みを防げないことを示さなければなりません。同じ新しい局面で飛車の王手と静かな進出を比べ、実際の一手詰を確かめてから、銀と持ち歩による二つの受けを調べます。",
+    "en": "A check attacks the king now. A mate threat means the attacker can mate next move if the defender fails to answer it. Calling a position hisshi demands more: every legal defense must fail to prevent mate. In one new defended position, compare a rook check with a quiet entry, verify an actual one-move mate after an irrelevant reply, then test two defenses using a silver and a pawn in hand."
+  },
+  "check": {
+    "question": {
+      "ja": "相手が受けなければ一手詰になる手を見つけたら、それだけで必至ですか？",
+      "en": "Does finding a one-move mate after the opponent ignores a threat prove hisshi?"
+    },
+    "answer": {
+      "ja": "いいえ。それは詰めろの候補です。銀の移動、持ち駒の投入、王手での反撃など合法な受けをすべて調べ、どれに対しても詰みが残ると示して初めて必至と言えます。",
+      "en": "No. It identifies a mate threat. To establish hisshi, check every legal defense, including moving a defender, dropping a piece, and counterchecking, and show that mate remains against each one."
+    }
+  },
+  "references": [
+    {
+      "title": "詰めろ、必至のコツ",
+      "url": "https://shogi-joutatsu.com/archives/7368",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "王手の龍は取られるか",
+        "en": "Can the checking dragon be captured?"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k1n6/2sg5/1RG6/9/9/9/9/9/8K b Gp 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手玉９一には桂７一、銀７二、金６二が残り、先手飛車８三は桂と銀に狙われています。王手なら▲８一飛成が見えますが、成った８一を守る先手駒はありません。王手という名前だけで駒の安全は決まりません。",
+            "en": "Gote's king on ９一 still has a knight on ７一, a silver on ７二, and a gold on ６二. Sente's rook on ８三 is attacked by the knight and silver. ▲８一飛成 is an available check, but no Sente piece protects the dragon on ８一. A checking move does not make its piece safe."
+          }
+        },
+        {
+          "moves": ["8c8a+", "9a8a"],
+          "text": {
+            "ja": "▲８一飛成には△同玉が合法で、後手玉は８一の龍を取れます。金７三が守るのは８二であり、８一ではありません。次の一手詰を作る前に、王手後の取り返しを確認する例です。",
+            "en": "After ▲８一飛成, △同玉 is legal: Gote's king captures the dragon on ８一. Sente's gold on ７三 protects ８二, not ８一. This check illustrates why recaptures must be read before assuming a finish."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "王手をかけずに一手詰を狙う",
+        "en": "Build a one-move mate threat without checking"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k1n6/2sg5/1RG6/9/9/9/9/9/8K b Gp 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "同じ局面で▲８二飛と進めば、飛車は金７三に守られ、玉９一への王手にはなりません。狙いは次の▲９二金です。金を打った後の逃げ道と、守り駒が王手を止められるかを実際に数えます。",
+            "en": "In the same position, ▲８二飛 puts the rook under the protection of the gold on ７三 without checking the king on ９一. It threatens ▲９二金 next. Count the king's exits and whether any defender can stop that proposed check."
+          }
+        },
+        {
+          "moves": ["8c8b", "6b6c", "G*9b"],
+          "text": {
+            "ja": "△６三金と詰めろを受けない例では、▲９二金で詰みます。玉９一から８一は飛車８二の縦利き、８二の飛車は金９二に守られ、９二の金は飛車８二に守られます。桂７一・銀７二・金６三・持ち歩にも、この隣接した金の王手を消す合法手はありません。この表示局面では後手の合法手を全列挙して０手と確認しました。ただし△６三金は後手の一例であり、▲８二飛そのものを必至と証明してはいません。",
+            "en": "If Gote plays the unrelated △６三金, ▲９二金 is mate. From ９一, ８一 is covered vertically by the rook on ８二; the rook on ８二 is protected by the gold on ９二; and that gold is protected by the rook. The knight on ７一, silver on ７二, gold on ６三, and pawn in hand have no legal move that stops this adjacent gold check. Exhaustive legal-move enumeration in this displayed position found zero Gote replies. △６三金 is only one Gote choice; the line does not prove that ▲８二飛 is hisshi."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "盤上の銀が詰めろを外す",
+        "en": "A silver on the board answers the mate threat"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k1n6/2sg5/1RG6/9/9/9/9/9/8K b Gp 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "▲８二飛の後も後手は指せます。銀７二には８一へ引く手があり、８一に銀が来れば金９二を取る利きが生まれます。詰めろの確認は、相手が手を抜く順だけでは終わりません。",
+            "en": "Gote still has a move after ▲８二飛. The silver on ７二 can retreat to ８一; from there it attacks a gold dropped on ９二. A mate threat cannot be evaluated only against a reply that ignores it."
+          }
+        },
+        {
+          "moves": ["8c8b", "7b8a", "G*9b", "8a9b"],
+          "text": {
+            "ja": "△８一銀に予定通り▲９二金と打っても、△同銀で王手は消えます。銀は飛車８二に狙われていますが、ここで示した一手詰は成立しません。別の攻めが続く可能性と、必至が証明されたことは分けて扱います。",
+            "en": "After △８一銀, the planned ▲９二金 is met by △同銀, ending the check. The silver is then attacked by the rook on ８二, but the proposed one-move mate has failed. Possible later attacks are separate from proof of hisshi."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "持ち駒の受けも必至判定に含める",
+        "en": "Include drops when testing a hisshi claim"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k1n6/2sg5/1RG6/9/9/9/9/9/8K b Gp 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手の持ち歩も一手詰の判定に関わります。９筋には後手歩がないので、▲８二飛に対して△９二歩と打つことができます。９二が埋まれば、狙った▲９二金はそのまま打てません。",
+            "en": "Gote's pawn in hand also matters. With no other Gote pawn on the ninth file, △９二歩 is a legal answer to ▲８二飛. Once ９二 is occupied, Sente cannot play the intended ▲９二金 there."
+          }
+        },
+        {
+          "moves": ["8c8b", "P*9b", "8b9b", "9a9b"],
+          "text": {
+            "ja": "△９二歩を飛車で取ると、▲同飛に△同玉と進みます。９二の飛車は金７三から守られていないため、玉が取れます。銀移動と歩打ちという二つの合法な受けで、予定した一手詰は消えました。必至と呼ぶには、これらを含む全応手に対する別の詰みまで示す必要があります。この講座はその全証明をしていません。",
+            "en": "If Sente takes the dropped pawn with ▲同飛, △同玉 captures that rook: the gold on ７三 does not protect ９二. Both the silver move and the pawn drop remove the proposed one-move mate. A hisshi claim would need to establish another mating answer against every legal defense, including these two. This lesson makes no such exhaustive claim."
+          }
+        }
+      ]
+    }
+  ]
+}

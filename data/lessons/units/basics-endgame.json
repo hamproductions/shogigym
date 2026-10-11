@@ -1,0 +1,143 @@
+{
+  "id": "basics-endgame",
+  "order": 160,
+  "path": ["はじめての将棋", "基本の考え方"],
+  "title": {
+    "ja": "玉の逃げ道を読んで勝ちを決める",
+    "en": "Read the King’s Escapes to Finish the Game"
+  },
+  "intro": {
+    "ja": "終盤では、取った駒の数だけで勝ちに近づいたかは決まりません。相手玉が逃げられる升、自分の玉へ通る筋、攻め駒が次の応手にも働くかを確かめます。詰みがあれば選び、自玉に危険が迫るなら先に安全を作ります。",
+    "en": "In the endgame, the number of pieces you take does not decide how close you are to winning. Check the opponent king’s escape squares, the lines that reach your own king, and whether your attackers remain useful after the reply. Take a forced mate when it exists, and secure your king when danger is near."
+  },
+  "check": {
+    "question": {
+      "ja": "王手を見つけたとき、詰みかどうかを決める前に何を確認しますか？",
+      "en": "After finding a check, what should you verify before calling it mate?"
+    },
+    "answer": {
+      "ja": "玉の移動先と、王手をかけた駒を取る手や合駒を調べます。同時に、自玉へ通る筋が残っていないかも確認します。",
+      "en": "Check every king escape, whether the checking piece can be captured, and whether a block is possible. Also check for any line that still reaches your own king."
+    }
+  },
+  "references": [
+    {
+      "title": "終盤の指し方、考え方",
+      "url": "https://shogi-joutatsu.com/archives/3239",
+      "license": "All rights reserved",
+      "adapted": false
+    },
+    {
+      "title": "終盤のコツと勉強法",
+      "url": "https://shogi-joutatsu.com/archives/580",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "玉の逃げ先をふさいで詰みを見つける",
+        "en": "Cover the king’s escapes to find mate"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/2G2R3/5G3/9/9/9/9/9/8K b S 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手玉５一の隣には４一、６一、４二、５二、６二の五つの升があります。先手の飛車４二は４一を押さえ、金７二は６一と６二、金４三は４二を守っています。持駒の銀を打つ升と、玉の逃げ先への利きを合わせて見ます。",
+            "en": "The defender’s king on ５一 has five adjacent squares: ４一, ６一, ４二, ５二, and ６二. The attacker’s rook on ４二 controls ４一, the gold on ７二 covers ６一 and ６二, and the gold on ４三 protects ４二. Check both the drop square and the routes around the king."
+          }
+        },
+        {
+          "text": {
+            "ja": "持駒の銀を王手になる升へ打ち、玉が逃げる手も打った銀を取る手もないか確かめてください。",
+            "en": "Drop the silver on a checking square, then check whether the king can escape or capture it."
+          }
+        },
+        {
+          "moves": ["S*5b"],
+          "text": {
+            "ja": "▲５二銀打で詰みです。金４三が打った銀を守り、飛車４二と金７二が残る逃げ先を押さえています。駒を取る手を探す前に、詰みがあるかを先に読みます。",
+            "en": "▲５二銀打 is checkmate. The gold on ４三 protects the dropped silver, while the rook on ４二 and gold on ７二 cover the remaining escapes. Look for a forced finish before spending a move on material."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "王手の先に残る升を読む",
+        "en": "Read the square left open after a check"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "5k3/3R5/4G4/9/9/9/9/9/8K b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手玉４一に飛車で王手をかけるなら、飛車６二を４二へ動かせます。金５三が４二を守っていますが、後手玉が５一へ逃げる升までは押さえていません。王手の後に玉がどこへ行けるかを先に探します。",
+            "en": "The rook on ６二 can move to ４二 and check the defender’s king on ４一. The gold on ５三 protects ４二, but it does not cover the king’s escape square on ５一. First find where the king can go after the check."
+          }
+        },
+        {
+          "text": {
+            "ja": "飛車を王手になる升へ進め、後手玉が安全に移れる升を確認してください。",
+            "en": "Move the rook to give check, then find a square where the king can move safely."
+          }
+        },
+        {
+          "moves": ["6b4b"],
+          "text": {
+            "ja": "▲４二飛で王手です。飛車は金５三に守られているため、後手玉は４二へ進めません。",
+            "en": "▲４二飛 gives check. The gold on ５三 protects the rook, so the king cannot capture it on ４二."
+          }
+        },
+        {
+          "moves": ["4a5a"],
+          "text": {
+            "ja": "△５一玉と逃げられました。５一は飛車４二にも金５三にも利かされていません。王手をかけたことと勝ちが決まったことを分け、逃げられた後の局面を読み直します。",
+            "en": "△５一玉 escapes. Neither the rook on ４二 nor the gold on ５三 controls ５一. Giving check and ending the game are different outcomes; reassess the position after the king escapes."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "自玉を飛車の筋から外しておく",
+        "en": "Move your king off the rook’s file"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k8/8r/9/9/9/8P/9/9/8K b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手の飛車１二は先手玉１九と同じ筋にいますが、先手歩１六が間をふさいでいます。後手飛車が歩を取れば、その筋が玉まで通ります。相手玉を追う手を探す前に、自玉が次の王手にさらされないか調べます。",
+            "en": "The defender’s rook on １二 shares a file with the attacker’s king on １九, but the pawn on １六 blocks the route. If the rook captures that pawn, the file opens toward the king. Before looking for another attack, check whether your king will face a forcing move next."
+          }
+        },
+        {
+          "text": {
+            "ja": "歩を守り続けるのではなく、玉を飛車の筋から外して危険を減らしてください。",
+            "en": "Reduce the danger by moving the king off the rook’s file instead of trying to hold the pawn in place."
+          }
+        },
+        {
+          "moves": ["1i2i"],
+          "text": {
+            "ja": "▲２九玉と移りました。飛車の筋はまだ歩に止められていますが、歩が取られても玉はその筋から外れています。",
+            "en": "▲２九玉 moves the king. The pawn still blocks the rook’s file, but the king is no longer on that file if the pawn is captured."
+          }
+        },
+        {
+          "moves": ["1b1f"],
+          "text": {
+            "ja": "△１六飛で歩を取りました。先手玉は２九にいるため、飛車は王手になりません。攻めを続ける前に自玉の安全を作れば、相手の取りを強制手にさせずに済みます。",
+            "en": "△１六飛 captures the pawn. The attacker’s king is on ２九, so the rook does not give check. Securing your king before continuing the attack prevents the opponent’s capture from becoming a forcing move."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,162 @@
+{
+  "id": "shiken-vs-yagura",
+  "order": 1100,
+  "path": ["戦法・定跡", "四間飛車"],
+  "title": {
+    "ja": "矢倉の連結と引き角に向き合う四間飛車",
+    "en": "Fourth File Rook against Yagura connections and a retreated bishop"
+  },
+  "intro": {
+    "ja": "後手矢倉の２二玉は３二金・４三金・３三銀と連携しています。横から駒を置くだけで崩れる形ではありません。一方、３一角が８六へ届く局面では８筋の取り合いを先に読み、４筋で攻めるときも金が守るマスを確かめます。",
+    "en": "Gote's Yagura king on 2b is supported by golds on 3b and 4c and a silver on 3c. A piece placed to its side does not automatically break the castle. A bishop retreated to 3a can affect the eighth file, while a fourth-file attack depends on which squares the golds defend."
+  },
+  "check": {
+    "question": {
+      "ja": "後手４三金が４四へ上がって４五歩を守る局面で、先手４八飛が４五歩を取ると何が起こり得ますか？",
+      "en": "If Gote's gold moves from 4c to 4d to protect a pawn on 4e, what can happen when Sente's rook from 4h captures that pawn?"
+    },
+    "answer": {
+      "ja": "４四金が４五の飛車を取り返せます。歩だけを見て飛車を進めず、金が４五へ利くことを数えます。",
+      "en": "The gold on 4d can recapture the rook on 4e. Count the gold's control of 4e before advancing the rook for the pawn."
+    }
+  },
+  "references": [
+    {
+      "title": "四間飛車vs矢倉戦法",
+      "url": "https://shogi-joutatsu.com/archives/1741",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "３一角と８筋で交換する前に飛車を置く",
+        "en": "Place the rook before the 3a bishop reaches the eighth file"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "6b2/1r4gk1/p4gs2/9/1p7/2PP1P3/PPBSP1PPP/3RG1SK1/5G3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手は２二玉・３二金・４三金・３三銀の矢倉で、角を３一へ引いています。３一角から８六へは４二・５三・６四・７五が空いています。後手８五歩と先手８七歩が接触する前に、８筋の飛車と角の利きを数えます。",
+            "en": "Gote has a Yagura with K2b, golds on 3b and 4c, S3c, and a bishop retreated to 3a. The squares 4b, 5c, 6d and 7e are open on its line to 8f. Before Gote's P8e meets Sente's P8g, count the rook and bishop coverage of the file."
+          },
+          "marks": { "arrows": ["3a8f", "6h8h"], "boxes": ["8e", "8g"] }
+        },
+        {
+          "moves": ["6h8h", "8e8f"],
+          "text": {
+            "ja": "▲８八飛で８筋へ飛車を移した後、後手が△８六歩と進めた例です。８八飛が守るのは８七歩の後ろの縦道で、８六にはまだ先手歩がいません。後手が別の筋を攻めれば、飛車の移動が先手になったかは別に判断します。",
+            "en": "Sente shifts to R8h, and Gote's sample P8f makes contact. The rook is on the file behind P8g, but Sente has not yet placed a pawn on 8f. If Gote attacks elsewhere, the value of the rook shift must be reconsidered."
+          },
+          "marks": { "last": "8f", "arrows": ["8g8f"], "boxes": ["8h"] }
+        },
+        {
+          "moves": ["8g8f"],
+          "text": {
+            "ja": "▲同歩で先手歩が８六へ出ました。後手３一角は８六歩を取れますが、その場合は７七角で８六の角を取り返せます。さらに後手８二飛で角を取れば、８八飛で飛車を取る筋まであるため、一手だけの取り合いで判断しません。",
+            "en": "Px8f puts Sente's pawn on 8f. Gote's bishop on 3a can capture it, but B7g can recapture that bishop. If Gote's rook then captures the bishop from 8b, Sente's rook on 8h can capture the rook. Read the whole exchange rather than the first capture alone."
+          },
+          "marks": { "last": "8f", "arrows": ["3a8f", "7g8f", "8b8f", "8h8f"] }
+        }
+      ],
+      "variations": [
+        {
+          "from": 2,
+          "moves": ["3a8f", "7g8f", "8b8f", "8h8f"],
+          "text": {
+            "ja": "この四手で後手が角、続いて飛車まで８六へ出すなら、先手は角と飛車で順に取り返せます。後手がこの交換を選ぶ義務はなく、別の受けなら駒の配置が変わります。先手の飛車を先に８八へ置いたことが、この枝の最後の取り手です。",
+            "en": "If Gote commits both bishop and rook to 8f in this line, Sente recaptures them in turn with bishop and rook. Gote need not choose this exchange; another reply changes the position. Having placed the rook on 8h supplies the final recapture in this branch."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "４筋の歩を取り返す飛車と、それを守る金",
+        "en": "A fourth-file rook recapture depends on the gold"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "6b2/1r4gk1/p4gs2/5p3/9/2PP1P3/P1B1P1PPP/3R2SK1/3G1G3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手は同じ矢倉の金二枚と３三銀を持ち、４四歩が先手４六歩に向かっています。先手は片美濃なので５八が空き、６八飛は５八を通って４八へ回れます。４筋へ移す前に、後手４三金が４四・４五へ動く手を数えます。",
+            "en": "Gote retains the Yagura golds and S3c; P4d faces Sente's P4f. Sente has a Half Mino, leaving 5h empty so R6h can move through it to 4h. Before rerouting, count moves by Gote's gold on 4c toward 4d and 4e."
+          },
+          "marks": { "arrows": ["6h4h"], "boxes": ["5h", "4c", "4d", "4f"] }
+        },
+        {
+          "moves": ["4f4e", "4d4e"],
+          "text": {
+            "ja": "▲４五歩に後手が△同歩と取った一例です。先手の歩は失いましたが、後手歩が４五へ来たことで、空いた４筋へ飛車を回して歩を狙えます。後手が歩を取らず金を先に動かす枝なら同じ手順にはなりません。",
+            "en": "In the sample P4e Px4e, Sente loses a pawn and Gote's pawn lands on 4e. With 4g and 4f now clear, Sente can shift the rook onto the fourth file to target that pawn. A Gote move that develops the gold first would create a different line."
+          },
+          "marks": { "last": "4e", "arrows": ["6h4h"], "boxes": ["4c"] }
+        },
+        {
+          "moves": ["6h4h"],
+          "text": {
+            "ja": "▲４八飛は４五歩を縦に狙いますが、この瞬間に取ったわけではありません。後手４三金は４四へ上がれば４五を前から守れます。後手の応手を見ずに飛車が歩を取れると決めないのが、この形の要点です。",
+            "en": "R4h aims along the file at P4e but has not captured it. Gote's gold on 4c can advance to 4d and protect the pawn on 4e. The rook's next capture depends on Gote's reply."
+          },
+          "marks": { "last": "4h", "arrows": ["4h4e", "4c4d"] }
+        },
+        {
+          "moves": ["9c9d", "4h4e"],
+          "text": {
+            "ja": "後手が別の手△９四歩を選ぶ枝なら、▲４五飛で歩を取り返せます。４三金は二段離れた４五の飛車をこの手では取れません。ただし飛車が４五に出た後も金や銀からの追撃は残り、歩を取っただけで矢倉が崩れたわけではありません。",
+            "en": "If Gote instead spends the turn on the sample P9d, Rx4e recaptures the pawn. A gold still on 4c cannot capture a rook two ranks away on 4e in one move. Gote may pursue the rook afterward; recovering a pawn has not broken the Yagura."
+          },
+          "marks": { "last": "4e", "boxes": ["4c", "3c", "2b"] }
+        }
+      ],
+      "variations": [
+        {
+          "from": 2,
+          "moves": ["4c4d", "4h4e", "4d4e"],
+          "text": {
+            "ja": "後手が先に△４四金を足す枝では、▲４五飛と歩を取っても△同金で飛車を失います。金が４五へ一歩で届くようになったことが違いです。この守りがあるなら先手は飛車の取り方を変える必要があります。",
+            "en": "If Gote first adds G4d, an attempted Rx4e wins the pawn but loses the rook to Gx4e. The gold now reaches 4e in one move. Sente must choose another way to use the rook against this defense."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "横からの飛車打ちも連結を確認する",
+        "en": "A lateral rook drop still needs a connection check"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "6b2/6gk1/p4gs2/5p3/9/2PP1P3/P1B1P1PPP/6SK1/3G1G3 b Rr 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "双方の飛車は持ち駒で、後手は２二玉・３二金・４三金・３三銀の矢倉を保っています。先手が４二に飛車を打てば３二金を横から狙えますが、４三金も４二へ後ろ一マスで利きます。打つ前に両方の金を見ます。",
+            "en": "Both sides hold a rook, while Gote still has the Yagura core K2b, G3b, G4c and S3c. A Sente rook dropped on 4b would attack G3b laterally, but G4c also controls 4b one step backward. Count both golds before making the drop."
+          },
+          "marks": { "arrows": ["4c4b"], "boxes": ["4b", "3b", "4c"] }
+        },
+        {
+          "moves": ["R*4b", "4c4b"],
+          "text": {
+            "ja": "▲４二飛には△同金で後手４三金が飛車を取れます。飛車を打っただけでは王手にもならず、３二金に触れる前に飛車が消えました。後手が飛車を持ち直すので、形の名前だけを根拠に横攻めを始めないようにします。",
+            "en": "After R*4b, Gx4b captures the dropped rook. The drop was not check, and the rook disappears before it can capture G3b. Gote adds the rook to its hand; Yagura's response must be evaluated from its actual defenders."
+          },
+          "marks": { "last": "4b", "boxes": ["3b", "2b"] }
+        },
+        {
+          "text": {
+            "ja": "今の４二には後手金が乗り、先手の飛車はありません。横からの攻めを考えるときは、目標の駒だけでなく打つマスの守りと、交換後の双方の持ち駒まで確認します。",
+            "en": "The square 4b now holds Gote's gold, not Sente's rook. For a side attack, inspect protection of the drop square as well as the target piece and both hands after the exchange."
+          },
+          "marks": { "boxes": ["4b", "3b", "2b"] }
+        }
+      ]
+    }
+  ]
+}

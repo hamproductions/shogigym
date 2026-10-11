@@ -1,0 +1,129 @@
+{
+  "id": "ureshino-vs-bougin",
+  "order": 1400,
+  "path": ["戦法・定跡", "嬉野流"],
+  "title": {
+    "ja": "嬉野流で棒銀を受ける：八筋の数え方",
+    "en": "Ureshino against Climbing Silver: count the eighth file"
+  },
+  "intro": {
+    "ja": "棒銀では後手の銀が８筋の歩と飛車を助けます。嬉野流の左銀を守りに使うときも、銀だけを追わず、８六の駒を次に取る飛車と角まで数える必要があります。この単元は６八銀から７七への短い受け、８六の銀と飛車の取り合い、７筋への歩の合図を異なる盤面で練習します。",
+    "en": "A Climbing Silver combines the advancing silver with the eighth-file pawn and rook. An Ureshino silver can help defend, but each recapture on 8f changes who occupies the square next. These positions practice a short S6h–7g route, a silver trade backed by the rook, and a pawn interposition on the seventh file."
+  },
+  "check": {
+    "question": {
+      "ja": "第二章で８六の後手銀を７七銀で取った後、なぜそこで守りが終わったと判断できませんか？",
+      "en": "In chapter two, why does S7g×8f not finish the defense after taking Gote's silver?"
+    },
+    "answer": {
+      "ja": "８二飛が８六へ通っており、△同飛で先手銀を取れるからです。その後の▲７七角は飛車を狙いますが、例の△８二飛のように後手は引けます。双方の８筋の歩と銀が交換されただけで、一連の順から受け切りとは言えません。",
+      "en": "R8b can recapture on 8f. B8h–7g then attacks that rook, but Gote can retreat to 8b in the sample. Both sides have exchanged eighth-file pawns and silvers; this line alone does not prove the attack is over."
+    }
+  },
+  "references": [
+    {
+      "title": "嬉野流vs棒銀",
+      "url": "https://shogi-joutatsu.com/archives/5546",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": { "ja": "７七銀で飛車の取り返しに利かせる", "en": "Use S7g to cover the rook's recapture square" },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1r5b1/9/5p3/1ps6/4P2P1/1P7/1BGS3R1/4KG3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手は８二飛・８五歩に７五銀を添えています。先手の銀は６八、角は８八で、７七が空いています。８六で歩を交換するなら後手の飛車と７五銀のどちらが８六へ利くかを分けて見ます。",
+            "en": "Gote has R8b, P8e and an advanced S7e. Sente's silver is on 6h, with 7g empty. The rook and silver approach 8f in different ways; identify the occupant before choosing a recapture."
+          },
+          "marks": { "boxes": ["6h", "7g", "7e", "8e", "8f", "8b"] }
+        },
+        {
+          "moves": ["6h7g", "8e8f", "8g8f"],
+          "text": {
+            "ja": "▲７七銀の後、△８六歩に▲同歩とした一例です。７七銀は８六へ利きますが、後手は銀で取る手も飛車で取る手も選べます。ここで飛車による取り返しを仮定します。",
+            "en": "After S6h–7g, this sample continues P8e–8f and P8g×8f. S7g protects 8f, but Gote can choose whether to recapture with silver or rook. The next line assumes the rook."
+          },
+          "marks": { "arrows": ["6h7g"], "boxes": ["8f", "7e"] }
+        },
+        {
+          "moves": ["8b8f", "7g8f", "7e8f"],
+          "text": {
+            "ja": "後手が△同飛なら▲同銀で飛車を取れます。続く△同銀は７五銀による先手銀の取り返しです。先手は飛車と８五歩を得る代わりに８七歩と７七銀を渡した形で、これだけで勝敗は決まりません。",
+            "en": "If Gote chooses R8b×8f, S7g×8f captures the rook; S7e×8f then recaptures Sente's silver. Sente has taken a rook and pawn while Gote has taken a pawn and silver. This optional sequence is a material comparison, not a forced verdict."
+          },
+          "marks": { "arrows": ["7e8f"], "last": "8f" }
+        }
+      ]
+    },
+    {
+      "title": { "ja": "８六の銀を取る前に後ろの飛車を見る", "en": "Look behind the silver before capturing it" },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1r5b1/9/5p3/9/1sP1P2P1/2S6/1BG4R1/4KG3 b Pp 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手は７七銀、後手は８六銀です。８筋の歩は交換済みで双方に歩が一枚あります。先手銀で後手銀を取れますが、８二飛から８六への縦の線は空いています。",
+            "en": "Sente has S7g facing Gote's S8f. Both sides hold a pawn from the earlier eighth-file exchange. Sente can take the silver, but the path from R8b to 8f is open."
+          },
+          "marks": { "boxes": ["7g", "8f", "8b"] }
+        },
+        {
+          "moves": ["7g8f", "8b8f"],
+          "text": {
+            "ja": "▲同銀、△同飛で銀を交換します。後手の飛車は８六へ出ますが、先手の角は８八に残り、７七が空きました。７七へ角を置くかどうかを続けて判断します。",
+            "en": "S7g×8f and R8b×8f exchange the silvers. With 7g vacated, B8h has a route to that square. The rook has reached 8f, so Sente must still decide how to meet it."
+          },
+          "marks": { "arrows": ["8b8f"], "last": "8f" }
+        },
+        {
+          "moves": ["8h7g", "8f8b"],
+          "text": {
+            "ja": "▲７七角は８六飛へ利きます。例の△８二飛なら飛車はその線から離れられます。角を使いながら銀と８筋の歩を交換した形で、双方が歩を持っています。後手の次の歩打ちは別に調べる必要があります。",
+            "en": "B8h–7g attacks R8f, which retreats to 8b in this example. The silver and eighth-file pawn pairs have been exchanged, leaving both players with a pawn in hand. Gote's next pawn drop remains to be assessed."
+          },
+          "marks": { "arrows": ["8h7g"], "last": "8b" }
+        }
+      ]
+    },
+    {
+      "title": { "ja": "７筋の歩で銀を追い、逃げ道を残す", "en": "Challenge the silver with a seventh-file pawn" },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1r5b1/9/5p3/1ps6/4P2P1/1PS6/1BG4R1/4KG3 b P 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手銀７五は８六へ進めます。先手銀７七は８六にも６六にも利きます。先手は７筋に歩を持ち、盤上に先手の７筋の歩がないため７六への歩打ちは合法です。銀を取れると断定せず、逃げる場所まで確認します。",
+            "en": "Gote's S7e can approach 8f. Sente's S7g covers 8f and 6f, and Sente has a pawn in hand with no pawn already on the seventh file. A drop on 7f is legal, but it does not prove the opposing silver is trapped."
+          },
+          "marks": { "boxes": ["7e", "7f", "7g", "8d"] }
+        },
+        {
+          "moves": ["P*7f", "7e8d", "7f7e"],
+          "text": {
+            "ja": "▲７六歩打は７五銀を直接攻めます。後手は例として△８四銀と引けるので、銀の捕獲を主張できません。▲７五歩は空いた７五へ進める手で、８筋への後手の圧力を見ながら７筋を使います。",
+            "en": "P*7f attacks S7e. Gote can retreat S7e–8d in this sample, so the drop does not trap the silver. P7f–7e then advances on the newly cleared seventh-file square while the eighth-file attack remains possible."
+          },
+          "marks": { "arrows": ["7f7e"], "last": "7e", "boxes": ["8d", "8e"] }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["P*7f", "7e6f", "7g6f"],
+          "text": {
+            "ja": "この盤面で△６六銀と踏み込む別の一例なら▲同銀で取れます。７七銀の利きが６六にあるためです。後手には△８四銀など別の合法な逃げ方があり、この分岐は７六歩打の利きだけを示します。",
+            "en": "If Gote instead tries S7e–6f here, S7g×6f captures it. S7g protects that square. Gote also has the retreat to 8d, so this branch illustrates the pawn drop's local effect without claiming a forced trap."
+          },
+          "marks": { "arrows": ["7g6f"], "last": "6f" }
+        }
+      ]
+    }
+  ]
+}

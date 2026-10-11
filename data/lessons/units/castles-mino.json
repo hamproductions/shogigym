@@ -1,0 +1,129 @@
+{
+  "id": "castles-mino",
+  "order": 340,
+  "path": ["上達のためのテクニック", "囲い"],
+  "title": {
+    "ja": "美濃の金銀と玉頭を読み分ける",
+    "en": "Read Mino's Generals and King-Head Squares"
+  },
+  "intro": {
+    "ja": "振り飛車で玉を右に囲う美濃には、金を一枚だけ寄せる片美濃、二枚をつなぐ本美濃、金を高くして上部を補う高美濃、銀を冠の位置へ出す銀冠があります。形が変わるたびに横の飛車筋、玉の斜め前、２筋の歩を調べます。左の金銀を守りに加える選択は、攻めに使える駒と手数も変えます。",
+    "en": "Ranging Rook can shelter the king on the right with Half Mino, connect a second gold for full Mino, raise a gold for High Mino, or put a silver above the king in Silver Crown. Each change affects a lateral rook line, the diagonal above the king, or the second-file pawn. Committing more generals also changes the time and material left for attack."
+  },
+  "check": {
+    "question": {
+      "ja": "美濃の金５八を４七に上げるとき、４七で増える利きと５八で失う利きをどう確かめますか？",
+      "en": "When raising a Mino gold from ５八 to ４七, how do you check the coverage gained and lost?"
+    },
+    "answer": {
+      "ja": "金４七が３六や桂３七を守れるか、元の５八で止めていた横の飛車筋が開かないかを盤上で調べます。高くしただけで安全になるとは決めません。",
+      "en": "Check whether the gold on ４七 protects squares such as ３六 and a knight on ３七, and whether leaving ５八 opens a lateral rook line. Raising the gold alone does not establish safety."
+    }
+  },
+  "references": [
+    {
+      "title": "美濃囲い系の囲い一覧",
+      "url": "https://shogi-joutatsu.com/archives/5985",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "片美濃に二枚目の金をつなぐ",
+        "en": "Connect the second gold to Half Mino"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/9/9/9/9/9/2r3SK1/4GG3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "玉２八、銀３八、金４九の片美濃型で、もう一枚の金５九が残っています。後手飛車７八は６八・５八を通って右へ利きます。金５九を上げて５八に置けば飛車筋に入るので、支えを確認します。",
+            "en": "Sente has a Half Mino core: king ２八, silver ３八, gold ４九, with the other gold on ５九. Gote's rook on ７八 sees through ６八 and ５八. Raising the gold to ５八 puts it in that rook line, so first check its support."
+          }
+        },
+        {
+          "moves": ["5i5h"],
+          "text": {
+            "ja": "▲５八金で本美濃型の二枚の金がつながります。金４九は５八を斜め前に守り、飛車７八の横筋は金５八で止まります。囲いへ一手使う価値は、飛車筋を止める必要と先手の攻めの速さを比べて決めます。",
+            "en": "▲５八金 connects the two golds in a full Mino core. The gold on ４九 protects ５八 diagonally forward, and the rook line from ７八 stops at the new gold. Whether to spend this move on defense depends on that rook threat and the pace of Sente's own attack."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "金を高くして桂の支えを増やす",
+        "en": "Raise a gold to support the forward knight"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/9/9/9/6p2/6N2/4G1SK1/5G3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "玉２八、銀３八、金５八・４九、桂３七の本美濃型です。後手歩３六が桂３七を攻めています。金５八を４七に上げると、桂の支えと前方への利きがどう変わるか見ます。",
+            "en": "Sente has king ２八, silver ３八, golds ５八 and ４九, and knight ３七. Gote's pawn on ３六 attacks that knight. Raising the gold from ５八 to ４七 changes both knight support and forward coverage."
+          }
+        },
+        {
+          "moves": ["5h4g"],
+          "text": {
+            "ja": "▲４七金。金４七は桂３七を横から守り、歩３六にも斜め前に利きます。銀３八も桂３七を守っています。この高美濃型は上部の守りを増やしましたが、金が去った５八から横の飛車筋が伸びる局面なら別の対処が必要です。",
+            "en": "▲４七金 protects the knight on ３七 sideways and attacks the pawn on ３六 diagonally forward. The silver on ３八 also protects that knight. This High Mino core adds upper coverage, but an opposing rook could exploit the vacated ５八 square in a different position."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "銀冠は王手を止める場所まで確認する",
+        "en": "Silver Crown must answer the actual rook check"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/9/9/9/9/5GNS1/5r1K1/5G3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "玉２八、銀２七、桂３七、金４七・４九は銀冠の上部の骨格です。後手飛車４八は３八が空いているため、玉２八へ横から王手しています。金４九を３八へ動かせば、王手を遮れるかを確かめます。",
+            "en": "King ２八, silver ２七, knight ３七, and golds ４七 and ４九 form the upper core of Silver Crown. Gote's rook on ４八 checks laterally through the empty ３八 square. Test whether moving the lower gold to ３八 blocks the check."
+          }
+        },
+        {
+          "moves": ["4i3h"],
+          "text": {
+            "ja": "▲３八金で飛車４八と玉２八の間を塞ぎました。銀２七は金３八を斜め後ろに守り、玉２八も金３八を守ります。上部の銀があるだけでは下段の王手は消えません。相手の飛車がどの段にいるかで、銀冠の弱点を調べます。",
+            "en": "▲３八金 interposes between the rook and the king. The silver on ２七 protects the gold diagonally backward, and the king on ２八 also guards it. A silver above the king does not by itself stop a lower-rank check; the rook's actual rank determines the danger."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "２筋の歩を上げる前に飛車筋を見る",
+        "en": "Check the rook file before advancing the head pawn"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/7r1/9/9/9/9/7P1/4G1SK1/5G3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "玉２八、銀３八、金５八・４九の美濃型です。先手歩２七の前方に後手飛車２二がいます。歩を２六へ上げると、玉頭の歩が飛車の筋で狙われるかを確認します。",
+            "en": "Sente has a Mino core with king ２八, silver ３八, and golds ５八 and ４九. Gote's rook on ２二 stands ahead of Sente's pawn on ２七. Before advancing the pawn to ２六, check whether the rook will target it along the file."
+          }
+        },
+        {
+          "moves": ["2g2f"],
+          "text": {
+            "ja": "▲２六歩。飛車２二から２六までの間に駒はなく、歩２六は次に取られる可能性があります。銀３八は２七を守りますが、２六には利きません。２六歩を残すちょんまげ美濃型か、歩を失って玉頭が空く坊主美濃型かは、後手の応手で変わります。",
+            "en": "▲２六歩 leaves no piece between Gote's rook on ２二 and the pawn on ２六, so the pawn may be captured next. The silver on ３八 protects ２七, not ２六. Whether this becomes a Chonmage Mino with the advanced pawn or a pawnless Bozu Mino depends on Gote's reply."
+          }
+        }
+      ]
+    }
+  ]
+}

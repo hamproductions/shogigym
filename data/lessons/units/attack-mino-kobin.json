@@ -1,0 +1,105 @@
+{
+  "id": "attack-mino-kobin",
+  "order": 380,
+  "path": ["上達のためのテクニック", "囲い崩し"],
+  "title": {
+    "ja": "美濃のコビンは斜めの利きと逃げ道で読む",
+    "en": "Read Mino's Diagonal with Pins and King Exits"
+  },
+  "intro": {
+    "ja": "コビンは玉の斜め前のマスです。角がその線を見ていても、間の歩を取る駒と、取られた後の応手がなければ攻めは続きません。ここでは角で歩を釘付けにして香を使う方法、飛車の横利きで銀を動かしにくくする方法を別々に学びます。最後に美濃側が玉を斜め筋から外す受けを検討します。教材図の後手の応手は一例で、詰みを断定するものではありません。",
+    "en": "The kobin is a diagonal square beside the king. A bishop on that line still needs a way to remove the intervening pawn and a response to the defender's recapture. First use a bishop pin with a lance, then combine a bishop capture with a rook pin. Finally, examine a Mino defender stepping off the diagonal. Gote's replies in these local examples are choices, and none of the lines claims mate."
+  },
+  "check": {
+    "question": {
+      "ja": "角が玉のコビンを見ているとき、間の歩を動かせない理由は何ですか？",
+      "en": "Why might a pawn between a bishop and the king be unable to advance?"
+    },
+    "answer": {
+      "ja": "歩が去ると角の斜めの利きが玉へ直通し、自玉を王手にさらすなら、その歩の移動は合法ではありません。ただし玉を筋から外す、間に駒を置くなどの受けは局面によって残ります。",
+      "en": "If moving the pawn would expose its own king to the bishop, that pawn move is illegal. The defender may still have a king move or an interposition, depending on the position."
+    }
+  },
+  "references": [
+    {
+      "title": "美濃囲い崩しの手筋② コビン攻め",
+      "url": "https://shogi-joutatsu.com/archives/2615",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "角が止めた歩を香で攻める",
+        "en": "Use a lance against a pawn held by a bishop pin"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4g4/5sk2/5p2p/9/9/2B6/9/9/K4R3 b L 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手玉３二の斜め前に歩４三があり、角７六は６五・５四を通ってその歩と玉を一直線に見ています。歩４三を動かすと角が玉を王手するため、後手は歩を自由に突けません。先手は飛車４九と持ち香を使い、この歩を狙います。",
+            "en": "The pawn on ４三 stands diagonally in front of Gote's king on ３二. Sente's bishop on ７六 sees the pawn and king along ６五 and ５四. Advancing that pawn would expose the king to the bishop, so Gote cannot move it freely. Sente has a rook on ４九 and a lance in hand to challenge the pawn."
+          }
+        },
+        {
+          "moves": ["L*4f", "1c1d", "4f4c+", "4b4c", "4i4c"],
+          "text": {
+            "ja": "▲４六香と据え、後手が△１四歩で端に空間を作った例です。▲４三香成は歩を取りながら玉へ王手し、△同銀なら▲同飛で銀を取って４筋へ進入します。角７六は飛車４三を斜めに支え、金５一はこの飛車を一手で取れません。後手は端歩以外の受けも選べるため、この交換を強制手順とは扱いません。",
+            "en": "Sente drops the lance on ４六, and this example has Gote play △１四歩 to make edge space. ▲４三香成 takes the pawn with check. If Gote chooses △同銀, ▲同飛 captures the silver and enters on the fourth file, supported by the bishop on ７六. The gold on ５一 cannot recapture that rook in one move. Gote has defenses other than the edge-pawn advance, so this exchange is conditional."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "飛車で銀を釘付けにして角を入れる",
+        "en": "Pin the silver with a rook before taking the diagonal pawn"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "5g3/2R3sk1/6p2/7G1/9/9/9/9/K8 b B 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手玉２二の前に銀３二と歩３三があります。飛車７二は銀３二を横から見ており、銀が動くと２二の玉へ飛車筋が通ります。先手金２四は３三を守っています。持ち角を歩３三の斜め筋に据える案を調べます。",
+            "en": "Gote has a king on ２二, silver on ３二, and pawn on ３三. Sente's rook on ７二 looks along the rank through the silver toward the king. If the silver moves without another block, that rook line opens. Sente's gold on ２四 protects ３三. Consider placing the bishop on the pawn's diagonal."
+          }
+        },
+        {
+          "moves": ["B*6f", "4a3a", "6f3c+", "2b1b"],
+          "text": {
+            "ja": "▲６六角の後、後手が△３一金で銀を支えた例では、▲３三角成で歩を取りながら王手します。銀３二が馬を取ろうと３三へ動けば、飛車７二から玉２二への横筋を開けるため取れません。玉２二も金２四が守る馬３三を取れません。△１二玉なら王手を外せます。馬は銀３二を狙いますが、金３一も銀を支えており、銀を取れるとは限りません。",
+            "en": "After ▲６六角, this sample has Gote support the silver with △３一金. ▲３三角成 takes the pawn with check. The silver on ３二 cannot capture the horse on ３三 without exposing the king on ２二 to the rook on ７二. The king cannot take the horse either, because Sente's gold on ２四 protects ３三. △１二玉 evades the check. The horse attacks the silver, but the gold on ３一 supports it; winning the silver is not assured."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "玉を角筋から外して受ける",
+        "en": "Defend by moving the king off the bishop's diagonal"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k8/9/9/3b5/9/9/6P1P/6SK1/5G2L b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手の美濃型は玉２八・銀３八・金４九です。後手角６四の斜め筋は歩３七で止まり、その先に玉２八がいます。歩３七を不用意に進めると角筋が玉へ通るため、玉の位置を変える受けも候補になります。",
+            "en": "Sente's Mino core has king ２八, silver ３八, and gold ４九. Gote's bishop on ６四 is stopped by the pawn on ３七, with the king on ２八 behind it. Moving that pawn carelessly would expose the king, so changing the king's square is one defensive option."
+          }
+        },
+        {
+          "moves": ["2h2i"],
+          "text": {
+            "ja": "▲２九玉で玉は角の斜め筋から外れ、銀３八が２九を斜め後ろに守ります。これで歩３七の玉に対する釘付けは解けますが、歩が去れば角筋は香１九まで延び得ます。玉を引く一手の間に相手がほかの攻めを進める可能性も含め、受けと手番の価値を比べます。",
+            "en": "▲２九玉 leaves the bishop's diagonal; the silver on ３八 protects ２九 diagonally behind it. The pawn on ３七 is no longer pinned to the king, but moving it could extend the bishop's line toward the lance on １九. The king move also spends a turn, so compare this defense with Gote's other available threats."
+          }
+        }
+      ]
+    }
+  ]
+}

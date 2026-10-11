@@ -164,10 +164,13 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
           open.setup.sources.length > 0 && (
             <p className="app-muted">
               {ja ? '出典：' : 'Source: '}
-              {open.setup.sources.map((url) => (
-                <a key={url} href={url} target="_blank" rel="noreferrer">
-                  {url}
-                </a>
+              {open.setup.sources.map((url, index) => (
+                <Fragment key={url}>
+                  {index > 0 && ' · '}
+                  <a href={url} target="_blank" rel="noreferrer">
+                    {url}
+                  </a>
+                </Fragment>
               ))}
             </p>
           )

@@ -1,0 +1,169 @@
+{
+  "id": "shiken-patterns",
+  "order": 1070,
+  "path": ["戦法・定跡", "四間飛車"],
+  "title": {
+    "ja": "左銀の位置で変わる四間飛車の仕事",
+    "en": "How the left silver changes a Fourth File Rook plan"
+  },
+  "intro": {
+    "ja": "四間飛車の左銀は７八に残す、６七で支える、６六へ出る、５六へ向かうという選択ができます。同じ銀でも、動くたびに飛車の縦道、角の斜線、守れる歩が変わります。局面にある駒の利きと相手の応手を見て、一つの狙いを選びます。",
+    "en": "The left silver in Fourth File Rook can stay on 7h, support from 6g, advance to 6f, or head for 5f. Each move changes the rook's file, the bishop's diagonal, and which pawns the silver protects. Choose a plan by counting the pieces and possible replies in the actual position."
+  },
+  "check": {
+    "question": {
+      "ja": "６七銀・６八飛・６六歩の形から銀を６六へ上げると、６八飛の６筋の縦道はすぐに全部開きますか？",
+      "en": "With S6g, R6h and P6f, does raising the silver to 6f immediately open the rook's entire sixth-file route?"
+    },
+    "answer": {
+      "ja": "いいえ。先に６六歩を動かして銀の行き先を空けても、６六へ上がった銀が飛車の前に残ります。銀が別の筋へ動けば、飛車はそこまで通れます。",
+      "en": "No. The pawn must move first to clear 6f, and the silver placed there still stands in front of the rook. The rook's route opens further only when the silver leaves that file."
+    }
+  },
+  "references": [
+    {
+      "title": "四間飛車、駒組みのパターン",
+      "url": "https://shogi-joutatsu.com/archives/2491",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "５筋を選ぶなら、歩の後ろに銀を置く",
+        "en": "Choose the fifth file with the silver behind its pawn"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1r5b1/1p4s2/4p4/9/2PP5/PPBSPPPPP/3R2SK1/3G1G3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手６七銀は６八飛の真上にあり、５七歩はまだ５六への銀の行き先を塞いでいます。後手５四歩と向かい合う５筋へ銀を使うなら、まず歩の接触をどう作るかを決めます。６筋の飛車を動かすだけでは、この銀の行き先は空きません。",
+            "en": "S6g sits immediately ahead of R6h, and Sente's pawn on 5g blocks the silver's route to 5f. To use the silver against Gote's pawn on 5d, first decide how to make pawn contact. Moving the sixth-file rook alone does not clear the silver's destination."
+          },
+          "marks": { "boxes": ["6g", "5g", "5f", "5d"] }
+        },
+        {
+          "moves": ["5g5f", "5d5e"],
+          "text": {
+            "ja": "▲５六歩に対し、後手が△５五歩と進めた一例です。５六の先手歩は５五の後手歩を取れるので、銀を動かす前に５筋の歩を整理できます。後手はこの歩を突く義務はありません。",
+            "en": "After P5f, Gote's P5e is one possible reply. Sente's pawn on 5f can capture it, clearing 5f before the silver moves. Gote is not required to advance this pawn."
+          },
+          "marks": { "last": "5e", "arrows": ["5f5e"] }
+        },
+        {
+          "moves": ["5f5e", "8c8d"],
+          "text": {
+            "ja": "▲５五歩で後手歩を取り、５六が空きました。△８四歩は後手が８筋を進める一例です。ここで６七銀は５六へ進めますが、その一手に使う間に８筋の歩が近づくことも数えます。",
+            "en": "Px5e captures Gote's pawn and vacates 5f. Gote's P8d is a sample advance on another file. Sente's silver can now reach 5f, but that move gives Gote another turn to approach on the eighth file."
+          },
+          "marks": { "last": "8d", "arrows": ["6g5f"], "boxes": ["8g"] }
+        },
+        {
+          "moves": ["6g5f", "8d8e"],
+          "text": {
+            "ja": "▲５六銀は５五歩を真後ろから守り、６七を飛車の前から空けます。後手が△８五歩と進めたので、次の８筋の接触も課題です。銀を出しただけで中央の攻めが成功したとは言えません。",
+            "en": "S5f protects the pawn on 5e from directly behind and clears 6g in front of the rook. Gote's sample P8e raises a separate eighth-file concern. The silver's arrival on 5f does not by itself prove a successful attack."
+          },
+          "marks": { "last": "8e", "boxes": ["5f", "5e", "8g"] }
+        },
+        {
+          "moves": ["6h5h"],
+          "text": {
+            "ja": "▲５八飛と飛車を振り直すと、５七が空いているので飛車は５六銀を後ろから支えます。ただし銀が５六にある限り飛車はその先へ直進できず、後手８五歩への対応も残ります。飛車を交換するかどうかは、打ち込み場所と両玉の安全を比べてから決めます。",
+            "en": "R5h shifts behind the silver: 5g is vacant, so the rook protects S5f along the file. The silver still blocks the rook from moving beyond 5f, and Gote's pawn on 8e remains to be addressed. Any rook exchange requires a separate comparison of drop squares and both kings' safety."
+          },
+          "marks": { "last": "5h", "arrows": ["5h5f"], "boxes": ["8e"] }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "７八銀を残す理由は、角交換後にも現れる",
+        "en": "Keeping the silver on 7h can matter after a bishop trade"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1r5b1/1p7/2pp5/9/2PP5/PPB1PPPPP/2SR2SK1/3G1G3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "左銀は７八で角７七の真下にいます。６六歩が角の斜線を塞いでおり、６八飛の前の６七は空いています。６筋の歩を進めれば大駒の利きが変わりますが、相手角２二の斜線も同時に調べます。",
+            "en": "The left silver on 7h stands directly below B7g. Sente's pawn on 6f blocks the bishop diagonal, while 6g ahead of R6h is vacant. Advancing the sixth-file pawn changes both major-piece lines, including the diagonal of Gote's bishop on 2b."
+          },
+          "marks": { "boxes": ["7h", "7g", "6f"], "arrows": ["2b7g"] }
+        },
+        {
+          "moves": ["6f6e"],
+          "text": {
+            "ja": "▲６五歩で６六を空けました。飛車は６七・６六を通って６五の自分の歩まで利き、２二角から７七角への斜線も通ります。先手だけが得をする開線ではありません。",
+            "en": "P6e vacates 6f. The rook now reaches through 6g and 6f to its own pawn on 6e, while the diagonal from B2b to B7g also opens. This clearance helps both sides see new lines."
+          },
+          "marks": { "last": "6e", "arrows": ["2b7g"], "boxes": ["6f", "6g"] }
+        },
+        {
+          "moves": ["2b7g+", "7h7g"],
+          "text": {
+            "ja": "後手が△７七角成と角を取る枝では、▲同銀で馬を取れます。７八銀を残した具体的な役割は、この７七への取り返しです。双方が角を持つ形になるので、銀を取った後も角打ちの場所を確認します。",
+            "en": "If Gote chooses Bx7g+, Sx7g captures the horse. Recapturing on 7g is a concrete reason to have kept the silver on 7h. Both players now hold a bishop, so bishop-drop squares still need checking."
+          },
+          "marks": { "last": "7g", "boxes": ["6e", "2h"] }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": ["6d6e", "6h6e"],
+          "text": {
+            "ja": "別の応手△６五歩には、▲同飛と取る筋があります。６七と６六が空いたので飛車は６八から６五へ届きます。角交換の枝とは持ち駒と飛車位置が違い、同じ評価を当てはめません。",
+            "en": "Against the different reply P6e, Rx6e is available: 6g and 6f are clear between the rook and the pawn on 6e. This branch leaves different pieces in hand and a different rook square, so it needs its own evaluation."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "６六銀は前へ出るが、飛車道を塞ぐ",
+        "en": "An advanced silver presses forward but blocks the rook"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1r5b1/1p4s2/9/2p6/3P5/PPBSPPPPP/3R2SK1/3G1G3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手銀は６七、後手歩は７五です。先手７筋の歩はすでに盤上になく、７五歩への直接の取り手はまだありません。６七銀を前へ出す前に、６六歩を動かして銀の場所を空けます。",
+            "en": "Sente's silver is on 6g and Gote's pawn on 7e. Sente no longer has a seventh-file pawn on the board, so there is no immediate pawn capture on 7e. To advance the silver, Sente first has to clear its pawn from 6f."
+          },
+          "marks": { "boxes": ["6g", "6f", "7e"] }
+        },
+        {
+          "moves": ["6f6e", "8c8d"],
+          "text": {
+            "ja": "▲６五歩の後、後手は一例として△８四歩です。６六は空きましたが、まだ６七銀が飛車の真上にいます。相手が８筋を急ぐなら、銀の進出だけに手を使えるかは別問題です。",
+            "en": "P6e clears 6f, and Gote replies with a sample P8d. The silver still occupies 6g immediately ahead of the rook. If Gote speeds up the eighth file, Sente must decide whether there is time for further silver development."
+          },
+          "marks": { "last": "8d", "arrows": ["6g6f"] }
+        },
+        {
+          "moves": ["6g6f", "8d8e"],
+          "text": {
+            "ja": "▲６六銀は７五歩を前斜めに狙います。一方、銀が今度は６六で飛車の縦道を止め、７七角から５五へ向かう斜線も６六で塞ぎます。△８五歩の進行を見て、銀をさらに進めるか守りへ戻すか選びます。",
+            "en": "S6f attacks Gote's pawn on 7e diagonally forward. It also now blocks R6h on 6f and B7g on the diagonal toward 5e. After Gote's P8e, Sente must weigh another silver move against the need to answer eighth-file pressure."
+          },
+          "marks": { "last": "8e", "arrows": ["6f7e"], "boxes": ["6f", "8g"] }
+        },
+        {
+          "moves": ["6f7e"],
+          "text": {
+            "ja": "ここでは▲７五銀と歩を取りました。銀が６筋から外れ、飛車は６五の歩まで、角は６六を通って後手３三銀の方向へ利きます。ただし後手が７五歩を守る応手を選べば同じ取り方は成立せず、８筋の脅威も消えていません。",
+            "en": "Here Sx7e captures the pawn. With the silver off the sixth file, the rook reaches its pawn on 6e; the bishop's diagonal through 6f toward Gote's silver on 3c opens again. A different Gote defense of 7e could change this capture, and the eighth-file threat remains."
+          },
+          "marks": { "last": "7e", "arrows": ["7g3c"], "boxes": ["6e", "8e"] }
+        }
+      ]
+    }
+  ]
+}

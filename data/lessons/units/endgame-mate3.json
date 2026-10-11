@@ -1,0 +1,228 @@
+{
+  "id": "endgame-mate3",
+  "order": 480,
+  "path": ["上達のためのテクニック", "終盤"],
+  "title": {
+    "ja": "三手詰：初手の王手で最後の一手を用意する",
+    "en": "Mate in Three: Make the First Check Prepare the Last"
+  },
+  "intro": {
+    "ja": "三手詰では、初手の王手、玉方の応手、最後の王手を一組で読みます。最後に金を打つ場合も飛車を走らせる場合も、その駒を守る利き、玉の逃げ道、王手を開く手順を確かめましょう。五つの新しい局面では、一手詰がないことを先に確認し、初手への合法な応手をすべて追います。",
+    "en": "A three-move mate consists of a check, a defensive reply, and a final check. Whether the finish is a gold drop or a rook move, identify what protects the final piece, where the king can run, and how the first move changes those routes. These five new positions have no mate in one; each lesson follows every legal reply to its first check."
+  },
+  "check": {
+    "question": {
+      "ja": "初手の王手から一つの応手だけで詰みを見つけたら、三手詰と答えてよいですか？",
+      "en": "If one reply to your first check leads to mate, have you solved a mate in three?"
+    },
+    "answer": {
+      "ja": "まだです。初手に一手詰がないこと、玉方の合法な応手がどれかを調べ、そのすべてに次の一手で詰みがあると確認します。",
+      "en": "Not yet. Confirm that the starting position has no mate in one, list every legal reply to the first check, and find a mating move against each reply."
+    }
+  },
+  "references": [
+    {
+      "title": "初級者向け、3手詰の問題①",
+      "url": "https://shogi-joutatsu.com/archives/4633",
+      "license": "All rights reserved",
+      "adapted": false
+    },
+    {
+      "title": "初級者向け、3手詰の問題②",
+      "url": "https://shogi-joutatsu.com/archives/19",
+      "license": "All rights reserved",
+      "adapted": false
+    },
+    {
+      "title": "5手詰のコツ",
+      "url": "https://shogi-joutatsu.com/archives/386",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "端で飛車を移し、金の打ち場所を作る",
+        "en": "Shift the rook before dropping the edge gold"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k8/1p7/1R1G5/9/9/9/9/9/8K b G 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手玉は９一、後手歩は８二です。先手には８三の飛車、６三の金、持ち金があります。金を先に打っても９筋の縦の逃げ道が残ります。飛車の王手でその道を押さえてから金を使います。",
+            "en": "Gote has a king on ９一 and a pawn on ８二. Sente has a rook on ８三, a gold on ６三, and a gold in hand. Dropping the gold first leaves room on the ninth file. Use a rook check to cover that route before spending the gold."
+          }
+        },
+        {
+          "moves": ["8c9c+"],
+          "text": {
+            "ja": "▲９三飛成で９二を龍の縦利きに入れます。後手の合法な応手は△８一玉だけです。８二は自分の歩で埋まり、９二には龍が利いています。",
+            "en": "▲９三飛成 puts ９二 under the dragon's vertical attack. Gote's only legal reply is △８一玉: its pawn occupies ８二 and the dragon controls ９二."
+          }
+        },
+        {
+          "moves": ["9a8a", "G*7b"],
+          "text": {
+            "ja": "△８一玉には▲７二金まで。６三の金が７二を守り、９三の龍も８二を押さえます。玉方に合法な応手はありません。最初から▲７二金では８一の玉への王手にならず、飛車を動かす順番が必要です。",
+            "en": "After △８一玉, ▲７二金 is mate. The gold on ６三 protects ７二, while the dragon on ９三 also covers ８二. Gote has no legal reply. An immediate ▲７二金 from the starting position does not check the king on ９一; the rook must move first."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "桂の利きで龍の斜めの進出を守る",
+        "en": "Use a knight to protect the dragon's diagonal entry"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "5k3/7S1/1R7/3N5/9/9/9/9/8K b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手玉４一に対し、先手は８三の飛車、６四の桂、２二の銀を使います。桂は５二を守っています。飛車を王手で４筋へ寄せ、次に桂の支えがある５二へ進める形を作ります。",
+            "en": "Against the king on ４一, Sente has a rook on ８三, knight on ６四, and silver on ２二. The knight protects ５二. Shift the rook to the fourth file with check, preparing a move into that protected square."
+          }
+        },
+        {
+          "moves": ["8c4c+"],
+          "text": {
+            "ja": "▲４三飛成で縦に王手。２二の銀は３一を、龍４三は４二と５二を押さえます。後手の合法な応手は△５一玉だけです。",
+            "en": "▲４三飛成 checks vertically. The silver on ２二 controls ３一, while the dragon on ４三 controls ４二 and ５二. Gote's only legal reply is △５一玉."
+          }
+        },
+        {
+          "moves": ["4a5a", "4c5b"],
+          "text": {
+            "ja": "△５一玉には▲５二龍まで。龍は４三から斜め隣へ進めます。６四の桂が５二の龍を守るため玉は取れず、後手の合法な応手は０手です。",
+            "en": "After △５一玉, ▲５二龍 is mate. A dragon may step diagonally from ４三 to ５二. The knight on ６四 protects that square, so the king cannot capture the dragon; Gote has zero legal replies."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "金で玉を寄せ、遠い飛車を通す",
+        "en": "Drive the king with a gold, then open the distant rook"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "5k3/9/5B1G1/9/9/2R6/9/9/8K b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手玉は４一、先手の飛車は離れた７六にいます。４三の角と２三の金で玉の退路を限ってから、飛車を最終手に使います。持ち駒はありません。",
+            "en": "Gote's king is on ４一, far from Sente's rook on ７六. The bishop on ４三 and gold on ２三 restrict the king before the rook is used for the finish. Sente has no pieces in hand."
+          }
+        },
+        {
+          "moves": ["2c3b"],
+          "text": {
+            "ja": "▲３二金は４一玉への王手です。金が３一と４二を押さえ、後手の合法な応手は△５一玉だけになります。次の飛車の横利きが届く位置へ玉を動かす王手です。",
+            "en": "▲３二金 checks the king on ４一. It covers ３一 and ４二, leaving only △５一玉 as a legal reply. The check drives the king onto a rank the rook can reach next."
+          }
+        },
+        {
+          "moves": ["4a5a", "7f7a+"],
+          "text": {
+            "ja": "△５一玉には▲７一飛成まで。７六の飛車が７筋を上がって成り、７一から５一へ横に王手します。角４三は５二を、金３二は４一を押さえ、後手の合法な応手は０手です。",
+            "en": "After △５一玉, ▲７一飛成 is mate. The rook climbs from ７六 to ７一, promotes, and checks across the rank toward ５一. The bishop on ４三 covers ５二, the gold on ３二 covers ４一, and Gote has zero legal replies."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "角筋を通して玉を下へ誘う",
+        "en": "Open the bishop diagonal and cover the lower exits"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/2G3S2/9/9/4B4/9/9/9/8K b G 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "７二の金は６一を、３二の銀は４一と４三を押さえます。５五の角を馬にする王手で、５一玉が下へ逃げた後に共通の金打ちを用意します。",
+            "en": "The gold on ７二 covers ６一; the silver on ３二 covers ４一 and ４三. Promote the bishop from ５五 with check and prepare one gold-drop square for either lower king escape."
+          }
+        },
+        {
+          "moves": ["5e7c+"],
+          "text": {
+            "ja": "▲７三角成は６二を通る斜線で５一玉を王手します。後手の合法な応手は△５二玉か△４二玉です。７二の金と３二の銀により左右の上段は使えません。",
+            "en": "▲７三角成 checks the king on ５一 along ６二. Gote's legal replies are △５二玉 and △４二玉. The gold on ７二 and silver on ３二 deny the upper exits on either side."
+          }
+        },
+        {
+          "moves": ["5a5b", "G*4c"],
+          "text": {
+            "ja": "△５二玉には▲４三金まで。３二の銀が４三の金を守るため玉は取れず、金の利きが５二を捉えます。後手の合法な応手は０手です。",
+            "en": "After △５二玉, ▲４三金 is mate. The silver on ３二 protects the gold, so the king cannot capture it, and the gold attacks ５二. Gote has zero legal replies."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": ["5a4b", "G*4c"],
+          "text": {
+            "ja": "△４二玉にも▲４三金まで。同じ場所の金が４二を捉え、銀３二の支えがあるので取り返せません。異なる逃げ道に同じ最終手が効く形です。",
+            "en": "After △４二玉, the same ▲４三金 mates. It attacks ４二 and remains protected by the silver on ３二. Two different king routes converge on the same final move."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "角をどけて香の王手を開く",
+        "en": "Uncover a lance check with a bishop move"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/1G2B4/9/9/4L4/9/9/8K b G 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "５六の香は５三の角に利きを遮られています。角を動かせば５筋が開きますが、ただ動かすだけでは足りません。成って金打ちの支えも作る一手を探します。",
+            "en": "The bishop on ５三 blocks the lance on ５六. Moving the bishop opens the fifth file, but the move must also support the gold used at the end. Look for a checking promotion that does both."
+          }
+        },
+        {
+          "moves": ["5c6d+"],
+          "text": {
+            "ja": "▲６四角成で香５六の縦利きが５一玉まで通ります。これは香による開き王手です。後手の合法な応手は△６一玉、△６二玉、△４一玉の三つです。",
+            "en": "▲６四角成 opens the lance's line from ５六 to the king on ５一. The check comes from the uncovered lance. Gote has three legal replies: △６一玉, △６二玉, and △４一玉."
+          }
+        },
+        {
+          "moves": ["5a6a", "G*7b"],
+          "text": {
+            "ja": "△６一玉には▲７二金まで。８三の金が７二を守り、７二の金が６一を捉えます。後手に合法な応手はありません。",
+            "en": "After △６一玉, ▲７二金 is mate. The gold on ８三 protects the new gold on ７二, which checks the king on ６一. Gote has no legal reply."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": ["5a6b", "G*7b"],
+          "text": {
+            "ja": "△６二玉にも▲７二金まで。金は６二に横から利き、８三の金に守られています。玉が一段下がっても同じ金打ちで詰みます。",
+            "en": "Against △６二玉, ▲７二金 also mates. The gold attacks ６二 from the side and is protected by the gold on ８三. Moving down one rank does not change the final square."
+          }
+        },
+        {
+          "from": 1,
+          "moves": ["5a4a", "G*4b"],
+          "text": {
+            "ja": "△４一玉なら▲４二金まで。６四の馬が５三を通って４二の金を守ります。香の開き王手に加え、角を馬にした利きが最後の金を支える点が重要です。",
+            "en": "Against △４一玉, ▲４二金 mates. The horse on ６四 protects the gold on ４二 along the diagonal through ５三. The bishop move both uncovers the lance check and creates support for the final gold."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -18,6 +18,18 @@ export const CATEGORIES: { id: Category; name: Text; about: Text }[] = [
 ]
 
 const OPENINGS = '戦法、定跡'
+const OPENING_PATHS = new Set([OPENINGS, '戦法・定跡'])
+const PATH_GROUP: Record<string, string> = {
+  ルール: '将棋のルール',
+  基本の考え方: '初心者向け入門講座',
+  終盤: '詰将棋、必至、寄せ',
+  囲い: '囲い、駒組み',
+  矢倉: '矢倉戦法',
+  雁木: '矢倉戦法',
+  対振り飛車: '対振り飛車、対抗型',
+  奇襲対策: '奇襲戦法',
+  駒落ち: '駒落ち定跡',
+}
 const TECHNIQUE_GROUP: Record<string, string> = { tesuji: '手筋', sabaki: '手筋', kuzushi: '囲い崩し' }
 
 export const STRATEGY_GROUP: Record<string, string> = {
@@ -46,10 +58,14 @@ export const STRATEGY_GROUP: Record<string, string> = {
 }
 
 export const categoryOf = (setup: Setup): Category =>
-  setup.technique ? 'skills' : setup.path ? (setup.path[0] === 'はじめての将棋' ? 'basics' : setup.path[0] === OPENINGS ? 'joseki' : 'skills') : 'joseki'
+  setup.technique ? 'skills' : setup.path ? (setup.path[0] === 'はじめての将棋' ? 'basics' : OPENING_PATHS.has(setup.path[0]) ? 'joseki' : 'skills') : 'joseki'
 
-export const groupOf = (setup: Setup) => (setup.technique ? TECHNIQUE_GROUP[setup.id] : setup.path?.at(-1))
+export const groupOf = (setup: Setup) => {
+  const group = setup.technique ? TECHNIQUE_GROUP[setup.id] : setup.path?.[0] === '囲い' ? '囲い' : setup.path?.at(-1)
+  return group ? (PATH_GROUP[group] ?? group) : undefined
+}
 
-export const josekiGroupOf = (setup: Setup) => (setup.path?.[0] === OPENINGS ? (setup.path.length > 1 ? setup.path.at(-1)! : OPENINGS) : undefined)
+export const josekiGroupOf = (setup: Setup) =>
+  setup.path && OPENING_PATHS.has(setup.path[0]) ? (setup.path.length > 1 ? groupOf(setup)! : OPENINGS) : undefined
 
 export const isOpeningBasics = (group: string) => group === OPENINGS

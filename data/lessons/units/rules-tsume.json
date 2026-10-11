@@ -1,0 +1,142 @@
+{
+  "id": "rules-tsume",
+  "order": 90,
+  "path": ["はじめての将棋", "ルール"],
+  "title": {
+    "ja": "詰将棋のルール",
+    "en": "Rules of Tsume Shogi"
+  },
+  "intro": {
+    "ja": "詰将棋は、与えられた局面から玉を詰ませる手順を探す一人用の課題です。このレッスンでは、攻め方の役割、着手数の数え方、玉方の受けを調べる範囲を三つの局面で確認します。",
+    "en": "Tsume shogi asks you to find a line from a position that ends with the opposing king mated. This lesson uses three positions to explain the attacker's role, how to count moves, and which defensive options must be checked."
+  },
+  "check": {
+    "question": {
+      "ja": "玉方に合法な受けが複数あるとき、どの受けを基準に詰みまでの手数を答えますか？",
+      "en": "When the defender has several legal replies, which reply determines the stated mate length?"
+    },
+    "answer": {
+      "ja": "詰みまで最も長く続く受けです。攻め方は、その受けを含むすべての合法な応手に対して詰みを示します。",
+      "en": "Use the reply that prolongs the line the most. The attacker must show mate against every legal defense, including that longest line."
+    }
+  },
+  "references": [
+    {
+      "title": "詰将棋の遊び方、ルール",
+      "url": "https://shogi-joutatsu.com/archives/5361",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "攻方の手は王手",
+        "en": "The attacker must give check"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/9/9/9/9/9/9/9 b G2r2b3g4s4n4l18p 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "玉方の玉だけを盤に置き、攻方が先に指す形です。攻方から見て一手ずつ、玉を逃がさない手順を探します。",
+            "en": "Only the defender's king is on the board, and the attacker moves first. Read one attacking move at a time and look for a line that leaves the king without an escape."
+          }
+        },
+        {
+          "moves": ["G*4b"],
+          "text": {
+            "ja": "▲４二金打は５一玉への王手です。攻方の候補手は、指した直後に玉へ王手がかかる手に限られます。",
+            "en": "▲４二金打 checks the king on ５一. An attacking move is eligible only if the king is in check immediately afterward."
+          }
+        },
+        {
+          "moves": ["5a4b"],
+          "text": {
+            "ja": "△４二玉と金を取れます。この王手は詰みに結びつかないので、王手を一度かけただけでは解答になりません。玉方の応手まで読んで、詰みが続くか確かめます。",
+            "en": "△４二玉 captures the gold. This check does not lead to mate, so giving check once is not enough; continue through the defender's reply and see whether the line still mates."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "一手詰を確かめる",
+        "en": "Verify a mate in one"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "8k/7R1/9/9/9/9/9/9/9 b Gr2b3g4s4n4l18p 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "玉は１一、飛車は２二にあり、攻方には金があります。金を打って、玉方に一手も返させず詰ませる場所を探してください。",
+            "en": "The king is on １一, the rook on ２二, and the attacker has a gold in hand. Find a square where a gold drop mates before the defender can reply."
+          }
+        },
+        {
+          "moves": ["G*1b"],
+          "text": {
+            "ja": "▲１二金打で詰みです。玉が移れる２一と２二は金が押さえ、１二の金を取る手は飛車が許しません。隣接した王手なので持駒を間に打って止めることもできず、攻方の一着手で終わります。",
+            "en": "▲１二金打 is mate. The gold controls ２一 and ２二, while the rook protects the gold on １二. Because the checking piece is adjacent to the king, a drop cannot interpose; the attacker's single move ends the problem."
+          }
+        },
+        {
+          "text": {
+            "ja": "詰みまでの着手を両側ぶん数えます。王手、玉方の逃げ、次の王手で終わるなら三手です。攻方が初手と終局の手を指すため、完成した詰み手順の手数は奇数になります。受けが分かれる問題では、短い枝だけでなく、詰みまで長く続く合法な受けも追って答えを確かめます。",
+            "en": "Count moves by both sides. A checking move, a king escape, and the next checking move make three moves. The attacker makes both the first and final moves, so a completed mate line has an odd length. When the defender has choices, follow the legal reply that keeps the line going longest as well as the shorter branches."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "玉方の持駒と合駒",
+        "en": "The defender's hand and interpositions"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/9/7B1/9/9/9/9/9 w 2rbg4s4n4l18p 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "２四の角から５一の玉へ、３三と４二を通る王手がかかっています。ここでは玉方の番です。盤上にない駒は、玉を除いて玉方の持駒に加えて考えます。",
+            "en": "The bishop on ２四 checks the king on ５一 along ３三 and ４二. It is the defender's turn. Treat pieces absent from the board as belonging to the defender's hand, apart from the king."
+          }
+        },
+        {
+          "text": {
+            "ja": "持駒の枚数は通常の駒一式の範囲内です。受けにも普通の将棋の決まりが適用されるため、二歩や打ち歩詰めなどの禁じ手は使えません。",
+            "en": "The hand still fits within one ordinary set of shogi pieces. Defenses follow normal shogi legality, so a double pawn or a pawn drop that gives immediate mate is not allowed."
+          }
+        },
+        {
+          "text": {
+            "ja": "４二に合駒を置くと角筋を止められそうです。この例で、その一手が詰将棋の受けとして数えられるかを確認します。",
+            "en": "A piece on ４二 appears to stop the bishop's line. Check whether that move counts as a defense in this example."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 2,
+          "moves": ["G*4b"],
+          "text": {
+            "ja": "△４二金と置けば、角と玉の間がふさがります。けれども、このあと攻方の角が金を取り、玉への王手を切らさずに済みます。",
+            "en": "△４二金 blocks the line between bishop and king. The attacker can then capture the gold with the bishop and keep the king in check."
+          },
+          "steps": [
+            {
+              "moves": ["2d4b"],
+              "text": {
+                "ja": "▲４二角で金を取っても、角の利きは５一まで届き、玉はなお王手を受けています。このように王手が途切れないだけの合駒は無駄合と呼び、玉方の手数に加えません。",
+                "en": "▲４二角 captures the gold, and the bishop still reaches the king on ５一. An interposition that only lets the attacker resume the same check is called a futile interposition and is not counted as a defensive move."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

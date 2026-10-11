@@ -1,0 +1,161 @@
+{
+  "id": "yagura-vs-bougin",
+  "order": 620,
+  "path": ["戦法・定跡", "矢倉"],
+  "title": {
+    "ja": "急ぐ棒銀には８筋の取り手を数える",
+    "en": "Count the Eighth-File Recaptures Against Rapid Climbing Silver"
+  },
+  "intro": {
+    "ja": "矢倉の形ができていても、相手の棒銀が８筋へ来たら囲いの名前だけでは受けられません。８六で歩・銀・飛車をどの順に取れるか、角の斜線を何が遮っているかを盤上で確かめます。相手が角も攻めに加えた場合は、同じ取り方を続けず守り駒の配置を選び直します。",
+    "en": "Even with a Yagura shape, the castle's name does not answer a Climbing Silver attack on the eighth file. Work out who can recapture on 8f, in what order, and which pieces interrupt the bishops' diagonals. When the attacker adds a bishop, reassess the defensive arrangement rather than repeating the earlier exchange."
+  },
+  "check": {
+    "question": {
+      "ja": "８六の交換を読む前に、先手角５九の利きと後手角の利きについて何を確認しますか？",
+      "en": "Before calculating an exchange on 8f, what must you check about Sente's bishop on 5i and Gote's bishop?"
+    },
+    "answer": {
+      "ja": "先手角５九から８六へは６八・７七が空いた時だけ線が通ります。後手角も８六を狙える配置なら取り手が増えるので、歩・銀・金・角・飛車を実際の着手順に並べ直し、玉の近くから動かす金の代価も数えます。",
+      "en": "The line from Sente's bishop on 5i to 8f opens only when 6h and 7g are clear. If Gote's bishop also reaches 8f, the attacker has another recapturer. Recount the pawns, silver, gold, bishops, and rook in move order, including the cost of moving a gold away from the king."
+    }
+  },
+  "references": [
+    {
+      "title": "矢倉戦法vs一直線棒銀",
+      "url": "https://shogi-joutatsu.com/archives/2947",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "８六に届く順番で守りを読む",
+        "en": "Read the Order of Arrivals on 8f"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "l6n1/1r4gk1/5gb2/9/1ps6/3P5/1PSG3P1/1KG4R1/4B4 w - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手は玉８八、金７八・６七、銀７七の矢倉の芯を持ちます。後手は飛車８二、歩８五、銀７五で８六を狙っています。後手角３三から７七への斜線は先手歩６六が遮り、先手角５九から８六への斜線は銀７七が遮っています。",
+            "en": "Sente has a Yagura core: king 8h, golds 7h and 6g, silver 7g. Gote aims at 8f with rook 8b, pawn 8e, and silver 7e. Sente's pawn on 6f interrupts Gote's bishop line from 3c toward 7g; Sente's silver on 7g interrupts its own bishop's line from 5i toward 8f."
+          }
+        },
+        {
+          "moves": ["8e8f"],
+          "text": {
+            "ja": "後手歩が８六へ進む一例です。８七の先手歩が取れば先手の手に歩が入り、後手銀７五は８六へ斜め前に取れます。",
+            "en": "Gote advances the pawn to 8f in this sample line. Capturing it with Sente's pawn on 8g gains a pawn in hand, but Gote's silver on 7e can then capture on 8f."
+          }
+        },
+        {
+          "moves": ["8g8f", "7e8f"],
+          "text": {
+            "ja": "先手歩が取った後、後手銀がその歩を取り返しました。ここで銀７七が８六へ進めることと、銀が動けば角５九の斜線から７七の遮りが消えることを一緒に確認します。",
+            "en": "Sente's pawn takes the pawn, and Gote's silver takes that pawn. Sente's silver on 7g can now recapture on 8f; moving it also clears 7g from the bishop's diagonal."
+          }
+        },
+        {
+          "moves": ["7g8f", "8b8f"],
+          "text": {
+            "ja": "先手銀が後手銀を取り、後手飛車が銀を取る応手です。８二から８六までの飛車道には、この時点で８三・８四・８五の駒がありません。先手角５九からは６八・７七を通って８六へ届きます。",
+            "en": "Sente's silver captures Gote's silver, and Gote chooses to capture it with the rook. The rook's route from 8b through 8c, 8d, and 8e is clear. Sente's bishop now reaches 8f through the vacant 6h and 7g squares."
+          }
+        },
+        {
+          "moves": ["5i8f"],
+          "text": {
+            "ja": "角が飛車を取るところまでを一続きで読みます。後手がこの交換を選ぶ義務はなく、飛車８二を温存する手もあります。８六の銀を飛車が取れば角で取り返される、という具体的な抑止力がこの局面の要点です。",
+            "en": "The bishop captures the rook in this chosen exchange. Gote need not offer the rook; preserving it is an option. The concrete defensive point is that a rook capture on 8f would meet a bishop recapture once Sente's silver vacates 7g."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "６六の歩を動かす前に角道を見る",
+        "en": "Check the Diagonal Before Moving the 6f Pawn"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "l6n1/1r4gk1/5gb2/9/sp7/3P5/1PSG3P1/1KG4R1/4B4 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "この形でも先手の矢倉の芯は同じです。後手角３三は４四・５五を経て７七の銀を見る向きですが、６六の先手歩が途中にあります。８筋だけを見て６筋の歩を不用意に動かすと、盤上の利きが変わります。",
+            "en": "Sente retains the same Yagura core. Gote's bishop on 3c points through 4d and 5e toward the silver on 7g, but Sente's pawn on 6f stands in the way. A sixth-file pawn move changes that geometry even if attention is fixed on the eighth file."
+          }
+        },
+        {
+          "moves": ["6f6e"],
+          "text": {
+            "ja": "先手歩が６五へ出ると６六が空きます。これは後手角が７七の銀まで通るかを確かめるための比較手です。歩を進めること自体の善悪は、この図だけでは決められません。",
+            "en": "Advancing the pawn to 6e vacates 6f. This is a comparison move for checking whether Gote's bishop can now reach the silver on 7g. The position alone does not make every sixth-file advance good or bad."
+          }
+        },
+        {
+          "moves": ["3c7g+"],
+          "text": {
+            "ja": "後手が角で銀７七を取って成る例です。４四・５五・６六がすべて空いたので角道が通りました。角は後手の敵陣に入るため、この成りは可能です。",
+            "en": "Gote chooses to capture the silver on 7g with the bishop and promote. Squares 4d, 5e, and 6f are clear. The bishop may promote because it arrives in Gote's promotion zone."
+          }
+        },
+        {
+          "moves": ["6g7g"],
+          "text": {
+            "ja": "金６七が馬を取り返せます。先手は角を持つ一方、銀を失い、金が６七から７七へ動きました。後手の角取りを一方的な得と決めつけず、持ち駒と玉の周囲の配置を比較します。",
+            "en": "Sente's gold from 6g can recapture the horse. Sente gains a bishop in hand but loses the silver, and the gold has moved from 6g to 7g. Evaluate the resulting hands and king cover rather than calling the bishop capture a free gain for either side."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "角が加わったら金の移動も交換に含める",
+        "en": "When a Bishop Joins, Count the Gold's Move Too"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "l6n1/1r4gk1/4bg3/9/sp7/3P5/1PSG3P1/1KG4R1/4B4 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手銀９五に加え、角５三は６四・７五を通って８六を見ます。先手は玉８八・金７八と６七・銀７七の矢倉ですが、８六で単に銀を取り返す計算には角の一手を加える必要があります。次は金６七を７六へ出す選択を検討します。",
+            "en": "Alongside Gote's silver on 9e, its bishop on 5c reaches 8f through 6d and 7e. Sente still has king 8h, golds 7h and 6g, and silver 7g, but the earlier count on 8f no longer applies unchanged. Consider moving the gold from 6g to 7f as one possible response."
+          }
+        },
+        {
+          "moves": ["6g7f"],
+          "text": {
+            "ja": "金７六が８六を横から支える代わりに、玉の近くの６七が空きます。守りの数は増えても囲いの金を前へ出す代価があるため、相手の別の攻め筋も確認します。",
+            "en": "The gold on 7f now controls 8f sideways, while 6g beside the king is vacant. Adding a defender has a cost: the castle gold has stepped forward, so other attack routes also need checking."
+          }
+        },
+        {
+          "moves": ["8e8f", "8g8f", "9e8f"],
+          "text": {
+            "ja": "後手が歩をぶつけ、先手歩が取り、後手銀が８六の歩を取った場合です。先手は７六の金で銀を取れますが、後手角５三の８六への斜線も空いています。",
+            "en": "In this chosen line Gote pushes the pawn, Sente's pawn captures it, and Gote's silver takes the pawn on 8f. Sente's gold on 7f can capture the silver, but Gote's bishop also has an open diagonal to 8f."
+          }
+        },
+        {
+          "moves": ["7f8f", "5c8f"],
+          "text": {
+            "ja": "金が銀を取り、後手角が金を取る交換です。角は５三から８六まで進めますが、この着地点では成れません。先手銀７七は８六へ取り返せます。",
+            "en": "The gold takes the silver and Gote's bishop captures the gold. The bishop can travel from 5c to 8f, but cannot promote on that destination. Sente's silver on 7g can recapture there."
+          }
+        },
+        {
+          "moves": ["7g8f", "8b8f", "5i8f"],
+          "text": {
+            "ja": "銀が角を取り、後手飛車が銀を取り、最後に先手角５九が飛車を取る例です。銀が７七から消えたので角道が開きます。ただし後手は途中で飛車を差し出さずに別の手を選べます。この手順は金を前へ出した時の取り手の数え方を示すもので、強制の勝ち筋ではありません。",
+            "en": "Sente's silver takes the bishop, Gote's rook takes the silver, and Sente's bishop from 5i takes the rook after 7g clears. Gote may avoid offering the rook at an earlier turn. This line shows how moving the gold changes the recapture count; it is not a forced winning sequence."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "id": "aifuri-basics",
+  "order": 1290,
+  "path": ["戦法・定跡", "相振り飛車"],
+  "title": {
+    "ja": "相振り飛車で二つの飛車筋を読む",
+    "en": "Reading both rook files in double Ranging Rook"
+  },
+  "intro": {
+    "ja": "先手が向かい飛車、後手が三間飛車を選ぶと、互いの飛車は別の筋で働きます。８筋の攻めを考える前に３筋の反撃を数え、飛車を移す前には通路と玉の位置を確かめましょう。この教材では駒をぶつけた後の取り返し方まで盤上で確認します。",
+    "en": "With Sente's Opposing Rook facing Gote's Third File Rook, the rooks work on different files. Before pressing the eighth file, count Gote's third-file counterplay; before transferring your rook, check its path and your king. The boards also show how to count recaptures after contact."
+  },
+  "check": {
+    "question": {
+      "ja": "先手の飛車が８五で後手の歩を取った後、後手銀が７三から８四へ来ました。８五の飛車をそのまま置いてよいですか？",
+      "en": "After Sente's rook takes a pawn on 8e, Gote's silver moves from 7c to 8d. Can the rook simply stay on 8e?"
+    },
+    "answer": {
+      "ja": "８四の銀は８五を利かせています。飛車を８六などへ引くか、別の具体的な受けを読む必要があります。教材の局面では▲８六飛と引きます。",
+      "en": "The silver on 8d attacks 8e. The rook needs a retreat such as 8f or another concrete defense; in the displayed position it retreats to 8f."
+    }
+  },
+  "references": [
+    {
+      "title": "相振り飛車の基本　先手向かい飛車vs後手三間飛車",
+      "url": "https://shogi-joutatsu.com/archives/829",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": { "ja": "飛車の通り道を先に作る", "en": "Clear the rook's route first" },
+      "side": "sente",
+      "kind": "position",
+      "start": "9/2k3rb1/2s6/1p3p3/6p2/2P6/2B6/2S4R1/5K3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手の飛車は２八、後手の飛車は３二です。先手は８筋へ回りたいのですが、７八の銀が横移動の通路をふさいでいます。玉もまだ４九なので、飛車の移動だけで守りが完成するわけではありません。",
+            "en": "Sente's rook is on 2h and Gote's on 3b. Sente wants to transfer to the eighth file, but the silver on 7h blocks the horizontal route. The king is still on 4i, so moving the rook alone does not complete the defense."
+          },
+          "marks": { "boxes": ["7h", "8h", "4i"] }
+        },
+        {
+          "moves": ["7h6g", "7b6b"],
+          "text": {
+            "ja": "▲６七銀で７八が空きました。銀は７六の歩も支えています。後手の△６二玉はここでの一例で、後手には別の駒組みもあります。",
+            "en": "S7h–6g clears 7h and also supports the pawn on 7f. Gote's K7b–6b is one sample developing move; other setups remain possible."
+          },
+          "marks": { "arrows": ["7h6g"], "boxes": ["7h", "7f"] }
+        },
+        {
+          "moves": ["2h8h"],
+          "text": {
+            "ja": "▲８八飛で向かい飛車になりました。２八から８八までの横のマスが空いているからこそ動けます。後手の３筋の歩と飛車は残っており、次は８筋だけでなく３筋への備えも比べます。",
+            "en": "R2h–8h completes the Opposing Rook transfer because every intervening square is empty. Gote's third-file pawn and rook remain, so the next decision must account for that file as well as the eighth."
+          },
+          "marks": { "arrows": ["2h8h"], "boxes": ["3e", "8d"] }
+        }
+      ]
+    },
+    {
+      "title": { "ja": "３筋の取り返しを数える", "en": "Count recaptures on the third file" },
+      "side": "sente",
+      "kind": "position",
+      "start": "9/2k4b1/9/5pr2/6p2/9/5SP2/1R2G1K2/9 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手の飛車は３四、歩は３五、先手の歩は３七にあります。４七の銀は３六へ進めますが、いまは歩が３七を守る形も大事です。先手は５八の金を玉の近くへ寄せます。",
+            "en": "Gote has a rook on 3d and pawn on 3e; Sente's pawn stands on 3g. The silver on 4g can move to 3f, but the pawn on 3g also matters. Sente brings the gold on 5h closer to the king."
+          },
+          "marks": { "boxes": ["3d", "3e", "3g", "4g"] }
+        },
+        {
+          "moves": ["5h4h", "3e3f"],
+          "text": {
+            "ja": "▲４八金に対して△３六歩は一つの試みです。後手の歩は３六に出ましたが、先手の３七歩で取れる位置でもあります。後手が必ずこの手を選ぶわけではありません。",
+            "en": "After G5h–4h, Gote's P3e–3f is one possible probe. The pawn has advanced to 3f, where Sente's pawn on 3g can capture it. This is a sample reply, not a forced choice for Gote."
+          },
+          "marks": { "arrows": ["3e3f"], "boxes": ["3g"] }
+        },
+        {
+          "moves": ["3g3f", "3d3f", "4g3f"],
+          "text": {
+            "ja": "▲同歩△同飛なら▲同銀で飛車を取れます。後手の飛車が３四から３六へ進む途中の３五は、歩が動いて空いています。銀の利きを数えずに△同飛と決めつけるのは危険で、後手は別の応手を選べます。",
+            "en": "If P3g×3f is met by R3d×3f, S4g×3f captures the rook. The rook's path through 3e is clear after Gote's pawn advanced. Gote can choose another reply; this line illustrates why the silver defender must be counted."
+          },
+          "marks": { "arrows": ["4g3f"], "last": "3f" }
+        }
+      ]
+    },
+    {
+      "title": { "ja": "８筋で取った後も飛車を守る", "en": "Protect the rook after eighth-file contact" },
+      "side": "sente",
+      "kind": "position",
+      "start": "9/2k3rb1/2s6/1p3pp2/9/1P7/2B6/1R3GK2/9 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "８六の歩と８八の飛車で８筋を押せます。ただし後手の７三銀は８四に進める位置にあり、飛車が８五まで出た後の安全も必要です。",
+            "en": "The pawn on 8f and rook on 8h can press the eighth file. Gote's silver on 7c can reach 8d, so Sente must consider the rook's safety after it advances to 8e."
+          },
+          "marks": { "boxes": ["8f", "8d", "7c"] }
+        },
+        {
+          "moves": ["8f8e", "8d8e", "8h8e"],
+          "text": {
+            "ja": "▲８五歩△同歩▲同飛は８筋の歩を交換する一例です。先手は後手の８筋の歩を取り、互いに歩を持ちます。しかし飛車は相手陣へ近づいたので、次の利きを確かめます。",
+            "en": "P8f–8e, P8d×8e, R8h×8e is one eighth-file pawn exchange. Sente captures Gote's pawn and each side gains a pawn in hand. The rook has advanced, so check what attacks its new square."
+          },
+          "marks": { "arrows": ["8h8e"], "last": "8e" }
+        },
+        {
+          "moves": ["7c8d", "8e8f"],
+          "text": {
+            "ja": "△８四銀は８五の飛車に当たります。▲８六飛と引けば、銀から一段離れ、７七の角も８六を守ります。後手の銀が８四へ出るかは任意なので、この形がいつも成立するという意味ではありません。",
+            "en": "S7c–8d attacks the rook on 8e. R8e–8f retreats one rank, and the bishop on 7g also protects 8f. Gote's silver move is optional; this is a board-specific way to handle that reply."
+          },
+          "marks": { "arrows": ["8e8f"], "boxes": ["7g", "8f"] }
+        }
+      ]
+    }
+  ]
+}

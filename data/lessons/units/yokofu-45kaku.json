@@ -1,0 +1,61 @@
+{
+  "id": "yokofu-45kaku",
+  "order": 770,
+  "path": ["戦法・定跡", "横歩取り"],
+  "title": { "ja": "４五角の二つの狙いを数える", "en": "Count both targets of the bishop on 4e" },
+  "intro": {
+    "ja": "横歩を取った飛車に△４五角が当たると、飛車だけを見て逃げたくなる。しかし角の反対側にも取れる駒があるかもしれない。飛車の退路、もう一方の目標を守る駒、角交換後の配置を別々に調べる。",
+    "en": "When Gote's bishop on 4e attacks a rook that took a side pawn, saving the rook is the obvious first thought. The other end of the same diagonal may contain another target. Check the rook's escape squares, the defender of the second target, and the position after a bishop trade separately."
+  },
+  "check": {
+    "question": { "ja": "４五角が３四飛と６七銀の両方を狙う局面で、飛車を３五へ逃げるだけでは何が残るか？", "en": "If a bishop on 4e attacks both the rook on 3d and the silver on 6g, what remains after the rook retreats to 3e?" },
+    "answer": { "ja": "６七銀への角の利きが残る。７八金などで６七を守る駒がいなければ、△６七角成で銀を取られる例がある。", "en": "The bishop still attacks the silver on 6g. Without a defender such as a gold on 7h, Gote may capture that silver with a promoting bishop move." }
+  },
+  "references": [{ "title": "横歩取り△4五角戦法", "url": "https://shogi-joutatsu.com/archives/3826", "license": "All rights reserved", "adapted": false }],
+  "chapters": [
+    {
+      "title": { "ja": "飛車と銀が同じ斜めにいる", "en": "Rook and silver on the bishop's two diagonals" },
+      "side": "sente", "kind": "position",
+      "start": "4k4/9/9/6R2/9/9/3S5/9/4K4 w Pb 1",
+      "steps": [
+        { "text": { "ja": "先手は横歩を取った飛車を３四に置き、銀は６七にいる。後手は角を一枚持つ。４五に打つと、飛車と銀が角の両側の斜めに並ぶ。", "en": "Sente's rook remains on 3d after a side-pawn capture, with a silver on 6g. Gote holds a bishop. A drop on 4e places the rook and silver on opposite diagonals from it." }, "marks": { "arrows": ["4e3d", "4e6g"], "boxes": ["4e"] } },
+        { "moves": ["B*4e"], "text": { "ja": "４五角打ちは３四飛を直接攻め、５六を通って６七銀も見ている。飛車の退路だけでなく、銀を誰が守るかを同時に数える。", "en": "The bishop drop attacks the rook on 3d directly and also looks through 5f at the silver on 6g. Count the silver's defender while choosing the rook's route." }, "marks": { "arrows": ["4e3d", "4e6g"], "boxes": ["5f"] } },
+        { "moves": ["3d3e", "4e6g+"], "text": { "ja": "この例では飛車を３五へかわしても、６七銀に守りがない。後手は銀を角で取り、先手陣に入る手なので馬になれる。飛車が無事でも別の駒を失う。", "en": "Here the rook escapes to 3e, but the silver on 6g has no defender. Gote takes it with the bishop and may promote on entering Sente's zone. Saving the rook did not save the second target." }, "marks": { "boxes": ["3e", "6g"] } }
+      ]
+    },
+    {
+      "title": { "ja": "守り駒を一枚足して比べる", "en": "One defender changes the bishop capture" },
+      "side": "sente", "kind": "position",
+      "start": "4k4/9/9/6R2/9/9/3S5/2G6/4K4 w Pb 1",
+      "steps": [
+        { "text": { "ja": "今度は６七銀の後ろに７八金がいる。４五角の二つの目標は同じだが、６七で銀を取られた場合の取り返しが変わる。", "en": "Now a gold on 7h sits behind the silver on 6g. The bishop on 4e will have the same two targets, but the recapture on 6g changes." }, "marks": { "boxes": ["7h", "6g", "4e"] } },
+        { "moves": ["B*4e", "3d3e"], "text": { "ja": "後手が角を打ち、先手は飛車を３五へ移した。飛車は角の斜めから外れ、４五の角へ横から利く。後手が銀を取るなら、７八金の利きも確かめる。", "en": "After the bishop drop, Sente moves the rook to 3e. The rook leaves the diagonal and attacks the bishop horizontally. If Gote takes the silver, check the gold's control from 7h." }, "marks": { "arrows": ["3e4e", "7h6g"], "boxes": ["6g"] } },
+        { "moves": ["4e6g+", "7h6g"], "text": { "ja": "後手が銀を取る手を選ぶと、先手は７八金で６七の馬を取る。先手は銀を失う代わりに角を持ち、後手は銀を持つ。これだけで形勢は決まらないが、前の盤と同じ『銀の丸損』ではない。", "en": "If Gote chooses to take the silver, Sente's gold captures the horse on 6g. Sente loses a silver but gains a bishop in hand; Gote gains the silver. This alone does not decide the game, but it differs from losing the silver without a recapture." }, "marks": { "boxes": ["6g", "3e"] } }
+      ]
+    },
+    {
+      "title": { "ja": "逃げ先を二つの利きで選ぶ", "en": "Test each rook escape against two attacks" },
+      "side": "sente", "kind": "position",
+      "start": "4k4/9/7p1/6R2/5b3/9/9/9/4K4 b P 1",
+      "steps": [
+        { "text": { "ja": "４五角は３四飛を狙い、２三歩は２四を攻めている。飛車を逃がすなら、角から離れるだけでなく着地点も安全か調べる。", "en": "The bishop on 4e attacks the rook on 3d, while the pawn on 2c attacks 2d. A rook escape must leave the bishop's line and land on a safe square." }, "marks": { "arrows": ["4e3d", "2c2d"], "boxes": ["3e", "3f"] } },
+        { "moves": ["3d3e", "4e5d"], "text": { "ja": "先手は３五へ引き、角を横から攻めた。後手が角を５四へ逃がす場合、飛車も角も盤上に残る。角の応手は一例で、先手は次の利きを再計算する。", "en": "Sente retreats to 3e and attacks the bishop sideways. If Gote moves the bishop to 5d, both pieces remain on the board. This bishop retreat is one possible reply; reassess the lines afterward." }, "marks": { "arrows": ["3e4e"], "boxes": ["5d", "2c"] } },
+        { "moves": ["3e3d"], "text": { "ja": "角が５四へ移った例では、飛車を３四へ戻しても４五角の利きはもうない。２筋に歩がある間は、２四へ逃げる判断とは別に考える。", "en": "With the bishop now on 5d, the rook can return to 3d without the former 4e bishop attack. The pawn on 2c still makes a retreat to 2d a different decision." }, "marks": { "boxes": ["3d", "5d", "2c"] } }
+      ],
+      "variations": [
+        { "from": 0, "moves": ["3d2d", "2c2d"], "text": { "ja": "２四へ戻ると２三歩が飛車を取る。角から逃げても、歩の前には止まれない。", "en": "Retreating to 2d lets the pawn on 2c capture the rook. Leaving the bishop's line is not enough." } },
+        { "from": 0, "moves": ["3d3f", "4e3f"], "text": { "ja": "３六も４五角の斜めの利きにある。この盤では角に飛車を取られる。", "en": "The bishop on 4e also covers 3f. In this position it captures a rook that retreats there." } }
+      ]
+    },
+    {
+      "title": { "ja": "角交換で飛車取りを消す", "en": "A bishop trade removes the rook attack" },
+      "side": "sente", "kind": "position",
+      "start": "4k4/9/9/4s1R2/5b3/9/9/2B6/4K4 b P 1",
+      "steps": [
+        { "text": { "ja": "４五角は３四飛と７八角を同じ斜めで攻める。一方、７八の先手角も６七・５六を通って４五角へ届く。後手の５四銀が４五を守る。", "en": "Gote's bishop on 4e attacks both the rook on 3d and Sente's bishop on 7h. Sente's bishop can also reach 4e through 6g and 5f. Gote's silver on 5d defends 4e." }, "marks": { "arrows": ["7h4e", "5d4e"], "boxes": ["3d"] } },
+        { "moves": ["7h4e", "5d4e"], "text": { "ja": "先手角で４五の角を取り、後手は５四銀で同銀と取り返した。双方が角を一枚ずつ持ち、飛車への角の直接の利きは消えた。代わりに４五銀の利きと角打ちを読み直す。", "en": "Sente captures the bishop on 4e with its own bishop, and Gote's silver from 5d recaptures. Each side now holds a bishop. The direct bishop attack on the rook is gone, but the silver's control and future bishop drops need fresh calculation." }, "marks": { "boxes": ["4e", "3d"] } },
+        { "text": { "ja": "角を交換する手も、守りの駒を盤から消す費用がある。先手玉５九の周囲と持ち角の打ち場所を見て、飛車を逃がす手と比較する。", "en": "Trading bishops also removes one of Sente's pieces from the board. Compare it with a rook escape after checking the king's shelter around 5i and the useful drop squares for each bishop in hand." } }
+      ]
+    }
+  ]
+}

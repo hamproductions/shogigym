@@ -1,17 +1,19 @@
 {
  "id": "shikenbisha-vs-anaguma--fujii",
- "title": "四間飛車 vs 居飛車穴熊(先手・藤井システム)",
- "titleEn": "Fourth File Rook vs Static Rook Anaguma (Fujii System)",
+ "title": "藤井システム：居玉で端と右桂を準備する",
+ "titleEn": "Fujii System: Prepare the Edge and Right Knight with the King at Home",
  "myStrategy": "shikenbisha",
  "opponentStrategy": "ibisha",
  "mySide": "sente",
- "source": "手順はWikipedia英語版「Fujii System」(https://en.wikipedia.org/wiki/Fujii_System)の Development 節の29手に準拠(西洋式表記からUSIに変換し合法手検証済み)。解説は同記事の本文に準拠。",
- "goalFormation": "玉は居玉のまま、左銀を4七、右桂を3七、端歩を1五まで伸ばし、▲6五歩で角筋を相手玉(2二)に通した形。",
- "goalLabel": "藤井システムの攻撃態勢が整いました",
+ "userSide": "sente",
+ "source": "四間飛車と居飛車穴熊の基本形から独自に構成。序盤の候補手はやねうら王の新ペタショック定跡（MIT、https://github.com/yaneurao/YaneuraOu）を参照し、以後の手順と分岐は合法手とエンジンで検証。解説は書き下ろし。",
+ "goalFormation": "先手は玉を５九に置いたまま飛車６八・銀４七・桂３七・端歩１五をそろえた。後手玉は２二、香は１二で、１一への潜入はまだ済んでいない。先手角８八の斜線は３三の後手角で止まり、端攻めも直ちに成立するとは限らない。８筋の歩交換を読み、玉の移動か攻撃準備かを選ぶ。",
+ "goalLabel": "居玉のまま右銀・右桂・端歩を準備",
+ "goalSfen": "ln3gsn1/1r2g2kl/p1pps1bpp/4p1p2/1p1P1p2P/2P1PPP2/PP1S1SNP1/1B1R5/LN1GKG2L b - 1",
  "root": {
   "id": "n0",
   "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
-  "comment": "藤井猛九段が創案した、居飛車穴熊・左美濃対策の四間飛車。穴熊が完成する前に、居玉のまま角筋と端から攻めかかります。",
+  "comment": "居飛車が穴熊を目指す間、玉を先に囲い込まず、右銀と右桂を働ける位置へ進める。ただし、先手の角筋と８筋の飛車先を実際の駒で確認する。居玉は攻めの一手を稼ぐ選択であり、安全の保証ではない。",
   "branches": [
    {
     "usi": "7g7f",
@@ -28,205 +30,294 @@
         "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL b - 1",
         "branches": [
          {
-          "usi": "6g6f",
+          "usi": "2h6h",
           "kind": "main",
+          "note": "先手飛車６八。先手から見た四間飛車の位置へ移し、後手の８筋飛車先とは別の筋を担当する。",
           "child": {
            "id": "n_2",
-           "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2PP5/PP2PPPPP/1B5R1/LNSGKGSNL w - 1",
+           "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/1B1R5/LNSGKGSNL w - 1",
            "branches": [
             {
              "usi": "8c8d",
              "kind": "main",
              "child": {
               "id": "n_3",
-              "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/1p4p2/9/2PP5/PP2PPPPP/1B5R1/LNSGKGSNL b - 1",
+              "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/1p4p2/9/2P6/PP1PPPPPP/1B1R5/LNSGKGSNL b - 1",
               "branches": [
                {
-                "usi": "2h6h",
+                "usi": "6g6f",
                 "kind": "main",
-                "note": "角道を止めて飛車を6筋へ。四間飛車です。",
+                "note": "先手６六歩。角の対角線を一度閉じ、６筋に飛車と歩を配置する。",
                 "child": {
                  "id": "n_4",
                  "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/1p4p2/9/2PP5/PP2PPPPP/1B1R5/LNSGKGSNL w - 1",
                  "branches": [
                   {
-                   "usi": "7a6b",
+                   "usi": "8d8e",
                    "kind": "main",
                    "child": {
                     "id": "n_5",
-                    "sfen": "ln1gkgsnl/1r1s3b1/p1pppp1pp/1p4p2/9/2PP5/PP2PPPPP/1B1R5/LNSGKGSNL b - 1",
+                    "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/6p2/1p7/2PP5/PP2PPPPP/1B1R5/LNSGKGSNL b - 1",
                     "branches": [
                      {
-                      "usi": "1g1f",
+                      "usi": "4g4f",
                       "kind": "main",
-                      "note": "▲1六歩。まだ玉は動かさず、先に端を伸ばしておきます。藤井システムは、相手が穴熊に潜る準備をしている間に、玉を5九に置いたまま攻めに出る作戦です。",
+                      "note": "先手４六歩。３九銀が４八から４七へ進むための升を空ける。",
                       "child": {
                        "id": "n_6",
-                       "sfen": "ln1gkgsnl/1r1s3b1/p1pppp1pp/1p4p2/9/2PP4P/PP2PPPP1/1B1R5/LNSGKGSNL w - 1",
+                       "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/6p2/1p7/2PP1P3/PP2P1PPP/1B1R5/LNSGKGSNL w - 1",
                        "branches": [
                         {
-                         "usi": "5a4b",
+                         "usi": "7a6b",
                          "kind": "main",
                          "child": {
                           "id": "n_7",
-                          "sfen": "ln1g1gsnl/1r1s1k1b1/p1pppp1pp/1p4p2/9/2PP4P/PP2PPPP1/1B1R5/LNSGKGSNL b - 1",
+                          "sfen": "ln1gkgsnl/1r1s3b1/p1pppp1pp/6p2/1p7/2PP1P3/PP2P1PPP/1B1R5/LNSGKGSNL b - 1",
                           "branches": [
                            {
-                            "usi": "3i3h",
+                            "usi": "1g1f",
                             "kind": "main",
+                            "note": "先手１六歩。端を使う余地を作るが、ここではまだ後手の応手を見ている段階。",
                             "child": {
                              "id": "n_8",
-                             "sfen": "ln1g1gsnl/1r1s1k1b1/p1pppp1pp/1p4p2/9/2PP4P/PP2PPPP1/1B1R2S2/LNSGKG1NL w - 1",
+                             "sfen": "ln1gkgsnl/1r1s3b1/p1pppp1pp/6p2/1p7/2PP1P2P/PP2P1PP1/1B1R5/LNSGKGSNL w - 1",
                              "branches": [
                               {
-                               "usi": "4b3b",
+                               "usi": "5a4b",
                                "kind": "main",
                                "child": {
                                 "id": "n_9",
-                                "sfen": "ln1g1gsnl/1r1s2kb1/p1pppp1pp/1p4p2/9/2PP4P/PP2PPPP1/1B1R2S2/LNSGKG1NL b - 1",
+                                "sfen": "ln1g1gsnl/1r1s1k1b1/p1pppp1pp/6p2/1p7/2PP1P2P/PP2P1PP1/1B1R5/LNSGKGSNL b - 1",
                                 "branches": [
                                  {
-                                  "usi": "7i7h",
+                                  "usi": "3i4h",
                                   "kind": "main",
+                                  "note": "先手銀４八。右銀を玉の前ではなく４筋へ運ぶ。",
                                   "child": {
                                    "id": "n_10",
-                                   "sfen": "ln1g1gsnl/1r1s2kb1/p1pppp1pp/1p4p2/9/2PP4P/PP2PPPP1/1BSR2S2/LN1GKG1NL w - 1",
+                                   "sfen": "ln1g1gsnl/1r1s1k1b1/p1pppp1pp/6p2/1p7/2PP1P2P/PP2P1PP1/1B1R1S3/LNSGKG1NL w - 1",
                                    "branches": [
                                     {
-                                     "usi": "5c5d",
+                                     "usi": "2b3c",
                                      "kind": "main",
+                                     "note": "後手角３三。角が２二を空け、後手玉の移動を可能にする。",
                                      "child": {
                                       "id": "n_11",
-                                      "sfen": "ln1g1gsnl/1r1s2kb1/p1pp1p1pp/1p2p1p2/9/2PP4P/PP2PPPP1/1BSR2S2/LN1GKG1NL b - 1",
+                                      "sfen": "ln1g1gsnl/1r1s1k3/p1ppppbpp/6p2/1p7/2PP1P2P/PP2P1PP1/1B1R1S3/LNSGKG1NL b - 1",
                                       "branches": [
                                        {
-                                        "usi": "7h6g",
+                                        "usi": "3g3f",
                                         "kind": "main",
-                                        "note": "銀を6七へ進めます。",
+                                        "note": "先手３六歩。桂２九を３七へ跳ねる升を空ける。",
                                         "child": {
                                          "id": "n_12",
-                                         "sfen": "ln1g1gsnl/1r1s2kb1/p1pp1p1pp/1p2p1p2/9/2PP4P/PP1SPPPP1/1B1R2S2/LN1GKG1NL w - 1",
+                                         "sfen": "ln1g1gsnl/1r1s1k3/p1ppppbpp/6p2/1p7/2PP1PP1P/PP2P2P1/1B1R1S3/LNSGKG1NL w - 1",
                                          "branches": [
                                           {
-                                           "usi": "6a5b",
+                                           "usi": "4b3b",
                                            "kind": "main",
                                            "child": {
                                             "id": "n_13",
-                                            "sfen": "ln3gsnl/1r1sg1kb1/p1pp1p1pp/1p2p1p2/9/2PP4P/PP1SPPPP1/1B1R2S2/LN1GKG1NL b - 1",
+                                            "sfen": "ln1g1gsnl/1r1s2k2/p1ppppbpp/6p2/1p7/2PP1PP1P/PP2P2P1/1B1R1S3/LNSGKG1NL b - 1",
                                             "branches": [
                                              {
-                                              "usi": "1f1e",
+                                              "usi": "4h4g",
                                               "kind": "main",
-                                              "note": "端歩を5段目まで突き越し、端攻めの準備をします。",
+                                              "note": "先手銀４七。４六歩で空けた位置に右銀を置く。",
                                               "child": {
                                                "id": "n_14",
-                                               "sfen": "ln3gsnl/1r1sg1kb1/p1pp1p1pp/1p2p1p2/8P/2PP5/PP1SPPPP1/1B1R2S2/LN1GKG1NL w - 1",
+                                               "sfen": "ln1g1gsnl/1r1s2k2/p1ppppbpp/6p2/1p7/2PP1PP1P/PP2PS1P1/1B1R5/LNSGKG1NL w - 1",
                                                "branches": [
                                                 {
-                                                 "usi": "6b5c",
+                                                 "usi": "6a5b",
                                                  "kind": "main",
                                                  "child": {
                                                   "id": "n_15",
-                                                  "sfen": "ln3gsnl/1r2g1kb1/p1ppsp1pp/1p2p1p2/8P/2PP5/PP1SPPPP1/1B1R2S2/LN1GKG1NL b - 1",
+                                                  "sfen": "ln3gsnl/1r1sg1k2/p1ppppbpp/6p2/1p7/2PP1PP1P/PP2PS1P1/1B1R5/LNSGKG1NL b - 1",
                                                   "branches": [
                                                    {
-                                                    "usi": "6i5h",
+                                                    "usi": "2i3g",
                                                     "kind": "main",
+                                                    "note": "先手桂３七。次に４五へ跳ねれば桂は３三角に当たる。ただし、実行時には４五の駒と後手の取り返しを確認する。",
                                                     "child": {
                                                      "id": "n_16",
-                                                     "sfen": "ln3gsnl/1r2g1kb1/p1ppsp1pp/1p2p1p2/8P/2PP5/PP1SPPPP1/1B1RG1S2/LN2KG1NL w - 1",
+                                                     "sfen": "ln3gsnl/1r1sg1k2/p1ppppbpp/6p2/1p7/2PP1PP1P/PP2PSNP1/1B1R5/LNSGKG2L w - 1",
                                                      "branches": [
                                                       {
-                                                       "usi": "8d8e",
+                                                       "usi": "3b2b",
                                                        "kind": "main",
                                                        "child": {
                                                         "id": "n_17",
-                                                        "sfen": "ln3gsnl/1r2g1kb1/p1ppsp1pp/4p1p2/1p6P/2PP5/PP1SPPPP1/1B1RG1S2/LN2KG1NL b - 1",
+                                                        "sfen": "ln3gsnl/1r1sg2k1/p1ppppbpp/6p2/1p7/2PP1PP1P/PP2PSNP1/1B1R5/LNSGKG2L b - 1",
                                                         "branches": [
                                                          {
-                                                          "usi": "8h7g",
+                                                          "usi": "1f1e",
                                                           "kind": "main",
+                                                          "note": "先手１五歩。後手の香はまだ１一にあり、端の歩は現時点で接触していない。",
                                                           "child": {
                                                            "id": "n_18",
-                                                           "sfen": "ln3gsnl/1r2g1kb1/p1ppsp1pp/4p1p2/1p6P/2PP5/PPBSPPPP1/3RG1S2/LN2KG1NL w - 1",
+                                                           "sfen": "ln3gsnl/1r1sg2k1/p1ppppbpp/6p2/1p6P/2PP1PP2/PP2PSNP1/1B1R5/LNSGKG2L w - 1",
                                                            "branches": [
                                                             {
-                                                             "usi": "2b3c",
+                                                             "usi": "1a1b",
                                                              "kind": "main",
+                                                             "note": "後手香１二。１一を空け、穴熊へ向かう準備を進める。",
                                                              "child": {
                                                               "id": "n_19",
-                                                              "sfen": "ln3gsnl/1r2g1k2/p1ppspbpp/4p1p2/1p6P/2PP5/PPBSPPPP1/3RG1S2/LN2KG1NL b - 1",
+                                                              "sfen": "ln3gsn1/1r1sg2kl/p1ppppbpp/6p2/1p6P/2PP1PP2/PP2PSNP1/1B1R5/LNSGKG2L b - 1",
                                                               "branches": [
                                                                {
-                                                                "usi": "4g4f",
+                                                                "usi": "7i7h",
                                                                 "kind": "main",
+                                                                "note": "先手銀７八。飛車６八を塞がずに左銀を上げる。",
                                                                 "child": {
                                                                  "id": "n_20",
-                                                                 "sfen": "ln3gsnl/1r2g1k2/p1ppspbpp/4p1p2/1p6P/2PP1P3/PPBSP1PP1/3RG1S2/LN2KG1NL w - 1",
+                                                                 "sfen": "ln3gsn1/1r1sg2kl/p1ppppbpp/6p2/1p6P/2PP1PP2/PP2PSNP1/1BSR5/LN1GKG2L w - 1",
                                                                  "branches": [
                                                                   {
-                                                                   "usi": "3b2b",
+                                                                   "usi": "4c4d",
                                                                    "kind": "main",
                                                                    "child": {
                                                                     "id": "n_21",
-                                                                    "sfen": "ln3gsnl/1r2g2k1/p1ppspbpp/4p1p2/1p6P/2PP1P3/PPBSP1PP1/3RG1S2/LN2KG1NL b - 1",
+                                                                    "sfen": "ln3gsn1/1r1sg2kl/p1ppp1bpp/5pp2/1p6P/2PP1PP2/PP2PSNP1/1BSR5/LN1GKG2L b - 1",
                                                                     "branches": [
                                                                      {
-                                                                      "usi": "3g3f",
+                                                                      "usi": "5g5f",
                                                                       "kind": "main",
+                                                                      "note": "先手５六歩。後手の５筋の歩が５四へ出られるので、中央の歩の位置も確認する。",
                                                                       "child": {
                                                                        "id": "n_22",
-                                                                       "sfen": "ln3gsnl/1r2g2k1/p1ppspbpp/4p1p2/1p6P/2PP1PP2/PPBSP2P1/3RG1S2/LN2KG1NL w - 1",
+                                                                       "sfen": "ln3gsn1/1r1sg2kl/p1ppp1bpp/5pp2/1p6P/2PPPPP2/PP3SNP1/1BSR5/LN1GKG2L w - 1",
                                                                        "branches": [
                                                                         {
-                                                                         "usi": "4c4d",
+                                                                         "usi": "5c5d",
                                                                          "kind": "main",
                                                                          "child": {
                                                                           "id": "n_23",
-                                                                          "sfen": "ln3gsnl/1r2g2k1/p1pps1bpp/4ppp2/1p6P/2PP1PP2/PPBSP2P1/3RG1S2/LN2KG1NL b - 1",
+                                                                          "sfen": "ln3gsn1/1r1sg2kl/p1pp2bpp/4ppp2/1p6P/2PPPPP2/PP3SNP1/1BSR5/LN1GKG2L b - 1",
                                                                           "branches": [
                                                                            {
-                                                                            "usi": "2i3g",
+                                                                            "usi": "7h6g",
                                                                             "kind": "main",
-                                                                            "note": "右桂を3七へ跳ねて攻めに参加させます。",
+                                                                            "note": "先手銀６七。左銀が６筋の歩を支える一方、飛車６八の前に立つため、飛車の縦利きは６七で止まる。",
                                                                             "child": {
                                                                              "id": "n_24",
-                                                                             "sfen": "ln3gsnl/1r2g2k1/p1pps1bpp/4ppp2/1p6P/2PP1PP2/PPBSP1NP1/3RG1S2/LN2KG2L w - 1",
+                                                                             "sfen": "ln3gsn1/1r1sg2kl/p1pp2bpp/4ppp2/1p6P/2PPPPP2/PP1S1SNP1/1B1R5/LN1GKG2L w - 1",
                                                                              "branches": [
                                                                               {
-                                                                               "usi": "5b4c",
+                                                                               "usi": "6b5c",
                                                                                "kind": "main",
                                                                                "child": {
                                                                                 "id": "n_25",
-                                                                                "sfen": "ln3gsnl/1r5k1/p1ppsgbpp/4ppp2/1p6P/2PP1PP2/PPBSP1NP1/3RG1S2/LN2KG2L b - 1",
+                                                                                "sfen": "ln3gsn1/1r2g2kl/p1pps1bpp/4ppp2/1p6P/2PPPPP2/PP1S1SNP1/1B1R5/LN1GKG2L b - 1",
                                                                                 "branches": [
                                                                                  {
                                                                                   "usi": "6f6e",
                                                                                   "kind": "main",
-                                                                                  "note": "6筋の歩を突いて角筋を通します。角は相手玉のいる2二の筋を直接にらみ、相手が穴熊(2一)に潜っても同じ筋の上にいます。",
+                                                                                  "note": "先手６五歩。６六の歩が進んで角８八の６六を空ける。角筋は６六・５五・４四を通るが、後手歩４四に遮られる。",
                                                                                   "child": {
                                                                                    "id": "n_26",
-                                                                                   "sfen": "ln3gsnl/1r5k1/p1ppsgbpp/4ppp2/1p1P4P/2P2PP2/PPBSP1NP1/3RG1S2/LN2KG2L w - 1",
+                                                                                   "sfen": "ln3gsn1/1r2g2kl/p1pps1bpp/4ppp2/1p1P4P/2P1PPP2/PP1S1SNP1/1B1R5/LN1GKG2L w - 1",
                                                                                    "branches": [
                                                                                     {
-                                                                                     "usi": "4a3b",
+                                                                                     "usi": "4d4e",
                                                                                      "kind": "main",
+                                                                                     "note": "後手４五歩。４四を空けても後手角３三が斜線上に残る。先手角８八から後手玉２二への直通路が開いたわけではない。",
                                                                                      "child": {
                                                                                       "id": "n_27",
-                                                                                      "sfen": "ln4snl/1r4gk1/p1ppsgbpp/4ppp2/1p1P4P/2P2PP2/PPBSP1NP1/3RG1S2/LN2KG2L b - 1",
+                                                                                      "sfen": "ln3gsn1/1r2g2kl/p1pps1bpp/4p1p2/1p1P1p2P/2P1PPP2/PP1S1SNP1/1B1R5/LN1GKG2L b - 1",
                                                                                       "branches": [
                                                                                        {
-                                                                                        "usi": "3h4g",
-                                                                                        "kind": "main",
-                                                                                        "note": "3八の銀を4七へ上がり、3七に跳ねた桂の頭を守ります。",
+                                                                                        "usi": "2g2f",
+                                                                                        "kind": "alt",
+                                                                                        "note": "先手２六歩。２筋の歩を進める間に、後手は８筋で接触できる。",
                                                                                         "child": {
-                                                                                         "id": "n_28",
-                                                                                         "sfen": "ln4snl/1r4gk1/p1ppsgbpp/4ppp2/1p1P4P/2P2PP2/PPBSPSNP1/3RG4/LN2KG2L w - 1",
-                                                                                         "branches": [],
-                                                                                         "comment": "藤井システムの基本形。玉は居玉のまま、角筋・右桂・端歩で穴熊の完成前に攻めかかります。相手が香を1二に上がって穴熊に入ってきたら▲2五桂、▲4五歩で角筋を開けて攻めます。逆に相手が早い戦いを仕掛けてきたら、▲4八玉〜▲3九玉と美濃囲いに切り替えます。"
+                                                                                         "id": "nb0_0",
+                                                                                         "sfen": "ln3gsn1/1r2g2kl/p1pps1bpp/4p1p2/1p1P1p2P/2P1PPPP1/PP1S1SN2/1B1R5/LN1GKG2L w - 1",
+                                                                                         "branches": [
+                                                                                          {
+                                                                                           "usi": "8e8f",
+                                                                                           "kind": "main",
+                                                                                           "note": "後手８六歩。８五歩が先手８七歩に当たる。",
+                                                                                           "child": {
+                                                                                            "id": "nb0_1",
+                                                                                            "sfen": "ln3gsn1/1r2g2kl/p1pps1bpp/4p1p2/3P1p2P/1pP1PPPP1/PP1S1SN2/1B1R5/LN1GKG2L b - 1",
+                                                                                            "branches": [
+                                                                                             {
+                                                                                              "usi": "8g8f",
+                                                                                              "kind": "main",
+                                                                                              "note": "先手８六同歩。先手が後手歩を取り、先手の持ち歩が一枚になる。",
+                                                                                              "child": {
+                                                                                               "id": "nb0_2",
+                                                                                               "sfen": "ln3gsn1/1r2g2kl/p1pps1bpp/4p1p2/3P1p2P/1PP1PPPP1/P2S1SN2/1B1R5/LN1GKG2L w P 1",
+                                                                                               "branches": [
+                                                                                                {
+                                                                                                 "usi": "8b8f",
+                                                                                                 "kind": "main",
+                                                                                                 "note": "後手８六同飛。８二飛が空いた８三・８四・８五を通り、８六の先手歩を取る。ここで双方の持ち歩が一枚ずつとなり、次の守りを選ぶ。",
+                                                                                                 "child": {
+                                                                                                  "id": "nb0_3",
+                                                                                                  "sfen": "ln3gsn1/4g2kl/p1pps1bpp/4p1p2/3P1p2P/1rP1PPPP1/P2S1SN2/1B1R5/LN1GKG2L b Pp 1",
+                                                                                                  "branches": [],
+                                                                                                  "comment": "８筋の歩交換は後手の飛車を８六へ進める。先手玉が居玉である以上、端の攻めだけを見てこの飛車を放置しない。"
+                                                                                                 }
+                                                                                                }
+                                                                                               ]
+                                                                                              }
+                                                                                             }
+                                                                                            ]
+                                                                                           }
+                                                                                          }
+                                                                                         ]
+                                                                                        }
+                                                                                       },
+                                                                                       {
+                                                                                        "usi": "1e1d",
+                                                                                        "kind": "deviation",
+                                                                                        "note": "先手１四歩。端の歩に接触するが、後手香１二の位置を数える。",
+                                                                                        "punishNote": "この形で歩を取り返すためだけに香を１四へ走らせると、後手香１二が取り返す。端の歩交換と香の損失を区別する。",
+                                                                                        "child": {
+                                                                                         "id": "nb1_0",
+                                                                                         "sfen": "ln3gsn1/1r2g2kl/p1pps1bpp/4p1p1P/1p1P1p3/2P1PPP2/PP1S1SNP1/1B1R5/LN1GKG2L w - 1",
+                                                                                         "branches": [
+                                                                                          {
+                                                                                           "usi": "1c1d",
+                                                                                           "kind": "main",
+                                                                                           "note": "後手１四同歩。後手は先手の歩を取り、１三を空ける。",
+                                                                                           "child": {
+                                                                                            "id": "nb1_1",
+                                                                                            "sfen": "ln3gsn1/1r2g2kl/p1pps1bp1/4p1p1p/1p1P1p3/2P1PPP2/PP1S1SNP1/1B1R5/LN1GKG2L b p 1",
+                                                                                            "branches": [
+                                                                                             {
+                                                                                              "usi": "1i1d",
+                                                                                              "kind": "main",
+                                                                                              "note": "先手１四同香。香が後手歩を取って前へ出る。",
+                                                                                              "child": {
+                                                                                               "id": "nb1_2",
+                                                                                               "sfen": "ln3gsn1/1r2g2kl/p1pps1bp1/4p1p1L/1p1P1p3/2P1PPP2/PP1S1SNP1/1B1R5/LN1GKG3 w Pp 1",
+                                                                                               "branches": [
+                                                                                                {
+                                                                                                 "usi": "1b1d",
+                                                                                                 "kind": "main",
+                                                                                                 "note": "後手１四同香。１二香が１三を通って先手香を取る。",
+                                                                                                 "child": {
+                                                                                                  "id": "nb1_3",
+                                                                                                  "sfen": "ln3gsn1/1r2g2k1/p1pps1bp1/4p1p1l/1p1P1p3/2P1PPP2/PP1S1SNP1/1B1R5/LN1GKG3 b Plp 1",
+                                                                                                  "branches": [],
+                                                                                                  "comment": "端歩１五は攻撃準備であり、香の利きを消したわけではない。後手香１二が１四へ届くため、この順は先手の香を失う。"
+                                                                                                 }
+                                                                                                }
+                                                                                               ]
+                                                                                              }
+                                                                                             }
+                                                                                            ]
+                                                                                           }
+                                                                                          }
+                                                                                         ]
                                                                                         }
                                                                                        }
-                                                                                      ]
+                                                                                      ],
+                                                                                      "comment": "先手玉５九のまま右銀４七・桂３七・端歩１五を用意した。後手玉は２二で香１二、穴熊は未完成。角の利きは後手角３三で止まり、後手８五歩と飛車８二があるので、攻めを急ぐ前に８筋の接触を計算する。"
                                                                                      }
                                                                                     }
                                                                                    ]

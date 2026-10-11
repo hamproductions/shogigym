@@ -1,0 +1,165 @@
+{
+  "id": "fujii-build",
+  "order": 1140,
+  "path": ["戦法・定跡", "四間飛車"],
+  "title": {
+    "ja": "藤井システムで居玉の一手をどう使うか",
+    "en": "Choosing how to spend a tempo with the Fujii System's home king"
+  },
+  "intro": {
+    "ja": "藤井システムの居玉は、囲いを省いた分の手を攻めや受けに回す選択です。６八飛と金銀の配置だけでは仕掛けの成否は決まらず、後手の８筋、端、玉の移動をその都度見ます。相手がゆっくり囲う局面と急いで歩をぶつける局面では、同じ一手の価値が変わります。",
+    "en": "Leaving the king at home in the Fujii System reserves a tempo for attack or defense instead of spending it on castling. R6h and developed golds and silvers do not prove an attack works by themselves. Reassess Gote's eighth file, edge and king movement whenever the opponent chooses between slow shelter building and immediate pawn contact."
+  },
+  "check": {
+    "question": {
+      "ja": "先手５九玉・７七角・８七歩、後手８五歩・８二飛の局面で△８六歩が来ました。先手が玉を４八へ動かす前に数えるべき８筋の続きは何ですか？",
+      "en": "Sente has K5i, B7g and P8g; Gote has R8b and P8e. After Gote pushes P8f, what eighth-file continuation should Sente count before moving the king to 4h?"
+    },
+    "answer": {
+      "ja": "▲同歩△同飛という取り合いです。表示局面では７七角が８六を守るので、後手が飛車で歩を取れば▲同角と取り返せます。後手は飛車を出す義務はなく、まず８七歩を放置しないことが要点です。",
+      "en": "Count Px8f and the possible Rx8f. In this board B7g protects 8f, so if Gote captures there with the rook, Bx8f takes it. Gote need not offer the rook; the immediate point is to avoid neglecting P8g."
+    }
+  },
+  "references": [
+    {
+      "title": "藤井システムの駒組み",
+      "url": "https://shogi-joutatsu.com/archives/7420",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "居玉のままでも８筋の歩を先に見る",
+        "en": "The home king still has to answer eighth-file contact"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "5g3/1r2g1kb1/5s3/5p3/1p7/3P5/1PB6/3RG1S2/4KG3 w - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手玉は５九に据え、金を５八・４九、銀を３八に置いています。後手８五歩と８二飛は８筋で接触でき、先手７七角は８六を斜めに守ります。玉を寄せるかどうかより、今すぐの歩の取り合いを先に数えます。",
+            "en": "Sente's king remains on 5i, with golds on 5h and 4i and S3h developed around it. Gote can make contact with P8e and R8b. B7g also controls 8f, so count that recapture before choosing another king move."
+          },
+          "marks": { "arrows": ["8e8f", "7g8f"], "boxes": ["5i", "8g"] }
+        },
+        {
+          "moves": ["8e8f"],
+          "text": {
+            "ja": "△８六歩で後手歩が８六に出ました。先手８七歩は取られる前に▲同歩と応じられます。ここで玉を４八へ寄せる一手を使うと、後手歩がさらに進めます。",
+            "en": "P8f places Gote's pawn on 8f. Sente can answer with Px8f before P8g is captured. A king move toward 4h instead spends the turn while the pawn can advance again."
+          },
+          "marks": { "last": "8f", "arrows": ["8g8f", "8f8g+"] }
+        },
+        {
+          "moves": ["8g8f", "8b8f", "7g8f"],
+          "text": {
+            "ja": "後手が△同飛を選ぶ枝なら▲同角で飛車を取れます。７七角を置いていたことが、この局面の具体的な受けです。居玉だけを理由に安全とも危険とも決めず、交換後に後手が持つ歩と先手が持つ飛車を確認します。",
+            "en": "If Gote chooses Rx8f, Bx8f captures the rook. B7g was the concrete defender in this board. The home king is neither automatically safe nor automatically lost; the resulting hands and open file still require evaluation."
+          },
+          "marks": { "last": "8f", "boxes": ["5i", "8f"] }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": ["5i4h", "8f8g+"],
+          "text": {
+            "ja": "△８六歩を受けず▲４八玉と一手使う枝では、△８七歩成で先手歩を取られます。玉を動かす手が常に悪いのではなく、この局面では８七歩への接触が先です。",
+            "en": "If Sente spends this turn on K4h instead of the contact, P8g+ captures Sente's pawn and promotes. Moving the king is not inherently wrong, but here it leaves the immediate pawn threat unanswered."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "端の応答を作戦名の証拠にしない",
+        "en": "An edge-pawn reply does not identify the whole plan"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "5g3/1r2gk1b1/2s5p/1p3p3/9/3P5/2B5P/2SRG1S2/4KG3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手は５九玉のまま、７八銀と３八銀・５八金・４九金を配置しました。後手は４二玉・７三銀・８四歩で、端の１三歩はまだ動いていません。１筋の一手だけで後手の囲いも攻めも決めつけません。",
+            "en": "Sente has left K5i at home while developing S7h, S3h and two golds. Gote has K4b, S7c and P8d; P1c has not moved. One edge move cannot establish whether Gote will castle or press with the rook and silver."
+          },
+          "marks": { "boxes": ["1g", "1c", "7c", "8d"] }
+        },
+        {
+          "moves": ["1g1f"],
+          "text": {
+            "ja": "▲１六歩は端の空間を広げます。後手がこの歩に応じるかどうかは、次の指し手が出るまで分かりません。７三銀や８四歩の位置も合わせて見ます。",
+            "en": "P1f claims edge space. Gote's answer is not yet known; S7c and P8d also remain relevant when the next move is chosen."
+          },
+          "marks": { "last": "1f", "boxes": ["1c", "7c", "8d"] }
+        },
+        {
+          "moves": ["1c1d", "7h6g", "7c6d"],
+          "text": {
+            "ja": "後手が△１四歩と応じても、先手▲６七銀のあと△６四銀と中央へ出る例があります。端の応答からはこの銀の進出を読み切れません。次に５五・７五への利きと６筋の接触を確認してから、攻めか玉移動かを選びます。",
+            "en": "Even after Gote answers with P1d, Sente's S6g can be followed by Gote's S6d, increasing central coverage toward 5e and 7e. The edge reply did not predict this move. Check the new silver contacts and sixth-file timing before spending a turn on attack or castling."
+          },
+          "marks": { "last": "6d", "arrows": ["6d5e", "6d7e"], "boxes": ["6f", "5i"] }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": ["4b3b", "7h6g"],
+          "text": {
+            "ja": "同じ先手▲１六歩に、後手が端を受けず△３二玉と寄る枝もあります。先手は▲６七銀と形を整えられますが、端を受けなかっただけで穴熊や急戦のどちらかが確定するわけではありません。",
+            "en": "Against the same Sente P1f, Gote could decline the edge and move K3b. Sente can develop S6g, but declining the edge alone does not establish whether the next plan is a deep castle or a quick attack."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "囲いの一手には４筋で応じ、歩が走れば金で受ける",
+        "en": "Use fourth-file pressure against a castle move; answer a running pawn with gold"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "2b2gs2/1r2g1k1l/6p2/5p3/9/5P3/2B2S3/3RG4/4KG3 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手玉は３二、香は１二ですが、銀はまだ３一です。先手は５九玉を動かさず、４七銀・５八金・４九金を整えました。先手４六歩と後手４四歩がぶつかれば、次の一手を後手が囲いに使うか、４筋の歩に使うかで変化します。",
+            "en": "Gote has K3b and L1b but its silver is still on 3a. Sente has left K5i at home and developed S4g, G5h and G4i. P4f faces P4d; the result depends on whether Gote next spends a turn on the shelter or pushes the pawn again."
+          },
+          "marks": { "boxes": ["3a", "4d", "4f", "5i"], "arrows": ["4f4e"] }
+        },
+        {
+          "moves": ["4f4e", "4d4e", "4g5f"],
+          "text": {
+            "ja": "▲４五歩に△同歩と来た例では、先手歩が取られます。▲５六銀は４五の後手歩を次に取りに行く手です。６八飛が歩を直接取れる位置ではないため、銀が到着するまでに後手の応手を一つ確認します。",
+            "en": "After P4e Px4e, Gote's pawn stands on 4e. S5f threatens to capture it diagonally next. R6h cannot capture that pawn directly, so Gote gets a reply before Sente's silver can take it."
+          },
+          "marks": { "last": "5f", "arrows": ["5f4e"], "boxes": ["4e"] }
+        },
+        {
+          "moves": ["3a2b", "5f4e"],
+          "text": {
+            "ja": "後手が△２二銀と囲いを続ける枝なら▲４五銀で歩を取れます。先手銀は４五へ前進しましたが、後手には金や角で次の受けを作る余地があります。後手の一手が２二に使われたことが、この歩を取れた条件です。",
+            "en": "If Gote continues the castle with S2b, Sx4e captures the pawn. The silver advances, but Gote can still develop a gold or bishop response. The immediate condition for this capture was Gote spending the turn on 2b instead of the fourth-file pawn."
+          },
+          "marks": { "last": "4e", "boxes": ["2b", "4e", "5i"] }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": ["4e4f", "4i4h", "4f4g+", "4h4g"],
+          "text": {
+            "ja": "後手が囲いを進めず△４六歩と突く枝では、▲４八金と上がって４七を守れます。△４七歩成には▲同金で取り返す例です。金が４七へ出たあとの玉形は別に評価が必要で、単に先手の攻めが成功したとはいえません。",
+            "en": "If Gote instead pushes P4f, Sente can lift G4h to cover 4g. In the sample P4g+ Gx4g, the gold captures the promoted pawn. The gold now stands on 4g and Sente's home-king cover has changed; this is a defensive choice, not proof of a successful attack."
+          }
+        }
+      ]
+    }
+  ]
+}

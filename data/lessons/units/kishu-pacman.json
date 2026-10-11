@@ -1,0 +1,137 @@
+{
+  "id": "kishu-pacman",
+  "order": 1350,
+  "path": ["戦法・定跡", "奇襲対策"],
+  "title": {
+    "ja": "４四歩の誘いを成立させる条件",
+    "en": "What makes an offered fourth-file pawn work"
+  },
+  "intro": {
+    "ja": "後手の４四歩を先手角に取らせる構想では、歩を失った後の盤面が問題です。角が入った地点から後手の何を狙うか、後手が一手で角に当てられるか、先手が歩を取らないときの配置まで確かめます。歩を差し出すだけで有利になるわけではありません。",
+    "en": "Offering Gote's pawn on 4d invites a bishop capture, but the position after that capture decides whether the idea works. Check the bishop's new targets, whether Gote can attack it in one move, and what remains if Sente declines. The pawn offer alone proves no advantage."
+  },
+  "check": {
+    "question": {
+      "ja": "先手角が４四歩を取って４四に来ました。後手が反撃の飛車を動かす前に、まず何を確かめますか？",
+      "en": "Sente's bishop has taken the offered pawn and reached 4d. What should Gote check before moving a rook to counterattack?"
+    },
+    "answer": {
+      "ja": "角が飛車や玉をすでに狙っていないか、飛車の移動経路が空いているか、移動後に飛車が角へ本当に当たるかを確かめます。第一章では△２四飛が角の斜線を外れ、４四角にも当たります。",
+      "en": "Check whether the bishop already attacks the rook or king, whether the rook's path is clear, and whether its destination actually attacks the bishop. In chapter one, R2b–2d leaves the bishop's diagonal and attacks B4d."
+    }
+  },
+  "references": [
+    {
+      "title": "パックマン戦法の指し方",
+      "url": "https://shogi-joutatsu.com/archives/2840",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": { "ja": "飛車を逃がす手が角取りにもなる", "en": "A rook escape that also attacks the bishop" },
+      "side": "gote",
+      "kind": "position",
+      "start": "4k4/7r1/9/5B3/9/9/9/9/4K4 w P 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手角が４四歩を取った後の別の局面です。先手は歩を持ち、４四角は３三を通って２二の後手飛車を狙っています。後手は飛車を助けるだけでなく、角へ当て返せる位置を探します。",
+            "en": "This newly composed position begins after Sente's bishop has taken a pawn on 4d, leaving Sente with a pawn in hand. B4d attacks Gote's rook on 2b through 3c. Gote looks for a rook escape that also attacks the bishop."
+          },
+          "marks": { "boxes": ["4d", "3c", "2b", "2d"] }
+        },
+        {
+          "moves": ["2b2d"],
+          "text": {
+            "ja": "△２四飛は２三が空いているので指せます。飛車は角の斜線から外れ、３四が空いているため４四角を横から攻めます。歩を取られた直後でも、角の置き場によっては手番で反撃できます。",
+            "en": "R2b–2d is legal because 2c is empty. The rook leaves the bishop's diagonal and attacks B4d along the fourth rank through the empty square 3d. The counterattack depends on these exact open squares."
+          },
+          "marks": { "arrows": ["2b2d"], "boxes": ["3d", "4d"] }
+        },
+        {
+          "moves": ["4d5e", "2d2e"],
+          "text": {
+            "ja": "先手が▲５五角と引いた例では、△２五飛と一段進めると３五・４五が空いていて再び角に当たります。先手は別の逃げ方も選べるため、飛車が角を必ず取るという手順ではありません。",
+            "en": "If Sente retreats B4d–5e, R2d–2e attacks it again through the empty squares 3e and 4e. Sente has other bishop moves, so this line shows a tempo-gaining route rather than a forced bishop win."
+          },
+          "marks": { "arrows": ["2d2e"], "boxes": ["5e"] }
+        }
+      ]
+    },
+    {
+      "title": { "ja": "角の成り先を守ってから受ける", "en": "Cover the bishop's promotion entry" },
+      "side": "gote",
+      "kind": "position",
+      "start": "4k4/5g3/9/5B3/9/9/9/9/4K4 w P 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "ここでも先手角は歩を取って４四にいます。角は５三へ入って成れます。後手の４二金は５二へ動けば、５三への取り返しを用意できます。",
+            "en": "Here too, Sente's bishop sits on 4d after taking the pawn. It can enter 5c and promote. Gote's gold on 4b can shift to 5b, from where it covers that entry square."
+          },
+          "marks": { "boxes": ["4d", "5c", "4b", "5b"] }
+        },
+        {
+          "moves": ["4b5b"],
+          "text": {
+            "ja": "△５二金で５三を金の前方の利きに入れます。角をすぐ追わず、成り込む地点の交換が後手に成立するようにします。",
+            "en": "G4b–5b places 5c directly in the gold's forward reach. Gote defends the bishop's entry square instead of chasing the bishop immediately."
+          },
+          "marks": { "arrows": ["4b5b"], "boxes": ["5c"] }
+        },
+        {
+          "moves": ["4d5c+", "5b5c"],
+          "text": {
+            "ja": "この例で▲５三角成なら△同金で馬を取れます。先手は角をほかへ動かせるので、金上がりだけで誘いが成功したとは言えません。後手が守ったのは５三という一地点です。",
+            "en": "If Sente chooses B4d–5c+, G5b×5c captures the horse. Sente can move the bishop elsewhere, so the gold move does not prove the pawn offer was successful; it defends one specified square."
+          },
+          "marks": { "arrows": ["5b5c"], "last": "5c" }
+        }
+      ]
+    },
+    {
+      "title": { "ja": "歩を取られない場合も四筋を数える", "en": "Keep counting the fourth file when Sente declines" },
+      "side": "gote",
+      "kind": "position",
+      "start": "4k4/9/4s4/5p3/9/9/2B4P1/9/4K4 w - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手は７七角で４四歩を取れる斜線を保ちながら、まだ取っていません。後手の５三銀は４四を守っています。相手が歩を食べると決めつけず、進めた後の空きマスも調べます。",
+            "en": "Sente's bishop on 7g still has a line to Gote's pawn on 4d but has not taken it. Gote's S5c guards 4d. Gote should assess the vacated square if the pawn advances instead of assuming Sente will accept the offer."
+          },
+          "marks": { "boxes": ["7g", "4d", "5c", "4e"] }
+        },
+        {
+          "moves": ["4d4e"],
+          "text": {
+            "ja": "△４五歩は４四を空けます。７七角は６六・５五を通って４四へ動けますが、５三銀が残っている限り、そのマスへ入る角は取られます。",
+            "en": "P4d–4e leaves 4d empty. B7g can reach 4d through 6f and 5e, but S5c still controls that square."
+          },
+          "marks": { "arrows": ["4d4e"], "boxes": ["4d", "5c"] }
+        },
+        {
+          "moves": ["7g4d", "5c4d"],
+          "text": {
+            "ja": "もし先手が▲４四角と入るなら△同銀で取れます。ただし先手は２六歩などで通常の駒組みを続けることもでき、後手は角を取れる前提で攻めを急げません。",
+            "en": "If Sente enters with B7g–4d, S5c×4d captures it. Sente may instead continue development, such as P2g–2f; Gote cannot build a plan that assumes the bishop will enter."
+          },
+          "marks": { "arrows": ["5c4d"], "last": "4d" }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": ["2g2f", "5c4d"],
+          "text": {
+            "ja": "先手が２六歩と整備するなら、後手は△４四銀で４五歩の後ろに銀を置けます。ここでは歩得も角得も起きず、互いに次の接触を選ぶ局面です。",
+            "en": "If Sente develops with P2g–2f, Gote can play S5c–4d behind P4e. Neither side has won a bishop or pawn in this branch; the next contact remains a choice."
+          },
+          "marks": { "arrows": ["5c4d"], "boxes": ["4e"] }
+        }
+      ]
+    }
+  ]
+}

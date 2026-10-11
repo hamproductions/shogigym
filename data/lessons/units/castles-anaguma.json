@@ -1,0 +1,129 @@
+{
+  "id": "castles-anaguma",
+  "order": 330,
+  "path": ["上達のためのテクニック", "囲い"],
+  "title": {
+    "ja": "穴熊は蓋と支えの数で読む",
+    "en": "Read an Anaguma by Its Cap and Supports"
+  },
+  "intro": {
+    "ja": "穴熊では玉を隅に置き、香車の下に潜らせ、銀や金で周囲を支えます。玉を遠ざける手数と、守りに使う金銀の数は攻めの速さにも影響します。居飛車なら左、振り飛車なら右に作る形があります。ミレニアムや端美濃は近い場所に玉を置く別の選択で、香車の下に玉を置く穴熊と混同せず、実際の利きで比べます。",
+    "en": "Anaguma puts the king deep in a corner beneath a lance and supports it with silver and gold. The time spent moving the king and the generals committed to defense also affect attacking speed. Static Rook commonly uses the left corner, while Ranging Rook can use the right. Millennium and Edge Mino are nearby alternatives, but their king placement differs from a king beneath the lance; compare actual squares rather than treating the labels as interchangeable."
+  },
+  "check": {
+    "question": {
+      "ja": "穴熊に金銀をもう一枚加える前に、守り以外で何を確認しますか？",
+      "en": "Before assigning another general to Anaguma, what should you check besides the extra defense?"
+    },
+    "answer": {
+      "ja": "その一手を指す時間があるか、攻めに使える金銀が何枚残るか、玉の空いた逃げ道を自分の駒で塞がないかを確認します。厚い形だけで優勢や詰まないことは決まりません。",
+      "en": "Check whether there is time for the move, how many generals remain for attack, and whether a friendly piece closes a king escape. A thick shape alone proves neither an advantage nor immunity to mate."
+    }
+  },
+  "references": [
+    {
+      "title": "穴熊系の囲い一覧",
+      "url": "https://shogi-joutatsu.com/archives/6021",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "隅の玉に銀の蓋をつける",
+        "en": "Put a silver cap beside the corner king"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/9/9/9/9/9/L8/KSG6 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手玉９九は香９八の下に入り、銀８九と金７九が隣にいます。８八が空いているままでは、玉の周辺の連結はまだ少ない状態です。銀を一段上げてから、金が銀を守るか確かめます。",
+            "en": "Sente's king is on ９九 beneath a lance on ９八, with a silver on ８九 and gold on ７九. The square ８八 is empty, leaving limited connection around the king. Raise the silver, then check whether the gold supports it."
+          }
+        },
+        {
+          "moves": ["8i8h"],
+          "text": {
+            "ja": "▲８八銀。銀８八は玉９九を斜め後ろに守り、金７九は銀８八を斜め前に守ります。一方、玉の隣の８八は自分の銀で埋まりました。相手が９筋や８筋から来るなら、銀の支えと玉の残る逃げ先の両方を調べます。",
+            "en": "▲８八銀 protects the king on ９九 diagonally backward, and the gold on ７九 protects the silver diagonally forward. The adjacent ８八 square is now occupied by Sente's own silver. Against an attack on the eighth or ninth file, inspect both that support and the king's remaining exits."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "飛車筋に金を置くなら支えを確認する",
+        "en": "Check support before placing a gold in a rook line"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/9/9/9/9/9/LS3r3/K1GG5 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "玉９九、香９八、銀８八、金７九・６九に対し、後手飛車４八が八段目を見ています。５八・６八・７八は空いていて、飛車の横筋は銀８八へ届きます。金６九を一段上げる手を評価します。",
+            "en": "Sente has king ９九, lance ９八, silver ８八, and golds ７九 and ６九. Gote's rook on ４八 sees across the eighth rank through empty ５八, ６八, and ７八 toward the silver. Consider raising the gold on ６九 into that line."
+          }
+        },
+        {
+          "moves": ["6i7h"],
+          "text": {
+            "ja": "▲７八金。飛車４八の横筋は７八の金で止まり、金７九は金７八を真上に守ります。銀８八は金７八を横には守らないため、守備の枚数を誤って数えないことが大切です。金を寄せる一手を使った分、別の攻め手が遅れる可能性もあります。",
+            "en": "▲７八金 stops the rook's lateral line at ７八; the gold on ７九 protects the new gold straight ahead. The silver on ８八 does not defend ７八 sideways, so do not overcount the defenders. This gold move also spends a turn that might otherwise have advanced an attack."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "四枚で囲う前に攻め駒を数える",
+        "en": "Count attacking pieces before committing four generals"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/9/9/9/9/9/LSG4R1/K1G1S4 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "玉９九の周囲に香９八、銀８八、金７八・７九がいて、飛車２八は攻め側にいます。もう一枚の銀５九を囲いへ寄せれば金銀四枚の形になりますが、銀を攻めへ使う選択も残っています。",
+            "en": "Around Sente's king on ９九 are a lance on ９八, silver on ８八, and golds on ７八 and ７九. The rook on ２八 remains on the attacking side. Moving the silver on ５九 into defense would make a four-general shelter, but keeping it for an attack is also a choice."
+          }
+        },
+        {
+          "moves": ["5i6h"],
+          "text": {
+            "ja": "▲６八銀。金７九が銀６八を斜め前に守り、銀６八は金７九を斜め後ろに守ります。二枚の銀と二枚の金を囲いへ使うビッグ４型の発想ですが、この一手だけで形勢は決まりません。相手の攻めが始まる前に組めるか、先手の攻めが飛車だけで足りるかを比べます。",
+            "en": "▲６八銀 creates mutual protection: the gold on ７九 guards the silver diagonally forward, and the silver on ６八 guards that gold diagonally backward. This is the four-general idea behind Big 4, but this move alone does not decide the position. Compare the time available before Gote attacks with whether Sente can attack effectively using fewer free generals."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "振り飛車なら右の隅へ潜る",
+        "en": "Ranging Rook can put the shelter in the right corner"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/9/9/9/9/9/2R5L/6GSK b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "飛車７八で左側を使い、玉１九を右隅の香１八の下に置いています。銀２九、金３九はまだ下段にいます。右側の穴熊でも玉と香の関係は同じですが、守る筋は左右反転します。",
+            "en": "Sente's rook on ７八 operates on the left, while the king on １九 sits beneath the lance on １八. The silver on ２九 and gold on ３九 are still on the back rank. A right-side Anaguma uses the same king-lance relationship with the files mirrored."
+          }
+        },
+        {
+          "moves": ["2i2h"],
+          "text": {
+            "ja": "▲２八銀。銀２八は玉１九を斜め後ろに守り、金３九が銀２八を斜め前に支えます。これは振り飛車穴熊の右側の骨格です。相手の飛車が右へ移れば安全な場所は変わるので、囲いを作った後も攻め筋を見直します。",
+            "en": "▲２八銀 protects the king on １九 diagonally backward, and the gold on ３九 supports the silver diagonally forward. This forms a right-side Ranging Rook Anaguma core. If the opposing rook switches files, reassess the king's exposure even after finishing the shelter."
+          }
+        }
+      ]
+    }
+  ]
+}
