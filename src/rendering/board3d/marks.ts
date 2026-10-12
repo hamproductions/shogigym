@@ -31,8 +31,6 @@ const sharedMaterial = (key: string, make: () => THREE.MeshBasicMaterial) => {
   return material
 }
 
-const ARROW_LIFT = 0.2
-
 const flatOnBoard = <T extends THREE.Object3D>(obj: T, square: Square, y: number) => {
   obj.rotation.x = -Math.PI / 2
   obj.position.set(squareX(square.file), y, squareZ(square.rank))
@@ -90,7 +88,6 @@ export function arrowBetween(arrow: Omit<BoardArrow, 'usi'> & { usi?: string }, 
         color: new THREE.Color(arrow.color),
         transparent: true,
         opacity: arrow.dashed ? 0.7 : 0.82,
-        depthTest: false,
         depthWrite: false,
       }),
   )
@@ -117,7 +114,7 @@ export function arrowBetween(arrow: Omit<BoardArrow, 'usi'> & { usi?: string }, 
   mesh.rotation.x = -Math.PI / 2
   const group = new THREE.Group()
   group.add(mesh)
-  group.position.copy(start).setY(ARROW_LIFT)
+  group.position.copy(start).setY(0.008)
   group.rotation.y = Math.atan2(-dir.x, -dir.z)
   if (arrow.label) {
     const flip = flipped ? -1 : 1
@@ -125,7 +122,7 @@ export function arrowBetween(arrow: Omit<BoardArrow, 'usi'> & { usi?: string }, 
     tag.userData.usi = arrow.usi
     tag.position.set(end.x, 0.004, end.z + (0.49 - stack * 0.25) * SQ_D * flip)
     tag.position.sub(group.position).applyAxisAngle(new THREE.Vector3(0, 1, 0), -group.rotation.y)
-    tag.position.y = 0.004 - ARROW_LIFT
+    tag.position.y = 0.004
     tag.rotation.z -= group.rotation.y
     group.add(tag)
   }
