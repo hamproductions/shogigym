@@ -667,6 +667,7 @@
     "castleFromWhereTheKing": "Castle, from where the king, golds and silvers stand"
   },
   "rail": {
+    "commands": "Search & commands ⌘K",
     "install": "Install app",
     "importKif": "Import KIF",
     "importKifTitle": "Import a game record (KIF, KI2, CSA, USI)",

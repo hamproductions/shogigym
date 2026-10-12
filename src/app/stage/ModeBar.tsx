@@ -36,7 +36,6 @@ type ModeBarProps = {
   barShown: boolean
   onStartOver: () => void
   onOpenGame: () => void
-  onTrends: () => void
   tsume: Tsume
   tesuji: Tesuji
   lesson: Lesson
@@ -113,7 +112,6 @@ export function ModeBar({
   barShown,
   onStartOver,
   onOpenGame,
-  onTrends,
   tsume,
   tesuji,
   lesson,
@@ -237,20 +235,12 @@ export function ModeBar({
           {mode === 'tsume' && <TsumeControls trainer={tsume} />}
           {mode === 'tesuji' && <TesujiControls trainer={tesuji} />}
           {mode === 'analyze' && (
-            <>
-              <Button size="sm" onClick={onOpenGame} title={t('rail.openTitle')} aria-label={t('rail.open')}>
-                <span className="app-control-icon">
-                  <Icon name="import" size={16} />
-                </span>
-                <span className="app-control-label">{t('rail.open')}</span>
-              </Button>
-              <Button size="sm" onClick={onTrends} title={t('insights.railTitle')} aria-label={t('insights.rail')}>
-                <span className="app-control-icon">
-                  <Icon name="trends" size={16} />
-                </span>
-                <span className="app-control-label">{t('insights.rail')}</span>
-              </Button>
-            </>
+            <Button size="sm" onClick={onOpenGame} title={t('rail.openTitle')} aria-label={t('rail.open')}>
+              <span className="app-control-icon">
+                <Icon name="import" size={16} />
+              </span>
+              <span className="app-control-label">{t('rail.open')}</span>
+            </Button>
           )}
           {mode !== 'spar' && mode !== 'view' && mode !== 'tsume' && mode !== 'tesuji' && (
             <Button

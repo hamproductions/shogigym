@@ -7,7 +7,7 @@ import { SavedGames } from './SavedGames'
 import type { AnalyzeGames } from './useAnalyzeGames'
 import { Button } from '@/app/ui/Button'
 
-export function GamesBox({ games }: { games: AnalyzeGames }) {
+export function GamesBox({ games, browse = true }: { games: AnalyzeGames; browse?: boolean }) {
   const { t } = useTranslation()
   const [note, setNote] = useState<string | null>(null)
   const [view, setView] = useState<'none' | 'saved' | 'load'>('none')
@@ -25,12 +25,16 @@ export function GamesBox({ games }: { games: AnalyzeGames }) {
         >
           {current ? t('games.saveChanges') : t('games.saveGame')}
         </Button>
-        <Button size="sm" on={view === 'saved'} onClick={() => toggle('saved')}>
-          {t('games.savedGames')} <span className="app-count">{stored.length}</span>
-        </Button>
-        <Button size="sm" on={view === 'load'} onClick={() => toggle('load')}>
-          {t('games.loadAGame')}
-        </Button>
+        {browse && (
+          <>
+            <Button size="sm" on={view === 'saved'} onClick={() => toggle('saved')}>
+              {t('games.savedGames')} <span className="app-count">{stored.length}</span>
+            </Button>
+            <Button size="sm" on={view === 'load'} onClick={() => toggle('load')}>
+              {t('games.loadAGame')}
+            </Button>
+          </>
+        )}
         <Button
           size="sm"
           onClick={() =>

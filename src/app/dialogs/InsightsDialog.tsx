@@ -8,6 +8,7 @@ import { cachedReview, useReviewVersion } from '@/app/memory'
 import { PIECE_INFO } from '@/app/pieces'
 import { Button } from '@/app/ui/Button'
 import { Dialog, DialogHeader } from '@/app/ui/Dialog'
+import { Tabs } from '@/app/ui/Tabs'
 import { engineSupported } from '@/utils/engine'
 import { buildInsights, type InsightGame, type Recurring, type Skill, type Suggestion } from '@/utils/insights'
 import { SETUPS } from '@/utils/model'
@@ -74,6 +75,8 @@ function Trend({ points }: { points: (number | null)[] }) {
   )
 }
 
+type InsightTab = 'fix' | 'skills' | 'recurring'
+
 type Props = {
   onClose: () => void
   onPractice: (items: Mistake[]) => void
@@ -85,6 +88,7 @@ export function InsightsDialog({ onClose, onPractice, onRoute, onLesson }: Props
   const { t, i18n } = useTranslation()
   const ja = i18n.language === 'ja'
   const [stored] = useState(() => loadGames())
+  const [tab, setTab] = useState<InsightTab>('fix')
   const version = useReviewVersion()
   const included: InsightGame[] = useMemo(
     () =>
@@ -142,119 +146,127 @@ export function InsightsDialog({ onClose, onPractice, onRoute, onLesson }: Props
     return t(`insights.suggest.${s.kind}`, params)
   }
   const recurringText = (r: Recurring) => t('insights.recurringItem', { count: r.count, games: r.games })
+  const trend = insights.games.map((g) => g.accuracy)
   return (
     <Dialog label={t('insights.title')} className="app-insights" onBackdrop={onClose}>
       <DialogHeader title={t('insights.title')} closeLabel={t('viewer.close')} onClose={onClose} />
-      <p className="app-muted">
-        {t('insights.includedOf', { count: included.length, total: stored.length })} · {t('insights.scopeHint')}
+      <p className="app-muted app-insight-meta" title={t('insights.scopeHint')}>
+        {t('insights.includedOf', { count: included.length, total: stored.length })}
+        {included.length > 0 && ` / ${t('insights.coverage', insights.coverage)}`}
+        {progress && ` / ${t('insights.rating', progress)}`}
       </p>
-
-      {progress && (
-        <p className="app-muted" role="status">
-          {t('insights.rating', progress)}
-        </p>
-      )}
       {!engineSupported() && <p className="app-muted">{t('insights.noEngine')}</p>}
-
       {included.length === 0 ? (
-        stored.length > 0 && <p>{t('insights.none')}</p>
+        <p className="app-insight-empty">{stored.length > 0 ? t('insights.none') : t('insights.noGames')}</p>
       ) : (
         <>
-          <section>
-            <h3>
-              {t('insights.skills')} <span className="app-muted">{t('insights.coverage', insights.coverage)}</span>
-            </h3>
-            <div className="app-insight-skills">
-              <Radar skills={insights.skills} label={(key) => t(`insights.skill.${key}`)} />
-              <ul>
-                {insights.skills.map((s) => (
-                  <li key={s.key} title={s.key in { convert: 1, tenacity: 1, punish: 1, steady: 1 } ? t(`insights.skillHint.${s.key}`) : undefined}>
-                    <span className="app-skill-name">{t(`insights.skill.${s.key}`)}</span>
-                    <b className="app-skill-value">{s.value ?? '–'}</b>
-                    <i className="app-skill-bar">
-                      <u style={{ width: `${s.value ?? 0}%` }} />
-                    </i>
-                    <small className="app-skill-detail">
-                      {s.value === null
-                        ? t('insights.few')
-                        : s.avgLoss !== undefined
-                          ? t('report.phaseDetail', { loss: s.avgLoss, percent: s.mistakeRate })
-                          : t('insights.nOfN', { hits: s.hits, total: s.total })}
-                    </small>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <h4>{t('insights.trend')}</h4>
-            <Trend points={insights.games.map((g) => g.accuracy)} />
-            <p className="app-muted">{t('insights.trendHint')}</p>
-          </section>
-
-          <section>
-            <h3>{t('insights.recurring')}</h3>
-            {insights.recurring.length === 0 ? (
-              <p className="app-muted">{t('insights.recurringEmpty')}</p>
-            ) : (
-              <>
-                <ul className="app-report-list">
-                  {insights.recurring.map((r) => (
-                    <li key={r.sfen}>
-                      <span className="app-badge" style={{ ['--label' as string]: 'var(--accent)' }}>
-                        {r.count}×
-                      </span>
-                      <div>
-                        <strong>{recurringText(r)}</strong>
-                        <MistakeDetail
-                          showPlayed
-                          sfen={r.sfen}
-                          played={r.example.usi}
-                          best={r.best}
-                          tag={r.tag}
-                          loss={r.example.review.loss}
-                          reason={r.example.review.reasons[0]}
-                        />
+          <Tabs
+            className="app-insight-tabs"
+            items={(['fix', 'skills', 'recurring'] as const).map((id) => ({
+              id,
+              label: id === 'recurring' && insights.recurring.length ? `${t('insights.recurring')} ${insights.recurring.length}` : t(`insights.${id}`),
+            }))}
+            value={tab}
+            onChange={setTab}
+          />
+          <div className="app-insight-panel" role="tabpanel">
+            {tab === 'fix' &&
+              (insights.suggestions.length === 0 ? (
+                <p className="app-muted">{t('insights.fixEmpty')}</p>
+              ) : (
+                <ol className="app-insight-fix">
+                  {insights.suggestions.slice(0, 4).map((s) => (
+                    <li key={s.kind}>
+                      <p>{suggestionText(s)}</p>
+                      <div className="app-actions">
+                        {actions(s).map((a) => (
+                          <Button key={a.key} size="sm" onClick={a.run}>
+                            {a.label}
+                          </Button>
+                        ))}
                       </div>
                     </li>
                   ))}
-                </ul>
-                <Button variant="primary" onClick={go(() => onPractice(practiceItems()))}>
-                  {t('insights.practice', { count: insights.recurring.length })}
-                </Button>
-              </>
+                </ol>
+              ))}
+            {tab === 'skills' && (
+              <div className="app-insight-skills">
+                <Radar skills={insights.skills} label={(key) => t(`insights.skill.${key}`)} />
+                <div>
+                  <ul>
+                    {insights.skills.map((s) => (
+                      <li key={s.key} title={s.key in { convert: 1, tenacity: 1, punish: 1, steady: 1 } ? t(`insights.skillHint.${s.key}`) : undefined}>
+                        <span className="app-skill-name">{t(`insights.skill.${s.key}`)}</span>
+                        <i className="app-skill-bar">
+                          <u style={{ width: `${s.value ?? 0}%` }} />
+                        </i>
+                        <b className="app-skill-value">{s.value ?? '–'}</b>
+                        <small className="app-skill-detail">
+                          {s.value === null
+                            ? t('insights.few')
+                            : s.avgLoss !== undefined
+                              ? t('report.phaseDetail', { loss: s.avgLoss, percent: s.mistakeRate })
+                              : t('insights.nOfN', { hits: s.hits, total: s.total })}
+                        </small>
+                      </li>
+                    ))}
+                  </ul>
+                  {trend.filter((v) => v !== null).length >= 2 && (
+                    <>
+                      <h4>
+                        {t('insights.trend')} <span className="app-muted">{t('insights.trendHint')}</span>
+                      </h4>
+                      <Trend points={trend} />
+                    </>
+                  )}
+                </div>
+              </div>
             )}
-            {insights.pieces.length > 0 && (
+            {tab === 'recurring' && (
               <>
-                <h4>{t('insights.pieces')}</h4>
-                <ul className="app-insight-pieces">
-                  {insights.pieces.slice(0, 3).map((p) => (
-                    <li key={p.piece}>{t('insights.pieceItem', { piece: pieceName(p.piece), mistakes: p.mistakes, moves: p.moves, percent: p.rate })}</li>
-                  ))}
-                </ul>
+                {insights.recurring.length === 0 ? (
+                  <p className="app-muted">{t('insights.recurringEmpty')}</p>
+                ) : (
+                  <>
+                    <Button variant="primary" onClick={go(() => onPractice(practiceItems()))}>
+                      {t('insights.practice', { count: insights.recurring.length })}
+                    </Button>
+                    <ul className="app-report-list">
+                      {insights.recurring.map((r) => (
+                        <li key={r.sfen}>
+                          <span className="app-badge" style={{ ['--label' as string]: 'var(--accent)' }}>
+                            {r.count}×
+                          </span>
+                          <div>
+                            <strong>{recurringText(r)}</strong>
+                            <MistakeDetail
+                              showPlayed
+                              sfen={r.sfen}
+                              played={r.example.usi}
+                              best={r.best}
+                              tag={r.tag}
+                              loss={r.example.review.loss}
+                              reason={r.example.review.reasons[0]}
+                            />
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+                {insights.pieces.length > 0 && (
+                  <>
+                    <h4>{t('insights.pieces')}</h4>
+                    <ul className="app-insight-pieces">
+                      {insights.pieces.slice(0, 3).map((p) => (
+                        <li key={p.piece}>{t('insights.pieceItem', { piece: pieceName(p.piece), mistakes: p.mistakes, moves: p.moves, percent: p.rate })}</li>
+                      ))}
+                    </ul>
+                  </>
+                )}
               </>
             )}
-          </section>
-
-          <section>
-            <h3>{t('insights.fix')}</h3>
-            {insights.suggestions.length === 0 ? (
-              <p className="app-muted">{t('insights.fixEmpty')}</p>
-            ) : (
-              <ol className="app-insight-fix">
-                {insights.suggestions.slice(0, 6).map((s) => (
-                  <li key={s.kind}>
-                    <p>{suggestionText(s)}</p>
-                    <div className="app-actions">
-                      {actions(s).map((a) => (
-                        <Button key={a.key} size="sm" onClick={a.run}>
-                          {a.label}
-                        </Button>
-                      ))}
-                    </div>
-                  </li>
-                ))}
-              </ol>
-            )}
-          </section>
+          </div>
         </>
       )}
     </Dialog>

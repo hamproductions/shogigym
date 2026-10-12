@@ -76,7 +76,7 @@ export function MovesTab({ model }: { model: PanelModel }) {
           })
         }
       />
-      {isGameMode(mode) && !preview && <GamesBox games={analyze} />}
+      {isGameMode(mode) && !preview && <GamesBox games={analyze} browse={mode !== 'analyze'} />}
     </>
   )
 }

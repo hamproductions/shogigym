@@ -1,48 +1,61 @@
 .app-insights {
+  display: flex;
+  flex-direction: column;
   width: min(720px, calc(100vw - 24px));
-  max-height: calc(100dvh - 24px);
-  overflow-y: auto;
+  max-height: min(640px, calc(100dvh - 24px));
+  overflow: hidden;
 }
 
-.app-insights section {
-  display: grid;
-  gap: var(--space-2);
-  padding-block: var(--space-3);
-  border-top: 1px solid var(--border);
-}
-
-.app-insights h3,
 .app-insights h4 {
-  margin: 0;
+  margin: var(--space-3) 0 var(--space-1);
+  font-size: var(--text-sm);
 }
 
-.app-insights h3 .app-muted {
-  margin-left: var(--space-2);
+.app-insight-meta {
+  margin: 0 0 var(--space-2);
   font-size: var(--text-xs);
-  font-weight: var(--weight-regular);
+}
+
+.app-insight-empty {
+  margin: var(--space-4) 0;
+}
+
+.app-insight-tabs {
+  flex: none;
+}
+
+.app-insight-panel {
+  flex: 1 1 auto;
+  min-height: min(340px, 50dvh);
+  overflow-y: auto;
+  padding-top: var(--space-3);
+}
+
+.app-insight-panel > .app-btn {
+  margin-bottom: var(--space-3);
 }
 
 .app-insight-skills {
   display: grid;
-  grid-template-columns: minmax(200px, 340px) 1fr;
-  align-items: center;
-  gap: var(--space-3);
+  grid-template-columns: minmax(200px, 300px) 1fr;
+  align-items: start;
+  gap: var(--space-4);
 }
 
 @media (max-width: 560px) {
   .app-insight-skills {
     grid-template-columns: 1fr;
-    justify-items: center;
   }
 
-  .app-insight-skills > ul {
-    width: 100%;
+  .app-insight-skills .app-radar {
+    justify-self: center;
+    max-width: 260px;
   }
 }
 
 .app-insight-skills ul {
   display: grid;
-  gap: var(--space-2-5);
+  gap: var(--space-2);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -50,13 +63,12 @@
 
 .app-insight-skills li {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 7em 1fr 2.2em;
   grid-template-areas:
-    'name value'
-    'bar bar'
-    'detail detail';
-  gap: 2px var(--space-2);
-  align-items: baseline;
+    'name bar value'
+    '. detail detail';
+  column-gap: var(--space-2);
+  align-items: center;
 }
 
 .app-skill-name {
@@ -66,6 +78,7 @@
 
 .app-skill-value {
   grid-area: value;
+  text-align: right;
   font-size: var(--text-md);
   font-variant-numeric: tabular-nums;
 }
@@ -146,13 +159,27 @@
 
 .app-insight-fix {
   display: grid;
-  gap: var(--space-2);
   margin: 0;
-  padding-left: var(--space-5);
+  padding: 0;
+  list-style: none;
+}
+
+.app-insight-fix li {
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.app-insight-fix li:first-child {
+  padding-top: 0;
+}
+
+.app-insight-fix li:first-child p {
+  font-size: var(--text-md);
+  font-weight: var(--weight-bold);
 }
 
 .app-insight-fix p {
-  margin: 0 0 var(--space-1);
+  margin: 0 0 var(--space-2);
 }
 
 .app-insight-pieces {

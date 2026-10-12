@@ -361,6 +361,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
           settingsOpen={showSettings}
           onSettings={() => setShowSettings(true)}
           onPalette={() => setPalette(true)}
+          onTrends={() => setShowTrends(true)}
           onReport={isGameMode(mode) && game.moves.length > 0 ? () => (setTab('report'), layout.setPanel({ hidden: false })) : undefined}
           snapshotName={`${SNAPSHOT_NAME}-${mode}-${cursor}`}
         />
@@ -384,7 +385,6 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
             barShown={evalBar}
             onStartOver={startOver}
             onOpenGame={() => setShowImport(true)}
-            onTrends={() => setShowTrends(true)}
             tsume={tsume}
             tesuji={tesuji}
             lesson={lesson}
