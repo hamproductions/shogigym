@@ -634,8 +634,9 @@
 }
 
 .app-sq {
+  --sq: #e0b84a;
   padding: 0 0.2em;
   border-radius: 0.25em;
-  background: rgb(224 184 74 / 0.3);
-  box-shadow: inset 0 -1px 0 rgb(224 184 74 / 0.6);
+  background: color-mix(in srgb, var(--sq) 38%, transparent);
+  box-shadow: inset 0 -2px 0 var(--sq);
 }

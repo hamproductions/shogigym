@@ -256,12 +256,12 @@ export function LessonGuide({ course, lesson, series }: Props) {
       <div className="app-guide-body">
         {title && (
           <h3 className="app-guide-title">
-            <SquareText text={title} />
+            <SquareText text={title} context={text} />
           </h3>
         )}
         {body.map((line, i) => (
           <p key={i} className={i === 0 ? 'app-guide-text' : 'app-guide-note'}>
-            <SquareText text={line} />
+            <SquareText text={line} context={text} />
           </p>
         ))}
         {setup?.references && <LessonReferences references={setup.references} ja={ja} className="app-guide-source" />}
