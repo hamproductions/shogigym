@@ -135,7 +135,7 @@ export function buildReport(game: GameLike, side: Side, reviewOf: (sfen: string,
   const phase = (p: Phase) => ({
     moves: sums[p][0],
     score: score(...sums[p]),
-    avgLoss: sums[p][0] >= MIN_SCORE ? Math.round(sums[p][1] / sums[p][0]) : null,
+    avgLoss: sums[p][0] >= MIN_SCORE ? Math.round((sums[p][1] / sums[p][0]) * 100) : null,
     mistakeRate: sums[p][0] >= MIN_SCORE ? Math.round((bad[p] / sums[p][0]) * 100) : null,
   })
   const problems = rated
@@ -149,7 +149,7 @@ export function buildReport(game: GameLike, side: Side, reviewOf: (sfen: string,
     rated: rated.length,
     accuracy: score(rated.length, loss),
     phases: { opening: phase('opening'), middle: phase('middle'), endgame: phase('endgame') },
-    avgLoss: rated.length >= MIN_SCORE ? Math.round(loss / rated.length) : null,
+    avgLoss: rated.length >= MIN_SCORE ? Math.round((loss / rated.length) * 100) : null,
     mistakes: problems.length,
     good,
     problems,
