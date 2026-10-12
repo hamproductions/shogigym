@@ -9,7 +9,7 @@ STATE="$T/pr-previews"
 PRS="$T/prs.json"
 SECRET="${SECRET:-}"
 # With a secret, previews live at <prefix>/<hmac of PR number>/ instead of <prefix>/<number>/.
-slug() { if [ -n "$SECRET" ]; then printf '%s' "$1" | openssl dgst -sha256 -hmac "$SECRET" -r | cut -c1-24; else echo "$1"; fi; }
+slug() { if [ -n "$SECRET" ]; then printf '%s' "$1" | openssl dgst -sha256 -hmac "$SECRET" -r | cut -c1-8; else echo "$1"; fi; }
 
 case "${1:-}" in
 list)
