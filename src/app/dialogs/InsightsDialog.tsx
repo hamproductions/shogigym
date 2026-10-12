@@ -11,8 +11,8 @@ import { Dialog, DialogHeader } from '@/app/ui/Dialog'
 import { engineSupported } from '@/utils/engine'
 import { buildInsights, type InsightGame, type Recurring, type Skill, type Suggestion } from '@/utils/insights'
 import { SETUPS } from '@/utils/model'
-import { colorSide, moveText, PIECE_CHAR, positionOf } from '@/utils/shogi'
-import { MiniBoard } from '@/app/ui/MiniBoard'
+import { moveText, PIECE_CHAR } from '@/utils/shogi'
+import { MistakeDetail } from '@/app/ui/MistakeDetail'
 import type { Mistake } from '@/utils/mistakes'
 import { FIX_ROUTE, LESSONS, type FixRoute } from './ReportDialog'
 
@@ -175,20 +175,18 @@ export function InsightsDialog({ onClose, onPractice, onRoute, onLesson }: Props
               <ul>
                 {insights.skills.map((s) => (
                   <li key={s.key} title={s.key in { convert: 1, tenacity: 1, punish: 1, steady: 1 } ? t(`insights.skillHint.${s.key}`) : undefined}>
-                    <span>{t(`insights.skill.${s.key}`)}</span>
-                    <i>
-                      <b style={{ width: `${s.value ?? 0}%` }} />
+                    <span className="app-skill-name">{t(`insights.skill.${s.key}`)}</span>
+                    <b className="app-skill-value">{s.value ?? '–'}</b>
+                    <i className="app-skill-bar">
+                      <u style={{ width: `${s.value ?? 0}%` }} />
                     </i>
-                    <span className="app-muted">
-                      {s.value ?? t('insights.few')}
-                      {s.value !== null && (
-                        <small>
-                          {s.avgLoss !== undefined
-                            ? t('report.phaseDetail', { loss: s.avgLoss, percent: s.mistakeRate })
-                            : t('insights.nOfN', { hits: s.hits, total: s.total })}
-                        </small>
-                      )}
-                    </span>
+                    <small className="app-skill-detail">
+                      {s.value === null
+                        ? t('insights.few')
+                        : s.avgLoss !== undefined
+                          ? t('report.phaseDetail', { loss: s.avgLoss, percent: s.mistakeRate })
+                          : t('insights.nOfN', { hits: s.hits, total: s.total })}
+                    </small>
                   </li>
                 ))}
               </ul>
@@ -212,8 +210,14 @@ export function InsightsDialog({ onClose, onPractice, onRoute, onLesson }: Props
                       </span>
                       <div>
                         <strong>{recurringText(r)}</strong>
-                        <em>{t(`report.weak.${r.tag}.name`)}</em>
-                        <MiniBoard sfen={r.sfen} played={r.example.usi} best={r.best} flipped={colorSide(positionOf(r.sfen).color) === 'gote'} />
+                        <MistakeDetail
+                          sfen={r.sfen}
+                          played={r.example.usi}
+                          best={r.best}
+                          tag={r.tag}
+                          loss={r.example.review.loss}
+                          reason={r.example.review.reasons[0]}
+                        />
                       </div>
                     </li>
                   ))}

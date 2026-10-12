@@ -10,8 +10,8 @@ import { inBook } from '@/utils/book'
 import { engineSupported } from '@/utils/engine'
 import { buildReport, PHASES, playerMoves, type GameLike, type Weakness } from '@/utils/learning'
 import { SETUPS } from '@/utils/model'
-import { colorSide, moveText, positionOf, type Side } from '@/utils/shogi'
-import { MiniBoard } from '@/app/ui/MiniBoard'
+import { moveText, type Side } from '@/utils/shogi'
+import { MistakeDetail } from '@/app/ui/MistakeDetail'
 import type { Mistake } from '@/utils/mistakes'
 
 export type FixRoute = 'tsume' | 'tesuji' | 'lesson'
@@ -209,10 +209,7 @@ export function GameReport({ game, userSide, rate, progress: external, choice, o
                       </span>
                       <div>
                         <strong>{t('report.played', { ply: p.ply, played: moveText(p.sfen, p.usi), loss: Math.round(p.review.loss * 100) })}</strong>
-                        {p.review.best.move !== p.usi && <span>{t('report.better', { move: moveText(p.sfen, p.review.best.move) })}</span>}
-                        {p.review.reasons[0] && <span className="app-muted">{p.review.reasons[0]}</span>}
-                        <em>{t(`report.weak.${p.tag}.name`)}</em>
-                        <MiniBoard sfen={p.sfen} played={p.usi} best={p.review.best.move} flipped={colorSide(positionOf(p.sfen).color) === 'gote'} />
+                        <MistakeDetail sfen={p.sfen} played={p.usi} best={p.review.best.move} tag={p.tag} loss={p.review.loss} reason={p.review.reasons[0]} />
                       </div>
                       <Button size="sm" onClick={() => onShow(p.ply)}>
                         {t('report.show')}
@@ -335,10 +332,7 @@ export function ReportDialog({ game, userSide, onShow, onRoute, onClose }: Repor
                         </span>
                         <div>
                           <strong>{t('report.played', { ply: p.ply, played: moveText(p.sfen, p.usi), loss: Math.round(p.review.loss * 100) })}</strong>
-                          {p.review.best.move !== p.usi && <span>{t('report.better', { move: moveText(p.sfen, p.review.best.move) })}</span>}
-                          {p.review.reasons[0] && <span className="app-muted">{p.review.reasons[0]}</span>}
-                          <em>{t(`report.weak.${p.tag}.name`)}</em>
-                          <MiniBoard sfen={p.sfen} played={p.usi} best={p.review.best.move} flipped={colorSide(positionOf(p.sfen).color) === 'gote'} />
+                          <MistakeDetail sfen={p.sfen} played={p.usi} best={p.review.best.move} tag={p.tag} loss={p.review.loss} reason={p.review.reasons[0]} />
                         </div>
                         <Button size="sm" onClick={go(() => onShow(p.ply))}>
                           {t('report.show')}

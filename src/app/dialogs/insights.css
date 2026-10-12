@@ -42,7 +42,7 @@
 
 .app-insight-skills ul {
   display: grid;
-  gap: var(--space-1-5);
+  gap: var(--space-2-5);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -50,30 +50,47 @@
 
 .app-insight-skills li {
   display: grid;
-  grid-template-columns: minmax(96px, 128px) 1fr minmax(64px, auto);
-  align-items: center;
-  gap: var(--space-2);
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'name value'
+    'bar bar'
+    'detail detail';
+  gap: 2px var(--space-2);
+  align-items: baseline;
+}
+
+.app-skill-name {
+  grid-area: name;
   font-size: var(--text-sm);
 }
 
-.app-insight-skills i {
+.app-skill-value {
+  grid-area: value;
+  font-size: var(--text-md);
+  font-variant-numeric: tabular-nums;
+}
+
+.app-skill-bar {
+  grid-area: bar;
   display: block;
-  height: 8px;
+  height: 6px;
   border-radius: var(--radius-pill);
   background: var(--border);
   overflow: hidden;
 }
 
-.app-insight-skills b {
+.app-skill-bar u {
   display: block;
   height: 100%;
+  border-radius: inherit;
   background: var(--accent);
+  text-decoration: none;
 }
 
-.app-insight-skills small {
-  display: block;
+.app-skill-detail {
+  grid-area: detail;
+  color: var(--text-muted);
   font-size: var(--text-2xs);
-  white-space: nowrap;
 }
 
 .app-radar {
@@ -142,4 +159,30 @@
   margin: 0;
   padding-left: var(--space-5);
   font-size: var(--text-sm);
+}
+
+.app-mistake {
+  display: grid;
+  gap: var(--space-1);
+  margin-top: var(--space-1);
+}
+
+.app-mistake p {
+  margin: 0;
+  font-size: var(--text-sm);
+}
+
+.app-mistake-what em {
+  color: var(--accent);
+  font-style: normal;
+  font-weight: var(--weight-bold);
+}
+
+.app-mistake-board summary {
+  width: max-content;
+  padding: var(--space-half) var(--space-2);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2, var(--card));
+  font-size: var(--text-xs);
+  cursor: pointer;
 }

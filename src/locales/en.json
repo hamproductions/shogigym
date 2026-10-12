@@ -1196,31 +1196,38 @@
     "weak": {
       "missedMate": {
         "name": "Missed a forced mate",
-        "fix": "You had a mate and played something else. Before every move in a won position, check every checking move first."
+        "fix": "You had a mate and played something else. Before every move in a won position, check every checking move first.",
+        "what": "You had a forced mate and played something else."
       },
       "allowedMate": {
         "name": "Walked into mate",
-        "fix": "A move let your opponent mate you. Before moving, ask: what checks can they make next?"
+        "fix": "A move let your opponent mate you. Before moving, ask: what checks can they make next?",
+        "what": "This move lets your opponent mate you."
       },
       "hangs": {
         "name": "Left pieces hanging",
-        "fix": "A piece could be taken for free or traded badly. Before moving, ask: what does my opponent capture now?"
+        "fix": "A piece could be taken for free or traded badly. Before moving, ask: what does my opponent capture now?",
+        "what": "This leaves a piece that can be captured for nothing, or traded badly."
       },
       "slippedWin": {
         "name": "Let a win slip",
-        "fix": "You were clearly ahead and gave it back. When ahead: simplify, trade, and cover your king before attacking."
+        "fix": "You were clearly ahead and gave it back. When ahead: simplify, trade, and cover your king before attacking.",
+        "what": "You were clearly ahead and this move gives it back."
       },
       "openingSlip": {
         "name": "Opening slip",
-        "fix": "A weak move in the first 30 moves. Learn the book lines until the reply is automatic."
+        "fix": "A weak move in the first 30 moves. Learn the book lines until the reply is automatic.",
+        "what": "This is a weaker move than the usual opening choice."
       },
       "other": {
         "name": "Other inaccuracies",
-        "fix": "Positional errors with no single cause. Replay them and compare with the better move."
+        "fix": "Positional errors with no single cause. Replay them and compare with the better move.",
+        "what": "A better move was available here."
       },
       "allowedTactic": {
         "name": "Overlooked a tactic",
-        "fix": "Your move allowed a strong reply: a fork, a capture or a drop. Before moving, list the opponent's forcing replies: checks, captures and forks."
+        "fix": "Your move allowed a strong reply: a fork, a capture or a drop. Before moving, list the opponent's forcing replies: checks, captures and forks.",
+        "what": "This allows a strong reply, such as a fork, a capture or a drop."
       }
     },
     "showDetails": "Show moves to fix ({{count}}) and best moves",
@@ -1229,6 +1236,8 @@
     "expand": "Full screen",
     "practiceMistakes": "Practise this game’s mistakes ({{count}})",
     "practiceHint": "Replay each position from your game and find the better move.",
-    "lesson": "Lesson: {{title}}"
+    "lesson": "Lesson: {{title}}",
+    "betterKeeps": "Better was {{move}}, which keeps {{percent}}% more win chance.",
+    "showPosition": "Show the position"
   }
 }
