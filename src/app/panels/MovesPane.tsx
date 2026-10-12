@@ -1,13 +1,11 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode, type Ref } from 'react'
 import { useTranslation } from 'react-i18next'
-import { LABELS, classify, usiPosition, type MoveReview } from '@/utils/analysis'
-import { analyze, engineSupported, scoreToCp } from '@/utils/engine'
+import { LABELS, type MoveReview } from '@/utils/analysis'
+import type { RatingProgress } from '@/app/hooks/useAutoRate'
 import { loadMistakes, saveMistakes } from '@/utils/mistakes'
-import { colorSide, engineReady, moveText, positionOf } from '@/utils/shogi'
-import { inBook, strip } from '@/utils/book'
+import { moveText } from '@/utils/shogi'
 import { isBad } from '@/utils/mistake'
-import { toSente } from '@/utils/notation'
-import { cachedReview, rememberReview } from '@/app/memory'
+import { cachedReview } from '@/app/memory'
 import type { Color } from 'tsshogi'
 import { type DetectionPreset } from '@/utils/formationTags'
 import { formationMoveTags, formationName } from '@/utils/formation'
@@ -23,11 +21,10 @@ type MovesPaneProps = {
   setCursor: (i: number) => void
   title: string
   canRate?: boolean
-  onScore?: (key: string, cp: number) => void
   tree?: Tree | null
   onSwitch?: (path: string[]) => void
   onDelete?: (path: string[], size: number) => void
-  autoRate?: boolean
+  rating?: RatingProgress | null
   empty?: string
   detectionPreset?: DetectionPreset
   detectionResult?: DetectionPreset & { winner?: Color; checkmate?: boolean; impasse?: boolean }
@@ -54,11 +51,10 @@ export function MovesPane({
   cursor,
   setCursor,
   title,
-  onScore,
   tree,
   onSwitch,
   onDelete,
-  autoRate,
+  rating,
   canRate = true,
   empty,
   detectionResult,
@@ -66,7 +62,6 @@ export function MovesPane({
 }: MovesPaneProps) {
   const { t, i18n } = useTranslation()
   const { showTesuji } = useSettings()
-  const [, setTick] = useState(0)
   const listRef = useRef<HTMLOListElement>(null)
   const tesujis = useMemo(() => moves.map((usi, i) => (sfens[i] ? detectTesuji(sfens[i], usi) : null)), [moves, sfens])
   const detectedTags = useMemo(() => formationMoveTags(sfens, moves, detectionPreset, detectionResult).flat(), [moves, sfens, detectionResult, detectionPreset])
@@ -74,52 +69,11 @@ export function MovesPane({
     const row = listRef.current?.querySelector('button.on') ?? listRef.current?.lastElementChild
     row?.scrollIntoView({ block: 'nearest' })
   }, [cursor, moves.length])
-  const [progress, setProgress] = useState<number | null>(null)
   const [saved, setSaved] = useState<number | null>(null)
   const reviews: (MoveReview | null)[] = moves.map((usi, i) => cachedReview(sfens[i], usi) ?? null)
   const rated = moves.length > 0 && reviews.every(Boolean)
   const labels = rated || reviews.some(Boolean) ? reviews.map((r) => r?.label ?? null) : null
-  const rateRef = useRef<() => Promise<void>>(async () => undefined)
-  const autoStarted = useRef(false)
-  useEffect(() => {
-    if (!autoRate || autoStarted.current || rated || progress !== null || moves.length === 0 || !engineSupported() || !sfens.every(engineReady)) return
-    autoStarted.current = true
-    void rateRef.current()
-  })
   if (moves.length === 0) return <p className="app-muted">{empty ?? t('moves.noMovesYetPlayOn')}</p>
-  const rate = async () => {
-    setSaved(null)
-    const results = new Map<number, Awaited<ReturnType<typeof analyze>>>()
-    const at = async (n: number) => {
-      const hit = results.get(n)
-      if (hit) return hit
-      const result = await analyze(usiPosition(sfens[n]), { multipv: 2, movetime: 400 })
-      results.set(n, result)
-      const top = result.candidates[0]
-      if (top) onScore?.(strip(sfens[n]), scoreToCp(toSente(top.score, colorSide(positionOf(sfens[n]).color))))
-      return result
-    }
-    let previousLoss = 0
-    for (let i = 1; i <= moves.length; i++) {
-      const usi = moves[i - 1]
-      const known = cachedReview(sfens[i - 1], usi)
-      if (known) {
-        previousLoss = known.loss
-        continue
-      }
-      setProgress(i)
-      const before = await at(i - 1)
-      const after = await at(i)
-      if (before.candidates.length) {
-        const review = classify({ sfen: sfens[i - 1], usi, before, after, inBook: inBook(sfens[i - 1], usi), previousLoss })
-        previousLoss = review.loss
-        rememberReview(sfens[i - 1], usi, review)
-      }
-      setTick((t) => t + 1)
-    }
-    setProgress(null)
-  }
-  rateRef.current = rate
 
   const mistakeId = (i: number) => `${sfens[i]}|${moves[i]}`
   const savedIds = new Set(loadMistakes().map((m) => m.id))
@@ -202,13 +156,8 @@ export function MovesPane({
   return (
     <div>
       <div className="app-rate">
-        {engineSupported() && sfens.every(engineReady) && canRate && progress === null && !rated && (
-          <Button size="sm" onClick={rate}>
-            {labels ? t('moves.rateTheRemainingMoves') : t('moves.rateEveryMove')}
-          </Button>
-        )}
-        {progress !== null && <span className="app-muted">{t('moves.ratingMoveOf', { progress, movesCount: moves.length })}</span>}
-        {canRate && rated && progress === null && (
+        {rating && <span className="app-muted">{t('moves.ratingMoveOf', { progress: rating.done + 1, movesCount: rating.total })}</span>}
+        {canRate && rated && !rating && (
           <>
             <span className="app-muted">{mistakes ? t('moves.mistakesFound', { count: mistakes }) : t('moves.noMistakesFound')}</span>
             {mistakes > 0 && saved === null && !allSaved && (

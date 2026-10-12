@@ -83,7 +83,7 @@ const DEFAULTS: Settings = {
   pieceMaterial: 'satsuma',
   pieceColor: 'natural',
   pieceGrain: 'masame',
-  coords: true,
+  coords: false,
   environment: defaultEnvironment(),
   boardStyle: 'kaya',
   thinkMs: 1500,

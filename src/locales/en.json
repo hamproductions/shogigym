@@ -213,7 +213,7 @@
     "showHowEachPieceMoves": "Show how each piece moves when I tap it, and describe lesson moves in plain English.",
     "howTheScreenWorks": "How the screen works",
     "sidePanel": "Side panel",
-    "coachExplainsMovesAiRates": "Coach explains moves, AI rates the position, What next shows lines, Moves lists the game. Hide it with Hide panel or ×.",
+    "coachExplainsMovesAiRates": "Coach explains moves, Analysis rates how you played, AI shows the engine's lines and what comes next, Moves lists the game. Hide it with Hide panel or ×.",
     "stepBack": "Step back",
     "andWalkThroughMovesPlay": "The ◀ ▶ buttons (or the ← → keys) walk through moves. Play a different move to try a variation; the game is kept.",
     "next": "Next",
@@ -258,7 +258,7 @@
     "takeBackAndRetry": "Take back and try again",
     "phoneMistake": "{{move}}: {{label}}. Tap Panel for why, or take it back.",
     "winChanceShort": "Win chance",
-    "panelShort": "Coach, eval, next moves and the move list. ◀ ▶ step through moves.",
+    "panelShort": "Coach, analysis, AI lines and the move list. ◀ ▶ step through moves.",
     "skipTour": "Skip",
     "learnShogi": "A training gym for learning shogi openings, from beginner to amateur 1–2 dan: pick your main strategy (Ranging Rook or Static Rook), study sourced opening lines, quiz yourself, solve tsume and play the AI. How well do you know shogi?",
     "learnTheRulesFirst": "Learn the rules first",
@@ -667,7 +667,12 @@
     "castleFromWhereTheKing": "Castle, from where the king, golds and silvers stand"
   },
   "rail": {
+    "commands": "Search & commands ⌘K",
     "install": "Install app",
+    "importKif": "Import KIF",
+    "importKifTitle": "Import a game record (KIF, KI2, CSA, USI)",
+    "open": "Open",
+    "openTitle": "Open a saved game or load a KIF",
     "installHelp": "On iPhone or iPad, open Share → Add to Home Screen. On desktop, use your browser’s Install app or Add to Dock menu. If neither option appears, open this page in Safari, Chrome or Edge.",
     "settings": "Settings",
     "control": "Control",
@@ -860,7 +865,6 @@
   "tabs": {
     "coach": "Coach",
     "engine": "AI",
-    "flow": "What next",
     "moves": "Moves",
     "report": "Analysis"
   },
@@ -1085,7 +1089,77 @@
     },
     "setup": "Setting up the pieces… {{done}} / {{total}}"
   },
+  "insights": {
+    "title": "Trends",
+    "rail": "Trends",
+    "railTitle": "Tendencies across your games: repeated mistakes, strengths and where to practise",
+    "countIn": "Count in my trends",
+    "pickSide": "Pick your side: the game is saved and counted in your trends",
+    "studyTitle": "Study only: leave this game out of your trends",
+    "savedChoice": "Saved to your games.",
+    "scope": "Games included",
+    "scopeHint": "Pick ☗ or ☖ in the Analysis tab to count a game; Study leaves it out.",
+    "includedOf": "{{count}} of {{total}} included",
+    "leftOut": "left out",
+    "role": {
+      "sente": "☗ Me",
+      "gote": "☖ Me",
+      "study": "Study"
+    },
+    "none": "No games are marked as yours yet. Play the AI, or mark a saved game above.",
+    "noGames": "No saved games yet. Finished games against the AI are saved automatically; save an analysis or import a KIF to add more.",
+    "included": "{{count}} included",
+    "rating": "Analysing your games… {{done}} of {{total}} moves",
+    "coverage": "{{rated}} of {{total}} of your moves rated",
+    "noEngine": "The engine is not available in this browser, so only moves already rated are included.",
+    "skills": "Skill profile",
+    "trend": "Accuracy by game",
+    "trendHint": "Oldest to newest",
+    "gameRow": "{{rated}}/{{total}} rated",
+    "skill": {
+      "opening": "Opening",
+      "middle": "Middlegame",
+      "endgame": "Endgame",
+      "convert": "Using an advantage",
+      "tenacity": "Fighting back",
+      "punish": "Punishing mistakes",
+      "steady": "Not cracking first"
+    },
+    "skillHint": {
+      "convert": "Games you were clearly ahead in and kept",
+      "tenacity": "Games you were clearly behind in and recovered",
+      "punish": "Opponent mistakes you answered well",
+      "steady": "Games where the opponent slipped first"
+    },
+    "few": "too few moves",
+    "nOfN": "{{hits}}/{{total}}",
+    "recurring": "Same mistakes",
+    "recurringEmpty": "No repeated mistakes yet. They appear when the same position goes wrong in more than one game.",
+    "recurringItem": "{{count}}× in {{games}} game(s)",
+    "practice": "Practise these {{count}}",
+    "pieces": "Where mistakes cluster",
+    "pieceItem": "{{piece}}: {{mistakes}} of {{moves}} moves ({{percent}}%)",
+    "fix": "Where to fix",
+    "fixEmpty": "Nothing stands out yet. Analyse a few more games.",
+    "suggest": {
+      "recurring": "You have {{count}} positions where you went wrong more than once ({{times}} mistakes in total). Drilling them is the quickest win.",
+      "phase": "Your weakest phase is the {{phase}} (score {{score}}, average loss {{loss}}).",
+      "weakness": "Your most common kind of mistake: {{name}} ({{count}} times).",
+      "convert": "You keep only {{percent}}% of the advantages you build ({{hits}} of {{total}} games). Practise finishing: yose and safe attacks.",
+      "tenacity": "You recover from only {{percent}}% of bad positions ({{hits}} of {{total}}). Look for the toughest defence instead of resigning mentally.",
+      "punish": "You punish {{percent}}% of opponent mistakes ({{hits}} of {{total}}). Check what a mistake leaves hanging before you play on.",
+      "steady": "You slip first in {{percent}}% of games ({{hits}} of {{total}} where someone slipped). Slow down in the first moves of the middlegame.",
+      "piece": "Your {{piece}} moves go wrong {{percent}}% of the time ({{moves}} moves).",
+      "turn": "Your games usually turn around move {{ply}}. Review the position just before it."
+    },
+    "phaseName": {
+      "opening": "opening",
+      "middle": "middlegame",
+      "endgame": "endgame"
+    }
+  },
   "report": {
+    "phaseDetail": "avg loss {{loss}} · mistakes {{percent}}%",
     "title": "Game report",
     "rail": "Report",
     "railTitle": "Analyse this game: what went wrong and how to fix it",
@@ -1123,31 +1197,38 @@
     "weak": {
       "missedMate": {
         "name": "Missed a forced mate",
-        "fix": "You had a mate and played something else. Before every move in a won position, check every checking move first."
+        "fix": "You had a mate and played something else. Before every move in a won position, check every checking move first.",
+        "what": "You had a forced mate and played something else."
       },
       "allowedMate": {
         "name": "Walked into mate",
-        "fix": "A move let your opponent mate you. Before moving, ask: what checks can they make next?"
+        "fix": "A move let your opponent mate you. Before moving, ask: what checks can they make next?",
+        "what": "This move lets your opponent mate you."
       },
       "hangs": {
         "name": "Left pieces hanging",
-        "fix": "A piece could be taken for free or traded badly. Before moving, ask: what does my opponent capture now?"
+        "fix": "A piece could be taken for free or traded badly. Before moving, ask: what does my opponent capture now?",
+        "what": "This leaves a piece that can be captured for nothing, or traded badly."
       },
       "slippedWin": {
         "name": "Let a win slip",
-        "fix": "You were clearly ahead and gave it back. When ahead: simplify, trade, and cover your king before attacking."
+        "fix": "You were clearly ahead and gave it back. When ahead: simplify, trade, and cover your king before attacking.",
+        "what": "You were clearly ahead and this move gives it back."
       },
       "openingSlip": {
         "name": "Opening slip",
-        "fix": "A weak move in the first 30 moves. Learn the book lines until the reply is automatic."
+        "fix": "A weak move in the first 30 moves. Learn the book lines until the reply is automatic.",
+        "what": "This is a weaker move than the usual opening choice."
       },
       "other": {
         "name": "Other inaccuracies",
-        "fix": "Positional errors with no single cause. Replay them and compare with the better move."
+        "fix": "Positional errors with no single cause. Replay them and compare with the better move.",
+        "what": "A better move was available here."
       },
       "allowedTactic": {
         "name": "Overlooked a tactic",
-        "fix": "Your move allowed a strong reply: a fork, a capture or a drop. Before moving, list the opponent's forcing replies: checks, captures and forks."
+        "fix": "Your move allowed a strong reply: a fork, a capture or a drop. Before moving, list the opponent's forcing replies: checks, captures and forks.",
+        "what": "This allows a strong reply, such as a fork, a capture or a drop."
       }
     },
     "showDetails": "Show moves to fix ({{count}}) and best moves",
@@ -1156,6 +1237,10 @@
     "expand": "Full screen",
     "practiceMistakes": "Practise this game’s mistakes ({{count}})",
     "practiceHint": "Replay each position from your game and find the better move.",
-    "lesson": "Lesson: {{title}}"
+    "lesson": "Lesson: {{title}}",
+    "enlargePosition": "Enlarge the position",
+    "youPlayed": "You played",
+    "betterWas": "Better was",
+    "keepsMore": "which keeps {{percent}}% more win chance."
   }
 }

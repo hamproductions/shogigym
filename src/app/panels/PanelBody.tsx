@@ -1,3 +1,4 @@
+import { useGameChoice } from '@/app/modes/analyze/useGameChoice'
 import { Suspense, lazy } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LABELS, type Label } from '@/utils/analysis'
@@ -5,6 +6,7 @@ import { colorSide, positionOf } from '@/utils/shogi'
 import { cachedReview, useReviewVersion } from '@/app/memory'
 import { useSession } from '@/app/hooks/session'
 import type { Evaluation } from '@/app/hooks/useEvaluation'
+import type { RatingProgress } from '@/app/hooks/useAutoRate'
 import type { Mistakes } from '@/app/hooks/useMistake'
 import type { CoachReview } from '@/app/hooks/useMoveReview'
 import type { Reply } from '@/app/hooks/useOpponent'
@@ -25,7 +27,6 @@ import type { FixRoute } from '@/app/dialogs/ReportDialog'
 import type { Mistake } from '@/utils/mistakes'
 
 const LessonMap = lazy(() => import('@/components/Flowchart').then((m) => ({ default: m.LessonMap })))
-const ImportBox = lazy(() => import('@/app/modes/analyze/ImportBox').then((m) => ({ default: m.ImportBox })))
 const KifuNotes = lazy(() => import('@/app/modes/analyze/KifuNotes').then((m) => ({ default: m.KifuNotes })))
 const ReviewPane = lazy(() => import('@/app/modes/drill/ReviewPane').then((m) => ({ default: m.ReviewPane })))
 const LessonPane = lazy(() => import('@/app/modes/lesson/LessonPane').then((m) => ({ default: m.LessonPane })))
@@ -40,6 +41,7 @@ const MovesTab = lazy(() => import('./MovesTab').then((m) => ({ default: m.Moves
 
 export type PanelModel = {
   analyzeMoves: number
+  rating: RatingProgress | null
   lesson: Lesson
   drill: Drill
   tsume: Tsume
@@ -123,7 +125,6 @@ function CoachSection({ model }: { model: PanelModel }) {
           onReturn={drill.origin ? () => model.onReturnTo(drill.origin!) : undefined}
         />
       )}
-      {mode === 'analyze' && <ImportBox onImport={analyze.importGame} />}
       {mode === 'view' && <p className="app-note">{t('watch.description')}</p>}
       {mode === 'analyze' && analyze.gameNotes && <KifuNotes notes={analyze.gameNotes} moves={game.moves} cursor={cursor} />}
       {(isGameMode(mode) || mode === 'view') && !assist && <p className="app-muted">{t('app.helpIsOffNoRatings')}</p>}
@@ -199,11 +200,12 @@ export function PanelBody({ tab, model, overlays = true }: { tab: Tab; model: Pa
   useReviewVersion()
   const { mode, course, game, sfens, sfen, cursor, setCursor, selection, ai, assist, userSide, nodes, play } = session
   const { lesson, tsume, drill, mistakes, evaluation, level, reply, bookLast, onBack } = model
+  const [choice, choose] = useGameChoice(model.analyze)
   const key = `${mode}|${course?.id ?? ''}|${lesson.lessonMode}|${tab}|${tsume.tsume?.problem.id ?? ''}|${drill.drill?.index ?? ''}`
   const endRate = lesson.done && evaluation.evalSente ? (userSide === 'sente' ? evaluation.senteRate : 1 - evaluation.senteRate) : null
   return (
     <Suspense fallback={null}>
-      {tab === 'moves' && ai && assist && game.moves.length > 0 && (isGameMode(mode) || mode === 'view') && (
+      {(tab === 'moves' || tab === 'report') && ai && assist && game.moves.length > 0 && (isGameMode(mode) || mode === 'view') && (
         <div className="app-pinned-graph">
           <EvalGraph
             values={sfens.map((s) => evaluation.evals[strip(s)])}
@@ -215,13 +217,21 @@ export function PanelBody({ tab, model, overlays = true }: { tab: Tab; model: Pa
       )}
       <div className="app-panel-body" key={key}>
         {overlays && level === 'new' && selection && !(mode === 'lesson' && course) && <PieceGuide sfen={sfen} from={selection.from} />}
-        {tab === 'engine' && <EngineSection model={model} />}
+        {tab === 'engine' && (
+          <>
+            <EngineSection model={model} />
+            <FlowSection model={model} />
+          </>
+        )}
         {tab === 'report' && isGameMode(mode) && game.moves.length > 0 && (
           <GameReport
             key={game.start}
             game={game}
             userSide={userSide}
-            rate
+            rate={false}
+            choice={choice}
+            onChoose={choose}
+            progress={model.rating}
             onShow={(ply) => setCursor(ply - 1)}
             onRoute={model.onReportRoute}
             onExpand={model.onReportExpand}
@@ -246,7 +256,6 @@ export function PanelBody({ tab, model, overlays = true }: { tab: Tab; model: Pa
           <LessonMap course={course} currentNodeId={nodes?.get(strip(sfen))?.id ?? null} onJump={lesson.jumpTo} onClose={() => lesson.setMapOpen(false)} />
         )}
         {tab === 'coach' && <CoachSection model={model} />}
-        {tab === 'flow' && <FlowSection model={model} />}
         {tab === 'moves' && <MovesTab model={model} />}
       </div>
     </Suspense>

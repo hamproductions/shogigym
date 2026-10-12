@@ -13,6 +13,7 @@ export type HandSnapshot = { url: string; mode: HandMode }
 export function handSnapshots(sfens: string[], px: number): HandSnapshot[] {
   setBoardDims()
   const portrait = layout.portrait
+  const vertical = layout.vertical
   const renderer = createRenderer(false)
   const target = createCapture(px)
   const environment = preparePieceEnvironment(renderer, false)
@@ -20,6 +21,7 @@ export function handSnapshots(sfens: string[], px: number): HandSnapshot[] {
   const out: HandSnapshot[] = []
   try {
     layout.portrait = false
+    layout.vertical = false
     for (const sfen of sfens) {
       const position = Position.newBySFEN(sfen)
       if (!position) continue
@@ -46,6 +48,7 @@ export function handSnapshots(sfens: string[], px: number): HandSnapshot[] {
   } finally {
     target.dispose()
     layout.portrait = portrait
+    layout.vertical = vertical
     material.map?.dispose()
     material.dispose()
     disposeRenderer(renderer)

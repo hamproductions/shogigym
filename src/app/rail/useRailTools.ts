@@ -25,9 +25,21 @@ type ToolActions = {
   onSaveImage: (name: string) => void
   onInstall?: () => void
   onReport?: () => void
+  onTrends?: () => void
 }
 
-export function useRailTools({ view, settingsOpen, onSettings, onPalette, snapshotName, onFlipTable, onSaveImage, onInstall, onReport }: ToolActions) {
+export function useRailTools({
+  view,
+  settingsOpen,
+  onSettings,
+  onPalette,
+  snapshotName,
+  onFlipTable,
+  onSaveImage,
+  onInstall,
+  onReport,
+  onTrends,
+}: ToolActions) {
   const { t } = useTranslation()
   const ja = useSettings().lang === 'ja'
   const { tilted, setTilted, orbit, setOrbit, flatView, showControl, setShowControl, setHideUi, fullscreen, toggleFullscreen } = view
@@ -48,7 +60,6 @@ export function useRailTools({ view, settingsOpen, onSettings, onPalette, snapsh
           } satisfies RailTool,
         ]
       : []),
-    ...(!flatView ? [{ id: 'tableflip', icon: 'tableflip', label: t('rail.tableFlip'), run: onFlipTable } satisfies RailTool] : []),
   ]
   const secondary: RailTool[] = [{ id: 'image', icon: 'image', label: t('rail.exportImage'), run: () => onSaveImage(snapshotName) }]
   const bottom: RailTool[] = [
@@ -79,7 +90,7 @@ export function useRailTools({ view, settingsOpen, onSettings, onPalette, snapsh
   ]
   const top: RailTool[] = [
     ...(onReport ? [{ id: 'report', icon: 'report', label: t('report.rail'), title: t('report.railTitle'), run: onReport } satisfies RailTool] : []),
-    { id: 'palette', icon: 'command', label: '⌘K', title: t('app.searchLinesAndCommandsK'), run: onPalette },
+    ...(onTrends ? [{ id: 'trends', icon: 'trends', label: t('insights.rail'), title: t('insights.railTitle'), run: onTrends } satisfies RailTool] : []),
     {
       id: 'control',
       icon: 'control',
@@ -90,5 +101,9 @@ export function useRailTools({ view, settingsOpen, onSettings, onPalette, snapsh
       run: () => setShowControl((v) => !v),
     },
   ]
-  return { primary, secondary, top, bottom }
+  const menu: RailTool[] = [
+    { id: 'palette', icon: 'command', label: t('rail.commands'), title: t('app.searchLinesAndCommandsK'), run: onPalette },
+    ...(!flatView ? [{ id: 'tableflip', icon: 'tableflip', label: t('rail.tableFlip'), run: onFlipTable } satisfies RailTool] : []),
+  ]
+  return { primary, secondary, top, bottom, menu }
 }

@@ -31,7 +31,7 @@ export function createRenderer(activateEnvironment = true) {
     return sharedRenderer
   }
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
-  renderer.setPixelRatio(Math.min(compactRendering() ? 1.5 : 2, window.devicePixelRatio))
+  renderer.setPixelRatio(window.devicePixelRatio || 1)
   renderer.shadowMap.enabled = true
   renderer.shadowMap.type = THREE.PCFShadowMap
   renderer.toneMapping = THREE.ACESFilmicToneMapping
@@ -178,7 +178,11 @@ function addStands(root: THREE.Group) {
   const placeStands = () =>
     stands.forEach(({ stand, side, legs }) => {
       const c = standCenter(side === 1 ? Color.BLACK : Color.WHITE)
-      stand.scale.set(layout.portrait ? STRIP_W / STAND : 1, 1, layout.portrait ? STRIP_D / STAND : 1)
+      stand.scale.set(
+        layout.portrait ? (layout.vertical ? STRIP_D : STRIP_W) / STAND : 1,
+        1,
+        layout.portrait ? (layout.vertical ? STRIP_W : STRIP_D) / STAND : 1,
+      )
       const block = CASUAL && !layout.portrait ? (THICK + STAND_TOP) / STAND_SLAB : 1
       stand.scale.y = block
       stand.position.set(c.x, STAND_TOP - (STAND_SLAB * block) / 2, c.z)

@@ -13,6 +13,8 @@ import { sfenAfter, sideMark, squareName } from '@/utils/notation'
 import { expectedMoves, reviewCounts, type ReviewItem, type ReviewQueue } from '@/app/practice'
 import type { Drill, DrillState } from './useDrill'
 import { weaknessOfMistake, type Weakness } from '@/utils/learning'
+import { figureMarks } from '@/app/modes/lesson/figureMarks'
+import { SquareText } from '@/app/modes/lesson/SquareText'
 import { Button } from '@/app/ui/Button'
 import { Card } from '@/app/ui/Card'
 
@@ -78,6 +80,21 @@ function ReviewCard({
     const piece = from && positionOf(startSfen).board.at(from)
     if (from && piece) session.setSelection({ from, color: piece.color })
   }, [hint, best, startSfen, session])
+  const task = drill.result
+    ? ''
+    : item.kind === 'position'
+      ? learning
+        ? t('review.newPositionPlayGreenArrow', { move: expected })
+        : t('review.yourMoveAsPlayThe', { side: sideMark(item.course.userSide) })
+      : t('review.inGameYouPlayed', {
+          game: !item.mistake.game ? t('review.thisGame') : item.mistake.game === 'Imported game' ? t('review.anImportedGame') : item.mistake.game,
+          move: moveText(item.mistake.sfen, item.mistake.played),
+        })
+  const { setSourceMarks } = session
+  useEffect(() => {
+    setSourceMarks(task ? figureMarks([], startSfen, false, task) : null)
+    return () => setSourceMarks(null)
+  }, [task, startSfen, setSourceMarks])
   return (
     <>
       <p className="app-muted">
@@ -89,16 +106,9 @@ function ReviewCard({
             })
           : ''}
       </p>
-      {!drill.result && (
+      {task && (
         <p className="app-task">
-          {item.kind === 'position'
-            ? learning
-              ? t('review.newPositionPlayGreenArrow', { move: expected })
-              : t('review.yourMoveAsPlayThe', { side: sideMark(item.course.userSide) })
-            : t('review.inGameYouPlayed', {
-                game: !item.mistake.game ? t('review.thisGame') : item.mistake.game === 'Imported game' ? t('review.anImportedGame') : item.mistake.game,
-                move: moveText(item.mistake.sfen, item.mistake.played),
-              })}
+          <SquareText text={task} />
         </p>
       )}
       {drill.retry && !drill.result && <p className="app-muted">{t('review.retryOnlyYourFirstTry')}</p>}

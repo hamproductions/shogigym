@@ -1,23 +1,25 @@
 import * as THREE from 'three'
 import { Color } from 'tsshogi'
 import { HALF_D, HALF_W, STAND, STAND_TOP, STRIP_D } from './dimensions'
-import { sideStandsFit } from './dimensions'
-export { sideStandsFit }
+import { sideStandsFit, verticalStripsFit } from './dimensions'
+export { sideStandsFit, verticalStripsFit }
 import type { Latest, SceneState, StandZones } from './types'
 
-export const layout = { portrait: false, narrow: false }
+export const layout = { portrait: false, narrow: false, vertical: false }
 
 export const stripZ = () => HALF_D + 0.25 + STRIP_D / 2
+export const stripX = () => HALF_W + 0.25 + STRIP_D / 2
 
 export function standCenter(color: Color) {
   const sign = color === Color.BLACK ? 1 : -1
+  if (layout.portrait && layout.vertical) return new THREE.Vector3(sign * stripX(), STAND_TOP, 0)
   return layout.portrait
     ? new THREE.Vector3(0, STAND_TOP, sign * stripZ())
     : new THREE.Vector3(sign * (HALF_W + 0.4 + STAND / 2), STAND_TOP, sign * (HALF_D - STAND / 2))
 }
 
-export function cameraFit(aspect: number, tilt: number, sideRoom: number, portrait = layout.portrait, narrow = layout.narrow) {
-  return cameraFitFor(aspect, tilt, sideRoom, { halfW: HALF_W, halfD: HALF_D, stand: STAND, stripD: STRIP_D, stripZ: stripZ() }, portrait, narrow)
+export function cameraFit(aspect: number, tilt: number, sideRoom: number, portrait = layout.portrait, narrow = layout.narrow, vertical = layout.vertical) {
+  return cameraFitFor(aspect, tilt, sideRoom, { halfW: HALF_W, halfD: HALF_D, stand: STAND, stripD: STRIP_D, stripZ: stripZ() }, portrait, narrow, vertical)
 }
 
 export function cameraFitFor(
@@ -27,10 +29,14 @@ export function cameraFitFor(
   dims: { halfW: number; halfD: number; stand: number; stripD: number; stripZ: number },
   portrait = false,
   narrow = false,
+  vertical = false,
 ) {
-  const fit = portrait
-    ? Math.max((2 * dims.halfW + (narrow ? 0.5 : 1.0)) / aspect, 2 * (dims.stripZ + dims.stripD / 2) + 0.2)
-    : Math.max((2 * (dims.halfW + 0.45 + Math.max(dims.stand, sideRoom)) + 1.4) / aspect, 2 * dims.halfD + 1.6)
+  const fit =
+    portrait && vertical
+      ? Math.max((2 * (dims.halfW + 0.25 + dims.stripD) + 0.4) / aspect, 2 * dims.halfD + 0.6)
+      : portrait
+        ? Math.max((2 * dims.halfW + (narrow ? 0.5 : 1.0)) / aspect, 2 * (dims.stripZ + dims.stripD / 2) + 0.2)
+        : Math.max((2 * (dims.halfW + 0.45 + Math.max(dims.stand, sideRoom)) + 1.4) / aspect, 2 * dims.halfD + 1.6)
   return fit * (1 + (portrait ? 0.06 : 0.16) * tilt)
 }
 

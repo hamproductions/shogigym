@@ -51,7 +51,7 @@ export function PieceViewer({ onClose, page }: { onClose: () => void; page?: boo
     const size = renderer.getSize(new THREE.Vector2())
     const ratio = renderer.getPixelRatio()
     const exposure = renderer.toneMappingExposure
-    renderer.setPixelRatio(Math.min(2, devicePixelRatio))
+    renderer.setPixelRatio(devicePixelRatio)
     renderer.shadowMap.enabled = true
     renderer.toneMapping = THREE.ACESFilmicToneMapping
     renderer.toneMappingExposure = 0.95

@@ -12,10 +12,19 @@ export function positionOf(sfen: string): Position {
   return position
 }
 
+const DROP_KANJI: Record<string, string> = { P: '歩', L: '香', N: '桂', S: '銀', G: '金', B: '角', R: '飛' }
+
+/** Japanese-style text for a move that can't be read in its position, so raw engine strings (7g7f) never reach the UI. */
+export function usiFallback(usi: string): string {
+  const rank = (letter: string) => '一二三四五六七八九'['abcdefghi'.indexOf(letter)] ?? letter
+  if (usi[1] === '*') return `${usi[2]}${rank(usi[3])}${DROP_KANJI[usi[0]] ?? usi[0]}打`
+  return `${usi[0]}${rank(usi[1])}→${usi[2]}${rank(usi[3])}${usi.endsWith('+') ? '成' : ''}`
+}
+
 export function moveText(sfen: string, usi: string, lastUsi?: string): string {
   const position = positionOf(sfen)
   const move = position.createMoveByUSI(usi)
-  if (!move) return usi
+  if (!move) return usiFallback(usi)
   const text = formatMove(position, move)
   return lastUsi && lastUsi.slice(2, 4) === usi.slice(2, 4) ? text.slice(0, 1) + '同' + text.slice(3) : text
 }

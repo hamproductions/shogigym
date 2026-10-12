@@ -37,3 +37,8 @@
 .app-import .app-result {
   margin-bottom: var(--space-3);
 }
+
+.app-import.bare {
+  margin: var(--space-3) 0 0;
+  border-bottom: 0;
+}

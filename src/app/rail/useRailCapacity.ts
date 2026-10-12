@@ -22,7 +22,13 @@ export function useRailCapacity(compact: boolean) {
         ? 44
         : Math.max(last.offsetHeight, ...Array.from(rail.querySelectorAll<HTMLButtonElement>('.app-rail-btn'), (button) => button.offsetHeight))
       const gap = parseFloat(style.gap) || RAIL_GAP
-      setCapacity(Math.max(0, Math.floor(free / (size + gap)) - 1))
+      const dividers = Array.from(rail.querySelectorAll<HTMLElement>('.app-rail-divider'), (divider) => {
+        const box = getComputedStyle(divider)
+        return horizontal
+          ? divider.offsetWidth + parseFloat(box.marginLeft) + parseFloat(box.marginRight) + gap
+          : divider.offsetHeight + parseFloat(box.marginTop) + parseFloat(box.marginBottom) + gap
+      }).reduce((sum, value) => sum + value, 0)
+      setCapacity(Math.max(0, Math.floor((free - dividers) / (size + gap)) - 1))
     }
     measure()
     const observer = new ResizeObserver(measure)

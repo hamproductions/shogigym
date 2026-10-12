@@ -40,10 +40,16 @@
 
 .app-report-phases > div {
   display: grid;
-  grid-template-columns: 96px 1fr 72px;
+  grid-template-columns: 96px 1fr minmax(72px, auto);
   align-items: center;
   gap: var(--space-2);
   font-size: var(--text-sm);
+}
+
+.app-report-phases small {
+  display: block;
+  font-size: var(--text-2xs);
+  white-space: nowrap;
 }
 
 .app-report-phases i {
@@ -149,4 +155,12 @@
 .app-report-practice p {
   margin: 0;
   font-size: var(--text-xs);
+}
+
+.app-position {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: var(--space-1);
+  border-radius: var(--radius-sm);
 }

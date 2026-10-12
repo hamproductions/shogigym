@@ -177,6 +177,7 @@ export function drawMarks(s: SceneState, props: Board3DProps) {
     settings.coords,
     settings.boardStyle,
     layout.portrait,
+    layout.vertical,
     HALF_D,
     HALF_W,
     faceTextureRevision,

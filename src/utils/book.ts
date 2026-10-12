@@ -4,6 +4,7 @@ import { LEGACY_AI_STRATEGY, STRATEGIES } from '@/data/strategies'
 import { COURSES, SETUPS, type Course, type JosekiMove, type JosekiNode } from './model'
 import type { Side } from './shogi'
 import { openingMoves } from './openingBook'
+import { localizeSquares } from './notation'
 import lessonNotesEn from '@/data/lesson-notes-en.json'
 
 export type CourseNodes = Map<string, JosekiNode>
@@ -19,8 +20,10 @@ export const goodBranches = (node: JosekiNode | null | undefined) => node?.branc
 
 const nodesCache = new Map<string, CourseNodes>()
 
+const localizeEnglishText = (text: string | undefined) => (text === undefined ? text : localizeSquares(text))
+
 export const lessonText = (text: string | undefined, en: string | undefined, lang: string, course: Pick<Course, 'baseId'>) =>
-  lang === 'ja' ? text : (en ?? (text && (lessonNotesEn as Record<string, Record<string, string>>)[course.baseId]?.[text]) ?? text)
+  lang === 'ja' ? text : localizeEnglishText(en ?? (text && (lessonNotesEn as Record<string, Record<string, string>>)[course.baseId]?.[text]) ?? text)
 
 export function courseNodes(course: Course, lang = 'ja'): CourseNodes {
   const key = `${course.id}:${lang}`

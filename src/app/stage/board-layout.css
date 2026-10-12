@@ -63,3 +63,31 @@
     padding: var(--space-1) var(--stage-gutter);
   }
 }
+
+/* Compact: player plates and the preview banner live in reserved bands above and below the board, never over it. */
+@media (max-width: 820px), (max-width: 1024px) and (orientation: portrait) {
+  .app-board-scene {
+    --band: 40px;
+    padding-block: var(--band);
+  }
+
+  .app-shell.drawer-open .app-board-scene {
+    padding-bottom: 0;
+  }
+
+  .app-shell.drawer-open .app-plate.top {
+    display: flex;
+  }
+
+  .app-stage .app-board-wrap > .app-preview {
+    top: calc(var(--stage-gutter) + 3px);
+  }
+
+  .app-shell.drawer-open .app-stage .app-board-wrap > .app-preview {
+    top: 3px;
+  }
+
+  .app-board-wrap:has(> .app-preview) .app-plate.top {
+    visibility: hidden;
+  }
+}

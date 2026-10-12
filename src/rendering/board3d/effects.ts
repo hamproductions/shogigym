@@ -248,9 +248,11 @@ function launchStands(s: SceneState, way: number): Body[] {
     [stand, ...legs]
       .filter((m) => m.visible)
       .map((m, i) => {
-        const v = layout.portrait
-          ? new THREE.Vector3(random(8), 16 + Math.random() * 6, side * (12 + Math.random() * 6))
-          : new THREE.Vector3(side * (10 + Math.random() * 8 + i * 2), 14 + Math.random() * 8, -way * (4 + Math.random() * 6))
+        const v = layout.vertical
+          ? new THREE.Vector3(side * (12 + Math.random() * 6), 16 + Math.random() * 6, random(8))
+          : layout.portrait
+            ? new THREE.Vector3(random(8), 16 + Math.random() * 6, side * (12 + Math.random() * 6))
+            : new THREE.Vector3(side * (10 + Math.random() * 8 + i * 2), 14 + Math.random() * 8, -way * (4 + Math.random() * 6))
         return body(m, v, new THREE.Vector3(random(14), random(10), random(14)), false)
       }),
   )

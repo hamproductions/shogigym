@@ -27,6 +27,7 @@ import { useModeSlots, useModeSwitch } from '@/app/hooks/useModeSwitch'
 import { useMoveReview } from '@/app/hooks/useMoveReview'
 import { useOpponent } from '@/app/hooks/useOpponent'
 import { usePersistedSession } from '@/app/hooks/usePersistedSession'
+import { useAutoRate } from '@/app/hooks/useAutoRate'
 import { useKifuDrop } from '@/app/hooks/useKifuDrop'
 import { useRouteMode } from '@/app/hooks/useRouteMode'
 import { useShortcuts } from '@/app/hooks/useShortcuts'
@@ -60,7 +61,9 @@ import { isGameMode, type Confirm, type Mode, type Tab } from './types'
 
 const ConfirmDialog = lazy(() => import('@/app/dialogs/ConfirmDialog').then((m) => ({ default: m.ConfirmDialog })))
 const NewGameDialog = lazy(() => import('@/app/dialogs/NewGameDialog').then((m) => ({ default: m.NewGameDialog })))
+const InsightsDialog = lazy(() => import('@/app/dialogs/InsightsDialog').then((m) => ({ default: m.InsightsDialog })))
 const ReportDialog = lazy(() => import('@/app/dialogs/ReportDialog').then((m) => ({ default: m.ReportDialog })))
+const OpenGameDialog = lazy(() => import('@/app/dialogs/OpenGameDialog').then((m) => ({ default: m.OpenGameDialog })))
 const Palette = lazy(() => import('@/app/dialogs/Palette').then((m) => ({ default: m.Palette })))
 const SettingsDialog = lazy(() => import('@/app/dialogs/SettingsDialog').then((m) => ({ default: m.SettingsDialog })))
 const WelcomeDialog = lazy(() => import('@/app/dialogs/WelcomeDialog').then((m) => ({ default: m.WelcomeDialog })))
@@ -73,6 +76,8 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
   const { mode, course, preview, sfen, nodes, prevSfen, lastMove, cursor, atEnd, playing, userSide, game } = session
   const [tab, setTab] = useState<Tab>('coach')
   const [palette, setPalette] = useState(false)
+  const [showImport, setShowImport] = useState(false)
+  const [showTrends, setShowTrends] = useState(false)
   const [report, setReport] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [showViewer, setShowViewer] = useState(false)
@@ -90,6 +95,14 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
   const coach = useMoveReview(session)
   const watch = useWatch(session, load, !!coach.review, pendingFurigoma)
   const evaluation = useEvaluation(session)
+  const rating = useAutoRate({
+    enabled: session.ai && session.assist && (mode === 'analyze' || mode === 'spar'),
+    sfens: session.sfens,
+    moves: game.moves,
+    allSides: mode === 'analyze',
+    userSide,
+    onScore: evaluation.recordEval,
+  })
   const drill = useDrill(session, { mistakes, setTab })
   const layout = useLayout({
     mode,
@@ -302,8 +315,15 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
     view,
     palette,
     togglePalette: () => setPalette((v) => !v),
-    dialogOpen: watchSetup || showSettings || !!confirm || spar.newGameOpen || pendingFurigoma,
-    closeDialogs: () => (setShowSettings(false), setConfirm(null), spar.setNewGameOpen(false), setPendingFurigoma(false)),
+    dialogOpen: watchSetup || showSettings || showImport || showTrends || !!confirm || spar.newGameOpen || pendingFurigoma,
+    closeDialogs: () => (
+      setShowSettings(false),
+      setShowImport(false),
+      setShowTrends(false),
+      setConfirm(null),
+      spar.setNewGameOpen(false),
+      setPendingFurigoma(false)
+    ),
     overlayOpen: lesson.mapOpen && !!course,
     replyMove: opponent.reply?.usi,
     studyMove: lesson.asking && lesson.lessonMode === 'study' ? lesson.good[0]?.usi : undefined,
@@ -341,6 +361,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
           settingsOpen={showSettings}
           onSettings={() => setShowSettings(true)}
           onPalette={() => setPalette(true)}
+          onTrends={() => setShowTrends(true)}
           onReport={isGameMode(mode) && game.moves.length > 0 ? () => (setTab('report'), layout.setPanel({ hidden: false })) : undefined}
           snapshotName={`${SNAPSHOT_NAME}-${mode}-${cursor}`}
         />
@@ -363,6 +384,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
             evalRate={evalRate}
             barShown={evalBar}
             onStartOver={startOver}
+            onOpenGame={() => setShowImport(true)}
             tsume={tsume}
             tesuji={tesuji}
             lesson={lesson}
@@ -399,6 +421,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
           sheetOpen={layout.sheetOpen ?? (picking || (mode === 'drill' && !drill.item))}
           model={{
             analyzeMoves: slots.stashed('analyze')?.game.moves.length ?? 0,
+            rating,
             lesson,
             drill,
             tsume,
@@ -567,6 +590,25 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
               onClose={() => setReport(false)}
             />
           )}
+          {showTrends && (
+            <InsightsDialog
+              onClose={() => setShowTrends(false)}
+              onPractice={(items) => (saveMistakes(items), enterMode('drill', items))}
+              onRoute={(route) => {
+                const from = mode
+                enterMode(route)
+                store(ORIGIN_KEY, from)
+                if (route === 'tesuji') tesuji.start('両取り')
+              }}
+              onLesson={(id) => {
+                const from = mode
+                enterMode('lesson')
+                lesson.setPickerSetup(`lesson-${id}`)
+                store(ORIGIN_KEY, from)
+              }}
+            />
+          )}
+          {showImport && <OpenGameDialog games={analyze} onClose={() => setShowImport(false)} />}
           {palette && <Palette commands={commands} onClose={() => setPalette(false)} />}
           {confirm && <ConfirmDialog confirm={confirm} onClose={() => setConfirm(null)} />}
           {showSettings && <SettingsDialog onClose={() => setShowSettings(false)} level={levels.level} onLevel={levels.setLevel} />}

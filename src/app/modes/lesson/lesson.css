@@ -632,3 +632,50 @@
   color: var(--text-muted);
   font-size: var(--text-xs);
 }
+
+.app-sq {
+  --sq: #e0b84a;
+  padding: 0 0.2em;
+  border-radius: 0.25em;
+  background: color-mix(in srgb, var(--sq) 38%, transparent);
+  box-shadow: inset 0 -2px 0 var(--sq);
+}
+
+.app-game-list li {
+  flex-wrap: wrap;
+}
+
+.app-game-list li > .app-role-toggle {
+  order: 3;
+  flex: 1 0 100%;
+  margin-bottom: var(--space-1);
+}
+
+.app-role-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-1-5);
+  font-size: var(--text-sm);
+}
+
+.app-setup.app-result {
+  display: grid;
+  gap: 2px;
+  height: auto;
+}
+
+.app-setup .app-crumb {
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+}
+
+.app-setup .app-match {
+  font-size: var(--text-xs);
+  font-style: italic;
+}
+
+.app-result-count {
+  margin: var(--space-1) 0;
+  font-size: var(--text-xs);
+}

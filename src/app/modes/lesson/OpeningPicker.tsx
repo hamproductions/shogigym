@@ -1,5 +1,5 @@
 import '@/app/modes/lesson/lesson.css'
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
 import { SETUPS, type Course, type Setup } from '@/utils/model'
@@ -12,6 +12,8 @@ import type { LessonMode, Level } from '@/app/types'
 import { Button } from '@/app/ui/Button'
 import { LessonCard } from './LessonCard'
 import { LessonReferences } from './LessonReferences'
+import { SquareText } from './SquareText'
+import { describedPosition, useDescribedBoard } from './describedPosition'
 import { CATEGORIES, STRATEGY_GROUP, categoryOf, groupOf, isOpeningBasics, josekiGroupOf, type Category } from './library'
 import { ORIGIN_KEY, RANDOM_KEY, returnToGame, store, stored } from './reading'
 
@@ -42,6 +44,17 @@ type Entry = { setup: Setup; courses: Course[] }
 const percent = ({ learned, total }: { learned: number; total: number }) => `${total ? (learned / total) * 100 : 0}%`
 const progressOf = (courses: Course[]) =>
   courses.map(courseProgress).reduce((a, b) => ({ learned: a.learned + b.learned, total: a.total + b.total }), { learned: 0, total: 0 })
+
+const lower = (text: string) => text.toLowerCase()
+
+/** Higher is a better match: exact name, name prefix, name contains, then chapter titles only. */
+function matchScore({ setup, courses }: Entry, q: string) {
+  const names = [lower(setup.ja), lower(setup.name)]
+  if (names.some((n) => n === q)) return 100
+  if (names.some((n) => n.startsWith(q))) return 80
+  if (names.some((n) => n.includes(q))) return 60
+  return courses.some((c) => lower(`${c.title} ${c.titleEn ?? ''}`).includes(q)) ? 30 : 0
+}
 
 function Credits() {
   const { t } = useTranslation()
@@ -89,6 +102,33 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
       </button>
     )
   }
+  const crumb = (setup: Setup) => {
+    const category = CATEGORIES.find((c) => c.id === categoryOf(setup))!.name[ja ? 'ja' : 'en']
+    const group = josekiGroupOf(setup) ?? groupOf(setup)
+    return group ? `${category} › ${groupName(group)}` : category
+  }
+  const resultCard = (entry: Entry) => {
+    const { setup, courses } = entry
+    const byChapter = !lower(`${setup.ja} ${setup.name}`).includes(q) ? courses.find((c) => lower(`${c.title} ${c.titleEn ?? ''}`).includes(q)) : undefined
+    const chapter = byChapter ? (ja ? byChapter.title : (byChapter.titleEn ?? byChapter.title)) : null
+    const defending = courses.length > 0 && courses.every((c) => c.notesFromOpponentView)
+    const p = progressOf(courses)
+    return (
+      <button key={setup.id} className="app-setup app-result" onClick={() => setSetupId(setup.id)}>
+        <span className="app-lib-ja">
+          {name(setup)}
+          {defending && <em className="app-start">{ja ? '受ける側' : 'Defending side'}</em>}
+        </span>
+        <span className="app-lib-en app-crumb">{crumb(setup)}</span>
+        {chapter && <span className="app-lib-en app-match">{chapter}</span>}
+        <span className="app-lib-en">{ja ? `${courses.length} 章` : `${courses.length} ${courses.length === 1 ? 'chapter' : 'chapters'}`}</span>
+        <span className="app-setup-go" aria-hidden="true">
+          ›
+        </span>
+        <i className="app-progress" style={{ width: percent(p) }} />
+      </button>
+    )
+  }
   const backToGame = fromGame && (
     <button className="app-back" onClick={returnToGame}>
       ‹ {t('review.backToGame')}
@@ -96,6 +136,15 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
   )
 
   const open = all.find((g) => g.setup.id === setupId)
+  const intro = open ? (ja ? open.setup.intro.ja : open.setup.intro.en) : ''
+  const plan = open?.setup.plan ? (ja ? open.setup.plan.ja : open.setup.plan.en) : ''
+  const described = `${intro}\n${plan}`
+  const describedSfen = useMemo(
+    () => (open ? describedPosition(open.courses, `${open.setup.intro.ja}\n${open.setup.plan?.ja ?? ''}`) : null),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [open?.setup.id],
+  )
+  useDescribedBoard(describedSfen, described)
   if (open) {
     const quizzable = open.courses.filter((c) => courseProgress(c).total > 0)
     const random = () => {
@@ -109,8 +158,8 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
           ‹ {CATEGORIES.find((c) => c.id === categoryOf(open.setup))?.name[ja ? 'ja' : 'en']}
         </button>
         <h2 className="app-picker-title">{name(open.setup)}</h2>
-        <p className="app-picker-intro app-lesson-overview">{ja ? open.setup.intro.ja : open.setup.intro.en}</p>
-        {open.setup.plan && <p className="app-picker-intro plan">{ja ? open.setup.plan.ja : open.setup.plan.en}</p>}
+        <p className="app-picker-intro app-lesson-overview">{describedSfen ? <SquareText text={intro} context={described} /> : intro}</p>
+        {plan && <p className="app-picker-intro plan">{describedSfen ? <SquareText text={plan} context={described} /> : plan}</p>}
         {open.setup.path ? (
           <>
             {open.courses.length > 0 && (
@@ -158,6 +207,28 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
             ))}
           </>
         )}
+        {(() => {
+          const opponent = open.setup.vs ? strategyById(open.setup.vs) : undefined
+          const base = opponent?.ja ?? open.setup.ja
+          const baseName = opponent?.en ?? open.setup.name
+          const mentions = (g: Entry) => g.setup.ja.includes(base) || g.courses.some((c) => c.title.includes(base))
+          const related = base.length >= 2 ? all.filter((g) => g.setup.id !== open.setup.id && mentions(g)).slice(0, 8) : []
+          const group = josekiGroupOf(open.setup) ?? groupOf(open.setup)
+          const shown = new Set(related.map((g) => g.setup.id))
+          const siblings = group
+            ? all
+                .filter((g) => g.setup.id !== open.setup.id && !shown.has(g.setup.id) && (josekiGroupOf(g.setup) ?? groupOf(g.setup)) === group && g.setup.path)
+                .slice(0, 6)
+            : []
+          return (
+            <>
+              {related.length > 0 && <h3 className="app-sub">{ja ? `「${base}」に関する講座` : `More about ${baseName}`}</h3>}
+              {related.map(resultCard)}
+              {siblings.length > 0 && <h3 className="app-sub">{ja ? `${groupName(group!)}の他の講座` : `More in ${groupName(group!)}`}</h3>}
+              {siblings.map(resultCard)}
+            </>
+          )
+        })()}
         {open.setup.references ? (
           <LessonReferences references={open.setup.references} ja={ja} className="app-muted" />
         ) : (
@@ -217,12 +288,17 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
       aria-label={t('picker.searchLessons')}
     />
   )
+  const ranked = q
+    ? all
+        .map((entry) => ({ entry, score: matchScore(entry, q) + Math.min(entry.courses.length, 5) }))
+        .filter(({ score }) => score >= 30)
+        .sort((x, y) => y.score - x.score)
+    : []
   const results = q && (
     <>
-      {all
-        .filter(({ setup, courses }) => `${setup.ja} ${setup.name} ${courses.map((c) => `${c.title} ${c.titleEn ?? ''}`).join(' ')}`.toLowerCase().includes(q))
-        .slice(0, 30)
-        .map(setupCard)}
+      <p className="app-muted app-result-count">{ja ? `${ranked.length}件` : `${ranked.length} ${ranked.length === 1 ? 'result' : 'results'}`}</p>
+      {ranked.slice(0, 30).map(({ entry }) => resultCard(entry))}
+      {ranked.length === 0 && <p className="app-muted">{ja ? '見つかりませんでした。' : 'Nothing found.'}</p>}
     </>
   )
 

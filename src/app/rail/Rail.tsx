@@ -24,6 +24,7 @@ type RailProps = {
   onSettings: () => void
   onPalette: () => void
   onReport?: () => void
+  onTrends?: () => void
   onLessonBack?: () => void
   snapshotName: string
   tools?: RailTool[]
@@ -95,6 +96,8 @@ function RailMenu({ anchor, phone, close, children }: { anchor: HTMLElement | nu
   )
 }
 
+const REVIEW_TOOLS = ['report', 'trends']
+
 export function Rail({
   mode,
   onMode,
@@ -104,6 +107,7 @@ export function Rail({
   onSettings,
   onPalette,
   onReport,
+  onTrends,
   onLessonBack,
   snapshotName,
   tools,
@@ -142,21 +146,23 @@ export function Rail({
     onSaveImage: saveBoardImage,
     onInstall: installation.installed ? undefined : installation.install,
     onReport,
+    onTrends,
   })
-  const { primary, secondary, top, bottom } = tools
+  const { primary, secondary, top, bottom, menu } = tools
     ? {
         primary: tools.filter((tool) => !['control', 'palette', 'settings', 'hide', 'fullscreen'].includes(tool.id)),
         secondary: [],
         top: defaults.top,
         bottom: tools.filter((tool) => ['settings', 'hide', 'fullscreen'].includes(tool.id)),
+        menu: defaults.menu,
       }
     : defaults
   const { railRef, lastModeRef, capacity } = useRailCapacity(compact)
   const all = [...primary, ...secondary, ...bottom]
   const extras: RailTool[] = navigation ? [{ id: 'taikyoku', icon: 'spar', label: t('palette.taikyoku'), run: () => void navigate('/taikyoku') }] : []
   const available = Math.max(0, capacity - top.length)
-  const inline = available >= all.length + (extras.length ? 1 : 0) ? all : all.slice(0, Math.max(0, available - 1))
-  const overflow = [...all.slice(inline.length), ...extras]
+  const inline = available >= all.length + (extras.length || menu.length ? 1 : 0) ? all : all.slice(0, Math.max(0, available - 1))
+  const overflow = [...all.slice(inline.length), ...menu, ...extras]
   return (
     <nav className="app-rail" aria-label={t('app.mode')} ref={railRef}>
       <RailSeal />
@@ -213,9 +219,17 @@ export function Rail({
           </button>
         ))}
       <div className="app-rail-gap" />
-      {top.map((tool) => (
-        <ToolButton key={tool.id} tool={tool} />
-      ))}
+      {top
+        .filter((tool) => REVIEW_TOOLS.includes(tool.id))
+        .map((tool) => (
+          <ToolButton key={tool.id} tool={tool} />
+        ))}
+      {top.some((tool) => REVIEW_TOOLS.includes(tool.id)) && <div className="app-rail-divider" role="separator" />}
+      {top
+        .filter((tool) => !REVIEW_TOOLS.includes(tool.id))
+        .map((tool) => (
+          <ToolButton key={tool.id} tool={tool} />
+        ))}
       {inline
         .filter((tool) => tool.id !== 'settings')
         .map((tool) => (
