@@ -1,5 +1,5 @@
 import '@/app/modes/lesson/lesson.css'
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
 import { SETUPS, type Course, type Setup } from '@/utils/model'
@@ -12,6 +12,8 @@ import type { LessonMode, Level } from '@/app/types'
 import { Button } from '@/app/ui/Button'
 import { LessonCard } from './LessonCard'
 import { LessonReferences } from './LessonReferences'
+import { SquareText } from './SquareText'
+import { describedPosition, useDescribedBoard } from './describedPosition'
 import { CATEGORIES, STRATEGY_GROUP, categoryOf, groupOf, isOpeningBasics, josekiGroupOf, type Category } from './library'
 import { ORIGIN_KEY, RANDOM_KEY, returnToGame, store, stored } from './reading'
 
@@ -134,6 +136,15 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
   )
 
   const open = all.find((g) => g.setup.id === setupId)
+  const intro = open ? (ja ? open.setup.intro.ja : open.setup.intro.en) : ''
+  const plan = open?.setup.plan ? (ja ? open.setup.plan.ja : open.setup.plan.en) : ''
+  const described = `${intro}\n${plan}`
+  const describedSfen = useMemo(
+    () => (open ? describedPosition(open.courses, `${open.setup.intro.ja}\n${open.setup.plan?.ja ?? ''}`) : null),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [open?.setup.id],
+  )
+  useDescribedBoard(describedSfen, described)
   if (open) {
     const quizzable = open.courses.filter((c) => courseProgress(c).total > 0)
     const random = () => {
@@ -147,8 +158,8 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
           ‹ {CATEGORIES.find((c) => c.id === categoryOf(open.setup))?.name[ja ? 'ja' : 'en']}
         </button>
         <h2 className="app-picker-title">{name(open.setup)}</h2>
-        <p className="app-picker-intro app-lesson-overview">{ja ? open.setup.intro.ja : open.setup.intro.en}</p>
-        {open.setup.plan && <p className="app-picker-intro plan">{ja ? open.setup.plan.ja : open.setup.plan.en}</p>}
+        <p className="app-picker-intro app-lesson-overview">{describedSfen ? <SquareText text={intro} context={described} /> : intro}</p>
+        {plan && <p className="app-picker-intro plan">{describedSfen ? <SquareText text={plan} context={described} /> : plan}</p>}
         {open.setup.path ? (
           <>
             {open.courses.length > 0 && (

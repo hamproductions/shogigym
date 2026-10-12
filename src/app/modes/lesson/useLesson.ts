@@ -10,7 +10,7 @@ import type { BoardArrow } from '@/rendering/Board3D'
 import type { BoardSession } from '@/app/hooks/useBoardSession'
 import type { Mistakes } from '@/app/hooks/useMistake'
 import type { Load, Snapshot } from '@/app/hooks/useModeSwitch'
-import { courseNodes, goodBranches, mainBranch, setupOf, strip } from '@/utils/book'
+import { courseNodes, goodBranches, lessonText, mainBranch, setupOf, strip } from '@/utils/book'
 import { isWeak } from '@/utils/mistake'
 import { sideMark } from '@/utils/notation'
 import { markOpened } from '@/app/practice'
@@ -65,9 +65,9 @@ export function useLesson(session: BoardSession, { mistakes, load, setTab, close
   const good = goodBranches(node)
   const { setSourceMarks } = session
   const figures = node?.figures
-  const figureText = node?.comment
+  const figureText = course ? lessonText(node?.comment, node?.commentEn, i18n.language, course) : undefined
   useEffect(() => {
-    if (active) setSourceMarks(figures ? figureMarks(figures, liveSfen, cursor === 0, figureText) : null)
+    if (active) setSourceMarks(figures || figureText ? figureMarks(figures ?? [], liveSfen, cursor === 0, figureText) : null)
   }, [active, figures, figureText, liveSfen, cursor, setSourceMarks])
   const asking = active && !preview && toMove === userSide && good.length > 0
   const offBook = active && !preview && !nodes?.get(strip(liveSfen))
