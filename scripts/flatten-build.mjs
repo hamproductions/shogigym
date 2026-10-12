@@ -7,7 +7,7 @@ if (base) {
   const nested = join(out, base)
   if (existsSync(nested)) {
     cpSync(nested, out, { recursive: true })
-    rmSync(nested, { recursive: true })
+    rmSync(join(out, base.split('/')[0]), { recursive: true })
   }
 }
 cpSync(join(out, 'index.html'), join(out, '404.html'))
@@ -28,4 +28,7 @@ writeFileSync(
   join(out, 'sitemap.xml'),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map((p) => `  <url><loc>${site}${p}</loc><lastmod>${today}</lastmod><priority>${p === '/' ? '1.0' : '0.7'}</priority></url>`).join('\n')}\n</urlset>\n`,
 )
-writeFileSync(join(out, 'robots.txt'), `User-agent: *\nAllow: /\nDisallow: /dev/\nSitemap: ${site}/sitemap.xml\n`)
+writeFileSync(
+  join(out, 'robots.txt'),
+  process.env.PREVIEW ? 'User-agent: *\nDisallow: /\n' : `User-agent: *\nAllow: /\nDisallow: /dev/\nDisallow: /pr/\nSitemap: ${site}/sitemap.xml\n`,
+)
