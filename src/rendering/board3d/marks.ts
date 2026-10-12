@@ -18,6 +18,19 @@ const DROP_TYPE: Record<string, PieceType> = {
   R: PieceType.ROOK,
 }
 
+// Marks are rebuilt on every arrow change; fresh materials force a shader-compile
+// stall in the render loop, so reusable ones are cached and never disposed.
+const sharedMaterials = new Map<string, THREE.MeshBasicMaterial>()
+const sharedMaterial = (key: string, make: () => THREE.MeshBasicMaterial) => {
+  let material = sharedMaterials.get(key)
+  if (!material) {
+    material = make()
+    material.userData.shared = true
+    sharedMaterials.set(key, material)
+  }
+  return material
+}
+
 const flatOnBoard = <T extends THREE.Object3D>(obj: T, square: Square, y: number) => {
   obj.rotation.x = -Math.PI / 2
   obj.position.set(squareX(square.file), y, squareZ(square.rank))
@@ -68,12 +81,16 @@ export function arrowBetween(arrow: Omit<BoardArrow, 'usi'> & { usi?: string }, 
   const shaft = Math.max(0.01, length - 0.45)
   const w = arrow.dashed ? 0.06 : 0.09
   const head = arrow.dashed ? 0.2 : 0.26
-  const material = new THREE.MeshBasicMaterial({
-    color: new THREE.Color(arrow.color),
-    transparent: true,
-    opacity: arrow.dashed ? 0.7 : 0.82,
-    depthWrite: false,
-  })
+  const material = sharedMaterial(
+    `arrow:${arrow.color}:${arrow.dashed ? 1 : 0}`,
+    () =>
+      new THREE.MeshBasicMaterial({
+        color: new THREE.Color(arrow.color),
+        transparent: true,
+        opacity: arrow.dashed ? 0.7 : 0.82,
+        depthWrite: false,
+      }),
+  )
   const tip = new THREE.Shape()
   tip.moveTo(head, shaft)
   tip.lineTo(0, length - 0.1)
@@ -172,7 +189,7 @@ export function drawMarks(s: SceneState, props: Board3DProps) {
     for (const item of Array.isArray(material) ? material : material ? [material] : []) {
       const map = (item as THREE.MeshBasicMaterial).map
       if (map && !map.userData.shared) map.dispose()
-      item.dispose()
+      if (!item.userData.shared) item.dispose()
     }
   })
   s.marks.clear()
@@ -238,7 +255,7 @@ export function drawMarks(s: SceneState, props: Board3DProps) {
   const stamp = props.stamp && Square.newByUSI(props.stamp.square)
   if (props.stamp && stamp) {
     const badge = boardMarker(badgeSprite(props.stamp.text, props.stamp.color), 0.5, 0.5, !!flipped)
-    badge.position.set(squareX(stamp.file) + 0.48 * flip, 0.012, squareZ(stamp.rank) - 0.48 * SQ_D * flip)
+    badge.position.set(squareX(stamp.file) + 0.3 * flip, 0.012, squareZ(stamp.rank) - 0.3 * SQ_D * flip)
     s.marks.add(badge)
   }
   const animating = new Set(s.animations.map((a) => a.mesh))

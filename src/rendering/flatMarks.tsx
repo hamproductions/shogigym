@@ -145,8 +145,20 @@ function Castle({ p, u, castle }: { p: Project; u: number; castle: { squares: Sq
   )
 }
 
-export function UnderMarks({ props, p, u, markersOnly = false }: { props: Board3DProps; p: Project; u: number; markersOnly?: boolean }) {
-  const { lastMove, selected, targets, checkSquare, peek, peekFrom, heat } = props
+export function UnderMarks({
+  props,
+  p,
+  u,
+  handPoint,
+  markersOnly = false,
+}: {
+  props: Board3DProps
+  p: Project
+  u: number
+  handPoint?: HandPoint
+  markersOnly?: boolean
+}) {
+  const { lastMove, selected, targets, checkSquare, peek, peekFrom, heat, arrows, position } = props
   const to = lastMove ? Square.newByUSI(lastMove.slice(2, 4)) : null
   const from = lastMove && lastMove[1] !== '*' ? Square.newByUSI(lastMove.slice(0, 2)) : null
   return (
@@ -183,6 +195,9 @@ export function UnderMarks({ props, p, u, markersOnly = false }: { props: Board3
           ))}
         </g>
       )}
+      {arrows.map((arrow, i) => (
+        <Arrow key={`a${i}`} p={p} u={u} arrow={arrow} position={position} handPoint={handPoint} />
+      ))}
     </g>
   )
 }
@@ -225,9 +240,6 @@ export function OverMarks({ props, p, u, coordFill, handPoint }: { props: Board3
       {(castles ?? []).map((c, i) => (
         <Castle key={`c${i}`} p={p} u={u} castle={c} />
       ))}
-      {arrows.map((arrow, i) => (
-        <Arrow key={`a${i}`} p={p} u={u} arrow={arrow} position={position} handPoint={handPoint} />
-      ))}
       {arrows.map((arrow, i) => {
         const to = Square.newByUSI(arrow.usi.slice(2, 4))
         if (!arrow.label || !to) return null
@@ -239,7 +251,7 @@ export function OverMarks({ props, p, u, coordFill, handPoint }: { props: Board3
       {stamp &&
         stamped &&
         (() => {
-          const [x, y] = p(squareX(stamped.file) + 0.48 * flip, squareZ(stamped.rank) - 0.48 * SQ_D * flip)
+          const [x, y] = p(squareX(stamped.file) + 0.3 * flip, squareZ(stamped.rank) - 0.3 * SQ_D * flip)
           return <Badge x={x} y={y} size={0.5 * u} text={stamp.text} color={stamp.color} />
         })()}
     </g>

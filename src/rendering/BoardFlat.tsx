@@ -343,7 +343,7 @@ export function BoardFlat(props: Board3DProps) {
       >
         <image href={baked.board} x={g.bx} y={g.by} width={g.bw} height={g.bh} preserveAspectRatio="none" />
         <rect className="app-board-frame" x={g.bx - 6} y={g.by - 6} width={g.bw + 12} height={g.bh + 12} rx={10} fill="none" pointerEvents="none" />
-        <MemoUnder props={props} p={project} u={U} layout={layoutKey} />
+        <MemoUnder props={props} p={project} u={U} handPoint={handPoint} layout={layoutKey} />
         {settings.coords &&
           Array.from({ length: 9 }, (_, i) => (
             <g
