@@ -28,6 +28,7 @@ build)
     grep -qx "$n" <<<"$keep" || { echo "drop closed PR $n"; rm -rf "$dir" "$STATE/$n.sha"; }
   done
   auth=$(printf 'x-access-token:%s' "$TOKEN" | base64 -w0)
+  unset TOKEN
   base="${BASE_PATH_IN%/}/$PREFIX"
   while read -r n sha; do
     if [ "$(cat "$STATE/$n.sha" 2>/dev/null)" = "$sha" ] && [ -d "$STATE/$n" ]; then
