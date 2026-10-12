@@ -658,3 +658,24 @@
   margin-top: var(--space-1-5);
   font-size: var(--text-sm);
 }
+
+.app-setup.app-result {
+  display: grid;
+  gap: 2px;
+  height: auto;
+}
+
+.app-setup .app-crumb {
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+}
+
+.app-setup .app-match {
+  font-size: var(--text-xs);
+  font-style: italic;
+}
+
+.app-result-count {
+  margin: var(--space-1) 0;
+  font-size: var(--text-xs);
+}

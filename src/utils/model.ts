@@ -126,7 +126,7 @@ const CATALOG = buildCatalog(
 
 export const COURSES: Course[] = CATALOG.courses
 
-export const SETUPS = CATALOG.setups
+export const SETUPS = localizeEnglish(CATALOG.setups)
 
 export const courseById = (id: string) => COURSES.find((c) => c.id === id)
 
