@@ -3,13 +3,15 @@ import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { cachedReview, rememberReview, useReviewVersion } from '@/app/memory'
 import { Button } from '@/app/ui/Button'
+import type { GameChoice } from '@/app/games'
 import { Dialog, DialogHeader } from '@/app/ui/Dialog'
 import { LABELS, reviewMove } from '@/utils/analysis'
 import { inBook } from '@/utils/book'
 import { engineSupported } from '@/utils/engine'
 import { buildReport, PHASES, playerMoves, type GameLike, type Weakness } from '@/utils/learning'
 import { SETUPS } from '@/utils/model'
-import { moveText, type Side } from '@/utils/shogi'
+import { colorSide, moveText, positionOf, type Side } from '@/utils/shogi'
+import { MiniBoard } from '@/app/ui/MiniBoard'
 import type { Mistake } from '@/utils/mistakes'
 
 export type FixRoute = 'tsume' | 'tesuji' | 'lesson'
@@ -84,9 +86,12 @@ type GameReportProps = {
   onExpand?: () => void
   /** Background rating owned by the app; when set the report only displays it. */
   progress?: { done: number; total: number } | null
+  /** Trends choice for this game; when given the side picker also opts the game in or out. */
+  choice?: GameChoice | null
+  onChoose?: (choice: GameChoice) => void
 }
 
-export function GameReport({ game, userSide, rate, progress: external, onShow, onRoute, onPractice, onLesson, onExpand }: GameReportProps) {
+export function GameReport({ game, userSide, rate, progress: external, choice, onChoose, onShow, onRoute, onPractice, onLesson, onExpand }: GameReportProps) {
   const { t, i18n } = useTranslation()
   const [side, setSide] = useState<Side>(userSide)
   const version = useReviewVersion()
@@ -103,10 +108,25 @@ export function GameReport({ game, userSide, rate, progress: external, onShow, o
         <h3 id="game-report-title">{t('report.title')}</h3>
         <div className="app-report-side" role="group" aria-label={t('report.sideLabel')}>
           {(['sente', 'gote'] as const).map((s) => (
-            <Button key={s} size="sm" on={side === s} onClick={() => setSide(s)} aria-label={t(`report.${s}`)}>
+            <Button
+              key={s}
+              size="sm"
+              on={onChoose && choice ? choice === s : side === s}
+              onClick={() => {
+                setSide(s)
+                onChoose?.(s)
+              }}
+              aria-label={t(`report.${s}`)}
+              title={onChoose ? t('insights.pickSide') : undefined}
+            >
               {s === 'sente' ? '☗' : '☖'}
             </Button>
           ))}
+          {onChoose && (
+            <Button size="sm" on={choice === 'study'} onClick={() => onChoose('study')} title={t('insights.studyTitle')}>
+              {t('insights.role.study')}
+            </Button>
+          )}
           {onExpand && (
             <Button size="sm" variant="icon" onClick={onExpand} aria-label={t('report.expand')} title={t('report.expand')}>
               ⤢
@@ -192,6 +212,7 @@ export function GameReport({ game, userSide, rate, progress: external, onShow, o
                         {p.review.best.move !== p.usi && <span>{t('report.better', { move: moveText(p.sfen, p.review.best.move) })}</span>}
                         {p.review.reasons[0] && <span className="app-muted">{p.review.reasons[0]}</span>}
                         <em>{t(`report.weak.${p.tag}.name`)}</em>
+                        <MiniBoard sfen={p.sfen} played={p.usi} best={p.review.best.move} flipped={colorSide(positionOf(p.sfen).color) === 'gote'} />
                       </div>
                       <Button size="sm" onClick={() => onShow(p.ply)}>
                         {t('report.show')}
@@ -317,6 +338,7 @@ export function ReportDialog({ game, userSide, onShow, onRoute, onClose }: Repor
                           {p.review.best.move !== p.usi && <span>{t('report.better', { move: moveText(p.sfen, p.review.best.move) })}</span>}
                           {p.review.reasons[0] && <span className="app-muted">{p.review.reasons[0]}</span>}
                           <em>{t(`report.weak.${p.tag}.name`)}</em>
+                          <MiniBoard sfen={p.sfen} played={p.usi} best={p.review.best.move} flipped={colorSide(positionOf(p.sfen).color) === 'gote'} />
                         </div>
                         <Button size="sm" onClick={go(() => onShow(p.ply))}>
                           {t('report.show')}

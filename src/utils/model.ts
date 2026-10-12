@@ -2,6 +2,7 @@ import { buildCatalog, type LessonEntry } from './catalog'
 import { positionOf, colorSide, type Side } from './shogi'
 import type { Text } from '@/data/strategies'
 import type { LessonFigure } from './curriculum'
+import { localizeEnglish } from './notation'
 
 export type { Setup } from './catalog'
 
@@ -105,9 +106,9 @@ function derive(base: RawCourse, spec: (typeof DERIVED)[number]): RawCourse {
   }
 }
 
-const RAW: RawCourse[] = Object.values(rawFiles).map((text) => JSON.parse(text) as RawCourse)
+const RAW: RawCourse[] = Object.values(rawFiles).map((text) => localizeEnglish(JSON.parse(text) as RawCourse))
 const LESSONS = Object.values(import.meta.glob<string>('../data/lessons/*.json', { eager: true, query: '?raw', import: 'default' }))
-  .map((text) => JSON.parse(text) as LessonEntry)
+  .map((text) => localizeEnglish(JSON.parse(text) as LessonEntry))
   .sort((a, b) => a.order - b.order)
 
 const CATALOG = buildCatalog(

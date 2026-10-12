@@ -22,55 +22,6 @@
   font-weight: var(--weight-regular);
 }
 
-.app-insight-games {
-  display: grid;
-  gap: var(--space-1-5);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.app-insight-games li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2);
-  padding: var(--space-1-5) var(--space-2);
-  border-radius: var(--radius-md);
-  background: var(--surface-2, var(--card));
-}
-
-.app-insight-games .app-seg {
-  flex: none;
-  flex-direction: row;
-  width: auto;
-}
-
-.app-insight-games .app-seg button {
-  width: auto;
-  white-space: nowrap;
-}
-
-.app-insight-games li.study {
-  opacity: 0.75;
-}
-
-.app-insight-games li > div:first-child {
-  display: grid;
-  min-width: 0;
-}
-
-.app-insight-games strong {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: var(--text-sm);
-}
-
-.app-insight-games .app-muted {
-  font-size: var(--text-xs);
-}
-
 .app-insight-skills {
   display: grid;
   grid-template-columns: minmax(200px, 340px) 1fr;

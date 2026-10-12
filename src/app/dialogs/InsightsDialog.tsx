@@ -2,17 +2,17 @@ import './insights.css'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PieceType } from 'tsshogi'
-import { gameChoice, gameRole, loadGames, setGameRole, type GameChoice, type StoredGame } from '@/app/games'
+import { gameRole, loadGames } from '@/app/games'
 import { useBatchRate } from '@/app/hooks/useBatchRate'
 import { cachedReview, useReviewVersion } from '@/app/memory'
 import { PIECE_INFO } from '@/app/pieces'
-import { GameRoleToggle } from '@/app/modes/analyze/GameRoleToggle'
 import { Button } from '@/app/ui/Button'
 import { Dialog, DialogHeader } from '@/app/ui/Dialog'
 import { engineSupported } from '@/utils/engine'
 import { buildInsights, type InsightGame, type Recurring, type Skill, type Suggestion } from '@/utils/insights'
 import { SETUPS } from '@/utils/model'
-import { moveText, PIECE_CHAR } from '@/utils/shogi'
+import { colorSide, moveText, PIECE_CHAR, positionOf } from '@/utils/shogi'
+import { MiniBoard } from '@/app/ui/MiniBoard'
 import type { Mistake } from '@/utils/mistakes'
 import { FIX_ROUTE, LESSONS, type FixRoute } from './ReportDialog'
 
@@ -84,7 +84,7 @@ type Props = {
 export function InsightsDialog({ onClose, onPractice, onRoute, onLesson }: Props) {
   const { t, i18n } = useTranslation()
   const ja = i18n.language === 'ja'
-  const [stored, setStored] = useState(() => loadGames())
+  const [stored] = useState(() => loadGames())
   const version = useReviewVersion()
   const included: InsightGame[] = useMemo(
     () =>
@@ -96,17 +96,11 @@ export function InsightsDialog({ onClose, onPractice, onRoute, onLesson }: Props
   const progress = useBatchRate(included, true)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const insights = useMemo(() => buildInsights(included, cachedReview), [included, version])
-  const choose = (g: StoredGame, choice: GameChoice) => {
-    if (choice === 'study') setGameRole(g.id, 'study')
-    else setGameRole(g.id, 'mine', choice)
-    setStored(loadGames())
-  }
   const go = (fn: () => void) => () => {
     onClose()
     fn()
   }
   const pieceName = (type: string) => (ja ? PIECE_CHAR[type as PieceType] : PIECE_INFO[type as PieceType].en)
-  const summaryOf = (id: string) => insights.games.find((g) => g.id === id)
   const practiceItems = (): Mistake[] =>
     insights.recurring.map((r) => ({
       id: `trend-${r.sfen.split(' ')[0]}-${r.best}`,
@@ -157,33 +151,9 @@ export function InsightsDialog({ onClose, onPractice, onRoute, onLesson }: Props
   return (
     <Dialog label={t('insights.title')} className="app-insights" onBackdrop={onClose}>
       <DialogHeader title={t('insights.title')} closeLabel={t('viewer.close')} onClose={onClose} />
-      <section>
-        <h3>
-          {t('insights.scope')} <span className="app-muted">{t('insights.included', { count: included.length })}</span>
-        </h3>
-        <p className="app-muted">{t('insights.scopeHint')}</p>
-        {stored.length === 0 ? (
-          <p className="app-muted">{t('insights.noGames')}</p>
-        ) : (
-          <ul className="app-insight-games">
-            {stored.map((g) => {
-              const summary = summaryOf(g.id)
-              return (
-                <li key={g.id} className={gameRole(g) === 'study' ? 'study' : ''}>
-                  <div>
-                    <strong>{g.title}</strong>
-                    <span className="app-muted">
-                      {t('games.moves', { count: g.moves.length })}
-                      {summary ? ` · ${t('insights.gameRow', { rated: summary.rated, total: summary.total })}` : ''}
-                    </span>
-                  </div>
-                  <GameRoleToggle value={gameChoice(g)} onChange={(choice) => choose(g, choice)} />
-                </li>
-              )
-            })}
-          </ul>
-        )}
-      </section>
+      <p className="app-muted">
+        {t('insights.includedOf', { count: included.length, total: stored.length })} · {t('insights.scopeHint')}
+      </p>
 
       {progress && (
         <p className="app-muted" role="status">
@@ -243,6 +213,7 @@ export function InsightsDialog({ onClose, onPractice, onRoute, onLesson }: Props
                       <div>
                         <strong>{recurringText(r)}</strong>
                         <em>{t(`report.weak.${r.tag}.name`)}</em>
+                        <MiniBoard sfen={r.sfen} played={r.example.usi} best={r.best} flipped={colorSide(positionOf(r.sfen).color) === 'gote'} />
                       </div>
                     </li>
                   ))}

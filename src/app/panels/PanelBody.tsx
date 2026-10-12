@@ -1,3 +1,4 @@
+import { useGameChoice } from '@/app/modes/analyze/useGameChoice'
 import { Suspense, lazy } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LABELS, type Label } from '@/utils/analysis'
@@ -199,6 +200,7 @@ export function PanelBody({ tab, model, overlays = true }: { tab: Tab; model: Pa
   useReviewVersion()
   const { mode, course, game, sfens, sfen, cursor, setCursor, selection, ai, assist, userSide, nodes, play } = session
   const { lesson, tsume, drill, mistakes, evaluation, level, reply, bookLast, onBack } = model
+  const [choice, choose] = useGameChoice(model.analyze)
   const key = `${mode}|${course?.id ?? ''}|${lesson.lessonMode}|${tab}|${tsume.tsume?.problem.id ?? ''}|${drill.drill?.index ?? ''}`
   const endRate = lesson.done && evaluation.evalSente ? (userSide === 'sente' ? evaluation.senteRate : 1 - evaluation.senteRate) : null
   return (
@@ -227,6 +229,8 @@ export function PanelBody({ tab, model, overlays = true }: { tab: Tab; model: Pa
             game={game}
             userSide={userSide}
             rate={false}
+            choice={choice}
+            onChoose={choose}
             progress={model.rating}
             onShow={(ply) => setCursor(ply - 1)}
             onRoute={model.onReportRoute}
