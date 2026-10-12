@@ -44,6 +44,9 @@ inputs:
   lock-file:
     description: Lock file that keys the package cache
     default: bun.lock
+  secret:
+    description: Hides previews at unguessable URLs derived from this value and disables the index page; keep it in a repository secret
+    default: ''
   comment-pr:
     description: PR number to comment the preview link on; empty disables
     default: ''
@@ -64,6 +67,7 @@ runs:
       env:
         GH_TOKEN: ${{ inputs.token || github.token }}
         GH_REPO: ${{ github.repository }}
+        SECRET: ${{ inputs.secret }}
         MAX: ${{ inputs.max-previews }}
         CONFIG: ${{ inputs.install }}|${{ inputs.build }}|${{ inputs.base-env }}|${{ inputs.base-path || format('/{0}/', github.event.repository.name) }}|${{ inputs.prefix }}
       run: bash "${{ github.action_path }}/previews.sh" list
@@ -87,6 +91,7 @@ runs:
         SITE_URL_IN: ${{ inputs.site-url || format('https://{0}.github.io/{1}', github.repository_owner, github.event.repository.name) }}
         PREFIX: ${{ inputs.prefix }}
         OUTPUT: ${{ inputs.build-output }}
+        SECRET: ${{ inputs.secret }}
         TOKEN: ${{ inputs.token || github.token }}
       run: bash "${{ github.action_path }}/previews.sh" build
     - if: steps.restore.outputs.cache-hit != 'true'
@@ -105,5 +110,6 @@ runs:
         EXCLUDE: ${{ inputs.exclude }}
         BASE_PATH_IN: ${{ inputs.base-path || format('/{0}/', github.event.repository.name) }}
         SITE_URL_IN: ${{ inputs.site-url || format('https://{0}.github.io/{1}', github.repository_owner, github.event.repository.name) }}
+        SECRET: ${{ inputs.secret }}
         COMMENT_PR: ${{ inputs.comment-pr }}
       run: bash "${{ github.action_path }}/previews.sh" assemble

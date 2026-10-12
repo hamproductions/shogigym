@@ -30,5 +30,5 @@ writeFileSync(
 )
 writeFileSync(
   join(out, 'robots.txt'),
-  process.env.PREVIEW ? 'User-agent: *\nDisallow: /\n' : `User-agent: *\nAllow: /\nDisallow: /dev/\nSitemap: ${site}/sitemap.xml\n`,
+  process.env.PREVIEW ? 'User-agent: *\nDisallow: /\n' : `User-agent: *\nAllow: /\nDisallow: /dev/\nDisallow: /pr/\nSitemap: ${site}/sitemap.xml\n`,
 )

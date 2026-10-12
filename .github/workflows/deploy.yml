@@ -51,7 +51,9 @@ jobs:
           BASE_PATH: /${{ github.event.repository.name }}/
       - uses: ./.github/actions/pr-previews
         with:
-          comment-pr: ${{ github.event.pull_request.number }}
+          # Hidden URLs (set the PREVIEW_SECRET repository secret); the link is only commented on private repos.
+          secret: ${{ secrets.PREVIEW_SECRET }}
+          comment-pr: ${{ github.event.repository.private && github.event.pull_request.number || '' }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

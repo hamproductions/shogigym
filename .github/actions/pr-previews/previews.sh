@@ -7,13 +7,16 @@ set -euo pipefail
 T="$RUNNER_TEMP"
 STATE="$T/pr-previews"
 PRS="$T/prs.json"
+SECRET="${SECRET:-}"
+# With a secret, previews live at <prefix>/<hmac of PR number>/ instead of <prefix>/<number>/.
+slug() { if [ -n "$SECRET" ]; then printf '%s' "$1" | openssl dgst -sha256 -hmac "$SECRET" -r | cut -c1-24; else echo "$1"; fi; }
 
 case "${1:-}" in
 list)
   gh pr list --state open --limit 100 --json number,title,headRefOid,updatedAt,isCrossRepository \
     | jq --argjson max "${MAX:-5}" '[.[] | select(.isCrossRepository | not)] | sort_by(.updatedAt) | reverse | .[:$max]' > "$PRS"
   sig=$(jq -r 'map("\(.number):\(.headRefOid)") | sort | join(",")' "$PRS")
-  echo "key=$(printf '%s|%s' "$CONFIG" "$sig" | sha256sum | cut -c1-32)" >> "$GITHUB_OUTPUT"
+  echo "key=$(printf '%s|%s|%s' "$CONFIG" "$(printf '%s' "$SECRET" | sha256sum)" "$sig" | sha256sum | cut -c1-32)" >> "$GITHUB_OUTPUT"
   ;;
 
 build)
@@ -37,8 +40,8 @@ build)
     git worktree add -q --detach "$T/wt-$n" FETCH_HEAD
     if (
       cd "$T/wt-$n"
-      export PREVIEW=1 PR_NUMBER="$n" SITE_URL="${SITE_URL_IN%/}/$PREFIX/$n"
-      export "$BASE_ENV=$base/$n/"
+      export PREVIEW=1 PR_NUMBER="$n" SITE_URL="${SITE_URL_IN%/}/$PREFIX/$(slug "$n")"
+      export "$BASE_ENV=$base/$(slug "$n")/"
       bash -c "$INSTALL" && bash -c "$BUILD"
       mv "$OUTPUT" "$STATE/$n"
     ); then echo "$sha" > "$STATE/$n.sha"; else echo "::warning::preview for PR $n failed to build"; fi
@@ -56,12 +59,14 @@ assemble)
     [ -f "$STATE/$n.sha" ] || continue
     size=$(du -sm "$STATE/$n" | cut -f1)
     if [ $((used + size)) -gt "$MAX_MB" ]; then echo "::warning::skip PR $n, site would pass ${MAX_MB}MB"; continue; fi
-    cp -r "$STATE/$n" "$dest/$n"
-    for path in $EXCLUDE; do rm -rf "$dest/$n/$path"; done
+    cp -r "$STATE/$n" "$dest/$(slug "$n")"
+    for path in $EXCLUDE; do rm -rf "$dest/$(slug "$n")/$path"; done
     used=$((used + size)); built="$built $n"
   done < <(jq -r '.[].number' "$PRS")
   echo "built=${built# }" >> "$GITHUB_OUTPUT"
 
+  # A hidden preview must not be discoverable, so no index page.
+  if [ -z "$SECRET" ]; then
   esc() { sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g'; }
   {
     echo '<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>PR previews</title>'
@@ -73,11 +78,12 @@ assemble)
     [ -n "$built" ] || echo '<li>No open PRs.</li>'
     echo '</ul>'
   } > "$dest/index.html"
+  fi
 
   if [ -n "${COMMENT_PR:-}" ] && grep -qw "$COMMENT_PR" <<<"$built"; then
     sha=$(jq -r --argjson n "$COMMENT_PR" '.[] | select(.number == $n) | .headRefOid' "$PRS")
     body="<!-- deploy-preview -->
-Preview: ${SITE_URL_IN%/}/$PREFIX/$COMMENT_PR/
+Preview: ${SITE_URL_IN%/}/$PREFIX/$(slug "$COMMENT_PR")/
 Commit: $sha"
     id=$(gh api "repos/$GITHUB_REPOSITORY/issues/$COMMENT_PR/comments" --paginate --jq '.[] | select(.body | startswith("<!-- deploy-preview -->")) | .id' | head -1)
     if [ -n "$id" ]; then gh api -X PATCH "repos/$GITHUB_REPOSITORY/issues/comments/$id" -f body="$body" > /dev/null
