@@ -120,6 +120,10 @@ Release commands validate the course data, check lint and formatting, and build 
 
 Every push to `main` runs `.github/workflows/deploy.yml`. It validates the course data, checks lint and formatting, builds with `BASE_PATH=/shogigym/` (derived from the repository name), prerenders every mode and strategy page with React Router, and publishes `build/client/` to GitHub Pages. In the repository settings, set Pages → Source to "GitHub Actions" once.
 
+### PR previews
+
+Open pull requests from this repository are published automatically at `https://<owner>.github.io/<repo>/pr/<number>/`, and the workflow comments the link on the PR. Nothing is committed to git and no secrets or extra settings are needed. Each run rebuilds one Pages site (production at `/`, every open PR under `/pr/`), so closing or merging a PR removes its preview on the next run. Fork PRs are skipped, previews send `Disallow: /` in `robots.txt`, and a failing preview build is a warning that never blocks production. The workflow runs from `main` (`pull_request_target`), so changes to it take effect after merge. If Pages → Environments → `github-pages` restricts deployment branches, allow `main` only; no other rule is needed.
+
 The engine needs `SharedArrayBuffer`, which requires cross-origin isolation (`Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: require-corp`).
 
 - **GitHub Pages** cannot send these headers. `public/coi-sw.js` is a small service worker that adds them on the client, and the page reloads once the first time it installs.
