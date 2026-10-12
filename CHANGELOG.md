@@ -2,6 +2,37 @@
 
 Notable changes are recorded here when a release is created. Versions follow Semantic Versioning.
 
+# [1.5.0](/compare/v1.4.4...v1.5.0) (2026-10-12)
+
+
+### Bug Fixes
+
+* draw arrows above pieces, center badges, stop mark rebuild shader stalls 5aa00d7
+* end-align captured pieces in vertical strips 7aa4fc7
+* keep move arrows beneath pieces on flat and 3D boards 9d5c27d
+* keep preview banner and player plates out of the board on compact screens bc0384f
+* matchup pages say vs <opponent> instead of masquerading as the opening 0311bda
+* move Open and Trends from the rail into the analysis bar a94b37b
+* readable mistake rows in narrow panels and Japanese sentence stops e690b39
+* scale report average loss to percent like Trends a7917c9
+
+
+### Features
+
+* auto-rate every move, fold what-next into AI tab, graph and per-phase stats in Analysis 4292bec
+* distinct colour per mentioned square in lessons, with screenshots 7100160
+* full device pixel ratio, tinted square notation in lessons, rail Import KIF 4b3e49b
+* hide board coordinate labels by default d1c3b47
+* Open dialog, vertical captured-piece strips, game-relative endgame phase, review prompt square highlights b592a50
+* opt each saved game in or out of trends where games are listed 96ad083
+* opt games in via the Analysis side picker, mistake boards, Japanese-style squares in English lessons, data-only Trends 588a5b4
+* preview the described position for strategy pages and mark mentioned squares on the board c592d3e
+* ranked lesson search with breadcrumbs and related lessons 21cf903
+* real-board position diagrams, compact mistake rows, colour-coded moves, Japanese notation everywhere b5adf98
+* tabbed Trends, clearer rail groups, commands and table flip in the overflow menu 156d43c
+* Trends bars, expandable mistake boards, plain-language mistake explanations cb5e3fe
+* Trends dialog with cross-game insights and include/exclude per game 26bbadc
+
 ## [1.4.4](/compare/v1.4.3...v1.4.4) (2026-10-11)
 
 
