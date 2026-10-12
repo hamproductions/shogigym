@@ -37,17 +37,17 @@ function LeftPanel({
 }) {
   const { t } = useTranslation()
   const [selected, setSelected] = useState<Tab>('moves')
-  const active = tab === 'flow' || tab === 'moves' ? tab : selected
+  const active = tab === 'moves' ? tab : selected
   return (
     <FloatingPanel
       zone={zone}
       header={
         <Tabs
-          items={(['moves', 'flow'] as Tab[]).map((id) => ({ id, label: <span className={labelClass}>{t(`tabs.${id}`)}</span> }))}
+          items={(['moves'] as Tab[]).map((id) => ({ id, label: <span className={labelClass}>{t(`tabs.${id}`)}</span> }))}
           value={active}
           onChange={(id) => {
             setSelected(id)
-            if (tab === 'flow' || tab === 'moves') setTab('coach')
+            if (tab === 'moves') setTab('coach')
           }}
         />
       }
@@ -63,7 +63,7 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
   const reportable = isGameMode(mode) && game.moves.length > 0
   const ja = useSettings().lang === 'ja'
   const { compact, zones, twoPanels, setPanel } = layout
-  const rightTab = (twoPanels && (tab === 'moves' || tab === 'flow')) || (tab === 'report' && !reportable) ? 'coach' : tab
+  const rightTab = (twoPanels && tab === 'moves') || (tab === 'report' && !reportable) ? 'coach' : tab
   const labelClass = ja ? 'app-ja' : 'app-en'
   return (
     <>
@@ -74,7 +74,7 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
         header={
           <div className="app-panel-header">
             <Tabs
-              items={TABS.filter((id) => !(twoPanels && (id === 'moves' || id === 'flow')) && (id !== 'report' || reportable)).map((id) => ({
+              items={TABS.filter((id) => !(twoPanels && id === 'moves') && (id !== 'report' || reportable)).map((id) => ({
                 id,
                 label: <span className={labelClass}>{t(`tabs.${id}`)}</span>,
               }))}

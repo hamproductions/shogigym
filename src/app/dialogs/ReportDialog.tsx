@@ -82,13 +82,16 @@ type GameReportProps = {
   onPractice: (items: Mistake[]) => void
   onLesson: (topicId: string) => void
   onExpand?: () => void
+  /** Background rating owned by the app; when set the report only displays it. */
+  progress?: { done: number; total: number } | null
 }
 
-export function GameReport({ game, userSide, rate, onShow, onRoute, onPractice, onLesson, onExpand }: GameReportProps) {
+export function GameReport({ game, userSide, rate, progress: external, onShow, onRoute, onPractice, onLesson, onExpand }: GameReportProps) {
   const { t, i18n } = useTranslation()
   const [side, setSide] = useState<Side>(userSide)
   const version = useReviewVersion()
-  const progress = useRatings(game, side, rate)
+  const own = useRatings(game, side, rate && external === undefined)
+  const progress = external === undefined ? own : external
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const report = useMemo(() => buildReport(game, side, cachedReview), [game, side, version])
   const top = report.patterns.find((p) => p.tag !== 'other') ?? report.patterns[0]
@@ -132,7 +135,12 @@ export function GameReport({ game, userSide, rate, onShow, onRoute, onPractice, 
                 <i>
                   <b style={{ width: `${report.phases[p].score ?? 0}%` }} />
                 </i>
-                <span className="app-muted">{report.phases[p].score ?? t('report.few')}</span>
+                <span className="app-muted">
+                  {report.phases[p].score ?? t('report.few')}
+                  {report.phases[p].avgLoss !== null && (
+                    <small>{t('report.phaseDetail', { loss: report.phases[p].avgLoss, percent: report.phases[p].mistakeRate })}</small>
+                  )}
+                </span>
               </div>
             ))}
           </div>
@@ -269,7 +277,12 @@ export function ReportDialog({ game, userSide, onShow, onRoute, onClose }: Repor
                       <i>
                         <b style={{ width: `${report.phases[p].score ?? 0}%` }} />
                       </i>
-                      <span className="app-muted">{report.phases[p].score ?? t('report.few')}</span>
+                      <span className="app-muted">
+                        {report.phases[p].score ?? t('report.few')}
+                        {report.phases[p].avgLoss !== null && (
+                          <small>{t('report.phaseDetail', { loss: report.phases[p].avgLoss, percent: report.phases[p].mistakeRate })}</small>
+                        )}
+                      </span>
                     </div>
                   ))}
                 </div>

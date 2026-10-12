@@ -864,7 +864,6 @@
   "tabs": {
     "coach": "Coach",
     "engine": "AI",
-    "flow": "What next",
     "moves": "Moves",
     "report": "Analysis"
   },
@@ -1090,6 +1089,7 @@
     "setup": "Setting up the pieces… {{done}} / {{total}}"
   },
   "report": {
+    "phaseDetail": "avg loss {{loss}} · mistakes {{percent}}%",
     "title": "Game report",
     "rail": "Report",
     "railTitle": "Analyse this game: what went wrong and how to fix it",

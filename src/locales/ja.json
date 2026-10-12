@@ -845,7 +845,6 @@
   "tabs": {
     "coach": "指導",
     "engine": "形勢",
-    "flow": "この先",
     "moves": "棋譜",
     "report": "分析"
   },
@@ -1067,6 +1066,7 @@
     "setup": "駒を並べています… {{done}} / {{total}}"
   },
   "report": {
+    "phaseDetail": "平均損失 {{loss}}・悪手 {{percent}}%",
     "title": "対局レポート",
     "rail": "レポート",
     "railTitle": "この対局を分析: 問題点と直し方",

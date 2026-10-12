@@ -13,7 +13,7 @@ import type { PanelModel } from './PanelBody'
 export function MovesTab({ model }: { model: PanelModel }) {
   const { t } = useTranslation()
   const { mode, preview, previewSfens, sfens, game, cursor, setCursor, setPreview, setGame, setPlaying, tree, setTree, gameOver, userSide } = useSession()
-  const { analyze, spar, watch, evaluation, setConfirm } = model
+  const { analyze, spar, watch, setConfirm } = model
   const mate = useMemo(() => {
     const final = positionOf(sfens.at(-1)!)
     return final.checked && !hasLegalMove(final) ? { winner: final.color === Color.BLACK ? Color.WHITE : Color.BLACK, checkmate: true } : undefined
@@ -58,9 +58,8 @@ export function MovesTab({ model }: { model: PanelModel }) {
         cursor={cursor}
         setCursor={setCursor}
         title={title}
-        onScore={evaluation.recordEval}
         tree={isGameMode(mode) || mode === 'view' ? tree : null}
-        autoRate={analyze.autoRating}
+        rating={model.rating}
         canRate={mode !== 'view' && (mode === 'analyze' || gameOver || spar.resigned)}
         empty={isGameMode(mode) || mode === 'view' ? undefined : t('moves.noMovesYetSolve')}
         onSwitch={(path) => {

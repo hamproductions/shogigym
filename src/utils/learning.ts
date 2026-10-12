@@ -99,7 +99,9 @@ export type Report = {
   total: number
   rated: number
   accuracy: number | null
-  phases: Record<Phase, { moves: number; score: number | null }>
+  phases: Record<Phase, { moves: number; score: number | null; avgLoss: number | null; mistakeRate: number | null }>
+  avgLoss: number | null
+  mistakes: number
   good: number
   problems: Problem[]
   patterns: { tag: Weakness; count: number }[]
@@ -118,16 +120,24 @@ export function buildReport(game: GameLike, side: Side, reviewOf: (sfen: string,
     return review ? [{ ...m, review }] : []
   })
   const sums: Record<Phase, [number, number]> = { opening: [0, 0], middle: [0, 0], endgame: [0, 0] }
+  const bad: Record<Phase, number> = { opening: 0, middle: 0, endgame: 0 }
   let loss = 0
   let good = 0
   for (const m of rated) {
     const bucket = sums[phaseOf(m.ply, bounds)]
     bucket[0]++
+    if (isBad(m.review.label)) bad[phaseOf(m.ply, bounds)]++
     bucket[1] += m.review.loss
     loss += m.review.loss
     if (SOLID.includes(m.review.label)) good++
   }
   const score = (n: number, l: number) => (n >= MIN_SCORE ? scoreFromLoss(l / n) : null)
+  const phase = (p: Phase) => ({
+    moves: sums[p][0],
+    score: score(...sums[p]),
+    avgLoss: sums[p][0] >= MIN_SCORE ? Math.round(sums[p][1] / sums[p][0]) : null,
+    mistakeRate: sums[p][0] >= MIN_SCORE ? Math.round((bad[p] / sums[p][0]) * 100) : null,
+  })
   const problems = rated
     .filter((m) => isBad(m.review.label))
     .map((m): Problem => ({ ...m, tag: weaknessOf({ ply: m.ply, ...m.review }) }))
@@ -138,11 +148,9 @@ export function buildReport(game: GameLike, side: Side, reviewOf: (sfen: string,
     total: mine.length,
     rated: rated.length,
     accuracy: score(rated.length, loss),
-    phases: {
-      opening: { moves: sums.opening[0], score: score(...sums.opening) },
-      middle: { moves: sums.middle[0], score: score(...sums.middle) },
-      endgame: { moves: sums.endgame[0], score: score(...sums.endgame) },
-    },
+    phases: { opening: phase('opening'), middle: phase('middle'), endgame: phase('endgame') },
+    avgLoss: rated.length >= MIN_SCORE ? Math.round(loss / rated.length) : null,
+    mistakes: problems.length,
     good,
     problems,
     patterns: [...tally.entries()].map(([tag, count]) => ({ tag, count })).sort((a, b) => b.count - a.count),

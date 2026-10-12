@@ -27,6 +27,7 @@ import { useModeSlots, useModeSwitch } from '@/app/hooks/useModeSwitch'
 import { useMoveReview } from '@/app/hooks/useMoveReview'
 import { useOpponent } from '@/app/hooks/useOpponent'
 import { usePersistedSession } from '@/app/hooks/usePersistedSession'
+import { useAutoRate } from '@/app/hooks/useAutoRate'
 import { useKifuDrop } from '@/app/hooks/useKifuDrop'
 import { useRouteMode } from '@/app/hooks/useRouteMode'
 import { useShortcuts } from '@/app/hooks/useShortcuts'
@@ -92,6 +93,14 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
   const coach = useMoveReview(session)
   const watch = useWatch(session, load, !!coach.review, pendingFurigoma)
   const evaluation = useEvaluation(session)
+  const rating = useAutoRate({
+    enabled: session.ai && session.assist && (mode === 'analyze' || mode === 'spar'),
+    sfens: session.sfens,
+    moves: game.moves,
+    allSides: mode === 'analyze',
+    userSide,
+    onScore: evaluation.recordEval,
+  })
   const drill = useDrill(session, { mistakes, setTab })
   const layout = useLayout({
     mode,
@@ -402,6 +411,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
           sheetOpen={layout.sheetOpen ?? (picking || (mode === 'drill' && !drill.item))}
           model={{
             analyzeMoves: slots.stashed('analyze')?.game.moves.length ?? 0,
+            rating,
             lesson,
             drill,
             tsume,

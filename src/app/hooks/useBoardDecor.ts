@@ -79,7 +79,7 @@ export function useBoardDecor(session: BoardSession, input: DecorInput) {
 
   const arrows: BoardArrow[] = []
   const best = analysis?.candidates[0]
-  if (!gameOver && ai && assist && best && showBest && !spoilerFree && (mode === 'analyze' || mode === 'view' || tab === 'engine')) {
+  if (!gameOver && ai && assist && best && showBest && !spoilerFree && ((mode === 'analyze' || mode === 'view') && tab !== 'coach' ? true : tab === 'engine')) {
     for (const c of analysis!.candidates.slice(1)) if (c.move !== best.move) arrows.push({ usi: c.move, color: SHU, dashed: true })
     arrows.push({ usi: best.move, color: SHU, label: t('app.best') })
   }
@@ -88,7 +88,7 @@ export function useBoardDecor(session: BoardSession, input: DecorInput) {
     arrows.push({ usi: review.reply.move, color: REFUTE_BLUE })
   if (reply) arrows.push({ usi: reply.usi, color: REPLY_BLUE })
   if (preview && upcoming) arrows.push({ usi: upcoming, color: REPLY_BLUE })
-  if (hoverLane && !preview && tab === 'flow') arrows.push({ usi: hoverLane, color: LANE_AMBER })
+  if (hoverLane && !preview && tab === 'engine') arrows.push({ usi: hoverLane, color: LANE_AMBER })
   if (focusSquare && focusCell) {
     arrows.length = 0
     for (const sq of focusCell.s) arrows.push({ usi: `${sq.usi}${focusSquare.usi}`, color: SENTE_BLUE })
