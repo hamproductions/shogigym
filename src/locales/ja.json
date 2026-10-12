@@ -1065,6 +1065,69 @@
     },
     "setup": "駒を並べています… {{done}} / {{total}}"
   },
+  "insights": {
+    "title": "傾向",
+    "rail": "傾向",
+    "railTitle": "自分の対局全体の傾向：繰り返すミス、得意・苦手、練習すべき所",
+    "scope": "対象の対局",
+    "scopeHint": "どちらが自分かを選びます。他のアプリの棋譜も選べば集計に入ります。プロの棋譜など見るだけのものは「研究」のままにすると傾向から除外されます。",
+    "role": {
+      "sente": "☗ 自分",
+      "gote": "☖ 自分",
+      "study": "研究"
+    },
+    "none": "自分の対局がまだありません。AIと対局するか、上の保存棋譜を選んでください。",
+    "noGames": "保存した棋譜がありません。AIとの対局は自動保存されます。分析の保存やKIFの読込で増やせます。",
+    "included": "{{count}}局を集計",
+    "rating": "対局を分析中… {{done}} / {{total}}手",
+    "coverage": "自分の{{total}}手中{{rated}}手を評価済み",
+    "noEngine": "このブラウザではエンジンが使えないため、評価済みの手のみ集計します。",
+    "skills": "実力プロフィール",
+    "trend": "対局ごとの正確さ",
+    "trendHint": "古い順",
+    "gameRow": "{{rated}}/{{total}}手評価済み",
+    "skill": {
+      "opening": "序盤",
+      "middle": "中盤",
+      "endgame": "終盤",
+      "convert": "有利を活かす",
+      "tenacity": "粘り",
+      "punish": "咎める",
+      "steady": "先に崩れない"
+    },
+    "skillHint": {
+      "convert": "優勢になった対局のうち、そのまま活かせた割合",
+      "tenacity": "劣勢になった対局のうち、立て直せた割合",
+      "punish": "相手の悪手に良い手で応えた割合",
+      "steady": "相手が先に崩れた対局の割合"
+    },
+    "few": "手数が少ない",
+    "nOfN": "{{hits}}/{{total}}",
+    "recurring": "繰り返すミス",
+    "recurringEmpty": "繰り返すミスはまだありません。同じ局面で複数の対局にわたって誤ると表示されます。",
+    "recurringItem": "{{games}}局で{{count}}回：指した手 {{played}}、より良い手 {{best}}",
+    "practice": "この{{count}}問を練習",
+    "pieces": "ミスが集中する駒",
+    "pieceItem": "{{piece}}：{{moves}}手中{{mistakes}}手（{{percent}}%）",
+    "fix": "直す所",
+    "fixEmpty": "目立つ弱点はまだありません。もう少し対局を分析してください。",
+    "suggest": {
+      "recurring": "同じ局面で複数回誤っている所が{{count}}か所あります（計{{times}}回）。ここを練習するのが最短です。",
+      "phase": "一番の弱点は{{phase}}です（得点{{score}}、平均損失{{loss}}）。",
+      "weakness": "最も多いミスの種類：{{name}}（{{count}}回）。",
+      "convert": "築いた優勢を活かせたのは{{percent}}%（{{total}}局中{{hits}}局）。寄せと安全な攻めを練習しましょう。",
+      "tenacity": "劣勢から立て直せたのは{{percent}}%（{{total}}局中{{hits}}局）。最も粘りのある受けを探しましょう。",
+      "punish": "相手の悪手を咎められたのは{{percent}}%（{{total}}回中{{hits}}回）。悪手の後に何が取れるか確認しましょう。",
+      "steady": "先に崩れた対局は{{percent}}%（{{total}}局中{{hits}}局）。中盤の入りをゆっくり進めましょう。",
+      "piece": "{{piece}}を動かす手の{{percent}}%が悪手です（{{moves}}手）。",
+      "turn": "対局は{{ply}}手目前後で崩れがちです。その直前の局面を見直しましょう。"
+    },
+    "phaseName": {
+      "opening": "序盤",
+      "middle": "中盤",
+      "endgame": "終盤"
+    }
+  },
   "report": {
     "phaseDetail": "平均損失 {{loss}}・悪手 {{percent}}%",
     "title": "対局レポート",

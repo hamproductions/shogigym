@@ -26,6 +26,7 @@ type ToolActions = {
   onInstall?: () => void
   onReport?: () => void
   onImport?: () => void
+  onTrends?: () => void
 }
 
 export function useRailTools({
@@ -39,6 +40,7 @@ export function useRailTools({
   onInstall,
   onReport,
   onImport,
+  onTrends,
 }: ToolActions) {
   const { t } = useTranslation()
   const ja = useSettings().lang === 'ja'
@@ -91,6 +93,7 @@ export function useRailTools({
   ]
   const top: RailTool[] = [
     ...(onReport ? [{ id: 'report', icon: 'report', label: t('report.rail'), title: t('report.railTitle'), run: onReport } satisfies RailTool] : []),
+    ...(onTrends ? [{ id: 'trends', icon: 'trends', label: t('insights.rail'), title: t('insights.railTitle'), run: onTrends } satisfies RailTool] : []),
     ...(onImport ? [{ id: 'import', icon: 'import', label: t('rail.open'), title: t('rail.openTitle'), run: onImport } satisfies RailTool] : []),
     { id: 'palette', icon: 'command', label: '⌘K', title: t('app.searchLinesAndCommandsK'), run: onPalette },
     {

@@ -13,9 +13,9 @@ import { moveText, type Side } from '@/utils/shogi'
 import type { Mistake } from '@/utils/mistakes'
 
 export type FixRoute = 'tsume' | 'tesuji' | 'lesson'
-const FIX_ROUTE: Partial<Record<Weakness, FixRoute>> = { missedMate: 'tsume', allowedTactic: 'tesuji', openingSlip: 'lesson' }
+export const FIX_ROUTE: Partial<Record<Weakness, FixRoute>> = { missedMate: 'tsume', allowedTactic: 'tesuji', openingSlip: 'lesson' }
 const MIN_MOVES = 4
-const LESSONS: Record<Weakness, string[]> = {
+export const LESSONS: Record<Weakness, string[]> = {
   missedMate: ['basics-mate-words', 'endgame-mate-tesuji'],
   allowedMate: ['basics-attack-defense', 'endgame-tsumero'],
   hangs: ['basics-value'],

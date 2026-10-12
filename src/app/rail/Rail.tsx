@@ -25,6 +25,7 @@ type RailProps = {
   onPalette: () => void
   onReport?: () => void
   onImport?: () => void
+  onTrends?: () => void
   onLessonBack?: () => void
   snapshotName: string
   tools?: RailTool[]
@@ -106,6 +107,7 @@ export function Rail({
   onPalette,
   onReport,
   onImport,
+  onTrends,
   onLessonBack,
   snapshotName,
   tools,
@@ -145,6 +147,7 @@ export function Rail({
     onInstall: installation.installed ? undefined : installation.install,
     onReport,
     onImport,
+    onTrends,
   })
   const { primary, secondary, top, bottom } = tools
     ? {

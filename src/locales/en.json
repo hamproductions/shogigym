@@ -1088,6 +1088,69 @@
     },
     "setup": "Setting up the pieces… {{done}} / {{total}}"
   },
+  "insights": {
+    "title": "Trends",
+    "rail": "Trends",
+    "railTitle": "Tendencies across your games: repeated mistakes, strengths and where to practise",
+    "scope": "Games included",
+    "scopeHint": "Mark which side is yours. Games from other apps count once you mark them; pro games and anything you only want to study stay on Study and are left out of your trends.",
+    "role": {
+      "sente": "☗ Me",
+      "gote": "☖ Me",
+      "study": "Study"
+    },
+    "none": "No games are marked as yours yet. Play the AI, or mark a saved game above.",
+    "noGames": "No saved games yet. Finished games against the AI are saved automatically; save an analysis or import a KIF to add more.",
+    "included": "{{count}} included",
+    "rating": "Analysing your games… {{done}} of {{total}} moves",
+    "coverage": "{{rated}} of {{total}} of your moves rated",
+    "noEngine": "The engine is not available in this browser, so only moves already rated are included.",
+    "skills": "Skill profile",
+    "trend": "Accuracy by game",
+    "trendHint": "Oldest to newest",
+    "gameRow": "{{rated}}/{{total}} rated",
+    "skill": {
+      "opening": "Opening",
+      "middle": "Middlegame",
+      "endgame": "Endgame",
+      "convert": "Using an advantage",
+      "tenacity": "Fighting back",
+      "punish": "Punishing mistakes",
+      "steady": "Not cracking first"
+    },
+    "skillHint": {
+      "convert": "Games you were clearly ahead in and kept",
+      "tenacity": "Games you were clearly behind in and recovered",
+      "punish": "Opponent mistakes you answered well",
+      "steady": "Games where the opponent slipped first"
+    },
+    "few": "too few moves",
+    "nOfN": "{{hits}}/{{total}}",
+    "recurring": "Same mistakes",
+    "recurringEmpty": "No repeated mistakes yet. They appear when the same position goes wrong in more than one game.",
+    "recurringItem": "{{count}}× in {{games}} game(s): played {{played}}, better {{best}}",
+    "practice": "Practise these {{count}}",
+    "pieces": "Where mistakes cluster",
+    "pieceItem": "{{piece}}: {{mistakes}} of {{moves}} moves ({{percent}}%)",
+    "fix": "Where to fix",
+    "fixEmpty": "Nothing stands out yet. Analyse a few more games.",
+    "suggest": {
+      "recurring": "You have {{count}} positions where you went wrong more than once ({{times}} mistakes in total). Drilling them is the quickest win.",
+      "phase": "Your weakest phase is the {{phase}} (score {{score}}, average loss {{loss}}).",
+      "weakness": "Your most common kind of mistake: {{name}} ({{count}} times).",
+      "convert": "You keep only {{percent}}% of the advantages you build ({{hits}} of {{total}} games). Practise finishing: yose and safe attacks.",
+      "tenacity": "You recover from only {{percent}}% of bad positions ({{hits}} of {{total}}). Look for the toughest defence instead of resigning mentally.",
+      "punish": "You punish {{percent}}% of opponent mistakes ({{hits}} of {{total}}). Check what a mistake leaves hanging before you play on.",
+      "steady": "You slip first in {{percent}}% of games ({{hits}} of {{total}} where someone slipped). Slow down in the first moves of the middlegame.",
+      "piece": "Your {{piece}} moves go wrong {{percent}}% of the time ({{moves}} moves).",
+      "turn": "Your games usually turn around move {{ply}}. Review the position just before it."
+    },
+    "phaseName": {
+      "opening": "opening",
+      "middle": "middlegame",
+      "endgame": "endgame"
+    }
+  },
   "report": {
     "phaseDetail": "avg loss {{loss}} · mistakes {{percent}}%",
     "title": "Game report",

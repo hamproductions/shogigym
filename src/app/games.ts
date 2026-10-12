@@ -15,7 +15,12 @@ export type StoredGame = {
   userSide: 'sente' | 'gote'
   result?: GameResult
   vsAi?: boolean
+  /** 'mine' feeds cross-game trends; 'study' (imports, pro games) stays out of them. Defaults to mine for games played here. */
+  role?: GameRole
 }
+
+export type GameRole = 'mine' | 'study'
+export const gameRole = (g: StoredGame): GameRole => g.role ?? (g.vsAi ? 'mine' : 'study')
 
 const KEY = 'joseki-practice:games:v1'
 
@@ -39,6 +44,10 @@ function write(games: StoredGame[]) {
 
 export function storeGame(game: StoredGame) {
   return write([game, ...loadGames().filter((g) => g.id !== game.id)])
+}
+
+export function setGameRole(id: string, role: GameRole, userSide?: 'sente' | 'gote') {
+  write(loadGames().map((g) => (g.id === id ? { ...g, role, ...(userSide ? { userSide } : {}) } : g)))
 }
 
 export function deleteGame(id: string) {
