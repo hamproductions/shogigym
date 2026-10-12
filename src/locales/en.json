@@ -1092,6 +1092,8 @@
     "title": "Trends",
     "rail": "Trends",
     "railTitle": "Tendencies across your games: repeated mistakes, strengths and where to practise",
+    "countIn": "Count in my trends",
+    "savedChoice": "Saved to your games.",
     "scope": "Games included",
     "scopeHint": "Mark which side is yours. Games from other apps count once you mark them; pro games and anything you only want to study stay on Study and are left out of your trends.",
     "role": {

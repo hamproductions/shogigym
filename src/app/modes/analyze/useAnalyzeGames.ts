@@ -84,7 +84,7 @@ export function useAnalyzeGames(
     return exportGame(game.start, lines, names)
   }
 
-  const saveSlot = () => {
+  const saveSlot = (choice?: 'sente' | 'gote' | 'study') => {
     const id = slotId ?? String(Date.now())
     const when = savedAtLabel(new Date())
     const title = mode === 'spar' ? t('app.vsAiAs', { side: sideMark(userSide), when }) : `${gameTitle || t('app.analysis')} · ${when}`
@@ -97,7 +97,8 @@ export function useAnalyzeGames(
       detectionResult: game.detectionResult,
       moves: tree.children.length ? mainLine(tree) : game.moves,
       tree: tree.children.length ? tree : undefined,
-      userSide,
+      userSide: choice && choice !== 'study' ? choice : userSide,
+      ...(choice ? { role: choice === 'study' ? ('study' as const) : ('mine' as const) } : {}),
     })
     if (ok) setSlotId(id)
     return ok

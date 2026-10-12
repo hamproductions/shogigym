@@ -2,22 +2,19 @@ import './insights.css'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PieceType } from 'tsshogi'
-import { gameRole, loadGames, setGameRole, type StoredGame } from '@/app/games'
+import { gameChoice, gameRole, loadGames, setGameRole, type GameChoice, type StoredGame } from '@/app/games'
 import { useBatchRate } from '@/app/hooks/useBatchRate'
 import { cachedReview, useReviewVersion } from '@/app/memory'
 import { PIECE_INFO } from '@/app/pieces'
+import { GameRoleToggle } from '@/app/modes/analyze/GameRoleToggle'
 import { Button } from '@/app/ui/Button'
 import { Dialog, DialogHeader } from '@/app/ui/Dialog'
-import { Segmented } from '@/app/ui/Segmented'
 import { engineSupported } from '@/utils/engine'
 import { buildInsights, type InsightGame, type Recurring, type Skill, type Suggestion } from '@/utils/insights'
 import { SETUPS } from '@/utils/model'
 import { moveText, PIECE_CHAR } from '@/utils/shogi'
 import type { Mistake } from '@/utils/mistakes'
 import { FIX_ROUTE, LESSONS, type FixRoute } from './ReportDialog'
-
-type Choice = 'sente' | 'gote' | 'study'
-const choiceOf = (g: StoredGame): Choice => (gameRole(g) === 'study' ? 'study' : g.userSide)
 
 const AXES: Skill['key'][] = ['opening', 'middle', 'endgame', 'convert', 'tenacity', 'punish', 'steady']
 
@@ -99,7 +96,7 @@ export function InsightsDialog({ onClose, onPractice, onRoute, onLesson }: Props
   const progress = useBatchRate(included, true)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const insights = useMemo(() => buildInsights(included, cachedReview), [included, version])
-  const choose = (g: StoredGame, choice: Choice) => {
+  const choose = (g: StoredGame, choice: GameChoice) => {
     if (choice === 'study') setGameRole(g.id, 'study')
     else setGameRole(g.id, 'mine', choice)
     setStored(loadGames())
@@ -180,16 +177,7 @@ export function InsightsDialog({ onClose, onPractice, onRoute, onLesson }: Props
                       {summary ? ` · ${t('insights.gameRow', { rated: summary.rated, total: summary.total })}` : ''}
                     </span>
                   </div>
-                  <Segmented
-                    size="small"
-                    value={choiceOf(g)}
-                    onChange={(choice) => choose(g, choice)}
-                    options={[
-                      { v: 'sente', t: t('insights.role.sente') },
-                      { v: 'gote', t: t('insights.role.gote') },
-                      { v: 'study', t: t('insights.role.study') },
-                    ]}
-                  />
+                  <GameRoleToggle value={gameChoice(g)} onChange={(choice) => choose(g, choice)} />
                 </li>
               )
             })}

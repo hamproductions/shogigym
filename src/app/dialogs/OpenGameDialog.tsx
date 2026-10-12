@@ -23,7 +23,7 @@ export function OpenGameDialog({ games, onClose }: { games: AnalyzeGames; onClos
         ]}
       />
       {tab === 'saved' ? (
-        <SavedGames games={games} stored={stored} onOpen={onClose} />
+        <SavedGames games={games} onOpen={onClose} />
       ) : (
         <ImportBox
           bare

@@ -20,6 +20,7 @@ export type StoredGame = {
 }
 
 export type GameRole = 'mine' | 'study'
+export type GameChoice = 'sente' | 'gote' | 'study'
 export const gameRole = (g: StoredGame): GameRole => g.role ?? (g.vsAi ? 'mine' : 'study')
 
 const KEY = 'joseki-practice:games:v1'
@@ -59,3 +60,4 @@ export const gameId = (start: string, moves: string[]) => {
   for (const c of `${start}|${moves.join(' ')}`) h = (h * 31 + c.charCodeAt(0)) | 0
   return `ai-${(h >>> 0).toString(36)}`
 }
+export const gameChoice = (g: StoredGame): GameChoice => (gameRole(g) === 'study' ? 'study' : g.userSide)
