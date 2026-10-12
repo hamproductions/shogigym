@@ -121,8 +121,9 @@ export function buildCatalog(raws: RawCourse[], lessons: LessonEntry[] = []) {
       id: mu.id,
       main: mu.main,
       vs: mu.vs,
-      name: mu.title?.en ?? vs?.en ?? mu.vs,
-      ja: mu.title?.ja ?? vs?.ja ?? mu.vs,
+      // A matchup page is how to face the opponent's strategy, so say so instead of reusing its bare name.
+      name: mu.title?.en ?? (vs ? (/\bvs\b/i.test(vs.en) ? vs.en : `vs ${vs.en}`) : mu.vs),
+      ja: mu.title?.ja ?? (vs ? (vs.ja.includes('対') ? vs.ja : `対${vs.ja}`) : mu.vs),
       intro: vs?.about ?? main?.about ?? { ja: '', en: '' },
       plan: mu.plan,
       level: mu.level,

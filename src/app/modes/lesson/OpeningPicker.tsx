@@ -197,7 +197,9 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
           </>
         )}
         {(() => {
-          const base = open.setup.ja
+          const opponent = open.setup.vs ? strategyById(open.setup.vs) : undefined
+          const base = opponent?.ja ?? open.setup.ja
+          const baseName = opponent?.en ?? open.setup.name
           const mentions = (g: Entry) => g.setup.ja.includes(base) || g.courses.some((c) => c.title.includes(base))
           const related = base.length >= 2 ? all.filter((g) => g.setup.id !== open.setup.id && mentions(g)).slice(0, 8) : []
           const group = josekiGroupOf(open.setup) ?? groupOf(open.setup)
@@ -209,7 +211,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
             : []
           return (
             <>
-              {related.length > 0 && <h3 className="app-sub">{ja ? `「${base}」に関する講座` : `More about ${open.setup.name}`}</h3>}
+              {related.length > 0 && <h3 className="app-sub">{ja ? `「${base}」に関する講座` : `More about ${baseName}`}</h3>}
               {related.map(resultCard)}
               {siblings.length > 0 && <h3 className="app-sub">{ja ? `${groupName(group!)}の他の講座` : `More in ${groupName(group!)}`}</h3>}
               {siblings.map(resultCard)}
