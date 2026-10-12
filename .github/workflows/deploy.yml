@@ -1,7 +1,7 @@
 name: Deploy to GitHub Pages
 
 # One Pages site: production from main at /, every open same-repo PR at /pr/<n>/.
-# Each run rebuilds the whole site, so closed PRs disappear and nothing is stored in git.
+# Each run reassembles the whole site from caches: only changed PRs rebuild, closed PRs disappear, nothing is stored in git.
 # pull_request_target runs this file from main, so previews start working once it is merged.
 on:
   push:
@@ -22,58 +22,36 @@ concurrency:
 
 jobs:
   build:
-    # Fork PRs are never built: pull_request_target has write access.
+    # Fork PRs never build: pull_request_target has write access.
     if: github.event_name != 'pull_request_target' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
-    env:
-      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: 24
       - uses: oven-sh/setup-bun@v2
-      - run: bun install --frozen-lockfile
-      - run: node scripts/validate.mjs
-      - run: bun run lint
-      - run: bun run format:check
-      - run: bun run build
+      # Production only rebuilds when main moved; PR events reuse it.
+      - id: prod
+        uses: actions/cache@v4
+        with:
+          path: build/client
+          key: site-${{ github.sha }}
+      - if: steps.prod.outputs.cache-hit != 'true'
+        run: |
+          bun install --frozen-lockfile
+          node scripts/validate.mjs
+          bun run lint
+          bun run format:check
+          bun run build
         env:
           BASE_PATH: /${{ github.event.repository.name }}/
-      - name: Build open PR previews
-        env:
-          REPO: ${{ github.event.repository.name }}
-          ORIGIN: https://${{ github.repository_owner }}.github.io
-        run: |
-          gh pr list --state open --base "${{ github.event.repository.default_branch }}" --json number,isCrossRepository --jq '.[] | select(.isCrossRepository | not) | .number' > prs.txt
-          mkdir -p pr-previews
-          for n in $(cat prs.txt); do
-            git fetch -q origin "pull/$n/head:refs/previews/$n"
-            git worktree add -q "../pr-$n" "refs/previews/$n"
-            (
-              cd "../pr-$n"
-              bun install --frozen-lockfile
-              BASE_PATH="/$REPO/pr/$n/" SITE_URL="$ORIGIN/$REPO/pr/$n" PREVIEW=1 bun run build
-              mv build/client "$GITHUB_WORKSPACE/pr-previews/$n"
-            ) && echo "$n" >> built.txt || echo "::warning::preview for PR $n failed to build"
-          done
-          touch built.txt
-          mkdir -p build/client/pr
-          for n in $(cat built.txt); do mv "pr-previews/$n" "build/client/pr/$n"; done
-      - name: Comment preview URL
-        if: github.event_name == 'pull_request_target' && github.event.action != 'closed'
-        env:
-          URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/pr/${{ github.event.number }}/
-          PR: ${{ github.event.number }}
-        run: |
-          body="<!-- deploy-preview -->
-          Preview: $URL
-          Commit: ${{ github.event.pull_request.head.sha }}"
-          id=$(gh api "repos/$GITHUB_REPOSITORY/issues/$PR/comments" --jq '[.[] | select(.body | startswith("<!-- deploy-preview -->"))][0].id // empty')
-          if [ -n "$id" ]; then gh api -X PATCH "repos/$GITHUB_REPOSITORY/issues/comments/$id" -f body="$body" >/dev/null
-          else gh pr comment "$PR" --body "$body"; fi
+      - uses: ./.github/actions/pr-previews
+        with:
+          comment-pr: ${{ github.event.pull_request.number }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
