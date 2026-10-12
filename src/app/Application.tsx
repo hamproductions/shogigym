@@ -61,6 +61,7 @@ import { isGameMode, type Confirm, type Mode, type Tab } from './types'
 const ConfirmDialog = lazy(() => import('@/app/dialogs/ConfirmDialog').then((m) => ({ default: m.ConfirmDialog })))
 const NewGameDialog = lazy(() => import('@/app/dialogs/NewGameDialog').then((m) => ({ default: m.NewGameDialog })))
 const ReportDialog = lazy(() => import('@/app/dialogs/ReportDialog').then((m) => ({ default: m.ReportDialog })))
+const ImportDialog = lazy(() => import('@/app/dialogs/ImportDialog').then((m) => ({ default: m.ImportDialog })))
 const Palette = lazy(() => import('@/app/dialogs/Palette').then((m) => ({ default: m.Palette })))
 const SettingsDialog = lazy(() => import('@/app/dialogs/SettingsDialog').then((m) => ({ default: m.SettingsDialog })))
 const WelcomeDialog = lazy(() => import('@/app/dialogs/WelcomeDialog').then((m) => ({ default: m.WelcomeDialog })))
@@ -73,6 +74,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
   const { mode, course, preview, sfen, nodes, prevSfen, lastMove, cursor, atEnd, playing, userSide, game } = session
   const [tab, setTab] = useState<Tab>('coach')
   const [palette, setPalette] = useState(false)
+  const [showImport, setShowImport] = useState(false)
   const [report, setReport] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [showViewer, setShowViewer] = useState(false)
@@ -302,8 +304,8 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
     view,
     palette,
     togglePalette: () => setPalette((v) => !v),
-    dialogOpen: watchSetup || showSettings || !!confirm || spar.newGameOpen || pendingFurigoma,
-    closeDialogs: () => (setShowSettings(false), setConfirm(null), spar.setNewGameOpen(false), setPendingFurigoma(false)),
+    dialogOpen: watchSetup || showSettings || showImport || !!confirm || spar.newGameOpen || pendingFurigoma,
+    closeDialogs: () => (setShowSettings(false), setShowImport(false), setConfirm(null), spar.setNewGameOpen(false), setPendingFurigoma(false)),
     overlayOpen: lesson.mapOpen && !!course,
     replyMove: opponent.reply?.usi,
     studyMove: lesson.asking && lesson.lessonMode === 'study' ? lesson.good[0]?.usi : undefined,
@@ -341,6 +343,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
           settingsOpen={showSettings}
           onSettings={() => setShowSettings(true)}
           onPalette={() => setPalette(true)}
+          onImport={() => setShowImport(true)}
           onReport={isGameMode(mode) && game.moves.length > 0 ? () => (setTab('report'), layout.setPanel({ hidden: false })) : undefined}
           snapshotName={`${SNAPSHOT_NAME}-${mode}-${cursor}`}
         />
@@ -565,6 +568,16 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
                 if (route === 'tesuji') tesuji.start('両取り')
               }}
               onClose={() => setReport(false)}
+            />
+          )}
+          {showImport && (
+            <ImportDialog
+              onClose={() => setShowImport(false)}
+              onImport={(text) => {
+                const error = analyze.importGame(text)
+                if (!error) setShowImport(false)
+                return error
+              }}
             />
           )}
           {palette && <Palette commands={commands} onClose={() => setPalette(false)} />}

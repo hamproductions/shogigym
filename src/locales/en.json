@@ -668,6 +668,8 @@
   },
   "rail": {
     "install": "Install app",
+    "importKif": "Import KIF",
+    "importKifTitle": "Import a game record (KIF, KI2, CSA, USI)",
     "installHelp": "On iPhone or iPad, open Share → Add to Home Screen. On desktop, use your browser’s Install app or Add to Dock menu. If neither option appears, open this page in Safari, Chrome or Edge.",
     "settings": "Settings",
     "control": "Control",

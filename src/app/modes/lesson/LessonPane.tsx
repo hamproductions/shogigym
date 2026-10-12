@@ -1,3 +1,4 @@
+import { SquareText } from '@/app/modes/lesson/SquareText'
 import './lesson.css'
 import './source-reader.css'
 import { useTranslation } from 'react-i18next'
@@ -241,7 +242,11 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
             )}
             <Button onClick={series ? series.back : lesson.leave}>{series ? t('lesson.backToArticle') : t('lesson.otherLessons')}</Button>
           </div>
-          {endComment && <p className="app-endnote">{endComment}</p>}
+          {endComment && (
+            <p className="app-endnote">
+              <SquareText text={endComment} />
+            </p>
+          )}
           <p>{lessonMode === 'quiz' ? quizSummary(score) : jumped ? t('lesson.endOfThisBranchYou') : t('lesson.youHaveSeenTheWhole')}</p>
           {endRate !== null && (
             <p className={endRate >= 0.55 ? 'app-end good' : endRate <= 0.45 ? 'app-end bad' : 'app-end'}>
@@ -307,7 +312,11 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
           <p>{lastNote}</p>
         </div>
       )}
-      {!lastMove && course.root.comment && <p className="app-last">{lessonText(course.root.comment, course.root.commentEn, i18n.language, course)}</p>}
+      {!lastMove && course.root.comment && (
+        <p className="app-last">
+          <SquareText text={lessonText(course.root.comment, course.root.commentEn, i18n.language, course) ?? ''} />
+        </p>
+      )}
       <button className="app-explore" onClick={lesson.explore}>
         {t('lesson.tryYourOwnMovesFrom')}
         <span>{t('lesson.opensThisPositionInAnalyze')}</span>

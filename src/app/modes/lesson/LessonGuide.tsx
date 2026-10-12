@@ -1,3 +1,4 @@
+import { SquareText } from '@/app/modes/lesson/SquareText'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { coursesOf, setupOf } from '@/utils/book'
@@ -253,10 +254,14 @@ export function LessonGuide({ course, lesson, series }: Props) {
         </nav>
       </div>
       <div className="app-guide-body">
-        {title && <h3 className="app-guide-title">{title}</h3>}
+        {title && (
+          <h3 className="app-guide-title">
+            <SquareText text={title} />
+          </h3>
+        )}
         {body.map((line, i) => (
           <p key={i} className={i === 0 ? 'app-guide-text' : 'app-guide-note'}>
-            {line}
+            <SquareText text={line} />
           </p>
         ))}
         {setup?.references && <LessonReferences references={setup.references} ja={ja} className="app-guide-source" />}

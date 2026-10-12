@@ -4,7 +4,7 @@ import { BoardLoading, type BoardLoadingState } from './BoardLoading'
 import { Color, type ImmutablePosition } from 'tsshogi'
 import { avatarSlot } from './avatars'
 import { updateView } from '@/rendering/board3d/camera'
-import { HALF_D, HALF_W, LEG, THICK, compactRendering, pieceSegments, setBoardDims } from '@/rendering/board3d/dimensions'
+import { HALF_D, HALF_W, LEG, THICK, pieceSegments, setBoardDims } from '@/rendering/board3d/dimensions'
 import { flipCameraOffset, resetTableFlip, saveSnapshot, startTableFlip, stepTableFlip } from '@/rendering/board3d/effects'
 import { createFurigoma3D } from '@/rendering/board3d/furigoma'
 import { bindPointer } from '@/rendering/board3d/interaction'
@@ -74,12 +74,9 @@ function Board3DScene(props: Board3DProps & { onContextLost: () => void }) {
     }
     syncPower()
     const unsubscribePower = subscribeSettings(syncPower)
-    const frameTimes: number[] = []
-    let fastWindows = 0
-    const pixelRatioLimit = Math.min(compactRendering() ? 1.5 : 2, window.devicePixelRatio)
     let width = 0
     let height = 0
-    let pixelRatio = renderer.getPixelRatio()
+    let pixelRatio = window.devicePixelRatio || 1
     let resizePending = true
     let bufferPending = false
     let relayoutPending = false
@@ -88,12 +85,11 @@ function Board3DScene(props: Board3DProps & { onContextLost: () => void }) {
       const { clientWidth: w, clientHeight: h } = el
       if (!w || !h) return
       resizePending = false
-      pixelRatio = Math.min(pixelRatio, pixelRatioLimit, Math.sqrt(2500000 / (w * h)))
+      pixelRatio = window.devicePixelRatio || 1
       if (width === w && height === h && renderer.getPixelRatio() === pixelRatio) return
       width = w
       height = h
       bufferPending = true
-      frameTimes.length = 0
       const previousFit = cameraFit(s.camera.aspect, s.tilt, latest.current.sideRoom ?? 0)
       s.camera.aspect = w / h
       s.camera.updateProjectionMatrix()
@@ -191,34 +187,6 @@ function Board3DScene(props: Board3DProps & { onContextLost: () => void }) {
           s.scene.onBeforeRender = before
         }
       }
-      if (
-        drew &&
-        piecesReady.current &&
-        latest.current.assetsReady !== false &&
-        appearance.current === latest.current.appearanceKey &&
-        document.visibilityState === 'visible' &&
-        dt > 0 &&
-        dt < 0.1
-      ) {
-        frameTimes.push(dt * 1000)
-        if (frameTimes.length === 60) {
-          frameTimes.sort((a, b) => a - b)
-          if (frameTimes[30] > 20 && pixelRatio > 1) {
-            pixelRatio = Math.max(1, pixelRatio - 0.25)
-            resizePending = true
-            fastWindows = 0
-          } else if (frameTimes[30] < 17.5 && frameTimes[54] < 20) {
-            if (++fastWindows === 5) {
-              pixelRatio = Math.min(pixelRatioLimit, pixelRatio + 0.25, Math.sqrt(2500000 / (width * height)))
-              resizePending = true
-              fastWindows = 0
-            }
-          } else {
-            fastWindows = 0
-          }
-          frameTimes.length = 0
-        }
-      } else frameTimes.length = 0
       if (drew && !rendered && piecesReady.current && boardFontReady) {
         rendered = true
         setReady(true)

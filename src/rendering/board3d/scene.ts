@@ -31,7 +31,7 @@ export function createRenderer(activateEnvironment = true) {
     return sharedRenderer
   }
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
-  renderer.setPixelRatio(Math.min(compactRendering() ? 1.5 : 2, window.devicePixelRatio))
+  renderer.setPixelRatio(window.devicePixelRatio || 1)
   renderer.shadowMap.enabled = true
   renderer.shadowMap.type = THREE.PCFShadowMap
   renderer.toneMapping = THREE.ACESFilmicToneMapping
