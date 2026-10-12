@@ -13,18 +13,24 @@ type Props = { sfen: string; played: string; best: string; tag: Weakness; loss: 
  * they have on the small position picture beside the text (tap the picture to enlarge it).
  */
 export function MistakeDetail({ sfen, played, best, tag, loss, reason, showPlayed }: Props) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [big, setBig] = useState(false)
+  const stop = i18n.language === 'ja' ? '。' : '. '
   return (
     <div className={`app-mistake${big ? ' big' : ''}`}>
       <div className="app-mistake-text">
         <p className="app-mistake-what">
           {showPlayed && (
             <>
-              {t('report.youPlayed')} <span className="app-mv played">{moveText(sfen, played)}</span>.{' '}
+              {t('report.youPlayed')} <span className="app-mv played">{moveText(sfen, played)}</span>
+              {stop}
             </>
           )}
-          <em>{t(`report.weak.${tag}.name`)}.</em> {t(`report.weak.${tag}.what`)}
+          <em>
+            {t(`report.weak.${tag}.name`)}
+            {stop}
+          </em>
+          {t(`report.weak.${tag}.what`)}
           {best !== played && (
             <>
               {' '}
