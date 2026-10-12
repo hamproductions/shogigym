@@ -25,7 +25,6 @@ import type { FixRoute } from '@/app/dialogs/ReportDialog'
 import type { Mistake } from '@/utils/mistakes'
 
 const LessonMap = lazy(() => import('@/components/Flowchart').then((m) => ({ default: m.LessonMap })))
-const ImportBox = lazy(() => import('@/app/modes/analyze/ImportBox').then((m) => ({ default: m.ImportBox })))
 const KifuNotes = lazy(() => import('@/app/modes/analyze/KifuNotes').then((m) => ({ default: m.KifuNotes })))
 const ReviewPane = lazy(() => import('@/app/modes/drill/ReviewPane').then((m) => ({ default: m.ReviewPane })))
 const LessonPane = lazy(() => import('@/app/modes/lesson/LessonPane').then((m) => ({ default: m.LessonPane })))
@@ -123,7 +122,6 @@ function CoachSection({ model }: { model: PanelModel }) {
           onReturn={drill.origin ? () => model.onReturnTo(drill.origin!) : undefined}
         />
       )}
-      {mode === 'analyze' && <ImportBox onImport={analyze.importGame} />}
       {mode === 'view' && <p className="app-note">{t('watch.description')}</p>}
       {mode === 'analyze' && analyze.gameNotes && <KifuNotes notes={analyze.gameNotes} moves={game.moves} cursor={cursor} />}
       {(isGameMode(mode) || mode === 'view') && !assist && <p className="app-muted">{t('app.helpIsOffNoRatings')}</p>}

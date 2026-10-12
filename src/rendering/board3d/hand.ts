@@ -205,7 +205,17 @@ export function handArrangement(position: ImmutablePosition, color: Color): { sp
   const sign = color === Color.BLACK ? 1 : -1
   if (layout.portrait) {
     const types = [...BIG, PieceType.PAWN].filter((t) => hand.count(t) > 0)
-    return { mode: 'strip', spots: types.map((type, i) => ({ type, x: c.x + sign * (STRIP_W / 2 - 0.6 - i * 1.02), z: c.z, rot: 0, count: hand.count(type) })) }
+    const along = (i: number) => (layout.vertical ? sign * ((types.length - 1) / 2 - i) * 1.02 : sign * (STRIP_W / 2 - 0.6 - i * 1.02))
+    return {
+      mode: 'strip',
+      spots: types.map((type, i) => ({
+        type,
+        x: layout.vertical ? c.x : c.x + along(i),
+        z: layout.vertical ? c.z + along(i) : c.z,
+        rot: 0,
+        count: hand.count(type),
+      })),
+    }
   }
   const pieces = CAPTURE_ORDER.flatMap((t) => Array(hand.count(t)).fill(t) as PieceType[])
   const split = fan(pieces, true)

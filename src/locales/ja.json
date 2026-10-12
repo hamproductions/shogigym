@@ -656,6 +656,8 @@
     "install": "アプリを追加",
     "importKif": "棋譜を読込",
     "importKifTitle": "棋譜を読み込む（KIF・KI2・CSA・USI）",
+    "open": "開く",
+    "openTitle": "保存した棋譜を開く／KIFを読み込む",
     "installHelp": "iPhone・iPadでは共有メニューから「ホーム画面に追加」を選びます。パソコンではブラウザーの「アプリをインストール」または「Dockに追加」を選んでください。表示されない場合はSafari、Chrome、Edgeでこのページを開いてください。",
     "settings": "設定",
     "control": "利",

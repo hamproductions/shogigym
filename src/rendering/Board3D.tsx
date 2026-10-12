@@ -8,7 +8,7 @@ import { HALF_D, HALF_W, LEG, THICK, pieceSegments, setBoardDims } from '@/rende
 import { flipCameraOffset, resetTableFlip, saveSnapshot, startTableFlip, stepTableFlip } from '@/rendering/board3d/effects'
 import { createFurigoma3D } from '@/rendering/board3d/furigoma'
 import { bindPointer } from '@/rendering/board3d/interaction'
-import { cameraFit, layout, sideStandsFit, zoneReporter } from '@/rendering/board3d/layout'
+import { cameraFit, layout, sideStandsFit, verticalStripsFit, zoneReporter } from '@/rendering/board3d/layout'
 import { drawMarks } from '@/rendering/board3d/marks'
 import { liftSelected, piecePreparation, rebuild, stepAnimations } from '@/rendering/board3d/pieces'
 import { createPower, moveEvent, type Power } from '@/rendering/board3d/power'
@@ -94,9 +94,11 @@ function Board3DScene(props: Board3DProps & { onContextLost: () => void }) {
       s.camera.aspect = w / h
       s.camera.updateProjectionMatrix()
       const narrow = w < 560
-      const portrait = !sideStandsFit(w, h)
-      const relayout = portrait !== layout.portrait || narrow !== layout.narrow
+      const vertical = verticalStripsFit(w, h)
+      const portrait = vertical || !sideStandsFit(w, h)
+      const relayout = portrait !== layout.portrait || narrow !== layout.narrow || vertical !== layout.vertical
       layout.portrait = portrait
+      layout.vertical = vertical
       layout.narrow = narrow
       if (s.controls && !s.tilePov && !s.flip) {
         const ratio = cameraFit(s.camera.aspect, s.tilt, latest.current.sideRoom ?? 0) / previousFit

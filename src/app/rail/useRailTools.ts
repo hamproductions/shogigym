@@ -91,7 +91,7 @@ export function useRailTools({
   ]
   const top: RailTool[] = [
     ...(onReport ? [{ id: 'report', icon: 'report', label: t('report.rail'), title: t('report.railTitle'), run: onReport } satisfies RailTool] : []),
-    ...(onImport ? [{ id: 'import', icon: 'import', label: t('rail.importKif'), title: t('rail.importKifTitle'), run: onImport } satisfies RailTool] : []),
+    ...(onImport ? [{ id: 'import', icon: 'import', label: t('rail.open'), title: t('rail.openTitle'), run: onImport } satisfies RailTool] : []),
     { id: 'palette', icon: 'command', label: '⌘K', title: t('app.searchLinesAndCommandsK'), run: onPalette },
     {
       id: 'control',

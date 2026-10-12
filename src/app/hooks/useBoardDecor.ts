@@ -70,7 +70,7 @@ export function useBoardDecor(session: BoardSession, input: DecorInput) {
   const peekSquare = peekFrom && position.board.at(peekFrom) ? peekFrom : null
   const focusSquare = peekFrom && !position.board.at(peekFrom) ? peekFrom : null
   const focusCell: ControlCell | null = focusSquare ? (control.get(focusSquare.usi) ?? EMPTY_CELL) : null
-  const reading = mode === 'lesson' && !preview && sourceMarks?.at === sfen.split(' ')[0] ? sourceMarks : null
+  const reading = (mode === 'lesson' || mode === 'drill') && !preview && sourceMarks?.at === sfen.split(' ')[0] ? sourceMarks : null
   const heat = [
     ...(reading?.heat ?? []),
     ...(showControl ? controlHeat(control) : []),

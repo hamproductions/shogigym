@@ -61,7 +61,7 @@ import { isGameMode, type Confirm, type Mode, type Tab } from './types'
 const ConfirmDialog = lazy(() => import('@/app/dialogs/ConfirmDialog').then((m) => ({ default: m.ConfirmDialog })))
 const NewGameDialog = lazy(() => import('@/app/dialogs/NewGameDialog').then((m) => ({ default: m.NewGameDialog })))
 const ReportDialog = lazy(() => import('@/app/dialogs/ReportDialog').then((m) => ({ default: m.ReportDialog })))
-const ImportDialog = lazy(() => import('@/app/dialogs/ImportDialog').then((m) => ({ default: m.ImportDialog })))
+const OpenGameDialog = lazy(() => import('@/app/dialogs/OpenGameDialog').then((m) => ({ default: m.OpenGameDialog })))
 const Palette = lazy(() => import('@/app/dialogs/Palette').then((m) => ({ default: m.Palette })))
 const SettingsDialog = lazy(() => import('@/app/dialogs/SettingsDialog').then((m) => ({ default: m.SettingsDialog })))
 const WelcomeDialog = lazy(() => import('@/app/dialogs/WelcomeDialog').then((m) => ({ default: m.WelcomeDialog })))
@@ -570,16 +570,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
               onClose={() => setReport(false)}
             />
           )}
-          {showImport && (
-            <ImportDialog
-              onClose={() => setShowImport(false)}
-              onImport={(text) => {
-                const error = analyze.importGame(text)
-                if (!error) setShowImport(false)
-                return error
-              }}
-            />
-          )}
+          {showImport && <OpenGameDialog games={analyze} onClose={() => setShowImport(false)} />}
           {palette && <Palette commands={commands} onClose={() => setPalette(false)} />}
           {confirm && <ConfirmDialog confirm={confirm} onClose={() => setConfirm(null)} />}
           {showSettings && <SettingsDialog onClose={() => setShowSettings(false)} level={levels.level} onLevel={levels.setLevel} />}

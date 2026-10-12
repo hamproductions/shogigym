@@ -17,6 +17,16 @@ export function sideStandsFit(w: number, h: number) {
   return sideStandsFitFor(w, h, HALF_W, HALF_D, STAND)
 }
 
+/** Short, wide canvases: captured pieces in narrow vertical strips beside the board so the board fills the height. */
+export function verticalStripsFit(w: number, h: number) {
+  setBoardDims()
+  const vertical = Math.min(w / (2 * (HALF_W + 0.25 + STRIP_D) + 0.4), h / (2 * HALF_D + 0.6))
+  const sd = w < 560 ? 0.95 : 1.15
+  const strips = Math.min(w / (2 * HALF_W + (w < 560 ? 0.5 : 1.0)), h / (2 * (HALF_D + 0.3 + sd) + 0.2))
+  const stands = Math.min(w / (2 * (HALF_W + 0.45 + STAND)), h / (2 * HALF_D + 0.6))
+  return vertical > Math.max(strips, stands) * 1.04
+}
+
 export function sideStandsFitFor(w: number, h: number, halfW: number, halfD: number, stand: number) {
   const side = Math.min(w / (2 * (halfW + 0.45 + stand)), h / (2 * halfD + 0.6))
   const sd = w < 560 ? 0.95 : 1.15

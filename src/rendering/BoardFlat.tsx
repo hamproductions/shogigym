@@ -10,7 +10,7 @@ import { useSvgBoard } from '@/app/hooks/useSvgBoard'
 import { SPRITE_BOX, spriteKey, type Baked } from './sprites'
 import { HALF_D, HALF_W, MARGIN, SQ_D, STAND, STRIP_D, STRIP_W, setBoardDims } from '@/rendering/board3d/dimensions'
 import { handArrangement } from '@/rendering/board3d/hand'
-import { layout, sideStandsFit, standCenter } from '@/rendering/board3d/layout'
+import { layout, sideStandsFit, standCenter, verticalStripsFit } from '@/rendering/board3d/layout'
 import { steppedMove } from '@/utils/stepped'
 import { playSound, useSettings } from '@/appearance/settings'
 
@@ -21,10 +21,11 @@ const KANJI_NUM = ['', '一', '二', '三', '四', '五', '六', '七', '八', '
 
 type Drag = { from: Square | PieceType; color: Color; type: PieceType; x: number; y: number; moved: boolean; id: number; handIndex?: number }
 
-function geometry(portrait: boolean, narrow: boolean) {
+function geometry(portrait: boolean, narrow: boolean, vertical: boolean) {
   layout.portrait = portrait
+  layout.vertical = vertical
   layout.narrow = narrow
-  const half = portrait ? { x: STRIP_W / 2, z: STRIP_D / 2 } : { x: STAND / 2, z: STAND / 2 }
+  const half = vertical ? { x: STRIP_D / 2, z: STRIP_W / 2 } : portrait ? { x: STRIP_W / 2, z: STRIP_D / 2 } : { x: STAND / 2, z: STAND / 2 }
   const top = standCenter(Color.WHITE)
   const bottom = standCenter(Color.BLACK)
   const minX = Math.min(-HALF_W, top.x - half.x, bottom.x - half.x)
@@ -35,6 +36,7 @@ function geometry(portrait: boolean, narrow: boolean) {
   const board = rect(-HALF_W, -HALF_D, 2 * HALF_W, 2 * HALF_D)
   return {
     portrait,
+    vertical,
     width: (maxX - minX) * U,
     height: (maxZ - minZ) * U,
     ox: -minX * U,
@@ -117,7 +119,8 @@ export function BoardFlat(props: Board3DProps) {
     return () => observer.disconnect()
   }, [])
   const zoned = !!props.onZones && window.innerWidth >= 1100 && sideStandsFit(window.innerWidth - 100, window.innerHeight - 110)
-  const g = geometry(!(zoned || sideStandsFit(box.w, box.h)), box.w < 560)
+  const vertical = !zoned && verticalStripsFit(box.w, box.h)
+  const g = geometry(vertical || !(zoned || sideStandsFit(box.w, box.h)), box.w < 560, vertical)
   const margin = MARGIN * U
   const { baked, loading, error } = useBakedPieces()
   const gx = g.bx + margin
@@ -321,7 +324,7 @@ export function BoardFlat(props: Board3DProps) {
 
   const project = (x: number, z: number): [number, number] => [g.ox + (flipped ? -x : x) * U, g.oy + (flipped ? -z : z) * U]
   const coordFill = settings.boardStyle === 'dark' ? 'rgba(250,232,196,0.92)' : 'rgba(40,22,8,0.85)'
-  const layoutKey = `${g.ox}|${g.oy}|${flipped}|${g.portrait}|${U}|${pickedHand ? pickedHand.index : ''}`
+  const layoutKey = `${g.ox}|${g.oy}|${flipped}|${g.portrait}|${g.vertical}|${U}|${pickedHand ? pickedHand.index : ''}`
   const dragFrom = drag?.moved && drag.from instanceof Square ? drag.from : null
   return (
     <div className="app-flat app-flat-wood" ref={wrapRef} aria-busy={loading}>

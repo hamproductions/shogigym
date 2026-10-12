@@ -1,6 +1,7 @@
 import { scoreWinRate, type Label, type MoveReview } from './analysis'
 import type { Score } from './engine'
 import i18n from './i18n'
+import { Color, PieceType } from 'tsshogi'
 import { applyUsi, colorSide, positionOf, type Side } from './shogi'
 import { isBad } from './mistake'
 import type { Mistake } from './mistakes'
@@ -10,12 +11,41 @@ import type { Mistake } from './mistakes'
  * say what went wrong and how to fix it. Nothing here is stored.
  */
 
+const HAND_TYPES = [PieceType.ROOK, PieceType.BISHOP, PieceType.GOLD, PieceType.SILVER, PieceType.KNIGHT, PieceType.LANCE, PieceType.PAWN]
+
 export type Phase = 'opening' | 'middle' | 'endgame'
 export const PHASES: Phase[] = ['opening', 'middle', 'endgame']
 const OPENING_END = 30
 const MIDDLE_END = 100
+// The endgame starts once the game is 70% played or captured pieces pile up in hand (attacks are live), never later than ply 100.
+const ENDGAME_SHARE = 0.7
+const ENDGAME_HANDS = 8
+const MIN_MIDDLE = 10
 
-export const phaseOf = (ply: number): Phase => (ply <= OPENING_END ? 'opening' : ply <= MIDDLE_END ? 'middle' : 'endgame')
+export type PhaseBounds = { openingEnd: number; middleEnd: number }
+export const FIXED_BOUNDS: PhaseBounds = { openingEnd: OPENING_END, middleEnd: MIDDLE_END }
+
+const handTotal = (sfen: string) => {
+  const position = positionOf(sfen)
+  return [Color.BLACK, Color.WHITE].reduce((sum, color) => sum + HAND_TYPES.reduce((n, type) => n + position.hand(color).count(type), 0), 0)
+}
+
+export function phaseBounds(game: { start: string; moves: string[] }): PhaseBounds {
+  const total = game.moves.length
+  let middleEnd = Math.min(MIDDLE_END, Math.max(OPENING_END + MIN_MIDDLE, Math.ceil(total * ENDGAME_SHARE)))
+  let at: string | null = game.start
+  for (let ply = 1; ply <= Math.min(total, middleEnd) && at; ply++) {
+    at = applyUsi(at, game.moves[ply - 1])
+    if (at && ply > OPENING_END + MIN_MIDDLE && handTotal(at) >= ENDGAME_HANDS) {
+      middleEnd = ply
+      break
+    }
+  }
+  return { openingEnd: OPENING_END, middleEnd }
+}
+
+export const phaseOf = (ply: number, bounds: PhaseBounds = FIXED_BOUNDS): Phase =>
+  ply <= bounds.openingEnd ? 'opening' : ply <= bounds.middleEnd ? 'middle' : 'endgame'
 
 export type Weakness = 'missedMate' | 'allowedMate' | 'hangs' | 'allowedTactic' | 'slippedWin' | 'openingSlip' | 'other'
 export const WEAKNESSES: Weakness[] = ['missedMate', 'allowedMate', 'hangs', 'allowedTactic', 'slippedWin', 'openingSlip', 'other']
@@ -82,6 +112,7 @@ const SOLID: Label[] = ['brilliant', 'great', 'best', 'excellent', 'good', 'book
 
 export function buildReport(game: GameLike, side: Side, reviewOf: (sfen: string, usi: string) => MoveReview | undefined): Report {
   const mine = playerMoves(game, side)
+  const bounds = phaseBounds(game)
   const rated: RatedMove[] = mine.flatMap((m) => {
     const review = reviewOf(m.sfen, m.usi)
     return review ? [{ ...m, review }] : []
@@ -90,7 +121,7 @@ export function buildReport(game: GameLike, side: Side, reviewOf: (sfen: string,
   let loss = 0
   let good = 0
   for (const m of rated) {
-    const bucket = sums[phaseOf(m.ply)]
+    const bucket = sums[phaseOf(m.ply, bounds)]
     bucket[0]++
     bucket[1] += m.review.loss
     loss += m.review.loss
