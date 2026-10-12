@@ -163,12 +163,18 @@
 
 .app-mistake {
   display: grid;
-  gap: var(--space-1);
+  grid-template-columns: minmax(0, 1fr) 104px;
+  align-items: start;
+  gap: var(--space-2);
   margin-top: var(--space-1);
 }
 
+.app-mistake.big {
+  grid-template-columns: 1fr;
+}
+
 .app-mistake p {
-  margin: 0;
+  margin: 0 0 var(--space-1);
   font-size: var(--text-sm);
 }
 
@@ -178,11 +184,37 @@
   font-weight: var(--weight-bold);
 }
 
-.app-mistake-board summary {
-  width: max-content;
-  padding: var(--space-half) var(--space-2);
+.app-mistake-board {
+  display: block;
+  padding: 0;
   border-radius: var(--radius-sm);
-  background: var(--surface-2, var(--card));
-  font-size: var(--text-xs);
-  cursor: pointer;
+  background: none;
+  cursor: zoom-in;
+}
+
+.app-mistake.big .app-mistake-board {
+  width: min(300px, 100%);
+  cursor: zoom-out;
+}
+
+.app-mistake-board .app-position {
+  width: 100%;
+  margin: 0;
+}
+
+.app-mv {
+  padding: 0 0.3em;
+  border-radius: var(--radius-xs, 4px);
+  font-weight: var(--weight-bold);
+  white-space: nowrap;
+}
+
+.app-mv.played {
+  background: color-mix(in srgb, #c4442a 24%, transparent);
+  box-shadow: inset 0 -2px 0 #c4442a;
+}
+
+.app-mv.best {
+  background: color-mix(in srgb, #2f8f4e 24%, transparent);
+  box-shadow: inset 0 -2px 0 #2f8f4e;
 }

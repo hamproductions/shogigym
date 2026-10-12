@@ -1134,7 +1134,7 @@
     "nOfN": "{{hits}}/{{total}}",
     "recurring": "Same mistakes",
     "recurringEmpty": "No repeated mistakes yet. They appear when the same position goes wrong in more than one game.",
-    "recurringItem": "{{count}}× in {{games}} game(s): played {{played}}, better {{best}}",
+    "recurringItem": "{{count}}× in {{games}} game(s)",
     "practice": "Practise these {{count}}",
     "pieces": "Where mistakes cluster",
     "pieceItem": "{{piece}}: {{mistakes}} of {{moves}} moves ({{percent}}%)",
@@ -1237,7 +1237,9 @@
     "practiceMistakes": "Practise this game’s mistakes ({{count}})",
     "practiceHint": "Replay each position from your game and find the better move.",
     "lesson": "Lesson: {{title}}",
-    "betterKeeps": "Better was {{move}}, which keeps {{percent}}% more win chance.",
-    "showPosition": "Show the position"
+    "enlargePosition": "Enlarge the position",
+    "youPlayed": "You played",
+    "betterWas": "Better was",
+    "keepsMore": "which keeps {{percent}}% more win chance."
   }
 }

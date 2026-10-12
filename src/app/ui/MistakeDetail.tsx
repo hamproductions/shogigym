@@ -1,38 +1,43 @@
 import '@/app/dialogs/insights.css'
 import '@/app/dialogs/report.css'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Weakness } from '@/utils/learning'
 import { colorSide, moveText, positionOf } from '@/utils/shogi'
-import { MiniBoard } from './MiniBoard'
+import { PositionView } from '@/rendering/PositionView'
 
-/** What went wrong in plain words, with the position one tap away. */
-export function MistakeDetail({
-  sfen,
-  played,
-  best,
-  tag,
-  loss,
-  reason,
-}: {
-  sfen: string
-  played: string
-  best: string
-  tag: Weakness
-  loss: number
-  reason?: string
-}) {
+type Props = { sfen: string; played: string; best: string; tag: Weakness; loss: number; reason?: string; showPlayed?: boolean }
+
+/**
+ * What went wrong in plain words. The played and better moves are tinted red and green, the same colours
+ * they have on the small position picture beside the text (tap the picture to enlarge it).
+ */
+export function MistakeDetail({ sfen, played, best, tag, loss, reason, showPlayed }: Props) {
   const { t } = useTranslation()
+  const [big, setBig] = useState(false)
   return (
-    <div className="app-mistake">
-      <p className="app-mistake-what">
-        <em>{t(`report.weak.${tag}.name`)}.</em> {t(`report.weak.${tag}.what`)}
-        {best !== played && ` ${t('report.betterKeeps', { move: moveText(sfen, best), percent: Math.max(1, Math.round(loss * 100)) })}`}
-      </p>
-      {reason && <p className="app-muted">{reason}</p>}
-      <details className="app-mistake-board">
-        <summary>{t('report.showPosition')}</summary>
-        <MiniBoard sfen={sfen} played={played} best={best} flipped={colorSide(positionOf(sfen).color) === 'gote'} />
-      </details>
+    <div className={`app-mistake${big ? ' big' : ''}`}>
+      <div className="app-mistake-text">
+        <p className="app-mistake-what">
+          {showPlayed && (
+            <>
+              {t('report.youPlayed')} <span className="app-mv played">{moveText(sfen, played)}</span>.{' '}
+            </>
+          )}
+          <em>{t(`report.weak.${tag}.name`)}.</em> {t(`report.weak.${tag}.what`)}
+          {best !== played && (
+            <>
+              {' '}
+              {t('report.betterWas')} <span className="app-mv best">{moveText(sfen, best)}</span>{' '}
+              {t('report.keepsMore', { percent: Math.max(1, Math.round(loss * 100)) })}
+            </>
+          )}
+        </p>
+        {reason && <p className="app-muted">{reason}</p>}
+      </div>
+      <button type="button" className="app-mistake-board" onClick={() => setBig((v) => !v)} aria-expanded={big} aria-label={t('report.enlargePosition')}>
+        <PositionView sfen={sfen} played={played} best={best} flipped={colorSide(positionOf(sfen).color) === 'gote'} />
+      </button>
     </div>
   )
 }

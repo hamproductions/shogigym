@@ -1111,7 +1111,7 @@
     "nOfN": "{{hits}}/{{total}}",
     "recurring": "繰り返すミス",
     "recurringEmpty": "繰り返すミスはまだありません。同じ局面で複数の対局にわたって誤ると表示されます。",
-    "recurringItem": "{{games}}局で{{count}}回：指した手 {{played}}、より良い手 {{best}}",
+    "recurringItem": "{{games}}局で{{count}}回",
     "practice": "この{{count}}問を練習",
     "pieces": "ミスが集中する駒",
     "pieceItem": "{{piece}}：{{moves}}手中{{mistakes}}手（{{percent}}%）",
@@ -1214,7 +1214,9 @@
     "practiceMistakes": "この対局のミスを練習（{{count}}問）",
     "practiceHint": "自分の対局の局面から、より良い手を見つけます。",
     "lesson": "レッスン：{{title}}",
-    "betterKeeps": "より良い手は{{move}}：勝率が{{percent}}%高く保てます。",
-    "showPosition": "局面を見る"
+    "enlargePosition": "局面を拡大",
+    "youPlayed": "指した手：",
+    "betterWas": "より良い手：",
+    "keepsMore": "（勝率が{{percent}}%高く保てます）"
   }
 }

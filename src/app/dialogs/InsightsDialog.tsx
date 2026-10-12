@@ -11,7 +11,7 @@ import { Dialog, DialogHeader } from '@/app/ui/Dialog'
 import { engineSupported } from '@/utils/engine'
 import { buildInsights, type InsightGame, type Recurring, type Skill, type Suggestion } from '@/utils/insights'
 import { SETUPS } from '@/utils/model'
-import { moveText, PIECE_CHAR } from '@/utils/shogi'
+import { PIECE_CHAR } from '@/utils/shogi'
 import { MistakeDetail } from '@/app/ui/MistakeDetail'
 import type { Mistake } from '@/utils/mistakes'
 import { FIX_ROUTE, LESSONS, type FixRoute } from './ReportDialog'
@@ -141,13 +141,7 @@ export function InsightsDialog({ onClose, onPractice, onRoute, onLesson }: Props
     if (s.kind === 'piece') params.piece = pieceName(String(s.params.piece))
     return t(`insights.suggest.${s.kind}`, params)
   }
-  const recurringText = (r: Recurring) =>
-    t('insights.recurringItem', {
-      count: r.count,
-      games: r.games,
-      played: r.played.map((usi) => moveText(r.sfen, usi)).join(' / '),
-      best: moveText(r.sfen, r.best),
-    })
+  const recurringText = (r: Recurring) => t('insights.recurringItem', { count: r.count, games: r.games })
   return (
     <Dialog label={t('insights.title')} className="app-insights" onBackdrop={onClose}>
       <DialogHeader title={t('insights.title')} closeLabel={t('viewer.close')} onClose={onClose} />
@@ -211,6 +205,7 @@ export function InsightsDialog({ onClose, onPractice, onRoute, onLesson }: Props
                       <div>
                         <strong>{recurringText(r)}</strong>
                         <MistakeDetail
+                          showPlayed
                           sfen={r.sfen}
                           played={r.example.usi}
                           best={r.best}

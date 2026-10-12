@@ -7,17 +7,13 @@ import { OverMarks, UnderMarks, type HandPoint, type Project } from './flatMarks
 import { useLatest } from '@/app/hooks/useLatest'
 import { useBakedPieces } from '@/app/hooks/useBakedPieces'
 import { useSvgBoard } from '@/app/hooks/useSvgBoard'
-import { SPRITE_BOX, spriteKey, type Baked } from './sprites'
-import { HALF_D, HALF_W, MARGIN, SQ_D, STAND, STRIP_D, STRIP_W, setBoardDims } from '@/rendering/board3d/dimensions'
+import { SPRITE_BOX, spriteKey } from './sprites'
+import { CH, KANJI_NUM, Koma, PAD, U } from './flatBoard'
+import { HALF_D, HALF_W, MARGIN, STAND, STRIP_D, STRIP_W, setBoardDims } from '@/rendering/board3d/dimensions'
 import { handArrangement } from '@/rendering/board3d/hand'
 import { layout, sideStandsFit, standCenter, verticalStripsFit } from '@/rendering/board3d/layout'
 import { steppedMove } from '@/utils/stepped'
 import { playSound, useSettings } from '@/appearance/settings'
-
-const U = 100
-const CH = SQ_D * U
-const PAD = 0.08 * U
-const KANJI_NUM = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九']
 
 type Drag = { from: Square | PieceType; color: Color; type: PieceType; x: number; y: number; moved: boolean; id: number; handIndex?: number }
 
@@ -47,11 +43,6 @@ function geometry(portrait: boolean, narrow: boolean, vertical: boolean) {
     bh: board.h,
     stands: { top: rect(top.x - half.x, top.z - half.z, 2 * half.x, 2 * half.z), bottom: rect(bottom.x - half.x, bottom.z - half.z, 2 * half.x, 2 * half.z) },
   }
-}
-
-function Koma({ baked, type, color, up }: { baked: Baked; type: PieceType; color: Color; up: boolean }) {
-  const size = SPRITE_BOX * U
-  return <image href={baked.pieces.get(spriteKey(type, color, up))} x={-size / 2} y={-size / 2} width={size} height={size} />
 }
 
 type Marks<T> = { props: Board3DProps; p: Project; u: number; handPoint?: HandPoint; layout: string } & T
