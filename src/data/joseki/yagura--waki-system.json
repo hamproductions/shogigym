@@ -139,7 +139,7 @@
                                                    {
                                                     "usi": "6h7h",
                                                     "kind": "main",
-                                                    "note": "玉を７八へ。後手が４四歩で金４三の升を空けた間に玉を運ぶ。",
+                                                    "note": "玉を７八へ。後手の４三歩はまだ残っている。次に４四へ進めば４三が空き、後手金の進路になる。",
                                                     "child": {
                                                      "id": "n_16",
                                                      "sfen": "ln1gk1snl/1r1s2g2/p2p1p1pp/1ppbp1p2/9/2PPP2P1/PPS2PP1P/2K4R1/LNBG1GSNL w - 1",

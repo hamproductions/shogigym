@@ -211,19 +211,19 @@
                                                                                 "branches": [
                                                                                  {
                                                                                   "usi": "2i3g",
-                                                                                  "kind": "deviation",
+                                                                                  "kind": "alt",
                                                                                   "note": "先手桂３七。３六歩で空けた升へ跳ね、銀５六は動かさない。",
-                                                                                  "punishNote": "６五角打は歩で支えられていても、先手は銀と角を交換できる。支えがあることだけで良い角打ちとは判断しない。",
                                                                                   "child": {
                                                                                    "id": "nb0_0",
                                                                                    "sfen": "ln5nl/1r2gkgs1/3spp1pp/p1pp2p2/1p5P1/2PPSPP2/PPS1P1N1P/2GK3R1/LN3G2L w Bb 1",
                                                                                    "branches": [
                                                                                     {
                                                                                      "usi": "B*6e",
-                                                                                     "kind": "main",
-                                                                                     "note": "後手角６五打。５六銀に斜めに当たるが、６四歩がその角を支えている。",
+                                                                                     "kind": "deviation",
+                                                                                     "note": "後手角６五打。５六銀に斜めに当たるが、銀もこの角を取れる。",
+                                                                                     "punishNote": "後手の６五角打は、歩で支えられていても先手銀に取られる。先手の桂３七の準備手とは別の判断である。",
                                                                                      "child": {
-                                                                                      "id": "nb0_1",
+                                                                                      "id": "nb0b0_0",
                                                                                       "sfen": "ln5nl/1r2gkgs1/3spp1pp/p1pp2p2/1p1b3P1/2PPSPP2/PPS1P1N1P/2GK3R1/LN3G2L b B 1",
                                                                                       "branches": [
                                                                                        {
@@ -231,7 +231,7 @@
                                                                                         "kind": "main",
                                                                                         "note": "先手６五同銀。銀５六で打ち角を取る。",
                                                                                         "child": {
-                                                                                         "id": "nb0_2",
+                                                                                         "id": "nb0b0_1",
                                                                                          "sfen": "ln5nl/1r2gkgs1/3spp1pp/p1pp2p2/1p1S3P1/2PP1PP2/PPS1P1N1P/2GK3R1/LN3G2L w 2B 1",
                                                                                          "branches": [
                                                                                           {
@@ -239,10 +239,10 @@
                                                                                            "kind": "main",
                                                                                            "note": "後手６五同歩。６四歩が銀を取り、持ち駒は先手が角二枚、後手が銀一枚となる。",
                                                                                            "child": {
-                                                                                            "id": "nb0_3",
+                                                                                            "id": "nb0b0_2",
                                                                                             "sfen": "ln5nl/1r2gkgs1/3spp1pp/p1p3p2/1p1p3P1/2PP1PP2/PPS1P1N1P/2GK3R1/LN3G2L b 2Bs 1",
                                                                                             "branches": [],
-                                                                                            "comment": "銀で角を取れることと、その銀が残ることは別。角６五打は後手６四歩で支えられており、この順では角と銀が持ち駒に移る。"
+                                                                                            "comment": "後手は角を渡して銀を得る交換を選んだ。角の支えと、先手銀による捕獲の損得を別々に数える。"
                                                                                            }
                                                                                           }
                                                                                          ]

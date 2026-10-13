@@ -120,7 +120,7 @@
         },
         {
           "moves": ["7c7d", "4i4h"],
-          "text": { "ja": "△７四歩の間に▲４八金と上がり、２八玉・３八銀・４八金のつながりを作りました。これは美濃囲いの基本的な骨格です。ただし角が７七を離れれば８六の守りも変わるため、囲いだけを見て指し続けません。", "en": "While Gote plays P7d, G4h connects the king on 2h, silver on 3h and gold on 4h, forming a basic Mino core. If the bishop leaves 7g, its defense of 8f changes; the castle cannot be considered in isolation." },
+          "text": { "ja": "△７四歩の間に▲４八金と上がり、２八玉・３八銀・４八金のつながりを作りました。これは４九の金を一段上げた配置で、金４八は銀３八を横から守ります。標準の美濃囲いとは右金の段が異なります。ただし角が７七を離れれば８六の守りも変わるため、囲いだけを見て指し続けません。", "en": "While Gote plays P7d, G4h connects the king on 2h, silver on 3h and gold on 4h, placing the gold one rank above its standard Mino square. The gold on 4h protects the silver on 3h sideways. If the bishop leaves 7g, its defense of 8f changes; the castle cannot be considered in isolation." },
           "marks": { "last": "4h", "boxes": ["2h", "3h", "4h", "8f"] }
         }
       ]

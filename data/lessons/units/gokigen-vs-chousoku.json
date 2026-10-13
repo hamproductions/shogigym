@@ -1,8 +1,14 @@
 {
   "id": "gokigen-vs-chousoku",
   "order": 1230,
-  "path": ["戦法・定跡", "中飛車"],
-  "title": {"ja": "超速の銀に中央の取り手を合わせる", "en": "Match recaptures to a fast silver attack"},
+  "path": [
+    "戦法・定跡",
+    "中飛車"
+  ],
+  "title": {
+    "ja": "超速の銀に中央の取り手を合わせる",
+    "en": "Match recaptures to a fast silver attack"
+  },
   "intro": {
     "ja": "先手の銀が３七から４六へ早く出ると、後手中飛車の５五歩はすぐ目標になります。飛車を５筋に置くだけでは守りの枚数は決まらず、銀や持ち角が５五を実際に守るかを調べます。一枚銀と二枚銀では交換後の取り手が変わるため、後手の選択も変えます。",
     "en": "Sente's quick silver route from 3g to 4f puts Gote's P5e under immediate pressure. The rook's presence on the fifth file does not settle the defender count; check whether a silver or bishop in hand actually covers 5e. A second attacking silver changes the recapture sequence and Gote's choice."
@@ -13,16 +19,24 @@
       "en": "Gote has R5b, P5e and S5d, while Sente has silvers on 4f and 6f. If one Sente silver takes P5e, can Gote's silver alone finish the exchange?"
     },
     "answer": {
-      "ja": "いいえ。△同銀のあと、もう一枚の先手銀が５五で取り返せます。５四銀は飛車の前にいるので、その瞬間に５二飛の利きも通りません。後手は別の守り駒を足すか、先手の銀の取り手を変える必要があります。",
-      "en": "No. After Sx5e, Sente's other silver can recapture on 5e. Gote's silver blocks R5b's line while it stands on 5d, so the rook does not supply another recapture at that moment. Add a defender or change the contact."
+      "ja": "銀だけなら、もう一枚の先手銀に５五で取られます。ただし後手銀が５四から動くと飛車の道が開き、最後に△５五飛と取り返せます。６四へ角を打つのは別の取り手を用意する選択で、元の飛車が取り返せないから必須なのではありません。",
+      "en": "The silver alone can be taken by Sente's second silver. However, once Gote's silver leaves 5d, it opens the rook's file, allowing a final Rx5e. Dropping a bishop on 6d provides a different recapturer; it is not required merely because the silver initially blocks the rook."
     }
   },
   "references": [
-    {"title": "ゴキゲン中飛車vs超速3七銀", "url": "https://shogi-joutatsu.com/archives/6514", "license": "All rights reserved", "adapted": false}
+    {
+      "title": "ゴキゲン中飛車vs超速3七銀",
+      "url": "https://shogi-joutatsu.com/archives/6514",
+      "license": "All rights reserved",
+      "adapted": false
+    }
   ],
   "chapters": [
     {
-      "title": {"ja": "５四銀の一手を先に用意する", "en": "Prepare a silver recapture before moving the rook"},
+      "title": {
+        "ja": "５四銀の一手を先に用意する",
+        "en": "Prepare a silver recapture before moving the rook"
+      },
       "side": "gote",
       "kind": "position",
       "start": "9/1k2r4/3s5/5p3/4p4/5S3/4P4/2K4R1/9 w - 1",
@@ -32,29 +46,60 @@
             "ja": "先手銀４六が後手５五歩を狙っています。後手銀６三は５四へ一手で進める位置です。後手飛車５二が歩を支えるように見えても、銀を間に置いた後は別の取り手として数え直します。",
             "en": "Sente's S4f targets Gote's P5e. Gote's S6c can step to 5d in one move. Although R5b sits behind the pawn, putting a silver between them changes which piece can recapture."
           },
-          "marks": {"arrows": ["6c5d", "4f5e"], "boxes": ["5b", "5e"]}
+          "marks": {
+            "arrows": [
+              "6c5d",
+              "4f5e"
+            ],
+            "boxes": [
+              "5b",
+              "5e"
+            ]
+          }
         },
         {
-          "moves": ["6c5d"],
+          "moves": [
+            "6c5d"
+          ],
           "text": {
             "ja": "△５四銀は５五歩をすぐ後ろから守ります。銀５四は５五へ前進でき、飛車５二は銀に遮られています。銀の前進を先手が選ぶかどうかは別ですが、交換を読むならこの配置を基準にします。",
             "en": "S5d directly guards P5e: the silver can move forward to 5e. It also blocks R5b's vertical line. Sente may choose a different move, but this is the defender count if the silver takes the pawn."
           },
-          "marks": {"last": "5d", "arrows": ["5d5e"], "boxes": ["5e"]}
+          "marks": {
+            "last": "5d",
+            "arrows": [
+              "5d5e"
+            ],
+            "boxes": [
+              "5e"
+            ]
+          }
         },
         {
-          "moves": ["4f5e", "5d5e"],
+          "moves": [
+            "4f5e",
+            "5d5e"
+          ],
           "text": {
             "ja": "先手が▲５五銀と歩を取り、後手が△同銀と取り返す例です。先手は歩を得て銀を渡し、後手は銀を得て歩を渡しました。５五の後手銀は前進しているので、後手の得だけを言わず、次の先手の反撃も調べます。",
             "en": "In the sample Sx5e Sx5e, Sente gains a pawn but gives up a silver, while Gote gains a silver but loses the pawn. Gote's silver is now advanced on 5e; inspect Sente's next reply before valuing the exchange."
           },
-          "marks": {"last": "5e", "boxes": ["5b", "5e"]}
+          "marks": {
+            "last": "5e",
+            "boxes": [
+              "5b",
+              "5e"
+            ]
+          }
         }
       ],
       "variations": [
         {
           "from": 0,
-          "moves": ["5b6b", "4f5e"],
+          "moves": [
+            "5b6b",
+            "4f5e"
+          ],
           "text": {
             "ja": "代わりに△６二飛と中央を離れる枝では、先手が▲５五銀と歩を取れます。６三銀はまだ５四にいないため、後手はこの手で銀を取り返せません。次の手があるとしても、飛車の移動で守りの手数を失ったことを数えます。",
             "en": "If Gote moves R6b instead, Sente can take P5e with Sx5e. S6c has not yet reached 5d, so there is no immediate silver recapture. Gote may have a later reply, but the rook move spent a defensive tempo."
@@ -63,7 +108,10 @@
       ]
     },
     {
-      "title": {"ja": "持ち角で銀の進路を問う", "en": "Use a bishop in hand to challenge the silver's route"},
+      "title": {
+        "ja": "持ち角で銀の進路を問う",
+        "en": "Use a bishop in hand to challenge the silver's route"
+      },
       "side": "gote",
       "kind": "position",
       "start": "9/1k2r4/9/4s4/9/5S3/9/2K4R1/9 w Bb 1",
@@ -73,54 +121,140 @@
             "ja": "角交換後を想定し、双方が角を一枚持っています。後手５四銀は中央にいますが、先手４六銀は前へ出られます。後手が角を６四へ打つと、５五を通る斜線で４六銀を狙えます。",
             "en": "This position begins after a bishop trade; each side holds a bishop. Gote's S5d occupies the center, while Sente's S4f can advance. B*6d would attack that silver through 5e."
           },
-          "marks": {"arrows": ["6d4f"], "boxes": ["5e", "4f"]}
+          "marks": {
+            "arrows": [
+              "6d4f"
+            ],
+            "boxes": [
+              "5e",
+              "4f"
+            ]
+          }
         },
         {
-          "moves": ["B*6d", "4f3e"],
+          "moves": [
+            "B*6d",
+            "4f3e"
+          ],
           "text": {
             "ja": "△６四角に先手が▲３五銀とかわす例です。銀は角の斜線６四・５五・４六・３七から外れました。角打ちは銀を必ず取る手ではなく、銀の進路を変えさせる選択です。",
             "en": "After B*6d, the sample S3e leaves the bishop's 6d–5e–4f–3g diagonal. The drop does not force a silver capture; it changes the silver's route."
           },
-          "marks": {"last": "3e", "boxes": ["6d", "3e", "3g"]}
+          "marks": {
+            "last": "3e",
+            "boxes": [
+              "6d",
+              "3e",
+              "3g"
+            ]
+          }
         },
         {
-          "moves": ["6d3g+", "2h1h"],
+          "moves": [
+            "6d3g+",
+            "2h1h"
+          ],
           "text": {
             "ja": "空いた４六を通って△３七角成とすれば、馬は２八飛を斜めに狙います。先手の▲１八飛は馬の斜線から外れる一例です。後手は馬を得ましたが、先手にも角があるので、この手順だけで得を断定しません。",
             "en": "With 4f vacated, B3g+ passes through 5e and 4f and attacks R2h diagonally. R1h is one Sente move off that diagonal. Gote has a horse, but Sente also holds a bishop, so the line alone proves no advantage."
           },
-          "marks": {"last": "1h", "boxes": ["3g", "1h"]}
+          "marks": {
+            "last": "1h",
+            "boxes": [
+              "3g",
+              "1h"
+            ]
+          }
         }
       ]
     },
     {
-      "title": {"ja": "二枚銀には守りを一枚増やす", "en": "Add a second defender against two silvers"},
+      "title": {
+        "ja": "銀が動いた後の飛車と角の取り返しを比べる",
+        "en": "Compare rook and bishop recaptures after the silver moves"
+      },
       "side": "gote",
       "kind": "position",
       "start": "9/1k2r4/9/4s4/4p4/3S1S3/4P4/2K4R1/9 w b 1",
       "steps": [
         {
           "text": {
-            "ja": "先手銀４六と６六はどちらも５五の後手歩を取れます。後手銀５四は５五を守りますが、一枚目を取ると二枚目が取り返せます。５二飛は５四銀に遮られており、銀一枚だけで二枚銀を止めたとは言えません。",
-            "en": "Sente's silvers on 4f and 6f both attack Gote's P5e. S5d protects the pawn, but after it recaptures the first silver, the second silver can take it. R5b is blocked by S5d; one silver is not a complete answer to two."
+            "ja": "先手銀４六と６六はどちらも５五の後手歩を取れます。後手銀５四が一枚目を取り、もう一枚の先手銀が取り返すと、５四は空いています。初めは銀に遮られた５二飛も、その時点では５五へ取り返せます。角を打つ場合と飛車を使う場合を分けて読みます。",
+            "en": "Sente's silvers on 4f and 6f both attack P5e. After Gote's S5d takes the first silver and Sente's second silver recaptures, 5d is vacant. R5b can then recapture on 5e despite being blocked initially. Compare that rook recapture with the option of dropping a bishop."
           },
-          "marks": {"arrows": ["4f5e", "6f5e"], "boxes": ["5d", "5e"]}
+          "marks": {
+            "arrows": [
+              "4f5e",
+              "6f5e"
+            ],
+            "boxes": [
+              "5d",
+              "5e"
+            ]
+          }
         },
         {
-          "moves": ["B*6d"],
+          "moves": [
+            "B*6d"
+          ],
           "text": {
             "ja": "△６四角を打つと、角は５五の歩を斜めに支えます。５五には５四銀と６四角の二枚が利き、先手の二枚銀と数がそろいます。ただし先手が別の場所で動けば、打った角の安全も見直します。",
             "en": "B*6d adds a diagonal defender to P5e. S5d and B6d both cover 5e against Sente's two silvers. If Sente chooses another target, reassess the dropped bishop's safety."
           },
-          "marks": {"last": "6d", "arrows": ["6d5e", "5d5e"], "boxes": ["5e"]}
+          "marks": {
+            "last": "6d",
+            "arrows": [
+              "6d5e",
+              "5d5e"
+            ],
+            "boxes": [
+              "5e"
+            ]
+          }
         },
         {
-          "moves": ["4f5e", "5d5e", "6f5e", "6d5e"],
+          "moves": [
+            "4f5e",
+            "5d5e",
+            "6f5e",
+            "6d5e"
+          ],
           "text": {
             "ja": "先手が▲５五銀と歩を取り、△同銀、もう一枚の▲同銀、△同角と進む枝です。後手は先手の銀二枚を取り、先手は後手の歩と銀を取ります。角が５五へ出た後は先手の応手を読む必要があり、この交換を強制勝ちとは言いません。",
             "en": "In the sample Sx5e Sx5e Sx5e Bx5e, Gote captures both Sente silvers; Sente captures Gote's pawn and silver. Gote's bishop ends on 5e, and Sente still replies. This is a counted exchange, not a forced win."
           },
-          "marks": {"last": "5e", "boxes": ["5e", "5b"]}
+          "marks": {
+            "last": "5e",
+            "boxes": [
+              "5e",
+              "5b"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": [
+            "8b8c",
+            "4f5e",
+            "5d5e",
+            "6f5e",
+            "5b5e"
+          ],
+          "text": {
+            "ja": "後手が△８三玉と玉を移した一例でも、▲５五銀△同銀▲同銀には△同飛が合法です。銀５四が去って飛車道が開いたためです。後手は先手の銀二枚を取り、先手は後手の歩と銀を取ります。飛車が５五に出た後の応手と自玉の安全は別に読み、交換の枚数だけで勝ちとはしません。",
+            "en": "Even after the sample K8c, Sx5e Sx5e Sx5e can be met by Rx5e. The silver has vacated 5d and opened the rook's file. Gote takes both Sente silvers; Sente takes Gote's pawn and silver. Assess the rook's new square and king safety separately; this exchange count does not prove a win."
+          },
+          "marks": {
+            "arrows": [
+              "5b5e"
+            ],
+            "boxes": [
+              "5d",
+              "5e"
+            ]
+          }
         }
       ]
     }

@@ -54,7 +54,7 @@
         {
           "moves": ["1c1d"],
           "text": {
-            "ja": "後手が歩で取ることを選んだ例です。銀２五は１四へ斜め前に進めますが、後ろの香１六と飛車１七がすぐ同じ升を取れるわけではありません。",
+            "ja": "後手が歩で取ることを選んだ例です。銀２五は１四へ斜め前に進め、香１六も１五を通って１四を取れます。飛車１七は自分の香１六に遮られるため、すぐ１四を取れません。",
             "en": "Gote chooses the pawn capture. Sente's silver on 2e can recapture diagonally on 1d, while the lance on 1f and rook on 1g remain behind the contact square."
           }
         },

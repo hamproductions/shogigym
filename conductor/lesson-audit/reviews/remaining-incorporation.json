@@ -1,0 +1,1175 @@
+{
+  "scope": "17 pending incorporation sources; source1212 has prior root-adjudicated annotation despite missing root_decision key and is excluded from remaining work. Exact cached texts and target units read fully; matching overlap entries read. Related units and two named courses fully read.",
+  "status": "Reader recommendations only; root acceptance pending. No authored/generated content changes.",
+  "reads": [
+    {
+      "path": ".cache/curriculum-source/2615.txt",
+      "bytes": 9212,
+      "lines": 145,
+      "sha256": "22469a917133f71c98c32d9310bed11654865be10ff578fd4f8c651f695beabc",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": "data/lessons/units/attack-mino-kobin.json",
+      "bytes": 7889,
+      "lines": 105,
+      "sha256": "be7f62dfd87e87ec58961a8ce305903e3527f5bba40d44ca56d89e4b130ade04",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": ".cache/curriculum-source/1070.txt",
+      "bytes": 11955,
+      "lines": 177,
+      "sha256": "50b3ea3e3863f62e0f0192687728da472ab627dbfefa377fe8be2b97119a9a04",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": "data/lessons/units/attack-mino-aifuri.json",
+      "bytes": 7332,
+      "lines": 105,
+      "sha256": "1469a74bf9610d4601b38fa47ebd4ab72f889069af375493dff662b580dfe7fc",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": ".cache/curriculum-source/2276.txt",
+      "bytes": 11034,
+      "lines": 167,
+      "sha256": "49fa98cc118dbc18cd94005054ae63efe6503e4c04877afc5fbd54d29c9599fa",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": "data/lessons/units/attack-yagura-side.json",
+      "bytes": 7105,
+      "lines": 105,
+      "sha256": "394e627116706e2f89761b5b6eb1359b3666b99dd11622937e1ecd2c60dce814",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": ".cache/curriculum-source/2313.txt",
+      "bytes": 11363,
+      "lines": 179,
+      "sha256": "b398fb7cb522a5069b53f4aaa0ee86c67c2d9e87617035727a8d6b03f2061c1f",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": "data/lessons/units/attack-yagura-head.json",
+      "bytes": 7388,
+      "lines": 105,
+      "sha256": "3ea14a339f85ca5a8205c84a60f75851a02f984ddd494aba522cbd1544d44e49",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": ".cache/curriculum-source/3014.txt",
+      "bytes": 9130,
+      "lines": 139,
+      "sha256": "37211aae7881c0ca201467e997ef6ec655a64064d7819471605e14b26c943b5f",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": "data/lessons/units/attack-anaguma.json",
+      "bytes": 7424,
+      "lines": 105,
+      "sha256": "af0f6450e9ad4f19bfdf9514f0f862f1158a538b378c2ec1538b5dc4cdfa3193",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": ".cache/curriculum-source/3048.txt",
+      "bytes": 10042,
+      "lines": 160,
+      "sha256": "da50b712335b823894421b630ee2e0b34877bcd18d0b4ff81655f811458d23df",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": "data/lessons/units/attack-funa.json",
+      "bytes": 7137,
+      "lines": 105,
+      "sha256": "c085327585490ca0d9cc347f69cd4b306123276343d2f35ffc766ccc7687f14a",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": ".cache/curriculum-source/7238.txt",
+      "bytes": 8581,
+      "lines": 136,
+      "sha256": "f16d97cbdd73ef72fed20493dc330dd16a938e67092ed7ac0b5a7ad47d5e3ebb",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": "data/lessons/units/taifuri-basics.json",
+      "bytes": 11240,
+      "lines": 61,
+      "sha256": "593a5ebf94cfb4c45d80cd678dd3ff2311815e181351924dc83f3001b09f2e32",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": ".cache/curriculum-source/7254.txt",
+      "bytes": 8315,
+      "lines": 153,
+      "sha256": "8d202abaf2f39a587011786144336cfc7f295feb1b0c960406258dbec7d927a9",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": "data/lessons/units/taifuri-bougin.json",
+      "bytes": 9640,
+      "lines": 53,
+      "sha256": "1f8aa823847b29c16c18aba1ca3ffcecd70e99e0b8f157cd5c596983744f80ef",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": ".cache/curriculum-source/7282.txt",
+      "bytes": 11831,
+      "lines": 192,
+      "sha256": "f6fc8640e33d785d32accd432e29633441f37d5b895afff95df3aa22e91330e3",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": "data/lessons/units/taifuri-46gin.json",
+      "bytes": 9653,
+      "lines": 55,
+      "sha256": "d5a98def7d51c2af20cc0748cca89de27ee4552dfc96d92d22be03f708562851",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": ".cache/curriculum-source/7339.txt",
+      "bytes": 11226,
+      "lines": 180,
+      "sha256": "75fcaa7a329e926e62b311a8a6df0612af438d27af041bc910d31a776e4cf021",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": "data/lessons/units/taifuri-anaguma.json",
+      "bytes": 10514,
+      "lines": 56,
+      "sha256": "36e37e751f1d8e7ad81ef9fccc980cc8998664e6db00ac158eae49d300059953",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": ".cache/curriculum-source/7988.txt",
+      "bytes": 6099,
+      "lines": 102,
+      "sha256": "449d630b011d996a4d354eced8d93a76aa9cd5454d2ff4802f91fa53606b2b03",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": "data/lessons/units/taifuri-millennium.json",
+      "bytes": 10506,
+      "lines": 56,
+      "sha256": "05b1c724a6703fa7b30023af1310a1e06dab1affa03ae1f942306ed0f9d5f2d2",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": ".cache/curriculum-source/974.txt",
+      "bytes": 7989,
+      "lines": 96,
+      "sha256": "cc0fe0f6c7132e2e97a12ce5efc3d8300e0307f3f3dc833272804d1b69f40c33",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": "data/lessons/units/taifuri-45hayashikake.json",
+      "bytes": 10911,
+      "lines": 66,
+      "sha256": "4dff6b1be6375415510d96040afedf25911e963ab7ae13b3933ea84573ba07ef",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": ".cache/curriculum-source/8008.txt",
+      "bytes": 7063,
+      "lines": 121,
+      "sha256": "fbae444bef9b2c480783fff43f84faff2a597f7165419063623c92d4913f7238",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": "data/lessons/units/taifuri-ponpon.json",
+      "bytes": 9606,
+      "lines": 58,
+      "sha256": "a3016cde37f016be36a66b0e8c533b91bfff87fcf0fed44363d39c5a27028fec",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": ".cache/curriculum-source/7962.txt",
+      "bytes": 7577,
+      "lines": 123,
+      "sha256": "fa88daf201192d627f74ae28544d8fd0f0dea6022136b093741e3aaec566ec6b",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": "data/lessons/units/taifuri-vs-hayaishida.json",
+      "bytes": 9310,
+      "lines": 57,
+      "sha256": "81047ab89e60d50786a8a38b6fc0ab597114aa985fc3a50a0cfdae6f6e23620b",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": ".cache/curriculum-source/4502.txt",
+      "bytes": 13471,
+      "lines": 218,
+      "sha256": "08864f6d34bf18ee15e0ebdb79766c9de11d011b04773a8025eac10bb3e02eca",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": "data/lessons/units/taifuri-bougin-ishida.json",
+      "bytes": 8665,
+      "lines": 52,
+      "sha256": "1f5c6745cbae509b8c9a79342ea658b14f8eb49490d0aaae7c2a0527e04fc313",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": ".cache/curriculum-source/7863.txt",
+      "bytes": 13362,
+      "lines": 198,
+      "sha256": "4beb9c71278be8f52eab7149541600df1d3af6dcdb845ca39b016654821c0b78",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": "data/lessons/units/taifuri-chousoku.json",
+      "bytes": 9745,
+      "lines": 159,
+      "sha256": "dabaa3da24c07baf1c4cb365091ff3f9bab5fad77d8e4f27cc7d2410abeb325a",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": ".cache/curriculum-source/2204.txt",
+      "bytes": 11627,
+      "lines": 168,
+      "sha256": "719eca10a7b9705e22935bb82ba98135b2724449176173758f8b26332c8e8154",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": "data/lessons/units/taifuri-vs-kakukoukan.json",
+      "bytes": 9305,
+      "lines": 150,
+      "sha256": "9325069003d99c66c797b07b5d1419f53f04b234b547a8a246a601aa0d4aae50",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": "data/lessons/units/tesuji-knight.json",
+      "bytes": 8744,
+      "lines": 157,
+      "sha256": "af2d8f0fe43f40fa4ab1a608e3fa2da192bdb0fa03cb4e1ce46423992b283ec8",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": "data/lessons/units/tesuji-pawn.json",
+      "bytes": 13192,
+      "lines": 237,
+      "sha256": "d5f3bd4d3c01dd3dba9ad48153ffc840ca9c0545796ddb53bdb14a269154d668",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": "data/lessons/units/endgame-mate-tesuji.json",
+      "bytes": 12335,
+      "lines": 204,
+      "sha256": "e6de67ebc90e514e94d75f0286ffc94abaa2a3808610f029e11df0757cfa693b",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": "data/lessons/units/endgame-tsumero.json",
+      "bytes": 8996,
+      "lines": 129,
+      "sha256": "4d60bdbbea2a79ec9d600e93e544636f98bb60490353e022e7a9ab04f964f952",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": "src/data/joseki/shikenbisha-vs-millennium--65fu.json",
+      "bytes": 58397,
+      "lines": 567,
+      "sha256": "2c9a5df4640c236dbdb369acc69f925550338d42276d04fea10cc8e0ef2351b1",
+      "read_range": "1-EOF"
+    },
+    {
+      "path": "src/data/joseki/shikenbisha-vs-45hayashikake--gote-2.json",
+      "bytes": 20979,
+      "lines": 319,
+      "sha256": "4be532d0839131f08a66f9c67de92d8db7ee29953cc7083c841d3de1bc4ef132",
+      "read_range": "1-EOF"
+    }
+  ],
+  "sources": [
+    {
+      "source": "https://shogi-joutatsu.com/archives/2615",
+      "target": "attack-mino-kobin",
+      "ideas": [
+        {
+          "idea": "角のピンと桂の王手を組み合わせる条件",
+          "recommendation": "candidate",
+          "action": "Add bishop-pinned pawn plus knight-check comparison to existing diagonal lesson; coordinate with 1331/1586 so one original example owns the mechanism.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/2615.txt",
+            "matching_lines": [
+              13,
+              38
+            ],
+            "section_locator": "基本の攻め方！角と桂馬でコビン攻め"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/attack-mino-kobin.json",
+            "chapter": 1
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        },
+        {
+          "idea": "攻防の角による詰めろと大駒取りの比較",
+          "recommendation": "candidate",
+          "action": "Replace erroneous own-king-defense interpretation with offensive mate threat plus rook attack. Compare a rook escape that also stops the threat; prove actual mating continuation before calling it tsumero.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/2615.txt",
+            "matching_lines": [
+              14,
+              66
+            ],
+            "section_locator": "飛車を取る手順"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/attack-mino-kobin.json",
+            "chapter": 2
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        },
+        {
+          "idea": "桂を先に打つ場合と金を先に入手する場合の手順前後",
+          "recommendation": "duplicate_connection",
+          "action": "Gold acquisition is already endgame-mate-tesuji ch2. Add ordering warning there only if an independently verified alternate order changes escape squares; no second source puzzle.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/2615.txt",
+            "matching_lines": [
+              15,
+              89
+            ],
+            "section_locator": "金を入手する"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/attack-mino-kobin.json",
+            "chapter": 2
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/1070",
+      "target": "attack-mino-aifuri",
+      "ideas": [
+        {
+          "idea": "攻める銀の退路を作る端の突き捨て",
+          "recommendation": "candidate",
+          "action": "Original edge-pawn clearance comparison: identify silver retreat square before/after pawn sacrifice; count silver-for-lance cost, not automatic successful attack.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/1070.txt",
+            "matching_lines": [
+              18,
+              116
+            ],
+            "section_locator": "棒銀を組み合わせた端攻め"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/attack-mino-aifuri.json",
+            "chapter": 1
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        },
+        {
+          "idea": "敵が歩を打ちたい場所に先に叩く順の違い",
+          "recommendation": "candidate",
+          "action": "Original preemptive pawn-drop occupancy comparison after silver exchange; show why recapturing first allows defender interposition. Generic tapping already tesuji-pawn ch4.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/1070.txt",
+            "matching_lines": [
+              16,
+              61
+            ],
+            "section_locator": "6六角型の攻め"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/attack-mino-aifuri.json",
+            "chapter": 1
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        },
+        {
+          "idea": "角の位置による攻めへの利きの追加と守備の対応",
+          "recommendation": "reject_duplicate",
+          "action": "Target ch2 already combines bishop diagonal with knight capture and ch3 gives defender a tempo. No generic bishop-support chapter.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/1070.txt",
+            "matching_lines": [
+              15,
+              34
+            ],
+            "section_locator": "▲5六角とする攻め"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/attack-mino-aifuri.json",
+            "chapter": 2
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/2276",
+      "target": "attack-yagura-side",
+      "ideas": [
+        {
+          "idea": "銀打ちで守備金を攻め、受けの金の移動方向を比較する",
+          "recommendation": "candidate",
+          "action": "Add one original silver-drop attack on gold with two legal directional retreats; compare opened lines rather than transplant book-derived Yagura puzzle.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/2276.txt",
+            "matching_lines": [
+              13,
+              34
+            ],
+            "section_locator": "基本の横からの攻め"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/attack-yagura-side.json",
+            "chapter": 3
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        },
+        {
+          "idea": "非王手の金攻めと王手で玉を誘導する手の違い",
+          "recommendation": "candidate",
+          "action": "Within same comparison distinguish quiet gold attack from checking king attraction; no separate check-versus-threat lesson (tsumero ch1/2).",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/2276.txt",
+            "matching_lines": [
+              16,
+              97
+            ],
+            "section_locator": "横から一気に寄せる手筋"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/attack-yagura-side.json",
+            "chapter": 1
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        },
+        {
+          "idea": "守る側の持駒によって同じ銀打ちを再評価する",
+          "recommendation": "candidate",
+          "action": "Use same independent silver-drop example with defender hand changed. Show concrete legal drop defense; endgame-tsumero ch4 already owns general hand-rule explanation.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/2276.txt",
+            "matching_lines": [
+              100
+            ],
+            "section_locator": "今度のテーマ図も先ほど"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/attack-yagura-side.json",
+            "chapter": 1
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/2313",
+      "target": "attack-yagura-head",
+      "ideas": [
+        {
+          "idea": "端の香を吊り上げる歩の連打と玉の誘導",
+          "recommendation": "candidate",
+          "action": "Edge-lance displacement can be original short condition comparison; source also uses king attraction, but do not reproduce its chain of pawn/silver sacrifices or guarantee collapse.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/2313.txt",
+            "matching_lines": [
+              13,
+              34
+            ],
+            "section_locator": "端を絡めた攻め"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/attack-yagura-head.json",
+            "chapter": 2
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        },
+        {
+          "idea": "歩頭の桂で攻め駒の着地点を空ける条件",
+          "recommendation": "duplicate_candidate_merge",
+          "action": "Merge pawn-head knight landing clearance with 1331 candidate; target chapter/application may cross-reference it, no duplicate second knight example.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/2313.txt",
+            "matching_lines": [
+              14,
+              74
+            ],
+            "section_locator": "急所の歩頭の桂で寄せる"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/attack-yagura-head.json",
+            "chapter": 1
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        },
+        {
+          "idea": "玉頭への香成に対する金と玉の取り返しの違い",
+          "recommendation": "candidate",
+          "action": "Existing lance takes unpromoted then silver recaptures. Compare original promoted-lance position with gold versus king recapture and resulting lines; avoid source finishing chain.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/2313.txt",
+            "matching_lines": [
+              17,
+              130
+            ],
+            "section_locator": "玉頭攻めから矢倉を崩せ！"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/attack-yagura-head.json",
+            "chapter": 1
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/3014",
+      "target": "attack-anaguma",
+      "ideas": [
+        {
+          "idea": "守備銀を歩で誘導し背後の金を攻める",
+          "recommendation": "candidate",
+          "action": "Corner shield displacement toward rear gold differs from generic silver attraction; reuse tesuji-pawn ch4 concept, one original Anaguma application only.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/3014.txt",
+            "matching_lines": [
+              13,
+              42
+            ],
+            "section_locator": "叩きの歩で攻める"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/attack-anaguma.json",
+            "chapter": 1
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        },
+        {
+          "idea": "桂を跳ねさせた後の空きマスと玉の逃げ道の変化",
+          "recommendation": "candidate",
+          "action": "Original defender-knight move comparison: list vacated square and changed king exits; never claim every knight move weakens every Anaguma.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/3014.txt",
+            "matching_lines": [
+              15,
+              80,
+              93,
+              95,
+              135
+            ],
+            "section_locator": "桂馬を跳ねさせる"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/attack-anaguma.json",
+            "chapter": 2
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        },
+        {
+          "idea": "角のピンで銀の飛車取りを制限する条件",
+          "recommendation": "duplicate_candidate_merge",
+          "action": "Bishop pin restricting silver rook capture overlaps 1586/2615 candidate. Keep one owner and contextual connection; current Mino ch2 rook-pin orientation already teaches generic pin illegality.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/3014.txt",
+            "matching_lines": [
+              17,
+              117
+            ],
+            "section_locator": "角のラインを使った攻め"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/attack-anaguma.json",
+            "chapter": 1
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/3048",
+      "target": "attack-funa",
+      "ideas": [
+        {
+          "idea": "一段飛車と二段飛車で銀の配置に応じた急所を比較する",
+          "recommendation": "candidate",
+          "action": "Original rook-rank and silver-location comparison may supplement corrected ch2; current ch1/ch2 teach recapture chains, not rank choice. No blanket one-rank/two-rank rule.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/3048.txt",
+            "matching_lines": [
+              12,
+              36
+            ],
+            "section_locator": "基本の3一銀型船囲いを崩す"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/attack-funa.json",
+            "chapter": 2
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        },
+        {
+          "idea": "焦点への香打ちと複数の取り方による利きの変化",
+          "recommendation": "candidate",
+          "action": "One original focus-square lance comparison with independently legal king/gold/knight captures. Count changed control for each rather than source mate claims or source branch collection.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/3048.txt",
+            "matching_lines": [
+              18,
+              112,
+              118
+            ],
+            "section_locator": "焦点の香打ち"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/attack-funa.json",
+            "chapter": 3
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        },
+        {
+          "idea": "相手の持ち角で送りの手筋の成立が変わる条件",
+          "recommendation": "candidate",
+          "action": "Include defender bishop hand as one defense branch in original attraction example; show bishop interposition and recapture geometry, not universal failure of sending tactic.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/3048.txt",
+            "matching_lines": [
+              16,
+              83
+            ],
+            "section_locator": "後手が角を持っている場合"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/attack-funa.json",
+            "chapter": 2
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/7238",
+      "target": "taifuri-basics",
+      "ideas": [
+        {
+          "idea": "4三銀と3二銀で歩の突き捨ての時期が変わる条件",
+          "recommendation": "candidate_correct_overlap",
+          "action": "Overlap report says already taught, but target ch3/4 and 46gin ch1/2 start after silver development. They compare local contact, not pawn-first versus silver-first timing. Add bounded timing explanation with original conditional comparison; exact S4c ability to reach3d and S3b rook-lane obstruction required.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/7238.txt",
+            "matching_lines": [
+              118
+            ],
+            "section_locator": "▲3五歩と突くタイミングは"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/taifuri-basics.json",
+            "chapter": 3
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        },
+        {
+          "idea": "先手の右銀と左銀の出発地点を実際の駒組みから示す",
+          "recommendation": "annotation",
+          "action": "Identify right silver origin3i and left silver origin7i. Target ch1 explicitly3i4h; 46gin startsS5g and also retainsS7i, so its left-silver label/provenance needs correction, not invented opening sequence.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/7238.txt",
+            "matching_lines": [
+              59
+            ],
+            "section_locator": "左の銀を攻めに使って"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/taifuri-basics.json",
+            "chapter": 1
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/7254",
+      "target": "taifuri-bougin",
+      "ideas": [
+        {
+          "idea": "飛車を3筋へ振り直した後、4筋の歩で角筋を開ける順",
+          "recommendation": "candidate",
+          "action": "Target ch2 moves defender rook4b3b and ch3 moves defender pawn4d4e; absent attacking rook3h plus attacking fourth-file pawn diagonal connection. Add original line-clearance comparison, not new starting-opening chapter.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/7254.txt",
+            "matching_lines": [
+              20,
+              80
+            ],
+            "section_locator": "相手は飛車を3筋に回して受けてくる"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/taifuri-bougin.json",
+            "chapter": 3
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        },
+        {
+          "idea": "歩で守備銀を誘導して別の攻め筋を通す条件",
+          "recommendation": "duplicate_candidate_merge",
+          "action": "Pawn-induced silver displacement to clear bishop line is already tesuji-pawn ch4. Use connection within previous mechanism rather than standalone duplicate.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/7254.txt",
+            "matching_lines": [
+              23,
+              109
+            ],
+            "section_locator": "3筋を取り込んでから、▲4五歩"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/taifuri-bougin.json",
+            "chapter": 3
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/7282",
+      "target": "taifuri-46gin",
+      "ideas": [
+        {
+          "idea": "2筋の突き捨てで後の飛車の横移動先を確保する比較",
+          "recommendation": "candidate",
+          "action": "Original occupancy comparison of second-file sacrifice and later rook lateral landing. Exact landing occupied by own/enemy pawn matters; source sequence not imported.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/7282.txt",
+            "matching_lines": [
+              19,
+              84
+            ],
+            "section_locator": "2筋を突き捨てておくのがポイント"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/taifuri-46gin.json",
+            "chapter": 1
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        },
+        {
+          "idea": "攻め銀の来歴を示し右銀型との配置差を明示する",
+          "recommendation": "annotation",
+          "action": "Same silver-origin correction as7238; targetS5g plusS7i is not consistent evidence of left silver provenance. Explain origin without replaying new opening.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/7282.txt",
+            "matching_lines": [
+              14,
+              51
+            ],
+            "section_locator": "左銀を▲6八銀～▲5七銀と前に出す"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/taifuri-46gin.json",
+            "chapter": 1
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        },
+        {
+          "idea": "角交換の順序で玉が囲いを離れるかを比較する",
+          "recommendation": "candidate",
+          "action": "Original bishop-exchange mover comparison with king versus piece recapture. Target ch3 recaptures with bishop, so king-leaves-shelter consequence absent.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/7282.txt",
+            "matching_lines": [
+              143
+            ],
+            "section_locator": "こちらから角交換していきます"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/taifuri-46gin.json",
+            "chapter": 3
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/7339",
+      "target": "taifuri-anaguma",
+      "ideas": [
+        {
+          "idea": "早い桂の進出が角銀への両取りを作る条件と囲い手順の中断",
+          "recommendation": "duplicate_connection",
+          "action": "Knight bishop/silver fork already ponpon ch1; retain only castle-construction tempo connection in existing Anaguma ch1/ch2 and concrete blocker defense if independently verified.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/7339.txt",
+            "matching_lines": [
+              22,
+              89,
+              93
+            ],
+            "section_locator": "早めに桂馬を跳ねる"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/taifuri-anaguma.json",
+            "chapter": 1
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        },
+        {
+          "idea": "攻め銀を守備へ戻すことで相手の銀交換の標的を減らす比較",
+          "recommendation": "candidate",
+          "action": "Original attacking-silver return removes exchange target while adding castle control. Existing ch3 moves gold, not silver; do not duplicate general extra-defender cost lesson.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/7339.txt",
+            "matching_lines": [
+              28,
+              143
+            ],
+            "section_locator": "狙われる銀を引いて穴熊にくっつける"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/taifuri-anaguma.json",
+            "chapter": 3
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/7988",
+      "target": "taifuri-millennium",
+      "ideas": [
+        {
+          "idea": "銀の守備経路5九経由と5七経由で角の退路が変わる条件",
+          "recommendation": "reject_duplicate",
+          "action": "Millennium existing course n16 explains4h5i6h versus5g preserving bishop6f route; n36/n52 execute it. Target may connect to course, no duplicate chapter. Existing target rejects assumed trapped bishop, preserve that qualification.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/7988.txt",
+            "matching_lines": [
+              76
+            ],
+            "section_locator": "▲5七銀とはしないように"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/taifuri-millennium.json",
+            "chapter": 2
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        },
+        {
+          "idea": "相手桂8五への自桂7七の取り返しを守備配置と照合",
+          "recommendation": "annotation_candidate",
+          "action": "Target ch1 says knight can jump8e/6e; independently verify an opponentN8e capture with ownN7g, then show landing-square defenders. A short condition branch is enough, no new opening.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/7988.txt",
+            "matching_lines": [
+              59
+            ],
+            "section_locator": "藤井システムでは△8五桂"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/taifuri-millennium.json",
+            "chapter": 1
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/974",
+      "target": "taifuri-45hayashikake",
+      "ideas": [
+        {
+          "idea": "既存の合法な取り返し比較を補助説明として保持し、角道を開く条件と2筋への接続を独立した標準理論の例で追加する。",
+          "recommendation": "partial_duplicate_gap",
+          "action": "Existing course n9/nb1_0/nb1_1 already opens diagonal with4f4e/4d4e and exchanges bishops8h3c+/2a3c. It ends there; does not show subsequent file2 use. Preserve local silver-recapture diagnostics, explain named strategy bishop-exchange/file2 objective and add only independently authored compensation comparison, no replicated standard opening sequence.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/974.txt",
+            "matching_lines": [
+              7,
+              24
+            ],
+            "section_locator": "4五歩早仕掛けの狙い"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/taifuri-45hayashikake.json",
+            "chapter": 1
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/8008",
+      "target": "taifuri-ponpon",
+      "ideas": [
+        {
+          "idea": "損得の基本例と標準戦法の仕掛けを区別し、桂の投資で得る角道・2筋の活動と相手の切り返しを原作独立例で示す。",
+          "recommendation": "candidate",
+          "action": "Current ch1 generic knight fork and ch2/ch3 knight-for-pawn account omit defining Ponpon mechanism: sacrifice opens bishop diagonal, exchange removes file2 bishop defender, rook activity compensates only conditionally. Add original mechanism comparison and concrete counterplay; do not reuse source branch collection or declare sacrifice objectively sound without checks.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/8008.txt",
+            "matching_lines": [
+              17,
+              56,
+              59
+            ],
+            "section_locator": "角交換して2筋を突破"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/taifuri-ponpon.json",
+            "chapter": 2
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/7962",
+      "target": "taifuri-vs-hayaishida",
+      "ideas": [
+        {
+          "idea": "標準の序盤から4二玉・角交換・4五角の選択を結び、7六角の切り返しと玉位置の関係を説明",
+          "recommendation": "candidate",
+          "action": "Explain king4b relation to bishop7f counter while keeping existing rook-lane diagnostics. Standard facts may connect to course; independently original local king-position comparison, no generic new opening.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/7962.txt",
+            "matching_lines": [
+              47
+            ],
+            "section_locator": "△4二玉と上がる意味は"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/taifuri-vs-hayaishida.json",
+            "chapter": 1
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        },
+        {
+          "idea": "7四飛と飛角交換の順序によって飛車打ちの着地点が変わる条件を比較",
+          "recommendation": "candidate",
+          "action": "Original move-order comparison must show how rook7d versus major exchange changes rook-drop landing and response. Existing ch2 only friendly-pawn horizontal obstruction.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/7962.txt",
+            "matching_lines": [
+              20,
+              78
+            ],
+            "section_locator": "▲7四飛と攻めてくるのが本筋"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/taifuri-vs-hayaishida.json",
+            "chapter": 2
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        },
+        {
+          "idea": "6六歩で角交換を避ける選択と石田流本組みへの接続",
+          "recommendation": "annotation",
+          "action": "Distinguish6f pawn blocking bishop diagonal during opening from current ch2 blocking rook horizontally. Connect declined bishop exchange to Ishida formation; avoid additional construction sequence.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/7962.txt",
+            "matching_lines": [
+              23,
+              106
+            ],
+            "section_locator": "石田流本組みを狙う指し方"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/taifuri-vs-hayaishida.json",
+            "chapter": 2
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/4502",
+      "target": "taifuri-bougin-ishida",
+      "ideas": [
+        {
+          "idea": "金8三・7四・8四の横移動と歩交換による拠点変更",
+          "recommendation": "candidate",
+          "action": "Specific gold8c7d8d route is standard strategic fact; target gold6d6e illustrates another approach. Add succinct route/planning connection or original pawn-contact comparison, not source whole attack.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/4502.txt",
+            "matching_lines": [
+              128
+            ],
+            "section_locator": "金の動きは棒金でよく出てくる"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/taifuri-bougin-ishida.json",
+            "chapter": 1
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        },
+        {
+          "idea": "端に使う持ち歩を7筋で得る理由",
+          "recommendation": "candidate",
+          "action": "Original hand-budget comparison: pawn gained on file7 funds edge drop. Current ch3 spends existing pawn5e; record acquisition/spend counts, not forced victory.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/4502.txt",
+            "matching_lines": [
+              22,
+              108
+            ],
+            "section_locator": "7筋から歩を入手するのがポイント"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/taifuri-bougin-ishida.json",
+            "chapter": 3
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        },
+        {
+          "idea": "桂7七・角9七の保留と角交換による大駒の活動の違い",
+          "recommendation": "annotation_candidate",
+          "action": "Connect delayingN7g/B9g to availability of bishop exchange and reduced confinement. Current target hasN7g plusB8h, different geometry; independently check exact lanes before claim.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/4502.txt",
+            "matching_lines": [
+              31,
+              179
+            ],
+            "section_locator": "棒金が成功しにくい場合"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/taifuri-bougin-ishida.json",
+            "chapter": 1
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/7863",
+      "target": "taifuri-chousoku",
+      "ideas": [
+        {
+          "idea": "桂によって5五を守る角を移動させる条件",
+          "recommendation": "candidate",
+          "action": "Knight displacement of bishop removes diagonal defender of5e; target currently changes silver/rook, not bishop via knight. Add original defender-count contrast, no source line transplantation.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/7863.txt",
+            "matching_lines": [
+              22,
+              98
+            ],
+            "section_locator": "桂跳ねで、角を退かして5筋を取り返そう"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/taifuri-chousoku.json",
+            "chapter": 2
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        },
+        {
+          "idea": "2九飛と2八飛で角打ちの標的が変わる具体的な比較",
+          "recommendation": "candidate",
+          "action": "Original R2i/R2h comparison with bishop-drop fork after same exchange; prove paths/targets. Current unit containsR2h but no rank comparison.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/7863.txt",
+            "matching_lines": [
+              134
+            ],
+            "section_locator": "▲2九飛と引く意味は"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/taifuri-chousoku.json",
+            "chapter": 3
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        },
+        {
+          "idea": "3七銀の一手の有無で5筋交換後の角打ちへの受けが変わる条件",
+          "recommendation": "candidate",
+          "action": "S3g present/absent changes bishop-drop lines after fifth-file exchange; use original occupancy comparison, no duplicate development course. Do not reproduce source asserted unavoidable horse or universal advantage.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/7863.txt",
+            "matching_lines": [
+              28,
+              157
+            ],
+            "section_locator": "△5五角の切り返しに注意"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/taifuri-chousoku.json",
+            "chapter": 3
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/2204",
+      "target": "taifuri-vs-kakukoukan",
+      "ideas": [
+        {
+          "idea": "4七銀から3六銀で逆棒銀に対応する具体的な守備と飛車道",
+          "recommendation": "reject_duplicate",
+          "action": "Target ch2 explicitly4g3f and2h2e/2b2e/3f2e; already teaches silver supports file2 recapture. Add reverse-Climbing-Silver name/context only if needed, no new example.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/2204.txt",
+            "matching_lines": [
+              17,
+              79
+            ],
+            "section_locator": "逆棒銀には3六銀で受ける"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/taifuri-vs-kakukoukan.json",
+            "chapter": 2
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        },
+        {
+          "idea": "2三歩の叩きで飛車の位置を変え、持角の打ち場所を作る条件",
+          "recommendation": "candidate",
+          "action": "Original pawn drop displaces rook then bishop drop exploits new geometry. Generic tapping taughttesuji-pawn ch4, but target ch1 bishop attack after file4 trade differs. Verify actual reply and optional rook escape.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/2204.txt",
+            "matching_lines": [
+              18,
+              92
+            ],
+            "section_locator": "△2五歩と抑えてきた場合"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/taifuri-vs-kakukoukan.json",
+            "chapter": 1
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        },
+        {
+          "idea": "持久戦の腰掛け銀と自玉の守備に使う手数の比較",
+          "recommendation": "duplicate_connection",
+          "action": "Current target is local tactics; connect to existing reclining-silver/castle lessons for move-budget decision. No new standard opening or copied Flat-Yagura-to-Anaguma progression.",
+          "source_evidence": {
+            "path": ".cache/curriculum-source/2204.txt",
+            "matching_lines": [
+              19,
+              103,
+              157
+            ],
+            "section_locator": "持久戦になったら腰掛け銀に"
+          },
+          "target_evidence": {
+            "path": "data/lessons/units/taifuri-vs-kakukoukan.json",
+            "chapter": 3
+          },
+          "tactical_status": "No new composed board or tactical line verified in this reader task. Candidate requires root legal replay and relevant all-reply/engine checks before assertion."
+        }
+      ]
+    }
+  ],
+  "confirmed_overlap_corrections": [
+    "2615 mate-threat rook attack is offensive; not own-king defense.",
+    "7238 already-taught verdict overstates temporal comparison: existing contact boards do not show pawn-first/silver-first choice.",
+    "974 course teaches bishop exchange but stops before actual second-file play; only partial duplicate."
+  ],
+  "limits": [
+    "Bounded corpus is not whole-curriculum absence proof.",
+    "No source diagrams viewed in this reader task; claims limited to text and current target/course fields.",
+    "No new tactical examples verified; conditional mechanisms are suggestions, not accepted additions.",
+    "Related source-book puzzles/article structure cannot be adopted.",
+    "Current endgame-tsumero was edited by root before this read; hashes record read snapshot."
+  ],
+  "constraints": "No copied text, composed source positions, book puzzle chains or article branch structure. Keep one owner for overlapping pawn-head-knight, pin coordination and defender displacement mechanisms. Preserve existing original diagnostics; avoid new generic openings/chapter inflation."
+}

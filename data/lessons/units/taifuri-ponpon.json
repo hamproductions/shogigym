@@ -1,57 +1,355 @@
 {
   "id": "taifuri-ponpon",
   "order": 900,
-  "path": ["戦法・定跡", "対振り飛車"],
-  "title": { "ja": "桂を跳ねる前の損得勘定", "en": "Count the cost before jumping the knight" },
+  "path": [
+    "戦法・定跡",
+    "対振り飛車"
+  ],
+  "title": {
+    "ja": "桂を跳ねる前の損得勘定",
+    "en": "Count the cost before jumping the knight"
+  },
   "intro": {
-    "ja": "ポンポン桂では右桂の早い跳躍を攻めのきっかけにする。桂が次にどの駒へ当たり、取られた場合に何を取り返せるかは別々の問題だ。後手の４筋の歩、先手の歩の位置、相手の飛車の通路を確認してから桂を投じる。",
-    "en": "Ponpon Knight uses an early jump of Sente's right knight to create contact. The pieces a knight attacks and the compensation available if it is captured are separate questions. Check Gote's fourth-file pawn, Sente's pawn placement and the rook lane before investing the knight."
+    "ja": "ポンポン桂では右桂の早い跳躍を攻めのきっかけにする。桂が次にどの駒へ当たり、取られた場合に何を取り返せるかは別々の問題だ。後手の４筋の歩、先手の歩の位置、相手の飛車の通路を確認してから桂を投じる。 戦法としての狙いは４筋の接触で角道を開き、角交換によって２筋を守る角を外すこと。この講座の銀・桂の損得例はその判断の補助であり、最後に独立した部分局面で角道と２筋の関係を確かめる。 桂を歩で取らせる投資には回収が必要で、持ち角の切り返しも残る。",
+    "en": "Ponpon Knight uses an early jump of Sente's right knight to create contact. The pieces a knight attacks and the compensation available if it is captured are separate questions. Check Gote's fourth-file pawn, Sente's pawn placement and the rook lane before investing the knight. The named strategy connects fourth-file contact to opening the bishop diagonal and removing the bishop that defends file two. The local silver and knight examples support that decision; a final independent partial position connects the diagonal to file-two play. Investing a knight requires compensation, and the opponent retains bishop-drop counterplay."
   },
   "check": {
-    "question": { "ja": "３七桂が４五へ跳ね、後手４四歩に取られる。先手４六歩で同歩と取り返せても、桂損を解消したことになるか？", "en": "A knight jumps from 3g to 4e and Gote's 4d pawn takes it. If Sente's pawn from 4f recaptures that pawn, has the knight investment already paid for itself?" },
-    "answer": { "ja": "ならない。取り返したのは歩一枚で、桂は後手の持ち駒に残る。別の駒を取るか、具体的な攻めを作れるかをさらに読む。", "en": "No. Sente has recovered a pawn, while Gote still holds the knight. Look for an additional capture or a concrete attack before calling the investment sound." }
+    "question": {
+      "ja": "３七桂が４五へ跳ね、後手４四歩に取られる。先手４六歩で同歩と取り返せても、桂損を解消したことになるか？",
+      "en": "A knight jumps from 3g to 4e and Gote's 4d pawn takes it. If Sente's pawn from 4f recaptures that pawn, has the knight investment already paid for itself?"
+    },
+    "answer": {
+      "ja": "ならない。取り返したのは歩一枚で、桂は後手の持ち駒に残る。別の駒を取るか、具体的な攻めを作れるかをさらに読む。",
+      "en": "No. Sente has recovered a pawn, while Gote still holds the knight. Look for an additional capture or a concrete attack before calling the investment sound."
+    }
   },
-  "references": [{ "title": "vs四間飛車 ポンポン桂（富沢キック）", "url": "https://shogi-joutatsu.com/archives/8008", "license": "All rights reserved", "adapted": false }],
+  "references": [
+    {
+      "title": "vs四間飛車 ポンポン桂（富沢キック）",
+      "url": "https://shogi-joutatsu.com/archives/8008",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
   "chapters": [
     {
-      "title": { "ja": "桂跳ねが二枚に当たる場合", "en": "A jump that attacks two pieces" },
-      "side": "sente", "kind": "position",
+      "title": {
+        "ja": "桂跳ねが二枚に当たる場合",
+        "en": "A jump that attacks two pieces"
+      },
+      "side": "sente",
+      "kind": "position",
       "start": "9/1k3r3/2p1bpsp1/9/9/2P4P1/6N2/1BKG3R1/9 b - 1",
       "steps": [
-        { "text": { "ja": "後手は４二飛で四間飛車の形だが、４五へ進める後手歩はない。先手３七桂は４五へ跳べば、５三角と３三銀の両方に次の桂跳ねが届く。", "en": "Gote's rook is on 4b, a Fourth File Rook placement, but no Gote pawn can move onto 4e. From 3g, Sente's knight can jump to 4e and then threaten both the bishop on 5c and silver on 3c." }, "marks": { "arrows": ["3g4e", "4e5c", "4e3c"], "boxes": ["5c", "3c"] } },
-        { "moves": ["3g4e"], "text": { "ja": "４五桂は角と銀を同時に狙う。桂を捨てたわけではなく、後手がどちらを守るかを問う手になった。４五を取れる別の駒が現れれば同じ計算は使えない。", "en": "The knight on 4e attacks the bishop and silver at once. It has not been sacrificed in this board; it asks which target Gote will save. The calculation changes if another Gote piece can capture 4e." }, "marks": { "boxes": ["4e", "5c", "3c"] } },
-        { "moves": ["5c6d", "4e3c+"], "text": { "ja": "後手が角を６四へ逃がした一例では、先手桂が３三銀を取って成れる。先手は銀を持ち、桂は３三に残る。ただし後手は角を逃がす義務がなく、この獲得は条件付きだ。", "en": "If Gote saves the bishop by moving it to 6d, Sente's knight takes the silver on 3c and promotes. Sente gains a silver in hand and retains the promoted knight on 3c. Gote need not choose this bishop retreat, so the gain is conditional." }, "marks": { "last": "3c", "boxes": ["6d"] } }
+        {
+          "text": {
+            "ja": "後手は４二飛で四間飛車の形だが、４五へ進める後手歩はない。先手３七桂は４五へ跳べば、５三角と３三銀の両方に次の桂跳ねが届く。",
+            "en": "Gote's rook is on 4b, a Fourth File Rook placement, but no Gote pawn can move onto 4e. From 3g, Sente's knight can jump to 4e and then threaten both the bishop on 5c and silver on 3c."
+          },
+          "marks": {
+            "arrows": [
+              "3g4e",
+              "4e5c",
+              "4e3c"
+            ],
+            "boxes": [
+              "5c",
+              "3c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3g4e"
+          ],
+          "text": {
+            "ja": "４五桂は角と銀を同時に狙う。桂を捨てたわけではなく、後手がどちらを守るかを問う手になった。４五を取れる別の駒が現れれば同じ計算は使えない。",
+            "en": "The knight on 4e attacks the bishop and silver at once. It has not been sacrificed in this board; it asks which target Gote will save. The calculation changes if another Gote piece can capture 4e."
+          },
+          "marks": {
+            "boxes": [
+              "4e",
+              "5c",
+              "3c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5c6d",
+            "4e3c+"
+          ],
+          "text": {
+            "ja": "後手が角を６四へ逃がした一例では、先手桂が３三銀を取って成れる。先手は銀を持ち、桂は３三に残る。ただし後手は角を逃がす義務がなく、この獲得は条件付きだ。",
+            "en": "If Gote saves the bishop by moving it to 6d, Sente's knight takes the silver on 3c and promotes. Sente gains a silver in hand and retains the promoted knight on 3c. Gote need not choose this bishop retreat, so the gain is conditional."
+          },
+          "marks": {
+            "last": "3c",
+            "boxes": [
+              "6d"
+            ]
+          }
+        }
       ],
       "variations": [
-        { "from": 1, "moves": ["3c4d", "4e5c+"], "text": { "ja": "後手が銀を４四へ逃がす例では、先手桂が５三角を取って成る。角を取れるか銀を取れるかは、後手がどちらを動かすかで変わる。", "en": "If Gote saves the silver on 4d instead, Sente's knight takes the bishop on 5c and promotes. Which piece can be won depends on which one Gote moves." } }
+        {
+          "from": 1,
+          "moves": [
+            "3c4d",
+            "4e5c+"
+          ],
+          "text": {
+            "ja": "後手が銀を４四へ逃がす例では、先手桂が５三角を取って成る。角を取れるか銀を取れるかは、後手がどちらを動かすかで変わる。",
+            "en": "If Gote saves the silver on 4d instead, Sente's knight takes the bishop on 5c and promotes. Which piece can be won depends on which one Gote moves."
+          }
+        }
       ]
     },
     {
-      "title": { "ja": "桂を取らせて歩を取り返す", "en": "A pawn recapture after the knight is taken" },
-      "side": "sente", "kind": "position",
+      "title": {
+        "ja": "桂を取らせて歩を取り返す",
+        "en": "A pawn recapture after the knight is taken"
+      },
+      "side": "sente",
+      "kind": "position",
       "start": "9/1k3r1b1/5s1p1/5p3/9/2P2P1P1/6N2/1BKG3R1/9 b - 1",
       "steps": [
-        { "text": { "ja": "今度は後手歩が４四にいて、先手桂４五を取れる。先手歩は４六なので、後手歩が桂を取れば先手歩でその歩だけは取り返せる。桂一枚と歩一枚の交換で止まらないかを調べる。", "en": "This time Gote has a pawn on 4d that can capture a knight on 4e. Sente's pawn on 4f can then recapture that pawn. Check whether the line offers anything beyond trading a knight for a pawn." }, "marks": { "arrows": ["3g4e", "4d4e", "4f4e"], "boxes": ["4c", "4b"] } },
-        { "moves": ["3g4e", "4d4e", "4f4e"], "text": { "ja": "後手が桂を歩で取り、先手が４六歩で同歩と取り返した例。先手の持ち駒は歩、後手の持ち駒は桂で、ここまでなら桂の投資に見合う回収はない。", "en": "Gote takes the knight with its pawn and Sente recaptures from 4f. Sente holds a pawn; Gote holds a knight. At this point the recovered material does not pay for the knight." }, "marks": { "boxes": ["4e", "4c", "4b"] } },
-        { "moves": ["4c4d", "4e4d", "4b4d"], "text": { "ja": "後手銀が４四へ出た場合に限り、先手歩は同歩と銀を取り、後手飛車がその歩を取る。この例では先手は銀と歩を得て桂と歩を失い、後手飛車は４四へ出る。銀を取れる展開を後手に強制したわけではない。", "en": "Only if Gote advances its silver to 4d can Sente's pawn take that silver; Gote's rook then captures the pawn. In this sample Sente gains a silver and pawn while losing a knight and pawn, and Gote's rook becomes active on 4d. The silver advance was Gote's choice, not a forced concession." }, "marks": { "last": "4d", "boxes": ["4b", "4c"] } },
-        { "text": { "ja": "駒の枚数だけでなく、４四飛が先手玉の方向へどう働くかも見る。後手が銀を動かさず守れば、桂を歩一枚で交換した結果が残る。", "en": "Material is only part of the accounting: also check how the rook on 4d bears on Sente's king side. If Gote declines the silver advance, the knight-for-pawn investment remains to be justified." } }
+        {
+          "text": {
+            "ja": "今度は後手歩が４四にいて、先手桂４五を取れる。先手歩は４六なので、後手歩が桂を取れば先手歩でその歩だけは取り返せる。桂一枚と歩一枚の交換で止まらないかを調べる。",
+            "en": "This time Gote has a pawn on 4d that can capture a knight on 4e. Sente's pawn on 4f can then recapture that pawn. Check whether the line offers anything beyond trading a knight for a pawn."
+          },
+          "marks": {
+            "arrows": [
+              "3g4e",
+              "4d4e",
+              "4f4e"
+            ],
+            "boxes": [
+              "4c",
+              "4b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3g4e",
+            "4d4e",
+            "4f4e"
+          ],
+          "text": {
+            "ja": "後手が桂を歩で取り、先手が４六歩で同歩と取り返した例。先手の持ち駒は歩、後手の持ち駒は桂で、ここまでなら桂の投資に見合う回収はない。",
+            "en": "Gote takes the knight with its pawn and Sente recaptures from 4f. Sente holds a pawn; Gote holds a knight. At this point the recovered material does not pay for the knight."
+          },
+          "marks": {
+            "boxes": [
+              "4e",
+              "4c",
+              "4b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4c4d",
+            "4e4d",
+            "4b4d"
+          ],
+          "text": {
+            "ja": "後手銀が４四へ出た場合に限り、先手歩は同歩と銀を取り、後手飛車がその歩を取る。この例では先手は銀と歩を得て桂と歩を失い、後手飛車は４四へ出る。銀を取れる展開を後手に強制したわけではない。",
+            "en": "Only if Gote advances its silver to 4d can Sente's pawn take that silver; Gote's rook then captures the pawn. In this sample Sente gains a silver and pawn while losing a knight and pawn, and Gote's rook becomes active on 4d. The silver advance was Gote's choice, not a forced concession."
+          },
+          "marks": {
+            "last": "4d",
+            "boxes": [
+              "4b",
+              "4c"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "駒の枚数だけでなく、４四飛が先手玉の方向へどう働くかも見る。後手が銀を動かさず守れば、桂を歩一枚で交換した結果が残る。",
+            "en": "Material is only part of the accounting: also check how the rook on 4d bears on Sente's king side. If Gote declines the silver advance, the knight-for-pawn investment remains to be justified."
+          }
+        }
       ],
       "variations": [
-        { "from": 1, "moves": ["4c5d"], "text": { "ja": "後手銀が４三から５四へ移るのも合法。この例では先手歩４五が銀を取る筋はなく、桂損を銀取りで埋める説明はできない。", "en": "Gote may instead move its silver from 4c to 5d. Then Sente's pawn on 4e has no immediate silver to capture, so the knight loss cannot be explained away by the previous sample line." } }
+        {
+          "from": 1,
+          "moves": [
+            "4c5d"
+          ],
+          "text": {
+            "ja": "後手銀が４三から５四へ移るのも合法。この例では先手歩４五が銀を取る筋はなく、桂損を銀取りで埋める説明はできない。",
+            "en": "Gote may instead move its silver from 4c to 5d. Then Sente's pawn on 4e has no immediate silver to capture, so the knight loss cannot be explained away by the previous sample line."
+          }
+        }
       ]
     },
     {
-      "title": { "ja": "歩が一段遠い時は投じない", "en": "Decline the sacrifice when the pawn is too far back" },
-      "side": "sente", "kind": "position",
+      "title": {
+        "ja": "歩が一段遠い時は投じない",
+        "en": "Decline the sacrifice when the pawn is too far back"
+      },
+      "side": "sente",
+      "kind": "position",
       "start": "9/1k3r1b1/5s1p1/5p3/9/2P4P1/5PN2/1BKG3R1/9 b - 1",
       "steps": [
-        { "text": { "ja": "先手歩は４七で、桂が４五で取られてもすぐには取り返せない。後手の銀４三も空いた４四へ進める。この配置で桂を跳ねる前に、歩を進める一手との差を考える。", "en": "Sente's pawn is on 4g, one rank farther from the exchange. If the knight is captured on 4e, that pawn cannot recapture at once. Gote's silver on 4c can also move into the vacated 4d square. Compare the knight jump with spending a turn on the pawn first." }, "marks": { "arrows": ["4g4f", "3g4e"], "boxes": ["4d", "4e"] } },
-        { "moves": ["3g4e", "4d4e", "4g4f"], "text": { "ja": "桂を先に跳ねて取られ、ようやく４六歩を進めた。後手は桂を持ち、４五には後手歩が残る。先手はまだ歩一枚すら回収していない。", "en": "Sente jumps first, Gote takes the knight, and only then can Sente advance its pawn to 4f. Gote holds the knight and still has a pawn on 4e. Sente has not recovered even a pawn yet." }, "marks": { "boxes": ["4e", "4f", "4c"] } },
-        { "moves": ["4c4d", "4f4e", "4d4e"], "text": { "ja": "後手銀が４四へ出る応手では、先手歩が４五歩を取っても後手銀が同銀と取れる。先手は桂と歩を失い、歩を一枚得ただけ。これは桂跳ねを見送る理由となる具体的な応手だ。", "en": "If Gote's silver moves to 4d, it can recapture Sente's pawn after that pawn takes on 4e. Sente has lost a knight and pawn while gaining only a pawn. This concrete defender reply is a reason to withhold the jump in this position." }, "marks": { "last": "4e", "boxes": ["4d", "4b"] } },
-        { "text": { "ja": "４七歩を４六へ進める選択でも、後手がその間に何を指すかを確認する必要がある。桂の勢いだけでは駒損を埋められない。", "en": "Advancing the pawn from 4g to 4f first is an option, but Gote gets a reply in between. The knight's speed alone does not compensate for lost material." } }
+        {
+          "text": {
+            "ja": "先手歩は４七で、桂が４五で取られてもすぐには取り返せない。後手の銀４三も空いた４四へ進める。この配置で桂を跳ねる前に、歩を進める一手との差を考える。",
+            "en": "Sente's pawn is on 4g, one rank farther from the exchange. If the knight is captured on 4e, that pawn cannot recapture at once. Gote's silver on 4c can also move into the vacated 4d square. Compare the knight jump with spending a turn on the pawn first."
+          },
+          "marks": {
+            "arrows": [
+              "4g4f",
+              "3g4e"
+            ],
+            "boxes": [
+              "4d",
+              "4e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3g4e",
+            "4d4e",
+            "4g4f"
+          ],
+          "text": {
+            "ja": "桂を先に跳ねて取られ、ようやく４六歩を進めた。後手は桂を持ち、４五には後手歩が残る。先手はまだ歩一枚すら回収していない。",
+            "en": "Sente jumps first, Gote takes the knight, and only then can Sente advance its pawn to 4f. Gote holds the knight and still has a pawn on 4e. Sente has not recovered even a pawn yet."
+          },
+          "marks": {
+            "boxes": [
+              "4e",
+              "4f",
+              "4c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4c4d",
+            "4f4e",
+            "4d4e"
+          ],
+          "text": {
+            "ja": "後手銀が４四へ出る応手では、先手歩が４五歩を取っても後手銀が同銀と取れる。先手は桂と歩を失い、歩を一枚得ただけ。これは桂跳ねを見送る理由となる具体的な応手だ。",
+            "en": "If Gote's silver moves to 4d, it can recapture Sente's pawn after that pawn takes on 4e. Sente has lost a knight and pawn while gaining only a pawn. This concrete defender reply is a reason to withhold the jump in this position."
+          },
+          "marks": {
+            "last": "4e",
+            "boxes": [
+              "4d",
+              "4b"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "４七歩を４六へ進める選択でも、後手がその間に何を指すかを確認する必要がある。桂の勢いだけでは駒損を埋められない。",
+            "en": "Advancing the pawn from 4g to 4f first is an option, but Gote gets a reply in between. The knight's speed alone does not compensate for lost material."
+          }
+        }
       ],
       "variations": [
-        { "from": 0, "moves": ["4g4f", "2c2d"], "text": { "ja": "先手が先に４六歩を用意し、後手が２四歩とした一例。次に桂を跳ねるとしても、後手の４四歩と４三銀を数え直してから決める。", "en": "Sente can prepare with 4f first; Gote's 2d pawn push is only a sample response. Before a later knight jump, Sente must still count the 4d pawn and 4c silver." } }
+        {
+          "from": 0,
+          "moves": [
+            "4g4f",
+            "2c2d"
+          ],
+          "text": {
+            "ja": "先手が先に４六歩を用意し、後手が２四歩とした一例。次に桂を跳ねるとしても、後手の４四歩と４三銀を数え直してから決める。",
+            "en": "Sente can prepare with 4f first; Gote's 2d pawn push is only a sample response. Before a later knight jump, Sente must still count the 4d pawn and 4c silver."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "角道を開いて２筋へつなぐ",
+        "en": "Open the diagonal and connect to file two"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "7n1/5r2k/5sbp1/5p3/7P1/5P3/6N2/1BKG3R1/9 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手３三角は２四を守るが、４四歩が先手８八角との斜線を止める。４筋の接触でこの歩が動くと、角交換と２筋の歩交換がつながる。これは戦法全体の優劣を示す盤ではなく、利きの変化だけを調べる部分局面。",
+            "en": "Gote’s bishop on 3c guards 2d, while its pawn on 4d blocks the diagonal to Sente’s bishop on 8h. Moving that pawn connects a bishop exchange to file-two contact. This partial position isolates the geometry rather than establishing the strategy’s overall value."
+          }
+        },
+        {
+          "text": {
+            "ja": "桂を歩で取らせ、４六歩で取り返した。先手は桂を失って歩を得たが、４四が空いて角道が開いた。",
+            "en": "The knight is taken and the pawn from 4f recaptures. Sente has invested a knight for a pawn; vacating 4d opens the diagonal."
+          },
+          "moves": [
+            "3g4e",
+            "4d4e",
+            "4f4e"
+          ],
+          "marks": {
+            "arrows": [
+              "8h3c",
+              "3c2d"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "後手が１一玉へ動く一例の後、３三で角を交換し、後手桂が取り返す。双方が角を持ち、２四を守っていた角は盤上から消える。ただし桂３三の利きや持ち角の攻めは残る。",
+            "en": "After the sample king move to 1a, The bishops are exchanged on 3c and Gote’s knight recaptures. Both sides hold a bishop, and the bishop that guarded 2d is gone. The knight on 3c and bishop drops still matter."
+          },
+          "moves": [
+            "1b1a",
+            "8h3c+",
+            "2a3c"
+          ]
+        },
+        {
+          "text": {
+            "ja": "２四歩から同歩・同飛は相手が応じた場合の一例。角による２四の取り返しはなく、飛車が２筋で働ける。ここだけで先手の得とは判断しない。",
+            "en": "P2d, a pawn capture and R2d illustrate an accepted file-two exchange. The former bishop can no longer recapture on 2d, allowing the rook to work there. This alone does not prove an advantage."
+          },
+          "moves": [
+            "2e2d",
+            "2c2d",
+            "2h2d"
+          ]
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": [
+            "2e2d",
+            "2c2d",
+            "2h2d",
+            "3c2d"
+          ],
+          "text": {
+            "ja": "角交換より先に飛車で２四歩を取ると、３三角が飛車を取る。角の利きを外す条件を省略しない。",
+            "en": "If the rook captures on 2d before the bishop exchange, the bishop on 3c takes it. Do not omit the condition that removes that defender."
+          }
+        },
+        {
+          "from": 2,
+          "moves": [
+            "2e2d",
+            "B*6d",
+            "2h2g"
+          ],
+          "text": {
+            "ja": "後手が歩を取らず６四角を打つ比較枝。５五・４六・３七を通って２八飛を狙うので、先手は飛車を２七へ逃がす。６四に駒がいればこの角は打てず、斜線の途中に駒があれば当たりも変わる。桂の投資を角交換だけで回収したとは数えない。",
+            "en": "A comparison declines the pawn and drops a bishop on 6d, attacking the rook on 2h through 5e, 4f and 3g. Sente retreats to 2g. Occupying 6d prevents this drop, and a blocker changes its line. The bishop exchange alone has not repaid the knight investment."
+          }
+        }
       ]
     }
   ]

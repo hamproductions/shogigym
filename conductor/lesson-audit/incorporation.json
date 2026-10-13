@@ -1,0 +1,1057 @@
+[
+  {
+    "source": "https://shogi-joutatsu.com/archives/1629",
+    "target": "tesuji-pawn",
+    "ideas": [
+      "叩きの歩で守り駒を誘導する名称と条件",
+      "継ぎ歩による進路の変化",
+      "垂れ歩と直接打ち込みの比較"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_decision": {
+      "reviewed": "rootが対象単位全文、proverb-three-pawns全文、両宣言参照1629/8322全文を読了。",
+      "incorporate": "既存第4章の銀誘導例に、叩きの歩という一般名称と守り駒を動かす条件を短く補う。既存の原著局面を維持する。",
+      "avoid_duplicate": "継ぎ歩の手順はproverb-three-pawns第4章が既に扱うため、tesuji-pawnへ重複した章を追加しない。",
+      "final_scope": {
+        "paths": "tesuji-pawn",
+        "decision": "既存銀誘導例に叩きの歩の名称と条件を追加。継ぎ歩はproverb-three-pawnsが担当。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。",
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/1486",
+    "target": "tesuji-lance",
+    "ideas": [
+      "二段ロケットの前後配置による違い",
+      "田楽刺しと相手の歩打ち制限"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_decision": {
+      "reviewed": "rootが参照1486全文とtesuji-lance、endgame-mate-tesuji、tesuji-rook、yagura-suzumeの全キー・章・手順・変化を読了。全146単位と41元コースを対象に名称・香飛車関係を検索し、関連する既読教材と照合。",
+      "avoid_duplicate": "前後配置の双方は既存教材にある。mate-tesuji第4章は香4dが龍4bを守り、yagura-suzume第2章は香1fの後ろに飛1gを配置して通路を準備する。比較を新章にせず、必要なら既存香教材から双方の条件を短く案内する。名称検索のみを全内容の不在証明とはしない。",
+      "incorporate_candidate": "田楽刺しの前後二対象と歩打ち制限を組み合わせる条件を、既存tesuji-lance第3章の二歩説明とは別の原著の適用比較として検討。単なる二歩の再説明は増やさない。",
+      "constraints": "参照図・位置・記事順序を使わない。前の対象を動かせるか、後ろの駒を守る利き、別種の合駒、歩の有無、香の捕獲を独立確認してから教材化する。強制の両取り・駒得・詰みを未検証で主張しない。執筆は承認ゲート後。",
+      "existing_evidence": [
+        {
+          "path": "data/lessons/units/tesuji-lance.json",
+          "sha256": "0a24ec273c42e50ed8885ce7dc38810a8bd37c3ae64abef54eb12e9a7ac24beb",
+          "lines": 171
+        },
+        {
+          "path": "data/lessons/units/endgame-mate-tesuji.json",
+          "sha256": "e6de67ebc90e514e94d75f0286ffc94abaa2a3808610f029e11df0757cfa693b",
+          "lines": 204
+        },
+        {
+          "path": "data/lessons/units/tesuji-rook.json",
+          "sha256": "f0f5f121976765ab0f44f905cc95383de4ce862059d4591f209f0410b7281a66",
+          "lines": 147
+        },
+        {
+          "path": "data/lessons/units/yagura-suzume.json",
+          "sha256": "b79f3359c02abffafdc5ddc355e08a46d0ee60ec25046163061eb87c99e74bb3",
+          "lines": 199
+        },
+        {
+          "path": ".cache/curriculum-source/1486.txt",
+          "sha256": "40e6722b1243b34163ba8d5ca3944f2dfa47ef27a2ee8a5b1df282edb5c3903f",
+          "lines": 150
+        }
+      ],
+      "final_scope": {
+        "decision": "飛香の前後配置は既存mate-tesuji・Suzumeにあり、二歩は既存香教材にある。両者を組み合わせた田楽刺しは別の応手比較を増やすため今回は採用しない。これを全教材で不存在または重複と断定しない。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。",
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/1331",
+    "target": "tesuji-knight",
+    "ideas": [
+      "歩頭の桂による着地点の空け方",
+      "控えの桂・継ぎ桂",
+      "吊るし桂の詰みと逃げ道の比較"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_decision": {
+      "reviewed": "rootが参照1331とtesuji-knight全文、endgame-mate1とmate3全キー・全章・全手順・変化を読了。",
+      "avoid_duplicate": "吊るし桂の詰み・逃げ道比較はmate1第4/12章とtesuji-knight第3章にある。全合法応手を独立列挙し前二つは王手・応手０、第3章は3b2bが合法と確認。名称案内は可能だが同機構の新章は不要。",
+      "incorporate_candidates": [
+        "歩頭の桂は相手歩の移動で別駒の着地点を空ける機構。既存第1章の味方歩を跳び越す動き、第4章の守られた歩の捕獲とは区別する。",
+        "控えの桂は打った直後の利きと次に跳ねる利きの時間差、継ぎ桂は先の桂による次の桂の保護として条件比較を検討する。単桂が龍を守るmate3第2章と同じ説明だけを追加しない。"
+      ],
+      "constraints": "出典の構成・問題・局面は使わない。元記事は相手一手を省いた例や逃げ応手に依存する評価を含む。取らせる手を強制と扱わず、取らない応手、王手か詰めろか、着地点の守りと逃げ道を独立検証する。候補の原著盤面・最善評価・追加の要否は未確定。承認前の内容執筆はしない。",
+      "canonical_existing_evidence": [
+        {
+          "unit": "endgame-mate1",
+          "chapter": 4,
+          "usi": "N*5c",
+          "sfen": "2lkn4/2ppb4/4N4/9/9/9/9/9/8K w - 1",
+          "checked": true,
+          "replies": []
+        },
+        {
+          "unit": "endgame-mate1",
+          "chapter": 12,
+          "usi": "7e6c",
+          "sfen": "3lkl3/3bpb3/3N5/9/9/9/9/9/K8 w - 1",
+          "checked": true,
+          "replies": []
+        },
+        {
+          "unit": "tesuji-knight",
+          "chapter": 3,
+          "usi": "N*4d",
+          "sfen": "9/6k2/9/5N3/9/9/9/9/K8 w - 1",
+          "checked": true,
+          "replies": [
+            "3b2a",
+            "3b2b",
+            "3b2c",
+            "3b3a",
+            "3b3c",
+            "3b4a",
+            "3b4b",
+            "3b4c"
+          ]
+        }
+      ],
+      "final_scope": {
+        "decision": "桂の離れた王手と玉の逃げは既存章が担当。ピンとの連携は新しい共通角教材へ統合。歩頭の着地点空け・控え桂・連続桂は、桂の投資を正当化する別教材に広がるため独立追加しない。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。",
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/1313",
+    "target": "tesuji-silver",
+    "ideas": [
+      "銀の斜め往復とまっすぐ進む場合の退路",
+      "桂頭の銀",
+      "腹銀の逃げ道制限"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_decision": {
+      "reviewed": "rootが参照1313、tesuji-silver、endgame-yoseの全文・全章・手順を読了し、重複報告と直接照合。",
+      "incorporate_candidates": [
+        "既存tesuji-silver第3章の不成局面で、斜め前への移動なら元の升へ斜め後ろに戻れる一方、真前へ進むと真後ろへ戻れない条件を短く比較する。新しい一般銀移動章を増やさない。",
+        "桂頭の銀は桂の現在地と二つの跳び先を同じ銀が見る配置の条件比較候補。銀を取る別駒、桂が跳ねる王手、成りによる利き、手番を検証してから教材化する。",
+        "腹銀は既存yose第3章の離れた銀による逃げ道制限と区別し、玉に隣接していても銀は横の玉を直接王手しないこと、実際に減る逃げ道を条件比較する候補。"
+      ],
+      "avoid_duplicate": "既存第2章の銀両取り、第3章の不成、yose第3章の将来の逃げ道制限を再び一般章として増やさない。",
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。",
+      "constraints": "元記事の局面・項目順・構成・必死断定・勝率保証は使わない。後戻りの合法性は駒取り回避や最善手の証明とは別。参照の桂頭の銀の捕獲断定は周囲の守り・王手などに依存する。腹銀を必至と呼ぶ前には全防御を証明する。追加内容の執筆は承認後。",
+      "final_scope": {
+        "paths": "tesuji-silver",
+        "decision": "既存不成例に斜めの往復と真前・真後ろの非対称を比較する合法枝を追加。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/1516",
+    "target": "tesuji-gold",
+    "ideas": [
+      "金による詰めろへの受け",
+      "尻金で横へ追う条件"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_decision": {
+      "reviewed": "rootが参照1516、tesuji-gold、endgame-tsumero、proverb-gold-lastを全文・全章・手順・変化まで読了。既読mate3の金による玉誘導と比較。",
+      "avoid_duplicate": "現gold第1/3章は今の王手を金で取って消す例。gold-lastは頭金と金銀の横利きの差、mate3は金で玉を飛車の線へ誘導する例を既に扱う。これらの一般例を増やさない。",
+      "incorporate_candidates": [
+        "静かな詰めろに対する金と銀の受けの利きの違いを、既存の王手への応答と区別して原著の条件比較として検討する。既存tsumero第3/4章の銀移動と歩打ちを保持し、金を万能な受けとは説明しない。",
+        "尻金は玉の後ろの金が真後ろへ利くことを利用するため、頭金・横からの金の王手と位置関係を比較する候補。王手を続けるだけで捕獲や詰みが決まるとは説明しない。"
+      ],
+      "canonical_existing_evidence": [
+        {
+          "chapter": 1,
+          "initial_check": true,
+          "final_sfen": "k8/9/9/9/9/9/9/4K4/9 w RSg 1"
+        },
+        {
+          "chapter": 2,
+          "initial_check": false,
+          "final_sfen": "k5r2/9/4G4/9/9/9/9/9/8K w N 1"
+        },
+        {
+          "chapter": 3,
+          "initial_check": true,
+          "final_sfen": "k8/9/9/9/9/9/5G3/9/3K5 w B 1"
+        }
+      ],
+      "constraints": "元記事の受け図、詰将棋、題材順序、追い順の集成、金のみが受かるという断定を使わない。金銀比較では同じ守備条件・持駒・手番を揃え、実際の詰みと受け後の全応手を独立確認する。既存tsumeroの英語定義修正が先行。候補盤面・強制性・最善評価は未確定で承認前の執筆なし。",
+      "final_scope": {
+        "decision": "頭金と王手後の受けは既存金・終盤教材で扱う。非王手の金による受けと銀比較、後ろ金の新しい適用局面はこの改訂では選択しない。未検証の必至・詰みの例を追加しない。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。",
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/1586",
+    "target": "tesuji-bishop",
+    "ideas": [
+      "馬を守りへ戻す判断",
+      "角と桂の連携によるピン",
+      "角打ちで詰めろを受けながら脅威を作る"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_decision": {
+      "reviewed": "rootが参照1586とtesuji-bishop、attack-mino-kobin、attack-mino-aifuriを全文・全章・全手順まで読了。既読tsumeroの受けとの違いを比較。",
+      "avoid_duplicate": "既存bishop第1章は今の王手を角で遮り飛車を狙うが、角交換を選ばれると飛車を取らない。既存kobinは角による歩のピンと飛車による銀のピン、aifuriは桂角による条件付き交換を扱う。一般のピン・角桂交換・合駒を新章として重複させない。",
+      "incorporate_candidates": [
+        "馬を自陣に戻したとき新しく守る升と攻めから失う利きを比較する。馬は常に戻すという規則や金銀三枚分という数値的保証にしない。",
+        "角の絶対ピンに桂の王手を組み合わせ、相手歩の桂捕獲が自玉王手で不合法になる条件と、玉が角筋を外れた場合の差を比較する。",
+        "静かな詰めろを角打ちで防ぎつつ新しい脅威を作る条件を、既存の王手への合駒と区別する。二つの独立した詰み証明がない段階では詰めろ逃れの詰めろと断定しない。"
+      ],
+      "canonical_existing_evidence": {
+        "bishop_mainline_moves": 9,
+        "pawn_pin_start": "4g4/5sk2/5p2p/9/9/2B6/9/9/K4R3 w L 1",
+        "pawn_advance": "4c4d",
+        "pawn_advance_legal": false,
+        "silver_pin_sfen": "6g2/2R3sk1/6+B2/7G1/9/9/9/9/K8 w P 1",
+        "silver_capture": "3b3c",
+        "silver_capture_legal": false,
+        "king_escape": "2b1b",
+        "king_escape_legal": true
+      },
+      "constraints": "参照の元局面・構成・詰将棋を使わない。受けと攻め双方の応手を調べ、角の捕獲・合駒・玉の位置変更・持駒と手番を確認する。現在の検証は既存ピンと既存角手順の整合性のみで、新候補の強制性は未証明。執筆は承認後。",
+      "final_scope": {
+        "paths": "tesuji-bishop",
+        "decision": "王への角筋に縛られた歩が桂の王手を取れない原著例を追加。玉の逃げを示し詰みとは扱わない。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。",
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/1541",
+    "target": "tesuji-rook",
+    "ideas": [
+      "自陣飛車による受けと取り返し",
+      "十字飛車",
+      "一間龍・送りの手筋"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_decision": {
+      "reviewed": "rootが参照1541全文を読了。tesuji-rook全文は現在の同じ作業で既読、全3主線9手を独立再生。mate3とmate-tesujiの既読全章と比較。参照1541-sheet-4の元図40/43/44/45を盤外持駒まで直接確認。",
+      "avoid_duplicate": "現rook第1章の縦筋開通、第2章の歩の後ろから銀を取り返す配置、第3章の龍の斜め一歩、mate3の金で玉を動かして飛車を通す機構を一般例として増やさない。",
+      "incorporate_candidates": [
+        "自陣飛車の打ち場所と、相手が飛車交換を選んだ後の金の配置・再打ち込みの守りを比較する。出典の話を未示証の静かな詰めろへの受けに読み替えない。",
+        "縦横二方向の取り先を同時に狙う十字飛車を、相手の逃げ・捕獲・守りで結果が変わる条件比較として検討する。継ぎ歩自体は既存proverb-three-pawnsと重複させない。",
+        "一間龍は間の一升にいる守備駒、動かせない条件、隣接攻め駒の支えを比較する候補。送りは玉の移動によって守備対象への利きが外れる差分を扱い、既存の玉を飛車の線へ誘導する例と区別する。"
+      ],
+      "source_interpretation": "直接見た送り図は金2bを玉3bに取らせ、玉が2bへ動くことで銀4bの守りが外れ、飛6bが銀を取って龍4bになる例。飛車の差し出しではない。龍と玉の間の3bは空く。元の参照盤面は教材へ移さない。",
+      "canonical_existing_evidence": {
+        "mainline_moves": 9,
+        "chapters": [
+          {
+            "chapter": 1,
+            "final_sfen": "9/k8/3+R5/9/4S4/9/9/9/8K w G 1"
+          },
+          {
+            "chapter": 2,
+            "final_sfen": "k8/9/9/1R7/9/9/9/9/8K w Sp 1"
+          },
+          {
+            "chapter": 3,
+            "final_sfen": "9/k8/9/4+R4/9/9/9/9/8K w BL 1"
+          }
+        ]
+      },
+      "constraints": "全候補は原著局面・手順・応手が未確定。元図、記事順序、継ぎ歩からの枝集合、必至・飛車交換しかない・打ち込み皆無の断定を使わない。複数対象への利きは確定駒得とは別。一間龍はそれだけで必至・詰みとはならず、全応手を確認する。承認前の内容編集なし。",
+      "final_scope": {
+        "decision": "飛車の直交した利き・支援と交換後の受けは既存原著教材を維持。送りの出典は金を渡して玉を移し銀の守りを外す意味で、飛車を渡す話ではない。新しい自陣飛車・一間龍・玉誘導の図集は追加しない。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。",
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/8322",
+    "target": "proverb-three-pawns",
+    "ideas": [
+      "同じ筋への二度の誘導と垂れ歩による着地点の確保を、相手が取らない場合と比較する"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_decision": {
+      "reviewed": "rootが対象単位全文とsource8322全文を読了。既存第4章は二枚で飛車道を開き第三の歩を別筋へ使うため、同筋の連携そのものは未実演。",
+      "incorporate": "二度の歩誘導後に同じ筋へ第三の歩を垂らす構想を、既存の別筋活用と比較する原著の条件例で補う。",
+      "constraints": "出典の図・攻め順の集成・構成・必勝断定を使わない。二歩、元の守り駒の利き、相手が取らない応手、第三の歩を捕獲する応手を独立検証する。三枚を必ず同じ筋へ使う規則にはしない。",
+      "existing_courses": "相振り2fuは複数筋の歩交換を扱うが、同筋への二度誘導から第三の歩を後ろへ打つ機構とは別。残るコース比較は未完。",
+      "final_scope": {
+        "paths": "proverb-three-pawns",
+        "decision": "同じ筋の三枚目について二歩、取りを断る応手、飛車による第三歩の捕獲まで示す原著比較を追加。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。",
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/5958",
+    "target": "castles-yagura",
+    "ideas": [
+      "金矢倉と銀矢倉で6七の駒を替えたときに増減する具体的な守備マスを対比する",
+      "玉を深く運ぶ手数と攻め駒を守備に追加する費用の比較"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_decision": {
+      "reviewed": "rootが参照5958とcastles-yagura全章を全文読了。既読Yagura/Gangi/Wakiの標準構築コースと比較。pieces.tsx全文を読み、seesは友駒の升を含む直接利きとして区別。",
+      "avoid_duplicate": "玉を一手早く7hへ置く手数判断は第2章、銀を攻めに出す守備の減少と追加銀の費用は第3章に既にある。同じ一般手数・攻守配分の章は増やさず、序盤の構築手順は既存定跡コースへ委ねる。",
+      "incorporate": "既存第1章が銀矢倉では利きが違うと述べるだけなので、6gの金と銀で増減する具体的な升を短く示す比較候補。標準囲い形は事実として扱い、相手陣を含む出典の教示盤面や一覧順を再現しない。",
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。",
+      "constraints": "これだけで銀矢倉の連結が常に良い、堅さが勝るとは主張しない。味方駒・相手飛角・玉位置・手数による差を保つ。新しい囲いモデルや元記事の名称集成を追加しない。執筆は承認後。",
+      "final_scope": {
+        "paths": "castles-yagura",
+        "decision": "金６七と銀６七の共通・固有の利きを具体的に列挙。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/6044",
+    "target": "castles-funa",
+    "ideas": [
+      "舟囲いを維持して急戦に入る場合と、左美濃・穴熊へ発展させる場合の手数判断"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_decision": {
+      "reviewed": "rootが参照6044、castles-funa、castles-hidarimino、castles-anaguma全章・全手順を全文読了。既読舟急戦1/2、左美濃、穴熊コースと範囲照合。",
+      "avoid_duplicate": "舟第2章は銀を攻めに使う守備の代価、LeftMino第2章は角を動かす一手と玉の場所、Anaguma第2/3章は追加守備手と攻め駒の費用を既に扱う。別の一般手数章や初手からの囲い手順は増やさない。",
+      "incorporate": "舟の基本骨格から急戦を始める選択と、角・銀・玉をさらに動かしてLeftMino/Anagumaへ進む選択を、短い判断案内で既存関連教材へつなぐ候補。攻めの速さと追加守備手を比較し、最短一律の手数や必ず堅くなるといった主張はしない。",
+      "canonical_existing_evidence": {
+        "mainline_replays": [
+          {
+            "unit": "castles-funa",
+            "legal_mainline_moves": 4
+          },
+          {
+            "unit": "castles-hidarimino",
+            "legal_mainline_moves": 4
+          },
+          {
+            "unit": "castles-anaguma",
+            "legal_mainline_moves": 4
+          }
+        ],
+        "boat_sfen": "4k4/9/9/9/9/9/9/1BK1G2R1/2SG5 w - 1",
+        "immediate_king_move": "7h8h",
+        "immediate_king_move_legal": false,
+        "blocker": "Black bishop8h"
+      },
+      "constraints": "元記事の一覧順序・局面・進路集成は使わない。実盤では角8hなど自駒の移動と相手の一手が必要で、玉だけを深く運ぶ固定コストは示せない。標準序盤は既存コースが扱う。候補は既存教材の案内/条件説明に限り、新モデル・新序盤章は追加しない。執筆は承認後。",
+      "final_scope": {
+        "paths": "castles-funa",
+        "decision": "舟維持と左美濃・穴熊への追加手数を区別し、自角８八の占有を明記。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。",
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/1783",
+    "target": "proverb-gold-last",
+    "ideas": [
+      "最後の金を残すだけでなく、詰みの途中で守備金を取って持駒を補充する発想を比較する"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_decision": {
+      "reviewed": "rootがproverb-gold-last全文126行、endgame-mate-tesuji全文204行、宣言参照1783全文を読了。重複報告1162行は1–420/421–820/821–1162の連続範囲で全読了、対象42ファイルSHA/EOFを独立照合。",
+      "assessment": "既存mate-tesuji第2章が守備金を王手で取るが、初期持駒に既に金がある。金を新しく入手する必要性はそのままでは明確に示さない。別の詰み章は増やさない。",
+      "incorporate": "同章の初期持金を外し、王手で取った金が最後の金打ちを可能にする説明へ改善する。盤上の原著構成と既存の三手は維持する。",
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。",
+      "constraints": "出典の詰将棋を使わない。技能ゲート後の執筆と必須単位検証はまだ。対象参照は既存宣言URLで、新しい外部範囲を開かない。",
+      "final_scope": {
+        "paths": "endgame-mate-tesuji",
+        "decision": "持ち金０枚から王手の捕獲で金を得て詰ませる既存原著例へ修正。別の終盤教材は増やさない。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/6021",
+    "target": "castles-anaguma",
+    "ideas": [
+      "四枚の金銀という抽象的説明と、ビッグ4の具体的配置を区別して示す",
+      "守備に銀を追加する手数と攻め駒減少を比較する"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_decision": {
+      "reviewed": "rootが参照6021全文を読了。直前の同一作業でcastles-anaguma全章を読了・4主線手を独立合法再生済み。参照6021-18のBig4図を盤外持駒まで直接確認し、全単位と元コースのBig4名称記述を検索して該当は現章のみ。名称検索だけを全内容不在の証明とはしない。",
+      "avoid_duplicate": "追加銀の手数と攻め駒減少は第2/3章・checkが既に明示するため、一般の守備増加コスト章を追加しない。",
+      "incorporate": "第3章は金銀4枚を守りに使う発想であり標準Big4完成図ではない。その区別を短く明示し、代表的な局所配置の座標だけを標準囲いの事実として説明する候補。元図・周辺駒・記事の一覧構成は転用しない。",
+      "source_observation": {
+        "viewed": ".cache/curriculum-source/white-review/early/6021-18.png",
+        "source_image_sha256": "272d2cbdc81a15a75f54d916a792f8c521af8ea738e947109ac6b702d6b48999",
+        "formation_core": [
+          "King9i",
+          "Lance9h",
+          "Gold8h",
+          "Gold7h",
+          "Silver8g",
+          "Silver7g"
+        ],
+        "interpretation": "標準Big4の金銀の代表配置。元図の桂・歩を含む教示局面は採用しない。"
+      },
+      "existing_chapter_source": {
+        "path": "data/lessons/units/castles-anaguma.json",
+        "sha256": "baff31ea39a07b5e4751d6e7a91332b4f27b905ac0c26d5afcb05210bf6dce19",
+        "existing_generals_after_5i6h": [
+          "Silver8h",
+          "Silver6h",
+          "Gold7h",
+          "Gold7i"
+        ]
+      },
+      "constraints": "金銀四枚ならすべてBig4完成形という扱いにしない。元記事の最強・それだけで優勢・無理に組ませてもよいといった評価は採用しない。標準囲いの事実と特定局面の安全性は別。新盤面・新章の必要性は未確定で、承認前の教材編集なし。",
+      "final_scope": {
+        "paths": "castles-anaguma",
+        "decision": "四枚の金銀を使う発想と代表的ビッグ４の配置を区別。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。",
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/2646",
+    "target": "attack-mino-side",
+    "ideas": [
+      "守備金を誘導して王手金取りを成立させる条件",
+      "香を控えて打つことで成る場所を確保する比較",
+      "二枚飛車のピンで取り返しを制限する条件"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_decision": {
+      "reviewed": "rootが参照2646とattack-mino-sideを全文・全4章・全手順読了。既読attack-mino-kobin、mate-tesuji、tesuji-lanceの全章と比較。現4主線14手を独立合法再生。",
+      "avoid_duplicate": "現章の条件付き駒交換、kobinの角歩ピン/飛銀ピン、mate-tesujiの王手で金を取る例は既存。二枚飛車でも絶対ピンのルール自体は同じなので、新しい一般ピン説明を追加しない。",
+      "incorporate_candidates": [
+        "金を先に移動させてから銀等による王手金取りを作る条件と、金が取らずに位置を保つ応手を比較する。金を直接王手で取る既存例とは区別する。",
+        "持ち香を一升控えて打つことで、目標が動いた後に成れる着地点と成香の利きが残る条件を比較する。香は常に低く打つ規則にせず、既存の香の成り/受けとの役割を分ける。",
+        "既存rook-pin説明へ第二の飛車が捕獲を行う役割を重ねる適用候補。守備駒が捕獲すると別の飛車筋が自玉へ通るかを具体的に検証し、単なる二枚飛車だから取れないという説明はしない。"
+      ],
+      "canonical_existing_evidence": {
+        "moves": 14,
+        "chapters": [
+          {
+            "chapter": 1,
+            "moves": [
+              "4d4c+",
+              "4b4c",
+              "4i4c",
+              "3b4c"
+            ],
+            "final_sfen": "9/7k1/5s3/9/9/9/9/9/K8 b Grp 1",
+            "final_side_checked": false
+          },
+          {
+            "chapter": 2,
+            "moves": [
+              "4d4c+",
+              "3b4c",
+              "4i4c"
+            ],
+            "final_sfen": "5g3/7k1/5R3/9/9/9/9/9/K8 w SPp 1",
+            "final_side_checked": false
+          },
+          {
+            "chapter": 3,
+            "moves": [
+              "7b4b",
+              "4a4b",
+              "7e4b+"
+            ],
+            "final_sfen": "9/5+Bsk1/9/9/9/9/9/9/K8 w 2Gr 1",
+            "final_side_checked": false
+          },
+          {
+            "chapter": 4,
+            "moves": [
+              "5c2c+",
+              "3b2c",
+              "2d2c+",
+              "2b3a"
+            ],
+            "final_sfen": "5gk2/9/7+P1/9/9/4B4/9/9/K8 b Sr 1",
+            "final_side_checked": false
+          }
+        ]
+      },
+      "constraints": "参照は書籍由来の教示局面を含むため、図・寄せ問題・攻め順集成・構成は再現しない。守備金を取らせること、香を取らせること、玉の特定逃走を強制と扱わない。原著の独立局面と全応手検証が必要で、今回の再生は既存線の合法性のみ。新候補の詰み・必至・確定駒得は未証明。承認前の執筆なし。",
+      "final_scope": {
+        "decision": "既存横攻めの原著手順と反撃・玉の逃げは成立。金移動からの割打ち、香の成り場所の予約、二飛車の役割比較は別の適用例になるため追加しない。既存教材の全応手成功や強制勝利へ一般化しない。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。",
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/2615",
+    "target": "attack-mino-kobin",
+    "ideas": [
+      "角のピンと桂の王手を組み合わせる条件",
+      "攻防の角による詰めろと大駒取りの比較",
+      "桂を先に打つ場合と金を先に入手する場合の手順前後"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_pending_observation": "rootは本文全文を読了。詰めろ飛車取りは相手への詰めろと飛車取りの併用で、自玉の詰めろへの受けではない。担当重複報告の攻防解釈は訂正が必要。1586の自玉を受ける角とは区別し、角ピン＋桂と継ぎ桂は1331/1586候補と重複させない。ユーザーの終了指示により正式判断・原著例検証は未完。",
+    "root_decision": {
+      "final_scope": {
+        "paths": "tesuji-bishop/endgame-tsumero",
+        "decision": "桂王手と角のピンは共通原著例へ統合。攻撃的な詰めろと飛車当たりには両方を受ける飛車移動を示す原著例を追加。自玉の受けとは解釈しない。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。",
+      "reader_ideas_reviewed": [
+        {
+          "idea": "角のピンと桂の王手を組み合わせる条件",
+          "reader_recommendation": "candidate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        },
+        {
+          "idea": "攻防の角による詰めろと大駒取りの比較",
+          "reader_recommendation": "candidate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        },
+        {
+          "idea": "桂を先に打つ場合と金を先に入手する場合の手順前後",
+          "reader_recommendation": "duplicate_connection",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        }
+      ],
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/1070",
+    "target": "attack-mino-aifuri",
+    "ideas": [
+      "攻める銀の退路を作る端の突き捨て",
+      "敵が歩を打ちたい場所に先に叩く順の違い",
+      "角の位置による攻めへの利きの追加と守備の対応"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_decision": {
+      "final_scope": {
+        "decision": "既存角と桂の支援・守備側の一手を維持。端歩による銀退路の空けと、相手の打ち場所を先に埋める順は別の適用教材に広がるため追加しない。既存に同じ順があるという重複主張はしない。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。",
+      "reader_ideas_reviewed": [
+        {
+          "idea": "攻める銀の退路を作る端の突き捨て",
+          "reader_recommendation": "candidate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        },
+        {
+          "idea": "敵が歩を打ちたい場所に先に叩く順の違い",
+          "reader_recommendation": "candidate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        },
+        {
+          "idea": "角の位置による攻めへの利きの追加と守備の対応",
+          "reader_recommendation": "reject_duplicate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        }
+      ],
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/2276",
+    "target": "attack-yagura-side",
+    "ideas": [
+      "銀打ちで守備金を攻め、受けの金の移動方向を比較する",
+      "非王手の金攻めと王手で玉を誘導する手の違い",
+      "守る側の持駒によって同じ銀打ちを再評価する"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_decision": {
+      "final_scope": {
+        "decision": "既存矢倉横攻めは飛車の線と守備移動を示す局所教材として維持。銀打ちに対する金の移動方向、王手誘導、持駒条件の図集は追加しない。一般的な王手・非王手と持駒受けはtsumeroが担当。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。",
+      "reader_ideas_reviewed": [
+        {
+          "idea": "銀打ちで守備金を攻め、受けの金の移動方向を比較する",
+          "reader_recommendation": "candidate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        },
+        {
+          "idea": "非王手の金攻めと王手で玉を誘導する手の違い",
+          "reader_recommendation": "candidate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        },
+        {
+          "idea": "守る側の持駒によって同じ銀打ちを再評価する",
+          "reader_recommendation": "candidate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        }
+      ],
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/2313",
+    "target": "attack-yagura-head",
+    "ideas": [
+      "端の香を吊り上げる歩の連打と玉の誘導",
+      "歩頭の桂で攻め駒の着地点を空ける条件",
+      "玉頭への香成に対する金と玉の取り返しの違い"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_decision": {
+      "final_scope": {
+        "decision": "歩頭桂と角ピンは共通原著例へ集約し、既存頭攻めの取り返し例を維持。端香誘導、成香に対する金・玉の取り返しの新しい適用図は追加しない。出典の犠牲連鎖は使用しない。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。",
+      "reader_ideas_reviewed": [
+        {
+          "idea": "端の香を吊り上げる歩の連打と玉の誘導",
+          "reader_recommendation": "candidate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        },
+        {
+          "idea": "歩頭の桂で攻め駒の着地点を空ける条件",
+          "reader_recommendation": "duplicate_candidate_merge",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        },
+        {
+          "idea": "玉頭への香成に対する金と玉の取り返しの違い",
+          "reader_recommendation": "candidate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        }
+      ],
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/3014",
+    "target": "attack-anaguma",
+    "ideas": [
+      "守備銀を歩で誘導し背後の金を攻める",
+      "桂を跳ねさせた後の空きマスと玉の逃げ道の変化",
+      "角のピンで銀の飛車取りを制限する条件"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_decision": {
+      "final_scope": {
+        "paths": "tesuji-bishop",
+        "decision": "角のピンによる取りの制限は共通原著例へ統合。既存穴熊の局所教材を別の攻め図集へ置換しない。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。",
+      "reader_ideas_reviewed": [
+        {
+          "idea": "守備銀を歩で誘導し背後の金を攻める",
+          "reader_recommendation": "candidate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        },
+        {
+          "idea": "桂を跳ねさせた後の空きマスと玉の逃げ道の変化",
+          "reader_recommendation": "candidate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        },
+        {
+          "idea": "角のピンで銀の飛車取りを制限する条件",
+          "reader_recommendation": "duplicate_candidate_merge",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        }
+      ],
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/3048",
+    "target": "attack-funa",
+    "ideas": [
+      "一段飛車と二段飛車で銀の配置に応じた急所を比較する",
+      "焦点への香打ちと複数の取り方による利きの変化",
+      "相手の持ち角で送りの手筋の成立が変わる条件"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_decision": {
+      "final_scope": {
+        "decision": "既存Boat攻めの支持と玉による取り返しを修正し、反例を追加。飛車の段と銀、焦点香の三つの取り方、持角による送りの受けは別の適用図集になるため今回は追加しない。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。",
+      "reader_ideas_reviewed": [
+        {
+          "idea": "一段飛車と二段飛車で銀の配置に応じた急所を比較する",
+          "reader_recommendation": "candidate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        },
+        {
+          "idea": "焦点への香打ちと複数の取り方による利きの変化",
+          "reader_recommendation": "candidate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        },
+        {
+          "idea": "相手の持ち角で送りの手筋の成立が変わる条件",
+          "reader_recommendation": "candidate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        }
+      ],
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/7238",
+    "target": "taifuri-basics",
+    "ideas": [
+      "4三銀と3二銀で歩の突き捨ての時期が変わる条件",
+      "先手の右銀と左銀の出発地点を実際の駒組みから示す"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_decision": {
+      "final_scope": {
+        "paths": "taifuri-basics/taifuri-46gin",
+        "decision": "左右銀の出発点を明記。歩先行と銀先行の時間差を４三銀・３二銀の合法枝で比較。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。",
+      "reader_ideas_reviewed": [
+        {
+          "idea": "4三銀と3二銀で歩の突き捨ての時期が変わる条件",
+          "reader_recommendation": "candidate_correct_overlap",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        },
+        {
+          "idea": "先手の右銀と左銀の出発地点を実際の駒組みから示す",
+          "reader_recommendation": "annotation",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        }
+      ],
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/7254",
+    "target": "taifuri-bougin",
+    "ideas": [
+      "飛車を3筋へ振り直した後、4筋の歩で角筋を開ける順",
+      "歩で守備銀を誘導して別の攻め筋を通す条件"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_decision": {
+      "final_scope": {
+        "decision": "飛車で追われる銀と４筋の角道の既存診断を維持。攻撃側飛車を３筋へ移す標準序盤は既存コースで扱う対象であり、部分局面を出典の全仕掛けへ置換しない。銀誘導の基本は既存叩きの歩へ集約。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。",
+      "reader_ideas_reviewed": [
+        {
+          "idea": "飛車を3筋へ振り直した後、4筋の歩で角筋を開ける順",
+          "reader_recommendation": "candidate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        },
+        {
+          "idea": "歩で守備銀を誘導して別の攻め筋を通す条件",
+          "reader_recommendation": "duplicate_candidate_merge",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        }
+      ],
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/7282",
+    "target": "taifuri-46gin",
+    "ideas": [
+      "2筋の突き捨てで後の飛車の横移動先を確保する比較",
+      "攻め銀の来歴を示し右銀型との配置差を明示する",
+      "角交換の順序で玉が囲いを離れるかを比較する"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_decision": {
+      "final_scope": {
+        "paths": "taifuri-46gin",
+        "decision": "左銀の来歴と残る右銀の配置を一致させ、上記の手順前後比較を追加。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。",
+      "reader_ideas_reviewed": [
+        {
+          "idea": "2筋の突き捨てで後の飛車の横移動先を確保する比較",
+          "reader_recommendation": "candidate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        },
+        {
+          "idea": "攻め銀の来歴を示し右銀型との配置差を明示する",
+          "reader_recommendation": "annotation",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        },
+        {
+          "idea": "角交換の順序で玉が囲いを離れるかを比較する",
+          "reader_recommendation": "candidate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        }
+      ],
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/7339",
+    "target": "taifuri-anaguma",
+    "ideas": [
+      "早い桂の進出が角銀への両取りを作る条件と囲い手順の中断",
+      "攻め銀を守備へ戻すことで相手の銀交換の標的を減らす比較"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_decision": {
+      "final_scope": {
+        "decision": "囲い完成を優勢とせず、途中の前線と手数を扱う既存教材を維持。桂の角銀両取りはPonpon、戻る銀の利きは銀教材へ分担。攻め銀を穴熊へ戻す独立適用図は追加しない。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。",
+      "reader_ideas_reviewed": [
+        {
+          "idea": "早い桂の進出が角銀への両取りを作る条件と囲い手順の中断",
+          "reader_recommendation": "duplicate_connection",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        },
+        {
+          "idea": "攻め銀を守備へ戻すことで相手の銀交換の標的を減らす比較",
+          "reader_recommendation": "candidate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        }
+      ],
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/7988",
+    "target": "taifuri-millennium",
+    "ideas": [
+      "銀の守備経路5九経由と5七経由で角の退路が変わる条件",
+      "相手桂8五への自桂7七の取り返しを守備配置と照合"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_decision": {
+      "final_scope": {
+        "paths": "taifuri-millennium",
+        "decision": "５七を角の退路に残す既存コースの銀経路へ短く接続。既存の角退路の限定を維持。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。",
+      "reader_ideas_reviewed": [
+        {
+          "idea": "銀の守備経路5九経由と5七経由で角の退路が変わる条件",
+          "reader_recommendation": "reject_duplicate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        },
+        {
+          "idea": "相手桂8五への自桂7七の取り返しを守備配置と照合",
+          "reader_recommendation": "annotation_candidate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        }
+      ],
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/974",
+    "target": "taifuri-45hayashikake",
+    "ideas": [
+      "既存の合法な取り返し比較を補助説明として保持し、角道を開く条件と2筋への接続を独立した標準理論の例で追加する。"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "existing_course_comparison": {
+      "course": "src/data/joseki/shikenbisha-vs-45hayashikake--gote-2.json",
+      "root_read": "1-319 EOF",
+      "evidence": "root全文読了。4f4e/4d4e後に8h3c+/2a3cの角交換分岐が既存。全枝の合法性と子SFEN一致を独立確認。",
+      "constraint": "序盤手順は標準定跡コースが教える。教材へ同じ開始手順を追加しない。",
+      "remaining": "全41既存定跡コースとの重複確認は未完。",
+      "goal_verification": "goalSfen matches terminal node nb0_15"
+    },
+    "root_decision": {
+      "final_scope": {
+        "paths": "taifuri-45hayashikake",
+        "decision": "銀の取り返し比較を維持し、角交換で２四の角守備を外す原著部分局面を追加。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。",
+      "reader_ideas_reviewed": [
+        {
+          "idea": "既存の合法な取り返し比較を補助説明として保持し、角道を開く条件と2筋への接続を独立した標準理論の例で追加する。",
+          "reader_recommendation": "partial_duplicate_gap",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        }
+      ],
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/8008",
+    "target": "taifuri-ponpon",
+    "ideas": [
+      "損得の基本例と標準戦法の仕掛けを区別し、桂の投資で得る角道・2筋の活動と相手の切り返しを原作独立例で示す。"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_decision": {
+      "final_scope": {
+        "paths": "taifuri-ponpon",
+        "decision": "桂の投資、角道、角交換、２筋の関係と持角６四の切り返しを原著部分局面で追加。桂の回収・優勢は断定しない。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。",
+      "reader_ideas_reviewed": [
+        {
+          "idea": "損得の基本例と標準戦法の仕掛けを区別し、桂の投資で得る角道・2筋の活動と相手の切り返しを原作独立例で示す。",
+          "reader_recommendation": "candidate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        }
+      ],
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/7962",
+    "target": "taifuri-vs-hayaishida",
+    "ideas": [
+      "標準の序盤から4二玉・角交換・4五角の選択を結び、7六角の切り返しと玉位置の関係を説明",
+      "7四飛と飛角交換の順序によって飛車打ちの着地点が変わる条件を比較",
+      "6六歩で角交換を避ける選択と石田流本組みへの接続"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_decision": {
+      "final_scope": {
+        "decision": "玉位置・飛車の通路・６六歩の占有を扱う既存独立診断を維持。７四飛から飛角交換・飛車打ちという出典の分岐集成や追加の本組み序盤は採用しない。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。",
+      "reader_ideas_reviewed": [
+        {
+          "idea": "標準の序盤から4二玉・角交換・4五角の選択を結び、7六角の切り返しと玉位置の関係を説明",
+          "reader_recommendation": "candidate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        },
+        {
+          "idea": "7四飛と飛角交換の順序によって飛車打ちの着地点が変わる条件を比較",
+          "reader_recommendation": "candidate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        },
+        {
+          "idea": "6六歩で角交換を避ける選択と石田流本組みへの接続",
+          "reader_recommendation": "annotation",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        }
+      ],
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/4502",
+    "target": "taifuri-bougin-ishida",
+    "ideas": [
+      "金8三・7四・8四の横移動と歩交換による拠点変更",
+      "端に使う持ち歩を7筋で得る理由",
+      "桂7七・角9七の保留と角交換による大駒の活動の違い"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_decision": {
+      "final_scope": {
+        "decision": "金の前進と歩への取り返しを読む原著局面を維持。８三・７四・８四の経路、７筋で得る歩の端への転用、桂角の保留は標準戦略の追加適用図になるため今回の局所教材へ詰め込まない。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。",
+      "reader_ideas_reviewed": [
+        {
+          "idea": "金8三・7四・8四の横移動と歩交換による拠点変更",
+          "reader_recommendation": "candidate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        },
+        {
+          "idea": "端に使う持ち歩を7筋で得る理由",
+          "reader_recommendation": "candidate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        },
+        {
+          "idea": "桂7七・角9七の保留と角交換による大駒の活動の違い",
+          "reader_recommendation": "annotation_candidate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        }
+      ],
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/7863",
+    "target": "taifuri-chousoku",
+    "ideas": [
+      "桂によって5五を守る角を移動させる条件",
+      "2九飛と2八飛で角打ちの標的が変わる具体的な比較",
+      "3七銀の一手の有無で5筋交換後の角打ちへの受けが変わる条件"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_decision": {
+      "final_scope": {
+        "paths": "taifuri-chousoku",
+        "decision": "桂で角を移動させる条件、２八飛と２九飛、３七の占有による角打ちの違いを原著比較枝で追加。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。",
+      "reader_ideas_reviewed": [
+        {
+          "idea": "桂によって5五を守る角を移動させる条件",
+          "reader_recommendation": "candidate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        },
+        {
+          "idea": "2九飛と2八飛で角打ちの標的が変わる具体的な比較",
+          "reader_recommendation": "candidate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        },
+        {
+          "idea": "3七銀の一手の有無で5筋交換後の角打ちへの受けが変わる条件",
+          "reader_recommendation": "candidate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        }
+      ],
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/2204",
+    "target": "taifuri-vs-kakukoukan",
+    "ideas": [
+      "4七銀から3六銀で逆棒銀に対応する具体的な守備と飛車道",
+      "2三歩の叩きで飛車の位置を変え、持角の打ち場所を作る条件",
+      "持久戦の腰掛け銀と自玉の守備に使う手数の比較"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_decision": {
+      "final_scope": {
+        "paths": "taifuri-vs-kakukoukan",
+        "decision": "既存３六銀の取り返し例を逆棒銀への守備構想と接続。玉への既存斜線と銀の新標的を区別。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。",
+      "reader_ideas_reviewed": [
+        {
+          "idea": "4七銀から3六銀で逆棒銀に対応する具体的な守備と飛車道",
+          "reader_recommendation": "reject_duplicate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        },
+        {
+          "idea": "2三歩の叩きで飛車の位置を変え、持角の打ち場所を作る条件",
+          "reader_recommendation": "candidate",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        },
+        {
+          "idea": "持久戦の腰掛け銀と自玉の守備に使う手数の比較",
+          "reader_recommendation": "duplicate_connection",
+          "disposition": "採用・統合・除外はfinal_scopeに従う。出典の構成や局面は転用しない。"
+        }
+      ],
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。"
+    }
+  },
+  {
+    "source": "https://shogi-joutatsu.com/archives/1212",
+    "target": "rules-moves",
+    "chapter": 5,
+    "ideas": [
+      "成銀・成桂・成香の図面略記は全・圭・杏の場合がある。表記が違っても元の駒種を保持し、動きだけが金と同じになる。"
+    ],
+    "status": "root-adjudicated; selected changes implemented and source-verified",
+    "root_decision": {
+      "final_scope": {
+        "paths": "rules-moves",
+        "decision": "既存成駒章に全・圭・杏の識別表記を追加。動き・描画モデルは維持。"
+      },
+      "not_selected": "上記で明記した採用範囲以外の条件付き候補は今回の改訂へ追加しない。読み取り候補を未実装の確定要件として扱わない。",
+      "root_validation": "出典本文と対象教材の全文読了はcoverageに記録。残り17出典は現行SHA/EOFを独立照合。新しい合法枝と強制手・詰みの主張は実行検証を別記する。"
+    }
+  }
+]

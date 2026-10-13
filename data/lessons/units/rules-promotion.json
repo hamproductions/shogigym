@@ -1,7 +1,10 @@
 {
   "id": "rules-promotion",
   "order": 30,
-  "path": ["はじめての将棋", "ルール"],
+  "path": [
+    "はじめての将棋",
+    "ルール"
+  ],
   "title": {
     "ja": "成る手を選ぶタイミング",
     "en": "When a move can promote"
@@ -21,12 +24,6 @@
     }
   },
   "references": [
-    {
-      "title": "将棋のルール (Wikipedia日本語版)",
-      "url": "https://ja.wikipedia.org/wiki/将棋のルール",
-      "license": "CC BY-SA 4.0",
-      "adapted": false
-    },
     {
       "title": "駒の成り方",
       "url": "https://shogi-joutatsu.com/archives/722",
@@ -50,39 +47,81 @@
             "en": "Sente's promotion zone is the far end of the board, ranks 1 through 3. The rook is on 2e, just outside that area."
           },
           "marks": {
-            "dashed": ["9a", "8a", "7a", "6a", "5a", "4a", "3a", "2a", "1a", "9b", "8b", "7b", "6b", "5b", "4b", "3b", "2b", "1b", "9c", "8c", "7c", "6c", "5c", "4c", "3c", "2c", "1c"]
+            "dashed": [
+              "9a",
+              "8a",
+              "7a",
+              "6a",
+              "5a",
+              "4a",
+              "3a",
+              "2a",
+              "1a",
+              "9b",
+              "8b",
+              "7b",
+              "6b",
+              "5b",
+              "4b",
+              "3b",
+              "2b",
+              "1b",
+              "9c",
+              "8c",
+              "7c",
+              "6c",
+              "5c",
+              "4c",
+              "3c",
+              "2c",
+              "1c"
+            ]
           }
         },
         {
-          "moves": ["2e2c"],
+          "moves": [
+            "2e2c"
+          ],
           "text": {
             "ja": "飛車を２三へ進めると、敵陣に入ります。この移動のあとで成るかどうかを選べます。ここでは成らずに、同じ飛車のまま続きを見ます。",
             "en": "Moving the rook to 2c takes it into the zone. This move allows the choice to promote; here we leave it unpromoted and continue with the same rook."
           },
           "marks": {
-            "arrows": ["2e2c"],
+            "arrows": [
+              "2e2c"
+            ],
             "last": "2c"
           }
         },
         {
-          "moves": ["5a4a", "2c3c"],
+          "moves": [
+            "5a4a",
+            "2c3c"
+          ],
           "text": {
             "ja": "次に飛車を２三から３三へ動かします。出発点も到着点も敵陣の中ですが、この移動でも成れます。成らないまま動かしたのは、次の機会を残すためです。",
             "en": "The rook now moves from 2c to 3c. Both squares are inside the zone, and this move also allows promotion. It stays unpromoted so we can follow one more opportunity."
           },
           "marks": {
-            "arrows": ["2c3c"],
+            "arrows": [
+              "2c3c"
+            ],
             "last": "3c"
           }
         },
         {
-          "moves": ["4a5a", "3c3d+"],
+          "moves": [
+            "4a5a",
+            "3c3d+"
+          ],
           "text": {
             "ja": "飛車は３三から３四へ進み、敵陣の外へ出ます。敵陣にいた駒が外へ動く手でも成れるので、ここで龍にしました。",
             "en": "The rook moves from 3c to 3d, leaving the zone. A piece that starts inside the zone may promote when it moves out, so this rook becomes a dragon here."
           },
           "marks": {
-            "arrows": ["3c3d"],
+            "arrows": [
+              "3c3d"
+            ],
             "last": "3d"
           }
         }
@@ -90,7 +129,9 @@
       "variations": [
         {
           "from": 0,
-          "moves": ["2e2c+"],
+          "moves": [
+            "2e2c+"
+          ],
           "text": {
             "ja": "入口で成る選択もできます。２五から２三へ進む同じ一手で、飛車を龍に変えます。",
             "en": "Promotion is also available at the entrance: on the move from 2e to 2c, the rook can become a dragon."
@@ -114,24 +155,33 @@
           }
         },
         {
-          "moves": ["6d6c"],
+          "moves": [
+            "6d6c"
+          ],
           "text": {
             "ja": "銀を６三へ進めて敵陣に入れましたが、ここでは成りませんでした。成るかどうかは、駒が動くたびに決められます。",
             "en": "The silver moves to 6c and enters the zone, but does not promote. The choice is made anew each time the piece moves."
           },
           "marks": {
-            "arrows": ["6d6c"],
+            "arrows": [
+              "6d6c"
+            ],
             "last": "6c"
           }
         },
         {
-          "moves": ["9a8a", "6c5b+"],
+          "moves": [
+            "9a8a",
+            "6c5b+"
+          ],
           "text": {
             "ja": "次の先手番に銀を６三から５二へ動かし、今度は成銀にしました。前の手で成らなかったことは、その後の選択を失わせません。",
             "en": "On sente's next turn, the silver moves from 6c to 5b and promotes. Declining on the earlier move did not remove this later choice."
           },
           "marks": {
-            "arrows": ["6c5b"],
+            "arrows": [
+              "6c5b"
+            ],
             "last": "5b"
           }
         },
@@ -159,7 +209,13 @@
           }
         },
         {
-          "moves": ["9b9a+", "5a5b", "1b1a+", "5b6c", "5d4b+"],
+          "moves": [
+            "9b9a+",
+            "5a5b",
+            "1b1a+",
+            "5b6c",
+            "5d4b+"
+          ],
           "text": {
             "ja": "香を９一、歩を１一、桂を４二へ進める三手です。成らないままでは香と歩は次に前へ進めず、桂も跳び先がありません。そのため、これらの到着では必ず成ります。",
             "en": "These moves bring the lance to 9a, pawn to 1a and knight to 4b. Unpromoted, the lance and pawn could not move forward again, and the knight would have no landing square. Promotion is compulsory at these destinations."
@@ -192,7 +248,9 @@
           }
         },
         {
-          "moves": ["S*2a"],
+          "moves": [
+            "S*2a"
+          ],
           "text": {
             "ja": "銀を２一に打ちました。敵陣のマスでも、打った瞬間は表向きの銀のままです。",
             "en": "The silver is dropped on 2a. Even inside the promotion zone, it lands as an unpromoted silver."
@@ -202,13 +260,18 @@
           }
         },
         {
-          "moves": ["5a4a", "2a1b+"],
+          "moves": [
+            "5a4a",
+            "2a1b+"
+          ],
           "text": {
             "ja": "次の先手番に銀を２一から１二へ動かして成りました。打った手では成れませんが、その後に成りの条件を満たす移動をすれば選べます。",
             "en": "On sente's next turn, the silver moves from 2a to 1b and promotes. A drop cannot promote, but a later move that meets the conditions can."
           },
           "marks": {
-            "arrows": ["2a1b"],
+            "arrows": [
+              "2a1b"
+            ],
             "last": "1b"
           }
         },

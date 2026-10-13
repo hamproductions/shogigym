@@ -66,7 +66,7 @@
         {
           "moves": ["9a8a", "G*7b"],
           "text": {
-            "ja": "△８一玉には▲７二金まで。６三の金が７二を守り、９三の龍も８二を押さえます。玉方に合法な応手はありません。最初から▲７二金では８一の玉への王手にならず、飛車を動かす順番が必要です。",
+            "ja": "△８一玉には▲７二金まで。６三の金が７二を守り、９三の龍も８二を押さえます。玉方に合法な応手はありません。最初から▲７二金では９一の玉への王手にならず、飛車を動かす順番が必要です。",
             "en": "After △８一玉, ▲７二金 is mate. The gold on ６三 protects ７二, while the dragon on ９三 also covers ８二. Gote has no legal reply. An immediate ▲７二金 from the starting position does not check the king on ９一; the rook must move first."
           }
         }

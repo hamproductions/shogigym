@@ -1,0 +1,2496 @@
+{
+  "units": [
+    {
+      "id": "attack-kinmusou",
+      "path": "data/lessons/units/attack-kinmusou.json",
+      "sha256": "99dcd171c47276c91e4285fd9b12b3b5eb3d3fc74f85734cbab5d4c91634703b",
+      "lines": 105,
+      "read_range": "1–EOF",
+      "semantic_evidence": [
+        {
+          "chapter": 1,
+          "start": "9/1skgg4/9/5P3/9/2B6/9/9/8K b - 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "9/1skgg4/9/5P3/9/2B6/9/9/8K b - 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 20
+            },
+            {
+              "step": 1,
+              "sfen": "9/1skg5/5+B3/9/9/9/9/9/8K w Gp 1",
+              "moves": [
+                {
+                  "usi": "4d4c+",
+                  "legal": true
+                },
+                {
+                  "usi": "5b4c",
+                  "legal": true
+                },
+                {
+                  "usi": "7f4c+",
+                  "legal": true
+                }
+              ],
+              "check": false,
+              "legal_reply_count": 83
+            }
+          ],
+          "variations": []
+        },
+        {
+          "chapter": 2,
+          "start": "9/1skgg4/4p4/9/4P4/7B1/4R4/9/8K b - 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "9/1skgg4/4p4/9/4P4/7B1/4R4/9/8K b - 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 24
+            },
+            {
+              "step": 1,
+              "sfen": "9/1sk6/4+B4/9/9/9/9/9/8K w 2GPrp 1",
+              "moves": [
+                {
+                  "usi": "5e5d",
+                  "legal": true
+                },
+                {
+                  "usi": "5c5d",
+                  "legal": true
+                },
+                {
+                  "usi": "5g5d",
+                  "legal": true
+                },
+                {
+                  "usi": "5b5c",
+                  "legal": true
+                },
+                {
+                  "usi": "5d5c+",
+                  "legal": true
+                },
+                {
+                  "usi": "6b5c",
+                  "legal": true
+                },
+                {
+                  "usi": "2f5c+",
+                  "legal": true
+                }
+              ],
+              "check": false,
+              "legal_reply_count": 155
+            }
+          ],
+          "variations": []
+        },
+        {
+          "chapter": 3,
+          "start": "9/1skgg4/9/5P3/9/2B6/9/9/8K b - 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "9/1skgg4/9/5P3/9/2B6/9/9/8K b - 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 20
+            },
+            {
+              "step": 1,
+              "sfen": "9/1skg5/3g1+P3/9/3B5/9/9/9/8K w - 1",
+              "moves": [
+                {
+                  "usi": "7f6e",
+                  "legal": true
+                },
+                {
+                  "usi": "5b6c",
+                  "legal": true
+                },
+                {
+                  "usi": "4d4c+",
+                  "legal": true
+                }
+              ],
+              "check": false,
+              "legal_reply_count": 18
+            }
+          ],
+          "variations": []
+        }
+      ],
+      "findings": [],
+      "status": "本文全読・教材内の全表示手順再現・王手局面全合法応手確認・参照本文と全教学図閲覧済み。指摘の内容修正は親担当。",
+      "source_validation": "check-unit.ts終了コード0",
+      "sha256_unchanged": true
+    },
+    {
+      "id": "endgame-yose",
+      "path": "data/lessons/units/endgame-yose.json",
+      "sha256": "2bd22ece05564bad16fe02f9fdfe0a6947c740fb4071b6ec0f29c3bc1a6995ce",
+      "lines": 129,
+      "read_range": "1–EOF",
+      "semantic_evidence": [
+        {
+          "chapter": 1,
+          "start": "9/5ks2/2R6/9/9/9/9/9/K8 b G 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "9/5ks2/2R6/9/9/9/9/9/K8 b G 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 112
+            },
+            {
+              "step": 1,
+              "sfen": "2+R3k2/6s2/4G4/9/9/9/9/9/K8 w - 1",
+              "moves": [
+                {
+                  "usi": "G*5c",
+                  "legal": true
+                },
+                {
+                  "usi": "4b3a",
+                  "legal": true
+                },
+                {
+                  "usi": "7c7a+",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": [
+                "3a2b",
+                "3b4a"
+              ]
+            }
+          ],
+          "variations": []
+        },
+        {
+          "chapter": 2,
+          "start": "9/4gk3/2R6/3GP4/9/9/9/9/K8 b - 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "9/4gk3/2R6/3GP4/9/9/9/9/K8 b - 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 41
+            },
+            {
+              "step": 1,
+              "sfen": "9/5k3/4R4/3G5/9/9/9/9/K8 w Gp 1",
+              "moves": [
+                {
+                  "usi": "5d5c+",
+                  "legal": true
+                },
+                {
+                  "usi": "5b5c",
+                  "legal": true
+                },
+                {
+                  "usi": "7c5c",
+                  "legal": true
+                }
+              ],
+              "check": false,
+              "legal_reply_count": 72
+            }
+          ],
+          "variations": []
+        },
+        {
+          "chapter": 3,
+          "start": "9/4k4/5p3/9/1R7/9/9/9/K8 b S 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "9/4k4/5p3/9/1R7/9/9/9/K8 b S 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 99
+            },
+            {
+              "step": 1,
+              "sfen": "9/1+R2k4/9/4Sp3/9/9/9/9/K8 w - 1",
+              "moves": [
+                {
+                  "usi": "S*5d",
+                  "legal": true
+                },
+                {
+                  "usi": "4c4d",
+                  "legal": true
+                },
+                {
+                  "usi": "8e8b+",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": [
+                "5b4a",
+                "5b5a",
+                "5b6a"
+              ]
+            }
+          ],
+          "variations": []
+        },
+        {
+          "chapter": 4,
+          "start": "9/7k1/5R3/r8/9/9/P8/9/K8 b G 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "9/7k1/5R3/r8/9/9/P8/9/K8 b G 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 112
+            },
+            {
+              "step": 1,
+              "sfen": "8k/9/5R1G1/9/9/9/+r8/9/K8 b p 1",
+              "moves": [
+                {
+                  "usi": "G*3c",
+                  "legal": true
+                },
+                {
+                  "usi": "2b1a",
+                  "legal": true
+                },
+                {
+                  "usi": "3c2c",
+                  "legal": true
+                },
+                {
+                  "usi": "9d9g+",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": [
+                "9i8i"
+              ]
+            }
+          ],
+          "variations": []
+        }
+      ],
+      "findings": [],
+      "status": "本文全読・教材内の全表示手順再現・王手局面全合法応手確認・参照本文と全教学図閲覧済み。指摘の内容修正は親担当。",
+      "source_validation": "check-unit.ts終了コード0",
+      "sha256_unchanged": true
+    },
+    {
+      "id": "endgame-tsumero",
+      "path": "data/lessons/units/endgame-tsumero.json",
+      "sha256": "29ed8d982541c7e3d99976a9e345431579cddb352b905f3a30b356bbe004ef9a",
+      "lines": 129,
+      "read_range": "1–EOF",
+      "semantic_evidence": [
+        {
+          "chapter": 1,
+          "start": "k1n6/2sg5/1RG6/9/9/9/9/9/8K b Gp 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "k1n6/2sg5/1RG6/9/9/9/9/9/8K b Gp 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 100
+            },
+            {
+              "step": 1,
+              "sfen": "1kn6/2sg5/2G6/9/9/9/9/9/8K b Grp 1",
+              "moves": [
+                {
+                  "usi": "8c8a+",
+                  "legal": true
+                },
+                {
+                  "usi": "9a8a",
+                  "legal": true
+                }
+              ],
+              "check": false,
+              "legal_reply_count": 84
+            }
+          ],
+          "variations": []
+        },
+        {
+          "chapter": 2,
+          "start": "k1n6/2sg5/1RG6/9/9/9/9/9/8K b Gp 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "k1n6/2sg5/1RG6/9/9/9/9/9/8K b Gp 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 100
+            },
+            {
+              "step": 1,
+              "sfen": "k1n6/GRs6/2Gg5/9/9/9/9/9/8K w p 1",
+              "moves": [
+                {
+                  "usi": "8c8b",
+                  "legal": true
+                },
+                {
+                  "usi": "6b6c",
+                  "legal": true
+                },
+                {
+                  "usi": "G*9b",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": []
+            }
+          ],
+          "variations": []
+        },
+        {
+          "chapter": 3,
+          "start": "k1n6/2sg5/1RG6/9/9/9/9/9/8K b Gp 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "k1n6/2sg5/1RG6/9/9/9/9/9/8K b Gp 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 100
+            },
+            {
+              "step": 1,
+              "sfen": "k1n6/sR1g5/2G6/9/9/9/9/9/8K b gp 1",
+              "moves": [
+                {
+                  "usi": "8c8b",
+                  "legal": true
+                },
+                {
+                  "usi": "7b8a",
+                  "legal": true
+                },
+                {
+                  "usi": "G*9b",
+                  "legal": true
+                },
+                {
+                  "usi": "8a9b",
+                  "legal": true
+                }
+              ],
+              "check": false,
+              "legal_reply_count": 30
+            }
+          ],
+          "variations": []
+        },
+        {
+          "chapter": 4,
+          "start": "k1n6/2sg5/1RG6/9/9/9/9/9/8K b Gp 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "k1n6/2sg5/1RG6/9/9/9/9/9/8K b Gp 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 100
+            },
+            {
+              "step": 1,
+              "sfen": "2n6/k1sg5/2G6/9/9/9/9/9/8K b GPr 1",
+              "moves": [
+                {
+                  "usi": "8c8b",
+                  "legal": true
+                },
+                {
+                  "usi": "P*9b",
+                  "legal": true
+                },
+                {
+                  "usi": "8b9b",
+                  "legal": true
+                },
+                {
+                  "usi": "9a9b",
+                  "legal": true
+                }
+              ],
+              "check": false,
+              "legal_reply_count": 151
+            }
+          ],
+          "variations": []
+        }
+      ],
+      "findings": [
+        "endgame-tsumero-definition"
+      ],
+      "status": "本文全読・教材内の全表示手順再現・王手局面全合法応手確認・参照本文と全教学図閲覧済み。指摘の内容修正は親担当。",
+      "source_validation": "check-unit.ts終了コード0",
+      "sha256_unchanged": true
+    },
+    {
+      "id": "endgame-mate1",
+      "path": "data/lessons/units/endgame-mate1.json",
+      "sha256": "f68c50645aa906b57f156c74aab39e0bdc4a021b9efa4cbe8dfde63b384fea54",
+      "lines": 327,
+      "read_range": "1–EOF",
+      "semantic_evidence": [
+        {
+          "chapter": 1,
+          "start": "lp7/kp7/9/G1S6/9/9/9/R8/8K b - 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "lp7/kp7/9/G1S6/9/9/9/R8/8K b - 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 27
+            },
+            {
+              "step": 1,
+              "sfen": "lp7/kp7/1G7/2S6/9/9/9/R8/8K w - 1",
+              "moves": [
+                {
+                  "usi": "9d8c",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": []
+            }
+          ],
+          "variations": []
+        },
+        {
+          "chapter": 2,
+          "start": "5nkn1/3R3p1/7G1/9/9/9/9/9/K8 b B 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "5nkn1/3R3p1/7G1/9/9/9/9/9/K8 b B 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 113
+            },
+            {
+              "step": 1,
+              "sfen": "5nkn1/3R1B1p1/7G1/9/9/9/9/9/K8 w - 1",
+              "moves": [
+                {
+                  "usi": "B*4b",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": []
+            }
+          ],
+          "variations": []
+        },
+        {
+          "chapter": 3,
+          "start": "5lkn1/4R4/6P2/9/9/9/9/9/K8 b - 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "5lkn1/4R4/6P2/9/9/9/9/9/K8 b - 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 37
+            },
+            {
+              "step": 1,
+              "sfen": "5lkn1/4R1+P2/9/9/9/9/9/9/K8 w - 1",
+              "moves": [
+                {
+                  "usi": "3c3b+",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": []
+            }
+          ],
+          "variations": []
+        },
+        {
+          "chapter": 4,
+          "start": "2lkn4/2ppb4/9/9/9/9/9/9/8K b N 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "2lkn4/2ppb4/9/9/9/9/9/9/8K b N 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 65
+            },
+            {
+              "step": 1,
+              "sfen": "2lkn4/2ppb4/4N4/9/9/9/9/9/8K w - 1",
+              "moves": [
+                {
+                  "usi": "N*5c",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": []
+            }
+          ],
+          "variations": []
+        },
+        {
+          "chapter": 5,
+          "start": "k1n6/p8/1R1B5/9/9/9/9/9/8K b - 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "k1n6/p8/1R1B5/9/9/9/9/9/8K b - 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 47
+            },
+            {
+              "step": 1,
+              "sfen": "k+Rn6/p8/3B5/9/9/9/9/9/8K w - 1",
+              "moves": [
+                {
+                  "usi": "8c8a+",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": []
+            }
+          ],
+          "variations": []
+        },
+        {
+          "chapter": 6,
+          "start": "kpn6/1R7/2G6/9/9/9/9/9/8K b S 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "kpn6/1R7/2G6/9/9/9/9/9/8K b S 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 115
+            },
+            {
+              "step": 1,
+              "sfen": "kpn6/SR7/2G6/9/9/9/9/9/8K w - 1",
+              "moves": [
+                {
+                  "usi": "S*9b",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": []
+            }
+          ],
+          "variations": []
+        },
+        {
+          "chapter": 7,
+          "start": "5lkn1/4R4/8G/9/9/9/9/9/K8 b L 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "5lkn1/4R4/8G/9/9/9/9/9/K8 b L 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 108
+            },
+            {
+              "step": 1,
+              "sfen": "5lkn1/4R1L2/8G/9/9/9/9/9/K8 w - 1",
+              "moves": [
+                {
+                  "usi": "L*3b",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": []
+            }
+          ],
+          "variations": []
+        },
+        {
+          "chapter": 8,
+          "start": "3nkn3/2R3s2/9/9/9/9/9/9/K8 b G 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "3nkn3/2R3s2/9/9/9/9/9/9/K8 b G 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 106
+            },
+            {
+              "step": 1,
+              "sfen": "3nkn3/2R1G1s2/9/9/9/9/9/9/K8 w - 1",
+              "moves": [
+                {
+                  "usi": "G*5b",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": []
+            }
+          ],
+          "variations": []
+        },
+        {
+          "chapter": 9,
+          "start": "k1n6/pgR6/9/3B5/9/9/9/9/8K b - 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "k1n6/pgR6/9/3B5/9/9/9/9/8K b - 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 50
+            },
+            {
+              "step": 1,
+              "sfen": "k1n6/p+BR6/9/9/9/9/9/9/8K w G 1",
+              "moves": [
+                {
+                  "usi": "6d8b+",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": []
+            }
+          ],
+          "variations": []
+        },
+        {
+          "chapter": 10,
+          "start": "lg7/kp7/1R7/2G6/9/9/9/9/8K b G 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "lg7/kp7/1R7/2G6/9/9/9/9/8K b G 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 112
+            },
+            {
+              "step": 1,
+              "sfen": "lg7/kp7/GR7/2G6/9/9/9/9/8K w - 1",
+              "moves": [
+                {
+                  "usi": "G*9c",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": []
+            }
+          ],
+          "variations": []
+        },
+        {
+          "chapter": 11,
+          "start": "3glg3/3pkp3/4s4/9/2B6/9/9/4R4/K8 b - 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "3glg3/3pkp3/4s4/9/2B6/9/9/4R4/K8 b - 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 30
+            },
+            {
+              "step": 1,
+              "sfen": "3glg3/3pkp3/4+R4/9/2B6/9/9/9/K8 w S 1",
+              "moves": [
+                {
+                  "usi": "5h5c+",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": []
+            }
+          ],
+          "variations": []
+        },
+        {
+          "chapter": 12,
+          "start": "3lkl3/3bpb3/9/9/2N6/9/9/9/K8 b - 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "3lkl3/3bpb3/9/9/2N6/9/9/9/K8 b - 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 7
+            },
+            {
+              "step": 1,
+              "sfen": "3lkl3/3bpb3/3N5/9/9/9/9/9/K8 w - 1",
+              "moves": [
+                {
+                  "usi": "7e6c",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": []
+            }
+          ],
+          "variations": []
+        },
+        {
+          "chapter": 13,
+          "start": "lkn6/p2R5/9/9/9/9/9/9/8K b G 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "lkn6/p2R5/9/9/9/9/9/9/8K b G 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 110
+            },
+            {
+              "step": 1,
+              "sfen": "lkn6/pG1R5/9/9/9/9/9/9/8K w - 1",
+              "moves": [
+                {
+                  "usi": "G*8b",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": []
+            }
+          ],
+          "variations": []
+        },
+        {
+          "chapter": 14,
+          "start": "5nln1/5bkp1/4Rp3/8G/3+B5/9/9/9/K8 b - 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "5nln1/5bkp1/4Rp3/8G/3+B5/9/9/9/K8 b - 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 49
+            },
+            {
+              "step": 1,
+              "sfen": "5nln1/5bkp1/4R+B3/8G/9/9/9/9/K8 w P 1",
+              "moves": [
+                {
+                  "usi": "6e4c",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": []
+            }
+          ],
+          "variations": []
+        }
+      ],
+      "findings": [],
+      "status": "本文全読・教材内の全表示手順再現・王手局面全合法応手確認・参照本文と全教学図閲覧済み。指摘の内容修正は親担当。",
+      "source_validation": "check-unit.ts終了コード0",
+      "sha256_unchanged": true
+    },
+    {
+      "id": "endgame-mate3",
+      "path": "data/lessons/units/endgame-mate3.json",
+      "sha256": "02bdd5d55abb535981bec6a423984c70550592ab968262559dcbe778f68117ce",
+      "lines": 228,
+      "read_range": "1–EOF",
+      "semantic_evidence": [
+        {
+          "chapter": 1,
+          "start": "k8/1p7/1R1G5/9/9/9/9/9/8K b G 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "k8/1p7/1R1G5/9/9/9/9/9/8K b G 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 103
+            },
+            {
+              "step": 1,
+              "sfen": "k8/1p7/+R2G5/9/9/9/9/9/8K w G 1",
+              "moves": [
+                {
+                  "usi": "8c9c+",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": [
+                "9a8a"
+              ]
+            },
+            {
+              "step": 2,
+              "sfen": "1k7/1pG6/+R2G5/9/9/9/9/9/8K w - 1",
+              "moves": [
+                {
+                  "usi": "9a8a",
+                  "legal": true
+                },
+                {
+                  "usi": "G*7b",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": []
+            }
+          ],
+          "variations": [],
+          "initial_mate_moves": []
+        },
+        {
+          "chapter": 2,
+          "start": "5k3/7S1/1R7/3N5/9/9/9/9/8K b - 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "5k3/7S1/1R7/3N5/9/9/9/9/8K b - 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 47
+            },
+            {
+              "step": 1,
+              "sfen": "5k3/7S1/5+R3/3N5/9/9/9/9/8K w - 1",
+              "moves": [
+                {
+                  "usi": "8c4c+",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": [
+                "4a5a"
+              ]
+            },
+            {
+              "step": 2,
+              "sfen": "4k4/4+R2S1/9/3N5/9/9/9/9/8K w - 1",
+              "moves": [
+                {
+                  "usi": "4a5a",
+                  "legal": true
+                },
+                {
+                  "usi": "4c5b",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": []
+            }
+          ],
+          "variations": [],
+          "initial_mate_moves": []
+        },
+        {
+          "chapter": 3,
+          "start": "5k3/9/5B1G1/9/9/2R6/9/9/8K b - 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "5k3/9/5B1G1/9/9/2R6/9/9/8K b - 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 46
+            },
+            {
+              "step": 1,
+              "sfen": "5k3/6G2/5B3/9/9/2R6/9/9/8K w - 1",
+              "moves": [
+                {
+                  "usi": "2c3b",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": [
+                "4a5a"
+              ]
+            },
+            {
+              "step": 2,
+              "sfen": "2+R1k4/6G2/5B3/9/9/9/9/9/8K w - 1",
+              "moves": [
+                {
+                  "usi": "4a5a",
+                  "legal": true
+                },
+                {
+                  "usi": "7f7a+",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": []
+            }
+          ],
+          "variations": [],
+          "initial_mate_moves": []
+        },
+        {
+          "chapter": 4,
+          "start": "4k4/2G3S2/9/9/4B4/9/9/9/8K b G 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "4k4/2G3S2/9/9/4B4/9/9/9/8K b G 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 116
+            },
+            {
+              "step": 1,
+              "sfen": "4k4/2G3S2/2+B6/9/9/9/9/9/8K w G 1",
+              "moves": [
+                {
+                  "usi": "5e7c+",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": [
+                "5a4b",
+                "5a5b"
+              ]
+            },
+            {
+              "step": 2,
+              "sfen": "9/2G1k1S2/2+B2G3/9/9/9/9/9/8K w - 1",
+              "moves": [
+                {
+                  "usi": "5a5b",
+                  "legal": true
+                },
+                {
+                  "usi": "G*4c",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": []
+            }
+          ],
+          "variations": [
+            {
+              "from": 1,
+              "moves": [
+                {
+                  "usi": "5a4b",
+                  "legal": true
+                },
+                {
+                  "usi": "G*4c",
+                  "legal": true
+                }
+              ],
+              "sfen": "9/2G2kS2/2+B2G3/9/9/9/9/9/8K w - 1",
+              "check": true,
+              "legal_replies": []
+            }
+          ],
+          "initial_mate_moves": []
+        },
+        {
+          "chapter": 5,
+          "start": "4k4/9/1G2B4/9/9/4L4/9/9/8K b G 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "4k4/9/1G2B4/9/9/4L4/9/9/8K b G 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 111
+            },
+            {
+              "step": 1,
+              "sfen": "4k4/9/1G7/3+B5/9/4L4/9/9/8K w G 1",
+              "moves": [
+                {
+                  "usi": "5c6d+",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": [
+                "5a4a",
+                "5a6a",
+                "5a6b"
+              ]
+            },
+            {
+              "step": 2,
+              "sfen": "3k5/2G6/1G7/3+B5/9/4L4/9/9/8K w - 1",
+              "moves": [
+                {
+                  "usi": "5a6a",
+                  "legal": true
+                },
+                {
+                  "usi": "G*7b",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": []
+            }
+          ],
+          "variations": [
+            {
+              "from": 1,
+              "moves": [
+                {
+                  "usi": "5a6b",
+                  "legal": true
+                },
+                {
+                  "usi": "G*7b",
+                  "legal": true
+                }
+              ],
+              "sfen": "9/2Gk5/1G7/3+B5/9/4L4/9/9/8K w - 1",
+              "check": true,
+              "legal_replies": []
+            },
+            {
+              "from": 1,
+              "moves": [
+                {
+                  "usi": "5a4a",
+                  "legal": true
+                },
+                {
+                  "usi": "G*4b",
+                  "legal": true
+                }
+              ],
+              "sfen": "5k3/5G3/1G7/3+B5/9/4L4/9/9/8K w - 1",
+              "check": true,
+              "legal_replies": []
+            }
+          ],
+          "initial_mate_moves": []
+        }
+      ],
+      "findings": [
+        "endgame-mate3-king-square-ja"
+      ],
+      "status": "本文全読・教材内の全表示手順再現・王手局面全合法応手確認・参照本文と全教学図閲覧済み。指摘の内容修正は親担当。",
+      "source_validation": "check-unit.ts終了コード0",
+      "sha256_unchanged": true
+    },
+    {
+      "id": "endgame-mate-tesuji",
+      "path": "data/lessons/units/endgame-mate-tesuji.json",
+      "sha256": "e6de67ebc90e514e94d75f0286ffc94abaa2a3808610f029e11df0757cfa693b",
+      "lines": 204,
+      "read_range": "1–EOF",
+      "semantic_evidence": [
+        {
+          "chapter": 1,
+          "start": "4k4/9/9/9/5R3/9/9/9/8K b g 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "4k4/9/9/9/5R3/9/9/9/8K b g 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 22
+            },
+            {
+              "step": 1,
+              "sfen": "4k4/9/4g4/9/4R4/9/9/9/8K b - 1",
+              "moves": [
+                {
+                  "usi": "4e5e",
+                  "legal": true
+                },
+                {
+                  "usi": "G*5c",
+                  "legal": true
+                }
+              ],
+              "check": false,
+              "legal_reply_count": 18
+            },
+            {
+              "step": 2,
+              "sfen": "5k3/9/4R4/9/9/9/9/9/8K b G 1",
+              "moves": [
+                {
+                  "usi": "5e5c",
+                  "legal": true
+                },
+                {
+                  "usi": "5a4a",
+                  "legal": true
+                }
+              ],
+              "check": false,
+              "legal_reply_count": 113
+            }
+          ],
+          "variations": []
+        },
+        {
+          "chapter": 2,
+          "start": "3k5/9/1N1g3R1/9/5L3/9/9/9/8K b G 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "3k5/9/1N1g3R1/9/5L3/9/9/9/8K b G 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 112
+            },
+            {
+              "step": 1,
+              "sfen": "3k5/9/1N1+R5/9/5L3/9/9/9/8K w 2G 1",
+              "moves": [
+                {
+                  "usi": "2c6c+",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": [
+                "6a5a"
+              ]
+            },
+            {
+              "step": 2,
+              "sfen": "3Gk4/9/1N1+R5/9/5L3/9/9/9/8K w G 1",
+              "moves": [
+                {
+                  "usi": "6a5a",
+                  "legal": true
+                },
+                {
+                  "usi": "G*6a",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": []
+            }
+          ],
+          "variations": []
+        },
+        {
+          "chapter": 3,
+          "start": "2k6/1s2S4/9/2G4R1/9/9/9/9/8K b - 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "2k6/1s2S4/9/2G4R1/9/9/9/9/8K b - 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 35
+            },
+            {
+              "step": 1,
+              "sfen": "2k4R1/1s2S4/9/2G6/9/9/9/9/8K w - 1",
+              "moves": [
+                {
+                  "usi": "2d2a",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": [
+                "7a6b",
+                "7a7b"
+              ]
+            },
+            {
+              "step": 2,
+              "sfen": "3+R5/1sk1S4/9/2G6/9/9/9/9/8K w - 1",
+              "moves": [
+                {
+                  "usi": "7a7b",
+                  "legal": true
+                },
+                {
+                  "usi": "2a6a+",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": []
+            }
+          ],
+          "variations": [
+            {
+              "from": 1,
+              "moves": [
+                {
+                  "usi": "7a6b",
+                  "legal": true
+                },
+                {
+                  "usi": "5b6c+",
+                  "legal": true
+                }
+              ],
+              "sfen": "7R1/1s1k5/3+S5/2G6/9/9/9/9/8K w - 1",
+              "check": true,
+              "legal_replies": []
+            }
+          ]
+        },
+        {
+          "chapter": 4,
+          "start": "3k5/2R6/3N5/5L3/9/9/9/9/8K b - 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "3k5/2R6/3N5/5L3/9/9/9/9/8K b - 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 42
+            },
+            {
+              "step": 1,
+              "sfen": "2+Nk5/2R6/9/5L3/9/9/9/9/8K w - 1",
+              "moves": [
+                {
+                  "usi": "6c7a+",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": [
+                "6a5a"
+              ]
+            },
+            {
+              "step": 2,
+              "sfen": "2+N1k4/5+R3/9/5L3/9/9/9/9/8K w - 1",
+              "moves": [
+                {
+                  "usi": "6a5a",
+                  "legal": true
+                },
+                {
+                  "usi": "7b4b+",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": []
+            }
+          ],
+          "variations": []
+        },
+        {
+          "chapter": 5,
+          "start": "4k4/9/2S1B2N1/5s3/9/9/9/9/8K b - 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "4k4/9/2S1B2N1/5s3/9/9/9/9/8K b - 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 33
+            },
+            {
+              "step": 1,
+              "sfen": "4k4/3+S5/4B2N1/5s3/9/9/9/9/8K w - 1",
+              "moves": [
+                {
+                  "usi": "7c6b+",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": [
+                "5a4a"
+              ]
+            },
+            {
+              "step": 2,
+              "sfen": "5k+B2/3+S5/7N1/5s3/9/9/9/9/8K w - 1",
+              "moves": [
+                {
+                  "usi": "5a4a",
+                  "legal": true
+                },
+                {
+                  "usi": "5c3a+",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": []
+            }
+          ],
+          "variations": []
+        }
+      ],
+      "findings": [],
+      "status": "本文全読・教材内の全表示手順再現・王手局面全合法応手確認・参照本文と全教学図閲覧済み。指摘の内容修正は親担当。",
+      "source_validation": "check-unit.ts終了コード0",
+      "sha256_unchanged": true
+    },
+    {
+      "id": "endgame-tsume-study",
+      "path": "data/lessons/units/endgame-tsume-study.json",
+      "sha256": "de9785146f1c5f1a60f015e33db5e9677b7af0d0077746978eccb2c91013f8f8",
+      "lines": 165,
+      "read_range": "1–EOF",
+      "semantic_evidence": [
+        {
+          "chapter": 1,
+          "start": "2k6/9/2gR5/9/9/9/9/9/8K b - 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "2k6/9/2gR5/9/9/9/9/9/8K b - 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 31
+            },
+            {
+              "step": 1,
+              "sfen": "2k6/9/2R6/9/9/9/9/9/8K w G 1",
+              "moves": [
+                {
+                  "usi": "6c7c",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": [
+                "7a6a",
+                "7a6b",
+                "7a8a",
+                "7a8b"
+              ]
+            },
+            {
+              "step": 2,
+              "sfen": "9/1k7/2R6/9/9/9/9/9/8K b G 1",
+              "moves": [
+                {
+                  "usi": "7a8b",
+                  "legal": true
+                }
+              ],
+              "check": false,
+              "legal_reply_count": 113
+            }
+          ],
+          "variations": [],
+          "final_mate_moves": []
+        },
+        {
+          "chapter": 2,
+          "start": "2k6/9/2gR5/9/9/9/9/9/8K b - 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "2k6/9/2gR5/9/9/9/9/9/8K b - 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 31
+            },
+            {
+              "step": 1,
+              "sfen": "2k6/9/2+R6/9/9/9/9/9/8K w G 1",
+              "moves": [
+                {
+                  "usi": "6c7c+",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": [
+                "7a6a",
+                "7a8a"
+              ]
+            },
+            {
+              "step": 2,
+              "sfen": "1k7/1G7/2+R6/9/9/9/9/9/8K w - 1",
+              "moves": [
+                {
+                  "usi": "7a8a",
+                  "legal": true
+                },
+                {
+                  "usi": "G*8b",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": []
+            }
+          ],
+          "variations": [
+            {
+              "from": 1,
+              "moves": [
+                {
+                  "usi": "7a6a",
+                  "legal": true
+                },
+                {
+                  "usi": "G*6b",
+                  "legal": true
+                }
+              ],
+              "sfen": "3k5/3G5/2+R6/9/9/9/9/9/8K w - 1",
+              "check": true,
+              "legal_replies": []
+            }
+          ]
+        },
+        {
+          "chapter": 3,
+          "start": "4k4/5g3/6R2/9/9/9/9/9/8K b - 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "4k4/5g3/6R2/9/9/9/9/9/8K b - 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 35
+            },
+            {
+              "step": 1,
+              "sfen": "4k4/9/4g4/9/9/9/9/9/8K b r 1",
+              "moves": [
+                {
+                  "usi": "3c5c+",
+                  "legal": true
+                },
+                {
+                  "usi": "4b5c",
+                  "legal": true
+                }
+              ],
+              "check": false,
+              "legal_reply_count": 3
+            },
+            {
+              "step": 2,
+              "sfen": "4k4/9/4g4/9/9/9/9/9/8K b r 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 3
+            }
+          ],
+          "variations": []
+        },
+        {
+          "chapter": 4,
+          "start": "2k6/3R5/9/9/9/9/9/9/8K b GS 1",
+          "initial_other_king_checked": false,
+          "steps": [
+            {
+              "step": 0,
+              "sfen": "2k6/3R5/9/9/9/9/9/9/8K b GS 1",
+              "moves": [],
+              "check": false,
+              "legal_reply_count": 191
+            },
+            {
+              "step": 1,
+              "sfen": "2k6/2GR5/9/9/9/9/9/9/8K w S 1",
+              "moves": [
+                {
+                  "usi": "G*7b",
+                  "legal": true
+                }
+              ],
+              "check": true,
+              "legal_replies": []
+            },
+            {
+              "step": 2,
+              "sfen": "2k6/2GR5/9/9/9/9/9/9/8K w S 1",
+              "moves": [],
+              "check": true,
+              "legal_replies": []
+            }
+          ],
+          "variations": []
+        }
+      ],
+      "findings": [],
+      "status": "本文全読・教材内の全表示手順再現・王手局面全合法応手確認・参照本文と全教学図閲覧済み。指摘の内容修正は親担当。",
+      "source_validation": "check-unit.ts終了コード0",
+      "sha256_unchanged": true
+    }
+  ],
+  "references": [
+    {
+      "url": "https://shogi-joutatsu.com/archives/875",
+      "cache": ".cache/curriculum-source/875.txt",
+      "sha256": "5391b5f1b0ffe7a33c1ad9d52f9580327e3e87e5eaff71a5fb27d3da459a1f99",
+      "lines": 204,
+      "read_range": "1–EOF",
+      "visual_indices": [
+        5,
+        7,
+        12,
+        14,
+        17,
+        20,
+        23,
+        24,
+        26,
+        28,
+        32,
+        35,
+        42,
+        43,
+        44,
+        46,
+        49,
+        50,
+        51,
+        54,
+        59,
+        60,
+        63,
+        64
+      ],
+      "visual_evidence": [
+        {
+          "indices": [
+            5,
+            7,
+            12,
+            14,
+            17,
+            20,
+            23,
+            24,
+            26,
+            28,
+            32,
+            35
+          ],
+          "observed": "金無双の後手玉７二・銀８二・金６二５二。端歩交換、９三への歩打ち、銀捕獲後の角切りと銀打ち、香吊り上げ後の銀閉じ込めを盤面で確認。"
+        },
+        {
+          "indices": [
+            42,
+            43,
+            44,
+            46,
+            49,
+            50,
+            51,
+            54
+          ],
+          "observed": "向かい飛車と銀の前進に角の８二・８三への斜線を足す構想。４３は灰色の仮置き角と桃色矢印で５五角の飛車当たりを示す。"
+        },
+        {
+          "indices": [
+            59,
+            60,
+            63,
+            64
+          ],
+          "observed": "６筋の継ぎ歩・垂れ歩で６四拠点を作り、銀交換と桂の６五進出、飛車の６六参加を確認。６０から６３の説明は後手番を省略している。"
+        },
+        {
+          "indices": [
+            5,
+            7,
+            12,
+            14,
+            17,
+            20,
+            23,
+            24,
+            26,
+            28,
+            32,
+            35,
+            42,
+            43,
+            44,
+            46,
+            49,
+            50,
+            51,
+            54,
+            59,
+            60,
+            63,
+            64
+          ],
+          "observed": "原寸白背景画像で全図の盤外表示も再閲覧。初期端攻めは持ち歩二枚、棒銀は角と歩、コビン攻めは持ち歩三枚。獲得した歩・角・銀・桂・香の持駒変化を表示で確認。",
+          "rendering": ".cache/curriculum-source/white-review/<元画像hash>.png"
+        }
+      ],
+      "unverified": [
+        "出典の最善・無条件優勢・全応手受けなし断定は未証明で転用不可。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/2375",
+      "cache": ".cache/curriculum-source/2375.txt",
+      "sha256": "5a228f749cd214f702e152a1894b8e2b3b64db049054b11b831e32d3a1fe9ce9",
+      "lines": 163,
+      "read_range": "1–EOF",
+      "visual_indices": [
+        2,
+        6,
+        15,
+        17,
+        20,
+        23,
+        24,
+        27,
+        28,
+        31,
+        32,
+        36,
+        38,
+        39,
+        40
+      ],
+      "visual_evidence": [
+        {
+          "indices": [
+            2,
+            6,
+            15,
+            17,
+            20,
+            23,
+            24
+          ],
+          "observed": "舟囲いの金４一を狙う注記矢印、５二金に同金を選ぶ順と３一へ逃げる順を比較。４三歩が４四へ進んだ図２３で４三が空く。"
+        },
+        {
+          "indices": [
+            27,
+            28,
+            31,
+            32,
+            36,
+            38,
+            39,
+            40
+          ],
+          "observed": "２二香で玉を誘って金４一の支えを外す順、金を逃がした順、飛車を金と交換して２二金から３二・５二に金を打つ二つの詰み筋を確認。"
+        },
+        {
+          "indices": [
+            2,
+            6,
+            15,
+            17,
+            20,
+            23,
+            24,
+            27,
+            28,
+            31,
+            32,
+            36,
+            38,
+            39,
+            40
+          ],
+          "observed": "原寸白背景画像で全図の盤外持駒と筋段を再閲覧。2375は開始時金香、図38は後手持飛車・先手金香。7368の４題は金銀、飛金、金銀、金銀桂と後手金の各条件を確認。"
+        }
+      ],
+      "unverified": [
+        "参考資料の最善・最速・必至全応手の断定は未再現。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/7368",
+      "cache": ".cache/curriculum-source/7368.txt",
+      "sha256": "f8a6fc17d5a2242dffacdf16dbc5268ab1ef3da2fabb3445d20df581ee28eb95",
+      "lines": 128,
+      "read_range": "1–EOF",
+      "visual_indices": [
+        3,
+        5,
+        6,
+        16,
+        17,
+        19,
+        21,
+        22,
+        24,
+        26,
+        27,
+        28,
+        30,
+        31
+      ],
+      "visual_evidence": [
+        {
+          "indices": [
+            3,
+            5,
+            6,
+            16,
+            17,
+            19
+          ],
+          "observed": "裸玉の二段下に銀を置き、玉の移動後の頭金を支える配置と、二段目の飛車横利きによる上部封鎖を確認。"
+        },
+        {
+          "indices": [
+            21,
+            22,
+            24
+          ],
+          "observed": "玉２一・銀３一の守備図から銀２三を打ち、守備銀が２二へ出た図で金３二を打つ。本文の△２二金は図２４と一致せず、実際は△２二銀。"
+        },
+        {
+          "indices": [
+            26,
+            27,
+            28,
+            30,
+            31
+          ],
+          "observed": "後手玉２一・香１一に先手銀２三を配置し、後手金３一には桂３三、金２二には桂３三後に玉３一を金４一で仕留める図を確認。"
+        },
+        {
+          "indices": [
+            3,
+            5,
+            6,
+            16,
+            17,
+            19,
+            21,
+            22,
+            24,
+            26,
+            27,
+            28,
+            30,
+            31
+          ],
+          "observed": "原寸白背景画像で全図の盤外持駒と筋段を再閲覧。2375は開始時金香、図38は後手持飛車・先手金香。7368の４題は金銀、飛金、金銀、金銀桂と後手金の各条件を確認。"
+        }
+      ],
+      "unverified": [
+        "参考資料の最善・最速・必至全応手の断定は未再現。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/1854",
+      "cache": ".cache/curriculum-source/1854.txt",
+      "sha256": "1b2dfe61ef2cc90925f7e2ea8646a33c950eb0d955f0333bda297455c29ba6e6",
+      "lines": 222,
+      "read_range": "1–EOF",
+      "visual_indices": [
+        5,
+        6,
+        7,
+        9,
+        10,
+        11,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65
+      ],
+      "visual_evidence": [
+        {
+          "indices": [
+            5,
+            6,
+            7,
+            9,
+            10,
+            11,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65
+          ],
+          "observed": "白背景の原寸画像で問題・解答・失敗図を全閲覧。頭金、一間龍、吊るし桂、飛車横利きを止めない金銀、飛車成と馬桂の役割差、両王手・開き王手を確認。持駒表示は問題ごとに金・桂・銀またはなし、玉方は残り全駒。図６４は香の線上に無駄合を認める作品上の詰み表現で、通常将棋の全合法手ゼロとは別。"
+        }
+      ],
+      "unverified": [
+        "各出典作品の全応手は未再現。教材の独立図１４題は全応手ゼロを再現済み。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/4633",
+      "cache": ".cache/curriculum-source/4633.txt",
+      "sha256": "8234d68981d4cf2e858245233f938552bacd9dba4063d385a89ac95fa4967105",
+      "lines": 144,
+      "read_range": "1–EOF",
+      "visual_indices": [
+        4,
+        6,
+        7,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        22,
+        24,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        33,
+        35,
+        36,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
+      "visual_evidence": [
+        {
+          "indices": [
+            4,
+            6,
+            7,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "observed": "白背景原寸で全画像を閲覧。頭金と支え銀の三基本形、持金銀の使う順序を違えた逃げ、銀捨てによる玉の誘導を確認。"
+        },
+        {
+          "indices": [
+            22,
+            24,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31
+          ],
+          "observed": "一間龍の金捕獲で龍筋が通る局面と、歩頭の桂で歩を動かし銀を打つ空間を作る手順。攻め龍が金に狙われていても王手の強制力で優先できる説明。"
+        },
+        {
+          "indices": [
+            33,
+            35,
+            36,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43
+          ],
+          "observed": "馬３三と端の金または飛車で玉の隣接マスを制限。桂打ち後の玉逃げ・金捕獲の分岐、馬捨てを玉で取る分岐と金による詰みを確認。"
+        }
+      ],
+      "unverified": [
+        "出典作品の全応手未再現。作品配置・問題セット・説明構造の再利用不可。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/19",
+      "cache": ".cache/curriculum-source/19.txt",
+      "sha256": "82da7aefab5d3350335dc7d32ada197dc55b156de62c93b432f25251b87b6615",
+      "lines": 133,
+      "read_range": "1–EOF",
+      "visual_indices": [
+        3,
+        5,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        19,
+        21,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        33,
+        34,
+        35,
+        37,
+        38,
+        39
+      ],
+      "visual_evidence": [
+        {
+          "indices": [
+            3,
+            5,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "observed": "全原寸白画像を閲覧。腹金は端玉の横に金、前方の逃げを歩で抑える。龍捨てで玉を下へ誘う例と、飛車捨てで後手飛車の利きをずらし馬の横王手を作る例を確認。"
+        },
+        {
+          "indices": [
+            19,
+            21,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "observed": "香１四・角２三と玉１一の無駄合例、角捨てで金を移動させて龍４二の王手と退路封鎖を両立する例。画像25は見出し▲１三角成に対し実物が馬３一・玉１一で、解答の銀１二同玉１三馬の終図ではない。26はこの馬３一に金１二を合駒した失敗図。"
+        },
+        {
+          "indices": [
+            30,
+            33,
+            34,
+            35,
+            37,
+            38,
+            39
+          ],
+          "observed": "守備金の前に桂を打ち、取れば頭金、玉が逃げれば横金で仕留める分岐。問題３−２は五手詰で、銀１三から玉を一段目へ誘う。"
+        }
+      ],
+      "unverified": [
+        "出典作品の全応手未再現。25の解答図と本文の不一致に注意。無駄合を省く作品慣習と通常将棋の合法応手ゼロを区別。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/386",
+      "cache": ".cache/curriculum-source/386.txt",
+      "sha256": "6508339bc3cc64fdf7c893a4d11f3b7216b197871eff8f92e56884db0d5a7867",
+      "lines": 69,
+      "read_range": "1–EOF",
+      "visual_indices": [],
+      "visual_evidence": [
+        {
+          "indices": [],
+          "observed": "指定記事に教学盤面図なし。広告・書籍画像のみ。"
+        }
+      ],
+      "unverified": [
+        "棋力段級と特定書籍の難度、三手詰二題の組合せが五手詰という一般化は筆者の意見であり、ルールとして採用しない。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/109",
+      "cache": ".cache/curriculum-source/109.txt",
+      "sha256": "63e5fa2c7401d71c04ef9959e278f18ea4ef1cd900351276eab9224c513963a3",
+      "lines": 143,
+      "read_range": "1–EOF",
+      "visual_indices": [
+        3,
+        5,
+        6,
+        15,
+        17,
+        18,
+        19,
+        21,
+        22,
+        24,
+        25,
+        27,
+        28,
+        29,
+        31,
+        32,
+        35,
+        36,
+        38,
+        39
+      ],
+      "visual_evidence": [
+        {
+          "indices": [
+            3,
+            5,
+            6
+          ],
+          "observed": "全原寸白画像を閲覧。金１二で玉を誘って銀３二の玉からの支えを外し、銀を飛車で捕獲して持銀を２一へ打つ五手の機構。"
+        },
+        {
+          "indices": [
+            15,
+            17,
+            18,
+            19,
+            21,
+            22,
+            24,
+            25,
+            27,
+            28,
+            29,
+            31,
+            32,
+            35
+          ],
+          "observed": "銀１三で桂を退路へ誘導、銀４二で守備銀４一の利きを外す分岐、桂２四で歩２三を動かして金の打ち場所を作る機構。29の見出しは金がいなければだが図と本文は歩２三の除去。35は先手の馬３二に対し本文△３二角成という先後記号の誤記。"
+        },
+        {
+          "indices": [
+            36,
+            38,
+            39
+          ],
+          "observed": "遠い龍の王手には香の合駒が可能だが、先に金を玉に取らせて近づければ合駒空間がなくなる比較。"
+        }
+      ],
+      "unverified": [
+        "出典作品の全応手未再現。本文の駒名・先後記号の誤記を教材に持ち込まない。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/5325",
+      "cache": ".cache/curriculum-source/5325.txt",
+      "sha256": "136d9d01421a31be3e6980c9f5331e767493b331edd927fd75276a9124374882",
+      "lines": 143,
+      "read_range": "1–EOF",
+      "visual_indices": [
+        3,
+        5,
+        6,
+        8,
+        16,
+        18,
+        19,
+        21,
+        22,
+        24,
+        25,
+        26,
+        28,
+        29,
+        31,
+        32,
+        33,
+        35,
+        36,
+        37
+      ],
+      "visual_evidence": [
+        {
+          "indices": [
+            3,
+            5,
+            6,
+            8
+          ],
+          "observed": "全原寸白画像を閲覧。香３三の捨て駒を角で取れば飛車の利き、飛車で取れば角の利きが遮断される分岐。画像６は先手金３二で、本文手順の▲２二金は誤記。"
+        },
+        {
+          "indices": [
+            16,
+            18,
+            19,
+            21
+          ],
+          "observed": "飛車を近くに打つと成る一手を失い、３二へ離して打つと２二飛成で詰む。離しすぎる場合には４二へ中合いを許す具体的な反例。"
+        },
+        {
+          "indices": [
+            22,
+            24,
+            25,
+            26,
+            28,
+            29,
+            31,
+            32,
+            33,
+            35,
+            36,
+            37
+          ],
+          "observed": "角３四の王手に金２三を合駒させて玉の退路を埋める。自分の飛車２二を王手で捨て、金の打ち場所を空ける。飛車５一を２一へ捨てて玉を一段目に誘う。35の金は３二で、手順にある２二金は誤記。"
+        }
+      ],
+      "unverified": [
+        "出典作品の全応手未再現。本文の座標誤記を教材に持ち込まない。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/2418",
+      "cache": ".cache/curriculum-source/2418.txt",
+      "sha256": "5dd7150b1355a3f048fea7c7e9f823d333583ab3e990af27ccf5825547e9beed",
+      "lines": 158,
+      "read_range": "1–EOF",
+      "visual_indices": [
+        12,
+        13,
+        17,
+        18,
+        21,
+        22
+      ],
+      "visual_evidence": [
+        {
+          "indices": [
+            12,
+            13
+          ],
+          "observed": "銀を１三へ捨て、後手桂を１三に誘って退路を埋め、金２二で詰ませる図。先手金銀、玉方は残り全駒。"
+        },
+        {
+          "indices": [
+            17,
+            18
+          ],
+          "observed": "三段目の歩九枚と玉５一、先手角香四から始まる古典図。終図は香５二６二７二８二の四枚が盤上にあるのに、盤外持駒は香三と表示されている。解答手順で四枚の香を打った後の表示とは整合しない。教材へ転用しない。"
+        },
+        {
+          "indices": [
+            21,
+            22
+          ],
+          "observed": "後手玉９二・香９一・桂８一・銀８二・歩８三７三９四、先手銀７一・歩８五と持金の図。香９一を銀で取って成り、同玉後に金８二で詰ませ、持香一枚が余る実戦例を確認。"
+        }
+      ],
+      "unverified": [
+        "古典・実戦出典作品の全応手は未再現。学習効果の一般論は筆者の意見として扱い、実証事実として採用しない。"
+      ]
+    }
+  ],
+  "candidates": [
+    {
+      "source": "https://shogi-joutatsu.com/archives/875",
+      "target": "attack-kinmusou",
+      "idea": "玉側の銀を交換・移動させ、端や玉の斜め前への経路を作る目的を、独立した配置と合法な応手比較で教える。現在の金二枚の交換計算だけでは金無双固有の弱点の説明が薄い。",
+      "duplication_status": "担当範囲では未説明。全教材での重複確認は親担当。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/2375",
+      "target": "endgame-yose",
+      "idea": "守備駒を直接取るだけでなく、玉や支え駒を移動させて浮き駒を作る間接攻撃と、攻め駒が互いの利きを止める渋滞を独立した二候補の比較図で教える。",
+      "duplication_status": "担当範囲のyoseは取る順序と逃げ道準備を扱うが、支えを外す機構は未説明。全教材の重複確認待ち。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/7368",
+      "target": "endgame-tsumero",
+      "idea": "詰めろの否定例だけでなく、盤上の受け・持駒の受け・玉移動・逆王手をすべて列挙して成立する独立した必至例を一つ用意し、脅威手順は一手詰に限定されないことを明記する。",
+      "duplication_status": "担当範囲のtsumeroは一手詰の脅威と二つの受けだけを扱う。全教材での重複確認待ち。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/1854",
+      "target": "endgame-mate1",
+      "idea": "解答の王手だけでなく、成らない手・利きを遮る金銀・支えのない王手といった誤候補に合法な逃げを表示し、同じ配置で駒の役割差を比較する。図は独立して構成する。",
+      "duplication_status": "担当範囲では一手詰に具体的な失敗分岐がない。studyで成不成比較あり。全教材の重複確認待ち。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/2418",
+      "target": "endgame-tsume-study",
+      "idea": "短問で利き、分岐で応手漏れ、長めの簡明な手順で盤面更新を練習するという目的別の選び方を独立した学習記録に結び付ける。駒余りの許容は実戦練習と作品慣習を区別する。",
+      "duplication_status": "現行studyの最後に誤り別選択と駒余り区別がすでにある。新章追加より既存内容の維持・具体化候補。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/4633",
+      "target": "endgame-mate3",
+      "idea": "最後に使う金を残すための初手駒選択、捨て駒で玉を誘う仕組み、王手で歩を動かして打ち場所を空ける仕組みを独立図で扱う。現行の飛車移動中心の五題とは機構が異なる。",
+      "duplication_status": "担当範囲のmate3とtesujiでは王手の捨て駒・歩頭の桂による空間作成が未説明。全教材での重複確認待ち。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/19",
+      "target": "endgame-mate3",
+      "idea": "頭金以外の端玉の横金と、王手の合駒を移動・誘導させることで退路を変える機構を原創作図で追加検討する。無駄合を取るだけでなく、取った後に同じ詰みが残るかを全応手で確かめる。",
+      "duplication_status": "担当範囲のmate3は支えを用意する王手が中心。腹金・無駄合慣習は明示なし。全教材の重複確認待ち。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/109",
+      "target": "endgame-mate-tesuji",
+      "idea": "守り駒を王手で捕獲するだけでなく、玉・守備駒を捨て駒で動かすことで支え・退路・打ち場所を変える機構を別々の独立例で比較する。",
+      "duplication_status": "現行tesujiは守備金捕獲・逃げ先別の詰み・桂香の支え・王手で攻め駒を使う順。守備駒移動と空間作成は未説明。全教材の重複確認待ち。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/5325",
+      "target": "endgame-mate-tesuji",
+      "idea": "二つの守りの交点へ捨てて片方を他方の利きに置く焦点、成る余地を作る大駒の距離と中合いの対比、自分の駒を捨てて打ち場所を空ける機構を、原創作の配置と全応手検証で学べる候補にする。",
+      "duplication_status": "担当範囲では焦点・距離と中合い・自己邪魔駒除去は未説明。全教材の重複確認待ち。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/386",
+      "target": "endgame-tsume-study",
+      "idea": "手順を途中で外す誤りでは、駒の位置・取った駒・持駒の更新を途中局面で記録して読み直す。手数を伸ばすだけでなく、既知の短い詰みの仕組みを組み合わせて検討する。",
+      "duplication_status": "現行studyの盤面更新と最初の見落とし記録ですでに扱う。著者独自の棋力・書籍難度・学習効果断定は採用しない。"
+    }
+  ],
+  "findings": [
+    {
+      "id": "endgame-tsumero-definition",
+      "file": "data/lessons/units/endgame-tsumero.json",
+      "line": 11,
+      "severity": "中",
+      "status": "再現済み",
+      "problem": "英語の詰めろの定義は次の一手で詰ませる脅威に限定し、三手以上の詰みを狙う一般の詰めろを除外する。日本語も一手詰との混同を招く表現。",
+      "sfen": "5k3/9/1R5S1/3N5/9/9/p8/9/8K b - 1",
+      "usi": [
+        "2c2b",
+        "9g9h",
+        "8c4c+",
+        "4a5a",
+        "4c5b"
+      ],
+      "observed": "銀２三→２二は非王手。無関係な歩９七→９八後は一手詰ゼロだが、飛車８三→４三成への全合法応手は玉４一→５一のみ。龍４三→５二後は合法応手ゼロ。受けなければ三手詰という脅威が成立する。",
+      "proposed_original_correction": "受けない場合に次の手番から王手の連続で詰ませられる脅威へ定義を修正し、本講座は一手詰を狙う例を扱うと明記する。",
+      "semantic_evidence": [
+        {
+          "usi": "2c2b",
+          "legal": true,
+          "sfen": "5k3/7S1/1R7/3N5/9/9/p8/9/8K w - 1",
+          "check": false,
+          "legal_reply_count": 5
+        },
+        {
+          "usi": "9g9h",
+          "legal": true,
+          "sfen": "5k3/7S1/1R7/3N5/9/9/9/p8/8K b - 1",
+          "check": false,
+          "mate_in_one": [],
+          "legal_reply_count": 47
+        },
+        {
+          "usi": "8c4c+",
+          "legal": true,
+          "sfen": "5k3/7S1/5+R3/3N5/9/9/9/p8/8K w - 1",
+          "check": true,
+          "legal_replies": [
+            "4a5a"
+          ]
+        },
+        {
+          "usi": "4a5a",
+          "legal": true,
+          "sfen": "4k4/7S1/5+R3/3N5/9/9/9/p8/8K b - 1",
+          "check": false,
+          "legal_reply_count": 35
+        },
+        {
+          "usi": "4c5b",
+          "legal": true,
+          "sfen": "4k4/4+R2S1/9/3N5/9/9/9/p8/8K w - 1",
+          "check": true,
+          "legal_replies": []
+        }
+      ]
+    },
+    {
+      "id": "endgame-mate3-king-square-ja",
+      "file": "data/lessons/units/endgame-mate3.json",
+      "line": 69,
+      "severity": "低",
+      "status": "再現済み",
+      "problem": "日本語解説の初期玉の座標が８一になっている。初期玉は９一で、金７二は８一に利くため、８一玉への王手にならないという記述は逆。英語は９一で正しい。",
+      "sfen": "k8/1p7/1R1G5/9/9/9/9/9/8K b G 1",
+      "usi": [
+        "8c9c+",
+        "9a8a",
+        "G*7b"
+      ],
+      "observed": "玉９一→８一後の金７二打ちは合法な王手であり、本文が主張する非王手ではない。",
+      "proposed_original_correction": "日本語の初期玉の座標を９一へ修正する。",
+      "semantic_evidence": [
+        {
+          "before": "k8/1p7/1R1G5/9/9/9/9/9/8K b G 1",
+          "usi": "8c9c+",
+          "legal": true,
+          "after": "k8/1p7/+R2G5/9/9/9/9/9/8K w G 1",
+          "check": true
+        },
+        {
+          "before": "k8/1p7/+R2G5/9/9/9/9/9/8K w G 1",
+          "usi": "9a8a",
+          "legal": true,
+          "after": "1k7/1p7/+R2G5/9/9/9/9/9/8K b G 1",
+          "check": false
+        },
+        {
+          "before": "1k7/1p7/+R2G5/9/9/9/9/9/8K b G 1",
+          "usi": "G*7b",
+          "legal": true,
+          "after": "1k7/1pG6/+R2G5/9/9/9/9/9/8K w - 1",
+          "check": true
+        }
+      ]
+    }
+  ],
+  "protocol": {
+    "AGENTS.md": "1–EOF",
+    "docs/lessons.md": "1–EOF",
+    "CURRENT_TASK.md": "1–EOF",
+    "scope": "440–500の教材と指定参考資料のみ。教材変更なし。",
+    "canonical_harness": "tsshogi Position.newBySFEN/createMoveByUSI/isValidMove/doMove。自手番の盤上駒について全81着地点と成不成、持駒7種類の全81打ち場所を列挙してisValidMoveで選別。王手と応手ゼロの両方を確認。盤上の利きはsrc/app/pieces.tsx全文のseesと駒移動定義に照合。",
+    "white_image_rendering": "親担当の追加許可により、指定教学画像のみPillowで透明部分を白へ合成。原画像不変、原寸不変、切り抜きなし。出力.cache/curriculum-source/white-review/<元画像hash>.pngをnative view_imageで全体閲覧。"
+  },
+  "verification": {
+    "command": "RAYON_NUM_THREADS=1 UV_THREADPOOL_SIZE=1 bun scripts/lessons/check-unit.ts attack-kinmusou endgame-yose endgame-tsumero endgame-mate1 endgame-mate3 endgame-mate-tesuji endgame-tsume-study",
+    "exit_code": 0,
+    "observed": "指定7教材の既存検査成功。詰みの意味の証明は別に全合法手列挙で実施。ブラウザ検証なし。教材変更なし。"
+  },
+  "remaining": [
+    "親担当による2指摘の独立再現・教材修正・全教材での候補重複確認。",
+    "参照記事の全作意分岐と最善・最速・必至全応手の検証は本レビューでは未完了。文章・図は全読全閲覧済みだが、出典の全断定を正しいとは認定しない。",
+    "ブラウザ上の教材表示・ユーザー確認は実施していない。"
+  ]
+}

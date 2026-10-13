@@ -1,7 +1,10 @@
 {
   "id": "tesuji-pawn",
   "order": 190,
-  "path": ["上達のためのテクニック", "手筋"],
+  "path": [
+    "上達のためのテクニック",
+    "手筋"
+  ],
   "title": {
     "ja": "歩一枚で相手の応手を変える",
     "en": "Change the Reply with a Pawn"
@@ -45,21 +48,27 @@
           }
         },
         {
-          "moves": ["P*4g"],
+          "moves": [
+            "P*4g"
+          ],
           "text": {
             "ja": "▲４七歩。後手がそのまま歩を進める場合を見ます。別の手を選ばれれば、この交換は起こりません。",
             "en": "▲４七歩. Follow the line where Gote continues the pawn advance. Another reply would change this exchange."
           }
         },
         {
-          "moves": ["4e4f"],
+          "moves": [
+            "4e4f"
+          ],
           "text": {
             "ja": "△４六歩で二枚の歩が隣り合いました。４七の歩は前の４六へ進みながら後手の歩を取れます。",
             "en": "△４六歩 puts the pawns beside each other. The pawn on ４七 can step forward to ４六 and capture Gote's pawn."
           }
         },
         {
-          "moves": ["4g4f"],
+          "moves": [
+            "4g4f"
+          ],
           "text": {
             "ja": "▲４六歩で進んできた歩を取りました。歩を打った時点で止めたと判断せず、相手が進んだ後に取れる位置かを確認します。",
             "en": "▲４六歩 captures the advancing pawn. The drop mattered because the pawn could make this capture after Gote advanced, not merely because it occupied a nearby square."
@@ -83,21 +92,27 @@
           }
         },
         {
-          "moves": ["P*5i"],
+          "moves": [
+            "P*5i"
+          ],
           "text": {
             "ja": "▲５九歩。金はまだ５八にいますが、飛車で取る場合の代償が変わりました。後手が飛車で金を取る応手を確かめます。",
             "en": "▲５九歩 leaves the gold on ５八 and changes the cost of a rook capture. Consider the reply where Gote takes the gold with the rook."
           }
         },
         {
-          "moves": ["5a5h"],
+          "moves": [
+            "5a5h"
+          ],
           "text": {
             "ja": "△５八飛で金を取られました。５九の歩は一つ前の５八へ進んで飛車を取れます。",
             "en": "△５八飛 takes the gold. The pawn on ５九 can advance one square to ５八 and capture the rook."
           }
         },
         {
-          "moves": ["5i5h"],
+          "moves": [
+            "5i5h"
+          ],
           "text": {
             "ja": "▲５八歩で飛車を取り返しました。底歩は金を取らせない保証ではなく、飛車で取った場合の交換を変える守りです。",
             "en": "▲５八歩 recaptures the rook. The bottom pawn does not guarantee that the gold survives; it changes the exchange if the rook takes it."
@@ -121,21 +136,27 @@
           }
         },
         {
-          "moves": ["P*6d"],
+          "moves": [
+            "P*6d"
+          ],
           "text": {
             "ja": "▲６四歩で次の６三歩成を狙います。ここでは後手が桂を５四へ跳ねる応手を見ます。",
             "en": "▲６四歩 threatens ６三歩成 next turn. In this line, Gote responds by jumping the knight to ５四."
           }
         },
         {
-          "moves": ["6b5d"],
+          "moves": [
+            "6b5d"
+          ],
           "text": {
             "ja": "△５四桂。桂は６二から離れましたが、６三へ進む歩を取る位置には来ていません。",
             "en": "△５四桂 moves the knight away from ６二. It does not land where it can capture the pawn's advance to ６三."
           }
         },
         {
-          "moves": ["6d6c+"],
+          "moves": [
+            "6d6c+"
+          ],
           "text": {
             "ja": "▲６三歩成でと金を作りました。相手が別の守り方を選べば成れない可能性もあるため、実戦では歩を打つ前にその応手も調べます。",
             "en": "▲６三歩成 makes a tokin. Another defensive reply might prevent this promotion, so in a game you must examine those replies before choosing the drop."
@@ -145,8 +166,8 @@
     },
     {
       "title": {
-        "ja": "銀を動かして角の道を開く",
-        "en": "Move the silver off the bishop's line"
+        "ja": "叩きの歩で銀を動かす",
+        "en": "Displace the silver with a tapping pawn"
       },
       "side": "sente",
       "kind": "position",
@@ -159,21 +180,27 @@
           }
         },
         {
-          "moves": ["P*6e"],
+          "moves": [
+            "P*6e"
+          ],
           "text": {
-            "ja": "▲６五歩。銀がこの歩を取る応手では、６四が空きます。別の応手なら角の道が開くとは限りません。",
-            "en": "▲６五歩 attacks the silver. If the silver captures this pawn, ６四 becomes empty. Other replies do not necessarily open the bishop's path."
+            "ja": "▲６五歩。銀がこの歩を取る応手では、６四が空きます。別の応手なら角の道が開くとは限りません。 相手の駒の前へ歩を打って応手を問う、叩きの歩の例。",
+            "en": "▲６五歩 attacks the silver. If the silver captures this pawn, ６四 becomes empty. Other replies do not necessarily open the bishop's path. This is a tapping pawn: a drop immediately in front of a piece that asks it to respond."
           }
         },
         {
-          "moves": ["6d6e"],
+          "moves": [
+            "6d6e"
+          ],
           "text": {
             "ja": "△６五銀で歩を取られました。角から４六、５五、６四、７三へ続く斜めの道にはもう銀がいません。",
             "en": "△６五銀 captures the pawn. The diagonal from the bishop through ４六, ５五, and ６四 to ７三 is now clear."
           }
         },
         {
-          "moves": ["3g7c+"],
+          "moves": [
+            "3g7c+"
+          ],
           "text": {
             "ja": "▲７三角成で飛車を取って馬になりました。歩で銀を取るのが目的ではなく、銀が動いた後の角の利きを利用する順番でした。",
             "en": "▲７三角成 captures the rook and promotes the bishop. The purpose of the pawn was not to win the silver; it was to use the bishop's line after the silver moved."
@@ -197,35 +224,45 @@
           }
         },
         {
-          "moves": ["P*6c"],
+          "moves": [
+            "P*6c"
+          ],
           "text": {
             "ja": "▲６三歩。金が６三の歩を取ると、金は角の斜めの道へ近づきます。",
             "en": "▲６三歩 threatens promotion. If the gold takes it on ６三, the gold moves closer to the bishop's diagonal."
           }
         },
         {
-          "moves": ["5b6c"],
+          "moves": [
+            "5b6c"
+          ],
           "text": {
             "ja": "△６三金で一枚目の歩を取られました。二枚目を６四へ打つ前に、６四の歩を金が取った後の配置を読みます。",
             "en": "△６三金 captures the first pawn. Before using the second pawn on ６四, calculate where the gold will stand if it takes that one too."
           }
         },
         {
-          "moves": ["P*6d"],
+          "moves": [
+            "P*6d"
+          ],
           "text": {
             "ja": "▲６四歩で金６三を攻めます。金が歩を取るなら６四へ進み、角３七から４六、５五を経て金へ利きが届きます。",
             "en": "▲６四歩 attacks the gold on ６三. If the gold captures it, the gold moves to ６四, which the bishop on ３七 reaches through ４六 and ５五."
           }
         },
         {
-          "moves": ["6c6d"],
+          "moves": [
+            "6c6d"
+          ],
           "text": {
             "ja": "△６四金で二枚目も取られました。金は角筋の６四にいるため、次は角で取れます。",
             "en": "△６四金 captures the second pawn. The gold now stands on ６四, directly on the bishop's diagonal."
           }
         },
         {
-          "moves": ["3g6d"],
+          "moves": [
+            "3g6d"
+          ],
           "text": {
             "ja": "▲６四角で金を取りました。二枚の歩を使っても、金がどちらかを取らずに別の場所へ逃げればこの捕獲は成立しません。歩を打つたびに相手の選択を読み直します。",
             "en": "▲６四角 captures the gold. The result depends on Gote taking both pawns; if the gold declines either one or moves elsewhere, this capture does not follow. Recalculate the defender's choices after every drop."

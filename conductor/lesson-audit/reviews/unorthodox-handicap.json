@@ -1,0 +1,2351 @@
+{
+  "scope": "注文1310–1460の16単位と17宣言参考資料のみ。改稿なし。",
+  "status": "担当範囲の全文・教示図・合法性・局所意味監査完了。根の独立確認と全体品質判断は未完了。",
+  "rules_read": [
+    "AGENTS.md 1–EOF",
+    "docs/lessons.md 1–EOF",
+    "scripts/lessons/unit.ts 1–EOF",
+    "src/app/pieces.tsx 1–EOF"
+  ],
+  "units": [
+    {
+      "id": "aifuri-vs-ishida",
+      "path": "data/lessons/units/aifuri-vs-ishida.json",
+      "sha256": "13e756a34d68887ba8768c034e30f2fda510dedc5d3cc65711ec9f80c7322237",
+      "lines": 136,
+      "read_range": "1–136 EOF",
+      "semantic_evidence": [
+        "全文と日英の3章と変化を読了。buildUnit合法性合格。6e角の7f飛と4g金への斜線、5f角の任意交換、4筋交換後5f角で4e飛を追う手順、5e角を防ぐ4b飛と8c金を確認。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "aifuri-hidari-anaguma",
+      "path": "data/lessons/units/aifuri-hidari-anaguma.json",
+      "semantic_evidence": [
+        "全文と日英の3章を読了。buildUnit合法性合格。左穴熊9i玉と9h香と8h銀と7h金、浮き飛車5fから3fの横再捕獲を確認。章3の4d後手歩が3d飛と5d飛の間を遮るため、5d飛への即時の飛車再捕獲はない。"
+      ],
+      "findings": [],
+      "sha256": "d7efbf5b12dbdb0ab52f3665d402c44115482a0dbfce69d50fa24f92a644039d",
+      "lines": 124,
+      "read_range": "1–124 EOF"
+    },
+    {
+      "id": "kishu-onigoroshi",
+      "path": "data/lessons/units/kishu-onigoroshi.json",
+      "semantic_evidence": [
+        "全文と日英の3章を読了。buildUnit合法性合格。6d銀は6e桂を前へ攻め5cと7cを斜め後ろに守る。5b飛の5c再捕獲、7c歩だけを動かすと5c歩が取られる対比は正確。"
+      ],
+      "findings": [],
+      "sha256": "3dde4d3a6dcbcf6fe459c8adcbde2c732e71a9950e9da0b3450ac40f58ceddf1",
+      "lines": 124,
+      "read_range": "1–124 EOF"
+    },
+    {
+      "id": "kishu-sujichigai",
+      "path": "data/lessons/units/kishu-sujichigai.json",
+      "semantic_evidence": [
+        "全文と日英の3章を読了。buildUnit合法性合格。6c歩が4e角から7b飛への斜線を遮ること、7a飛へ移動後7b成角を捕獲できること、3c桂の4e角攻撃と5c歩の5d角捕獲、6b金の7b保護を確認。"
+      ],
+      "findings": [],
+      "sha256": "15d30ee1d4e1646b4275b953e3cd3d1722eea24a26d226571baafac0dd5b5bff",
+      "lines": 126,
+      "read_range": "1–126 EOF"
+    },
+    {
+      "id": "kishu-pacman",
+      "path": "data/lessons/units/kishu-pacman.json",
+      "semantic_evidence": [
+        "全文と日英の3章と変化を読了。buildUnit合法性合格。4d角から2b飛への斜線と2d飛による角攻撃、5b金の5c保護、5c銀の4d保護、4d歩から4e歩へ進んだ後も4d升が守られる点を確認。"
+      ],
+      "findings": [],
+      "sha256": "04ac19b7625eb26cf8bc084c2402d177c3f4de6f0491971102a7e4d050e4e59e",
+      "lines": 137,
+      "read_range": "1–137 EOF"
+    },
+    {
+      "id": "kishu-ahiru",
+      "path": "data/lessons/units/kishu-ahiru.json",
+      "sha256": "60d389ac7a8e6061da8f93c577003a6f37a275e23b2bd59fae853db31393732f",
+      "lines": 148,
+      "read_range": "1-148 EOF",
+      "semantic_evidence": [
+        "日英・全章・全変化の全文読了。buildUnit全線合法。6b角から2f飛への斜線、5筋交換後5e飛から5h玉の王手、4b金から3c龍への再捕獲。第二章分岐は交換後なのに交換拒否を説明。"
+      ],
+      "findings": [
+        "kishu-ahiru-ch2-wrong-variation-anchor"
+      ]
+    },
+    {
+      "id": "kishu-migishiken-hidarimino",
+      "path": "data/lessons/units/kishu-migishiken-hidarimino.json",
+      "sha256": "d4b8ce58b8b97277a87e8a1bf16d4740a5b1fc6fc01a7060e5e0d7ca69af0ab0",
+      "lines": 145,
+      "read_range": "1-145 EOF",
+      "semantic_evidence": [
+        "日英・全章・全変化の全文読了。buildUnit全線合法。4e飛を5f銀と3g桂が守る。7g角移動後5e角打ちの8h玉王手、7g銀合いと玉再捕獲。4e桂の3c成りを4d銀は再捕獲でき6d銀では届かない。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "ureshino-basics",
+      "path": "data/lessons/units/ureshino-basics.json",
+      "sha256": "83e65dcb5bbb8881fbd2f55d23b49bdfa070b28864b78c664dad39b895b1cb62",
+      "lines": 143,
+      "read_range": "1-143 EOF",
+      "semantic_evidence": [
+        "日英・全章・全変化の全文読了。buildUnit全線合法。7g角の8f飛捕獲、7i角の5g銀遮断と6f銀での開通、6h銀移動後9e角打ちが5i玉へ通る。4h玉先行分岐では王手でない。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "ureshino-new",
+      "path": "data/lessons/units/ureshino-new.json",
+      "sha256": "0fd3f61054bf91cdbe7bc4c40cc5550af3ae83b5e0d9c9cb5ae7de2576218265",
+      "lines": 151,
+      "read_range": "1-151 EOF",
+      "semantic_evidence": [
+        "日英・全章・全変化の全文読了。buildUnit全線合法。5g銀は5fを守り5eを守らない。7i角は6f銀を取った角を再捕獲できない。7e銀の8d歩取りは8b飛が銀を捕獲する。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "ureshino-vs-bougin",
+      "path": "data/lessons/units/ureshino-vs-bougin.json",
+      "sha256": "b51a14faf7e2f65786b862f62fdaec78cb872fb4bd6d95e31a819315d4a36477",
+      "lines": 129,
+      "read_range": "1-129 EOF",
+      "semantic_evidence": [
+        "日英・全章・全変化の全文読了。buildUnit全線合法。8fでの飛銀交換、8b飛の銀再捕獲、7g角で飛を追う線。7f歩打ちは7e銀を攻めるが8d退路あり、6f銀なら7g銀が捕獲可能。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "ureshino-vs-shiken",
+      "path": "data/lessons/units/ureshino-vs-shiken.json",
+      "sha256": "ac1125bb661f832fb6e900b1af234ae80537f3a0cae1be66b88cf467cdd71e7a",
+      "lines": 158,
+      "read_range": "1-158 EOF",
+      "semantic_evidence": [
+        "日英・全章・全変化の全文読了。buildUnit全線合法。4h飛の4f再捕獲。4d歩移動後7g角と3c角の交換を2b銀が再捕獲。7g歩の有無で6f銀を取った角への再捕獲が変わる。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "ureshino-counter",
+      "path": "data/lessons/units/ureshino-counter.json",
+      "sha256": "3b94eab49d9222ecbc697bf208b900a10764a325161d6473e2fcc146d5943109",
+      "lines": 146,
+      "read_range": "1-146 EOF",
+      "semantic_evidence": [
+        "日英・全章・全変化の全文読了。buildUnit全線合法。2h玉と3h銀で美濃芯。7f飛を6g銀が取る分岐。6d銀は7e飛を攻める。6筋交換後5e角が8b飛を狙い、6d銀合いを取ると3a角が再捕獲。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "handicap-8",
+      "path": "data/lessons/units/handicap-8.json",
+      "sha256": "8f76ea5b385d1044c66aede9e746a146a18353a9e4a56726cb0321d020548fb3",
+      "lines": 151,
+      "read_range": "1-151 EOF",
+      "semantic_evidence": [
+        "日英・全章・全変化の全文読了。buildUnit全線合法。八枚落ち構成と上手先着。8c歩成に7b金が取ると8e飛が空いた8d経由で金を取って成れる。3c馬を3b金と5d歩が追う。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "handicap-6",
+      "path": "data/lessons/units/handicap-6.json",
+      "sha256": "3a7b87def5e43041904bd79512518117a29966db361d6e12684efa9763a028b8",
+      "lines": 163,
+      "read_range": "1-163 EOF",
+      "semantic_evidence": [
+        "日英・全章・全変化の全文読了。buildUnit全線合法。六枚落ち構成と上手先着。2b銀の1c守備、1c銀から2dで1e飛攻撃。3c歩移動で5e角が2b銀を取って成れる。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "handicap-4",
+      "path": "data/lessons/units/handicap-4.json",
+      "sha256": "35fd4ec2145545de04770f3a100ad7ddc9b3ac9297c520508cb92c830190c20e",
+      "lines": 163,
+      "read_range": "1-163 EOF",
+      "semantic_evidence": [
+        "日英・全章・全変化の全文読了。buildUnit全線合法。四枚落ち構成と上手先着。9cは8b銀と8a桂が守る。3c桂への4b金再捕獲。4筋交換後4d飛は未成。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "handicap-2",
+      "path": "data/lessons/units/handicap-2.json",
+      "sha256": "02aa57fc83e9912021d82cd4d89491e73b4706065c44c2cdc669d68376ce099e",
+      "lines": 149,
+      "read_range": "1-149 EOF",
+      "semantic_evidence": [
+        "日英・全章・全変化の全文読了。buildUnit全線合法。二枚落ち構成と上手先着。3f銀は3eを守り3dを守らない。5f銀は4e桂を取れ4g銀は届かない。9筋交換で上手香が下手香を捕獲。"
+      ],
+      "findings": []
+    }
+  ],
+  "references": [
+    {
+      "url": "https://shogi-joutatsu.com/archives/362",
+      "cache": ".cache/curriculum-source/362.txt",
+      "sha256": "7dc89dc8cb547a2e92c69e834ff6468530494af6f09a1b6e4c8b4dbef8fcde15",
+      "lines": 151,
+      "read_range": "1–151 EOF",
+      "visual_indices": [
+        14,
+        16,
+        17,
+        20,
+        21,
+        24,
+        25,
+        26,
+        27,
+        30,
+        31,
+        32,
+        35,
+        38
+      ],
+      "visual_evidence": [
+        "14図を白背景原寸全領域で直接確認。反転盤の筋段と手駒を照合。角交換後4b飛が4c歩を守る役割、銀2b/8bで角打ちを防いだ後2b向かい飛車へ移る手順、5d角と4e角の捕獲対象、7筋交換後8h角打ちを確認。相振り飛車での飛車位置の優劣は本文自身が時代と条件で限定。"
+      ],
+      "unverified": [
+        "角打ちの優勢評価や一概の戦型序列は独立検証未実施。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/6154",
+      "cache": ".cache/curriculum-source/6154.txt",
+      "visual_indices": [
+        12,
+        14,
+        17,
+        20,
+        21,
+        23,
+        24,
+        26,
+        27
+      ],
+      "visual_evidence": [
+        "9図を白背景原寸全領域で直接確認。5f飛が3fを横から守る配置、左9i穴熊、2f飛の2c侵入狙いに2d歩を使わせ相手飛車を制限する原理、銀6fと金7h/7iの連絡を確認。本文に9i玉が欠落し記載された8h玉のまま8h銀は指せないが図は9i玉。"
+      ],
+      "unverified": [
+        "中飛車一般不利や駒損して攻め合える評価は独立検証未実施。"
+      ],
+      "sha256": "6e4344105cc4f0d823605f7ac637d5af33de8f25255bb5bfb3ce742c3b873120",
+      "lines": 109,
+      "read_range": "1–109 EOF"
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/2807",
+      "cache": ".cache/curriculum-source/2807.txt",
+      "visual_indices": [
+        13,
+        15,
+        18,
+        19,
+        23,
+        25,
+        26,
+        32,
+        34,
+        35,
+        37,
+        38,
+        41,
+        42
+      ],
+      "visual_evidence": [
+        "14図を白背景原寸全領域で直接確認。3手目7g桂から6e桂、6b銀と6b金の差、角交換後5e角の2b銀と6d歩への両狙い、6c金が6d歩と5cを守り同時に8b飛の2b銀への横利きを開ける対策を確認。反転盤の筋段と駒の上下を照合。"
+      ],
+      "unverified": [
+        "各攻めの優勢評価と全応手は未エンジン検証。"
+      ],
+      "sha256": "2c228158008e910de1ee6778616be06e451937135ba1d08be6515e88945a17e5",
+      "lines": 171,
+      "read_range": "1–171 EOF"
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/5001",
+      "cache": ".cache/curriculum-source/5001.txt",
+      "visual_indices": [
+        14,
+        17,
+        18,
+        20,
+        21,
+        23,
+        25,
+        26,
+        27,
+        29,
+        31,
+        34
+      ],
+      "visual_evidence": [
+        "12図を白背景原寸全領域で直接確認。交換後4e角、6b銀で6c馬作りを防ぎ3b金で4cを守る配置、腰掛け銀と4筋位、6b飛から4b飛への転換、8b銀と相手の飛車位置に応じた囲い選択、3c桂で4e歩を守る構成を確認。最後の本文4角成には段数が欠落。"
+      ],
+      "unverified": [
+        "4筋位や角温存による指しやすさはエンジン評価未検証。"
+      ],
+      "sha256": "c4b259d43075f14f486b209331aeba77e5338b9b28ab7cf4d8a96fcd34f849ee",
+      "lines": 152,
+      "read_range": "1–152 EOF"
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/2840",
+      "cache": ".cache/curriculum-source/2840.txt",
+      "visual_indices": [
+        13,
+        16,
+        17,
+        21,
+        22,
+        24,
+        25,
+        27,
+        30
+      ],
+      "visual_evidence": [
+        "9図を白背景原寸全領域で直接確認。2手目4d歩の誘い、4b飛で4d角を追ってから3d歩で角を使う順、馬飛交換後9e角の王手、玉や合駒が2h飛の8h銀への横利きを遮る仕組み、7g飛打ちによる受けを確認。本文5c角は図の5c馬に対応する成の省略。"
+      ],
+      "unverified": [
+        "最善の受けや勝勢判断は独立エンジン検証未実施。"
+      ],
+      "sha256": "f3bb69835d812b59b7c2217a96a4712fcb7d5e8f62998aaecfc557ce9830a45b",
+      "lines": 138,
+      "read_range": "1–138 EOF"
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/5283",
+      "cache": ".cache/curriculum-source/5283.txt",
+      "sha256": "4ccd1bdbbf116bd42e21f5a528d2c5ca867b2781fbc123545035396a28263fda",
+      "lines": 112,
+      "read_range": "1-112 EOF",
+      "visual_indices": [
+        2,
+        4,
+        11,
+        13,
+        15,
+        16,
+        18,
+        19,
+        21,
+        23,
+        24,
+        25
+      ],
+      "visual_evidence": [
+        "原寸白背景の全盤・筋段・手駒を直接確認。反転盤の座標・手駒確認。4d角で2f飛を攻め、2h退避には3c銀から逆棒銀、3f横逃げには2d歩と3c銀で陣形前進。8d銀の7f飛と8f角両狙い。6f角交換で飛の横利きを除き9筋香を走る。本文3b金は図3h金と不一致。"
+      ],
+      "visual_assets": [
+        {
+          "index": 2,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/ec8e13703b0cba3d45ddb446091afd8ad71fea60a30a68527d67e1295d2d97c2.png",
+          "white": ".cache/curriculum-source/white-review/hl-5283-2.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "4a09caf143aa13292dacb8714d9fefb04c15e4e8e4ff5beca80d51e1099092c0"
+        },
+        {
+          "index": 4,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/f7b83c478858e465737ff36319e99bdca5fb71ff9a4e33f4f72105704a746497.png",
+          "white": ".cache/curriculum-source/white-review/hl-5283-4.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "1f1deec042846a6bcac0375f4f2fce778a2ec9e76082e95d1d6ab07c8199b245"
+        },
+        {
+          "index": 11,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/98831ff8083aabdbffce39ea240f4bbae3053d3c82ea506a69fb98e4dc1e6d5c.png",
+          "white": ".cache/curriculum-source/white-review/hl-5283-11.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "32a4cc51e428531b02563881e480f88d428b8136d7128af3040f2536bc57a775"
+        },
+        {
+          "index": 13,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/c14c1ab293ac330df17d3d7b0e6aa1304aee8b356bb4e4b212dcdb93a1c5f01c.png",
+          "white": ".cache/curriculum-source/white-review/hl-5283-13.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "3c6cf09d129e174b193cb3a527e27c10ed2f7e4c6d1135e399c36e4d6fe63eb8"
+        },
+        {
+          "index": 15,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/3bace6f4aedbb3077f062578f02079e0ca341f8770ada75baa0675abd647075b.png",
+          "white": ".cache/curriculum-source/white-review/hl-5283-15.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "97ba7b7147bd992c8ce5f8186101f9a7d437d1c3a45c6158433aadb658468073"
+        },
+        {
+          "index": 16,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/3fc88bf951d8ff3f252e840530f7aa24942ec80c1b6e6e7e9807506987f26f4f.png",
+          "white": ".cache/curriculum-source/white-review/hl-5283-16.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "01cb1b1335c08823c8c08e3c14a718ea51a2dfd1957f6af1ad568f15431a7a51"
+        },
+        {
+          "index": 18,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/718fe1a0cdc25e6afedf29ccc9f7789d9a6047110c7cc8d4ef0bb0e59c7b1dff.png",
+          "white": ".cache/curriculum-source/white-review/hl-5283-18.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "32212a605367aafea60825b40d620cbf3e80dcc253b89b1deb9a3f4f63e6762c"
+        },
+        {
+          "index": 19,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/8a6a59881d91225ab0e7a50ccb9642f4bd4e6edff6987e50bf488e33a5297ca5.png",
+          "white": ".cache/curriculum-source/white-review/hl-5283-19.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "d40efc191788bdaa5471ae4716dba7b44788ba9bf91f2c4b1e844b08bd18eae8"
+        },
+        {
+          "index": 21,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/3bd7348eb4c779e65c975b6640107fcc79c7bf62e343b25af215fc95abb289be.png",
+          "white": ".cache/curriculum-source/white-review/hl-5283-21.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "6b6b5533a7561fb8bd1e57f9be0dd79f8f866f568a064eff6024cfde74057a51"
+        },
+        {
+          "index": 23,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/b7136cdce580a767a893c03bf5ee5a4f595a3b8254d20b9691c1c6c0887825fc.png",
+          "white": ".cache/curriculum-source/white-review/hl-5283-23.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "28b6b5c5f62f3d6bcd0f052757f1f1ebddfbd9d46d38626a4064d96ea3739871"
+        },
+        {
+          "index": 24,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/c2d1c6f9554f4d2d65b043b81352a00b524c4dc507f08f274c696fcf3a693522.png",
+          "white": ".cache/curriculum-source/white-review/hl-5283-24.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "c8f736652cb257ce65a23c8ba7abc535c74b67f6df231dccbcdc6a8656f99001"
+        },
+        {
+          "index": 25,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/7708f004d91316d4742301411427a2feea569579f5890e66091adcd6d279e799.png",
+          "white": ".cache/curriculum-source/white-review/hl-5283-25.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "cd90851b566631cef7d72499ba96f6718560c7edd8bab9c5b337ee972e15ce18"
+        }
+      ],
+      "unverified": [
+        "最善応手・形勢評価は独立エンジン検証未実施。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/4961",
+      "cache": ".cache/curriculum-source/4961.txt",
+      "sha256": "0623b86edac472e23cf0d312edf1f75e01f2dc9aae95602de2ce0f6618592dcc",
+      "lines": 193,
+      "read_range": "1-193 EOF",
+      "visual_indices": [
+        14,
+        15,
+        19,
+        22,
+        24,
+        25,
+        26,
+        28,
+        29,
+        31,
+        33,
+        37,
+        38,
+        39,
+        41,
+        42,
+        43,
+        44
+      ],
+      "visual_evidence": [
+        "原寸白背景の全盤・筋段・手駒を直接確認。5f銀・3g桂・4h飛が4eを支え、2f歩で2e桂を残す構想。対矢倉で3c銀を退かし4筋歩のピンと4d角王手を使う。対四間で1f歩が1e角を抑え、角2d/2b退避で継続が分岐。本文に桂の手番など誤記あり。"
+      ],
+      "visual_assets": [
+        {
+          "index": 14,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/e22317165a75f59606f870cb1d5e8e81c3892828cb81358a55317278269e458c.png",
+          "white": ".cache/curriculum-source/white-review/hl-4961-14.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "a025af4d4ed887eb0a2411f24216abeacfe52d504dff731b8c8ff6784215cf53"
+        },
+        {
+          "index": 15,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/2ba3201e0827fca1dcbd228ca54aa8609c10b9c9159ea9236a41e7464cfc56a2.png",
+          "white": ".cache/curriculum-source/white-review/hl-4961-15.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "be38d4092e4ffeb56010109034507f44ee79f1fc66e6bd557bd8e3ec9666308a"
+        },
+        {
+          "index": 19,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/12c1a348906b9f36e3598d20429f80794bf41568b4a39a087c716793a8744dda.png",
+          "white": ".cache/curriculum-source/white-review/hl-4961-19.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "c2df996b3b2e7cf97e8162641d05a8f05a32a109e7c13ca4d8ddd519a299e58d"
+        },
+        {
+          "index": 22,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/c20c5723344d3feeaaed4ba329c8c1a55f900ca17741db341b5bd9ac24eb310d.png",
+          "white": ".cache/curriculum-source/white-review/hl-4961-22.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "4d5a5f817385eb0eadc747f9f42d0c79c2bc54086ddbdbff1b9976f50bcb537a"
+        },
+        {
+          "index": 24,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/7a73bd24c745d13df3c3ada81f8b9697739b5ad1296cf977f37dd466131f60c2.png",
+          "white": ".cache/curriculum-source/white-review/hl-4961-24.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "5d7b3a125596fca910a5a9a69aea9bd13e1ca09046901058de398cfb08f8f1a2"
+        },
+        {
+          "index": 25,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/69c6f6deacd974181e421661d5b0a0f35a5d054a2729b57cc9a97254a75a9436.png",
+          "white": ".cache/curriculum-source/white-review/hl-4961-25.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "2689d5f723195b3a887f4d8a204f2f31eb1b68012d07fa365040f61e6673e029"
+        },
+        {
+          "index": 26,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/8cc52038752946656c95d94b2c28c29d05ac41b2d5a5d19ec98a78e1b94d3ee3.png",
+          "white": ".cache/curriculum-source/white-review/hl-4961-26.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "5bb05cf336f8b76909e3300a7740201de7e090b64b1a2ecb0855ba116efdaeb2"
+        },
+        {
+          "index": 28,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/a20b0007ae6836ed527c50dab3941f5646b502249552b2fca279fb8c3c081129.png",
+          "white": ".cache/curriculum-source/white-review/hl-4961-28.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "7b73aa7b8379208166529b7613f4859ed521c37c8a5488903b2597fd54a3bdf2"
+        },
+        {
+          "index": 29,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/5df58776cfb880e40f3ecb534a326af57ea440ead5ffea857f9c10188d65830b.png",
+          "white": ".cache/curriculum-source/white-review/hl-4961-29.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "a7d4ec5ceed55a86e8c4443fe1d62d25042dd89905176a90f2a1173aabb5713a"
+        },
+        {
+          "index": 31,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/3d466df511c8ab653d2fd89bdc5df23037225829ac700b5adc9ef038e872723a.png",
+          "white": ".cache/curriculum-source/white-review/hl-4961-31.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "2c7e0738d43ab10ff401bcd866db4498091a4b2d16ec7fccef0d88fd8d27767b"
+        },
+        {
+          "index": 33,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/8d4c24dcf6b046b324cc405039ea8693b977cdc91937a729c9500d4d9fd7e993.png",
+          "white": ".cache/curriculum-source/white-review/hl-4961-33.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "12c322b5ece6b0808b1c5b350d4300780c4491b6e955993c7846be1d3bc8c42b"
+        },
+        {
+          "index": 37,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/cbf2cf9f5da259956724b71c61e6ea15abe03abad93497c83b3b814be7d8cdc1.png",
+          "white": ".cache/curriculum-source/white-review/hl-4961-37.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "79684fa90c2a8a70a875bfafc093833c1cacc83c34ea2984d6e382e934373957"
+        },
+        {
+          "index": 38,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/853204f7f4a21288a770b8a19e363000d1d59265bf2dfa012503135a2969f1e0.png",
+          "white": ".cache/curriculum-source/white-review/hl-4961-38.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "46ee90b3a1c1ab71dd0d2cb698de8afe944c3e45d0d0919b57c9f50f8c9b6e84"
+        },
+        {
+          "index": 39,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/9e27093cb522c733d8d31de817396878ac82d7c533e086a9dbaf59f3a0494d34.png",
+          "white": ".cache/curriculum-source/white-review/hl-4961-39.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "e6ab31c1842e8ca424b9d22346b981ac3651df56daf34fab9a414281291a7905"
+        },
+        {
+          "index": 41,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/10091b748e4c75c550aaa9bc65ce3ac9b61e84cda05c4466d1407975ebf10bdc.png",
+          "white": ".cache/curriculum-source/white-review/hl-4961-41.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "fb1ad1df9272b8344a1dc92ec6c539ab69632760d5fca12d22ebd635d83dc7c9"
+        },
+        {
+          "index": 42,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/5d5f11a17e1c3cc0ce74c53f241e16befd1d266c5da67a679b879135a04c4773.png",
+          "white": ".cache/curriculum-source/white-review/hl-4961-42.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "0ea01e0e1053137eacea96174278e800c2706c35f5ee85b800f7e848850dd5a2"
+        },
+        {
+          "index": 43,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/3c08ae89b95e93b729c944d6ede4a6386c5a442f993decdb783afe5f453d594b.png",
+          "white": ".cache/curriculum-source/white-review/hl-4961-43.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "1ebfb79ba6bb8ed063167224a68438e7f43f95a7b277e5c5edffc74fbd05352c"
+        },
+        {
+          "index": 44,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/974dadd2f21de383767bc1a6800e26016f78b3f970e88cb7c17ffca78eae2d48.png",
+          "white": ".cache/curriculum-source/white-review/hl-4961-44.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "aab4b123dd9dccec0f73296543ce9bf5311f5aa160bb5ade8418fd70f7fb7665"
+        }
+      ],
+      "unverified": [
+        "最善応手・形勢評価は独立エンジン検証未実施。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/5608",
+      "cache": ".cache/curriculum-source/5608.txt",
+      "sha256": "20285ddc4b3ca9c4ed772f16610b284f425abb0bcd84760f11e93ce06a5abda2",
+      "lines": 84,
+      "read_range": "1-84 EOF",
+      "visual_indices": [
+        2,
+        14,
+        16,
+        18,
+        20
+      ],
+      "visual_evidence": [
+        "原寸白背景の全盤・筋段・手駒を直接確認。6h銀初手を重複掲載する図、5g銀と未退避8h角の新形、棒銀相手6e銀、鳥刺しの引き角を確認。各記事への入口。"
+      ],
+      "visual_assets": [
+        {
+          "index": 2,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/fa2f95e448a2f39537e440a5a08b0222295af01f7d921562814896f42c3aceac.png",
+          "white": ".cache/curriculum-source/white-review/hl-5608-2.png",
+          "dimensions": [
+            722,
+            621
+          ],
+          "sha256": "a2482a44285c02e266ee3a7ef4e385fc06f16bf537d42d2f1a17766beb371d9a"
+        },
+        {
+          "index": 14,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/fa2f95e448a2f39537e440a5a08b0222295af01f7d921562814896f42c3aceac.png",
+          "white": ".cache/curriculum-source/white-review/hl-5608-14.png",
+          "dimensions": [
+            722,
+            621
+          ],
+          "sha256": "a2482a44285c02e266ee3a7ef4e385fc06f16bf537d42d2f1a17766beb371d9a"
+        },
+        {
+          "index": 16,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/ba55fc8fde98e58f83acbe7e580b525e614750a37e3e72cfc683012fc4e04e18.png",
+          "white": ".cache/curriculum-source/white-review/hl-5608-16.png",
+          "dimensions": [
+            722,
+            621
+          ],
+          "sha256": "1e3ee37ae43e944a342bf798726bc5c9c295d46b84b668f65d2e6148e25c2a9a"
+        },
+        {
+          "index": 18,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/3b8db1795a7430d7c504ba83caf16d07b4a5ab1988e531f0707d50fc9b647025.png",
+          "white": ".cache/curriculum-source/white-review/hl-5608-18.png",
+          "dimensions": [
+            722,
+            621
+          ],
+          "sha256": "a528d68dafed7d701b4c369101d0188afc7b61c90e2bb89b886c0cc42a6023e5"
+        },
+        {
+          "index": 20,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/a86dbc534c62633b24a54d9520019481e10906b149f969e10e35236f00fcf584.png",
+          "white": ".cache/curriculum-source/white-review/hl-5608-20.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "9525f3c1bdf6e92334afa06b75d1dced608e36e6e7865ab605c7106eb5af9b20"
+        }
+      ],
+      "unverified": [
+        "最善応手・形勢評価は独立エンジン検証未実施。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/5519",
+      "cache": ".cache/curriculum-source/5519.txt",
+      "sha256": "8a56bb84757fd6f64d72b4b7e06344b8510f5d1194b209fe95b6498aa56a167f",
+      "lines": 114,
+      "read_range": "1-114 EOF",
+      "visual_indices": [
+        12,
+        14,
+        15,
+        17,
+        18,
+        20,
+        21,
+        23,
+        24,
+        25
+      ],
+      "visual_evidence": [
+        "原寸白背景の全盤・筋段・手駒を直接確認。6h銀初手、7i引き角、8h歩打ち、6i玉、5g銀から4f銀の斜め棒銀、2d銀交換と3d横歩取り。本文6i角は図7i角と不一致。手歩と手銀の増加確認。"
+      ],
+      "visual_assets": [
+        {
+          "index": 12,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/fa2f95e448a2f39537e440a5a08b0222295af01f7d921562814896f42c3aceac.png",
+          "white": ".cache/curriculum-source/white-review/hl-5519-12.png",
+          "dimensions": [
+            722,
+            621
+          ],
+          "sha256": "a2482a44285c02e266ee3a7ef4e385fc06f16bf537d42d2f1a17766beb371d9a"
+        },
+        {
+          "index": 14,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/fe2acef4cb10f75733fc42d6ac543e1478f1c6964f8dfd3212e0c77041fb880c.png",
+          "white": ".cache/curriculum-source/white-review/hl-5519-14.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "4773f64739531bb9ea771132217a5621693ab387becf83f94c126d7164b96220"
+        },
+        {
+          "index": 15,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/02752acd96ae0517b99300241ada1de5157a8d92800e54b962e5850b3af6b674.png",
+          "white": ".cache/curriculum-source/white-review/hl-5519-15.png",
+          "dimensions": [
+            722,
+            621
+          ],
+          "sha256": "7137e22078ca0568328b31d91f2d261398b21c1c3b93b23e96f4b587575abe19"
+        },
+        {
+          "index": 17,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/370e05140e4d18ad8365e5d966943dac90d930f93fe83e23f7e941f7a5c5e2b6.png",
+          "white": ".cache/curriculum-source/white-review/hl-5519-17.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "7bb42d91fe32a60316517e9e4b147b464894ba41e6c438f958bb87437923d6cf"
+        },
+        {
+          "index": 18,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/a6641ed0690e84a2487cc6c1def12f654798e93455e0097224cee743c9107b67.png",
+          "white": ".cache/curriculum-source/white-review/hl-5519-18.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "f2bf182020f46923a17bccf02203edbf29119c7a26d213e88bbc7f141bcc40a4"
+        },
+        {
+          "index": 20,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/5d2e36d4f9b500a7ab83e4cebe8fcee1a6122968db1565f0a91659435b4c6037.png",
+          "white": ".cache/curriculum-source/white-review/hl-5519-20.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "c7844df197e8ccdf0168894b9abe63ff98415e19eb2a238a709ff1910c7b7fe3"
+        },
+        {
+          "index": 21,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/90b0cd3591587e3daa8c96e2e890943f8f0bfb57059533f10f3a9772be6ad1e7.png",
+          "white": ".cache/curriculum-source/white-review/hl-5519-21.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "973cf3447732eb70bad3141e4f4b7cbd47719e83a94c854bc7b68edf5a469828"
+        },
+        {
+          "index": 23,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/54ce676dd55e03bf38c1664651f2bb5b0fb96122ec8a21bc26a4aefff1ef4bae.png",
+          "white": ".cache/curriculum-source/white-review/hl-5519-23.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "9c6be24935c8287eb9b0038ba75460df0235d124da43ddf8390cd4437a42425d"
+        },
+        {
+          "index": 24,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/804ded0032b83e7ac91235759c4d46616fdce02c2e39a69e49578ac592a09f0c.png",
+          "white": ".cache/curriculum-source/white-review/hl-5519-24.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "7fc6013f56a1c97eb11567d9b66175ac6ddda219b6774b278ae3a7a0a156762e"
+        },
+        {
+          "index": 25,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/72814a7c46911f3740ddfb9e44a99e89e9a61ecd6eede2f88f6819d4b5a0d06f.png",
+          "white": ".cache/curriculum-source/white-review/hl-5519-25.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "a00cb04224462822675a01bfb144b5974c7bff2a124b9c7b0632a271d57ddddf"
+        }
+      ],
+      "unverified": [
+        "最善応手・形勢評価は独立エンジン検証未実施。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/5571",
+      "cache": ".cache/curriculum-source/5571.txt",
+      "sha256": "fa4799eb1c71e61610dd8fa2e65dc5251cb37d138198620b209b481c3b39a4e8",
+      "lines": 77,
+      "read_range": "1-77 EOF",
+      "visual_indices": [
+        2,
+        3,
+        5,
+        13,
+        14,
+        15,
+        17,
+        20
+      ],
+      "visual_evidence": [
+        "原寸白背景の全盤・筋段・手駒を直接確認。5g銀で5f歩を早く守り、8g歩受けで8f飛を追う。旧形8f飛が5f歩を横取り、新形8g歩へ8f歩打ちで争点化。"
+      ],
+      "visual_assets": [
+        {
+          "index": 2,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/fa2f95e448a2f39537e440a5a08b0222295af01f7d921562814896f42c3aceac.png",
+          "white": ".cache/curriculum-source/white-review/hl-5571-2.png",
+          "dimensions": [
+            722,
+            621
+          ],
+          "sha256": "a2482a44285c02e266ee3a7ef4e385fc06f16bf537d42d2f1a17766beb371d9a"
+        },
+        {
+          "index": 3,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/ba55fc8fde98e58f83acbe7e580b525e614750a37e3e72cfc683012fc4e04e18.png",
+          "white": ".cache/curriculum-source/white-review/hl-5571-3.png",
+          "dimensions": [
+            722,
+            621
+          ],
+          "sha256": "1e3ee37ae43e944a342bf798726bc5c9c295d46b84b668f65d2e6148e25c2a9a"
+        },
+        {
+          "index": 5,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/62b376bed8dcb07a30fc0bb18231ffb2486cd7815f3cf78fe71ab39b703a00b0.png",
+          "white": ".cache/curriculum-source/white-review/hl-5571-5.png",
+          "dimensions": [
+            722,
+            621
+          ],
+          "sha256": "689897aef855c7ae554854bfdf616313d339cd6d9c6e767bee4544d9120d5553"
+        },
+        {
+          "index": 13,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/4caffe2d34aac6fb8fae6d29de9fed859f13ce71cd0b82cd41e5cba26adba0eb.png",
+          "white": ".cache/curriculum-source/white-review/hl-5571-13.png",
+          "dimensions": [
+            722,
+            621
+          ],
+          "sha256": "8d9ccadaba6211bb46ce33af234951470f420e01fb55ce9386c89d37f292f86e"
+        },
+        {
+          "index": 14,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/f0ab713ab86733fa43252644c937a6725b4de83032b6c7c93183399f7185d6e8.png",
+          "white": ".cache/curriculum-source/white-review/hl-5571-14.png",
+          "dimensions": [
+            722,
+            621
+          ],
+          "sha256": "22e07d7291dbff611ea7c73c0384ad821fa0ae9ee5012b879a7882a8aa3c4913"
+        },
+        {
+          "index": 15,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/ed1ca45a74341509e9c103812989bfb4752c1c876f310b35a12651ab0b06731c.png",
+          "white": ".cache/curriculum-source/white-review/hl-5571-15.png",
+          "dimensions": [
+            722,
+            621
+          ],
+          "sha256": "bcc19a7eb018c39b5507c632c6c04e5fb33956bbaf83c43bd8b821f4daea7f09"
+        },
+        {
+          "index": 17,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/8db2f2fb7b4184ddb038e4b7b2246aec4968c9af7825a4b8c627a6f9db336fbf.png",
+          "white": ".cache/curriculum-source/white-review/hl-5571-17.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "0ee941b261327c5bce5ee738a3fe7aa54ec70f5d8eca32199081e2e3f3f2db09"
+        },
+        {
+          "index": 20,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/0c9924efe8f5f5718a90fe5e527add01d30c120944395d8f96f19115dcb6d188.png",
+          "white": ".cache/curriculum-source/white-review/hl-5571-20.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "e6f6980aeba206b439445a30cf31054f79309f2f98b2c56ce384a00ec4c0e1f5"
+        }
+      ],
+      "unverified": [
+        "最善応手・形勢評価は独立エンジン検証未実施。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/5546",
+      "cache": ".cache/curriculum-source/5546.txt",
+      "sha256": "07be14d497126dcb41402307edb606de946da05b3f2cc4413b8fa5a7feb1a791",
+      "lines": 143,
+      "read_range": "1-143 EOF",
+      "visual_indices": [
+        12,
+        14,
+        15,
+        17,
+        20,
+        22,
+        23,
+        24,
+        26,
+        29,
+        31,
+        32,
+        33,
+        35
+      ],
+      "visual_evidence": [
+        "原寸白背景の全盤・筋段・手駒を直接確認。9e棒銀へ7e銀、8h歩型6e銀から7f銀、9f歩で退路を抑える形、新8g歩型の8f歩打ち・8h歩・7f銀・7h金の連続受け。手駒と8筋歩位置差確認。本文の一部手番記号は図と逆。"
+      ],
+      "visual_assets": [
+        {
+          "index": 12,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/7da2c8747f7495f42106f7dbd37a747cb17bb3541404ef5470e43968e291711b.png",
+          "white": ".cache/curriculum-source/white-review/hl-5546-12.png",
+          "dimensions": [
+            722,
+            621
+          ],
+          "sha256": "1a604adff2affffc81901735a046d1ff2641359b36709158601a6ed074d9f645"
+        },
+        {
+          "index": 14,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/27d091eecb284ded0a41aac213eec04cd83b5ec4e5e0c3f83028a84787495d68.png",
+          "white": ".cache/curriculum-source/white-review/hl-5546-14.png",
+          "dimensions": [
+            722,
+            621
+          ],
+          "sha256": "47002816416ff35400dfd068a7e6c88cb4f549e8b99b9b33dd6431c9149bc9fe"
+        },
+        {
+          "index": 15,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/4eb52342befae983f3d475c2007400e5af74d5df7fe09b0d0165fd1e966ec872.png",
+          "white": ".cache/curriculum-source/white-review/hl-5546-15.png",
+          "dimensions": [
+            722,
+            621
+          ],
+          "sha256": "ece7c9789a8f0cdeb02d58fb78f1e78621abd19e88b362e0f9ae807237edce09"
+        },
+        {
+          "index": 17,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/03f393eaa7eb440b8993088622fe4cc6fb9f799ce26b57b9337ff7b670d46328.png",
+          "white": ".cache/curriculum-source/white-review/hl-5546-17.png",
+          "dimensions": [
+            722,
+            621
+          ],
+          "sha256": "7137e22078ca0568328b31d91f2d261398b21c1c3b93b23e96f4b587575abe19"
+        },
+        {
+          "index": 20,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/d90b6378f28be1a43d88917f1c16c34d6c799f863c4bd647b81f7527468049ad.png",
+          "white": ".cache/curriculum-source/white-review/hl-5546-20.png",
+          "dimensions": [
+            722,
+            621
+          ],
+          "sha256": "eac08e5ee303452ccec68764a904518cc0a96aa63bec9af9e2f7dd84ca6b9062"
+        },
+        {
+          "index": 22,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/3b8db1795a7430d7c504ba83caf16d07b4a5ab1988e531f0707d50fc9b647025.png",
+          "white": ".cache/curriculum-source/white-review/hl-5546-22.png",
+          "dimensions": [
+            722,
+            621
+          ],
+          "sha256": "a528d68dafed7d701b4c369101d0188afc7b61c90e2bb89b886c0cc42a6023e5"
+        },
+        {
+          "index": 23,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/3a28feb6fbe9f8286b52de1c3dc1f3ed20e7c7cb9623063de77000b55c76e17d.png",
+          "white": ".cache/curriculum-source/white-review/hl-5546-23.png",
+          "dimensions": [
+            722,
+            621
+          ],
+          "sha256": "03aa3bca6a6c392fcafd31f0213208460c99d66239bffaae52cb9b0514cbd9cd"
+        },
+        {
+          "index": 24,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/18750450c35ebaa4719ee08ba9655e448a77f35906b88c725ca5da98d3fc1b4f.png",
+          "white": ".cache/curriculum-source/white-review/hl-5546-24.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "0c7412ed688cba15832cfbdd373e2219eed0ba1566503adb4b070340e74383a5"
+        },
+        {
+          "index": 26,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/e461a224cf3e671fd81ae10f22f941210171b64a055aa36fb526d9ed7a266932.png",
+          "white": ".cache/curriculum-source/white-review/hl-5546-26.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "69e04ed0e28434bad491433987af2c5e8649cd2d8c1d98ca30183189ea27a02c"
+        },
+        {
+          "index": 29,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/8db2f2fb7b4184ddb038e4b7b2246aec4968c9af7825a4b8c627a6f9db336fbf.png",
+          "white": ".cache/curriculum-source/white-review/hl-5546-29.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "0ee941b261327c5bce5ee738a3fe7aa54ec70f5d8eca32199081e2e3f3f2db09"
+        },
+        {
+          "index": 31,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/0c9924efe8f5f5718a90fe5e527add01d30c120944395d8f96f19115dcb6d188.png",
+          "white": ".cache/curriculum-source/white-review/hl-5546-31.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "e6f6980aeba206b439445a30cf31054f79309f2f98b2c56ce384a00ec4c0e1f5"
+        },
+        {
+          "index": 32,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/80c2198db46f144bd9791df1f694fe9bb7dad3bf5e33c3b7994ad0d39994b976.png",
+          "white": ".cache/curriculum-source/white-review/hl-5546-32.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "0a44eb458a8e1736945dd0dbf1a8f034a6b814383048812a5135325b5f0e3f2a"
+        },
+        {
+          "index": 33,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/e0c6346e02af7d5639c32a0db057339c3268390f740b8e93828c706460399646.png",
+          "white": ".cache/curriculum-source/white-review/hl-5546-33.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "cc8fda04c0243966e68e0d6713f7f26cb1b33c512065dadc4e1596e33d3d2286"
+        },
+        {
+          "index": 35,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/2f0c8d98f3dc3dbf733fd2b48b5fdb380185ca476a73ff981f492e497a86336d.png",
+          "white": ".cache/curriculum-source/white-review/hl-5546-35.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "5c2e75a4d257875139bc8bd266d7d5fdd2dd029c7904368b31b7437dd30e7cb8"
+        }
+      ],
+      "unverified": [
+        "最善応手・形勢評価は独立エンジン検証未実施。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/5584",
+      "cache": ".cache/curriculum-source/5584.txt",
+      "sha256": "6d6268543a77f9fa7d41869aaa5623f5eb526b225e7f74572770810405d012cd",
+      "lines": 157,
+      "read_range": "1-157 EOF",
+      "visual_indices": [
+        13,
+        15,
+        17,
+        19,
+        20,
+        21,
+        24,
+        25,
+        26,
+        28,
+        29,
+        31,
+        33,
+        34
+      ],
+      "visual_evidence": [
+        "原寸白背景の全盤・筋段・手駒を直接確認。鳥刺し7i角と5g銀から4f銀。4e歩型には3g桂。3b銀が飛車2b転換を遮る。3b銀待機/4c銀型で歩捨てと銀進出の順が変わる。7g歩が残るため8hへの角交換なし。"
+      ],
+      "visual_assets": [
+        {
+          "index": 13,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/54cdbc79cd7b52841552c5663a83d74b5eab5af565871cb98ef6d487a3d56169.png",
+          "white": ".cache/curriculum-source/white-review/hl-5584-13.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "9f992bfebf7e43aedb2500745994a35ebf0e12d43c0c828e70f3b8685737e9a8"
+        },
+        {
+          "index": 15,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/9bd08878ada8e2ab4f7e4378751643a7bddd34fdd0dc12d55ebeea93d13ccbf5.png",
+          "white": ".cache/curriculum-source/white-review/hl-5584-15.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "3b22ffc173ba7a41d412b726f3de7835c6f8aaf66ce0ef6fdc545b4e0ee30b22"
+        },
+        {
+          "index": 17,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/a86dbc534c62633b24a54d9520019481e10906b149f969e10e35236f00fcf584.png",
+          "white": ".cache/curriculum-source/white-review/hl-5584-17.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "9525f3c1bdf6e92334afa06b75d1dced608e36e6e7865ab605c7106eb5af9b20"
+        },
+        {
+          "index": 19,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/0ff8f1619562bd83148462fdf0e3b8a0cd3503838dcdd806268eaefe564a3c75.png",
+          "white": ".cache/curriculum-source/white-review/hl-5584-19.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "a580fe2730d2a5034d7920be1b5d4e96d5c90917283eae4cbf9738925d590db1"
+        },
+        {
+          "index": 20,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/02352a4a9e2d38614f769fbfabbd08e40e5ea0475dbf5503dae137a49adff210.png",
+          "white": ".cache/curriculum-source/white-review/hl-5584-20.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "b0954aba5f345504454233a5d753bb0f2aa7ef8d8c7e195465a0a21f1cab9c5b"
+        },
+        {
+          "index": 21,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/2dd4bc6969a5218523a76404a858e06e9cab0a67fb537ce358183c506c9feb42.png",
+          "white": ".cache/curriculum-source/white-review/hl-5584-21.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "5ee65ac82e552b5f64b81a614b0ff8fcf978c5b47f625618c35d7bcd069c2ab2"
+        },
+        {
+          "index": 24,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/cd218ddb1409cb630a230ea7efb6ceb6c030e939ae78b1a1d8b503ea8dd73fd3.png",
+          "white": ".cache/curriculum-source/white-review/hl-5584-24.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "f7b602968da87c42f2f939f9e03473a4a2cb0cb4125b8e6644172df85bf91549"
+        },
+        {
+          "index": 25,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/4e669d5465a214c74fde977fdc2d1e7d190ace645ea7f722c7308cad3622c01e.png",
+          "white": ".cache/curriculum-source/white-review/hl-5584-25.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "e373062d6172dc45008138ef6d810a207c0bf77348a31eb1d77436a9ad425637"
+        },
+        {
+          "index": 26,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/8b56944a3193a0ebd49f3407d78b1470c3ba77feb055bdb5516e0d0f558c93e3.png",
+          "white": ".cache/curriculum-source/white-review/hl-5584-26.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "126326b6a9097d64af037f4db4236cf0c8f1f2e893c19bec57a258dd33889d17"
+        },
+        {
+          "index": 28,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/c3959ddc0e8bb929df332e1fa3353cf2a7d41fe4a110a9cf271a6745d24a04e9.png",
+          "white": ".cache/curriculum-source/white-review/hl-5584-28.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "7160d9d62caf309bb0ce290301b1f298ee07d823483ed557aac7fc393ba987aa"
+        },
+        {
+          "index": 29,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/317f6a33a736d5406784b431f229732d46550d407e970f45530fe2186fe33d45.png",
+          "white": ".cache/curriculum-source/white-review/hl-5584-29.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "1ad99bb6741710649b65a5c547e9931dd8cf658ea4a93bf991f09f1906d3246b"
+        },
+        {
+          "index": 31,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/5f218910d3ac7c7e29c8a9c7f3277a5fa35e70a678f9f0dbf84581b9f55b14ec.png",
+          "white": ".cache/curriculum-source/white-review/hl-5584-31.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "a7e8efd5850eb5b67a7772bee08043cc087730713c13365f1098d8f70c2c3f7d"
+        },
+        {
+          "index": 33,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/ce6ca15b8edbb8a84c804b1e6c8ece470dd2c0d398d751e5b884d9419d0b6e1c.png",
+          "white": ".cache/curriculum-source/white-review/hl-5584-33.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "f4d9487f55e70eb37fde80bd4c6a942ff7daaf09e7499d6fa8efe24dbdaf678b"
+        },
+        {
+          "index": 34,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/7068a8c8ca279cb71b2bad0aae8cf051db1bfad8e9cc41ee68fc319faad4596a.png",
+          "white": ".cache/curriculum-source/white-review/hl-5584-34.png",
+          "dimensions": [
+            496,
+            422
+          ],
+          "sha256": "551acf53d99cb994ea65f4360e40faebbbd2af51e99a2ecb96efe61d84f4188b"
+        }
+      ],
+      "unverified": [
+        "最善応手・形勢評価は独立エンジン検証未実施。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/5499",
+      "cache": ".cache/curriculum-source/5499.txt",
+      "sha256": "791a2586f84f3a0f416a7fccacbbe59811cc527354dc6219532e5c81e6247e70",
+      "lines": 95,
+      "read_range": "1-95 EOF",
+      "visual_indices": [
+        10,
+        12,
+        14,
+        15,
+        16,
+        18,
+        19,
+        20,
+        21
+      ],
+      "visual_evidence": [
+        "原寸白背景の全盤・筋段・手駒を直接確認。7h飛・6g銀・美濃芯。5f歩が6h角から4f角への退路を作る。後手7e歩をすぐ取らず角を引く構想。4f角が5e・6d・7c・8b・9aを狙う線。"
+      ],
+      "visual_assets": [
+        {
+          "index": 10,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/17efd9c8c5f19eccf62bba4ed7c6f1af2cb2f2a654e342034bb7fba945e099ec.png",
+          "white": ".cache/curriculum-source/white-review/hl-5499-10.png",
+          "dimensions": [
+            722,
+            621
+          ],
+          "sha256": "1d2602bf7cc5ebb2deb6673473eb685d78bbe550558aeb3ec79cb340347b7f35"
+        },
+        {
+          "index": 12,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/2f4c28c3ddd508578b9651e8f6ebafaa7f48af39c5c21376722b865cdaff342d.png",
+          "white": ".cache/curriculum-source/white-review/hl-5499-12.png",
+          "dimensions": [
+            722,
+            621
+          ],
+          "sha256": "6176f5b1695f16cde2bb2274026ac545bb6930543fdbe49c675af14a6b5b3105"
+        },
+        {
+          "index": 14,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/afcea58f4e2df0703f72c5ff93fe7c618ddd63995b7a0b1e3ac8392a77af5873.png",
+          "white": ".cache/curriculum-source/white-review/hl-5499-14.png",
+          "dimensions": [
+            722,
+            621
+          ],
+          "sha256": "592446844cc505e28a9836c17103f93a2a995ca30bfb1ee91baa0f599d8ad130"
+        },
+        {
+          "index": 15,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/ac9b2f5bce7d3c13c77d996f97e035db5d9f621efd4375de443bbff203de9209.png",
+          "white": ".cache/curriculum-source/white-review/hl-5499-15.png",
+          "dimensions": [
+            722,
+            621
+          ],
+          "sha256": "18855f00f9ebb66dd99796b603a00db468af0bd64918208d75460be5c88c8f5a"
+        },
+        {
+          "index": 16,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/d43c7c76bbe54d80ec75b19dd99a9753529dcbfb497c73d9d23ce7a3803b92e5.png",
+          "white": ".cache/curriculum-source/white-review/hl-5499-16.png",
+          "dimensions": [
+            722,
+            621
+          ],
+          "sha256": "d62b394820b26eea7a0187e2b3da4803b247571db884bf6a1dd7793b51369ebe"
+        },
+        {
+          "index": 18,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/f3cada8535e856c56cdcffafc3daa0aa176f20c3f4a31b7911ca689357b381a9.png",
+          "white": ".cache/curriculum-source/white-review/hl-5499-18.png",
+          "dimensions": [
+            722,
+            621
+          ],
+          "sha256": "920702a2cd3d93f6f0f027df14fa014fe9e90a54402d4971756d3584786f6598"
+        },
+        {
+          "index": 19,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/71db27b9bfc77f385c2864250b7b4dde84aa51b660fa89753e7015f3e024b5c9.png",
+          "white": ".cache/curriculum-source/white-review/hl-5499-19.png",
+          "dimensions": [
+            722,
+            621
+          ],
+          "sha256": "c1b10869419ec82d7b9c34a8a683efe90318332f77968c36170ae3d914c9f361"
+        },
+        {
+          "index": 20,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/546887a221ca7f39e3d82ec8ae23e18bb2e5d7d4625c6c151d80f24886a91420.png",
+          "white": ".cache/curriculum-source/white-review/hl-5499-20.png",
+          "dimensions": [
+            722,
+            621
+          ],
+          "sha256": "6b182bfbefd46e9410f1bd5c9b0001309c57a9e7c483477380d2c8e0319c9e28"
+        },
+        {
+          "index": 21,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/f2ee61a4e8845d442e7104a99f49785823bd3873e798ca2c03d5ed8c0a0fba8d.png",
+          "white": ".cache/curriculum-source/white-review/hl-5499-21.png",
+          "dimensions": [
+            722,
+            621
+          ],
+          "sha256": "a0e74da77596e20741613c0ba19cf76d7d669007e49427905b2a4a657df6a9a0"
+        }
+      ],
+      "unverified": [
+        "最善応手・形勢評価は独立エンジン検証未実施。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/4747",
+      "cache": ".cache/curriculum-source/4747.txt",
+      "sha256": "eb2444a54df3d2d4d539b25a7b506dda05f2c9274df930488fcf7acc23d00d7a",
+      "lines": 190,
+      "read_range": "1-190 EOF",
+      "visual_indices": [
+        12,
+        15,
+        17,
+        18,
+        22,
+        24,
+        26,
+        29,
+        31,
+        33,
+        34,
+        37,
+        38,
+        40,
+        44,
+        46,
+        47
+      ],
+      "visual_evidence": [
+        "原寸白背景の全盤・筋段・手駒を直接確認。八枚落ち初期構成。3e銀・2e歩・2h飛連携、3c銀成で飛車先を空ける。上手2b玉の守備に銀捨て後2d歩打ちとと金。終図4bと金と2b龍の王手線確認。本文に重複6d歩など誤記。"
+      ],
+      "visual_assets": [
+        {
+          "index": 12,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/b2bb0b7593cba5b4e2bd7d5f12c626f44e25003ea66abd4bb2890beb046f2ff1.png",
+          "white": ".cache/curriculum-source/white-review/hl-4747-12.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "f6409f61c4547dfd1f84d70bd9f23ab418f76bca8f545b64a80894817746312e"
+        },
+        {
+          "index": 15,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/a5398ba1c21f831ab585102d44980e3b8aaeec11bd760848dbc00f463ad0bae9.png",
+          "white": ".cache/curriculum-source/white-review/hl-4747-15.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "64c4f40e46bcf29566e3c0dd5fe65171c82c05fb491522e486488ceaef4acb98"
+        },
+        {
+          "index": 17,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/4e127b8c4fdbaabe4911bf76cc3bac49d85674fd1eb8262b84a6fc27fb60f861.png",
+          "white": ".cache/curriculum-source/white-review/hl-4747-17.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "c83b11f7ecb19ae0841b0cae4704199e641e2db1b47943206041ab41af325c97"
+        },
+        {
+          "index": 18,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/ed67fc1878becedbb3a981aa739da751e04c1b0bd33b5cd791f55774eb5c97cf.png",
+          "white": ".cache/curriculum-source/white-review/hl-4747-18.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "80e590491a17b0cec232b97433243b2173551ea358b772a57ba0248e2550f962"
+        },
+        {
+          "index": 22,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/8c211dcd4a85bf78bac8a15218ca278f1d3d10d4869d84752d8eb6a6b05eb9f5.png",
+          "white": ".cache/curriculum-source/white-review/hl-4747-22.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "18d074895ba23a3fd28c7c15794e7c11d8063d59fca932090a5543d9fe1827a3"
+        },
+        {
+          "index": 24,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/9dfebafe8c4d14430ec59e150b6c9d4fc05bd8e9f52cddb48305977e1de758c8.png",
+          "white": ".cache/curriculum-source/white-review/hl-4747-24.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "b4164fb739231fd7373dafbca1e8ee96fc3b14b69c5172fdf8581fa3136580fc"
+        },
+        {
+          "index": 26,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/f9735a92189079915e1c16138f10a4b2acc1722c8dd4a014d5b2d2ced62ba506.png",
+          "white": ".cache/curriculum-source/white-review/hl-4747-26.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "4f55c0e11fcb4d225ef6744ca602a6c4bf6d1aa6d000a57640d5e6f70f614fcb"
+        },
+        {
+          "index": 29,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/442085063a8d1292ca70ad61d1bfa9772bf2fd67ad40cdbac15f633b9206814a.png",
+          "white": ".cache/curriculum-source/white-review/hl-4747-29.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "86a2b072de5cb9849949ce8b74a24efe51366653748411f1a8009a05a3631f8a"
+        },
+        {
+          "index": 31,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/58543b8da94280c607b73d19c71a93f5af19e0bc489122b89d26f5ab865d8e0b.png",
+          "white": ".cache/curriculum-source/white-review/hl-4747-31.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "fbfef4ee86c7f2e7c1c6c01c11e372f915324048dcd3274523e8df8519244817"
+        },
+        {
+          "index": 33,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/bce1ab8ed2bd5ea9a43c6dae3b654af83eb5a40f2a4b3336912ab86a050cb228.png",
+          "white": ".cache/curriculum-source/white-review/hl-4747-33.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "0da7105f7156eb62166ce89dc1accc76a072e5b4c6707a17efa38bfe729a9dc4"
+        },
+        {
+          "index": 34,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/242e00c077e8a6a60fcac450e22e701a0de061bf49a48f7248908f95ceee86ab.png",
+          "white": ".cache/curriculum-source/white-review/hl-4747-34.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "586fce6edaada97c2300a8d68a6e8abe664d45c75584509a8dc5bde49fc35767"
+        },
+        {
+          "index": 37,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/e190e3ba2cd54a74df0fb4476425b424192714dca1811aa9f94a55f755e5f345.png",
+          "white": ".cache/curriculum-source/white-review/hl-4747-37.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "c7f8c4812c034ee3335591b0600b99c9afd5fe1ee234143fc79eae9f69884045"
+        },
+        {
+          "index": 38,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/48c76caf325870ebebbdbcc5be51c1e6689877d5de90589288876bacd761ea7d.png",
+          "white": ".cache/curriculum-source/white-review/hl-4747-38.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "f9b6b5b8360708a5698d21c1eda420c96e4237c705975946990c318381f8a1ec"
+        },
+        {
+          "index": 40,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/690d4d9f5d1abde389013ddd7abf808c510f8b815b44d1d92c5e92f9a9c26ceb.png",
+          "white": ".cache/curriculum-source/white-review/hl-4747-40.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "c427435cce8f56cb51d5167e2c65c4449d0b12f8e3c811f44a62b1f93ba58482"
+        },
+        {
+          "index": 44,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/4fdfb421729c06b46e10bc711805ffe495b4e006a9cef7ff2c9ffa139d3b90d2.png",
+          "white": ".cache/curriculum-source/white-review/hl-4747-44.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "4091a42235033332cdaf4d8c386248a72c71ae1e586961062b2264048e4e0d72"
+        },
+        {
+          "index": 46,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/33d6b82ff1f2e3319f1caf737fe5d15e3af1641741eb99dd6384def20add8b5c.png",
+          "white": ".cache/curriculum-source/white-review/hl-4747-46.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "f8a50f187b7aa2e9e4810e4d208bb58004699ed2636dd5f0a1cf61e75ebd20d1"
+        },
+        {
+          "index": 47,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/80c0b8d3ddc0dd140eec297b3faa38c44d53a1a3511ac0d1633c8ea85b493450.png",
+          "white": ".cache/curriculum-source/white-review/hl-4747-47.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "0bc512a49f01af97535254cc368f7c3a5e643f87bf508efa78d657154a2e41d8"
+        }
+      ],
+      "unverified": [
+        "最善応手・形勢評価は独立エンジン検証未実施。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/4779",
+      "cache": ".cache/curriculum-source/4779.txt",
+      "sha256": "621ed6c57eec5bcd9b03acda4c86ed6e5ac30e6e18c052dd6c66324834841852",
+      "lines": 169,
+      "read_range": "1-169 EOF",
+      "visual_indices": [
+        13,
+        15,
+        17,
+        19,
+        21,
+        22,
+        23,
+        24,
+        26,
+        29,
+        30,
+        31,
+        32,
+        34,
+        37,
+        38,
+        39
+      ],
+      "visual_evidence": [
+        "原寸白背景の全盤・筋段・手駒を直接確認。六枚落ち初期構成。6f角から9cの線、5f歩で5g角退避。6e歩が角を追う失敗図。8d歩取り後8c金が角香両取り。9b成香・9h飛・9d垂れ歩。8d金型9e歩打ちで飛車筋を止める。本文は6e歩を6d歩と誤記。"
+      ],
+      "visual_assets": [
+        {
+          "index": 13,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/13af117b2efb8da7ed385d697638b34b668b88ea999aaf66c8674f312cebe4dc.png",
+          "white": ".cache/curriculum-source/white-review/hl-4779-13.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "91de9c00a0197fa06e5b841b1a251b2dba865b56d94de1b7617ac464c5be8651"
+        },
+        {
+          "index": 15,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/fca056fb555b8fc2566eb0ea53be4cad23ee2c090c320f3fc6215497de7dfea7.png",
+          "white": ".cache/curriculum-source/white-review/hl-4779-15.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "e2cf63dc93a943118c676c893809d8b0a1b70422b059b5a029952ad73efed1db"
+        },
+        {
+          "index": 17,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/c87732ba8a2b1546be40de123c311177a59fc32c4bb15aca8ff9e02d99d8fca1.png",
+          "white": ".cache/curriculum-source/white-review/hl-4779-17.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "ba9e656af1308ed9b2d9b00e4079ed8cd6b5b6f1a0329f16a5e305f11e2eb275"
+        },
+        {
+          "index": 19,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/e5253957df74244136e4a1a9f1701d7d8e2101c1d553db65ec8683e89252804b.png",
+          "white": ".cache/curriculum-source/white-review/hl-4779-19.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "9f75d55fb7e0e79d700839675325b7f88fc58163c5b3a60491e06d65a19f4ecd"
+        },
+        {
+          "index": 21,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/c39a4ecf3f5db3ed8c26c721824ab9ebc8135ee85026c6c2122ee7490414f21d.png",
+          "white": ".cache/curriculum-source/white-review/hl-4779-21.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "5af87b24b57e9612517e63bdddf76232b4eb30a32e0787fe1f81bf53de687ab6"
+        },
+        {
+          "index": 22,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/26b4432a4714068effc9c782f92edf325ed13f0f19dbc09710ea78abe9fe02a5.png",
+          "white": ".cache/curriculum-source/white-review/hl-4779-22.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "6c639ee757f676098095e2e7eb5db8ca8967c8cfabf8256533adde4491973a79"
+        },
+        {
+          "index": 23,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/6f7194fb0c2c649ecf09584d80ac965b6f664d9c69bca2d9c9d7f4c0d10f93c4.png",
+          "white": ".cache/curriculum-source/white-review/hl-4779-23.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "181b7f775b781dd295f32e063e495e0f2ac370cb4d8a768753e754adb7a055ca"
+        },
+        {
+          "index": 24,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/d69e786aae00008e65126182b5e482d26f280fb17dcf0056d6cdcf5b2b8206be.png",
+          "white": ".cache/curriculum-source/white-review/hl-4779-24.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "a7a3149efdf4e7c67b43e11a98be5dc1ee6e654ef76f180aad48264aecfcb63e"
+        },
+        {
+          "index": 26,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/f3669bee533f5501a253e5b7d80029d7dea88e73385ee9864b87a3bf1f9b7e40.png",
+          "white": ".cache/curriculum-source/white-review/hl-4779-26.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "baa478dd240750a682e13104df60044b8dfa0c4f1a3d1fd1b6f4fa4cea69aed3"
+        },
+        {
+          "index": 29,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/d56a74284f9aa08668993bd807e6c199e2510586fa6df51f7f5a481bfa94ac08.png",
+          "white": ".cache/curriculum-source/white-review/hl-4779-29.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "2f34f52cfbe55171bb03c63ef7ca388b2d85a2aaacef89de4092ba3524462e02"
+        },
+        {
+          "index": 30,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/ab4b38f422b62caa52ef3153f80598924c598013184e9f986953845d0c37006c.png",
+          "white": ".cache/curriculum-source/white-review/hl-4779-30.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "6687f824deb731e556059f6df3e732fa6f65104313d396edce613d34e06e96e5"
+        },
+        {
+          "index": 31,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/b5d5949405e3750e24aaa48a061ff425d463d66298385831e3d591667077c24b.png",
+          "white": ".cache/curriculum-source/white-review/hl-4779-31.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "8e5077edac31b96d23c28d68357dc633064b645db352f61bcf9a9778c5acb2ff"
+        },
+        {
+          "index": 32,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/500d4d6cc1a7adf2fd5a21ccda4873ac790a343498f72a73271b274434f41ee1.png",
+          "white": ".cache/curriculum-source/white-review/hl-4779-32.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "d9c189a4e15bd37874a5a7157debda7686b61817985dbb956e7029506cd80d6f"
+        },
+        {
+          "index": 34,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/601aea7ff4e45f5cb49a8b107897fb201c31bca93e422b0d5220e7a9e5f96757.png",
+          "white": ".cache/curriculum-source/white-review/hl-4779-34.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "bf5d6e74ef0a7de13f0f39ef21134d452e9b1afecc3925d8fc588ced93af6fe3"
+        },
+        {
+          "index": 37,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/68e1460248bc73bf0f557196d55577c68c1487952bd852d13bde2f7fa2f79ce0.png",
+          "white": ".cache/curriculum-source/white-review/hl-4779-37.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "8d916c7a5a20514fdc50498ab833a583194ab8c04ab1d5ddf9e9fcb451d2aee5"
+        },
+        {
+          "index": 38,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/68098532d6609dd01118446cbf848f59617c0e9d4355125e43777169d42ecadb.png",
+          "white": ".cache/curriculum-source/white-review/hl-4779-38.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "ba6f1c71e18ac7a4024ccda78ebf836f49a5d5dcaf4f32e9f9736a82eba12741"
+        },
+        {
+          "index": 39,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/adc63497e0a55b5b417389ee894accf778c711f7462318d6f0a2188e636792a7.png",
+          "white": ".cache/curriculum-source/white-review/hl-4779-39.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "3eed0a3bdafebbf3c1108cc139230d9ae890cfe6bb31cbae7ae45015ecab6ff9"
+        }
+      ],
+      "unverified": [
+        "最善応手・形勢評価は独立エンジン検証未実施。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/4815",
+      "cache": ".cache/curriculum-source/4815.txt",
+      "sha256": "651f1c93825b9ff619729224a2c4b8cf68837a7409f8d186158cc8f203926a92",
+      "lines": 192,
+      "read_range": "1-192 EOF",
+      "visual_indices": [
+        14,
+        16,
+        18,
+        21,
+        22,
+        24,
+        26,
+        27,
+        31,
+        32,
+        33,
+        35,
+        36,
+        38,
+        41,
+        42,
+        43,
+        44,
+        45
+      ],
+      "visual_evidence": [
+        "原寸白背景の全盤・筋段・手駒を直接確認。四枚落ち初期構成。2筋歩交換の進出升・手歩・飛車線の三役。1b垂れ歩から1aと金・2a桂取り。金が動くと2c銀の守りが外れる間接攻撃。3枚守備型の相違。手銀・桂・歩確認。"
+      ],
+      "visual_assets": [
+        {
+          "index": 14,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/c36f43fed12d2cfc2f0d1b2cff2f2858975a37fd768edd442ae756e861a4405f.png",
+          "white": ".cache/curriculum-source/white-review/hl-4815-14.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "aeba30b229ef57d0eb42afa9e481fb6ff320e5359bb91fc7f5a893b0a38cc41a"
+        },
+        {
+          "index": 16,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/d486a5b6a4008b37412fa5ffc7293f4a9e8ee93f254f0712347b23f8490ca5e8.png",
+          "white": ".cache/curriculum-source/white-review/hl-4815-16.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "237fa2ed706366613af4fee3f086bb783504b8ef4a8bc5820083e446a4df8f24"
+        },
+        {
+          "index": 18,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/9ceac08b0c5da03dc981e9f7e88e5dc39a959b47cc560b9276ac0ce58b3538db.png",
+          "white": ".cache/curriculum-source/white-review/hl-4815-18.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "7825aa321601063c6c4f4e56e7e6a9d593e7b8e61f6af481d9649f0e2a581440"
+        },
+        {
+          "index": 21,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/98958cad7b6c87f5e42dc4781da97d7cd38bb1ceb8deae970b04535e40fb7497.png",
+          "white": ".cache/curriculum-source/white-review/hl-4815-21.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "432bb18b999acb321765036c07521b7351e8f15efbe4ec33ea9a9571c6ec4756"
+        },
+        {
+          "index": 22,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/c445cbefc0f9a3f96689c26a75e7271cc5b49b046a9e0db40e53dec2a270eae7.png",
+          "white": ".cache/curriculum-source/white-review/hl-4815-22.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "705c759aac698c1c0cc83230ca035e0e479258fabbbab591e4c0d1ba6a49c032"
+        },
+        {
+          "index": 24,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/2da09e4d340a2ad6c86248b3b282d22bdf9938fa811a28c072a61e26171a12c2.png",
+          "white": ".cache/curriculum-source/white-review/hl-4815-24.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "8be0d3691e5acbb01f865e40c3b3029a895055b83cd26f2df5702dd71f59f98b"
+        },
+        {
+          "index": 26,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/98e8b27b98f4ee2ef8d85d1a71c157afb14e54b51e62fd7bf002b45efcd5b1f7.png",
+          "white": ".cache/curriculum-source/white-review/hl-4815-26.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "efd2c45a9bf2b50895de4a221e87290235647cc68141648866ef26c70179dc8f"
+        },
+        {
+          "index": 27,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/c143fcd1c7db6453a5d91d3d150b8abb8d2698ee9a3d112d22bb21ba64b27ed8.png",
+          "white": ".cache/curriculum-source/white-review/hl-4815-27.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "276a89acc6dd646527019be31d5037c2f9456fc5c533757f06e1e5932af07304"
+        },
+        {
+          "index": 31,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/83ce9be042171b2d47719370e0c160d0c8e93cdb53bbadd5286aad6aff8a42ac.png",
+          "white": ".cache/curriculum-source/white-review/hl-4815-31.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "0e6234fc54e8972b7888e7dc7d5ebf5370e337f232d1946142a9b83b796cb884"
+        },
+        {
+          "index": 32,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/898ba792472d3b3c4a5e526ee5f08933144262cfe5232db9892ba3fa46eb2c52.png",
+          "white": ".cache/curriculum-source/white-review/hl-4815-32.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "b721237553dad295cbda23e0dd56d750888f677e2089f90744eb78be3b44402a"
+        },
+        {
+          "index": 33,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/452d46721e59fb19a2c8761e7d9b887b74e38354f3abf2958db668134f24b64b.png",
+          "white": ".cache/curriculum-source/white-review/hl-4815-33.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "958df52215b2760273c06453dd3ee78e8ead088fe7928e738d2ce594a83d4c09"
+        },
+        {
+          "index": 35,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/0df50238751b559955d507f3599de553dfe7f053bddf26a9b81b8cd55923f16d.png",
+          "white": ".cache/curriculum-source/white-review/hl-4815-35.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "f2fcafc4429df7b8cbc21cb2582a1aa09770531f18f82d5fb846d15a96d36522"
+        },
+        {
+          "index": 36,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/f3cfce2d27e1fe6a31d08b070370264ab0ff05e4546c2cdcffbc62984eac3e4c.png",
+          "white": ".cache/curriculum-source/white-review/hl-4815-36.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "b5c948a73c3fce2bdc74914545800e437cb64c79e071374772f3036e7950d1a0"
+        },
+        {
+          "index": 38,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/e056421e6c19e88fd0f92a36ec06ca112a8eb3bdb3c727b37d6ba077f9ba3409.png",
+          "white": ".cache/curriculum-source/white-review/hl-4815-38.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "27299322f6ef2b7d697f8535c864e5951fa3155126f04fe5de20accdb9f1b972"
+        },
+        {
+          "index": 41,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/faf0a2fb0638d2b92827356b8956adabd319c56c5bda91905c36023c6a553844.png",
+          "white": ".cache/curriculum-source/white-review/hl-4815-41.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "a2af6c8d56ff41822fcaf919de44c232047faf4c1757f771e790470625dacb8f"
+        },
+        {
+          "index": 42,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/09d065206013426aa58e74312a93b5bdd08cbd32275074c24bf258a98950eefd.png",
+          "white": ".cache/curriculum-source/white-review/hl-4815-42.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "79ce515f980215fafbd6fd93b9ab015c5664861ae4908c87b56ef83e0798509c"
+        },
+        {
+          "index": 43,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/ee1cec7adf336e148382fedbf4c2103922853f34403ec090d7ce579c1283a25e.png",
+          "white": ".cache/curriculum-source/white-review/hl-4815-43.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "609ff7c8986e4e870c857163714a195aa58a5ab1fb2db8400974c857c67daf11"
+        },
+        {
+          "index": 44,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/0d1fc6aa28b2eedb9844265640c8d8fdb6cefc407dc29793678f5849002596fb.png",
+          "white": ".cache/curriculum-source/white-review/hl-4815-44.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "91a0a19e703077dd9c03dbd0f26fffa1612ce22e640d3839fcaca51d1d4c35f1"
+        },
+        {
+          "index": 45,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/fc18d34ae6f60e25368995f14447bc08b45fd2e74f78cc31626b13ccc9c74986.png",
+          "white": ".cache/curriculum-source/white-review/hl-4815-45.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "001ac73250019f2bdca5d0dd97b9d620ec80fb057174e2b811db16df1aa7882e"
+        }
+      ],
+      "unverified": [
+        "最善応手・形勢評価は独立エンジン検証未実施。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/4878",
+      "cache": ".cache/curriculum-source/4878.txt",
+      "sha256": "ca541b603ec15f6f988e3db7c0438de40130a3278d487be03a3181eb5d70d28f",
+      "lines": 102,
+      "read_range": "1-102 EOF",
+      "visual_indices": [
+        12,
+        14,
+        17,
+        18,
+        20,
+        21,
+        22,
+        23,
+        25
+      ],
+      "visual_evidence": [
+        "原寸白背景の全盤・筋段・手駒を直接確認。二枚落ち初期構成。4eと3eの位と4g銀。4d歩が下手角線を止める図、平手で双方角を遮る図。2歩突き切りの3f飛と銀多伝の縦2銀。最後2図は下手配置のみの部分図。"
+      ],
+      "visual_assets": [
+        {
+          "index": 12,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/0f7b36d0429cc932f7b304196eb7a8a129f9725ad7972fd4d4af171bb2714e5a.png",
+          "white": ".cache/curriculum-source/white-review/hl-4878-12.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "578e6b17a996fa7e3e077b985c35245a7601a10f4f49f51d4fc3b0a9d4df356f"
+        },
+        {
+          "index": 14,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/46781cbdbb02f0c97d12f31f4b4803e8983af0eb453eceac1bfe1a97cb3bff6c.png",
+          "white": ".cache/curriculum-source/white-review/hl-4878-14.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "5af36ef791a8e152e0184f5c2644b7a38a2fc7bbc97937ea4f0495778320615d"
+        },
+        {
+          "index": 17,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/968cc6a9c97c40022e018594436223bce422e280fe448b8ecd1e30b98b03a294.png",
+          "white": ".cache/curriculum-source/white-review/hl-4878-17.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "b9b2ecc72e1fbb9b3688adca72b154619ed83c31afea556e19fdbc4dffb139ff"
+        },
+        {
+          "index": 18,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/5a22cb73d62b988ecf5904231153f51f1058cee52031f5b0c1c2a7f5ec2f8c45.png",
+          "white": ".cache/curriculum-source/white-review/hl-4878-18.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "5fbd0973bca3484d01ed1276de2a71a61cca4aaf86f536507792802acd42f91e"
+        },
+        {
+          "index": 20,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/828da94bba5c53be80198937ba23a418a3007fd0c3548107c8ff40b2985bd330.png",
+          "white": ".cache/curriculum-source/white-review/hl-4878-20.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "f78a0e65831c499768bc544731661377cd31395c942bb96acdf3b8ffb021c19b"
+        },
+        {
+          "index": 21,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/817cf6aff57a3d5c10df96afe521eb6db626334380b7da824f715f24767dfa61.png",
+          "white": ".cache/curriculum-source/white-review/hl-4878-21.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "fa3ff047183d88f263e93d4349660dc248daba05540ae70548b1d4e03d54b2da"
+        },
+        {
+          "index": 22,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/63afaade3fb23e291b55427334dd49e0db940d2677585ed6e84eeb63efb00d30.png",
+          "white": ".cache/curriculum-source/white-review/hl-4878-22.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "a09c01e8325997e58852e88f5097c85cc98199bb67dc068c1dc3390706c5bea7"
+        },
+        {
+          "index": 23,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/d96ef88898b639c481893f2c4eb44ef381881841256af508408a5cc70378fdf7.png",
+          "white": ".cache/curriculum-source/white-review/hl-4878-23.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "5ae920e84aeb9c6d6847fd16cd4b29cc787a5fe18c9e2e8653618f803067a04b"
+        },
+        {
+          "index": 25,
+          "original": ".cache/curriculum-source/diagram-inventory-work/assets/2f29d715e8e8a161e6b783c0a925656304cc6d17af9a6307dad850651929e445.png",
+          "white": ".cache/curriculum-source/white-review/hl-4878-25.png",
+          "dimensions": [
+            712,
+            629
+          ],
+          "sha256": "5ff9cb88a6f3220ab74d2be01687f070002f49b68def8927c3ef71257a020443"
+        }
+      ],
+      "unverified": [
+        "最善応手・形勢評価は独立エンジン検証未実施。"
+      ]
+    }
+  ],
+  "candidates": [
+    {
+      "source": "https://shogi-joutatsu.com/archives/362",
+      "target": "aifuri-vs-ishida",
+      "idea": "4筋へ飛車を置く段階は4c歩を守って相手の筋違い角を制限し、銀で8c歩を守れれば2筋へ転換できるという通常配置の役割を独自説明。単に角の両取りを避ける局所例と全体構想を接続する。",
+      "duplication_status": "対象3章には2筋への飛車転換なし。既存通常コース重複は根で確認。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/6154",
+      "target": "aifuri-hidari-anaguma",
+      "idea": "相手の3筋攻めに対し左へ玉を囲って玉頭をずらす判断、5f飛から2f飛の揺さぶりで横移動を制約する事実を独自説明。6f銀と2枚の金の連絡を確認する。",
+      "duplication_status": "対象3章に2f飛揺さぶりと金2枚連絡なし。既存通常コース重複は根で確認。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/2807",
+      "target": "kishu-onigoroshi",
+      "idea": "6b金から6c金は6d歩と5cを守るだけでなく、8b飛の横利きを2b銀へ通す複数の役割を持つ。6b銀との差を通常棋譜から独自説明し、単に高跳び桂を守備で取る現行局所例と接続する。",
+      "duplication_status": "対象教材に金で受ける標準の比較なし。既存通常コース重複は根で確認。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/5001",
+      "target": "kishu-sujichigai",
+      "idea": "角を手放して歩を得る側と角を持駒で温存する側の選択肢差、4筋位が相手の角退路を制約する原理を独自説明。現在の局所例は捕獲地点の守り中心であり、角を追う必要がない駒組みの全体目標へ接続する。",
+      "duplication_status": "対象3章に4筋位の形成なし。既存通常コース重複は根で確認。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/2840",
+      "target": "kishu-pacman",
+      "idea": "標準の罠は角を追う飛車だけでなく、王手への受けが自分の飛車の横守備を遮る連動にある。角を取らず通常駒組みを選ぶ対応と、誘惑を受けた後に安全に止める選択を独自説明で通常コースへ接続。",
+      "duplication_status": "対象3章は飛車2bなどの独自図で、4b飛と9e角王手の連動なし。既存通常コース重複は根で確認。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/5283",
+      "target": "kishu-ahiru",
+      "idea": "反転盤の座標・手駒確認。4d角で2f飛を攻め、2h退避には3c銀から逆棒銀、3f横逃げには2d歩と3c銀で陣形前進。8d銀の7f飛と8f角両狙い。6f角交換で飛の横利きを除き9筋香を走る。本文3b金は図3h金と不一致。",
+      "duplication_status": "通常コースを含む全体重複確認は根で実施。標準構想の事実のみを独自説明へ接続し、原文・教示構図・記事構造は取り込まない。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/4961",
+      "target": "kishu-migishiken-hidarimino",
+      "idea": "5f銀・3g桂・4h飛が4eを支え、2f歩で2e桂を残す構想。対矢倉で3c銀を退かし4筋歩のピンと4d角王手を使う。対四間で1f歩が1e角を抑え、角2d/2b退避で継続が分岐。本文に桂の手番など誤記あり。",
+      "duplication_status": "通常コースを含む全体重複確認は根で実施。標準構想の事実のみを独自説明へ接続し、原文・教示構図・記事構造は取り込まない。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/5519",
+      "target": "ureshino-basics",
+      "idea": "6h銀初手、7i引き角、8h歩打ち、6i玉、5g銀から4f銀の斜め棒銀、2d銀交換と3d横歩取り。本文6i角は図7i角と不一致。手歩と手銀の増加確認。",
+      "duplication_status": "通常コースを含む全体重複確認は根で実施。標準構想の事実のみを独自説明へ接続し、原文・教示構図・記事構造は取り込まない。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/5571",
+      "target": "ureshino-new",
+      "idea": "5g銀で5f歩を早く守り、8g歩受けで8f飛を追う。旧形8f飛が5f歩を横取り、新形8g歩へ8f歩打ちで争点化。",
+      "duplication_status": "通常コースを含む全体重複確認は根で実施。標準構想の事実のみを独自説明へ接続し、原文・教示構図・記事構造は取り込まない。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/5546",
+      "target": "ureshino-vs-bougin",
+      "idea": "9e棒銀へ7e銀、8h歩型6e銀から7f銀、9f歩で退路を抑える形、新8g歩型の8f歩打ち・8h歩・7f銀・7h金の連続受け。手駒と8筋歩位置差確認。本文の一部手番記号は図と逆。",
+      "duplication_status": "通常コースを含む全体重複確認は根で実施。標準構想の事実のみを独自説明へ接続し、原文・教示構図・記事構造は取り込まない。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/5584",
+      "target": "ureshino-vs-shiken",
+      "idea": "鳥刺し7i角と5g銀から4f銀。4e歩型には3g桂。3b銀が飛車2b転換を遮る。3b銀待機/4c銀型で歩捨てと銀進出の順が変わる。7g歩が残るため8hへの角交換なし。",
+      "duplication_status": "通常コースを含む全体重複確認は根で実施。標準構想の事実のみを独自説明へ接続し、原文・教示構図・記事構造は取り込まない。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/5499",
+      "target": "ureshino-counter",
+      "idea": "7h飛・6g銀・美濃芯。5f歩が6h角から4f角への退路を作る。後手7e歩をすぐ取らず角を引く構想。4f角が5e・6d・7c・8b・9aを狙う線。",
+      "duplication_status": "通常コースを含む全体重複確認は根で実施。標準構想の事実のみを独自説明へ接続し、原文・教示構図・記事構造は取り込まない。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/4747",
+      "target": "handicap-8",
+      "idea": "八枚落ち初期構成。3e銀・2e歩・2h飛連携、3c銀成で飛車先を空ける。上手2b玉の守備に銀捨て後2d歩打ちとと金。終図4bと金と2b龍の王手線確認。本文に重複6d歩など誤記。",
+      "duplication_status": "通常コースを含む全体重複確認は根で実施。標準構想の事実のみを独自説明へ接続し、原文・教示構図・記事構造は取り込まない。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/4779",
+      "target": "handicap-6",
+      "idea": "六枚落ち初期構成。6f角から9cの線、5f歩で5g角退避。6e歩が角を追う失敗図。8d歩取り後8c金が角香両取り。9b成香・9h飛・9d垂れ歩。8d金型9e歩打ちで飛車筋を止める。本文は6e歩を6d歩と誤記。",
+      "duplication_status": "通常コースを含む全体重複確認は根で実施。標準構想の事実のみを独自説明へ接続し、原文・教示構図・記事構造は取り込まない。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/4815",
+      "target": "handicap-4",
+      "idea": "四枚落ち初期構成。2筋歩交換の進出升・手歩・飛車線の三役。1b垂れ歩から1aと金・2a桂取り。金が動くと2c銀の守りが外れる間接攻撃。3枚守備型の相違。手銀・桂・歩確認。",
+      "duplication_status": "通常コースを含む全体重複確認は根で実施。標準構想の事実のみを独自説明へ接続し、原文・教示構図・記事構造は取り込まない。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/4878",
+      "target": "handicap-2",
+      "idea": "二枚落ち初期構成。4eと3eの位と4g銀。4d歩が下手角線を止める図、平手で双方角を遮る図。2歩突き切りの3f飛と銀多伝の縦2銀。最後2図は下手配置のみの部分図。",
+      "duplication_status": "通常コースを含む全体重複確認は根で実施。標準構想の事実のみを独自説明へ接続し、原文・教示構図・記事構造は取り込まない。"
+    }
+  ],
+  "findings": [
+    {
+      "id": "kishu-ahiru-ch2-wrong-variation-anchor",
+      "unit": "kishu-ahiru",
+      "chapter": 2,
+      "location": "chapters[1].variations[0].from",
+      "severity": "confirmed-semantic",
+      "problem": "from=2は5筋歩交換と5b5e飛王手の後だが、日英は交換を拒否する4g玉と説明。",
+      "reproduction": {
+        "main_to_anchor": [
+          "5c5d",
+          "5g5f",
+          "5d5e",
+          "5f5e",
+          "5b5e"
+        ],
+        "actual_anchor_sfen": "4k4/9/9/9/4r4/7R1/2P6/1B1SKS3/2G3G2 b Pp 1",
+        "variation": [
+          "5h4g"
+        ],
+        "actual_end_sfen": "4k4/9/9/9/4r4/7R1/2P2K3/1B1S1S3/2G3G2 w Pp 1",
+        "intended_anchor_step": 1,
+        "intended_anchor_sfen": "4k4/4r4/9/9/4p4/4P2R1/2P6/1B1SKS3/2G3G2 b - 1",
+        "both_king_moves_legal": true
+      },
+      "suggestion": "交換拒否の比較ならfromを1へ変更。"
+    }
+  ],
+  "legality_evidence": "対象16単位のみbuildUnit実行。全主線と変化のtsshogi合法性成功。全nodeで非手番玉への王手なし。合法性は指し手品質を証明しない。",
+  "continuation_evidence": {
+    "model": "GPT-6.1-sol low",
+    "rules_read": [
+      "conductor/CURRENT_TASK.md 1-EOF",
+      "AGENTS.md 1-EOF",
+      "docs/lessons.md 1-EOF",
+      "scripts/lessons/unit.ts 1-EOF"
+    ],
+    "visual_index": ".cache/curriculum-source/white-review/handicap-low-index.json",
+    "visual_method": "原画像保存、同寸法の白背景合成。26原寸シートを直接view_image。4878 index23は単図でも確認。",
+    "legality": "残11単位33章と全変化を現在のbuildUnitで再生成功。",
+    "tactical_checks": [
+      "ureshino-new ch2 5g6f/4d6f後7i6fは不合法",
+      "ureshino-counter ch3 5c6d/5e6d/3a6dは合法",
+      "handicap-6 ch3 3a2b/5e2b+/4a3b/2b5eは合法、3b5e即再捕獲は不合法",
+      "handicap-2 ch2 5f4g/3c4e後4g4eは不合法"
+    ],
+    "gaps": [
+      "根による独立確認と全体重複確認が必要。",
+      "最善手・優劣のエンジン検証なし。",
+      "以前の5単位と5参考資料は既存報告を保持。この続行では再読していない。"
+    ]
+  }
+}

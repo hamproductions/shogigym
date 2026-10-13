@@ -296,9 +296,8 @@
                                                                                              },
                                                                                              {
                                                                                               "usi": "8g8f",
-                                                                                              "kind": "deviation",
-                                                                                              "note": "先手８六歩。後手８五歩にすぐ接する選択。",
-                                                                                              "punishNote": "８六で銀を取り返しに使うと、８二飛が銀を取って８八玉に王手をかける。歩を取る手だけで止めず、その先の飛車まで読む。",
+                                                                                              "kind": "alt",
+                                                                                              "note": "先手８六歩。後手８五歩に接する選択。",
                                                                                               "child": {
                                                                                                "id": "nb1_0",
                                                                                                "sfen": "ln1k3nl/1r1sgsg2/6bp1/p1ppppp1p/1p7/1PPPP2P1/P1SGBPP1P/1KG4R1/LN4SNL w - 1",
@@ -306,31 +305,42 @@
                                                                                                 {
                                                                                                  "usi": "8e8f",
                                                                                                  "kind": "main",
-                                                                                                 "note": "後手８六同歩。８五歩が先手歩を取り、後手は歩を一枚持つ。",
+                                                                                                 "note": "後手８六同歩。ここから先手が何で応じるかを分けて読む。",
                                                                                                  "child": {
                                                                                                   "id": "nb1_1",
                                                                                                   "sfen": "ln1k3nl/1r1sgsg2/6bp1/p1ppppp1p/9/1pPPP2P1/P1SGBPP1P/1KG4R1/LN4SNL b p 1",
                                                                                                   "branches": [
                                                                                                    {
                                                                                                     "usi": "7g8f",
-                                                                                                    "kind": "main",
-                                                                                                    "note": "先手８六同銀。７七銀で後手歩を取り、先手も歩を一枚持つ。",
+                                                                                                    "kind": "deviation",
+                                                                                                    "note": "先手８六同銀。７七銀を飛車８二の縦の利きへ出す。",
+                                                                                                    "punishNote": "銀の取り返しには飛車８二が届く。８六歩そのものと、銀を失うこの選択を分ける。",
                                                                                                     "child": {
-                                                                                                     "id": "nb1_2",
+                                                                                                     "id": "nb1b0_0",
                                                                                                      "sfen": "ln1k3nl/1r1sgsg2/6bp1/p1ppppp1p/9/1SPPP2P1/P2GBPP1P/1KG4R1/LN4SNL w Pp 1",
                                                                                                      "branches": [
                                                                                                       {
                                                                                                        "usi": "8b8f",
                                                                                                        "kind": "main",
-                                                                                                       "note": "後手８六同飛。８二飛が８六の銀を取り、８七が空いたので８八玉に縦の王手もかかる。",
+                                                                                                       "note": "後手８六同飛。銀を取り、８八玉に王手をかける。",
                                                                                                        "child": {
-                                                                                                        "id": "nb1_3",
+                                                                                                        "id": "nb1b0_1",
                                                                                                         "sfen": "ln1k3nl/3sgsg2/6bp1/p1ppppp1p/9/1rPPP2P1/P2GBPP1P/1KG4R1/LN4SNL b Psp 1",
                                                                                                         "branches": [],
-                                                                                                        "comment": "この例では８六の銀に８二飛が届く。角５七は８六を守らず、先手は歩を一枚得ても銀を失い、王手への応答が必要になる。"
+                                                                                                        "comment": "角５七は８六を守らない。先手は銀を失い、王手にも応じる必要がある。"
                                                                                                        }
                                                                                                       }
                                                                                                      ]
+                                                                                                    }
+                                                                                                   },
+                                                                                                   {
+                                                                                                    "usi": "8h7i",
+                                                                                                    "kind": "alt",
+                                                                                                    "child": {
+                                                                                                     "id": "nb1b1_0",
+                                                                                                     "sfen": "ln1k3nl/1r1sgsg2/6bp1/p1ppppp1p/9/1pPPP2P1/P1SGBPP1P/2G4R1/LNK3SNL w p 1",
+                                                                                                     "branches": [],
+                                                                                                     "comment": "玉を７九へ動かす比較枝。銀７七は残るが、後手歩８六への対処はまだ必要で、この一手の優劣までは断定しない。"
                                                                                                     }
                                                                                                    }
                                                                                                   ]

@@ -1,0 +1,238 @@
+{
+  "scope_ids": [
+    "47-2",
+    "47",
+    "48",
+    "50",
+    "52",
+    "53",
+    "59"
+  ],
+  "references": [
+    {
+      "url": "https://www.shogi-rule.com/joseki-47-2/",
+      "iframe_url": "https://www.shogi-rule.com/wp-content/kif/kifu/base.php?type=joseki&id=47-2",
+      "iframe_path": ".cache/reference/assets/final-joseki-47-2-iframe.html",
+      "iframe_bytes": 2654,
+      "iframe_sha256": "359f6668fc7128494fdbd4e09635bd46a605aa736ecabfa9c37d66d19d89fa18",
+      "iframe_read_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "kif_url": "https://www.shogi-rule.com/wp-content/kif/kifu/joseki/joseki-47-2.kif",
+      "path": ".cache/reference/assets/final-joseki-47-2.kif",
+      "bytes": 10073,
+      "sha256": "3dd1a5a1d283aa19c41bb0a247b7be76e34cdc2c34f4fc91588e8a870a1030f9",
+      "encoding": "cp932",
+      "read_ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "moves": 36,
+      "branches": 0,
+      "canonical_replay": "Every imported mainline USI independently replayed with Position.isValidMove/doMove; every child SFEN equals imported record position and node SFEN.",
+      "parsed_cache": ".cache/reference/assets/final-joseki-47-2-parsed.json",
+      "observed": "Fourth-file rook: silver54-65-76, second-file pawn sacrifice, rook26 and final rook44 capture;36 main moves.",
+      "proof": "Full HTML/KIF data reads only; no rendered browser proof. All GPSfish2017 PVs/comments read as annotations, not branches or current best-play evidence. Original source positions and annotations retained only in reference cache.",
+      "iframe_lines": 43,
+      "lines": 82
+    },
+    {
+      "url": "https://www.shogi-rule.com/joseki-47/",
+      "iframe_url": "https://www.shogi-rule.com/wp-content/kif/kifu/base.php?type=joseki&id=47",
+      "iframe_path": ".cache/reference/assets/final-joseki-47-iframe.html",
+      "iframe_bytes": 2652,
+      "iframe_sha256": "bfb3f67ff8db12848f3ab9c54d2dc9405ac86f43a967ea3b9da395d005c5684a",
+      "iframe_read_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "kif_url": "https://www.shogi-rule.com/wp-content/kif/kifu/joseki/joseki-47.kif",
+      "path": ".cache/reference/assets/final-joseki-47.kif",
+      "bytes": 14354,
+      "sha256": "157f2aad866bd0759e99b4ec151a07704c34e4dad539ab22ad98677eadabcbaf",
+      "encoding": "cp932",
+      "read_ranges": [
+        [
+          1,
+          108
+        ]
+      ],
+      "moves": 49,
+      "branches": 0,
+      "canonical_replay": "Every imported mainline USI independently replayed with Position.isValidMove/doMove; every child SFEN equals imported record position and node SFEN.",
+      "parsed_cache": ".cache/reference/assets/final-joseki-47-parsed.json",
+      "observed": "Fourth-file rook: silver attraction by P*45, knight capture45, bishop exchange forces king78 to88;49 main moves.",
+      "proof": "Full HTML/KIF data reads only; no rendered browser proof. All GPSfish2017 PVs/comments read as annotations, not branches or current best-play evidence. Original source positions and annotations retained only in reference cache.",
+      "iframe_lines": 43,
+      "lines": 108
+    },
+    {
+      "url": "https://www.shogi-rule.com/joseki-48/",
+      "iframe_url": "https://www.shogi-rule.com/wp-content/kif/kifu/base.php?type=joseki&id=48",
+      "iframe_path": ".cache/reference/assets/final-joseki-48-iframe.html",
+      "iframe_bytes": 2652,
+      "iframe_sha256": "ca10fd611308c42d15c1fc9689b69b95a0183773e87f1bf6d2a68c218bc7fc69",
+      "iframe_read_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "kif_url": "https://www.shogi-rule.com/wp-content/kif/kifu/joseki/joseki-48.kif",
+      "path": ".cache/reference/assets/final-joseki-48.kif",
+      "bytes": 9634,
+      "sha256": "b64fb903f1cf7d309d40809f6c63d8bb27dcc60f428139fde7f0eaebcc637bb8",
+      "encoding": "cp932",
+      "read_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "moves": 31,
+      "branches": 0,
+      "canonical_replay": "Every imported mainline USI independently replayed with Position.isValidMove/doMove; every child SFEN equals imported record position and node SFEN.",
+      "parsed_cache": ".cache/reference/assets/final-joseki-48-parsed.json",
+      "observed": "Fourth-file rook: silver39-38-27-26, bishop exchange and rook38; opposing bishop64 promotes19, final horse11;31 main moves.",
+      "proof": "Full HTML/KIF data reads only; no rendered browser proof. All GPSfish2017 PVs/comments read as annotations, not branches or current best-play evidence. Original source positions and annotations retained only in reference cache.",
+      "iframe_lines": 43,
+      "lines": 72
+    },
+    {
+      "url": "https://www.shogi-rule.com/joseki-50/",
+      "iframe_url": "https://www.shogi-rule.com/wp-content/kif/kifu/base.php?type=joseki&id=50",
+      "iframe_path": ".cache/reference/assets/final-joseki-50-iframe.html",
+      "iframe_bytes": 2652,
+      "iframe_sha256": "2bd2457c74ed92e18dc2b767de6281eff8cbe3810627ef354b929fa0a817248b",
+      "iframe_read_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "kif_url": "https://www.shogi-rule.com/wp-content/kif/kifu/joseki/joseki-50.kif",
+      "path": ".cache/reference/assets/final-joseki-50.kif",
+      "bytes": 8683,
+      "sha256": "19579331912063f8bd36fe633ebe3765e7c2b1874ab1d422fa18087872b4b70b",
+      "encoding": "cp932",
+      "read_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "moves": 30,
+      "branches": 0,
+      "canonical_replay": "Every imported mainline USI independently replayed with Position.isValidMove/doMove; every child SFEN equals imported record position and node SFEN.",
+      "parsed_cache": ".cache/reference/assets/final-joseki-50-parsed.json",
+      "observed": "Side-pawn capture: bishop exchange, P*28/S39x28, B*45, mutual rook/silver exchanges, final S*66;30 main moves.",
+      "proof": "Full HTML/KIF data reads only; no rendered browser proof. All GPSfish2017 PVs/comments read as annotations, not branches or current best-play evidence. Original source positions and annotations retained only in reference cache.",
+      "iframe_lines": 43,
+      "lines": 70
+    },
+    {
+      "url": "https://www.shogi-rule.com/joseki-52/",
+      "iframe_url": "https://www.shogi-rule.com/wp-content/kif/kifu/base.php?type=joseki&id=52",
+      "iframe_path": ".cache/reference/assets/final-joseki-52-iframe.html",
+      "iframe_bytes": 2652,
+      "iframe_sha256": "20f070dae4acfeff9e0e632b1e7f26c07f2293390c05d685f7322b8dd1fbab43",
+      "iframe_read_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "kif_url": "https://www.shogi-rule.com/wp-content/kif/kifu/joseki/joseki-52.kif",
+      "path": ".cache/reference/assets/final-joseki-52.kif",
+      "bytes": 12508,
+      "sha256": "60ea296d6d38b13c768825d487a78aa7068ac0785bfdbe472cb7f997952ca7d2",
+      "encoding": "cp932",
+      "read_ranges": [
+        [
+          1,
+          108
+        ]
+      ],
+      "moves": 49,
+      "branches": 0,
+      "canonical_replay": "Every imported mainline USI independently replayed with Position.isValidMove/doMove; every child SFEN equals imported record position and node SFEN.",
+      "parsed_cache": ".cache/reference/assets/final-joseki-52-parsed.json",
+      "observed": "Side-pawn capture: king58 and gold38, rook returns29 after silver36-47 chases rook46-44;49 main moves.",
+      "proof": "Full HTML/KIF data reads only; no rendered browser proof. All GPSfish2017 PVs/comments read as annotations, not branches or current best-play evidence. Original source positions and annotations retained only in reference cache.",
+      "iframe_lines": 43,
+      "lines": 108
+    },
+    {
+      "url": "https://www.shogi-rule.com/joseki-53/",
+      "iframe_url": "https://www.shogi-rule.com/wp-content/kif/kifu/base.php?type=joseki&id=53",
+      "iframe_path": ".cache/reference/assets/final-joseki-53-iframe.html",
+      "iframe_bytes": 2652,
+      "iframe_sha256": "d4a63956d28c1c7368208acd2d75abcaf3b4ed8fba1c327cfcf40d3d0d4f9f0b",
+      "iframe_read_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "kif_url": "https://www.shogi-rule.com/wp-content/kif/kifu/joseki/joseki-53.kif",
+      "path": ".cache/reference/assets/final-joseki-53.kif",
+      "bytes": 9213,
+      "sha256": "bde51312f4bf6162d567b0503c0fed67ccf9a66081442021cddc84e3bb72f91f",
+      "encoding": "cp932",
+      "read_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "moves": 31,
+      "branches": 0,
+      "canonical_replay": "Every imported mainline USI independently replayed with Position.isValidMove/doMove; every child SFEN equals imported record position and node SFEN.",
+      "parsed_cache": ".cache/reference/assets/final-joseki-53-parsed.json",
+      "observed": "Side-pawn capture: king68, silver38, knight37, final pawn46;31 main moves.",
+      "proof": "Full HTML/KIF data reads only; no rendered browser proof. All GPSfish2017 PVs/comments read as annotations, not branches or current best-play evidence. Original source positions and annotations retained only in reference cache.",
+      "iframe_lines": 43,
+      "lines": 72
+    },
+    {
+      "url": "https://www.shogi-rule.com/joseki-59/",
+      "iframe_url": "https://www.shogi-rule.com/wp-content/kif/kifu/base.php?type=joseki&id=59",
+      "iframe_path": ".cache/reference/assets/final-joseki-59-iframe.html",
+      "iframe_bytes": 2652,
+      "iframe_sha256": "2240aef786f8a1dab57d9f875889396604a493f74741259a3f6f4417723d10a5",
+      "iframe_read_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "kif_url": "https://www.shogi-rule.com/wp-content/kif/kifu/joseki/joseki-59.kif",
+      "path": ".cache/reference/assets/final-joseki-59.kif",
+      "bytes": 10231,
+      "sha256": "b1035825edcb09b7fbd0d5003ea6c9032fa8051aed77ddf7200047916c918b72",
+      "encoding": "cp932",
+      "read_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "moves": 35,
+      "branches": 0,
+      "canonical_replay": "Every imported mainline USI independently replayed with Position.isValidMove/doMove; every child SFEN equals imported record position and node SFEN.",
+      "parsed_cache": ".cache/reference/assets/final-joseki-59-parsed.json",
+      "observed": "Bishop exchange: silver38-37-46-35, opposing B*64 and own B*46; silver54x55/B46x55/B64x55 then silver35-46;35 main moves.",
+      "proof": "Full HTML/KIF data reads only; no rendered browser proof. All GPSfish2017 PVs/comments read as annotations, not branches or current best-play evidence. Original source positions and annotations retained only in reference cache.",
+      "iframe_lines": 43,
+      "lines": 80
+    }
+  ],
+  "status": "All7 exact embedded-data reads and mainline replay complete; root acceptance pending"
+}

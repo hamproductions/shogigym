@@ -4,8 +4,8 @@
   "path": ["戦法・定跡", "対振り飛車"],
   "title": { "ja": "エルモ囲いから攻め駒を選ぶ", "en": "Choosing an attack from the Elmo castle" },
   "intro": {
-    "ja": "７八玉・６八銀・７九金の形では、玉の後ろと斜め前に守り駒を残しながら別の駒を攻めへ送れる。右金を５九へ寄る手は選択肢であり、必要な手数は相手の動き次第。囲いの形を確認したうえで、左銀の進路と４筋の飛車・歩の接触を別々に読む。",
-    "en": "A king on 7h has a gold directly behind it on 7i and a silver diagonally ahead on 6h, leaving other pieces available for attack. Moving the other gold to 5i is an option whose timing depends on Gote's activity. After identifying the shelter, examine the left silver's route and a fourth-file rook-and-pawn contact separately."
+    "ja": "７八玉・６八銀・７九金の形では、玉の後ろに金、横に銀を残しながら別の駒を攻めへ送れる。右金を５九へ寄る手は選択肢であり、必要な手数は相手の動き次第。囲いの形を確認したうえで、左銀の進路と４筋の飛車・歩の接触を別々に読む。",
+    "en": "A king on 7h has a gold directly behind it on 7i and a silver beside it on 6h, leaving other pieces available for attack. Moving the other gold to 5i is an option whose timing depends on Gote's activity. After identifying the shelter, examine the left silver's route and a fourth-file rook-and-pawn contact separately."
   },
   "check": {
     "question": { "ja": "４筋の歩がぶつかり、先手飛車を４五へ出した。後手飛車も４五の先手飛車を取れるとき、飛車を失うだけかどうかを何で判断する？", "en": "After a fourth-file pawn contact, Sente's rook reaches 4e and Gote's rook can capture it. What determines whether Sente simply loses a rook?" },
@@ -19,7 +19,7 @@
       "start": "9/1kg2rsb1/p1p6/5pp2/9/6PP1/2P1S4/1BKS3R1/3G1G3 b - 1",
       "steps": [
         { "text": { "ja": "先手玉は７八、左銀は６八、左金は６九にいる。７九が空いており、６九金は一手でその位置へ動ける。４九の右金と５七の右銀はまだ攻守を選べる。", "en": "Sente's king is on 7h, the left silver on 6h and the left gold on 6i. The empty 7i square is one gold move away. The right gold on 4i and right silver on 5g can still be assigned to defense or attack." }, "marks": { "arrows": ["6i7i"], "boxes": ["7h", "6h", "7i"] } },
-        { "moves": ["6i7i", "9c9d"], "text": { "ja": "金を７九へ寄せ、７八玉・６八銀・７九金のエルモ囲いの核を作った。後手は端歩を進めた一例。７九金は７八玉を後ろから支え、６八銀は玉の斜め前にいるが、どの方向にも無条件に強いわけではない。", "en": "The gold reaches 7i, completing the Elmo core of king 7h, silver 6h and gold 7i. Gote's edge-pawn push is a sample reply. The gold supports the king from behind and the silver sits diagonally ahead; the shelter still has board-specific weak points." }, "marks": { "boxes": ["7h", "6h", "7i"] } },
+        { "moves": ["6i7i", "9c9d"], "text": { "ja": "金を７九へ寄せ、７八玉・６八銀・７九金のエルモ囲いの核を作った。後手は端歩を進めた一例。７九金は７八玉を後ろから支え、６八銀は玉の横にいる。金７九は銀６八も斜め前に守るが、どの方向にも無条件に強いわけではない。", "en": "The gold reaches 7i, completing the Elmo core of king 7h, silver 6h and gold 7i. Gote's edge-pawn push is a sample reply. The gold supports the king from behind and the silver sits beside the king; the shelter still has board-specific weak points." }, "marks": { "boxes": ["7h", "6h", "7i"] } },
         { "moves": ["5g4f", "7c7d"], "text": { "ja": "先手は右銀を４六へ使い、後手は７筋の歩を進めた。この例では４九金を動かさずに攻め駒を出した。７四歩や４筋の反撃が速ければ、玉側に残す手数との比較が必要になる。", "en": "Sente sends the right silver to 4f while Gote advances a seventh-file pawn. In this example Sente leaves the gold on 4i and develops an attacker. Faster Gote pressure would change the timing available for the king-side gold." }, "marks": { "boxes": ["4f", "4i", "7h"] } }
       ],
       "variations": [
@@ -34,7 +34,7 @@
         { "text": { "ja": "囲いの核は７八玉・６八左銀・７九金。後手５五歩を左銀で狙うには、守りの６八銀を動かす必要がある。後手４四歩は今、２二角の斜め筋を止めている。", "en": "The Elmo core starts with king 7h, left silver 6h and gold 7i. Reaching Gote's pawn on 5e with that left silver means moving a defender away from the king. Gote's pawn on 4d currently blocks the bishop on 2b." }, "marks": { "arrows": ["6h5g", "5g4f"], "boxes": ["6h", "4d", "5e"] } },
         { "moves": ["6h5g", "9c9d", "5g4f", "7c7d"], "text": { "ja": "先手左銀は６八から５七、４六へ進み、後手は端と７筋の歩を動かした一例。６八が空いて玉の近くの銀は減った。５五歩を取る前に、この守りの支払いと後手の角道を比べる。", "en": "Sente's left silver travels from 6h through 5g to 4f as Gote advances edge and seventh-file pawns in this sample. The 6h defender has left the king. Compare that defensive cost and Gote's bishop line before taking the pawn on 5e." }, "marks": { "boxes": ["4f", "6h", "4d", "5e"] } },
         { "moves": ["4f5e", "4d4e"], "text": { "ja": "先手銀が５五歩を取ると、後手は４五歩で角道を開けた。２二角から３三・４四を通る線が５五銀へ届く。先手は歩を得たが、銀を同じ場所に置くには別の守りが必要。", "en": "Sente's silver captures the pawn on 5e, then Gote pushes to 4e and opens the bishop line through 3c and 4d to the silver. Sente gains a pawn, but keeping the silver on 5e would require another defense." }, "marks": { "arrows": ["2b5e"], "boxes": ["5e"] } },
-        { "moves": ["5e6d"], "text": { "ja": "先手銀を６四へ進めて角の斜め筋から外した。この盤には後手６三歩がないため６四は直ちに歩で取られない。銀を前へ逃がせても、６八に守りの銀は戻らない。", "en": "Sente advances the silver to 6d, off the bishop diagonal. On this board Gote has no pawn on 6c to capture it immediately. Even after this escape, the silver has not returned to defend the king on 6h." }, "marks": { "boxes": ["6d", "6h", "2b"] } }
+        { "moves": ["5e6d"], "text": { "ja": "先手銀を６四へ進めて角の斜め筋から外した。この盤には後手６三歩がないため６四は直ちに歩で取られない。銀を前へ逃がせても、６八に守りの銀は戻らない。", "en": "Sente advances the silver to 6d, off the bishop diagonal. On this board Gote has no pawn on 6c to capture it immediately. Even after this escape, the silver has not returned to 6h beside the king on 7h." }, "marks": { "boxes": ["6d", "6h", "2b"] } }
       ]
     },
     {

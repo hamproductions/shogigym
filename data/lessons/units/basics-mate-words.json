@@ -1,7 +1,10 @@
 {
   "id": "basics-mate-words",
   "order": 120,
-  "path": ["はじめての将棋", "基本の考え方"],
+  "path": [
+    "はじめての将棋",
+    "基本の考え方"
+  ],
   "title": {
     "ja": "王手から詰みまで",
     "en": "From Check to Checkmate"
@@ -51,7 +54,9 @@
           }
         },
         {
-          "moves": ["G*1b"],
+          "moves": [
+            "G*1b"
+          ],
           "text": {
             "ja": "▲１二金打は詰みです。打った金は２三の金に守られ、玉は逃げられず、打った金も取れません。",
             "en": "▲１二金打 is checkmate. The gold is protected by the piece on ２三, and the king can neither escape nor capture the dropped gold."
@@ -87,14 +92,18 @@
           }
         },
         {
-          "moves": ["R*1d"],
+          "moves": [
+            "R*1d"
+          ],
           "text": {
             "ja": "▲１四飛打で、１筋を通って後手玉に王手がかかります。王手は玉への攻撃なので、後手は次の自分の手でその利きをなくさなければなりません。",
             "en": "▲１四飛打 checks the king along the first file. Check is an attack on the king, so the defender must remove that attack with its reply."
           }
         },
         {
-          "moves": ["1a2a"],
+          "moves": [
+            "1a2a"
+          ],
           "text": {
             "ja": "△２一玉と横へ逃げられます。王手はかかっていますが、この局面は詰みではありません。王手を見つけたら、玉の逃げ道や攻撃駒を取る手、長い利きを遮る手が残っているかを調べます。",
             "en": "△２一玉 steps sideways out of the line. The king was in check, but this position was not mate. After finding a check, look for king escapes, captures of the checking piece, and blocks against a long-range attack."
@@ -124,7 +133,9 @@
           }
         },
         {
-          "moves": ["G*1b"],
+          "moves": [
+            "G*1b"
+          ],
           "text": {
             "ja": "▲１二金打で王手です。金自身が２一と２二への逃げ道を押さえ、２三の金が打った金を守ります。後手玉には合法な応手がなく、これが詰みです。",
             "en": "▲１二金打 checks. The dropped gold controls the king’s exits at ２一 and ２二, while the gold on ２三 protects it. The defender has no legal reply, so this is checkmate."
@@ -148,28 +159,36 @@
           }
         },
         {
-          "moves": ["2d2c"],
+          "moves": [
+            "2d2c"
+          ],
           "text": {
             "ja": "▲２三金と進みました。後手玉への王手ではありませんが、玉が１一に残れば次の▲１二金打で詰みます。このように、今は王手でなくても次に詰みがある状態を詰めろといいます。",
             "en": "▲２三金 advances without checking the king. If it stays on １一, ▲１二金打 will mate next. A position with no check now but mate threatened on the next move is called a mate threat."
           }
         },
         {
-          "moves": ["1a2a"],
+          "moves": [
+            "1a2a"
+          ],
           "text": {
             "ja": "△２一玉と先に逃げれば、金１二打の詰み筋から外れます。詰めろは今すぐ負けた状態ではなく、相手に一手の受けを選ばせる脅威です。",
             "en": "△２一玉 moves before the attack and leaves the planned mating drop behind. A mate threat is not an immediate loss; it gives the defender one move to change the position."
           }
         },
         {
-          "moves": ["G*1b"],
+          "moves": [
+            "G*1b"
+          ],
           "text": {
             "ja": "それでも▲１二金打と王手をかけると、△３一玉ともう一升逃げられます。最初の詰めろは受けで消え、同じ金打ちは王手でも詰みにはなりません。",
             "en": "If ▲１二金打 is tried anyway, △３一玉 escapes again. The original threat was answered; the same gold drop now gives check but does not checkmate."
           }
         },
         {
-          "moves": ["2a3a"],
+          "moves": [
+            "2a3a"
+          ],
           "text": {
             "ja": "△３一玉は金１二の利きからも外れます。詰めろをかけた側も、相手の受けで盤面が変わった後に同じ詰み筋が残るか読み直します。",
             "en": "△３一玉 leaves the gold’s reach as well. After the defender changes the position, recalculate whether the original mating line still works."
@@ -184,33 +203,39 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "8k/9/9/7G1/9/9/1p7/9/K6R1 b G 1",
+      "start": "k8/9/1RG5p/9/9/9/9/9/8K b G 1",
       "steps": [
         {
           "text": {
-            "ja": "ここでも先手金２四を２三へ進めると、１二への金打ちが見えます。今回は先手飛車２九も、後手玉の逃げ先２一を押さえています。",
-            "en": "Here the attacker can again advance the gold from ２四 to ２三 and prepare a drop on １二. The rook on ２九 also controls the king’s escape square at ２一."
+            "ja": "後手玉９一、先手飛車８三・金７三、先手の持金一枚という独立した局面です。後手には１三歩だけがあり、持駒はありません。王手をかけずに飛車を８二へ置くと、玉の逃げ道と金９二打の支えがどう変わるかを調べます。",
+            "en": "This independent position has Gote king ９一, Sente rook ８三 and gold ７三, and one gold in Sente's hand. Gote has only a pawn on １三 and no hand pieces. Examine how a quiet rook move to ８二 changes the king's exits and supports a gold drop on ９二."
           }
         },
         {
-          "moves": ["2d2c"],
+          "moves": [
+            "8c8b"
+          ],
           "text": {
-            "ja": "▲２三金と進みました。王手ではありませんが、後手玉の１一は動ける升がなく、次の▲１二金打を防ぐ持駒もありません。後手には８七の歩を動かす手は残っていますが、それでは詰みを止められません。",
-            "en": "▲２三金 advances without check. The defender’s king on １一 has no safe square, and the defender has no piece in hand to stop ▲１二金打. The pawn on ８七 can still move, but that does not prevent mate."
+            "ja": "▲８二飛は王手ではありません。玉が８一へ動くと飛車に利かれ、８二の飛車を取る手は金７三に守られているため不合法です。９二も飛車が押さえます。この表示局面で後手の全合法手を調べると、△１四歩だけが残ります。",
+            "en": "▲８二飛 does not check. The rook controls ８一 and ９二, while the gold on ７三 protects the rook against capture on ８二. Exhaustive legal-move enumeration in this displayed position leaves only △１四歩."
           }
         },
         {
-          "moves": ["8g8h"],
+          "moves": [
+            "1c1d"
+          ],
           "text": {
-            "ja": "△８八歩と別の場所で指しても、玉の周囲は変わりません。詰みを避ける応手がなく、次に詰む形が必至です。",
-            "en": "△８八歩 plays elsewhere, leaving the king’s position unchanged. Since no reply can prevent the coming mate, this is an unavoidable mate threat."
+            "ja": "唯一の合法手△１四歩でも、９一玉の周囲と先手の持金は変わりません。次の▲９二金を防ぐ合法な受けがないため、この局面は必至です。相手に別の守備駒や持駒がある局面まで同じ結論にはしません。",
+            "en": "The sole legal reply △１四歩 does not change the king's surroundings or Sente's gold in hand. No legal defense prevents ▲９二金, so this position is hisshi. The conclusion is specific to these pieces and hands; extra defenders would require a new proof."
           }
         },
         {
-          "moves": ["G*1b"],
+          "moves": [
+            "G*9b"
+          ],
           "text": {
-            "ja": "▲１二金打で詰みです。飛車が２一、金が２二と１二を押さえ、打った金は２三の金に守られています。必至は王手ではありませんが、受けても次の詰みが残る形です。",
-            "en": "▲１二金打 is mate. The rook controls ２一, the gold controls ２二, and the gold on ２三 protects the drop. An unavoidable mate threat is not check, but the mate remains after every defence."
+            "ja": "▲９二金で詰みです。飛車８二が金９二を横から守り、金は飛車８二も守ります。８一は飛車の利きにあり、玉に合法な応手はありません。必至を判断するには、王手でない準備手の後の全合法な受けを確かめます。",
+            "en": "▲９二金 is mate. The rook on ８二 protects the gold on ９二 sideways, and the gold protects the rook. The rook also controls ８一, leaving no legal reply. Establishing hisshi requires testing every legal defense after the quiet preparatory move."
           }
         }
       ]

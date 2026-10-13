@@ -267,7 +267,11 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
                 <div key={g.usi} className="app-answer">
                   <span className="app-answer-move">{moveText(sfen, g.usi)}</span>
                   {level === 'new' && <span className="app-gloss">{moveGloss(sfen, g.usi)}</span>}
-                  {g.note && <p>{g.note}</p>}
+                  {g.note && (
+                    <p>
+                      <SquareText text={g.note} context={lesson.annotationText} />
+                    </p>
+                  )}
                 </div>
               ))}
               <p className="app-muted">{t('lesson.playItOnTheBoard')}</p>
@@ -296,7 +300,11 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
         <Card>
           <strong>{theirs ? t('lesson.theirMove', { move: moveText(sfen, theirs.usi) }) : t('lesson.theirMove2')}</strong>
           {level === 'new' && theirs && <span className="app-gloss">{moveGloss(sfen, theirs.usi)}</span>}
-          {theirs?.note && <p>{theirs.note}</p>}
+          {theirs?.note && (
+            <p>
+              <SquareText text={theirs.note} context={lesson.annotationText} />
+            </p>
+          )}
           {theirs && (lessonMode === 'study' || !atEnd) ? (
             <Button variant="primary" onClick={() => onPlayReply(theirs.usi)}>
               {t('lesson.playTheirMove')} <span className="app-key">Space</span>
@@ -309,7 +317,9 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
       {lastMove && prevSfen && lastNote && !mistakePreview && (
         <div className="app-last">
           <span className="app-muted">{t('lesson.lastMove', { move: moveText(prevSfen, lastMove) })}</span>
-          <p>{lastNote}</p>
+          <p>
+            <SquareText text={lastNote} context={lesson.annotationText} />
+          </p>
         </div>
       )}
       {!lastMove && course.root.comment && (

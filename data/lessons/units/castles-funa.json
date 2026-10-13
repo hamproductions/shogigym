@@ -1,7 +1,10 @@
 {
   "id": "castles-funa",
   "order": 310,
-  "path": ["上達のためのテクニック", "囲い"],
+  "path": [
+    "上達のためのテクニック",
+    "囲い"
+  ],
   "title": {
     "ja": "舟囲いから守りと攻めの手を選ぶ",
     "en": "Choose the Next Move from a Boat Castle"
@@ -45,10 +48,12 @@
           }
         },
         {
-          "moves": ["5i5h"],
+          "moves": [
+            "5i5h"
+          ],
           "text": {
-            "ja": "▲５八金。玉７八は銀７九と金６九に守られ、金６九は金５八を斜め前から支えます。これは舟囲いの基本的な配置です。短い手数で形ができますが、この盤には上部の歩がないため、実戦では攻めを始める前に相手の利きを調べます。",
-            "en": "▲５八金 completes a basic Boat arrangement. The silver on ７九 and gold on ６九 protect the king on ７八, while the gold on ６九 supports the gold on ５八 diagonally forward. It takes little time to form, but this board lacks an upper pawn screen; inspect opposing attacks before starting your own."
+            "ja": "▲５八金。玉７八は銀７九と金６九に守られ、金６九は金５八を斜め前から支えます。これは舟囲いの基本的な配置です。短い手数で形ができますが、この盤には上部の歩がないため、実戦では攻めを始める前に相手の利きを調べます。 舟囲いを保って攻めるか、左美濃・穴熊へ追加の手数を使うかは別の判断。いま８八は自角が占めるので、玉をそのまま８八へ移せない。",
+            "en": "▲５八金 completes a basic Boat arrangement. The silver on ７九 and gold on ６九 protect the king on ７八, while the gold on ６九 supports the gold on ５八 diagonally forward. It takes little time to form, but this board lacks an upper pawn screen; inspect opposing attacks before starting your own. Keeping Boat for an attack or spending more moves on Left Mino or Anaguma is a separate choice. The bishop currently occupies 8h, so the king cannot simply move there."
           }
         }
       ]
@@ -69,7 +74,9 @@
           }
         },
         {
-          "moves": ["6h5g"],
+          "moves": [
+            "6h5g"
+          ],
           "text": {
             "ja": "▲５七銀。銀は歩４六を狙い、金５八が銀５七を守ります。一方、銀６八が押さえていた７七・６七への利きはなくなります。５七銀型で攻めを急ぐなら、その空いたマスを後手が使えるかを同時に確かめます。",
             "en": "▲５七銀 attacks the pawn on ４六, and the gold on ５八 protects the silver. It no longer covers ７七 or ６七 as it did from ６八. When using the ５七 silver for a faster attack, check whether Gote can exploit those vacated defensive squares."
@@ -93,7 +100,9 @@
           }
         },
         {
-          "moves": ["5h6h"],
+          "moves": [
+            "5h6h"
+          ],
           "text": {
             "ja": "▲６八金で箱入り娘型です。金６八は金６九と銀７九に守られ、飛車４八の筋は５八を通って６八で止まります。玉７八の隣に駒が増えた反面、玉が動ける６八の空きマスはなくなりました。固さだけでなく、王手を受けたときの逃げ道も比べます。",
             "en": "▲６八金 makes a Boxed-in Daughter arrangement. The gold on ６八 is protected by the gold on ６九 and silver on ７九; the rook's line now runs through ５八 and stops at ６八. The king gains a neighboring defender but loses the empty escape square on ６八. Compare escape routes as well as local protection."
@@ -117,7 +126,9 @@
           }
         },
         {
-          "moves": ["6i7i"],
+          "moves": [
+            "6i7i"
+          ],
           "text": {
             "ja": "▲７九金でエルモ囲い型になります。金７九と金５九はいずれも銀６八を斜め前に守り、金７九は玉７八も支えます。飛車が銀６八を取る順は金で取り返せる形ですが、相手の別の利きや持ち駒が加われば再計算が必要です。",
             "en": "▲７九金 gives an Elmo-style shape. Golds on ７九 and ５九 both protect the silver on ６八 diagonally forward, and the gold on ７九 also supports the king on ７八. A rook capture of that silver can be recaptured by a gold in this position; added attackers or pieces in hand would require a fresh calculation."

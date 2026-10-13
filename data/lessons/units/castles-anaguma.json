@@ -1,7 +1,10 @@
 {
   "id": "castles-anaguma",
   "order": 330,
-  "path": ["上達のためのテクニック", "囲い"],
+  "path": [
+    "上達のためのテクニック",
+    "囲い"
+  ],
   "title": {
     "ja": "穴熊は蓋と支えの数で読む",
     "en": "Read an Anaguma by Its Cap and Supports"
@@ -45,7 +48,9 @@
           }
         },
         {
-          "moves": ["8i8h"],
+          "moves": [
+            "8i8h"
+          ],
           "text": {
             "ja": "▲８八銀。銀８八は玉９九を斜め後ろに守り、金７九は銀８八を斜め前に守ります。一方、玉の隣の８八は自分の銀で埋まりました。相手が９筋や８筋から来るなら、銀の支えと玉の残る逃げ先の両方を調べます。",
             "en": "▲８八銀 protects the king on ９九 diagonally backward, and the gold on ７九 protects the silver diagonally forward. The adjacent ８八 square is now occupied by Sente's own silver. Against an attack on the eighth or ninth file, inspect both that support and the king's remaining exits."
@@ -69,7 +74,9 @@
           }
         },
         {
-          "moves": ["6i7h"],
+          "moves": [
+            "6i7h"
+          ],
           "text": {
             "ja": "▲７八金。飛車４八の横筋は７八の金で止まり、金７九は金７八を真上に守ります。銀８八は金７八を横には守らないため、守備の枚数を誤って数えないことが大切です。金を寄せる一手を使った分、別の攻め手が遅れる可能性もあります。",
             "en": "▲７八金 stops the rook's lateral line at ７八; the gold on ７九 protects the new gold straight ahead. The silver on ８八 does not defend ７八 sideways, so do not overcount the defenders. This gold move also spends a turn that might otherwise have advanced an attack."
@@ -93,10 +100,12 @@
           }
         },
         {
-          "moves": ["5i6h"],
+          "moves": [
+            "5i6h"
+          ],
           "text": {
-            "ja": "▲６八銀。金７九が銀６八を斜め前に守り、銀６八は金７九を斜め後ろに守ります。二枚の銀と二枚の金を囲いへ使うビッグ４型の発想ですが、この一手だけで形勢は決まりません。相手の攻めが始まる前に組めるか、先手の攻めが飛車だけで足りるかを比べます。",
-            "en": "▲６八銀 creates mutual protection: the gold on ７九 guards the silver diagonally forward, and the silver on ６八 guards that gold diagonally backward. This is the four-general idea behind Big 4, but this move alone does not decide the position. Compare the time available before Gote attacks with whether Sente can attack effectively using fewer free generals."
+            "ja": "▲６八銀で二枚の金と二枚の銀を守りへ使った。この盤は四枚囲いの発想を示す部分局面で、ビッグ４の代表配置そのものではない。代表的な左側の芯は玉９九・香９八・金８八と７八・銀８七と７七。名称だけで同じ形と扱わず、各駒の升を確認する。四枚を守りへ使う時間と残る攻め駒も比較する。",
+            "en": "S6h commits two golds and two silvers to defense. This partial board illustrates four-general defense rather than the representative Big 4 arrangement. A typical left-side core is K9i, L9h, golds on 8h and 7h, and silvers on 8g and 7g. Check the actual squares instead of equating every four-general shelter with that shape, and count the construction time and remaining attackers."
           }
         }
       ]
@@ -117,7 +126,9 @@
           }
         },
         {
-          "moves": ["2i2h"],
+          "moves": [
+            "2i2h"
+          ],
           "text": {
             "ja": "▲２八銀。銀２八は玉１九を斜め後ろに守り、金３九が銀２八を斜め前に支えます。これは振り飛車穴熊の右側の骨格です。相手の飛車が右へ移れば安全な場所は変わるので、囲いを作った後も攻め筋を見直します。",
             "en": "▲２八銀 protects the king on １九 diagonally backward, and the gold on ３九 supports the silver diagonally forward. This forms a right-side Ranging Rook Anaguma core. If the opposing rook switches files, reassess the king's exposure even after finishing the shelter."

@@ -1,7 +1,10 @@
 {
   "id": "attack-funa",
   "order": 430,
-  "path": ["上達のためのテクニック", "囲い崩し"],
+  "path": [
+    "上達のためのテクニック",
+    "囲い崩し"
+  ],
   "title": {
     "ja": "舟囲いの外側の歩と金を狙う",
     "en": "Attack the Outer Pawn and Gold of a Boat Castle"
@@ -45,7 +48,11 @@
           }
         },
         {
-          "moves": ["6e6d", "6c6d", "6h6d"],
+          "moves": [
+            "6e6d",
+            "6c6d",
+            "6h6d"
+          ],
           "text": {
             "ja": "▲６四歩を△同歩と取った例では、▲同飛で歩を取り返して飛車が６四へ進みます。飛車６四は横隣の歩５四を狙い、後手はその歩を動かすか守るかを選べます。△同歩は後手の選択で、この順だけで金や玉を取れるわけではありません。",
             "en": "If Gote accepts ▲６四歩 with △同歩, ▲同飛 recaptures and advances the rook to ６四. From there it attacks the adjacent pawn on ５四; Gote may move or defend that pawn. The pawn capture is optional, and this line alone does not win a gold or the king."
@@ -60,19 +67,40 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "5gs2/4g1kb1/5p3/9/9/2B6/2P6/5R3/K8 b - 1",
+      "start": "5gs2/4g1kb1/5p3/6S2/9/2B6/2P6/5R3/K8 b - 1",
       "steps": [
         {
           "text": {
-            "ja": "玉３二・銀３一・金４一と５二・角２二の舟囲いで、歩４三が角７六の斜め筋を止めています。先手飛車４八は４筋に別の駒がなければ４三へ届きます。角で歩を取った後、金５二が取り返せることまで数えます。",
-            "en": "The Boat shelter again has king ３二, silver ３一, golds ４一 and ５二, and bishop ２二. A pawn on ４三 blocks the bishop's diagonal from ７六. Sente's rook on ４八 can reach ４三 if the fourth file stays clear. Count the gold on ５二 as the bishop's recapturer."
+            "ja": "玉３二・銀３一・金４一と５二・角２二の舟囲いで、歩４三が角７六の斜め筋を止めています。先手飛車４八は４三へ届き、銀３四がその着地点を守ります。角で歩を取った後、金の取り返しだけでなく、玉が飛車を取れるかまで数えます。",
+            "en": "The Boat shelter has king ３二, silver ３一, golds ４一 and ５二, and bishop ２二. The pawn on ４三 blocks Sente's bishop on ７六. The rook on ４八 can reach ４三, protected there by Sente's silver on ３四. Count the king's possible recapture as well as the gold's response."
           }
         },
         {
-          "moves": ["7f4c+", "5b4c", "4h4c"],
+          "moves": [
+            "7f4c+",
+            "5b4c",
+            "4h4c"
+          ],
           "text": {
-            "ja": "▲４三角成で歩を取り、馬４三は玉３二へ斜めに王手します。後手が△同金と取った場合、▲同飛で金を取り返し、飛車４三が金４一を縦に狙います。先手は角と金を交換して歩も得ますが、△同金は一例です。金が別の受けを選べば同じ収支は保証されません。",
-            "en": "▲４三角成 takes the pawn and checks the king on ３二 diagonally. If Gote answers △同金, ▲同飛 recaptures that gold, and the rook on ４三 points up the file toward the gold on ４一. Sente has exchanged bishop for gold and gained a pawn, but the gold recapture is a sample defense; another reply changes the result."
+            "ja": "▲４三角成に△同金を選んだ場合、▲同飛で金を取ります。飛車４三は銀３四に守られるため、玉３二は飛車を取れません。先手は角を渡して金と歩を得た例です。銀の支えがなければ玉の取り返しが残るので、最後の飛車の安全まで読みます。△同金は強制ではありません。",
+            "en": "If Gote chooses △同金 after ▲４三角成, ▲同飛 takes the gold. The silver on ３四 protects the rook on ４三, preventing the king on ３二 from capturing it. This sample trades Sente's bishop for a gold and pawn. Without that support the king can recapture the rook; count the exchange through its final capture. Gote is not forced to take with the gold."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": [
+            "3d2e",
+            "2b1a",
+            "7f4c+",
+            "5b4c",
+            "4h4c",
+            "3b4c"
+          ],
+          "text": {
+            "ja": "先手が先に▲２五銀と支えを外し、後手が△１一角と応じた例です。同じ角と金の交換を始めると、最後に△４三玉で飛車も取られます。先手は角と飛車を渡して金と歩を得る収支となります。支えを失った後に、前の交換結果をそのまま当てはめられません。",
+            "en": "In this sample Sente first removes the support with ▲２五銀 and Gote replies △１一角. Repeating the exchange then allows △４三玉 to capture the rook too. Sente gives up bishop and rook for gold and pawn. A changed defender invalidates the earlier material calculation."
           }
         }
       ]
@@ -93,7 +121,13 @@
           }
         },
         {
-          "moves": ["6h6g", "5b5c", "6e6d", "6c6d", "6g6d"],
+          "moves": [
+            "6h6g",
+            "5b5c",
+            "6e6d",
+            "6c6d",
+            "6g6d"
+          ],
           "text": {
             "ja": "▲６七飛に△５三金とした一例です。歩交換後の飛車６四は依然として歩５四を横から狙いますが、その歩には金５三が利いています。直ちに飛車で歩５四を取れば金に取り返されるため、先ほどと同じ歩取りとは考えられません。金を上げる手は後手の選択で、別の攻め筋も残ります。",
             "en": "One sample is ▲６七飛 △５三金. After the pawn exchange, the rook on ６四 still attacks the pawn on ５四 along the rank, but the gold on ５三 now protects it. An immediate rook capture of that pawn would let the gold recapture. The gold move is Gote's choice; Sente can look for another plan."

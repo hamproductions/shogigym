@@ -102,7 +102,7 @@
         {
           "moves": ["6h6f"],
           "text": {
-            "ja": "▲６六飛は６筋の飛車を浮かせ、６五歩の後ろに置く選択です。王手は遮られたので、ここからは後手の駒組みも続きます。銀２二への角筋が再び開く条件と、自玉５九への８筋の反撃を比べます。",
+            "ja": "▲６六飛は６筋の飛車を浮かせ、６五歩の後ろに置く選択です。王手は遮られたので、ここからは後手の駒組みも続きます。玉２二への角筋が再び開く条件と、自玉５九への８筋の反撃を比べます。",
             "en": "R6f lifts the rook behind P6e after the check has been blocked. Play is still open: Sente can watch for a renewed line toward Gote's shelter while also accounting for eighth-file counterplay against K5i."
           },
           "marks": {"last": "6f", "boxes": ["4d", "8b", "5i"]}

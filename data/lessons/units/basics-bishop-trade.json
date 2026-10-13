@@ -97,8 +97,8 @@
         {
           "moves": ["B*7g"],
           "text": {
-            "ja": "△７七角打で先手玉５九に王手です。銀８八が角を守っているため、金６七では角を取れません。",
-            "en": "△７七角打 checks the king on ５九. The silver on ８八 protects the bishop, so the gold on ６七 cannot capture it safely."
+            "ja": "△７七角打で先手玉５九に王手です。金６七で角を取る手も合法です。銀８八がその金を取り返せますが、それは先手が金を渡して角を得る交換であり、角を取れない理由にはなりません。",
+            "en": "△７七角打 checks the king on ５九. The gold on ６七 can legally capture the bishop. The silver on ８八 could then recapture the gold, but that exchanges Sente's gold for a bishop; protection does not make the bishop uncapturable."
           }
         },
         {

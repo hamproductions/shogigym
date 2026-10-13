@@ -1,0 +1,157 @@
+{
+  "scope_ids": [
+    "39",
+    "40",
+    "60",
+    "61",
+    "62",
+    "62-2"
+  ],
+  "references": [
+    {
+      "url": "https://www.shogi-rule.com/joseki-39/",
+      "iframe_url": "https://www.shogi-rule.com/wp-content/kif/kifu/base.php?type=joseki&id=39",
+      "iframe_path": ".cache/reference/assets/root-joseki-39-iframe.html",
+      "iframe_sha256": "d0a4453d18cdab44a500a518c71f4cd082c998b4553d0ec7238e35494899b380",
+      "iframe_read_range": "1-43 EOF",
+      "kif_url": "https://www.shogi-rule.com/wp-content/kif/kifu/joseki/joseki-39.kif",
+      "path": ".cache/reference/assets/root-joseki-39.kif",
+      "sha256": "7b54bf3d66fe3ac2c8f92cec2047bba8283cb33ed4aa53630154dec8a2a69aa7",
+      "bytes": 17492,
+      "encoding": "cp932",
+      "read_ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "moves": 59,
+      "branches": 0,
+      "canonical_replay": "全主線をtsshogi importKIFと独立Position.doMoveで再生し、各子SFEN一致。",
+      "parsed_cache": ".cache/reference/assets/root-joseki-39-parsed.json",
+      "observed": "５九角から４八・６六、７筋歩交換と６筋金の取り返し、角４四切り後６三銀打まで。主線59手。",
+      "proof": "元iframe・KIF全文とデータ再生のみ。元の動的表示を操作した証拠ではない。GPSfish2017評価・一致率は現行の優劣保証として採用しない。"
+    },
+    {
+      "url": "https://www.shogi-rule.com/joseki-40/",
+      "iframe_url": "https://www.shogi-rule.com/wp-content/kif/kifu/base.php?type=joseki&id=40",
+      "iframe_path": ".cache/reference/assets/root-joseki-40-iframe.html",
+      "iframe_sha256": "02afbf8982d3c8cad91844f6761368f16e65ee12364cb65971c85e94fe82f3cd",
+      "iframe_read_range": "1-43 EOF",
+      "kif_url": "https://www.shogi-rule.com/wp-content/kif/kifu/joseki/joseki-40.kif",
+      "path": ".cache/reference/assets/root-joseki-40.kif",
+      "sha256": "c1acb7c48142cf9e3ed6ddce9e5db1b05a99021d4f9a062bce7c7d812b8ef7ca",
+      "bytes": 10776,
+      "encoding": "cp932",
+      "read_ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "moves": 36,
+      "branches": 0,
+      "canonical_replay": "全主線をtsshogi importKIFと独立Position.doMoveで再生し、各子SFEN一致。",
+      "parsed_cache": ".cache/reference/assets/root-joseki-40-parsed.json",
+      "observed": "３七銀から２六銀、３八飛への振直し、後手角３三・５一・６二の退避。銀２六は４八銀の経路。主線36手。",
+      "proof": "元iframe・KIF全文とデータ再生のみ。元の動的表示を操作した証拠ではない。GPSfish2017評価・一致率は現行の優劣保証として採用しない。"
+    },
+    {
+      "url": "https://www.shogi-rule.com/joseki-60/",
+      "iframe_url": "https://www.shogi-rule.com/wp-content/kif/kifu/base.php?type=joseki&id=60",
+      "iframe_path": ".cache/reference/assets/root-joseki-60-iframe.html",
+      "iframe_sha256": "82756b21813f717125f3845a4ce42c7bc3c1395482a0471f35dd6059195b9fcd",
+      "iframe_read_range": "1-43 EOF",
+      "kif_url": "https://www.shogi-rule.com/wp-content/kif/kifu/joseki/joseki-60.kif",
+      "path": ".cache/reference/assets/root-joseki-60.kif",
+      "sha256": "cc5cee6774570e882639ff4cf23959b25267e29cd5efe1c383575a071a53c871",
+      "bytes": 7658,
+      "encoding": "cp932",
+      "read_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "moves": 25,
+      "branches": 0,
+      "canonical_replay": "全主線をtsshogi importKIFと独立Position.doMoveで再生し、各子SFEN一致。",
+      "parsed_cache": ".cache/reference/assets/root-joseki-60-parsed.json",
+      "observed": "一手損角換わり、端の銀香交換後１二歩打まで。主線25手で、銀２二への移動はまだ主線にない。",
+      "proof": "元iframe・KIF全文とデータ再生のみ。元の動的表示を操作した証拠ではない。GPSfish2017評価・一致率は現行の優劣保証として採用しない。"
+    },
+    {
+      "url": "https://www.shogi-rule.com/joseki-61/",
+      "iframe_url": "https://www.shogi-rule.com/wp-content/kif/kifu/base.php?type=joseki&id=61",
+      "iframe_path": ".cache/reference/assets/root-joseki-61-iframe.html",
+      "iframe_sha256": "39d5bde317eec56cb04942d69ec1bef381b1e2e7311060a34f24dbaefc133b1c",
+      "iframe_read_range": "1-43 EOF",
+      "kif_url": "https://www.shogi-rule.com/wp-content/kif/kifu/joseki/joseki-61.kif",
+      "path": ".cache/reference/assets/root-joseki-61.kif",
+      "sha256": "d45b41796f995bdf8558e48ee028b8624e10c8653674ad8789344919ca38f2b8",
+      "bytes": 5366,
+      "encoding": "cp932",
+      "read_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "moves": 18,
+      "branches": 0,
+      "canonical_replay": "全主線をtsshogi importKIFと独立Position.doMoveで再生し、各子SFEN一致。",
+      "parsed_cache": ".cache/reference/assets/root-joseki-61-parsed.json",
+      "observed": "向かい飛車２二、角６五/７四の打合い、馬４三と金５二まで。主線18手。３三への馬切りは解析注記にあり、主線分岐ではない。",
+      "proof": "元iframe・KIF全文とデータ再生のみ。元の動的表示を操作した証拠ではない。GPSfish2017評価・一致率は現行の優劣保証として採用しない。"
+    },
+    {
+      "url": "https://www.shogi-rule.com/joseki-62/",
+      "iframe_url": "https://www.shogi-rule.com/wp-content/kif/kifu/base.php?type=joseki&id=62",
+      "iframe_path": ".cache/reference/assets/root-joseki-62-iframe.html",
+      "iframe_sha256": "b0374be786fdaca0d7ef1b11364025e36ac5fbf3d22d585bc18434067392ca00",
+      "iframe_read_range": "1-43 EOF",
+      "kif_url": "https://www.shogi-rule.com/wp-content/kif/kifu/joseki/joseki-62.kif",
+      "path": ".cache/reference/assets/root-joseki-62.kif",
+      "sha256": "240f82987b7fa1ddcf6ed4c0d46983096f3fb9b4c73bcd57c4bf9a2a20202e69",
+      "bytes": 5471,
+      "encoding": "cp932",
+      "read_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "moves": 18,
+      "branches": 0,
+      "canonical_replay": "全主線をtsshogi importKIFと独立Position.doMoveで再生し、各子SFEN一致。",
+      "parsed_cache": ".cache/reference/assets/root-joseki-62-parsed.json",
+      "observed": "石田流飛７六、後手金７二まで。主線18手。飛車の横利きと相手の８筋歩は盤上で区別。",
+      "proof": "元iframe・KIF全文とデータ再生のみ。元の動的表示を操作した証拠ではない。GPSfish2017評価・一致率は現行の優劣保証として採用しない。"
+    },
+    {
+      "url": "https://www.shogi-rule.com/joseki-62-2/",
+      "iframe_url": "https://www.shogi-rule.com/wp-content/kif/kifu/base.php?type=joseki&id=62-2",
+      "iframe_path": ".cache/reference/assets/root-joseki-62-2-iframe.html",
+      "iframe_sha256": "b231186338c306197af5158985494fde7733d84d7d8cb022ed723e5374e9c84c",
+      "iframe_read_range": "1-43 EOF",
+      "kif_url": "https://www.shogi-rule.com/wp-content/kif/kifu/joseki/joseki-62-2.kif",
+      "path": ".cache/reference/assets/root-joseki-62-2.kif",
+      "sha256": "9d112202e502f149c4ee3bf5c1fac0397704f6c40628014c8a2f6313c5b69368",
+      "bytes": 8072,
+      "encoding": "cp932",
+      "read_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "moves": 27,
+      "branches": 0,
+      "canonical_replay": "全主線をtsshogi importKIFと独立Position.doMoveで再生し、各子SFEN一致。",
+      "parsed_cache": ".cache/reference/assets/root-joseki-62-2-parsed.json",
+      "observed": "石田流対右四間、６筋接触後角交換・飛８八と銀７七まで。主線27手。後続は解析注記で、主線の分岐とはしない。",
+      "proof": "元iframe・KIF全文とデータ再生のみ。元の動的表示を操作した証拠ではない。GPSfish2017評価・一致率は現行の優劣保証として採用しない。"
+    }
+  ],
+  "status": "declared iframe/KIF data full reads complete; browser-rendered proof not claimed"
+}

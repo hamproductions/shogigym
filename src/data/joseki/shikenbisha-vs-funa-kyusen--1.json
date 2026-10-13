@@ -166,7 +166,7 @@
                                                                {
                                                                 "usi": "6f6e",
                                                                 "kind": "main",
-                                                                "note": "６五歩で６六を空ける。飛車６八の正面と角７七の斜線を同時に開く。",
+                                                                "note": "６五歩で６六を空けて角７七の斜線を開く。飛車６八の前には銀６七が残り、銀が５六へ移るまでは飛車道を遮る。",
                                                                 "child": {
                                                                  "id": "n_20",
                                                                  "sfen": "ln3gsnl/1r2g1kb1/p1pp1p1pp/4psp2/1p1P5/2P6/PPBSPPPPP/3R2SK1/LN1G1G1NL w - 1",
@@ -228,9 +228,8 @@
                                                                               },
                                                                               {
                                                                                "usi": "8e8f",
-                                                                               "kind": "deviation",
+                                                                               "kind": "alt",
                                                                                "note": "後手が８六歩と突く場合。先手角７七は８六を見ている。",
-                                                                               "punishNote": "７七角が８六を守るため、８六同飛には角の取り返しがある。",
                                                                                "child": {
                                                                                 "id": "nb1_0",
                                                                                 "sfen": "ln3gsnl/1r2g1kb1/p1pp1p1pp/5sp2/3P5/1pP1S4/PPB2PPPP/3R2SK1/LN1G1G1NL b Pp 1",
@@ -245,24 +244,35 @@
                                                                                    "branches": [
                                                                                     {
                                                                                      "usi": "8b8f",
-                                                                                     "kind": "main",
-                                                                                     "note": "後手が８六同飛まで走る仮定。飛車は７七角の斜め前に入る。",
+                                                                                     "kind": "deviation",
+                                                                                     "note": "後手が８六同飛と進むと、先手角７七がこの飛車を取れる。",
+                                                                                     "punishNote": "飛車を８六へ進めたこの着手が、角の捕獲を許す。最初の歩接触と区別する。",
                                                                                      "child": {
-                                                                                      "id": "nb1_2",
+                                                                                      "id": "nb1b0_0",
                                                                                       "sfen": "ln3gsnl/4g1kb1/p1pp1p1pp/5sp2/3P5/1rP1S4/P1B2PPPP/3R2SK1/LN1G1G1NL b 2P2p 1",
                                                                                       "branches": [
                                                                                        {
                                                                                         "usi": "7g8f",
                                                                                         "kind": "main",
-                                                                                        "note": "７七角が８六の飛車を取る。歩交換だけで飛車を進めると、この取り返しがある。",
+                                                                                        "note": "７七角が８六の飛車を取る。",
                                                                                         "child": {
-                                                                                         "id": "nb1_3",
+                                                                                         "id": "nb1b0_1",
                                                                                          "sfen": "ln3gsnl/4g1kb1/p1pp1p1pp/5sp2/3P5/1BP1S4/P4PPPP/3R2SK1/LN1G1G1NL w R2P2p 1",
                                                                                          "branches": [],
-                                                                                         "comment": "８六同飛を選ばない後手の選択もある。ここでは飛車を進めた場合の局所的な交換だけを示す。"
+                                                                                         "comment": "後手は飛車を渡して歩を取る収支となる。"
                                                                                         }
                                                                                        }
                                                                                       ]
+                                                                                     }
+                                                                                    },
+                                                                                    {
+                                                                                     "usi": "4d5c",
+                                                                                     "kind": "alt",
+                                                                                     "child": {
+                                                                                      "id": "nb1b1_0",
+                                                                                      "sfen": "ln3gsnl/1r2g1kb1/p1ppsp1pp/6p2/3P5/1PP1S4/P1B2PPPP/3R2SK1/LN1G1G1NL b 2Pp 1",
+                                                                                      "branches": [],
+                                                                                      "comment": "後手は銀を５三へ引いて飛車８二を残すこともできる。８六同飛は強制ではなく、歩と銀の新しい位置から次の接点を読む。"
                                                                                      }
                                                                                     }
                                                                                    ]

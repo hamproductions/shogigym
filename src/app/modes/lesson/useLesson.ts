@@ -17,7 +17,7 @@ import { markOpened } from '@/app/practice'
 import { playSound } from '@/appearance/settings'
 import { freshScore, type LessonMode, type Score, type Tab } from '@/app/types'
 import { moveGloss } from '@/app/pieces'
-import { figureMarks } from './figureMarks'
+import { figureMarks, type MentionMove } from './figureMarks'
 
 const LESSON_GREEN = '#4f8a2a'
 
@@ -65,15 +65,33 @@ export function useLesson(session: BoardSession, { mistakes, load, setTab, close
   const good = goodBranches(node)
   const { setSourceMarks } = session
   const figures = node?.figures
-  const figureText = course ? lessonText(node?.comment, node?.commentEn, i18n.language, course) : undefined
-  useEffect(() => {
-    if (active) setSourceMarks(figures || figureText ? figureMarks(figures ?? [], liveSfen, cursor === 0, figureText) : null)
-  }, [active, figures, figureText, liveSfen, cursor, setSourceMarks])
   const asking = active && !preview && toMove === userSide && good.length > 0
   const offBook = active && !preview && !nodes?.get(strip(liveSfen))
   const done = active && atEnd && !preview && !!node && node.branches.filter((b) => b.kind !== 'deviation').length === 0
   const waitingForReply = active && lessonMode === 'study' && !asking && !done && !preview && !mistakes.mistake
   const hidesAnswer = asking && lessonMode === 'quiz' && !showAnswer
+  const lastBranch = cursor > 0 ? nodes?.get(strip(session.sfens[cursor - 1]))?.branches.find((branch) => branch.usi === game.moves[cursor - 1]) : undefined
+  const annotationText = [
+    course ? lessonText(node?.comment, node?.commentEn, i18n.language, course) : undefined,
+    ...(!hidesAnswer ? good.map((branch) => branch.note) : []),
+    lastBranch?.note,
+  ]
+    .filter(Boolean)
+    .join('\n')
+  useEffect(() => {
+    if (!active) return
+    const moves: MentionMove[] = []
+    if (lastBranch && session.sfens[cursor - 1]) moves.push({ sfen: session.sfens[cursor - 1], usi: lastBranch.usi })
+    const walk = (at: JosekiNode) => {
+      for (const branch of at.branches) {
+        moves.push({ sfen: at.sfen, usi: branch.usi })
+        if (branch.child) walk(branch.child)
+      }
+    }
+    if (node) walk(node)
+    if (course && node !== course.root) walk(course.root)
+    setSourceMarks(figures || annotationText ? figureMarks(figures ?? [], liveSfen, cursor === 0, annotationText, moves) : null)
+  }, [active, figures, annotationText, course, node, lastBranch, session.sfens, liveSfen, cursor, setSourceMarks])
   const quizTask = (() => {
     if (course?.quizPrompt) return i18n.language === 'ja' ? course.quizPrompt.ja : course.quizPrompt.en
     if (!course?.quizTargets || !good[0]) return undefined
@@ -271,6 +289,7 @@ export function useLesson(session: BoardSession, { mistakes, load, setTab, close
     waitingForReply,
     hidesAnswer,
     quizTask,
+    annotationText,
     arrows,
     title: course ? `${lessonMode === 'study' ? t('app.study') : t('app.quiz')}: ${courseTitle(course, i18n.language)}` : t('app.openingsPickALesson'),
     instruction,

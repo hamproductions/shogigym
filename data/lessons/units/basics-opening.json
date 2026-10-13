@@ -161,12 +161,12 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "k8/9/9/9/9/9/3S5/3GG4/4K4 b - 1",
+      "start": "k8/9/9/9/9/9/4S4/5G3/3GK4 b - 1",
       "steps": [
         {
           "text": {
-            "ja": "先手の玉５九の近くでは、金６八が５九を守り、金５八は４九と６九に利いています。銀６七は金５八を支えています。玉が動く先と元の升を別々の駒が守れる配置です。",
-            "en": "Near the attacker’s king on ５九, the gold on ６八 protects ５九, while the gold on ５八 controls ４九 and ６九. The silver on ６七 supports the gold on ５八. Different pieces protect the king’s destination and its original square."
+            "ja": "先手玉５九を金６九が横から守り、金４八は真後ろの４九に利いています。銀５七は金４八を斜め後ろに守ります。玉の移動先と元の升を別々の金が守れる配置です。",
+            "en": "The gold on ６九 protects the king on ５九 sideways, while the gold on ４八 controls ４九 directly behind it. The silver on ５七 protects the gold on ４八 on its backward diagonal. Separate golds cover the king's destination and original square."
           }
         },
         {
@@ -178,8 +178,8 @@
         {
           "moves": ["5i4i"],
           "text": {
-            "ja": "▲４九玉と移りました。金５八が新しい升を守り、金６八は５九に残る利きを保っています。玉を囲う形は駒の並びを覚えるだけでは作れません。移動先の守りと、動かした後に生じる穴を同時に確かめます。",
-            "en": "▲４九玉 moves the king. The gold on ５八 protects its new square, while the gold on ６八 still covers ５九. A king shelter is more than memorizing a formation: check the destination’s protection and the squares left behind by each move."
+            "ja": "▲４九玉と移りました。金４八が新しい升を真後ろに守り、金６九は５九への横の利きを保っています。玉を囲う形は駒の並びを覚えるだけでは作れません。移動先の守りと、動かした後に生じる穴を同時に確かめます。",
+            "en": "▲４九玉 moves the king to a square protected by the gold on ４八 directly ahead of it. The gold on ６九 still covers ５九 sideways. A king shelter is more than memorizing a formation: check the destination's protection and the squares left behind by each move."
           }
         }
       ]

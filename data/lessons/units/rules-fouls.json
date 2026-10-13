@@ -1,7 +1,10 @@
 {
   "id": "rules-fouls",
   "order": 60,
-  "path": ["はじめての将棋", "ルール"],
+  "path": [
+    "はじめての将棋",
+    "ルール"
+  ],
   "title": {
     "ja": "反則",
     "en": "Fouls"
@@ -21,18 +24,6 @@
     }
   },
   "references": [
-    {
-      "title": "反則 (将棋) (Wikipedia日本語版)",
-      "url": "https://ja.wikipedia.org/wiki/反則_(将棋)",
-      "license": "CC BY-SA 4.0",
-      "adapted": false
-    },
-    {
-      "title": "将棋のルール (Wikipedia日本語版)",
-      "url": "https://ja.wikipedia.org/wiki/将棋のルール",
-      "license": "CC BY-SA 4.0",
-      "adapted": false
-    },
     {
       "title": "反則、禁じ手について",
       "url": "https://shogi-joutatsu.com/archives/813",
@@ -56,12 +47,19 @@
             "en": "Sente's king is on 5e, checked along its file by Gote's rook on 5b. Sente can use the gold in hand to interrupt the attack."
           },
           "marks": {
-            "arrows": ["5b5e"],
-            "boxes": ["5c", "5d"]
+            "arrows": [
+              "5b5e"
+            ],
+            "boxes": [
+              "5c",
+              "5d"
+            ]
           }
         },
         {
-          "moves": ["G*5c"],
+          "moves": [
+            "G*5c"
+          ],
           "text": {
             "ja": "金を５三へ打つと飛車の利きが止まり、玉は安全になります。王手を受けている間は、指した手の後に玉が攻められていないことが条件です。",
             "en": "Dropping the gold on 5c blocks the rook's line and leaves the king safe. While in check, the resulting position must no longer expose your king to attack."
@@ -80,7 +78,9 @@
       "variations": [
         {
           "from": 0,
-          "moves": ["5e4e"],
+          "moves": [
+            "5e4e"
+          ],
           "text": {
             "ja": "玉を４五へ移す応手もあります。飛車は５筋から外れた玉を攻めていないので、これも王手を解いています。",
             "en": "The king may also step to 4e. The rook does not attack that square, so this move also removes the check."
@@ -104,12 +104,25 @@
             "en": "Sente has an unpromoted pawn on 6d, so a pawn cannot be dropped anywhere on the 6-file. The tokin on 4f is promoted and does not bar a pawn drop on the 4-file."
           },
           "marks": {
-            "dashed": ["6a", "6b", "6c", "6e", "6f", "6g", "6h", "6i"],
-            "boxes": ["4d"]
+            "dashed": [
+              "6a",
+              "6b",
+              "6c",
+              "6e",
+              "6f",
+              "6g",
+              "6h",
+              "6i"
+            ],
+            "boxes": [
+              "4d"
+            ]
           }
         },
         {
-          "moves": ["P*4d"],
+          "moves": [
+            "P*4d"
+          ],
           "text": {
             "ja": "４筋に歩を打ちました。二歩になるのは、同じ筋に自分の未成の歩が二枚並ぶときだけです。相手の歩がいる筋も、自分の歩がなければ使えます。",
             "en": "The pawn is dropped on the 4-file. Nifu occurs only when two of your own unpromoted pawns share a file. An enemy pawn on a file does not prevent your drop."
@@ -119,14 +132,18 @@
           }
         },
         {
-          "moves": ["5a4a"],
+          "moves": [
+            "5a4a"
+          ],
           "text": {
             "ja": "後手玉は４一へ移りました。先手には歩がもう一枚残り、５筋には先手の未成の歩がありません。",
             "en": "Gote's king moves to 4a. Sente still has a pawn in hand, and has no unpromoted pawn on the 5-file."
           }
         },
         {
-          "moves": ["P*5e"],
+          "moves": [
+            "P*5e"
+          ],
           "text": {
             "ja": "５五にも歩を打てます。歩を打つたびに、その筋に自分の未成の歩がないかを調べます。",
             "en": "A pawn may also be dropped on 5e. Check the file for one of your unpromoted pawns each time you drop."
@@ -153,7 +170,9 @@
           }
         },
         {
-          "moves": ["P*5b"],
+          "moves": [
+            "P*5b"
+          ],
           "text": {
             "ja": "後手には４一へ玉を移す手と、５二の歩を取る手があります。どちらも玉を攻めから外せるため、この局面では合法な応手を選べます。",
             "en": "This is check from a dropped pawn. Giving check with a pawn drop is not itself a foul: Gote still has king moves and can also capture the pawn."
@@ -163,7 +182,9 @@
           }
         },
         {
-          "moves": ["5a4a"],
+          "moves": [
+            "5a4a"
+          ],
           "text": {
             "ja": "玉は４一へ逃げました。このように合法な応手があれば打ち歩詰めではありません。持ち駒から打った歩そのものが、逃げ道のない王手を作る場合に限って反則です。",
             "en": "The king escapes to 4a. A pawn-drop check is legal when a legal reply remains. The foul applies only when the dropped pawn itself creates a check with no legal answer."
@@ -182,7 +203,9 @@
       "variations": [
         {
           "from": 1,
-          "moves": ["5a5b"],
+          "moves": [
+            "5a5b"
+          ],
           "text": {
             "ja": "後手玉は５二の歩を取ることもできます。先手玉は遠く、５二を守る駒もないため、この取り方も合法です。",
             "en": "Gote may also capture the pawn on 5b. Sente's king is far away and no Sente piece protects that square, so the capture is legal."
@@ -206,18 +229,24 @@
             "en": "Sente's knight is on 3d. A jump from 3d to 2b must promote; otherwise it would land on a rank from which it has no legal move."
           },
           "marks": {
-            "arrows": ["3d2b"]
+            "arrows": [
+              "3d2b"
+            ]
           }
         },
         {
-          "moves": ["3d2b+"],
+          "moves": [
+            "3d2b+"
+          ],
           "text": {
             "ja": "桂が２二へ跳び、成りました。歩と香は１段目に未成で残れず、桂は１段目・２段目に未成で残れません。持ち駒から打つ場合も同じ着地点は使えません。打った駒は成れないためです。",
             "en": "The knight jumps to 2b and promotes. A pawn or lance cannot remain unpromoted on the first rank; a knight cannot remain unpromoted on the first or second. The same destinations are forbidden for drops because a dropped piece cannot promote."
           },
           "marks": {
             "last": "2b",
-            "arrows": ["2h2b"]
+            "arrows": [
+              "2h2b"
+            ]
           }
         }
       ]
@@ -237,11 +266,15 @@
             "en": "Gote's king on 5a is checked by the bishop on 6b. This single position cannot tell you whether the game is a repetition; you need the move record and the earlier positions."
           },
           "marks": {
-            "arrows": ["6b5a"]
+            "arrows": [
+              "6b5a"
+            ]
           }
         },
         {
-          "moves": ["5a4a"],
+          "moves": [
+            "5a4a"
+          ],
           "text": {
             "ja": "玉は４一へ逃げました。ここから先も、盤面だけでなく持ち駒と手番まで同じ局面が四度目に現れるかを見ます。",
             "en": "The king moves to 4a. To check for repetition, compare the full position, including pieces in hand and whose turn it is, until the same position appears for the fourth time."

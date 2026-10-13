@@ -256,9 +256,8 @@
                                                       },
                                                       {
                                                        "usi": "2b4d",
-                                                       "kind": "deviation",
+                                                       "kind": "alt",
                                                        "note": "△４四角。２二から３三を通って出るが、４四は先手角８八の斜線上にある。",
-                                                       "punishNote": "４四へ出る前に角８八の斜線を確認する。先手の７六歩が前進しているため７七は空いており、角８八から４四まで通る。",
                                                        "child": {
                                                         "id": "nb1_0",
                                                         "sfen": "lnsgkgsnl/9/p1pppp2p/5bR2/1r7/2P6/P2PPPP1P/1BGK5/LNS2GSNL b 3P2p 1",
@@ -266,12 +265,23 @@
                                                          {
                                                           "usi": "8h4d",
                                                           "kind": "main",
-                                                          "note": "先手角４四。７七、６六、５五を通って後手角を取れる。",
+                                                          "note": "先手角４四。７七、６六、５五を通って後手角を取る。",
                                                           "child": {
                                                            "id": "nb1_1",
                                                            "sfen": "lnsgkgsnl/9/p1pppp2p/5BR2/1r7/2P6/P2PPPP1P/2GK5/LNS2GSNL w B3P2p 1",
-                                                           "branches": [],
-                                                           "comment": "後手の角出は飛車８五を助けるように見えても、この盤面では角８八で取られる。角筋が途中で塞がれている別の局面と混同しない。"
+                                                           "branches": [
+                                                            {
+                                                             "usi": "4c4d",
+                                                             "kind": "main",
+                                                             "note": "後手４四同歩。４三歩で先手角を取り返し、双方が角を持つ。",
+                                                             "child": {
+                                                              "id": "nb1_2",
+                                                              "sfen": "lnsgkgsnl/9/p1ppp3p/5pR2/1r7/2P6/P2PPPP1P/2GK5/LNS2GSNL b B3Pb2p 1",
+                                                              "branches": [],
+                                                              "comment": "４四角は無償の角損ではなく、４三歩の取り返しを含む角交換になる。先手飛車３四で４四歩を取るかは後手飛車８五の成り込みも含めて読む。"
+                                                             }
+                                                            }
+                                                           ]
                                                           }
                                                          }
                                                         ]

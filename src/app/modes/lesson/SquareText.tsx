@@ -7,7 +7,7 @@ const hex = (color: number) => `#${color.toString(16).padStart(6, '0')}`
  * board marks were built from, so colours stay in sync when the text is split across lines.
  */
 export function SquareText({ text, context = text }: { text: string; context?: string }) {
-  const squares = mentionedSquares(context)
+  const squares = mentionedSquares(`${context}\n${text}`)
   return (
     <>
       {squareParts(text).map((part, i) =>

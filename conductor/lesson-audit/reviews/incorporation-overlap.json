@@ -1,0 +1,1162 @@
+{
+  "scope": "incorporation ideas in current repository only; factual overlap review; no authoring",
+  "status": "assigned incorporation ideas reviewed; root acceptance pending",
+  "reads": [
+    {
+      "path": "conductor/CURRENT_TASK.md",
+      "bytes": 11504,
+      "lines": 54,
+      "sha256": "cf833759a6a0439ad186f4accb4a9ca22fd44f3597f9da5c7c3e1088de64a7d9",
+      "read_range": "1-54 EOF",
+      "read_format": "Full source; JSON lossless compact preserving all keys/values, whitespace only omitted."
+    },
+    {
+      "path": "conductor/lesson-audit/incorporation.json",
+      "bytes": 16642,
+      "lines": 313,
+      "sha256": "d110f440fc7898ea0c260a61a290e91029a7437e8188476c84fedb389fe9aa4f",
+      "read_range": "1-313 EOF",
+      "read_format": "Full source; JSON lossless compact preserving all keys/values, whitespace only omitted."
+    },
+    {
+      "path": "data/lessons/units/tesuji-pawn.json",
+      "bytes": 13192,
+      "lines": 237,
+      "sha256": "d5f3bd4d3c01dd3dba9ad48153ffc840ca9c0545796ddb53bdb14a269154d668",
+      "read_range": "1-237 EOF",
+      "read_format": "Full source; JSON lossless compact preserving all keys/values, whitespace only omitted."
+    },
+    {
+      "path": "data/lessons/units/tesuji-lance.json",
+      "bytes": 9284,
+      "lines": 171,
+      "sha256": "0a24ec273c42e50ed8885ce7dc38810a8bd37c3ae64abef54eb12e9a7ac24beb",
+      "read_range": "1-171 EOF",
+      "read_format": "Full source; JSON lossless compact preserving all keys/values, whitespace only omitted."
+    },
+    {
+      "path": "data/lessons/units/tesuji-knight.json",
+      "bytes": 8744,
+      "lines": 157,
+      "sha256": "af2d8f0fe43f40fa4ab1a608e3fa2da192bdb0fa03cb4e1ce46423992b283ec8",
+      "read_range": "1-157 EOF",
+      "read_format": "Full source; JSON lossless compact preserving all keys/values, whitespace only omitted."
+    },
+    {
+      "path": "data/lessons/units/tesuji-silver.json",
+      "bytes": 7938,
+      "lines": 147,
+      "sha256": "f754ead6f13db97851640fa5fdce7d1fc630ca4a881005e868cbf3e4f5d09b9d",
+      "read_range": "1-147 EOF",
+      "read_format": "Full source; JSON lossless compact preserving all keys/values, whitespace only omitted."
+    },
+    {
+      "path": "data/lessons/units/tesuji-gold.json",
+      "bytes": 7150,
+      "lines": 133,
+      "sha256": "9145c216cfe78f8be949b7b7340c1fb55b778b08ccc2661e7becddc8406eb817",
+      "read_range": "1-133 EOF",
+      "read_format": "Full source; JSON lossless compact preserving all keys/values, whitespace only omitted."
+    },
+    {
+      "path": "data/lessons/units/tesuji-bishop.json",
+      "bytes": 7922,
+      "lines": 147,
+      "sha256": "a6900d5f9c70c5856ffbd57aea0f10838072fb7ab81a0462f5b83d289947c64c",
+      "read_range": "1-147 EOF",
+      "read_format": "Full source; JSON lossless compact preserving all keys/values, whitespace only omitted."
+    },
+    {
+      "path": "data/lessons/units/tesuji-rook.json",
+      "bytes": 7363,
+      "lines": 147,
+      "sha256": "f0f5f121976765ab0f44f905cc95383de4ce862059d4591f209f0410b7281a66",
+      "read_range": "1-147 EOF",
+      "read_format": "Full source; JSON lossless compact preserving all keys/values, whitespace only omitted."
+    },
+    {
+      "path": "data/lessons/units/proverb-three-pawns.json",
+      "bytes": 13606,
+      "lines": 241,
+      "sha256": "000d7ca041dd5a3e87b4f15f52e325b9ce8c76e2aa070a491947364cf8aa0970",
+      "read_range": "1-241 EOF",
+      "read_format": "Full source; JSON lossless compact preserving all keys/values, whitespace only omitted."
+    },
+    {
+      "path": "data/lessons/units/endgame-yose.json",
+      "bytes": 8711,
+      "lines": 129,
+      "sha256": "2bd22ece05564bad16fe02f9fdfe0a6947c740fb4071b6ec0f29c3bc1a6995ce",
+      "read_range": "1-129 EOF",
+      "read_format": "Full source; JSON lossless compact preserving all keys/values, whitespace only omitted."
+    },
+    {
+      "path": "data/lessons/units/endgame-tsumero.json",
+      "bytes": 8923,
+      "lines": 129,
+      "sha256": "29ed8d982541c7e3d99976a9e345431579cddb352b905f3a30b356bbe004ef9a",
+      "read_range": "1-129 EOF",
+      "read_format": "Full source; JSON lossless compact preserving all keys/values, whitespace only omitted."
+    },
+    {
+      "path": "data/lessons/units/endgame-mate-tesuji.json",
+      "bytes": 12335,
+      "lines": 204,
+      "sha256": "e6de67ebc90e514e94d75f0286ffc94abaa2a3808610f029e11df0757cfa693b",
+      "read_range": "1-204 EOF",
+      "read_format": "Full source; JSON lossless compact preserving all keys/values, whitespace only omitted."
+    },
+    {
+      "path": "data/lessons/units/basics-endgame.json",
+      "bytes": 7979,
+      "lines": 143,
+      "sha256": "2ac4ec721ac051668057ca9447c03bf658be8779d3d8c0b7b41373fb4a8ea37d",
+      "read_range": "1-143 EOF",
+      "read_format": "Full source; JSON lossless compact preserving all keys/values, whitespace only omitted."
+    },
+    {
+      "path": "data/lessons/units/endgame-mate3.json",
+      "bytes": 13119,
+      "lines": 228,
+      "sha256": "02bdd5d55abb535981bec6a423984c70550592ab968262559dcbe778f68117ce",
+      "read_range": "1-228 EOF",
+      "read_format": "Full source; JSON lossless compact preserving all keys/values, whitespace only omitted."
+    },
+    {
+      "path": "data/lessons/units/endgame-mate1.json",
+      "bytes": 20729,
+      "lines": 327,
+      "sha256": "f68c50645aa906b57f156c74aab39e0bdc4a021b9efa4cbe8dfde63b384fea54",
+      "read_range": "1-327 EOF",
+      "read_format": "Full source; JSON lossless compact preserving all keys/values, whitespace only omitted."
+    },
+    {
+      "path": "data/lessons/units/castles-yagura.json",
+      "bytes": 8995,
+      "lines": 129,
+      "sha256": "453c6c48935062b91cfa213ed20f98c716ff2fbbcc0de783e3cdbb1d7d0d5c2f",
+      "read_range": "1-129 EOF",
+      "read_format": "Full lossless compact JSON preserving every key/value; whitespace omitted only."
+    },
+    {
+      "path": "data/lessons/units/castles-funa.json",
+      "bytes": 8692,
+      "lines": 129,
+      "sha256": "d6ae95aade36a7edfd74ccc8dcee51653f64709899ede080fae31af7ca01b3ae",
+      "read_range": "1-129 EOF",
+      "read_format": "Full lossless compact JSON preserving every key/value; whitespace omitted only."
+    },
+    {
+      "path": "data/lessons/units/proverb-gold-last.json",
+      "bytes": 7514,
+      "lines": 126,
+      "sha256": "9e2a8b866f833c6cfebbf3d8299d3913f293d4346ac7d2bfa6db0e94c83a6836",
+      "read_range": "1-126 EOF",
+      "read_format": "Full lossless compact JSON preserving every key/value; whitespace omitted only."
+    },
+    {
+      "path": "data/lessons/units/castles-anaguma.json",
+      "bytes": 8626,
+      "lines": 129,
+      "sha256": "baff31ea39a07b5e4751d6e7a91332b4f27b905ac0c26d5afcb05210bf6dce19",
+      "read_range": "1-129 EOF",
+      "read_format": "Full lossless compact JSON preserving every key/value; whitespace omitted only."
+    },
+    {
+      "path": "data/lessons/units/attack-mino-side.json",
+      "bytes": 8661,
+      "lines": 129,
+      "sha256": "3cc51aa7c47663e89901011c301c367ad5ea56ede648e153beaff5fa38ab53af",
+      "read_range": "1-129 EOF",
+      "read_format": "Full lossless compact JSON preserving every key/value; whitespace omitted only."
+    },
+    {
+      "path": "data/lessons/units/attack-mino-kobin.json",
+      "bytes": 7889,
+      "lines": 105,
+      "sha256": "be7f62dfd87e87ec58961a8ce305903e3527f5bba40d44ca56d89e4b130ade04",
+      "read_range": "1-105 EOF",
+      "read_format": "Full lossless compact JSON preserving every key/value; whitespace omitted only."
+    },
+    {
+      "path": "data/lessons/units/attack-mino-aifuri.json",
+      "bytes": 7332,
+      "lines": 105,
+      "sha256": "1469a74bf9610d4601b38fa47ebd4ab72f889069af375493dff662b580dfe7fc",
+      "read_range": "1-105 EOF",
+      "read_format": "Full lossless compact JSON preserving every key/value; whitespace omitted only."
+    },
+    {
+      "path": "data/lessons/units/attack-yagura-side.json",
+      "bytes": 7105,
+      "lines": 105,
+      "sha256": "394e627116706e2f89761b5b6eb1359b3666b99dd11622937e1ecd2c60dce814",
+      "read_range": "1-105 EOF",
+      "read_format": "Full lossless compact JSON preserving every key/value; whitespace omitted only."
+    },
+    {
+      "path": "data/lessons/units/attack-yagura-head.json",
+      "bytes": 7388,
+      "lines": 105,
+      "sha256": "3ea14a339f85ca5a8205c84a60f75851a02f984ddd494aba522cbd1544d44e49",
+      "read_range": "1-105 EOF",
+      "read_format": "Full lossless compact JSON preserving every key/value; whitespace omitted only."
+    },
+    {
+      "path": "data/lessons/units/attack-anaguma.json",
+      "bytes": 7424,
+      "lines": 105,
+      "sha256": "af0f6450e9ad4f19bfdf9514f0f862f1158a538b378c2ec1538b5dc4cdfa3193",
+      "read_range": "1-105 EOF",
+      "read_format": "Full lossless compact JSON preserving every key/value; whitespace omitted only."
+    },
+    {
+      "path": "data/lessons/units/attack-funa.json",
+      "bytes": 7137,
+      "lines": 105,
+      "sha256": "c085327585490ca0d9cc347f69cd4b306123276343d2f35ffc766ccc7687f14a",
+      "read_range": "1-105 EOF",
+      "read_format": "Full lossless compact JSON preserving every key/value; whitespace omitted only."
+    },
+    {
+      "path": "data/lessons/units/taifuri-basics.json",
+      "bytes": 11240,
+      "lines": 61,
+      "sha256": "593a5ebf94cfb4c45d80cd678dd3ff2311815e181351924dc83f3001b09f2e32",
+      "read_range": "1-61 EOF",
+      "read_format": "Full lossless compact JSON preserving every key/value; whitespace omitted only."
+    },
+    {
+      "path": "data/lessons/units/taifuri-bougin.json",
+      "bytes": 9640,
+      "lines": 53,
+      "sha256": "1f8aa823847b29c16c18aba1ca3ffcecd70e99e0b8f157cd5c596983744f80ef",
+      "read_range": "1-53 EOF",
+      "read_format": "Full lossless compact JSON preserving every key/value; whitespace omitted only."
+    },
+    {
+      "path": "data/lessons/units/taifuri-46gin.json",
+      "bytes": 9653,
+      "lines": 55,
+      "sha256": "d5a98def7d51c2af20cc0748cca89de27ee4552dfc96d92d22be03f708562851",
+      "read_range": "1-55 EOF",
+      "read_format": "Full lossless compact JSON preserving every key/value; whitespace omitted only."
+    },
+    {
+      "path": "data/lessons/units/taifuri-anaguma.json",
+      "bytes": 10514,
+      "lines": 56,
+      "sha256": "36e37e751f1d8e7ad81ef9fccc980cc8998664e6db00ac158eae49d300059953",
+      "read_range": "1-56 EOF",
+      "read_format": "Full lossless compact JSON preserving every key/value; whitespace omitted only."
+    },
+    {
+      "path": "data/lessons/units/taifuri-millennium.json",
+      "bytes": 10506,
+      "lines": 56,
+      "sha256": "05b1c724a6703fa7b30023af1310a1e06dab1affa03ae1f942306ed0f9d5f2d2",
+      "read_range": "1-56 EOF",
+      "read_format": "Full lossless compact JSON preserving every key/value; whitespace omitted only."
+    },
+    {
+      "path": "data/lessons/units/taifuri-45hayashikake.json",
+      "bytes": 10911,
+      "lines": 66,
+      "sha256": "4dff6b1be6375415510d96040afedf25911e963ab7ae13b3933ea84573ba07ef",
+      "read_range": "1-66 EOF",
+      "read_format": "Full lossless compact JSON preserving every key/value; whitespace omitted only."
+    },
+    {
+      "path": "data/lessons/units/taifuri-ponpon.json",
+      "bytes": 9606,
+      "lines": 58,
+      "sha256": "a3016cde37f016be36a66b0e8c533b91bfff87fcf0fed44363d39c5a27028fec",
+      "read_range": "1-58 EOF",
+      "read_format": "Full lossless compact JSON preserving every key/value; whitespace omitted only."
+    },
+    {
+      "path": "data/lessons/units/taifuri-vs-hayaishida.json",
+      "bytes": 9310,
+      "lines": 57,
+      "sha256": "81047ab89e60d50786a8a38b6fc0ab597114aa985fc3a50a0cfdae6f6e23620b",
+      "read_range": "1-57 EOF",
+      "read_format": "Full lossless compact JSON preserving every key/value; whitespace omitted only."
+    },
+    {
+      "path": "data/lessons/units/taifuri-bougin-ishida.json",
+      "bytes": 8665,
+      "lines": 52,
+      "sha256": "1f5c6745cbae509b8c9a79342ea658b14f8eb49490d0aaae7c2a0527e04fc313",
+      "read_range": "1-52 EOF",
+      "read_format": "Full lossless compact JSON preserving every key/value; whitespace omitted only."
+    },
+    {
+      "path": "data/lessons/units/taifuri-chousoku.json",
+      "bytes": 9745,
+      "lines": 159,
+      "sha256": "dabaa3da24c07baf1c4cb365091ff3f9bab5fad77d8e4f27cc7d2410abeb325a",
+      "read_range": "1-159 EOF",
+      "read_format": "Full lossless compact JSON preserving every key/value; whitespace omitted only."
+    },
+    {
+      "path": "data/lessons/units/taifuri-vs-kakukoukan.json",
+      "bytes": 9305,
+      "lines": 150,
+      "sha256": "9325069003d99c66c797b07b5d1419f53f04b234b547a8a246a601aa0d4aae50",
+      "read_range": "1-150 EOF",
+      "read_format": "Full lossless compact JSON preserving every key/value; whitespace omitted only."
+    },
+    {
+      "path": "data/lessons/units/rules-moves.json",
+      "bytes": 16043,
+      "lines": 319,
+      "sha256": "245f7c10fff8475e353eb556920222ebb53151eaf727fdb58d987a0c0f5dab83",
+      "read_range": "1-319 EOF",
+      "read_format": "Full lossless compact JSON preserving every key/value; whitespace omitted only."
+    },
+    {
+      "path": "src/data/joseki/shikenbisha-vs-millennium--65fu.json",
+      "bytes": 58397,
+      "lines": 567,
+      "sha256": "2c9a5df4640c236dbdb369acc69f925550338d42276d04fea10cc8e0ef2351b1",
+      "read_range": "1-567 EOF",
+      "read_format": "Full lossless compact JSON preserving every key/value; whitespace omitted only."
+    },
+    {
+      "path": "src/data/joseki/shikenbisha-vs-hidarimino--24fu.json",
+      "bytes": 34813,
+      "lines": 424,
+      "sha256": "39f9cd5315681a38e2c57f5b079831d76823174a5351d991a3c877ade1a8d6b7",
+      "read_range": "1-424 EOF",
+      "read_format": "Full lossless compact JSON preserving every key/value; whitespace omitted only."
+    },
+    {
+      "path": "src/data/joseki/shikenbisha-vs-45hayashikake--gote-2.json",
+      "bytes": 20979,
+      "lines": 319,
+      "sha256": "4be532d0839131f08a66f9c67de92d8db7ee29953cc7083c841d3de1bc4ef132",
+      "read_range": "1-319 EOF",
+      "read_format": "Full lossless compact JSON preserving every key/value; whitespace omitted only."
+    },
+    {
+      "path": "src/data/joseki/gokigen-vs-chousoku--56fu.json",
+      "bytes": 27604,
+      "lines": 388,
+      "sha256": "0be3e3f7563b441388a3975b442f2d896965def4cfa0dea42145fceff737eb5c",
+      "read_range": "1-388 EOF",
+      "read_format": "Full lossless compact JSON preserving every key/value; whitespace omitted only."
+    }
+  ],
+  "sources": [
+    {
+      "source": "https://shogi-joutatsu.com/archives/1629",
+      "target": "tesuji-pawn",
+      "ideas": [
+        {
+          "idea": "叩きの歩で守り駒を誘導する名称と条件",
+          "verdict": "useful distinct gap",
+          "evidence": "tesuji-pawn ch4 already demonstrates P*6e/S6d6e/B3g7c+ defender attraction but does not name tapping pawn. Preserve root name-only clarification pending.",
+          "locations": [
+            "tesuji-pawn/ch4"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        },
+        {
+          "idea": "継ぎ歩による進路の変化",
+          "verdict": "already taught",
+          "evidence": "Two accepted successive pawn offers clear the rook file in proverb-three-pawns ch4; no duplicate chapter in tesuji-pawn.",
+          "locations": [
+            "proverb-three-pawns/ch4"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        },
+        {
+          "idea": "垂れ歩と直接打ち込みの比較",
+          "verdict": "useful distinct gap",
+          "evidence": "Promotion threat is taught in tesuji-pawn ch3 and proverb-three-pawns ch2/3, but no direct-drop versus dangling-drop comparison. Add only if a separate decision condition is useful.",
+          "locations": [
+            "tesuji-pawn/ch3",
+            "proverb-three-pawns/ch2",
+            "proverb-three-pawns/ch3"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/1486",
+      "target": "tesuji-lance",
+      "ideas": [
+        {
+          "idea": "二段ロケットの前後配置による違い",
+          "verdict": "useful distinct gap",
+          "evidence": "Lance behind rook protects finishing dragon in endgame-mate-tesuji ch4; reverse-order reach and inability to retreat are not compared.",
+          "locations": [
+            "endgame-mate-tesuji/ch4"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        },
+        {
+          "idea": "田楽刺しと相手の歩打ち制限",
+          "verdict": "useful distinct gap",
+          "evidence": "Nifu preventing pawn interposition is already tesuji-lance ch3. A lance skewer with the blocked pawn-defense condition is absent; avoid repeating nifu lesson alone.",
+          "locations": [
+            "tesuji-lance/ch3"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/1331",
+      "target": "tesuji-knight",
+      "ideas": [
+        {
+          "idea": "歩頭の桂による着地点の空け方",
+          "verdict": "useful distinct gap",
+          "evidence": "Target chapters cover jumping, optional promotion, distant check and a defended landing; no knight on pawn head followed by pawn advance clearing that landing.",
+          "locations": [
+            "tesuji-knight/ch1",
+            "tesuji-knight/ch4"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        },
+        {
+          "idea": "控えの桂・継ぎ桂",
+          "verdict": "useful distinct gap",
+          "evidence": "No reserve or successive knight arrangement in target or related endgame units. Supported knight coverage in mate3 ch2 is a single existing knight, not successive drops.",
+          "locations": [
+            "endgame-mate3/ch2"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        },
+        {
+          "idea": "吊るし桂の詰みと逃げ道の比較",
+          "verdict": "already taught",
+          "evidence": "Distant knight mate against occupied exits in endgame-mate1 ch4/ch12 and nonmate with escape in tesuji-knight ch3 already teach this core distinction. Prefer cross-link/name clarification over another generic knight-check chapter.",
+          "locations": [
+            "endgame-mate1/ch4",
+            "endgame-mate1/ch12",
+            "tesuji-knight/ch3"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/1313",
+      "target": "tesuji-silver",
+      "ideas": [
+        {
+          "idea": "銀の斜め往復とまっすぐ進む場合の退路",
+          "verdict": "useful distinct gap",
+          "evidence": "Silver backward diagonal is taught with optional nonpromotion in ch3; straight advance versus diagonal out-and-back retreat geometry is not compared.",
+          "locations": [
+            "tesuji-silver/ch3"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        },
+        {
+          "idea": "桂頭の銀",
+          "verdict": "useful distinct gap",
+          "evidence": "No silver at knight head geometry in target or related endgame units. A new example must include knight landing/defense, not another generic silver fork.",
+          "locations": [
+            "tesuji-silver/ch2"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        },
+        {
+          "idea": "腹銀の逃げ道制限",
+          "verdict": "useful distinct gap",
+          "evidence": "Silver covering a future exit appears in endgame-yose ch3, but adjacent abdominal silver versus other placements is absent. Add a precise control comparison, not an unproven mate claim.",
+          "locations": [
+            "endgame-yose/ch3"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/1516",
+      "target": "tesuji-gold",
+      "ideas": [
+        {
+          "idea": "金による詰めろへの受け",
+          "verdict": "useful distinct gap",
+          "evidence": "Gold captures answering present check in tesuji-gold ch1/ch3 are already taught. Gold answering a quiet mate threat is distinct; tsumero currently tests silver and pawn defenses.",
+          "locations": [
+            "tesuji-gold/ch1",
+            "tesuji-gold/ch3",
+            "endgame-tsumero/ch3",
+            "endgame-tsumero/ch4"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        },
+        {
+          "idea": "尻金で横へ追う条件",
+          "verdict": "useful distinct gap",
+          "evidence": "Head gold finish and gold driving king toward a rook are taught; a rear gold using straight-backward control to drive sideways is not directly compared.",
+          "locations": [
+            "proverb-gold-last/ch1",
+            "endgame-mate3/ch3"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/1586",
+      "target": "tesuji-bishop",
+      "ideas": [
+        {
+          "idea": "馬を守りへ戻す判断",
+          "verdict": "useful distinct gap",
+          "evidence": "Target horse example only takes a sideways knight after promotion. Returning a horse to guard own king is distinct.",
+          "locations": [
+            "tesuji-bishop/ch3"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        },
+        {
+          "idea": "角と桂の連携によるピン",
+          "verdict": "useful distinct gap",
+          "evidence": "attack-mino-kobin teaches bishop-pawn pin and rook-silver pin, but does not combine a bishop pin with knight check. Knight+bishop trade in attack-mino-aifuri is not a pin.",
+          "locations": [
+            "attack-mino-kobin/ch1",
+            "attack-mino-kobin/ch2",
+            "attack-mino-aifuri/ch2"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        },
+        {
+          "idea": "角打ちで詰めろを受けながら脅威を作る",
+          "verdict": "useful distinct gap",
+          "evidence": "tesuji-bishop ch1 already blocks an actual check and attacks rook; defending a quiet mate threat while making another threat is distinct. Do not duplicate the existing interposition sequence.",
+          "locations": [
+            "tesuji-bishop/ch1",
+            "endgame-tsumero/ch3",
+            "endgame-tsumero/ch4"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/1541",
+      "target": "tesuji-rook",
+      "ideas": [
+        {
+          "idea": "自陣飛車による受けと取り返し",
+          "verdict": "useful distinct gap",
+          "evidence": "Target ch2 rook behind pawn recaptures attacking silver. A defensive rook drop/retreat in own camp against a mating threat is distinct.",
+          "locations": [
+            "tesuji-rook/ch2"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        },
+        {
+          "idea": "十字飛車",
+          "verdict": "useful distinct gap",
+          "evidence": "Target has file opening and promoted diagonal capture, but no rook simultaneously attacking targets on perpendicular axes.",
+          "locations": [
+            "tesuji-rook/ch1",
+            "tesuji-rook/ch3"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        },
+        {
+          "idea": "一間龍・送りの手筋",
+          "verdict": "useful distinct gap",
+          "evidence": "Gold drives king toward distant rook in endgame-mate3 ch3; specific one-gap dragon and an offered rook/defender attraction are not compared.",
+          "locations": [
+            "endgame-mate3/ch3"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/8322",
+      "target": "proverb-three-pawns",
+      "ideas": [
+        {
+          "idea": "同じ筋への二度の誘導と垂れ歩による着地点の確保を、相手が取らない場合と比較する",
+          "verdict": "useful distinct gap",
+          "evidence": "proverb-three-pawns ch4 uses first two pawns on file6 then third pawn on file4. Same-file third pawn preserving the original defender controls and declined captures is distinct. Preserve root pending decision.",
+          "locations": [
+            "proverb-three-pawns/ch4"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/5958",
+      "target": "castles-yagura",
+      "ideas": [
+        {
+          "idea": "金矢倉と銀矢倉で6七の駒を替えたときに増減する具体的な守備マスを対比する",
+          "verdict": "useful distinct gap",
+          "evidence": "castles-yagura ch1 names replacing Gold6g with Silver6g but does not enumerate gained/lost squares. Add only that local movement comparison.",
+          "locations": [
+            "castles-yagura/ch1"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        },
+        {
+          "idea": "玉を深く運ぶ手数と攻め駒を守備に追加する費用の比較",
+          "verdict": "already taught",
+          "evidence": "ch2 compares shallow King7h with later8h and saved move; ch3 explicitly compares adding a silver to defense against retaining attack pieces. No new generic timing chapter needed.",
+          "locations": [
+            "castles-yagura/ch2",
+            "castles-yagura/ch3"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/6044",
+      "target": "castles-funa",
+      "ideas": [
+        {
+          "idea": "舟囲いを維持して急戦に入る場合と、左美濃・穴熊へ発展させる場合の手数判断",
+          "verdict": "useful distinct gap",
+          "evidence": "Target compares silver advance and gold placement, not direct move cost of Boat kept for quick attack versus deeper LeftMino/Anaguma. Opening routes belong existing courses; use a bounded diagnostic/cross-link instead of new opening sequence.",
+          "locations": [
+            "castles-funa/ch2",
+            "castles-funa/ch3",
+            "castles-funa/ch4"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/1783",
+      "target": "proverb-gold-last",
+      "ideas": [
+        {
+          "idea": "最後の金を残すだけでなく、詰みの途中で守備金を取って持駒を補充する発想を比較する",
+          "verdict": "already taught",
+          "evidence": "endgame-mate-tesuji ch2 explicitly captures defensive Gold6c with R2c6c+ before final G*6a; acquired gold replenishes hand. No duplicated composed mate.",
+          "locations": [
+            "endgame-mate-tesuji/ch2",
+            "endgame-mate1/ch9"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/6021",
+      "target": "castles-anaguma",
+      "ideas": [
+        {
+          "idea": "四枚の金銀という抽象的説明と、ビッグ4の具体的配置を区別して示す",
+          "verdict": "useful distinct gap",
+          "evidence": "Target ch3 illustrates four-general idea with Silver6h; it explicitly calls idea, not full standard Big4 placement. Distinguishing exact standard formation from general four-general shelter is useful factual precision.",
+          "locations": [
+            "castles-anaguma/ch3"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        },
+        {
+          "idea": "守備に銀を追加する手数と攻め駒減少を比較する",
+          "verdict": "already taught",
+          "evidence": "Target ch2 says added gold costs attacking tempo; ch3/check explicitly count remaining attack generals and whether time permits extra silver.",
+          "locations": [
+            "castles-anaguma/ch2",
+            "castles-anaguma/ch3",
+            "castles-anaguma/check"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/2646",
+      "target": "attack-mino-side",
+      "ideas": [
+        {
+          "idea": "守備金を誘導して王手金取りを成立させる条件",
+          "verdict": "useful distinct gap",
+          "evidence": "Target shows recapture chains, not moving defensive gold into a later king-gold fork. Check-with-gold-capture already occurs in mate-tesuji ch2 but is a different mechanism.",
+          "locations": [
+            "attack-mino-side/ch1",
+            "endgame-mate-tesuji/ch2"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        },
+        {
+          "idea": "香を控えて打つことで成る場所を確保する比較",
+          "verdict": "useful distinct gap",
+          "evidence": "Lance placed at distance in attack-mino-kobin ch1 supports promotion, but no adjacent versus reserve drop comparison.",
+          "locations": [
+            "attack-mino-kobin/ch1"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        },
+        {
+          "idea": "二枚飛車のピンで取り返しを制限する条件",
+          "verdict": "useful distinct gap",
+          "evidence": "Rook pin of silver in attack-mino-kobin ch2 is already taught; a two-rook pin changing a recapture is distinct.",
+          "locations": [
+            "attack-mino-kobin/ch2"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/2615",
+      "target": "attack-mino-kobin",
+      "ideas": [
+        {
+          "idea": "角のピンと桂の王手を組み合わせる条件",
+          "verdict": "useful distinct gap",
+          "evidence": "Bishop-pawn pin and rook-silver pin taught, no knight check leveraging bishop pin.",
+          "locations": [
+            "attack-mino-kobin/ch1",
+            "attack-mino-kobin/ch2"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        },
+        {
+          "idea": "攻防の角による詰めろと大駒取りの比較",
+          "verdict": "useful distinct gap",
+          "evidence": "Actual check-blocking bishop plus rook target taught; quiet mate-threat defense plus major target not directly compared.",
+          "locations": [
+            "tesuji-bishop/ch1"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        },
+        {
+          "idea": "桂を先に打つ場合と金を先に入手する場合の手順前後",
+          "verdict": "useful distinct gap",
+          "evidence": "Gold hand acquisition before finish taught in mate-tesuji ch2; knight-first versus gold-acquisition-first order not compared.",
+          "locations": [
+            "endgame-mate-tesuji/ch2"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/1070",
+      "target": "attack-mino-aifuri",
+      "ideas": [
+        {
+          "idea": "攻める銀の退路を作る端の突き捨て",
+          "verdict": "useful distinct gap",
+          "evidence": "Target compares central pawn and knight/bishop exchanges; no edge pawn sacrifice creating silver retreat.",
+          "locations": [
+            "attack-mino-aifuri/ch1",
+            "attack-mino-aifuri/ch2"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        },
+        {
+          "idea": "敵が歩を打ちたい場所に先に叩く順の違い",
+          "verdict": "useful distinct gap",
+          "evidence": "Tapping defender is target pawn ch4; preempting enemy pawn-drop square is a different occupancy/timing condition.",
+          "locations": [
+            "tesuji-pawn/ch4"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        },
+        {
+          "idea": "角の位置による攻めへの利きの追加と守備の対応",
+          "verdict": "already taught",
+          "evidence": "Target ch2 checks bishop support of knight exchange; ch3 changes preparation tempo and defender gold escape. Generic bishop-position/defense comparison already taught; only specifically edge-retreat linkage would be distinct.",
+          "locations": [
+            "attack-mino-aifuri/ch2",
+            "attack-mino-aifuri/ch3"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/2276",
+      "target": "attack-yagura-side",
+      "ideas": [
+        {
+          "idea": "銀打ちで守備金を攻め、受けの金の移動方向を比較する",
+          "verdict": "useful distinct gap",
+          "evidence": "Target has rook/knight/bishop recapture chains, not silver drop forcing gold to choose directional retreat.",
+          "locations": [
+            "attack-yagura-side/ch1",
+            "attack-yagura-side/ch2"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        },
+        {
+          "idea": "非王手の金攻めと王手で玉を誘導する手の違い",
+          "verdict": "useful distinct gap",
+          "evidence": "Present-check versus quiet threat is covered generally in tsumero; a silver attack on gold that differs from check-driven king attraction is distinct.",
+          "locations": [
+            "endgame-tsumero/ch1",
+            "endgame-tsumero/ch2"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        },
+        {
+          "idea": "守る側の持駒によって同じ銀打ちを再評価する",
+          "verdict": "useful distinct gap",
+          "evidence": "Defender hand changes threat answers in tsumero ch4, but target silver-drop attack does not compare defender hands. Use a compact conditional branch, not repeat generic drop rules.",
+          "locations": [
+            "endgame-tsumero/ch4"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/2313",
+      "target": "attack-yagura-head",
+      "ideas": [
+        {
+          "idea": "端の香を吊り上げる歩の連打と玉の誘導",
+          "verdict": "useful distinct gap",
+          "evidence": "Target ch2 exchanges edge pawn into rook entry, without successive pawn offers attracting lance/king.",
+          "locations": [
+            "attack-yagura-head/ch2"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        },
+        {
+          "idea": "歩頭の桂で攻め駒の着地点を空ける条件",
+          "verdict": "useful distinct gap",
+          "evidence": "Knight landing safety taught, but pawn-head knight unlocking entry absent in target and knight unit.",
+          "locations": [
+            "tesuji-knight/ch4",
+            "attack-yagura-head/ch1"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        },
+        {
+          "idea": "玉頭への香成に対する金と玉の取り返しの違い",
+          "verdict": "useful distinct gap",
+          "evidence": "Target ch1 uses unpromoted lance checking capture and silver recapture; promoted lance versus gold/king recapture is distinct.",
+          "locations": [
+            "attack-yagura-head/ch1"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/3014",
+      "target": "attack-anaguma",
+      "ideas": [
+        {
+          "idea": "守備銀を歩で誘導し背後の金を攻める",
+          "verdict": "useful distinct gap",
+          "evidence": "Target trades outer golds and edge lances; pawn draws silver in pawn ch4 but not corner shield-to-back-gold mechanism.",
+          "locations": [
+            "attack-anaguma/ch1",
+            "tesuji-pawn/ch4"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        },
+        {
+          "idea": "桂を跳ねさせた後の空きマスと玉の逃げ道の変化",
+          "verdict": "useful distinct gap",
+          "evidence": "Exit opened by defender pawn and silver control taught in yose ch3; knight moved out of corner changes escape/attack square is distinct.",
+          "locations": [
+            "endgame-yose/ch3"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        },
+        {
+          "idea": "角のピンで銀の飛車取りを制限する条件",
+          "verdict": "useful distinct gap",
+          "evidence": "Rook pin prevents silver recapture in mino-kobin ch2; bishop pin preventing silver capture of rook is another line/control orientation. Avoid redundant generic pin chapter.",
+          "locations": [
+            "attack-mino-kobin/ch2"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/3048",
+      "target": "attack-funa",
+      "ideas": [
+        {
+          "idea": "一段飛車と二段飛車で銀の配置に応じた急所を比較する",
+          "verdict": "useful distinct gap",
+          "evidence": "Target deals with pawn/gold recaptures, not one-rank versus two-rank rook entry and silver placements.",
+          "locations": [
+            "attack-funa/ch1",
+            "attack-funa/ch2"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        },
+        {
+          "idea": "焦点への香打ちと複数の取り方による利きの変化",
+          "verdict": "useful distinct gap",
+          "evidence": "No focus-square lance with multiple recapture choices in target or lance unit.",
+          "locations": [
+            "attack-funa/ch3",
+            "tesuji-lance/ch4"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        },
+        {
+          "idea": "相手の持ち角で送りの手筋の成立が変わる条件",
+          "verdict": "useful distinct gap",
+          "evidence": "Target has no defender-hand bishop comparison affecting attraction/送り mechanism. Could be one variation in original example; must verify exact threat/control.",
+          "locations": [
+            "attack-funa/ch2"
+          ],
+          "original_example_constraint": "Use independently composed positions; no source diagram, wording, branch collection or article structure. A distinct gap does not authorize adding a chapter or prove forced play."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/7238",
+      "target": "taifuri-basics",
+      "ideas": [
+        {
+          "idea": "4三銀と3二銀で歩の突き捨ての時期が変わる条件",
+          "verdict": "already taught",
+          "evidence": "taifuri-46gin/ch1,ch2 compare S4c access to3d against S3b blocking rook; taifuri-basics/ch3,ch4 already contrast contact timing.",
+          "original_example_constraint": "Independent wording and conditional example only; no source positions, sequence collection or structure. No authoring authorization or tactical correctness claim."
+        },
+        {
+          "idea": "先手の右銀と左銀の出発地点を実際の駒組みから示す",
+          "verdict": "useful distinct gap",
+          "evidence": "taifuri-basics/ch1 shows right silver3i4h. taifuri-46gin labels left silver5g but does not replay its origin; a origin-identification cross-reference is distinct, not another opening.",
+          "original_example_constraint": "Independent wording and conditional example only; no source positions, sequence collection or structure. No authoring authorization or tactical correctness claim."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/7254",
+      "target": "taifuri-bougin",
+      "ideas": [
+        {
+          "idea": "飛車を3筋へ振り直した後、4筋の歩で角筋を開ける順",
+          "verdict": "useful distinct gap",
+          "evidence": "taifuri-bougin/ch2 moves defender rook4b3b; ch3 opens diagonal with defender pawn4d4e. Attacker rook-third-file followed by its own fourth-file pawn is not this comparison.",
+          "original_example_constraint": "Independent wording and conditional example only; no source positions, sequence collection or structure. No authoring authorization or tactical correctness claim."
+        },
+        {
+          "idea": "歩で守備銀を誘導して別の攻め筋を通す条件",
+          "verdict": "useful distinct gap",
+          "evidence": "tesuji-pawn/ch4 already teaches silver attraction, but taifuri-bougin does not connect that displacement to a different attack line; reuse concept rather than duplicate a pawn chapter.",
+          "original_example_constraint": "Independent wording and conditional example only; no source positions, sequence collection or structure. No authoring authorization or tactical correctness claim."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/7282",
+      "target": "taifuri-46gin",
+      "ideas": [
+        {
+          "idea": "2筋の突き捨てで後の飛車の横移動先を確保する比較",
+          "verdict": "useful distinct gap",
+          "evidence": "taifuri-46gin/ch1 contains third-file exchange, not second-file sacrifice creating rook lateral landing.",
+          "original_example_constraint": "Independent wording and conditional example only; no source positions, sequence collection or structure. No authoring authorization or tactical correctness claim."
+        },
+        {
+          "idea": "攻め銀の来歴を示し右銀型との配置差を明示する",
+          "verdict": "useful distinct gap",
+          "evidence": "taifuri-basics/ch1 identifies right silver origin; target starts with silver5g. Show provenance contrast without replaying opening.",
+          "original_example_constraint": "Independent wording and conditional example only; no source positions, sequence collection or structure. No authoring authorization or tactical correctness claim."
+        },
+        {
+          "idea": "角交換の順序で玉が囲いを離れるかを比較する",
+          "verdict": "useful distinct gap",
+          "evidence": "Target ch3 exchanges bishops through7g but has no comparison where recapturing king leaves castle. New conditional explanation remains unverified tactically.",
+          "original_example_constraint": "Independent wording and conditional example only; no source positions, sequence collection or structure. No authoring authorization or tactical correctness claim."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/7339",
+      "target": "taifuri-anaguma",
+      "ideas": [
+        {
+          "idea": "早い桂の進出が角銀への両取りを作る条件と囲い手順の中断",
+          "verdict": "useful distinct gap",
+          "evidence": "Target ch2 interrupts castle with fourth-file pawn pressure; taifuri-ponpon/ch1 already teaches knight bishop/silver fork. Distinct component is castle-tempo decision, not generic fork.",
+          "original_example_constraint": "Independent wording and conditional example only; no source positions, sequence collection or structure. No authoring authorization or tactical correctness claim."
+        },
+        {
+          "idea": "攻め銀を守備へ戻すことで相手の銀交換の標的を減らす比較",
+          "verdict": "useful distinct gap",
+          "evidence": "Target ch3 contrasts defense investment and file2 attack but not attacking silver returning to remove exchange target.",
+          "original_example_constraint": "Independent wording and conditional example only; no source positions, sequence collection or structure. No authoring authorization or tactical correctness claim."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/7988",
+      "target": "taifuri-millennium",
+      "ideas": [
+        {
+          "idea": "銀の守備経路5九経由と5七経由で角の退路が変わる条件",
+          "verdict": "already taught",
+          "evidence": "src/data/joseki/shikenbisha-vs-millennium--65fu.json node n_16 explicitly explains4h5i6h instead of5g to preserve bishop6f diagonal; n_36 plays4h5i and n_52 completes5i6h.",
+          "original_example_constraint": "Independent wording and conditional example only; no source positions, sequence collection or structure. No authoring authorization or tactical correctness claim."
+        },
+        {
+          "idea": "相手桂8五への自桂7七の取り返しを守備配置と照合",
+          "verdict": "useful distinct gap",
+          "evidence": "Same course n_24 places knight7g supporting bishop6f; no opponent knight8e recapture comparison. Target ch1 describes knight destinations without this conditional exchange.",
+          "original_example_constraint": "Independent wording and conditional example only; no source positions, sequence collection or structure. No authoring authorization or tactical correctness claim."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/974",
+      "target": "taifuri-45hayashikake",
+      "ideas": [
+        {
+          "idea": "既存の合法な取り返し比較を補助説明として保持し、角道を開く条件と2筋への接続を独立した標準理論の例で追加する。",
+          "verdict": "already taught",
+          "evidence": "shikenbisha-vs-45hayashikake--gote-2 bishop-exchange branch after4f4e/4d4e already connects opened diagonal to knight3c targeting pawn2e. Target recapture diagnostics remain distinct; no duplicate standard opening. Actual subsequent file2 exchange is a narrower unrepresented comparison.",
+          "original_example_constraint": "Independent wording and conditional example only; no source positions, sequence collection or structure. No authoring authorization or tactical correctness claim."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/8008",
+      "target": "taifuri-ponpon",
+      "ideas": [
+        {
+          "idea": "損得の基本例と標準戦法の仕掛けを区別し、桂の投資で得る角道・2筋の活動と相手の切り返しを原作独立例で示す。",
+          "verdict": "useful distinct gap",
+          "evidence": "Target ch2 explicitly distinguishes knight investment with silver capture from ch3 uncompensated loss, but standard bishop-diagonal/file2 compensation and opponent counter are absent; explain distinction without importing source opening collection.",
+          "original_example_constraint": "Independent wording and conditional example only; no source positions, sequence collection or structure. No authoring authorization or tactical correctness claim."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/7962",
+      "target": "taifuri-vs-hayaishida",
+      "ideas": [
+        {
+          "idea": "標準の序盤から4二玉・角交換・4五角の選択を結び、7六角の切り返しと玉位置の関係を説明",
+          "verdict": "useful distinct gap",
+          "evidence": "Target ch1 starts bishop-drop fork against king7h; no standard king4b bishop-exchange/7f response relationship.",
+          "original_example_constraint": "Independent wording and conditional example only; no source positions, sequence collection or structure. No authoring authorization or tactical correctness claim."
+        },
+        {
+          "idea": "7四飛と飛角交換の順序によって飛車打ちの着地点が変わる条件を比較",
+          "verdict": "useful distinct gap",
+          "evidence": "Target ch2 varies rook lateral blockage but does not compare7d rook/major exchange and ensuing rook-drop landing.",
+          "original_example_constraint": "Independent wording and conditional example only; no source positions, sequence collection or structure. No authoring authorization or tactical correctness claim."
+        },
+        {
+          "idea": "6六歩で角交換を避ける選択と石田流本組みへの接続",
+          "verdict": "useful distinct gap",
+          "evidence": "Target ch2 uses pawn6f as horizontal rook blocker; does not teach declining bishop exchange then transitioning into standard formation. Cross-link course instead of opening duplication.",
+          "original_example_constraint": "Independent wording and conditional example only; no source positions, sequence collection or structure. No authoring authorization or tactical correctness claim."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/4502",
+      "target": "taifuri-bougin-ishida",
+      "ideas": [
+        {
+          "idea": "金8三・7四・8四の横移動と歩交換による拠点変更",
+          "verdict": "useful distinct gap",
+          "evidence": "Target ch1 gold6d6e chases rook; no8c7d8d gold route.",
+          "original_example_constraint": "Independent wording and conditional example only; no source positions, sequence collection or structure. No authoring authorization or tactical correctness claim."
+        },
+        {
+          "idea": "端に使う持ち歩を7筋で得る理由",
+          "verdict": "useful distinct gap",
+          "evidence": "Target ch3 drops pawn5e to block bishop; no file7 pawn acquisition funding edge attack.",
+          "original_example_constraint": "Independent wording and conditional example only; no source positions, sequence collection or structure. No authoring authorization or tactical correctness claim."
+        },
+        {
+          "idea": "桂7七・角9七の保留と角交換による大駒の活動の違い",
+          "verdict": "useful distinct gap",
+          "evidence": "Target does not compare deferred knight7g/bishop9g with bishop-exchange activity. Standard formation should be course cross-reference, not copied opening.",
+          "original_example_constraint": "Independent wording and conditional example only; no source positions, sequence collection or structure. No authoring authorization or tactical correctness claim."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/7863",
+      "target": "taifuri-chousoku",
+      "ideas": [
+        {
+          "idea": "桂によって5五を守る角を移動させる条件",
+          "verdict": "useful distinct gap",
+          "evidence": "Target ch2/ch3 already count bishop3c support of5e; no knight move deflecting bishop.",
+          "original_example_constraint": "Independent wording and conditional example only; no source positions, sequence collection or structure. No authoring authorization or tactical correctness claim."
+        },
+        {
+          "idea": "2九飛と2八飛で角打ちの標的が変わる具体的な比較",
+          "verdict": "useful distinct gap",
+          "evidence": "Target has no rook2i versus2h bishop-drop target comparison.",
+          "original_example_constraint": "Independent wording and conditional example only; no source positions, sequence collection or structure. No authoring authorization or tactical correctness claim."
+        },
+        {
+          "idea": "3七銀の一手の有無で5筋交換後の角打ちへの受けが変わる条件",
+          "verdict": "useful distinct gap",
+          "evidence": "gokigen-vs-chousoku--56fu develops silver3g before file5 exchange, then bishop exchange. No silver-present/absent conditional comparison; development sequence already taught.",
+          "original_example_constraint": "Independent wording and conditional example only; no source positions, sequence collection or structure. No authoring authorization or tactical correctness claim."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/2204",
+      "target": "taifuri-vs-kakukoukan",
+      "ideas": [
+        {
+          "idea": "4七銀から3六銀で逆棒銀に対応する具体的な守備と飛車道",
+          "verdict": "already taught",
+          "evidence": "Target ch2 explicitly4g3f, file2 rook exchanges and silver3f2e recapture; reverse-bougin defensive mechanism already present despite name not explicit.",
+          "original_example_constraint": "Independent wording and conditional example only; no source positions, sequence collection or structure. No authoring authorization or tactical correctness claim."
+        },
+        {
+          "idea": "2三歩の叩きで飛車の位置を変え、持角の打ち場所を作る条件",
+          "verdict": "useful distinct gap",
+          "evidence": "Target ch1 bishop drop attacks rook after file4 exchange, not pawn2c attraction moving rook and opening bishop-drop square.",
+          "original_example_constraint": "Independent wording and conditional example only; no source positions, sequence collection or structure. No authoring authorization or tactical correctness claim."
+        },
+        {
+          "idea": "持久戦の腰掛け銀と自玉の守備に使う手数の比較",
+          "verdict": "useful distinct gap",
+          "evidence": "Target is local recapture/fork diagnostics; no move-budget comparison between reclining silver development and king defense. Do not duplicate existing reclining-silver opening course.",
+          "original_example_constraint": "Independent wording and conditional example only; no source positions, sequence collection or structure. No authoring authorization or tactical correctness claim."
+        }
+      ]
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/1212",
+      "target": "rules-moves",
+      "ideas": [
+        {
+          "idea": "成銀・成桂・成香の図面略記は全・圭・杏の場合がある。表記が違っても元の駒種を保持し、動きだけが金と同じになる。",
+          "verdict": "useful distinct gap",
+          "evidence": "rules-moves/ch5 explains promoted minor-piece gold movement without alternative 全/圭/杏 notation. Root pending short recognition-text decision retained; no new UI or source glyph figures.",
+          "original_example_constraint": "Independent wording and conditional example only; no source positions, sequence collection or structure. No authoring authorization or tactical correctness claim."
+        }
+      ]
+    }
+  ],
+  "pending_source_urls": [],
+  "root_pending_decisions": [
+    "1212 notation addition in rules-moves chapter5",
+    "1629 tapping-pawn name/condition in existing chapter4",
+    "8322 independently composed same-file third-pawn comparison"
+  ],
+  "constraints": [
+    "No copied source wording, composed teaching positions, article structure or branch collection.",
+    "No opening sequence duplication in lessons. Existing authored course nodes are comparison evidence only.",
+    "No new engine/browsers/tests or external expansion; pedagogical gap is not tactical correctness proof."
+  ],
+  "limitations": [
+    "Distinct-gap verdicts reflect full target and bounded related-unit/course reads, not an exhaustive semantic absence proof across all146 units.",
+    "No tactical replay, engine, browser or source-text re-review in this slice. Existing course structural replacement concerns remain separate."
+  ]
+}

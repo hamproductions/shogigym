@@ -16,8 +16,8 @@
       "en": "A pawn toss shows four pawn sides and one tokin side. Who moves first?"
     },
     "answer": {
-      "ja": "振った人が先手です。歩の面が多く出た結果です。",
-      "en": "The person who tossed moves first because the pawn side appeared more often."
+      "ja": "上座側の歩を振った場合、上座の対局者が先手です。実際に振る記録係やゲストが対局者になるわけではありません。",
+      "en": "When the senior-side pawns are tossed, the player on that side moves first. The person physically tossing may be a record keeper or guest."
     }
   },
   "references": [
@@ -139,8 +139,8 @@
       "steps": [
         {
           "text": {
-            "ja": "振り駒では、上手側の歩を五枚手に取り、混ぜてから盤や卓上へ振ります。歩の面が多ければ振った人が先手、と金の面が多ければ相手が先手です。",
-            "en": "For furigoma, take five pawns from the senior player's side, mix them in your hands and toss them onto the board or table. More pawn sides makes the tosser Sente; more tokin sides gives Sente to the other player."
+            "ja": "振り駒では、上座側の対局者の歩を五枚手に取り、混ぜてから盤や卓上へ振ります。歩の面が多ければ上座の対局者が先手、と金の面が多ければ下座の対局者が先手です。誰が手で振ったかとは分けて判定します。",
+            "en": "For furigoma, take five pawns from the senior-side player, mix and toss them onto the board or table. More pawn sides makes that player Sente; more tokin sides makes the other player Sente. The record keeper or guest tossing the pieces does not become a player."
           }
         },
         {

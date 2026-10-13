@@ -1,0 +1,960 @@
+{
+  "scope": "注文660–820の17教材と宣言された18参考資料のみ。教材改稿なし。",
+  "status": "担当の全単位と全宣言参考資料を読了。全登録教学図を直接確認済み。戦術的欠陥の反例を保存。根で独立検証・全体重複確認・改稿が必要。",
+  "rules_read": [
+    "AGENTS.md 1–EOF",
+    "docs/lessons.md 1–EOF",
+    "src/app/pieces.tsx 1–EOF",
+    "scripts/lessons/check-unit.ts 1–EOF"
+  ],
+  "units": [
+    {
+      "path": "data/lessons/units/kakugawari-basics.json",
+      "sha256": "9c7a2bdd64c57ee880dc5e4286ee80f83d451d560a79f9b4478d35e56eac2474",
+      "lines": 213,
+      "read_range": "1–213 EOF",
+      "id": "kakugawari-basics",
+      "semantic_evidence": [
+        "全文・日英・全4章と変化を読了。銀金の再捕獲、角4c/5cの斜線を盤面配置と照合。未強制の歩交換を任意手順と明記する点は適切。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "kakugawari-bougin",
+      "path": "data/lessons/units/kakugawari-bougin.json",
+      "sha256": "ea44c6c38bba21da12002a8b3b7882ab17302bac0cb6da418ccebbd0b5f0f0a9",
+      "lines": 178,
+      "read_range": "1–178 EOF",
+      "semantic_evidence": [
+        "全文・日英・全3章・端銀進出失敗変化を読了。buildUnitのtsshogi合法性検証に合格。3e銀退路4f、1e銀退路2f、銀撤退で2筋飛車経路が開く事実を確認。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "kakugawari-hayakuri",
+      "path": "data/lessons/units/kakugawari-hayakuri.json",
+      "sha256": "a4ec54482dbf4454600bffb0236bf9540d83f1373a08f30c178ad6d3fa615dbb",
+      "lines": 201,
+      "read_range": "1–201 EOF",
+      "semantic_evidence": [
+        "全文・日英・4章・8筋変化を読了。buildUnit合法性合格。王手飛車章は5i玉への任意応手のみが飛車損という限定を正確に記載。原局面からB*3e/B*5g/3e5g+/6h5gはtsshogiで全手合法、飛車1gは残る。8f歩を銀7gが保護することも確認。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "kakugawari-koshikake",
+      "path": "data/lessons/units/kakugawari-koshikake.json",
+      "sha256": "976972096b89967d248f5c8e467c6960d1753489f7b3ca2de42f6f236ea84fb6",
+      "lines": 226,
+      "read_range": "1–226 EOF",
+      "semantic_evidence": [
+        "全文・日英・全4章と3変化を読了、buildUnit合法性合格。銀5fの6e保護、金3hの3g再捕獲、早すぎる8f歩から銀損の対比を確認。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "kakugawari-45kei",
+      "path": "data/lessons/units/kakugawari-45kei.json",
+      "sha256": "5d414bad13c2788f8ddf1ebf98db8b9751266b3efecbc1f8ed5935aed235767c",
+      "lines": 207,
+      "read_range": "1–207 EOF",
+      "semantic_evidence": [
+        "全文・日英・全4章と3変化を読了、buildUnit合法性合格。4f歩が4eを保護、4d歩との交換は桂対歩、4b銀が5c歩を保護、桂移動後5d角から2g飛への斜線が開く点を確認。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "kakugawari-ittezon",
+      "path": "data/lessons/units/kakugawari-ittezon.json",
+      "sha256": "a35def72fd81e35be99a21147cdc57ea3ad10f28f9ba0ec0bb9c454a733b80fa",
+      "lines": 183,
+      "read_range": "1–183 EOF",
+      "semantic_evidence": [
+        "全文・日英・全4章を読了、buildUnit合法性合格。8d歩と8e歩の桂着地点差、角移動回数の基準差を限定的に説明。章1の7g成桂捕獲後、先手銀7iは7gへ直進できず即再捕獲不可。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "aigakari-basics",
+      "path": "data/lessons/units/aigakari-basics.json",
+      "sha256": "5070a0fb4b96df457ea37f71152afd29cf42e08a327ed3a7a2db9e50b9c8d91b",
+      "lines": 193,
+      "read_range": "1–193 EOF",
+      "semantic_evidence": [
+        "全文・日英・4章と2変化を読了、buildUnit合法性合格。金7hの8g保護と浮き飛車2fの横利きによる8f再捕獲を確認。王手・保護・取れる駒の記述に明白な不一致なし。"
+      ],
+      "findings": []
+    },
+    {
+      "sha256": "76554870a60e0863ccc0d028affd9e2cf6abedbb37655713bc108c1cb95d89ca",
+      "lines": 161,
+      "read_range": "1–161 EOF",
+      "id": "aigakari-bougin",
+      "path": "data/lessons/units/aigakari-bougin.json",
+      "semantic_evidence": [
+        "全文・日英・3章と1変化を読了。buildUnit合法性合格。銀経路3h/2g/3f/2eと2筋の飛車利き、4b角に3c歩がある場合の斜線遮断、6d飛と4b角の2d二重守備を確認。"
+      ],
+      "findings": []
+    },
+    {
+      "sha256": "dcc1dc9e915834d366dba5efb8a6c3e9146258dcd34b7093d12593acbec02264",
+      "lines": 62,
+      "read_range": "1–62 EOF",
+      "id": "hineribisha",
+      "path": "data/lessons/units/hineribisha.json",
+      "semantic_evidence": [
+        "全文・日英・4章と1変化を読了。buildUnit合法性合格。浮き飛車の横移動経路、4c銀による3d保護と4b金が3dを守らない点、玉の右辺移動、8e銀への桂と飛車の再捕獲を確認。"
+      ],
+      "findings": []
+    },
+    {
+      "sha256": "8b67780e2ce881e76fc17d5103825f28a8fb1b29a0d26f2b967b1eb9b42e96d5",
+      "lines": 62,
+      "read_range": "1–62 EOF",
+      "id": "yokofu-basics",
+      "path": "data/lessons/units/yokofu-basics.json",
+      "semantic_evidence": [
+        "全文・日英・4章と1変化を読了。buildUnit合法性合格。3c金の3d保護、7c金の8d飛保護、4e角による3d飛攻撃と2d/2f退避、角7gから3cまでの斜線を確認。"
+      ],
+      "findings": []
+    },
+    {
+      "sha256": "9e05041ae092c84bfd678d55889933677368c9669f191152a1b3d8825784904c",
+      "lines": 69,
+      "read_range": "1–69 EOF",
+      "id": "yokofu-23fu",
+      "path": "data/lessons/units/yokofu-23fu.json",
+      "semantic_evidence": [
+        "全文と日英の4章と全4変化を読了。buildUnit合法性合格。2c歩の2d攻撃、3b金の2c保護、4b銀の3c金保護、6g角への3f飛退避を確認。"
+      ],
+      "findings": []
+    },
+    {
+      "sha256": "49e99c0dc120a1fd7a86f0e15b303923bf112ae2ead977d2640466bf1bd55a20",
+      "lines": 61,
+      "read_range": "1–61 EOF",
+      "id": "yokofu-45kaku",
+      "path": "data/lessons/units/yokofu-45kaku.json",
+      "semantic_evidence": [
+        "全文と日英の4章と全2変化を読了。buildUnit合法性合格。角4eの3d飛と6g銀攻撃、金7hの6g再捕獲、2c歩と4e角による2dと3fの危険を確認。章4の角交換後は後手銀4eが飛3dをなお攻撃するが、本文も銀の利き再計算を要求し安全とは断定していない。"
+      ],
+      "findings": []
+    },
+    {
+      "sha256": "469481f7a1671f7ef81f0618d565f82ff1f36ad1e3ff1960c8d7600112ce11b0",
+      "lines": 57,
+      "read_range": "1–57 EOF",
+      "id": "aiyokofu",
+      "path": "data/lessons/units/aiyokofu.json",
+      "semantic_evidence": [
+        "全文と日英の3章と全3変化を読了。buildUnit合法性合格。7筋の歩消失後の歩打ちは二歩ではない。金7hが7g、金6gが7f、後手金8cが7d飛を保護。5d角は7f飛を攻撃し8f退避後は攻撃なし。"
+      ],
+      "findings": []
+    },
+    {
+      "id": "yokofu-85hisha",
+      "path": "data/lessons/units/yokofu-85hisha.json",
+      "sha256": "82e6b3044c3beda43c7b6028520dd2d7d5e01420c35199df38e629d8cf7e4e8f",
+      "lines": 54,
+      "read_range": "1–54 EOF",
+      "semantic_evidence": [
+        "全文と日英の3章と全2変化を読了。buildUnit合法性合格。角3cと金4bの3c保護、金3fの2e再捕獲、6f角の8d飛攻撃は正確。章1と2の対向飛車には独自配置の保護不足あり。"
+      ],
+      "findings": [
+        "exchange-85-rook-hang",
+        "exchange-85-king-rook-loss"
+      ]
+    },
+    {
+      "id": "yokofu-aono",
+      "path": "data/lessons/units/yokofu-aono.json",
+      "sha256": "1fa71e62aa85709ad17fd26648595cc16175c98772e18e90bf4a46400e339dae",
+      "lines": 57,
+      "read_range": "1–57 EOF",
+      "semantic_evidence": [
+        "全文と日英の3章と全2変化を読了。buildUnit合法性合格。5h玉と3f歩と3g桂と4e桂の経路、4b金の5c保護、2c銀の3d攻撃、5e角の両狙いに3b飛が対処する点を確認。章2の飛車交換予告は保護不足。"
+      ],
+      "findings": [
+        "exchange-aono-lateral-trade"
+      ]
+    },
+    {
+      "id": "yokofu-yuuki",
+      "path": "data/lessons/units/yokofu-yuuki.json",
+      "sha256": "e9ce7c2f51378e4790bbd4d7c4f1f2956dc2bfdf7b204d541abcc7c85b6ed628",
+      "lines": 60,
+      "read_range": "1–60 EOF",
+      "semantic_evidence": [
+        "全文と日英の3章と全4変化を読了。buildUnit合法性合格。6h玉の7h成銀再捕獲と5h玉の不成立を確認。3e歩の3d保護、王手飛車の3e角に2e飛で取り返す受けは正確。ただし章2の後手飛車8dに守備なし。"
+      ],
+      "findings": [
+        "exchange-yuuki-rook-hang"
+      ]
+    },
+    {
+      "id": "yokofu-avoid",
+      "path": "data/lessons/units/yokofu-avoid.json",
+      "sha256": "d4ee79903b8ed74029ac8100c8f5f5e46a875eea8b62b92b5b5421ac5053f42a",
+      "lines": 53,
+      "read_range": "1–53 EOF",
+      "semantic_evidence": [
+        "全文と日英の3章と変化を読了。buildUnit合法性合格。6f歩による角道遮断、角交換後4d角の2f飛攻撃、3e歩が8e飛の横利きを遮る点は正確。章1の銀移動後の角損、章3変化の飛車丸取りを独立再現。"
+      ],
+      "findings": [
+        "exchange-avoid-bishop-loss",
+        "exchange-avoid-rook-countercapture"
+      ]
+    }
+  ],
+  "references": [
+    {
+      "sha256": "aa057b958cb00a5c4fabb75357b6760cf91c5e2aa30e1c4ca460d0d8c4e4ba89",
+      "lines": 186,
+      "read_range": "1–186 EOF",
+      "cache": ".cache/curriculum-source/2865.txt",
+      "url": "https://shogi-joutatsu.com/archives/2865",
+      "visual_indices": [
+        12,
+        15,
+        17,
+        18,
+        20,
+        24,
+        25,
+        29,
+        32,
+        35,
+        42,
+        43,
+        46,
+        48,
+        49,
+        50,
+        51,
+        52,
+        54
+      ],
+      "visual_evidence": [
+        "19図を直接表示。7g7f→2g2f→8c8d/8d8e→8h7g、8i8h銀から交換後7g銀という初期配置、2d飛と3e角の対角、3c角と4bへの撤退、2d角交換・3c銀拒否後2a龍を確認。図2-1本文の銀8f表記に対し図は先手銀2f。図3-3後の本文▲3三銀は図の▲7七銀と不一致。",
+        "白背景・原寸・全領域の画像で全登録図を再確認済み。双方持駒・筋段・手番表記を含む。初回の黒背景は盤内確認のみであり、今回の全領域確認が最終証拠。"
+      ],
+      "unverified": [
+        "出典の優勢評価と定跡のエンジン評価は未再検証。棋譜の誤記を取り込まない。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/3497",
+      "cache": ".cache/curriculum-source/3497.txt",
+      "sha256": "0a28fb3d5eef52a321ac81284cf45ef8f2b9f43526181c219d3e3b91b9c9ce2d",
+      "lines": 185,
+      "read_range": "1–185 EOF",
+      "visual_indices": [
+        14,
+        17,
+        23,
+        24,
+        25,
+        28,
+        30,
+        31,
+        34,
+        35,
+        36,
+        39,
+        40,
+        42,
+        43,
+        45,
+        46
+      ],
+      "visual_evidence": [
+        "17図を直接表示。通常配置の端銀香交換、1b垂れ歩、6f角と8d香、1h歩の受け、1i角への2g飛退避、5d角・2g歩打ち・3h角による2g補強を確認。本文「図4-2から3h角」は図の分岐と不一致（図4-4では銀1e・歩2eが残る）。出典の「△7七桂」は先手飛2eへの指摘として図と整合しないため転記禁止。",
+        "白背景・原寸・全領域の画像で全登録図を再確認済み。双方持駒・筋段・手番表記を含む。初回の黒背景は盤内確認のみであり、今回の全領域確認が最終証拠。"
+      ],
+      "unverified": [
+        "定跡の優勢評価・升田新手の史実は未独立検証。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/6645",
+      "cache": ".cache/curriculum-source/6645.txt",
+      "sha256": "bc08e2ee6684556ee8649613e3c2ee195ac9095f9eaeb772119e61cf103f4573",
+      "lines": 168,
+      "read_range": "1–168 EOF",
+      "visual_indices": [
+        14,
+        17,
+        18,
+        19,
+        20,
+        24,
+        27,
+        29,
+        30,
+        32,
+        34,
+        37,
+        39,
+        40
+      ],
+      "visual_evidence": [
+        "14図を直接表示。4f銀と3f歩の配置、3e銀→2d交換、居玉5iと2d飛への1e角王手飛車、8f歩への継ぎ歩8e→8e飛による3e銀と8i桂両取り、3d歩打ちから4d銀という分岐を確認。",
+        "白背景・原寸・全領域の画像で全登録図を再確認済み。双方持駒・筋段・手番表記を含む。初回の黒背景は盤内確認のみであり、今回の全領域確認が最終証拠。"
+      ],
+      "unverified": [
+        "優勢・敗勢の評価はエンジン未再検証。現行単純図の王手飛車は出典通常配置とは異なり合駒が有効。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/6677",
+      "cache": ".cache/curriculum-source/6677.txt",
+      "sha256": "744063aa3f01e71a79f2d34321c2e01e79f87ce4778de49d4b6a67c681504b64",
+      "lines": 186,
+      "read_range": "1–186 EOF",
+      "visual_indices": [
+        14,
+        17,
+        20,
+        22,
+        24,
+        26,
+        27,
+        29,
+        30,
+        31,
+        33,
+        34,
+        36,
+        37,
+        38,
+        41,
+        42,
+        43,
+        44
+      ],
+      "visual_evidence": [
+        "白背景・原寸・全領域の全登録図を直接確認。持駒・筋段を含む。",
+        "19図の対称配置、4/3/7/2/1筋の接触、6c角の受け、端の香を上げる2e桂、1a角からの送りを確認。本文の図3-6→3-7間の手順は欠落しており図を文字だけで代用不可。1a角後に2b3a/2b3b/2b1a/2b1cはtsshogiで合法。ただしそれぞれの戦略的成立は未評価のため「3b玉だけ」を合法手限定として取り込まない。"
+      ],
+      "unverified": [
+        "出典の優勢・最善・必勝評価はエンジン未再検証。"
+      ],
+      "counterexample": {
+        "sfen": "l7B/1r2g2k1/2nbp1ng1/p2pssPRl/1pp2p2p/P2PS4/1PS1P4/1KG1G4/L7L w N2Pn4p 1",
+        "legal_counterexample": [
+          "2b3a"
+        ],
+        "observed_result": "手順合法、王手解消。優劣の主張は未検証。",
+        "transcription": "図3-5盤面の手作業転記。根で原図照合必須。"
+      }
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/6736",
+      "cache": ".cache/curriculum-source/6736.txt",
+      "sha256": "1092fc290f2a3841f7badd690ba5b90b4586b77decb00b73df134fcdf654b519",
+      "lines": 140,
+      "read_range": "1–140 EOF",
+      "visual_indices": [
+        14,
+        17,
+        20,
+        22,
+        25,
+        26,
+        27,
+        29,
+        30,
+        32,
+        34,
+        35
+      ],
+      "visual_evidence": [
+        "白背景・原寸・全領域の全登録図を直接確認。持駒・筋段を含む。",
+        "12図の桂3g/金4h/飛2i、4e桂に4f歩打ち・4d歩打ち、3e歩からの展開を確認。見出し2f歩と本文・図4f歩は不一致。自陣の角打ちがないとの一般化は現行教材が適切に限定。"
+      ],
+      "unverified": [
+        "出典の優勢・最善・必勝評価はエンジン未再検証。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/6704",
+      "cache": ".cache/curriculum-source/6704.txt",
+      "sha256": "7788183a0f3f88a12a6e0070f5d57725d81c9f8553b29208e8a914397a6820e4",
+      "lines": 174,
+      "read_range": "1–174 EOF",
+      "visual_indices": [
+        14,
+        17,
+        19,
+        21,
+        22,
+        23,
+        26,
+        27,
+        29,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36
+      ],
+      "visual_evidence": [
+        "15図・白背景原寸全領域を直接確認。4f歩支え・2e歩・6h玉を先に準備した4e桂、3d飛の横歩、4d飛犠牲から5c桂不成、6f角による桂交換後4e桂打ちを確認。本文3d歩表記は図の3d飛と不一致。"
+      ],
+      "unverified": [
+        "犠牲の成立・優勢評価はエンジン未再検証。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/6765",
+      "cache": ".cache/curriculum-source/6765.txt",
+      "sha256": "42b29e4047a0dfc92a7cc14b1c2dcdd53d6b54433206da14684ba1ee6cabfa60",
+      "lines": 110,
+      "read_range": "1–110 EOF",
+      "visual_indices": [
+        3,
+        4,
+        6,
+        8,
+        9,
+        11,
+        13,
+        20,
+        21,
+        24,
+        25,
+        27,
+        29
+      ],
+      "visual_evidence": [
+        "13図・白背景原寸全領域を直接確認。8hでの即交換と7g角移動後交換の手数差、8d歩保留で8e桂を残す配置を確認。本文初期手△8六歩は図の△8四歩、△3三角成は図の△7七角成に対応する誤記。"
+      ],
+      "unverified": [
+        "先手からの即交換が通常角換わりと同一との分類一般化は未独立検証。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/5873",
+      "cache": ".cache/curriculum-source/5873.txt",
+      "sha256": "dbb150375a04e986f510b0f273c0130e43eb5ec102430e43c4170b952fc30221",
+      "lines": 96,
+      "read_range": "1–96 EOF",
+      "visual_indices": [
+        2,
+        10,
+        12,
+        13,
+        15,
+        17,
+        18,
+        19,
+        21,
+        22,
+        23
+      ],
+      "visual_evidence": [
+        "11図を白背景の原寸全領域で直接確認。2d飛と2c歩、金7hと3bの守備を確認。図3-1は先手飛2dを示すが本文の直前手順は2d歩のみ。歩交換が省略され、推測転用できない。"
+      ],
+      "unverified": [
+        "図3節の欠落手順と評価は未検証。"
+      ]
+    },
+    {
+      "sha256": "3255236d4af7d8c129cc669ee81332aee71f55b43b25420cb110746a095952b0",
+      "lines": 132,
+      "read_range": "1–132 EOF",
+      "url": "https://shogi-joutatsu.com/archives/7182",
+      "cache": ".cache/curriculum-source/7182.txt",
+      "visual_indices": [
+        12,
+        15,
+        17,
+        18,
+        20,
+        22,
+        23,
+        24,
+        27,
+        28,
+        30
+      ],
+      "visual_evidence": [
+        "11図・白背景原寸全領域を直接確認。3h銀/2g銀/3f銀/2e銀のUFO経路、銀2dから2c成と龍2c、3c角と3e歩が浮き飛車8dの2d横利きを通す守り、居玉解消6h玉と5h金を確認。本文の図1-3への分岐指示は図3-1の3f銀と対応しない（図1-4からの分岐）。"
+      ],
+      "unverified": [
+        "受けなし・優勢という評価は未独立検証。"
+      ]
+    },
+    {
+      "sha256": "b87661f63beeb6f3d96bac953b57d8625c070e6c713de9b149b9d34153765362",
+      "lines": 161,
+      "read_range": "1–161 EOF",
+      "url": "https://shogi-joutatsu.com/archives/7205",
+      "cache": ".cache/curriculum-source/7205.txt",
+      "visual_indices": [
+        12,
+        14,
+        17,
+        18,
+        20,
+        23,
+        25,
+        26,
+        28,
+        30,
+        31,
+        34,
+        37,
+        38,
+        39,
+        40
+      ],
+      "visual_evidence": [
+        "16図・白背景原寸全領域を直接確認。2f飛から3f飛、3c金の受け、7e歩と7g桂から7f飛への転換、歩2gがない美濃、9g角と7e歩で7d銀を戻す構成を確認。図3-5には既に8e歩があり、本文の後続8e歩打ちと順序不一致。現行教材は桂が銀進出を絶対阻止する一般化を避け、銀桂交換後の飛車再捕獲を正確に扱う。"
+      ],
+      "unverified": [
+        "元記事の優勢・悪形判断はエンジン未再検証。"
+      ]
+    },
+    {
+      "sha256": "a9537bbaec9cf5bdf15284c2e2747fd0f398e788db1984b93634c4848202bae1",
+      "lines": 126,
+      "read_range": "1–126 EOF",
+      "url": "https://shogi-joutatsu.com/archives/3783",
+      "cache": ".cache/curriculum-source/3783.txt",
+      "visual_indices": [
+        14,
+        16,
+        17,
+        18,
+        20,
+        21,
+        22,
+        25,
+        27,
+        28,
+        29,
+        30
+      ],
+      "visual_evidence": [
+        "12図を白背景の原寸全領域で直接確認。角道開通と両飛車先交換後の3d飛、3c角と3c桂と角交換の分岐、金上がり省略後の3c角と2f歩、7f飛への2b角成を確認。"
+      ],
+      "unverified": [
+        "頻度や勝勢評価は未再検証。"
+      ]
+    },
+    {
+      "sha256": "0787fd5ce4ea74cdad791e114177c6cd18ccde58780681c39f3dcc3352057783",
+      "lines": 169,
+      "read_range": "1–169 EOF",
+      "url": "https://shogi-joutatsu.com/archives/7031",
+      "cache": ".cache/curriculum-source/7031.txt",
+      "visual_indices": [
+        10,
+        13,
+        15,
+        17,
+        19,
+        20,
+        22,
+        24,
+        25,
+        27,
+        29,
+        30,
+        32,
+        34,
+        35,
+        37,
+        38,
+        39
+      ],
+      "visual_evidence": [
+        "18図を白背景の原寸全領域で直接確認。2c歩打ちに3d飛または2h飛、3c角の展開、角交換から4e角と2e角の分岐、1e角と3f歩による2g馬の行動制限、飛金交換後3h銀と1f歩と3e金の角追いを確認。本文の2c飛は2c歩の誤記。分岐図で2c歩や端歩の状態が変わるため手順との対応を独立照合する必要あり。"
+      ],
+      "unverified": [
+        "優勢評価と角捕獲の全応手は未エンジン検証。"
+      ]
+    },
+    {
+      "sha256": "c282daf751b072ad039d88697258a875ba3a57eb167bcb4a89efdf5d0368357f",
+      "lines": 180,
+      "read_range": "1–180 EOF",
+      "url": "https://shogi-joutatsu.com/archives/3826",
+      "cache": ".cache/curriculum-source/3826.txt",
+      "visual_indices": [
+        14,
+        17,
+        21,
+        22,
+        24,
+        25,
+        26,
+        28,
+        30,
+        31,
+        32,
+        34,
+        36,
+        38,
+        39,
+        40
+      ],
+      "visual_evidence": [
+        "16図を白背景の原寸全領域で直接確認。2h歩打ちで銀2hを誘導して飛車の退路を塞ぐ準備、4e角の3d飛と6g歩への狙い、後手8f飛が8h銀を取る連動、2d飛と7g角による飛車交換、1a馬と3f香、銀の進出と馬の守備を確認。本文8h飛の不成表記に対して図では龍がある。"
+      ],
+      "unverified": [
+        "各優勢評価と全応手における最善手は未エンジン検証。"
+      ]
+    },
+    {
+      "sha256": "19315d498b25dfddc984cdcdc9faca93f0ff0fdf947fb75100723c811ece5ae9",
+      "lines": 163,
+      "read_range": "1–163 EOF",
+      "url": "https://shogi-joutatsu.com/archives/7071",
+      "cache": ".cache/curriculum-source/7071.txt",
+      "visual_indices": [
+        14,
+        17,
+        18,
+        20,
+        21,
+        22,
+        24,
+        25,
+        27,
+        28,
+        29,
+        30,
+        31,
+        33,
+        34,
+        36
+      ],
+      "visual_evidence": [
+        "16図を白背景の原寸全領域で直接確認。角交換前7f飛に2b角成、交換後7g銀が7f飛を追う配置、2f飛への1e角王手飛車、7e飛への2b歩、7d飛交換後4f角、8b角再交換から5e角と8e飛と8f飛を確認。本文5e銀は図の5e角と不一致。"
+      ],
+      "unverified": [
+        "7d飛が唯一の戦略的退路という評価は未独立検証。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/7105",
+      "cache": ".cache/curriculum-source/7105.txt",
+      "sha256": "1d69aeaf5d8f740fd705884af7be278655925cdf500306e3d980fd26549df608",
+      "lines": 176,
+      "read_range": "1–176 EOF",
+      "visual_indices": [
+        14,
+        17,
+        18,
+        22,
+        23,
+        25,
+        27,
+        30,
+        33,
+        34,
+        36,
+        37,
+        39,
+        41,
+        43
+      ],
+      "visual_evidence": [
+        "15図を白背景の原寸全領域で直接確認。3c角後3f飛が7f歩を守り、8d飛に2f飛を合わせる配置、8g歩と中住まい5h玉から金開き、3h歩で銀を誘導した4d角、3b龍犠牲後3c角の王手飛車を確認。通常図では両飛車は異なる段にあり、現行教材の同段対向の保護不足は出典と無関係。本文の8h同銀は図の金取り返しと不一致。"
+      ],
+      "unverified": [
+        "詰めろおよび勝勢評価は独立エンジン検証未実施。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/4314",
+      "cache": ".cache/curriculum-source/4314.txt",
+      "sha256": "5964c7e06d071f79e14223ef32b7386e4bac92d19c1d68d75c0629425ed72466",
+      "lines": 197,
+      "read_range": "1–197 EOF",
+      "visual_indices": [
+        14,
+        17,
+        20,
+        23,
+        25,
+        26,
+        29,
+        30,
+        32,
+        33,
+        34,
+        38,
+        40,
+        42,
+        43,
+        46
+      ],
+      "visual_evidence": [
+        "16図を白背景の原寸全領域で直接確認。5h玉の青野流、3f歩と7g角と3g桂、2b歩叩きが守備駒を引き出し4e桂の角移動で3bへの飛車筋が通る配置、銀2cへの8d飛、左右桂4eと6eの攻め、5e角の乱戦に2b歩からと金を作る分岐を確認。本文3c角と3c桂の表記は3g角と3g桂の役割と取り違えている箇所あり。"
+      ],
+      "unverified": [
+        "理想形なら常に有利という一般化および各優勢評価は未検証。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/7137",
+      "cache": ".cache/curriculum-source/7137.txt",
+      "sha256": "2e325dc9417d3df3a08eeab5e270d3d258883c274b8fe585f08f40a26676288f",
+      "lines": 140,
+      "read_range": "1–140 EOF",
+      "visual_indices": [
+        14,
+        17,
+        20,
+        23,
+        24,
+        25,
+        26,
+        27,
+        30,
+        31,
+        33,
+        34
+      ],
+      "visual_evidence": [
+        "12図を白背景の原寸全領域で直接確認。6h玉が7h金を守る対比、3f歩と3g桂と2b歩叩きから4e桂、2g角に銀3hを上げる受け、8d飛と6h玉への9e角王手飛車を確認。見出し7g角は図の後手3c角、青野流見出し5b玉は図の先手5h玉と不一致。図3-1の桂3gは本文の分岐手順に含まれず、図3-2にはその桂が存在しない。"
+      ],
+      "unverified": [
+        "攻め勝勢の評価や角の退路全列挙は未エンジン検証。"
+      ]
+    },
+    {
+      "url": "https://shogi-joutatsu.com/archives/6496",
+      "cache": ".cache/curriculum-source/6496.txt",
+      "sha256": "2684fc241177b8d093680f9ad4257fc2c18202d01683c51de0db87cba7c3fe2e",
+      "lines": 112,
+      "read_range": "1–112 EOF",
+      "visual_indices": [
+        2,
+        12,
+        14,
+        17,
+        21,
+        24,
+        25,
+        27,
+        30,
+        32,
+        33
+      ],
+      "visual_evidence": [
+        "11図を白背景の原寸全領域で直接確認。6f歩で角道を閉じ7g角で8fを守る配置、2b角成から2b銀、一旦横歩を取らず2f飛へ引く方法、先に2e歩を置く出だしを確認。後手節の図は筋段表示が逆向きなので盤上駒と本文の座標を独立照合する必要がある。本文2f歩は図の2f飛、初手後手2d歩は図の8d歩と不一致。"
+      ],
+      "unverified": [
+        "各戦型への必然合流や初心者向けの優劣は独立評価未実施。"
+      ]
+    }
+  ],
+  "candidates": [
+    {
+      "source": "https://shogi-joutatsu.com/archives/2865",
+      "target": "kakugawari-basics",
+      "idea": "初期局面から角7gと銀8hの役割を独立した説明で示し、角交換後7g銀が8fを守る事実を教材化。角持駒の汎用配置だけでは通常角換わりの成立条件が分からない。",
+      "duplication_status": "対象教材4章に初期配置なし。全体教材との重複は根で再確認。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/3497",
+      "target": "kakugawari-bougin",
+      "idea": "端香が残る通常配置で銀香交換の投資と端の継続攻撃を扱う。現行の「香不在」を前提にする独立図だけでは棒銀の代表的な端攻めを学べない。持角による相手の2筋歩打ちを受ける利き追加も、通常定跡から独自説明・構成で検討する。",
+      "duplication_status": "対象教材に香を交換する攻めなし。全体重複・定跡根拠は根で確認。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/6645",
+      "target": "kakugawari-hayakuri",
+      "idea": "3筋の歩接触を先手から開始する通常手順と、8筋の継ぎ歩が横利きを開く事実を独自説明で補う。現行4章は守備銀で8f飛を単純に取るだけで、実際の継ぎ歩・十字飛車が欠落。王手飛車章には合法な合駒B*5gを比較し、王手への回答選択を学べるようにする。",
+      "duplication_status": "対象教材に継ぎ歩なし。全体重複は根で確認。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/6677",
+      "target": "kakugawari-koshikake",
+      "idea": "腰掛け銀5fが5g歩の上に位置する形と、複数筋の歩接触が攻めの選択肢を増やす原理を独自配置・説明で扱う。木村定跡全体の本文構造やコレクションは取り込まない。",
+      "duplication_status": "対象教材は1筋ごとの再捕獲中心。全体重複と通常定跡根拠は根で確認。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/6736",
+      "target": "kakugawari-koshikake",
+      "idea": "4e桂に対する4f歩打ちで桂を支える場合と4d歩打ちで相手の歩打ちを防ぐ場合を、独自例で比較。単に金を3hへ逃がす例では4h金2i飛型の攻めの利点が学べない。",
+      "duplication_status": "対象教材に桂の頭への歩打ち比較なし。全体重複は根で確認。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/6704",
+      "target": "kakugawari-45kei",
+      "idea": "5c桂不成は4a玉への王手を保持する一方、成ると桂の跳躍利きを失うという事実を独自図で比較。通常形で4e桂を出す前の居玉解消と2e歩の準備、銀が逃げた後の横歩を取る選択を定跡根拠付きで扱う。",
+      "duplication_status": "対象教材の5c桂は成のみ。全体重複は根で確認。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/6765",
+      "target": "kakugawari-ittezon",
+      "idea": "同じ手数での8d歩・8e歩の盤面差を、初期局面から合法な2手順で並べて示す。現在の比較は角の手数に限定する旨が明記され、誤った一般化はない。",
+      "duplication_status": "対象章3/4が既に角手数比較を担当。初期手順を扱うコースがあれば追加不要。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/5873",
+      "target": "aigakari-basics",
+      "idea": "角道を開けず金7hと3bを置く通常開始手順を、独自説明で現在の局所例へ対応させる。",
+      "duplication_status": "金守備と浮き飛車は章2から4に既存。全体通常コースの重複確認は未実施。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/7182",
+      "target": "aigakari-bougin",
+      "idea": "銀前進後の攻めが角の利きと相手浮き飛車の横利きで止まる仕組みを独自説明。現在章3が既に二重守備を再現するため、新局所例より通常手順との接続と守りへ切り替える到達目標を補う。",
+      "duplication_status": "二重守備の戦術は章3に既存。囲い形成のコース重複は根で確認。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/7205",
+      "target": "hineribisha",
+      "idea": "相掛かりから石田配置へ組み替える全体像、銀3hを攻めと右辺の囲いの両用に保つ判断、元の飛車先歩不在が玉頭の守りへ与える差を独自例で整理。現行教材の横移動と玉移動は既存なので接続を重視。",
+      "duplication_status": "対象章1と3に構成要素あり。石田流・美濃の別教材との重複は根で確認。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/3783",
+      "target": "yokofu-basics",
+      "idea": "双方の角道開通と両飛車先交換による通常形、3d飛後の角や桂や角交換の選択を独自説明で接続。",
+      "duplication_status": "対象4章に通常形や分岐の案内なし。通常コースとの重複は根で確認。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/7031",
+      "target": "yokofu-23fu",
+      "idea": "2c歩型では後手の8筋交換が未完了という通常横歩取りとの差を独自説明。持歩を消費する防御と横歩の関係、角の展開に合わせた飛車退路を通常コースへ接続。",
+      "duplication_status": "局所の歩金銀保護は対象章2から4に既存。通常コースとの重複は根で確認。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/3826",
+      "target": "yokofu-45kaku",
+      "idea": "4e角型の固有の狙いは2hへの銀誘導で飛車退路を狭め、6gの捕獲と8h飛成を連動させること。標準手順から独立した説明を用意し、現在の単純な飛銀両取りと通常コースを区別して接続する。",
+      "duplication_status": "対象教材に2h銀誘導と8筋飛車の連動なし。通常コースとの重複は根で確認。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/7071",
+      "target": "aiyokofu",
+      "idea": "通常の相横歩取りで後手が角交換を先に行う理由を独自説明。先手7g歩による受けは現行章1にあるが、7g銀で相手飛車を追う標準形や交換後持飛車を使う計画への接続を補う。",
+      "duplication_status": "対象教材に角交換の順序比較なし。全体通常コースとの重複は根で確認。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/7105",
+      "target": "yokofu-85hisha",
+      "idea": "3f飛の7f歩保護と8d飛に対する2f飛の役割を通常手順から独自に説明。中住まいで5gと4gと6gを玉が守る原理、8g歩打ちで角交換後の乱戦を避ける原理を既存コースに接続。",
+      "duplication_status": "対象単純図の玉は4hへ動き、中住まい未実施。金開きの別教材との重複は根で確認。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/4314",
+      "target": "yokofu-aono",
+      "idea": "4e桂の狙いは角だけでなく、角を逃がすと3d飛の縦利きが守備金へ届く連動にある。2b歩叩きで守備を変える原理を通常棋譜の事実から独自説明し、無条件の両取り成功とは区別する。",
+      "duplication_status": "対象章1の金は4bでこの連動なし。標準コースとの重複は根で確認。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/7137",
+      "target": "yokofu-yuuki",
+      "idea": "6h玉が7h金を守る分だけ攻めの一手を確保する通常形と、4i金を直接守らないため2g角打ちに受けが必要な比較を独自説明。後者は5h玉との差の別軸として扱う。",
+      "duplication_status": "7h金への玉守備は対象章1に既存。4i金と2g角は未収録。全体重複は根で確認。"
+    },
+    {
+      "source": "https://shogi-joutatsu.com/archives/6496",
+      "target": "yokofu-avoid",
+      "idea": "角道を閉じても飛車先の圧力は残り、7g角が8fを守る役割が必要な通常形を独自説明。先手と後手の回避方法は時機が違い、後手は8筋歩を進める前にも4d歩で閉じられる事実を別コースへ接続。",
+      "duplication_status": "対象は先手3局面のみ。後手側の既存コース重複は根で確認。"
+    }
+  ],
+  "findings": [
+    {
+      "id": "exchange-85-rook-hang",
+      "file": "data/lessons/units/yokofu-85hisha.json",
+      "line": 23,
+      "severity": "P1",
+      "sfen": "4k4/5g3/6b2/9/1r4R2/6G2/9/9/4K4 b P 1",
+      "legal_counterexample": [
+        "3e8e"
+      ],
+      "observed_result": "tsshogiで合法。後手飛車を丸取り、8eへの全81升と成不成の合法再捕獲はゼロ。",
+      "required_original_change": "向かい合う後手飛車に独自の保護駒を配置するか横利きを遮り、飛車交換を選ぶ教材として成立させる。丸取りを見送る理由のない主線を改める。"
+    },
+    {
+      "id": "exchange-85-king-rook-loss",
+      "file": "data/lessons/units/yokofu-85hisha.json",
+      "line": 37,
+      "severity": "P1",
+      "sfen": "4k4/9/6b2/9/1r5R1/9/9/9/4KGS2 b P 1",
+      "legal_counterexample": [
+        "5i4h",
+        "8e2e"
+      ],
+      "observed_result": "両手合法。先手飛車を失い2eへの合法再捕獲ゼロ。初手2e8eも合法で後手飛車を得るため、玉準備を優先する主線は戦術的に成立しない。",
+      "required_original_change": "玉移動中に飛車を失わない独自配置に変更し、相手の最強の取りを先に検証する。"
+    },
+    {
+      "id": "exchange-aono-lateral-trade",
+      "file": "data/lessons/units/yokofu-aono.json",
+      "line": 39,
+      "severity": "P2",
+      "sfen": "9/4k4/6bs1/1r7/6R2/6P2/6N2/4KG3/9 b Pp 1",
+      "legal_counterexample": [
+        "4h4i",
+        "8d8e",
+        "3e8e"
+      ],
+      "observed_result": "全手合法。説明の8e飛には8eでの再捕獲ゼロで先手が後手飛車を丸取りできる。横の飛車交換を提案する配置になっていない。",
+      "required_original_change": "8eを守る独自の後手駒を置くか、横利きで攻撃する際の再捕獲条件がないことを説明する。"
+    },
+    {
+      "id": "exchange-yuuki-rook-hang",
+      "file": "data/lessons/units/yokofu-yuuki.json",
+      "line": 36,
+      "severity": "P1",
+      "sfen": "4k2s1/5g3/4p1b2/1r4R2/6P2/9/6N2/2GK5/9 b Pp 1",
+      "legal_counterexample": [
+        "3d8d"
+      ],
+      "observed_result": "主線3f3eと8b8d後、3d8dで後手飛車を丸取りできる。tsshogi合法、8dへの全升と成不成の再捕獲はゼロ。交換に備えて桂を跳ねる次の主線は即時の飛車得を無視する。",
+      "required_original_change": "後手飛車8dの独自の守備を追加するか、両飛車を同じ段で無保護に対向させない配置に改める。双方の取り返しを実行して交換例を再検証する。"
+    },
+    {
+      "id": "exchange-avoid-bishop-loss",
+      "file": "data/lessons/units/yokofu-avoid.json",
+      "line": 23,
+      "severity": "P1",
+      "sfen": "4k4/7b1/9/1r4p2/9/2PP3P1/9/1B5R1/2SGK4 b Pp 1",
+      "legal_counterexample": [
+        "7i6h",
+        "8d8h+"
+      ],
+      "observed_result": "銀を6hへ移すと8h角への2h飛の横利きも遮断する。後手8d8h+で角を丸取り、8hへの合法再捕獲ゼロ。主線は代わりに8d8eという待機手を選ぶ。",
+      "required_original_change": "8筋の元の守備歩または別の独自の角守備を残し、銀移動後の相手の即時角取りを検証する。安全な駒組みを扱う主線に修正する。"
+    },
+    {
+      "id": "exchange-avoid-rook-countercapture",
+      "file": "data/lessons/units/yokofu-avoid.json",
+      "line": 49,
+      "severity": "P2",
+      "sfen": "4k4/7b1/9/1r4R2/9/9/2P6/1BG6/4K4 b 2Pp 1",
+      "legal_counterexample": [
+        "3d8d"
+      ],
+      "observed_result": "変化2d3dと8f8d後、先手3d8dで後手飛を丸取りできる。tsshogi合法、8d再捕獲ゼロ。横歩を得た代償として飛車退路を比較する説明に即時の飛車得が含まれない。",
+      "required_original_change": "後手飛車の支持を用意するか、飛車丸取りを正しく主候補として説明する。"
+    }
+  ],
+  "legality_evidence": "RAYON_NUM_THREADS=1 UV_THREADPOOL_SIZE=1 bun -eで対象17単位のみbuildUnit実行。全主線・全変化のcreateMoveByUSI/isValidMove/doMoveは成功。合法性は指し手の品質の証明ではない。",
+  "candidate_policy": "候補は事実や標準理論の独自説明のみ。既存の定跡コースを先に確認し、既に教える開始手順を別のレッスンで重複作成しない。教材の構成や原著の創作局面は転用しない。全体重複未検証の候補は実装承認を意味しない。",
+  "visual_method": {
+    "inventory": ".cache/curriculum-source/diagram-inventory.json",
+    "missing_path_lookup": ".cache/curriculum-source/board-review-candidate-index.json",
+    "render_root": ".cache/curriculum-source/white-review",
+    "method": "元PNGの全領域を等寸法で白背景合成してnative view_imageで直接確認。座標・持駒を含む。収録図のcaption/indexだけで確認済みと判定しない。",
+    "scope": "割当18記事の263教学図出現のみ。広告・アバター・関連記事のサムネイルは対象外。"
+  },
+  "verification_limits": [
+    "全17単位の全主線・変化はbuildUnit内のtsshogiで合法。全nodeの非手番玉への王手もゼロ。",
+    "六つの戦術的問題をtsshogiで再現し、成不成双方を含む全盤升から対象升への合法即時再捕獲を列挙した。",
+    "通常定跡としてのPeta book照合とエンジン評価は今回実行していない。原著の最善・必勝・優勢表現は証明済みとして扱わない。",
+    "ブラウザ未使用。UI・表示・実機の受入結果は主張しない。改稿と生成出力変更なし。"
+  ]
+}

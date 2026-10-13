@@ -67,7 +67,7 @@
         {
           "moves": ["4e5c+"],
           "text": {
-            "ja": "▲５三桂成で飛車を取り、成桂を先手の持駒に加えます。王手と大駒への狙いを重ねると、相手の一手では両方に手が回らないことがあります。",
+            "ja": "▲５三桂成で飛車を取り、その飛車を先手の持駒に加えます。桂は盤上の５三で成桂になります。王手と大駒への狙いを重ねると、相手の一手では両方に手が回らないことがあります。",
             "en": "▲５三桂成 captures the rook and promotes the knight. Combining check with an attack on a major piece can leave the defender unable to deal with both threats in one turn."
           }
         }

@@ -1,63 +1,43 @@
 # Current task
 
-## Objective and scope
-Fully inventory the named copyright-rework curriculum, then replace online-derived lesson content with complete original authorship, one unit or course at a time. Source pages are factual references only; explanations, chapter structure and composed teaching positions must be original. Standard opening facts and game records remain permissible. Isolated edits or checker-only work do not satisfy this task.
+## Outcome and consolidation
+- Remaining local lesson audit implementation complete. User requests all task changes on main in the primary repository and removal of the extra worktree.
+- Consolidation complete: all task content and UI fixes committed on local main in /Users/vittayapalotai.tanyawat/code/joseki-practice. Extra lesson-copyright worktree removed; obsolete task branch and verified temporary stash removed; stale worktree metadata pruned. Only the primary main checkout remains.
+- Current authorization: patch release, push main and version tag, publish the GitHub release, and deploy through the existing Pages workflow. No PR or independent browser sweep.
 
-- Target worktree: `/Users/vittayapalotai.tanyawat/code/joseki-practice-lesson-copyright`, on `main`; release v1.4.4 incorporates the copyright branch and completed local authorship.
-- Original checkout: `/Users/vittayapalotai.tanyawat/code/joseki-practice`, branch `feat/dojo-learning-hub`. Its prior named-branch instruction change is included in the released harness. This file is the only canonical live task record.
-- Authority: named-branch handoff, `conductor/lesson-rebuild/plan.json`, writer/course briefs, branch `AGENTS.md`, `docs/lessons.md`, and the full original-authorship requirement.
-- Local content edits, sequential writer delegation, builds and existing checks were authorized. Current request authorizes committing, pushing and publishing a patch release; v1.4.4 is published.
+## Implemented scope
+- 146 authored units and 41 project courses read and audited against the closed set of 249 declared references and their teaching assets.
+- findings.json records 47 original confirmed corrections and one additional legacy vendor annotation overlap found by the aggregate originality check. All have source fixes and appropriate executable source verification.
+- incorporation.json records all 31 source decisions, including all 43 reader suggestions from the remaining 17 sources. Selected additions implemented; other applications explicitly excluded rather than left pending.
+- Corrections include gold movement/control, material accounting, king recaptures, move-order anchors, bishop ownership, strategy mechanisms, mate/hisshi/interposition examples, declaration scoring, and an original reconstruction of the Bishop-Exchange Fourth-File Rook course.
+- UI fixes from the existing main checkout preserve nullable vendor text, annotate visible notes, and distinguish actual moves from static squares. Preserve rendering/material settings and existing viewer model.
 
-## Completion state
-All authoring and required aggregate checks are complete. Final inventory reconciliation is complete. Goal status is complete; no implementation action remains.
+## Verification
+- Changed units passed check-unit with --engine; the two failed new comparisons were corrected and rechecked successfully.
+- Changed course sources passed check-course with --engine. Short engine evaluations and book misses are supporting diagnostics, not best-play proofs.
+- Fujii main-line opponent4d4e had a 344cp short-search warning. Its annotation now explicitly treats it as a comparison response allowing the knight fork, not a recommendation.
+- bun run lessons:146 lessons,519 chapters,1915 figures,2326 legal moves,0 errors.
+- node scripts/build-courses.mjs:41 project courses rebuilt.
+- node scripts/validate.mjs:3220 moves,0 errors;85 matchups,83 courses with sides,0 errors.
+- check-originality:15888 strings,0 flagged after replacing one copied vendor annotation with factual original board commentary. This is not legal certification.
+- New offensive horse/mate-threat example independently enumerated:final checked withzero legal replies. Pin example has a legal king escape and does not claim mate.
+- Main-checkout bunx tsc -b and git diff --check passed. No browser visual acceptance claimed; user actively testing, so no independent browser sessions or sweeps.
+- Development server runs from the primary main folder using the existing Node26 installation, session18365. Exact user URL http://127.0.0.1:5173/shogigym/ returnedHTTP200. No system defaults changed.
 
-- All 146 planned lesson units are fully authored, reviewed and built.
-- All 29 pending table-D replacement courses are fully authored, reviewed and built; the original baseline table-D course is retained with its documented factual provenance.
-- Both additional section-E matchup courses are fully authored, reviewed, registered and built: Reclining Silver/Bishop Exchange and Yagura/Gangi.
-- All seven retained source-derived courses have complete original replacements: Fujii System, Left Mino, Boat Castle, Kimura Mino, Mino knight, two-pawn Aifuri and Nishikawa Aifuri.
-- All 41 current course scripts have generated outputs. Three baseline opening/game-record courses retain documented factual provenance; all 38 declared goal SFENs match their generated main ends.
-- Catalog side/source/title registrations are complete. No matchup row is empty. Aifuri and castle-breaking plan descriptions match the new lessons. README no longer claims adapted Wikipedia diagrams or article-derived Aifuri teaching lines.
-- Target `AGENTS.md` and `docs/lessons.md` enforce original-only authorship and inventory-before-rewrite. The latest named-branch handoff/diff precedence rule is persisted in target `AGENTS.md`.
+## Evidence and limitations
+- conductor/lesson-audit/coverage.json:source/read/hash/asset provenance. findings.json and incorporation.json own final decisions; reviews/*.json retain reader evidence, which root independently checked.
+- All29 supplemental dynamic KIFs replayed. All214 unmapped original/white occurrences checked for dimensions and pixel correspondence; early visual reviews separately indexed.
+- Unavailable:two exact Wiki texts404,KKshiken img_6241695bd78bf.png404,source4096image15 unavailable. Missing contents were not invented.
+- Wiki tables/ASCII boards and Shogijam KIFs provide markup/data evidence. Linked books/PDFs and article videos were not claimed as viewed. Rendered source proof and modern best-play proof remain separate.
+- Historical HANDOFF.md is superseded and is not live task authority.
 
-## Source and read coverage
-- Named branch fetched and confirmed at the recorded commit. Handoff fully reread, lines 1–732; plan fully read, lines 1–1766. Writer brief, course brief, target `AGENTS.md`, `docs/lessons.md`, build scripts and affected catalog modules were read through EOF.
-- Inventory fully read and independently reconciled against the plan, source trees, figure metadata, references and generated artifacts. Current final inventory: `conductor/lesson-rebuild/inventory.md` in the target worktree.
-- Inventory covers 146 units, 159 planned study IDs, 2,242 extracted figures, all replacement slots, both extra courses, retained course provenance, and source/output paths.
-- All 159 planned cached study texts exist. The original extraction includes 155 planned figure JSONs plus excluded study-method asset 6808. Missing historical figure JSONs 386/1127/1512/8083 are explicitly recorded; original authoring does not depend on copying those diagrams.
-- Every authored unit source and final output was read through EOF before acceptance. Parent independently replayed every chapter/branch and reviewed board, material, check and explanatory claims; individual engine checks passed before acceptance.
-- Every replacement course was fully read and independently replayed, including its branches and exact goal. Sequential engine checks passed before acceptance. Subagent conclusions were checked against actual files and replay output.
-- Final retained-course baseline/current comparisons confirm removal of old article teaching boards, sequences and structure. The two Aifuri replacements start from the initial position with original 25/27-ply development. Nishikawa includes the conditional quiet-opponent rook-choice branch.
-- Removed `shogirule-*` course content and `.cache/old`/`.cache/reference` were not opened. No remote sites were fetched. The worktree's `.cache/curriculum-source` symlinks to the original checkout corpus; scanner independently loaded 200 nonempty documents.
+## Operating rules and skill coverage
+- Authored units:data/lessons/units; generate via bun run lessons. Course sources:scripts/courses; generate via build-courses. No parallel lesson model or copied source positions/article structure.
+- Fully read skill gates:using-superpowers1–65/Codexreference1–108;stop-inventing1–79;GYST1–27;look-at-screen1–60;systematic-debugging1–283/root-cause1–169;verification-before-completion1–120;dispatching-parallel1–167;brainstorming1–285;handing-off-pro-max1–167 EOF.
+- User explicitly approved completion. No further approval gate. Sol-low reader finished; no active content writers delegated.
+- CPU caps RAYON_NUM_THREADS=1 UV_THREADPOOL_SIZE=1;engineThreads1/Hash32. Latest disk check4GiB free.
+- Never copy raw user chat or credentials into records. No OS/audio automation. Stop only owned task processes.
 
-## Correction and process receipt
-- Initial failure narrowed full curriculum authorship to a small defect pass and displaced inventory. The source handoff/plan proved the full 146-unit/29-course requirement. Inventory-before-authorship and original-only retained-course replacement rules were persisted in the project harness.
-- Status-only turn endings interrupted execution before whole-task closure. Corrected by completing remaining authoring, aggregate gates and final reconciliation in the active continuation.
-- Board/prose corrections were made before acceptance, including castle geometry, pawn-ledger timing, move chronology, silver blockers, legal check/evasion, promotion and material exchange claims.
-- Castle exercises use independently composed 40-piece positions. No forced-mate claim is inferred from a material exchange. Viable Aifuri choices are labeled variations rather than mistakes.
-- The course checker's nested-main final-position limitation was covered by separate parent engine evaluation of every actual main state for affected final courses. Kimura losses -112/-12/-10; Mino -116/0/20/13; two-pawn Aifuri max 274; Nishikawa max 249. None exceed 300.
-- Invoked skills read 1–EOF and executed: `unfuck-yourself` 60 lines, `get-your-shit-together` 27 lines, `what-did-i-say` 98 lines, `systematic-debugging` 283 lines, required `root-cause-tracing.md` 169 lines, and `verification-before-completion` 120 lines (no required linked references). No prior-session or unrelated-project history was read.
-
-## Verified final evidence
-- `bun run lessons`: 146 lessons, 513 chapters, 1,872 figures, 2,230 legal moves, zero errors.
-- `node scripts/build-courses.mjs`: all 41 current specs rebuilt.
-- `node scripts/validate.mjs`: 3,245 course moves checked, zero errors; strategy validation passed.
-- `bun scripts/strategy-check.ts`: 85 matchups, 83 side mappings, zero errors.
-- `bun scripts/mine-tesuji.ts`: 934 drills regenerated.
-- `bun scripts/lessons/check-originality.ts`: 15,880 strings, zero flags against the nonempty reference corpus. This checks textual overlap, not absolute originality across all external sources.
-- Independent lesson-position comparison: 2,385 authored positions against 1,946 planned source positions; 31 exact matches, all factual standard initial/full-material opening positions; no composed-position match.
-- Independent castle-position comparison: 34 authored states against 1,959 unique cached source positions; zero matches, no oversized source file skipped.
-- Independent final source/output crosswalk: all 146 units match generated metadata, references and chapter counts; every planned study ID has a consultation reference; all 41 specs match generated metadata/root; all 38 declared goals match generated main ends; unique source/output IDs, zero mismatches. Final inventory-row audit found all 41 unique scripts across 42 rows, matching output IDs and no pending course status.
-- Independent registration audit: all 30 table-D IDs and both extra IDs have matchup membership, source URLs and correctly oriented Sente/Gote mappings; no duplicate matchup or repeated course ID within a matchup. Generic raw ibisha metadata maps to specific catalog castle strategies where appropriate.
-- Scoped Prettier formatting completed. `RAYON_NUM_THREADS=1 UV_THREADPOOL_SIZE=1 bun run check` exited 0: lint, formatting, React Router type generation and TypeScript passed. Existing lint warnings remain outside the content changes. Latest instruction-only `AGENTS.md` addition independently passed Prettier; final full app check and originality scan were rerun after it and exited 0.
-- `git diff --check` passed. Credential-pattern scan of 375 changed text files found zero hits; no oversized changed file skipped.
-- Machine space checked before builds: 4.1 GiB available. All owned engine/check processes exited; no temporary server or browser session was launched.
-
-## Release delivery
-- Current authorization: commit, push and publish patch v1.4.4 with the completed curriculum, UI corrections, PR 12 rendering patch and reference licensing documentation.
-- Target worktree contains the release scope; original checkout's instruction change is preserved and already included in the target harness.
-- Remote fetched this turn. Target is three commits ahead of origin/main with no remote-only commits.
-- Prior browser verification and bounded originality audit remain the evidence above; no whole-curriculum legal certification is claimed.
-- Latest changes: normalize lesson picker groups; separate reference links and lines; restore strategy-heading gap; integrate PR 12 arrow layering; allow shared node_modules in local Vite serving; document yuki-keio/shogi reuse without importing material.
-- Owned browser and preview server were closed; original development server remains untouched.
-- Release v1.4.4 published: main and tag pushed, GitHub release created. Normal release validation, lint, full formatting and production build passed. Deployment run 38165973026 is being verified separately; no deployed-browser claim.
-- Immediate next action: synchronize the original checkout and verify Pages completion.
+## Immediate next action
+- Release v1.5.1 through the existing release:patch script using hamzaabamboo credentials. Fresh fetch confirms no commits missing from origin/main. Preserve the user development server.
+- Verify the pushed release tag, matching main head, successful Pages run and served deployment; update this record with the observed result. No new audits or browser sweeps.

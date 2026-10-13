@@ -112,7 +112,7 @@
       "steps": [
         {
           "text": {
-            "ja": "玉９八・香９九・金８八・銀８七・歩９七です。香を玉の下に置く通常の穴熊とは違い、玉が端の８段目にいる形では、後手飛車９二の縦筋を歩９七が止めています。歩が消えた場合だけでなく、玉が移る先を見ておきます。",
+            "ja": "玉９八・香９九・金８八・銀８七・歩９七です。玉を香の下に置く通常の穴熊とは違い、この図では香９九が玉９八の下にあります。後手飛車９二の縦筋を歩９七が止めています。歩が消えた場合だけでなく、玉が移る先を見ておきます。",
             "en": "Sente has king ９八, lance ９九, gold ８八, silver ８七, and pawn ９七. Unlike an ordinary Anaguma with the king below the lance, this edge king sits on the eighth rank. The pawn on ９七 blocks Gote's rook on ９二. Examine the king's exit as well as the risk of losing that pawn."
           }
         },

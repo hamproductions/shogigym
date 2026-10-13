@@ -1,0 +1,1272 @@
+{
+  "scope": [
+    "aisanken",
+    "direct-mukaibisha--gote",
+    "fujii-system--anaguma-1",
+    "fujii-system--anaguma-2",
+    "fujii-system--anaguma-3",
+    "gokigen-vs-maruyama",
+    "ishida-vs-62hisha",
+    "ishida-vs-ibisha--honkumi",
+    "ittezon-vs-bougin",
+    "ittezon-vs-hayakurigin",
+    "kakugawari--koshikakegin",
+    "kuzushi--funa-hashi",
+    "kuzushi--kimura-mino",
+    "kuzushi--mino-36kei",
+    "mukaibisha-vs-sankenbisha",
+    "shikenbisha-vs-45hayashikake--gote-1",
+    "shikenbisha-vs-aifuri--2fu",
+    "shikenbisha-vs-aifuri--nishikawa",
+    "shikenbisha-vs-anaguma--fujii",
+    "shikenbisha-vs-anaguma--sabaki",
+    "shikenbisha-vs-bougin--gote",
+    "shikenbisha-vs-bougin--sente",
+    "shikenbisha-vs-funa-kyusen--1",
+    "shikenbisha-vs-funa-kyusen--2",
+    "shikenbisha-vs-hidarimino--1",
+    "shikenbisha-vs-hidarimino--2",
+    "shikenbisha-vs-ibisha--kakukoukan",
+    "shikenbisha-vs-kakugawari-bougin--gote",
+    "shikenbisha-vs-migishiken--sente",
+    "tateishi--gote",
+    "yagura--waki-system",
+    "yagura-vs-akutsu-kyusen",
+    "yagura-vs-gangi",
+    "yokofu-vs-45kaku",
+    "yokofu-vs-85hisha--58gyoku",
+    "yokofu-vs-85hisha--68gyoku"
+  ],
+  "status": "All36 assigned existing course data full reads and canonical every-edge replay complete; root acceptance pending.",
+  "courses": [
+    {
+      "id": "aisanken",
+      "path": "src/data/joseki/aisanken.json",
+      "bytes": 29392,
+      "lines": 391,
+      "sha256": "5b70ae085229a090552267a34086fb6ed83367030cea5281fe05bd81eeb88bce",
+      "read_range": "1-391 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 35,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "飛車７四・角６八・玉２八と後手飛３二・角３三・玉８二を最終SFENと照合。持歩双方一枚。",
+        "角７七が飛車７八を塞ぐ本順と、交換後角を退く代案の７五到達を照合。銀５三は４四・４二と中央升を支える。"
+      ],
+      "goal_sfen_terminal": "nb0_5",
+      "confirmed_defects": [],
+      "duplicate_comparison": "相三間の７筋交換手順と角の退避はこの既存定跡が扱う。教材への同一序盤追加を避ける。現在incorporation候補にこの手順の追加要求なし。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "direct-mukaibisha--gote",
+      "path": "src/data/joseki/direct-mukaibisha--gote.json",
+      "bytes": 21452,
+      "lines": 315,
+      "sha256": "4c48b8489db8f3d41649fa62edfaee5a9669564bef6b230ea3d801e65ac3fb8c",
+      "read_range": "1-315 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 27,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "角６六から２二飛への斜線、角３三の遮断と桂２一の取り返しを照合。双方持角から先手角５六打・３四歩捕獲後の持駒Pbを照合。",
+        "最終後手玉６二・金３二・銀４二・飛２二と先手角５六を照合。飛車交換は起きていない。代案玉７二と先手７五歩の接触予告はSFENに一致。"
+      ],
+      "goal_sfen_terminal": "n_24",
+      "confirmed_defects": [],
+      "duplicate_comparison": "ダイレクト向かい飛車の角交換、飛２二、角打ちへの受けは既存コースで扱う。同一序盤の教材追加を避ける。incorporation候補にこの同一手順の追加なし。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "fujii-system--anaguma-1",
+      "path": "src/data/joseki/fujii-system--anaguma-1.json",
+      "bytes": 26234,
+      "lines": 358,
+      "sha256": "846bc53243ce8b2d8e4f79fa6fa6a8f721beab3570358b6bbdc704c67920b90e",
+      "read_range": "1-358 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 32,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "最終玉５九・飛６八・銀４七・金５八、敵玉１一・香１二・銀２二・飛８四を照合。銀８七は歩８六を守り８五を守らない。",
+        "持歩一枚、飛８四の縦線上８六歩と角７七の利きを照合。６五歩後８六飛・同銀の合法性も直接確認。"
+      ],
+      "goal_sfen_terminal": "n_27",
+      "confirmed_defects": [],
+      "duplicate_comparison": "藤井システムの居玉、穴熊構築、８筋受け銀８七、６五歩への切替は既存コースが扱う。taifuri-anagumaの候補は桂による角銀両取り・銀の守備帰還なので本コースの同一序盤を教材へ追加する必要なし。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "fujii-system--anaguma-2",
+      "path": "src/data/joseki/fujii-system--anaguma-2.json",
+      "bytes": 29325,
+      "lines": 381,
+      "sha256": "079b5de69688eb68cd9b6ab3485a13f19bac0da6e7188945d784849ee22b14ac",
+      "read_range": "1-381 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 34,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "桂２五は３三角と１三歩を狙う。角４四退避後の桂１三成・銀２二から１三の取り返しと持駒Pnを照合。",
+        "４五歩に対する角５三の退路と、最終玉５九・銀４七・金５八・桂２五・後手角４四を照合。"
+      ],
+      "goal_sfen_terminal": "n_29",
+      "confirmed_defects": [],
+      "duplicate_comparison": "taifuri-anaguma候補の早い桂による角銀両取りとは対象が異なるが、本コースが既に藤井システム右桂の二目標・角退避・端での桂損を扱う。同一序盤と同じ二目標比較の追加を避ける。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "fujii-system--anaguma-3",
+      "path": "src/data/joseki/fujii-system--anaguma-3.json",
+      "bytes": 24066,
+      "lines": 340,
+      "sha256": "e9d1fd3733c96c83ae54e348a47299199cc61c34e2a350602323307439a5e8bb",
+      "read_range": "1-340 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 30,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "銀４七から５六・４五・３四への経路と歩２枚の取得を照合。最終銀は３四で、goalFormationの５六銀は途中の構築を述べている。",
+        "銀２三成に後手銀２二から取り返し、先手持歩３・後手持銀歩を照合。６五歩代案後は６筋交換未了。"
+      ],
+      "goal_sfen_terminal": "n_25",
+      "confirmed_defects": [],
+      "duplicate_comparison": "藤井システムの４筋銀取り返しと次の歩取得の損得はこのコースが扱う。taifuri-anaguma候補の守備への銀帰還と異なる。原序盤追加を避ける。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "gokigen-vs-maruyama",
+      "path": "src/data/joseki/gokigen-vs-maruyama.json",
+      "bytes": 29372,
+      "lines": 382,
+      "sha256": "34a8238fecf9329e9785f1caaab57518ea1d72d05a85701adb122407d65e2c9c",
+      "read_range": "1-382 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 34,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "角５五は銀８八と歩３七を狙う。角６四の斜線６四・５五・４六・３七・２八・１九は３七歩が遮断。",
+        "銀４四は５五を守る。最終持角先手のみ、飛３八で２四を直ちに取れない代案、後手飛５二・銀３三／４四・角６四を照合。"
+      ],
+      "goal_sfen_terminal": "n_29",
+      "confirmed_defects": [],
+      "candidates": [
+        {
+          "node": "n_18 incoming 4h5g note",
+          "issue": "飛車の斜線という用語が曖昧。実際は後手角６四から先手飛２八へ向かう斜線。",
+          "status": "Root wording review needed; no behavioral defect."
+        }
+      ],
+      "duplicate_comparison": "丸山ワクチンの角交換と５五角から６四角、右銀３三で２筋受け、左銀４四による中央制御を既存コースが扱う。taifuri-chousoku候補の桂による角移動・飛２九と２八差とは異なる。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "ishida-vs-62hisha",
+      "path": "src/data/joseki/ishida-vs-62hisha.json",
+      "bytes": 27560,
+      "lines": 370,
+      "sha256": "36d32bb38abf6cbcf4c1f8440629707735084ad4521f6a21f266da799237758b",
+      "read_range": "1-370 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 33,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "６六歩が飛７六の６六横移動を遮断し、歩交換後にその升が空く。後手飛６二の６五取り返し、銀６七の飛７六支援と角７七の８六支援を照合。",
+        "８筋代案は後手飛６二のため８五同歩に飛で取り返せない。双方持歩は６筋交換後一枚ずつ。最終本線に持駒なし。"
+      ],
+      "goal_sfen_terminal": "n_25",
+      "confirmed_defects": [],
+      "duplicate_comparison": "石田流対右四間の６筋交換と浮飛車横移動は既存コースが扱う。taifuri-vs-hayaishida候補の角交換／角打ち／飛角交換とは異なる。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "ishida-vs-ibisha--honkumi",
+      "path": "src/data/joseki/ishida-vs-ibisha--honkumi.json",
+      "bytes": 31405,
+      "lines": 399,
+      "sha256": "1fa695767a89d1bba4d4dbcb03f0f880e4eddea877414a988ce5b6f04a334c41",
+      "read_range": "1-399 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 36,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "桂７七は６五・８五を制御。角９七の斜線は８六を経て自歩７五で止まる。目標形の７五歩・飛７六・桂７七・角９七・銀６七・玉２八・銀３八を照合。",
+        "６筋取り返し代案で桂が７三歩を取って成り持歩２枚。８筋角取り返しは後手飛８二の線上に置く危険を末尾コメントが明記。"
+      ],
+      "goal_sfen_terminal": "n_29",
+      "confirmed_defects": [],
+      "duplicate_comparison": "taifuri-bougin-ishida候補の桂７七・角９七配置と保留は本コースが基本配置と実利を扱う。一方、金８三／７四／８四の攻め経路や７筋から端用持歩取得は本コースにない。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "ittezon-vs-bougin",
+      "path": "src/data/joseki/ittezon-vs-bougin.json",
+      "bytes": 21109,
+      "lines": 315,
+      "sha256": "e9c988110b69172b9fd08cb1b6c743333aaa8c6bb7be9f3682660ccb6b73180b",
+      "read_range": "1-315 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 27,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "銀２六が飛２八から２四への道を塞ぐ。歩２四から２五への捕銀と後手持銀歩を照合。",
+        "角６四から飛２八への斜線と角３七合駒、角６四取込みに歩６三からの取り返し、最終双方持角と後手持歩１枚を照合。"
+      ],
+      "goal_sfen_terminal": "nb0_8",
+      "confirmed_defects": [],
+      "duplicate_comparison": "一手損角換わり対棒銀の銀２六による飛車道遮断、持角６四打・３七合駒は既存コースが扱う。taifuri-vs-kakukoukan候補の逆棒銀４七銀／３六銀・２三歩叩きとは異なる。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "ittezon-vs-hayakurigin",
+      "path": "src/data/joseki/ittezon-vs-hayakurigin.json",
+      "bytes": 28257,
+      "lines": 405,
+      "sha256": "6331d3c77cd39af9c0bbf807e54cd3c48725a2f40d054c8b3aa7d58aedf28c00",
+      "read_range": "1-405 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 35,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "金７八は８八を横に守る。銀３四は後手歩３五を前向きに支える。最終先手銀４六と後手銀３四、双方角・後手歩２枚を照合。",
+        "銀３五代案後８筋交換で後手の二歩制限が消えて歩８八打が合法。本線金７八がない８八への歩打ちと桂８九への前進を照合。",
+        "後手６手目８五歩との比較は８手終了時の後手歩８五・銀２二と、本線後手歩８四・先手銀８八の差に一致。飛車で馬を取る別枝も全項目確認。"
+      ],
+      "goal_sfen_terminal": "nb0b0_3",
+      "confirmed_defects": [],
+      "duplicate_comparison": "早繰り銀４六・金７八の８八受け・角交換の手数比較を既存コースが扱う。既存incorporation候補に同一手順追加なし。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "kakugawari--koshikakegin",
+      "path": "src/data/joseki/kakugawari--koshikakegin.json",
+      "bytes": 30328,
+      "lines": 393,
+      "sha256": "7b0750d73b9ff5285fd2467d7d8b4350d3a86ea9c73be1bcc565f021abb7630b",
+      "read_range": "1-393 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 35,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "歩５七が銀５六を支え、銀３八・４七・５六経路と玉６八・金７八・銀７七を照合。",
+        "敵角６五打は歩６四で支えられても銀角交換で先手持角２枚・後手持銀となる。２筋交換後歩２三打により持歩は先手のみとなる。"
+      ],
+      "goal_sfen_terminal": "n_25",
+      "confirmed_defects": [],
+      "candidates": [
+        {
+          "node": "n_25 branch2i3g kinddeviation",
+          "issue": "deviationは先手桂３七だがpunishNoteが後手の悪い角６五打を説明し、先手が銀角交換で得する枝。逸脱表示と処罰の主体が一致するかビュー仕様と独立確認必要。",
+          "status": "Root presentation/semantics review needed."
+        }
+      ],
+      "duplicate_comparison": "taifuri-vs-kakukoukan候補の腰掛け銀と守備への手数配分について、本コースが銀５六・支歩５七・玉６八と金７八構築を扱う。これを同一序盤として追加しない。逆棒銀受けや２三歩叩きで飛位置を変える候補は本コースとは異なる。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "kuzushi--funa-hashi",
+      "path": "src/data/joseki/kuzushi--funa-hashi.json",
+      "bytes": 4557,
+      "lines": 87,
+      "sha256": "a1d0d948e497e17f054dd1e9381f05127e61093fb7efcf720cfcf4a4c47694ce",
+      "read_range": "1-87 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 6,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "桂７六は玉６八・角８八を狙う。玉７七から８八で成桂を取り返し持桂先手・持角後手。角４五打の銀７八への線と銀７七の回避を照合。",
+        "合成練習図と実戦棋譜を区別するsource・rootコメントを確認。詰みや必勝と断定せず交換収支を説明。"
+      ],
+      "goal_sfen_terminal": "n_3",
+      "confirmed_defects": [],
+      "duplicate_comparison": "attack-funa候補は焦点香・一段二段飛車・銀配置比較。本コースは玉角両取りなので同一題材ではない。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "kuzushi--kimura-mino",
+      "path": "src/data/joseki/kuzushi--kimura-mino.json",
+      "bytes": 5580,
+      "lines": 111,
+      "sha256": "9fc5af6808129aa3ca6d575481d14d12d3760d647515b5a91bfc76133899b040",
+      "read_range": "1-111 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 8,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "桂４六は金３八・飛５八を狙い角５五が支える。銀４七で桂取・角同銀後は３七歩で玉２八への線が止まる。逃飛代案成桂３八は王手、逃金代案成桂５八は非王手。持駒交換を照合。",
+        "合成練習図と実戦棋譜を区別するsource・rootコメントを確認。詰みや必勝と断定せず交換収支を説明。"
+      ],
+      "goal_sfen_terminal": "nb0_1",
+      "confirmed_defects": [],
+      "duplicate_comparison": "既存コースが桂金飛両取りと銀による応手・角再捕獲を扱う。桂・美濃攻撃教材で同じ局面や同じ比較を追加しない。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "kuzushi--mino-36kei",
+      "path": "src/data/joseki/kuzushi--mino-36kei.json",
+      "bytes": 6421,
+      "lines": 133,
+      "sha256": "7f43d011cb56287ec326569962c5124a4e80ef0cd6d3185f163b76bf56624e31",
+      "read_range": "1-133 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 10,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "桂６六は金５八・角７八を狙い銀７五が支える。角３四の歩得、金４九による５八再捕獲後の持桂歩先手・持金後手を照合。角６七代案と金４八代案の持駒差も照合。",
+        "合成練習図と実戦棋譜を区別するsource・rootコメントを確認。詰みや必勝と断定せず交換収支を説明。"
+      ],
+      "goal_sfen_terminal": "nb0_2",
+      "confirmed_defects": [],
+      "duplicate_comparison": "桂金角両取りと逃角で反撃する比較を既存コースが扱う。attack-mino-side候補の二枚飛車ピン・控え香・守備金誘導とは異なる。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "mukaibisha-vs-sankenbisha",
+      "path": "src/data/joseki/mukaibisha-vs-sankenbisha.json",
+      "bytes": 23316,
+      "lines": 339,
+      "sha256": "f11fefa079e52922ac44aab3b1adad1af69dc9c3e89f5939bf7f4660868502cf",
+      "read_range": "1-339 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 30,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "飛８八と飛８二の向合い、桂７七の８五支援、角６六の４四対象と後手角２二の４四支援、後手銀６四の５五支援を照合。",
+        "早い歩８五から８五飛に後手飛同取の一方的飛損を照合。最終本線持駒なし、逸脱末尾先手歩１・後手飛歩１。"
+      ],
+      "goal_sfen_terminal": "nb0_7",
+      "confirmed_defects": [],
+      "duplicate_comparison": "相振りの飛車位置による歩交換判断を既存コースが扱う。incorporationのattack-mino-aifuri候補は端・銀退路・角配置変化で異なる。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "shikenbisha-vs-45hayashikake--gote-1",
+      "path": "src/data/joseki/shikenbisha-vs-45hayashikake--gote-1.json",
+      "bytes": 21217,
+      "lines": 322,
+      "sha256": "aa6d6cc81cc362affad996cc4bbeb1eb24f5a2cc68e39256891271f1e37fd33a",
+      "read_range": "1-322 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 28,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "飛４三は後手歩４五を支え、角６五は５四を経て４三飛へ利く。飛４二帰還後も歩支援を保持。最終後手歩４六・銀３二・玉７二と先手角７四・歩５五を照合。",
+        "角７四は８三を狙うが玉７二が８三を守る。角交換後持角は後手のみ、先手は７四歩捕獲で持歩一枚。銀４八を保留する早仕掛け代案の駒配置差を照合。"
+      ],
+      "goal_sfen_terminal": "nb0_17",
+      "confirmed_defects": [],
+      "duplicate_comparison": "taifuri-45hayashikake候補の角道開通と角交換を既存コースが標準序盤から具体的に扱う。既存gote2と併せ同一開始手順の教材追加を避け、診断条件だけ独立例で補う。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "shikenbisha-vs-aifuri--2fu",
+      "path": "src/data/joseki/shikenbisha-vs-aifuri--2fu.json",
+      "bytes": 22442,
+      "lines": 321,
+      "sha256": "fab80e2e46596f8292a8882ad071257ebe8a1e88ea03e09984eb21edcc5b52e7",
+      "read_range": "1-321 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 28,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "６筋交換後歩６三打を銀７二が支える。飛６八から８八への７八通路と角７七移動後の８八空きを照合。",
+        "八筋交換で本線飛８六・代案角８六とも先手持歩２枚、後手持歩１枚。４四歩が角７七と角２二の線を遮断する説明を照合。"
+      ],
+      "goal_sfen_terminal": "nb0b0_2",
+      "confirmed_defects": [],
+      "duplicate_comparison": "相振りの持歩取得・飛車振直しを既存コースが扱う。proverb-three-pawnsは同一筋の二度誘導と垂歩なので異なるが、単なる二筋交換による歩枚数増加の教材追加は重複になる。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "shikenbisha-vs-aifuri--nishikawa",
+      "path": "src/data/joseki/shikenbisha-vs-aifuri--nishikawa.json",
+      "bytes": 22080,
+      "lines": 325,
+      "sha256": "34bc7a8d16a517889e7ad7d853f763cc5646eecea1f2b1c595a6e7cf01f101f3",
+      "read_range": "1-325 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 29,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "飛２八を保留する間の歩８五・角７七と、後手歩３五後の飛６八を照合。横移動通路３八・４八・５八が空く。代案飛８八では６八・７八も空く。",
+        "最終飛６八・後手飛３四と歩３五・銀６三、６筋未交換で持駒なし。相手手による絶対選択規則ではないと末尾代案が明記。"
+      ],
+      "goal_sfen_terminal": "nb0_11",
+      "confirmed_defects": [],
+      "duplicate_comparison": "相振りの飛車保留と６筋／８筋選択は既存コースが扱う。attack-mino-aifuri候補は銀退路や端攻めで異なる。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "shikenbisha-vs-anaguma--fujii",
+      "path": "src/data/joseki/shikenbisha-vs-anaguma--fujii.json",
+      "bytes": 32617,
+      "lines": 406,
+      "sha256": "611e364e756cbdb28a668d15f6e9c11d454ec9eca20e9f2211007840d98bd85f",
+      "read_range": "1-406 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 36,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "銀６七が飛６八の縦筋を止め、歩６五後の角８八斜線を歩４四・後に角３三が止める。最終玉２二は穴熊未完、香１二。",
+        "８筋交換後双方持歩１枚、端香交換の末尾先手持歩・後手持香歩を照合。"
+      ],
+      "goal_sfen_terminal": "n_27",
+      "confirmed_defects": [],
+      "candidates": [
+        {
+          "node": "n_27 branch1e1d kinddeviation",
+          "issue": "最初の歩１四をlearner mistakeとするが説明が実証する香損は後続1i1dの選択による。",
+          "counterexample": "goalSfenから1e1d/1c1d/3g4e全合法。香１九は残り、双方持歩一枚、桂４五が角３三と銀５三を狙う。",
+          "final_sfen": "ln3gsn1/1r2g2kl/p1pps1bp1/4p1p1p/1p1P1N3/2P1PPP2/PP1S1S1P1/1B1R5/LN1GKG2L w Pp 1",
+          "status": "Root independent label/semantic verification needed; best-play assertion not made."
+        }
+      ],
+      "duplicate_comparison": "taifuri-anaguma候補の早桂による角銀両取りは桂３七から４五の説明で既存。ただし枝では端の香損のみ実演。原序盤追加を避け、利きが成立する条件を独立診断で補う候補。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "shikenbisha-vs-anaguma--sabaki",
+      "path": "src/data/joseki/shikenbisha-vs-anaguma--sabaki.json",
+      "bytes": 33436,
+      "lines": 413,
+      "sha256": "c6b94b3fc89339f542ae28cb8b71f4f9e1462b9d2f321fda039800f48a7c91e4",
+      "read_range": "1-413 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 37,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "６筋歩交換で角７七から３三への６六・５五・４四が空き、銀２二が取り返す。双方角歩一枚と飛６八帰還を照合。",
+        "８筋交換後角７七打で飛８六を狙うが退路がある。銀４四への角７七斜線も確認。"
+      ],
+      "goal_sfen_terminal": "n_30",
+      "confirmed_defects": [],
+      "duplicate_comparison": "穴熊攻撃教材候補の歩による守備銀誘導・桂による逃路変化・ピンとは別。本コースは６筋歩交換と角の捌き、８筋反撃を既に教える。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ],
+      "candidates": [
+        {
+          "id": "course-anaguma-sabaki-lance-direction",
+          "node": "n_16 incoming2b1a note ->n_17",
+          "issue": "１二香が支えるという表現は物理的遮蔽と直接の利きを区別していない。後手香１二は玉１一へ利かないが、前方の占有による盾にはなる。",
+          "canonical_evidence": "isolated whiteLance1b board.hasPower(1a,WHITE)=false;hasPower(1c,WHITE)=true; SFEN4k4/8l/9/9/9/9/9/9/4K4 b - 1",
+          "status": "Root independently qualified as low wording clarification; no false overall shielding claim."
+        }
+      ]
+    },
+    {
+      "id": "shikenbisha-vs-bougin--gote",
+      "path": "src/data/joseki/shikenbisha-vs-bougin--gote.json",
+      "bytes": 28080,
+      "lines": 372,
+      "sha256": "ddb25ff6d55d59578b7600611678e287c48b0b7f2aad30c899d1966b8ae03ddc",
+      "read_range": "1-372 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 33,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "３筋歩交換後の後手歩３四打が二歩でないこと、銀３五の退路２六、戻る銀３五への歩直取を照合。",
+        "角６四打から飛２八への線と飛１八回避、角８八から銀３三への線を照合。４筋交換後先手歩２・後手歩１と飛４六を確認。"
+      ],
+      "goal_sfen_terminal": "n_29",
+      "confirmed_defects": [],
+      "duplicate_comparison": "taifuri-bougin候補の守備銀誘導・４筋角道開通と関連するが、本コースは棒銀を歩３四打で退け４筋を交換する防御側。標準序盤の追加を避け誘導条件だけ独立例で補う。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "shikenbisha-vs-bougin--sente",
+      "path": "src/data/joseki/shikenbisha-vs-bougin--sente.json",
+      "bytes": 29497,
+      "lines": 380,
+      "sha256": "5a429744fca3ef7dc2e292856b5bb2fe663120c509689a2156a98d463ae9581b",
+      "read_range": "1-380 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 34,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "桂８九が７七馬を取り返す、飛６八から６六に届く６七空きと金５八から６七による支援を照合。",
+        "金６六は真後ろ６七飛を取れる。最終先手角２枚歩１枚・後手飛１枚、玉２八・銀３八・後手銀８四を照合。"
+      ],
+      "goal_sfen_terminal": "n_30",
+      "confirmed_defects": [],
+      "duplicate_comparison": "taifuri-bougin候補の角道開通・振直しと関連し、本コースは６五歩で角道を開き桂取り返し・飛角交換を既に扱う。原序盤重複追加を避ける。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "shikenbisha-vs-funa-kyusen--1",
+      "path": "src/data/joseki/shikenbisha-vs-funa-kyusen--1.json",
+      "bytes": 25663,
+      "lines": 352,
+      "sha256": "019d46f5811a4559256376c2660c2afc1336417122933a5be6ff056fdc402d7d",
+      "read_range": "1-352 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 31,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "銀６七から５六の取り返しと５五銀への正面捕獲、舟囲い後手玉３二・銀３一・金４一／５二を照合。",
+        "８六飛は角７七から取れる。最終持歩双方一枚、本線先手銀５六を照合。"
+      ],
+      "goal_sfen_terminal": "n_24",
+      "confirmed_defects": [],
+      "candidates": [
+        {
+          "node": "n_19 branch6f6e note",
+          "issue": "飛車６八の正面を開くと説明するが銀６七が残るため飛車の縦筋は６七で止まる。角道の６六は空くが４四の後手銀も斜線を遮断。",
+          "status": "Root wording/board independent verification needed."
+        },
+        {
+          "node": "n_24 branch8e8f kinddeviation",
+          "issue": "最初の８六歩に逸脱ラベルを置くが示す飛損は後続8b8fを選んだ場合のみ。",
+          "counterexample": "goalSfenから8e8f/8g8f/4d5c全合法、飛８二が残る。",
+          "final_sfen": "ln3gsnl/1r2g1kb1/p1ppsp1pp/6p2/3P5/1PP1S4/P1B2PPPP/3R2SK1/LN1G1G1NL b 2Pp 1",
+          "status": "Root semantic label verification needed; no best-play claim."
+        }
+      ],
+      "duplicate_comparison": "castles-funa候補の囲い維持と急戦手数判断について既存コースが舟構築・左銀４四・中央５筋交換を扱う。同じ序盤追加を避け手数の判断条件を独立局面で補う。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "shikenbisha-vs-funa-kyusen--2",
+      "path": "src/data/joseki/shikenbisha-vs-funa-kyusen--2.json",
+      "bytes": 27718,
+      "lines": 369,
+      "sha256": "955520691963116b95625a635c0a149ca8e8a551ebc44a9a6104daa68c57c994",
+      "read_range": "1-369 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 33,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "銀６四は６五・７五を守る。６五歩から角道開通、玉３二が２二馬を取り最終玉２二へ移動。銀７六は銀６七、銀５六は歩５七が取れる。",
+        "先手持角歩・後手持角歩の収支と銀６五、舟囲いの金銀は残るが玉の位置は３二から２二へ変わる点を確認。"
+      ],
+      "goal_sfen_terminal": "n_28",
+      "confirmed_defects": [],
+      "candidates": [
+        {
+          "node": "n_19 branch6i7h note ->n_20",
+          "issue": "金７八を玉の囲いを厚くすると説明するが自玉は２八。金７八は左辺で銀６七との連結を作る。",
+          "status": "Root wording review needed; direct king protection claim ambiguous."
+        }
+      ],
+      "duplicate_comparison": "castles-funa候補の舟維持急戦について本コースが銀６四／６五と角交換で玉が囲いを離れる例を扱う。taifuri-46gin候補の角交換と玉移動条件に関連し、同一序盤追加を避ける。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "shikenbisha-vs-hidarimino--1",
+      "path": "src/data/joseki/shikenbisha-vs-hidarimino--1.json",
+      "bytes": 25357,
+      "lines": 348,
+      "sha256": "2e8e4b7a7ecc87ef129ddb7fc0e08252e3c95ce87114f34c36649dac1f00c2ce",
+      "read_range": "1-348 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 31,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "飛６八から４八横移動の５八・４八空き、左美濃玉２二・銀３二・金４一／５二を照合。",
+        "歩４四打は二歩でなく角３三が４四を支えるため飛４五から取れば飛角交換。歩４五への早前進は支援を失い飛４八で取れる。最終先手持歩１、後手持歩なし。"
+      ],
+      "goal_sfen_terminal": "n_26",
+      "confirmed_defects": [],
+      "duplicate_comparison": "左美濃の守備と４筋振直し歩交換は既存コースが扱う。castles-funa候補の左美濃発展への手数判断に関連するが同一序盤追加を避ける。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "shikenbisha-vs-hidarimino--2",
+      "path": "src/data/joseki/shikenbisha-vs-hidarimino--2.json",
+      "bytes": 27794,
+      "lines": 370,
+      "sha256": "1418af9fe8dcf5eeaf1c73bedff5915c05e5d2895fe9699c2b751d70810b45e6",
+      "read_range": "1-370 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 33,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "銀８七と角７七が８六歩を支える。６筋交換で飛６四・先手持歩２枚、後手持歩１枚。目標左美濃玉２二・銀３二・金４一／５二を照合。",
+        "８六飛を銀が取る逸脱、７筋交換の銀６二が７五に届かないこと、角は両者盤上のため後手に持角がなく現在角打ちできないことを照合。"
+      ],
+      "goal_sfen_terminal": "n_28",
+      "confirmed_defects": [],
+      "duplicate_comparison": "８筋銀支援と６筋交換は既存コースが扱う。taifuri関連の同一序盤追加を避け、castle判断条件のみ独立例で補う。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "shikenbisha-vs-ibisha--kakukoukan",
+      "path": "src/data/joseki/shikenbisha-vs-ibisha--kakukoukan.json",
+      "bytes": 48299,
+      "lines": 658,
+      "sha256": "b581f24feef6566eaa3434024b0437d7b09e2f1dca0e02979bffc81b8c927387",
+      "read_range": "1-658 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 62,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "全3攻撃構想と早８筋交換の全枝を確認。銀７六・６六／７五・逆棒銀８六、８七金受け、角７七による飛８六・銀２二両取りを照合。",
+        "駒収支の銀得対桂損、持角再交換と８八飛から龍８九への対抗を照合。評価の優越断定はengine未確認。",
+        "sourceはhibitonshi記事を手順参考とする旧形式、adapted:false等の新参照metadataなし。原作置換／copyright境界は親判断。"
+      ],
+      "goal_sfen_terminal": "no goalSfen key in original; no missing field fabricated",
+      "confirmed_defects": [
+        {
+          "id": "course-kakukoukan-pawn-blocked-by-own-silver",
+          "node": "nb0b1_10 incoming6f7e note ->nb0b1_11",
+          "issue": "銀７五へ進出した直後に、後手７四歩なら先手７五歩突き捨て・同歩・同銀と説明するが、７五は自銀占有で７六歩を進められない。",
+          "canonical_evidence": "nodeSFEN ln5nl/1r2g1gk1/p1ppspspp/4p1p2/1pSP5/2P6/PP2PPPPP/2GR2SK1/LN3G1NL w Bb 1;7c7d=true;7f7e=false",
+          "status": "Root independent verification required."
+        }
+      ],
+      "candidates": [
+        {
+          "node": "nb0_6 incoming8h7g note ->nb0_7",
+          "issue": "飛車の前に銀を据えると説明するが銀７七、飛６八で別筋。",
+          "status": "Root wording review needed."
+        },
+        {
+          "node": "n_6 branch8e8f kinddeviation",
+          "issue": "最初の８六歩に逸脱表示を置くが両取りは後続8b8f後に成立。後手には歩交換後飛車を出さない選択がある。",
+          "status": "Root label/semantic verification needed."
+        }
+      ],
+      "duplicate_comparison": "taifuri-vs-kakukoukan候補の逆棒銀と腰掛け銀判断に対し、この既存コースは逆棒銀８六・銀７六／６六の構想を既に説明。７六銀から６筋交換、飛８八振直し、持角両取りも重複対象。候補の受け側４七銀／３六銀・２三歩叩きは別の向きと筋。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated.",
+        "Original-reference wording/structure/board originality not adjudicated by this replay."
+      ]
+    },
+    {
+      "id": "shikenbisha-vs-kakugawari-bougin--gote",
+      "path": "src/data/joseki/shikenbisha-vs-kakugawari-bougin--gote.json",
+      "bytes": 22222,
+      "lines": 323,
+      "sha256": "550b702133646780945c5784f5e975cd7ba71602fa83e797ca5193dadb5e22fe",
+      "read_range": "1-323 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 28,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "４筋交換で飛４六、歩４七打の二歩解消、飛７六の横移動５六・６六空きと先手歩７六捕獲を照合。",
+        "角６四は飛４六へ利くが飛７六には利かない。最終先手銀２六・後手銀３三と双方角／後手歩２枚を照合。"
+      ],
+      "goal_sfen_terminal": "nb0_3",
+      "confirmed_defects": [],
+      "duplicate_comparison": "角交換棒銀と四間飛車の４筋交換から飛車横移動を既存コースが扱う。taifuri-vs-kakukoukan候補の逆棒銀受け・歩２三による飛位置誘導とは異なる。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "shikenbisha-vs-migishiken--sente",
+      "path": "src/data/joseki/shikenbisha-vs-migishiken--sente.json",
+      "bytes": 27258,
+      "lines": 380,
+      "sha256": "d0593a245e019d703a109a563505d1d45490460610a97a76c4e2321d09c4d3c2",
+      "read_range": "1-380 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 34,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "先手飛４八から６八、５八空きと玉移動４八・３八・２八を照合。後手飛６二と歩６四、最後金３二が玉３一を前方から守る。",
+        "６筋歩交換後は先手飛６八が６五まで通り、後手飛６五を取れる。角交換を先に選ぶ既存別枝では後手飛６二が残る。"
+      ],
+      "goal_sfen_terminal": "nb0_8",
+      "confirmed_defects": [],
+      "candidates": [
+        {
+          "node": "n_18 branch6d6e kinddeviation",
+          "issue": "最初６五歩への逸脱ラベルだが飛損は後続6b6eの枝だけ。別の既存主枝6d6e/6f6e/2b7g+/7h7gは合法で後手飛６二を保つ。",
+          "status": "Root independent label review needed."
+        }
+      ],
+      "duplicate_comparison": "右四間６筋接触・飛車直接交換と角交換順を既存コースが扱う。taifuri候補に同一序盤追加なし。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "tateishi--gote",
+      "path": "src/data/joseki/tateishi--gote.json",
+      "bytes": 22590,
+      "lines": 343,
+      "sha256": "7dc3066f1bb5a2411672440cf2637999649875ebf5c11079721ffa945452669b",
+      "read_range": "1-343 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 30,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "後手飛４二から４四へ浮くため歩４五で４四空き。先手歩３五は３四飛を取れるが、歩を取る前に飛３四へ移れば後に３五で取り返せる。",
+        "最終先手持歩１・後手持歩なし、後手玉８二・飛４四・銀４三、先手玉６八を照合。代案交換後双方持歩１枚と飛３五を確認。"
+      ],
+      "goal_sfen_terminal": "nb0_13",
+      "confirmed_defects": [],
+      "duplicate_comparison": "立石流の歩３五応手による飛横移動条件を既存コースが扱う。候補に同一開始手順追加なし。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "yagura--waki-system",
+      "path": "src/data/joseki/yagura--waki-system.json",
+      "bytes": 40433,
+      "lines": 465,
+      "sha256": "3d58005154468b76a4e310de7e46a5157d2bff707677cc659139153af958abee",
+      "read_range": "1-465 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 42,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "相矢倉の両玉８八／２二、金７八・６七／３二・４三と銀７七／３三、角４六・６四の５五経由向合いを照合。",
+        "角交換は歩６三が取り返し双方持角。２筋の飛捕獲は銀３三が２四へ取れるため最終持飛後手。"
+      ],
+      "goal_sfen_terminal": "n_35",
+      "confirmed_defects": [],
+      "candidates": [
+        {
+          "node": "n_15 incoming6h7h note ->n_16",
+          "issue": "後手が４四歩で金４三の升を空けた間に玉を運ぶと過去形で述べるが、ここでは歩４三がまだ残る。４四歩は次の後手4c4d。",
+          "status": "Root move-note timing review needed."
+        }
+      ],
+      "duplicate_comparison": "castles-yagura候補の深い玉移動と追加金銀の手数についてこの既存コースが全構築経路を扱う。同一序盤の教材追加を避け、銀矢倉との制御升差など局所条件を独立例で補う。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "yagura-vs-akutsu-kyusen",
+      "path": "src/data/joseki/yagura-vs-akutsu-kyusen.json",
+      "bytes": 39860,
+      "lines": 459,
+      "sha256": "9366be47537384d8e23fd9464a3cf590f9657df2c2fe6e1095d726ce9fe9bef7",
+      "read_range": "1-459 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 41,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "先手矢倉玉８八・金７八／６七・銀７七、後手居玉４一・銀４四・歩５五・桂７三を照合。桂７三は６五へ跳べる。",
+        "５筋交換後双方持歩１枚と後手銀５五、８筋飛捕獲後先手持飛歩・後手持歩を照合。末尾は８六歩だけでなく後続同飛で飛損と明記。"
+      ],
+      "goal_sfen_terminal": "n_33",
+      "confirmed_defects": [],
+      "duplicate_comparison": "矢倉完成と急戦中央接触・歩交換による守備の価値は本コースが扱う。castles-yaguraの深い玉移動手数比較に関連するが同一構築序盤追加を避ける。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "yagura-vs-gangi",
+      "path": "src/data/joseki/yagura-vs-gangi.json",
+      "bytes": 36065,
+      "lines": 435,
+      "sha256": "b73c9cdb0f2024529dd547b28c6ca3b19b7118448166768fec975a1d4776254e",
+      "read_range": "1-435 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 39,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "角８八・７九・６八・５七移動が玉５九・６八・７九・８八経路を空ける。早金７八があるため玉７八を通らず７九を経由する。",
+        "４筋交換で角５七から４六、８筋逸脱で角５七が８六を守らず銀８六が飛８二に取られ玉８八へ王手。最終本線持駒なし。"
+      ],
+      "goal_sfen_terminal": "n_29",
+      "confirmed_defects": [],
+      "candidates": [
+        {
+          "node": "n_29 branch8g8f kinddeviation",
+          "issue": "最初８六歩の逸脱表示が説明する銀損は後続7g8fの選択による。punishNoteは条件つきだがmistake位置は前段。",
+          "status": "Root independent label review needed."
+        }
+      ],
+      "duplicate_comparison": "矢倉の角経路・早金７八で変わる玉経路・雁木の銀位置は既存コースが扱う。castles-yagura候補の手数判断・銀金差を同一構築手順で追加しない。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "yokofu-vs-45kaku",
+      "path": "src/data/joseki/yokofu-vs-45kaku.json",
+      "bytes": 24637,
+      "lines": 355,
+      "sha256": "d3bc15c084fe9c8e3226fbef729acfdb5886cfdad4176e5a76425a0f6e77bb9b",
+      "read_range": "1-355 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 31,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "２筋歩打ちに先手歩２八・金３八・銀２八が順に対応し持歩３枚先手・２枚後手となる。角２五は飛３四と歩４七へ利き、飛８四は角線を外れる。",
+        "角４五枝は飛３四と歩６七両対象、飛２四退避後に角取・銀損・桂得と両龍形成まで収支を照合。無条件成功・駒得と断定せず末尾が条件限定。"
+      ],
+      "goal_sfen_terminal": "nb0_7",
+      "confirmed_defects": [],
+      "duplicate_comparison": "横歩取りの角打ち・飛車退路・歩金銀による２筋受けを既存コースが扱う。新規incorporation候補に同一序盤なし。",
+      "gaps": [
+        "Engine preference for2b vs4e and best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "yokofu-vs-85hisha--58gyoku",
+      "path": "src/data/joseki/yokofu-vs-85hisha--58gyoku.json",
+      "bytes": 20608,
+      "lines": 310,
+      "sha256": "f7c011c157230b2a47fc203dc4b6b1fcb0723284ce13e95c1ebd9a0a33f632a7",
+      "read_range": "1-310 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 27,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "桂７七は飛８五に当て角８八の斜線を塞ぐ。飛８五から２五の横移動、歩２八を銀３九が支える、角４四から桂７七を狙い金７八が桂を守ることを照合。",
+        "最終玉５八・飛３六・歩７五、後手飛２五・角４四・歩８六と持歩先手２／後手１を照合。歩８六打前の飛２五移動代案では後手持歩２枚を保持。"
+      ],
+      "goal_sfen_terminal": "nb0_7",
+      "confirmed_defects": [],
+      "duplicate_comparison": "横歩取りの桂による飛攻撃・横退路・歩による侵入受けは既存コースが扱う。候補に同一序盤追加なし。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    },
+    {
+      "id": "yokofu-vs-85hisha--68gyoku",
+      "path": "src/data/joseki/yokofu-vs-85hisha--68gyoku.json",
+      "bytes": 22877,
+      "lines": 333,
+      "sha256": "ea9114a2ba5df42043fbab54bcd66446fdbd14640fb234b22fc146de0ca115a3",
+      "read_range": "1-333 EOF",
+      "read_format": "Lossless compact JSON preserving every key/value; whitespace omitted only.",
+      "canonical_replay": {
+        "edges": 29,
+        "illegal_edges": [],
+        "child_sfen_mismatches": []
+      },
+      "semantic_review": [
+        "角交換後角１六打が飛２五へ当たり飛８五帰還、２七歩は盤上で歩２八を狙い続ける。最終玉６八・銀８八・金７八・飛３六と後手銀２三、先手歩２枚／後手角歩を照合。",
+        "４四角は８八角から取れるが、後手歩４三が４四を守り取った角を再捕獲できる。"
+      ],
+      "goal_sfen_terminal": "nb0_9",
+      "confirmed_defects": [],
+      "candidates": [
+        {
+          "node": "n_16 branch2b4d kinddeviation ->nb1_1",
+          "issue": "角４四の逸脱を角８八に取られることだけで説明し、４三歩の取り返しを省略。角の無償損ではなく双方持角の交換が成立する。",
+          "canonical_evidence": "afterexisting8h4d,4c4d=true;final lnsgkgsnl/9/p1ppp3p/5pR2/1r7/2P6/P2PPPP1P/2GK5/LNS2GSNL b B3Pb2p 1",
+          "status": "Root independent material/label verification required; engine superiority not claimed."
+        }
+      ],
+      "duplicate_comparison": "横歩取りの玉６八・持角での飛車当て・歩による２筋受けを既存コースが扱う。候補に同一序盤追加なし。",
+      "gaps": [
+        "Engine best-play/evaluation claims not validated."
+      ]
+    }
+  ],
+  "pending_ids": [],
+  "final_verification": {
+    "hash_and_eof_errors": [],
+    "goal_matches": [
+      {
+        "id": "aisanken",
+        "goal_matches": [
+          "nb0_5"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "direct-mukaibisha--gote",
+        "goal_matches": [
+          "n_24"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "fujii-system--anaguma-1",
+        "goal_matches": [
+          "n_27"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "fujii-system--anaguma-2",
+        "goal_matches": [
+          "n_29"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "fujii-system--anaguma-3",
+        "goal_matches": [
+          "n_25"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "gokigen-vs-maruyama",
+        "goal_matches": [
+          "n_29"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "ishida-vs-62hisha",
+        "goal_matches": [
+          "n_25"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "ishida-vs-ibisha--honkumi",
+        "goal_matches": [
+          "n_29"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "ittezon-vs-bougin",
+        "goal_matches": [
+          "nb0_8"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "ittezon-vs-hayakurigin",
+        "goal_matches": [
+          "nb0b0_3"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "kakugawari--koshikakegin",
+        "goal_matches": [
+          "n_25"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "kuzushi--funa-hashi",
+        "goal_matches": [
+          "n_3"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "kuzushi--kimura-mino",
+        "goal_matches": [
+          "nb0_1"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "kuzushi--mino-36kei",
+        "goal_matches": [
+          "nb0_2"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "mukaibisha-vs-sankenbisha",
+        "goal_matches": [
+          "nb0_7"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "shikenbisha-vs-45hayashikake--gote-1",
+        "goal_matches": [
+          "nb0_17"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "shikenbisha-vs-aifuri--2fu",
+        "goal_matches": [
+          "nb0b0_2"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "shikenbisha-vs-aifuri--nishikawa",
+        "goal_matches": [
+          "nb0_11"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "shikenbisha-vs-anaguma--fujii",
+        "goal_matches": [
+          "n_27"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "shikenbisha-vs-anaguma--sabaki",
+        "goal_matches": [
+          "n_30"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "shikenbisha-vs-bougin--gote",
+        "goal_matches": [
+          "n_29"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "shikenbisha-vs-bougin--sente",
+        "goal_matches": [
+          "n_30"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "shikenbisha-vs-funa-kyusen--1",
+        "goal_matches": [
+          "n_24"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "shikenbisha-vs-funa-kyusen--2",
+        "goal_matches": [
+          "n_28"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "shikenbisha-vs-hidarimino--1",
+        "goal_matches": [
+          "n_26"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "shikenbisha-vs-hidarimino--2",
+        "goal_matches": [
+          "n_28"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "shikenbisha-vs-ibisha--kakukoukan",
+        "goal_matches": [],
+        "goalSfen_present": false
+      },
+      {
+        "id": "shikenbisha-vs-kakugawari-bougin--gote",
+        "goal_matches": [
+          "nb0_3"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "shikenbisha-vs-migishiken--sente",
+        "goal_matches": [
+          "nb0_8"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "tateishi--gote",
+        "goal_matches": [
+          "nb0_13"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "yagura--waki-system",
+        "goal_matches": [
+          "n_35"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "yagura-vs-akutsu-kyusen",
+        "goal_matches": [
+          "n_33"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "yagura-vs-gangi",
+        "goal_matches": [
+          "n_29"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "yokofu-vs-45kaku",
+        "goal_matches": [
+          "nb0_7"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "yokofu-vs-85hisha--58gyoku",
+        "goal_matches": [
+          "nb0_7"
+        ],
+        "goalSfen_present": true
+      },
+      {
+        "id": "yokofu-vs-85hisha--68gyoku",
+        "goal_matches": [
+          "nb0_9"
+        ],
+        "goalSfen_present": true
+      }
+    ],
+    "courses": 36,
+    "edges": 1128,
+    "pending_ids": [],
+    "no_engine_evaluation_performed": true
+  }
+}

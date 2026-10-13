@@ -1,0 +1,3691 @@
+{
+  "scope_ids": [
+    "1212",
+    "1678",
+    "172",
+    "3338",
+    "340",
+    "3411",
+    "345",
+    "3776",
+    "4084",
+    "4096",
+    "4137",
+    "4164",
+    "4173",
+    "422",
+    "4271",
+    "4347",
+    "4356",
+    "4458",
+    "4483",
+    "452",
+    "4545",
+    "5024",
+    "5171",
+    "553",
+    "648",
+    "6578",
+    "6613",
+    "6808",
+    "6825",
+    "6986",
+    "7415",
+    "7921",
+    "8144",
+    "8156",
+    "8260",
+    "8274",
+    "8287",
+    "8292",
+    "8297",
+    "922",
+    "961"
+  ],
+  "references": [
+    {
+      "id": "1212",
+      "url": "https://shogi-joutatsu.com/archives/1212",
+      "cache": ".cache/curriculum-source/1212.txt",
+      "sha256": "d8bda8e6cc935e0111a3560313e48487da7e9a59494f25dbe5eacc79a591c8c4",
+      "lines": 68,
+      "read_range": "1-68 EOF",
+      "visual_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28
+      ],
+      "visual_assets": [
+        {
+          "index": 0,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/23e8d23e11014e006fd8608b0c6363d56f7e16062cc80c34c418ae2804a88e9a.png",
+          "white": ".cache/curriculum-source/white-review/23e8d23e11014e006fd8608b0c6363d56f7e16062cc80c34c418ae2804a88e9a.png",
+          "root_source_sha256": "d05ed2ae9bd46e96caebddca4b11bf8d2742642f92e5be3099025b61475b9af6",
+          "root_white_sha256": "cf7aed52c73708baa89039c72473d374675319ae1c3f2644a80585eba0b928d4",
+          "root_dimensions": [
+            60,
+            64
+          ]
+        },
+        {
+          "index": 1,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/5e4f33926059a4d312e1d3cb855cfc6e5e92734e6a50c67d33805451363c2ac6.png",
+          "white": ".cache/curriculum-source/white-review/5e4f33926059a4d312e1d3cb855cfc6e5e92734e6a50c67d33805451363c2ac6.png",
+          "root_source_sha256": "81898f21ef09a1f4d4b32a0688647387debeaf15aa39601bd64b03914ebb9f26",
+          "root_white_sha256": "8d33756148beee61f684856a6b5276142094082d7fec045abc98846eaa92eb87",
+          "root_dimensions": [
+            60,
+            64
+          ]
+        },
+        {
+          "index": 2,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/6c92558c99e51b5fb4f6fe92101141502fb0b64e184a0ec373bd28b593eb9ad3.png",
+          "white": ".cache/curriculum-source/white-review/6c92558c99e51b5fb4f6fe92101141502fb0b64e184a0ec373bd28b593eb9ad3.png",
+          "root_source_sha256": "431b8b14324a2def35672021e07d9bfcb47f225ca1107abe08f288b65ecbc7bf",
+          "root_white_sha256": "92011acbe98cca906d76aefa321f5078f33e537aebfa4c72af01482421a25448",
+          "root_dimensions": [
+            60,
+            64
+          ]
+        },
+        {
+          "index": 3,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/0e536ae8b061919edc9d441d72a750bc0ecb863ad88b8260bb63fcd766b0f9ad.png",
+          "white": ".cache/curriculum-source/white-review/0e536ae8b061919edc9d441d72a750bc0ecb863ad88b8260bb63fcd766b0f9ad.png",
+          "root_source_sha256": "c58ddbb5673cf994d81292ebdc061bae48b57223e1ed09ec438b6f34212aab19",
+          "root_white_sha256": "777798e143a375f14cb2b5dc8748db48fce56d25b305dc19621eb604bf9e7619",
+          "root_dimensions": [
+            60,
+            64
+          ]
+        },
+        {
+          "index": 4,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/341bf9119aecd346ce5a1fd4db4ef662db9104f7137d8a0ac176df5036e74062.png",
+          "white": ".cache/curriculum-source/white-review/341bf9119aecd346ce5a1fd4db4ef662db9104f7137d8a0ac176df5036e74062.png",
+          "root_source_sha256": "993ed5e1c68b2cfe03dd8cf864d10e117b8202bec944ff44d81a0f3d8892d569",
+          "root_white_sha256": "939ca004059d5846b53ae03a2701ae772e56394d68bf8a24f222e09ed2cac38d",
+          "root_dimensions": [
+            60,
+            64
+          ]
+        },
+        {
+          "index": 5,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/6e75231e97825de7e562c1a65cbe09322d0e76acb1b0c51f9561e8292fc0791d.png",
+          "white": ".cache/curriculum-source/white-review/6e75231e97825de7e562c1a65cbe09322d0e76acb1b0c51f9561e8292fc0791d.png",
+          "root_source_sha256": "12915709318f5757503542c5a46a077cb092d89515ce104cabd7d510a9306b1f",
+          "root_white_sha256": "cdff673c805b0433302311d016ad8e5b72536b052f9217089b1017fd2d1ac437",
+          "root_dimensions": [
+            60,
+            64
+          ]
+        },
+        {
+          "index": 6,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/dc3353573186cebe50f10ebaa2bb4e4923208730b143b39cee3cad7ff2c37dbd.png",
+          "white": ".cache/curriculum-source/white-review/dc3353573186cebe50f10ebaa2bb4e4923208730b143b39cee3cad7ff2c37dbd.png",
+          "root_source_sha256": "218a9706799bc6f216aed41010a1df57cfbc61205f973a900c0703253b4c6b87",
+          "root_white_sha256": "378243797ace0f9daccacdd4cf578117065b85b9b5d1012545cb4f3947be36c2",
+          "root_dimensions": [
+            60,
+            64
+          ]
+        },
+        {
+          "index": 7,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/4956813facf97f65f325824be29ba7a78d45ac81f76e59cfa30b996e8df681f2.png",
+          "white": ".cache/curriculum-source/white-review/4956813facf97f65f325824be29ba7a78d45ac81f76e59cfa30b996e8df681f2.png",
+          "root_source_sha256": "041131484b9b61245d03e58b6a9b981ea79e20dd044bab412f12094ee69b52f5",
+          "root_white_sha256": "5b3a2f663447ef662f4a207ce4011d2d06e2f3a64dad1bd089a38e17cc3a89e0",
+          "root_dimensions": [
+            60,
+            64
+          ]
+        },
+        {
+          "index": 8,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/55d5ed5c67a2d6f83327fc8ffa95885fe3cc0d65a4e1d7646c78220e2d421df2.png",
+          "white": ".cache/curriculum-source/white-review/55d5ed5c67a2d6f83327fc8ffa95885fe3cc0d65a4e1d7646c78220e2d421df2.png",
+          "root_source_sha256": "b504da55be3de4d84a476e7188b8d90c200d3b99f8c8d4b2c38f6f53d114e6ee",
+          "root_white_sha256": "f81b0576e2fb738c6cfec2a5d70ca0279ae043423478c890341cd35f4c83ef35",
+          "root_dimensions": [
+            60,
+            64
+          ]
+        },
+        {
+          "index": 9,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/a54a3fc7e9e786963930a667b7afc2378f7ee25c2753ce8a9f53ddf77e37ed5c.png",
+          "white": ".cache/curriculum-source/white-review/a54a3fc7e9e786963930a667b7afc2378f7ee25c2753ce8a9f53ddf77e37ed5c.png",
+          "root_source_sha256": "53d1e14508f83ac798caba0e451fd5c315c70ba5daf80ffdd6871442290b2b87",
+          "root_white_sha256": "b7610d3fda585599559769a1b4303ed6c3dd5aacbffe4ce71ab211c9c8f08f38",
+          "root_dimensions": [
+            60,
+            64
+          ]
+        },
+        {
+          "index": 10,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/18d4a98d556bbfec5b9f06894af5339589238499abce4f68e5b289968942af8c.png",
+          "white": ".cache/curriculum-source/white-review/18d4a98d556bbfec5b9f06894af5339589238499abce4f68e5b289968942af8c.png",
+          "root_source_sha256": "c15084fb24683bcf78a9a5ce8aa603cb8c276abe7479fa00b96efcc3ccf7901c",
+          "root_white_sha256": "72b62b691505c62d442222c82c46091b3b4372b8678b38fa8b725ee99d692ff7",
+          "root_dimensions": [
+            60,
+            64
+          ]
+        },
+        {
+          "index": 11,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/0e2f5f3966cd4d2390c8fa1c33ca9df5607b04bf979f107d16e2251e4d45313d.png",
+          "white": ".cache/curriculum-source/white-review/0e2f5f3966cd4d2390c8fa1c33ca9df5607b04bf979f107d16e2251e4d45313d.png",
+          "root_source_sha256": "fd3443dcb01a72e4ede0428732f60ef2cb6985af68fc6fbf698feb4202e0004a",
+          "root_white_sha256": "002a691cb4305f9158c994f85c16496838ed6679ca46a385ee73b52ebcd74569",
+          "root_dimensions": [
+            60,
+            64
+          ]
+        },
+        {
+          "index": 12,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/589414f67dae9e1909e523d94c1f0dc75a5a1f156bb244049e649e06f45ba951.png",
+          "white": ".cache/curriculum-source/white-review/589414f67dae9e1909e523d94c1f0dc75a5a1f156bb244049e649e06f45ba951.png",
+          "root_source_sha256": "89a750010bf741d67e564452f985dfd4cc8acd203f4c9686d6beff94e890b57e",
+          "root_white_sha256": "3d62894978667873bed42d2f53a9a5388be9ea4eb917d4bf30ce593d371c3621",
+          "root_dimensions": [
+            60,
+            64
+          ]
+        },
+        {
+          "index": 13,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/543da82cf2b95ade743aa00ff69a144519bb08a2152423a5840817e73d2eb7a5.png",
+          "white": ".cache/curriculum-source/white-review/543da82cf2b95ade743aa00ff69a144519bb08a2152423a5840817e73d2eb7a5.png",
+          "root_source_sha256": "2f0967d3a69bf3ca2fe02e314c0fca38e6148f73492c188bdca5424044ba3056",
+          "root_white_sha256": "b3d74bca5eb367d3cebb391efc032a5b6b3cab17b8eefa0804c39bd4bc093fe3",
+          "root_dimensions": [
+            60,
+            64
+          ]
+        },
+        {
+          "index": 20,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/6c92558c99e51b5fb4f6fe92101141502fb0b64e184a0ec373bd28b593eb9ad3.png",
+          "white": ".cache/curriculum-source/white-review/6c92558c99e51b5fb4f6fe92101141502fb0b64e184a0ec373bd28b593eb9ad3.png",
+          "root_source_sha256": "431b8b14324a2def35672021e07d9bfcb47f225ca1107abe08f288b65ecbc7bf",
+          "root_white_sha256": "92011acbe98cca906d76aefa321f5078f33e537aebfa4c72af01482421a25448",
+          "root_dimensions": [
+            60,
+            64
+          ]
+        },
+        {
+          "index": 21,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/341bf9119aecd346ce5a1fd4db4ef662db9104f7137d8a0ac176df5036e74062.png",
+          "white": ".cache/curriculum-source/white-review/341bf9119aecd346ce5a1fd4db4ef662db9104f7137d8a0ac176df5036e74062.png",
+          "root_source_sha256": "993ed5e1c68b2cfe03dd8cf864d10e117b8202bec944ff44d81a0f3d8892d569",
+          "root_white_sha256": "939ca004059d5846b53ae03a2701ae772e56394d68bf8a24f222e09ed2cac38d",
+          "root_dimensions": [
+            60,
+            64
+          ]
+        },
+        {
+          "index": 22,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/4956813facf97f65f325824be29ba7a78d45ac81f76e59cfa30b996e8df681f2.png",
+          "white": ".cache/curriculum-source/white-review/4956813facf97f65f325824be29ba7a78d45ac81f76e59cfa30b996e8df681f2.png",
+          "root_source_sha256": "041131484b9b61245d03e58b6a9b981ea79e20dd044bab412f12094ee69b52f5",
+          "root_white_sha256": "5b3a2f663447ef662f4a207ce4011d2d06e2f3a64dad1bd089a38e17cc3a89e0",
+          "root_dimensions": [
+            60,
+            64
+          ]
+        },
+        {
+          "index": 23,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/a54a3fc7e9e786963930a667b7afc2378f7ee25c2753ce8a9f53ddf77e37ed5c.png",
+          "white": ".cache/curriculum-source/white-review/a54a3fc7e9e786963930a667b7afc2378f7ee25c2753ce8a9f53ddf77e37ed5c.png",
+          "root_source_sha256": "53d1e14508f83ac798caba0e451fd5c315c70ba5daf80ffdd6871442290b2b87",
+          "root_white_sha256": "b7610d3fda585599559769a1b4303ed6c3dd5aacbffe4ce71ab211c9c8f08f38",
+          "root_dimensions": [
+            60,
+            64
+          ]
+        },
+        {
+          "index": 24,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/0e2f5f3966cd4d2390c8fa1c33ca9df5607b04bf979f107d16e2251e4d45313d.png",
+          "white": ".cache/curriculum-source/white-review/0e2f5f3966cd4d2390c8fa1c33ca9df5607b04bf979f107d16e2251e4d45313d.png",
+          "root_source_sha256": "fd3443dcb01a72e4ede0428732f60ef2cb6985af68fc6fbf698feb4202e0004a",
+          "root_white_sha256": "002a691cb4305f9158c994f85c16496838ed6679ca46a385ee73b52ebcd74569",
+          "root_dimensions": [
+            60,
+            64
+          ]
+        },
+        {
+          "index": 25,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/543da82cf2b95ade743aa00ff69a144519bb08a2152423a5840817e73d2eb7a5.png",
+          "white": ".cache/curriculum-source/white-review/543da82cf2b95ade743aa00ff69a144519bb08a2152423a5840817e73d2eb7a5.png",
+          "root_source_sha256": "2f0967d3a69bf3ca2fe02e314c0fca38e6148f73492c188bdca5424044ba3056",
+          "root_white_sha256": "b3d74bca5eb367d3cebb391efc032a5b6b3cab17b8eefa0804c39bd4bc093fe3",
+          "root_dimensions": [
+            60,
+            64
+          ]
+        },
+        {
+          "index": 26,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/8cddc4023d919b26b1d8ff727127e7bdf6583d1c5d9664020a0564b8a15f5f69.png",
+          "white": ".cache/curriculum-source/white-review/8cddc4023d919b26b1d8ff727127e7bdf6583d1c5d9664020a0564b8a15f5f69.png",
+          "root_source_sha256": "5896bdab78668f877cebb2b04fc48c919e18ccd179d87828e3595fd59c861d1c",
+          "root_white_sha256": "1844d58e6cba6bc748a55c990d41e3d40447a410adf58287ded034b44d6c3570",
+          "root_dimensions": [
+            974,
+            867
+          ]
+        },
+        {
+          "index": 27,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/76f3dfef73855a5ba96258255ae8e2885ddd1f3ce7b26bc8b97838dc07248f72.png",
+          "white": ".cache/curriculum-source/white-review/76f3dfef73855a5ba96258255ae8e2885ddd1f3ce7b26bc8b97838dc07248f72.png",
+          "root_source_sha256": "cb8def28de1474f2943e9063c2862c5bf60234596888c4e004f2c2a18100577e",
+          "root_white_sha256": "571227f45bf8237e43c6a5a2c8d4f6a1ddaec3ba5c6f726ab3037c8e0c9f3485",
+          "root_dimensions": [
+            974,
+            867
+          ]
+        },
+        {
+          "index": 28,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/d492e9ea68f9cabc2247dfc59562f79dfe4d8906465d859b6889ba3e8777e89b.png",
+          "white": ".cache/curriculum-source/white-review/d492e9ea68f9cabc2247dfc59562f79dfe4d8906465d859b6889ba3e8777e89b.png",
+          "root_source_sha256": "f31527a0855ae5b11efd3ed4b52c990dd941cc3bd640c44bcbf611ed763b7fe1",
+          "root_white_sha256": "2c82bdf1837610a1a5e876750945ce9b2a8c0fd5bec3bfcce04c20d7738907b5",
+          "root_dimensions": [
+            974,
+            867
+          ]
+        }
+      ],
+      "visual_evidence": [
+        "All23teachingimageoccurrences (17unique) directlyinspected:14piecefront/back60x64 +3full974x867boards; repeatindices20–25 sameassets. CursivegoldvariantspromotedSilver/Knight/Lance/Pawn; dragon龍王/horse龍馬 glyphs; boardnotations成銀成桂成香 versus全圭杏. Sampleboardinitialpawn2f7f/white3d, emptyhands, noinstructionaltactic."
+      ],
+      "cautions": [
+        "Fontforms differ; do not identify literalLatin/fullkanjicharacterfromappearancealone. Nohistoricaletymologyindependentverificationoutsideclosedscope."
+      ],
+      "unverified": [
+        "Currentcurriculumduplicationpending; thisreferenceunits=[] incoverage."
+      ]
+    },
+    {
+      "id": "1678",
+      "url": "https://shogi-joutatsu.com/archives/1678",
+      "cache": ".cache/curriculum-source/1678.txt",
+      "sha256": "d07e4e77ccb5c15abf3a24d833aeb4099cbe7a6d839590f3fe14efe9ca4e7291",
+      "lines": 103,
+      "read_range": "1-103 EOF",
+      "visual_indices": [],
+      "visual_assets": [],
+      "visual_evidence": [
+        "Inventory25images individuallyclassified:dialogueavatars,linkedarticleeyecatchthumbnails,appads/bookcovers; noinlineboardteachingimages. Rankcomparisontable readastext:Wars1dan≈2410–5kyu isauthoropinion, notverifiedcurrentratingconversion."
+      ],
+      "cautions": [
+        "Authoranecdotalrankcapabilityandcrosssiteconversionsdonotjustifyguaranteedappmilestones. Platformtimelimits/rankrules/timeestimateandclaimedAIaccuracyhistoricalunverified; noexternalexpansion."
+      ],
+      "unverified": [
+        "Alltemporalplatformclaims andstatistics; curriculumduplicationpending."
+      ]
+    },
+    {
+      "id": "172",
+      "url": "https://shogi-joutatsu.com/archives/172",
+      "cache": ".cache/curriculum-source/172.txt",
+      "sha256": "dc065ee3e5beea989e2275aeef66958c83e47671e48045111c30c2fed6d8492e",
+      "lines": 79,
+      "read_range": "1-79 EOF",
+      "visual_indices": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25
+      ],
+      "visual_assets": [
+        {
+          "index": 6,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/e9c64a694d7d6f3e6910e4d7a4b447a4cd4a732b1a2e83578fb857356ac8ccfc.png",
+          "white": ".cache/curriculum-source/white-review/e9c64a694d7d6f3e6910e4d7a4b447a4cd4a732b1a2e83578fb857356ac8ccfc.png",
+          "root_source_sha256": "a1cdf5d7c65921142e776b6e4d0e34fa3c7155888d6d51a8b356456b28a8da0c",
+          "root_white_sha256": "0eb4288e1f201f40d5872cf9abebc2a5a3dbc4cdd8f399a5125a8bb5ee10af31",
+          "root_dimensions": [
+            1712,
+            910
+          ]
+        },
+        {
+          "index": 7,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/c616837b992c34d12de7527df1c73fb2360d6bf9cdf04e151e3ffb018eac674f.png",
+          "white": ".cache/curriculum-source/white-review/c616837b992c34d12de7527df1c73fb2360d6bf9cdf04e151e3ffb018eac674f.png",
+          "root_source_sha256": "0d1dad27aaa2f7cb3d96e0947854f1d564fded8c1f8f18bd95d2ef0c8e9ec31c",
+          "root_white_sha256": "34b14220cf11443b009bf41a59b23c4029dc1f2cfc40ecf4dfe1efd7546ec240",
+          "root_dimensions": [
+            1712,
+            910
+          ]
+        },
+        {
+          "index": 8,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/6e83fb0f5f472ac47184e6c0e7b2b108475d1a7c5b3d3fab8e32142fbce080df.png",
+          "white": ".cache/curriculum-source/white-review/6e83fb0f5f472ac47184e6c0e7b2b108475d1a7c5b3d3fab8e32142fbce080df.png",
+          "root_source_sha256": "b45238384d5ba0bd7961e2afe0d88275cfa418f1a66b1d9d30b2afbebade6a85",
+          "root_white_sha256": "4df60e2c87bcfa3c3b7ff06764eb6dd6c643b931aa1d9123621cb3c4eb3402ae",
+          "root_dimensions": [
+            1712,
+            910
+          ]
+        },
+        {
+          "index": 9,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/4c952babe4923884241592d83b4fb1842599daf1145baee95f1cdee0bbb50b8b.png",
+          "white": ".cache/curriculum-source/white-review/4c952babe4923884241592d83b4fb1842599daf1145baee95f1cdee0bbb50b8b.png",
+          "root_source_sha256": "d45605207d97d74ae8e82c70e226716f86a2dd13b16acf294b77082e965f20d7",
+          "root_white_sha256": "031484e7a5dd5ad5dad2e51ede806db8305c316f0614103ee77c511383312b22",
+          "root_dimensions": [
+            840,
+            887
+          ]
+        },
+        {
+          "index": 10,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/aa878e9c1249a3c7c0d2906a173e84844a9ccc1ac87d95168d5326dd4fd3f1a1.png",
+          "white": ".cache/curriculum-source/white-review/aa878e9c1249a3c7c0d2906a173e84844a9ccc1ac87d95168d5326dd4fd3f1a1.png",
+          "root_source_sha256": "8a4fc83ae52027541ed271fac39a20135a8a1f614de142206eeb65d309f50725",
+          "root_white_sha256": "9af4e07a23d9e814fd0fffbf4a7fceb094493c71b4a0bd28675165d417079fce",
+          "root_dimensions": [
+            881,
+            730
+          ]
+        },
+        {
+          "index": 11,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/89ef3568fd454a0d0f72bb2f7142e3f59b74de9c5dfeaedbe1e63fc46b082be0.png",
+          "white": ".cache/curriculum-source/white-review/89ef3568fd454a0d0f72bb2f7142e3f59b74de9c5dfeaedbe1e63fc46b082be0.png",
+          "root_source_sha256": "07ab4b5b9d3a4cf09ac1b065928484118b605e22f2d557522f28f1543255626c",
+          "root_white_sha256": "7ec9d0af1bf3a8d638649f740e3c6309b2c0b4483f284a86fb317dde000c94ed",
+          "root_dimensions": [
+            830,
+            884
+          ]
+        },
+        {
+          "index": 12,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/58c404f32af68876f8779887507840c7db8c42d5cb0fa24bb4e4f1abd000f661.png",
+          "white": ".cache/curriculum-source/white-review/58c404f32af68876f8779887507840c7db8c42d5cb0fa24bb4e4f1abd000f661.png",
+          "root_source_sha256": "0afbb696b34d932a2ef55cec8467fa9a8862cb596c899459d5c743c62192c0a8",
+          "root_white_sha256": "9d0f22dc383460e3f9d1e4cb78013556aede542c715def1f7ff68597de126f99",
+          "root_dimensions": [
+            840,
+            885
+          ]
+        },
+        {
+          "index": 13,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/3a7b7c06907b65d455e084e74f70e87f9a8496fb0a4ead49a8441d0b77bdff44.png",
+          "white": ".cache/curriculum-source/white-review/3a7b7c06907b65d455e084e74f70e87f9a8496fb0a4ead49a8441d0b77bdff44.png",
+          "root_source_sha256": "c173ac126f40b3f266055dfbbb651b0bbb8fc87d9519e95fd9d630eb12b74c16",
+          "root_white_sha256": "c642cd66b6f312f43bd04c7cbf718c512ae3b102711a0377df179b9c3f85dae7",
+          "root_dimensions": [
+            841,
+            890
+          ]
+        },
+        {
+          "index": 14,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/2e37b44d2ba4c8b771eeebd77a8538f5db7700411ce5d88a5b310e7869ad3af8.png",
+          "white": ".cache/curriculum-source/white-review/2e37b44d2ba4c8b771eeebd77a8538f5db7700411ce5d88a5b310e7869ad3af8.png",
+          "root_source_sha256": "0c83bbead1d50bc0f041835d60c5d59b49a77398bc29466fe28ff112d56ceb81",
+          "root_white_sha256": "e71ed0338d94614267cf477178a1ca5676dddfff66ef47e7438adc5b9bf3ac23",
+          "root_dimensions": [
+            1060,
+            890
+          ]
+        },
+        {
+          "index": 15,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/b74812f113fa713497e86d3c71e58f6bb5b66f68ea5a5cb66c78f170e314e8f2.png",
+          "white": ".cache/curriculum-source/white-review/b74812f113fa713497e86d3c71e58f6bb5b66f68ea5a5cb66c78f170e314e8f2.png",
+          "root_source_sha256": "df04a8f8dce01e867345f18311a3972e38308746b258a7134f5264185c7c6fd8",
+          "root_white_sha256": "02efed98392d65c37eb5d83265ef6caa377cb782910dab0fabf86a23d12dabe5",
+          "root_dimensions": [
+            1045,
+            885
+          ]
+        },
+        {
+          "index": 16,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/222bad6cc7dcda1261462a9e977f6db84476ad8807320a06866c9d72f8da6f56.png",
+          "white": ".cache/curriculum-source/white-review/222bad6cc7dcda1261462a9e977f6db84476ad8807320a06866c9d72f8da6f56.png",
+          "root_source_sha256": "b8c90f86a3402c76316c7090eaf6b249d3fface4c783a10a7fccf570e51c5944",
+          "root_white_sha256": "bc21ee1fcb4dae310364d0061c8e69982c331115fd3721b5c96fdb1f5a9e83ed",
+          "root_dimensions": [
+            1055,
+            886
+          ]
+        },
+        {
+          "index": 17,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/71c76fc99cb2c901f221dd3957480bc46c498c4ed8afe6867d3803e3d51b246c.png",
+          "white": ".cache/curriculum-source/white-review/71c76fc99cb2c901f221dd3957480bc46c498c4ed8afe6867d3803e3d51b246c.png",
+          "root_source_sha256": "7d8e3e67c991f588c19ab5078e66ffa777ecdd2551bb65d53e34690c67d813b1",
+          "root_white_sha256": "f9fb9304de10245be88a54c0251f1e24dc312430245e4843b2df4487af9469a3",
+          "root_dimensions": [
+            845,
+            882
+          ]
+        },
+        {
+          "index": 18,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/af72e5d7b1257b295f9bb9c699b70a5cd4c35882e0fe6276f21b61d7a888c995.png",
+          "white": ".cache/curriculum-source/white-review/af72e5d7b1257b295f9bb9c699b70a5cd4c35882e0fe6276f21b61d7a888c995.png",
+          "root_source_sha256": "b7ff09910f847c715a0c6059c31f74755cb30e63a47b87dbf25442c5640f7abd",
+          "root_white_sha256": "dc5ed6e084730c6485adf1695fce0e410f02c53f5942b0e3e194dec6950aa348",
+          "root_dimensions": [
+            1062,
+            885
+          ]
+        },
+        {
+          "index": 19,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/6f74f97486c0a94d6570be50c0b4fffa7a1f35ffa836b35bccd508b5ac3d6a07.png",
+          "white": ".cache/curriculum-source/white-review/6f74f97486c0a94d6570be50c0b4fffa7a1f35ffa836b35bccd508b5ac3d6a07.png",
+          "root_source_sha256": "61b62c3e70accad58eb334eb3685b85507d2333065486c2fda8e247806600efa",
+          "root_white_sha256": "6af71dfa8bdd6fc4cbd575947a12e28aa158bcc003ce4bbfb9c511ed966578b4",
+          "root_dimensions": [
+            1712,
+            910
+          ]
+        },
+        {
+          "index": 20,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/11cbeaf1611e31498bb87d941d14750ceefac369a7cf82a149927dbf2c4ce7d9.png",
+          "white": ".cache/curriculum-source/white-review/11cbeaf1611e31498bb87d941d14750ceefac369a7cf82a149927dbf2c4ce7d9.png",
+          "root_source_sha256": "4fdd8798c5ac86f81c9d856a8d6c0342e23bc411aa01b6bb489bc1d8a06f219b",
+          "root_white_sha256": "ea67f05da0ed0508adcd41d666cc69b6f1b388e8abc9a3c07ba0eb0953a304e5",
+          "root_dimensions": [
+            1046,
+            884
+          ]
+        },
+        {
+          "index": 21,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/d15f3a505aee2a2a77d8144a8abbe3fc6cef68255b43b6b4556f71229798835a.png",
+          "white": ".cache/curriculum-source/white-review/d15f3a505aee2a2a77d8144a8abbe3fc6cef68255b43b6b4556f71229798835a.png",
+          "root_source_sha256": "b8728dd90b109b12f17cedbed9551c8829b2eaead4d01bcc772d3599029761b7",
+          "root_white_sha256": "d57fbe61a50b1f99ae7696c75f009001a26d36fed202c1a320fc00371d181c2b",
+          "root_dimensions": [
+            1060,
+            890
+          ]
+        },
+        {
+          "index": 22,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/7836b435e5fecd6ce3447280a1dc3e77b8364188b5bd0cc92b46185ea9c6b66f.png",
+          "white": ".cache/curriculum-source/white-review/7836b435e5fecd6ce3447280a1dc3e77b8364188b5bd0cc92b46185ea9c6b66f.png",
+          "root_source_sha256": "16563cc4f82c21cd93ee40be2054ee67e5a9e454ec9688c3a1aefd24bfad6ccd",
+          "root_white_sha256": "7d279fb9d26048d1683a45631d2c82652f6d2e4dff06a6d30e20bd8e14638881",
+          "root_dimensions": [
+            1400,
+            865
+          ]
+        },
+        {
+          "index": 23,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/a817c1e5cefde60b9148a584f9d8ed49e45fcf0e84bcade7485e1c9853fc122b.png",
+          "white": ".cache/curriculum-source/white-review/a817c1e5cefde60b9148a584f9d8ed49e45fcf0e84bcade7485e1c9853fc122b.png",
+          "root_source_sha256": "2756b64cbdb9eac091b1de921e7d4033e58b26596d31c8bc53f446b8fe2cc996",
+          "root_white_sha256": "455c6ff31ab297d2d64595e25ced942e574d81ff13fe0897888b5801ef845f1f",
+          "root_dimensions": [
+            811,
+            640
+          ]
+        },
+        {
+          "index": 24,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/96604e3db13860ca3fa4767830d82b64b9309339cc5a143e928ea1a6c544ec13.png",
+          "white": ".cache/curriculum-source/white-review/96604e3db13860ca3fa4767830d82b64b9309339cc5a143e928ea1a6c544ec13.png",
+          "root_source_sha256": "ab50309fd6987735afc1e6eed6c6cdb54f9c141731bd19203ccbc986a16960c4",
+          "root_white_sha256": "0174e143b67826c13391c6538a61f2a8e284019527705e8ac72a217503d433c8",
+          "root_dimensions": [
+            1404,
+            989
+          ]
+        },
+        {
+          "index": 25,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/b7fad06f7e3225d82b128416719c5a216a7bbe8618892da84c1a711df99d80fa.png",
+          "white": ".cache/curriculum-source/white-review/b7fad06f7e3225d82b128416719c5a216a7bbe8618892da84c1a711df99d80fa.png",
+          "root_source_sha256": "047247e2778dd9ec857d6840e4341e835d8f015bec53a0c509fe9814388053a4",
+          "root_white_sha256": "e287230a98b2df4fdb1cfdfe0f41bfdf22dfe41b225b2a00684feec0d229c999",
+          "root_dimensions": [
+            767,
+            843
+          ]
+        }
+      ],
+      "visual_evidence": [
+        "All20instructionalscreenshots originaldimensions767–1712wide directlyviewedwhite. Historical2018Windows installation workflow:elmoevaluation3binaryfiles, standard_book.db underbook, eval folder, YaneuraOuKPPT4.82, ShogiGUIzip/exe engineaddition. GUIinitialfullboard visible, emptyhands, engineoptionsThreads4/Hash1024 inhistoricalscreenshot, no recommended execution. No tactical teachingdiagram."
+      ],
+      "cautions": [
+        "Currentdownloadavailability,safety,Windowsversions/macOScompatibility,enginecompatibility notverified; article assertionunscanneddownloadsafe isunsupported. HeadingmentionsShogidokoro while actualscreens/textuseShogiGUI. No installation performed."
+      ],
+      "unverified": [
+        "Allcurrentsoftwarefacts; closedsource read doesnotauthorizefollowingdownloadlinks."
+      ]
+    },
+    {
+      "id": "3338",
+      "url": "https://shogi-joutatsu.com/archives/3338",
+      "cache": ".cache/curriculum-source/3338.txt",
+      "sha256": "4f4385878743ad4c39c8ab7c9e21ed4e3f9120ae649894d29d9e62a3cb359c7f",
+      "lines": 95,
+      "read_range": "1-95 EOF",
+      "visual_indices": [
+        4,
+        7,
+        8,
+        19,
+        20,
+        22
+      ],
+      "visual_assets": [
+        {
+          "index": 4,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/0c4f5ef4551527c1a028cb44d787a66eb0f471b673bdf99e21c09097105a0769.jpg",
+          "white": ".cache/curriculum-source/white-review/0c4f5ef4551527c1a028cb44d787a66eb0f471b673bdf99e21c09097105a0769.jpg.png",
+          "root_source_sha256": "0743be22181ddf6aa44a58103bf7313fcdb825776b98bba3c4e46d607da5a148",
+          "root_white_sha256": "f980c6cf717fc71ca1f17ed5dc9a5786e1ce3e8b06ad57fd9bcc86da09c708c4",
+          "root_dimensions": [
+            887,
+            512
+          ]
+        },
+        {
+          "index": 7,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/3c8553c538e5acbc9e52010a3a266937a3d65e9d8d88eaa307fd0252d0fdd094.jpg",
+          "white": ".cache/curriculum-source/white-review/3c8553c538e5acbc9e52010a3a266937a3d65e9d8d88eaa307fd0252d0fdd094.jpg.png",
+          "root_source_sha256": "62b41358033a96a793da0133307b999ddce025f41fa509c7a69d0896d998bf21",
+          "root_white_sha256": "6b41a87b70f6e4dea62b93b1f55eef697f050daa650583351fde24007c7b7f40",
+          "root_dimensions": [
+            663,
+            360
+          ]
+        },
+        {
+          "index": 8,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/e06eba7ccbc4fca4e51ff06ac62537e92f3cb5dedd430fc666f61db1437bb9e6.jpg",
+          "white": ".cache/curriculum-source/white-review/e06eba7ccbc4fca4e51ff06ac62537e92f3cb5dedd430fc666f61db1437bb9e6.jpg.png",
+          "root_source_sha256": "fcbb077322b435582cdc4d2f68b40d6d41ad14c54d3d1eb8646de0156aef8c96",
+          "root_white_sha256": "a7e4e39e7e739f02cad3f3d691f028e36e60df317f5bdc505c1795149be87304",
+          "root_dimensions": [
+            974,
+            455
+          ]
+        },
+        {
+          "index": 19,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/7dd909326b91f7a42e05f6d474a7f3440483498c2a8f0c0b717530644c24d433.jpg",
+          "white": ".cache/curriculum-source/white-review/7dd909326b91f7a42e05f6d474a7f3440483498c2a8f0c0b717530644c24d433.jpg.png",
+          "root_source_sha256": "bed9208fbbe6d6e3a982ce60e683e253f0e6b654536cc73e458f0ea6177bd4e0",
+          "root_white_sha256": "bec7a4b3d44a5aa730566094f3b10513397306ff59bdb69d6eb81f92304132b4",
+          "root_dimensions": [
+            888,
+            512
+          ]
+        },
+        {
+          "index": 20,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/3e15cde037c0dca803ce4e905a2648d146907847df06a427f305ea2fbf45b88a.jpg",
+          "white": ".cache/curriculum-source/white-review/3e15cde037c0dca803ce4e905a2648d146907847df06a427f305ea2fbf45b88a.jpg.png",
+          "root_source_sha256": "f13e3ad50afa7983db4c653ab734b13badb212a73dc2ece94f3bbea079a5f110",
+          "root_white_sha256": "480f99ca238b6ec954445285ba77e7528edcd2583682f0d7d6f725b303f50a6e",
+          "root_dimensions": [
+            888,
+            513
+          ]
+        },
+        {
+          "index": 22,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/1137419cea11a8161479a16dc0d424a0c39bf280ecdad1c2c5264c36a86b4700.jpg",
+          "white": ".cache/curriculum-source/white-review/1137419cea11a8161479a16dc0d424a0c39bf280ecdad1c2c5264c36a86b4700.jpg.png",
+          "root_source_sha256": "14b970670cede48b1c1d29adecdf678e80f470e7da90671200c523a8ed95e137",
+          "root_white_sha256": "a323d583e8c5f8747ceca81135c9e4ee040e86ac7b47766fd67c319527de3ac9",
+          "root_dimensions": [
+            888,
+            512
+          ]
+        }
+      ],
+      "visual_evidence": [
+        "All6instructionalgraphs original663–974width fullyviewedwhite. Ratinghorizontalaxis,rankcategoricalrows,achievements piecewise20% midpoint; graphs show2kyu100%=1kyu20%=1dan0%,1kyu60%=1dan10%; promotionverticalsamereach andcap99.9%,demotiongraph changeshorizontalposition withauthorexplicituncertainty. No boardtactics."
+      ],
+      "cautions": [
+        "2015officialtweetquoteandhistoricalQ&A excerptsnotcurrentverification. 500lossdemotionconditions,rankthresholds,noskiprank,displaynormalization mustnotbeclaimedcurrent. Graphdemotionratingchange explicitlyspeculative; copiedsourcequote notforlessonreuse."
+      ],
+      "unverified": [
+        "Allcurrentplatformrules. No supportedshogitactical incorporation fromthispage."
+      ]
+    },
+    {
+      "id": "340",
+      "url": "https://shogi-joutatsu.com/archives/340",
+      "cache": ".cache/curriculum-source/340.txt",
+      "sha256": "0ce8a6298e7b218c4c5d7ff5561b2e4d0bb30162021d5fce445dc90417373e9e",
+      "lines": 65,
+      "read_range": "1-65 EOF",
+      "visual_indices": [
+        16
+      ],
+      "visual_assets": [
+        {
+          "index": 16,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/e317b2fab81ef1973198bc9a7318dd5333643c680d062f0f02c649f55cc864c3.png",
+          "white": ".cache/curriculum-source/white-review/e317b2fab81ef1973198bc9a7318dd5333643c680d062f0f02c649f55cc864c3.png.png",
+          "root_source_sha256": "38864db96b6c2193b88961758008063818f0114f972e9d8986e883b95e1080da",
+          "root_white_sha256": "94b07c7e6216d24d218db303b86abaca854951886745ec05a2c32af2fd811231",
+          "root_dimensions": [
+            703,
+            550
+          ]
+        }
+      ],
+      "visual_evidence": [
+        "Onlyinstructionalimage16 original703x550 directlyviewedwhite:crossedaxes verticalopeningknowledgeversusoriginality andhorizontaldefensiveversusaggressive style. Notactualplayer radarorvalues. Other16inventoryimages avatars/ads/articlelinks."
+      ],
+      "cautions": [
+        "Sourceexplicitlycouldnotverify2018officialdefinitions; nonpromotionartistryrumorandendgamescorederivedsolelyrank/asserted1dan2.3 unverified. Do notbuildprogressmetrics/rankguaranteesfromthispage."
+      ],
+      "unverified": [
+        "AllcurrentWarsmetricsemantics; no supportedtacticincorporation."
+      ]
+    },
+    {
+      "id": "3411",
+      "url": "https://shogi-joutatsu.com/archives/3411",
+      "cache": ".cache/curriculum-source/3411.txt",
+      "sha256": "799f17ab404e98f71fd8311456bbe47bf326d9053497bf91422cb97bc8004630",
+      "lines": 117,
+      "read_range": "1-117 EOF",
+      "visual_indices": [],
+      "visual_assets": [],
+      "visual_evidence": [
+        "Inventory25imagesclassifiedavatars/appads/bookcovers; no teachingboards orinteriorbookpages. Fulltextbookselectioncriteria read: chooseunderstandableexamplesandreviewerexperience, rulebooks/drill/one-plymatebooks. Bookcontentsnotprovidedandnotfetched."
+      ],
+      "cautions": [
+        "Authorbookrecommendations,price20–30%discount,subscriptiontrial andavailabletitleshistoricalnotverifiedcurrent. Do notadaptbookscomposedpuzzles orwrite guaranteedstrengthoutcomes."
+      ],
+      "unverified": [
+        "Bookinteriorcontent/currentmetadataoffers; no supportedtacticalincorporation."
+      ]
+    },
+    {
+      "id": "345",
+      "url": "https://shogi-joutatsu.com/archives/345",
+      "cache": ".cache/curriculum-source/345.txt",
+      "sha256": "5250bc6aff0dd6b4a2b1a805439a2d3339fa334543856a5b7059ed23f6a092b7",
+      "lines": 80,
+      "read_range": "1-80 EOF",
+      "visual_indices": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "visual_assets": [
+        {
+          "index": 8,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/b944d036def33ea44e75d2d59d95e1bd5f86f5f3c16346b2ed1a4f7d7578dea9.png",
+          "white": ".cache/curriculum-source/white-review/b944d036def33ea44e75d2d59d95e1bd5f86f5f3c16346b2ed1a4f7d7578dea9.png.png",
+          "root_source_sha256": "bf1ad5bbd22f862fedd24a2a88b235d40d03b0b5dfda529318643fad7c7eb987",
+          "root_white_sha256": "b96cb7a683a8976c0eb950434a8ff16b37f6a5f5d015d8507df6a1a4a8d27bb8",
+          "root_dimensions": [
+            1594,
+            874
+          ]
+        },
+        {
+          "index": 9,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/cde701c50447ada1cc6db0471f1cc7959b5d8b17baab3a86d0561b127af1caa1.png",
+          "white": ".cache/curriculum-source/white-review/cde701c50447ada1cc6db0471f1cc7959b5d8b17baab3a86d0561b127af1caa1.png.png",
+          "root_source_sha256": "6bccc54558856cccb4e2d51d5985c1d4ef08cad8235ea2d3ee8e63346edd42ae",
+          "root_white_sha256": "e44865e50d1f0b73924886a57f374f488a7badc521ed48b4835a27d76bf77986",
+          "root_dimensions": [
+            1389,
+            1011
+          ]
+        },
+        {
+          "index": 10,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/d48cb74ae738df653a165bc62b3b8c5c3cf035a2abd3e75440e6282fdf5251b2.png",
+          "white": ".cache/curriculum-source/white-review/d48cb74ae738df653a165bc62b3b8c5c3cf035a2abd3e75440e6282fdf5251b2.png.png",
+          "root_source_sha256": "366c68e6047626e87164056b24908be2cc6e8fd42a2105d1a1841602ec6f11fa",
+          "root_white_sha256": "0bc30bf791167181f6a0c5e0ed32d53c213a6f592778917615513dd11d3ac66c",
+          "root_dimensions": [
+            1385,
+            1013
+          ]
+        },
+        {
+          "index": 11,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/d532948cb909b949be8226f472048dae8b3c0697fa44adf586c271a369ae9bc2.png",
+          "white": ".cache/curriculum-source/white-review/d532948cb909b949be8226f472048dae8b3c0697fa44adf586c271a369ae9bc2.png.png",
+          "root_source_sha256": "313e389b13be58048a14b5343dd1c38acb5776c5a48b9b1cf3b549180a1dddb8",
+          "root_white_sha256": "89c297a08f56b0ede5bf5b2435620d3156a65b617d9a95a0e640451e5b895462",
+          "root_dimensions": [
+            1319,
+            1007
+          ]
+        },
+        {
+          "index": 12,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/17c12e4d02c93180013fdfcf40c3dd0e3fe67fb31674a5f934d7d65fe580dc69.png",
+          "white": ".cache/curriculum-source/white-review/17c12e4d02c93180013fdfcf40c3dd0e3fe67fb31674a5f934d7d65fe580dc69.png.png",
+          "root_source_sha256": "1b6bb633ab3266f96bba60bc62deb4a6dc2ec1b189a9014686f1c9d7ebd29052",
+          "root_white_sha256": "1a4dcb74c90c5dda17e9886f9a0042a5f442092e2de952fa5b59fd91e21f8012",
+          "root_dimensions": [
+            1316,
+            726
+          ]
+        },
+        {
+          "index": 13,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/11110f43967a6a33805adeadff97cccf763c0d90e8f27caa002a820661e4f1af.png",
+          "white": ".cache/curriculum-source/white-review/11110f43967a6a33805adeadff97cccf763c0d90e8f27caa002a820661e4f1af.png.png",
+          "root_source_sha256": "3d3c979b830a5ec3e9af87d22dfbd1561b047a1a01648318f0c4dfeb2e7b0efd",
+          "root_white_sha256": "0164f219a19d591bcbc9e6b1db73359d6b1bc63b6b9c357969e4badb288e8374",
+          "root_dimensions": [
+            596,
+            868
+          ]
+        },
+        {
+          "index": 14,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/0db3ee764ed136d3c897f50a2da10fe81803bccddbdaa12e40481010763281a3.png",
+          "white": ".cache/curriculum-source/white-review/0db3ee764ed136d3c897f50a2da10fe81803bccddbdaa12e40481010763281a3.png.png",
+          "root_source_sha256": "ce25f38df6a015a18d956e42292e5ca841103b9662ca1f84eb8fb464c93a3b24",
+          "root_white_sha256": "8c5b66106284dc0499c8680f3db03dd75f624d49498ac0170c568343a4d62f23",
+          "root_dimensions": [
+            1407,
+            1009
+          ]
+        }
+      ],
+      "visual_evidence": [
+        "All7instructionalscreenshots original596–1594wide directlyviewedwhite. Historicalgamecopysearch2018, pasteintoShogiGUI, engineanalysisstart/candidatecount3/unlimitedsearch screenshot; analysis5seconds andallmoves example; evaluationfixedsentesigngraph withredbad/yellowquestion marks andmatchingpercentages. Midopeninggameboard/handsread:eachbishopinhandafterexchange, move12Silver3b; resulttable not proof ofstrategystrength."
+      ],
+      "cautions": [
+        "Sourceexplicitlyobsoleteimportflowafter2019change. Elmoonechampionshipwin doesnotproveeveryconfiguredengineversuscurrentKishin superiority. Currentimports/payments/softwarebehaviornotverified; noexecute/download actions."
+      ],
+      "unverified": [
+        "Currentplatformcompatibilityandenginecomparison; analysisgraphscoresfromhistoricalexampleonly."
+      ]
+    },
+    {
+      "id": "3776",
+      "url": "https://shogi-joutatsu.com/archives/3776",
+      "cache": ".cache/curriculum-source/3776.txt",
+      "sha256": "35b6a6c0d488cd28a531caa6dc522566d2e9e2f546f7aa8aaf9549ea97ae1d74",
+      "lines": 141,
+      "read_range": "1-141 EOF",
+      "visual_indices": [
+        13
+      ],
+      "visual_assets": [
+        {
+          "index": 13,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/6468040aa682845eec03bac29949b9d318d9106e71c64dd678ea06a3b94d9050.jpg",
+          "white": ".cache/curriculum-source/white-review/6468040aa682845eec03bac29949b9d318d9106e71c64dd678ea06a3b94d9050.jpg.png",
+          "root_source_sha256": "1ef21a17f84d3527f3e86ad495fa3ff542c3c678fe66532652603d88611b4934",
+          "root_white_sha256": "b308e15f109db5ea512073b42e53adf4c8f933d091735e9f218d737b020dd774",
+          "root_dimensions": [
+            1578,
+            682
+          ]
+        }
+      ],
+      "visual_evidence": [
+        "Onlyteachinginfographic13 original1578x682 directlyviewedwhite:understandingvertical/contenthorizontalaxes, left5verticalchunks versusright5horizontalwhole-bookpasses; authorlabelsleftbad/rightgood withoutempiricaldata. Otherimages ads/avatars/bookcovers/articlelinks."
+      ],
+      "cautions": [
+        "Pedagogicalcomparisonauthoropinion notvalidatedfixedrule; noquickskim substitutedforaudauditEOF. Booksinteriorpositionsnotprovided. Prices/subscriptions/recommendationsnotverifiedcurrent."
+      ],
+      "unverified": [
+        "Effectivenessclaims,currentbookavailability; guidecontentduplicationpending."
+      ]
+    },
+    {
+      "id": "4084",
+      "url": "https://shogi-joutatsu.com/archives/4084",
+      "cache": ".cache/curriculum-source/4084.txt",
+      "sha256": "33d60e362400529e4ca274d2375e95f1c2cb15478ddbc3e6e01c08653070767b",
+      "lines": 112,
+      "read_range": "1-112 EOF",
+      "visual_indices": [],
+      "visual_assets": [],
+      "visual_evidence": [
+        "27inventoryimagesclassifiedbookcovers/avatars/appads/subscriptionads; no interiororboardteachingimages. FulltextcoversbeginnerRangingRook, conceptualFourthFile,3volumeFujii series,static-sidecounterplayvolumes."
+      ],
+      "cautions": [
+        "Affiliateauthorfield本間博 conflictsprose藤井猛 for四間飛車を指しこなす本; do notpropagate metadatauncritically. Courseability/rankguarantees areopinion; currentbookprices/subscriptionsnotverified. Bookinteriorsnotreadorfetched."
+      ],
+      "unverified": [
+        "Currentbookmetadataoffers. No directlysupportednewtacticpositionfrompage."
+      ]
+    },
+    {
+      "id": "4096",
+      "url": "https://shogi-joutatsu.com/archives/4096",
+      "cache": ".cache/curriculum-source/4096.txt",
+      "sha256": "372a2bf600e2c4ab22c9bcff6743199fe774bc5767b4531b85e8e15bab3ff561",
+      "lines": 246,
+      "read_range": "1-246 EOF",
+      "visual_indices": [
+        14
+      ],
+      "visual_assets": [
+        {
+          "index": 14,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/1855ec14b736342d1755e5f93c9572195a78886ca420a61b5768aa9636fa9938.png",
+          "white": ".cache/curriculum-source/white-review/1855ec14b736342d1755e5f93c9572195a78886ca420a61b5768aa9636fa9938.png.png",
+          "root_source_sha256": "4324ef68e06a29672ee0ce36aeff7321839f8b66540025df050dd243cd8709e9",
+          "root_white_sha256": "6c2cd38cd76cd92bf2c5f0f3f6432e98770321a1cd10ac7ef4a929b797aaeaca",
+          "root_dimensions": [
+            800,
+            620
+          ]
+        }
+      ],
+      "missing_visuals": [
+        {
+          "index": 15,
+          "url": "https://shogi-joutatsu.com/wp-content/uploads/2026/04/junisen_flow.png",
+          "evidence": "Inventory url-only; candidate-index localPath null; URL SHA256 asset absent; scoped cache filename/hash search found no copy. Exact embedded URL curl --fail --location returned HTTP404 (exit56)."
+        }
+      ],
+      "visual_evidence": [
+        "Image14 full original800x620 viewed: six vertical boxes Meijin/A/B1/B2/C1/C2 plus FreeClass. Printed promotion arrows point downward and demotion arrows upward, contrary to class direction; labels/counts read. This source diagram requires correction before any factual adaptation. Image15 unavailable; visuals coverage incomplete."
+      ],
+      "cautions": [
+        "Title youngest A promotion contradicts prose second-youngest. Prose allpros participate excludes FreeClass later. Tournament rankings, currentchampion, seasonal counts and fourconsecutivepromotions historical assertions not independently verified. No app lesson defect inferred."
+      ],
+      "unverified": [
+        "Image15 remains unavailable; all current tournament facts require independent primary-source verification outside this closed slice."
+      ]
+    },
+    {
+      "id": "4137",
+      "url": "https://shogi-joutatsu.com/archives/4137",
+      "cache": ".cache/curriculum-source/4137.txt",
+      "sha256": "868271083ee1a2d75f440fa4e78bedd674b07ba9f6e9d4935aafcd484a228f0d",
+      "lines": 371,
+      "read_range": "1-371 EOF",
+      "visual_indices": [
+        4,
+        13,
+        14
+      ],
+      "visual_assets": [
+        {
+          "index": 4,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/96195f3b1ed16132079cd34d997b260013161894ceb37994fb7faed29b8c199f.png",
+          "white": ".cache/curriculum-source/white-review/96195f3b1ed16132079cd34d997b260013161894ceb37994fb7faed29b8c199f.png.png",
+          "root_source_sha256": "65d85ce6004149dd47d98656fb59163fdb8d6c8f91c4e9dcefe47d015b5550d3",
+          "root_white_sha256": "d0e2a2763ac664032b566638bce4e1793747b97220611e385de03f5c0fd6b16f",
+          "root_dimensions": [
+            700,
+            420
+          ]
+        },
+        {
+          "index": 13,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/def849bc0bcc90d6ab02d3894a9ec6038514bf9d727704082aa6ca6c1863fba7.png",
+          "white": ".cache/curriculum-source/white-review/def849bc0bcc90d6ab02d3894a9ec6038514bf9d727704082aa6ca6c1863fba7.png.png",
+          "root_source_sha256": "3001b7852ee134cd934649adf6bf1948c5a6db85dcf779c14e8285f5c43a4c58",
+          "root_white_sha256": "58438f4e605f4fec86d9298460c63be7e9e45045e41cab0c9320a37c78a6add7",
+          "root_dimensions": [
+            800,
+            520
+          ]
+        },
+        {
+          "index": 14,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/f294547b85478f0f9a48abdced8bdb269895bc00f6c0966739f9c1bc3e7d1216.jpg",
+          "white": ".cache/curriculum-source/white-review/f294547b85478f0f9a48abdced8bdb269895bc00f6c0966739f9c1bc3e7d1216.jpg.png",
+          "root_source_sha256": "944ba5b0c1931ce7c562f5e019fc8436957d27d75474a36189ef359f89e394a1",
+          "root_white_sha256": "385d554c563bf8775b82c1312c821c5db7400f63ddf73fe38b195f463dce9863",
+          "root_dimensions": [
+            832,
+            832
+          ]
+        }
+      ],
+      "visual_evidence": [
+        "Three teaching figures original700x420/800x520/832x832 directly inspected: prize ladder with6classamounts, qualifying5+2+1+1+1+1 entrants then11-player bracket/titlematch, asymmetric bracket including6classwinner versus5/4classwinners and1classfifth/fourth/winner. Flow image13 arrows point upward fromstep3 tostep2 tostep1 despite stepsequence topdown; diagramdirection caution. Portraits/avatars/ads/linkthumbnails excluded asnontactical."
+      ],
+      "cautions": [
+        "Currenttitles/prizes/classrules/timecontrols andhistoricalwinner table sourceclaimsnotindependentlyverified. Table6classamateur5 thenfootnote4 is internally inconsistent. Tournamentflowarrowdirection reversed. Do notcopy sourcegraph orclosedbookpositions."
+      ],
+      "unverified": [
+        "Primaryofficialverificationoutsideclosedset; noapp lesson defect or tacticalincorporation established."
+      ]
+    },
+    {
+      "id": "4164",
+      "url": "https://shogi-joutatsu.com/archives/4164",
+      "cache": ".cache/curriculum-source/4164.txt",
+      "sha256": "19d67226775ccbf6cce2e178a2099bcb210af65bcd7377872e8e380b32114639",
+      "lines": 634,
+      "read_range": "1-634 EOF",
+      "visual_indices": [
+        13
+      ],
+      "visual_assets": [
+        {
+          "index": 13,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/2923e4a0bdb0db7009b48c3b0006680fe9352f569bd350a75f46b17ffcee0063.png",
+          "white": ".cache/curriculum-source/white-review/2923e4a0bdb0db7009b48c3b0006680fe9352f569bd350a75f46b17ffcee0063.png.png",
+          "root_source_sha256": "276ac594c265edb407f3e1b4ee76cf27cf7f7927d087bbfabf98e9d3a5044b14",
+          "root_white_sha256": "e6d84bd63cf7da0e40db6f01a7cd2b61e6e5620163643504bc58ec2b75bf4b04",
+          "root_dimensions": [
+            800,
+            600
+          ]
+        }
+      ],
+      "visual_evidence": [
+        "Image13 original800x600 directly inspected: C2,C1,B2,B1,A stacked top-to-bottom, then Meijin match. Promotion arrows point upward toward lower class despite intended progression downward; A-to-title arrow also reversed. B1 label13players/12–13games internally inconsistent for fullroundrobin. Portraits/avatars/ads/linkthumbnails nottactical figures."
+      ],
+      "cautions": [
+        "Source says firstseven crowns in2023 then later Habu firstseven in1996; current titlecount8 means fullsweep clause also unsupported. Minimum5years toA contradicts source4096 four promotion steps and later Nakahara4consecutivepromotions in samepage. Historicalrows4/5 omitted not reproduced ascompletehistory. Source namedrosters/timecontrols/champion/funding notindependently verified."
+      ],
+      "unverified": [
+        "Allcurrent tournament facts andhistoricalrecordaccuracy. No app lesson defect or tacticalincorporation inferred."
+      ]
+    },
+    {
+      "id": "4173",
+      "url": "https://shogi-joutatsu.com/archives/4173",
+      "cache": ".cache/curriculum-source/4173.txt",
+      "sha256": "08a6f541f71f7864e9d9fd282e1b582d9c5956157ecbc61956024b06c871d2da",
+      "lines": 107,
+      "read_range": "1-107 EOF",
+      "visual_indices": [
+        2,
+        5,
+        6,
+        9,
+        10,
+        11,
+        21,
+        22,
+        23,
+        26,
+        27,
+        28,
+        29
+      ],
+      "visual_assets": [
+        {
+          "index": 2,
+          "url": "https://shogi-joutatsu.com/wp-content/uploads/2019/02/図3.png",
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/1221b7641088c4adba960c11075de04b06d818cb46ced92d3b1b010392bba5fc.png",
+          "sha256": "9d1f0a4bbbcc929f49f96c94ad2b853c1610d39f789474c6220ca6bd18d85bfb",
+          "white": ".cache/curriculum-source/white-review/1221b7641088c4adba960c11075de04b06d818cb46ced92d3b1b010392bba5fc.png.png",
+          "root_source_sha256": "9d1f0a4bbbcc929f49f96c94ad2b853c1610d39f789474c6220ca6bd18d85bfb",
+          "root_white_sha256": "c68cd7fe0cfbf192088b00815f7a59fe9c5ef3a7c5dcc7dc4c00ba3ac263299b",
+          "root_dimensions": [
+            729,
+            1125
+          ]
+        },
+        {
+          "index": 5,
+          "url": "https://shogi-joutatsu.com/wp-content/uploads/2019/02/図4.png",
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/1df5c55edd1769aec1d3819110353ac0f77a31ff34638c589a5a53a2398390a5.png",
+          "sha256": "c72e85c767faf873b58f8e07b452b5e9440dae944945b8905c6fb85c9b0e95cc",
+          "white": ".cache/curriculum-source/white-review/1df5c55edd1769aec1d3819110353ac0f77a31ff34638c589a5a53a2398390a5.png.png",
+          "root_source_sha256": "c72e85c767faf873b58f8e07b452b5e9440dae944945b8905c6fb85c9b0e95cc",
+          "root_white_sha256": "88574a73b26bc9adeb917740d4e1058e6e097692e913f3d0599d96e855fb8ead",
+          "root_dimensions": [
+            729,
+            1125
+          ]
+        },
+        {
+          "index": 6,
+          "url": "https://shogi-joutatsu.com/wp-content/uploads/2019/02/図5.png",
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/5da15621a0b4c3ca697f558cc7208a8372f5f0f3854889762c6374c0b605edfc.png",
+          "sha256": "8bae8d9638cd0a238b0e9df4ad5da381d212830d1f4b4f5e0595724bce28cbb9",
+          "white": ".cache/curriculum-source/white-review/5da15621a0b4c3ca697f558cc7208a8372f5f0f3854889762c6374c0b605edfc.png.png",
+          "root_source_sha256": "8bae8d9638cd0a238b0e9df4ad5da381d212830d1f4b4f5e0595724bce28cbb9",
+          "root_white_sha256": "3f0a098545599068c5e25526db44bb6ed87213b1af9bd7575e7d5f8c33dfbe82",
+          "root_dimensions": [
+            594,
+            351
+          ]
+        },
+        {
+          "index": 9,
+          "url": "https://shogi-joutatsu.com/wp-content/uploads/2019/02/図4.png",
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/1df5c55edd1769aec1d3819110353ac0f77a31ff34638c589a5a53a2398390a5.png",
+          "sha256": "c72e85c767faf873b58f8e07b452b5e9440dae944945b8905c6fb85c9b0e95cc",
+          "white": ".cache/curriculum-source/white-review/1df5c55edd1769aec1d3819110353ac0f77a31ff34638c589a5a53a2398390a5.png.png",
+          "root_source_sha256": "c72e85c767faf873b58f8e07b452b5e9440dae944945b8905c6fb85c9b0e95cc",
+          "root_white_sha256": "88574a73b26bc9adeb917740d4e1058e6e097692e913f3d0599d96e855fb8ead",
+          "root_dimensions": [
+            729,
+            1125
+          ]
+        },
+        {
+          "index": 10,
+          "url": "https://shogi-joutatsu.com/wp-content/uploads/2019/02/図1.png",
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/053c1dffbf07c8ad6f6a96a745d398f6f25d6ea631f86ecac63ad77a670d14c4.png",
+          "sha256": "a16b9a772926cff32503901310ba1e19f892ceb941d9f3c1429c97f643c9e636",
+          "white": ".cache/curriculum-source/white-review/053c1dffbf07c8ad6f6a96a745d398f6f25d6ea631f86ecac63ad77a670d14c4.png.png",
+          "root_source_sha256": "a16b9a772926cff32503901310ba1e19f892ceb941d9f3c1429c97f643c9e636",
+          "root_white_sha256": "a5842012b0e911aeaa335c072e75fcdb6faf46cca3b6e23fd9039911b1b2dd79",
+          "root_dimensions": [
+            687,
+            1125
+          ]
+        },
+        {
+          "index": 11,
+          "url": "https://shogi-joutatsu.com/wp-content/uploads/2019/02/図2.png",
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/a03ef7003566cd45413fd339e8b4523d7b346c90447ed92156b25cd9d10d8ff6.png",
+          "sha256": "472269f3928b72d50279f8d9887088e747f9e7f066f3a1d716e8507d60f517d1",
+          "white": ".cache/curriculum-source/white-review/a03ef7003566cd45413fd339e8b4523d7b346c90447ed92156b25cd9d10d8ff6.png.png",
+          "root_source_sha256": "472269f3928b72d50279f8d9887088e747f9e7f066f3a1d716e8507d60f517d1",
+          "root_white_sha256": "024ce462aecb7fb1d105f95531e2891c603ce9cb12c2f3cba2d50db9b01dfe76",
+          "root_dimensions": [
+            645,
+            1125
+          ]
+        },
+        {
+          "index": 21,
+          "url": "https://shogi-joutatsu.com/wp-content/uploads/2019/02/wars_kif.jpg",
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/8f7edb7f9437bd7f0a50f77aef6c3971b995f862568c345aad8c30cd93b50e7c.jpg",
+          "sha256": "c3517e5d03455c04f205656837804c41863a1b7f2d5c1359c38971afe4581b7a",
+          "white": ".cache/curriculum-source/white-review/8f7edb7f9437bd7f0a50f77aef6c3971b995f862568c345aad8c30cd93b50e7c.jpg.png",
+          "root_source_sha256": "c3517e5d03455c04f205656837804c41863a1b7f2d5c1359c38971afe4581b7a",
+          "root_white_sha256": "0c5221038e609f9350942f9f878c0ae2c48a4eb9670f6685efbd72445fcb5aea",
+          "root_dimensions": [
+            896,
+            623
+          ]
+        },
+        {
+          "index": 22,
+          "url": "https://shogi-joutatsu.com/wp-content/uploads/2019/02/piyoshogi.jpg",
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/540690ec3251523a3670c54805d575035526b59f19dc93f971a4f34a86c12c87.jpg",
+          "sha256": "e23ef334be831560ad747548da8b08e0a2d029c8cc28eeed48d9b44833f90c2d",
+          "white": ".cache/curriculum-source/white-review/540690ec3251523a3670c54805d575035526b59f19dc93f971a4f34a86c12c87.jpg.png",
+          "root_source_sha256": "e23ef334be831560ad747548da8b08e0a2d029c8cc28eeed48d9b44833f90c2d",
+          "root_white_sha256": "d53e8dc600fbf1a3b5786452bfbeaa186380a30da7b32af15ae8682560b4c8f3",
+          "root_dimensions": [
+            518,
+            695
+          ]
+        },
+        {
+          "index": 23,
+          "url": "https://shogi-joutatsu.com/wp-content/uploads/2019/02/piyo_renkei.jpg",
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/4eafc4008a0931ff70ca0fb923fdbd44594a0629a65e45435e70d556d0a6b72b.jpg",
+          "sha256": "7d50714c030ff7c447ed82d1102f1b70d90dd4fc7552b66d3695a5274de29d5e",
+          "white": ".cache/curriculum-source/white-review/4eafc4008a0931ff70ca0fb923fdbd44594a0629a65e45435e70d556d0a6b72b.jpg.png",
+          "root_source_sha256": "7d50714c030ff7c447ed82d1102f1b70d90dd4fc7552b66d3695a5274de29d5e",
+          "root_white_sha256": "a8272da1190c0ba992b54ab214924b32081e3b3849b06df2de3876d7f68fa00f",
+          "root_dimensions": [
+            536,
+            284
+          ]
+        },
+        {
+          "index": 26,
+          "url": "https://shogi-joutatsu.com/wp-content/uploads/2019/02/kif_GUI_pc.jpg",
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/839dd53a473539aa4652d2a693f86113511bfcf9f4f628abbe80c7c8c8075b14.jpg",
+          "sha256": "03d6c42416989ddbbaab35260e460961b62cbdb8292f463d263996ac379c7ca2",
+          "white": ".cache/curriculum-source/white-review/839dd53a473539aa4652d2a693f86113511bfcf9f4f628abbe80c7c8c8075b14.jpg.png",
+          "root_source_sha256": "03d6c42416989ddbbaab35260e460961b62cbdb8292f463d263996ac379c7ca2",
+          "root_white_sha256": "cac1e0ba810320df534ba0ed29c825388e52c23295629ad2096fd7e4c82c4ce2",
+          "root_dimensions": [
+            652,
+            399
+          ]
+        },
+        {
+          "index": 27,
+          "url": "https://shogi-joutatsu.com/wp-content/uploads/2019/02/kif_copy.jpg",
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/bee27f8661ee386f9a919ef0edd7646d035377d1b0f310711322f31cfc620bb3.jpg",
+          "sha256": "d8aa93b60804277c829ddac6d6c30a847f6851e62d702b3e9a6e53d08dd1e222",
+          "white": ".cache/curriculum-source/white-review/bee27f8661ee386f9a919ef0edd7646d035377d1b0f310711322f31cfc620bb3.jpg.png",
+          "root_source_sha256": "d8aa93b60804277c829ddac6d6c30a847f6851e62d702b3e9a6e53d08dd1e222",
+          "root_white_sha256": "624300ede7a985f711f7d1cccf5ec1123ec576692fb54e4754760686b828e9ff",
+          "root_dimensions": [
+            1279,
+            468
+          ]
+        },
+        {
+          "index": 28,
+          "url": "https://shogi-joutatsu.com/wp-content/uploads/2019/02/GUI_torikomi.jpg",
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/881226efdd0c160c21381737aebd07d7f94a98a5cd792fd71c78bc487d7729bf.jpg",
+          "sha256": "a98c9d84080c7d378d25252bf96cfcd467efa58196b962bbcb931161884ec736",
+          "white": ".cache/curriculum-source/white-review/881226efdd0c160c21381737aebd07d7f94a98a5cd792fd71c78bc487d7729bf.jpg.png",
+          "root_source_sha256": "a98c9d84080c7d378d25252bf96cfcd467efa58196b962bbcb931161884ec736",
+          "root_white_sha256": "608406d72d6f15824c8a347acfcbf38d5ebb4d458f4693222b3ebd01df439aaa",
+          "root_dimensions": [
+            593,
+            456
+          ]
+        },
+        {
+          "index": 29,
+          "url": "https://shogi-joutatsu.com/wp-content/uploads/2019/02/GUI_torikomi2.jpg",
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/b11549d57dd7b364a9830614bcb16f6287618660e7ac7a5757b493a9b15c05c6.jpg",
+          "sha256": "6a2c17a83d205eaa9491b9b3d02b220174aa33889f90c097709fdfc6e8ff419c",
+          "white": ".cache/curriculum-source/white-review/b11549d57dd7b364a9830614bcb16f6287618660e7ac7a5757b493a9b15c05c6.jpg.png",
+          "root_source_sha256": "6a2c17a83d205eaa9491b9b3d02b220174aa33889f90c097709fdfc6e8ff419c",
+          "root_white_sha256": "d555f90e52d64b5d39f2b329e89059d2a69dbbe04a2e4e61a8158119ebf58e9e",
+          "root_dimensions": [
+            896,
+            287
+          ]
+        }
+      ],
+      "visual_evidence": [
+        "All thirteen screenshot occurrences, twelve unique originals, directly inspected at original dimensions. Search screenshots show user ID search, Piyo launch and record copy; ShogiGUI paste; KENTO Load URL and URL paste. Historical screenshots show tweet button, iOS Piyo share target, connection prompt, tweet text copy, ShogiGUI web import and clipboard URL dialog. Boards are interface context rather than tactical teaching positions; margins preserved."
+      ],
+      "cautions": [
+        "Article documents January 2020 replacement of discontinued direct import, then preserves obsolete 2019 tweet-based flow. Official tweet dated 2019 is described as 2018 in prose. Current integrations, availability and native deep links were not exercised."
+      ],
+      "unverified": [
+        "Current application behavior and software compatibility; no lesson defect inferred."
+      ]
+    },
+    {
+      "id": "422",
+      "url": "https://shogi-joutatsu.com/archives/422",
+      "cache": ".cache/curriculum-source/422.txt",
+      "sha256": "df5e602d78426b5a594ae5dbeb95be553638c7f9f1d946cdbe251f02047767ee",
+      "lines": 260,
+      "read_range": "1-260 EOF",
+      "visual_indices": [],
+      "visual_assets": [],
+      "visual_evidence": [
+        "Inventory indices0–41 contain avatars, cover/link thumbnails, app advertisements, app icons and download QR codes. No teaching diagram or instructional screenshot is embedded; screenshot headings are followed by app-store icon placeholders."
+      ],
+      "cautions": [
+        "Introduction says three apps while headings and comparison cover four. Quest section says three time controls then lists four. Prices, free-game limits, supported controls, matchmaking, AI identity, licensing and cheating detection claims are historical and not verified current."
+      ],
+      "unverified": [
+        "Current app capabilities and comparison table cell alignment; no tactical incorporation candidate."
+      ]
+    },
+    {
+      "id": "4271",
+      "url": "https://shogi-joutatsu.com/archives/4271",
+      "cache": ".cache/curriculum-source/4271.txt",
+      "sha256": "0fa1606a65bbe3601d2fc49d629de0003c6bba18fc696eb151eeae78e390413f",
+      "lines": 118,
+      "read_range": "1-118 EOF",
+      "visual_indices": [],
+      "visual_assets": [],
+      "visual_evidence": [
+        "Inventory0–30 has avatars, advertisements, book covers and linked-article thumbnails; no embedded teaching position or instructional screenshot."
+      ],
+      "cautions": [
+        "Two-to-three-year rank estimate, universal attainability and three-move puzzle sufficiency are author opinions without evidence. Software recommendations and free-trial claims are historical. Study advice must not become guaranteed learning outcomes."
+      ],
+      "unverified": [
+        "Whole-curriculum duplication comparison for study advice and independent learning-efficacy evidence."
+      ]
+    },
+    {
+      "id": "4347",
+      "url": "https://shogi-joutatsu.com/archives/4347",
+      "cache": ".cache/curriculum-source/4347.txt",
+      "sha256": "1d508d9fb7d58945c3decc3130c01abce4dde304a4bd7eababf923bc59fbdf4b",
+      "lines": 76,
+      "read_range": "1-76 EOF",
+      "visual_indices": [
+        10,
+        11,
+        13
+      ],
+      "visual_assets": [
+        {
+          "index": 10,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/d673375809b65d3e8fdbf70ef85673e89c393da1baa20422410a7341bf77236a.jpg",
+          "sha256": "4d0e7b36b51e4720129162eeb8ea9f2c18043ef39ce1266abf16fa308c60dd0b",
+          "white": ".cache/curriculum-source/white-review/d673375809b65d3e8fdbf70ef85673e89c393da1baa20422410a7341bf77236a.jpg.png",
+          "root_source_sha256": "4d0e7b36b51e4720129162eeb8ea9f2c18043ef39ce1266abf16fa308c60dd0b",
+          "root_white_sha256": "c7682eaa12aabdceb1bcc245e10aed88bd8dc192d3e229b487a3c76727007d48",
+          "root_dimensions": [
+            788,
+            1113
+          ]
+        },
+        {
+          "index": 11,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/2e4f6d40a99e96654b4a458068545f1781152937d9971e574487075795b1f24b.jpg",
+          "sha256": "41b8d91dfe6c829e82f24f3207f094448fc93ad02c24b46fb85746adf7318acf",
+          "white": ".cache/curriculum-source/white-review/2e4f6d40a99e96654b4a458068545f1781152937d9971e574487075795b1f24b.jpg.png",
+          "root_source_sha256": "41b8d91dfe6c829e82f24f3207f094448fc93ad02c24b46fb85746adf7318acf",
+          "root_white_sha256": "d0eef9950f712ef111a9df50ac0091980c1be6cfba7f4ef64aee111c6b0a1faa",
+          "root_dimensions": [
+            797,
+            1113
+          ]
+        },
+        {
+          "index": 13,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/027e3507d13d1a5f949f1374de481f5b4522bfe60f0263438ee74bb5e9b81ba4.jpg",
+          "sha256": "4147b9140cda0b4a97d024a6234ef701af2869db3cc28a25258dafeca309d733",
+          "white": ".cache/curriculum-source/white-review/027e3507d13d1a5f949f1374de481f5b4522bfe60f0263438ee74bb5e9b81ba4.jpg.png",
+          "root_source_sha256": "4147b9140cda0b4a97d024a6234ef701af2869db3cc28a25258dafeca309d733",
+          "root_white_sha256": "14c5928f98b2ad1ac5adc7a51b1b71cd8420e118f29de4d54b419beac8623d1a",
+          "root_dimensions": [
+            783,
+            1111
+          ]
+        }
+      ],
+      "visual_evidence": [
+        "Three historical screenshots directly inspected at full dimensions: version5.0.15 lobby instructor-present badge; instruction tab with ten-minute sudden death and handicap selector; seven choices even,bishop,rook,two,four,six,eight pieces. No composed tactical board."
+      ],
+      "cautions": [
+        "Fees, monthly allowance, matching schedule, analysis pricing and professional roster are historical unverified. Rank-to-handicap table is approximate guidance rather than entitlement or guaranteed strength."
+      ],
+      "unverified": [
+        "Current service capabilities and rank equivalences; no app teaching defect inferred."
+      ]
+    },
+    {
+      "id": "4356",
+      "url": "https://shogi-joutatsu.com/archives/4356",
+      "cache": ".cache/curriculum-source/4356.txt",
+      "sha256": "fbefd533b601445784e1365c1694c0d3fb258e954352765aa1098a0a62e3f001",
+      "lines": 915,
+      "read_range": "1-915 EOF",
+      "read_ranges": [
+        "1-300",
+        "301-600",
+        "601-915 EOF"
+      ],
+      "visual_indices": [
+        3,
+        5
+      ],
+      "visual_assets": [
+        {
+          "index": 3,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/6841c4868a49c7119c81c21699311d666cfc018109b6d051dc505dac393a6e1a.png",
+          "sha256": "c8dc039040e031f6655237c78eb36745eed93d6765eeaa8b7e5ff8e440a693b4",
+          "white": ".cache/curriculum-source/white-review/6841c4868a49c7119c81c21699311d666cfc018109b6d051dc505dac393a6e1a.png.png",
+          "root_source_sha256": "c8dc039040e031f6655237c78eb36745eed93d6765eeaa8b7e5ff8e440a693b4",
+          "root_white_sha256": "fba344eb4d5d2f4666f7dd8c7a70eee9a1cb3fd71766a860366c91227e7c4ee5",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 5,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/6448f149c774b897060ec07f514ce5fd4f6312f8b90a8e94d2ceabfb0120fec4.png",
+          "sha256": "6624fe5e2b63bfd05f7cc771b10ebacd32f13c1ef0e708fdfe636ea887bf8df8",
+          "white": ".cache/curriculum-source/white-review/6448f149c774b897060ec07f514ce5fd4f6312f8b90a8e94d2ceabfb0120fec4.png.png",
+          "root_source_sha256": "6624fe5e2b63bfd05f7cc771b10ebacd32f13c1ef0e708fdfe636ea887bf8df8",
+          "root_white_sha256": "360e0e7903b5641482f2f9be189b7c857dc7d8563353cf9e48e84ebe1634e999",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        }
+      ],
+      "visual_evidence": [
+        "Image3 512x512 gold Yagura effect artwork and image5 256x256 Habu Magic portrait directly viewed, transparent margins composited white. Neither contains board, coordinates or hands. Other inventory images are avatars, advertisements and linked thumbnails."
+      ],
+      "cautions": [
+        "Collection descriptions appear quoted from commercial app; no adaptation. March2019 inventory incomplete by own admission; rarity and current membership unverified. Big4 guaranteed race wins, triangle matchup generalizations and strategy obsolescence are unsupported teaching claims. Source jokes and collection structure must not be reused."
+      ],
+      "unverified": [
+        "Current collection and strategy theory; no artwork or source description adopted."
+      ]
+    },
+    {
+      "id": "4458",
+      "url": "https://shogi-joutatsu.com/archives/4458",
+      "cache": ".cache/curriculum-source/4458.txt",
+      "sha256": "8c9890dfc5cd7d3e36a5abef44a082313cb894523a41cb96f4522ec49c28d60e",
+      "lines": 210,
+      "read_range": "1-210 EOF",
+      "visual_indices": [
+        10,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61
+      ],
+      "visual_assets": [
+        {
+          "index": 10,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/ea3f542af5b59eb9a7ab28bee22a2da023bc3df3c8ab544b4a5fd921441b5bf5.png",
+          "sha256": "e55dbd497514f9dbe3bc5f4c0aac6577aeb5528b260680b6f77150d3ad453fb6",
+          "white": ".cache/curriculum-source/white-review/ea3f542af5b59eb9a7ab28bee22a2da023bc3df3c8ab544b4a5fd921441b5bf5.png.png",
+          "root_source_sha256": "e55dbd497514f9dbe3bc5f4c0aac6577aeb5528b260680b6f77150d3ad453fb6",
+          "root_white_sha256": "38d1db1a407124f16e2aabfcfe9febb25a6353a89dc6daae95a97e12bc321c6c",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 12,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/6448f149c774b897060ec07f514ce5fd4f6312f8b90a8e94d2ceabfb0120fec4.png",
+          "sha256": "6624fe5e2b63bfd05f7cc771b10ebacd32f13c1ef0e708fdfe636ea887bf8df8",
+          "white": ".cache/curriculum-source/white-review/6448f149c774b897060ec07f514ce5fd4f6312f8b90a8e94d2ceabfb0120fec4.png.png",
+          "root_source_sha256": "6624fe5e2b63bfd05f7cc771b10ebacd32f13c1ef0e708fdfe636ea887bf8df8",
+          "root_white_sha256": "360e0e7903b5641482f2f9be189b7c857dc7d8563353cf9e48e84ebe1634e999",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 13,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/af2e9fd6989cfc03141d0c9f5eda9e0c68ac7b6f8ceac9f4e827d3b10f044bae.png",
+          "sha256": "85bfd50a299613d710f8ae5bc4ababc3688ba0a9014b47911164b04ff06a50e4",
+          "white": ".cache/curriculum-source/white-review/af2e9fd6989cfc03141d0c9f5eda9e0c68ac7b6f8ceac9f4e827d3b10f044bae.png.png",
+          "root_source_sha256": "85bfd50a299613d710f8ae5bc4ababc3688ba0a9014b47911164b04ff06a50e4",
+          "root_white_sha256": "0cc492f91c4f9a75411df98a72c3c9987e3be7b53ab688bb611ad5ac41bea17c",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 14,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/fc93697640f2e0d96f9f5b611ebdd868c355908b0fbce778dce7d6942c0d8bcc.png",
+          "sha256": "38eb2b75b9388623a0bda089bde0651be42f7e89e600ebdb34301a3d018a4178",
+          "white": ".cache/curriculum-source/white-review/fc93697640f2e0d96f9f5b611ebdd868c355908b0fbce778dce7d6942c0d8bcc.png.png",
+          "root_source_sha256": "38eb2b75b9388623a0bda089bde0651be42f7e89e600ebdb34301a3d018a4178",
+          "root_white_sha256": "9d9e68fa4dbd96e58a80749db5e11ec8c921ebdb51b69475dab3da2b5ddb4027",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 15,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/54e691d85c90d5da7fbf5c5803f59511be45eef9749f3e87d8cdecdc8fe060f2.png",
+          "sha256": "48959e2de34d068ff47681b4746be77799d76056060a62353bd000dc9c4c16ef",
+          "white": ".cache/curriculum-source/white-review/54e691d85c90d5da7fbf5c5803f59511be45eef9749f3e87d8cdecdc8fe060f2.png.png",
+          "root_source_sha256": "48959e2de34d068ff47681b4746be77799d76056060a62353bd000dc9c4c16ef",
+          "root_white_sha256": "4501319c12ba0c02fc79eb215b5391a8fcb8aba75874fbf4935f22734b637e5c",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 16,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/278b2dcc86ecbf7a9dab5459a10837b09ce9514fa0b7086e64e078d8a62a800e.png",
+          "sha256": "7072fd4f88125ce923ff427285427dea8185d9172a7da78c3fcda246e58e58d1",
+          "white": ".cache/curriculum-source/white-review/278b2dcc86ecbf7a9dab5459a10837b09ce9514fa0b7086e64e078d8a62a800e.png.png",
+          "root_source_sha256": "7072fd4f88125ce923ff427285427dea8185d9172a7da78c3fcda246e58e58d1",
+          "root_white_sha256": "7d2428e0d9ac9e8ebd4bff828adbb37b26a59a03076f65f7bae23928c71330d0",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 17,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/7771409fabb30dfffba425c654d45debde7843eb9fb8269cd03853c50e7d3eb5.png",
+          "sha256": "805b3f7bb1f19d72e44840df7b8ed973ca76bc5f88a598aeb79eabaeed5bcc3f",
+          "white": ".cache/curriculum-source/white-review/7771409fabb30dfffba425c654d45debde7843eb9fb8269cd03853c50e7d3eb5.png.png",
+          "root_source_sha256": "805b3f7bb1f19d72e44840df7b8ed973ca76bc5f88a598aeb79eabaeed5bcc3f",
+          "root_white_sha256": "22626eec1f5f5e8fbfe660e10c097cc7ccbac133a42c7b655b7963c811548ebd",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 18,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/f56678bf9cf9773c76a3951849a6193c3008f6b79a078783015c08d4ae80728f.png",
+          "sha256": "21c39da2719596e437951a2e523f2ec2e24deeca5aecd3395981d80e0a241548",
+          "white": ".cache/curriculum-source/white-review/f56678bf9cf9773c76a3951849a6193c3008f6b79a078783015c08d4ae80728f.png.png",
+          "root_source_sha256": "21c39da2719596e437951a2e523f2ec2e24deeca5aecd3395981d80e0a241548",
+          "root_white_sha256": "3b525f17a42ad6e1683ed73af33d5fba80bc9d134fc04163949a3045c73e76fa",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 19,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/812917cc9d42c8ee262678434eb348f6d1c06dce10fe24cbeb3c29f929a87725.png",
+          "sha256": "9d61bec61c3f6aaf8504608c962bfa7d98d017084d7ed1e49affa7152553c5b5",
+          "white": ".cache/curriculum-source/white-review/812917cc9d42c8ee262678434eb348f6d1c06dce10fe24cbeb3c29f929a87725.png.png",
+          "root_source_sha256": "9d61bec61c3f6aaf8504608c962bfa7d98d017084d7ed1e49affa7152553c5b5",
+          "root_white_sha256": "9b24366362086c68be5c6e1db5f32fd0f397bafe09bd592392cbb083b3204b7e",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 20,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/fb46a8d717bd4b83a8c1c21c9bcc1f4ac4ff12ba12b29dd9b1a2e1d4c1c5203e.png",
+          "sha256": "812de69342465f9195bfa1674f5cc5c5667dc0740e3b5ce7e95bfce33efa8f70",
+          "white": ".cache/curriculum-source/white-review/fb46a8d717bd4b83a8c1c21c9bcc1f4ac4ff12ba12b29dd9b1a2e1d4c1c5203e.png.png",
+          "root_source_sha256": "812de69342465f9195bfa1674f5cc5c5667dc0740e3b5ce7e95bfce33efa8f70",
+          "root_white_sha256": "d88aca64de9b936ff992774a5324bee9338fe46f4823993091399ef922da9933",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 21,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/1e08884ac9707f45674c99b3915ccb1ac280ef2aaabc24777b41bbe7840ed234.png",
+          "sha256": "ad3133ddba823009d5082fa813d09416f7f0c4f20ace0e8ab951eadf5f5ce93b",
+          "white": ".cache/curriculum-source/white-review/1e08884ac9707f45674c99b3915ccb1ac280ef2aaabc24777b41bbe7840ed234.png.png",
+          "root_source_sha256": "ad3133ddba823009d5082fa813d09416f7f0c4f20ace0e8ab951eadf5f5ce93b",
+          "root_white_sha256": "a24eca0761fbb88d686ade7f43755ae4fc25da9d152923c9a6d4f375856ec61c",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 22,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/3246fcf1965ed4463e9952f815229d6c9dfae9e097d6ecdaeff392d7461be4dd.png",
+          "sha256": "8af6df8320fe48de86222fff937e04307daaabd526f119e8f48e2572b98c2577",
+          "white": ".cache/curriculum-source/white-review/3246fcf1965ed4463e9952f815229d6c9dfae9e097d6ecdaeff392d7461be4dd.png.png",
+          "root_source_sha256": "8af6df8320fe48de86222fff937e04307daaabd526f119e8f48e2572b98c2577",
+          "root_white_sha256": "a0cd062d9f601877932a965cc880825423477f86512e0e51b75dd29d74059c8b",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 23,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/c42959173a8d2a45ee5a682691b2bfa5ddbe65429a39e54b4b9044077d40db8d.png",
+          "sha256": "a976f21631a72f28dd99d5963c7c5e8f58dfda33d168dcc0a523bfbc9b270c14",
+          "white": ".cache/curriculum-source/white-review/c42959173a8d2a45ee5a682691b2bfa5ddbe65429a39e54b4b9044077d40db8d.png.png",
+          "root_source_sha256": "a976f21631a72f28dd99d5963c7c5e8f58dfda33d168dcc0a523bfbc9b270c14",
+          "root_white_sha256": "b128163e7e595a82d04d10a092d517eb94758608a0e7cab4904cefb4078d0efe",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 24,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/7060e8eee2f5a58749cd6ee9d06302414afae02ba97abcd41e79700c36e3527d.png",
+          "sha256": "bbd5cde02c6f8a8ccc7390a780e74ed69c83f82beb4aedf8f7528749f82bb039",
+          "white": ".cache/curriculum-source/white-review/7060e8eee2f5a58749cd6ee9d06302414afae02ba97abcd41e79700c36e3527d.png.png",
+          "root_source_sha256": "bbd5cde02c6f8a8ccc7390a780e74ed69c83f82beb4aedf8f7528749f82bb039",
+          "root_white_sha256": "109fa3ca303f9fc3063d2740f15bbb599ec7c4b783c5cc11136f74c513e8d00f",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 25,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/e5e2ab02fac1c9db99bf15498215a9096cbaace698f52f9e0701890c8e0922ab.png",
+          "sha256": "f3ef2a6077eb7cb4365bfcdd86bf8bf89305382aea87ac56f536bcc1898b0213",
+          "white": ".cache/curriculum-source/white-review/e5e2ab02fac1c9db99bf15498215a9096cbaace698f52f9e0701890c8e0922ab.png.png",
+          "root_source_sha256": "f3ef2a6077eb7cb4365bfcdd86bf8bf89305382aea87ac56f536bcc1898b0213",
+          "root_white_sha256": "5db48cd779b18251e45a9de74684adb04abc6bdbfcccf8163d6c811d8e29cf2a",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 26,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/e2b184ca0c21c3b20504388626ce534d56f9ca503f62df46cfd959847749cc11.png",
+          "sha256": "d68154d8a644fcaa9b2358072067e22379ee95c52306d2b10a28243ef795b496",
+          "white": ".cache/curriculum-source/white-review/e2b184ca0c21c3b20504388626ce534d56f9ca503f62df46cfd959847749cc11.png.png",
+          "root_source_sha256": "d68154d8a644fcaa9b2358072067e22379ee95c52306d2b10a28243ef795b496",
+          "root_white_sha256": "26bb8ee292b999f7514c7106bdbd05b7fc70e4b578bd2b17e9504eb37677b9a7",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 27,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/6e1a28ce97268a7e4fcf26d00b938517efaaf1ced2e514e56daaf2c4d216c202.png",
+          "sha256": "7aa0cb9937390bb213097fe8537d5860e21c42ff726de222679612607bf25cbb",
+          "white": ".cache/curriculum-source/white-review/6e1a28ce97268a7e4fcf26d00b938517efaaf1ced2e514e56daaf2c4d216c202.png.png",
+          "root_source_sha256": "7aa0cb9937390bb213097fe8537d5860e21c42ff726de222679612607bf25cbb",
+          "root_white_sha256": "99dee05010adcbb2396f16b4b51079a610da2d88ea71e93289c7b21d3d8bac4f",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 28,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/97c421f657b8e958d8701ff6fd77e0296aa65e252e389f34edf496b777e3e1db.png",
+          "sha256": "ccc56388acdd61319ff713688d2e5c34ea75a0616236a6017b0687f1b6cfe853",
+          "white": ".cache/curriculum-source/white-review/97c421f657b8e958d8701ff6fd77e0296aa65e252e389f34edf496b777e3e1db.png.png",
+          "root_source_sha256": "ccc56388acdd61319ff713688d2e5c34ea75a0616236a6017b0687f1b6cfe853",
+          "root_white_sha256": "dc316df27aefdb7b541162515e4ed810dd532f66a255bcd906acd1652b8fe0a6",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 29,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/49ca74531d440fb52eda1cba20ca4e52ac86310ba18fcd93f1f17de6b403b3a8.png",
+          "sha256": "a05f7040b2f94ef69f701b7b7e984b3082196d971ad11ad18f0a3b83bd7f236f",
+          "white": ".cache/curriculum-source/white-review/49ca74531d440fb52eda1cba20ca4e52ac86310ba18fcd93f1f17de6b403b3a8.png.png",
+          "root_source_sha256": "a05f7040b2f94ef69f701b7b7e984b3082196d971ad11ad18f0a3b83bd7f236f",
+          "root_white_sha256": "f973c65205991f1ef2f5085cbee959c9a6e38a24101859e3b9954a9e09affbf9",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 30,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/4d01b08f070ee26490b8e07dcde1c3b39da9c5863425d2b465b6f3300fe3e978.png",
+          "sha256": "4e7654b3b55b6cb4a4126e10eeef3da699a04f453f7235a10d956707d731d174",
+          "white": ".cache/curriculum-source/white-review/4d01b08f070ee26490b8e07dcde1c3b39da9c5863425d2b465b6f3300fe3e978.png.png",
+          "root_source_sha256": "4e7654b3b55b6cb4a4126e10eeef3da699a04f453f7235a10d956707d731d174",
+          "root_white_sha256": "7599c2687fcc5ed428a2e3f494d09578bdf8f80a4a24edf4dc1e1e88e126741a",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 31,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/9b01a702caa425527136bb50bec482a71fda6f94c745c83baa7ae6fec5b9a3dd.png",
+          "sha256": "28d30be90b8b78b7f33e29f7101688de9929f5d4b3051e4c6817df9a1d52e105",
+          "white": ".cache/curriculum-source/white-review/9b01a702caa425527136bb50bec482a71fda6f94c745c83baa7ae6fec5b9a3dd.png.png",
+          "root_source_sha256": "28d30be90b8b78b7f33e29f7101688de9929f5d4b3051e4c6817df9a1d52e105",
+          "root_white_sha256": "01ff5ee35983f5b1c765c661289c2d976bf5bd01866140bdac313479ae91a636",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 32,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/03c47baad3afe3a530c175b954a71f0219772383429276380ed38622f29ac335.png",
+          "sha256": "2c60192019a3437fa2958c254d095810c18d4a9455f8fe0ef48b09304794084b",
+          "white": ".cache/curriculum-source/white-review/03c47baad3afe3a530c175b954a71f0219772383429276380ed38622f29ac335.png.png",
+          "root_source_sha256": "2c60192019a3437fa2958c254d095810c18d4a9455f8fe0ef48b09304794084b",
+          "root_white_sha256": "bf7cb5f819a16a0e66a7b102b1f2346663d3990fd39056a5754b953f780611f7",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 33,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/9a55cd3a02782fcba5a90ad0e01725b9b3e4eff2311639c429660d1cfc65b231.png",
+          "sha256": "a8a3724bac64a3c1558523b19cf02ae7fb97b8141c8ca9d8e69aa6a8db5b02dc",
+          "white": ".cache/curriculum-source/white-review/9a55cd3a02782fcba5a90ad0e01725b9b3e4eff2311639c429660d1cfc65b231.png.png",
+          "root_source_sha256": "a8a3724bac64a3c1558523b19cf02ae7fb97b8141c8ca9d8e69aa6a8db5b02dc",
+          "root_white_sha256": "a0f727b585275042a1cc47eb109506e4450c7e314548b9c1df18dabde0c9ac0d",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 34,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/52430b77e46ce0a48b18dd129b274dba2cfff6c9422d296529f6e5d5c98f25cc.png",
+          "sha256": "3aad94ecf11207ef250c18c43666c3320357d1850a599bc5020c39fd2ed81c2d",
+          "white": ".cache/curriculum-source/white-review/52430b77e46ce0a48b18dd129b274dba2cfff6c9422d296529f6e5d5c98f25cc.png.png",
+          "root_source_sha256": "3aad94ecf11207ef250c18c43666c3320357d1850a599bc5020c39fd2ed81c2d",
+          "root_white_sha256": "b9ddb1141734fc41f0f2b4239c3308882508707f760f071d9f05b381c8fdb776",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 35,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/776513073478f69ae7bac02d2d7f93c71100c68e73433b6d404c594d860c7656.png",
+          "sha256": "85015b970d77c18d60bfe5772f7185b45b25415ab9a8253ec73a5eb8b2639f1b",
+          "white": ".cache/curriculum-source/white-review/776513073478f69ae7bac02d2d7f93c71100c68e73433b6d404c594d860c7656.png.png",
+          "root_source_sha256": "85015b970d77c18d60bfe5772f7185b45b25415ab9a8253ec73a5eb8b2639f1b",
+          "root_white_sha256": "86183f72691b5a769705e2b2f0a089343b4000bab3656406f8f4efe8bd601b2a",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 36,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/ad890b0ae9c5e4c0acd4eb4b3bba966e68121595f2f0397c717cd833d28d6685.png",
+          "sha256": "3185b2011187a3901a20adbe7565895ec010a8174dce14e1807d6b04480a6ff7",
+          "white": ".cache/curriculum-source/white-review/ad890b0ae9c5e4c0acd4eb4b3bba966e68121595f2f0397c717cd833d28d6685.png.png",
+          "root_source_sha256": "3185b2011187a3901a20adbe7565895ec010a8174dce14e1807d6b04480a6ff7",
+          "root_white_sha256": "65787d48c5ce9183111bb95ea9b91137caecd82bef01362249ca12f5b0926dd9",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 37,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/153d4e1a6417cf85836ad4796ee6eeeeab456f45f0c8416fc14e233dd5396d2a.png",
+          "sha256": "acbdb23defadf1cdaa34574c263d2854b187532ccefe95c33d7f11e89dddb023",
+          "white": ".cache/curriculum-source/white-review/153d4e1a6417cf85836ad4796ee6eeeeab456f45f0c8416fc14e233dd5396d2a.png.png",
+          "root_source_sha256": "acbdb23defadf1cdaa34574c263d2854b187532ccefe95c33d7f11e89dddb023",
+          "root_white_sha256": "48e84fe9031279f84363f60c574e12b01e54f3e24069db5ee339df10cbca55fa",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 38,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/de9af61c0bf028f5cac16abf9116a3b3c0a687b05fc99a142bc15f3af62eff9b.png",
+          "sha256": "53685394ebb255661961f36e6d50790d57722a3f3777081b1d60a06778b60748",
+          "white": ".cache/curriculum-source/white-review/de9af61c0bf028f5cac16abf9116a3b3c0a687b05fc99a142bc15f3af62eff9b.png.png",
+          "root_source_sha256": "53685394ebb255661961f36e6d50790d57722a3f3777081b1d60a06778b60748",
+          "root_white_sha256": "21e07ee83a5c442e0dd0f723e8babe1a90e9850f7ee800f92cafaacc621a84d2",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 39,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/1ff8e4f65465280fa450eb6bed38fc6160ed4466d04385d2334947ed90b37116.png",
+          "sha256": "4d51704d8ed8be49de65167dada29b2f13a867782d96fd5588b81806402203c0",
+          "white": ".cache/curriculum-source/white-review/1ff8e4f65465280fa450eb6bed38fc6160ed4466d04385d2334947ed90b37116.png.png",
+          "root_source_sha256": "4d51704d8ed8be49de65167dada29b2f13a867782d96fd5588b81806402203c0",
+          "root_white_sha256": "55488a8b29988db438777da3046a9fdb79071d5e908b59729e8c7b97d9d94b98",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 40,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/ab86f55a7c2ca591f4a01a0bf0acd03d7b216d2e0fcdfc4a6634f4cbef686838.png",
+          "sha256": "ade03e566e15c8b07accfc843d9f260a1577d20cefdfb1900b4209f0d88d3588",
+          "white": ".cache/curriculum-source/white-review/ab86f55a7c2ca591f4a01a0bf0acd03d7b216d2e0fcdfc4a6634f4cbef686838.png.png",
+          "root_source_sha256": "ade03e566e15c8b07accfc843d9f260a1577d20cefdfb1900b4209f0d88d3588",
+          "root_white_sha256": "a9c118db1cfbd764b9632eb6987930dc0097d8297f0c0756d6d795a4404199da",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 41,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/baa1254735ec07a0430d29c65e63898cf623608a601a65679050d3dd8fab024f.png",
+          "sha256": "bb2d8cf32f13c99514086a44420cb19bfe61ef29a7072ecdbaab314a01ed18ce",
+          "white": ".cache/curriculum-source/white-review/baa1254735ec07a0430d29c65e63898cf623608a601a65679050d3dd8fab024f.png.png",
+          "root_source_sha256": "bb2d8cf32f13c99514086a44420cb19bfe61ef29a7072ecdbaab314a01ed18ce",
+          "root_white_sha256": "afaf28496a295b8513fe23d80158027aae2d75511cdc0596da4233d573394765",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 42,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/d36ce981bff5e0a292082659cf66f7821da7af251c2e12b0a80d6b5b6a0a5e80.png",
+          "sha256": "88590b5dff10969c9a843c747a4b85b8ea64b2911519989cf20c32c9575681af",
+          "white": ".cache/curriculum-source/white-review/d36ce981bff5e0a292082659cf66f7821da7af251c2e12b0a80d6b5b6a0a5e80.png.png",
+          "root_source_sha256": "88590b5dff10969c9a843c747a4b85b8ea64b2911519989cf20c32c9575681af",
+          "root_white_sha256": "d9878855dc26ce8857f8d93e0f5aee821f9e8d98d5c3c6ecec7830a6eb443af1",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 43,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/ea4c2387679ab9d3a9214cb549d537c46a1ae035afb9ad79a28908f61243b5f1.png",
+          "sha256": "44af4fcbcfb11f5ca78d021e987f68b1b49e5876f358e8ca93a866b6b087f29c",
+          "white": ".cache/curriculum-source/white-review/ea4c2387679ab9d3a9214cb549d537c46a1ae035afb9ad79a28908f61243b5f1.png.png",
+          "root_source_sha256": "44af4fcbcfb11f5ca78d021e987f68b1b49e5876f358e8ca93a866b6b087f29c",
+          "root_white_sha256": "0ea9484eafe3d5049a7c859bb6e8239608cd1a4601490242869413ae2179a37a",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 44,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/7917f26dd2796a7695a68887eabc202f1ac90f653ec1918c92d13defc9d4ca28.png",
+          "sha256": "8cb0bfcf11bec422ff5ae170e406bda10ebda38d136368ecf6ce9a621bc0249c",
+          "white": ".cache/curriculum-source/white-review/7917f26dd2796a7695a68887eabc202f1ac90f653ec1918c92d13defc9d4ca28.png.png",
+          "root_source_sha256": "8cb0bfcf11bec422ff5ae170e406bda10ebda38d136368ecf6ce9a621bc0249c",
+          "root_white_sha256": "72f8089892f9aa59e4fc42b1b073ec5f9c66ebadbf16f2792d1bdf401840a00c",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 45,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/fcf0d3d70142f38c931db821720683d7bd6e36ed24c1a40e7304305c08420df4.png",
+          "sha256": "612512975fbeeed891838c479b9709993ec0dc7e4f9d139ca9793b5eb20092d2",
+          "white": ".cache/curriculum-source/white-review/fcf0d3d70142f38c931db821720683d7bd6e36ed24c1a40e7304305c08420df4.png.png",
+          "root_source_sha256": "612512975fbeeed891838c479b9709993ec0dc7e4f9d139ca9793b5eb20092d2",
+          "root_white_sha256": "7cde6c882362e88fbe41fc3c1ee885beed1899663db717e431c6e96676d7c0b4",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 46,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/829f6b84b26cbf29701d0d948561d507a63826a676644d3693d69e0e25d9c6c3.png",
+          "sha256": "1f4a1d47894c8f23cc95a76dfdd3d3521c481cc450bb030c047d1b94283a42d4",
+          "white": ".cache/curriculum-source/white-review/829f6b84b26cbf29701d0d948561d507a63826a676644d3693d69e0e25d9c6c3.png.png",
+          "root_source_sha256": "1f4a1d47894c8f23cc95a76dfdd3d3521c481cc450bb030c047d1b94283a42d4",
+          "root_white_sha256": "e71cc25b47fa26827b9474c6ad65e97d9b31244d96e0dee5dbc8900f673f8c70",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 47,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/df6670084c650755fe8ec20c87d028f64eca195c4b117b05c59bbb38c4708166.png",
+          "sha256": "e8f540d9f2d0d025c5d1c7c4d75463cd1a52719022a44feca72d64d57686b70e",
+          "white": ".cache/curriculum-source/white-review/df6670084c650755fe8ec20c87d028f64eca195c4b117b05c59bbb38c4708166.png.png",
+          "root_source_sha256": "e8f540d9f2d0d025c5d1c7c4d75463cd1a52719022a44feca72d64d57686b70e",
+          "root_white_sha256": "1e30a6c0403683621749f500b82778a3c1a1b5c85b4899b5a80913c8f2b51274",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 48,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/4881ff5661e0198f584c22a45cd65af9e8344f815a6269fc10bbf9068b7a09fe.png",
+          "sha256": "2eb3d66d539fec4c9034d5981ea5c402f8d0a659721dac3ec9298bc28ac5eb95",
+          "white": ".cache/curriculum-source/white-review/4881ff5661e0198f584c22a45cd65af9e8344f815a6269fc10bbf9068b7a09fe.png.png",
+          "root_source_sha256": "2eb3d66d539fec4c9034d5981ea5c402f8d0a659721dac3ec9298bc28ac5eb95",
+          "root_white_sha256": "45263c22a1c14eb87c08b3c3d844ad565b24216a397ef021ba1efd765da8ef6e",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 49,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/8ff09592905c219f39c0f6cc74844cfcd0535b1c56e0697fcd9174547e1bafed.png",
+          "sha256": "c1822a3cde0e27a1ce0145d140398c5ebeeb3ca5b2e7b03f1d2c7f27c3eb9ee8",
+          "white": ".cache/curriculum-source/white-review/8ff09592905c219f39c0f6cc74844cfcd0535b1c56e0697fcd9174547e1bafed.png.png",
+          "root_source_sha256": "c1822a3cde0e27a1ce0145d140398c5ebeeb3ca5b2e7b03f1d2c7f27c3eb9ee8",
+          "root_white_sha256": "e8671648764c92dddfc968f8783cd9341ffeed0a6508eedbe118ef9b2f71b0b8",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 50,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/1c19638044320d7e5a5c9c46ea8b82d00d6c987171900e8e3209be9644cde31a.png",
+          "sha256": "d7f150cddb0d7b1a2e015fa4977d797124999444f13d72eb78e3bfd6c5bb38c4",
+          "white": ".cache/curriculum-source/white-review/1c19638044320d7e5a5c9c46ea8b82d00d6c987171900e8e3209be9644cde31a.png.png",
+          "root_source_sha256": "d7f150cddb0d7b1a2e015fa4977d797124999444f13d72eb78e3bfd6c5bb38c4",
+          "root_white_sha256": "a5eda4b56a8b3325f124e6a008616f0fd593d7d080dd96cec6c677e165b85eda",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 51,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/76030c2e12e646e5023ca335c1e40d81a82e8df2977a34c82b7e82f85eb128e4.png",
+          "sha256": "94e1e941660d2d577933a565bce5e822fc37c750a86377e4bbf644730877591a",
+          "white": ".cache/curriculum-source/white-review/76030c2e12e646e5023ca335c1e40d81a82e8df2977a34c82b7e82f85eb128e4.png.png",
+          "root_source_sha256": "94e1e941660d2d577933a565bce5e822fc37c750a86377e4bbf644730877591a",
+          "root_white_sha256": "48979b197988e7650d6dd4abdeacb3178af20bcc8076745a625d2b7119ff1778",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 52,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/684183efdfe44f314770f1e7015e84d125496be7fd78a2884ab24930ab9d1865.png",
+          "sha256": "a1b3cbe1fd60e1f92da43c06457364338977549f8ed4f595b5135da60b9b0fba",
+          "white": ".cache/curriculum-source/white-review/684183efdfe44f314770f1e7015e84d125496be7fd78a2884ab24930ab9d1865.png.png",
+          "root_source_sha256": "a1b3cbe1fd60e1f92da43c06457364338977549f8ed4f595b5135da60b9b0fba",
+          "root_white_sha256": "bb71b5927ff95c445ab8ee207c4c9008bcea55573921a1cdad6d10504d50d4ab",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 53,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/71121066e76bd4dfebfa17214d17dc8931be77959142326d12c1b1552c56d590.png",
+          "sha256": "2a8311b613f960beef96b5906680d77fd7dedca97fc15f7dc4983465624e07c1",
+          "white": ".cache/curriculum-source/white-review/71121066e76bd4dfebfa17214d17dc8931be77959142326d12c1b1552c56d590.png.png",
+          "root_source_sha256": "2a8311b613f960beef96b5906680d77fd7dedca97fc15f7dc4983465624e07c1",
+          "root_white_sha256": "ec9198d228d47b23c84f5ff75dd935d99e8c6b6b10c9ba19d7669c6dad58076d",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 54,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/ca9a1b0194b192af4e034988dc19c859c6761f1f2d640c76db619f3404bc232b.png",
+          "sha256": "81b280377a10ed0f4a2635d52677f5c7758e0750aa7c495cfb6f140ee7b664c4",
+          "white": ".cache/curriculum-source/white-review/ca9a1b0194b192af4e034988dc19c859c6761f1f2d640c76db619f3404bc232b.png.png",
+          "root_source_sha256": "81b280377a10ed0f4a2635d52677f5c7758e0750aa7c495cfb6f140ee7b664c4",
+          "root_white_sha256": "be3652262cd9972337340fddaa35cfec4e0e5eaf5548e5da4b00d9415c26b378",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 55,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/abccf8a5df145c91e4215bf25785d0ff05fcded159c0bf9d4632ea8ed0607181.png",
+          "sha256": "4f1f80d8cedc4cf2f68fb2539d1025cf619a82b8b4a0b6cc41fe8d624d6712d1",
+          "white": ".cache/curriculum-source/white-review/abccf8a5df145c91e4215bf25785d0ff05fcded159c0bf9d4632ea8ed0607181.png.png",
+          "root_source_sha256": "4f1f80d8cedc4cf2f68fb2539d1025cf619a82b8b4a0b6cc41fe8d624d6712d1",
+          "root_white_sha256": "ad5ec844b8cd3d8ecf1427e017a6e7665f35b86871275e5a471c237e135e392c",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 56,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/98520270723766f7d1204d5591c519556f247adb72befd7361d169c6cc86b811.png",
+          "sha256": "fdc61cbfc706c1fd301ee3b0df83f4701508681c4e419ff2ad660a9803464788",
+          "white": ".cache/curriculum-source/white-review/98520270723766f7d1204d5591c519556f247adb72befd7361d169c6cc86b811.png.png",
+          "root_source_sha256": "fdc61cbfc706c1fd301ee3b0df83f4701508681c4e419ff2ad660a9803464788",
+          "root_white_sha256": "de3588f0ced891ce8cf340d8ff0d718c36443652f29db43b3038d7be31f5ca72",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 57,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/cd46bb488f456d0939ec7f088fe8184373f4baaf578534d8e5fe62fe09c5e9e3.png",
+          "sha256": "0469cee15872adc461ae10570baa4e46268b268fea0e2f3187a1451e0f3997a3",
+          "white": ".cache/curriculum-source/white-review/cd46bb488f456d0939ec7f088fe8184373f4baaf578534d8e5fe62fe09c5e9e3.png.png",
+          "root_source_sha256": "0469cee15872adc461ae10570baa4e46268b268fea0e2f3187a1451e0f3997a3",
+          "root_white_sha256": "8abd6772d594eb0b4013909a9aa2e4a238b603e9c98cffdfceb844abf5c4513e",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 58,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/f6d9de558d4b4930ee5803ec39dd501d9cc54b7bc043e782f4a39c92ace25e22.png",
+          "sha256": "ac577549a20913b213ce262dcc1f896c44ffec17a670f977b0cbcc850de99036",
+          "white": ".cache/curriculum-source/white-review/f6d9de558d4b4930ee5803ec39dd501d9cc54b7bc043e782f4a39c92ace25e22.png.png",
+          "root_source_sha256": "ac577549a20913b213ce262dcc1f896c44ffec17a670f977b0cbcc850de99036",
+          "root_white_sha256": "5db7db609cace59270623bde33301204dad1f8b8805e81c13cb1a2c7d51b8298",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 59,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/ea3f542af5b59eb9a7ab28bee22a2da023bc3df3c8ab544b4a5fd921441b5bf5.png",
+          "sha256": "e55dbd497514f9dbe3bc5f4c0aac6577aeb5528b260680b6f77150d3ad453fb6",
+          "white": ".cache/curriculum-source/white-review/ea3f542af5b59eb9a7ab28bee22a2da023bc3df3c8ab544b4a5fd921441b5bf5.png.png",
+          "root_source_sha256": "e55dbd497514f9dbe3bc5f4c0aac6577aeb5528b260680b6f77150d3ad453fb6",
+          "root_white_sha256": "38d1db1a407124f16e2aabfcfe9febb25a6353a89dc6daae95a97e12bc321c6c",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 60,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/960f2ed790817f178de7f79d9c88fa35f4269570c2a66ed9318fc8b7cb5f8233.png",
+          "sha256": "ef238f1858a1cfcb009cfd0ecf9b09f0cc4f46ed6c528da91aae5a0c0321d663",
+          "white": ".cache/curriculum-source/white-review/960f2ed790817f178de7f79d9c88fa35f4269570c2a66ed9318fc8b7cb5f8233.png.png",
+          "root_source_sha256": "ef238f1858a1cfcb009cfd0ecf9b09f0cc4f46ed6c528da91aae5a0c0321d663",
+          "root_white_sha256": "bead3b2e3c6c7e5bc8c043473128528abd231ea6dc54c9ac853fa544eb96f12f",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 61,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/ea2c8a0e3b00348946a68c17b203a59bfacbb8c12802351e51780e661e8eb1ba.png",
+          "sha256": "785bb2c97da541d9db4729dba88263c776722e4020ea33f99da363c9907d5881",
+          "white": ".cache/curriculum-source/white-review/ea2c8a0e3b00348946a68c17b203a59bfacbb8c12802351e51780e661e8eb1ba.png.png",
+          "root_source_sha256": "785bb2c97da541d9db4729dba88263c776722e4020ea33f99da363c9907d5881",
+          "root_white_sha256": "671dff5c91546076be81657dd428baca2cfb82f00b5047321016fce784e3827d",
+          "root_dimensions": [
+            256,
+            256
+          ]
+        }
+      ],
+      "visual_contacts": [
+        ".cache/curriculum-source/white-review/4458-native-0.png",
+        ".cache/curriculum-source/white-review/4458-native-18.png",
+        ".cache/curriculum-source/white-review/4458-native-36.png"
+      ],
+      "visual_evidence": [
+        "All51 effect artwork occurrences displayed in native-size white contact rectangles. Portraits, food-themed portraits, two knight-jump effect figures and pawn wordmarks contain no tactical board, coordinates or hands. Images10 and59 duplicate. Commercial artwork excluded from app authoring."
+      ],
+      "cautions": [
+        "March2019 collection status, event conditions and effect availability are historical; informal nickname and biography claims not independently verified. No collection order, wording or illustrations may be reproduced."
+      ],
+      "unverified": [
+        "Current effect availability; no tactical improvement candidate."
+      ]
+    },
+    {
+      "id": "4483",
+      "url": "https://shogi-joutatsu.com/archives/4483",
+      "cache": ".cache/curriculum-source/4483.txt",
+      "sha256": "9a9b817a1403c8c2ab4bb24505b1b8b43c98e8d53f4cff54835e63ec743f4142",
+      "lines": 384,
+      "read_range": "1-384 EOF",
+      "visual_indices": [
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        34,
+        35,
+        36,
+        37,
+        38,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        49,
+        50,
+        51,
+        53,
+        54,
+        56,
+        57,
+        58
+      ],
+      "visual_assets": [
+        {
+          "index": 10,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/3e56553d4e0e6b2dddf6684003b6558c54fc44c1e973e2cb0fcf875acdd12f25.png",
+          "sha256": "978b8f5942f25a21a02c610fbd4e0e3139eee8e15f92f0660d0a71af2e7444a3",
+          "white": ".cache/curriculum-source/white-review/3e56553d4e0e6b2dddf6684003b6558c54fc44c1e973e2cb0fcf875acdd12f25.png.png",
+          "root_source_sha256": "978b8f5942f25a21a02c610fbd4e0e3139eee8e15f92f0660d0a71af2e7444a3",
+          "root_white_sha256": "57d0e7856af8957063b9c3243de7f9d6fabb23e53763c109364d20d9f9ffd2bd",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 11,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/6841c4868a49c7119c81c21699311d666cfc018109b6d051dc505dac393a6e1a.png",
+          "sha256": "c8dc039040e031f6655237c78eb36745eed93d6765eeaa8b7e5ff8e440a693b4",
+          "white": ".cache/curriculum-source/white-review/6841c4868a49c7119c81c21699311d666cfc018109b6d051dc505dac393a6e1a.png.png",
+          "root_source_sha256": "c8dc039040e031f6655237c78eb36745eed93d6765eeaa8b7e5ff8e440a693b4",
+          "root_white_sha256": "fba344eb4d5d2f4666f7dd8c7a70eee9a1cb3fd71766a860366c91227e7c4ee5",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 12,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/9dd059bfa622780b4d7c5b85193210fb45364ca4e271ef989b2cb8c08f2b5950.png",
+          "sha256": "66a2a94ab03b9250808760893e8a3897d2f719db6d8b853dbbb8e1cb9caff493",
+          "white": ".cache/curriculum-source/white-review/9dd059bfa622780b4d7c5b85193210fb45364ca4e271ef989b2cb8c08f2b5950.png.png",
+          "root_source_sha256": "66a2a94ab03b9250808760893e8a3897d2f719db6d8b853dbbb8e1cb9caff493",
+          "root_white_sha256": "2c69579b24d328f2872e278bb18ff402db3a8accf556bf1dce18d0382a281b22",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 13,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/558a6f90a419f7771fe8c7429929f56cf5968687fbcf46fc3887a6d559d262d7.png",
+          "sha256": "08683457440d5fc1974fa1e10ae3115e8bc68501f3e47e9a08c413ff4b60583b",
+          "white": ".cache/curriculum-source/white-review/558a6f90a419f7771fe8c7429929f56cf5968687fbcf46fc3887a6d559d262d7.png.png",
+          "root_source_sha256": "08683457440d5fc1974fa1e10ae3115e8bc68501f3e47e9a08c413ff4b60583b",
+          "root_white_sha256": "783399d93d1c53e9dd8a93dfe465203b187b8ec9937de727e90387c426c97264",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 14,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/621a2ef79fa0881f92630514df8d404d4463b90b292b66abbfce011008179afd.png",
+          "sha256": "cc81d335e70efb84a37804c1ba3e851b9c1340b781b6758d16f7f29edd2b958d",
+          "white": ".cache/curriculum-source/white-review/621a2ef79fa0881f92630514df8d404d4463b90b292b66abbfce011008179afd.png.png",
+          "root_source_sha256": "cc81d335e70efb84a37804c1ba3e851b9c1340b781b6758d16f7f29edd2b958d",
+          "root_white_sha256": "09d3a4baee4ef321c71b20b5674512d7275c1f2e8f5a83c0cef135421eb3cefe",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 15,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/be0f350bd35a794b1a72f0adbfd4e53c56b3977a3462c0a520c2acf2676a4a4f.png",
+          "sha256": "1fa4abdce28f11a7bc5f46801d34692846f6e68d7c0ac06cfacbfde3517018fa",
+          "white": ".cache/curriculum-source/white-review/be0f350bd35a794b1a72f0adbfd4e53c56b3977a3462c0a520c2acf2676a4a4f.png.png",
+          "root_source_sha256": "1fa4abdce28f11a7bc5f46801d34692846f6e68d7c0ac06cfacbfde3517018fa",
+          "root_white_sha256": "c196c698698b9e63cab7cc721e49debcb077f18c578c5e769021b975f28ae4e6",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 16,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/9781ca4f13588e60ff8c2ab25606f07a694a1b3edec070beed36d2abce97077c.png",
+          "sha256": "d302ddb298bcfd553f81cce184864bc932a96c0698433380eb7364cb3c5097d5",
+          "white": ".cache/curriculum-source/white-review/9781ca4f13588e60ff8c2ab25606f07a694a1b3edec070beed36d2abce97077c.png.png",
+          "root_source_sha256": "d302ddb298bcfd553f81cce184864bc932a96c0698433380eb7364cb3c5097d5",
+          "root_white_sha256": "6da3c8d2a4a89dc6655c6f534f7ff983155c9e2344139aed0a8a1eb22a1b0880",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 17,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/e9b0ff0ae348a0f643249808896d54597678782f9f2901be1eac6f6e04961b29.png",
+          "sha256": "70ae210b70780b661c55a12abae7839acb95bdbbac9078236d42f6ec64b74c74",
+          "white": ".cache/curriculum-source/white-review/e9b0ff0ae348a0f643249808896d54597678782f9f2901be1eac6f6e04961b29.png.png",
+          "root_source_sha256": "70ae210b70780b661c55a12abae7839acb95bdbbac9078236d42f6ec64b74c74",
+          "root_white_sha256": "a091683cf273c1557901f2f24a9222d2e0898d98da02c96554193d9fbb0c2e97",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 18,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/3dbbe6f6cd74050266d396f7711ada642964a597ef9181fcf02b6cbb24115152.png",
+          "sha256": "e2637b4109b9c33ba87346a58d86fda31e48a81af2c2e6fe9245162c1caf8221",
+          "white": ".cache/curriculum-source/white-review/3dbbe6f6cd74050266d396f7711ada642964a597ef9181fcf02b6cbb24115152.png.png",
+          "root_source_sha256": "e2637b4109b9c33ba87346a58d86fda31e48a81af2c2e6fe9245162c1caf8221",
+          "root_white_sha256": "faaf993f0b2d555511a14c9933826c3d11216ace0e7a8a6592dd67fc925c149b",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 19,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/3130c71df96e6774edf14db82c6457248c386dc83ed40a0a8f8d60c9c1de9d17.png",
+          "sha256": "5b05dcf52b676fa9673f03d100fd74ab027695d56be049bff97e5904e0047c95",
+          "white": ".cache/curriculum-source/white-review/3130c71df96e6774edf14db82c6457248c386dc83ed40a0a8f8d60c9c1de9d17.png.png",
+          "root_source_sha256": "5b05dcf52b676fa9673f03d100fd74ab027695d56be049bff97e5904e0047c95",
+          "root_white_sha256": "5e29fddf0cb3dd34425f5cf4368db26e86b47080b36aafee93be2567d962e716",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 20,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/8e8cc2cb8dd062d4024b82115d5f375293480ed199e848694ed59676e17766d0.png",
+          "sha256": "2383abf2da09cc347e03c47303a3b5deeaad4855b33432fd56a2d48667ec7b90",
+          "white": ".cache/curriculum-source/white-review/8e8cc2cb8dd062d4024b82115d5f375293480ed199e848694ed59676e17766d0.png.png",
+          "root_source_sha256": "2383abf2da09cc347e03c47303a3b5deeaad4855b33432fd56a2d48667ec7b90",
+          "root_white_sha256": "e703fd101ef0d2267ced3a9f7fc6a2b2a9bb469971116d53929d0f7d419964e2",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 21,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/0c1ba1f3480e23ac0a3081dcea2e54bb42bd04e4cca6679e7dad057e5f1f2c1b.png",
+          "sha256": "a6a436ea9029a37f86bd916ea9ae55cc3ab23346eac4c66d7e9db078034afcdc",
+          "white": ".cache/curriculum-source/white-review/0c1ba1f3480e23ac0a3081dcea2e54bb42bd04e4cca6679e7dad057e5f1f2c1b.png.png",
+          "root_source_sha256": "a6a436ea9029a37f86bd916ea9ae55cc3ab23346eac4c66d7e9db078034afcdc",
+          "root_white_sha256": "d692ab5bb822ce740e6f3a9189457ba44a0ba41f54b7d1a767ba2f0cc53dfd75",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 23,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/0ac650adb50191b853d517059589a341eeb9403bf166f840c189531b8484bf64.png",
+          "sha256": "82e5fe5909a6269906b397024774201d1f645ae1afc399a65efecc823053eaa9",
+          "white": ".cache/curriculum-source/white-review/0ac650adb50191b853d517059589a341eeb9403bf166f840c189531b8484bf64.png.png",
+          "root_source_sha256": "82e5fe5909a6269906b397024774201d1f645ae1afc399a65efecc823053eaa9",
+          "root_white_sha256": "88ede62f508757bdbfb10ba473d137e6f6e812c6376e53baecc1d8772424789a",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 24,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/e07de030b18cb92c7bf66aa622444c3285e144555eb011604dc3e3e6fb5972b0.png",
+          "sha256": "824a6c43048f64a6b02fb39afd71c6c026ce75c90653e1cbc6b895c664091615",
+          "white": ".cache/curriculum-source/white-review/e07de030b18cb92c7bf66aa622444c3285e144555eb011604dc3e3e6fb5972b0.png.png",
+          "root_source_sha256": "824a6c43048f64a6b02fb39afd71c6c026ce75c90653e1cbc6b895c664091615",
+          "root_white_sha256": "8ae2c52efe5bbab6370074e9de9b3c8aee144a3e6f1a153c1dc598349e3a4e22",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 25,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/46e1ab5eca02b278f0de8960d353a506893450b59c7fc492d671b594698054f3.png",
+          "sha256": "c4a574f0a48f239422c741a53baa1423767c1fc9be486d3e51e58ca87f2a2938",
+          "white": ".cache/curriculum-source/white-review/46e1ab5eca02b278f0de8960d353a506893450b59c7fc492d671b594698054f3.png.png",
+          "root_source_sha256": "c4a574f0a48f239422c741a53baa1423767c1fc9be486d3e51e58ca87f2a2938",
+          "root_white_sha256": "4a4950ada1d97893cf9bf15c495e4c1bc1175cdfb2f8ddb4b8cfce61ae919dbe",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 26,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/12c240dfd0b86aec63825a2eade94b7b0ede1d142e6c772396cef61e27dbab6f.png",
+          "sha256": "5fe57faef381fb50006d3f0799737da16e4613aa44323791291be702fd06cbb4",
+          "white": ".cache/curriculum-source/white-review/12c240dfd0b86aec63825a2eade94b7b0ede1d142e6c772396cef61e27dbab6f.png.png",
+          "root_source_sha256": "5fe57faef381fb50006d3f0799737da16e4613aa44323791291be702fd06cbb4",
+          "root_white_sha256": "90202730b2958731e3267af5349d54989926c98f94635c6ca5cd17af7ec9cf2f",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 27,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/890a91e9f59568153fe832dfb7ed5cbbb9568efc3d13d76e093b19ca8ce9664a.png",
+          "sha256": "5289de9dab7ea82afff315537ad4d62776fba48b5c6913eef3e69253121a3f4c",
+          "white": ".cache/curriculum-source/white-review/890a91e9f59568153fe832dfb7ed5cbbb9568efc3d13d76e093b19ca8ce9664a.png.png",
+          "root_source_sha256": "5289de9dab7ea82afff315537ad4d62776fba48b5c6913eef3e69253121a3f4c",
+          "root_white_sha256": "b1aefd34482254e0a13ce77be40616513103665324869e5f564b4117eadf9a29",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 28,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/6344d0a84ec78c5924e15e78ea7326807014647a4ce614fbad48affda0b62b27.png",
+          "sha256": "fc1fea6628e9bcdb3913029ef204cba9f9dc448bfc92e4bb0cefa81c869ac223",
+          "white": ".cache/curriculum-source/white-review/6344d0a84ec78c5924e15e78ea7326807014647a4ce614fbad48affda0b62b27.png.png",
+          "root_source_sha256": "fc1fea6628e9bcdb3913029ef204cba9f9dc448bfc92e4bb0cefa81c869ac223",
+          "root_white_sha256": "d249eaea1f1ec6b1ac9fdcac2de09495352ef13d61c61f6c1fd5ecc7c5f38284",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 29,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/18f0b44e32a4dccaec895f3450fd5decdcbf75b4675a4ca47ac0b40369070957.png",
+          "sha256": "018511a50bd3712781f0fabcc0ad18ce1b33754dfe64f3ad036e2b0d2e3139fc",
+          "white": ".cache/curriculum-source/white-review/18f0b44e32a4dccaec895f3450fd5decdcbf75b4675a4ca47ac0b40369070957.png.png",
+          "root_source_sha256": "018511a50bd3712781f0fabcc0ad18ce1b33754dfe64f3ad036e2b0d2e3139fc",
+          "root_white_sha256": "23e77b92e2136d43c48a87c85372c41493bd78d97f81165d9d5f5763d01d7325",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 30,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/33cd9dfb17e2db0df189679e0a0ef8920a9ba627f0dffdf33b9304213881e6ee.png",
+          "sha256": "1bbaab617df6d3f2b46859ddd1ebd9b5aa45f28dd4666e40f30b2a6000e2f129",
+          "white": ".cache/curriculum-source/white-review/33cd9dfb17e2db0df189679e0a0ef8920a9ba627f0dffdf33b9304213881e6ee.png.png",
+          "root_source_sha256": "1bbaab617df6d3f2b46859ddd1ebd9b5aa45f28dd4666e40f30b2a6000e2f129",
+          "root_white_sha256": "c2e1f45c19d5582e410c861f77081dbeab01628a8f8816ea1e57888d7370fbae",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 31,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/ef13518baef5e74913f53fdebd888ca0abd41226c9eba930ed92e761f4b733bc.png",
+          "sha256": "c4472415564877661e569b4c82c77fbbba6dcb6d1e2a47c26f7f0eddb997340c",
+          "white": ".cache/curriculum-source/white-review/ef13518baef5e74913f53fdebd888ca0abd41226c9eba930ed92e761f4b733bc.png.png",
+          "root_source_sha256": "c4472415564877661e569b4c82c77fbbba6dcb6d1e2a47c26f7f0eddb997340c",
+          "root_white_sha256": "f003451b141067cfabe9fb2cd94872d5e6e91fdd4ff75519cff4cf1676279589",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 32,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/7c4eab9d21a061ce24db5c596d2589bab655d462121c188c30c85931875772cb.png",
+          "sha256": "754c077f4a41ced6bf0662b3c5b193803fce67ee35e94524cec50752a237ffb6",
+          "white": ".cache/curriculum-source/white-review/7c4eab9d21a061ce24db5c596d2589bab655d462121c188c30c85931875772cb.png.png",
+          "root_source_sha256": "754c077f4a41ced6bf0662b3c5b193803fce67ee35e94524cec50752a237ffb6",
+          "root_white_sha256": "f56d3993d9fbbb8f9d1f587274429a78a7f5bd030aa03b4453f543af8ba31792",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 34,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/7a2b8c818a8268656c565ac657f73c1967d89e8210a16083b842dda5526089b0.png",
+          "sha256": "b879c0995b0d1e7211af195a41fd91067cd5f1ca4b94dba5a0a073224db0a26e",
+          "white": ".cache/curriculum-source/white-review/7a2b8c818a8268656c565ac657f73c1967d89e8210a16083b842dda5526089b0.png.png",
+          "root_source_sha256": "b879c0995b0d1e7211af195a41fd91067cd5f1ca4b94dba5a0a073224db0a26e",
+          "root_white_sha256": "dc5e3c3bb05d565d3eb84f6ba4a77bc5b71f03bf7fab3648fe9d4618fba1fc35",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 35,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/f532c56230d911a2842f69110b8e864f29c53f5856b19df780e31813e60265a5.png",
+          "sha256": "f7c136bbf88c12c3973a3efac396c189020d3e33f4f567f43af0a6283d95bed4",
+          "white": ".cache/curriculum-source/white-review/f532c56230d911a2842f69110b8e864f29c53f5856b19df780e31813e60265a5.png.png",
+          "root_source_sha256": "f7c136bbf88c12c3973a3efac396c189020d3e33f4f567f43af0a6283d95bed4",
+          "root_white_sha256": "ca7b204ba2335662b523b8144b225f1bb3bd953f86345455d52887a77c102899",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 36,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/406883cdb9d8647ea734c106dbbdb8c1429414c0d34798160a89845bc386c79a.png",
+          "sha256": "15d23b59e8487f2d2907445bcb0aeedf6f04699c331f5912bde79426f3ce40f4",
+          "white": ".cache/curriculum-source/white-review/406883cdb9d8647ea734c106dbbdb8c1429414c0d34798160a89845bc386c79a.png.png",
+          "root_source_sha256": "15d23b59e8487f2d2907445bcb0aeedf6f04699c331f5912bde79426f3ce40f4",
+          "root_white_sha256": "05f5cfff1a3521eda4f53eab201553fa05174726ef7ff786be0a030543b61e49",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 37,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/3bd8b23a8fb4d3335a0cd9c002cf598fca40f8120f42c01f9948bb2a04e29653.png",
+          "sha256": "0256a34ba23bcc96513f59a0524c28255dc0da3ac7a8cf68fb5b66963543eef3",
+          "white": ".cache/curriculum-source/white-review/3bd8b23a8fb4d3335a0cd9c002cf598fca40f8120f42c01f9948bb2a04e29653.png.png",
+          "root_source_sha256": "0256a34ba23bcc96513f59a0524c28255dc0da3ac7a8cf68fb5b66963543eef3",
+          "root_white_sha256": "2001109ac04bc05cbe2259eb4ca469595b93284e8b00f01ff6c981771a56b726",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 38,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/2ac897a76a07770a3ce95acf94ab13b676fc2db9e5c55f7235d48a27fd08d29b.png",
+          "sha256": "ae50affb589c0ee4dd40ca1b008b1b92691a457397881526da45cbfee9e83af9",
+          "white": ".cache/curriculum-source/white-review/2ac897a76a07770a3ce95acf94ab13b676fc2db9e5c55f7235d48a27fd08d29b.png.png",
+          "root_source_sha256": "ae50affb589c0ee4dd40ca1b008b1b92691a457397881526da45cbfee9e83af9",
+          "root_white_sha256": "2319ea306f4a915037ca6f7bc38d995167b6a3105eee67671c75d0360b366153",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 41,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/9acd992cea591714a256dac0f49d4c41770dc6eaf456cdbf2d3df773122dd7ed.png",
+          "sha256": "121cf6c43ae98c6bddf0c8a0a7ee14f07c521b8a017fb1d71a296c7f94a13a7f",
+          "white": ".cache/curriculum-source/white-review/9acd992cea591714a256dac0f49d4c41770dc6eaf456cdbf2d3df773122dd7ed.png.png",
+          "root_source_sha256": "121cf6c43ae98c6bddf0c8a0a7ee14f07c521b8a017fb1d71a296c7f94a13a7f",
+          "root_white_sha256": "2eb19ab959aa617400a7024da38cbf5bf0f6e06887f1ae736131f142c0567d44",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 42,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/95d82425af8c5616ceb3ce04a944202ae3aad5d43ce66c17f90604c78c57a5bb.png",
+          "sha256": "8f40d703ece8c3787608e2e356dfe9a71c4d6451df06abc39ed50c3b32555806",
+          "white": ".cache/curriculum-source/white-review/95d82425af8c5616ceb3ce04a944202ae3aad5d43ce66c17f90604c78c57a5bb.png.png",
+          "root_source_sha256": "8f40d703ece8c3787608e2e356dfe9a71c4d6451df06abc39ed50c3b32555806",
+          "root_white_sha256": "438c93ee3fc77a38f8692135f6353ac68c01189a72b073052fe2e9c9d94624f6",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 43,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/8f32c353d0805ffee9d3f0b042c8d92c4d06f7c37c8d6de5a99433b08fcf0a32.png",
+          "sha256": "b0deadc1bca6cc2f3b5a16dcbc0c3c9fecf12855c716fb95b8ef84b3d7c041cd",
+          "white": ".cache/curriculum-source/white-review/8f32c353d0805ffee9d3f0b042c8d92c4d06f7c37c8d6de5a99433b08fcf0a32.png.png",
+          "root_source_sha256": "b0deadc1bca6cc2f3b5a16dcbc0c3c9fecf12855c716fb95b8ef84b3d7c041cd",
+          "root_white_sha256": "e168efa92b6909f33b46e7fa20c31a0e9a129d00b2ea8be4870cedcefec6cb8d",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 44,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/3eb0c65fac5a4be924c872c6c637179ffbf789dfd674392f615036554055f388.png",
+          "sha256": "93f7574c173764725cd10d4852d652d96172f9feb86590996d6e3309c3def68e",
+          "white": ".cache/curriculum-source/white-review/3eb0c65fac5a4be924c872c6c637179ffbf789dfd674392f615036554055f388.png.png",
+          "root_source_sha256": "93f7574c173764725cd10d4852d652d96172f9feb86590996d6e3309c3def68e",
+          "root_white_sha256": "882006e68de4ab39a09d63328ddb2d26884061b892aed2fac25d7c0974ad19ad",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 45,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/146dc0fb049ae00a216a5b10903cc51d75b4b2cb02f8203b49ea05fe05d76b20.png",
+          "sha256": "d18bcc8f5f53b569debbfe1946ff0b770c33bb447772bda6194261ce90f4d7cb",
+          "white": ".cache/curriculum-source/white-review/146dc0fb049ae00a216a5b10903cc51d75b4b2cb02f8203b49ea05fe05d76b20.png.png",
+          "root_source_sha256": "d18bcc8f5f53b569debbfe1946ff0b770c33bb447772bda6194261ce90f4d7cb",
+          "root_white_sha256": "cd1760b4304cddcd227220bc403939c2f696658d2e6dc560d42a6356f978b87e",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 46,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/cd889f8b9912c8dfb5db88a24591f4a9b73966930cea0c047ec567ee960a7f8e.png",
+          "sha256": "5eccc3443ffc1d5b4bb568d93e74f62972623a7d500a7ae9bb5ecf473bf43c59",
+          "white": ".cache/curriculum-source/white-review/cd889f8b9912c8dfb5db88a24591f4a9b73966930cea0c047ec567ee960a7f8e.png.png",
+          "root_source_sha256": "5eccc3443ffc1d5b4bb568d93e74f62972623a7d500a7ae9bb5ecf473bf43c59",
+          "root_white_sha256": "ebe497626c1bf48b6eae228a69510449565e1411fd686306349de735809d35a6",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 47,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/812f005cf5fb659d264b6b31014108363eee719ceadda60558d0235b7ced3d98.png",
+          "sha256": "782cc9e28d9a247dfb876d49253ca382436a74e8c2aaed02b1f9b789b35aad92",
+          "white": ".cache/curriculum-source/white-review/812f005cf5fb659d264b6b31014108363eee719ceadda60558d0235b7ced3d98.png.png",
+          "root_source_sha256": "782cc9e28d9a247dfb876d49253ca382436a74e8c2aaed02b1f9b789b35aad92",
+          "root_white_sha256": "3f29624003862519fd19bc6ee620a96debad0addd45a2198930b13cb562f86b4",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 49,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/4f99d5841a51e8804f79d1fd54b8912eac8e4b356420a675ae82e124ec50b3ea.png",
+          "sha256": "723027eb253eb5863aa2b529e77610c9722344737027b7934a3aed93d10a405e",
+          "white": ".cache/curriculum-source/white-review/4f99d5841a51e8804f79d1fd54b8912eac8e4b356420a675ae82e124ec50b3ea.png.png",
+          "root_source_sha256": "723027eb253eb5863aa2b529e77610c9722344737027b7934a3aed93d10a405e",
+          "root_white_sha256": "064036d8a4642e9a714a2515251b0643a8c8cd29b2a483072c00a304923d298f",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 50,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/ded50a471f3580eca214e156d9b7bb2a84a3755f0288b5006b66a531f616ea76.png",
+          "sha256": "035ca223944bf797e275376397523962043f0580820a15cf795f4c697a1a5a41",
+          "white": ".cache/curriculum-source/white-review/ded50a471f3580eca214e156d9b7bb2a84a3755f0288b5006b66a531f616ea76.png.png",
+          "root_source_sha256": "035ca223944bf797e275376397523962043f0580820a15cf795f4c697a1a5a41",
+          "root_white_sha256": "82e85ecf4ee8a1df0440406e5199eabd79c4725d2d38362abd34ca23d79da376",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 51,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/d0a06da3d5dbc5a74810d96cb905d362404021d08e2de8c347076fcb38cfd886.png",
+          "sha256": "2dbbaf2fc3217522ff48fb7d7c8b4c0faa5f5dca3979b539aca1a9dc0b98ec26",
+          "white": ".cache/curriculum-source/white-review/d0a06da3d5dbc5a74810d96cb905d362404021d08e2de8c347076fcb38cfd886.png.png",
+          "root_source_sha256": "2dbbaf2fc3217522ff48fb7d7c8b4c0faa5f5dca3979b539aca1a9dc0b98ec26",
+          "root_white_sha256": "54b772eecb2525079c5640545502b344435ec36eae0b246d50e33dbcea3de0ff",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 53,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/60f2aca3a767d238db8625c52423000556d16630abb9c351aa3a630a19438a2c.png",
+          "sha256": "535e0af74a2a95eeaad490758a48ee4507b8acf8aa891d4cae60724a1651905a",
+          "white": ".cache/curriculum-source/white-review/60f2aca3a767d238db8625c52423000556d16630abb9c351aa3a630a19438a2c.png.png",
+          "root_source_sha256": "535e0af74a2a95eeaad490758a48ee4507b8acf8aa891d4cae60724a1651905a",
+          "root_white_sha256": "4bc4e98c7a765a29605caea4cbeba3a1236fd6d1fc84f9eb3b3535109a4dea40",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 54,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/de01b063ef2e12e922448187eed9649a2e71a01b2c3c742fdde5d5891d291d2c.png",
+          "sha256": "6a9f1cde345f8ae4ad26bc46660a3420a73b02def190e96934277a5aef6873f1",
+          "white": ".cache/curriculum-source/white-review/de01b063ef2e12e922448187eed9649a2e71a01b2c3c742fdde5d5891d291d2c.png.png",
+          "root_source_sha256": "6a9f1cde345f8ae4ad26bc46660a3420a73b02def190e96934277a5aef6873f1",
+          "root_white_sha256": "0bfddadcd129e2ae300de0ec574ce8b8f7fe029824510268726b05f43eea620c",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 56,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/7173acd717efc2b7cbddcdded7c4a2e5a745aeae20b63f12c243212dff47110b.png",
+          "sha256": "2143365ba961824908d1e54cb140bfeaf58648bdca50e4706b1a840055b45913",
+          "white": ".cache/curriculum-source/white-review/7173acd717efc2b7cbddcdded7c4a2e5a745aeae20b63f12c243212dff47110b.png.png",
+          "root_source_sha256": "2143365ba961824908d1e54cb140bfeaf58648bdca50e4706b1a840055b45913",
+          "root_white_sha256": "4a4290cc4072fed7188cdadc7b542d6158db9d1f20a820d73c112c7c72ebbe77",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 57,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/3272a7df977dcc1d5093e7a6fd8b15aa2d0dcc99ff9ff6573eacc71cc05a9c75.png",
+          "sha256": "d98447f73dcace6decf11fb379fa99be3fedc3677ee0425fd8874ef0cddb4ba7",
+          "white": ".cache/curriculum-source/white-review/3272a7df977dcc1d5093e7a6fd8b15aa2d0dcc99ff9ff6573eacc71cc05a9c75.png.png",
+          "root_source_sha256": "d98447f73dcace6decf11fb379fa99be3fedc3677ee0425fd8874ef0cddb4ba7",
+          "root_white_sha256": "57875eb334b6ffa78ed201c285774d0263d54130ab30613234812613ac897ee5",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "index": 58,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/71b6e44af6246dc34217d6be1b0ddbb87dd5e3feb8515e7fea4ca77599168f14.png",
+          "sha256": "49a760042d071aea031ceed0afa75b02e0ac91f7917fb11905ea7578b0c4fb9a",
+          "white": ".cache/curriculum-source/white-review/71b6e44af6246dc34217d6be1b0ddbb87dd5e3feb8515e7fea4ca77599168f14.png.png",
+          "root_source_sha256": "49a760042d071aea031ceed0afa75b02e0ac91f7917fb11905ea7578b0c4fb9a",
+          "root_white_sha256": "6e2f151eaf4eed9a15966ca70b46a83189f039708eb75d3b0414c2f1ad6d02a4",
+          "root_dimensions": [
+            512,
+            512
+          ]
+        }
+      ],
+      "visual_contacts": [
+        ".cache/curriculum-source/white-review/4483-native-0.png",
+        ".cache/curriculum-source/white-review/4483-native-9.png",
+        ".cache/curriculum-source/white-review/4483-native-18.png",
+        ".cache/curriculum-source/white-review/4483-native-27.png",
+        ".cache/curriculum-source/white-review/4483-native-36.png"
+      ],
+      "visual_evidence": [
+        "All42 commercial castle-effect artworks directly inspected in native512x512 white rectangles across five contact sheets. Portraits, food, dragons and novelty characters; no board, coordinates, hands or formation diagram. Other images are article-link thumbnails and advertising."
+      ],
+      "cautions": [
+        "Source labels HalfMino number20 despite106 filename; BaldMino paragraph wrongly repeats ChonmageMino name. SilverMino mixes White5b coordinates with surrounding Black descriptions. Absolute strongest claims and costume/model speculation unsupported. Effect conditions and counts datedMarch2019; no wording, grouping or commercial artwork adopted."
+      ],
+      "unverified": [
+        "Current effect availability and formation geometry; no board evidence supports importing descriptions."
+      ]
+    },
+    {
+      "id": "452",
+      "url": "https://shogi-joutatsu.com/archives/452",
+      "cache": ".cache/curriculum-source/452.txt",
+      "sha256": "c7b0fdd74750c3343ac2856b362fb41e15f6a63fcbcf5c0dadb005d284f030a4",
+      "lines": 141,
+      "read_range": "1-141 EOF",
+      "visual_indices": [
+        21
+      ],
+      "visual_assets": [
+        {
+          "index": 21,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/9995441100ad52ebb2918997b0006d062a9aa78cb8061ee3941e9b359586fb55.png",
+          "sha256": "7a1133f7d20606f2414419892a1759cdecb588c733a8e83fa9676229e16e0d6b",
+          "white": ".cache/curriculum-source/white-review/9995441100ad52ebb2918997b0006d062a9aa78cb8061ee3941e9b359586fb55.png.png",
+          "root_source_sha256": "7a1133f7d20606f2414419892a1759cdecb588c733a8e83fa9676229e16e0d6b",
+          "root_white_sha256": "0ff9c50c00155150f3ed1ec656add3986adb24962624e8be9506f8c916bb1949",
+          "root_dimensions": [
+            1244,
+            691
+          ]
+        }
+      ],
+      "visual_evidence": [
+        "Image21 original1244x691 directly viewed: horizontal rank beginner,5kyu,2kyu,1dan; vertical mate length1,3,5,7; colored overlapping book recommendation ellipses. Qualitative chart without sampled data or uncertainty, no tactical position. Other images are covers/ads/avatar."
+      ],
+      "cautions": [
+        "Difficulty/rank mapping subjective; claims of guaranteed rank strength and learning efficacy unsupported. Book interiors not supplied or fetched. Prices, subscription availability and discounts unverified current."
+      ],
+      "unverified": [
+        "Independent book difficulty assessment and current purchasing facts; no source-composed puzzle adopted."
+      ]
+    },
+    {
+      "id": "4545",
+      "url": "https://shogi-joutatsu.com/archives/4545",
+      "cache": ".cache/curriculum-source/4545.txt",
+      "sha256": "76264dc9b86554c319e77ede6557a6c509dcd8d42aa0e9be1b5f71996860f2e5",
+      "lines": 155,
+      "read_range": "1-155 EOF",
+      "visual_indices": [
+        10,
+        11,
+        12,
+        15,
+        18,
+        21,
+        22,
+        23,
+        26,
+        29
+      ],
+      "visual_assets": [
+        {
+          "index": 10,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/ca6f1175424adca0e04e05ad638553a18e1eb2c984cd5d344304e3b30724e822.png",
+          "sha256": "f8991fc2864679f242ba097eacdaf28d59b7fed8dbd27e5749a62286ddaec0e7",
+          "white": ".cache/curriculum-source/white-review/ca6f1175424adca0e04e05ad638553a18e1eb2c984cd5d344304e3b30724e822.png.png",
+          "root_source_sha256": "f8991fc2864679f242ba097eacdaf28d59b7fed8dbd27e5749a62286ddaec0e7",
+          "root_white_sha256": "f0cdefe68f7b70e0516989d814917fc2602ddb9ea7cb5f0b81abd180018a75bf",
+          "root_dimensions": [
+            512,
+            171
+          ]
+        },
+        {
+          "index": 11,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/e400c673131ebff90444c062920e547ead37cd541d1fa8db58ecd952299f8c96.png",
+          "sha256": "bae00ff2a6a994d14853993855050c765e7e65b44bdf42d98559ba2185fa94b9",
+          "white": ".cache/curriculum-source/white-review/e400c673131ebff90444c062920e547ead37cd541d1fa8db58ecd952299f8c96.png.png",
+          "root_source_sha256": "bae00ff2a6a994d14853993855050c765e7e65b44bdf42d98559ba2185fa94b9",
+          "root_white_sha256": "d278629f55cf7aec925db64a4ad5b21f89291fc9f4f5ab7fe51efffb232345cb",
+          "root_dimensions": [
+            512,
+            171
+          ]
+        },
+        {
+          "index": 12,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/cb022a994b6515d6de29d8748f06da32283c444c6e204cecd1fd41099edf4964.png",
+          "sha256": "afcbc3accce5d4ccaba1c2aec9706547f4b332094209ea6bd5bd65f74f7095c9",
+          "white": ".cache/curriculum-source/white-review/cb022a994b6515d6de29d8748f06da32283c444c6e204cecd1fd41099edf4964.png.png",
+          "root_source_sha256": "afcbc3accce5d4ccaba1c2aec9706547f4b332094209ea6bd5bd65f74f7095c9",
+          "root_white_sha256": "e57c3aed27b1003ef04369c68846e96f1975702ff9b4848b9727b8cab1d51ef4",
+          "root_dimensions": [
+            512,
+            171
+          ]
+        },
+        {
+          "index": 15,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/28661a595160bc7b39de1eef14ea29f4eb174d47ef1ba5000bdf1997d00125a4.png",
+          "sha256": "9972323f9e17db4a01fa734686ed99387a738ae2567753fbe573cb5339196d54",
+          "white": ".cache/curriculum-source/white-review/28661a595160bc7b39de1eef14ea29f4eb174d47ef1ba5000bdf1997d00125a4.png.png",
+          "root_source_sha256": "9972323f9e17db4a01fa734686ed99387a738ae2567753fbe573cb5339196d54",
+          "root_white_sha256": "e4be6614126e66a3a167ad5348d6468e37bc5a4285e073cf1e23500ef8ffe4ad",
+          "root_dimensions": [
+            512,
+            171
+          ]
+        },
+        {
+          "index": 18,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/27a67e1390f15e58f0c06880907540fecfd18abfb3886093142dd620f4860c4c.png",
+          "sha256": "21e2c623d78bb6a3c39b6ddba94a8cf2f523c9a2285891275f267ae8e3c07a82",
+          "white": ".cache/curriculum-source/white-review/27a67e1390f15e58f0c06880907540fecfd18abfb3886093142dd620f4860c4c.png.png",
+          "root_source_sha256": "21e2c623d78bb6a3c39b6ddba94a8cf2f523c9a2285891275f267ae8e3c07a82",
+          "root_white_sha256": "4c779bad7432faa5b85673817e9e55d09922a71858f39cd266a531ebf0e35f63",
+          "root_dimensions": [
+            512,
+            171
+          ]
+        },
+        {
+          "index": 21,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/b149095507342f88bc4e5f56c2896307b7f2913c2048c31bebbf9d80329776c3.png",
+          "sha256": "5e707ff090bbaf242d9c7462d6247c765c9e9c3d786580d305fcbbee88c5f77e",
+          "white": ".cache/curriculum-source/white-review/b149095507342f88bc4e5f56c2896307b7f2913c2048c31bebbf9d80329776c3.png.png",
+          "root_source_sha256": "5e707ff090bbaf242d9c7462d6247c765c9e9c3d786580d305fcbbee88c5f77e",
+          "root_white_sha256": "e3dd34db736eb7096a82280676517d02c4d74b4bdab18a6e1e4a623260d4c19d",
+          "root_dimensions": [
+            512,
+            171
+          ]
+        },
+        {
+          "index": 22,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/aa1c6aafaf26a08dfbb6ba45273c0920fc5615b8767eee934a4abe3a4481f2be.png",
+          "sha256": "56b9dece5540cee4fca0f470ad32df9c25c93144d74123be584b7c8334eecdfc",
+          "white": ".cache/curriculum-source/white-review/aa1c6aafaf26a08dfbb6ba45273c0920fc5615b8767eee934a4abe3a4481f2be.png.png",
+          "root_source_sha256": "56b9dece5540cee4fca0f470ad32df9c25c93144d74123be584b7c8334eecdfc",
+          "root_white_sha256": "c9a01d04f226ccd38938f8e6eb0b053155fb2b43ab7070c7a6dfd37d0e3d9cd9",
+          "root_dimensions": [
+            512,
+            171
+          ]
+        },
+        {
+          "index": 23,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/47665713cf1207ab44f2d85aadae771f8c035f8ffa1448fb83ffdb13017fbafc.png",
+          "sha256": "6000f149366d12006338624ded7f28e44c5b9f900a8e128937d578dd9178fdba",
+          "white": ".cache/curriculum-source/white-review/47665713cf1207ab44f2d85aadae771f8c035f8ffa1448fb83ffdb13017fbafc.png.png",
+          "root_source_sha256": "6000f149366d12006338624ded7f28e44c5b9f900a8e128937d578dd9178fdba",
+          "root_white_sha256": "4b53dfe7b75fa0c936ba691bf57e46349aaa72c690970323fd211a403801bdee",
+          "root_dimensions": [
+            512,
+            171
+          ]
+        },
+        {
+          "index": 26,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/62c4eecd27b61c704c7b98c9523e3c6ede6b7fef1f1adeaf886f352938d9ccd6.png",
+          "sha256": "993f9c40bcad3c9838f1dd842678657683936ccc43b656dc140fff3ecdc72961",
+          "white": ".cache/curriculum-source/white-review/62c4eecd27b61c704c7b98c9523e3c6ede6b7fef1f1adeaf886f352938d9ccd6.png.png",
+          "root_source_sha256": "993f9c40bcad3c9838f1dd842678657683936ccc43b656dc140fff3ecdc72961",
+          "root_white_sha256": "9b6cbcd90d4f32c0565747ae2cc7e81b22532cc5bf1dfd141e32c8427ccf4e1d",
+          "root_dimensions": [
+            512,
+            171
+          ]
+        },
+        {
+          "index": 29,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/434f850fea094e0bd4e587e494e3cec5b2c117e36b93d497de7ca30477caa86c.png",
+          "sha256": "f21a498d0425e7f30970181e37604788dd58ce24fa94aca3284fde3a7a3ad5c7",
+          "white": ".cache/curriculum-source/white-review/434f850fea094e0bd4e587e494e3cec5b2c117e36b93d497de7ca30477caa86c.png.png",
+          "root_source_sha256": "f21a498d0425e7f30970181e37604788dd58ce24fa94aca3284fde3a7a3ad5c7",
+          "root_white_sha256": "634ffa38fd3817142b46065f976aa80d6635676c5f5420800844a06cfd828d00",
+          "root_dimensions": [
+            512,
+            171
+          ]
+        }
+      ],
+      "visual_contacts": [
+        ".cache/curriculum-source/white-review/4545-native-0.png",
+        ".cache/curriculum-source/white-review/4545-native-9.png"
+      ],
+      "visual_evidence": [
+        "All ten commercial text-banner effects directly inspected at native512x171 dimensions on white. No boards, coordinates or hands. Other images are book cover, advertisements, linked thumbnails and avatars."
+      ],
+      "cautions": [
+        "Dangling pawn need not be exactly one square before enemy camp; BottomPawn last-rank wording must distinguish own orientation. Knight-head silver capture depends on blockers and protection, not universal forced capture. Lance skewer described as double attack loosely. Knight section links lance article. No commercial text or image adopted."
+      ],
+      "unverified": [
+        "Effect trigger rules/current count; full-curriculum tactical comparison remains pending."
+      ]
+    },
+    {
+      "id": "5024",
+      "url": "https://shogi-joutatsu.com/archives/5024",
+      "cache": ".cache/curriculum-source/5024.txt",
+      "sha256": "8c4e1de4d4734eab740f6658b43d72ed7643082f14d1f03c2b7648c78618fbd1",
+      "lines": 198,
+      "read_range": "1-198 EOF",
+      "visual_indices": [],
+      "visual_assets": [],
+      "visual_evidence": [
+        "Inventory0–14 only avatars, app ads, app icon/badges and linked thumbnails. Rating color/rank tables are text; no instructional image or board."
+      ],
+      "cautions": [
+        "Quoted Quest help about provisional first40 games is third-party wording not reusable. Thresholds, no-demotion rule, monetization and account behavior unverified current. Cross-app rank equivalence is unsupported approximate comparison."
+      ],
+      "unverified": [
+        "Current Quest rules, rating calibration and platform comparison; no tactical candidate."
+      ]
+    },
+    {
+      "id": "5171",
+      "url": "https://shogi-joutatsu.com/archives/5171",
+      "cache": ".cache/curriculum-source/5171.txt",
+      "sha256": "87f79ccad57b6cd9243a651c4426af51c5507ff46c92dfc2387be8b8f9c37787",
+      "lines": 100,
+      "read_range": "1-100 EOF",
+      "visual_indices": [],
+      "visual_assets": [],
+      "visual_evidence": [
+        "Inventory0–25 consists of book covers, advertising, linked article thumbnail, icons and avatars. No interior page or teaching board supplied."
+      ],
+      "cautions": [
+        "Book difficulty/rank recommendations and guaranteed mastery outcomes are opinions. Latest-theory descriptions, availability and discounts unverified current. Titles mention4hGold/2iRook/2ePawn but provide no supporting lines to author from."
+      ],
+      "unverified": [
+        "Book interiors and theory quality; no tactical or structural incorporation candidate."
+      ]
+    },
+    {
+      "id": "553",
+      "url": "https://shogi-joutatsu.com/archives/553",
+      "cache": ".cache/curriculum-source/553.txt",
+      "sha256": "d20cd7613d290aa8ec2a3e0c045753ac911effdce5e3300652c2f7092a4d43c7",
+      "lines": 88,
+      "read_range": "1-88 EOF",
+      "visual_indices": [
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "visual_assets": [
+        {
+          "index": 12,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/b6bc7c6eb0cc2eacb3f1fea4f858c7d1d8169060a4895c46c39443328d598c9f.png",
+          "sha256": "66b7a6f781f71c546ee0cef2073eabd76b3765a3ffb4685de6165e26f620e833",
+          "white": ".cache/curriculum-source/white-review/b6bc7c6eb0cc2eacb3f1fea4f858c7d1d8169060a4895c46c39443328d598c9f.png.png",
+          "root_source_sha256": "66b7a6f781f71c546ee0cef2073eabd76b3765a3ffb4685de6165e26f620e833",
+          "root_white_sha256": "27f160794ba640a99b5fcec2f415cb32afdab5f22a192f8dda5ad6bb84d2992b",
+          "root_dimensions": [
+            1125,
+            2436
+          ]
+        },
+        {
+          "index": 13,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/304c2caa486c562a376043ec321ec088793d0d2f6ffefe482b9ee6fbd7797c12.png",
+          "sha256": "5019cd2c7e458f672621f8d0c6af1bc610a5d40ddcc9902bcc0a08bae36b813c",
+          "white": ".cache/curriculum-source/white-review/304c2caa486c562a376043ec321ec088793d0d2f6ffefe482b9ee6fbd7797c12.png.png",
+          "root_source_sha256": "5019cd2c7e458f672621f8d0c6af1bc610a5d40ddcc9902bcc0a08bae36b813c",
+          "root_white_sha256": "e7d699aeb9e3e196b5ee7be0223f503743bba02b0101dbf938429a46a80f01f7",
+          "root_dimensions": [
+            1124,
+            1508
+          ]
+        },
+        {
+          "index": 14,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/a298d2beccfe738e3a710f3c95e49152dbd3b55e3e6e030e17299e6e7e383c5d.png",
+          "sha256": "4497ff64b09b4e6e96b5db09d35352269e997bb7da12542d6dd2963c48170442",
+          "white": ".cache/curriculum-source/white-review/a298d2beccfe738e3a710f3c95e49152dbd3b55e3e6e030e17299e6e7e383c5d.png.png",
+          "root_source_sha256": "4497ff64b09b4e6e96b5db09d35352269e997bb7da12542d6dd2963c48170442",
+          "root_white_sha256": "82ad3131f1fb1da6ca6c32fc2cf3359ac150c0a91f67edebe132236fec710a0a",
+          "root_dimensions": [
+            300,
+            300
+          ]
+        },
+        {
+          "index": 15,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/e58994b273be25bd56f9a5b2fb91446a8fb92443ebb5b7488c08bd5f7fbfa4f0.png",
+          "sha256": "2cf5652a90a76b326c7aead575d828a00c3de610ee6b07ab53653beae7ea95c4",
+          "white": ".cache/curriculum-source/white-review/e58994b273be25bd56f9a5b2fb91446a8fb92443ebb5b7488c08bd5f7fbfa4f0.png.png",
+          "root_source_sha256": "2cf5652a90a76b326c7aead575d828a00c3de610ee6b07ab53653beae7ea95c4",
+          "root_white_sha256": "68a282076ffdd6df068d448ef42843fb90e492c73d380e46fbc11ea9f937ad62",
+          "root_dimensions": [
+            1125,
+            1126
+          ]
+        },
+        {
+          "index": 16,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/7e4531a4ffaa62de872caa325844460a34a86fa47b666d2fde28411994b69957.png",
+          "sha256": "caf7c75ee96c9697acefc2296776b6dc0c3bf0e2745f7c17f8e07e62b32ca1b7",
+          "white": ".cache/curriculum-source/white-review/7e4531a4ffaa62de872caa325844460a34a86fa47b666d2fde28411994b69957.png.png",
+          "root_source_sha256": "caf7c75ee96c9697acefc2296776b6dc0c3bf0e2745f7c17f8e07e62b32ca1b7",
+          "root_white_sha256": "d394c21642a52591680274f50fbb61115c819a98437d1a765ae6cbd28bc0c880",
+          "root_dimensions": [
+            1125,
+            1126
+          ]
+        },
+        {
+          "index": 17,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/3f9d343da139669337c6197be49d19c34ecc3e117adf3340ef9379f9788d67e1.png",
+          "sha256": "0463cb0e15f5be90426184b998323f82a5d097795f2f3973f9ee151949aa5822",
+          "white": ".cache/curriculum-source/white-review/3f9d343da139669337c6197be49d19c34ecc3e117adf3340ef9379f9788d67e1.png.png",
+          "root_source_sha256": "0463cb0e15f5be90426184b998323f82a5d097795f2f3973f9ee151949aa5822",
+          "root_white_sha256": "72645a53ea195d4cf800c9838cb7e4f2c7e75334e4f68046a09b7cfe8be2d0ea",
+          "root_dimensions": [
+            1125,
+            2436
+          ]
+        },
+        {
+          "index": 18,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/4bf0959cf4b6527e7ef976642bf6881bf3e1e5d4de47bbf041f0d354d9691902.png",
+          "sha256": "5ffafa9c27c34764bf802a272cd3873bdb8260c0c808d952e648a95ad3660577",
+          "white": ".cache/curriculum-source/white-review/4bf0959cf4b6527e7ef976642bf6881bf3e1e5d4de47bbf041f0d354d9691902.png.png",
+          "root_source_sha256": "5ffafa9c27c34764bf802a272cd3873bdb8260c0c808d952e648a95ad3660577",
+          "root_white_sha256": "7a8a169a9b32116c875580d1dddb722d8a941706c5a9878954b44e07f5418393",
+          "root_dimensions": [
+            224,
+            300
+          ]
+        }
+      ],
+      "visual_evidence": [
+        "All seven historical screenshots directly viewed full original with white margins. Level list12–26, strategy screen actually titled king castle, menu button and automatic analysis menu, analysis23–30 selector, rotated White-perspective full board with hands/coordinates and41Black7dPawn drop, advantage graph and candidate lines, version3.3.6 import buttons. Image14/18 originals themselves are small crops; no larger supplied margins invented."
+      ],
+      "cautions": [
+        "Article says40 levels but conclusion30; screenshot level list is partial. Strategy screenshot is castle selection rather than full opening choice. Wars import explicitly obsolete afterJan2019. Analysis graph viewpoint is Black positive/White negative even rotated board; engine labels are estimates, not proof. PC software strength/essential claims unverified."
+      ],
+      "unverified": [
+        "Current app behavior, analysis quality and software capability. Screenshot game position not adopted."
+      ]
+    },
+    {
+      "id": "648",
+      "url": "https://shogi-joutatsu.com/archives/648",
+      "cache": ".cache/curriculum-source/648.txt",
+      "sha256": "2d9d74086a125a2e8100ef171e1a2916f305f46565409968c0e98e9ae2a7b6eb",
+      "lines": 106,
+      "read_range": "1-106 EOF",
+      "visual_indices": [],
+      "visual_assets": [],
+      "visual_evidence": [
+        "Inventory0–19 only avatars, app ads/icons/badges and four retailer product thumbnails. No teaching board or instructional figure."
+      ],
+      "cautions": [
+        "Material durability, hinge behavior, prices and product availability are generalized or historical. Separate board/piece purchase incorrectly reduced to replacements; no source for measured compatibility or dimensions."
+      ],
+      "unverified": [
+        "Product specifications/current recommendations; no learning-content candidate."
+      ]
+    },
+    {
+      "id": "6578",
+      "url": "https://shogi-joutatsu.com/archives/6578",
+      "cache": ".cache/curriculum-source/6578.txt",
+      "sha256": "c0522c5ca58376b31f18b3c7fe159bbc8fc90d1285bd323ddd919ac5a236d079",
+      "lines": 133,
+      "read_range": "1-133 EOF",
+      "visual_indices": [],
+      "visual_assets": [],
+      "visual_evidence": [
+        "Inventory0–26 contains covers, ads, icons/badges and avatars. No book interior, instructional board or formation image."
+      ],
+      "cautions": [
+        "Rank suitability, exhaustive coverage and guaranteed endgame improvement are author opinions. Latest theory and discounts unverified current. No book content can be inferred from recommendation prose."
+      ],
+      "unverified": [
+        "Book interiors and current theory; no tactical or curriculum-structure candidate."
+      ]
+    },
+    {
+      "id": "6613",
+      "url": "https://shogi-joutatsu.com/archives/6613",
+      "cache": ".cache/curriculum-source/6613.txt",
+      "sha256": "ab8d6d1f0594c94e3dd568d9f2a200bb0a3800f6ca0286447b0b19417c1e6c30",
+      "lines": 131,
+      "read_range": "1-131 EOF",
+      "visual_indices": [],
+      "visual_assets": [],
+      "visual_evidence": [
+        "Inventory0–26 contains covers, ads, icons/badges and avatars; no interior page or tactical teaching image."
+      ],
+      "cautions": [
+        "Book suitability and rank mastery outcomes are opinions. Source recommends studying opposing perspective but gives no actual line. Book contents, current availability, discounts and latest-theory claims unverified."
+      ],
+      "unverified": [
+        "Book interiors and whole-curriculum comparison; no new board or sequence supported."
+      ]
+    },
+    {
+      "id": "6808",
+      "url": "https://shogi-joutatsu.com/archives/6808",
+      "cache": ".cache/curriculum-source/6808.txt",
+      "sha256": "5d15d494c213807d9a564ba5b9e85062baaafe813c52ca40530cbb6b134d637d",
+      "lines": 52,
+      "read_range": "1-52 EOF",
+      "visual_indices": [
+        2,
+        12
+      ],
+      "visual_assets": [
+        {
+          "index": 2,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/276e34339fea420b055860ba5c3fce85a309353e722396b430c0c98d3960668a.png",
+          "sha256": "4d525b33fbf3bda681b557ce49b642022b7e4bc1d24a77ecfdb0653d7eda4d3a",
+          "white": ".cache/curriculum-source/white-review/276e34339fea420b055860ba5c3fce85a309353e722396b430c0c98d3960668a.png.png",
+          "root_source_sha256": "4d525b33fbf3bda681b557ce49b642022b7e4bc1d24a77ecfdb0653d7eda4d3a",
+          "root_white_sha256": "639b49565420e4a434ae0a726306e2c68074dce6084a8920baeaf8a23d366b6a",
+          "root_dimensions": [
+            720,
+            1040
+          ]
+        },
+        {
+          "index": 12,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/c3845373f4fa96c3a63ca030faf6664ba9d4afeabe4ef8f7244d20078c3e663f.png",
+          "sha256": "4efbaf3397c31cb5b602ed23abc62c9c17003e892a0a9dd1b82b1f76a7cfd556",
+          "white": ".cache/curriculum-source/white-review/c3845373f4fa96c3a63ca030faf6664ba9d4afeabe4ef8f7244d20078c3e663f.png.png",
+          "root_source_sha256": "4efbaf3397c31cb5b602ed23abc62c9c17003e892a0a9dd1b82b1f76a7cfd556",
+          "root_white_sha256": "2d57cbc1bda1b494deb43c1822590eb5c1b7321829ea4c89d5ce1aa1194afbe3",
+          "root_dimensions": [
+            720,
+            1040
+          ]
+        }
+      ],
+      "visual_evidence": [
+        "Both original720x1040 sample pages directly viewed including full coordinates, defender remaining-piece list, attacker hands, hints and footer. One-move samples:WhiteKing5c/BlackSilver4c/WhitePawn6b; second WhiteKing8b,Silver7b,Knight8a,Lance9a,Pawns7c9d,BlackPawn8d,Rook2b. Three-move samples:WhiteKing5b/BlackSilver5d,GoldSilverhand; corner WhiteKing2b,Knight2a,Lance1a,Pawns1c2c3c,BlackSilver4c,GoldSilverhand. Four composed puzzles not adopted."
+      ],
+      "cautions": [
+        "Printable samples copyrighted composed teaching positions and hints; free availability does not authorize reuse. Six linked PDF files are not declared article outputs and were not downloaded; full14/11 puzzle collections not claimed read."
+      ],
+      "unverified": [
+        "Full PDF collection and answers; source samples reviewed visually only, no forced-mate proof claimed."
+      ]
+    },
+    {
+      "id": "6825",
+      "url": "https://shogi-joutatsu.com/archives/6825",
+      "cache": ".cache/curriculum-source/6825.txt",
+      "sha256": "e62da60515b989e6f8657e2e5024ecaff1cdad4504d064b074ecca075ee5016e",
+      "lines": 92,
+      "read_range": "1-92 EOF",
+      "visual_indices": [
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        16,
+        18,
+        19,
+        20,
+        21,
+        22
+      ],
+      "visual_assets": [
+        {
+          "index": 2,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/cec24c58b2c7554cc3f2c3677f3960e4928a65ab86990d32eda6150c919c55de.png",
+          "sha256": "ace5057710693d48e9f47508fe8f392eef0c94822c950eed16f20aa2ee7559c7",
+          "white": ".cache/curriculum-source/white-review/cec24c58b2c7554cc3f2c3677f3960e4928a65ab86990d32eda6150c919c55de.png.png",
+          "root_source_sha256": "ace5057710693d48e9f47508fe8f392eef0c94822c950eed16f20aa2ee7559c7",
+          "root_white_sha256": "16591e6b87dee8bce0ab6c790b52179fb33f8ee978c246fbe821fc40b024382a",
+          "root_dimensions": [
+            495,
+            429
+          ]
+        },
+        {
+          "index": 4,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/5cfe3374752cf3a4c0ff3ed3a85883b2b1df97386c64f508fe509a9b783af4b4.png",
+          "sha256": "44b90e20399456c46012ca6e78de95fbe3ea1540430fe4c49531ae7c7b040bb7",
+          "white": ".cache/curriculum-source/white-review/5cfe3374752cf3a4c0ff3ed3a85883b2b1df97386c64f508fe509a9b783af4b4.png.png",
+          "root_source_sha256": "44b90e20399456c46012ca6e78de95fbe3ea1540430fe4c49531ae7c7b040bb7",
+          "root_white_sha256": "da823a86bc3423126a6606410406abddaf7bc2eb999a5b66182edf6520853e7d",
+          "root_dimensions": [
+            495,
+            429
+          ]
+        },
+        {
+          "index": 5,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/64b8188594e6f42dee18de89cbd3a4507131501cd5d5c87eea6f58f2a460b723.png",
+          "sha256": "d87374347561d0ffbe826bc009f1c15a6ab69259ccb6af1a576f71e5773c3d83",
+          "white": ".cache/curriculum-source/white-review/64b8188594e6f42dee18de89cbd3a4507131501cd5d5c87eea6f58f2a460b723.png.png",
+          "root_source_sha256": "d87374347561d0ffbe826bc009f1c15a6ab69259ccb6af1a576f71e5773c3d83",
+          "root_white_sha256": "2dd5aa612f8fd39215b60a49c74fb9db236ec85e66260c90a7b6f3b70dfded67",
+          "root_dimensions": [
+            495,
+            429
+          ]
+        },
+        {
+          "index": 6,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/dbd0014301cbe72e85d468c3a7addf3274a7a0d57b52164f28e6b0fc25e06235.png",
+          "sha256": "3fe96374c8912663540549d60bc5af3b6bd1f424ca1399e7e3f829315c652767",
+          "white": ".cache/curriculum-source/white-review/dbd0014301cbe72e85d468c3a7addf3274a7a0d57b52164f28e6b0fc25e06235.png.png",
+          "root_source_sha256": "3fe96374c8912663540549d60bc5af3b6bd1f424ca1399e7e3f829315c652767",
+          "root_white_sha256": "9c010ebde7c6aa42394fc0f48bac8211998094d0e162bea92ea7a1ac4b7aaf3d",
+          "root_dimensions": [
+            495,
+            429
+          ]
+        },
+        {
+          "index": 7,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/f0b0bb40e31466eafd0e0f627e86705e64d894f8f2d32bf7b482eeffad92c666.png",
+          "sha256": "73b64a704a5234a0c9b2a49d252cad19d0f7574c3a704a4571e13861f4a6ebca",
+          "white": ".cache/curriculum-source/white-review/f0b0bb40e31466eafd0e0f627e86705e64d894f8f2d32bf7b482eeffad92c666.png.png",
+          "root_source_sha256": "73b64a704a5234a0c9b2a49d252cad19d0f7574c3a704a4571e13861f4a6ebca",
+          "root_white_sha256": "1da6784459e0d49aadf968cbb0ff5bb64ab9bababba357b086b9389614e37128",
+          "root_dimensions": [
+            495,
+            429
+          ]
+        },
+        {
+          "index": 8,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/1ed1c43612228f45130283e8e4e6171d47c4aa66f3b880afb48cdd9b21e91ff1.png",
+          "sha256": "58b6192ef8295f28eec6d1152765449f022a4c69481c9b5691b7bfbc7722ddc3",
+          "white": ".cache/curriculum-source/white-review/1ed1c43612228f45130283e8e4e6171d47c4aa66f3b880afb48cdd9b21e91ff1.png.png",
+          "root_source_sha256": "58b6192ef8295f28eec6d1152765449f022a4c69481c9b5691b7bfbc7722ddc3",
+          "root_white_sha256": "d04b12ffc279259c8d3e48207d86e14f9d9b6823a23552c2bc17d30e1873470f",
+          "root_dimensions": [
+            495,
+            429
+          ]
+        },
+        {
+          "index": 16,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/846b5ece4f53eefbcc8862032322aa99c165590427f78104757fb94d6b5f133b.png",
+          "sha256": "18f073e310d983b5e0e61e8d2dab372dc3f50711c966c4ebe394f7bc11aa3009",
+          "white": ".cache/curriculum-source/white-review/846b5ece4f53eefbcc8862032322aa99c165590427f78104757fb94d6b5f133b.png.png",
+          "root_source_sha256": "18f073e310d983b5e0e61e8d2dab372dc3f50711c966c4ebe394f7bc11aa3009",
+          "root_white_sha256": "8e847b957d6308887275f0b6f64c557fbaa1e993667baec58075181991ee8e8b",
+          "root_dimensions": [
+            495,
+            429
+          ]
+        },
+        {
+          "index": 18,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/33e3318cb4752e69a651ff9126e10094502b8e84827847d42978f21f5960840e.png",
+          "sha256": "e73d9fb9d50fb60fbb75c660a92eeac5ef203fd23e0801091e352afa6abc1ea6",
+          "white": ".cache/curriculum-source/white-review/33e3318cb4752e69a651ff9126e10094502b8e84827847d42978f21f5960840e.png.png",
+          "root_source_sha256": "e73d9fb9d50fb60fbb75c660a92eeac5ef203fd23e0801091e352afa6abc1ea6",
+          "root_white_sha256": "d06bc715d2af91ff355b4416257fb6a417aa00e408b14acaaf9b289c9cea9e8e",
+          "root_dimensions": [
+            495,
+            429
+          ]
+        },
+        {
+          "index": 19,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/ae0acd31ff531f8c8ac7173c0aff70603742e8a1454a579578a79fba1075a658.png",
+          "sha256": "c884637ef719fcfe7ae0d12eedd1cfab0624eb638be463ff1ccb63c9e77d4526",
+          "white": ".cache/curriculum-source/white-review/ae0acd31ff531f8c8ac7173c0aff70603742e8a1454a579578a79fba1075a658.png.png",
+          "root_source_sha256": "c884637ef719fcfe7ae0d12eedd1cfab0624eb638be463ff1ccb63c9e77d4526",
+          "root_white_sha256": "cfa327fc4a95a1c07d2acd9c352cca98b2f82818fd142409e56445b59070ab6c",
+          "root_dimensions": [
+            495,
+            429
+          ]
+        },
+        {
+          "index": 20,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/6ff93b2d47822193c769ed565e7b7b4272cfe60d36ccc801fa10d3a9754c045a.png",
+          "sha256": "b36aec5b1bffedf7cfe5ba4f4fffadec1404f68d8d2351c361efafd8537b0835",
+          "white": ".cache/curriculum-source/white-review/6ff93b2d47822193c769ed565e7b7b4272cfe60d36ccc801fa10d3a9754c045a.png.png",
+          "root_source_sha256": "b36aec5b1bffedf7cfe5ba4f4fffadec1404f68d8d2351c361efafd8537b0835",
+          "root_white_sha256": "318adf645c81a88f67becf7f1b7b7791e58cd88c04667bac57cc1aca0a0d59cd",
+          "root_dimensions": [
+            495,
+            429
+          ]
+        },
+        {
+          "index": 21,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/f81c9d3c031b4f251028706291e6f18fe3468ee3a9b2801c059df92ef6995dd1.png",
+          "sha256": "5ba7f60f2396b446a595b872b51e990e2fa113f3014f76df33fe0991949c666a",
+          "white": ".cache/curriculum-source/white-review/f81c9d3c031b4f251028706291e6f18fe3468ee3a9b2801c059df92ef6995dd1.png.png",
+          "root_source_sha256": "5ba7f60f2396b446a595b872b51e990e2fa113f3014f76df33fe0991949c666a",
+          "root_white_sha256": "e11bd2c2a64531989d6602231b0dc920bf919b107b4ca53213ac6081575c48ac",
+          "root_dimensions": [
+            495,
+            429
+          ]
+        },
+        {
+          "index": 22,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/abe614caa938de90e1eaa1e13e9901339349acd022bc64c124162ba73a6edd6f.png",
+          "sha256": "fdebfb9406569ff109711e7bd35e3b7efd9459fbfccf994bfa43cc7f9774779e",
+          "white": ".cache/curriculum-source/white-review/abe614caa938de90e1eaa1e13e9901339349acd022bc64c124162ba73a6edd6f.png.png",
+          "root_source_sha256": "fdebfb9406569ff109711e7bd35e3b7efd9459fbfccf994bfa43cc7f9774779e",
+          "root_white_sha256": "9e019166102bf1209ae3de0fa8070b327daed68cb46edec5d7e4be81af657f5f",
+          "root_dimensions": [
+            495,
+            429
+          ]
+        }
+      ],
+      "visual_evidence": [
+        "All twelve495x429 original boards directly viewed full coordinates, promotion glyphs, defender remaining-piece list and attacker hand. Seven-move sequence bishop6g,WhiteKnight3d,BlackKnight2b+,WhiteKing1c,bishop6h has two dragon finishes1i/9c with bishop interposition blocking WhiteDragon. Microcosmos opening dense board and finalKing1i/Gold2i. LastJudgment shows BlackKing5g,WhiteKing4e,bishop5f then6g,WhitePawn5f interposing and checking BlackKing diagonally adjacent."
+      ],
+      "cautions": [
+        "Three named copyrighted compositions cannot be reproduced or rearranged as new teaching examples. Hardest/longest records historical2019 and attribution/publication claims unverified. LastJudgment prose treats repetition as preventing a legal capture; that is a disputed rule interpretation rather than an ordinary move-legality fact. No1525move proof or uniqueness proof supplied."
+      ],
+      "unverified": [
+        "Mate uniqueness, fullMicrocosmos sequence, current rules adjudication and records. No composed source position adopted."
+      ]
+    },
+    {
+      "id": "6986",
+      "url": "https://shogi-joutatsu.com/archives/6986",
+      "cache": ".cache/curriculum-source/6986.txt",
+      "sha256": "83acd89fb656946315820ecbae78e52ebb1a35da20b59ce66e59789090a4ec7f",
+      "lines": 99,
+      "read_range": "1-99 EOF",
+      "visual_indices": [],
+      "visual_assets": [],
+      "visual_evidence": [
+        "Inventory0–22 contains covers, ads/icons/badges, linked thumbnail and avatars; no interior or tactical board."
+      ],
+      "cautions": [
+        "Opening dialogue mistakenly names CentralRook books for ThirdFileRook request. Book prerequisites/difficulty/rank suitability opinions; latest theory and discounts unverified current. No described book line supplied."
+      ],
+      "unverified": [
+        "Book interiors/current theory; no tactical incorporation candidate."
+      ]
+    },
+    {
+      "id": "7415",
+      "url": "https://shogi-joutatsu.com/archives/7415",
+      "cache": ".cache/curriculum-source/7415.txt",
+      "sha256": "279d8d8e94b38fe7d189ded45f0068f3bece4439f65d42966a6b597d5157a272",
+      "lines": 119,
+      "read_range": "1-119 EOF",
+      "visual_indices": [],
+      "visual_assets": [],
+      "visual_evidence": [
+        "Inventory0–24 contains book covers, ads/icons/badges and avatars; no book interior or tactical diagram."
+      ],
+      "cautions": [
+        "Rank suitability/mastery outcomes and current theory claims unverified. Book title alternate wording retreat/withdrawal differs in prose. Named3c/4d/4eBishop strategies supplied without lines; no authoritative tactical proof."
+      ],
+      "unverified": [
+        "Book interiors and current theory; no incorporation candidate based on unseen content."
+      ]
+    },
+    {
+      "id": "7921",
+      "url": "https://shogi-joutatsu.com/archives/7921",
+      "cache": ".cache/curriculum-source/7921.txt",
+      "sha256": "14bcf0a8cc89fb3461cfd886d9cf512baf87865aa37359827d88a3f010ecf48c",
+      "lines": 39,
+      "read_range": "1-39 EOF",
+      "visual_indices": [
+        3,
+        4
+      ],
+      "visual_assets": [
+        {
+          "index": 3,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/a197ab659c40161e67526e9c52bee2f021222113b4886f74cd738e8171267fcf.png",
+          "sha256": "4fb5d74e58dd3e6549331c599f231514b2a83b761e0f273e0fef2189296e61b7",
+          "white": ".cache/curriculum-source/white-review/a197ab659c40161e67526e9c52bee2f021222113b4886f74cd738e8171267fcf.png.png",
+          "root_source_sha256": "4fb5d74e58dd3e6549331c599f231514b2a83b761e0f273e0fef2189296e61b7",
+          "root_white_sha256": "61235d52ddcdcdf699ed8527218163fa447b7aecc4fc39f85fc2cc3f8d899010",
+          "root_dimensions": [
+            1040,
+            720
+          ]
+        },
+        {
+          "index": 4,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/5f40db1e431765dbfdecdf8e649a8a43c9d09d408e0333558f5c9d3871f8b0f0.png",
+          "sha256": "68331f6a8293fccc932320c8510b3ecfa8feead9fc937c506c37e5e02482f605",
+          "white": ".cache/curriculum-source/white-review/5f40db1e431765dbfdecdf8e649a8a43c9d09d408e0333558f5c9d3871f8b0f0.png.png",
+          "root_source_sha256": "68331f6a8293fccc932320c8510b3ecfa8feead9fc937c506c37e5e02482f605",
+          "root_white_sha256": "9e2f372801fef9b313cbd1d35ea7c776216f2358734a758fb877862d61b8f4db",
+          "root_dimensions": [
+            1040,
+            720
+          ]
+        }
+      ],
+      "visual_evidence": [
+        "Both1040x720 full printable-kit PNGs directly viewed: blank9x9 coordinate board with star points, cut/fold legend, six blank spare front tiles,40piece fronts and reversed promoted glyphs laid out for folding, brand/QR. Color version red promoted glyphs, monochrome same geometry. No tactical teaching position."
+      ],
+      "cautions": [
+        "Printable template artwork not reused. Two linked PDFs not read; PNGs are complete supplied visible templates, no PDF identity claim."
+      ],
+      "unverified": [
+        "PDF correspondence and printed physical dimensions; no curriculum candidate."
+      ]
+    },
+    {
+      "id": "8144",
+      "url": "https://shogi-joutatsu.com/archives/8144",
+      "cache": ".cache/curriculum-source/8144.txt",
+      "sha256": "dc9a769c054e2d63f802070e76cf88d7a5ddb8198fe0d332ba34659d3d1ff371",
+      "lines": 657,
+      "read_range": "1-657 EOF",
+      "visual_indices": [
+        12
+      ],
+      "visual_assets": [
+        {
+          "index": 12,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/7ae27f21a969aa18726ae529e71ab6cc30fea75c44bfc7295802654f60a46000.png",
+          "sha256": "0e371f8a8fd5627433f5bb464b4434ac78cba78ac80c1e2521d9987c9d8cc39a",
+          "white": ".cache/curriculum-source/white-review/7ae27f21a969aa18726ae529e71ab6cc30fea75c44bfc7295802654f60a46000.png.png",
+          "root_source_sha256": "0e371f8a8fd5627433f5bb464b4434ac78cba78ac80c1e2521d9987c9d8cc39a",
+          "root_white_sha256": "2be2c82a8806a7f8465e5c98498d423c6db626b85b37d4c6805ad9739a0321bc",
+          "root_dimensions": [
+            800,
+            580
+          ]
+        }
+      ],
+      "visual_evidence": [
+        "Image12 original800x580 full flow directly viewed: steps1primary,2secondary,3sixteen-playerfinal,4titlematch top-to-bottom; every arrow points upward opposite increasing step order. Time labels1/3/4/4hours and best-of-five3wins. No tactical board."
+      ],
+      "cautions": [
+        "Current holder/2026 result unsupported outside closed source; prose alternates6 and7terms and calls7acquisitions7defenses. Unbeaten wording contradicts table3-1 match scores unless meaning series wins. Oyama first1–9 nine-streak contradicts source table8Futakami. Prize estimate explicitly speculative. Official quotations not reused."
+      ],
+      "unverified": [
+        "Tournament current rules, historical table accuracy and holder; no tactical incorporation."
+      ]
+    },
+    {
+      "id": "8156",
+      "url": "https://shogi-joutatsu.com/archives/8156",
+      "cache": ".cache/curriculum-source/8156.txt",
+      "sha256": "74c0dff8ab127c94ae2ef9f5e3c7c1b441a28eb055a6186a14bc67a11168c0f0",
+      "lines": 221,
+      "read_range": "1-221 EOF",
+      "visual_indices": [
+        12
+      ],
+      "visual_assets": [
+        {
+          "index": 12,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/a4a9cb937668f3ac48f3fedeee776858db8b8bb659d595484ce02013cc23e45c.png",
+          "sha256": "6431f719cfcee7dfd85076b6ce6331ad3fcbb96ddfb9ddcc54ca9232db7c0700",
+          "white": ".cache/curriculum-source/white-review/a4a9cb937668f3ac48f3fedeee776858db8b8bb659d595484ce02013cc23e45c.png.png",
+          "root_source_sha256": "6431f719cfcee7dfd85076b6ce6331ad3fcbb96ddfb9ddcc54ca9232db7c0700",
+          "root_white_sha256": "61e3bef506d436a0725e6515cf6146b989a9c17ad2b06cba46fcf635e04ddb0a",
+          "root_dimensions": [
+            800,
+            520
+          ]
+        }
+      ],
+      "visual_evidence": [
+        "Image12 original800x520 directly viewed: stages rank4–9qualifiers,mainfinal,titlematch top-to-bottom; arrows point upward opposite stage order. Main final labelled best-of-three, times1/3/4hours. No tactical board."
+      ],
+      "cautions": [
+        "Prose dates acquisition2021/2024 while table labels same terms2020/2023; tournament-year convention unexplained. Calls2019Toyoshima title match five games yet table score4wins and2draws. Says only three titles best-of-five, omitting Oza from eight-title accounting. Sponsor-change dates, final format, current2026results and permanent-title rules unverified outside closed set. Prize speculative."
+      ],
+      "unverified": [
+        "All current tournament claims and historical date conventions; no tactical incorporation."
+      ]
+    },
+    {
+      "id": "8260",
+      "url": "https://shogi-joutatsu.com/archives/8260",
+      "cache": ".cache/curriculum-source/8260.txt",
+      "sha256": "ad0363f05a072e9db4df560b14087e545f9a91eaef411a5a0b7eea17e8951a94",
+      "lines": 495,
+      "read_range": "1-495 EOF",
+      "visual_indices": [
+        13
+      ],
+      "visual_assets": [
+        {
+          "index": 13,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/abebffb8d7bf5127897183855e2b9141df8fdc42f6a8538732f72296fc874a27.png",
+          "sha256": "0812f2e249dca59ff8c3388ee4800c0f3f1a16c91cc8da8abf5f25de4df06f4f",
+          "white": ".cache/curriculum-source/white-review/abebffb8d7bf5127897183855e2b9141df8fdc42f6a8538732f72296fc874a27.png.png",
+          "root_source_sha256": "0812f2e249dca59ff8c3388ee4800c0f3f1a16c91cc8da8abf5f25de4df06f4f",
+          "root_white_sha256": "1aacffd92108639204c932861fe5eab011f1aa4b5e8a9fd6d13381c7d344a651",
+          "root_dimensions": [
+            800,
+            600
+          ]
+        }
+      ],
+      "visual_evidence": [
+        "Image13 original800x600 full flow inspected: preliminary,red/whiteleague,singlechallengerfinal,best-of-seven titlematch top-to-bottom. Main arrows1/2and3/4 point upward incorrectly; red/white winner text downward arrows correctly point toward final. Labels4hourqualifier/league and8hour two-daytitlematch."
+      ],
+      "cautions": [
+        "Source Nakahara1972acquisition contradicts own term13Naito; Habu2011–2017seven-streak contradicts term58Sugai2017, yielding six. Prose17yearold2020Oi acquisition unverified. Three-newspaper heading lists five publishers and summary six names; organization naming not resolved. Current2026results/rules/sponsors unverified. Prize speculative."
+      ],
+      "unverified": [
+        "Historical/current tournament facts and publisher grouping; no tactical candidate."
+      ]
+    },
+    {
+      "id": "8274",
+      "url": "https://shogi-joutatsu.com/archives/8274",
+      "cache": ".cache/curriculum-source/8274.txt",
+      "sha256": "39aabbeaf1c89767ee9d4f7b3c0731330330a46bc03130ca6f7fbf1276ab9b04",
+      "lines": 381,
+      "read_range": "1-381 EOF",
+      "visual_indices": [
+        12
+      ],
+      "visual_assets": [
+        {
+          "index": 12,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/5b8f34147fc846b4c8975b1d571d433902e69cc487ba0c75e561bcf0739acff9.png",
+          "sha256": "9de0794fde06156cfb62eefc7578feba1e7c7e827e6d586c1cb87d37aebe086b",
+          "white": ".cache/curriculum-source/white-review/5b8f34147fc846b4c8975b1d571d433902e69cc487ba0c75e561bcf0739acff9.png.png",
+          "root_source_sha256": "9de0794fde06156cfb62eefc7578feba1e7c7e827e6d586c1cb87d37aebe086b",
+          "root_white_sha256": "fec3169623f34916d7144958a69e9b64c1ac0531898df52a0c15d71ff4417488",
+          "root_dimensions": [
+            800,
+            580
+          ]
+        }
+      ],
+      "visual_evidence": [
+        "Image12 original800x580 full flow directly viewed: four stagesprimary/secondary/sixteenfinal/titlematch top-to-bottom; all arrows point upward opposite stage progression. Every time label5hour chessclock; first6qualifiers and final3wins."
+      ],
+      "cautions": [
+        "Nakahara consecutive17–22terms1969–1974 then1973–1978dates conflict; title-era six terms claim32–36 spanonlyfive and table35Tsukada. Nagase2019firsttitle contradicts8156term4Eio earlier. Claimed historical five-game rule conflicts1983table2-1 result unless format change explained. Current holder/rules unverified; prize speculative."
+      ],
+      "unverified": [
+        "Historical/current tournament facts and title eligibility; no tactical incorporation."
+      ]
+    },
+    {
+      "id": "8287",
+      "url": "https://shogi-joutatsu.com/archives/8287",
+      "cache": ".cache/curriculum-source/8287.txt",
+      "sha256": "938cb8a40695ec0542a1488defc6dab9c8724d9fb70b9e5876e10659e4db4347",
+      "lines": 427,
+      "read_range": "1-427 EOF",
+      "visual_indices": [
+        12
+      ],
+      "visual_assets": [
+        {
+          "index": 12,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/685c21e43316367277596e43655a728b2489850fb54d26e9cac64fea2b968081.png",
+          "sha256": "9041015f2b56738eb79d8c10c27534e71e7c285732be1f23a6fba54b09130b4d",
+          "white": ".cache/curriculum-source/white-review/685c21e43316367277596e43655a728b2489850fb54d26e9cac64fea2b968081.png.png",
+          "root_source_sha256": "9041015f2b56738eb79d8c10c27534e71e7c285732be1f23a6fba54b09130b4d",
+          "root_white_sha256": "b99d8545634e8ec4e4c63fa76874ee2a4b930facfdb61b2ffda59907956b5850",
+          "root_dimensions": [
+            800,
+            700
+          ]
+        }
+      ],
+      "visual_evidence": [
+        "Image12 original800x700 full flow inspected: preliminary/main/winnerslosersfinal/challenger/titlematch. Top1to2 and bottomchallengertotitle arrows reversed upward; middle winners/losers and challenger arrows correctly downward. Winner needsonewin,loserneeds two;4hour labels."
+      ],
+      "cautions": [
+        "Watanabe10consecutive table38–47 contradicts prose11total (no other table title). Habu16–24nine-streak contradicts table25alsoHabu; supposed26–30five-streak contradicts28Maruyama/29Tanigawa. Fouracquisitions mislabeled fourdefenses. Year labels may fiscal-year, calendar convention unexplained. Current results/rules unverified; prize speculative."
+      ],
+      "unverified": [
+        "All current tournament facts, historical totals and tableaccuracy; no tactical candidate."
+      ]
+    },
+    {
+      "id": "8292",
+      "url": "https://shogi-joutatsu.com/archives/8292",
+      "cache": ".cache/curriculum-source/8292.txt",
+      "sha256": "fbb2f2aa4b84393b5fd3eb5d688faf7f3b8a8ddced03dd35ed7b4167ddfc4c0a",
+      "lines": 553,
+      "read_range": "1-553 EOF",
+      "visual_indices": [
+        12
+      ],
+      "visual_assets": [
+        {
+          "index": 12,
+          "path": ".cache/curriculum-source/diagram-inventory-work/assets/3da40a962dee732b345725694dcb3f4b0d50ca10e0b90516ce0fb9f5660b917d.png",
+          "sha256": "5bcd00f3a8069766e98ea3569a46f96fc5fe26537ca41100913301c68d90fd08",
+          "white": ".cache/curriculum-source/white-review/3da40a962dee732b345725694dcb3f4b0d50ca10e0b90516ce0fb9f5660b917d.png.png",
+          "root_source_sha256": "5bcd00f3a8069766e98ea3569a46f96fc5fe26537ca41100913301c68d90fd08",
+          "root_white_sha256": "f40b769f497e601a3d2407b5491043eac94ec0b59b170decbfbec4a8bb9960cb",
+          "root_dimensions": [
+            800,
+            620
+          ]
+        }
+      ],
+      "visual_evidence": [
+        "Image12 original800x620 full flow inspected: primary,18secondary,7league,titlematch top-to-bottom; all arrows upward opposite progression. Time labels3/3/4/8hours, two-daytitlematch4wins."
+      ],
+      "cautions": [
+        "Oyama exclusive2–21except5/6 contradicts table12Futakami; stated20total cannot be inferred from false exclusive span. Fiveacquisitions mislabeled fivedefenses. Historical three-win results uncontextualized under universal best-of-seven description. Calendar/fiscal year convention unspecified. Current holder/sponsor/rules unverified; prize speculative."
+      ],
+      "unverified": [
+        "Historical/current tournament facts and title totals; no tactical incorporation."
+      ]
+    },
+    {
+      "id": "8297",
+      "url": "https://shogi-joutatsu.com/archives/8297",
+      "cache": ".cache/curriculum-source/8297.txt",
+      "sha256": "1e1a19edd07e89653f0b152c1b1dd20f722a6ef8fbb79a9eb71153d16133d6ac",
+      "lines": 225,
+      "read_range": "1-225 EOF",
+      "visual_indices": [],
+      "visual_assets": [],
+      "visual_evidence": [
+        "Inventory0–28 avatars, advertising/icons/badges and nine linked article thumbnails. Tables are extracted text; no teaching image."
+      ],
+      "cautions": [
+        "2024Oza loss contradicts8274own2025loss; Osho sponsor differs8292. Kisei firstannualdecision contradicts ownKiouFebruary–March andOshoJanuary–March versusKiseiJune–July. Seven-game match heading falsely implies allseven played. MinimumfiveyearsC2toA contradicts fourpromotionsteps in4096. Current ranking/contracts/holders/prize/titlecriteria unverified closedset; historicalMeijintitle and modernmatch history conflated."
+      ],
+      "unverified": [
+        "All current title overview facts and historical distinctions; no tactical candidate."
+      ]
+    },
+    {
+      "id": "922",
+      "url": "https://shogi-joutatsu.com/archives/922",
+      "cache": ".cache/curriculum-source/922.txt",
+      "sha256": "71af229aeb2732c392e00146a669236da026dc878335c3a9a46ff53eb2367680",
+      "lines": 150,
+      "read_range": "1-150 EOF",
+      "visual_indices": [],
+      "visual_assets": [],
+      "visual_evidence": [
+        "Inventory0–34 app advertising,QRcodes,icons,bookcover and six app-store Kindle promotional screenshots. No supplied shogi puzzle or instructional board. Screenshot headings for shogi apps resolve icon placeholders."
+      ],
+      "cautions": [
+        "Minna iOS download resolves unrelated China AppStore todayURL and unknownapp metadata. Celebrity app-use headline supported only magazine readership speculation. Allbeginner-to-kyu description conflicts fourthapp1dan. Counts860/10000/2000,offline/features andavailability unverified current. No user-submitted puzzle may be reused."
+      ],
+      "unverified": [
+        "Current products, counts and author attribution; no tactical candidate."
+      ]
+    },
+    {
+      "id": "961",
+      "url": "https://shogi-joutatsu.com/archives/961",
+      "cache": ".cache/curriculum-source/961.txt",
+      "sha256": "3199936c75d137c5edf1324cf3468d7597772eebb6667e20489064ed003fcfe0",
+      "lines": 118,
+      "read_range": "1-118 EOF",
+      "visual_indices": [],
+      "visual_assets": [],
+      "visual_evidence": [
+        "Inventory0–18 has article-link thumbnail,bookcovers,appads/icons/badges andavatar. No book interior or tactical teaching board."
+      ],
+      "cautions": [
+        "Book suitability, comprehensivecoverage and win-rate/guaranteed survival claims are author opinions. Pro usage and opening superiority unverified current. Mino verticalweakness is contextual, not absolute; attack direction and available defenders matter. No unseen book pattern/line imported."
+      ],
+      "unverified": [
+        "Book interiors,currenttheory and whole-curriculum comparison; no original-example candidate supported by supplied positions."
+      ]
+    }
+  ],
+  "candidates": [
+    {
+      "source": "1212",
+      "targets": [
+        "rules-promotion"
+      ],
+      "idea": "Originalglyphrecognitionlegend explainsnotation全/圭/杏 versus actualcursiveGoldbacks, keepingeachpromotedminor identity despiteGoldmovement.",
+      "duplication_status": "Targetfilenameconfirmed; fulltargetcontent/duplicationpending."
+    },
+    {
+      "source": "1678",
+      "targets": [
+        "endgame-tsume-study"
+      ],
+      "idea": "Originalstudyexplanation distinguishesknowingmateexistsina puzzlefromfindingmateinrealgamewhilecheckingownkingsafety; timedfamiliaropeningpracticepreservesclockforcalculation withoutrankguarantee.",
+      "duplication_status": "Targetfilenameconfirmed; fulltargetcontentduplicationpending."
+    },
+    {
+      "source": "345",
+      "targets": [],
+      "idea": "Originalanalysisguideexplains scoreperspective, plyaxis,candidatemoves andsearchbudget; treatengineagreement asdiagnosticratherthanlearningqualitymetric.",
+      "duplication_status": "No confirmedunitmapping; appguide/report scope rootdecision required."
+    },
+    {
+      "source": "3776",
+      "targets": [],
+      "idea": "Originallearningworkflow mapsthemeandcriticalchoice,triesitina game,thenreviewsdeviationagainstprinciplesandengine ratherthanmemorizingunsupportedline.",
+      "duplication_status": "No confirmedunitmapping; guide/studyworkflowrootdecision required."
+    },
+    {
+      "source": "4271",
+      "idea": "Separate recall of mating patterns from calculation practice; inspect threats to both kings in independently composed examples.",
+      "targets": [
+        "endgame-tsume-study"
+      ],
+      "status": "factual idea only; whole-curriculum comparison pending; no source wording or board adopted"
+    }
+  ],
+  "findings": [],
+  "status": "All41 exact articles have full text EOF review.40 have all selected embedded teaching/instructional/artwork visuals inspected;4096 missing exact image15 HTTP404. No content edits; current external facts, linked PDF interiors, engine tactics and whole-curriculum duplication remain unverified as individually recorded.",
+  "verification": {
+    "scope": "41 exact article IDs; no expansion",
+    "text": "41 unique entries; all current text hashes and EOF line counts match; no missing scope IDs",
+    "images": "214 recorded original/white occurrences checked: every white image exactly matches original dimensions and white alpha-composite pixels; all stored image hashes match",
+    "remaining_gaps": [
+      "Article4096 image15 exact embedded junisen_flow.png unavailable locally and HTTP404 on exact URL; contents not inferred.",
+      "Linked printable PDFs for6808 and7921 not inspected; only embedded full sample PNGs reviewed.",
+      "Current external app, tournament, price, ranking and software claims not independently verified outside closed source set.",
+      "Named composed tsume uniqueness and full1525-move sequence not verified; no source position adopted.",
+      "Original factual candidates still require whole-curriculum duplication comparison and independent original authoring."
+    ],
+    "root_visual_asset_validation": "Independently checked all214 recorded original/white occurrences: original dimensions and white-composited pixels match exactly; current original/white SHA recorded per occurrence. Cache filenames identify assets and are not assumed to be content hashes. Asset integrity proof only, not tactical interpretation or browser presentation."
+  }
+}

@@ -1,7 +1,10 @@
 {
   "id": "rules-draws",
   "order": 70,
-  "path": ["はじめての将棋", "ルール"],
+  "path": [
+    "はじめての将棋",
+    "ルール"
+  ],
   "title": {
     "ja": "千日手と持将棋（入玉）",
     "en": "Repetition and the impasse (entering king)"
@@ -63,25 +66,49 @@
           }
         },
         {
-          "moves": ["4d4c"],
+          "moves": [
+            "4d4c"
+          ],
           "text": {
             "ja": "先手玉は４三へ進み、敵陣に入りました。これだけで勝ちや引き分けが決まるわけではありません。",
             "en": "Sente's king steps to 4c and enters its far camp. That move alone does not decide the game."
           },
           "marks": {
             "last": "4c",
-            "dashed": ["9c", "8c", "7c", "6c", "5c", "4c", "3c", "2c", "1c"]
+            "dashed": [
+              "9c",
+              "8c",
+              "7c",
+              "6c",
+              "5c",
+              "4c",
+              "3c",
+              "2c",
+              "1c"
+            ]
           }
         },
         {
-          "moves": ["6f6g"],
+          "moves": [
+            "6f6g"
+          ],
           "text": {
             "ja": "後手玉も６七へ進みました。両方の玉が相手側へ入った状態は相入玉です。ここからどの決着方式を使うかは、対局の規定で決まります。",
             "en": "Gote's king also advances, to 6g. When both kings are in the opponent's camp, the position is mutual entry. The event rules determine how play can finish from here."
           },
           "marks": {
             "last": "6g",
-            "dashed": ["9g", "8g", "7g", "6g", "5g", "4g", "3g", "2g", "1g"]
+            "dashed": [
+              "9g",
+              "8g",
+              "7g",
+              "6g",
+              "5g",
+              "4g",
+              "3g",
+              "2g",
+              "1g"
+            ]
           }
         }
       ]
@@ -93,12 +120,33 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "9/9/5K3/9/9/9/3k5/9/9 b - 2",
+      "start": "RBGGSS+N+L1/PP7/5K3/9/9/9/3k5/9/9 b RBP2g2s3n3l15p 1",
       "steps": [
         {
           "text": {
             "ja": "入玉の点数計算では、王将・玉将は０点、飛車と角は各５点、それ以外は各１点です。成っても駒の種類に応じた点数は変わりません。",
             "en": "For entering-king scoring, a king is worth 0, a rook or bishop 5, and every other piece 1. Promotion does not change a piece's value."
+          }
+        },
+        {
+          "text": {
+            "ja": "この独立した採点図では、先手の敵陣に玉以外の駒が10枚あります。飛車・角が各５点で10点、金二・銀二・成桂一・成香一・歩二で８点、計18点です。持駒の飛・角・歩は11点なので、宣言に使う点は29点です。成桂と成香も各１点で数えます。",
+            "en": "In this independently composed scoring position, Sente has ten non-king pieces in the far camp. The rook and bishop contribute 10 points; two golds, two silvers, a promoted knight, a promoted lance and two pawns contribute 8, totaling 18 on the board. The rook, bishop and pawn in hand add 11, making 29 eligible points. The promoted knight and lance still count as 1 each."
+          },
+          "marks": {
+            "boxes": [
+              "9a",
+              "8a",
+              "7a",
+              "6a",
+              "5a",
+              "4a",
+              "3a",
+              "2a",
+              "9b",
+              "8b",
+              "4c"
+            ]
           }
         },
         {
@@ -117,6 +165,40 @@
           "text": {
             "ja": "別の宣言方式では先手28点、後手27点が勝ちの基準です。また一部の対局規定には、５筋の最奥へ玉が到達すると勝ちになるトライ方式があります。採用条件は同一ではないため、点数やトライを使うかは対局前に規定を確認します。",
             "en": "Another declaration method sets a winning threshold of 28 points for Sente and 27 for Gote. Some rulesets also award a try win when a king reaches the farthest square on the 5-file. The methods differ, so check whether points or a try rule apply before play."
+          }
+        },
+        {
+          "text": {
+            "ja": "先手番で玉４三は敵陣にあり、王手でもなく、敵陣の駒10枚と29点を満たします。先手28点・後手27点の宣言方式なら先手の勝ちの条件です。24点の宣言方式なら29点は引き分けの範囲です。双方合意の24点法では、後手の持駒25点も含めて数え、方式の違いを混同しません。",
+            "en": "It is Sente's turn, its king on 4c is in the far camp and not checked, and it meets the ten-piece and 29-point conditions. Under the 28/27-point winning declaration method, Sente qualifies. Under the 24-point declaration method, 29 lies in the draw range. For mutually agreed 24-point jishogi, Gote's hand totals 25; keep the different scoring methods separate."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": [
+            "4c4d",
+            "6g6h"
+          ],
+          "text": {
+            "ja": "▲４四玉△６八玉の後も先手は29点を持ち、敵陣の駒も10枚ですが、先手玉が敵陣の外へ出ました。先手番に戻っても入玉宣言の玉の条件を満たしません。点数だけでは宣言できません。",
+            "en": "After K4d K6h, Sente still has 29 points and ten non-king camp pieces, but its king has left the far camp. Even with Sente to move again, the king condition fails. Points alone do not permit a declaration."
+          }
+        },
+        {
+          "from": 0,
+          "moves": [
+            "7a7b",
+            "6g6h",
+            "7b7c",
+            "6h6i",
+            "7c7d",
+            "6i6h"
+          ],
+          "text": {
+            "ja": "先手金が７一から７四へ出て、後手が玉を動かした比較順です。先手玉は敵陣に残り王手ではなく、敵陣と持駒の点は28点ありますが、敵陣の玉以外の駒は９枚へ減りました。先手28点の方式でも10枚の条件を満たさず、宣言できません。盤上全体では先手29点のままでも、宣言には敵陣と持駒だけを数えます。",
+            "en": "In this comparison Sente's gold travels from 7a to 7d while Gote moves its king. Sente's king remains in the camp and is not checked. Its camp plus hand score is 28, but only nine non-king pieces remain in the camp. The ten-piece condition fails even under the 28-point method. Sente still owns 29 points overall, but declaration scoring counts only camp pieces and the hand."
           }
         }
       ]
@@ -137,7 +219,12 @@
           }
         },
         {
-          "moves": ["5e4e", "5a4a", "4e5e", "4a5a"],
+          "moves": [
+            "5e4e",
+            "5a4a",
+            "4e5e",
+            "4a5a"
+          ],
           "text": {
             "ja": "玉がそれぞれ一歩ずつ動いて元の場所へ戻りました。盤面と持ち駒に加えて手番も先手に戻り、最初と同じ局面がもう一度現れています。",
             "en": "Each king steps away once and returns. The board and hands match the start, and Sente is to move again, so the original position has appeared a second time."
@@ -169,11 +256,15 @@
             "en": "Gote's king on 7a is checked by Sente's bishop on 4d. This is only one moment of check; the diagram alone cannot tell you whether a repetition has occurred."
           },
           "marks": {
-            "arrows": ["4d7a"]
+            "arrows": [
+              "4d7a"
+            ]
           }
         },
         {
-          "moves": ["7a6a"],
+          "moves": [
+            "7a6a"
+          ],
           "text": {
             "ja": "後手玉は６一へ逃げました。千日手を判定するときは、このような各局面の記録を見て、同じ局面が四度目に戻ったかを確かめます。",
             "en": "Gote's king escapes to 6a. To decide repetition, follow the recorded positions and check whether a full position has returned for the fourth time."

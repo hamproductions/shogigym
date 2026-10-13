@@ -1,7 +1,10 @@
 {
   "id": "proverb-three-pawns",
   "order": 260,
-  "path": ["上達のためのテクニック", "手筋"],
+  "path": [
+    "上達のためのテクニック",
+    "手筋"
+  ],
   "title": {
     "ja": "三枚の歩を一枚ずつ判断する",
     "en": "Make Each of Three Pawns Count"
@@ -45,21 +48,27 @@
           }
         },
         {
-          "moves": ["P*5e"],
+          "moves": [
+            "P*5e"
+          ],
           "text": {
             "ja": "▲５五歩。銀がこの歩を取るなら、銀は角の利きに入ります。取らずに動く応手では別の局面になります。",
             "en": "▲５五歩 offers the pawn. If the silver takes it, the silver enters the bishop's line. A reply that declines the pawn changes the position."
           }
         },
         {
-          "moves": ["5d5e"],
+          "moves": [
+            "5d5e"
+          ],
           "text": {
             "ja": "△５五銀で歩を取られました。角２八から５五までの間に駒はありません。",
             "en": "△５五銀 captures the pawn. No piece now stands between the bishop on ２八 and the silver on ５五."
           }
         },
         {
-          "moves": ["2h5e"],
+          "moves": [
+            "2h5e"
+          ],
           "text": {
             "ja": "▲５五角で銀を取りました。三枚の歩のうち一枚を使った順です。銀が歩を取ることは強制されないため、打つ前にほかの応手も読みます。",
             "en": "▲５五角 captures the silver. This line spends one of the three pawns. The silver's capture was optional, so examine its other replies before choosing the drop."
@@ -83,21 +92,27 @@
           }
         },
         {
-          "moves": ["P*7d"],
+          "moves": [
+            "P*7d"
+          ],
           "text": {
             "ja": "▲７四歩。歩はまだ成っていません。ここでは後手が香を動かさず玉を移す応手を見ます。",
             "en": "▲７四歩 is not yet a tokin. Follow a Gote reply that moves the king and leaves the lance in place."
           }
         },
         {
-          "moves": ["9a9b"],
+          "moves": [
+            "9a9b"
+          ],
           "text": {
             "ja": "△９二玉で香６二は残りました。７三へ進む歩が敵陣に入れるかを確認します。",
             "en": "△９二玉 leaves the lance on ６二. The pawn can now advance to ７三, inside Gote's promotion zone."
           }
         },
         {
-          "moves": ["7d7c+"],
+          "moves": [
+            "7d7c+"
+          ],
           "text": {
             "ja": "▲７三歩成でと金を作り、香６二を狙いました。香を動かす応手ならこの狙いは変わるため、歩を打つだけで香を取ったとは数えません。",
             "en": "▲７三歩成 makes a tokin that attacks the lance on ６二. A lance move would change the threat; the initial pawn drop did not win the lance by itself."
@@ -121,35 +136,45 @@
           }
         },
         {
-          "moves": ["4g4f"],
+          "moves": [
+            "4g4f"
+          ],
           "text": {
             "ja": "▲４六歩。歩は同じ４筋に残っているので、この時点でも４筋への歩打ちは二歩です。",
             "en": "▲４六歩 remains on the fourth file. A pawn drop on that file is still barred by nifu at this point."
           }
         },
         {
-          "moves": ["4e4f"],
+          "moves": [
+            "4e4f"
+          ],
           "text": {
             "ja": "△４六歩で先手の歩が取られました。これで先手の未成の歩は４筋からなくなりました。",
             "en": "△４六歩 captures Sente's pawn. Sente now has no unpromoted pawn on the fourth file."
           }
         },
         {
-          "moves": ["4h4f"],
+          "moves": [
+            "4h4f"
+          ],
           "text": {
             "ja": "▲４六飛で後手の歩を取り返しました。４筋には先手の未成の歩がないため、持ち歩を打つ選択も残っています。後手が玉を動かす応手を続けます。",
             "en": "▲４六飛 recaptures Gote's pawn. The fourth file now has no Sente pawn, so a future pawn drop there becomes legal. Follow a Gote king move."
           }
         },
         {
-          "moves": ["9a9b"],
+          "moves": [
+            "9a9b"
+          ],
           "text": {
             "ja": "△９二玉。先手の歩は４筋にありません。持ち歩を４四へ打てます。",
             "en": "△９二玉 leaves the fourth file without a Sente pawn. A pawn from hand can now be dropped on ４四."
           }
         },
         {
-          "moves": ["P*4d"],
+          "moves": [
+            "P*4d"
+          ],
           "text": {
             "ja": "▲４四歩は二歩になりません。次の４三歩成はまだ予告にすぎず、後手の応手を読んでから成れるか判断します。歩が三枚あっても、合法な時と場所を選んで使います。",
             "en": "▲４四歩 is legal because nifu no longer applies. Promotion on ４三 is only a threat; Gote gets another reply. Three pawns in hand are useful only when spent at a legal time and square."
@@ -173,66 +198,162 @@
           }
         },
         {
-          "moves": ["P*6d"],
+          "moves": [
+            "P*6d"
+          ],
           "text": {
             "ja": "▲６四歩。後手の歩６三がこの歩を取る応手を選んだ場合を調べます。",
             "en": "▲６四歩 offers the first pawn. Consider Gote's choice to capture it with the pawn on ６三."
           }
         },
         {
-          "moves": ["6c6d"],
+          "moves": [
+            "6c6d"
+          ],
           "text": {
             "ja": "△６四歩で後手の歩は一段進みました。金７三が６四を守っているため、ここで飛車だけで歩を取れば金に取り返されます。",
             "en": "△６四歩 advances Gote's pawn one rank. The gold on ７三 protects ６四, so a direct rook capture there would allow the gold to recapture."
           }
         },
         {
-          "moves": ["P*6e"],
+          "moves": [
+            "P*6e"
+          ],
           "text": {
             "ja": "▲６五歩と二枚目を続けて打ちます。後手の歩が再び取れば６五へ来ます。",
             "en": "▲６五歩 offers a second pawn in succession. If Gote takes again, its pawn advances to ６五."
           }
         },
         {
-          "moves": ["6d6e"],
+          "moves": [
+            "6d6e"
+          ],
           "text": {
             "ja": "△６五歩で二枚目も取られました。金７三は６五を守れず、飛車６八から６七、６六を通って歩６五まで道が空いています。",
             "en": "△６五歩 captures the second pawn. The gold on ７三 no longer protects it, and the route from the rook on ６八 through ６七 and ６六 to ６五 is clear."
           }
         },
         {
-          "moves": ["6h6e"],
+          "moves": [
+            "6h6e"
+          ],
           "text": {
             "ja": "▲６五飛で歩を取り返しました。６筋の飛車が前へ出て、取った歩が持ち駒に加わるため、先手の持ち歩は二枚です。後手の飛車５二は別の筋に残っています。",
             "en": "▲６五飛 captures Gote's pawn. Sente's rook advances on the sixth file, and the captured pawn joins Sente's hand, bringing the hand back to two pawns. Gote's rook on ５二 remains on another file."
           }
         },
         {
-          "moves": ["9a9b"],
+          "moves": [
+            "9a9b"
+          ],
           "text": {
             "ja": "△９二玉。ここでは後手が飛車を動かさない応手を続けます。",
             "en": "△９二玉 is a reply that leaves Gote's rook in place."
           }
         },
         {
-          "moves": ["P*4d"],
+          "moves": [
+            "P*4d"
+          ],
           "text": {
             "ja": "▲４四歩は別の４筋への垂れ歩です。次に４三歩成とすれば、と金は斜め前の飛車５二を狙います。後手にはその前に飛車を逃がす一手があります。",
             "en": "▲４四歩 dangles the third pawn on a different file. If it promotes on ４三, the tokin will attack the rook on ５二 along a forward diagonal. Gote can move the rook before that happens."
           }
         },
         {
-          "moves": ["9b9c"],
+          "moves": [
+            "9b9c"
+          ],
           "text": {
             "ja": "△９三玉で飛車５二が残りました。歩４四は４三へ進めます。",
             "en": "△９三玉 leaves the rook on ５二. Sente's pawn on ４四 can advance to ４三."
           }
         },
         {
-          "moves": ["4d4c+"],
+          "moves": [
+            "4d4c+"
+          ],
           "text": {
             "ja": "▲４三歩成でと金を作り、飛車５二へ利きを向けました。二枚の継ぎ歩で６筋を処理し、三枚目を４筋へ使った例です。後手が途中で歩を取らない、または飛車を逃がすなら、この配置にはなりません。",
             "en": "▲４三歩成 creates a tokin attacking the rook on ５二. Two successive pawn offers changed the sixth file; the last pawn created a separate fourth-file threat. Declining either offer or moving the rook would produce a different position."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "同じ筋へ三枚目を打つ条件",
+        "en": "Conditions for the third pawn on the same file"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k8/5r3/4gp3/9/9/9/9/5R3/8K b 3P 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手４三歩は４四へ進むと５三金に守られる。先手は４筋に未成の歩がなく、三枚の歩を持つ。二枚を取らせて４四を空け、その升へ三枚目を垂らす比較を読む。取りは強制ではない。",
+            "en": "Gote’s pawn on 4c will be gold-defended on 4d. Sente has three pawns in hand and no unpromoted pawn on file four. Consider two accepted offers that vacate 4d for a third pawn; neither capture is forced."
+          }
+        },
+        {
+          "moves": [
+            "P*4d",
+            "4c4d",
+            "P*4e",
+            "4d4e"
+          ],
+          "text": {
+            "ja": "二枚を取った後手歩は４五へ来た。４四が空き、先手の持ち歩は一枚。先手歩が盤上に残っていないため、４四への三枚目は二歩にならない。",
+            "en": "After accepting both offers, Gote’s pawn reaches 4e and Sente has one pawn left. Square 4d is empty; because no Sente pawn remains on the file, the third drop there does not violate nifu."
+          }
+        },
+        {
+          "moves": [
+            "P*4d"
+          ],
+          "text": {
+            "ja": "４四歩は次に４三歩成を狙う。しかし後手４二飛も５三金もこの歩を取れる。三枚使った事実だけでは成りや駒得は確定しない。",
+            "en": "The pawn on 4d threatens promotion on 4c, but both Gote’s rook on 4b and gold on 5c can capture it. Spending three pawns does not establish promotion or a material gain."
+          },
+          "marks": {
+            "arrows": [
+              "4d4c",
+              "4b4d",
+              "5c4d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "9a9b",
+            "4d4c+"
+          ],
+          "text": {
+            "ja": "後手が玉を動かす例なら４三歩成ができ、４二飛を狙う。これは選んだ応手への結果であり、第三の歩を取る受けも調べる必要がある。",
+            "en": "If Gote instead moves its king, Sente can promote on 4c and attack the rook on 4b. This is a conditional result; defenses that capture the third pawn must also be considered."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 2,
+          "moves": [
+            "4b4d"
+          ],
+          "text": {
+            "ja": "４二飛が三枚目を取る合法な受け。４五の後手歩が先手４八飛の通路を遮るので、その飛車では４四を取り返せない。",
+            "en": "The rook on 4b can legally capture the third pawn. Gote’s pawn on 4e blocks Sente’s rook on 4h, so that rook cannot recapture on 4d."
+          }
+        },
+        {
+          "from": 0,
+          "moves": [
+            "P*4d",
+            "5c5b"
+          ],
+          "text": {
+            "ja": "一枚目を取らず金を５二へ動かす受けもある。先手歩が４四に残るので、４五への二枚目の歩打ちは二歩になる。",
+            "en": "Gote can decline the first offer by moving its gold to 5b. Sente’s pawn remains on 4d, making a second pawn drop on 4e illegal under nifu."
           }
         }
       ]

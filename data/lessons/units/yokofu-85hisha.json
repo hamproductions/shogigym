@@ -1,53 +1,322 @@
 {
   "id": "yokofu-85hisha",
   "order": 790,
-  "path": ["戦法・定跡", "横歩取り"],
-  "title": { "ja": "３三角と浮き飛車を読む", "en": "Read the 3c bishop and floating rooks" },
+  "path": [
+    "戦法・定跡",
+    "横歩取り"
+  ],
+  "title": {
+    "ja": "３三角と浮き飛車を読む",
+    "en": "Read the 3c bishop and floating rooks"
+  },
   "intro": {
     "ja": "横歩を取った先手飛車に後手が角を３三へ出すと、飛車の横移動に新しい利きが加わる。飛車をどこへ引くか、２筋をどちらが使えるかを実際の駒で数えたい。玉と守り駒を整える手、角交換後に増える角打ちも別々に確かめる。",
     "en": "When Gote develops its bishop to 3c against an advanced side-pawn rook, the bishop changes the rook's lateral routes. Count the actual pieces before choosing a retreat or contesting the second file. Then consider king coordination and the bishop drops made possible by a trade."
   },
   "check": {
-    "question": { "ja": "３三角がある盤で先手飛車を２五へ移し、後手飛車が８五から２五へ走る。３六金があるなら、飛車を取られた後に何ができるか？", "en": "With Gote's bishop on 3c, Sente shifts its rook to 2e and Gote's rook travels from 8e to capture it. What can a gold on 3f do next?" },
-    "answer": { "ja": "３六金が２五の後手飛車を取り返せる。２筋に飛車を置く判断は、その升を守る駒まで数えて初めてできる。", "en": "The gold from 3f can recapture Gote's rook on 2e. The second-file decision depends on the actual defender of that square." }
+    "question": {
+      "ja": "３三角がある盤で先手飛車を２五へ移し、後手飛車が８五から２五へ走る。３六金があるなら、飛車を取られた後に何ができるか？",
+      "en": "With Gote's bishop on 3c, Sente shifts its rook to 2e and Gote's rook travels from 8e to capture it. What can a gold on 3f do next?"
+    },
+    "answer": {
+      "ja": "３六金が２五の後手飛車を取り返せる。２筋に飛車を置く判断は、その升を守る駒まで数えて初めてできる。",
+      "en": "The gold from 3f can recapture Gote's rook on 2e. The second-file decision depends on the actual defender of that square."
+    }
   },
-  "references": [{ "title": "横歩取り △3三角型空中戦法", "url": "https://shogi-joutatsu.com/archives/7105", "license": "All rights reserved", "adapted": false }],
+  "references": [
+    {
+      "title": "横歩取り △3三角型空中戦法",
+      "url": "https://shogi-joutatsu.com/archives/7105",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
   "chapters": [
     {
-      "title": { "ja": "角の利きと飛車の横道", "en": "The bishop changes the rook's sideways route" },
-      "side": "sente", "kind": "position",
-      "start": "4k4/1r3g1b1/9/6R2/9/6G2/9/9/4K4 w P 1",
+      "title": {
+        "ja": "角の利きと飛車の横道",
+        "en": "The bishop changes the rook's sideways route"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/1r3g1b1/9/g5R2/9/6G2/9/9/4K4 w P 1",
       "steps": [
-        { "text": { "ja": "先手飛車は横歩を取った後の３四にいる。後手角は２二、金は４二。角が３三へ出ると２四を斜めに守り、先手飛車が３三の角を取る手には金の取り返しがある。", "en": "Sente's rook stands on 3d after a side-pawn capture. Gote's bishop is on 2b and gold on 4b. Developing the bishop to 3c will cover 2d; the gold can recapture a rook that takes the bishop on 3c." }, "marks": { "arrows": ["2b3c", "4b3c"], "boxes": ["2d", "3d"] } },
-        { "moves": ["2b3c"], "text": { "ja": "３三角で２四への横移動に角の利きが加わった。先手はこの例で飛車を３五へ引くが、飛車の退路は後手のほかの駒でも変わる。", "en": "The bishop on 3c now covers 2d, so a sideways rook move there would be unsafe. In this example Sente pulls the rook to 3e; other pieces can change which retreat is suitable." }, "marks": { "arrows": ["3d3e"], "boxes": ["2d", "3c"] } },
-        { "moves": ["3d3e", "8b8e"], "text": { "ja": "先手飛車は３五、後手飛車は８五に浮いた。飛車同士が横一列で向かい合い、先手の３六金は２五を守る。次の２筋への移動は、飛車交換を誘う手として読む。", "en": "Sente's rook reaches 3e and Gote floats its rook to 8e. The rooks face each other across the rank, while Sente's gold on 3f guards 2e. A move to the second file must be assessed as a possible rook-exchange offer." }, "marks": { "arrows": ["3e2e", "3f2e"], "boxes": ["8e"] } },
-        { "moves": ["3e2e"], "text": { "ja": "飛車を２五へ横に移した。２筋へ戻れたが、８五飛にも横から取られる位置だ。３六金の取り返しがあるこの盤と、金のない盤を混同しない。", "en": "The rook moves sideways to 2e. It has returned to the second file, but Gote's rook on 8e can capture it along the rank. This board has a gold recapture on 2e; a board without that gold would differ." }, "marks": { "arrows": ["8e2e", "3f2e"], "boxes": ["2e"] } }
+        {
+          "text": {
+            "ja": "先手飛車は横歩を取った後の３四にいる。後手角は２二、金は４二。角が３三へ出ると２四を斜めに守り、先手飛車が３三の角を取る手には金の取り返しがある。",
+            "en": "Sente's rook stands on 3d after a side-pawn capture. Gote's bishop is on 2b and gold on 4b. Developing the bishop to 3c will cover 2d; the gold can recapture a rook that takes the bishop on 3c."
+          },
+          "marks": {
+            "arrows": [
+              "2b3c",
+              "4b3c"
+            ],
+            "boxes": [
+              "2d",
+              "3d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2b3c"
+          ],
+          "text": {
+            "ja": "３三角で２四への横移動に角の利きが加わった。先手はこの例で飛車を３五へ引くが、飛車の退路は後手のほかの駒でも変わる。",
+            "en": "The bishop on 3c now covers 2d, so a sideways rook move there would be unsafe. In this example Sente pulls the rook to 3e; other pieces can change which retreat is suitable."
+          },
+          "marks": {
+            "arrows": [
+              "3d3e"
+            ],
+            "boxes": [
+              "2d",
+              "3c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3d3e",
+            "8b8e"
+          ],
+          "text": {
+            "ja": "先手飛車は３五、後手飛車は８五に浮いた。飛車同士が横一列で向かい合い、先手の３六金は２五を守る。次の２筋への移動は、飛車交換を誘う手として読む。 後手９四金も８五飛を守り、先手が３五飛で取れば同金の取り返しがある。",
+            "en": "Sente's rook reaches 3e and Gote floats its rook to 8e. The rooks face each other across the rank, while Sente's gold on 3f guards 2e. A move to the second file must be assessed as a possible rook-exchange offer. Gote’s gold on 9d also defends the rook on 8e and can recapture after R3e8e."
+          },
+          "marks": {
+            "arrows": [
+              "3e2e",
+              "3f2e"
+            ],
+            "boxes": [
+              "8e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3e2e"
+          ],
+          "text": {
+            "ja": "飛車を２五へ横に移した。２筋へ戻れたが、８五飛にも横から取られる位置だ。３六金の取り返しがあるこの盤と、金のない盤を混同しない。",
+            "en": "The rook moves sideways to 2e. It has returned to the second file, but Gote's rook on 8e can capture it along the rank. This board has a gold recapture on 2e; a board without that gold would differ."
+          },
+          "marks": {
+            "arrows": [
+              "8e2e",
+              "3f2e"
+            ],
+            "boxes": [
+              "2e"
+            ]
+          }
+        }
       ],
       "variations": [
-        { "from": 1, "moves": ["3d2d", "3c2d"], "text": { "ja": "角の利きを無視して２四へ横移動すると、３三角が飛車を取る。", "en": "Moving sideways to 2d without checking the bishop lets Gote's bishop capture the rook." } },
-        { "from": 3, "moves": ["8e2e", "3f2e"], "text": { "ja": "後手が８五飛で２五の飛車を取るなら、３六金が２五で取り返す。双方が飛車を持つ交換であり、得と決めつけない。", "en": "If Gote's rook captures the rook on 2e, Sente's gold from 3f recaptures. Both sides gain a rook in hand; the exchange is not automatically favorable." } }
+        {
+          "from": 1,
+          "moves": [
+            "3d2d",
+            "3c2d"
+          ],
+          "text": {
+            "ja": "角の利きを無視して２四へ横移動すると、３三角が飛車を取る。",
+            "en": "Moving sideways to 2d without checking the bishop lets Gote's bishop capture the rook."
+          }
+        },
+        {
+          "from": 3,
+          "moves": [
+            "8e2e",
+            "3f2e"
+          ],
+          "text": {
+            "ja": "後手が８五飛で２五の飛車を取るなら、３六金が２五で取り返す。双方が飛車を持つ交換であり、得と決めつけない。",
+            "en": "If Gote's rook captures the rook on 2e, Sente's gold from 3f recaptures. Both sides gain a rook in hand; the exchange is not automatically favorable."
+          }
+        },
+        {
+          "from": 2,
+          "moves": [
+            "3e8e",
+            "9d8e"
+          ],
+          "text": {
+            "ja": "先手が８五飛を取れば９四金が取り返す。後手飛車は丸取りできず、双方が飛車を持つ。",
+            "en": "If Sente captures the rook on 8e, the gold from 9d recaptures. This is a rook trade, not a free rook."
+          }
+        }
       ]
     },
     {
-      "title": { "ja": "玉を寄せ、守り駒を残す", "en": "Coordinate the king with nearby defenders" },
-      "side": "sente", "kind": "position",
-      "start": "4k4/9/6b2/9/1r5R1/9/9/9/4KGS2 b P 1",
+      "title": {
+        "ja": "玉を寄せ、守り駒を残す",
+        "en": "Coordinate the king with nearby defenders"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/9/6b2/g8/1r5R1/6S2/9/9/4KGS2 b P 1",
       "steps": [
-        { "text": { "ja": "先手飛車は２五、後手飛車は８五。角３三が斜めを見ているが、いま王手はかかっていない。先手玉５九の行き先を４九金と３九銀の位置から考える。", "en": "Sente's rook is on 2e and Gote's on 8e. The bishop on 3c has diagonal reach, but there is no current check. Choose a king route with the gold on 4i and silver on 3i in mind." }, "marks": { "boxes": ["5i", "4i", "3i", "3c"] } },
-        { "moves": ["5i4h", "8e8d"], "text": { "ja": "玉を４八へ寄せ、後手飛車は８四へ動いた。飛車を８筋に残した後手には横移動の余地があるので、玉の移動だけで安全とは決めない。", "en": "The king shifts to 4h while Gote moves its rook to 8d. Gote still has lateral rook options from the eighth file, so the king move alone does not guarantee safety." }, "marks": { "boxes": ["4h", "8d"] } },
-        { "moves": ["3i3h", "5a4b"], "text": { "ja": "銀を３八へ上げ、後手玉は４二へ移った。銀は玉の近くに残る。先手は次に金を５八へ動かせるが、後手の飛車の横利きも毎手見る。", "en": "Sente lifts the silver to 3h and Gote's king moves to 4b. The silver stays near Sente's king. A gold move to 5h is available next, but Gote's rook lines still need checking each turn." }, "marks": { "arrows": ["4i5h"], "boxes": ["3h", "4h"] } },
-        { "moves": ["4i5h"], "text": { "ja": "金を５八へ寄せた。４八玉の近くに金銀が残る途中形で、完成した囲いの名前だけで安全度は測れない。飛車を前に置く時間と玉の準備を釣り合わせる。", "en": "The gold moves to 5h, leaving gold and silver near the king on 4h. This is an intermediate shelter; a castle name alone would not measure its safety. Balance the time spent with an advanced rook against king preparation." }, "marks": { "boxes": ["4h", "5h", "3h", "2e"] } }
+        {
+          "text": {
+            "ja": "先手飛車は２五、後手飛車は８五。角３三が斜めを見ているが、いま王手はかかっていない。先手玉５九の行き先を４九金と３九銀の位置から考える。 ３六銀は２五飛を、後手９四金は８五飛を守る。",
+            "en": "Sente's rook is on 2e and Gote's on 8e. The bishop on 3c has diagonal reach, but there is no current check. Choose a king route with the gold on 4i and silver on 3i in mind. Sente’s silver on 3f guards 2e, and Gote’s gold on 9d guards 8e."
+          },
+          "marks": {
+            "boxes": [
+              "5i",
+              "4i",
+              "3i",
+              "3c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5i4h",
+            "8e8d"
+          ],
+          "text": {
+            "ja": "玉を４八へ寄せ、後手飛車は８四へ動いた。飛車を８筋に残した後手には横移動の余地があるので、玉の移動だけで安全とは決めない。",
+            "en": "The king shifts to 4h while Gote moves its rook to 8d. Gote still has lateral rook options from the eighth file, so the king move alone does not guarantee safety."
+          },
+          "marks": {
+            "boxes": [
+              "4h",
+              "8d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3i3h",
+            "5a4b"
+          ],
+          "text": {
+            "ja": "銀を３八へ上げ、後手玉は４二へ移った。銀は玉の近くに残る。先手は次に金を５八へ動かせるが、後手の飛車の横利きも毎手見る。",
+            "en": "Sente lifts the silver to 3h and Gote's king moves to 4b. The silver stays near Sente's king. A gold move to 5h is available next, but Gote's rook lines still need checking each turn."
+          },
+          "marks": {
+            "arrows": [
+              "4i5h"
+            ],
+            "boxes": [
+              "3h",
+              "4h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4i5h"
+          ],
+          "text": {
+            "ja": "金を５八へ寄せた。４八玉の近くに金銀が残る途中形で、完成した囲いの名前だけで安全度は測れない。飛車を前に置く時間と玉の準備を釣り合わせる。",
+            "en": "The gold moves to 5h, leaving gold and silver near the king on 4h. This is an intermediate shelter; a castle name alone would not measure its safety. Balance the time spent with an advanced rook against king preparation."
+          },
+          "marks": {
+            "boxes": [
+              "4h",
+              "5h",
+              "3h",
+              "2e"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": [
+            "5i4h",
+            "8e2e",
+            "3f2e"
+          ],
+          "text": {
+            "ja": "玉を寄せた後に後手が２五飛を取るなら、３六銀が取り返す。玉の一手が飛車の丸損を許す配置ではない。",
+            "en": "After the king shift, a capture on 2e is met by the silver from 3f. The king move does not leave a free rook."
+          }
+        }
       ]
     },
     {
-      "title": { "ja": "角交換後の打ち場所を測る", "en": "A bishop trade creates a new diagonal" },
-      "side": "sente", "kind": "position",
+      "title": {
+        "ja": "角交換後の打ち場所を測る",
+        "en": "A bishop trade creates a new diagonal"
+      },
+      "side": "sente",
+      "kind": "position",
       "start": "4k4/5g3/6b2/1r7/7R1/9/9/1B7/4K4 b P 1",
       "steps": [
-        { "text": { "ja": "先手角８八と後手角３三は向かい合う。後手の４二金が３三を守る。角を交換すれば双方が角を持ち、盤上の飛車への新しい角打ちが生まれる。", "en": "Sente's bishop on 8h faces Gote's bishop on 3c, which the gold on 4b defends. Trading bishops gives both sides a bishop in hand and creates new attacks on the rooks." }, "marks": { "arrows": ["8h3c", "4b3c"], "boxes": ["8d", "2e"] } },
-        { "moves": ["8h3c+", "4b3c"], "text": { "ja": "先手角が３三で後手角を取り、金が取り返した。角は双方の持ち駒になった。ここでは先手が６六に角を打つと、８四の飛車へ斜めの利きが通る。", "en": "Sente's bishop captures on 3c and Gote's gold recaptures. Each side now holds a bishop. A Sente bishop drop on 6f would attack Gote's rook on 8d along a clear diagonal." }, "marks": { "arrows": ["6f8d"], "boxes": ["6f", "8d"] } },
-        { "moves": ["B*6f"], "text": { "ja": "６六角打ちは７五を通って８四飛を攻める。角交換前には持ち角がなく、この角は打てなかった。後手の飛車がどこへ逃げるかも読む。", "en": "The bishop dropped on 6f attacks the rook on 8d through 7e. Sente did not have a bishop to drop before the trade. Gote's rook retreat is the next question." }, "marks": { "arrows": ["6f8d"], "boxes": ["7e"] } },
-        { "moves": ["8d8b"], "text": { "ja": "この応手では後手飛車を８二へ引く。６六角の利きから外れたが、後手も角を持つ。先手だけに角打ちの権利があるわけではない。", "en": "In this sample reply Gote retreats its rook to 8b, out of the bishop's line. Gote also holds a bishop, so the right to drop one is not Sente's alone." }, "marks": { "boxes": ["8b", "6f", "3c"] } }
+        {
+          "text": {
+            "ja": "先手角８八と後手角３三は向かい合う。後手の４二金が３三を守る。角を交換すれば双方が角を持ち、盤上の飛車への新しい角打ちが生まれる。",
+            "en": "Sente's bishop on 8h faces Gote's bishop on 3c, which the gold on 4b defends. Trading bishops gives both sides a bishop in hand and creates new attacks on the rooks."
+          },
+          "marks": {
+            "arrows": [
+              "8h3c",
+              "4b3c"
+            ],
+            "boxes": [
+              "8d",
+              "2e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8h3c+",
+            "4b3c"
+          ],
+          "text": {
+            "ja": "先手角が３三で後手角を取り、金が取り返した。角は双方の持ち駒になった。ここでは先手が６六に角を打つと、８四の飛車へ斜めの利きが通る。",
+            "en": "Sente's bishop captures on 3c and Gote's gold recaptures. Each side now holds a bishop. A Sente bishop drop on 6f would attack Gote's rook on 8d along a clear diagonal."
+          },
+          "marks": {
+            "arrows": [
+              "6f8d"
+            ],
+            "boxes": [
+              "6f",
+              "8d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "B*6f"
+          ],
+          "text": {
+            "ja": "６六角打ちは７五を通って８四飛を攻める。角交換前には持ち角がなく、この角は打てなかった。後手の飛車がどこへ逃げるかも読む。",
+            "en": "The bishop dropped on 6f attacks the rook on 8d through 7e. Sente did not have a bishop to drop before the trade. Gote's rook retreat is the next question."
+          },
+          "marks": {
+            "arrows": [
+              "6f8d"
+            ],
+            "boxes": [
+              "7e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8d8b"
+          ],
+          "text": {
+            "ja": "この応手では後手飛車を８二へ引く。６六角の利きから外れたが、後手も角を持つ。先手だけに角打ちの権利があるわけではない。",
+            "en": "In this sample reply Gote retreats its rook to 8b, out of the bishop's line. Gote also holds a bishop, so the right to drop one is not Sente's alone."
+          },
+          "marks": {
+            "boxes": [
+              "8b",
+              "6f",
+              "3c"
+            ]
+          }
+        }
       ]
     }
   ]

@@ -40,8 +40,8 @@
       "steps": [
         {
           "text": {
-            "ja": "先手６七銀は６八飛の真上にあり、５七歩はまだ５六への銀の行き先を塞いでいます。後手５四歩と向かい合う５筋へ銀を使うなら、まず歩の接触をどう作るかを決めます。６筋の飛車を動かすだけでは、この銀の行き先は空きません。",
-            "en": "S6g sits immediately ahead of R6h, and Sente's pawn on 5g blocks the silver's route to 5f. To use the silver against Gote's pawn on 5d, first decide how to make pawn contact. Moving the sixth-file rook alone does not clear the silver's destination."
+            "ja": "先手６七銀は６八飛の真上にあり、５六は空いているため銀はすぐ５六へ進めます。この例では先に５七歩を進め、歩が５五へ移った後で銀を５六に置く構想を見ます。歩が５六にいる間は銀の行き先を塞ぐため、歩と銀の順序を数えます。",
+            "en": "S6g sits immediately ahead of R6h and can already move to the empty 5f square. This example advances P5g first, then places the silver on 5f after the pawn moves to 5e. While the pawn stands on 5f it blocks the silver's destination, so count the order of the pawn and silver moves."
           },
           "marks": { "boxes": ["6g", "5g", "5f", "5d"] }
         },
@@ -106,7 +106,7 @@
         {
           "moves": ["2b7g+", "7h7g"],
           "text": {
-            "ja": "後手が△７七角成と角を取る枝では、▲同銀で馬を取れます。７八銀を残した具体的な役割は、この７七への取り返しです。双方が角を持つ形になるので、銀を取った後も角打ちの場所を確認します。",
+            "ja": "後手が△７七角成と角を取る枝では、▲同銀で馬を取れます。７八銀を残した具体的な役割は、この７七への取り返しです。双方が角を持つ形になるので、銀で馬を取った後も角打ちの場所を確認します。",
             "en": "If Gote chooses Bx7g+, Sx7g captures the horse. Recapturing on 7g is a concrete reason to have kept the silver on 7h. Both players now hold a bishop, so bishop-drop squares still need checking."
           },
           "marks": { "last": "7g", "boxes": ["6e", "2h"] }

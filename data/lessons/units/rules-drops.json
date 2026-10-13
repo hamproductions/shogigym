@@ -1,7 +1,10 @@
 {
   "id": "rules-drops",
   "order": 40,
-  "path": ["はじめての将棋", "ルール"],
+  "path": [
+    "はじめての将棋",
+    "ルール"
+  ],
   "title": {
     "ja": "持ち駒を盤上で生かす",
     "en": "Put pieces in hand to work on the board"
@@ -21,12 +24,6 @@
     }
   },
   "references": [
-    {
-      "title": "将棋のルール (Wikipedia日本語版)",
-      "url": "https://ja.wikipedia.org/wiki/将棋のルール",
-      "license": "CC BY-SA 4.0",
-      "adapted": false
-    },
     {
       "title": "駒の取り方、持駒の使い方",
       "url": "https://shogi-joutatsu.com/archives/738",
@@ -51,24 +48,32 @@
           }
         },
         {
-          "moves": ["S*4b"],
+          "moves": [
+            "S*4b"
+          ],
           "text": {
             "ja": "銀を４二に打つと、５一の玉に王手がかかります。３三の金が４二を守っているため、玉は銀を取れません。持ち駒を打った手でも王手をかけられ、敵陣に打った銀は表向きのままです。",
             "en": "Dropping the silver on 4b checks the king on 5a. Sente's gold on 3c protects 4b, so the king cannot capture the silver. A drop may give check immediately, and the silver stays unpromoted even though it lands in the enemy zone."
           },
           "marks": {
-            "arrows": ["S*4b"],
+            "arrows": [
+              "S*4b"
+            ],
             "last": "4b"
           }
         },
         {
-          "moves": ["5a5b"],
+          "moves": [
+            "5a5b"
+          ],
           "text": {
             "ja": "後手は玉を５二へ動かして王手を外しました。持ち駒を打った時点で先手の手番は終わり、先手が続けて別の駒を動かすことはできません。",
             "en": "Gote moves the king to 5b to escape check. Sente's turn ended with the drop, so it could not also move another piece before gote replied."
           },
           "marks": {
-            "arrows": ["5a5b"]
+            "arrows": [
+              "5a5b"
+            ]
           }
         }
       ]
@@ -89,18 +94,25 @@
           }
         },
         {
-          "moves": ["5e4d"],
+          "moves": [
+            "5e4d"
+          ],
           "text": {
             "ja": "角が４四のと金を取りました。駒台に加わるのは成った歩ではなく、表向きの歩です。持ち駒は相手にも見えるように置きます。",
             "en": "The bishop captures the tokin on 4d. A face-up pawn enters the hand, not a promoted pawn. Pieces in hand remain visible to the opponent."
           },
           "marks": {
-            "arrows": ["5e4d"],
+            "arrows": [
+              "5e4d"
+            ],
             "last": "4d"
           }
         },
         {
-          "moves": ["5a4a", "P*5f"],
+          "moves": [
+            "5a4a",
+            "P*5f"
+          ],
           "text": {
             "ja": "後手の玉が４一へ動いたあと、先手は次の手番にその歩を５六へ打ちました。取った駒は元の種類で使えます。持ち駒を打つ手も、その手番を使い切ります。",
             "en": "After gote's king moves to 4a, sente drops the pawn on 5f on its next turn. A captured piece is ready to use in its original form, and the drop consumes that turn."
@@ -127,7 +139,9 @@
           }
         },
         {
-          "moves": ["G*5h"],
+          "moves": [
+            "G*5h"
+          ],
           "text": {
             "ja": "金を５八に打ちました。金の動きは５九にも届くので、玉の近くで守りに加われます。金を打つこの手では、玉を動かす手も同時には指せません。",
             "en": "The gold is dropped on 5h. Its movement reaches 5i, so it can reinforce the king's nearby squares. Sente cannot move the king on the same turn as this drop."
@@ -137,13 +151,17 @@
           }
         },
         {
-          "moves": ["5a4a"],
+          "moves": [
+            "5a4a"
+          ],
           "text": {
             "ja": "後手の玉が４一へ動きました。次に先手の番が来たら、盤上の金や玉を動かす手を選べます。持ち駒の枚数に上限はありません。",
             "en": "Gote moves its king to 4a. When sente's turn returns, it can choose a board move with the gold or king. There is no limit to the number of pieces a player may hold."
           },
           "marks": {
-            "arrows": ["5a4a"]
+            "arrows": [
+              "5a4a"
+            ]
           }
         }
       ]
@@ -169,7 +187,17 @@
             "en": "A pawn or lance cannot be dropped on the last rank, 1a through 9a, because it could not move forward."
           },
           "marks": {
-            "dashed": ["9a", "8a", "7a", "6a", "5a", "4a", "3a", "2a", "1a"]
+            "dashed": [
+              "9a",
+              "8a",
+              "7a",
+              "6a",
+              "5a",
+              "4a",
+              "3a",
+              "2a",
+              "1a"
+            ]
           }
         },
         {
@@ -178,7 +206,26 @@
             "en": "A knight jumps two ranks, so it cannot be dropped on either of the last two ranks. From the third rank it still has a possible landing square."
           },
           "marks": {
-            "dashed": ["9a", "8a", "7a", "6a", "5a", "4a", "3a", "2a", "1a", "9b", "8b", "7b", "6b", "5b", "4b", "3b", "2b", "1b"]
+            "dashed": [
+              "9a",
+              "8a",
+              "7a",
+              "6a",
+              "5a",
+              "4a",
+              "3a",
+              "2a",
+              "1a",
+              "9b",
+              "8b",
+              "7b",
+              "6b",
+              "5b",
+              "4b",
+              "3b",
+              "2b",
+              "1b"
+            ]
           }
         },
         {

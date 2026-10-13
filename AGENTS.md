@@ -12,6 +12,8 @@ Instancing is a rendering optimization only. Preserve existing piece geometry, p
 
 # Learning content and copyright
 
+レッスンの盤面注釈は、開始局面の解説だけでなく、画面に表示している次の手・直前の手の解説にも同期させる。座標や駒の現在位置はマスを強調し、着手の説明は教材の実際の手順から移動元と移動先を特定して矢印で示す。解答を隠しているクイズでは次の手の説明を注釈へ含めない。外部教材の任意の解説欄には null があり得るため、表示用テキストへの変換時に欠落値として扱う。
+
 For a named lesson branch, read its handoff and inspect its lesson changes before consulting generic handoffs or resuming another branch's task. Apply that branch's content schema and authoring workflow.
 
 All lessons and courses are original work for this app. Copyrighted sites, books, blogs and studies are reference material only: never copy, translate or closely paraphrase their text, never reproduce their composed positions (tsume, constructed tesuji or teaching diagrams), and never mirror an article's structure or a site's collection of lines. Facts and ideas (rules, castle shapes, strategy names and plans, opening move sequences, game records) may be used; Wikipedia/Wikibooks may be consulted for facts only; do not adapt their wording, structure or teaching positions, regardless of license. Retained source-derived courses also require original replacements. References record consultation with `adapted: false`. The project being non-commercial is not an exemption. `docs/lessons.md` holds the full rules.

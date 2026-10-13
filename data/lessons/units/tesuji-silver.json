@@ -1,7 +1,10 @@
 {
   "id": "tesuji-silver",
   "order": 220,
-  "path": ["上達のためのテクニック", "手筋"],
+  "path": [
+    "上達のためのテクニック",
+    "手筋"
+  ],
   "title": {
     "ja": "銀の五方向を読み分ける",
     "en": "Choose Among the Silver's Five Directions"
@@ -45,21 +48,27 @@
           }
         },
         {
-          "moves": ["6h5g"],
+          "moves": [
+            "6h5g"
+          ],
           "text": {
             "ja": "▲５七銀で金への角筋を止めました。銀は角を取れる位置ではありませんが、金４八が銀５七を守っています。",
             "en": "▲５七銀 cuts the bishop's line to the gold. The silver cannot capture the bishop from here, but the gold on ４八 protects the silver on ５七."
           }
         },
         {
-          "moves": ["7e5g"],
+          "moves": [
+            "7e5g"
+          ],
           "text": {
             "ja": "△５七角で銀を取る応手です。角は金４八の斜め前へ来たため、先手は取り返せます。角が取らなければ、この交換は起こりません。",
             "en": "△５七角 takes the silver in this line. The bishop has landed diagonally in front of Sente's gold, allowing a recapture. If Gote declines the silver, this exchange does not happen."
           }
         },
         {
-          "moves": ["4h5g"],
+          "moves": [
+            "4h5g"
+          ],
           "text": {
             "ja": "▲５七金で角を取り返しました。銀を置いた場所と金の利きがつながっているかが、この受けの要点です。",
             "en": "▲５七金 recaptures the bishop. The defense depends on placing the silver on a square that the gold actually covers."
@@ -83,21 +92,27 @@
           }
         },
         {
-          "moves": ["S*5c"],
+          "moves": [
+            "S*5c"
+          ],
           "text": {
             "ja": "▲５三銀。飛車４二と香６二が同時に銀の利きに入りました。両方取れるという意味ではなく、後手の次の一手を制約する打ち方です。",
             "en": "▲５三銀 attacks the rook and lance at once. That does not mean both can be won; it makes Gote choose a response."
           }
         },
         {
-          "moves": ["4b4a"],
+          "moves": [
+            "4b4a"
+          ],
           "text": {
             "ja": "△４一飛で飛車が離れました。香は６二に残り、銀５三から斜め前へ進んで取れます。",
             "en": "△４一飛 moves the rook away. The lance stays on ６二, one forward-diagonal step from the silver."
           }
         },
         {
-          "moves": ["5c6b+"],
+          "moves": [
+            "5c6b+"
+          ],
           "text": {
             "ja": "▲６二銀成で香を取り、成銀になりました。後手が香を動かすなど別の応手を選べば結果は変わります。",
             "en": "▲６二銀成 captures the lance and promotes. Gote could instead respond by moving the lance or choosing another defense, so this line is conditional."
@@ -121,24 +136,42 @@
           }
         },
         {
-          "moves": ["6d5c"],
+          "moves": [
+            "6d5c"
+          ],
           "text": {
             "ja": "▲５三銀不成で歩を取り、銀の斜め後ろへの利きを残しました。ここでは後手が飛車を逃がさず玉を動かす場合を見ます。",
             "en": "▲５三銀不成 captures the pawn while retaining the silver's backward diagonal. This line examines a Gote reply that moves the king rather than the rook."
           }
         },
         {
-          "moves": ["9a9b"],
+          "moves": [
+            "9a9b"
+          ],
           "text": {
             "ja": "△９二玉。飛車４四は銀５三の斜め後ろに残っています。",
             "en": "△９二玉 leaves the rook on ４四, diagonally behind the silver on ５三."
           }
         },
         {
-          "moves": ["5c4d"],
+          "moves": [
+            "5c4d"
+          ],
           "text": {
             "ja": "▲４四銀で飛車を取りました。成っていればこの斜め後ろの一歩は指せません。実戦では、後手が飛車を逃がす応手も読む必要があります。",
             "en": "▲４四銀 captures the rook. Promotion on the previous move would have removed this backward-diagonal step. In a game, also calculate Gote's options for moving the rook."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 2,
+          "moves": [
+            "5c6d"
+          ],
+          "text": {
+            "ja": "不成の銀は６四へ斜め後ろに戻ることもできる。６四から５三への斜め前と、その帰り道は両方ある。一方、６四から６三へ真っすぐ進むと、６三から６四へ真後ろには戻れない。",
+            "en": "The unpromoted silver can also return diagonally to 6d. The diagonal route 6d–5c works in both directions. A straight advance 6d–6c does not: an unpromoted silver cannot return straight backward from 6c to 6d."
           }
         }
       ]

@@ -153,12 +153,12 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "k8/9/9/9/9/9/2G6/2SG5/3K5 b - 1",
+      "start": "k8/9/9/9/9/9/9/2SG5/2GK5 b - 1",
       "steps": [
         {
           "text": {
-            "ja": "この盤面にはすぐ取れる駒も王手もありません。先手玉６九は銀７八が守り、金６八は５八に利いています。金７七は６八を支えています。次の交換を始める前に、玉を金の利きがある升へ移す余地があります。",
-            "en": "There is no immediate capture or check in this position. The silver on ７八 protects the attacker’s king on ６九, the gold on ６八 controls ５八, and the gold on ７七 supports the gold on ６八. Before starting another exchange, the king can move to a square covered by a gold."
+            "ja": "この盤面にはすぐ取れる駒も王手もありません。先手玉６九は銀７八が守り、金６八は５八に利いています。金７九は６八を斜め前に支えています。次の交換を始める前に、玉を金の利きがある升へ移す余地があります。",
+            "en": "There is no immediate capture or check in this position. The silver on ７八 protects the attacker’s king on ６九, the gold on ６八 controls ５八, and the gold on ７九 supports the gold on ６八 on its forward diagonal. Before starting another exchange, the king can move to a square covered by a gold."
           }
         },
         {

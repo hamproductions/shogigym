@@ -20,10 +20,12 @@ export const goodBranches = (node: JosekiNode | null | undefined) => node?.branc
 
 const nodesCache = new Map<string, CourseNodes>()
 
-const localizeEnglishText = (text: string | undefined) => (text === undefined ? text : localizeSquares(text))
+const localizeEnglishText = (text: string | null | undefined) => (text == null ? undefined : localizeSquares(text))
 
-export const lessonText = (text: string | undefined, en: string | undefined, lang: string, course: Pick<Course, 'baseId'>) =>
-  lang === 'ja' ? text : localizeEnglishText(en ?? (text && (lessonNotesEn as Record<string, Record<string, string>>)[course.baseId]?.[text]) ?? text)
+export const lessonText = (text: string | null | undefined, en: string | null | undefined, lang: string, course: Pick<Course, 'baseId'>) =>
+  lang === 'ja'
+    ? (text ?? undefined)
+    : localizeEnglishText(en ?? (text && (lessonNotesEn as Record<string, Record<string, string>>)[course.baseId]?.[text]) ?? text)
 
 export function courseNodes(course: Course, lang = 'ja'): CourseNodes {
   const key = `${course.id}:${lang}`

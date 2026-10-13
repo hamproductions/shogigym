@@ -1,0 +1,845 @@
+[
+  {
+    "id": "mate-words-hisshi",
+    "unit": "basics-mate-words",
+    "chapter": 5,
+    "severity": "high",
+    "status": "verified-source",
+    "finding": "２九飛の縦の利きは２三金に遮られるため、必至の説明が成立しない。",
+    "evidence": {
+      "harness": "tsshogi Position.isValidMove / doMove",
+      "legal_counterexample": [
+        "2d2c",
+        "1a2a",
+        "G*1b",
+        "2a3a"
+      ]
+    },
+    "required_change": "独立した局面で必至を示し、すべての合法な受けを調べる。",
+    "implementation_evidence": {
+      "start": "k8/9/1RG5p/9/9/9/9/9/8K b G 1",
+      "moves": [
+        "8c8b",
+        "1c1d",
+        "G*9b"
+      ],
+      "root_proof": "Quiet rook move; exhaustive legal replies exactly1c1d; final checked withzero replies."
+    },
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "opening-gold-backward",
+    "unit": "basics-opening",
+    "chapter": 4,
+    "severity": "high",
+    "status": "verified-source",
+    "finding": "６八金→５九、５八金→４九・６九は先手金の斜め後ろであり、守備の説明が誤っている。",
+    "evidence": {
+      "harness": "src/app/pieces.tsx sees",
+      "false_controls": [
+        "6h5i",
+        "5h4i",
+        "5h6i"
+      ]
+    },
+    "required_change": "金が実際に守る移動先を使う局面・手順・両言語の説明へ置き換える。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "middle-gold-backward",
+    "unit": "basics-middlegame",
+    "chapter": 4,
+    "severity": "medium",
+    "status": "verified-source",
+    "finding": "７七金は６八を守れない。５八へ移る玉を６八金が守る説明は成立する。",
+    "evidence": {
+      "harness": "src/app/pieces.tsx sees",
+      "false_controls": [
+        "7g6h"
+      ]
+    },
+    "required_change": "７七金の連結を実際に成立する配置で示す。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "tsume-futile-interpose",
+    "unit": "rules-tsume",
+    "chapter": 3,
+    "severity": "high",
+    "status": "verified-source",
+    "finding": "４二金合を角で取った後、玉がその角を取れるため、無駄合の説明にならない。玉方の持駒には金が３枚不足している。",
+    "evidence": {
+      "harness": "tsshogi Position.isValidMove / doMove",
+      "legal_counterexample": [
+        "G*4b",
+        "2d4b",
+        "5a4b"
+      ]
+    },
+    "required_change": "詰みへの影響を確かめられる独立した無駄合の例と正しい残り駒を用意する。",
+    "implementation_evidence": {
+      "start": "4k4/6S2/2NG5/5R1B1/9/9/9/9/9 w rb3g3s3n4l18p 1",
+      "moves": [
+        "G*4b",
+        "2d4b"
+      ],
+      "root_proof": "Both moves legal; final checked withzero replies. Defender hand completes ordinary39piece tsume set excluding attacker king. Initial candidate withoutSilver3b rejected becauseKing4a escaped afterB4b blockedrook."
+    },
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "value-captured-rook",
+    "unit": "basics-value",
+    "chapter": 1,
+    "severity": "medium",
+    "status": "verified-source",
+    "finding": "５三桂成で取る駒は飛車だが、日本語説明では成桂を持駒に加えると記載している。英語は飛車捕獲と桂の成りを説明している。",
+    "required_change": "盤上の成桂と持駒の飛車を正しく区別する。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "draws-no-scoring-position",
+    "unit": "rules-draws",
+    "chapter": 2,
+    "severity": "medium",
+    "status": "verified-source",
+    "finding": "点数と宣言条件の章に玉しかなく、盤面から得点・敵陣の枚数を確認できない。",
+    "required_change": "独立した採点例で数える対象と宣言成立・不成立を示す。",
+    "implementation_evidence": {
+      "start": "RBGGSS+N+L1/PP7/5K3/9/9/9/3k5/9/9 b RBP2g2s3n3l15p 1",
+      "root_proof": "Full40piece set; Sente29/Gote25;10 campnonkings and29 declarationpoints. Kingoutside comparison remains29; goldoutside comparison9camp/28eligible,29overall. All authored comparison moves legal."
+    },
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "setup-tosser-owner",
+    "unit": "rules-setup",
+    "severity": "medium",
+    "status": "verified-source",
+    "finding": "振り駒の結果で先手になる対局者と実際に振る記録係・ゲストを混同している。",
+    "source": ".cache/curriculum-source/1106.txt",
+    "required_change": "上座側の歩を振る場合の結果として記述し、記録係が先手になる説明を避ける。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "reference-dead-wiki",
+    "severity": "medium",
+    "status": "verified-source",
+    "finding": "将棋のルール・反則_(将棋) の２つの参照URLは、パスを正しくエンコードしてもHTTP 404になる。",
+    "source": ".cache/reference/fetch-status.json",
+    "required_change": "取得済みの宣言参照資料を完全に確認した後、同じ閉じた参照集合の有効な根拠へ付け替える。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "bishop-trade-legal-capture",
+    "unit": "basics-bishop-trade",
+    "chapter": 2,
+    "severity": "high",
+    "status": "verified-source",
+    "finding": "７七角の王手は６七金で合法に取れる。銀８八の守りは捕獲を禁じず、その取り返しを含めても金と角の交換になる。",
+    "evidence": {
+      "harness": "tsshogi Position.isValidMove / doMove",
+      "legal_counterexample": [
+        "6h6g",
+        "B*7g",
+        "6g7g",
+        "8h7g"
+      ]
+    },
+    "required_change": "合法な王手応答と、その後の駒の損得を正しく区別して説明する。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "other-anaguma-lance-direction",
+    "unit": "castles-other",
+    "chapter": 4,
+    "severity": "medium",
+    "status": "verified-source",
+    "finding": "日本語の通常の穴熊についての香と玉の上下関係が逆。通常の穴熊は玉が香の下、教材図の端玉は香が玉の下。英語は正しい。",
+    "evidence": {
+      "source": "data/lessons/units/castles-other.json",
+      "comparison": "castles-anaguma 第1章の9九玉・9八香、および参照6021の穴熊基本図",
+      "local_sfen": "4k4/r8/9/9/9/9/PS7/KG7/L8 b - 1"
+    },
+    "required_change": "通常の穴熊との比較を正しい上下関係で書く。盤面・手順・英語は維持。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "funa-king-rook-recapture",
+    "unit": "attack-funa",
+    "chapter": 2,
+    "severity": "high",
+    "status": "verified-source",
+    "finding": "角成・同金・同飛で止めた交換説明は、後手玉がその飛車を合法に取れることを数えていない。角と飛車を失い金と歩を得る順で、角対金の交換という収支説明では不十分。",
+    "evidence": {
+      "harness": "tsshogi Position.isValidMove / doMove",
+      "legal_counterexample": [
+        "7f4c+",
+        "5b4c",
+        "4h4c",
+        "3b4c"
+      ],
+      "final_sfen": "5gs2/7b1/5k3/9/9/9/2P6/9/K8 b GPrb 1"
+    },
+    "required_change": "王手する側の飛車の安全と玉の取り返しまで数える。独立した成立例と失敗例を使い、両言語と質問の収支を整合させる。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "endgame-tsumero-definition",
+    "unit": "endgame-tsumero",
+    "severity": "medium",
+    "status": "verified-source",
+    "finding": "英語の詰めろ定義は次の一手での詰みに限定している。詰めろには次の攻撃手番から王手の連続で詰ませる脅威も含む。一手詰の教材例と一般定義を区別する必要がある。",
+    "evidence": {
+      "harness": "root tsshogi Position.isValidMove/doMove and exhaustive legal reply enumeration",
+      "sfen": "5k3/9/1R5S1/3N5/9/9/p8/9/8K b - 1",
+      "legal_counterexample": [
+        "2c2b",
+        "9g9h",
+        "8c4c+",
+        "4a5a",
+        "4c5b"
+      ],
+      "observed": "2c2bは非王手。9g9h後は一手詰なし。8c4c+への全合法応手は4a5aのみで、4c5b後は王手・合法応手なし。"
+    },
+    "required_change": "英語の一般定義を強制的な詰みの脅威へ修正し、この教材の例は一手詰を狙うものと区別する。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "endgame-mate3-king-square-ja",
+    "unit": "endgame-mate3",
+    "chapter": 1,
+    "severity": "low",
+    "status": "verified-source",
+    "finding": "最初からの7二金打ちの説明で、日本語だけ初期玉を8一と誤記。初期玉は9一で、8一へ移った後なら7二金は王手になる。英語は正しい。",
+    "evidence": {
+      "source": "data/lessons/units/endgame-mate3.json:69",
+      "start": "k8/1p7/1R1G5/9/9/9/9/9/8K b G 1",
+      "root_check": "初期局面からG*7bは合法でPosition.checked=false。玉9a8a後はG*7bが王手。"
+    },
+    "required_change": "日本語の初期玉の座標を9一へ修正し、手順・盤面・英語は維持する。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "exchange-85-rook-hang",
+    "unit": "yokofu-85hisha",
+    "severity": "high",
+    "status": "verified-source",
+    "finding": "tsshogiで合法。後手飛車を丸取り、8eへの全81升と成不成の合法再捕獲はゼロ。",
+    "evidence": {
+      "source": "data/lessons/units/yokofu-85hisha.json:23",
+      "sfen": "4k4/5g3/6b2/9/1r4R2/6G2/9/9/4K4 b P 1",
+      "legal_counterexample": [
+        "3e8e"
+      ],
+      "root_validation": "rootが実際の章の初期局面から合法再生し、捕獲後の対象升への全81升・成不成の合法再捕獲なしを独立確認。全本線・分岐はbuildUnitで合法。"
+    },
+    "required_change": "向かい合う後手飛車に独自の保護駒を配置するか横利きを遮り、飛車交換を選ぶ教材として成立させる。丸取りを見送る理由のない主線を改める。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "exchange-85-king-rook-loss",
+    "unit": "yokofu-85hisha",
+    "severity": "high",
+    "status": "verified-source",
+    "finding": "両手合法。先手飛車を失い2eへの合法再捕獲ゼロ。初手2e8eも合法で後手飛車を得るため、玉準備を優先する主線は戦術的に成立しない。",
+    "evidence": {
+      "source": "data/lessons/units/yokofu-85hisha.json:37",
+      "sfen": "4k4/9/6b2/9/1r5R1/9/9/9/4KGS2 b P 1",
+      "legal_counterexample": [
+        "5i4h",
+        "8e2e"
+      ],
+      "root_validation": "rootが実際の章の初期局面から合法再生し、捕獲後の対象升への全81升・成不成の合法再捕獲なしを独立確認。全本線・分岐はbuildUnitで合法。"
+    },
+    "required_change": "玉移動中に飛車を失わない独自配置に変更し、相手の最強の取りを先に検証する。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "exchange-aono-lateral-trade",
+    "unit": "yokofu-aono",
+    "severity": "medium",
+    "status": "verified-source",
+    "finding": "全手合法。説明の8e飛には8eでの再捕獲ゼロで先手が後手飛車を丸取りできる。横の飛車交換を提案する配置になっていない。",
+    "evidence": {
+      "source": "data/lessons/units/yokofu-aono.json:39",
+      "sfen": "9/4k4/6bs1/1r7/6R2/6P2/6N2/4KG3/9 b Pp 1",
+      "legal_counterexample": [
+        "4h4i",
+        "8d8e",
+        "3e8e"
+      ],
+      "root_validation": "rootが実際の章の初期局面から合法再生し、捕獲後の対象升への全81升・成不成の合法再捕獲なしを独立確認。全本線・分岐はbuildUnitで合法。"
+    },
+    "required_change": "8eを守る独自の後手駒を置くか、横利きで攻撃する際の再捕獲条件がないことを説明する。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "exchange-yuuki-rook-hang",
+    "unit": "yokofu-yuuki",
+    "severity": "high",
+    "status": "verified-source",
+    "finding": "主線3f3eと8b8d後、3d8dで後手飛車を丸取りできる。tsshogi合法、8dへの全升と成不成の再捕獲はゼロ。交換に備えて桂を跳ねる次の主線は即時の飛車得を無視する。",
+    "evidence": {
+      "source": "data/lessons/units/yokofu-yuuki.json:36",
+      "sfen": "4k2s1/5g3/4p1b2/1r4R2/6P2/9/6N2/2GK5/9 b Pp 1",
+      "legal_counterexample": [
+        "3d8d"
+      ],
+      "root_validation": "rootが実際の章の初期局面から合法再生し、捕獲後の対象升への全81升・成不成の合法再捕獲なしを独立確認。全本線・分岐はbuildUnitで合法。"
+    },
+    "required_change": "後手飛車8dの独自の守備を追加するか、両飛車を同じ段で無保護に対向させない配置に改める。双方の取り返しを実行して交換例を再検証する。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "exchange-avoid-bishop-loss",
+    "unit": "yokofu-avoid",
+    "severity": "high",
+    "status": "verified-source",
+    "finding": "銀を6hへ移すと8h角への2h飛の横利きも遮断する。後手8d8h+で角を丸取り、8hへの合法再捕獲ゼロ。主線は代わりに8d8eという待機手を選ぶ。",
+    "evidence": {
+      "source": "data/lessons/units/yokofu-avoid.json:23",
+      "sfen": "4k4/7b1/9/1r4p2/9/2PP3P1/9/1B5R1/2SGK4 b Pp 1",
+      "legal_counterexample": [
+        "7i6h",
+        "8d8h+"
+      ],
+      "root_validation": "rootが実際の章の初期局面から合法再生し、捕獲後の対象升への全81升・成不成の合法再捕獲なしを独立確認。全本線・分岐はbuildUnitで合法。"
+    },
+    "required_change": "8筋の元の守備歩または別の独自の角守備を残し、銀移動後の相手の即時角取りを検証する。安全な駒組みを扱う主線に修正する。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "exchange-avoid-rook-countercapture",
+    "unit": "yokofu-avoid",
+    "severity": "medium",
+    "status": "verified-source",
+    "finding": "変化2d3dと8f8d後、先手3d8dで後手飛を丸取りできる。tsshogi合法、8d再捕獲ゼロ。横歩を得た代償として飛車退路を比較する説明に即時の飛車得が含まれない。",
+    "evidence": {
+      "source": "data/lessons/units/yokofu-avoid.json:49",
+      "sfen": "4k4/7b1/9/1r4R2/9/9/2P6/1BG6/4K4 b 2Pp 1",
+      "legal_counterexample": [
+        "3d8d"
+      ],
+      "root_validation": "rootが実際の章の初期局面から合法再生し、捕獲後の対象升への全81升・成不成の合法再捕獲なしを独立確認。全本線・分岐はbuildUnitで合法。"
+    },
+    "required_change": "後手飛車の支持を用意するか、飛車丸取りを正しく主候補として説明する。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "elmo-silver-relative-direction",
+    "unit": "taifuri-elmo",
+    "chapter": 1,
+    "severity": "medium",
+    "status": "verified-source",
+    "finding": "７八玉と６八銀は同じ段。序文と第1章の両言語が銀を玉の斜め前と説明する。",
+    "evidence": {
+      "king": "7h",
+      "silver": "6h",
+      "gold": "7i",
+      "root_validation": "初期SFENと全合法主線で玉と銀の段はhのまま。"
+    },
+    "required_change": "銀が玉の横に位置することと金銀の連結を正しい方向で説明する。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "elmo-king-square-en",
+    "unit": "taifuri-elmo",
+    "chapter": 2,
+    "severity": "low",
+    "status": "verified-source",
+    "finding": "最終手の英語が玉を６八と記述する。玉は７八のままで、６八は守りの銀の元位置。",
+    "evidence": {
+      "root_validation": "全合法主線で玉は7h、銀は6hから5g・4f・5e・6d。"
+    },
+    "required_change": "銀が６八へ戻らず７八玉の守りから離れていると英語を修正する。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "45early-opening-mechanism",
+    "unit": "taifuri-45hayashikake",
+    "severity": "medium",
+    "status": "verified-source",
+    "finding": "全4章が銀による4五の歩の取り返しと飛車の通路比較に終始する。角交換を迫って飛車先を守る角を外すという4五歩早仕掛けの狙いを説明・実行しない。",
+    "evidence": {
+      "source": "https://shogi-joutatsu.com/archives/974",
+      "root_validation": "単位本文を全文確認し、宣言参照の全文と全教学図を比較。全本線・分岐の合法性と戦法の説明範囲を分離。",
+      "existing_course": "src/data/joseki/shikenbisha-vs-45hayashikake--gote-2.json:角交換の代案8h3c+/2a3cは既存。root全文読了・全枝合法・子SFEN一致。"
+    },
+    "required_change": "既存定跡コースの角交換の説明と教材の取り返し比較の関係を原創作の序文で明示。序盤手順を重複させず、未説明の条件だけを独立した部分局面で補う。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "ponpon-opening-mechanism",
+    "unit": "taifuri-ponpon",
+    "severity": "medium",
+    "status": "verified-source",
+    "finding": "全3章が任意配置の桂の両取りと桂対歩の損得に終始する。桂を取らせて角道を開き、角交換から2筋を攻めるポンポン桂の仕掛けを説明・実行しない。6四の占有と相手の持角の切り返し条件も欠ける。",
+    "evidence": {
+      "source": "https://shogi-joutatsu.com/archives/8008",
+      "root_validation": "単位本文を全文確認し、宣言参照の全文と全教学図を比較。全本線・分岐の合法性と戦法の説明範囲を分離。"
+    },
+    "required_change": "損得の基本例と標準戦法の仕掛けを区別し、桂の投資で得る角道・2筋の活動と相手の切り返しを原作独立例で示す。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "chousoku-silver-retreat-required",
+    "unit": "taifuri-chousoku",
+    "chapter": 3,
+    "severity": "medium",
+    "status": "verified-source",
+    "finding": "最終説明は4五飛に当てられた5五銀に退路が必要と断定するが、8八角が5五銀を守る。銀を逃がさず、飛車の捕獲に角で取り返す選択を説明していない。",
+    "evidence": {
+      "harness": "root tsshogi Position.isValidMove/doMove",
+      "displayed_sfen": "9/1kg6/9/6p2/4Sr3/9/4P2P1/1BKG3R1/9 b BPs 1",
+      "legal_counterexample": [
+        "2g2f",
+        "4e5e",
+        "8h5e"
+      ],
+      "final_sfen": "9/1kg6/9/6p2/4B4/7P1/4P4/2KG3R1/9 w RBP2s 1",
+      "observed": "銀を逃がさず別の歩を進めても、後手飛車が銀を取る順は角による合法な取り返しがある。初期試行の8h5e+は成れないため不合法、正しい不成8h5eを再確認済み。"
+    },
+    "required_change": "銀の退路と守り駒による取り返しの両方を数える説明に修正。局所的な銀対飛の交換と全体評価を区別する。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "kakukoukan-existing-king-diagonal",
+    "unit": "taifuri-vs-kakukoukan",
+    "chapter": 3,
+    "severity": "low",
+    "finding": "章題は4七銀が玉への角筋を開くと説明するが、銀は4五・5六・6七・7八の斜線上に初めからいない。3六銀で増えるのは銀への両取り標的。",
+    "evidence": {
+      "root_validation": "初期局面から2h2i/B*4eを合法再生。4七銀を残したままPosition.checked=true。"
+    },
+    "required_change": "章題の因果関係を直し、既存の王手筋と銀を標的に加える移動を区別する。",
+    "status": "verified-source",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "sanken-basics-mino-core",
+    "unit": "sanken-basics",
+    "severity": "medium",
+    "finding": "最後の局面は玉２八・銀３八・金４八５八なのに、美濃囲いの基本的骨格と呼んでいる。指定資料6896の図28の基本美濃は玉２八・銀３八・金４九５八であり、右金の段が異なる。",
+    "evidence": {
+      "source": "data/lessons/units/sanken-basics.json:123",
+      "sfen": "4k4/1r1s3b1/2p6/1p3p3/9/9/1PB6/2R1G1K2/5GS2 b - 1",
+      "legal_counterexample": [
+        "3h2h",
+        "8d8e",
+        "3i3h",
+        "7c7d",
+        "4i4h"
+      ],
+      "root_validation": "rootが対象単位を全文読み、開始局面から独立合法再生。美濃は指定6896図28の白背景画像で4九金を直接照合。銀の5六移動と馬の捕獲も独立確認。"
+    },
+    "required_change": "局面を維持するなら美濃の基本形というラベルを外し、金を一段上げて金銀を横に連結した配置として説明する。標準美濃を教えるなら４九金を保つ手順へ修正する。",
+    "status": "verified-source",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "shiken-patterns-silver-destination",
+    "unit": "shiken-patterns",
+    "severity": "medium",
+    "finding": "５七歩が６七銀の５六への移動を塞ぐという日英解説は誤り。５六は空所で、銀は５七の歩を通らず斜め一マスの５六へ合法に進める。",
+    "evidence": {
+      "source": "data/lessons/units/shiken-patterns.json:43",
+      "sfen": "4k4/1r5b1/1p4s2/4p4/9/2PP5/PPBSPPPPP/3R2SK1/3G1G3 b - 1",
+      "legal_counterexample": [
+        "6g5f"
+      ],
+      "root_validation": "rootが対象単位を全文読み、開始局面から独立合法再生。美濃は指定6896図28の白背景画像で4九金を直接照合。銀の5六移動と馬の捕獲も独立確認。"
+    },
+    "required_change": "歩を先に突いて前へ運び、その後ろに銀を置く構想として説明する。初期局面で銀が進めないという断定を削除し、歩５六を作った中間局面では銀５六が塞がることを明示する。",
+    "status": "verified-source",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "shiken-patterns-recapture-ja",
+    "unit": "shiken-patterns",
+    "severity": "low",
+    "finding": "日本語は銀を取った後と書くが、実際は銀が馬を取る手順であり銀は盤上に残る。",
+    "evidence": {
+      "source": "data/lessons/units/shiken-patterns.json:109",
+      "sfen": "4k4/1r5b1/1p7/2pp5/9/2PP5/PPB1PPPPP/2SR2SK1/3G1G3 b - 1",
+      "legal_counterexample": [
+        "6f6e",
+        "2b7g+",
+        "7h7g"
+      ],
+      "root_validation": "rootが対象単位を全文読み、開始局面から独立合法再生。美濃は指定6896図28の白背景画像で4九金を直接照合。銀の5六移動と馬の捕獲も独立確認。"
+    },
+    "required_change": "銀で馬を取った後、と取り手と取られる駒を明記する。",
+    "status": "verified-source",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "kishu-ahiru-ch2-wrong-variation-anchor",
+    "unit": "kishu-ahiru",
+    "chapter": 2,
+    "severity": "medium",
+    "finding": "from=2は5筋歩交換と5b5e飛王手の後だが、日英は交換を拒否する4g玉と説明。",
+    "evidence": {
+      "root_validation": "root全文読了。from1とfrom2まで独立合法再生。from1は歩未交換・非王手、from2は双方持歩・飛車の王手。両方から5h4g合法。",
+      "anchor_before_exchange": "4k4/4r4/9/9/4p4/4P2R1/2P6/1B1SKS3/2G3G2 b - 1",
+      "actual_anchor": "4k4/9/9/9/4r4/7R1/2P6/1B1SKS3/2G3G2 b Pp 1"
+    },
+    "required_change": "交換を避ける枝をfrom1へ戻し、文章と表示局面を一致させる。",
+    "status": "verified-source",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "fujii-anaguma-king-square-ja",
+    "unit": "fujii-vs-anaguma",
+    "severity": "low",
+    "finding": "第２章最終説明の２二銀は表示局面の２二玉と不一致。tsshogi board.at(2,2)=white king、board.at(3,1)=white silver。直前の王手と遮断の対象も２二玉。",
+    "evidence": {
+      "source": "data/lessons/units/fujii-vs-anaguma.json:105",
+      "sfen": "2b3s2/1r2g1gkl/1p7/5p3/3P5/3R5/2B6/4G1S2/4KG3 w - 1",
+      "legal_counterexample": [],
+      "root_validation": "root全文読了。第2章全主線を合法再生。最終盤面2bは後手玉、3aは後手銀。"
+    },
+    "required_change": "日本語の２二銀への角筋を２二玉への角筋へ修正。英語は駒を誤記していない。",
+    "status": "verified-source",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "gokigen-chousoku-final-rook-recapture",
+    "unit": "gokigen-vs-chousoku",
+    "severity": "high",
+    "finding": "All5 plies tsshogi legal. Silver5d moves to5e to recapture, vacating5d; after secondSente silver captures5e, Rook5b5e is legal. Final9/9/1k7/9/4r4/9/4P4/2K4R1/9 b SPb2s 1. Existing quiz and ch3 root omit this last rook recapture and falsely require another defender.",
+    "evidence": {
+      "source": "data/lessons/units/gokigen-vs-chousoku.json:16",
+      "sfen": "9/1k2r4/9/4s4/4p4/3S1S3/4P4/2K4R1/9 w b 1",
+      "legal_counterexample": [
+        "8b8c",
+        "4f5e",
+        "5d5e",
+        "6f5e",
+        "5b5e"
+      ],
+      "root_validation": "root全文読了。初期局面から8b8c/4f5e/5d5e/6f5e/5b5eを全合法再生。銀移動後の5四は空き、最後の飛車捕獲が成立。"
+    },
+    "required_change": "Rewrite quiz and chapter3 defender argument to include finalRook5b5e recapture. Bishop6d is an alternative defender, not necessary merely because initialSilver5d blocks rook.",
+    "status": "verified-source",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "course-millennium-knight-support",
+    "course": "shikenbisha-vs-millennium--65fu",
+    "severity": "low",
+    "status": "verified-source",
+    "finding": "8i7gの注釈が6六角を後ろから支えると表現し、直接守る升と間接的な支援を区別していない。7七桂の利きは6五・8五であり6六角への取り返しはない。",
+    "evidence": {
+      "node": "n_24",
+      "root_validation": "元JSON全文・全枝合法再生。src/app/pieces.tsx seesで7gの利きは8e/6eのみ。",
+      "sfen": "lnkg3nl/2s1gr3/1pp1psbpp/p2p1pp2/7P1/P1PBP1P2/1PNP1P2P/1SK1GS1R1/L2G3NL w - 1"
+    },
+    "required_change": "7七桂が6五・8五を押さえることを具体的に述べ、6六角を直接守るという読み方を避ける。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "course-hidarimino-silver-blocker-square",
+    "course": "shikenbisha-vs-hidarimino--24fu",
+    "severity": "low",
+    "status": "verified-source",
+    "finding": "銀4三4四の後の末尾コメントが現在の遮断駒を4三銀と呼ぶ。表示局面では4三は空き、4四銀が飛車の前を遮る。直前の配置と現在の配置を混同する。",
+    "evidence": {
+      "node": "nb1_3",
+      "root_validation": "元JSON全文・全枝合法再生。board4c=null/4d=white silver。R4bの利きは4cまで通って4dで止まる。"
+    },
+    "required_change": "4四へ進んだ銀が依然として飛車道を塞ぐと、現在の表示局面に合わせる。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "yagura-suzume-lance-rook-clarity",
+    "unit": "yagura-suzume",
+    "chapter": 1,
+    "severity": "low",
+    "status": "verified-source",
+    "finding": "1c1d後の日本語が香1六と飛車1七をまとめ、両方とも直ちに1四を取れないように読める。香は直ちに合法捕獲でき、飛車だけが自分の香で止まる。",
+    "evidence": {
+      "root_validation": "対象単位全文読了・全主線分岐buildUnit合法。初期局面から1e1d/1c1dを再生し、1f1d合法・1g1d不合法を独立確認。",
+      "sfen": "7nl/1r4gk1/3ppgsp1/1p6p/7S1/8L/2SG2N1R/1KG6/9 b p 1"
+    },
+    "required_change": "銀と香は1四を取れるが飛車は香に遮られると、駒ごとの取り手を日本語で分ける。英語の位置記述と合法な本線は維持。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "course-maruyama-bishop-diagonal",
+    "course": "gokigen-vs-maruyama",
+    "source_path": "scripts/courses/gokigen-vs-maruyama.mjs",
+    "severity": "low",
+    "status": "verified-source",
+    "finding": "4h5g後の説明が飛車の斜線と呼ぶ。６四角から５五・４六・３七・２八・１九へ向かう角筋を指しており、３七歩が遮っている。",
+    "evidence": {
+      "node": "n_18",
+      "root_validation": "生成コース全382行をlossless compact JSONで全値読了。元mjs全62行読了。34枝の合法性と子SFEN一致を独立再生。seesで６四角の利きが３七で止まり、２八飛は縦横に利くことを照合。",
+      "sfen": "lnsg1g1nl/2k1r4/pppp1pspp/3bp1p2/7P1/2P1P4/PP1PSPP1P/1SK4R1/LN1G1G1NL w B 1"
+    },
+    "required_change": "６四角の斜線と２八飛の関係を正しく記述し、３七歩による遮断を明記する。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "course-koshikakegin-deviation-mover",
+    "course": "kakugawari--koshikakegin",
+    "source_path": "scripts/courses/kakugawari-koshikakegin.mjs",
+    "severity": "medium",
+    "status": "verified-source",
+    "finding": "先手学習者の2i3gがdeviationになっているが、punishNoteと続く手順は後手B*6eによる角銀交換の損を説明する。誤り表示の主体と教材の失敗主体が一致しない。",
+    "evidence": {
+      "root_validation": "生成393行全キー値、元mjs全行、model.tsとlanes.ts全行読了。35枝の合法性・子SFEN一致をroot再生。verdictForはuserSideのdeviationをmistakeとし、buildLanesも初手2i3gにmistakeを付ける。2i3g/B*6e/5f6e/6d6e後は先手2B・後手s。ブラウザ表示は未確認。",
+      "sfen": "ln5nl/1r2gkgs1/3spp1pp/p1pp2p2/1p5P1/2PPSPP2/PPS1P3P/2GK3R1/LN3G1NL b Bb 1"
+    },
+    "required_change": "先手桂３七は代案として扱い、後手６五角打を失敗として示すか、交換比較の中立枝にする。学習者の正当な準備手を失敗にしない。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "course-fujii-deviation-anchor",
+    "course": "shikenbisha-vs-anaguma--fujii",
+    "source_path": "scripts/courses/fujii-system.mjs",
+    "severity": "medium",
+    "status": "verified-source",
+    "finding": "deviationは先手1e1dに付くが、punishNoteの香損は二手後の先手1i1dで発生する。初手の端歩接触と無支援の香取り返しを分けて教える必要がある。",
+    "evidence": {
+      "root_validation": "生成406行全値・元mjs全文読了。36枝合法・子SFEN一致をroot再生。1e1d/1c1d/1i1d/1b1dは香損、1e1d/1c1d/3g4eは合法で香1iを保持し、桂4eが角3cと銀5cを狙う。最善手・局面評価の断定はしていない。verdictForの初手deviation表示はsource確認。",
+      "sfen": "ln3gsn1/1r2g2kl/p1pps1bpp/4p1p2/1p1P1p2P/2P1PPP2/PP1S1SNP1/1B1R5/LN1GKG2L b - 1",
+      "bounded_engine_check": {
+        "threads": 1,
+        "hash_mb": 32,
+        "movetime_ms": 1000,
+        "scores_side_to_move": [
+          205,
+          27,
+          33,
+          338
+        ],
+        "best_moves": [
+          "3g4e",
+          "1c1d",
+          "8h3c+",
+          "1b1d"
+        ],
+        "prefix_moves": [
+          "1e1d",
+          "1c1d",
+          "1i1d"
+        ],
+        "interpretation": "初手１四歩にも桂４五を逃す機会費用があり得る。香損は後続１四同香で示される。初手を無条件に良い手とは扱わず、初手の評価と後続の香損を分離する。短時間評価は最善手の証明ではない。"
+      }
+    },
+    "required_change": "初手の攻撃判断と後続の香１九から１四への損失を別に説明する。初手deviationを残す場合は、その手自身の検証済みの理由を明記し、香損を根拠として先取りしない。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "course-anaguma-sabaki-lance-support-clarity",
+    "course": "shikenbisha-vs-anaguma--sabaki",
+    "source_path": "scripts/courses/shikenbisha-vs-anaguma-sabaki.mjs",
+    "severity": "low",
+    "status": "verified-source",
+    "finding": "2b1a後の１二香による支えという表現は、玉１一への直接の利きと遮蔽物としての役割を区別していない。後手香１二の前方は１三で、玉１一には利かない。香を前に置く物理的な遮断効果は否定しない。",
+    "evidence": {
+      "node": "n_16 incoming edge 2b1a -> n_17",
+      "root_validation": "生成413行全値・元mjs全文読了。全37枝の合法性・子SFEN一致をroot再生。実局面のsees1bは1cのみ。１一に後手玉、１二に後手香を照合。",
+      "sfen": "lnsg1gsnk/1r6l/p1ppppbpp/6p2/1p7/2PP5/PPB1PPPPP/2SRG2K1/LN1G2SNL b - 1"
+    },
+    "required_change": "香１二を玉の前に置いて１一を空ける構築と表現し、玉への直接の守り駒であるような曖昧さを除く。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "course-funa1-rook-blocker",
+    "course": "shikenbisha-vs-funa-kyusen--1",
+    "source_path": "scripts/courses/shikenbisha-vs-funa-kyusen-1.mjs",
+    "severity": "medium",
+    "status": "verified-source",
+    "finding": "6f6e後に飛車６八の正面も角７七の斜線と同時に開くと説明するが、自銀６七が飛車を遮る。角道は６六・５五まで空き、後手銀４四で止まる。",
+    "evidence": {
+      "node": "n_19 incoming6f6e ->n_20",
+      "sfen": "ln3gsnl/1r2g1kb1/p1pp1p1pp/4psp2/1p1P5/2P6/PPBSPPPPP/3R2SK1/LN1G1G1NL w - 1",
+      "root_validation": "生成352行全キー値と元mjs全文読了。31枝合法・子SFEN一致。実局面seesで飛6hの前方は自銀6gまで、角7gは6f/5e/4dまでを独立確認。"
+    },
+    "required_change": "６五歩は角筋を開けるが飛車の前には銀６七が残ると明記し、銀が５六へ移る時点と飛車道の開通を区別する。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "course-funa1-deviation-anchor",
+    "course": "shikenbisha-vs-funa-kyusen--1",
+    "source_path": "scripts/courses/shikenbisha-vs-funa-kyusen-1.mjs",
+    "severity": "medium",
+    "status": "verified-source",
+    "finding": "deviationは8e8fに付くが、飛車損を示す根拠は二手後8b8fの選択にある。枝末尾自身が８六同飛を選ばない応手を認める。",
+    "evidence": {
+      "node": "n_24 branch8e8f",
+      "root_validation": "本枝8e8f/8g8f/8b8f/7g8fを合法再生し飛車損を確認。別順8e8f/8g8f/4d5cも合法、後手飛8bが残る。最善評価は断定しない。初手deviation表示はverdictFor/sourceで確認。",
+      "alternative_sfen": "ln3gsnl/1r2g1kb1/p1ppsp1pp/6p2/3P5/1PP1S4/P1B2PPPP/3R2SK1/LN1G1G1NL b 2Pp 1",
+      "bounded_engine_check": {
+        "threads": 1,
+        "hash_mb": 32,
+        "movetime_ms": 1000,
+        "scores_side_to_move": [
+          -75,
+          71,
+          -94,
+          2035
+        ],
+        "best_moves": [
+          "1c1d",
+          "8g8f",
+          "1c1d",
+          "7g8f"
+        ],
+        "prefix_moves": [
+          "8e8f",
+          "8g8f",
+          "8b8f"
+        ],
+        "interpretation": "一秒探索は初手８六歩で大損を示さず、８六同飛で大きな損を示す。短時間評価は最善手の証明ではない。"
+      }
+    },
+    "required_change": "初手の歩接触は中立の代案にし、８六同飛の取り返し見落としをその着手で失敗として示す。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "course-kakukoukan-pawn-blocked-by-own-silver",
+    "course": "shikenbisha-vs-ibisha--kakukoukan",
+    "source_path": "scripts/courses/kakukoukan-shikenbisha.mjs",
+    "severity": "high",
+    "status": "verified-source",
+    "finding": "銀６六から７五へ進出した直後の注記が、後手７四歩への先手７五歩突き捨てを勧める。７五は自銀が占有し７六歩の前進は不合法。元の参考本文は銀が進出する前の条件を述べており、条件の時点が失われている。",
+    "evidence": {
+      "node": "nb0b1_10 incoming6f7e ->nb0b1_11",
+      "root_validation": "生成658行全値と元mjs全文、参考本文215行をroot読了。全62枝合法・子SFEN一致を独立再生。nb0b1_11から7c7d合法、続く7f7eは自銀7eにより不合法。参考本文の条件は銀7eへの進出前。",
+      "sfen": "ln5nl/1r2g1gk1/p1ppspspp/4p1p2/1pSP5/2P6/PP2PPPPP/2GR2SK1/LN3G1NL w Bb 1"
+    },
+    "required_change": "駒の占有と判断時点に合う原著の説明へ置換する。７六歩の前進を教えるなら銀がまだ６六にいる独立の合法局面を使う。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "course-kakukoukan-reference-structure",
+    "course": "shikenbisha-vs-ibisha--kakukoukan",
+    "source_path": "scripts/courses/kakukoukan-shikenbisha.mjs",
+    "severity": "high",
+    "status": "verified-source",
+    "finding": "旧コースは参照記事の基本図・早い８筋交換二分岐・銀７六/銀６六/逆棒銀の順序と構成を追い、末尾注記も記事の条件・結論に近い。現行の原著教材規則では記事の構成や集成手順の再現を許さない。",
+    "evidence": {
+      "root_validation": "元mjs・生成JSON全値と宣言済み参照hibitonshi/kakukoukan-shiken本文215行を独立対照。62枝の合法性は確認済みだが、合法性は独創性の証拠ではない。参考図の一枚404も別途記録されており、欠落図を推測しない。",
+      "source_cache": ".cache/reference/7c5c9fd0be.txt",
+      "source_sha256": "dc5f06af0c317fed16fb1975a9898c290d4edca07483de44429a51409788d2a7"
+    },
+    "required_change": "当該コースを標準理論・独立に検証した判断点から原著で再構成する。参考記事の目次順序・図組み・分岐集成・評価断定を継承せず、参照は相談履歴として明示する。通常の序盤事実を使う場合も定跡帳/engineで独立照合する。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "course-yokofu68-bishop-recapture",
+    "course": "yokofu-vs-85hisha--68gyoku",
+    "source_path": "scripts/courses/yokofu-vs-85hisha-68gyoku.mjs",
+    "severity": "medium",
+    "status": "verified-source",
+    "finding": "４四角のdeviationを先手角８八に取られることだけで説明して終わるが、後手４三歩が４四を守り、４四同歩で角を取り返せる。無償の角損という教え方にはできない。",
+    "evidence": {
+      "root_validation": "生成333行全値と元mjs全文読了。既存29枝を他コースとともに独立再生。2b4d/8h4d/4c4d全合法、終点は双方持角。後続3d4dも合法だが後手8e8i+の反撃があり、無条件の駒得例として使わない。",
+      "sfen_after_recapture": "lnsgkgsnl/9/p1ppp3p/5pR2/1r7/2P6/P2PPPP1P/2GK5/LNS2GSNL b B3Pb2p 1",
+      "bounded_engine_check": {
+        "threads": 1,
+        "hash_mb": 32,
+        "movetime_ms": 1000,
+        "prefix_moves": [
+          "2b4d",
+          "8h4d",
+          "4c4d",
+          "3d4d"
+        ],
+        "scores_side_to_move": [
+          -22,
+          224,
+          -171,
+          181,
+          664
+        ],
+        "best_moves": [
+          "8e2e",
+          "8h4d",
+          "4c4d",
+          "7i8h",
+          "8e8i+"
+        ],
+        "interpretation": "短時間探索も４四同歩を選ぶ。初手に機会費用はあり得るが、無償の角損を示していない。最善評価の証明ではない。"
+      }
+    },
+    "required_change": "４三歩の取り返しまで示して双方の持角・次の飛車配置を説明する。deviationを維持するなら、その手自身の独立検証済みの問題を教え、単純な角の取り落としと誤認させない。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "course-waki-future-pawn-note",
+    "course": "yagura--waki-system",
+    "source_path": "scripts/courses/yagura-waki-system.mjs",
+    "severity": "low",
+    "status": "verified-source",
+    "finding": "6h7hの注記が後手４四歩で４三を空けたと過去形で説明するが、歩４三はまだ残り、４四歩は次の後手手番である。",
+    "evidence": {
+      "node": "n_15 incoming6h7h ->n_16",
+      "root_validation": "生成465行全キー値と元mjs全文読了。全42枝合法・子SFEN一致を独立再生。n_16では後手歩4c、4d空き、次枝4c4d。",
+      "sfen": "ln1gk1snl/1r1s2g2/p2p1p1pp/1ppbp1p2/9/2PPP2P1/PPS2PP1P/2K4R1/LNBG1GSNL w - 1"
+    },
+    "required_change": "６八から７八へ玉を運ぶ現在の手を説明し、後手４四歩は次の予定として区別する。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "course-funa2-left-gold-castle-wording",
+    "course": "shikenbisha-vs-funa-kyusen--2",
+    "source_path": "scripts/courses/shikenbisha-vs-funa-kyusen-2.mjs",
+    "severity": "low",
+    "status": "verified-source",
+    "finding": "６九金から７八への手を玉の囲いを厚くすると説明するが、玉は２八で、金７八は左側の銀６七を支える配置である。",
+    "evidence": {
+      "root_validation": "元mjs全文読了、最初21手を独立合法再生。玉2h、金7h、銀6gを確認。",
+      "sfen": "ln3gsnl/1r2g1kb1/p1pp1p1pp/3sp1p2/1p7/2PP5/PPBSPPPPP/2GR2SK1/LN3G1NL w - 1"
+    },
+    "required_change": "７八金による左側の銀６七と飛車周辺の支えを説明し、２八玉の囲いの追加駒と混同させない。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "course-migishiken-deviation-anchor",
+    "course": "shikenbisha-vs-migishiken--sente",
+    "source_path": "scripts/courses/shikenbisha-vs-migishiken-sente.mjs",
+    "severity": "medium",
+    "status": "verified-source",
+    "finding": "６五歩のdeviation表示と、後続６二飛から６五への直接取りで生じる飛損を区別する必要がある。既存角交換枝は飛車６二を保つ。",
+    "evidence": {
+      "root_validation": "元mjs全文・生成JSON全値読了、全34枝の合法性と子SFEN一致を独立再生。6d6e/6f6e/2b7g+/7h7g全合法で飛6b残存。初手の最善評価は未証明。",
+      "sfen": "ln3g1nl/2srgksb1/p3pp1pp/1ppp2p2/9/2PP5/PPB1PPPPP/2SR2SK1/LN1G1G1NL w - 1",
+      "alternative_sfen": "ln3g1nl/2srgks2/p3pp1pp/1pp3p2/3P5/2P6/PPS1PPPPP/3R2SK1/LN1G1G1NL w BPb 1"
+    },
+    "required_change": "初手の評価と後続飛車取りの誤りを分ける。初手deviationを維持する場合、その手自体の独立検証済み根拠を付ける。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "course-gangi-deviation-anchor",
+    "course": "yagura-vs-gangi",
+    "source_path": "scripts/courses/yagura-vs-gangi.mjs",
+    "severity": "medium",
+    "status": "verified-source",
+    "finding": "８六歩のdeviationに付いた説明は後続７七銀から８六への取りで生じる銀損であり、初手と取り返しの選択を区別する必要がある。",
+    "evidence": {
+      "root_validation": "元mjs全文・生成JSON全値読了、全39枝の合法性と子SFEN一致を独立再生。8g8f/8e8f/8h7i全合法、銀7g残存。代案の優劣・初手の評価は未証明。",
+      "sfen": "ln1k3nl/1r1sgsg2/6bp1/p1ppppp1p/1p7/2PPP2P1/PPSGBPP1P/1KG4R1/LN4SNL b - 1",
+      "alternative_sfen": "ln1k3nl/1r1sgsg2/6bp1/p1ppppp1p/9/1pPPP2P1/P1SGBPP1P/2G4R1/LNK3SNL w p 1"
+    },
+    "required_change": "銀を取り返しに使う時点に具体的な損を結び付ける。初手の評価は独立評価がない限り銀損の説明で代用しない。",
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  },
+  {
+    "id": "vendor-anaguma-source-overlap",
+    "source_path": "vendor/shiryu-joseki/src/data/joseki/shikenbisha-vs-anaguma--basic.json",
+    "severity": "medium",
+    "status": "verified-source",
+    "finding": "全対象の原著性検査で旧vendorの一注記に出典との１７文字連続一致を検出。",
+    "required_change": "元注記を盤上の駒配置と未完成の守備に基づく原著説明へ置換。",
+    "implementation_evidence": {
+      "full_read": "JSONの全キー値をroot読了。",
+      "node": "n27",
+      "sfen": "l1kg3nl/2s1gr3/ppn1psbpp/2pp1pp2/7P1/2PPP4/PPB1SPP1P/L3G2R1/KNSG3NL w - 1"
+    },
+    "verification_scope": "Authored/generated legality, applicable unit/course checks and originality. Runtime visual acceptance not claimed."
+  }
+]

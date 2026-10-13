@@ -1,7 +1,10 @@
 {
   "id": "rules-moves",
   "order": 20,
-  "path": ["はじめての将棋", "ルール"],
+  "path": [
+    "はじめての将棋",
+    "ルール"
+  ],
   "title": {
     "ja": "駒の動きを地図でつかむ",
     "en": "Map the movement patterns of shogi pieces"
@@ -50,7 +53,16 @@
             "en": "Sente's king is on 5e, gold on 7e, silver on 3e, and pawn on 5g. The king, gold and silver all move one square at a time, but each has a different set of destinations."
           },
           "marks": {
-            "boxes": ["4d", "5d", "6d", "4e", "6e", "4f", "5f", "6f"]
+            "boxes": [
+              "4d",
+              "5d",
+              "6d",
+              "4e",
+              "6e",
+              "4f",
+              "5f",
+              "6f"
+            ]
           }
         },
         {
@@ -65,7 +77,14 @@
             "en": "From 7e the gold can reach 7d, 6d, 8d, 6e, 8e and 7f. It steps forward, sideways or straight back, but not diagonally backward."
           },
           "marks": {
-            "boxes": ["7d", "6d", "8d", "6e", "8e", "7f"]
+            "boxes": [
+              "7d",
+              "6d",
+              "8d",
+              "6e",
+              "8e",
+              "7f"
+            ]
           }
         },
         {
@@ -74,28 +93,46 @@
             "en": "From 3e the silver can reach 3d, 2d, 4d, 2f and 4f. It cannot step sideways or straight back, but it can retreat diagonally."
           },
           "marks": {
-            "boxes": ["3d", "2d", "4d", "2f", "4f"]
+            "boxes": [
+              "3d",
+              "2d",
+              "4d",
+              "2f",
+              "4f"
+            ]
           }
         },
         {
-          "moves": ["7e8e", "9a9b", "3e4f"],
+          "moves": [
+            "7e8e",
+            "9a9b",
+            "3e4f"
+          ],
           "text": {
             "ja": "金は７五から８五へ横に進み、銀は３五から４六へ斜め後ろに退きました。動ける方向を比べると、二枚の違いが盤上に現れます。",
             "en": "The gold moves sideways from 7e to 8e, and the silver retreats diagonally from 3e to 4f. Their different movement patterns are visible in the moves they can make."
           },
           "marks": {
-            "arrows": ["7e8e", "3e4f"],
+            "arrows": [
+              "7e8e",
+              "3e4f"
+            ],
             "last": "4f"
           }
         },
         {
-          "moves": ["9b8b", "5g5f"],
+          "moves": [
+            "9b8b",
+            "5g5f"
+          ],
           "text": {
             "ja": "歩は５七から５六へ、前に一マス進みました。相手の駒を取る場合も、歩は同じ一マス先にある駒だけを取ります。",
             "en": "The pawn advances one square, from 5g to 5f. It also captures only an opposing piece directly in that one-square path."
           },
           "marks": {
-            "arrows": ["5g5f"],
+            "arrows": [
+              "5g5f"
+            ],
             "last": "5f"
           }
         }
@@ -122,17 +159,32 @@
             "en": "The rook moves along ranks and files. From 7g it can pass through 7f and 7e to capture on 7d, but it cannot continue beyond that pawn. Along the rank it also stops before its own lance or bishop."
           },
           "marks": {
-            "boxes": ["7f", "7e", "7d", "7h", "7i", "8g", "6g", "5g", "4g"]
+            "boxes": [
+              "7f",
+              "7e",
+              "7d",
+              "7h",
+              "7i",
+              "8g",
+              "6g",
+              "5g",
+              "4g"
+            ]
           }
         },
         {
-          "moves": ["7g7d", "5a4a"],
+          "moves": [
+            "7g7d",
+            "5a4a"
+          ],
           "text": {
             "ja": "飛車は７四の歩を取って、そのマスで止まりました。取るときも、相手の駒があるマスへ進んで自分の駒を置きます。",
             "en": "The rook captures the pawn on 7d and stops on that square. A capture means moving onto the square occupied by the opposing piece."
           },
           "marks": {
-            "arrows": ["7g7d"],
+            "arrows": [
+              "7g7d"
+            ],
             "last": "7d"
           }
         },
@@ -142,17 +194,25 @@
             "en": "The bishop travels diagonally from 3g through 4f and 5e to the pawn on 6d. If it captures there, it cannot continue on to 7c."
           },
           "marks": {
-            "boxes": ["4f", "5e", "6d"]
+            "boxes": [
+              "4f",
+              "5e",
+              "6d"
+            ]
           }
         },
         {
-          "moves": ["3g6d"],
+          "moves": [
+            "3g6d"
+          ],
           "text": {
             "ja": "角も６四の歩を取って止まります。飛車・角・香は桂のように駒を飛び越えず、進路の途中にある駒の手前までしか進めません。",
             "en": "The bishop captures the pawn on 6d and stops. Unlike the knight, the rook, bishop and lance cannot jump over a piece in their path."
           },
           "marks": {
-            "arrows": ["3g6d"],
+            "arrows": [
+              "3g6d"
+            ],
             "last": "6d"
           }
         },
@@ -162,7 +222,14 @@
             "en": "The lance runs straight forward from 9g. If the file is clear, it can reach any square from 9f through 9a, but it cannot move sideways or backward."
           },
           "marks": {
-            "boxes": ["9f", "9e", "9d", "9c", "9b", "9a"]
+            "boxes": [
+              "9f",
+              "9e",
+              "9d",
+              "9c",
+              "9b",
+              "9a"
+            ]
           }
         }
       ]
@@ -188,17 +255,27 @@
             "en": "The knight's destinations are 4e and 6e. Its own pawn on 5f does not block the jump to 4e."
           },
           "marks": {
-            "boxes": ["4e", "6e"]
+            "boxes": [
+              "4e",
+              "6e"
+            ]
           }
         },
         {
-          "moves": ["5g4e", "9a8a", "7g7f"],
+          "moves": [
+            "5g4e",
+            "9a8a",
+            "7g7f"
+          ],
           "text": {
             "ja": "桂は５七から４五へ跳び、後手の歩を取りました。後手の玉が８一へ動いたあと、先手は７七の歩を７六へ進めます。歩は桂と違い、途中を越えず前の一マスだけを進みます。",
             "en": "The knight jumps from 5g to 4e and captures gote's pawn. After gote's king moves to 8a, sente advances the pawn from 7g to 7f. Unlike the knight, the pawn moves only one square straight ahead and cannot leap."
           },
           "marks": {
-            "arrows": ["5g4e", "7g7f"],
+            "arrows": [
+              "5g4e",
+              "7g7f"
+            ],
             "last": "7f"
           }
         },
@@ -231,7 +308,28 @@
             "en": "The dragon keeps the rook's rank-and-file lines and adds one-square diagonal moves. From 7e it can also step to 6d, 8d, 6f or 8f."
           },
           "marks": {
-            "boxes": ["7d", "7c", "7b", "7a", "7f", "7g", "7h", "7i", "8e", "9e", "6e", "5e", "4e", "3e", "2e", "1e", "6d", "8d", "6f", "8f"]
+            "boxes": [
+              "7d",
+              "7c",
+              "7b",
+              "7a",
+              "7f",
+              "7g",
+              "7h",
+              "7i",
+              "8e",
+              "9e",
+              "6e",
+              "5e",
+              "4e",
+              "3e",
+              "2e",
+              "1e",
+              "6d",
+              "8d",
+              "6f",
+              "8f"
+            ]
           }
         },
         {
@@ -240,17 +338,39 @@
             "en": "The horse keeps the bishop's diagonal lines and adds one-square steps up, down, left and right. It can move from 2g to 3g, a step an unpromoted bishop cannot make."
           },
           "marks": {
-            "boxes": ["1g", "3g", "2f", "2h", "1f", "3f", "4e", "5d", "6c", "7b", "8a", "1h", "3h", "4i"]
+            "boxes": [
+              "1g",
+              "3g",
+              "2f",
+              "2h",
+              "1f",
+              "3f",
+              "4e",
+              "5d",
+              "6c",
+              "7b",
+              "8a",
+              "1h",
+              "3h",
+              "4i"
+            ]
           }
         },
         {
-          "moves": ["7e6d", "9a9b", "2g3g"],
+          "moves": [
+            "7e6d",
+            "9a9b",
+            "2g3g"
+          ],
           "text": {
             "ja": "龍は斜めに一歩進んで６四へ、馬は横に一歩進んで３七へ移りました。加わった動きも、それぞれの長い動きと同じ一手の中で使えます。",
             "en": "The dragon steps diagonally to 6d, and the horse steps sideways to 3g. Each can use its added one-square move as a normal move."
           },
           "marks": {
-            "arrows": ["7e6d", "2g3g"],
+            "arrows": [
+              "7e6d",
+              "2g3g"
+            ],
             "last": "3g"
           }
         },
@@ -277,7 +397,14 @@
             "en": "The board has a tokin on 4e, promoted lance on 6e, promoted silver on 6g and promoted knight on 4g. Although their original moves differ, all four step in the same directions after promotion."
           },
           "marks": {
-            "boxes": ["4d", "3d", "5d", "3e", "5e", "4f"]
+            "boxes": [
+              "4d",
+              "3d",
+              "5d",
+              "3e",
+              "5e",
+              "4f"
+            ]
           }
         },
         {
@@ -286,7 +413,14 @@
             "en": "The promoted lance also steps forward, diagonally forward, sideways and straight back. It no longer runs several squares as an unpromoted lance can."
           },
           "marks": {
-            "boxes": ["6d", "5d", "7d", "5e", "7e", "6f"]
+            "boxes": [
+              "6d",
+              "5d",
+              "7d",
+              "5e",
+              "7e",
+              "6f"
+            ]
           }
         },
         {
@@ -295,7 +429,14 @@
             "en": "The promoted knight no longer jumps. It takes one-square steps in the six directions and cannot leap over another piece."
           },
           "marks": {
-            "boxes": ["4f", "3f", "5f", "3g", "5g", "4h"]
+            "boxes": [
+              "4f",
+              "3f",
+              "5f",
+              "3g",
+              "5g",
+              "4h"
+            ]
           }
         },
         {
@@ -304,13 +445,20 @@
             "en": "The promoted silver follows the same pattern. It loses the silver's backward diagonals and gains sideways and straight-back steps."
           },
           "marks": {
-            "boxes": ["6f", "5f", "7f", "5g", "7g", "6h"]
+            "boxes": [
+              "6f",
+              "5f",
+              "7f",
+              "5g",
+              "7g",
+              "6h"
+            ]
           }
         },
         {
           "text": {
-            "ja": "と金・成香・成桂・成銀は、どれも金と同じ動きです。金そのものには裏面の成駒がありません。",
-            "en": "The tokin, promoted lance, promoted knight and promoted silver all move like a gold. A gold has no promoted form."
+            "ja": "と金・成香・成桂・成銀は、どれも金と同じ動きです。金そのものには裏面の成駒がありません。 成銀・成桂・成香を全・圭・杏と一文字で表す表記もある。記号が違っても、動きは同じ金の六方向。",
+            "en": "The tokin, promoted lance, promoted knight and promoted silver all move like a gold. A gold has no promoted form. Some notation uses 全, 圭 and 杏 for promoted silver, knight and lance. These labels still mean the same six gold directions."
           }
         }
       ]
