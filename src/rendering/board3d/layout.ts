@@ -198,6 +198,7 @@ export function projectedZoneReporter(options: ZoneProjection) {
           zone.height = 0
         }
       }
+      zones.floatingAvailable = [zones.under, zones.over].every((zone) => zone.width >= 280 && zone.height >= 240)
     }
 
     const key = [zones.under, zones.over].map((r) => [r.left, r.top, r.width, r.height].map((v) => Math.round(v * 100) / 100).join(',')).join('|')
