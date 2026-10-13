@@ -48,7 +48,7 @@ export function zoneReporter(s: SceneState, latest: Latest) {
     ready: () => !s.flip && Math.abs((latest.current.flipped ? Math.PI : 0) - s.root.rotation.y) <= 0.002,
     sideRoom: () => latest.current.sideRoom ?? 0,
     inputs: () => [...s.board.matrixWorld.elements, ...s.stands.flatMap(({ stand }) => stand.matrixWorld.elements)],
-    fits: sideStandsFit,
+    fits: (w, h) => sideStandsFit(w, h) && !verticalStripsFit(w, h),
     fit: (aspect, sideRoom, narrow) => cameraFit(aspect, 0, sideRoom, false, narrow),
     board: () => new THREE.Box3().setFromObject(s.board),
     stands: () =>
