@@ -2,6 +2,13 @@
 
 Notable changes are recorded here when a release is created. Versions follow Semantic Versioning.
 
+## [1.5.1](/compare/v1.5.0...v1.5.1) (2026-10-13)
+
+### Bug Fixes
+
+* 学習教材の局面・利き・取り返し・手順前後を修正し、独立した例と説明を追加。
+* 学習中の説明に指し手の矢印と升の表示を区別して反映し、空の翻訳データによるクラッシュを防止。
+
 # [1.5.0](/compare/v1.4.4...v1.5.0) (2026-10-12)
 
 

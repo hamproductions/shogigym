@@ -39,5 +39,5 @@
 - Never copy raw user chat or credentials into records. No OS/audio automation. Stop only owned task processes.
 
 ## Immediate next action
-- Release v1.5.1 through the existing release:patch script using hamzaabamboo credentials. Fresh fetch confirms no commits missing from origin/main. Preserve the user development server.
+- v1.5.1 prepared after canonical release validation, lint, formatting and production build passed. release-it authentication failed while direct GitHub API and repository permission checks succeeded for hamzaabamboo; use Git and the authenticated GitHub CLI for publication. Preserve the user development server.
 - Verify the pushed release tag, matching main head, successful Pages run and served deployment; update this record with the observed result. No new audits or browser sweeps.
