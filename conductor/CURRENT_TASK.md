@@ -38,6 +38,14 @@
 - CPU caps RAYON_NUM_THREADS=1 UV_THREADPOOL_SIZE=1;engineThreads1/Hash32. Latest disk check4GiB free.
 - Never copy raw user chat or credentials into records. No OS/audio automation. Stop only owned task processes.
 
+## Release result
+- v1.5.1 published: https://github.com/hamproductions/shogigym/releases/tag/v1.5.1
+- Release commit/tag:2fa5b5c2df90a6c0f235d0e29e5cab5739ca9272. main and annotated tag pushed to origin.
+- Pages workflow38359808997 succeeded for that exact release commit; build and deploy jobs succeeded.
+- Live URL:https://hamproductions.github.io/shogigym/ returnedHTTP200 after deployment.
+- Canonical release hooks passed:course validation,lint,format check,production build. GitHub CLI authenticated ashamzaabamboo withrepository admin/push permissions.
+- release-it API authentication failed under both Bun and direct Node despite successful standalone Octokit/gh checks. Root cause not established. Publication used the validated Git commit/tag/push plus gh release create --verify-tag; no authentication checks disabled.
+- This documentation-only receipt is committed separately withCI skipped; deployed application code is the v1.5.1 tag above.
+
 ## Immediate next action
-- v1.5.1 prepared after canonical release validation, lint, formatting and production build passed. release-it authentication failed while direct GitHub API and repository permission checks succeeded for hamzaabamboo; use Git and the authenticated GitHub CLI for publication. Preserve the user development server.
-- Verify the pushed release tag, matching main head, successful Pages run and served deployment; update this record with the observed result. No new audits or browser sweeps.
+- No remaining implementation, release or deployment work. Preserve the local user development server. No further audits or sweeps.
