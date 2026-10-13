@@ -153,7 +153,7 @@ export function projectedZoneReporter(options: ZoneProjection) {
       under: { left: rect.left + bd.l - gap - bar - underW, top: rect.top + top.b + gap, width: underW, height: H },
       over: { left: rect.left + bd.r + gap, top: rect.top + bottom.t - gap - H, width: W, height: H },
     }
-    if (!docked && zones.floatingAvailable) {
+    if (zones.floatingAvailable) {
       const obstacles = options.obstacles().map((bounds) => {
         const points = [bounds.min.x, bounds.max.x].flatMap((x) =>
           [bounds.min.y, bounds.max.y].flatMap((y) => [bounds.min.z, bounds.max.z].map((z) => new THREE.Vector3(x, y, z).project(options.camera))),
