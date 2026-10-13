@@ -153,10 +153,11 @@ export function projectedZoneReporter(options: ZoneProjection) {
       under: { left: rect.left + bd.l - gap - bar - underW, top: rect.top + top.b + gap, width: underW, height: H },
       over: { left: rect.left + bd.r + gap, top: rect.top + bottom.t - gap - H, width: W, height: H },
     }
-    if (zones.floatingAvailable) {
-      const obstacles = options.obstacles().map((bounds) => {
+    type Space = { left: number; right: number; top: number; bottom: number }
+    const freeSpaces = (projection: THREE.Camera, extra: Space[]): [Space | undefined, Space | undefined] => {
+      const obstacles: Space[] = options.obstacles().map((bounds) => {
         const points = [bounds.min.x, bounds.max.x].flatMap((x) =>
-          [bounds.min.y, bounds.max.y].flatMap((y) => [bounds.min.z, bounds.max.z].map((z) => new THREE.Vector3(x, y, z).project(options.camera))),
+          [bounds.min.y, bounds.max.y].flatMap((y) => [bounds.min.z, bounds.max.z].map((z) => new THREE.Vector3(x, y, z).project(projection))),
         )
         return {
           left: rect.left + Math.min(...points.map((p) => ((p.x + 1) / 2) * w)),
@@ -165,10 +166,9 @@ export function projectedZoneReporter(options: ZoneProjection) {
           bottom: rect.top + Math.max(...points.map((p) => ((1 - p.y) / 2) * h)),
         }
       })
-      obstacles.push(...captions.map(({ left, right, top, bottom }) => ({ left, right, top, bottom })))
-      for (const zone of [zones.under, zones.over]) {
-        const left = zone === zones.under
-        let spaces = [
+      obstacles.push(...extra)
+      const [under, over] = [true, false].map((left) => {
+        let spaces: Space[] = [
           { left: rect.left + (left ? 16 : w / 2 + gap), right: rect.left + (left ? w / 2 - gap : w - 16), top: rect.top + 48, bottom: rect.top + h - 48 },
         ]
         for (const obstacle of obstacles) {
@@ -186,22 +186,34 @@ export function projectedZoneReporter(options: ZoneProjection) {
             ].filter((part) => part.right - part.left >= 180 && part.bottom - part.top >= 120)
           })
         }
-        const area = (space: (typeof spaces)[number]) => (space.right - space.left) * (space.bottom - space.top)
-        const available = spaces.sort((a, b) => area(b) - area(a))[0]
-        if (available) {
-          zone.left = available.left
-          zone.top = available.top
-          zone.width = available.right - available.left
-          zone.height = available.bottom - available.top
-        } else {
-          zone.width = 0
-          zone.height = 0
-        }
+        const area = (space: Space) => (space.right - space.left) * (space.bottom - space.top)
+        return spaces.sort((a, b) => area(b) - area(a))[0]
+      })
+      return [under, over]
+    }
+    if (zones.floatingAvailable) {
+      // Eligibility comes from the fixed top-down full-canvas projection so it reads the same docked or floating.
+      const fallback = freeSpaces(camera, [])
+      zones.floatingAvailable = !!fallback[0] && !!fallback[1]
+      if (zones.floatingAvailable && !docked) {
+        // Placement follows the live camera and captions; fall back to the eligibility space if that leaves nothing.
+        const placed = freeSpaces(
+          options.camera,
+          captions.map(({ left, right, top, bottom }) => ({ left, right, top, bottom })),
+        )
+        ;[zones.under, zones.over].forEach((zone, index) => {
+          const space = placed[index] ?? fallback[index]!
+          zone.left = space.left
+          zone.top = space.top
+          zone.width = space.right - space.left
+          zone.height = space.bottom - space.top
+        })
       }
-      zones.floatingAvailable = [zones.under, zones.over].every((zone) => zone.width > 0 && zone.height > 0)
     }
 
-    const key = [zones.under, zones.over].map((r) => [r.left, r.top, r.width, r.height].map((v) => Math.round(v * 100) / 100).join(',')).join('|')
+    const key =
+      `${+!!zones.floatingAvailable}|` +
+      [zones.under, zones.over].map((r) => [r.left, r.top, r.width, r.height].map((v) => Math.round(v * 100) / 100).join(',')).join('|')
     if (key === zoneKey) return
     zoneKey = key
     cb(zones)
