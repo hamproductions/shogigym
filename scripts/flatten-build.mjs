@@ -1,4 +1,4 @@
-import { cpSync, existsSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs'
+import { cpSync, existsSync, mkdirSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 const base = (process.env.BASE_PATH ?? '/').replace(/^\/|\/$/g, '')
@@ -11,6 +11,18 @@ if (base) {
   }
 }
 cpSync(join(out, 'index.html'), join(out, '404.html'))
+
+// Pages only serves the root 404.html, so a preview (prerendered at '/' only) needs a real SPA shell at every route for deep links.
+if (process.env.PREVIEW) {
+  const { mainStrategies } = await import('../src/data/strategies.ts')
+  const routes = ['taikyoku', ...['play', 'view', 'analyze', 'openings', 'review', 'tsume', 'tesuji'], ...mainStrategies().map((s) => `openings/${s.id}`)]
+  for (const route of routes) {
+    const dir = join(out, route)
+    if (existsSync(join(dir, 'index.html'))) continue
+    mkdirSync(dir, { recursive: true })
+    cpSync(join(out, 'index.html'), join(dir, 'index.html'))
+  }
+}
 
 const site = (process.env.SITE_URL ?? 'https://hamproductions.github.io/shogigym').replace(/\/$/, '')
 const pages = []
