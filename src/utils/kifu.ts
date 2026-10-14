@@ -20,6 +20,7 @@ const START = 'lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1'
 
 export type Game = {
   title: string
+  players?: { sente?: string; gote?: string }
   startSfen: string
   moves: string[]
   comments?: string[]
@@ -88,6 +89,10 @@ export function parseGame(text: string): Game | Error {
   const players = [record.metadata.getStandardMetadata(RecordMetadataKey.BLACK_NAME), record.metadata.getStandardMetadata(RecordMetadataKey.WHITE_NAME)].filter(
     Boolean,
   )
+  const names = {
+    sente: record.metadata.getStandardMetadata(RecordMetadataKey.BLACK_NAME) || undefined,
+    gote: record.metadata.getStandardMetadata(RecordMetadataKey.WHITE_NAME) || undefined,
+  }
   const comments = record.moves.slice(0, moves.length + 1).map((node) => node.comment.trim())
   const last = record.moves[record.moves.length - 1]
   const ending = last && !(last.move instanceof Move) && last.ply > 0 ? `${last.ply % 2 === 1 ? '☗ Sente' : '☖ Gote'}: ${last.displayText}` : undefined
@@ -131,6 +136,7 @@ export function parseGame(text: string): Game | Error {
     detectionResult,
     detectionPreset,
     title: players.length ? players.join(' vs ') : 'Imported game',
+    players: names.sente || names.gote ? names : undefined,
     startSfen: record.initialPosition.sfen,
     moves,
     comments: comments.some(Boolean) ? comments : undefined,
