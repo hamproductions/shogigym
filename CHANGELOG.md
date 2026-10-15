@@ -2,6 +2,14 @@
 
 Notable changes are recorded here when a release is created. Versions follow Semantic Versioning.
 
+## [1.5.2](/compare/v1.5.1...v1.5.2) (2026-10-15)
+
+### 修正・追加
+
+- 学習教材の利き、取り返し、王手、詰み、手順の前後を修正。
+- 受け、端攻め、五手詰、形勢判断の独自練習を追加。
+- 画面幅に応じた操作パネルの配置と、プレビュービルドの直接リンクを改善。
+
 ## [1.5.1](/compare/v1.5.0...v1.5.1) (2026-10-13)
 
 ### Bug Fixes
