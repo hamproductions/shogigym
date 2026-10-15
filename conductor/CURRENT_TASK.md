@@ -1,17 +1,18 @@
 # Current task
 
 ## State and authority
-- Current task: commit existing lesson/skill work, publish patch v1.5.2, push and leave a clean working tree. Broader audit Goal stays paused.
-- Repository: /Users/vittayapalotai.tanyawat/code/joseki-practice.
-- main fast-forwarded to freshly fetched origin/main 917ac42; seven upstream commits integrated without conflicts or overlapping lesson edits. Existing release/package version is 1.5.1.
-- Current correction settles identity: switch GitHub CLI user to hamzaabamboo and push the existing hamproductions/shogigym repository. No ownership transfer or remote change. Commit, push and patch release are authorized; no further confirmation is needed.
-- Changes staged and preflight passed. Previous ownership question was an incorrect account/owner conflation; remove that gate and finish shipping. Broader lesson audit remains paused.
-- Personal API identity independently verified as hamzaabamboo; author is Tanyawat Vittayapalotai <hamzaabamboo@gmail.com>. Current correction explicitly authorizes changing the active gh account to hamzaabamboo. Ignored .cache/release-2026-10-15/personal.py supplies personal credentials to the release child process without exposing or persisting them.
-- Authorized release command: RAYON_NUM_THREADS=1 UV_THREADPOOL_SIZE=1 python3 .cache/release-2026-10-15/personal.py bun run release:patch. Use existing .release-it.json; do not infer old authentication failures are current.
-- Preflight passed: production build, 3220 joseki moves, 85 strategy matchups, lint (existing warnings), format check, 150 lesson source/output equality, credential scan. Build log: .cache/release-2026-10-15/build.log; foreground build exited 0.
-- Prettier formatting only applied to three new project-skill files and two new historical handoffs, resolving the five format-check failures.
+- Delivery: lesson/skill changes committed and pushed; patch v1.5.2 published. Broader lesson audit Goal remains paused; do not resume audit automatically.
+- Repository: /Users/vittayapalotai.tanyawat/code/joseki-practice. Existing remote remains hamproductions/shogigym; no ownership transfer.
+- main integrated seven upstream commits through 917ac42 without conflicts. Content commit: 0681eb133d1fda28414bde1ffc7c16ac455a9c05. Release commit/tag target: 62d7a31c1b5afdb7cd0dce2eab68066334c71991, v1.5.2.
+- Published release: https://github.com/hamproductions/shogigym/releases/tag/v1.5.2 (published 2026-10-15T06:54:47Z; draft false; prerelease false). package.json and CHANGELOG.md include 1.5.2.
+- Active GitHub CLI account switched to hamzaabamboo and independently verified through gh api user. Human author: Tanyawat Vittayapalotai <hamzaabamboo@gmail.com>. No tool attribution added.
+- Normal release:patch ran all validation/lint/format/build hooks successfully, then failed GitHub GITHUB_TOKEN authentication. Preserved completed validation; manually bumped version/changelog, committed/tagged, pushed main --follow-tags, and published with gh release create --verify-tag.
+- Release log: .cache/release-2026-10-15/release.log. Production-build log: .cache/release-2026-10-15/build.log. No credentials persisted in logs or helpers. All owned CLI processes completed.
+- Preflight passed: production build, 3220 joseki moves, 85 strategy matchups, lint (existing warnings), format check, 150 lesson source/output equality and credential scan.
+- Formatting only applied to three new project-skill files and two historical handoffs. Final documentation commit records delivery after publication; inspect current Git refs/status and the deploy.yml workflow for final bookkeeping/deployment state.
+- Deployment workflow for release commit: https://github.com/hamproductions/shogigym/actions/runs/38695289812. Provider state is authoritative; no browser/runtime proof is claimed.
 - caveman-commit SKILL.md 1–63 EOF and get-your-shit-together SKILL.md 1–27 EOF read. Existing verification-before-completion coverage retained.
-- Preserve all existing lesson, skill, instruction and audit work. No new audit candidates, browser sessions or OS/audio actions. User's development server remains untouched.
+- No additional audit candidates, browser sessions, OS/audio actions or development-server changes.
 
 ## Canonical evidence
 - conductor/lesson-audit/expanded-2026-10-15.json: current inventory/hashes, 13 finding groups affecting 16 units, 517 historical first-move engine comparisons, targeted searches, 28 fully read units, reference-read coverage, validation and limitations. Query fields; do not ingest wholesale.
@@ -55,7 +56,7 @@
 - Project shogi-lessons skill 1–60 EOF; authoring reference 1–55 EOF; engine reference 1–90 EOF; docs/lessons.md 1–84 EOF. Earlier using-superpowers and verification-before-completion coverage retained.
 - Closure handing-off-pro-max SKILL.md 1–167 EOF. Canonical record replaces stale operational state; no additional live record or conversation transcript.
 - Selected source-unit and cached reference 1–EOF coverage is indexed in expanded audit source_content_read/source_text_read. No prior-session history read for closure.
-- Audit stays paused during release. Only if explicitly resumed, first inspect nakabisha-sente ch1 and taifuri-46gin ch2: baseline engine prefers R2h×2b+. These are candidates, not confirmed findings. Size-check and fully read exact units/references before reproducing or editing.
+- Audit remains paused after release. Only if explicitly resumed, first inspect nakabisha-sente ch1 and taifuri-46gin ch2: baseline engine prefers R2h×2b+. These are candidates, not confirmed findings. Size-check and fully read exact units/references before reproducing or editing.
 - Prefix Bun/Node checks with RAYON_NUM_THREADS=1 UV_THREADPOOL_SIZE=1. Rebuild with bun run lessons; never edit generated output. Check disk before heavy work. Run commands discretely and preserve user's services.
 
 ## Account correction receipt
@@ -64,4 +65,4 @@
 - Source: current account-switch request, existing repository remote and gh API identity.
 - Rule: GitHub login and repository owner are separate; preserve hamproductions/shogigym when authenticating as hamzaabamboo.
 - Action: gh auth switch --hostname github.com --user hamzaabamboo completed.
-- Verification: gh api user --jq .login returned hamzaabamboo. Resume authorized commit and patch release without another confirmation.
+- Verification: gh api user --jq .login returned hamzaabamboo; content and tag pushed to existing remote; v1.5.2 published. Account/owner confusion resolved.
