@@ -25,14 +25,14 @@
       "title": {"ja": "銀の後ろに飛車がいる交換", "en": "The rook behind the silver"},
       "side": "sente",
       "kind": "position",
-      "start": "9/1r3k3/9/1p7/9/1PS6/9/1R3GSK1/9 b Bb 1",
+      "start": "9/1r3k3/4p4/1p7/9/1PS6/9/1R3GSK1/9 b Bb 1",
       "steps": [
         {
           "text": {
-            "ja": "先手銀７六は８五へ進め、先手飛車８八の前に８七の駒はありません。後手８四歩と先手８六歩が接触する前に、８五で銀を取られた場合の飛車の取り返しまで調べます。",
-            "en": "Sente's S7f can reach 8e, and 8g is empty in front of R8h. Before the pawns P8d and P8f meet, calculate what happens if Gote's rook captures the advanced silver on 8e."
+            "ja": "先手銀７六は８五へ進め、先手飛車８八の前に８七の駒はありません。後手８四歩と先手８六歩が接触する前に、８五で銀を取られた場合の飛車の取り返しまで調べます。後手歩５三が６四から４二玉への斜線を遮り、角６四打ちは王手になりません。",
+            "en": "Sente's S7f can reach 8e, and 8g is empty in front of R8h. Before the pawns P8d and P8f meet, calculate what happens if Gote's rook captures the advanced silver on 8e. Gote’s pawn on 5c blocks the diagonal from 6d to its king on 4b, so B*6d is not check."
           },
-          "marks": {"arrows": ["7f8e", "8h8e"], "boxes": ["8d", "8f"]}
+          "marks": {"arrows": ["7f8e", "8h8e"], "boxes": ["8d", "8f", "5c", "6d", "4b"]}
         },
         {
           "moves": ["8f8e", "8d8e", "7f8e"],
@@ -59,6 +59,14 @@
             "ja": "後手が△８一飛と引くなら、先手は▲７四銀と銀を別の地点へ運ぶ一例があります。８五の銀で飛車を取ったわけではなく、後手は次に角打ちや歩で銀を追えます。飛車を引く受けも比較します。",
             "en": "If Gote retreats R8a, Sente may move S7d in this sample. The silver has not won a rook, and Gote can still use a bishop drop or pawn move to challenge it. Compare this refusal with the capture line."
           }
+        },
+        {
+          "from": 0,
+          "moves": ["B*6d", "8b6b"],
+          "text": {
+            "ja": "角６四は飛車８二を狙いますが、５三歩があるので王手ではありません。後手は△６二飛と横へ逃げて角６四も狙えます。王手飛車取りとして数えてはいけません。",
+            "en": "B*6d attacks R8b, but P5c prevents it from checking the king. Gote can sidestep with R6b, also attacking the bishop on 6d. This is not a checking rook fork."
+          }
         }
       ]
     },
@@ -66,14 +74,14 @@
       "title": {"ja": "飛車が６筋なら同じ銀取りは別物", "en": "The same silver contact without rook support"},
       "side": "sente",
       "kind": "position",
-      "start": "9/1r3k3/9/1p7/9/1PS6/9/3R1GSK1/9 b Bb 1",
+      "start": "9/1r3k3/4p4/1p7/9/1PS6/9/3R1GSK1/9 b Bb 1",
       "steps": [
         {
           "text": {
-            "ja": "今度は先手飛車が６八のままです。８六歩・７六銀・後手８四歩は前の図と同じでも、８五での飛車の取り返しはありません。銀を進める前に、自分の飛車の位置だけを変えて比較します。",
-            "en": "This time Sente's rook remains on 6h. P8f, S7f and Gote's P8d are unchanged, but there is no rook recapture on 8e. Compare the rook's square before sending the silver forward."
+            "ja": "今度は先手飛車が６八のままです。８六歩・７六銀・後手８四歩は前の図と同じでも、８五での飛車の取り返しはありません。銀を進める前に、自分の飛車の位置だけを変えて比較します。後手歩５三が６四から４二玉への斜線を遮り、角６四打ちは王手になりません。",
+            "en": "This time Sente's rook remains on 6h. P8f, S7f and Gote's P8d are unchanged, but there is no rook recapture on 8e. Compare the rook's square before sending the silver forward. Gote’s pawn on 5c blocks the diagonal from 6d to its king on 4b, so B*6d is not check."
           },
-          "marks": {"boxes": ["6h", "8b", "8e"]}
+          "marks": {"boxes": ["6h", "8b", "8e", "5c", "6d", "4b"]}
         },
         {
           "moves": ["8f8e", "8d8e", "7f8e", "8b8e"],
@@ -95,14 +103,14 @@
       "title": {"ja": "８筋に集中するときの角の両当たり", "en": "A bishop drop against king and rook"},
       "side": "sente",
       "kind": "position",
-      "start": "9/1r3k3/9/1p7/9/1PS6/9/1R3GSK1/9 w Bb 1",
+      "start": "9/1r3k3/4p4/1p7/9/1PS6/9/1R3GSK1/9 w Bb 1",
       "steps": [
         {
           "text": {
-            "ja": "先手は８八飛・２八玉・３八銀・４八金で、７六に攻めの銀も置いています。後手は角を持っています。５五に角を打つと、４六・３七越しに先手玉を、６六・７七越しに先手飛車を同時に見る筋があります。",
-            "en": "Sente has R8h, K2h, S3h and G4h, with a silver near the eighth file. Gote holds a bishop. A drop on 5e can sight the king through 4f and 3g, and the rook through 6f and 7g."
+            "ja": "先手は８八飛・２八玉・３八銀・４八金で、７六に攻めの銀も置いています。後手は角を持っています。５五に角を打つと、４六・３七越しに先手玉を、６六・７七越しに先手飛車を同時に見る筋があります。後手歩５三が６四から４二玉への斜線を遮り、角６四打ちは王手になりません。",
+            "en": "Sente has R8h, K2h, S3h and G4h, with a silver near the eighth file. Gote holds a bishop. A drop on 5e can sight the king through 4f and 3g, and the rook through 6f and 7g. Gote’s pawn on 5c blocks the diagonal from 6d to its king on 4b, so B*6d is not check."
           },
-          "marks": {"arrows": ["5e2h", "5e8h"], "boxes": ["2h", "8h"]}
+          "marks": {"arrows": ["5e2h", "5e8h"], "boxes": ["2h", "8h", "5c", "6d", "4b"]}
         },
         {
           "moves": ["B*5e"],

@@ -60,15 +60,25 @@
         {
           "moves": ["3c3d"],
           "text": {
-            "ja": "△３四飛とすれば飛車は桂の利きから外れます。金５三はまだ狙われています。飛車３四は金５三を斜めに見ているため守れず、桂で金を取る手が残っています。",
-            "en": "△３四飛 moves the rook out of the knight’s reach. The gold is still attacked, and a rook on ３四 does not defend ５三 across a diagonal. Sente can still take the gold with the knight."
+            "ja": "△３四飛とすれば飛車は桂の利きから外れます。３三の飛車は横から金５三を守っていましたが、３四では金と同じ段にも筋にもいないため、その守りが外れます。金５三はまだ桂に狙われており、取る手が残っています。",
+            "en": "△３四飛 moves the rook out of the knight’s reach. On ３三 the rook guarded the gold on ５三 along the rank, but on ３四 it shares neither a rank nor a file with the gold, so that guard is gone. The gold is still attacked, and the knight can still take it."
           }
         },
         {
-          "moves": ["4e5c"],
+          "moves": ["4e5c+"],
           "text": {
-            "ja": "▲５三桂で金を取れます。ここで得たのは二枚ではなく、飛車を逃がした後に残った金です。狙いを作っただけで得を数えず、実際の応手と捕獲まで続けて読むのが要点です。",
-            "en": "▲５三桂 takes the gold. The gain is the piece left behind after the rook escaped, not both targets. Continue the calculation through the defender’s reply and the capture before counting anything."
+            "ja": "▲５三桂成で金を取れます。敵陣の三段目なので成り、金と同じ動きができる成桂にします。ここで得たのは二枚ではなく、飛車を逃がした後に残った金です。狙いを作っただけで得を数えず、実際の応手と捕獲まで続けて読むのが要点です。",
+            "en": "▲５三桂成 takes the gold. The capture lands on Gote’s third rank, so the knight promotes and moves like a gold from then on. The gain is the piece left behind after the rook escaped, not both targets. Continue the calculation through the defender’s reply and the capture before counting anything."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 2,
+          "moves": ["3c4c", "4e5c+", "4c5c"],
+          "text": {
+            "ja": "△４三飛など三段目を横へ逃げる手なら、飛車は金５三の守りを続けます。▲５三桂成には△同飛と取り返され、桂と金の交換で終わります。逃げた駒が残った駒をまだ守っているかを必ず確かめましょう。",
+            "en": "If the rook escapes sideways along the third rank, for example △４三飛, it keeps guarding the gold on ５三. ▲５三桂成 is then met by △同飛, and the exchange ends as a knight for a gold. Always check whether the escaping piece still guards the one left behind."
           }
         }
       ]

@@ -56,10 +56,10 @@
         {
           "moves": ["2f2e", "6b6c"],
           "text": {
-            "ja": "先手は▲２五歩で飛車先の形を整え、後手は飛車を６三へ動かしました。５三歩には銀の利きが残っています。桂を跳ねた後も、攻めを急がず相手の受けを盤上で数えます。",
-            "en": "Sente advances the rook pawn to 2e while Gote shifts the rook to 6c. The silver still protects 5c. After the knight jump, count the actual defenders before accelerating the attack."
+            "ja": "先手は▲２五歩で飛車先の形を整え、後手は△６三飛と回りました。これで５三歩は４二銀に加えて６三飛にも守られ、受けが二枚になりました。桂を跳ねた後も、攻めを急がず相手の受けを盤上で数えます。",
+            "en": "Sente advances the rook pawn to 2e while Gote swings the rook to 6c. Now the pawn on 5c is guarded by the rook on 6c as well as the silver on 4b, so it has two defenders. After the knight jump, count the actual defenders before accelerating the attack."
           },
-          "marks": { "last": "6c", "boxes": ["4b", "5c"] }
+          "marks": { "last": "6c", "boxes": ["4b", "6c", "5c"] }
         }
       ],
       "variations": [
@@ -195,10 +195,10 @@
       "variations": [
         {
           "from": 0,
-          "moves": ["3g4e", "B*5d", "4e3c+", "4b3c"],
+          "moves": ["3g4e", "B*5d", "4e3c+", "5d2g+"],
           "text": {
-            "ja": "飛車が２七のままでも銀桂交換までは同じように進みます。しかし桂が４五を離れた後、５四角から２七飛への斜線が空きます。角の次の取りを受ける一手が必要です。",
-            "en": "With the rook still on 2g, the same knight-for-silver exchange is possible. Once the knight leaves 4e, however, the diagonal from the bishop on 5d to the rook on 2g opens. Sente must spend a move addressing that capture threat."
+            "ja": "飛車が２七のままだと、▲３三桂成で銀を取った瞬間に桂が４五を離れ、５四角から２七飛への斜線が開きます。後手は△同金と取り返さず、△２七角成で飛車を取れます。銀を得ても飛車を失うので、後手が大きく得をします。△同金なら飛車は逃げられますが、それは後手が選ぶ道です。跳ねる前に飛車を斜線から外しておく理由がここにあります。",
+            "en": "With the rook still on 2g, N-3c+ takes the silver but moves the knight off 4e, opening the diagonal from the bishop on 5d to the rook on 2g. Gote need not recapture with ...Gx3c; ...Bx2g+ takes the rook. Sente gains a silver but loses the rook, so Gote comes out well ahead. After ...Gx3c the rook could escape, but that choice belongs to Gote. This is why the rook leaves the diagonal before the jump."
           }
         }
       ]

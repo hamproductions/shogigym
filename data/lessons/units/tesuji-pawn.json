@@ -102,11 +102,11 @@
         },
         {
           "moves": [
-            "5a5h"
+            "5a5h+"
           ],
           "text": {
-            "ja": "△５八飛で金を取られました。５九の歩は一つ前の５八へ進んで飛車を取れます。",
-            "en": "△５八飛 takes the gold. The pawn on ５九 can advance one square to ５八 and capture the rook."
+            "ja": "△５八飛成で金を取られました。５九の歩は一つ前の５八へ進んで竜を取れます。",
+            "en": "△５八飛成 takes the gold and promotes. The pawn on ５九 can advance one square to ５八 and capture the dragon."
           }
         },
         {
@@ -114,16 +114,16 @@
             "5i5h"
           ],
           "text": {
-            "ja": "▲５八歩で飛車を取り返しました。底歩は金を取らせない保証ではなく、飛車で取った場合の交換を変える守りです。",
-            "en": "▲５八歩 recaptures the rook. The bottom pawn does not guarantee that the gold survives; it changes the exchange if the rook takes it."
+            "ja": "▲５八歩で竜を取り返しました。底歩は金を取らせない保証ではなく、飛車で取った場合の交換を変える守りです。",
+            "en": "▲５八歩 recaptures the dragon. The bottom pawn does not guarantee that the gold survives; it changes the exchange if the rook takes it."
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "成りを予告して守り駒を動かす",
-        "en": "Threaten promotion to move a defender"
+        "ja": "成りを予告して桂を追う",
+        "en": "Threaten promotion to chase the knight"
       },
       "side": "sente",
       "kind": "position",
@@ -140,8 +140,8 @@
             "P*6d"
           ],
           "text": {
-            "ja": "▲６四歩で次の６三歩成を狙います。ここでは後手が桂を５四へ跳ねる応手を見ます。",
-            "en": "▲６四歩 threatens ６三歩成 next turn. In this line, Gote responds by jumping the knight to ５四."
+            "ja": "▲６四歩で次の６三歩成を狙います。後手は持ち駒がなく、６三に利く駒もないため、この成りを止める手はありません。と金ができると桂６二にも当たるので、ここでは桂が５四へ跳ねて逃げる応手を見ます。",
+            "en": "▲６四歩 threatens ６三歩成 next turn. Gote has nothing in hand and no piece covering ６三, so no reply can stop the promotion. The tokin would also attack the knight on ６二, so in this line the knight jumps away to ５四."
           }
         },
         {
@@ -149,8 +149,8 @@
             "6b5d"
           ],
           "text": {
-            "ja": "△５四桂。桂は６二から離れましたが、６三へ進む歩を取る位置には来ていません。",
-            "en": "△５四桂 moves the knight away from ６二. It does not land where it can capture the pawn's advance to ６三."
+            "ja": "△５四桂。桂はと金の利きから逃げましたが、６三へ進む歩を取る位置には来ていません。",
+            "en": "△５四桂 takes the knight out of the coming tokin's reach. It does not land where it can capture the pawn's advance to ６三."
           }
         },
         {
@@ -158,8 +158,8 @@
             "6d6c+"
           ],
           "text": {
-            "ja": "▲６三歩成でと金を作りました。相手が別の守り方を選べば成れない可能性もあるため、実戦では歩を打つ前にその応手も調べます。",
-            "en": "▲６三歩成 makes a tokin. Another defensive reply might prevent this promotion, so in a game you must examine those replies before choosing the drop."
+            "ja": "▲６三歩成でと金を作りました。この局面では、桂の二通りの跳ねでも玉の三通りの移動でも成りは防げません。実戦では歩を打つ前に、相手に成りを防ぐ応手があるかを調べます。",
+            "en": "▲６三歩成 makes a tokin. In this position neither of the two knight jumps nor any of the three king moves can prevent the promotion. In a game, check before the drop whether the opponent has a reply that stops it."
           }
         }
       ]
@@ -219,8 +219,8 @@
       "steps": [
         {
           "text": {
-            "ja": "先手は歩を二枚持ち、角３七の斜め先に後手の金５二がいます。６三へ歩を打つと、次の６二歩成が金５二を狙います。ここでは金が歩を取り続ける場合を読みますが、取りは強制されません。",
-            "en": "Sente holds two pawns, with a bishop on ３七 and Gote's gold on ５二. A pawn on ６三 threatens to promote on ６二 and attack the gold. This line examines a gold that keeps accepting the pawns; those captures are not forced."
+            "ja": "先手は歩を二枚持ち、角が３七、後手の金が５二にいます。金５二は角の斜めの道（４六・５五・６四）から外れています。６三に打つ歩は金の利きにあり、６二へ成っても金に取られるので、それ自体は脅威ではありません。狙いは金に歩を取らせ、角筋へ近づけることです。ここでは金が歩を取り続ける場合を読みますが、取りは強制されません。",
+            "en": "Sente holds two pawns, with a bishop on ３七 and Gote's gold on ５二, off the bishop's diagonal through ４六, ５五 and ６四. A pawn on ６三 stands within the gold's reach, and promoting on ６二 would only let the gold capture the tokin, so the drop is no threat by itself. The aim is to let the gold take pawns that draw it toward the bishop's diagonal. This line examines a gold that keeps accepting the pawns; those captures are not forced."
           }
         },
         {
@@ -229,7 +229,7 @@
           ],
           "text": {
             "ja": "▲６三歩。金が６三の歩を取ると、金は角の斜めの道へ近づきます。",
-            "en": "▲６三歩 threatens promotion. If the gold takes it on ６三, the gold moves closer to the bishop's diagonal."
+            "en": "▲６三歩 offers the gold a pawn. If the gold takes it on ６三, the gold moves closer to the bishop's diagonal."
           }
         },
         {

@@ -36,13 +36,14 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/1r7/5s3/6p2/9/6PS1/9/7R1/3K5 b Bb 1",
+      "start": "4k4/1rg6/5s3/6p2/9/6PS1/9/7R1/3K5 b Bb 1",
       "steps": [
         {
           "text": {
-            "ja": "先手の銀２六は飛車２八の前にいますが、３五にも斜め前へ進めます。先手歩３六と後手歩３四が接触すれば、銀で取った後の位置まで考えます。双方が角を持っています。",
-            "en": "Sente's silver on 2f is in front of the rook on 2h, but it can also step diagonally to 3e. With pawns on 3f and 3d, plan beyond the pawn contact to the square the silver will occupy. Both players hold a bishop."
-          }
+            "ja": "先手の銀２六は飛車２八の前にいますが、３五にも斜め前へ進めます。先手歩３六と後手歩３四が接触すれば、銀で取った後の位置まで考えます。双方が角を持っています。後手金７二は飛車８二を守り、王手の角７三打ちにも同金と取れます。",
+            "en": "Sente's silver on 2f is in front of the rook on 2h, but it can also step diagonally to 3e. With pawns on 3f and 3d, plan beyond the pawn contact to the square the silver will occupy. Both players hold a bishop. Gote’s gold on 7b guards the rook on 8b and can capture a checking bishop dropped on 7c."
+          },
+          "marks": { "boxes": ["7b", "8b", "7c"] }
         },
         {
           "moves": ["3f3e", "3d3e"],
@@ -72,6 +73,16 @@
             "en": "The silver can retreat to 4f. The recapture won a pawn but gave Gote an opportunity to place its bishop on the board. The next assessment is about that bishop's lines and the rook on 2h."
           }
         }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["B*7c", "7b7c"],
+          "text": {
+            "ja": "飛車８二を狙う王手の角７三打ちは、金７二に取られます。銀の進路を考える前に、この飛車に守りがあることを確かめます。",
+            "en": "The checking bishop drop on 7c attacks the rook on 8b, but the gold on 7b captures it. Establish that the rook is defended before examining the silver route."
+          }
+        }
       ]
     },
     {
@@ -81,13 +92,14 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/1r7/9/8p/9/7SP/9/7R1/3K5 b BLb 1",
+      "start": "4k4/1rg6/9/8p/9/7SP/9/7R1/3K5 b BLb 1",
       "steps": [
         {
           "text": {
-            "ja": "先手銀２六の横には端歩１六があり、後手歩は１四です。この局面では後手の香車１一がすでに盤上になく、先手の持駒に香があります。端で銀が歩を取った後の取り手を、この配置だけで数えます。",
-            "en": "Sente's silver is on 2f beside its edge pawn on 1f, facing Gote's pawn on 1d. Gote's lance is already absent from 1a and Sente holds a lance. Count recaptures for this position; the missing lance changes the edge calculation."
-          }
+            "ja": "先手銀２六の横には端歩１六があり、後手歩は１四です。この局面では後手の香車１一がすでに盤上になく、先手の持駒に香があります。端で銀が歩を取った後の取り手を、この配置だけで数えます。後手金７二は飛車８二を守り、王手の角７三打ちにも同金と取れます。",
+            "en": "Sente's silver is on 2f beside its edge pawn on 1f, facing Gote's pawn on 1d. Gote's lance is already absent from 1a and Sente holds a lance. Count recaptures for this position; the missing lance changes the edge calculation. Gote’s gold on 7b guards the rook on 8b and can capture a checking bishop dropped on 7c."
+          },
+          "marks": { "boxes": ["7b", "8b", "7c"] }
         },
         {
           "moves": ["1f1e", "1d1e"],
@@ -136,13 +148,14 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/1r7/9/7p1/7P1/7S1/9/7R1/3K5 b Bb 1",
+      "start": "4k4/1rg6/9/7p1/7P1/7S1/9/7R1/3K5 b Bb 1",
       "steps": [
         {
           "text": {
-            "ja": "先手飛車２八の前に銀２六、その先に歩２五があります。銀が２六にいる間、飛車は２五へ進めません。銀を横の３五へ使う手には、攻めを足す意味と飛車の通路を作る意味があります。",
-            "en": "Sente's rook on 2h has its own silver on 2f ahead of it and a pawn on 2e farther forward. While the silver stays on 2f, the rook cannot reach 2e. Moving the silver toward 3e both redeploys it and clears a route for the rook."
-          }
+            "ja": "先手飛車２八の前に銀２六、その先に歩２五があります。銀が２六にいる間、飛車は２五へ進めません。銀を横の３五へ使う手には、攻めを足す意味と飛車の通路を作る意味があります。後手金７二は飛車８二を守り、王手の角７三打ちにも同金と取れます。",
+            "en": "Sente's rook on 2h has its own silver on 2f ahead of it and a pawn on 2e farther forward. While the silver stays on 2f, the rook cannot reach 2e. Moving the silver toward 3e both redeploys it and clears a route for the rook. Gote’s gold on 7b guards the rook on 8b and can capture a checking bishop dropped on 7c."
+          },
+          "marks": { "boxes": ["7b", "8b", "7c"] }
         },
         {
           "moves": ["2f3e", "2d2e"],

@@ -144,7 +144,9 @@
               "3a",
               "2a",
               "9b",
-              "8b",
+              "8b"
+            ],
+            "dashed": [
               "4c"
             ]
           }
@@ -263,27 +265,88 @@
         },
         {
           "moves": [
-            "7a6a"
+            "7a8b",
+            "4d5e",
+            "8b7a",
+            "5e4d"
           ],
           "text": {
-            "ja": "後手玉は６一へ逃げました。千日手を判定するときは、このような各局面の記録を見て、同じ局面が四度目に戻ったかを確かめます。",
-            "en": "Gote's king escapes to 6a. To decide repetition, follow the recorded positions and check whether a full position has returned for the fourth time."
+            "ja": "後手玉が８二へ逃げると、先手は角を５五へ動かして再び王手をかけます。玉が７一へ戻ると、角も４四へ戻って王手です。先手の手はすべて王手で、最初と同じ局面が二度目に現れました。",
+            "en": "Gote's king escapes to 8b, and Sente moves the bishop to 5e to check again. When the king returns to 7a, the bishop returns to 4d with check. Every Sente move was a check, and the starting position has appeared for the second time."
           },
           "marks": {
-            "last": "6a"
+            "last": "4d",
+            "arrows": [
+              "4d7a"
+            ]
           }
         },
         {
+          "moves": [
+            "7a8b",
+            "4d5e",
+            "8b7a",
+            "5e4d",
+            "7a8b",
+            "4d5e",
+            "8b7a",
+            "5e4d"
+          ],
           "text": {
-            "ja": "その一巡の間、同じ側が自分の手のたびに王手を続けていた場合は、千日手の通常の引き分け扱いにならず、王手を続けた側が反則負けです。一度でも王手をしない手が混ざれば、この連続王手の条件は成立しません。",
-            "en": "If the same player checks on every one of their turns throughout the repeating cycle, that player loses by foul instead of receiving the ordinary repetition result. A turn without check breaks the continuous-check condition."
+            "ja": "同じ一巡をさらに二回たどると、最初の局面が四度目に現れます。その間ずっと先手は自分の手番のたびに王手をしていたので、通常の千日手の扱いにはならず、王手を続けた先手の反則負けです。",
+            "en": "Follow the same cycle twice more and the starting position appears for the fourth time. Sente gave check on every one of its turns throughout, so the ordinary repetition result does not apply: Sente, the side that kept checking, loses by foul."
+          },
+          "marks": {
+            "last": "4d",
+            "arrows": [
+              "4d7a"
+            ]
           }
-        },
+        }
+      ],
+      "variations": [
         {
+          "from": 0,
+          "moves": [
+            "7a8a",
+            "4d3c",
+            "8a7a",
+            "3c4d"
+          ],
           "text": {
-            "ja": "連続王手でない千日手は、規定に応じて引き分けや指し直しになります。公式戦では先後を入れ替えて再開し、残り時間を引き継ぐ方式があります。大会や対局サービスごとに扱いが違う場合は、その規定を優先します。",
-            "en": "A repetition without continuous check is handled as a draw or replay according to the rules in use. Some official matches restart with the players' sides swapped and their remaining time carried over. Follow the event or service rules when they specify a different procedure."
-          }
+            "ja": "比較として、最初の局面で後手玉が８一へ逃げる順です。▲３三角は王手ではなく、続く▲４四角で再び王手になって最初の局面へ戻ります。この一巡には王手でない先手の手が一つ入っています。",
+            "en": "For comparison, Gote's king escapes to 8a from the starting position. Sente's B3c is not a check; the following B4d checks again and brings back the starting position. This cycle includes one Sente move without check."
+          },
+          "steps": [
+            {
+              "moves": [
+                "7a8a",
+                "4d3c",
+                "8a7a",
+                "3c4d",
+                "7a8a",
+                "4d3c",
+                "8a7a",
+                "3c4d"
+              ],
+              "text": {
+                "ja": "この一巡をさらに二回たどると、最初の局面が四度目に現れます。王手でない手が混ざっているので連続王手の条件は成立せず、反則負けではなく通常の千日手です。",
+                "en": "Follow this cycle twice more and the starting position appears for the fourth time. Because a move without check is mixed in, the continuous-check condition is not met: this is an ordinary repetition, not a foul loss."
+              },
+              "marks": {
+                "last": "4d",
+                "arrows": [
+                  "4d7a"
+                ]
+              }
+            },
+            {
+              "text": {
+                "ja": "連続王手でない千日手は、規定に応じて引き分けや指し直しになります。公式戦では先後を入れ替えて再開し、残り時間を引き継ぐ方式があります。大会や対局サービスごとに扱いが違う場合は、その規定を優先します。",
+                "en": "A repetition without continuous check is handled as a draw or replay according to the rules in use. Some official matches restart with the players' sides swapped and their remaining time carried over. Follow the event or service rules when they specify a different procedure."
+              }
+            }
+          ]
         }
       ]
     }

@@ -209,8 +209,8 @@
         {
           "moves": ["5i6h", "8f8d", "3i3h"],
           "text": {
-            "ja": "▲６八玉で玉を飛車から遠ざけました。角８八は銀７九に守られ、飛車が８八へ取って入れば銀で取り返せます。この例の後手は△８四飛と引き、先手は▲３八銀で棒銀の準備を再開しました。後手が別の手を選べば、銀の進出より先に８筋への応手を読み直します。",
-            "en": "▲６八玉 moves the king away from the rook. The bishop on 8h is protected by the silver on 7i, which can recapture a rook entering 8h. Gote chooses △８四飛 in this line, and Sente resumes Climbing Silver preparation with ▲３八銀. A different Gote reply requires another look at the eighth file before advancing the silver."
+            "ja": "▲６八玉で玉を自分の飛車２八から離し、金７八のそばへ寄せました。角８八は銀７九に守られ、後手の飛車が８八へ取って入れば銀で取り返せます。この例の後手は△８四飛と引き、先手は▲３八銀で棒銀の準備を再開しました。後手が別の手を選べば、銀の進出より先に８筋への応手を読み直します。",
+            "en": "▲６八玉 moves the king away from Sente's own rook on 2h and next to the gold on 7h. The bishop on 8h is protected by the silver on 7i, which can recapture if Gote's rook takes on 8h. Gote chooses △８四飛 in this line, and Sente resumes Climbing Silver preparation with ▲３八銀. A different Gote reply requires another look at the eighth file before advancing the silver."
           }
         }
       ]

@@ -33,30 +33,40 @@
       "title": { "ja": "銀で桂の二つの行き先を見る", "en": "One silver covers both knight destinations" },
       "side": "gote",
       "kind": "position",
-      "start": "4k4/1r5b1/2pps4/9/3N5/3P5/9/1B7/4K4 w - 1",
+      "start": "l2gkgsnl/3r3b1/npppspppp/p3p4/3N5/2PP5/PP2PPPPP/1B5R1/L1SGKGSNL w - 1",
       "steps": [
         {
           "text": {
-            "ja": "先手桂は６五から５三と７三へ跳べます。後手には５三銀と７三歩があり、銀を動かせる６四は空いています。７三歩だけを見ず、５三歩がないこの盤面で桂の次の手を数えます。",
-            "en": "Sente's knight on 6e can jump to 5c or 7c. Gote has S5c and P7c, with 6d empty. Count both knight destinations, even though this board has no pawn on 5c."
+            "ja": "先手桂は６五から５三と７三へ跳べます。５三には後手の銀、７三には歩がいて、今はどちらにも取り返す駒がありません。７三歩だけを見ずに、二つの跳び先を両方数えます。",
+            "en": "Sente's knight on 6e can jump to 5c or 7c. Gote has a silver on 5c and a pawn on 7c, and neither square has a recapturer yet. Count both landing squares, not only the pawn on 7c."
           },
           "marks": { "boxes": ["6e", "5c", "7c", "6d"] }
         },
         {
           "moves": ["5c6d"],
           "text": {
-            "ja": "△６四銀は６五の桂に当たり、同時に７三の歩を守ります。銀は６四から７三へ斜め後ろに戻れるためです。ここでは先手が桂を進める場合を見ます。",
-            "en": "S5c–6d attacks the knight on 6e and also guards P7c: the silver can move diagonally backward from 6d to 7c. The next line assumes Sente nevertheless advances the knight."
+            "ja": "△６四銀は６五の桂に当たります。銀は６四から斜め後ろの５三と７三へ戻れるので、桂がどちらへ跳んでも取り返せます。ここでは先手が桂を進める場合を見ます。",
+            "en": "S5c–6d attacks the knight on 6e. From 6d the silver can step diagonally back to 5c or 7c, so it can recapture on either landing square. The next line assumes Sente advances the knight anyway."
           },
-          "marks": { "arrows": ["5c6d"], "boxes": ["6e", "7c"] }
+          "marks": { "arrows": ["5c6d"], "boxes": ["6e", "5c", "7c"] }
         },
         {
           "moves": ["6e7c+", "6d7c"],
           "text": {
-            "ja": "▲７三桂成で歩を取っても、△同銀で成桂を取れます。先手はこの交換を選ぶ必要はなく、後手も銀が６四から７三へ届くことを盤上で確認しただけです。",
-            "en": "If N6e×7c+ takes the pawn, S6d×7c recaptures the promoted knight. Sente is not forced to choose this exchange; the point is the silver's exact coverage from 6d."
+            "ja": "▲７三桂成で歩を取っても、△同銀で成桂を取れます。先手は歩一枚と引き換えに桂を失います。先手がこの交換を選ぶ必要はなく、銀が６四から７三へ届くことを確かめる手順です。",
+            "en": "If N6e×7c+ takes the pawn, S6d×7c captures the promoted knight, and Sente has given a knight for one pawn. Sente is not forced into this exchange; the line checks the silver's reach from 6d to 7c."
           },
           "marks": { "arrows": ["6d7c"], "last": "7c" }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": ["6e5c+", "6d5c"],
+          "text": {
+            "ja": "▲５三桂成と反対側へ跳んでも、△同銀で取り返せます。一枚の銀が二つの跳び先を両方見ています。",
+            "en": "If the knight jumps the other way with N6e–5c+, S6d×5c recaptures as well. One silver covers both landing squares."
+          }
         }
       ]
     },
@@ -64,30 +74,40 @@
       "title": { "ja": "飛車を歩の後ろへ回す", "en": "Put the rook behind the threatened pawn" },
       "side": "gote",
       "kind": "position",
-      "start": "5k3/1r7/2p1p4/9/3N5/3P5/9/1B7/4K4 w - 1",
+      "start": "lnsg1kgnl/1r4sb1/ppppppppp/9/3N5/2PP5/PP2PPPPP/1B5R1/L1SGKGSNL w - 1",
       "steps": [
         {
           "text": {
-            "ja": "後手の５三歩と７三歩はどちらも６五桂の跳び先です。飛車は８二にいて、５二まで横の通路が空いています。７三歩だけを動かすより、５三の取り返しを作る手を考えます。",
-            "en": "Both P5c and P7c are knight targets from 6e. Gote's rook stands on 8b, with an open route to 5b. Gote can add a recapturer behind P5c instead of moving only P7c."
+            "ja": "後手の５三歩と７三歩はどちらも６五桂の跳び先です。７三は８一の桂が取り返せますが、５三に取り返す駒はいません。飛車は８二にいて、５二まで横の通路が空いています。",
+            "en": "Both P5c and P7c are knight targets from 6e. The knight on 8a can recapture on 7c, but nothing recaptures on 5c. Gote's rook on 8b has an open sideways route to 5b."
           },
-          "marks": { "boxes": ["8b", "5b", "5c", "6e"] }
+          "marks": { "boxes": ["8a", "7c", "5c", "8b", "5b"] }
         },
         {
           "moves": ["8b5b"],
           "text": {
-            "ja": "△５二飛で５三歩を飛車が縦に守ります。６二と７二は空いているので横移動できます。先手が桂で５三を取るかは任意ですが、取った場合の取り返しを確かめます。",
-            "en": "R8b–5b puts the rook directly behind P5c. Squares 7b and 6b are empty, so the transfer is legal. Sente need not capture on 5c, but that try now has a concrete reply."
+            "ja": "△５二飛で飛車が５三歩の真後ろに来ます。７二と６二は空いているので横に動けます。これで５三は飛車、７三は桂が取り返せるので、二つの跳び先の両方に守りがつきました。",
+            "en": "R8b–5b puts the rook directly behind P5c; 7b and 6b are empty, so the transfer is legal. Now the rook recaptures on 5c and the knight on 8a recaptures on 7c, so both landing squares are covered."
           },
-          "marks": { "arrows": ["8b5b"], "boxes": ["5c"] }
+          "marks": { "arrows": ["8b5b"], "boxes": ["5c", "7c"] }
         },
         {
           "moves": ["6e5c+", "5b5c"],
           "text": {
-            "ja": "▲５三桂成で歩を取るなら△同飛で成桂を取れます。後手飛車は５三に出て５筋を利かせますが、実戦の安全性は先手のほかの駒と持ち駒にも左右されます。",
-            "en": "If N6e×5c+ takes the pawn, R5b×5c captures the promoted knight. The rook then works on the fifth file, but its practical safety still depends on Sente's other pieces and hands."
+            "ja": "▲５三桂成で歩を取るなら△同飛で成桂を取れます。先手は歩一枚と引き換えに桂を失います。",
+            "en": "If N6e×5c+ takes the pawn, R5b×5c captures the promoted knight, and Sente has given a knight for one pawn."
           },
           "marks": { "arrows": ["5b5c"], "last": "5c" }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": ["6e7c+", "8a7c"],
+          "text": {
+            "ja": "▲７三桂成と反対側を取っても、△同桂で成桂を取れます。飛車を回したのは５三のためで、７三は最初から８一の桂が守っていました。",
+            "en": "If Sente takes on the other side with N6e×7c+, N8a×7c recaptures. The rook transfer was needed only for 5c; the knight on 8a covered 7c from the start."
+          }
         }
       ]
     },
@@ -95,27 +115,37 @@
       "title": { "ja": "片方の歩だけ逃がした場合", "en": "Moving only one target" },
       "side": "gote",
       "kind": "position",
-      "start": "4k4/1r5b1/2p1p4/9/3N5/3P5/9/1B7/4K4 w - 1",
+      "start": "l1sgkgsnl/7b1/n1ppppppp/pr7/1p1N5/2PP5/PP2PPPPP/1B5R1/L1SGKGSNL w - 1",
       "steps": [
         {
           "text": {
-            "ja": "先手桂の行き先は５三と７三です。後手の飛車は８二のまま、５三歩の後ろにはいません。７三歩だけを動かしても、別の跳び先が残る配置です。",
-            "en": "Sente's knight still attacks 5c and 7c. Gote's rook remains on 8b rather than behind P5c. Moving only the pawn on 7c leaves the other knight target available."
+            "ja": "先手桂の行き先は５三と７三です。後手の飛車は８四に浮いていて、５三歩の後ろにはいません。どちらの跳び先にも取り返す駒がないので、片方の歩を動かすだけではもう一方が残ります。",
+            "en": "Sente's knight attacks 5c and 7c. Gote's rook stands on 8d, not behind P5c, and neither square has a recapturer, so moving one pawn still leaves the other target."
           },
-          "marks": { "boxes": ["7c", "5c", "5b"] }
+          "marks": { "boxes": ["7c", "5c", "8d"] }
         },
         {
-          "moves": ["7c7d", "6e5c+"],
+          "moves": ["7c7d", "6e5c"],
           "text": {
-            "ja": "△７四歩で７三の歩は桂の利きから外れますが、▲５三桂成で５三歩を取られます。この手順だけで先手勝ちとは決まりません。ただ、片方だけを守ったつもりで桂のもう一方の跳び先を忘れるのは損です。",
-            "en": "P7c–7d moves one pawn away, but N6e×5c+ takes the other. This does not prove a Sente win; it shows the material cost of overlooking the knight's second landing square."
+            "ja": "△７四歩で７三の歩は桂の利きから外れますが、▲５三桂不成で５三歩を取られます。５三の桂は４一と６一の金に同時に当たり、後手はこの桂を取れません。この手順だけで先手勝ちとは決まりませんが、もう一方の跳び先を忘れた損ははっきりしています。",
+            "en": "P7c–7d takes one pawn out of the knight's reach, but N6e×5c, declining promotion, takes the other. The knight on 5c attacks both golds on 4a and 6a, and Gote cannot capture it. This does not prove a Sente win, but overlooking the second landing square clearly costs material."
           },
-          "marks": { "arrows": ["6e5c"], "last": "5c" }
+          "marks": { "arrows": ["6e5c"], "last": "5c", "boxes": ["4a", "6a"] }
         },
         {
           "text": {
             "ja": "桂を受けるときは、取られそうな駒を一枚だけ見るのでなく、桂が跳ぶ二か所、そこへ取り返せる駒、玉への王手を順に点検します。",
             "en": "When defending, inspect both knight destinations, every available recapturer, and any check on the king rather than protecting only the first visible pawn."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["7a6b"],
+          "text": {
+            "ja": "この配置なら△６二銀が一手で両方を守ります。銀は６二から斜め前の５三と７三へ出られるので、桂がどちらへ跳んでも取り返せます。",
+            "en": "Here S7a–6b covers both targets in one move. From 6b the silver can step diagonally forward to 5c or 7c, so it recaptures wherever the knight lands."
           }
         }
       ]

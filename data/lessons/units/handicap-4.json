@@ -106,12 +106,12 @@
           "marks": { "arrows": ["3h3e"], "boxes": ["3c", "4b"] }
         },
         {
-          "moves": ["2a3c", "3e3h"],
+          "moves": ["2a3c", "P*3d"],
           "text": {
-            "ja": "△３三桂と跳ねると、桂は飛車の縦筋に入るが４二金の支えがある。本譜は▲３八飛と戻り、桂を取って飛車を渡す交換を避ける。桂の進出自体は上手の手得として残る。",
-            "en": "N3c enters the rook's file, but G4b supports it. The sample R3h avoids trading the rook for that knight. Gote has developed the knight while Sente retreats."
+            "ja": "△３三桂は４二金に支えられているので飛車では取らず、交換で得た歩を▲３四歩と打つ。桂は後ろへ戻れず、跳び先の２五と４五にはどちらも３五の飛車が横から利く。上手の駒は３四に届かないため、桂は逃げられず、下手は歩一枚で桂を得る。この桂跳ねは上手の得ではなく駒損になる。",
+            "en": "G4b supports N3c, so Sente does not take it with the rook and instead drops the pawn won in the exchange with P*3d. A knight cannot move backward, and the rook on 3e covers both of its jump squares, 2e and 4e, from the side. No Gote piece reaches 3d, so the knight cannot escape and Sente wins it for one pawn. This knight jump loses material for Gote rather than gaining anything."
           },
-          "marks": { "arrows": ["2a3c"], "boxes": ["3c", "4b"] }
+          "marks": { "arrows": ["P*3d"], "boxes": ["3c", "2e", "4e", "4b"] }
         }
       ],
       "variations": [
@@ -119,8 +119,16 @@
           "from": 1,
           "moves": ["2a3c", "3e3c+", "4b3c"],
           "text": {
-            "ja": "▲３三飛成で桂を取る分岐なら、△同金で龍を取られる。下手は桂を得るが飛車を失う。３三の金の利きがある限り、単純な桂取りを駒得とは言えない。",
-            "en": "If Sente chooses R3c+ to take the knight, G4b×3c takes the dragon. Sente gains a knight but loses the rook. The supported capture is not a free promotion."
+            "ja": "▲３三飛成で桂を取る分岐なら、△同金で龍を取られる。下手は桂を得るが飛車を失う。３三の金の利きがある限り、単純な桂取りを駒得とは言えない。飛車で取る代わりに本譜の▲３四歩が桂を取る手順になる。",
+            "en": "If Sente chooses R3c+ to take the knight, G4b×3c takes the dragon. Sente gains a knight but loses the rook. The supported capture is not a free promotion. Instead of taking with the rook, the main line's P*3d is the way to win the knight."
+          }
+        },
+        {
+          "from": 2,
+          "moves": ["P*3b", "3d3c+", "3b3c"],
+          "text": {
+            "ja": "上手が△３二歩と打って取り返しの歩を用意しても、▲３三歩成△同歩で桂は下手の持ち駒になる。下手は打った歩を失うが、桂を得た分の駒得が残る。",
+            "en": "Even if Gote drops P*3b to prepare a pawn recapture, P3c+ and P×3c put the knight in Sente's hand. Sente loses the dropped pawn but stays ahead by the knight it won."
           }
         }
       ]

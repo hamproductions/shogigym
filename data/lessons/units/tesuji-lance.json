@@ -74,33 +74,62 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "k8/9/9/9/9/9/2b6/3G5/8K b L 1",
+      "start": "k8/9/9/9/6b2/9/9/3G5/8K b L 1",
       "steps": [
         {
           "text": {
-            "ja": "後手の角７七は先手の金６八を取れます。持ち香を金の下の６九へ打てば、角が金を取ったときに香で取り返す道ができます。香は後ろへ戻れないため、金の後ろから前へ進む配置にします。",
-            "en": "Gote's bishop on ７七 can capture Sente's gold on ６八. A lance dropped below it on ６九 can recapture the bishop if it takes the gold. The lance cannot retreat, so place it behind the gold where its forward move reaches the capture square."
+            "ja": "後手の角３五は４六・５七を通って先手の金６八を狙っています。金から角を直接取ることはできません。持ち香を６九へ打てば、角が金を取ったときに香で取り返す道ができます。香は後ろへ戻れないため、金の後ろから前へ進む配置にします。",
+            "en": "Gote’s bishop on ３五 attacks the gold on ６八 through ４六 and ５七. The gold cannot capture the distant bishop directly. A lance dropped on ６九 prepares a recapture if the bishop takes the gold. Since a lance cannot retreat, place it behind the gold so its forward move reaches the capture square."
+          },
+          "marks": {
+            "boxes": [
+              "3e",
+              "6h",
+              "6i"
+            ],
+            "arrows": [
+              "3e6h"
+            ]
           }
         },
         {
-          "moves": ["L*6i"],
+          "moves": [
+            "L*6i"
+          ],
           "text": {
             "ja": "▲６九香。金６八が香の前にあるため、今は金が道をふさいでいます。角がその金を取る場合を読みます。",
             "en": "▲６九香 places the lance behind the gold on ６八. The gold blocks its path for now; calculate what happens if the bishop captures that gold."
           }
         },
         {
-          "moves": ["7g6h"],
+          "moves": [
+            "3e6h+"
+          ],
           "text": {
-            "ja": "△６八角で金を取られました。角が金の場所へ移ったため、香の一つ前に相手の角がいます。",
-            "en": "△６八角 takes the gold. The bishop now occupies the square directly in front of the lance."
+            "ja": "△６八角成で金を取られました。馬は香６九の一つ前にいます。この取りは後手が選んだ一例で、角を逃がすなど別の手も指せます。",
+            "en": "△６八角成 captures the gold and promotes. The horse now stands directly in front of the lance on ６九. This capture is Gote’s illustrative choice; the bishop can also retreat or choose another move."
+          },
+          "marks": {
+            "arrows": [
+              "3e6h+"
+            ],
+            "boxes": [
+              "6i"
+            ]
           }
         },
         {
-          "moves": ["6i6h"],
+          "moves": [
+            "6i6h"
+          ],
           "text": {
-            "ja": "▲６八香で角を取り返しました。香を打っただけで金が安全になったわけではありません。金と角の交換後に、香がどの駒を取れるかまで数えます。",
-            "en": "▲６八香 recaptures the bishop. The drop did not make the gold untouchable; it changed what Sente can take after the gold-bishop exchange."
+            "ja": "▲同香で馬を取り返しました。後手の持駒に金、先手の持駒に角が入ります。香を打っただけで金が安全になるのではなく、角が金を取った後の収支を変える守りです。",
+            "en": "▲同香 recaptures the horse. Gote holds a gold and Sente gains a bishop. The lance drop does not guarantee the gold’s survival; it changes the exchange if the bishop takes it."
+          },
+          "marks": {
+            "arrows": [
+              "6i6h"
+            ]
           }
         }
       ]

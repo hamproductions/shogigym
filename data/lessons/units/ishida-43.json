@@ -60,11 +60,11 @@
       "title": { "ja": "角を持たれた局面で金をずらす", "en": "Change the bishop-drop geometry before the transfer" },
       "side": "gote",
       "kind": "position",
-      "start": "9/1kg2r3/7p1/9/6p2/2P6/7P1/7R1/4K4 w Bb 1",
+      "start": "9/1kg2r3/4p2p1/9/6p2/2P6/7P1/6SR1/4K4 w Bb 1",
       "steps": [
         {
-          "text": { "ja": "後手は４二飛・７二金・８二玉、先手は角を持っています。ここで後手飛車だけを３二へ移すと、先手は５四へ角を打ち、３二飛と７二金の双方を斜めに狙えます。先に金の位置を変える選択を比べます。", "en": "Gote has a rook on 4b, gold on 7b and king on 8b; Sente holds a bishop. If Gote only moves the rook to 3b, a bishop drop on 5d can attack both that rook and the gold. First compare a move that changes the gold's square." },
-          "marks": { "arrows": ["7b8c", "4b3b"], "boxes": ["5d"] }
+          "text": { "ja": "後手は４二飛・７二金・８二玉、先手は角を持っています。ここで後手飛車だけを３二へ移すと、先手は５四へ角を打ち、３二飛と７二金の双方を斜めに狙えます。先に金の位置を変える選択を比べます。後手歩５三は６四から４二飛への角筋を止め、先手銀３八は後手の角３七打ちを取れます。", "en": "Gote has a rook on 4b, gold on 7b and king on 8b; Sente holds a bishop. If Gote only moves the rook to 3b, a bishop drop on 5d can attack both that rook and the gold. First compare a move that changes the gold's square. Gote’s pawn on 5c blocks the diagonal from 6d to R4b, and Sente’s silver on 3h can capture a Gote bishop dropped on 3g." },
+          "marks": { "arrows": ["7b8c", "4b3b"], "boxes": ["5d", "5c", "6d", "4b", "3h", "3g"] }
         },
         {
           "moves": ["7b8c", "2g2f"],
@@ -87,6 +87,16 @@
           "from": 0,
           "moves": ["4b3b", "B*5d"],
           "text": { "ja": "金を７二に置いたまま△３二飛とすると、▲５四角が３二飛と７二金の両方へ通ります。この図での両取りは、二つの目標と途中の４三・６三が実際に空いているからです。", "en": "If Gote transfers immediately with R3b, B*5d sees both the rook on 3b and gold on 7b. This fork exists because the two paths through 4c and 6c are clear in this particular position." }
+        },
+        {
+          "from": 0,
+          "moves": ["B*3g", "3h3g"],
+          "text": { "ja": "後手の角３七打ちは王手で２八飛も狙いますが、先手銀３八が角を取れます。先手銀の守りがあるため、後手がこの角打ちで飛車を得るわけではありません。", "en": "Gote’s B*3g checks the king and attacks R2h, but S3h×3g captures the bishop. This defender prevents a checking rook fork." }
+        },
+        {
+          "from": 0,
+          "moves": ["7b8c", "B*6d", "8b7a"],
+          "text": { "ja": "金を８三へ動かした後、先手角６四は８二玉への王手です。後手は△７一玉とかわす一例があります。５三歩が角から４二飛への線を止めているため、この角打ちは王手飛車取りではありません。", "en": "After G8c, Sente’s B*6d checks K8b. Gote can move K7a in this sample. P5c blocks the bishop’s other diagonal to R4b, so the drop is not a checking rook fork." }
         }
       ]
     },

@@ -84,13 +84,14 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/1r7/9/7p1/9/7P1/2S6/4G2R1/3K5 b Bb 1",
+      "start": "4k4/1rg6/9/7p1/9/7P1/2S6/4G2R1/3K5 b Bb 1",
       "steps": [
         {
           "text": {
-            "ja": "すでに双方が角を持ち、先手飛車２八の前には歩２六があります。後手歩２四とぶつかると飛車が前へ出る可能性があります。出た先で角が打てる斜線を先に探します。",
-            "en": "Both players already hold a bishop. Sente's rook on 2h sits behind its pawn on 2f, facing Gote's pawn on 2d. Before opening the file, locate diagonals to any square the rook may occupy."
-          }
+            "ja": "すでに双方が角を持ち、先手飛車２八の前には歩２六があります。後手歩２四とぶつかると飛車が前へ出る可能性があります。出た先で角が打てる斜線を先に探します。後手金７二は飛車８二を守り、王手の角７三打ちにも同金と取れます。",
+            "en": "Both players already hold a bishop. Sente's rook on 2h sits behind its pawn on 2f, facing Gote's pawn on 2d. Before opening the file, locate diagonals to any square the rook may occupy. Gote’s gold on 7b guards the rook on 8b and can capture a checking bishop dropped on 7c."
+          },
+          "marks": { "boxes": ["7b", "8b", "7c"] }
         },
         {
           "moves": ["2f2e", "2d2e", "2h2e"],
@@ -113,6 +114,16 @@
             "en": "The rook returns to 2h. The second file is open, while Gote's bishop remains on the board. Before judging the exchange, inspect whether the bishop can be challenged and whether its lines reach Sente's king on 6i."
           }
         }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["B*7c", "7b7c"],
+          "text": {
+            "ja": "角７三は王手で飛車８二も狙いますが、後手金７二が角を取れます。飛車だけを見ず、打った升への守りも数えます。",
+            "en": "Bishop 7c checks the king and attacks the rook on 8b, but the gold on 7b captures the bishop. Count the defender of the drop square before claiming a fork."
+          }
+        }
       ]
     },
     {
@@ -122,13 +133,14 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/1r7/6sp1/9/7P1/9/6S2/7R1/3K5 b Bb 1",
+      "start": "4k4/1rg6/6sp1/9/7P1/9/6S2/7R1/3K5 b Bb 1",
       "steps": [
         {
           "text": {
-            "ja": "先手銀３七は２六へ出ると歩２五を支えます。しかし後手は角を持ち、５三から４四・３五を通る斜線も空いています。銀を出した直後の受けを確かめます。",
-            "en": "Sente's silver on 3g can move to 2f and support its pawn on 2e. Gote holds a bishop, and the diagonal from 5c through 4d and 3e is clear. Check the reply immediately after the silver advances."
-          }
+            "ja": "先手銀３七は２六へ出ると歩２五を支えます。しかし後手は角を持ち、５三から４四・３五を通る斜線も空いています。銀を出した直後の受けを確かめます。後手金７二は飛車８二を守り、王手の角７三打ちにも同金と取れます。",
+            "en": "Sente's silver on 3g can move to 2f and support its pawn on 2e. Gote holds a bishop, and the diagonal from 5c through 4d and 3e is clear. Check the reply immediately after the silver advances. Gote’s gold on 7b guards the rook on 8b and can capture a checking bishop dropped on 7c."
+          },
+          "marks": { "boxes": ["7b", "8b", "7c"] }
         },
         {
           "moves": ["3g2f", "2c2d"],
@@ -178,13 +190,14 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/1r7/9/3ps4/9/3P1P1P1/5S3/4G2R1/3K5 b Bb 1",
+      "start": "4k4/1rg6/9/3ps4/9/3P1P1P1/5S3/4G2R1/3K5 b Bb 1",
       "steps": [
         {
           "text": {
-            "ja": "先手銀４七を５六へ出すと、６五へも利きます。後手には歩６四と銀５四があり、６筋で歩が交換されると取り返しが続く形です。角を持つ双方にとって、６五へ進んだ駒も角打ちの目標になります。",
-            "en": "Sente's silver on 4g can develop to 5f, from which it controls 6e. Gote's pawn on 6d and silver on 5d can contest that square. With bishops in both hands, a piece advanced to 6e may also become a bishop-drop target."
-          }
+            "ja": "先手銀４七を５六へ出すと、６五へも利きます。後手には歩６四と銀５四があり、６筋で歩が交換されると取り返しが続く形です。角を持つ双方にとって、６五へ進んだ駒も角打ちの目標になります。後手金７二は飛車８二を守り、王手の角７三打ちにも同金と取れます。",
+            "en": "Sente's silver on 4g can develop to 5f, from which it controls 6e. Gote's pawn on 6d and silver on 5d can contest that square. With bishops in both hands, a piece advanced to 6e may also become a bishop-drop target. Gote’s gold on 7b guards the rook on 8b and can capture a checking bishop dropped on 7c."
+          },
+          "marks": { "boxes": ["7b", "8b", "7c"] }
         },
         {
           "moves": ["4g5f", "6d6e", "6f6e"],

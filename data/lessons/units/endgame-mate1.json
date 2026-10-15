@@ -33,7 +33,7 @@
       "title": { "ja": "１　ふさいだ筋を開ける", "en": "1. Open the blocked file" },
       "side": "sente",
       "kind": "position",
-      "start": "lp7/kp7/9/G1S6/9/9/9/R8/8K b - 1",
+      "start": "ls7/kp7/9/G1S6/9/9/9/R8/8K b - 1",
       "steps": [
         {
           "text": {
@@ -142,7 +142,7 @@
       "steps": [
         {
           "text": {
-            "ja": "後手玉９一の前に歩８一、先手飛車８二には金７三の支えがあります。銀は金と同じ利きではありません。どこへ打てば９一を直接王手できますか。",
+            "ja": "後手玉９一の横に歩８一、先手飛車８二には金７三の支えがあります。銀は金と同じ利きではありません。どこへ打てば９一を直接王手できますか。",
             "en": "Gote has a pawn on ８一 beside its king on ９一. Sente's gold on ７三 protects the rook on ８二. A silver does not move like a gold; find a silver drop that directly checks ９一."
           }
         },
@@ -212,8 +212,8 @@
         {
           "moves": ["6d8b+"],
           "text": {
-            "ja": "▲８二角成は金を取りながら馬で王手します。馬８二は８一を押さえ、飛車７二が馬を守ります。９二は後手歩、７一は後手桂で、玉が馬を取ることもできません。",
-            "en": "▲８二角成 captures the gold and checks with a horse. The horse controls ８一, and the rook on ７二 protects it. Gote's pawn occupies ９二 and its knight occupies ７一, so the king cannot capture the horse or use those occupied exits."
+            "ja": "▲８二角成は金を取りながら馬で王手します。馬８二は８一を押さえ、飛車７二が馬を守るので玉は馬を取れません。９二は後手自身の歩でふさがっています。",
+            "en": "▲８二角成 captures the gold and checks with a horse. The horse controls ８一, and the rook on ７二 protects it, so the king cannot capture the horse. Gote's own pawn blocks ９二."
           }
         }
       ]
@@ -240,7 +240,7 @@
       ]
     },
     {
-      "title": { "ja": "１１　金ではなく銀を飛車で取る", "en": "11. Capture the silver, keeping bishop support" },
+      "title": { "ja": "１１　角の支えを残して銀を飛車で取る", "en": "11. Capture the silver, keeping bishop support" },
       "side": "sente",
       "kind": "position",
       "start": "3glg3/3pkp3/4s4/9/2B6/9/9/4R4/K8 b - 1",

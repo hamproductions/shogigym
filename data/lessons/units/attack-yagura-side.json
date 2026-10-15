@@ -31,8 +31,8 @@
   "chapters": [
     {
       "title": {
-        "ja": "外側の金を飛車で取り桂を続ける",
-        "en": "Follow a rook capture with a knight on the outer gold"
+        "ja": "桂から交換して飛車を残す",
+        "en": "Start the exchange with the knight and retain the rook"
       },
       "side": "sente",
       "kind": "position",
@@ -40,15 +40,33 @@
       "steps": [
         {
           "text": {
-            "ja": "後手玉２二の周りに金３二・４三と銀３三があります。飛車７三は金４三を横から狙いますが、金３二も４三へ利いています。先手桂５五が４三へ跳べることと、角７六の斜め筋が４三へ通ることを確認します。",
-            "en": "Around Gote's king on ２二 are golds on ３二 and ４三 and a silver on ３三. Sente's rook on ７三 attacks the outer gold along the rank, while the gold on ３二 protects it. Sente's knight on ５五 can jump to ４三, and the bishop on ７六 also reaches that square diagonally."
+            "ja": "後手玉２二の周りに金３二・４三と銀３三があります。金４三を取る候補は飛車７三、桂５五、角７六です。金３二の取り返しまで読んだ上で、最初に渡す駒と最後に残す駒を比較します。",
+            "en": "Around Gote’s king on ２二 are golds on ３二 and ４三 and a silver on ３三. The rook on ７三, knight on ５五, and bishop on ７六 all reach the outer gold. Calculate the recapture by the gold on ３二, then compare which attacker is given up and which remains."
           }
         },
         {
-          "moves": ["7c4c", "3b4c", "5e4c+"],
+          "moves": [
+            "5e4c+",
+            "3b4c",
+            "7c4c+"
+          ],
           "text": {
-            "ja": "▲４三飛で外側の金を取り、後手が△同金と取り返した例です。▲同桂成なら二枚目の金も取り、成桂４三は角７六に支えられます。銀３三は横隣の４三へは動けません。ただし△同金は後手の選択であり、ほかの受けに対して同じ駒得を断定しません。",
-            "en": "▲４三飛 takes the outer gold, and this sample has Gote recapture with △同金. ▲同桂成 takes the second gold; the promoted knight on ４三 is protected by the bishop on ７六. The silver on ３三 cannot move sideways to ４三. Gote's gold recapture is optional, so this exact material gain is conditional."
+            "ja": "▲４三桂成で金を取り、後手が△同金と取る一例では、▲同飛成で二枚目の金を取ります。桂を渡して金二枚を得て、龍４三が残ります。銀３三は横の４三へ動けません。△同金は強制ではないので、別の受けでは収支を読み直します。",
+            "en": "After ▲４三桂成 captures the first gold, the sample △同金 allows ▲同飛成 to take the second. Sente gives up a knight for two golds and retains a dragon on ４三. The silver on ３三 cannot move sideways to ４三. Gote need not choose the gold recapture; other defenses require a fresh count."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": [
+            "7c4c+",
+            "3b4c",
+            "5e4c+"
+          ],
+          "text": {
+            "ja": "飛車から先に▲４三飛成△同金▲同桂成と取ると、同じ金二枚に対して渡すのは飛車になります。成桂４三は角７六に守られますが、桂から始める順より高価な駒を失います。最初にどの駒を使うかまで交換の計算に含めます。",
+            "en": "Starting with ▲４三飛成 △同金 ▲同桂成 also gains two golds, but gives up the rook. The promoted knight on ４三 is protected by the bishop on ７六, yet the cost is higher than starting with the knight. Include the first attacker in the exchange calculation."
           }
         }
       ]
@@ -69,10 +87,14 @@
           }
         },
         {
-          "moves": ["2f5c+", "6b5c", "5i5c"],
+          "moves": [
+            "2f5c+",
+            "6b5c",
+            "5i5c+"
+          ],
           "text": {
-            "ja": "▲５三角成で一枚目の金を取ります。後手が△同金と応じた場合、▲同飛で二枚目の金を取り、飛車が５三まで進みます。角と金二枚の交換となる局面例ですが、後手は金で取り返さずに別の応手を選べます。銀６三は５三の飛車を横から直接取れません。",
-            "en": "▲５三角成 takes the first gold. If Gote replies △同金, ▲同飛 takes the second gold and brings the rook to ５三. This sample exchanges a bishop for two golds, but Gote can decline the gold recapture. The silver on ６三 cannot take the rook on ５三 by moving sideways."
+            "ja": "▲５三角成で一枚目の金を取ります。後手が△同金と応じた場合、▲同飛成で二枚目の金を取り、龍が５三まで進みます。角と金二枚の交換となる局面例ですが、後手は金で取り返さずに別の応手を選べます。銀６三は５三の龍を横から直接取れません。",
+            "en": "▲５三角成 takes the first gold. If Gote replies △同金, ▲同飛成 takes the second gold and brings the dragon to ５三. This sample exchanges a bishop for two golds, but Gote can decline the gold recapture. The silver on ６三 cannot take the dragon on ５三 by moving sideways."
           }
         }
       ]
@@ -88,12 +110,15 @@
       "steps": [
         {
           "text": {
-            "ja": "前の図と同じく角２六は金５三を狙いますが、今度は後手歩５五もあります。飛車５九を上げれば歩５五への圧力が増す一方、後手にも金を移す手番が渡ります。",
-            "en": "The bishop on ２六 still targets the gold on ５三, but this position adds Gote's pawn on ５五. Lifting Sente's rook on ５九 increases pressure on that pawn while giving Gote time to move the gold."
+            "ja": "前の図と同じく角２六は金５三を狙いますが、今度は後手歩５五もあります。飛車５九から歩５五への利きはすでに通っています。一段上げても攻撃枚数は増えず、後手へ金を動かす手番を渡します。",
+            "en": "The bishop on ２六 still targets the gold on ５三, but this position adds Gote's pawn on ５五. The rook on ５九 already reaches that pawn. Lifting it one square adds no attacker and gives Gote time to move the gold."
           }
         },
         {
-          "moves": ["5i5h", "5c6d"],
+          "moves": [
+            "5i5h",
+            "5c6d"
+          ],
           "text": {
             "ja": "▲５八飛に後手が△６四金と移した例です。飛車５八は歩５五を縦に狙えますが、角２六の狙いだった５三にはもう金がありません。金６四は銀６三に隣接して残ります。歩への圧力と失った金取りを比較し、すぐに金を取る順と同一視しません。",
             "en": "After ▲５八飛, this sample has Gote move the gold to ６四. The rook on ５八 pressures the pawn on ５五, but the gold has left the bishop's target square ５三. On ６四 the gold remains beside the silver on ６三. Compare the new pawn pressure with the lost gold target; it is a different line from capturing the gold immediately."

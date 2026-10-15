@@ -67,8 +67,8 @@
     },
     {
       "title": {
-        "ja": "王手の先に残る升を読む",
-        "en": "Read the square left open after a check"
+        "ja": "成って玉の逃げ道を消す",
+        "en": "Promote to take away the king’s escapes"
       },
       "side": "sente",
       "kind": "position",
@@ -76,29 +76,48 @@
       "steps": [
         {
           "text": {
-            "ja": "後手玉４一に飛車で王手をかけるなら、飛車６二を４二へ動かせます。金５三が４二を守っていますが、後手玉が５一へ逃げる升までは押さえていません。王手の後に玉がどこへ行けるかを先に探します。",
-            "en": "The rook on ６二 can move to ４二 and check the defender’s king on ４一. The gold on ５三 protects ４二, but it does not cover the king’s escape square on ５一. First find where the king can go after the check."
+            "ja": "飛車で王手をかけるなら、飛車６二を４二へ動かせます。▲４二金でも詰みますが、ここでは飛車が成るかどうかで逃げ道がどう変わるかを比べます。金５三が４二を守るので玉は飛車を取れません。ただし成らない飛車は斜めに動けず、５一と３一が空いたままです。竜になれば斜め一升にも利きます。",
+            "en": "If you check with the rook, it can move from ６二 to ４二. ▲４二金 also mates, but here we compare how promoting the rook or not changes the escape squares. The gold on ５三 protects ４二, so the king cannot capture the rook. An unpromoted rook does not move diagonally, though, so ５一 and ３一 stay open. A dragon also controls the diagonally adjacent squares."
           }
         },
         {
           "text": {
-            "ja": "飛車を王手になる升へ進め、後手玉が安全に移れる升を確認してください。",
-            "en": "Move the rook to give check, then find a square where the king can move safely."
+            "ja": "飛車を４二へ進め、玉の逃げ先が一つも残らない形を選んでください。",
+            "en": "Move the rook to ４二 and choose the form that leaves the king no escape square."
           }
         },
         {
+          "moves": ["6b4b+"],
+          "text": {
+            "ja": "▲４二飛成で詰みです。竜が４一への王手に加えて５一と３一も押さえ、金５三が竜を支えています。王手を見つけたら、成るか成らないかで逃げ先が変わらないかも確かめます。",
+            "en": "▲４二飛成 is checkmate. Besides checking the king on ４一, the dragon covers ５一 and ３一, and the gold on ５三 supports it. When you find a check, also see whether promoting changes the escape squares."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
           "moves": ["6b4b"],
           "text": {
-            "ja": "▲４二飛で王手です。飛車は金５三に守られているため、後手玉は４二へ進めません。",
-            "en": "▲４二飛 gives check. The gold on ５三 protects the rook, so the king cannot capture it on ４二."
-          }
-        },
-        {
-          "moves": ["4a5a"],
-          "text": {
-            "ja": "△５一玉と逃げられました。５一は飛車４二にも金５三にも利かされていません。王手をかけたことと勝ちが決まったことを分け、逃げられた後の局面を読み直します。",
-            "en": "△５一玉 escapes. Neither the rook on ４二 nor the gold on ５三 controls ５一. Giving check and ending the game are different outcomes; reassess the position after the king escapes."
-          }
+            "ja": "▲４二飛不成で王手した場合です。金５三が飛車を守るので取られませんが、５一と３一は飛車にも金にも利かされていません。",
+            "en": "Here ▲４二飛不成 checks without promoting. The gold on ５三 keeps it from being captured, but neither the rook nor the gold controls ５一 or ３一."
+          },
+          "steps": [
+            {
+              "moves": ["4a5a"],
+              "text": {
+                "ja": "△５一玉と逃げられました。王手をかけても、逃げ先が残れば勝負は続きます。逃げた後の局面を読み直します。",
+                "en": "△５一玉 escapes. A check does not end the game while an escape square remains. Read the position again after the king moves."
+              }
+            },
+            {
+              "moves": ["4b5b+"],
+              "text": {
+                "ja": "読み直すと▲５二飛成で詰みがありました。ただし△３一玉と逃げられていれば一手では詰みません。初めに▲４二飛成を選べば、逃げる升そのものが残りませんでした。",
+                "en": "Reading again finds ▲５二飛成, which is mate. Had the king gone to ３一 instead, there would be no mate in one. Choosing ▲４二飛成 at the start would have left no square to escape to at all."
+              }
+            }
+          ]
         }
       ]
     },

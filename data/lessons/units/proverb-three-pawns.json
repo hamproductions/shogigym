@@ -10,8 +10,8 @@
     "en": "Make Each of Three Pawns Count"
   },
   "intro": {
-    "ja": "「三歩持ったら継ぎ歩に垂れ歩」は、持ち歩が増えると歩を続けて使う攻めも選べるという格言です。三枚を必ず同じ筋で使い切る意味ではありません。一枚で駒を動かす手、成りを予告する手、二歩を避けて待つ手を確認し、最後に二枚を使って飛車の道を開け、残る一枚を別の筋へ垂らします。歩を相手が取るとは限らないので、応手を条件として読みます。",
-    "en": "The proverb about holding three pawns points to the options that several pawn drops can create, including successive and dangling pawns. It does not require spending all three on one file. First examine a pawn that draws a piece, a promotion threat, and a drop delayed by nifu. Then use two pawns to open a rook's file and dangle the third on another file. Each illustrated capture depends on the defender's reply."
+    "ja": "「三歩持ったら継ぎ歩に垂れ歩」は、持ち歩が増えると歩を続けて使う攻めも選べるという格言です。三枚を必ず同じ筋で使い切る意味ではありません。一枚で駒を動かす手、成りを予告する手、二歩を避けて待つ手を確認し、続いて二枚を使って飛車の道を開け、残る一枚を別の筋へ垂らします。最後に、二枚を取らせた後で三枚目を同じ筋へ垂らす場合を比べ、その歩が取られる条件を確かめます。歩を相手が取るとは限らないので、応手を条件として読みます。",
+    "en": "The proverb about holding three pawns points to the options that several pawn drops can create, including successive and dangling pawns. It does not require spending all three on one file. First examine a pawn that draws a piece, a promotion threat, and a drop delayed by nifu. Next, use two pawns to open a rook's file and dangle the third on another file. Finally, compare dangling the third pawn on the same file after two accepted offers, where it can still be captured. Each illustrated capture depends on the defender's reply."
   },
   "check": {
     "question": {
@@ -329,8 +329,14 @@
             "4d4c+"
           ],
           "text": {
-            "ja": "後手が玉を動かす例なら４三歩成ができ、４二飛を狙う。これは選んだ応手への結果であり、第三の歩を取る受けも調べる必要がある。",
-            "en": "If Gote instead moves its king, Sente can promote on 4c and attack the rook on 4b. This is a conditional result; defenses that capture the third pawn must also be considered."
+            "ja": "後手が玉を動かしても、４三歩成のと金は４二飛と５三金の両方に取られ、４二飛への当たりにならない。この筋では三枚目が成っても駒得は生まれない。",
+            "en": "Even if Gote moves its king, the tokin on 4c can be taken by both the rook on 4b and the gold on 5c, so it does not really attack the rook. On this file, promoting the third pawn still gains nothing."
+          },
+          "marks": {
+            "arrows": [
+              "4b4c",
+              "5c4c"
+            ]
           }
         }
       ],

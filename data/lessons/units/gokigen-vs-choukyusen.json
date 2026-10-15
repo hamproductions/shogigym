@@ -1,11 +1,17 @@
 {
   "id": "gokigen-vs-choukyusen",
   "order": 1220,
-  "path": ["戦法・定跡", "中飛車"],
-  "title": {"ja": "超急戦で角道と飛車先を同時に数える", "en": "Count bishop lines and rook-file pressure in a quick attack"},
+  "path": [
+    "戦法・定跡",
+    "中飛車"
+  ],
+  "title": {
+    "ja": "超急戦で角道と飛車先を同時に数える",
+    "en": "Count bishop lines and rook-file pressure in a quick attack"
+  },
   "intro": {
-    "ja": "後手中飛車が５五歩と出ると、２二角から８八へ向かう斜線の５五を自分の歩がふさぎます。その間に先手が２筋の歩と飛車を進めることがあります。角道を閉じる前後で使える受けは違うので、金の守り、角交換後の取り手、５筋を再び開く手を盤面ごとに読みます。",
-    "en": "When Gote plays P5e in Central Rook, its own pawn blocks B2b's diagonal toward 8h at 5e. Sente may use that interval to advance the second-file pawn and rook. Compare the defenses available before and after the bishop line closes: gold cover, a bishop-trade recapture, and a later reopening of the fifth file."
+    "ja": "ゴキゲン中飛車の後手が△５五歩と位を取ると、２二角から８八角への斜線を自分の歩がふさぎます。先手はその一手を使って▲２四歩から飛車を出す超急戦を選べます。後手は△５六歩で斜線を開き直し、角交換と△３三角で反撃します。歩一枚の位置で角道が開くか閉じるかを、手順ごとに確かめます。",
+    "en": "When Gote, playing Gokigen Central Rook, takes space with △５五歩, its own pawn closes the diagonal from the bishop on ２二 to Sente's bishop on ８八. Sente can use that tempo for the super-quick attack, starting with ▲２四歩 and bringing the rook out. Gote reopens the diagonal with △５六歩 and counterattacks with a bishop trade and △３三角. At each step, check whether one pawn's position opens or closes the bishop line."
   },
   "check": {
     "question": {
@@ -18,132 +24,328 @@
     }
   },
   "references": [
-    {"title": "ゴキゲン中飛車vs超急戦", "url": "https://shogi-joutatsu.com/archives/5461", "license": "All rights reserved", "adapted": false}
+    {
+      "title": "ゴキゲン中飛車vs超急戦",
+      "url": "https://shogi-joutatsu.com/archives/5461",
+      "license": "All rights reserved",
+      "adapted": false
+    }
   ],
   "chapters": [
     {
-      "title": {"ja": "歩を出した瞬間は角交換できない", "en": "The central pawn temporarily stops the bishop trade"},
+      "title": {
+        "ja": "５五歩で角道を閉じた瞬間に２筋を突かれる",
+        "en": "Sente strikes on the second file the moment P5e closes the diagonal"
+      },
       "side": "gote",
-      "kind": "position",
-      "start": "5kg2/4r2b1/7p1/4p4/7P1/9/4P4/1BK4R1/9 w - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "後手２二角と先手８八角は斜線で向き合っています。後手５四歩を５五へ出すと、その斜線を自分で遮ります。先手飛車は２八、歩は２五にあり、２筋の次の接触も数える局面です。",
-            "en": "Gote B2b and Sente B8h face each other on one diagonal. P5d–5e would place Gote's own pawn across it. Sente has R2h and P2e, so the next second-file contact also matters."
-          },
-          "marks": {"arrows": ["5d5e", "2e2d"], "boxes": ["5e", "2c"]}
+            "ja": "後手は中飛車、先手は居飛車で２筋の歩を伸ばす序盤です。どの手で角道が閉じ、どの手で開くかを追いながら進めます。",
+            "en": "Gote plays Central Rook and Sente plays Static Rook, pushing the second-file pawn. Follow which moves close the bishop diagonal and which reopen it."
+          }
         },
         {
-          "moves": ["5d5e", "2h2f"],
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "2g2f",
+            "5c5d",
+            "2f2e",
+            "8b5b",
+            "4i5h"
+          ],
           "text": {
-            "ja": "△５五歩に先手が▲２六飛と浮く例です。後手角は５五の自歩を越えられず、８八の角を取る手は今はありません。浮き飛車が２筋にいる間、後手は２三の歩の後ろに金を置く選択もあります。",
-            "en": "After P5e, the sample R2f floats Sente's rook. Gote's bishop cannot pass its own pawn on 5e to capture B8h now. With the rook still on the second file, Gote can consider placing a gold behind P2c."
+            "ja": "△５二飛で中飛車にし、先手は▲５八金右と中央を固めました。後手の５四歩と先手の２五歩が、それぞれの攻めの先頭です。",
+            "en": "△５二飛 sets up Central Rook, and Sente strengthens the centre with ▲５八金右. Gote's pawn on ５四 and Sente's pawn on ２五 lead each side's attack."
           },
-          "marks": {"last": "2f", "boxes": ["5e", "2f", "3a"]}
+          "marks": {
+            "last": "5h",
+            "boxes": [
+              "5d",
+              "2e"
+            ]
+          }
         },
         {
-          "moves": ["3a3b", "2e2d", "2c2d"],
+          "moves": [
+            "5d5e"
+          ],
           "text": {
-            "ja": "△３二金は２三を守る形です。先手が▲２四歩と接触し、後手が△同歩と取った例では、先手飛車２六から２四の歩を取る道は空きます。ただし後手金３二は２三を守るだけで２四を直接守らず、次の交換を一手ずつ読む必要があります。",
-            "en": "G3b covers 2c. If Sente then plays P2d and Gote answers Px2d, R2f has a clear route to capture the pawn on 2d. G3b protects 2c, not 2d; count the next recapture rather than calling the second file secure."
+            "ja": "△５五歩で中央の位を取りました。ただし２二角から８八角への斜線は３三・４四・５五・６六・７七を通るので、５五の自分の歩が道をふさぎ、今は角交換ができません。",
+            "en": "△５五歩 takes space in the centre. But the diagonal from ２二 to ８八 runs through ３三, ４四, ５五, ６六 and ７七, so Gote's own pawn on ５五 blocks it, and the bishops cannot be traded now."
           },
-          "marks": {"last": "2d", "arrows": ["2f2d"], "boxes": ["3b", "2c", "2d"]}
-        }
-      ]
-    },
-    {
-      "title": {"ja": "角道を残した局面では銀の取り手まで見る", "en": "With the diagonal open, include the silver recapture"},
-      "side": "gote",
-      "kind": "position",
-      "start": "4k1s2/4r2b1/7p1/4p4/7P1/7R1/4P4/1BK6/9 w - 1",
-      "steps": [
-        {
-          "text": {
-            "ja": "こちらでは後手５四歩をまだ進めず、５五が空いています。先手２六飛と２五歩は速い攻めの形ですが、後手角２二から先手角８八への斜線は通っています。交換後の取り手は３一銀です。",
-            "en": "Here Gote has kept P5d back, leaving 5e empty. Sente's R2f and P2e are active, but B2b still has an open diagonal to B8h. S3a is positioned to recapture after an exchange."
-          },
-          "marks": {"arrows": ["8h2b+", "3a2b"], "boxes": ["5e", "3a"]}
+          "marks": {
+            "last": "5e",
+            "boxes": [
+              "3c",
+              "4d",
+              "5e",
+              "6f",
+              "7g"
+            ]
+          }
         },
         {
-          "moves": ["5a4b", "8h2b+", "3a2b"],
+          "moves": [
+            "2e2d",
+            "2c2d",
+            "2h2d"
+          ],
           "text": {
-            "ja": "△４二玉に先手が▲２二角成と交換し、△同銀で取り返す例です。双方に角が一枚ずつ入り、後手銀は２二へ移りました。角交換を避けなかった結果なので、先手の持ち角による反撃も残ります。",
-            "en": "After the sample K4b, Sente trades with Bx2b+ and Gote recaptures Sx2b. Both players now hold a bishop; Gote's silver has moved to 2b. Sente's bishop drops remain part of the resulting position."
+            "ja": "▲２四歩△同歩▲同飛が超急戦の出発点です。定跡書に載る応手では、△同歩以外は大きく損をします。２四の飛車は横の３四歩に当たり、２筋からも後手陣を狙っています。",
+            "en": "▲２四歩 △同歩 ▲同飛 starts the super-quick attack. Among the replies in the opening book, every one except △同歩 loses heavily. The rook on ２四 attacks the pawn on ３四 along the rank and also bears down the second file into Gote's camp."
           },
-          "marks": {"last": "2b", "boxes": ["4b", "2b", "2f"]}
-        },
-        {
-          "moves": ["2e2d", "B*4d"],
-          "text": {
-            "ja": "先手が▲２四歩と出る例では、後手の△４四角が３五を通って２六飛に当たります。歩２四を取る前に飛車が狙われるので、先手は飛車の置き場所を選べます。角を持っただけで勝ちとは決まらず、角打ちの先で何を攻めるかが要点です。",
-            "en": "If Sente advances P2d, Gote's B*4d attacks R2f along 3e–2f. Sente can choose a rook retreat before resolving the pawn contact. The bishop in hand matters because of this exact line, not because the trade automatically favors Gote."
-          },
-          "marks": {"last": "4d", "arrows": ["4d2f"], "boxes": ["2f", "2d"]}
-        },
-        {
-          "moves": ["2f2h"],
-          "text": {
-            "ja": "先手が▲２八飛と引くのは一つの応手です。後手角４四は飛車を直接取れなくなり、２筋歩の接触は残っています。後手も先手も次の歩の取り手を調べます。",
-            "en": "R2h is one legal Sente reply. B4d no longer attacks the rook directly, while the second-file pawn contact remains unresolved. Both sides must now count the pawn captures."
-          },
-          "marks": {"last": "2h", "boxes": ["4d", "2d", "2c"]}
-        }
-      ]
-    },
-    {
-      "title": {"ja": "歩が退くと元の角道も変わる", "en": "When the pawn moves again, revisit the bishop line"},
-      "side": "gote",
-      "kind": "position",
-      "start": "5k3/4r1gb1/9/7R1/4p4/9/4P4/1BK6/9 w - 1",
-      "steps": [
-        {
-          "text": {
-            "ja": "後手５五歩が２二角と８八角の間にあり、先手飛車は２四まで出ています。後手３二金は２三を守っています。角を３三へ移せば２四飛に当たりますが、５筋歩をさらに動かした後は先手角の斜線も再び通る点に注意します。",
-            "en": "Gote P5e blocks the diagonal between B2b and B8h, while Sente's rook has reached 2d. G3b covers 2c. B3c would attack R2d, but moving the fifth-file pawn later will also reopen Sente's bishop line."
-          },
-          "marks": {"arrows": ["2b3c", "5e5f"], "boxes": ["2d", "5e", "3b"]}
-        },
-        {
-          "moves": ["2b3c", "2d2h"],
-          "text": {
-            "ja": "△３三角が２四飛を斜めに狙い、先手は▲２八飛と引く例です。２二から８八への斜線が閉じていても、角を一つ動かして飛車へ働きかける手はあります。ただし３三の角は、５五歩が５六へ進むと先手角８八から狙われます。",
-            "en": "B3c attacks R2d diagonally, and the sample R2h retreats. A closed long diagonal does not prevent the bishop from stepping locally. But if P5e advances to 5f, Sente's B8h gains a clear diagonal to the bishop on 3c."
-          },
-          "marks": {"last": "2h", "boxes": ["3c", "5e", "8h"]}
-        },
-        {
-          "moves": ["5e5f", "5g5f", "5b5f"],
-          "text": {
-            "ja": "△５六歩▲同歩△同飛は、５筋で後手飛車が先手歩を取り返す一例です。双方が歩を一枚ずつ取り、後手飛車は５六に出ました。一方で５五が空き、先手８八角から３三角へ７七・６六・５五・４四を通る斜線も開きました。",
-            "en": "In the sample P5f, Px5f, Rx5f, each side captures one pawn and Gote's rook reaches 5f. But 5e is now clear: Sente's bishop on 8h sees Gote's bishop on 3c through 7g, 6f, 5e and 4d."
-          },
-          "marks": {"last": "5f", "arrows": ["8h3c"], "boxes": ["5e", "3c"]}
-        },
-        {
-          "moves": ["8h3c+", "3b3c"],
-          "text": {
-            "ja": "先手が▲３三角成と後手角を取り、△同金で後手金が取り返す例です。ここでは歩同士、角同士が交換され、後手の金が３三に出ました。飛車５六が活動していても、先手に角を渡した代償と金の位置を再評価します。",
-            "en": "Sente can play Bx3c+ and Gote can recapture Gx3c. The line exchanges one pawn each and both bishops, leaving Gote's gold on 3c and rook on 5f. Reassess Sente's bishop in hand and the new gold position before valuing the rook's activity."
-          },
-          "marks": {"last": "3c", "boxes": ["5f", "3c"]}
+          "marks": {
+            "last": "2d",
+            "arrows": [
+              "2d3d"
+            ],
+            "boxes": [
+              "3d",
+              "2d"
+            ]
+          }
         }
       ],
       "variations": [
         {
           "from": 2,
-          "moves": ["2h2f"],
+          "moves": [
+            "5i6h"
+          ],
           "text": {
-            "ja": "５六へ出た後手飛車に対し、先手は▲２六飛と浮いて３六・４六を通る横の利きで飛車を狙えます。後手は飛車の退路を決める必要があり、５筋の取り返しだけで一段落とは言えません。",
-            "en": "Against Gote's rook on 5f, Sente can float R2f and attack it along the clear 3f–4f squares. Gote must choose a rook response; the fifth-file recapture does not end the calculation."
+            "ja": "先手は急がずに▲６八玉と玉を囲う指し方も選べます。定跡書ではこちらの評価が最も高く、超急戦は先手の選択肢の一つです。",
+            "en": "Sente can also skip the quick attack and castle with ▲６八玉. The opening book rates this move highest, so the super-quick attack is only one of Sente's options."
+          },
+          "marks": {
+            "last": "6h"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "５六歩で角道を開き直し、３三角で二枚を狙う",
+        "en": "Reopen the diagonal with P5f, then aim at two pieces with B3c"
+      },
+      "side": "gote",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "2g2f",
+            "5c5d",
+            "2f2e",
+            "8b5b",
+            "4i5h",
+            "5d5e",
+            "2e2d",
+            "2c2d",
+            "2h2d"
+          ],
+          "text": {
+            "ja": "先手の飛車が２四に出た局面です。後手の角道は５五の歩で止まったままです。",
+            "en": "Sente's rook has come out to ２四. Gote's bishop diagonal is still blocked by the pawn on ５五."
+          },
+          "marks": {
+            "last": "2d",
+            "boxes": [
+              "5e",
+              "2d"
+            ]
           }
         },
         {
-          "from": 0,
-          "moves": ["2b3c", "2d2c+", "3b2c"],
+          "moves": [
+            "5e5f",
+            "5g5f"
+          ],
           "text": {
-            "ja": "角に当てられた飛車を▲２三飛成と進める枝では、３二金が△同金と龍を取れます。金の守る升目は２三で、２四ではありません。この例は飛車を逃がす別の場所がないという意味ではありません。",
-            "en": "If Sente answers the bishop attack with R2c+, G3b can capture that dragon on 2c. The gold covers 2c, not 2d. Sente has other rook retreats; this branch does not make the loss forced."
+            "ja": "△５六歩▲同歩で５五の歩が消え、２二から８八までの斜線が再び開きました。歩を一枚渡して、閉じていた角道を開け直した形です。",
+            "en": "After △５六歩 ▲同歩 the pawn on ５五 is gone, and the diagonal from ２二 to ８八 is open again. Gote gave up a pawn to reopen its own bishop line."
+          },
+          "marks": {
+            "last": "5f",
+            "arrows": [
+              "2b8h"
+            ],
+            "boxes": [
+              "5e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2b8h+",
+            "7i8h"
+          ],
+          "text": {
+            "ja": "△８八角成▲同銀で角を交換しました。先手の銀は７九から８八へ動き、双方が角を一枚ずつ持っています。",
+            "en": "△８八角成 ▲同銀 trades the bishops. Sente's silver moves from ７九 to ８八, and each side now holds a bishop."
+          },
+          "marks": {
+            "last": "8h",
+            "boxes": [
+              "8h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "B*3c"
+          ],
+          "text": {
+            "ja": "△３三角は斜め下の２四飛に当たり、反対側では４四・５五・６六・７七を通って８八銀も狙います。角は２一桂が支えています。先手は飛車と銀を同時には守れません。",
+            "en": "△３三角 hits the rook on ２四 diagonally, and in the other direction it also aims at the silver on ８八 through ４四, ５五, ６六 and ７七. The knight on ２一 protects the bishop. Sente cannot protect both the rook and the silver."
+          },
+          "marks": {
+            "last": "3c",
+            "arrows": [
+              "3c2d",
+              "3c8h"
+            ],
+            "boxes": [
+              "2d",
+              "8h"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 3,
+          "moves": [
+            "2d3d",
+            "3c8h+"
+          ],
+          "text": {
+            "ja": "▲３四飛と歩を取って逃げると、△８八角成で銀を取られます。８八の銀を守る駒はなく、後手は馬を作って大きく得をします。",
+            "en": "If Sente escapes with ▲３四飛, taking the pawn, △８八角成 captures the silver. Nothing protects the silver on ８八, so Gote makes a horse and comes out well ahead."
+          },
+          "marks": {
+            "last": "8h",
+            "boxes": [
+              "8h"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "飛車を成り込む反撃と、香を取る駒を選ぶ",
+        "en": "Sente counterattacks with a rook promotion; choose which piece takes the lance"
+      },
+      "side": "gote",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "2g2f",
+            "5c5d",
+            "2f2e",
+            "8b5b",
+            "4i5h",
+            "5d5e",
+            "2e2d",
+            "2c2d",
+            "2h2d",
+            "5e5f",
+            "5g5f",
+            "2b8h+",
+            "7i8h",
+            "B*3c"
+          ],
+          "text": {
+            "ja": "△３三角で飛車と銀が同時に狙われた局面です。先手は飛車を逃がすだけでなく、取られる前に働かせる手を探します。",
+            "en": "△３三角 attacks the rook and the silver at once. Sente looks for a move that puts the rook to work before it can be taken, not just a retreat."
+          },
+          "marks": {
+            "last": "3c",
+            "boxes": [
+              "2d",
+              "8h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2d2a+"
+          ],
+          "text": {
+            "ja": "▲２一飛成は桂を取って龍を作ります。３三角を支えていた２一桂も消えました。代わりに８八の銀は残ったままです。",
+            "en": "▲２一飛成 captures the knight and makes a dragon. It also removes the knight on ２一 that protected the bishop on ３三. In exchange, the silver on ８八 is still hanging."
+          },
+          "marks": {
+            "last": "2a",
+            "boxes": [
+              "2a",
+              "8h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3c8h+",
+            "B*7g"
+          ],
+          "text": {
+            "ja": "△８八角成で銀を取ると、先手は▲７七角と打ちます。７七の角は隣の８八馬に当たり、６六・５五・４四・３三・２二を通って１一香も狙っています。",
+            "en": "After △８八角成 takes the silver, Sente drops ▲７七角. The bishop on ７七 attacks the horse next to it on ８八 and also aims at the lance on １一 through ６六, ５五, ４四, ３三 and ２二."
+          },
+          "marks": {
+            "last": "7g",
+            "arrows": [
+              "7g8h",
+              "7g1a"
+            ],
+            "boxes": [
+              "8h",
+              "1a"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8h8i",
+            "7g1a+"
+          ],
+          "text": {
+            "ja": "△８九馬は桂を取りながら逃げる一例で、先手は▲１一角成と香を取って馬を作りました。先手は龍と馬、後手は飛車と馬を持ち、評価値は大差ではありません。",
+            "en": "△８九馬 is one sample move that escapes while capturing a knight, and Sente takes the lance with ▲１一角成, making a horse. Sente has a dragon and a horse, Gote has a rook and a horse, and the engine evaluation is not far from even."
+          },
+          "marks": {
+            "last": "1a",
+            "boxes": [
+              "2a",
+              "1a",
+              "8i"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 2,
+          "moves": [
+            "8h8i",
+            "2a1a"
+          ],
+          "text": {
+            "ja": "同じ香を▲１一龍で取ることもできますが、評価値では▲１一角成のほうがまさります。取る駒が変わると、７七の角が働くか、龍が玉から遠ざかるかが変わります。",
+            "en": "Sente can also take the same lance with ▲１一龍, but the engine prefers ▲１一角成. The choice of capturing piece decides whether the bishop on ７七 gets into play and whether the dragon moves away from Gote's king."
+          },
+          "marks": {
+            "last": "1a"
           }
         }
       ]

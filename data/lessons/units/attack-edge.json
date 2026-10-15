@@ -1,0 +1,412 @@
+{
+  "id": "attack-edge",
+  "order": 445,
+  "path": [
+    "上達のためのテクニック",
+    "囲い崩し"
+  ],
+  "title": {
+    "ja": "端攻め：歩の補充と後続の利きを読む",
+    "en": "Edge attacks: count pawns and follow-up support"
+  },
+  "intro": {
+    "ja": "端は一筋か九筋だけですが、歩・香・桂・銀の取り方で続きが変わります。突き捨てで手持ちの歩を増やしたとは限りません。部分図で、残る持ち歩、端を取る駒、その後ろの攻め駒を一手ずつ確認します。応手は比較のための例で、突破や最善を保証する順ではありません。",
+    "en": "On the first and ninth files, pawn, lance, knight, and silver recaptures lead to different continuations. Sacrificing a pawn does not necessarily replenish your own hand. Use these partial positions to track the pawns remaining in hand, the piece taking on the edge, and the attacker behind it. Replies illustrate comparisons rather than guaranteeing a breakthrough or best play."
+  },
+  "check": {
+    "question": {
+      "ja": "端歩を突き捨てた後、歩を打つ前に何を数えますか？",
+      "en": "After sacrificing the edge pawn, what should you count before a drop?"
+    },
+    "answer": {
+      "ja": "歩を取ったのはどちらか、手持ちに歩が残るか、二歩にならないかを確認します。香・桂・銀のどれが取るかで、次に開く筋も変わります。",
+      "en": "Check who captured the pawn, whether you still hold a pawn, and whether the drop would be nifu. A lance, knight, or silver capture opens different lines."
+    }
+  },
+  "references": [
+    {
+      "title": "端攻め（戦術の範囲の確認）",
+      "url": "https://ja.wikipedia.org/wiki/端攻め",
+      "license": "CC BY-SA 4.0",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "突き捨てた歩は相手の手に入る",
+        "en": "The sacrificed pawn enters the opponent’s hand"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "5k1nl/6gs1/8p/9/8P/9/9/4R4/1K6L b P 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手歩１五と後手歩１三は一升空いています。先手は歩を一枚持ちます。１四へ進める手は空升への前進で、後手の歩をまだ取っていません。",
+            "en": "Sente’s pawn on １五 and Gote’s pawn on １三 have one empty square between them. Sente holds one pawn. Advancing to １四 captures nothing yet."
+          },
+          "marks": {
+            "boxes": [
+              "1e",
+              "1c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "1e1d",
+            "1c1d"
+          ],
+          "text": {
+            "ja": "▲１四歩△同歩。先手の持ち歩は一枚のまま、後手にも歩が一枚入りました。先手の１筋の歩は盤上から消えたので、二歩を避けてこの筋へ歩を打てます。",
+            "en": "After ▲１四歩 △同歩, Sente still holds one pawn and Gote has gained one. Sente’s on-board pawn has disappeared from this file, allowing a pawn drop there without nifu."
+          },
+          "marks": {
+            "boxes": [
+              "1d"
+            ],
+            "arrows": [
+              "1c1d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "P*1c"
+          ],
+          "text": {
+            "ja": "▲１三歩は手持ちの一枚を使います。次の１二歩成を狙いますが、後手には香・桂・銀でこの歩を取る選択があります。持ち歩が零なら、この同じ続きは指せません。",
+            "en": "▲１三歩 spends that pawn from hand and aims at １二歩成. Gote can capture it with the lance, knight, or silver. With no pawn in hand, this continuation would be unavailable."
+          },
+          "marks": {
+            "boxes": [
+              "1c",
+              "1a",
+              "2a",
+              "2b"
+            ],
+            "arrows": [
+              "P*1c"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": [
+            "5h6h",
+            "1c1d"
+          ],
+          "text": {
+            "ja": "先に▲６八飛とすると△１四歩で端歩が向かい合います。この場合の▲同歩は相手歩を取る手です。最初から駒を取る接触と、空升へ突き捨てる順を分けて数えます。",
+            "en": "After the preparatory ▲６八飛 △１四歩, the pawns face each other directly. Here ▲同歩 would capture an enemy pawn. Distinguish immediate contact from a sacrifice onto an empty square."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "歩を取る三種類の駒を追う",
+        "en": "Follow three different pawn capturers"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "5k1nl/6gs1/8p/9/8P/9/9/4R4/1K6L b P 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "前章と同じ配置です。１三への歩打ちの後、取った駒の元の升が空きます。取る駒を変えた三つの局面を比べます。",
+            "en": "Use the same arrangement. After a pawn drop on １三, the capturer vacates its original square. Compare the positions reached by three different capturers."
+          },
+          "marks": {
+            "boxes": [
+              "1a",
+              "2a",
+              "2b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "1e1d",
+            "1c1d",
+            "P*1c"
+          ],
+          "text": {
+            "ja": "▲１四歩△同歩▲１三歩まで。次の分岐はすべてこの局面からです。",
+            "en": "After ▲１四歩 △同歩 ▲１三歩, all three capture branches begin from this position."
+          },
+          "marks": {
+            "boxes": [
+              "1c"
+            ],
+            "arrows": [
+              "P*1c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "1a1c"
+          ],
+          "text": {
+            "ja": "△同香では香が１一から１三へ出ます。１二は空いたままですが、１三には相手の香が残ります。端が空いたと数えず、残る駒を確認します。",
+            "en": "△同香 moves the lance from １一 to １三. Although １二 remains empty, Gote’s lance now occupies １三. Do not count the edge as cleared."
+          },
+          "marks": {
+            "arrows": [
+              "1a1c"
+            ],
+            "boxes": [
+              "1a",
+              "1c",
+              "1b"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": [
+            "2a1c"
+          ],
+          "text": {
+            "ja": "△同桂なら２一が空き、桂が１三へ出ます。香１一は残っています。桂が動いたことと、香の道が開いたことは同じではありません。",
+            "en": "△同桂 vacates ２一 and brings the knight to １三. The lance remains on １一; moving the knight does not also clear the lance’s file."
+          }
+        },
+        {
+          "from": 1,
+          "moves": [
+            "2b1c"
+          ],
+          "text": {
+            "ja": "△同銀なら銀が２二を離れます。玉４一に近い金３二は動かず、銀１三は香１一に支えられています。守備駒が出てもただ取りとは限りません。",
+            "en": "△同銀 removes the silver from ２二. The gold on ３二 near the king on ４一 stays in place, and the lance on １一 supports the silver on １三. Displacing a defender does not automatically win it."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "端の取り返しを角で支える",
+        "en": "Support an edge recapture with a bishop"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "6k2/7g1/8l/9/7N1/5B3/9/9/K8 b - 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手香１三は金２二に守られています。先手桂２五は１三を取れますが、取り返しを読まずに香得とは数えません。角４六は３五・２四を通して１三へ利いています。",
+            "en": "Gote’s lance on １三 is protected by the gold on ２二. Sente’s knight on ２五 can capture it, but that alone is not a free lance. The bishop on ４六 reaches １三 through ３五 and ２四."
+          },
+          "marks": {
+            "boxes": [
+              "1c",
+              "2b",
+              "2e",
+              "4f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2e1c+"
+          ],
+          "text": {
+            "ja": "▲１三桂成。桂は香を取って成れます。ここでは後手が金で取り返す選択を比較します。",
+            "en": "▲１三桂成 captures the lance and promotes the knight. Examine Gote’s optional gold recapture."
+          },
+          "marks": {
+            "arrows": [
+              "2e1c+"
+            ],
+            "boxes": [
+              "1c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2b1c",
+            "4f1c+"
+          ],
+          "text": {
+            "ja": "△同金▲同角成なら、桂一枚を使って香と金が先手の持駒に入り、馬１三が残ります。角筋が通ることが、この交換の条件です。",
+            "en": "After △同金 ▲同角成, Sente has spent a knight, gained a lance and gold in hand, and retained a horse on １三. The open bishop diagonal makes this exchange possible."
+          },
+          "marks": {
+            "boxes": [
+              "1c"
+            ],
+            "arrows": [
+              "4f1c+"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": [
+            "3a4a"
+          ],
+          "text": {
+            "ja": "△４一玉と取らない応手なら、金２二と成桂１三が盤上に残ります。交換の収支は、実際に金が取った順にだけ当てはまります。",
+            "en": "After △４一玉 declines the recapture, the gold on ２二 and promoted knight on １三 remain. The stated exchange balance applies only when Gote actually captures."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "二枚目の香が届く道を残す",
+        "en": "Leave a route for the second lance"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "2k6/1g7/s8/9/L8/9/9/9/8K b L 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "香９五の前に銀９三、その支えに金８二があります。先手は香をもう一枚持ちます。縦に重ねた香は前の香に遮られますが、その香が取られると道が開きます。",
+            "en": "Ahead of the lance on ９五 are a silver on ９三 and its supporting gold on ８二. Sente holds another lance. A second lance behind the first is initially blocked, but its path opens if the first is captured."
+          },
+          "marks": {
+            "boxes": [
+              "9e",
+              "9c",
+              "8b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "L*9g",
+            "7a6a"
+          ],
+          "text": {
+            "ja": "▲９七香と重ねます。△６一玉は仕組みを見るための一例で、後手が受けずに玉を動かした場合です。準備の一手には相手にも応手があります。",
+            "en": "▲９七香 stacks the lances. The illustrative △６一玉 lets us examine what happens when Gote moves the king instead of changing the defense. The preparation also gives Gote a turn."
+          },
+          "marks": {
+            "boxes": [
+              "9g",
+              "9e"
+            ],
+            "arrows": [
+              "7a6a"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "9e9c+",
+            "8b9c",
+            "9g9c+"
+          ],
+          "text": {
+            "ja": "▲９三香成△同金▲同香成。前の香を渡した後、後ろの香が同じ９三へ届きます。この応手なら香一枚と銀・金の交換ですが、後手の取り返しは強制ではありません。",
+            "en": "After ▲９三香成 △同金 ▲同香成, the rear lance reaches ９三 once the front lance is captured. This chosen line trades one lance for a silver and gold; Gote is not forced to accept it."
+          },
+          "marks": {
+            "arrows": [
+              "9g9c+"
+            ],
+            "boxes": [
+              "9c"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": [
+            "9e9c+",
+            "8b9c"
+          ],
+          "text": {
+            "ja": "準備なしに▲９三香成△同金と進めると、持駒の香をそのまま９三へ打って金を取ることはできません。駒打ちは空升だけです。先に盤上へ置く意味を確認します。",
+            "en": "Without the preparation, ▲９三香成 △同金 leaves a gold on ９三. A lance in hand cannot drop onto that occupied square to capture it; drops require an empty square. This is why placing the lance on the board first matters."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "受ける側は歩の再投入を数える",
+        "en": "As defender, count the recycled pawn"
+      },
+      "side": "gote",
+      "kind": "position",
+      "start": "5k1nl/6gs1/9/8p/9/9/8P/9/K7L w P 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手番です。歩１四と先手歩１七は離れています。先手は持ち歩がありますが、盤上の１筋にも歩があるため、今は１三へ歩を打てません。まず二歩の制約を数えます。",
+            "en": "It is Gote’s turn. The pawn on １四 is separated from Sente’s pawn on １七. Sente holds a pawn, but its on-board pawn on this file currently prevents a drop on １三 through nifu."
+          },
+          "marks": {
+            "boxes": [
+              "1d",
+              "1g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "1d1e",
+            "1g1f",
+            "1e1f"
+          ],
+          "text": {
+            "ja": "△１五歩▲１六歩△同歩と接触した例です。後手の歩が先手歩を取り、先手の１筋が歩打ちのできる筋へ変わりました。",
+            "en": "In the illustrative sequence △１五歩 ▲１六歩 △同歩, Gote captures Sente’s on-board pawn. That capture changes the first file into one where Sente can legally drop a pawn."
+          },
+          "marks": {
+            "boxes": [
+              "1f"
+            ],
+            "arrows": [
+              "1e1f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "P*1c"
+          ],
+          "text": {
+            "ja": "▲１三歩が可能になりました。自分が歩を取る手でも、相手の二歩の制約を外している場合があります。端では取った駒と、空いた筋の両方を見直します。",
+            "en": "▲１三歩 is now legal. Your own capture can remove the opponent’s nifu restriction. At the edge, recheck both the material gained and the file that was cleared."
+          },
+          "marks": {
+            "boxes": [
+              "1c"
+            ],
+            "arrows": [
+              "P*1c"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": [
+            "3b4b"
+          ],
+          "text": {
+            "ja": "△４二金と端の歩を残す応手なら、先手にはまだ二歩の制約があります。端を突くかどうかは相手の持ち歩と合わせて考えます。この手を局面全体の最善と断定してはいません。",
+            "en": "After △４二金 leaves the edge pawn in place, Sente still has the nifu restriction. Consider the opponent’s pawn in hand before advancing the edge. This move is not asserted to be the overall best choice."
+          }
+        }
+      ]
+    }
+  ]
+}

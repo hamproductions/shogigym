@@ -39,12 +39,12 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "5gs2/4g1kb1/3p5/4p4/3P5/9/2P6/3R5/K8 b - 1",
+      "start": "5gs2/4g1kb1/3p5/4p4/3P5/9/PPP6/1S1R5/KG7 b - 1",
       "steps": [
         {
           "text": {
-            "ja": "後手の舟囲いは玉３二、銀３一、金４一・５二、角２二です。外側には歩６三と進んだ歩５四があります。先手の歩６五と飛車６八が同じ筋にあるため、歩が消えた後に飛車がどこまで進めるかを調べます。",
-            "en": "Gote's Boat shelter has king ３二, silver ３一, golds ４一 and ５二, and bishop ２二. Outside it stand a pawn on ６三 and an advanced pawn on ５四. Sente's pawn on ６五 and rook on ６八 share a file; calculate where the rook can enter once the pawns leave it."
+            "ja": "後手の舟囲いは玉３二、銀３一、金４一・５二、角２二です。外側には歩６三と進んだ歩５四があります。先手の歩６五と飛車６八が同じ筋にあるため、歩が消えた後に飛車がどこまで進めるかを調べます。 先手玉９九は金８九・銀８八と７七・８七・９七の歩に守られ、角２二からの反撃もこの守備を含めて読みます。",
+            "en": "Gote's Boat shelter has king ３二, silver ３一, golds ４一 and ５二, and bishop ２二. Outside it stand a pawn on ６三 and an advanced pawn on ５四. Sente's pawn on ６五 and rook on ６八 share a file; calculate where the rook can enter once the pawns leave it. Sente’s king on ９九 is sheltered by the gold on ８九, silver on ８八, and pawns on ７七, ８七, and ９七. Include this defense when assessing counterattacks from the bishop on ２二."
           }
         },
         {
@@ -67,23 +67,23 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "5gs2/4g1kb1/5p3/6S2/9/2B6/2P6/5R3/K8 b - 1",
+      "start": "5gs2/4g1kb1/5p3/6S2/9/2B6/PPP6/1S3R3/KG7 b - 1",
       "steps": [
         {
           "text": {
-            "ja": "玉３二・銀３一・金４一と５二・角２二の舟囲いで、歩４三が角７六の斜め筋を止めています。先手飛車４八は４三へ届き、銀３四がその着地点を守ります。角で歩を取った後、金の取り返しだけでなく、玉が飛車を取れるかまで数えます。",
-            "en": "The Boat shelter has king ３二, silver ３一, golds ４一 and ５二, and bishop ２二. The pawn on ４三 blocks Sente's bishop on ７六. The rook on ４八 can reach ４三, protected there by Sente's silver on ３四. Count the king's possible recapture as well as the gold's response."
+            "ja": "玉３二・銀３一・金４一と５二・角２二の舟囲いで、歩４三が角７六の斜め筋を止めています。先手飛車４八は４三へ届き、銀３四がその着地点を守ります。角で歩を取った後、金の取り返しだけでなく、玉が飛車を取れるかまで数えます。 先手玉９九は金８九・銀８八と７七・８七・９七の歩に守られ、角２二からの反撃もこの守備を含めて読みます。",
+            "en": "The Boat shelter has king ３二, silver ３一, golds ４一 and ５二, and bishop ２二. The pawn on ４三 blocks Sente's bishop on ７六. The rook on ４八 can reach ４三, protected there by Sente's silver on ３四. Count the king's possible recapture as well as the gold's response. Sente’s king on ９九 is sheltered by the gold on ８九, silver on ８八, and pawns on ７七, ８七, and ９七. Include this defense when assessing counterattacks from the bishop on ２二."
           }
         },
         {
           "moves": [
             "7f4c+",
             "5b4c",
-            "4h4c"
+            "4h4c+"
           ],
           "text": {
-            "ja": "▲４三角成に△同金を選んだ場合、▲同飛で金を取ります。飛車４三は銀３四に守られるため、玉３二は飛車を取れません。先手は角を渡して金と歩を得た例です。銀の支えがなければ玉の取り返しが残るので、最後の飛車の安全まで読みます。△同金は強制ではありません。",
-            "en": "If Gote chooses △同金 after ▲４三角成, ▲同飛 takes the gold. The silver on ３四 protects the rook on ４三, preventing the king on ３二 from capturing it. This sample trades Sente's bishop for a gold and pawn. Without that support the king can recapture the rook; count the exchange through its final capture. Gote is not forced to take with the gold."
+            "ja": "▲４三角成に△同金を選んだ場合、▲同飛成で金を取り、龍の斜めの利きで王手を続けます。龍４三は銀３四に守られるため、玉３二は龍を取れません。先手は角を渡して金と歩を得た例です。銀の支えがなければ玉の取り返しが残るので、最後の龍の安全まで読みます。△同金は強制ではありません。",
+            "en": "If Gote chooses △同金 after ▲４三角成, ▲同飛成 captures the gold and continues check with the dragon’s diagonal step. The silver on ３四 protects the dragon on ４三, so the king on ３二 cannot capture it. This sample trades Sente’s bishop for a gold and pawn. Without the silver’s support the king can recapture; calculate through the final checking capture. Gote is not forced to take with the gold."
           }
         }
       ],
@@ -95,12 +95,12 @@
             "2b1a",
             "7f4c+",
             "5b4c",
-            "4h4c",
+            "4h4c+",
             "3b4c"
           ],
           "text": {
-            "ja": "先手が先に▲２五銀と支えを外し、後手が△１一角と応じた例です。同じ角と金の交換を始めると、最後に△４三玉で飛車も取られます。先手は角と飛車を渡して金と歩を得る収支となります。支えを失った後に、前の交換結果をそのまま当てはめられません。",
-            "en": "In this sample Sente first removes the support with ▲２五銀 and Gote replies △１一角. Repeating the exchange then allows △４三玉 to capture the rook too. Sente gives up bishop and rook for gold and pawn. A changed defender invalidates the earlier material calculation."
+            "ja": "先手が先に▲２五銀と支えを外し、後手が△１一角と応じた例です。同じ角と金の交換を始めると、▲同飛成の王手にも△同玉と龍を取られます。先手は角と飛車を渡して金と歩を得る収支となります。支えを失った後に、前の交換結果をそのまま当てはめられません。",
+            "en": "In this sample Sente first removes the support with ▲２五銀 and Gote replies △１一角. Repeating the exchange with ▲同飛成 allows △同玉 to capture the dragon too. Sente gives up bishop and rook for gold and pawn. A changed defender invalidates the earlier material calculation."
           }
         }
       ]
@@ -112,12 +112,12 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "5gs2/4g1kb1/3p5/4p4/3P5/9/2P6/3R5/K8 b - 1",
+      "start": "5gs2/4g1kb1/3p5/4p4/3P5/9/PPP6/1S1R5/KG7 b - 1",
       "steps": [
         {
           "text": {
-            "ja": "最初の６筋の局面に戻ります。飛車６八を先に一段上げると、後手は金５二を５三へ進める時間を得ます。金５三が歩５四を守るかを、歩交換の後で確かめます。",
-            "en": "Return to the sixth-file position. If Sente first lifts the rook from ６八, Gote gains time to raise the gold on ５二 to ５三. Check whether that gold protects the pawn on ５四 after the pawn exchange."
+            "ja": "最初の６筋の局面に戻ります。飛車６八を先に一段上げると、後手は金５二を５三へ進める時間を得ます。金５三が歩５四を守るかを、歩交換の後で確かめます。 先手玉９九は金８九・銀８八と７七・８七・９七の歩に守られ、角２二からの反撃もこの守備を含めて読みます。",
+            "en": "Return to the sixth-file position. If Sente first lifts the rook from ６八, Gote gains time to raise the gold on ５二 to ５三. Check whether that gold protects the pawn on ５四 after the pawn exchange. Sente’s king on ９九 is sheltered by the gold on ８九, silver on ８八, and pawns on ７七, ８七, and ９七. Include this defense when assessing counterattacks from the bishop on ２二."
           }
         },
         {

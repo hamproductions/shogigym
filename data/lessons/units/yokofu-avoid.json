@@ -191,12 +191,12 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/7b1/g8/6pR1/9/1r7/2P6/1BG6/4K4 b Pp 1",
+      "start": "4k4/6gb1/g8/6pR1/9/1rP6/9/1BG6/4K4 b Pp 1",
       "steps": [
         {
           "text": {
-            "ja": "先手飛車２四の横に後手３四歩がある。３四飛と取る道は開いているが、後手飛車８六も動ける。横歩を取る前に、飛車を２筋へ戻す手を比較する。",
-            "en": "Sente's rook on 2d is beside Gote's pawn on 3d. The rook can take that side pawn, while Gote's rook on 8f also has room to move. Compare the capture with a retreat along the second file."
+            "ja": "先手飛車２四の横に後手歩３四があります。後手飛車８六から２六への横の道は先手歩７六が止め、後手角２二は金３二に守られています。横歩を取る手と飛車を引く手を、これらの支えを含めて比べます。",
+            "en": "Sente’s rook on ２四 stands beside Gote’s pawn on ３四. Sente’s pawn on ７六 blocks the horizontal path from Gote’s rook on ８六 to ２六, while the bishop on ２二 is protected by the gold on ３二. Include those supporting pieces when comparing a side-pawn capture with a rook retreat."
           },
           "marks": {
             "arrows": [
@@ -204,7 +204,10 @@
               "2d2f"
             ],
             "boxes": [
-              "8f"
+              "7f",
+              "8f",
+              "3b",
+              "2b"
             ]
           }
         },
@@ -214,14 +217,15 @@
             "8f8d"
           ],
           "text": {
-            "ja": "先手は３四歩を取らず、飛車を２六へ引いた。後手飛車は８四へ移動した。この手順では横歩取りの３四飛という枝を選ばないが、後手の歩と飛車は盤上に残る。",
-            "en": "Sente declines the pawn on 3d and retreats its rook to 2f; Gote's rook moves to 8d. This avoids the immediate R2d3d branch, while Gote's pawn and rook remain active on the board."
+            "ja": "先手は３四歩を取らず、飛車を２六へ引いた。後手飛車は８四へ移動した。この手順では横歩取りの３四飛という枝を選ばないが、後手の歩と飛車は盤上に残る。 歩７六があるため、後手飛車が８六から２六へ直進して取る手は指せません。",
+            "en": "Sente declines the pawn on 3d and retreats its rook to 2f; Gote's rook moves to 8d. This avoids the immediate R2d3d branch, while Gote's pawn and rook remain active on the board. The pawn on ７六 prevents a direct capture from ８六 to ２六."
           },
           "marks": {
             "boxes": [
               "2f",
               "3d",
-              "8d"
+              "8d",
+              "7f"
             ]
           }
         },
@@ -274,6 +278,17 @@
           "text": {
             "ja": "横歩を取った後の８四飛は９三金に守られる。先手が３四飛で取れば同金で飛車交換になる。後手飛車の当たりと双方の取り返しを一緒に読む。",
             "en": "After the side-pawn capture, Gote’s rook on 8d is defended by the gold on 9c. R3d8d is met by G9c8d, completing a rook trade. Count both sides’ recaptures along with the attack."
+          }
+        },
+        {
+          "from": 0,
+          "moves": [
+            "2d2b+",
+            "3b2b"
+          ],
+          "text": {
+            "ja": "▲２二飛成と角を取る手には△同金があります。金３二が２二を横から守るため、この順は角を得る代わりに飛車を渡す交換です。角の位置だけでなく、その後ろの金まで確認します。",
+            "en": "▲２二飛成 can take the bishop, but △同金 recaptures. The gold on ３二 guards ２二 sideways, so this line gives up a rook for a bishop. Inspect the supporting gold as well as the bishop’s square."
           }
         }
       ]

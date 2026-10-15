@@ -7,8 +7,8 @@
     "en": "Choose Landing Squares for the Yagura Silver on 3g"
   },
   "intro": {
-    "ja": "玉８八・金７八と６七・銀７七の矢倉を残し、もう一枚の銀を３七から攻めに使います。銀を４六へ出せば３七は桂の場所になりますが、桂の着地点や歩を取った升に相手の利きがあれば、形を作っただけでは攻めになりません。相手の飛車・金の応手と、自玉側の端の歩も一緒に数える練習です。",
-    "en": "Keep Sente's Yagura core of king 8h, golds 7h and 6g, and silver 7g while using the other silver from 3g. Moving that silver to 4f clears 3g for the knight, but the shape alone is not an attack: check the knight's landing square and the defenders of each pawn contact. Also count the opponent's rook and gold replies and the edge pawn beside your own king."
+    "ja": "玉８八・金７八と６七・銀７七の矢倉を残し、もう一枚の銀を３七から攻めに使います。銀を４六へ出せば３七は桂の場所になりますが、桂の着地点や歩を取った升に相手の利きがあれば、形を作っただけでは攻めになりません。相手の飛車の逃げ方、歩打ちを支える金の利き、自玉側の端の歩も一緒に数える練習です。",
+    "en": "Keep Sente's Yagura core of king 8h, golds 7h and 6g, and silver 7g while using the other silver from 3g. Moving that silver to 4f clears 3g for the knight, but the shape alone is not an attack: check the knight's landing square and the defenders of each pawn contact. Also count the opponent's rook retreats, the gold that backs a pawn drop, and the edge pawn beside your own king."
   },
   "check": {
     "question": {
@@ -74,12 +74,12 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "3b5/6gk1/4rgs2/7pp/9/P3PS3/B1SG2NP1/1KG4R1/9 b - 1",
+      "start": "3b5/6gk1/4rgs2/7pp/9/P3PS3/2SG2NP1/1KGB3R1/9 b - 1",
       "steps": [
         {
           "text": {
-            "ja": "後手飛車は５三、銀は３三です。先手桂３七が４五へ跳ぶと、次の利きは５三と３三へ届きます。４筋には桂を取る後手歩がない一方、３三の銀は金３二・４三に守られています。",
-            "en": "Gote's rook is on 5c and silver on 3c. A knight on 4e would attack both from 3g. There is no Gote pawn on the fourth file poised to take that landing square, but both golds cover the silver on 3c."
+            "ja": "後手飛車は５三、銀は３三です。先手桂３七が４五へ跳ぶと、次の利きは５三と３三へ届きます。４筋には桂を取る後手歩がない一方、３三の銀は金３二・４三に守られています。角６八の筋は銀７七と銀４六でふさがっており、飛車に利かせる先手の駒は跳ねた桂だけです。",
+            "en": "Gote's rook is on 5c and silver on 3c. A knight on 4e would attack both from 3g. There is no Gote pawn on the fourth file poised to take that landing square, but both golds cover the silver on 3c. The bishop on 6h is blocked by the silvers on 7g and 4f, so the knight is the only Sente piece that would attack the rook."
           }
         },
         {
@@ -92,23 +92,30 @@
         {
           "moves": ["5c5b"],
           "text": {
-            "ja": "後手が飛車を５二へ引く例です。飛車の退路は一つとは限らず、この応手は駒を失わずに桂の狙いから外れます。",
-            "en": "Gote chooses to retreat the rook to 5b. This is one legal response that removes it from the knight's attack; other rook choices must be evaluated separately."
+            "ja": "後手が飛車を５二へ引く例です。飛車は桂の利きから外れますが、３三の銀にはまだ桂が利いたままです。飛車の退路は一つとは限らないので、ほかの逃げ方も別に読みます。",
+            "en": "Gote chooses to retreat the rook to 5b. The rook leaves the knight's attack, but the knight on 4e still attacks the silver on 3c. The rook has other retreats, and each must be read separately."
           }
         },
         {
-          "moves": ["5f5e"],
+          "moves": ["4e3c+"],
           "text": {
-            "ja": "先手は歩を５五へ伸ばします。銀４六が５五を守り、後手飛車が５二から同じ升へ出るなら銀で取り返せます。ただし後手は飛車を出す必要がなく、歩が伸びた後の反撃を読む局面です。",
-            "en": "Sente advances the pawn to 5e, a square protected by the silver on 4f. A rook capture from 5b would allow the silver to recapture, but Gote need not choose that exchange. The gain here is coordinated pressure, subject to Gote's next defense."
+            "ja": "残った狙いを実行し、桂で銀を取って成ります。成桂は玉２二への王手です。金や玉で取り返されても、桂一枚と銀一枚の交換で先手が駒得します。この局面の唯一の手ではなく、残った狙いを使う一例です。",
+            "en": "Sente carries out the remaining threat: the knight takes the silver and promotes, checking the king on 2b. Even if a gold or the king recaptures, trading a knight for a silver gains material. It is not the only move here, but one way to use the threat that was left."
+          }
+        },
+        {
+          "moves": ["4c3c"],
+          "text": {
+            "ja": "後手が金４三で取り返した例です。先手は銀、後手は桂を持ち駒にしました。取り返さずに玉が逃げると、成桂が金３二を取れます。",
+            "en": "In this sample reply Gote recaptures with the gold from 4c. Sente now holds a silver in hand and Gote a knight. If the king steps away instead of recapturing, the promoted knight can take the gold on 3b."
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "５筋の歩交換の後、金の応手を受ける",
-        "en": "Meet the Gold's Reply After a Fifth-File Exchange"
+        "ja": "５筋の歩交換の後、歩打ちの当たりを受ける",
+        "en": "Meet the Pawn-Drop Reply After a Fifth-File Exchange"
       },
       "side": "sente",
       "kind": "position",
@@ -116,8 +123,8 @@
       "steps": [
         {
           "text": {
-            "ja": "先手は銀４六・桂３七、歩５六。後手の歩は５四で向かい合っています。銀を５五へ出せるように見えても、先に歩がどう動くか、後手金４三がどこまで来られるかを確かめます。",
-            "en": "Sente has silver 4f, knight 3g, and pawn 5f opposite Gote's pawn on 5d. Before using 5e as a silver post, calculate the pawn exchange and how far Gote's gold on 4c can advance."
+            "ja": "先手は銀４六・桂３七、歩５六。後手の歩は５四で向かい合っています。銀を５五へ出せるように見えても、先に歩がどう動くか、交換後に歩を打たれたら銀がどこへ下がれるかを確かめます。",
+            "en": "Sente has silver 4f, knight 3g, and pawn 5f opposite Gote's pawn on 5d. Before using 5e as a silver post, calculate the pawn exchange and where the silver can retreat if Gote drops a pawn after it."
           }
         },
         {
@@ -142,17 +149,17 @@
           }
         },
         {
-          "moves": ["4c5d"],
+          "moves": ["P*5d"],
           "text": {
-            "ja": "後手が金４三を５四へ出し、次に銀５五を取る利きを作る例です。後手も矢倉の金を前に出すので、その代償と先手銀の退路を比較します。",
-            "en": "Gote chooses to move the gold from 4c to 5d, attacking the silver on 5e on the next turn. This also moves a gold away from Gote's castle, so both sides must weigh the change in cover and the silver's retreat squares."
+            "ja": "後手が交換で得た歩を５四に打ち、銀５五に当てる例です。５四の歩には金４三が利いているので、銀で取ると金に取り返され、銀を歩と交換することになります。",
+            "en": "In this sample reply, Gote drops the pawn gained in the exchange on 5d, attacking the silver on 5e. The gold on 4c protects that pawn, so capturing it with the silver would let the gold recapture, giving up the silver for a pawn."
           }
         },
         {
           "moves": ["5e4f"],
           "text": {
-            "ja": "銀を４六へ戻せば、歩の交換で得た持ち歩を残しながら金との接触を避けます。金５四が前へ出たことを利用できるかは次の局面次第で、歩交換だけを成功判定にしません。",
-            "en": "The silver retreats to 4f, keeping the pawn gained in hand while avoiding the gold. Whether Gote's advanced gold becomes a target depends on the continuation; a pawn exchange alone is not a success verdict."
+            "ja": "銀を４六へ戻し、持ち歩を残したまま当たりを避けます。６六へ引く手もあり、退路は一つではありません。５筋の歩交換は一段落しましたが、歩交換だけを成功判定にしません。",
+            "en": "The silver retreats to 4f, avoiding the attack while keeping the pawn in hand. Retreating to 6f is also possible, so this is not the only escape. The fifth-file exchange is settled, but a pawn exchange alone is not a success verdict."
           }
         }
       ]

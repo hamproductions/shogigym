@@ -56,8 +56,8 @@
         {
           "moves": ["8b8c", "8h8g"],
           "text": {
-            "ja": "後手は△８三飛と進めて８五歩を狙いました。先手は▲８七飛と上がり、８六を通じて歩を後ろから支えます。飛車が８五の歩をすぐ取れる、と決めつけずに利きを数えます。",
-            "en": "Gote moves the rook to 8c and pressures the pawn on 8e. Sente raises its rook to 8g, protecting that pawn through the now-empty 8f square. Count the support before assuming the pawn can simply be captured."
+            "ja": "後手は△８三飛と進めて８五歩を狙いました。先手飛車は８八にいても、空いた８七・８六を通じてすでに歩を守っています。▲８七飛はその守りを保って一段近づく手で、新しく利きを足す手ではありません。",
+            "en": "Gote moves the rook to 8c, attacking the pawn on 8e. Sente’s rook already protects that pawn from 8h through the empty 8g and 8f squares. Raising it to 8g preserves this defense and shortens the distance; it does not create new protection."
           },
           "marks": { "arrows": ["8h8g"], "boxes": ["8c", "8e", "8f"] }
         },
@@ -77,14 +77,14 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "9/1r4kb1/3s2p2/9/9/2PB5/4S4/1R3G1K1/3G5 b Pp 1",
+      "start": "2g6/1r4kb1/3s2p2/9/9/2PB5/4S4/1R3G1K1/3G5 b Pp 1",
       "steps": [
         {
           "text": {
-            "ja": "双方の飛車が８筋にいて、間の歩はすでにありません。先手は歩を一枚持ち、後手も歩を一枚持っています。飛車を出すなら、相手が取る場合だけでなく横へ動く場合も読みます。",
-            "en": "Both rooks occupy the eighth file, with no pawn between them. Each side holds one pawn. If Sente advances its rook, examine both an exchange and a sideways move by Gote."
+            "ja": "双方の飛車が８筋にいて、間の歩はすでにありません。先手角６六が飛車８八を守り、後手金７一が飛車８二を守ります。双方が歩を一枚持つこの局面で、飛車交換と横へ逃げる応手を比べます。",
+            "en": "Both rooks occupy the open eighth file. Sente’s bishop on 6f protects its rook on 8h, while Gote’s gold on 7a protects the rook on 8b. Each side holds one pawn. Compare an exchange with Gote’s sideways retreat."
           },
-          "marks": { "boxes": ["8b", "8h", "7b"] }
+          "marks": { "boxes": ["8b", "8h", "7a", "6f", "7b"] }
         },
         {
           "moves": ["8h8e", "8b7b"],
@@ -109,6 +109,16 @@
             "en": "Sente moves its 6i gold to 5h, while Gote returns the rook to 8b. After a declined trade, Sente can preserve its pawn in hand and improve king cover instead of repeatedly pushing the rook forward."
           },
           "marks": { "arrows": ["6i5h"], "boxes": ["5h", "8b"] }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["8h8b+", "7a8b"],
+          "text": {
+            "ja": "すぐに▲８二飛成と取っても、後手金７一が取り返します。双方が飛車を一枚ずつ持つ交換であり、先手だけが飛車を得る手ではありません。交換後の打ち込みを比べて選びます。",
+            "en": "An immediate rook capture on 8b is met by the gold from 7a. Both sides receive a rook in hand; Sente does not win a free rook. Compare the resulting rook drops before choosing the exchange."
+          }
         }
       ]
     },

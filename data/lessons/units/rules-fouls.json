@@ -10,8 +10,8 @@
     "en": "Fouls"
   },
   "intro": {
-    "ja": "手を指す前に確かめる場所は、盤面の駒だけではありません。自分の玉が安全か、歩を打つ筋に自分の歩があるか、着地点でその駒が動けるかを順に見ます。条件に合わない手は、見た目が自然でも指せません。",
-    "en": "Before making a move, check more than the piece you plan to use. Make sure your king stays safe, a pawn drop does not duplicate your pawn on a file, and the piece will still have a legal move from its destination. A move that breaks a rule is forbidden even if it looks natural."
+    "ja": "手を指す前に確かめる場所は、盤面の駒だけではありません。自分の玉が安全か、歩を打つ筋に自分の歩があるか、打った歩で詰ませていないか、着地点でその駒が動けるかを順に見ます。条件に合わない手は、見た目が自然でも指せません。",
+    "en": "Before making a move, check more than the piece you plan to use. Make sure your king stays safe, a pawn drop does not duplicate your pawn on a file, a dropped pawn does not deliver mate, and the piece will still have a legal move from its destination. A move that breaks a rule is forbidden even if it looks natural."
   },
   "check": {
     "question": {
@@ -96,7 +96,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/9/9/3P5/9/5+P3/9/9/K8 b 2P 1",
+      "start": "4k4/9/4p4/3P5/9/5+P3/9/9/K8 b 2P 1",
       "steps": [
         {
           "text": {
@@ -145,11 +145,14 @@
             "P*5e"
           ],
           "text": {
-            "ja": "５五にも歩を打てます。歩を打つたびに、その筋に自分の未成の歩がないかを調べます。",
-            "en": "A pawn may also be dropped on 5e. Check the file for one of your unpromoted pawns each time you drop."
+            "ja": "５五にも歩を打てます。５三に後手の歩がありますが、相手の歩は二歩に数えません。歩を打つたびに、その筋に自分の未成の歩がないかを調べます。",
+            "en": "A pawn may also be dropped on 5e. Gote's pawn on 5c does not count toward nifu. Check the file for one of your unpromoted pawns each time you drop."
           },
           "marks": {
-            "last": "5e"
+            "last": "5e",
+            "boxes": [
+              "5c"
+            ]
           }
         }
       ]
@@ -174,8 +177,8 @@
             "P*5b"
           ],
           "text": {
-            "ja": "後手には４一へ玉を移す手と、５二の歩を取る手があります。どちらも玉を攻めから外せるため、この局面では合法な応手を選べます。",
-            "en": "This is check from a dropped pawn. Giving check with a pawn drop is not itself a foul: Gote still has king moves and can also capture the pawn."
+            "ja": "持ち駒の歩で王手するだけなら、指してよい手です。後手は玉を４一・６一・４二・６二のどれかへ移すか、玉で５二の歩を取るかして王手を外せます。",
+            "en": "Simply giving check with a pawn from hand is a permitted move. Gote can answer by moving the king to 4a, 6a, 4b or 6b, or by taking the pawn on 5b with the king."
           },
           "marks": {
             "last": "5b"
@@ -216,6 +219,90 @@
     },
     {
       "title": {
+        "ja": "打ち歩詰めは反則、突き歩詰めは合法",
+        "en": "Pawn-drop mate is forbidden; pawn-push mate is legal"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "8k/9/p5NG1/9/9/9/9/9/K8 b GP 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手玉は１一にいます。２三の金が１二と２二に、３三の桂が２一に利いているので、玉の動ける場所はありません。先手の持ち駒は歩と金です。",
+            "en": "Gote's king is on 1a. The gold on 2c covers 1b and 2b, and the knight on 3c covers 2a, so the king has no square to move to. Sente holds a pawn and a gold in hand."
+          },
+          "marks": {
+            "boxes": [
+              "1b",
+              "2a",
+              "2b"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "ここで歩を１二へ打つと王手になり、後手は玉を動かすことも歩を取ることもできません。持ち駒の歩でこのように詰ませる手が打ち歩詰めで、指せない手です。",
+            "en": "Dropping the pawn on 1b would give check, and Gote could neither move the king nor take the pawn. Mating with a pawn dropped from hand like this is uchifuzume, and the move may not be played."
+          },
+          "marks": {
+            "dashed": [
+              "1b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "P*1c"
+          ],
+          "text": {
+            "ja": "盤上の歩で詰ませる例を見るため、歩を１三へ打ちます。王手ではないので、この打ち方は合法です。",
+            "en": "To show mate by a pawn already on the board, Sente drops the pawn on 1c instead. It is not check, so this drop is legal."
+          },
+          "marks": {
+            "last": "1c"
+          }
+        },
+        {
+          "moves": [
+            "9c9d"
+          ],
+          "text": {
+            "ja": "後手は玉を動かせず、指せる手は９三の歩を進める手だけです。",
+            "en": "Gote cannot move its king; its only legal move is pushing the pawn on 9c."
+          },
+          "marks": {
+            "last": "9d"
+          }
+        },
+        {
+          "moves": [
+            "1c1b"
+          ],
+          "text": {
+            "ja": "１三の歩を１二へ進めて王手しました。後手に応手はなく詰みです。盤上の歩を突いて詰ませるのは反則ではありません。",
+            "en": "Sente advances the pawn from 1c to 1b with check. Gote has no reply, so it is checkmate. Mating by pushing a pawn already on the board is not a foul."
+          },
+          "marks": {
+            "last": "1b"
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": [
+            "G*1b"
+          ],
+          "text": {
+            "ja": "同じ１二でも、金を打つ王手なら反則ではありません。後手に応手がなく、正しい詰みです。禁じられているのは、持ち駒の歩を打って詰ませることだけです。",
+            "en": "Dropping the gold on 1b instead is not a foul. Gote has no reply, so it is a proper checkmate. Only mating with a pawn dropped from hand is forbidden."
+          },
+          "steps": []
+        }
+      ]
+    },
+    {
+      "title": {
         "ja": "着地点で成りが必要になる駒",
         "en": "Promote when the destination requires it"
       },
@@ -239,8 +326,8 @@
             "3d2b+"
           ],
           "text": {
-            "ja": "桂が２二へ跳び、成りました。歩と香は１段目に未成で残れず、桂は１段目・２段目に未成で残れません。持ち駒から打つ場合も同じ着地点は使えません。打った駒は成れないためです。",
-            "en": "The knight jumps to 2b and promotes. A pawn or lance cannot remain unpromoted on the first rank; a knight cannot remain unpromoted on the first or second. The same destinations are forbidden for drops because a dropped piece cannot promote."
+            "ja": "桂が２二へ跳び、成りました。歩と香は１段目に未成で残れず、桂は１段目・２段目に未成で残れません。持ち駒から打つ場合も同じ着地点は使えません。打った駒は成れないためです。成桂は１一の玉に王手をかけています。２八の飛車が２二の成桂に利いているので玉は成桂を取れず、この王手は詰みです。",
+            "en": "The knight jumps to 2b and promotes. A pawn or lance cannot remain unpromoted on the first rank; a knight cannot remain unpromoted on the first or second. The same destinations are forbidden for drops because a dropped piece cannot promote. The promoted knight checks the king on 1a, and the rook on 2h defends it on 2b, so the king cannot capture it: this check is mate."
           },
           "marks": {
             "last": "2b",

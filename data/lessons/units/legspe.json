@@ -25,14 +25,14 @@
       "title": {"ja": "銀と玉が隅に収まる二手", "en": "Place the silver and king behind the lance"},
       "side": "sente",
       "kind": "position",
-      "start": "9/1r3k3/9/1p7/9/9/1P7/3R1GG1L/6SK1 b Bb 1",
+      "start": "9/1r3k3/4p4/1p7/9/9/1P7/3R1GG1L/6SK1 b Bb 1",
       "steps": [
         {
           "text": {
-            "ja": "先手香１八が上がり、玉は２九、銀は３九、金は３八・４八です。ここではまだ玉が１九にも銀が２八にもいないので、穴熊の完成形とは呼びません。後手８四歩が進めば、駒組みを続ける余裕も変わります。",
-            "en": "Sente's L1h has lifted, K2i and S3i remain outside their final squares, and the golds stand on 3h and 4h. This is an intermediate shelter. Gote's P8d can advance while Sente spends moves completing it."
+            "ja": "先手香１八が上がり、玉は２九、銀は３九、金は３八・４八です。ここではまだ玉が１九にも銀が２八にもいないので、穴熊の完成形とは呼びません。後手８四歩が進めば、駒組みを続ける余裕も変わります。後手５三歩は６四から４二玉への角筋を遮っています。",
+            "en": "Sente's L1h has lifted, K2i and S3i remain outside their final squares, and the golds stand on 3h and 4h. This is an intermediate shelter. Gote's P8d can advance while Sente spends moves completing it. Gote’s pawn on 5c blocks the bishop diagonal from 6d to its king on 4b."
           },
-          "marks": {"boxes": ["1h", "2i", "3i", "3h", "4h", "8d"]}
+          "marks": {"boxes": ["1h", "2i", "3i", "3h", "4h", "8d", "5c", "6d", "4b"]}
         },
         {
           "moves": ["3i2h", "8d8e", "2i1i"],
@@ -48,20 +48,30 @@
             "en": "Both sides still hold bishops. Even with the Anaguma core in place, inspect bishop-drop squares and the eighth-file pawn before rerouting R6h. Completing the shelter does not force an immediate attack."
           }
         }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["B*6d", "8b6b"],
+          "text": {
+            "ja": "角６四は８二飛を狙っても、５三歩で線が止まるため王手ではありません。後手は△６二飛とかわして角を狙えます。玉を囲う手と比較する際、存在しない王手飛車取りを根拠にしないようにします。",
+            "en": "B*6d attacks R8b but is not check because P5c blocks the line. Gote can move R6b and attack the bishop. Do not compare castling with a checking rook fork that this blocker prevents."
+          }
+        }
       ]
     },
     {
       "title": {"ja": "囲いの途中で８筋が開いたら", "en": "An eighth-file contact before castling is finished"},
       "side": "sente",
       "kind": "position",
-      "start": "9/1r3k3/9/9/1p7/9/1P7/3R1GG1L/6SK1 w Bb 1",
+      "start": "9/1r3k3/4p4/9/1p7/9/1P7/3R1GG1L/6SK1 w Bb 1",
       "steps": [
         {
           "text": {
-            "ja": "後手歩は８五まで来ましたが、先手玉はまだ２九、銀は３九です。後手が８筋をさらに進めた場合、先手は玉を潜らせる以外の応手も必要になります。８筋の取り合いを確かめます。",
-            "en": "Gote's pawn has reached 8e while Sente is still at K2i and S3i. A further eighth-file push may require a response before the king can tuck in. Read the pawn exchange first."
+            "ja": "後手歩は８五まで来ましたが、先手玉はまだ２九、銀は３九です。後手が８筋をさらに進めた場合、先手は玉を潜らせる以外の応手も必要になります。８筋の取り合いを確かめます。後手５三歩は６四から４二玉への角筋を遮っています。",
+            "en": "Gote's pawn has reached 8e while Sente is still at K2i and S3i. A further eighth-file push may require a response before the king can tuck in. Read the pawn exchange first. Gote’s pawn on 5c blocks the bishop diagonal from 6d to its king on 4b."
           },
-          "marks": {"boxes": ["8e", "8g", "8b", "2i", "3i"]}
+          "marks": {"boxes": ["8e", "8g", "8b", "2i", "3i", "5c", "6d", "4b"]}
         },
         {
           "moves": ["8e8f", "8g8f", "8b8f"],
@@ -85,14 +95,14 @@
       "title": {"ja": "７七歩を動かすと飛車の角筋が開く", "en": "Moving P7g opens a bishop line to the rook"},
       "side": "sente",
       "kind": "position",
-      "start": "9/1r3k3/9/1p7/9/9/2P3P2/1R3GGSL/8K b Bb 1",
+      "start": "9/1r3k3/4p4/1p7/9/9/2P3P2/1R3GGSL/8K b Bb 1",
       "steps": [
         {
           "text": {
-            "ja": "今度は先手玉１九・香１八・銀２八・金３八と４八がそろい、飛車は８八です。７七歩がある間、後手５五角から６六・７七・８八の斜線は歩で止まります。８筋へ飛車を回した後ほど、この一枚の位置が重要です。",
-            "en": "Sente now has K1i, L1h, S2h, golds on 3h and 4h, and R8h. While P7g remains, a Gote bishop on 5e would meet that pawn along 6f–7g before reaching the rook. This pawn matters after the rook transfer."
+            "ja": "今度は先手玉１九・香１八・銀２八・金３八と４八がそろい、飛車は８八です。７七歩がある間、後手５五角から６六・７七・８八の斜線は歩で止まります。８筋へ飛車を回した後ほど、この一枚の位置が重要です。後手５三歩は６四から４二玉への角筋を遮っています。",
+            "en": "Sente now has K1i, L1h, S2h, golds on 3h and 4h, and R8h. While P7g remains, a Gote bishop on 5e would meet that pawn along 6f–7g before reaching the rook. This pawn matters after the rook transfer. Gote’s pawn on 5c blocks the bishop diagonal from 6d to its king on 4b."
           },
-          "marks": {"arrows": ["5e8h"], "boxes": ["7g", "8h"]}
+          "marks": {"arrows": ["5e8h"], "boxes": ["7g", "8h", "5c", "6d", "4b"]}
         },
         {
           "moves": ["7g7f", "B*5e"],

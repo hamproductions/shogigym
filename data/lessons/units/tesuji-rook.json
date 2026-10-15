@@ -74,33 +74,86 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "k8/9/1s7/1P7/9/9/9/1R7/8K b - 1",
+      "start": "k8/3b5/9/1P7/9/9/9/4R4/8K b - 1",
       "steps": [
         {
           "text": {
-            "ja": "後手の銀８三が先手の歩８四を狙っています。飛車８八を８五へ上げれば歩の真後ろに置けます。後手が銀で歩を取った場合、飛車が同じ筋で取り返せます。",
-            "en": "Gote's silver on ８三 attacks Sente's pawn on ８四. Raising the rook from ８八 to ８五 puts it directly behind the pawn. If the silver takes the pawn, the rook can recapture on the same file."
+            "ja": "後手の角６二は７三を通って先手歩８四を狙っています。先手飛車は５八にいて、８四には利いていません。飛車を８八へ寄せれば、歩が取られた後に同じ筋で取り返せる形になります。",
+            "en": "Gote’s bishop on ６二 attacks Sente’s pawn on ８四 through ７三. The rook on ５八 does not protect ８四. Moving it to ８八 prepares a recapture along the same file if the pawn is taken."
+          },
+          "marks": {
+            "boxes": [
+              "6b",
+              "7c",
+              "8d",
+              "5h"
+            ],
+            "arrows": [
+              "6b8d"
+            ]
           }
         },
         {
-          "moves": ["8h8e"],
+          "moves": [
+            "5h8h"
+          ],
           "text": {
-            "ja": "▲８五飛。歩８四を守る位置に飛車を動かしました。銀が歩を取る応手を調べます。",
-            "en": "▲８五飛 places the rook behind the pawn on ８四. Consider the reply where the silver captures it."
+            "ja": "▲８八飛で歩８四の後ろへ回りました。８七・８六・８五が空いているため、飛車の利きが歩まで通ります。先手は歩を残す保証ではなく、取られたときの取り返しを用意しています。",
+            "en": "▲８八飛 moves behind the pawn on ８四. With ８七, ８六, and ８五 clear, the rook now reaches the pawn. This prepares a recapture rather than guaranteeing that the pawn survives."
+          },
+          "marks": {
+            "arrows": [
+              "5h8h",
+              "8h8d"
+            ],
+            "boxes": [
+              "8d"
+            ]
           }
         },
         {
-          "moves": ["8c8d"],
+          "moves": [
+            "6b8d"
+          ],
           "text": {
-            "ja": "△８四銀で歩を取られました。飛車８五と銀８四は同じ筋で隣り合っています。",
-            "en": "△８四銀 captures the pawn. The rook on ８五 and silver on ８四 now stand adjacent on the same file."
+            "ja": "△８四角で歩を取る応手です。角が８四へ来たので、飛車８八から同じ筋を上がって取れます。後手はこの交換を選ばず、角を動かすなど別の手も指せます。",
+            "en": "△８四角 takes the pawn. The bishop has reached ８四, where the rook on ８八 can capture up the file. Gote may decline this exchange and choose another move, including a bishop retreat."
+          },
+          "marks": {
+            "arrows": [
+              "6b8d"
+            ],
+            "boxes": [
+              "8h",
+              "8d"
+            ]
           }
         },
         {
-          "moves": ["8e8d"],
+          "moves": [
+            "8h8d"
+          ],
           "text": {
-            "ja": "▲８四飛で銀を取り返しました。飛車を置く一手は、歩を必ず残すためではなく、銀が歩を取った場合の交換を変えるためです。",
-            "en": "▲８四飛 recaptures the silver. The rook move does not guarantee the pawn survives; it changes the exchange if the silver takes it."
+            "ja": "▲同飛で角を取り返しました。この応手なら歩一枚と角の交換です。飛車が５八に残っていれば８四を直接取れないため、最初に８筋へ寄る一手が取り返しを作っています。",
+            "en": "▲同飛 recaptures the bishop. This chosen reply exchanges a pawn for a bishop. A rook still on ５八 could not directly capture on ８四, so the initial shift to the eighth file creates the recapture."
+          },
+          "marks": {
+            "arrows": [
+              "8h8d"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": [
+            "5h6h",
+            "6b8d"
+          ],
+          "text": {
+            "ja": "▲６八飛では８筋の支えにならず、△８四角に▲同飛とは取れません。飛車が近くへ動いたかではなく、実際の着地点まで縦横の線が通ったかを確かめます。",
+            "en": "▲６八飛 does not support the eighth file, so △８四角 cannot be answered by ▲同飛. Check whether a rank or file actually reaches the capture square, rather than merely moving the rook nearby."
           }
         }
       ]

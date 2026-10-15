@@ -47,8 +47,8 @@
         {
           "moves": ["4d4c+", "4b4c", "4i4c", "3b4c"],
           "text": {
-            "ja": "▲４三歩成に対して後手が△同金と取る例です。▲同飛で金を取れても、△同銀が残っています。歩と飛車を金と交換する順なので、この図では飛車の支えだけを根拠に踏み込めません。後手は最初から別の受けも選べます。",
-            "en": "One sample reply to ▲４三歩成 is △同金. Sente can take that gold with ▲同飛, but △同銀 then captures the rook. This line trades a pawn and rook for the gold; rook support alone does not justify the promotion here. Gote can choose a different first reply."
+            "ja": "▲４三歩成に対して後手が△同金と取る例です。▲同飛不成で金を取れても、△同銀が残っています。歩と飛車を金と交換する順なので、この図では飛車の支えだけを根拠に踏み込めません。後手は最初から別の受けも選べます。",
+            "en": "One sample reply to ▲４三歩成 is △同金. Sente can take that gold with ▲同飛不成, but △同銀 then captures the rook. This line trades a pawn and rook for the gold; rook support alone does not justify the promotion here. Gote can choose a different first reply."
           }
         }
       ]
@@ -71,8 +71,8 @@
         {
           "moves": ["4d4c+", "3b4c", "4i4c"],
           "text": {
-            "ja": "▲４三歩成は歩を取りながら成ります。後手が△同銀と取る例では、▲同飛で銀を取り、飛車が４三へ進みます。飛車の前には４二が空いており、金４一を縦に狙う形です。後手は△同銀を選ばずに受けられるため、銀得や金取りが必ず実現するとは言えません。",
-            "en": "▲４三歩成 captures the pawn while promoting. In the sample reply △同銀, ▲同飛 takes the silver and brings the rook to ４三. With ４二 empty, it now bears down on the gold at ４一. Gote need not choose the silver capture, so neither the silver gain nor the continuing gold threat is forced."
+            "ja": "▲４三歩成は歩を取りながら成ります。後手が△同銀と取る例では、▲同飛不成で銀を取り、飛車が４三へ進みます。飛車の前には４二が空いており、金４一を縦に狙う形です。後手は△同銀を選ばずに受けられるため、銀得や金取りが必ず実現するとは言えません。",
+            "en": "▲４三歩成 captures the pawn while promoting. In the sample reply △同銀, ▲同飛不成 takes the silver and brings the rook to ４三. With ４二 empty, it now bears down on the gold at ４一. Gote need not choose the silver capture, so neither the silver gain nor the continuing gold threat is forced."
           }
         }
       ]
@@ -84,19 +84,29 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "5g3/2R2gsk1/9/9/2B6/9/9/9/K8 b - 1",
+      "start": "5g3/2R2gsk1/9/9/2B6/9/PP7/1S7/KG7 b - 1",
       "steps": [
         {
           "text": {
-            "ja": "飛車７二が横から金４二を狙います。金４一も４二を支えるため、飛車だけなら交換になります。角７五の斜め筋が６四・５三を通って４二へ届くか、盤上で追ってください。",
-            "en": "The rook on ７二 attacks the gold on ４二 along the second rank. A second gold on ４一 supports it, so the rook alone would be exchanged. Trace the bishop's diagonal from ７五 through ６四 and ５三 to ４二."
+            "ja": "飛車７二が横から金４二を狙います。金４一も４二を支えるため、飛車だけなら交換になります。角７五の斜め筋が６四・５三を通って４二へ届くか、盤上で追ってください。先手玉は９九で金銀と歩に守られています。",
+            "en": "The rook on ７二 attacks the gold on ４二 along the second rank. A second gold on ４一 supports it, so the rook alone would be exchanged. Trace the bishop's diagonal from ７五 through ６四 and ５三 to ４二. Sente's king on ９九 is covered by a gold, a silver and pawns."
           }
         },
         {
-          "moves": ["7b4b", "4a4b", "7e4b+"],
+          "moves": ["7b4b+", "4a4b", "7e4b+"],
           "text": {
-            "ja": "▲４二飛で金を取り、後手が△同金と応じた場合、▲同角成で二枚目の金を取ります。飛車と金二枚の交換に加えて馬が残る例ですが、△同金は強制ではありません。金を取る前に、角の通り道と後手の別の応手を確認します。",
-            "en": "After ▲４二飛 takes the first gold, this sample has Gote reply △同金. ▲同角成 then takes the second gold and leaves a horse after Sente has spent a rook. The gold recapture is optional; verify the bishop's route and Gote's alternatives before starting the exchange."
+            "ja": "▲４二飛成で金を取り、後手が△同金と応じた場合、▲同角成で二枚目の金を取ります。飛車を渡して金二枚を得て、馬が残る例です。後手は飛車を打てますが、先手玉が囲われているので、王手と馬取りを同時に掛ける打ち込みはありません。△同金は強制ではなく、取る順番も他にあります。金を取る前に、角の通り道と、渡した駒で打たれる反撃を確認します。",
+            "en": "After ▲４二飛成 takes the first gold, this sample has Gote reply △同金. ▲同角成 then takes the second gold. Sente gives up the rook for two golds and keeps a horse. Gote can drop the rook, but Sente's king is sheltered, so no drop checks the king and attacks the horse at once. The gold recapture is optional, and this is not the only capturing order. Before taking the gold, verify the bishop's route and the counterattack the handed-over piece allows."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["7e4b+", "4a4b", "7b4b+"],
+          "text": {
+            "ja": "角から先に取る順です。▲４二角成△同金▲同飛成なら、金二枚と引き換えに渡すのは角で済み、竜が４二に残ります。取り返しの数が足りているときは、価値の低い駒から先に取るほうが損を小さくできます。",
+            "en": "This order captures with the bishop first. After ▲４二角成 △同金 ▲同飛成, Sente gives up only the bishop for the two golds, and a dragon remains on ４二. When you have enough attackers, capturing with the less valuable piece first keeps the cost lower."
           }
         }
       ]
@@ -119,8 +129,8 @@
         {
           "moves": ["5c2c+", "3b2c", "2d2c+", "2b3a"],
           "text": {
-            "ja": "▲２三飛成に△同銀なら、▲同歩成が王手です。角５六がと金２三を斜めに守るため玉は取れません。しかし図の後手玉は△３一玉と逃げられます。銀を取って王手を続けた例であり、詰みや攻めの成功を証明する順ではありません。後手には銀で取る以外の応手もあります。",
-            "en": "If Gote answers ▲２三飛成 with △同銀, ▲同歩成 checks again. The bishop on ５六 protects the tokin on ２三, so the king cannot take it. In this position Gote can escape with △３一玉. This sample wins the silver and continues the checks; it does not establish mate or a successful attack. Gote also has replies other than the silver capture."
+            "ja": "▲２三飛成に△同銀なら、▲同歩成が王手です。角５六がと金２三を斜めに守るため玉は取れません。しかし図の後手玉は△３一玉と逃げられます。飛車を渡して銀を取り、王手を続けた例であり、詰みや攻めの成功を証明する順ではありません。後手には銀で取る以外の応手もあります。",
+            "en": "If Gote answers ▲２三飛成 with △同銀, ▲同歩成 checks again. The bishop on ５六 protects the tokin on ２三, so the king cannot take it. In this position Gote can escape with △３一玉. This sample gives up the rook for the silver and continues the checks; it does not establish mate or a successful attack. Gote also has replies other than the silver capture."
           }
         }
       ]

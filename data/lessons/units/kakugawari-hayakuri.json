@@ -36,13 +36,14 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/1r7/9/5sp2/9/6P2/6S2/7R1/3K5 b Bb 1",
+      "start": "4k4/1rg6/9/5sp2/9/6P2/6S2/7R1/3K5 b Bb 1",
       "steps": [
         {
           "text": {
-            "ja": "先手銀３七は４六を経由すると３五にも届きます。後手歩３四と銀４四が並ぶため、３五で歩を取り返す順には後手銀の取り返しもあります。双方の持角まで含めて進路を選びます。",
-            "en": "Sente's silver on 3g can reach 3e via 4f. Gote has a pawn on 3d and silver on 4d, so a third-file pawn capture can draw in Gote's silver too. Include the bishops in hand before choosing the route."
-          }
+            "ja": "先手銀３七は４六を経由すると３五にも届きます。後手歩３四と銀４四が並ぶため、３五で歩を取り返す順には後手銀の取り返しもあります。双方の持角まで含めて進路を選びます。後手金７二は飛車８二を守り、王手の角７三打ちにも同金と取れます。",
+            "en": "Sente's silver on 3g can reach 3e via 4f. Gote has a pawn on 3d and silver on 4d, so a third-file pawn capture can draw in Gote's silver too. Include the bishops in hand before choosing the route. Gote’s gold on 7b guards the rook on 8b and can capture a checking bishop dropped on 7c."
+          },
+          "marks": { "boxes": ["7b", "8b", "7c"] }
         },
         {
           "moves": ["3g4f", "3d3e"],
@@ -72,6 +73,16 @@
             "en": "The silver can retreat to 4f while Sente keeps the captured silver in hand. Gote has spent its bishop drop to chase it. Different king and rook placements change that drop's value, so this example does not establish a general verdict on the attack."
           }
         }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": ["B*7c", "7b7c"],
+          "text": {
+            "ja": "角７三の王手飛車取りには金７二が角を取ります。持角があっても、打った升を守る金を越えて飛車を取れるわけではありません。",
+            "en": "The gold on 7b captures a bishop dropped on 7c to check the king and attack the rook. Having a bishop in hand does not bypass the defender of its drop square."
+          }
+        }
       ]
     },
     {
@@ -81,13 +92,14 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/1r7/6s2/6p2/5SP2/9/9/4G2R1/3K5 b Bb 1",
+      "start": "4k4/1rg6/6s2/6p2/5SP2/9/9/4G2R1/3K5 b Bb 1",
       "steps": [
         {
           "text": {
-            "ja": "先手銀４五と歩３五が後手歩３四に向かっています。銀４五は３四の歩を取れますが、後手銀３三もその升へ利きます。先手歩３五が最後に取り返せることまで見てから踏み込みます。",
-            "en": "Sente's silver on 4e and pawn on 3e face Gote's pawn on 3d. The silver can capture that pawn, but Gote's silver on 3c also controls 3d. Sente's pawn on 3e supplies the final recapture in the shown line."
-          }
+            "ja": "先手銀４五と歩３五が後手歩３四に向かっています。銀４五は３四の歩を取れますが、後手銀３三もその升へ利きます。先手歩３五が最後に取り返せることまで見てから踏み込みます。後手金７二は飛車８二を守り、王手の角７三打ちにも同金と取れます。",
+            "en": "Sente's silver on 4e and pawn on 3e face Gote's pawn on 3d. The silver can capture that pawn, but Gote's silver on 3c also controls 3d. Sente's pawn on 3e supplies the final recapture in the shown line. Gote’s gold on 7b guards the rook on 8b and can capture a checking bishop dropped on 7c."
+          },
+          "marks": { "boxes": ["7b", "8b", "7c"] }
         },
         {
           "moves": ["4e3d", "3c3d"],

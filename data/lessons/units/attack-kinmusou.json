@@ -71,16 +71,16 @@
         {
           "moves": ["5e5d", "5c5d", "5g5d", "5b5c", "5d5c+", "6b5c", "2f5c+"],
           "text": {
-            "ja": "▲５四歩に△同歩なら▲同飛と進みます。後手が飛車を金で追おうとして△５三金と出ると、▲同飛成、△同金、▲同角成まで読みます。この金出は飛車と金二枚の交換を許す受けであり、後手は別の応手を選べます。馬５三が残っても、それだけで玉への勝ちは示せません。",
-            "en": "If Gote accepts ▲５四歩 with △同歩, ▲同飛 advances the rook. An attempted gold block with △５三金 allows ▲同飛成 △同金 ▲同角成. That defense trades two golds for the rook, so Gote can choose another reply. Even with a promoted bishop on ５三, the line does not prove a win against the king."
+            "ja": "▲５四歩に△同歩なら▲同飛と進みます。後手が飛車を金で追おうとして△５三金直と出ると、▲同飛成、△同金、▲同角成まで読みます。この金出は飛車と金二枚の交換を許す受けであり、後手は別の応手を選べます。馬５三が残っても、それだけで玉への勝ちは示せません。",
+            "en": "If Gote accepts ▲５四歩 with △同歩, ▲同飛 advances the rook. An attempted gold block with △５三金直 allows ▲同飛成 △同金 ▲同角成. That defense trades two golds for the rook, so Gote can choose another reply. Even with a promoted bishop on ５三, the line does not prove a win against the king."
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "攻めの準備中に金が４筋を離れる",
-        "en": "A gold leaves the fourth-file target during preparation"
+        "ja": "攻めの準備中に金が４三の守りを外す",
+        "en": "A gold gives up its guard of ４三 during preparation"
       },
       "side": "sente",
       "kind": "position",
@@ -95,8 +95,8 @@
         {
           "moves": ["7f6e", "5b6c", "4d4c+"],
           "text": {
-            "ja": "▲６五角に△６三金とかわした例です。▲４三歩成でと金は残りますが、５二の金はすでに６三へ移り、４三のと金を取りません。角６五は４三を支え続けても、予定した金取りは起こりません。後手は別の受けも選べるため、この金移動を唯一の正解とはしません。",
-            "en": "This sample continues ▲６五角 △６三金. ▲４三歩成 leaves a tokin, but the gold has left ５二 and no longer takes on ４三. The bishop on ６五 still supports ４三, yet the planned gold exchange does not occur. Gote has other defenses; the gold move is not the only answer."
+            "ja": "▲６五角に△６三金左とかわした例です。▲４三歩成でと金は残りますが、５二の金はすでに６三へ移り、４三のと金を取りません。角６五は４三を支え続けても、予定した金取りは起こりません。後手は別の受けも選べるため、この金移動を唯一の正解とはしません。",
+            "en": "This sample continues ▲６五角 △６三金左. ▲４三歩成 leaves a tokin, but the gold has left ５二 and no longer takes on ４三. The bishop on ６五 still supports ４三, yet the planned gold exchange does not occur. Gote has other defenses; the gold move is not the only answer."
           }
         }
       ]

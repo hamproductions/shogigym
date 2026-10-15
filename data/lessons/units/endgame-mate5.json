@@ -1,0 +1,532 @@
+{
+  "id": "endgame-mate5",
+  "order": 485,
+  "path": [
+    "上達のためのテクニック",
+    "終盤"
+  ],
+  "title": {
+    "ja": "五手の詰み：最初の応手から枝分かれを読む",
+    "en": "Five-move mates: read every defensive branch"
+  },
+  "intro": {
+    "ja": "五手の順は、王手・応手・王手・応手・詰みです。最初の二手で玉の場所、守備駒、持駒が変わり、残る三手の形ができます。最初の局面はこの講座のための部分図、残りはアプリ内の計算機生成局面です。表示された双方の持駒で読む実戦型の練習で、玉方が残り全部の駒を持つ作品の約束とは異なります。駒余りや別解を認め、最長五手の詰みを確かめます。途中の受けによって三手で詰む枝もあります。",
+    "en": "A five-move line is check, defense, check, defense, and mate. The first pair changes the king’s square, defenders, or hands to produce the remaining three-move finish. The first position is a new partial composition; the others come from this app’s computer-generated set. These practical drills use exactly the displayed hands, rather than assigning all unused pieces to the defender as a composed tsume would. Spare material and alternative solutions are allowed. Establish mate within five moves against the longest defense; some branches finish in three."
+  },
+  "check": {
+    "question": {
+      "ja": "五手の本線が詰めば、他の受けも解けていますか？",
+      "en": "Does finding a five-move main line settle the other defenses?"
+    },
+    "answer": {
+      "ja": "いいえ。各王手への合法な応手をすべて調べます。取り返しや合駒が変われば最後の王手も読み直し、最終局面で王手と合法手零を確かめます。",
+      "en": "No. Examine every legal reply to each check. A different recapture or interposition requires recalculating the finish. At every endpoint, verify both check and zero legal replies."
+    }
+  },
+  "references": [
+    {
+      "title": "日本将棋連盟 まいにち詰将棋（ルールのみ参照）",
+      "url": "https://www.shogi.or.jp/tsume_shogi/",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "香を取らせ、桂と角の形へ",
+        "en": "Sacrifice a lance, then use knight and bishop"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "6k2/4ng1L1/7+B1/9/9/9/9/9/K8 b BN 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "玉３一に対し、先手は香２二・馬２三と持ち角・桂です。一手・三手で詰む王手はありません。まず香の王手で玉の場所を変えます。",
+            "en": "Against the king on ３一, Sente has a lance on ２二, horse on ２三, and a bishop and knight in hand. No checking line mates within one or three moves. First change the king’s position with the lance."
+          },
+          "marks": {
+            "boxes": [
+              "3a",
+              "2b",
+              "2c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2b2a+"
+          ],
+          "text": {
+            "ja": "▲２一香成は香を取らせる王手です。香は一段目で成らないと行き所がなくなるため、成が必要です。後手の合法な応手は△同玉だけです。",
+            "en": "▲２一香成 offers the lance with check. Promotion is compulsory on the first rank because an unpromoted lance would have no move. Gote’s only legal reply is △同玉."
+          },
+          "marks": {
+            "boxes": [
+              "2a"
+            ],
+            "arrows": [
+              "2b2a+"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3a2a",
+            "N*1c"
+          ],
+          "text": {
+            "ja": "△同玉▲１三桂。桂の王手には合駒できません。玉は１一か３一へ逃げられます。",
+            "en": "After △同玉 ▲１三桂, the knight’s check cannot be interposed against. The king can escape to １一 or ３一."
+          },
+          "marks": {
+            "boxes": [
+              "1c",
+              "1a",
+              "3a"
+            ],
+            "arrows": [
+              "N*1c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2a3a",
+            "B*2b"
+          ],
+          "text": {
+            "ja": "△３一玉には▲２二角まで。馬２三が角２二を支えます。玉の逃げ先は残らず、王手を消す合法手もありません。",
+            "en": "After △３一玉, ▲２二角 is mate. The horse on ２三 protects the bishop on ２二. There is no king escape or other legal reply."
+          },
+          "marks": {
+            "boxes": [
+              "3a",
+              "2b",
+              "2c"
+            ],
+            "arrows": [
+              "B*2b"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 2,
+          "moves": [
+            "2a1a",
+            "B*2b"
+          ],
+          "text": {
+            "ja": "△１一玉にも▲２二角まで。同じ角の斜線が玉を捉え、馬の支えも変わりません。",
+            "en": "After △１一玉, ▲２二角 also mates. The bishop checks on its other diagonal and retains the horse’s support."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "馬を渡して金の打ち場所を作る",
+        "en": "Sacrifice the horse to create a gold drop"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k1s1l/4g1G2/5P2b/p1+B2+rpNp/4N4/2P1p3P/PPKP+s4/2G4R1/L7L b S5Pgs2nl3p 107",
+      "steps": [
+        {
+          "text": {
+            "ja": "計算機生成局面 m5-200。先手の馬７四から王手を続けます。持駒には銀があり、５二には後手の金があります。取りながら捨てる順では、双方の持駒を更新します。",
+            "en": "Computer-generated position m5-200. Continue checks with the horse on ７四. Sente holds a silver, and Gote has a gold on ５二. A capturing sacrifice changes both hands."
+          },
+          "marks": {
+            "boxes": [
+              "7d",
+              "5b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7d5b"
+          ],
+          "text": {
+            "ja": "▲５二馬で金を取り、玉に馬を差し出します。後手の合法な応手は△同玉だけです。先手は金を手に入れます。",
+            "en": "▲５二馬 captures the gold and offers the horse to the king. Gote’s only legal reply is △同玉. Sente gains a gold in hand."
+          },
+          "marks": {
+            "boxes": [
+              "5b"
+            ],
+            "arrows": [
+              "7d5b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5a5b",
+            "G*6c"
+          ],
+          "text": {
+            "ja": "△同玉▲６三金。取った金を王手に使います。後手は６一か５一へ逃げます。",
+            "en": "After △同玉 ▲６三金, the captured gold supplies the next check. Gote can flee to ６一 or ５一."
+          },
+          "marks": {
+            "boxes": [
+              "6c",
+              "6a",
+              "5a"
+            ],
+            "arrows": [
+              "G*6c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5b6a",
+            "S*6b"
+          ],
+          "text": {
+            "ja": "△６一玉には▲６二銀まで。金６三が銀を支えます。馬を取らせて得た金が、最後の銀打ちを守る形になりました。",
+            "en": "After △６一玉, ▲６二銀 is mate. The gold on ６三 protects the silver. The gold gained through the horse sacrifice now supports the final drop."
+          },
+          "marks": {
+            "boxes": [
+              "6a",
+              "6b",
+              "6c"
+            ],
+            "arrows": [
+              "S*6b"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 2,
+          "moves": [
+            "5b5a",
+            "S*6b"
+          ],
+          "text": {
+            "ja": "△５一玉にも▲６二銀まで。同じ銀が斜め前へ王手し、金６三が支えます。別の詰む銀打ちもありますが、ここでは共通の決め手を示します。",
+            "en": "After △５一玉, ▲６二銀 also mates, checking diagonally forward with support from the gold on ６三. Other silver drops can also mate; this line uses a common finish."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "合駒と玉の移動で続きを分ける",
+        "en": "Separate the interposition and king-escape branches"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "l8/3s2R2/1+Bnpkp+P2/2p1p4/p8/P1PP1P3/4P1S2/1SG2K3/LN6+l b RB3GS2NPl6p 97",
+      "steps": [
+        {
+          "text": {
+            "ja": "計算機生成局面 m5-388。玉５三へ角を打つ王手を考えます。後手は香を持つので、玉の移動だけでなく合駒も数えます。",
+            "en": "Computer-generated position m5-388. Consider a bishop-drop check against the king on ５三. Gote holds a lance, so include interpositions as well as king moves."
+          },
+          "marks": {
+            "boxes": [
+              "5c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "B*3a"
+          ],
+          "text": {
+            "ja": "▲３一角は４二を通して５三へ王手します。合法な応手は△４四玉と△４二香の二つです。",
+            "en": "▲３一角 checks along ４二 toward ５三. The legal defenses are △４四玉 and △４二香."
+          },
+          "marks": {
+            "boxes": [
+              "3a",
+              "4b",
+              "5c",
+              "4d"
+            ],
+            "arrows": [
+              "B*3a"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5c4d",
+            "3c3d"
+          ],
+          "text": {
+            "ja": "△４四玉には▲３四と。と金３三を一升引き、横から王手します。と金は金と同じ動きなので後ろにも一升動けます。後手の応手は△５五玉だけです。",
+            "en": "After △４四玉, ▲３四と retreats the tokin from ３三 by one square and checks sideways. A tokin moves like a gold, including one square straight backward. Gote’s only reply is △５五玉."
+          },
+          "marks": {
+            "boxes": [
+              "4d",
+              "3d",
+              "3c",
+              "5e"
+            ],
+            "arrows": [
+              "3c3d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4d5e",
+            "G*5f"
+          ],
+          "text": {
+            "ja": "△５五玉に▲５六金まで。移動した玉の隣へ金を打ちます。合駒を選ぶ枝では、同じ順は使わず角で香を取る続きへ分かれます。",
+            "en": "After △５五玉, ▲５六金 is mate. Drop beside the relocated king. The lance-interposition branch instead requires taking the lance with the bishop."
+          },
+          "marks": {
+            "boxes": [
+              "5e",
+              "5f"
+            ],
+            "arrows": [
+              "G*5f"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": [
+            "L*4b",
+            "3a4b+",
+            "5c4d",
+            "G*4e"
+          ],
+          "text": {
+            "ja": "△４二香には▲同角成△４四玉▲４五金まで。歩４六が金４五を守ります。合駒を取ってから読む局面は、本線の玉移動の局面とは異なります。",
+            "en": "After △４二香, ▲同角成 △４四玉 ▲４五金 is mate. The pawn on ４六 protects the gold on ４五. Capturing the interposition produces a different position from the main king-escape branch."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "二枚の捨て駒を後手から読む",
+        "en": "Read a double sacrifice as Gote"
+      },
+      "side": "gote",
+      "kind": "position",
+      "start": "2gk1g2+P/1P1sl1s2/1+Lpp5/3+b1P+R2/8p/3N3p1/N4SP2/3L2G1K/3P1+pbNL w RN7Pgsp 170",
+      "steps": [
+        {
+          "text": {
+            "ja": "計算機生成局面 m5-105。この章は後手が攻め方です。先手玉１八を狙い、金打ちから二通りの受けを読みます。符号の△が攻め方、▲が玉方です。",
+            "en": "Computer-generated position m5-105. Gote attacks in this chapter, targeting Sente’s king on １八. Read both defenses to the gold drop. △ marks the attacker and ▲ the defender."
+          },
+          "marks": {
+            "boxes": [
+              "1h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "G*2h"
+          ],
+          "text": {
+            "ja": "△２八金。先手の合法な応手は▲同金と▲１七玉です。玉が逃げる枝の方が短く詰みます。",
+            "en": "△２八金 gives check. Sente’s legal replies are ▲同金 and ▲１七玉. The king-escape branch mates sooner."
+          },
+          "marks": {
+            "boxes": [
+              "2h",
+              "1g"
+            ],
+            "arrows": [
+              "G*2h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3h2h",
+            "3i2h+"
+          ],
+          "text": {
+            "ja": "▲同金に△同角成。角３九を２八へ成り込ませ、取り返した金も手に入れます。次は▲同玉だけです。",
+            "en": "After ▲同金, △同角成 brings the bishop from ３九 to ２八 and captures the gold. Sente’s only reply is ▲同玉."
+          },
+          "marks": {
+            "boxes": [
+              "3i",
+              "2h"
+            ],
+            "arrows": [
+              "3i2h+"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "1h2h",
+            "G*2g"
+          ],
+          "text": {
+            "ja": "▲同玉△２七金まで。後手歩２六が金２七を支えます。最初の金と角を取らせて、玉を最後の金が効く場所へ呼び込みました。",
+            "en": "After ▲同玉, △２七金 is mate, protected by Gote’s pawn on ２六. Sacrificing the first gold and bishop lures the king into the final gold’s reach."
+          },
+          "marks": {
+            "boxes": [
+              "2g",
+              "2f"
+            ],
+            "arrows": [
+              "G*2g"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": [
+            "1h1g",
+            "2h2g"
+          ],
+          "text": {
+            "ja": "▲１七玉なら△２七金までの三手です。２八の金を一升上へ動かします。この短い枝があっても、最長の受けが五手なので五手の詰みとして扱います。",
+            "en": "After ▲１七玉, △２七金 mates in three moves. Move the gold from ２八 to ２七. This shorter branch does not change the five-move length against the longest defense."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "逃げ方が違っても金の連続王手を保つ",
+        "en": "Keep checking with golds against either escape"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "1+B4k1l/9/2+P2pn1p/1+S1Kpn1R1/3p5/2+b2S3/s3PP2P/1p7/+l6NL b R4GL9Psn 159",
+      "steps": [
+        {
+          "text": {
+            "ja": "計算機生成局面 m5-113。先手は金を四枚持ち、３一の玉を追います。王手のたびに、玉が上段と二段目のどちらへ逃げるかを確認します。",
+            "en": "Computer-generated position m5-113. Sente holds four golds and attacks the king on ３一. At each check, consider both first-rank and second-rank escapes."
+          },
+          "marks": {
+            "boxes": [
+              "3a"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "G*2b"
+          ],
+          "text": {
+            "ja": "▲２二金に対し、後手は４一か４二へ逃げられます。どちらにも次の▲３二金が王手になります。",
+            "en": "After ▲２二金, Gote can escape to ４一 or ４二. ▲３二金 checks against either reply."
+          },
+          "marks": {
+            "boxes": [
+              "2b",
+              "4a",
+              "4b",
+              "3b"
+            ],
+            "arrows": [
+              "G*2b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3a4a",
+            "G*3b"
+          ],
+          "text": {
+            "ja": "△４一玉▲３二金。今度は５一か５二へ逃げられます。最後に打つ金の場所を、両方の逃げで確認します。",
+            "en": "After △４一玉 ▲３二金, the king can run to ５一 or ５二. Check the final gold-drop square against both escapes."
+          },
+          "marks": {
+            "boxes": [
+              "4a",
+              "3b",
+              "5a",
+              "5b"
+            ],
+            "arrows": [
+              "G*3b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4a5a",
+            "G*6b"
+          ],
+          "text": {
+            "ja": "△５一玉には▲６二金まで。金は一枚余りますが、表示された持駒での合法な詰みです。余り駒を消すために別の手を足す必要はありません。",
+            "en": "After △５一玉, ▲６二金 is mate. One gold remains unused, but this is a legal mate with the displayed hands. Do not add extra moves merely to spend spare material."
+          },
+          "marks": {
+            "boxes": [
+              "5a",
+              "6b"
+            ],
+            "arrows": [
+              "G*6b"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 2,
+          "moves": [
+            "4a5b",
+            "G*6b"
+          ],
+          "text": {
+            "ja": "△４一玉▲３二金△５二玉にも▲６二金までです。玉が二段目にいても、同じ升の金が横から王手します。",
+            "en": "After △４一玉 ▲３二金 △５二玉, ▲６二金 also mates, checking sideways on the second rank."
+          }
+        },
+        {
+          "from": 1,
+          "moves": [
+            "3a4b",
+            "G*3b",
+            "4b5a",
+            "G*6b"
+          ],
+          "text": {
+            "ja": "△４二玉の枝でも▲３二金と王手し、△５一玉・△５二玉のどちらにも▲６二金まで。表示された枝の最終局面は、すべて王手で合法な応手がありません。",
+            "en": "After △４二玉, ▲３二金 checks again. Either △５一玉 or △５二玉 is met by mate with ▲６二金. Every displayed branch ends in check with zero legal replies."
+          }
+        },
+        {
+          "from": 1,
+          "moves": [
+            "3a4b",
+            "G*3b",
+            "4b5b",
+            "G*6b"
+          ],
+          "text": {
+            "ja": "△４二玉の枝でも▲３二金と王手し、△５一玉・△５二玉のどちらにも▲６二金まで。表示された枝の最終局面は、すべて王手で合法な応手がありません。",
+            "en": "After △４二玉, ▲３二金 checks again. Either △５一玉 or △５二玉 is met by mate with ▲６二金. Every displayed branch ends in check with zero legal replies."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1780 @@
+{
+  "date": "2026-10-15",
+  "method": "Stratified 28-unit sample; per-unit auditor (tsshogi replay, legal-move enumeration, engine 400-3000ms, check-unit); each finding judged by 3 independent skeptics, confirmed when >=2 could not refute. Sequential single writer per unit fixed findings; independent verifier re-checked; root fixed verifier leftovers.",
+  "sample": [
+    "rules-drops",
+    "rules-fouls",
+    "rules-draws",
+    "basics-value",
+    "basics-forks",
+    "basics-endgame",
+    "tesuji-pawn",
+    "tesuji-knight",
+    "tesuji-bishop",
+    "proverb-three-pawns",
+    "castles-mino",
+    "castles-anaguma",
+    "attack-mino-side",
+    "attack-yagura-head",
+    "attack-kinmusou",
+    "endgame-yose",
+    "endgame-tsumero",
+    "endgame-mate3",
+    "endgame-mate1",
+    "endgame-mate-tesuji",
+    "bougin-basics",
+    "yagura-37gin",
+    "kakugawari-45kei",
+    "yokofu-23fu",
+    "shiken-vs-anaguma",
+    "gokigen-vs-choukyusen",
+    "kishu-onigoroshi",
+    "handicap-4"
+  ],
+  "clean": [
+    "rules-drops",
+    "tesuji-knight",
+    "castles-anaguma"
+  ],
+  "confirmed": [
+    {
+      "unit": "rules-fouls",
+      "location": "chapter 4 (index 3) 'Promote when the destination requires it', step 1 (after 3d2b+)",
+      "severity": "annotation-mismatch",
+      "problem": "Neither the Japanese nor the English text mentions the rook arrow 2h2b. It is not the move just played, which was 3d2b+. The board also shows something the text never says: 3d2b+ checks the king on 1a and is checkmate, because the rook on 2h guards the promoted knight on 2b. The learner sees an unexplained arrow and a silent checkmate in a lesson about compulsory promotion.",
+      "sfen": "8k/7+N1/9/9/9/9/9/7R1/K8 w - 1",
+      "proposed_fix": "Either explain the arrow and the mate in both languages (for example: 成桂の王手で、２八の飛車が２二を支えているため詰み), or remove the rook and the 2h2b arrow so the chapter only shows compulsory promotion.",
+      "status": "fixed"
+    },
+    {
+      "unit": "rules-fouls",
+      "location": "chapter 3 (index 2) 'Separate a pawn-drop check from pawn-drop mate', whole chapter (steps 1-3 and variation 0)",
+      "severity": "weak-pedagogy",
+      "problem": "No node in the chapter shows uchifuzume: there is no pawn drop that would be mate, and nothing marks that drop as illegal. No node shows the legal case either, a board pawn pushing to give mate. Every position has the gote king alone on an open board with 5 legal replies. The rule the chapter is named after is only stated in text.",
+      "sfen": "5k3/4P4/9/9/9/9/9/9/K8 b - 1",
+      "proposed_fix": "Compose an original position where a pawn drop in front of a hemmed-in king would leave no legal reply. Mark that drop as forbidden (dashed square or text), and add a variation where the same mate comes from a board pawn push or a different drop. Verify both with a legal-reply listing.",
+      "status": "fixed"
+    },
+    {
+      "unit": "rules-fouls",
+      "location": "chapter 3 (index 2), step 1 (after P*5b)",
+      "severity": "misleading",
+      "problem": "Gote has five legal replies: 5a4a, 5a4b, 5a5b (capture), 5a6a and 5a6b. The Japanese lists only 4a and the capture. The two languages also say different things: only the English says that a pawn-drop check is not itself a foul, and only the Japanese claims an enumeration of the replies.",
+      "sfen": "4k4/4P4/9/9/9/9/9/9/K8 w - 1",
+      "proposed_fix": "Japanese: 歩を打って王手をかけること自体は反則ではありません。後手玉は４一・６一・４二・６二へ逃げることも、５二の歩を取ることもできます。 Make the English match it.",
+      "status": "fixed"
+    },
+    {
+      "unit": "rules-fouls",
+      "location": "chapter 2 (index 1) 'Check the file before dropping a pawn', step 1 (after P*4d)",
+      "severity": "weak-pedagogy",
+      "problem": "There is no gote pawn anywhere in the chapter, so the enemy-pawn half of the rule is stated but never shown. Only the tokin case is shown on the board.",
+      "sfen": "4k4/9/9/3P1P3/9/5+P3/9/9/K8 w P 1",
+      "proposed_fix": "Place a gote pawn on the 5-file in the start position (for example 5c, leaving the 5e drop legal) and box it in step 3 when the pawn is dropped on 5e, so the enemy-pawn case is shown on the board.",
+      "status": "fixed"
+    },
+    {
+      "unit": "basics-value",
+      "location": "chapter index 2 '盤上と持駒で交換を数える', step 1 (moves 4d4c)",
+      "severity": "wrong",
+      "problem": "The silver moves from 4d into the promotion zone at 4c, so 4d4c+ is also legal. Standard kifu notation must write 不成 when a piece could promote but doesn't. The correct notation is ▲４三銀不成. A bare ▲４三銀 does not say which of the two legal moves was played.",
+      "sfen": "k8/6g2/5p3/5S3/9/9/9/9/K8 b RB2GS2N2L9Prbg2s2n2l8p 1",
+      "proposed_fix": "Write '▲４三銀不成で歩を取りました' in ja and '▲４三銀不成 (declining promotion) captures the pawn' in en.",
+      "status": "fixed"
+    },
+    {
+      "unit": "rules-draws",
+      "location": "chapter index 1 '点数と合意で決まる持将棋', step 1",
+      "severity": "annotation-mismatch",
+      "problem": "The boxes cover 11 squares: 9a 8a 7a 6a 5a 4a 3a 2a 9b 8b plus 4c, which is Sente's king. A learner who counts the highlighted squares to check the ten-piece condition gets 11. The king is also exactly the piece the text says to exclude, and it scores 0.",
+      "sfen": "RBGGSS+N+L1/PP7/5K3/9/9/9/3k5/9/9 b RBP2g2s3n3l15p 1",
+      "proposed_fix": "Remove \"4c\" from boxes, or move the king square into a separate mark such as dashed, so the boxes count the ten scoring pieces exactly.",
+      "status": "fixed"
+    },
+    {
+      "unit": "rules-draws",
+      "location": "chapter index 3 '王手の履歴で結果が変わる', steps 1–3",
+      "severity": "weak-pedagogy",
+      "problem": "The chapter shows only one check (bishop 4d to king 7a) and one escape (7a6a), then ends. No repeating cycle is played, no position recurs, and no continuous-check sequence or non-checking interruption appears. The rule the chapter is named after is stated with no board example. Step 1 even says 'このような各局面の記録を見て' although no record is built.",
+      "sfen": "3k5/9/9/5B3/9/9/9/9/K8 b - 1",
+      "proposed_fix": "Compose a short original cycle in which Sente checks on every move and Gote's king shuttles until the start position recurs. Add a contrasting variation in which Sente inserts one non-checking move. Both lines should be legal and repeat the full position, so the foul-loss and ordinary-repetition outcomes are each shown on the board.",
+      "status": "fixed"
+    },
+    {
+      "unit": "basics-value",
+      "location": "chapter index 1 '動きと働きで価値を見る', steps 0–4",
+      "severity": "weak-pedagogy",
+      "problem": "The composed position (rook 4e, bishop 7f, gold 3f, silver 6g, pawn 5h, knight 3h, lance 2i) is never referenced. All five steps are text-only on the same node, with no marks or arrows on any piece's reach and no moves. The chapter claims to judge value by movement and activity on this board, but nothing on the board shows it.",
+      "sfen": "4k4/9/9/9/5R3/2B3G2/3S5/4P1N2/K6L1 b - 1",
+      "proposed_fix": "Mark each piece's actual reach in the composed position as the text discusses it: arrows or boxes for rook 4e and bishop 7f lines, silver 6g backward diagonals, knight 3h jump squares, lance 2i file. Optionally show one promotion move, so each statement points to visible squares.",
+      "status": "fixed"
+    },
+    {
+      "unit": "basics-value",
+      "location": "chapter index 3 '二枚の合計を比べる', steps 0–3",
+      "severity": "weak-pedagogy",
+      "problem": "The position (Sente silver 5f, Gote pawns 6c and 4c, kings on 5i and 5a) is static: step 0 says no exchange has happened, and none follows. The one-for-two trade the chapter compares never happens. The pawns are not near promotion and the silver shields no king, so neither qualifier in step 2 is illustrated.",
+      "sfen": "4k4/9/3p1p3/9/9/4S4/9/9/4K4 b - 1",
+      "proposed_fix": "Compose a legal exchange in which one side actually gives a silver and wins two pawns, or the reverse, and show hands and values before and after. Add a variation where a pawn's promotion or the silver's king-shield role makes the arithmetic misleading, so step 2's caveat is demonstrated.",
+      "status": "fixed"
+    },
+    {
+      "unit": "basics-endgame",
+      "location": "chapter 2 (王手の先に残る升を読む), start step 0, step 2 (6b4b), step 3 (4a5a)",
+      "severity": "wrong",
+      "problem": "At the start position, ▲４二飛成 (6b4b+) is immediate checkmate. The dragon covers ５一 and ３一 diagonally, and the gold on ５三 protects it. After the lesson's own escape △５一玉, ▲５二飛成 (4b5b+) is again mate in one. Even after the other escape, △３一玉 (which the lesson never mentions), the engine reports mate in 4. So the chapter presents a non-mating check as the lesson, misses a mate in one twice, and contradicts the unit intro's 「詰みがあれば選び」. The text also implies ５一 is the only open square, but ３一 is a second legal escape.",
+      "sfen": "start 5k3/3R5/4G4/9/9/9/9/9/8K b - 1; after 6b4b: 5k3/5R3/4G4/9/9/9/9/9/8K w - 1; after 6b4b 4a5a: 4k4/5R3/4G4/9/9/9/9/9/8K b - 1",
+      "proposed_fix": "Recompose the position so the unpromoted check really leaves an escape and promotion does not mate. For example, keep the rook from reaching a promotion square, or give the defender a guard on ５二/３二, then verify with the engine that the start has no mate. Alternatively, rewrite the chapter so it teaches that ▲４二飛成 mates where ▲４二飛 lets the king escape, which is a promotion-escape lesson. Either way, mention both escapes (５一 and ３一) or make one of them covered.",
+      "status": "fixed"
+    },
+    {
+      "unit": "basics-forks",
+      "location": "chapter 1 (逃げた駒のあとに残る一枚を取る), step 3 (moves 3c3d)",
+      "severity": "misleading",
+      "problem": "５三 is not diagonal from ３四: it is 2 files and 1 rank away, a knight-like offset. The rook does not defend ５三 because ５三 is on neither its rank nor its file. The stated reason is wrong geometry.",
+      "sfen": "k8/9/4g4/6r2/5N3/9/9/K8/9 b - 1",
+      "proposed_fix": "JA: 「飛車３四は金５三と同じ段にも筋にもいないため守れず」. EN: 'a rook on ３四 shares neither a rank nor a file with ５三, so it no longer defends the gold.'",
+      "status": "fixed"
+    },
+    {
+      "unit": "basics-forks",
+      "location": "chapter 1, step 0 (start) and step 3 (moves 3c3d) / step 4 (4e5c)",
+      "severity": "weak-pedagogy",
+      "problem": "At the start, the rook on ３三 already protects the gold on ５三 along the rank, because ４三 is empty. If the rook escapes along that rank (△４三飛, △２三飛 or △１三飛), the gold stays protected and the 'fork' only trades knight for gold. △３四飛 is the escape that abandons the gold, and the lesson never labels it as the weaker reply. This is the very check that step 0 and the unit intro tell the learner to make (「応手後に安全に取れる駒だけを数えます」). The engine confirms a gap of about one knight between the two defenses.",
+      "sfen": "after 5g4e: k8/9/4g1r2/9/5N3/9/9/K8/9 w - 1; after 3c3d: k8/9/4g4/6r2/5N3/9/9/K8/9 b - 1; protective alternative after 3c4c 4e5c+ 4c5c: k8/9/4r4/9/9/9/9/K8/9 b Gn 1",
+      "proposed_fix": "Add a variation from step 2: △４三飛 (3c4c) ▲５三桂成 △同飛, with text explaining that an escape along the third rank keeps the gold protected, so only a knight-for-gold trade remains. Then state that △３四飛 is the reply that gives up the gold's protection.",
+      "status": "fixed"
+    },
+    {
+      "unit": "basics-forks",
+      "location": "chapter 1, step 4 (moves 4e5c)",
+      "severity": "weak-pedagogy",
+      "problem": "The capture lands in the promotion zone. 4e5c+ is legal, and the engine rates it clearly higher. An unpromoted knight on ５三 cannot retreat and can only jump to ４一/６一 with forced promotion. The main line silently teaches 不成 with no reason given.",
+      "sfen": "after 4e5c: k8/9/4N4/6r2/9/9/9/K8/9 w G 1; after 4e5c+: k8/9/4+N4/6r2/9/9/9/K8/9 w G 1",
+      "proposed_fix": "Change the move to 4e5c+ (▲５三桂成) and update the JA/EN notation, or add one sentence explaining why the knight stays unpromoted.",
+      "status": "fixed"
+    },
+    {
+      "unit": "tesuji-pawn",
+      "location": "chapter 3 (index 2) 成りを予告して守り駒を動かす, step 3 (final) and the chapter premise",
+      "severity": "wrong",
+      "problem": "After ▲６四歩 Gote has 5 legal replies: two knight jumps and three king moves. 6d6c+ is still legal after every one of them, so no reply in this position stops the promotion. The knight on 6b also defends nothing. It never controls 6c, and it moves only because the coming tokin would attack it. The chapter therefore does not show a defender being drawn away, and its warning about other defences describes a position that does not exist here.",
+      "sfen": "k8/3n5/9/3P5/9/9/9/9/8K w - 1",
+      "proposed_fix": "Recompose the start so that a Gote piece actually guards 6c, or guards a target the tokin would later attack, and so that at least one legal reply really prevents the promotion. Then show that reply as a variation. The other option is to retitle the chapter to an unstoppable promotion threat that attacks the knight, and replace the final sentence with: no Gote reply here can stop 6c+.",
+      "status": "fixed"
+    },
+    {
+      "unit": "tesuji-pawn",
+      "location": "chapter 5 (index 4) 二枚目の歩まで応手を読む, step 0",
+      "severity": "wrong",
+      "problem": "5b is not on either diagonal of the bishop on 3g. The bishop's legal moves are 1e, 2f, 2h, 4f, 4h, 5e, 5i, 6d, 7c(+), 8b(+), 9a(+). The Japanese sentence is false. It also contradicts the chapter's own idea, which is to lure the gold onto the diagonal at 6d. The English does not make the claim, so the two texts also disagree.",
+      "sfen": "8k/4g4/9/9/9/9/6B2/9/8K b 2P 1",
+      "proposed_fix": "Change the Japanese to something like 先手は歩を二枚持ち、角３七の斜めの道（４六・５五・６四）から外れた５二に後手の金がいます, and make the English match: 'Gote's gold on ５二 is off the bishop's diagonal through ４六, ５五 and ６四.'",
+      "status": "fixed"
+    },
+    {
+      "unit": "tesuji-pawn",
+      "location": "chapter 5 (index 4) 二枚目の歩まで応手を読む, steps 0-1",
+      "severity": "misleading",
+      "problem": "The gold on 5b guards 6b by its sideways move, and nothing defends a tokin on 6b. If Gote ignores the pawn (for example with 1a1b) and Sente plays 6c6b+, the gold simply captures the tokin. The 'threat' to the gold is not real. The gold also guards 6c, so the dropped pawn is just hanging. The real reason for ▲６三歩 in this line is to offer the gold a capture that pulls it toward the diagonal.",
+      "sfen": "8k/4g4/3P5/9/9/9/6B2/9/8K w P 1",
+      "proposed_fix": "Describe ▲６三歩 as a pawn the gold can take, which brings the gold one step closer to the bishop's diagonal, and remove the claim that ６二歩成 threatens the gold. Alternatively, recompose the position so that 6b is not guarded by the gold.",
+      "status": "fixed"
+    },
+    {
+      "unit": "tesuji-pawn",
+      "location": "chapter 2 (index 1) 金の下に歩を残す, steps 2-3",
+      "severity": "annotation-mismatch",
+      "problem": "5h is inside Gote's promotion zone. tsshogi offers both 5a5h and 5a5h+, so the unpromoted capture is a choice to decline promotion. In standard notation that move is △５八飛不成, and the text omits 不成. A rook capturing in the zone would normally promote; the bottom pawn recaptures either way, so the lesson's point does not change. The knight unit writes 桂不成 explicitly, so this unit is also inconsistent with it.",
+      "sfen": "k3r4/9/9/9/9/9/9/4G4/4P3K w - 1",
+      "proposed_fix": "Use 5a5h+ with △５八飛成 / '△５八飛成 takes the gold', and in step 3 say the pawn recaptures the dragon (竜を取り返しました). Otherwise keep 5a5h and write △５八飛不成.",
+      "status": "fixed"
+    },
+    {
+      "unit": "tesuji-bishop",
+      "location": "chapter 2 (歩が空ける斜めの道), steps 1 and 3",
+      "severity": "wrong",
+      "problem": "After ▲4五歩 the bishop's line runs 2h-3g-4f-5e-6d-7c-8b-9a, so the rook on 7c is pinned against the king on 9a. Gote has no rook move and no block; the only legal replies are three king moves. The real idea is a pin with a discovered attack. The text presents it as a target that can escape, which reverses the lesson. The engine's best reply, △8二玉, is also missing: the king then guards 7c, so ▲7三角成 △同玉 wins the rook for the bishop instead of winning it outright.",
+      "sfen": "k8/9/2r6/9/5P3/9/9/7B1/8K w - 1",
+      "proposed_fix": "Rewrite steps 1 and 3 around the pin. After ▲4五歩 the rook on 7c is pinned to the king on 9a and cannot move or be blocked, so Gote only has king moves. Add the △8二玉 line (▲7三角成 △同玉, rook for bishop). Keep △9二玉 as the line that wins the rook outright. Remove the claim that Gote can move the rook or interpose.",
+      "status": "fixed"
+    },
+    {
+      "unit": "proverb-three-pawns",
+      "location": "chapter 5 (同じ筋へ三枚目を打つ条件), step 3 (moves 9a9b, 4d4c+)",
+      "severity": "misleading",
+      "problem": "The tokin on 4c can be captured at once by the rook on 4b (adjacent on the file) and by the gold on 5c (sideways step). So promoting does not create a real threat against the rook; it just loses the pawn. The engine's best reply is 4b4c, and promoting is worse for Sente than declining. The step only warns that the third pawn might be captured. It does not say the promoted tokin is also loose, so the learner sees a threat that does not exist.",
+      "sfen": "9/k4r3/4g+P3/9/5p3/9/9/5R3/8K w 2p 1",
+      "proposed_fix": "Say that ４三歩成 is met by △同飛 or △同金, so on this file even the promotion gains nothing. For example: '後手が玉を動かしても、４三のと金は４二飛と５三金に取られる。' Alternatively, end the chapter at step 2 and the variation, and use chapter 4 for the comparison where the tokin is safe (in chapter 4, at 4c+ with SFEN 9/4r4/k1g2+P3/9/3R5/9/9/9/8K w P2p 1, no Gote piece can reach 4c).",
+      "status": "fixed"
+    },
+    {
+      "unit": "tesuji-bishop",
+      "location": "chapter 1 (王手を遮りながら飛車へ利かす), steps 0–3",
+      "severity": "weak-pedagogy",
+      "problem": "The engine rates the featured drop about 1800–1900 cp worse than the simple ▲5八玉, and in the line shown Gote's normal reply simply trades the bishop off. The chapter never shows a position where blocking while also attacking actually pays off. It also never points out the stronger alternative. In addition, the text leaves out that ▲7七角 also attacks the checking bishop on 9五 through 8六, which is why Gote trades. So the chapter teaches a mechanism through a move that does not work, with no position showing it working.",
+      "sfen": "k8/9/9/5r3/b8/9/9/1S7/4K4 b B 1",
+      "proposed_fix": "Recompose the position so that the block-and-attack drop actually wins: the defender's best reply leaves the rook or the checking piece loose and the drop is the engine's choice. If you keep this position, label ▲7七角 as a comparison move, add a variation with ▲5八玉 as the better answer, and say that the drop forks the 9五 bishop and the 4四 rook, which is why Gote trades with △同角.",
+      "status": "fixed"
+    },
+    {
+      "unit": "tesuji-bishop",
+      "location": "intro",
+      "severity": "misleading",
+      "problem": "The unit has four chapters. The fourth (玉への角筋が歩の取りを制限する, the pin plus knight check) is neither counted nor described, so the Japanese count is wrong and the two languages disagree about the scope.",
+      "sfen": "k8/1p7/9/9/9/9/9/7B1/8K b N 1",
+      "proposed_fix": "Change the intro to 四つの局面 and add the fourth theme, for example '角筋で動けない駒を利用すること' / 'using a piece pinned by the bishop'. Make the English match, including the count.",
+      "status": "fixed"
+    },
+    {
+      "unit": "proverb-three-pawns",
+      "location": "intro",
+      "severity": "misleading",
+      "problem": "The opened-file example is chapter 4, not the last one. Chapter 5 (同じ筋へ三枚目を打つ条件, the third pawn on the same file, which can be captured) follows it and is not mentioned. The described order and scope do not match the unit.",
+      "sfen": "k8/5r3/4gp3/9/9/9/9/5R3/8K b 3P 1",
+      "proposed_fix": "Add the fifth chapter to the intro, for example '最後に、三枚目を同じ筋へ打つと取られる条件を比べます' / 'finally, compare the conditions under which a third pawn on the same file can be captured'. Make the English match.",
+      "status": "fixed"
+    },
+    {
+      "unit": "castles-mino",
+      "location": "chapter index 2 (銀冠は王手を止める場所まで確認する / Silver Crown must answer the actual rook check), steps 0-1",
+      "severity": "wrong",
+      "problem": "Nothing protects the checking rook on ４八; Gote has only a king on ５一. Two golds can simply capture it: gold ４七 moving straight back (4g4h) and gold ４九 moving straight forward (4i4h). The position is a forced mate for Sente (mate in 15) after taking the rook. The interposition the lesson teaches turns that into a position where Gote is better (+261 for Gote). So the lesson picks the wrong move, and a learner who sees the free rook is told to block instead. Moving silver ２七 to ３八 (2g3h) also blocks the check, so 金 is not even the only way to block.",
+      "sfen": "4k4/9/9/9/9/9/5GNS1/5r1K1/5G3 b - 1",
+      "proposed_fix": "Put the checking rook where neither gold can capture it, so blocking becomes the real question. Candidate start: `4k4/9/9/9/9/9/5GNS1/3r3K1/5G3 b - 1` (rook on ６八). I checked it with tsshogi: Sente is in check and cannot capture the rook. Engine at 800 ms, scores for Gote after each reply: 4i3h -448, 2g3h -862, 2h1g -683, 2h3i -1, 4i4h -255, 4g4h -94, and 4i5h +2020 (loses). ▲３八金 is a sound block that completes Silver Crown, but the engine prefers ▲３八銀, so the text should not call it the only or best answer. It could mention the silver block as an alternative. Update the Japanese and English step text to name the rook on ６八 and the squares it crosses (５八, ４八, ３八).",
+      "status": "fixed"
+    },
+    {
+      "unit": "castles-mino",
+      "location": "chapter index 3 (２筋の歩を上げる前に飛車筋を見る / Check the rook file before advancing the head pawn), step 1",
+      "severity": "misleading",
+      "problem": "The pawn on ２六 has no defender, and taking it gives check. After △２六飛 the file ２七 is empty, so the rook checks the king on ２八, and no Sente piece can take back on ２六. The engine's best reply is that capture, and the push loses about 1,970 cp, swinging the evaluation from +1255 for Sente to +718 for Gote. Saying the pawn 'may' be taken, and that the result 'depends on Gote's reply', hides that the push just drops a pawn with check. The step gives no position where Chonmage Mino survives.",
+      "sfen": "4k4/7r1/9/9/9/7P1/9/4G1SK1/5G3 w - 1",
+      "proposed_fix": "State the fact plainly: the pawn on ２六 has no defender, and △２六飛 wins it with check through ２七. Silver ３八 guards only ２七. Losing the pawn leaves the Bozu Mino shape. Add a variation from step 0 that shows 2b2f. If the chapter should also show Chonmage Mino surviving, add a contrasting example where ２六 is defended before the pawn advances, and verify it with the engine.",
+      "status": "fixed"
+    },
+    {
+      "unit": "attack-mino-side",
+      "location": "chapter 3 (index 2) 'Back a lateral rook attack with a bishop', step 1 (moves 7b4b 4a4b 7e4b+)",
+      "severity": "wrong",
+      "problem": "At the end of the line, Gote holds the rook it captured. Sente's king on 9i has no cover. R*4i checks the king along the i-rank and attacks the horse on 4b up the 4th file. All 6 legal Sente replies (9i8h, 9i9h, G*5i, G*6i, G*7i, G*8i) let 4i4b take the horse. So the horse does not stay: the line ends with Sente having lost both rook and bishop for two golds. The engine scores the shown line as a large loss for Sente, not as a gain backed by the bishop. The flaw is in how the position is composed (bare Sente king). Moving the pawn to 4g does not fix it, because R*9b forks the king and horse the same way.",
+      "sfen": "9/5+Bsk1/9/9/9/9/9/9/K8 w 2Gr 1",
+      "proposed_fix": "Recompose so Sente's king has a shelter that blocks rook-drop forks. Tested example: start '5g3/2R2gsk1/9/9/2B6/9/PP7/1S7/KG7 b - 1'. Engine 2000ms: start '+3675 7e4b+'; after 7b4b Gote '-2544'; endpoint '9/5+Bsk1/9/9/9/9/PP7/1S7/KG7 w 2Gr 1' Gote '-2673'. Note the engine prefers taking with the bishop first (7e4b+), so the text should not call the rook-first order best. Alternatively, keep the position and rewrite the text so the endpoint teaches the R*4i fork as the cost of the exchange.",
+      "status": "fixed"
+    },
+    {
+      "unit": "attack-mino-side",
+      "location": "chapter 4 (index 3) 'Find the king's exit after a rook check', step 1 (moves 5c2c+ 3b2c 2d2c+ 2b3a)",
+      "severity": "misleading",
+      "problem": "Sente gives up the rook (dragon) and gets only a silver back: Sente's hand is S, Gote's hand is r. 'Wins the silver' reads in English as a net gain, which goes beyond the Japanese 「銀を取って」. In a unit about counting recaptures, the chapter also leaves out that the line trades a rook for a silver. The engine shows Sente's score falling from +3547 to +603 over this line. The escape claim itself is correct: after 2d2c+ Gote has 2b1a, 2b2a and 2b3a.",
+      "sfen": "5gk2/9/7+P1/9/9/4B4/9/9/K8 b Sr 1",
+      "proposed_fix": "EN: 'This sample captures the silver at the cost of the rook and keeps checking; it does not establish mate…'. JA: add 「飛車を銀と交換した結果」 so the material count is stated.",
+      "status": "fixed"
+    },
+    {
+      "unit": "attack-yagura-head",
+      "location": "chapter 3 (index 2) 'An extra preparation move exposes the head pawn', steps 0–1 and title",
+      "severity": "misleading",
+      "problem": "The lance on 7h defends the pawn on 7e (7g and 7f are empty). So 6d7e simply loses the gold to 7h7e. After 5c6d the engine's best Sente move is a quiet king move that does nothing for 7e. Following that with 6d7e 7h7e leaves Gote about -1387, against about -72 for Gote's best move. The real point of the chapter, that the extra gold covers 7d sideways, is correct. The 'threatens the pawn' wording, and the title built on it, describe a threat that does not exist.",
+      "sfen": "9/2kg5/2ps5/3g5/2P6/4B4/9/2L6/8K b - 1",
+      "proposed_fix": "Retitle around the actual mechanism, e.g. 「準備の一手で７四の守りが増える」 / 'An extra preparation move adds a defender to ７四'. Replace 「歩７五を狙うだけでなく」 with a statement that the gold now covers ７四 sideways. If the 7e pawn is mentioned, say the lance on 7h defends it.",
+      "status": "fixed"
+    },
+    {
+      "unit": "attack-yagura-head",
+      "location": "chapter 2 (index 1) 'Turn a ninth-file exchange into rook entry', step 1 (final move 9d9c+)",
+      "severity": "weak-pedagogy",
+      "problem": "The ending the chapter shows is a dragon attacking a defended piece, with nothing gained, which the text itself admits. In the same position, 9d9b+ promotes with check along the b-rank: Gote's only replies are 7b6a, 7b7a and P*8b. The engine rates it about 370–620 cp better than 9d9c+. A chapter about turning the edge exchange into rook entry demonstrates a weaker entry square and does not mention the checking entry.",
+      "sfen": "9/2k6/2gsg4/R8/9/9/9/9/8K b Pp 1",
+      "proposed_fix": "Make the main line end with ▲９二飛成 (check) and explain the entry from that square. Alternatively, keep ▲９三飛成 as a comparison variation that is labelled as weaker, and state why: it attacks a defended gold and does not check.",
+      "status": "fixed"
+    },
+    {
+      "unit": "endgame-yose",
+      "location": "chapter 4 (index 3) '自玉への到達速度も数える', step 1 (moves G*3c 2b1a 3c2c 9d9g+)",
+      "severity": "wrong",
+      "problem": "After △１一玉, Sente has a mate in 5 plies by consecutive checks starting ▲４一飛成. The solver confirms it for every defender reply. The counterattack the lesson shows exists only because ▲２三金 is a quiet move that throws the mate away. So the line does not show that Sente must deal with Gote's route. It shows Sente missing a forced mate. The sample Gote reply △１一玉 is itself a blunder.",
+      "sfen": "8k/9/5RG2/r8/9/9/P8/9/K8 b - 1",
+      "proposed_fix": "Change Gote's sample reply to △１三玉 (2b1c), which is the engine's best defence. After it the engine's best Sente move is the king move ▲９八玉 (9i9h, eval +65 at 5000ms) against the △９七飛成 threat. That position shows the chapter's idea correctly. Alternatively, keep △１一玉 and say plainly that ▲４一飛成 mates and ▲２三金 is a mistake.",
+      "status": "fixed"
+    },
+    {
+      "unit": "endgame-yose",
+      "location": "chapter 4 (index 3), step 0 and step 1 (the choice of ▲３三金)",
+      "severity": "misleading",
+      "problem": "The engine says ▲３三金 throws away a winning advantage. From +4337 it drops to about even (+264 for Gote) after the reply △１三玉. The other gold drop, ▲２三金打 (G*2c), keeps a large advantage. The lesson never says that the chosen check is a poor choice, and that is exactly the mistake the chapter is about: checking without counting the opponent's counterattack.",
+      "sfen": "9/7k1/5R3/r8/9/9/P8/9/K8 b G 1",
+      "proposed_fix": "Name ▲３三金 as the check that ignores the counterattack, and show that after △１三玉 Sente has to spend a move on its own king (▲９八玉). Compare it with ▲２三金打 as the stronger gold drop, with engine evidence.",
+      "status": "fixed"
+    },
+    {
+      "unit": "endgame-yose",
+      "location": "chapter 3 (index 2) '相手の歩が開ける逃げ道を読む', step 1 (moves S*5d 4c4d 8e8b+); also the unit intro",
+      "severity": "misleading",
+      "problem": "After △４四歩 ▲８二飛成, Gote is lost by force. Each of the three legal king moves (5b4a, 5b5a, 5b6a) is mated within 3 more plies. △４四歩 is a losing blunder. The line the text says does not finish actually is a forced win, which contradicts both the step and the intro.",
+      "sfen": "9/1+R2k4/9/4Sp3/9/9/9/9/K8 w - 1",
+      "proposed_fix": "Say that △４四歩 is a mistake that loses by force, because the silver on ５四 still covers ４三 after ▲８二飛成. Show a non-losing defence such as △４二玉 (5b4b) as the line that needs further reading. Reword the intro so it does not claim that none of the lines reaches a forced win.",
+      "status": "fixed"
+    },
+    {
+      "unit": "endgame-yose",
+      "location": "chapter 2 (index 1) '取り返しの順序で飛車を残す', step 1 (last move 7c5c)",
+      "severity": "misleading",
+      "problem": "The rook lands on ５三, inside the promotion zone, and the lesson leaves it unpromoted for no reason. ▲同飛成 is the natural move, and the engine reports mate in 9 for it. The text never explains the non-promotion, so the lesson models an unpromoted rook. The protection claim (gold ６四 guards ５三) holds either way. The text also never says that ▲５三歩成 is check.",
+      "sfen": "9/5k3/2R1g4/3G5/9/9/9/9/K8 b p 1",
+      "proposed_fix": "Use 7c5c+ (▲同飛成) in the moves and text, and say that ▲５三歩成 is check.",
+      "status": "fixed"
+    },
+    {
+      "unit": "attack-kinmusou",
+      "location": "chapter 2 (index 1) step 1 '△５三金' and chapter 3 (index 2) step 1 '△６三金'",
+      "severity": "annotation-mismatch",
+      "problem": "In both positions both Gote golds (on ５二 and ６二) can legally reach the destination, so the kifu needs a disambiguation suffix. 5b5c is the ５二 gold moving straight forward (△５三金直). 5b6c is the ５二 gold, which sits on Gote's left, moving diagonally (△６三金左). As written, a learner reading the kifu cannot tell which gold moved.",
+      "sfen": "9/1skgg4/9/4R4/9/7B1/9/9/8K w Pp 1 (ch2, before 5b5c); 9/1skgg4/9/5P3/3B5/9/9/9/8K w - 1 (ch3, before 5b6c)",
+      "proposed_fix": "Write △５三金直 in ch2 and △６三金左 in ch3, in the Japanese text and in the English notation.",
+      "status": "fixed"
+    },
+    {
+      "unit": "attack-kinmusou",
+      "location": "chapter 3 (index 2) title",
+      "severity": "misleading",
+      "problem": "The gold that moves starts on ５二 (fifth file) and goes to ６三 (sixth file). It was never on the fourth file. What it gives up is its coverage of the square ４三. The Japanese title literally says the gold leaves the 4th file, which is wrong about the board, and the step text itself separates the target piece from the controlled square.",
+      "sfen": "9/1skgg4/9/5P3/3B5/9/9/9/8K w - 1",
+      "proposed_fix": "Retitle to something like 攻めの準備中に金が４三の利きを外す / 'A gold gives up its cover of ４三 during preparation'.",
+      "status": "fixed"
+    },
+    {
+      "unit": "endgame-tsumero",
+      "location": "chapters 0-3 (shared start), ch0 step0 and ch1 title/step0",
+      "severity": "wrong",
+      "problem": "The shared start position already has three mates in one: ▲８二飛成 (8c8b+), ▲８二金打 (G*8b) and ▲８二金 (7c8b). The lesson implies the check fails and recommends a quiet threat move that gives Gote a tempo, when an immediate check mates. The whole unit premise of comparing a check with a quiet entry is built on a position where the right answer is mate now.",
+      "sfen": "k1n6/2sg5/1RG6/9/9/9/9/9/8K b Gp 1",
+      "proposed_fix": "Recompose the start position so that no Sente move mates at once. For example, add a Gote defender that controls 8b, or remove the rook's support on 8b, then re-verify that 8c8b is a quiet threat, that the 7b8a and P*9b defenses still work, and that the 6b6c line still mates. Then rewrite ch0 so that the check it compares really does fail.",
+      "status": "fixed"
+    },
+    {
+      "unit": "endgame-tsumero",
+      "location": "chapter 4 (大駒を狙う詰めろにも両方を受ける手がある), start/step0-step1",
+      "severity": "wrong",
+      "problem": "The start position already has a mate in one, ▲１二金打 (G*1b). The horse on 6g covers 1b along the diagonal 5f-4e-3d-2c, and the knight on 3c covers 2a. Moving the horse to 2c to set up G*1b is unnecessary, so the chapter teaches a threat move when mate is available.",
+      "sfen": "5r2k/9/6N2/9/9/9/3+B5/9/K8 b G 1",
+      "proposed_fix": "Recompose the start position so that 1b is not already covered. For example, place the horse where it does not see 1b until it moves, then re-run the mate-in-one enumeration on the start position.",
+      "status": "fixed"
+    },
+    {
+      "unit": "endgame-tsumero",
+      "location": "chapter 4, step2 text and variation 1 (from 1: 4a4b G*1b 4b1b)",
+      "severity": "wrong",
+      "problem": "After △４二飛, Sente mates at once with ▲２一金打 (G*2a). The gold on 2a is protected by the knight on 3c, the horse on 2c covers 1b and 2b, and the rook on 4b cannot reach 2a. So R4b does not answer the mate threat. Among all 18 Gote replies after 6g2c, every non-checking move allows a mate in one. Only the counterchecks 4a4i, 4a4i+ and 4a9a avoid one. The chapter's title idea, one move answering both the threat and the rook attack, is false as shown.",
+      "sfen": "8k/5r3/6N+B1/9/9/9/9/9/K8 b G 1",
+      "proposed_fix": "Recompose the position so that the rook's escape really does defend both 1b and 2a, or drop the claim. If the chapter is kept, state that in this position only the counterchecks avoid an immediate mate, and verify every Gote reply by enumeration.",
+      "status": "fixed"
+    },
+    {
+      "unit": "endgame-tsumero",
+      "location": "chapter 4, step0 Japanese text",
+      "severity": "misleading",
+      "problem": "2c to 2b is a step along the same file, which is vertical (縦), not sideways (横). The English correctly says 'orthogonal step', so the Japanese and English disagree, and the Japanese names the wrong direction.",
+      "sfen": "5r2k/9/6N+B1/9/9/9/9/9/K8 w G 1",
+      "proposed_fix": "Change it to 「２二への縦の一歩」 (or 「上への一歩」).",
+      "status": "fixed"
+    },
+    {
+      "unit": "endgame-tsumero",
+      "location": "chapter 4, step1 marks",
+      "severity": "annotation-mismatch",
+      "problem": "Arrow 2c1b draws a horse move from 2c to 1b, which is a legal move in the position, but the threat the text describes is a gold drop on 1b. The project's units already support drop arrows (for example \"P*7f\" and \"R*9b\" in other units), so the arrow misidentifies the threatened move.",
+      "sfen": "5r2k/9/6N+B1/9/9/9/9/9/K8 w G 1",
+      "proposed_fix": "Replace the arrow 2c1b with \"G*1b\". Keep 1b as a box if the horse's protection should be shown.",
+      "status": "fixed"
+    },
+    {
+      "unit": "endgame-mate3",
+      "location": "unit intro/title and chapters 0, 2, 3, 4 (first-check and final-check claims of 'only legal reply')",
+      "severity": "misleading",
+      "problem": "In every position Gote has an empty hand, so checks across a gap cannot be blocked. These are ch0 (9c dragon over 9b), ch2 (7a dragon over 6a), ch3 (7c horse over 6b) and ch4 (5f lance over 5e-5b). The unit never tells the learner this. Under the standard 詰将棋 convention, where the defender holds all remaining pieces, 4 of the 5 positions are not mate in three: ch0 and ch4 have no mate at all, and ch2 and ch3 become mate in 5. Only ch1 stays mate in 3. A learner who applies normal tsume rules will find that the stated 'only reply' and the 三手詰 label are false.",
+      "sfen": "k8/1p7/1R1G5/9/9/9/9/9/8K b G 1",
+      "proposed_fix": "Either state clearly in the intro (Japanese and English) that these are position examples in which Gote holds no pieces, so blocking a check is impossible, or recompose ch0, ch2, ch3 and ch4 so the mates hold when the defender has all remaining pieces. Verify any recomposed position with a full-hand engine search.",
+      "status": "fixed"
+    },
+    {
+      "unit": "endgame-mate-tesuji",
+      "location": "chapter 3 (index 2) 'Choose a different finish for each king route', variation 0 text, plus the chapter title and intro",
+      "severity": "wrong",
+      "problem": "▲６三銀成 (5b6c+) also mates after △７二玉, so one finish answers both king routes. The chapter's central claim is false. The opposite does not hold: ▲６一飛成 against △６二玉 is only check (6b5c escapes), so the silver promotion is the one finish that works against both replies.",
+      "sfen": "2k4R1/1s2S4/9/2G6/9/9/9/9/8K w - 1 (after ▲２一飛). After 7a7b 5b6c+: 7R1/1sk6/3+S5/2G6/9/9/9/9/8K w - 1",
+      "proposed_fix": "Recompose the position so that ▲６三銀成 fails against △７二玉, for example by leaving ８三 or ６三 unprotected against the king on ７二, and re-verify both branches. If the position is kept, rewrite the chapter honestly: ▲６三銀成 mates against both replies, while ▲６一飛成 works only against △７二玉. Update the title and intro to match.",
+      "status": "fixed"
+    },
+    {
+      "unit": "endgame-mate1",
+      "location": "chapter 1 '１　ふさいだ筋を開ける', start position",
+      "severity": "wrong",
+      "problem": "Gote has two unpromoted pawns on the 8th file, at ８一 and ８二. That is nifu (二歩), so the composed position is illegal. tsshogi and check-unit accept it without complaint.",
+      "sfen": "lp7/kp7/9/G1S6/9/9/9/R8/8K b - 1",
+      "proposed_fix": "Replace the ８一 pawn with a Gote silver: start 'ls7/kp7/9/G1S6/9/9/9/R8/8K b - 1'. This was verified: 9d8c gives checked=true legal(0). Change the ja/en text that names the ８一 piece to 銀/silver; the step 1 sentence about 歩８二 capturing the gold remains correct.",
+      "status": "fixed"
+    },
+    {
+      "unit": "endgame-mate-tesuji",
+      "location": "chapter 1 (index 0) 'Count an interposition against a distant rook', all steps; also the unit check question and intro",
+      "severity": "weak-pedagogy",
+      "problem": "In the chapter's position the king has four flight squares after ▲５五飛, and another four after ▲同飛. Nobody would mistake either check for mate, and the interposition plays no part in showing it is not mate. The lesson's actual point, that a no-escape distant check can still be stopped by an interposition, is never shown on a board.",
+      "sfen": "4k4/9/9/9/4R4/9/9/9/8K w g 1 (after ▲５五飛)",
+      "proposed_fix": "Compose a position in which the distant rook check covers or blocks every king flight, so that a drop interposition (金/歩 合) is Gote's only defence. Then show the follow-up and why capturing the interposed piece does or does not mate. Verify by enumerating the legal replies.",
+      "status": "fixed"
+    },
+    {
+      "unit": "endgame-mate-tesuji",
+      "location": "chapter 5 (index 4) 'Use an attacked bishop while checks keep the tempo', step 1",
+      "severity": "misleading",
+      "problem": "５一 is the king's own square, so that is simply the check. Promotion matters because the gold-move covers ５二 sideways. An unpromoted ▲６二銀 also checks ５一 but leaves △５二玉 as a second reply. The text names the wrong square for the point being taught.",
+      "sfen": "4k4/3+S5/4B2N1/5s3/9/9/9/9/8K w - 1 (after 7c6b+). For comparison, 4k4/3S5/4B2N1/5s3/9/9/9/9/8K w - 1 (after 7c6b)",
+      "proposed_fix": "Say that the promoted silver checks ５一 and also covers ５二 sideways, which an unpromoted silver would not, so only △４一玉 remains. Mention that the bishop on ５三 covers ４二 and protects ６二. Mirror the change in English.",
+      "status": "fixed"
+    },
+    {
+      "unit": "endgame-mate-tesuji",
+      "location": "chapter 2 (index 1) 'Capture a defender with check before dropping a gold', step 1",
+      "severity": "misleading",
+      "problem": "With the king on ６一, ４一 is not an adjacent square, so the lance plays no part in reducing Gote to one reply. The squares that remove the other flights are ７一 (knight) and ５二, ６二 and ７二 (all covered by the new dragon on ６三), and the dragon is not mentioned. The lance's ４一/４二 control only matters after △５一玉.",
+      "sfen": "3k5/9/1N1+R5/9/5L3/9/9/9/8K w G 1",
+      "proposed_fix": "Rewrite as: the dragon on ６三 covers ５二, ６二 and ７二, and the knight on ８三 covers ７一, so only △５一玉 remains. Move the lance's role (covering ４一 and ４二) to step 2, and mirror the change in English.",
+      "status": "fixed"
+    },
+    {
+      "unit": "endgame-mate1",
+      "location": "chapter 9 '９　守りの金を角で取る', step 1",
+      "severity": "misleading",
+      "problem": "７一 is not adjacent to the king on ９一; its neighbours are ８一, ８二 and ９二. Calling the knight on ７一 an occupied exit is false geometry. The king cannot take the horse because the rook on ７二 protects it, not because of the knight.",
+      "sfen": "k1n6/p+BR6/9/9/9/9/9/9/8K w G 1",
+      "proposed_fix": "Drop ７一 from the exit list: '９二は後手歩、８一は馬の利き、馬８二は飛車７二に守られているので玉は取れません'. Mirror the change in English.",
+      "status": "fixed"
+    },
+    {
+      "unit": "endgame-mate1",
+      "location": "chapter 6 '６　銀の受けを許さない頭の駒', step 0",
+      "severity": "annotation-mismatch",
+      "problem": "８一 is beside the king on ９一 (same rank). The square in front of a Gote king on ９一 is ９二, which is where the answer drops the silver. The Japanese misplaces the pawn, contradicts the English, and points the learner at the wrong square.",
+      "sfen": "kpn6/1R7/2G6/9/9/9/9/9/8K b S 1",
+      "proposed_fix": "Change the Japanese to '後手玉９一の横に歩８一'.",
+      "status": "fixed"
+    },
+    {
+      "unit": "endgame-mate1",
+      "location": "chapter 11 '１１　金ではなく銀を飛車で取る', title",
+      "severity": "misleading",
+      "problem": "No Sente piece can capture either Gote gold. The rook's only capture is the silver on ５三, and the bishop's only capture is the same silver. The title sets up a contrast with an option that does not exist. The English title ('Capture the silver, keeping bishop support') does not match it.",
+      "sfen": "3glg3/3pkp3/4s4/9/2B6/9/9/4R4/K8 b - 1",
+      "proposed_fix": "Retitle to match the English, for example '角の支えで銀を飛車で取る'.",
+      "status": "fixed"
+    },
+    {
+      "unit": "yagura-37gin",
+      "location": "chapter 2 (5筋の歩交換の後、金の応手を受ける / Meet the Gold's Reply After a Fifth-File Exchange), steps 4-5",
+      "severity": "wrong",
+      "problem": "The gold on 5d is unprotected and stands right in front of Sente's silver on 5e. Sente to move just plays ▲同銀 (5e5d) and wins a gold for nothing, since no Gote piece can recapture on 5d. So 4c5d is a gross blunder, not a plan, and the taught reply 5e4f turns down a free gold. The engine scores the retreat about 1600 cp worse than the capture.",
+      "sfen": "3b5/1r4gk1/6s1p/1p2g4/4S4/P8/B1SG2NP1/1KG4R1/9 b Pp 1",
+      "proposed_fix": "Change Gote's reply to a move that actually threatens the silver while staying protected, e.g. a pawn drop on 5d (P*5d), or a gold move that is supported. Then verify the retreat with the engine. Or keep 4c5d and teach ▲同銀 as the punishment, rewriting both texts to say the advanced gold is undefended.",
+      "status": "fixed"
+    },
+    {
+      "unit": "yagura-37gin",
+      "location": "chapter 1 (桂が狙う二枚と、その守りを読む / Read Both Knight Targets and Their Defenders), start position and step 1",
+      "severity": "misleading",
+      "problem": "In the start position Gote's rook on 5c is already on the bishop's open diagonal (9g-8f-7e-6d-5c), and only the 4c gold defends it. ▲５三角成 (9g5c+) wins rook for bishop at once. The engine scores the featured knight jump about 1000 cp below that. A learner told to count targets and defenders is shown a position where the more direct capture is ignored.",
+      "sfen": "3b5/6gk1/4rgs2/7pp/9/P3PS3/B1SG2NP1/1KG4R1/9 b - 1",
+      "proposed_fix": "Recompose the start so the bishop's diagonal to 5c is blocked, for example a Gote pawn on 6d (check that this doesn't open a new tactic), or move the Sente bishop off 9g. Re-run the engine so the knight jump is at least competitive before keeping the chapter.",
+      "status": "fixed"
+    },
+    {
+      "unit": "yagura-37gin",
+      "location": "chapter 1, steps 2-3 (after △５二飛 5c5b, ▲５五歩 5f5e)",
+      "severity": "misleading",
+      "problem": "Only the rook escapes. The knight on 4e still attacks the silver on 3c, and ▲３三桂成 wins silver for knight (the golds or king recapture). So the Japanese claim is false, and the lesson skips the follow-through that the knight-fork chapter is about. The engine scores the chosen 5f5e about 490 cp below 4e3c+.",
+      "sfen": "3b5/4r1gk1/5gs2/7pp/5N3/P3PS3/B1SG3P1/1KG4R1/9 b - 1",
+      "proposed_fix": "Rewrite step 2 to say the rook escapes but the silver on 3c is still attacked. Make step 3 ▲３三桂成 (knight for silver, with the gold recapture), or justify 5f5e with evidence. Fix this together with the start-position bishop issue.",
+      "status": "fixed"
+    },
+    {
+      "unit": "bougin-basics",
+      "location": "chapter 4 (相手の飛車が先に動けば玉側を守る / Meet the opponent's rook before resuming the silver), step 3",
+      "severity": "misleading",
+      "problem": "In this context 'the rook' reads as Gote's rook on 8f. But ▲６八玉 moves the king from 5i to 6h, which is closer to that rook (Chebyshev distance 3 to 2, and from file 5 to file 6, toward the eighth file). The move only gets away from Sente's own rook on 2h. Chapter 1 step 3 uses the same phrase correctly for the own rook. Here it states the wrong reason for the king move in a chapter about meeting the opponent's rook.",
+      "sfen": "lnsgkgsnl/7b1/p1ppppppp/9/9/1rP4P1/P2PPPP1P/1BG4R1/LNS1KGSNL b Pp 1",
+      "proposed_fix": "Make the ja/en say 'away from its own rook on 2h' (自分の飛車２八から離し), or explain that ▲６八玉 heads toward the castle side, where the gold on 7h and the silver on 7i already defend against the eighth-file rook.",
+      "status": "fixed"
+    },
+    {
+      "unit": "yokofu-23fu",
+      "location": "chapter 1 (index 1) 『２三歩が守る升を数える』, step 2 (moves 8h7g)",
+      "severity": "wrong",
+      "problem": "The bishop on 8h already sees 3c along this same diagonal (7g, 6f, 5e, 4d, 3c are all empty), so 8h7g opens nothing. The move only shifts the bishop one square along a line it already controls. The text explains the move with a reason that does not exist.",
+      "sfen": "4k4/6g2/7p1/1r4p2/1p7/7R1/9/1B3KS2/9 b - 1",
+      "proposed_fix": "Remove the 'opens a diagonal' reason. Either give a real purpose for 7g (for example, getting the bishop off 8h before the king settles) or replace the step with a move whose effect the board actually shows. Drop or re-justify the 7g3c arrow.",
+      "status": "fixed"
+    },
+    {
+      "unit": "yokofu-23fu",
+      "location": "chapter 0 『歩を打たれた瞬間の二択』, step 1 (P*2c)",
+      "severity": "misleading",
+      "problem": "The rook is standing on 2d at this node, and the pawn dropped on 2c attacks it directly. P*2c is an immediate attack that Sente must answer by moving the rook, not just a block of a future return square. If Sente ignores it, 2c2d wins the rook. The text hides the reason Sente's 'two choices' are both rook moves.",
+      "sfen": "4k4/1r4g2/7p1/6pR1/1p7/9/1P7/1BG6/4K4 b - 1",
+      "proposed_fix": "Say that △２三歩 attacks the rook on 2d (飛車に当たる歩), so Sente has to move it: take the side pawn (３四飛) or retreat (２六飛 etc.). Then add that the pawn also keeps the 2nd file closed afterward. Update the English to match.",
+      "status": "fixed"
+    },
+    {
+      "unit": "kakugawari-45kei",
+      "location": "chapter 3 『角を持つ相手の反撃』, variation 0 (from step 0: 3g4e B*5d 4e3c+ 4b3c)",
+      "severity": "misleading",
+      "problem": "Once 4e3c+ leaves 4e, Gote can capture the rook at once with 5d2g+ instead of recapturing on 3c. The line presents …Gx3c as if the exchange simply goes through and the rook threat only comes on the next move. The engine prefers Bx2g+, and the result is clearly better for Gote than the line shown. So the point of the variation (leaving the rook on 2g is dangerous) is understated, and Gote's best reply is missing.",
+      "sfen": "9/1kgr1g3/4p1+Np1/4b4/9/2P2P1P1/4S2R1/3G5/2K6 w BS 1",
+      "proposed_fix": "Change the variation to show or mention …Bx2g+ (５四角が２七飛を取る) as Gote's immediate answer to N-3c+. Present …Gx3c only as an alternative after which the rook is still hanging. Match the English.",
+      "status": "fixed"
+    },
+    {
+      "unit": "kakugawari-45kei",
+      "location": "chapter 0 『銀を動かした後まで読む』, step 2 (2f2e 6b6c)",
+      "severity": "misleading",
+      "problem": "After …R-6c the rook on 6c also defends 5c, so the pawn now has two defenders, not one. The step tells the learner to count the actual defenders, but the text and boxes count only the silver and present the rook move as unrelated.",
+      "sfen": "9/1kg2s3/3rp2p1/9/5N1P1/2P2P3/4S4/3G3R1/2K6 b Bb 1",
+      "proposed_fix": "Say that △６三飛 adds a second defender, so the silver and the rook both guard 5c (５三は銀と飛の二枚で守られる). Box 6c as well, and match the English.",
+      "status": "fixed"
+    },
+    {
+      "unit": "yokofu-23fu",
+      "location": "chapter 3 『角の斜めを避ける退路』, step 0 (text-only start node)",
+      "severity": "annotation-mismatch",
+      "problem": "6g is empty at this node, and the bishop is only dropped there in step 1. Boxing it here shows the answer before it happens, and the text does not explain it.",
+      "sfen": "4k4/6g2/7p1/6R2/9/9/9/6S2/4K4 w Pb 1",
+      "proposed_fix": "Remove \"6g\" from the step-0 boxes (step 1 already marks the drop with the arrow 6g3d). Or, if the preview is intended, mention the threatened drop square in both languages.",
+      "status": "fixed"
+    },
+    {
+      "unit": "shiken-vs-anaguma",
+      "location": "chapter 2 (index 1) 'The finished corner has a gold reply...', step 2 (moves 3b2c 1d1c+ 1b1c), plus the unit check question/answer",
+      "severity": "wrong",
+      "problem": "In the composed position, △２三金 removes the only piece that can block on rank a. Sente's B7g pins S2b to the king on 1a along 3c-4d-5e-6f, all of which are empty. After △２三金, ▲６一飛成 (6h6a+) is immediate checkmate: no legal replies. The lesson instead plays 1d1c+ and teaches that the gold reply holds. Step 1 even says the rook on the 6th file 'does not directly support' the edge, when that rook actually delivers mate. The start position also gives Gote no bishop at all (none on the board or in hand), so Sente is up a full bishop (+1262 at the start).",
+      "sfen": "8k/1r5sl/5g1g1/8P/9/5P3/2B6/3RG1SK1/5G2L b P 1",
+      "proposed_fix": "Recompose the corner position so the G2c reply is actually sound. Give Gote its bishop, and block Sente's 6th-file rook or the B7g-1a diagonal (for example, a Gote pawn on 6c or a piece on 4d). Then re-verify 6h6a+ and P*2d. If G2c still allows a mating attack, rewrite step 0, step 2, step 3 and the check answer so they do not claim the gold holds.",
+      "status": "fixed"
+    },
+    {
+      "unit": "shiken-vs-anaguma",
+      "location": "chapter 1 (index 0) 'Recover the fourth-file pawn...', steps 1-3 (4f4e 4d4e, 4h4e, 6c5d 4e4h)",
+      "severity": "misleading",
+      "problem": "▲４五歩 △同歩 vacates 4d. That opens Gote's B7a diagonal (6b-5c-4d-3e-2f-1g) to Sente's king. Gote's real reply is △１七角成, a check on K2h, and the lance on 1b defends the horse, so only king moves remain. The engine's best move for Gote at both steps 2 and 3 is 7a1g+, not S5d. The exchange swings the start from about equal to Gote clearly better, yet the text presents it as the recommended plan and never mentions this check. Separately, the English 'need not remain' changes the Japanese meaning.",
+      "sfen": "2b3s2/1r2g1gkl/1p1s2p2/9/5R3/2PS5/1P7/2B1G1SK1/5G3 w Pp 1",
+      "proposed_fix": "Recompose the start so the B7a-1g diagonal is closed. For example, give Sente a pawn on 2g or 3g, or an edge pawn, like a real Mino castle. Then re-run the engine on steps 1-3. Alternatively, teach that the exchange opens Gote's bishop line and show the B1g+ check. Change the English to 'the rook cannot necessarily stay on 4e'.",
+      "status": "fixed"
+    },
+    {
+      "unit": "shiken-vs-anaguma",
+      "location": "chapter 3 (index 2) 'Count the gold recapture...', steps 0-2 (3g4e, 5c6d 4e3c+ 3b3c)",
+      "severity": "misleading",
+      "problem": "After ▲４五桂, Gote's strongest bishop move is △１七角成. It checks K2h along 4d-3e-2f-1g, the lance on 1b defends the horse, and Sente can only move the king. The engine rates N4e as a clear loss for Sente, and Sente's start position is already worse because of this open diagonal. The lesson never mentions the check and teaches the knight jump with a weak bishop retreat (B6d) as the reply.",
+      "sfen": "9/1r2g1gkl/1p2bps2/9/5N3/3P1P3/2B6/3RG1SK1/5G3 w - 1",
+      "proposed_fix": "Close the 5c-1g diagonal in the composed start (for example, a Sente pawn on 2g or 3e) and re-verify that N4e is reasonable. If it is not, show △１七角成 as Gote's main reply.",
+      "status": "fixed"
+    },
+    {
+      "unit": "shiken-vs-anaguma",
+      "location": "chapter 3 (index 2), variation 0 (from step 1: 4c4d 4e3c+ 3b3c)",
+      "severity": "weak-pedagogy",
+      "problem": "After △４四歩, Gote's bishop on 5c is still attacked. The engine's best move is ▲５三桂 (Nx5c), winning bishop for knight after the gold recapture. The variation teaches only the silver-for-knight trade and never mentions that the bishop is still hanging, which is the obvious capture in this branch.",
+      "sfen": "9/1r2g1gkl/1p2b1s2/5p3/5N3/3P1P3/2B6/3RG1SK1/5G3 b - 1",
+      "proposed_fix": "Show Nx5c(+) as Sente's main reply to △４四歩 (bishop for knight). Alternatively, explain explicitly why the silver capture is chosen and verify that claim with the engine.",
+      "status": "fixed"
+    },
+    {
+      "unit": "gokigen-vs-choukyusen",
+      "location": "chapter 3 (index 2) 'When the pawn moves again...', variation 1 (from step 2: 2h2f)",
+      "severity": "wrong",
+      "problem": "The rooks on 5f and 2f attack each other along the open 4f and 3f squares, and Gote is to move. Nothing protects Sente's rook on 2f, so Gote simply plays △２六飛 and wins it outright; no rook retreat is needed. The move the text recommends turns Sente's +1541 into Gote +3281.",
+      "sfen": "5k3/6g2/6b2/9/9/4r2R1/9/1BK6/9 w Pp 1",
+      "proposed_fix": "Delete this variation, or replace it with a branch where the rook attack is protected. If it stays, relabel it as a blunder that loses the rook to △同飛.",
+      "status": "fixed"
+    },
+    {
+      "unit": "gokigen-vs-choukyusen",
+      "location": "chapter 3 (index 2), steps 2-3 (5e5f 5g5f 5b5f; 8h3c+ 3b3c)",
+      "severity": "misleading",
+      "problem": "The learner, playing Gote, is made to play 5e5f, a large mistake: the engine goes from Gote +134 to Sente +603 after the move, and to Sente +1804 after the recapture. At the final node Sente has ▲７四角, which checks the king on 4a through 6c-5b and forks the rook on 5f. The lesson does not show or mention this fork, and it does not mark the line as a mistake.",
+      "sfen": "5k3/9/6g2/9/9/4r4/9/2K4R1/9 b BPbp 1",
+      "proposed_fix": "Label 5e5f as the mistake this chapter warns against, and show ▲７四角 (or the engine line) as the punishment. Otherwise, choose a Gote continuation that keeps the diagonal closed, and make step 3 state that Gote is clearly worse.",
+      "status": "fixed"
+    },
+    {
+      "unit": "gokigen-vs-choukyusen",
+      "location": "chapter 1 (index 0) 'The central pawn temporarily stops the bishop trade', step 1 (learner move 5d5e)",
+      "severity": "weak-pedagogy",
+      "problem": "At the start Gote is to move, and the open diagonal gives Gote a winning trade: △８八角成 ▲同玉 △５五角, a bishop drop that checks K8h via 6f-7g and attacks R2h via 4f-3g. The learner's 5d5e throws this away, a swing of about 3800 cp. The lesson never says the trade was available or why Gote would decline it. In this composed position, the move the lesson teaches is therefore a large error.",
+      "sfen": "5kg2/4r2b1/7p1/4p4/7P1/9/4P4/1BK4R1/9 w - 1",
+      "proposed_fix": "Recompose the start so the immediate trade is not winning for Gote: Sente's king should not stand next to the bishop with the rook exposed, for example a castled king and a rook covered on 2h. Then re-verify. Alternatively, start with Sente to move after Gote has already played 5d5e.",
+      "status": "fixed"
+    },
+    {
+      "unit": "gokigen-vs-choukyusen",
+      "location": "chapter 2 (index 1) 'With the diagonal open...', step 1 (learner move 5a4b) and step 3 (2f2h)",
+      "severity": "weak-pedagogy",
+      "problem": "Sente's king on 7h sits on an empty 7th file, so △７二飛 is a check available to Gote throughout. At the start the engine's best move is 5b7b (Gote +2663), and the learner's 5a4b swings to Sente +283. After the shown reply 2f2h, Gote's best move is again 5b7b (Gote +883), while 2f7f, which also covers the 7th file, keeps Sente ahead. The lesson's conclusions about the bishop drop and pawn contact ignore the check that the engine treats as decisive.",
+      "sfen": "4k1s2/4r2b1/7p1/4p4/7P1/7R1/4P4/1BK6/9 w - 1",
+      "proposed_fix": "Protect Sente's king in the composed positions of all three chapters. Every chapter puts K7h on an open 7th file with Gote's rook on 5b. Add a pawn on 7g or a castle, then re-run the engine on every node. Note that the start of chapter 3 shows the same 7th-file exposure.",
+      "status": "fixed"
+    },
+    {
+      "unit": "kishu-onigoroshi",
+      "location": "All three chapter starts (ch0 '銀で桂の二つの行き先を見る', ch1 '飛車を歩の後ろへ回す', ch2 '片方の歩だけ逃がした場合'), step 0",
+      "severity": "wrong",
+      "problem": "In each composed start, Gote's rook on 8b looks straight down the empty 8th file (8c through 8g are empty) at Sente's unprotected bishop on 8h. R8b×8h+ is legal, wins the bishop and makes a dragon. The engine plays it as best move in all three starts and reports mate in 11-13. So the lesson's real best move for Gote has nothing to do with the knight, and the 'count the knight targets' problem is not the actual problem on the board. In ch1, the lesson's R5b throws this away (Sente +655 afterwards). The bishop is still hanging at later nodes too: ch0 after S6d, ch0 at the step-2 end (Sente to move, eval -3125, Sente's best is moving the bishop 8h7g), and ch2 after 7c7d N×5c+ (Gote +3974, Gote's best 8b8h+).",
+      "sfen": "4k4/1r5b1/2pps4/9/3N5/3P5/9/1B7/4K4 w - 1 (ch0); 5k3/1r7/2p1p4/9/3N5/3P5/9/1B7/4K4 w - 1 (ch1); 4k4/1r5b1/2p1p4/9/3N5/3P5/9/1B7/4K4 w - 1 (ch2)",
+      "proposed_fix": "Redesign the three starts so the 8th file is not a free invasion route. Options: remove Sente's bishop (it has no role in the lesson); or block 8g with a pawn that is defended (for example with a gold on 7h); or start Gote's rook somewhere that still reaches 5b in ch1 but has no open file. Then re-run engine-eval on each start and check that S6d (ch0) and R5b (ch1) are best or near-best, and that the 7c7d line in ch2 really costs material. Rebuild afterwards with bun run lessons.",
+      "status": "fixed"
+    },
+    {
+      "unit": "kishu-onigoroshi",
+      "location": "ch1 '飛車を歩の後ろへ回す' steps 0-1, compared with ch2 and the intro",
+      "severity": "weak-pedagogy",
+      "problem": "After R5b, the pawn on 7c still has no defender. No Gote piece can reach 7c, so N6e×7c+ takes it with nothing able to recapture. The lesson's 'fix' guards only one of the two targets, which is the very pattern ch2 presents as a mistake. The text never mentions that 7c is still exposed. (The short engine search does not say N×7c+ is good for Sente here, so this is a gap in the explanation, not a material claim. Combined with finding 1, the chapter still needs rework.)",
+      "sfen": "5k3/4r4/2p1p4/9/3N5/3P5/9/1B7/4K4 b - 1",
+      "proposed_fix": "In the reworked position, say explicitly what happens to 7c after R5b. Either show why N×7c+ does not pay for Sente (with the line), or change the composition so one move covers both landing squares. Keep ch1's text consistent with ch2's message that guarding only one target is a mistake.",
+      "status": "fixed"
+    },
+    {
+      "unit": "handicap-4",
+      "location": "ch1 '飛車先の桂取りに金の利きを数える', step 2 (moves 2a3c, 3e3h)",
+      "severity": "misleading",
+      "problem": "After N3c, Sente has a pawn in hand and P*3d wins the knight. The knight cannot retreat. Its only moves, 3c-2e and 3c-4e, both land next to the rook on 3e and are captured. No Gote piece attacks 3d. So N3c actually loses a piece for a pawn, and the sample R3h gives that back. The engine plays P*3d as best (+3075). After R3h Sente is about +2535, roughly 540 cp less, which is over the checker's 300 cp note threshold. Calling the knight jump Gote's gain teaches the wrong conclusion.",
+      "sfen": "1nsg2s2/3k1g3/ppppppnpp/9/6R2/9/PPPPPP1PP/1B7/LNSGKGSNL b Pp 1",
+      "proposed_fix": "Make the main line answer N3c with P*3d. Explain that the knight is trapped: its jumps to 2e and 4e are covered by the rook on 3e, and the gold on 4b only recaptures on 3c. Keep R3c+ G×3c as the variation that shows why the direct capture is wrong. Alternatively, change the step to a Gote reply that is actually sound, and drop the claim that the knight jump is Gote's gain.",
+      "status": "fixed"
+    }
+  ],
+  "rejected": [
+    {
+      "unit": "rules-fouls",
+      "location": "chapter 5 (index 4) 'Repetition depends on the move history', steps 0-3",
+      "problem": "The chapter never gives the outcome of an ordinary fourfold repetition, which is no result and a replayed game (指し直し). It gives only the continuous-check exception. No repetition is shown on the board either: the only move is 5a4a, so the 'compare the history' mechanism has no example. A learner cannot tell from this lesson what normally happens at 千日手."
+    }
+  ],
+  "new_unit_research": [
+    {
+      "topic": "受けの手筋 (defensive technique): 底歩, 中合い/合駒の選び方, 早逃げ, 受け駒の打ち場所, 玉の逃げ道を空ける受け, 攻め駒を責める受け",
+      "existing_coverage": "No unit is about defence as a topic. Defence appears only in single chapters, and each one shows one idea:\n- tesuji-pawn (order 190, 上達のためのテクニック/手筋), ch1 「金の下に歩を残す」: start k3r4/9/9/9/9/9/9/4G4/8K b P. The rook is on the same file as the gold, and a pawn dropped on 5九 recaptures. This is 底歩 against a frontal (vertical) attack only. It does not cover blocking a rook or dragon running along the bottom rank, and it does not cover the lance weakness (底歩には香).\n- basics-middlegame (150, はじめての将棋/基本の考え方), ch2 「王手には支えのある合駒を選ぶ」: block a rook check by moving the gold 2七→1七 (移動合) so the silver can recapture. ch3 「急ぐ手がなければ玉を安全な升へ」: a calm king move into the gold's protection.\n- basics-endgame (160), ch2 「自玉を飛車の筋から外しておく」: the king steps off the rook's file before the pawn shield falls. This is the nearest existing example of 早逃げ, but the name is never used and there is no mate threat (詰めろ) in it.\n- basics-attack-defense (110), ch0 「まず攻撃の筋から外れる」 (dodge a bishop) and ch1 「遮った駒の行き先まで読む」 (block the bishop with a pawn on 7三 that the rook defends).\n- endgame-mate-tesuji (490), ch0 「飛車の王手には合駒を数える」: the attacker's side of interposition. A gold block shows that a check is not mate.\n- endgame-tsumero (460), ch2/3/4: defending a mate threat with a silver retreat, a pawn interposition (9二歩) and a rook move that defends two things at once. These are taught from the attacker's side, to test whether a position is really 必至.\n- rules-tsume (90), ch2 「玉方の持駒と合駒」: the rule side of 合駒 and 無駄合.\n- endgame-yose (450), ch3: counting how fast each side's attack arrives.\nNot taught anywhere: 底歩 against a sideways attack on the bottom rank and its lance weakness, 中合 (blocking far from the king so the checker is pulled away), choosing which piece to block with by asking what the attacker gains from capturing it, 早逃げ by name before a mate threat appears, and attacking the attacker (桂頭の銀, or pushing a major piece away with a gold or silver).\nAll orders in the repo are multiples of 10 from 10 to 1460. 450–500 is 終盤 and 510 starts 戦法・定跡, so 455, 465, 475, 485 and 495 are free.",
+      "sources": [
+        {
+          "title": "将棋用語一覧 (Japanese Wikipedia)",
+          "url": "https://ja.wikipedia.org/wiki/将棋用語一覧",
+          "license": "CC BY-SA 4.0 (footer: クリエイティブ・コモンズ 表示-継承ライセンス; additional terms may apply). Consulted for facts only; adapted: false",
+          "read_fully": true,
+          "facts": [
+            "合駒 blocks a check from a long-range piece by putting a piece on the line between it and the king, either dropped from hand or moved from the board. 移動合 is the version where a piece already on the board moves in.",
+            "中合い: the blocking piece is not connected to the king's defence and stands away from the king. 捨て合い: a block made knowing the piece will be taken for free, to gain time or change which piece controls a line. 限定合い: only one particular piece works as the block. 合駒請求: an attacking idea that forces a block in order to remove a mate threat.",
+            "底歩 is a pawn dropped on your own back rank. The typical case puts it under a gold on the second rank to cut a rook's sideways line. The related proverb says a pawn under a gold is very hard to break.",
+            "玉の早逃げ: move the king toward safety before checks start. The proverb credits it with a large gain in tempo.",
+            "桂頭の銀: answer a knight by placing a silver on the square directly in front of it. 弾く: hit a major piece with a gold or silver so it has to retreat. 顔面受け: defending with the king itself, which is risky.",
+            "腹銀/腹金: a gold or silver placed beside the king to take away escape squares without giving check. This is an attacking pattern the defender should expect.",
+            "無駄合い: a block that is simply captured and changes nothing about the mate. In tsume rules it does not count as a move.",
+            "受けなし has two senses: narrowly 必至, broadly a position that is lost even though single replies exist. 受け切る/凌ぐ: hold until the attack runs out of material."
+          ]
+        },
+        {
+          "title": "合駒 (Japanese Wikipedia)",
+          "url": "https://ja.wikipedia.org/wiki/合駒",
+          "license": "CC BY-SA 4.0 (additional terms may apply). Consulted for facts only; adapted: false",
+          "read_fully": true,
+          "facts": [
+            "A block can stop a check, and it can also protect a non-king piece from a long-range attacker (rook, dragon, bishop, horse, lance).",
+            "A blocking piece that none of your own pieces defend is simply lost. That is why blocks are usually placed on a defended square, often next to the king.",
+            "A 移動合 keeps your pieces in hand. It can also open an escape square for the king by moving a defender out of the way.",
+            "中合 (also called 捨合) is placed far from the king. It is used to pull the checking piece onto a square your pieces cover, to make the attacker spend a capture before a second block, or to occupy a key square so the opponent's choices shrink.",
+            "Which piece you block with matters: once captured, the blocking piece becomes the attacker's piece in hand and may make a new mate possible.",
+            "無駄合 is not a legal defence in tsume terms and is not counted. Whether indirect double check counts is still disputed."
+          ]
+        },
+        {
+          "title": "将棋の格言 (Japanese Wikipedia)",
+          "url": "https://ja.wikipedia.org/wiki/将棋の格言",
+          "license": "CC BY-SA 4.0 (additional terms may apply). Consulted for facts only; adapted: false",
+          "read_fully": true,
+          "facts": [
+            "金底の歩: a pawn directly under a gold makes a very solid defence.",
+            "玉の早逃げ: an early king move gains time and avoids being forced into passive defence. The page notes that the number in the proverb may just mean 'a lot'.",
+            "底歩の弱点: a back-rank pawn is weak to a lance from the front, because the 二歩 rule stops the defender from adding a second pawn on that file.",
+            "大駒は近づけて受けよ: against an enemy rook or bishop, bring your gold or silver close so the major piece is attacked and has fewer good lines.",
+            "敵の打ちたい所に打て: put your piece on the key square the opponent wants to use.",
+            "桂頭の銀: a silver in front of a knight is the standard answer to a knight attack. 歩越し銀には歩: push the pawn against a silver that has advanced past its own pawns.",
+            "受けは金、攻めは銀: golds suit defence better. 金なし将棋に受け手なし: without golds a defence has few resources. 馬の守りは金銀三枚: a horse near your king is worth about three generals in defence."
+          ]
+        },
+        {
+          "title": "手筋 (将棋) (Japanese Wikipedia)",
+          "url": "https://ja.wikipedia.org/wiki/手筋_(将棋)",
+          "license": "CC BY-SA 4.0 (additional terms may apply). Consulted for facts only; adapted: false",
+          "read_fully": true,
+          "facts": [
+            "Short list article with no explanations. 底歩 is listed under pawn tesuji. 中合い, 早逃げ/早逃がし and 合駒請求 are listed under tesuji common to all pieces. This confirms they are standard named tesuji, but the page gives no mechanism."
+          ]
+        },
+        {
+          "title": "必至 (Japanese Wikipedia; the URL 詰めろ redirects here)",
+          "url": "https://ja.wikipedia.org/wiki/詰めろ",
+          "license": "CC BY-SA 4.0 (additional terms may apply). Consulted for facts only; adapted: false",
+          "read_fully": true,
+          "facts": [
+            "詰めろ: mate follows unless the threat is answered. 必至: mate follows whatever the defender does, apart from checks.",
+            "詰めろ逃れの詰めろ: a defensive move that removes the threat against you and creates a mate threat against the opponent.",
+            "一手すき/二手すき count how many moves remain before a mate threat. The page does not list ways of defending (capturing, guarding, fleeing, blocking), so those categories have to be explained in our own lesson."
+          ]
+        },
+        {
+          "title": "Shogi tactics (English Wikipedia)",
+          "url": "https://en.wikipedia.org/wiki/Shogi_tactics",
+          "license": "CC BY-SA 4.0 (additional terms may apply). Consulted for facts only; adapted: false",
+          "read_fully": true,
+          "facts": [
+            "Golds usually defend and silvers usually attack.",
+            "Against a pawn threatening to promote, the defender has to act before the promotion happens, for example by moving the target out of the pawn's line, since a pawn only attacks straight ahead.",
+            "The article is mainly about attacks and does not cover 底歩, 合駒 or 早逃げ. It adds little for this topic."
+          ]
+        }
+      ],
+      "lesson_brief": "Unit id: endgame-defense. File: data/lessons/units/endgame-defense.json. path [\"上達のためのテクニック\",\"終盤\"]. order 465 (free; sits after endgame-tsumero 460, which teaches testing for 必至, and before endgame-mate1 470). Suggested title: ja 「受けの手筋：取らせる駒・合駒・逃げ道を選ぶ」, en \"Defensive technique: choosing what to give up, what to block with, and where the king goes\". Intro: a defensive move is judged by what the attacker can do next, not only by whether it stops the current threat. The check question can ask why a 底歩 is weak against a lance (二歩). All positions below are original drafts by this researcher, not taken from any source. The writer must replay every one with `bun scripts/lessons/check-unit.ts endgame-defense --engine` and fix any claim the engine does not confirm. References: the six pages above, all with adapted:false. Write the Japanese text first and independently. Keep each Japanese run under 16 characters after move notation is removed.\n\nCh1 「横からの龍には底歩で道を切る」 (sente side, position). Mechanism: on the bottom rank, a pawn defended by a gold sideways cuts a dragon's horizontal line. Taking the pawn costs the dragon, and the gold keeps its post. This differs from tesuji-pawn ch1, which is a vertical attack recaptured from behind. Draft SFEN: 8k/9/9/9/9/9/9/9/2K1G2+r1 b P 1. Sente: K7九, G5九. Gote: dragon 2九, K1一. Sente to move; the gold is attacked by the dragon and nothing defends it. Steps: (1) explain the threat 龍x5九 and the alternatives: move the gold to 6九 next to the king, or drop a pawn. (2) P*4i, the 底歩 on 4九, defended by G5九 sideways. (3) a cooperative reply such as 2i3i, labelled as an illustration. Then 3九龍x4九 is met by 5九金x4九, so the dragon cannot go through. Marks: box 4i; arrows 2i5i before the drop and 5i4i after it. Variation from step 0: 5i6i (gold beside the king) as a valid alternative, to show that the 底歩 is not the only defence. It keeps the gold in place and keeps the bottom rank closed.\n\nCh2 「底歩は香に弱い」 (same structure, counterexample). Mechanism: a lance attacking the 底歩 from the front cannot be answered by another pawn on that file, because of 二歩. Draft SFEN: 8k/9/9/9/9/9/9/9/2K1G2+r1 b Pl 1 (gote holds a lance). Steps: P*4i, then L*4a (lance on 4一 aimed down file 4). Text: the defender cannot add a pawn on file 4, and the gold is the only defender of 4九. Continue with a quiet sente move (writer chooses a legal one, for example a king step), then 4a4i (or 4a4i+), 5i4i, 2i4i. Sente loses pawn and gold for a lance. Label this one possible attacking line, not forced play. A variation could show sente answering the lance drop by moving the gold next to the king, with the engine confirming. This teaches the proverb's idea in the app's own words.\n\nCh3 「合駒は取られた後に渡る駒で選ぶ」 (sente side, position, rook or lance check). Mechanism: a captured blocking piece becomes the attacker's piece in hand. Blocking with a gold that the rook captures can hand over a mate (for example 頭金). Blocking with a pawn, or 中合 on a square your piece defends, gives nothing useful or pulls the checker onto a square where it can be captured. Composition plan: sente king in a corner (for example K1九) with a gold and a pawn in hand. A gote rook gives check along the file from distance, with one gote supporting piece (a silver or a promoted pawn) next to the king's head. Three variations from the check: (a) G* next to the king, captured by the rook with check, after which the captured gold mates; (b) P* next to the king (watch for 二歩 on that file); (c) 中合 further up the file on a square that a sente piece covers, so the rook capture walks into a recapture. The writer composes this, then has the engine confirm that (a) is mate and (b)/(c) are not. It must differ from basics-middlegame ch2 (移動合 with silver support) and endgame-mate-tesuji ch0 (attacker's view).\n\nCh4 「詰めろの前に玉を広い方へ」 (早逃げ, sente side). Mechanism: when the attacker's next move would create a mate threat, moving the king one square toward open space first turns their later moves into plain checks or wasted moves. This gains tempo, and the move order is the point. Plan: an original endgame fragment. Sente king on the edge with a gold beside it. Gote has a piece in hand plus one piece on the board, so a drop next move would form a net. Show the early king move first. Then a variation from the start where sente plays elsewhere, and the gote drop creates 詰めろ (the engine must confirm both claims). The text can mention that the king move also clears a square, so the defenders reconnect (玉の逃げ道を空ける受け). Do not reuse basics-endgame ch2 (a king leaving a rook file with no mate threat).\n\nCh5 「攻めてくる駒を先に責める」 (sente side). Mechanism: attack the piece that is attacking you. Option A: a silver dropped directly in front of a gote knight (桂頭の銀). The knight cannot take forward, and the silver attacks it. Draft: gote knight on 4五 aiming at 3七/5七 where sente golds stand; sente drops S*4f, and 4f4e then wins the knight unless it jumps first. Show the jump and the cost to gote. Option B: a gold moved next to a dragon that has entered sente's camp (大駒は近づけて受けよ), forcing it back and gaining a move. Compose with no gote pawn on 4四 supporting the knight, or include one deliberately as a counterexample.\n\nOptional ch6 (if the unit is not too long): 「受けながら相手玉に詰めろ」: a single defensive move that also creates a counter-threat (詰めろ逃れの詰めろ). Keep it small and confirm it with the engine.\n\nLibrary note: there is no new category. All chapters are kind \"position\" with side \"sente\". The quiz must not reveal the answer move in text before it is played (AGENTS.md annotation rule).",
+      "tsume_candidates": "Not searched; this lesson is about defence, not mating. src/data/tsume.json (174K, YaneuraOu-generated mates) could provide the attacking net for ch3 or ch4, by taking a generated mate and showing the defence move that stops it before the attack starts. The writer would need to query it with an engine check. Composing new small positions for the defensive chapters and confirming them with check-unit --engine is simpler."
+    },
+    {
+      "topic": "形勢判断 (positional judgment): the four factors 駒の損得・玉の固さ（安全度）・駒の効率（働き）・手番, how they are weighed by game phase, and trading material for king safety or tempo",
+      "existing_coverage": "No unit is dedicated to positional judgment, and no unit teaches the four factors as one system. Units that cover single factors in passing:\n- basics-value (order 100, はじめての将棋/基本の考え方, 駒の価値と駒得). Chapters: 王手ともう一つの狙い / 動きと働きで価値を見る / 盤上と持駒で交換を数える / 二枚の合計を比べる. Teaches counting material on the board and in hand. One step says material is only one tool, next to king safety, checks, piece activity and the use of captured pieces. Its check answer names activity and king safety, but no chapter demonstrates them as judgment factors. References: shogi-joutatsu 1512 and 1021 (both All rights reserved, adapted:false).\n- basics-plan (130, 局面に合わせて方針を変える). The chapters 金を取る間に玉が逃げる and 詰みが見えたら目的を切り替える show that winning a gold hands the opponent a move (material vs tempo), but they never frame this as positional judgment.\n- basics-middlegame (150, ぶつかった駒から次の形を読む). One step says an exchange is judged by piece value, king safety and the next move together. The chapter 急ぐ手がなければ玉を安全な升へ covers king safety as a use of a quiet move.\n- basics-mate-words (120, 王手から詰みまで). The chapter 二つの玉の危険と手番を比べる compares the danger to both kings and who has the move.\n- endgame-yose (450): chapter 自玉への到達速度も数える (speed race). endgame-tsumero (460): check vs 詰めろ vs 必至.\n- castles-first (280) and the 囲い/囲い崩し units (290–440) cover castle shape and attack. They do not teach measuring 玉の固さ as a judgment factor.\n- Many opening units repeat the hedge 「これだけで形勢は決まらない」 (e.g. yokofu-45kaku, taifuri-chousoku, mukai-attack, ishida-honkumi, kakugawari-ittezon, shiken-vs-migishiken). They tell the learner to judge the position but never teach how. A judgment unit would give that phrase something to point to.\nOrders 10–1460 are used in steps of 10 with no gaps. There is no 形勢判断 path and no judgment, keisei or taikyoku id.",
+      "sources": [
+        {
+          "title": "勝又清和七段インタビュー 第1回（将棋の形勢判断：読みと形勢判断、4つの要素）",
+          "url": "https://bookplus.nikkei.com/atcl/column/031000478/031000001/",
+          "license": "All rights reserved (Copyright © Nikkei Business Publications, Inc.); reference only, cite as 参考 with adapted:false",
+          "read_fully": true,
+          "facts": [
+            "Shogi skill rests on two complementary abilities: calculating future positions (読み) and assessing who is ahead now (形勢判断).",
+            "The four judgment factors named are material balance, piece activity, king safety and the move (手番).",
+            "Piece values are rough rankings that change with the situation. Knights and golds gain value in the endgame, and a lance in hand is worth more when the opponent has no pawns.",
+            "Because captured pieces return as the opponent's drops, losing even a pawn is a double swing.",
+            "Piece activity is called the most important factor. An idle piece costs material without contributing, and the aim is to keep your own pieces working while leaving the opponent's with nothing to do.",
+            "King safety is relative. It depends on the defending golds and silvers, the king's escape room and where the enemy attackers stand. No castle is safe in absolute terms: Anaguma, once rated strongest, is weaker against some setups.",
+            "Having the move means having the initiative. A side that must answer checks or threats has effectively lost the move.",
+            "Phase weighting: material and activity dominate the opening, where the king is rarely in danger. Speed and king safety dominate the endgame, ahead of material."
+          ]
+        },
+        {
+          "title": "勝又清和七段インタビュー 第2回（序盤と終盤で変わる重み、大局観＝形勢判断＋方針）",
+          "url": "https://bookplus.nikkei.com/atcl/column/031000478/031000002/",
+          "license": "All rights reserved (Copyright © Nikkei Business Publications, Inc.); reference only, adapted:false",
+          "read_fully": true,
+          "facts": [
+            "The weight of each factor shifts by phase: material and activity early, the move and king safety late.",
+            "There is no fixed boundary between opening and endgame. Deciding which factor matters now is what 大局観 means: judging the position plus choosing a plan from that judgment.",
+            "The plan follows from the judgment. When ahead, avoid unnecessary risk. When behind, widen the fight to create complications and chances.",
+            "Judgment improves through post-game review (感想戦) and games against strong opponents."
+          ]
+        },
+        {
+          "title": "大局観（日本語版ウィキペディア、oldid 110486659）",
+          "url": "https://ja.wikipedia.org/wiki/大局観",
+          "license": "CC BY-SA 4.0 (Wikimedia Terms of Use); facts only per project rule, adapted:false",
+          "read_fully": true,
+          "facts": [
+            "大局観 is the ability in go, shogi and chess to judge the whole position accurately rather than fixating on a local fight. It includes deciding how far ahead or behind you are and whether to play safe or take risks.",
+            "It is largely intuitive. Computers approximate it by scoring positional features numerically.",
+            "Chess calls the comparable idea strategy, as opposed to tactics. The article is a short stub with few citations."
+          ]
+        },
+        {
+          "title": "大局観を鍛える形勢判断の考え方（マイナビニュース、将棋書籍抜粋記事）",
+          "url": "https://news.mynavi.jp/article/20230614-2699784/",
+          "license": "All rights reserved (Copyright © Mynavi Corporation); reference only, adapted:false. Its diagrams are composed teaching positions and must not be reused.",
+          "read_fully": true,
+          "facts": [
+            "The article judges positions by three indicators: material, king solidity (玉の堅さ) and piece activity. It does not list the move.",
+            "Method: score each indicator separately for both sides, then combine them. Leading on two of three, with the other side's lead small, means you are better.",
+            "When ahead on judgment, the best move is often one that removes the opponent's single advantage (for example neutralising their active pieces). You then lead on every indicator instead of attacking at once.",
+            "When behind on material and activity but ahead on king solidity, sacrificing material to attack throws away the only advantage left. Keeping the king solid and waiting for an opponent error can be the better plan.",
+            "Misjudging the position leads either to over-passivity or to a premature attack."
+          ]
+        },
+        {
+          "title": "Assess the situation (Shogi Shack)",
+          "url": "https://shogishack.net/pages/assess-the-situation/",
+          "license": "All rights reserved (2008~2025 | All rights reserved); reference only, adapted:false",
+          "read_fully": true,
+          "facts": [
+            "The page uses a three-factor model: material balance, piece efficiency (駒の効率) and whose turn it is. Each factor has a phase it matters most in: material in the opening, efficiency in the middlegame, turn in the endgame.",
+            "The same piece is worth more near the enemy king than far away, so efficiency depends on location.",
+            "The attacker prioritises how efficiently pieces close in on the king. A defender may accept less efficient attackers in exchange for extra material to fuel a later counterattack.",
+            "Re-assess at fixed moments: before starting an attack, after the first wave and on entering the endgame.",
+            "When ahead, play simply. When behind, keep things complicated or take calculated risks."
+          ]
+        },
+        {
+          "title": "Shogi strategy (English Wikipedia, last edited 2026-05-27)",
+          "url": "https://en.wikipedia.org/wiki/Shogi_strategy",
+          "license": "CC BY-SA 4.0; facts only, adapted:false",
+          "read_fully": false,
+          "facts": [
+            "There is no standard set of piece values. Published sets include Grimbergen (pawn 1, lance/knight 3, silver/gold 5, bishop 8, rook 9, horse 12, dragon 13), YSS 7.0 (which values pieces in hand separately), Tanigawa, Satō and Kaufman.",
+            "A promoted minor piece can be worth more than a gold because it reverts when captured, while a captured gold stays a gold for the opponent.",
+            "Exchange arithmetic such as two golds for rook plus pawn changes when the rook is promoted.",
+            "Leaving the king on its starting square (居玉) is dangerous. Castles differ in where they are strong and weak; for example Yagura is strong frontally but weaker from the side.",
+            "Trading bishops without reason can lose a tempo in some openings. Sabaki means activating the major pieces through exchanges."
+          ]
+        },
+        {
+          "title": "将棋の格言（日本語版ウィキペディア、oldid 107560546）",
+          "url": "https://ja.wikipedia.org/wiki/将棋の格言",
+          "license": "CC BY-SA 4.0; facts only (proverbs themselves are free per docs/lessons.md), adapted:false",
+          "read_fully": false,
+          "facts": [
+            "終盤は駒の損得より速度: in the endgame, speed outranks material.",
+            "玉の早逃げ八手の得: moving the king out of danger early is worth many tempi. 居玉は避けよ: don't leave the king on its starting square.",
+            "遊び駒は活用せよ: bring idle pieces back into play (activity).",
+            "二枚換えなら歩とでもせよ (variant wording): giving one major piece for two minor pieces is generally acceptable.",
+            "不利なときは戦線拡大: when behind, widen the battle.",
+            "王手は追う手 / 王手するより縛りと必至: a check that only chases the king wastes tempo; a binding threat or 必至 is better.",
+            "The article itself notes that some proverbs are outdated under modern theory."
+          ]
+        }
+      ],
+      "lesson_brief": "Unit id: judgment-four-factors (no collision). Path: [\"上達のためのテクニック\",\"形勢判断\"] (new sub-category). Order: 505, an integer that collides with nothing. It falls after endgame-tsume-study (500) and before the 戦法・定跡 block (510), so the new category closes the technique section. Placing judgment after 終盤 is deliberate: the learner already knows 詰めろ and 必至 (460), which the tempo chapter relies on. Alternative if the library should show judgment before castles: order 275 (between proverb-gold-last 270 and castles-first 280).\nTitle ja: 形勢は四つの物差しで測る / en: Measure the Position with Four Yardsticks. Intro idea, in original wording: judging a position means scoring material, king safety, piece activity and the move separately for both sides, then deciding which one matters most in the current phase. The plan comes from that judgment.\ncheck: Q「駒得しているのに形勢が悪いのはどんなときか」. A: the opponent's king is safer, your extra pieces are idle, or the opponent reaches your king first because they have the move.\nReferences: the seven sources above, all adapted:false, with the actual licenses recorded. Every position is composed new for this unit. None of the Mynavi or Nikkei diagrams are reused.\n\nChapters (all kind:\"position\", side:\"sente\", partial board, only the two kings plus a few pieces, as in basics-value; the side not to move must not be in check):\n1. 駒の損得は持ち駒まで数える. Mechanism: count board plus hand for both sides with a rough scale, then note that promoted minor pieces revert when captured. Original position: sente is a silver up in hand, but gote has a tokin on sente's 3rd rank and sente has a promoted lance. Steps: (a) count each side's material; (b) sente captures the tokin, which gives sente only a pawn, then gote recaptures sente's narikyō, which gives gote a lance. Show that the trade changes the count less than it looks. Text keeps the scale explicitly rough.\n2. 玉の固さは守り駒・逃げ道・相手の攻め駒で測る. Mechanism: the relative king-safety triad. Original position: sente's king sits on 2h behind a silver on 3h and golds on 4i and 5h. Gote's king is unmoved on 5a with one gold, and gote has an extra silver. Steps: count adjacent defenders and empty escape squares for each king. Sente plays a single drop or check that already threatens mate, while gote's equivalent attack needs three moves. Variation: the same drop against the castled king does nothing. Lesson: gote's material lead is outweighed by the difference in king safety.\n3. 遊び駒は数えても戦力にならない. Mechanism: activity. Material is equal, but sente's bishop is buried behind its own pawns on 9i and gote's rook works on an open file. Step 1: list which pieces reach the fight. Step 2: sente reactivates the bishop with a pawn push or bishop move (遊び駒は活用せよ). Comparison variation: sente instead wins a pawn elsewhere, and gote's active rook penetrates. Lesson: pieces that never join the fight add to the count but not to the result.\n4. 終盤は駒得より手番. Mechanism: the speed race and the move. Original endgame: gote leaves a rook hanging, and gote also has a 1-move mate threat (詰めろ) against sente. Main line: sente ignores the rook and plays a 詰めろ-with-check or direct mate sequence (engine-verified short mate), keeping the move. Variation (from step 0): sente takes the rook, which is +rook material, and gote mates or plays an unstoppable 必至 first. Ties back to endgame-tsumero (詰めろ vs 必至). Label gote's replies as examples unless they are forced.\n5. 駒を渡して玉の固さか手番を買う. Mechanism: deliberate material concessions. Two short original positions. (a) Attack side, 二枚換え: sente gives the rook for a gold and a silver from gote's castle. The count afterwards is roughly level, but gote's king loses two defenders and sente's attack gains drops. (b) Defence side: sente returns a silver to remove gote's only attacking piece near sente's king (or plays 玉の早逃げ). Sente stays materially ahead but now with a safe king, then follows the Mynavi-type idea that when you are ahead you remove the opponent's last trump instead of attacking. After each, a summary step rescores the four factors before and after the trade.\nClosing text (final step of ch5 or intro-level): factor weight by phase. Material and activity matter most in the opening, the move and king safety in the endgame, and the plan follows from the judgment (ahead: simplify; behind: widen the fight). Use original wording.\nAuthoring constraints: write each Japanese explanation independently (no runs of 16+ characters from the sources). Verify every SFEN for legality and run the mates and 詰めろ claims in ch2 and ch4 through `bun scripts/lessons/check-unit.ts judgment-four-factors --engine`. Add judgment-four-factors' source URLs to scripts/lessons/reference-urls.txt so the originality corpus covers them; none of these URLs are in that list now. Later option: link the repeated 「形勢は決まらない」 hedges in the opening units to this lesson.",
+      "tsume_candidates": "Not needed for chapters 1–3 and 5, which use composed non-mate positions. For chapter 4 (speed race), compose the short mate and 詰めろ positions and verify them with the engine. Alternatively, take a 1- or 3-move mate from src/data/tsume.json (174K, YaneuraOu-generated, explicitly permitted by docs/lessons.md) as gote's threat against sente's king, and add a hanging gote rook as the material bait. I did not inspect specific entries in that file. The writer must choose one, rebuild the position with the roles mirrored, and confirm with --engine that the mate still holds and that the rook-capture branch loses."
+    },
+    {
+      "topic": "端攻め (edge attacks): 端歩の突き越し, 端歩を突く・突かない判断, 香と歩の端攻め, 端玉/穴熊・美濃に対する端攻め, 端の手筋 (継ぎ歩・垂れ歩・香の重ね打ち/田楽刺し on the edge)",
+      "existing_coverage": "No unit teaches edge attacks as a topic in their own right. I found edge material scattered across chapters of other units. I checked all 146 units with a script for chapter titles and every step text containing 端.\n- attack-anaguma (order 420, 上達のためのテクニック/囲い崩し). ch1 「端の香交換で角を外側へ通す」 and ch2 「一手待つと金が角の進入先を守る」: a 9筋 pawn and lance exchange that opens a bishop line against a 9一 anaguma. It does not teach the sacrifice followed by a 垂れ歩, the doubled lance, or the knight jump.\n- attack-yagura-head (410, 囲い崩し). ch1 「９筋の交換を飛車の成り込みに変える」: an edge pawn exchange that lets a rook on 9八 promote.\n- attack-mino-kobin (380). ch0 「角が止めた歩を香で攻める」: a lance attack on the 4筋, not the edge. Gote's △1四歩 appears only as a side reply.\n- castles-hidarimino (320) ch3 「端玉でも飛車筋は消えない」 and castles-other (360) ch3 「端の玉は逃げ先も含めて評価する」: the defender's view of an edge king.\n- yagura-suzume (610, 戦法・定跡/矢倉), all three chapters: 「端歩を受けない相手にも交換の代価がある」, 「飛車を一度外して香の通路を作る」, 「端歩を受けた形では最初から歩が接触する」. This is 雀刺し counting on the 1筋 and the closest existing material, but it is tied to the opening.\n- yagura-37gin (590) ch3 「攻める前に自玉側の端を数える」: defending your own edge.\n- fujii-build (1140) ch1 「端の応答を作戦名の証拠にしない」 and fujii-vs-anaguma (1150) ch0 and ch2 (「端の一手より先に居玉への飛車侵入を受ける」): whether to answer an edge push, as a strategy question.\n- shiken-vs-anaguma (1120) ch1 「囲い終えた端には金の受けがある」 and gokigen-vs-anaguma (1240) ch1 「端は歩だけでなく香まで数える」: edge exchanges against anaguma with gold or lance recaptures.\n- kakugawari-bougin (670) ch1 and sanken-tomahawk (990) ch3: an edge silver and an edge knight inside particular openings.\n- handicap-2 (1460) ch2, handicap-4 (1450) ch0 and handicap-6 (1440) ch0/ch2: 9筋 and 1筋 pushes in handicap play.\n- tesuji-lance (200) and tesuji-pawn (190): general lance and pawn tesuji, with no edge-specific chapter.\n- endgame-mate3 (480) ch0 「端で飛車を移し、金の打ち場所を作る」: a mate on the edge only.\n\nNothing existing covers these, which are the gaps:\n(a) 突き越し compared with 突き合い, and why the pushed-past pawn makes the edge attack work;\n(b) the pattern 突き捨て → 垂れ歩/叩き, with each defender recapture branch (香/桂/銀) handled separately;\n(c) 桂で香を狙う against Mino, and how pieces in hand decide whether to sacrifice the pawn at all (no pawn in hand means do not sacrifice, jump the knight first);\n(d) the doubled lance (香の重ね打ち) after the file opens, and 下段の香;\n(e) the defender's tesuji 「敵の打ちたいところへ打て」 (dropping a pawn on 1四 or 9二 first), and when ignoring an edge push is safe.\n\nUsed orders: 10–1460 in steps of 10, 146 unique values. Every value from 260 to 520 is taken in steps of 10, so 445 is free.",
+      "sources": [
+        {
+          "title": "端攻め — Wikipedia（日本語版）",
+          "url": "https://ja.wikipedia.org/wiki/%E7%AB%AF%E6%94%BB%E3%82%81",
+          "license": "CC BY-SA 4.0 (facts only per project rule; adapted: false). oldid 102541973, last edit 2024-11-12",
+          "read_fully": true,
+          "facts": [
+            "Read in full from the raw wikitext (8.5 KB). An edge attack is an attack on the enemy camp from the 1st or 9th file. It appears in every kind of game: static rook, ranging rook, surprise openings, rapid attacks, long castle-building games and handicap games.",
+            "In long games kings often end up near the edge: anaguma at 9九/1一, Mino at 8八 or 2二, and the 9八 king. This is why edge attacks work so often.",
+            "Proverb 端角には端歩: attack an edge bishop with the edge pawn. Edge bishops appear in 5五龍中飛車, カニカニ銀 and アヒル囲い.",
+            "Openings built around edge attacks: 棒銀, 雀刺し in Yagura, 相掛かり (塚田スペシャル), 角換わり 棒銀 and 木村定跡, 地下鉄飛車, 三歩突き捨て急戦 and 棒金 against Sankenbisha, edge attacks from ranging-rook anaguma, and anti-anaguma plans (藤井システム, トマホーク, 中田功XP).",
+            "With a pawn on 1五, rook on 1八 and lance on 1九, a single pawn in hand always makes ▲1四歩△同歩▲1三歩 possible. Against △同香 one continuation gives up the bishop on 1三, then the rook goes to 1四 and a pawn is pushed again later.",
+            "Mino break: with a knight and 2–3 pawns in hand, play ▲9五歩△同歩▲9三歩. After △同香 the knight is dropped or jumped toward 9四/8五, aiming at 9三. If the defender holds a lance in hand, they can add a lance to the defence.",
+            "継ぎ桂 (つなぎ桂): a second knight dropped behind the first, to break Mino.",
+            "With a silver on 7六 (玉頭位取り), the edge attack can first pull the enemy lance up to 9四, then the silver advances to 8五.",
+            "Books cited: 大内延介 『将棋・端攻め全集』 (1979), 週刊将棋編 『将棋・ひと目の端攻め』 (2008), 北島忠雄 『すぐに使える！端の絶対手筋』 (2018). The external link is the JSA 穴熊の崩し方 series."
+          ]
+        },
+        {
+          "title": "端歩の突き捨てから▲９三歩。穴熊を端から攻める方法【穴熊の崩し方 vol.2】（日本将棋連盟 将棋コラム、一瀬浩司、監修 阿部光瑠、2017-03-13）",
+          "url": "https://web.archive.org/web/20251107004044/https://www.shogi.or.jp/column/2017/03/post_111.html",
+          "license": "All rights reserved (Copyright(c) 2016 Japan Shogi Association; https://www.shogi.or.jp/copyright/ requires prior permission for reproduction, modification or reposting). Reference only, adapted: false. The live URL returns 404 as of 2026-10-15, so it was read from the Wayback copy.",
+          "read_fully": true,
+          "facts": [
+            "Text read in full. The diagrams are KIF-rendered images and were not inspected; only the move text was used.",
+            "Against an anaguma guarded by three golds and silvers, the side with two golds is hard to break. The edge file, held only by the weaker silver, knight and lance, is the target.",
+            "Jumping the knight to the edge-adjacent square straight away fails, because a pawn push traps it. The basic start is to sacrifice the edge pawn and then drop a 垂れ歩 two squares in front of the defender's edge (▲9四歩△同歩▲9三歩).",
+            "The defender can take the 垂れ歩 three ways. Taking with the knight is best for the attacker: run the lance up, or, with two pawns in hand, a second sacrifice and pawn drop traps the knight that just jumped.",
+            "Taking with the lance: the knight jumps to attack it. If the silver recaptures, dropping a second lance behind the first (香の重ね打ち) and releasing both lances breaks the file.",
+            "Taking with the silver: the knight jumps to threaten the silver, then the pawn drop on the same square is repeated.",
+            "The result: once the edge pieces are stripped away, the gold pair on the second file from the edge becomes a wall that blocks the king's escape. A small number of pawns in hand decides which branch works."
+          ]
+        },
+        {
+          "title": "「少しずつポイントを稼ぐ」イメージ。美濃囲いを端から攻略するコツ(1)【美濃囲いの崩し方 vol.6】（日本将棋連盟 将棋コラム、一瀬浩司、2017-02-11）",
+          "url": "https://web.archive.org/web/20251106234304/https://www.shogi.or.jp/column/2017/02/post_91.html",
+          "license": "All rights reserved (Japan Shogi Association). Reference only, adapted: false. The live URL returns 404, so the Wayback copy was read.",
+          "read_fully": true,
+          "facts": [
+            "Text read in full. Diagram images were not inspected.",
+            "Attacks on Mino at its corner (71) or its kobin often win at once. Edge attacks usually build a small advantage step by step instead of crashing through.",
+            "The basic edge attack on Mino is a knight jump that attacks the defender's lance. Once the lance can be taken at any time, the attacker can hold that capture back and combine it with threats elsewhere (on 71 and 73).",
+            "There are two ways after the edge-pawn sacrifice: 叩き (striking the lance head on the second rank) or 垂れ (a pawn on the third rank). The 垂れ often saves the striking pawn for later. Which one works depends on tempo and on the defender's alternatives.",
+            "敵の打ちたいところへ打て: dropping first on the square where the defender wants a blocking pawn means a later lance run cannot be met with a pawn drop.",
+            "If the king steps up to the edge square, it occupies the square where the defender would drop a pawn, so the lance run cannot be blocked.",
+            "With no pawns in hand, do not sacrifice the edge pawn, because there is no follow-up. Jump the knight first, then plunge it in with promotion. Each recapture leads to a different break.",
+            "A knight jumped to the defender's third rank on the edge is a bad shape for the defender. The lance can run at it at any time, and the squares near the king become thin."
+          ]
+        },
+        {
+          "title": "端を突き合ったらどう攻める？矢倉における４六銀、３七桂型の攻め方とは【第75回 矢倉の崩し方】（日本将棋連盟 将棋コラム、一瀬浩司、2019-03-09）",
+          "url": "https://web.archive.org/web/20260310133401/https://www.shogi.or.jp/column/2019/03/yagura75.html",
+          "license": "All rights reserved (Japan Shogi Association). Reference only, adapted: false. The live URL returns 404, so the Wayback copy was read.",
+          "read_fully": true,
+          "facts": [
+            "Text read in full. Diagram images were not inspected.",
+            "Against 4六銀・3七桂, the defender usually answers the attacker's edge pawn push, so the edge pawns face each other (突き合い).",
+            "When the attacker has pushed past (突き越し, pawn on the fifth rank), a knight can plunge to the edge square with promotion. A further edge push then almost forces the capture. The attacker attacks easily.",
+            "With the pawns facing each other, the defender may ignore the edge push and counterattack, and the knight plunge is no longer available. The attacker's job is harder.",
+            "Timing of the edge sacrifice is delicate. Too early, and the defender recaptures and counterattacks by pushing the edge pawn further. Too late, and the defender simply ignores it.",
+            "Taking in the edge pawn (取り込み) is a lasting gain when the defender has no pawn left to block. The promotion threat on the edge stays available for the rest of the game."
+          ]
+        },
+        {
+          "title": "端歩の突き捨てからどう攻める？矢倉における４六銀、３七桂型の攻め方とは【第92回 矢倉の崩し方】（日本将棋連盟 将棋コラム、一瀬浩司、2019-06-21）",
+          "url": "https://web.archive.org/web/20250711205312/https://www.shogi.or.jp/column/2019/06/yagura92.html",
+          "license": "All rights reserved (Japan Shogi Association). Reference only, adapted: false. The live URL returns 404, so the Wayback copy was read.",
+          "read_fully": true,
+          "facts": [
+            "Text read in full. Diagram images were not inspected.",
+            "After the edge pawn is sacrificed, a 垂れ歩 on the edge, then knight-for-lance trades and a second lance dropped behind the first, puts two lances on the edge file and gives a strong file attack.",
+            "The proverb 香は下段から打て has exceptions. Dropping the lance one rank higher can stop a defender's knight drop and leaves room for the rook to support from behind.",
+            "The same 垂れ歩 can lose effect depending on whose turn it is. With the pawns facing each other rather than pushed past, the defender gains a tempo to counter. Pushed-past pawns favour the attacker, and facing pawns favour the defender."
+          ]
+        },
+        {
+          "title": "いきなり角を切っても成立する？１八飛・１九香型の端攻め【矢倉の崩し方】（日本将棋連盟 将棋コラム、一瀬浩司、2018-04-04）",
+          "url": "https://web.archive.org/web/20260213185812/https://www.shogi.or.jp/column/2018/04/post_352.html",
+          "license": "All rights reserved (Japan Shogi Association). Reference only, adapted: false. The live URL returns 404, so the Wayback copy was read (gzip).",
+          "read_fully": true,
+          "facts": [
+            "Text read in full. Diagram images were not inspected.",
+            "Behind a rook-and-lance battery on the edge, plainly exchanging pawn, rook and lance on the edge fails, because the defender drops a rook back into the attacker's camp.",
+            "The working version is the edge-pawn sacrifice, a 垂れ歩, and a bishop sacrifice on the edge square after the lance takes. The rook then runs up the edge, and a pawn on the fourth rank threatens promotion that cannot be stopped.",
+            "Defender's tesuji: drop a pawn first on the square where the attacker wants to drop (敵の打ちたいところへ打て). Then escape early with the king and pull a silver back into the vacated space, which blunts the rook promotion.",
+            "Lesson: the edge breakthrough is not a guaranteed win against accurate defence. The attacker should pick between a slow silver-supported version and the fast bishop-sacrifice version according to the 田楽刺し and fork chances elsewhere."
+          ]
+        },
+        {
+          "title": "将棋の格言 — Wikipedia（日本語版）",
+          "url": "https://ja.wikipedia.org/wiki/%E5%B0%86%E6%A3%8B%E3%81%AE%E6%A0%BC%E8%A8%80",
+          "license": "CC BY-SA 4.0 (facts only; adapted: false). Last updated 2025-12-11",
+          "read_fully": false,
+          "facts": [
+            "Only the edge and lance proverbs were extracted, through WebFetch. The full page was not read line by line.",
+            "端玉には端歩 and 端角には端歩: answer an edge king or an edge bishop with the edge pawn.",
+            "三歩持ったら端に手あり: three pawns in hand make an edge attack possible, through sacrifice, strike and pulling the lance up.",
+            "手のない時には端歩を突け: an edge-pawn push is a useful waiting move.",
+            "下段の香に力あり (香は下段から打て): a lance dropped far back covers the whole file.",
+            "歩切れの香は角以上: when the opponent has no pawns, a lance in hand cannot be blocked cheaply.",
+            "底歩には香打ちで: the two-pawn rule stops the defender from adding another pawn on that file."
+          ]
+        },
+        {
+          "title": "雀刺し — Wikipedia（日本語版）",
+          "url": "https://ja.wikipedia.org/wiki/%E9%9B%80%E5%88%BA%E3%81%97",
+          "license": "CC BY-SA 4.0 (facts only; adapted: false). Last edit 2025-07-07",
+          "read_fully": false,
+          "facts": [
+            "Read through a WebFetch summary, not line by line.",
+            "Formation: lance on 1七, rook on 1八, bishop on 6八 or 7九 aiming at 1三, and a knight to 2五 aiming at 1三. It is a single-point breakthrough on the edge.",
+            "Defences: answer the edge pawn early, cover 2五 with a silver on 2四, move the king off the edge (菊水矢倉 with the king on 2一, or the king on 3一/4一), or ignore the edge and counterattack in the centre.",
+            "The edge attack can also be a feint that pulls defenders away before the play switches to the 3筋.",
+            "History: 1947 Kimura–Tsukada, popularised by Masuda in the 1950s, the 1979 Nakahara–Yonenaga 名人戦 雀刺しシリーズ, and the 1993 新型 by Takahashi."
+          ]
+        },
+        {
+          "title": "将棋用語一覧 — Wikipedia（日本語版）",
+          "url": "https://ja.wikipedia.org/wiki/%E5%B0%86%E6%A3%8B%E7%94%A8%E8%AA%9E%E4%B8%80%E8%A6%A7",
+          "license": "CC BY-SA 4.0 (facts only; adapted: false). oldid 109549189",
+          "read_fully": false,
+          "facts": [
+            "Only the first 100k of 158k characters were read, through WebFetch, for term definitions.",
+            "突き越し (突き越す): taking 位 (space) with an edge pawn. The 位取り entry notes that for edge pawns the word is 突き越し rather than 位取り.",
+            "端歩: a pawn on the 1st or 9th file. 端玉: a king on the 1st or 9th file above the lance, excluding the corner squares.",
+            "垂れ歩: a pawn dropped on the enemy's 2nd–4th rank, where it can promote next. 継ぎ歩: a pawn strike repeated right after a sacrifice or a strike. 突き捨て: pushing a pawn so that it is captured. 手抜き: ignoring a threat and playing elsewhere.",
+            "田楽刺し: a lance dropped onto a file where valuable pieces stand in a row, winning the one behind."
+          ]
+        }
+      ],
+      "lesson_brief": "Proposed unit: id `attack-edge`, file data/lessons/units/attack-edge.json. order 445: free, between attack-kinmusou 440 and endgame-yose 450. path [\"上達のためのテクニック\",\"囲い崩し\"]. Working title ja 「端攻めは歩の枚数と取り方で決まる」 / en \"Edge Attacks Depend on Pawns in Hand and the Recapture\". Intro: 端攻め works because castled kings sit near the edge and the edge is guarded by weaker pieces (lance, knight, silver). Whether it succeeds depends on three things: whether the edge pawn is pushed past or facing, how many pawns are in hand, and which piece recaptures. All chapters are kind \"position\" with independently composed SFENs. Mirror the attack file or the learner's side compared with the JSA columns: they attack gote on the 9筋 for anaguma and Mino and use sente on the 1筋 for Yagura. Do not reproduce any column diagram, mirrored or otherwise. Check each SFEN against .cache/old and run `bun scripts/lessons/check-unit.ts attack-edge --engine`. references: Wikipedia 端攻め/将棋の格言/雀刺し/将棋用語一覧 (CC BY-SA 4.0, adapted:false), and the five JSA columns (All rights reserved, adapted:false, consulted only).\n\nCh1 「突き越した端歩は一歩で垂れ歩を作る」 (pushed past vs facing):\n- Mechanism: with the attacker's pawn on the fifth rank and the defender's on its third, one pawn in hand gives 突き捨て → 垂れ歩 on the defender's second rank (for example ▲1四歩△同歩▲1三歩), and the promotion threat cannot be ignored. With the pawns facing each other (1六/1四), the push ▲1五歩 can be ignored or answered by a counter-push.\n- Original position: gote king on 2二 inside a compact 3二金/3一銀 shape, with 香1一 and 桂2一. Sente has 香1九, 飛1八 or 飛2八, 1 pawn in hand, and no other attackers near the edge, to keep the counting clear. Main line: pushed-past pawns. Variation from step 0: the same material with the pawns on 1六/1四, showing that gote plays a different useful move (手抜き) and the edge goes nowhere.\n- Label the gote replies as examples, not forced moves.\n\nCh2 「垂れ歩の取り方を三つに分けて読む」 (端玉には端歩 against anaguma):\n- Mechanism: after the sacrifice and 垂れ歩 the defender can take with the lance, knight or silver. Each piece that leaves opens a different weakness:\n  - 同桂: the lance runs up, and a second sacrifice traps the knight;\n  - 同香: the knight jumps to hit the lance;\n  - 同銀: the knight forks or threatens the silver.\n- Original position: gote anaguma on the 1筋 (玉1一, 香1二, 桂2一, 銀2二, 金3二, plus a 金3三 or a 4筋 gold, different from the JSA two-golds-on-7筋 shape). Sente has 歩1五, 香1九, 桂 on 3七 or in hand, and 2 pawns in hand.\n- Main line: one recapture. Two variations from the 垂れ歩 step, one for each other recapture. Each branch ends on a position where the learner can count that the edge guard has thinned, not on a forced mate. Verify every branch with the engine. Show only branches the engine does not mark as blunders for the attacker.\n\nCh3 「歩がなければ突き捨てない：桂で香を狙う」 (Mino; pieces in hand decide):\n- Mechanism: against Mino, a knight attacking the edge lance is the basic idea, and holding back the lance capture keeps options open. With zero pawns in hand the sacrifice has no follow-up, so the knight jumps first. With pawns in hand, choosing 叩き or 垂れ saves a pawn for 「敵の打ちたいところへ打て」.\n- Original position: the learner plays gote attacking sente's Mino on the 1筋. Sente: 玉2八, 銀3八, 金4九, 金5八, 桂2九, 香1九, 歩1七. Gote: 歩1五 and a knight able to reach 2五, plus a bishop or rook placed differently from the column's ▲4四角 motif.\n- Main line: no pawn in hand, knight first. Variation: the same position with one pawn in hand, so the sacrifice is now playable.\n\nCh4 「開いた端に香を重ねる」 (doubled lance and 田楽刺し on the edge):\n- Mechanism: once the edge file is half open, a second lance dropped behind the first (香の重ね打ち) overloads the single defender. A lance dropped from far back can also pin or skewer two pieces standing on the edge file (田楽刺し, for example king and silver in a line).\n- Also mention 下段の香 against dropping one rank higher to stop a knight drop, as a stated choice rather than a rule.\n- Original position: a different material set from ch2/ch3. Gote has 玉1二 or 2一 with a silver on 1三. Sente has a lance in hand plus a lance on the file. Main line: the doubled lance breaks through. Variation: a 田楽 drop that wins the silver behind a pinned piece. Design a fresh line-up; do not reuse the yagura92 or anaguma-vol.2 layout.\n\nCh5 「受ける側：先に打つ歩と早逃げ」 (defender's view and when 手抜き is safe):\n- Mechanism: the defender drops a pawn first on the square the attacker needs (敵の打ちたいところへ打て), or steps the king away early so that the edge break hits empty squares. An edge push can be ignored when the king is far from the edge or when the defender's counterattack is faster. This ties back to ch1's facing-pawns case.\n- Original position: learner side gote, defending against a composed sente rook-and-lance battery on the 1筋. Main line: a pre-emptive pawn drop on 1四 followed by the king moving to 3一. Variation: passive play that lets the promotion through, for contrast.\n\nOptional final check (quiz): use an app tsume (see tsume_candidates) where an edge-pawn push or edge pawn drop is the mating start. This links \"端玉には端歩\" to concrete mate.\n\nPractical notes for the writer:\n- Write one unit, sequentially.\n- Add the JSA Wayback URLs to scripts/lessons/reference-urls.txt so the originality corpus includes them. The live pages are 404, so fetch-references.py must use the web.archive.org `id_` URLs. Also add the Wikipedia 端攻め and 雀刺し pages.\n- Diagram images in the JSA columns were not inspected, so no source positions were extracted. Compose every position independently.",
+      "tsume_candidates": "These are mate-in-3 positions from /Users/vittayapalotai.tanyawat/code/joseki-practice/src/data/tsume.json (YaneuraOu-generated, so allowed under the project's 詰将棋 rule) with the king on the 1st or 9th file, not in the corner, and a first move on an edge file. I filtered them with a script: 46 hits, of which the first 12 are listed below. I have not verified them with the engine.\n- m3-6: 1g1f, an edge-pawn push gives check, then S*1e.\n- m3-100: 1g1f edge-pawn push check, then S*1g.\n- m3-157: P*1d, an edge pawn drop against the king on 1c.\n- m3-75: P*9c, an edge pawn drop against the king on 9b, then R*7a.\n- m3-66: 9f9c+, an edge lance promotes with check.\n- m3-65: 2i1i+, then G*2g.\n- m3-92: 1a1c, then L*1d (a lance interposition on the edge).\n- m3-52, m3-72, m3-79, m3-102 and m3-169 are also edge-king mates.\nBest fits for a 端攻め closing check are m3-6 and m3-100 (edge-pawn push mates) and m3-157 and m3-75 (edge pawn drops). Each still needs replay plus `check-unit --engine` before use."
+    },
+    {
+      "topic": "5手詰 practice: five-move tsume technique (捨て駒/呼び込み, 退路封鎖, 打ち歩詰め回避, 合駒・限定合) and how 5手詰 differs from 3手詰; mate:5 positions in src/data/tsume.json",
+      "existing_coverage": "Read fully: docs/lessons.md (84 lines), AGENTS.md (29), .agents/skills/shogi-lessons/references/sources-and-authoring.md (55), scripts/lessons/reference-urls.txt (241). Mate-related units (all under 上達のためのテクニック/終盤 unless noted):\n- rules-tsume (order 90, はじめての将棋/ルール) 「詰将棋のルール」: chapters 攻方の手は王手 / 一手詰を確かめる / 玉方の持駒と合駒. Covers: every attacker move is check, odd move count, defender hand = all remaining pieces, 合駒 legal, 無駄合 needs checking beyond \"capture keeps check\". No 5手詰 material.\n- endgame-mate1 (470) 「十四局面で確かめる一手詰」: 14 original 1-move mates.\n- endgame-mate3 (480) 「三手詰：初手の王手で最後の一手を用意する」: chapters 端で飛車を移し金の打ち場所を作る / 桂の利きで龍の斜めの進出を守る / 金で玉を寄せ遠い飛車を通す / 角筋を通して玉を下へ誘う / 角をどけて香の王手を開く. Already cites shogi-joutatsu.com/archives/386 「5手詰のコツ」 (in reference-urls.txt) but teaches no 5-move problems. No 捨て駒 (piece sacrificed and captured) chapter, no 打ち歩詰め, no 合駒 choice.\n- endgame-mate-tesuji (490) 「寄せの手筋：王手の後に変わる利きを読む」: 飛車の王手には合駒を数える (one interposition shown) / 守備の金を王手で取り… / 玉の二つの逃げ先で決め手を変える / 桂で一段目を押さえ… / 狙われた角を王手の順で使い切る. All 3-move lines; no sacrifice-then-capture lure, no escape-square blocking sacrifice.\n- endgame-tsume-study (500) 「詰みの練習：候補手、応手、局面を記録する」: 成/不成 candidate split, hand updates after captures, error log, 実戦の詰み vs 作品条件 (駒余り).\n- basics-mate-words (120), basics-endgame (160), endgame-yose (450), endgame-tsumero (460) touch check/escape/詰めろ concepts only.\nGap: no unit teaches 5手詰 at all; 捨て駒 (呼び込み・退路封鎖), 打ち歩詰め回避, and 合駒 choice in a mating sequence are absent. Free integer orders in the 終盤 block: 481–489 (between endgame-mate3 480 and endgame-mate-tesuji 490) and 501–509.",
+      "sources": [
+        {
+          "title": "打ち歩詰め (Wikipedia 日本語版)",
+          "url": "https://ja.wikipedia.org/wiki/打ち歩詰め",
+          "license": "CC BY-SA 4.0 (consult for facts only; adapted: false per project rules)",
+          "read_fully": true,
+          "facts": [
+            "A pawn dropped from hand that gives check with no legal escape is a foul and the dropper loses; a pawn already on the board advancing to give mate (突き歩詰め) is legal.",
+            "A pawn drop that checks but is not itself mate is legal even if mate follows later.",
+            "Whether a pawn drop producing stalemate (no check) is a foul has no official ruling.",
+            "Earliest written codification is attributed to a 1636 rule book; the folk explanation about a pawn not taking the king's head has no documented basis.",
+            "In tsume problems the solver avoids a would-be pawn-drop mate by: giving the king a square (non-promotion of a rook/bishop/pawn, moving an own piece out of the way, sacrificing to open a square) or by letting the king or a defender capture the dropped pawn (shifting a defender, or blocking the line that protects the pawn).",
+            "Non-promotion of a bishop or rook has been used in real play to sidestep pawn-drop mate."
+          ]
+        },
+        {
+          "title": "詰将棋 (Wikipedia 日本語版)",
+          "url": "https://ja.wikipedia.org/wiki/詰将棋",
+          "license": "CC BY-SA 4.0 (consult for facts only; adapted: false)",
+          "read_fully": true,
+          "facts": [
+            "Attacker moves first and must check each move; mate length is odd.",
+            "Defender chooses the longest defense; among equally long defenses, the one that makes the attacker spend more hand pieces is chosen.",
+            "Defender's hand is every piece not on the board, not in the attacker's hand, excluding kings; a piece type fully used cannot be dropped.",
+            "無駄合: an interposition captured for free that changes nothing is not counted; one that changes the sequence is a real defense.",
+            "Composed problems require a unique main line (other mates = 余詰) and no attacker pieces left over at the end (駒余り); 実戦型 problems relax decoration rules.",
+            "Length bands: under 7 moves is called ultra-short; up to 17 short; 19-49 medium; 51+ long. Since 2011 many beginner books focus on mates of 5 moves or fewer.",
+            "Named themes include 中合 (distant interposition that lengthens or changes the mate), 移動合, 限定合 (only one interposing piece type is correct), 邪魔駒消去, 打ち歩詰め回避, 不利先打, 限定打 vs 短打.",
+            "Quality terms: 作意 (intended line), 紛れ (tempting line that fails), 変化 (defender branch), 変化同手数, 非限定."
+          ]
+        },
+        {
+          "title": "合駒 (Wikipedia 日本語版)",
+          "url": "https://ja.wikipedia.org/wiki/合駒",
+          "license": "CC BY-SA 4.0 (consult for facts only; adapted: false)",
+          "read_fully": true,
+          "facts": [
+            "An interposition places a piece between a long-range attacker (rook, dragon, bishop, horse, lance) and the king; it may be dropped from hand or made by moving a board piece (移動合), the latter keeping hand pieces or opening an escape square.",
+            "中合 (捨合) blocks away from the king to drag the checking piece closer, to let a further block follow, or to occupy a focal square.",
+            "The type of interposing piece can decide the result: a weak piece may stop a recapture from giving check, while a different piece type can enable the attacker's continuation.",
+            "Defenders often interpose cheap pieces (pawn, lance, knight) but the correct choice depends on what the attacker can do with the captured piece."
+          ]
+        },
+        {
+          "title": "毎日詰将棋 (日本将棋連盟)",
+          "url": "https://www.shogi.or.jp/tsume_shogi/",
+          "license": "All rights reserved (© Japan Shogi Association); problems not usable, rules summary consulted only",
+          "read_fully": true,
+          "facts": [
+            "The JSA publishes a daily problem; recent ones range from 3 to 11 moves, credited to professional composers.",
+            "Its rule summary: attacker checks every move, defender must answer every check, may interpose any piece except a king, plays the longest defense without 無駄合, and ordinary prohibitions (二歩, 打ち歩詰め, pieces with no further move, perpetual check) apply."
+          ]
+        },
+        {
+          "title": "ALSOK杯王将戦 将棋コラム 詰将棋",
+          "url": "https://www.alsok.co.jp/info/alsokhai-oushousen/73rd/tsumeshogi/",
+          "license": "Copyright © ALSOK CO.,LTD. All rights reserved; composed problems must not be reused",
+          "read_fully": false,
+          "facts": [
+            "Text commentary read via fetch; diagrams and hidden answer boards not inspected at full resolution.",
+            "5-move themes described: a gold sacrifice draws the king into a dangerous area and a silver sacrifice then seals its retreat before a dragon mates (lure + escape blocking).",
+            "When many first checks exist, the skill is choosing which major piece to give up and in what order.",
+            "Warnings: a natural first move can let the king slip out; a defender recapture can remove a supporting piece; choosing the wrong piece to fill a gap can lead into pawn-drop mate."
+          ]
+        },
+        {
+          "title": "ABC of Tsumi (Shogi Shack)",
+          "url": "https://shogishack.net/pages/tsumi-and-hisshi/abc-of-tsumi.html",
+          "license": "All rights reserved (footer 2008~2025); reference only",
+          "read_fully": false,
+          "facts": [
+            "Text read via fetch; diagrams not inspected at full resolution.",
+            "Frames tsume as largely deciding which pieces to give up.",
+            "Its 5-move example is a 3-move finishing pattern preceded by one forcing sacrifice that the king must capture, i.e. a 5手詰 often equals sacrifice + known 3手詰 shape.",
+            "Before a drop, check whether the target square is guarded by a defender."
+          ]
+        }
+      ],
+      "lesson_brief": "Unit id: endgame-mate5 (data/lessons/units/endgame-mate5.json). path [\"上達のためのテクニック\",\"終盤\"], order 485 (free; sits after endgame-mate3 480, before endgame-mate-tesuji 490). Title idea ja 「五手詰：捨て駒で形を作ってから三手詰に入る」 / en \"Mate in five: sacrifice to build the shape, then finish in three\". Intro idea: a 5手詰 adds one forcing pair before a 3手詰; the extra pair usually changes where the king stands, which defender stands where, or what is in hand. Learner reads: no mate in 1/3 first → candidate checks including ones that hang a piece → every defender reply → remaining 3手詰. References (adapted:false): the three ja.wikipedia pages and the JSA page above; ALSOK/Shogi Shack only as 参考 if at all. Partial positions follow endgame-mate3 convention (sente king 9i, defender hand empty) except where a chapter needs defender drops.\n\nCh1 捨て駒で玉を呼び込む (lure). Mechanism: the first check is a piece the king must capture, pulling it onto a square where a knight check + drop mates. ORIGINAL composition, solver-verified this session (brute-force legal-move search with tsshogi): SFEN `6k2/4ng1L1/7+B1/9/9/9/9/9/K8 b BN 1` (gote K 3a, n 5b, g 4b; sente L 2b, +B 2c; hand B N). No mate in 1 or 3; unique key ▲2一香成 (forced promotion; lance cannot stay on rank 1), only reply △同玉; ▲1三桂 (unique), △1一玉 or △3一玉, both ▲2二角 mate; attacker hand empty at mate (no 駒余り). Steps: show why ▲2二角 now fails (king escapes via 2a/2b), the key, both branches as main + variation from step after ▲1三桂. Must still pass check-unit.ts originality and position checks.\n\nCh2 退路封鎖 (defender's own piece forced onto the escape square). Mechanism: sacrifice on the king's flight square that the king cannot take (guarded) so a defending gold/silver must capture and thereby plugs the square; then a 3手詰. Plan: compose a new position with king on rank 1/2, one defender gold or silver able to capture onto the flight square, attacker guard (knight/lance/horse) on that square; verify with engine/solver: no mate ≤3, unique key, all replies mated in 3, no 駒余り. Random search found this pattern rare; hand-compose by retracting from the desired final mate (final: king boxed by its own capturing piece, head-gold/drop mates). Include a variation showing the king-capture alternative fails because the square is guarded.\n\nCh3 打ち歩詰め回避. Mechanism: the obvious line ends with a pawn drop that would mate = foul; correct play gives the king one extra square (rook/bishop 不成) or lets the pawn be capturable, so the pawn drop is only check and the next move mates (or a different finish). Plan: compose with attacker hand containing P plus one piece; teach via a text step with dashed marks/arrow on the forbidden drop (validator rejects the illegal move, so never play it), then the 不成 line. Verify uniqueness and that the 成 version fails only because of 打ち歩詰め.\n\nCh4 合駒を数える: 5手詰 with long-range checks. Mechanism: when a rook/lance checks from distance, every interposing piece type is a separate defender reply; tsume convention picks the longest, and 限定合 means only one choice prolongs. Use app-owned computer-generated position m5-254 (allowed source: src/data/tsume.json) whose first move ▲9八香 (9i9h, capturing gold) allows eight drop replies; PV △9七歩 ▲同香 △9六歩 ▲8五金. Explain that captured interposed pieces enter the attacker's hand, and introduce the 限定合 term as a concept (no composed example copied).\n\nCh5 実戦型の五手詰を通して読む (practice). Use tsume.json m5-171 (double sacrifice: ▲1三金 captured by lance, ▲3三角成 captured by knight, ▲2二飛) or m5-200 (▲5二馬 sacrifice, △同玉 forced, ▲6三金, ▲5二銀), with variations for each defender reply listed below. Close with the 3手詰 vs 5手詰 summary: extra forcing pair; sacrifices are normal; check every defender reply including captures by non-king pieces and interpositions; hand changes after captures; 打ち歩詰め constraint.",
+      "tsume_candidates": "src/data/tsume.json: 1148 entries (mate3 399, mate5 379, mate7 370). mate:5 = 379 (188 sente-to-move, 191 gote-to-move). All 379 PVs replay legally with tsshogi. From PV shape: 136 have the first attacker move captured on its square (sacrifice), 78 the third move, 57 contain a defender interposition drop. All are full-board computer-generated game positions (22–40 pieces). Six diverse picks, each verified this session: no mate in 1, final PV position is mate (zero legal replies); replies after move 1/move 3 listed:\n1. m5-113 (sente, 3 gold drops chasing along rank 2/1) sfen `1+B4k1l/9/2+P2pn1p/1+S1Kpn1R1/3p5/2+b2S3/s3PP2P/1p7/+l6NL b R4GL9Psn 159` pv G*2b 3a4b G*3b 4b5b G*6b; replies after 1st: 3a4a,3a4b; after 3rd: 4b5a,4b5b.\n2. m5-200 (sente, horse sacrifice lure) sfen `4k1s1l/4g1G2/5P2b/p1+B2+rpNp/4N4/2P1p3P/PPKP+s4/2G4R1/L7L b S5Pgs2nl3p 107` pv 7d5b 5a5b G*6c 5b5a S*5b; after 1st: 5a5b only (solver: 7d5b is the unique key); after 3rd: 5b5a,5b6a.\n3. m5-171 (sente, double sacrifice, rook drop finish) sfen `l6np/4+Pl+S1l/p3+B1sk1/5ppp1/P3BN2P/2P1PPP2/3pK4/+p4Sl2/9 b 2R4GS2N3Pp 171` pv G*1c 1b1c 4e3c+ 2a3c R*2b; after 1st: 1b1c,2a1c,2c1c,2c3b; after 3rd: 2a3c,2c1b.\n4. m5-254 (sente, repeated pawn interpositions) sfen `lnS+R1+B3/3r2+P2/2p1pg3/5p1P1/k1S3s2/2PpPP3/2K1b4/g7+l/L2S5 b 2N4P2gnl5p 169` pv 9i9h P*9g 9h9g P*9f G*8e; after 1st: P/L/N/G drops on 9f or 9g (8 replies); after 3rd: P*9f,L*9f,N*9f,G*9f.\n5. m5-388 (sente, bishop drop, lance interposition captured with promotion, rook drop) sfen `l8/3s2R2/1+Bnpkp+P2/2p1p4/p8/P1PP1P3/4P1S2/1SG2K3/LN6+l b RB3GS2NPl6p 97` pv B*3a L*4b 3a4b+ 5c4d R*4e; after 1st: 5c4d, L*4b; after 3rd: 5c4d.\n6. m5-105 (gote to move, double sacrifice on 2h) sfen `2gk1g2+P/1P1sl1s2/1+Lpp5/3+b1P+R2/8p/3N3p1/N4SP2/3L2G1K/3P1+pbNL w RN7Pgsp 170` pv G*2h 3h2h 3i2h+ 1h2h G*2g; after 1st: 1h1g,3h2h; after 3rd: 1h2h.\nAlso m5-316 (sente, quiet rook move then S/L drops) sfen `2+N1R1S1l/K2g5/2g2+Bnp1/pP3Rpkp/5g3/P2P4P/7+s1/1+n3+p3/L6NL b G2SL3Pb6p 171` pv 4c3d 2d1c S*2b 1c1b L*1c, single reply at each step. Caveat: these are 実戦型 full-board positions; defender alternatives beyond the PV must be added as variations and rechecked with check-unit.ts. No repository file was edited; analysis scripts live only in the session scratchpad."
+    }
+  ],
+  "continuation_completion": {
+    "date": "2026-10-15",
+    "head": "0287187e1d13d091eff4228748badada4a855e38",
+    "scope": "Finish remaining handoff work; four new units, existing source fixes, regeneration and aggregate gates. No expansion to the unaudited units.",
+    "units": [
+      "endgame-defense",
+      "attack-edge",
+      "endgame-mate5",
+      "judgment-four-factors"
+    ],
+    "source_and_output_hashes": {
+      "data/lessons/units/endgame-defense.json": "1212e9943f4294c6445576d27762f3a25328d6539ac535662dcb91471482cbaa",
+      "src/data/lessons/endgame-defense.json": "44bac2ddb18bc1e17b2c3cd2f920705bf3fee6964ca9e23b36148781c1241235",
+      "data/lessons/units/attack-edge.json": "c33acc4daf60b0f9013bbb6e5c10580464894e8db3dc2ff23e1e00ac51cad8b4",
+      "src/data/lessons/attack-edge.json": "b94b7bbe9090343c9b70e07c9dd94f687d8d0f2f631c0806da4e3829d88b2207",
+      "data/lessons/units/endgame-mate5.json": "bb352aba5f14301f65503446742e59b609b133ee7efda737a1678f47930d23d4",
+      "src/data/lessons/endgame-mate5.json": "b9f40dd4d93f6fcf77c79a7f5f7de3da6a269495578d85bf2e28deaf2202a513",
+      "data/lessons/units/judgment-four-factors.json": "b97a54eac1648d331a983437fbd373809a11f8c479d2791528e6b837421b271c",
+      "src/data/lessons/judgment-four-factors.json": "2b508eefe11a98971ba9146d933160e1171b01dde72c47a60be7ba9a9dc45f32",
+      "data/lessons/units/gokigen-vs-choukyusen.json": "cc3b5dbfee18fd1be61310e80f4e8338574a45c40f5fe1b981f6facfdc416bc5",
+      "data/lessons/units/yokofu-23fu.json": "ffb45156541d1c0803a44dcb9d54640605200dde2f5d55ef159740e894169e88"
+    },
+    "new_sources": [
+      {
+        "url": "https://ja.wikipedia.org/wiki/%E5%90%88%E9%A7%92",
+        "sha256": "1b0e47dd142a0365113e1a9c7ce8b83e68cf0b8d37d974e6625a7e91259acd35",
+        "bodyLinesRead": 315,
+        "coverage": "complete extracted article body; facts only; source positions not reused",
+        "corpus": ".cache/reference/sample-2026-10-15-aigoma.txt"
+      },
+      {
+        "url": "https://ja.wikipedia.org/wiki/%E7%AB%AF%E6%94%BB%E3%82%81",
+        "sha256": "adedaf0184157038f89797e9d61a103ee9e4738795c0ddff184af592d60d56b8",
+        "bodyLinesRead": 478,
+        "coverage": "complete extracted article body; facts only; source positions not reused",
+        "corpus": ".cache/reference/sample-2026-10-15-edge.txt"
+      },
+      {
+        "url": "https://bookplus.nikkei.com/atcl/column/031000478/031000001/",
+        "sha256": "cb94278776d7abd8c7579ef82fb0dbe461da994d11d8d98682f3e999fc0a71e7",
+        "bodyLinesRead": 101,
+        "coverage": "complete extracted article body; facts only; source positions not reused",
+        "corpus": ".cache/reference/sample-2026-10-15-judgment.txt"
+      },
+      {
+        "url": "https://www.shogi.or.jp/tsume_shogi/",
+        "sha256": "1fa5d7ebd4284bbe321e323e2de846f18ea69063a62e9fc92442fee468465f1b",
+        "bodyLinesRead": 52,
+        "coverage": "complete extracted article body; facts only; source positions not reused",
+        "corpus": ".cache/reference/sample-2026-10-15-tsume-rules.txt"
+      }
+    ],
+    "semantic_verification": {
+      "units": [
+        {
+          "id": "endgame-defense",
+          "chapters": 5,
+          "checkedNodes": 33,
+          "physicalInventory": "valid",
+          "nifu": false,
+          "strandedPieces": false
+        },
+        {
+          "id": "attack-edge",
+          "chapters": 5,
+          "checkedNodes": 32,
+          "physicalInventory": "valid",
+          "nifu": false,
+          "strandedPieces": false
+        },
+        {
+          "id": "endgame-mate5",
+          "chapters": 5,
+          "checkedNodes": 48,
+          "physicalInventory": "valid",
+          "nifu": false,
+          "strandedPieces": false
+        },
+        {
+          "id": "judgment-four-factors",
+          "chapters": 5,
+          "checkedNodes": 26,
+          "physicalInventory": "valid",
+          "nifu": false,
+          "strandedPieces": false
+        }
+      ],
+      "mates": [
+        {
+          "chapter": 1,
+          "start": "6k2/4ng1L1/7+B1/9/9/9/9/9/K8 b BN 1",
+          "noMateWithinThree": true,
+          "maxPlies": 5,
+          "lines": [
+            {
+              "moves": [
+                "2b2a+",
+                "3a2a",
+                "N*1c",
+                "2a3a",
+                "B*2b"
+              ],
+              "final": "6k2/4ng1B1/7+BN/9/9/9/9/9/K8 w l 1",
+              "checked": true,
+              "legalReplies": 0
+            },
+            {
+              "moves": [
+                "2b2a+",
+                "3a2a",
+                "N*1c",
+                "2a1a",
+                "B*2b"
+              ],
+              "final": "8k/4ng1B1/7+BN/9/9/9/9/9/K8 w l 1",
+              "checked": true,
+              "legalReplies": 0
+            }
+          ]
+        },
+        {
+          "chapter": 2,
+          "start": "4k1s1l/4g1G2/5P2b/p1+B2+rpNp/4N4/2P1p3P/PPKP+s4/2G4R1/L7L b S5Pgs2nl3p 1",
+          "noMateWithinThree": true,
+          "maxPlies": 5,
+          "lines": [
+            {
+              "moves": [
+                "7d5b",
+                "5a5b",
+                "G*6c",
+                "5b6a",
+                "S*6b"
+              ],
+              "final": "3k2s1l/3S2G2/3G1P2b/p4+rpNp/4N4/2P1p3P/PPKP+s4/2G4R1/L7L w 5Pbgs2nl3p 1",
+              "checked": true,
+              "legalReplies": 0
+            },
+            {
+              "moves": [
+                "7d5b",
+                "5a5b",
+                "G*6c",
+                "5b5a",
+                "S*6b"
+              ],
+              "final": "4k1s1l/3S2G2/3G1P2b/p4+rpNp/4N4/2P1p3P/PPKP+s4/2G4R1/L7L w 5Pbgs2nl3p 1",
+              "checked": true,
+              "legalReplies": 0
+            }
+          ]
+        },
+        {
+          "chapter": 3,
+          "start": "l8/3s2R2/1+Bnpkp+P2/2p1p4/p8/P1PP1P3/4P1S2/1SG2K3/LN6+l b RB3GS2NPl6p 1",
+          "noMateWithinThree": true,
+          "maxPlies": 5,
+          "lines": [
+            {
+              "moves": [
+                "B*3a",
+                "5c4d",
+                "3c3d",
+                "4d5e",
+                "G*5f"
+              ],
+              "final": "l5B2/3s2R2/1+Bnp1p3/2p1p1+P2/p3k4/P1PPGP3/4P1S2/1SG2K3/LN6+l w R2GS2NPl6p 1",
+              "checked": true,
+              "legalReplies": 0
+            },
+            {
+              "moves": [
+                "B*3a",
+                "L*4b",
+                "3a4b+",
+                "5c4d",
+                "G*4e"
+              ],
+              "final": "l8/3s1+BR2/1+Bnp1p+P2/2p1pk3/p4G3/P1PP1P3/4P1S2/1SG2K3/LN6+l w R2GS2NLP6p 1",
+              "checked": true,
+              "legalReplies": 0
+            }
+          ]
+        },
+        {
+          "chapter": 4,
+          "start": "2gk1g2+P/1P1sl1s2/1+Lpp5/3+b1P+R2/8p/3N3p1/N4SP2/3L2G1K/3P1+pbNL w RN7Pgsp 1",
+          "noMateWithinThree": true,
+          "maxPlies": 5,
+          "lines": [
+            {
+              "moves": [
+                "G*2h",
+                "3h2h",
+                "3i2h+",
+                "1h2h",
+                "G*2g"
+              ],
+              "final": "2gk1g2+P/1P1sl1s2/1+Lpp5/3+b1P+R2/8p/3N3p1/N4SPg1/3L3K1/3P1+p1NL b RBGN7Psp 1",
+              "checked": true,
+              "legalReplies": 0
+            },
+            {
+              "moves": [
+                "G*2h",
+                "1h1g",
+                "2h2g"
+              ],
+              "final": "2gk1g2+P/1P1sl1s2/1+Lpp5/3+b1P+R2/8p/3N3p1/N4SPgK/3L2G2/3P1+pbNL b RN7Psp 1",
+              "checked": true,
+              "legalReplies": 0
+            }
+          ]
+        },
+        {
+          "chapter": 5,
+          "start": "1+B4k1l/9/2+P2pn1p/1+S1Kpn1R1/3p5/2+b2S3/s3PP2P/1p7/+l6NL b R4GL9Psn 1",
+          "noMateWithinThree": true,
+          "maxPlies": 5,
+          "lines": [
+            {
+              "moves": [
+                "G*2b",
+                "3a4a",
+                "G*3b",
+                "4a5a",
+                "G*6b"
+              ],
+              "final": "1+B2k3l/3G2GG1/2+P2pn1p/1+S1Kpn1R1/3p5/2+b2S3/s3PP2P/1p7/+l6NL w RGL9Psn 1",
+              "checked": true,
+              "legalReplies": 0
+            },
+            {
+              "moves": [
+                "G*2b",
+                "3a4a",
+                "G*3b",
+                "4a5b",
+                "G*6b"
+              ],
+              "final": "1+B6l/3Gk1GG1/2+P2pn1p/1+S1Kpn1R1/3p5/2+b2S3/s3PP2P/1p7/+l6NL w RGL9Psn 1",
+              "checked": true,
+              "legalReplies": 0
+            },
+            {
+              "moves": [
+                "G*2b",
+                "3a4b",
+                "G*3b",
+                "4b5a",
+                "G*6b"
+              ],
+              "final": "1+B2k3l/3G2GG1/2+P2pn1p/1+S1Kpn1R1/3p5/2+b2S3/s3PP2P/1p7/+l6NL w RGL9Psn 1",
+              "checked": true,
+              "legalReplies": 0
+            },
+            {
+              "moves": [
+                "G*2b",
+                "3a4b",
+                "G*3b",
+                "4b5b",
+                "G*6b"
+              ],
+              "final": "1+B6l/3Gk1GG1/2+P2pn1p/1+S1Kpn1R1/3p5/2+b2S3/s3PP2P/1p7/+l6NL w RGL9Psn 1",
+              "checked": true,
+              "legalReplies": 0
+            }
+          ]
+        }
+      ],
+      "comparisons": [
+        {
+          "id": "early-escape",
+          "sfen": "k8/9/9/9/9/9/2P3s2/9/8K b g 1",
+          "moves": [
+            "1i1h",
+            "G*2h",
+            "1h1g"
+          ],
+          "final": "k8/9/9/9/9/9/2P3s1K/7g1/9 w - 1",
+          "checked": false,
+          "legalReplies": [
+            "9a8a",
+            "9a9b",
+            "9a8b",
+            "3g4f",
+            "3g4f+",
+            "3g2f",
+            "3g2f+",
+            "3g4h",
+            "3g4h+",
+            "3g3h",
+            "3g3h+",
+            "2h2g",
+            "2h3h",
+            "2h1h",
+            "2h3i",
+            "2h2i",
+            "2h1i"
+          ]
+        },
+        {
+          "id": "ignored-threat",
+          "sfen": "k8/9/9/9/9/9/2P3s2/9/8K b g 1",
+          "moves": [
+            "7g7f",
+            "G*2h"
+          ],
+          "final": "k8/9/9/9/9/2P6/6s2/7g1/8K b - 1",
+          "checked": true,
+          "legalReplies": []
+        },
+        {
+          "id": "mate-before-material",
+          "sfen": "8k/9/7+BN/9/9/9/2s1r4/3B5/K8 b Gg 1",
+          "moves": [
+            "G*1b"
+          ],
+          "final": "8k/8G/7+BN/9/9/9/2s1r4/3B5/K8 w g 1",
+          "checked": true,
+          "legalReplies": []
+        },
+        {
+          "id": "material-before-mate",
+          "sfen": "8k/9/7+BN/9/9/9/2s1r4/3B5/K8 b Gg 1",
+          "moves": [
+            "6h5g",
+            "G*8h"
+          ],
+          "final": "8k/9/7+BN/9/9/9/2s1B4/1g7/K8 b RG 1",
+          "checked": true,
+          "legalReplies": []
+        }
+      ]
+    },
+    "engine": {
+      "package": "@mizarjp/yaneuraou.k-p",
+      "version": "7.6.3-alpha.0",
+      "threads": 1,
+      "hashMiB": 32,
+      "ownBook": false,
+      "movetimeMs": 1000,
+      "perspective": "side to move",
+      "positions": [
+        {
+          "id": "endgame-defense",
+          "chapter": 1,
+          "point": "start",
+          "sfen": "8k/9/9/9/9/9/9/9/2K1G2+r1 b P 1",
+          "score": -1457,
+          "bestmove": "7i6h",
+          "mate": "-"
+        },
+        {
+          "id": "endgame-defense",
+          "chapter": 1,
+          "point": "P*4i 2i3i",
+          "sfen": "8k/9/9/9/9/9/9/9/2K1GP+r2 b - 1",
+          "score": -1965,
+          "bestmove": "7i6h",
+          "mate": "-"
+        },
+        {
+          "id": "endgame-defense",
+          "chapter": 2,
+          "point": "start",
+          "sfen": "8k/9/9/9/9/9/9/9/2K1G2+r1 b Pl 1",
+          "score": -2171,
+          "bestmove": "7i6h",
+          "mate": "-"
+        },
+        {
+          "id": "endgame-defense",
+          "chapter": 2,
+          "point": "P*4i L*4a",
+          "sfen": "5l2k/9/9/9/9/9/9/9/2K1GP1+r1 b - 1",
+          "score": -2826,
+          "bestmove": "7i6h",
+          "mate": "-"
+        },
+        {
+          "id": "endgame-defense",
+          "chapter": 3,
+          "point": "start",
+          "sfen": "k3r4/9/9/9/9/9/2B6/9/4K4 b GP 1",
+          "score": 1823,
+          "bestmove": "5i4h",
+          "mate": "-"
+        },
+        {
+          "id": "endgame-defense",
+          "chapter": 3,
+          "point": "P*5e 5a5e",
+          "sfen": "k8/9/9/9/4r4/9/2B6/9/4K4 b Gp 1",
+          "score": 30000,
+          "bestmove": "7g5e",
+          "mate": "5"
+        },
+        {
+          "id": "endgame-defense",
+          "chapter": 4,
+          "point": "start",
+          "sfen": "k8/9/9/9/9/9/2P3s2/9/8K b g 1",
+          "score": -30000,
+          "bestmove": "1i1h",
+          "mate": "-14"
+        },
+        {
+          "id": "endgame-defense",
+          "chapter": 4,
+          "point": "1i1h G*2h",
+          "sfen": "k8/9/9/9/9/9/2P3s2/7gK/9 b - 1",
+          "score": -1624,
+          "bestmove": "1h1g",
+          "mate": "-"
+        },
+        {
+          "id": "endgame-defense",
+          "chapter": 5,
+          "point": "start",
+          "sfen": "8k/9/9/9/5n3/9/4G1G2/9/4K4 b S 1",
+          "score": 1592,
+          "bestmove": "5i4h",
+          "mate": "-"
+        },
+        {
+          "id": "endgame-defense",
+          "chapter": 5,
+          "point": "S*4f 4e3g",
+          "sfen": "8k/9/9/9/9/5S3/4G1n2/9/4K4 b g 1",
+          "score": 785,
+          "bestmove": "5i4h",
+          "mate": "-"
+        },
+        {
+          "id": "attack-edge",
+          "chapter": 1,
+          "point": "start",
+          "sfen": "5k1nl/6gs1/8p/9/8P/9/9/4R4/1K6L b P 1",
+          "score": 2004,
+          "bestmove": "5h5c+",
+          "mate": "-"
+        },
+        {
+          "id": "attack-edge",
+          "chapter": 1,
+          "point": "1e1d 1c1d",
+          "sfen": "5k1nl/6gs1/9/8p/9/9/9/4R4/1K6L b Pp 1",
+          "score": 1478,
+          "bestmove": "5h5c+",
+          "mate": "-"
+        },
+        {
+          "id": "attack-edge",
+          "chapter": 2,
+          "point": "start",
+          "sfen": "5k1nl/6gs1/8p/9/8P/9/9/4R4/1K6L b P 1",
+          "score": 1948,
+          "bestmove": "5h5c+",
+          "mate": "-"
+        },
+        {
+          "id": "attack-edge",
+          "chapter": 2,
+          "point": "1e1d 1c1d",
+          "sfen": "5k1nl/6gs1/9/8p/9/9/9/4R4/1K6L b Pp 1",
+          "score": 1318,
+          "bestmove": "5h5c+",
+          "mate": "-"
+        },
+        {
+          "id": "attack-edge",
+          "chapter": 3,
+          "point": "start",
+          "sfen": "6k2/7g1/8l/9/7N1/5B3/9/9/K8 b - 1",
+          "score": 2081,
+          "bestmove": "9i8h",
+          "mate": "-"
+        },
+        {
+          "id": "attack-edge",
+          "chapter": 3,
+          "point": "2e1c+ 2b1c",
+          "sfen": "6k2/9/8g/9/9/5B3/9/9/K8 b Ln 1",
+          "score": 3006,
+          "bestmove": "4f1c+",
+          "mate": "-"
+        },
+        {
+          "id": "attack-edge",
+          "chapter": 4,
+          "point": "start",
+          "sfen": "2k6/1g7/s8/9/L8/9/9/9/8K b L 1",
+          "score": 140,
+          "bestmove": "L*7f",
+          "mate": "-"
+        },
+        {
+          "id": "attack-edge",
+          "chapter": 4,
+          "point": "L*9g 7a6a",
+          "sfen": "3k5/1g7/s8/9/L8/9/L8/9/8K b - 1",
+          "score": 1395,
+          "bestmove": "9e9c+",
+          "mate": "-"
+        },
+        {
+          "id": "attack-edge",
+          "chapter": 5,
+          "point": "start",
+          "sfen": "5k1nl/6gs1/9/8p/9/9/8P/9/K7L w P 1",
+          "score": 1184,
+          "bestmove": "4a4b",
+          "mate": "-"
+        },
+        {
+          "id": "attack-edge",
+          "chapter": 5,
+          "point": "1d1e 1g1f",
+          "sfen": "5k1nl/6gs1/9/9/8p/8P/9/9/K7L w P 1",
+          "score": 1227,
+          "bestmove": "1e1f",
+          "mate": "-"
+        },
+        {
+          "id": "judgment-four-factors",
+          "chapter": 1,
+          "point": "start",
+          "sfen": "8k/9/6s2/5+p3/4+L4/9/9/9/K8 b S 1",
+          "score": 514,
+          "bestmove": "5e4d",
+          "mate": "-"
+        },
+        {
+          "id": "judgment-four-factors",
+          "chapter": 1,
+          "point": "5e4d 3c4d",
+          "sfen": "8k/9/9/5s3/9/9/9/9/K8 b SPl 1",
+          "score": 498,
+          "bestmove": "S*2c",
+          "mate": "-"
+        },
+        {
+          "id": "judgment-four-factors",
+          "chapter": 2,
+          "point": "start",
+          "sfen": "4k4/3g5/9/5R3/9/9/1S7/1KG6/9 b S 1",
+          "score": 4772,
+          "bestmove": "4d4c+",
+          "mate": "-"
+        },
+        {
+          "id": "judgment-four-factors",
+          "chapter": 2,
+          "point": "4d5d 5a4a",
+          "sfen": "5k3/3g5/9/4R4/9/9/1S7/1KG6/9 b S 1",
+          "score": 30000,
+          "bestmove": "S*4c",
+          "mate": "11"
+        },
+        {
+          "id": "judgment-four-factors",
+          "chapter": 3,
+          "point": "start",
+          "sfen": "7k1/9/9/5g3/9/9/9/1P7/B2K5 b - 1",
+          "score": 2005,
+          "bestmove": "8h8g",
+          "mate": "-"
+        },
+        {
+          "id": "judgment-four-factors",
+          "chapter": 3,
+          "point": "8h8g 2a3a",
+          "sfen": "6k2/9/9/5g3/9/9/1P7/9/B2K5 b - 1",
+          "score": 30000,
+          "bestmove": "9i4d",
+          "mate": "27"
+        },
+        {
+          "id": "judgment-four-factors",
+          "chapter": 4,
+          "point": "start",
+          "sfen": "8k/9/7+BN/9/9/9/2s1r4/3B5/K8 b Gg 1",
+          "score": 30000,
+          "bestmove": "G*1b",
+          "mate": "1"
+        },
+        {
+          "id": "judgment-four-factors",
+          "chapter": 4,
+          "point": "G*1b",
+          "sfen": "8k/8G/7+BN/9/9/9/2s1r4/3B5/K8 w g 1",
+          "score": -30000,
+          "bestmove": "resign",
+          "mate": "-0"
+        },
+        {
+          "id": "judgment-four-factors",
+          "chapter": 5,
+          "point": "start",
+          "sfen": "8k/9/9/5s3/4b4/3G5/9/4R4/2K6 b - 1",
+          "score": 3416,
+          "bestmove": "6f5e",
+          "mate": "-"
+        },
+        {
+          "id": "judgment-four-factors",
+          "chapter": 5,
+          "point": "6f5e 4d5e",
+          "sfen": "8k/9/9/9/4s4/9/9/4R4/2K6 b Bg 1",
+          "score": 30000,
+          "bestmove": "5h5e",
+          "mate": "13"
+        },
+        {
+          "id": "endgame-mate5",
+          "chapter": 1,
+          "point": "start",
+          "sfen": "6k2/4ng1L1/7+B1/9/9/9/9/9/K8 b BN 1",
+          "score": 30000,
+          "bestmove": "B*8f",
+          "mate": "5"
+        },
+        {
+          "id": "endgame-mate5",
+          "chapter": 2,
+          "point": "start",
+          "sfen": "4k1s1l/4g1G2/5P2b/p1+B2+rpNp/4N4/2P1p3P/PPKP+s4/2G4R1/L7L b S5Pgs2nl3p 1",
+          "score": 30000,
+          "bestmove": "7d5b",
+          "mate": "5"
+        },
+        {
+          "id": "endgame-mate5",
+          "chapter": 3,
+          "point": "start",
+          "sfen": "l8/3s2R2/1+Bnpkp+P2/2p1p4/p8/P1PP1P3/4P1S2/1SG2K3/LN6+l b RB3GS2NPl6p 1",
+          "score": 30000,
+          "bestmove": "B*3a",
+          "mate": "5"
+        },
+        {
+          "id": "endgame-mate5",
+          "chapter": 4,
+          "point": "start",
+          "sfen": "2gk1g2+P/1P1sl1s2/1+Lpp5/3+b1P+R2/8p/3N3p1/N4SP2/3L2G1K/3P1+pbNL w RN7Pgsp 1",
+          "score": 30000,
+          "bestmove": "G*2h",
+          "mate": "5"
+        },
+        {
+          "id": "endgame-mate5",
+          "chapter": 5,
+          "point": "start",
+          "sfen": "1+B4k1l/9/2+P2pn1p/1+S1Kpn1R1/3p5/2+b2S3/s3PP2P/1p7/+l6NL b R4GL9Psn 1",
+          "score": 30000,
+          "bestmove": "R*2a",
+          "mate": "5"
+        }
+      ],
+      "limitation": "Bounded diagnostics, not strategic optimality. Examples in defense/edge/judgment are conditional illustrations. The early escape prevents immediate mate; longer survival is not asserted."
+    },
+    "gates": {
+      "lessons": "150 lessons, 540 chapters, 2033 figures, 2535 legal moves, 0 errors",
+      "changed_units": [
+        "attack-kinmusou: ok (3 chapters)",
+        "attack-mino-side: ok (4 chapters)",
+        "attack-yagura-head: ok (3 chapters)",
+        "basics-endgame: ok (3 chapters)",
+        "basics-forks: ok (3 chapters)",
+        "basics-value: ok (4 chapters)",
+        "bougin-basics: ok (5 chapters)",
+        "castles-mino: ok (4 chapters)",
+        "endgame-mate-tesuji: ok (5 chapters)",
+        "endgame-mate1: ok (14 chapters)",
+        "endgame-mate3: ok (5 chapters)",
+        "endgame-tsumero: ok (5 chapters)",
+        "endgame-yose: ok (4 chapters)",
+        "gokigen-vs-choukyusen: ok (3 chapters)",
+        "  NOTE lesson-gokigen-vs-choukyusen-2 ply 17 2d3d: engine loss 1043 (engine prefers 2d2a+, eval for mover -61 -> -1104)",
+        "handicap-4: ok (3 chapters)",
+        "kakugawari-45kei: ok (4 chapters)",
+        "kishu-onigoroshi: ok (3 chapters)",
+        "proverb-three-pawns: ok (5 chapters)",
+        "rules-draws: ok (4 chapters)",
+        "rules-fouls: ok (6 chapters)",
+        "shiken-vs-anaguma: ok (3 chapters)",
+        "tesuji-bishop: ok (4 chapters)",
+        "tesuji-pawn: ok (5 chapters)",
+        "yagura-37gin: ok (4 chapters)",
+        "yokofu-23fu: ok (4 chapters)",
+        "endgame-defense: ok (5 chapters)",
+        "attack-edge: ok (5 chapters)",
+        "endgame-mate5: ok (5 chapters)",
+        "judgment-four-factors: ok (5 chapters)"
+      ],
+      "validate": "3220 moves checked, 0 errors; strategies: 85 matchups, 83 courses with sides, 0 errors",
+      "originality": "16097 strings checked: 0 flagged; cached Japanese text only",
+      "typescript": "bunx tsc -b: exit 0",
+      "diff_check": "git diff --check: exit 0",
+      "source_output_alignment": "150 authored/generated lessons match exactly via lessonOf",
+      "secret_scan": "Zero credential-pattern matches across written units, generated outputs, audit evidence, current task and reference URLs"
+    },
+    "limits": [
+      "No browser verification under active-user-testing restriction.",
+      "Practical mate exercises use displayed hands; spare material and alternative winning moves allowed.",
+      "No source claim of unique keys or strategic optimality.",
+      "Originality scan does not prove structural or English originality; text independently authored and source-comparison reviewed."
+    ],
+    "delivery": "Uncommitted on main; no external writes, release, deployment, browser session or owned server started.",
+    "instruction_persistence": "AGENTS.md now requires explicit mating-hand conventions, all-defense/endpoint proof, exclusion of shorter forced mates, and separate partial-position physical checks."
+  }
+}

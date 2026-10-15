@@ -1,0 +1,407 @@
+{
+  "id": "endgame-defense",
+  "order": 465,
+  "path": [
+    "上達のためのテクニック",
+    "終盤"
+  ],
+  "title": {
+    "ja": "受けの手筋：遮る・逃がす・追い返す",
+    "en": "Defense: block, escape, and counterattack"
+  },
+  "intro": {
+    "ja": "受けた直後だけでなく、相手が取った後まで確かめます。横利きを切る歩、合駒の場所、玉を逃がす時期、攻め駒への当たりを比べましょう。部分図では、示した応手が強制か、仕組みを調べる一例かを分けます。",
+    "en": "Look beyond the defensive move to the opponent’s next capture. Compare a pawn blocking a rank, the square for an interposition, the timing of a king escape, and a threat against an attacking piece. In these partial positions, distinguish forced replies from illustrative choices."
+  },
+  "check": {
+    "question": {
+      "ja": "底歩を打てば、どの方向からの攻めにも安全ですか？",
+      "en": "Does a bottom pawn secure the position against every direction of attack?"
+    },
+    "answer": {
+      "ja": "横の道を切っても、縦から香で狙われる場合があります。同じ筋へ歩を足す受けは二歩になるため使えません。取り返しの後に残る駒まで読みます。",
+      "en": "It can cut a horizontal line yet become a target for a lance on its file. A second pawn drop on that file would be nifu. Calculate the pieces left after the recaptures."
+    }
+  },
+  "references": [
+    {
+      "title": "合駒（用語と働きの確認）",
+      "url": "https://ja.wikipedia.org/wiki/合駒",
+      "license": "CC BY-SA 4.0",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "横から来る竜の道を切る",
+        "en": "Cut the dragon’s horizontal line"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "8k/9/9/9/9/9/9/9/2K1G2+r1 b P 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "竜２九が金５九を横から狙っています。金は玉７九から離れ、直接は支えられていません。金を動かすほか、間の升を埋める方法を考えます。",
+            "en": "The dragon on ２九 attacks the gold on ５九 along the rank. The king on ７九 does not protect the gold directly. Consider filling an intervening square as well as moving the gold."
+          },
+          "marks": {
+            "boxes": [
+              "2i",
+              "5i",
+              "7i"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "P*4i"
+          ],
+          "text": {
+            "ja": "▲４九歩で横の道を止めます。金５九は４九へ寄れるので、この歩を守っています。",
+            "en": "▲４九歩 stops the horizontal line. The gold on ５九 protects the pawn by being able to move sideways to ４九."
+          },
+          "marks": {
+            "boxes": [
+              "4i"
+            ],
+            "arrows": [
+              "5i4i"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2i3i"
+          ],
+          "text": {
+            "ja": "△３九竜は一例です。歩４九があるため、竜はそのまま５九へ通れません。受けに使った歩を金の横利きで支える形です。",
+            "en": "△３九竜 is one illustrative reply. The pawn on ４九 prevents the dragon from passing directly to ５九, and the gold supports the blocking pawn."
+          },
+          "marks": {
+            "boxes": [
+              "4i",
+              "5i"
+            ],
+            "arrows": [
+              "2i3i"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": [
+            "2i4i",
+            "5i4i"
+          ],
+          "text": {
+            "ja": "△同竜なら▲同金で取り返せます。歩一枚と竜の交換になるため、歩をただ取ったことにはなりません。",
+            "en": "After △同竜, ▲同金 recaptures. The exchange is a pawn for a dragon, rather than a free pawn."
+          }
+        },
+        {
+          "from": 0,
+          "moves": [
+            "5i6i"
+          ],
+          "text": {
+            "ja": "▲６九金と玉へ寄せるのも合法な選択です。底歩は金の位置を保ちたいときの候補で、唯一の受けではありません。",
+            "en": "▲６九金, bringing the gold toward the king, is also legal. The bottom pawn is a candidate when you want to retain the gold’s post; it is not the only defense."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "横の受けを縦から崩される",
+        "en": "A horizontal shield can be attacked vertically"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "8k/9/9/9/9/9/9/9/2K1G2+r1 b Pl 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "配置は前章と同じですが、後手は香を持っています。底歩の横の強さと、同じ筋へ歩を追加できない弱点を比べます。",
+            "en": "The arrangement is the same, but Gote now holds a lance. Compare the pawn’s horizontal shielding with the restriction against adding another pawn on its file."
+          },
+          "marks": {
+            "boxes": [
+              "4i"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "P*4i",
+            "L*4a"
+          ],
+          "text": {
+            "ja": "▲４九歩に△４一香。香は４筋を下へ進みます。４九の歩が残る間、先手は４筋へ二枚目の歩を打てません。",
+            "en": "▲４九歩 △４一香 aims the lance down the fourth file. While the pawn remains on ４九, Sente cannot drop a second unpromoted pawn on that file."
+          },
+          "marks": {
+            "boxes": [
+              "4a",
+              "4i"
+            ],
+            "arrows": [
+              "L*4a"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7i7h",
+            "4a4i+",
+            "5i4i",
+            "2i4i"
+          ],
+          "text": {
+            "ja": "▲７八玉と別の升へ逃げた場合の交換を見ます。△４九香成、▲同金、△同竜で、先手は歩と金を渡して香を得ます。この順は強制ではなく、縦の攻めを放置した例です。",
+            "en": "Examine the exchange if Sente moves the king to ７八 instead. After △４九香成 ▲同金 △同竜, Sente has given up a pawn and gold for a lance. This is an illustration of ignoring the file attack, not a forced line."
+          },
+          "marks": {
+            "boxes": [
+              "4i"
+            ],
+            "arrows": [
+              "2i4i"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": [
+            "5i6i"
+          ],
+          "text": {
+            "ja": "▲６九金なら、香が歩を取っても金は４九に取り返す位置にいません。金を守る狙いへ切り替えています。歩を守ることと金を守ることを分けて判断します。",
+            "en": "▲６九金 changes the goal to preserving the gold. If the lance takes the pawn, the gold is no longer positioned to recapture on ４九. Distinguish saving the pawn from saving the gold."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "玉から遠い合駒も支えを探す",
+        "en": "Find support for a distant interposition"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k3r4/9/9/9/9/9/2B6/9/4K4 b GP 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "飛車５一から玉５九へ王手です。角７七は６六を経て５五へ利いています。玉に近い升だけでなく、他の駒が取り返せる升も調べます。",
+            "en": "The rook on ５一 checks the king on ５九. The bishop on ７七 reaches ５五 through ６六. Look for squares supported by other pieces, including squares far from the king."
+          },
+          "marks": {
+            "boxes": [
+              "5a",
+              "5e",
+              "7g",
+              "5i"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "P*5e"
+          ],
+          "text": {
+            "ja": "▲５五歩と中ほどへ合駒します。王手の線を切り、飛車が取れば角で取り返す形です。",
+            "en": "▲５五歩 interposes in the middle of the file. It blocks check and prepares a bishop recapture if the rook takes it."
+          },
+          "marks": {
+            "boxes": [
+              "5e"
+            ],
+            "arrows": [
+              "P*5e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5a5e",
+            "7g5e"
+          ],
+          "text": {
+            "ja": "△同飛に▲同角。後手が交換を選んだ場合、渡したのは歩一枚です。後手はこの取りを選ぶ義務はありません。",
+            "en": "After △同飛 ▲同角, the piece handed over was a pawn. Gote is not obliged to choose this exchange."
+          },
+          "marks": {
+            "arrows": [
+              "7g5e"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": [
+            "G*5e",
+            "5a5e",
+            "7g5e"
+          ],
+          "text": {
+            "ja": "金でも同じ場所をふさげますが、△同飛▲同角の後に後手の持駒へ入るのは金です。止める場所が同じでも、渡す駒は変わります。",
+            "en": "A gold blocks the same square, but after △同飛 ▲同角, Gote holds a gold instead. Identical blocking squares can have different material costs."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "王手が始まる前に一段逃げる",
+        "en": "Escape a rank before the checks start"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k8/9/9/9/9/9/2P3s2/9/8K b g 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手玉１九に対し、銀３七が２八を守り、後手は金を持っています。２八への金打ちは玉に接近します。今の手番を遠い歩に使う場合と、玉を前へ動かす場合を比べます。",
+            "en": "Against the king on １九, Gote’s silver on ３七 protects ２八 and Gote holds a gold. A gold drop on ２八 brings the attack next to the king. Compare using this turn on a distant pawn with moving the king forward."
+          },
+          "marks": {
+            "boxes": [
+              "1i",
+              "3g",
+              "2h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "1i1h"
+          ],
+          "text": {
+            "ja": "▲１八玉と早逃げします。まだ王手ではない間に、さらに１七へ上がれる場所を作りました。",
+            "en": "▲１八玉 escapes early, while there is no check, and gives the king access to １七 on its next move."
+          },
+          "marks": {
+            "arrows": [
+              "1i1h"
+            ],
+            "boxes": [
+              "1h",
+              "1g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "G*2h",
+            "1h1g"
+          ],
+          "text": {
+            "ja": "△２八金の王手には▲１七玉。金２八は斜め後ろの１七へ利かず、銀３七も１七を押さえていません。この順では△２八金の一手詰を防いでいます。",
+            "en": "After △２八金 checks, ▲１七玉 escapes. The gold on ２八 does not control １七 diagonally backward, and neither does the silver on ３七. This line prevents the immediate mate by △２八金."
+          },
+          "marks": {
+            "boxes": [
+              "1g"
+            ],
+            "arrows": [
+              "1h1g"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": [
+            "7g7f",
+            "G*2h"
+          ],
+          "text": {
+            "ja": "▲７六歩と手を抜くと△２八金で詰みです。１八・２九は金の利き、２八の金は銀３七に支えられています。玉の位置を変える一手で、この違いが生じます。",
+            "en": "Ignoring the threat with ▲７六歩 allows mate by △２八金. The gold covers １八 and ２九 and is protected by the silver on ３七. One earlier king move changes this outcome."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "桂を前から攻めて取りの代償を作る",
+        "en": "Attack the knight from in front"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "8k/9/9/9/5n3/9/4G1G2/9/4K4 b S 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "桂４五は金３七と金５七の両方に跳ねられます。銀を使うなら、桂に取られず桂へ当たる場所を探します。",
+            "en": "The knight on ４五 can jump onto either gold, on ３七 or ５七. Find a silver drop that attacks the knight without being capturable by it."
+          },
+          "marks": {
+            "boxes": [
+              "4e",
+              "3g",
+              "5g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "S*4f"
+          ],
+          "text": {
+            "ja": "▲４六銀打。銀は前の４五を狙い、金５七が銀を守ります。桂は真後ろの銀を取れません。",
+            "en": "▲４六銀打 attacks ４五, with support from the gold on ５七. The knight cannot capture the silver directly behind it."
+          },
+          "marks": {
+            "boxes": [
+              "4f"
+            ],
+            "arrows": [
+              "4f4e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4e3g",
+            "4f3g"
+          ],
+          "text": {
+            "ja": "△３七桂なら▲同銀。先手は金を失いますが、桂を取り返せます。両方の金を無傷で救う手と誤解せず、損害を比べる受けとして読みます。",
+            "en": "After △３七桂, ▲同銀 recaptures. Sente loses a gold but takes the knight. This defense changes the exchange; it does not save both golds intact."
+          },
+          "marks": {
+            "arrows": [
+              "4f3g"
+            ],
+            "boxes": [
+              "3g"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": [
+            "4e5g",
+            "4f5g"
+          ],
+          "text": {
+            "ja": "もう一方の△５七桂にも▲同銀と取れます。桂が跳ねた先へ銀が斜めに下がれるかまで確かめます。",
+            "en": "The other jump, △５七桂, is also met by ▲同銀. Check that the silver can retreat diagonally to the knight’s destination."
+          }
+        }
+      ]
+    }
+  ]
+}

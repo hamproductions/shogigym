@@ -42,13 +42,14 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/1r7/9/3p5/9/3P1P3/5S3/2KG5/7R1 b Bb 1",
+      "start": "4k4/1rg6/9/3p5/9/3P1P3/5S3/2KG5/7R1 b Bb 1",
       "steps": [
         {
           "text": {
-            "ja": "先手右銀４七は５六へ出られます。そこから４五と６五へ利くため、後手歩６四との接触にも参加できます。ただし歩を動かした後に角を打てる升も変わります。",
-            "en": "Sente's right silver on 4g can develop to 5f. From there it controls 4e and 6e, including a contact with Gote's pawn on 6d. Moving the pawns also changes the squares available for a bishop drop."
-          }
+            "ja": "先手右銀４七は５六へ出られます。そこから４五と６五へ利くため、後手歩６四との接触にも参加できます。ただし歩を動かした後に角を打てる升も変わります。後手金７二は飛車８二を守り、王手の角７三打ちにも同金と取れます。",
+            "en": "Sente's right silver on 4g can develop to 5f. From there it controls 4e and 6e, including a contact with Gote's pawn on 6d. Moving the pawns also changes the squares available for a bishop drop. Gote’s gold on 7b guards the rook on 8b and can capture a checking bishop dropped on 7c."
+          },
+          "marks": { "boxes": ["7b", "8b", "7c"] }
         },
         {
           "moves": ["4g5f", "6d6e"],
@@ -79,6 +80,14 @@
             "ja": "先手が玉を７九へ寄せ、後手が角で歩６五を取る選択をした場合、銀５六が角を取り返します。後手は角を犠牲にする義務がなく、この枝は６五の守りを確かめるためのものです。",
             "en": "If Sente moves its king to 7i and Gote then chooses to capture the pawn on 6e with the bishop, Sente's silver from 5f recaptures that bishop. Gote is not obliged to make this sacrifice; this branch verifies the defender on 6e."
           }
+        },
+        {
+          "from": 0,
+          "moves": ["B*7c", "7b7c"],
+          "text": {
+            "ja": "王手で飛車８二も狙う角７三には、金７二が角を取れます。中央の駒を使う手と比べる際も、この取り返しを省いてはいけません。",
+            "en": "The gold on 7b captures a checking bishop dropped on 7c against the rook on 8b. Include that capture when comparing the drop with central development."
+          }
         }
       ]
     },
@@ -89,13 +98,14 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/1r7/9/3ps2p1/7P1/3PS4/2N6/2KG5/7R1 b Bb 1",
+      "start": "4k4/1rg6/9/3ps2p1/7P1/3PS4/2N6/2KG5/7R1 b Bb 1",
       "steps": [
         {
           "text": {
-            "ja": "先手桂７七は６五へ跳べます。銀５六も６五へ利きますが、後手には歩６四と銀５四があります。桂を使った後の取り返しと、飛車２九の前にある歩２五を別々に追います。",
-            "en": "Sente's knight on 7g can jump to 6e, a square also controlled by its silver on 5f. Gote has a pawn on 6d and silver on 5d. Track that knight contact separately from Sente's pawn on 2e in front of the rook on 2i."
-          }
+            "ja": "先手桂７七は６五へ跳べます。銀５六も６五へ利きますが、後手には歩６四と銀５四があります。桂を使った後の取り返しと、飛車２九の前にある歩２五を別々に追います。後手金７二は飛車８二を守り、王手の角７三打ちにも同金と取れます。",
+            "en": "Sente's knight on 7g can jump to 6e, a square also controlled by its silver on 5f. Gote has a pawn on 6d and silver on 5d. Track that knight contact separately from Sente's pawn on 2e in front of the rook on 2i. Gote’s gold on 7b guards the rook on 8b and can capture a checking bishop dropped on 7c."
+          },
+          "marks": { "boxes": ["7b", "8b", "7c"] }
         },
         {
           "moves": ["6f6e", "6d6e", "7g6e"],
@@ -144,13 +154,14 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/1r7/9/1p7/9/4S4/6N2/3G3R1/2K2G3 b Bb 1",
+      "start": "4k4/1rg6/9/1p7/9/4S4/6N2/3G3R1/2K2G3 b Bb 1",
       "steps": [
         {
           "text": {
-            "ja": "先手は銀５六と桂３七を置き、金は４九、飛車は２八です。飛車を２九へ引き、金を４八へ出す選択を見ます。この形でも５五・４六が空けば角６四から桂３七へ斜線が通ります。",
-            "en": "Sente has silver 5f and knight 3g, with a gold on 4i and rook on 2h. Consider retreating the rook to 2i and moving the gold to 4h. Even in that formation, empty 5e and 4f leave a bishop diagonal from 6d to the knight on 3g."
-          }
+            "ja": "先手は銀５六と桂３七を置き、金は４九、飛車は２八です。飛車を２九へ引き、金を４八へ出す選択を見ます。この形でも５五・４六が空けば角６四から桂３七へ斜線が通ります。後手金７二は飛車８二を守り、王手の角７三打ちにも同金と取れます。",
+            "en": "Sente has silver 5f and knight 3g, with a gold on 4i and rook on 2h. Consider retreating the rook to 2i and moving the gold to 4h. Even in that formation, empty 5e and 4f leave a bishop diagonal from 6d to the knight on 3g. Gote’s gold on 7b guards the rook on 8b and can capture a checking bishop dropped on 7c."
+          },
+          "marks": { "boxes": ["7b", "8b", "7c"] }
         },
         {
           "moves": ["2h2i", "8d8e", "4i4h"],

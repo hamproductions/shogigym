@@ -69,18 +69,18 @@
           }
         },
         {
-          "moves": ["9e9d", "9c9d", "9h9d", "6b7c", "9d9c+"],
+          "moves": ["9e9d", "9c9d", "9h9d", "6b7c", "9d9b+"],
           "text": {
-            "ja": "▲９四歩に△同歩なら▲同飛で端の歩を取ります。後手が玉頭を補強する△７三金を選んだ例では、▲９三飛成が８三を通してその金を横から狙います。ただし金７三は玉７二に守られ、龍でただで取れるわけではありません。どちらの後手の応手も一例です。",
-            "en": "If Gote answers ▲９四歩 with △同歩, ▲同飛 takes the edge pawn. In this sample Gote reinforces the king's head with △７三金; ▲９三飛成 then attacks that gold across ８三. The king on ７二 protects the gold on ７三, so the dragon cannot take it for free. Both Gote replies are examples."
+            "ja": "▲９四歩に△同歩なら▲同飛で端の歩を取ります。後手が玉頭を補強する△７三金を選んだ例では、▲９二飛成が二段目を通る王手になります。後手の応手は△７一玉・△６一玉か△８二歩の合駒だけで、龍は敵陣に残ります。▲９三飛成でも成れますが王手ではなく、横から狙う金７三は玉７二に守られています。どちらの後手の応手も一例です。",
+            "en": "If Gote answers ▲９四歩 with △同歩, ▲同飛 takes the edge pawn. In this sample Gote reinforces the king's head with △７三金; ▲９二飛成 then promotes with check along the second rank. Gote's only replies are △７一玉, △６一玉 or the pawn drop △８二歩, and the dragon stays in Gote's camp. ▲９三飛成 also promotes, but it is not check, and the gold it eyes on ７三 is protected by the king on ７二. Both Gote replies are examples."
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "準備の一手で玉頭の歩を狙われる",
-        "en": "An extra preparation move exposes the head pawn"
+        "ja": "準備の一手で７四の守りが増える",
+        "en": "An extra preparation move adds a defender to ７四"
       },
       "side": "sente",
       "kind": "position",
@@ -95,8 +95,8 @@
         {
           "moves": ["4g5f", "5c6d", "7e7d", "7c7d", "7h7d", "6c7d", "5f7d", "6d7d"],
           "text": {
-            "ja": "▲５六角に△６四金と進む一例です。この金は歩７五を狙うだけでなく、７四にも横から利きます。同じ歩交換から▲同香、△同銀、▲同角と進めても、△同金で角を取られます。歩同士は消え、先手は香車と角を失って銀一枚を得るため、最初の攻めとは収支が変わります。△６四金も歩の取り方も後手の選択です。",
-            "en": "One sample is ▲５六角 △６四金. The gold threatens the pawn on ７五 and also controls ７四 sideways. After the same pawn exchange, ▲同香 △同銀 ▲同角 is now met by △同金, which takes the bishop. Both pawns have gone; Sente has spent a lance and bishop for one silver, a different material result from the immediate attack. Gote's gold move and pawn captures are sample choices."
+            "ja": "▲５六角に△６四金と進む一例です。この金は７四に横から利きます。歩７五にも当たっていますが、香７八が支えているので、取れば▲同香で金損です。同じ歩交換から▲同香、△同銀、▲同角と進めても、△同金で角を取られます。歩同士は消え、先手は香車と角を失って銀一枚を得るため、最初の攻めとは収支が変わります。△６四金も歩の取り方も後手の選択です。",
+            "en": "One sample is ▲５六角 △６四金. The gold now controls ７四 sideways. It also hits the pawn on ７五, but the lance on ７八 defends that pawn, so taking it would lose the gold to ▲同香. After the same pawn exchange, ▲同香 △同銀 ▲同角 is now met by △同金, which takes the bishop. Both pawns have gone; Sente has spent a lance and bishop for one silver, a different material result from the immediate attack. Gote's gold move and pawn captures are sample choices."
           }
         }
       ]

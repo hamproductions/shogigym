@@ -1,51 +1,67 @@
 # Current task
 
-## Outcome and consolidation
-- Remaining local lesson audit implementation complete. User requests all task changes on main in the primary repository and removal of the extra worktree.
-- Consolidation complete: all task content and UI fixes committed on local main in /Users/vittayapalotai.tanyawat/code/joseki-practice. Extra lesson-copyright worktree removed; obsolete task branch and verified temporary stash removed; stale worktree metadata pruned. Only the primary main checkout remains.
-- Current authorization: patch release, push main and version tag, publish the GitHub release, and deploy through the existing Pages workflow. No PR or independent browser sweep.
+## State and authority
+- Current task: commit existing lesson/skill work, publish patch v1.5.2, push and leave a clean working tree. Broader audit Goal stays paused.
+- Repository: /Users/vittayapalotai.tanyawat/code/joseki-practice.
+- main fast-forwarded to freshly fetched origin/main 917ac42; seven upstream commits integrated without conflicts or overlapping lesson edits. Existing release/package version is 1.5.1.
+- Current correction settles identity: switch GitHub CLI user to hamzaabamboo and push the existing hamproductions/shogigym repository. No ownership transfer or remote change. Commit, push and patch release are authorized; no further confirmation is needed.
+- Changes staged and preflight passed. Previous ownership question was an incorrect account/owner conflation; remove that gate and finish shipping. Broader lesson audit remains paused.
+- Personal API identity independently verified as hamzaabamboo; author is Tanyawat Vittayapalotai <hamzaabamboo@gmail.com>. Current correction explicitly authorizes changing the active gh account to hamzaabamboo. Ignored .cache/release-2026-10-15/personal.py supplies personal credentials to the release child process without exposing or persisting them.
+- Authorized release command: RAYON_NUM_THREADS=1 UV_THREADPOOL_SIZE=1 python3 .cache/release-2026-10-15/personal.py bun run release:patch. Use existing .release-it.json; do not infer old authentication failures are current.
+- Preflight passed: production build, 3220 joseki moves, 85 strategy matchups, lint (existing warnings), format check, 150 lesson source/output equality, credential scan. Build log: .cache/release-2026-10-15/build.log; foreground build exited 0.
+- Prettier formatting only applied to three new project-skill files and two new historical handoffs, resolving the five format-check failures.
+- caveman-commit SKILL.md 1–63 EOF and get-your-shit-together SKILL.md 1–27 EOF read. Existing verification-before-completion coverage retained.
+- Preserve all existing lesson, skill, instruction and audit work. No new audit candidates, browser sessions or OS/audio actions. User's development server remains untouched.
 
-## Implemented scope
-- 146 authored units and 41 project courses read and audited against the closed set of 249 declared references and their teaching assets.
-- findings.json records 47 original confirmed corrections and one additional legacy vendor annotation overlap found by the aggregate originality check. All have source fixes and appropriate executable source verification.
-- incorporation.json records all 31 source decisions, including all 43 reader suggestions from the remaining 17 sources. Selected additions implemented; other applications explicitly excluded rather than left pending.
-- Corrections include gold movement/control, material accounting, king recaptures, move-order anchors, bishop ownership, strategy mechanisms, mate/hisshi/interposition examples, declaration scoring, and an original reconstruction of the Bishop-Exchange Fourth-File Rook course.
-- UI fixes from the existing main checkout preserve nullable vendor text, annotate visible notes, and distinguish actual moves from static squares. Preserve rendering/material settings and existing viewer model.
+## Canonical evidence
+- conductor/lesson-audit/expanded-2026-10-15.json: current inventory/hashes, 13 finding groups affecting 16 units, 517 historical first-move engine comparisons, targeted searches, 28 fully read units, reference-read coverage, validation and limitations. Query fields; do not ingest wholesale.
+- conductor/lesson-audit/defender-proof-2026-10-15.json: 26 exact cases; all 106 legal evasions in old checking-fork positions replayed. Revised defenses/exchanges replayed. Proves local move mechanisms, not global optimality.
+- conductor/lesson-audit/sample-2026-10-15.json: historical earlier sample fixes and four original additions (endgame-defense, attack-edge, endgame-mate5, judgment-four-factors). Keep these changes.
+- docs/HANDOFF_2026-10-15_LESSON_SAMPLE_AUDIT.md: historical completed sample handoff, already read. It does not override this paused state.
+- Source edits: data/lessons/units/<id>.json. Generated outputs: src/data/lessons/<id>.json. Exact repaired paths and hashes are in expanded audit repaired_hashes.
 
-## Verification
-- Changed units passed check-unit with --engine; the two failed new comparisons were corrected and rechecked successfully.
-- Changed course sources passed check-course with --engine. Short engine evaluations and book misses are supporting diagnostics, not best-play proofs.
-- Fujii main-line opponent4d4e had a 344cp short-search warning. Its annotation now explicitly treats it as a comparison response allowing the knight fork, not a recommendation.
-- bun run lessons:146 lessons,519 chapters,1915 figures,2326 legal moves,0 errors.
-- node scripts/build-courses.mjs:41 project courses rebuilt.
-- node scripts/validate.mjs:3220 moves,0 errors;85 matchups,83 courses with sides,0 errors.
-- check-originality:15888 strings,0 flagged after replacing one copied vendor annotation with factual original board commentary. This is not legal certification.
-- New offensive horse/mate-threat example independently enumerated:final checked withzero legal replies. Pin example has a legal king escape and does not claim mate.
-- Main-checkout bunx tsc -b and git diff --check passed. No browser visual acceptance claimed; user actively testing, so no independent browser sessions or sweeps.
-- Development server runs from the primary main folder using the existing Node26 installation, session18365. Exact user URL http://127.0.0.1:5173/shogigym/ returnedHTTP200. No system defaults changed.
+## Expanded repairs delivered
+- tesuji-rook / tesuji-lance: preparation now creates a real recapture; remove immediate captures that invalidated the lesson.
+- kishu-pacman: label losing R2d move, show checking bishop fork and compare R2g+.
+- attack-funa: add local king shelter against unrelated countercheck; promote final rook captures.
+- attack-yagura-side: knight-first exchange preserves rook; include rook-first cost comparison and correct unchanged-pressure claim.
+- yokofu-avoid: add pawn 7f blocker and gold 3b bishop defender.
+- gokigen-basics: use standard full-board opening in ch1; K6b preserves rook recapture in ch3, K4b comparison exposes the blocker.
+- kakugawari-basics / bougin / hayakuri / koshikake: gold 7b closes B*7c checking rook fork in 11 diagrams; existing teaching lines retained.
+- mukai-attack: gold 7a makes immediate rook capture an exchange; explain pawn protection already existed before raising the rook.
+- mukai-build: gold 3a guards bishop 2b in ch1/ch2; immediate capture comparison included.
+- kakukoukan-gyakubougin / legspe: pawn 5c blocks B6d–K4b; nonchecking rook attack comparison included.
+- ishida-43 ch2: silver 3h captures B*3g; pawn 5c blocks B6d–R4b; preserve intended B5d target geometry.
+- AGENTS.md already includes preparation/control, countercheck and mate-validation guidance from this task; preserve unrelated existing changes.
 
-## Evidence and limitations
-- conductor/lesson-audit/coverage.json:source/read/hash/asset provenance. findings.json and incorporation.json own final decisions; reviews/*.json retain reader evidence, which root independently checked.
-- All29 supplemental dynamic KIFs replayed. All214 unmapped original/white occurrences checked for dimensions and pixel correspondence; early visual reviews separately indexed.
-- Unavailable:two exact Wiki texts404,KKshiken img_6241695bd78bf.png404,source4096image15 unavailable. Missing contents were not invented.
-- Wiki tables/ASCII boards and Shogijam KIFs provide markup/data evidence. Linked books/PDFs and article videos were not claimed as viewed. Rendered source proof and modern best-play proof remain separate.
-- Historical HANDOFF.md is superseded and is not live task authority.
+## Verification at closure
+- Generation: 150 lessons, 540 chapters, 2052 figures, 2579 legal moves, 0 errors.
+- All 16 expanded-repair unit checks passed. Gokigen opening also passed --engine without notes. Earlier all-unit --engine run is recorded separately as a pre-repair snapshot.
+- Physical consistency: 3119 nodes, zero nifu, stranded pawn/lance/knight or excess-piece defects. Final wording/format edit changed no positions or moves.
+- Originality: 16116 strings, zero cached-text matches flagged. Does not prove English/structural originality by itself.
+- tsc -b: exit 0. Final source/output/hash/secret/diff closure verification recorded in expanded audit validation.
+- Engine: k-p 7.6.3-alpha.0; Threads 1, Hash 32 MiB, own book off. Historical 200 ms screening is diagnostic, not semantic completion. Targeted 1500/3000 ms data retained.
+- Browser/quiz rendering unverified under active-user-testing restriction. No browser session, server or agent launched. All owned foreground engine/check/typecheck handles completed; none left running.
 
-## Operating rules and skill coverage
-- Authored units:data/lessons/units; generate via bun run lessons. Course sources:scripts/courses; generate via build-courses. No parallel lesson model or copied source positions/article structure.
-- Fully read skill gates:using-superpowers1–65/Codexreference1–108;stop-inventing1–79;GYST1–27;look-at-screen1–60;systematic-debugging1–283/root-cause1–169;verification-before-completion1–120;dispatching-parallel1–167;brainstorming1–285;handing-off-pro-max1–167 EOF.
-- User explicitly approved completion. No further approval gate. Sol-low reader finished; no active content writers delegated.
-- CPU caps RAYON_NUM_THREADS=1 UV_THREADPOOL_SIZE=1;engineThreads1/Hash32. Latest disk check4GiB free.
-- Never copy raw user chat or credentials into records. No OS/audio automation. Stop only owned task processes.
+## Interpretation traps
+- Conditional illustrations need not be engine-best. Inspect the exact claim, learner side, legal replies and counterchecks before declaring a defect.
+- taifuri-vs-hayaishida ch1/ch2 and attack-mino-side ch4 already state conditional or costly exchanges. No new contradiction established.
+- kakugawari-koshikake ch4 starts with an opponent context move; first-move evaluation loss is not a learner recommendation.
+- attack-funa's 200 ms mate signal disappeared at 3000 ms. Claim only reproduced countercheck, not proven mate.
+- Cached reference text was read fully for selected sources. External teaching diagrams were neither reused nor claimed inspected.
+- No new test files. Ignored project-local scratch proofs/harness remain under .cache/lesson-authoring-2026-10-15/.
 
-## Release result
-- v1.5.1 published: https://github.com/hamproductions/shogigym/releases/tag/v1.5.1
-- Release commit/tag:2fa5b5c2df90a6c0f235d0e29e5cab5739ca9272. main and annotated tag pushed to origin.
-- Pages workflow38359808997 succeeded for that exact release commit; build and deploy jobs succeeded.
-- Live URL:https://hamproductions.github.io/shogigym/ returnedHTTP200 after deployment.
-- Canonical release hooks passed:course validation,lint,format check,production build. GitHub CLI authenticated ashamzaabamboo withrepository admin/push permissions.
-- release-it API authentication failed under both Bun and direct Node despite successful standalone Octokit/gh checks. Root cause not established. Publication used the validated Git commit/tag/push plus gh release create --verify-tag; no authentication checks disabled.
-- This documentation-only receipt is committed separately withCI skipped; deployed application code is the v1.5.1 tag above.
+## Read gates and continuation
+- Project shogi-lessons skill 1–60 EOF; authoring reference 1–55 EOF; engine reference 1–90 EOF; docs/lessons.md 1–84 EOF. Earlier using-superpowers and verification-before-completion coverage retained.
+- Closure handing-off-pro-max SKILL.md 1–167 EOF. Canonical record replaces stale operational state; no additional live record or conversation transcript.
+- Selected source-unit and cached reference 1–EOF coverage is indexed in expanded audit source_content_read/source_text_read. No prior-session history read for closure.
+- Audit stays paused during release. Only if explicitly resumed, first inspect nakabisha-sente ch1 and taifuri-46gin ch2: baseline engine prefers R2h×2b+. These are candidates, not confirmed findings. Size-check and fully read exact units/references before reproducing or editing.
+- Prefix Bun/Node checks with RAYON_NUM_THREADS=1 UV_THREADPOOL_SIZE=1. Rebuild with bun run lessons; never edit generated output. Check disk before heavy work. Run commands discretely and preserve user's services.
 
-## Immediate next action
-- No remaining implementation, release or deployment work. Preserve the local user development server. No further audits or sweeps.
+## Account correction receipt
+- Correction: use hamzaabamboo and push the existing repository; no ownership transfer.
+- Mistake: treated organization ownership as an unresolved authentication identity.
+- Source: current account-switch request, existing repository remote and gh API identity.
+- Rule: GitHub login and repository owner are separate; preserve hamproductions/shogigym when authenticating as hamzaabamboo.
+- Action: gh auth switch --hostname github.com --user hamzaabamboo completed.
+- Verification: gh api user --jq .login returned hamzaabamboo. Resume authorized commit and patch release without another confirmation.

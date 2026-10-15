@@ -3,12 +3,12 @@
   "order": 480,
   "path": ["上達のためのテクニック", "終盤"],
   "title": {
-    "ja": "三手詰：初手の王手で最後の一手を用意する",
-    "en": "Mate in Three: Make the First Check Prepare the Last"
+    "ja": "三手の詰み：初手の王手で最後の一手を用意する",
+    "en": "Three-Move Mates: Make the First Check Prepare the Last"
   },
   "intro": {
-    "ja": "三手詰では、初手の王手、玉方の応手、最後の王手を一組で読みます。最後に金を打つ場合も飛車を走らせる場合も、その駒を守る利き、玉の逃げ道、王手を開く手順を確かめましょう。五つの新しい局面では、一手詰がないことを先に確認し、初手への合法な応手をすべて追います。",
-    "en": "A three-move mate consists of a check, a defensive reply, and a final check. Whether the finish is a gold drop or a rook move, identify what protects the final piece, where the king can run, and how the first move changes those routes. These five new positions have no mate in one; each lesson follows every legal reply to its first check."
+    "ja": "三手詰では、初手の王手、玉方の応手、最後の王手を一組で読みます。最後に金を打つ場合も飛車を走らせる場合も、その駒を守る利き、玉の逃げ道、王手を開く手順を確かめましょう。五つの新しい局面では、一手詰がないことを先に確認し、初手への合法な応手をすべて追います。どの局面も後手の持ち駒はゼロの実戦形です。離れた駒の王手に合駒はできず、後手の受けは玉の移動と盤上の駒に限られます。残り駒を全部玉方が持つ詰将棋の約束（「詰将棋のルール」参照）に直すと合駒の応手が加わり、ここで示す応手の一覧は成り立たず、多くの局面では手順も三手で詰まなくなります。",
+    "en": "A three-move mate consists of a check, a defensive reply, and a final check. Whether the finish is a gold drop or a rook move, identify what protects the final piece, where the king can run, and how the first move changes those routes. These five new positions have no mate in one; each lesson follows every legal reply to its first check. In every position Gote has no pieces in hand, as in a real game, so a distant check cannot be blocked by a drop; Gote can only move the king or use pieces already on the board. Under the tsume-problem convention, where the defender holds every remaining piece (see the Rules of Tsume Shogi lesson), blocking drops add replies, so the reply lists shown here no longer hold, and most of these sequences no longer mate in three."
   },
   "check": {
     "question": {
@@ -16,8 +16,8 @@
       "en": "If one reply to your first check leads to mate, have you solved a mate in three?"
     },
     "answer": {
-      "ja": "まだです。初手に一手詰がないこと、玉方の合法な応手がどれかを調べ、そのすべてに次の一手で詰みがあると確認します。",
-      "en": "Not yet. Confirm that the starting position has no mate in one, list every legal reply to the first check, and find a mating move against each reply."
+      "ja": "まだです。初手に一手詰がないこと、玉方の合法な応手がどれかを調べ、そのすべてに次の一手で詰みがあると確認します。持ち駒を打つ合駒ができるかは玉方の持ち駒で決まるので、それも数えます。",
+      "en": "Not yet. Confirm that the starting position has no mate in one, list every legal reply to the first check, and find a mating move against each reply. Also count the defender's pieces in hand, since they decide whether a blocking drop is possible."
     }
   },
   "references": [
@@ -59,8 +59,8 @@
         {
           "moves": ["8c9c+"],
           "text": {
-            "ja": "▲９三飛成で９二を龍の縦利きに入れます。後手の合法な応手は△８一玉だけです。８二は自分の歩で埋まり、９二には龍が利いています。",
-            "en": "▲９三飛成 puts ９二 under the dragon's vertical attack. Gote's only legal reply is △８一玉: its pawn occupies ８二 and the dragon controls ９二."
+            "ja": "▲９三飛成で９二を龍の縦利きに入れます。後手の合法な応手は△８一玉だけです。８二は自分の歩で埋まり、９二には龍が利いています。後手は持ち駒がないので、９二への合駒もできません。",
+            "en": "▲９三飛成 puts ９二 under the dragon's vertical attack. Gote's only legal reply is △８一玉: its pawn occupies ８二 and the dragon controls ９二. With no pieces in hand, Gote cannot block on ９二 either."
           }
         },
         {
@@ -90,8 +90,8 @@
         {
           "moves": ["8c4c+"],
           "text": {
-            "ja": "▲４三飛成で縦に王手。２二の銀は３一を、龍４三は４二と５二を押さえます。後手の合法な応手は△５一玉だけです。",
-            "en": "▲４三飛成 checks vertically. The silver on ２二 controls ３一, while the dragon on ４三 controls ４二 and ５二. Gote's only legal reply is △５一玉."
+            "ja": "▲４三飛成で縦に王手。２二の銀は３一を、龍４三は４二と５二を押さえます。後手は持ち駒がなく４二に合駒できないため、合法な応手は△５一玉だけです。",
+            "en": "▲４三飛成 checks vertically. The silver on ２二 controls ３一, while the dragon on ４三 controls ４二 and ５二. Gote has no piece to drop on ４二, so its only legal reply is △５一玉."
           }
         },
         {
@@ -114,8 +114,8 @@
       "steps": [
         {
           "text": {
-            "ja": "後手玉は４一、先手の飛車は離れた７六にいます。４三の角と２三の金で玉の退路を限ってから、飛車を最終手に使います。持ち駒はありません。",
-            "en": "Gote's king is on ４一, far from Sente's rook on ７六. The bishop on ４三 and gold on ２三 restrict the king before the rook is used for the finish. Sente has no pieces in hand."
+            "ja": "後手玉は４一、先手の飛車は離れた７六にいます。４三の角と２三の金で玉の退路を限ってから、飛車を最終手に使います。先手にも後手にも持ち駒はありません。",
+            "en": "Gote's king is on ４一, far from Sente's rook on ７六. The bishop on ４三 and gold on ２三 restrict the king before the rook is used for the finish. Neither side has pieces in hand."
           }
         },
         {
@@ -128,8 +128,8 @@
         {
           "moves": ["4a5a", "7f7a+"],
           "text": {
-            "ja": "△５一玉には▲７一飛成まで。７六の飛車が７筋を上がって成り、７一から５一へ横に王手します。角４三は５二を、金３二は４一を押さえ、後手の合法な応手は０手です。",
-            "en": "After △５一玉, ▲７一飛成 is mate. The rook climbs from ７六 to ７一, promotes, and checks across the rank toward ５一. The bishop on ４三 covers ５二, the gold on ３二 covers ４一, and Gote has zero legal replies."
+            "ja": "△５一玉には▲７一飛成まで。７六の飛車が７筋を上がって成り、７一から５一へ横に王手します。角４三は５二を、金３二は４一を押さえます。後手は持ち駒がなく６一に合駒できないので、合法な応手は０手です。",
+            "en": "After △５一玉, ▲７一飛成 is mate. The rook climbs from ７六 to ７一, promotes, and checks across the rank toward ５一. The bishop on ４三 covers ５二, and the gold on ３二 covers ４一. Gote has no piece to drop on ６一, so it has zero legal replies."
           }
         }
       ]
@@ -152,8 +152,8 @@
         {
           "moves": ["5e7c+"],
           "text": {
-            "ja": "▲７三角成は６二を通る斜線で５一玉を王手します。後手の合法な応手は△５二玉か△４二玉です。７二の金と３二の銀により左右の上段は使えません。",
-            "en": "▲７三角成 checks the king on ５一 along ６二. Gote's legal replies are △５二玉 and △４二玉. The gold on ７二 and silver on ３二 deny the upper exits on either side."
+            "ja": "▲７三角成は６二を通る斜線で５一玉を王手します。後手の合法な応手は△５二玉か△４二玉です。７二の金と３二の銀により左右の上段は使えません。後手は持ち駒がないので、６二への合駒もできません。",
+            "en": "▲７三角成 checks the king on ５一 along ６二. Gote's legal replies are △５二玉 and △４二玉. The gold on ７二 and silver on ３二 deny the upper exits on either side. Gote has no pieces in hand, so it cannot block on ６二."
           }
         },
         {
@@ -193,8 +193,8 @@
         {
           "moves": ["5c6d+"],
           "text": {
-            "ja": "▲６四角成で香５六の縦利きが５一玉まで通ります。これは香による開き王手です。後手の合法な応手は△６一玉、△６二玉、△４一玉の三つです。",
-            "en": "▲６四角成 opens the lance's line from ５六 to the king on ５一. The check comes from the uncovered lance. Gote has three legal replies: △６一玉, △６二玉, and △４一玉."
+            "ja": "▲６四角成で香５六の縦利きが５一玉まで通ります。これは香による開き王手です。後手の合法な応手は△６一玉、△６二玉、△４一玉の三つです。後手は持ち駒がなく、５二から５五への合駒はできません。",
+            "en": "▲６四角成 opens the lance's line from ５六 to the king on ５一. The check comes from the uncovered lance. Gote has three legal replies: △６一玉, △６二玉, and △４一玉. Gote has no pieces in hand, so it cannot drop a blocker anywhere from ５二 to ５五."
           }
         },
         {

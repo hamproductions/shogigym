@@ -16,8 +16,8 @@
       "en": "Sente's bishop has taken the offered pawn and reached 4d. What should Gote check before moving a rook to counterattack?"
     },
     "answer": {
-      "ja": "角が飛車や玉をすでに狙っていないか、飛車の移動経路が空いているか、移動後に飛車が角へ本当に当たるかを確かめます。第一章では△２四飛が角の斜線を外れ、４四角にも当たります。",
-      "en": "Check whether the bishop already attacks the rook or king, whether the rook's path is clear, and whether its destination actually attacks the bishop. In chapter one, R2b–2d leaves the bishop's diagonal and attacks B4d."
+      "ja": "角が飛車や玉をすでに狙っていないか、飛車の移動経路が空いているか、移動後に王手で飛車を狙われないかまで確かめます。第一章の△２四飛は角に当たりますが、▲３三角成の王手飛車で失敗します。",
+      "en": "Check the bishop’s existing targets, the rook’s path, and whether a checking fork attacks the rook after it moves. In chapter one, △２四飛 attacks the bishop but fails to the checking fork ▲３三角成."
     }
   },
   "references": [
@@ -30,33 +30,94 @@
   ],
   "chapters": [
     {
-      "title": { "ja": "飛車を逃がす手が角取りにもなる", "en": "A rook escape that also attacks the bishop" },
+      "title": {
+        "ja": "角取りでも王手飛車を許す移動",
+        "en": "A bishop attack that allows a checking rook fork"
+      },
       "side": "gote",
       "kind": "position",
       "start": "4k4/7r1/9/5B3/9/9/9/9/4K4 w P 1",
       "steps": [
         {
           "text": {
-            "ja": "先手角が４四歩を取った後の別の局面です。先手は歩を持ち、４四角は３三を通って２二の後手飛車を狙っています。後手は飛車を助けるだけでなく、角へ当て返せる位置を探します。",
-            "en": "This newly composed position begins after Sente's bishop has taken a pawn on 4d, leaving Sente with a pawn in hand. B4d attacks Gote's rook on 2b through 3c. Gote looks for a rook escape that also attacks the bishop."
+            "ja": "先手角が４四歩を取った後を想定した独立の部分図です。先手は歩を持ち、角４四は３三を通って飛車２二を狙っています。後手玉５一の位置も含め、角へ当て返す飛車の移動が本当に成立するかを調べます。",
+            "en": "This independently composed partial position represents a possible aftermath of a bishop capture on ４四. Sente holds a pawn, and the bishop attacks the rook on ２二 through ３三. Include the king on ５一 when testing whether a rook move that attacks the bishop really works."
           },
-          "marks": { "boxes": ["4d", "3c", "2b", "2d"] }
+          "marks": {
+            "boxes": [
+              "4d",
+              "3c",
+              "2b",
+              "2d"
+            ]
+          }
         },
         {
-          "moves": ["2b2d"],
+          "moves": [
+            "2b2d"
+          ],
           "text": {
-            "ja": "△２四飛は２三が空いているので指せます。飛車は角の斜線から外れ、３四が空いているため４四角を横から攻めます。歩を取られた直後でも、角の置き場によっては手番で反撃できます。",
-            "en": "R2b–2d is legal because 2c is empty. The rook leaves the bishop's diagonal and attacks B4d along the fourth rank through the empty square 3d. The counterattack depends on these exact open squares."
+            "ja": "△２四飛は合法で、３四を通して角４四へ当たります。しかし、この局面では悪手です。飛車を角筋から外しただけでは、次の王手への対応まで済んだことにはなりません。",
+            "en": "△２四飛 is legal and attacks the bishop on ４四 through ３四, but it is a mistake here. Leaving the original diagonal does not answer the bishop’s next checking move."
           },
-          "marks": { "arrows": ["2b2d"], "boxes": ["3d", "4d"] }
+          "marks": {
+            "arrows": [
+              "2b2d"
+            ],
+            "boxes": [
+              "3d",
+              "4d"
+            ]
+          }
         },
         {
-          "moves": ["4d5e", "2d2e"],
+          "moves": [
+            "4d3c+"
+          ],
           "text": {
-            "ja": "先手が▲５五角と引いた例では、△２五飛と一段進めると３五・４五が空いていて再び角に当たります。先手は別の逃げ方も選べるため、飛車が角を必ず取るという手順ではありません。",
-            "en": "If Sente retreats B4d–5e, R2d–2e attacks it again through the empty squares 3e and 4e. Sente has other bishop moves, so this line shows a tempo-gaining route rather than a forced bishop win."
+            "ja": "▲３三角成は４二を通して玉５一へ王手し、反対側では飛車２四を狙います。後手飛車はこの王手を消せず、玉を動かす必要があります。角を追ったはずの一手が、王手飛車を許しました。",
+            "en": "▲３三角成 checks the king on ５一 through ４二 and attacks the rook on ２四 in the opposite direction. The rook cannot answer the check, so Gote must move the king. The attempted bishop attack has allowed a checking rook fork."
           },
-          "marks": { "arrows": ["2d2e"], "boxes": ["5e"] }
+          "marks": {
+            "arrows": [
+              "4d3c+",
+              "3c5a",
+              "3c2d"
+            ],
+            "boxes": [
+              "4b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5a6a",
+            "3c2d"
+          ],
+          "text": {
+            "ja": "△６一玉は玉を逃がす一例で、▲２四馬と飛車を取られます。ほかの合法な玉の逃げ方でも、２四の飛車を馬で取る手が残ります。歩一枚を渡して角へ当てる構想でも、王手で順番を変えられる場合は反撃になりません。",
+            "en": "△６一玉 is one king escape, after which ▲２四馬 captures the rook. The same horse capture remains after every other legal king escape. Offering a pawn and attacking the bishop does not produce a useful counterattack when a checking fork changes the move order."
+          },
+          "marks": {
+            "arrows": [
+              "3c2d"
+            ],
+            "boxes": [
+              "2d"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": [
+            "2b2g+"
+          ],
+          "text": {
+            "ja": "この図では△２七飛成も合法な退路です。角へ直接は当たりませんが、先手陣へ成り込み、▲３三角成でも飛車を同時に狙われない位置へ移ります。この手の評価はエンジンでも△２四飛より高くなります。角へ当てることだけを条件に退路を選びません。",
+            "en": "△２七飛成 is another legal escape here. It does not directly attack the bishop, but it promotes in Sente’s camp and avoids a rook fork by ▲３三角成. The engine also rates it above △２四飛. Do not require every rook escape to hit the bishop."
+          }
         }
       ]
     },

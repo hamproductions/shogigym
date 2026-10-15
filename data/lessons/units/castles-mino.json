@@ -84,19 +84,19 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/9/9/9/9/9/5GNS1/5r1K1/5G3 b - 1",
+      "start": "4k4/9/9/9/9/9/5GNS1/3r3K1/5G3 b - 1",
       "steps": [
         {
           "text": {
-            "ja": "玉２八、銀２七、桂３七、金４七・４九は銀冠の上部の骨格です。後手飛車４八は３八が空いているため、玉２八へ横から王手しています。金４九を３八へ動かせば、王手を遮れるかを確かめます。",
-            "en": "King ２八, silver ２七, knight ３七, and golds ４七 and ４九 form the upper core of Silver Crown. Gote's rook on ４八 checks laterally through the empty ３八 square. Test whether moving the lower gold to ３八 blocks the check."
+            "ja": "玉２八、銀２七、桂３七、金４七・４九は銀冠の上部の骨格です。後手飛車６八は５八・４八・３八が空いているため、玉２八へ横から王手しています。飛車６八に届く先手の駒はなく、取って王手を解除することはできません。金４九を３八へ動かせば、王手を遮れるかを確かめます。",
+            "en": "King ２八, silver ２七, knight ３七, and golds ４七 and ４九 form the upper core of Silver Crown. Gote's rook on ６八 checks the king on ２八 laterally through the empty ５八, ４八 and ３八 squares. No Sente piece reaches ６八, so the check cannot be answered by capturing the rook. Test whether moving the lower gold to ３八 blocks the check."
           }
         },
         {
           "moves": ["4i3h"],
           "text": {
-            "ja": "▲３八金で飛車４八と玉２八の間を塞ぎました。銀２七は金３八を斜め後ろに守り、玉２八も金３八を守ります。上部の銀があるだけでは下段の王手は消えません。相手の飛車がどの段にいるかで、銀冠の弱点を調べます。",
-            "en": "▲３八金 interposes between the rook and the king. The silver on ２七 protects the gold diagonally backward, and the king on ２八 also guards it. A silver above the king does not by itself stop a lower-rank check; the rook's actual rank determines the danger."
+            "ja": "▲３八金で飛車６八と玉２八の間を塞ぎました。銀２七は金３八を斜め後ろに守り、玉２八も金３八を守ります。▲３八銀や４八への合駒、▲１七玉と逃げる手でも王手は解除できますが、▲３八金は金を玉の横に置いて銀冠の形を整えます。上部の銀があるだけでは下段の王手は消えません。相手の飛車がどの段にいるかで、銀冠の弱点を調べます。",
+            "en": "▲３八金 interposes between the rook on ６八 and the king on ２八. The silver on ２七 protects the gold diagonally backward, and the king on ２八 also guards it. ▲３八銀, a block on ４八, or ▲１七玉 also gets out of check, but ▲３八金 places a gold beside the king and completes the Silver Crown shape. A silver above the king does not by itself stop a lower-rank check; the rook's actual rank determines the danger."
           }
         }
       ]
@@ -119,8 +119,15 @@
         {
           "moves": ["2g2f"],
           "text": {
-            "ja": "▲２六歩。飛車２二から２六までの間に駒はなく、歩２六は次に取られる可能性があります。銀３八は２七を守りますが、２六には利きません。２六歩を残すちょんまげ美濃型か、歩を失って玉頭が空く坊主美濃型かは、後手の応手で変わります。",
-            "en": "▲２六歩 leaves no piece between Gote's rook on ２二 and the pawn on ２六, so the pawn may be captured next. The silver on ３八 protects ２七, not ２六. Whether this becomes a Chonmage Mino with the advanced pawn or a pawnless Bozu Mino depends on Gote's reply."
+            "ja": "▲２六歩。飛車２二から２六までの間に駒がなく、２六の歩にはひもが付いていません。銀３八と玉２八が守るのは２七までで、２六には利きません。",
+            "en": "▲２六歩 leaves no piece between Gote's rook on ２二 and the pawn on ２六, and nothing defends the pawn. The silver on ３八 and the king on ２八 cover ２七, not ２六."
+          }
+        },
+        {
+          "moves": ["2b2f"],
+          "text": {
+            "ja": "△２六飛と歩を取られると、空いた２七を通して玉２八への王手になります。先手は飛車２六を取り返せず、歩を一枚損して玉頭の歩がない坊主美濃型になります。ちょんまげ美濃型にするなら、２六に利きを足すか、飛車筋が止まってから歩を上げます。",
+            "en": "△２六飛 takes the pawn and checks the king on ２八 through the now-empty ２七. Sente cannot recapture the rook on ２六, so Sente is a pawn down with a bare-headed Bozu Mino. To keep a Chonmage Mino, add support to ２六 or advance the pawn only after the rook file is blocked."
           }
         }
       ]

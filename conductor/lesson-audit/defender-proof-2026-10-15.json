@@ -1,0 +1,1168 @@
+[
+  {
+    "unit": "kakugawari-basics",
+    "chapter": 2,
+    "before": "4k4/1r7/9/7p1/9/7P1/2S6/4G2R1/3K5 b Bb 1",
+    "branches": [
+      {
+        "moves": [
+          "B*7c",
+          "5a6a",
+          "7c8b+"
+        ],
+        "final": "3k5/1+B7/9/7p1/9/7P1/2S6/4G2R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a4a",
+          "7c8b+"
+        ],
+        "final": "5k3/1+B7/9/7p1/9/7P1/2S6/4G2R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a5b",
+          "7c8b+"
+        ],
+        "final": "9/1+B2k4/9/7p1/9/7P1/2S6/4G2R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a4b",
+          "7c8b+"
+        ],
+        "final": "9/1+B3k3/9/7p1/9/7P1/2S6/4G2R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "8b6b",
+          "7c6b+"
+        ],
+        "final": "4k4/3+B5/9/7p1/9/7P1/2S6/4G2R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "B*6b",
+          "7c8b+"
+        ],
+        "final": "4k4/1+B1b5/9/7p1/9/7P1/2S6/4G2R1/3K5 w R 1"
+      }
+    ],
+    "revised": "4k4/1rg6/9/7p1/9/7P1/2S6/4G2R1/3K5 b Bb 1",
+    "defense": [
+      "B*7c",
+      "7b7c"
+    ],
+    "final": "4k4/1r7/2g6/7p1/9/7P1/2S6/4G2R1/3K5 b 2b 1"
+  },
+  {
+    "unit": "kakugawari-basics",
+    "chapter": 3,
+    "before": "4k4/1r7/6sp1/9/7P1/9/6S2/7R1/3K5 b Bb 1",
+    "branches": [
+      {
+        "moves": [
+          "B*7c",
+          "5a6a",
+          "7c8b+"
+        ],
+        "final": "3k5/1+B7/6sp1/9/7P1/9/6S2/7R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a4a",
+          "7c8b+"
+        ],
+        "final": "5k3/1+B7/6sp1/9/7P1/9/6S2/7R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a5b",
+          "7c8b+"
+        ],
+        "final": "9/1+B2k4/6sp1/9/7P1/9/6S2/7R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a4b",
+          "7c8b+"
+        ],
+        "final": "9/1+B3k3/6sp1/9/7P1/9/6S2/7R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "8b6b",
+          "7c6b+"
+        ],
+        "final": "4k4/3+B5/6sp1/9/7P1/9/6S2/7R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "B*6b",
+          "7c8b+"
+        ],
+        "final": "4k4/1+B1b5/6sp1/9/7P1/9/6S2/7R1/3K5 w R 1"
+      }
+    ],
+    "revised": "4k4/1rg6/6sp1/9/7P1/9/6S2/7R1/3K5 b Bb 1",
+    "defense": [
+      "B*7c",
+      "7b7c"
+    ],
+    "final": "4k4/1r7/2g3sp1/9/7P1/9/6S2/7R1/3K5 b 2b 1"
+  },
+  {
+    "unit": "kakugawari-basics",
+    "chapter": 4,
+    "before": "4k4/1r7/9/3ps4/9/3P1P1P1/5S3/4G2R1/3K5 b Bb 1",
+    "branches": [
+      {
+        "moves": [
+          "B*7c",
+          "5a6a",
+          "7c8b+"
+        ],
+        "final": "3k5/1+B7/9/3ps4/9/3P1P1P1/5S3/4G2R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a4a",
+          "7c8b+"
+        ],
+        "final": "5k3/1+B7/9/3ps4/9/3P1P1P1/5S3/4G2R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a5b",
+          "7c8b+"
+        ],
+        "final": "9/1+B2k4/9/3ps4/9/3P1P1P1/5S3/4G2R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a4b",
+          "7c8b+"
+        ],
+        "final": "9/1+B3k3/9/3ps4/9/3P1P1P1/5S3/4G2R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "8b6b",
+          "7c6b+"
+        ],
+        "final": "4k4/3+B5/9/3ps4/9/3P1P1P1/5S3/4G2R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "B*6b",
+          "7c8b+"
+        ],
+        "final": "4k4/1+B1b5/9/3ps4/9/3P1P1P1/5S3/4G2R1/3K5 w R 1"
+      }
+    ],
+    "revised": "4k4/1rg6/9/3ps4/9/3P1P1P1/5S3/4G2R1/3K5 b Bb 1",
+    "defense": [
+      "B*7c",
+      "7b7c"
+    ],
+    "final": "4k4/1r7/2g6/3ps4/9/3P1P1P1/5S3/4G2R1/3K5 b 2b 1"
+  },
+  {
+    "unit": "kakugawari-bougin",
+    "chapter": 1,
+    "before": "4k4/1r7/5s3/6p2/9/6PS1/9/7R1/3K5 b Bb 1",
+    "branches": [
+      {
+        "moves": [
+          "B*7c",
+          "5a6a",
+          "7c8b+"
+        ],
+        "final": "3k5/1+B7/5s3/6p2/9/6PS1/9/7R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a4a",
+          "7c8b+"
+        ],
+        "final": "5k3/1+B7/5s3/6p2/9/6PS1/9/7R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a5b",
+          "7c8b+"
+        ],
+        "final": "9/1+B2k4/5s3/6p2/9/6PS1/9/7R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a4b",
+          "7c8b+"
+        ],
+        "final": "9/1+B3k3/5s3/6p2/9/6PS1/9/7R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "8b6b",
+          "7c6b+"
+        ],
+        "final": "4k4/3+B5/5s3/6p2/9/6PS1/9/7R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "B*6b",
+          "7c8b+"
+        ],
+        "final": "4k4/1+B1b5/5s3/6p2/9/6PS1/9/7R1/3K5 w R 1"
+      }
+    ],
+    "revised": "4k4/1rg6/5s3/6p2/9/6PS1/9/7R1/3K5 b Bb 1",
+    "defense": [
+      "B*7c",
+      "7b7c"
+    ],
+    "final": "4k4/1r7/2g2s3/6p2/9/6PS1/9/7R1/3K5 b 2b 1"
+  },
+  {
+    "unit": "kakugawari-bougin",
+    "chapter": 2,
+    "before": "4k4/1r7/9/8p/9/7SP/9/7R1/3K5 b BLb 1",
+    "branches": [
+      {
+        "moves": [
+          "B*7c",
+          "5a6a",
+          "7c8b+"
+        ],
+        "final": "3k5/1+B7/9/8p/9/7SP/9/7R1/3K5 w RLb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a4a",
+          "7c8b+"
+        ],
+        "final": "5k3/1+B7/9/8p/9/7SP/9/7R1/3K5 w RLb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a5b",
+          "7c8b+"
+        ],
+        "final": "9/1+B2k4/9/8p/9/7SP/9/7R1/3K5 w RLb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a4b",
+          "7c8b+"
+        ],
+        "final": "9/1+B3k3/9/8p/9/7SP/9/7R1/3K5 w RLb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "8b6b",
+          "7c6b+"
+        ],
+        "final": "4k4/3+B5/9/8p/9/7SP/9/7R1/3K5 w RLb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "B*6b",
+          "7c8b+"
+        ],
+        "final": "4k4/1+B1b5/9/8p/9/7SP/9/7R1/3K5 w RL 1"
+      }
+    ],
+    "revised": "4k4/1rg6/9/8p/9/7SP/9/7R1/3K5 b BLb 1",
+    "defense": [
+      "B*7c",
+      "7b7c"
+    ],
+    "final": "4k4/1r7/2g6/8p/9/7SP/9/7R1/3K5 b L2b 1"
+  },
+  {
+    "unit": "kakugawari-bougin",
+    "chapter": 3,
+    "before": "4k4/1r7/9/7p1/7P1/7S1/9/7R1/3K5 b Bb 1",
+    "branches": [
+      {
+        "moves": [
+          "B*7c",
+          "5a6a",
+          "7c8b+"
+        ],
+        "final": "3k5/1+B7/9/7p1/7P1/7S1/9/7R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a4a",
+          "7c8b+"
+        ],
+        "final": "5k3/1+B7/9/7p1/7P1/7S1/9/7R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a5b",
+          "7c8b+"
+        ],
+        "final": "9/1+B2k4/9/7p1/7P1/7S1/9/7R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a4b",
+          "7c8b+"
+        ],
+        "final": "9/1+B3k3/9/7p1/7P1/7S1/9/7R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "8b6b",
+          "7c6b+"
+        ],
+        "final": "4k4/3+B5/9/7p1/7P1/7S1/9/7R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "B*6b",
+          "7c8b+"
+        ],
+        "final": "4k4/1+B1b5/9/7p1/7P1/7S1/9/7R1/3K5 w R 1"
+      }
+    ],
+    "revised": "4k4/1rg6/9/7p1/7P1/7S1/9/7R1/3K5 b Bb 1",
+    "defense": [
+      "B*7c",
+      "7b7c"
+    ],
+    "final": "4k4/1r7/2g6/7p1/7P1/7S1/9/7R1/3K5 b 2b 1"
+  },
+  {
+    "unit": "kakugawari-hayakuri",
+    "chapter": 1,
+    "before": "4k4/1r7/9/5sp2/9/6P2/6S2/7R1/3K5 b Bb 1",
+    "branches": [
+      {
+        "moves": [
+          "B*7c",
+          "5a6a",
+          "7c8b+"
+        ],
+        "final": "3k5/1+B7/9/5sp2/9/6P2/6S2/7R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a4a",
+          "7c8b+"
+        ],
+        "final": "5k3/1+B7/9/5sp2/9/6P2/6S2/7R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a5b",
+          "7c8b+"
+        ],
+        "final": "9/1+B2k4/9/5sp2/9/6P2/6S2/7R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a4b",
+          "7c8b+"
+        ],
+        "final": "9/1+B3k3/9/5sp2/9/6P2/6S2/7R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "8b6b",
+          "7c6b+"
+        ],
+        "final": "4k4/3+B5/9/5sp2/9/6P2/6S2/7R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "B*6b",
+          "7c8b+"
+        ],
+        "final": "4k4/1+B1b5/9/5sp2/9/6P2/6S2/7R1/3K5 w R 1"
+      }
+    ],
+    "revised": "4k4/1rg6/9/5sp2/9/6P2/6S2/7R1/3K5 b Bb 1",
+    "defense": [
+      "B*7c",
+      "7b7c"
+    ],
+    "final": "4k4/1r7/2g6/5sp2/9/6P2/6S2/7R1/3K5 b 2b 1"
+  },
+  {
+    "unit": "kakugawari-hayakuri",
+    "chapter": 2,
+    "before": "4k4/1r7/6s2/6p2/5SP2/9/9/4G2R1/3K5 b Bb 1",
+    "branches": [
+      {
+        "moves": [
+          "B*7c",
+          "5a6a",
+          "7c8b+"
+        ],
+        "final": "3k5/1+B7/6s2/6p2/5SP2/9/9/4G2R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a4a",
+          "7c8b+"
+        ],
+        "final": "5k3/1+B7/6s2/6p2/5SP2/9/9/4G2R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a5b",
+          "7c8b+"
+        ],
+        "final": "9/1+B2k4/6s2/6p2/5SP2/9/9/4G2R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a4b",
+          "7c8b+"
+        ],
+        "final": "9/1+B3k3/6s2/6p2/5SP2/9/9/4G2R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "8b6b",
+          "7c6b+"
+        ],
+        "final": "4k4/3+B5/6s2/6p2/5SP2/9/9/4G2R1/3K5 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "B*6b",
+          "7c8b+"
+        ],
+        "final": "4k4/1+B1b5/6s2/6p2/5SP2/9/9/4G2R1/3K5 w R 1"
+      }
+    ],
+    "revised": "4k4/1rg6/6s2/6p2/5SP2/9/9/4G2R1/3K5 b Bb 1",
+    "defense": [
+      "B*7c",
+      "7b7c"
+    ],
+    "final": "4k4/1r7/2g3s2/6p2/5SP2/9/9/4G2R1/3K5 b 2b 1"
+  },
+  {
+    "unit": "kakugawari-koshikake",
+    "chapter": 1,
+    "before": "4k4/1r7/9/3p5/9/3P1P3/5S3/2KG5/7R1 b Bb 1",
+    "branches": [
+      {
+        "moves": [
+          "B*7c",
+          "5a6a",
+          "7c8b+"
+        ],
+        "final": "3k5/1+B7/9/3p5/9/3P1P3/5S3/2KG5/7R1 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a4a",
+          "7c8b+"
+        ],
+        "final": "5k3/1+B7/9/3p5/9/3P1P3/5S3/2KG5/7R1 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a5b",
+          "7c8b+"
+        ],
+        "final": "9/1+B2k4/9/3p5/9/3P1P3/5S3/2KG5/7R1 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a4b",
+          "7c8b+"
+        ],
+        "final": "9/1+B3k3/9/3p5/9/3P1P3/5S3/2KG5/7R1 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "8b6b",
+          "7c6b+"
+        ],
+        "final": "4k4/3+B5/9/3p5/9/3P1P3/5S3/2KG5/7R1 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "B*6b",
+          "7c8b+"
+        ],
+        "final": "4k4/1+B1b5/9/3p5/9/3P1P3/5S3/2KG5/7R1 w R 1"
+      }
+    ],
+    "revised": "4k4/1rg6/9/3p5/9/3P1P3/5S3/2KG5/7R1 b Bb 1",
+    "defense": [
+      "B*7c",
+      "7b7c"
+    ],
+    "final": "4k4/1r7/2g6/3p5/9/3P1P3/5S3/2KG5/7R1 b 2b 1"
+  },
+  {
+    "unit": "kakugawari-koshikake",
+    "chapter": 2,
+    "before": "4k4/1r7/9/3ps2p1/7P1/3PS4/2N6/2KG5/7R1 b Bb 1",
+    "branches": [
+      {
+        "moves": [
+          "B*7c",
+          "5a6a",
+          "7c8b+"
+        ],
+        "final": "3k5/1+B7/9/3ps2p1/7P1/3PS4/2N6/2KG5/7R1 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a4a",
+          "7c8b+"
+        ],
+        "final": "5k3/1+B7/9/3ps2p1/7P1/3PS4/2N6/2KG5/7R1 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a5b",
+          "7c8b+"
+        ],
+        "final": "9/1+B2k4/9/3ps2p1/7P1/3PS4/2N6/2KG5/7R1 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a4b",
+          "7c8b+"
+        ],
+        "final": "9/1+B3k3/9/3ps2p1/7P1/3PS4/2N6/2KG5/7R1 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "8b6b",
+          "7c6b+"
+        ],
+        "final": "4k4/3+B5/9/3ps2p1/7P1/3PS4/2N6/2KG5/7R1 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "B*6b",
+          "7c8b+"
+        ],
+        "final": "4k4/1+B1b5/9/3ps2p1/7P1/3PS4/2N6/2KG5/7R1 w R 1"
+      }
+    ],
+    "revised": "4k4/1rg6/9/3ps2p1/7P1/3PS4/2N6/2KG5/7R1 b Bb 1",
+    "defense": [
+      "B*7c",
+      "7b7c"
+    ],
+    "final": "4k4/1r7/2g6/3ps2p1/7P1/3PS4/2N6/2KG5/7R1 b 2b 1"
+  },
+  {
+    "unit": "kakugawari-koshikake",
+    "chapter": 3,
+    "before": "4k4/1r7/9/1p7/9/4S4/6N2/3G3R1/2K2G3 b Bb 1",
+    "branches": [
+      {
+        "moves": [
+          "B*7c",
+          "5a6a",
+          "7c8b+"
+        ],
+        "final": "3k5/1+B7/9/1p7/9/4S4/6N2/3G3R1/2K2G3 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a4a",
+          "7c8b+"
+        ],
+        "final": "5k3/1+B7/9/1p7/9/4S4/6N2/3G3R1/2K2G3 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a5b",
+          "7c8b+"
+        ],
+        "final": "9/1+B2k4/9/1p7/9/4S4/6N2/3G3R1/2K2G3 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "5a4b",
+          "7c8b+"
+        ],
+        "final": "9/1+B3k3/9/1p7/9/4S4/6N2/3G3R1/2K2G3 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "8b6b",
+          "7c6b+"
+        ],
+        "final": "4k4/3+B5/9/1p7/9/4S4/6N2/3G3R1/2K2G3 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*7c",
+          "B*6b",
+          "7c8b+"
+        ],
+        "final": "4k4/1+B1b5/9/1p7/9/4S4/6N2/3G3R1/2K2G3 w R 1"
+      }
+    ],
+    "revised": "4k4/1rg6/9/1p7/9/4S4/6N2/3G3R1/2K2G3 b Bb 1",
+    "defense": [
+      "B*7c",
+      "7b7c"
+    ],
+    "final": "4k4/1r7/2g6/1p7/9/4S4/6N2/3G3R1/2K2G3 b 2b 1"
+  },
+  {
+    "label": "gokigen-rook-behind-bishop",
+    "start": "4k3l/1r5b1/7p1/4p4/9/9/4P4/1B5R1/4K4 w - 1",
+    "moves": [
+      "2b8h+",
+      "2h8h",
+      "8b8h+"
+    ],
+    "final": "4k3l/9/7p1/4p4/9/9/4P4/1+r7/4K4 b Brb 1",
+    "checked": false
+  },
+  {
+    "label": "gokigen-king-blocks-rook",
+    "start": "4k1g1l/4r2b1/9/9/9/9/P8/1B5R1/1L3GK2 w - 1",
+    "moves": [
+      "5a4b",
+      "8h2b+",
+      "3a2b",
+      "2h2b+"
+    ],
+    "final": "8l/4rk1+R1/9/9/9/9/P8/9/1L3GK2 w BGb 1",
+    "checked": true
+  },
+  {
+    "label": "gokigen-king-keeps-rook-line",
+    "start": "4k1g1l/4r2b1/9/9/9/9/P8/1B5R1/1L3GK2 w - 1",
+    "moves": [
+      "5a6b",
+      "8h2b+",
+      "3a2b",
+      "2h2b+",
+      "5b2b"
+    ],
+    "final": "8l/3k3r1/9/9/9/9/P8/9/1L3GK2 b BGrb 1",
+    "checked": false
+  },
+  {
+    "label": "mukai-free-rook",
+    "start": "9/1r4kb1/3s2p2/9/9/2PB5/4S4/1R3G1K1/3G5 b Pp 1",
+    "moves": [
+      "8h8b+"
+    ],
+    "final": "9/1+R4kb1/3s2p2/9/9/2PB5/4S4/5G1K1/3G5 w RPp 1",
+    "checked": true
+  },
+  {
+    "label": "mukai-rook-exchange",
+    "start": "2g6/1r4kb1/3s2p2/9/9/2PB5/4S4/1R3G1K1/3G5 b Pp 1",
+    "moves": [
+      "8h8b+",
+      "7a8b"
+    ],
+    "final": "9/1g4kb1/3s2p2/9/9/2PB5/4S4/5G1K1/3G5 b RPrp 1",
+    "checked": false
+  },
+  {
+    "unit": "kakukoukan-gyakubougin",
+    "chapter": 1,
+    "before": "9/1r3k3/9/1p7/9/1PS6/9/1R3GSK1/9 b Bb 1",
+    "branches": [
+      {
+        "moves": [
+          "B*6d",
+          "4b5a",
+          "6d8b+"
+        ],
+        "final": "4k4/1+B7/9/1p7/9/1PS6/9/1R3GSK1/9 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*6d",
+          "4b4a",
+          "6d8b+"
+        ],
+        "final": "5k3/1+B7/9/1p7/9/1PS6/9/1R3GSK1/9 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*6d",
+          "4b5b",
+          "6d8b+"
+        ],
+        "final": "9/1+B2k4/9/1p7/9/1PS6/9/1R3GSK1/9 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*6d",
+          "4b3b",
+          "6d8b+"
+        ],
+        "final": "9/1+B4k2/9/1p7/9/1PS6/9/1R3GSK1/9 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*6d",
+          "4b4c",
+          "6d8b+"
+        ],
+        "final": "9/1+B7/5k3/1p7/9/1PS6/9/1R3GSK1/9 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*6d",
+          "4b3c",
+          "6d8b+"
+        ],
+        "final": "9/1+B7/6k2/1p7/9/1PS6/9/1R3GSK1/9 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*6d",
+          "B*5c",
+          "6d8b+"
+        ],
+        "final": "9/1+B3k3/4b4/1p7/9/1PS6/9/1R3GSK1/9 w R 1"
+      }
+    ],
+    "revised": "9/1r3k3/4p4/1p7/9/1PS6/9/1R3GSK1/9 b Bb 1",
+    "defense": [
+      "B*6d",
+      "8b6b"
+    ],
+    "final": "9/3r1k3/4p4/1p1B5/9/1PS6/9/1R3GSK1/9 b b 1"
+  },
+  {
+    "unit": "kakukoukan-gyakubougin",
+    "chapter": 2,
+    "before": "9/1r3k3/9/1p7/9/1PS6/9/3R1GSK1/9 b Bb 1",
+    "branches": [
+      {
+        "moves": [
+          "B*6d",
+          "4b5a",
+          "6d8b+"
+        ],
+        "final": "4k4/1+B7/9/1p7/9/1PS6/9/3R1GSK1/9 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*6d",
+          "4b4a",
+          "6d8b+"
+        ],
+        "final": "5k3/1+B7/9/1p7/9/1PS6/9/3R1GSK1/9 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*6d",
+          "4b5b",
+          "6d8b+"
+        ],
+        "final": "9/1+B2k4/9/1p7/9/1PS6/9/3R1GSK1/9 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*6d",
+          "4b3b",
+          "6d8b+"
+        ],
+        "final": "9/1+B4k2/9/1p7/9/1PS6/9/3R1GSK1/9 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*6d",
+          "4b4c",
+          "6d8b+"
+        ],
+        "final": "9/1+B7/5k3/1p7/9/1PS6/9/3R1GSK1/9 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*6d",
+          "4b3c",
+          "6d8b+"
+        ],
+        "final": "9/1+B7/6k2/1p7/9/1PS6/9/3R1GSK1/9 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*6d",
+          "B*5c",
+          "6d8b+"
+        ],
+        "final": "9/1+B3k3/4b4/1p7/9/1PS6/9/3R1GSK1/9 w R 1"
+      }
+    ],
+    "revised": "9/1r3k3/4p4/1p7/9/1PS6/9/3R1GSK1/9 b Bb 1",
+    "defense": [
+      "B*6d",
+      "8b6b"
+    ],
+    "final": "9/3r1k3/4p4/1p1B5/9/1PS6/9/3R1GSK1/9 b b 1"
+  },
+  {
+    "unit": "legspe",
+    "chapter": 1,
+    "before": "9/1r3k3/9/1p7/9/9/1P7/3R1GG1L/6SK1 b Bb 1",
+    "branches": [
+      {
+        "moves": [
+          "B*6d",
+          "4b5a",
+          "6d8b+"
+        ],
+        "final": "4k4/1+B7/9/1p7/9/9/1P7/3R1GG1L/6SK1 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*6d",
+          "4b4a",
+          "6d8b+"
+        ],
+        "final": "5k3/1+B7/9/1p7/9/9/1P7/3R1GG1L/6SK1 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*6d",
+          "4b5b",
+          "6d8b+"
+        ],
+        "final": "9/1+B2k4/9/1p7/9/9/1P7/3R1GG1L/6SK1 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*6d",
+          "4b3b",
+          "6d8b+"
+        ],
+        "final": "9/1+B4k2/9/1p7/9/9/1P7/3R1GG1L/6SK1 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*6d",
+          "4b4c",
+          "6d8b+"
+        ],
+        "final": "9/1+B7/5k3/1p7/9/9/1P7/3R1GG1L/6SK1 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*6d",
+          "4b3c",
+          "6d8b+"
+        ],
+        "final": "9/1+B7/6k2/1p7/9/9/1P7/3R1GG1L/6SK1 w Rb 1"
+      },
+      {
+        "moves": [
+          "B*6d",
+          "B*5c",
+          "6d8b+"
+        ],
+        "final": "9/1+B3k3/4b4/1p7/9/9/1P7/3R1GG1L/6SK1 w R 1"
+      }
+    ],
+    "revised": "9/1r3k3/4p4/1p7/9/9/1P7/3R1GG1L/6SK1 b Bb 1",
+    "defense": [
+      "B*6d",
+      "8b6b"
+    ],
+    "final": "9/3r1k3/4p4/1p1B5/9/9/1P7/3R1GG1L/6SK1 b b 1"
+  },
+  {
+    "unit": "legspe",
+    "chapter": 3,
+    "before": "9/1r3k3/9/1p7/9/9/2P3P2/1R3GGSL/8K b Bb 1",
+    "branches": [
+      {
+        "moves": [
+          "B*6d",
+          "4b5a",
+          "6d8b+"
+        ],
+        "final": "4k4/1+B7/9/1p7/9/9/2P3P2/1R3GGSL/8K w Rb 1"
+      },
+      {
+        "moves": [
+          "B*6d",
+          "4b4a",
+          "6d8b+"
+        ],
+        "final": "5k3/1+B7/9/1p7/9/9/2P3P2/1R3GGSL/8K w Rb 1"
+      },
+      {
+        "moves": [
+          "B*6d",
+          "4b5b",
+          "6d8b+"
+        ],
+        "final": "9/1+B2k4/9/1p7/9/9/2P3P2/1R3GGSL/8K w Rb 1"
+      },
+      {
+        "moves": [
+          "B*6d",
+          "4b3b",
+          "6d8b+"
+        ],
+        "final": "9/1+B4k2/9/1p7/9/9/2P3P2/1R3GGSL/8K w Rb 1"
+      },
+      {
+        "moves": [
+          "B*6d",
+          "4b4c",
+          "6d8b+"
+        ],
+        "final": "9/1+B7/5k3/1p7/9/9/2P3P2/1R3GGSL/8K w Rb 1"
+      },
+      {
+        "moves": [
+          "B*6d",
+          "4b3c",
+          "6d8b+"
+        ],
+        "final": "9/1+B7/6k2/1p7/9/9/2P3P2/1R3GGSL/8K w Rb 1"
+      },
+      {
+        "moves": [
+          "B*6d",
+          "B*5c",
+          "6d8b+"
+        ],
+        "final": "9/1+B3k3/4b4/1p7/9/9/2P3P2/1R3GGSL/8K w R 1"
+      }
+    ],
+    "revised": "9/1r3k3/4p4/1p7/9/9/2P3P2/1R3GGSL/8K b Bb 1",
+    "defense": [
+      "B*6d",
+      "8b6b"
+    ],
+    "final": "9/3r1k3/4p4/1p1B5/9/9/2P3P2/1R3GGSL/8K b b 1"
+  },
+  {
+    "unit": "ishida-43",
+    "chapter": 2,
+    "before": "9/1kg2r3/7p1/9/6p2/2P6/7P1/7R1/4K4 w Bb 1",
+    "drop": "B*3g",
+    "branches": [
+      {
+        "moves": [
+          "B*3g",
+          "2h4h",
+          "3g4h+"
+        ],
+        "final": "9/1kg2r3/7p1/9/6p2/2P6/7P1/5+b3/4K4 b Br 1"
+      },
+      {
+        "moves": [
+          "B*3g",
+          "5i6h",
+          "3g2h+"
+        ],
+        "final": "9/1kg2r3/7p1/9/6p2/2P6/7P1/3K3+b1/9 b Br 1"
+      },
+      {
+        "moves": [
+          "B*3g",
+          "5i5h",
+          "3g2h+"
+        ],
+        "final": "9/1kg2r3/7p1/9/6p2/2P6/7P1/4K2+b1/9 b Br 1"
+      },
+      {
+        "moves": [
+          "B*3g",
+          "5i6i",
+          "3g2h+"
+        ],
+        "final": "9/1kg2r3/7p1/9/6p2/2P6/7P1/7+b1/3K5 b Br 1"
+      },
+      {
+        "moves": [
+          "B*3g",
+          "B*4h",
+          "3g2h+"
+        ],
+        "final": "9/1kg2r3/7p1/9/6p2/2P6/7P1/5B1+b1/4K4 b r 1"
+      }
+    ]
+  },
+  {
+    "unit": "ishida-43",
+    "chapter": 2,
+    "before": "9/1kg2r3/7p1/9/6p2/2P6/7P1/7R1/4K4 w Bb 1",
+    "drop": "B*6d",
+    "branches": [
+      {
+        "moves": [
+          "7b8c",
+          "B*6d",
+          "8b8a",
+          "6d4b+"
+        ],
+        "final": "1k7/5+B3/1g5p1/9/6p2/2P6/7P1/7R1/4K4 w Rb 1"
+      },
+      {
+        "moves": [
+          "7b8c",
+          "B*6d",
+          "8b7a",
+          "6d4b+"
+        ],
+        "final": "2k6/5+B3/1g5p1/9/6p2/2P6/7P1/7R1/4K4 w Rb 1"
+      },
+      {
+        "moves": [
+          "7b8c",
+          "B*6d",
+          "8b9b",
+          "6d4b+"
+        ],
+        "final": "9/k4+B3/1g5p1/9/6p2/2P6/7P1/7R1/4K4 w Rb 1"
+      },
+      {
+        "moves": [
+          "7b8c",
+          "B*6d",
+          "8b7b",
+          "6d4b+"
+        ],
+        "final": "9/2k2+B3/1g5p1/9/6p2/2P6/7P1/7R1/4K4 w Rb 1"
+      },
+      {
+        "moves": [
+          "7b8c",
+          "B*6d",
+          "8b9c",
+          "6d4b+"
+        ],
+        "final": "9/5+B3/kg5p1/9/6p2/2P6/7P1/7R1/4K4 w Rb 1"
+      },
+      {
+        "moves": [
+          "7b8c",
+          "B*6d",
+          "8c7c",
+          "6d4b+"
+        ],
+        "final": "9/1k3+B3/2g4p1/9/6p2/2P6/7P1/7R1/4K4 w Rb 1"
+      },
+      {
+        "moves": [
+          "7b8c",
+          "B*6d",
+          "B*7c",
+          "6d4b+"
+        ],
+        "final": "9/1k3+B3/1gb4p1/9/6p2/2P6/7P1/7R1/4K4 w R 1"
+      }
+    ]
+  },
+  {
+    "unit": "ishida-43",
+    "chapter": 2,
+    "revised": "9/1kg2r3/4p2p1/9/6p2/2P6/7P1/6SR1/4K4 w Bb 1",
+    "moves": [
+      "B*3g",
+      "3h3g"
+    ],
+    "final": "9/1kg2r3/4p2p1/9/6p2/2P6/6SP1/7R1/4K4 w 2B 1"
+  },
+  {
+    "unit": "ishida-43",
+    "chapter": 2,
+    "revised": "9/1kg2r3/4p2p1/9/6p2/2P6/7P1/6SR1/4K4 w Bb 1",
+    "moves": [
+      "7b8c",
+      "B*6d",
+      "8b7a"
+    ],
+    "final": "2k6/5r3/1g2p2p1/3B5/6p2/2P6/7P1/6SR1/4K4 b b 1"
+  },
+  {
+    "unit": "mukai-build",
+    "chapter": 1,
+    "before": "5k3/1rs4b1/4p1p2/1p7/9/2P6/1PS6/1B5R1/3GG1K2 b - 1",
+    "originalCapture": "5k3/1rs4+R1/4p1p2/1p7/9/2P6/1PS6/1B7/3GG1K2 w B 1",
+    "revised": "5kg2/1rs4b1/4p1p2/1p7/9/2P6/1PS6/1B5R1/3GG1K2 b - 1",
+    "moves": [
+      "2h2b+",
+      "3a2b"
+    ],
+    "final": "5k3/1rs4g1/4p1p2/1p7/9/2P6/1PS6/1B7/3GG1K2 b Br 1"
+  },
+  {
+    "unit": "mukai-build",
+    "chapter": 2,
+    "before": "5k3/1rs4b1/6p2/1p7/9/2P6/1P1SP4/1B5R1/3GG1K2 b - 1",
+    "originalCapture": "5k3/1rs4+R1/6p2/1p7/9/2P6/1P1SP4/1B7/3GG1K2 w B 1",
+    "revised": "5kg2/1rs4b1/6p2/1p7/9/2P6/1P1SP4/1B5R1/3GG1K2 b - 1",
+    "moves": [
+      "2h2b+",
+      "3a2b"
+    ],
+    "final": "5k3/1rs4g1/6p2/1p7/9/2P6/1P1SP4/1B7/3GG1K2 b Br 1"
+  }
+]
