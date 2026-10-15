@@ -40,6 +40,7 @@ export function useAnalyzeGames(
   const { mode, game, tree, userSide, course } = session
   const [gameNotes, setGameNotes] = useState<GameNotes | null>(null)
   const [gameTitle, setGameTitle] = useState('')
+  const [players, setPlayers] = useState<StoredGame['players']>()
   const [slotId, setSlotId] = useState<string | null>(null)
   const [autoRate, setAutoRate] = useState('')
 
@@ -54,6 +55,7 @@ export function useAnalyzeGames(
       session.setCursor(0)
       setGameNotes({ title: parsed.title, comments: parsed.comments ?? [], ending: parsed.ending, moves: parsed.moves.join(' ') })
       setGameTitle(parsed.title || '')
+      setPlayers(parsed.players)
       setTab('moves')
     }
     const variations = countMoves(tree) - mainLine(tree).length
@@ -98,6 +100,7 @@ export function useAnalyzeGames(
       moves: tree.children.length ? mainLine(tree) : game.moves,
       tree: tree.children.length ? tree : undefined,
       userSide: choice && choice !== 'study' ? choice : userSide,
+      players,
       ...(choice ? { role: choice === 'study' ? ('study' as const) : ('mine' as const) } : {}),
     })
     if (ok) setSlotId(id)
@@ -118,6 +121,7 @@ export function useAnalyzeGames(
       moves: previous.tree?.children.length ? mainLine(previous.tree) : previous.game.moves,
       tree: previous.tree?.children.length ? previous.tree : undefined,
       userSide: previous.userSide,
+      players,
     })
     if (!ok) onSaveError()
     return ok
@@ -130,6 +134,7 @@ export function useAnalyzeGames(
       if (g.tree) session.setTree(g.tree)
       session.setCursor(g.moves.length)
       setGameTitle(g.title)
+      setPlayers(g.players)
       setSlotId(g.id)
       setTab('moves')
     }
@@ -166,6 +171,7 @@ export function useAnalyzeGames(
       if (g.tree) session.setTree(g.tree)
       session.setCursor(0)
       setGameTitle(g.title)
+      setPlayers(g.players)
       setSlotId(g.id)
       setAutoRate(g.moves.join(' '))
       setTab('moves')

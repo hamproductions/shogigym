@@ -13,6 +13,8 @@ export type StoredGame = {
   detectionResult?: DetectionResult
   tree?: Tree
   userSide: 'sente' | 'gote'
+  /** Player names from the imported record, when it had them. */
+  players?: { sente?: string; gote?: string }
   result?: GameResult
   vsAi?: boolean
   /** 'mine' feeds cross-game trends; 'study' (imports, pro games) stays out of them. Defaults to mine for games played here. */
