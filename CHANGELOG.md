@@ -2,6 +2,26 @@
 
 Notable changes are recorded here when a release is created. Versions follow Semantic Versioning.
 
+## [1.5.3](/compare/v1.5.2...v1.5.3) (2026-10-16)
+
+
+### Bug Fixes
+
+* **lessons:** keep picker headings' own spacing aa27461
+* **panels:** keep the move navigation footer visible d2ff034
+* **ui:** close dialogs only from their own backdrop f72da6b
+* **ui:** draw borders on the slider thumb, checkbox and select b146ff9
+* **ui:** hide closed Ark parts and size the select list 5e4d29f
+* **ui:** restore the gap above buttons inside cards 65b229d
+* **ui:** style surfaces and file pickers outside Ark dialogs 3adc78f
+
+
+### Features
+
+* **theme:** mirror the legacy design tokens as Panda semantic tokens 27b0ba5
+* **ui:** add Park form, text and kbd components for the area migration c989cb7
+* **ui:** move primitives to Park UI on Panda v2 and Ark 0dab411
+
 ## [1.5.2](/compare/v1.5.1...v1.5.2) (2026-10-15)
 
 ### 修正・追加
