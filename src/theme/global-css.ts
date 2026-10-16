@@ -9,5 +9,8 @@ export const globalCss = {
     html: {
       colorPalette: 'gray',
     },
+    "[hidden]:where(:not([hidden='until-found']))": {
+      display: 'none !important',
+    },
   },
 }

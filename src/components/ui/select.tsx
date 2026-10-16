@@ -45,6 +45,6 @@ export const ItemIndicator = forwardRef<HTMLDivElement, HTMLStyledProps<'div'>>(
       <Icon name="check" size={16} />
     </StyledItemIndicator>
   ) : (
-    <svg aria-hidden="true" focusable="false" />
+    <svg aria-hidden="true" focusable="false" width={16} height={16} />
   )
 })

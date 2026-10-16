@@ -20,6 +20,7 @@ export const select = defineSlotRecipe({
       flexDirection: 'column',
       maxH: 'min(var(--available-height), {sizes.96})',
       minWidth: 'max(var(--reference-width), {sizes.40})',
+      maxWidth: 'var(--available-width)',
       outline: 0,
       overflowY: 'auto',
       zIndex: 'dropdown',
