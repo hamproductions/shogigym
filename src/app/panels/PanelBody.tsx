@@ -126,7 +126,7 @@ function CoachSection({ model }: { model: PanelModel }) {
         />
       )}
       {mode === 'view' && <p className={note()}>{t('watch.description')}</p>}
-      {mode === 'analyze' && analyze.gameNotes && <KifuNotes notes={analyze.gameNotes} moves={game.moves} cursor={cursor} />}
+      {mode === 'analyze' && analyze.gameNotes && <KifuNotes notes={analyze.gameNotes} moves={game.moves} ply={cursor} />}
       {(isGameMode(mode) || mode === 'view') && !assist && <p className={muted}>{t('app.helpIsOffNoRatings')}</p>}
       {(isGameMode(mode) || mode === 'view') && assist && (
         <CoachPane
@@ -210,7 +210,7 @@ export function PanelBody({ tab, model, overlays = true }: { tab: Tab; model: Pa
           <EvalGraph
             values={sfens.map((s) => evaluation.evals[strip(s)])}
             labels={sfens.map((_, i) => (i > 0 ? cachedReview(sfens[i - 1], game.moves[i - 1])?.label : undefined))}
-            cursor={cursor}
+            ply={cursor}
             onJump={setCursor}
           />
         </div>

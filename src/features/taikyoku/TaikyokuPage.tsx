@@ -383,7 +383,7 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
     <>
       {assist && timeline.length > 0 && (
         <div className={pinnedGraph}>
-          <EvalGraph values={evaluations} labels={[]} cursor={cursor} onJump={navigate} />
+          <EvalGraph values={evaluations} labels={[]} ply={cursor} onJump={navigate} />
         </div>
       )}
       <div className={cx('app-panel-body', panelBody)}>

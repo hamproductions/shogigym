@@ -99,7 +99,7 @@ export function PromotionPicker({
   )
 }
 
-export function TsumePlate({ position, flipped, userSide }: { position: 'top' | 'bottom'; flipped: boolean; userSide: 'sente' | 'gote' }) {
+export function TsumePlate({ place: position, flipped, userSide }: { place: 'top' | 'bottom'; flipped: boolean; userSide: 'sente' | 'gote' }) {
   const { t } = useTranslation()
   const side = (position === 'top') === flipped ? 'sente' : 'gote'
   return (

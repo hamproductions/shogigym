@@ -58,7 +58,7 @@ const variationDelete = css({
 type MovesPaneProps = {
   sfens: string[]
   moves: string[]
-  cursor: number
+  ply: number
   setCursor: (i: number) => void
   title: string
   canRate?: boolean
@@ -91,7 +91,7 @@ export function MoveRows({ count, cell, listRef, title }: { count: number; cell:
 export function MovesPane({
   sfens,
   moves,
-  cursor,
+  ply: cursor,
   setCursor,
   title,
   tree,

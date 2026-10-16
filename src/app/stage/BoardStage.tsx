@@ -169,7 +169,7 @@ export function BoardStage({
           : t('app.opponent')
   const plate = (place: 'top' | 'bottom') => {
     const side: Side = (place === 'top') === flipped ? 'sente' : 'gote'
-    return <Plate className={place} clock={spar.clockFace(side)} position={position} color={side === 'sente' ? Color.BLACK : Color.WHITE} who={who(side)} />
+    return <Plate className={place} clock={spar.clockFace(side)} board={position} side={side === 'sente' ? Color.BLACK : Color.WHITE} who={who(side)} />
   }
   const sparEnded = mode === 'spar' && (spar.resigned || !!spar.flagged)
   const showGameOver = ((gameOver && game.moves.length > 0 && isGameMode(mode)) || sparEnded) && spar.endHidden !== sfen
@@ -252,8 +252,8 @@ export function BoardStage({
         </div>
       )}
       <BoardBanners mistake={mistake} onBack={onBack} />
-      {mode === 'tsume' && <TsumePlate position="top" flipped={flipped} userSide={userSide} />}
-      {mode === 'tsume' && <TsumePlate position="bottom" flipped={flipped} userSide={userSide} />}
+      {mode === 'tsume' && <TsumePlate place="top" flipped={flipped} userSide={userSide} />}
+      {mode === 'tsume' && <TsumePlate place="bottom" flipped={flipped} userSide={userSide} />}
       {phoneTask && (
         <button className={cx('app-phone-task', phoneTaskStyle)} onClick={phoneTask.run}>
           <span>{phoneTask.text}</span>

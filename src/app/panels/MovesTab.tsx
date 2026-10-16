@@ -41,7 +41,7 @@ export function MovesTab({ model }: { model: PanelModel }) {
         <MovesPane
           sfens={[...sfens.slice(0, preview.base), ...previewSfens]}
           moves={[...game.moves.slice(0, preview.base), ...preview.moves]}
-          cursor={preview.base + preview.step}
+          ply={preview.base + preview.step}
           setCursor={(i) => i >= preview.base && setPreview({ ...preview, step: i - preview.base })}
           title={title}
           detectionPreset={game.detectionPreset}
@@ -55,7 +55,7 @@ export function MovesTab({ model }: { model: PanelModel }) {
         detectionResult={detectionResult}
         detectionPreset={game.detectionPreset}
         moves={game.moves}
-        cursor={cursor}
+        ply={cursor}
         setCursor={setCursor}
         title={title}
         tree={isGameMode(mode) || mode === 'view' ? tree : null}

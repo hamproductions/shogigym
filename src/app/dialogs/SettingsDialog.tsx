@@ -74,13 +74,13 @@ function SurfaceSample({ piece }: { piece: PieceAppearance }) {
 
 function GlyphSample({
   set,
-  font,
+  face: font,
   style = 'one',
   code = 'FU',
   guide = 'none',
 }: {
   set: PieceSet
-  font: PieceFont
+  face: PieceFont
   style?: 'one' | 'two'
   code?: 'FU' | 'KI'
   guide?: 'none' | 'movement' | 'dots' | 'lines'
@@ -469,7 +469,7 @@ function DesignOptions({ customFace = false }: { customFace?: boolean } = {}) {
             label={t('settings.preset')}
             options={presets.map((preset) => ({
               ...preset,
-              preview: <GlyphSample set={preset.patch.pieceSet!} font={preset.patch.pieceFont ?? st.pieceFont} style={preset.patch.pieceStyle} code="KI" />,
+              preview: <GlyphSample set={preset.patch.pieceSet!} face={preset.patch.pieceFont ?? st.pieceFont} style={preset.patch.pieceStyle} code="KI" />,
             }))}
             value={presets.find((preset) => Object.entries(preset.patch).every(([key, value]) => st[key as keyof typeof st] === value))?.key ?? ''}
             onChange={(key) => setSettings(presets.find((preset) => preset.key === key)!.patch)}
@@ -496,7 +496,7 @@ function DesignOptions({ customFace = false }: { customFace?: boolean } = {}) {
                               : key === 'pixel'
                                 ? t('settings.pixel')
                                 : PIECE_SETS[key].label,
-              preview: <GlyphSample set={key} font={st.pieceFont} />,
+              preview: <GlyphSample set={key} face={st.pieceFont} />,
             }))}
             value={currentFamily}
             onChange={(key) => changeFamily(key as PieceSet)}
@@ -506,7 +506,7 @@ function DesignOptions({ customFace = false }: { customFace?: boolean } = {}) {
       {(lettering || customFace) && (
         <OptionGroup
           label={t('settings.font')}
-          options={FONTS.map((key) => ({ key, label: PIECE_FONTS[key].label, preview: <GlyphSample set="letters" font={key} /> }))}
+          options={FONTS.map((key) => ({ key, label: PIECE_FONTS[key].label, preview: <GlyphSample set="letters" face={key} /> }))}
           value={st.pieceFont}
           onChange={(key) => setSettings({ pieceFont: key as PieceFont })}
         />
@@ -521,7 +521,7 @@ function DesignOptions({ customFace = false }: { customFace?: boolean } = {}) {
               preview: (
                 <GlyphSample
                   set={paired ? pieceSetForFace(currentFamily, key === 'two' ? 'two' : 'one') : st.pieceSet}
-                  font={st.pieceFont}
+                  face={st.pieceFont}
                   style={key === 'two' ? 'two' : 'one'}
                   guide={key === 'guide' ? (st.pieceGuide === 'none' ? 'lines' : st.pieceGuide) : 'none'}
                 />

@@ -43,12 +43,12 @@ const H = 88
 export function EvalGraph({
   values,
   labels,
-  cursor,
+  ply: cursor,
   onJump,
 }: {
   values: (number | undefined)[]
   labels: (Label | undefined)[]
-  cursor: number
+  ply: number
   onJump: (i: number) => void
 }) {
   const { t } = useTranslation()

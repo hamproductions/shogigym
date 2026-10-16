@@ -45,6 +45,12 @@
       "rules": {
         "@pandacss/no-important": "off"
       }
+    },
+    {
+      "files": ["src/app/stage/BoardStage.tsx"],
+      "rules": {
+        "@pandacss/extraction-diagnostics": "off"
+      }
     }
   ]
 }

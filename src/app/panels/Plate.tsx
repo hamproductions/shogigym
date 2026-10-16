@@ -8,14 +8,14 @@ import { cx } from '@/app/ui/cx'
 import { clock as clockStyle, muted, plate, plateSide } from './panels.styles'
 
 export function Plate({
-  position,
-  color,
+  board: position,
+  side: color,
   who,
   className,
   clock,
 }: {
-  position: ImmutablePosition
-  color: Color
+  board: ImmutablePosition
+  side: Color
   who: string | null
   className: string
   clock?: ClockFace
