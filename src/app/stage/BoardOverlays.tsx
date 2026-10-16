@@ -1,4 +1,3 @@
-import './announce.css'
 import { useTranslation } from 'react-i18next'
 import type { CSSProperties } from 'react'
 import { Color, promotedPieceType, type Move } from 'tsshogi'
