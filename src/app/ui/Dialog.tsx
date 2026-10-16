@@ -1,5 +1,6 @@
 import '@/app/ui/dialog.css'
 import type { ReactNode } from 'react'
+import { dialog } from 'styled-system/recipes'
 import { CloseButton, Dialog as ParkDialog } from '@/components/ui'
 import { cx } from './cx'
 
@@ -30,9 +31,9 @@ export function Dialog({ label, className, role = 'dialog', onBackdrop, children
 
 export function DialogHeader({ title, closeLabel, closeTitle, onClose }: { title: ReactNode; closeLabel: string; closeTitle?: string; onClose: () => void }) {
   return (
-    <ParkDialog.Header className="app-dialog-head">
-      <ParkDialog.Title>{title}</ParkDialog.Title>
+    <div className={cx(dialog().header, 'app-dialog-head')}>
+      <h2 className={dialog().title}>{title}</h2>
       <CloseButton size="lg" onClick={onClose} aria-label={closeLabel} title={closeTitle} />
-    </ParkDialog.Header>
+    </div>
   )
 }

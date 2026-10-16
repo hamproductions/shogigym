@@ -2,6 +2,7 @@ import './import.css'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { decodeKifuFile } from '@/utils/kifu'
+import { button } from 'styled-system/recipes'
 import { Button } from '@/app/ui/Button'
 
 export function ImportBox({ onImport, open, bare }: { onImport: (text: string) => string | null; open?: boolean; bare?: boolean }) {
@@ -32,7 +33,7 @@ export function ImportBox({ onImport, open, bare }: { onImport: (text: string) =
             {t('games.pasteFromClipboard')}
           </Button>
         )}
-        <label className="app-btn sm app-file">
+        <label className={`${button({ variant: 'subtle', size: 'sm' })} app-btn sm app-file`}>
           {t('games.openAFile')}
           <input
             type="file"

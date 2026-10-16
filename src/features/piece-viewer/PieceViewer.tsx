@@ -10,6 +10,7 @@ import { createRenderer, disposeRenderer } from '@/rendering/board3d/scene'
 import { PIECE_FINISHES, loadPieceFont, setSettings, useSettings, type PieceFinish } from '@/appearance/settings'
 import { loadPieceSet } from '@/appearance/pieceSets'
 import { useTranslation } from 'react-i18next'
+import { dialog } from 'styled-system/recipes'
 import { DialogHeader } from '@/app/ui/Dialog'
 import { Segmented, SettingRow } from '@/app/ui/Segmented'
 
@@ -130,7 +131,7 @@ export function PieceViewer({ onClose, page }: { onClose: () => void; page?: boo
   return (
     <div className={page ? 'app-viewer-page' : 'app-palette-back'} onPointerDown={page ? undefined : onClose}>
       <div
-        className={`app-dialog app-viewer${page ? ' page' : ''}`}
+        className={`${dialog().content} app-dialog app-viewer${page ? ' page' : ''}`}
         role="dialog"
         aria-label={t('viewer.pieceViewer')}
         onPointerDown={(e) => e.stopPropagation()}

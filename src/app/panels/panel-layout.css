@@ -212,7 +212,8 @@
 }
 
 @container (max-width: 300px) {
-  .app-tabs {
+  .app-tabs,
+  .app-tabs [data-part='list'] {
     flex-wrap: wrap;
   }
 

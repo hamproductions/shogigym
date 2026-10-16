@@ -5,6 +5,7 @@ import { clearEvalFile, saveEvalFile, useEvalFile } from '@/utils/evalStore'
 import { clearBookDownloadCache, downloadFullBook, type BookProgress } from '@/utils/bookDownload'
 import { clearBookFile, saveBookFile, useBookFile } from '@/utils/openingBook'
 import { getSettings, setSettings, useSettings, type EngineKind } from '@/appearance/settings'
+import { button } from 'styled-system/recipes'
 import { Button } from '@/app/ui/Button'
 import { SegmentedField, SettingRow } from '@/app/ui/Segmented'
 
@@ -34,7 +35,7 @@ export function EngineSettings() {
           <SettingRow label={t('settings.evalFile')}>
             <div className="app-actions">
               <span className="app-muted">{evalFile ? `${evalFile.name} (${(evalFile.size / 1048576).toFixed(1)} MB)` : t('settings.noEvalFile')}</span>
-              <label className="app-btn app-file">
+              <label className={`${button({ variant: 'subtle', size: 'md' })} app-btn app-file`}>
                 {busy ? t('settings.loadingEvalFile') : t('settings.loadEvalFile')}
                 <input
                   type="file"
@@ -108,7 +109,7 @@ function OpeningBookSettings() {
       <SettingRow label={t('settings.openingBook')}>
         <div className="app-actions">
           <span className="app-muted">{file ? `${file.name} (${(file.size / 1048576).toFixed(1)} MB)` : t('settings.compactBook')}</span>
-          <label className="app-btn app-file">
+          <label className={`${button({ variant: 'subtle', size: 'md' })} app-btn app-file`}>
             {busy ? t('settings.loadingBook') : t('settings.importBook')}
             <input
               type="file"
