@@ -1,4 +1,3 @@
-import '@/app/modes/lesson/lesson.css'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Wrap } from 'styled-system/jsx'
@@ -9,6 +8,7 @@ import type { AnalyzeGames } from './useAnalyzeGames'
 import { Button } from '@/app/ui/Button'
 import { Badge } from '@/components/ui'
 import { muted } from '@/app/panels/panels.styles'
+import { games as gamesBox } from '@/app/modes/lesson/lesson.styles'
 
 export function GamesBox({ games, browse = true }: { games: AnalyzeGames; browse?: boolean }) {
   const { t } = useTranslation()
@@ -18,7 +18,7 @@ export function GamesBox({ games, browse = true }: { games: AnalyzeGames; browse
   const stored = loadGames()
   const toggle = (next: 'saved' | 'load') => setView(view === next ? 'none' : next)
   return (
-    <div className="app-games">
+    <div className={gamesBox}>
       <Wrap gap="2" align="center">
         <Button
           size="sm"

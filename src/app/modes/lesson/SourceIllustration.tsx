@@ -2,6 +2,8 @@ import { Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { CropPanel, SourceDiagram } from '@/utils/curriculum'
 import { rankKanji } from '@/utils/notation'
+import { muted } from '@/app/panels/panels.styles'
+import { crop, cropChoice, cropPanel, cropPiece } from './lesson.styles'
 
 const CELL = 40
 const GLYPH: Record<string, string> = {
@@ -52,7 +54,7 @@ function Panel({ panel, lang }: { panel: CropPanel; lang: string }) {
   const label = panel.label ? (lang === 'ja' ? panel.label.ja : panel.label.en) : ''
   const name = label || (lang === 'ja' ? '原図の部分図' : 'Source board detail')
   return (
-    <figure className={`app-crop-panel${panel.verdict ? ` ${panel.verdict}` : ''}`}>
+    <figure className={cropPanel({ verdict: panel.verdict ?? 'none' })}>
       <svg viewBox={`0 0 ${width} ${height}`} style={{ width: width * (panel.w > 5 ? 1.15 : 1.7) }} role="img" aria-label={name}>
         {panel.zone !== undefined && <rect className="zone" x={ox} y={oy} width={panel.w * CELL} height={panel.zone * CELL} />}
         {rows.map((row, r) =>
@@ -192,7 +194,7 @@ function Panel({ panel, lang }: { panel: CropPanel; lang: string }) {
         )}
       </svg>
       {panel.choice && (
-        <p className="app-crop-choice">
+        <p className={cropChoice}>
           {panel.choice.map((code, i) => (
             <span key={code}>
               {GLYPH[code.startsWith('+') ? `+${code[1].toUpperCase()}` : code.toUpperCase()]}
@@ -220,16 +222,16 @@ export function SourceIllustration({ diagram }: { diagram: Pick<SourceDiagram, '
   const lang = i18n.language
   if (diagram.pieces)
     return (
-      <div className="app-crop app-crop-pieces">
+      <div className={crop({ layout: 'pieces' })}>
         {diagram.pieces.items.map(([code, count, label], i) => (
-          <figure key={i} className="app-crop-piece">
+          <figure key={i} className={cropPiece}>
             <svg viewBox="-20 -22 40 44" role="img" aria-label={label || code || (lang === 'ja' ? '駒' : 'Piece')}>
               {code ? <Koma code={code} x={0} y={0} /> : <path className="blank" d={KOMA} />}
             </svg>
             {(label || count > 0) && (
               <figcaption>
                 {label}
-                {count > 0 && <span className="app-muted"> ×{count}</span>}
+                {count > 0 && <span className={muted}> ×{count}</span>}
               </figcaption>
             )}
           </figure>
@@ -238,7 +240,7 @@ export function SourceIllustration({ diagram }: { diagram: Pick<SourceDiagram, '
     )
   if (!diagram.crop) return null
   return (
-    <div className={`app-crop${diagram.crop.cycle ? ' cycle' : ''}`}>
+    <div className={crop({ layout: diagram.crop.cycle ? 'cycle' : 'panels' })}>
       {diagram.crop.panels.map((panel, i) => (
         <Panel key={i} panel={panel} lang={lang} />
       ))}

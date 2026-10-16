@@ -1,8 +1,35 @@
-import './piece-guide.css'
 import { Color, PieceType, Square } from 'tsshogi'
 import { positionOf } from '@/utils/shogi'
 import { useTranslation } from 'react-i18next'
 import i18n from '@/utils/i18n'
+import { css } from 'styled-system/css'
+import { cx } from '@/app/ui/cx'
+import { muted } from '@/app/panels/panels.styles'
+
+const guide = css({
+  display: 'flex',
+  gap: '3',
+  mb: '3',
+  p: '{spacing.2.5} {spacing.3}',
+  '& strong': { fontFamily: 'mincho', fontWeight: 'heavy', fontSize: 'lg' },
+  '& strong span': { fontFamily: 'sans', fontWeight: 'regular', fontSize: 'xs', color: 'fg.muted' },
+  '& p': { m: '{spacing.1} 0 0', fontSize: 'sm', lineHeight: 'normal' },
+})
+
+const english = css({ display: 'block', fontFamily: 'sans', fontWeight: 'regular', fontSize: 'xs', color: 'fg.muted' })
+
+const grid = css({
+  flex: 'none',
+  display: 'grid',
+  gridTemplateColumns: 'repeat(5, 14px)',
+  gridTemplateRows: 'repeat(5, 14px)',
+  gap: '0.5',
+  alignSelf: 'flex-start',
+  '& i': { borderRadius: 'xs', bg: 'color-mix(in srgb, {colors.fg.default} 8%, transparent)' },
+  '& i[data-kind=self]': { bg: 'fg.default' },
+  '& i[data-kind=step]': { bg: 'success.fill' },
+  '& i[data-kind=slide]': { bg: 'info.fill' },
+})
 
 type Step = { dx: number; dy: number; slide?: boolean }
 
@@ -187,10 +214,10 @@ function MoveDiagram({ steps }: { steps: Step[] }) {
           : s.dx === x && s.dy === y,
       )
       const kind = x === 0 && y === 0 ? 'self' : step ? (step.slide ? 'slide' : 'step') : ''
-      cells.push(<i key={`${x},${y}`} className={kind} />)
+      cells.push(<i key={`${x},${y}`} data-kind={kind || undefined} />)
     }
   return (
-    <div className="app-piece-grid" aria-hidden="true">
+    <div className={grid} aria-hidden="true">
       {cells}
     </div>
   )
@@ -206,20 +233,20 @@ export function PieceGuide({ sfen, from }: { sfen: string; from: Square | PieceT
   const inHand = !(from instanceof Square)
   const kingName = type === PieceType.KING && from instanceof Square && position.board.at(from)?.color === Color.BLACK ? '王将' : info.ja
   return (
-    <div className="app-piece-guide">
+    <div className={cx('app-piece-guide', guide)}>
       <MoveDiagram steps={info.steps} />
       <div>
         <strong>
           {kingName} {!ja && <span>{kingName === '王将' ? 'ōshō' : info.reading}</span>}
         </strong>
-        {!ja && <span className="app-piece-en">{info.en}</span>}
+        {!ja && <span className={english}>{info.en}</span>}
         <p>{info.moves}</p>
         {info.promotes && !inHand && (
-          <p className="app-muted">
+          <p className={muted}>
             {info.promotes} {t('pieces.aPieceMayPromoteWhen')}
           </p>
         )}
-        {inHand && <p className="app-muted">{t('pieces.aCapturedPieceIsYours')}</p>}
+        {inHand && <p className={muted}>{t('pieces.aCapturedPieceIsYours')}</p>}
       </div>
     </div>
   )

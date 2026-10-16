@@ -1,6 +1,4 @@
 import { SquareText } from '@/app/modes/lesson/SquareText'
-import './lesson.css'
-import './source-reader.css'
 import { useTranslation } from 'react-i18next'
 import { LABELS } from '@/utils/analysis'
 import i18n from '@/utils/i18n'
@@ -16,15 +14,24 @@ import { Button } from '@/app/ui/Button'
 import { Card } from '@/app/ui/Card'
 import { css } from 'styled-system/css'
 import { cx } from '@/app/ui/cx'
-import { backLink, badge, narrowColumn, note, result, verdictHead } from '@/app/panels/panels.styles'
+import { Kbd } from '@/components/ui'
+import { Wrap } from 'styled-system/jsx'
+import { backLink, badge, muted, narrowColumn, note, result, verdictHead } from '@/app/panels/panels.styles'
+import { feedback, lessonPane, progressCount, series as seriesNav, seriesBack, seriesCount, sourceNote, studyPane } from './lesson.styles'
 
 const scoreRow = css({
   display: 'flex',
   gap: '3',
   m: '{spacing.2.5} 0 0',
   fontWeight: 'bold',
+  h: 'calc(1em * {lineHeights.normal})',
+  overflowX: 'auto',
+  whiteSpace: 'nowrap',
+  flexShrink: '0',
+  '& > span': { flexShrink: '0' },
   '& .right': { color: 'success' },
   '& .wrong': { color: 'danger' },
+  _narrow: { order: '-2', m: '0 0 {spacing.2.5}' },
 })
 
 const answer = css({ mt: '1.5', '.app-card &': { '& p': { m: '{spacing.0.5} 0 0', fontFamily: 'mincho' } } })
@@ -162,21 +169,21 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
   const endComment = done ? lesson.node?.comment : undefined
   if (setupOf(course)?.path && lessonMode === 'study' && !(mistakePreview && mistake) && !offBook && !whatIf)
     return (
-      <div className={cx('app-lesson-pane study', narrowColumn)}>
+      <div className={cx(lessonPane, studyPane, narrowColumn)}>
         <LessonGuide course={course} lesson={lesson} series={series} />
       </div>
     )
   return (
-    <div className={cx('app-lesson-pane', lessonMode, narrowColumn)}>
+    <div className={cx(lessonPane, lessonMode === 'study' && studyPane, narrowColumn)}>
       {series && (
-        <nav className="app-series" aria-label={t('lesson.series')}>
-          <button className={cx('app-back', backLink)} onClick={series.back}>
+        <nav className={seriesNav} aria-label={t('lesson.series')}>
+          <button className={cx(backLink, seriesBack)} onClick={series.back}>
             ‹ {t('lesson.backToArticle')}
           </button>
           <Button size="sm" disabled={!series.prev} onClick={() => series.prev?.(lessonMode)} aria-label={t('lesson.previousSequence')}>
             ‹
           </Button>
-          <span>
+          <span className={seriesCount}>
             {series.tally
               ? t('lesson.randomTally', { count: series.tally.questions + 1, right: series.tally.right, wrong: series.tally.wrong })
               : t('lesson.sequenceOf', { value: series.at + 1, total: series.total })}
@@ -192,10 +199,10 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
         </nav>
       )}
       {progress && progress.total > 0 && (
-        <span className="app-progress-count">{t('lesson.yourMoves', { value: Math.min(progress.done, progress.total), total: progress.total })}</span>
+        <span className={progressCount}>{t('lesson.yourMoves', { value: Math.min(progress.done, progress.total), total: progress.total })}</span>
       )}
       {lessonMode === 'quiz' && (
-        <p className={cx('app-score', scoreRow)}>
+        <p className={scoreRow}>
           <span className="right">✓ {score.right}</span>
           <span className="wrong">✗ {score.wrong}</span>
           {justRight && !mistake && !done && (
@@ -224,7 +231,7 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
           {mistake.verdict && !mistake.note && mistake.verdict.reasons.length === 0 && (
             <p>{mistakeIsBad(mistake) ? t('lesson.theOpponentGetsTheBetter') : t('lesson.nothingGoesWrongRightAway')}</p>
           )}
-          <p className="app-muted">
+          <p className={muted}>
             {lessonMode === 'study'
               ? mistake.verdict && mistake.verdict.best.move !== mistake.expected && mistake.verdict.best.move !== mistake.usi
                 ? t('lesson.theLessonMoveIsThe', { move: moveText(sfen, mistake.expected), move2: moveText(sfen, mistake.verdict.best.move) })
@@ -240,12 +247,12 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
         <Card>
           <strong>{t('lesson.youLeftTheLessonLine')}</strong>
           <p>{t('lesson.theBookHasNoMoves')}</p>
-          <div className="app-actions">
+          <Wrap gap="2" align="center">
             <Button variant="primary" onClick={lesson.backToLine}>
               {t('lesson.backToTheLessonLine')}
             </Button>
             <Button onClick={lesson.explore}>{t('lesson.exploreItInAnalyze')}</Button>
-          </div>
+          </Wrap>
         </Card>
       ) : whatIf ? (
         <Card>
@@ -255,7 +262,7 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
       ) : done ? (
         <Card tone="good">
           <strong>{t('lesson.lineComplete')}</strong>
-          <div className="app-actions">
+          <Wrap gap="2" align="center">
             {lessonMode === 'study' && (
               <Button variant="primary" onClick={() => lesson.open(course, 'quiz')}>
                 {t('lesson.quizThisLine')}
@@ -278,7 +285,7 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
               </Button>
             )}
             <Button onClick={series ? series.back : lesson.leave}>{series ? t('lesson.backToArticle') : t('lesson.otherLessons')}</Button>
-          </div>
+          </Wrap>
           {endComment && (
             <p className={note({ tone: 'end' })}>
               <SquareText text={endComment} />
@@ -311,7 +318,7 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
                   )}
                 </div>
               ))}
-              <p className="app-muted">{t('lesson.playItOnTheBoard')}</p>
+              <p className={muted}>{t('lesson.playItOnTheBoard')}</p>
             </>
           ) : (
             <>
@@ -321,9 +328,9 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
               </Button>
             </>
           )}
-          <div className={`app-lesson-feedback${lessonMode === 'study' ? ' floating' : ''}`} role="status">
+          <div className={feedback({ floating: lessonMode === 'study' })} role="status">
             {checking ? (
-              <p className="app-muted">{t('lesson.checkingThatMove')}</p>
+              <p className={muted}>{t('lesson.checkingThatMove')}</p>
             ) : mistake && !mistakePreview ? (
               <p className={result({ tone: 'wrong' })}>
                 {mistakeIsBad(mistake)
@@ -344,16 +351,16 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
           )}
           {theirs && (lessonMode === 'study' || !atEnd) ? (
             <Button variant="primary" onClick={() => onPlayReply(theirs.usi)}>
-              {t('lesson.playTheirMove')} <span className="app-key">Space</span>
+              {t('lesson.playTheirMove')} <Kbd>Space</Kbd>
             </Button>
           ) : (
-            <p className="app-muted">{theirs ? t('lesson.comingInAMoment') : t('lesson.noBookReply')}</p>
+            <p className={muted}>{theirs ? t('lesson.comingInAMoment') : t('lesson.noBookReply')}</p>
           )}
         </Card>
       )}
       {lastMove && prevSfen && lastNote && !mistakePreview && (
         <div className={last}>
-          <span className="app-muted">{t('lesson.lastMove', { move: moveText(prevSfen, lastMove) })}</span>
+          <span className={muted}>{t('lesson.lastMove', { move: moveText(prevSfen, lastMove) })}</span>
           <p>
             <SquareText text={lastNote} context={lesson.annotationText} />
           </p>
@@ -369,7 +376,7 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
         <span>{t('lesson.opensThisPositionInAnalyze')}</span>
       </button>
       {course.source && (
-        <details className="app-source">
+        <details className={sourceNote}>
           <summary>{t('lesson.source')}</summary>
           <p>{course.source}</p>
         </details>

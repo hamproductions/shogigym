@@ -9,6 +9,7 @@ import { FilePicker } from '@/app/ui/FilePicker'
 import { cx } from '@/app/ui/cx'
 import { Text } from '@/components/ui'
 import { result } from '@/app/panels/panels.styles'
+import { libEn, libJa } from '@/app/modes/lesson/lesson.styles'
 
 export function ImportBox({ onImport, open, bare }: { onImport: (text: string) => string | null; open?: boolean; bare?: boolean }) {
   const { t } = useTranslation()
@@ -71,8 +72,8 @@ export function ImportBox({ onImport, open, bare }: { onImport: (text: string) =
       }}
     >
       <styled.summary display="flex" flexDirection="column" pt="1.5" pb="2.5" cursor="pointer">
-        <span className="app-lib-ja">{t('games.importAGame')}</span>
-        <span className="app-lib-en">{t('games.kifKi2CsaUsiOr')}</span>
+        <span className={libJa}>{t('games.importAGame')}</span>
+        <span className={libEn}>{t('games.kifKi2CsaUsiOr')}</span>
       </styled.summary>
       {content}
     </styled.details>

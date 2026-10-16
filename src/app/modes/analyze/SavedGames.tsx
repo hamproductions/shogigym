@@ -1,4 +1,3 @@
-import '@/app/modes/lesson/lesson.css'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { gameChoice, loadGames, setGameRole } from '@/app/games'
@@ -6,18 +5,19 @@ import { GameRoleToggle } from './GameRoleToggle'
 import type { AnalyzeGames } from './useAnalyzeGames'
 import { Button } from '@/app/ui/Button'
 import { muted } from '@/app/panels/panels.styles'
+import { gameList, gameOpen } from '@/app/modes/lesson/lesson.styles'
 
 export function SavedGames({ games, onOpen }: { games: AnalyzeGames; onOpen?: () => void }) {
   const { t } = useTranslation()
   const [, bump] = useState(0)
   const stored = loadGames()
   return (
-    <ul className="app-game-list">
+    <ul className={gameList}>
       {stored.length === 0 && <li className={muted}>{t('games.noSavedGamesYetPress')}</li>}
       {stored.map((g) => (
-        <li key={g.id} className={g.id === games.slotId ? 'on' : ''}>
+        <li key={g.id}>
           <button
-            className="app-game-open"
+            className={gameOpen({ on: g.id === games.slotId })}
             onClick={() => {
               games.openSlot(g)
               onOpen?.()

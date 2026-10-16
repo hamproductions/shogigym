@@ -3,6 +3,9 @@ import { courseTitle, type Course } from '@/utils/model'
 import { courseProgress } from '@/app/practice'
 import type { LessonMode } from '@/app/types'
 import { Button } from '@/app/ui/Button'
+import { cx } from '@/app/ui/cx'
+import { css } from 'styled-system/css'
+import { lessonButtons, lessonCard, lessonMeta, lessonTitle, progressLine } from './lesson.styles'
 
 const percent = ({ learned, total }: { learned: number; total: number }) => `${total ? (learned / total) * 100 : 0}%`
 
@@ -11,11 +14,11 @@ export function LessonCard({ course, onOpen, prefix }: { course: Course; onOpen:
   const progress = courseProgress(course)
   const title = courseTitle(course, i18n.language)
   return (
-    <div className="app-lesson-card">
-      <span className="app-lesson-title">{prefix && title.startsWith(`${prefix}: `) ? title.slice(prefix.length + 2) : title}</span>
+    <div className={cx('app-lesson-card', lessonCard)}>
+      <span className={lessonTitle}>{prefix && title.startsWith(`${prefix}: `) ? title.slice(prefix.length + 2) : title}</span>
       {progress.total > 0 && (
-        <span className="app-lesson-meta">
-          <span className={`app-role ${course.notesFromOpponentView ? 'defend' : 'attack'}`}>
+        <span className={lessonMeta}>
+          <span className={css({ color: course.notesFromOpponentView ? 'info' : 'success' })}>
             {t(course.notesFromOpponentView ? 'picker.theyAttackYouDefendAs' : 'picker.youPlay', {
               side: t(course.userSide === 'sente' ? 'common.sente' : 'common.gote'),
             })}
@@ -25,13 +28,13 @@ export function LessonCard({ course, onOpen, prefix }: { course: Course; onOpen:
           </span>
         </span>
       )}
-      <span className="app-lesson-buttons">
+      <span className={lessonButtons}>
         <Button variant="primary" onClick={() => onOpen(course, 'study')}>
           {t('picker.study')}
         </Button>
         {progress.total > 0 && <Button onClick={() => onOpen(course, 'quiz')}>{t('picker.quiz')}</Button>}
       </span>
-      <i className="app-progress" style={{ width: percent(progress) }} />
+      <i className={progressLine} style={{ width: percent(progress) }} />
     </div>
   )
 }

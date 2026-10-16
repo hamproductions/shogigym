@@ -26,6 +26,7 @@ import { AnnounceBadge, PromotionPicker, TsumePlate } from './BoardOverlays'
 import { BoardBanners } from './BoardBanners'
 import { BoardLoading } from '@/rendering/BoardLoading'
 import { SourceIllustration } from '@/app/modes/lesson/SourceIllustration'
+import { illustration } from '@/app/modes/lesson/lesson.styles'
 import { Button } from '@/app/ui/Button'
 import { usePromotionFaces } from '@/app/hooks/useBakedPieces'
 
@@ -244,7 +245,7 @@ export function BoardStage({
         </div>
       </div>
       {mode === 'lesson' && sourceMarks?.illustration && sourceMarks.at === sfen.split(' ')[0] && (
-        <div className="app-source-illustration">
+        <div className={illustration}>
           <div>
             <SourceIllustration diagram={sourceMarks.illustration} />
           </div>
