@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Wrap } from 'styled-system/jsx'
 import type { Confirm } from '@/app/types'
 import { Button } from '@/app/ui/Button'
 import { Dialog } from '@/app/ui/Dialog'
@@ -16,7 +17,7 @@ export function ConfirmDialog({ confirm, onClose }: { confirm: Confirm; onClose:
   return (
     <Dialog label={t('app.confirm')} role="alertdialog" onBackdrop={() => settled() && onClose()}>
       <p>{confirm.text}</p>
-      <div className="app-actions">
+      <Wrap gap="2" align="center" justify="flex-end" mt="4">
         <Button onClick={onClose} autoFocus>
           {confirm.no ?? t('app.keepPlaying')}
         </Button>
@@ -30,7 +31,7 @@ export function ConfirmDialog({ confirm, onClose }: { confirm: Confirm; onClose:
         >
           {confirm.yes ?? t('app.yesStartNew')}
         </Button>
-      </div>
+      </Wrap>
     </Dialog>
   )
 }

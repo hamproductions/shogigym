@@ -1,19 +1,32 @@
-import './import.css'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { css } from 'styled-system/css'
+import { Box, styled, Wrap } from 'styled-system/jsx'
+import { input } from 'styled-system/recipes'
 import { decodeKifuFile } from '@/utils/kifu'
 import { Button } from '@/app/ui/Button'
 import { FilePicker } from '@/app/ui/FilePicker'
+import { cx } from '@/app/ui/cx'
+import { Text } from '@/components/ui'
 
 export function ImportBox({ onImport, open, bare }: { onImport: (text: string) => string | null; open?: boolean; bare?: boolean }) {
   const { t } = useTranslation()
   const [text, setText] = useState('')
   const [error, setError] = useState<string | null>(null)
+  const actions = useRef<HTMLDivElement>(null)
   const content = (
     <>
-      <p className="app-muted">{t('games.dropHint')}</p>
-      <textarea className="app-field" value={text} onChange={(e) => setText(e.target.value)} rows={4} placeholder={t('games.pasteAGameRecordHere')} />
-      <div className="app-actions">
+      <Text tone="muted" size="sm" my="1em">
+        {t('games.dropHint')}
+      </Text>
+      <textarea
+        className={cx(input(), css({ mt: '1', mb: '2', resize: 'vertical' }))}
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        rows={4}
+        placeholder={t('games.pasteAGameRecordHere')}
+      />
+      <Wrap ref={actions} gap="2" align="center" mb="3">
         <Button size="sm" variant="primary" onClick={() => setError(onImport(text))} disabled={!text.trim()}>
           {t('games.loadIt')}
         </Button>
@@ -42,25 +55,25 @@ export function ImportBox({ onImport, open, bare }: { onImport: (text: string) =
         >
           {t('games.openAFile')}
         </FilePicker>
-      </div>
-      {error && <p className="app-result wrong">{error}</p>}
+      </Wrap>
+      {error && <p className={cx('app-result wrong', css({ mb: '3!' }))}>{error}</p>}
     </>
   )
-  if (bare) return <div className="app-import bare">{content}</div>
+  if (bare) return <Box mt="3">{content}</Box>
   return (
-    <details
-      className="app-import"
+    <styled.details
+      mb="2"
+      borderBottom="1px solid {colors.border}"
       open={open}
       onToggle={(e) => {
-        const box = e.currentTarget
-        if (box.open) setTimeout(() => box.querySelector('.app-actions')?.scrollIntoView({ block: 'nearest', behavior: 'smooth' }), 50)
+        if (e.currentTarget.open) setTimeout(() => actions.current?.scrollIntoView({ block: 'nearest', behavior: 'smooth' }), 50)
       }}
     >
-      <summary>
+      <styled.summary display="flex" flexDirection="column" pt="1.5" pb="2.5" cursor="pointer">
         <span className="app-lib-ja">{t('games.importAGame')}</span>
         <span className="app-lib-en">{t('games.kifKi2CsaUsiOr')}</span>
-      </summary>
+      </styled.summary>
       {content}
-    </details>
+    </styled.details>
   )
 }

@@ -8,7 +8,6 @@ import '@/app/stage/mode-bar.css'
 import '@/app/panels/panel-layout.css'
 import '@/app/panels/moves.css'
 import '@/app/stage/board-stage.css'
-import '@/app/modes/spar/game-over.css'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '@/app/ui/Button'
@@ -31,6 +30,7 @@ import { Tabs } from '@/app/ui/Tabs'
 import { Icon } from '@/app/icons'
 import { Segmented } from '@/app/ui/Segmented'
 import { cx } from '@/app/ui/cx'
+import { gameOver } from '@/app/modes/spar/game-over.styles'
 import { setSettings, useSettings } from '@/appearance/settings'
 import { TaikyokuBoard, keyOf, type BoardHandle, type TargetKind } from './TaikyokuBoard'
 import { TaikyokuBoard3D } from './TaikyokuBoard3D'
@@ -47,6 +47,8 @@ function webglSupported() {
     return false
   }
 }
+
+const gameOverStyles = gameOver()
 
 export function TaikyokuPage({ onBack }: { onBack: () => void }) {
   const { t } = useTranslation()
@@ -597,8 +599,8 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
                 </div>
               ))}
             {winner && (
-              <div className="app-gameover" role="status">
-                <strong>{status}</strong>
+              <div className={cx('app-gameover', gameOverStyles.root)} role="status">
+                <strong className={gameOverStyles.headline}>{status}</strong>
                 <Button onClick={reset}>{t('taikyoku.new')}</Button>
               </div>
             )}

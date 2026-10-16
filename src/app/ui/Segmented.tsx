@@ -1,5 +1,5 @@
-import '@/app/ui/dialog.css'
 import type { ReactNode } from 'react'
+import { Grid, styled } from 'styled-system/jsx'
 import { SegmentGroup } from '@/components/ui'
 import { cx } from './cx'
 
@@ -32,10 +32,20 @@ export function Segmented<T extends string | number | boolean>({ value, options,
 
 export function SettingRow({ label, children }: { label: ReactNode; children: ReactNode }) {
   return (
-    <div className="app-setting">
-      <span>{label}</span>
+    <Grid
+      data-setting=""
+      gridTemplateColumns="minmax(110px, 30%) 1fr"
+      alignItems="center"
+      gap="3"
+      py="2.5"
+      fontSize="sm"
+      _phone={{ gridTemplateColumns: '1fr', gap: '1.5' }}
+    >
+      <styled.span color="fg.muted" fontWeight="medium">
+        {label}
+      </styled.span>
       {children}
-    </div>
+    </Grid>
   )
 }
 

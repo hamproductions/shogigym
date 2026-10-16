@@ -57,6 +57,7 @@ import { ModeBar, WatchOptions } from '@/app/stage/ModeBar'
 import { Button } from '@/app/ui/Button'
 import { dialog } from 'styled-system/recipes'
 import { Dialog } from '@/app/ui/Dialog'
+import { dialogFlow } from '@/app/ui/dialog.styles'
 import { SegmentedField } from '@/app/ui/Segmented'
 import { isGameMode, type Confirm, type Mode, type Tab } from './types'
 
@@ -547,7 +548,10 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
               }}
               style={{ position: 'fixed', inset: 0, zIndex: 100, pointerEvents: 'auto', cursor: furigomaFaces ? 'pointer' : 'default' }}
             >
-              <div className={`${dialog().content} app-dialog`} style={{ position: 'absolute', bottom: 24, left: '50%', transform: 'translateX(-50%)' }}>
+              <div
+                className={`${dialog().content} ${dialogFlow} app-dialog`}
+                style={{ position: 'absolute', bottom: 24, left: '50%', transform: 'translateX(-50%)' }}
+              >
                 <p role="status">
                   {furigomaFaces
                     ? mode === 'view'

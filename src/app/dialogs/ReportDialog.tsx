@@ -1,6 +1,7 @@
-import './report.css'
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { css } from 'styled-system/css'
+import { styled, Wrap } from 'styled-system/jsx'
 import { cachedReview, rememberReview, useReviewVersion } from '@/app/memory'
 import { Button } from '@/app/ui/Button'
 import type { GameChoice } from '@/app/games'
@@ -13,6 +14,21 @@ import { SETUPS } from '@/utils/model'
 import { moveText, type Side } from '@/utils/shogi'
 import { MistakeDetail } from '@/app/ui/MistakeDetail'
 import type { Mistake } from '@/utils/mistakes'
+import { cx } from '@/app/ui/cx'
+import { Text } from '@/components/ui'
+import {
+  reportHeading,
+  reportList,
+  reportListBody,
+  reportListItem,
+  reportListShow,
+  reportPattern,
+  reportPhases,
+  reportPraiseItem,
+  reportSection,
+  reportSide,
+  reportText,
+} from './report.styles'
 
 export type FixRoute = 'tsume' | 'tesuji' | 'lesson'
 export const FIX_ROUTE: Partial<Record<Weakness, FixRoute>> = { missedMate: 'tsume', allowedTactic: 'tesuji', openingSlip: 'lesson' }
@@ -103,10 +119,24 @@ export function GameReport({ game, userSide, rate, progress: external, choice, o
   const route = top && FIX_ROUTE[top.tag]
   if (report.total < MIN_MOVES) return null
   return (
-    <section className="app-report app-report-inline" aria-labelledby="game-report-title">
-      <div className="app-report-head">
-        <h3 id="game-report-title">{t('report.title')}</h3>
-        <div className="app-report-side" role="group" aria-label={t('report.sideLabel')}>
+    <section className={cx(reportText, reportSection)} aria-labelledby="game-report-title">
+      <styled.div display="flex" alignItems="center" justifyContent="space-between" gap="2">
+        <h3
+          id="game-report-title"
+          className={css({
+            m: '0',
+            whiteSpace: 'nowrap',
+            fontFamily: 'mincho',
+            fontSize: 'lg',
+            fontWeight: 'heavy',
+            letterSpacing: 'seal',
+            textTransform: 'uppercase',
+            color: 'fg.muted',
+          })}
+        >
+          {t('report.title')}
+        </h3>
+        <styled.div display="flex" alignItems="center" flexWrap="nowrap" gap="1" m="0" role="group" aria-label={t('report.sideLabel')}>
           {(['sente', 'gote'] as const).map((s) => (
             <Button
               key={s}
@@ -132,51 +162,65 @@ export function GameReport({ game, userSide, rate, progress: external, choice, o
               ⤢
             </Button>
           )}
-        </div>
-      </div>
+        </styled.div>
+      </styled.div>
       {progress && (
-        <p className="app-muted" role="status">
+        <Text tone="muted" size="sm" role="status">
           {t('report.rating', progress)}
-        </p>
+        </Text>
       )}
-      {!engineSupported() && report.rated < report.total && <p className="app-muted">{t('report.noEngine')}</p>}
+      {!engineSupported() && report.rated < report.total && (
+        <Text tone="muted" size="sm">
+          {t('report.noEngine')}
+        </Text>
+      )}
       {report.rated === 0 ? (
-        !progress && <p className="app-muted">{rate ? t('report.noRated') : t('report.afterGame')}</p>
+        !progress && (
+          <Text tone="muted" size="sm">
+            {rate ? t('report.noRated') : t('report.afterGame')}
+          </Text>
+        )
       ) : (
         <>
-          <p>
+          <Text>
             <strong>{t('report.summary', { total: report.rated, good: report.good, percent: Math.round((report.good / report.rated) * 100) })}</strong>{' '}
-            {report.accuracy !== null && <span className="app-muted">{t('report.accuracy', { score: report.accuracy })}</span>}
-          </p>
-          <div className="app-report-phases" aria-label={t('report.phases')}>
+            {report.accuracy !== null && (
+              <Text as="span" tone="muted" size="sm">
+                {t('report.accuracy', { score: report.accuracy })}
+              </Text>
+            )}
+          </Text>
+          <div className={reportPhases} aria-label={t('report.phases')}>
             {PHASES.map((p) => (
               <div key={p}>
                 <span>{t(`report.phase.${p}`)}</span>
                 <i>
-                  <b style={{ width: `${report.phases[p].score ?? 0}%` }} />
+                  <b style={{ ['--score' as string]: `${report.phases[p].score ?? 0}%` }} />
                 </i>
-                <span className="app-muted">
+                <Text as="span" tone="muted" size="sm">
                   {report.phases[p].score ?? t('report.few')}
                   {report.phases[p].avgLoss !== null && (
                     <small>{t('report.phaseDetail', { loss: report.phases[p].avgLoss, percent: report.phases[p].mistakeRate })}</small>
                   )}
-                </span>
+                </Text>
               </div>
             ))}
           </div>
           {report.problems.length > 0 && (
-            <div className="app-report-practice">
+            <styled.div display="grid" gap="1">
               <Button variant="primary" onClick={() => onPractice(practiceItems(game, report.problems))}>
                 {t('report.practiceMistakes', { count: report.problems.length })}
               </Button>
-              <p className="app-muted">{t('report.practiceHint')}</p>
-            </div>
+              <Text tone="muted" size="xs">
+                {t('report.practiceHint')}
+              </Text>
+            </styled.div>
           )}
           {top && (
-            <div className="app-report-pattern">
+            <div className={reportPattern}>
               <strong>{t('report.patternCount', { name: t(`report.weak.${top.tag}.name`), count: top.count })}</strong>
-              <p>{t(`report.weak.${top.tag}.fix`)}</p>
-              <div className="app-actions">
+              <Text>{t(`report.weak.${top.tag}.fix`)}</Text>
+              <Wrap gap="2" align="center">
                 {LESSONS[top.tag].map((id) => {
                   const topic = SETUPS.find((item) => item.id === `lesson-${id}`)
                   return (
@@ -192,26 +236,28 @@ export function GameReport({ game, userSide, rate, progress: external, choice, o
                     {t(`report.fixWith.${route}`)}
                   </Button>
                 )}
-              </div>
+              </Wrap>
             </div>
           )}
           {
             <>
-              <h4>{t('report.problems')}</h4>
+              <styled.h4 mt="2" mx="0" mb="0" color="fg.muted" fontSize="sm">
+                {t('report.problems')}
+              </styled.h4>
               {report.problems.length === 0 ? (
-                !progress && <p>{t('report.clean')}</p>
+                !progress && <Text>{t('report.clean')}</Text>
               ) : (
-                <ul className="app-report-list">
+                <ul className={reportList}>
                   {report.problems.slice(0, 8).map((p) => (
-                    <li key={p.ply}>
+                    <li key={p.ply} className={reportListItem}>
                       <span className="app-badge" style={{ ['--label' as string]: LABELS[p.review.label].color }}>
                         {LABELS[p.review.label].symbol}
                       </span>
-                      <div>
+                      <div className={reportListBody}>
                         <strong>{t('report.played', { ply: p.ply, played: moveText(p.sfen, p.usi), loss: Math.round(p.review.loss * 100) })}</strong>
                         <MistakeDetail sfen={p.sfen} played={p.usi} best={p.review.best.move} tag={p.tag} loss={p.review.loss} reason={p.review.reasons[0]} />
                       </div>
-                      <Button size="sm" onClick={() => onShow(p.ply)}>
+                      <Button size="sm" className={reportListShow} onClick={() => onShow(p.ply)}>
                         {t('report.show')}
                       </Button>
                     </li>
@@ -220,15 +266,19 @@ export function GameReport({ game, userSide, rate, progress: external, choice, o
               )}
               {report.praise.length > 0 && (
                 <>
-                  <h4>{t('report.praise')}</h4>
-                  <ul className="app-report-praise">
+                  <styled.h4 mt="2" mx="0" mb="0" color="fg.muted" fontSize="sm">
+                    {t('report.praise')}
+                  </styled.h4>
+                  <ul className={reportList}>
                     {report.praise.map((m) => (
-                      <li key={m.ply}>
+                      <li key={m.ply} className={reportPraiseItem}>
                         <span className="app-badge" style={{ ['--label' as string]: LABELS[m.review.label].color }}>
                           {LABELS[m.review.label].symbol}
                         </span>
                         <strong>{moveText(m.sfen, m.usi)}</strong>
-                        <span className="app-muted">{t('report.praiseMove', { ply: m.ply, label: LABELS[m.review.label].text })}</span>
+                        <Text as="span" tone="muted" size="sm">
+                          {t('report.praiseMove', { ply: m.ply, label: LABELS[m.review.label].text })}
+                        </Text>
                       </li>
                     ))}
                   </ul>
@@ -258,10 +308,16 @@ export function ReportDialog({ game, userSide, onShow, onRoute, onClose }: Repor
   const enough = report.total >= MIN_MOVES
 
   return (
-    <Dialog label={t('report.title')} className="app-report" onBackdrop={onClose}>
-      <DialogHeader title={t('report.title')} closeLabel={t('viewer.close')} onClose={onClose} />
-      <div className="app-report-side">
-        <span className="app-muted">{t('report.sideLabel')}</span>
+    <Dialog
+      label={t('report.title')}
+      className={cx(reportText, css({ w: 'min(600px, 100%)', display: 'flex', flexDirection: 'column', gap: '4' }))}
+      onBackdrop={onClose}
+    >
+      <DialogHeader title={t('report.title')} closeLabel={t('viewer.close')} className={css({ mb: '-2' })} onClose={onClose} />
+      <div className={reportSide}>
+        <Text as="span" tone="muted" size="sm">
+          {t('report.sideLabel')}
+        </Text>
         {(['sente', 'gote'] as const).map((s) => (
           <Button key={s} size="sm" on={side === s} onClick={() => setSide(s)}>
             {t(`report.${s}`)}
@@ -270,47 +326,55 @@ export function ReportDialog({ game, userSide, onShow, onRoute, onClose }: Repor
       </div>
 
       {!enough ? (
-        <p>{t('report.tooShort')}</p>
+        <Text>{t('report.tooShort')}</Text>
       ) : (
         <>
           {progress && (
-            <p className="app-muted" role="status">
+            <Text tone="muted" size="sm" role="status">
               {t('report.rating', progress)}
-            </p>
+            </Text>
           )}
-          {!engineSupported() && report.rated < report.total && <p className="app-muted">{t('report.noEngine')}</p>}
+          {!engineSupported() && report.rated < report.total && (
+            <Text tone="muted" size="sm">
+              {t('report.noEngine')}
+            </Text>
+          )}
           {report.rated === 0 ? (
-            !progress && <p>{t('report.noRated')}</p>
+            !progress && <Text>{t('report.noRated')}</Text>
           ) : (
             <>
-              <section>
-                <p>
+              <section className={reportSection}>
+                <Text>
                   <strong>{t('report.summary', { total: report.rated, good: report.good, percent: Math.round((report.good / report.rated) * 100) })}</strong>{' '}
-                  {report.accuracy !== null && <span className="app-muted">{t('report.accuracy', { score: report.accuracy })}</span>}
-                </p>
-                <div className="app-report-phases" aria-label={t('report.phases')}>
+                  {report.accuracy !== null && (
+                    <Text as="span" tone="muted" size="sm">
+                      {t('report.accuracy', { score: report.accuracy })}
+                    </Text>
+                  )}
+                </Text>
+                <div className={reportPhases} aria-label={t('report.phases')}>
                   {PHASES.map((p) => (
                     <div key={p}>
                       <span>{t(`report.phase.${p}`)}</span>
                       <i>
-                        <b style={{ width: `${report.phases[p].score ?? 0}%` }} />
+                        <b style={{ ['--score' as string]: `${report.phases[p].score ?? 0}%` }} />
                       </i>
-                      <span className="app-muted">
+                      <Text as="span" tone="muted" size="sm">
                         {report.phases[p].score ?? t('report.few')}
                         {report.phases[p].avgLoss !== null && (
                           <small>{t('report.phaseDetail', { loss: report.phases[p].avgLoss, percent: report.phases[p].mistakeRate })}</small>
                         )}
-                      </span>
+                      </Text>
                     </div>
                   ))}
                 </div>
               </section>
 
               {top && (
-                <section className="app-report-pattern">
-                  <h3>{t('report.pattern')}</h3>
+                <section className={cx(reportSection, reportPattern)}>
+                  <h3 className={reportHeading}>{t('report.pattern')}</h3>
                   <strong>{t('report.patternCount', { name: t(`report.weak.${top.tag}.name`), count: top.count })}</strong>
-                  <p>{t(`report.weak.${top.tag}.fix`)}</p>
+                  <Text>{t(`report.weak.${top.tag}.fix`)}</Text>
                   {route && (
                     <Button size="sm" variant="primary" onClick={go(() => onRoute(route))}>
                       {t(`report.fixWith.${route}`)}
@@ -319,22 +383,22 @@ export function ReportDialog({ game, userSide, onShow, onRoute, onClose }: Repor
                 </section>
               )}
 
-              <section>
-                <h3>{t('report.problems')}</h3>
+              <section className={reportSection}>
+                <h3 className={reportHeading}>{t('report.problems')}</h3>
                 {report.problems.length === 0 ? (
-                  !progress && <p>{t('report.clean')}</p>
+                  !progress && <Text>{t('report.clean')}</Text>
                 ) : (
-                  <ul className="app-report-list">
+                  <ul className={reportList}>
                     {report.problems.slice(0, 6).map((p) => (
-                      <li key={p.ply}>
+                      <li key={p.ply} className={reportListItem}>
                         <span className="app-badge" style={{ ['--label' as string]: LABELS[p.review.label].color }}>
                           {LABELS[p.review.label].symbol}
                         </span>
-                        <div>
+                        <div className={reportListBody}>
                           <strong>{t('report.played', { ply: p.ply, played: moveText(p.sfen, p.usi), loss: Math.round(p.review.loss * 100) })}</strong>
                           <MistakeDetail sfen={p.sfen} played={p.usi} best={p.review.best.move} tag={p.tag} loss={p.review.loss} reason={p.review.reasons[0]} />
                         </div>
-                        <Button size="sm" onClick={go(() => onShow(p.ply))}>
+                        <Button size="sm" className={reportListShow} onClick={go(() => onShow(p.ply))}>
                           {t('report.show')}
                         </Button>
                       </li>
@@ -344,16 +408,18 @@ export function ReportDialog({ game, userSide, onShow, onRoute, onClose }: Repor
               </section>
 
               {report.praise.length > 0 && (
-                <section>
-                  <h3>{t('report.praise')}</h3>
-                  <ul className="app-report-praise">
+                <section className={reportSection}>
+                  <h3 className={reportHeading}>{t('report.praise')}</h3>
+                  <ul className={reportList}>
                     {report.praise.map((m) => (
-                      <li key={m.ply}>
+                      <li key={m.ply} className={reportPraiseItem}>
                         <span className="app-badge" style={{ ['--label' as string]: LABELS[m.review.label].color }}>
                           {LABELS[m.review.label].symbol}
                         </span>
                         <strong>{moveText(m.sfen, m.usi)}</strong>
-                        <span className="app-muted">{t('report.praiseMove', { ply: m.ply, label: LABELS[m.review.label].text })}</span>
+                        <Text as="span" tone="muted" size="sm">
+                          {t('report.praiseMove', { ply: m.ply, label: LABELS[m.review.label].text })}
+                        </Text>
                       </li>
                     ))}
                   </ul>
@@ -363,7 +429,9 @@ export function ReportDialog({ game, userSide, onShow, onRoute, onClose }: Repor
           )}
         </>
       )}
-      <p className="app-muted">{t('report.privacy')}</p>
+      <Text tone="muted" size="sm">
+        {t('report.privacy')}
+      </Text>
     </Dialog>
   )
 }
