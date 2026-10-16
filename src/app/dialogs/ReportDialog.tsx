@@ -16,6 +16,7 @@ import { MistakeDetail } from '@/app/ui/MistakeDetail'
 import type { Mistake } from '@/utils/mistakes'
 import { cx } from '@/app/ui/cx'
 import { Text } from '@/components/ui'
+import { badge } from '@/app/panels/panels.styles'
 import {
   reportHeading,
   reportList,
@@ -250,7 +251,7 @@ export function GameReport({ game, userSide, rate, progress: external, choice, o
                 <ul className={reportList}>
                   {report.problems.slice(0, 8).map((p) => (
                     <li key={p.ply} className={reportListItem}>
-                      <span className="app-badge" style={{ ['--label' as string]: LABELS[p.review.label].color }}>
+                      <span className={badge} style={{ ['--label' as string]: LABELS[p.review.label].color }}>
                         {LABELS[p.review.label].symbol}
                       </span>
                       <div className={reportListBody}>
@@ -272,7 +273,7 @@ export function GameReport({ game, userSide, rate, progress: external, choice, o
                   <ul className={reportList}>
                     {report.praise.map((m) => (
                       <li key={m.ply} className={reportPraiseItem}>
-                        <span className="app-badge" style={{ ['--label' as string]: LABELS[m.review.label].color }}>
+                        <span className={badge} style={{ ['--label' as string]: LABELS[m.review.label].color }}>
                           {LABELS[m.review.label].symbol}
                         </span>
                         <strong>{moveText(m.sfen, m.usi)}</strong>
@@ -391,7 +392,7 @@ export function ReportDialog({ game, userSide, onShow, onRoute, onClose }: Repor
                   <ul className={reportList}>
                     {report.problems.slice(0, 6).map((p) => (
                       <li key={p.ply} className={reportListItem}>
-                        <span className="app-badge" style={{ ['--label' as string]: LABELS[p.review.label].color }}>
+                        <span className={badge} style={{ ['--label' as string]: LABELS[p.review.label].color }}>
                           {LABELS[p.review.label].symbol}
                         </span>
                         <div className={reportListBody}>
@@ -413,7 +414,7 @@ export function ReportDialog({ game, userSide, onShow, onRoute, onClose }: Repor
                   <ul className={reportList}>
                     {report.praise.map((m) => (
                       <li key={m.ply} className={reportPraiseItem}>
-                        <span className="app-badge" style={{ ['--label' as string]: LABELS[m.review.label].color }}>
+                        <span className={badge} style={{ ['--label' as string]: LABELS[m.review.label].color }}>
                           {LABELS[m.review.label].symbol}
                         </span>
                         <strong>{moveText(m.sfen, m.usi)}</strong>

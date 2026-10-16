@@ -1,12 +1,15 @@
 import type { ReactNode } from 'react'
+import { css } from 'styled-system/css'
 import { Tabs as ParkTabs } from '@/components/ui'
 import { cx } from './cx'
 
 type TabsProps<T> = { items: { id: T; label: ReactNode }[]; value: T; onChange: (id: T) => void; className?: string; children?: ReactNode }
 
+const wrapNarrow = css({ '@container (max-width: 300px)': { flexWrap: 'wrap', '& [data-part=list]': { flexWrap: 'wrap' } } })
+
 export function Tabs<T extends string>({ items, value, onChange, className, children }: TabsProps<T>) {
   return (
-    <ParkTabs.Root className={cx('app-tabs', className)} value={value} onValueChange={(details) => onChange(details.value as T)}>
+    <ParkTabs.Root className={cx('app-tabs', wrapNarrow, className)} value={value} onValueChange={(details) => onChange(details.value as T)}>
       <ParkTabs.List>
         {items.map((item) => (
           <ParkTabs.Trigger key={item.id} value={item.id}>

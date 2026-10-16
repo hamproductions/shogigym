@@ -1,12 +1,9 @@
 import '@/styles/controls.css'
 import './taikyoku.css'
-import '@/app/panels/plate.css'
 import '@/app/layout.css'
 import '@/app/rail/rail.css'
 import '@/app/stage/board-layout.css'
 import '@/app/stage/mode-bar.css'
-import '@/app/panels/panel-layout.css'
-import '@/app/panels/moves.css'
 import '@/app/stage/board-stage.css'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -19,6 +16,18 @@ import { MoveNavigation } from '@/app/panels/NavFooter'
 import { MoveRows } from '@/app/panels/MovesPane'
 import { EvalGraph } from '@/app/panels/EvalGraph'
 import { EngineResultPane } from '@/app/panels/EnginePane'
+import {
+  clock as clockStyle,
+  moveButton,
+  moveCounts,
+  moveNotation,
+  panelBody,
+  panelClose,
+  panelHeader,
+  pinnedGraph,
+  plate,
+  plateSide,
+} from '@/app/panels/panels.styles'
 import { EvalBar } from '@/app/stage/EvalBar'
 import { winRate } from '@/utils/analysis'
 import { squareName } from '@/utils/notation'
@@ -372,11 +381,11 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
   const movesPane = (
     <>
       {assist && timeline.length > 0 && (
-        <div className="app-pinned-graph">
+        <div className={pinnedGraph}>
           <EvalGraph values={evaluations} labels={[]} cursor={cursor} onJump={navigate} />
         </div>
       )}
-      <div className="app-panel-body">
+      <div className={cx('app-panel-body', panelBody)}>
         <div className="app-actions">
           <Button size="sm" onClick={saveState} disabled={!game || restoring} title={t('games.saveGame')}>
             {t('games.saveGame')}
@@ -424,11 +433,11 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
             cell={(index) => (
               <div key={index}>
                 <button
-                  className={cursor === index + 1 ? 'on' : ''}
+                  className={cx(moveButton, cursor === index + 1 && 'on')}
                   onClick={() => navigate(index + 1)}
                   aria-current={cursor === index + 1 ? 'step' : undefined}
                 >
-                  <span className="app-move-notation">{moveLabel(index)}</span>
+                  <span className={cx('app-move-notation', moveNotation)}>{moveLabel(index)}</span>
                 </button>
               </div>
             )}
@@ -588,11 +597,11 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
             )}
             {game &&
               (['w', 'b'] as const).map((side) => (
-                <div key={side} className={cx('app-plate', side === 'w' ? 'top' : 'bottom')}>
-                  <span className={cx('app-clock', game.snap.turn === side && 'on')}>
+                <div key={side} className={cx('app-plate', side === 'w' ? 'top' : 'bottom', plate)}>
+                  <span className={clockStyle({ state: game.snap.turn === side ? 'on' : 'idle' })}>
                     {side === 'b' ? '☗' : '☖'} {game.snap.counts[side]}
                   </span>
-                  <span className="app-plate-side">{t(side === 'b' ? 'taikyoku.sente' : 'taikyoku.gote')}</span>
+                  <span className={plateSide}>{t(side === 'b' ? 'taikyoku.sente' : 'taikyoku.gote')}</span>
                   <span className="tk-muted">
                     {t('taikyoku.royal')} × {game.snap.royals[side]}
                   </span>
@@ -653,7 +662,7 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
         layout={layout}
         sheetOpen={layout.sheetOpen ?? true}
         header={
-          <div className="app-panel-header">
+          <div className={panelHeader}>
             <Tabs
               value={rightTab}
               onChange={setTab}
@@ -677,7 +686,7 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
             {!layout.compact && (
               <Button
                 variant="icon"
-                className="app-panel-close"
+                className={panelClose}
                 onClick={() => setPanelOpen(false)}
                 title={t('app.closeThePanelP')}
                 aria-label={t('app.closeThePanel')}
@@ -704,10 +713,10 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
         }
       >
         {!layout.twoPanels && rightTab === 'moves' && movesPane}
-        <div className="app-panel-body tk-panel-body" hidden={rightTab === 'moves'}>
+        <div className={cx('app-panel-body tk-panel-body', panelBody)} hidden={rightTab === 'moves'}>
           <div className="tk-pane" hidden={rightTab !== 'coach'}>
             {game && (
-              <div className="app-move-counts tk-victory">
+              <div className={cx(moveCounts, 'tk-victory')}>
                 <b>{t('taikyoku.victory.title')}</b>
                 <p className="tk-muted">{t('taikyoku.victory.rule')}</p>
                 <div className="tk-row">
@@ -761,7 +770,7 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
               )}
             </div>
             {focusPos && (
-              <section className="app-move-counts">
+              <section className={moveCounts}>
                 <h3>
                   {squareName(focusPos)} · {t('rail.control')}
                 </h3>
@@ -795,7 +804,7 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
               </section>
             )}
             {focusCell && (
-              <section className="app-move-counts">
+              <section className={moveCounts}>
                 <h3>{t('taikyoku.movement')}</h3>
                 <MovementGuide cell={focusCell!} lang={lang} />
                 {route && (

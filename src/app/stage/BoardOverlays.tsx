@@ -4,6 +4,8 @@ import type { CSSProperties } from 'react'
 import { Color, promotedPieceType, type Move } from 'tsshogi'
 import type { PromotionAtlas } from '@/rendering/sprites'
 import type { Announcement } from '@/app/hooks/useAnnouncements'
+import { cx } from '@/app/ui/cx'
+import { plate, plateSide } from '@/app/panels/panels.styles'
 
 export function AnnounceBadge({ announce }: { announce: Announcement }) {
   const { t } = useTranslation()
@@ -87,8 +89,8 @@ export function TsumePlate({ position, flipped, userSide }: { position: 'top' | 
   const { t } = useTranslation()
   const side = (position === 'top') === flipped ? 'sente' : 'gote'
   return (
-    <span className={`app-plate ${position}`}>
-      <span className="app-plate-side">{side === 'sente' ? t('app.sente') : t('app.gote')}</span>
+    <span className={cx('app-plate', position, plate)}>
+      <span className={plateSide}>{side === 'sente' ? t('app.sente') : t('app.gote')}</span>
       <span className="app-muted">{side === userSide ? t('app.youAttack') : t('app.defends')}</span>
     </span>
   )

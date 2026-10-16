@@ -19,6 +19,7 @@ import type { Mistake } from '@/utils/mistakes'
 import { Text } from '@/components/ui'
 import { FIX_ROUTE, LESSONS, type FixRoute } from './ReportDialog'
 import { reportList, reportListBody, reportListItem } from './report.styles'
+import { badge } from '@/app/panels/panels.styles'
 
 const radarLine = css({ fill: 'none', stroke: 'border', strokeWidth: '1' })
 const subheading = css({ mt: '3', mx: '0', mb: '1', fontSize: 'sm' })
@@ -301,7 +302,7 @@ export function InsightsDialog({ onClose, onPractice, onRoute, onLesson }: Props
                     <ul className={reportList}>
                       {insights.recurring.map((r) => (
                         <li key={r.sfen} className={reportListItem}>
-                          <span className="app-badge" style={{ ['--label' as string]: 'var(--accent)' }}>
+                          <span className={badge} style={{ ['--label' as string]: 'var(--accent)' }}>
                             {r.count}×
                           </span>
                           <div className={reportListBody}>

@@ -14,6 +14,41 @@ import { moveGloss } from '@/app/pieces'
 import type { Level, Score } from '@/app/types'
 import { Button } from '@/app/ui/Button'
 import { Card } from '@/app/ui/Card'
+import { css } from 'styled-system/css'
+import { cx } from '@/app/ui/cx'
+import { backLink, badge, narrowColumn, note, result, verdictHead } from '@/app/panels/panels.styles'
+
+const scoreRow = css({
+  display: 'flex',
+  gap: '3',
+  m: '{spacing.2.5} 0 0',
+  fontWeight: 'bold',
+  '& .right': { color: 'success' },
+  '& .wrong': { color: 'danger' },
+})
+
+const answer = css({ mt: '1.5', '.app-card &': { '& p': { m: '{spacing.0.5} 0 0', fontFamily: 'mincho' } } })
+
+const answerMove = css({ color: 'success', fontFamily: 'mincho', fontWeight: 'heavy', fontSize: 'xl' })
+
+const gloss = css({ display: 'block', color: 'fg.muted', fontSize: 'xs' })
+
+const last = css({ m: '{spacing.3} 0 0', fontFamily: 'mincho', fontSize: 'sm', lineHeight: 'mincho', '& p': { m: '{spacing.0.5} 0 0' } })
+
+const explore = css({
+  display: 'block',
+  w: '100%',
+  mt: '3',
+  p: '{spacing.2.5} {spacing.3}',
+  border: '1px dashed {colors.border.strong}',
+  borderRadius: 'lg',
+  textAlign: 'left',
+  fontWeight: 'bold',
+  fontSize: 'sm',
+  transition: 'background {durations.fast}',
+  _hover: { bg: 'surface.2' },
+  '& span': { display: 'block', fontWeight: 'regular', fontSize: 'xs', color: 'fg.muted' },
+})
 import { courseProgress } from '@/app/practice'
 import type { LessonMode } from '@/app/types'
 import { RANDOM_KEY, store, stored } from './reading'
@@ -127,15 +162,15 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
   const endComment = done ? lesson.node?.comment : undefined
   if (setupOf(course)?.path && lessonMode === 'study' && !(mistakePreview && mistake) && !offBook && !whatIf)
     return (
-      <div className="app-lesson-pane study">
+      <div className={cx('app-lesson-pane study', narrowColumn)}>
         <LessonGuide course={course} lesson={lesson} series={series} />
       </div>
     )
   return (
-    <div className={`app-lesson-pane ${lessonMode}`}>
+    <div className={cx('app-lesson-pane', lessonMode, narrowColumn)}>
       {series && (
         <nav className="app-series" aria-label={t('lesson.series')}>
-          <button className="app-back" onClick={series.back}>
+          <button className={cx('app-back', backLink)} onClick={series.back}>
             ‹ {t('lesson.backToArticle')}
           </button>
           <Button size="sm" disabled={!series.prev} onClick={() => series.prev?.(lessonMode)} aria-label={t('lesson.previousSequence')}>
@@ -160,17 +195,19 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
         <span className="app-progress-count">{t('lesson.yourMoves', { value: Math.min(progress.done, progress.total), total: progress.total })}</span>
       )}
       {lessonMode === 'quiz' && (
-        <p className="app-score">
+        <p className={cx('app-score', scoreRow)}>
           <span className="right">✓ {score.right}</span>
           <span className="wrong">✗ {score.wrong}</span>
-          {justRight && !mistake && !done && <span className="app-just-right">{t('lesson.rightThatIsTheLesson')}</span>}
+          {justRight && !mistake && !done && (
+            <span className={css({ ml: '1.5', fontWeight: 'medium', color: 'success' })}>{t('lesson.rightThatIsTheLesson')}</span>
+          )}
         </p>
       )}
       {mistakePreview && mistake ? (
         <Card tone={mistakeIsBad(mistake) ? 'bad' : 'good'}>
-          <div className="app-verdict-head">
+          <div className={verdictHead}>
             {mistake.verdict && (
-              <span className="app-badge" style={{ ['--label' as string]: LABELS[mistake.verdict.label].color }}>
+              <span className={badge} style={{ ['--label' as string]: LABELS[mistake.verdict.label].color }}>
                 {LABELS[mistake.verdict.label].symbol}
               </span>
             )}
@@ -178,7 +215,7 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
           </div>
           {mistake.note && <p>{mistake.note}</p>}
           {mistake.verdict && mistake.verdict.reasons.length > 0 && (
-            <ul className="app-why">
+            <ul className={css({ m: '{spacing.1.5} 0', pl: '4', fontSize: 'sm', lineHeight: 'normal', '& li + li': { mt: '1' } })}>
               {mistake.verdict.reasons.map((r) => (
                 <li key={r}>{r}</li>
               ))}
@@ -243,13 +280,13 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
             <Button onClick={series ? series.back : lesson.leave}>{series ? t('lesson.backToArticle') : t('lesson.otherLessons')}</Button>
           </div>
           {endComment && (
-            <p className="app-endnote">
+            <p className={note({ tone: 'end' })}>
               <SquareText text={endComment} />
             </p>
           )}
           <p>{lessonMode === 'quiz' ? quizSummary(score) : jumped ? t('lesson.endOfThisBranchYou') : t('lesson.youHaveSeenTheWhole')}</p>
           {endRate !== null && (
-            <p className={endRate >= 0.55 ? 'app-end good' : endRate <= 0.45 ? 'app-end bad' : 'app-end'}>
+            <p className={css({ fontWeight: 'bold', color: endRate >= 0.55 ? 'success' : endRate <= 0.45 ? 'danger' : undefined })}>
               {endRate >= 0.55
                 ? t('lesson.aiSViewOfThe', { value: Math.round(endRate * 100) })
                 : endRate <= 0.45
@@ -264,9 +301,9 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
             <>
               <strong>{t('lesson.yourMoveAs', { side })}</strong>
               {good.map((g) => (
-                <div key={g.usi} className="app-answer">
-                  <span className="app-answer-move">{moveText(sfen, g.usi)}</span>
-                  {level === 'new' && <span className="app-gloss">{moveGloss(sfen, g.usi)}</span>}
+                <div key={g.usi} className={answer}>
+                  <span className={answerMove}>{moveText(sfen, g.usi)}</span>
+                  {level === 'new' && <span className={gloss}>{moveGloss(sfen, g.usi)}</span>}
                   {g.note && (
                     <p>
                       <SquareText text={g.note} context={lesson.annotationText} />
@@ -279,7 +316,7 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
           ) : (
             <>
               <strong>{lesson.quizTask ?? t('lesson.yourMoveAsFindThe', { side })}</strong>
-              <Button size="sm" variant="ghost" className="app-answer-reveal" onClick={lesson.revealAnswer}>
+              <Button size="sm" variant="ghost" className={css({ alignSelf: 'flex-start', mt: '2' })} onClick={lesson.revealAnswer}>
                 {t('lesson.showMeTheAnswer')}
               </Button>
             </>
@@ -288,7 +325,7 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
             {checking ? (
               <p className="app-muted">{t('lesson.checkingThatMove')}</p>
             ) : mistake && !mistakePreview ? (
-              <p className="app-result wrong">
+              <p className={result({ tone: 'wrong' })}>
                 {mistakeIsBad(mistake)
                   ? t('lesson.wasLabel', { move: moveText(sfen, mistake.usi), label: (mistake.verdict ? LABELS[mistake.verdict.label] : LABELS.mistake).text })
                   : t('lesson.isNotThisLessonS', { move: moveText(sfen, mistake.usi) })}
@@ -299,7 +336,7 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
       ) : (
         <Card>
           <strong>{theirs ? t('lesson.theirMove', { move: moveText(sfen, theirs.usi) }) : t('lesson.theirMove2')}</strong>
-          {level === 'new' && theirs && <span className="app-gloss">{moveGloss(sfen, theirs.usi)}</span>}
+          {level === 'new' && theirs && <span className={gloss}>{moveGloss(sfen, theirs.usi)}</span>}
           {theirs?.note && (
             <p>
               <SquareText text={theirs.note} context={lesson.annotationText} />
@@ -315,7 +352,7 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
         </Card>
       )}
       {lastMove && prevSfen && lastNote && !mistakePreview && (
-        <div className="app-last">
+        <div className={last}>
           <span className="app-muted">{t('lesson.lastMove', { move: moveText(prevSfen, lastMove) })}</span>
           <p>
             <SquareText text={lastNote} context={lesson.annotationText} />
@@ -323,11 +360,11 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
         </div>
       )}
       {!lastMove && course.root.comment && (
-        <p className="app-last">
+        <p className={last}>
           <SquareText text={lessonText(course.root.comment, course.root.commentEn, i18n.language, course) ?? ''} />
         </p>
       )}
-      <button className="app-explore" onClick={lesson.explore}>
+      <button className={explore} onClick={lesson.explore}>
         {t('lesson.tryYourOwnMovesFrom')}
         <span>{t('lesson.opensThisPositionInAnalyze')}</span>
       </button>

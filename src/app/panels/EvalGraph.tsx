@@ -1,7 +1,41 @@
-import './eval-graph.css'
 import { useId } from 'react'
 import { useTranslation } from 'react-i18next'
+import { css } from 'styled-system/css'
+import { Box } from 'styled-system/jsx'
 import { LABELS, type Label } from '@/utils/analysis'
+
+const graph = css({
+  '& svg': {
+    display: 'block',
+    w: '100%',
+    h: '88px',
+    borderRadius: 'sm',
+    bg: 'color-mix(in srgb, {colors.fg.default} 6%, transparent)',
+    cursor: 'pointer',
+    _narrow: { h: '34px' },
+  },
+})
+
+const axis = css({
+  position: 'absolute',
+  left: '1',
+  top: '1',
+  h: '80px',
+  zIndex: '1',
+  pointerEvents: 'none',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  color: 'fg.muted',
+  fontSize: 'xs',
+  lineHeight: 'tight',
+  _narrow: { h: '26px', fontSize: '2xs' },
+})
+
+const labelInk = css({
+  fill: 'light-dark(color-mix(in srgb, var(--label) 55%, #000), var(--label))',
+  '& text': { font: '{fontWeights.bold} 9px {fonts.sans}', textAnchor: 'middle' },
+})
 
 const W = 360
 const H = 88
@@ -27,8 +61,8 @@ export function EvalGraph({
   const area = known.length ? `${line}L${known.at(-1)![0].toFixed(1)},${H / 2}L${known[0][0].toFixed(1)},${H / 2}Z` : ''
   const selected = labels[cursor]
   return (
-    <div className="app-graph">
-      <div className="app-graph-axis">
+    <Box position="relative" mb="3" className={graph}>
+      <div className={axis}>
         <span title={t('graph.senteAhead')} aria-label={t('graph.senteAhead')}>
           ☗
         </span>
@@ -54,17 +88,17 @@ export function EvalGraph({
             <rect y={H / 2} width={W} height={H / 2} />
           </clipPath>
         </defs>
-        <line x1="0" x2={W} y1={H / 2} y2={H / 2} className="app-graph-mid" />
-        {area && <path d={area} className="app-graph-area sente" clipPath={`url(#${id}-sente)`} />}
-        {area && <path d={area} className="app-graph-area gote" clipPath={`url(#${id}-gote)`} />}
-        {line && <path d={line} className="app-graph-line" />}
-        <line x1={x(cursor)} x2={x(cursor)} y1="0" y2={H} className="app-graph-cursor" />
+        <line x1="0" x2={W} y1={H / 2} y2={H / 2} className={css({ stroke: 'border.strong', strokeWidth: '1' })} />
+        {area && <path d={area} className={css({ fill: 'color-mix(in srgb, {colors.success} 24%, transparent)' })} clipPath={`url(#${id}-sente)`} />}
+        {area && <path d={area} className={css({ fill: 'color-mix(in srgb, {colors.info} 24%, transparent)' })} clipPath={`url(#${id}-gote)`} />}
+        {line && <path d={line} className={css({ fill: 'none', stroke: 'fg.default', strokeWidth: '1.6', vectorEffect: 'non-scaling-stroke' })} />}
+        <line x1={x(cursor)} x2={x(cursor)} y1="0" y2={H} className={css({ stroke: 'accent', strokeWidth: '1.5', vectorEffect: 'non-scaling-stroke' })} />
         {labels.map((label, i) => {
           const value = values[i]
           if (!label || value === undefined) return null
           const meta = LABELS[label]
           return (
-            <g key={i} className="app-graph-mark" style={{ ['--label' as string]: meta.color }}>
+            <g key={i} className={labelInk} style={{ ['--label' as string]: meta.color }}>
               <title>
                 {i}: {meta.symbol} {meta.text}
               </title>
@@ -79,13 +113,21 @@ export function EvalGraph({
         })}
       </svg>
       {selected && (
-        <div className="app-graph-review" style={{ ['--label' as string]: LABELS[selected].color }}>
+        <Box
+          display="flex"
+          gap="2"
+          mt="1"
+          fontSize="xs"
+          color="fg.muted"
+          css={{ '& strong': { color: 'light-dark(color-mix(in srgb, var(--label) 55%, #000), var(--label))' } }}
+          style={{ ['--label' as string]: LABELS[selected].color }}
+        >
           <span>{cursor}</span>
           <strong>
             {LABELS[selected].symbol} {LABELS[selected].text}
           </strong>
-        </div>
+        </Box>
       )}
-    </div>
+    </Box>
   )
 }

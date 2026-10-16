@@ -1,0 +1,262 @@
+import { css, cva } from 'styled-system/css'
+
+export const muted = css({ color: 'fg.muted', fontSize: 'sm' })
+
+export const panel = css({
+  position: 'relative',
+  display: 'flex',
+  flexDirection: 'column',
+  minHeight: '0',
+  containerType: 'inline-size',
+  background:
+    "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.42 0 0 0 0 0.35 0 0 0 0 0.25 0 0 0 0.07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\"), {colors.panel}",
+  color: 'fg.default',
+  borderLeft: '1px solid {colors.border}',
+  '& > .app-tabs': { flex: 'none', pr: '1' },
+  _compact: {
+    borderLeft: '0',
+    borderTop: '1px solid {colors.border}',
+    '& .app-tabs [data-part=trigger]': { p: '{spacing.2} {spacing.2} {spacing.2.5}' },
+    '& .app-tabs .app-ja': { fontSize: 'lg!' },
+    '.app-shell.drawer-open.panel-side:not(.fs) > &': {
+      gridColumn: '2!',
+      gridRow: '2!',
+      minWidth: '0!',
+      borderRadius: '{radii.lg} 0 0 {radii.lg}!',
+      borderLeft: '1px solid {colors.border}!',
+    },
+  },
+  _short: { '& .app-tabs [data-part=trigger]': { py: '1.5' } },
+})
+
+export const shell = css({
+  _compact: {
+    '&.drawer-open.panel-side:not(.fs)': {
+      gridTemplateColumns: 'minmax(0, 1fr) clamp(160px, var(--panel-w), 70vw)!',
+      gridTemplateRows: 'auto minmax(0, 1fr)!',
+    },
+    '&.panel-side > .app-rail': { gridColumn: '1 / -1' },
+    '&.drawer-open.panel-side:not(.fs) > .app-stage': { gridColumn: '1', gridRow: '2' },
+  },
+})
+
+export const panelHeader = css({
+  display: 'flex',
+  flex: 'none',
+  alignItems: 'center',
+  gap: '0.5',
+  pr: '1',
+  '& > .app-tabs': { flex: '1', minWidth: '0' },
+  '& > .app-btn': { flex: 'none', w: '36px', h: '36px', p: '0', m: '0' },
+})
+
+export const panelClose = css({ flex: 'none', w: '36px', h: '36px', p: '0', ml: '0', alignSelf: 'center' })
+
+export const panelBody = css({
+  flex: '1',
+  overflowY: 'auto',
+  p: '4',
+  _compact: {
+    minHeight: '0',
+    p: '{spacing.3} {spacing.4} {spacing.6}',
+    WebkitOverflowScrolling: 'touch',
+    '.app-shell.panel-side &': { px: '3' },
+  },
+})
+
+export const pinnedGraph = css({ flex: 'none', p: '{spacing.4} {spacing.4} 0', '& > div': { mb: '0' } })
+
+export const moveCounts = css({
+  mt: '4',
+  pt: '3',
+  borderTop: '1px solid {colors.border}',
+  fontSize: 'sm',
+  '& h3': { fontSize: 'inherit' },
+  '& dl': { display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '{spacing.1} {spacing.3}', m: '{spacing.2} 0 0' },
+  '& dl > div': { display: 'flex', justifyContent: 'space-between', gap: '1' },
+  '& dd': { m: '0', fontVariantNumeric: 'tabular-nums' },
+})
+
+export const navBar = css({
+  flex: 'none',
+  display: 'grid',
+  gridTemplateColumns: 'repeat(6, 1fr)',
+  gap: '1.5',
+  p: '2.5',
+  borderTop: '1px solid {colors.border}',
+  '& button': { display: 'grid', placeItems: 'center', h: '40px', borderRadius: 'md', bg: 'surface.2', transition: 'background {durations.fast}' },
+  '& [aria-pressed=true]': { bg: 'accent', color: 'accent.contrast' },
+  '& button:not(:disabled):hover': { bg: 'surface.3' },
+  _compact: { pb: 'max({spacing.2.5}, env(safe-area-inset-bottom))' },
+  '@container (max-width: 300px)': { gap: '0.5', px: '1' },
+})
+
+export const moves = css({ m: '0', p: '0', listStyle: 'none' })
+
+export const moveRow = css({
+  display: 'grid',
+  gridTemplateColumns: '34px minmax(0, 1fr) minmax(0, 1fr)',
+  alignItems: 'baseline',
+  gap: '1',
+  py: '0.5',
+  borderRadius: 'sm',
+  '&:nth-child(even)': { bg: 'color-mix(in srgb, {colors.fg.default} 4%, transparent)' },
+  '& > div': { minWidth: '0' },
+  _narrow: { gridTemplateColumns: '26px minmax(0, 1fr) minmax(0, 1fr)', alignItems: 'start' },
+  '@container (max-width: 340px)': { gridTemplateColumns: '26px minmax(0, 1fr)', alignItems: 'start', '& > :last-child': { gridColumn: '2' } },
+})
+
+export const moveButton = css({
+  w: '100%',
+  py: '1',
+  px: '2',
+  borderRadius: 'sm',
+  fontFamily: 'mincho',
+  textAlign: 'left',
+  overflowWrap: 'anywhere',
+  '&:hover': { bg: 'surface.2' },
+  '&.on': { bg: 'surface.2', boxShadow: 'inset 2px 0 0 {colors.accent}' },
+  '[data-in-var] > &': { '&:first-child': { boxShadow: 'inset 2px 0 0 {colors.info}' } },
+  _narrow: { px: '1', fontSize: 'sm' },
+})
+
+export const moveNotation = css({ display: 'inline-block', whiteSpace: 'nowrap' })
+
+export const moveLabel = css({
+  display: 'inline-block',
+  whiteSpace: 'nowrap',
+  ml: '1.5',
+  color: 'light-dark(color-mix(in srgb, var(--label) 55%, #000), var(--label))',
+  fontFamily: 'sans',
+  fontWeight: 'bold',
+  fontSize: 'xs',
+})
+
+export const plate = css({
+  position: 'absolute',
+  left: '2',
+  zIndex: 'plate',
+  display: 'flex',
+  alignItems: 'center',
+  gap: '2',
+  p: '{spacing.0.5} {spacing.2.5} {spacing.0.5} {spacing.0.5}',
+  borderRadius: 'md',
+  bg: 'overlay',
+  boxShadow: 'sm',
+  fontSize: 'md',
+  pointerEvents: 'none',
+  '&.top': { top: '2' },
+  '&.bottom': { bottom: '2' },
+  '& .app-pill': { fontSize: 'sm' },
+  '.app-board-wrap.with-eval &': { left: 'calc(var(--eval-bar-width) + {spacing.2})' },
+  _compact: {
+    '.app-board-scene > &': { fontSize: 'sm', gap: '1' },
+    '& .app-pill': { fontSize: 'xs' },
+    '.app-shell.drawer-open &': { display: 'none' },
+    '.app-board-wrap.with-eval &': { left: '2' },
+  },
+  _short: { fontSize: 'xs', py: '0', '& .app-pill': { display: 'none' } },
+})
+
+export const plateSide = css({ pl: '1.5', fontWeight: 'bold', _compact: { pl: '0' } })
+
+export const clock = cva({
+  base: {
+    minWidth: '64px',
+    p: '{spacing.0.5} {spacing.2}',
+    borderRadius: 'sm',
+    bg: 'surface.3',
+    color: 'fg.default',
+    fontVariantNumeric: 'tabular-nums',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  variants: {
+    state: {
+      idle: {},
+      on: { bg: 'fg.default', color: 'fg.inverse' },
+      low: { bg: 'danger.fill', color: 'onFill' },
+      out: { bg: 'danger.strong', color: 'onFill' },
+    },
+  },
+  defaultVariants: { state: 'idle' },
+})
+
+export const backLink = css({ p: '{spacing.0.5} 0', color: 'fg.muted', fontSize: 'sm', transition: 'color {durations.fast}', _hover: { color: 'fg.default' } })
+
+export const subHeading = css({ m: '{spacing.4} 0 {spacing.1.5}!', color: 'fg.muted', fontSize: 'sm', fontWeight: 'medium' })
+
+export const note = cva({
+  base: { m: '0 0 {spacing.2}', p: '{spacing.2.5} {spacing.3}', borderRadius: 'md', bg: 'surface.2', fontFamily: 'mincho', lineHeight: 'mincho' },
+  variants: {
+    tone: {
+      plain: {},
+      warn: { boxShadow: 'inset 3px 0 0 {colors.accent}' },
+      end: { bg: 'color-mix(in srgb, {colors.fg.default} 6%, transparent)' },
+      hint: { display: 'flex', alignItems: 'center' },
+      idle: {
+        display: 'flex',
+        alignItems: 'center',
+        pl: '0',
+        bg: 'transparent',
+        color: 'fg.muted',
+        fontFamily: 'sans',
+        fontSize: 'sm',
+        fontWeight: 'regular',
+        lineHeight: 'normal',
+      },
+    },
+  },
+  defaultVariants: { tone: 'plain' },
+})
+
+export const result = cva({
+  base: { m: '0', p: '{spacing.2.5} {spacing.3}', borderRadius: 'md', fontSize: 'sm' },
+  variants: {
+    tone: {
+      none: {},
+      right: { bg: 'success.soft', color: 'success' },
+      wrong: { bg: 'danger.soft', color: 'danger' },
+    },
+  },
+  defaultVariants: { tone: 'none' },
+})
+
+export const pv = css({ lineClamp: '2', m: '0', fontFamily: 'mincho', fontSize: 'sm' })
+
+export const verdictHead = css({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '2.5',
+  mb: '2',
+  fontSize: 'md',
+  '& strong': { fontFamily: 'mincho', fontWeight: 'heavy', fontSize: 'lg' },
+})
+
+export const verdictLabel = css({ color: 'light-dark(color-mix(in srgb, var(--label) 55%, #000), var(--label))' })
+
+export const badge = css({
+  flex: 'none',
+  bg: 'light-dark(color-mix(in srgb, var(--label) 56%, #000), var(--label))',
+  display: 'grid',
+  placeItems: 'center',
+  w: '28px',
+  h: '28px',
+  borderRadius: '50%',
+  color: 'onFill',
+  fontWeight: 'bold',
+  fontSize: 'sm',
+})
+
+export const practice = css({ '& > * + *': { mt: '3' }, _narrow: { display: 'flex', flexDirection: 'column' } })
+
+export const taskText = css({
+  mb: '0',
+  fontFamily: 'mincho',
+  fontWeight: 'heavy',
+  fontSize: 'lg',
+  lineHeight: 'normal',
+  _narrow: { order: '-2', fontSize: 'md' },
+})
+
+export const narrowColumn = css({ _narrow: { display: 'flex', flexDirection: 'column' } })

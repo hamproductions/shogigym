@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { loadGames, type StoredGame } from '@/app/games'
 import { savedAtLabel, sideMark } from '@/utils/notation'
 import { Button } from '@/app/ui/Button'
+import { muted } from '@/app/panels/panels.styles'
 
 export function YourGames({ onOpen }: { onOpen: (g: StoredGame) => void }) {
   const { t } = useTranslation()
@@ -19,7 +20,7 @@ export function YourGames({ onOpen }: { onOpen: (g: StoredGame) => void }) {
           <span className="app-your-game-title">
             {sideMark(g.userSide)} {savedAtLabel(new Date(g.savedAt))}
           </span>
-          <span className="app-muted">{t('review.moveCount', { count: g.moves.length })}</span>
+          <span className={muted}>{t('review.moveCount', { count: g.moves.length })}</span>
           <Button size="sm" onClick={() => onOpen(g)}>
             {t('review.reviewGame')}
           </Button>

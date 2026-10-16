@@ -10,6 +10,8 @@ import { setSettings, useSettings } from '@/appearance/settings'
 import { mainStrategies, strategyById } from '@/data/strategies'
 import type { LessonMode, Level } from '@/app/types'
 import { Button } from '@/app/ui/Button'
+import { cx } from '@/app/ui/cx'
+import { backLink, result, subHeading } from '@/app/panels/panels.styles'
 import { LessonCard } from './LessonCard'
 import { LessonReferences } from './LessonReferences'
 import { SquareText } from './SquareText'
@@ -114,7 +116,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
     const defending = courses.length > 0 && courses.every((c) => c.notesFromOpponentView)
     const p = progressOf(courses)
     return (
-      <button key={setup.id} className="app-setup app-result" onClick={() => setSetupId(setup.id)}>
+      <button key={setup.id} className={cx('app-setup app-result', result())} onClick={() => setSetupId(setup.id)}>
         <span className="app-lib-ja">
           {name(setup)}
           {defending && <em className="app-start">{ja ? '受ける側' : 'Defending side'}</em>}
@@ -130,7 +132,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
     )
   }
   const backToGame = fromGame && (
-    <button className="app-back" onClick={returnToGame}>
+    <button className={backLink} onClick={returnToGame}>
       ‹ {t('review.backToGame')}
     </button>
   )
@@ -154,7 +156,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
     return (
       <div className="app-picker">
         {backToGame}
-        <button className="app-back" onClick={() => (setSetupId(null), openCategory(categoryOf(open.setup)))}>
+        <button className={backLink} onClick={() => (setSetupId(null), openCategory(categoryOf(open.setup)))}>
           ‹ {CATEGORIES.find((c) => c.id === categoryOf(open.setup))?.name[ja ? 'ja' : 'en']}
         </button>
         <h2 className="app-picker-title">{name(open.setup)}</h2>
@@ -222,9 +224,9 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
             : []
           return (
             <>
-              {related.length > 0 && <h3 className="app-sub">{ja ? `「${base}」に関する講座` : `More about ${baseName}`}</h3>}
+              {related.length > 0 && <h3 className={cx('app-sub', subHeading)}>{ja ? `「${base}」に関する講座` : `More about ${baseName}`}</h3>}
               {related.map(resultCard)}
-              {siblings.length > 0 && <h3 className="app-sub">{ja ? `${groupName(group!)}の他の講座` : `More in ${groupName(group!)}`}</h3>}
+              {siblings.length > 0 && <h3 className={cx('app-sub', subHeading)}>{ja ? `${groupName(group!)}の他の講座` : `More in ${groupName(group!)}`}</h3>}
               {siblings.map(resultCard)}
             </>
           )
@@ -253,13 +255,13 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
   if (choosing)
     return (
       <div className="app-picker">
-        <button className="app-back" onClick={() => setChoosing(false)}>
+        <button className={backLink} onClick={() => setChoosing(false)}>
           {t('picker.back')}
         </button>
         <h2 className="app-picker-title">{t('strategy.chooseMain')}</h2>
         {(['furibisha', 'ibisha'] as const).map((wing) => (
           <Fragment key={wing}>
-            <h3 className="app-sub">{t(`strategy.${wing}`)}</h3>
+            <h3 className={cx('app-sub', subHeading)}>{t(`strategy.${wing}`)}</h3>
             <div className="app-main-grid">
               {mainStrategies()
                 .filter((s) => s.side === wing)
@@ -315,7 +317,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
     return (
       <div className="app-picker">
         {backToGame}
-        <button className="app-back" onClick={() => openCategory(null)}>
+        <button className={backLink} onClick={() => openCategory(null)}>
           {ja ? '‹ 将棋を学ぶ' : '‹ Learn shogi'}
         </button>
         <h2 className="app-picker-title">{ja ? '定跡' : 'Joseki'}</h2>
@@ -330,13 +332,13 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
         {!q && (
           <>
             {mine.filter((g) => g.setup.basics).map(setupCard)}
-            {lessons.length > 0 && <h3 className="app-sub">{ja ? `${main.ja}の考え方と手筋` : `${main.en}: ideas and tactics`}</h3>}
+            {lessons.length > 0 && <h3 className={cx('app-sub', subHeading)}>{ja ? `${main.ja}の考え方と手筋` : `${main.en}: ideas and tactics`}</h3>}
             {lessons.map(setupCard)}
-            {mine.some((g) => !g.setup.basics) && <h3 className="app-sub">{t('picker.openingsByWhatYourOpponent')}</h3>}
+            {mine.some((g) => !g.setup.basics) && <h3 className={cx('app-sub', subHeading)}>{t('picker.openingsByWhatYourOpponent')}</h3>}
             {mine.filter((g) => !g.setup.basics).map(setupCard)}
             {otherGroups.map((at) => (
               <Fragment key={at}>
-                <h3 className="app-sub">{groupName(at)}</h3>
+                <h3 className={cx('app-sub', subHeading)}>{groupName(at)}</h3>
                 {others.filter((g) => josekiGroupOf(g.setup) === at).map(setupCard)}
               </Fragment>
             ))}
@@ -353,7 +355,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
     return (
       <div className="app-picker">
         {backToGame}
-        <button className="app-back" onClick={() => openCategory(null)}>
+        <button className={backLink} onClick={() => openCategory(null)}>
           {ja ? '‹ 将棋を学ぶ' : '‹ Learn shogi'}
         </button>
         <h2 className="app-picker-title">{ja ? info.name.ja : info.name.en}</h2>
@@ -365,7 +367,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
             return (
               entries.length > 0 && (
                 <Fragment key={group}>
-                  <h3 className="app-sub">{groupName(group)}</h3>
+                  <h3 className={cx('app-sub', subHeading)}>{groupName(group)}</h3>
                   {entries.map(setupCard)}
                 </Fragment>
               )

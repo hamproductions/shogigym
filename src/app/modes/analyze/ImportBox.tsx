@@ -8,6 +8,7 @@ import { Button } from '@/app/ui/Button'
 import { FilePicker } from '@/app/ui/FilePicker'
 import { cx } from '@/app/ui/cx'
 import { Text } from '@/components/ui'
+import { result } from '@/app/panels/panels.styles'
 
 export function ImportBox({ onImport, open, bare }: { onImport: (text: string) => string | null; open?: boolean; bare?: boolean }) {
   const { t } = useTranslation()
@@ -56,7 +57,7 @@ export function ImportBox({ onImport, open, bare }: { onImport: (text: string) =
           {t('games.openAFile')}
         </FilePicker>
       </Wrap>
-      {error && <p className={cx('app-result wrong', css({ mb: '3!' }))}>{error}</p>}
+      {error && <p className={cx(result({ tone: 'wrong' }), css({ mb: '3!' }))}>{error}</p>}
     </>
   )
   if (bare) return <Box mt="3">{content}</Box>

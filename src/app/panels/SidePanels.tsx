@@ -1,6 +1,6 @@
-import './panel-layout.css'
 import { useRef, useState, type ReactNode, type PointerEvent as ReactPointerEvent } from 'react'
 import { useTranslation } from 'react-i18next'
+import { css } from 'styled-system/css'
 import type { Layout } from '@/app/hooks/useLayout'
 import { useSettings } from '@/appearance/settings'
 import { TABS, isGameMode, type Tab } from '@/app/types'
@@ -8,14 +8,16 @@ import { useSession } from '@/app/hooks/session'
 import { Button } from '@/app/ui/Button'
 import { Tabs } from '@/app/ui/Tabs'
 import { Icon } from '@/app/icons'
+import { cx } from '@/app/ui/cx'
 import { NavFooter } from './NavFooter'
 import { PanelBody, type PanelModel } from './PanelBody'
+import { panel, panelClose, panelHeader } from './panels.styles'
 
 type SidePanelsProps = { layout: Layout; tab: Tab; setTab: (tab: Tab) => void; sheetOpen: boolean; model: PanelModel; canAutoplay: boolean; picking: boolean }
 
 export function FloatingPanel({ zone, header, children }: { zone: NonNullable<Layout['zones']>['under']; header: ReactNode; children: ReactNode }) {
   return (
-    <aside className="app-panel app-panel-left" style={{ ...zone }}>
+    <aside className={cx('app-panel app-panel-left', panel)} style={{ ...zone }}>
       {header}
       {children}
     </aside>
@@ -72,7 +74,7 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
         layout={layout}
         sheetOpen={sheetOpen}
         header={
-          <div className="app-panel-header">
+          <div className={panelHeader}>
             <Tabs
               items={TABS.filter((id) => !(twoPanels && id === 'moves') && (id !== 'report' || reportable)).map((id) => ({
                 id,
@@ -95,7 +97,7 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
             {!compact && (
               <Button
                 variant="icon"
-                className="app-panel-close"
+                className={panelClose}
                 onClick={() => setPanel({ hidden: true })}
                 title={t('app.closeThePanelP')}
                 aria-label={t('app.closeThePanel')}
@@ -112,6 +114,35 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
     </>
   )
 }
+
+const resizeHandle = css({
+  position: 'absolute',
+  top: '0',
+  bottom: '0',
+  left: '-4px',
+  zIndex: 'banner',
+  w: '8px',
+  cursor: 'col-resize',
+  transition: 'background {durations.fast}',
+  touchAction: 'none',
+  background: 'linear-gradient({colors.border.strong}, {colors.border.strong}) center / 3px 40px no-repeat',
+  _hover: { background: 'accent.soft' },
+  _active: { background: 'accent.soft' },
+  _compact: { display: 'none', '.app-shell.panel-side &': { display: 'block', left: '0', w: '12px' } },
+})
+
+const sheetHandle = css({
+  display: 'none',
+  _compact: {
+    display: 'block',
+    flex: 'none',
+    h: '12px',
+    p: '0',
+    touchAction: 'none',
+    cursor: 'row-resize',
+    background: 'linear-gradient({colors.border.strong}, {colors.border.strong}) center / 40px 3px no-repeat',
+  },
+})
 
 export function SidePanel({
   layout,
@@ -172,10 +203,10 @@ export function SidePanel({
     suppressSheetClick.current = !cancelled && gesture.moved
   }
   return (
-    <aside className={`app-panel${sheetOpen ? ' open' : ''}`} style={zoned ? (!panelPrefsHidden ? floatingRect : { display: 'none' }) : undefined}>
+    <aside className={cx('app-panel', sheetOpen && 'open', panel)} style={zoned ? (!panelPrefsHidden ? floatingRect : { display: 'none' }) : undefined}>
       {layout.panelSide && (
         <div
-          className="app-panel-resize"
+          className={cx('app-panel-resize', resizeHandle)}
           role="separator"
           aria-label={t('app.dragToResizeThePanel')}
           aria-orientation="vertical"
@@ -185,7 +216,7 @@ export function SidePanel({
         />
       )}
       <button
-        className="app-sheet-handle"
+        className={sheetHandle}
         onClick={(e) => {
           if (suppressSheetClick.current && e.detail > 0) {
             suppressSheetClick.current = false

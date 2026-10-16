@@ -7,6 +7,7 @@ import { moveText } from '@/utils/shogi'
 import { sideMark } from '@/utils/notation'
 import { useSession } from '@/app/hooks/session'
 import { Button } from '@/app/ui/Button'
+import { backLink } from '@/app/panels/panels.styles'
 import type { Lesson } from './useLesson'
 import { LessonReferences } from './LessonReferences'
 
@@ -229,7 +230,7 @@ export function LessonGuide({ course, lesson, series }: Props) {
     <div className="app-guide">
       <div className="app-guide-head">
         <div className="app-guide-top">
-          <button className="app-back" onClick={series?.back ?? lesson.leave}>
+          <button className={backLink} onClick={series?.back ?? lesson.leave}>
             ‹ {ja ? '目次' : 'Contents'}
           </button>
           <span className="app-guide-count">

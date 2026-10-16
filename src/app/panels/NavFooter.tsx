@@ -4,6 +4,7 @@ import { Icon } from '@/app/icons'
 import type { Watch } from '@/app/modes/view/useWatch'
 import type { Lesson } from '@/app/modes/lesson/useLesson'
 import { useLineAhead } from '@/app/hooks/useLineAhead'
+import { navBar } from './panels.styles'
 
 export function NavFooter({ canAutoplay, watch, lesson }: { canAutoplay: boolean; watch: Watch; lesson: Lesson }) {
   const { t } = useTranslation()
@@ -55,14 +56,14 @@ export function MoveNavigation({
 }) {
   const { t } = useTranslation()
   return (
-    <footer className="app-nav" hidden={hidden}>
+    <footer className={navBar} hidden={hidden}>
       <button onClick={first} disabled={!canBack} title={t('app.startHome')}>
         <Icon name="first" />
       </button>
       <button onClick={back} disabled={!canBack} title={t('app.back')}>
         <Icon name="prev" />
       </button>
-      <button className="app-play" onClick={toggle} disabled={!canPlay} title={playTitle} aria-pressed={running}>
+      <button onClick={toggle} disabled={!canPlay} title={playTitle} aria-pressed={running}>
         <Icon name={running ? 'pause' : 'play'} />
       </button>
       <button onClick={forward} disabled={!canForward} title={t('app.forward')}>

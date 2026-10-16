@@ -569,11 +569,11 @@ function DesignOptions({ customFace = false }: { customFace?: boolean } = {}) {
       )}
       <FinishOptions />
 
-      <Text className="app-credit" tone="muted" size="sm" my="1em">
+      <Text tone="muted" size="2xs" mt="0" mb="2">
         {PIECE_FINISHES[selectedPieceFinish()].hint}
       </Text>
       {!customFace && PIECE_SETS[st.pieceSet].credit && (
-        <Text className="app-credit" tone="muted" size="sm" my="1em">
+        <Text tone="muted" size="2xs" mt="0" mb="2">
           {PIECE_SETS[st.pieceSet].credit}
         </Text>
       )}
@@ -738,7 +738,7 @@ export function SettingsDialog({
                   }}
                 />
                 {st.voice && (
-                  <Text className="app-credit" tone="muted" size="sm" my="1em">
+                  <Text tone="muted" size="2xs" mt="0" mb="2">
                     {t('settings.voiceCredit')}
                   </Text>
                 )}{' '}
@@ -802,7 +802,7 @@ export function SettingsDialog({
               ]}
               onChange={(v) => setSettings({ showTesuji: v })}
             />
-            <Text className="app-credit" tone="muted" size="sm" my="1em">
+            <Text tone="muted" size="2xs" mt="0" mb="2">
               {t('settings.showTesujiHint')}
             </Text>
             <BoardOptions />
@@ -818,7 +818,7 @@ export function SettingsDialog({
               />
             )}
             {(st.environment === 'traditional' || st.environment === 'casual') && st.characters && (
-              <Text className="app-credit" tone="muted" size="sm" my="1em">
+              <Text tone="muted" size="2xs" mt="0" mb="2">
                 {t('settings.charactersCredit')}
               </Text>
             )}
@@ -834,7 +834,7 @@ export function SettingsDialog({
               />
             )}
             {st.environment !== 'flat' && st.environment !== 'diagram' && st.environment !== 'broadcast' && st.power && (
-              <Text className="app-credit" tone="muted" size="sm" my="1em">
+              <Text tone="muted" size="2xs" mt="0" mb="2">
                 {t('settings.powerModeHint')}
               </Text>
             )}
