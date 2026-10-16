@@ -275,8 +275,7 @@ export const gameList = css({
   m: '{spacing.2.5} 0 0',
   p: '0',
   listStyle: 'none',
-  '& li': { display: 'flex', flexWrap: 'wrap', alignItems: 'stretch', gap: '1', mb: '1.5' },
-  '& li > .app-role-toggle': { order: '3', flex: '1 0 100%', mb: '1' },
+  '& li': { display: 'flex', alignItems: 'stretch', gap: '1', mb: '1.5' },
 })
 
 export const gameOpen = cva({
@@ -285,11 +284,13 @@ export const gameOpen = cva({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
-    gap: '0.5',
-    p: '{spacing.2} {spacing.2.5}',
+    gap: '0',
+    minW: '0',
+    p: '{spacing.1.5} {spacing.2.5}',
     borderRadius: 'md',
     bg: 'surface.2',
     textAlign: 'left',
+    '& strong': { maxW: '100%', overflow: 'hidden', fontSize: 'sm', textOverflow: 'ellipsis', whiteSpace: 'nowrap' },
     '& span': { color: 'fg.muted', fontSize: 'xs' },
   },
   variants: {
