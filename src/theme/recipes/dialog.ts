@@ -22,6 +22,7 @@ export const dialog = defineSlotRecipe({
       inset: '0',
       justifyContent: 'center',
       overscrollBehaviorY: 'none',
+      pointerEvents: 'auto',
       padding: { base: '3', md: '4' },
       position: 'fixed',
       zIndex: 'calc({zIndex.modal} + var(--layer-index, 0))',

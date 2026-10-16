@@ -15,19 +15,14 @@ type DialogProps = {
 
 export function Dialog({ label, className, positionerClassName, role = 'dialog', onBackdrop, children }: DialogProps) {
   return (
-    <ParkDialog.Root
-      open
-      role={role}
-      lazyMount={false}
-      unmountOnExit={false}
-      closeOnEscape={false}
-      closeOnInteractOutside={!!onBackdrop}
-      onOpenChange={({ open }) => {
-        if (!open) onBackdrop?.()
-      }}
-    >
+    <ParkDialog.Root open role={role} lazyMount={false} unmountOnExit={false} closeOnEscape={false} closeOnInteractOutside={false}>
       <ParkDialog.Backdrop />
-      <ParkDialog.Positioner className={positionerClassName}>
+      <ParkDialog.Positioner
+        className={positionerClassName}
+        onPointerDown={(event) => {
+          if (event.target === event.currentTarget) onBackdrop?.()
+        }}
+      >
         <ParkDialog.Content className={cx('app-dialog', dialogFlow, className)} aria-label={label}>
           {children}
         </ParkDialog.Content>
