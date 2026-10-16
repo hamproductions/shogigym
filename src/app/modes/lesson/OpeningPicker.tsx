@@ -81,7 +81,7 @@ function matchScore({ setup, courses }: Entry, q: string) {
 function Credits() {
   const { t } = useTranslation()
   return (
-    <details className={sourceNote}>
+    <details className={sourceNote} data-spaced>
       <summary>{t('picker.shogilabCreditsAndLicences')}</summary>
       <p>{t('picker.engineYaneuraouWasmBuildBy')}</p>
       <p>{t('picker.charactersCredit')}</p>
@@ -180,8 +180,14 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
           ‹ {CATEGORIES.find((c) => c.id === categoryOf(open.setup))?.name[ja ? 'ja' : 'en']}
         </button>
         <h2 className={pickerTitle}>{name(open.setup)}</h2>
-        <p className={pickerIntro({ kind: 'overview' })}>{describedSfen ? <SquareText text={intro} context={described} /> : intro}</p>
-        {plan && <p className={pickerIntro({ kind: 'plan' })}>{describedSfen ? <SquareText text={plan} context={described} /> : plan}</p>}
+        <p data-spaced className={pickerIntro({ kind: 'overview' })}>
+          {describedSfen ? <SquareText text={intro} context={described} /> : intro}
+        </p>
+        {plan && (
+          <p data-spaced className={pickerIntro({ kind: 'plan' })}>
+            {describedSfen ? <SquareText text={plan} context={described} /> : plan}
+          </p>
+        )}
         {open.setup.path ? (
           <>
             {open.courses.length > 0 && (
@@ -190,7 +196,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
               </Button>
             )}
             {open.courses.length === 0 && open.setup.check && (
-              <details className={lessonCheck}>
+              <details className={lessonCheck} data-spaced>
                 <summary>{ja ? open.setup.check.question.ja : open.setup.check.question.en}</summary>
                 <p>{ja ? open.setup.check.answer.ja : open.setup.check.answer.en}</p>
               </details>
@@ -244,9 +250,17 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
             : []
           return (
             <>
-              {related.length > 0 && <h3 className={subHeading}>{ja ? `「${base}」に関する講座` : `More about ${baseName}`}</h3>}
+              {related.length > 0 && (
+                <h3 className={subHeading} data-spaced>
+                  {ja ? `「${base}」に関する講座` : `More about ${baseName}`}
+                </h3>
+              )}
               {related.map(resultCard)}
-              {siblings.length > 0 && <h3 className={subHeading}>{ja ? `${groupName(group!)}の他の講座` : `More in ${groupName(group!)}`}</h3>}
+              {siblings.length > 0 && (
+                <h3 className={subHeading} data-spaced>
+                  {ja ? `${groupName(group!)}の他の講座` : `More in ${groupName(group!)}`}
+                </h3>
+              )}
               {siblings.map(resultCard)}
             </>
           )
@@ -281,7 +295,9 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
         <h2 className={pickerTitle}>{t('strategy.chooseMain')}</h2>
         {(['furibisha', 'ibisha'] as const).map((wing) => (
           <Fragment key={wing}>
-            <h3 className={subHeading}>{t(`strategy.${wing}`)}</h3>
+            <h3 className={subHeading} data-spaced>
+              {t(`strategy.${wing}`)}
+            </h3>
             <div className={mainGrid}>
               {mainStrategies()
                 .filter((s) => s.side === wing)
@@ -313,7 +329,9 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
     : []
   const results = q && (
     <>
-      <p className={resultCount}>{ja ? `${ranked.length}件` : `${ranked.length} ${ranked.length === 1 ? 'result' : 'results'}`}</p>
+      <p className={resultCount} data-spaced>
+        {ja ? `${ranked.length}件` : `${ranked.length} ${ranked.length === 1 ? 'result' : 'results'}`}
+      </p>
       {ranked.slice(0, 30).map(({ entry }) => resultCard(entry))}
       {ranked.length === 0 && <p className={muted}>{ja ? '見つかりませんでした。' : 'Nothing found.'}</p>}
     </>
@@ -341,19 +359,33 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
           <strong>{ja ? main.ja : main.en}</strong>
           <em>{t('strategy.change')} ›</em>
         </button>
-        {level === 'new' && <p className={pickerIntro()}>{t('picker.clickAnyPieceOnThe')}</p>}
+        {level === 'new' && (
+          <p data-spaced className={pickerIntro()}>
+            {t('picker.clickAnyPieceOnThe')}
+          </p>
+        )}
         {search}
         {results}
         {!q && (
           <>
             {mine.filter((g) => g.setup.basics).map(setupCard)}
-            {lessons.length > 0 && <h3 className={subHeading}>{ja ? `${main.ja}の考え方と手筋` : `${main.en}: ideas and tactics`}</h3>}
+            {lessons.length > 0 && (
+              <h3 className={subHeading} data-spaced>
+                {ja ? `${main.ja}の考え方と手筋` : `${main.en}: ideas and tactics`}
+              </h3>
+            )}
             {lessons.map(setupCard)}
-            {mine.some((g) => !g.setup.basics) && <h3 className={subHeading}>{t('picker.openingsByWhatYourOpponent')}</h3>}
+            {mine.some((g) => !g.setup.basics) && (
+              <h3 className={subHeading} data-spaced>
+                {t('picker.openingsByWhatYourOpponent')}
+              </h3>
+            )}
             {mine.filter((g) => !g.setup.basics).map(setupCard)}
             {otherGroups.map((at) => (
               <Fragment key={at}>
-                <h3 className={subHeading}>{groupName(at)}</h3>
+                <h3 className={subHeading} data-spaced>
+                  {groupName(at)}
+                </h3>
                 {others.filter((g) => josekiGroupOf(g.setup) === at).map(setupCard)}
               </Fragment>
             ))}
@@ -382,7 +414,9 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
             return (
               entries.length > 0 && (
                 <Fragment key={group}>
-                  <h3 className={subHeading}>{groupName(group)}</h3>
+                  <h3 className={subHeading} data-spaced>
+                    {groupName(group)}
+                  </h3>
                   {entries.map(setupCard)}
                 </Fragment>
               )

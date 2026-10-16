@@ -1,6 +1,6 @@
 import { css, cva } from 'styled-system/css'
 
-export const picker = css({ '& > * + *': { mt: '2' } })
+export const picker = css({ '& > * + *:not([data-spaced])': { mt: '2' } })
 
 export const pickerTitle = css({
   fontFamily: 'mincho',
