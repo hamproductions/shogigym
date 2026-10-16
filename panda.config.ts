@@ -16,8 +16,15 @@ import { zIndex } from './src/theme/tokens/z-index'
 export default defineConfig({
   presets: ['@pandacss/preset-base', '@pandacss/preset-panda'],
   preflight: false,
+  minify: process.env.NODE_ENV === 'production',
+  hash: process.env.NODE_ENV === 'production' && { className: false, cssVar: true },
+  optimize: {
+    removeUnusedTokens: true,
+    removeUnusedKeyframes: true,
+    smartCompoundVariants: true,
+  },
   jsxFramework: 'react',
-  jsxStyleProps: 'minimal',
+  jsxStyleProps: 'all',
   include: ['./src/**/*.{ts,tsx}'],
   exclude: [],
   outdir: 'styled-system',

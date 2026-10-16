@@ -45,11 +45,11 @@ const FONTS = Object.keys(PIECE_FONTS) as PieceFont[]
 const BOARD_STYLE_KEYS = Object.keys(BOARD_STYLES) as BoardStyle[]
 const asset = (group: string, key: string) => `${import.meta.env.BASE_URL}previews/${group}/${key}.webp`
 
-function SurfaceSample({ appearance }: { appearance: PieceAppearance }) {
+function SurfaceSample({ piece }: { piece: PieceAppearance }) {
   const ref = useRef<HTMLCanvasElement>(null)
   useEffect(() => {
-    ref.current?.getContext('2d')?.drawImage(pieceSurface(42, appearance), 0, 0)
-  }, [appearance])
+    ref.current?.getContext('2d')?.drawImage(pieceSurface(42, piece), 0, 0)
+  }, [piece])
   return <canvas ref={ref} width={256} height={256} className="app-surface-sample" />
 }
 
@@ -554,9 +554,7 @@ function DesignOptions({ customFace = false }: { customFace?: boolean } = {}) {
           options={Object.entries(PIECE_GRAINS).map(([key, spec]) => ({
             key,
             label: spec.label,
-            preview: (
-              <SurfaceSample appearance={{ pieceSet: 'letters', pieceMaterial: st.pieceMaterial, pieceColor: 'natural', pieceGrain: key as PieceGrain }} />
-            ),
+            preview: <SurfaceSample piece={{ pieceSet: 'letters', pieceMaterial: st.pieceMaterial, pieceColor: 'natural', pieceGrain: key as PieceGrain }} />,
           }))}
           value={st.pieceGrain}
           onChange={(key) => setSettings({ pieceGrain: key as PieceGrain })}
