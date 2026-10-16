@@ -174,7 +174,7 @@ export function BoardStage({
   const sparEnded = mode === 'spar' && (spar.resigned || !!spar.flagged)
   const showGameOver = ((gameOver && game.moves.length > 0 && isGameMode(mode)) || sparEnded) && spar.endHidden !== sfen
   return (
-    <div className={cx('app-board-wrap', boardWrap, evalRate !== null && 'with-eval')}>
+    <div className={cx('app-board-wrap', boardWrap)} data-eval={evalRate !== null || undefined}>
       {mode === 'spar' && spar.furigomaBanner && (
         <div
           className="app-furigoma-banner"

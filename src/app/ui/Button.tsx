@@ -14,7 +14,8 @@ export function Button({ variant = 'secondary', size, on, className, type = 'but
       size={size ?? 'md'}
       iconOnly={variant === 'icon'}
       aria-pressed={on}
-      className={cx('app-btn', variant !== 'secondary' && variant, size, on && 'on', className)}
+      data-variant={variant}
+      className={cx('app-btn', className)}
       {...rest}
     />
   )

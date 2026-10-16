@@ -55,7 +55,7 @@ export const cameraHint = css({
   bg: 'overlay',
   fontSize: 'xs',
   pointerEvents: 'none',
-  '.app-shell.fs &': { display: 'none' },
+  '.app-shell[data-fs] &': { display: 'none' },
 })
 
 export const setup = css({

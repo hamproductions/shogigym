@@ -6,7 +6,6 @@ import { applyUsi, moveText } from '@/utils/shogi'
 import type { Lane } from '@/utils/lanes'
 import { lossClass } from '@/utils/score'
 import { loadStats, loadStatsMeta, type PositionStats, type StatsMeta } from '@/utils/stats'
-import { cx } from '@/app/ui/cx'
 import { muted } from './panels.styles'
 
 const statsColumns = css({
@@ -32,7 +31,7 @@ const statsRow = css({
   _focusVisible: { bg: 'card.hover' },
 })
 
-const statsCell = css({ display: 'flex', flexDirection: 'column', gap: '0.5', minW: '0' })
+const statsCell = css({ display: 'flex', flexDirection: 'column', gap: '0.5', minW: '0', '&[data-thin]': { opacity: '0.5' } })
 
 const statsTrack = css({ display: 'flex', h: '6px', overflow: 'hidden', borderRadius: 'full', bg: 'meter.track' })
 
@@ -55,14 +54,14 @@ const laneCard = cva({
     p: '{spacing.2.5} {spacing.3}',
     textAlign: 'left',
     transition: 'background {durations.fast}',
-    _hover: { bg: 'card.hover!' },
-    _focusVisible: { bg: 'card.hover!' },
+    _hover: { bg: 'card.hover' },
+    _focusVisible: { bg: 'card.hover' },
   },
   variants: {
     tone: {
-      book: { '--tone': '{colors.warning} !important' },
-      ai: { '--tone': '{colors.info} !important' },
-      mistake: { '--tone': '{colors.danger} !important' },
+      book: { '--tone': '{colors.warning}' },
+      ai: { '--tone': '{colors.info}' },
+      mistake: { '--tone': '{colors.danger}' },
     },
   },
 })
@@ -196,7 +195,7 @@ function OpeningStats({
                     {pct(m.games, stats.games)}% <small>{t('flow.statsGames', { count: m.games, n: m.games.toLocaleString() })}</small>
                   </span>
                 </span>
-                <span className={cx(statsCell, m.games < THIN_SAMPLE && css({ opacity: '0.5' }))}>
+                <span className={statsCell} data-thin={m.games < THIN_SAMPLE || undefined}>
                   <span className={statsTrack}>
                     <styled.i bg="meter.fill" style={{ width: `${s}%` }} />
                     <styled.i ml="auto" bg="hai.400" style={{ width: `${g}%` }} />

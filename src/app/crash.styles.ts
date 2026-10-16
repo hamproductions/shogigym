@@ -41,4 +41,4 @@ export const crashCard = css({
   '& :focus-visible': { outline: '2px solid {colors.focus}', outlineOffset: '3px' },
 })
 
-export const crashReset = css({ bg: 'surface.2!', color: 'fg.muted!' })
+export const crashReset = css({ bg: 'surface.2', color: 'fg.muted' })

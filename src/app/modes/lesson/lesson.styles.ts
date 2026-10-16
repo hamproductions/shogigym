@@ -7,7 +7,7 @@ export const pickerTitle = css({
   fontWeight: 'heavy',
   fontSize: 'xl',
   lineHeight: 'tight',
-  '&:not(:first-child)': { mt: '2!' },
+  '&:not(:first-child)': { mt: '2' },
   '& span': {
     display: 'block',
     mt: '0.5',
@@ -20,7 +20,7 @@ export const pickerTitle = css({
 })
 
 export const pickerIntro = cva({
-  base: { m: '0!', color: 'fg.muted', fontSize: 'sm', lineHeight: 'normal' },
+  base: { m: '0', color: 'fg.muted', fontSize: 'sm', lineHeight: 'normal' },
   variants: {
     kind: {
       plain: {},
@@ -48,7 +48,7 @@ export const setupButton = cva({
     overflow: 'hidden',
     textAlign: 'left',
     transition: 'background {durations.fast}',
-    _hover: { bg: 'card.hover!' },
+    _hover: { bg: 'card.hover' },
   },
   variants: {
     found: {
@@ -94,7 +94,7 @@ export const lessonMeta = css({ display: 'flex', justifyContent: 'space-between'
 
 export const lessonButtons = css({ display: 'flex', gap: '2', mt: '1.5', '& .app-btn': { flex: '1' } })
 
-export const sourceNote = css({ mt: '4!', color: 'fg.muted', fontSize: 'xs', '& summary': { cursor: 'pointer' }, '& p': { m: '{spacing.1.5} 0 0' } })
+export const sourceNote = css({ mt: '4', color: 'fg.muted', fontSize: 'xs', '& summary': { cursor: 'pointer' }, '& p': { m: '{spacing.1.5} 0 0' } })
 
 export const progressCount = css({ color: 'fg.muted', fontSize: 'xs', fontWeight: 'bold' })
 
@@ -185,12 +185,12 @@ export const mainChip = cva({
   defaultVariants: { on: false },
 })
 
-export const resultCount = css({ m: '{spacing.1} 0!', color: 'fg.muted', fontSize: 'xs' })
+export const resultCount = css({ m: '{spacing.1} 0', color: 'fg.muted', fontSize: 'xs' })
 
 export const guideStart = css({ w: '100%', m: '{spacing.2} 0' })
 
 export const lessonCheck = css({
-  m: '{spacing.3} 0!',
+  m: '{spacing.3} 0',
   p: '{spacing.2} {spacing.3}',
   borderRadius: 'md',
   bg: 'card',
@@ -235,7 +235,7 @@ export const guideNav = css({ display: 'grid', gridTemplateColumns: '1fr 2fr', g
 
 export const guideBody = css({ minHeight: '14rem' })
 
-export const guideTitle = css({ m: '{spacing.2} 0 0!', fontFamily: 'mincho', fontSize: 'lg', lineHeight: 'snug' })
+export const guideTitle = css({ m: '{spacing.2} 0 0', fontFamily: 'mincho', fontSize: 'lg', lineHeight: 'snug' })
 
 export const guideText = css({ m: '0', fontSize: 'md', lineHeight: 'mincho' })
 

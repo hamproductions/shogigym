@@ -142,7 +142,7 @@ export function CoachPane({ review, lastMove, prevSfen, bookLast, bookHere, sfen
       )}
       {showBook && bookHere.length > 0 && (
         <styled.div mt="5">
-          <h3 className={css({ m: '0 0 {spacing.1.5}!', color: 'fg.muted', fontSize: 'sm', fontWeight: 'medium' })}>{t('coach.bookMovesFromTheLessons')}</h3>
+          <h3 className={css({ m: '0 0 {spacing.1.5}', color: 'fg.muted', fontSize: 'sm', fontWeight: 'medium' })}>{t('coach.bookMovesFromTheLessons')}</h3>
           {bookHere.map((b) => (
             <button key={b.usi} className={bookMove} disabled={!canPlay} onClick={() => onPlay(b.usi)}>
               <strong>{moveText(sfen, b.usi)}</strong>

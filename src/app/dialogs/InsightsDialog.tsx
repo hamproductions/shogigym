@@ -27,6 +27,8 @@ const subheading = css({ mt: '3', mx: '0', mb: '1', fontSize: 'sm' })
 
 const AXES: Skill['key'][] = ['opening', 'middle', 'endgame', 'convert', 'tenacity', 'punish', 'steady']
 
+const skillDot = css({ fill: 'fg.muted', opacity: '0.6', '&[data-known]': { fill: 'accent', opacity: '1' } })
+
 function Radar({ skills, label }: { skills: Skill[]; label: (key: Skill['key']) => string }) {
   const size = 260
   const c = size / 2
@@ -58,7 +60,7 @@ function Radar({ skills, label }: { skills: Skill[]; label: (key: Skill['key']) 
       {values.map((v, i) => {
         const [x, y] = point(i, v)
         const known = skills.find((s) => s.key === AXES[i])?.value !== null
-        return <circle key={i} className={known ? css({ fill: 'accent' }) : css({ fill: 'fg.muted', opacity: '0.6' })} cx={x} cy={y} r={3.5} />
+        return <circle key={i} className={skillDot} data-known={known || undefined} cx={x} cy={y} r={3.5} />
       })}
       {AXES.map((key, i) => {
         const [x, y] = point(i, 122)

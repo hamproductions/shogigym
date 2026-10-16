@@ -131,7 +131,7 @@ const resizeHandle = css({
   bgRepeat: 'no-repeat',
   _hover: { background: 'accent.soft' },
   _active: { background: 'accent.soft' },
-  _compact: { display: 'none', '.app-shell.panel-side &': { display: 'block', left: '0', w: '12px' } },
+  _compact: { display: 'none', '.app-shell[data-panel-side] &': { display: 'block', left: '0', w: '12px' } },
 })
 
 const sheetHandle = css({
@@ -209,7 +209,7 @@ export function SidePanel({
     suppressSheetClick.current = !cancelled && gesture.moved
   }
   return (
-    <aside className={cx('app-panel', sheetOpen && 'open', panel)} style={zoned ? (!panelPrefsHidden ? floatingRect : { display: 'none' }) : undefined}>
+    <aside className={cx('app-panel', panel)} hidden={(zoned && panelPrefsHidden) || undefined} style={zoned && !panelPrefsHidden ? floatingRect : undefined}>
       {layout.panelSide && (
         <div
           className={cx('app-panel-resize', resizeHandle)}

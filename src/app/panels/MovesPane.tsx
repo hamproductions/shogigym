@@ -15,7 +15,6 @@ import { detectTesuji } from '@/app/tesuji'
 import { countMoves, isMainLine, nodeAt, type Tree } from '@/app/tree'
 import { Button } from '@/app/ui/Button'
 import { useSettings } from '@/appearance/settings'
-import { cx } from '@/app/ui/cx'
 import { moveButton, moveLabel, moveNotation, moveRow, moves as movesList, muted } from './panels.styles'
 
 const tesujiTag = css({
@@ -110,7 +109,7 @@ export function MovesPane({
   const tesujis = useMemo(() => moves.map((usi, i) => (sfens[i] ? detectTesuji(sfens[i], usi) : null)), [moves, sfens])
   const detectedTags = useMemo(() => formationMoveTags(sfens, moves, detectionPreset, detectionResult).flat(), [moves, sfens, detectionResult, detectionPreset])
   useEffect(() => {
-    const row = listRef.current?.querySelector('button.on') ?? listRef.current?.lastElementChild
+    const row = listRef.current?.querySelector('button[aria-current]') ?? listRef.current?.lastElementChild
     row?.scrollIntoView({ block: 'nearest' })
   }, [cursor, moves.length])
   const [saved, setSaved] = useState<number | null>(null)
@@ -149,7 +148,7 @@ export function MovesPane({
     const tesuji = showTesuji ? tesujis[i] : null
     return (
       <div key={i} data-in-var={tree && !isMainLine(tree, moves.slice(0, i + 1)) ? '' : undefined}>
-        <button className={cx(moveButton, cursor === i + 1 && 'on')} onClick={() => setCursor(i + 1)}>
+        <button className={moveButton} aria-current={cursor === i + 1 ? 'step' : undefined} onClick={() => setCursor(i + 1)}>
           <span className={moveNotation}>{moveText(sfens[i], usi, moves[i - 1])}</span>
           {tesuji && (
             <span

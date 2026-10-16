@@ -36,10 +36,10 @@ export const shellBase = css({
 })
 
 export const appShell = css({
-  '&.panel-hidden:not(.fs)': { gridTemplateColumns: 'var(--rail-w) minmax(0, 1fr) 0!' },
-  '&.panel-hidden > .app-panel': hidden,
-  '&.zoned:not(.fs)': { gridTemplateColumns: 'var(--rail-w) minmax(0, 1fr)!' },
-  '&.zoned > .app-panel': {
+  '&[data-panel-hidden]:not([data-fs])': { gridTemplateColumns: 'var(--rail-w) minmax(0, 1fr) 0' },
+  '&[data-panel-hidden] > .app-panel': hidden,
+  '&[data-zoned]:not([data-fs])': { gridTemplateColumns: 'var(--rail-w) minmax(0, 1fr)' },
+  '&[data-zoned] > .app-panel': {
     position: 'fixed',
     zIndex: 'floatingPanel',
     border: '0',
@@ -47,15 +47,15 @@ export const appShell = css({
     overflow: 'hidden',
     boxShadow: 'inset 0 0 0 1px {colors.border}, {shadows.md}',
   },
-  '&.zoned > .app-panel .app-panel-resize': { left: '0', w: '12px' },
-  '&.fs': { p: '0!', gridTemplateColumns: 'minmax(0, 1fr)!', gridTemplateRows: 'minmax(0, 1fr)!' },
-  '&.fs > .app-rail': hidden,
-  '&.fs > .app-panel': hidden,
-  '&.fs .app-modebar': hidden,
-  '&.fs .app-plate': hidden,
-  '&.fs .app-phone-task': hidden,
-  '&.fs .app-board-wrap': { p: '0' },
-  '&.fs .app-fs-exit': {
+  '&[data-zoned] > .app-panel .app-panel-resize': { left: '0', w: '12px' },
+  '&[data-fs]': { p: '0', gridTemplateColumns: 'minmax(0, 1fr)', gridTemplateRows: 'minmax(0, 1fr)' },
+  '&[data-fs] > .app-rail': hidden,
+  '&[data-fs] > .app-panel': hidden,
+  '&[data-fs] .app-modebar': hidden,
+  '&[data-fs] .app-plate': hidden,
+  '&[data-fs] .app-phone-task': hidden,
+  '&[data-fs] .app-board-wrap': { p: '0' },
+  '&[data-fs] .app-fs-exit': {
     position: 'fixed',
     top: 'max(14px, env(safe-area-inset-top))',
     left: 'max(14px, env(safe-area-inset-left))',
@@ -74,21 +74,21 @@ export const appShell = css({
     _hover: { bg: 'panel' },
   },
   _compact: {
-    '&.panel-hidden:not(.fs)': { gridTemplateColumns: 'minmax(0, 1fr)!' },
-    '&.drawer-open': { pb: '0!' },
-    '&.drawer-open:not(.fs):not(.sheet-set)': { gridTemplateRows: 'auto minmax(0, 1fr) max(30dvh, calc(100dvh - 57px - min(516px, 131vw)))!' },
-    '&.drawer-open.sheet-set': { gridTemplateRows: 'auto minmax(0, 1fr) calc(var(--sheet-h) * 1dvh)!' },
-    '&.drawer-open:not(.fs) > .app-panel': {
+    '&[data-panel-hidden]:not([data-fs])': { gridTemplateColumns: 'minmax(0, 1fr)' },
+    '&[data-drawer-open]': { pb: '0' },
+    '&[data-drawer-open]:not([data-fs]):not([data-sheet-set])': { gridTemplateRows: 'auto minmax(0, 1fr) max(30dvh, calc(100dvh - 57px - min(516px, 131vw)))' },
+    '&[data-drawer-open][data-sheet-set]': { gridTemplateRows: 'auto minmax(0, 1fr) calc(var(--sheet-h) * 1dvh)' },
+    '&[data-drawer-open]:not([data-fs]) > .app-panel': {
       display: 'flex',
       minH: '0',
       borderRadius: '{radii.xl} {radii.xl} 0 0',
       overflow: 'hidden',
       boxShadow: 'sheet',
     },
-    '&.drawer-open .app-board-wrap': { p: '0' },
+    '&[data-drawer-open] .app-board-wrap': { p: '0' },
   },
   _short: {
     '--rail-w': '52px',
-    gridTemplateColumns: 'var(--rail-w) minmax(0, 1fr) min(var(--panel-w, 380px), 34vw)!',
+    gridTemplateColumns: 'var(--rail-w) minmax(0, 1fr) min(var(--panel-w, 380px), 34vw)',
   },
 })

@@ -24,7 +24,7 @@ export const boardWrap = css({
   _compact: {
     '--eval-bar-width': '20px',
     flexDirection: 'column',
-    '.app-shell.drawer-open &': { '& .app-plate.top': { display: 'flex!' } },
+    '.app-shell[data-drawer-open] &': { '& .app-plate.top': { display: 'flex' } },
     '&:has(> [data-banner]) .app-plate.top': { visibility: 'hidden' },
   },
   _short: { '--eval-bar-width': '18px', p: '{spacing.1} var(--stage-gutter)' },
@@ -42,7 +42,7 @@ export const boardScene = css({
   '[data-previewing] &': {
     _after: { content: '""', position: 'absolute', inset: '0', border: '2px solid {colors.accent}', borderRadius: 'xl', pointerEvents: 'none' },
   },
-  _compact: { '--band': '40px', py: 'var(--band)', '.app-shell.drawer-open &': { pb: '0' } },
+  _compact: { '--band': '40px', py: 'var(--band)', '.app-shell[data-drawer-open] &': { pb: '0' } },
 })
 
 export const caption = css({
@@ -56,9 +56,9 @@ export const caption = css({
   alignItems: 'flex-start',
   gap: '2',
   pointerEvents: 'none',
-  '.app-board-wrap.with-eval &': { left: 'calc(var(--eval-bar-width) + {spacing.2})' },
+  '.app-board-wrap[data-eval] &': { left: 'calc(var(--eval-bar-width) + {spacing.2})' },
   '& > .app-plate': { position: 'static', transform: 'none', maxW: '100%' },
-  _compact: { '.app-board-wrap.with-eval &': { left: '2' } },
+  _compact: { '.app-board-wrap[data-eval] &': { left: '2' } },
 })
 
 export const peek = cva({
@@ -117,7 +117,7 @@ const mistakeBanner = {
   color: 'gofun',
   boxShadow: 'md',
   '& .app-btn': { bg: 'onFill.soft', color: 'inherit' },
-  '& .app-btn.primary': { bg: 'gofun', color: 'var(--banner)', fontWeight: 'bold' },
+  '& .app-btn[data-variant=primary]': { bg: 'gofun', color: 'var(--banner)', fontWeight: 'bold' },
 }
 
 export const banner = cva({
@@ -155,7 +155,7 @@ export const banner = cva({
       whiteSpace: 'nowrap',
       overflowX: 'auto',
     },
-    _compact: { top: 'calc(var(--stage-gutter) + 3px)', '.app-shell.drawer-open &': { top: '3px' } },
+    _compact: { top: 'calc(var(--stage-gutter) + 3px)', '.app-shell[data-drawer-open] &': { top: '3px' } },
   },
   variants: {
     tone: {

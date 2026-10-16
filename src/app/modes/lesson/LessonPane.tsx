@@ -156,6 +156,8 @@ type LessonPaneProps = {
   onBack: () => void
 }
 
+const endVerdict = css({ fontWeight: 'bold', '&[data-outcome=ahead]': { color: 'success' }, '&[data-outcome=behind]': { color: 'danger' } })
+
 export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPlayReply, lastNote, endRate, onBack }: LessonPaneProps) {
   const { t } = useTranslation()
   const { course, liveSfen: sfen, userSide, lastMove, prevSfen, playing, preview, atEnd } = useSession()
@@ -293,7 +295,7 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
           )}
           <p>{lessonMode === 'quiz' ? quizSummary(score) : jumped ? t('lesson.endOfThisBranchYou') : t('lesson.youHaveSeenTheWhole')}</p>
           {endRate !== null && (
-            <p className={css({ fontWeight: 'bold', color: endRate >= 0.55 ? 'success' : endRate <= 0.45 ? 'danger' : undefined })}>
+            <p className={endVerdict} data-outcome={endRate >= 0.55 ? 'ahead' : endRate <= 0.45 ? 'behind' : undefined}>
               {endRate >= 0.55
                 ? t('lesson.aiSViewOfThe', { value: Math.round(endRate * 100) })
                 : endRate <= 0.45

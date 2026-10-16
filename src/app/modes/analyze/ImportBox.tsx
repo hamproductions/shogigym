@@ -58,7 +58,7 @@ export function ImportBox({ onImport, open, bare }: { onImport: (text: string) =
           {t('games.openAFile')}
         </FilePicker>
       </Wrap>
-      {error && <p className={cx(result({ tone: 'wrong' }), css({ mb: '3!' }))}>{error}</p>}
+      {error && <p className={cx(result({ tone: 'wrong' }), css({ mb: '3' }))}>{error}</p>}
     </>
   )
   if (bare) return <Box mt="3">{content}</Box>

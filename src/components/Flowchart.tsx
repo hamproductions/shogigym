@@ -135,7 +135,7 @@ function Diagram({
 
   useEffect(() => {
     const box = scroller.current
-    const el = box?.querySelector<HTMLElement>('.fc-box.current')
+    const el = box?.querySelector<HTMLElement>('.fc-box[data-current]')
     if (!box || !el) return
     box.scrollTo({ left: el.offsetLeft - box.clientWidth / 2 + BOX_W / 2, top: el.offsetTop - box.clientHeight / 3, behavior: 'smooth' })
   }, [currentKey])
@@ -178,7 +178,8 @@ function Diagram({
           return (
             <button
               key={s.key}
-              className={cx('fc-box', s.key === currentKey && 'current', stageBox({ verdict: s.verdict, current: s.key === currentKey }))}
+              data-current={s.key === currentKey || undefined}
+              className={cx('fc-box', stageBox({ verdict: s.verdict, current: s.key === currentKey }))}
               style={{ left, top, width: BOX_W, height: BOX_H }}
               onClick={() => target && onJump(target)}
               title={[s.steps.map((st) => moveText(st.from.sfen, st.move.usi)).join(' '), s.end.comment].filter(Boolean).join('\n\n')}
