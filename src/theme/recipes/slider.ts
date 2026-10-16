@@ -106,6 +106,7 @@ export const slider = defineSlotRecipe({
         thumb: {
           bg: 'gray.surface.bg',
           borderWidth: '2px',
+          borderStyle: 'solid',
           borderColor: 'accent',
           boxShadow: 'xs',
         },

@@ -130,6 +130,7 @@ export const select = defineSlotRecipe({
       outline: {
         trigger: {
           borderWidth: '1px',
+          borderStyle: 'solid',
           borderColor: 'gray.outline.border',
 
           focusVisibleRing: 'inside',
@@ -139,6 +140,7 @@ export const select = defineSlotRecipe({
         trigger: {
           bg: 'gray.surface.bg',
           borderWidth: '1px',
+          borderStyle: 'solid',
           borderColor: 'gray.surface.border',
 
           focusVisibleRing: 'inside',

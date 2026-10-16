@@ -21,6 +21,7 @@ export const checkbox = defineSlotRecipe({
       justifyContent: 'center',
       flexShrink: '0',
       borderWidth: '1px',
+      borderStyle: 'solid',
       borderColor: 'transparent',
       borderRadius: 'l1',
       cursor: 'pointer',
@@ -74,6 +75,7 @@ export const checkbox = defineSlotRecipe({
         control: {
           bg: 'colorPalette.surface.bg',
           borderWidth: '1px',
+          borderStyle: 'solid',
           borderColor: 'colorPalette.surface.border',
           color: 'colorPalette.surface.fg',
         },
@@ -87,6 +89,7 @@ export const checkbox = defineSlotRecipe({
       outline: {
         control: {
           borderWidth: '1px',
+          borderStyle: 'solid',
           borderColor: 'colorPalette.outline.border',
           color: 'colorPalette.outline.fg',
           _checked: {
