@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Icon } from '@/app/icons'
 import { playSound, setSettings, useSettings } from '@/appearance/settings'
+import { cx } from '@/app/ui/cx'
+import { Slider } from '@/components/ui'
+import { railButton, railSlot, soundPop } from './rail.styles'
 
 export function SoundButton({ compact }: { compact: boolean }) {
   const { t } = useTranslation()
@@ -34,15 +37,17 @@ export function SoundButton({ compact }: { compact: boolean }) {
   return (
     <div
       ref={anchor}
-      className={`app-sound${compact ? ' compact' : ''}${open ? ' open' : ''}`}
+      className={railSlot}
+      data-rail-slot="sound"
       onMouseEnter={(e) => show(e.currentTarget)}
       onMouseLeave={() => setAt(null)}
       onFocus={(e) => show(e.currentTarget)}
       onBlur={(e) => !e.currentTarget.contains(e.relatedTarget) && setAt(null)}
     >
       <button
-        className={`app-rail-btn${muted ? '' : ' on'}`}
+        className={cx('app-rail-btn', railButton)}
         data-tool="sound"
+        data-on={!muted || undefined}
         onClick={toggle}
         onWheel={(e) => nudge(e.deltaY < 0 ? 0.05 : -0.05)}
         aria-pressed={!muted}
@@ -52,7 +57,9 @@ export function SoundButton({ compact }: { compact: boolean }) {
         <span>{muted ? t('rail.muted') : `${Math.round(volume * 100)}%`}</span>
       </button>
       <div
-        className="app-sound-pop"
+        className={soundPop}
+        data-open={open || undefined}
+        data-compact={compact || undefined}
         role="group"
         aria-label={t('settings.volume')}
         style={
@@ -63,17 +70,23 @@ export function SoundButton({ compact }: { compact: boolean }) {
             : undefined
         }
       >
-        <input
-          type="range"
+        <Slider.Root
+          w="140px"
           min={0}
           max={1}
           step={0.05}
-          value={muted ? 0 : volume}
-          aria-label={t('settings.volume')}
-          onChange={(e) => setSettings({ sound: Number(e.target.value) > 0, volume: Number(e.target.value) })}
-          onPointerUp={() => playSound('move')}
-          onKeyUp={() => playSound('move')}
-        />
+          value={[muted ? 0 : volume]}
+          aria-label={[t('settings.volume')]}
+          onValueChange={({ value }) => setSettings({ sound: value[0] > 0, volume: value[0] })}
+          onValueChangeEnd={() => playSound('move')}
+        >
+          <Slider.Control>
+            <Slider.Track>
+              <Slider.Range />
+            </Slider.Track>
+            <Slider.Thumbs />
+          </Slider.Control>
+        </Slider.Root>
       </div>
     </div>
   )

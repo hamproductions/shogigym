@@ -43,6 +43,8 @@ const paths = {
   reset: 'M4 12a8 8 0 1 0 2.5-5.8M4 4v5h5',
   panel: 'M3 4h18v16H3zM15 4v16',
   report: 'M6 3h9l4 4v14H6zM15 3v4h4M9 12h7M9 15.5h7M9 8.5h3',
+  check: 'M5 12.5l4.5 4.5L19 7',
+  chevronDown: 'M6 9l6 6 6-6',
 }
 
 export type IconName = keyof typeof paths

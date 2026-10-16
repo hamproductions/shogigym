@@ -1,20 +1,21 @@
-import './plate.css'
 import { useTranslation } from 'react-i18next'
 import { Color, type ImmutablePosition } from 'tsshogi'
 import { formationName, formationOf } from '@/utils/formation'
 import type { ClockFace } from '@/app/modes/spar/useGameClock'
 import { Pill } from '@/app/ui/Pill'
 import { useSession } from '@/app/hooks/session'
+import { cx } from '@/app/ui/cx'
+import { clock as clockStyle, muted, plate, plateSide } from './panels.styles'
 
 export function Plate({
-  position,
-  color,
+  board: position,
+  side: color,
   who,
   className,
   clock,
 }: {
-  position: ImmutablePosition
-  color: Color
+  board: ImmutablePosition
+  side: Color
   who: string | null
   className: string
   clock?: ClockFace
@@ -23,14 +24,14 @@ export function Plate({
   const { sfens, game, cursor } = useSession()
   const { strategy, castle } = formationOf(position, color, { sfens, moves: game.moves, cursor })
   return (
-    <div className={`app-plate ${className}`}>
+    <div className={cx('app-plate', className, plate)}>
       {clock && (
-        <span className={`app-clock${clock.active ? ' on' : ''}${clock.low ? ' low' : ''}${clock.out ? ' out' : ''}`} role="timer">
+        <span className={clockStyle({ state: clock.out ? 'out' : clock.low ? 'low' : clock.active ? 'on' : 'idle' })} role="timer">
           {clock.out ? t('plate.outOfTime') : clock.text}
         </span>
       )}
-      <span className="app-plate-side">{color === Color.BLACK ? t('plate.sente') : t('plate.gote')}</span>
-      {who && <span className="app-muted">{who}</span>}
+      <span className={plateSide}>{color === Color.BLACK ? t('plate.sente') : t('plate.gote')}</span>
+      {who && <span className={muted}>{who}</span>}
       {strategy && <Pill title={`${t('plate.strategyFromWhereTheRook')} (${strategy})`}>{formationName(strategy, i18n.language)}</Pill>}
       {castle && <Pill title={`${t('plate.castleFromWhereTheKing')} (${castle})`}>{formationName(castle, i18n.language)}</Pill>}
     </div>

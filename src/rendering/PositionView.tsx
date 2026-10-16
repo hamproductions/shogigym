@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { Color, PieceType, Square } from 'tsshogi'
+import { css } from 'styled-system/css'
 import { useBakedPieces } from '@/app/hooks/useBakedPieces'
 import { HALF_D, HALF_W, MARGIN, setBoardDims } from '@/rendering/board3d/dimensions'
 import { HAND_ORDER, positionOf } from '@/utils/shogi'
@@ -112,7 +113,13 @@ export function PositionView({ sfen, played, best, flipped = false, label }: Pro
   }
 
   return (
-    <svg className="app-position" viewBox={`0 0 ${width} ${height}`} role="img" aria-label={label} aria-busy={!baked}>
+    <svg
+      className={css({ display: 'block', w: '100%', h: 'auto', mt: '1', borderRadius: 'sm' })}
+      viewBox={`0 0 ${width} ${height}`}
+      role="img"
+      aria-label={label}
+      aria-busy={!baked}
+    >
       {anyHand && hand(bottomColor === Color.BLACK ? Color.WHITE : Color.BLACK, 0)}
       {baked ? (
         <image href={baked.board} x={0} y={top} width={width} height={boardHeight} preserveAspectRatio="none" />

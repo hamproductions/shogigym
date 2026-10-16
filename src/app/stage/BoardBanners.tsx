@@ -1,4 +1,3 @@
-import './banners.css'
 import { useTranslation } from 'react-i18next'
 import { LABELS } from '@/utils/analysis'
 import { moveText } from '@/utils/shogi'
@@ -7,6 +6,7 @@ import { mistakeHeadline, mistakeIsBad, mistakeSeal, type ShownMistake } from '@
 import { mainLine, promote } from '@/app/tree'
 import { isGameMode, type Preview } from '@/app/types'
 import { Button } from '@/app/ui/Button'
+import { banner, bannerSeal, bannerText, branchTip, nowrap } from './stage.styles'
 
 function MistakeBanner({ mistake, preview, onBack }: { mistake: ShownMistake; preview: Preview; onBack: () => void }) {
   const { t } = useTranslation()
@@ -17,16 +17,16 @@ function MistakeBanner({ mistake, preview, onBack }: { mistake: ShownMistake; pr
     setPlaying(true)
   }
   return (
-    <div className={`app-preview mistake${mistakeIsBad(mistake) ? '' : ' ok'}`} role="status">
-      <span className="app-preview-seal">{mistakeSeal(mistake)}</span>
+    <div className={banner({ tone: mistakeIsBad(mistake) ? 'mistake' : 'ok' })} data-banner="" role="status">
+      <span className={bannerSeal({ tone: 'mistake' })}>{mistakeSeal(mistake)}</span>
       {mode === 'drill' && (
-        <span className="app-short">
+        <span className={bannerText({ fit: 'short' })}>
           {mistakeIsBad(mistake) ? t('app.better') : t('app.lesson')}: {moveText(sfens[mistake.base], mistake.expected)}
         </span>
       )}
-      {mode === 'tsume' && <span className="app-short">{t('app.notMate')}</span>}
-      {mode === 'lesson' && <span className="app-short">{mistake.verdict ? LABELS[mistake.verdict.label].text : t('app.mistake')}</span>}
-      <span>
+      {mode === 'tsume' && <span className={bannerText({ fit: 'short' })}>{t('app.notMate')}</span>}
+      {mode === 'lesson' && <span className={bannerText({ fit: 'short' })}>{mistake.verdict ? LABELS[mistake.verdict.label].text : t('app.mistake')}</span>}
+      <span className={bannerText({ fit: 'hide' })}>
         {mistakeHeadline(moveText(sfens[mistake.base], mistake.usi), mistake)}
         {t('app.headlineEnd')}
         {playing ? t('app.watchWhatFollows') : preview.step < preview.moves.length ? t('app.paused') : t('app.thatIsHowItContinues')}
@@ -47,10 +47,10 @@ function PreviewBanner({ preview }: { preview: Preview }) {
   const { t } = useTranslation()
   const { playing, setPlaying, keepPreview, exitPreview } = useSession()
   return (
-    <div className="app-preview" role="status">
-      <span className="app-preview-seal">{t('app.preview')}</span>
-      <span>
-        {t('app.preview2')}: {preview.title}, <span className="app-nowrap">{t('app.moveOf', { step: preview.step, movesCount: preview.moves.length })}</span>
+    <div className={banner()} data-banner="" role="status">
+      <span className={bannerSeal()}>{t('app.preview')}</span>
+      <span className={bannerText({ fit: 'hide' })}>
+        {t('app.preview2')}: {preview.title}, <span className={nowrap}>{t('app.moveOf', { step: preview.step, movesCount: preview.moves.length })}</span>
       </span>
       <Button size="sm" onClick={() => setPlaying((v) => !v)}>
         {playing ? t('app.pause') : t('app.play')}
@@ -76,14 +76,14 @@ function BranchBanner() {
     setCursor(i)
   }
   return (
-    <div className="app-preview branch" role="status">
-      <span className="app-preview-seal">{t('app.branch')}</span>
-      <span>
+    <div className={banner({ tone: 'branch' })} data-banner="" role="status">
+      <span className={bannerSeal({ tone: 'branch' })}>{t('app.branch')}</span>
+      <span className={bannerText({ fit: atEnd ? 'wrap' : 'tip' })}>
         {atEnd ? (
           t('app.variation')
         ) : (
           <>
-            {t('app.moveOf2', { cursor, movesCount: game.moves.length })} <strong className="app-branch-tip">{t('app.playADifferentMoveTo')}</strong>
+            {t('app.moveOf2', { cursor, movesCount: game.moves.length })} <strong className={branchTip}>{t('app.playADifferentMoveTo')}</strong>
           </>
         )}
       </span>
@@ -101,15 +101,15 @@ function ReviewBanner() {
   const { t } = useTranslation()
   const { mode, playing, setPlaying, cursor, game, setCursor } = useSession()
   return (
-    <div className="app-preview" role="status">
-      <span className="app-preview-seal">{playing ? t('app.play') : t('app.review2')}</span>
-      <span>
+    <div className={banner()} data-banner="" role="status">
+      <span className={bannerSeal()}>{playing ? t('app.play') : t('app.review2')}</span>
+      <span className={bannerText({ fit: playing ? 'hide' : 'tip' })}>
         {playing ? (
           t('app.playingTheLine')
         ) : (
           <>
             {t('app.moveOf2', { cursor, movesCount: game.moves.length })}{' '}
-            <strong className="app-branch-tip">{isGameMode(mode) || mode === 'view' ? t('app.playADifferentMoveTo') : t('app.aMoveHereReplacesWhat')}</strong>
+            <strong className={branchTip}>{isGameMode(mode) || mode === 'view' ? t('app.playADifferentMoveTo') : t('app.aMoveHereReplacesWhat')}</strong>
           </>
         )}
       </span>

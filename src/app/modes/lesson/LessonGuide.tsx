@@ -7,6 +7,25 @@ import { moveText } from '@/utils/shogi'
 import { sideMark } from '@/utils/notation'
 import { useSession } from '@/app/hooks/session'
 import { Button } from '@/app/ui/Button'
+import { css } from 'styled-system/css'
+import { Wrap } from 'styled-system/jsx'
+import { backLink } from '@/app/panels/panels.styles'
+import {
+  guide,
+  guideBar,
+  guideBody,
+  guideCheck,
+  guideCount,
+  guideFoot,
+  guideHint,
+  guideNav,
+  guideNote,
+  guideReview,
+  guideSource,
+  guideText,
+  guideTitle,
+  guideTop,
+} from './lesson.styles'
 import type { Lesson } from './useLesson'
 import { LessonReferences } from './LessonReferences'
 
@@ -226,25 +245,25 @@ export function LessonGuide({ course, lesson, series }: Props) {
         : ''
 
   return (
-    <div className="app-guide">
-      <div className="app-guide-head">
-        <div className="app-guide-top">
-          <button className="app-back" onClick={series?.back ?? lesson.leave}>
+    <div className={guide}>
+      <div className={guide}>
+        <div className={guideTop}>
+          <button className={backLink} onClick={series?.back ?? lesson.leave}>
             ‹ {ja ? '目次' : 'Contents'}
           </button>
-          <span className="app-guide-count">
+          <span className={guideCount}>
             {ja ? `第${chapter + 1}章 / ${chapters.length}・${cursor}手目` : `Chapter ${chapter + 1} of ${chapters.length} · move ${cursor}`}
           </span>
         </div>
-        <div className="app-guide-bar" aria-hidden="true">
+        <div className={guideBar} aria-hidden="true">
           <i style={{ width: `${script.length > 1 ? (index / (script.length - 1)) * 100 : 100}%` }} />
         </div>
       </div>
-      <div className="app-guide-foot">
-        <p className="app-guide-hint" role="status">
+      <div className={guideFoot}>
+        <p className={guideHint} role="status">
           {hint}
         </p>
-        <nav className="app-guide-nav" aria-label={ja ? '手順の移動' : 'Moves'}>
+        <nav className={guideNav} aria-label={ja ? '手順の移動' : 'Moves'}>
           <Button disabled={index === 0} onClick={back} aria-keyshortcuts="ArrowLeft">
             ‹ {ja ? '戻る' : 'Back'}
           </Button>
@@ -253,26 +272,26 @@ export function LessonGuide({ course, lesson, series }: Props) {
           </Button>
         </nav>
       </div>
-      <div className="app-guide-body">
+      <div className={guideBody}>
         {title && (
-          <h3 className="app-guide-title">
+          <h3 className={guideTitle}>
             <SquareText text={title} context={text} />
           </h3>
         )}
         {body.map((line, i) => (
-          <p key={i} className={i === 0 ? 'app-guide-text' : 'app-guide-note'}>
+          <p key={i} className={i === 0 ? guideText : guideNote}>
             <SquareText text={line} context={text} />
           </p>
         ))}
-        {setup?.references && <LessonReferences references={setup.references} ja={ja} className="app-guide-source" />}
+        {setup?.references && <LessonReferences references={setup.references} ja={ja} className={guideSource} />}
         {end && (
-          <div className="app-guide-review">
+          <div className={guideReview}>
             <strong>{ja ? 'おさらい' : 'Review'}</strong>
             {setup?.check && (
-              <div className="app-guide-check">
+              <div className={guideCheck}>
                 <p>{ja ? setup.check.question.ja : setup.check.question.en}</p>
                 {revealed ? (
-                  <p className="app-guide-answer">{ja ? setup.check.answer.ja : setup.check.answer.en}</p>
+                  <p className={css({ fontWeight: 'bold' })}>{ja ? setup.check.answer.ja : setup.check.answer.en}</p>
                 ) : (
                   <Button size="sm" onClick={() => setRevealed(true)}>
                     {ja ? '答えを見る' : 'Show the answer'}
@@ -280,13 +299,13 @@ export function LessonGuide({ course, lesson, series }: Props) {
                 )}
               </div>
             )}
-            <div className="app-actions">
+            <Wrap gap="2" align="center">
               {series?.shuffle && (
                 <Button variant="primary" onClick={series.shuffle}>
                   {ja ? 'クイズで確認する' : 'Test yourself'}
                 </Button>
               )}
-            </div>
+            </Wrap>
           </div>
         )}
       </div>

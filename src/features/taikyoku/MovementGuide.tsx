@@ -4,6 +4,7 @@ import { useSettings } from '@/appearance/settings'
 import { SPRITE_BOX } from '@/rendering/sprites'
 import { bakeTaikyoku, bakedKey, taikyokuSprites } from './bake'
 import { catalog, type Cell } from './notation'
+import { ruleBorder, ruleGrid, ruleGuide, ruleJump, ruleLegend, ruleSlide, ruleStep, ruleTurn } from './taikyoku.styles'
 
 type Direction = [number, number]
 type Atom = { kind: number; directions: Direction[]; range: number; mode: number; jumps: number[]; tail: number; screens: number; geom: number }
@@ -96,7 +97,7 @@ export function MovementGuide({ cell, lang }: { cell: Cell; lang: string }) {
       cx={x * sign}
       cy={-y * sign}
       r="0.17"
-      className={blue ? 'tk-rule-jump' : 'tk-rule-step'}
+      className={blue ? ruleJump : ruleStep}
       fill={mode === 1 ? 'none' : undefined}
       strokeWidth={mode === 1 ? 0.1 : 0}
     />
@@ -105,21 +106,21 @@ export function MovementGuide({ cell, lang }: { cell: Cell; lang: string }) {
     <path
       key={key}
       d={`M${x * start * sign} ${-y * start * sign}L${x * (extent - 0.3) * sign} ${-y * (extent - 0.3) * sign}`}
-      className="tk-rule-slide"
+      className={ruleSlide}
       strokeDasharray={dashed ? '0.3 0.2' : undefined}
     />
   )
   return (
-    <div className="tk-rule-guide">
+    <div className={ruleGuide}>
       <svg
         viewBox={`${-extent - 0.3} ${-extent - 0.3} ${2 * extent + 0.6} ${2 * extent + 0.6}`}
         role="img"
         aria-label={`${info.k} ${ja ? 'の動き方' : 'movement rules'}`}
       >
-        <rect x={-extent - 0.2} y={-extent - 0.2} width={2 * extent + 0.4} height={2 * extent + 0.4} className="tk-rule-border" />
+        <rect x={-extent - 0.2} y={-extent - 0.2} width={2 * extent + 0.4} height={2 * extent + 0.4} className={ruleBorder} />
         {Array.from({ length: 2 * extent }, (_, index) => {
           const offset = index - extent + 0.5
-          return <path key={index} d={`M${offset} ${-extent - 0.2}V${extent + 0.2}M${-extent - 0.2} ${offset}H${extent + 0.2}`} className="tk-rule-grid" />
+          return <path key={index} d={`M${offset} ${-extent - 0.2}V${extent + 0.2}M${-extent - 0.2} ${offset}H${extent + 0.2}`} className={ruleGrid} />
         })}
         {moves.flatMap((atom, index) => {
           if (atom.kind === 5)
@@ -158,7 +159,7 @@ export function MovementGuide({ cell, lang }: { cell: Cell; lang: string }) {
             return [
               ray(x, y, key),
               ...turns.map(([tx, ty], t) => (
-                <path key={`${key}/${t}`} d={`M${x * 2 * sign} ${-y * 2 * sign}l${tx * 2 * sign} ${-ty * 2 * sign}`} className="tk-rule-turn" />
+                <path key={`${key}/${t}`} d={`M${x * 2 * sign} ${-y * 2 * sign}l${tx * 2 * sign} ${-ty * 2 * sign}`} className={ruleTurn} />
               )),
             ]
           })
@@ -172,10 +173,10 @@ export function MovementGuide({ cell, lang }: { cell: Cell; lang: string }) {
           transform={cell.side === 'w' ? 'rotate(180)' : undefined}
         />
       </svg>
-      <div className="tk-rule-legend">
-        <span className="tk-rule-step">● {ja ? '一目ずつ進む' : 'Step to a marked square'}</span>
-        <span className="tk-rule-step">━ {ja ? '線の方向に走る' : 'Slide along the line'}</span>
-        <span className="tk-rule-jump">● {ja ? '跳び・連続移動' : 'Jump / multi-step move'}</span>
+      <div className={ruleLegend}>
+        <span className={ruleStep}>● {ja ? '一目ずつ進む' : 'Step to a marked square'}</span>
+        <span className={ruleStep}>━ {ja ? '線の方向に走る' : 'Slide along the line'}</span>
+        <span className={ruleJump}>● {ja ? '跳び・連続移動' : 'Jump / multi-step move'}</span>
         {special.map((kind) => (
           <p key={kind}>{descriptions[kind]}</p>
         ))}

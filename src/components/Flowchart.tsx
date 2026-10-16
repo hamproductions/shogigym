@@ -4,7 +4,9 @@ import { moveText } from '@/utils/shogi'
 import { useTranslation } from 'react-i18next'
 import i18n from '@/utils/i18n'
 import { Button } from '@/app/ui/Button'
-import './flowchart.css'
+import { css } from 'styled-system/css'
+import { cx } from '@/app/ui/cx'
+import { arrowHead, canvas, edge, head, help, lines, moves, note, overlay, overlayBox, ply, progress, scroll, stageBox, tag } from './flowchart.styles'
 
 type Props = {
   course: Course
@@ -133,19 +135,19 @@ function Diagram({
 
   useEffect(() => {
     const box = scroller.current
-    const el = box?.querySelector<HTMLElement>('.fc-box.current')
+    const el = box?.querySelector<HTMLElement>('.fc-box[data-current]')
     if (!box || !el) return
     box.scrollTo({ left: el.offsetLeft - box.clientWidth / 2 + BOX_W / 2, top: el.offsetTop - box.clientHeight / 3, behavior: 'smooth' })
   }, [currentKey])
 
   return (
-    <div className="fc-scroll" ref={scroller}>
-      <div className="fc-canvas" style={{ width: size.w, height: size.h }}>
-        <svg width={size.w} height={size.h} className="fc-lines" aria-hidden="true">
+    <div className={scroll} ref={scroller}>
+      <div className={canvas} style={{ width: size.w, height: size.h }}>
+        <svg width={size.w} height={size.h} className={lines} aria-hidden="true">
           <defs>
-            {['good', 'book', 'mistake', 'opponent-mistake'].map((v) => (
+            {(['good', 'book', 'mistake', 'opponent-mistake'] as const).map((v) => (
               <marker key={v} id={`fc-arrow-${v}`} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-                <path d="M0,0 L10,5 L0,10 z" className={`fc-head-${v}`} />
+                <path d="M0,0 L10,5 L0,10 z" className={arrowHead({ verdict: v })} />
               </marker>
             ))}
           </defs>
@@ -162,7 +164,7 @@ function Diagram({
                 <path
                   key={child.key}
                   d={`M${x1},${y1} C${x1},${mid} ${x2},${mid} ${x2},${y2}`}
-                  className={`fc-edge v-${child.verdict}`}
+                  className={edge({ verdict: child.verdict })}
                   markerEnd={`url(#fc-arrow-${child.verdict})`}
                 />
               )
@@ -176,25 +178,26 @@ function Diagram({
           return (
             <button
               key={s.key}
-              className={`fc-box v-${s.verdict}${s.key === currentKey ? ' current' : ''}`}
+              data-current={s.key === currentKey || undefined}
+              className={cx('fc-box', stageBox({ verdict: s.verdict, current: s.key === currentKey }))}
               style={{ left, top, width: BOX_W, height: BOX_H }}
               onClick={() => target && onJump(target)}
               title={[s.steps.map((st) => moveText(st.from.sfen, st.move.usi)).join(' '), s.end.comment].filter(Boolean).join('\n\n')}
             >
-              <span className="fc-tag">{tagText(s)}</span>
+              <span className={tag}>{tagText(s)}</span>
               {s.steps.length ? (
-                <span className="fc-moves">
-                  <span className="fc-ply">
+                <span className={moves}>
+                  <span className={ply}>
                     {s.steps[0].ply}
                     {s.steps.length > 1 ? `–${s.steps.at(-1)!.ply}` : ''}
                   </span>
                   {summary(s)}
                 </span>
               ) : (
-                <span className="fc-moves">{t('lessonMap.initialPosition')}</span>
+                <span className={moves}>{t('lessonMap.initialPosition')}</span>
               )}
-              <span className="fc-note">{firstSentence(s.end.comment ?? s.steps.at(-1)?.move.punishNote ?? s.steps.at(-1)?.move.note)}</span>
-              {insideAt >= 0 && <span className="fc-progress" style={{ width: `${((insideAt + 1) / s.steps.length) * 100}%` }} />}
+              <span className={note}>{firstSentence(s.end.comment ?? s.steps.at(-1)?.move.punishNote ?? s.steps.at(-1)?.move.note)}</span>
+              {insideAt >= 0 && <span className={progress} style={{ width: `${((insideAt + 1) / s.steps.length) * 100}%` }} />}
             </button>
           )
         })}
@@ -229,16 +232,16 @@ export function LessonMap({ course, currentNodeId, onJump, onClose }: Props & { 
     return stages.find((s) => s.steps.some((step) => step.move.child?.id === currentNodeId))?.key ?? null
   }, [stages, currentNodeId, course.root.id])
   return (
-    <div className="fc">
-      <div className="fc-overlay" onMouseDown={onClose}>
-        <div className="fc-overlay-box" onMouseDown={(e) => e.stopPropagation()}>
-          <div className="fc-head">
+    <div className={css({ color: 'fg.default' })}>
+      <div className={overlay} onMouseDown={onClose}>
+        <div className={overlayBox} onMouseDown={(e) => e.stopPropagation()}>
+          <div className={head}>
             <strong>{t('lessonMap.lessonMap', { title: course.title })}</strong>
             <Button size="sm" variant="ghost" onClick={onClose}>
               {t('lessonMap.close')}
             </Button>
           </div>
-          <p className="fc-help">{t('lessonMap.everyPointInThisLesson')}</p>
+          <p className={help}>{t('lessonMap.everyPointInThisLesson')}</p>
           <Diagram
             stages={stages}
             size={size}

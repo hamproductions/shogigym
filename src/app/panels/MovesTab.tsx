@@ -1,4 +1,3 @@
-import './moves.css'
 import { useMemo } from 'react'
 import { Color } from 'tsshogi'
 import { hasLegalMove, positionOf } from '@/utils/shogi'
@@ -9,6 +8,7 @@ import { mainContinuation, nodeAt, removeBranch } from '@/app/tree'
 import { isGameMode } from '@/app/types'
 import { MovesPane } from './MovesPane'
 import type { PanelModel } from './PanelBody'
+import { muted } from './panels.styles'
 
 export function MovesTab({ model }: { model: PanelModel }) {
   const { t } = useTranslation()
@@ -37,11 +37,11 @@ export function MovesTab({ model }: { model: PanelModel }) {
   if (preview && previewSfens)
     return (
       <>
-        <p className="app-muted">{t('app.showingAPreviewTheseMoves')}</p>
+        <p className={muted}>{t('app.showingAPreviewTheseMoves')}</p>
         <MovesPane
           sfens={[...sfens.slice(0, preview.base), ...previewSfens]}
           moves={[...game.moves.slice(0, preview.base), ...preview.moves]}
-          cursor={preview.base + preview.step}
+          ply={preview.base + preview.step}
           setCursor={(i) => i >= preview.base && setPreview({ ...preview, step: i - preview.base })}
           title={title}
           detectionPreset={game.detectionPreset}
@@ -55,7 +55,7 @@ export function MovesTab({ model }: { model: PanelModel }) {
         detectionResult={detectionResult}
         detectionPreset={game.detectionPreset}
         moves={game.moves}
-        cursor={cursor}
+        ply={cursor}
         setCursor={setCursor}
         title={title}
         tree={isGameMode(mode) || mode === 'view' ? tree : null}

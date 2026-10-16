@@ -1,11 +1,70 @@
-import './flow.css'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { css, cva } from 'styled-system/css'
+import { styled } from 'styled-system/jsx'
 import { applyUsi, moveText } from '@/utils/shogi'
 import type { Lane } from '@/utils/lanes'
 import { lossClass } from '@/utils/score'
 import { loadStats, loadStatsMeta, type PositionStats, type StatsMeta } from '@/utils/stats'
-import '@/styles/stats.css'
+import { muted } from './panels.styles'
+
+const statsColumns = css({
+  display: 'grid',
+  gridTemplateColumns: 'minmax(64px, 0.9fr) 1.2fr 1.2fr',
+  alignItems: 'center',
+  gap: '2',
+  p: '0 {spacing.2} {spacing.1}',
+  color: 'fg.muted',
+  fontSize: '2xs',
+})
+
+const statsRow = css({
+  display: 'grid',
+  gridTemplateColumns: 'minmax(64px, 0.9fr) 1.2fr 1.2fr',
+  alignItems: 'center',
+  gap: '2',
+  w: '100%',
+  p: '{spacing.1.5} {spacing.2}',
+  borderRadius: 'sm',
+  textAlign: 'left',
+  _hover: { bg: 'card.hover' },
+  _focusVisible: { bg: 'card.hover' },
+})
+
+const statsCell = css({ display: 'flex', flexDirection: 'column', gap: '0.5', minW: '0', '&[data-thin]': { opacity: '0.5' } })
+
+const statsTrack = css({ display: 'flex', h: '6px', overflow: 'hidden', borderRadius: 'full', bg: 'meter.track' })
+
+const statsNumber = css({
+  fontSize: 'xs',
+  fontVariantNumeric: 'tabular-nums',
+  whiteSpace: 'nowrap',
+  '& b': { fontWeight: 'bold' },
+  '& small': { color: 'fg.muted', fontSize: 'inherit' },
+})
+
+const laneCard = cva({
+  base: {
+    layerStyle: 'card',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1',
+    w: '100%',
+    mb: '2',
+    p: '{spacing.2.5} {spacing.3}',
+    textAlign: 'left',
+    transition: 'background {durations.fast}',
+    _hover: { bg: 'card.hover' },
+    _focusVisible: { bg: 'card.hover' },
+  },
+  variants: {
+    tone: {
+      book: { '--tone': '{colors.warning}' },
+      ai: { '--tone': '{colors.info}' },
+      mistake: { '--tone': '{colors.danger}' },
+    },
+  },
+})
 
 function laneSteps(sfen: string, moves: string[]) {
   const steps: string[] = []
@@ -58,23 +117,32 @@ function OpeningStats({
   const { t } = useTranslation()
   const { loading, stats, meta } = useOpeningStats(sfen)
   if (loading) return null
-  if (!stats) return <p className="app-stats-empty app-muted">{t('flow.statsNone', { ply: meta?.maxPly ?? 30 })}</p>
+  if (!stats)
+    return (
+      <styled.p m="{spacing.3} 0 0" color="fg.muted" fontSize="xs">
+        {t('flow.statsNone', { ply: meta?.maxPly ?? 30 })}
+      </styled.p>
+    )
   const gote = sfen.split(' ')[1] === 'w'
   const book = stats.book
   const bookText = book ? moveText(sfen, book.usi) : ''
   const bookEval = book ? t('flow.statsEval', { side: book.eval >= 0 !== gote ? '☗' : '☖', cp: Math.abs(book.eval) }) : ''
   return (
-    <section className="app-stats" aria-label={t('flow.statsTitle')}>
-      <header className="app-stats-head">
-        <h3>{t('flow.statsTitle')}</h3>
-        <span className="app-muted">{t('flow.statsSource', { games: stats.games.toLocaleString(), source: sourceLabel(meta) })}</span>
-      </header>
-      <div className="app-stats-cols app-muted" aria-hidden="true">
+    <styled.section mt="3" pt="3" borderTop="1px solid {colors.border}" aria-label={t('flow.statsTitle')}>
+      <styled.header display="flex" flexWrap="wrap" alignItems="baseline" justifyContent="space-between" gap="{spacing.1} {spacing.2}" mb="2">
+        <styled.h3 m="0" fontSize="sm" fontWeight="bold">
+          {t('flow.statsTitle')}
+        </styled.h3>
+        <styled.span color="fg.muted" fontSize="2xs">
+          {t('flow.statsSource', { games: stats.games.toLocaleString(), source: sourceLabel(meta) })}
+        </styled.span>
+      </styled.header>
+      <div className={statsColumns} aria-hidden="true">
         <span>{t('flow.statsMove')}</span>
         <span>{t('flow.statsPlayed')}</span>
         <span>{t('flow.statsResult')}</span>
       </div>
-      <ul className="app-stats-list">
+      <styled.ul m="0" p="0" listStyle="none">
         {stats.moves.map((m) => {
           const text = moveText(sfen, m.usi)
           const s = pct(m.senteWins, m.games)
@@ -83,7 +151,7 @@ function OpeningStats({
           return (
             <li key={m.usi}>
               <button
-                className="app-stats-row"
+                className={statsRow}
                 onClick={() => onPreview([m.usi], text)}
                 onMouseEnter={() => onHover(m.usi)}
                 onMouseLeave={() => onHover(null)}
@@ -91,40 +159,66 @@ function OpeningStats({
                 onBlur={() => onHover(null)}
                 title={t('flow.statsRowTitle', { move: text, games: m.games.toLocaleString(), sente: s, gote: g, draw: Math.max(0, 100 - s - g) })}
               >
-                <span className="app-stats-move">
+                <styled.span
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="flex-start"
+                  gap="0.5"
+                  minW="0"
+                  fontFamily="mincho"
+                  fontSize="md"
+                  fontWeight="heavy"
+                  whiteSpace="nowrap"
+                >
                   {text}
-                  {isBook && <em className="app-stats-book">{t('flow.statsBookMark')}</em>}
-                </span>
-                <span className="app-stats-freq">
-                  <span className="app-stats-bar">
-                    <i style={{ width: `${(m.games / stats.games) * 100}%` }} />
+                  {isBook && (
+                    <styled.em
+                      px="1"
+                      borderRadius="xs"
+                      bg="info.soft"
+                      color="info"
+                      fontFamily="sans"
+                      fontSize="2xs"
+                      fontStyle="normal"
+                      fontWeight="bold"
+                      lineHeight="snug"
+                    >
+                      {t('flow.statsBookMark')}
+                    </styled.em>
+                  )}
+                </styled.span>
+                <span className={statsCell}>
+                  <span className={statsTrack}>
+                    <styled.i bg="warning" style={{ width: `${(m.games / stats.games) * 100}%` }} />
                   </span>
-                  <span className="app-stats-num">
+                  <span className={statsNumber}>
                     {pct(m.games, stats.games)}% <small>{t('flow.statsGames', { count: m.games, n: m.games.toLocaleString() })}</small>
                   </span>
                 </span>
-                <span className={`app-stats-win${m.games < THIN_SAMPLE ? ' thin' : ''}`}>
-                  <span className="app-stats-split">
-                    <i className="b" style={{ width: `${s}%` }} />
-                    <i className="w" style={{ width: `${g}%` }} />
+                <span className={statsCell} data-thin={m.games < THIN_SAMPLE || undefined}>
+                  <span className={statsTrack}>
+                    <styled.i bg="meter.fill" style={{ width: `${s}%` }} />
+                    <styled.i ml="auto" bg="hai.400" style={{ width: `${g}%` }} />
                   </span>
-                  <span className="app-stats-num">
-                    <b className="b">☗{s}%</b> <b className="w">☖{g}%</b>
+                  <span className={statsNumber}>
+                    <b>☗{s}%</b> <styled.b color="fg.muted">☖{g}%</styled.b>
                   </span>
                 </span>
               </button>
             </li>
           )
         })}
-      </ul>
-      <p className="app-stats-key app-muted">{t('flow.statsKey', { min: THIN_SAMPLE })}</p>
+      </styled.ul>
+      <styled.p m="{spacing.2} 0 0" color="fg.muted" fontSize="2xs" lineHeight="snug">
+        {t('flow.statsKey', { min: THIN_SAMPLE })}
+      </styled.p>
       {book && (
-        <p className="app-stats-engine">
+        <styled.p m="{spacing.2} 0 0" fontSize="xs">
           {t('flow.statsBook', { move: bookText, eval: bookEval })}
-          {!stats.moves.some((m) => m.usi === book.usi) && <span className="app-muted"> {t('flow.statsBookRare')}</span>}
-        </p>
+          {!stats.moves.some((m) => m.usi === book.usi) && <span className={muted}> {t('flow.statsBookRare')}</span>}
+        </styled.p>
       )}
-    </section>
+    </styled.section>
   )
 }
 
@@ -143,42 +237,52 @@ export function FlowPane({
   const statsPane = <OpeningStats sfen={sfen} onPreview={onPreview} onHover={onHover} />
   if (!lanes.length)
     return (
-      <div className="app-off">
+      <styled.div py="2" css={{ '& p': { m: '0 0 {spacing.3}', fontFamily: 'mincho', lineHeight: 'mincho' }, '& > section': { mt: '0' } }}>
         <p>{t('flow.noBookLineFromThis')}</p>
         {statsPane}
-      </div>
+      </styled.div>
     )
   return (
-    <div className="app-flow">
-      <p className="app-muted">{t('flow.whatCanHappenFromThe')}</p>
+    <div>
+      <styled.p m="0 0 {spacing.3}" color="fg.muted" fontSize="sm">
+        {t('flow.whatCanHappenFromThe')}
+      </styled.p>
       {lanes.map((lane) => {
         const steps = laneSteps(sfen, lane.moves)
         return (
           <button
             key={lane.first}
-            className={`app-lane ${lane.tag}`}
+            className={laneCard({ tone: lane.tag })}
             onClick={() => onPreview(lane.moves, steps[0])}
             onMouseEnter={() => onHover(lane.first)}
             onMouseLeave={() => onHover(null)}
             onFocus={() => onHover(lane.first)}
             onBlur={() => onHover(null)}
           >
-            <span className="app-lane-head">
-              <span className="app-lane-tag">{lane.tag === 'book' ? t('flow.book') : lane.tag === 'mistake' ? t('flow.knownMistake') : t('flow.aiLine')}</span>
+            <styled.span display="flex" justifyContent="space-between" color="var(--tone)" fontSize="2xs" fontWeight="bold">
+              <span>{lane.tag === 'book' ? t('flow.book') : lane.tag === 'mistake' ? t('flow.knownMistake') : t('flow.aiLine')}</span>
               {lane.loss !== undefined && (
                 <span className={lossClass(lane.loss)}>{lane.best ? t('flow.best') : lane.loss === 0 ? t('flow.best2') : `−${lane.loss}%`}</span>
               )}
-            </span>
-            <span className="app-lane-steps">
+            </styled.span>
+            <styled.span display="flex" flexWrap="wrap" gap="{spacing.0.5} {spacing.1.5}" fontFamily="mincho" fontSize="sm" lineHeight="snug">
               {steps.map((step, i) => (
-                <span key={i} className={i === 0 ? 'first' : ''}>
-                  {i > 0 && <i aria-hidden="true">→</i>}
+                <styled.span key={i} fontWeight={i === 0 ? 'heavy' : undefined} fontSize={i === 0 ? 'lg' : undefined}>
+                  {i > 0 && (
+                    <styled.i mr="1.5" fontStyle="normal" color="fg.muted" aria-hidden="true">
+                      →
+                    </styled.i>
+                  )}
                   {step}
-                </span>
+                </styled.span>
               ))}
-              {lane.forks && <span className="app-muted">{t('flow.thenChoices', { forks: lane.forks })}</span>}
-            </span>
-            {lane.note && <span className="app-lane-note">{lane.note}</span>}
+              {lane.forks && <span className={muted}>{t('flow.thenChoices', { forks: lane.forks })}</span>}
+            </styled.span>
+            {lane.note && (
+              <styled.span fontFamily="mincho" fontSize="xs" color="fg.muted">
+                {lane.note}
+              </styled.span>
+            )}
           </button>
         )
       })}

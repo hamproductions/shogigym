@@ -1,5 +1,3 @@
-import './settings.css'
-import '@/appearance/previews.css'
 import { useEffect, useRef, useState } from 'react'
 import { Color, PieceType, promotedPieceType } from 'tsshogi'
 import { faceText } from '@/rendering/koma'
@@ -7,6 +5,8 @@ import { bakePreviews } from '@/rendering/board3d/bake'
 import { finishProfile } from '@/rendering/board3d/relief'
 import { pieceSurface } from '@/rendering/board3d/textures'
 import { useTranslation } from 'react-i18next'
+import { css } from 'styled-system/css'
+import { Box, styled, Wrap } from 'styled-system/jsx'
 import { say } from '@/utils/voice'
 import { EngineSettings } from '@/app/EngineSettings'
 import { loadPieceSet, pieceGlyphUrl, PIECE_SETS, type PieceSet } from '@/appearance/pieceSets'
@@ -38,30 +38,49 @@ import type { Level } from '@/app/types'
 import { Dialog, DialogHeader } from '@/app/ui/Dialog'
 import { SegmentedField, SettingRow } from '@/app/ui/Segmented'
 import { Tabs } from '@/app/ui/Tabs'
+import { cx } from '@/app/ui/cx'
 import { VERSION } from '@/utils/version'
+import {
+  colorSwatch,
+  finishCoating,
+  finishRender,
+  finishSection,
+  glyphSample,
+  optionButton,
+  optionGrid,
+  optionGroup,
+  optionPreview,
+  piecePreview,
+  preparedGlyph,
+  previewFill,
+  previewStatus,
+  sampleFlip,
+  sampleTile,
+} from './previews.styles'
+import { Slider, Text } from '@/components/ui'
 
 type SettingsTab = 'general' | 'board' | 'pieces' | 'play' | 'about'
 const FONTS = Object.keys(PIECE_FONTS) as PieceFont[]
 const BOARD_STYLE_KEYS = Object.keys(BOARD_STYLES) as BoardStyle[]
 const asset = (group: string, key: string) => `${import.meta.env.BASE_URL}previews/${group}/${key}.webp`
 
-function SurfaceSample({ appearance }: { appearance: PieceAppearance }) {
+function SurfaceSample({ piece }: { piece: PieceAppearance }) {
   const ref = useRef<HTMLCanvasElement>(null)
   useEffect(() => {
-    ref.current?.getContext('2d')?.drawImage(pieceSurface(42, appearance), 0, 0)
-  }, [appearance])
-  return <canvas ref={ref} width={256} height={256} className="app-surface-sample" />
+    ref.current?.getContext('2d')?.drawImage(pieceSurface(42, piece), 0, 0)
+  }, [piece])
+  return <canvas ref={ref} width={256} height={256} className={previewFill} />
 }
 
 function GlyphSample({
   set,
-  font,
+  face: font,
   style = 'one',
   code = 'FU',
   guide = 'none',
 }: {
   set: PieceSet
-  font: PieceFont
+  face: PieceFont
   style?: 'one' | 'two'
   code?: 'FU' | 'KI'
   guide?: 'none' | 'movement' | 'dots' | 'lines'
@@ -75,7 +94,7 @@ function GlyphSample({
   if (guide === 'lines' || guide === 'dots') {
     const spec = PIECE_FONTS[font]
     return (
-      <svg className="app-guide-sample" width={82} height={82} viewBox="0 0 256 256" aria-label={t('settings.oneCharacterGuide')}>
+      <svg data-guide-sample width={82} height={82} viewBox="0 0 256 256" aria-label={t('settings.oneCharacterGuide')}>
         {set !== 'letters' && set !== 'broadcast' ? (
           <image href={pieceGlyphUrl(set, code)} x={0} y={0} width={256} height={118} preserveAspectRatio="xMidYMid meet" />
         ) : (
@@ -94,13 +113,13 @@ function GlyphSample({
       </svg>
     )
   }
-  const guideClass = guide === 'none' ? '' : guide === 'movement' ? ' with-marks' : ' with-guide'
+  const guideStyle = glyphSample({ guide: guide === 'none' ? 'none' : guide === 'movement' ? 'marks' : 'strip' })
   if (set !== 'letters' && set !== 'broadcast' && guide === 'none')
-    return <img className="app-prepared-glyph" src={pieceGlyphUrl(set, code)} alt={faceText(type, Color.BLACK, style)} />
+    return <img className={preparedGlyph} data-prepared src={pieceGlyphUrl(set, code)} alt={faceText(type, Color.BLACK, style)} />
   if (set !== 'letters' && set !== 'broadcast')
     return (
-      <span className={`app-glyph-sample${guideClass}`}>
-        <img className="app-prepared-glyph" src={pieceGlyphUrl(set, code)} alt={faceText(type, Color.BLACK, style)} />
+      <span className={guideStyle} data-glyph-sample>
+        <img data-prepared src={pieceGlyphUrl(set, code)} alt={faceText(type, Color.BLACK, style)} />
         {guide !== 'none' && (
           <img src={`${import.meta.env.BASE_URL}pieces/prepared/guides/${guide === 'movement' ? code : sampleGuide}.${guide}.png?v=16`} alt="" />
         )}
@@ -108,7 +127,7 @@ function GlyphSample({
     )
   const spec = PIECE_FONTS[font]
   return (
-    <span className={`app-glyph-sample${guideClass}`} style={{ fontFamily: spec.family, fontWeight: spec.weight, fontSize: style === 'two' ? 32 : undefined }}>
+    <span className={guideStyle} data-glyph-sample style={{ fontFamily: spec.family, fontWeight: spec.weight, fontSize: style === 'two' ? 32 : undefined }}>
       <span>{faceText(type, Color.BLACK, style)}</span>
       {guide !== 'none' && (
         <img src={`${import.meta.env.BASE_URL}pieces/prepared/guides/${guide === 'movement' ? code : sampleGuide}.${guide}.png?v=16`} alt="" />
@@ -172,7 +191,7 @@ function StickyPiecePreview() {
   const flip = (type: PieceType, on: boolean) =>
     setFlipped((prev) => (on ? (prev.includes(type) ? prev : [...prev, type]) : prev.filter((item) => item !== type)))
   return (
-    <div className="app-sticky-piece-preview app-full-set-preview" aria-label={t('settings.pieceSetPreview')} aria-busy={loading}>
+    <div className={piecePreview} aria-label={t('settings.pieceSetPreview')} aria-busy={loading}>
       {images.size > 0 &&
         SAMPLE_TYPES.map((type) => {
           const promoted: PreviewFace = type === PieceType.KING ? 'GY' : promotedPieceType(type)
@@ -182,7 +201,7 @@ function StickyPiecePreview() {
             <button
               key={type}
               type="button"
-              className="app-sample-tile"
+              className={sampleTile}
               disabled={!canFlip}
               aria-label={faceText(type, Color.BLACK, st.pieceStyle)}
               aria-pressed={canFlip ? on : undefined}
@@ -192,15 +211,15 @@ function StickyPiecePreview() {
               onBlur={() => flip(type, false)}
               onClick={() => flip(type, !on)}
             >
-              <span className={`app-sample-flip${on ? ' on' : ''}`}>
+              <span className={sampleFlip} data-on={on || undefined}>
                 {images.has(type) && <img src={images.get(type)} alt="" />}
-                {canFlip && images.has(promoted) && <img className="back" src={images.get(promoted)} alt="" />}
+                {canFlip && images.has(promoted) && <img data-back src={images.get(promoted)} alt="" />}
               </span>
             </button>
           )
         })}
       {(loading || error) && (
-        <span className="app-preview-status" role="status">
+        <span className={previewStatus} role="status">
           {error ?? t('settings.renderingPreview')}
         </span>
       )}
@@ -213,22 +232,31 @@ function OptionGroup({
   options,
   value,
   onChange,
+  finish = false,
 }: {
   label: string
   options: { key: string; label: string; preview?: React.ReactNode }[]
   value: string
   onChange: (key: string) => void
+  finish?: boolean
 }) {
   const { t } = useTranslation()
+  const kind = finish
+    ? 'finish'
+    : label === t('settings.typeface')
+      ? 'typeface'
+      : label === t('settings.type') || label === t('settings.guideStyle')
+        ? 'type'
+        : 'plain'
   return (
-    <section
-      className={`app-option-group${label === t('settings.typeface') ? ' app-typeface-options' : label === t('settings.type') || label === t('settings.guideStyle') ? ' app-type-options' : ''}`}
-    >
-      <p className="app-muted">{label}</p>
-      <div className="app-design-options">
+    <section className={optionGroup}>
+      <Text tone="muted" size="sm">
+        {label}
+      </Text>
+      <div className={optionGrid({ kind })}>
         {options.map((option) => (
-          <button type="button" key={option.key} aria-pressed={value === option.key} onClick={() => onChange(option.key)}>
-            {option.preview && <span className="app-option-preview">{option.preview}</span>}
+          <button type="button" key={option.key} className={optionButton({ kind })} aria-pressed={value === option.key} onClick={() => onChange(option.key)}>
+            {option.preview && <span className={optionPreview({ kind })}>{option.preview}</span>}
             <span>{option.label}</span>
           </button>
         ))}
@@ -260,7 +288,7 @@ function FinishSection({ finish }: { finish: PieceFinish }) {
   }).join(' ')
   const filled = finish === 'horiume' || finish === 'moriage'
   return (
-    <svg className="app-finish-section" viewBox="0 0 120 60" role="img" aria-label={t('settings.finishCrossSection', { finish: spec.label })}>
+    <svg className={finishSection} viewBox="0 0 120 60" role="img" aria-label={t('settings.finishCrossSection', { finish: spec.label })}>
       <rect width="120" height="60" fill="#f7f1df" />
       <path d="M4 25H116V56H4Z" fill="#ebc574" />
       {filled && <path d="M40 25H80L60 44Z" fill="#15110d" />}
@@ -322,27 +350,30 @@ function FinishOptions() {
   }, [key, st.pieceSet, st.pieceFont, st.pieceStyle, st.pieceGuide, st.pieceMaterial, st.pieceColor, st.pieceGrain])
   if (!images)
     return (
-      <section className="app-finish-options" aria-busy={!error}>
-        <p className="app-muted">{t('settings.finish')}</p>
-        <p className="app-muted" role="status">
+      <section data-finish-options aria-busy={!error}>
+        <Text tone="muted" size="sm" my="1em">
+          {t('settings.finish')}
+        </Text>
+        <Text tone="muted" size="sm" my="1em" role="status">
           {error ?? t('settings.renderingFinishPreviews')}
-        </p>
+        </Text>
       </section>
     )
   return (
-    <div className="app-finish-options">
+    <div data-finish-options>
       <OptionGroup
+        finish
         label={t('settings.finish')}
         options={pieceFinishOptions(st.pieceMaterial).map((key) => ({
           key,
           label: PIECE_FINISHES[key].label,
           preview: (
             <>
-              <span className="app-finish-render">
+              <span className={finishRender}>
                 {images ? <img src={images.get(`finish:${key}`)?.[0]} alt="" /> : <span role="status">{error ?? t('settings.renderingPreview')}</span>}
               </span>
               <FinishSection finish={key} />
-              <span className="app-finish-coating">{PIECE_FINISHES[key].coating === 'lacquer' ? t('settings.lacquer') : t('settings.paint')}</span>
+              <span className={finishCoating}>{PIECE_FINISHES[key].coating === 'lacquer' ? t('settings.lacquer') : t('settings.paint')}</span>
             </>
           ),
         }))}
@@ -438,7 +469,7 @@ function DesignOptions({ customFace = false }: { customFace?: boolean } = {}) {
             label={t('settings.preset')}
             options={presets.map((preset) => ({
               ...preset,
-              preview: <GlyphSample set={preset.patch.pieceSet!} font={preset.patch.pieceFont ?? st.pieceFont} style={preset.patch.pieceStyle} code="KI" />,
+              preview: <GlyphSample set={preset.patch.pieceSet!} face={preset.patch.pieceFont ?? st.pieceFont} style={preset.patch.pieceStyle} code="KI" />,
             }))}
             value={presets.find((preset) => Object.entries(preset.patch).every(([key, value]) => st[key as keyof typeof st] === value))?.key ?? ''}
             onChange={(key) => setSettings(presets.find((preset) => preset.key === key)!.patch)}
@@ -465,7 +496,7 @@ function DesignOptions({ customFace = false }: { customFace?: boolean } = {}) {
                               : key === 'pixel'
                                 ? t('settings.pixel')
                                 : PIECE_SETS[key].label,
-              preview: <GlyphSample set={key} font={st.pieceFont} />,
+              preview: <GlyphSample set={key} face={st.pieceFont} />,
             }))}
             value={currentFamily}
             onChange={(key) => changeFamily(key as PieceSet)}
@@ -475,7 +506,7 @@ function DesignOptions({ customFace = false }: { customFace?: boolean } = {}) {
       {(lettering || customFace) && (
         <OptionGroup
           label={t('settings.font')}
-          options={FONTS.map((key) => ({ key, label: PIECE_FONTS[key].label, preview: <GlyphSample set="letters" font={key} /> }))}
+          options={FONTS.map((key) => ({ key, label: PIECE_FONTS[key].label, preview: <GlyphSample set="letters" face={key} /> }))}
           value={st.pieceFont}
           onChange={(key) => setSettings({ pieceFont: key as PieceFont })}
         />
@@ -490,7 +521,7 @@ function DesignOptions({ customFace = false }: { customFace?: boolean } = {}) {
               preview: (
                 <GlyphSample
                   set={paired ? pieceSetForFace(currentFamily, key === 'two' ? 'two' : 'one') : st.pieceSet}
-                  font={st.pieceFont}
+                  face={st.pieceFont}
                   style={key === 'two' ? 'two' : 'one'}
                   guide={key === 'guide' ? (st.pieceGuide === 'none' ? 'lines' : st.pieceGuide) : 'none'}
                 />
@@ -506,7 +537,7 @@ function DesignOptions({ customFace = false }: { customFace?: boolean } = {}) {
               options={(['lines', 'dots', 'movement'] as const).map((key) => ({
                 key,
                 label: t(key === 'dots' ? 'settings.guideDots' : key === 'movement' ? 'settings.guideMarks' : 'settings.guideLines'),
-                preview: <img className="app-prepared-glyph" src={`${import.meta.env.BASE_URL}pieces/prepared/guides/KI.${key}.png?v=16`} alt="" />,
+                preview: <img className={preparedGlyph} data-prepared src={`${import.meta.env.BASE_URL}pieces/prepared/guides/KI.${key}.png?v=16`} alt="" />,
               }))}
               value={st.pieceGuide}
               onChange={(key) => setSettings({ pieceGuide: key as typeof st.pieceGuide })}
@@ -519,7 +550,7 @@ function DesignOptions({ customFace = false }: { customFace?: boolean } = {}) {
         options={Object.entries(PIECE_COLORS).map(([key, spec]) => ({
           key,
           label: spec.label,
-          preview: <span className="app-color-swatch" style={{ background: `rgb(${(spec.tone ?? PIECE_MATERIALS[st.pieceMaterial].tone).join(',')})` }} />,
+          preview: <span className={colorSwatch} style={{ background: `rgb(${(spec.tone ?? PIECE_MATERIALS[st.pieceMaterial].tone).join(',')})` }} />,
         }))}
         value={st.pieceColor}
         onChange={(key) => setSettings({ pieceColor: key as typeof st.pieceColor })}
@@ -531,7 +562,7 @@ function DesignOptions({ customFace = false }: { customFace?: boolean } = {}) {
           label: spec.label,
           preview: (
             <span
-              className="app-color-swatch"
+              className={colorSwatch}
               style={{
                 background:
                   key === 'glass'
@@ -554,9 +585,7 @@ function DesignOptions({ customFace = false }: { customFace?: boolean } = {}) {
           options={Object.entries(PIECE_GRAINS).map(([key, spec]) => ({
             key,
             label: spec.label,
-            preview: (
-              <SurfaceSample appearance={{ pieceSet: 'letters', pieceMaterial: st.pieceMaterial, pieceColor: 'natural', pieceGrain: key as PieceGrain }} />
-            ),
+            preview: <SurfaceSample piece={{ pieceSet: 'letters', pieceMaterial: st.pieceMaterial, pieceColor: 'natural', pieceGrain: key as PieceGrain }} />,
           }))}
           value={st.pieceGrain}
           onChange={(key) => setSettings({ pieceGrain: key as PieceGrain })}
@@ -564,8 +593,14 @@ function DesignOptions({ customFace = false }: { customFace?: boolean } = {}) {
       )}
       <FinishOptions />
 
-      <p className="app-muted app-credit">{PIECE_FINISHES[selectedPieceFinish()].hint}</p>
-      {!customFace && PIECE_SETS[st.pieceSet].credit && <p className="app-muted app-credit">{PIECE_SETS[st.pieceSet].credit}</p>}
+      <Text tone="muted" size="2xs" mt="0" mb="2">
+        {PIECE_FINISHES[selectedPieceFinish()].hint}
+      </Text>
+      {!customFace && PIECE_SETS[st.pieceSet].credit && (
+        <Text tone="muted" size="2xs" mt="0" mb="2">
+          {PIECE_SETS[st.pieceSet].credit}
+        </Text>
+      )}
     </>
   )
 }
@@ -576,7 +611,11 @@ function BoardOptions() {
   return (
     <OptionGroup
       label={t('settings.boardWood')}
-      options={BOARD_STYLE_KEYS.map((key) => ({ key, label: BOARD_STYLES[key].label, preview: <img src={asset('boards', key)} alt="" /> }))}
+      options={BOARD_STYLE_KEYS.map((key) => ({
+        key,
+        label: BOARD_STYLES[key].label,
+        preview: <img className={previewFill} src={asset('boards', key)} alt="" />,
+      }))}
       value={st.boardStyle}
       onChange={(key) => setSettings({ boardStyle: key as BoardStyle })}
     />
@@ -607,10 +646,51 @@ export function SettingsDialog({
     { id: 'about', label: t('settings.about') },
   ]
   return (
-    <Dialog label={t('settings.settings')} className="app-settings" onBackdrop={onClose}>
-      <DialogHeader title={t('settings.settings')} closeLabel={t('settings.closeSettings')} closeTitle={t('settings.closeEsc')} onClose={onClose} />
-      <Tabs items={availableTabs ? tabs.filter(({ id }) => availableTabs.includes(id)) : tabs} value={tab} onChange={setTab} />
-      <div className="app-settings-body">
+    <Dialog
+      label={t('settings.settings')}
+      className={cx(
+        'app-settings',
+        css({
+          display: 'flex',
+          flexDirection: 'column',
+          w: 'min(720px, 100%)',
+          maxH: 'min(620px, 100%)',
+          p: '0',
+          overflow: 'hidden',
+          _tight: { maxH: '100%' },
+          '&:has([data-finish-options])': { w: 'min(1080px, 100%)' },
+        }),
+      )}
+      positionerClassName={css({ alignItems: 'flex-start', pt: 'max({spacing.4}, 8vh)' })}
+      onBackdrop={onClose}
+    >
+      <DialogHeader
+        title={t('settings.settings')}
+        closeLabel={t('settings.closeSettings')}
+        closeTitle={t('settings.closeEsc')}
+        className={css({ pt: '3', pr: '3', pb: '1', pl: '5' })}
+        onClose={onClose}
+      />
+      <Tabs
+        items={availableTabs ? tabs.filter(({ id }) => availableTabs.includes(id)) : tabs}
+        value={tab}
+        onChange={setTab}
+        className={css({ flex: 'none', px: '4' })}
+      />
+      <Box
+        flex="1"
+        minH="0"
+        overflowY="auto"
+        pt="2"
+        px="5"
+        pb="5"
+        css={{
+          '& [data-setting] > :last-child': { justifySelf: 'end', _phone: { justifySelf: 'start' } },
+          '& [data-setting] > .app-seg': { justifyContent: 'flex-end', _phone: { justifyContent: 'flex-start' } },
+          '& > * + [data-setting]': { borderTop: '1px solid {colors.border}' },
+          '& [data-setting] > [data-scope=slider][data-part=root]': { _phone: { w: '100%', justifySelf: 'stretch' } },
+        }}
+      >
         {tab === 'general' && (
           <>
             <SegmentedField<Lang>
@@ -653,17 +733,24 @@ export function SettingsDialog({
               onChange={(v) => setSettings({ sound: v })}
             />
             <SettingRow label={t('settings.volume')}>
-              <input
-                type="range"
+              <Slider.Root
+                w="min(220px, 100%)"
                 min={0}
                 max={1}
                 step={0.05}
                 disabled={!st.sound}
-                value={st.volume}
-                aria-label={t('settings.volume')}
-                onChange={(e) => setSettings({ volume: Number(e.target.value) })}
-                onMouseUp={() => playSound('move')}
-              />
+                value={[st.volume]}
+                aria-label={[t('settings.volume')]}
+                onValueChange={({ value }) => setSettings({ volume: value[0] })}
+                onValueChangeEnd={() => playSound('move')}
+              >
+                <Slider.Control>
+                  <Slider.Track>
+                    <Slider.Range />
+                  </Slider.Track>
+                  <Slider.Thumbs />
+                </Slider.Control>
+              </Slider.Root>
             </SettingRow>
             {!customFace && (
               <>
@@ -679,18 +766,27 @@ export function SettingsDialog({
                     if (v) say('四間飛車', true)
                   }}
                 />
-                {st.voice && <p className="app-muted app-credit">{t('settings.voiceCredit')}</p>}{' '}
+                {st.voice && (
+                  <Text tone="muted" size="2xs" mt="0" mb="2">
+                    {t('settings.voiceCredit')}
+                  </Text>
+                )}{' '}
               </>
             )}
           </>
         )}
         {tab === 'about' && (
-          <section className="app-about-section">
-            <h3>
-              Shogi Gym 将棋ジム <span className="app-muted">v{VERSION}</span>
-            </h3>
-            <p className="app-muted">{t('settings.aboutDescription')}</p>
-            <div className="app-actions">
+          <section>
+            <styled.h3 display="flex" flexWrap="wrap" alignItems="baseline" gap="2">
+              Shogi Gym 将棋ジム{' '}
+              <Text as="span" tone="muted" fontSize="0.85em">
+                v{VERSION}
+              </Text>
+            </styled.h3>
+            <Text tone="muted" size="sm" my="1em">
+              {t('settings.aboutDescription')}
+            </Text>
+            <Wrap gap="3" align="center">
               <a href="https://github.com/hamproductions/shogigym" target="_blank" rel="noreferrer">
                 {t('settings.repository')}
               </a>
@@ -700,7 +796,7 @@ export function SettingsDialog({
               <a href="https://github.com/hamproductions/shogigym#sources-and-licenses" target="_blank" rel="noreferrer">
                 {t('settings.credits')}
               </a>
-            </div>
+            </Wrap>
           </section>
         )}
         {tab === 'board' && (
@@ -735,7 +831,9 @@ export function SettingsDialog({
               ]}
               onChange={(v) => setSettings({ showTesuji: v })}
             />
-            <p className="app-muted app-credit">{t('settings.showTesujiHint')}</p>
+            <Text tone="muted" size="2xs" mt="0" mb="2">
+              {t('settings.showTesujiHint')}
+            </Text>
             <BoardOptions />
             {(st.environment === 'traditional' || st.environment === 'casual') && (
               <SegmentedField
@@ -749,7 +847,9 @@ export function SettingsDialog({
               />
             )}
             {(st.environment === 'traditional' || st.environment === 'casual') && st.characters && (
-              <p className="app-muted app-credit">{t('settings.charactersCredit')}</p>
+              <Text tone="muted" size="2xs" mt="0" mb="2">
+                {t('settings.charactersCredit')}
+              </Text>
             )}
             {st.environment !== 'flat' && st.environment !== 'diagram' && st.environment !== 'broadcast' && (
               <SegmentedField
@@ -763,7 +863,9 @@ export function SettingsDialog({
               />
             )}
             {st.environment !== 'flat' && st.environment !== 'diagram' && st.environment !== 'broadcast' && st.power && (
-              <p className="app-muted app-credit">{t('settings.powerModeHint')}</p>
+              <Text tone="muted" size="2xs" mt="0" mb="2">
+                {t('settings.powerModeHint')}
+              </Text>
             )}
           </>
         )}
@@ -798,7 +900,7 @@ export function SettingsDialog({
             <EngineSettings />
           </>
         )}
-      </div>
+      </Box>
     </Dialog>
   )
 }

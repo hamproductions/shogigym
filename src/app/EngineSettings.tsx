@@ -1,12 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Wrap } from 'styled-system/jsx'
 import { restartEngine, useEngineStatus } from '@/utils/engine'
 import { clearEvalFile, saveEvalFile, useEvalFile } from '@/utils/evalStore'
 import { clearBookDownloadCache, downloadFullBook, type BookProgress } from '@/utils/bookDownload'
 import { clearBookFile, saveBookFile, useBookFile } from '@/utils/openingBook'
 import { getSettings, setSettings, useSettings, type EngineKind } from '@/appearance/settings'
 import { Button } from '@/app/ui/Button'
+import { FilePicker } from '@/app/ui/FilePicker'
 import { SegmentedField, SettingRow } from '@/app/ui/Segmented'
+import { Text } from '@/components/ui'
+import { muted, result } from '@/app/panels/panels.styles'
 
 export function EngineSettings() {
   const { t } = useTranslation()
@@ -32,47 +36,46 @@ export function EngineSettings() {
       {st.engine === 'nnue' && (
         <>
           <SettingRow label={t('settings.evalFile')}>
-            <div className="app-actions">
-              <span className="app-muted">{evalFile ? `${evalFile.name} (${(evalFile.size / 1048576).toFixed(1)} MB)` : t('settings.noEvalFile')}</span>
-              <label className="app-btn app-file">
+            <Wrap gap="2" align="center">
+              <span className={muted}>{evalFile ? `${evalFile.name} (${(evalFile.size / 1048576).toFixed(1)} MB)` : t('settings.noEvalFile')}</span>
+              <FilePicker
+                accept=".bin"
+                disabled={busy}
+                onFile={async (file) => {
+                  setBusy(true)
+                  setError('')
+                  try {
+                    await saveEvalFile(file)
+                    reload()
+                  } catch (failure) {
+                    setError((failure as Error).message)
+                  } finally {
+                    setBusy(false)
+                  }
+                }}
+              >
                 {busy ? t('settings.loadingEvalFile') : t('settings.loadEvalFile')}
-                <input
-                  type="file"
-                  accept=".bin"
-                  disabled={busy}
-                  onChange={async (e) => {
-                    const file = e.target.files?.[0]
-                    e.target.value = ''
-                    if (!file) return
-                    setBusy(true)
-                    setError('')
-                    try {
-                      await saveEvalFile(file)
-                      reload()
-                    } catch (failure) {
-                      setError((failure as Error).message)
-                    } finally {
-                      setBusy(false)
-                    }
-                  }}
-                />
-              </label>
+              </FilePicker>
               {evalFile && (
                 <Button onClick={() => clearEvalFile().then(reload, (failure: Error) => setError(failure.message))}>{t('settings.removeEvalFile')}</Button>
               )}
-            </div>
+            </Wrap>
           </SettingRow>
-          {error && <p className="app-result wrong">{error}</p>}
+          {error && <p className={result({ tone: 'wrong' })}>{error}</p>}
           <SegmentedField
             label={t('settings.fvScale')}
             value={st.fvScale}
             options={[16, 20, 24].map((v) => ({ v, t: String(v) }))}
             onChange={(v) => setSettings({ fvScale: v })}
           />
-          <p className="app-muted app-credit">{t('settings.fvScaleHint')}</p>
+          <Text tone="muted" size="2xs" mt="0" mb="2">
+            {t('settings.fvScaleHint')}
+          </Text>
         </>
       )}
-      <p className="app-muted app-credit">{t('settings.engineHint')}</p>
+      <Text tone="muted" size="2xs" mt="0" mb="2">
+        {t('settings.engineHint')}
+      </Text>
       {st.engine !== 'fairy' && <OpeningBookSettings />}
     </>
   )
@@ -106,31 +109,26 @@ function OpeningBookSettings() {
   return (
     <>
       <SettingRow label={t('settings.openingBook')}>
-        <div className="app-actions">
-          <span className="app-muted">{file ? `${file.name} (${(file.size / 1048576).toFixed(1)} MB)` : t('settings.compactBook')}</span>
-          <label className="app-btn app-file">
+        <Wrap gap="2" align="center">
+          <span className={muted}>{file ? `${file.name} (${(file.size / 1048576).toFixed(1)} MB)` : t('settings.compactBook')}</span>
+          <FilePicker
+            accept=".db"
+            disabled={busy}
+            onFile={async (file) => {
+              setBusy(true)
+              setError('')
+              try {
+                await saveBookFile(file)
+                restartEngine()
+              } catch (error) {
+                setError(error instanceof Error ? error.message : String(error))
+              } finally {
+                setBusy(false)
+              }
+            }}
+          >
             {busy ? t('settings.loadingBook') : t('settings.importBook')}
-            <input
-              type="file"
-              accept=".db"
-              disabled={busy}
-              onChange={async (event) => {
-                const file = event.target.files?.[0]
-                event.target.value = ''
-                if (!file) return
-                setBusy(true)
-                setError('')
-                try {
-                  await saveBookFile(file)
-                  restartEngine()
-                } catch (error) {
-                  setError(error instanceof Error ? error.message : String(error))
-                } finally {
-                  setBusy(false)
-                }
-              }}
-            />
-          </label>
+          </FilePicker>
           {file && (
             <Button
               disabled={busy}
@@ -150,10 +148,10 @@ function OpeningBookSettings() {
               {t('settings.removeBook')}
             </Button>
           )}
-        </div>
+        </Wrap>
       </SettingRow>
       <SettingRow label={t('settings.cacheBook')}>
-        <div className="app-actions">
+        <Wrap gap="2" align="center">
           <Button disabled={busy || !!file} onClick={download}>
             {t('settings.downloadFullBook')}
           </Button>
@@ -167,11 +165,13 @@ function OpeningBookSettings() {
               <Button onClick={() => controller.current?.abort()}>{t('app.cancel')}</Button>
             </>
           )}
-        </div>
+        </Wrap>
       </SettingRow>
-      <p className="app-muted app-credit">{t('settings.bookHint')}</p>
+      <Text tone="muted" size="2xs" mt="0" mb="2">
+        {t('settings.bookHint')}
+      </Text>
       {error && (
-        <p className="app-result wrong" role="alert">
+        <p className={result({ tone: 'wrong' })} role="alert">
           {error}
         </p>
       )}
@@ -186,14 +186,14 @@ export function EngineName() {
   const label = { yaneuraou: t('settings.yaneuraou'), nnue: t('settings.yaneuraouNnue'), fairy: t('settings.fairyStockfish') }[st.engine]
   return (
     <>
-      <p className="app-muted app-credit">
+      <Text tone="muted" size="2xs" mt="0" mb="2">
         {t('engine.activeEngine', {
           name: status.kind === st.engine && status.name ? status.name : `${label} ${status.error ? '' : t('engine.engineStarting')}`.trim(),
         })}
-      </p>
+      </Text>
       {status.kind === st.engine && status.error && (
         <div role="alert">
-          <p className="app-result wrong">{status.error}</p>
+          <p className={result({ tone: 'wrong' })}>{status.error}</p>
           <Button size="sm" onClick={restartEngine}>
             {t('tsume.tryAgain')}
           </Button>

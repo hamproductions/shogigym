@@ -1,8 +1,9 @@
-import '@/app/modes/lesson/lesson.css'
 import { useTranslation } from 'react-i18next'
 import { loadGames, type StoredGame } from '@/app/games'
 import { savedAtLabel, sideMark } from '@/utils/notation'
 import { Button } from '@/app/ui/Button'
+import { muted } from '@/app/panels/panels.styles'
+import { resultChip, yourGame, yourGameTitle, yourGames } from '@/app/modes/lesson/lesson.styles'
 
 export function YourGames({ onOpen }: { onOpen: (g: StoredGame) => void }) {
   const { t } = useTranslation()
@@ -11,15 +12,15 @@ export function YourGames({ onOpen }: { onOpen: (g: StoredGame) => void }) {
     .slice(0, 6)
   if (!games.length) return null
   return (
-    <div className="app-your-games">
+    <div className={yourGames}>
       <strong>{t('review.yourGames')}</strong>
       {games.map((g) => (
-        <div key={g.id} className="app-your-game">
-          <span className={`app-result-chip ${g.result ?? ''}`}>{t(`review.result.${g.result ?? 'none'}`)}</span>
-          <span className="app-your-game-title">
+        <div key={g.id} className={yourGame}>
+          <span className={resultChip({ outcome: g.result ?? 'none' })}>{t(`review.result.${g.result ?? 'none'}`)}</span>
+          <span className={yourGameTitle}>
             {sideMark(g.userSide)} {savedAtLabel(new Date(g.savedAt))}
           </span>
-          <span className="app-muted">{t('review.moveCount', { count: g.moves.length })}</span>
+          <span className={muted}>{t('review.moveCount', { count: g.moves.length })}</span>
           <Button size="sm" onClick={() => onOpen(g)}>
             {t('review.reviewGame')}
           </Button>

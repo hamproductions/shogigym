@@ -1,6 +1,7 @@
-import './engine.css'
 import { useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
+import { css } from 'styled-system/css'
+import { Box, styled } from 'styled-system/jsx'
 import { describeMove, scoreWinRate } from '@/utils/analysis'
 import { engineSupported, useEngineStatus, type Analysis, type Candidate } from '@/utils/engine'
 import i18n from '@/utils/i18n'
@@ -11,6 +12,30 @@ import { sideMark, toSente } from '@/utils/notation'
 import { lossClass, winLoss } from '@/utils/score'
 import { Button } from '@/app/ui/Button'
 import { Pill } from '@/app/ui/Pill'
+import { Checkbox } from '@/components/ui'
+import { muted, narrowColumn, pv, subHeading } from './panels.styles'
+
+const standingBox = css({
+  pt: '1',
+  pb: '3',
+  borderBottom: '1px solid {colors.border}',
+  _narrow: { order: '-1', display: 'grid', gridTemplateColumns: 'auto minmax(0, 1fr)', alignItems: 'center', gap: '{spacing.1} {spacing.2}', pb: '2' },
+  '@container (max-width: 400px)': { '@media not all and (max-width: 820px)': { display: 'flex', alignItems: 'center', gap: '2', pb: '1' } },
+})
+
+const choice = css({
+  borderBottom: '1px solid {colors.border}',
+  '& p': { m: '{spacing.1} 0 0', fontSize: 'sm' },
+})
+
+const choiceRow = css({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '2.5',
+  '& strong': { fontFamily: 'mincho', fontWeight: 'heavy', _narrow: { whiteSpace: 'nowrap' } },
+  '& .app-btn': { ml: 'auto' },
+  _narrow: { flexWrap: 'wrap' },
+})
 
 function standing(rate: number) {
   const lead = Math.abs(Math.round(rate * 100) - 50) / 100
@@ -39,7 +64,7 @@ export function EnginePane({ sfen, toMove, analysis, showBest, setShowBest, onPl
   if (!engineSupported())
     return (
       <div role="alert">
-        <p className="app-muted">{t('engine.theAiNeedsACross')}</p>
+        <p className={muted}>{t('engine.theAiNeedsACross')}</p>
         <Button onClick={() => location.reload()}>{t('engine.reloadPage')}</Button>
       </div>
     )
@@ -54,7 +79,7 @@ export function EnginePane({ sfen, toMove, analysis, showBest, setShowBest, onPl
     return (
       <>
         <EngineName />
-        <p className="app-muted">{t('engine.analysingThePosition')}</p>
+        <p className={muted}>{t('engine.analysingThePosition')}</p>
       </>
     )
   const why = (usi: string) => {
@@ -113,29 +138,51 @@ export function EngineResultPane({
   const bestRate = scoreWinRate(best.score)
   const senteRate = scoreWinRate(toSente(best.score, toMove))
   return (
-    <div className="app-engine">
+    <div className={narrowColumn}>
       {name}
-      <div className="app-standing">
-        <strong className="app-standing-detail">{standing(senteRate)}</strong>
-        <span
-          className="app-standing-summary"
+      <div className={standingBox}>
+        <styled.strong display="block" fontSize="lg" _narrow={{ display: 'none' }} css={{ '@container (max-width: 400px)': { display: 'none' } }}>
+          {standing(senteRate)}
+        </styled.strong>
+        <styled.span
+          display="none"
+          whiteSpace="nowrap"
+          fontVariantNumeric="tabular-nums"
+          _narrow={{ display: 'block', fontSize: 'xs' }}
+          css={{ '@container (max-width: 400px)': { display: 'block', fontSize: 'xs' } }}
           title={standing(senteRate)}
           aria-label={t('engine.winChanceAgainst', { value: Math.round(senteRate * 100), value2: Math.round((1 - senteRate) * 100) })}
         >
           {sideMark(senteRate >= 0.5 ? 'sente' : 'gote')} {Math.round(Math.max(senteRate, 1 - senteRate) * 100)}%
-        </span>
-        <div className="app-meter" aria-hidden="true">
-          <span style={{ width: `${senteRate * 100}%` }} />
-        </div>
-        <span className="app-muted app-standing-detail">
+        </styled.span>
+        <Box
+          h="8px"
+          m="{spacing.2} 0 {spacing.1.5}"
+          borderRadius="full"
+          bg="meter.track"
+          overflow="hidden"
+          _narrow={{ m: '0' }}
+          css={{ '@container (max-width: 400px)': { flex: '1', m: '0' } }}
+          aria-hidden="true"
+        >
+          <styled.span display="block" h="100%" bg="meter.fill" transition="width {durations.slowest} ease" style={{ width: `${senteRate * 100}%` }} />
+        </Box>
+        <styled.span
+          color="fg.muted"
+          fontSize="sm"
+          _narrow={{ display: 'none', gridColumn: '1 / -1', fontSize: 'xs', whiteSpace: 'nowrap' }}
+          css={{ '@container (max-width: 400px)': { display: 'none' } }}
+        >
           {t('engine.winChanceAgainst', { value: Math.round(senteRate * 100), value2: Math.round((1 - senteRate) * 100) })}
-        </span>
+        </styled.span>
       </div>
 
-      <div className="app-best">
-        <span className="app-muted">{t('engine.bestMoveFor', { side: sideMark(toMove) })}</span>
-        <div className="app-best-row">
-          <strong>{formatMove(best.move)}</strong>
+      <Box py="3" className={choice}>
+        <span className={muted}>{t('engine.bestMoveFor', { side: sideMark(toMove) })}</span>
+        <div className={choiceRow}>
+          <styled.strong fontSize="2xl" lineHeight="tight" _narrow={{ fontSize: 'lg' }}>
+            {formatMove(best.move)}
+          </styled.strong>
           {isBook(best.move) && <Pill>{t('engine.book')}</Pill>}
           {canPlay && (
             <Button size="sm" variant="primary" onClick={() => onPlay(best.move)}>
@@ -144,16 +191,16 @@ export function EngineResultPane({
           )}
         </div>
         {why(best.move) && <p>{why(best.move)}</p>}
-        {answer(best) && <p className="app-muted">{t('engine.theyWouldLikelyAnswer', { move: answer(best) })}</p>}
-      </div>
+        {answer(best) && <p className={muted}>{t('engine.theyWouldLikelyAnswer', { move: answer(best) })}</p>}
+      </Box>
 
-      {others.length > 0 && <h3 className="app-sub">{t('engine.otherMoves')}</h3>}
+      {others.length > 0 && <h3 className={subHeading}>{t('engine.otherMoves')}</h3>}
       {others.map((c) => {
         const loss = winLoss(bestRate, c.score)
         return (
-          <div key={c.multipv} className="app-alt">
-            <div className="app-alt-row">
-              <strong>{formatMove(c.move)}</strong>
+          <Box key={c.multipv} py="2.5" className={choice}>
+            <div className={choiceRow}>
+              <styled.strong fontSize="lg">{formatMove(c.move)}</styled.strong>
               <span className={lossClass(loss)}>{loss === 0 ? t('engine.justAsGood') : t('engine.winChance', { loss })}</span>
               {canPlay && (
                 <Button size="sm" onClick={() => onPlay(c.move)}>
@@ -162,19 +209,37 @@ export function EngineResultPane({
               )}
             </div>
             {why(c.move) && <p>{why(c.move)}</p>}
-          </div>
+          </Box>
         )
       })}
 
-      <button className="app-more" onClick={() => setLineOpen((v) => !v)}>
+      <styled.button
+        p="{spacing.0.5} 0"
+        m="{spacing.3} 0 {spacing.1.5}"
+        color="fg.muted"
+        fontSize="sm"
+        textDecoration="underline"
+        textUnderlineOffset="3px"
+        transition="color {durations.fast}"
+        _hover={{ color: 'fg.default' }}
+        onClick={() => setLineOpen((v) => !v)}
+      >
         {lineOpen ? t('engine.hideTheLine') : t('engine.seeHowTheBestLine')}
-      </button>
-      {lineOpen && <p className="app-pv">{formatPv(best.pv)}</p>}
+      </styled.button>
+      {lineOpen && <p className={pv}>{formatPv(best.pv)}</p>}
 
-      <label className="app-toggle">
-        <input type="checkbox" checked={showBest} onChange={(e) => setShowBest(e.target.checked)} />
-        <span>{t('engine.showTheBestMoveAs')}</span>
-      </label>
+      <Checkbox.Root
+        size="sm"
+        className={css({ display: 'flex', alignItems: 'center', gap: '2', m: '{spacing.3} 0 0', color: 'fg.muted', fontSize: 'sm', cursor: 'pointer' })}
+        checked={showBest}
+        onCheckedChange={(details) => setShowBest(details.checked === true)}
+      >
+        <Checkbox.HiddenInput />
+        <Checkbox.Control>
+          <Checkbox.Indicator />
+        </Checkbox.Control>
+        <Checkbox.Label className={css({ fontWeight: 'regular', fontSize: 'sm', lineHeight: 'inherit' })}>{t('engine.showTheBestMoveAs')}</Checkbox.Label>
+      </Checkbox.Root>
     </div>
   )
 }

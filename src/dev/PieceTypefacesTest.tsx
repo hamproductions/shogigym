@@ -1,10 +1,11 @@
-import './pieces.css'
 import { useEffect, useState } from 'react'
 import { PieceType } from 'tsshogi'
 import { bakePreviews } from '@/rendering/board3d/bake'
 import { PIECE_TYPEFACES, pieceSetForFace } from '@/appearance/pieceDesigns'
 import { loadPieceSet, PIECE_SETS, type PieceSet } from '@/appearance/pieceSets'
 import { loadPieceFont, useSettings, type PieceAppearance } from '@/appearance/settings'
+import { cx } from '@/app/ui/cx'
+import { page, typefaceGrid, typefaceHeader, typefacePage, typefaceSet } from './pieces.styles'
 
 const TYPES: { type: PieceType; label: string }[] = [
   { type: PieceType.KING, label: '王' },
@@ -65,8 +66,8 @@ export default function PieceTypefacesTest() {
     return () => controller.abort()
   }, [key, st.pieceFont, st.pieceStyle, st.pieceGuide, st.pieceMaterial, st.pieceColor, st.pieceGrain, st.pieceFinish])
   return (
-    <main className="app-komadai-test app-typeface-test" aria-busy={!rows && !error}>
-      <header className="app-typeface-test-header">
+    <main className={cx(page, typefacePage)} aria-busy={!rows && !error}>
+      <header className={typefaceHeader}>
         <h1>Piece typeface renderer</h1>
         <p>
           {st.pieceStyle} · {st.pieceGuide} · {st.pieceMaterial} · {st.pieceColor} · {st.pieceGrain} · {st.pieceFinish}
@@ -75,9 +76,9 @@ export default function PieceTypefacesTest() {
       {!rows && !error && <p>Rendering with current global settings…</p>}
       {error && <p role="alert">{error}</p>}
       {rows?.map(({ set, images }) => (
-        <section className="app-typeface-test-set" key={set}>
+        <section className={typefaceSet} key={set}>
           <h2>{PIECE_SETS[set].label}</h2>
-          <div className="app-typeface-test-grid">
+          <div className={typefaceGrid}>
             {images.map((image, index) => (
               <figure key={TYPES[index].type} title={TYPES[index].label}>
                 <img src={image} alt={TYPES[index].label} width={180} height={180} />

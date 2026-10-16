@@ -102,7 +102,7 @@ export function projectedZoneReporter(options: ZoneProjection) {
     if (!options.ready()) return
     const canvas = options.renderer.domElement
     const shell = canvas.closest('.app-shell')
-    const docked = shell && !shell.matches('.zoned, .panel-hidden, .fs') ? shell.querySelector<HTMLElement>(':scope > .app-panel') : null
+    const docked = shell && !shell.matches('[data-zoned], [data-panel-hidden], [data-fs]') ? shell.querySelector<HTMLElement>(':scope > .app-panel') : null
     const w = canvas.clientWidth + (docked?.offsetWidth ?? 0)
     const h = canvas.clientHeight
     const rect = canvas.getBoundingClientRect()

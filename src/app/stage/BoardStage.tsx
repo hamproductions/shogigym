@@ -1,5 +1,3 @@
-import './board-stage.css'
-import './board-layout.css'
 import { Suspense, lazy, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { EvalBar } from './EvalBar'
@@ -26,8 +24,11 @@ import { AnnounceBadge, PromotionPicker, TsumePlate } from './BoardOverlays'
 import { BoardBanners } from './BoardBanners'
 import { BoardLoading } from '@/rendering/BoardLoading'
 import { SourceIllustration } from '@/app/modes/lesson/SourceIllustration'
+import { illustration } from '@/app/modes/lesson/lesson.styles'
 import { Button } from '@/app/ui/Button'
 import { usePromotionFaces } from '@/app/hooks/useBakedPieces'
+import { cx } from '@/app/ui/cx'
+import { boardScene, boardWrap, caption, peek, phoneTask as phoneTaskStyle } from './stage.styles'
 
 import type { StandZones } from '@/rendering/board3d/types'
 
@@ -168,12 +169,12 @@ export function BoardStage({
           : t('app.opponent')
   const plate = (place: 'top' | 'bottom') => {
     const side: Side = (place === 'top') === flipped ? 'sente' : 'gote'
-    return <Plate className={place} clock={spar.clockFace(side)} position={position} color={side === 'sente' ? Color.BLACK : Color.WHITE} who={who(side)} />
+    return <Plate className={place} clock={spar.clockFace(side)} board={position} side={side === 'sente' ? Color.BLACK : Color.WHITE} who={who(side)} />
   }
   const sparEnded = mode === 'spar' && (spar.resigned || !!spar.flagged)
   const showGameOver = ((gameOver && game.moves.length > 0 && isGameMode(mode)) || sparEnded) && spar.endHidden !== sfen
   return (
-    <div className={`app-board-wrap${evalRate !== null ? ' with-eval' : ''}`}>
+    <div className={cx('app-board-wrap', boardWrap)} data-eval={evalRate !== null || undefined}>
       {mode === 'spar' && spar.furigomaBanner && (
         <div
           className="app-furigoma-banner"
@@ -202,7 +203,7 @@ export function BoardStage({
           </Button>
         </div>
       )}
-      <div className="app-board-scene">
+      <div className={cx('app-board-scene', boardScene)}>
         {evalRate !== null && <EvalBar rate={evalRate} flipped={flipped} />}
         <Suspense fallback={<BoardLoading />}>
           {settings.environment !== 'diagram' &&
@@ -234,9 +235,9 @@ export function BoardStage({
           )}
         </Suspense>
         {mode !== 'tsume' && !picking && plate('top')}
-        <div className="app-board-caption">
+        <div className={cx('app-board-caption', caption)}>
           {decor.note && dismissedNote !== decor.note && (
-            <div className="app-peek" role="status">
+            <div className={peek({ placement: 'caption' })} role="status">
               {decor.note}
             </div>
           )}
@@ -244,17 +245,17 @@ export function BoardStage({
         </div>
       </div>
       {mode === 'lesson' && sourceMarks?.illustration && sourceMarks.at === sfen.split(' ')[0] && (
-        <div className="app-source-illustration">
+        <div className={illustration}>
           <div>
             <SourceIllustration diagram={sourceMarks.illustration} />
           </div>
         </div>
       )}
       <BoardBanners mistake={mistake} onBack={onBack} />
-      {mode === 'tsume' && <TsumePlate position="top" flipped={flipped} userSide={userSide} />}
-      {mode === 'tsume' && <TsumePlate position="bottom" flipped={flipped} userSide={userSide} />}
+      {mode === 'tsume' && <TsumePlate place="top" flipped={flipped} userSide={userSide} />}
+      {mode === 'tsume' && <TsumePlate place="bottom" flipped={flipped} userSide={userSide} />}
       {phoneTask && (
-        <button className="app-phone-task" onClick={phoneTask.run}>
+        <button className={cx('app-phone-task', phoneTaskStyle)} onClick={phoneTask.run}>
           <span>{phoneTask.text}</span>
           <b>{phoneTask.action} ›</b>
         </button>
@@ -262,7 +263,7 @@ export function BoardStage({
       {showGameOver && <GameOverBanner spar={spar} flatView={view.flatView} />}
       {announce && <AnnounceBadge key={announce.key} announce={announce} />}
       {!decor.note && mode === 'tsume' && tsume && tsume.status === 'playing' && tsume.good === 0 && tsume.hint >= 1 && (
-        <div className="app-peek app-phone-only" role="status">
+        <div className={peek({ placement: 'hint' })} role="status">
           {t('app.hintTheFirstMoveUses', { piece: firstPieceHint(tsume.problem) })}
         </div>
       )}

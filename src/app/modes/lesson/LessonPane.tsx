@@ -1,6 +1,4 @@
 import { SquareText } from '@/app/modes/lesson/SquareText'
-import './lesson.css'
-import './source-reader.css'
 import { useTranslation } from 'react-i18next'
 import { LABELS } from '@/utils/analysis'
 import i18n from '@/utils/i18n'
@@ -14,6 +12,50 @@ import { moveGloss } from '@/app/pieces'
 import type { Level, Score } from '@/app/types'
 import { Button } from '@/app/ui/Button'
 import { Card } from '@/app/ui/Card'
+import { css } from 'styled-system/css'
+import { cx } from '@/app/ui/cx'
+import { Kbd } from '@/components/ui'
+import { Wrap } from 'styled-system/jsx'
+import { backLink, badge, muted, narrowColumn, note, result, verdictHead } from '@/app/panels/panels.styles'
+import { feedback, lessonPane, progressCount, series as seriesNav, seriesBack, seriesCount, sourceNote, studyPane } from './lesson.styles'
+
+const scoreRow = css({
+  display: 'flex',
+  gap: '3',
+  m: '{spacing.2.5} 0 0',
+  fontWeight: 'bold',
+  h: 'calc(1em * {lineHeights.normal})',
+  overflowX: 'auto',
+  whiteSpace: 'nowrap',
+  flexShrink: '0',
+  '& > span': { flexShrink: '0' },
+  '& .right': { color: 'success' },
+  '& .wrong': { color: 'danger' },
+  _narrow: { order: '-2', m: '0 0 {spacing.2.5}' },
+})
+
+const answer = css({ mt: '1.5', '.app-card &': { '& p': { m: '{spacing.0.5} 0 0', fontFamily: 'mincho' } } })
+
+const answerMove = css({ color: 'success', fontFamily: 'mincho', fontWeight: 'heavy', fontSize: 'xl' })
+
+const gloss = css({ display: 'block', color: 'fg.muted', fontSize: 'xs' })
+
+const last = css({ m: '{spacing.3} 0 0', fontFamily: 'mincho', fontSize: 'sm', lineHeight: 'mincho', '& p': { m: '{spacing.0.5} 0 0' } })
+
+const explore = css({
+  display: 'block',
+  w: '100%',
+  mt: '3',
+  p: '{spacing.2.5} {spacing.3}',
+  border: '1px dashed {colors.border.strong}',
+  borderRadius: 'lg',
+  textAlign: 'left',
+  fontWeight: 'bold',
+  fontSize: 'sm',
+  transition: 'background {durations.fast}',
+  _hover: { bg: 'surface.2' },
+  '& span': { display: 'block', fontWeight: 'regular', fontSize: 'xs', color: 'fg.muted' },
+})
 import { courseProgress } from '@/app/practice'
 import type { LessonMode } from '@/app/types'
 import { RANDOM_KEY, store, stored } from './reading'
@@ -114,6 +156,8 @@ type LessonPaneProps = {
   onBack: () => void
 }
 
+const endVerdict = css({ fontWeight: 'bold', '&[data-outcome=ahead]': { color: 'success' }, '&[data-outcome=behind]': { color: 'danger' } })
+
 export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPlayReply, lastNote, endRate, onBack }: LessonPaneProps) {
   const { t } = useTranslation()
   const { course, liveSfen: sfen, userSide, lastMove, prevSfen, playing, preview, atEnd } = useSession()
@@ -127,21 +171,21 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
   const endComment = done ? lesson.node?.comment : undefined
   if (setupOf(course)?.path && lessonMode === 'study' && !(mistakePreview && mistake) && !offBook && !whatIf)
     return (
-      <div className="app-lesson-pane study">
+      <div className={cx(lessonPane, studyPane, narrowColumn)}>
         <LessonGuide course={course} lesson={lesson} series={series} />
       </div>
     )
   return (
-    <div className={`app-lesson-pane ${lessonMode}`}>
+    <div className={cx(lessonPane, lessonMode === 'study' && studyPane, narrowColumn)}>
       {series && (
-        <nav className="app-series" aria-label={t('lesson.series')}>
-          <button className="app-back" onClick={series.back}>
+        <nav className={seriesNav} aria-label={t('lesson.series')}>
+          <button className={cx(backLink, seriesBack)} onClick={series.back}>
             ‹ {t('lesson.backToArticle')}
           </button>
           <Button size="sm" disabled={!series.prev} onClick={() => series.prev?.(lessonMode)} aria-label={t('lesson.previousSequence')}>
             ‹
           </Button>
-          <span>
+          <span className={seriesCount}>
             {series.tally
               ? t('lesson.randomTally', { count: series.tally.questions + 1, right: series.tally.right, wrong: series.tally.wrong })
               : t('lesson.sequenceOf', { value: series.at + 1, total: series.total })}
@@ -157,20 +201,22 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
         </nav>
       )}
       {progress && progress.total > 0 && (
-        <span className="app-progress-count">{t('lesson.yourMoves', { value: Math.min(progress.done, progress.total), total: progress.total })}</span>
+        <span className={progressCount}>{t('lesson.yourMoves', { value: Math.min(progress.done, progress.total), total: progress.total })}</span>
       )}
       {lessonMode === 'quiz' && (
-        <p className="app-score">
+        <p className={scoreRow}>
           <span className="right">✓ {score.right}</span>
           <span className="wrong">✗ {score.wrong}</span>
-          {justRight && !mistake && !done && <span className="app-just-right">{t('lesson.rightThatIsTheLesson')}</span>}
+          {justRight && !mistake && !done && (
+            <span className={css({ ml: '1.5', fontWeight: 'medium', color: 'success' })}>{t('lesson.rightThatIsTheLesson')}</span>
+          )}
         </p>
       )}
       {mistakePreview && mistake ? (
         <Card tone={mistakeIsBad(mistake) ? 'bad' : 'good'}>
-          <div className="app-verdict-head">
+          <div className={verdictHead}>
             {mistake.verdict && (
-              <span className="app-badge" style={{ ['--label' as string]: LABELS[mistake.verdict.label].color }}>
+              <span className={badge} style={{ ['--label' as string]: LABELS[mistake.verdict.label].color }}>
                 {LABELS[mistake.verdict.label].symbol}
               </span>
             )}
@@ -178,7 +224,7 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
           </div>
           {mistake.note && <p>{mistake.note}</p>}
           {mistake.verdict && mistake.verdict.reasons.length > 0 && (
-            <ul className="app-why">
+            <ul className={css({ m: '{spacing.1.5} 0', pl: '4', fontSize: 'sm', lineHeight: 'normal', '& li + li': { mt: '1' } })}>
               {mistake.verdict.reasons.map((r) => (
                 <li key={r}>{r}</li>
               ))}
@@ -187,7 +233,7 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
           {mistake.verdict && !mistake.note && mistake.verdict.reasons.length === 0 && (
             <p>{mistakeIsBad(mistake) ? t('lesson.theOpponentGetsTheBetter') : t('lesson.nothingGoesWrongRightAway')}</p>
           )}
-          <p className="app-muted">
+          <p className={muted}>
             {lessonMode === 'study'
               ? mistake.verdict && mistake.verdict.best.move !== mistake.expected && mistake.verdict.best.move !== mistake.usi
                 ? t('lesson.theLessonMoveIsThe', { move: moveText(sfen, mistake.expected), move2: moveText(sfen, mistake.verdict.best.move) })
@@ -203,12 +249,12 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
         <Card>
           <strong>{t('lesson.youLeftTheLessonLine')}</strong>
           <p>{t('lesson.theBookHasNoMoves')}</p>
-          <div className="app-actions">
+          <Wrap gap="2" align="center">
             <Button variant="primary" onClick={lesson.backToLine}>
               {t('lesson.backToTheLessonLine')}
             </Button>
             <Button onClick={lesson.explore}>{t('lesson.exploreItInAnalyze')}</Button>
-          </div>
+          </Wrap>
         </Card>
       ) : whatIf ? (
         <Card>
@@ -218,7 +264,7 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
       ) : done ? (
         <Card tone="good">
           <strong>{t('lesson.lineComplete')}</strong>
-          <div className="app-actions">
+          <Wrap gap="2" align="center">
             {lessonMode === 'study' && (
               <Button variant="primary" onClick={() => lesson.open(course, 'quiz')}>
                 {t('lesson.quizThisLine')}
@@ -241,15 +287,15 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
               </Button>
             )}
             <Button onClick={series ? series.back : lesson.leave}>{series ? t('lesson.backToArticle') : t('lesson.otherLessons')}</Button>
-          </div>
+          </Wrap>
           {endComment && (
-            <p className="app-endnote">
+            <p className={note({ tone: 'end' })}>
               <SquareText text={endComment} />
             </p>
           )}
           <p>{lessonMode === 'quiz' ? quizSummary(score) : jumped ? t('lesson.endOfThisBranchYou') : t('lesson.youHaveSeenTheWhole')}</p>
           {endRate !== null && (
-            <p className={endRate >= 0.55 ? 'app-end good' : endRate <= 0.45 ? 'app-end bad' : 'app-end'}>
+            <p className={endVerdict} data-outcome={endRate >= 0.55 ? 'ahead' : endRate <= 0.45 ? 'behind' : undefined}>
               {endRate >= 0.55
                 ? t('lesson.aiSViewOfThe', { value: Math.round(endRate * 100) })
                 : endRate <= 0.45
@@ -264,9 +310,9 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
             <>
               <strong>{t('lesson.yourMoveAs', { side })}</strong>
               {good.map((g) => (
-                <div key={g.usi} className="app-answer">
-                  <span className="app-answer-move">{moveText(sfen, g.usi)}</span>
-                  {level === 'new' && <span className="app-gloss">{moveGloss(sfen, g.usi)}</span>}
+                <div key={g.usi} className={answer}>
+                  <span className={answerMove}>{moveText(sfen, g.usi)}</span>
+                  {level === 'new' && <span className={gloss}>{moveGloss(sfen, g.usi)}</span>}
                   {g.note && (
                     <p>
                       <SquareText text={g.note} context={lesson.annotationText} />
@@ -274,21 +320,21 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
                   )}
                 </div>
               ))}
-              <p className="app-muted">{t('lesson.playItOnTheBoard')}</p>
+              <p className={muted}>{t('lesson.playItOnTheBoard')}</p>
             </>
           ) : (
             <>
               <strong>{lesson.quizTask ?? t('lesson.yourMoveAsFindThe', { side })}</strong>
-              <Button size="sm" variant="ghost" className="app-answer-reveal" onClick={lesson.revealAnswer}>
+              <Button size="sm" variant="ghost" className={css({ alignSelf: 'flex-start', mt: '2' })} onClick={lesson.revealAnswer}>
                 {t('lesson.showMeTheAnswer')}
               </Button>
             </>
           )}
-          <div className={`app-lesson-feedback${lessonMode === 'study' ? ' floating' : ''}`} role="status">
+          <div className={feedback({ floating: lessonMode === 'study' })} role="status">
             {checking ? (
-              <p className="app-muted">{t('lesson.checkingThatMove')}</p>
+              <p className={muted}>{t('lesson.checkingThatMove')}</p>
             ) : mistake && !mistakePreview ? (
-              <p className="app-result wrong">
+              <p className={result({ tone: 'wrong' })}>
                 {mistakeIsBad(mistake)
                   ? t('lesson.wasLabel', { move: moveText(sfen, mistake.usi), label: (mistake.verdict ? LABELS[mistake.verdict.label] : LABELS.mistake).text })
                   : t('lesson.isNotThisLessonS', { move: moveText(sfen, mistake.usi) })}
@@ -299,7 +345,7 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
       ) : (
         <Card>
           <strong>{theirs ? t('lesson.theirMove', { move: moveText(sfen, theirs.usi) }) : t('lesson.theirMove2')}</strong>
-          {level === 'new' && theirs && <span className="app-gloss">{moveGloss(sfen, theirs.usi)}</span>}
+          {level === 'new' && theirs && <span className={gloss}>{moveGloss(sfen, theirs.usi)}</span>}
           {theirs?.note && (
             <p>
               <SquareText text={theirs.note} context={lesson.annotationText} />
@@ -307,32 +353,32 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
           )}
           {theirs && (lessonMode === 'study' || !atEnd) ? (
             <Button variant="primary" onClick={() => onPlayReply(theirs.usi)}>
-              {t('lesson.playTheirMove')} <span className="app-key">Space</span>
+              {t('lesson.playTheirMove')} <Kbd>Space</Kbd>
             </Button>
           ) : (
-            <p className="app-muted">{theirs ? t('lesson.comingInAMoment') : t('lesson.noBookReply')}</p>
+            <p className={muted}>{theirs ? t('lesson.comingInAMoment') : t('lesson.noBookReply')}</p>
           )}
         </Card>
       )}
       {lastMove && prevSfen && lastNote && !mistakePreview && (
-        <div className="app-last">
-          <span className="app-muted">{t('lesson.lastMove', { move: moveText(prevSfen, lastMove) })}</span>
+        <div className={last}>
+          <span className={muted}>{t('lesson.lastMove', { move: moveText(prevSfen, lastMove) })}</span>
           <p>
             <SquareText text={lastNote} context={lesson.annotationText} />
           </p>
         </div>
       )}
       {!lastMove && course.root.comment && (
-        <p className="app-last">
+        <p className={last}>
           <SquareText text={lessonText(course.root.comment, course.root.commentEn, i18n.language, course) ?? ''} />
         </p>
       )}
-      <button className="app-explore" onClick={lesson.explore}>
+      <button className={explore} onClick={lesson.explore}>
         {t('lesson.tryYourOwnMovesFrom')}
         <span>{t('lesson.opensThisPositionInAnalyze')}</span>
       </button>
       {course.source && (
-        <details className="app-source">
+        <details className={sourceNote}>
           <summary>{t('lesson.source')}</summary>
           <p>{course.source}</p>
         </details>

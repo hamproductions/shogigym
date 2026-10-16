@@ -1,4 +1,3 @@
-import './board.css'
 import { memo, useEffect, useLayoutEffect, useRef, useState, type PointerEvent as ReactPointerEvent, type ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Color, PieceType, Square, type ImmutablePosition } from 'tsshogi'
@@ -14,6 +13,7 @@ import { handArrangement } from '@/rendering/board3d/hand'
 import { layout, sideStandsFit, standCenter, verticalStripsFit } from '@/rendering/board3d/layout'
 import { steppedMove } from '@/utils/stepped'
 import { playSound, useSettings } from '@/appearance/settings'
+import { boardFrame, flat, komaLift } from './board.styles'
 
 type Drag = { from: Square | PieceType; color: Color; type: PieceType; x: number; y: number; moved: boolean; id: number; handIndex?: number }
 
@@ -83,7 +83,7 @@ const PieceLayer = memo(function PieceLayer({
         return (
           <g key={sq.usi} transform={`translate(${gx + (col + 0.5) * U} ${gy + (row + 0.5) * CH})`} opacity={lifted?.equals(sq) ? 0.35 : 1}>
             <g data-sq={sq.usi}>
-              <g className={`app-koma-lift${selected instanceof Square && selected.equals(sq) ? ' on' : ''}`}>
+              <g className={`app-koma-lift ${komaLift({ on: selected instanceof Square && selected.equals(sq) })}`}>
                 <Koma baked={baked} type={piece.type} color={piece.color} up={up} />
               </g>
             </g>
@@ -250,7 +250,7 @@ export function BoardFlat(props: Board3DProps) {
 
   if (!baked)
     return (
-      <div className="app-flat app-flat-wood" ref={wrapRef}>
+      <div className={flat({ wood: true })} ref={wrapRef}>
         <div role="status">{error ?? i18n.t('settings.loadingEvalFile')}</div>
       </div>
     )
@@ -288,7 +288,7 @@ export function BoardFlat(props: Board3DProps) {
               style={{ cursor: 'pointer' }}
               onPointerDown={(e) => (movable === color ? startDrag(e, spot.type, color, spot.type, spot.i) : props.onHand(color, spot.type))}
             >
-              <g opacity={lifted ? 0.35 : 1} className={`app-koma-lift${on ? ' on' : ''}`}>
+              <g opacity={lifted ? 0.35 : 1} className={`app-koma-lift ${komaLift({ on })}`}>
                 <image href={baked.pieces.get(spriteKey(spot.type, color, bottom))} x={-size / 2} y={-size / 2} width={size} height={size} />
               </g>
               {spot.count && spot.count > 1 && (
@@ -318,7 +318,7 @@ export function BoardFlat(props: Board3DProps) {
   const layoutKey = `${g.ox}|${g.oy}|${flipped}|${g.portrait}|${g.vertical}|${U}|${pickedHand ? pickedHand.index : ''}`
   const dragFrom = drag?.moved && drag.from instanceof Square ? drag.from : null
   return (
-    <div className="app-flat app-flat-wood" ref={wrapRef} aria-busy={loading}>
+    <div className={flat({ wood: true })} ref={wrapRef} aria-busy={loading}>
       {(loading || error) && (
         <div className="app-board-loading" role="status">
           {error ?? i18n.t('settings.loadingEvalFile')}
@@ -336,7 +336,7 @@ export function BoardFlat(props: Board3DProps) {
         onPointerCancel={() => setDrag(null)}
       >
         <image href={baked.board} x={g.bx} y={g.by} width={g.bw} height={g.bh} preserveAspectRatio="none" />
-        <rect className="app-board-frame" x={g.bx - 6} y={g.by - 6} width={g.bw + 12} height={g.bh + 12} rx={10} fill="none" pointerEvents="none" />
+        <rect className={boardFrame} x={g.bx - 6} y={g.by - 6} width={g.bw + 12} height={g.bh + 12} rx={10} fill="none" pointerEvents="none" />
         <MemoUnder props={props} p={project} u={U} handPoint={handPoint} layout={layoutKey} />
         {settings.coords &&
           Array.from({ length: 9 }, (_, i) => (

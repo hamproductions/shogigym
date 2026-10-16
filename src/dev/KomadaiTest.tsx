@@ -1,8 +1,9 @@
-import './pieces.css'
 import { useEffect, useState } from 'react'
 import { handSnapshots, type HandSnapshot } from '@/rendering/board3d/komadai'
 import { loadPieceFont, useSettings } from '@/appearance/settings'
 import { loadPieceSet } from '@/appearance/pieceSets'
+import { cx } from '@/app/ui/cx'
+import { komadaiGrid, komadaiHeadings, page } from './pieces.styles'
 
 const ORDER = ['P', 'P', 'B', 'P', 'S', 'G', 'P', 'N', 'L', 'P', 'R', 'G', 'S', 'N', 'L', 'P', 'P', 'P', 'P']
 const PAWNS_FIRST = ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P', 'L', 'L', 'N', 'N', 'S', 'S', 'G', 'G', 'B', 'R']
@@ -45,14 +46,14 @@ export default function KomadaiTest() {
     }
   }, [st.pieceFont, st.pieceSet, st.pieceGuide, st.pieceFinish])
   return (
-    <main className="app-komadai-test">
+    <main className={cx(page, komadaiHeadings)}>
       <h1>駒台 layout test: 1 to 19 pieces in hand</h1>
       {!shots && <p>Rendering…</p>}
       {shots &&
         SERIES.map((s, k) => (
           <section key={s.title}>
             <h2>{s.title}</h2>
-            <div className="app-komadai-grid">
+            <div className={komadaiGrid}>
               {shots[k].map((shot, i) => (
                 <figure key={i}>
                   <img src={shot.url} alt={`${i + 1} pieces`} width={180} height={180} />

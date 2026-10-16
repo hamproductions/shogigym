@@ -1,11 +1,14 @@
-import '@/app/modes/lesson/lesson.css'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Wrap } from 'styled-system/jsx'
 import { loadGames } from '@/app/games'
 import { ImportBox } from './ImportBox'
 import { SavedGames } from './SavedGames'
 import type { AnalyzeGames } from './useAnalyzeGames'
 import { Button } from '@/app/ui/Button'
+import { Badge } from '@/components/ui'
+import { muted } from '@/app/panels/panels.styles'
+import { games as gamesBox } from '@/app/modes/lesson/lesson.styles'
 
 export function GamesBox({ games, browse = true }: { games: AnalyzeGames; browse?: boolean }) {
   const { t } = useTranslation()
@@ -15,8 +18,8 @@ export function GamesBox({ games, browse = true }: { games: AnalyzeGames; browse
   const stored = loadGames()
   const toggle = (next: 'saved' | 'load') => setView(view === next ? 'none' : next)
   return (
-    <div className="app-games">
-      <div className="app-actions">
+    <div className={gamesBox}>
+      <Wrap gap="2" align="center">
         <Button
           size="sm"
           onClick={() =>
@@ -28,7 +31,10 @@ export function GamesBox({ games, browse = true }: { games: AnalyzeGames; browse
         {browse && (
           <>
             <Button size="sm" on={view === 'saved'} onClick={() => toggle('saved')}>
-              {t('games.savedGames')} <span className="app-count">{stored.length}</span>
+              {t('games.savedGames')}{' '}
+              <Badge asChild ml="1" px="1.5" bg="surface.3" fontSize="2xs">
+                <span>{stored.length}</span>
+              </Badge>
             </Button>
             <Button size="sm" on={view === 'load'} onClick={() => toggle('load')}>
               {t('games.loadAGame')}
@@ -46,8 +52,8 @@ export function GamesBox({ games, browse = true }: { games: AnalyzeGames; browse
         >
           {t('games.copyKif')}
         </Button>
-      </div>
-      {note && <p className="app-muted">{note}</p>}
+      </Wrap>
+      {note && <p className={muted}>{note}</p>}
       {view === 'saved' && <SavedGames games={games} />}
       {view === 'load' && <ImportBox onImport={games.importGame} open />}
     </div>

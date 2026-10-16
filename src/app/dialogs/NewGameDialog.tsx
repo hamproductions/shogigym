@@ -1,13 +1,18 @@
-import './new-game.css'
+import { createListCollection } from '@ark-ui/react/collection'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FAMILIES, STRATEGIES } from '@/data/strategies'
 import { otherSide, type Side } from '@/utils/shogi'
 import { aiStrategyId, strategyCourses } from '@/utils/book'
 import { STRENGTH, TIME_CONTROLS, setSettings, useSettings, type AiStrength, type TimeControl } from '@/appearance/settings'
+import { css } from 'styled-system/css'
+import { Wrap } from 'styled-system/jsx'
+import { Select } from '@/components/ui'
 import { Button } from '@/app/ui/Button'
 import { Dialog } from '@/app/ui/Dialog'
 import { SegmentedField, SettingRow } from '@/app/ui/Segmented'
+
+const NO_STRATEGY = 'none'
 
 const CLOCK_ORDER: TimeControl[] = ['none', '10s', '3m', '5m5s', '10m', '10m30s', '30m60s']
 
@@ -19,8 +24,39 @@ export function NewGameDialog({ side, onClose, onStart }: { side: Side; onClose:
   const [pick, setPick] = useState<PickSide>(side)
   const ja = st.lang === 'ja'
   const start = () => onStart(pick === 'random' ? side : pick, pick === 'random')
+  const groups = Object.entries(FAMILIES).flatMap(([family, label]) => {
+    const options = STRATEGIES.filter(
+      (x) =>
+        x.family === family &&
+        (pick === 'random'
+          ? strategyCourses(x.id, 'sente').length > 0 || strategyCourses(x.id, 'gote').length > 0
+          : strategyCourses(x.id, otherSide(pick)).length > 0),
+    )
+    return options.length
+      ? [
+          {
+            family,
+            label: `${t(options[0].side === 'ibisha' ? 'strategy.ibisha' : 'strategy.furibisha')} · ${ja ? label.ja : label.en}`,
+            items: options.map((x) => ({ value: x.id, label: ja ? x.ja : `${x.en} ${x.ja}` })),
+          },
+        ]
+      : []
+  })
+  const loose = [
+    { value: 'random', label: t('app.randomStrategy') },
+    { value: NO_STRATEGY, label: t('app.noStrategy') },
+  ]
+  const strategies = createListCollection({ items: [...loose, ...groups.flatMap((g) => g.items)] })
   return (
-    <Dialog label={t('newGame.title')} className="app-newgame" onBackdrop={onClose}>
+    <Dialog
+      label={t('newGame.title')}
+      className={css({
+        w: 'min(560px, 100%)',
+        '& [data-setting]': { alignItems: 'start' },
+        '& [data-setting] > span:first-child': { pt: '1' },
+      })}
+      onBackdrop={onClose}
+    >
       <h2>{t('newGame.title')}</h2>
       <SegmentedField
         label={t('newGame.side')}
@@ -45,40 +81,48 @@ export function NewGameDialog({ side, onClose, onStart }: { side: Side; onClose:
         onChange={(k) => setSettings({ timeControl: k })}
       />
       <SettingRow label={t('newGame.strategy')}>
-        <select
-          className="app-field"
-          value={aiStrategyId(st.aiStrategy)}
-          aria-label={t('newGame.strategy')}
-          onChange={(e) => setSettings({ aiStrategy: e.target.value })}
+        <Select.Root
+          collection={strategies}
+          value={[aiStrategyId(st.aiStrategy) || NO_STRATEGY]}
+          positioning={{ strategy: 'fixed' }}
+          onValueChange={({ value }) => setSettings({ aiStrategy: value[0] === NO_STRATEGY ? '' : value[0] })}
         >
-          <option value="random">{t('app.randomStrategy')}</option>
-          <option value="">{t('app.noStrategy')}</option>
-          {Object.entries(FAMILIES).map(([family, label]) => {
-            const options = STRATEGIES.filter(
-              (x) =>
-                x.family === family &&
-                (pick === 'random'
-                  ? strategyCourses(x.id, 'sente').length > 0 || strategyCourses(x.id, 'gote').length > 0
-                  : strategyCourses(x.id, otherSide(pick)).length > 0),
-            )
-            return options.length ? (
-              <optgroup key={family} label={`${t(options[0].side === 'ibisha' ? 'strategy.ibisha' : 'strategy.furibisha')} · ${ja ? label.ja : label.en}`}>
-                {options.map((x) => (
-                  <option key={x.id} value={x.id}>
-                    {ja ? x.ja : `${x.en} ${x.ja}`}
-                  </option>
-                ))}
-              </optgroup>
-            ) : null
-          })}
-        </select>
+          <Select.Control>
+            <Select.Trigger aria-label={t('newGame.strategy')}>
+              <Select.ValueText />
+              <Select.Indicator />
+            </Select.Trigger>
+          </Select.Control>
+          <Select.Positioner>
+            <Select.Content>
+              {loose.map((item) => (
+                <Select.Item key={item.value} item={item}>
+                  <Select.ItemText>{item.label}</Select.ItemText>
+                  <Select.ItemIndicator />
+                </Select.Item>
+              ))}
+              {groups.map((group) => (
+                <Select.ItemGroup key={group.family}>
+                  <Select.ItemGroupLabel>{group.label}</Select.ItemGroupLabel>
+                  {group.items.map((item) => (
+                    <Select.Item key={item.value} item={item}>
+                      <Select.ItemText>{item.label}</Select.ItemText>
+                      <Select.ItemIndicator />
+                    </Select.Item>
+                  ))}
+                </Select.ItemGroup>
+              ))}
+            </Select.Content>
+          </Select.Positioner>
+          <Select.HiddenSelect />
+        </Select.Root>
       </SettingRow>
-      <div className="app-actions">
+      <Wrap gap="2" align="center" justify="flex-end" mt="4">
         <Button onClick={onClose}>{t('app.cancel')}</Button>
         <Button variant="primary" onClick={start}>
           {t('newGame.start')}
         </Button>
-      </div>
+      </Wrap>
     </Dialog>
   )
 }

@@ -1,6 +1,6 @@
-import './loading.css'
 import '@/utils/i18n'
 import { useTranslation } from 'react-i18next'
+import { loading, loadingContent, loadingPercent, loadingProgress } from './board.styles'
 
 export type BoardLoadingState = { phase: 'assets' | 'previews' | 'pieces' | 'shaders'; done: number; total: number }
 
@@ -16,11 +16,11 @@ export function BoardLoading({ error, progress, state }: { error?: string; progr
   const value = state?.phase === 'shaders' ? undefined : state ? state.done / state.total : progress
   const label = state ? t(phases[state.phase], { done: state.done, total: state.total }) : t('settings.loadingBoard')
   return (
-    <div className="board-loading" role={error ? 'alert' : 'status'} aria-busy={!error}>
-      <div className="board-loading-content">
+    <div className={loading} role={error ? 'alert' : 'status'} aria-busy={!error}>
+      <div className={loadingContent}>
         <span>{error ?? label}</span>
-        {!error && <progress className="board-loading-progress" max={1} value={value} aria-label={label} />}
-        {!error && value !== undefined && <span className="board-loading-percent">{Math.round(value * 100)}%</span>}
+        {!error && <progress className={loadingProgress} max={1} value={value} aria-label={label} />}
+        {!error && value !== undefined && <span className={loadingPercent}>{Math.round(value * 100)}%</span>}
       </div>
     </div>
   )

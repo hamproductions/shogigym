@@ -1,4 +1,3 @@
-import '@/app/modes/lesson/lesson.css'
 import { Fragment, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
@@ -10,6 +9,29 @@ import { setSettings, useSettings } from '@/appearance/settings'
 import { mainStrategies, strategyById } from '@/data/strategies'
 import type { LessonMode, Level } from '@/app/types'
 import { Button } from '@/app/ui/Button'
+import { Input } from '@/components/ui'
+import { Wrap } from 'styled-system/jsx'
+import { backLink, muted, subHeading } from '@/app/panels/panels.styles'
+import {
+  guideStart,
+  libEn,
+  libJa,
+  libMatch,
+  lessonCheck,
+  lessonToc,
+  mainChip,
+  mainCurrent,
+  mainGrid,
+  picker,
+  pickerIntro,
+  pickerTitle,
+  progressLine,
+  resultCount,
+  setupButton,
+  setupGo,
+  sourceNote,
+  startTag,
+} from './lesson.styles'
 import { LessonCard } from './LessonCard'
 import { LessonReferences } from './LessonReferences'
 import { SquareText } from './SquareText'
@@ -59,7 +81,7 @@ function matchScore({ setup, courses }: Entry, q: string) {
 function Credits() {
   const { t } = useTranslation()
   return (
-    <details className="app-source">
+    <details className={sourceNote} data-spaced>
       <summary>{t('picker.shogilabCreditsAndLicences')}</summary>
       <p>{t('picker.engineYaneuraouWasmBuildBy')}</p>
       <p>{t('picker.charactersCredit')}</p>
@@ -89,16 +111,16 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
   const setupCard = ({ setup, courses }: Entry) => {
     const p = progressOf(courses)
     return (
-      <button key={setup.id} className="app-setup" onClick={() => setSetupId(setup.id)}>
-        <span className="app-lib-ja">
+      <button key={setup.id} className={setupButton()} onClick={() => setSetupId(setup.id)}>
+        <span className={libJa}>
           {name(setup)}
-          {setup.basics && p.learned === 0 && <em className="app-start">{t('picker.startHere')}</em>}
+          {setup.basics && p.learned === 0 && <em className={startTag}>{t('picker.startHere')}</em>}
         </span>
-        <span className="app-lib-en">{ja ? `${courses.length} 章` : `${courses.length} ${courses.length === 1 ? 'chapter' : 'chapters'}`}</span>
-        <span className="app-setup-go" aria-hidden="true">
+        <span className={libEn}>{ja ? `${courses.length} 章` : `${courses.length} ${courses.length === 1 ? 'chapter' : 'chapters'}`}</span>
+        <span className={setupGo} aria-hidden="true">
           ›
         </span>
-        <i className="app-progress" style={{ width: percent(p) }} />
+        <i className={progressLine} style={{ width: percent(p) }} />
       </button>
     )
   }
@@ -114,23 +136,23 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
     const defending = courses.length > 0 && courses.every((c) => c.notesFromOpponentView)
     const p = progressOf(courses)
     return (
-      <button key={setup.id} className="app-setup app-result" onClick={() => setSetupId(setup.id)}>
-        <span className="app-lib-ja">
+      <button key={setup.id} className={setupButton({ found: true })} onClick={() => setSetupId(setup.id)}>
+        <span className={libJa}>
           {name(setup)}
-          {defending && <em className="app-start">{ja ? '受ける側' : 'Defending side'}</em>}
+          {defending && <em className={startTag}>{ja ? '受ける側' : 'Defending side'}</em>}
         </span>
-        <span className="app-lib-en app-crumb">{crumb(setup)}</span>
-        {chapter && <span className="app-lib-en app-match">{chapter}</span>}
-        <span className="app-lib-en">{ja ? `${courses.length} 章` : `${courses.length} ${courses.length === 1 ? 'chapter' : 'chapters'}`}</span>
-        <span className="app-setup-go" aria-hidden="true">
+        <span className={libEn}>{crumb(setup)}</span>
+        {chapter && <span className={libMatch}>{chapter}</span>}
+        <span className={libEn}>{ja ? `${courses.length} 章` : `${courses.length} ${courses.length === 1 ? 'chapter' : 'chapters'}`}</span>
+        <span className={setupGo} aria-hidden="true">
           ›
         </span>
-        <i className="app-progress" style={{ width: percent(p) }} />
+        <i className={progressLine} style={{ width: percent(p) }} />
       </button>
     )
   }
   const backToGame = fromGame && (
-    <button className="app-back" onClick={returnToGame}>
+    <button className={backLink} onClick={returnToGame}>
       ‹ {t('review.backToGame')}
     </button>
   )
@@ -152,29 +174,35 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
       onOpen(quizzable[Math.floor(Math.random() * quizzable.length)], 'quiz')
     }
     return (
-      <div className="app-picker">
+      <div className={picker}>
         {backToGame}
-        <button className="app-back" onClick={() => (setSetupId(null), openCategory(categoryOf(open.setup)))}>
+        <button className={backLink} onClick={() => (setSetupId(null), openCategory(categoryOf(open.setup)))}>
           ‹ {CATEGORIES.find((c) => c.id === categoryOf(open.setup))?.name[ja ? 'ja' : 'en']}
         </button>
-        <h2 className="app-picker-title">{name(open.setup)}</h2>
-        <p className="app-picker-intro app-lesson-overview">{describedSfen ? <SquareText text={intro} context={described} /> : intro}</p>
-        {plan && <p className="app-picker-intro plan">{describedSfen ? <SquareText text={plan} context={described} /> : plan}</p>}
+        <h2 className={pickerTitle}>{name(open.setup)}</h2>
+        <p data-spaced className={pickerIntro({ kind: 'overview' })}>
+          {describedSfen ? <SquareText text={intro} context={described} /> : intro}
+        </p>
+        {plan && (
+          <p data-spaced className={pickerIntro({ kind: 'plan' })}>
+            {describedSfen ? <SquareText text={plan} context={described} /> : plan}
+          </p>
+        )}
         {open.setup.path ? (
           <>
             {open.courses.length > 0 && (
-              <Button variant="primary" className="app-guide-start" onClick={() => (store(RANDOM_KEY, null), onOpen(open.courses[0], 'study'))}>
+              <Button variant="primary" className={guideStart} onClick={() => (store(RANDOM_KEY, null), onOpen(open.courses[0], 'study'))}>
                 {ja ? '始める' : 'Start'}
               </Button>
             )}
             {open.courses.length === 0 && open.setup.check && (
-              <details className="app-lesson-check">
+              <details className={lessonCheck} data-spaced>
                 <summary>{ja ? open.setup.check.question.ja : open.setup.check.question.en}</summary>
                 <p>{ja ? open.setup.check.answer.ja : open.setup.check.answer.en}</p>
               </details>
             )}
             {open.courses.length > 1 && (
-              <details className="app-lesson-toc">
+              <details className={lessonToc}>
                 <summary>{ja ? `目次（${open.courses.length}）` : `Contents (${open.courses.length})`}</summary>
                 <ol>
                   {open.courses.map((course) => {
@@ -195,12 +223,12 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
         ) : (
           <>
             {open.courses.length > 0 && (
-              <div className="app-actions">
+              <Wrap gap="2" align="center">
                 <Button variant="primary" onClick={() => (store(RANDOM_KEY, null), onOpen(open.courses[0], 'study'))}>
                   {ja ? '最初から学ぶ' : 'Start from the beginning'}
                 </Button>
                 {quizzable.length > 1 && <Button onClick={random}>{t('lesson.randomQuiz')}</Button>}
-              </div>
+              </Wrap>
             )}
             {open.courses.map((course) => (
               <LessonCard key={course.id} course={course} prefix={name(open.setup)} onOpen={(c, mode) => (store(RANDOM_KEY, null), onOpen(c, mode))} />
@@ -222,18 +250,26 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
             : []
           return (
             <>
-              {related.length > 0 && <h3 className="app-sub">{ja ? `「${base}」に関する講座` : `More about ${baseName}`}</h3>}
+              {related.length > 0 && (
+                <h3 className={subHeading} data-spaced>
+                  {ja ? `「${base}」に関する講座` : `More about ${baseName}`}
+                </h3>
+              )}
               {related.map(resultCard)}
-              {siblings.length > 0 && <h3 className="app-sub">{ja ? `${groupName(group!)}の他の講座` : `More in ${groupName(group!)}`}</h3>}
+              {siblings.length > 0 && (
+                <h3 className={subHeading} data-spaced>
+                  {ja ? `${groupName(group!)}の他の講座` : `More in ${groupName(group!)}`}
+                </h3>
+              )}
               {siblings.map(resultCard)}
             </>
           )
         })()}
         {open.setup.references ? (
-          <LessonReferences references={open.setup.references} ja={ja} className="app-muted" />
+          <LessonReferences references={open.setup.references} ja={ja} className={muted} />
         ) : (
           open.setup.sources.length > 0 && (
-            <p className="app-muted">
+            <p className={muted}>
               {ja ? '出典：' : 'Source: '}
               {open.setup.sources.map((url, index) => (
                 <Fragment key={url}>
@@ -252,23 +288,21 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
 
   if (choosing)
     return (
-      <div className="app-picker">
-        <button className="app-back" onClick={() => setChoosing(false)}>
+      <div className={picker}>
+        <button className={backLink} onClick={() => setChoosing(false)}>
           {t('picker.back')}
         </button>
-        <h2 className="app-picker-title">{t('strategy.chooseMain')}</h2>
+        <h2 className={pickerTitle}>{t('strategy.chooseMain')}</h2>
         {(['furibisha', 'ibisha'] as const).map((wing) => (
           <Fragment key={wing}>
-            <h3 className="app-sub">{t(`strategy.${wing}`)}</h3>
-            <div className="app-main-grid">
+            <h3 className={subHeading} data-spaced>
+              {t(`strategy.${wing}`)}
+            </h3>
+            <div className={mainGrid}>
               {mainStrategies()
                 .filter((s) => s.side === wing)
                 .map((s) => (
-                  <button
-                    key={s.id}
-                    className={`app-main-chip${s.id === main.id ? ' on' : ''}`}
-                    onClick={() => (setSettings({ mainStrategy: s.id }), setChoosing(false))}
-                  >
+                  <button key={s.id} className={mainChip({ on: s.id === main.id })} onClick={() => (setSettings({ mainStrategy: s.id }), setChoosing(false))}>
                     <strong>{ja ? s.ja : s.en}</strong>
                     <span>{t(`strategy.level${s.level}`)}</span>
                   </button>
@@ -280,8 +314,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
     )
 
   const search = (
-    <input
-      className="app-search"
+    <Input
       value={query}
       onChange={(e) => setQuery(e.target.value)}
       placeholder={ja ? 'ルール、手筋、戦法などを検索' : 'Search rules, tactics, openings…'}
@@ -296,9 +329,11 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
     : []
   const results = q && (
     <>
-      <p className="app-muted app-result-count">{ja ? `${ranked.length}件` : `${ranked.length} ${ranked.length === 1 ? 'result' : 'results'}`}</p>
+      <p className={resultCount} data-spaced>
+        {ja ? `${ranked.length}件` : `${ranked.length} ${ranked.length === 1 ? 'result' : 'results'}`}
+      </p>
       {ranked.slice(0, 30).map(({ entry }) => resultCard(entry))}
-      {ranked.length === 0 && <p className="app-muted">{ja ? '見つかりませんでした。' : 'Nothing found.'}</p>}
+      {ranked.length === 0 && <p className={muted}>{ja ? '見つかりませんでした。' : 'Nothing found.'}</p>}
     </>
   )
 
@@ -313,30 +348,44 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
     })
     const otherGroups = [...new Set(others.map((g) => josekiGroupOf(g.setup)!))].sort((a, b) => Number(isOpeningBasics(b)) - Number(isOpeningBasics(a)))
     return (
-      <div className="app-picker">
+      <div className={picker}>
         {backToGame}
-        <button className="app-back" onClick={() => openCategory(null)}>
+        <button className={backLink} onClick={() => openCategory(null)}>
           {ja ? '‹ 将棋を学ぶ' : '‹ Learn shogi'}
         </button>
-        <h2 className="app-picker-title">{ja ? '定跡' : 'Joseki'}</h2>
-        <button className="app-main-current" onClick={() => setChoosing(true)}>
+        <h2 className={pickerTitle}>{ja ? '定跡' : 'Joseki'}</h2>
+        <button className={mainCurrent} onClick={() => setChoosing(true)}>
           <span>{t('strategy.yourMain')}</span>
           <strong>{ja ? main.ja : main.en}</strong>
           <em>{t('strategy.change')} ›</em>
         </button>
-        {level === 'new' && <p className="app-picker-intro">{t('picker.clickAnyPieceOnThe')}</p>}
+        {level === 'new' && (
+          <p data-spaced className={pickerIntro()}>
+            {t('picker.clickAnyPieceOnThe')}
+          </p>
+        )}
         {search}
         {results}
         {!q && (
           <>
             {mine.filter((g) => g.setup.basics).map(setupCard)}
-            {lessons.length > 0 && <h3 className="app-sub">{ja ? `${main.ja}の考え方と手筋` : `${main.en}: ideas and tactics`}</h3>}
+            {lessons.length > 0 && (
+              <h3 className={subHeading} data-spaced>
+                {ja ? `${main.ja}の考え方と手筋` : `${main.en}: ideas and tactics`}
+              </h3>
+            )}
             {lessons.map(setupCard)}
-            {mine.some((g) => !g.setup.basics) && <h3 className="app-sub">{t('picker.openingsByWhatYourOpponent')}</h3>}
+            {mine.some((g) => !g.setup.basics) && (
+              <h3 className={subHeading} data-spaced>
+                {t('picker.openingsByWhatYourOpponent')}
+              </h3>
+            )}
             {mine.filter((g) => !g.setup.basics).map(setupCard)}
             {otherGroups.map((at) => (
               <Fragment key={at}>
-                <h3 className="app-sub">{groupName(at)}</h3>
+                <h3 className={subHeading} data-spaced>
+                  {groupName(at)}
+                </h3>
                 {others.filter((g) => josekiGroupOf(g.setup) === at).map(setupCard)}
               </Fragment>
             ))}
@@ -351,12 +400,12 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
     const info = CATEGORIES.find((c) => c.id === category)!
     const inCategory = all.filter((g) => categoryOf(g.setup) === category)
     return (
-      <div className="app-picker">
+      <div className={picker}>
         {backToGame}
-        <button className="app-back" onClick={() => openCategory(null)}>
+        <button className={backLink} onClick={() => openCategory(null)}>
           {ja ? '‹ 将棋を学ぶ' : '‹ Learn shogi'}
         </button>
-        <h2 className="app-picker-title">{ja ? info.name.ja : info.name.en}</h2>
+        <h2 className={pickerTitle}>{ja ? info.name.ja : info.name.en}</h2>
         {search}
         {results}
         {!q &&
@@ -365,7 +414,9 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
             return (
               entries.length > 0 && (
                 <Fragment key={group}>
-                  <h3 className="app-sub">{groupName(group)}</h3>
+                  <h3 className={subHeading} data-spaced>
+                    {groupName(group)}
+                  </h3>
                   {entries.map(setupCard)}
                 </Fragment>
               )
@@ -376,22 +427,22 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
   }
 
   return (
-    <div className="app-picker">
+    <div className={picker}>
       {backToGame}
-      <h2 className="app-picker-title">{ja ? '将棋を学ぶ' : 'Learn shogi'}</h2>
+      <h2 className={pickerTitle}>{ja ? '将棋を学ぶ' : 'Learn shogi'}</h2>
       {search}
       {results}
       {!q &&
         CATEGORIES.map((item) => {
           const p = progressOf(all.filter((g) => categoryOf(g.setup) === item.id).flatMap((g) => g.courses))
           return (
-            <button key={item.id} className="app-setup" onClick={() => openCategory(item.id)}>
-              <span className="app-lib-ja">{ja ? item.name.ja : item.name.en}</span>
-              <span className="app-lib-en">{ja ? item.about.ja : item.about.en}</span>
-              <span className="app-setup-go" aria-hidden="true">
+            <button key={item.id} className={setupButton()} onClick={() => openCategory(item.id)}>
+              <span className={libJa}>{ja ? item.name.ja : item.name.en}</span>
+              <span className={libEn}>{ja ? item.about.ja : item.about.en}</span>
+              <span className={setupGo} aria-hidden="true">
                 ›
               </span>
-              <i className="app-progress" style={{ width: percent(p) }} />
+              <i className={progressLine} style={{ width: percent(p) }} />
             </button>
           )
         })}

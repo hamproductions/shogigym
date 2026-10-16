@@ -1,6 +1,8 @@
-import './insights.css'
 import { useMemo, useState } from 'react'
+import { token } from 'styled-system/tokens'
 import { useTranslation } from 'react-i18next'
+import { css } from 'styled-system/css'
+import { Box, styled, Wrap } from 'styled-system/jsx'
 import { PieceType } from 'tsshogi'
 import { gameRole, loadGames } from '@/app/games'
 import { useBatchRate } from '@/app/hooks/useBatchRate'
@@ -15,9 +17,17 @@ import { SETUPS } from '@/utils/model'
 import { PIECE_CHAR } from '@/utils/shogi'
 import { MistakeDetail } from '@/app/ui/MistakeDetail'
 import type { Mistake } from '@/utils/mistakes'
+import { Text } from '@/components/ui'
 import { FIX_ROUTE, LESSONS, type FixRoute } from './ReportDialog'
+import { reportList, reportListBody, reportListItem } from './report.styles'
+import { badge } from '@/app/panels/panels.styles'
+
+const radarLine = css({ fill: 'none', stroke: 'border', strokeWidth: '1' })
+const subheading = css({ mt: '3', mx: '0', mb: '1', fontSize: 'sm' })
 
 const AXES: Skill['key'][] = ['opening', 'middle', 'endgame', 'convert', 'tenacity', 'punish', 'steady']
+
+const skillDot = css({ fill: 'fg.muted', opacity: '0.6', '&[data-known]': { fill: 'accent', opacity: '1' } })
 
 function Radar({ skills, label }: { skills: Skill[]; label: (key: Skill['key']) => string }) {
   const size = 260
@@ -30,24 +40,39 @@ function Radar({ skills, label }: { skills: Skill[]; label: (key: Skill['key']) 
   const values = AXES.map((key) => skills.find((s) => s.key === key)?.value ?? 0)
   const shape = values.map((v, i) => point(i, v).join(',')).join(' ')
   return (
-    <svg className="app-radar" viewBox={`-80 -4 ${size + 160} ${size + 8}`} role="img" aria-label={label('opening')}>
+    <svg
+      className={css({ w: '100%', maxW: '340px', overflow: 'visible', _phone: { justifySelf: 'center', maxW: '260px' } })}
+      viewBox={`-80 -4 ${size + 160} ${size + 8}`}
+      role="img"
+      aria-label={label('opening')}
+    >
       {[25, 50, 75, 100].map((ring) => (
-        <polygon key={ring} className="ring" points={AXES.map((_, i) => point(i, ring).join(',')).join(' ')} />
+        <polygon key={ring} className={radarLine} points={AXES.map((_, i) => point(i, ring).join(',')).join(' ')} />
       ))}
       {AXES.map((_, i) => {
         const [x, y] = point(i, 100)
-        return <line key={i} className="spoke" x1={c} y1={c} x2={x} y2={y} />
+        return <line key={i} className={radarLine} x1={c} y1={c} x2={x} y2={y} />
       })}
-      <polygon className="shape" points={shape} />
+      <polygon
+        className={css({ fill: 'color-mix(in srgb, {colors.accent} 28%, transparent)', stroke: 'accent', strokeWidth: '2', strokeLinejoin: 'round' })}
+        points={shape}
+      />
       {values.map((v, i) => {
         const [x, y] = point(i, v)
         const known = skills.find((s) => s.key === AXES[i])?.value !== null
-        return <circle key={i} className={known ? 'dot' : 'dot unknown'} cx={x} cy={y} r={3.5} />
+        return <circle key={i} className={skillDot} data-known={known || undefined} cx={x} cy={y} r={3.5} />
       })}
       {AXES.map((key, i) => {
         const [x, y] = point(i, 122)
         return (
-          <text key={key} x={x} y={y} textAnchor={x < c - 4 ? 'end' : x > c + 4 ? 'start' : 'middle'} dominantBaseline="middle">
+          <text
+            key={key}
+            className={css({ fill: 'fg.default', fontSize: '13px' })}
+            x={x}
+            y={y}
+            textAnchor={x < c - 4 ? 'end' : x > c + 4 ? 'start' : 'middle'}
+            dominantBaseline="middle"
+          >
             {label(key)}
           </text>
         )
@@ -66,10 +91,13 @@ function Trend({ points }: { points: (number | null)[] }) {
   const hi = Math.min(100, Math.max(...known.map((p) => p.v)) + 5)
   const y = (v: number) => h - 4 - ((v - lo) / Math.max(hi - lo, 1)) * (h - 8)
   return (
-    <svg className="app-trend" viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none" role="img">
-      <polyline points={known.map((p) => `${x(p.i)},${y(p.v)}`).join(' ')} />
+    <svg className={css({ w: '100%', h: '56px', overflow: 'visible' })} viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none" role="img">
+      <polyline
+        className={css({ fill: 'none', stroke: 'accent', strokeWidth: '2', vectorEffect: 'non-scaling-stroke' })}
+        points={known.map((p) => `${x(p.i)},${y(p.v)}`).join(' ')}
+      />
       {known.map((p) => (
-        <circle key={p.i} cx={x(p.i)} cy={y(p.v)} r={2.8} />
+        <circle key={p.i} className={css({ fill: 'accent' })} cx={x(p.i)} cy={y(p.v)} r={2.8} />
       ))}
     </svg>
   )
@@ -148,20 +176,34 @@ export function InsightsDialog({ onClose, onPractice, onRoute, onLesson }: Props
   const recurringText = (r: Recurring) => t('insights.recurringItem', { count: r.count, games: r.games })
   const trend = insights.games.map((g) => g.accuracy)
   return (
-    <Dialog label={t('insights.title')} className="app-insights" onBackdrop={onClose}>
+    <Dialog
+      label={t('insights.title')}
+      className={css({
+        display: 'flex',
+        flexDirection: 'column',
+        w: 'min(720px, calc(100vw - 24px))',
+        maxH: 'min(640px, calc(100dvh - 24px))',
+        overflow: 'hidden',
+      })}
+      onBackdrop={onClose}
+    >
       <DialogHeader title={t('insights.title')} closeLabel={t('viewer.close')} onClose={onClose} />
-      <p className="app-muted app-insight-meta" title={t('insights.scopeHint')}>
+      <Text tone="muted" size="xs" mb="4" title={t('insights.scopeHint')}>
         {t('insights.includedOf', { count: included.length, total: stored.length })}
         {included.length > 0 && ` / ${t('insights.coverage', insights.coverage)}`}
         {progress && ` / ${t('insights.rating', progress)}`}
-      </p>
-      {!engineSupported() && <p className="app-muted">{t('insights.noEngine')}</p>}
+      </Text>
+      {!engineSupported() && (
+        <Text tone="muted" size="sm" mb="4">
+          {t('insights.noEngine')}
+        </Text>
+      )}
       {included.length === 0 ? (
-        <p className="app-insight-empty">{stored.length > 0 ? t('insights.none') : t('insights.noGames')}</p>
+        <Text mb="4">{stored.length > 0 ? t('insights.none') : t('insights.noGames')}</Text>
       ) : (
         <>
           <Tabs
-            className="app-insight-tabs"
+            className={css({ flex: 'none' })}
             items={(['fix', 'skills', 'recurring'] as const).map((id) => ({
               id,
               label: id === 'recurring' && insights.recurring.length ? `${t('insights.recurring')} ${insights.recurring.length}` : t(`insights.${id}`),
@@ -169,75 +211,104 @@ export function InsightsDialog({ onClose, onPractice, onRoute, onLesson }: Props
             value={tab}
             onChange={setTab}
           />
-          <div className="app-insight-panel" role="tabpanel">
+          <Box flex="1 1 auto" minH="min(340px, 50dvh)" overflowY="auto" pt="3" role="tabpanel">
             {tab === 'fix' &&
               (insights.suggestions.length === 0 ? (
-                <p className="app-muted">{t('insights.fixEmpty')}</p>
+                <Text tone="muted" size="sm" my="1em">
+                  {t('insights.fixEmpty')}
+                </Text>
               ) : (
-                <ol className="app-insight-fix">
-                  {insights.suggestions.slice(0, 4).map((s) => (
-                    <li key={s.kind}>
-                      <p>{suggestionText(s)}</p>
-                      <div className="app-actions">
+                <styled.ol display="grid" m="0" p="0" listStyle="none">
+                  {insights.suggestions.slice(0, 4).map((s, i) => (
+                    <styled.li key={s.kind} py="3" borderBottom="1px solid {colors.border}" _first={{ pt: '0' }}>
+                      <Text mb="2" fontSize={i === 0 ? 'md' : undefined} fontWeight={i === 0 ? 'bold' : undefined}>
+                        {suggestionText(s)}
+                      </Text>
+                      <Wrap gap="2" align="center">
                         {actions(s).map((a) => (
                           <Button key={a.key} size="sm" onClick={a.run}>
                             {a.label}
                           </Button>
                         ))}
-                      </div>
-                    </li>
+                      </Wrap>
+                    </styled.li>
                   ))}
-                </ol>
+                </styled.ol>
               ))}
             {tab === 'skills' && (
-              <div className="app-insight-skills">
+              <Box display="grid" gridTemplateColumns="minmax(200px, 300px) 1fr" alignItems="start" gap="4" _phone={{ gridTemplateColumns: '1fr' }}>
                 <Radar skills={insights.skills} label={(key) => t(`insights.skill.${key}`)} />
                 <div>
-                  <ul>
+                  <styled.ul display="grid" gap="2" m="0" p="0" listStyle="none">
                     {insights.skills.map((s) => (
-                      <li key={s.key} title={s.key in { convert: 1, tenacity: 1, punish: 1, steady: 1 } ? t(`insights.skillHint.${s.key}`) : undefined}>
-                        <span className="app-skill-name">{t(`insights.skill.${s.key}`)}</span>
-                        <i className="app-skill-bar">
-                          <u style={{ width: `${s.value ?? 0}%` }} />
-                        </i>
-                        <b className="app-skill-value">{s.value ?? '–'}</b>
-                        <small className="app-skill-detail">
+                      <styled.li
+                        key={s.key}
+                        display="grid"
+                        gridTemplateColumns="7em 1fr 2.2em"
+                        gridTemplateAreas={`'name bar value' '. detail detail'`}
+                        columnGap="2"
+                        alignItems="center"
+                        title={s.key in { convert: 1, tenacity: 1, punish: 1, steady: 1 } ? t(`insights.skillHint.${s.key}`) : undefined}
+                      >
+                        <styled.span gridArea="name" fontSize="sm">
+                          {t(`insights.skill.${s.key}`)}
+                        </styled.span>
+                        <styled.i gridArea="bar" display="block" h="6px" borderRadius="full" bg="border" overflow="hidden">
+                          <styled.u
+                            display="block"
+                            h="100%"
+                            w="var(--score)"
+                            borderRadius="inherit"
+                            bg="accent"
+                            textDecoration="none"
+                            style={{ ['--score' as string]: `${s.value ?? 0}%` }}
+                          />
+                        </styled.i>
+                        <styled.b gridArea="value" textAlign="right" fontSize="md" fontVariantNumeric="tabular-nums">
+                          {s.value ?? '–'}
+                        </styled.b>
+                        <styled.small gridArea="detail" color="fg.muted" fontSize="2xs">
                           {s.value === null
                             ? t('insights.few')
                             : s.avgLoss !== undefined
                               ? t('report.phaseDetail', { loss: s.avgLoss, percent: s.mistakeRate })
                               : t('insights.nOfN', { hits: s.hits, total: s.total })}
-                        </small>
-                      </li>
+                        </styled.small>
+                      </styled.li>
                     ))}
-                  </ul>
+                  </styled.ul>
                   {trend.filter((v) => v !== null).length >= 2 && (
                     <>
-                      <h4>
-                        {t('insights.trend')} <span className="app-muted">{t('insights.trendHint')}</span>
+                      <h4 className={subheading}>
+                        {t('insights.trend')}{' '}
+                        <Text as="span" tone="muted" size="sm">
+                          {t('insights.trendHint')}
+                        </Text>
                       </h4>
                       <Trend points={trend} />
                     </>
                   )}
                 </div>
-              </div>
+              </Box>
             )}
             {tab === 'recurring' && (
               <>
                 {insights.recurring.length === 0 ? (
-                  <p className="app-muted">{t('insights.recurringEmpty')}</p>
+                  <Text tone="muted" size="sm" my="1em">
+                    {t('insights.recurringEmpty')}
+                  </Text>
                 ) : (
                   <>
-                    <Button variant="primary" onClick={go(() => onPractice(practiceItems()))}>
+                    <Button variant="primary" className={css({ mb: '3' })} onClick={go(() => onPractice(practiceItems()))}>
                       {t('insights.practice', { count: insights.recurring.length })}
                     </Button>
-                    <ul className="app-report-list">
+                    <ul className={reportList}>
                       {insights.recurring.map((r) => (
-                        <li key={r.sfen}>
-                          <span className="app-badge" style={{ ['--label' as string]: 'var(--accent)' }}>
+                        <li key={r.sfen} className={reportListItem}>
+                          <span className={badge} style={{ ['--label' as string]: token.var('colors.accent') }}>
                             {r.count}×
                           </span>
-                          <div>
+                          <div className={reportListBody}>
                             <strong>{recurringText(r)}</strong>
                             <MistakeDetail
                               showPlayed
@@ -256,17 +327,17 @@ export function InsightsDialog({ onClose, onPractice, onRoute, onLesson }: Props
                 )}
                 {insights.pieces.length > 0 && (
                   <>
-                    <h4>{t('insights.pieces')}</h4>
-                    <ul className="app-insight-pieces">
+                    <h4 className={subheading}>{t('insights.pieces')}</h4>
+                    <styled.ul m="0" pl="5" fontSize="sm">
                       {insights.pieces.slice(0, 3).map((p) => (
                         <li key={p.piece}>{t('insights.pieceItem', { piece: pieceName(p.piece), mistakes: p.mistakes, moves: p.moves, percent: p.rate })}</li>
                       ))}
-                    </ul>
+                    </styled.ul>
                   </>
                 )}
               </>
             )}
-          </div>
+          </Box>
         </>
       )}
     </Dialog>

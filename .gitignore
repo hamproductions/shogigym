@@ -29,3 +29,4 @@ build
 .react-router
 .cache
 external/
+styled-system

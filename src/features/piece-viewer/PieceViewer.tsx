@@ -1,5 +1,3 @@
-import './viewer.css'
-import '@/app/ui/dialog.css'
 import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
@@ -10,7 +8,12 @@ import { createRenderer, disposeRenderer } from '@/rendering/board3d/scene'
 import { PIECE_FINISHES, loadPieceFont, setSettings, useSettings, type PieceFinish } from '@/appearance/settings'
 import { loadPieceSet } from '@/appearance/pieceSets'
 import { useTranslation } from 'react-i18next'
-import { DialogHeader } from '@/app/ui/Dialog'
+import { css } from 'styled-system/css'
+import { Box } from 'styled-system/jsx'
+import { dialog } from 'styled-system/recipes'
+import { Slider, Text } from '@/components/ui'
+import { Dialog, DialogHeader } from '@/app/ui/Dialog'
+import { cx } from '@/app/ui/cx'
 import { Segmented, SettingRow } from '@/app/ui/Segmented'
 
 const TYPES: { type: PieceType; label: string }[] = [
@@ -127,37 +130,70 @@ export function PieceViewer({ onClose, page }: { onClose: () => void; page?: boo
     scene.current?.setLight(light)
   }, [light])
 
+  const body = (
+    <>
+      <DialogHeader title={t('viewer.pieceViewer')} closeLabel={t('viewer.close')} onClose={onClose} />
+      <Box
+        ref={host}
+        h={page ? 'min(70vh, 640px)' : 'min(52vh, 420px)'}
+        my="2"
+        borderRadius="lg"
+        bg="radial-gradient(ellipse at 50% 40%, {colors.sumi.600}, {colors.sumi.900})"
+        touchAction="none"
+        cursor="grab"
+      />
+      <Text tone="muted" size="sm" mb="4">
+        {t('viewer.dragToRotateScrollOr')}
+      </Text>
+      <Segmented size="small" className={css({ mt: '1.5' })} value={type} options={TYPES.map((x) => ({ v: x.type, t: x.label }))} onChange={setType} />
+      <Segmented<PieceFinish>
+        size="small"
+        className={css({ mt: '1.5' })}
+        value={st.pieceFinish}
+        options={(Object.keys(PIECE_FINISHES) as PieceFinish[]).map((f) => ({ v: f, t: PIECE_FINISHES[f].label }))}
+        onChange={(f) => setSettings({ pieceFinish: f })}
+      />
+      <Text tone="muted" size="sm" mb="4">
+        {PIECE_FINISHES[st.pieceFinish].hint}
+      </Text>
+      <SettingRow label={t('viewer.lightDirection')}>
+        <Slider.Root
+          w="min(220px, 100%)"
+          min={0}
+          max={1}
+          step={0.01}
+          value={[light]}
+          aria-label={[t('viewer.lightDirection')]}
+          onValueChange={({ value }) => setLight(value[0])}
+        >
+          <Slider.Control>
+            <Slider.Track>
+              <Slider.Range />
+            </Slider.Track>
+            <Slider.Thumbs />
+          </Slider.Control>
+        </Slider.Root>
+      </SettingRow>
+    </>
+  )
+
+  if (page)
+    return (
+      <Box gridColumn="1 / -1" display="grid" placeItems="center" minH="100%" p="4" overflow="auto">
+        <div className={cx(dialog().content, css({ w: 'min(900px, 100%)' }))} role="dialog" aria-label={t('viewer.pieceViewer')}>
+          {body}
+        </div>
+      </Box>
+    )
+
   return (
-    <div className={page ? 'app-viewer-page' : 'app-palette-back'} onPointerDown={page ? undefined : onClose}>
-      <div
-        className={`app-dialog app-viewer${page ? ' page' : ''}`}
-        role="dialog"
-        aria-label={t('viewer.pieceViewer')}
-        onPointerDown={(e) => e.stopPropagation()}
-      >
-        <DialogHeader title={t('viewer.pieceViewer')} closeLabel={t('viewer.close')} onClose={onClose} />
-        <div className="app-viewer-stage" ref={host} />
-        <p className="app-muted">{t('viewer.dragToRotateScrollOr')}</p>
-        <Segmented size="small" value={type} options={TYPES.map((x) => ({ v: x.type, t: x.label }))} onChange={setType} />
-        <Segmented<PieceFinish>
-          size="small"
-          value={st.pieceFinish}
-          options={(Object.keys(PIECE_FINISHES) as PieceFinish[]).map((f) => ({ v: f, t: PIECE_FINISHES[f].label }))}
-          onChange={(f) => setSettings({ pieceFinish: f })}
-        />
-        <p className="app-muted">{PIECE_FINISHES[st.pieceFinish].hint}</p>
-        <SettingRow label={t('viewer.lightDirection')}>
-          <input
-            type="range"
-            min={0}
-            max={1}
-            step={0.01}
-            value={light}
-            aria-label={t('viewer.lightDirection')}
-            onChange={(e) => setLight(Number(e.target.value))}
-          />
-        </SettingRow>
-      </div>
-    </div>
+    <Dialog
+      label={t('viewer.pieceViewer')}
+      className={css({ w: 'min(560px, 100%)' })}
+      positionerClassName={css({ p: '4', _tight: { p: '3' } })}
+      onBackdrop={onClose}
+    >
+      {body}
+    </Dialog>
   )
 }

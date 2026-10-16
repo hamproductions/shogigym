@@ -1,4 +1,5 @@
 import { MENTION_COLORS, mentionedSquares, squareParts } from '@/app/modes/lesson/figureMarks'
+import { squareMark } from './lesson.styles'
 
 const hex = (color: number) => `#${color.toString(16).padStart(6, '0')}`
 
@@ -14,7 +15,7 @@ export function SquareText({ text, context = text }: { text: string; context?: s
         typeof part === 'string' ? (
           part
         ) : (
-          <span key={i} className="app-sq" style={{ ['--sq' as string]: hex(MENTION_COLORS[squares.indexOf(part.square) % MENTION_COLORS.length]) }}>
+          <span key={i} className={squareMark} style={{ ['--sq' as string]: hex(MENTION_COLORS[squares.indexOf(part.square) % MENTION_COLORS.length]) }}>
             {part.text}
           </span>
         ),

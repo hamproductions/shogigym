@@ -1,7 +1,8 @@
+import { LocaleProvider } from '@ark-ui/react/locale'
 import { useEffect, useState, type ReactNode } from 'react'
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, isRouteErrorResponse, useLocation, useRouteError } from 'react-router'
-import '@/styles/tokens.css'
-import '@/styles/base.css'
+import '@/styles/panda.css'
+import { crashCard, crashReset, crashScreen } from '@/app/crash.styles'
 
 const base = import.meta.env.BASE_URL
 
@@ -15,6 +16,7 @@ const themeScript = `(() => {
   if (theme !== 'light' && theme !== 'dark') theme = 'system'
   document.documentElement.dataset.theme = theme
   const dark = theme === 'dark' || (theme === 'system' && matchMedia('(prefers-color-scheme: dark)').matches)
+  document.documentElement.classList.add(dark ? 'dark' : 'light')
   document.querySelector('meta[name="theme-color"]').setAttribute('content', dark ? '#1c1814' : '#f4eee3')
 })()`
 
@@ -57,6 +59,7 @@ export function Layout({ children }: { children: ReactNode }) {
 }
 
 export default function Root() {
+  const [locale, setLocale] = useState('ja')
   useEffect(() => {
     let cancelled = false
     let unsubscribe: (() => void) | undefined
@@ -64,6 +67,7 @@ export default function Root() {
       if (cancelled) return
       const update = (language: string) => {
         document.documentElement.lang = language
+        setLocale(language)
       }
       update(i18n.language)
       i18n.on('languageChanged', update)
@@ -84,7 +88,11 @@ export default function Root() {
       if (engineSupported()) getEngine().catch((error) => console.warn('engine preload failed', error))
     })
   }, [taikyoku])
-  return <Outlet />
+  return (
+    <LocaleProvider locale={locale}>
+      <Outlet />
+    </LocaleProvider>
+  )
 }
 
 export function ErrorBoundary() {
@@ -101,8 +109,8 @@ export function ErrorBoundary() {
     location.reload()
   }
   return (
-    <main className="app-crash-screen">
-      <section className="app-crash">
+    <main className={crashScreen}>
+      <section className={crashCard}>
         <img src={`${base}favicon.svg`} width="56" height="56" alt="" />
         <h1>{en ? 'The game was interrupted' : '対局が中断されました'}</h1>
         <p>{en ? 'Reload to return to your saved game.' : '再読み込みして、保存された対局に戻れます。'}</p>
@@ -114,7 +122,7 @@ export function ErrorBoundary() {
               ? 'If reloading does not help, reset the open game. Your settings and saved records remain.'
               : '再読み込みで復旧しない場合は、開いている対局をリセットできます。設定と保存済みの棋譜は残ります。'}
           </p>
-          <button className="app-crash-reset" onClick={reset}>
+          <button className={crashReset} onClick={reset}>
             {en ? 'Reset the open game' : '開いている対局をリセット'}
           </button>
         </details>

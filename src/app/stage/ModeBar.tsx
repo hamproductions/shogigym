@@ -1,4 +1,3 @@
-import './mode-bar.css'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { moveText } from '@/utils/shogi'
@@ -15,7 +14,38 @@ import type { Lesson } from '@/app/modes/lesson/useLesson'
 import { STRENGTH, TIME_CONTROLS, setSettings, useSettings, type AiStrength } from '@/appearance/settings'
 import { MODES, isGameMode, type LessonMode } from '@/app/types'
 import { Button } from '@/app/ui/Button'
+import { Select } from '@/app/ui/Select'
 import { cx } from '@/app/ui/cx'
+import {
+  boardFlip,
+  botSettings,
+  controlIcon,
+  controlLabel,
+  controls,
+  evalChip,
+  evalLabel,
+  evalTrack,
+  evalValue,
+  evaluation,
+  gameSetup,
+  heading,
+  headingText,
+  helpToggle,
+  instruction as instructionStyle,
+  lastMove as lastMoveStyle,
+  lastMoveText,
+  miniNav,
+  miniStep,
+  miniWideLabel,
+  modeBar,
+  ply as plyStyle,
+  resign,
+  seal as sealStyle,
+  takeBack,
+  title as titleStyle,
+  tools,
+  turn as turnStyle,
+} from './mode-bar.styles'
 import { useGlide } from '@/app/hooks/useGlide'
 import { engineSupported, restartEngine, useEngineStatus } from '@/utils/engine'
 import { FAMILIES, STRATEGIES } from '@/data/strategies'
@@ -61,18 +91,20 @@ export function ModeBarHeading({
 }) {
   const { t } = useTranslation()
   return (
-    <div className="app-modebar-heading">
-      <span className="app-modebar-seal">{seal}</span>
-      <span className="app-modebar-text">
-        <strong>{title}</strong>
-        <span role="status" aria-busy={busy}>
+    <div className={cx('app-modebar-heading', heading)}>
+      <span className={sealStyle}>{seal}</span>
+      <span className={headingText}>
+        <strong className={titleStyle}>{title}</strong>
+        <span className={instructionStyle} role="status" aria-busy={busy}>
           {instruction}
         </span>
       </span>
-      <span className="app-lastmove">
-        <span className="app-ply">{ply}</span>
-        <strong title={lastMove}>{lastMove ?? '\u00a0'}</strong>
-        <span className={`app-turn ${turn}`}>{t('app.toMove', { side: sideMark(turn) })}</span>
+      <span className={cx('app-lastmove', lastMoveStyle)}>
+        <span className={plyStyle}>{ply}</span>
+        <strong className={lastMoveText} title={lastMove}>
+          {lastMove ?? '\u00a0'}
+        </strong>
+        <span className={turnStyle}>{t('app.toMove', { side: sideMark(turn) })}</span>
       </span>
     </div>
   )
@@ -83,14 +115,15 @@ export function EvalChip({ rate, barShown }: { rate: number; barShown: boolean }
   const fill = useGlide<HTMLSpanElement>('width', rate * 100)
   return (
     <span
-      className={`app-eval-chip${barShown ? ' has-bar' : ''}`}
+      className={evalChip}
+      data-bar={barShown || undefined}
       title={t('app.winChance', { value: Math.round(rate * 100), value2: 100 - Math.round(rate * 100) })}
     >
-      <span className="app-eval-label">{t('app.winChanceShort')}</span>
-      <span className="app-eval-track">
+      <span className={evalLabel}>{t('app.winChanceShort')}</span>
+      <span className={evalTrack}>
         <span ref={fill} style={{ width: `${rate * 100}%` }} />
       </span>
-      <b>
+      <b className={evalValue}>
         {rate >= 0.5 ? '☗' : '☖'} {Math.round(Math.max(rate, 1 - rate) * 100)}%
       </b>
     </span>
@@ -131,7 +164,7 @@ export function ModeBar({
     t(`modes.${mode}.name`)
   )
   return (
-    <header className={`app-modebar${sheetUp ? ' sheet-up' : ''} m-${mode}${mode === 'lesson' ? ` l-${lessonMode}` : ''}`}>
+    <header className={cx('app-modebar', modeBar({ mode: mode === 'lesson' ? lessonMode : mode }))} data-sheet-up={sheetUp || undefined}>
       <ModeBarHeading
         seal={seal}
         title={title}
@@ -148,12 +181,12 @@ export function ModeBar({
         turn={toMove}
       />
       {evalRate !== null && (
-        <div className="app-modebar-evaluation">
+        <div className={evaluation}>
           <EvalChip rate={evalRate} barShown={barShown} />
         </div>
       )}
-      <div className="app-modebar-controls">
-        <div className="app-modebar-tools">
+      <div className={controls}>
+        <div className={tools}>
           {engine.error && (isGameMode(mode) || mode === 'view') && (
             <Button
               size="sm"
@@ -180,13 +213,13 @@ export function ModeBar({
                 aria-label={t(!watch.started ? 'newGame.start' : watch.running ? 'watch.pause' : 'watch.resume')}
               >
                 <Icon name={watch.running ? 'pause' : 'play'} size={16} />
-                <span className="app-control-label">{t(!watch.started ? 'newGame.start' : watch.running ? 'watch.pause' : 'watch.resume')}</span>
+                <span className={controlLabel}>{t(!watch.started ? 'newGame.start' : watch.running ? 'watch.pause' : 'watch.resume')}</span>
               </Button>
               <Button size="sm" onClick={watch.restart} title={t('watch.newGame')} aria-label={t('watch.newGame')}>
-                <span className="app-control-icon">
+                <span className={controlIcon}>
                   <Icon name="newGame" size={16} />
                 </span>
-                <span className="app-control-label">{t('watch.newGame')}</span>
+                <span className={controlLabel}>{t('watch.newGame')}</span>
               </Button>
             </>
           )}
@@ -194,16 +227,16 @@ export function ModeBar({
             <Button
               size="sm"
               variant="ghost"
-              className={cx('app-help-toggle', settings.assist && 'on')}
+              className={helpToggle}
               onClick={() => setSettings({ assist: !settings.assist })}
               title={settings.assist ? t('app.helpIsOnEvalBar') : t('app.noHelpClickToShow')}
               aria-pressed={settings.assist}
               aria-label={settings.assist ? t('app.coachOn') : t('app.coachOff')}
             >
-              <span className="app-control-icon">
+              <span className={controlIcon}>
                 <Icon name="coach" />
               </span>
-              <span className="app-control-label">{settings.assist ? t('app.coachOn') : t('app.coachOff')}</span>
+              <span className={controlLabel}>{settings.assist ? t('app.coachOn') : t('app.coachOff')}</span>
             </Button>
           )}
           {mode === 'spar' && game.moves.length > 0 && !gameOver && !spar.resigned && (
@@ -211,22 +244,22 @@ export function ModeBar({
               <Button
                 size="sm"
                 variant={spar.erred ? 'primary' : 'secondary'}
-                className="app-takeback"
+                className={takeBack}
                 onClick={spar.takeBack}
                 disabled={spar.lastUserMove < 0}
                 title={t('app.takeBackYourLastMove3')}
                 aria-label={t('app.takeBack')}
               >
-                <span className="app-control-icon">
+                <span className={controlIcon}>
                   <Icon name="undo" />
                 </span>
-                <span className="app-control-label">{t('app.takeBack')}</span>
+                <span className={controlLabel}>{t('app.takeBack')}</span>
               </Button>
-              <Button size="sm" variant="ghost" className="app-resign" onClick={spar.confirmResign} title={t('app.resign')} aria-label={t('app.resign')}>
-                <span className="app-control-icon">
+              <Button size="sm" variant="ghost" className={resign} onClick={spar.confirmResign} title={t('app.resign')} aria-label={t('app.resign')}>
+                <span className={controlIcon}>
                   <Icon name="resign" />
                 </span>
-                <span className="app-control-label">{t('app.resign')}</span>
+                <span className={controlLabel}>{t('app.resign')}</span>
               </Button>
             </>
           )}
@@ -236,10 +269,10 @@ export function ModeBar({
           {mode === 'tesuji' && <TesujiControls trainer={tesuji} />}
           {mode === 'analyze' && (
             <Button size="sm" onClick={onOpenGame} title={t('rail.openTitle')} aria-label={t('rail.open')}>
-              <span className="app-control-icon">
+              <span className={controlIcon}>
                 <Icon name="import" size={16} />
               </span>
-              <span className="app-control-label">{t('rail.open')}</span>
+              <span className={controlLabel}>{t('rail.open')}</span>
             </Button>
           )}
           {mode !== 'spar' && mode !== 'view' && mode !== 'tsume' && mode !== 'tesuji' && (
@@ -257,37 +290,36 @@ export function ModeBar({
           {mode === 'spar' && (
             <Button
               variant={spar.erred ? 'secondary' : 'primary'}
-              className="app-game-setup"
+              className={gameSetup}
               onClick={() => spar.setNewGameOpen(true)}
               title={`${STRENGTH[settings.opponent].label} · ${TIME_CONTROLS[settings.timeControl].label}`}
               aria-label={t('newGame.button')}
             >
-              <span className="app-control-icon">
+              <span className={controlIcon}>
                 <Icon name="newGame" />
               </span>
-              <span className="app-control-label">{t('newGame.button')}</span>
+              <span className={controlLabel}>{t('newGame.button')}</span>
             </Button>
           )}
-          <Button size="sm" variant="ghost" className="app-board-flip" onClick={onFlip} title={t('app.flipTheBoardF')} aria-label={t('app.flip')}>
+          <Button size="sm" variant="ghost" className={boardFlip} onClick={onFlip} title={t('app.flipTheBoardF')} aria-label={t('app.flip')}>
             <Icon name="flip" size={16} />
           </Button>
         </div>
-        <div className={cx('app-mini-nav', !panelHidden && 'panel-open')}>
-          <Button size="sm" className="app-mini-step" onClick={nav.back} disabled={!nav.canBack} title={t('app.back')} aria-label={t('app.back2')}>
+        <div className={miniNav} data-panel-open={!panelHidden || undefined}>
+          <Button size="sm" className={miniStep} onClick={nav.back} disabled={!nav.canBack} title={t('app.back')} aria-label={t('app.back2')}>
             <Icon name="prev" size={16} />
           </Button>
-          <Button size="sm" className="app-mini-step" onClick={nav.forward} disabled={!nav.canForward} title={t('app.forward')} aria-label={t('app.forward2')}>
+          <Button size="sm" className={miniStep} onClick={nav.forward} disabled={!nav.canForward} title={t('app.forward')} aria-label={t('app.forward2')}>
             <Icon name="next" size={16} />
           </Button>
           <Button
             size="sm"
-            className="app-mini-wide"
             onClick={() => onPanel(!panelHidden)}
             title={t(panelHidden ? 'app.showThePanelP' : 'app.boardOnlyHideThePanel')}
             aria-label={t(panelHidden ? 'app.showThePanel' : 'app.hideThePanel')}
           >
             <Icon name="panel" size={16} />
-            <span>{t(panelHidden ? 'app.panel' : 'app.hidePanel')}</span>
+            <span className={miniWideLabel}>{t(panelHidden ? 'app.panel' : 'app.hidePanel')}</span>
           </Button>
         </div>
       </div>
@@ -301,47 +333,37 @@ export function WatchOptions({ watch }: { watch: Watch }) {
   return (
     <>
       {watch.bots.map((strength, index) => (
-        <div key={index} className="app-bot-settings" role="group" aria-label={watch.name(index)}>
+        <div key={index} className={botSettings} role="group" aria-label={watch.name(index)}>
           <span>
             {watch.name(index)}
             {watch.side(index) && ` · ${t(`common.${watch.side(index)}`)}`}
           </span>
-          <select
-            className="app-field"
-            aria-label={t('watch.difficulty', { bot: watch.name(index) })}
+          <Select
+            portal={false}
+            label={t('watch.difficulty', { bot: watch.name(index) })}
             value={strength}
-            onChange={(event) => watch.setBot(index, event.target.value as AiStrength)}
-          >
-            {(Object.entries(STRENGTH) as [AiStrength, (typeof STRENGTH)[AiStrength]][]).map(([id, level]) => (
-              <option key={id} value={id}>
-                {level.label}
-              </option>
-            ))}
-          </select>
-          <select
-            className="app-field"
-            aria-label={t('watch.strategy', { bot: watch.name(index) })}
+            options={(Object.entries(STRENGTH) as [AiStrength, (typeof STRENGTH)[AiStrength]][]).map(([id, level]) => ({ value: id, label: level.label }))}
+            onChange={(value) => watch.setBot(index, value as AiStrength)}
+          />
+          <Select
+            portal={false}
+            label={t('watch.strategy', { bot: watch.name(index) })}
             value={watch.strategies[index]}
-            onChange={(event) => watch.setStrategy(index, event.target.value)}
-          >
-            <option value="random">{t('app.randomStrategy')}</option>
-            <option value="">{t('app.noStrategy')}</option>
-            {Object.entries(FAMILIES).map(([family, label]) => {
+            options={[
+              { value: 'random', label: t('app.randomStrategy') },
+              { value: '', label: t('app.noStrategy') },
+            ]}
+            groups={Object.entries(FAMILIES).flatMap(([family, label]) => {
               const choices = STRATEGIES.filter(
                 (strategy) =>
                   strategy.family === family && (strategyCourses(strategy.id, 'sente').length > 0 || strategyCourses(strategy.id, 'gote').length > 0),
               )
-              return choices.length ? (
-                <optgroup key={family} label={ja ? label.ja : label.en}>
-                  {choices.map((strategy) => (
-                    <option key={strategy.id} value={strategy.id}>
-                      {ja ? strategy.ja : strategy.en}
-                    </option>
-                  ))}
-                </optgroup>
-              ) : null
+              return choices.length
+                ? [{ label: ja ? label.ja : label.en, options: choices.map((strategy) => ({ value: strategy.id, label: ja ? strategy.ja : strategy.en })) }]
+                : []
             })}
-          </select>
+            onChange={(value) => watch.setStrategy(index, value)}
+          />
         </div>
       ))}
     </>
