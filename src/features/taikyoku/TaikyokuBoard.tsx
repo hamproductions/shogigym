@@ -9,6 +9,7 @@ import { SPRITE_BOX } from '@/rendering/sprites'
 import { taikyokuPiece } from './pieces'
 import { bakeTaikyoku, bakedKey, taikyokuSprites } from './bake'
 import { SIZE, fileLabel, type Cell, type EngineMove, type Pos, type Snapshot } from './notation'
+import { canvas as canvasStyle } from './taikyoku.styles'
 
 export type TargetKind = 'step' | 'capture' | 'via'
 export type TaikyokuArrow = { move: EngineMove; color: string; dashed?: boolean; label?: string }
@@ -573,5 +574,5 @@ export const TaikyokuBoard = forwardRef<BoardHandle, Props>(function TaikyokuBoa
     return () => controller.abort()
   }, [props.snap, appearanceKey, schedule])
 
-  return <canvas ref={canvas} className="tk-canvas" role="img" aria-label="Taikyoku shogi board" />
+  return <canvas ref={canvas} className={canvasStyle} role="img" aria-label="Taikyoku shogi board" />
 })

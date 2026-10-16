@@ -1,5 +1,4 @@
 import '@/styles/controls.css'
-import './taikyoku.css'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '@/app/ui/Button'
@@ -11,18 +10,7 @@ import { MoveNavigation } from '@/app/panels/NavFooter'
 import { MoveRows } from '@/app/panels/MovesPane'
 import { EvalGraph } from '@/app/panels/EvalGraph'
 import { EngineResultPane } from '@/app/panels/EnginePane'
-import {
-  clock as clockStyle,
-  moveButton,
-  moveCounts,
-  moveNotation,
-  panelBody,
-  panelClose,
-  panelHeader,
-  pinnedGraph,
-  plate,
-  plateSide,
-} from '@/app/panels/panels.styles'
+import { clock as clockStyle, moveButton, moveCounts, panelBody, panelClose, panelHeader, pinnedGraph, plate, plateSide } from '@/app/panels/panels.styles'
 import { EvalBar } from '@/app/stage/EvalBar'
 import { winRate } from '@/utils/analysis'
 import { squareName } from '@/utils/notation'
@@ -34,6 +22,8 @@ import { appShell } from '@/app/layout.styles'
 import { useView } from '@/app/hooks/useView'
 import { useMovePlayback } from '@/app/hooks/useAutoplay'
 import { Tabs } from '@/app/ui/Tabs'
+import { Text } from '@/components/ui'
+import { Wrap } from 'styled-system/jsx'
 import { Icon } from '@/app/icons'
 import { Segmented } from '@/app/ui/Segmented'
 import { cx } from '@/app/ui/cx'
@@ -44,6 +34,20 @@ import { TaikyokuBoard3D } from './TaikyokuBoard3D'
 import { MovementGuide } from './MovementGuide'
 import { catalog, cellAt, same, type EngineMove, type Pos } from './notation'
 import { PLY_LIMIT, useTaikyoku, type LogEntry, type Strength, type TimelineEntry } from './useTaikyoku'
+import {
+  buttons,
+  cameraHint,
+  choice as choiceStyle,
+  loading,
+  notation,
+  pane,
+  row,
+  scene,
+  setting,
+  setup as setupStyle,
+  shell,
+  victory,
+} from './taikyoku.styles'
 
 function webglSupported() {
   try {
@@ -384,7 +388,7 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
         </div>
       )}
       <div className={cx('app-panel-body', panelBody)}>
-        <div className="app-actions">
+        <Wrap gap="2" align="center">
           <Button size="sm" onClick={saveState} disabled={!game || restoring} title={t('games.saveGame')}>
             {t('games.saveGame')}
           </Button>
@@ -413,16 +417,16 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
               }
             }}
           />
-        </div>
+        </Wrap>
         {stateError && (
-          <p role="alert" className="app-muted">
+          <Text role="alert" tone="muted" size="sm" my="1em">
             {stateError}
-          </p>
+          </Text>
         )}
         {restoring && (
-          <p role="status" className="app-muted">
+          <Text role="status" tone="muted" size="sm" my="1em">
             {t('taikyoku.state.loading')}
-          </p>
+          </Text>
         )}
         {timeline.length ? (
           <MoveRows
@@ -435,13 +439,15 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
                   onClick={() => navigate(index + 1)}
                   aria-current={cursor === index + 1 ? 'step' : undefined}
                 >
-                  <span className={cx('app-move-notation', moveNotation)}>{moveLabel(index)}</span>
+                  <span className={notation}>{moveLabel(index)}</span>
                 </button>
               </div>
             )}
           />
         ) : (
-          <p className="app-muted">{t('moves.noMovesYetPlayOn')}</p>
+          <Text tone="muted" size="sm" my="1em">
+            {t('moves.noMovesYetPlayOn')}
+          </Text>
         )}
       </div>
     </>
@@ -450,8 +456,9 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
   return (
     <div
       className={cx(
-        'app-shell tk-shell',
+        'app-shell',
         appShell,
+        shell,
         layout.zoned && 'zoned',
         !panelOpen && 'panel-hidden',
         layout.compact && layout.drawer && 'drawer-open',
@@ -554,7 +561,7 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
 
         <div className={cx('app-board-wrap', boardWrap, evalBar && 'with-eval')}>
           {evalBar && <EvalBar rate={evalRate} flipped={false} />}
-          <section className={cx('app-board-scene', boardScene, 'tk-stage')} aria-label={t('taikyoku.board')}>
+          <section className={cx('app-board-scene', boardScene, scene)} aria-label={t('taikyoku.board')}>
             {game && view === '3d' && (
               <TaikyokuBoard3D
                 ref={board}
@@ -601,9 +608,9 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
                     {side === 'b' ? '☗' : '☖'} {game.snap.counts[side]}
                   </span>
                   <span className={plateSide}>{t(side === 'b' ? 'taikyoku.sente' : 'taikyoku.gote')}</span>
-                  <span className="tk-muted">
+                  <Text as="span" tone="muted" size="sm">
                     {t('taikyoku.royal')} × {game.snap.royals[side]}
-                  </span>
+                  </Text>
                 </div>
               ))}
             {winner && (
@@ -612,20 +619,20 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
                 <Button onClick={reset}>{t('taikyoku.new')}</Button>
               </div>
             )}
-            {view === '3d' && <div className="tk-camera-hint">{t('taikyoku.camera')}</div>}
+            {view === '3d' && <div className={cameraHint}>{t('taikyoku.camera')}</div>}
             {setup && (
-              <div className="tk-setup" role="status">
+              <div className={setupStyle} role="status">
                 {t('taikyoku.setup', { done: setup.done, total: setup.total })}
               </div>
             )}
-            {!game && !error && <div className="tk-loading">{t('taikyoku.status.loading')}</div>}
+            {!game && !error && <div className={loading}>{t('taikyoku.status.loading')}</div>}
             {boardError && (
-              <div className="tk-loading" role="alert">
+              <div className={loading} role="alert">
                 {boardError}
               </div>
             )}
             {choice && (
-              <div className="tk-choice" role="group" aria-label={t('taikyoku.opt.title')}>
+              <div className={choiceStyle} role="group" aria-label={t('taikyoku.opt.title')}>
                 <span>{t('taikyoku.opt.title')}</span>
                 {choice.options.map((m) => (
                   <Button key={m.text} onClick={() => commit(m)}>
@@ -711,13 +718,15 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
         }
       >
         {!layout.twoPanels && rightTab === 'moves' && movesPane}
-        <div className={cx('app-panel-body tk-panel-body', panelBody)} hidden={rightTab === 'moves'}>
-          <div className="tk-pane" hidden={rightTab !== 'coach'}>
+        <div className={cx('app-panel-body', panelBody, pane)} hidden={rightTab === 'moves'}>
+          <div className={pane} hidden={rightTab !== 'coach'}>
             {game && (
-              <div className={cx(moveCounts, 'tk-victory')}>
+              <div className={cx(moveCounts, victory)}>
                 <b>{t('taikyoku.victory.title')}</b>
-                <p className="tk-muted">{t('taikyoku.victory.rule')}</p>
-                <div className="tk-row">
+                <Text tone="muted" size="sm">
+                  {t('taikyoku.victory.rule')}
+                </Text>
+                <div className={row}>
                   <span>
                     ☗ {t('taikyoku.sente')}: <b>{game.snap.royals.b}</b>
                   </span>
@@ -725,7 +734,7 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
                     ☖ {t('taikyoku.gote')}: <b>{game.snap.royals.w}</b>
                   </span>
                 </div>
-                <div className="tk-controls">
+                <div className={buttons}>
                   {royals.map(({ cell, pos }) => (
                     <Button
                       key={keyOf(pos)}
@@ -743,23 +752,25 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
               </div>
             )}
           </div>
-          <div className="tk-pane" hidden={rightTab !== 'coach'}>
-            <div className="tk-piece">
+          <div className={pane} hidden={rightTab !== 'coach'}>
+            <div>
               {info && focusCell ? (
                 <>
                   <div>
                     <b>{lang === 'ja' ? info.k || info.n : info.n}</b>
-                    <div className="tk-muted">
+                    <Text as="div" tone="muted" size="sm">
                       {lang === 'ja' ? info.n : info.k} · {squareName(focusPos!)} · {t(focusCell.side === 'b' ? 'taikyoku.sente' : 'taikyoku.gote')}
-                    </div>
-                    <div className="tk-muted">
+                    </Text>
+                    <Text as="div" tone="muted" size="sm">
                       {promoted ? t('taikyoku.promotesTo', { piece: lang === 'ja' ? promoted.k || promoted.n : promoted.n }) : t('taikyoku.noPromotion')}
                       {info.r ? ` · ${t('taikyoku.royal')}` : ''}
-                    </div>
+                    </Text>
                   </div>
                 </>
               ) : (
-                <span className="tk-muted">{t('taikyoku.hint')}</span>
+                <Text as="span" tone="muted" size="sm">
+                  {t('taikyoku.hint')}
+                </Text>
               )}
               {jitto && (
                 <Button onClick={() => commit(jitto)} title={t('taikyoku.jittoHint')}>
@@ -777,7 +788,7 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
                     <strong>
                       {t(side === 'b' ? 'taikyoku.sente' : 'taikyoku.gote')} · {coverage?.[side].length ?? 0}
                     </strong>
-                    <div className="tk-controls">
+                    <div className={buttons}>
                       {coverage?.[side].map((pos) => {
                         const cell = cellAt(game!.snap.grid, pos)
                         return (
@@ -806,24 +817,24 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
                 <h3>{t('taikyoku.movement')}</h3>
                 <MovementGuide cell={focusCell!} lang={lang} />
                 {route && (
-                  <p role="status" aria-live="polite" className="app-muted">
+                  <Text role="status" aria-live="polite" tone="muted" size="sm" my="1em">
                     {pieceName(focusCell!.key)} · {squareName(route.from)} → {route.mid ? `${squareName(route.mid)} → ` : ''}
                     {squareName(route.to)} · {optionLabel(route)}
-                  </p>
+                  </Text>
                 )}
               </section>
             )}
           </div>
-          <div className="tk-pane" hidden={rightTab !== 'engine'}>
-            <div className="app-actions">
+          <div className={pane} hidden={rightTab !== 'engine'}>
+            <Wrap gap="2" align="center">
               <Button size="sm" onClick={engineMove} disabled={!game || thinking || auto || !!winner || plies >= PLY_LIMIT || !game?.legal.length || !!error}>
                 <Icon name="engine" /> <span>{t('taikyoku.engineMove')}</span>
               </Button>
               <Button size="sm" on={auto} onClick={() => setAuto(!auto)} disabled={!!winner || !game || plies >= PLY_LIMIT || !game?.legal.length || !!error}>
                 <Icon name={auto ? 'pause' : 'play'} /> <span>{auto ? t('taikyoku.auto.stop') : t('taikyoku.auto.start')}</span>
               </Button>
-            </div>
-            <div className="tk-setting">
+            </Wrap>
+            <div className={setting}>
               <span>{t('taikyoku.strength.label')}</span>
               <Segmented<Strength>
                 value={strength}
@@ -837,7 +848,11 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
               />
             </div>
 
-            {score && <p className="app-muted">{t('taikyoku.eval', { cp: `${cp > 0 ? '+' : ''}${cp}`, depth: score.depth })}</p>}
+            {score && (
+              <Text tone="muted" size="sm" my="1em">
+                {t('taikyoku.eval', { cp: `${cp > 0 ? '+' : ''}${cp}`, depth: score.depth })}
+              </Text>
+            )}
             {assist && analysis && game && (
               <EngineResultPane
                 analysis={{
@@ -857,7 +872,11 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
                 setShowBest={setShowBest}
                 canPlay={humanTurn}
                 onPlay={() => commit(analysis.bestmove)}
-                name={<p className="app-muted">TaikyokuShogi-Stockfish</p>}
+                name={
+                  <Text tone="muted" size="sm" my="1em">
+                    TaikyokuShogi-Stockfish
+                  </Text>
+                }
                 formatMove={() =>
                   formatEntry({ move: analysis.bestmove, piece: cellAt(game.snap.grid, analysis.bestmove.from)!, side: game.snap.turn }, game.last ?? undefined)
                 }

@@ -1,4 +1,3 @@
-import './hands.css'
 import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
@@ -11,6 +10,9 @@ import type { Board3DProps, SceneState } from '@/rendering/board3d/types'
 import { loadPieceFont, setSettings, useSettings } from '@/appearance/settings'
 import { loadPieceSet } from '@/appearance/pieceSets'
 import { BoardLoading } from '@/rendering/BoardLoading'
+import { createListCollection } from '@ark-ui/react/collection'
+import { Checkbox, Select, Slider } from '@/components/ui'
+import { control, panel, pads, row } from './hands.styles'
 
 type Room = 'traditional' | 'casual'
 type Pattern = { id: string; label: string; sfen: string; usi: string }
@@ -65,6 +67,27 @@ function slotFor(controller: AvatarController): AvatarSlot {
     update: controller.update,
     dispose: controller.dispose,
   }
+}
+
+const ROOMS = createListCollection({
+  items: [
+    { value: 'traditional', label: 'Traditional' },
+    { value: 'casual', label: 'Casual' },
+  ],
+})
+
+function Toggle({ checked, onChange, label }: { checked: boolean; onChange: (checked: boolean) => void; label: string }) {
+  return (
+    <Checkbox.Root size="sm" display="flex" alignItems="center" gap="1" checked={checked} onCheckedChange={(details) => onChange(details.checked === true)}>
+      <Checkbox.HiddenInput />
+      <Checkbox.Control>
+        <Checkbox.Indicator />
+      </Checkbox.Control>
+      <Checkbox.Label fontWeight="regular" fontSize="inherit" lineHeight="inherit">
+        {label}
+      </Checkbox.Label>
+    </Checkbox.Root>
+  )
 }
 
 type Overlay = { target: THREE.Mesh; pinch: THREE.Mesh; piece: THREE.Mesh; pole: THREE.ArrowHelper; axes: THREE.AxesHelper }
@@ -279,18 +302,34 @@ export default function HandsTest() {
     <main style={{ position: 'fixed', inset: 0, background: '#111' }}>
       <div ref={host} style={{ position: 'absolute', inset: 0 }} />
       {!ready && <BoardLoading error={error ?? undefined} progress={progress} />}
-      <div className="hands-panel">
+      <div className={`dark ${panel}`}>
         <b>Hand animation · dev</b>
         {!ready && <div role={error ? 'alert' : 'status'}>{error ?? 'Loading pieces and avatars…'}</div>}
         <div>
-          <select value={room} onChange={(e) => setRoom(e.target.value as Room)} aria-label="Room">
-            <option value="traditional">Traditional</option>
-            <option value="casual">Casual</option>
-          </select>
+          <Select.Root collection={ROOMS} value={[room]} positioning={{ strategy: 'fixed' }} onValueChange={({ value }) => setRoom(value[0] as Room)}>
+            <Select.Control>
+              <Select.Trigger aria-label="Room">
+                <Select.ValueText />
+                <Select.Indicator />
+              </Select.Trigger>
+            </Select.Control>
+            <Select.Positioner>
+              <Select.Content>
+                {ROOMS.items.map((item) => (
+                  <Select.Item key={item.value} item={item}>
+                    <Select.ItemText>{item.label}</Select.ItemText>
+                    <Select.ItemIndicator />
+                  </Select.Item>
+                ))}
+              </Select.Content>
+            </Select.Positioner>
+            <Select.HiddenSelect />
+          </Select.Root>
         </div>
-        <div className="hands-pads" aria-label="Animations">
+        <div className={pads} aria-label="Animations">
           {PATTERNS.map((p) => (
             <button
+              className={control}
               key={p.id}
               aria-pressed={pattern.id === p.id}
               onClick={() => {
@@ -307,44 +346,45 @@ export default function HandsTest() {
             </button>
           ))}
         </div>
-        <div className="hands-row" aria-label="Camera">
+        <div className={row} aria-label="Camera">
           {['top', 'tilted', 'hand', 'gote', 'rest'].map((c) => (
-            <button key={c} onClick={() => api.current?.camera(c)}>
+            <button key={c} className={control} onClick={() => api.current?.camera(c)}>
               {c}
             </button>
           ))}
         </div>
-        <div className="hands-row">
-          <button onClick={() => setPlaying((p) => !p)}>{playing ? 'Pause' : 'Play'}</button>
-          <button onClick={() => setFrame((f) => Math.max(0, f - 1))}>◀ frame</button>
-          <button onClick={() => setFrame((f) => Math.min(total, f + 1))}>frame ▶</button>
-          <button onClick={() => setFrame(0)}>Restart</button>
-          <label>
-            <input type="checkbox" checked={loop} onChange={(e) => setLoop(e.target.checked)} /> loop
-          </label>
-          <label>
-            <input type="checkbox" checked={show} onChange={(e) => setShow(e.target.checked)} /> overlays
-          </label>
-          <label>
-            <input type="checkbox" checked={cut} onChange={(e) => setCut(e.target.checked)} /> game cut-away
-          </label>
+        <div className={row}>
+          <button className={control} onClick={() => setPlaying((p) => !p)}>
+            {playing ? 'Pause' : 'Play'}
+          </button>
+          <button className={control} onClick={() => setFrame((f) => Math.max(0, f - 1))}>
+            ◀ frame
+          </button>
+          <button className={control} onClick={() => setFrame((f) => Math.min(total, f + 1))}>
+            frame ▶
+          </button>
+          <button className={control} onClick={() => setFrame(0)}>
+            Restart
+          </button>
+          <Toggle checked={loop} onChange={setLoop} label="loop" />
+          <Toggle checked={show} onChange={setShow} label="overlays" />
+          <Toggle checked={cut} onChange={setCut} label="game cut-away" />
         </div>
-        <div className="hands-row">
+        <div className={row}>
           {SPEEDS.map((v) => (
-            <button key={v} onClick={() => setSpeed(v)} aria-pressed={speed === v}>
+            <button key={v} className={control} onClick={() => setSpeed(v)} aria-pressed={speed === v}>
               {v}×
             </button>
           ))}
         </div>
-        <input
-          type="range"
-          min={0}
-          max={total}
-          value={frame}
-          onChange={(e) => setFrame(Number(e.target.value))}
-          style={{ width: '100%' }}
-          aria-label="Timeline"
-        />
+        <Slider.Root w="100%" min={0} max={total} value={[frame]} aria-label={['Timeline']} onValueChange={({ value }) => setFrame(value[0])}>
+          <Slider.Control>
+            <Slider.Track>
+              <Slider.Range />
+            </Slider.Track>
+            <Slider.Thumbs />
+          </Slider.Control>
+        </Slider.Root>
         <div data-testid="hands-status">
           t {(frame * DT).toFixed(3)} s · frame {frame}/{total} · phase <b>{info?.phase ?? '–'}</b> · {info?.kind ?? '–'} · sample{' '}
           {info && info.sample >= 0 ? info.sample.toFixed(1) : '–'}
