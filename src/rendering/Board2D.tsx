@@ -1,4 +1,3 @@
-import './board.css'
 import { Color, PieceType, Square } from 'tsshogi'
 import { HAND_ORDER, PIECE_CHAR } from '@/utils/shogi'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
@@ -14,6 +13,7 @@ import { UnderMarks, OverMarks } from './flatMarks'
 import { BOARD_TONE } from './koma'
 import { SQ_D } from '@/rendering/board3d/dimensions'
 import { useTranslation } from 'react-i18next'
+import { flat, komaLift } from './board.styles'
 
 const KANJI_NUM = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九']
 const COUNT = ['', '', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八']
@@ -124,7 +124,7 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
             rx={8}
           />
           {t.koma && baked && (
-            <g className={`app-koma-lift${on ? ' on' : ''}`}>
+            <g className={`app-koma-lift ${komaLift({ on })}`}>
               <image
                 href={baked.pieces.get(spriteKey(type, color, true))}
                 x={-SPRITE_BOX * 45}
@@ -259,7 +259,7 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
   const lastTo = lastMove ? Square.newByUSI(lastMove.slice(2, 4)) : null
   const lastFrom = lastMove && lastMove[1] !== '*' ? Square.newByUSI(lastMove.slice(0, 2)) : null
   return (
-    <div className={`app-flat app-flat-${style}`} aria-busy={loading}>
+    <div className={flat()} aria-busy={loading}>
       {(loading || error) && (
         <div className="app-board-loading" role="status">
           {error ?? i18n.t('settings.loadingEvalFile')}
@@ -325,7 +325,7 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
           return (
             <g key={sq.usi} transform={`translate(${cx(sq)} ${cy(sq)})${up ? '' : ' rotate(180)'}`} pointerEvents="none">
               <g data-sq={sq.usi}>
-                <g className={`app-koma-lift${selected instanceof Square && selected.equals(sq) ? ' on' : ''}`}>
+                <g className={`app-koma-lift ${komaLift({ on: selected instanceof Square && selected.equals(sq) })}`}>
                   {t.koma ? (
                     baked && (
                       <image

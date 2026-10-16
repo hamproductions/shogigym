@@ -1,6 +1,6 @@
-import './board.css'
 import { useEffect, useRef, useState } from 'react'
 import { BoardLoading, type BoardLoadingState } from './BoardLoading'
+import { board3d } from './board.styles'
 import { Color, type ImmutablePosition } from 'tsshogi'
 import { avatarSlot } from './avatars'
 import { updateView } from '@/rendering/board3d/camera'
@@ -453,7 +453,7 @@ function Board3DScene(props: Board3DProps & { onContextLost: () => void }) {
   }, [props.snapKey])
 
   return (
-    <div className="board3d" ref={host} aria-busy={!ready}>
+    <div className={`board3d ${board3d}`} ref={host} aria-busy={!ready}>
       {!ready && <BoardLoading state={props.assetsReady === false ? props.loadingState : loadingState} />}
     </div>
   )

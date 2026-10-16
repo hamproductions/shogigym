@@ -29,6 +29,7 @@ export const gameOver = sva({
       lineHeight: 'tight',
       letterSpacing: '0.2em',
       color: 'highlight',
+      '&:lang(en)': { letterSpacing: 'normal' },
     },
     actions: { justifyContent: 'center', mt: '1' },
     close: { position: 'absolute', top: '1', right: '1' },

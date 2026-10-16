@@ -4,7 +4,6 @@ import { useSession } from '@/app/hooks/session'
 import { flipTable } from '@/utils/events'
 import type { Spar } from './useSpar'
 import { Button } from '@/app/ui/Button'
-import { cx } from '@/app/ui/cx'
 import { gameOver as gameOverStyles } from './game-over.styles'
 
 export function GameOverBanner({ spar, flatView }: { spar: Spar; flatView: boolean }) {
@@ -22,7 +21,7 @@ export function GameOverBanner({ spar, flatView }: { spar: Spar; flatView: boole
         : t(mode !== 'spar' ? 'app.wins' : other(toMove) === userSide ? 'app.youWin' : 'app.aiWins', { winner: winner(other(toMove)) })
   const styles = gameOverStyles()
   return (
-    <div className={cx('app-gameover', styles.root)} role="status">
+    <div className={styles.root} role="status">
       <Button
         variant="icon"
         className={styles.close}

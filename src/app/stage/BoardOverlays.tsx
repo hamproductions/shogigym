@@ -1,33 +1,48 @@
-import './overlays.css'
+import './announce.css'
 import { useTranslation } from 'react-i18next'
 import type { CSSProperties } from 'react'
 import { Color, promotedPieceType, type Move } from 'tsshogi'
 import type { PromotionAtlas } from '@/rendering/sprites'
 import type { Announcement } from '@/app/hooks/useAnnouncements'
 import { cx } from '@/app/ui/cx'
-import { plate, plateSide } from '@/app/panels/panels.styles'
+import { muted, plate, plateSide } from '@/app/panels/panels.styles'
+import inkMask from './announcement-ink.png'
+import {
+  announce as announceStyle,
+  announceContent,
+  announceGlyph,
+  announceLayout,
+  announceMeta,
+  announceName,
+  announceReadable,
+  announceSeal,
+  cancelMark,
+  promote,
+  promoteChoice,
+  promotionFace,
+} from './stage.styles'
 
 export function AnnounceBadge({ announce }: { announce: Announcement }) {
   const { t } = useTranslation()
   const japanese = /[\u3040-\u9fff]/.test(announce.name)
   return (
     <div
-      className={`app-announce ${announce.side === Color.BLACK ? 'sente' : 'gote'}${japanese ? '' : ' latin'}${announce.tesuji ? ' tesuji' : ''}`}
-      style={{ '--glyph-count': [...announce.name].length } as CSSProperties}
+      className={announceStyle({ tone: announce.tesuji ? 'tesuji' : announce.side === Color.BLACK ? 'sente' : 'gote' })}
+      style={{ '--glyph-count': [...announce.name].length, '--announce-mask': `url(${inkMask})` } as CSSProperties}
       role="status"
     >
-      <div className="app-announce-layout">
-        <div className="app-announce-content">
-          <div className="app-announce-meta">
+      <div className={announceLayout}>
+        <div className={announceContent}>
+          <div className={announceMeta}>
             <span>{announce.side === Color.BLACK ? t('app.sente') : t('app.gote')}</span>
             <span>{announce.kind}</span>
           </div>
-          <strong>
+          <strong className={announceName({ latin: !japanese })}>
             {japanese ? (
               <>
-                <span className="app-announce-readable">{announce.name}</span>
+                <span className={announceReadable}>{announce.name}</span>
                 {[...announce.name].map((glyph, i) => (
-                  <span key={i} style={{ '--glyph-index': i } as CSSProperties} aria-hidden="true">
+                  <span key={i} className={announceGlyph} style={{ '--glyph-index': i } as CSSProperties} aria-hidden="true">
                     {glyph}
                   </span>
                 ))}
@@ -37,7 +52,7 @@ export function AnnounceBadge({ announce }: { announce: Announcement }) {
             )}
           </strong>
         </div>
-        <span className="app-announce-seal" aria-hidden="true">
+        <span className={announceSeal({ latin: !japanese })} aria-hidden="true">
           {announce.seal}
         </span>
       </div>
@@ -58,11 +73,11 @@ export function PromotionPicker({
 }) {
   const { t } = useTranslation()
   return (
-    <div className="app-promote" role="dialog" aria-label={t('app.promote')}>
+    <div className={promote} role="dialog" aria-label={t('app.promote')}>
       {options.map((m) => (
-        <button key={m.usi} className={m.promote ? 'yes' : 'no'} onClick={() => onPick(m.usi)}>
+        <button key={m.usi} className={promoteChoice({ kind: m.promote ? 'yes' : 'no' })} onClick={() => onPick(m.usi)}>
           <span
-            className="app-promotion-face"
+            className={promotionFace}
             style={
               faces
                 ? {
@@ -77,8 +92,8 @@ export function PromotionPicker({
           <span>{m.promote ? t('app.promote2') : t('app.donTPromote')}</span>
         </button>
       ))}
-      <button className="cancel" onClick={onCancel} title={t('app.cancelThisMoveEsc')}>
-        <span className="app-koma-x">×</span>
+      <button className={promoteChoice({ kind: 'cancel' })} onClick={onCancel} title={t('app.cancelThisMoveEsc')}>
+        <span className={cancelMark}>×</span>
         <span>{t('app.cancel')}</span>
       </button>
     </div>
@@ -91,7 +106,7 @@ export function TsumePlate({ position, flipped, userSide }: { position: 'top' | 
   return (
     <span className={cx('app-plate', position, plate)}>
       <span className={plateSide}>{side === 'sente' ? t('app.sente') : t('app.gote')}</span>
-      <span className="app-muted">{side === userSide ? t('app.youAttack') : t('app.defends')}</span>
+      <span className={muted}>{side === userSide ? t('app.youAttack') : t('app.defends')}</span>
     </span>
   )
 }

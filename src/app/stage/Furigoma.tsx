@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Color, PieceType } from 'tsshogi'
+import { Wrap } from 'styled-system/jsx'
 import type { Side } from '@/utils/shogi'
 import { playSound, useSettings } from '@/appearance/settings'
 import { Button } from '@/app/ui/Button'
@@ -174,7 +175,7 @@ export function Furigoma({ onDone, onCancel, spectator = false }: { onDone: (sid
               : 'Could not load furigoma'
             : (result ?? (loading ? (ja ? '振り駒を読み込んでいます…' : 'Loading furigoma…') : ja ? '歩を投げています…' : 'Tossing five pawns…'))}
         </p>
-        <div className="app-actions">
+        <Wrap gap="2" align="center" justify="flex-end" mt="4">
           <Button
             variant="ghost"
             onClick={(event) => {
@@ -185,7 +186,7 @@ export function Furigoma({ onDone, onCancel, spectator = false }: { onDone: (sid
             {ja ? 'キャンセル' : 'Cancel'}
           </Button>
           {side && <span>{spectator ? t('watch.starting') : ja ? 'どこかをクリックして対局開始' : 'Click anywhere to start'}</span>}
-        </div>
+        </Wrap>
       </Dialog>
     </div>
   )

@@ -54,6 +54,7 @@ import { Rail } from '@/app/rail/Rail'
 import { ORIGIN_KEY, RETURN_EVENT, store } from '@/app/modes/lesson/reading'
 import { BoardStage } from '@/app/stage/BoardStage'
 import { ModeBar, WatchOptions } from '@/app/stage/ModeBar'
+import { fsExit, stage } from '@/app/stage/stage.styles'
 import { Button } from '@/app/ui/Button'
 import { dialog } from 'styled-system/recipes'
 import { Dialog } from '@/app/ui/Dialog'
@@ -367,8 +368,8 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
           onReport={isGameMode(mode) && game.moves.length > 0 ? () => (setTab('report'), layout.setPanel({ hidden: false })) : undefined}
           snapshotName={`${SNAPSHOT_NAME}-${mode}-${cursor}`}
         />
-        <section className={`app-stage${preview || !atEnd || (playing && mode !== 'view' && mode !== 'spar') ? ' previewing' : ''}`}>
-          <button className="app-fs-exit" onClick={() => view.setHideUi(false)} aria-label={t('app.showUi')} title={`${t('app.showUi')} (Esc)`}>
+        <section className={`app-stage ${stage}`} data-previewing={!!preview || !atEnd || (playing && mode !== 'view' && mode !== 'spar') || undefined}>
+          <button className={`app-fs-exit ${fsExit}`} onClick={() => view.setHideUi(false)} aria-label={t('app.showUi')} title={`${t('app.showUi')} (Esc)`}>
             <Icon name="panel" size={18} />
             <span>{t('app.showUi')} (Esc)</span>
           </button>

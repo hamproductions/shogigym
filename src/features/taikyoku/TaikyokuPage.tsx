@@ -2,9 +2,6 @@ import '@/styles/controls.css'
 import './taikyoku.css'
 import '@/app/layout.css'
 import '@/app/rail/rail.css'
-import '@/app/stage/board-layout.css'
-import '@/app/stage/mode-bar.css'
-import '@/app/stage/board-stage.css'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '@/app/ui/Button'
@@ -32,6 +29,8 @@ import { EvalBar } from '@/app/stage/EvalBar'
 import { winRate } from '@/utils/analysis'
 import { squareName } from '@/utils/notation'
 import { EvalChip, ModeBarHeading } from '@/app/stage/ModeBar'
+import { controlIcon, controlLabel, controls, evaluation, helpToggle, miniNav, miniWideLabel, modeBar, takeBack, tools } from '@/app/stage/mode-bar.styles'
+import { boardScene, boardWrap, fsExit, stage } from '@/app/stage/stage.styles'
 import { useLayout } from '@/app/hooks/useLayout'
 import { useView } from '@/app/hooks/useView'
 import { useMovePlayback } from '@/app/hooks/useAutoplay'
@@ -502,8 +501,8 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
             : []),
         ]}
       />
-      <section className="app-stage">
-        <header className={cx('app-modebar', auto ? 'm-view' : 'm-spar', layout.compact && layout.drawer && 'sheet-up')}>
+      <section className={cx('app-stage', stage)}>
+        <header className={cx('app-modebar', modeBar({ mode: auto ? 'view' : 'spar' }))} data-sheet-up={(layout.compact && layout.drawer) || undefined}>
           <ModeBarHeading
             seal={lang === 'ja' ? auto ? '観戦' : '対局' : <Icon name={auto ? 'flow' : 'spar'} />}
             title={lang === 'ja' ? '大局将棋' : 'Taikyoku shogi'}
@@ -514,48 +513,48 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
             turn={game?.snap.turn === 'w' ? 'gote' : 'sente'}
           />
           {assist && (
-            <div className="app-modebar-evaluation">
+            <div className={evaluation}>
               <EvalChip rate={evalRate} barShown={evalBar} />
             </div>
           )}
-          <div className="app-modebar-controls">
+          <div className={controls}>
             {' '}
-            <div className="app-modebar-tools">
+            <div className={tools}>
               <Button
                 size="sm"
                 variant="ghost"
-                className={cx('app-help-toggle', assist && 'on')}
+                className={helpToggle}
                 onClick={() => setSettings({ assist: !assist })}
                 title={assist ? t('app.helpIsOnEvalBar') : t('app.noHelpClickToShow')}
                 aria-pressed={assist}
                 aria-label={assist ? t('app.coachOn') : t('app.coachOff')}
               >
-                <span className="app-control-icon">
+                <span className={controlIcon}>
                   <Icon name="coach" />
                 </span>
-                <span className="app-control-label">{assist ? t('app.coachOn') : t('app.coachOff')}</span>
+                <span className={controlLabel}>{assist ? t('app.coachOn') : t('app.coachOff')}</span>
               </Button>
               <Button size="sm" variant="primary" onClick={reset}>
-                <Icon name="newGame" /> <span className="app-control-label">{t('taikyoku.new')}</span>
+                <Icon name="newGame" /> <span className={controlLabel}>{t('taikyoku.new')}</span>
               </Button>
               {plies > 0 && (
-                <Button size="sm" className="app-takeback" onClick={undo} disabled={auto}>
-                  <Icon name="undo" /> <span className="app-control-label">{t('taikyoku.undo')}</span>
+                <Button size="sm" className={takeBack} onClick={undo} disabled={auto}>
+                  <Icon name="undo" /> <span className={controlLabel}>{t('taikyoku.undo')}</span>
                 </Button>
               )}
             </div>
-            <div className={cx('app-mini-nav', panelOpen && 'panel-open')}>
-              <Button size="sm" className="app-mini-wide" onClick={layout.togglePanel} title={t(panelOpen ? 'app.hideThePanel' : 'app.showThePanel')}>
+            <div className={miniNav} data-panel-open={panelOpen || undefined}>
+              <Button size="sm" onClick={layout.togglePanel} title={t(panelOpen ? 'app.hideThePanel' : 'app.showThePanel')}>
                 <Icon name="panel" size={16} />
-                <span>{t(panelOpen ? 'app.hidePanel' : 'app.panel')}</span>
+                <span className={miniWideLabel}>{t(panelOpen ? 'app.hidePanel' : 'app.panel')}</span>
               </Button>
             </div>
           </div>
         </header>
 
-        <div className={cx('app-board-wrap', evalBar && 'with-eval')}>
+        <div className={cx('app-board-wrap', boardWrap, evalBar && 'with-eval')}>
           {evalBar && <EvalBar rate={evalRate} flipped={false} />}
-          <section className="app-board-scene tk-stage" aria-label={t('taikyoku.board')}>
+          <section className={cx('app-board-scene', boardScene, 'tk-stage')} aria-label={t('taikyoku.board')}>
             {game && view === '3d' && (
               <TaikyokuBoard3D
                 ref={board}
@@ -608,7 +607,7 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
                 </div>
               ))}
             {winner && (
-              <div className={cx('app-gameover', gameOverStyles.root)} role="status">
+              <div className={gameOverStyles.root} role="status">
                 <strong className={gameOverStyles.headline}>{status}</strong>
                 <Button onClick={reset}>{t('taikyoku.new')}</Button>
               </div>
@@ -640,7 +639,7 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
             )}
           </section>
         </div>
-        <button className="app-fs-exit" onClick={() => hud.setHideUi(false)}>
+        <button className={cx('app-fs-exit', fsExit)} onClick={() => hud.setHideUi(false)}>
           <Icon name="panel" /> {t('taikyoku.hud')}
         </button>
       </section>
@@ -818,10 +817,10 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
           <div className="tk-pane" hidden={rightTab !== 'engine'}>
             <div className="app-actions">
               <Button size="sm" onClick={engineMove} disabled={!game || thinking || auto || !!winner || plies >= PLY_LIMIT || !game?.legal.length || !!error}>
-                <Icon name="engine" /> <span className="app-control-label">{t('taikyoku.engineMove')}</span>
+                <Icon name="engine" /> <span>{t('taikyoku.engineMove')}</span>
               </Button>
               <Button size="sm" on={auto} onClick={() => setAuto(!auto)} disabled={!!winner || !game || plies >= PLY_LIMIT || !game?.legal.length || !!error}>
-                <Icon name={auto ? 'pause' : 'play'} /> <span className="app-control-label">{auto ? t('taikyoku.auto.stop') : t('taikyoku.auto.start')}</span>
+                <Icon name={auto ? 'pause' : 'play'} /> <span>{auto ? t('taikyoku.auto.stop') : t('taikyoku.auto.start')}</span>
               </Button>
             </div>
             <div className="tk-setting">
