@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
   "plugins": ["react", "typescript", "oxc"],
-  "ignorePatterns": ["external/**", "public/taikyoku/**"],
+  "ignorePatterns": ["external/**", "public/taikyoku/**", "styled-system/**"],
   "rules": {
     "react/rules-of-hooks": "error",
     "react/only-export-components": [
@@ -23,6 +23,28 @@
           "Layout"
         ]
       }
-    ]
-  }
+    ],
+    "@pandacss/no-invalid-token-paths": "error",
+    "@pandacss/no-invalid-nesting": "error",
+    "@pandacss/file-not-included": "error",
+    "@pandacss/no-deprecated": "warn",
+    "@pandacss/prefer-token": [
+      "warn",
+      {
+        "categories": ["colors"]
+      }
+    ],
+    "@pandacss/no-debug": "warn",
+    "@pandacss/extraction-diagnostics": "warn",
+    "@pandacss/no-important": "error"
+  },
+  "jsPlugins": ["@pandacss/eslint-plugin/oxlint"],
+  "overrides": [
+    {
+      "files": ["src/theme/global-css.ts", "src/theme/recipes/slider.ts"],
+      "rules": {
+        "@pandacss/no-important": "off"
+      }
+    }
+  ]
 }

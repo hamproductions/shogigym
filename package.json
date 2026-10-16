@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@pandacss/dev": "2.1.2",
+    "@pandacss/eslint-plugin": "2.1.2",
     "@pandacss/preset-base": "2.1.2",
     "@pandacss/preset-panda": "2.1.2",
     "@pandacss/vite": "2.1.2",
