@@ -698,7 +698,6 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
         }
         footer={
           <MoveNavigation
-            hidden={!timeline.length}
             first={() => navigate(0)}
             back={() => navigate(cursor - 1)}
             forward={() => navigate(cursor + 1)}

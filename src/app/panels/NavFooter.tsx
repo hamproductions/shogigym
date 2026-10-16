@@ -9,12 +9,11 @@ import { navBar } from './panels.styles'
 export function NavFooter({ canAutoplay, watch, lesson }: { canAutoplay: boolean; watch: Watch; lesson: Lesson }) {
   const { t } = useTranslation()
   const session = useSession()
-  const { mode, game, preview, playing, setPlaying, nav } = session
+  const { mode, playing, setPlaying, nav } = session
   const running = mode === 'view' ? watch.running : playing
   const ahead = useLineAhead(session, lesson)
   return (
     <MoveNavigation
-      hidden={game.moves.length === 0 && !preview && !ahead}
       first={nav.first}
       back={nav.back}
       forward={(ahead ?? nav).forward}
@@ -30,7 +29,6 @@ export function NavFooter({ canAutoplay, watch, lesson }: { canAutoplay: boolean
 }
 
 export function MoveNavigation({
-  hidden,
   first,
   back,
   forward,
@@ -42,7 +40,6 @@ export function MoveNavigation({
   toggle,
   playTitle,
 }: {
-  hidden?: boolean
   first: () => void
   back: () => void
   forward: () => void
@@ -56,7 +53,7 @@ export function MoveNavigation({
 }) {
   const { t } = useTranslation()
   return (
-    <footer className={navBar} hidden={hidden}>
+    <footer className={navBar}>
       <button onClick={first} disabled={!canBack} title={t('app.startHome')}>
         <Icon name="first" />
       </button>
