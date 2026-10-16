@@ -5,8 +5,8 @@ import { clearEvalFile, saveEvalFile, useEvalFile } from '@/utils/evalStore'
 import { clearBookDownloadCache, downloadFullBook, type BookProgress } from '@/utils/bookDownload'
 import { clearBookFile, saveBookFile, useBookFile } from '@/utils/openingBook'
 import { getSettings, setSettings, useSettings, type EngineKind } from '@/appearance/settings'
-import { button } from 'styled-system/recipes'
 import { Button } from '@/app/ui/Button'
+import { FilePicker } from '@/app/ui/FilePicker'
 import { SegmentedField, SettingRow } from '@/app/ui/Segmented'
 
 export function EngineSettings() {
@@ -35,29 +35,24 @@ export function EngineSettings() {
           <SettingRow label={t('settings.evalFile')}>
             <div className="app-actions">
               <span className="app-muted">{evalFile ? `${evalFile.name} (${(evalFile.size / 1048576).toFixed(1)} MB)` : t('settings.noEvalFile')}</span>
-              <label className={`${button({ variant: 'subtle', size: 'md' })} app-btn app-file`}>
+              <FilePicker
+                accept=".bin"
+                disabled={busy}
+                onFile={async (file) => {
+                  setBusy(true)
+                  setError('')
+                  try {
+                    await saveEvalFile(file)
+                    reload()
+                  } catch (failure) {
+                    setError((failure as Error).message)
+                  } finally {
+                    setBusy(false)
+                  }
+                }}
+              >
                 {busy ? t('settings.loadingEvalFile') : t('settings.loadEvalFile')}
-                <input
-                  type="file"
-                  accept=".bin"
-                  disabled={busy}
-                  onChange={async (e) => {
-                    const file = e.target.files?.[0]
-                    e.target.value = ''
-                    if (!file) return
-                    setBusy(true)
-                    setError('')
-                    try {
-                      await saveEvalFile(file)
-                      reload()
-                    } catch (failure) {
-                      setError((failure as Error).message)
-                    } finally {
-                      setBusy(false)
-                    }
-                  }}
-                />
-              </label>
+              </FilePicker>
               {evalFile && (
                 <Button onClick={() => clearEvalFile().then(reload, (failure: Error) => setError(failure.message))}>{t('settings.removeEvalFile')}</Button>
               )}
@@ -109,29 +104,24 @@ function OpeningBookSettings() {
       <SettingRow label={t('settings.openingBook')}>
         <div className="app-actions">
           <span className="app-muted">{file ? `${file.name} (${(file.size / 1048576).toFixed(1)} MB)` : t('settings.compactBook')}</span>
-          <label className={`${button({ variant: 'subtle', size: 'md' })} app-btn app-file`}>
+          <FilePicker
+            accept=".db"
+            disabled={busy}
+            onFile={async (file) => {
+              setBusy(true)
+              setError('')
+              try {
+                await saveBookFile(file)
+                restartEngine()
+              } catch (error) {
+                setError(error instanceof Error ? error.message : String(error))
+              } finally {
+                setBusy(false)
+              }
+            }}
+          >
             {busy ? t('settings.loadingBook') : t('settings.importBook')}
-            <input
-              type="file"
-              accept=".db"
-              disabled={busy}
-              onChange={async (event) => {
-                const file = event.target.files?.[0]
-                event.target.value = ''
-                if (!file) return
-                setBusy(true)
-                setError('')
-                try {
-                  await saveBookFile(file)
-                  restartEngine()
-                } catch (error) {
-                  setError(error instanceof Error ? error.message : String(error))
-                } finally {
-                  setBusy(false)
-                }
-              }}
-            />
-          </label>
+          </FilePicker>
           {file && (
             <Button
               disabled={busy}

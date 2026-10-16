@@ -2,8 +2,8 @@ import './import.css'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { decodeKifuFile } from '@/utils/kifu'
-import { button } from 'styled-system/recipes'
 import { Button } from '@/app/ui/Button'
+import { FilePicker } from '@/app/ui/FilePicker'
 
 export function ImportBox({ onImport, open, bare }: { onImport: (text: string) => string | null; open?: boolean; bare?: boolean }) {
   const { t } = useTranslation()
@@ -33,17 +33,15 @@ export function ImportBox({ onImport, open, bare }: { onImport: (text: string) =
             {t('games.pasteFromClipboard')}
           </Button>
         )}
-        <label className={`${button({ variant: 'subtle', size: 'sm' })} app-btn sm app-file`}>
+        <FilePicker
+          accept=".kif,.kifu,.ki2,.csa,.txt,.usi,.sfen"
+          size="sm"
+          onFile={async (file) => {
+            setError(onImport(decodeKifuFile(await file.arrayBuffer())))
+          }}
+        >
           {t('games.openAFile')}
-          <input
-            type="file"
-            accept=".kif,.kifu,.ki2,.csa,.txt,.usi,.sfen"
-            onChange={async (e) => {
-              const file = e.target.files?.[0]
-              if (file) setError(onImport(decodeKifuFile(await file.arrayBuffer())))
-            }}
-          />
-        </label>
+        </FilePicker>
       </div>
       {error && <p className="app-result wrong">{error}</p>}
     </>
