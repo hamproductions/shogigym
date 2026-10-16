@@ -1,6 +1,7 @@
 import { defineConfig } from '@pandacss/dev'
 import { gray } from './src/theme/colors/gray'
 import { shu } from './src/theme/colors/shu'
+import { semanticColors, semanticShadows } from './src/theme/semantic-tokens'
 import { animationStyles } from './src/theme/animation-styles'
 import { conditions } from './src/theme/conditions'
 import { globalCss } from './src/theme/global-css'
@@ -67,6 +68,7 @@ export default defineConfig({
           '2xl': { value: '28px' },
         },
         fontWeights: {
+          regular: { value: '400' },
           heavy: { value: '800' },
         },
         lineHeights: {
@@ -85,35 +87,27 @@ export default defineConfig({
           lg: { value: '12px' },
           xl: { value: '16px' },
         },
+        sizes: {
+          control: {
+            sm: { value: '28px' },
+            md: { value: '32px' },
+            lg: { value: '44px' },
+          },
+          rail: { value: '76px' },
+        },
         easings: {
           out: { value: 'cubic-bezier(0.2, 0.7, 0.2, 1)' },
         },
       },
       semanticTokens: {
-        colors: {
-          gray,
-          shu,
-          canvas: { value: { _light: '{colors.washi.200}', _dark: '{colors.sumi.900}' } },
-          card: { value: { _light: '{colors.washi.50}', _dark: '{colors.sumi.750}' } },
-          fg: {
-            default: { value: { _light: '{colors.gray.12}', _dark: '{colors.gray.12}' } },
-            muted: { value: { _light: '{colors.gray.11}', _dark: '{colors.gray.11}' } },
-            subtle: { value: { _light: '{colors.gray.10}', _dark: '{colors.gray.10}' } },
-          },
-          border: { value: { _light: 'rgb(36 30 24 / 0.14)', _dark: 'rgb(236 228 212 / 0.12)' } },
-          focus: { value: { _light: '{colors.shu.9}', _dark: '{colors.shu.11}' } },
-          scrim: { value: { _light: 'rgb(40 30 20 / 0.38)', _dark: 'rgb(6 5 4 / 0.62)' } },
-          success: { value: { _light: '#2f6118', _dark: '#93c66e' } },
-          danger: { value: { _light: '{colors.shu.11}', _dark: '#f2907b' } },
-          error: { value: { _light: '{colors.shu.11}', _dark: '#f2907b' } },
-        },
+        colors: { gray, shu, ...semanticColors },
         radii: {
           l1: { value: '{radii.xs}' },
           l2: { value: '{radii.md}' },
           l3: { value: '{radii.lg}' },
           l4: { value: '{radii.xl}' },
         },
-        shadows,
+        shadows: { ...shadows, ...semanticShadows },
       },
     },
   },

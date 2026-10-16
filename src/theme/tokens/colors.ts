@@ -58,12 +58,36 @@ const washi = defineTokens.colors({
   50: { value: '#fffaf1' },
 })
 
+const kin = defineTokens.colors({
+  700: { value: '#8a5300' },
+  600: { value: '#80560a' },
+  300: { value: '#f1c27a' },
+  200: { value: '#e6b55c' },
+})
+
+const rokusho = defineTokens.colors({
+  700: { value: '#2f6118' },
+  600: { value: '#4f7a2a' },
+  300: { value: '#93c66e' },
+})
+
+const ai = defineTokens.colors({
+  700: { value: '#2b5791' },
+  600: { value: '#2f5d9b' },
+  300: { value: '#93b4e6' },
+})
+
 export const colors = {
   black,
   white,
   sumi,
   hai,
   washi,
+  kin,
+  rokusho,
+  ai,
+  murasaki: { 600: { value: '#5c3d8a' } },
+  bengara: { 600: { value: '#8a5a2b' } },
   kinari: { value: '#ece4d4' },
   gofun: { value: '#fff8f0' },
   ink: { value: '#241e18' },
