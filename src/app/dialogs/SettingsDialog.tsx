@@ -1,4 +1,3 @@
-import '@/appearance/previews.css'
 import { useEffect, useRef, useState } from 'react'
 import { Color, PieceType, promotedPieceType } from 'tsshogi'
 import { faceText } from '@/rendering/koma'
@@ -41,6 +40,23 @@ import { SegmentedField, SettingRow } from '@/app/ui/Segmented'
 import { Tabs } from '@/app/ui/Tabs'
 import { cx } from '@/app/ui/cx'
 import { VERSION } from '@/utils/version'
+import {
+  colorSwatch,
+  finishCoating,
+  finishRender,
+  finishSection,
+  glyphSample,
+  optionButton,
+  optionGrid,
+  optionGroup,
+  optionPreview,
+  piecePreview,
+  preparedGlyph,
+  previewFill,
+  previewStatus,
+  sampleFlip,
+  sampleTile,
+} from './previews.styles'
 import { Slider, Text } from '@/components/ui'
 
 type SettingsTab = 'general' | 'board' | 'pieces' | 'play' | 'about'
@@ -53,7 +69,7 @@ function SurfaceSample({ piece }: { piece: PieceAppearance }) {
   useEffect(() => {
     ref.current?.getContext('2d')?.drawImage(pieceSurface(42, piece), 0, 0)
   }, [piece])
-  return <canvas ref={ref} width={256} height={256} className="app-surface-sample" />
+  return <canvas ref={ref} width={256} height={256} className={previewFill} />
 }
 
 function GlyphSample({
@@ -78,7 +94,7 @@ function GlyphSample({
   if (guide === 'lines' || guide === 'dots') {
     const spec = PIECE_FONTS[font]
     return (
-      <svg className="app-guide-sample" width={82} height={82} viewBox="0 0 256 256" aria-label={t('settings.oneCharacterGuide')}>
+      <svg data-guide-sample width={82} height={82} viewBox="0 0 256 256" aria-label={t('settings.oneCharacterGuide')}>
         {set !== 'letters' && set !== 'broadcast' ? (
           <image href={pieceGlyphUrl(set, code)} x={0} y={0} width={256} height={118} preserveAspectRatio="xMidYMid meet" />
         ) : (
@@ -97,13 +113,13 @@ function GlyphSample({
       </svg>
     )
   }
-  const guideClass = guide === 'none' ? '' : guide === 'movement' ? ' with-marks' : ' with-guide'
+  const guideStyle = glyphSample({ guide: guide === 'none' ? 'none' : guide === 'movement' ? 'marks' : 'strip' })
   if (set !== 'letters' && set !== 'broadcast' && guide === 'none')
-    return <img className="app-prepared-glyph" src={pieceGlyphUrl(set, code)} alt={faceText(type, Color.BLACK, style)} />
+    return <img className={preparedGlyph} data-prepared src={pieceGlyphUrl(set, code)} alt={faceText(type, Color.BLACK, style)} />
   if (set !== 'letters' && set !== 'broadcast')
     return (
-      <span className={`app-glyph-sample${guideClass}`}>
-        <img className="app-prepared-glyph" src={pieceGlyphUrl(set, code)} alt={faceText(type, Color.BLACK, style)} />
+      <span className={guideStyle} data-glyph-sample>
+        <img data-prepared src={pieceGlyphUrl(set, code)} alt={faceText(type, Color.BLACK, style)} />
         {guide !== 'none' && (
           <img src={`${import.meta.env.BASE_URL}pieces/prepared/guides/${guide === 'movement' ? code : sampleGuide}.${guide}.png?v=16`} alt="" />
         )}
@@ -111,7 +127,7 @@ function GlyphSample({
     )
   const spec = PIECE_FONTS[font]
   return (
-    <span className={`app-glyph-sample${guideClass}`} style={{ fontFamily: spec.family, fontWeight: spec.weight, fontSize: style === 'two' ? 32 : undefined }}>
+    <span className={guideStyle} data-glyph-sample style={{ fontFamily: spec.family, fontWeight: spec.weight, fontSize: style === 'two' ? 32 : undefined }}>
       <span>{faceText(type, Color.BLACK, style)}</span>
       {guide !== 'none' && (
         <img src={`${import.meta.env.BASE_URL}pieces/prepared/guides/${guide === 'movement' ? code : sampleGuide}.${guide}.png?v=16`} alt="" />
@@ -175,7 +191,7 @@ function StickyPiecePreview() {
   const flip = (type: PieceType, on: boolean) =>
     setFlipped((prev) => (on ? (prev.includes(type) ? prev : [...prev, type]) : prev.filter((item) => item !== type)))
   return (
-    <div className="app-sticky-piece-preview app-full-set-preview" aria-label={t('settings.pieceSetPreview')} aria-busy={loading}>
+    <div className={piecePreview} aria-label={t('settings.pieceSetPreview')} aria-busy={loading}>
       {images.size > 0 &&
         SAMPLE_TYPES.map((type) => {
           const promoted: PreviewFace = type === PieceType.KING ? 'GY' : promotedPieceType(type)
@@ -185,7 +201,7 @@ function StickyPiecePreview() {
             <button
               key={type}
               type="button"
-              className="app-sample-tile"
+              className={sampleTile}
               disabled={!canFlip}
               aria-label={faceText(type, Color.BLACK, st.pieceStyle)}
               aria-pressed={canFlip ? on : undefined}
@@ -195,15 +211,15 @@ function StickyPiecePreview() {
               onBlur={() => flip(type, false)}
               onClick={() => flip(type, !on)}
             >
-              <span className={`app-sample-flip${on ? ' on' : ''}`}>
+              <span className={sampleFlip} data-on={on || undefined}>
                 {images.has(type) && <img src={images.get(type)} alt="" />}
-                {canFlip && images.has(promoted) && <img className="back" src={images.get(promoted)} alt="" />}
+                {canFlip && images.has(promoted) && <img data-back src={images.get(promoted)} alt="" />}
               </span>
             </button>
           )
         })}
       {(loading || error) && (
-        <span className="app-preview-status" role="status">
+        <span className={previewStatus} role="status">
           {error ?? t('settings.renderingPreview')}
         </span>
       )}
@@ -216,24 +232,31 @@ function OptionGroup({
   options,
   value,
   onChange,
+  finish = false,
 }: {
   label: string
   options: { key: string; label: string; preview?: React.ReactNode }[]
   value: string
   onChange: (key: string) => void
+  finish?: boolean
 }) {
   const { t } = useTranslation()
+  const kind = finish
+    ? 'finish'
+    : label === t('settings.typeface')
+      ? 'typeface'
+      : label === t('settings.type') || label === t('settings.guideStyle')
+        ? 'type'
+        : 'plain'
   return (
-    <section
-      className={`app-option-group${label === t('settings.typeface') ? ' app-typeface-options' : label === t('settings.type') || label === t('settings.guideStyle') ? ' app-type-options' : ''}`}
-    >
+    <section className={optionGroup}>
       <Text tone="muted" size="sm">
         {label}
       </Text>
-      <div className="app-design-options">
+      <div className={optionGrid({ kind })}>
         {options.map((option) => (
-          <button type="button" key={option.key} aria-pressed={value === option.key} onClick={() => onChange(option.key)}>
-            {option.preview && <span className="app-option-preview">{option.preview}</span>}
+          <button type="button" key={option.key} className={optionButton({ kind })} aria-pressed={value === option.key} onClick={() => onChange(option.key)}>
+            {option.preview && <span className={optionPreview({ kind })}>{option.preview}</span>}
             <span>{option.label}</span>
           </button>
         ))}
@@ -265,7 +288,7 @@ function FinishSection({ finish }: { finish: PieceFinish }) {
   }).join(' ')
   const filled = finish === 'horiume' || finish === 'moriage'
   return (
-    <svg className="app-finish-section" viewBox="0 0 120 60" role="img" aria-label={t('settings.finishCrossSection', { finish: spec.label })}>
+    <svg className={finishSection} viewBox="0 0 120 60" role="img" aria-label={t('settings.finishCrossSection', { finish: spec.label })}>
       <rect width="120" height="60" fill="#f7f1df" />
       <path d="M4 25H116V56H4Z" fill="#ebc574" />
       {filled && <path d="M40 25H80L60 44Z" fill="#15110d" />}
@@ -327,7 +350,7 @@ function FinishOptions() {
   }, [key, st.pieceSet, st.pieceFont, st.pieceStyle, st.pieceGuide, st.pieceMaterial, st.pieceColor, st.pieceGrain])
   if (!images)
     return (
-      <section className="app-finish-options" aria-busy={!error}>
+      <section data-finish-options aria-busy={!error}>
         <Text tone="muted" size="sm" my="1em">
           {t('settings.finish')}
         </Text>
@@ -337,19 +360,20 @@ function FinishOptions() {
       </section>
     )
   return (
-    <div className="app-finish-options">
+    <div data-finish-options>
       <OptionGroup
+        finish
         label={t('settings.finish')}
         options={pieceFinishOptions(st.pieceMaterial).map((key) => ({
           key,
           label: PIECE_FINISHES[key].label,
           preview: (
             <>
-              <span className="app-finish-render">
+              <span className={finishRender}>
                 {images ? <img src={images.get(`finish:${key}`)?.[0]} alt="" /> : <span role="status">{error ?? t('settings.renderingPreview')}</span>}
               </span>
               <FinishSection finish={key} />
-              <span className="app-finish-coating">{PIECE_FINISHES[key].coating === 'lacquer' ? t('settings.lacquer') : t('settings.paint')}</span>
+              <span className={finishCoating}>{PIECE_FINISHES[key].coating === 'lacquer' ? t('settings.lacquer') : t('settings.paint')}</span>
             </>
           ),
         }))}
@@ -513,7 +537,7 @@ function DesignOptions({ customFace = false }: { customFace?: boolean } = {}) {
               options={(['lines', 'dots', 'movement'] as const).map((key) => ({
                 key,
                 label: t(key === 'dots' ? 'settings.guideDots' : key === 'movement' ? 'settings.guideMarks' : 'settings.guideLines'),
-                preview: <img className="app-prepared-glyph" src={`${import.meta.env.BASE_URL}pieces/prepared/guides/KI.${key}.png?v=16`} alt="" />,
+                preview: <img className={preparedGlyph} data-prepared src={`${import.meta.env.BASE_URL}pieces/prepared/guides/KI.${key}.png?v=16`} alt="" />,
               }))}
               value={st.pieceGuide}
               onChange={(key) => setSettings({ pieceGuide: key as typeof st.pieceGuide })}
@@ -526,7 +550,7 @@ function DesignOptions({ customFace = false }: { customFace?: boolean } = {}) {
         options={Object.entries(PIECE_COLORS).map(([key, spec]) => ({
           key,
           label: spec.label,
-          preview: <span className="app-color-swatch" style={{ background: `rgb(${(spec.tone ?? PIECE_MATERIALS[st.pieceMaterial].tone).join(',')})` }} />,
+          preview: <span className={colorSwatch} style={{ background: `rgb(${(spec.tone ?? PIECE_MATERIALS[st.pieceMaterial].tone).join(',')})` }} />,
         }))}
         value={st.pieceColor}
         onChange={(key) => setSettings({ pieceColor: key as typeof st.pieceColor })}
@@ -538,7 +562,7 @@ function DesignOptions({ customFace = false }: { customFace?: boolean } = {}) {
           label: spec.label,
           preview: (
             <span
-              className="app-color-swatch"
+              className={colorSwatch}
               style={{
                 background:
                   key === 'glass'
@@ -587,7 +611,11 @@ function BoardOptions() {
   return (
     <OptionGroup
       label={t('settings.boardWood')}
-      options={BOARD_STYLE_KEYS.map((key) => ({ key, label: BOARD_STYLES[key].label, preview: <img src={asset('boards', key)} alt="" /> }))}
+      options={BOARD_STYLE_KEYS.map((key) => ({
+        key,
+        label: BOARD_STYLES[key].label,
+        preview: <img className={previewFill} src={asset('boards', key)} alt="" />,
+      }))}
       value={st.boardStyle}
       onChange={(key) => setSettings({ boardStyle: key as BoardStyle })}
     />
@@ -630,6 +658,7 @@ export function SettingsDialog({
           p: '0',
           overflow: 'hidden',
           _tight: { maxH: '100%' },
+          '&:has([data-finish-options])': { w: 'min(1080px, 100%)' },
         }),
       )}
       positionerClassName={css({ alignItems: 'flex-start', pt: 'max({spacing.4}, 8vh)' })}

@@ -7,7 +7,6 @@ import '@fontsource/zen-kaku-gothic-new/400.css'
 import '@fontsource/zen-kaku-gothic-new/500.css'
 import '@fontsource/zen-kaku-gothic-new/700.css'
 import '@/styles/controls.css'
-import './layout.css'
 import { COURSES, SETUPS } from '@/utils/model'
 import { useCommands } from '@/app/dialogs/commands'
 import { useSettings } from '@/appearance/settings'
@@ -46,6 +45,8 @@ import { useTesuji } from '@/app/modes/tesuji/useTesuji'
 import { useTsume } from '@/app/modes/tsume/useTsume'
 import { SidePanels } from '@/app/panels/SidePanels'
 import { shell } from '@/app/panels/panels.styles'
+import { appShell } from '@/app/layout.styles'
+import { Wrap } from 'styled-system/jsx'
 import { useLineAhead } from '@/app/hooks/useLineAhead'
 import { saveMistakes } from '@/utils/mistakes'
 import { useSteadyRate } from '@/app/hooks/useSteadyRate'
@@ -352,7 +353,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
   return (
     <SessionContext.Provider value={session}>
       <div
-        className={`app-shell ${shell}${view.hideUi ? ' fs' : ''}${layout.zoned ? ' zoned' : layout.panelHidden ? ' panel-hidden' : ''}${layout.compact && layout.drawer ? ' drawer-open' : ''}${layout.compact && layout.panelSide ? ' panel-side' : ''}${layout.sheetH ? ' sheet-set' : ''}`}
+        className={`app-shell ${shell} ${appShell}${view.hideUi ? ' fs' : ''}${layout.zoned ? ' zoned' : layout.panelHidden ? ' panel-hidden' : ''}${layout.compact && layout.drawer ? ' drawer-open' : ''}${layout.compact && layout.panelSide ? ' panel-side' : ''}${layout.sheetH ? ' sheet-set' : ''}`}
         style={{ ['--panel-w' as string]: `${layout.panelWidth}px`, ['--sheet-h' as string]: layout.sheetH ?? undefined }}
       >
         <Rail
@@ -479,7 +480,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
                 ]}
                 onChange={(value) => setWatchOrder(value as typeof watchOrder)}
               />
-              <div className="app-actions">
+              <Wrap gap="2" align="center" justify="flex-end" mt="4">
                 <Button onClick={() => setWatchSetup(false)}>{t('app.cancel')}</Button>
                 <Button
                   variant="primary"
@@ -498,7 +499,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
                 >
                   {t('newGame.start')}
                 </Button>
-              </div>
+              </Wrap>
             </Dialog>
           )}
           {spar.newGameOpen && (
@@ -568,7 +569,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
                       ? '振り駒を行います'
                       : 'Tossing five pawns…'}
                 </p>
-                <div className="app-actions">
+                <Wrap gap="2" align="center" justify="flex-end" mt="4">
                   <Button
                     onClick={(event) => {
                       event.stopPropagation()
@@ -580,7 +581,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
                   {furigomaFaces && (
                     <span>{mode === 'view' ? t('watch.starting') : settings.lang === 'ja' ? 'どこかをクリックして対局開始' : 'Click anywhere to start'}</span>
                   )}
-                </div>
+                </Wrap>
               </div>
             </div>
           )}

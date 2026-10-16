@@ -1,7 +1,6 @@
 import './reel.css'
 import '@fontsource/yuji-boku/400.css'
 import '@fontsource/shippori-mincho-b1/800.css'
-import '@/app/layout.css'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { Position } from 'tsshogi'

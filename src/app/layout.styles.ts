@@ -1,0 +1,61 @@
+import { css } from 'styled-system/css'
+
+const hidden = { display: 'none' }
+
+export const appShell = css({
+  '&.panel-hidden:not(.fs)': { gridTemplateColumns: 'var(--rail-w) minmax(0, 1fr) 0!' },
+  '&.panel-hidden > .app-panel': hidden,
+  '&.zoned:not(.fs)': { gridTemplateColumns: 'var(--rail-w) minmax(0, 1fr)!' },
+  '&.zoned > .app-panel': {
+    position: 'fixed',
+    zIndex: 'floatingPanel',
+    border: '0',
+    borderRadius: 'lg',
+    overflow: 'hidden',
+    boxShadow: 'inset 0 0 0 1px {colors.border}, {shadows.md}',
+  },
+  '&.zoned > .app-panel .app-panel-resize': { left: '0', w: '12px' },
+  '&.fs': { p: '0!', gridTemplateColumns: 'minmax(0, 1fr)!', gridTemplateRows: 'minmax(0, 1fr)!' },
+  '&.fs > .app-rail': hidden,
+  '&.fs > .app-panel': hidden,
+  '&.fs .app-modebar': hidden,
+  '&.fs .app-plate': hidden,
+  '&.fs .app-phone-task': hidden,
+  '&.fs .app-board-wrap': { p: '0' },
+  '&.fs .app-fs-exit': {
+    position: 'fixed',
+    top: 'max(14px, env(safe-area-inset-top))',
+    left: 'max(14px, env(safe-area-inset-left))',
+    zIndex: 'promote',
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '2',
+    h: 'control.lg',
+    p: '0 {spacing.4} 0 {spacing.3}',
+    borderRadius: 'full',
+    bg: 'overlay',
+    color: 'fg.default',
+    fontSize: 'sm',
+    fontWeight: 'bold',
+    boxShadow: 'inset 0 0 0 1px {colors.border}, {shadows.md}',
+    _hover: { bg: 'panel' },
+  },
+  _compact: {
+    '&.panel-hidden:not(.fs)': { gridTemplateColumns: 'minmax(0, 1fr)!' },
+    '&.drawer-open': { pb: '0!' },
+    '&.drawer-open:not(.fs):not(.sheet-set)': { gridTemplateRows: 'auto minmax(0, 1fr) max(30dvh, calc(100dvh - 57px - min(516px, 131vw)))!' },
+    '&.drawer-open.sheet-set': { gridTemplateRows: 'auto minmax(0, 1fr) calc(var(--sheet-h) * 1dvh)!' },
+    '&.drawer-open:not(.fs) > .app-panel': {
+      display: 'flex',
+      minH: '0',
+      borderRadius: '{radii.xl} {radii.xl} 0 0',
+      overflow: 'hidden',
+      boxShadow: 'sheet',
+    },
+    '&.drawer-open .app-board-wrap': { p: '0' },
+  },
+  _short: {
+    '--rail-w': '52px',
+    gridTemplateColumns: 'var(--rail-w) minmax(0, 1fr) min(var(--panel-w, 380px), 34vw)!',
+  },
+})
