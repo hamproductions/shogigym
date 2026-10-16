@@ -219,11 +219,11 @@
     margin-bottom: var(--space-2);
   }
 
-  .app-lesson-pane > .app-seg.big button {
+  .app-lesson-pane > .app-seg.big [data-part='item'] {
     padding: var(--space-1-5) var(--space-2-5);
   }
 
-  .app-lesson-pane > .app-seg.big button span {
+  .app-lesson-pane > .app-seg.big [data-part='item'] span {
     display: none;
   }
 

@@ -1,27 +1,38 @@
 import '@/app/ui/dialog.css'
 import type { ReactNode } from 'react'
-import { Button } from './Button'
+import { CloseButton, Dialog as ParkDialog } from '@/components/ui'
 import { cx } from './cx'
 
 type DialogProps = { label: string; className?: string; role?: 'dialog' | 'alertdialog'; onBackdrop?: () => void; children: ReactNode }
 
 export function Dialog({ label, className, role = 'dialog', onBackdrop, children }: DialogProps) {
   return (
-    <div className="app-palette-back" onPointerDown={onBackdrop}>
-      <div className={cx('app-dialog', className)} role={role} aria-modal="true" aria-label={label} onPointerDown={(e) => e.stopPropagation()}>
-        {children}
-      </div>
-    </div>
+    <ParkDialog.Root
+      open
+      role={role}
+      lazyMount={false}
+      unmountOnExit={false}
+      closeOnEscape={false}
+      closeOnInteractOutside={!!onBackdrop}
+      onOpenChange={({ open }) => {
+        if (!open) onBackdrop?.()
+      }}
+    >
+      <ParkDialog.Backdrop />
+      <ParkDialog.Positioner>
+        <ParkDialog.Content className={cx('app-dialog', className)} aria-label={label}>
+          {children}
+        </ParkDialog.Content>
+      </ParkDialog.Positioner>
+    </ParkDialog.Root>
   )
 }
 
 export function DialogHeader({ title, closeLabel, closeTitle, onClose }: { title: ReactNode; closeLabel: string; closeTitle?: string; onClose: () => void }) {
   return (
-    <div className="app-dialog-head">
-      <h2>{title}</h2>
-      <Button variant="icon" size="lg" onClick={onClose} aria-label={closeLabel} title={closeTitle}>
-        ×
-      </Button>
-    </div>
+    <ParkDialog.Header className="app-dialog-head">
+      <ParkDialog.Title>{title}</ParkDialog.Title>
+      <CloseButton size="lg" onClick={onClose} aria-label={closeLabel} title={closeTitle} />
+    </ParkDialog.Header>
   )
 }

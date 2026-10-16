@@ -1,5 +1,7 @@
+import { LocaleProvider } from '@ark-ui/react/locale'
 import { useEffect, useState, type ReactNode } from 'react'
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, isRouteErrorResponse, useLocation, useRouteError } from 'react-router'
+import '@/styles/panda.css'
 import '@/styles/tokens.css'
 import '@/styles/base.css'
 
@@ -15,6 +17,7 @@ const themeScript = `(() => {
   if (theme !== 'light' && theme !== 'dark') theme = 'system'
   document.documentElement.dataset.theme = theme
   const dark = theme === 'dark' || (theme === 'system' && matchMedia('(prefers-color-scheme: dark)').matches)
+  document.documentElement.classList.add(dark ? 'dark' : 'light')
   document.querySelector('meta[name="theme-color"]').setAttribute('content', dark ? '#1c1814' : '#f4eee3')
 })()`
 
@@ -57,6 +60,7 @@ export function Layout({ children }: { children: ReactNode }) {
 }
 
 export default function Root() {
+  const [locale, setLocale] = useState('ja')
   useEffect(() => {
     let cancelled = false
     let unsubscribe: (() => void) | undefined
@@ -64,6 +68,7 @@ export default function Root() {
       if (cancelled) return
       const update = (language: string) => {
         document.documentElement.lang = language
+        setLocale(language)
       }
       update(i18n.language)
       i18n.on('languageChanged', update)
@@ -84,7 +89,11 @@ export default function Root() {
       if (engineSupported()) getEngine().catch((error) => console.warn('engine preload failed', error))
     })
   }, [taikyoku])
-  return <Outlet />
+  return (
+    <LocaleProvider locale={locale}>
+      <Outlet />
+    </LocaleProvider>
+  )
 }
 
 export function ErrorBoundary() {

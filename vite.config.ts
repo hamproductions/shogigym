@@ -1,5 +1,6 @@
 import { readFileSync, realpathSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
+import pandacss from '@pandacss/vite'
 import { reactRouter } from '@react-router/dev/vite'
 import { defineConfig, type Plugin } from 'vite'
 
@@ -28,8 +29,13 @@ const compactJoseki = (): Plugin => ({
 
 export default defineConfig({
   base: process.env.BASE_PATH ?? '/',
-  resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
-  plugins: [compactJoseki(), woff2Only(), reactRouter()],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      'styled-system': fileURLToPath(new URL('./styled-system', import.meta.url)),
+    },
+  },
+  plugins: [compactJoseki(), woff2Only(), pandacss(), reactRouter()],
   build: {
     chunkSizeWarningLimit: 1500,
     rolldownOptions: {

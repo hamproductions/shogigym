@@ -1,4 +1,4 @@
-.app-palette-back:has(> .app-settings) {
+[data-scope='dialog'][data-part='positioner']:has(> .app-settings) {
   align-items: flex-start;
   padding-top: max(var(--space-4), 8vh);
 }

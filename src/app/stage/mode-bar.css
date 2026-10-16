@@ -514,7 +514,7 @@
     gap: var(--space-1);
   }
 
-  .app-modebar-controls .app-seg button {
+  .app-modebar-controls .app-seg [data-part='item'] {
     height: 38px;
     width: 46px;
     min-width: 46px;

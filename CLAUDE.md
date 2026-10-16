@@ -36,3 +36,12 @@
 - Prefer responsive rendering over dense relief geometry: main-board pieces use 24 segments, the renderer uses the full device pixel ratio (never cap or adaptively lower it), and shadow maps 512 touch / 1024 desktop. Preserve face texture readability.
 
 Recovery screens retain the existing theme and saved language. Primary reload preserves the open session; session reset remains a separate collapsed recovery option. Stand and hand resizing must rebuild together when assets are ready, never move stands independently. Rail capacity must use measured tool heights and react to font/button size changes.
+
+## Styling system
+
+- UI primitives use Park UI on Ark UI with Panda CSS v2. Park registry files live in `src/components/ui` and `src/theme`; port any newly added Park file to v2 (`createSlotRecipeContext` / `createRecipeContext`, no `createStyleContext`), and use `src/app/icons` rather than Lucide.
+- Theme identity stays sumi/washi/shu: Park `gray` maps to washi (light) and sumi (dark), the accent palette is `shu`. Text tokens must pass WCAG AA against every surface they sit on; check new pairs with the antislop contrast script.
+- Migration is phased. Legacy CSS stays unlayered so contextual overrides beat Panda layers; only resets belong in `@layer base`. When a feature's CSS moves to Panda, delete the legacy rules in the same change and retarget selectors at Ark `data-part` attributes.
+- `jsxStyleProps` is `minimal`: style through recipes, `css()` or the `css` prop. Recipes whose variants are chosen at runtime must be listed in `staticCss`.
+- Dark mode resolves to a `.dark`/`.light` class on `<html>` alongside `data-theme`; keep both in sync in the boot script and `src/utils/theme.ts`.
+- Ark locale follows i18next through `LocaleProvider` in `src/root.tsx`.

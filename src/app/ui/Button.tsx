@@ -1,8 +1,21 @@
 import type { ButtonHTMLAttributes } from 'react'
+import { Button as ParkButton } from '@/components/ui'
 import { cx } from './cx'
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & { variant?: 'primary' | 'secondary' | 'ghost' | 'icon'; size?: 'sm' | 'lg'; on?: boolean }
 
+const variants = { primary: 'solid', secondary: 'subtle', ghost: 'outline', icon: 'plain' } as const
+
 export function Button({ variant = 'secondary', size, on, className, type = 'button', ...rest }: ButtonProps) {
-  return <button type={type} className={cx('app-btn', variant !== 'secondary' && variant, size, on && 'on', className)} {...rest} />
+  return (
+    <ParkButton
+      type={type}
+      variant={variants[variant]}
+      size={size ?? 'md'}
+      iconOnly={variant === 'icon'}
+      aria-pressed={on}
+      className={cx('app-btn', variant !== 'secondary' && variant, size, on && 'on', className)}
+      {...rest}
+    />
+  )
 }

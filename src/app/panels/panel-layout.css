@@ -160,7 +160,7 @@
     background: linear-gradient(var(--border-strong), var(--border-strong)) center / 40px 3px no-repeat;
   }
 
-  .app-panel .app-tabs button {
+  .app-panel .app-tabs [data-part='trigger'] {
     padding: var(--space-2) var(--space-2) var(--space-2-5);
   }
 
@@ -223,7 +223,7 @@
 }
 
 @media (max-height: 520px) and (min-width: 821px) {
-  .app-panel .app-tabs button {
+  .app-panel .app-tabs [data-part='trigger'] {
     padding-block: var(--space-1-5);
   }
 }

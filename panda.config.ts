@@ -1,0 +1,113 @@
+import { defineConfig } from '@pandacss/dev'
+import { gray } from './src/theme/colors/gray'
+import { shu } from './src/theme/colors/shu'
+import { animationStyles } from './src/theme/animation-styles'
+import { conditions } from './src/theme/conditions'
+import { globalCss } from './src/theme/global-css'
+import { keyframes } from './src/theme/keyframes'
+import { layerStyles } from './src/theme/layer-styles'
+import { recipes, slotRecipes } from './src/theme/recipes'
+import { textStyles } from './src/theme/text-styles'
+import { colors } from './src/theme/tokens/colors'
+import { durations } from './src/theme/tokens/durations'
+import { shadows } from './src/theme/tokens/shadows'
+import { zIndex } from './src/theme/tokens/z-index'
+
+export default defineConfig({
+  presets: ['@pandacss/preset-base', '@pandacss/preset-panda'],
+  preflight: false,
+  jsxFramework: 'react',
+  jsxStyleProps: 'minimal',
+  include: ['./src/**/*.{ts,tsx}'],
+  exclude: [],
+  outdir: 'styled-system',
+  importMap: 'styled-system',
+  staticCss: {
+    recipes: {
+      badge: ['*'],
+      button: ['*'],
+      card: ['*'],
+      dialog: ['*'],
+      segmentGroup: ['*'],
+      tabs: ['*'],
+    },
+  },
+  globalCss,
+  conditions,
+  theme: {
+    extend: {
+      animationStyles,
+      recipes,
+      slotRecipes,
+      keyframes,
+      layerStyles,
+      textStyles,
+      tokens: {
+        colors,
+        durations,
+        zIndex,
+        fonts: {
+          sans: { value: "'Zen Kaku Gothic New', system-ui, sans-serif" },
+          mincho: { value: "'Shippori Mincho B1', serif" },
+        },
+        fontSizes: {
+          '2xs': { value: '11px' },
+          xs: { value: '12px' },
+          sm: { value: '13px' },
+          md: { value: '15px' },
+          lg: { value: '17px' },
+          xl: { value: '20px' },
+          '2xl': { value: '28px' },
+        },
+        fontWeights: {
+          heavy: { value: '800' },
+        },
+        lineHeights: {
+          tight: { value: '1.25' },
+          snug: { value: '1.45' },
+          normal: { value: '1.6' },
+          mincho: { value: '1.8' },
+        },
+        letterSpacings: {
+          seal: { value: '0.08em' },
+        },
+        radii: {
+          xs: { value: '4px' },
+          sm: { value: '6px' },
+          md: { value: '8px' },
+          lg: { value: '12px' },
+          xl: { value: '16px' },
+        },
+        easings: {
+          out: { value: 'cubic-bezier(0.2, 0.7, 0.2, 1)' },
+        },
+      },
+      semanticTokens: {
+        colors: {
+          gray,
+          shu,
+          canvas: { value: { _light: '{colors.washi.200}', _dark: '{colors.sumi.900}' } },
+          card: { value: { _light: '{colors.washi.50}', _dark: '{colors.sumi.750}' } },
+          fg: {
+            default: { value: { _light: '{colors.gray.12}', _dark: '{colors.gray.12}' } },
+            muted: { value: { _light: '{colors.gray.11}', _dark: '{colors.gray.11}' } },
+            subtle: { value: { _light: '{colors.gray.10}', _dark: '{colors.gray.10}' } },
+          },
+          border: { value: { _light: 'rgb(36 30 24 / 0.14)', _dark: 'rgb(236 228 212 / 0.12)' } },
+          focus: { value: { _light: '{colors.shu.9}', _dark: '{colors.shu.11}' } },
+          scrim: { value: { _light: 'rgb(40 30 20 / 0.38)', _dark: 'rgb(6 5 4 / 0.62)' } },
+          success: { value: { _light: '#2f6118', _dark: '#93c66e' } },
+          danger: { value: { _light: '{colors.shu.11}', _dark: '#f2907b' } },
+          error: { value: { _light: '{colors.shu.11}', _dark: '#f2907b' } },
+        },
+        radii: {
+          l1: { value: '{radii.xs}' },
+          l2: { value: '{radii.md}' },
+          l3: { value: '{radii.lg}' },
+          l4: { value: '{radii.xl}' },
+        },
+        shadows,
+      },
+    },
+  },
+})

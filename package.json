@@ -6,13 +6,13 @@
   "scripts": {
     "postinstall": "mkdir -p public/engine && cp node_modules/@mizarjp/yaneuraou.k-p/lib/yaneuraou.k-p.js node_modules/@mizarjp/yaneuraou.k-p/lib/yaneuraou.k-p.wasm node_modules/@mizarjp/yaneuraou.k-p/lib/yaneuraou.k-p.worker.js node_modules/@mizarjp/yaneuraou.halfkp.noeval/lib/yaneuraou.halfkp.noeval.js node_modules/@mizarjp/yaneuraou.halfkp.noeval/lib/yaneuraou.halfkp.noeval.wasm node_modules/@mizarjp/yaneuraou.halfkp.noeval/lib/yaneuraou.halfkp.noeval.worker.js public/engine/ && mkdir -p public/engine/fairy && cp node_modules/fairy-stockfish-nnue.wasm/stockfish.js node_modules/fairy-stockfish-nnue.wasm/stockfish.wasm node_modules/fairy-stockfish-nnue.wasm/stockfish.worker.js public/engine/fairy/",
     "dev": "react-router dev",
-    "build": "react-router typegen && tsc -b && react-router build && node scripts/flatten-build.mjs",
+    "build": "panda codegen && react-router typegen && tsc -b && react-router build && node scripts/flatten-build.mjs",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "fix": "bun run lint:fix && bun run format",
-    "check": "bun run lint && bun run format:check && react-router typegen && tsc -b",
+    "check": "bun run lint && bun run format:check && panda codegen && react-router typegen && tsc -b",
     "preview": "vite preview --outDir build/client",
     "release": "release-it --ci",
     "release:patch": "release-it patch --ci",
@@ -22,6 +22,7 @@
     "lessons": "bun scripts/lessons/build.ts && node scripts/validate-curriculum.mjs"
   },
   "dependencies": {
+    "@ark-ui/react": "5.39.2",
     "@dimforge/rapier3d-compat": "^0.21.0",
     "@fontsource/shippori-mincho-b1": "^5.3.0",
     "@fontsource/yuji-boku": "^5.3.0",
@@ -43,6 +44,10 @@
     "tsshogi": "^2.3.4"
   },
   "devDependencies": {
+    "@pandacss/dev": "2.1.1",
+    "@pandacss/preset-base": "2.1.1",
+    "@pandacss/preset-panda": "2.1.1",
+    "@pandacss/vite": "2.1.1",
     "@react-router/dev": "8.4.0",
     "@release-it/conventional-changelog": "10.0.0",
     "@types/node": "^24.13.3",

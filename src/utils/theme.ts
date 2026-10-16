@@ -7,6 +7,8 @@ let chosen: Theme = 'system'
 
 function syncThemeColor() {
   const resolved = chosen === 'system' ? (darkQuery.matches ? 'dark' : 'light') : chosen
+  document.documentElement.classList.toggle('dark', resolved === 'dark')
+  document.documentElement.classList.toggle('light', resolved === 'light')
   document.querySelector('meta[name="theme-color"]')?.setAttribute('content', THEME_COLORS[resolved])
 }
 
