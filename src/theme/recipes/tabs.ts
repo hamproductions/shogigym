@@ -37,6 +37,12 @@ export const tabs = defineSlotRecipe({
       _hover: {
         color: 'fg.default',
       },
+      '& .app-ja': {
+        fontFamily: 'mincho',
+        fontWeight: 'heavy',
+        fontSize: 'md',
+        letterSpacing: 'seal',
+      },
       _selected: {
         borderBottomColor: 'shu.solid.bg',
         color: 'shu.plain.fg',

@@ -216,6 +216,28 @@ export const miniStep = css({
 
 export const miniWideLabel = css({ '@media (max-width: 1300px)': { display: 'none' } })
 
+export const fieldSelect = css({
+  w: '100%',
+  minH: 'control.sm',
+  p: '0 {spacing.8} 0 {spacing.2.5}',
+  border: '1px solid transparent',
+  borderRadius: 'md',
+  bgColor: 'surface.2',
+  bgImage: 'linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%)',
+  bgPosition: 'calc(100% - 17px) 55%, calc(100% - 12px) 55%',
+  bgSize: '5px 5px',
+  bgRepeat: 'no-repeat',
+  color: 'fg.default',
+  fontFamily: 'sans',
+  fontSize: 'sm',
+  lineHeight: 'normal',
+  appearance: 'none',
+  cursor: 'pointer',
+  transition: 'background-color {durations.fast}',
+  _hover: { bgColor: 'surface.3' },
+  _coarse: { minH: '40px' },
+})
+
 export const barSelect = css({ w: 'auto!', maxW: '11em', py: '1', fontSize: 'sm' })
 
 export const botSettings = css({

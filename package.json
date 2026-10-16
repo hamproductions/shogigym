@@ -44,10 +44,10 @@
     "tsshogi": "^2.3.4"
   },
   "devDependencies": {
-    "@pandacss/dev": "2.1.1",
-    "@pandacss/preset-base": "2.1.1",
-    "@pandacss/preset-panda": "2.1.1",
-    "@pandacss/vite": "2.1.1",
+    "@pandacss/dev": "2.1.2",
+    "@pandacss/preset-base": "2.1.2",
+    "@pandacss/preset-panda": "2.1.2",
+    "@pandacss/vite": "2.1.2",
     "@react-router/dev": "8.4.0",
     "@release-it/conventional-changelog": "10.0.0",
     "@types/node": "^24.13.3",

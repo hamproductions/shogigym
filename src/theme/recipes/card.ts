@@ -19,7 +19,7 @@ export const card = defineSlotRecipe({
         fontWeight: 'heavy',
         lineHeight: 'snug',
       },
-      '& > .app-btn, & > .app-actions': {
+      '& > .app-btn': {
         mt: '2',
       },
       '& p': {

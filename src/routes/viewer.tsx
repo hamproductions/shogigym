@@ -1,5 +1,6 @@
 import { Suspense, lazy } from 'react'
 import { useNavigate } from 'react-router'
+import { shellBase } from '@/app/layout.styles'
 
 const PieceViewer = lazy(() => import('@/features/piece-viewer/PieceViewer').then((m) => ({ default: m.PieceViewer })))
 
@@ -14,7 +15,7 @@ export function HydrateFallback() {
 export default function ViewerRoute() {
   const navigate = useNavigate()
   return (
-    <div className="app-shell">
+    <div className={`app-shell ${shellBase}`}>
       <Suspense fallback={null}>
         <PieceViewer page onClose={() => navigate('/')} />
       </Suspense>

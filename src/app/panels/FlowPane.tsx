@@ -46,6 +46,7 @@ const statsNumber = css({
 
 const laneCard = cva({
   base: {
+    layerStyle: 'card',
     display: 'flex',
     flexDirection: 'column',
     gap: '1',
@@ -252,7 +253,7 @@ export function FlowPane({
         return (
           <button
             key={lane.first}
-            className={cx('app-lane', laneCard({ tone: lane.tag }))}
+            className={laneCard({ tone: lane.tag })}
             onClick={() => onPreview(lane.moves, steps[0])}
             onMouseEnter={() => onHover(lane.first)}
             onMouseLeave={() => onHover(null)}

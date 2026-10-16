@@ -39,6 +39,7 @@ export const libMatch = css({ color: 'fg.muted', fontSize: 'xs', fontStyle: 'ita
 
 export const setupButton = cva({
   base: {
+    layerStyle: 'card',
     position: 'relative',
     display: 'grid',
     gridTemplateColumns: '1fr auto',
@@ -78,6 +79,7 @@ export const startTag = css({
 export const progressLine = css({ position: 'absolute', left: '0', bottom: '0', h: '2px', bg: 'accent' })
 
 export const lessonCard = css({
+  layerStyle: 'card',
   position: 'relative',
   display: 'flex',
   flexDirection: 'column',

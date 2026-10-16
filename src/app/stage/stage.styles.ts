@@ -357,8 +357,8 @@ export const announceMeta = css({
   fontWeight: 'bold',
   letterSpacing: '0.24em',
   animation: 'app-announce-detail 450ms 160ms ease both',
-  _before: { content: '""', w: '24px', h: '1px', bg: 'var(--accent)' },
-  '& span + span': { pl: '3', borderLeft: '1px solid color-mix(in srgb, var(--accent) 45%, transparent)' },
+  _before: { content: '""', w: '24px', h: '1px', bg: 'accent' },
+  '& span + span': { pl: '3', borderLeft: '1px solid color-mix(in srgb, {colors.accent} 45%, transparent)' },
   _narrow: { gap: '2', fontSize: '11px', letterSpacing: '0.12em', _before: { w: '16px' } },
   _motionReduce: { animation: 'none' },
 })

@@ -3,10 +3,10 @@ import { positionOf } from '@/utils/shogi'
 import { useTranslation } from 'react-i18next'
 import i18n from '@/utils/i18n'
 import { css } from 'styled-system/css'
-import { cx } from '@/app/ui/cx'
 import { muted } from '@/app/panels/panels.styles'
 
 const guide = css({
+  layerStyle: 'card',
   display: 'flex',
   gap: '3',
   mb: '3',
@@ -233,7 +233,7 @@ export function PieceGuide({ sfen, from }: { sfen: string; from: Square | PieceT
   const inHand = !(from instanceof Square)
   const kingName = type === PieceType.KING && from instanceof Square && position.board.at(from)?.color === Color.BLACK ? '王将' : info.ja
   return (
-    <div className={cx('app-piece-guide', guide)}>
+    <div className={guide}>
       <MoveDiagram steps={info.steps} />
       <div>
         <strong>

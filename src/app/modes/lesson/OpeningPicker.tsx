@@ -9,7 +9,6 @@ import { setSettings, useSettings } from '@/appearance/settings'
 import { mainStrategies, strategyById } from '@/data/strategies'
 import type { LessonMode, Level } from '@/app/types'
 import { Button } from '@/app/ui/Button'
-import { cx } from '@/app/ui/cx'
 import { Input } from '@/components/ui'
 import { Wrap } from 'styled-system/jsx'
 import { backLink, muted, subHeading } from '@/app/panels/panels.styles'
@@ -112,7 +111,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
   const setupCard = ({ setup, courses }: Entry) => {
     const p = progressOf(courses)
     return (
-      <button key={setup.id} className={cx('app-setup', setupButton())} onClick={() => setSetupId(setup.id)}>
+      <button key={setup.id} className={setupButton()} onClick={() => setSetupId(setup.id)}>
         <span className={libJa}>
           {name(setup)}
           {setup.basics && p.learned === 0 && <em className={startTag}>{t('picker.startHere')}</em>}
@@ -137,7 +136,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
     const defending = courses.length > 0 && courses.every((c) => c.notesFromOpponentView)
     const p = progressOf(courses)
     return (
-      <button key={setup.id} className={cx('app-setup', setupButton({ found: true }))} onClick={() => setSetupId(setup.id)}>
+      <button key={setup.id} className={setupButton({ found: true })} onClick={() => setSetupId(setup.id)}>
         <span className={libJa}>
           {name(setup)}
           {defending && <em className={startTag}>{ja ? '受ける側' : 'Defending side'}</em>}
@@ -403,7 +402,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
         CATEGORIES.map((item) => {
           const p = progressOf(all.filter((g) => categoryOf(g.setup) === item.id).flatMap((g) => g.courses))
           return (
-            <button key={item.id} className={cx('app-setup', setupButton())} onClick={() => openCategory(item.id)}>
+            <button key={item.id} className={setupButton()} onClick={() => openCategory(item.id)}>
               <span className={libJa}>{ja ? item.name.ja : item.name.en}</span>
               <span className={libEn}>{ja ? item.about.ja : item.about.en}</span>
               <span className={setupGo} aria-hidden="true">

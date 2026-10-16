@@ -1,6 +1,6 @@
 export function Shell() {
   return (
-    <div className={`app-shell ${appShell}`} aria-busy="true">
+    <div className={`app-shell ${shellBase} ${appShell}`} aria-busy="true">
       <nav className={`app-rail ${rail}`} />
       <section className={`app-stage ${stage}`}>
         <div className="app-shell-board" />
@@ -11,5 +11,5 @@ export function Shell() {
 }
 import { BoardLoading } from '@/rendering/BoardLoading'
 import { stage } from '@/app/stage/stage.styles'
-import { appShell } from '@/app/layout.styles'
+import { appShell, shellBase } from '@/app/layout.styles'
 import { rail } from '@/app/rail/rail.styles'

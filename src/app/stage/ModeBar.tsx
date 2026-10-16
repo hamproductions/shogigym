@@ -26,6 +26,7 @@ import {
   evalTrack,
   evalValue,
   evaluation,
+  fieldSelect,
   gameSetup,
   heading,
   headingText,
@@ -338,7 +339,7 @@ export function WatchOptions({ watch }: { watch: Watch }) {
             {watch.side(index) && ` · ${t(`common.${watch.side(index)}`)}`}
           </span>
           <select
-            className="app-field"
+            className={fieldSelect}
             aria-label={t('watch.difficulty', { bot: watch.name(index) })}
             value={strength}
             onChange={(event) => watch.setBot(index, event.target.value as AiStrength)}
@@ -350,7 +351,7 @@ export function WatchOptions({ watch }: { watch: Watch }) {
             ))}
           </select>
           <select
-            className="app-field"
+            className={fieldSelect}
             aria-label={t('watch.strategy', { bot: watch.name(index) })}
             value={watch.strategies[index]}
             onChange={(event) => watch.setStrategy(index, event.target.value)}

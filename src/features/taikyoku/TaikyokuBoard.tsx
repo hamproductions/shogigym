@@ -1,4 +1,6 @@
 import * as THREE from 'three'
+import { token } from 'styled-system/tokens'
+import type { Token } from 'styled-system/types'
 import { BOARD_TONE } from '@/rendering/koma'
 import { arrowBetween } from '@/rendering/board3d/marks'
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useLayoutEffect, useRef } from 'react'
@@ -104,7 +106,7 @@ export const TaikyokuBoard = forwardRef<BoardHandle, Props>(function TaikyokuBoa
     }
     const { x, y, s } = cam.current
     const css = getComputedStyle(c)
-    const token = (name: string, fallback: string) => css.getPropertyValue(name).trim() || fallback
+    const read = (path: Token, fallback: string) => css.getPropertyValue(token.var(path).slice(4, -1)).trim() || fallback
     const toX = (file: number) => w / 2 + (file - 1 - x) * s // left edge of a cell
     const toY = (rank: number) => h / 2 + (SIZE - rank - y) * s * SQ_D // top edge of a cell
     const f0 = clamp(Math.floor(x - w / 2 / s) + 1, 1, SIZE)
@@ -113,7 +115,7 @@ export const TaikyokuBoard = forwardRef<BoardHandle, Props>(function TaikyokuBoa
     const r1 = clamp(SIZE - Math.floor(y - h / 2 / s / SQ_D), 1, SIZE)
 
     // board
-    ctx.fillStyle = token('--kaya-light', '#e2b56c')
+    ctx.fillStyle = read('colors.kaya.light', '#e2b56c')
     ctx.fillRect(toX(1), toY(SIZE), SIZE * s, SIZE * s * SQ_D)
     if (surface.current) ctx.drawImage(surface.current, toX(1), toY(SIZE), SIZE * s, SIZE * s * SQ_D)
     ctx.strokeStyle = BOARD_TONE[getSettings().boardStyle].line
@@ -141,8 +143,8 @@ export const TaikyokuBoard = forwardRef<BoardHandle, Props>(function TaikyokuBoa
 
     // coordinates in the margin
     if (s >= 7) {
-      ctx.fillStyle = token('--text-muted', '#857a6b')
-      ctx.font = `${clamp(s * 0.42, 8, 14)}px ${token('--font-sans', 'sans-serif')}`
+      ctx.fillStyle = read('colors.fg.muted', '#857a6b')
+      ctx.font = `${clamp(s * 0.42, 8, 14)}px ${read('fonts.sans', 'sans-serif')}`
       ctx.textAlign = 'center'
       ctx.textBaseline = 'middle'
       const step = s >= 15 ? 1 : s >= 10 ? 2 : 3

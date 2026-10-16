@@ -1,4 +1,5 @@
 import { Fragment } from 'react'
+import { token } from 'styled-system/tokens'
 import { useTranslation } from 'react-i18next'
 import type { CropPanel, SourceDiagram } from '@/utils/curriculum'
 import { rankKanji } from '@/utils/notation'
@@ -22,7 +23,7 @@ const GLYPH: Record<string, string> = {
   '+B': '馬',
   '+R': '龍',
 }
-const ARROW: Record<string, string> = { blue: 'var(--ai-600)', yellow: 'var(--kin-600)', pink: 'var(--shu-500)' }
+const ARROW: Record<string, string> = { blue: token.var('colors.ai.600'), yellow: token.var('colors.kin.600'), pink: '#c4442a' }
 const KOMA = 'M0,-17 L11,-12 L14,17 L-14,17 L-11,-12 Z'
 
 function Koma({ code, x, y, ghost }: { code: string; x: number; y: number; ghost?: boolean }) {

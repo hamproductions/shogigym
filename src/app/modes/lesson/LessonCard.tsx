@@ -3,7 +3,6 @@ import { courseTitle, type Course } from '@/utils/model'
 import { courseProgress } from '@/app/practice'
 import type { LessonMode } from '@/app/types'
 import { Button } from '@/app/ui/Button'
-import { cx } from '@/app/ui/cx'
 import { css } from 'styled-system/css'
 import { lessonButtons, lessonCard, lessonMeta, lessonTitle, progressLine } from './lesson.styles'
 
@@ -14,7 +13,7 @@ export function LessonCard({ course, onOpen, prefix }: { course: Course; onOpen:
   const progress = courseProgress(course)
   const title = courseTitle(course, i18n.language)
   return (
-    <div className={cx('app-lesson-card', lessonCard)}>
+    <div className={lessonCard}>
       <span className={lessonTitle}>{prefix && title.startsWith(`${prefix}: `) ? title.slice(prefix.length + 2) : title}</span>
       {progress.total > 0 && (
         <span className={lessonMeta}>

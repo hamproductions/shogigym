@@ -1,5 +1,7 @@
 # Park UI / Panda v2 CSS migration spec
 
+Status: complete. Every hand-written stylesheet has been converted; this spec remains the reference for writing new styles.
+
 Rules for converting an area's hand-written CSS to Panda. The project rules in `CLAUDE.md` ("Styling system" and every layout rule above it) still apply in full; a conversion changes how styles are written, never what the user sees.
 
 ## Outcome per area

@@ -18,7 +18,7 @@ export default defineConfig({
   presets: ['@pandacss/preset-base', '@pandacss/preset-panda'],
   preflight: false,
   minify: process.env.NODE_ENV === 'production',
-  hash: process.env.NODE_ENV === 'production' && { className: false, cssVar: true },
+  hash: process.env.NODE_ENV === 'production',
   optimize: {
     removeUnusedTokens: true,
     removeUnusedKeyframes: true,

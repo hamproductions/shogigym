@@ -686,7 +686,7 @@ export function SettingsDialog({
         pb="5"
         css={{
           '& [data-setting] > :last-child': { justifySelf: 'end', _phone: { justifySelf: 'start' } },
-          '& [data-setting] > .app-seg, & [data-setting] > .app-actions': { justifyContent: 'flex-end', _phone: { justifyContent: 'flex-start' } },
+          '& [data-setting] > .app-seg': { justifyContent: 'flex-end', _phone: { justifyContent: 'flex-start' } },
           '& > * + [data-setting]': { borderTop: '1px solid {colors.border}' },
           '& [data-setting] > [data-scope=slider][data-part=root]': { _phone: { w: '100%', justifySelf: 'stretch' } },
         }}

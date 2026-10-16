@@ -1,4 +1,3 @@
-import '@/styles/controls.css'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '@/app/ui/Button'
@@ -18,7 +17,7 @@ import { EvalChip, ModeBarHeading } from '@/app/stage/ModeBar'
 import { controlIcon, controlLabel, controls, evaluation, helpToggle, miniNav, miniWideLabel, modeBar, takeBack, tools } from '@/app/stage/mode-bar.styles'
 import { boardScene, boardWrap, fsExit, stage } from '@/app/stage/stage.styles'
 import { useLayout } from '@/app/hooks/useLayout'
-import { appShell } from '@/app/layout.styles'
+import { appShell, shellBase } from '@/app/layout.styles'
 import { useView } from '@/app/hooks/useView'
 import { useMovePlayback } from '@/app/hooks/useAutoplay'
 import { Tabs } from '@/app/ui/Tabs'
@@ -457,6 +456,7 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
     <div
       className={cx(
         'app-shell',
+        shellBase,
         appShell,
         shell,
         layout.zoned && 'zoned',

@@ -2,8 +2,7 @@ import { LocaleProvider } from '@ark-ui/react/locale'
 import { useEffect, useState, type ReactNode } from 'react'
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, isRouteErrorResponse, useLocation, useRouteError } from 'react-router'
 import '@/styles/panda.css'
-import '@/styles/tokens.css'
-import '@/styles/base.css'
+import { crashCard, crashReset, crashScreen } from '@/app/crash.styles'
 
 const base = import.meta.env.BASE_URL
 
@@ -110,8 +109,8 @@ export function ErrorBoundary() {
     location.reload()
   }
   return (
-    <main className="app-crash-screen">
-      <section className="app-crash">
+    <main className={crashScreen}>
+      <section className={crashCard}>
         <img src={`${base}favicon.svg`} width="56" height="56" alt="" />
         <h1>{en ? 'The game was interrupted' : '対局が中断されました'}</h1>
         <p>{en ? 'Reload to return to your saved game.' : '再読み込みして、保存された対局に戻れます。'}</p>
@@ -123,7 +122,7 @@ export function ErrorBoundary() {
               ? 'If reloading does not help, reset the open game. Your settings and saved records remain.'
               : '再読み込みで復旧しない場合は、開いている対局をリセットできます。設定と保存済みの棋譜は残ります。'}
           </p>
-          <button className="app-crash-reset" onClick={reset}>
+          <button className={crashReset} onClick={reset}>
             {en ? 'Reset the open game' : '開いている対局をリセット'}
           </button>
         </details>

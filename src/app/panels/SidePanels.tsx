@@ -125,7 +125,10 @@ const resizeHandle = css({
   cursor: 'col-resize',
   transition: 'background {durations.fast}',
   touchAction: 'none',
-  background: 'linear-gradient({colors.border.strong}, {colors.border.strong}) center / 3px 40px no-repeat',
+  bgImage: 'linear-gradient({colors.border.strong}, {colors.border.strong})',
+  bgPosition: 'center',
+  bgSize: '3px 40px',
+  bgRepeat: 'no-repeat',
   _hover: { background: 'accent.soft' },
   _active: { background: 'accent.soft' },
   _compact: { display: 'none', '.app-shell.panel-side &': { display: 'block', left: '0', w: '12px' } },
@@ -140,7 +143,10 @@ const sheetHandle = css({
     p: '0',
     touchAction: 'none',
     cursor: 'row-resize',
-    background: 'linear-gradient({colors.border.strong}, {colors.border.strong}) center / 40px 3px no-repeat',
+    bgImage: 'linear-gradient({colors.border.strong}, {colors.border.strong})',
+    bgPosition: 'center',
+    bgSize: '40px 3px',
+    bgRepeat: 'no-repeat',
   },
 })
 

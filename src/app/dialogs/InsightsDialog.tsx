@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { token } from 'styled-system/tokens'
 import { useTranslation } from 'react-i18next'
 import { css } from 'styled-system/css'
 import { Box, styled, Wrap } from 'styled-system/jsx'
@@ -302,7 +303,7 @@ export function InsightsDialog({ onClose, onPractice, onRoute, onLesson }: Props
                     <ul className={reportList}>
                       {insights.recurring.map((r) => (
                         <li key={r.sfen} className={reportListItem}>
-                          <span className={badge} style={{ ['--label' as string]: 'var(--accent)' }}>
+                          <span className={badge} style={{ ['--label' as string]: token.var('colors.accent') }}>
                             {r.count}×
                           </span>
                           <div className={reportListBody}>
