@@ -14,6 +14,7 @@ import type { Lesson } from '@/app/modes/lesson/useLesson'
 import { STRENGTH, TIME_CONTROLS, setSettings, useSettings, type AiStrength } from '@/appearance/settings'
 import { MODES, isGameMode, type LessonMode } from '@/app/types'
 import { Button } from '@/app/ui/Button'
+import { Select } from '@/app/ui/Select'
 import { cx } from '@/app/ui/cx'
 import {
   boardFlip,
@@ -26,7 +27,6 @@ import {
   evalTrack,
   evalValue,
   evaluation,
-  fieldSelect,
   gameSetup,
   heading,
   headingText,
@@ -338,42 +338,32 @@ export function WatchOptions({ watch }: { watch: Watch }) {
             {watch.name(index)}
             {watch.side(index) && ` · ${t(`common.${watch.side(index)}`)}`}
           </span>
-          <select
-            className={fieldSelect}
-            aria-label={t('watch.difficulty', { bot: watch.name(index) })}
+          <Select
+            portal={false}
+            label={t('watch.difficulty', { bot: watch.name(index) })}
             value={strength}
-            onChange={(event) => watch.setBot(index, event.target.value as AiStrength)}
-          >
-            {(Object.entries(STRENGTH) as [AiStrength, (typeof STRENGTH)[AiStrength]][]).map(([id, level]) => (
-              <option key={id} value={id}>
-                {level.label}
-              </option>
-            ))}
-          </select>
-          <select
-            className={fieldSelect}
-            aria-label={t('watch.strategy', { bot: watch.name(index) })}
+            options={(Object.entries(STRENGTH) as [AiStrength, (typeof STRENGTH)[AiStrength]][]).map(([id, level]) => ({ value: id, label: level.label }))}
+            onChange={(value) => watch.setBot(index, value as AiStrength)}
+          />
+          <Select
+            portal={false}
+            label={t('watch.strategy', { bot: watch.name(index) })}
             value={watch.strategies[index]}
-            onChange={(event) => watch.setStrategy(index, event.target.value)}
-          >
-            <option value="random">{t('app.randomStrategy')}</option>
-            <option value="">{t('app.noStrategy')}</option>
-            {Object.entries(FAMILIES).map(([family, label]) => {
+            options={[
+              { value: 'random', label: t('app.randomStrategy') },
+              { value: '', label: t('app.noStrategy') },
+            ]}
+            groups={Object.entries(FAMILIES).flatMap(([family, label]) => {
               const choices = STRATEGIES.filter(
                 (strategy) =>
                   strategy.family === family && (strategyCourses(strategy.id, 'sente').length > 0 || strategyCourses(strategy.id, 'gote').length > 0),
               )
-              return choices.length ? (
-                <optgroup key={family} label={ja ? label.ja : label.en}>
-                  {choices.map((strategy) => (
-                    <option key={strategy.id} value={strategy.id}>
-                      {ja ? strategy.ja : strategy.en}
-                    </option>
-                  ))}
-                </optgroup>
-              ) : null
+              return choices.length
+                ? [{ label: ja ? label.ja : label.en, options: choices.map((strategy) => ({ value: strategy.id, label: ja ? strategy.ja : strategy.en })) }]
+                : []
             })}
-          </select>
+            onChange={(value) => watch.setStrategy(index, value)}
+          />
         </div>
       ))}
     </>

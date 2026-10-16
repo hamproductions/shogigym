@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '@/app/ui/Button'
+import { FilePicker } from '@/app/ui/FilePicker'
 import { Rail } from '@/app/rail/Rail'
 import { SettingsDialog } from '@/app/dialogs/SettingsDialog'
 import { Palette } from '@/app/dialogs/Palette'
@@ -79,7 +80,6 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
   const [showSettings, setShowSettings] = useState(false)
   const [showPalette, setShowPalette] = useState(false)
   const [playing, setPlaying] = useState(false)
-  const stateFile = useRef<HTMLInputElement>(null)
   const restoreStarted = useRef(false)
   const [storageReady, setStorageReady] = useState(false)
   const [stateError, setStateError] = useState('')
@@ -391,18 +391,11 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
           <Button size="sm" onClick={saveState} disabled={!game || restoring} title={t('games.saveGame')}>
             {t('games.saveGame')}
           </Button>
-          <Button size="sm" onClick={() => stateFile.current?.click()} disabled={!game || restoring || thinking} title={t('games.loadAGame')}>
-            {t('games.loadAGame')}
-          </Button>
-          <input
-            ref={stateFile}
-            type="file"
+          <FilePicker
+            size="sm"
             accept=".json,application/json"
-            hidden
-            onChange={async (event) => {
-              const file = event.target.files?.[0]
-              event.target.value = ''
-              if (!file) return
+            disabled={!game || restoring || thinking}
+            onFile={async (file) => {
               setPlaying(false)
               try {
                 const valid = await importState(JSON.parse(await file.text()))
@@ -415,7 +408,9 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
                 setStateError(t('taikyoku.state.invalid'))
               }
             }}
-          />
+          >
+            {t('games.loadAGame')}
+          </FilePicker>
         </Wrap>
         {stateError && (
           <Text role="alert" tone="muted" size="sm" my="1em">
@@ -433,11 +428,7 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
             title={t('taikyoku.history')}
             cell={(index) => (
               <div key={index}>
-                <button
-                  className={cx(moveButton, cursor === index + 1 && 'on')}
-                  onClick={() => navigate(index + 1)}
-                  aria-current={cursor === index + 1 ? 'step' : undefined}
-                >
+                <button className={moveButton} onClick={() => navigate(index + 1)} aria-current={cursor === index + 1 ? 'step' : undefined}>
                   <span className={notation}>{moveLabel(index)}</span>
                 </button>
               </div>
@@ -454,17 +445,12 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
 
   return (
     <div
-      className={cx(
-        'app-shell',
-        shellBase,
-        appShell,
-        shell,
-        layout.zoned && 'zoned',
-        !panelOpen && 'panel-hidden',
-        layout.compact && layout.drawer && 'drawer-open',
-        !!layout.sheetH && 'sheet-set',
-        hud.hideUi && 'fs',
-      )}
+      className={cx('app-shell', shellBase, appShell, shell)}
+      data-zoned={layout.zoned || undefined}
+      data-panel-hidden={!panelOpen || undefined}
+      data-drawer-open={(layout.compact && layout.drawer) || undefined}
+      data-sheet-set={!!layout.sheetH || undefined}
+      data-fs={hud.hideUi || undefined}
       style={{ ['--panel-w' as string]: `${layout.panelWidth}px`, ['--sheet-h' as string]: layout.sheetH ?? undefined }}
     >
       <Rail
@@ -559,7 +545,7 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
           </div>
         </header>
 
-        <div className={cx('app-board-wrap', boardWrap, evalBar && 'with-eval')}>
+        <div className={cx('app-board-wrap', boardWrap)} data-eval={evalBar || undefined}>
           {evalBar && <EvalBar rate={evalRate} flipped={false} />}
           <section className={cx('app-board-scene', boardScene, scene)} aria-label={t('taikyoku.board')}>
             {game && view === '3d' && (

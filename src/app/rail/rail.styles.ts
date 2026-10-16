@@ -148,5 +148,4 @@ export const soundPop = css({
   _before: { content: '""', position: 'absolute', inset: '0 100% 0 -10px' },
   '&[data-open]': { display: 'flex' },
   '&[data-compact]': { transform: 'translateX(-50%)', _before: { inset: '-10px 0 100% 0' } },
-  '& input': { w: '140px', accentColor: 'accent' },
 })

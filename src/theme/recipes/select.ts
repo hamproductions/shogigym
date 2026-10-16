@@ -13,6 +13,8 @@ export const select = defineSlotRecipe({
     },
     content: {
       background: 'panel',
+      color: 'fg.default',
+      fontFamily: 'sans',
       border: '1px solid {colors.border}',
       borderRadius: 'l2',
       boxShadow: 'md',

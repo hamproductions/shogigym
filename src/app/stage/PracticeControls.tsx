@@ -8,7 +8,8 @@ import { TESUJI_KINDS } from '@/app/tesujiDrills'
 import type { LessonMode } from '@/app/types'
 import { Segmented } from '@/app/ui/Segmented'
 import { Button } from '@/app/ui/Button'
-import { barSelect, fieldSelect } from './mode-bar.styles'
+import { Select } from '@/app/ui/Select'
+import { barSelect } from './mode-bar.styles'
 
 const LENGTHS: TsumeLength[] = [1, 3, 5, 7, 'all']
 
@@ -19,18 +20,13 @@ export function TsumeControls({ trainer }: { trainer: Tsume }) {
   const done = tsume.status === 'solved' || tsume.status === 'shown'
   return (
     <>
-      <select
-        className={`${fieldSelect} ${barSelect}`}
+      <Select
+        className={barSelect}
         value={String(tsume.length)}
-        aria-label={t('tsume.problemLength')}
-        onChange={(e) => trainer.start(e.target.value === 'all' ? 'all' : (Number(e.target.value) as TsumeLength))}
-      >
-        {LENGTHS.map((n) => (
-          <option key={n} value={String(n)}>
-            {n === 'all' ? t('tsume.mixed') : t('tsume.mateIn', { n })}
-          </option>
-        ))}
-      </select>
+        label={t('tsume.problemLength')}
+        options={LENGTHS.map((n) => ({ value: String(n), label: n === 'all' ? t('tsume.mixed') : t('tsume.mateIn', { n }) }))}
+        onChange={(value) => trainer.start(value === 'all' ? 'all' : (Number(value) as TsumeLength))}
+      />
       <Button size="sm" variant={done ? 'primary' : 'secondary'} onClick={trainer.next}>
         {t('tsume.nextProblem')}
       </Button>
@@ -44,18 +40,13 @@ export function TesujiControls({ trainer }: { trainer: Tesuji }) {
   if (!drill) return null
   return (
     <>
-      <select
-        className={`${fieldSelect} ${barSelect}`}
+      <Select
+        className={barSelect}
         value={drill.filter}
-        aria-label={t('tesuji.tesujiType')}
-        onChange={(e) => trainer.start(e.target.value)}
-      >
-        {['all', ...TESUJI_KINDS].map((k) => (
-          <option key={k} value={k}>
-            {k === 'all' ? t('tesuji.mixed') : k}
-          </option>
-        ))}
-      </select>
+        label={t('tesuji.tesujiType')}
+        options={['all', ...TESUJI_KINDS].map((k) => ({ value: k, label: k === 'all' ? t('tesuji.mixed') : k }))}
+        onChange={(value) => trainer.start(value)}
+      />
       <Button size="sm" variant={drill.status === 'asking' ? 'secondary' : 'primary'} onClick={trainer.next}>
         {t('tesuji.next')}
       </Button>
@@ -91,18 +82,15 @@ export function ReviewControls({ drill }: { drill: Drill }) {
     { id: 'mistakes', label: t('review.myGameMistakes'), n: counts.mistakes },
   ]
   return (
-    <select
-      className={`${fieldSelect} ${barSelect}`}
+    <Select
+      className={barSelect}
       value={drill.drill?.queue ?? ''}
-      aria-label={t('review.reviewQueue')}
-      onChange={(e) => e.target.value && drill.start(e.target.value as ReviewQueue)}
-    >
-      {!drill.drill && <option value="">{t('review.reviewQueue')}</option>}
-      {queues.map((q) => (
-        <option key={q.id} value={q.id}>
-          {q.label} ({q.n > 99 ? '99+' : q.n})
-        </option>
-      ))}
-    </select>
+      label={t('review.reviewQueue')}
+      options={[
+        ...(drill.drill ? [] : [{ value: '', label: t('review.reviewQueue') }]),
+        ...queues.map((q) => ({ value: q.id, label: `${q.label} (${q.n > 99 ? '99+' : q.n})` })),
+      ]}
+      onChange={(value) => value && drill.start(value as ReviewQueue)}
+    />
   )
 }
