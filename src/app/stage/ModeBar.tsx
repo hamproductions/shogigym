@@ -16,35 +16,22 @@ import { MODES, isGameMode, type LessonMode } from '@/app/types'
 import { Button } from '@/app/ui/Button'
 import { Select } from '@/app/ui/Select'
 import { cx } from '@/app/ui/cx'
+import { styled } from 'styled-system/jsx'
 import {
   boardFlip,
-  botSettings,
   controlIcon,
   controlLabel,
   controls,
-  evalChip,
-  evalLabel,
-  evalTrack,
-  evalValue,
   evaluation,
   gameSetup,
-  heading,
-  headingText,
   helpToggle,
-  instruction as instructionStyle,
-  lastMove as lastMoveStyle,
-  lastMoveText,
   miniNav,
   miniStep,
   miniWideLabel,
   modeBar,
-  ply as plyStyle,
   resign,
-  seal as sealStyle,
   takeBack,
-  title as titleStyle,
   tools,
-  turn as turnStyle,
 } from './mode-bar.styles'
 import { useGlide } from '@/app/hooks/useGlide'
 import { engineSupported, restartEngine, useEngineStatus } from '@/utils/engine'
@@ -94,26 +81,104 @@ export function ModeBarHeading({
   const { t } = useTranslation()
   const [before, after] = t('app.toMove', { side: '\u0001' }).split('\u0001')
   return (
-    <div className={cx('app-modebar-heading', heading)}>
-      <span className={sealStyle}>{seal}</span>
-      <span className={headingText}>
-        <strong className={titleStyle}>{title}</strong>
-        <span className={instructionStyle} role="status" aria-busy={busy}>
+    <styled.div
+      className="app-modebar-heading"
+      display="contents"
+      _compact={{
+        order: '-1',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '2',
+        m: 'var(--stage-gutter) var(--stage-gutter) 0',
+        p: '1.5',
+        borderRadius: 'lg',
+        bg: 'overlay',
+        boxShadow: 'inset 0 0 0 1px {colors.border}',
+        '[data-sheet-up] &': { display: 'none' },
+      }}
+    >
+      <styled.span
+        flex="none"
+        display="grid"
+        placeItems="center"
+        minW="48px"
+        h="48px"
+        p="0 {spacing.2}"
+        borderRadius="md"
+        bg="var(--mode, {colors.accent})"
+        color="mode.ink"
+        fontFamily="mincho"
+        fontWeight="heavy"
+        fontSize="lg"
+        letterSpacing="seal"
+        _compact={{ minW: '32px', h: '32px', fontSize: 'sm' }}
+        _short={{ minW: '30px', h: '30px', fontSize: 'sm' }}
+      >
+        {seal}
+      </styled.span>
+      <styled.span flex="1" minW="0" display="flex" flexDirection="column" _compact={{ flex: '1 1 0' }}>
+        <styled.strong
+          overflow="hidden"
+          textOverflow="ellipsis"
+          whiteSpace="nowrap"
+          fontFamily="mincho"
+          fontWeight="heavy"
+          fontSize="lg"
+          lineHeight="snug"
+          _compact={{ display: 'block', fontSize: 'sm' }}
+          _short={{ fontSize: 'md' }}
+        >
+          {title}
+        </styled.strong>
+        <styled.span
+          overflow="hidden"
+          textOverflow="ellipsis"
+          whiteSpace="nowrap"
+          color="fg.muted"
+          fontSize="sm"
+          _compact={{ display: 'none' }}
+          _short={{ display: 'none' }}
+          role="status"
+          aria-busy={busy}
+        >
           {instruction}
-        </span>
-      </span>
-      <span className={cx('app-lastmove', lastMoveStyle)}>
-        <span className={plyStyle}>{ply}</span>
-        <strong className={lastMoveText} title={lastMove}>
+        </styled.span>
+      </styled.span>
+      <styled.span
+        className="app-lastmove"
+        flex="none"
+        w="9em"
+        display="flex"
+        flexDirection="column"
+        alignItems="flex-end"
+        lineHeight="tight"
+        _compact={{ gap: '0', w: '8em', ml: 'auto' }}
+      >
+        <styled.span color="fg.muted" fontSize="2xs" _compact={{ display: 'block' }} _short={{ display: 'none' }}>
+          {ply}
+        </styled.span>
+        <styled.strong
+          maxW="100%"
+          overflow="hidden"
+          textOverflow="ellipsis"
+          whiteSpace="nowrap"
+          fontFamily="mincho"
+          fontWeight="heavy"
+          fontSize="xl"
+          color="highlight"
+          _compact={{ fontSize: 'md' }}
+          _short={{ fontSize: 'md' }}
+          title={lastMove}
+        >
           {lastMove ?? '\u00a0'}
-        </strong>
-        <span className={turnStyle}>
+        </styled.strong>
+        <styled.span color="fg.muted" fontSize="xs" _compact={{ display: 'block' }} _short={{ display: 'none' }}>
           {before}
           <SideMark side={turn} flipped={flipped} />
           {after}
-        </span>
-      </span>
-    </div>
+        </styled.span>
+      </styled.span>
+    </styled.div>
   )
 }
 
@@ -121,19 +186,39 @@ export function EvalChip({ rate, barShown, flipped }: { rate: number; barShown: 
   const { t } = useTranslation()
   const fill = useGlide<HTMLSpanElement>('width', rate * 100)
   return (
-    <span
-      className={evalChip}
+    <styled.span
+      display="inline-flex"
+      alignItems="center"
+      gap="2"
+      p="{spacing.1} {spacing.2.5}"
+      borderRadius="md"
+      bg="surface.2"
+      fontSize="sm"
+      whiteSpace="nowrap"
+      _compact={{ order: '3', flex: '1', h: '28px', p: '{spacing.1} {spacing.2}', '&[data-bar]': { display: 'inline-flex' } }}
+      css={{ '&[data-bar]': { display: 'none' } }}
       data-bar={barShown || undefined}
       title={t('app.winChance', { value: Math.round(rate * 100), value2: 100 - Math.round(rate * 100) })}
     >
-      <span className={evalLabel}>{t('app.winChanceShort')}</span>
-      <span className={evalTrack}>
+      <styled.span color="fg.muted" fontSize="xs" _compact={{ display: 'inline' }}>
+        {t('app.winChanceShort')}
+      </styled.span>
+      <styled.span
+        position="relative"
+        w="160px"
+        h="14px"
+        borderRadius="full"
+        bg="meter.track"
+        overflow="hidden"
+        _compact={{ flex: '1', w: 'auto', h: '12px' }}
+        css={{ '& > span': { position: 'absolute', inset: '0 auto 0 0', bg: 'meter.fill' } }}
+      >
         <span ref={fill} style={{ width: `${rate * 100}%` }} />
-      </span>
-      <b className={evalValue}>
+      </styled.span>
+      <styled.b minW="56px" fontSize="md" fontVariantNumeric="tabular-nums" _compact={{ minW: '0' }}>
         <SideMark side={rate >= 0.5 ? 'sente' : 'gote'} flipped={flipped} /> {Math.round(Math.max(rate, 1 - rate) * 100)}%
-      </b>
-    </span>
+      </styled.b>
+    </styled.span>
   )
 }
 
@@ -341,7 +426,21 @@ export function WatchOptions({ watch }: { watch: Watch }) {
   return (
     <>
       {watch.bots.map((strength, index) => (
-        <div key={index} className={botSettings} role="group" aria-label={watch.name(index)}>
+        <styled.div
+          key={index}
+          display="flex"
+          alignItems="center"
+          gap="1"
+          color="fg.muted"
+          fontSize="xs"
+          css={{
+            '& + &': { mt: '3' },
+            '& [data-scope=select][data-part=root]': { w: 'auto' },
+            '& [data-scope=select][data-part=trigger]': { maxW: '200px', fontSize: 'xs' },
+          }}
+          role="group"
+          aria-label={watch.name(index)}
+        >
           <span>
             {watch.name(index)}
             {watch.side(index) && ` · ${t(`common.${watch.side(index)}`)}`}
@@ -372,7 +471,7 @@ export function WatchOptions({ watch }: { watch: Watch }) {
             })}
             onChange={(value) => watch.setStrategy(index, value)}
           />
-        </div>
+        </styled.div>
       ))}
     </>
   )

@@ -7,7 +7,10 @@ import { mistakeHeadline, mistakeIsBad, mistakeSeal, type ShownMistake } from '@
 import { mainLine, promote } from '@/app/tree'
 import { isGameMode, type Preview } from '@/app/types'
 import { Button } from '@/app/ui/Button'
-import { banner, bannerSeal, bannerText, branchTip, nowrap } from './stage.styles'
+import { styled } from 'styled-system/jsx'
+import { banner, bannerSeal, bannerText } from './stage.styles'
+
+const BranchTip = styled('strong', { base: { fontWeight: 'bold', color: 'highlight', _narrow: { display: 'none' } } })
 
 function MistakeBanner({ mistake, preview, onBack }: { mistake: ShownMistake; preview: Preview; onBack: () => void }) {
   const { t } = useTranslation()
@@ -52,7 +55,8 @@ function PreviewBanner({ preview }: { preview: Preview }) {
     <div className={banner()} data-banner="" role="status">
       <span className={bannerSeal()}>{t('app.preview')}</span>
       <span className={bannerText({ fit: 'hide' })}>
-        {t('app.preview2')}: {preview.title}, <span className={nowrap}>{t('app.moveOf', { step: preview.step, movesCount: preview.moves.length })}</span>
+        {t('app.preview2')}: {preview.title},{' '}
+        <styled.span whiteSpace="nowrap">{t('app.moveOf', { step: preview.step, movesCount: preview.moves.length })}</styled.span>
       </span>
       <Button size="sm" onClick={() => setPlaying((v) => !v)}>
         {playing ? t('app.pause') : t('app.play')}
@@ -85,7 +89,7 @@ function BranchBanner() {
           t('app.variation')
         ) : (
           <>
-            {t('app.moveOf2', { cursor, movesCount: game.moves.length })} <strong className={branchTip}>{t('app.playADifferentMoveTo')}</strong>
+            {t('app.moveOf2', { cursor, movesCount: game.moves.length })} <BranchTip>{t('app.playADifferentMoveTo')}</BranchTip>
           </>
         )}
       </span>
@@ -111,7 +115,7 @@ function ReviewBanner() {
         ) : (
           <>
             {t('app.moveOf2', { cursor, movesCount: game.moves.length })}{' '}
-            <strong className={branchTip}>{isGameMode(mode) || mode === 'view' ? t('app.playADifferentMoveTo') : t('app.aMoveHereReplacesWhat')}</strong>
+            <BranchTip>{isGameMode(mode) || mode === 'view' ? t('app.playADifferentMoveTo') : t('app.aMoveHereReplacesWhat')}</BranchTip>
           </>
         )}
       </span>

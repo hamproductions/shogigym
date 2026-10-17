@@ -45,22 +45,6 @@ export const boardScene = css({
   _compact: { '--band': '40px', py: 'var(--band)', '.app-shell[data-drawer-open] &': { pb: '0' } },
 })
 
-export const caption = css({
-  position: 'absolute',
-  left: '2',
-  right: '2',
-  bottom: '2',
-  zIndex: 'hud',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-start',
-  gap: '2',
-  pointerEvents: 'none',
-  '.app-board-wrap[data-eval] &': { left: 'calc(var(--eval-bar-width) + {spacing.2})' },
-  '& > .app-plate': { position: 'static', transform: 'none', maxW: '100%' },
-  _compact: { '.app-board-wrap[data-eval] &': { left: '2' } },
-})
-
 export const peek = cva({
   base: {
     zIndex: 'hud',
@@ -86,29 +70,6 @@ export const peek = cva({
         _compact: { display: 'block', top: '1', right: '120px', bottom: 'auto', left: '2', transform: 'none', whiteSpace: 'normal' },
       },
     },
-  },
-})
-
-export const phoneTask = css({
-  display: 'none',
-  _compact: {
-    order: '4',
-    flex: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '2.5',
-    h: 'calc(2em * {lineHeights.tight} + 2 * {spacing.2.5})',
-    m: '{spacing.1.5} {spacing.2} {spacing.0.5}',
-    p: '{spacing.2.5} {spacing.3}',
-    borderRadius: 'lg',
-    bg: 'overlay',
-    color: 'fg.default',
-    fontSize: 'sm',
-    lineHeight: 'tight',
-    textAlign: 'left',
-    boxShadow: 'inset 0 0 0 1px {colors.border}',
-    '& span': { flex: '1', minW: '0', maxH: 'calc(2em * {lineHeights.tight})', overflowY: 'auto' },
-    '& b': { flex: 'none', p: '{spacing.1.5} {spacing.2.5}', borderRadius: 'md', bg: 'accent', color: 'accent.contrast', fontSize: 'xs' },
   },
 })
 
@@ -203,24 +164,6 @@ export const bannerText = cva({
   defaultVariants: { fit: 'wrap' },
 })
 
-export const branchTip = css({ fontWeight: 'bold', color: 'highlight', _narrow: { display: 'none' } })
-
-export const nowrap = css({ whiteSpace: 'nowrap' })
-
-export const evalBar = css({
-  position: 'relative',
-  flex: 'none',
-  alignSelf: 'stretch',
-  w: 'var(--eval-bar-width)',
-  mr: '0',
-  overflow: 'hidden',
-  bg: '#1d1a17',
-  boxShadow: 'inset 0 0 0 1px {colors.border}',
-  _compact: { display: 'none' },
-})
-
-export const evalBarFill = css({ position: 'absolute', left: '0', right: '0', bottom: '0', bg: '#f1eadb' })
-
 export const evalBarNumber = cva({
   base: {
     position: 'absolute',
@@ -239,20 +182,6 @@ export const evalBarNumber = cva({
       top: { top: '6px', color: '#f1eadb' },
     },
   },
-})
-
-export const promote = css({
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  zIndex: 'promote',
-  transform: 'translate(-50%, -50%)',
-  display: 'flex',
-  gap: '2.5',
-  p: '3',
-  borderRadius: 'lg',
-  bg: 'overlay',
-  boxShadow: 'inset 0 0 0 1px {colors.border}, {shadows.lg}',
 })
 
 export const promoteChoice = cva({
@@ -279,10 +208,6 @@ export const promoteChoice = cva({
     },
   },
 })
-
-export const promotionFace = css({ w: '72px', h: '72px', backgroundRepeat: 'no-repeat' })
-
-export const cancelMark = css({ display: 'grid', placeItems: 'center', h: '56px', fontSize: '30px', fontWeight: 'regular', opacity: '0.8' })
 
 export const announce = cva({
   base: {
@@ -331,38 +256,6 @@ export const announce = cva({
   },
 })
 
-export const announceLayout = css({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: '4',
-  w: '64%',
-  transform: 'translateY(16px)',
-  _narrow: { gap: '3', transform: 'translateY(2px)' },
-})
-
-export const announceContent = css({ position: 'relative', display: 'grid', gap: '0.5', minW: '0' })
-
-export const announceMeta = css({
-  order: '2',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: '3',
-  w: '100%',
-  p: '0',
-  color: '#fff4df',
-  textShadow: '0 1px 2px #000',
-  fontSize: 'xs',
-  fontWeight: 'bold',
-  letterSpacing: '0.24em',
-  animation: 'app-announce-detail 450ms 160ms ease both',
-  _before: { content: '""', w: '24px', h: '1px', bg: 'accent' },
-  '& span + span': { pl: '3', borderLeft: '1px solid color-mix(in srgb, {colors.accent} 45%, transparent)' },
-  _narrow: { gap: '2', fontSize: '11px', letterSpacing: '0.12em', _before: { w: '16px' } },
-  _motionReduce: { animation: 'none' },
-})
-
 export const announceName = cva({
   base: {
     display: 'flex',
@@ -392,13 +285,6 @@ export const announceName = cva({
     },
   },
 })
-
-export const announceGlyph = css({
-  animation: 'app-announce-glyph 420ms cubic-bezier(0.16, 1, 0.3, 1) calc(100ms + var(--glyph-index) * 28ms) both',
-  _motionReduce: { animation: 'none' },
-})
-
-export const announceReadable = css({ position: 'absolute', w: '1px', h: '1px', overflow: 'hidden', clipPath: 'inset(50%)', whiteSpace: 'nowrap' })
 
 export const announceSeal = cva({
   base: {

@@ -36,123 +36,10 @@ export const modeBar = cva({
   },
 })
 
-export const heading = css({
-  display: 'contents',
-  _compact: {
-    order: '-1',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '2',
-    m: 'var(--stage-gutter) var(--stage-gutter) 0',
-    p: '1.5',
-    borderRadius: 'lg',
-    bg: 'overlay',
-    boxShadow: 'inset 0 0 0 1px {colors.border}',
-    '[data-sheet-up] &': { display: 'none' },
-  },
-})
-
-export const seal = css({
-  flex: 'none',
-  display: 'grid',
-  placeItems: 'center',
-  minW: '48px',
-  h: '48px',
-  p: '0 {spacing.2}',
-  borderRadius: 'md',
-  bg: 'var(--mode, {colors.accent})',
-  color: 'mode.ink',
-  fontFamily: 'mincho',
-  fontWeight: 'heavy',
-  fontSize: 'lg',
-  letterSpacing: 'seal',
-  _compact: { minW: '32px', h: '32px', fontSize: 'sm' },
-  _short: { minW: '30px', h: '30px', fontSize: 'sm' },
-})
-
-export const headingText = css({ flex: '1', minW: '0', display: 'flex', flexDirection: 'column', _compact: { flex: '1 1 0' } })
-
-export const title = css({
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap',
-  fontFamily: 'mincho',
-  fontWeight: 'heavy',
-  fontSize: 'lg',
-  lineHeight: 'snug',
-  _compact: { display: 'block', fontSize: 'sm' },
-  _short: { fontSize: 'md' },
-})
-
-export const instruction = css({
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap',
-  color: 'fg.muted',
-  fontSize: 'sm',
-  _compact: { display: 'none' },
-  _short: { display: 'none' },
-})
-
-export const lastMove = css({
-  flex: 'none',
-  w: '9em',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-end',
-  lineHeight: 'tight',
-  _compact: { gap: '0', w: '8em', ml: 'auto' },
-})
-
-export const lastMoveText = css({
-  maxW: '100%',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap',
-  fontFamily: 'mincho',
-  fontWeight: 'heavy',
-  fontSize: 'xl',
-  color: 'highlight',
-  _compact: { fontSize: 'md' },
-  _short: { fontSize: 'md' },
-})
-
-export const ply = css({ color: 'fg.muted', fontSize: '2xs', _compact: { display: 'block' }, _short: { display: 'none' } })
-
-export const turn = css({ color: 'fg.muted', fontSize: 'xs', _compact: { display: 'block' }, _short: { display: 'none' } })
-
 export const evaluation = css({
   display: 'contents',
   _compact: { order: '9', flex: 'none', display: 'flex', m: '0 var(--stage-gutter) {spacing.1}' },
 })
-
-export const evalChip = css({
-  display: 'inline-flex',
-  alignItems: 'center',
-  gap: '2',
-  p: '{spacing.1} {spacing.2.5}',
-  borderRadius: 'md',
-  bg: 'surface.2',
-  fontSize: 'sm',
-  whiteSpace: 'nowrap',
-  '&[data-bar]': { display: 'none' },
-  _compact: { order: '3', flex: '1', h: '28px', p: '{spacing.1} {spacing.2}', '&[data-bar]': { display: 'inline-flex' } },
-})
-
-export const evalLabel = css({ color: 'fg.muted', fontSize: 'xs', _compact: { display: 'inline' } })
-
-export const evalTrack = css({
-  position: 'relative',
-  w: '160px',
-  h: '14px',
-  borderRadius: 'full',
-  bg: 'meter.track',
-  overflow: 'hidden',
-  '& > span': { position: 'absolute', inset: '0 auto 0 0', bg: 'meter.fill' },
-  _compact: { flex: '1', w: 'auto', h: '12px' },
-})
-
-export const evalValue = css({ minW: '56px', fontSize: 'md', fontVariantNumeric: 'tabular-nums', _compact: { minW: '0' } })
 
 export const controls = css({
   display: 'contents',
@@ -217,14 +104,3 @@ export const miniStep = css({
 export const miniWideLabel = css({ '@media (max-width: 1300px)': { display: 'none' } })
 
 export const barSelect = css({ w: 'auto', flex: 'none', '& [data-part=trigger]': { maxW: '11em', fontSize: 'sm' } })
-
-export const botSettings = css({
-  display: 'flex',
-  alignItems: 'center',
-  gap: '1',
-  color: 'fg.muted',
-  fontSize: 'xs',
-  '& + &': { mt: '3' },
-  '& [data-scope=select][data-part=root]': { w: 'auto' },
-  '& [data-scope=select][data-part=trigger]': { maxW: '200px', fontSize: 'xs' },
-})

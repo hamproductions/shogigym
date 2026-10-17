@@ -28,7 +28,8 @@ import { illustration } from '@/app/modes/lesson/lesson.styles'
 import { Button } from '@/app/ui/Button'
 import { usePromotionFaces } from '@/app/hooks/useBakedPieces'
 import { cx } from '@/app/ui/cx'
-import { boardScene, boardWrap, caption, peek, phoneTask as phoneTaskStyle } from './stage.styles'
+import { styled } from 'styled-system/jsx'
+import { boardScene, boardWrap, peek } from './stage.styles'
 
 import type { StandZones } from '@/rendering/board3d/types'
 
@@ -235,14 +236,31 @@ export function BoardStage({
           )}
         </Suspense>
         {mode !== 'tsume' && !picking && plate('top')}
-        <div className={cx('app-board-caption', caption)}>
+        <styled.div
+          className="app-board-caption"
+          position="absolute"
+          left="2"
+          right="2"
+          bottom="2"
+          zIndex="hud"
+          display="flex"
+          flexDirection="column"
+          alignItems="flex-start"
+          gap="2"
+          pointerEvents="none"
+          _compact={{ '.app-board-wrap[data-eval] &': { left: '2' } }}
+          css={{
+            '.app-board-wrap[data-eval] &': { left: 'calc(var(--eval-bar-width) + {spacing.2})' },
+            '& > .app-plate': { position: 'static', transform: 'none', maxW: '100%' },
+          }}
+        >
           {decor.note && dismissedNote !== decor.note && (
             <div className={peek({ placement: 'caption' })} role="status">
               {decor.note}
             </div>
           )}
           {mode !== 'tsume' && !picking && plate('bottom')}
-        </div>
+        </styled.div>
       </div>
       {mode === 'lesson' && sourceMarks?.illustration && sourceMarks.at === sfen.split(' ')[0] && (
         <div className={illustration}>
@@ -255,10 +273,33 @@ export function BoardStage({
       {mode === 'tsume' && <TsumePlate place="top" flipped={flipped} userSide={userSide} />}
       {mode === 'tsume' && <TsumePlate place="bottom" flipped={flipped} userSide={userSide} />}
       {phoneTask && (
-        <button className={cx('app-phone-task', phoneTaskStyle)} onClick={phoneTask.run}>
+        <styled.button
+          className="app-phone-task"
+          display="none"
+          _compact={{
+            order: '4',
+            flex: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '2.5',
+            h: 'calc(2em * {lineHeights.tight} + 2 * {spacing.2.5})',
+            m: '{spacing.1.5} {spacing.2} {spacing.0.5}',
+            p: '{spacing.2.5} {spacing.3}',
+            borderRadius: 'lg',
+            bg: 'overlay',
+            color: 'fg.default',
+            fontSize: 'sm',
+            lineHeight: 'tight',
+            textAlign: 'left',
+            boxShadow: 'inset 0 0 0 1px {colors.border}',
+            '& span': { flex: '1', minW: '0', maxH: 'calc(2em * {lineHeights.tight})', overflowY: 'auto' },
+            '& b': { flex: 'none', p: '{spacing.1.5} {spacing.2.5}', borderRadius: 'md', bg: 'accent', color: 'accent.contrast', fontSize: 'xs' },
+          }}
+          onClick={phoneTask.run}
+        >
           <span>{phoneTask.text}</span>
           <b>{phoneTask.action} ›</b>
-        </button>
+        </styled.button>
       )}
       {showGameOver && <GameOverBanner spar={spar} flatView={view.flatView} />}
       {announce && <AnnounceBadge key={announce.key} announce={announce} />}
