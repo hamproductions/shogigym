@@ -2,7 +2,8 @@ import { LocaleProvider } from '@ark-ui/react/locale'
 import { useEffect, useState, type ReactNode } from 'react'
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, isRouteErrorResponse, useLocation, useRouteError } from 'react-router'
 import '@/styles/panda.css'
-import { crashCard, crashReset, crashScreen } from '@/app/crash.styles'
+import { styled } from 'styled-system/jsx'
+import { seigaiha } from '@/app/layout.styles'
 
 const base = import.meta.env.BASE_URL
 
@@ -109,8 +110,37 @@ export function ErrorBoundary() {
     location.reload()
   }
   return (
-    <main className={crashScreen}>
-      <section className={crashCard}>
+    <styled.main position="relative" isolation="isolate" minH="100dvh" display="grid" placeItems="center" p="6" bg="surface.0" _before={{ ...seigaiha }}>
+      <styled.section
+        w="min(100%, 520px)"
+        p="clamp(24px, 6vw, 48px)"
+        border="1px solid {colors.border}"
+        borderRadius="lg"
+        bg="panel"
+        color="fg.default"
+        fontFamily="sans"
+        lineHeight="normal"
+        boxShadow="md"
+        css={{
+          '& img': { mb: '4' },
+          '& h1': { m: '0 0 {spacing.3}', fontFamily: 'mincho', fontSize: 'xl' },
+          '& p': { color: 'fg.muted', m: '0 0 {spacing.4}' },
+          '& button': {
+            p: '{spacing.2} {spacing.4}',
+            border: '0',
+            borderRadius: 'md',
+            bg: 'accent',
+            color: 'accent.contrast',
+            font: 'inherit',
+            cursor: 'pointer',
+          },
+          '& details': { mt: '4', fontSize: 'sm', color: 'fg.muted' },
+          '& summary': { cursor: 'pointer', w: 'fit-content' },
+          '& details p, & pre': { mt: '3' },
+          '& pre': { whiteSpace: 'pre-wrap', overflowWrap: 'anywhere', fontSize: 'xs' },
+          '& :focus-visible': { outline: '2px solid {colors.focus}', outlineOffset: '3px' },
+        }}
+      >
         <img src={`${base}favicon.svg`} width="56" height="56" alt="" />
         <h1>{en ? 'The game was interrupted' : '対局が中断されました'}</h1>
         <p>{en ? 'Reload to return to your saved game.' : '再読み込みして、保存された対局に戻れます。'}</p>
@@ -122,15 +152,15 @@ export function ErrorBoundary() {
               ? 'If reloading does not help, reset the open game. Your settings and saved records remain.'
               : '再読み込みで復旧しない場合は、開いている対局をリセットできます。設定と保存済みの棋譜は残ります。'}
           </p>
-          <button className={crashReset} onClick={reset}>
+          <styled.button bg="surface.2" color="fg.muted" onClick={reset}>
             {en ? 'Reset the open game' : '開いている対局をリセット'}
-          </button>
+          </styled.button>
         </details>
         <details>
           <summary>{en ? 'Error details' : 'エラーの詳細'}</summary>
           <pre>{message}</pre>
         </details>
-      </section>
-    </main>
+      </styled.section>
+    </styled.main>
   )
 }

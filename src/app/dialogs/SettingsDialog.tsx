@@ -40,29 +40,25 @@ import { SegmentedField, SettingRow } from '@/app/ui/Segmented'
 import { Tabs } from '@/app/ui/Tabs'
 import { cx } from '@/app/ui/cx'
 import { VERSION } from '@/utils/version'
-import {
-  colorSwatch,
-  finishCoating,
-  finishRender,
-  finishSection,
-  glyphSample,
-  optionButton,
-  optionGrid,
-  optionGroup,
-  optionPreview,
-  piecePreview,
-  preparedGlyph,
-  previewFill,
-  previewStatus,
-  sampleFlip,
-  sampleTile,
-} from './previews.styles'
+import { finishSection, glyphSample, optionButton, optionGrid, optionPreview, previewFill } from './previews.styles'
 import { Slider, Text } from '@/components/ui'
 
 type SettingsTab = 'general' | 'board' | 'pieces' | 'play' | 'about'
 const FONTS = Object.keys(PIECE_FONTS) as PieceFont[]
 const BOARD_STYLE_KEYS = Object.keys(BOARD_STYLES) as BoardStyle[]
 const asset = (group: string, key: string) => `${import.meta.env.BASE_URL}previews/${group}/${key}.webp`
+
+const ColorSwatch = styled('span', { base: { w: '100%', h: '100%', borderRadius: 'sm' } })
+
+const PreparedGlyph = styled('img', {
+  base: {
+    w: 'var(--prepared-size, 82px)',
+    h: 'var(--prepared-size, 82px)',
+    maxW: 'var(--prepared-max, none)',
+    aspectRatio: '1',
+    objectFit: 'contain',
+  },
+})
 
 function SurfaceSample({ piece }: { piece: PieceAppearance }) {
   const ref = useRef<HTMLCanvasElement>(null)
@@ -115,7 +111,7 @@ function GlyphSample({
   }
   const guideStyle = glyphSample({ guide: guide === 'none' ? 'none' : guide === 'movement' ? 'marks' : 'strip' })
   if (set !== 'letters' && set !== 'broadcast' && guide === 'none')
-    return <img className={preparedGlyph} data-prepared src={pieceGlyphUrl(set, code)} alt={faceText(type, Color.BLACK, style)} />
+    return <PreparedGlyph data-prepared src={pieceGlyphUrl(set, code)} alt={faceText(type, Color.BLACK, style)} />
   if (set !== 'letters' && set !== 'broadcast')
     return (
       <span className={guideStyle} data-glyph-sample>
@@ -191,17 +187,43 @@ function StickyPiecePreview() {
   const flip = (type: PieceType, on: boolean) =>
     setFlipped((prev) => (on ? (prev.includes(type) ? prev : [...prev, type]) : prev.filter((item) => item !== type)))
   return (
-    <div className={piecePreview} aria-label={t('settings.pieceSetPreview')} aria-busy={loading}>
+    <styled.div
+      position="sticky"
+      top="calc(-1 * {spacing.2})"
+      zIndex="2"
+      display="grid"
+      gridTemplateColumns="repeat(8, minmax(0, 1fr))"
+      gridTemplateRows="auto"
+      alignItems="center"
+      gap="1"
+      p="2"
+      bg="panel"
+      borderBottom="1px solid {colors.border}"
+      css={{ '&:has(> span:only-child)': { minH: '110px', placeItems: 'center' } }}
+      aria-label={t('settings.pieceSetPreview')}
+      aria-busy={loading}
+    >
       {images.size > 0 &&
         SAMPLE_TYPES.map((type) => {
           const promoted: PreviewFace = type === PieceType.KING ? 'GY' : promotedPieceType(type)
           const canFlip = promoted !== type
           const on = flipped.includes(type)
           return (
-            <button
+            <styled.button
               key={type}
               type="button"
-              className={sampleTile}
+              flex="1 0 76px"
+              w="100%"
+              maxW="110px"
+              h="auto"
+              minW="0"
+              aspectRatio="0.85"
+              border="0"
+              p="0"
+              bg="transparent"
+              perspective="500px"
+              cursor="pointer"
+              _disabled={{ opacity: '1', cursor: 'default' }}
               disabled={!canFlip}
               aria-label={faceText(type, Color.BLACK, st.pieceStyle)}
               aria-pressed={canFlip ? on : undefined}
@@ -211,19 +233,40 @@ function StickyPiecePreview() {
               onBlur={() => flip(type, false)}
               onClick={() => flip(type, !on)}
             >
-              <span className={sampleFlip} data-on={on || undefined}>
+              <styled.span
+                position="relative"
+                display="block"
+                w="100%"
+                h="100%"
+                transformStyle="preserve-3d"
+                transition="transform 0.35s ease"
+                css={{
+                  '&[data-on]': { transform: 'rotateX(180deg)' },
+                  '& img': {
+                    position: 'absolute',
+                    inset: '-18%',
+                    w: '136%',
+                    h: '136%',
+                    maxW: 'none',
+                    objectFit: 'contain',
+                    backfaceVisibility: 'hidden',
+                  },
+                  '& img[data-back]': { transform: 'rotateX(180deg)' },
+                }}
+                data-on={on || undefined}
+              >
                 {images.has(type) && <img src={images.get(type)} alt="" />}
                 {canFlip && images.has(promoted) && <img data-back src={images.get(promoted)} alt="" />}
-              </span>
-            </button>
+              </styled.span>
+            </styled.button>
           )
         })}
       {(loading || error) && (
-        <span className={previewStatus} role="status">
+        <styled.span gridColumn="1 / -1" fontSize="xs" color="fg.muted" css={{ '&:only-child': { p: '3' } }} role="status">
           {error ?? t('settings.renderingPreview')}
-        </span>
+        </styled.span>
       )}
-    </div>
+    </styled.div>
   )
 }
 
@@ -249,7 +292,7 @@ function OptionGroup({
         ? 'type'
         : 'plain'
   return (
-    <section className={optionGroup}>
+    <styled.section css={{ '& > p': { m: '{spacing.3} 0 {spacing.2}' } }}>
       <Text tone="muted" size="sm">
         {label}
       </Text>
@@ -261,7 +304,7 @@ function OptionGroup({
           </button>
         ))}
       </div>
-    </section>
+    </styled.section>
   )
 }
 
@@ -369,11 +412,20 @@ function FinishOptions() {
           label: PIECE_FINISHES[key].label,
           preview: (
             <>
-              <span className={finishRender}>
+              <styled.span
+                display="grid"
+                placeItems="center"
+                w="100%"
+                h="140px"
+                overflow="hidden"
+                css={{ '& img': { w: '100%', h: '140px', objectFit: 'cover' } }}
+              >
                 {images ? <img src={images.get(`finish:${key}`)?.[0]} alt="" /> : <span role="status">{error ?? t('settings.renderingPreview')}</span>}
-              </span>
+              </styled.span>
               <FinishSection finish={key} />
-              <span className={finishCoating}>{PIECE_FINISHES[key].coating === 'lacquer' ? t('settings.lacquer') : t('settings.paint')}</span>
+              <styled.span fontSize="xs" color="fg.muted">
+                {PIECE_FINISHES[key].coating === 'lacquer' ? t('settings.lacquer') : t('settings.paint')}
+              </styled.span>
             </>
           ),
         }))}
@@ -537,7 +589,7 @@ function DesignOptions({ customFace = false }: { customFace?: boolean } = {}) {
               options={(['lines', 'dots', 'movement'] as const).map((key) => ({
                 key,
                 label: t(key === 'dots' ? 'settings.guideDots' : key === 'movement' ? 'settings.guideMarks' : 'settings.guideLines'),
-                preview: <img className={preparedGlyph} data-prepared src={`${import.meta.env.BASE_URL}pieces/prepared/guides/KI.${key}.png?v=16`} alt="" />,
+                preview: <PreparedGlyph data-prepared src={`${import.meta.env.BASE_URL}pieces/prepared/guides/KI.${key}.png?v=16`} alt="" />,
               }))}
               value={st.pieceGuide}
               onChange={(key) => setSettings({ pieceGuide: key as typeof st.pieceGuide })}
@@ -550,7 +602,7 @@ function DesignOptions({ customFace = false }: { customFace?: boolean } = {}) {
         options={Object.entries(PIECE_COLORS).map(([key, spec]) => ({
           key,
           label: spec.label,
-          preview: <span className={colorSwatch} style={{ background: `rgb(${(spec.tone ?? PIECE_MATERIALS[st.pieceMaterial].tone).join(',')})` }} />,
+          preview: <ColorSwatch style={{ background: `rgb(${(spec.tone ?? PIECE_MATERIALS[st.pieceMaterial].tone).join(',')})` }} />,
         }))}
         value={st.pieceColor}
         onChange={(key) => setSettings({ pieceColor: key as typeof st.pieceColor })}
@@ -561,8 +613,7 @@ function DesignOptions({ customFace = false }: { customFace?: boolean } = {}) {
           key,
           label: spec.label,
           preview: (
-            <span
-              className={colorSwatch}
+            <ColorSwatch
               style={{
                 background:
                   key === 'glass'

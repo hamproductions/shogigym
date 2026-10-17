@@ -1,15 +1,20 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { css } from 'styled-system/css'
 import { Box, styled } from 'styled-system/jsx'
 import type { Weakness } from '@/utils/learning'
 import { colorSide, moveText, positionOf } from '@/utils/shogi'
 import { PositionView } from '@/rendering/PositionView'
 import { Text } from '@/components/ui'
 
-const move = css({ px: '0.3em', borderRadius: 'xs', fontWeight: 'bold', whiteSpace: 'nowrap' })
-const playedMove = css({ bg: 'color-mix(in srgb, #c4442a 24%, transparent)', boxShadow: 'inset 0 -2px 0 #c4442a' })
-const bestMove = css({ bg: 'color-mix(in srgb, #2f8f4e 24%, transparent)', boxShadow: 'inset 0 -2px 0 #2f8f4e' })
+const Move = styled('span', {
+  base: { px: '0.3em', borderRadius: 'xs', fontWeight: 'bold', whiteSpace: 'nowrap' },
+  variants: {
+    kind: {
+      played: { bg: 'color-mix(in srgb, #c4442a 24%, transparent)', boxShadow: 'inset 0 -2px 0 #c4442a' },
+      best: { bg: 'color-mix(in srgb, #2f8f4e 24%, transparent)', boxShadow: 'inset 0 -2px 0 #2f8f4e' },
+    },
+  },
+})
 
 type Props = { sfen: string; played: string; best: string; tag: Weakness; loss: number; reason?: string; showPlayed?: boolean }
 
@@ -34,7 +39,7 @@ export function MistakeDetail({ sfen, played, best, tag, loss, reason, showPlaye
         <Text mt="0" mb="1" fontSize="sm">
           {showPlayed && (
             <>
-              {t('report.youPlayed')} <span className={`${move} ${playedMove}`}>{moveText(sfen, played)}</span>
+              {t('report.youPlayed')} <Move kind="played">{moveText(sfen, played)}</Move>
               {stop}
             </>
           )}
@@ -46,8 +51,7 @@ export function MistakeDetail({ sfen, played, best, tag, loss, reason, showPlaye
           {best !== played && (
             <>
               {' '}
-              {t('report.betterWas')} <span className={`${move} ${bestMove}`}>{moveText(sfen, best)}</span>{' '}
-              {t('report.keepsMore', { percent: Math.max(1, Math.round(loss * 100)) })}
+              {t('report.betterWas')} <Move kind="best">{moveText(sfen, best)}</Move> {t('report.keepsMore', { percent: Math.max(1, Math.round(loss * 100)) })}
             </>
           )}
         </Text>

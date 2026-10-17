@@ -2,60 +2,6 @@ import { css, cva } from 'styled-system/css'
 
 const guideBackground = { bg: '#f5e3bd' }
 
-export const piecePreview = css({
-  position: 'sticky',
-  top: 'calc(-1 * {spacing.2})',
-  zIndex: '2',
-  display: 'grid',
-  gridTemplateColumns: 'repeat(8, minmax(0, 1fr))',
-  gridTemplateRows: 'auto',
-  alignItems: 'center',
-  gap: '1',
-  p: '2',
-  bg: 'panel',
-  borderBottom: '1px solid {colors.border}',
-  '&:has(> span:only-child)': { minH: '110px', placeItems: 'center' },
-})
-
-export const previewStatus = css({ gridColumn: '1 / -1', fontSize: 'xs', color: 'fg.muted', '&:only-child': { p: '3' } })
-
-export const sampleTile = css({
-  flex: '1 0 76px',
-  w: '100%',
-  maxW: '110px',
-  h: 'auto',
-  minW: '0',
-  aspectRatio: '0.85',
-  border: '0',
-  p: '0',
-  bg: 'transparent',
-  perspective: '500px',
-  cursor: 'pointer',
-  _disabled: { opacity: '1', cursor: 'default' },
-})
-
-export const sampleFlip = css({
-  position: 'relative',
-  display: 'block',
-  w: '100%',
-  h: '100%',
-  transformStyle: 'preserve-3d',
-  transition: 'transform 0.35s ease',
-  '&[data-on]': { transform: 'rotateX(180deg)' },
-  '& img': {
-    position: 'absolute',
-    inset: '-18%',
-    w: '136%',
-    h: '136%',
-    maxW: 'none',
-    objectFit: 'contain',
-    backfaceVisibility: 'hidden',
-  },
-  '& img[data-back]': { transform: 'rotateX(180deg)' },
-})
-
-export const optionGroup = css({ '& > p': { m: '{spacing.3} 0 {spacing.2}' } })
-
 export const optionGrid = cva({
   base: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '2', mb: '3' },
   variants: {
@@ -115,16 +61,6 @@ export const optionPreview = cva({
 
 export const previewFill = css({ w: '100%', h: '100%', objectFit: 'contain' })
 
-export const colorSwatch = css({ w: '100%', h: '100%', borderRadius: 'sm' })
-
-export const preparedGlyph = css({
-  w: 'var(--prepared-size, 82px)',
-  h: 'var(--prepared-size, 82px)',
-  maxW: 'var(--prepared-max, none)',
-  aspectRatio: '1',
-  objectFit: 'contain',
-})
-
 export const glyphSample = cva({
   base: { display: 'block', fontSize: 'var(--glyph-size, 52px)', lineHeight: '1', writingMode: 'vertical-rl', color: '#0e0804' },
   variants: {
@@ -153,15 +89,4 @@ export const glyphSample = cva({
   defaultVariants: { guide: 'none' },
 })
 
-export const finishRender = css({
-  display: 'grid',
-  placeItems: 'center',
-  w: '100%',
-  h: '140px',
-  overflow: 'hidden',
-  '& img': { w: '100%', h: '140px', objectFit: 'cover' },
-})
-
 export const finishSection = css({ flex: 'none', w: '100%', h: '50px' })
-
-export const finishCoating = css({ fontSize: 'xs', color: 'fg.muted' })

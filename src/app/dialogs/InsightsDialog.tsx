@@ -19,11 +19,11 @@ import { MistakeDetail } from '@/app/ui/MistakeDetail'
 import type { Mistake } from '@/utils/mistakes'
 import { Text } from '@/components/ui'
 import { FIX_ROUTE, LESSONS, type FixRoute } from './ReportDialog'
-import { reportList, reportListBody, reportListItem } from './report.styles'
+import { ReportList, ReportListBody, ReportListItem } from './report.styles'
 import { badge } from '@/app/panels/panels.styles'
 
 const radarLine = css({ fill: 'none', stroke: 'border', strokeWidth: '1' })
-const subheading = css({ mt: '3', mx: '0', mb: '1', fontSize: 'sm' })
+const Subheading = styled('h4', { base: { mt: '3', mx: '0', mb: '1', fontSize: 'sm' } })
 
 const AXES: Skill['key'][] = ['opening', 'middle', 'endgame', 'convert', 'tenacity', 'punish', 'steady']
 
@@ -279,12 +279,12 @@ export function InsightsDialog({ onClose, onPractice, onRoute, onLesson }: Props
                   </styled.ul>
                   {trend.filter((v) => v !== null).length >= 2 && (
                     <>
-                      <h4 className={subheading}>
+                      <Subheading>
                         {t('insights.trend')}{' '}
                         <Text as="span" tone="muted" size="sm">
                           {t('insights.trendHint')}
                         </Text>
-                      </h4>
+                      </Subheading>
                       <Trend points={trend} />
                     </>
                   )}
@@ -302,13 +302,13 @@ export function InsightsDialog({ onClose, onPractice, onRoute, onLesson }: Props
                     <Button variant="primary" className={css({ mb: '3' })} onClick={go(() => onPractice(practiceItems()))}>
                       {t('insights.practice', { count: insights.recurring.length })}
                     </Button>
-                    <ul className={reportList}>
+                    <ReportList>
                       {insights.recurring.map((r) => (
-                        <li key={r.sfen} className={reportListItem}>
+                        <ReportListItem key={r.sfen}>
                           <span className={badge} style={{ ['--label' as string]: token.var('colors.accent') }}>
                             {r.count}×
                           </span>
-                          <div className={reportListBody}>
+                          <ReportListBody>
                             <strong>{recurringText(r)}</strong>
                             <MistakeDetail
                               showPlayed
@@ -319,15 +319,15 @@ export function InsightsDialog({ onClose, onPractice, onRoute, onLesson }: Props
                               loss={r.example.review.loss}
                               reason={r.example.review.reasons[0]}
                             />
-                          </div>
-                        </li>
+                          </ReportListBody>
+                        </ReportListItem>
                       ))}
-                    </ul>
+                    </ReportList>
                   </>
                 )}
                 {insights.pieces.length > 0 && (
                   <>
-                    <h4 className={subheading}>{t('insights.pieces')}</h4>
+                    <Subheading>{t('insights.pieces')}</Subheading>
                     <styled.ul m="0" pl="5" fontSize="sm">
                       {insights.pieces.slice(0, 3).map((p) => (
                         <li key={p.piece}>{t('insights.pieceItem', { piece: pieceName(p.piece), mistakes: p.mistakes, moves: p.moves, percent: p.rate })}</li>

@@ -9,14 +9,16 @@ import { Dialog } from '@/app/ui/Dialog'
 import { Text } from '@/components/ui'
 import { WelcomeChoice, WelcomeChoices } from './welcome.styles'
 
-const tourItem = css({
-  display: 'grid',
-  gridTemplateColumns: '22px 1fr',
-  columnGap: '2.5',
-  py: '2',
-  borderBottom: '1px solid {colors.border}',
-  '& svg': { gridRow: 'span 2', mt: '0.5', color: 'fg.muted' },
-  '& span': { fontSize: 'xs', opacity: '0.85' },
+const TourItem = styled('li', {
+  base: {
+    display: 'grid',
+    gridTemplateColumns: '22px 1fr',
+    columnGap: '2.5',
+    py: '2',
+    borderBottom: '1px solid {colors.border}',
+    '& svg': { gridRow: 'span 2', mt: '0.5', color: 'fg.muted' },
+    '& span': { fontSize: 'xs', opacity: '0.85' },
+  },
 })
 
 type WelcomeProps = {
@@ -74,17 +76,17 @@ export function WelcomeDialog({ level, onPreviewLevel, onLearnRules, onLearnBasi
         <>
           <styled.ul my="3" mx="0" p="0" listStyle="none">
             {MODES.map((m) => (
-              <li key={m.id} className={tourItem}>
+              <TourItem key={m.id}>
                 <Icon name={m.icon} size={18} />
                 <strong>{t(`modes.${m.id}.name`)}</strong>
                 <span>{t('modes.sentence', { hint: t(`modes.${m.id}.hint`) })}</span>
-              </li>
+              </TourItem>
             ))}
-            <li className={tourItem}>
+            <TourItem>
               <Icon name="coach" size={18} />
               <strong>{t('app.sidePanel')}</strong>
               <span>{t('app.panelShort')}</span>
-            </li>
+            </TourItem>
           </styled.ul>
           <Wrap gap="2" align="center" justify="flex-end" mt="4">
             <Button onClick={() => setStep(0)}>{t('app.back2')}</Button>
