@@ -1,47 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { css, cva } from 'styled-system/css'
+import { cva } from 'styled-system/css'
 import { styled } from 'styled-system/jsx'
 import { applyUsi, moveText } from '@/utils/shogi'
 import type { Lane } from '@/utils/lanes'
 import { lossClass } from '@/utils/score'
 import { loadStats, loadStatsMeta, type PositionStats, type StatsMeta } from '@/utils/stats'
 import { muted } from './panels.styles'
-
-const statsColumns = css({
-  display: 'grid',
-  gridTemplateColumns: 'minmax(64px, 0.9fr) 1.2fr 1.2fr',
-  alignItems: 'center',
-  gap: '2',
-  p: '0 {spacing.2} {spacing.1}',
-  color: 'fg.muted',
-  fontSize: '2xs',
-})
-
-const statsRow = css({
-  display: 'grid',
-  gridTemplateColumns: 'minmax(64px, 0.9fr) 1.2fr 1.2fr',
-  alignItems: 'center',
-  gap: '2',
-  w: '100%',
-  p: '{spacing.1.5} {spacing.2}',
-  borderRadius: 'sm',
-  textAlign: 'left',
-  _hover: { bg: 'card.hover' },
-  _focusVisible: { bg: 'card.hover' },
-})
-
-const statsCell = css({ display: 'flex', flexDirection: 'column', gap: '0.5', minW: '0', '&[data-thin]': { opacity: '0.5' } })
-
-const statsTrack = css({ display: 'flex', h: '6px', overflow: 'hidden', borderRadius: 'full', bg: 'meter.track' })
-
-const statsNumber = css({
-  fontSize: 'xs',
-  fontVariantNumeric: 'tabular-nums',
-  whiteSpace: 'nowrap',
-  '& b': { fontWeight: 'bold' },
-  '& small': { color: 'fg.muted', fontSize: 'inherit' },
-})
 
 const laneCard = cva({
   base: {
@@ -137,11 +102,20 @@ function OpeningStats({
           {t('flow.statsSource', { games: stats.games.toLocaleString(), source: sourceLabel(meta) })}
         </styled.span>
       </styled.header>
-      <div className={statsColumns} aria-hidden="true">
+      <styled.div
+        display="grid"
+        gridTemplateColumns="minmax(64px, 0.9fr) 1.2fr 1.2fr"
+        alignItems="center"
+        gap="2"
+        p="0 {spacing.2} {spacing.1}"
+        color="fg.muted"
+        fontSize="2xs"
+        aria-hidden="true"
+      >
         <span>{t('flow.statsMove')}</span>
         <span>{t('flow.statsPlayed')}</span>
         <span>{t('flow.statsResult')}</span>
-      </div>
+      </styled.div>
       <styled.ul m="0" p="0" listStyle="none">
         {stats.moves.map((m) => {
           const text = moveText(sfen, m.usi)
@@ -150,8 +124,17 @@ function OpeningStats({
           const isBook = book?.usi === m.usi
           return (
             <li key={m.usi}>
-              <button
-                className={statsRow}
+              <styled.button
+                display="grid"
+                gridTemplateColumns="minmax(64px, 0.9fr) 1.2fr 1.2fr"
+                alignItems="center"
+                gap="2"
+                w="100%"
+                p="{spacing.1.5} {spacing.2}"
+                borderRadius="sm"
+                textAlign="left"
+                _hover={{ bg: 'card.hover' }}
+                _focusVisible={{ bg: 'card.hover' }}
                 onClick={() => onPreview([m.usi], text)}
                 onMouseEnter={() => onHover(m.usi)}
                 onMouseLeave={() => onHover(null)}
@@ -187,24 +170,41 @@ function OpeningStats({
                     </styled.em>
                   )}
                 </styled.span>
-                <span className={statsCell}>
-                  <span className={statsTrack}>
+                <styled.span display="flex" flexDirection="column" gap="0.5" minW="0">
+                  <styled.span display="flex" h="6px" overflow="hidden" borderRadius="full" bg="meter.track">
                     <styled.i bg="warning" style={{ width: `${(m.games / stats.games) * 100}%` }} />
-                  </span>
-                  <span className={statsNumber}>
+                  </styled.span>
+                  <styled.span
+                    fontSize="xs"
+                    fontVariantNumeric="tabular-nums"
+                    whiteSpace="nowrap"
+                    css={{ '& b': { fontWeight: 'bold' }, '& small': { color: 'fg.muted', fontSize: 'inherit' } }}
+                  >
                     {pct(m.games, stats.games)}% <small>{t('flow.statsGames', { count: m.games, n: m.games.toLocaleString() })}</small>
-                  </span>
-                </span>
-                <span className={statsCell} data-thin={m.games < THIN_SAMPLE || undefined}>
-                  <span className={statsTrack}>
+                  </styled.span>
+                </styled.span>
+                <styled.span
+                  display="flex"
+                  flexDirection="column"
+                  gap="0.5"
+                  minW="0"
+                  css={{ '&[data-thin]': { opacity: '0.5' } }}
+                  data-thin={m.games < THIN_SAMPLE || undefined}
+                >
+                  <styled.span display="flex" h="6px" overflow="hidden" borderRadius="full" bg="meter.track">
                     <styled.i bg="meter.fill" style={{ width: `${s}%` }} />
                     <styled.i ml="auto" bg="hai.400" style={{ width: `${g}%` }} />
-                  </span>
-                  <span className={statsNumber}>
+                  </styled.span>
+                  <styled.span
+                    fontSize="xs"
+                    fontVariantNumeric="tabular-nums"
+                    whiteSpace="nowrap"
+                    css={{ '& b': { fontWeight: 'bold' }, '& small': { color: 'fg.muted', fontSize: 'inherit' } }}
+                  >
                     <b>☗{s}%</b> <styled.b color="fg.muted">☖{g}%</styled.b>
-                  </span>
-                </span>
-              </button>
+                  </styled.span>
+                </styled.span>
+              </styled.button>
             </li>
           )
         })}

@@ -2,33 +2,6 @@ import { css, cva } from 'styled-system/css'
 
 export const muted = css({ color: 'fg.muted', fontSize: 'sm' })
 
-export const panel = css({
-  position: 'relative',
-  display: 'flex',
-  flexDirection: 'column',
-  minHeight: '0',
-  containerType: 'inline-size',
-  background:
-    "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.42 0 0 0 0 0.35 0 0 0 0 0.25 0 0 0 0.07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\"), {colors.panel}",
-  color: 'fg.default',
-  borderLeft: '1px solid {colors.border}',
-  '& > .app-tabs': { flex: 'none', pr: '1' },
-  _compact: {
-    borderLeft: '0',
-    borderTop: '1px solid {colors.border}',
-    '& .app-tabs [data-part=trigger]': { p: '{spacing.2} {spacing.2} {spacing.2.5}' },
-    '& .app-tabs .app-ja': { fontSize: 'lg' },
-    '.app-shell[data-drawer-open][data-panel-side]:not([data-fs]) > &': {
-      gridColumn: '2',
-      gridRow: '2',
-      minWidth: '0',
-      borderRadius: '{radii.lg} 0 0 {radii.lg}',
-      borderLeft: '1px solid {colors.border}',
-    },
-  },
-  _short: { '& .app-tabs [data-part=trigger]': { py: '1.5' } },
-})
-
 export const shell = css({
   _compact: {
     '&[data-drawer-open][data-panel-side]:not([data-fs])': {
@@ -77,35 +50,6 @@ export const moveCounts = css({
   '& dd': { m: '0', fontVariantNumeric: 'tabular-nums' },
 })
 
-export const navBar = css({
-  flex: 'none',
-  display: 'grid',
-  gridTemplateColumns: 'repeat(6, 1fr)',
-  gap: '1.5',
-  p: '2.5',
-  borderTop: '1px solid {colors.border}',
-  '& button': { display: 'grid', placeItems: 'center', h: '40px', borderRadius: 'md', bg: 'surface.2', transition: 'background {durations.fast}' },
-  '& [aria-pressed=true]': { bg: 'accent', color: 'accent.contrast' },
-  '& button:not(:disabled):hover': { bg: 'surface.3' },
-  _compact: { pb: 'max({spacing.2.5}, env(safe-area-inset-bottom))' },
-  '@container (max-width: 300px)': { gap: '0.5', px: '1' },
-})
-
-export const moves = css({ m: '0', p: '0', listStyle: 'none' })
-
-export const moveRow = css({
-  display: 'grid',
-  gridTemplateColumns: '34px minmax(0, 1fr) minmax(0, 1fr)',
-  alignItems: 'baseline',
-  gap: '1',
-  py: '0.5',
-  borderRadius: 'sm',
-  '&:nth-child(even)': { bg: 'color-mix(in srgb, {colors.fg.default} 4%, transparent)' },
-  '& > div': { minWidth: '0' },
-  _narrow: { gridTemplateColumns: '26px minmax(0, 1fr) minmax(0, 1fr)', alignItems: 'start' },
-  '@container (max-width: 340px)': { gridTemplateColumns: '26px minmax(0, 1fr)', alignItems: 'start', '& > :last-child': { gridColumn: '2' } },
-})
-
 export const moveButton = css({
   w: '100%',
   py: '1',
@@ -118,18 +62,6 @@ export const moveButton = css({
   '&[aria-current]': { bg: 'surface.2', boxShadow: 'inset 2px 0 0 {colors.accent}' },
   '[data-in-var] > &': { '&:first-child': { boxShadow: 'inset 2px 0 0 {colors.info}' } },
   _narrow: { px: '1', fontSize: 'sm' },
-})
-
-export const moveNotation = css({ display: 'inline-block', whiteSpace: 'nowrap' })
-
-export const moveLabel = css({
-  display: 'inline-block',
-  whiteSpace: 'nowrap',
-  ml: '1.5',
-  color: 'light-dark(color-mix(in srgb, var(--label) 55%, #000), var(--label))',
-  fontFamily: 'sans',
-  fontWeight: 'bold',
-  fontSize: 'xs',
 })
 
 export const plate = css({

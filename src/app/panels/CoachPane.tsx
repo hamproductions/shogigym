@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next'
-import { css } from 'styled-system/css'
 import { styled } from 'styled-system/jsx'
 import { LABELS, type MoveReview } from '@/utils/analysis'
 import type { Course } from '@/utils/model'
@@ -11,20 +10,6 @@ import type { BookHit, BookMove } from '@/utils/book'
 import { isWeak } from '@/utils/mistake'
 import { weaknessOf } from '@/utils/learning'
 import { badge, muted, note, verdictHead, verdictLabel } from './panels.styles'
-
-const reason = css({ m: '0 0 {spacing.1.5}', fontSize: 'sm' })
-
-const bookMove = css({
-  display: 'block',
-  w: '100%',
-  mb: '1.5',
-  p: '{spacing.2.5} {spacing.3}',
-  borderRadius: 'md',
-  bg: 'surface.2',
-  textAlign: 'left',
-  '& strong': { display: 'block', fontFamily: 'mincho', fontWeight: 'heavy', fontSize: 'md' },
-  '& span': { fontFamily: 'mincho', fontSize: 'sm', color: 'fg.muted' },
-})
 
 type CoachPaneProps = {
   review: MoveReview | null
@@ -83,13 +68,13 @@ function Verdict({
         {bookLast?.branch.note && <p className={note()}>{bookLast.branch.note}</p>}
         {bookLast?.branch.kind === 'deviation' && bookLast.branch.punishNote && <p className={note({ tone: 'warn' })}>{bookLast.branch.punishNote}</p>}
         {review.reasons.slice(0, 2).map((r) => (
-          <p key={r} className={reason}>
+          <styled.p key={r} m="0 0 {spacing.1.5}" fontSize="sm">
             {r}
-          </p>
+          </styled.p>
         ))}
         {isWeak(review.label) && <Principle review={review} />}
         {isWeak(review.label) && review.best.move !== lastMove && !review.reasons.some((r) => r.startsWith(prefixOf('moveFacts.bestWins'))) && (
-          <p className={reason}>
+          <styled.p m="0 0 {spacing.1.5}" fontSize="sm">
             {t('coach.betterWas')}
             <strong>
               <FlipMarks flipped={flipped}>{moveText(prevSfen, review.best.move)}</FlipMarks>
@@ -97,7 +82,7 @@ function Verdict({
             {review.bestReasons[0] && !review.bestReasons[0].startsWith(prefixOf('moveFacts.engineLine'))
               ? `: ${review.bestReasons[0]}`
               : t('coach.betterWasEnd')}
-          </p>
+          </styled.p>
         )}
       </>
     )
@@ -152,14 +137,31 @@ export function CoachPane({ review, lastMove, prevSfen, bookLast, bookHere, sfen
       )}
       {showBook && bookHere.length > 0 && (
         <styled.div mt="5">
-          <h3 className={css({ m: '0 0 {spacing.1.5}', color: 'fg.muted', fontSize: 'sm', fontWeight: 'medium' })}>{t('coach.bookMovesFromTheLessons')}</h3>
+          <styled.h3 m="0 0 {spacing.1.5}" color="fg.muted" fontSize="sm" fontWeight="medium">
+            {t('coach.bookMovesFromTheLessons')}
+          </styled.h3>
           {bookHere.map((b) => (
-            <button key={b.usi} className={bookMove} disabled={!canPlay} onClick={() => onPlay(b.usi)}>
+            <styled.button
+              key={b.usi}
+              display="block"
+              w="100%"
+              mb="1.5"
+              p="{spacing.2.5} {spacing.3}"
+              borderRadius="md"
+              bg="surface.2"
+              textAlign="left"
+              css={{
+                '& strong': { display: 'block', fontFamily: 'mincho', fontWeight: 'heavy', fontSize: 'md' },
+                '& span': { fontFamily: 'mincho', fontSize: 'sm', color: 'fg.muted' },
+              }}
+              disabled={!canPlay}
+              onClick={() => onPlay(b.usi)}
+            >
               <strong>
                 <FlipMarks flipped={flipped}>{moveText(sfen, b.usi)}</FlipMarks>
               </strong>
               {b.note && <span>{b.note}</span>}
-            </button>
+            </styled.button>
           ))}
         </styled.div>
       )}

@@ -4,7 +4,7 @@ import { Icon } from '@/app/icons'
 import type { Watch } from '@/app/modes/view/useWatch'
 import type { Lesson } from '@/app/modes/lesson/useLesson'
 import { useLineAhead } from '@/app/hooks/useLineAhead'
-import { navBar } from './panels.styles'
+import { styled } from 'styled-system/jsx'
 
 export function NavFooter({ canAutoplay, watch, lesson }: { canAutoplay: boolean; watch: Watch; lesson: Lesson }) {
   const { t } = useTranslation()
@@ -53,7 +53,21 @@ export function MoveNavigation({
 }) {
   const { t } = useTranslation()
   return (
-    <footer className={navBar}>
+    <styled.footer
+      flex="none"
+      display="grid"
+      gridTemplateColumns="repeat(6, 1fr)"
+      gap="1.5"
+      p="2.5"
+      borderTop="1px solid {colors.border}"
+      _compact={{ pb: 'max({spacing.2.5}, env(safe-area-inset-bottom))' }}
+      css={{
+        '& button': { display: 'grid', placeItems: 'center', h: '40px', borderRadius: 'md', bg: 'surface.2', transition: 'background {durations.fast}' },
+        '& [aria-pressed=true]': { bg: 'accent', color: 'accent.contrast' },
+        '& button:not(:disabled):hover': { bg: 'surface.3' },
+        '@container (max-width: 300px)': { gap: '0.5', px: '1' },
+      }}
+    >
       <button onClick={first} disabled={!canBack} title={t('app.startHome')}>
         <Icon name="first" />
       </button>
@@ -69,6 +83,6 @@ export function MoveNavigation({
       <button onClick={last} disabled={!canForward} title={t('app.latestEnd')}>
         <Icon name="last" />
       </button>
-    </footer>
+    </styled.footer>
   )
 }

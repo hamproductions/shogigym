@@ -26,7 +26,8 @@ import { Button } from '@/app/ui/Button'
 import type { FixRoute } from '@/app/dialogs/ReportDialog'
 import type { Mistake } from '@/utils/mistakes'
 import { cx } from '@/app/ui/cx'
-import { moveCounts, moveLabel, muted, note, panelBody, pinnedGraph } from './panels.styles'
+import { styled } from 'styled-system/jsx'
+import { moveCounts, muted, note, panelBody, pinnedGraph } from './panels.styles'
 
 const LessonMap = lazy(() => import('@/components/Flowchart').then((m) => ({ default: m.LessonMap })))
 const KifuNotes = lazy(() => import('@/app/modes/analyze/KifuNotes').then((m) => ({ default: m.KifuNotes })))
@@ -169,7 +170,18 @@ function MoveCounts() {
         {(Object.entries(LABELS) as [Label, (typeof LABELS)[Label]][]).map(([label, meta]) => (
           <div key={label} style={{ ['--label' as string]: meta.color }}>
             <dt>
-              <span className={moveLabel}>{meta.symbol}</span> {meta.text}
+              <styled.span
+                display="inline-block"
+                whiteSpace="nowrap"
+                ml="1.5"
+                color="light-dark(color-mix(in srgb, var(--label) 55%, #000), var(--label))"
+                fontFamily="sans"
+                fontWeight="bold"
+                fontSize="xs"
+              >
+                {meta.symbol}
+              </styled.span>{' '}
+              {meta.text}
             </dt>
             <dd>{counts.get(label) ?? 0}</dd>
           </div>

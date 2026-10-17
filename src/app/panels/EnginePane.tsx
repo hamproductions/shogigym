@@ -17,28 +17,6 @@ import { Pill } from '@/app/ui/Pill'
 import { Checkbox } from '@/components/ui'
 import { muted, narrowColumn, pv, subHeading } from './panels.styles'
 
-const standingBox = css({
-  pt: '1',
-  pb: '3',
-  borderBottom: '1px solid {colors.border}',
-  _narrow: { order: '-1', display: 'grid', gridTemplateColumns: 'auto minmax(0, 1fr)', alignItems: 'center', gap: '{spacing.1} {spacing.2}', pb: '2' },
-  '@container (max-width: 400px)': { '@media not all and (max-width: 820px)': { display: 'flex', alignItems: 'center', gap: '2', pb: '1' } },
-})
-
-const choice = css({
-  borderBottom: '1px solid {colors.border}',
-  '& p': { m: '{spacing.1} 0 0', fontSize: 'sm' },
-})
-
-const choiceRow = css({
-  display: 'flex',
-  alignItems: 'center',
-  gap: '2.5',
-  '& strong': { fontFamily: 'mincho', fontWeight: 'heavy', _narrow: { whiteSpace: 'nowrap' } },
-  '& .app-btn': { ml: 'auto' },
-  _narrow: { flexWrap: 'wrap' },
-})
-
 function standing(rate: number) {
   const lead = Math.abs(Math.round(rate * 100) - 50) / 100
   const side = rate > 0.5 ? i18n.t('engine.sente') : i18n.t('engine.gote')
@@ -143,7 +121,13 @@ export function EngineResultPane({
   return (
     <div className={narrowColumn}>
       {name}
-      <div className={standingBox}>
+      <Box
+        pt="1"
+        pb="3"
+        borderBottom="1px solid {colors.border}"
+        _narrow={{ order: '-1', display: 'grid', gridTemplateColumns: 'auto minmax(0, 1fr)', alignItems: 'center', gap: '{spacing.1} {spacing.2}', pb: '2' }}
+        css={{ '@container (max-width: 400px)': { '@media not all and (max-width: 820px)': { display: 'flex', alignItems: 'center', gap: '2', pb: '1' } } }}
+      >
         <styled.strong display="block" fontSize="lg" _narrow={{ display: 'none' }} css={{ '@container (max-width: 400px)': { display: 'none' } }}>
           {standing(senteRate)}
         </styled.strong>
@@ -178,13 +162,19 @@ export function EngineResultPane({
         >
           {t('engine.winChanceAgainst', { value: Math.round(senteRate * 100), value2: Math.round((1 - senteRate) * 100) })}
         </styled.span>
-      </div>
+      </Box>
 
-      <Box py="3" className={choice}>
+      <Box py="3" borderBottom="1px solid {colors.border}" css={{ '& p': { m: '{spacing.1} 0 0', fontSize: 'sm' } }}>
         <span className={muted}>
           <FlipMarks flipped={flipped}>{t('engine.bestMoveFor', { side: sideMark(toMove) })}</FlipMarks>
         </span>
-        <div className={choiceRow}>
+        <Box
+          display="flex"
+          alignItems="center"
+          gap="2.5"
+          _narrow={{ flexWrap: 'wrap' }}
+          css={{ '& strong': { fontFamily: 'mincho', fontWeight: 'heavy', _narrow: { whiteSpace: 'nowrap' } }, '& .app-btn': { ml: 'auto' } }}
+        >
           <styled.strong fontSize="2xl" lineHeight="tight" _narrow={{ fontSize: 'lg' }}>
             {formatMove(best.move)}
           </styled.strong>
@@ -194,7 +184,7 @@ export function EngineResultPane({
               {t('engine.playIt')}
             </Button>
           )}
-        </div>
+        </Box>
         {why(best.move) && <p>{why(best.move)}</p>}
         {answer(best) && <p className={muted}>{t('engine.theyWouldLikelyAnswer', { move: answer(best) })}</p>}
       </Box>
@@ -203,8 +193,14 @@ export function EngineResultPane({
       {others.map((c) => {
         const loss = winLoss(bestRate, c.score)
         return (
-          <Box key={c.multipv} py="2.5" className={choice}>
-            <div className={choiceRow}>
+          <Box key={c.multipv} py="2.5" borderBottom="1px solid {colors.border}" css={{ '& p': { m: '{spacing.1} 0 0', fontSize: 'sm' } }}>
+            <Box
+              display="flex"
+              alignItems="center"
+              gap="2.5"
+              _narrow={{ flexWrap: 'wrap' }}
+              css={{ '& strong': { fontFamily: 'mincho', fontWeight: 'heavy', _narrow: { whiteSpace: 'nowrap' } }, '& .app-btn': { ml: 'auto' } }}
+            >
               <styled.strong fontSize="lg">{formatMove(c.move)}</styled.strong>
               <span className={lossClass(loss)}>{loss === 0 ? t('engine.justAsGood') : t('engine.winChance', { loss })}</span>
               {canPlay && (
@@ -212,7 +208,7 @@ export function EngineResultPane({
                   {t('engine.play')}
                 </Button>
               )}
-            </div>
+            </Box>
             {why(c.move) && <p>{why(c.move)}</p>}
           </Box>
         )

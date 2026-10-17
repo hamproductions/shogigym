@@ -1,6 +1,6 @@
 import { useRef, useState, type ReactNode, type PointerEvent as ReactPointerEvent } from 'react'
 import { useTranslation } from 'react-i18next'
-import { css } from 'styled-system/css'
+import { styled } from 'styled-system/jsx'
 import type { Layout } from '@/app/hooks/useLayout'
 import { useSettings } from '@/appearance/settings'
 import { TABS, isGameMode, type Tab } from '@/app/types'
@@ -8,19 +8,46 @@ import { useSession } from '@/app/hooks/session'
 import { Button } from '@/app/ui/Button'
 import { Tabs } from '@/app/ui/Tabs'
 import { Icon } from '@/app/icons'
-import { cx } from '@/app/ui/cx'
 import { NavFooter } from './NavFooter'
 import { PanelBody, type PanelModel } from './PanelBody'
-import { panel, panelClose, panelHeader } from './panels.styles'
+import { panelClose, panelHeader } from './panels.styles'
 
 type SidePanelsProps = { layout: Layout; tab: Tab; setTab: (tab: Tab) => void; sheetOpen: boolean; model: PanelModel; canAutoplay: boolean; picking: boolean }
 
 export function FloatingPanel({ zone, header, children }: { zone: NonNullable<Layout['zones']>['under']; header: ReactNode; children: ReactNode }) {
   return (
-    <aside className={cx('app-panel app-panel-left', panel)} style={{ ...zone }}>
+    <styled.aside
+      className="app-panel app-panel-left"
+      position="relative"
+      display="flex"
+      flexDirection="column"
+      minHeight="0"
+      containerType="inline-size"
+      background={
+        "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.42 0 0 0 0 0.35 0 0 0 0 0.25 0 0 0 0.07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\"), {colors.panel}"
+      }
+      color="fg.default"
+      borderLeft="1px solid {colors.border}"
+      _compact={{
+        borderLeft: '0',
+        borderTop: '1px solid {colors.border}',
+        '& .app-tabs [data-part=trigger]': { p: '{spacing.2} {spacing.2} {spacing.2.5}' },
+        '& .app-tabs .app-ja': { fontSize: 'lg' },
+        '.app-shell[data-drawer-open][data-panel-side]:not([data-fs]) > &': {
+          gridColumn: '2',
+          gridRow: '2',
+          minWidth: '0',
+          borderRadius: '{radii.lg} 0 0 {radii.lg}',
+          borderLeft: '1px solid {colors.border}',
+        },
+      }}
+      _short={{ '& .app-tabs [data-part=trigger]': { py: '1.5' } }}
+      css={{ '& > .app-tabs': { flex: 'none', pr: '1' } }}
+      style={{ ...zone }}
+    >
       {header}
       {children}
-    </aside>
+    </styled.aside>
   )
 }
 
@@ -115,41 +142,6 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
   )
 }
 
-const resizeHandle = css({
-  position: 'absolute',
-  top: '0',
-  bottom: '0',
-  left: '-4px',
-  zIndex: 'banner',
-  w: '8px',
-  cursor: 'col-resize',
-  transition: 'background {durations.fast}',
-  touchAction: 'none',
-  bgImage: 'linear-gradient({colors.border.strong}, {colors.border.strong})',
-  bgPosition: 'center',
-  bgSize: '3px 40px',
-  bgRepeat: 'no-repeat',
-  _hover: { background: 'accent.soft' },
-  _active: { background: 'accent.soft' },
-  _compact: { display: 'none', '.app-shell[data-panel-side] &': { display: 'block', left: '0', w: '12px' } },
-})
-
-const sheetHandle = css({
-  display: 'none',
-  _compact: {
-    display: 'block',
-    flex: 'none',
-    h: '12px',
-    p: '0',
-    touchAction: 'none',
-    cursor: 'row-resize',
-    bgImage: 'linear-gradient({colors.border.strong}, {colors.border.strong})',
-    bgPosition: 'center',
-    bgSize: '40px 3px',
-    bgRepeat: 'no-repeat',
-  },
-})
-
 export function SidePanel({
   layout,
   sheetOpen,
@@ -209,10 +201,55 @@ export function SidePanel({
     suppressSheetClick.current = !cancelled && gesture.moved
   }
   return (
-    <aside className={cx('app-panel', panel)} hidden={(zoned && panelPrefsHidden) || undefined} style={zoned && !panelPrefsHidden ? floatingRect : undefined}>
+    <styled.aside
+      className="app-panel"
+      position="relative"
+      display="flex"
+      flexDirection="column"
+      minHeight="0"
+      containerType="inline-size"
+      background={
+        "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.42 0 0 0 0 0.35 0 0 0 0 0.25 0 0 0 0.07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\"), {colors.panel}"
+      }
+      color="fg.default"
+      borderLeft="1px solid {colors.border}"
+      _compact={{
+        borderLeft: '0',
+        borderTop: '1px solid {colors.border}',
+        '& .app-tabs [data-part=trigger]': { p: '{spacing.2} {spacing.2} {spacing.2.5}' },
+        '& .app-tabs .app-ja': { fontSize: 'lg' },
+        '.app-shell[data-drawer-open][data-panel-side]:not([data-fs]) > &': {
+          gridColumn: '2',
+          gridRow: '2',
+          minWidth: '0',
+          borderRadius: '{radii.lg} 0 0 {radii.lg}',
+          borderLeft: '1px solid {colors.border}',
+        },
+      }}
+      _short={{ '& .app-tabs [data-part=trigger]': { py: '1.5' } }}
+      css={{ '& > .app-tabs': { flex: 'none', pr: '1' } }}
+      hidden={(zoned && panelPrefsHidden) || undefined}
+      style={zoned && !panelPrefsHidden ? floatingRect : undefined}
+    >
       {layout.panelSide && (
-        <div
-          className={cx('app-panel-resize', resizeHandle)}
+        <styled.div
+          className="app-panel-resize"
+          position="absolute"
+          top="0"
+          bottom="0"
+          left="-4px"
+          zIndex="banner"
+          w="8px"
+          cursor="col-resize"
+          transition="background {durations.fast}"
+          touchAction="none"
+          bgImage="linear-gradient({colors.border.strong}, {colors.border.strong})"
+          bgPosition="center"
+          bgSize="3px 40px"
+          bgRepeat="no-repeat"
+          _hover={{ background: 'accent.soft' }}
+          _active={{ background: 'accent.soft' }}
+          _compact={{ display: 'none', '.app-shell[data-panel-side] &': { display: 'block', left: '0', w: '12px' } }}
           role="separator"
           aria-label={t('app.dragToResizeThePanel')}
           aria-orientation="vertical"
@@ -221,8 +258,20 @@ export function SidePanel({
           onPointerMove={resize}
         />
       )}
-      <button
-        className={sheetHandle}
+      <styled.button
+        display="none"
+        _compact={{
+          display: 'block',
+          flex: 'none',
+          h: '12px',
+          p: '0',
+          touchAction: 'none',
+          cursor: 'row-resize',
+          bgImage: 'linear-gradient({colors.border.strong}, {colors.border.strong})',
+          bgPosition: 'center',
+          bgSize: '40px 3px',
+          bgRepeat: 'no-repeat',
+        }}
         onClick={(e) => {
           if (suppressSheetClick.current && e.detail > 0) {
             suppressSheetClick.current = false
@@ -240,6 +289,6 @@ export function SidePanel({
       {header}
       {children}
       {footer}
-    </aside>
+    </styled.aside>
   )
 }
