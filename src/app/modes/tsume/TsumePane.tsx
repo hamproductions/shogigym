@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { css, cx } from 'styled-system/css'
+import { css } from 'styled-system/css'
 import { styled, Wrap } from 'styled-system/jsx'
 import { pvText } from '@/utils/shogi'
 import { sideMark } from '@/utils/notation'
@@ -50,10 +50,10 @@ export function TsumePane({ trainer, tsume, banner, onBack }: { trainer: Tsume; 
   const pool = PROBLEMS.filter((p) => tsume.length === 'all' || p.mate === tsume.length)
   return (
     <div className={practice}>
-      <p className={cx(taskText, css({ display: 'none', _compact: { display: 'block' } }))}>
+      <styled.p className={taskText} display="none" _compact={{ display: 'block' }}>
         {t('tsume.toPlayAndMateIn', { side: sideMark(attackerOf(tsume.problem)), mate: tsume.problem.mate })}
         <styled.span _compact={{ display: 'none' }}>{t('tsume.everyAttackingMoveMustGive')}</styled.span>
-      </p>
+      </styled.p>
       <TsumeStatus tsume={tsume} />
       <Wrap gap="2" align="center" _narrow={{ order: '-1' }}>
         {tsume.status === 'wrong' && !banner && (

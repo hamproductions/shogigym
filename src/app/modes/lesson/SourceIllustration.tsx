@@ -1,10 +1,11 @@
 import { Fragment } from 'react'
 import { token } from 'styled-system/tokens'
+import { styled } from 'styled-system/jsx'
 import { useTranslation } from 'react-i18next'
 import type { CropPanel, SourceDiagram } from '@/utils/curriculum'
 import { rankKanji } from '@/utils/notation'
 import { muted } from '@/app/panels/panels.styles'
-import { crop, cropChoice, cropPanel, cropPiece } from './lesson.styles'
+import { crop, cropPanel } from './lesson.styles'
 
 const CELL = 40
 const GLYPH: Record<string, string> = {
@@ -195,14 +196,14 @@ function Panel({ panel, lang }: { panel: CropPanel; lang: string }) {
         )}
       </svg>
       {panel.choice && (
-        <p className={cropChoice}>
+        <styled.p display="flex" justifyContent="center" gap="3" m="{spacing.1} 0 0" fontSize="sm">
           {panel.choice.map((code, i) => (
             <span key={code}>
               {GLYPH[code.startsWith('+') ? `+${code[1].toUpperCase()}` : code.toUpperCase()]}
               {i === 0 ? (lang === 'ja' ? ' 成る' : ' promote') : lang === 'ja' ? ' 不成' : ' decline'}
             </span>
           ))}
-        </p>
+        </styled.p>
       )}
       {label && (
         <figcaption>
@@ -225,7 +226,19 @@ export function SourceIllustration({ diagram }: { diagram: Pick<SourceDiagram, '
     return (
       <div className={crop({ layout: 'pieces' })}>
         {diagram.pieces.items.map(([code, count, label], i) => (
-          <figure key={i} className={cropPiece}>
+          <styled.figure
+            key={i}
+            m="0"
+            textAlign="center"
+            css={{
+              '& svg': { display: 'block', w: '52px', h: '56px', m: '0 auto' },
+              '& figcaption': { mt: '1.5', fontSize: 'sm', fontWeight: 'bold', lineHeight: 'snug' },
+              '& .koma path': { fill: 'koma.light', stroke: '#a07a3c', strokeWidth: '1' },
+              '& .koma text': { fill: 'koma.ink', fontFamily: 'mincho', fontSize: '17px', fontWeight: '800', textAnchor: 'middle' },
+              '& .koma text.promoted': { fill: 'koma.red' },
+              '& .blank': { fill: 'koma.light', stroke: '#a07a3c', opacity: '0.6' },
+            }}
+          >
             <svg viewBox="-20 -22 40 44" role="img" aria-label={label || code || (lang === 'ja' ? '駒' : 'Piece')}>
               {code ? <Koma code={code} x={0} y={0} /> : <path className="blank" d={KOMA} />}
             </svg>
@@ -235,7 +248,7 @@ export function SourceIllustration({ diagram }: { diagram: Pick<SourceDiagram, '
                 {count > 0 && <span className={muted}> ×{count}</span>}
               </figcaption>
             )}
-          </figure>
+          </styled.figure>
         ))}
       </div>
     )

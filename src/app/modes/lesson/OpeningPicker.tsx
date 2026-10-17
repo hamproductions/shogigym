@@ -10,28 +10,9 @@ import { mainStrategies, strategyById } from '@/data/strategies'
 import type { LessonMode, Level } from '@/app/types'
 import { Button } from '@/app/ui/Button'
 import { Input } from '@/components/ui'
-import { Wrap } from 'styled-system/jsx'
+import { Grid, styled, Wrap } from 'styled-system/jsx'
 import { backLink, muted, subHeading } from '@/app/panels/panels.styles'
-import {
-  guideStart,
-  libEn,
-  libJa,
-  libMatch,
-  lessonCheck,
-  lessonToc,
-  mainChip,
-  mainCurrent,
-  mainGrid,
-  picker,
-  pickerIntro,
-  pickerTitle,
-  progressLine,
-  resultCount,
-  setupButton,
-  setupGo,
-  sourceNote,
-  startTag,
-} from './lesson.styles'
+import { guideStart, libEn, libJa, mainChip, picker, pickerIntro, pickerTitle, progressLine, setupButton, setupGo } from './lesson.styles'
 import { LessonCard } from './LessonCard'
 import { LessonReferences } from './LessonReferences'
 import { SquareText } from './SquareText'
@@ -81,11 +62,11 @@ function matchScore({ setup, courses }: Entry, q: string) {
 function Credits() {
   const { t } = useTranslation()
   return (
-    <details className={sourceNote} data-spaced>
+    <styled.details data-spaced mt="4" color="fg.muted" fontSize="xs" css={{ '& summary': { cursor: 'pointer' }, '& p': { m: '{spacing.1.5} 0 0' } }}>
       <summary>{t('picker.shogilabCreditsAndLicences')}</summary>
       <p>{t('picker.engineYaneuraouWasmBuildBy')}</p>
       <p>{t('picker.charactersCredit')}</p>
-    </details>
+    </styled.details>
   )
 }
 
@@ -114,7 +95,24 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
       <button key={setup.id} className={setupButton()} onClick={() => setSetupId(setup.id)}>
         <span className={libJa}>
           {name(setup)}
-          {setup.basics && p.learned === 0 && <em className={startTag}>{t('picker.startHere')}</em>}
+          {setup.basics && p.learned === 0 && (
+            <styled.em
+              display="inline-block"
+              ml="2"
+              whiteSpace="nowrap"
+              px="2"
+              borderRadius="full"
+              bg="success.fill"
+              color="gofun"
+              fontFamily="sans"
+              fontStyle="normal"
+              fontWeight="bold"
+              fontSize="2xs"
+              verticalAlign="2px"
+            >
+              {t('picker.startHere')}
+            </styled.em>
+          )}
         </span>
         <span className={libEn}>{ja ? `${courses.length} 章` : `${courses.length} ${courses.length === 1 ? 'chapter' : 'chapters'}`}</span>
         <span className={setupGo} aria-hidden="true">
@@ -139,10 +137,31 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
       <button key={setup.id} className={setupButton({ found: true })} onClick={() => setSetupId(setup.id)}>
         <span className={libJa}>
           {name(setup)}
-          {defending && <em className={startTag}>{ja ? '受ける側' : 'Defending side'}</em>}
+          {defending && (
+            <styled.em
+              display="inline-block"
+              ml="2"
+              whiteSpace="nowrap"
+              px="2"
+              borderRadius="full"
+              bg="success.fill"
+              color="gofun"
+              fontFamily="sans"
+              fontStyle="normal"
+              fontWeight="bold"
+              fontSize="2xs"
+              verticalAlign="2px"
+            >
+              {ja ? '受ける側' : 'Defending side'}
+            </styled.em>
+          )}
         </span>
         <span className={libEn}>{crumb(setup)}</span>
-        {chapter && <span className={libMatch}>{chapter}</span>}
+        {chapter && (
+          <styled.span color="fg.muted" fontSize="xs" fontStyle="italic">
+            {chapter}
+          </styled.span>
+        )}
         <span className={libEn}>{ja ? `${courses.length} 章` : `${courses.length} ${courses.length === 1 ? 'chapter' : 'chapters'}`}</span>
         <span className={setupGo} aria-hidden="true">
           ›
@@ -196,13 +215,28 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
               </Button>
             )}
             {open.courses.length === 0 && open.setup.check && (
-              <details className={lessonCheck} data-spaced>
+              <styled.details
+                data-spaced
+                m="{spacing.3} 0"
+                p="{spacing.2} {spacing.3}"
+                borderRadius="md"
+                bg="card"
+                boxShadow="inset 0 0 0 1px {colors.border}"
+                css={{ '& summary': { cursor: 'pointer', fontWeight: 'bold' } }}
+              >
                 <summary>{ja ? open.setup.check.question.ja : open.setup.check.question.en}</summary>
                 <p>{ja ? open.setup.check.answer.ja : open.setup.check.answer.en}</p>
-              </details>
+              </styled.details>
             )}
             {open.courses.length > 1 && (
-              <details className={lessonToc}>
+              <styled.details
+                css={{
+                  '& summary': { cursor: 'pointer', color: 'fg.muted', fontSize: 'sm' },
+                  '& ol': { m: '{spacing.2} 0 0', pl: '4' },
+                  '& button': { p: '{spacing.1} 0', color: 'fg.default', fontSize: 'sm', textAlign: 'left' },
+                  '& button:hover': { color: 'accent' },
+                }}
+              >
                 <summary>{ja ? `目次（${open.courses.length}）` : `Contents (${open.courses.length})`}</summary>
                 <ol>
                   {open.courses.map((course) => {
@@ -217,7 +251,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
                     )
                   })}
                 </ol>
-              </details>
+              </styled.details>
             )}
           </>
         ) : (
@@ -298,7 +332,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
             <h3 className={subHeading} data-spaced>
               {t(`strategy.${wing}`)}
             </h3>
-            <div className={mainGrid}>
+            <Grid gridTemplateColumns="repeat(auto-fill, minmax(140px, 1fr))" gap="2">
               {mainStrategies()
                 .filter((s) => s.side === wing)
                 .map((s) => (
@@ -307,7 +341,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
                     <span>{t(`strategy.level${s.level}`)}</span>
                   </button>
                 ))}
-            </div>
+            </Grid>
           </Fragment>
         ))}
       </div>
@@ -329,9 +363,9 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
     : []
   const results = q && (
     <>
-      <p className={resultCount} data-spaced>
+      <styled.p data-spaced m="{spacing.1} 0" color="fg.muted" fontSize="xs">
         {ja ? `${ranked.length}件` : `${ranked.length} ${ranked.length === 1 ? 'result' : 'results'}`}
-      </p>
+      </styled.p>
       {ranked.slice(0, 30).map(({ entry }) => resultCard(entry))}
       {ranked.length === 0 && <p className={muted}>{ja ? '見つかりませんでした。' : 'Nothing found.'}</p>}
     </>
@@ -354,11 +388,32 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
           {ja ? '‹ 将棋を学ぶ' : '‹ Learn shogi'}
         </button>
         <h2 className={pickerTitle}>{ja ? '定跡' : 'Joseki'}</h2>
-        <button className={mainCurrent} onClick={() => setChoosing(true)}>
+        <styled.button
+          display="grid"
+          gridTemplateColumns="auto 1fr auto"
+          alignItems="baseline"
+          gap="3"
+          w="100%"
+          m="{spacing.2} 0 {spacing.3}"
+          p="{spacing.3} {spacing.4}"
+          border="1px solid {colors.border.strong}"
+          borderRadius="md"
+          bg="card"
+          color="fg.default"
+          font="inherit"
+          textAlign="left"
+          cursor="pointer"
+          css={{
+            '& span': { color: 'fg.muted', fontSize: 'xs' },
+            '& strong': { fontFamily: 'mincho', fontSize: 'lg' },
+            '& em': { color: 'accent', fontStyle: 'normal', fontSize: 'sm' },
+          }}
+          onClick={() => setChoosing(true)}
+        >
           <span>{t('strategy.yourMain')}</span>
           <strong>{ja ? main.ja : main.en}</strong>
           <em>{t('strategy.change')} ›</em>
-        </button>
+        </styled.button>
         {level === 'new' && (
           <p data-spaced className={pickerIntro()}>
             {t('picker.clickAnyPieceOnThe')}

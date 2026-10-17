@@ -8,25 +8,9 @@ import { sideMark } from '@/utils/notation'
 import { useSession } from '@/app/hooks/session'
 import { FlipMarks } from '@/app/ui/SideMark'
 import { Button } from '@/app/ui/Button'
-import { css } from 'styled-system/css'
-import { Wrap } from 'styled-system/jsx'
+import { Box, Flex, Grid, styled, Wrap } from 'styled-system/jsx'
 import { backLink } from '@/app/panels/panels.styles'
-import {
-  guide,
-  guideBar,
-  guideBody,
-  guideCheck,
-  guideCount,
-  guideFoot,
-  guideHint,
-  guideNav,
-  guideNote,
-  guideReview,
-  guideSource,
-  guideText,
-  guideTitle,
-  guideTop,
-} from './lesson.styles'
+import { guideSource } from './lesson.styles'
 import type { Lesson } from './useLesson'
 import { LessonReferences } from './LessonReferences'
 
@@ -246,59 +230,59 @@ export function LessonGuide({ course, lesson, series }: Props) {
         : ''
 
   return (
-    <div className={guide}>
-      <div className={guide}>
-        <div className={guideTop}>
+    <Grid gap="2">
+      <Grid gap="2">
+        <Flex alignItems="center" justifyContent="space-between">
           <button className={backLink} onClick={series?.back ?? lesson.leave}>
             ‹ {ja ? '目次' : 'Contents'}
           </button>
-          <span className={guideCount}>
+          <styled.span color="fg.muted" fontSize="xs" fontVariantNumeric="tabular-nums">
             {ja ? `第${chapter + 1}章 / ${chapters.length}・${cursor}手目` : `Chapter ${chapter + 1} of ${chapters.length} · move ${cursor}`}
-          </span>
-        </div>
-        <div className={guideBar} aria-hidden="true">
+          </styled.span>
+        </Flex>
+        <Box h="3px" borderRadius="2px" bg="surface.2" overflow="hidden" css={{ '& i': { display: 'block', h: '100%', bg: 'accent' } }} aria-hidden="true">
           <i style={{ width: `${script.length > 1 ? (index / (script.length - 1)) * 100 : 100}%` }} />
-        </div>
-      </div>
-      <div className={guideFoot}>
-        <p className={guideHint} role="status">
+        </Box>
+      </Grid>
+      <Grid gap="1.5" pb="2" borderBottom="1px solid {colors.border}">
+        <styled.p minHeight="1.5em" m="0" overflow="hidden" color="fg.muted" fontSize="xs" whiteSpace="nowrap" textOverflow="ellipsis" role="status">
           <FlipMarks flipped={flipped}>{hint}</FlipMarks>
-        </p>
-        <nav className={guideNav} aria-label={ja ? '手順の移動' : 'Moves'}>
+        </styled.p>
+        <styled.nav display="grid" gridTemplateColumns="1fr 2fr" gap="2" mt="2" aria-label={ja ? '手順の移動' : 'Moves'}>
           <Button disabled={index === 0} onClick={back} aria-keyshortcuts="ArrowLeft">
             ‹ {ja ? '戻る' : 'Back'}
           </Button>
           <Button variant="primary" onClick={end ? finish : forward} aria-keyshortcuts="ArrowRight">
             <FlipMarks flipped={flipped}>{nextLabel}</FlipMarks>
           </Button>
-        </nav>
-      </div>
-      <div className={guideBody}>
+        </styled.nav>
+      </Grid>
+      <Box minHeight="14rem">
         {title && (
-          <h3 className={guideTitle}>
+          <styled.h3 m="{spacing.2} 0 0" fontFamily="mincho" fontSize="lg" lineHeight="snug">
             <SquareText text={title} context={text} />
-          </h3>
+          </styled.h3>
         )}
         {body.map((line, i) => (
-          <p key={i} className={i === 0 ? guideText : guideNote}>
+          <styled.p key={i} m="0" color={i === 0 ? undefined : 'fg.muted'} fontSize={i === 0 ? 'md' : 'xs'} lineHeight={i === 0 ? 'mincho' : undefined}>
             <SquareText text={line} context={text} />
-          </p>
+          </styled.p>
         ))}
         {setup?.references && <LessonReferences references={setup.references} ja={ja} className={guideSource} />}
         {end && (
-          <div className={guideReview}>
+          <Grid gap="2" mt="3" p="3" borderRadius="md" bg="card" boxShadow="inset 0 0 0 1px {colors.border}">
             <strong>{ja ? 'おさらい' : 'Review'}</strong>
             {setup?.check && (
-              <div className={guideCheck}>
+              <Box css={{ '& p': { m: '0 0 {spacing.2}' } }}>
                 <p>{ja ? setup.check.question.ja : setup.check.question.en}</p>
                 {revealed ? (
-                  <p className={css({ fontWeight: 'bold' })}>{ja ? setup.check.answer.ja : setup.check.answer.en}</p>
+                  <styled.p fontWeight="bold">{ja ? setup.check.answer.ja : setup.check.answer.en}</styled.p>
                 ) : (
                   <Button size="sm" onClick={() => setRevealed(true)}>
                     {ja ? '答えを見る' : 'Show the answer'}
                   </Button>
                 )}
-              </div>
+              </Box>
             )}
             <Wrap gap="2" align="center">
               {series?.shuffle && (
@@ -307,9 +291,9 @@ export function LessonGuide({ course, lesson, series }: Props) {
                 </Button>
               )}
             </Wrap>
-          </div>
+          </Grid>
         )}
-      </div>
-    </div>
+      </Box>
+    </Grid>
   )
 }

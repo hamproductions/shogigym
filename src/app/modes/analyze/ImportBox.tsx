@@ -1,12 +1,10 @@
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { css } from 'styled-system/css'
 import { Box, styled, Wrap } from 'styled-system/jsx'
 import { input } from 'styled-system/recipes'
 import { decodeKifuFile } from '@/utils/kifu'
 import { Button } from '@/app/ui/Button'
 import { FilePicker } from '@/app/ui/FilePicker'
-import { cx } from '@/app/ui/cx'
 import { Text } from '@/components/ui'
 import { result } from '@/app/panels/panels.styles'
 import { libEn, libJa } from '@/app/modes/lesson/lesson.styles'
@@ -21,8 +19,11 @@ export function ImportBox({ onImport, open, bare }: { onImport: (text: string) =
       <Text tone="muted" size="sm" my="1em">
         {t('games.dropHint')}
       </Text>
-      <textarea
-        className={cx(input(), css({ mt: '1', mb: '2', resize: 'vertical' }))}
+      <styled.textarea
+        className={input()}
+        mt="1"
+        mb="2"
+        resize="vertical"
         value={text}
         onChange={(e) => setText(e.target.value)}
         rows={4}
@@ -58,7 +59,11 @@ export function ImportBox({ onImport, open, bare }: { onImport: (text: string) =
           {t('games.openAFile')}
         </FilePicker>
       </Wrap>
-      {error && <p className={cx(result({ tone: 'wrong' }), css({ mb: '3' }))}>{error}</p>}
+      {error && (
+        <styled.p className={result({ tone: 'wrong' })} mb="3">
+          {error}
+        </styled.p>
+      )}
     </>
   )
   if (bare) return <Box mt="3">{content}</Box>

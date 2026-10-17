@@ -4,13 +4,14 @@ import { savedAtLabel, sideMark } from '@/utils/notation'
 import type { AnalyzeGames } from './useAnalyzeGames'
 import { Button } from '@/app/ui/Button'
 import { muted } from '@/app/panels/panels.styles'
-import { gameList, gameOpen } from '@/app/modes/lesson/lesson.styles'
+import { gameOpen } from '@/app/modes/lesson/lesson.styles'
+import { styled } from 'styled-system/jsx'
 
 export function SavedGames({ games, onOpen }: { games: AnalyzeGames; onOpen?: () => void }) {
   const { t } = useTranslation()
   const stored = loadGames()
   return (
-    <ul className={gameList}>
+    <styled.ul m="{spacing.2.5} 0 0" p="0" listStyle="none" css={{ '& li': { display: 'flex', alignItems: 'stretch', gap: '1', mb: '1.5' } }}>
       {stored.length === 0 && <li className={muted}>{t('games.noSavedGamesYetPress')}</li>}
       {stored.map((g) => {
         const names = g.players && (g.players.sente || g.players.gote) ? g.players : undefined
@@ -38,6 +39,6 @@ export function SavedGames({ games, onOpen }: { games: AnalyzeGames; onOpen?: ()
           </li>
         )
       })}
-    </ul>
+    </styled.ul>
   )
 }
