@@ -65,3 +65,15 @@ These live in `src/styles/base.css` and `src/styles/controls.css` and are remove
 ## Ownership
 
 Each area owns its CSS files and converts the classes they define wherever those classes are used. Do not touch another area's CSS files. Commit per area on your branch with a conventional message and no tool attribution; author is the repo owner configured in git.
+
+## Panda JSX over css()
+
+Second pass after the migration: express styles as Panda JSX instead of `css()` objects.
+
+- Default: render the styled element as a Panda JSX element with style props: layout components from `styled-system/jsx` (`Box`, `Flex`, `HStack`, `VStack`, `Stack`, `Grid`, `GridItem`, `Wrap`, `Center`, `Spacer`) or `styled.<tag>` (`styled.p`, `styled.button`, `styled.svg`, `styled.li`, …) for semantic elements. Conditions and nested selectors go in the `css` prop (`css={{ _hover: {...}, '& svg': {...} }}`) or as condition-keyed style props (`_compact={{ ... }}`).
+- Delete the `css()` constant once its only consumer renders the styles inline. A `*.styles.ts` file that ends up empty is deleted.
+- Keep `cva` for components with real variants. Styles repeated at two or more sites stay in one place (a `styled('tag', {...})` component or a shared constant), never pasted twice. Keep a shared `css()` constant only when several elements render the same styles, or when the target accepts nothing but `className` (third-party components, Park component parts).
+- Values must stay static: literal props or ternaries between literals. Runtime numbers go through CSS variables in `style`.
+- Keep every class hook, `data-*` and `aria-*` attribute that selectors or JavaScript read; JSX elements accept `className` and `data-*` alongside style props.
+- Same DOM: do not add or remove wrapper elements, and keep element types, so layout and selectors are unchanged.
+- No visible change at any viewport, theme or state.
