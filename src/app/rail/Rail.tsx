@@ -13,8 +13,8 @@ import { useInstallApp } from './useInstallApp'
 import { SoundButton } from './SoundButton'
 import { useRailCapacity } from './useRailCapacity'
 import { useRailTools, type RailTool } from './useRailTools'
-import { rail, railButton, railDivider, railGap, railMenu, railSlot } from './rail.styles'
-import { cx } from '@/app/ui/cx'
+import { styled } from 'styled-system/jsx'
+import { RailButton, RailNav, RailSlot } from './rail.styles'
 
 type RailProps = {
   mode: Mode
@@ -36,8 +36,8 @@ type RailProps = {
 
 export function ToolButton({ tool }: { tool: RailTool }) {
   return (
-    <button
-      className={cx('app-rail-btn', railButton)}
+    <RailButton
+      className="app-rail-btn"
       data-tool={tool.id}
       data-on={tool.on || undefined}
       onClick={tool.run}
@@ -47,7 +47,7 @@ export function ToolButton({ tool }: { tool: RailTool }) {
     >
       <Icon name={tool.icon} size={20} />
       <span className={tool.labelClass}>{tool.label}</span>
-    </button>
+    </RailButton>
   )
 }
 
@@ -92,9 +92,44 @@ function RailMenu({ anchor, phone, close, children }: { anchor: HTMLElement | nu
     }
   }, [anchor, phone])
   return (
-    <div ref={ref} className={cx('app-more-menu', railMenu)} onPointerDown={(e) => e.stopPropagation()} onClick={close}>
+    <styled.div
+      ref={ref}
+      className="app-more-menu"
+      fontFamily="sans"
+      fontSize="md"
+      lineHeight="normal"
+      position="fixed"
+      zIndex="dropdown"
+      display="flex"
+      flexDirection="column"
+      gap="0.5"
+      minW="200px"
+      maxH="calc(100dvh - 72px)"
+      overflowY="auto"
+      p="1.5"
+      borderRadius="lg"
+      bg="surface.1"
+      boxShadow="inset 0 0 0 1px {colors.border}, {shadows.md}"
+      css={{
+        '& .app-rail-btn': {
+          flexDirection: 'row',
+          justifyContent: 'flex-start',
+          gap: '2.5',
+          w: '100%',
+          minH: '40px',
+          p: '0 {spacing.3}',
+          color: 'fg.default',
+        },
+        '& .app-rail-btn span': { fontSize: 'md' },
+        '& .app-rail-btn[data-on]': { bg: 'accent.soft', boxShadow: 'none' },
+        '& .app-rail-btn[data-on]:not(:disabled):hover': { bg: 'accent.soft' },
+      }}
+      _compact={{ minW: '220px', '& .app-rail-btn': { minH: '44px' } }}
+      onPointerDown={(e) => e.stopPropagation()}
+      onClick={close}
+    >
       {children}
-    </div>
+    </styled.div>
   )
 }
 
@@ -166,24 +201,24 @@ export function Rail({
   const inline = available >= all.length + (extras.length || menu.length ? 1 : 0) ? all : all.slice(0, Math.max(0, available - 1))
   const overflow = [...all.slice(inline.length), ...menu, ...extras]
   return (
-    <nav className={cx('app-rail', rail)} aria-label={t('app.mode')} ref={railRef}>
+    <RailNav className="app-rail" aria-label={t('app.mode')} ref={railRef}>
       <RailSeal />
       {onBack && (
-        <button ref={lastModeRef} className={cx('app-rail-btn', railButton)} onClick={onBack} title={backLabel} aria-label={backLabel}>
+        <RailButton ref={lastModeRef} className="app-rail-btn" onClick={onBack} title={backLabel} aria-label={backLabel}>
           <Icon name="back" size={20} />
           <span>{backLabel}</span>
-        </button>
+        </RailButton>
       )}
       {onLessonBack && (
-        <button className={cx('app-rail-btn app-lesson-back', railButton)} onClick={onLessonBack} title={t('lesson.lessons')} aria-label={t('lesson.lessons')}>
+        <RailButton className="app-rail-btn app-lesson-back" onClick={onLessonBack} title={t('lesson.lessons')} aria-label={t('lesson.lessons')}>
           <Icon name="back" size={20} />
-        </button>
+        </RailButton>
       )}
       {navigation && compact && (
-        <div className={railSlot} data-rail-slot="mode">
-          <button
+        <RailSlot data-rail-slot="mode">
+          <RailButton
             ref={lastModeRef}
-            className={cx('app-rail-btn', railButton)}
+            className="app-rail-btn"
             data-on
             onPointerDown={(e) => e.stopPropagation()}
             onClick={(e) => (e.stopPropagation(), setModeAt(e.currentTarget), setMore(false), setModeMenu((v) => !v))}
@@ -191,28 +226,28 @@ export function Rail({
           >
             <Icon name="menu" size={20} />
             <span>{t(`modes.${mode}.name`)}</span>
-          </button>
+          </RailButton>
           {modeMenu &&
             createPortal(
               <RailMenu anchor={modeAt} phone={phone} close={() => setModeMenu(false)}>
                 {MODES.map((m) => (
-                  <button key={m.id} className={cx('app-rail-btn', railButton)} data-on={mode === m.id || undefined} onClick={() => onMode(m.id)}>
+                  <RailButton key={m.id} className="app-rail-btn" data-on={mode === m.id || undefined} onClick={() => onMode(m.id)}>
                     <Icon name={m.icon} size={20} />
                     <span>{t(`modes.${m.id}.name`)}</span>
-                  </button>
+                  </RailButton>
                 ))}
               </RailMenu>,
               document.body,
             )}
-        </div>
+        </RailSlot>
       )}
       {navigation &&
         !compact &&
         MODES.map((m, i) => (
-          <button
+          <RailButton
             key={m.id}
             ref={i === MODES.length - 1 ? lastModeRef : undefined}
-            className={cx('app-rail-btn', railButton)}
+            className="app-rail-btn"
             data-on={mode === m.id || undefined}
             onClick={() => onMode(m.id)}
             aria-pressed={mode === m.id}
@@ -220,15 +255,26 @@ export function Rail({
           >
             <Icon name={m.icon} size={20} />
             <span className={ja ? 'app-ja' : 'app-en'}>{t(`modes.${m.id}.name`)}</span>
-          </button>
+          </RailButton>
         ))}
-      <div className={railGap} />
+      <styled.div flex="1" />
       {top
         .filter((tool) => REVIEW_TOOLS.includes(tool.id))
         .map((tool) => (
           <ToolButton key={tool.id} tool={tool} />
         ))}
-      {top.some((tool) => REVIEW_TOOLS.includes(tool.id)) && <div className={cx('app-rail-divider', railDivider)} role="separator" />}
+      {top.some((tool) => REVIEW_TOOLS.includes(tool.id)) && (
+        <styled.div
+          className="app-rail-divider"
+          flex="none"
+          w="60%"
+          h="1px"
+          m="{spacing.1} auto"
+          bg="border"
+          _compact={{ w: '1px', h: '60%', m: 'auto {spacing.1}' }}
+          role="separator"
+        />
+      )}
       {top
         .filter((tool) => !REVIEW_TOOLS.includes(tool.id))
         .map((tool) => (
@@ -240,9 +286,9 @@ export function Rail({
           <ToolButton key={tool.id} tool={tool} />
         ))}
       {overflow.length > 0 && (
-        <div className={railSlot} data-rail-slot="more">
-          <button
-            className={cx('app-rail-btn', railButton)}
+        <RailSlot data-rail-slot="more">
+          <RailButton
+            className="app-rail-btn"
             data-on={more || undefined}
             onPointerDown={(e) => e.stopPropagation()}
             onClick={(e) => (e.stopPropagation(), setModeMenu(false), setMoreAt(e.currentTarget), setMore((v) => !v))}
@@ -251,7 +297,7 @@ export function Rail({
           >
             <Icon name="more" size={20} />
             <span>{t('rail.more')}</span>
-          </button>
+          </RailButton>
           {more &&
             createPortal(
               <RailMenu anchor={moreAt} phone={phone} close={() => setMore(false)}>
@@ -261,7 +307,7 @@ export function Rail({
               </RailMenu>,
               document.body,
             )}
-        </div>
+        </RailSlot>
       )}
       <SoundButton compact={compact} />
       {inline
@@ -277,6 +323,6 @@ export function Rail({
           </Dialog>,
           document.body,
         )}
-    </nav>
+    </RailNav>
   )
 }

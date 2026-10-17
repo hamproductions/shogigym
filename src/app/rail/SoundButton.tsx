@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Icon } from '@/app/icons'
 import { playSound, setSettings, useSettings } from '@/appearance/settings'
-import { cx } from '@/app/ui/cx'
 import { Slider } from '@/components/ui'
-import { railButton, railSlot, soundPop } from './rail.styles'
+import { styled } from 'styled-system/jsx'
+import { RailButton, RailSlot } from './rail.styles'
 
 export function SoundButton({ compact }: { compact: boolean }) {
   const { t } = useTranslation()
@@ -35,17 +35,16 @@ export function SoundButton({ compact }: { compact: boolean }) {
   }
   const nudge = (delta: number) => setSettings({ sound: true, volume: Math.round(Math.min(1, Math.max(0, volume + delta)) * 20) / 20 })
   return (
-    <div
+    <RailSlot
       ref={anchor}
-      className={railSlot}
       data-rail-slot="sound"
       onMouseEnter={(e) => show(e.currentTarget)}
       onMouseLeave={() => setAt(null)}
       onFocus={(e) => show(e.currentTarget)}
       onBlur={(e) => !e.currentTarget.contains(e.relatedTarget) && setAt(null)}
     >
-      <button
-        className={cx('app-rail-btn', railButton)}
+      <RailButton
+        className="app-rail-btn"
         data-tool="sound"
         data-on={!muted || undefined}
         onClick={toggle}
@@ -55,9 +54,22 @@ export function SoundButton({ compact }: { compact: boolean }) {
       >
         <Icon name={icon} size={20} />
         <span>{muted ? t('rail.muted') : `${Math.round(volume * 100)}%`}</span>
-      </button>
-      <div
-        className={soundPop}
+      </RailButton>
+      <styled.div
+        position="fixed"
+        zIndex="modal"
+        display="none"
+        alignItems="center"
+        p="{spacing.2} {spacing.3}"
+        borderRadius="md"
+        bg="panel"
+        boxShadow="inset 0 0 0 1px {colors.border}, {shadows.md}"
+        transform="translateY(-50%)"
+        _before={{ content: '""', position: 'absolute', inset: '0 100% 0 -10px' }}
+        css={{
+          '&[data-open]': { display: 'flex' },
+          '&[data-compact]': { transform: 'translateX(-50%)', _before: { inset: '-10px 0 100% 0' } },
+        }}
         data-open={open || undefined}
         data-compact={compact || undefined}
         role="group"
@@ -87,7 +99,7 @@ export function SoundButton({ compact }: { compact: boolean }) {
             <Slider.Thumbs />
           </Slider.Control>
         </Slider.Root>
-      </div>
-    </div>
+      </styled.div>
+    </RailSlot>
   )
 }

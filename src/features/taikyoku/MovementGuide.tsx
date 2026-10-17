@@ -4,7 +4,8 @@ import { useSettings } from '@/appearance/settings'
 import { SPRITE_BOX } from '@/rendering/sprites'
 import { bakeTaikyoku, bakedKey, taikyokuSprites } from './bake'
 import { catalog, type Cell } from './notation'
-import { ruleBorder, ruleGrid, ruleGuide, ruleJump, ruleLegend, ruleSlide, ruleStep, ruleTurn } from './taikyoku.styles'
+import { styled } from 'styled-system/jsx'
+import { ruleBorder, ruleGrid, ruleJump, ruleSlide, ruleStep, ruleTurn } from './taikyoku.styles'
 
 type Direction = [number, number]
 type Atom = { kind: number; directions: Direction[]; range: number; mode: number; jumps: number[]; tail: number; screens: number; geom: number }
@@ -111,7 +112,7 @@ export function MovementGuide({ cell, lang }: { cell: Cell; lang: string }) {
     />
   )
   return (
-    <div className={ruleGuide}>
+    <styled.div display="flex" flexWrap="wrap" gap="3" alignItems="center" css={{ '& svg': { w: '176px', maxW: '100%', flex: 'none' } }}>
       <svg
         viewBox={`${-extent - 0.3} ${-extent - 0.3} ${2 * extent + 0.6} ${2 * extent + 0.6}`}
         role="img"
@@ -173,7 +174,7 @@ export function MovementGuide({ cell, lang }: { cell: Cell; lang: string }) {
           transform={cell.side === 'w' ? 'rotate(180)' : undefined}
         />
       </svg>
-      <div className={ruleLegend}>
+      <styled.div flex="1" minW="140px" fontSize="sm" css={{ '& span': { display: 'block' }, '& p': { m: '{spacing.2} 0 0' } }}>
         <span className={ruleStep}>● {ja ? '一目ずつ進む' : 'Step to a marked square'}</span>
         <span className={ruleStep}>━ {ja ? '線の方向に走る' : 'Slide along the line'}</span>
         <span className={ruleJump}>● {ja ? '跳び・連続移動' : 'Jump / multi-step move'}</span>
@@ -183,7 +184,7 @@ export function MovementGuide({ cell, lang }: { cell: Cell; lang: string }) {
         {moves.some((atom) => atom.mode === 1 || atom.mode === 2) && (
           <p>{ja ? '白抜きは移動のみ。取る時だけの動きもあります。' : 'Hollow marks: non-capturing moves. Some moves apply only to captures.'}</p>
         )}
-      </div>
-    </div>
+      </styled.div>
+    </styled.div>
   )
 }

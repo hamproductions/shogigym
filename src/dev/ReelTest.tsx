@@ -7,12 +7,17 @@ import { Board3D } from '@/rendering/Board3D'
 import type { SceneState } from '@/rendering/board3d/types'
 import { installVirtualClock, startVirtual, stepVirtual } from '@/utils/virtualClock'
 import { setSettings } from '@/appearance/settings'
-import { card, end, flash as flashStyle, kicker, line, overlay, reel, stage, title } from './reel.styles'
+import { styled } from 'styled-system/jsx'
+import { line } from './reel.styles'
 
 if (new URLSearchParams(location.search).has('capture')) installVirtualClock()
 
 type Shot = { at: number; pos: [number, number, number]; look: [number, number, number] }
 type Beat = { at: number; sfen?: string; usi?: string }
+
+const brush = "'Yuji Boku', 'Shippori Mincho B1', serif"
+
+const label = { fontWeight: '800', fontSize: '22px', letterSpacing: '0.4em', color: '#e8a33c' }
 
 const START = 'lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1'
 const MATE = 'ln1gkg1nl/6+P2/2sppps1p/2p3p2/p8/P1P1P3P/2NP1PP2/3s1KSR1/L1+b2G1NL w R2Pbgp 42'
@@ -120,8 +125,8 @@ export default function ReelTest() {
   const slam = (a: number) => 1 + 0.35 * Math.exp(-Math.max(0, t - a) * 14)
 
   return (
-    <div className={reel}>
-      <div className={stage}>
+    <styled.div position="fixed" inset="0" bg="#0c0a08" fontFamily="sans">
+      <styled.div position="absolute" inset="0" css={{ '& > .board3d': { position: 'absolute', inset: '0' } }}>
         <Board3D
           position={position}
           flipped={false}
@@ -135,12 +140,29 @@ export default function ReelTest() {
           onHand={() => undefined}
           onDrop={() => undefined}
         />
-      </div>
-      <div className={overlay}>
-        <div className={title} style={{ opacity: env(t, 0.1, 2.35, 0.12), transform: `scale(${slam(0.1)})` }}>
+      </styled.div>
+      <styled.div position="absolute" inset="0" pointerEvents="none" color="#fff6e4">
+        <styled.div
+          position="absolute"
+          left="7%"
+          bottom="14%"
+          display="grid"
+          transformOrigin="left bottom"
+          css={{
+            '& span': label,
+            '& strong': {
+              fontFamily: brush,
+              fontWeight: '400',
+              fontSize: '170px',
+              lineHeight: '1',
+              textShadow: '0 0 40px rgba(232, 80, 40, 0.7), 0 6px 0 rgba(0, 0, 0, 0.5)',
+            },
+          }}
+          style={{ opacity: env(t, 0.1, 2.35, 0.12), transform: `scale(${slam(0.1)})` }}
+        >
           <span>SHOGI GYM</span>
           <strong>将棋ジム</strong>
-        </div>
+        </styled.div>
         <div className={line()} style={{ opacity: env(t, 2.55, 4.85, 0.15), transform: `translateX(${(1 - smooth(clamp01((t - 2.55) / 0.3))) * -60}px)` }}>
           <strong>Learn openings</strong>
           <em>by playing them.</em>
@@ -149,28 +171,61 @@ export default function ReelTest() {
           <strong>Every move,</strong>
           <em>explained.</em>
         </div>
-        <div
-          className={card}
+        <styled.div
+          position="absolute"
+          left="50%"
+          top="44%"
+          w="62%"
+          borderRadius="14px"
+          overflow="hidden"
+          boxShadow="0 30px 80px rgba(0, 0, 0, 0.7), 0 0 0 2px rgba(232, 163, 60, 0.6)"
+          css={{ '& img': { display: 'block', w: '100%' } }}
           style={{
             opacity: env(t, 7.9, 10.15, 0.2),
             transform: `translate(-50%, -50%) rotate(${-3 + 3 * smooth(clamp01((t - 7.9) / 0.5))}deg) scale(${0.82 + 0.18 * smooth(clamp01((t - 7.9) / 0.45))})`,
           }}
         >
           <img src="/.shots/promo/announce.png" alt="" />
-        </div>
+        </styled.div>
         <div className={line({ place: 'bottom' })} style={{ opacity: env(t, 8.1, 10.15, 0.15) }}>
           <strong>Study. Quiz. Play the AI.</strong>
         </div>
-        <div className={kicker} style={{ opacity: env(t, 10.3, 12.3, 0.15), transform: `scale(${slam(10.3)})` }}>
+        <styled.div
+          css={{
+            ...label,
+            position: 'absolute',
+            right: '7%',
+            top: '10%',
+            fontSize: '40px',
+            color: '#ff5a3c',
+            textShadow: '0 0 24px rgba(255, 70, 40, 0.8)',
+            transformOrigin: 'right top',
+          }}
+          style={{ opacity: env(t, 10.3, 12.3, 0.15), transform: `scale(${slam(10.3)})` }}
+        >
           POWER MODE
-        </div>
-        <div className={end} style={{ opacity: clamp01((t - 16.6) / 0.35) }}>
+        </styled.div>
+        <styled.div
+          position="absolute"
+          inset="0"
+          display="grid"
+          placeContent="center"
+          justifyItems="center"
+          gap="10px"
+          background="radial-gradient(circle at 50% 50%, rgba(12, 10, 8, 0.55), rgba(12, 10, 8, 0.92))"
+          css={{
+            '& strong': { fontFamily: brush, fontWeight: '400', fontSize: '150px', lineHeight: '1', textShadow: '0 0 40px rgba(232, 80, 40, 0.6)' },
+            '& span': { fontWeight: '700', fontSize: '30px' },
+            '& em': { minH: '1.3em', fontStyle: 'normal', fontFamily: 'ui-monospace, monospace', fontSize: '28px', color: '#e8a33c' },
+          }}
+          style={{ opacity: clamp01((t - 16.6) / 0.35) }}
+        >
           <strong style={{ transform: `scale(${slam(16.6)})` }}>将棋ジム</strong>
           <span>Shogi Gym · learn openings, beginner to 1–2 dan</span>
           <em>{'hamproductions.github.io/shogigym'.slice(0, Math.max(0, Math.floor((t - 17.1) * 28)))}</em>
-        </div>
-        <div className={flashStyle} style={{ opacity: flash }} />
-      </div>
-    </div>
+        </styled.div>
+        <styled.div position="absolute" inset="0" bg="#fff" mixBlendMode="screen" style={{ opacity: flash }} />
+      </styled.div>
+    </styled.div>
   )
 }

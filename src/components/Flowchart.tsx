@@ -4,9 +4,9 @@ import { moveText } from '@/utils/shogi'
 import { useTranslation } from 'react-i18next'
 import i18n from '@/utils/i18n'
 import { Button } from '@/app/ui/Button'
-import { css } from 'styled-system/css'
+import { styled } from 'styled-system/jsx'
 import { cx } from '@/app/ui/cx'
-import { arrowHead, canvas, edge, head, help, lines, moves, note, overlay, overlayBox, ply, progress, scroll, stageBox, tag } from './flowchart.styles'
+import { arrowHead, edge, lines, stageBox } from './flowchart.styles'
 
 type Props = {
   course: Course
@@ -26,6 +26,8 @@ type Stage = {
   x: number
   depth: number
 }
+
+const Moves = styled('span', { base: { lineClamp: '2', fontFamily: 'mincho', fontSize: 'sm', lineHeight: 'tight' } })
 
 const MAX_STEPS = 10
 const MIN_STEPS_BEFORE_MILESTONE = 4
@@ -141,8 +143,8 @@ function Diagram({
   }, [currentKey])
 
   return (
-    <div className={scroll} ref={scroller}>
-      <div className={canvas} style={{ width: size.w, height: size.h }}>
+    <styled.div overflow="auto" p="{spacing.1} {spacing.1} {spacing.3}" minHeight="0" maxH="calc(100vh - 120px)" ref={scroller}>
+      <styled.div position="relative" m="0 auto" style={{ width: size.w, height: size.h }}>
         <svg width={size.w} height={size.h} className={lines} aria-hidden="true">
           <defs>
             {(['good', 'book', 'mistake', 'opponent-mistake'] as const).map((v) => (
@@ -184,25 +186,31 @@ function Diagram({
               onClick={() => target && onJump(target)}
               title={[s.steps.map((st) => moveText(st.from.sfen, st.move.usi)).join(' '), s.end.comment].filter(Boolean).join('\n\n')}
             >
-              <span className={tag}>{tagText(s)}</span>
+              <styled.span color="var(--fc-accent)" fontSize="2xs" fontWeight="bold">
+                {tagText(s)}
+              </styled.span>
               {s.steps.length ? (
-                <span className={moves}>
-                  <span className={ply}>
+                <Moves>
+                  <styled.span mr="1.5" color="fg.muted" fontSize="2xs">
                     {s.steps[0].ply}
                     {s.steps.length > 1 ? `–${s.steps.at(-1)!.ply}` : ''}
-                  </span>
+                  </styled.span>
                   {summary(s)}
-                </span>
+                </Moves>
               ) : (
-                <span className={moves}>{t('lessonMap.initialPosition')}</span>
+                <Moves>{t('lessonMap.initialPosition')}</Moves>
               )}
-              <span className={note}>{firstSentence(s.end.comment ?? s.steps.at(-1)?.move.punishNote ?? s.steps.at(-1)?.move.note)}</span>
-              {insideAt >= 0 && <span className={progress} style={{ width: `${((insideAt + 1) / s.steps.length) * 100}%` }} />}
+              <styled.span lineClamp="1" color="fg.muted" fontSize="2xs" lineHeight="snug">
+                {firstSentence(s.end.comment ?? s.steps.at(-1)?.move.punishNote ?? s.steps.at(-1)?.move.note)}
+              </styled.span>
+              {insideAt >= 0 && (
+                <styled.span position="absolute" left="0" bottom="0" h="3px" bg="accent" style={{ width: `${((insideAt + 1) / s.steps.length) * 100}%` }} />
+              )}
             </button>
           )
         })}
-      </div>
-    </div>
+      </styled.div>
+    </styled.div>
   )
 }
 
@@ -232,16 +240,49 @@ export function LessonMap({ course, currentNodeId, onJump, onClose }: Props & { 
     return stages.find((s) => s.steps.some((step) => step.move.child?.id === currentNodeId))?.key ?? null
   }, [stages, currentNodeId, course.root.id])
   return (
-    <div className={css({ color: 'fg.default' })}>
-      <div className={overlay} onMouseDown={onClose}>
-        <div className={overlayBox} onMouseDown={(e) => e.stopPropagation()}>
-          <div className={head}>
+    <styled.div color="fg.default">
+      <styled.div
+        position="fixed"
+        inset="0"
+        zIndex="modal"
+        display="grid"
+        placeItems="center"
+        p="6"
+        bg="scrim"
+        backdropFilter="blur(3px)"
+        _narrow={{ p: '3' }}
+        onMouseDown={onClose}
+      >
+        <styled.div
+          w="min(1400px, 100%)"
+          maxH="100%"
+          display="flex"
+          flexDirection="column"
+          overflow="hidden"
+          p="4"
+          borderRadius="xl"
+          bg="panel"
+          color="fg.default"
+          boxShadow="inset 0 0 0 1px {colors.border}, {shadows.lg}"
+          onMouseDown={(e) => e.stopPropagation()}
+        >
+          <styled.div
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+            gap="3"
+            mb="2.5"
+            css={{ '& strong': { fontFamily: 'mincho', fontWeight: 'heavy', fontSize: 'lg' } }}
+            _narrow={{ '& strong': { minWidth: '0', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' } }}
+          >
             <strong>{t('lessonMap.lessonMap', { title: course.title })}</strong>
             <Button size="sm" variant="ghost" onClick={onClose}>
               {t('lessonMap.close')}
             </Button>
-          </div>
-          <p className={help}>{t('lessonMap.everyPointInThisLesson')}</p>
+          </styled.div>
+          <styled.p m="0 0 {spacing.2}" color="fg.muted" fontSize="xs">
+            {t('lessonMap.everyPointInThisLesson')}
+          </styled.p>
           <Diagram
             stages={stages}
             size={size}
@@ -252,8 +293,8 @@ export function LessonMap({ course, currentNodeId, onJump, onClose }: Props & { 
               onClose()
             }}
           />
-        </div>
-      </div>
-    </div>
+        </styled.div>
+      </styled.div>
+    </styled.div>
   )
 }

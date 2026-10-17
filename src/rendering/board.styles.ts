@@ -50,36 +50,3 @@ export const komaLift = cva({
 })
 
 export const boardFrame = css({ stroke: 'none' })
-
-export const loading = css({
-  position: 'absolute',
-  inset: '0',
-  zIndex: '1',
-  display: 'grid',
-  placeItems: 'center',
-  bg: 'surface.0',
-  color: 'fg.muted',
-})
-
-export const loadingContent = css({
-  display: 'grid',
-  justifyItems: 'center',
-  gap: '16px',
-  w: 'min(280px, 80%)',
-  font: '14px/1.4 {fonts.sans}',
-  textAlign: 'center',
-})
-
-export const loadingProgress = css({
-  w: '100%',
-  h: '6px',
-  border: '0',
-  borderRadius: '3px',
-  overflow: 'hidden',
-  accentColor: 'accent',
-  '&::-webkit-progress-bar': { bg: 'border' },
-  '&::-webkit-progress-value': { bg: 'accent' },
-  '&::-moz-progress-bar': { bg: 'accent' },
-})
-
-export const loadingPercent = css({ fontVariantNumeric: 'tabular-nums' })

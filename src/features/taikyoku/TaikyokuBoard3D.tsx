@@ -6,7 +6,7 @@ import type { EngineMove, Pos, Snapshot } from './notation'
 import type { CaptureEntry } from './useTaikyoku'
 import type { StandZones } from '@/rendering/board3d/types'
 import type { TargetKind } from './TaikyokuBoard'
-import { canvas3d } from './taikyoku.styles'
+import { BoardHost } from './taikyoku.styles'
 
 type Props = {
   snap: Snapshot
@@ -82,5 +82,5 @@ export const TaikyokuBoard3D = forwardRef<BoardHandle, Props>(function TaikyokuB
     scene.current?.syncAppearance()
   }, [settings])
 
-  return <div ref={host} className={canvas3d} tabIndex={0} role="img" aria-label="Taikyoku shogi board" />
+  return <BoardHost ref={host} tabIndex={0} role="img" aria-label="Taikyoku shogi board" />
 })

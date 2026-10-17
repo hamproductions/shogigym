@@ -9,11 +9,10 @@ import { PIECE_FINISHES, loadPieceFont, setSettings, useSettings, type PieceFini
 import { loadPieceSet } from '@/appearance/pieceSets'
 import { useTranslation } from 'react-i18next'
 import { css } from 'styled-system/css'
-import { Box } from 'styled-system/jsx'
+import { Box, styled } from 'styled-system/jsx'
 import { dialog } from 'styled-system/recipes'
 import { Slider, Text } from '@/components/ui'
 import { Dialog, DialogHeader } from '@/app/ui/Dialog'
-import { cx } from '@/app/ui/cx'
 import { Segmented, SettingRow } from '@/app/ui/Segmented'
 
 const TYPES: { type: PieceType; label: string }[] = [
@@ -28,6 +27,8 @@ const TYPES: { type: PieceType; label: string }[] = [
   { type: PieceType.DRAGON, label: '龍' },
   { type: PieceType.PROM_PAWN, label: 'と' },
 ]
+
+const segmentGap = css({ mt: '1.5' })
 
 export function PieceViewer({ onClose, page }: { onClose: () => void; page?: boolean }) {
   const { t } = useTranslation()
@@ -145,10 +146,10 @@ export function PieceViewer({ onClose, page }: { onClose: () => void; page?: boo
       <Text tone="muted" size="sm" mb="4">
         {t('viewer.dragToRotateScrollOr')}
       </Text>
-      <Segmented size="small" className={css({ mt: '1.5' })} value={type} options={TYPES.map((x) => ({ v: x.type, t: x.label }))} onChange={setType} />
+      <Segmented size="small" className={segmentGap} value={type} options={TYPES.map((x) => ({ v: x.type, t: x.label }))} onChange={setType} />
       <Segmented<PieceFinish>
         size="small"
-        className={css({ mt: '1.5' })}
+        className={segmentGap}
         value={st.pieceFinish}
         options={(Object.keys(PIECE_FINISHES) as PieceFinish[]).map((f) => ({ v: f, t: PIECE_FINISHES[f].label }))}
         onChange={(f) => setSettings({ pieceFinish: f })}
@@ -180,9 +181,9 @@ export function PieceViewer({ onClose, page }: { onClose: () => void; page?: boo
   if (page)
     return (
       <Box gridColumn="1 / -1" display="grid" placeItems="center" minH="100%" p="4" overflow="auto">
-        <div className={cx(dialog().content, css({ w: 'min(900px, 100%)' }))} role="dialog" aria-label={t('viewer.pieceViewer')}>
+        <styled.div className={dialog().content} w="min(900px, 100%)" role="dialog" aria-label={t('viewer.pieceViewer')}>
           {body}
-        </div>
+        </styled.div>
       </Box>
     )
 

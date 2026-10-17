@@ -2,34 +2,8 @@ import { Color, PieceType, Square } from 'tsshogi'
 import { positionOf } from '@/utils/shogi'
 import { useTranslation } from 'react-i18next'
 import i18n from '@/utils/i18n'
-import { css } from 'styled-system/css'
+import { styled } from 'styled-system/jsx'
 import { muted } from '@/app/panels/panels.styles'
-
-const guide = css({
-  layerStyle: 'card',
-  display: 'flex',
-  gap: '3',
-  mb: '3',
-  p: '{spacing.2.5} {spacing.3}',
-  '& strong': { fontFamily: 'mincho', fontWeight: 'heavy', fontSize: 'lg' },
-  '& strong span': { fontFamily: 'sans', fontWeight: 'regular', fontSize: 'xs', color: 'fg.muted' },
-  '& p': { m: '{spacing.1} 0 0', fontSize: 'sm', lineHeight: 'normal' },
-})
-
-const english = css({ display: 'block', fontFamily: 'sans', fontWeight: 'regular', fontSize: 'xs', color: 'fg.muted' })
-
-const grid = css({
-  flex: 'none',
-  display: 'grid',
-  gridTemplateColumns: 'repeat(5, 14px)',
-  gridTemplateRows: 'repeat(5, 14px)',
-  gap: '0.5',
-  alignSelf: 'flex-start',
-  '& i': { borderRadius: 'xs', bg: 'color-mix(in srgb, {colors.fg.default} 8%, transparent)' },
-  '& i[data-kind=self]': { bg: 'fg.default' },
-  '& i[data-kind=step]': { bg: 'success.fill' },
-  '& i[data-kind=slide]': { bg: 'info.fill' },
-})
 
 type Step = { dx: number; dy: number; slide?: boolean }
 
@@ -217,9 +191,23 @@ function MoveDiagram({ steps }: { steps: Step[] }) {
       cells.push(<i key={`${x},${y}`} data-kind={kind || undefined} />)
     }
   return (
-    <div className={grid} aria-hidden="true">
+    <styled.div
+      flex="none"
+      display="grid"
+      gridTemplateColumns="repeat(5, 14px)"
+      gridTemplateRows="repeat(5, 14px)"
+      gap="0.5"
+      alignSelf="flex-start"
+      css={{
+        '& i': { borderRadius: 'xs', bg: 'color-mix(in srgb, {colors.fg.default} 8%, transparent)' },
+        '& i[data-kind=self]': { bg: 'fg.default' },
+        '& i[data-kind=step]': { bg: 'success.fill' },
+        '& i[data-kind=slide]': { bg: 'info.fill' },
+      }}
+      aria-hidden="true"
+    >
       {cells}
-    </div>
+    </styled.div>
   )
 }
 
@@ -233,13 +221,28 @@ export function PieceGuide({ sfen, from }: { sfen: string; from: Square | PieceT
   const inHand = !(from instanceof Square)
   const kingName = type === PieceType.KING && from instanceof Square && position.board.at(from)?.color === Color.BLACK ? '王将' : info.ja
   return (
-    <div className={guide}>
+    <styled.div
+      layerStyle="card"
+      display="flex"
+      gap="3"
+      mb="3"
+      p="{spacing.2.5} {spacing.3}"
+      css={{
+        '& strong': { fontFamily: 'mincho', fontWeight: 'heavy', fontSize: 'lg' },
+        '& strong span': { fontFamily: 'sans', fontWeight: 'regular', fontSize: 'xs', color: 'fg.muted' },
+        '& p': { m: '{spacing.1} 0 0', fontSize: 'sm', lineHeight: 'normal' },
+      }}
+    >
       <MoveDiagram steps={info.steps} />
       <div>
         <strong>
           {kingName} {!ja && <span>{kingName === '王将' ? 'ōshō' : info.reading}</span>}
         </strong>
-        {!ja && <span className={english}>{info.en}</span>}
+        {!ja && (
+          <styled.span display="block" fontFamily="sans" fontWeight="regular" fontSize="xs" color="fg.muted">
+            {info.en}
+          </styled.span>
+        )}
         <p>{info.moves}</p>
         {info.promotes && !inHand && (
           <p className={muted}>
@@ -248,7 +251,7 @@ export function PieceGuide({ sfen, from }: { sfen: string; from: Square | PieceT
         )}
         {inHand && <p className={muted}>{t('pieces.aCapturedPieceIsYours')}</p>}
       </div>
-    </div>
+    </styled.div>
   )
 }
 

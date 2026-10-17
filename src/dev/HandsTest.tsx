@@ -12,10 +12,25 @@ import { loadPieceSet } from '@/appearance/pieceSets'
 import { BoardLoading } from '@/rendering/BoardLoading'
 import { createListCollection } from '@ark-ui/react/collection'
 import { Checkbox, Select, Slider } from '@/components/ui'
-import { control, panel, pads, row } from './hands.styles'
+import { styled } from 'styled-system/jsx'
 
 type Room = 'traditional' | 'casual'
 type Pattern = { id: string; label: string; sfen: string; usi: string }
+
+const Control = styled('button', {
+  base: {
+    p: '8px 10px',
+    border: '1px solid #665a49',
+    borderRadius: '6px',
+    bg: '#302a22',
+    color: 'inherit',
+    cursor: 'pointer',
+    '&:hover, &[aria-pressed=true]': { bg: '#675137', borderColor: '#c3a06e' },
+    '&:focus-visible': { outline: '2px solid #c3a06e', outlineOffset: '2px' },
+  },
+})
+
+const Row = styled('div', { base: { display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '6px' } })
 
 const START = 'lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL'
 const FACED = 'lnsgkgsnl/1r5b1/pppp1pppp/9/4p4/4P4/PPPP1PPPP/1B5R1/LNSGKGSNL'
@@ -302,7 +317,23 @@ export default function HandsTest() {
     <main style={{ position: 'fixed', inset: 0, background: '#111' }}>
       <div ref={host} style={{ position: 'absolute', inset: 0 }} />
       {!ready && <BoardLoading error={error ?? undefined} progress={progress} />}
-      <div className={`dark ${panel}`}>
+      <styled.div
+        className="dark"
+        position="absolute"
+        top="12px"
+        left="12px"
+        w="min(360px, calc(100% - 24px))"
+        maxH="calc(100% - 24px)"
+        overflow="auto"
+        p="14px"
+        borderRadius="10px"
+        bg="rgba(20, 18, 16, 0.94)"
+        color="#f3eee6"
+        font="13px/1.4 system-ui"
+        display="grid"
+        gap="12px"
+        css={{ '& summary': { cursor: 'pointer' } }}
+      >
         <b>Hand animation · dev</b>
         {!ready && <div role={error ? 'alert' : 'status'}>{error ?? 'Loading pieces and avatars…'}</div>}
         <div>
@@ -326,10 +357,18 @@ export default function HandsTest() {
             <Select.HiddenSelect />
           </Select.Root>
         </div>
-        <div className={pads} aria-label="Animations">
+        <styled.div
+          display="grid"
+          gridTemplateColumns="repeat(2, minmax(0, 1fr))"
+          gap="8px"
+          css={{
+            '& button': { minH: '58px', display: 'grid', textAlign: 'left', gap: '4px' },
+            '& span': { fontSize: '11px', color: '#d2c5b4' },
+          }}
+          aria-label="Animations"
+        >
           {PATTERNS.map((p) => (
-            <button
-              className={control}
+            <Control
               key={p.id}
               aria-pressed={pattern.id === p.id}
               onClick={() => {
@@ -343,40 +382,32 @@ export default function HandsTest() {
               <span>
                 {p.id.endsWith('-b') ? 'Sente' : 'Gote'} · {p.usi}
               </span>
-            </button>
+            </Control>
           ))}
-        </div>
-        <div className={row} aria-label="Camera">
+        </styled.div>
+        <Row aria-label="Camera">
           {['top', 'tilted', 'hand', 'gote', 'rest'].map((c) => (
-            <button key={c} className={control} onClick={() => api.current?.camera(c)}>
+            <Control key={c} onClick={() => api.current?.camera(c)}>
               {c}
-            </button>
+            </Control>
           ))}
-        </div>
-        <div className={row}>
-          <button className={control} onClick={() => setPlaying((p) => !p)}>
-            {playing ? 'Pause' : 'Play'}
-          </button>
-          <button className={control} onClick={() => setFrame((f) => Math.max(0, f - 1))}>
-            ◀ frame
-          </button>
-          <button className={control} onClick={() => setFrame((f) => Math.min(total, f + 1))}>
-            frame ▶
-          </button>
-          <button className={control} onClick={() => setFrame(0)}>
-            Restart
-          </button>
+        </Row>
+        <Row>
+          <Control onClick={() => setPlaying((p) => !p)}>{playing ? 'Pause' : 'Play'}</Control>
+          <Control onClick={() => setFrame((f) => Math.max(0, f - 1))}>◀ frame</Control>
+          <Control onClick={() => setFrame((f) => Math.min(total, f + 1))}>frame ▶</Control>
+          <Control onClick={() => setFrame(0)}>Restart</Control>
           <Toggle checked={loop} onChange={setLoop} label="loop" />
           <Toggle checked={show} onChange={setShow} label="overlays" />
           <Toggle checked={cut} onChange={setCut} label="game cut-away" />
-        </div>
-        <div className={row}>
+        </Row>
+        <Row>
           {SPEEDS.map((v) => (
-            <button key={v} className={control} onClick={() => setSpeed(v)} aria-pressed={speed === v}>
+            <Control key={v} onClick={() => setSpeed(v)} aria-pressed={speed === v}>
               {v}×
-            </button>
+            </Control>
           ))}
-        </div>
+        </Row>
         <Slider.Root w="100%" min={0} max={total} value={[frame]} aria-label={['Timeline']} onValueChange={({ value }) => setFrame(value[0])}>
           <Slider.Control>
             <Slider.Track>
@@ -414,7 +445,7 @@ export default function HandsTest() {
             </tbody>
           </table>
         </details>
-      </div>
+      </styled.div>
     </main>
   )
 }
