@@ -661,8 +661,8 @@
   },
   "plate": {
     "outOfTime": "Out of time",
-    "sente": "☗ Sente",
-    "gote": "☖ Gote",
+    "sente": "Sente",
+    "gote": "Gote",
     "strategyFromWhereTheRook": "Strategy, from where the rook is",
     "castleFromWhereTheKing": "Castle, from where the king, golds and silvers stand"
   },

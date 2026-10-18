@@ -647,8 +647,8 @@
   },
   "plate": {
     "outOfTime": "時間切れ",
-    "sente": "☗ 先手",
-    "gote": "☖ 後手",
+    "sente": "先手",
+    "gote": "後手",
     "strategyFromWhereTheRook": "戦法（飛車の位置から判定）",
     "castleFromWhereTheKing": "囲い（玉・金・銀の位置から判定）"
   },
