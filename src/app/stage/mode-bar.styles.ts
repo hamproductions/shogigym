@@ -173,7 +173,7 @@ export const controls = css({
     '& .app-btn': { w: '38px', minW: '38px', h: '38px', minH: '38px', p: '0', justifyContent: 'center', fontSize: 'xs' },
     '& .app-btn svg': { w: '18px', h: '18px' },
     '& .app-seg': { gap: '1' },
-    '& .app-seg [data-part=item]': { w: '46px', minW: '46px', h: '38px', p: '0', fontSize: 'xs' },
+    '& .app-seg [data-part=item]': { w: '46px', minW: '46px', h: '38px', p: '0', fontSize: 'xs', justifyContent: 'center' },
     '@media (max-width: 360px)': { m: '0 {spacing.0.5} var(--stage-gutter)' },
   },
 })
