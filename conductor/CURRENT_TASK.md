@@ -1,6 +1,7 @@
 # Current task
 
 ## State and authority
+- 2026-10-18: full lesson audit run read-only and stopped on request after 66/150 units read line by line (all 150 passed automated gates). Findings: conductor/lesson-audit/audit-2026-10-18.md (7 A-severity defects, none fixed yet). Resume reading at yagura-vs-migishiken.
 - Delivery: lesson/skill changes committed and pushed; patch v1.5.2 published. Broader lesson audit Goal remains paused; do not resume audit automatically.
 - Repository: /Users/vittayapalotai.tanyawat/code/joseki-practice. Existing remote remains hamproductions/shogigym; no ownership transfer.
 - main integrated seven upstream commits through 917ac42 without conflicts. Content commit: 0681eb133d1fda28414bde1ffc7c16ac455a9c05. Release commit/tag target: 62d7a31c1b5afdb7cd0dce2eab68066334c71991, v1.5.2.
