@@ -1,6 +1,7 @@
 # Current task
 
 ## State and authority
+- 2026-10-18: lesson audit stopped at 92/150 units read line by line (all 150 passed automated gates); 58 unread. Report: conductor/lesson-audit/2026-10-18/REPORT.md (20 A-severity defects, none fixed); tools and raw data beside it. Resume reading at taifuri-45hayashikake.
 - Delivery: lesson/skill changes committed and pushed; patch v1.5.2 published. Broader lesson audit Goal remains paused; do not resume audit automatically.
 - Repository: /Users/vittayapalotai.tanyawat/code/joseki-practice. Existing remote remains hamproductions/shogigym; no ownership transfer.
 - main integrated seven upstream commits through 917ac42 without conflicts. Content commit: 0681eb133d1fda28414bde1ffc7c16ac455a9c05. Release commit/tag target: 62d7a31c1b5afdb7cd0dce2eab68066334c71991, v1.5.2.

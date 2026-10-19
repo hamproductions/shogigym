@@ -5,6 +5,7 @@ import i18n from '@/utils/i18n'
 import { SETUPS, type Course } from '@/utils/model'
 import { moveText } from '@/utils/shogi'
 import { useSession } from '@/app/hooks/session'
+import { FlipMarks } from '@/app/ui/SideMark'
 import { coursesOf, lessonText, mainBranch, setupOf } from '@/utils/book'
 import { mistakeHeadline, mistakeIsBad, type ShownMistake } from '@/utils/mistake'
 import { sideMark } from '@/utils/notation'
@@ -160,7 +161,7 @@ const endVerdict = css({ fontWeight: 'bold', '&[data-outcome=ahead]': { color: '
 
 export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPlayReply, lastNote, endRate, onBack }: LessonPaneProps) {
   const { t } = useTranslation()
-  const { course, liveSfen: sfen, userSide, lastMove, prevSfen, playing, preview, atEnd } = useSession()
+  const { course, liveSfen: sfen, userSide, lastMove, prevSfen, playing, preview, atEnd, flipped } = useSession()
   const { lessonMode, score, justRight, checking, progress, done, asking, offBook, good, showAnswer, jumped } = lesson
   if (!course) return <OpeningPicker onOpen={lesson.open} level={level} setupId={lesson.pickerSetup} setSetupId={lesson.setPickerSetup} />
   const side = sideMark(userSide)
@@ -308,10 +309,14 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
         <Card>
           {lessonMode === 'study' || showAnswer ? (
             <>
-              <strong>{t('lesson.yourMoveAs', { side })}</strong>
+              <strong>
+                <FlipMarks flipped={flipped}>{t('lesson.yourMoveAs', { side })}</FlipMarks>
+              </strong>
               {good.map((g) => (
                 <div key={g.usi} className={answer}>
-                  <span className={answerMove}>{moveText(sfen, g.usi)}</span>
+                  <span className={answerMove}>
+                    <FlipMarks flipped={flipped}>{moveText(sfen, g.usi)}</FlipMarks>
+                  </span>
                   {level === 'new' && <span className={gloss}>{moveGloss(sfen, g.usi)}</span>}
                   {g.note && (
                     <p>
@@ -324,7 +329,9 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
             </>
           ) : (
             <>
-              <strong>{lesson.quizTask ?? t('lesson.yourMoveAsFindThe', { side })}</strong>
+              <strong>
+                <FlipMarks flipped={flipped}>{lesson.quizTask ?? t('lesson.yourMoveAsFindThe', { side })}</FlipMarks>
+              </strong>
               <Button size="sm" variant="ghost" className={css({ alignSelf: 'flex-start', mt: '2' })} onClick={lesson.revealAnswer}>
                 {t('lesson.showMeTheAnswer')}
               </Button>

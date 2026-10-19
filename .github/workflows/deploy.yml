@@ -51,11 +51,11 @@ jobs:
           BASE_PATH: /${{ github.event.repository.name }}/
       - uses: ./.github/actions/pr-previews
         with:
-          # Hidden URLs (set the PREVIEW_SECRET repository secret); the link is only commented on private repos.
+          # Hidden URLs (set the PREVIEW_SECRET repository secret); the link is commented on every PR.
           secret: ${{ secrets.PREVIEW_SECRET }}
           # The 95 MB offline full book is download-on-demand; previews skip it.
           exclude: books/peta233-full-v1
-          comment-pr: ${{ github.event.repository.private && github.event.pull_request.number || '' }}
+          comment-pr: ${{ github.event.pull_request.number || '' }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

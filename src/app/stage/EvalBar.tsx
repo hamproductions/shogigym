@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { useGlide } from '@/app/hooks/useGlide'
+import { SideMark } from '@/app/ui/SideMark'
 import { evalBar, evalBarFill, evalBarNumber } from './stage.styles'
 
 export function EvalBar({ rate, flipped }: { rate: number; flipped: boolean }) {
@@ -11,7 +12,7 @@ export function EvalBar({ rate, flipped }: { rate: number; flipped: boolean }) {
     <div className={evalBar} title={t('app.winChance', { value: sente, value2: 100 - sente })} aria-label={t('app.winChanceShort')}>
       <div ref={fill} className={evalBarFill} style={{ height: `${bottomShare * 100}%` }} />
       <span className={evalBarNumber({ place: bottomShare >= 0.5 ? 'bottom' : 'top' })}>
-        {rate >= 0.5 ? '☗' : '☖'}
+        <SideMark side={rate >= 0.5 ? 'sente' : 'gote'} flipped={flipped} />
         <br />
         {Math.round(Math.max(rate, 1 - rate) * 100)}
       </span>

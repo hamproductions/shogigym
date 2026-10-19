@@ -6,6 +6,7 @@ import { courseById, findPath, sideToMove, type Course, type JosekiMove, type Jo
 import { moveText } from '@/utils/shogi'
 import { sideMark } from '@/utils/notation'
 import { useSession } from '@/app/hooks/session'
+import { FlipMarks } from '@/app/ui/SideMark'
 import { Button } from '@/app/ui/Button'
 import { css } from 'styled-system/css'
 import { Wrap } from 'styled-system/jsx'
@@ -110,7 +111,7 @@ type Props = { course: Course; lesson: Lesson; series: Series | null }
 export function LessonGuide({ course, lesson, series }: Props) {
   const { i18n } = useTranslation()
   const ja = i18n.language === 'ja'
-  const { game, cursor, setGame, setCursor, play, liveSfen } = useSession()
+  const { game, cursor, setGame, setCursor, play, liveSfen, flipped } = useSession()
   const setup = setupOf(course)
   const key = setup?.id ?? course.id
   const chapters = setup ? coursesOf(setup.courseIds) : [course]
@@ -261,14 +262,14 @@ export function LessonGuide({ course, lesson, series }: Props) {
       </div>
       <div className={guideFoot}>
         <p className={guideHint} role="status">
-          {hint}
+          <FlipMarks flipped={flipped}>{hint}</FlipMarks>
         </p>
         <nav className={guideNav} aria-label={ja ? '手順の移動' : 'Moves'}>
           <Button disabled={index === 0} onClick={back} aria-keyshortcuts="ArrowLeft">
             ‹ {ja ? '戻る' : 'Back'}
           </Button>
           <Button variant="primary" onClick={end ? finish : forward} aria-keyshortcuts="ArrowRight">
-            {nextLabel}
+            <FlipMarks flipped={flipped}>{nextLabel}</FlipMarks>
           </Button>
         </nav>
       </div>

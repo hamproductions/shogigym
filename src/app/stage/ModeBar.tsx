@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { moveText } from '@/utils/shogi'
 import { useSession } from '@/app/hooks/session'
 import { Icon } from '@/app/icons'
-import { sideMark } from '@/utils/notation'
+import { SideMark } from '@/app/ui/SideMark'
 import type { Spar } from '@/app/modes/spar/useSpar'
 import type { Watch } from '@/app/modes/view/useWatch'
 import type { TesujiTrainer as Tesuji } from '@/app/modes/tesuji/useTesuji'
@@ -79,6 +79,7 @@ export function ModeBarHeading({
   ply,
   lastMove,
   turn,
+  flipped,
   busy,
 }: {
   seal: ReactNode
@@ -87,9 +88,11 @@ export function ModeBarHeading({
   ply: string
   lastMove?: string
   turn: 'sente' | 'gote'
+  flipped?: boolean
   busy?: boolean
 }) {
   const { t } = useTranslation()
+  const [before, after] = t('app.toMove', { side: '\u0001' }).split('\u0001')
   return (
     <div className={cx('app-modebar-heading', heading)}>
       <span className={sealStyle}>{seal}</span>
@@ -104,13 +107,17 @@ export function ModeBarHeading({
         <strong className={lastMoveText} title={lastMove}>
           {lastMove ?? '\u00a0'}
         </strong>
-        <span className={turnStyle}>{t('app.toMove', { side: sideMark(turn) })}</span>
+        <span className={turnStyle}>
+          {before}
+          <SideMark side={turn} flipped={flipped} />
+          {after}
+        </span>
       </span>
     </div>
   )
 }
 
-export function EvalChip({ rate, barShown }: { rate: number; barShown: boolean }) {
+export function EvalChip({ rate, barShown, flipped }: { rate: number; barShown: boolean; flipped?: boolean }) {
   const { t } = useTranslation()
   const fill = useGlide<HTMLSpanElement>('width', rate * 100)
   return (
@@ -124,7 +131,7 @@ export function EvalChip({ rate, barShown }: { rate: number; barShown: boolean }
         <span ref={fill} style={{ width: `${rate * 100}%` }} />
       </span>
       <b className={evalValue}>
-        {rate >= 0.5 ? '☗' : '☖'} {Math.round(Math.max(rate, 1 - rate) * 100)}%
+        <SideMark side={rate >= 0.5 ? 'sente' : 'gote'} flipped={flipped} /> {Math.round(Math.max(rate, 1 - rate) * 100)}%
       </b>
     </span>
   )
@@ -155,7 +162,7 @@ export function ModeBar({
   const engine = useEngineStatus()
   const unavailable = !engineSupported()
   const ja = settings.lang === 'ja'
-  const { mode, course, lastMove, prevSfen, plyBase, preview, cursor, toMove, nav, gameOver, game } = useSession()
+  const { mode, course, lastMove, prevSfen, plyBase, preview, cursor, toMove, nav, gameOver, game, flipped } = useSession()
   const seal = !ja ? (
     <Icon name={MODES.find((m) => m.id === mode)!.icon} size={22} />
   ) : mode === 'lesson' && course ? (
@@ -179,10 +186,11 @@ export function ModeBar({
         }
         lastMove={lastMove && prevSfen ? moveText(prevSfen, lastMove) : undefined}
         turn={toMove}
+        flipped={flipped}
       />
       {evalRate !== null && (
         <div className={evaluation}>
-          <EvalChip rate={evalRate} barShown={barShown} />
+          <EvalChip rate={evalRate} barShown={barShown} flipped={flipped} />
         </div>
       )}
       <div className={controls}>

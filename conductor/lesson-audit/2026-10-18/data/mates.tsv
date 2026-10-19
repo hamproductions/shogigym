@@ -1,0 +1,161 @@
+yagura-vs-hidarimino#3.v0.0	[end] OPP to move has mate 1 (G*8i); text silent on 詰	先手が別の筋の歩を進めるだけなら、後手歩は８七で成り、金で取った後に後手飛車が８七の金を取って成れます。この図では後手銀７六が龍８七を守るため、先手玉８八は９九へ逃げる例になります。後手の攻めが必勝という意味ではなく、７七の銀を動かさない一
+hineribisha#3.s1	LEARNER has mate 11 (7f7a+ 5a4b 7a8b 4b5c 8b8d 5c6b R*1c 6b5a 8d8b 5a4a) but lesson plays ☗７七桂(8i7g) after=362	７七桂は８五を跳び先にする。ここで後手が銀を８五へ進めるなら、銀は桂に取られる位置へ入る。ただし後手の８二飛も同じ筋を見ている。
+hineribisha#3.s1	[end] LEARNER to move has mate 11 (7f7a+ 5a4b 7a8b 4b3c R*9c 3c2d 8b8e 2d3d S*3f 3d2d); text silent on 詰	７七桂は８五を跳び先にする。ここで後手が銀を８五へ進めるなら、銀は桂に取られる位置へ入る。ただし後手の８二飛も同じ筋を見ている。
+hineribisha#3.s2	LEARNER has mate 11 (7f7a+ 5a4b 7a8b 4b3c R*9c 3c2d 8b8e 2d3d S*3f 3d2d) but lesson plays ☗８五桂(7g8e) after=-678	先手は銀を桂で取り、後手は飛車で桂を取り返した。桂の利きは銀の前進に費用を払わせるが、銀を止める絶対的な壁ではない。交換後は８五の飛車と７六の飛車の位置を改めて比べる。
+rules-moves#0.s4	LEARNER has mate 15 (5e5d 9a8b 5d6c 8b7a 3e4d 7a6a 4d5c 6a7a 6c7c 7a8a) but lesson plays ☗８五金(7e8e) after=mate -18	金は７五から８五へ横に進み、銀は３五から４六へ斜め後ろに退きました。動ける方向を比べると、二枚の違いが盤上に現れます。
+rules-moves#0.s4	LEARNER has mate 15 (3e4d 9b8c 5e6d 8c7b 4d5c+ 7b8c 6d6c 8c9b 6c7c 9b8a) but lesson plays ☗４六銀(3e4f) after=mate -20	金は７五から８五へ横に進み、銀は３五から４六へ斜め後ろに退きました。動ける方向を比べると、二枚の違いが盤上に現れます。
+rules-moves#0.s5	LEARNER has mate 19 (5e6d 8b7b 6d5c 7b6a 4f3e 6a5a 3e3d 5a4a 3d3c+ 4a5a) but lesson plays ☗５六歩(5g5f) after=mate -22	歩は５七から５六へ、前に一マス進みました。相手の駒を取る場合も、歩は同じ一マス先にある駒だけを取ります。
+rules-moves#1.s2	LEARNER has mate 23 (7g7d 5a6b 7d6d 6b5b 5i6h 5b5c 6h6g 5c4c 3g5e 4c5b) but lesson plays ☗７四飛(7g7d) after=mate -46	飛車は７四の歩を取って、そのマスで止まりました。取るときも、相手の駒があるマスへ進んで自分の駒を置きます。
+rules-moves#1.s2	[end] LEARNER to move has mate 7 (7d7b+ 4a3a 3g6d 3a2a P*1c 2a1a 7b1b); text silent on 詰	飛車は７四の歩を取って、そのマスで止まりました。取るときも、相手の駒があるマスへ進んで自分の駒を置きます。
+rules-moves#1.s4	LEARNER has mate 7 (7d7b+ 4a3a 3g6d 3a2a P*1c 2a1a 7b1b) but lesson plays ☗６四角(3g6d) after=mate -10	角も６四の歩を取って止まります。飛車・角・香は桂のように駒を飛び越えず、進路の途中にある駒の手前までしか進めません。
+rules-moves#3.s3	LEARNER has mate 3 (7e8d 9a9b 2g8a) but lesson plays ☗６四龍(7e6d) after=mate -6	龍は斜めに一歩進んで６四へ、馬は横に一歩進んで３七へ移りました。加わった動きも、それぞれの長い動きと同じ一手の中で使えます。
+rules-moves#3.s3	LEARNER has mate 3 (6d8d 9b9a 8d8a) but lesson plays ☗３七馬(2g3g) after=mate -8	龍は斜めに一歩進んで６四へ、馬は横に一歩進んで３七へ移りました。加わった動きも、それぞれの長い動きと同じ一手の中で使えます。
+rules-draws#1.v0.0	LEARNER has mate 2 (win) but lesson plays ☗４四玉(4c4d) after=-2290	▲４四玉△６八玉の後も先手は29点を持ち、敵陣の駒も10枚ですが、先手玉が敵陣の外へ出ました。先手番に戻っても入玉宣言の玉の条件を満たしません。点数だけでは宣言できません。
+rules-draws#1.v1.0	LEARNER has mate 2 (win) but lesson plays ☗７二金(7a7b) after=-3717	先手金が７一から７四へ出て、後手が玉を動かした比較順です。先手玉は敵陣に残り王手ではなく、敵陣と持駒の点は28点ありますが、敵陣の玉以外の駒は９枚へ減りました。先手28点の方式でも10枚の条件を満たさず、宣言できません。盤上全体では先手29
+rules-draws#1.v1.0	LEARNER has mate 2 (win) but lesson plays ☗７三金(7b7c) after=-3485	先手金が７一から７四へ出て、後手が玉を動かした比較順です。先手玉は敵陣に残り王手ではなく、敵陣と持駒の点は28点ありますが、敵陣の玉以外の駒は９枚へ減りました。先手28点の方式でも10枚の条件を満たさず、宣言できません。盤上全体では先手29
+rules-draws#1.v1.0	LEARNER has mate 2 (win) but lesson plays ☗７四金(7c7d) after=-2575	先手金が７一から７四へ出て、後手が玉を動かした比較順です。先手玉は敵陣に残り王手ではなく、敵陣と持駒の点は28点ありますが、敵陣の玉以外の駒は９枚へ減りました。先手28点の方式でも10枚の条件を満たさず、宣言できません。盤上全体では先手29
+rules-draws#1.v1.0	[end] LEARNER to move has mate 3 (R*6c G*6g win); text silent on 詰	先手金が７一から７四へ出て、後手が玉を動かした比較順です。先手玉は敵陣に残り王手ではなく、敵陣と持駒の点は28点ありますが、敵陣の玉以外の駒は９枚へ減りました。先手28点の方式でも10枚の条件を満たさず、宣言できません。盤上全体では先手29
+rules-draws#3.s1	LEARNER has mate 33 (5e4d 7a6a 4d5c+ 6a5a 9i8h 5a4a 8h7g 4a3b 7g6f 3b2c) but lesson plays ☗４四角(5e4d) after=mate -38	後手玉が８二へ逃げると、先手は角を５五へ動かして再び王手をかけます。玉が７一へ戻ると、角も４四へ戻って王手です。先手の手はすべて王手で、最初と同じ局面が二度目に現れました。
+rules-draws#3.s2	LEARNER has mate 33 (5e4d 7a6a 4d5c+ 6a5a 9i8h 5a4a 8h7g 4a3b 7g6f 3b2c) but lesson plays ☗４四角(5e4d) after=mate -38	同じ一巡をさらに二回たどると、最初の局面が四度目に現れます。その間ずっと先手は自分の手番のたびに王手をしていたので、通常の千日手の扱いにはならず、王手を続けた先手の反則負けです。
+rules-draws#3.s2	LEARNER has mate 33 (5e4d 7a6a 4d5c+ 6a5a 9i8h 5a4a 8h7g 4a3b 7g6f 3b2c) but lesson plays ☗４四角(5e4d) after=mate -38	同じ一巡をさらに二回たどると、最初の局面が四度目に現れます。その間ずっと先手は自分の手番のたびに王手をしていたので、通常の千日手の扱いにはならず、王手を続けた先手の反則負けです。
+rules-draws#3.v0.0	LEARNER has mate 29 (9i8h 8a7b 4d5c+ 7b6a 8h7g 6a5a 7g6f 5a4a 6f6e 4a3b) but lesson plays ☗３三角不成(4d3c) after=mate -76	比較として、最初の局面で後手玉が８一へ逃げる順です。▲３三角は王手ではなく、続く▲４四角で再び王手になって最初の局面へ戻ります。この一巡には王手でない先手の手が一つ入っています。
+rules-draws#3.v0.0	LEARNER has mate 29 (3c4d+ 7a8b 9i8h 8b7c 8h7g 7c7d 7g6f 7d6d 6f7f 6d7c) but lesson plays ☗４四角不成(3c4d) after=mate -38	比較として、最初の局面で後手玉が８一へ逃げる順です。▲３三角は王手ではなく、続く▲４四角で再び王手になって最初の局面へ戻ります。この一巡には王手でない先手の手が一つ入っています。
+rules-draws#3.v0.1	LEARNER has mate 29 (9i8h 8a7b 4d5c+ 7b6a 8h7g 6a5a 7g6f 5a4a 6f6e 4a3b) but lesson plays ☗３三角不成(4d3c) after=mate -76	この一巡をさらに二回たどると、最初の局面が四度目に現れます。王手でない手が混ざっているので連続王手の条件は成立せず、反則負けではなく通常の千日手です。
+rules-draws#3.v0.1	LEARNER has mate 29 (3c4d+ 7a8b 9i8h 8b7c 8h7g 7c7d 7g6f 7d6d 6f7f 6d7c) but lesson plays ☗４四角不成(3c4d) after=mate -38	この一巡をさらに二回たどると、最初の局面が四度目に現れます。王手でない手が混ざっているので連続王手の条件は成立せず、反則負けではなく通常の千日手です。
+rules-draws#3.v0.1	LEARNER has mate 29 (9i8h 8a7b 4d5c+ 7b6a 8h7g 6a5a 7g6f 5a4a 6f6e 4a3b) but lesson plays ☗３三角不成(4d3c) after=mate -76	この一巡をさらに二回たどると、最初の局面が四度目に現れます。王手でない手が混ざっているので連続王手の条件は成立せず、反則負けではなく通常の千日手です。
+rules-draws#3.v0.1	LEARNER has mate 29 (3c4d+ 7a8b 9i8h 8b7c 8h7g 7c7d 7g6f 7d6d 6f7f 6d7c) but lesson plays ☗４四角不成(3c4d) after=mate -38	この一巡をさらに二回たどると、最初の局面が四度目に現れます。王手でない手が混ざっているので連続王手の条件は成立せず、反則負けではなく通常の千日手です。
+proverb-three-pawns#0.s1	LEARNER has mate 13 (2h7c+ 9b9c P*8e 5d6c P*9d 9c9b 8e8d 6c7d 7c7b 7d7e) but lesson plays ☗５五歩(P*5e) after=-971	▲５五歩。銀がこの歩を取るなら、銀は角の利きに入ります。取らずに動く応手では別の局面になります。
+proverb-three-pawns#2.s1	LEARNER has mate 11 (4h6h 9a8b 6h6c+ 4e4f P*8d 4f4g+ 8d8c+ 8b9a P*9b 9a8a) but lesson plays ☗４六歩(4g4f) after=-2924	▲４六歩。歩は同じ４筋に残っているので、この時点でも４筋への歩打ちは二歩です。
+basics-plan#2.s2	[end] LEARNER to move has mate 9 (5i5e 9a9b 5e8e G*8c S*7b 8c8b R*9e 8b9c 8e8a+); text silent on 詰	△５五飛で金を取り返されました。ここで先手の飛車５九が同じ筋から取り返せるかを見ます。
+basics-plan#3.s2	LEARNER has mate 1 (G*8b) but lesson plays ☗４四飛(4i4d) after=mate -2	▲４四飛で金を取りました。駒得にはなりますが、後手に玉を動かす手番が渡ります。
+basics-plan#3.s3	[end] LEARNER to move has mate 1 (4d4a+); text silent on 詰	△８一玉と逃げました。先手が次に金を打っても、玉の周囲には逃げ道が残ります。
+basics-plan#3.s4	LEARNER has mate 1 (4d4a+) but lesson plays ☗９二金打(G*9b) after=mate -2	▲９二金打は王手ですが、後手玉はさらに逃げられます。駒を取れたことと勝ちが決まったことは別です。
+basics-mate-words#1.s2	LEARNER has mate 9 (R*3a 1a2b 3a3d+ 2b2a 3d3c 2a1b 3c2d 1b1a 2d2c) but lesson plays ☗１四飛(R*1d) after=mate -34	▲１四飛打で、１筋を通って後手玉に王手がかかります。王手は玉への攻撃なので、後手は次の自分の手でその利きをなくさなければなりません。
+basics-mate-words#3.s3	LEARNER has mate 1 (G*2b) but lesson plays ☗１二金打(G*1b) after=-2665	それでも▲１二金打と王手をかけると、△３一玉ともう一升逃げられます。最初の詰めろは受けで消え、同じ金打ちは王手でも詰みにはなりません。
+basics-mate-words#4.s1	LEARNER has mate 1 (7c8b) but lesson plays ☗８二飛不成(8c8b) after=mate -2	▲８二飛は王手ではありません。玉が８一へ動くと飛車に利かれ、８二の飛車を取る手は金７三に守られているため不合法です。９二も飛車が押さえます。この表示局面で後手の全合法手を調べると、△１四歩だけが残ります。
+basics-mate-words#4.s2	[end] LEARNER to move has mate 1 (G*8a); text silent on 詰	唯一の合法手△１四歩でも、９一玉の周囲と先手の持金は変わりません。次の▲９二金を防ぐ合法な受けがないため、この局面は必至です。相手に別の守備駒や持駒がある局面まで同じ結論にはしません。
+castles-anaguma#2.s1	LEARNER has mate 11 (2h2b+ 5a6a 9h9c+ 6a5a 9i9h 5a6a 9c8b 6a5a 8b7b 5a4a) but lesson plays ☗６八銀(5i6h) after=mate -20	▲６八銀で二枚の金と二枚の銀を守りへ使った。この盤は四枚囲いの発想を示す部分局面で、ビッグ４の代表配置そのものではない。代表的な左側の芯は玉９九・香９八・金８八と７八・銀８七と７七。名称だけで同じ形と扱わず、各駒の升を確認する。四枚を守りへ
+castles-anaguma#3.s1	LEARNER has mate 9 (7h7b+ 5a4a 1h1c+ 4a5a 1c2c 5a4a 2c3b 4a5a 3b4b) but lesson plays ☗２八銀(2i2h) after=mate -114	▲２八銀。銀２八は玉１九を斜め後ろに守り、金３九が銀２八を斜め前に支えます。これは振り飛車穴熊の右側の骨格です。相手の飛車が右へ移れば安全な場所は変わるので、囲いを作った後も攻め筋を見直します。
+tesuji-knight#1.s1	[end] OPP to move has mate 19 (3a3g+ 1i1h 9a9b 1h1i 9b8c 1i2i 8c7d 2i1h 7d6e 1h1i); text silent on 詰	▲４三桂不成。ここで成ると金の動きになり、３一の飛車へ跳べなくなります。後手が別の場所を動かした場合の続きも見ます。
+tesuji-knight#1.s2	OPP has mate 19 (3a3g+ 1i1h 9a9b 1h1i 9b8c 1i2i 8c7d 2i1h 7d6e 1h1i) but lesson plays ☖９二玉(9a9b) after=3263	△９二玉。この応手では飛車３一が残りました。桂は４三から３一へ跳べます。
+kakugawari-basics#0.v0.0	[end] LEARNER to move has mate 17 (B*7c 8b6b 2h2b+ 4c5b 2b3a 5b4a 6i6h 5a6a 3a4a 6a7b); text silent on 詰	銀７六で角を取り返す別案では、金６六が残ります。後手角４三は今度は銀６五を狙うため、銀が安全になったわけではありません。取り返しの選択は守りの配置と角打ちの両方を変えます。
+tesuji-rook#0.s2	[end] LEARNER to move has mate 5 (6h6c+ 9b8b G*8c 8b9a 6c6a); text silent on 詰	△９二玉で金６三が残りました。飛車と金の間にはもう駒がありません。
+tesuji-rook#1.s1	LEARNER has mate 7 (8d8c+ 6b9e 5h5b+ 9e7c 8c7c 9a8a 5b8b) but lesson plays ☗８八飛(5h8h) after=-3175	▲８八飛で歩８四の後ろへ回りました。８七・８六・８五が空いているため、飛車の利きが歩まで通ります。先手は歩を残す保証ではなく、取られたときの取り返しを用意しています。
+tesuji-rook#1.s2	[end] LEARNER to move has mate 9 (8h8d 9a9b B*7d 9b9a 8d8c+ P*1h 1i2h 1h1i+ 8c9b); text silent on 詰	△８四角で歩を取る応手です。角が８四へ来たので、飛車８八から同じ筋を上がって取れます。後手はこの交換を選ばず、角を動かすなど別の手も指せます。
+tesuji-rook#1.v0.0	LEARNER has mate 7 (8d8c+ 6b9e 5h5b+ 9e7c 8c7c 9a8a 5b8b) but lesson plays ☗６八飛(5h6h) after=-680	▲６八飛では８筋の支えにならず、△８四角に▲同飛とは取れません。飛車が近くへ動いたかではなく、実際の着地点まで縦横の線が通ったかを確かめます。
+tesuji-rook#2.s2	[end] LEARNER to move has mate 7 (B*7b 9b8b 7b8c+ 8b7a 4c7c 7a8a 7c8b); text silent on 詰	△９二玉。香５四は龍４三の斜め後ろ一マスに残っています。
+tesuji-rook#2.s3	LEARNER has mate 7 (B*7b 9b8b 7b8c+ 8b7a 4c7c 7a8a 7c8b) but lesson plays ☗５四龍(4c5d) after=mate -8	▲５四龍で香を取りました。成らない飛車は４三から５四へ動けません。香を動かす応手なら、この取りは成立しません。
+castles-first#0.s1	LEARNER has mate 17 (7h7b+ 5a4a 5i6h 4a3a 6h6g 3a2a 6g7f 2a3a 7b1b 3a4a) but lesson plays ☗４八玉(5i4h) after=mate -24	▲４八玉。玉は飛車から離れ、金３九が守る４八に入りました。振り飛車で美濃囲いや金無双を目指すときも、このように飛車と玉の役割を分けます。居飛車で飛車が右に残るなら、玉を左へ囲う構想が自然です。
+castles-first#3.s1	LEARNER has mate 11 (2h2c+ 5a6b 2c4c 6b6a 4c6c 6a7a 8h6f 7a8b 6f9c+ 8b9a) but lesson plays ☗７八玉(6h7h) after=mate -12	▲７八玉。７八は銀７九と金６九が守ります。舟囲いは少ない手で玉を中央から外せる一方、この盤では玉の上方に歩の壁がありません。相手の飛車がどの筋にいるかを見て、上部を補強する必要があります。
+castles-first#4.s1	LEARNER has mate 13 (7h7b+ 5a4a 7b2b 4a5a 2b3b 5a6a 3b4b 6a7a 4b5b 7a8a) but lesson plays ☗２八玉(3i2h) after=mate -48	▲２八玉。飛車から離れた玉を銀３八が隣で支え、金４九は銀３八を守ります。横から飛車が来ても、金４九や銀３八を一枚ずつ数えて受けを考えます。２七・３七の歩を失う前方の攻めには、同じ形のままで安全とは言えません。
+endgame-defense#2.s2	LEARNER has mate 5 (7g5e P*6d R*5b 9a8a G*8b) but lesson plays ☗５五角(7g5e) after=mate -6	△同飛に▲同角。後手が交換を選んだ場合、渡したのは歩一枚です。後手はこの取りを選ぶ義務はありません。
+endgame-defense#3.s1	[end] OPP to move has mate 11 (G*2f 7g7f 9a8b 7f7e 8b8c 7e7d 8c7d 1h1i 2f2g 1i2i); text silent on 詰	▲１八玉と早逃げします。まだ王手ではない間に、さらに１七へ上がれる場所を作りました。
+endgame-defense#3.s2	OPP has mate 11 (G*2f 7g7f 9a8b 7f7e 8b8c 7e7d 8c7d 1h1i 2f2g 1i2i) but lesson plays ☖２八金(G*2h) after=-2292	△２八金の王手には▲１七玉。金２八は斜め後ろの１七へ利かず、銀３七も１七を押さえていません。この順では△２八金の一手詰を防いでいます。
+basics-opening#1.s2	LEARNER has mate 9 (4d5c+ 9a8b 5c4b 8b8c 5i5c+ 8c7d S*7f 7d8d G*8e) but lesson plays ☗５三銀不成(4d5c) after=-4374	▲５三銀で金を取りました。金は先手の持駒に入りましたが、先手の銀は後手の銀の利きに進んでいます。
+basics-opening#1.s3	[end] LEARNER to move has mate 7 (5i8i S*8b G*7b 8b8c 8i8c+ 5c5d S*8b); text silent on 詰	△５三銀で先手の銀を取り返しました。５九の飛車から５三までの道は空いています。
+basics-opening#2.s3	[end] LEARNER to move has mate 11 (6g7f 9a8b R*6b 8b7c 6b5b+ 7c8d 5b8b 8d9d 6f7e 9d9e); text silent on 詰	△７六飛と飛車が進みました。先手は銀６七でこの飛車を取れます。
+basics-opening#2.s4	LEARNER has mate 11 (6g7f 9a8b R*6b 8b7c 6b5b+ 7c8d 5b8b 8d9d 6f7e 9d9e) but lesson plays ☗７六銀(6g7f) after=mate -12	▲７六銀で飛車を取りました。相手の大駒が筋へ入る前に、守る升とそこへ利かせる駒を確認しておけば、無理な侵入を咎められます。
+ureshino-counter#1.s2	LEARNER has mate 17 (7e7a+ 4a5b 7a8b 5b6c R*6a 6c5d 6a3a+ 5d6c 3a3e P*7b) but lesson plays ☗７八飛(7e7h) after=-1763	後手の△６四銀は７五飛を攻める。先手が▲７八飛と戻るなら飛車を渡さずに歩交換を終えられるが、後手銀が進んだ手得も残る。飛車の進出だけで優劣は決まらない。
+castles-funa#0.s1	LEARNER has mate 7 (2h2b+ 5a6a 8h5e 6a5a 5e7c+ 5a4a 7h6g) but lesson plays ☗５八金直(5i5h) after=mate -12	▲５八金。玉７八は銀７九と金６九に守られ、金６九は金５八を斜め前から支えます。これは舟囲いの基本的な配置です。短い手数で形ができますが、この盤には上部の歩がないため、実戦では攻めを始める前に相手の利きを調べます。 舟囲いを保って攻めるか、左
+castles-funa#1.s1	LEARNER has mate 7 (2h2b+ 4f4g+ 8h4d 4g5h 4d6b+ 5a4a 6b5b) but lesson plays ☗５七銀(6h5g) after=mate -12	▲５七銀。銀は歩４六を狙い、金５八が銀５七を守ります。一方、銀６八が押さえていた７七・６七への利きはなくなります。５七銀型で攻めを急ぐなら、その空いたマスを後手が使えるかを同時に確かめます。
+castles-funa#2.s1	LEARNER has mate 13 (5h4h 5a6b R*3c 6b7b 8h5e 7b6b 3c4c+ 6b7b 5e7c+ 7b8a) but lesson plays ☗６八金寄(5h6h) after=-938	▲６八金で箱入り娘型です。金６八は金６九と銀７九に守られ、飛車４八の筋は５八を通って６八で止まります。玉７八の隣に駒が増えた反面、玉が動ける６八の空きマスはなくなりました。固さだけでなく、王手を受けたときの逃げ道も比べます。
+castles-funa#3.s1	LEARNER has mate 13 (5i4h 5a5b R*3c 5b6b 8h5e 6b5b 3c7c+ 5b6a 5e3c+ 6a5b) but lesson plays ☗７九金(6i7i) after=-797	▲７九金でエルモ囲い型になります。金７九と金５九はいずれも銀６八を斜め前に守り、金７九は玉７八も支えます。飛車が銀６八を取る順は金で取り返せる形ですが、相手の別の利きや持ち駒が加われば再計算が必要です。
+proverb-gold-last#0.s1	LEARNER has mate 1 (7c8b+) but lesson plays ☗８二銀不成(7c8b) after=mate -2	▲８二銀の王手。後手玉は８二の銀を取れません。飛車が７二を通って８二を守っています。ここでは玉が９二へ逃げる順を見ます。
+proverb-gold-last#0.s2	[end] LEARNER to move has mate 1 (G*9c); text silent on 詰	△９二玉。銀８二は９一と８一を押さえていますが、横隣の９二には利きません。そこで持ち金を使います。
+proverb-gold-last#1.s1	LEARNER has mate 3 (8b7c+ 9b9c S*8e) but lesson plays ☗９三銀打(S*9c) after=mate -6	▲９三銀で王手。銀８二が９三の銀を守るため、玉は９三の銀を取れません。しかし新しい銀は横の８三を押さえません。
+endgame-mate5#2.s2	LEARNER has mate 1 (G*4e) but lesson plays ☗３四と(3c3d) after=mate -2	△４四玉には▲３四と。と金３三を一升引き、横から王手します。と金は金と同じ動きなので後ろにも一升動けます。後手の応手は△５五玉だけです。
+endgame-tsume-study#0.s1	LEARNER has mate 3 (6c7c+ 7a6a G*6b) but lesson plays ☗７三飛不成(6c7c) after=mate -8	▲７三飛不成は金を取って王手します。しかし飛車には斜めの利きがないため、後手は△８一玉・△８二玉・△６一玉・△６二玉と指せます。王手というだけでは玉の応手を一つに絞れません。
+tesuji-bishop#1.s2	[end] LEARNER to move has mate 3 (2h7c+ 9b8a R*9a); text silent on 詰	△９二玉。飛車は７三に残り、角と飛車の間に駒はありません。
+tesuji-bishop#3.s1	LEARNER has mate 3 (N*7d 9a8a 2h8b+) but lesson plays ☗８三桂(N*8c) after=-1176	８三桂は９一玉を王手する。８二歩で桂を取る手は角筋を開けて自玉の王手を残すため不合法。桂の着地点への見かけの利きと、実際に取れる手を区別する。
+basics-value#2.s1	LEARNER has mate 9 (B*7c R*8b R*7a 9a9b G*8c 9b8c G*8d 8c9b L*9c) but lesson plays ☗４三銀不成(4d4c) after=mate 9	▲４三銀不成で歩を取りました。取った歩は盤から消えたのではなく、先手の持駒へ移ります。次に盤上で銀がどうなるかも見てください。
+basics-value#2.s1	[end] OPP to move has mate 9 (R*7i 9i9h B*7f P*8g 7i7h+ L*8h 7f8g+ 9h9i L*9h); text silent on 詰	▲４三銀不成で歩を取りました。取った歩は盤から消えたのではなく、先手の持駒へ移ります。次に盤上で銀がどうなるかも見てください。
+basics-value#2.s2	OPP has mate 9 (R*7i 9i9h B*7f P*8g 7i7h+ L*8h 7f8g+ 9h9i L*9h) but lesson plays ☖４三金(3b4c) after=mate 9	△４三金で銀を取り返しました。先手の持駒には歩、後手の持駒には銀が加わります。盤上の駒だけを数えると、この交換結果を取り違えます。
+basics-value#2.s2	[end] LEARNER to move has mate 9 (B*7c R*8b N*8c 9a9b R*9a 9b8c G*8d 8c7b G*6b); text silent on 詰	△４三金で銀を取り返しました。先手の持駒には歩、後手の持駒には銀が加わります。盤上の駒だけを数えると、この交換結果を取り違えます。
+rules-fouls#3.s2	LEARNER has mate 1 (G*2b) but lesson plays ☗１三歩(P*1c) after=mate -2	盤上の歩で詰ませる例を見るため、歩を１三へ打ちます。王手ではないので、この打ち方は合法です。
+rules-fouls#3.s3	[end] LEARNER to move has mate 1 (1c1b+); text silent on 詰	後手は玉を動かせず、指せる手は９三の歩を進める手だけです。
+rules-fouls#5.s1	OPP has mate 61 (5a6b 9i8h 6b6c 8h7g 6c5d 7g6f B*3i 6f5f 3i2h+ 5f5g) but lesson plays ☖４一玉(5a4a) after=2086	玉は４一へ逃げました。ここから先も、盤面だけでなく持ち駒と手番まで同じ局面が四度目に現れるかを見ます。
+judgment-four-factors#1.s2	[end] LEARNER to move has mate 11 (S*4c 4a3a 5d5a+ 3a2b 5a6b 2b1c G*2e 1c2c 4c3d+ 2c1c); text silent on 詰	△４一玉と逃げられます。駒を取らずに王手で手番を使った結果です。先手の守りは変わらず、後手玉の場所と飛車の筋だけが変わりました。この情報から次の候補を読み直します。
+judgment-four-factors#2.s2	LEARNER has mate 59 (9i4d 3a4b 6i6h 4b4c G*4e 4c5b 4e5d 5b4b 4d5c+ 4b3c) but lesson plays ☗４四角(9i4d) after=-3415	後手が△３一玉と手を抜いた一例では、▲４四角で金を取れます。働きを増やした手と、実際に駒を得る手は別の手番です。
+judgment-four-factors#3.v0.0	LEARNER has mate 1 (G*2b) but lesson plays ☗５七角(6h5g) after=mate 1	▲５七角で飛車を取ると、△８八金で先手玉が詰みます。金は銀７七に守られ、８九と９八も金の利きです。得た飛車を打つ手番は来ません。
+kishu-pacman#0.s1	[end] OPP to move has mate 57 (4d3c+ 5a6b 3c2d 6b5c 5i6h 5c5d 2d4f 5d6e R*8e 6e7f); text silent on 詰	△２四飛は合法で、３四を通して角４四へ当たります。しかし、この局面では悪手です。飛車を角筋から外しただけでは、次の王手への対応まで済んだことにはなりません。
+kishu-pacman#0.s2	OPP has mate 57 (4d3c+ 5a6b 3c2d 6b5c 5i6h 5c5d 2d4f 5d6e R*8e 6e7f) but lesson plays ☗３三角成(4d3c+) after=-4358	▲３三角成は４二を通して玉５一へ王手し、反対側では飛車２四を狙います。後手飛車はこの王手を消せず、玉を動かす必要があります。角を追ったはずの一手が、王手飛車を許しました。
+castles-hidarimino#0.s1	LEARNER has mate 13 (5i4h 5a5b R*7c 5b6b 7c8c+ 6b5b 7g3c+ 5b6b 3c4c 6b5a) but lesson plays ☗５八金直(5i5h) after=-973	▲５八金。金６九が金５八を斜め前に守り、飛車４八の横筋は金５八で止まります。角７七が８八を空けているため玉はそのマスに収まれますが、角がいる７七や玉の上部が攻められたときの受けは別に調べます。
+castles-hidarimino#2.s1	LEARNER has mate 71 (7g3c+ 5a5b 8h7g 5b6c 6h6g 7e7f 8g7f 6c5d 6g5f 5d6c) but lesson plays ☗７八金上(7i7h) after=-4938	▲７八金で銀冠型の金銀をつなぎます。金７八は銀８七を斜め前に、角７七を真上に守り、金６八は金７八を横から支えます。銀８七が７六を押さえても、相手の歩や持ち駒が増えれば受け切れるとは限りません。銀冠穴熊や四枚美濃へさらに駒を使うなら、攻めに残
+endgame-tsumero#3.s1	LEARNER has mate 3 (8d7b+ 6c5d G*8a) but lesson plays ☗９二桂成(8d9b+) after=511	△９二歩を桂で取ると▲同桂成となりますが、△同玉で成桂を取られます。９二を守る先手駒がないためです。銀移動と歩打ちという二つの合法な受けで、予定した一手詰は消えました。必至と呼ぶには、これらを含む全応手に対する別の詰みまで示す必要があります
+attack-mino-kobin#0.s1	LEARNER has mate 7 (4i4c+ 3b2b S*3a 2b1b 4c3b 1b1c 3b2b) but lesson plays ☗４三飛不成(4i4c) after=-3318	▲４六香と据え、後手が△１四歩で端に空間を作った例です。▲４三香成は歩を取りながら玉へ王手し、△同銀なら▲同飛で銀を取って４筋へ進入します。角７六は飛車４三を斜めに支え、金５一はこの飛車を一手で取れません。後手は端歩以外の受けも選べるため、
+attack-mino-kobin#1.s1	[end] LEARNER to move has mate 7 (2d2c 1b2a 2c3b 2a1b 3b3a 1b1c G*2d); text silent on 詰	▲６六角の後、後手が△３一金で銀を支えた例では、▲３三角成で歩を取りながら王手します。銀３二が馬を取ろうと３三へ動けば、飛車７二から玉２二への横筋を開けるため取れません。玉２二も金２四が守る馬３三を取れません。△１二玉なら王手を外せます。馬
+basics-endgame#1.v0.0	LEARNER has mate 1 (5c4b) but lesson plays ☗４二飛不成(6b4b) after=mate -4	▲４二飛不成で王手した場合です。金５三が飛車を守るので取られませんが、５一と３一は飛車にも金にも利かされていません。
+basics-endgame#1.v0.1	[end] LEARNER to move has mate 1 (4b5b+); text silent on 詰	△５一玉と逃げられました。王手をかけても、逃げ先が残れば勝負は続きます。逃げた後の局面を読み直します。
+basics-endgame#2.s2	[end] OPP to move has mate 33 (1b1f 2i2h 9a8b 2h2g 1f7f 2g1g 8b7c 1g2g 7c8d 2g1g); text silent on 詰	▲２九玉と移りました。飛車の筋はまだ歩に止められていますが、歩が取られても玉はその筋から外れています。
+basics-endgame#2.s3	OPP has mate 33 (1b1f 2i2h 9a8b 2h2g 1f7f 2g1g 8b7c 1g2g 7c8d 2g1g) but lesson plays ☖１六飛(1b1f) after=mate -38	△１六飛で歩を取りました。先手玉は２九にいるため、飛車は王手になりません。攻めを続ける前に自玉の安全を作れば、相手の取りを強制手にさせずに済みます。
+rules-promotion#0.s2	LEARNER has mate 17 (2c4c+ 4a3a 5i6h 3a2b 6h6g 2b3a 6g5f 3a2b 5f4e 2b3a) but lesson plays ☗３三飛不成(2c3c) after=mate -20	次に飛車を２三から３三へ動かします。出発点も到着点も敵陣の中ですが、この移動でも成れます。成らないまま動かしたのは、次の機会を残すためです。
+rules-promotion#0.s3	LEARNER has mate 13 (3c5c+ 5a6a 5c4b 6a7a 5i6h 7a6a 6h6g 6a7a 4b5b 7a8a) but lesson plays ☗３四飛成(3c3d+) after=mate -18	飛車は３三から３四へ進み、敵陣の外へ出ます。敵陣にいた駒が外へ動く手でも成れるので、ここで龍にしました。
+bougin-vs-furibisha#1.s2	[end] LEARNER to move has mate 11 (5d5c+ 6d7d 7h6g P*6f 6g6f 7d6d 6f7e 5a6a B*8c 6a5a); text silent on 詰	▲同銀で金を取りましたが、後手は△６四飛と出て横から銀５四に当てます。先手がこの応手を見落とすと、得た金と引き換えに銀を失いかねません。駒得を数える時点は、相手の次の利きまで含めます。
+bougin-vs-furibisha#1.s3	LEARNER has mate 11 (5d5c+ 6d7d 7h6g P*6f 6g6f 7d6d 6f7e 5a6a B*8c 6a5a) but lesson plays ☗４五銀(5d4e) after=353	▲４五銀と引けば、先手は取った金を持ち、銀を盤上に残せます。これは後手が５四の歩を金で取ってから飛車を６四へ出した場合の結果です。他の応手でも同じ駒得が得られるとは限りません。
+bougin-vs-furibisha#2.s1	[end] LEARNER to move has mate 11 (5d5c+ 5a6a B*7c 6a7b 7c6b+ 7b8c R*8a 8c9c 6b7b 9c9b); text silent on 詰	▲５四歩で角頭へ近づいたところ、この例の後手は△６五歩と突きました。６四が空き、飛車６二はそこへ進めるようになります。歩６五はまだ自分の飛車の前にいるため、この瞬間に飛車が６八まで直通しているわけではありません。
+bougin-vs-furibisha#2.s2	LEARNER has mate 11 (5d5c+ 5a6a B*7c 6a7b 7c6b+ 7b8c R*8a 8c9c 6b7b 9c9b) but lesson plays ☗６八金(6i6h) after=-2110	先手は▲６八金と玉７八の隣へ金を上がり、後手は△６四飛と出ました。金６八は玉の近くに守りを増やしますが、後手の歩６五と飛車６四は残ります。次に歩が進めるか、角を引くかを見て、攻めの銀と玉の守りの優先順位を再評価します。
+bougin-vs-furibisha#2.s2	[end] LEARNER to move has mate 11 (5d5c+ 6d7d 7h6g 6e6f 6g5f 5a6a 2h2b+ 6a7a B*9c 7a6a); text silent on 詰	先手は▲６八金と玉７八の隣へ金を上がり、後手は△６四飛と出ました。金６八は玉の近くに守りを増やしますが、後手の歩６五と飛車６四は残ります。次に歩が進めるか、角を引くかを見て、攻めの銀と玉の守りの優先順位を再評価します。
+ishida-43#0.s3	LEARNER has mate 23 (3c1e 5i6i 1e2f P*8c 7b8c 8h7i 4b4i+ 6i7h 4i4h 7h6g) but lesson plays ☖３二飛(4b3b) after=-554	先手が▲２六飛と引いた後、後手は△３二飛と振り直しました。２筋の歩交換を受けてから移した形ですが、３三角が飛車の前をふさいでいます。次に角をどこへ移すかは先手の２筋の再攻撃を見て決めます。
+ishida-43#2.s2	[end] LEARNER to move has mate 11 (2b7g+ 5i5h 3f2f P*8c 8b8c 5h4h 2f2g+ 2e2d R*1h 4h3i); text silent on 詰	△同飛で歩を取ると、先手は▲２六飛と浮いて３六の飛車に横から当てました。後手が３六に飛車を置き続ける必要はありません。進んだ飛車の退路３五・３四が空いているか確認します。
+ishida-43#2.s3	LEARNER has mate 11 (2b7g+ 5i5h 3f2f P*8c 8b8c 5h4h 2f2g+ 2e2d R*1h 4h3i) but lesson plays ☖３四飛(3f3d) after=-2010	△３四飛と戻し、飛車を盤上に残しました。双方が一歩ずつ持ち、先手飛車も２六で働いています。歩交換だけを成功と決めず、次の２筋の進行と双方の玉を見直します。
+yokofu-basics#1.s1	LEARNER has mate 11 (8h3c+ 5a5b 2d2c+ 5b6c 3c5e 6c7d G*7f 7d8d 5e6f 8d9e) but lesson plays ☗２六飛(2d2f) after=-2977	ここでは横歩を見送り、飛車を２六へ引く。後手が金を３二へ戻す手は一例で、この瞬間に飛車を渡す危険を避けたことが要点だ。
+yokofu-basics#1.v0.0	LEARNER has mate 11 (8h3c+ 5a5b 2d2c+ 5b6c 3c5e 6c7d G*7f 7d8d 5e6f 8d9e) but lesson plays ☗３四飛(2d3d) after=580	すぐ３四の歩を飛車で取ると、３三金が同金と飛車を取る。局面にある守り駒を無視した横歩取りは成立しない。
+yokofu-basics#3.s2	[end] LEARNER to move has mate 37 (2d4d 4b5b 4d4e 5b5c 5i4h 5c6d 4h4g 6d7c 4g3f 7c8d); text silent on 詰	飛車を２四へ戻すと角の斜めから外れる。後手玉の４二への移動は一例で、先手は次に２筋へ引けるかを確認する。
+yokofu-basics#3.s3	LEARNER has mate 37 (2d4d 4b5b 4d4e 5b5c 5i4h 5c6d 4h4g 6d7c 4g3f 7c8d) but lesson plays ☗２六飛(2d2f) after=-187	飛車は２六まで戻った。横歩を取る前には、取った後に生じる角打ちと飛車の退路まで一緒に読む。
+kishu-sujichigai#1.s2	LEARNER has mate 13 (5c5d 5i5h 5b6b 5h5g B*6h 5g5h 6h3e+ 5h4h 6b6h+ 4h4g) but lesson plays ☖５四歩(5c5d) after=mate -16	▲５四角には△同歩で角を取れます。５三歩は後手にとって前方の５四へ進み、飛車も５筋に控えています。これは先手が悪い逃げ先を選んだ条件付きの結果です。
+kishu-sujichigai#2.s1	LEARNER has mate 13 (8c8h+ 4e2c+ B*7g 5i4i 7g6f+ 2c2d 5a6a 2d1e 6f5g 1e5i) but lesson plays ☖６二金(5b6b) after=-2526	△６二金は７二を横から守ります。飛車を直接動かさなくても、角が成る地点に取り返しを用意できる配置です。
+yagura-build#0.s2	[end] LEARNER to move has mate 17 (2h2b+ 4d4b 5g2d 5a5b 2d4b+ 4a4b R*8b B*6b B*3c 5b6c); text silent on 詰	▲７九角から▲５七角へ移る間に、後手は３筋の歩を進めて飛車を４四へ出しました。角５七は８八と７九を空けます。銀７七と金７八は動かさずに、次は金５八を６七へ上げられます。
+yagura-build#0.s3	LEARNER has mate 17 (2h2b+ 4d4b 5g2d 5a5b 2d4b+ 4a4b R*8b B*6b B*3c 5b6c) but lesson plays ☗６七金右(5h6g) after=-1322	▲６七金で金銀の外枠をつくり、玉は▲７九玉から▲８八玉へ進みました。途中の後手の角・金の移動も盤上で確認します。終点で玉８八、金７八・６七、銀７七がそろい、この局面で初めて矢倉の芯が完成します。飛車４四や歩４五の影響は引き続き読む必要があり
+yagura-build#1.s1	[end] LEARNER to move has mate 9 (9g5c+ 5a6a 5c4b 6a7b 2h2c+ 7b8b R*5b 8b7a 2c2a); text silent on 詰	▲９七角で８八を空け、後手は△４五歩を選びました。角９七が安全かどうかは敵の飛車・歩の配置次第ですが、この局面の飛車４二と歩４五は角９七を直接取れません。
+yagura-build#1.s2	LEARNER has mate 9 (9g5c+ 5a6a 5c4b 6a7b 2h2c+ 7b8b R*5b 8b7a 2c2a) but lesson plays ☗８八玉(7i8h) after=-3691	▲８八玉で金７八・６七、銀７七と玉がつながり、後手の△４四飛を見て角は▲８六角へ移りました。玉の通路を確保するための角移動でも、終点の角筋は局面ごとに読みます。この別経路は９七が空いている場合だけ使えます。
+yagura-build#1.s2	LEARNER has mate 9 (9g5c+ 4d8d 8h7i 5a6a 2h2b+ 8d8h+ 7i8h 6a5a 2b5b) but lesson plays ☗８六角(9g8f) after=-4735	▲８八玉で金７八・６七、銀７七と玉がつながり、後手の△４四飛を見て角は▲８六角へ移りました。玉の通路を確保するための角移動でも、終点の角筋は局面ごとに読みます。この別経路は９七が空いている場合だけ使えます。
+basics-attack-defense#1.s3	[end] LEARNER to move has mate 7 (7g7c+ P*1h 1i1h 9a9b B*6d 9b8a 7c8b); text silent on 詰	△７三角と歩を取るなら、角が飛車の縦の利きへ進みます。遮断の手は相手が応じた後まで読んで評価します。
+basics-attack-defense#1.s4	LEARNER has mate 7 (7g7c+ P*1h 1i1h 9a9b B*6d 9b8a 7c8b) but lesson plays ☗７三飛不成(7g7c) after=mate -10	▲７三飛で角を取り返せます。先手は歩を渡して角を得るため、この局面では歩打ちが銀を守るだけでなく、交換の利益も作っています。
+tesuji-lance#0.s1	LEARNER has mate 15 (7e7b+ 9a9b 7b6b 9b8c S*8e 8c7c B*5c 7c8b 5c6d+ 8b8c) but lesson plays ☗７二香成(7e7b+) after=-2601	▲７二香成で角を取りました。香のままなら６二へは行けませんが、成香は横へ一マス進めます。ここでは後手玉が９二へ移る応手を見ます。
+tesuji-lance#0.s2	[end] LEARNER to move has mate 11 (7b6b 9b8c S*8e 8c7c B*5c 7c8c 5c6d+ 8c9c 6b7b 9c8c); text silent on 詰	△９二玉。６二の銀はそのままです。成香の次の着地点を確認します。
+tesuji-lance#0.s3	LEARNER has mate 11 (7b6b 9b8c S*8e 8c7c B*5c 7c8c 5c6d+ 8c9c 6b7b 9c8c) but lesson plays ☗６二成香(7b6b) after=mate -12	▲６二成香で銀を取りました。この順は後手が玉を動かした場合の一例です。成る前後で同じ駒の利きが変わることを、続く一手まで読んで確かめます。
+gokigen-castles#0.s1	LEARNER has mate 39 (7g3c+ 8b4b 5h7h 4c5b 7h7a+ 5b6a 7a7c 6a5b 7c7b 8d8e) but lesson plays ☗３八銀(3i3h) after=-4391	▲３八銀で片美濃の右側を作りました。銀は２七・３七・４七を、４九金は３八銀を守ります。後手は△８五歩と飛車先を伸ばしたので、囲いを増築する前に８六の接触も見ます。
+gokigen-castles#1.s1	[end] LEARNER to move has mate 17 (7g3c+ 4c5b 5f2f 5b5c 2f2a+ 4a5b 2a3b 5c4b 3b4b 5b6c); text silent on 詰	▲４七金に△４五歩と応じた例です。後手歩はまだ金を取れず、次に４六へ進む可能性があります。先手は４七金が４六を守ることと、後手４三銀の利きが４六へ届かないことを盤面で確認します。
+gokigen-castles#1.s2	LEARNER has mate 17 (7g3c+ 4c5b 5f2f 5b5c 2f2a+ 4a5b 2a3b 5c4b 3b4b 5b6c) but lesson plays ☗３六歩(3g3f) after=-4101	▲３六歩と一手待つ例では、後手が△４六歩と踏み込むと▲同金で歩を取れます。ただし金は４六まで出たため、今度はそこへの後手の新たな利きを読み直します。高い金は受けと活動の交換です。
+gokigen-castles#1.s2	LEARNER has mate 13 (7g3c+ 8b5b 5f4f 5b2b 3c2b 4a5b 4f6f 4c5d R*3b 5b5c) but lesson plays ☗４六金(4g4f) after=-4465	▲３六歩と一手待つ例では、後手が△４六歩と踏み込むと▲同金で歩を取れます。ただし金は４六まで出たため、今度はそこへの後手の新たな利きを読み直します。高い金は受けと活動の交換です。
+gokigen-castles#2.s1	LEARNER has mate 23 (7g4d 8b5b 4d5c+ 5b2b 2h3g 2b3b 3g2f 3b8b 5c4c 8b2b) but lesson plays ☗１九玉(2h1i) after=-3880	▲１九玉のあと、後手は△８五歩と進めました。玉は隅に入っても、３八銀は玉に隣接していません。先手は銀を３七から２八へ運ぶ時間と、後手の８六歩への備えを比較します。
+gokigen-castles#2.s1	[end] LEARNER to move has mate 15 (7g4d 8b5b 5f5b+ 4a5b R*5c 5b6b 5c8c+ 6b5a 4d5c+ R*7a); text silent on 詰	▲１九玉のあと、後手は△８五歩と進めました。玉は隅に入っても、３八銀は玉に隣接していません。先手は銀を３七から２八へ運ぶ時間と、後手の８六歩への備えを比較します。
+gokigen-castles#2.s2	LEARNER has mate 15 (7g4d 8b5b 5f5b+ 4a5b R*5c 5b6b 5c8c+ 6b5a 4d5c+ R*7a) but lesson plays ☗３七銀(3h3g) after=-3603	▲３七銀と一度上がる必要があります。後手が△３二玉と使う例なら、次に銀を２八へ引けます。銀の経由地が攻められていないかも確かめます。
+gokigen-castles#2.s2	[end] LEARNER to move has mate 11 (7g4d 8e8f 5f5c+ 8f8g+ 4d3c+ 3b3a P*4b 8b8a 5c4c P*3b); text silent on 詰	▲３七銀と一度上がる必要があります。後手が△３二玉と使う例なら、次に銀を２八へ引けます。銀の経由地が攻められていないかも確かめます。
+gokigen-castles#2.s3	LEARNER has mate 11 (7g4d 8e8f 5f5c+ 8f8g+ 4d3c+ 3b3a P*4b 8b8a 5c4c P*3b) but lesson plays ☗２八銀(3g2h) after=-3355	後手が△８四飛と飛車を浮かせる例なら、▲２八銀、▲３八金と続けられます。玉１九・香１八・銀２八・金３八は穴熊の骨格ですが、後手が代わりに８筋の歩を急げばこの三手を待ってくれるとは限りません。
+gokigen-castles#2.s3	LEARNER has mate 13 (5f5c+ 3b4a 5c4c 4a3a 7g4d 8d4d 4c4d B*5a 4d4c 3a2b) but lesson plays ☗３八金(4i3h) after=-2865	後手が△８四飛と飛車を浮かせる例なら、▲２八銀、▲３八金と続けられます。玉１九・香１八・銀２八・金３八は穴熊の骨格ですが、後手が代わりに８筋の歩を急げばこの三手を待ってくれるとは限りません。
+gokigen-castles#2.v0.0	LEARNER has mate 15 (7g4d 8b5b 5f5b+ 4a5b R*5c 5b6b 5c8c+ 6b5a 4d5c+ R*7a) but lesson plays ☗３七銀(3h3g) after=-3603	▲３七銀に対して後手が△８六歩と急ぐ枝です。先手８七歩が取られそうになり、銀を２八へ運ぶ前に８筋の取り手を調べる必要があります。３七銀が直ちに失敗という意味ではありません。
+gokigen-castles#2.v0.0	[end] LEARNER to move has mate 21 (7g4d 8b3b 5f5c+ 8f8g+ 4d3c+ 3b3c 5c3c 4a5a 3c5c P*5b); text silent on 詰	▲３七銀に対して後手が△８六歩と急ぐ枝です。先手８七歩が取られそうになり、銀を２八へ運ぶ前に８筋の取り手を調べる必要があります。３七銀が直ちに失敗という意味ではありません。
+endgame-mate-tesuji#2.v1.0	LEARNER has mate 1 (7d6c) but lesson plays ☗６一飛成(2a6a+) after=-3098	▲６一飛成は△７二玉なら詰みですが、△６二玉に対しては王手止まりで、△５三玉と逃げられます。片方の逃げ先にしか効かない手より、両方に通じる▲６三銀成を選びます。
+basics-forks#0.s2	[end] OPP to move has mate 19 (3c3h+ 9h8g 3h4g 8g7f 4g4e 7f6f 4e4g 6f7e 9a8b 7e6e); text silent on 詰	▲４五桂で飛車３三と金５三を同時に狙いました。次は後手がどちらを逃がすか、その後に残る駒が守られているかを見ます。
+basics-forks#0.s3	OPP has mate 19 (3c3h+ 9h8g 3h4g 8g7f 4g4e 7f6f 4e4g 6f7e 9a8b 7e6e) but lesson plays ☖３四飛(3c3d) after=-790	△３四飛とすれば飛車は桂の利きから外れます。３三の飛車は横から金５三を守っていましたが、３四では金と同じ段にも筋にもいないため、その守りが外れます。金５三はまだ桂に狙われており、取る手が残っています。
+basics-forks#0.v0.0	OPP has mate 19 (3c3h+ 9h8g 3h4g 8g7f 4g4e 7f6f 4e4g 6f7e 9a8b 7e6e) but lesson plays ☖４三飛(3c4c) after=-762	△４三飛など三段目を横へ逃げる手なら、飛車は金５三の守りを続けます。▲５三桂成には△同飛と取り返され、桂と金の交換で終わります。逃げた駒が残った駒をまだ守っているかを必ず確かめましょう。
+basics-forks#1.s2	[end] OPP to move has mate 19 (3c3h+ 9h8g 3h4g 8g7f 4g4e 7f6f 4e4g 6f7e 9a8b 7e6e); text silent on 詰	▲４五桂で二枚を狙いました。後手は逃げるだけでなく、先手に先に応じさせる手を探せます。
+basics-forks#1.s3	OPP has mate 19 (3c3h+ 9h8g 3h4g 8g7f 4g4e 7f6f 4e4g 6f7e 9a8b 7e6e) but lesson plays ☖３八飛不成(3c3h) after=-3264	△３八飛は９八の先手玉へ王手です。飛車は桂の狙いから外れ、先手は金を取る前に王手へ応じなければなりません。
+basics-forks#1.s4	[end] OPP to move has mate 19 (5c6d 8i7i 9a8b 7i6i 8b7c 6i5i 7c7d 5i4i 3h7h+ 4i3i); text silent on 詰	▲８九玉と逃げました。王手が解けた後も、桂が金５三を取れるかを改めて見ます。
+basics-forks#1.s5	OPP has mate 19 (5c6d 8i7i 9a8b 7i6i 8b7c 6i5i 7c7d 5i4i 3h7h+ 4i3i) but lesson plays ☖５二金(5c5b) after=mate -34	△５二金と金も逃げれば、桂は飛車にも金にも届きません。王手で一手を奪う応手まで読んで初めて、両取りが実際に得を生むか判断できます。
+basics-forks#2.s2	[end] OPP to move has mate 9 (3c3i+ 1i1h 4e4d 1h2g 4d3e 2g1f 3i2h 1f1e 2h2e); text silent on 詰	▲４四銀で飛車３三と桂５三に利きが通りました。続けて、４五の金から銀を取る手がないか確認します。
+basics-forks#2.s3	OPP has mate 9 (3c3i+ 1i1h 4e4d 1h2g 4d3e 2g1f 3i2h 1f1e 2h2e) but lesson plays ☖４四金(4e4d) after=mate -10	△４四金と銀を取れます。銀が盤上からなくなるため、飛車と桂への狙いも消えました。二つを攻める手でも、攻め駒の着地点が相手の利きに入っていれば成功しません。
+ishida-basics#3.v0.0	LEARNER has mate 11 (8f8d 5a4b 8d8b+ 4b4c 8b2b 4d4e R*6d 4e4f 5h2e 4c5c) but lesson plays ☗７六飛(8f7f) after=-1367	後手が交換を避けて△８四飛と浮けば、先手も▲７六飛と引けます。先手は歩を取りましたが、後手飛車は８四から７四や８六をうかがえる位置です。後手の応手で結論は変わります。
+taifuri-anaguma#2.s1	LEARNER has mate 13 (6f9c+ 8b8a 2h6h 7b7a P*8d 4b8b 6h6c+ 7a6b 9c8b 8a8b) but lesson plays ☗５八金(4i5h) after=-2473	この本筋では右金を５八へ寄せた。５八金は５七銀と６七・６八の周辺を支える一方、後手にも端歩の一手を与えた。追加の守りが必要かどうかは、後手の攻めが始まる速さで決まる。
+taifuri-anaguma#2.v0.0	LEARNER has mate 13 (6f9c+ 8b8a 2h6h 7b7a P*8d 4b8b 6h6c+ 7a6b 9c8b 8a8b) but lesson plays ☗２五歩(2f2e) after=-2408	先に２筋を動かす別案。後手が２四で歩を取り、先手飛車が取り返した後、後手が２三歩を打つと飛車は２八へ戻れる。先手は歩を持つが、飛車は敵陣に残らず、穴熊の右金も４九のまま。
+rules-checkmate#0.s1	LEARNER has mate 15 (8h8b+ 5a4a 9i8h 4a5a 8h7g 5a4a 7g6f 4a5a 6f5e 5a4a) but lesson plays ☗５八飛(8h5h) after=-2613	飛車を５八へ移しました。５筋が玉までまっすぐ通り、次の手で玉を取れる配置になりました。これが王手です。
+rules-checkmate#0.s2	[end] LEARNER to move has mate 83 (9i9h 4a4b 9h8g 4b4c 5h5a+ 4c4d 5a5g 4d3e 5g6f 3e4e); text silent on 詰	後手玉は４一へ移って、飛車の筋から外れました。王手への応手は、指し終わった局面で玉への攻めがなくなっている必要があります。
+rules-checkmate#1.v0.0	LEARNER has mate 1 (4c5b) but lesson plays ☗４二金(4c4b) after=mate -54	金を４二へ進めても王手になりますが、これは詰みではありません。王の逃げ道が残っているか、次の手で確かめましょう。
+castles-nakazumai#2.s1	LEARNER has mate 9 (8h4d 5a4a 2h2c+ 4a5b 2c5c 5b4a 4d3c+ 4a3a 5c5a) but lesson plays ☗６八玉(6i6h) after=mate -12	▲６八玉でいちご囲い型に入りました。金７八・５八が玉６八を横から守ります。玉を支える駒が二枚あっても、上部の歩がないこの盤では前からの攻めに注意が必要です。
+castles-nakazumai#3.s1	OPP has mate 1 (5c5g+) but lesson plays ☖５七飛不成(5c5g) after=-3150	△５七飛と歩を取って王手。５四・５五・５六が空いているため飛車は５七まで進めます。角９三が飛車５七を守るので、玉は飛車を取れません。
+shiken-tateishi#2.s1	LEARNER has mate 17 (8h5e 6b7c 7e9e 7b2b 5e2b+ 8b7b 2b5e 7b6c R*2c 6c5b) but lesson plays ☗７二飛成(7e7b+) after=-1612	▲７二飛成に△同金で双方が飛車を持ちました。後手金は７二へ動き、先手６九金はそのままです。ここから飛車をどこへ打てるかは、交換前の飛車の働きとは別に確認します。
+shiken-tateishi#2.s1	[end] LEARNER to move has mate 11 (8h5e 7b7c R*9b 8b8a 5e7c+ R*2d 2h3i 2d2h+ 7c2h 7a8b); text silent on 詰	▲７二飛成に△同金で双方が飛車を持ちました。後手金は７二へ動き、先手６九金はそのままです。ここから飛車をどこへ打てるかは、交換前の飛車の働きとは別に確認します。
+shiken-tateishi#2.s2	LEARNER has mate 11 (8h5e 7b7c R*9b 8b8a 5e7c+ R*2d 2h3i 2d2h+ 7c2h 7a8b) but lesson plays ☗５八金左(6i5h) after=-1687	▲５八金と寄せて６九を空けた例では、後手に△６九飛の打ち場所ができます。この飛車は５九を通って４九金に横から利き、９九香へも７九・８九を通って届きます。後手が必ず打つわけではありませんが、交換を有利と決める前に数えるべき筋です。
+shiken-tateishi#2.s2	[end] LEARNER to move has mate 7 (8h5e 7b7c R*9b 8b8a 5e7c+ 6i4i+ G*9a); text silent on 詰	▲５八金と寄せて６九を空けた例では、後手に△６九飛の打ち場所ができます。この飛車は５九を通って４九金に横から利き、９九香へも７九・８九を通って届きます。後手が必ず打つわけではありませんが、交換を有利と決める前に数えるべき筋です。
+shiken-tateishi#2.v0.0	LEARNER has mate 11 (8h5e 7b7c R*9b 8b8a 5e7c+ R*2d 2h3i 2d2h+ 7c2h 7a8b) but lesson plays ☗６八金(6i6h) after=-1518	先手が▲６八金と真上へ上がった枝では、後手が同じ△６九飛を打つと▲同金で取れます。６九が空いたという条件だけで飛車打ちの成否は決まらず、隣の金が取り返せるかも必要です。
+shiken-tateishi#2.v0.0	LEARNER has mate 7 (8h5e 7b7c R*9b 8b8a 5e7c+ 6i6h+ G*9a) but lesson plays ☗６九金(6h6i) after=mate -12	先手が▲６八金と真上へ上がった枝では、後手が同じ△６九飛を打つと▲同金で取れます。６九が空いたという条件だけで飛車打ちの成否は決まらず、隣の金が取り返せるかも必要です。
+taifuri-millennium#2.v0.0	LEARNER has mate 7 (5g9c+ 8b8a 2h2b+ 6a5b R*9a 8a9a 9c9b) but lesson plays ☗２二飛成(2h2b+) after=mate -10	角が５七へ戻った後、後手飛車が４二から２二へ寄る応手では、先手飛車が２二の飛車を取れる。３二と２三が空き、先手２筋にも遮る駒がない、この盤だけの取り返し。
+tesuji-gold#1.s1	[end] OPP to move has mate 17 (3c3i+ 1i1h 3i4h 1h2g 4h4d 2g3f G*3e 3f3g 4d4f 3g2h); text silent on 詰	▲４四金。金は３三と５三へ動けます。飛車が残れば飛車を、桂が残れば桂を狙う配置です。
+tesuji-gold#1.s2	OPP has mate 17 (3c3i+ 1i1h 3i4h 1h2g 4h4d 2g3f G*3e 3f3g 4d4f 3g2h) but lesson plays ☖３一飛(3c3a) after=-862	△３一飛で飛車が離れました。桂５三は金４四の斜め前に残っています。
+attack-funa#1.s1	LEARNER has mate 9 (4h4c+ 3b2a 4c4a 2a1b 4a5b 3a3b 5b3b 1b1a 3b2a) but lesson plays ☗４三角成(7f4c+) after=mate -10	▲４三角成に△同金を選んだ場合、▲同飛成で金を取り、龍の斜めの利きで王手を続けます。龍４三は銀３四に守られるため、玉３二は龍を取れません。先手は角を渡して金と歩を得た例です。銀の支えがなければ玉の取り返しが残るので、最後の龍の安全まで読みま
+attack-funa#1.v0.0	LEARNER has mate 9 (4h4c+ 3b2a 4c4a 2a1b 4a5b 3a3b 5b3b 1b1a 3b2a) but lesson plays ☗２五銀(3d2e) after=-1574	先手が先に▲２五銀と支えを外し、後手が△１一角と応じた例です。同じ角と金の交換を始めると、▲同飛成の王手にも△同玉と龍を取られます。先手は角と飛車を渡して金と歩を得る収支となります。支えを失った後に、前の交換結果をそのまま当てはめられません
+aifuri-vs-ishida#2.s1	LEARNER has mate 19 (B*4i 3h3g 4i7f+ B*2e R*2i 2e3f 2i3i+ 3g2f 3i2h 3f2g) but lesson plays ☖４二飛(4d4b) after=-256	△４二飛で４四の飛車を角筋から外しました。先手が▲５五角を選ぶと、角は６四を通って７三金を狙いますが、飛車には当たりません。先手の角打ちは任意の例です。
+tesuji-pawn#3.s2	[end] LEARNER to move has mate 5 (3g7c+ P*8b R*8h 9a9b 8h8b+); text silent on 詰	△６五銀で歩を取られました。角から４六、５五、６四、７三へ続く斜めの道にはもう銀がいません。
+attack-yagura-side#0.s1	LEARNER has mate 15 (7f4c+ 8a9a 9i8h 9a3a G*2a 2b2c 2a3a N*9f 8h9g 3c2d) but lesson plays ☗４三飛成(7c4c+) after=-2973	▲４三桂成で金を取り、後手が△同金と取る一例では、▲同飛成で二枚目の金を取ります。桂を渡して金二枚を得て、龍４三が残ります。銀３三は横の４三へ動けません。△同金は強制ではないので、別の受けでは収支を読み直します。
+attack-yagura-side#0.v0.0	[end] OPP to move has mate 3 (R*8i 9i9h 8a8h+); text silent on 詰	飛車から先に▲４三飛成△同金▲同桂成と取ると、同じ金二枚に対して渡すのは飛車になります。成桂４三は角７六に守られますが、桂から始める順より高価な駒を失います。最初にどの駒を使うかまで交換の計算に含めます。

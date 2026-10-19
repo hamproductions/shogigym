@@ -9,6 +9,8 @@ import { applyUsi, moveText, pvText, type Side } from '@/utils/shogi'
 import { EngineName } from '@/app/EngineSettings'
 import type { BookMove } from '@/utils/book'
 import { sideMark, toSente } from '@/utils/notation'
+import { FlipMarks } from '@/app/ui/SideMark'
+import { useSession } from '@/app/hooks/session'
 import { lossClass, winLoss } from '@/utils/score'
 import { Button } from '@/app/ui/Button'
 import { Pill } from '@/app/ui/Pill'
@@ -133,6 +135,7 @@ export function EngineResultPane({
   isBook?: (move: string) => boolean
 }) {
   const { t } = useTranslation()
+  const { flipped } = useSession()
   const [lineOpen, setLineOpen] = useState(false)
   const [best, ...others] = analysis.candidates
   const bestRate = scoreWinRate(best.score)
@@ -153,7 +156,7 @@ export function EngineResultPane({
           title={standing(senteRate)}
           aria-label={t('engine.winChanceAgainst', { value: Math.round(senteRate * 100), value2: Math.round((1 - senteRate) * 100) })}
         >
-          {sideMark(senteRate >= 0.5 ? 'sente' : 'gote')} {Math.round(Math.max(senteRate, 1 - senteRate) * 100)}%
+          <FlipMarks flipped={flipped}>{sideMark(senteRate >= 0.5 ? 'sente' : 'gote')}</FlipMarks> {Math.round(Math.max(senteRate, 1 - senteRate) * 100)}%
         </styled.span>
         <Box
           h="8px"
@@ -178,7 +181,9 @@ export function EngineResultPane({
       </div>
 
       <Box py="3" className={choice}>
-        <span className={muted}>{t('engine.bestMoveFor', { side: sideMark(toMove) })}</span>
+        <span className={muted}>
+          <FlipMarks flipped={flipped}>{t('engine.bestMoveFor', { side: sideMark(toMove) })}</FlipMarks>
+        </span>
         <div className={choiceRow}>
           <styled.strong fontSize="2xl" lineHeight="tight" _narrow={{ fontSize: 'lg' }}>
             {formatMove(best.move)}

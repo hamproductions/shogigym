@@ -6,6 +6,7 @@ import { LABELS, type MoveReview } from '@/utils/analysis'
 import type { RatingProgress } from '@/app/hooks/useAutoRate'
 import { loadMistakes, saveMistakes } from '@/utils/mistakes'
 import { moveText } from '@/utils/shogi'
+import { FlipMarks } from '@/app/ui/SideMark'
 import { isBad } from '@/utils/mistake'
 import { cachedReview } from '@/app/memory'
 import type { Color } from 'tsshogi'
@@ -15,6 +16,7 @@ import { detectTesuji } from '@/app/tesuji'
 import { countMoves, isMainLine, nodeAt, type Tree } from '@/app/tree'
 import { Button } from '@/app/ui/Button'
 import { useSettings } from '@/appearance/settings'
+import { useSession } from '@/app/hooks/session'
 import { moveButton, moveLabel, moveNotation, moveRow, moves as movesList, muted } from './panels.styles'
 
 const tesujiTag = css({
@@ -105,6 +107,7 @@ export function MovesPane({
 }: MovesPaneProps) {
   const { t, i18n } = useTranslation()
   const { showTesuji } = useSettings()
+  const { flipped } = useSession()
   const listRef = useRef<HTMLOListElement>(null)
   const tesujis = useMemo(() => moves.map((usi, i) => (sfens[i] ? detectTesuji(sfens[i], usi) : null)), [moves, sfens])
   const detectedTags = useMemo(() => formationMoveTags(sfens, moves, detectionPreset, detectionResult).flat(), [moves, sfens, detectionResult, detectionPreset])
@@ -149,7 +152,9 @@ export function MovesPane({
     return (
       <div key={i} data-in-var={tree && !isMainLine(tree, moves.slice(0, i + 1)) ? '' : undefined}>
         <button className={moveButton} aria-current={cursor === i + 1 ? 'step' : undefined} onClick={() => setCursor(i + 1)}>
-          <span className={moveNotation}>{moveText(sfens[i], usi, moves[i - 1])}</span>
+          <span className={moveNotation}>
+            <FlipMarks flipped={flipped}>{moveText(sfens[i], usi, moves[i - 1])}</FlipMarks>
+          </span>
           {tesuji && (
             <span
               className={tesujiTag}
@@ -179,7 +184,7 @@ export function MovesPane({
             {siblings.map((c) => (
               <styled.span key={c.usi} display="inline-flex" borderRadius="md" bg="surface.2" overflow="hidden">
                 <button className={variationButton} onClick={() => onSwitch?.([...moves.slice(0, i), c.usi])} title={t('moves.switchToThisLine')}>
-                  {moveText(sfens[i], c.usi, moves[i - 1])}
+                  <FlipMarks flipped={flipped}>{moveText(sfens[i], c.usi, moves[i - 1])}</FlipMarks>
                   {c.children.length > 0 && (
                     <styled.small fontFamily="sans" color="fg.muted">
                       {' '}
