@@ -1,0 +1,1406 @@
+rules-game#0.s1	MATE-UNSAID	position is checkmate but text does not say 詰
+rules-moves#0.s2	JA-EN-SQ	ja-only - en-only 75
+rules-moves#0.s3	JA-EN-SQ	ja-only - en-only 35
+rules-moves#1.s1	JA-EN-SQ	ja-only 73 en-only -
+rules-drops#3.s2	JA-EN-SQ	ja-only 11,91,12,92 en-only -
+rules-drops#3.s3	JA-EN-SQ	ja-only 47 en-only -
+rules-checkmate#1.v0.0	MATE-CLAIM?	text suggests mate; position in check with escapes
+rules-checkmate#1.v0.1	MATE-CLAIM?	text suggests mate; position not in check
+rules-draws#1.v0.0	JA-EN-SQ	ja-only 44,68 en-only -
+rules-draws#3.v0.0	NO-FUNARI	▲３三角 could promote; formal notation needs 不成
+rules-draws#3.v0.0	NO-FUNARI	▲４四角 could promote; formal notation needs 不成
+rules-draws#3.v0.0	JA-EN-SQ	ja-only 33,44 en-only -
+rules-tsume#0.s1	JA-EN-SQ	ja-only 42,51 en-only -
+rules-tsume#0.s2	MATE-CLAIM?	text suggests mate; position not in check
+rules-tsume#0.s2	JA-EN-SQ	ja-only 42 en-only -
+rules-tsume#1.s0	JA-EN-SQ	ja-only 11,22 en-only -
+rules-tsume#1.s1	JA-EN-SQ	ja-only 12,21,22 en-only -
+rules-tsume#2.s0	JA-EN-SQ	ja-only 24,51,33,42,44,32,41,63,52,62,73,61 en-only -
+rules-tsume#2.s2	JA-EN-SQ	ja-only 42 en-only -
+rules-tsume#2.v0.0	JA-EN-SQ	ja-only 42 en-only -
+rules-tsume#2.v0.1	NO-FUNARI	▲４二角 could promote; formal notation needs 不成
+rules-tsume#2.v0.1	JA-EN-SQ	ja-only 42,44,41,32,52,62,63,61,73 en-only -
+basics-value#0.s0	JA-EN-SQ	ja-only 33,53 en-only -
+basics-value#0.s1	JA-EN-SQ	ja-only 45,33,53 en-only -
+basics-value#0.s2	JA-EN-SQ	ja-only 24 en-only -
+basics-value#0.s3	JA-EN-SQ	ja-only 53 en-only -
+basics-value#1.v0.0	JA-EN-SQ	ja-only 43,32,52,34,54 en-only -
+basics-value#2.s0	JA-EN-SQ	ja-only 44,43,32 en-only -
+basics-value#2.s1	JA-EN-SQ	ja-only 43 en-only -
+basics-value#2.s2	JA-EN-SQ	ja-only 43 en-only -
+basics-value#3.s0	JA-EN-SQ	ja-only 55,44,53,62 en-only -
+basics-value#3.s0	ARROW-NOT-LEGAL	6b5c (金) not a legal move for its owner
+basics-value#3.s1	JA-EN-SQ	ja-only 44,41 en-only -
+basics-value#3.s2	JA-EN-SQ	ja-only 53 en-only -
+basics-attack-defense#0.s0	JA-EN-SQ	ja-only 82,73,64,55 en-only -
+basics-attack-defense#0.s2	JA-EN-SQ	ja-only 45 en-only -
+basics-attack-defense#1.s0	JA-EN-SQ	ja-only 82,73,64,55,77 en-only -
+basics-attack-defense#1.s2	JA-EN-SQ	ja-only 73 en-only -
+basics-attack-defense#1.s3	JA-EN-SQ	ja-only 73 en-only -
+basics-attack-defense#1.s4	NO-FUNARI	▲７三飛 could promote; formal notation needs 不成
+basics-attack-defense#1.s4	JA-EN-SQ	ja-only 73 en-only -
+basics-attack-defense#2.s0	JA-EN-SQ	ja-only 53,57 en-only -
+basics-attack-defense#2.s2	NO-FUNARI	▲５三飛 could promote; formal notation needs 不成
+basics-attack-defense#2.s2	JA-EN-SQ	ja-only 53 en-only -
+basics-attack-defense#3.s0	JA-EN-SQ	ja-only 73,33 en-only -
+basics-attack-defense#3.s2	JA-EN-SQ	ja-only 55,73,33 en-only -
+basics-attack-defense#3.s3	JA-EN-SQ	ja-only 83,33 en-only -
+basics-attack-defense#3.s4	JA-EN-SQ	ja-only 33 en-only -
+basics-mate-words#0.s0	UNMATCHED	△９八金打 not played in chapter nor a piece there
+basics-mate-words#0.s0	JA-EN-SQ	ja-only 99,87,98 en-only -
+basics-mate-words#0.s1	JA-EN-SQ	ja-only 11,23 en-only -
+basics-mate-words#0.s2	JA-EN-SQ	ja-only 12,23 en-only -
+basics-mate-words#1.s0	JA-EN-SQ	ja-only 11 en-only -
+basics-mate-words#1.s2	JA-EN-SQ	ja-only 14 en-only -
+basics-mate-words#1.s3	MATE-CLAIM?	text suggests mate; position not in check
+basics-mate-words#1.s3	JA-EN-SQ	ja-only 21 en-only -
+basics-mate-words#2.s0	JA-EN-SQ	ja-only 11,23,12 en-only -
+basics-mate-words#2.s2	JA-EN-SQ	ja-only 12,21,22,23 en-only -
+basics-mate-words#3.s0	JA-EN-SQ	ja-only 11,24,12 en-only -
+basics-mate-words#3.s1	MATE-CLAIM?	text suggests mate; position not in check
+basics-mate-words#3.s1	JA-EN-SQ	ja-only 23,11,12 en-only -
+basics-mate-words#3.s2	JA-EN-SQ	ja-only 21,12 en-only -
+basics-mate-words#3.s3	MATE-CLAIM?	text suggests mate; position in check with escapes
+basics-mate-words#3.s3	JA-EN-SQ	ja-only 12,31 en-only -
+basics-mate-words#3.s4	JA-EN-SQ	ja-only 31,12 en-only -
+basics-mate-words#4.s0	JA-EN-SQ	ja-only 91,83,73,13,82,92 en-only -
+basics-mate-words#4.s1	NO-FUNARI	▲８二飛 could promote; formal notation needs 不成
+basics-mate-words#4.s1	CHECK-CLAIM?	first sentence mentions 王手 but no check on board
+basics-mate-words#4.s1	JA-EN-SQ	ja-only 82,81,73,92,14 en-only -
+basics-mate-words#4.s2	JA-EN-SQ	ja-only 14,91,92 en-only -
+basics-mate-words#4.s3	JA-EN-SQ	ja-only 92,82,81 en-only -
+basics-plan#0.s0	JA-EN-SQ	ja-only 78,34,67 en-only -
+basics-plan#0.s1	JA-EN-SQ	ja-only 67 en-only -
+basics-plan#0.s2	JA-EN-SQ	ja-only 66,67,56,45,34 en-only -
+basics-plan#1.s0	JA-EN-SQ	ja-only 45,65,56,88,99 en-only -
+basics-plan#2.s0	JA-EN-SQ	ja-only 46,55,52 en-only -
+basics-plan#2.s1	JA-EN-SQ	ja-only 55 en-only -
+basics-plan#2.s2	JA-EN-SQ	ja-only 55,59 en-only -
+basics-plan#2.s3	JA-EN-SQ	ja-only 55 en-only -
+basics-plan#3.s0	JA-EN-SQ	ja-only 44,49,83,91 en-only -
+basics-plan#3.s2	JA-EN-SQ	ja-only 44 en-only -
+basics-plan#3.s3	JA-EN-SQ	ja-only 81 en-only -
+basics-plan#3.s4	JA-EN-SQ	ja-only 92 en-only -
+basics-plan#3.s5	MATE-CLAIM?	text suggests mate; position not in check
+basics-plan#3.s5	JA-EN-SQ	ja-only 71 en-only -
+basics-plan#4.s0	JA-EN-SQ	ja-only 44,91 en-only -
+basics-plan#4.s1	JA-EN-SQ	ja-only 92,83 en-only -
+basics-opening#0.s0	JA-EN-SQ	ja-only 39,47,35,58 en-only -
+basics-opening#0.s2	JA-EN-SQ	ja-only 47,35 en-only -
+basics-opening#0.s3	JA-EN-SQ	ja-only 36,47,58 en-only -
+basics-opening#1.s0	JA-EN-SQ	ja-only 53,44,42,59 en-only -
+basics-opening#1.s2	NO-FUNARI	▲５三銀 could promote; formal notation needs 不成
+basics-opening#1.s2	JA-EN-SQ	ja-only 53 en-only -
+basics-opening#1.s3	JA-EN-SQ	ja-only 53,59 en-only -
+basics-opening#1.s4	NO-FUNARI	▲５三飛 could promote; formal notation needs 不成
+basics-opening#1.s4	JA-EN-SQ	ja-only 53 en-only -
+basics-opening#2.s0	JA-EN-SQ	ja-only 72,77,66,76,67 en-only -
+basics-opening#2.s2	JA-EN-SQ	ja-only 66,77 en-only -
+basics-opening#2.s3	JA-EN-SQ	ja-only 76,67 en-only -
+basics-opening#2.s4	JA-EN-SQ	ja-only 76 en-only -
+basics-opening#3.s0	JA-EN-SQ	ja-only 59,69,48,49,57 en-only -
+basics-opening#3.s2	JA-EN-SQ	ja-only 49,48,69,59 en-only -
+basics-middlegame#0.s0	JA-EN-SQ	ja-only 55,44,46,88,77,66 en-only -
+basics-middlegame#0.s2	JA-EN-SQ	ja-only 46,55,44,88 en-only -
+basics-middlegame#1.s0	JA-EN-SQ	ja-only 44,33,48,55 en-only -
+basics-middlegame#1.s2	JA-EN-SQ	ja-only 44,33 en-only -
+basics-middlegame#1.s3	JA-EN-SQ	ja-only 44,55 en-only -
+basics-middlegame#1.s4	JA-EN-SQ	ja-only 44 en-only -
+basics-middlegame#2.s0	JA-EN-SQ	ja-only 11,19,27,17,28 en-only -
+basics-middlegame#2.s2	JA-EN-SQ	ja-only 17 en-only -
+basics-middlegame#2.s3	NO-FUNARI	△１七飛 could promote; formal notation needs 不成
+basics-middlegame#2.s3	JA-EN-SQ	ja-only 17,28 en-only -
+basics-middlegame#2.s4	JA-EN-SQ	ja-only 17 en-only -
+basics-middlegame#3.s0	JA-EN-SQ	ja-only 69,78,68,58,79 en-only -
+basics-middlegame#3.s2	JA-EN-SQ	ja-only 58,68,78,69 en-only -
+basics-endgame#0.s0	JA-EN-SQ	ja-only 51,41,61,42,52,62,72,43 en-only -
+basics-endgame#0.s2	JA-EN-SQ	ja-only 52,43,42,72 en-only -
+basics-endgame#1.s0	UNMATCHED	▲４二金 not played in chapter nor a piece there
+basics-endgame#1.s0	JA-EN-SQ	ja-only 62,42,53,51,31 en-only -
+basics-endgame#1.s1	JA-EN-SQ	ja-only 42 en-only -
+basics-endgame#1.s2	JA-EN-SQ	ja-only 42,41,51,31,53 en-only -
+basics-endgame#1.v0.0	JA-EN-SQ	ja-only 42,53,51,31 en-only -
+basics-endgame#1.v0.1	JA-EN-SQ	ja-only 51 en-only -
+basics-endgame#1.v0.2	UNMATCHED	△３一玉 not played in chapter nor a piece there
+basics-endgame#1.v0.2	JA-EN-SQ	ja-only 52,31,42 en-only -
+basics-endgame#2.s0	JA-EN-SQ	ja-only 12,19,16 en-only -
+basics-endgame#2.s2	JA-EN-SQ	ja-only 29 en-only -
+basics-endgame#2.s3	JA-EN-SQ	ja-only 16,29 en-only -
+basics-bishop-trade#0.s0	JA-EN-SQ	ja-only 51,62,73 en-only -
+basics-bishop-trade#0.s1	JA-EN-SQ	ja-only 73 en-only -
+basics-bishop-trade#0.s2	JA-EN-SQ	ja-only 73,62,51 en-only -
+basics-bishop-trade#0.s3	JA-EN-SQ	ja-only 41,62 en-only -
+basics-bishop-trade#1.s0	JA-EN-SQ	ja-only 59,77,68 en-only -
+basics-bishop-trade#1.s1	JA-EN-SQ	ja-only 67 en-only -
+basics-bishop-trade#1.s2	JA-EN-SQ	ja-only 67,68,77 en-only -
+basics-bishop-trade#1.s3	JA-EN-SQ	ja-only 77,59,67,88 en-only -
+basics-bishop-trade#1.s4	JA-EN-SQ	ja-only 49 en-only -
+basics-bishop-trade#2.s0	JA-EN-SQ	ja-only 75,53,64,86 en-only -
+basics-bishop-trade#2.s1	JA-EN-SQ	ja-only 53 en-only -
+basics-bishop-trade#2.s2	JA-EN-SQ	ja-only 53,75 en-only -
+basics-bishop-trade#2.s3	JA-EN-SQ	ja-only 66 en-only -
+basics-forks#0.s0	JA-EN-SQ	ja-only 33,53,57,45 en-only -
+basics-forks#0.s2	JA-EN-SQ	ja-only 45,33,53 en-only -
+basics-forks#0.s3	JA-EN-SQ	ja-only 34,33,53 en-only -
+basics-forks#0.s4	JA-EN-SQ	ja-only 53 en-only -
+basics-forks#0.v0.0	JA-EN-SQ	ja-only 43,53 en-only -
+basics-forks#1.s1	JA-EN-SQ	ja-only 45 en-only -
+basics-forks#1.s2	JA-EN-SQ	ja-only 45 en-only -
+basics-forks#1.s3	NO-FUNARI	△３八飛 could promote; formal notation needs 不成
+basics-forks#1.s3	JA-EN-SQ	ja-only 38,98 en-only -
+basics-forks#1.s4	JA-EN-SQ	ja-only 89,53 en-only -
+basics-forks#1.s5	JA-EN-SQ	ja-only 52 en-only -
+basics-forks#2.s0	JA-EN-SQ	ja-only 55,44,33,53,45 en-only -
+basics-forks#2.s1	JA-EN-SQ	ja-only 44 en-only -
+basics-forks#2.s2	JA-EN-SQ	ja-only 44,33,53,45 en-only -
+basics-forks#2.s3	JA-EN-SQ	ja-only 44 en-only -
+judgment-four-factors#0.s0	JA-EN-SQ	ja-only 55,44,33 en-only -
+judgment-four-factors#0.s1	JA-EN-SQ	ja-only 44 en-only -
+judgment-four-factors#0.s2	JA-EN-SQ	ja-only 44 en-only -
+judgment-four-factors#0.v0.0	JA-EN-SQ	ja-only 54 en-only -
+judgment-four-factors#1.s0	JA-EN-SQ	ja-only 88,78,87,98,51,62,61,52,44 en-only -
+judgment-four-factors#1.s1	JA-EN-SQ	ja-only 54 en-only -
+judgment-four-factors#1.s2	JA-EN-SQ	ja-only 41 en-only -
+judgment-four-factors#1.v0.0	CHECK-CLAIM?	first sentence mentions 王手 but no check on board
+judgment-four-factors#1.v0.0	JA-EN-SQ	ja-only 41 en-only -
+judgment-four-factors#2.s0	JA-EN-SQ	ja-only 99,88,44 en-only -
+judgment-four-factors#2.s1	JA-EN-SQ	ja-only 87,88,77,66,55,44 en-only -
+judgment-four-factors#2.s2	JA-EN-SQ	ja-only 31,44 en-only -
+judgment-four-factors#2.v0.0	JA-EN-SQ	ja-only 34,55 en-only -
+judgment-four-factors#3.s0	JA-EN-SQ	ja-only 68,57,77,99,23,13 en-only -
+judgment-four-factors#3.s1	JA-EN-SQ	ja-only 12,23,22,13,21 en-only -
+judgment-four-factors#3.v0.0	JA-EN-SQ	ja-only 57,88,77,89,98 en-only -
+judgment-four-factors#4.s0	JA-EN-SQ	ja-only 66,58,55,44 en-only -
+judgment-four-factors#4.s1	JA-EN-SQ	ja-only 55 en-only -
+judgment-four-factors#4.s2	JA-EN-SQ	ja-only 55,79,11 en-only -
+judgment-four-factors#4.v0.0	JA-EN-SQ	ja-only 55 en-only -
+tesuji-pawn#0.s0	JA-EN-SQ	ja-only 45,49,47,46 en-only -
+tesuji-pawn#0.s1	JA-EN-SQ	ja-only 47 en-only -
+tesuji-pawn#0.s2	JA-EN-SQ	ja-only 46,47 en-only -
+tesuji-pawn#0.s3	JA-EN-SQ	ja-only 46 en-only -
+tesuji-pawn#1.s0	JA-EN-SQ	ja-only 51,58,59 en-only -
+tesuji-pawn#1.s1	JA-EN-SQ	ja-only 59,58 en-only -
+tesuji-pawn#1.s2	JA-EN-SQ	ja-only 58,59 en-only -
+tesuji-pawn#1.s3	JA-EN-SQ	ja-only 58 en-only -
+tesuji-pawn#2.s0	JA-EN-SQ	ja-only 62,64,63 en-only -
+tesuji-pawn#2.s1	JA-EN-SQ	ja-only 64,63,62,54 en-only -
+tesuji-pawn#2.s2	JA-EN-SQ	ja-only 54,63 en-only -
+tesuji-pawn#2.s3	JA-EN-SQ	ja-only 63 en-only -
+tesuji-pawn#3.s0	JA-EN-SQ	ja-only 37,73,64,53,65 en-only -
+tesuji-pawn#3.s1	JA-EN-SQ	ja-only 65,64 en-only -
+tesuji-pawn#3.s2	JA-EN-SQ	ja-only 65,46,55,64,73 en-only -
+tesuji-pawn#3.s3	JA-EN-SQ	ja-only 73 en-only -
+tesuji-pawn#4.s0	JA-EN-SQ	ja-only 37,52,46,55,64,63,62 en-only -
+tesuji-pawn#4.s1	JA-EN-SQ	ja-only 63 en-only -
+tesuji-pawn#4.s2	JA-EN-SQ	ja-only 63,64 en-only -
+tesuji-pawn#4.s3	JA-EN-SQ	ja-only 64,63,37,46,55 en-only -
+tesuji-pawn#4.s4	JA-EN-SQ	ja-only 64 en-only -
+tesuji-pawn#4.s5	JA-EN-SQ	ja-only 64 en-only -
+tesuji-lance#0.s0	JA-EN-SQ	ja-only 75,72,62 en-only -
+tesuji-lance#0.s1	JA-EN-SQ	ja-only 72,62,92 en-only -
+tesuji-lance#0.s2	JA-EN-SQ	ja-only 92,62 en-only -
+tesuji-lance#0.s3	JA-EN-SQ	ja-only 62 en-only -
+tesuji-lance#1.s0	JA-EN-SQ	ja-only 35,46,57,68,69 en-only -
+tesuji-lance#1.s1	JA-EN-SQ	ja-only 69,68 en-only -
+tesuji-lance#1.s2	JA-EN-SQ	ja-only 68,69 en-only -
+tesuji-lance#2.s0	JA-EN-SQ	ja-only 47,43,41,54 en-only -
+tesuji-lance#2.s1	JA-EN-SQ	ja-only 54,41 en-only -
+tesuji-lance#2.s2	JA-EN-SQ	ja-only 41 en-only -
+tesuji-lance#3.s0	JA-EN-SQ	ja-only 56,54,43 en-only -
+tesuji-lance#3.s1	JA-EN-SQ	ja-only 54,43 en-only -
+tesuji-lance#3.s2	JA-EN-SQ	ja-only 54 en-only -
+tesuji-knight#0.s0	JA-EN-SQ	ja-only 67,55,66 en-only -
+tesuji-knight#0.s1	JA-EN-SQ	ja-only 55,67,75,66,65 en-only -
+tesuji-knight#1.s0	JA-EN-SQ	ja-only 55,43,31 en-only -
+tesuji-knight#1.s1	JA-EN-SQ	ja-only 43,31 en-only -
+tesuji-knight#1.s2	JA-EN-SQ	ja-only 92,31,43 en-only -
+tesuji-knight#1.s3	JA-EN-SQ	ja-only 31,43 en-only -
+tesuji-knight#2.s0	JA-EN-SQ	ja-only 32,44 en-only -
+tesuji-knight#2.s1	JA-EN-SQ	ja-only 44,32,52,22 en-only -
+tesuji-knight#2.s2	MATE-CLAIM?	text suggests mate; position not in check
+tesuji-knight#2.s2	JA-EN-SQ	ja-only 22 en-only -
+tesuji-knight#3.s0	JA-EN-SQ	ja-only 66,54,43 en-only -
+tesuji-knight#3.s1	JA-EN-SQ	ja-only 54,43 en-only -
+tesuji-knight#3.s2	JA-EN-SQ	ja-only 54 en-only -
+tesuji-silver#0.s0	JA-EN-SQ	ja-only 75,66,57,48,68 en-only -
+tesuji-silver#0.s1	JA-EN-SQ	ja-only 57,48 en-only -
+tesuji-silver#0.s2	NO-FUNARI	△５七角 could promote; formal notation needs 不成
+tesuji-silver#0.s2	JA-EN-SQ	ja-only 57,48 en-only -
+tesuji-silver#0.s3	JA-EN-SQ	ja-only 57 en-only -
+tesuji-silver#1.s0	JA-EN-SQ	ja-only 62,42,53 en-only -
+tesuji-silver#1.s1	JA-EN-SQ	ja-only 53,42,62 en-only -
+tesuji-silver#1.s2	JA-EN-SQ	ja-only 41,62,53 en-only -
+tesuji-silver#1.s3	JA-EN-SQ	ja-only 62 en-only -
+tesuji-silver#2.s0	JA-EN-SQ	ja-only 64,53,44 en-only -
+tesuji-silver#2.s1	JA-EN-SQ	ja-only 53 en-only -
+tesuji-silver#2.s2	JA-EN-SQ	ja-only 92,44,53 en-only -
+tesuji-silver#2.s3	NO-FUNARI	▲４四銀 could promote; formal notation needs 不成
+tesuji-silver#2.s3	JA-EN-SQ	ja-only 44 en-only -
+tesuji-gold#0.s0	JA-EN-SQ	ja-only 58,59,57,51 en-only -
+tesuji-gold#0.s1	JA-EN-SQ	ja-only 58,57 en-only -
+tesuji-gold#0.s2	NO-FUNARI	△５八飛 could promote; formal notation needs 不成
+tesuji-gold#0.s2	JA-EN-SQ	ja-only 58,59 en-only -
+tesuji-gold#0.s3	JA-EN-SQ	ja-only 58 en-only -
+tesuji-gold#1.s0	JA-EN-SQ	ja-only 33,53,44 en-only -
+tesuji-gold#1.s1	JA-EN-SQ	ja-only 44,33,53 en-only -
+tesuji-gold#1.s2	JA-EN-SQ	ja-only 31,53,44 en-only -
+tesuji-gold#1.s3	JA-EN-SQ	ja-only 53 en-only -
+tesuji-gold#2.s0	JA-EN-SQ	ja-only 47,58,69,57 en-only -
+tesuji-gold#2.s1	JA-EN-SQ	ja-only 47 en-only -
+tesuji-bishop#0.s0	JA-EN-SQ	ja-only 95,86,77,68,59,66,55,44,88 en-only -
+tesuji-bishop#0.s1	JA-EN-SQ	ja-only 77,44,95,59 en-only -
+tesuji-bishop#0.s2	JA-EN-SQ	ja-only 77,59 en-only -
+tesuji-bishop#0.s3	JA-EN-SQ	ja-only 58 en-only -
+tesuji-bishop#0.v0.0	JA-EN-SQ	ja-only 58 en-only -
+tesuji-bishop#1.s0	JA-EN-SQ	ja-only 28,73,37,46,55,64,45 en-only -
+tesuji-bishop#1.s1	JA-EN-SQ	ja-only 45,73,91 en-only -
+tesuji-bishop#1.s2	JA-EN-SQ	ja-only 92,73 en-only -
+tesuji-bishop#1.s3	JA-EN-SQ	ja-only 73,92,82 en-only -
+tesuji-bishop#1.v0.0	JA-EN-SQ	ja-only 82,73 en-only -
+tesuji-bishop#2.s0	JA-EN-SQ	ja-only 34,52,43,62 en-only -
+tesuji-bishop#2.s1	JA-EN-SQ	ja-only 52,62 en-only -
+tesuji-bishop#2.s2	JA-EN-SQ	ja-only 92,62 en-only -
+tesuji-bishop#2.s3	JA-EN-SQ	ja-only 62,52 en-only -
+tesuji-bishop#3.s0	ARROW-NOT-LEGAL	2h9a (角) not a legal move for its owner
+tesuji-bishop#3.s0	ARROW-NOT-LEGAL	8b8c (歩) not a legal move for its owner
+tesuji-bishop#3.s2	JA-EN-SQ	ja-only 92,82 en-only -
+tesuji-rook#0.s0	JA-EN-SQ	ja-only 68,66,63,55,67,64 en-only -
+tesuji-rook#0.s1	JA-EN-SQ	ja-only 55 en-only -
+tesuji-rook#0.s2	JA-EN-SQ	ja-only 92,63 en-only -
+tesuji-rook#0.s3	JA-EN-SQ	ja-only 63 en-only -
+tesuji-rook#1.s0	JA-EN-SQ	ja-only 62,73,84,58,88 en-only -
+tesuji-rook#1.s1	JA-EN-SQ	ja-only 88,84,87,86,85 en-only -
+tesuji-rook#1.s1	ARROW-NOT-LEGAL	8h8d (飛) not a legal move for its owner
+tesuji-rook#1.s2	JA-EN-SQ	ja-only 84,88 en-only -
+tesuji-rook#1.s3	JA-EN-SQ	ja-only 58,84 en-only -
+tesuji-rook#1.v0.0	JA-EN-SQ	ja-only 68,84 en-only -
+tesuji-rook#2.s0	JA-EN-SQ	ja-only 45,43,54 en-only -
+tesuji-rook#2.s1	JA-EN-SQ	ja-only 43 en-only -
+tesuji-rook#2.s2	JA-EN-SQ	ja-only 92,54,43 en-only -
+tesuji-rook#2.s3	JA-EN-SQ	ja-only 54,43 en-only -
+proverb-three-pawns#0.s0	JA-EN-SQ	ja-only 28,37,46,55,54 en-only -
+proverb-three-pawns#0.s1	JA-EN-SQ	ja-only 55 en-only -
+proverb-three-pawns#0.s2	JA-EN-SQ	ja-only 55,28 en-only -
+proverb-three-pawns#0.s3	JA-EN-SQ	ja-only 55 en-only -
+proverb-three-pawns#1.s0	JA-EN-SQ	ja-only 62,73,74 en-only -
+proverb-three-pawns#1.s1	JA-EN-SQ	ja-only 74 en-only -
+proverb-three-pawns#1.s2	JA-EN-SQ	ja-only 92,62,73 en-only -
+proverb-three-pawns#1.s3	JA-EN-SQ	ja-only 73,62 en-only -
+proverb-three-pawns#2.s0	JA-EN-SQ	ja-only 47,46,45,48 en-only -
+proverb-three-pawns#2.s1	JA-EN-SQ	ja-only 46 en-only -
+proverb-three-pawns#2.s2	JA-EN-SQ	ja-only 46 en-only -
+proverb-three-pawns#2.s3	JA-EN-SQ	ja-only 46 en-only -
+proverb-three-pawns#2.s4	JA-EN-SQ	ja-only 92,44 en-only -
+proverb-three-pawns#2.s5	JA-EN-SQ	ja-only 44,43 en-only -
+proverb-three-pawns#3.s0	JA-EN-SQ	ja-only 68,63,73,64,52 en-only -
+proverb-three-pawns#3.s1	JA-EN-SQ	ja-only 64,63 en-only -
+proverb-three-pawns#3.s2	JA-EN-SQ	ja-only 64,73 en-only -
+proverb-three-pawns#3.s3	JA-EN-SQ	ja-only 65 en-only -
+proverb-three-pawns#3.s4	JA-EN-SQ	ja-only 65,73,68,67,66 en-only -
+proverb-three-pawns#3.s5	JA-EN-SQ	ja-only 65,52 en-only -
+proverb-three-pawns#3.s6	JA-EN-SQ	ja-only 92 en-only -
+proverb-three-pawns#3.s7	JA-EN-SQ	ja-only 44,43,52 en-only -
+proverb-three-pawns#3.s8	JA-EN-SQ	ja-only 93,52,44,43 en-only -
+proverb-three-pawns#3.s9	JA-EN-SQ	ja-only 43,52 en-only -
+proverb-three-pawns#4.s0	JA-EN-SQ	ja-only 53 en-only -
+proverb-gold-last#0.s0	JA-EN-SQ	ja-only 91,73,62,82 en-only -
+proverb-gold-last#0.s1	NO-FUNARI	▲８二銀 could promote; formal notation needs 不成
+proverb-gold-last#0.s1	JA-EN-SQ	ja-only 82,72,92 en-only -
+proverb-gold-last#0.s2	JA-EN-SQ	ja-only 92,82,91,81 en-only -
+proverb-gold-last#0.s3	JA-EN-SQ	ja-only 93,92,83,82,62,91,81 en-only -
+proverb-gold-last#1.s0	JA-EN-SQ	ja-only 92,82,62,93 en-only -
+proverb-gold-last#1.s1	JA-EN-SQ	ja-only 93,82,83 en-only -
+proverb-gold-last#1.s2	JA-EN-SQ	ja-only 83,62 en-only -
+proverb-gold-last#2.s0	JA-EN-SQ	ja-only 41,42,64,53 en-only -
+proverb-gold-last#2.s1	JA-EN-SQ	ja-only 42,41,31,51,32,52,64 en-only -
+castles-first#0.s0	JA-EN-SQ	ja-only 78,59,39 en-only -
+castles-first#0.s1	JA-EN-SQ	ja-only 48,39 en-only -
+castles-first#1.s0	JA-EN-SQ	ja-only 88,78,67,68,72,76 en-only -
+castles-first#1.s1	JA-EN-SQ	ja-only 77,67,76,78 en-only -
+castles-first#2.s0	JA-EN-SQ	ja-only 38,28,58,49,32,48,37 en-only -
+castles-first#2.s1	JA-EN-SQ	ja-only 48,58,28,37 en-only -
+castles-first#3.s0	JA-EN-SQ	ja-only 28,68,88,79,69,58 en-only -
+castles-first#3.s1	JA-EN-SQ	ja-only 78,79,69 en-only -
+castles-first#4.s0	JA-EN-SQ	ja-only 78,58,49,38,39,28 en-only -
+castles-first#4.s1	JA-EN-SQ	ja-only 28,38,49,27,37 en-only -
+castles-yagura#0.s0	JA-EN-SQ	ja-only 88,77,78,68,72,76 en-only -
+castles-yagura#1.s0	JA-EN-SQ	ja-only 69,67,68,77,78,88 en-only -
+castles-yagura#1.s1	JA-EN-SQ	ja-only 78,68 en-only -
+castles-yagura#2.s0	JA-EN-SQ	ja-only 88,78,67,77,85,86 en-only -
+castles-yagura#2.s1	JA-EN-SQ	ja-only 76,85,67,86 en-only -
+castles-yagura#3.s0	JA-EN-SQ	ja-only 88,78,67,77,48,68 en-only -
+castles-yagura#3.s1	JA-EN-SQ	ja-only 68,58,78,77,67,76 en-only -
+castles-nakazumai#0.s0	JA-EN-SQ	ja-only 59,69,49,57,52 en-only -
+castles-nakazumai#0.s1	JA-EN-SQ	ja-only 58,69,49,57 en-only -
+castles-nakazumai#1.s0	JA-EN-SQ	ja-only 78,59,48,68 en-only -
+castles-nakazumai#1.s1	JA-EN-SQ	ja-only 69,59,48 en-only -
+castles-nakazumai#2.s0	JA-EN-SQ	ja-only 88,78,58,79,28,69,68 en-only -
+castles-nakazumai#2.s1	JA-EN-SQ	ja-only 68,78,58 en-only -
+castles-nakazumai#3.s0	JA-EN-SQ	ja-only 58,57,53,93,69,49 en-only -
+castles-nakazumai#3.s1	NO-FUNARI	△５七飛 could promote; formal notation needs 不成
+castles-nakazumai#3.s1	JA-EN-SQ	ja-only 57,54,55,56,93 en-only -
+castles-nakazumai#3.s2	JA-EN-SQ	ja-only 48,57,49 en-only -
+castles-funa#0.s0	JA-EN-SQ	ja-only 78,88,79,69,59,28 en-only -
+castles-funa#0.s1	JA-EN-SQ	ja-only 58,78,79,69 en-only -
+castles-funa#1.s0	JA-EN-SQ	ja-only 78,88,58,69,68,46,57,79 en-only -
+castles-funa#1.s1	JA-EN-SQ	ja-only 57,46,58,68,77,67 en-only -
+castles-funa#2.s0	JA-EN-SQ	ja-only 78,79,69,58,48,68 en-only -
+castles-funa#2.s1	JA-EN-SQ	ja-only 68,69,79,48,58,78 en-only -
+castles-funa#3.s0	JA-EN-SQ	ja-only 78,68,69,59,48,58,79 en-only -
+castles-funa#3.s1	JA-EN-SQ	ja-only 79,59,68,78 en-only -
+castles-hidarimino#0.s0	JA-EN-SQ	ja-only 88,78,77,69,59,48,58,68 en-only -
+castles-hidarimino#0.s1	JA-EN-SQ	ja-only 58,69,48,77,88 en-only -
+castles-hidarimino#1.s0	JA-EN-SQ	ja-only 88,78,69,59,77,66,55,79 en-only -
+castles-hidarimino#1.s1	JA-EN-SQ	ja-only 58,69,77,79,88,66,55 en-only -
+castles-hidarimino#2.s0	JA-EN-SQ	ja-only 88,87,77,68,79,75,76 en-only -
+castles-hidarimino#2.s1	JA-EN-SQ	ja-only 78,87,77,68,76 en-only -
+castles-hidarimino#3.s0	JA-EN-SQ	ja-only 97,87,88,78,68,96,92,98 en-only -
+castles-hidarimino#3.s1	JA-EN-SQ	ja-only 98,87,92,96 en-only -
+castles-anaguma#0.s0	JA-EN-SQ	ja-only 99,98,89,79,88 en-only -
+castles-anaguma#0.s1	JA-EN-SQ	ja-only 88,99,79 en-only -
+castles-anaguma#1.s0	JA-EN-SQ	ja-only 99,98,88,79,69,48,58,68,78 en-only -
+castles-anaguma#1.s1	JA-EN-SQ	ja-only 78,48,79,88 en-only -
+castles-anaguma#2.s0	JA-EN-SQ	ja-only 99,98,88,78,79,28,59 en-only -
+castles-anaguma#2.s1	JA-EN-SQ	ja-only 68,99,98 en-only -
+castles-anaguma#3.s0	JA-EN-SQ	ja-only 78,19,18,29,39 en-only -
+castles-anaguma#3.s1	JA-EN-SQ	ja-only 28,19,39 en-only -
+castles-mino#0.s0	JA-EN-SQ	ja-only 28,38,49,59,78,68,58 en-only -
+castles-mino#0.s1	JA-EN-SQ	ja-only 58,49,78 en-only -
+castles-mino#1.s0	JA-EN-SQ	ja-only 28,38,58,49,37,36,47 en-only -
+castles-mino#1.s1	JA-EN-SQ	ja-only 47,37,36,38,58 en-only -
+castles-mino#2.s0	JA-EN-SQ	ja-only 28,27,37,47,49,68,58,48,38 en-only -
+castles-mino#2.s1	UNMATCHED	▲３八銀 not played in chapter nor a piece there
+castles-mino#2.s1	UNMATCHED	▲１七玉 not played in chapter nor a piece there
+castles-mino#2.s1	JA-EN-SQ	ja-only 38,68,28,27,48,17 en-only -
+castles-mino#3.s0	JA-EN-SQ	ja-only 28,38,58,49,27,22,26 en-only -
+castles-mino#3.s1	JA-EN-SQ	ja-only 26,22,38,28,27 en-only -
+castles-mino#3.s2	JA-EN-SQ	ja-only 26,27,28 en-only -
+castles-aifuri#0.s0	JA-EN-SQ	ja-only 38,28,48,59,32,37 en-only -
+castles-aifuri#0.s1	JA-EN-SQ	ja-only 58,48,28,38 en-only -
+castles-aifuri#1.s0	JA-EN-SQ	ja-only 38,28,48,58,22 en-only -
+castles-aifuri#1.s1	JA-EN-SQ	ja-only 17,28,22,38 en-only -
+castles-aifuri#2.s0	JA-EN-SQ	ja-only 28,38,47,48,27,17,32,37 en-only -
+castles-aifuri#2.s1	JA-EN-SQ	ja-only 37,38,47,32 en-only -
+castles-aifuri#3.s0	JA-EN-SQ	ja-only 48,38,58,49,37,32,39,28 en-only -
+castles-aifuri#3.s1	JA-EN-SQ	ja-only 39,49,38,37 en-only -
+castles-other#0.s0	JA-EN-SQ	ja-only 28,38,49,26,22 en-only -
+castles-other#0.s1	JA-EN-SQ	ja-only 27,26,38 en-only -
+castles-other#1.s0	JA-EN-SQ	ja-only 58,68,49,52,56 en-only -
+castles-other#1.s1	JA-EN-SQ	ja-only 48,49,58,56 en-only -
+castles-other#2.s0	JA-EN-SQ	ja-only 99,87,78,77,88 en-only -
+castles-other#2.s1	JA-EN-SQ	ja-only 79,68,57,77 en-only -
+castles-other#3.s0	JA-EN-SQ	ja-only 98,99,88,87,97,92 en-only -
+castles-other#3.s1	JA-EN-SQ	ja-only 89,88,97 en-only -
+attack-mino-side#0.s0	JA-EN-SQ	ja-only 22,32,42,44,49,43 en-only -
+attack-mino-side#0.s1	JA-EN-SQ	ja-only 43 en-only -
+attack-mino-side#1.s0	JA-EN-SQ	ja-only 22,32,41,49,44,43 en-only -
+attack-mino-side#1.s1	JA-EN-SQ	ja-only 43,42,41 en-only -
+attack-mino-side#2.s0	JA-EN-SQ	ja-only 72,42,41,75,64,53,99 en-only -
+attack-mino-side#2.s1	JA-EN-SQ	ja-only 42 en-only -
+attack-mino-side#2.v0.0	JA-EN-SQ	ja-only 42 en-only -
+attack-mino-side#3.s0	JA-EN-SQ	ja-only 53,23,22,32,24,56 en-only -
+attack-mino-side#3.s1	MATE-CLAIM?	text suggests mate; position not in check
+attack-mino-side#3.s1	CHECK-CLAIM?	first sentence mentions 王手 but no check on board
+attack-mino-side#3.s1	JA-EN-SQ	ja-only 23,56,31 en-only -
+attack-mino-kobin#0.s0	JA-EN-SQ	ja-only 32,43,76,65,54,49 en-only -
+attack-mino-kobin#0.s1	JA-EN-SQ	ja-only 46,14,43,76,51 en-only -
+attack-mino-kobin#1.s0	JA-EN-SQ	ja-only 22,32,33,72,24 en-only -
+attack-mino-kobin#1.s1	CHECK-CLAIM?	first sentence mentions 王手 but no check on board
+attack-mino-kobin#1.s1	JA-EN-SQ	ja-only 66,31,33,32,72,22,24,12 en-only -
+attack-mino-kobin#2.s0	JA-EN-SQ	ja-only 28,38,49,64,37 en-only -
+attack-mino-kobin#2.s1	JA-EN-SQ	ja-only 29,38,37,19 en-only -
+attack-mino-aifuri#0.s0	JA-EN-SQ	ja-only 22,32,42,61,59,54,53,75,64 en-only -
+attack-mino-aifuri#0.s1	JA-EN-SQ	ja-only 53,54,59 en-only -
+attack-mino-aifuri#1.s0	JA-EN-SQ	ja-only 81,69,54,42,51,75,64,53 en-only -
+attack-mino-aifuri#1.s1	JA-EN-SQ	ja-only 42 en-only -
+attack-mino-aifuri#2.s0	JA-EN-SQ	ja-only 54,42,69,63 en-only -
+attack-mino-aifuri#2.s1	JA-EN-SQ	ja-only 68,43,54,42,75,63 en-only -
+attack-yagura-side#0.s0	JA-EN-SQ	ja-only 22,32,43,33,73,55,76 en-only -
+attack-yagura-side#0.s1	JA-EN-SQ	ja-only 43,33 en-only -
+attack-yagura-side#0.v0.0	JA-EN-SQ	ja-only 43,76 en-only -
+attack-yagura-side#1.s0	JA-EN-SQ	ja-only 72,62,53,63,26,35,44,59 en-only -
+attack-yagura-side#1.s1	JA-EN-SQ	ja-only 53,63 en-only -
+attack-yagura-side#2.s0	JA-EN-SQ	ja-only 26,53,55,59 en-only -
+attack-yagura-side#2.s1	JA-EN-SQ	ja-only 58,64,55,26,53,63 en-only -
+attack-yagura-head#0.s0	JA-EN-SQ	ja-only 72,62,53,63,75,78,74,47 en-only -
+attack-yagura-head#0.s1	CHECK-CLAIM?	first sentence mentions 王手 but no check on board
+attack-yagura-head#0.s1	JA-EN-SQ	ja-only 74 en-only -
+attack-yagura-head#1.s0	JA-EN-SQ	ja-only 72,62,53,63,93,95,98 en-only -
+attack-yagura-head#1.s1	UNMATCHED	△７一玉 not played in chapter nor a piece there
+attack-yagura-head#1.s1	UNMATCHED	△６一玉 not played in chapter nor a piece there
+attack-yagura-head#1.s1	UNMATCHED	△８二歩 not played in chapter nor a piece there
+attack-yagura-head#1.s1	UNMATCHED	▲９三飛成 not played in chapter nor a piece there
+attack-yagura-head#1.s1	JA-EN-SQ	ja-only 94,73,92,71,61,82,93,72 en-only -
+attack-yagura-head#2.s0	JA-EN-SQ	ja-only 53,64,74 en-only -
+attack-yagura-head#2.s1	JA-EN-SQ	ja-only 56,64,74,75,78 en-only -
+attack-anaguma#0.s0	JA-EN-SQ	ja-only 91,92,81,82,72,63,68,36,45,54 en-only -
+attack-anaguma#0.s1	JA-EN-SQ	ja-only 63 en-only -
+attack-anaguma#1.s0	JA-EN-SQ	ja-only 91,92,72,82,81,95,98,67,76,85,94 en-only -
+attack-anaguma#1.s1	JA-EN-SQ	ja-only 94,83,72 en-only -
+attack-anaguma#2.s0	JA-EN-SQ	ja-only 72,83,94 en-only -
+attack-anaguma#2.s1	JA-EN-SQ	ja-only 97,83 en-only -
+attack-funa#0.s0	JA-EN-SQ	ja-only 32,31,41,52,22,63,54,65,68,99,89,88,77,87,97 en-only -
+attack-funa#0.s1	JA-EN-SQ	ja-only 64,54 en-only -
+attack-funa#1.s0	JA-EN-SQ	ja-only 32,31,41,52,22,43,76,48,34,99,89,88,77,87,97 en-only -
+attack-funa#1.s1	JA-EN-SQ	ja-only 43,34,32 en-only -
+attack-funa#1.v0.0	JA-EN-SQ	ja-only 25,11 en-only -
+attack-funa#2.s0	JA-EN-SQ	ja-only 68,52,53,54,99,89,88,77,87,97,22 en-only -
+attack-funa#2.s1	JA-EN-SQ	ja-only 67,53,64,54 en-only -
+attack-kinmusou#0.s0	JA-EN-SQ	ja-only 72,82,62,52,44,43,76,65,54 en-only -
+attack-kinmusou#0.s1	JA-EN-SQ	ja-only 43,52,82,62 en-only -
+attack-kinmusou#1.s0	JA-EN-SQ	ja-only 52,53,55,57,26,35,44,62 en-only -
+attack-kinmusou#1.s1	JA-EN-SQ	ja-only 54,53 en-only -
+attack-kinmusou#2.s0	JA-EN-SQ	ja-only 44,76,43,52 en-only -
+attack-kinmusou#2.s1	JA-EN-SQ	ja-only 65,63,43,52 en-only -
+attack-edge#0.s0	JA-EN-SQ	ja-only 15,13,14 en-only -
+attack-edge#0.s1	JA-EN-SQ	ja-only 14 en-only -
+attack-edge#0.s2	JA-EN-SQ	ja-only 13,12 en-only -
+attack-edge#0.v0.0	JA-EN-SQ	ja-only 68,14 en-only -
+attack-edge#1.s0	JA-EN-SQ	ja-only 13 en-only -
+attack-edge#1.s1	JA-EN-SQ	ja-only 14,13 en-only -
+attack-edge#1.s2	JA-EN-SQ	ja-only 11,13,12 en-only -
+attack-edge#1.v0.0	JA-EN-SQ	ja-only 21,13,11 en-only -
+attack-edge#1.v1.0	JA-EN-SQ	ja-only 22,41,32,13,11 en-only -
+attack-edge#2.s0	JA-EN-SQ	ja-only 13,22,25,46,35,24 en-only -
+attack-edge#2.s1	JA-EN-SQ	ja-only 13 en-only -
+attack-edge#2.s2	JA-EN-SQ	ja-only 13 en-only -
+attack-edge#2.v0.0	JA-EN-SQ	ja-only 41,22,13 en-only -
+attack-edge#3.s0	JA-EN-SQ	ja-only 95,93,82 en-only -
+attack-edge#3.s1	JA-EN-SQ	ja-only 97,61 en-only -
+attack-edge#3.s2	JA-EN-SQ	ja-only 93 en-only -
+attack-edge#3.v0.0	JA-EN-SQ	ja-only 93 en-only -
+attack-edge#4.s0	JA-EN-SQ	ja-only 14,17,13 en-only -
+attack-edge#4.s1	JA-EN-SQ	ja-only 15,16 en-only -
+attack-edge#4.s2	JA-EN-SQ	ja-only 13 en-only -
+attack-edge#4.v0.0	JA-EN-SQ	ja-only 42 en-only -
+endgame-yose#0.s0	JA-EN-SQ	ja-only 42,53,73,63 en-only -
+endgame-yose#0.s1	MATE-CLAIM?	text suggests mate; position in check with escapes
+endgame-yose#0.s1	JA-EN-SQ	ja-only 53,42,31,71 en-only -
+endgame-yose#1.s0	JA-EN-SQ	ja-only 54,53,73,63,64,52 en-only -
+endgame-yose#1.s1	JA-EN-SQ	ja-only 53,42,64 en-only -
+endgame-yose#2.s0	JA-EN-SQ	ja-only 52,43,44,85 en-only -
+endgame-yose#2.s1	UNMATCHED	▲４三銀成 not played in chapter nor a piece there
+endgame-yose#2.s1	UNMATCHED	△４二玉 not played in chapter nor a piece there
+endgame-yose#2.s1	JA-EN-SQ	ja-only 54,43,44,82,52,41,51,61,42 en-only -
+endgame-yose#3.s0	JA-EN-SQ	ja-only 33,23,22,94,97,99 en-only -
+endgame-yose#3.s1	UNMATCHED	△１一玉 not played in chapter nor a piece there
+endgame-yose#3.s1	UNMATCHED	△１二玉 not played in chapter nor a piece there
+endgame-yose#3.s1	UNMATCHED	△２一玉 not played in chapter nor a piece there
+endgame-yose#3.s1	UNMATCHED	△９七飛成 not played in chapter nor a piece there
+endgame-yose#3.s1	MATE-CLAIM?	text suggests mate; position not in check
+endgame-yose#3.s1	CHECK-CLAIM?	first sentence mentions 王手 but no check on board
+endgame-yose#3.s1	JA-EN-SQ	ja-only 33,43,11,12,21,31,13,97,99,88 en-only -
+endgame-yose#3.v0.0	UNMATCHED	△１一玉 not played in chapter nor a piece there
+endgame-yose#3.v0.0	UNMATCHED	△２一玉 not played in chapter nor a piece there
+endgame-yose#3.v0.0	UNMATCHED	▲４一飛成 not played in chapter nor a piece there
+endgame-yose#3.v0.0	UNMATCHED	△９七飛成 not played in chapter nor a piece there
+endgame-yose#3.v0.0	JA-EN-SQ	ja-only 23,13,11,21,41,31,97 en-only -
+endgame-tsumero#0.s0	JA-EN-SQ	ja-only 91,71,72,63,85,83 en-only -
+endgame-tsumero#0.s1	SIDE-MARK	△同桂 matches a move by the other side
+endgame-tsumero#0.s1	JA-EN-SQ	ja-only 83 en-only -
+endgame-tsumero#1.s0	JA-EN-SQ	ja-only 84,85,91,92,81,82 en-only -
+endgame-tsumero#1.s1	JA-EN-SQ	ja-only 64,92,84,81,82,71,72 en-only -
+endgame-tsumero#2.s0	JA-EN-SQ	ja-only 84,72,81,92 en-only -
+endgame-tsumero#2.s1	CHECK-CLAIM?	first sentence mentions 王手 but no check on board
+endgame-tsumero#2.s1	JA-EN-SQ	ja-only 81,92 en-only -
+endgame-tsumero#3.s0	UNMATCHED	▲９二金 not played in chapter nor a piece there
+endgame-tsumero#3.s0	JA-EN-SQ	ja-only 84,92 en-only -
+endgame-tsumero#3.s1	JA-EN-SQ	ja-only 92 en-only -
+endgame-tsumero#4.s0	JA-EN-SQ	ja-only 11,41,24,13,12,23,22 en-only -
+endgame-tsumero#4.s1	CHECK-CLAIM?	first sentence mentions 王手 but no check on board
+endgame-tsumero#4.s1	JA-EN-SQ	ja-only 23,12,41 en-only -
+endgame-tsumero#4.s2	PROMO	△４九飛不成 says 不成 but move promotes
+endgame-tsumero#4.s2	UNMATCHED	△９一飛 not played in chapter nor a piece there
+endgame-tsumero#4.s2	UNMATCHED	△９八歩 not played in chapter nor a piece there
+endgame-tsumero#4.s2	JA-EN-SQ	ja-only 12,23,22,13,21,41,49,91,98 en-only -
+endgame-tsumero#4.v0.0	JA-EN-SQ	ja-only 51,12 en-only -
+endgame-tsumero#4.v1.0	JA-EN-SQ	ja-only 42,12,21,13,22 en-only -
+endgame-tsumero#4.v2.0	JA-EN-SQ	ja-only 49,12 en-only -
+endgame-defense#0.s0	JA-EN-SQ	ja-only 29,59,79 en-only -
+endgame-defense#0.s1	JA-EN-SQ	ja-only 49,59 en-only -
+endgame-defense#0.s2	JA-EN-SQ	ja-only 39,49,59 en-only -
+endgame-defense#0.v1.0	JA-EN-SQ	ja-only 69 en-only -
+endgame-defense#1.s1	JA-EN-SQ	ja-only 49,41 en-only -
+endgame-defense#1.s2	JA-EN-SQ	ja-only 78,49 en-only -
+endgame-defense#1.v0.0	JA-EN-SQ	ja-only 69,49 en-only -
+endgame-defense#2.s0	JA-EN-SQ	ja-only 51,59,77,66,55 en-only -
+endgame-defense#2.s1	JA-EN-SQ	ja-only 55 en-only -
+endgame-defense#3.s0	JA-EN-SQ	ja-only 19,37,28 en-only -
+endgame-defense#3.s1	JA-EN-SQ	ja-only 18,17 en-only -
+endgame-defense#3.s2	CHECK-CLAIM?	first sentence mentions 王手 but no check on board
+endgame-defense#3.s2	JA-EN-SQ	ja-only 28,17,37 en-only -
+endgame-defense#3.v0.0	JA-EN-SQ	ja-only 76,28,18,29,37 en-only -
+endgame-defense#4.s0	JA-EN-SQ	ja-only 45,37,57 en-only -
+endgame-defense#4.s1	JA-EN-SQ	ja-only 46,45,57 en-only -
+endgame-defense#4.s2	NO-FUNARI	△３七桂 could promote; formal notation needs 不成
+endgame-defense#4.s2	JA-EN-SQ	ja-only 37 en-only -
+endgame-defense#4.v0.0	NO-FUNARI	△５七桂 could promote; formal notation needs 不成
+endgame-defense#4.v0.0	JA-EN-SQ	ja-only 57 en-only -
+endgame-mate1#0.s0	JA-EN-SQ	ja-only 92,98,94 en-only -
+endgame-mate1#0.s1	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate1#0.s1	JA-EN-SQ	ja-only 83,92,74,91,81,82,93 en-only -
+endgame-mate1#1.s0	JA-EN-SQ	ja-only 31,22,62 en-only -
+endgame-mate1#1.s1	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate1#1.s1	JA-EN-SQ	ja-only 42,31,62,52,32,23,21,41,22 en-only -
+endgame-mate1#2.s0	JA-EN-SQ	ja-only 31,41,21,33,22,42 en-only -
+endgame-mate1#2.s1	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate1#2.s1	JA-EN-SQ	ja-only 32,31,22,42,52 en-only -
+endgame-mate1#3.s0	JA-EN-SQ	ja-only 61,71,51,72,62,52 en-only -
+endgame-mate1#3.s1	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate1#3.s1	JA-EN-SQ	ja-only 53,61,62,52 en-only -
+endgame-mate1#4.s0	JA-EN-SQ	ja-only 91,92,63,72,81,83 en-only -
+endgame-mate1#4.s1	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate1#4.s1	JA-EN-SQ	ja-only 81,63,82,92 en-only -
+endgame-mate1#5.s0	JA-EN-SQ	ja-only 91,81,82,73 en-only -
+endgame-mate1#5.s1	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate1#5.s1	JA-EN-SQ	ja-only 92,91,82,81,73 en-only -
+endgame-mate1#6.s0	JA-EN-SQ	ja-only 31,41,21,52,13 en-only -
+endgame-mate1#6.s1	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate1#6.s1	JA-EN-SQ	ja-only 32,31,52,42,22,13,21 en-only -
+endgame-mate1#7.s0	JA-EN-SQ	ja-only 51,61,41,32,72 en-only -
+endgame-mate1#7.s1	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate1#7.s1	JA-EN-SQ	ja-only 52,72,62,42,41,61,32 en-only -
+endgame-mate1#8.s0	JA-EN-SQ	ja-only 91,82,64,73,72,81 en-only -
+endgame-mate1#8.s1	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate1#8.s1	JA-EN-SQ	ja-only 82,81,72,92 en-only -
+endgame-mate1#9.s0	JA-EN-SQ	ja-only 92,91,81,82,83,74 en-only -
+endgame-mate1#9.s1	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate1#9.s1	JA-EN-SQ	ja-only 93,83,74,91,81,82 en-only -
+endgame-mate1#10.s0	JA-EN-SQ	ja-only 52,53,58,75,64 en-only -
+endgame-mate1#10.s1	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate1#10.s1	JA-EN-SQ	ja-only 53,52,75,43,63,41,51,61,42,62 en-only -
+endgame-mate1#11.s0	JA-EN-SQ	ja-only 51,61,41,62,42,52,75,63 en-only -
+endgame-mate1#11.s1	PROMO	▲６三桂成 says 成 but move does not promote
+endgame-mate1#11.s1	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate1#11.s1	JA-EN-SQ	ja-only 63,51,62 en-only -
+endgame-mate1#12.s0	JA-EN-SQ	ja-only 81,91,71,62,72,82 en-only -
+endgame-mate1#12.s1	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate1#12.s1	JA-EN-SQ	ja-only 82,62,71,91,72,92,81 en-only -
+endgame-mate1#13.s0	JA-EN-SQ	ja-only 32,65,43,53,14 en-only -
+endgame-mate1#13.s1	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate1#13.s1	JA-EN-SQ	ja-only 43,32,53,33,23,14,22,42 en-only -
+endgame-mate3#0.s0	JA-EN-SQ	ja-only 91,82,83,63 en-only -
+endgame-mate3#0.s1	JA-EN-SQ	ja-only 93,92,81,82 en-only -
+endgame-mate3#0.s2	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate3#0.s2	JA-EN-SQ	ja-only 81,72,63,93,82,91 en-only -
+endgame-mate3#1.s0	JA-EN-SQ	ja-only 41,83,64,22,52 en-only -
+endgame-mate3#1.s1	JA-EN-SQ	ja-only 43,22,31,42,52,51 en-only -
+endgame-mate3#1.s2	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate3#1.s2	JA-EN-SQ	ja-only 51,52,43,64 en-only -
+endgame-mate3#2.s0	JA-EN-SQ	ja-only 41,76,43,23 en-only -
+endgame-mate3#2.s1	JA-EN-SQ	ja-only 32,41,31,42,51 en-only -
+endgame-mate3#2.s2	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate3#2.s2	JA-EN-SQ	ja-only 51,71,76,43,52,32,41,61 en-only -
+endgame-mate3#3.s0	JA-EN-SQ	ja-only 72,61,32,41,43,55,51 en-only -
+endgame-mate3#3.s1	JA-EN-SQ	ja-only 73,62,51,52,42,72,32 en-only -
+endgame-mate3#3.s2	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate3#3.s2	JA-EN-SQ	ja-only 52,43,32 en-only -
+endgame-mate3#3.v0.0	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate3#3.v0.0	JA-EN-SQ	ja-only 42,43,32 en-only -
+endgame-mate3#4.s0	JA-EN-SQ	ja-only 56,53 en-only -
+endgame-mate3#4.s1	JA-EN-SQ	ja-only 64,56,51,61,62,41,52,55 en-only -
+endgame-mate3#4.s2	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate3#4.s2	JA-EN-SQ	ja-only 61,72,83 en-only -
+endgame-mate3#4.v0.0	JA-EN-SQ	ja-only 62,72,83 en-only -
+endgame-mate3#4.v1.0	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate3#4.v1.0	JA-EN-SQ	ja-only 41,42,64,53 en-only -
+endgame-mate5#0.s0	JA-EN-SQ	ja-only 31,22,23 en-only -
+endgame-mate5#0.s1	JA-EN-SQ	ja-only 21 en-only -
+endgame-mate5#0.s2	JA-EN-SQ	ja-only 13,11,31 en-only -
+endgame-mate5#0.s3	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate5#0.s3	JA-EN-SQ	ja-only 31,22,23 en-only -
+endgame-mate5#0.v0.0	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate5#0.v0.0	JA-EN-SQ	ja-only 11,22 en-only -
+endgame-mate5#1.s0	JA-EN-SQ	ja-only 74,52 en-only -
+endgame-mate5#1.s1	JA-EN-SQ	ja-only 52 en-only -
+endgame-mate5#1.s2	JA-EN-SQ	ja-only 63,61,51 en-only -
+endgame-mate5#1.s3	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate5#1.s3	JA-EN-SQ	ja-only 61,62,63 en-only -
+endgame-mate5#1.v0.0	JA-EN-SQ	ja-only 51,62,63 en-only -
+endgame-mate5#2.s0	JA-EN-SQ	ja-only 53 en-only -
+endgame-mate5#2.s1	JA-EN-SQ	ja-only 31,42,53,44 en-only -
+endgame-mate5#2.s2	JA-EN-SQ	ja-only 44,34,33,55 en-only -
+endgame-mate5#2.s3	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate5#2.s3	JA-EN-SQ	ja-only 55,56 en-only -
+endgame-mate5#2.v0.0	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate5#2.v0.0	JA-EN-SQ	ja-only 42,44,45,46 en-only -
+endgame-mate5#3.s0	JA-EN-SQ	ja-only 18 en-only -
+endgame-mate5#3.s1	MATE-CLAIM?	text suggests mate; position in check with escapes
+endgame-mate5#3.s1	JA-EN-SQ	ja-only 28,17 en-only -
+endgame-mate5#3.s2	JA-EN-SQ	ja-only 39,28 en-only -
+endgame-mate5#3.s3	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate5#3.s3	JA-EN-SQ	ja-only 27,26 en-only -
+endgame-mate5#3.v0.0	JA-EN-SQ	ja-only 17,27,28 en-only -
+endgame-mate5#4.s0	JA-EN-SQ	ja-only 31 en-only -
+endgame-mate5#4.s1	JA-EN-SQ	ja-only 22,41,42,32 en-only -
+endgame-mate5#4.s2	JA-EN-SQ	ja-only 41,32,51,52 en-only -
+endgame-mate5#4.s3	JA-EN-SQ	ja-only 51,62 en-only -
+endgame-mate5#4.v0.0	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate5#4.v0.0	JA-EN-SQ	ja-only 41,32,52,62 en-only -
+endgame-mate5#4.v1.0	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate5#4.v1.0	JA-EN-SQ	ja-only 42,32,51,52,62 en-only -
+endgame-mate5#4.v2.0	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate5#4.v2.0	JA-EN-SQ	ja-only 42,32,51,52,62 en-only -
+endgame-mate-tesuji#0.s0	JA-EN-SQ	ja-only 11,21,22,45 en-only -
+endgame-mate-tesuji#0.s1	UNMATCHED	△１三金 not played in chapter nor a piece there
+endgame-mate-tesuji#0.s1	JA-EN-SQ	ja-only 15,12,13,14 en-only -
+endgame-mate-tesuji#0.s2	MATE-CLAIM?	text suggests mate; position not in check
+endgame-mate-tesuji#0.s2	JA-EN-SQ	ja-only 12 en-only -
+endgame-mate-tesuji#0.v0.0	UNMATCHED	△１三金 not played in chapter nor a piece there
+endgame-mate-tesuji#0.v0.0	JA-EN-SQ	ja-only 14,13 en-only -
+endgame-mate-tesuji#1.s1	JA-EN-SQ	ja-only 63,72,62,52,83,71,51 en-only -
+endgame-mate-tesuji#1.s2	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate-tesuji#1.s2	JA-EN-SQ	ja-only 51,61,63,52,41,42 en-only -
+endgame-mate-tesuji#2.s0	JA-EN-SQ	ja-only 71,82,24,52,74 en-only -
+endgame-mate-tesuji#2.s1	NO-FUNARI	▲２一飛 could promote; formal notation needs 不成
+endgame-mate-tesuji#2.s1	JA-EN-SQ	ja-only 21,72,62,82 en-only -
+endgame-mate-tesuji#2.s2	JA-EN-SQ	ja-only 72,63,74,62,73,83,82,61 en-only -
+endgame-mate-tesuji#2.v0.0	JA-EN-SQ	ja-only 62,63,74,61 en-only -
+endgame-mate-tesuji#2.v1.0	MATE-CLAIM?	text suggests mate; position not in check
+endgame-mate-tesuji#2.v1.0	JA-EN-SQ	ja-only 61,72,62,53,63 en-only -
+endgame-mate-tesuji#3.s0	JA-EN-SQ	ja-only 72,63,44,61 en-only -
+endgame-mate-tesuji#3.s1	JA-EN-SQ	ja-only 71,61,51 en-only -
+endgame-mate-tesuji#3.s2	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-mate-tesuji#3.s2	JA-EN-SQ	ja-only 51,42,44,43 en-only -
+endgame-mate-tesuji#4.s0	JA-EN-SQ	ja-only 53,44,73,23 en-only -
+endgame-mate-tesuji#4.s1	PROMO	▲６二銀 omits 成 but move promotes
+endgame-mate-tesuji#4.s1	UNMATCHED	△５二玉 not played in chapter nor a piece there
+endgame-mate-tesuji#4.s1	JA-EN-SQ	ja-only 62,51,52,61,42,53,41 en-only -
+endgame-mate-tesuji#4.s2	JA-EN-SQ	ja-only 41,31,23 en-only -
+endgame-tsume-study#0.s0	PROMO	▲７三飛成 says 成 but move does not promote
+endgame-tsume-study#0.s0	JA-EN-SQ	ja-only 71,73,63 en-only -
+endgame-tsume-study#0.s1	UNMATCHED	△８一玉 not played in chapter nor a piece there
+endgame-tsume-study#0.s1	UNMATCHED	△６一玉 not played in chapter nor a piece there
+endgame-tsume-study#0.s1	UNMATCHED	△６二玉 not played in chapter nor a piece there
+endgame-tsume-study#0.s1	JA-EN-SQ	ja-only 73,81,82,61,62 en-only -
+endgame-tsume-study#0.s2	JA-EN-SQ	ja-only 82,73 en-only -
+endgame-tsume-study#1.s1	JA-EN-SQ	ja-only 73,82,62,81,61 en-only -
+endgame-tsume-study#1.s2	MATE-UNSAID	position is checkmate but text does not say 詰
+endgame-tsume-study#1.s2	JA-EN-SQ	ja-only 81,82,73 en-only -
+endgame-tsume-study#1.v0.0	JA-EN-SQ	ja-only 61,62,73 en-only -
+endgame-tsume-study#2.s0	JA-EN-SQ	ja-only 51,42,33,53 en-only -
+endgame-tsume-study#2.s1	JA-EN-SQ	ja-only 53 en-only -
+endgame-tsume-study#2.s2	JA-EN-SQ	ja-only 53 en-only -
+endgame-tsume-study#3.s0	JA-EN-SQ	ja-only 71,62 en-only -
+endgame-tsume-study#3.s1	JA-EN-SQ	ja-only 72,62,61,81 en-only -
+ibisha-basics#0.s1	JA-EN-SQ	ja-only 76,26 en-only -
+ibisha-basics#0.s2	JA-EN-SQ	ja-only 25,78 en-only -
+ibisha-basics#0.s3	JA-EN-SQ	ja-only 68 en-only -
+ibisha-basics#1.s3	JA-EN-SQ	ja-only 34 en-only -
+ibisha-basics#2.s2	JA-EN-SQ	ja-only 78,58 en-only -
+ibisha-basics#2.s3	JA-EN-SQ	ja-only 22 en-only -
+ibisha-basics#3.s2	JA-EN-SQ	ja-only 68,78 en-only -
+bougin-basics#0.s1	JA-EN-SQ	ja-only 26,38 en-only -
+bougin-basics#0.s3	JA-EN-SQ	ja-only 84 en-only -
+bougin-basics#1.s0	JA-EN-SQ	ja-only 33 en-only -
+bougin-basics#1.s3	JA-EN-SQ	ja-only 68,78 en-only -
+bougin-basics#4.s3	JA-EN-SQ	ja-only 68,84,38 en-only -
+bougin-middlegame#0.s1	JA-EN-SQ	ja-only 28 en-only -
+bougin-middlegame#0.s2	JA-EN-SQ	ja-only 23,77 en-only -
+bougin-middlegame#1.s2	JA-EN-SQ	ja-only 44,38 en-only -
+bougin-middlegame#2.s2	JA-EN-SQ	ja-only 54 en-only -
+bougin-middlegame#3.s2	JA-EN-SQ	ja-only 75 en-only -
+bougin-vs-furibisha#0.s1	JA-EN-SQ	ja-only 36 en-only -
+bougin-vs-furibisha#0.v0.0	JA-EN-SQ	ja-only 28 en-only -
+bougin-vs-furibisha#1.s1	JA-EN-SQ	ja-only 54,45 en-only -
+bougin-vs-furibisha#1.s2	JA-EN-SQ	ja-only 64 en-only -
+bougin-vs-furibisha#1.s3	JA-EN-SQ	ja-only 45,54,64 en-only -
+bougin-vs-furibisha#1.v0.0	JA-EN-SQ	ja-only 42 en-only -
+bougin-vs-furibisha#2.s1	JA-EN-SQ	ja-only 54 en-only -
+bougin-vs-furibisha#2.s2	JA-EN-SQ	ja-only 68,78 en-only -
+bougin-castles#0.s1	JA-EN-SQ	ja-only 62 en-only -
+bougin-castles#0.s2	JA-EN-SQ	ja-only 64 en-only -
+bougin-castles#0.s3	JA-EN-SQ	ja-only 36 en-only -
+bougin-castles#1.s1	JA-EN-SQ	ja-only 69,65 en-only -
+bougin-castles#1.s2	JA-EN-SQ	ja-only 45,64 en-only -
+bougin-castles#2.s1	JA-EN-SQ	ja-only 24 en-only -
+bougin-castles#2.v0.0	JA-EN-SQ	ja-only 66 en-only -
+yagura-build#0.s1	JA-EN-SQ	ja-only 77,45 en-only -
+yagura-build#1.s2	JA-EN-SQ	ja-only 88,44 en-only -
+yagura-build#2.s1	JA-EN-SQ	ja-only 88,78,67,77 en-only -
+yagura-build#2.v0.0	JA-EN-SQ	ja-only 46 en-only -
+yagura-bougin#0.s1	JA-EN-SQ	ja-only 53 en-only -
+yagura-bougin#0.s2	JA-EN-SQ	ja-only 25,84 en-only -
+yagura-bougin#0.s3	JA-EN-SQ	ja-only 23 en-only 32
+yagura-bougin#1.s0	JA-EN-SQ	ja-only 88 en-only -
+yagura-bougin#1.s1	JA-EN-SQ	ja-only 42 en-only -
+yagura-bougin#1.s2	JA-EN-SQ	ja-only 34,44,28 en-only -
+yagura-bougin#1.s3	JA-EN-SQ	ja-only 25,24 en-only -
+yagura-bougin#2.s0	JA-EN-SQ	ja-only 56 en-only -
+yagura-bougin#2.s1	JA-EN-SQ	ja-only 25,55 en-only -
+yagura-bougin#2.s2	JA-EN-SQ	ja-only 23 en-only -
+yagura-bougin#2.s4	JA-EN-SQ	ja-only 88 en-only -
+yagura-aiyagura#1.s0	JA-EN-SQ	ja-only 77 en-only -
+yagura-aiyagura#1.s1	JA-EN-SQ	ja-only 77 en-only -
+yagura-aiyagura#2.s1	JA-EN-SQ	ja-only 67,78 en-only 66
+yagura-aiyagura#2.s5	JA-EN-SQ	ja-only 77 en-only -
+yagura-aiyagura#2.v1.0	JA-EN-SQ	ja-only 77 en-only -
+yagura-37gin#1.s0	JA-EN-SQ	ja-only 32,43 en-only -
+yagura-37gin#1.s2	JA-EN-SQ	ja-only - en-only 45
+yagura-37gin#2.s1	JA-EN-SQ	ja-only 46 en-only -
+yagura-37gin#3.s0	JA-EN-SQ	ja-only 96 en-only -
+yagura-waki#1.s3	JA-EN-SQ	ja-only 44 en-only -
+yagura-waki#1.s4	JA-EN-SQ	ja-only 66 en-only -
+yagura-waki#1.v0.0	JA-EN-SQ	ja-only 44 en-only -
+yagura-waki#2.s1	JA-EN-SQ	ja-only 46,32,43 en-only -
+yagura-waki#2.v0.0	JA-EN-SQ	ja-only 66,55 en-only -
+yagura-suzume#0.s2	JA-EN-SQ	ja-only 15 en-only -
+yagura-suzume#0.s6	JA-EN-SQ	ja-only 14 en-only -
+yagura-suzume#0.v0.0	JA-EN-SQ	ja-only 21 en-only -
+yagura-suzume#2.s2	JA-EN-SQ	ja-only 25 en-only -
+yagura-suzume#2.s4	JA-EN-SQ	ja-only 14 en-only -
+yagura-vs-bougin#0.s2	JA-EN-SQ	ja-only 59 en-only -
+yagura-vs-bougin#0.s3	JA-EN-SQ	ja-only 59 en-only -
+yagura-vs-bougin#0.s4	JA-EN-SQ	ja-only 82 en-only 77
+yagura-vs-bougin#2.s2	JA-EN-SQ	ja-only 53 en-only -
+yagura-vs-migishiken#0.s2	JA-EN-SQ	ja-only 67 en-only -
+yagura-vs-migishiken#1.s0	JA-EN-SQ	ja-only 67 en-only -
+yagura-vs-migishiken#2.s2	JA-EN-SQ	ja-only 33 en-only -
+yagura-vs-migishiken#2.v0.0	JA-EN-SQ	ja-only 33 en-only -
+yagura-vs-hidarimino#3.v0.0	JA-EN-SQ	ja-only 77 en-only 27
+gangi#0.s0	JA-EN-SQ	ja-only 34,23,64,54 en-only -
+gangi#0.s1	JA-EN-SQ	ja-only 35 en-only -
+gangi#0.s2	JA-EN-SQ	ja-only - en-only 23
+gangi#0.v0.0	JA-EN-SQ	ja-only 64,65 en-only -
+gangi#1.s3	JA-EN-SQ	ja-only 67 en-only -
+gangi#2.s1	JA-EN-SQ	ja-only 45 en-only -
+gangi#2.s2	JA-EN-SQ	ja-only 22 en-only -
+gangi#3.s1	JA-EN-SQ	ja-only 82 en-only -
+gangi#3.s2	JA-EN-SQ	ja-only 79 en-only -
+gangi#3.s3	JA-EN-SQ	ja-only 44 en-only -
+gangi#3.v0.0	JA-EN-SQ	ja-only 54 en-only -
+kakugawari-basics#1.s3	JA-EN-SQ	ja-only 43 en-only -
+kakugawari-basics#1.v0.0	CHECK-CLAIM?	first sentence mentions 王手 but no check on board
+kakugawari-basics#2.s2	JA-EN-SQ	ja-only - en-only 26
+kakugawari-basics#2.s3	JA-EN-SQ	ja-only 53 en-only -
+kakugawari-bougin#0.v0.0	CHECK-CLAIM?	first sentence mentions 王手 but no check on board
+kakugawari-hayakuri#0.v0.0	CHECK-CLAIM?	first sentence mentions 王手 but no check on board
+kakugawari-hayakuri#2.s3	JA-EN-SQ	ja-only 59 en-only -
+kakugawari-hayakuri#3.s1	JA-EN-SQ	ja-only 86 en-only -
+kakugawari-hayakuri#3.v0.0	JA-EN-SQ	ja-only 82 en-only -
+kakugawari-koshikake#0.s3	JA-EN-SQ	ja-only 56 en-only -
+kakugawari-koshikake#0.v1.0	CHECK-CLAIM?	first sentence mentions 王手 but no check on board
+kakugawari-koshikake#1.s2	JA-EN-SQ	ja-only 56 en-only 65
+kakugawari-koshikake#3.s3	JA-EN-SQ	ja-only 56 en-only -
+kakugawari-45kei#1.s2	JA-EN-SQ	ja-only 45 en-only -
+kakugawari-45kei#2.s2	JA-EN-SQ	ja-only 45 en-only -
+aigakari-basics#0.s0	JA-EN-SQ	ja-only - en-only 22
+aigakari-basics#2.s1	JA-EN-SQ	ja-only 36,76 en-only -
+aigakari-basics#2.s2	JA-EN-SQ	ja-only 86 en-only -
+aigakari-basics#3.v0.0	JA-EN-SQ	ja-only 87 en-only -
+aigakari-bougin#1.s3	JA-EN-SQ	ja-only 24,42 en-only -
+aigakari-bougin#2.s0	JA-EN-SQ	ja-only 54,44,34 en-only -
+aigakari-bougin#2.s2	JA-EN-SQ	ja-only 64 en-only 63
+hineribisha#0.s0	ARROW	5f7f origin empty before and after
+hineribisha#1.s0	ARROW-NOT-LEGAL	4c3d (銀) not a legal move for its owner
+hineribisha#1.s1	JA-EN-SQ	ja-only - en-only 77
+hineribisha#1.v0.0	JA-EN-SQ	ja-only 34 en-only -
+hineribisha#2.s0	JA-EN-SQ	ja-only 59 en-only -
+hineribisha#2.s2	JA-EN-SQ	ja-only 76 en-only -
+hineribisha#3.s1	ARROW-NOT-LEGAL	8b8e (飛) not a legal move for its owner
+yokofu-basics#1.s0	ARROW-NOT-LEGAL	3c3d (金) not a legal move for its owner
+yokofu-23fu#0.s1	UNMATCHED	△２四歩 not played in chapter nor a piece there
+yokofu-23fu#1.s0	ARROW-NOT-LEGAL	3b2c (金) not a legal move for its owner
+yokofu-23fu#2.s1	UNMATCHED	△３四金 not played in chapter nor a piece there
+yokofu-23fu#3.s2	JA-EN-SQ	ja-only 67,23 en-only -
+yokofu-23fu#3.v1.0	JA-EN-SQ	ja-only 32 en-only -
+yokofu-45kaku#0.s0	ARROW	4e3d origin empty before and after
+yokofu-45kaku#0.s0	ARROW	4e6g origin empty before and after
+yokofu-45kaku#0.s1	JA-EN-SQ	ja-only 45 en-only -
+yokofu-45kaku#1.s1	JA-EN-SQ	ja-only 45 en-only -
+yokofu-45kaku#1.s1	ARROW-NOT-LEGAL	7h6g (金) not a legal move for its owner
+yokofu-45kaku#1.s2	JA-EN-SQ	ja-only 78 en-only -
+yokofu-45kaku#2.s2	JA-EN-SQ	ja-only - en-only 23
+yokofu-45kaku#3.s0	ARROW-NOT-LEGAL	5d4e (銀) not a legal move for its owner
+aiyokofu#0.s1	JA-EN-SQ	ja-only 77 en-only -
+aiyokofu#0.s3	JA-EN-SQ	ja-only 77 en-only -
+aiyokofu#2.s0	ARROW-NOT-LEGAL	8c7d (金) not a legal move for its owner
+yokofu-85hisha#0.s3	JA-EN-SQ	ja-only 36 en-only -
+yokofu-85hisha#0.v0.0	JA-EN-SQ	ja-only 33 en-only -
+yokofu-85hisha#0.v1.0	JA-EN-SQ	ja-only 85 en-only -
+yokofu-85hisha#1.s0	JA-EN-SQ	ja-only 59 en-only -
+yokofu-85hisha#2.s0	ARROW-NOT-LEGAL	4b3c (金) not a legal move for its owner
+yokofu-85hisha#2.s1	ARROW	6f8d origin empty before and after
+yokofu-85hisha#2.s3	JA-EN-SQ	ja-only 66 en-only -
+yokofu-aono#1.s0	ARROW	2c3d origin empty before and after
+yokofu-aono#2.s0	ARROW-NOT-LEGAL	4b3c (金) not a legal move for its owner
+yokofu-aono#2.s1	JA-EN-SQ	ja-only 42 en-only -
+yokofu-aono#2.s1	ARROW	5e8b origin empty before and after
+yokofu-aono#2.s1	ARROW	5e3c origin empty before and after
+yokofu-aono#2.s3	JA-EN-SQ	ja-only 82 en-only -
+yokofu-aono#2.s3	ARROW-NOT-LEGAL	3b3c (飛) not a legal move for its owner
+yokofu-yuuki#0.s1	ARROW-NOT-LEGAL	6h7h (玉) not a legal move for its owner
+yokofu-yuuki#1.s1	ARROW-NOT-LEGAL	3e3d (歩) not a legal move for its owner
+yokofu-yuuki#1.s3	JA-EN-SQ	ja-only 35 en-only -
+yokofu-yuuki#1.v0.0	JA-EN-SQ	ja-only 84 en-only -
+yokofu-yuuki#2.s0	ARROW	3e6h origin empty before and after
+yokofu-yuuki#2.s0	ARROW	3e2d origin empty before and after
+yokofu-yuuki#2.s3	JA-EN-SQ	ja-only 35 en-only -
+yokofu-yuuki#2.v0.0	CHECK-CLAIM?	first sentence mentions 王手 but no check on board
+yokofu-yuuki#2.v1.0	CHECK-CLAIM?	first sentence mentions 王手 but no check on board
+yokofu-avoid#1.s0	ARROW-NOT-LEGAL	3a2b (銀) not a legal move for its owner
+yokofu-avoid#1.s3	JA-EN-SQ	ja-only 44 en-only -
+yokofu-avoid#2.s0	JA-EN-SQ	ja-only 24,34,86,26,76,22,32 en-only -
+yokofu-avoid#2.s1	JA-EN-SQ	ja-only 76,86 en-only -
+yokofu-avoid#2.v0.0	JA-EN-SQ	ja-only 34 en-only -
+yokofu-avoid#2.v1.0	JA-EN-SQ	ja-only 22,32 en-only -
+taifuri-basics#1.s0	ARROW-NOT-LEGAL	4h5g (銀) not a legal move for its owner
+taifuri-basics#2.s3	JA-EN-SQ	ja-only 43 en-only -
+taifuri-basics#3.s0	ARROW-NOT-LEGAL	3b2c (銀) not a legal move for its owner
+taifuri-bougin#2.s1	JA-EN-SQ	ja-only 22 en-only -
+taifuri-bougin#2.s2	ARROW-NOT-LEGAL	4b4f (飛) not a legal move for its owner
+taifuri-bougin#2.s3	ARROW-NOT-LEGAL	4b4f (飛) not a legal move for its owner
+taifuri-bougin#2.v0.0	JA-EN-SQ	ja-only 45 en-only -
+taifuri-46gin#0.s0	JA-EN-SQ	ja-only 36,79,42,43,34 en-only -
+taifuri-46gin#0.s1	ARROW-NOT-LEGAL	4c3d (銀) not a legal move for its owner
+taifuri-46gin#0.s2	JA-EN-SQ	ja-only 43 en-only -
+taifuri-46gin#0.v1.0	JA-EN-SQ	ja-only 46 en-only -
+taifuri-elmo#0.s2	JA-EN-SQ	ja-only 74 en-only -
+taifuri-elmo#1.s0	ARROW	5g4f origin empty before and after
+taifuri-elmo#1.s2	JA-EN-SQ	ja-only 22 en-only -
+taifuri-elmo#1.s3	JA-EN-SQ	ja-only - en-only 78
+taifuri-elmo#2.s1	ARROW-NOT-LEGAL	4b4e (飛) not a legal move for its owner
+taifuri-elmo#2.s3	JA-EN-SQ	ja-only 56 en-only -
+taifuri-anaguma#0.s0	JA-EN-SQ	ja-only 76 en-only -
+taifuri-anaguma#0.s2	ARROW	8h9i origin empty before and after
+taifuri-anaguma#0.s3	JA-EN-SQ	ja-only 98 en-only -
+taifuri-anaguma#1.s2	ARROW-NOT-LEGAL	4h4f (飛) not a legal move for its owner
+taifuri-anaguma#2.s2	JA-EN-SQ	ja-only - en-only 58
+taifuri-millennium#1.s0	JA-EN-SQ	ja-only 65 en-only -
+taifuri-45hayashikake#1.s0	JA-EN-SQ	ja-only 45 en-only -
+taifuri-45hayashikake#1.s0	ARROW-NOT-LEGAL	5g4f (銀) not a legal move for its owner
+taifuri-45hayashikake#1.s0	ARROW-NOT-LEGAL	4c4d (銀) not a legal move for its owner
+taifuri-45hayashikake#1.s2	JA-EN-SQ	ja-only 56 en-only -
+taifuri-45hayashikake#2.s0	ARROW-NOT-LEGAL	4b4e (飛) not a legal move for its owner
+taifuri-45hayashikake#2.s1	JA-EN-SQ	ja-only 45 en-only -
+taifuri-45hayashikake#3.s0	ARROW-NOT-LEGAL	4b4e (飛) not a legal move for its owner
+taifuri-45hayashikake#3.s1	JA-EN-SQ	ja-only 36 en-only -
+taifuri-45hayashikake#3.s2	JA-EN-SQ	ja-only 45 en-only -
+taifuri-ponpon#0.s0	ARROW	4e5c origin empty before and after
+taifuri-ponpon#0.s0	ARROW	4e3c origin empty before and after
+taifuri-vs-hayaishida#0.s0	ARROW-NOT-LEGAL	7f3f (飛) not a legal move for its owner
+taifuri-vs-hayaishida#0.s2	JA-EN-SQ	ja-only 76,45 en-only -
+taifuri-vs-hayaishida#1.s1	JA-EN-SQ	ja-only 76 en-only -
+taifuri-vs-hayaishida#2.s2	JA-EN-SQ	ja-only 76 en-only -
+taifuri-bougin-ishida#0.s2	JA-EN-SQ	ja-only - en-only 84
+taifuri-bougin-ishida#2.s0	JA-EN-SQ	ja-only 64 en-only -
+taifuri-bougin-ishida#2.s1	JA-EN-SQ	ja-only 82 en-only -
+taifuri-bougin-ishida#2.s2	JA-EN-SQ	ja-only 46 en-only -
+taifuri-bougin-ishida#2.v0.0	JA-EN-SQ	ja-only 64 en-only -
+taifuri-chousoku#1.s1	JA-EN-SQ	ja-only 26 en-only -
+taifuri-chousoku#1.s2	JA-EN-SQ	ja-only - en-only 66
+taifuri-chousoku#1.v0.0	JA-EN-SQ	ja-only 45 en-only -
+taifuri-chousoku#2.s3	JA-EN-SQ	ja-only 45 en-only -
+taifuri-chousoku#3.s0	ARROW	3g2h origin empty before and after
+taifuri-chousoku#3.s0	ARROW	3g5e origin empty before and after
+taifuri-vs-kakukoukan#0.s1	JA-EN-SQ	ja-only 26 en-only -
+taifuri-vs-kakukoukan#1.s0	JA-EN-SQ	ja-only 36 en-only -
+taifuri-vs-kakukoukan#2.s1	JA-EN-SQ	ja-only - en-only 42
+mukai-build#0.s2	JA-EN-SQ	ja-only - en-only 68
+mukai-build#2.s1	JA-EN-SQ	ja-only - en-only 59
+sanken-basics#0.s1	JA-EN-SQ	ja-only 78 en-only -
+sanken-basics#0.s2	ARROW-NOT-LEGAL	7h7f (飛) not a legal move for its owner
+sanken-basics#0.s3	UNMATCHED	△７四歩 not played in chapter nor a piece there
+sanken-basics#0.s3	JA-EN-SQ	ja-only 75,74 en-only -
+sanken-basics#1.s0	UNMATCHED	▲８四角 not played in chapter nor a piece there
+sanken-basics#1.s0	ARROW-NOT-LEGAL	8b8d (飛) not a legal move for its owner
+sanken-basics#1.s1	JA-EN-SQ	ja-only 77 en-only -
+sanken-basics#1.s2	UNMATCHED	△８六歩 not played in chapter nor a piece there
+sanken-basics#1.s2	SIDE-MARK	▲同歩 matches a move by the other side
+sanken-basics#1.s2	JA-EN-SQ	ja-only 85 en-only 87
+sanken-basics#2.s1	JA-EN-SQ	ja-only 66 en-only -
+sanken-basics#2.s2	UNMATCHED	△８五歩 not played in chapter nor a piece there
+sanken-basics#2.s2	JA-EN-SQ	ja-only 85 en-only -
+sanken-basics#3.s1	JA-EN-SQ	ja-only 28 en-only -
+sanken-basics#3.s2	UNMATCHED	△８六歩 not played in chapter nor a piece there
+sanken-basics#3.s2	JA-EN-SQ	ja-only 38,86 en-only -
+sanken-basics#3.s3	JA-EN-SQ	ja-only 74,49 en-only -
+sanken-vs-bougin#1.s0	ARROW-NOT-LEGAL	8b8d (飛) not a legal move for its owner
+sanken-vs-bougin#1.s1	JA-EN-SQ	ja-only 55 en-only -
+sanken-vs-bougin#1.s2	JA-EN-SQ	ja-only 83,55 en-only -
+sanken-vs-bougin#2.s0	JA-EN-SQ	ja-only 84 en-only -
+sanken-vs-bougin#2.s2	JA-EN-SQ	ja-only 77 en-only -
+sanken-vs-bougin#2.v0.0	JA-EN-SQ	ja-only 84 en-only -
+sanken-vs-bougin#3.s1	JA-EN-SQ	ja-only 38,84 en-only -
+sanken-vs-bougin#3.s2	JA-EN-SQ	ja-only 28,86 en-only -
+sanken-vs-bougin#3.s3	JA-EN-SQ	ja-only 86 en-only -
+sanken-tomahawk#0.s1	JA-EN-SQ	ja-only 25 en-only -
+sanken-tomahawk#0.s2	JA-EN-SQ	ja-only 14 en-only -
+sanken-tomahawk#1.s1	JA-EN-SQ	ja-only 33 en-only -
+sanken-tomahawk#1.s2	CHECK-CLAIM?	first sentence mentions 王手 but no check on board
+sanken-tomahawk#2.s0	JA-EN-SQ	ja-only 25 en-only -
+sanken-tomahawk#2.s2	JA-EN-SQ	ja-only 33 en-only -
+sanken-tomahawk#3.s1	JA-EN-SQ	ja-only 25,86 en-only -
+sanken-tomahawk#3.v0.0	JA-EN-SQ	ja-only 88 en-only -
+ishida-basics#0.s1	JA-EN-SQ	ja-only 76 en-only -
+ishida-basics#0.s2	UNMATCHED	△８六歩 not played in chapter nor a piece there
+ishida-basics#0.s2	JA-EN-SQ	ja-only 85 en-only -
+ishida-basics#1.s2	JA-EN-SQ	ja-only 84 en-only -
+ishida-basics#1.s3	JA-EN-SQ	ja-only 76 en-only -
+ishida-basics#3.s1	JA-EN-SQ	ja-only 86 en-only -
+ishida-basics#3.s2	JA-EN-SQ	ja-only 75 en-only -
+ishida-honkumi#0.s1	JA-EN-SQ	ja-only 67 en-only -
+ishida-honkumi#0.s1	ARROW-NOT-LEGAL	6g7f (銀) not a legal move for its owner
+ishida-honkumi#0.s2	JA-EN-SQ	ja-only 74 en-only -
+ishida-honkumi#0.s2	ARROW-NOT-LEGAL	7f7d (飛) not a legal move for its owner
+ishida-honkumi#0.s3	JA-EN-SQ	ja-only 74 en-only -
+ishida-honkumi#1.s1	JA-EN-SQ	ja-only 97,32 en-only -
+ishida-honkumi#1.s2	JA-EN-SQ	ja-only 74 en-only -
+ishida-honkumi#1.v0.0	JA-EN-SQ	ja-only 41,73 en-only -
+ishida-honkumi#2.s1	JA-EN-SQ	ja-only 77 en-only -
+ishida-honkumi#2.s2	ARROW-NOT-LEGAL	8d8e (飛) not a legal move for its owner
+ishida-honkumi#2.s3	JA-EN-SQ	ja-only 48 en-only -
+ishida-attack#0.s1	JA-EN-SQ	ja-only 65 en-only -
+ishida-attack#0.s2	JA-EN-SQ	ja-only 74 en-only -
+ishida-attack#0.s3	JA-EN-SQ	ja-only 64 en-only -
+ishida-attack#1.s0	JA-EN-SQ	ja-only 65 en-only -
+ishida-attack#1.s0	ARROW-NOT-LEGAL	7f6f (飛) not a legal move for its owner
+ishida-attack#1.s1	JA-EN-SQ	ja-only 65 en-only -
+ishida-attack#1.s2	JA-EN-SQ	ja-only 66,64 en-only -
+ishida-attack#1.s3	JA-EN-SQ	ja-only 32 en-only -
+ishida-attack#1.v0.0	JA-EN-SQ	ja-only 64,76 en-only -
+ishida-attack#2.s1	JA-EN-SQ	ja-only 76 en-only -
+hayaishida#0.s0	JA-EN-SQ	ja-only 75 en-only -
+hayaishida#0.s1	JA-EN-SQ	ja-only 75 en-only -
+hayaishida#0.s1	ARROW-NOT-LEGAL	8b8f (飛) not a legal move for its owner
+hayaishida#0.s3	JA-EN-SQ	ja-only 77 en-only -
+hayaishida#1.s0	ARROW	4e7b origin empty before and after
+hayaishida#1.s0	ARROW	4e2c origin empty before and after
+hayaishida#1.s2	JA-EN-SQ	ja-only 82,23 en-only -
+hayaishida#1.v0.0	JA-EN-SQ	ja-only 72,45 en-only -
+hayaishida#2.s0	ARROW	1d5h origin empty before and after
+hayaishida#2.s1	JA-EN-SQ	ja-only 68 en-only -
+hayaishida#2.v0.0	JA-EN-SQ	ja-only 74 en-only -
+ishida-43#0.s1	JA-EN-SQ	ja-only 24 en-only -
+ishida-43#0.s1	ARROW	3c2d origin empty before and after
+ishida-43#0.s3	JA-EN-SQ	ja-only 26,32 en-only -
+ishida-43#1.s1	JA-EN-SQ	ja-only 83,26 en-only -
+ishida-43#1.s2	JA-EN-SQ	ja-only 32,63 en-only -
+ishida-43#1.v1.0	CHECK-CLAIM?	first sentence mentions 王手 but no check on board
+ishida-43#1.v1.0	JA-EN-SQ	ja-only 28,38 en-only -
+ishida-43#1.v2.0	CHECK-CLAIM?	first sentence mentions 王手 but no check on board
+ishida-43#1.v2.0	JA-EN-SQ	ja-only 83,82,71,53,42 en-only -
+ishida-43#2.s2	JA-EN-SQ	ja-only 26 en-only -
+ishida-43#2.s3	JA-EN-SQ	ja-only 34 en-only -
+shiken-basics#0.s1	JA-EN-SQ	ja-only 68,54 en-only -
+shiken-basics#0.s2	JA-EN-SQ	ja-only 48,87 en-only -
+shiken-basics#1.s2	JA-EN-SQ	ja-only 77,86 en-only -
+shiken-basics#2.s0	JA-EN-SQ	ja-only 28,38,77,33 en-only -
+shiken-basics#2.s0	ARROW	5e2h origin empty before and after
+shiken-basics#2.s1	JA-EN-SQ	ja-only 22 en-only -
+shiken-basics#2.s1	ARROW	5e2h origin empty before and after
+shiken-basics#2.s2	JA-EN-SQ	ja-only 46 en-only -
+shiken-basics#2.v0.0	JA-EN-SQ	ja-only 16 en-only -
+shiken-castles#0.s0	JA-EN-SQ	ja-only 28,38,49 en-only -
+shiken-castles#0.s1	JA-EN-SQ	ja-only 54 en-only -
+shiken-castles#0.s2	JA-EN-SQ	ja-only 84,58 en-only -
+shiken-castles#1.s0	JA-EN-SQ	ja-only 28,38,47,49 en-only -
+shiken-castles#1.s0	ARROW-NOT-LEGAL	3h2g (銀) not a legal move for its owner
+shiken-castles#1.s0	ARROW-NOT-LEGAL	4i3h (金) not a legal move for its owner
+shiken-castles#1.s1	JA-EN-SQ	ja-only 26,84 en-only -
+shiken-castles#1.s2	JA-EN-SQ	ja-only 27,35 en-only -
+shiken-castles#1.s3	JA-EN-SQ	ja-only 27,28 en-only -
+shiken-castles#2.s0	ARROW-NOT-LEGAL	5h4g (金) not a legal move for its owner
+shiken-castles#2.s1	JA-EN-SQ	ja-only 84 en-only -
+shiken-castles#2.s2	JA-EN-SQ	ja-only 47,45 en-only -
+shiken-patterns#0.s0	JA-EN-SQ	ja-only 67,68,57 en-only -
+shiken-patterns#0.s1	JA-EN-SQ	ja-only 55 en-only -
+shiken-patterns#0.s2	JA-EN-SQ	ja-only 55,84,67 en-only -
+shiken-patterns#0.s3	JA-EN-SQ	ja-only 85 en-only -
+shiken-patterns#0.s4	JA-EN-SQ	ja-only 58 en-only -
+shiken-patterns#0.s4	ARROW-NOT-LEGAL	5h5f (飛) not a legal move for its owner
+shiken-patterns#1.s0	JA-EN-SQ	ja-only 77,68 en-only -
+shiken-patterns#1.s0	ARROW-NOT-LEGAL	2b7g (角) not a legal move for its owner
+shiken-patterns#1.s1	JA-EN-SQ	ja-only 22,77 en-only -
+shiken-patterns#1.v0.0	JA-EN-SQ	ja-only 68 en-only -
+shiken-patterns#2.s1	JA-EN-SQ	ja-only 65,84 en-only -
+shiken-patterns#2.s2	JA-EN-SQ	ja-only 77,85 en-only -
+shiken-vs-igyoku-bougin#0.s0	JA-EN-SQ	ja-only 84,82,85 en-only -
+shiken-vs-igyoku-bougin#0.s0	ARROW-NOT-LEGAL	6d7e (銀) not a legal move for its owner
+shiken-vs-igyoku-bougin#0.s2	JA-EN-SQ	ja-only 75 en-only -
+shiken-vs-igyoku-bougin#1.s0	JA-EN-SQ	ja-only 84,75,66,65 en-only -
+shiken-vs-igyoku-bougin#1.s1	JA-EN-SQ	ja-only 65,76 en-only -
+shiken-vs-igyoku-bougin#1.s2	JA-EN-SQ	ja-only 66,76,84,65 en-only -
+shiken-vs-igyoku-bougin#2.s0	SIDE-MARK	▲同歩 matches a move by the other side
+shiken-vs-igyoku-bougin#2.s0	JA-EN-SQ	ja-only 78 en-only -
+shiken-vs-igyoku-bougin#2.s1	JA-EN-SQ	ja-only 67 en-only -
+shiken-vs-igyoku-bougin#2.v0.0	JA-EN-SQ	ja-only 76,67,66 en-only -
+shiken-vs-funa-bougin#0.s0	JA-EN-SQ	ja-only 32,31,22,84,85,68 en-only -
+shiken-vs-funa-bougin#0.s1	JA-EN-SQ	ja-only 88 en-only -
+shiken-vs-funa-bougin#0.s2	JA-EN-SQ	ja-only 88,77 en-only -
+shiken-vs-funa-bougin#0.s2	ARROW-NOT-LEGAL	8h8f (飛) not a legal move for its owner
+shiken-vs-funa-bougin#1.s0	JA-EN-SQ	ja-only 75 en-only -
+shiken-vs-funa-bougin#1.s1	JA-EN-SQ	ja-only 75,59 en-only -
+shiken-vs-funa-bougin#2.s0	ARROW-NOT-LEGAL	7c8d (銀) not a legal move for its owner
+shiken-vs-yagura#0.s0	JA-EN-SQ	ja-only 22,33,85,87 en-only -
+shiken-vs-yagura#0.s1	JA-EN-SQ	ja-only 88,87 en-only -
+shiken-vs-yagura#0.s2	JA-EN-SQ	ja-only 77 en-only -
+shiken-vs-yagura#0.s2	ARROW-NOT-LEGAL	8h8f (飛) not a legal move for its owner
+shiken-vs-yagura#1.s0	JA-EN-SQ	ja-only 33,46,68 en-only -
+shiken-vs-yagura#1.s1	JA-EN-SQ	ja-only - en-only 47,46
+shiken-vs-yagura#1.s2	JA-EN-SQ	ja-only 48 en-only -
+shiken-vs-yagura#1.s3	JA-EN-SQ	ja-only 94 en-only -
+shiken-vs-yagura#1.v0.0	JA-EN-SQ	ja-only 44 en-only -
+shiken-vs-yagura#2.s0	JA-EN-SQ	ja-only 22,32,43,33 en-only -
+shiken-vs-yagura#2.s1	JA-EN-SQ	ja-only 43,32 en-only -
+shiken-vs-migishiken#0.s0	JA-EN-SQ	ja-only 28,38,49,69 en-only -
+shiken-vs-migishiken#0.s1	JA-EN-SQ	ja-only 95 en-only -
+shiken-vs-migishiken#0.v0.0	JA-EN-SQ	ja-only 77 en-only -
+shiken-vs-migishiken#1.s0	JA-EN-SQ	ja-only 62,64,68 en-only -
+shiken-vs-migishiken#1.s1	JA-EN-SQ	ja-only 56,63,64 en-only -
+shiken-vs-migishiken#1.s2	JA-EN-SQ	ja-only 84,65 en-only -
+shiken-vs-migishiken#2.s0	JA-EN-SQ	ja-only 74,56,66 en-only -
+shiken-vs-migishiken#2.s2	JA-EN-SQ	ja-only 68 en-only -
+shiken-vs-migishiken#2.s2	ARROW-NOT-LEGAL	6h6e (飛) not a legal move for its owner
+shiken-vs-migishiken#2.v0.0	JA-EN-SQ	ja-only 65 en-only -
+shiken-vs-anaguma#0.s0	JA-EN-SQ	ja-only 28,38,49,58,44,46 en-only -
+shiken-vs-anaguma#0.s0	ARROW-NOT-LEGAL	4h4e (飛) not a legal move for its owner
+shiken-vs-anaguma#0.s1	JA-EN-SQ	ja-only 48 en-only -
+shiken-vs-anaguma#0.s2	UNMATCHED	△１七角成 not played in chapter nor a piece there
+shiken-vs-anaguma#0.s2	JA-EN-SQ	ja-only 78,71,13,12,63 en-only -
+shiken-vs-anaguma#0.s3	JA-EN-SQ	ja-only 54,41,31 en-only -
+shiken-vs-anaguma#1.s0	JA-EN-SQ	ja-only 11,12,22,32,13,19 en-only -
+shiken-vs-anaguma#1.s1	JA-EN-SQ	ja-only 48,46 en-only -
+shiken-vs-anaguma#1.s2	JA-EN-SQ	ja-only 23 en-only -
+shiken-vs-anaguma#1.s2	ARROW-NOT-LEGAL	2c1c (金) not a legal move for its owner
+shiken-vs-anaguma#1.s3	CHECK-CLAIM?	first sentence mentions 王手 but no check on board
+shiken-vs-anaguma#2.s0	JA-EN-SQ	ja-only 53,32 en-only -
+shiken-vs-anaguma#2.s0	ARROW	4e3c origin empty before and after
+shiken-vs-anaguma#2.s0	ARROW	4e5c origin empty before and after
+shiken-vs-anaguma#2.s1	UNMATCHED	△１七角成 not played in chapter nor a piece there
+shiken-vs-anaguma#2.s1	JA-EN-SQ	ja-only 45,53,33,13,12,66,77 en-only -
+shiken-vs-anaguma#2.s2	UNMATCHED	△３五角 not played in chapter nor a piece there
+shiken-vs-anaguma#2.s2	UNMATCHED	▲４七金 not played in chapter nor a piece there
+shiken-vs-anaguma#2.s2	JA-EN-SQ	ja-only 46,47 en-only -
+shiken-vs-anaguma#2.v0.0	JA-EN-SQ	ja-only 44,53,33 en-only -
+shiken-tateishi#0.s0	JA-EN-SQ	ja-only 68,88,66,22,85 en-only -
+shiken-tateishi#0.s1	JA-EN-SQ	ja-only 65,86 en-only -
+shiken-tateishi#0.s2	JA-EN-SQ	ja-only 22,88 en-only -
+shiken-tateishi#1.s0	JA-EN-SQ	ja-only 75,68,88,46 en-only -
+shiken-tateishi#1.s0	ARROW	4d8h origin empty before and after
+shiken-tateishi#1.s1	JA-EN-SQ	ja-only 94,46 en-only -
+shiken-tateishi#1.s2	JA-EN-SQ	ja-only 66,76,75,55 en-only -
+shiken-tateishi#1.v0.0	JA-EN-SQ	ja-only 76,88 en-only -
+shiken-tateishi#1.v1.0	JA-EN-SQ	ja-only 55,46 en-only -
+shiken-tateishi#2.s0	JA-EN-SQ	ja-only 62,28,38,49 en-only -
+shiken-tateishi#2.s0	ARROW-NOT-LEGAL	6b7b (金) not a legal move for its owner
+shiken-tateishi#2.s1	JA-EN-SQ	ja-only 69 en-only -
+shiken-tateishi#2.s2	JA-EN-SQ	ja-only 58,49,99 en-only -
+shiken-tateishi#2.v0.0	JA-EN-SQ	ja-only 68 en-only -
+fujii-build#0.s0	JA-EN-SQ	ja-only 38,85,82,77 en-only -
+fujii-build#0.s1	JA-EN-SQ	ja-only 87 en-only -
+fujii-build#0.s2	JA-EN-SQ	ja-only 77 en-only -
+fujii-build#0.v0.0	JA-EN-SQ	ja-only 86,48,87 en-only -
+fujii-build#1.s0	JA-EN-SQ	ja-only 59,78,38,58,49,42,73,84,13 en-only -
+fujii-build#1.s1	JA-EN-SQ	ja-only 16,73,84 en-only -
+fujii-build#1.s2	JA-EN-SQ	ja-only 14,67,64 en-only -
+fujii-build#1.v0.0	JA-EN-SQ	ja-only 16,32,67 en-only -
+fujii-build#2.s0	JA-EN-SQ	ja-only 32,12,59,47,58,49,46,44 en-only -
+fujii-build#2.s1	JA-EN-SQ	ja-only 56,68 en-only -
+fujii-build#2.s2	JA-EN-SQ	ja-only 45 en-only -
+fujii-build#2.v0.0	JA-EN-SQ	ja-only 46,48 en-only -
+fujii-vs-anaguma#0.s0	JA-EN-SQ	ja-only 59,68,77,11,12,22,32,15 en-only 66,55,44,33
+fujii-vs-anaguma#0.s1	JA-EN-SQ	ja-only 44,77 en-only -
+fujii-vs-anaguma#0.s2	JA-EN-SQ	ja-only 22,32 en-only -
+fujii-vs-anaguma#0.s3	JA-EN-SQ	ja-only 32,22,55,15 en-only -
+fujii-vs-anaguma#0.v0.0	JA-EN-SQ	ja-only 44,43 en-only -
+fujii-vs-anaguma#1.s0	JA-EN-SQ	ja-only 77,66,43,71 en-only -
+fujii-vs-anaguma#1.s1	CHECK-CLAIM?	first sentence mentions 王手 but no check on board
+fujii-vs-anaguma#1.s1	JA-EN-SQ	ja-only 65,77,22,71 en-only -
+fujii-vs-anaguma#1.s2	JA-EN-SQ	ja-only 66,65,22,59 en-only -
+fujii-vs-anaguma#1.v0.0	JA-EN-SQ	ja-only 44,71 en-only -
+fujii-vs-anaguma#2.s0	JA-EN-SQ	ja-only 11,12,22,32,59,15 en-only -
+fujii-vs-anaguma#2.s1	JA-EN-SQ	ja-only 55 en-only -
+fujii-vs-anaguma#2.v0.0	CHECK-CLAIM?	first sentence mentions 王手 but no check on board
+fujii-vs-anaguma#2.v0.0	JA-EN-SQ	ja-only 14,89,48 en-only -
+fujii-vs-hidarimino#0.s0	JA-EN-SQ	ja-only 23,32,59,68 en-only -
+fujii-vs-hidarimino#0.s1	JA-EN-SQ	ja-only 48,53 en-only -
+fujii-vs-hidarimino#0.s2	JA-EN-SQ	ja-only 39,23 en-only -
+fujii-vs-hidarimino#1.s0	JA-EN-SQ	ja-only 23,24,34,36,46,42 en-only -
+fujii-vs-hidarimino#1.s1	JA-EN-SQ	ja-only 46 en-only -
+fujii-vs-hidarimino#1.s2	UNMATCHED	▲２四銀 not played in chapter nor a piece there
+fujii-vs-hidarimino#1.s2	JA-EN-SQ	ja-only 35,33,24 en-only -
+fujii-vs-hidarimino#2.s0	JA-EN-SQ	ja-only 46,56,44,42 en-only -
+fujii-vs-hidarimino#2.s1	JA-EN-SQ	ja-only 56 en-only -
+fujii-vs-hidarimino#2.s2	JA-EN-SQ	ja-only 43,45,82 en-only -
+fujii-vs-hidarimino#2.v0.0	JA-EN-SQ	ja-only 45,43,44 en-only -
+fujii-vs-hidarimino#3.s0	JA-EN-SQ	ja-only 82,87,68,79 en-only -
+fujii-vs-hidarimino#3.s0	ARROW-NOT-LEGAL	8b8f (飛) not a legal move for its owner
+fujii-vs-hidarimino#3.s2	JA-EN-SQ	ja-only 79 en-only -
+fujii-vs-hidarimino#3.v0.0	JA-EN-SQ	ja-only 76,79,88 en-only -
+fujii-vs-kyusen#0.s0	JA-EN-SQ	ja-only 59,68,77,86,87,73,82 en-only -
+fujii-vs-kyusen#0.s1	JA-EN-SQ	ja-only 74,77 en-only -
+fujii-vs-kyusen#0.s2	JA-EN-SQ	ja-only 48,74,87 en-only -
+fujii-vs-kyusen#0.v0.0	JA-EN-SQ	ja-only 48,87,77 en-only -
+fujii-vs-kyusen#1.s0	JA-EN-SQ	ja-only 75,64,67,87,39 en-only -
+fujii-vs-kyusen#1.s0	ARROW-NOT-LEGAL	6d7e (銀) not a legal move for its owner
+fujii-vs-kyusen#1.s0	ARROW-NOT-LEGAL	6g7f (銀) not a legal move for its owner
+fujii-vs-kyusen#1.s1	JA-EN-SQ	ja-only 75,67 en-only -
+fujii-vs-kyusen#1.s2	JA-EN-SQ	ja-only 76,75,64,87 en-only -
+fujii-vs-kyusen#1.v0.0	JA-EN-SQ	ja-only 76,87 en-only -
+fujii-vs-kyusen#2.s0	JA-EN-SQ	ja-only 66,64,83,77 en-only -
+fujii-vs-kyusen#2.s1	JA-EN-SQ	ja-only 77,68,83 en-only -
+fujii-vs-kyusen#2.s2	JA-EN-SQ	ja-only 77,39,42 en-only -
+fujii-vs-kyusen#2.v0.0	JA-EN-SQ	ja-only 74,66,65 en-only -
+gokigen-basics#0.s1	JA-EN-SQ	ja-only 52,54,22,88,79 en-only -
+gokigen-basics#0.s2	JA-EN-SQ	ja-only 48,55,22,88,53,54,52 en-only -
+gokigen-basics#0.s3	JA-EN-SQ	ja-only 68,33,24,55,52 en-only -
+gokigen-basics#0.v0.0	JA-EN-SQ	ja-only 55,53,54 en-only -
+gokigen-basics#1.s0	JA-EN-SQ	ja-only 52,55,33,23 en-only -
+gokigen-basics#1.s1	JA-EN-SQ	ja-only 24 en-only -
+gokigen-basics#1.s2	JA-EN-SQ	ja-only 28,44,55,52 en-only -
+gokigen-basics#1.v0.0	JA-EN-SQ	ja-only 24,33 en-only -
+gokigen-basics#2.s0	JA-EN-SQ	ja-only 52,22,88,31,42,32 en-only -
+gokigen-basics#2.s0	ARROW-NOT-LEGAL	3a2b (金) not a legal move for its owner
+gokigen-basics#2.s0	ARROW-NOT-LEGAL	5b2b (飛) not a legal move for its owner
+gokigen-basics#2.s1	JA-EN-SQ	ja-only 62,22,52 en-only -
+gokigen-basics#2.s1	ARROW-NOT-LEGAL	5b2b (飛) not a legal move for its owner
+gokigen-basics#2.s2	MATE-CLAIM?	text suggests mate; position in check with escapes
+gokigen-basics#2.s2	JA-EN-SQ	ja-only 96,39 en-only -
+gokigen-basics#2.v0.0	JA-EN-SQ	ja-only 42,52,22 en-only -
+gokigen-basics#2.v1.0	JA-EN-SQ	ja-only 62,22,42,32 en-only -
+nakabisha-sente#0.s0	JA-EN-SQ	ja-only 22,77,56,84 en-only -
+nakabisha-sente#0.s1	JA-EN-SQ	ja-only 55,22,77,85,86 en-only -
+nakabisha-sente#0.s2	JA-EN-SQ	ja-only 58,55,85,87,77 en-only -
+nakabisha-sente#1.s0	JA-EN-SQ	ja-only 87,77,55,22 en-only -
+nakabisha-sente#1.s1	JA-EN-SQ	ja-only 86,84 en-only -
+nakabisha-sente#1.s2	JA-EN-SQ	ja-only 66,84 en-only -
+nakabisha-sente#1.v0.0	JA-EN-SQ	ja-only 48,87 en-only -
+nakabisha-sente#2.s0	JA-EN-SQ	ja-only 55,54,58,77,22 en-only -
+nakabisha-sente#2.s0	ARROW-NOT-LEGAL	7g5e (角) not a legal move for its owner
+nakabisha-sente#2.s1	JA-EN-SQ	ja-only 77,22 en-only -
+nakabisha-sente#2.s1	ARROW-NOT-LEGAL	5h5e (飛) not a legal move for its owner
+nakabisha-sente#2.s3	JA-EN-SQ	ja-only 55,41 en-only -
+gokigen-castles#0.s0	JA-EN-SQ	ja-only 39,49,69 en-only -
+gokigen-castles#0.s1	JA-EN-SQ	ja-only 49,85 en-only -
+gokigen-castles#0.s2	JA-EN-SQ	ja-only 42 en-only -
+gokigen-castles#1.s0	JA-EN-SQ	ja-only 28,38,49 en-only -
+gokigen-castles#1.s1	JA-EN-SQ	ja-only 47,45,43 en-only -
+gokigen-castles#1.s2	JA-EN-SQ	ja-only 36 en-only -
+gokigen-castles#2.s0	JA-EN-SQ	ja-only 38,84,82 en-only -
+gokigen-castles#2.s1	JA-EN-SQ	ja-only 19,85,28,86 en-only -
+gokigen-castles#2.s2	JA-EN-SQ	ja-only 37,32 en-only -
+gokigen-castles#2.s3	JA-EN-SQ	ja-only 28,38,19,18 en-only -
+gokigen-castles#2.v0.0	JA-EN-SQ	ja-only 37,86,28 en-only -
+gokigen-attack#0.s0	JA-EN-SQ	ja-only 52,44,57,47 en-only -
+gokigen-attack#0.s0	ARROW-NOT-LEGAL	4d5e (銀) not a legal move for its owner
+gokigen-attack#0.s1	JA-EN-SQ	ja-only - en-only 44
+gokigen-attack#0.s2	JA-EN-SQ	ja-only 26,47 en-only -
+gokigen-attack#0.v0.0	JA-EN-SQ	ja-only 58,56 en-only -
+gokigen-attack#1.s0	JA-EN-SQ	ja-only 22,54,79 en-only -
+gokigen-attack#1.s0	ARROW-NOT-LEGAL	7i8h (銀) not a legal move for its owner
+gokigen-attack#1.s1	JA-EN-SQ	ja-only 88 en-only -
+gokigen-attack#1.s2	JA-EN-SQ	ja-only 52 en-only -
+gokigen-attack#1.s2	ARROW-NOT-LEGAL	7c5e (角) not a legal move for its owner
+gokigen-attack#2.s0	JA-EN-SQ	ja-only 44,55,67,52 en-only -
+gokigen-attack#2.s1	JA-EN-SQ	ja-only 56,44 en-only -
+gokigen-attack#2.s2	ARROW-NOT-LEGAL	4g5f (角) not a legal move for its owner
+gokigen-vs-choukyusen#0.s1	JA-EN-SQ	ja-only 52,58,54,25 en-only -
+gokigen-vs-choukyusen#0.s2	JA-EN-SQ	ja-only 55,22,88,33,44,66,77 en-only -
+gokigen-vs-choukyusen#0.s3	JA-EN-SQ	ja-only 24,34 en-only -
+gokigen-vs-choukyusen#0.v0.0	JA-EN-SQ	ja-only 68 en-only -
+gokigen-vs-choukyusen#1.s0	JA-EN-SQ	ja-only 24,55 en-only -
+gokigen-vs-choukyusen#1.s1	JA-EN-SQ	ja-only 56,55,22,88 en-only -
+gokigen-vs-choukyusen#1.s2	JA-EN-SQ	ja-only 88,79 en-only -
+gokigen-vs-choukyusen#1.s3	JA-EN-SQ	ja-only 33,24,44,55,66,77,88,21 en-only -
+gokigen-vs-choukyusen#1.v0.0	JA-EN-SQ	ja-only 34,88 en-only -
+gokigen-vs-choukyusen#2.s0	JA-EN-SQ	ja-only 33 en-only -
+gokigen-vs-choukyusen#2.s1	JA-EN-SQ	ja-only 21,33,88 en-only -
+gokigen-vs-choukyusen#2.s2	JA-EN-SQ	ja-only 88,77,66,55,44,33,22,11 en-only -
+gokigen-vs-choukyusen#2.s3	JA-EN-SQ	ja-only 89,11 en-only -
+gokigen-vs-choukyusen#2.v0.0	JA-EN-SQ	ja-only 11,77 en-only -
+gokigen-vs-chousoku#0.s0	JA-EN-SQ	ja-only 46,55,63,52 en-only -
+gokigen-vs-chousoku#0.s1	JA-EN-SQ	ja-only 54,52 en-only -
+gokigen-vs-chousoku#0.s1	ARROW-NOT-LEGAL	5d5e (銀) not a legal move for its owner
+gokigen-vs-chousoku#0.v0.0	JA-EN-SQ	ja-only 62,55,63 en-only -
+gokigen-vs-chousoku#1.s0	JA-EN-SQ	ja-only 54,46 en-only -
+gokigen-vs-chousoku#1.s0	ARROW	6d4f origin empty before and after
+gokigen-vs-chousoku#1.s1	JA-EN-SQ	ja-only 35 en-only -
+gokigen-vs-chousoku#1.s2	JA-EN-SQ	ja-only 37,28,18 en-only 55
+gokigen-vs-chousoku#2.s0	JA-EN-SQ	ja-only 52 en-only -
+gokigen-vs-chousoku#2.s1	JA-EN-SQ	ja-only 54 en-only -
+gokigen-vs-chousoku#2.s1	ARROW-NOT-LEGAL	6d5e (角) not a legal move for its owner
+gokigen-vs-chousoku#2.s1	ARROW-NOT-LEGAL	5d5e (銀) not a legal move for its owner
+gokigen-vs-chousoku#2.v0.0	JA-EN-SQ	ja-only 83,55 en-only -
+gokigen-vs-anaguma#0.s0	JA-EN-SQ	ja-only 99,98,88,78,56,64,77 en-only -
+gokigen-vs-anaguma#0.s1	JA-EN-SQ	ja-only 55,77 en-only -
+gokigen-vs-anaguma#0.s2	JA-EN-SQ	ja-only 55 en-only -
+gokigen-vs-anaguma#1.s0	JA-EN-SQ	ja-only 98,99,94,91,97 en-only -
+gokigen-vs-anaguma#1.s1	JA-EN-SQ	ja-only 95,98 en-only -
+gokigen-vs-anaguma#2.s0	JA-EN-SQ	ja-only 67,77 en-only -
+gokigen-vs-anaguma#2.s1	JA-EN-SQ	ja-only 55,66 en-only -
+gokigen-vs-anaguma#2.s2	JA-EN-SQ	ja-only 66,77,56 en-only -
+gokigen-vs-anaguma#2.s2	ARROW-NOT-LEGAL	7g5e (角) not a legal move for its owner
+kakukoukan-shiken#0.s0	JA-EN-SQ	ja-only 81,23 en-only -
+kakukoukan-shiken#0.s0	ARROW	4e8a origin empty before and after
+kakukoukan-shiken#0.s0	ARROW	4e2c origin empty before and after
+kakukoukan-shiken#0.s1	JA-EN-SQ	ja-only 81,23 en-only -
+kakukoukan-shiken#0.s2	JA-EN-SQ	ja-only 82,23 en-only -
+kakukoukan-shiken#1.s0	JA-EN-SQ	ja-only 84,86,82 en-only -
+kakukoukan-shiken#1.s1	JA-EN-SQ	ja-only 32 en-only -
+kakukoukan-shiken#1.s2	JA-EN-SQ	ja-only 85,32 en-only -
+kakukoukan-shiken#2.s0	JA-EN-SQ	ja-only 38,68 en-only -
+kakukoukan-shiken#2.s0	ARROW	6e3h origin empty before and after
+kakukoukan-shiken#2.s1	JA-EN-SQ	ja-only 38 en-only -
+kakukoukan-shiken#2.v0.0	JA-EN-SQ	ja-only 32,66 en-only -
+kakukoukan-gyakubougin#0.s0	JA-EN-SQ	ja-only 76,88,84,86 en-only -
+kakukoukan-gyakubougin#0.s0	ARROW-NOT-LEGAL	8h8e (飛) not a legal move for its owner
+kakukoukan-gyakubougin#0.s2	JA-EN-SQ	ja-only 85 en-only -
+kakukoukan-gyakubougin#0.v0.0	JA-EN-SQ	ja-only 81,74,85 en-only -
+kakukoukan-gyakubougin#0.v1.0	CHECK-CLAIM?	first sentence mentions 王手 but no check on board
+kakukoukan-gyakubougin#0.v1.0	JA-EN-SQ	ja-only 82,53,62 en-only -
+kakukoukan-gyakubougin#1.s0	JA-EN-SQ	ja-only 86,76,84 en-only -
+kakukoukan-gyakubougin#1.s1	SIDE-MARK	▲同飛 matches a move by the other side
+kakukoukan-gyakubougin#1.s1	JA-EN-SQ	ja-only 68 en-only -
+kakukoukan-gyakubougin#2.s0	JA-EN-SQ	ja-only 88,28,38,48,76 en-only -
+kakukoukan-gyakubougin#2.s0	ARROW	5e2h origin empty before and after
+kakukoukan-gyakubougin#2.s0	ARROW	5e8h origin empty before and after
+kakukoukan-gyakubougin#2.s1	JA-EN-SQ	ja-only 28,88 en-only -
+kakukoukan-gyakubougin#2.s2	JA-EN-SQ	ja-only 17,88 en-only -
+direct-mukai#0.s0	JA-EN-SQ	ja-only 82,62,52,42,33,23 en-only -
+direct-mukai#0.s1	JA-EN-SQ	ja-only 22,28,33 en-only -
+direct-mukai#0.s2	JA-EN-SQ	ja-only 22,33 en-only -
+direct-mukai#1.s0	JA-EN-SQ	ja-only 22,23,25 en-only -
+direct-mukai#1.s0	ARROW	5g2d origin empty before and after
+direct-mukai#1.s1	JA-EN-SQ	ja-only 24 en-only -
+direct-mukai#1.s1	ARROW	5g2d origin empty before and after
+direct-mukai#1.s2	JA-EN-SQ	ja-only 22,24 en-only -
+direct-mukai#2.s0	JA-EN-SQ	ja-only 26 en-only -
+direct-mukai#2.s0	ARROW	6d2h origin empty before and after
+direct-mukai#2.s1	JA-EN-SQ	ja-only 27,26 en-only -
+direct-mukai#2.s2	JA-EN-SQ	ja-only 64 en-only -
+legspe#0.s0	JA-EN-SQ	ja-only 18,29,39,19,28,84 en-only -
+legspe#0.s1	JA-EN-SQ	ja-only 28,19 en-only -
+legspe#0.s2	JA-EN-SQ	ja-only 68 en-only -
+legspe#0.v0.0	CHECK-CLAIM?	first sentence mentions 王手 but no check on board
+legspe#0.v0.0	JA-EN-SQ	ja-only 82,53,62 en-only -
+legspe#1.s0	JA-EN-SQ	ja-only 29,39 en-only -
+legspe#1.s1	JA-EN-SQ	ja-only 68 en-only -
+legspe#1.s2	JA-EN-SQ	ja-only 88,76 en-only -
+legspe#2.s0	JA-EN-SQ	ja-only 19,18,28,88 en-only -
+legspe#2.s0	ARROW	5e8h origin empty before and after
+legspe#2.s1	JA-EN-SQ	ja-only 76,88,37,38 en-only 46
+legspe#2.s2	JA-EN-SQ	ja-only 86,82,84,77 en-only -
+aifuri-basics#0.s2	JA-EN-SQ	ja-only 28 en-only -
+aifuri-basics#1.s2	JA-EN-SQ	ja-only 34 en-only -
+aifuri-ishida-vs-naka#0.s0	JA-EN-SQ	ja-only 76,52 en-only -
+aifuri-ishida-vs-naka#0.s2	JA-EN-SQ	ja-only 76 en-only -
+aifuri-ishida-vs-naka#1.s0	JA-EN-SQ	ja-only 76 en-only -
+aifuri-vs-ishida#0.s0	JA-EN-SQ	ja-only 42 en-only -
+aifuri-vs-ishida#1.s0	JA-EN-SQ	ja-only 42,44,76,46 en-only -
+aifuri-vs-ishida#2.s1	JA-EN-SQ	ja-only 44 en-only -
+aifuri-hidari-anaguma#0.s0	JA-EN-SQ	ja-only 89,98,88,78,32,34 en-only -
+aifuri-hidari-anaguma#0.s2	JA-EN-SQ	ja-only 99,88,78 en-only -
+aifuri-hidari-anaguma#1.s0	JA-EN-SQ	ja-only 89,98,78,88,34,35 en-only 46
+aifuri-hidari-anaguma#1.s2	JA-EN-SQ	ja-only 56 en-only -
+aifuri-hidari-anaguma#2.s0	JA-EN-SQ	ja-only 99,56,55,53,34 en-only -
+aifuri-hidari-anaguma#2.s2	JA-EN-SQ	ja-only 34 en-only -
+kishu-onigoroshi#1.s1	JA-EN-SQ	ja-only - en-only 81
+kishu-onigoroshi#2.s1	JA-EN-SQ	ja-only 73 en-only -
+kishu-sujichigai#0.s0	JA-EN-SQ	ja-only 45 en-only -
+kishu-sujichigai#0.s0	ARROW-NOT-LEGAL	4e7b (角) not a legal move for its owner
+kishu-sujichigai#1.s0	JA-EN-SQ	ja-only 45,53,52 en-only -
+kishu-sujichigai#2.s0	JA-EN-SQ	ja-only 45 en-only -
+kishu-pacman#0.s0	JA-EN-SQ	ja-only 44,33,22,51 en-only -
+kishu-pacman#0.s1	JA-EN-SQ	ja-only 24,34,44 en-only -
+kishu-pacman#0.s2	JA-EN-SQ	ja-only 33,42,51,24 en-only -
+kishu-pacman#0.s3	JA-EN-SQ	ja-only 61,24 en-only -
+kishu-pacman#0.v0.0	JA-EN-SQ	ja-only 27,33,24 en-only -
+kishu-pacman#2.s0	JA-EN-SQ	ja-only 53 en-only -
+kishu-pacman#2.s1	JA-EN-SQ	ja-only 77,53 en-only -
+kishu-pacman#2.v0.0	JA-EN-SQ	ja-only 45 en-only -
+kishu-ahiru#0.s0	JA-EN-SQ	ja-only 58 en-only -
+kishu-ahiru#0.s1	JA-EN-SQ	ja-only 26 en-only -
+kishu-ahiru#0.s2	JA-EN-SQ	ja-only 62 en-only -
+kishu-ahiru#1.s0	JA-EN-SQ	ja-only 57,52,53 en-only -
+kishu-ahiru#1.s1	JA-EN-SQ	ja-only 53 en-only -
+kishu-ahiru#1.s2	JA-EN-SQ	ja-only 58 en-only -
+kishu-ahiru#2.s1	JA-EN-SQ	ja-only 33 en-only -
+kishu-migishiken-hidarimino#0.s0	JA-EN-SQ	ja-only 88,78,69,58,48,56,37,46,43 en-only -
+kishu-migishiken-hidarimino#0.s2	JA-EN-SQ	ja-only 56,37 en-only -
+kishu-migishiken-hidarimino#1.s0	JA-EN-SQ	ja-only 88 en-only -
+kishu-migishiken-hidarimino#1.s1	JA-EN-SQ	ja-only 88 en-only -
+kishu-migishiken-hidarimino#1.s2	JA-EN-SQ	ja-only 55 en-only -
+kishu-migishiken-hidarimino#2.s0	JA-EN-SQ	ja-only 48,56,37,66,77 en-only -
+kishu-migishiken-hidarimino#2.s1	JA-EN-SQ	ja-only 33,53 en-only -
+ureshino-basics#0.s0	JA-EN-SQ	ja-only 68,88,76,82,84,44,22 en-only -
+ureshino-basics#0.s2	JA-EN-SQ	ja-only - en-only 77
+ureshino-basics#1.s0	JA-EN-SQ	ja-only 56 en-only -
+ureshino-basics#1.s1	JA-EN-SQ	ja-only 24 en-only -
+ureshino-basics#1.s2	JA-EN-SQ	ja-only 75 en-only -
+ureshino-basics#2.s1	JA-EN-SQ	ja-only 59 en-only 86,77
+ureshino-basics#2.s2	JA-EN-SQ	ja-only 68 en-only -
+ureshino-basics#2.v0.0	CHECK-CLAIM?	first sentence mentions 王手 but no check on board
+ureshino-new#0.s0	JA-EN-SQ	ja-only 68,56,88,52 en-only -
+ureshino-new#0.s1	JA-EN-SQ	ja-only 56 en-only -
+ureshino-new#0.v0.0	JA-EN-SQ	ja-only 77,57 en-only -
+ureshino-new#1.s0	JA-EN-SQ	ja-only 57,88,44,53 en-only -
+ureshino-new#1.s1	JA-EN-SQ	ja-only 57 en-only 68
+ureshino-new#1.s2	JA-EN-SQ	ja-only 57,44 en-only 55
+ureshino-new#1.v0.0	JA-EN-SQ	ja-only 79 en-only -
+ureshino-new#2.s0	JA-EN-SQ	ja-only 88,57,74,84,82 en-only -
+ureshino-new#2.s1	JA-EN-SQ	ja-only 84,82 en-only -
+ureshino-new#2.v0.0	JA-EN-SQ	ja-only 75 en-only -
+ureshino-vs-bougin#0.s0	JA-EN-SQ	ja-only 82,85,75,88 en-only -
+ureshino-vs-bougin#0.s2	JA-EN-SQ	ja-only 75,85,87,77 en-only 86
+ureshino-vs-bougin#1.s0	JA-EN-SQ	ja-only 77,82 en-only -
+ureshino-vs-bougin#1.s1	JA-EN-SQ	ja-only 88 en-only -
+ureshino-vs-bougin#1.s2	JA-EN-SQ	ja-only 86 en-only -
+ureshino-vs-bougin#2.s0	JA-EN-SQ	ja-only 75,77 en-only -
+ureshino-vs-bougin#2.v0.0	JA-EN-SQ	ja-only 77,76 en-only -
+ureshino-vs-shiken#0.s1	JA-EN-SQ	ja-only 45,48 en-only -
+ureshino-vs-shiken#0.s2	JA-EN-SQ	ja-only 46 en-only -
+ureshino-vs-shiken#1.s1	JA-EN-SQ	ja-only 45,33,25 en-only -
+ureshino-vs-shiken#2.s0	JA-EN-SQ	ja-only 76 en-only -
+ureshino-vs-shiken#2.s1	JA-EN-SQ	ja-only 45 en-only -
+ureshino-vs-shiken#2.v0.0	JA-EN-SQ	ja-only 77,45 en-only -
+ureshino-counter#0.s0	JA-EN-SQ	ja-only 78,67,82,31,53,39,28,49 en-only -
+ureshino-counter#0.s1	JA-EN-SQ	ja-only 87 en-only -
+ureshino-counter#0.s2	JA-EN-SQ	ja-only 86,77,67 en-only -
+ureshino-counter#0.v0.0	JA-EN-SQ	ja-only 77,67 en-only -
+ureshino-counter#1.s0	JA-EN-SQ	ja-only 78,76,53 en-only -
+ureshino-counter#1.s2	JA-EN-SQ	ja-only 64,75,78 en-only -
+ureshino-counter#2.s0	JA-EN-SQ	ja-only 77,66 en-only 73
+ureshino-counter#2.s1	JA-EN-SQ	ja-only 65,55,82 en-only 73
+ureshino-counter#2.s2	JA-EN-SQ	ja-only 84 en-only -
+ureshino-counter#2.v0.0	JA-EN-SQ	ja-only 31 en-only -
+handicap-8#0.s0	JA-EN-SQ	ja-only 51 en-only -
+handicap-8#0.s1	JA-EN-SQ	ja-only 76,64 en-only -
+handicap-8#0.s2	JA-EN-SQ	ja-only 34,26,77 en-only -
+handicap-8#1.s0	JA-EN-SQ	ja-only 88,77,66,61 en-only -
+handicap-8#1.s1	JA-EN-SQ	ja-only 85,88,77 en-only -
+handicap-8#1.s2	JA-EN-SQ	ja-only 72,85,54 en-only -
+handicap-8#1.s3	JA-EN-SQ	ja-only 83 en-only -
+handicap-8#2.s0	JA-EN-SQ	ja-only 77 en-only -
+handicap-8#2.s1	JA-EN-SQ	ja-only 32 en-only -
+handicap-8#2.s2	JA-EN-SQ	ja-only 54 en-only -
+handicap-6#0.s0	JA-EN-SQ	ja-only 51,77,27 en-only -
+handicap-6#0.s1	JA-EN-SQ	ja-only 26,76 en-only -
+handicap-6#0.s2	JA-EN-SQ	ja-only 22,77 en-only -
+handicap-6#1.s0	JA-EN-SQ	ja-only 18,16,22,77,33 en-only -
+handicap-6#1.s1	JA-EN-SQ	ja-only 15,22 en-only -
+handicap-6#1.s2	JA-EN-SQ	ja-only 13,15,14 en-only -
+handicap-6#1.s3	JA-EN-SQ	ja-only 15,14 en-only -
+handicap-6#1.v0.0	JA-EN-SQ	ja-only 14,32,13 en-only -
+handicap-6#2.s0	JA-EN-SQ	ja-only 55,36,15,18,33,31 en-only -
+handicap-6#2.s1	JA-EN-SQ	ja-only 35,34,55 en-only -
+handicap-6#2.s2	JA-EN-SQ	ja-only 42 en-only -
+handicap-6#2.v0.0	JA-EN-SQ	ja-only 32 en-only -
+handicap-4#0.s0	JA-EN-SQ	ja-only 51,81,71,97 en-only -
+handicap-4#0.s1	JA-EN-SQ	ja-only 74,93,81 en-only -
+handicap-4#0.s2	JA-EN-SQ	ja-only 94,82,81 en-only -
+handicap-4#0.s3	JA-EN-SQ	ja-only 76,94 en-only 93
+handicap-4#0.v0.0	JA-EN-SQ	ja-only 93 en-only -
+handicap-4#1.s0	JA-EN-SQ	ja-only 38,36,34,42,21 en-only -
+handicap-4#1.s1	JA-EN-SQ	ja-only 35 en-only -
+handicap-4#1.s2	JA-EN-SQ	ja-only 33,42 en-only -
+handicap-4#2.s0	JA-EN-SQ	ja-only 45,46,48,43,32,41 en-only -
+handicap-4#2.s1	JA-EN-SQ	ja-only 55 en-only -
+handicap-2#0.s0	JA-EN-SQ	ja-only 21,42,47 en-only -
+handicap-2#0.s1	JA-EN-SQ	ja-only 34,36,42 en-only -
+handicap-2#0.v0.0	JA-EN-SQ	ja-only 33,36 en-only -
+handicap-2#1.s0	JA-EN-SQ	ja-only 56,33 en-only -
+handicap-2#1.s1	JA-EN-SQ	ja-only 36,45 en-only -
+handicap-2#1.v0.0	JA-EN-SQ	ja-only 56,47 en-only -
+handicap-2#2.s0	JA-EN-SQ	ja-only 91 en-only -
+handicap-2#2.s1	JA-EN-SQ	ja-only 84,77 en-only -
