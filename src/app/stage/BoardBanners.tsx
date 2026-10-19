@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { LABELS } from '@/utils/analysis'
 import { moveText } from '@/utils/shogi'
 import { useSession } from '@/app/hooks/session'
+import { FlipMarks } from '@/app/ui/SideMark'
 import { mistakeHeadline, mistakeIsBad, mistakeSeal, type ShownMistake } from '@/utils/mistake'
 import { mainLine, promote } from '@/app/tree'
 import { isGameMode, type Preview } from '@/app/types'
@@ -10,7 +11,7 @@ import { banner, bannerSeal, bannerText, branchTip, nowrap } from './stage.style
 
 function MistakeBanner({ mistake, preview, onBack }: { mistake: ShownMistake; preview: Preview; onBack: () => void }) {
   const { t } = useTranslation()
-  const { mode, sfens, playing, setPlaying, setPreview } = useSession()
+  const { mode, sfens, playing, setPlaying, setPreview, flipped } = useSession()
   const replay = () => {
     if (playing) return setPlaying(false)
     if (preview.step >= preview.moves.length) setPreview({ ...preview, step: 1 })
@@ -21,13 +22,14 @@ function MistakeBanner({ mistake, preview, onBack }: { mistake: ShownMistake; pr
       <span className={bannerSeal({ tone: 'mistake' })}>{mistakeSeal(mistake)}</span>
       {mode === 'drill' && (
         <span className={bannerText({ fit: 'short' })}>
-          {mistakeIsBad(mistake) ? t('app.better') : t('app.lesson')}: {moveText(sfens[mistake.base], mistake.expected)}
+          {mistakeIsBad(mistake) ? t('app.better') : t('app.lesson')}:{' '}
+          <FlipMarks flipped={flipped}>{moveText(sfens[mistake.base], mistake.expected)}</FlipMarks>
         </span>
       )}
       {mode === 'tsume' && <span className={bannerText({ fit: 'short' })}>{t('app.notMate')}</span>}
       {mode === 'lesson' && <span className={bannerText({ fit: 'short' })}>{mistake.verdict ? LABELS[mistake.verdict.label].text : t('app.mistake')}</span>}
       <span className={bannerText({ fit: 'hide' })}>
-        {mistakeHeadline(moveText(sfens[mistake.base], mistake.usi), mistake)}
+        <FlipMarks flipped={flipped}>{mistakeHeadline(moveText(sfens[mistake.base], mistake.usi), mistake)}</FlipMarks>
         {t('app.headlineEnd')}
         {playing ? t('app.watchWhatFollows') : preview.step < preview.moves.length ? t('app.paused') : t('app.thatIsHowItContinues')}
       </span>

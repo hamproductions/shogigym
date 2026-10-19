@@ -5,6 +5,8 @@ import { LABELS, type MoveReview } from '@/utils/analysis'
 import type { Course } from '@/utils/model'
 import i18n from '@/utils/i18n'
 import { moveText } from '@/utils/shogi'
+import { FlipMarks } from '@/app/ui/SideMark'
+import { useSession } from '@/app/hooks/session'
 import type { BookHit, BookMove } from '@/utils/book'
 import { isWeak } from '@/utils/mistake'
 import { weaknessOf } from '@/utils/learning'
@@ -61,6 +63,7 @@ function Verdict({
   you,
 }: Pick<CoachPaneProps, 'review' | 'bookLast' | 'ai' | 'you'> & { lastMove: string; prevSfen: string }) {
   const { t } = useTranslation()
+  const { flipped } = useSession()
   const played = moveText(prevSfen, lastMove)
   if (review)
     return (
@@ -71,7 +74,7 @@ function Verdict({
           </span>
           <strong>
             {you ? t('coach.yourMove') : ''}
-            {played}
+            <FlipMarks flipped={flipped}>{played}</FlipMarks>
           </strong>
           <span className={verdictLabel} style={{ ['--label' as string]: LABELS[review.label].color }}>
             {LABELS[review.label].text}
@@ -88,7 +91,9 @@ function Verdict({
         {isWeak(review.label) && review.best.move !== lastMove && !review.reasons.some((r) => r.startsWith(prefixOf('moveFacts.bestWins'))) && (
           <p className={reason}>
             {t('coach.betterWas')}
-            <strong>{moveText(prevSfen, review.best.move)}</strong>
+            <strong>
+              <FlipMarks flipped={flipped}>{moveText(prevSfen, review.best.move)}</FlipMarks>
+            </strong>
             {review.bestReasons[0] && !review.bestReasons[0].startsWith(prefixOf('moveFacts.engineLine'))
               ? `: ${review.bestReasons[0]}`
               : t('coach.betterWasEnd')}
@@ -103,7 +108,9 @@ function Verdict({
           <span className={badge} style={{ ['--label' as string]: LABELS.book.color }}>
             {LABELS.book.symbol}
           </span>
-          <strong>{played}</strong>
+          <strong>
+            <FlipMarks flipped={flipped}>{played}</FlipMarks>
+          </strong>
           <span className={verdictLabel} style={{ ['--label' as string]: LABELS.book.color }}>
             {t('coach.bookMove')}
           </span>
@@ -118,7 +125,9 @@ function Verdict({
           <span className={badge} style={{ ['--label' as string]: LABELS.mistake.color }}>
             {LABELS.mistake.symbol}
           </span>
-          <strong>{played}</strong>
+          <strong>
+            <FlipMarks flipped={flipped}>{played}</FlipMarks>
+          </strong>
           <span className={verdictLabel} style={{ ['--label' as string]: LABELS.mistake.color }}>
             {t('coach.knownMistake')}
           </span>
@@ -131,6 +140,7 @@ function Verdict({
 
 export function CoachPane({ review, lastMove, prevSfen, bookLast, bookHere, sfen, course, onPlay, canPlay, ai, showBook, you }: CoachPaneProps) {
   const { t } = useTranslation()
+  const { flipped } = useSession()
   return (
     <div className="app-coach">
       {lastMove && prevSfen ? (
@@ -145,7 +155,9 @@ export function CoachPane({ review, lastMove, prevSfen, bookLast, bookHere, sfen
           <h3 className={css({ m: '0 0 {spacing.1.5}', color: 'fg.muted', fontSize: 'sm', fontWeight: 'medium' })}>{t('coach.bookMovesFromTheLessons')}</h3>
           {bookHere.map((b) => (
             <button key={b.usi} className={bookMove} disabled={!canPlay} onClick={() => onPlay(b.usi)}>
-              <strong>{moveText(sfen, b.usi)}</strong>
+              <strong>
+                <FlipMarks flipped={flipped}>{moveText(sfen, b.usi)}</FlipMarks>
+              </strong>
               {b.note && <span>{b.note}</span>}
             </button>
           ))}
