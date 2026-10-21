@@ -8,3 +8,5 @@ export function useSession() {
   if (!session) throw new Error('useSession outside SessionContext')
   return session
 }
+
+export const useFlipped = () => useContext(SessionContext)?.flipped ?? false

@@ -1,5 +1,5 @@
 import { MENTION_COLORS, mentionedSquares, squareParts } from '@/app/modes/lesson/figureMarks'
-import { useSession } from '@/app/hooks/session'
+import { useFlipped } from '@/app/hooks/session'
 import { FlipMarks } from '@/app/ui/SideMark'
 import { squareMark } from './lesson.styles'
 
@@ -10,7 +10,7 @@ const hex = (color: number) => `#${color.toString(16).padStart(6, '0')}`
  * board marks were built from, so colours stay in sync when the text is split across lines.
  */
 export function SquareText({ text, context = text }: { text: string; context?: string }) {
-  const { flipped } = useSession()
+  const flipped = useFlipped()
   const squares = mentionedSquares(`${context}\n${text}`)
   return (
     <>

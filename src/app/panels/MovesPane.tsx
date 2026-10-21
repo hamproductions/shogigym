@@ -16,7 +16,7 @@ import { detectTesuji } from '@/app/tesuji'
 import { countMoves, isMainLine, nodeAt, type Tree } from '@/app/tree'
 import { Button } from '@/app/ui/Button'
 import { useSettings } from '@/appearance/settings'
-import { useSession } from '@/app/hooks/session'
+import { useFlipped } from '@/app/hooks/session'
 import { moveButton, moveLabel, moveNotation, moveRow, moves as movesList, muted } from './panels.styles'
 
 const tesujiTag = css({
@@ -107,7 +107,7 @@ export function MovesPane({
 }: MovesPaneProps) {
   const { t, i18n } = useTranslation()
   const { showTesuji } = useSettings()
-  const { flipped } = useSession()
+  const flipped = useFlipped()
   const listRef = useRef<HTMLOListElement>(null)
   const tesujis = useMemo(() => moves.map((usi, i) => (sfens[i] ? detectTesuji(sfens[i], usi) : null)), [moves, sfens])
   const detectedTags = useMemo(() => formationMoveTags(sfens, moves, detectionPreset, detectionResult).flat(), [moves, sfens, detectionResult, detectionPreset])
