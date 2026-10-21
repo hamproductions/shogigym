@@ -188,12 +188,7 @@ export function PieceViewer({ onClose, page }: { onClose: () => void; page?: boo
     )
 
   return (
-    <Dialog
-      label={t('viewer.pieceViewer')}
-      className={css({ w: 'min(560px, 100%)' })}
-      positionerClassName={css({ p: '4', _tight: { p: '3' } })}
-      onBackdrop={onClose}
-    >
+    <Dialog label={t('viewer.pieceViewer')} w="min(560px, 100%)" positionerClassName={css({ p: '4', _tight: { p: '3' } })} onBackdrop={onClose}>
       {body}
     </Dialog>
   )

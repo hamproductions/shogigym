@@ -43,9 +43,8 @@ import { useWatch } from '@/app/modes/view/useWatch'
 import { useTesuji } from '@/app/modes/tesuji/useTesuji'
 import { useTsume } from '@/app/modes/tsume/useTsume'
 import { SidePanels } from '@/app/panels/SidePanels'
-import { shell } from '@/app/panels/panels.styles'
-import { appShell, shellBase } from '@/app/layout.styles'
-import { Wrap } from 'styled-system/jsx'
+import { AppShell } from '@/app/layout.styles'
+import { styled, Wrap } from 'styled-system/jsx'
 import { useLineAhead } from '@/app/hooks/useLineAhead'
 import { saveMistakes } from '@/utils/mistakes'
 import { useSteadyRate } from '@/app/hooks/useSteadyRate'
@@ -54,11 +53,10 @@ import { Rail } from '@/app/rail/Rail'
 import { ORIGIN_KEY, RETURN_EVENT, store } from '@/app/modes/lesson/reading'
 import { BoardStage } from '@/app/stage/BoardStage'
 import { ModeBar, WatchOptions } from '@/app/stage/ModeBar'
-import { fsExit, stage } from '@/app/stage/stage.styles'
+import { FsExit, Stage } from '@/app/stage/stage.styles'
 import { Button } from '@/app/ui/Button'
 import { dialog } from 'styled-system/recipes'
 import { Dialog } from '@/app/ui/Dialog'
-import { dialogFlow } from '@/app/ui/dialog.styles'
 import { SegmentedField } from '@/app/ui/Segmented'
 import { isGameMode, type Confirm, type Mode, type Tab } from './types'
 
@@ -351,8 +349,14 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
 
   return (
     <SessionContext.Provider value={session}>
-      <div
-        className={`app-shell ${shellBase} ${shell} ${appShell}`}
+      <AppShell
+        className="app-shell"
+        _compact={{
+          '&[data-drawer-open][data-panel-side]:not([data-fs])': {
+            gridTemplateColumns: 'minmax(0, 1fr) clamp(160px, var(--panel-w), 70vw)',
+            gridTemplateRows: 'auto minmax(0, 1fr)',
+          },
+        }}
         data-fs={view.hideUi || undefined}
         data-zoned={layout.zoned || undefined}
         data-panel-hidden={(!layout.zoned && layout.panelHidden) || undefined}
@@ -374,11 +378,11 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
           onReport={isGameMode(mode) && game.moves.length > 0 ? () => (setTab('report'), layout.setPanel({ hidden: false })) : undefined}
           snapshotName={`${SNAPSHOT_NAME}-${mode}-${cursor}`}
         />
-        <section className={`app-stage ${stage}`} data-previewing={!!preview || !atEnd || (playing && mode !== 'view' && mode !== 'spar') || undefined}>
-          <button className={`app-fs-exit ${fsExit}`} onClick={() => view.setHideUi(false)} aria-label={t('app.showUi')} title={`${t('app.showUi')} (Esc)`}>
+        <Stage className="app-stage" data-previewing={!!preview || !atEnd || (playing && mode !== 'view' && mode !== 'spar') || undefined}>
+          <FsExit className="app-fs-exit" onClick={() => view.setHideUi(false)} aria-label={t('app.showUi')} title={`${t('app.showUi')} (Esc)`}>
             <Icon name="panel" size={18} />
             <span>{t('app.showUi')} (Esc)</span>
-          </button>
+          </FsExit>
           <ModeBar
             onFlip={() => session.setFlipped((v) => !v)}
             title={title}
@@ -422,7 +426,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
             announce={announce}
             onZones={layout.setZones}
           />
-        </section>
+        </Stage>
         <SidePanels
           layout={layout}
           tab={tab}
@@ -473,7 +477,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
         <Suspense fallback={null}>
           {mode === 'view' && watchSetup && (
             <Dialog label={t('watch.title')} onBackdrop={() => setWatchSetup(false)}>
-              <h2>{t('watch.title')}</h2>
+              <styled.h2 mb="2">{t('watch.title')}</styled.h2>
               <WatchOptions watch={watch} />
               <SegmentedField
                 label={t('watch.order')}
@@ -555,11 +559,8 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
               }}
               style={{ position: 'fixed', inset: 0, zIndex: 100, pointerEvents: 'auto', cursor: furigomaFaces ? 'pointer' : 'default' }}
             >
-              <div
-                className={`${dialog().content} ${dialogFlow} app-dialog`}
-                style={{ position: 'absolute', bottom: 24, left: '50%', transform: 'translateX(-50%)' }}
-              >
-                <p role="status">
+              <div className={`${dialog().content} app-dialog`} style={{ position: 'absolute', bottom: 24, left: '50%', transform: 'translateX(-50%)' }}>
+                <styled.p mt="0" mx="0" mb="4" role="status">
                   {furigomaFaces
                     ? mode === 'view'
                       ? t('watch.furigomaResult', {
@@ -573,7 +574,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
                     : settings.lang === 'ja'
                       ? '振り駒を行います'
                       : 'Tossing five pawns…'}
-                </p>
+                </styled.p>
                 <Wrap gap="2" align="center" justify="flex-end" mt="4">
                   <Button
                     onClick={(event) => {
@@ -640,7 +641,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
             />
           )}
         </Suspense>
-      </div>
+      </AppShell>
     </SessionContext.Provider>
   )
 }

@@ -1,48 +1,81 @@
-import { css, cva } from 'styled-system/css'
+import { cva } from 'styled-system/css'
+import { styled } from 'styled-system/jsx'
+import { Button } from '@/app/ui/Button'
 
-export const stage = css({
-  '--stage-gutter': '{spacing.3}',
-  position: 'relative',
-  display: 'flex',
-  flexDirection: 'column',
-  minW: '0',
-  minH: '0',
-  background: 'radial-gradient(ellipse 65% 75% at 50% 48%, {colors.stage.glow}, transparent 70%)',
-  _compact: { '--stage-gutter': '{spacing.1.5}' },
-  _short: { '--stage-gutter': '{spacing.1}' },
-})
-
-export const fsExit = css({ display: 'none' })
-
-export const boardWrap = css({
-  '--eval-bar-width': '28px',
-  position: 'relative',
-  flex: '1',
-  display: 'flex',
-  minH: '0',
-  p: 'var(--stage-gutter)',
-  _compact: {
-    '--eval-bar-width': '20px',
+export const Stage = styled('section', {
+  base: {
+    '--stage-gutter': '{spacing.3}',
+    position: 'relative',
+    display: 'flex',
     flexDirection: 'column',
-    '.app-shell[data-drawer-open] &': { '& .app-plate.top': { display: 'flex' } },
-    '&:has(> [data-banner]) .app-plate.top': { visibility: 'hidden' },
+    minW: '0',
+    minH: '0',
+    background: 'radial-gradient(ellipse 65% 75% at 50% 48%, {colors.stage.glow}, transparent 70%)',
+    _compact: {
+      '--stage-gutter': '{spacing.1.5}',
+      '.app-shell[data-drawer-open][data-panel-side]:not([data-fs]) > &': { gridColumn: '1', gridRow: '2' },
+    },
+    _short: { '--stage-gutter': '{spacing.1}' },
   },
-  _short: { '--eval-bar-width': '18px', p: '{spacing.1} var(--stage-gutter)' },
 })
 
-export const boardScene = css({
-  position: 'relative',
-  display: 'flex',
-  flex: '1',
-  minW: '0',
-  minH: '0',
-  overflow: 'hidden',
-  borderRadius: 'lg',
-  boxShadow: '0 0 0 1px {colors.border}',
-  '[data-previewing] &': {
-    _after: { content: '""', position: 'absolute', inset: '0', border: '2px solid {colors.accent}', borderRadius: 'xl', pointerEvents: 'none' },
+export const FsExit = styled('button', {
+  base: {
+    display: 'none',
+    '.app-shell[data-fs] &': {
+      position: 'fixed',
+      top: 'max(14px, env(safe-area-inset-top))',
+      left: 'max(14px, env(safe-area-inset-left))',
+      zIndex: 'promote',
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '2',
+      h: 'control.lg',
+      p: '0 {spacing.4} 0 {spacing.3}',
+      borderRadius: 'full',
+      bg: 'overlay',
+      color: 'fg.default',
+      fontSize: 'sm',
+      fontWeight: 'bold',
+      boxShadow: 'inset 0 0 0 1px {colors.border}, {shadows.md}',
+      _hover: { bg: 'panel' },
+    },
   },
-  _compact: { '--band': '40px', py: 'var(--band)', '.app-shell[data-drawer-open] &': { pb: '0' } },
+})
+
+export const BoardWrap = styled('div', {
+  base: {
+    '--eval-bar-width': '28px',
+    position: 'relative',
+    flex: '1',
+    display: 'flex',
+    minH: '0',
+    p: 'var(--stage-gutter)',
+    '.app-shell[data-fs] &': { p: '0' },
+    _compact: {
+      '--eval-bar-width': '20px',
+      flexDirection: 'column',
+      '.app-shell[data-drawer-open] &': { p: '0' },
+    },
+    _short: { '--eval-bar-width': '18px', p: '{spacing.1} var(--stage-gutter)' },
+  },
+})
+
+export const BoardScene = styled('div', {
+  base: {
+    position: 'relative',
+    display: 'flex',
+    flex: '1',
+    minW: '0',
+    minH: '0',
+    overflow: 'hidden',
+    borderRadius: 'lg',
+    boxShadow: '0 0 0 1px {colors.border}',
+    '[data-previewing] &': {
+      _after: { content: '""', position: 'absolute', inset: '0', border: '2px solid {colors.accent}', borderRadius: 'xl', pointerEvents: 'none' },
+    },
+    _compact: { '--band': '40px', py: 'var(--band)', '.app-shell[data-drawer-open] &': { pb: '0' } },
+  },
 })
 
 export const peek = cva({
@@ -77,9 +110,9 @@ const mistakeBanner = {
   bg: 'var(--banner)',
   color: 'gofun',
   boxShadow: 'md',
-  '& .app-btn': { bg: 'onFill.soft', color: 'inherit' },
-  '& .app-btn[data-variant=primary]': { bg: 'gofun', color: 'var(--banner)', fontWeight: 'bold' },
 }
+
+export const BannerAction = styled(Button, { base: { flex: 'none' } })
 
 export const banner = cva({
   base: {
@@ -99,7 +132,6 @@ export const banner = cva({
     color: 'fg.default',
     fontSize: 'sm',
     boxShadow: 'inset 0 0 0 1px {colors.border}, {shadows.md}',
-    '& > .app-btn': { flex: 'none' },
     _narrow: {
       order: '-1',
       left: 'var(--stage-gutter)',

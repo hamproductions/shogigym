@@ -96,6 +96,25 @@ export default function Root() {
   )
 }
 
+const crashFocus = { outline: '2px solid {colors.focus}', outlineOffset: '3px' }
+
+const CrashButton = styled('button', {
+  base: {
+    p: '{spacing.2} {spacing.4}',
+    border: '0',
+    borderRadius: 'md',
+    bg: 'accent',
+    color: 'accent.contrast',
+    font: 'inherit',
+    cursor: 'pointer',
+    _focusVisible: crashFocus,
+  },
+})
+
+const CrashDetails = styled('details', { base: { mt: '4', fontSize: 'sm', color: 'fg.muted' } })
+
+const CrashSummary = styled('summary', { base: { cursor: 'pointer', w: 'fit-content', _focusVisible: crashFocus } })
+
 export function ErrorBoundary() {
   const error = useRouteError()
   const message = isRouteErrorResponse(error) ? `${error.status} ${error.statusText}` : error instanceof Error ? error.message : String(error)
@@ -121,45 +140,32 @@ export function ErrorBoundary() {
         fontFamily="sans"
         lineHeight="normal"
         boxShadow="md"
-        css={{
-          '& img': { mb: '4' },
-          '& h1': { m: '0 0 {spacing.3}', fontFamily: 'mincho', fontSize: 'xl' },
-          '& p': { color: 'fg.muted', m: '0 0 {spacing.4}' },
-          '& button': {
-            p: '{spacing.2} {spacing.4}',
-            border: '0',
-            borderRadius: 'md',
-            bg: 'accent',
-            color: 'accent.contrast',
-            font: 'inherit',
-            cursor: 'pointer',
-          },
-          '& details': { mt: '4', fontSize: 'sm', color: 'fg.muted' },
-          '& summary': { cursor: 'pointer', w: 'fit-content' },
-          '& details p, & pre': { mt: '3' },
-          '& pre': { whiteSpace: 'pre-wrap', overflowWrap: 'anywhere', fontSize: 'xs' },
-          '& :focus-visible': { outline: '2px solid {colors.focus}', outlineOffset: '3px' },
-        }}
       >
-        <img src={`${base}favicon.svg`} width="56" height="56" alt="" />
-        <h1>{en ? 'The game was interrupted' : '対局が中断されました'}</h1>
-        <p>{en ? 'Reload to return to your saved game.' : '再読み込みして、保存された対局に戻れます。'}</p>
-        <button onClick={() => location.reload()}>{en ? 'Reload' : '再読み込み'}</button>
-        <details>
-          <summary>{en ? 'Recovery options' : '復旧オプション'}</summary>
-          <p>
+        <styled.img src={`${base}favicon.svg`} htmlWidth="56" htmlHeight="56" alt="" mb="4" />
+        <styled.h1 m="0 0 {spacing.3}" fontFamily="mincho" fontSize="xl">
+          {en ? 'The game was interrupted' : '対局が中断されました'}
+        </styled.h1>
+        <styled.p color="fg.muted" m="0 0 {spacing.4}">
+          {en ? 'Reload to return to your saved game.' : '再読み込みして、保存された対局に戻れます。'}
+        </styled.p>
+        <CrashButton onClick={() => location.reload()}>{en ? 'Reload' : '再読み込み'}</CrashButton>
+        <CrashDetails>
+          <CrashSummary>{en ? 'Recovery options' : '復旧オプション'}</CrashSummary>
+          <styled.p color="fg.muted" m="{spacing.3} 0 {spacing.4}">
             {en
               ? 'If reloading does not help, reset the open game. Your settings and saved records remain.'
               : '再読み込みで復旧しない場合は、開いている対局をリセットできます。設定と保存済みの棋譜は残ります。'}
-          </p>
-          <styled.button bg="surface.2" color="fg.muted" onClick={reset}>
+          </styled.p>
+          <CrashButton bg="surface.2" color="fg.muted" onClick={reset}>
             {en ? 'Reset the open game' : '開いている対局をリセット'}
-          </styled.button>
-        </details>
-        <details>
-          <summary>{en ? 'Error details' : 'エラーの詳細'}</summary>
-          <pre>{message}</pre>
-        </details>
+          </CrashButton>
+        </CrashDetails>
+        <CrashDetails>
+          <CrashSummary>{en ? 'Error details' : 'エラーの詳細'}</CrashSummary>
+          <styled.pre mt="3" whiteSpace="pre-wrap" overflowWrap="anywhere" fontSize="xs">
+            {message}
+          </styled.pre>
+        </CrashDetails>
       </styled.section>
     </styled.main>
   )

@@ -4,7 +4,9 @@ import { courseProgress } from '@/app/practice'
 import type { LessonMode } from '@/app/types'
 import { Button } from '@/app/ui/Button'
 import { Flex, styled } from 'styled-system/jsx'
-import { progressLine } from './lesson.styles'
+import { ProgressLine } from './lesson.styles'
+
+const GrowButton = styled(Button, { base: { flex: '1' } })
 
 const percent = ({ learned, total }: { learned: number; total: number }) => `${total ? (learned / total) * 100 : 0}%`
 
@@ -13,7 +15,7 @@ export function LessonCard({ course, onOpen, prefix }: { course: Course; onOpen:
   const progress = courseProgress(course)
   const title = courseTitle(course, i18n.language)
   return (
-    <Flex layerStyle="card" position="relative" flexDirection="column" gap="1" p="{spacing.3} {spacing.4} {spacing.4}" overflow="hidden">
+    <Flex layerStyle="card" position="relative" flexDirection="column" gap="1" mt="2" p="{spacing.3} {spacing.4} {spacing.4}" overflow="hidden">
       <styled.span fontFamily="mincho" fontWeight="heavy" fontSize="md" lineHeight="snug">
         {prefix && title.startsWith(`${prefix}: `) ? title.slice(prefix.length + 2) : title}
       </styled.span>
@@ -29,13 +31,13 @@ export function LessonCard({ course, onOpen, prefix }: { course: Course; onOpen:
           </span>
         </styled.span>
       )}
-      <styled.span display="flex" gap="2" mt="1.5" css={{ '& .app-btn': { flex: '1' } }}>
-        <Button variant="primary" onClick={() => onOpen(course, 'study')}>
+      <styled.span display="flex" gap="2" mt="1.5">
+        <GrowButton variant="primary" onClick={() => onOpen(course, 'study')}>
           {t('picker.study')}
-        </Button>
-        {progress.total > 0 && <Button onClick={() => onOpen(course, 'quiz')}>{t('picker.quiz')}</Button>}
+        </GrowButton>
+        {progress.total > 0 && <GrowButton onClick={() => onOpen(course, 'quiz')}>{t('picker.quiz')}</GrowButton>}
       </styled.span>
-      <i className={progressLine} style={{ width: percent(progress) }} />
+      <ProgressLine style={{ width: percent(progress) }} />
     </Flex>
   )
 }

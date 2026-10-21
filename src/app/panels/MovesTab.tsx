@@ -8,7 +8,7 @@ import { mainContinuation, nodeAt, removeBranch } from '@/app/tree'
 import { isGameMode } from '@/app/types'
 import { MovesPane } from './MovesPane'
 import type { PanelModel } from './PanelBody'
-import { muted } from './panels.styles'
+import { Muted } from './panels.styles'
 
 export function MovesTab({ model }: { model: PanelModel }) {
   const { t } = useTranslation()
@@ -37,7 +37,7 @@ export function MovesTab({ model }: { model: PanelModel }) {
   if (preview && previewSfens)
     return (
       <>
-        <p className={muted}>{t('app.showingAPreviewTheseMoves')}</p>
+        <Muted>{t('app.showingAPreviewTheseMoves')}</Muted>
         <MovesPane
           sfens={[...sfens.slice(0, preview.base), ...previewSfens]}
           moves={[...game.moves.slice(0, preview.base), ...preview.moves]}

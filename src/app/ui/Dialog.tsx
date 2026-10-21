@@ -1,10 +1,11 @@
 import type { ReactNode } from 'react'
+import { styled } from 'styled-system/jsx'
 import { dialog } from 'styled-system/recipes'
+import type { JsxStyleProps } from 'styled-system/types'
 import { CloseButton, Dialog as ParkDialog } from '@/components/ui'
 import { cx } from './cx'
-import { dialogFlow } from './dialog.styles'
 
-type DialogProps = {
+type DialogProps = JsxStyleProps & {
   label: string
   className?: string
   positionerClassName?: string
@@ -13,7 +14,7 @@ type DialogProps = {
   children: ReactNode
 }
 
-export function Dialog({ label, className, positionerClassName, role = 'dialog', onBackdrop, children }: DialogProps) {
+export function Dialog({ label, className, positionerClassName, role = 'dialog', onBackdrop, children, ...styles }: DialogProps) {
   return (
     <ParkDialog.Root open role={role} lazyMount={false} unmountOnExit={false} closeOnEscape={false} closeOnInteractOutside={false}>
       <ParkDialog.Backdrop />
@@ -23,7 +24,7 @@ export function Dialog({ label, className, positionerClassName, role = 'dialog',
           if (event.target === event.currentTarget) onBackdrop?.()
         }}
       >
-        <ParkDialog.Content className={cx('app-dialog', dialogFlow, className)} aria-label={label}>
+        <ParkDialog.Content className={cx('app-dialog', className)} aria-label={label} {...styles}>
           {children}
         </ParkDialog.Content>
       </ParkDialog.Positioner>
@@ -37,7 +38,8 @@ export function DialogHeader({
   closeTitle,
   className,
   onClose,
-}: {
+  ...styles
+}: JsxStyleProps & {
   title: ReactNode
   closeLabel: string
   closeTitle?: string
@@ -45,9 +47,9 @@ export function DialogHeader({
   onClose: () => void
 }) {
   return (
-    <div className={cx(dialog().header, className)}>
+    <styled.div className={cx(dialog().header, className)} {...styles}>
       <h2 className={dialog().title}>{title}</h2>
       <CloseButton size="lg" onClick={onClose} aria-label={closeLabel} title={closeTitle} />
-    </div>
+    </styled.div>
   )
 }

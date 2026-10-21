@@ -10,15 +10,44 @@ import { MoveNavigation } from '@/app/panels/NavFooter'
 import { MoveRows } from '@/app/panels/MovesPane'
 import { EvalGraph } from '@/app/panels/EvalGraph'
 import { EngineResultPane } from '@/app/panels/EnginePane'
-import { clock as clockStyle, moveButton, moveCounts, panelBody, panelClose, panelHeader, pinnedGraph, plate, plateSide } from '@/app/panels/panels.styles'
+import {
+  Clock,
+  CountsHeading,
+  CountsSection,
+  HeaderButton,
+  MoveButton,
+  MoveCell,
+  PanelContent,
+  PanelHeader,
+  PinnedGraph,
+  PlateBox,
+  PlateSide,
+  TabLabel,
+  floatingTabs,
+  panelTabs,
+} from '@/app/panels/panels.styles'
 import { EvalBar } from '@/app/stage/EvalBar'
 import { winRate } from '@/utils/analysis'
 import { squareName } from '@/utils/notation'
 import { EvalChip, ModeBarHeading } from '@/app/stage/ModeBar'
-import { controlIcon, controlLabel, controls, evaluation, helpToggle, miniNav, miniWideLabel, modeBar, takeBack, tools } from '@/app/stage/mode-bar.styles'
-import { boardScene, boardWrap, fsExit, stage } from '@/app/stage/stage.styles'
+import {
+  BarButton,
+  ControlIcon,
+  ControlLabel,
+  Controls,
+  Evaluation,
+  HelpToggle,
+  MiniNav,
+  MiniNavButton,
+  MiniWideLabel,
+  ModeBarHeader,
+  TakeBack,
+  Tools,
+  barIcon,
+} from '@/app/stage/mode-bar.styles'
+import { BoardScene, BoardWrap, FsExit, Stage } from '@/app/stage/stage.styles'
 import { useLayout } from '@/app/hooks/useLayout'
-import { appShell, shellBase } from '@/app/layout.styles'
+import { AppShell } from '@/app/layout.styles'
 import { useView } from '@/app/hooks/useView'
 import { useMovePlayback } from '@/app/hooks/useAutoplay'
 import { Tabs } from '@/app/ui/Tabs'
@@ -27,7 +56,7 @@ import { Wrap, styled } from 'styled-system/jsx'
 import { Icon } from '@/app/icons'
 import { Segmented } from '@/app/ui/Segmented'
 import { cx } from '@/app/ui/cx'
-import { gameOver } from '@/app/modes/spar/game-over.styles'
+import { GameOverHeadline, GameOverPanel } from '@/app/modes/spar/game-over.styles'
 import { setSettings, useSettings } from '@/appearance/settings'
 import { TaikyokuBoard, keyOf, type BoardHandle, type TargetKind } from './TaikyokuBoard'
 import { TaikyokuBoard3D } from './TaikyokuBoard3D'
@@ -44,8 +73,6 @@ function webglSupported() {
     return false
   }
 }
-
-const gameOverStyles = gameOver()
 
 const Loading = styled('div', { base: { position: 'absolute', inset: '0', display: 'grid', placeItems: 'center', color: 'fg.muted' } })
 
@@ -374,11 +401,11 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
   const movesPane = (
     <>
       {assist && timeline.length > 0 && (
-        <div className={pinnedGraph}>
+        <PinnedGraph>
           <EvalGraph values={evaluations} labels={[]} ply={cursor} onJump={navigate} />
-        </div>
+        </PinnedGraph>
       )}
-      <div className={cx('app-panel-body', panelBody)}>
+      <PanelContent className="app-panel-body">
         <Wrap gap="2" align="center">
           <Button size="sm" onClick={saveState} disabled={!game || restoring} title={t('games.saveGame')}>
             {t('games.saveGame')}
@@ -419,13 +446,13 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
             count={timeline.length}
             title={t('taikyoku.history')}
             cell={(index) => (
-              <div key={index}>
-                <button className={moveButton} onClick={() => navigate(index + 1)} aria-current={cursor === index + 1 ? 'step' : undefined}>
+              <MoveCell key={index}>
+                <MoveButton onClick={() => navigate(index + 1)} aria-current={cursor === index + 1 ? 'step' : undefined}>
                   <styled.span display="inline-block" whiteSpace="normal" overflowWrap="anywhere">
                     {moveLabel(index)}
                   </styled.span>
-                </button>
-              </div>
+                </MoveButton>
+              </MoveCell>
             )}
           />
         ) : (
@@ -433,17 +460,13 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
             {t('moves.noMovesYetPlayOn')}
           </Text>
         )}
-      </div>
+      </PanelContent>
     </>
   )
 
   return (
-    <styled.div
-      className={cx('app-shell', shellBase, appShell)}
-      css={{
-        '& .app-modebar-heading .app-lastmove': { w: 'max-content', maxW: '50%' },
-        '& .app-lastmove strong': { overflow: 'visible', textOverflow: 'clip', whiteSpace: 'normal', textAlign: 'right', overflowWrap: 'anywhere' },
-      }}
+    <AppShell
+      className="app-shell"
       data-zoned={layout.zoned || undefined}
       data-panel-hidden={!panelOpen || undefined}
       data-drawer-open={(layout.compact && layout.drawer) || undefined}
@@ -492,8 +515,8 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
             : []),
         ]}
       />
-      <section className={cx('app-stage', stage)}>
-        <header className={cx('app-modebar', modeBar({ mode: auto ? 'view' : 'spar' }))} data-sheet-up={(layout.compact && layout.drawer) || undefined}>
+      <Stage className="app-stage">
+        <ModeBarHeader className="app-modebar" mode={auto ? 'view' : 'spar'} data-sheet-up={(layout.compact && layout.drawer) || undefined}>
           <ModeBarHeading
             seal={lang === 'ja' ? auto ? '観戦' : '対局' : <Icon name={auto ? 'flow' : 'spar'} />}
             title={lang === 'ja' ? '大局将棋' : 'Taikyoku shogi'}
@@ -502,50 +525,50 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
             ply={t('taikyoku.ply', { n: plies })}
             lastMove={plies && timelineEntries[plies - 1] ? formatEntry(timelineEntries[plies - 1], timelineEntries[plies - 2]?.move, true) : undefined}
             turn={game?.snap.turn === 'w' ? 'gote' : 'sente'}
+            wideMove
           />
           {assist && (
-            <div className={evaluation}>
+            <Evaluation>
               <EvalChip rate={evalRate} barShown={evalBar} />
-            </div>
+            </Evaluation>
           )}
-          <div className={controls}>
+          <Controls>
             {' '}
-            <div className={tools}>
-              <Button
+            <Tools>
+              <HelpToggle
                 size="sm"
                 variant="ghost"
-                className={helpToggle}
                 onClick={() => setSettings({ assist: !assist })}
                 title={assist ? t('app.helpIsOnEvalBar') : t('app.noHelpClickToShow')}
                 aria-pressed={assist}
                 aria-label={assist ? t('app.coachOn') : t('app.coachOff')}
               >
-                <span className={controlIcon}>
-                  <Icon name="coach" />
-                </span>
-                <span className={controlLabel}>{assist ? t('app.coachOn') : t('app.coachOff')}</span>
-              </Button>
-              <Button size="sm" variant="primary" onClick={reset}>
-                <Icon name="newGame" /> <span className={controlLabel}>{t('taikyoku.new')}</span>
-              </Button>
+                <ControlIcon>
+                  <Icon name="coach" className={barIcon} />
+                </ControlIcon>
+                <ControlLabel>{assist ? t('app.coachOn') : t('app.coachOff')}</ControlLabel>
+              </HelpToggle>
+              <BarButton size="sm" variant="primary" onClick={reset}>
+                <Icon name="newGame" className={barIcon} /> <ControlLabel>{t('taikyoku.new')}</ControlLabel>
+              </BarButton>
               {plies > 0 && (
-                <Button size="sm" className={takeBack} onClick={undo} disabled={auto}>
-                  <Icon name="undo" /> <span className={controlLabel}>{t('taikyoku.undo')}</span>
-                </Button>
+                <TakeBack size="sm" onClick={undo} disabled={auto}>
+                  <Icon name="undo" className={barIcon} /> <ControlLabel>{t('taikyoku.undo')}</ControlLabel>
+                </TakeBack>
               )}
-            </div>
-            <div className={miniNav} data-panel-open={panelOpen || undefined}>
-              <Button size="sm" onClick={layout.togglePanel} title={t(panelOpen ? 'app.hideThePanel' : 'app.showThePanel')}>
-                <Icon name="panel" size={16} />
-                <span className={miniWideLabel}>{t(panelOpen ? 'app.hidePanel' : 'app.panel')}</span>
-              </Button>
-            </div>
-          </div>
-        </header>
+            </Tools>
+            <MiniNav data-panel-open={panelOpen || undefined}>
+              <MiniNavButton size="sm" onClick={layout.togglePanel} title={t(panelOpen ? 'app.hideThePanel' : 'app.showThePanel')}>
+                <Icon name="panel" size={16} className={barIcon} />
+                <MiniWideLabel>{t(panelOpen ? 'app.hidePanel' : 'app.panel')}</MiniWideLabel>
+              </MiniNavButton>
+            </MiniNav>
+          </Controls>
+        </ModeBarHeader>
 
-        <div className={cx('app-board-wrap', boardWrap)} data-eval={evalBar || undefined}>
+        <BoardWrap className="app-board-wrap" data-eval={evalBar || undefined}>
           {evalBar && <EvalBar rate={evalRate} flipped={false} />}
-          <styled.section className={cx('app-board-scene', boardScene)} bg="surface.0" aria-label={t('taikyoku.board')}>
+          <BoardScene as="section" className="app-board-scene" bg="surface.0" aria-label={t('taikyoku.board')}>
             {game && view === '3d' && (
               <TaikyokuBoard3D
                 ref={board}
@@ -587,21 +610,21 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
             )}
             {game &&
               (['w', 'b'] as const).map((side) => (
-                <div key={side} className={cx('app-plate', side === 'w' ? 'top' : 'bottom', plate)}>
-                  <span className={clockStyle({ state: game.snap.turn === side ? 'on' : 'idle' })}>
+                <PlateBox key={side} className={cx('app-plate', side === 'w' ? 'top' : 'bottom')} placement="scene">
+                  <Clock state={game.snap.turn === side ? 'on' : 'idle'}>
                     {side === 'b' ? '☗' : '☖'} {game.snap.counts[side]}
-                  </span>
-                  <span className={plateSide}>{t(side === 'b' ? 'taikyoku.sente' : 'taikyoku.gote')}</span>
+                  </Clock>
+                  <PlateSide>{t(side === 'b' ? 'taikyoku.sente' : 'taikyoku.gote')}</PlateSide>
                   <Text as="span" tone="muted" size="sm">
                     {t('taikyoku.royal')} × {game.snap.royals[side]}
                   </Text>
-                </div>
+                </PlateBox>
               ))}
             {winner && (
-              <div className={gameOverStyles.root} role="status">
-                <strong className={gameOverStyles.headline}>{status}</strong>
+              <GameOverPanel role="status">
+                <GameOverHeadline>{status}</GameOverHeadline>
                 <Button onClick={reset}>{t('taikyoku.new')}</Button>
-              </div>
+              </GameOverPanel>
             )}
             {view === '3d' && (
               <styled.div
@@ -671,20 +694,21 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
                 </Button>
               </styled.div>
             )}
-          </styled.section>
-        </div>
-        <button className={cx('app-fs-exit', fsExit)} onClick={() => hud.setHideUi(false)}>
+          </BoardScene>
+        </BoardWrap>
+        <FsExit className="app-fs-exit" onClick={() => hud.setHideUi(false)}>
           <Icon name="panel" /> {t('taikyoku.hud')}
-        </button>
-      </section>
+        </FsExit>
+      </Stage>
       {layout.twoPanels && layout.zones && (
         <FloatingPanel
           zone={layout.zones.under}
           header={
             <Tabs
+              className={floatingTabs}
               value="moves"
               onChange={() => setTab('moves')}
-              items={[{ id: 'moves', label: <span className={lang === 'ja' ? 'app-ja' : 'app-en'}>{t('tabs.moves')}</span> }]}
+              items={[{ id: 'moves', label: <TabLabel className={lang === 'ja' ? 'app-ja' : 'app-en'}>{t('tabs.moves')}</TabLabel> }]}
             />
           }
         >
@@ -695,18 +719,21 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
         layout={layout}
         sheetOpen={layout.sheetOpen ?? true}
         header={
-          <div className={panelHeader}>
+          <PanelHeader>
             <Tabs
+              className={panelTabs}
+              flex="1"
+              minW="0"
               value={rightTab}
               onChange={setTab}
               items={[
-                { id: 'coach', label: <span className={lang === 'ja' ? 'app-ja' : 'app-en'}>{t('tabs.coach')}</span> },
-                { id: 'engine', label: <span className={lang === 'ja' ? 'app-ja' : 'app-en'}>{t('tabs.engine')}</span> },
+                { id: 'coach', label: <TabLabel className={lang === 'ja' ? 'app-ja' : 'app-en'}>{t('tabs.coach')}</TabLabel> },
+                { id: 'engine', label: <TabLabel className={lang === 'ja' ? 'app-ja' : 'app-en'}>{t('tabs.engine')}</TabLabel> },
                 ...(!layout.twoPanels ? [{ id: 'moves' as const, label: t('tabs.moves') }] : []),
               ]}
             />
             {!layout.compact && (!layout.panelSide || layout.floatingAvailable) && (
-              <Button
+              <HeaderButton
                 variant="icon"
                 className="app-panel-dock"
                 onClick={layout.togglePanelSide}
@@ -714,20 +741,20 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
                 aria-label={t(layout.panelSide ? 'app.floatPanel' : 'app.dockPanelSide')}
               >
                 <Icon name={layout.panelSide ? 'floating' : 'panel'} />
-              </Button>
+              </HeaderButton>
             )}
             {!layout.compact && (
-              <Button
+              <HeaderButton
                 variant="icon"
-                className={panelClose}
+                alignSelf="center"
                 onClick={() => setPanelOpen(false)}
                 title={t('app.closeThePanelP')}
                 aria-label={t('app.closeThePanel')}
               >
                 <Icon name="close" />
-              </Button>
+              </HeaderButton>
             )}
-          </div>
+          </PanelHeader>
         }
         footer={
           <MoveNavigation
@@ -745,10 +772,10 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
         }
       >
         {!layout.twoPanels && rightTab === 'moves' && movesPane}
-        <Pane className={cx('app-panel-body', panelBody)} hidden={rightTab === 'moves'}>
+        <PanelContent as={Pane} className="app-panel-body" hidden={rightTab === 'moves'}>
           <Pane hidden={rightTab !== 'coach'}>
             {game && (
-              <styled.div className={moveCounts} display="grid" gap="2">
+              <CountsSection as="div" display="grid" gap="2">
                 <b>{t('taikyoku.victory.title')}</b>
                 <Text tone="muted" size="sm">
                   {t('taikyoku.victory.rule')}
@@ -776,7 +803,7 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
                     </Button>
                   ))}
                 </ButtonRow>
-              </styled.div>
+              </CountsSection>
             )}
           </Pane>
           <Pane hidden={rightTab !== 'coach'}>
@@ -806,10 +833,10 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
               )}
             </div>
             {focusPos && (
-              <section className={moveCounts}>
-                <h3>
+              <CountsSection>
+                <CountsHeading>
                   {squareName(focusPos)} · {t('rail.control')}
-                </h3>
+                </CountsHeading>
                 {(['b', 'w'] as const).map((side) => (
                   <div key={side}>
                     <strong>
@@ -837,11 +864,11 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
                     </ButtonRow>
                   </div>
                 ))}
-              </section>
+              </CountsSection>
             )}
             {focusCell && (
-              <section className={moveCounts}>
-                <h3>{t('taikyoku.movement')}</h3>
+              <CountsSection>
+                <CountsHeading>{t('taikyoku.movement')}</CountsHeading>
                 <MovementGuide cell={focusCell!} lang={lang} />
                 {route && (
                   <Text role="status" aria-live="polite" tone="muted" size="sm" my="1em">
@@ -849,7 +876,7 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
                     {squareName(route.to)} · {optionLabel(route)}
                   </Text>
                 )}
-              </section>
+              </CountsSection>
             )}
           </Pane>
           <Pane hidden={rightTab !== 'engine'}>
@@ -913,7 +940,7 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
               />
             )}
           </Pane>
-        </Pane>
+        </PanelContent>
       </SidePanel>
       {showSettings && <SettingsDialog onClose={() => setShowSettings(false)} availableTabs={['general', 'pieces', 'about']} customFace />}
       {showPalette && (
@@ -940,6 +967,6 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
           }
         />
       )}
-    </styled.div>
+    </AppShell>
   )
 }

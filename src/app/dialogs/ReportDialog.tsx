@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { css } from 'styled-system/css'
 import { styled, Wrap } from 'styled-system/jsx'
 import { cachedReview, rememberReview, useReviewVersion } from '@/app/memory'
 import { Button } from '@/app/ui/Button'
@@ -14,20 +13,22 @@ import { SETUPS } from '@/utils/model'
 import { moveText, type Side } from '@/utils/shogi'
 import { MistakeDetail } from '@/app/ui/MistakeDetail'
 import type { Mistake } from '@/utils/mistakes'
-import { cx } from '@/app/ui/cx'
-import { Text } from '@/components/ui'
-import { badge } from '@/app/panels/panels.styles'
+import { Text, type TextProps } from '@/components/ui'
+import { LabelBadge } from '@/app/panels/panels.styles'
 import {
+  ReportBar,
+  ReportBarFill,
   ReportHeading,
   ReportList,
   ReportListBody,
   ReportListItem,
-  reportListShow,
-  reportPattern,
+  ReportPattern,
+  ReportPhase,
+  ReportPhaseDetail,
   ReportPhases,
   ReportPraiseItem,
   ReportSection,
-  reportText,
+  ReportShow,
 } from './report.styles'
 
 export type FixRoute = 'tsume' | 'tesuji' | 'lesson'
@@ -41,6 +42,10 @@ export const LESSONS: Record<Weakness, string[]> = {
   slippedWin: ['endgame-yose'],
   openingSlip: ['basics-opening'],
   other: [],
+}
+
+function ReportText(props: TextProps) {
+  return <Text m="0" lineHeight="snug" {...props} />
 }
 
 type Problem = ReturnType<typeof buildReport>['problems'][number]
@@ -119,7 +124,7 @@ export function GameReport({ game, userSide, rate, progress: external, choice, o
   const route = top && FIX_ROUTE[top.tag]
   if (report.total < MIN_MOVES) return null
   return (
-    <ReportSection className={reportText} aria-labelledby="game-report-title">
+    <ReportSection aria-labelledby="game-report-title">
       <styled.div display="flex" alignItems="center" justifyContent="space-between" gap="2">
         <styled.h3
           id="game-report-title"
@@ -163,45 +168,45 @@ export function GameReport({ game, userSide, rate, progress: external, choice, o
         </styled.div>
       </styled.div>
       {progress && (
-        <Text tone="muted" size="sm" role="status">
+        <ReportText tone="muted" size="sm" role="status">
           {t('report.rating', progress)}
-        </Text>
+        </ReportText>
       )}
       {!engineSupported() && report.rated < report.total && (
-        <Text tone="muted" size="sm">
+        <ReportText tone="muted" size="sm">
           {t('report.noEngine')}
-        </Text>
+        </ReportText>
       )}
       {report.rated === 0 ? (
         !progress && (
-          <Text tone="muted" size="sm">
+          <ReportText tone="muted" size="sm">
             {rate ? t('report.noRated') : t('report.afterGame')}
-          </Text>
+          </ReportText>
         )
       ) : (
         <>
-          <Text>
+          <ReportText>
             <strong>{t('report.summary', { total: report.rated, good: report.good, percent: Math.round((report.good / report.rated) * 100) })}</strong>{' '}
             {report.accuracy !== null && (
               <Text as="span" tone="muted" size="sm">
                 {t('report.accuracy', { score: report.accuracy })}
               </Text>
             )}
-          </Text>
+          </ReportText>
           <ReportPhases aria-label={t('report.phases')}>
             {PHASES.map((p) => (
-              <div key={p}>
+              <ReportPhase key={p}>
                 <span>{t(`report.phase.${p}`)}</span>
-                <i>
-                  <b style={{ ['--score' as string]: `${report.phases[p].score ?? 0}%` }} />
-                </i>
+                <ReportBar>
+                  <ReportBarFill style={{ ['--score' as string]: `${report.phases[p].score ?? 0}%` }} />
+                </ReportBar>
                 <Text as="span" tone="muted" size="sm">
                   {report.phases[p].score ?? t('report.few')}
                   {report.phases[p].avgLoss !== null && (
-                    <small>{t('report.phaseDetail', { loss: report.phases[p].avgLoss, percent: report.phases[p].mistakeRate })}</small>
+                    <ReportPhaseDetail>{t('report.phaseDetail', { loss: report.phases[p].avgLoss, percent: report.phases[p].mistakeRate })}</ReportPhaseDetail>
                   )}
                 </Text>
-              </div>
+              </ReportPhase>
             ))}
           </ReportPhases>
           {report.problems.length > 0 && (
@@ -209,15 +214,15 @@ export function GameReport({ game, userSide, rate, progress: external, choice, o
               <Button variant="primary" onClick={() => onPractice(practiceItems(game, report.problems))}>
                 {t('report.practiceMistakes', { count: report.problems.length })}
               </Button>
-              <Text tone="muted" size="xs">
+              <ReportText tone="muted" size="xs">
                 {t('report.practiceHint')}
-              </Text>
+              </ReportText>
             </styled.div>
           )}
           {top && (
-            <div className={reportPattern}>
+            <ReportPattern>
               <strong>{t('report.patternCount', { name: t(`report.weak.${top.tag}.name`), count: top.count })}</strong>
-              <Text>{t(`report.weak.${top.tag}.fix`)}</Text>
+              <ReportText>{t(`report.weak.${top.tag}.fix`)}</ReportText>
               <Wrap gap="2" align="center">
                 {LESSONS[top.tag].map((id) => {
                   const topic = SETUPS.find((item) => item.id === `lesson-${id}`)
@@ -235,7 +240,7 @@ export function GameReport({ game, userSide, rate, progress: external, choice, o
                   </Button>
                 )}
               </Wrap>
-            </div>
+            </ReportPattern>
           )}
           {
             <>
@@ -243,21 +248,27 @@ export function GameReport({ game, userSide, rate, progress: external, choice, o
                 {t('report.problems')}
               </styled.h4>
               {report.problems.length === 0 ? (
-                !progress && <Text>{t('report.clean')}</Text>
+                !progress && <ReportText>{t('report.clean')}</ReportText>
               ) : (
                 <ReportList>
                   {report.problems.slice(0, 8).map((p) => (
                     <ReportListItem key={p.ply}>
-                      <span className={badge} style={{ ['--label' as string]: LABELS[p.review.label].color }}>
-                        {LABELS[p.review.label].symbol}
-                      </span>
+                      <LabelBadge style={{ ['--label' as string]: LABELS[p.review.label].color }}>{LABELS[p.review.label].symbol}</LabelBadge>
                       <ReportListBody>
                         <strong>{t('report.played', { ply: p.ply, played: moveText(p.sfen, p.usi), loss: Math.round(p.review.loss * 100) })}</strong>
-                        <MistakeDetail sfen={p.sfen} played={p.usi} best={p.review.best.move} tag={p.tag} loss={p.review.loss} reason={p.review.reasons[0]} />
+                        <MistakeDetail
+                          snug
+                          sfen={p.sfen}
+                          played={p.usi}
+                          best={p.review.best.move}
+                          tag={p.tag}
+                          loss={p.review.loss}
+                          reason={p.review.reasons[0]}
+                        />
                       </ReportListBody>
-                      <Button size="sm" className={reportListShow} onClick={() => onShow(p.ply)}>
+                      <ReportShow size="sm" onClick={() => onShow(p.ply)}>
                         {t('report.show')}
-                      </Button>
+                      </ReportShow>
                     </ReportListItem>
                   ))}
                 </ReportList>
@@ -270,9 +281,7 @@ export function GameReport({ game, userSide, rate, progress: external, choice, o
                   <ReportList>
                     {report.praise.map((m) => (
                       <ReportPraiseItem key={m.ply}>
-                        <span className={badge} style={{ ['--label' as string]: LABELS[m.review.label].color }}>
-                          {LABELS[m.review.label].symbol}
-                        </span>
+                        <LabelBadge style={{ ['--label' as string]: LABELS[m.review.label].color }}>{LABELS[m.review.label].symbol}</LabelBadge>
                         <strong>{moveText(m.sfen, m.usi)}</strong>
                         <Text as="span" tone="muted" size="sm">
                           {t('report.praiseMove', { ply: m.ply, label: LABELS[m.review.label].text })}
@@ -306,12 +315,8 @@ export function ReportDialog({ game, userSide, onShow, onRoute, onClose }: Repor
   const enough = report.total >= MIN_MOVES
 
   return (
-    <Dialog
-      label={t('report.title')}
-      className={cx(reportText, css({ w: 'min(600px, 100%)', display: 'flex', flexDirection: 'column', gap: '4' }))}
-      onBackdrop={onClose}
-    >
-      <DialogHeader title={t('report.title')} closeLabel={t('viewer.close')} className={css({ mb: '-2' })} onClose={onClose} />
+    <Dialog label={t('report.title')} w="min(600px, 100%)" display="flex" flexDirection="column" gap="4" onBackdrop={onClose}>
+      <DialogHeader title={t('report.title')} closeLabel={t('viewer.close')} mb="-2" onClose={onClose} />
       <styled.div display="flex" alignItems="center" gap="2">
         <Text as="span" tone="muted" size="sm">
           {t('report.sideLabel')}
@@ -324,81 +329,89 @@ export function ReportDialog({ game, userSide, onShow, onRoute, onClose }: Repor
       </styled.div>
 
       {!enough ? (
-        <Text>{t('report.tooShort')}</Text>
+        <ReportText>{t('report.tooShort')}</ReportText>
       ) : (
         <>
           {progress && (
-            <Text tone="muted" size="sm" role="status">
+            <ReportText tone="muted" size="sm" role="status">
               {t('report.rating', progress)}
-            </Text>
+            </ReportText>
           )}
           {!engineSupported() && report.rated < report.total && (
-            <Text tone="muted" size="sm">
+            <ReportText tone="muted" size="sm">
               {t('report.noEngine')}
-            </Text>
+            </ReportText>
           )}
           {report.rated === 0 ? (
-            !progress && <Text>{t('report.noRated')}</Text>
+            !progress && <ReportText>{t('report.noRated')}</ReportText>
           ) : (
             <>
               <ReportSection>
-                <Text>
+                <ReportText>
                   <strong>{t('report.summary', { total: report.rated, good: report.good, percent: Math.round((report.good / report.rated) * 100) })}</strong>{' '}
                   {report.accuracy !== null && (
                     <Text as="span" tone="muted" size="sm">
                       {t('report.accuracy', { score: report.accuracy })}
                     </Text>
                   )}
-                </Text>
+                </ReportText>
                 <ReportPhases aria-label={t('report.phases')}>
                   {PHASES.map((p) => (
-                    <div key={p}>
+                    <ReportPhase key={p}>
                       <span>{t(`report.phase.${p}`)}</span>
-                      <i>
-                        <b style={{ ['--score' as string]: `${report.phases[p].score ?? 0}%` }} />
-                      </i>
+                      <ReportBar>
+                        <ReportBarFill style={{ ['--score' as string]: `${report.phases[p].score ?? 0}%` }} />
+                      </ReportBar>
                       <Text as="span" tone="muted" size="sm">
                         {report.phases[p].score ?? t('report.few')}
                         {report.phases[p].avgLoss !== null && (
-                          <small>{t('report.phaseDetail', { loss: report.phases[p].avgLoss, percent: report.phases[p].mistakeRate })}</small>
+                          <ReportPhaseDetail>
+                            {t('report.phaseDetail', { loss: report.phases[p].avgLoss, percent: report.phases[p].mistakeRate })}
+                          </ReportPhaseDetail>
                         )}
                       </Text>
-                    </div>
+                    </ReportPhase>
                   ))}
                 </ReportPhases>
               </ReportSection>
 
               {top && (
-                <ReportSection className={reportPattern}>
+                <ReportPattern as="section" display="grid" gap="2">
                   <ReportHeading>{t('report.pattern')}</ReportHeading>
                   <strong>{t('report.patternCount', { name: t(`report.weak.${top.tag}.name`), count: top.count })}</strong>
-                  <Text>{t(`report.weak.${top.tag}.fix`)}</Text>
+                  <ReportText>{t(`report.weak.${top.tag}.fix`)}</ReportText>
                   {route && (
                     <Button size="sm" variant="primary" onClick={go(() => onRoute(route))}>
                       {t(`report.fixWith.${route}`)}
                     </Button>
                   )}
-                </ReportSection>
+                </ReportPattern>
               )}
 
               <ReportSection>
                 <ReportHeading>{t('report.problems')}</ReportHeading>
                 {report.problems.length === 0 ? (
-                  !progress && <Text>{t('report.clean')}</Text>
+                  !progress && <ReportText>{t('report.clean')}</ReportText>
                 ) : (
                   <ReportList>
                     {report.problems.slice(0, 6).map((p) => (
                       <ReportListItem key={p.ply}>
-                        <span className={badge} style={{ ['--label' as string]: LABELS[p.review.label].color }}>
-                          {LABELS[p.review.label].symbol}
-                        </span>
+                        <LabelBadge style={{ ['--label' as string]: LABELS[p.review.label].color }}>{LABELS[p.review.label].symbol}</LabelBadge>
                         <ReportListBody>
                           <strong>{t('report.played', { ply: p.ply, played: moveText(p.sfen, p.usi), loss: Math.round(p.review.loss * 100) })}</strong>
-                          <MistakeDetail sfen={p.sfen} played={p.usi} best={p.review.best.move} tag={p.tag} loss={p.review.loss} reason={p.review.reasons[0]} />
+                          <MistakeDetail
+                            snug
+                            sfen={p.sfen}
+                            played={p.usi}
+                            best={p.review.best.move}
+                            tag={p.tag}
+                            loss={p.review.loss}
+                            reason={p.review.reasons[0]}
+                          />
                         </ReportListBody>
-                        <Button size="sm" className={reportListShow} onClick={go(() => onShow(p.ply))}>
+                        <ReportShow size="sm" onClick={go(() => onShow(p.ply))}>
                           {t('report.show')}
-                        </Button>
+                        </ReportShow>
                       </ReportListItem>
                     ))}
                   </ReportList>
@@ -411,9 +424,7 @@ export function ReportDialog({ game, userSide, onShow, onRoute, onClose }: Repor
                   <ReportList>
                     {report.praise.map((m) => (
                       <ReportPraiseItem key={m.ply}>
-                        <span className={badge} style={{ ['--label' as string]: LABELS[m.review.label].color }}>
-                          {LABELS[m.review.label].symbol}
-                        </span>
+                        <LabelBadge style={{ ['--label' as string]: LABELS[m.review.label].color }}>{LABELS[m.review.label].symbol}</LabelBadge>
                         <strong>{moveText(m.sfen, m.usi)}</strong>
                         <Text as="span" tone="muted" size="sm">
                           {t('report.praiseMove', { ply: m.ply, label: LABELS[m.review.label].text })}
@@ -427,9 +438,9 @@ export function ReportDialog({ game, userSide, onShow, onRoute, onClose }: Repor
           )}
         </>
       )}
-      <Text tone="muted" size="sm">
+      <ReportText tone="muted" size="sm">
         {t('report.privacy')}
-      </Text>
+      </ReportText>
     </Dialog>
   )
 }

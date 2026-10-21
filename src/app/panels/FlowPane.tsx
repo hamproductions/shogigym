@@ -6,7 +6,7 @@ import { applyUsi, moveText } from '@/utils/shogi'
 import type { Lane } from '@/utils/lanes'
 import { lossClass } from '@/utils/score'
 import { loadStats, loadStatsMeta, type PositionStats, type StatsMeta } from '@/utils/stats'
-import { muted } from './panels.styles'
+import { Muted } from './panels.styles'
 
 const laneCard = cva({
   base: {
@@ -74,17 +74,25 @@ function OpeningStats({
   sfen,
   onPreview,
   onHover,
+  lone = false,
 }: {
   sfen: string
   onPreview: (moves: string[], title: string) => void
   onHover: (usi: string | null) => void
+  lone?: boolean
 }) {
   const { t } = useTranslation()
   const { loading, stats, meta } = useOpeningStats(sfen)
   if (loading) return null
   if (!stats)
     return (
-      <styled.p m="{spacing.3} 0 0" color="fg.muted" fontSize="xs">
+      <styled.p
+        m={lone ? '0 0 {spacing.3}' : '{spacing.3} 0 0'}
+        color="fg.muted"
+        fontFamily={lone ? 'mincho' : undefined}
+        fontSize="xs"
+        lineHeight={lone ? 'mincho' : undefined}
+      >
         {t('flow.statsNone', { ply: meta?.maxPly ?? 30 })}
       </styled.p>
     )
@@ -93,7 +101,7 @@ function OpeningStats({
   const bookText = book ? moveText(sfen, book.usi) : ''
   const bookEval = book ? t('flow.statsEval', { side: book.eval >= 0 !== gote ? '☗' : '☖', cp: Math.abs(book.eval) }) : ''
   return (
-    <styled.section mt="3" pt="3" borderTop="1px solid {colors.border}" aria-label={t('flow.statsTitle')}>
+    <styled.section mt={lone ? '0' : '3'} pt="3" borderTop="1px solid {colors.border}" aria-label={t('flow.statsTitle')}>
       <styled.header display="flex" flexWrap="wrap" alignItems="baseline" justifyContent="space-between" gap="{spacing.1} {spacing.2}" mb="2">
         <styled.h3 m="0" fontSize="sm" fontWeight="bold">
           {t('flow.statsTitle')}
@@ -174,13 +182,11 @@ function OpeningStats({
                   <styled.span display="flex" h="6px" overflow="hidden" borderRadius="full" bg="meter.track">
                     <styled.i bg="warning" style={{ width: `${(m.games / stats.games) * 100}%` }} />
                   </styled.span>
-                  <styled.span
-                    fontSize="xs"
-                    fontVariantNumeric="tabular-nums"
-                    whiteSpace="nowrap"
-                    css={{ '& b': { fontWeight: 'bold' }, '& small': { color: 'fg.muted', fontSize: 'inherit' } }}
-                  >
-                    {pct(m.games, stats.games)}% <small>{t('flow.statsGames', { count: m.games, n: m.games.toLocaleString() })}</small>
+                  <styled.span fontSize="xs" fontVariantNumeric="tabular-nums" whiteSpace="nowrap">
+                    {pct(m.games, stats.games)}%{' '}
+                    <styled.small color="fg.muted" fontSize="inherit">
+                      {t('flow.statsGames', { count: m.games, n: m.games.toLocaleString() })}
+                    </styled.small>
                   </styled.span>
                 </styled.span>
                 <styled.span
@@ -195,13 +201,11 @@ function OpeningStats({
                     <styled.i bg="meter.fill" style={{ width: `${s}%` }} />
                     <styled.i ml="auto" bg="hai.400" style={{ width: `${g}%` }} />
                   </styled.span>
-                  <styled.span
-                    fontSize="xs"
-                    fontVariantNumeric="tabular-nums"
-                    whiteSpace="nowrap"
-                    css={{ '& b': { fontWeight: 'bold' }, '& small': { color: 'fg.muted', fontSize: 'inherit' } }}
-                  >
-                    <b>☗{s}%</b> <styled.b color="fg.muted">☖{g}%</styled.b>
+                  <styled.span fontSize="xs" fontVariantNumeric="tabular-nums" whiteSpace="nowrap">
+                    <styled.b fontWeight="bold">☗{s}%</styled.b>{' '}
+                    <styled.b fontWeight="bold" color="fg.muted">
+                      ☖{g}%
+                    </styled.b>
                   </styled.span>
                 </styled.span>
               </styled.button>
@@ -209,13 +213,24 @@ function OpeningStats({
           )
         })}
       </styled.ul>
-      <styled.p m="{spacing.2} 0 0" color="fg.muted" fontSize="2xs" lineHeight="snug">
+      <styled.p
+        m={lone ? '0 0 {spacing.3}' : '{spacing.2} 0 0'}
+        color="fg.muted"
+        fontFamily={lone ? 'mincho' : undefined}
+        fontSize="2xs"
+        lineHeight={lone ? 'mincho' : 'snug'}
+      >
         {t('flow.statsKey', { min: THIN_SAMPLE })}
       </styled.p>
       {book && (
-        <styled.p m="{spacing.2} 0 0" fontSize="xs">
+        <styled.p
+          m={lone ? '0 0 {spacing.3}' : '{spacing.2} 0 0'}
+          fontFamily={lone ? 'mincho' : undefined}
+          fontSize="xs"
+          lineHeight={lone ? 'mincho' : undefined}
+        >
           {t('flow.statsBook', { move: bookText, eval: bookEval })}
-          {!stats.moves.some((m) => m.usi === book.usi) && <span className={muted}> {t('flow.statsBookRare')}</span>}
+          {!stats.moves.some((m) => m.usi === book.usi) && <Muted as="span"> {t('flow.statsBookRare')}</Muted>}
         </styled.p>
       )}
     </styled.section>
@@ -234,12 +249,13 @@ export function FlowPane({
   onHover: (usi: string | null) => void
 }) {
   const { t } = useTranslation()
-  const statsPane = <OpeningStats sfen={sfen} onPreview={onPreview} onHover={onHover} />
   if (!lanes.length)
     return (
-      <styled.div py="2" css={{ '& p': { m: '0 0 {spacing.3}', fontFamily: 'mincho', lineHeight: 'mincho' }, '& > section': { mt: '0' } }}>
-        <p>{t('flow.noBookLineFromThis')}</p>
-        {statsPane}
+      <styled.div py="2">
+        <styled.p m="0 0 {spacing.3}" fontFamily="mincho" lineHeight="mincho">
+          {t('flow.noBookLineFromThis')}
+        </styled.p>
+        <OpeningStats sfen={sfen} onPreview={onPreview} onHover={onHover} lone />
       </styled.div>
     )
   return (
@@ -276,7 +292,7 @@ export function FlowPane({
                   {step}
                 </styled.span>
               ))}
-              {lane.forks && <span className={muted}>{t('flow.thenChoices', { forks: lane.forks })}</span>}
+              {lane.forks && <Muted as="span">{t('flow.thenChoices', { forks: lane.forks })}</Muted>}
             </styled.span>
             {lane.note && (
               <styled.span fontFamily="mincho" fontSize="xs" color="fg.muted">
@@ -286,7 +302,7 @@ export function FlowPane({
           </button>
         )
       })}
-      {statsPane}
+      <OpeningStats sfen={sfen} onPreview={onPreview} onHover={onHover} />
     </div>
   )
 }

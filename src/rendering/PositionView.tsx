@@ -113,7 +113,7 @@ export function PositionView({ sfen, played, best, flipped = false, label }: Pro
   }
 
   return (
-    <styled.svg display="block" w="100%" h="auto" mt="1" borderRadius="sm" viewBox={`0 0 ${width} ${height}`} role="img" aria-label={label} aria-busy={!baked}>
+    <styled.svg display="block" w="100%" h="auto" borderRadius="sm" viewBox={`0 0 ${width} ${height}`} role="img" aria-label={label} aria-busy={!baked}>
       {anyHand && hand(bottomColor === Color.BLACK ? Color.WHITE : Color.BLACK, 0)}
       {baked ? (
         <image href={baked.board} x={0} y={top} width={width} height={boardHeight} preserveAspectRatio="none" />

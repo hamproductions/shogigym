@@ -75,71 +75,49 @@ export default function PieceTypefacesTest() {
         mb="4"
         pb="3"
         borderBottom="1px solid {colors.border}"
-        css={{
-          '& h1': { m: '0', fontSize: 'xl' },
-          '& p': { m: '0', color: 'fg.muted', fontSize: 'sm', textAlign: 'right' },
-        }}
-        _phone={{
-          alignItems: 'flex-start',
-          gridTemplateColumns: 'minmax(0, 1fr)',
-          gap: '1',
-          '& p': { textAlign: 'left' },
-        }}
+        _phone={{ alignItems: 'flex-start', gridTemplateColumns: 'minmax(0, 1fr)', gap: '1' }}
       >
-        <h1>Piece typeface renderer</h1>
-        <p>
+        <styled.h1 m="0" fontSize="xl">
+          Piece typeface renderer
+        </styled.h1>
+        <styled.p m="0" color="fg.muted" fontSize="sm" textAlign="right" _phone={{ textAlign: 'left' }}>
           {st.pieceStyle} · {st.pieceGuide} · {st.pieceMaterial} · {st.pieceColor} · {st.pieceGrain} · {st.pieceFinish}
-        </p>
+        </styled.p>
       </styled.header>
       {!rows && !error && <p>Rendering with current global settings…</p>}
       {error && <p role="alert">{error}</p>}
       {rows?.map(({ set, images }) => (
-        <styled.section
-          key={set}
-          mb="4"
-          p="clamp({spacing.3}, 1.5vw, {spacing.5})"
-          border="1px solid {colors.border}"
-          borderRadius="lg"
-          bg="panel"
-          css={{ '& h2': { m: '0 0 {spacing.2}', fontSize: 'md' } }}
-        >
-          <h2>{PIECE_SETS[set].label}</h2>
-          <styled.div
-            display="grid"
-            gridTemplateColumns="repeat(auto-fit, minmax(min(100%, 220px), 1fr))"
-            gap="clamp({spacing.2}, 1.25vw, {spacing.4})"
-            css={{
-              '& figure': {
-                display: 'grid',
-                minW: '0',
-                gap: '2',
-                m: '0',
-                p: '2',
-                border: '1px solid {colors.border}',
-                borderRadius: 'md',
-                bg: 'card',
-              },
-              '& img': {
-                display: 'block',
-                w: '100%',
-                aspectRatio: '1',
-                borderRadius: 'sm',
-                bg: '#f5e3bd',
-                objectFit: 'contain',
-              },
-              '& figcaption': {
-                color: 'fg.muted',
-                fontSize: 'xs',
-                lineHeight: 'tight',
-                textAlign: 'center',
-                minH: '1lh',
-              },
-            }}
-          >
+        <styled.section key={set} mb="4" p="clamp({spacing.3}, 1.5vw, {spacing.5})" border="1px solid {colors.border}" borderRadius="lg" bg="panel">
+          <styled.h2 m="0 0 {spacing.2}" fontSize="md">
+            {PIECE_SETS[set].label}
+          </styled.h2>
+          <styled.div display="grid" gridTemplateColumns="repeat(auto-fit, minmax(min(100%, 220px), 1fr))" gap="clamp({spacing.2}, 1.25vw, {spacing.4})">
             {images.map((image, index) => (
-              <figure key={TYPES[index].type} title={TYPES[index].label}>
-                <img src={image} alt={TYPES[index].label} width={180} height={180} />
-              </figure>
+              <styled.figure
+                key={TYPES[index].type}
+                title={TYPES[index].label}
+                display="grid"
+                minW="0"
+                gap="2"
+                m="0"
+                p="2"
+                border="1px solid {colors.border}"
+                borderRadius="md"
+                bg="card"
+              >
+                <styled.img
+                  src={image}
+                  alt={TYPES[index].label}
+                  htmlWidth={180}
+                  htmlHeight={180}
+                  display="block"
+                  w="100%"
+                  aspectRatio="1"
+                  borderRadius="sm"
+                  bg="#f5e3bd"
+                  objectFit="contain"
+                />
+              </styled.figure>
             ))}
           </styled.div>
         </styled.section>

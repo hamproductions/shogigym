@@ -5,8 +5,7 @@ import { FAMILIES, STRATEGIES } from '@/data/strategies'
 import { otherSide, type Side } from '@/utils/shogi'
 import { aiStrategyId, strategyCourses } from '@/utils/book'
 import { STRENGTH, TIME_CONTROLS, setSettings, useSettings, type AiStrength, type TimeControl } from '@/appearance/settings'
-import { css } from 'styled-system/css'
-import { Wrap } from 'styled-system/jsx'
+import { styled, Wrap } from 'styled-system/jsx'
 import { Select } from '@/components/ui'
 import { Button } from '@/app/ui/Button'
 import { Dialog } from '@/app/ui/Dialog'
@@ -48,17 +47,10 @@ export function NewGameDialog({ side, onClose, onStart }: { side: Side; onClose:
   ]
   const strategies = createListCollection({ items: [...loose, ...groups.flatMap((g) => g.items)] })
   return (
-    <Dialog
-      label={t('newGame.title')}
-      className={css({
-        w: 'min(560px, 100%)',
-        '& [data-setting]': { alignItems: 'start' },
-        '& [data-setting] > span:first-child': { pt: '1' },
-      })}
-      onBackdrop={onClose}
-    >
-      <h2>{t('newGame.title')}</h2>
+    <Dialog label={t('newGame.title')} w="min(560px, 100%)" onBackdrop={onClose}>
+      <styled.h2 mb="2">{t('newGame.title')}</styled.h2>
       <SegmentedField
+        alignTop
         label={t('newGame.side')}
         value={pick}
         options={[
@@ -69,18 +61,20 @@ export function NewGameDialog({ side, onClose, onStart }: { side: Side; onClose:
         onChange={(v) => setPick(v as PickSide)}
       />
       <SegmentedField<AiStrength>
+        alignTop
         label={t('newGame.strength')}
         value={st.opponent}
         options={(Object.keys(STRENGTH) as AiStrength[]).map((k) => ({ v: k, t: STRENGTH[k].label }))}
         onChange={(k) => setSettings({ opponent: k })}
       />
       <SegmentedField<TimeControl>
+        alignTop
         label={t('newGame.clock')}
         value={st.timeControl}
         options={CLOCK_ORDER.map((k) => ({ v: k, t: TIME_CONTROLS[k].label, title: TIME_CONTROLS[k].hint }))}
         onChange={(k) => setSettings({ timeControl: k })}
       />
-      <SettingRow label={t('newGame.strategy')}>
+      <SettingRow alignTop label={t('newGame.strategy')}>
         <Select.Root
           collection={strategies}
           value={[aiStrategyId(st.aiStrategy) || NO_STRATEGY]}

@@ -4,7 +4,7 @@ import { Color, promotedPieceType, type Move } from 'tsshogi'
 import type { PromotionAtlas } from '@/rendering/sprites'
 import type { Announcement } from '@/app/hooks/useAnnouncements'
 import { cx } from '@/app/ui/cx'
-import { muted, plate, plateSide } from '@/app/panels/panels.styles'
+import { Muted, PlateBox, PlateSide } from '@/app/panels/panels.styles'
 import { styled } from 'styled-system/jsx'
 import inkMask from './announcement-ink.png'
 import { announce as announceStyle, announceName, announceSeal, promoteChoice } from './stage.styles'
@@ -45,10 +45,11 @@ export function AnnounceBadge({ announce }: { announce: Announcement }) {
             _before={{ content: '""', w: '24px', h: '1px', bg: 'accent' }}
             _narrow={{ gap: '2', fontSize: '11px', letterSpacing: '0.12em', _before: { w: '16px' } }}
             _motionReduce={{ animation: 'none' }}
-            css={{ '& span + span': { pl: '3', borderLeft: '1px solid color-mix(in srgb, {colors.accent} 45%, transparent)' } }}
           >
             <span>{announce.side === Color.BLACK ? t('app.sente') : t('app.gote')}</span>
-            <span>{announce.kind}</span>
+            <styled.span pl="3" borderLeft="1px solid color-mix(in srgb, {colors.accent} 45%, transparent)">
+              {announce.kind}
+            </styled.span>
           </styled.div>
           <strong className={announceName({ latin: !japanese })}>
             {japanese ? (
@@ -143,9 +144,9 @@ export function TsumePlate({ place: position, flipped, userSide }: { place: 'top
   const { t } = useTranslation()
   const side = (position === 'top') === flipped ? 'sente' : 'gote'
   return (
-    <span className={cx('app-plate', position, plate)}>
-      <span className={plateSide}>{side === 'sente' ? t('app.sente') : t('app.gote')}</span>
-      <span className={muted}>{side === userSide ? t('app.youAttack') : t('app.defends')}</span>
-    </span>
+    <PlateBox as="span" className={cx('app-plate', position)}>
+      <PlateSide>{side === 'sente' ? t('app.sente') : t('app.gote')}</PlateSide>
+      <Muted as="span">{side === userSide ? t('app.youAttack') : t('app.defends')}</Muted>
+    </PlateBox>
   )
 }

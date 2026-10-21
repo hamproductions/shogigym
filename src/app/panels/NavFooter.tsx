@@ -6,6 +6,19 @@ import type { Lesson } from '@/app/modes/lesson/useLesson'
 import { useLineAhead } from '@/app/hooks/useLineAhead'
 import { styled } from 'styled-system/jsx'
 
+const NavButton = styled('button', {
+  base: {
+    display: 'grid',
+    placeItems: 'center',
+    h: '40px',
+    borderRadius: 'md',
+    bg: 'surface.2',
+    transition: 'background {durations.fast}',
+    _on: { bg: 'accent', color: 'accent.contrast' },
+    _hover: { bg: 'surface.3' },
+  },
+})
+
 export function NavFooter({ canAutoplay, watch, lesson }: { canAutoplay: boolean; watch: Watch; lesson: Lesson }) {
   const { t } = useTranslation()
   const session = useSession()
@@ -61,28 +74,23 @@ export function MoveNavigation({
       p="2.5"
       borderTop="1px solid {colors.border}"
       _compact={{ pb: 'max({spacing.2.5}, env(safe-area-inset-bottom))' }}
-      css={{
-        '& button': { display: 'grid', placeItems: 'center', h: '40px', borderRadius: 'md', bg: 'surface.2', transition: 'background {durations.fast}' },
-        '& [aria-pressed=true]': { bg: 'accent', color: 'accent.contrast' },
-        '& button:not(:disabled):hover': { bg: 'surface.3' },
-        '@container (max-width: 300px)': { gap: '0.5', px: '1' },
-      }}
+      css={{ '@container (max-width: 300px)': { gap: '0.5', px: '1' } }}
     >
-      <button onClick={first} disabled={!canBack} title={t('app.startHome')}>
+      <NavButton onClick={first} disabled={!canBack} title={t('app.startHome')}>
         <Icon name="first" />
-      </button>
-      <button onClick={back} disabled={!canBack} title={t('app.back')}>
+      </NavButton>
+      <NavButton onClick={back} disabled={!canBack} title={t('app.back')}>
         <Icon name="prev" />
-      </button>
-      <button onClick={toggle} disabled={!canPlay} title={playTitle} aria-pressed={running}>
+      </NavButton>
+      <NavButton onClick={toggle} disabled={!canPlay} title={playTitle} aria-pressed={running}>
         <Icon name={running ? 'pause' : 'play'} />
-      </button>
-      <button onClick={forward} disabled={!canForward} title={t('app.forward')}>
+      </NavButton>
+      <NavButton onClick={forward} disabled={!canForward} title={t('app.forward')}>
         <Icon name="next" />
-      </button>
-      <button onClick={last} disabled={!canForward} title={t('app.latestEnd')}>
+      </NavButton>
+      <NavButton onClick={last} disabled={!canForward} title={t('app.latestEnd')}>
         <Icon name="last" />
-      </button>
+      </NavButton>
     </styled.footer>
   )
 }

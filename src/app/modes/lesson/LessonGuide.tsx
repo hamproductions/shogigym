@@ -9,8 +9,7 @@ import { useSession } from '@/app/hooks/session'
 import { FlipMarks } from '@/app/ui/SideMark'
 import { Button } from '@/app/ui/Button'
 import { Box, Flex, Grid, styled, Wrap } from 'styled-system/jsx'
-import { backLink } from '@/app/panels/panels.styles'
-import { guideSource } from './lesson.styles'
+import { BackLink } from '@/app/panels/panels.styles'
 import type { Lesson } from './useLesson'
 import { LessonReferences } from './LessonReferences'
 
@@ -233,15 +232,13 @@ export function LessonGuide({ course, lesson, series }: Props) {
     <Grid gap="2">
       <Grid gap="2">
         <Flex alignItems="center" justifyContent="space-between">
-          <button className={backLink} onClick={series?.back ?? lesson.leave}>
-            ‹ {ja ? '目次' : 'Contents'}
-          </button>
+          <BackLink onClick={series?.back ?? lesson.leave}>‹ {ja ? '目次' : 'Contents'}</BackLink>
           <styled.span color="fg.muted" fontSize="xs" fontVariantNumeric="tabular-nums">
             {ja ? `第${chapter + 1}章 / ${chapters.length}・${cursor}手目` : `Chapter ${chapter + 1} of ${chapters.length} · move ${cursor}`}
           </styled.span>
         </Flex>
-        <Box h="3px" borderRadius="2px" bg="surface.2" overflow="hidden" css={{ '& i': { display: 'block', h: '100%', bg: 'accent' } }} aria-hidden="true">
-          <i style={{ width: `${script.length > 1 ? (index / (script.length - 1)) * 100 : 100}%` }} />
+        <Box h="3px" borderRadius="2px" bg="surface.2" overflow="hidden" aria-hidden="true">
+          <styled.i display="block" h="100%" bg="accent" style={{ width: `${script.length > 1 ? (index / (script.length - 1)) * 100 : 100}%` }} />
         </Box>
       </Grid>
       <Grid gap="1.5" pb="2" borderBottom="1px solid {colors.border}">
@@ -268,15 +265,17 @@ export function LessonGuide({ course, lesson, series }: Props) {
             <SquareText text={line} context={text} />
           </styled.p>
         ))}
-        {setup?.references && <LessonReferences references={setup.references} ja={ja} className={guideSource} />}
+        {setup?.references && <LessonReferences references={setup.references} ja={ja} m="{spacing.3} 0 0" color="fg.muted" fontSize="xs" />}
         {end && (
           <Grid gap="2" mt="3" p="3" borderRadius="md" bg="card" boxShadow="inset 0 0 0 1px {colors.border}">
             <strong>{ja ? 'おさらい' : 'Review'}</strong>
             {setup?.check && (
-              <Box css={{ '& p': { m: '0 0 {spacing.2}' } }}>
-                <p>{ja ? setup.check.question.ja : setup.check.question.en}</p>
+              <Box>
+                <styled.p m="0 0 {spacing.2}">{ja ? setup.check.question.ja : setup.check.question.en}</styled.p>
                 {revealed ? (
-                  <styled.p fontWeight="bold">{ja ? setup.check.answer.ja : setup.check.answer.en}</styled.p>
+                  <styled.p m="0 0 {spacing.2}" fontWeight="bold">
+                    {ja ? setup.check.answer.ja : setup.check.answer.en}
+                  </styled.p>
                 ) : (
                   <Button size="sm" onClick={() => setRevealed(true)}>
                     {ja ? '答えを見る' : 'Show the answer'}

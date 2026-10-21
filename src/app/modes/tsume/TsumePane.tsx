@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next'
-import { css } from 'styled-system/css'
 import { styled, Wrap } from 'styled-system/jsx'
 import { pvText } from '@/utils/shogi'
 import { sideMark } from '@/utils/notation'
@@ -8,14 +7,14 @@ import { firstPieceHint } from './firstPiece'
 import type { Tsume, TsumeState } from './useTsume'
 import { Button } from '@/app/ui/Button'
 import { Checkbox } from '@/components/ui'
-import { muted, note, practice, pv, result, taskText } from '@/app/panels/panels.styles'
+import { Muted, NarrowColumn, Note, PvLine, Result, TaskText } from '@/app/panels/panels.styles'
 
 function TsumeStatus({ tsume }: { tsume: TsumeState }) {
   const { t } = useTranslation()
-  if (tsume.status === 'checking') return <p className={muted}>{t('tsume.checkingYourMove')}</p>
+  if (tsume.status === 'checking') return <Muted mt="3">{t('tsume.checkingYourMove')}</Muted>
   if (tsume.status === 'solved')
     return (
-      <p className={result({ tone: 'right' })}>
+      <Result tone="right" mt="3">
         {tsume.seen
           ? t('tsume.mateSolvedAfterSeeingThe')
           : tsume.hint >= 2
@@ -23,24 +22,33 @@ function TsumeStatus({ tsume }: { tsume: TsumeState }) {
             : tsume.missed
               ? t('tsume.mateSolvedOnASecond')
               : t('tsume.mateSolved')}
-      </p>
+      </Result>
     )
   if (tsume.status === 'wrong')
-    return <p className={result({ tone: 'wrong' })}>{tsume.reason ? t('tsume.notMateBecause', { reason: tsume.reason }) : t('tsume.notMate')}</p>
+    return (
+      <Result tone="wrong" mt="3">
+        {tsume.reason ? t('tsume.notMateBecause', { reason: tsume.reason }) : t('tsume.notMate')}
+      </Result>
+    )
   if (tsume.status === 'shown')
     return (
-      <p className={pv}>
+      <PvLine mt="3">
         {t('tsume.solution')}
         {pvText(tsume.problem.sfen, tsume.problem.pv, tsume.problem.mate)}
-      </p>
+      </PvLine>
     )
-  if (tsume.good > 0) return <p className={result({ tone: 'right' })}>{t('tsume.checkAndStillMateIn')}</p>
+  if (tsume.good > 0)
+    return (
+      <Result tone="right" mt="3">
+        {t('tsume.checkAndStillMateIn')}
+      </Result>
+    )
   return (
-    <p className={note({ tone: tsume.hint >= 1 ? 'hint' : 'idle' })}>
+    <Note tone={tsume.hint >= 1 ? 'hint' : 'idle'} mt="3">
       {tsume.hint >= 1
         ? t('tsume.hintTheFirstMoveUses', { piece: firstPieceHint(tsume.problem) }) + (tsume.hint >= 2 ? t('tsume.theYellowArrowShowsIt') : '')
         : t('tsume.stuckHintTellsYouWhich')}
-    </p>
+    </Note>
   )
 }
 
@@ -49,13 +57,13 @@ export function TsumePane({ trainer, tsume, banner, onBack }: { trainer: Tsume; 
   const stats = loadTsumeStats()
   const pool = PROBLEMS.filter((p) => tsume.length === 'all' || p.mate === tsume.length)
   return (
-    <div className={practice}>
-      <styled.p className={taskText} display="none" _compact={{ display: 'block' }}>
+    <NarrowColumn>
+      <TaskText display="none" _compact={{ display: 'block' }}>
         {t('tsume.toPlayAndMateIn', { side: sideMark(attackerOf(tsume.problem)), mate: tsume.problem.mate })}
         <styled.span _compact={{ display: 'none' }}>{t('tsume.everyAttackingMoveMustGive')}</styled.span>
-      </styled.p>
+      </TaskText>
       <TsumeStatus tsume={tsume} />
-      <Wrap gap="2" align="center" _narrow={{ order: '-1' }}>
+      <Wrap gap="2" align="center" mt="3" _narrow={{ order: '-1' }}>
         {tsume.status === 'wrong' && !banner && (
           <Button variant="primary" onClick={onBack}>
             {t('tsume.tryAgain')}
@@ -67,7 +75,14 @@ export function TsumePane({ trainer, tsume, banner, onBack }: { trainer: Tsume; 
       </Wrap>
       <Checkbox.Root
         size="sm"
-        className={css({ display: 'flex', alignItems: 'center', gap: '2', mb: '1.5', color: 'fg.muted', fontSize: 'sm', cursor: 'pointer' })}
+        display="flex"
+        alignItems="center"
+        gap="2"
+        mt="3"
+        mb="1.5"
+        color="fg.muted"
+        fontSize="sm"
+        cursor="pointer"
         checked={trainer.showEscape}
         onCheckedChange={trainer.toggleEscape}
       >
@@ -75,17 +90,17 @@ export function TsumePane({ trainer, tsume, banner, onBack }: { trainer: Tsume; 
         <Checkbox.Control>
           <Checkbox.Indicator />
         </Checkbox.Control>
-        <Checkbox.Label className={css({ fontWeight: 'regular', fontSize: 'sm', lineHeight: 'inherit' })}>
+        <Checkbox.Label fontWeight="regular" fontSize="sm" lineHeight="inherit">
           {t('tsume.escapeSquaresShowWhereThe')}
         </Checkbox.Label>
       </Checkbox.Root>
       {tsume.status === 'solved' && (
-        <p className={pv}>
+        <PvLine mt="3">
           {t('tsume.solution')}
           {pvText(tsume.problem.sfen, tsume.problem.pv, tsume.problem.mate)}
-        </p>
+        </PvLine>
       )}
-      <p className={muted}>{t('tsume.solvedOfInThisSet', { value: pool.filter((p) => stats.solved.includes(p.id)).length, poolCount: pool.length })}</p>
-    </div>
+      <Muted mt="3">{t('tsume.solvedOfInThisSet', { value: pool.filter((p) => stats.solved.includes(p.id)).length, poolCount: pool.length })}</Muted>
+    </NarrowColumn>
   )
 }

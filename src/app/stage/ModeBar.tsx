@@ -13,25 +13,24 @@ import type { Drill } from '@/app/modes/drill/useDrill'
 import type { Lesson } from '@/app/modes/lesson/useLesson'
 import { STRENGTH, TIME_CONTROLS, setSettings, useSettings, type AiStrength } from '@/appearance/settings'
 import { MODES, isGameMode, type LessonMode } from '@/app/types'
-import { Button } from '@/app/ui/Button'
 import { Select } from '@/app/ui/Select'
-import { cx } from '@/app/ui/cx'
 import { styled } from 'styled-system/jsx'
 import {
-  boardFlip,
-  controlIcon,
-  controlLabel,
-  controls,
-  evaluation,
-  gameSetup,
-  helpToggle,
-  miniNav,
-  miniStep,
-  miniWideLabel,
-  modeBar,
-  resign,
-  takeBack,
-  tools,
+  BarButton,
+  ControlIcon,
+  ControlLabel,
+  Controls,
+  Evaluation,
+  HelpToggle,
+  MiniNav,
+  MiniNavButton,
+  MiniStep,
+  MiniWideLabel,
+  ModeBarHeader,
+  TakeBack,
+  Tools,
+  barIcon,
+  watchSelect,
 } from './mode-bar.styles'
 import { useGlide } from '@/app/hooks/useGlide'
 import { engineSupported, restartEngine, useEngineStatus } from '@/utils/engine'
@@ -68,6 +67,7 @@ export function ModeBarHeading({
   turn,
   flipped,
   busy,
+  wideMove,
 }: {
   seal: ReactNode
   title: string
@@ -77,6 +77,7 @@ export function ModeBarHeading({
   turn: 'sente' | 'gote'
   flipped?: boolean
   busy?: boolean
+  wideMove?: boolean
 }) {
   const { t } = useTranslation()
   const [before, after] = t('app.toMove', { side: '\u0001' }).split('\u0001')
@@ -147,21 +148,24 @@ export function ModeBarHeading({
       <styled.span
         className="app-lastmove"
         flex="none"
-        w="9em"
+        w={wideMove ? 'max-content' : '9em'}
+        maxW={wideMove ? '50%' : undefined}
         display="flex"
         flexDirection="column"
         alignItems="flex-end"
         lineHeight="tight"
-        _compact={{ gap: '0', w: '8em', ml: 'auto' }}
+        _compact={{ gap: '0', w: wideMove ? 'max-content' : '8em', ml: 'auto' }}
       >
         <styled.span color="fg.muted" fontSize="2xs" _compact={{ display: 'block' }} _short={{ display: 'none' }}>
           {ply}
         </styled.span>
         <styled.strong
           maxW="100%"
-          overflow="hidden"
-          textOverflow="ellipsis"
-          whiteSpace="nowrap"
+          overflow={wideMove ? 'visible' : 'hidden'}
+          textOverflow={wideMove ? 'clip' : 'ellipsis'}
+          whiteSpace={wideMove ? 'normal' : 'nowrap'}
+          textAlign={wideMove ? 'right' : undefined}
+          overflowWrap={wideMove ? 'anywhere' : undefined}
           fontFamily="mincho"
           fontWeight="heavy"
           fontSize="xl"
@@ -203,17 +207,8 @@ export function EvalChip({ rate, barShown, flipped }: { rate: number; barShown: 
       <styled.span color="fg.muted" fontSize="xs" _compact={{ display: 'inline' }}>
         {t('app.winChanceShort')}
       </styled.span>
-      <styled.span
-        position="relative"
-        w="160px"
-        h="14px"
-        borderRadius="full"
-        bg="meter.track"
-        overflow="hidden"
-        _compact={{ flex: '1', w: 'auto', h: '12px' }}
-        css={{ '& > span': { position: 'absolute', inset: '0 auto 0 0', bg: 'meter.fill' } }}
-      >
-        <span ref={fill} style={{ width: `${rate * 100}%` }} />
+      <styled.span position="relative" w="160px" h="14px" borderRadius="full" bg="meter.track" overflow="hidden" _compact={{ flex: '1', w: 'auto', h: '12px' }}>
+        <styled.span ref={fill} position="absolute" inset="0 auto 0 0" bg="meter.fill" style={{ width: `${rate * 100}%` }} />
       </styled.span>
       <styled.b minW="56px" fontSize="md" fontVariantNumeric="tabular-nums" _compact={{ minW: '0' }}>
         <SideMark side={rate >= 0.5 ? 'sente' : 'gote'} flipped={flipped} /> {Math.round(Math.max(rate, 1 - rate) * 100)}%
@@ -256,7 +251,7 @@ export function ModeBar({
     t(`modes.${mode}.name`)
   )
   return (
-    <header className={cx('app-modebar', modeBar({ mode: mode === 'lesson' ? lessonMode : mode }))} data-sheet-up={sheetUp || undefined}>
+    <ModeBarHeader className="app-modebar" mode={mode === 'lesson' ? lessonMode : mode} data-sheet-up={sheetUp || undefined}>
       <ModeBarHeading
         seal={seal}
         title={title}
@@ -274,14 +269,14 @@ export function ModeBar({
         flipped={flipped}
       />
       {evalRate !== null && (
-        <div className={evaluation}>
+        <Evaluation>
           <EvalChip rate={evalRate} barShown={barShown} flipped={flipped} />
-        </div>
+        </Evaluation>
       )}
-      <div className={controls}>
-        <div className={tools}>
+      <Controls>
+        <Tools>
           {engine.error && (isGameMode(mode) || mode === 'view') && (
-            <Button
+            <BarButton
               size="sm"
               onClick={() => {
                 restartEngine()
@@ -289,71 +284,69 @@ export function ModeBar({
               }}
             >
               {t('tsume.tryAgain')}
-            </Button>
+            </BarButton>
           )}
           {unavailable && (
-            <Button size="sm" onClick={() => location.reload()}>
+            <BarButton size="sm" onClick={() => location.reload()}>
               {t('engine.reloadPage')}
-            </Button>
+            </BarButton>
           )}
           {mode === 'view' && (
             <>
-              <Button
+              <BarButton
                 size="sm"
                 onClick={watch.started ? watch.toggle : onWatchSetup}
                 disabled={watch.started && !watch.canPlay}
                 title={t(!watch.started ? 'newGame.start' : watch.running ? 'watch.pause' : 'watch.resume')}
                 aria-label={t(!watch.started ? 'newGame.start' : watch.running ? 'watch.pause' : 'watch.resume')}
               >
-                <Icon name={watch.running ? 'pause' : 'play'} size={16} />
-                <span className={controlLabel}>{t(!watch.started ? 'newGame.start' : watch.running ? 'watch.pause' : 'watch.resume')}</span>
-              </Button>
-              <Button size="sm" onClick={watch.restart} title={t('watch.newGame')} aria-label={t('watch.newGame')}>
-                <span className={controlIcon}>
-                  <Icon name="newGame" size={16} />
-                </span>
-                <span className={controlLabel}>{t('watch.newGame')}</span>
-              </Button>
+                <Icon name={watch.running ? 'pause' : 'play'} size={16} className={barIcon} />
+                <ControlLabel>{t(!watch.started ? 'newGame.start' : watch.running ? 'watch.pause' : 'watch.resume')}</ControlLabel>
+              </BarButton>
+              <BarButton size="sm" onClick={watch.restart} title={t('watch.newGame')} aria-label={t('watch.newGame')}>
+                <ControlIcon>
+                  <Icon name="newGame" size={16} className={barIcon} />
+                </ControlIcon>
+                <ControlLabel>{t('watch.newGame')}</ControlLabel>
+              </BarButton>
             </>
           )}
           {(isGameMode(mode) || mode === 'view') && (
-            <Button
+            <HelpToggle
               size="sm"
               variant="ghost"
-              className={helpToggle}
               onClick={() => setSettings({ assist: !settings.assist })}
               title={settings.assist ? t('app.helpIsOnEvalBar') : t('app.noHelpClickToShow')}
               aria-pressed={settings.assist}
               aria-label={settings.assist ? t('app.coachOn') : t('app.coachOff')}
             >
-              <span className={controlIcon}>
-                <Icon name="coach" />
-              </span>
-              <span className={controlLabel}>{settings.assist ? t('app.coachOn') : t('app.coachOff')}</span>
-            </Button>
+              <ControlIcon>
+                <Icon name="coach" className={barIcon} />
+              </ControlIcon>
+              <ControlLabel>{settings.assist ? t('app.coachOn') : t('app.coachOff')}</ControlLabel>
+            </HelpToggle>
           )}
           {mode === 'spar' && game.moves.length > 0 && !gameOver && !spar.resigned && (
             <>
-              <Button
+              <TakeBack
                 size="sm"
                 variant={spar.erred ? 'primary' : 'secondary'}
-                className={takeBack}
                 onClick={spar.takeBack}
                 disabled={spar.lastUserMove < 0}
                 title={t('app.takeBackYourLastMove3')}
                 aria-label={t('app.takeBack')}
               >
-                <span className={controlIcon}>
-                  <Icon name="undo" />
-                </span>
-                <span className={controlLabel}>{t('app.takeBack')}</span>
-              </Button>
-              <Button size="sm" variant="ghost" className={resign} onClick={spar.confirmResign} title={t('app.resign')} aria-label={t('app.resign')}>
-                <span className={controlIcon}>
-                  <Icon name="resign" />
-                </span>
-                <span className={controlLabel}>{t('app.resign')}</span>
-              </Button>
+                <ControlIcon>
+                  <Icon name="undo" className={barIcon} />
+                </ControlIcon>
+                <ControlLabel>{t('app.takeBack')}</ControlLabel>
+              </TakeBack>
+              <BarButton size="sm" variant="ghost" _compact={{ order: '3' }} onClick={spar.confirmResign} title={t('app.resign')} aria-label={t('app.resign')}>
+                <ControlIcon>
+                  <Icon name="resign" className={barIcon} />
+                </ControlIcon>
+                <ControlLabel>{t('app.resign')}</ControlLabel>
+              </BarButton>
             </>
           )}
           {mode === 'lesson' && course && <LessonControls lesson={lesson} />}
@@ -361,15 +354,15 @@ export function ModeBar({
           {mode === 'tsume' && <TsumeControls trainer={tsume} />}
           {mode === 'tesuji' && <TesujiControls trainer={tesuji} />}
           {mode === 'analyze' && (
-            <Button size="sm" onClick={onOpenGame} title={t('rail.openTitle')} aria-label={t('rail.open')}>
-              <span className={controlIcon}>
-                <Icon name="import" size={16} />
-              </span>
-              <span className={controlLabel}>{t('rail.open')}</span>
-            </Button>
+            <BarButton size="sm" onClick={onOpenGame} title={t('rail.openTitle')} aria-label={t('rail.open')}>
+              <ControlIcon>
+                <Icon name="import" size={16} className={barIcon} />
+              </ControlIcon>
+              <ControlLabel>{t('rail.open')}</ControlLabel>
+            </BarButton>
           )}
           {mode !== 'spar' && mode !== 'view' && mode !== 'tsume' && mode !== 'tesuji' && (
-            <Button
+            <BarButton
               size="sm"
               variant="ghost"
               disabled={game.moves.length === 0}
@@ -377,46 +370,46 @@ export function ModeBar({
               title={t('app.startOver')}
               aria-label={t('app.startOver')}
             >
-              <Icon name="reset" size={16} />
-            </Button>
+              <Icon name="reset" size={16} className={barIcon} />
+            </BarButton>
           )}
           {mode === 'spar' && (
-            <Button
+            <BarButton
               variant={spar.erred ? 'secondary' : 'primary'}
-              className={gameSetup}
+              _compact={{ order: '4' }}
               onClick={() => spar.setNewGameOpen(true)}
               title={`${STRENGTH[settings.opponent].label} · ${TIME_CONTROLS[settings.timeControl].label}`}
               aria-label={t('newGame.button')}
             >
-              <span className={controlIcon}>
-                <Icon name="newGame" />
-              </span>
-              <span className={controlLabel}>{t('newGame.button')}</span>
-            </Button>
+              <ControlIcon>
+                <Icon name="newGame" className={barIcon} />
+              </ControlIcon>
+              <ControlLabel>{t('newGame.button')}</ControlLabel>
+            </BarButton>
           )}
-          <Button size="sm" variant="ghost" className={boardFlip} onClick={onFlip} title={t('app.flipTheBoardF')} aria-label={t('app.flip')}>
-            <Icon name="flip" size={16} />
-          </Button>
-        </div>
-        <div className={miniNav} data-panel-open={!panelHidden || undefined}>
-          <Button size="sm" className={miniStep} onClick={nav.back} disabled={!nav.canBack} title={t('app.back')} aria-label={t('app.back2')}>
-            <Icon name="prev" size={16} />
-          </Button>
-          <Button size="sm" className={miniStep} onClick={nav.forward} disabled={!nav.canForward} title={t('app.forward')} aria-label={t('app.forward2')}>
-            <Icon name="next" size={16} />
-          </Button>
-          <Button
+          <BarButton size="sm" variant="ghost" _compact={{ order: '1' }} onClick={onFlip} title={t('app.flipTheBoardF')} aria-label={t('app.flip')}>
+            <Icon name="flip" size={16} className={barIcon} />
+          </BarButton>
+        </Tools>
+        <MiniNav data-panel-open={!panelHidden || undefined}>
+          <MiniStep size="sm" onClick={nav.back} disabled={!nav.canBack} title={t('app.back')} aria-label={t('app.back2')}>
+            <Icon name="prev" size={16} className={barIcon} />
+          </MiniStep>
+          <MiniStep size="sm" onClick={nav.forward} disabled={!nav.canForward} title={t('app.forward')} aria-label={t('app.forward2')}>
+            <Icon name="next" size={16} className={barIcon} />
+          </MiniStep>
+          <MiniNavButton
             size="sm"
             onClick={() => onPanel(!panelHidden)}
             title={t(panelHidden ? 'app.showThePanelP' : 'app.boardOnlyHideThePanel')}
             aria-label={t(panelHidden ? 'app.showThePanel' : 'app.hideThePanel')}
           >
-            <Icon name="panel" size={16} />
-            <span className={miniWideLabel}>{t(panelHidden ? 'app.panel' : 'app.hidePanel')}</span>
-          </Button>
-        </div>
-      </div>
-    </header>
+            <Icon name="panel" size={16} className={barIcon} />
+            <MiniWideLabel>{t(panelHidden ? 'app.panel' : 'app.hidePanel')}</MiniWideLabel>
+          </MiniNavButton>
+        </MiniNav>
+      </Controls>
+    </ModeBarHeader>
   )
 }
 
@@ -433,11 +426,7 @@ export function WatchOptions({ watch }: { watch: Watch }) {
           gap="1"
           color="fg.muted"
           fontSize="xs"
-          css={{
-            '& + &': { mt: '3' },
-            '& [data-scope=select][data-part=root]': { w: 'auto' },
-            '& [data-scope=select][data-part=trigger]': { maxW: '200px', fontSize: 'xs' },
-          }}
+          css={{ '& + &': { mt: '3' } }}
           role="group"
           aria-label={watch.name(index)}
         >
@@ -446,6 +435,7 @@ export function WatchOptions({ watch }: { watch: Watch }) {
             {watch.side(index) && ` · ${t(`common.${watch.side(index)}`)}`}
           </span>
           <Select
+            className={watchSelect}
             portal={false}
             label={t('watch.difficulty', { bot: watch.name(index) })}
             value={strength}
@@ -453,6 +443,7 @@ export function WatchOptions({ watch }: { watch: Watch }) {
             onChange={(value) => watch.setBot(index, value as AiStrength)}
           />
           <Select
+            className={watchSelect}
             portal={false}
             label={t('watch.strategy', { bot: watch.name(index) })}
             value={watch.strategies[index]}

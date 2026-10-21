@@ -9,7 +9,9 @@ import { useFlipped } from '@/app/hooks/session'
 import type { BookHit, BookMove } from '@/utils/book'
 import { isWeak } from '@/utils/mistake'
 import { weaknessOf } from '@/utils/learning'
-import { badge, muted, note, verdictHead, verdictLabel } from './panels.styles'
+import { LabelBadge, Muted, Note, VerdictHead, VerdictTitle } from './panels.styles'
+
+const VerdictLabel = styled('span', { base: { color: 'light-dark(color-mix(in srgb, var(--label) 55%, #000), var(--label))' } })
 
 type CoachPaneProps = {
   review: MoveReview | null
@@ -33,9 +35,9 @@ function Principle({ review }: { review: MoveReview }) {
   const tag = weaknessOf({ ply: Infinity, ...review })
   if (tag === 'other') return null
   return (
-    <p className={note({ tone: 'warn' })}>
+    <Note tone="warn">
       <strong>{t(`report.weak.${tag}.name`)}.</strong> {t(`report.weak.${tag}.fix`)}
-    </p>
+    </Note>
   )
 }
 
@@ -53,20 +55,16 @@ function Verdict({
   if (review)
     return (
       <>
-        <div className={verdictHead}>
-          <span className={badge} style={{ ['--label' as string]: LABELS[review.label].color }}>
-            {LABELS[review.label].symbol}
-          </span>
-          <strong>
+        <VerdictHead>
+          <LabelBadge style={{ ['--label' as string]: LABELS[review.label].color }}>{LABELS[review.label].symbol}</LabelBadge>
+          <VerdictTitle>
             {you ? t('coach.yourMove') : ''}
             <FlipMarks flipped={flipped}>{played}</FlipMarks>
-          </strong>
-          <span className={verdictLabel} style={{ ['--label' as string]: LABELS[review.label].color }}>
-            {LABELS[review.label].text}
-          </span>
-        </div>
-        {bookLast?.branch.note && <p className={note()}>{bookLast.branch.note}</p>}
-        {bookLast?.branch.kind === 'deviation' && bookLast.branch.punishNote && <p className={note({ tone: 'warn' })}>{bookLast.branch.punishNote}</p>}
+          </VerdictTitle>
+          <VerdictLabel style={{ ['--label' as string]: LABELS[review.label].color }}>{LABELS[review.label].text}</VerdictLabel>
+        </VerdictHead>
+        {bookLast?.branch.note && <Note>{bookLast.branch.note}</Note>}
+        {bookLast?.branch.kind === 'deviation' && bookLast.branch.punishNote && <Note tone="warn">{bookLast.branch.punishNote}</Note>}
         {review.reasons.slice(0, 2).map((r) => (
           <styled.p key={r} m="0 0 {spacing.1.5}" fontSize="sm">
             {r}
@@ -89,38 +87,30 @@ function Verdict({
   if (bookLast && bookLast.branch.kind !== 'deviation')
     return (
       <>
-        <div className={verdictHead}>
-          <span className={badge} style={{ ['--label' as string]: LABELS.book.color }}>
-            {LABELS.book.symbol}
-          </span>
-          <strong>
+        <VerdictHead>
+          <LabelBadge style={{ ['--label' as string]: LABELS.book.color }}>{LABELS.book.symbol}</LabelBadge>
+          <VerdictTitle>
             <FlipMarks flipped={flipped}>{played}</FlipMarks>
-          </strong>
-          <span className={verdictLabel} style={{ ['--label' as string]: LABELS.book.color }}>
-            {t('coach.bookMove')}
-          </span>
-        </div>
-        {bookLast.branch.note && <p className={note()}>{bookLast.branch.note}</p>}
+          </VerdictTitle>
+          <VerdictLabel style={{ ['--label' as string]: LABELS.book.color }}>{t('coach.bookMove')}</VerdictLabel>
+        </VerdictHead>
+        {bookLast.branch.note && <Note>{bookLast.branch.note}</Note>}
       </>
     )
   if (bookLast)
     return (
       <>
-        <div className={verdictHead}>
-          <span className={badge} style={{ ['--label' as string]: LABELS.mistake.color }}>
-            {LABELS.mistake.symbol}
-          </span>
-          <strong>
+        <VerdictHead>
+          <LabelBadge style={{ ['--label' as string]: LABELS.mistake.color }}>{LABELS.mistake.symbol}</LabelBadge>
+          <VerdictTitle>
             <FlipMarks flipped={flipped}>{played}</FlipMarks>
-          </strong>
-          <span className={verdictLabel} style={{ ['--label' as string]: LABELS.mistake.color }}>
-            {t('coach.knownMistake')}
-          </span>
-        </div>
-        {(bookLast.branch.punishNote ?? bookLast.branch.note) && <p className={note({ tone: 'warn' })}>{bookLast.branch.punishNote ?? bookLast.branch.note}</p>}
+          </VerdictTitle>
+          <VerdictLabel style={{ ['--label' as string]: LABELS.mistake.color }}>{t('coach.knownMistake')}</VerdictLabel>
+        </VerdictHead>
+        {(bookLast.branch.punishNote ?? bookLast.branch.note) && <Note tone="warn">{bookLast.branch.punishNote ?? bookLast.branch.note}</Note>}
       </>
     )
-  return <p className={muted}>{ai ? t('coach.checking', { move: played }) : t('coach.isOffTheBookTurn', { move: played })}</p>
+  return <Muted>{ai ? t('coach.checking', { move: played }) : t('coach.isOffTheBookTurn', { move: played })}</Muted>
 }
 
 export function CoachPane({ review, lastMove, prevSfen, bookLast, bookHere, sfen, course, onPlay, canPlay, ai, showBook, you }: CoachPaneProps) {
@@ -133,7 +123,7 @@ export function CoachPane({ review, lastMove, prevSfen, bookLast, bookHere, sfen
           <Verdict review={review} lastMove={lastMove} prevSfen={prevSfen} bookLast={bookLast} ai={ai} you={you} />
         </div>
       ) : (
-        <p className={muted}>{course ? (course.root.comment ?? course.goalFormation) : t('coach.makeAMoveTheCoach')}</p>
+        <Muted>{course ? (course.root.comment ?? course.goalFormation) : t('coach.makeAMoveTheCoach')}</Muted>
       )}
       {showBook && bookHere.length > 0 && (
         <styled.div mt="5">
@@ -150,17 +140,19 @@ export function CoachPane({ review, lastMove, prevSfen, bookLast, bookHere, sfen
               borderRadius="md"
               bg="surface.2"
               textAlign="left"
-              css={{
-                '& strong': { display: 'block', fontFamily: 'mincho', fontWeight: 'heavy', fontSize: 'md' },
-                '& span': { fontFamily: 'mincho', fontSize: 'sm', color: 'fg.muted' },
-              }}
               disabled={!canPlay}
               onClick={() => onPlay(b.usi)}
             >
-              <strong>
-                <FlipMarks flipped={flipped}>{moveText(sfen, b.usi)}</FlipMarks>
-              </strong>
-              {b.note && <span>{b.note}</span>}
+              <styled.strong display="block" fontFamily="mincho" fontWeight="heavy" fontSize="md">
+                <FlipMarks flipped={flipped} muted>
+                  {moveText(sfen, b.usi)}
+                </FlipMarks>
+              </styled.strong>
+              {b.note && (
+                <styled.span fontFamily="mincho" fontSize="sm" color="fg.muted">
+                  {b.note}
+                </styled.span>
+              )}
             </styled.button>
           ))}
         </styled.div>

@@ -42,6 +42,7 @@ export type Board3DProps = {
   onZones?: (zones: StandZones | null) => void
   sideRoom?: number
   cues?: AvatarCues
+  cover?: boolean
 }
 
 export type Latest = { readonly current: Board3DProps }

@@ -332,7 +332,6 @@ export default function HandsTest() {
         font="13px/1.4 system-ui"
         display="grid"
         gap="12px"
-        css={{ '& summary': { cursor: 'pointer' } }}
       >
         <b>Hand animation · dev</b>
         {!ready && <div role={error ? 'alert' : 'status'}>{error ?? 'Loading pieces and avatars…'}</div>}
@@ -357,19 +356,14 @@ export default function HandsTest() {
             <Select.HiddenSelect />
           </Select.Root>
         </div>
-        <styled.div
-          display="grid"
-          gridTemplateColumns="repeat(2, minmax(0, 1fr))"
-          gap="8px"
-          css={{
-            '& button': { minH: '58px', display: 'grid', textAlign: 'left', gap: '4px' },
-            '& span': { fontSize: '11px', color: '#d2c5b4' },
-          }}
-          aria-label="Animations"
-        >
+        <styled.div display="grid" gridTemplateColumns="repeat(2, minmax(0, 1fr))" gap="8px" aria-label="Animations">
           {PATTERNS.map((p) => (
             <Control
               key={p.id}
+              minH="58px"
+              display="grid"
+              textAlign="left"
+              gap="4px"
               aria-pressed={pattern.id === p.id}
               onClick={() => {
                 if (pattern.id === p.id) setInfo(api.current?.goto(0) ?? null)
@@ -379,9 +373,9 @@ export default function HandsTest() {
               }}
             >
               <strong>{p.label.split(' · ')[0]}</strong>
-              <span>
+              <styled.span fontSize="11px" color="#d2c5b4">
                 {p.id.endsWith('-b') ? 'Sente' : 'Gote'} · {p.usi}
-              </span>
+              </styled.span>
             </Control>
           ))}
         </styled.div>
@@ -425,7 +419,7 @@ export default function HandsTest() {
           <span style={{ color: '#0a84ff' }}>● piece</span> <span style={{ color: '#ffcc00' }}>→ pole</span>
         </div>
         <details>
-          <summary>Bone measurements</summary>
+          <styled.summary cursor="pointer">Bone measurements</styled.summary>
           <table style={{ width: '100%', fontVariantNumeric: 'tabular-nums' }}>
             <thead>
               <tr>

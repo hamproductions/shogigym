@@ -5,8 +5,7 @@ import { useTranslation } from 'react-i18next'
 import i18n from '@/utils/i18n'
 import { Button } from '@/app/ui/Button'
 import { styled } from 'styled-system/jsx'
-import { cx } from '@/app/ui/cx'
-import { arrowHead, edge, lines, stageBox } from './flowchart.styles'
+import { StageBox, arrowHead, edge } from './flowchart.styles'
 
 type Props = {
   course: Course
@@ -145,7 +144,7 @@ function Diagram({
   return (
     <styled.div overflow="auto" p="{spacing.1} {spacing.1} {spacing.3}" minHeight="0" maxH="calc(100vh - 120px)" ref={scroller}>
       <styled.div position="relative" m="0 auto" style={{ width: size.w, height: size.h }}>
-        <svg width={size.w} height={size.h} className={lines} aria-hidden="true">
+        <styled.svg htmlWidth={size.w} htmlHeight={size.h} position="absolute" inset="0" overflow="visible" aria-hidden="true">
           <defs>
             {(['good', 'book', 'mistake', 'opponent-mistake'] as const).map((v) => (
               <marker key={v} id={`fc-arrow-${v}`} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -172,16 +171,18 @@ function Diagram({
               )
             }),
           )}
-        </svg>
+        </styled.svg>
         {stages.map((s) => {
           const { left, top } = pos(s)
           const target = s.steps.length ? s.steps.at(-1)!.move.child?.id : s.end.id
           const insideAt = s.steps.findIndex((step) => step.move.child?.id === currentNodeId)
           return (
-            <button
+            <StageBox
               key={s.key}
               data-current={s.key === currentKey || undefined}
-              className={cx('fc-box', stageBox({ verdict: s.verdict, current: s.key === currentKey }))}
+              className="fc-box"
+              verdict={s.verdict}
+              current={s.key === currentKey}
               style={{ left, top, width: BOX_W, height: BOX_H }}
               onClick={() => target && onJump(target)}
               title={[s.steps.map((st) => moveText(st.from.sfen, st.move.usi)).join(' '), s.end.comment].filter(Boolean).join('\n\n')}
@@ -206,7 +207,7 @@ function Diagram({
               {insideAt >= 0 && (
                 <styled.span position="absolute" left="0" bottom="0" h="3px" bg="accent" style={{ width: `${((insideAt + 1) / s.steps.length) * 100}%` }} />
               )}
-            </button>
+            </StageBox>
           )
         })}
       </styled.div>
@@ -266,16 +267,15 @@ export function LessonMap({ course, currentNodeId, onJump, onClose }: Props & { 
           boxShadow="inset 0 0 0 1px {colors.border}, {shadows.lg}"
           onMouseDown={(e) => e.stopPropagation()}
         >
-          <styled.div
-            display="flex"
-            alignItems="center"
-            justifyContent="space-between"
-            gap="3"
-            mb="2.5"
-            css={{ '& strong': { fontFamily: 'mincho', fontWeight: 'heavy', fontSize: 'lg' } }}
-            _narrow={{ '& strong': { minWidth: '0', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' } }}
-          >
-            <strong>{t('lessonMap.lessonMap', { title: course.title })}</strong>
+          <styled.div display="flex" alignItems="center" justifyContent="space-between" gap="3" mb="2.5">
+            <styled.strong
+              fontFamily="mincho"
+              fontWeight="heavy"
+              fontSize="lg"
+              _narrow={{ minWidth: '0', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+            >
+              {t('lessonMap.lessonMap', { title: course.title })}
+            </styled.strong>
             <Button size="sm" variant="ghost" onClick={onClose}>
               {t('lessonMap.close')}
             </Button>

@@ -4,7 +4,7 @@ import { Icon } from '@/app/icons'
 import { playSound, setSettings, useSettings } from '@/appearance/settings'
 import { Slider } from '@/components/ui'
 import { styled } from 'styled-system/jsx'
-import { RailButton, RailSlot } from './rail.styles'
+import { RailButton, RailLabel, RailSlot } from './rail.styles'
 
 export function SoundButton({ compact }: { compact: boolean }) {
   const { t } = useTranslation()
@@ -44,6 +44,7 @@ export function SoundButton({ compact }: { compact: boolean }) {
       onBlur={(e) => !e.currentTarget.contains(e.relatedTarget) && setAt(null)}
     >
       <RailButton
+        kind="sound"
         className="app-rail-btn"
         data-tool="sound"
         data-on={!muted || undefined}
@@ -53,7 +54,7 @@ export function SoundButton({ compact }: { compact: boolean }) {
         title={`${muted ? t('rail.unmute') : t('rail.mute')} (M)`}
       >
         <Icon name={icon} size={20} />
-        <span>{muted ? t('rail.muted') : `${Math.round(volume * 100)}%`}</span>
+        <RailLabel kind="sound">{muted ? t('rail.muted') : `${Math.round(volume * 100)}%`}</RailLabel>
       </RailButton>
       <styled.div
         position="fixed"

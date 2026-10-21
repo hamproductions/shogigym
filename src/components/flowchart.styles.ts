@@ -1,6 +1,5 @@
-import { css, cva } from 'styled-system/css'
-
-export const lines = css({ position: 'absolute', inset: '0', overflow: 'visible' })
+import { cva } from 'styled-system/css'
+import { styled } from 'styled-system/jsx'
 
 export const edge = cva({
   base: { fill: 'none', strokeWidth: '2' },
@@ -26,7 +25,7 @@ export const arrowHead = cva({
   },
 })
 
-export const stageBox = cva({
+export const StageBox = styled('button', {
   base: {
     position: 'absolute',
     display: 'flex',

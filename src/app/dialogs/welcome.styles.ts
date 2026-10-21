@@ -21,7 +21,6 @@ export const WelcomeChoice = styled(
       textAlign: 'left',
       transition: 'box-shadow {durations.fast}, background {durations.fast}',
       _hover: { boxShadow: 'inset 0 0 0 2px {colors.accent}' },
-      '& span': { fontSize: 'xs', opacity: '0.85' },
     },
     variants: {
       primary: {
@@ -30,9 +29,13 @@ export const WelcomeChoice = styled(
           color: 'accent.contrast',
           boxShadow: 'none',
           _hover: { bg: 'accent.hover', boxShadow: 'none' },
-          '& span': { opacity: '1' },
         },
       },
     },
   }),
 )
+
+export const WelcomeHint = styled('span', {
+  base: { fontSize: 'xs', opacity: '0.85' },
+  variants: { primary: { true: { opacity: '1' } } },
+})

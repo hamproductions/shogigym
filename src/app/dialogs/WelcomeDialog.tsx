@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { css } from 'styled-system/css'
 import { Flex, styled, Wrap } from 'styled-system/jsx'
@@ -7,7 +7,7 @@ import { MODES, type Level } from '@/app/types'
 import { Button } from '@/app/ui/Button'
 import { Dialog } from '@/app/ui/Dialog'
 import { Text } from '@/components/ui'
-import { WelcomeChoice, WelcomeChoices } from './welcome.styles'
+import { WelcomeChoice, WelcomeChoices, WelcomeHint } from './welcome.styles'
 
 const TourItem = styled('li', {
   base: {
@@ -16,10 +16,19 @@ const TourItem = styled('li', {
     columnGap: '2.5',
     py: '2',
     borderBottom: '1px solid {colors.border}',
-    '& svg': { gridRow: 'span 2', mt: '0.5', color: 'fg.muted' },
-    '& span': { fontSize: 'xs', opacity: '0.85' },
   },
 })
+
+const tourIcon = css({ gridRow: 'span 2', mt: '0.5', color: 'fg.muted' })
+
+function Choice({ primary, title, hint, onClick }: { primary?: boolean; title: ReactNode; hint: ReactNode; onClick: () => void }) {
+  return (
+    <WelcomeChoice primary={primary} onClick={onClick}>
+      <strong>{title}</strong>
+      <WelcomeHint primary={primary}>{hint}</WelcomeHint>
+    </WelcomeChoice>
+  )
+}
 
 type WelcomeProps = {
   level: Level
@@ -39,7 +48,7 @@ export function WelcomeDialog({ level, onPreviewLevel, onLearnRules, onLearnBasi
     setStep(1)
   }
   return (
-    <Dialog label={t('app.welcome')} className={css({ w: 'min(480px, 100%)', '& p': { lineHeight: 'normal' } })}>
+    <Dialog label={t('app.welcome')} w="min(480px, 100%)">
       <Flex align="center" justify="space-between" mb="3">
         <Flex gap="1.5" aria-hidden="true">
           {[0, 1, 2].map((n) => (
@@ -56,19 +65,15 @@ export function WelcomeDialog({ level, onPreviewLevel, onLearnRules, onLearnBasi
           <Icon name="close" />
         </Button>
       </Flex>
-      <h2>{t(step === 0 ? 'app.welcomeToShogilab' : step === 1 ? 'app.howTheScreenWorks' : 'app.whereDoYouWantTo')}</h2>
+      <styled.h2 mb="2">{t(step === 0 ? 'app.welcomeToShogilab' : step === 1 ? 'app.howTheScreenWorks' : 'app.whereDoYouWantTo')}</styled.h2>
       {step === 0 && (
         <>
-          <p>{t('app.learnShogi')}</p>
+          <styled.p mt="0" mx="0" mb="4" lineHeight="normal">
+            {t('app.learnShogi')}
+          </styled.p>
           <WelcomeChoices>
-            <WelcomeChoice primary={level === 'new'} onClick={() => pickLevel('new')}>
-              <strong>{t('app.newToShogi')}</strong>
-              <span>{t('app.showHowEachPieceMoves')}</span>
-            </WelcomeChoice>
-            <WelcomeChoice primary={level === 'rules'} onClick={() => pickLevel('rules')}>
-              <strong>{t('app.iKnowTheRules')}</strong>
-              <span>{t('app.iCanRead7Style')}</span>
-            </WelcomeChoice>
+            <Choice primary={level === 'new'} title={t('app.newToShogi')} hint={t('app.showHowEachPieceMoves')} onClick={() => pickLevel('new')} />
+            <Choice primary={level === 'rules'} title={t('app.iKnowTheRules')} hint={t('app.iCanRead7Style')} onClick={() => pickLevel('rules')} />
           </WelcomeChoices>
         </>
       )}
@@ -77,15 +82,15 @@ export function WelcomeDialog({ level, onPreviewLevel, onLearnRules, onLearnBasi
           <styled.ul my="3" mx="0" p="0" listStyle="none">
             {MODES.map((m) => (
               <TourItem key={m.id}>
-                <Icon name={m.icon} size={18} />
+                <Icon name={m.icon} size={18} className={tourIcon} />
                 <strong>{t(`modes.${m.id}.name`)}</strong>
-                <span>{t('modes.sentence', { hint: t(`modes.${m.id}.hint`) })}</span>
+                <WelcomeHint>{t('modes.sentence', { hint: t(`modes.${m.id}.hint`) })}</WelcomeHint>
               </TourItem>
             ))}
             <TourItem>
-              <Icon name="coach" size={18} />
+              <Icon name="coach" size={18} className={tourIcon} />
               <strong>{t('app.sidePanel')}</strong>
-              <span>{t('app.panelShort')}</span>
+              <WelcomeHint>{t('app.panelShort')}</WelcomeHint>
             </TourItem>
           </styled.ul>
           <Wrap gap="2" align="center" justify="flex-end" mt="4">
@@ -102,28 +107,13 @@ export function WelcomeDialog({ level, onPreviewLevel, onLearnRules, onLearnBasi
       {step === 2 && (
         <>
           <WelcomeChoices>
-            <WelcomeChoice primary onClick={onLearnRules}>
-              <strong>{t('app.learnTheRulesFirst')}</strong>
-              <span>{t('app.learnTheRulesFirstHint')}</span>
-            </WelcomeChoice>
-            <WelcomeChoice onClick={onLearnBasics}>
-              <strong>{t('app.learnTheBasicFourthFile')}</strong>
-              <span>{t('app.studyModeWalksYouThrough')}</span>
-            </WelcomeChoice>
-            <WelcomeChoice onClick={onPlayAi}>
-              <strong>{t('app.playTheAi')}</strong>
-              <span>{t('app.beginnerStrengthTheCoachRates')}</span>
-            </WelcomeChoice>
-            <WelcomeChoice onClick={onTsume}>
-              <strong>{t('app.solveMateInOne')}</strong>
-              <span>{t('app.mateInOnePuzzlesTo')}</span>
-            </WelcomeChoice>
-            <WelcomeChoice onClick={onLookAround}>
-              <strong>{t('app.justLookAround')}</strong>
-              <span>{t('app.pickAnythingFromTheLesson')}</span>
-            </WelcomeChoice>
+            <Choice primary title={t('app.learnTheRulesFirst')} hint={t('app.learnTheRulesFirstHint')} onClick={onLearnRules} />
+            <Choice title={t('app.learnTheBasicFourthFile')} hint={t('app.studyModeWalksYouThrough')} onClick={onLearnBasics} />
+            <Choice title={t('app.playTheAi')} hint={t('app.beginnerStrengthTheCoachRates')} onClick={onPlayAi} />
+            <Choice title={t('app.solveMateInOne')} hint={t('app.mateInOnePuzzlesTo')} onClick={onTsume} />
+            <Choice title={t('app.justLookAround')} hint={t('app.pickAnythingFromTheLesson')} onClick={onLookAround} />
           </WelcomeChoices>
-          <Text tone="muted" size="sm" mb="4">
+          <Text tone="muted" size="sm" mb="4" lineHeight="normal">
             {t('app.yourLevelAndDisplayOptions')}
           </Text>
         </>
