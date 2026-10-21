@@ -654,6 +654,7 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
                 bg="overlay"
                 fontSize="xs"
                 fontVariantNumeric="tabular-nums"
+                whiteSpace="nowrap"
                 pointerEvents="none"
                 role="status"
               >
