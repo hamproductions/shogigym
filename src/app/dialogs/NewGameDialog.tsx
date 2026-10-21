@@ -4,7 +4,17 @@ import { useTranslation } from 'react-i18next'
 import { FAMILIES, STRATEGIES } from '@/data/strategies'
 import { otherSide, type Side } from '@/utils/shogi'
 import { aiStrategyId, strategyCourses } from '@/utils/book'
-import { STRENGTH, TIME_CONTROLS, setSettings, useSettings, type AiStrength, type TimeControl } from '@/appearance/settings'
+import {
+  STRENGTH,
+  TIME_CONTROLS,
+  defaultSparCoach,
+  setSettings,
+  useSettings,
+  type AiStrength,
+  type SparCoach,
+  type SparGame,
+  type TimeControl,
+} from '@/appearance/settings'
 import { styled, Wrap } from 'styled-system/jsx'
 import { Select } from '@/components/ui'
 import { Button } from '@/app/ui/Button'
@@ -17,12 +27,31 @@ const CLOCK_ORDER: TimeControl[] = ['none', '10s', '3m', '5m5s', '10m', '10m30s'
 
 export type PickSide = Side | 'random'
 
-export function NewGameDialog({ side, onClose, onStart }: { side: Side; onClose: () => void; onStart: (side: Side, isRandom?: boolean) => void }) {
+export function NewGameDialog({
+  side,
+  preset,
+  onClose,
+  onStart,
+}: {
+  side: Side
+  preset?: Partial<SparGame>
+  onClose: () => void
+  onStart: (side: Side, isRandom?: boolean) => void
+}) {
   const { t } = useTranslation()
   const st = useSettings()
   const [pick, setPick] = useState<PickSide>(side)
+  const [draft, setDraft] = useState(() => ({
+    opponent: preset?.opponent ?? st.opponent,
+    timeControl: preset?.timeControl ?? st.timeControl,
+    aiStrategy: preset?.aiStrategy ?? st.aiStrategy,
+    sparCoach: preset?.coach ?? st.sparCoach,
+  }))
   const ja = st.lang === 'ja'
-  const start = () => onStart(pick === 'random' ? side : pick, pick === 'random')
+  const start = () => {
+    setSettings(draft)
+    onStart(pick === 'random' ? side : pick, pick === 'random')
+  }
   const groups = Object.entries(FAMILIES).flatMap(([family, label]) => {
     const options = STRATEGIES.filter(
       (x) =>
@@ -63,23 +92,33 @@ export function NewGameDialog({ side, onClose, onStart }: { side: Side; onClose:
       <SegmentedField<AiStrength>
         alignTop
         label={t('newGame.strength')}
-        value={st.opponent}
+        value={draft.opponent}
         options={(Object.keys(STRENGTH) as AiStrength[]).map((k) => ({ v: k, t: STRENGTH[k].label }))}
-        onChange={(k) => setSettings({ opponent: k })}
+        onChange={(k) => setDraft((d) => ({ ...d, opponent: k }))}
       />
       <SegmentedField<TimeControl>
         alignTop
         label={t('newGame.clock')}
-        value={st.timeControl}
+        value={draft.timeControl}
         options={CLOCK_ORDER.map((k) => ({ v: k, t: TIME_CONTROLS[k].label, title: TIME_CONTROLS[k].hint }))}
-        onChange={(k) => setSettings({ timeControl: k })}
+        onChange={(k) => setDraft((d) => ({ ...d, timeControl: k }))}
+      />
+      <SegmentedField<SparCoach>
+        alignTop
+        label={t('newGame.coach')}
+        value={draft.sparCoach ?? defaultSparCoach(draft.timeControl)}
+        options={[
+          { v: 'live', t: t('newGame.coachLive') },
+          { v: 'after', t: t('newGame.coachAfter') },
+        ]}
+        onChange={(k) => setDraft((d) => ({ ...d, sparCoach: k }))}
       />
       <SettingRow alignTop label={t('newGame.strategy')}>
         <Select.Root
           collection={strategies}
-          value={[aiStrategyId(st.aiStrategy) || NO_STRATEGY]}
+          value={[aiStrategyId(draft.aiStrategy) || NO_STRATEGY]}
           positioning={{ strategy: 'fixed' }}
-          onValueChange={({ value }) => setSettings({ aiStrategy: value[0] === NO_STRATEGY ? '' : value[0] })}
+          onValueChange={({ value }) => setDraft((d) => ({ ...d, aiStrategy: value[0] === NO_STRATEGY ? '' : value[0] }))}
         >
           <Select.Control>
             <Select.Trigger aria-label={t('newGame.strategy')}>

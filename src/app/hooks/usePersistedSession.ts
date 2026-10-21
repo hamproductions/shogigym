@@ -5,18 +5,19 @@ import type { Course } from '@/utils/model'
 import { applyUsi, type Side } from '@/utils/shogi'
 import { setupOf } from '@/utils/book'
 import type { Drill } from '@/app/modes/drill/useDrill'
-import type { Spar } from '@/app/modes/spar/useSpar'
+import type { AiEnd, Spar } from '@/app/modes/spar/useSpar'
 import type { Lesson } from '@/app/modes/lesson/useLesson'
 import type { Tsume, TsumeLength } from '@/app/modes/tsume/useTsume'
 import { PROBLEMS, type ReviewQueue } from '@/app/practice'
 import type { Tree } from '@/app/tree'
 import type { LessonMode, Mode, Score } from '@/app/types'
 import type { BoardSession } from './useBoardSession'
+import type { SparGame } from '@/appearance/settings'
 import type { ModeSlots, Snapshot } from './useModeSwitch'
 
 const SESSION_KEY = 'joseki-practice:session:v2'
 
-type SavedGame = { start: string; moves: string[]; cursor: number; userSide: Side; tree?: Tree; resigned?: boolean }
+type SavedGame = { start: string; moves: string[]; cursor: number; userSide: Side; tree?: Tree; resigned?: boolean; aiEnded?: AiEnd; sparGame?: SparGame }
 type SavedSession = {
   mode: Mode
   lesson?: { courseId: string; lessonMode: LessonMode; moves: string[]; score?: Score; attempts?: Snapshot['lessonAttempts'] }
@@ -71,6 +72,8 @@ export function usePersistedSession({ session, lesson, tsume, drill, spar, slots
             score: { right: 0, wrong: 0 },
             tree: g.tree,
             resigned: g.resigned,
+            aiEnded: g.aiEnded,
+            sparGame: g.sparGame,
           }
       }
       const saw = data.lesson
@@ -94,6 +97,7 @@ export function usePersistedSession({ session, lesson, tsume, drill, spar, slots
       if (back) {
         resume(into, back)
         if (back.resigned) spar.restoreResigned()
+        if (back.aiEnded) spar.endByAi(back.aiEnded)
         placeholder.current = false
         if (back.course) lesson.setPickerSetup(setupOf(back.course)?.id ?? null)
       }
@@ -110,7 +114,7 @@ export function usePersistedSession({ session, lesson, tsume, drill, spar, slots
   const { lessonMode, score, showAnswer, attempts } = lesson
   const problem = tsume.tsume
   const drillState = drill.drill
-  const { resigned } = spar
+  const { resigned, aiEnded, config: sparGame } = spar
   useEffect(() => {
     if (!ready || mode === 'view') return
     if (placeholder.current) {
@@ -123,7 +127,8 @@ export function usePersistedSession({ session, lesson, tsume, drill, spar, slots
         if (course) next.lesson = { courseId: course.id, lessonMode, moves: game.moves.slice(0, cursor), score, attempts: attempts() }
         else delete next.lesson
       }
-      if (mode === 'spar') next.spar = { start: game.start, moves: game.moves, cursor, userSide, tree, resigned: resigned || undefined }
+      if (mode === 'spar')
+        next.spar = { start: game.start, moves: game.moves, cursor, userSide, tree, resigned: resigned || undefined, aiEnded: aiEnded ?? undefined, sparGame }
       if (mode === 'analyze') next.analyze = { start: game.start, moves: game.moves, cursor, userSide, tree }
       if (mode === 'tsume' && problem) next.tsume = { problemId: problem.problem.id, length: problem.length }
       if (mode === 'drill' && drillState) next.drill = { queue: drillState.queue }
@@ -131,7 +136,7 @@ export function usePersistedSession({ session, lesson, tsume, drill, spar, slots
     } catch (error) {
       console.warn('session not saved', error)
     }
-  }, [ready, mode, course, lessonMode, game, cursor, userSide, score, showAnswer, attempts, tree, problem, drillState, resigned])
+  }, [ready, mode, course, lessonMode, game, cursor, userSide, score, showAnswer, attempts, tree, problem, drillState, resigned, aiEnded, sparGame])
 
   return ready
 }

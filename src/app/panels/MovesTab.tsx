@@ -21,11 +21,17 @@ export function MovesTab({ model }: { model: PanelModel }) {
   const winner =
     mode === 'view'
       ? watch.winner
-      : mode === 'spar' && (spar.resigned || spar.flagged)
-        ? (spar.flagged ?? userSide) === 'sente'
-          ? 'gote'
-          : 'sente'
-        : undefined
+      : mode === 'spar' && spar.aiEnded
+        ? spar.aiEnded === 'resign'
+          ? userSide
+          : userSide === 'sente'
+            ? 'gote'
+            : 'sente'
+        : mode === 'spar' && (spar.resigned || spar.flagged)
+          ? (spar.flagged ?? userSide) === 'sente'
+            ? 'gote'
+            : 'sente'
+          : undefined
   const detectionResult = useMemo(
     () =>
       mate || winner || game.detectionResult
@@ -34,6 +40,7 @@ export function MovesTab({ model }: { model: PanelModel }) {
     [game.detectionPreset, game.detectionResult, mate, winner],
   )
   const title = analyze.gameTitle || t('app.thisGame')
+  const ratings = mode !== 'spar' || spar.assist
   if (preview && previewSfens)
     return (
       <>
@@ -44,6 +51,7 @@ export function MovesTab({ model }: { model: PanelModel }) {
           ply={preview.base + preview.step}
           setCursor={(i) => i >= preview.base && setPreview({ ...preview, step: i - preview.base })}
           title={title}
+          ratings={ratings}
           detectionPreset={game.detectionPreset}
         />
       </>
@@ -60,8 +68,9 @@ export function MovesTab({ model }: { model: PanelModel }) {
         title={title}
         tree={isGameMode(mode) || mode === 'view' ? tree : null}
         rating={model.rating}
-        canRate={mode !== 'view' && (mode === 'analyze' || gameOver || spar.resigned)}
-        empty={isGameMode(mode) || mode === 'view' ? undefined : t('moves.noMovesYetSolve')}
+        ratings={ratings}
+        canRate={mode !== 'view' && (mode === 'analyze' || gameOver || spar.resigned || !!spar.aiEnded)}
+        empty={mode === 'analyze' || mode === 'view' ? undefined : t('moves.noMovesYetSolve')}
         onSwitch={(path) => {
           if (mode === 'view') setPlaying(false)
           setGame((g) => ({ ...g, detectionResult: undefined, moves: [...path, ...mainContinuation(nodeAt(tree, path))] }))
@@ -76,7 +85,7 @@ export function MovesTab({ model }: { model: PanelModel }) {
           })
         }
       />
-      {isGameMode(mode) && !preview && <GamesBox games={analyze} browse={mode !== 'analyze'} />}
+      {isGameMode(mode) && !preview && (mode !== 'spar' || spar.over) && <GamesBox games={analyze} browse={mode !== 'analyze'} />}
     </>
   )
 }

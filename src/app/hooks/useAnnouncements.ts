@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Color } from 'tsshogi'
-import { formationName, formationOf } from '@/utils/formation'
+import { formationName, formationOf, QUIET_NAMES } from '@/utils/formation'
 import { formationTagsAt, formationOpeningAt } from '@/utils/formationTags'
 import { hasLegalMove, positionOf } from '@/utils/shogi'
 import { say } from '@/utils/voice'
@@ -11,11 +11,9 @@ import type { BoardSession } from './useBoardSession'
 import { useTransient } from './useTransient'
 
 // `seal` is a fixed two-kanji stamp so it fits the seal box, whatever language the UI is in.
-export type Announcement = { side: Color; name: string; kind: string; seal: string; key: number; tesuji?: boolean }
+export type Announcement = { side: Color; name: string; kind: string; seal: string; key: number; at: number; tesuji?: boolean }
 
-const QUIET_NAMES = ['居玉', '居飛車']
-
-export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, position }: BoardSession) {
+export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, position }: BoardSession, quiet = false) {
   const { t, i18n } = useTranslation()
   const { showTesuji, environment } = useSettings()
   const three = environment === 'traditional' || environment === 'casual'
@@ -36,21 +34,37 @@ export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, pos
       announced.current = { start: game.start, seen }
     }
     if (preview || mode === 'tsume' || cursor === 0) return
-    const tesuji = showTesuji && stepped && sfens[cursor - 1] ? detectTesuji(sfens[cursor - 1], game.moves[cursor - 1]) : null
+    const tesuji = showTesuji && !quiet && stepped && sfens[cursor - 1] ? detectTesuji(sfens[cursor - 1], game.moves[cursor - 1]) : null
     if (stepped && position.checked) {
       if (hasLegalMove(position)) say('王手', true)
       else if (!three) say('ありがとうございました', true)
     }
     if (tesuji) {
-      setAnnounce({ side: positionOf(sfens[cursor - 1]).color, name: tesuji.ja, kind: t('app.tesuji'), seal: '手筋', key: Date.now(), tesuji: true })
+      setAnnounce({
+        side: positionOf(sfens[cursor - 1]).color,
+        name: tesuji.ja,
+        kind: t('app.tesuji'),
+        seal: '手筋',
+        key: Date.now(),
+        at: cursor,
+        tesuji: true,
+      })
       setTesujiNote({ ...tesuji, at: cursor })
     }
     const tags = formationTagsAt(sfens, game.moves, cursor, game.detectionPreset)
-    if (stepped && !tesuji) {
+    if (stepped && !quiet && !tesuji) {
       const side = positionOf(sfens[cursor - 1]).color
       const technique = tags[side === Color.BLACK ? 0 : 1].findLast((tag) => tag.kind === 'technique' && tag.ply === cursor)
       if (showTesuji && technique) {
-        setAnnounce({ side, name: formationName(technique.name, i18n.language), kind: t('app.tesuji'), seal: '手筋', key: Date.now(), tesuji: true })
+        setAnnounce({
+          side,
+          name: formationName(technique.name, i18n.language),
+          kind: t('app.tesuji'),
+          seal: '手筋',
+          key: Date.now(),
+          at: cursor,
+          tesuji: true,
+        })
       }
     }
     if (!formationOpeningAt(sfens, game.moves, cursor, game.detectionPreset)) return
@@ -62,9 +76,16 @@ export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, pos
         const id = `${color}|${name}`
         if (announced.current.seen.has(id)) continue
         announced.current.seen.add(id)
-        if (!stepped) continue
+        if (!stepped || quiet) continue
         say(name)
-        setAnnounce({ side: color, name: formationName(name, i18n.language), kind, seal: tag.kind === 'strategy' ? '戦法' : '囲い', key: Date.now() })
+        setAnnounce({
+          side: color,
+          name: formationName(name, i18n.language),
+          kind,
+          seal: tag.kind === 'strategy' ? '戦法' : '囲い',
+          key: Date.now(),
+          at: cursor,
+        })
         return
       }
     }
@@ -84,6 +105,7 @@ export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, pos
     setTesujiNote,
     showTesuji,
     three,
+    quiet,
   ])
   const onMoveLanded = (landedSfen: string) => {
     if (landedSfen === sfen && !preview && mode !== 'tsume' && cursor > 0 && position.checked && !hasLegalMove(position)) say('ありがとうございました', true)

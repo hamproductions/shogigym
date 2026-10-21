@@ -66,7 +66,7 @@ export default function Root() {
   useEffect(() => {
     let cancelled = false
     let unsubscribe: (() => void) | undefined
-    void import('@/utils/i18n').then(({ default: i18n }) => {
+    void import('@/utils/i18n').then(({ default: i18n, clientLang }) => {
       if (cancelled) return
       const update = (language: string) => {
         document.documentElement.lang = language
@@ -74,6 +74,7 @@ export default function Root() {
       }
       update(i18n.language)
       i18n.on('languageChanged', update)
+      void i18n.changeLanguage(clientLang())
       unsubscribe = () => {
         i18n.off('languageChanged', update)
       }

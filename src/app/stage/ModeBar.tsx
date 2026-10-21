@@ -68,6 +68,7 @@ export function ModeBarHeading({
   flipped,
   busy,
   wideMove,
+  turnCompactOnly,
 }: {
   seal: ReactNode
   title: string
@@ -78,6 +79,7 @@ export function ModeBarHeading({
   flipped?: boolean
   busy?: boolean
   wideMove?: boolean
+  turnCompactOnly?: boolean
 }) {
   const { t } = useTranslation()
   const [before, after] = t('app.toMove', { side: '\u0001' }).split('\u0001')
@@ -176,7 +178,13 @@ export function ModeBarHeading({
         >
           {lastMove ?? '\u00a0'}
         </styled.strong>
-        <styled.span color="fg.muted" fontSize="xs" _compact={{ display: 'block' }} _short={{ display: 'none' }}>
+        <styled.span
+          color="fg.muted"
+          fontSize="xs"
+          visibility={turnCompactOnly ? 'hidden' : undefined}
+          _compact={{ display: 'block', visibility: 'visible' }}
+          _short={{ display: 'none' }}
+        >
           {before}
           <SideMark side={turn} flipped={flipped} />
           {after}
@@ -243,6 +251,7 @@ export function ModeBar({
   const unavailable = !engineSupported()
   const ja = settings.lang === 'ja'
   const { mode, course, lastMove, prevSfen, plyBase, preview, cursor, toMove, nav, gameOver, game, flipped } = useSession()
+  const helpOn = mode === 'spar' ? spar.assist : settings.assist
   const seal = !ja ? (
     <Icon name={MODES.find((m) => m.id === mode)!.icon} size={22} />
   ) : mode === 'lesson' && course ? (
@@ -267,6 +276,7 @@ export function ModeBar({
         lastMove={lastMove && prevSfen ? moveText(prevSfen, lastMove) : undefined}
         turn={toMove}
         flipped={flipped}
+        turnCompactOnly={mode === 'spar'}
       />
       {evalRate !== null && (
         <Evaluation>
@@ -315,18 +325,18 @@ export function ModeBar({
             <HelpToggle
               size="sm"
               variant="ghost"
-              onClick={() => setSettings({ assist: !settings.assist })}
-              title={settings.assist ? t('app.helpIsOnEvalBar') : t('app.noHelpClickToShow')}
-              aria-pressed={settings.assist}
-              aria-label={settings.assist ? t('app.coachOn') : t('app.coachOff')}
+              onClick={() => (mode === 'spar' ? spar.toggleCoach() : setSettings({ assist: !settings.assist }))}
+              title={helpOn ? t('app.helpIsOnEvalBar') : t('app.noHelpClickToShow')}
+              aria-pressed={helpOn}
+              aria-label={helpOn ? t('app.coachOn') : t('app.coachOff')}
             >
               <ControlIcon>
                 <Icon name="coach" className={barIcon} />
               </ControlIcon>
-              <ControlLabel>{settings.assist ? t('app.coachOn') : t('app.coachOff')}</ControlLabel>
+              <ControlLabel>{helpOn ? t('app.coachOn') : t('app.coachOff')}</ControlLabel>
             </HelpToggle>
           )}
-          {mode === 'spar' && game.moves.length > 0 && !gameOver && !spar.resigned && (
+          {mode === 'spar' && game.moves.length > 0 && !gameOver && !spar.resigned && !spar.aiEnded && (
             <>
               <TakeBack
                 size="sm"
@@ -375,10 +385,10 @@ export function ModeBar({
           )}
           {mode === 'spar' && (
             <BarButton
-              variant={spar.erred ? 'secondary' : 'primary'}
+              variant={game.moves.length === 0 ? 'primary' : 'secondary'}
               _compact={{ order: '4' }}
-              onClick={() => spar.setNewGameOpen(true)}
-              title={`${STRENGTH[settings.opponent].label} · ${TIME_CONTROLS[settings.timeControl].label}`}
+              onClick={spar.openNewGame}
+              title={`${STRENGTH[spar.config.opponent].label} · ${TIME_CONTROLS[spar.config.timeControl].label}`}
               aria-label={t('newGame.button')}
             >
               <ControlIcon>
@@ -398,6 +408,11 @@ export function ModeBar({
           <MiniStep size="sm" onClick={nav.forward} disabled={!nav.canForward} title={t('app.forward')} aria-label={t('app.forward2')}>
             <Icon name="next" size={16} className={barIcon} />
           </MiniStep>
+          {mode === 'spar' && !preview && cursor < game.moves.length && !spar.over && (
+            <MiniNavButton size="sm" variant="primary" onClick={nav.last} title={t('app.toLivePosition')} aria-label={t('app.toLivePosition')}>
+              <Icon name="last" size={16} className={barIcon} />
+            </MiniNavButton>
+          )}
           <MiniNavButton
             size="sm"
             onClick={() => onPanel(!panelHidden)}
