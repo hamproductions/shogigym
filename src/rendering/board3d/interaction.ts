@@ -109,7 +109,13 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
     if (!mesh) return
     const toMove = latest.current.movable === undefined ? latest.current.position.color : latest.current.movable
     const owner = from.kind === 'square' ? latest.current.position.board.at(from.square)?.color : from.color
-    if (owner !== toMove) return
+    if (owner !== toMove) {
+      if (owner == null || owner !== latest.current.premove) return
+      down = null
+      if (from.kind === 'square') latest.current.onSquare(from.square)
+      else latest.current.onHand(from.color, from.type)
+      return
+    }
     if (from.kind === 'square') latest.current.onSquare(from.square)
     else latest.current.onHand(from.color, from.type)
     s.drag = { mesh, from: from.kind === 'square' ? from.square : from.type }
@@ -141,7 +147,7 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
     if (!hit) return
     down = { pick: hit, x: event.clientX, y: event.clientY, pointerId: event.pointerId }
     const owner = hit.kind === 'square' ? latest.current.position.board.at(hit.square)?.color : hit.kind === 'hand' ? hit.color : null
-    if (s.controls && owner != null && owner === latest.current.movable) s.controls.enabled = false
+    if (s.controls && owner != null && (owner === latest.current.movable || owner === latest.current.premove)) s.controls.enabled = false
     canvas.setPointerCapture(event.pointerId)
   }
 

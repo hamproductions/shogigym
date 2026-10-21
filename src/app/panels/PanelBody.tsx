@@ -25,8 +25,9 @@ import { isGameMode, type Confirm, type Level, type Mode, type Tab } from '@/app
 import { Button } from '@/app/ui/Button'
 import type { FixRoute } from '@/app/dialogs/ReportDialog'
 import type { Mistake } from '@/utils/mistakes'
-import { cx } from '@/app/ui/cx'
-import { moveCounts, moveLabel, muted, note, panelBody, pinnedGraph } from './panels.styles'
+import { styled } from 'styled-system/jsx'
+import { CountsHeading, CountsSection, Muted, Note, PanelContent, PinnedGraph } from './panels.styles'
+import { Marks } from '@/app/ui/SideMark'
 
 const LessonMap = lazy(() => import('@/components/Flowchart').then((m) => ({ default: m.LessonMap })))
 const KifuNotes = lazy(() => import('@/app/modes/analyze/KifuNotes').then((m) => ({ default: m.KifuNotes })))
@@ -80,14 +81,18 @@ function EngineSection({ model }: { model: PanelModel }) {
     <>
       {!ai && (
         <div role="alert">
-          <p className={muted}>{t('app.theAiNeedsACross')}</p>
+          <Muted>{t('app.theAiNeedsACross')}</Muted>
           <Button onClick={() => location.reload()}>{t('engine.reloadPage')}</Button>
         </div>
       )}
-      {ai && spoilerFree && <p className={muted}>{t('app.theAiStaysQuietUntil')}</p>}
-      {ai && !spoilerFree && gameOver && <p className={muted}>{t('app.checkmateWon', { winner: t(toMove === 'sente' ? 'common.gote' : 'common.sente') })}</p>}
-      {!assist && <p className={muted}>{t('app.helpIsOffTurnIt')}</p>}
-      {live && (mode === 'lesson' || mode === 'drill') && <p className={note()}>{t('engine.lessonNote')}</p>}
+      {ai && spoilerFree && <Muted>{t('app.theAiStaysQuietUntil')}</Muted>}
+      {ai && !spoilerFree && gameOver && (
+        <Muted>
+          <Marks>{t('app.checkmateWon', { winner: t(toMove === 'sente' ? 'common.gote' : 'common.sente') })}</Marks>
+        </Muted>
+      )}
+      {!assist && <Muted>{t(mode === 'spar' ? 'app.coachAfterGame' : 'app.helpIsOffTurnIt')}</Muted>}
+      {live && (mode === 'lesson' || mode === 'drill') && <Note>{t('engine.lessonNote')}</Note>}
       {live && (
         <EnginePane
           sfen={sfen}
@@ -125,9 +130,9 @@ function CoachSection({ model }: { model: PanelModel }) {
           onReturn={drill.origin ? () => model.onReturnTo(drill.origin!) : undefined}
         />
       )}
-      {mode === 'view' && <p className={note()}>{t('watch.description')}</p>}
+      {mode === 'view' && <Note>{t('watch.description')}</Note>}
       {mode === 'analyze' && analyze.gameNotes && <KifuNotes notes={analyze.gameNotes} moves={game.moves} ply={cursor} />}
-      {(isGameMode(mode) || mode === 'view') && !assist && <p className={muted}>{t('app.helpIsOffNoRatings')}</p>}
+      {(isGameMode(mode) || mode === 'view') && !assist && <Muted>{t(mode === 'spar' ? 'app.coachAfterGame' : 'app.helpIsOffNoRatings')}</Muted>}
       {(isGameMode(mode) || mode === 'view') && assist && (
         <CoachPane
           review={coach.review}
@@ -162,32 +167,48 @@ function MoveCounts() {
     if (review) counts.set(review.label, (counts.get(review.label) ?? 0) + 1)
   }
   const rated = [...counts.values()].reduce((sum, count) => sum + count, 0)
+  if (rated === 0) return null
   return (
-    <section className={moveCounts}>
-      <h3>{t('lesson.yourMoves', { value: rated, total })}</h3>
-      <dl>
-        {(Object.entries(LABELS) as [Label, (typeof LABELS)[Label]][]).map(([label, meta]) => (
-          <div key={label} style={{ ['--label' as string]: meta.color }}>
-            <dt>
-              <span className={moveLabel}>{meta.symbol}</span> {meta.text}
-            </dt>
-            <dd>{counts.get(label) ?? 0}</dd>
-          </div>
-        ))}
-      </dl>
-    </section>
+    <CountsSection>
+      <CountsHeading>{t('lesson.yourMoves', { value: rated, total })}</CountsHeading>
+      <styled.dl display="grid" gridTemplateColumns="repeat(2, minmax(0, 1fr))" gap="{spacing.1} {spacing.3}" m="{spacing.2} 0 0">
+        {(Object.entries(LABELS) as [Label, (typeof LABELS)[Label]][])
+          .filter(([label]) => counts.has(label))
+          .map(([label, meta]) => (
+            <styled.div key={label} display="flex" justifyContent="space-between" gap="1" style={{ ['--label' as string]: meta.color }}>
+              <dt>
+                <styled.span
+                  display="inline-block"
+                  whiteSpace="nowrap"
+                  ml="1.5"
+                  color="light-dark(color-mix(in srgb, var(--label) 55%, #000), var(--label))"
+                  fontFamily="sans"
+                  fontWeight="bold"
+                  fontSize="xs"
+                >
+                  {meta.symbol}
+                </styled.span>{' '}
+                {meta.text}
+              </dt>
+              <styled.dd m="0" fontVariantNumeric="tabular-nums">
+                {counts.get(label)}
+              </styled.dd>
+            </styled.div>
+          ))}
+      </styled.dl>
+    </CountsSection>
   )
 }
 
 function FlowSection({ model }: { model: PanelModel }) {
   const { t } = useTranslation()
-  const { assist, gameOver, startPreview } = useSession()
+  const { mode, assist, gameOver, startPreview } = useSession()
   const { spoilerFree, lanes, lanesSfen, onHoverLane } = model
   return (
     <>
-      {spoilerFree && <p className={muted}>{t('app.findTheMoveYourselfFirst')}</p>}
-      {!spoilerFree && gameOver && <p className={muted}>{t('app.theGameIsOverCheckmate')}</p>}
-      {!assist && <p className={muted}>{t('app.helpIsOffTurnIt2')}</p>}
+      {spoilerFree && <Muted>{t('app.findTheMoveYourselfFirst')}</Muted>}
+      {!spoilerFree && gameOver && <Muted>{t('app.theGameIsOverCheckmate')}</Muted>}
+      {!assist && <Muted>{t(mode === 'spar' ? 'app.coachAfterGame' : 'app.helpIsOffTurnIt2')}</Muted>}
       {assist && !spoilerFree && !gameOver && (
         <FlowPane lanes={lanes} sfen={lanesSfen} onPreview={(moves, title) => startPreview(moves, title)} onHover={onHoverLane} />
       )}
@@ -206,16 +227,16 @@ export function PanelBody({ tab, model, overlays = true }: { tab: Tab; model: Pa
   return (
     <Suspense fallback={null}>
       {(tab === 'moves' || tab === 'report') && ai && assist && game.moves.length > 0 && (isGameMode(mode) || mode === 'view') && (
-        <div className={pinnedGraph}>
+        <PinnedGraph>
           <EvalGraph
             values={sfens.map((s) => evaluation.evals[strip(s)])}
             labels={sfens.map((_, i) => (i > 0 ? cachedReview(sfens[i - 1], game.moves[i - 1])?.label : undefined))}
             ply={cursor}
             onJump={setCursor}
           />
-        </div>
+        </PinnedGraph>
       )}
-      <div className={cx('app-panel-body', panelBody)} key={key}>
+      <PanelContent className="app-panel-body" key={key}>
         {overlays && level === 'new' && selection && !(mode === 'lesson' && course) && <PieceGuide sfen={sfen} from={selection.from} />}
         {tab === 'engine' && (
           <>
@@ -257,7 +278,7 @@ export function PanelBody({ tab, model, overlays = true }: { tab: Tab; model: Pa
         )}
         {tab === 'coach' && <CoachSection model={model} />}
         {tab === 'moves' && <MovesTab model={model} />}
-      </div>
+      </PanelContent>
     </Suspense>
   )
 }

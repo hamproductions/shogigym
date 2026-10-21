@@ -49,6 +49,7 @@ type State = {
   usedCounts: [Partial<Record<PieceType, number>>, Partial<Record<PieceType, number>>]
 }
 const rules = data.rules as Rule[]
+const oneShot = new Set(rules.filter((rule) => rule.turn_eq !== undefined).map((rule) => rule.name))
 const side = (color: Color) => (color === Color.BLACK ? 0 : 1)
 const square = (color: Color, file: number, rank: number) => (color === Color.BLACK ? new Square(file, rank) : new Square(10 - file, 10 - rank))
 const code = (position: ImmutablePosition, at: Square) => {
@@ -398,7 +399,7 @@ export function finalizeFormationTags(sfens: string[], moves: string[], result: 
   return tags
 }
 
-export function currentFormation(position: ImmutablePosition, color: Color, tags?: FormationTag[]) {
+export function currentFormation(position: ImmutablePosition, color: Color, tags?: FormationTag[], ply = Infinity) {
   if (!tags) {
     const state: State = {
       tags: [[], []],
@@ -413,9 +414,8 @@ export function currentFormation(position: ImmutablePosition, color: Color, tags
     detect(position, color, state)
     tags = state.tags[side(color)]
   }
-  const strategy =
-    (tags.findLast((tag) => tag.kind === 'strategy' && !['居飛車', '振り飛車'].includes(tag.name)) ?? tags.findLast((tag) => tag.kind === 'strategy'))?.name ??
-    null
+  const strategies = tags.filter((tag) => tag.kind === 'strategy' && !oneShot.has(tag.name))
+  const strategy = (strategies.findLast((tag) => !['居飛車', '振り飛車'].includes(tag.name)) ?? strategies.at(-1))?.name ?? null
   const castle = tags.findLast((tag) => tag.kind === 'castle')
   const rule = rules.find((rule) => rule.name === castle?.name)
   const state: State = {
@@ -435,5 +435,5 @@ export function currentFormation(position: ImmutablePosition, color: Color, tags
         ? castle.squares.filter((at) => position.board.at(at)?.color === color)
         : []
   const unmoved = position.board.at(square(color, 5, 9))?.type === PieceType.KING && position.board.at(square(color, 5, 9))?.color === color
-  return { strategy, castle: castle?.name ?? (unmoved ? '居玉' : null), squares }
+  return { strategy, castle: castle?.name ?? (unmoved && ply >= 10 ? '居玉' : null), squares }
 }

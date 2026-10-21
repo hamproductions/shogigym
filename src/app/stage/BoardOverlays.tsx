@@ -4,22 +4,11 @@ import { Color, promotedPieceType, type Move } from 'tsshogi'
 import type { PromotionAtlas } from '@/rendering/sprites'
 import type { Announcement } from '@/app/hooks/useAnnouncements'
 import { cx } from '@/app/ui/cx'
-import { muted, plate, plateSide } from '@/app/panels/panels.styles'
+import { Muted, PlateBox, PlateSide } from '@/app/panels/panels.styles'
+import { styled } from 'styled-system/jsx'
 import inkMask from './announcement-ink.png'
-import {
-  announce as announceStyle,
-  announceContent,
-  announceGlyph,
-  announceLayout,
-  announceMeta,
-  announceName,
-  announceReadable,
-  announceSeal,
-  cancelMark,
-  promote,
-  promoteChoice,
-  promotionFace,
-} from './stage.styles'
+import { announce as announceStyle, announceName, announceSeal, promoteChoice } from './stage.styles'
+import { Marks } from '@/app/ui/SideMark'
 
 export function AnnounceBadge({ announce }: { announce: Announcement }) {
   const { t } = useTranslation()
@@ -30,31 +19,68 @@ export function AnnounceBadge({ announce }: { announce: Announcement }) {
       style={{ '--glyph-count': [...announce.name].length, '--announce-mask': `url(${inkMask})` } as CSSProperties}
       role="status"
     >
-      <div className={announceLayout}>
-        <div className={announceContent}>
-          <div className={announceMeta}>
-            <span>{announce.side === Color.BLACK ? t('app.sente') : t('app.gote')}</span>
-            <span>{announce.kind}</span>
-          </div>
+      <styled.div
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        gap="4"
+        w="64%"
+        transform="translateY(16px)"
+        _narrow={{ gap: '3', transform: 'translateY(2px)' }}
+      >
+        <styled.div position="relative" display="grid" gap="0.5" minW="0">
+          <styled.div
+            order="2"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            gap="3"
+            w="100%"
+            p="0"
+            color="#fff4df"
+            textShadow="0 1px 2px #000"
+            fontSize="xs"
+            fontWeight="bold"
+            letterSpacing="0.24em"
+            animation="app-announce-detail 450ms 160ms ease both"
+            _before={{ content: '""', w: '24px', h: '1px', bg: 'accent' }}
+            _narrow={{ gap: '2', fontSize: '11px', letterSpacing: '0.12em', _before: { w: '16px' } }}
+            _motionReduce={{ animation: 'none' }}
+          >
+            <span>
+              <Marks>{announce.side === Color.BLACK ? t('app.sente') : t('app.gote')}</Marks>
+            </span>
+            <styled.span pl="3" borderLeft="1px solid color-mix(in srgb, {colors.accent} 45%, transparent)">
+              {announce.kind}
+            </styled.span>
+          </styled.div>
           <strong className={announceName({ latin: !japanese })}>
             {japanese ? (
               <>
-                <span className={announceReadable}>{announce.name}</span>
+                <styled.span position="absolute" w="1px" h="1px" overflow="hidden" clipPath="inset(50%)" whiteSpace="nowrap">
+                  {announce.name}
+                </styled.span>
                 {[...announce.name].map((glyph, i) => (
-                  <span key={i} className={announceGlyph} style={{ '--glyph-index': i } as CSSProperties} aria-hidden="true">
+                  <styled.span
+                    key={i}
+                    animation="app-announce-glyph 420ms cubic-bezier(0.16, 1, 0.3, 1) calc(100ms + var(--glyph-index) * 28ms) both"
+                    _motionReduce={{ animation: 'none' }}
+                    style={{ '--glyph-index': i } as CSSProperties}
+                    aria-hidden="true"
+                  >
                     {glyph}
-                  </span>
+                  </styled.span>
                 ))}
               </>
             ) : (
               announce.name
             )}
           </strong>
-        </div>
+        </styled.div>
         <span className={announceSeal({ latin: !japanese })} aria-hidden="true">
           {announce.seal}
         </span>
-      </div>
+      </styled.div>
     </div>
   )
 }
@@ -72,11 +98,27 @@ export function PromotionPicker({
 }) {
   const { t } = useTranslation()
   return (
-    <div className={promote} role="dialog" aria-label={t('app.promote')}>
+    <styled.div
+      position="absolute"
+      top="50%"
+      left="50%"
+      zIndex="promote"
+      transform="translate(-50%, -50%)"
+      display="flex"
+      gap="2.5"
+      p="3"
+      borderRadius="lg"
+      bg="overlay"
+      boxShadow="inset 0 0 0 1px {colors.border}, {shadows.lg}"
+      role="dialog"
+      aria-label={t('app.promote')}
+    >
       {options.map((m) => (
         <button key={m.usi} className={promoteChoice({ kind: m.promote ? 'yes' : 'no' })} onClick={() => onPick(m.usi)}>
-          <span
-            className={promotionFace}
+          <styled.span
+            w="72px"
+            h="72px"
+            backgroundRepeat="no-repeat"
             style={
               faces
                 ? {
@@ -92,10 +134,12 @@ export function PromotionPicker({
         </button>
       ))}
       <button className={promoteChoice({ kind: 'cancel' })} onClick={onCancel} title={t('app.cancelThisMoveEsc')}>
-        <span className={cancelMark}>×</span>
+        <styled.span display="grid" placeItems="center" h="56px" fontSize="30px" fontWeight="regular" opacity="0.8">
+          ×
+        </styled.span>
         <span>{t('app.cancel')}</span>
       </button>
-    </div>
+    </styled.div>
   )
 }
 
@@ -103,9 +147,11 @@ export function TsumePlate({ place: position, flipped, userSide }: { place: 'top
   const { t } = useTranslation()
   const side = (position === 'top') === flipped ? 'sente' : 'gote'
   return (
-    <span className={cx('app-plate', position, plate)}>
-      <span className={plateSide}>{side === 'sente' ? t('app.sente') : t('app.gote')}</span>
-      <span className={muted}>{side === userSide ? t('app.youAttack') : t('app.defends')}</span>
-    </span>
+    <PlateBox as="span" className={cx('app-plate', position)}>
+      <PlateSide>
+        <Marks>{side === 'sente' ? t('app.sente') : t('app.gote')}</Marks>
+      </PlateSide>
+      <Muted as="span">{side === userSide ? t('app.youAttack') : t('app.defends')}</Muted>
+    </PlateBox>
   )
 }

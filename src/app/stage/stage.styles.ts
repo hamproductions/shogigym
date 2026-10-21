@@ -1,64 +1,81 @@
-import { css, cva } from 'styled-system/css'
+import { cva } from 'styled-system/css'
+import { styled } from 'styled-system/jsx'
+import { Button } from '@/app/ui/Button'
 
-export const stage = css({
-  '--stage-gutter': '{spacing.3}',
-  position: 'relative',
-  display: 'flex',
-  flexDirection: 'column',
-  minW: '0',
-  minH: '0',
-  background: 'radial-gradient(ellipse 65% 75% at 50% 48%, {colors.stage.glow}, transparent 70%)',
-  _compact: { '--stage-gutter': '{spacing.1.5}' },
-  _short: { '--stage-gutter': '{spacing.1}' },
-})
-
-export const fsExit = css({ display: 'none' })
-
-export const boardWrap = css({
-  '--eval-bar-width': '28px',
-  position: 'relative',
-  flex: '1',
-  display: 'flex',
-  minH: '0',
-  p: 'var(--stage-gutter)',
-  _compact: {
-    '--eval-bar-width': '20px',
+export const Stage = styled('section', {
+  base: {
+    '--stage-gutter': '{spacing.3}',
+    position: 'relative',
+    display: 'flex',
     flexDirection: 'column',
-    '.app-shell[data-drawer-open] &': { '& .app-plate.top': { display: 'flex' } },
-    '&:has(> [data-banner]) .app-plate.top': { visibility: 'hidden' },
+    minW: '0',
+    minH: '0',
+    background: 'radial-gradient(ellipse 65% 75% at 50% 48%, {colors.stage.glow}, transparent 70%)',
+    _compact: {
+      '--stage-gutter': '{spacing.1.5}',
+      '.app-shell[data-drawer-open][data-panel-side]:not([data-fs]) > &': { gridColumn: '1', gridRow: '2' },
+    },
+    _short: { '--stage-gutter': '{spacing.1}' },
   },
-  _short: { '--eval-bar-width': '18px', p: '{spacing.1} var(--stage-gutter)' },
 })
 
-export const boardScene = css({
-  position: 'relative',
-  display: 'flex',
-  flex: '1',
-  minW: '0',
-  minH: '0',
-  overflow: 'hidden',
-  borderRadius: 'lg',
-  boxShadow: '0 0 0 1px {colors.border}',
-  '[data-previewing] &': {
-    _after: { content: '""', position: 'absolute', inset: '0', border: '2px solid {colors.accent}', borderRadius: 'xl', pointerEvents: 'none' },
+export const FsExit = styled('button', {
+  base: {
+    display: 'none',
+    '.app-shell[data-fs] &': {
+      position: 'fixed',
+      top: 'max(14px, env(safe-area-inset-top))',
+      left: 'max(14px, env(safe-area-inset-left))',
+      zIndex: 'promote',
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '2',
+      h: 'control.lg',
+      p: '0 {spacing.4} 0 {spacing.3}',
+      borderRadius: 'full',
+      bg: 'overlay',
+      color: 'fg.default',
+      fontSize: 'sm',
+      fontWeight: 'bold',
+      boxShadow: 'inset 0 0 0 1px {colors.border}, {shadows.md}',
+      _hover: { bg: 'panel' },
+    },
   },
-  _compact: { '--band': '40px', py: 'var(--band)', '.app-shell[data-drawer-open] &': { pb: '0' } },
 })
 
-export const caption = css({
-  position: 'absolute',
-  left: '2',
-  right: '2',
-  bottom: '2',
-  zIndex: 'hud',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-start',
-  gap: '2',
-  pointerEvents: 'none',
-  '.app-board-wrap[data-eval] &': { left: 'calc(var(--eval-bar-width) + {spacing.2})' },
-  '& > .app-plate': { position: 'static', transform: 'none', maxW: '100%' },
-  _compact: { '.app-board-wrap[data-eval] &': { left: '2' } },
+export const BoardWrap = styled('div', {
+  base: {
+    '--eval-bar-width': '28px',
+    position: 'relative',
+    flex: '1',
+    display: 'flex',
+    minH: '0',
+    p: 'var(--stage-gutter)',
+    '.app-shell[data-fs] &': { p: '0' },
+    _compact: {
+      '--eval-bar-width': '20px',
+      flexDirection: 'column',
+      '.app-shell[data-drawer-open] &': { p: '0' },
+    },
+    _short: { '--eval-bar-width': '18px', p: '{spacing.1} var(--stage-gutter)' },
+  },
+})
+
+export const BoardScene = styled('div', {
+  base: {
+    position: 'relative',
+    display: 'flex',
+    flex: '1',
+    minW: '0',
+    minH: '0',
+    overflow: 'hidden',
+    borderRadius: 'lg',
+    boxShadow: '0 0 0 1px {colors.border}',
+    '[data-previewing] &': {
+      _after: { content: '""', position: 'absolute', inset: '0', border: '2px solid {colors.accent}', borderRadius: 'xl', pointerEvents: 'none' },
+    },
+    _compact: { '--band': '40px', py: 'var(--band)', '.app-shell[data-drawer-open] &': { pb: '0' } },
+  },
 })
 
 export const peek = cva({
@@ -89,36 +106,13 @@ export const peek = cva({
   },
 })
 
-export const phoneTask = css({
-  display: 'none',
-  _compact: {
-    order: '4',
-    flex: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '2.5',
-    h: 'calc(2em * {lineHeights.tight} + 2 * {spacing.2.5})',
-    m: '{spacing.1.5} {spacing.2} {spacing.0.5}',
-    p: '{spacing.2.5} {spacing.3}',
-    borderRadius: 'lg',
-    bg: 'overlay',
-    color: 'fg.default',
-    fontSize: 'sm',
-    lineHeight: 'tight',
-    textAlign: 'left',
-    boxShadow: 'inset 0 0 0 1px {colors.border}',
-    '& span': { flex: '1', minW: '0', maxH: 'calc(2em * {lineHeights.tight})', overflowY: 'auto' },
-    '& b': { flex: 'none', p: '{spacing.1.5} {spacing.2.5}', borderRadius: 'md', bg: 'accent', color: 'accent.contrast', fontSize: 'xs' },
-  },
-})
-
 const mistakeBanner = {
   bg: 'var(--banner)',
   color: 'gofun',
   boxShadow: 'md',
-  '& .app-btn': { bg: 'onFill.soft', color: 'inherit' },
-  '& .app-btn[data-variant=primary]': { bg: 'gofun', color: 'var(--banner)', fontWeight: 'bold' },
 }
+
+export const BannerAction = styled(Button, { base: { flex: 'none' } })
 
 export const banner = cva({
   base: {
@@ -138,7 +132,6 @@ export const banner = cva({
     color: 'fg.default',
     fontSize: 'sm',
     boxShadow: 'inset 0 0 0 1px {colors.border}, {shadows.md}',
-    '& > .app-btn': { flex: 'none' },
     _narrow: {
       order: '-1',
       left: 'var(--stage-gutter)',
@@ -203,24 +196,6 @@ export const bannerText = cva({
   defaultVariants: { fit: 'wrap' },
 })
 
-export const branchTip = css({ fontWeight: 'bold', color: 'highlight', _narrow: { display: 'none' } })
-
-export const nowrap = css({ whiteSpace: 'nowrap' })
-
-export const evalBar = css({
-  position: 'relative',
-  flex: 'none',
-  alignSelf: 'stretch',
-  w: 'var(--eval-bar-width)',
-  mr: '0',
-  overflow: 'hidden',
-  bg: '#1d1a17',
-  boxShadow: 'inset 0 0 0 1px {colors.border}',
-  _compact: { display: 'none' },
-})
-
-export const evalBarFill = css({ position: 'absolute', left: '0', right: '0', bottom: '0', bg: '#f1eadb' })
-
 export const evalBarNumber = cva({
   base: {
     position: 'absolute',
@@ -239,20 +214,6 @@ export const evalBarNumber = cva({
       top: { top: '6px', color: '#f1eadb' },
     },
   },
-})
-
-export const promote = css({
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  zIndex: 'promote',
-  transform: 'translate(-50%, -50%)',
-  display: 'flex',
-  gap: '2.5',
-  p: '3',
-  borderRadius: 'lg',
-  bg: 'overlay',
-  boxShadow: 'inset 0 0 0 1px {colors.border}, {shadows.lg}',
 })
 
 export const promoteChoice = cva({
@@ -279,10 +240,6 @@ export const promoteChoice = cva({
     },
   },
 })
-
-export const promotionFace = css({ w: '72px', h: '72px', backgroundRepeat: 'no-repeat' })
-
-export const cancelMark = css({ display: 'grid', placeItems: 'center', h: '56px', fontSize: '30px', fontWeight: 'regular', opacity: '0.8' })
 
 export const announce = cva({
   base: {
@@ -331,38 +288,6 @@ export const announce = cva({
   },
 })
 
-export const announceLayout = css({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: '4',
-  w: '64%',
-  transform: 'translateY(16px)',
-  _narrow: { gap: '3', transform: 'translateY(2px)' },
-})
-
-export const announceContent = css({ position: 'relative', display: 'grid', gap: '0.5', minW: '0' })
-
-export const announceMeta = css({
-  order: '2',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: '3',
-  w: '100%',
-  p: '0',
-  color: '#fff4df',
-  textShadow: '0 1px 2px #000',
-  fontSize: 'xs',
-  fontWeight: 'bold',
-  letterSpacing: '0.24em',
-  animation: 'app-announce-detail 450ms 160ms ease both',
-  _before: { content: '""', w: '24px', h: '1px', bg: 'accent' },
-  '& span + span': { pl: '3', borderLeft: '1px solid color-mix(in srgb, {colors.accent} 45%, transparent)' },
-  _narrow: { gap: '2', fontSize: '11px', letterSpacing: '0.12em', _before: { w: '16px' } },
-  _motionReduce: { animation: 'none' },
-})
-
 export const announceName = cva({
   base: {
     display: 'flex',
@@ -392,13 +317,6 @@ export const announceName = cva({
     },
   },
 })
-
-export const announceGlyph = css({
-  animation: 'app-announce-glyph 420ms cubic-bezier(0.16, 1, 0.3, 1) calc(100ms + var(--glyph-index) * 28ms) both',
-  _motionReduce: { animation: 'none' },
-})
-
-export const announceReadable = css({ position: 'absolute', w: '1px', h: '1px', overflow: 'hidden', clipPath: 'inset(50%)', whiteSpace: 'nowrap' })
 
 export const announceSeal = cva({
   base: {

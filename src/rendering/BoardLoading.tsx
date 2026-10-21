@@ -1,6 +1,6 @@
 import '@/utils/i18n'
 import { useTranslation } from 'react-i18next'
-import { loading, loadingContent, loadingPercent, loadingProgress } from './board.styles'
+import { styled } from 'styled-system/jsx'
 
 export type BoardLoadingState = { phase: 'assets' | 'previews' | 'pieces' | 'shaders'; done: number; total: number }
 
@@ -16,12 +16,39 @@ export function BoardLoading({ error, progress, state }: { error?: string; progr
   const value = state?.phase === 'shaders' ? undefined : state ? state.done / state.total : progress
   const label = state ? t(phases[state.phase], { done: state.done, total: state.total }) : t('settings.loadingBoard')
   return (
-    <div className={loading} role={error ? 'alert' : 'status'} aria-busy={!error}>
-      <div className={loadingContent}>
+    <styled.div
+      position="absolute"
+      inset="0"
+      zIndex="1"
+      display="grid"
+      placeItems="center"
+      bg="surface.0"
+      color="fg.muted"
+      role={error ? 'alert' : 'status'}
+      aria-busy={!error}
+    >
+      <styled.div display="grid" justifyItems="center" gap="16px" w="min(280px, 80%)" font="14px/1.4 {fonts.sans}" textAlign="center">
         <span>{error ?? label}</span>
-        {!error && <progress className={loadingProgress} max={1} value={value} aria-label={label} />}
-        {!error && value !== undefined && <span className={loadingPercent}>{Math.round(value * 100)}%</span>}
-      </div>
-    </div>
+        {!error && (
+          <styled.progress
+            w="100%"
+            h="6px"
+            border="0"
+            borderRadius="3px"
+            overflow="hidden"
+            accentColor="accent"
+            css={{
+              '&::-webkit-progress-bar': { bg: 'border' },
+              '&::-webkit-progress-value': { bg: 'accent' },
+              '&::-moz-progress-bar': { bg: 'accent' },
+            }}
+            max={1}
+            value={value}
+            aria-label={label}
+          />
+        )}
+        {!error && value !== undefined && <styled.span fontVariantNumeric="tabular-nums">{Math.round(value * 100)}%</styled.span>}
+      </styled.div>
+    </styled.div>
   )
 }

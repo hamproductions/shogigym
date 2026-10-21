@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { Grid, styled } from 'styled-system/jsx'
 import { SegmentGroup } from '@/components/ui'
 import { cx } from './cx'
+import { Marks } from './SideMark'
 
 type Option<T> = { v: T; t: ReactNode; title?: string }
 type SegmentedProps<T> = { value: T; options: Option<T>[]; onChange: (v: T) => void; label?: string; size?: 'small' | 'big'; className?: string }
@@ -12,6 +13,9 @@ export function Segmented<T extends string | number | boolean>({ value, options,
   return (
     <SegmentGroup.Root
       className={cx('app-seg', size, className)}
+      css={{
+        '.app-settings [data-setting] > &': { justifyContent: 'flex-end', justifySelf: 'end', _phone: { justifyContent: 'flex-start', justifySelf: 'start' } },
+      }}
       size={size ? sizes[size] : 'md'}
       aria-label={label}
       value={String(value)}
@@ -22,7 +26,7 @@ export function Segmented<T extends string | number | boolean>({ value, options,
     >
       {options.map((o) => (
         <SegmentGroup.Item key={String(o.v)} value={String(o.v)} title={o.title}>
-          <SegmentGroup.ItemText>{o.t}</SegmentGroup.ItemText>
+          <SegmentGroup.ItemText>{typeof o.t === 'string' ? <Marks>{o.t}</Marks> : o.t}</SegmentGroup.ItemText>
           <SegmentGroup.ItemHiddenInput />
         </SegmentGroup.Item>
       ))}
@@ -30,18 +34,21 @@ export function Segmented<T extends string | number | boolean>({ value, options,
   )
 }
 
-export function SettingRow({ label, children }: { label: ReactNode; children: ReactNode }) {
+export function SettingRow({ label, alignTop, children }: { label: ReactNode; alignTop?: boolean; children: ReactNode }) {
   return (
     <Grid
       data-setting=""
       gridTemplateColumns="minmax(110px, 30%) 1fr"
-      alignItems="center"
+      alignItems={alignTop ? 'start' : 'center'}
       gap="3"
       py="2.5"
       fontSize="sm"
       _phone={{ gridTemplateColumns: '1fr', gap: '1.5' }}
+      css={{
+        '.app-settings &': { '&:not(:first-child)': { borderTop: '1px solid {colors.border}' } },
+      }}
     >
-      <styled.span color="fg.muted" fontWeight="medium">
+      <styled.span color="fg.muted" fontWeight="medium" pt={alignTop ? '1' : undefined}>
         {label}
       </styled.span>
       {children}
@@ -49,9 +56,13 @@ export function SettingRow({ label, children }: { label: ReactNode; children: Re
   )
 }
 
-export function SegmentedField<T extends string | number | boolean>({ label, ...props }: Omit<SegmentedProps<T>, 'label'> & { label: string }) {
+export function SegmentedField<T extends string | number | boolean>({
+  label,
+  alignTop,
+  ...props
+}: Omit<SegmentedProps<T>, 'label'> & { label: string; alignTop?: boolean }) {
   return (
-    <SettingRow label={label}>
+    <SettingRow label={label} alignTop={alignTop}>
       <Segmented label={label} {...props} />
     </SettingRow>
   )

@@ -18,7 +18,8 @@ import { figureMarks } from '@/app/modes/lesson/figureMarks'
 import { SquareText } from '@/app/modes/lesson/SquareText'
 import { Button } from '@/app/ui/Button'
 import { Card } from '@/app/ui/Card'
-import { backLink, muted, note, practice, result, taskText } from '@/app/panels/panels.styles'
+import { BackLink, Muted, NarrowColumn, Note, Result, TaskText } from '@/app/panels/panels.styles'
+import { Marks } from '@/app/ui/SideMark'
 
 function untilText(ms: number) {
   const minutes = Math.round(ms / 60000)
@@ -28,15 +29,15 @@ function untilText(ms: number) {
   return i18n.t('review.inDays', { count: Math.round(hours / 24) })
 }
 
-function Principle({ tag }: { tag: Weakness }) {
+function Principle({ tag, spaced }: { tag: Weakness; spaced?: boolean }) {
   const { t } = useTranslation()
   if (tag === 'other') return null
   return (
-    <p className={note()}>
+    <Note mt={spaced ? '3' : undefined}>
       <strong>{t(`report.weak.${tag}.name`)}</strong>
       {t('review.principleSep')}
       {t(`report.weak.${tag}.fix`)}
-    </p>
+    </Note>
   )
 }
 
@@ -99,53 +100,69 @@ function ReviewCard({
   }, [task, startSfen, setSourceMarks])
   return (
     <>
-      <p className={muted}>
+      <Muted css={{ '* + &': { mt: '3' } }}>
         {t('review.cardOf', { value: drill.index + 1, itemsCount: drill.items.length })}
         {item.kind === 'position' ? t('review.from', { title: courseTitle(item.course, i18n.language) }) : ''}
-        {item.kind === 'position' && item.moves.length > 0
-          ? t('review.after', {
-              move: moveText(item.moves.length > 1 ? sfenAfter(item.course.root.sfen, item.moves.slice(0, -1)) : item.course.root.sfen, item.moves.at(-1)!),
-            })
-          : ''}
-      </p>
+        <Marks>
+          {item.kind === 'position' && item.moves.length > 0
+            ? t('review.after', {
+                move: moveText(item.moves.length > 1 ? sfenAfter(item.course.root.sfen, item.moves.slice(0, -1)) : item.course.root.sfen, item.moves.at(-1)!),
+              })
+            : ''}
+        </Marks>
+      </Muted>
       {task && (
-        <p className={taskText}>
+        <TaskText mt="3">
           <SquareText text={task} />
-        </p>
+        </TaskText>
       )}
-      {drill.retry && !drill.result && <p className={muted}>{t('review.retryOnlyYourFirstTry')}</p>}
+      {drill.retry && !drill.result && <Muted mt="3">{t('review.retryOnlyYourFirstTry')}</Muted>}
       {item.kind === 'mistake' && !drill.result && hint > 0 && (
-        <div className={note()}>
+        <Note as="div" mt="3">
           {item.mistake.reasons[0] && (
             <p>
               {t('review.hintWhy')}
-              {item.mistake.reasons[0]}
+              <Marks>{item.mistake.reasons[0]}</Marks>
             </p>
           )}
           <Principle tag={weaknessOfMistake(item.mistake)} />
-          {hint > 1 && <p>{pieceHint(item.mistake.sfen, item.mistake.best, t)}</p>}
-        </div>
+          {hint > 1 && (
+            <p>
+              <Marks>{pieceHint(item.mistake.sfen, item.mistake.best, t)}</Marks>
+            </p>
+          )}
+        </Note>
       )}
-      {learning && lessonNote && <p className={note()}>{lessonNote}</p>}
+      {learning && lessonNote && (
+        <Note mt="3">
+          <Marks>{lessonNote}</Marks>
+        </Note>
+      )}
       {drill.result === 'right' && (
-        <p className={result({ tone: 'right' })}>{drill.retry ? t('review.rightThisTimeTheCard') : t('review.rightItComesBackLater')}</p>
+        <Result tone="right" mt="3">
+          {drill.retry ? t('review.rightThisTimeTheCard') : t('review.rightItComesBackLater')}
+        </Result>
       )}
       {drill.result === 'wrong' && (
-        <p className={result({ tone: mistakeOk ? 'right' : 'wrong' })}>
-          {mistakeOk ? t('review.aGoodMoveTooBut', { move: expected }) : t('review.notThisOneTheBetter', { move: expected })}
+        <Result tone={mistakeOk ? 'right' : 'wrong'} mt="3">
+          <Marks>{mistakeOk ? t('review.aGoodMoveTooBut', { move: expected }) : t('review.notThisOneTheBetter', { move: expected })}</Marks>
           {mistakePreview ? t('review.theBoardIsShowingWhat') : t('review.itIsMarkedWithA')}
           {!drill.retry && t('review.thisCardComesBackIn')}
-        </p>
+        </Result>
       )}
-      {drill.result && lessonNote && <p className={note()}>{lessonNote}</p>}
+      {drill.result && lessonNote && (
+        <Note mt="3">
+          <Marks>{lessonNote}</Marks>
+        </Note>
+      )}
       {item.kind === 'mistake' && drill.result === 'wrong' && !drill.retry && item.mistake.reasons[0] && (
-        <p className={note()}>
+        <Note mt="3">
           {t('review.whyYourGameMoveWas')}
-          {item.mistake.reasons[0]}
-        </p>
+          <Marks>{item.mistake.reasons[0]}</Marks>
+        </Note>
       )}
-      {item.kind === 'mistake' && drill.result === 'wrong' && !drill.retry && <Principle tag={weaknessOfMistake(item.mistake)} />}
-      <Wrap gap="2" align="center" _narrow={{ order: '-1' }}>
+      {item.kind === 'mistake' && drill.result === 'wrong' && !drill.retry && <Principle tag={weaknessOfMistake(item.mistake)} spaced />}
+      <Wrap gap="2" align="center" mt="3" _narrow={{ order: '-1' }}>
         {item.kind === 'mistake' && !drill.result && hint < 2 && (
           <Button onClick={() => setHint((h) => h + 1)}>{hint === 0 ? t('review.hint') : t('review.moreHint')}</Button>
         )}
@@ -162,7 +179,7 @@ function EmptyQueue({ drill, counts, onQueue }: { drill: DrillState | null; coun
   const { t } = useTranslation()
   const now = Date.now()
   return (
-    <Card>
+    <Card css={{ '* + &': { mt: '3' } }}>
       <strong>
         {drill && drill.items.length > 0
           ? t('review.doneAnswered', { answered: drill.answered, count: drill.items.length })
@@ -204,12 +221,8 @@ export function ReviewPane({
   const { drill, item } = trainer
   const counts = useMemo(() => reviewCounts(), [drill?.queue, drill?.index, drill?.items])
   return (
-    <div className={practice}>
-      {trainer.origin && onReturn && (
-        <button className={backLink} onClick={onReturn}>
-          ‹ {t('review.backToGame')}
-        </button>
-      )}
+    <NarrowColumn>
+      {trainer.origin && onReturn && <BackLink onClick={onReturn}>‹ {t('review.backToGame')}</BackLink>}
       {item && startSfen && drill ? (
         <ReviewCard
           drill={drill}
@@ -224,6 +237,6 @@ export function ReviewPane({
         <EmptyQueue drill={drill} counts={counts} onQueue={trainer.start} />
       )}
       {!item && <YourGames onOpen={onOpenGame} />}
-    </div>
+    </NarrowColumn>
   )
 }

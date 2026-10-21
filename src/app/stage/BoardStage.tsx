@@ -1,6 +1,6 @@
 import { Suspense, lazy, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { EvalBar } from './EvalBar'
+import { EvalBar, EvalSlot } from './EvalBar'
 import { Color } from 'tsshogi'
 import type { Side } from '@/utils/shogi'
 import { avatarCues } from '@/rendering/avatars'
@@ -16,7 +16,7 @@ import type { Watch } from '@/app/modes/view/useWatch'
 import { firstPieceHint } from '@/app/modes/tsume/firstPiece'
 import type { TsumeState } from '@/app/modes/tsume/useTsume'
 import { Plate } from '@/app/panels/Plate'
-import { loadPieceFont, useSettings } from '@/appearance/settings'
+import { loadPieceFont, STRENGTH, useSettings } from '@/appearance/settings'
 import { loadBoardStyle } from '@/appearance/boardStyles'
 import { loadPieceSet } from '@/appearance/pieceSets'
 import { isGameMode } from '@/app/types'
@@ -24,13 +24,13 @@ import { AnnounceBadge, PromotionPicker, TsumePlate } from './BoardOverlays'
 import { BoardBanners } from './BoardBanners'
 import { BoardLoading } from '@/rendering/BoardLoading'
 import { SourceIllustration } from '@/app/modes/lesson/SourceIllustration'
-import { illustration } from '@/app/modes/lesson/lesson.styles'
 import { Button } from '@/app/ui/Button'
 import { usePromotionFaces } from '@/app/hooks/useBakedPieces'
-import { cx } from '@/app/ui/cx'
-import { boardScene, boardWrap, caption, peek, phoneTask as phoneTaskStyle } from './stage.styles'
+import { styled } from 'styled-system/jsx'
+import { BoardScene, BoardWrap, peek } from './stage.styles'
 
 import type { StandZones } from '@/rendering/board3d/types'
+import { Marks } from '@/app/ui/SideMark'
 
 const Board2D = lazy(() => import('@/rendering/Board2D').then((m) => ({ default: m.Board2D })))
 const BoardFlat = lazy(() => import('@/rendering/BoardFlat').then((m) => ({ default: m.BoardFlat })))
@@ -41,6 +41,7 @@ type BoardStageProps = {
   onFurigoma?: (faces: boolean[]) => void
   onMoveLanded: (sfen: string) => void
   evalRate: number | null
+  evalSlot?: boolean
   view: View
   decor: ReturnType<typeof useBoardDecor>
   input: ReturnType<typeof useBoardInput>
@@ -103,6 +104,7 @@ export function BoardStage({
   announce,
   onZones,
   evalRate,
+  evalSlot,
   furigoma,
   onFurigoma,
   onMoveLanded,
@@ -111,7 +113,8 @@ export function BoardStage({
   const settings = useSettings()
   const { key: assetsKey, progress: assetProgress } = usePieceAssetsKey()
   const assetsReady = assetsKey === `${settings.pieceFont}|${settings.pieceSet}|${settings.pieceGuide}|${settings.boardStyle}`
-  const { mode, course, game, position, flipped, userSide, lastMove, selection, promotion, gameOver, sfen, atEnd, userTurn, toMove, sourceMarks } = useSession()
+  const { mode, course, game, position, flipped, userSide, lastMove, selection, promotion, gameOver, sfen, atEnd, userTurn, toMove, sourceMarks, cursor } =
+    useSession()
   const { faces: promotionFaces } = usePromotionFaces(assetsReady && !!promotion)
   const picking = mode === 'lesson' && !course
   const playing = mode === 'spar' || mode === 'view' || (mode === 'lesson' && !!course)
@@ -128,7 +131,7 @@ export function BoardStage({
     () =>
       avatarCues({
         playing,
-        aiTurn: atEnd && !userTurn && !gameOver && !spar.resigned,
+        aiTurn: atEnd && !userTurn && !gameOver && !spar.resigned && !spar.aiEnded,
         resigned: spar.resigned,
         userColor: sideColor(userSide),
         toMove: sideColor(toMove),
@@ -138,7 +141,7 @@ export function BoardStage({
         ply: game.moves.length,
         stamp,
       }),
-    [playing, atEnd, userTurn, gameOver, spar.resigned, userSide, toMove, game.moves.length, game.start, mode, course?.id, lastMove, stamp],
+    [playing, atEnd, userTurn, gameOver, spar.resigned, spar.aiEnded, userSide, toMove, game.moves.length, game.start, mode, course?.id, lastMove, stamp],
   )
   const board = {
     position,
@@ -158,6 +161,7 @@ export function BoardStage({
     onHand: input.onHand,
     onDrop: input.onDrop,
     movable: userTurn && !gameOver ? position.color : null,
+    premove: mode === 'spar' && !userTurn && !gameOver && !spar.halted ? sideColor(userSide) : null,
   }
   const who = (side: Side) =>
     mode === 'view'
@@ -166,15 +170,27 @@ export function BoardStage({
         ? null
         : side === userSide
           ? t('app.you')
-          : t('app.opponent')
+          : mode === 'spar'
+            ? t('plate.ai', { level: STRENGTH[spar.config.opponent].label })
+            : t('app.opponent')
   const plate = (place: 'top' | 'bottom') => {
     const side: Side = (place === 'top') === flipped ? 'sente' : 'gote'
-    return <Plate className={place} clock={spar.clockFace(side)} board={position} side={side === 'sente' ? Color.BLACK : Color.WHITE} who={who(side)} />
+    return (
+      <Plate
+        className={place}
+        placement={place === 'top' ? 'scene' : 'caption'}
+        clock={spar.clockFace(side)}
+        board={position}
+        side={side === 'sente' ? Color.BLACK : Color.WHITE}
+        who={who(side)}
+        thinking={mode === 'spar' ? side !== userSide && spar.aiThinking : undefined}
+      />
+    )
   }
-  const sparEnded = mode === 'spar' && (spar.resigned || !!spar.flagged)
+  const sparEnded = mode === 'spar' && (spar.resigned || !!spar.aiEnded || !!spar.flagged)
   const showGameOver = ((gameOver && game.moves.length > 0 && isGameMode(mode)) || sparEnded) && spar.endHidden !== sfen
   return (
-    <div className={cx('app-board-wrap', boardWrap)} data-eval={evalRate !== null || undefined}>
+    <BoardWrap className="app-board-wrap" data-eval={evalRate !== null || evalSlot || undefined}>
       {mode === 'spar' && spar.furigomaBanner && (
         <div
           className="app-furigoma-banner"
@@ -197,14 +213,16 @@ export function BoardStage({
             fontWeight: 600,
           }}
         >
-          <span>{spar.furigomaBanner}</span>
+          <span>
+            <Marks>{spar.furigomaBanner}</Marks>
+          </span>
           <Button size="sm" onClick={() => spar.clearFurigomaBanner()}>
             ✕
           </Button>
         </div>
       )}
-      <div className={cx('app-board-scene', boardScene)}>
-        {evalRate !== null && <EvalBar rate={evalRate} flipped={flipped} />}
+      <BoardScene className="app-board-scene">
+        {evalRate !== null ? <EvalBar rate={evalRate} flipped={flipped} /> : evalSlot && <EvalSlot />}
         <Suspense fallback={<BoardLoading />}>
           {settings.environment !== 'diagram' &&
           settings.environment !== 'broadcast' &&
@@ -235,39 +253,99 @@ export function BoardStage({
           )}
         </Suspense>
         {mode !== 'tsume' && !picking && plate('top')}
-        <div className={cx('app-board-caption', caption)}>
+        <styled.div
+          className="app-board-caption"
+          position="absolute"
+          left="2"
+          right="2"
+          bottom="2"
+          zIndex="hud"
+          display="flex"
+          flexDirection="column"
+          alignItems="flex-start"
+          gap="2"
+          pointerEvents="none"
+          _compact={{ '.app-board-wrap[data-eval] &': { left: '2' } }}
+          css={{ '.app-board-wrap[data-eval] &': { left: 'calc(var(--eval-bar-width) + {spacing.2})' } }}
+        >
           {decor.note && dismissedNote !== decor.note && (
             <div className={peek({ placement: 'caption' })} role="status">
-              {decor.note}
+              <Marks>{decor.note}</Marks>
             </div>
           )}
           {mode !== 'tsume' && !picking && plate('bottom')}
-        </div>
-      </div>
+        </styled.div>
+      </BoardScene>
       {mode === 'lesson' && sourceMarks?.illustration && sourceMarks.at === sfen.split(' ')[0] && (
-        <div className={illustration}>
-          <div>
+        <styled.div
+          position="absolute"
+          inset="0"
+          zIndex="20"
+          display="grid"
+          placeItems="center"
+          p="4"
+          pointerEvents="none"
+          css={{ '@media (max-width: 640px)': { p: '2' } }}
+        >
+          <styled.div
+            maxW="min(100%, 760px)"
+            maxH="100%"
+            overflow="auto"
+            p="4"
+            borderRadius="lg"
+            bg="color-mix(in srgb, {colors.gofun} 96%, transparent)"
+            color="koma.ink"
+            boxShadow="lg"
+            pointerEvents="auto"
+            css={{ '@media (max-width: 640px)': { p: '3' } }}
+          >
             <SourceIllustration diagram={sourceMarks.illustration} />
-          </div>
-        </div>
+          </styled.div>
+        </styled.div>
       )}
       <BoardBanners mistake={mistake} onBack={onBack} />
       {mode === 'tsume' && <TsumePlate place="top" flipped={flipped} userSide={userSide} />}
       {mode === 'tsume' && <TsumePlate place="bottom" flipped={flipped} userSide={userSide} />}
       {phoneTask && (
-        <button className={cx('app-phone-task', phoneTaskStyle)} onClick={phoneTask.run}>
-          <span>{phoneTask.text}</span>
-          <b>{phoneTask.action} ›</b>
-        </button>
+        <styled.button
+          className="app-phone-task"
+          display="none"
+          css={{ '.app-shell[data-fs] &': { display: 'none' } }}
+          _compact={{
+            order: '4',
+            flex: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '2.5',
+            h: 'calc(2em * {lineHeights.tight} + 2 * {spacing.2.5})',
+            m: '{spacing.1.5} {spacing.2} {spacing.0.5}',
+            p: '{spacing.2.5} {spacing.3}',
+            borderRadius: 'lg',
+            bg: 'overlay',
+            color: 'fg.default',
+            fontSize: 'sm',
+            lineHeight: 'tight',
+            textAlign: 'left',
+            boxShadow: 'inset 0 0 0 1px {colors.border}',
+          }}
+          onClick={phoneTask.run}
+        >
+          <styled.span _compact={{ flex: '1', minW: '0', maxH: 'calc(2em * {lineHeights.tight})', overflowY: 'auto' }}>
+            <Marks>{phoneTask.text}</Marks>
+          </styled.span>
+          <styled.b _compact={{ flex: 'none', p: '{spacing.1.5} {spacing.2.5}', borderRadius: 'md', bg: 'accent', color: 'accent.contrast', fontSize: 'xs' }}>
+            {phoneTask.action} ›
+          </styled.b>
+        </styled.button>
       )}
       {showGameOver && <GameOverBanner spar={spar} flatView={view.flatView} />}
-      {announce && <AnnounceBadge key={announce.key} announce={announce} />}
+      {announce && !(mode === 'spar' && announce.at !== cursor) && <AnnounceBadge key={announce.key} announce={announce} />}
       {!decor.note && mode === 'tsume' && tsume && tsume.status === 'playing' && tsume.good === 0 && tsume.hint >= 1 && (
         <div className={peek({ placement: 'hint' })} role="status">
           {t('app.hintTheFirstMoveUses', { piece: firstPieceHint(tsume.problem) })}
         </div>
       )}
       {promotion && <PromotionPicker options={promotion} faces={promotionFaces} onPick={commit} onCancel={input.cancelPromotion} />}
-    </div>
+    </BoardWrap>
   )
 }

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import type { Side } from '@/utils/shogi'
 import { clockTime } from '@/utils/notation'
 import { say } from '@/utils/voice'
-import { TIME_CONTROLS, useSettings } from '@/appearance/settings'
+import { TIME_CONTROLS, type TimeControl } from '@/appearance/settings'
 
 type TimeControlSpec = (typeof TIME_CONTROLS)[keyof typeof TIME_CONTROLS]
 type ClockState = { sente: number; gote: number; byo: number; flagged: Side | null }
@@ -15,24 +15,25 @@ const freshClock = (tc: TimeControlSpec): ClockState => ({ sente: tc.main * 1000
 export function useGameClock({
   enabled,
   toMove,
-  atEnd,
+  ticking,
   moveCount,
   stopped,
   userSide,
+  timeControl: control,
 }: {
   enabled: boolean
   toMove: Side
-  atEnd: boolean
+  ticking: Side
   moveCount: number
   stopped: boolean
   userSide: Side
+  timeControl: TimeControl
 }) {
   const { t } = useTranslation()
-  const settings = useSettings()
-  const timeControl = TIME_CONTROLS[settings.timeControl] ?? TIME_CONTROLS.none
+  const timeControl = TIME_CONTROLS[control] ?? TIME_CONTROLS.none
   const clockOn = timeControl.main + timeControl.byoyomi > 0
   const [clock, setClock] = useState(() => freshClock(timeControl))
-  const running = enabled && clockOn && !stopped && atEnd && !clock.flagged && moveCount > 0
+  const running = enabled && clockOn && !stopped && !clock.flagged && moveCount > 0
   const movesSeen = useRef(moveCount)
 
   const [clockSpec, setClockSpec] = useState(timeControl)
@@ -44,15 +45,22 @@ export function useGameClock({
   useEffect(() => {
     const before = movesSeen.current
     movesSeen.current = moveCount
-    if (!enabled || !clockOn || moveCount <= before || !atEnd) return
+    if (!enabled || !clockOn || moveCount <= before || stopped) return
     const mover: Side = toMove === 'sente' ? 'gote' : 'sente'
     setClock((c) => ({ ...c, [mover]: c[mover] + (c[mover] > 0 || !timeControl.byoyomi ? timeControl.increment * 1000 : 0), byo: timeControl.byoyomi * 1000 }))
-  }, [moveCount, enabled, clockOn, atEnd, toMove, timeControl])
+  }, [moveCount, enabled, clockOn, stopped, toMove, timeControl])
+
+  const ticked = useRef(ticking)
+  useEffect(() => {
+    if (ticked.current === ticking) return
+    ticked.current = ticking
+    setClock((c) => ({ ...c, byo: timeControl.byoyomi * 1000 }))
+  }, [ticking, timeControl])
 
   useEffect(() => {
     if (!running) return
     let last = performance.now()
-    const side = toMove
+    const side = ticking
     const id = window.setInterval(() => {
       const now = performance.now()
       const dt = now - last
@@ -67,7 +75,7 @@ export function useGameClock({
       })
     }, 100)
     return () => window.clearInterval(id)
-  }, [running, toMove, timeControl])
+  }, [running, ticking, timeControl])
 
   const spoken = useRef('')
   const byoyomiCalled = useRef(false)
@@ -76,10 +84,10 @@ export function useGameClock({
     if (moveCount === 0) byoyomiCalled.current = false
   }, [moveCount])
   useEffect(() => {
-    if (!running || toMove !== userSide || clock[toMove] > 0 || !timeControl.byoyomi) return
+    if (!running || ticking !== userSide || clock[ticking] > 0 || !timeControl.byoyomi) return
     const left = Math.ceil(clock.byo / 1000)
     const gone = timeControl.byoyomi - left
-    const turn = `${toMove}|${moveCount}`
+    const turn = `${ticking}|${moveCount}`
     if (left >= timeControl.byoyomi) fresh.current = turn
     if (fresh.current !== turn) return
     const key = `${turn}|${left}`
@@ -91,19 +99,26 @@ export function useGameClock({
       byoyomiCalled.current = true
       say('秒読み', true)
     }
-  }, [running, clock, toMove, userSide, timeControl, moveCount])
+  }, [running, clock, ticking, userSide, timeControl, moveCount])
   useEffect(() => {
     if (clock.flagged === userSide) say('時間切れ', true)
   }, [clock.flagged, userSide])
 
   const face = (side: Side): ClockFace | undefined => {
     if (!enabled || !clockOn) return undefined
-    const active = running && toMove === side
+    const active = running && ticking === side
     const inByo = clock[side] <= 0 && timeControl.byoyomi > 0
-    const ms = inByo ? (toMove === side ? clock.byo : timeControl.byoyomi * 1000) : clock[side]
+    const ms = inByo ? (ticking === side ? clock.byo : timeControl.byoyomi * 1000) : clock[side]
     const total = Math.ceil(ms / 1000)
-    return { text: inByo ? t('app.byoyomi', { total }) : clockTime(total), active, low: active && total <= 10, out: clock.flagged === side }
+    const text = inByo
+      ? t('app.byoyomi', { total })
+      : timeControl.byoyomi > 0
+        ? t('app.clockPlusByoyomi', { time: clockTime(total), byoyomi: timeControl.byoyomi })
+        : clockTime(total)
+    return { text, active, low: active && total <= 10, out: clock.flagged === side }
   }
 
-  return { flagged: clock.flagged, face, reset: () => setClock(freshClock(timeControl)) }
+  const remaining = (side: Side) => clock[side] + (timeControl.byoyomi ? (ticking === side ? clock.byo : timeControl.byoyomi * 1000) : 0)
+
+  return { flagged: clock.flagged, face, remaining, spec: timeControl, reset: () => setClock(freshClock(timeControl)) }
 }

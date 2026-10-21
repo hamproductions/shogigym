@@ -34,7 +34,7 @@ import { Icon } from './icons'
 import { bookForMove, bookMovesAt } from '@/utils/book'
 import { SNAPSHOT_NAME, VIEWER_EVENT } from '@/utils/events'
 import { mistakeIsBad } from '@/utils/mistake'
-import { moveText } from '@/utils/shogi'
+import { moveText, type Side } from '@/utils/shogi'
 import { useAnalyzeGames } from '@/app/modes/analyze/useAnalyzeGames'
 import { useDrill } from '@/app/modes/drill/useDrill'
 import { useLesson } from '@/app/modes/lesson/useLesson'
@@ -43,9 +43,8 @@ import { useWatch } from '@/app/modes/view/useWatch'
 import { useTesuji } from '@/app/modes/tesuji/useTesuji'
 import { useTsume } from '@/app/modes/tsume/useTsume'
 import { SidePanels } from '@/app/panels/SidePanels'
-import { shell } from '@/app/panels/panels.styles'
-import { appShell, shellBase } from '@/app/layout.styles'
-import { Wrap } from 'styled-system/jsx'
+import { AppShell } from '@/app/layout.styles'
+import { styled, Wrap } from 'styled-system/jsx'
 import { useLineAhead } from '@/app/hooks/useLineAhead'
 import { saveMistakes } from '@/utils/mistakes'
 import { useSteadyRate } from '@/app/hooks/useSteadyRate'
@@ -54,11 +53,10 @@ import { Rail } from '@/app/rail/Rail'
 import { ORIGIN_KEY, RETURN_EVENT, store } from '@/app/modes/lesson/reading'
 import { BoardStage } from '@/app/stage/BoardStage'
 import { ModeBar, WatchOptions } from '@/app/stage/ModeBar'
-import { fsExit, stage } from '@/app/stage/stage.styles'
+import { FsExit, Stage } from '@/app/stage/stage.styles'
 import { Button } from '@/app/ui/Button'
 import { dialog } from 'styled-system/recipes'
 import { Dialog } from '@/app/ui/Dialog'
-import { dialogFlow } from '@/app/ui/dialog.styles'
 import { SegmentedField } from '@/app/ui/Segmented'
 import { isGameMode, type Confirm, type Mode, type Tab } from './types'
 
@@ -98,14 +96,6 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
   const coach = useMoveReview(session)
   const watch = useWatch(session, load, !!coach.review, pendingFurigoma)
   const evaluation = useEvaluation(session)
-  const rating = useAutoRate({
-    enabled: session.ai && session.assist && (mode === 'analyze' || mode === 'spar'),
-    sfens: session.sfens,
-    moves: game.moves,
-    allSides: mode === 'analyze',
-    userSide,
-    onScore: evaluation.recordEval,
-  })
   const drill = useDrill(session, { mistakes, setTab })
   const layout = useLayout({
     mode,
@@ -135,12 +125,22 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
     preserveAnalysis: analyze.preserveAnalysis,
     paused: pendingFurigoma,
     onOpenAnalyze: () => (layout.setDrawer(true), layout.setSheetOpen(true)),
+    onRematch: (side, drawn) => startSpar(side, drawn),
   })
-  const opponent = useOpponent(session, { lessonMode: lesson.lessonMode, halted: spar.halted })
+  const opponent = useOpponent(session, { lessonMode: lesson.lessonMode, halted: spar.halted, sparGame: spar.config, pace: spar.pace, onAiEnd: spar.endByAi })
+  const board = mode === 'spar' ? { ...session, assist: spar.assist, userTurn: atEnd ? session.userTurn : spar.over } : session
+  const rating = useAutoRate({
+    enabled: board.ai && board.assist && (mode === 'analyze' || mode === 'spar'),
+    sfens: session.sfens,
+    moves: game.moves,
+    allSides: mode === 'analyze',
+    userSide,
+    onScore: evaluation.recordEval,
+  })
   const { enterMode, resume } = useModeSwitch(slots, { session, lesson, drill, tsume, tesuji, spar, analyze, mistakes, layout, setTab })
   const restored = usePersistedSession({ session, lesson, tsume, drill, spar, slots, resume })
   useRouteMode(mode, enterMode, routeMode, routeMain, restored, lesson.leave)
-  const { announce, tesujiNote, onMoveLanded } = useAnnouncements(session)
+  const { announce, tesujiNote, onMoveLanded } = useAnnouncements(session, mode === 'spar' && !spar.over && !spar.assist)
   const flow = useFlowLanes(session, evaluation.analysis)
   const upcoming = useAutoplay(session, evaluation.best?.move)
   const bookHere = useMemo(() => bookMovesAt(sfen, nodes), [sfen, nodes])
@@ -165,7 +165,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
     tsume.resume()
   }
   const spoilerFree = lesson.hidesAnswer || drill.hidesAnswer || tsume.hidesAnswer || tesuji.hidesAnswer
-  const decor = useBoardDecor(session, {
+  const decor = useBoardDecor(board, {
     analysis: evaluation.analysis,
     showBest: evaluation.showBest,
     tab,
@@ -184,7 +184,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
     tesujiNote,
     bookLast,
   })
-  const input = useBoardInput(session, { mistakes, commit, lessonMode: lesson.lessonMode, halted: spar.halted, setNudge })
+  const input = useBoardInput(board, { mistakes, commit, lessonMode: lesson.lessonMode, halted: spar.halted, setNudge })
 
   useEffect(() => {
     if (mode !== 'view' || game.moves.length !== 0) return
@@ -265,18 +265,22 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
           }
       : null
   const autoplayAllowed = isGameMode(mode) || !!preview
-  const finished = mode === 'spar' && (session.gameOver || spar.resigned || !!spar.flagged)
+  const finished = mode === 'spar' && (session.gameOver || spar.resigned || !!spar.aiEnded || !!spar.flagged)
   const result = !finished
     ? null
-    : spar.resigned
-      ? 'resigned'
-      : spar.flagged
-        ? spar.flagged === userSide
-          ? 'time'
-          : 'win'
-        : session.toMove === userSide
-          ? 'loss'
-          : 'win'
+    : spar.aiEnded
+      ? spar.aiEnded === 'resign'
+        ? 'win'
+        : 'loss'
+      : spar.resigned
+        ? 'resigned'
+        : spar.flagged
+          ? spar.flagged === userSide
+            ? 'time'
+            : 'win'
+          : session.toMove === userSide
+            ? 'loss'
+            : 'win'
   useEffect(() => {
     if (!result) return
     analyze.saveFinished(result)
@@ -286,14 +290,28 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
     const previous = speechState.current
     speechState.current = { mode, finished: !!result || !!watch.result, restored }
     if (!previous.restored || previous.mode !== mode || previous.finished) return
-    if (!(result === 'win' || (mode === 'view' && watch.won)) || !atEnd || !game.moves.length || spar.newGameOpen || pendingFurigoma || watchSetup) return
+    if (!(result || (mode === 'view' && watch.won)) || (!result && !atEnd) || !game.moves.length || spar.newGameOpen || pendingFurigoma || watchSetup) return
     if (session.gameOver) return
     return say('ありがとうございました')
   }, [result, mode, watch.result, watch.won, restored, atEnd, game.moves.length, spar.newGameOpen, pendingFurigoma, watchSetup, session.gameOver])
-  const evalOn = session.ai && session.assist && (isGameMode(mode) || mode === 'view' || (mode === 'lesson' && !!course && lesson.lessonMode === 'study'))
+  const evalOn = board.ai && board.assist && (isGameMode(mode) || mode === 'view' || (mode === 'lesson' && !!course && lesson.lessonMode === 'study'))
   const steadyRate = useSteadyRate(evalOn && evaluation.evalSente ? evaluation.senteRate : null)
   const evalRate = evalOn ? (steadyRate ?? 0.5) : null
   const evalBar = evalRate !== null && !view.hideUi
+  const startSpar = (side: Side, isRandom?: boolean) => {
+    spar.clearFurigomaBanner()
+    spar.setDrawn(!!isRandom)
+    session.setPlaying(false)
+    if (isRandom) {
+      setFurigomaFaces(null)
+      if (three) load(InitialPositionSFEN.STANDARD, side, 'spar', null)
+      setPendingFurigoma(true)
+      if (three) say('あなたの振り歩先です', true)
+    } else {
+      load(InitialPositionSFEN.STANDARD, side, 'spar', null)
+      say('よろしくお願いします', true)
+    }
+  }
   const newGame = () => load(InitialPositionSFEN.STANDARD, userSide, mode === 'lesson' ? 'analyze' : mode, null)
   const startOver = () =>
     game.moves.length > 0
@@ -350,9 +368,15 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
   )
 
   return (
-    <SessionContext.Provider value={session}>
-      <div
-        className={`app-shell ${shellBase} ${shell} ${appShell}`}
+    <SessionContext.Provider value={board}>
+      <AppShell
+        className="app-shell"
+        _compact={{
+          '&[data-drawer-open][data-panel-side]:not([data-fs])': {
+            gridTemplateColumns: 'minmax(0, 1fr) clamp(160px, var(--panel-w), 70vw)',
+            gridTemplateRows: 'auto minmax(0, 1fr)',
+          },
+        }}
         data-fs={view.hideUi || undefined}
         data-zoned={layout.zoned || undefined}
         data-panel-hidden={(!layout.zoned && layout.panelHidden) || undefined}
@@ -374,11 +398,11 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
           onReport={isGameMode(mode) && game.moves.length > 0 ? () => (setTab('report'), layout.setPanel({ hidden: false })) : undefined}
           snapshotName={`${SNAPSHOT_NAME}-${mode}-${cursor}`}
         />
-        <section className={`app-stage ${stage}`} data-previewing={!!preview || !atEnd || (playing && mode !== 'view' && mode !== 'spar') || undefined}>
-          <button className={`app-fs-exit ${fsExit}`} onClick={() => view.setHideUi(false)} aria-label={t('app.showUi')} title={`${t('app.showUi')} (Esc)`}>
+        <Stage className="app-stage" data-previewing={!!preview || !atEnd || (playing && mode !== 'view' && mode !== 'spar') || undefined}>
+          <FsExit className="app-fs-exit" onClick={() => view.setHideUi(false)} aria-label={t('app.showUi')} title={`${t('app.showUi')} (Esc)`}>
             <Icon name="panel" size={18} />
             <span>{t('app.showUi')} (Esc)</span>
-          </button>
+          </FsExit>
           <ModeBar
             onFlip={() => session.setFlipped((v) => !v)}
             title={title}
@@ -406,8 +430,9 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
               const pawns = faces.filter(Boolean).length
               sayFurigomaResult(pawns, mode === 'view')
             }}
-            onMoveLanded={onMoveLanded}
+            onMoveLanded={(landed) => (onMoveLanded(landed), session.landed(landed))}
             evalRate={evalBar ? evalRate : null}
+            evalSlot={mode === 'spar' && board.ai && !view.hideUi}
             view={view}
             decor={decor}
             input={input}
@@ -422,7 +447,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
             announce={announce}
             onZones={layout.setZones}
           />
-        </section>
+        </Stage>
         <SidePanels
           layout={layout}
           tab={tab}
@@ -473,7 +498,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
         <Suspense fallback={null}>
           {mode === 'view' && watchSetup && (
             <Dialog label={t('watch.title')} onBackdrop={() => setWatchSetup(false)}>
-              <h2>{t('watch.title')}</h2>
+              <styled.h2 mb="2">{t('watch.title')}</styled.h2>
               <WatchOptions watch={watch} />
               <SegmentedField
                 label={t('watch.order')}
@@ -510,20 +535,11 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
           {spar.newGameOpen && (
             <NewGameDialog
               side={userSide}
+              preset={spar.newGamePreset}
               onClose={() => spar.setNewGameOpen(false)}
               onStart={(side, isRandom) => {
                 spar.setNewGameOpen(false)
-                spar.clearFurigomaBanner()
-                session.setPlaying(false)
-                if (isRandom) {
-                  setFurigomaFaces(null)
-                  if (three) load(InitialPositionSFEN.STANDARD, side, 'spar', null)
-                  setPendingFurigoma(true)
-                  if (three) say('あなたの振り歩先です', true)
-                } else {
-                  load(InitialPositionSFEN.STANDARD, side, 'spar', null)
-                  say('よろしくお願いします', true)
-                }
+                startSpar(side, isRandom)
               }}
             />
           )}
@@ -555,11 +571,8 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
               }}
               style={{ position: 'fixed', inset: 0, zIndex: 100, pointerEvents: 'auto', cursor: furigomaFaces ? 'pointer' : 'default' }}
             >
-              <div
-                className={`${dialog().content} ${dialogFlow} app-dialog`}
-                style={{ position: 'absolute', bottom: 24, left: '50%', transform: 'translateX(-50%)' }}
-              >
-                <p role="status">
+              <div className={`${dialog().content} app-dialog`} style={{ position: 'absolute', bottom: 24, left: '50%', transform: 'translateX(-50%)' }}>
+                <styled.p mt="0" mx="0" mb="4" role="status">
                   {furigomaFaces
                     ? mode === 'view'
                       ? t('watch.furigomaResult', {
@@ -573,7 +586,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
                     : settings.lang === 'ja'
                       ? '振り駒を行います'
                       : 'Tossing five pawns…'}
-                </p>
+                </styled.p>
                 <Wrap gap="2" align="center" justify="flex-end" mt="4">
                   <Button
                     onClick={(event) => {
@@ -634,13 +647,16 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
                 lesson.setPickerSetup('lesson-rules-game')
               })}
               onLearnBasics={welcomeDone(() => firstLesson && lesson.open(firstLesson, 'study'))}
-              onPlayAi={welcomeDone(() => load(InitialPositionSFEN.STANDARD, 'sente', 'spar', null))}
+              onPlayAi={welcomeDone(() => {
+                load(InitialPositionSFEN.STANDARD, 'sente', 'spar', null)
+                spar.setNewGameOpen(true, { opponent: levels.level === 'new' ? 'beginner' : 'club' })
+              })}
               onTsume={welcomeDone(() => enterMode('tsume'))}
               onLookAround={welcomeDone()}
             />
           )}
         </Suspense>
-      </div>
+      </AppShell>
     </SessionContext.Provider>
   )
 }

@@ -38,25 +38,8 @@ import type { Level } from '@/app/types'
 import { Dialog, DialogHeader } from '@/app/ui/Dialog'
 import { SegmentedField, SettingRow } from '@/app/ui/Segmented'
 import { Tabs } from '@/app/ui/Tabs'
-import { cx } from '@/app/ui/cx'
 import { VERSION } from '@/utils/version'
-import {
-  colorSwatch,
-  finishCoating,
-  finishRender,
-  finishSection,
-  glyphSample,
-  optionButton,
-  optionGrid,
-  optionGroup,
-  optionPreview,
-  piecePreview,
-  preparedGlyph,
-  previewFill,
-  previewStatus,
-  sampleFlip,
-  sampleTile,
-} from './previews.styles'
+import { GlyphFace, GuideMarks, OptionButton, OptionGrid, OptionPreview, PreviewCanvas, PreviewImage } from './previews.styles'
 import { Slider, Text } from '@/components/ui'
 
 type SettingsTab = 'general' | 'board' | 'pieces' | 'play' | 'about'
@@ -64,12 +47,28 @@ const FONTS = Object.keys(PIECE_FONTS) as PieceFont[]
 const BOARD_STYLE_KEYS = Object.keys(BOARD_STYLES) as BoardStyle[]
 const asset = (group: string, key: string) => `${import.meta.env.BASE_URL}previews/${group}/${key}.webp`
 
+const ColorSwatch = styled('span', { base: { w: '100%', h: '100%', borderRadius: 'sm' } })
+
+const FlipFace = styled('img', {
+  base: { position: 'absolute', inset: '-18%', w: '136%', h: '136%', maxW: 'none', objectFit: 'contain', backfaceVisibility: 'hidden' },
+})
+
+const PreparedGlyph = styled('img', {
+  base: {
+    w: 'var(--prepared-size, 82px)',
+    h: 'var(--prepared-size, 82px)',
+    maxW: 'var(--prepared-max, none)',
+    aspectRatio: '1',
+    objectFit: 'contain',
+  },
+})
+
 function SurfaceSample({ piece }: { piece: PieceAppearance }) {
   const ref = useRef<HTMLCanvasElement>(null)
   useEffect(() => {
     ref.current?.getContext('2d')?.drawImage(pieceSurface(42, piece), 0, 0)
   }, [piece])
-  return <canvas ref={ref} width={256} height={256} className={previewFill} />
+  return <PreviewCanvas ref={ref} htmlWidth={256} htmlHeight={256} />
 }
 
 function GlyphSample({
@@ -113,26 +112,38 @@ function GlyphSample({
       </svg>
     )
   }
-  const guideStyle = glyphSample({ guide: guide === 'none' ? 'none' : guide === 'movement' ? 'marks' : 'strip' })
+  const marks = guide === 'movement'
   if (set !== 'letters' && set !== 'broadcast' && guide === 'none')
-    return <img className={preparedGlyph} data-prepared src={pieceGlyphUrl(set, code)} alt={faceText(type, Color.BLACK, style)} />
+    return <PreparedGlyph data-prepared src={pieceGlyphUrl(set, code)} alt={faceText(type, Color.BLACK, style)} />
   if (set !== 'letters' && set !== 'broadcast')
     return (
-      <span className={guideStyle} data-glyph-sample>
-        <img data-prepared src={pieceGlyphUrl(set, code)} alt={faceText(type, Color.BLACK, style)} />
+      <GlyphFace marks={marks} data-glyph-sample>
+        <styled.img
+          position={marks ? 'relative' : undefined}
+          zIndex={marks ? '1' : undefined}
+          w={marks ? '82px' : undefined}
+          h={marks ? '82px' : undefined}
+          aspectRatio={marks ? '1' : undefined}
+          objectFit={marks ? 'contain' : undefined}
+          data-prepared
+          src={pieceGlyphUrl(set, code)}
+          alt={faceText(type, Color.BLACK, style)}
+        />
         {guide !== 'none' && (
-          <img src={`${import.meta.env.BASE_URL}pieces/prepared/guides/${guide === 'movement' ? code : sampleGuide}.${guide}.png?v=16`} alt="" />
+          <GuideMarks src={`${import.meta.env.BASE_URL}pieces/prepared/guides/${guide === 'movement' ? code : sampleGuide}.${guide}.png?v=16`} alt="" />
         )}
-      </span>
+      </GlyphFace>
     )
   const spec = PIECE_FONTS[font]
   return (
-    <span className={guideStyle} data-glyph-sample style={{ fontFamily: spec.family, fontWeight: spec.weight, fontSize: style === 'two' ? 32 : undefined }}>
-      <span>{faceText(type, Color.BLACK, style)}</span>
+    <GlyphFace marks={marks} data-glyph-sample style={{ fontFamily: spec.family, fontWeight: spec.weight, fontSize: style === 'two' ? 32 : undefined }}>
+      <styled.span position={marks ? 'relative' : undefined} zIndex={marks ? '1' : undefined}>
+        {faceText(type, Color.BLACK, style)}
+      </styled.span>
       {guide !== 'none' && (
-        <img src={`${import.meta.env.BASE_URL}pieces/prepared/guides/${guide === 'movement' ? code : sampleGuide}.${guide}.png?v=16`} alt="" />
+        <GuideMarks src={`${import.meta.env.BASE_URL}pieces/prepared/guides/${guide === 'movement' ? code : sampleGuide}.${guide}.png?v=16`} alt="" />
       )}
-    </span>
+    </GlyphFace>
   )
 }
 
@@ -191,17 +202,43 @@ function StickyPiecePreview() {
   const flip = (type: PieceType, on: boolean) =>
     setFlipped((prev) => (on ? (prev.includes(type) ? prev : [...prev, type]) : prev.filter((item) => item !== type)))
   return (
-    <div className={piecePreview} aria-label={t('settings.pieceSetPreview')} aria-busy={loading}>
+    <styled.div
+      position="sticky"
+      top="calc(-1 * {spacing.2})"
+      zIndex="2"
+      display="grid"
+      gridTemplateColumns="repeat(8, minmax(0, 1fr))"
+      gridTemplateRows="auto"
+      alignItems="center"
+      gap="1"
+      p="2"
+      bg="panel"
+      borderBottom="1px solid {colors.border}"
+      css={{ '&:has(> span:only-child)': { minH: '110px', placeItems: 'center' } }}
+      aria-label={t('settings.pieceSetPreview')}
+      aria-busy={loading}
+    >
       {images.size > 0 &&
         SAMPLE_TYPES.map((type) => {
           const promoted: PreviewFace = type === PieceType.KING ? 'GY' : promotedPieceType(type)
           const canFlip = promoted !== type
           const on = flipped.includes(type)
           return (
-            <button
+            <styled.button
               key={type}
               type="button"
-              className={sampleTile}
+              flex="1 0 76px"
+              w="100%"
+              maxW="110px"
+              h="auto"
+              minW="0"
+              aspectRatio="0.85"
+              border="0"
+              p="0"
+              bg="transparent"
+              perspective="500px"
+              cursor="pointer"
+              _disabled={{ opacity: '1', cursor: 'default' }}
               disabled={!canFlip}
               aria-label={faceText(type, Color.BLACK, st.pieceStyle)}
               aria-pressed={canFlip ? on : undefined}
@@ -211,19 +248,28 @@ function StickyPiecePreview() {
               onBlur={() => flip(type, false)}
               onClick={() => flip(type, !on)}
             >
-              <span className={sampleFlip} data-on={on || undefined}>
-                {images.has(type) && <img src={images.get(type)} alt="" />}
-                {canFlip && images.has(promoted) && <img data-back src={images.get(promoted)} alt="" />}
-              </span>
-            </button>
+              <styled.span
+                position="relative"
+                display="block"
+                w="100%"
+                h="100%"
+                transformStyle="preserve-3d"
+                transition="transform 0.35s ease"
+                css={{ '&[data-on]': { transform: 'rotateX(180deg)' } }}
+                data-on={on || undefined}
+              >
+                {images.has(type) && <FlipFace src={images.get(type)} alt="" />}
+                {canFlip && images.has(promoted) && <FlipFace data-back transform="rotateX(180deg)" src={images.get(promoted)} alt="" />}
+              </styled.span>
+            </styled.button>
           )
         })}
       {(loading || error) && (
-        <span className={previewStatus} role="status">
+        <styled.span gridColumn="1 / -1" fontSize="xs" color="fg.muted" css={{ '&:only-child': { p: '3' } }} role="status">
           {error ?? t('settings.renderingPreview')}
-        </span>
+        </styled.span>
       )}
-    </div>
+    </styled.div>
   )
 }
 
@@ -249,18 +295,18 @@ function OptionGroup({
         ? 'type'
         : 'plain'
   return (
-    <section className={optionGroup}>
-      <Text tone="muted" size="sm">
+    <section>
+      <Text tone="muted" size="sm" mt="3" mx="0" mb="2">
         {label}
       </Text>
-      <div className={optionGrid({ kind })}>
+      <OptionGrid kind={kind}>
         {options.map((option) => (
-          <button type="button" key={option.key} className={optionButton({ kind })} aria-pressed={value === option.key} onClick={() => onChange(option.key)}>
-            {option.preview && <span className={optionPreview({ kind })}>{option.preview}</span>}
+          <OptionButton type="button" key={option.key} kind={kind} aria-pressed={value === option.key} onClick={() => onChange(option.key)}>
+            {option.preview && <OptionPreview kind={kind}>{option.preview}</OptionPreview>}
             <span>{option.label}</span>
-          </button>
+          </OptionButton>
         ))}
-      </div>
+      </OptionGrid>
     </section>
   )
 }
@@ -288,7 +334,7 @@ function FinishSection({ finish }: { finish: PieceFinish }) {
   }).join(' ')
   const filled = finish === 'horiume' || finish === 'moriage'
   return (
-    <svg className={finishSection} viewBox="0 0 120 60" role="img" aria-label={t('settings.finishCrossSection', { finish: spec.label })}>
+    <styled.svg flex="none" w="100%" h="50px" viewBox="0 0 120 60" role="img" aria-label={t('settings.finishCrossSection', { finish: spec.label })}>
       <rect width="120" height="60" fill="#f7f1df" />
       <path d="M4 25H116V56H4Z" fill="#ebc574" />
       {filled && <path d="M40 25H80L60 44Z" fill="#15110d" />}
@@ -302,7 +348,7 @@ function FinishSection({ finish }: { finish: PieceFinish }) {
       ) : (
         <polygon points={`40,25 ${profile} 80,25`} fill="#15110d" />
       )}
-    </svg>
+    </styled.svg>
   )
 }
 
@@ -369,11 +415,17 @@ function FinishOptions() {
           label: PIECE_FINISHES[key].label,
           preview: (
             <>
-              <span className={finishRender}>
-                {images ? <img src={images.get(`finish:${key}`)?.[0]} alt="" /> : <span role="status">{error ?? t('settings.renderingPreview')}</span>}
-              </span>
+              <styled.span display="grid" placeItems="center" w="100%" h="140px" overflow="hidden">
+                {images ? (
+                  <styled.img w="100%" h="140px" objectFit="cover" src={images.get(`finish:${key}`)?.[0]} alt="" />
+                ) : (
+                  <span role="status">{error ?? t('settings.renderingPreview')}</span>
+                )}
+              </styled.span>
               <FinishSection finish={key} />
-              <span className={finishCoating}>{PIECE_FINISHES[key].coating === 'lacquer' ? t('settings.lacquer') : t('settings.paint')}</span>
+              <styled.span fontSize="xs" color="fg.muted">
+                {PIECE_FINISHES[key].coating === 'lacquer' ? t('settings.lacquer') : t('settings.paint')}
+              </styled.span>
             </>
           ),
         }))}
@@ -537,7 +589,7 @@ function DesignOptions({ customFace = false }: { customFace?: boolean } = {}) {
               options={(['lines', 'dots', 'movement'] as const).map((key) => ({
                 key,
                 label: t(key === 'dots' ? 'settings.guideDots' : key === 'movement' ? 'settings.guideMarks' : 'settings.guideLines'),
-                preview: <img className={preparedGlyph} data-prepared src={`${import.meta.env.BASE_URL}pieces/prepared/guides/KI.${key}.png?v=16`} alt="" />,
+                preview: <PreparedGlyph data-prepared src={`${import.meta.env.BASE_URL}pieces/prepared/guides/KI.${key}.png?v=16`} alt="" />,
               }))}
               value={st.pieceGuide}
               onChange={(key) => setSettings({ pieceGuide: key as typeof st.pieceGuide })}
@@ -550,7 +602,7 @@ function DesignOptions({ customFace = false }: { customFace?: boolean } = {}) {
         options={Object.entries(PIECE_COLORS).map(([key, spec]) => ({
           key,
           label: spec.label,
-          preview: <span className={colorSwatch} style={{ background: `rgb(${(spec.tone ?? PIECE_MATERIALS[st.pieceMaterial].tone).join(',')})` }} />,
+          preview: <ColorSwatch style={{ background: `rgb(${(spec.tone ?? PIECE_MATERIALS[st.pieceMaterial].tone).join(',')})` }} />,
         }))}
         value={st.pieceColor}
         onChange={(key) => setSettings({ pieceColor: key as typeof st.pieceColor })}
@@ -561,8 +613,7 @@ function DesignOptions({ customFace = false }: { customFace?: boolean } = {}) {
           key,
           label: spec.label,
           preview: (
-            <span
-              className={colorSwatch}
+            <ColorSwatch
               style={{
                 background:
                   key === 'glass'
@@ -614,7 +665,7 @@ function BoardOptions() {
       options={BOARD_STYLE_KEYS.map((key) => ({
         key,
         label: BOARD_STYLES[key].label,
-        preview: <img className={previewFill} src={asset('boards', key)} alt="" />,
+        preview: <PreviewImage src={asset('boards', key)} alt="" />,
       }))}
       value={st.boardStyle}
       onChange={(key) => setSettings({ boardStyle: key as BoardStyle })}
@@ -648,19 +699,15 @@ export function SettingsDialog({
   return (
     <Dialog
       label={t('settings.settings')}
-      className={cx(
-        'app-settings',
-        css({
-          display: 'flex',
-          flexDirection: 'column',
-          w: 'min(720px, 100%)',
-          maxH: 'min(620px, 100%)',
-          p: '0',
-          overflow: 'hidden',
-          _tight: { maxH: '100%' },
-          '&:has([data-finish-options])': { w: 'min(1080px, 100%)' },
-        }),
-      )}
+      className="app-settings"
+      display="flex"
+      flexDirection="column"
+      w="min(720px, 100%)"
+      maxH="min(620px, 100%)"
+      p="0"
+      overflow="hidden"
+      _tight={{ maxH: '100%' }}
+      css={{ '&:has([data-finish-options])': { w: 'min(1080px, 100%)' } }}
       positionerClassName={css({ alignItems: 'flex-start', pt: 'max({spacing.4}, 8vh)' })}
       onBackdrop={onClose}
     >
@@ -668,29 +715,14 @@ export function SettingsDialog({
         title={t('settings.settings')}
         closeLabel={t('settings.closeSettings')}
         closeTitle={t('settings.closeEsc')}
-        className={css({ pt: '3', pr: '3', pb: '1', pl: '5' })}
+        pt="3"
+        pr="3"
+        pb="1"
+        pl="5"
         onClose={onClose}
       />
-      <Tabs
-        items={availableTabs ? tabs.filter(({ id }) => availableTabs.includes(id)) : tabs}
-        value={tab}
-        onChange={setTab}
-        className={css({ flex: 'none', px: '4' })}
-      />
-      <Box
-        flex="1"
-        minH="0"
-        overflowY="auto"
-        pt="2"
-        px="5"
-        pb="5"
-        css={{
-          '& [data-setting] > :last-child': { justifySelf: 'end', _phone: { justifySelf: 'start' } },
-          '& [data-setting] > .app-seg': { justifyContent: 'flex-end', _phone: { justifyContent: 'flex-start' } },
-          '& > * + [data-setting]': { borderTop: '1px solid {colors.border}' },
-          '& [data-setting] > [data-scope=slider][data-part=root]': { _phone: { w: '100%', justifySelf: 'stretch' } },
-        }}
-      >
+      <Tabs items={availableTabs ? tabs.filter(({ id }) => availableTabs.includes(id)) : tabs} value={tab} onChange={setTab} flex="none" px="4" />
+      <Box flex="1" minH="0" overflowY="auto" pt="2" px="5" pb="5">
         {tab === 'general' && (
           <>
             <SegmentedField<Lang>
@@ -735,6 +767,8 @@ export function SettingsDialog({
             <SettingRow label={t('settings.volume')}>
               <Slider.Root
                 w="min(220px, 100%)"
+                justifySelf="end"
+                _phone={{ w: '100%', justifySelf: 'stretch' }}
                 min={0}
                 max={1}
                 step={0.05}

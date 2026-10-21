@@ -11,7 +11,8 @@ import { TESUJI_DRILLS, inTesujiFilter, tesujiStats } from '@/app/tesujiDrills'
 import type { TesujiState, TesujiTrainer } from './useTesuji'
 import { Button } from '@/app/ui/Button'
 import { Card } from '@/app/ui/Card'
-import { backLink, muted, note, practice, result, taskText } from '@/app/panels/panels.styles'
+import { BackLink, Muted, NarrowColumn, Note, Result, TaskText } from '@/app/panels/panels.styles'
+import { Marks } from '@/app/ui/SideMark'
 
 function pieceHint(sfen: string, usi: string, t: TFunction) {
   const move = positionOf(sfen).createMoveByUSI(usi)
@@ -28,60 +29,66 @@ export function TesujiPane({ trainer, drill, replaying, onBack }: { trainer: Tes
   const { sfen } = drill.item
   const side = sideMark(positionOf(sfen).color)
   return (
-    <div className={practice}>
-      {stored(ORIGIN_KEY) && (
-        <button className={backLink} onClick={returnToGame}>
-          ‹ {t('review.backToGame')}
-        </button>
-      )}
-      <p className={taskText}>
-        {t('tesuji.toMoveFindThe', { side })}
+    <NarrowColumn>
+      {stored(ORIGIN_KEY) && <BackLink onClick={returnToGame}>‹ {t('review.backToGame')}</BackLink>}
+      <TaskText css={{ '* + &': { mt: '3' } }}>
+        <Marks>{t('tesuji.toMoveFindThe', { side })}</Marks>
         {drill.filter !== 'all' || drill.hint > 0 || drill.status !== 'asking' ? (
           <strong>{drill.filter === 'all' ? drill.item.tesuji : drill.filter}</strong>
         ) : (
           t('tesuji.tesuji')
         )}
         {t('tesuji.findTheEnd')}
-      </p>
+      </TaskText>
       {drill.status === 'asking' && drill.wrong && (
-        <p className={result({ tone: 'wrong' })}>
-          {drill.hint > 0
-            ? t('tesuji.isNotItLookAgain', { move: moveText(sfen, drill.wrong) })
-            : t('tesuji.isNotItLookAgain2', { move: moveText(sfen, drill.wrong) })}
-        </p>
+        <Result tone="wrong" mt="3">
+          <Marks>
+            {drill.hint > 0
+              ? t('tesuji.isNotItLookAgain', { move: moveText(sfen, drill.wrong) })
+              : t('tesuji.isNotItLookAgain2', { move: moveText(sfen, drill.wrong) })}
+          </Marks>
+        </Result>
       )}
       {drill.status === 'asking' && drill.hint > 0 && (
-        <div className={note()}>
+        <Note as="div" mt="3">
           <p>
-            {t('tesuji.hintIdea', { tesuji: drill.item.tesuji, explain: lang === 'ja' ? (drill.item.explainJa ?? drill.item.explain) : drill.item.explain })}
+            <Marks>
+              {t('tesuji.hintIdea', { tesuji: drill.item.tesuji, explain: lang === 'ja' ? (drill.item.explainJa ?? drill.item.explain) : drill.item.explain })}
+            </Marks>
           </p>
-          {drill.hint > 1 && <p>{pieceHint(sfen, drill.item.answer, t)}</p>}
-        </div>
+          {drill.hint > 1 && (
+            <p>
+              <Marks>{pieceHint(sfen, drill.item.answer, t)}</Marks>
+            </p>
+          )}
+        </Note>
       )}
       {drill.status !== 'asking' && (
-        <Card tone={drill.status === 'right' ? 'good' : null}>
+        <Card tone={drill.status === 'right' ? 'good' : null} mt="3">
           <strong>
             {drill.status === 'right' ? '✓ ' : ''}
-            {moveText(sfen, drill.item.answer)}: {drill.item.tesuji} {lang !== 'ja' && <span className={muted}>({drill.item.en})</span>}
+            <Marks>{`${moveText(sfen, drill.item.answer)}: ${drill.item.tesuji}`}</Marks> {lang !== 'ja' && <Muted as="span">({drill.item.en})</Muted>}
           </strong>
-          <p>{lang === 'ja' ? (drill.item.explainJa ?? drill.item.explain) : drill.item.explain}</p>
-          {drill.item.note && <p className={note()}>{drill.item.note}</p>}
-          <p className={muted}>{t('tesuji.from', { from: drill.item.from })}</p>
+          <p>
+            <Marks>{lang === 'ja' ? (drill.item.explainJa ?? drill.item.explain) : drill.item.explain}</Marks>
+          </p>
+          {drill.item.note && <Note>{drill.item.note}</Note>}
+          <Muted>{t('tesuji.from', { from: drill.item.from })}</Muted>
         </Card>
       )}
       {replaying ? (
-        <Wrap gap="2" align="center" _narrow={{ order: '-1' }}>
+        <Wrap gap="2" align="center" mt="3" _narrow={{ order: '-1' }}>
           <Button variant="primary" onClick={onBack}>
             {t('app.goBackAndTryAgain')}
           </Button>
         </Wrap>
       ) : (
-        <Wrap gap="2" align="center" _narrow={{ order: '-1' }}>
+        <Wrap gap="2" align="center" mt="3" _narrow={{ order: '-1' }}>
           {drill.status === 'asking' && drill.hint < 2 && <Button onClick={trainer.hint}>{drill.hint === 0 ? t('tesuji.hint') : t('review.moreHint')}</Button>}
           {drill.status === 'asking' && <Button onClick={trainer.reveal}>{t('tesuji.showAnswer')}</Button>}
         </Wrap>
       )}
-      <p className={muted}>{t('tesuji.solvedFirstTryOf', { value: pool.filter((d) => stats.solved.includes(d.id)).length, poolCount: pool.length })}</p>
-    </div>
+      <Muted mt="3">{t('tesuji.solvedFirstTryOf', { value: pool.filter((d) => stats.solved.includes(d.id)).length, poolCount: pool.length })}</Muted>
+    </NarrowColumn>
   )
 }

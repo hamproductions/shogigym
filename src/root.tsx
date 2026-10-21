@@ -2,7 +2,10 @@ import { LocaleProvider } from '@ark-ui/react/locale'
 import { useEffect, useState, type ReactNode } from 'react'
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, isRouteErrorResponse, useLocation, useRouteError } from 'react-router'
 import '@/styles/panda.css'
-import { crashCard, crashReset, crashScreen } from '@/app/crash.styles'
+import { styled } from 'styled-system/jsx'
+import { NotFound } from './routes/not-found'
+import { StatusPage } from './routes/StatusPage'
+import { StatusDetails, StatusSummary, StatusText, statusAction, useDocumentEnglish } from './routes/status'
 
 const base = import.meta.env.BASE_URL
 
@@ -63,7 +66,7 @@ export default function Root() {
   useEffect(() => {
     let cancelled = false
     let unsubscribe: (() => void) | undefined
-    void import('@/utils/i18n').then(({ default: i18n }) => {
+    void import('@/utils/i18n').then(({ default: i18n, clientLang }) => {
       if (cancelled) return
       const update = (language: string) => {
         document.documentElement.lang = language
@@ -71,6 +74,7 @@ export default function Root() {
       }
       update(i18n.language)
       i18n.on('languageChanged', update)
+      void i18n.changeLanguage(clientLang())
       unsubscribe = () => {
         i18n.off('languageChanged', update)
       }
@@ -97,9 +101,9 @@ export default function Root() {
 
 export function ErrorBoundary() {
   const error = useRouteError()
+  const en = useDocumentEnglish()
+  if (isRouteErrorResponse(error) && error.status === 404) return <NotFound />
   const message = isRouteErrorResponse(error) ? `${error.status} ${error.statusText}` : error instanceof Error ? error.message : String(error)
-  const [en, setEn] = useState(false)
-  useEffect(() => setEn(document.documentElement.lang.startsWith('en')), [])
   const reset = () => {
     try {
       localStorage.removeItem('joseki-practice:session:v2')
@@ -109,28 +113,28 @@ export function ErrorBoundary() {
     location.reload()
   }
   return (
-    <main className={crashScreen}>
-      <section className={crashCard}>
-        <img src={`${base}favicon.svg`} width="56" height="56" alt="" />
-        <h1>{en ? 'The game was interrupted' : '対局が中断されました'}</h1>
-        <p>{en ? 'Reload to return to your saved game.' : '再読み込みして、保存された対局に戻れます。'}</p>
-        <button onClick={() => location.reload()}>{en ? 'Reload' : '再読み込み'}</button>
-        <details>
-          <summary>{en ? 'Recovery options' : '復旧オプション'}</summary>
-          <p>
-            {en
-              ? 'If reloading does not help, reset the open game. Your settings and saved records remain.'
-              : '再読み込みで復旧しない場合は、開いている対局をリセットできます。設定と保存済みの棋譜は残ります。'}
-          </p>
-          <button className={crashReset} onClick={reset}>
-            {en ? 'Reset the open game' : '開いている対局をリセット'}
-          </button>
-        </details>
-        <details>
-          <summary>{en ? 'Error details' : 'エラーの詳細'}</summary>
-          <pre>{message}</pre>
-        </details>
-      </section>
-    </main>
+    <StatusPage title={en ? 'The game was interrupted' : '対局が中断されました'}>
+      <StatusText>{en ? 'Reload to return to your saved game.' : '再読み込みして、保存された対局に戻れます。'}</StatusText>
+      <styled.button {...statusAction} bg="accent" color="accent.contrast" onClick={() => location.reload()}>
+        {en ? 'Reload' : '再読み込み'}
+      </styled.button>
+      <StatusDetails>
+        <StatusSummary>{en ? 'Recovery options' : '復旧オプション'}</StatusSummary>
+        <StatusText mt="3">
+          {en
+            ? 'If reloading does not help, reset the open game. Your settings and saved records remain.'
+            : '再読み込みで復旧しない場合は、開いている対局をリセットできます。設定と保存済みの棋譜は残ります。'}
+        </StatusText>
+        <styled.button {...statusAction} bg="surface.2" color="fg.muted" onClick={reset}>
+          {en ? 'Reset the open game' : '開いている対局をリセット'}
+        </styled.button>
+      </StatusDetails>
+      <StatusDetails>
+        <StatusSummary>{en ? 'Error details' : 'エラーの詳細'}</StatusSummary>
+        <styled.pre mt="3" whiteSpace="pre-wrap" overflowWrap="anywhere" fontSize="xs">
+          {message}
+        </styled.pre>
+      </StatusDetails>
+    </StatusPage>
   )
 }

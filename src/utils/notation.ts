@@ -4,6 +4,14 @@ import type { Score } from './engine'
 
 export const sideMark = (side: Side | Color) => (side === 'sente' || side === Color.BLACK ? '☗' : '☖')
 
+/** Native tooltips cannot turn a glyph with the board, so they name the sides in words. */
+export const spellMarks = (text: string, lang: string) =>
+  text.replace(
+    /([☗☖])(\s?)/g,
+    (_, mark: string, space: string) =>
+      `${mark === '☗' ? (lang === 'ja' ? '先手' : 'Sente') : lang === 'ja' ? '後手' : 'Gote'}${space || (lang === 'ja' ? '' : ' ')}`,
+  )
+
 export const rankKanji = (rank: number): string => {
   const digits = '一二三四五六七八九'
   if (rank < 10) return digits[rank - 1]

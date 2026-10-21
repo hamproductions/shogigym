@@ -1,10 +1,14 @@
 import { Fragment } from 'react'
 import { token } from 'styled-system/tokens'
+import { cva } from 'styled-system/css'
+import { styled } from 'styled-system/jsx'
 import { useTranslation } from 'react-i18next'
 import type { CropPanel, SourceDiagram } from '@/utils/curriculum'
 import { rankKanji } from '@/utils/notation'
-import { muted } from '@/app/panels/panels.styles'
-import { crop, cropChoice, cropPanel, cropPiece } from './lesson.styles'
+import { cx as classes } from '@/app/ui/cx'
+import { SvgCircle, SvgLine, SvgPath, SvgRect, SvgText } from '@/app/ui/Svg'
+import { Muted } from '@/app/panels/panels.styles'
+import { Caption, Crop } from './lesson.styles'
 
 const CELL = 40
 const GLYPH: Record<string, string> = {
@@ -26,14 +30,29 @@ const GLYPH: Record<string, string> = {
 const ARROW: Record<string, string> = { blue: token.var('colors.ai.600'), yellow: token.var('colors.kin.600'), pink: '#c4442a' }
 const KOMA = 'M0,-17 L11,-12 L14,17 L-14,17 L-11,-12 Z'
 
+const komaGlyph = cva({
+  base: { fill: 'koma.ink', fontFamily: 'mincho', fontSize: '17px', fontWeight: '800', textAnchor: 'middle' },
+  variants: { promoted: { false: {}, true: { fill: 'koma.red' } } },
+  defaultVariants: { promoted: false },
+})
+const GridLine = styled('line', { base: { stroke: '#3a322a', strokeWidth: '1' } })
+const CoordText = styled('text', { base: { fill: '#62574a', fontSize: '11px', textAnchor: 'middle' } }, { forwardProps: ['x', 'y'] as string[] })
+const DashedArrow = styled('line', { base: { strokeWidth: '2', strokeLinecap: 'round', strokeDasharray: '5 4' } }, { forwardProps: ['markerEnd'] as string[] })
+
 function Koma({ code, x, y, ghost }: { code: string; x: number; y: number; ghost?: boolean }) {
   const gote = code.replace('+', '') !== code.replace('+', '').toUpperCase()
   const key = code.startsWith('+') ? `+${code[1].toUpperCase()}` : code.toUpperCase()
   return (
     <g transform={`translate(${x} ${y}) rotate(${gote ? 180 : 0})`} className={ghost ? 'ghost' : 'koma'}>
-      <path d={KOMA} />
+      <SvgPath
+        d={KOMA}
+        fill={ghost ? 'none' : 'koma.light'}
+        stroke={ghost ? 'ai.600' : '#a07a3c'}
+        strokeWidth={ghost ? '1.5' : '1'}
+        strokeDasharray={ghost ? '3 3' : undefined}
+      />
       {!ghost && (
-        <text y="6" className={code.startsWith('+') ? 'promoted' : undefined}>
+        <text y="6" className={classes(code.startsWith('+') && 'promoted', komaGlyph({ promoted: code.startsWith('+') }))}>
           {GLYPH[key] ?? ''}
         </text>
       )}
@@ -55,48 +74,68 @@ function Panel({ panel, lang }: { panel: CropPanel; lang: string }) {
   const label = panel.label ? (lang === 'ja' ? panel.label.ja : panel.label.en) : ''
   const name = label || (lang === 'ja' ? '原図の部分図' : 'Source board detail')
   return (
-    <figure className={cropPanel({ verdict: panel.verdict ?? 'none' })}>
-      <svg viewBox={`0 0 ${width} ${height}`} style={{ width: width * (panel.w > 5 ? 1.15 : 1.7) }} role="img" aria-label={name}>
-        {panel.zone !== undefined && <rect className="zone" x={ox} y={oy} width={panel.w * CELL} height={panel.zone * CELL} />}
+    <styled.figure m="0" textAlign="center" css={{ '@media (max-width: 640px)': { flex: '1 1 0', minW: '0' } }}>
+      <styled.svg
+        display="block"
+        maxW="100%"
+        h="auto"
+        maxH="52vh"
+        m="0 auto"
+        css={{ '@media (max-width: 640px)': { maxH: '34vh' } }}
+        viewBox={`0 0 ${width} ${height}`}
+        style={{ width: width * (panel.w > 5 ? 1.15 : 1.7) }}
+        role="img"
+        aria-label={name}
+      >
+        {panel.zone !== undefined && <SvgRect className="zone" fill="#e4dfd6" x={ox} y={oy} width={panel.w * CELL} height={panel.zone * CELL} />}
         {rows.map((row, r) =>
           row.map((token, c) => {
             const marks = token.split(':')[1] ?? ''
             return (
               <Fragment key={`${r}-${c}`}>
-                {marks.includes('h') && <rect className="hl" x={ox + c * CELL} y={oy + r * CELL} width={CELL} height={CELL} />}
-                {marks.includes('Y') && <rect className="hl-y" x={ox + c * CELL} y={oy + r * CELL} width={CELL} height={CELL} />}
+                {marks.includes('h') && <SvgRect className="hl" fill="#c9c9f5" x={ox + c * CELL} y={oy + r * CELL} width={CELL} height={CELL} />}
+                {marks.includes('Y') && <SvgRect className="hl-y" fill="#ece28a" x={ox + c * CELL} y={oy + r * CELL} width={CELL} height={CELL} />}
               </Fragment>
             )
           }),
         )}
         {Array.from({ length: panel.w + 1 }, (_, i) => (
-          <line key={`v${i}`} className="grid" x1={ox + i * CELL} y1={oy} x2={ox + i * CELL} y2={oy + panel.h * CELL} />
+          <GridLine key={`v${i}`} className="grid" x1={ox + i * CELL} y1={oy} x2={ox + i * CELL} y2={oy + panel.h * CELL} />
         ))}
         {Array.from({ length: panel.h + 1 }, (_, i) => (
-          <line key={`h${i}`} className="grid" x1={ox} y1={oy + i * CELL} x2={ox + panel.w * CELL} y2={oy + i * CELL} />
+          <GridLine key={`h${i}`} className="grid" x1={ox} y1={oy + i * CELL} x2={ox + panel.w * CELL} y2={oy + i * CELL} />
         ))}
         {panel.edges?.map((edge) => {
           const x2 = ox + panel.w * CELL
           const y2 = oy + panel.h * CELL
           const [a, b, c, d] = edge === 'top' ? [ox, oy, x2, oy] : edge === 'bottom' ? [ox, y2, x2, y2] : edge === 'left' ? [ox, oy, ox, y2] : [x2, oy, x2, y2]
-          return <line key={edge} className="edge" x1={a} y1={b} x2={c} y2={d} />
+          return <styled.line key={edge} className="edge" stroke="#1d140c" strokeWidth="3" x1={a} y1={b} x2={c} y2={d} />
         })}
         {panel.origin &&
           Array.from({ length: panel.w }, (_, c) => (
-            <text key={`f${c}`} className="coord" x={cx(c)} y={oy - 7}>
+            <CoordText key={`f${c}`} className="coord" x={cx(c)} y={oy - 7}>
               {panel.origin![0] - c}
-            </text>
+            </CoordText>
           ))}
         {panel.origin &&
           Array.from({ length: panel.h }, (_, r) => (
-            <text key={`r${r}`} className="coord" x={ox + panel.w * CELL + 12} y={cy(r) + 4}>
+            <CoordText key={`r${r}`} className="coord" x={ox + panel.w * CELL + 12} y={cy(r) + 4}>
               {rankKanji(panel.origin![1] + r)}
-            </text>
+            </CoordText>
           ))}
         {panel.regions?.map(([x, y, w, h, ja, en]) => (
-          <text key={ja} className="region" x={ox + (x + w / 2) * CELL} y={oy + (y + h / 2) * CELL + 7}>
+          <SvgText
+            key={ja}
+            className="region"
+            fill="rgb(98 87 74 / 55%)"
+            fontSize="20px"
+            fontWeight="800"
+            textAnchor="middle"
+            x={ox + (x + w / 2) * CELL}
+            y={oy + (y + h / 2) * CELL + 7}
+          >
             {lang === 'ja' ? ja : en}
-          </text>
+          </SvgText>
         ))}
         {rows.map((row, r) =>
           row.map((token, c) => {
@@ -104,16 +143,16 @@ function Panel({ panel, lang }: { panel: CropPanel; lang: string }) {
             const number = marks.split('#')[1]
             return (
               <Fragment key={`p${r}-${c}`}>
-                {marks.includes('b') && <circle className="dot" cx={cx(c)} cy={cy(r)} r={CELL * 0.26} />}
-                {marks.includes('y') && <circle className="dot-y" cx={cx(c)} cy={cy(r)} r={CELL * 0.26} />}
+                {marks.includes('b') && <SvgCircle className="dot" fill="#7b7bf0" cx={cx(c)} cy={cy(r)} r={CELL * 0.26} />}
+                {marks.includes('y') && <SvgCircle className="dot-y" fill="#c9bf12" cx={cx(c)} cy={cy(r)} r={CELL * 0.26} />}
                 {marks.includes('g') && <Koma code="P" x={cx(c)} y={cy(r)} ghost />}
                 {code !== '.' && <Koma code={code} x={cx(c)} y={cy(r)} />}
                 {number && (
                   <g className="badge">
-                    <circle cx={ox + c * CELL + 10} cy={oy + r * CELL + 10} r={9} />
-                    <text x={ox + c * CELL + 10} y={oy + r * CELL + 14}>
+                    <SvgCircle fill="rgb(110 110 230 / 85%)" cx={ox + c * CELL + 10} cy={oy + r * CELL + 10} r={9} />
+                    <SvgText fill="#fff" fontSize="11px" fontWeight="700" textAnchor="middle" x={ox + c * CELL + 10} y={oy + r * CELL + 14}>
                       {number}
-                    </text>
+                    </SvgText>
                   </g>
                 )}
               </Fragment>
@@ -140,8 +179,10 @@ function Panel({ panel, lang }: { panel: CropPanel; lang: string }) {
           const trim = off ? 0 : 13
           return (
             <g key={i}>
-              <line
+              <SvgLine
                 className="arrow"
+                strokeWidth="3"
+                strokeLinecap="round"
                 style={{ stroke: ARROW[tone] }}
                 x1={sx + ((ex - sx) / len) * 13}
                 y1={sy + ((ey - sy) / len) * 13}
@@ -150,24 +191,32 @@ function Panel({ panel, lang }: { panel: CropPanel; lang: string }) {
                 markerEnd={`url(#crop-head-${tone})`}
               />
               {off && (
-                <text className="no" x={ex} y={ey - 6}>
+                <SvgText className="no" fill="#c4442a" fontSize="18px" fontWeight="800" textAnchor="middle" x={ex} y={ey - 6}>
                   ✕
-                </text>
+                </SvgText>
               )}
             </g>
           )
         })}
         {(panel.hand || panel.drop) && (
           <g className="hand">
-            <rect x={handX - CELL * 0.6} y={oy + panel.h * CELL - CELL * 1.5} width={CELL * 1.2} height={CELL * 1.5} rx={6} />
-            <text className="hand-label" x={handX} y={oy + panel.h * CELL - CELL * 1.5 - 5}>
+            <SvgRect fill="#fff" stroke="#857a6b" x={handX - CELL * 0.6} y={oy + panel.h * CELL - CELL * 1.5} width={CELL * 1.2} height={CELL * 1.5} rx={6} />
+            <SvgText
+              className="hand-label"
+              fill="#62574a"
+              fontSize="11px"
+              fontWeight="700"
+              textAnchor="middle"
+              x={handX}
+              y={oy + panel.h * CELL - CELL * 1.5 - 5}
+            >
               {lang === 'ja' ? '持駒' : 'Hand'}
-            </text>
+            </SvgText>
             {panel.hand && <Koma code={panel.hand} x={handX} y={oy + panel.h * CELL - CELL * 0.75} />}
           </g>
         )}
         {panel.drop && (
-          <line
+          <DashedArrow
             className="arrow dashed"
             style={{ stroke: ARROW[panel.verdict === 'ng' ? 'pink' : 'blue'] }}
             x1={handX - CELL * 0.5}
@@ -178,7 +227,7 @@ function Panel({ panel, lang }: { panel: CropPanel; lang: string }) {
           />
         )}
         {panel.toHand && (
-          <line
+          <DashedArrow
             className="arrow dashed"
             style={{ stroke: ARROW.blue }}
             x1={cx(panel.toHand[0]) + 14}
@@ -189,32 +238,38 @@ function Panel({ panel, lang }: { panel: CropPanel; lang: string }) {
           />
         )}
         {panel.note && (
-          <text className="callout" x={ox} y={14}>
+          <SvgText className="callout" fill="#c4442a" fontSize="13px" fontWeight="800" x={ox} y={14}>
             {lang === 'ja' ? panel.note.ja : panel.note.en}
-          </text>
+          </SvgText>
         )}
-      </svg>
+      </styled.svg>
       {panel.choice && (
-        <p className={cropChoice}>
+        <styled.p display="flex" justifyContent="center" gap="3" m="{spacing.1} 0 0" fontSize="sm">
           {panel.choice.map((code, i) => (
             <span key={code}>
               {GLYPH[code.startsWith('+') ? `+${code[1].toUpperCase()}` : code.toUpperCase()]}
               {i === 0 ? (lang === 'ja' ? ' 成る' : ' promote') : lang === 'ja' ? ' 不成' : ' decline'}
             </span>
           ))}
-        </p>
+        </styled.p>
       )}
       {label && (
-        <figcaption>
+        <Caption css={{ '@media (max-width: 640px)': { fontSize: 'xs' } }}>
           {panel.verdict && (
-            <span className="verdict" aria-label={panel.verdict === 'ok' ? 'OK' : 'NG'}>
+            <styled.span
+              className="verdict"
+              mr="1"
+              fontSize="md"
+              color={panel.verdict === 'ok' ? 'ai.600' : '#c4442a'}
+              aria-label={panel.verdict === 'ok' ? 'OK' : 'NG'}
+            >
               {panel.verdict === 'ok' ? '○' : '✕'}
-            </span>
+            </styled.span>
           )}
           {label}
-        </figcaption>
+        </Caption>
       )}
-    </figure>
+    </styled.figure>
   )
 }
 
@@ -223,28 +278,36 @@ export function SourceIllustration({ diagram }: { diagram: Pick<SourceDiagram, '
   const lang = i18n.language
   if (diagram.pieces)
     return (
-      <div className={crop({ layout: 'pieces' })}>
+      <Crop layout="pieces">
         {diagram.pieces.items.map(([code, count, label], i) => (
-          <figure key={i} className={cropPiece}>
-            <svg viewBox="-20 -22 40 44" role="img" aria-label={label || code || (lang === 'ja' ? '駒' : 'Piece')}>
-              {code ? <Koma code={code} x={0} y={0} /> : <path className="blank" d={KOMA} />}
-            </svg>
+          <styled.figure key={i} m="0" textAlign="center">
+            <styled.svg
+              display="block"
+              w="52px"
+              h="56px"
+              m="0 auto"
+              viewBox="-20 -22 40 44"
+              role="img"
+              aria-label={label || code || (lang === 'ja' ? '駒' : 'Piece')}
+            >
+              {code ? <Koma code={code} x={0} y={0} /> : <SvgPath className="blank" fill="koma.light" stroke="#a07a3c" opacity="0.6" d={KOMA} />}
+            </styled.svg>
             {(label || count > 0) && (
-              <figcaption>
+              <Caption>
                 {label}
-                {count > 0 && <span className={muted}> ×{count}</span>}
-              </figcaption>
+                {count > 0 && <Muted as="span"> ×{count}</Muted>}
+              </Caption>
             )}
-          </figure>
+          </styled.figure>
         ))}
-      </div>
+      </Crop>
     )
   if (!diagram.crop) return null
   return (
-    <div className={crop({ layout: diagram.crop.cycle ? 'cycle' : 'panels' })}>
+    <Crop layout={diagram.crop.cycle ? 'cycle' : 'panels'}>
       {diagram.crop.panels.map((panel, i) => (
         <Panel key={i} panel={panel} lang={lang} />
       ))}
-    </div>
+    </Crop>
   )
 }

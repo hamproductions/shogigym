@@ -1,6 +1,5 @@
 import { useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { css } from 'styled-system/css'
 import { Box, styled } from 'styled-system/jsx'
 import { describeMove, scoreWinRate } from '@/utils/analysis'
 import { engineSupported, useEngineStatus, type Analysis, type Candidate } from '@/utils/engine'
@@ -15,29 +14,16 @@ import { lossClass, winLoss } from '@/utils/score'
 import { Button } from '@/app/ui/Button'
 import { Pill } from '@/app/ui/Pill'
 import { Checkbox } from '@/components/ui'
-import { muted, narrowColumn, pv, subHeading } from './panels.styles'
+import { Muted, NarrowColumn, PvLine, SubHeading } from './panels.styles'
+import { spellMarks } from '@/utils/notation'
 
-const standingBox = css({
-  pt: '1',
-  pb: '3',
-  borderBottom: '1px solid {colors.border}',
-  _narrow: { order: '-1', display: 'grid', gridTemplateColumns: 'auto minmax(0, 1fr)', alignItems: 'center', gap: '{spacing.1} {spacing.2}', pb: '2' },
-  '@container (max-width: 400px)': { '@media not all and (max-width: 820px)': { display: 'flex', alignItems: 'center', gap: '2', pb: '1' } },
-})
+const MoveLine = styled('div', { base: { display: 'flex', alignItems: 'center', gap: '2.5', _narrow: { flexWrap: 'wrap' } } })
 
-const choice = css({
-  borderBottom: '1px solid {colors.border}',
-  '& p': { m: '{spacing.1} 0 0', fontSize: 'sm' },
-})
+const MoveName = styled('strong', { base: { fontFamily: 'mincho', fontWeight: 'heavy', _narrow: { whiteSpace: 'nowrap' } } })
 
-const choiceRow = css({
-  display: 'flex',
-  alignItems: 'center',
-  gap: '2.5',
-  '& strong': { fontFamily: 'mincho', fontWeight: 'heavy', _narrow: { whiteSpace: 'nowrap' } },
-  '& .app-btn': { ml: 'auto' },
-  _narrow: { flexWrap: 'wrap' },
-})
+const Why = styled('p', { base: { m: '{spacing.1} 0 0', fontSize: 'sm' } })
+
+const PlayButton = styled(Button, { base: { ml: 'auto' } })
 
 function standing(rate: number) {
   const lead = Math.abs(Math.round(rate * 100) - 50) / 100
@@ -66,7 +52,7 @@ export function EnginePane({ sfen, toMove, analysis, showBest, setShowBest, onPl
   if (!engineSupported())
     return (
       <div role="alert">
-        <p className={muted}>{t('engine.theAiNeedsACross')}</p>
+        <Muted>{t('engine.theAiNeedsACross')}</Muted>
         <Button onClick={() => location.reload()}>{t('engine.reloadPage')}</Button>
       </div>
     )
@@ -81,7 +67,7 @@ export function EnginePane({ sfen, toMove, analysis, showBest, setShowBest, onPl
     return (
       <>
         <EngineName />
-        <p className={muted}>{t('engine.analysingThePosition')}</p>
+        <Muted>{t('engine.analysingThePosition')}</Muted>
       </>
     )
   const why = (usi: string) => {
@@ -141,11 +127,17 @@ export function EngineResultPane({
   const bestRate = scoreWinRate(best.score)
   const senteRate = scoreWinRate(toSente(best.score, toMove))
   return (
-    <div className={narrowColumn}>
+    <NarrowColumn>
       {name}
-      <div className={standingBox}>
+      <Box
+        pt="1"
+        pb="3"
+        borderBottom="1px solid {colors.border}"
+        _narrow={{ order: '-1', display: 'grid', gridTemplateColumns: 'auto minmax(0, 1fr)', alignItems: 'center', gap: '{spacing.1} {spacing.2}', pb: '2' }}
+        css={{ '@container (max-width: 400px)': { '@media not all and (max-width: 820px)': { display: 'flex', alignItems: 'center', gap: '2', pb: '1' } } }}
+      >
         <styled.strong display="block" fontSize="lg" _narrow={{ display: 'none' }} css={{ '@container (max-width: 400px)': { display: 'none' } }}>
-          {standing(senteRate)}
+          <FlipMarks flipped={flipped}>{standing(senteRate)}</FlipMarks>
         </styled.strong>
         <styled.span
           display="none"
@@ -153,7 +145,7 @@ export function EngineResultPane({
           fontVariantNumeric="tabular-nums"
           _narrow={{ display: 'block', fontSize: 'xs' }}
           css={{ '@container (max-width: 400px)': { display: 'block', fontSize: 'xs' } }}
-          title={standing(senteRate)}
+          title={spellMarks(standing(senteRate), i18n.language)}
           aria-label={t('engine.winChanceAgainst', { value: Math.round(senteRate * 100), value2: Math.round((1 - senteRate) * 100) })}
         >
           <FlipMarks flipped={flipped}>{sideMark(senteRate >= 0.5 ? 'sente' : 'gote')}</FlipMarks> {Math.round(Math.max(senteRate, 1 - senteRate) * 100)}%
@@ -176,44 +168,60 @@ export function EngineResultPane({
           _narrow={{ display: 'none', gridColumn: '1 / -1', fontSize: 'xs', whiteSpace: 'nowrap' }}
           css={{ '@container (max-width: 400px)': { display: 'none' } }}
         >
-          {t('engine.winChanceAgainst', { value: Math.round(senteRate * 100), value2: Math.round((1 - senteRate) * 100) })}
+          <FlipMarks flipped={flipped}>
+            {t('engine.winChanceAgainst', { value: Math.round(senteRate * 100), value2: Math.round((1 - senteRate) * 100) })}
+          </FlipMarks>
         </styled.span>
-      </div>
-
-      <Box py="3" className={choice}>
-        <span className={muted}>
-          <FlipMarks flipped={flipped}>{t('engine.bestMoveFor', { side: sideMark(toMove) })}</FlipMarks>
-        </span>
-        <div className={choiceRow}>
-          <styled.strong fontSize="2xl" lineHeight="tight" _narrow={{ fontSize: 'lg' }}>
-            {formatMove(best.move)}
-          </styled.strong>
-          {isBook(best.move) && <Pill>{t('engine.book')}</Pill>}
-          {canPlay && (
-            <Button size="sm" variant="primary" onClick={() => onPlay(best.move)}>
-              {t('engine.playIt')}
-            </Button>
-          )}
-        </div>
-        {why(best.move) && <p>{why(best.move)}</p>}
-        {answer(best) && <p className={muted}>{t('engine.theyWouldLikelyAnswer', { move: answer(best) })}</p>}
       </Box>
 
-      {others.length > 0 && <h3 className={subHeading}>{t('engine.otherMoves')}</h3>}
+      <Box py="3" borderBottom="1px solid {colors.border}">
+        <Muted as="span">
+          <FlipMarks flipped={flipped}>{t('engine.bestMoveFor', { side: sideMark(toMove) })}</FlipMarks>
+        </Muted>
+        <MoveLine>
+          <MoveName fontSize="2xl" lineHeight="tight" _narrow={{ fontSize: 'lg' }}>
+            <FlipMarks flipped={flipped}>{formatMove(best.move)}</FlipMarks>
+          </MoveName>
+          {isBook(best.move) && <Pill>{t('engine.book')}</Pill>}
+          {canPlay && (
+            <PlayButton size="sm" variant="primary" onClick={() => onPlay(best.move)}>
+              {t('engine.playIt')}
+            </PlayButton>
+          )}
+        </MoveLine>
+        {why(best.move) && (
+          <Why>
+            <FlipMarks flipped={flipped}>{why(best.move)!}</FlipMarks>
+          </Why>
+        )}
+        {answer(best) && (
+          <Why color="fg.muted">
+            <FlipMarks flipped={flipped}>{t('engine.theyWouldLikelyAnswer', { move: answer(best) })}</FlipMarks>
+          </Why>
+        )}
+      </Box>
+
+      {others.length > 0 && <SubHeading>{t('engine.otherMoves')}</SubHeading>}
       {others.map((c) => {
         const loss = winLoss(bestRate, c.score)
         return (
-          <Box key={c.multipv} py="2.5" className={choice}>
-            <div className={choiceRow}>
-              <styled.strong fontSize="lg">{formatMove(c.move)}</styled.strong>
+          <Box key={c.multipv} py="2.5" borderBottom="1px solid {colors.border}">
+            <MoveLine>
+              <MoveName fontSize="lg">
+                <FlipMarks flipped={flipped}>{formatMove(c.move)}</FlipMarks>
+              </MoveName>
               <span className={lossClass(loss)}>{loss === 0 ? t('engine.justAsGood') : t('engine.winChance', { loss })}</span>
               {canPlay && (
-                <Button size="sm" onClick={() => onPlay(c.move)}>
+                <PlayButton size="sm" onClick={() => onPlay(c.move)}>
                   {t('engine.play')}
-                </Button>
+                </PlayButton>
               )}
-            </div>
-            {why(c.move) && <p>{why(c.move)}</p>}
+            </MoveLine>
+            {why(c.move) && (
+              <Why>
+                <FlipMarks flipped={flipped}>{why(c.move)!}</FlipMarks>
+              </Why>
+            )}
           </Box>
         )
       })}
@@ -231,11 +239,21 @@ export function EngineResultPane({
       >
         {lineOpen ? t('engine.hideTheLine') : t('engine.seeHowTheBestLine')}
       </styled.button>
-      {lineOpen && <p className={pv}>{formatPv(best.pv)}</p>}
+      {lineOpen && (
+        <PvLine>
+          <FlipMarks flipped={flipped}>{formatPv(best.pv)}</FlipMarks>
+        </PvLine>
+      )}
 
       <Checkbox.Root
         size="sm"
-        className={css({ display: 'flex', alignItems: 'center', gap: '2', m: '{spacing.3} 0 0', color: 'fg.muted', fontSize: 'sm', cursor: 'pointer' })}
+        display="flex"
+        alignItems="center"
+        gap="2"
+        m="{spacing.3} 0 0"
+        color="fg.muted"
+        fontSize="sm"
+        cursor="pointer"
         checked={showBest}
         onCheckedChange={(details) => setShowBest(details.checked === true)}
       >
@@ -243,8 +261,10 @@ export function EngineResultPane({
         <Checkbox.Control>
           <Checkbox.Indicator />
         </Checkbox.Control>
-        <Checkbox.Label className={css({ fontWeight: 'regular', fontSize: 'sm', lineHeight: 'inherit' })}>{t('engine.showTheBestMoveAs')}</Checkbox.Label>
+        <Checkbox.Label fontWeight="regular" fontSize="sm" lineHeight="inherit">
+          {t('engine.showTheBestMoveAs')}
+        </Checkbox.Label>
       </Checkbox.Root>
-    </div>
+    </NarrowColumn>
   )
 }

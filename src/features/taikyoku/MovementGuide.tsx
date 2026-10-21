@@ -4,7 +4,19 @@ import { useSettings } from '@/appearance/settings'
 import { SPRITE_BOX } from '@/rendering/sprites'
 import { bakeTaikyoku, bakedKey, taikyokuSprites } from './bake'
 import { catalog, type Cell } from './notation'
-import { ruleBorder, ruleGrid, ruleGuide, ruleJump, ruleLegend, ruleSlide, ruleStep, ruleTurn } from './taikyoku.styles'
+import { styled } from 'styled-system/jsx'
+import { SvgPath, SvgRect } from '@/app/ui/Svg'
+
+const ruleTone = {
+  step: { color: '#e0301e', fill: '#e0301e', stroke: '#e0301e' },
+  jump: { color: '#1f7ae0', fill: '#1f7ae0', stroke: '#1f7ae0' },
+}
+
+const RuleDot = styled('circle', { variants: { tone: ruleTone } }, { forwardProps: ['cx', 'cy', 'r', 'fill', 'strokeWidth'] as string[] })
+
+const Legend = styled('span', { base: { display: 'block' }, variants: { tone: ruleTone } })
+
+const Note = styled('p', { base: { m: '{spacing.2} 0 0' } })
 
 type Direction = [number, number]
 type Atom = { kind: number; directions: Direction[]; range: number; mode: number; jumps: number[]; tail: number; screens: number; geom: number }
@@ -92,35 +104,56 @@ export function MovementGuide({ cell, lang }: { cell: Cell; lang: string }) {
         6: 'Cannot jump over equal or higher ranks. With a clear path, may capture an equal or higher-ranked enemy. Lower-ranked pieces along the path are captured, including friendly pieces.',
       }
   const dot = (x: number, y: number, blue: boolean, key: string, mode = 0) => (
-    <circle
+    <RuleDot
       key={key}
       cx={x * sign}
       cy={-y * sign}
       r="0.17"
-      className={blue ? ruleJump : ruleStep}
+      tone={blue ? 'jump' : 'step'}
       fill={mode === 1 ? 'none' : undefined}
       strokeWidth={mode === 1 ? 0.1 : 0}
     />
   )
   const ray = (x: number, y: number, key: string, start = 0.85, dashed = false) => (
-    <path
+    <SvgPath
       key={key}
       d={`M${x * start * sign} ${-y * start * sign}L${x * (extent - 0.3) * sign} ${-y * (extent - 0.3) * sign}`}
-      className={ruleSlide}
+      fill="none"
+      stroke="#e0301e"
+      strokeWidth="0.12"
       strokeDasharray={dashed ? '0.3 0.2' : undefined}
     />
   )
   return (
-    <div className={ruleGuide}>
-      <svg
+    <styled.div display="flex" flexWrap="wrap" gap="3" alignItems="center">
+      <styled.svg
+        w="176px"
+        maxW="100%"
+        flex="none"
         viewBox={`${-extent - 0.3} ${-extent - 0.3} ${2 * extent + 0.6} ${2 * extent + 0.6}`}
         role="img"
         aria-label={`${info.k} ${ja ? 'の動き方' : 'movement rules'}`}
       >
-        <rect x={-extent - 0.2} y={-extent - 0.2} width={2 * extent + 0.4} height={2 * extent + 0.4} className={ruleBorder} />
+        <SvgRect
+          x={-extent - 0.2}
+          y={-extent - 0.2}
+          width={2 * extent + 0.4}
+          height={2 * extent + 0.4}
+          fill="none"
+          stroke="{colors.border.strong}"
+          strokeWidth="0.08"
+        />
         {Array.from({ length: 2 * extent }, (_, index) => {
           const offset = index - extent + 0.5
-          return <path key={index} d={`M${offset} ${-extent - 0.2}V${extent + 0.2}M${-extent - 0.2} ${offset}H${extent + 0.2}`} className={ruleGrid} />
+          return (
+            <SvgPath
+              key={index}
+              d={`M${offset} ${-extent - 0.2}V${extent + 0.2}M${-extent - 0.2} ${offset}H${extent + 0.2}`}
+              fill="none"
+              stroke="{colors.border.strong}"
+              strokeWidth="0.04"
+            />
+          )
         })}
         {moves.flatMap((atom, index) => {
           if (atom.kind === 5)
@@ -159,7 +192,13 @@ export function MovementGuide({ cell, lang }: { cell: Cell; lang: string }) {
             return [
               ray(x, y, key),
               ...turns.map(([tx, ty], t) => (
-                <path key={`${key}/${t}`} d={`M${x * 2 * sign} ${-y * 2 * sign}l${tx * 2 * sign} ${-ty * 2 * sign}`} className={ruleTurn} />
+                <SvgPath
+                  key={`${key}/${t}`}
+                  d={`M${x * 2 * sign} ${-y * 2 * sign}l${tx * 2 * sign} ${-ty * 2 * sign}`}
+                  fill="none"
+                  stroke="#1f7ae0"
+                  strokeWidth="0.12"
+                />
               )),
             ]
           })
@@ -172,18 +211,18 @@ export function MovementGuide({ cell, lang }: { cell: Cell; lang: string }) {
           height={SPRITE_BOX}
           transform={cell.side === 'w' ? 'rotate(180)' : undefined}
         />
-      </svg>
-      <div className={ruleLegend}>
-        <span className={ruleStep}>● {ja ? '一目ずつ進む' : 'Step to a marked square'}</span>
-        <span className={ruleStep}>━ {ja ? '線の方向に走る' : 'Slide along the line'}</span>
-        <span className={ruleJump}>● {ja ? '跳び・連続移動' : 'Jump / multi-step move'}</span>
+      </styled.svg>
+      <styled.div flex="1" minW="140px" fontSize="sm">
+        <Legend tone="step">● {ja ? '一目ずつ進む' : 'Step to a marked square'}</Legend>
+        <Legend tone="step">━ {ja ? '線の方向に走る' : 'Slide along the line'}</Legend>
+        <Legend tone="jump">● {ja ? '跳び・連続移動' : 'Jump / multi-step move'}</Legend>
         {special.map((kind) => (
-          <p key={kind}>{descriptions[kind]}</p>
+          <Note key={kind}>{descriptions[kind]}</Note>
         ))}
         {moves.some((atom) => atom.mode === 1 || atom.mode === 2) && (
-          <p>{ja ? '白抜きは移動のみ。取る時だけの動きもあります。' : 'Hollow marks: non-capturing moves. Some moves apply only to captures.'}</p>
+          <Note>{ja ? '白抜きは移動のみ。取る時だけの動きもあります。' : 'Hollow marks: non-capturing moves. Some moves apply only to captures.'}</Note>
         )}
-      </div>
-    </div>
+      </styled.div>
+    </styled.div>
   )
 }

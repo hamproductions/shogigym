@@ -1,14 +1,13 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Wrap } from 'styled-system/jsx'
+import { Box, Wrap } from 'styled-system/jsx'
 import { loadGames } from '@/app/games'
 import { ImportBox } from './ImportBox'
 import { SavedGames } from './SavedGames'
 import type { AnalyzeGames } from './useAnalyzeGames'
 import { Button } from '@/app/ui/Button'
 import { Badge } from '@/components/ui'
-import { muted } from '@/app/panels/panels.styles'
-import { games as gamesBox } from '@/app/modes/lesson/lesson.styles'
+import { Muted } from '@/app/panels/panels.styles'
 
 export function GamesBox({ games, browse = true }: { games: AnalyzeGames; browse?: boolean }) {
   const { t } = useTranslation()
@@ -18,7 +17,7 @@ export function GamesBox({ games, browse = true }: { games: AnalyzeGames; browse
   const stored = loadGames()
   const toggle = (next: 'saved' | 'load') => setView(view === next ? 'none' : next)
   return (
-    <div className={gamesBox}>
+    <Box m="{spacing.3} 0 {spacing.3}" p="{spacing.2.5} 0 {spacing.3}" borderTop="1px solid {colors.border}" borderBottom="1px solid {colors.border}">
       <Wrap gap="2" align="center">
         <Button
           size="sm"
@@ -53,9 +52,9 @@ export function GamesBox({ games, browse = true }: { games: AnalyzeGames; browse
           {t('games.copyKif')}
         </Button>
       </Wrap>
-      {note && <p className={muted}>{note}</p>}
+      {note && <Muted m="{spacing.2} 0 0">{note}</Muted>}
       {view === 'saved' && <SavedGames games={games} />}
       {view === 'load' && <ImportBox onImport={games.importGame} open />}
-    </div>
+    </Box>
   )
 }

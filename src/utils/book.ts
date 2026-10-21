@@ -138,9 +138,9 @@ export function bookForMove(prevSfen: string | null, usi: string | undefined, no
 
 export function bookAtPly(sfens: string[], moves: string[], ply: number): BookHit | null {
   if (ply < 1) return null
-  for (const hit of bookLookup(sfens[ply - 1])) {
+  for (const hit of lessonsFirst(sfens[ply - 1])) {
     const branch = hit.node.branches.find((b) => b.usi === moves[ply - 1])
-    if (branch) return { branch, course: hit.course }
+    if (branch) return { branch: neutralBranch(branch, hit.course), course: hit.course }
   }
   return null
 }

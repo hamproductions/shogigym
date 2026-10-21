@@ -1,25 +1,32 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { css } from 'styled-system/css'
 import { Box, styled } from 'styled-system/jsx'
 import type { Weakness } from '@/utils/learning'
 import { colorSide, moveText, positionOf } from '@/utils/shogi'
 import { PositionView } from '@/rendering/PositionView'
 import { Text } from '@/components/ui'
+import { FlipMarks } from './SideMark'
 
-const move = css({ px: '0.3em', borderRadius: 'xs', fontWeight: 'bold', whiteSpace: 'nowrap' })
-const playedMove = css({ bg: 'color-mix(in srgb, #c4442a 24%, transparent)', boxShadow: 'inset 0 -2px 0 #c4442a' })
-const bestMove = css({ bg: 'color-mix(in srgb, #2f8f4e 24%, transparent)', boxShadow: 'inset 0 -2px 0 #2f8f4e' })
+const Move = styled('span', {
+  base: { px: '0.3em', borderRadius: 'xs', fontWeight: 'bold', whiteSpace: 'nowrap' },
+  variants: {
+    kind: {
+      played: { bg: 'color-mix(in srgb, #c4442a 24%, transparent)', boxShadow: 'inset 0 -2px 0 #c4442a' },
+      best: { bg: 'color-mix(in srgb, #2f8f4e 24%, transparent)', boxShadow: 'inset 0 -2px 0 #2f8f4e' },
+    },
+  },
+})
 
-type Props = { sfen: string; played: string; best: string; tag: Weakness; loss: number; reason?: string; showPlayed?: boolean }
+type Props = { sfen: string; played: string; best: string; tag: Weakness; loss: number; reason?: string; showPlayed?: boolean; snug?: boolean }
 
 /**
  * What went wrong in plain words. The played and better moves are tinted red and green, the same colours
  * they have on the small position picture beside the text (tap the picture to enlarge it).
  */
-export function MistakeDetail({ sfen, played, best, tag, loss, reason, showPlayed }: Props) {
+export function MistakeDetail({ sfen, played, best, tag, loss, reason, showPlayed, snug }: Props) {
   const { t, i18n } = useTranslation()
   const [big, setBig] = useState(false)
+  const boardFlipped = colorSide(positionOf(sfen).color) === 'gote'
   const stop = i18n.language === 'ja' ? '。' : '. '
   return (
     <Box
@@ -31,10 +38,13 @@ export function MistakeDetail({ sfen, played, best, tag, loss, reason, showPlaye
       css={{ '@container (max-width: 420px)': { gridTemplateColumns: '1fr' } }}
     >
       <div>
-        <Text mt="0" mb="1" fontSize="sm">
+        <Text mt="0" mb={snug ? '0' : '1'} fontSize="sm" lineHeight={snug ? 'snug' : undefined}>
           {showPlayed && (
             <>
-              {t('report.youPlayed')} <span className={`${move} ${playedMove}`}>{moveText(sfen, played)}</span>
+              {t('report.youPlayed')}{' '}
+              <Move kind="played">
+                <FlipMarks flipped={boardFlipped}>{moveText(sfen, played)}</FlipMarks>
+              </Move>
               {stop}
             </>
           )}
@@ -46,14 +56,17 @@ export function MistakeDetail({ sfen, played, best, tag, loss, reason, showPlaye
           {best !== played && (
             <>
               {' '}
-              {t('report.betterWas')} <span className={`${move} ${bestMove}`}>{moveText(sfen, best)}</span>{' '}
+              {t('report.betterWas')}{' '}
+              <Move kind="best">
+                <FlipMarks flipped={boardFlipped}>{moveText(sfen, best)}</FlipMarks>
+              </Move>{' '}
               {t('report.keepsMore', { percent: Math.max(1, Math.round(loss * 100)) })}
             </>
           )}
         </Text>
         {reason && (
-          <Text tone="muted" size="sm" mt="0" mb="1">
-            {reason}
+          <Text tone="muted" size="sm" mt="0" mb={snug ? '0' : '1'} lineHeight={snug ? 'snug' : undefined}>
+            <FlipMarks flipped={boardFlipped}>{reason}</FlipMarks>
           </Text>
         )}
       </div>
@@ -65,12 +78,12 @@ export function MistakeDetail({ sfen, played, best, tag, loss, reason, showPlaye
         bg="none"
         w={big ? 'min(300px, 100%)' : undefined}
         cursor={big ? 'zoom-out' : 'zoom-in'}
-        css={{ '& > svg': { w: '100%', m: '0' }, '@container (max-width: 420px)': { w: big ? 'min(300px, 100%)' : 'min(180px, 100%)' } }}
+        css={{ '@container (max-width: 420px)': { w: big ? 'min(300px, 100%)' : 'min(180px, 100%)' } }}
         onClick={() => setBig((v) => !v)}
         aria-expanded={big}
         aria-label={t('report.enlargePosition')}
       >
-        <PositionView sfen={sfen} played={played} best={best} flipped={colorSide(positionOf(sfen).color) === 'gote'} />
+        <PositionView sfen={sfen} played={played} best={best} flipped={boardFlipped} />
       </styled.button>
     </Box>
   )

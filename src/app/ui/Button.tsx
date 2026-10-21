@@ -1,8 +1,8 @@
-import type { ButtonHTMLAttributes } from 'react'
 import { Button as ParkButton } from '@/components/ui'
+import type { HTMLStyledProps } from 'styled-system/types'
 import { cx } from './cx'
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & { variant?: 'primary' | 'secondary' | 'ghost' | 'icon'; size?: 'sm' | 'lg'; on?: boolean }
+type ButtonProps = HTMLStyledProps<'button'> & { variant?: 'primary' | 'secondary' | 'ghost' | 'icon'; size?: 'sm' | 'lg'; on?: boolean }
 
 const variants = { primary: 'solid', secondary: 'subtle', ghost: 'outline', icon: 'plain' } as const
 

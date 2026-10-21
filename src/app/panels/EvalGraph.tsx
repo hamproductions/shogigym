@@ -1,41 +1,9 @@
 import { useId } from 'react'
 import { useTranslation } from 'react-i18next'
-import { css } from 'styled-system/css'
-import { Box } from 'styled-system/jsx'
+import { Box, styled } from 'styled-system/jsx'
 import { LABELS, type Label } from '@/utils/analysis'
-
-const graph = css({
-  '& svg': {
-    display: 'block',
-    w: '100%',
-    h: '88px',
-    borderRadius: 'sm',
-    bg: 'color-mix(in srgb, {colors.fg.default} 6%, transparent)',
-    cursor: 'pointer',
-    _narrow: { h: '34px' },
-  },
-})
-
-const axis = css({
-  position: 'absolute',
-  left: '1',
-  top: '1',
-  h: '80px',
-  zIndex: '1',
-  pointerEvents: 'none',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-between',
-  color: 'fg.muted',
-  fontSize: 'xs',
-  lineHeight: 'tight',
-  _narrow: { h: '26px', fontSize: '2xs' },
-})
-
-const labelInk = css({
-  fill: 'light-dark(color-mix(in srgb, var(--label) 55%, #000), var(--label))',
-  '& text': { font: '{fontWeights.bold} 9px {fonts.sans}', textAnchor: 'middle' },
-})
+import { SvgPath, SvgText } from '@/app/ui/Svg'
+import { Marks } from '@/app/ui/SideMark'
 
 const W = 360
 const H = 88
@@ -61,16 +29,37 @@ export function EvalGraph({
   const area = known.length ? `${line}L${known.at(-1)![0].toFixed(1)},${H / 2}L${known[0][0].toFixed(1)},${H / 2}Z` : ''
   const selected = labels[cursor]
   return (
-    <Box position="relative" mb="3" className={graph}>
-      <div className={axis}>
+    <Box position="relative">
+      <Box
+        position="absolute"
+        left="1"
+        top="1"
+        h="80px"
+        zIndex="1"
+        pointerEvents="none"
+        display="flex"
+        flexDirection="column"
+        justifyContent="space-between"
+        color="fg.muted"
+        fontSize="xs"
+        lineHeight="tight"
+        _narrow={{ h: '26px', fontSize: '2xs' }}
+      >
         <span title={t('graph.senteAhead')} aria-label={t('graph.senteAhead')}>
-          ☗
+          <Marks>☗</Marks>
         </span>
         <span title={t('graph.goteAhead')} aria-label={t('graph.goteAhead')}>
-          ☖
+          <Marks>☖</Marks>
         </span>
-      </div>
-      <svg
+      </Box>
+      <styled.svg
+        display="block"
+        w="100%"
+        h="88px"
+        borderRadius="sm"
+        bg="color-mix(in srgb, {colors.fg.default} 6%, transparent)"
+        cursor="pointer"
+        _narrow={{ h: '34px' }}
         viewBox={`0 0 ${W} ${H}`}
         preserveAspectRatio="none"
         role="img"
@@ -88,44 +77,41 @@ export function EvalGraph({
             <rect y={H / 2} width={W} height={H / 2} />
           </clipPath>
         </defs>
-        <line x1="0" x2={W} y1={H / 2} y2={H / 2} className={css({ stroke: 'border.strong', strokeWidth: '1' })} />
-        {area && <path d={area} className={css({ fill: 'color-mix(in srgb, {colors.success} 24%, transparent)' })} clipPath={`url(#${id}-sente)`} />}
-        {area && <path d={area} className={css({ fill: 'color-mix(in srgb, {colors.info} 24%, transparent)' })} clipPath={`url(#${id}-gote)`} />}
-        {line && <path d={line} className={css({ fill: 'none', stroke: 'fg.default', strokeWidth: '1.6', vectorEffect: 'non-scaling-stroke' })} />}
-        <line x1={x(cursor)} x2={x(cursor)} y1="0" y2={H} className={css({ stroke: 'accent', strokeWidth: '1.5', vectorEffect: 'non-scaling-stroke' })} />
+        <styled.line x1="0" x2={W} y1={H / 2} y2={H / 2} stroke="border.strong" strokeWidth="1" />
+        {area && <SvgPath d={area} fill="color-mix(in srgb, {colors.success} 24%, transparent)" clipPath={`url(#${id}-sente)`} />}
+        {area && <SvgPath d={area} fill="color-mix(in srgb, {colors.info} 24%, transparent)" clipPath={`url(#${id}-gote)`} />}
+        {line && <SvgPath d={line} fill="none" stroke="fg.default" strokeWidth="1.6" vectorEffect="non-scaling-stroke" />}
+        <styled.line x1={x(cursor)} x2={x(cursor)} y1="0" y2={H} stroke="accent" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
         {labels.map((label, i) => {
           const value = values[i]
           if (!label || value === undefined) return null
           const meta = LABELS[label]
           return (
-            <g key={i} className={labelInk} style={{ ['--label' as string]: meta.color }}>
+            <styled.g key={i} fill="light-dark(color-mix(in srgb, var(--label) 55%, #000), var(--label))" style={{ ['--label' as string]: meta.color }}>
               <title>
                 {i}: {meta.symbol} {meta.text}
               </title>
               <circle cx={x(i)} cy={y(value)} r={i === cursor ? 3.5 : 2.5} />
               {(n <= 32 || i === cursor) && (
-                <text x={Math.max(8, Math.min(W - 8, x(i)))} y={Math.max(12, Math.min(H - 4, y(value) - 7))}>
+                <SvgText
+                  font="{fontWeights.bold} 9px {fonts.sans}"
+                  textAnchor="middle"
+                  x={Math.max(8, Math.min(W - 8, x(i)))}
+                  y={Math.max(12, Math.min(H - 4, y(value) - 7))}
+                >
                   {meta.symbol}
-                </text>
+                </SvgText>
               )}
-            </g>
+            </styled.g>
           )
         })}
-      </svg>
+      </styled.svg>
       {selected && (
-        <Box
-          display="flex"
-          gap="2"
-          mt="1"
-          fontSize="xs"
-          color="fg.muted"
-          css={{ '& strong': { color: 'light-dark(color-mix(in srgb, var(--label) 55%, #000), var(--label))' } }}
-          style={{ ['--label' as string]: LABELS[selected].color }}
-        >
+        <Box display="flex" gap="2" mt="1" fontSize="xs" color="fg.muted" style={{ ['--label' as string]: LABELS[selected].color }}>
           <span>{cursor}</span>
-          <strong>
+          <styled.strong color="light-dark(color-mix(in srgb, var(--label) 55%, #000), var(--label))">
             {LABELS[selected].symbol} {LABELS[selected].text}
-          </strong>
+          </styled.strong>
         </Box>
       )}
     </Box>

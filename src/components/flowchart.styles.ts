@@ -1,20 +1,5 @@
-import { css, cva } from 'styled-system/css'
-
-export const head = css({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  gap: '3',
-  mb: '2.5',
-  '& strong': { fontFamily: 'mincho', fontWeight: 'heavy', fontSize: 'lg' },
-  _narrow: { '& strong': { minWidth: '0', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' } },
-})
-
-export const scroll = css({ overflow: 'auto', p: '{spacing.1} {spacing.1} {spacing.3}', minHeight: '0', maxH: 'calc(100vh - 120px)' })
-
-export const canvas = css({ position: 'relative', m: '0 auto' })
-
-export const lines = css({ position: 'absolute', inset: '0', overflow: 'visible' })
+import { cva } from 'styled-system/css'
+import { styled } from 'styled-system/jsx'
 
 export const edge = cva({
   base: { fill: 'none', strokeWidth: '2' },
@@ -40,7 +25,7 @@ export const arrowHead = cva({
   },
 })
 
-export const stageBox = cva({
+export const StageBox = styled('button', {
   base: {
     position: 'absolute',
     display: 'flex',
@@ -70,40 +55,3 @@ export const stageBox = cva({
   },
   defaultVariants: { current: false },
 })
-
-export const tag = css({ color: 'var(--fc-accent)', fontSize: '2xs', fontWeight: 'bold' })
-
-export const moves = css({ lineClamp: '2', fontFamily: 'mincho', fontSize: 'sm', lineHeight: 'tight' })
-
-export const ply = css({ mr: '1.5', color: 'fg.muted', fontSize: '2xs' })
-
-export const note = css({ lineClamp: '1', color: 'fg.muted', fontSize: '2xs', lineHeight: 'snug' })
-
-export const progress = css({ position: 'absolute', left: '0', bottom: '0', h: '3px', bg: 'accent' })
-
-export const overlay = css({
-  position: 'fixed',
-  inset: '0',
-  zIndex: 'modal',
-  display: 'grid',
-  placeItems: 'center',
-  p: '6',
-  bg: 'scrim',
-  backdropFilter: 'blur(3px)',
-  _narrow: { p: '3' },
-})
-
-export const overlayBox = css({
-  w: 'min(1400px, 100%)',
-  maxH: '100%',
-  display: 'flex',
-  flexDirection: 'column',
-  overflow: 'hidden',
-  p: '4',
-  borderRadius: 'xl',
-  bg: 'panel',
-  color: 'fg.default',
-  boxShadow: 'inset 0 0 0 1px {colors.border}, {shadows.lg}',
-})
-
-export const help = css({ m: '0 0 {spacing.2}', color: 'fg.muted', fontSize: 'xs' })

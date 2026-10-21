@@ -12,8 +12,9 @@ import type { Mistake } from '@/utils/mistakes'
 import { ORIGIN_KEY, store } from '@/app/modes/lesson/reading'
 import type { Tsume } from '@/app/modes/tsume/useTsume'
 import type { TesujiTrainer } from '@/app/modes/tesuji/useTesuji'
-import type { Spar } from '@/app/modes/spar/useSpar'
+import type { AiEnd, Spar } from '@/app/modes/spar/useSpar'
 import type { AnalyzeGames } from '@/app/modes/analyze/useAnalyzeGames'
+import type { SparGame } from '@/appearance/settings'
 import type { Layout } from './useLayout'
 
 export type Load = (start: string, side: Side, mode: Mode, course: Course | null) => void
@@ -28,6 +29,8 @@ export type Snapshot = {
   lessonAttempts?: { answered: string[]; missed: string[]; shown?: string[] }
   tree?: Tree
   resigned?: boolean
+  aiEnded?: AiEnd
+  sparGame?: SparGame
 }
 type Snapshots = Partial<Record<Mode, Snapshot>>
 
@@ -79,6 +82,8 @@ export function useModeSwitch(
     lessonAttempts: lesson.attempts(),
     tree,
     resigned: spar.resigned,
+    aiEnded: spar.aiEnded ?? undefined,
+    sparGame: mode === 'spar' ? spar.config : undefined,
   })
 
   useLayoutEffect(() => {
@@ -100,6 +105,7 @@ export function useModeSwitch(
     session.setFlipped(back.flipped)
     lesson.restore(back)
     if (back.tree) session.setTree(back.tree)
+    if (m === 'spar' && back.sparGame) spar.restoreConfig(back.sparGame)
   }
 
   const enterMode = (m: Mode, practice?: Mistake[]) => {
@@ -114,6 +120,7 @@ export function useModeSwitch(
     if (back && (m === 'spar' || m === 'analyze' || (m === 'lesson' && back.course))) {
       resume(m, back)
       if (back.resigned) spar.restoreResigned()
+      if (back.aiEnded) spar.endByAi(back.aiEnded)
       return
     }
     if (m === 'tesuji') return tesuji.startDefault()
