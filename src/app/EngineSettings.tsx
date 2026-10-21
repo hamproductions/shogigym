@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Wrap } from 'styled-system/jsx'
+import { styled } from 'styled-system/jsx'
 import { restartEngine, useEngineStatus } from '@/utils/engine'
 import { clearEvalFile, saveEvalFile, useEvalFile } from '@/utils/evalStore'
 import { clearBookDownloadCache, downloadFullBook, type BookProgress } from '@/utils/bookDownload'
@@ -10,7 +10,18 @@ import { Button } from '@/app/ui/Button'
 import { FilePicker } from '@/app/ui/FilePicker'
 import { SegmentedField, SettingRow } from '@/app/ui/Segmented'
 import { Text } from '@/components/ui'
-import { muted, result } from '@/app/panels/panels.styles'
+import { Muted, Result } from '@/app/panels/panels.styles'
+
+const SettingControl = styled('div', {
+  base: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    gap: '2',
+    justifySelf: 'end',
+    _phone: { justifySelf: 'start' },
+  },
+})
 
 export function EngineSettings() {
   const { t } = useTranslation()
@@ -36,8 +47,8 @@ export function EngineSettings() {
       {st.engine === 'nnue' && (
         <>
           <SettingRow label={t('settings.evalFile')}>
-            <Wrap gap="2" align="center">
-              <span className={muted}>{evalFile ? `${evalFile.name} (${(evalFile.size / 1048576).toFixed(1)} MB)` : t('settings.noEvalFile')}</span>
+            <SettingControl>
+              <Muted as="span">{evalFile ? `${evalFile.name} (${(evalFile.size / 1048576).toFixed(1)} MB)` : t('settings.noEvalFile')}</Muted>
               <FilePicker
                 accept=".bin"
                 disabled={busy}
@@ -59,9 +70,9 @@ export function EngineSettings() {
               {evalFile && (
                 <Button onClick={() => clearEvalFile().then(reload, (failure: Error) => setError(failure.message))}>{t('settings.removeEvalFile')}</Button>
               )}
-            </Wrap>
+            </SettingControl>
           </SettingRow>
-          {error && <p className={result({ tone: 'wrong' })}>{error}</p>}
+          {error && <Result tone="wrong">{error}</Result>}
           <SegmentedField
             label={t('settings.fvScale')}
             value={st.fvScale}
@@ -109,8 +120,8 @@ function OpeningBookSettings() {
   return (
     <>
       <SettingRow label={t('settings.openingBook')}>
-        <Wrap gap="2" align="center">
-          <span className={muted}>{file ? `${file.name} (${(file.size / 1048576).toFixed(1)} MB)` : t('settings.compactBook')}</span>
+        <SettingControl>
+          <Muted as="span">{file ? `${file.name} (${(file.size / 1048576).toFixed(1)} MB)` : t('settings.compactBook')}</Muted>
           <FilePicker
             accept=".db"
             disabled={busy}
@@ -148,10 +159,10 @@ function OpeningBookSettings() {
               {t('settings.removeBook')}
             </Button>
           )}
-        </Wrap>
+        </SettingControl>
       </SettingRow>
       <SettingRow label={t('settings.cacheBook')}>
-        <Wrap gap="2" align="center">
+        <SettingControl>
           <Button disabled={busy || !!file} onClick={download}>
             {t('settings.downloadFullBook')}
           </Button>
@@ -165,15 +176,15 @@ function OpeningBookSettings() {
               <Button onClick={() => controller.current?.abort()}>{t('app.cancel')}</Button>
             </>
           )}
-        </Wrap>
+        </SettingControl>
       </SettingRow>
       <Text tone="muted" size="2xs" mt="0" mb="2">
         {t('settings.bookHint')}
       </Text>
       {error && (
-        <p className={result({ tone: 'wrong' })} role="alert">
+        <Result tone="wrong" role="alert">
           {error}
-        </p>
+        </Result>
       )}
     </>
   )
@@ -193,7 +204,7 @@ export function EngineName() {
       </Text>
       {status.kind === st.engine && status.error && (
         <div role="alert">
-          <p className={result({ tone: 'wrong' })}>{status.error}</p>
+          <Result tone="wrong">{status.error}</Result>
           <Button size="sm" onClick={restartEngine}>
             {t('tsume.tryAgain')}
           </Button>

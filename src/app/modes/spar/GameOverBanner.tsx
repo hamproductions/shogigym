@@ -4,7 +4,7 @@ import { useSession } from '@/app/hooks/session'
 import { flipTable } from '@/utils/events'
 import type { Spar } from './useSpar'
 import { Button } from '@/app/ui/Button'
-import { gameOver as gameOverStyles } from './game-over.styles'
+import { GameOverHeadline, GameOverPanel } from './game-over.styles'
 
 export function GameOverBanner({ spar, flatView }: { spar: Spar; flatView: boolean }) {
   const { t } = useTranslation()
@@ -19,21 +19,22 @@ export function GameOverBanner({ spar, flatView }: { spar: Spar; flatView: boole
       : spar.resigned && !gameOver
         ? t('app.youResigned', { winner: winner(other(userSide)) })
         : t(mode !== 'spar' ? 'app.wins' : other(toMove) === userSide ? 'app.youWin' : 'app.aiWins', { winner: winner(other(toMove)) })
-  const styles = gameOverStyles()
   return (
-    <div className={styles.root} role="status">
+    <GameOverPanel role="status">
       <Button
         variant="icon"
-        className={styles.close}
+        position="absolute"
+        top="1"
+        right="1"
         onClick={() => spar.setEndHidden(sfen)}
         aria-label={t('app.hideThisAndLookAt')}
         title={t('app.lookAtTheBoard')}
       >
         ×
       </Button>
-      <strong className={styles.headline}>{headline}</strong>
+      <GameOverHeadline>{headline}</GameOverHeadline>
       <span>{detail}</span>
-      <Wrap gap="2" align="center" className={styles.actions}>
+      <Wrap gap="2" align="center" justifyContent="center" mt="1">
         {mode === 'spar' && !flatView && <Button onClick={flipTable}>{t('rail.tableFlip')}</Button>}
         {mode === 'spar' && <Button onClick={spar.reviewGame}>{t('app.reviewThisGame')}</Button>}
         {mode === 'spar' && (
@@ -42,6 +43,6 @@ export function GameOverBanner({ spar, flatView }: { spar: Spar; flatView: boole
           </Button>
         )}
       </Wrap>
-    </div>
+    </GameOverPanel>
   )
 }

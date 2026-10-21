@@ -1,26 +1,66 @@
 import { useRef, useState, type ReactNode, type PointerEvent as ReactPointerEvent } from 'react'
 import { useTranslation } from 'react-i18next'
-import { css } from 'styled-system/css'
+import { styled } from 'styled-system/jsx'
 import type { Layout } from '@/app/hooks/useLayout'
 import { useSettings } from '@/appearance/settings'
 import { TABS, isGameMode, type Tab } from '@/app/types'
 import { useSession } from '@/app/hooks/session'
-import { Button } from '@/app/ui/Button'
 import { Tabs } from '@/app/ui/Tabs'
 import { Icon } from '@/app/icons'
-import { cx } from '@/app/ui/cx'
 import { NavFooter } from './NavFooter'
 import { PanelBody, type PanelModel } from './PanelBody'
-import { panel, panelClose, panelHeader } from './panels.styles'
+import { HeaderButton, PanelHeader, TabLabel, floatingTabs, panelTabs } from './panels.styles'
 
 type SidePanelsProps = { layout: Layout; tab: Tab; setTab: (tab: Tab) => void; sheetOpen: boolean; model: PanelModel; canAutoplay: boolean; picking: boolean }
 
+const PanelAside = styled('aside', {
+  base: {
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '0',
+    containerType: 'inline-size',
+    background:
+      "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.42 0 0 0 0 0.35 0 0 0 0 0.25 0 0 0 0.07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\"), {colors.panel}",
+    color: 'fg.default',
+    borderLeft: '1px solid {colors.border}',
+    '.app-shell[data-panel-hidden] > &': { display: 'none' },
+    '.app-shell[data-zoned] > &': {
+      position: 'fixed',
+      zIndex: 'floatingPanel',
+      border: '0',
+      borderRadius: 'lg',
+      overflow: 'hidden',
+      boxShadow: 'inset 0 0 0 1px {colors.border}, {shadows.md}',
+    },
+    '.app-shell[data-fs] > &': { display: 'none' },
+    _compact: {
+      borderLeft: '0',
+      borderTop: '1px solid {colors.border}',
+      '.app-shell[data-drawer-open][data-panel-side]:not([data-fs]) > &': {
+        gridColumn: '2',
+        gridRow: '2',
+        minWidth: '0',
+        borderRadius: '{radii.lg} 0 0 {radii.lg}',
+        borderLeft: '1px solid {colors.border}',
+      },
+      '.app-shell[data-drawer-open]:not([data-fs]) > &': {
+        display: 'flex',
+        minH: '0',
+        borderRadius: '{radii.xl} {radii.xl} 0 0',
+        overflow: 'hidden',
+        boxShadow: 'sheet',
+      },
+    },
+  },
+})
+
 export function FloatingPanel({ zone, header, children }: { zone: NonNullable<Layout['zones']>['under']; header: ReactNode; children: ReactNode }) {
   return (
-    <aside className={cx('app-panel app-panel-left', panel)} style={{ ...zone }}>
+    <PanelAside className="app-panel app-panel-left" style={{ ...zone }}>
       {header}
       {children}
-    </aside>
+    </PanelAside>
   )
 }
 
@@ -45,7 +85,8 @@ function LeftPanel({
       zone={zone}
       header={
         <Tabs
-          items={(['moves'] as Tab[]).map((id) => ({ id, label: <span className={labelClass}>{t(`tabs.${id}`)}</span> }))}
+          className={floatingTabs}
+          items={(['moves'] as Tab[]).map((id) => ({ id, label: <TabLabel className={labelClass}>{t(`tabs.${id}`)}</TabLabel> }))}
           value={active}
           onChange={(id) => {
             setSelected(id)
@@ -74,17 +115,20 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
         layout={layout}
         sheetOpen={sheetOpen}
         header={
-          <div className={panelHeader}>
+          <PanelHeader>
             <Tabs
+              className={panelTabs}
+              flex="1"
+              minW="0"
               items={TABS.filter((id) => !(twoPanels && id === 'moves') && (id !== 'report' || reportable)).map((id) => ({
                 id,
-                label: <span className={labelClass}>{t(`tabs.${id}`)}</span>,
+                label: <TabLabel className={labelClass}>{t(`tabs.${id}`)}</TabLabel>,
               }))}
               value={rightTab}
               onChange={setTab}
             />
             {!compact && (!layout.panelSide || layout.floatingAvailable) && (
-              <Button
+              <HeaderButton
                 variant="icon"
                 className="app-panel-dock"
                 onClick={layout.togglePanelSide}
@@ -92,20 +136,20 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
                 aria-label={t(layout.panelSide ? 'app.floatPanel' : 'app.dockPanelSide')}
               >
                 <Icon name={layout.panelSide ? 'floating' : 'panel'} />
-              </Button>
+              </HeaderButton>
             )}
             {!compact && (
-              <Button
+              <HeaderButton
                 variant="icon"
-                className={panelClose}
+                alignSelf="center"
                 onClick={() => setPanel({ hidden: true })}
                 title={t('app.closeThePanelP')}
                 aria-label={t('app.closeThePanel')}
               >
                 <Icon name="close" />
-              </Button>
+              </HeaderButton>
             )}
-          </div>
+          </PanelHeader>
         }
         footer={!picking && <NavFooter canAutoplay={canAutoplay} watch={model.watch} lesson={model.lesson} />}
       >
@@ -114,41 +158,6 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
     </>
   )
 }
-
-const resizeHandle = css({
-  position: 'absolute',
-  top: '0',
-  bottom: '0',
-  left: '-4px',
-  zIndex: 'banner',
-  w: '8px',
-  cursor: 'col-resize',
-  transition: 'background {durations.fast}',
-  touchAction: 'none',
-  bgImage: 'linear-gradient({colors.border.strong}, {colors.border.strong})',
-  bgPosition: 'center',
-  bgSize: '3px 40px',
-  bgRepeat: 'no-repeat',
-  _hover: { background: 'accent.soft' },
-  _active: { background: 'accent.soft' },
-  _compact: { display: 'none', '.app-shell[data-panel-side] &': { display: 'block', left: '0', w: '12px' } },
-})
-
-const sheetHandle = css({
-  display: 'none',
-  _compact: {
-    display: 'block',
-    flex: 'none',
-    h: '12px',
-    p: '0',
-    touchAction: 'none',
-    cursor: 'row-resize',
-    bgImage: 'linear-gradient({colors.border.strong}, {colors.border.strong})',
-    bgPosition: 'center',
-    bgSize: '40px 3px',
-    bgRepeat: 'no-repeat',
-  },
-})
 
 export function SidePanel({
   layout,
@@ -209,10 +218,27 @@ export function SidePanel({
     suppressSheetClick.current = !cancelled && gesture.moved
   }
   return (
-    <aside className={cx('app-panel', panel)} hidden={(zoned && panelPrefsHidden) || undefined} style={zoned && !panelPrefsHidden ? floatingRect : undefined}>
+    <PanelAside className="app-panel" hidden={(zoned && panelPrefsHidden) || undefined} style={zoned && !panelPrefsHidden ? floatingRect : undefined}>
       {layout.panelSide && (
-        <div
-          className={cx('app-panel-resize', resizeHandle)}
+        <styled.div
+          className="app-panel-resize"
+          position="absolute"
+          top="0"
+          bottom="0"
+          left="-4px"
+          zIndex="banner"
+          w="8px"
+          cursor="col-resize"
+          transition="background {durations.fast}"
+          touchAction="none"
+          bgImage="linear-gradient({colors.border.strong}, {colors.border.strong})"
+          bgPosition="center"
+          bgSize="3px 40px"
+          bgRepeat="no-repeat"
+          _hover={{ background: 'accent.soft' }}
+          _active={{ background: 'accent.soft' }}
+          _compact={{ display: 'none', '.app-shell[data-panel-side] &': { display: 'block', left: '0', w: '12px' } }}
+          css={{ '.app-shell[data-zoned] > .app-panel &': { left: '0', w: '12px' } }}
           role="separator"
           aria-label={t('app.dragToResizeThePanel')}
           aria-orientation="vertical"
@@ -221,8 +247,20 @@ export function SidePanel({
           onPointerMove={resize}
         />
       )}
-      <button
-        className={sheetHandle}
+      <styled.button
+        display="none"
+        _compact={{
+          display: 'block',
+          flex: 'none',
+          h: '12px',
+          p: '0',
+          touchAction: 'none',
+          cursor: 'row-resize',
+          bgImage: 'linear-gradient({colors.border.strong}, {colors.border.strong})',
+          bgPosition: 'center',
+          bgSize: '40px 3px',
+          bgRepeat: 'no-repeat',
+        }}
         onClick={(e) => {
           if (suppressSheetClick.current && e.detail > 0) {
             suppressSheetClick.current = false
@@ -240,6 +278,6 @@ export function SidePanel({
       {header}
       {children}
       {footer}
-    </aside>
+    </PanelAside>
   )
 }

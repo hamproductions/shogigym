@@ -1,7 +1,7 @@
 import { MENTION_COLORS, mentionedSquares, squareParts } from '@/app/modes/lesson/figureMarks'
 import { useFlipped } from '@/app/hooks/session'
 import { FlipMarks } from '@/app/ui/SideMark'
-import { squareMark } from './lesson.styles'
+import { styled } from 'styled-system/jsx'
 
 const hex = (color: number) => `#${color.toString(16).padStart(6, '0')}`
 
@@ -20,9 +20,17 @@ export function SquareText({ text, context = text }: { text: string; context?: s
             {part}
           </FlipMarks>
         ) : (
-          <span key={i} className={squareMark} style={{ ['--sq' as string]: hex(MENTION_COLORS[squares.indexOf(part.square) % MENTION_COLORS.length]) }}>
+          <styled.span
+            key={i}
+            p="0 0.2em"
+            borderRadius="0.25em"
+            bg="color-mix(in srgb, var(--sq) 38%, transparent)"
+            boxShadow="inset 0 -2px 0 var(--sq)"
+            css={{ '--sq': '#e0b84a' }}
+            style={{ ['--sq' as string]: hex(MENTION_COLORS[squares.indexOf(part.square) % MENTION_COLORS.length]) }}
+          >
             <FlipMarks flipped={flipped}>{part.text}</FlipMarks>
-          </span>
+          </styled.span>
         ),
       )}
     </>

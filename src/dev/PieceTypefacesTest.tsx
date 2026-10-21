@@ -4,8 +4,8 @@ import { bakePreviews } from '@/rendering/board3d/bake'
 import { PIECE_TYPEFACES, pieceSetForFace } from '@/appearance/pieceDesigns'
 import { loadPieceSet, PIECE_SETS, type PieceSet } from '@/appearance/pieceSets'
 import { loadPieceFont, useSettings, type PieceAppearance } from '@/appearance/settings'
-import { cx } from '@/app/ui/cx'
-import { page, typefaceGrid, typefaceHeader, typefacePage, typefaceSet } from './pieces.styles'
+import { styled } from 'styled-system/jsx'
+import { DevPage } from './pieces.styles'
 
 const TYPES: { type: PieceType; label: string }[] = [
   { type: PieceType.KING, label: '王' },
@@ -66,27 +66,62 @@ export default function PieceTypefacesTest() {
     return () => controller.abort()
   }, [key, st.pieceFont, st.pieceStyle, st.pieceGuide, st.pieceMaterial, st.pieceColor, st.pieceGrain, st.pieceFinish])
   return (
-    <main className={cx(page, typefacePage)} aria-busy={!rows && !error}>
-      <header className={typefaceHeader}>
-        <h1>Piece typeface renderer</h1>
-        <p>
+    <DevPage boxSizing="border-box" w="min(1760px, 100%)" mx="auto" aria-busy={!rows && !error}>
+      <styled.header
+        display="grid"
+        gridTemplateColumns="minmax(0, 1fr) auto"
+        alignItems="end"
+        gap="{spacing.2} {spacing.4}"
+        mb="4"
+        pb="3"
+        borderBottom="1px solid {colors.border}"
+        _phone={{ alignItems: 'flex-start', gridTemplateColumns: 'minmax(0, 1fr)', gap: '1' }}
+      >
+        <styled.h1 m="0" fontSize="xl">
+          Piece typeface renderer
+        </styled.h1>
+        <styled.p m="0" color="fg.muted" fontSize="sm" textAlign="right" _phone={{ textAlign: 'left' }}>
           {st.pieceStyle} · {st.pieceGuide} · {st.pieceMaterial} · {st.pieceColor} · {st.pieceGrain} · {st.pieceFinish}
-        </p>
-      </header>
+        </styled.p>
+      </styled.header>
       {!rows && !error && <p>Rendering with current global settings…</p>}
       {error && <p role="alert">{error}</p>}
       {rows?.map(({ set, images }) => (
-        <section className={typefaceSet} key={set}>
-          <h2>{PIECE_SETS[set].label}</h2>
-          <div className={typefaceGrid}>
+        <styled.section key={set} mb="4" p="clamp({spacing.3}, 1.5vw, {spacing.5})" border="1px solid {colors.border}" borderRadius="lg" bg="panel">
+          <styled.h2 m="0 0 {spacing.2}" fontSize="md">
+            {PIECE_SETS[set].label}
+          </styled.h2>
+          <styled.div display="grid" gridTemplateColumns="repeat(auto-fit, minmax(min(100%, 220px), 1fr))" gap="clamp({spacing.2}, 1.25vw, {spacing.4})">
             {images.map((image, index) => (
-              <figure key={TYPES[index].type} title={TYPES[index].label}>
-                <img src={image} alt={TYPES[index].label} width={180} height={180} />
-              </figure>
+              <styled.figure
+                key={TYPES[index].type}
+                title={TYPES[index].label}
+                display="grid"
+                minW="0"
+                gap="2"
+                m="0"
+                p="2"
+                border="1px solid {colors.border}"
+                borderRadius="md"
+                bg="card"
+              >
+                <styled.img
+                  src={image}
+                  alt={TYPES[index].label}
+                  htmlWidth={180}
+                  htmlHeight={180}
+                  display="block"
+                  w="100%"
+                  aspectRatio="1"
+                  borderRadius="sm"
+                  bg="#f5e3bd"
+                  objectFit="contain"
+                />
+              </styled.figure>
             ))}
-          </div>
-        </section>
+          </styled.div>
+        </styled.section>
       ))}
-    </main>
+    </DevPage>
   )
 }

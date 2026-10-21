@@ -7,9 +7,8 @@ import { reviewCounts, type ReviewQueue } from '@/app/practice'
 import { TESUJI_KINDS } from '@/app/tesujiDrills'
 import type { LessonMode } from '@/app/types'
 import { Segmented } from '@/app/ui/Segmented'
-import { Button } from '@/app/ui/Button'
 import { Select } from '@/app/ui/Select'
-import { barSelect } from './mode-bar.styles'
+import { BarButton, barSegments, barSelect } from './mode-bar.styles'
 
 const LENGTHS: TsumeLength[] = [1, 3, 5, 7, 'all']
 
@@ -27,9 +26,9 @@ export function TsumeControls({ trainer }: { trainer: Tsume }) {
         options={LENGTHS.map((n) => ({ value: String(n), label: n === 'all' ? t('tsume.mixed') : t('tsume.mateIn', { n }) }))}
         onChange={(value) => trainer.start(value === 'all' ? 'all' : (Number(value) as TsumeLength))}
       />
-      <Button size="sm" variant={done ? 'primary' : 'secondary'} onClick={trainer.next}>
+      <BarButton size="sm" variant={done ? 'primary' : 'secondary'} onClick={trainer.next}>
         {t('tsume.nextProblem')}
-      </Button>
+      </BarButton>
     </>
   )
 }
@@ -47,9 +46,9 @@ export function TesujiControls({ trainer }: { trainer: Tesuji }) {
         options={['all', ...TESUJI_KINDS].map((k) => ({ value: k, label: k === 'all' ? t('tesuji.mixed') : k }))}
         onChange={(value) => trainer.start(value)}
       />
-      <Button size="sm" variant={drill.status === 'asking' ? 'secondary' : 'primary'} onClick={trainer.next}>
+      <BarButton size="sm" variant={drill.status === 'asking' ? 'secondary' : 'primary'} onClick={trainer.next}>
         {t('tesuji.next')}
-      </Button>
+      </BarButton>
     </>
   )
 }
@@ -60,6 +59,7 @@ export function LessonControls({ lesson }: { lesson: Lesson }) {
     <>
       <Segmented<LessonMode>
         size="small"
+        className={barSegments}
         label={t('lesson.lessonMode')}
         value={lesson.lessonMode}
         options={[

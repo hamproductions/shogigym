@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode, type Ref } from 'react'
 import { useTranslation } from 'react-i18next'
-import { css } from 'styled-system/css'
 import { styled, Wrap } from 'styled-system/jsx'
 import { LABELS, type MoveReview } from '@/utils/analysis'
 import type { RatingProgress } from '@/app/hooks/useAutoRate'
@@ -17,45 +16,7 @@ import { countMoves, isMainLine, nodeAt, type Tree } from '@/app/tree'
 import { Button } from '@/app/ui/Button'
 import { useSettings } from '@/appearance/settings'
 import { useFlipped } from '@/app/hooks/session'
-import { moveButton, moveLabel, moveNotation, moveRow, moves as movesList, muted } from './panels.styles'
-
-const tesujiTag = css({
-  ml: '1',
-  px: '1',
-  borderRadius: 'xs',
-  bg: 'accent.soft',
-  color: 'accent.text',
-  fontSize: '2xs',
-  fontWeight: 'bold',
-  whiteSpace: 'normal',
-  overflowWrap: 'anywhere',
-  _narrow: { display: 'block', w: 'fit-content', maxW: '100%', m: '{spacing.0.5} 0 0' },
-  '@container (max-width: 340px)': { display: 'block', m: '{spacing.0.5} 0 0' },
-})
-
-const variationButton = css({
-  w: 'auto',
-  p: '{spacing.0.5} {spacing.2}',
-  borderRadius: 'sm',
-  fontFamily: 'mincho',
-  fontSize: 'sm',
-  textAlign: 'left',
-  overflowWrap: 'anywhere',
-  '&:hover': { bg: 'surface.2' },
-})
-
-const variationDelete = css({
-  w: 'auto',
-  p: '{spacing.0.5} {spacing.1.5}',
-  borderRadius: 'sm',
-  color: 'fg.muted',
-  fontFamily: 'mincho',
-  fontSize: 'sm',
-  textAlign: 'left',
-  overflowWrap: 'anywhere',
-  '&:hover': { bg: 'surface.2', color: 'danger' },
-  _narrow: { minW: '36px', minH: '32px', fontSize: '18px' },
-})
+import { MoveButton, MoveCell, Muted } from './panels.styles'
 
 type MovesPaneProps = {
   sfens: string[]
@@ -75,18 +36,47 @@ type MovesPaneProps = {
 
 const QUIET_LABELS = ['good', 'excellent', 'best']
 
+const MoveTag = styled('span', {
+  base: {
+    ml: '1',
+    px: '1',
+    borderRadius: 'xs',
+    bg: 'accent.soft',
+    color: 'accent.text',
+    fontSize: '2xs',
+    fontWeight: 'bold',
+    whiteSpace: 'normal',
+    overflowWrap: 'anywhere',
+    _narrow: { display: 'block', w: 'fit-content', maxW: '100%', m: '{spacing.0.5} 0 0' },
+    '@container (max-width: 340px)': { display: 'block', m: '{spacing.0.5} 0 0' },
+  },
+})
+
 export function MoveRows({ count, cell, listRef, title }: { count: number; cell: (i: number) => ReactNode; listRef?: Ref<HTMLOListElement>; title?: string }) {
   return (
-    <ol className={movesList} ref={listRef} title={title}>
+    <styled.ol m="0" p="0" listStyle="none" ref={listRef} title={title}>
       {Array.from({ length: Math.ceil(count / 2) }, (_, r) => (
-        <li key={r} className={moveRow}>
+        <styled.li
+          key={r}
+          display="grid"
+          gridTemplateColumns="34px minmax(0, 1fr) minmax(0, 1fr)"
+          alignItems="baseline"
+          gap="1"
+          py="0.5"
+          borderRadius="sm"
+          _narrow={{ gridTemplateColumns: '26px minmax(0, 1fr) minmax(0, 1fr)', alignItems: 'start' }}
+          css={{
+            '&:nth-child(even)': { bg: 'color-mix(in srgb, {colors.fg.default} 4%, transparent)' },
+            '@container (max-width: 340px)': { gridTemplateColumns: '26px minmax(0, 1fr)', alignItems: 'start' },
+          }}
+        >
           <styled.span pl="1.5" color="fg.muted" fontSize="xs">
             {r + 1}.
           </styled.span>
-          {[2 * r, 2 * r + 1].map((i) => (i < count ? cell(i) : <span key={i} />))}
-        </li>
+          {[2 * r, 2 * r + 1].map((i) => (i < count ? cell(i) : <styled.span key={i} css={{ '@container (max-width: 340px)': { gridColumn: '2' } }} />))}
+        </styled.li>
       ))}
-    </ol>
+    </styled.ol>
   )
 }
 
@@ -119,7 +109,7 @@ export function MovesPane({
   const reviews: (MoveReview | null)[] = moves.map((usi, i) => cachedReview(sfens[i], usi) ?? null)
   const rated = moves.length > 0 && reviews.every(Boolean)
   const labels = rated || reviews.some(Boolean) ? reviews.map((r) => r?.label ?? null) : null
-  if (moves.length === 0) return <p className={muted}>{empty ?? t('moves.noMovesYetPlayOn')}</p>
+  if (moves.length === 0) return <Muted>{empty ?? t('moves.noMovesYetPlayOn')}</Muted>
 
   const mistakeId = (i: number) => `${sfens[i]}|${moves[i]}`
   const savedIds = new Set(loadMistakes().map((m) => m.id))
@@ -150,32 +140,39 @@ export function MovesPane({
     const siblings = tree ? (nodeAt(tree, moves.slice(0, i))?.children ?? []).filter((c) => c.usi !== usi) : []
     const tesuji = showTesuji ? tesujis[i] : null
     return (
-      <div key={i} data-in-var={tree && !isMainLine(tree, moves.slice(0, i + 1)) ? '' : undefined}>
-        <button className={moveButton} aria-current={cursor === i + 1 ? 'step' : undefined} onClick={() => setCursor(i + 1)}>
-          <span className={moveNotation}>
+      <MoveCell key={i} data-in-var={tree && !isMainLine(tree, moves.slice(0, i + 1)) ? '' : undefined}>
+        <MoveButton aria-current={cursor === i + 1 ? 'step' : undefined} onClick={() => setCursor(i + 1)}>
+          <styled.span display="inline-block" whiteSpace="nowrap">
             <FlipMarks flipped={flipped}>{moveText(sfens[i], usi, moves[i - 1])}</FlipMarks>
-          </span>
+          </styled.span>
           {tesuji && (
-            <span
-              className={tesujiTag}
-              title={t('moves.tesuji', { value: i18n.language === 'ja' ? tesuji.ja : `${tesuji.en} (${tesuji.ja})`, value2: tesuji.explain })}
-            >
+            <MoveTag title={t('moves.tesuji', { value: i18n.language === 'ja' ? tesuji.ja : `${tesuji.en} (${tesuji.ja})`, value2: tesuji.explain })}>
               {i18n.language === 'ja' ? tesuji.ja : tesuji.en}
-            </span>
+            </MoveTag>
           )}
           {detectedTags
             .filter((tag) => tag.ply === i + 1 && tag.annotation !== false && tag.name !== tesuji?.ja && (showTesuji || tag.kind !== 'technique'))
             .map((tag) => (
-              <span key={`${tag.kind}|${tag.name}`} className={tesujiTag} title={tag.name}>
+              <MoveTag key={`${tag.kind}|${tag.name}`} title={tag.name}>
                 {formationName(tag.name, i18n.language)}
-              </span>
+              </MoveTag>
             ))}
           {label && !QUIET_LABELS.includes(label) && (
-            <span className={moveLabel} style={{ ['--label' as string]: LABELS[label].color }} title={LABELS[label].text}>
+            <styled.span
+              display="inline-block"
+              whiteSpace="nowrap"
+              ml="1.5"
+              color="light-dark(color-mix(in srgb, var(--label) 55%, #000), var(--label))"
+              fontFamily="sans"
+              fontWeight="bold"
+              fontSize="xs"
+              style={{ ['--label' as string]: LABELS[label].color }}
+              title={LABELS[label].text}
+            >
               {LABELS[label].symbol}
-            </span>
+            </styled.span>
           )}
-        </button>
+        </MoveButton>
         {siblings.length > 0 && (
           <styled.span display="flex" flexWrap="wrap" alignItems="center" gap="1" m="{spacing.0.5} 0 {spacing.1}">
             <styled.span px="1.5" borderRadius="xs" bg="info.fill" color="gofun" fontFamily="mincho" fontWeight="heavy" fontSize="2xs">
@@ -183,7 +180,18 @@ export function MovesPane({
             </styled.span>
             {siblings.map((c) => (
               <styled.span key={c.usi} display="inline-flex" borderRadius="md" bg="surface.2" overflow="hidden">
-                <button className={variationButton} onClick={() => onSwitch?.([...moves.slice(0, i), c.usi])} title={t('moves.switchToThisLine')}>
+                <styled.button
+                  w="auto"
+                  p="{spacing.0.5} {spacing.2}"
+                  borderRadius="sm"
+                  fontFamily="mincho"
+                  fontSize="sm"
+                  textAlign="left"
+                  overflowWrap="anywhere"
+                  css={{ '&:hover': { bg: 'surface.2' } }}
+                  onClick={() => onSwitch?.([...moves.slice(0, i), c.usi])}
+                  title={t('moves.switchToThisLine')}
+                >
                   <FlipMarks flipped={flipped}>{moveText(sfens[i], c.usi, moves[i - 1])}</FlipMarks>
                   {c.children.length > 0 && (
                     <styled.small fontFamily="sans" color="fg.muted">
@@ -191,37 +199,46 @@ export function MovesPane({
                       +{countMoves(c)}
                     </styled.small>
                   )}
-                </button>
-                <button
-                  className={variationDelete}
+                </styled.button>
+                <styled.button
+                  w="auto"
+                  p="{spacing.0.5} {spacing.1.5}"
+                  borderRadius="sm"
+                  color="fg.muted"
+                  fontFamily="mincho"
+                  fontSize="sm"
+                  textAlign="left"
+                  overflowWrap="anywhere"
+                  _narrow={{ minW: '36px', minH: '32px', fontSize: '18px' }}
+                  css={{ '&:hover': { bg: 'surface.2', color: 'danger' } }}
                   onClick={() => onDelete?.([...moves.slice(0, i), c.usi], countMoves(c) + 1)}
                   aria-label={t('moves.deleteThisVariation')}
                   title={t('moves.deleteThisVariation')}
                 >
                   ×
-                </button>
+                </styled.button>
               </styled.span>
             ))}
           </styled.span>
         )}
-      </div>
+      </MoveCell>
     )
   }
   const mistakes = labels?.filter((l) => l !== null && isBad(l)).length ?? 0
   return (
     <div>
       <Wrap gap="2" align="center" mb="2.5">
-        {rating && <span className={muted}>{t('moves.ratingMoveOf', { progress: rating.done + 1, movesCount: rating.total })}</span>}
+        {rating && <Muted as="span">{t('moves.ratingMoveOf', { progress: rating.done + 1, movesCount: rating.total })}</Muted>}
         {canRate && rated && !rating && (
           <>
-            <span className={muted}>{mistakes ? t('moves.mistakesFound', { count: mistakes }) : t('moves.noMistakesFound')}</span>
+            <Muted as="span">{mistakes ? t('moves.mistakesFound', { count: mistakes }) : t('moves.noMistakesFound')}</Muted>
             {mistakes > 0 && saved === null && !allSaved && (
               <Button size="sm" onClick={saveMine}>
                 {t('moves.saveThemAsReviewCards')}
               </Button>
             )}
-            {mistakes > 0 && saved === null && allSaved && <span className={muted}>{t('moves.alreadySavedToReview')}</span>}
-            {saved !== null && <span className={muted}>{t('moves.allSaved', { count: mistakes })}</span>}
+            {mistakes > 0 && saved === null && allSaved && <Muted as="span">{t('moves.alreadySavedToReview')}</Muted>}
+            {saved !== null && <Muted as="span">{t('moves.allSaved', { count: mistakes })}</Muted>}
           </>
         )}
       </Wrap>

@@ -10,28 +10,9 @@ import { mainStrategies, strategyById } from '@/data/strategies'
 import type { LessonMode, Level } from '@/app/types'
 import { Button } from '@/app/ui/Button'
 import { Input } from '@/components/ui'
-import { Wrap } from 'styled-system/jsx'
-import { backLink, muted, subHeading } from '@/app/panels/panels.styles'
-import {
-  guideStart,
-  libEn,
-  libJa,
-  libMatch,
-  lessonCheck,
-  lessonToc,
-  mainChip,
-  mainCurrent,
-  mainGrid,
-  picker,
-  pickerIntro,
-  pickerTitle,
-  progressLine,
-  resultCount,
-  setupButton,
-  setupGo,
-  sourceNote,
-  startTag,
-} from './lesson.styles'
+import { Grid, styled, Wrap } from 'styled-system/jsx'
+import { BackLink, Muted, SubHeading } from '@/app/panels/panels.styles'
+import { CrumbLink, LibEn, LibJa, PickerIntro, PickerTitle, ProgressLine, SetupButton, SetupGo } from './lesson.styles'
 import { LessonCard } from './LessonCard'
 import { LessonReferences } from './LessonReferences'
 import { SquareText } from './SquareText'
@@ -69,6 +50,23 @@ const progressOf = (courses: Course[]) =>
 
 const lower = (text: string) => text.toLowerCase()
 
+const Tag = styled('em', {
+  base: {
+    display: 'inline-block',
+    ml: '2',
+    whiteSpace: 'nowrap',
+    px: '2',
+    borderRadius: 'full',
+    bg: 'success.fill',
+    color: 'gofun',
+    fontFamily: 'sans',
+    fontStyle: 'normal',
+    fontWeight: 'bold',
+    fontSize: '2xs',
+    verticalAlign: '2px',
+  },
+})
+
 /** Higher is a better match: exact name, name prefix, name contains, then chapter titles only. */
 function matchScore({ setup, courses }: Entry, q: string) {
   const names = [lower(setup.ja), lower(setup.name)]
@@ -81,11 +79,11 @@ function matchScore({ setup, courses }: Entry, q: string) {
 function Credits() {
   const { t } = useTranslation()
   return (
-    <details className={sourceNote} data-spaced>
-      <summary>{t('picker.shogilabCreditsAndLicences')}</summary>
-      <p>{t('picker.engineYaneuraouWasmBuildBy')}</p>
-      <p>{t('picker.charactersCredit')}</p>
-    </details>
+    <styled.details data-spaced mt="4" color="fg.muted" fontSize="xs">
+      <styled.summary cursor="pointer">{t('picker.shogilabCreditsAndLicences')}</styled.summary>
+      <styled.p m="{spacing.1.5} 0 0">{t('picker.engineYaneuraouWasmBuildBy')}</styled.p>
+      <styled.p m="{spacing.1.5} 0 0">{t('picker.charactersCredit')}</styled.p>
+    </styled.details>
   )
 }
 
@@ -111,17 +109,15 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
   const setupCard = ({ setup, courses }: Entry) => {
     const p = progressOf(courses)
     return (
-      <button key={setup.id} className={setupButton()} onClick={() => setSetupId(setup.id)}>
-        <span className={libJa}>
+      <SetupButton key={setup.id} onClick={() => setSetupId(setup.id)}>
+        <LibJa>
           {name(setup)}
-          {setup.basics && p.learned === 0 && <em className={startTag}>{t('picker.startHere')}</em>}
-        </span>
-        <span className={libEn}>{ja ? `${courses.length} 章` : `${courses.length} ${courses.length === 1 ? 'chapter' : 'chapters'}`}</span>
-        <span className={setupGo} aria-hidden="true">
-          ›
-        </span>
-        <i className={progressLine} style={{ width: percent(p) }} />
-      </button>
+          {setup.basics && p.learned === 0 && <Tag>{t('picker.startHere')}</Tag>}
+        </LibJa>
+        <LibEn>{ja ? `${courses.length} 章` : `${courses.length} ${courses.length === 1 ? 'chapter' : 'chapters'}`}</LibEn>
+        <SetupGo aria-hidden="true">›</SetupGo>
+        <ProgressLine style={{ width: percent(p) }} />
+      </SetupButton>
     )
   }
   const crumb = (setup: Setup) => {
@@ -136,26 +132,24 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
     const defending = courses.length > 0 && courses.every((c) => c.notesFromOpponentView)
     const p = progressOf(courses)
     return (
-      <button key={setup.id} className={setupButton({ found: true })} onClick={() => setSetupId(setup.id)}>
-        <span className={libJa}>
+      <SetupButton key={setup.id} found onClick={() => setSetupId(setup.id)}>
+        <LibJa>
           {name(setup)}
-          {defending && <em className={startTag}>{ja ? '受ける側' : 'Defending side'}</em>}
-        </span>
-        <span className={libEn}>{crumb(setup)}</span>
-        {chapter && <span className={libMatch}>{chapter}</span>}
-        <span className={libEn}>{ja ? `${courses.length} 章` : `${courses.length} ${courses.length === 1 ? 'chapter' : 'chapters'}`}</span>
-        <span className={setupGo} aria-hidden="true">
-          ›
-        </span>
-        <i className={progressLine} style={{ width: percent(p) }} />
-      </button>
+          {defending && <Tag>{ja ? '受ける側' : 'Defending side'}</Tag>}
+        </LibJa>
+        <LibEn>{crumb(setup)}</LibEn>
+        {chapter && (
+          <styled.span color="fg.muted" fontSize="xs" fontStyle="italic">
+            {chapter}
+          </styled.span>
+        )}
+        <LibEn>{ja ? `${courses.length} 章` : `${courses.length} ${courses.length === 1 ? 'chapter' : 'chapters'}`}</LibEn>
+        <SetupGo aria-hidden="true">›</SetupGo>
+        <ProgressLine style={{ width: percent(p) }} />
+      </SetupButton>
     )
   }
-  const backToGame = fromGame && (
-    <button className={backLink} onClick={returnToGame}>
-      ‹ {t('review.backToGame')}
-    </button>
-  )
+  const backToGame = fromGame && <BackLink onClick={returnToGame}>‹ {t('review.backToGame')}</BackLink>
 
   const open = all.find((g) => g.setup.id === setupId)
   const intro = open ? (ja ? open.setup.intro.ja : open.setup.intro.en) : ''
@@ -174,56 +168,67 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
       onOpen(quizzable[Math.floor(Math.random() * quizzable.length)], 'quiz')
     }
     return (
-      <div className={picker}>
+      <div>
         {backToGame}
-        <button className={backLink} onClick={() => (setSetupId(null), openCategory(categoryOf(open.setup)))}>
+        <CrumbLink onClick={() => (setSetupId(null), openCategory(categoryOf(open.setup)))}>
           ‹ {CATEGORIES.find((c) => c.id === categoryOf(open.setup))?.name[ja ? 'ja' : 'en']}
-        </button>
-        <h2 className={pickerTitle}>{name(open.setup)}</h2>
-        <p data-spaced className={pickerIntro({ kind: 'overview' })}>
+        </CrumbLink>
+        <PickerTitle>{name(open.setup)}</PickerTitle>
+        <PickerIntro data-spaced kind="overview">
           {describedSfen ? <SquareText text={intro} context={described} /> : intro}
-        </p>
+        </PickerIntro>
         {plan && (
-          <p data-spaced className={pickerIntro({ kind: 'plan' })}>
+          <PickerIntro data-spaced kind="plan">
             {describedSfen ? <SquareText text={plan} context={described} /> : plan}
-          </p>
+          </PickerIntro>
         )}
         {open.setup.path ? (
           <>
             {open.courses.length > 0 && (
-              <Button variant="primary" className={guideStart} onClick={() => (store(RANDOM_KEY, null), onOpen(open.courses[0], 'study'))}>
+              <Button variant="primary" w="100%" m="{spacing.2} 0" onClick={() => (store(RANDOM_KEY, null), onOpen(open.courses[0], 'study'))}>
                 {ja ? '始める' : 'Start'}
               </Button>
             )}
             {open.courses.length === 0 && open.setup.check && (
-              <details className={lessonCheck} data-spaced>
-                <summary>{ja ? open.setup.check.question.ja : open.setup.check.question.en}</summary>
+              <styled.details data-spaced m="{spacing.3} 0" p="{spacing.2} {spacing.3}" borderRadius="md" bg="card" boxShadow="inset 0 0 0 1px {colors.border}">
+                <styled.summary cursor="pointer" fontWeight="bold">
+                  {ja ? open.setup.check.question.ja : open.setup.check.question.en}
+                </styled.summary>
                 <p>{ja ? open.setup.check.answer.ja : open.setup.check.answer.en}</p>
-              </details>
+              </styled.details>
             )}
             {open.courses.length > 1 && (
-              <details className={lessonToc}>
-                <summary>{ja ? `目次（${open.courses.length}）` : `Contents (${open.courses.length})`}</summary>
-                <ol>
+              <styled.details mt="2">
+                <styled.summary cursor="pointer" color="fg.muted" fontSize="sm">
+                  {ja ? `目次（${open.courses.length}）` : `Contents (${open.courses.length})`}
+                </styled.summary>
+                <styled.ol m="{spacing.2} 0 0" pl="4">
                   {open.courses.map((course) => {
                     const title = ja ? course.title : (course.titleEn ?? course.title)
                     const prefix = `${name(open.setup)}: `
                     return (
                       <li key={course.id}>
-                        <button onClick={() => (store(RANDOM_KEY, null), onOpen(course, 'study'))}>
+                        <styled.button
+                          p="{spacing.1} 0"
+                          color="fg.default"
+                          fontSize="sm"
+                          textAlign="left"
+                          _hover={{ color: 'accent' }}
+                          onClick={() => (store(RANDOM_KEY, null), onOpen(course, 'study'))}
+                        >
                           {title.startsWith(prefix) ? title.slice(prefix.length) : title}
-                        </button>
+                        </styled.button>
                       </li>
                     )
                   })}
-                </ol>
-              </details>
+                </styled.ol>
+              </styled.details>
             )}
           </>
         ) : (
           <>
             {open.courses.length > 0 && (
-              <Wrap gap="2" align="center">
+              <Wrap gap="2" align="center" mt="2">
                 <Button variant="primary" onClick={() => (store(RANDOM_KEY, null), onOpen(open.courses[0], 'study'))}>
                   {ja ? '最初から学ぶ' : 'Start from the beginning'}
                 </Button>
@@ -250,26 +255,18 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
             : []
           return (
             <>
-              {related.length > 0 && (
-                <h3 className={subHeading} data-spaced>
-                  {ja ? `「${base}」に関する講座` : `More about ${baseName}`}
-                </h3>
-              )}
+              {related.length > 0 && <SubHeading data-spaced>{ja ? `「${base}」に関する講座` : `More about ${baseName}`}</SubHeading>}
               {related.map(resultCard)}
-              {siblings.length > 0 && (
-                <h3 className={subHeading} data-spaced>
-                  {ja ? `${groupName(group!)}の他の講座` : `More in ${groupName(group!)}`}
-                </h3>
-              )}
+              {siblings.length > 0 && <SubHeading data-spaced>{ja ? `${groupName(group!)}の他の講座` : `More in ${groupName(group!)}`}</SubHeading>}
               {siblings.map(resultCard)}
             </>
           )
         })()}
         {open.setup.references ? (
-          <LessonReferences references={open.setup.references} ja={ja} className={muted} />
+          <LessonReferences references={open.setup.references} ja={ja} color="fg.muted" fontSize="sm" mt="2" />
         ) : (
           open.setup.sources.length > 0 && (
-            <p className={muted}>
+            <Muted mt="2">
               {ja ? '出典：' : 'Source: '}
               {open.setup.sources.map((url, index) => (
                 <Fragment key={url}>
@@ -279,7 +276,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
                   </a>
                 </Fragment>
               ))}
-            </p>
+            </Muted>
           )
         )}
       </div>
@@ -288,26 +285,41 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
 
   if (choosing)
     return (
-      <div className={picker}>
-        <button className={backLink} onClick={() => setChoosing(false)}>
-          {t('picker.back')}
-        </button>
-        <h2 className={pickerTitle}>{t('strategy.chooseMain')}</h2>
+      <div>
+        <BackLink onClick={() => setChoosing(false)}>{t('picker.back')}</BackLink>
+        <PickerTitle>{t('strategy.chooseMain')}</PickerTitle>
         {(['furibisha', 'ibisha'] as const).map((wing) => (
           <Fragment key={wing}>
-            <h3 className={subHeading} data-spaced>
-              {t(`strategy.${wing}`)}
-            </h3>
-            <div className={mainGrid}>
+            <SubHeading data-spaced>{t(`strategy.${wing}`)}</SubHeading>
+            <Grid gridTemplateColumns="repeat(auto-fill, minmax(140px, 1fr))" gap="2" mt="2">
               {mainStrategies()
                 .filter((s) => s.side === wing)
                 .map((s) => (
-                  <button key={s.id} className={mainChip({ on: s.id === main.id })} onClick={() => (setSettings({ mainStrategy: s.id }), setChoosing(false))}>
-                    <strong>{ja ? s.ja : s.en}</strong>
-                    <span>{t(`strategy.level${s.level}`)}</span>
-                  </button>
+                  <styled.button
+                    key={s.id}
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="flex-start"
+                    gap="2px"
+                    p="3"
+                    border="1px solid {colors.border}"
+                    borderColor={s.id === main.id ? 'accent' : undefined}
+                    borderRadius="md"
+                    bg="card"
+                    color="fg.default"
+                    font="inherit"
+                    textAlign="left"
+                    cursor="pointer"
+                    boxShadow={s.id === main.id ? 'inset 0 0 0 1px {colors.accent}' : undefined}
+                    onClick={() => (setSettings({ mainStrategy: s.id }), setChoosing(false))}
+                  >
+                    <styled.strong fontFamily="mincho">{ja ? s.ja : s.en}</styled.strong>
+                    <styled.span color="fg.muted" fontSize="xs">
+                      {t(`strategy.level${s.level}`)}
+                    </styled.span>
+                  </styled.button>
                 ))}
-            </div>
+            </Grid>
           </Fragment>
         ))}
       </div>
@@ -315,6 +327,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
 
   const search = (
     <Input
+      mt="2"
       value={query}
       onChange={(e) => setQuery(e.target.value)}
       placeholder={ja ? 'ルール、手筋、戦法などを検索' : 'Search rules, tactics, openings…'}
@@ -329,11 +342,11 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
     : []
   const results = q && (
     <>
-      <p className={resultCount} data-spaced>
+      <styled.p data-spaced m="{spacing.1} 0" color="fg.muted" fontSize="xs">
         {ja ? `${ranked.length}件` : `${ranked.length} ${ranked.length === 1 ? 'result' : 'results'}`}
-      </p>
+      </styled.p>
       {ranked.slice(0, 30).map(({ entry }) => resultCard(entry))}
-      {ranked.length === 0 && <p className={muted}>{ja ? '見つかりませんでした。' : 'Nothing found.'}</p>}
+      {ranked.length === 0 && <Muted mt="2">{ja ? '見つかりませんでした。' : 'Nothing found.'}</Muted>}
     </>
   )
 
@@ -348,44 +361,50 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
     })
     const otherGroups = [...new Set(others.map((g) => josekiGroupOf(g.setup)!))].sort((a, b) => Number(isOpeningBasics(b)) - Number(isOpeningBasics(a)))
     return (
-      <div className={picker}>
+      <div>
         {backToGame}
-        <button className={backLink} onClick={() => openCategory(null)}>
-          {ja ? '‹ 将棋を学ぶ' : '‹ Learn shogi'}
-        </button>
-        <h2 className={pickerTitle}>{ja ? '定跡' : 'Joseki'}</h2>
-        <button className={mainCurrent} onClick={() => setChoosing(true)}>
-          <span>{t('strategy.yourMain')}</span>
-          <strong>{ja ? main.ja : main.en}</strong>
-          <em>{t('strategy.change')} ›</em>
-        </button>
-        {level === 'new' && (
-          <p data-spaced className={pickerIntro()}>
-            {t('picker.clickAnyPieceOnThe')}
-          </p>
-        )}
+        <CrumbLink onClick={() => openCategory(null)}>{ja ? '‹ 将棋を学ぶ' : '‹ Learn shogi'}</CrumbLink>
+        <PickerTitle>{ja ? '定跡' : 'Joseki'}</PickerTitle>
+        <styled.button
+          display="grid"
+          gridTemplateColumns="auto 1fr auto"
+          alignItems="baseline"
+          gap="3"
+          w="100%"
+          m="{spacing.2} 0 {spacing.3}"
+          p="{spacing.3} {spacing.4}"
+          border="1px solid {colors.border.strong}"
+          borderRadius="md"
+          bg="card"
+          color="fg.default"
+          font="inherit"
+          textAlign="left"
+          cursor="pointer"
+          onClick={() => setChoosing(true)}
+        >
+          <styled.span color="fg.muted" fontSize="xs">
+            {t('strategy.yourMain')}
+          </styled.span>
+          <styled.strong fontFamily="mincho" fontSize="lg">
+            {ja ? main.ja : main.en}
+          </styled.strong>
+          <styled.em color="accent" fontStyle="normal" fontSize="sm">
+            {t('strategy.change')} ›
+          </styled.em>
+        </styled.button>
+        {level === 'new' && <PickerIntro data-spaced>{t('picker.clickAnyPieceOnThe')}</PickerIntro>}
         {search}
         {results}
         {!q && (
           <>
             {mine.filter((g) => g.setup.basics).map(setupCard)}
-            {lessons.length > 0 && (
-              <h3 className={subHeading} data-spaced>
-                {ja ? `${main.ja}の考え方と手筋` : `${main.en}: ideas and tactics`}
-              </h3>
-            )}
+            {lessons.length > 0 && <SubHeading data-spaced>{ja ? `${main.ja}の考え方と手筋` : `${main.en}: ideas and tactics`}</SubHeading>}
             {lessons.map(setupCard)}
-            {mine.some((g) => !g.setup.basics) && (
-              <h3 className={subHeading} data-spaced>
-                {t('picker.openingsByWhatYourOpponent')}
-              </h3>
-            )}
+            {mine.some((g) => !g.setup.basics) && <SubHeading data-spaced>{t('picker.openingsByWhatYourOpponent')}</SubHeading>}
             {mine.filter((g) => !g.setup.basics).map(setupCard)}
             {otherGroups.map((at) => (
               <Fragment key={at}>
-                <h3 className={subHeading} data-spaced>
-                  {groupName(at)}
-                </h3>
+                <SubHeading data-spaced>{groupName(at)}</SubHeading>
                 {others.filter((g) => josekiGroupOf(g.setup) === at).map(setupCard)}
               </Fragment>
             ))}
@@ -400,12 +419,10 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
     const info = CATEGORIES.find((c) => c.id === category)!
     const inCategory = all.filter((g) => categoryOf(g.setup) === category)
     return (
-      <div className={picker}>
+      <div>
         {backToGame}
-        <button className={backLink} onClick={() => openCategory(null)}>
-          {ja ? '‹ 将棋を学ぶ' : '‹ Learn shogi'}
-        </button>
-        <h2 className={pickerTitle}>{ja ? info.name.ja : info.name.en}</h2>
+        <CrumbLink onClick={() => openCategory(null)}>{ja ? '‹ 将棋を学ぶ' : '‹ Learn shogi'}</CrumbLink>
+        <PickerTitle>{ja ? info.name.ja : info.name.en}</PickerTitle>
         {search}
         {results}
         {!q &&
@@ -414,9 +431,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
             return (
               entries.length > 0 && (
                 <Fragment key={group}>
-                  <h3 className={subHeading} data-spaced>
-                    {groupName(group)}
-                  </h3>
+                  <SubHeading data-spaced>{groupName(group)}</SubHeading>
                   {entries.map(setupCard)}
                 </Fragment>
               )
@@ -427,23 +442,21 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
   }
 
   return (
-    <div className={picker}>
+    <div>
       {backToGame}
-      <h2 className={pickerTitle}>{ja ? '将棋を学ぶ' : 'Learn shogi'}</h2>
+      <PickerTitle>{ja ? '将棋を学ぶ' : 'Learn shogi'}</PickerTitle>
       {search}
       {results}
       {!q &&
         CATEGORIES.map((item) => {
           const p = progressOf(all.filter((g) => categoryOf(g.setup) === item.id).flatMap((g) => g.courses))
           return (
-            <button key={item.id} className={setupButton()} onClick={() => openCategory(item.id)}>
-              <span className={libJa}>{ja ? item.name.ja : item.name.en}</span>
-              <span className={libEn}>{ja ? item.about.ja : item.about.en}</span>
-              <span className={setupGo} aria-hidden="true">
-                ›
-              </span>
-              <i className={progressLine} style={{ width: percent(p) }} />
-            </button>
+            <SetupButton key={item.id} onClick={() => openCategory(item.id)}>
+              <LibJa>{ja ? item.name.ja : item.name.en}</LibJa>
+              <LibEn>{ja ? item.about.ja : item.about.en}</LibEn>
+              <SetupGo aria-hidden="true">›</SetupGo>
+              <ProgressLine style={{ width: percent(p) }} />
+            </SetupButton>
           )
         })}
       <Credits />

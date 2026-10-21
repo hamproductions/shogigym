@@ -13,6 +13,7 @@ import { UnderMarks, OverMarks } from './flatMarks'
 import { BOARD_TONE } from './koma'
 import { SQ_D } from '@/rendering/board3d/dimensions'
 import { useTranslation } from 'react-i18next'
+import { styled } from 'styled-system/jsx'
 import { flat, komaLift } from './board.styles'
 
 const KANJI_NUM = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九']
@@ -265,8 +266,11 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
           {error ?? i18n.t('settings.loadingEvalFile')}
         </div>
       )}
-      <svg
+      <styled.svg
         ref={svgRef}
+        w="100%"
+        h="100%"
+        userSelect="none"
         xmlns="http://www.w3.org/2000/svg"
         viewBox={`0 0 ${width} ${height}`}
         preserveAspectRatio="xMidYMid meet"
@@ -358,7 +362,7 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
         {hand(Color.BLACK)}
         {hand(Color.WHITE)}
         <OverMarks props={props} p={project} u={t.cw} coordFill={t.coord} handPoint={handPoint} />
-      </svg>
+      </styled.svg>
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import { memo, useEffect, useLayoutEffect, useRef, useState, type PointerEvent as ReactPointerEvent, type ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import { styled } from 'styled-system/jsx'
 import { Color, PieceType, Square, type ImmutablePosition } from 'tsshogi'
 import type { Board3DProps } from './Board3D'
 import { OverMarks, UnderMarks, type HandPoint, type Project } from './flatMarks'
@@ -13,7 +14,8 @@ import { handArrangement } from '@/rendering/board3d/hand'
 import { layout, sideStandsFit, standCenter, verticalStripsFit } from '@/rendering/board3d/layout'
 import { steppedMove } from '@/utils/stepped'
 import { playSound, useSettings } from '@/appearance/settings'
-import { boardFrame, flat, komaLift } from './board.styles'
+import { flat, komaLift } from './board.styles'
+import { SvgRect } from '@/app/ui/Svg'
 
 type Drag = { from: Square | PieceType; color: Color; type: PieceType; x: number; y: number; moved: boolean; id: number; handIndex?: number }
 
@@ -324,8 +326,12 @@ export function BoardFlat(props: Board3DProps) {
           {error ?? i18n.t('settings.loadingEvalFile')}
         </div>
       )}
-      <svg
+      <styled.svg
         ref={svgRef}
+        w="100%"
+        h="100%"
+        userSelect="none"
+        touchAction="none"
         xmlns="http://www.w3.org/2000/svg"
         viewBox={`${-PAD} ${-PAD} ${g.width + 2 * PAD} ${g.height + 2 * PAD}`}
         preserveAspectRatio="xMidYMid meet"
@@ -336,7 +342,7 @@ export function BoardFlat(props: Board3DProps) {
         onPointerCancel={() => setDrag(null)}
       >
         <image href={baked.board} x={g.bx} y={g.by} width={g.bw} height={g.bh} preserveAspectRatio="none" />
-        <rect className={boardFrame} x={g.bx - 6} y={g.by - 6} width={g.bw + 12} height={g.bh + 12} rx={10} fill="none" pointerEvents="none" />
+        <SvgRect stroke="none" x={g.bx - 6} y={g.by - 6} width={g.bw + 12} height={g.bh + 12} rx={10} fill="none" pointerEvents="none" />
         <MemoUnder props={props} p={project} u={U} handPoint={handPoint} layout={layoutKey} />
         {settings.coords &&
           Array.from({ length: 9 }, (_, i) => (
@@ -368,7 +374,7 @@ export function BoardFlat(props: Board3DProps) {
             <Koma baked={baked} type={drag.type} color={drag.color} up={(drag.color === Color.BLACK) !== flipped} />
           </g>
         )}
-      </svg>
+      </styled.svg>
     </div>
   )
 }

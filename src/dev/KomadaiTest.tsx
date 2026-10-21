@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 import { handSnapshots, type HandSnapshot } from '@/rendering/board3d/komadai'
 import { loadPieceFont, useSettings } from '@/appearance/settings'
 import { loadPieceSet } from '@/appearance/pieceSets'
-import { cx } from '@/app/ui/cx'
-import { komadaiGrid, komadaiHeadings, page } from './pieces.styles'
+import { styled } from 'styled-system/jsx'
+import { DevPage } from './pieces.styles'
 
 const ORDER = ['P', 'P', 'B', 'P', 'S', 'G', 'P', 'N', 'L', 'P', 'R', 'G', 'S', 'N', 'L', 'P', 'P', 'P', 'P']
 const PAWNS_FIRST = ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P', 'L', 'L', 'N', 'N', 'S', 'S', 'G', 'G', 'B', 'R']
@@ -46,25 +46,29 @@ export default function KomadaiTest() {
     }
   }, [st.pieceFont, st.pieceSet, st.pieceGuide, st.pieceFinish])
   return (
-    <main className={cx(page, komadaiHeadings)}>
-      <h1>駒台 layout test: 1 to 19 pieces in hand</h1>
+    <DevPage>
+      <styled.h1 m="0 0 {spacing.3}" fontSize="xl">
+        駒台 layout test: 1 to 19 pieces in hand
+      </styled.h1>
       {!shots && <p>Rendering…</p>}
       {shots &&
         SERIES.map((s, k) => (
           <section key={s.title}>
-            <h2>{s.title}</h2>
-            <div className={komadaiGrid}>
+            <styled.h2 m="{spacing.5} 0 {spacing.2}" fontSize="md">
+              {s.title}
+            </styled.h2>
+            <styled.div display="grid" gridTemplateColumns="repeat(auto-fill, minmax(180px, 1fr))" gap="3">
               {shots[k].map((shot, i) => (
-                <figure key={i}>
+                <styled.figure key={i} m="0">
                   <img src={shot.url} alt={`${i + 1} pieces`} width={180} height={180} />
-                  <figcaption>
+                  <styled.figcaption color="fg.muted" fontSize="xs" wordBreak="break-all">
                     {i + 1}: {s.order.slice(0, i + 1).join('')} · {shot.mode}
-                  </figcaption>
-                </figure>
+                  </styled.figcaption>
+                </styled.figure>
               ))}
-            </div>
+            </styled.div>
           </section>
         ))}
-    </main>
+    </DevPage>
   )
 }

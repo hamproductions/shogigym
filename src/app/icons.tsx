@@ -49,9 +49,10 @@ const paths = {
 
 export type IconName = keyof typeof paths
 
-export function Icon({ name, size = 20 }: { name: IconName; size?: number }) {
+export function Icon({ name, size = 20, className }: { name: IconName; size?: number; className?: string }) {
   return (
     <svg
+      className={className}
       width={size}
       height={size}
       style={{ flexShrink: 0 }}

@@ -1,15 +1,15 @@
 export function Shell() {
   return (
-    <div className={`app-shell ${shellBase} ${appShell}`} aria-busy="true">
-      <nav className={`app-rail ${rail}`} />
-      <section className={`app-stage ${stage}`}>
+    <AppShell className="app-shell" aria-busy="true">
+      <RailNav className="app-rail" />
+      <Stage className="app-stage">
         <div className="app-shell-board" />
         <BoardLoading />
-      </section>
-    </div>
+      </Stage>
+    </AppShell>
   )
 }
 import { BoardLoading } from '@/rendering/BoardLoading'
-import { stage } from '@/app/stage/stage.styles'
-import { appShell, shellBase } from '@/app/layout.styles'
-import { rail } from '@/app/rail/rail.styles'
+import { Stage } from '@/app/stage/stage.styles'
+import { AppShell } from '@/app/layout.styles'
+import { RailNav } from '@/app/rail/rail.styles'
