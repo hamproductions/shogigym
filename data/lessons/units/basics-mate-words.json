@@ -150,12 +150,12 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "8k/9/9/7G1/9/9/1p7/9/K8 b G 1",
+      "start": "8k/9/9/5b1G1/9/9/9/9/7K1 b G 1",
       "steps": [
         {
           "text": {
-            "ja": "後手玉１一はまだ王手ではありません。先手の金２四を一升進めて、持駒の金１二打が詰みになる形を作ってください。",
-            "en": "The defender’s king on １一 is not in check. Move the attacker’s gold on ２四 one square forward to prepare a mating gold drop on １二."
+            "ja": "後手玉１一はまだ王手ではありません。後手の角４四は斜めに２二まで利いています。先手の金２四を２三へ進めて、持駒の金１二打が詰みになる形を作ってください。",
+            "en": "The defender’s king on １一 is not in check. The defender’s bishop on ４四 reaches diagonally as far as ２二. Move the attacker’s gold from ２四 to ２三 to prepare a mating gold drop on １二."
           }
         },
         {
@@ -172,8 +172,8 @@
             "1a2a"
           ],
           "text": {
-            "ja": "△２一玉と先に逃げれば、金１二打の詰み筋から外れます。詰めろは今すぐ負けた状態ではなく、相手に一手の受けを選ばせる脅威です。",
-            "en": "△２一玉 moves before the attack and leaves the planned mating drop behind. A mate threat is not an immediate loss; it gives the defender one move to change the position."
+            "ja": "△２一玉と先に逃げれば、金１二打の詰み筋から外れます。▲２二金打には角４四が金を取れるので、すぐの詰みもありません。後手の手のうち、次の一手詰みを消すのはこの△２一玉だけです。詰めろは今すぐ負けた状態ではなく、相手に一手の受けを選ばせる脅威です。",
+            "en": "△２一玉 moves before the attack and leaves the planned mating drop behind. ▲２二金打 does not mate either, because the bishop on ４四 can capture the gold. Of all the defender’s moves, only △２一玉 removes the mate on the next move. A mate threat is not an immediate loss; it gives the defender one move to change the position."
           }
         },
         {
@@ -203,21 +203,21 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "k8/9/1RG5p/9/9/9/9/9/8K b G 1",
+      "start": "k8/9/8p/1G7/9/9/9/9/8K b G 1",
       "steps": [
         {
           "text": {
-            "ja": "後手玉９一、先手飛車８三・金７三、先手の持金一枚という独立した局面です。後手には１三歩だけがあり、持駒はありません。王手をかけずに飛車を８二へ置くと、玉の逃げ道と金９二打の支えがどう変わるかを調べます。",
-            "en": "This independent position has Gote king ９一, Sente rook ８三 and gold ７三, and one gold in Sente's hand. Gote has only a pawn on １三 and no hand pieces. Examine how a quiet rook move to ８二 changes the king's exits and supports a gold drop on ９二."
+            "ja": "後手玉９一、先手金８四、先手の持金一枚という独立した局面です。後手には１三歩だけがあり、持駒はありません。今は金を８二や９二へ打っても支えがなく、玉に取られるのですぐには詰みません。王手をかけずに金を８三へ進めると、玉の逃げ道と金打ちの支えがどう変わるかを調べます。",
+            "en": "This independent position has Gote king ９一, Sente gold ８四, and one gold in Sente's hand. Gote has only a pawn on １三 and no hand pieces. A gold dropped on ８二 or ９二 now has no support and the king captures it, so there is no immediate mate. Examine how a quiet gold move to ８三 changes the king's exits and supports a gold drop."
           }
         },
         {
           "moves": [
-            "8c8b"
+            "8d8c"
           ],
           "text": {
-            "ja": "▲８二飛は王手ではありません。玉が８一へ動くと飛車に利かれ、８二の飛車を取る手は金７三に守られているため不合法です。９二も飛車が押さえます。この表示局面で後手の全合法手を調べると、△１四歩だけが残ります。",
-            "en": "▲８二飛 does not check. The rook controls ８一 and ９二, while the gold on ７三 protects the rook against capture on ８二. Exhaustive legal-move enumeration in this displayed position leaves only △１四歩."
+            "ja": "▲８三金は王手ではありません。金８三が８二と９二を押さえ、玉が動ける先は８一だけになります。この表示局面で後手の合法手は△８一玉と△１四歩の二つです。▲９三金と上がっても９二と８二を押さえるので、同じく必至になります。",
+            "en": "▲８三金 does not check. The gold on ８三 controls ８二 and ９二, so the king can only move to ８一. In this displayed position Gote has exactly two legal moves: △８一玉 and △１四歩. ▲９三金 also controls ９二 and ８二, and is hisshi in the same way."
           }
         },
         {
@@ -225,8 +225,8 @@
             "1c1d"
           ],
           "text": {
-            "ja": "唯一の合法手△１四歩でも、９一玉の周囲と先手の持金は変わりません。次の▲９二金を防ぐ合法な受けがないため、この局面は必至です。相手に別の守備駒や持駒がある局面まで同じ結論にはしません。",
-            "en": "The sole legal reply △１四歩 does not change the king's surroundings or Sente's gold in hand. No legal defense prevents ▲９二金, so this position is hisshi. The conclusion is specific to these pieces and hands; extra defenders would require a new proof."
+            "ja": "△１四歩は９一玉の周囲と先手の持金を変えません。もう一つの△８一玉も次の金打ちで詰みます（変化を参照）。どちらの合法手でも詰みを防げないので、▲８三金の局面は必至です。相手に別の守備駒や持駒がある局面まで同じ結論にはしません。",
+            "en": "△１四歩 does not change the king's surroundings or Sente's gold in hand. The other move, △８一玉, is also mated by the next gold drop (see the variation). Neither legal move prevents mate, so the position after ▲８三金 is hisshi. The conclusion is specific to these pieces and hands; extra defenders would require a new proof."
           }
         },
         {
@@ -234,9 +234,32 @@
             "G*9b"
           ],
           "text": {
-            "ja": "▲９二金で詰みです。飛車８二が金９二を横から守り、金は飛車８二も守ります。８一は飛車の利きにあり、玉に合法な応手はありません。必至を判断するには、王手でない準備手の後の全合法な受けを確かめます。",
-            "en": "▲９二金 is mate. The rook on ８二 protects the gold on ９二 sideways, and the gold protects the rook. The rook also controls ８一, leaving no legal reply. Establishing hisshi requires testing every legal defense after the quiet preparatory move."
+            "ja": "▲９二金打で詰みです。金８三が９二の金を支え、打った金は８一と８二も押さえます。玉に合法な応手はありません。必至を判断するには、王手でない準備手の後の全合法な受けを確かめます。",
+            "en": "▲９二金打 is mate. The gold on ８三 supports the gold on ９二, and the dropped gold also controls ８一 and ８二. The king has no legal reply. Establishing hisshi requires testing every legal defense after the quiet preparatory move."
           }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": [
+            "9a8a"
+          ],
+          "text": {
+            "ja": "△８一玉と逃げた場合です。８二と７二は金８三に押さえられたままです。",
+            "en": "Suppose △８一玉 runs instead. The gold on ８三 still controls ８二 and ７二."
+          },
+          "steps": [
+            {
+              "moves": [
+                "G*8b"
+              ],
+              "text": {
+                "ja": "▲８二金打で詰みです。金８三が８二の金を支え、打った金は７一・９一・７二・９二を押さえます。",
+                "en": "▲８二金打 is mate. The gold on ８三 supports the gold on ８二, which controls ７一, ９一, ７二 and ９二."
+              }
+            }
+          ]
         }
       ]
     }

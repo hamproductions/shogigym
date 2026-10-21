@@ -101,10 +101,10 @@
           }
         },
         {
-          "moves": ["7g7c"],
+          "moves": ["7g7c+"],
           "text": {
-            "ja": "▲７三飛で角を取り返せます。先手は歩を渡して角を得るため、この局面では歩打ちが銀を守るだけでなく、交換の利益も作っています。",
-            "en": "▲７三飛 recaptures the bishop. The attacker gives up a pawn for a bishop, so here the block both saves the silver and wins material in the exchange."
+            "ja": "▲７三飛成で角を取り返し、飛車は竜になります。先手は歩を渡して角を得るため、この局面では歩打ちが銀を守るだけでなく、交換の利益も作っています。",
+            "en": "▲７三飛成 recaptures the bishop and promotes the rook to a dragon. The attacker gives up a pawn for a bishop, so here the block both saves the silver and wins material in the exchange."
           }
         }
       ]
@@ -131,10 +131,10 @@
           }
         },
         {
-          "moves": ["5g5c"],
+          "moves": ["5g5c+"],
           "text": {
-            "ja": "▲５三飛で金を取れます。飛車が進む道にも到着した升にも後手の利きがなく、金が先手の持駒に加わります。",
-            "en": "▲５三飛 captures the gold. No defender controls the rook's route or its destination, so the captured gold enters the attacker's hand."
+            "ja": "▲５三飛成で金を取れます。飛車が進む道にも到着した升にも後手の利きがなく、金が先手の持駒に加わり、飛車は竜になります。",
+            "en": "▲５三飛成 captures the gold. No defender controls the rook's route or its destination, so the captured gold enters the attacker's hand and the rook promotes to a dragon."
           }
         },
         {

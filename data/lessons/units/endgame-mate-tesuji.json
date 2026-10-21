@@ -99,8 +99,8 @@
       "steps": [
         {
           "text": {
-            "ja": "先手の持ち金は０枚。飛車２三で６三金を王手で取れば、守備を減らすと同時に最後の金打ちに必要な金を入手できる。桂８三と香４五の利きも確認する。",
-            "en": "Sente starts with no gold in hand. Capturing the defender on 6c with the rook from 2c both removes a defender and acquires the gold needed for the final drop. Check the supporting knight on 8c and lance on 4e."
+            "ja": "先手の持ち駒に金はありません。２三の飛車で６三の金を王手しながら取れば、守備駒を減らすと同時に、最後の金打ちに使う金が手に入ります。８三の桂と４五の香の利きも確認しましょう。",
+            "en": "Sente starts with no gold in hand. Taking the gold on ６三 with check by the rook from ２三 both removes a defender and gains the gold needed for the final drop. Also check what the knight on ８三 and the lance on ４五 control."
           }
         },
         {
@@ -108,8 +108,8 @@
             "2c6c+"
           ],
           "text": {
-            "ja": "▲６三飛成は後手金を取りながら王手します。６三の龍が７二・６二・５二を、桂８三が７一を押さえるため、後手の合法な応手は△５一玉だけです。この捕獲で持ち金が０枚から１枚へ増える。",
-            "en": "▲６三飛成 captures Gote's gold while checking. The dragon on ６三 covers ７二, ６二 and ５二, and the knight on ８三 covers ７一, leaving △５一玉 as Gote's only legal reply. The capture increases Sente’s gold hand from zero to one."
+            "ja": "▲６三飛成は後手金を取りながら王手します。６三の龍が７二・６二・５二を、桂８三が７一を押さえるため、後手の合法な応手は△５一玉だけです。この捕獲で、先手の持ち駒の金が０枚から１枚に増えます。",
+            "en": "▲６三飛成 captures Gote's gold while checking. The dragon on ６三 covers ７二, ６二 and ５二, and the knight on ８三 covers ７一, leaving △５一玉 as Gote's only legal reply. The capture raises Sente's golds in hand from zero to one."
           }
         },
         {
@@ -144,8 +144,8 @@
             "2d2a"
           ],
           "text": {
-            "ja": "▲２一飛で横から王手。後手に合法な応手は△７二玉と△６二玉です。８二は後手自身の銀が占めるため逃げ道になりません。",
-            "en": "▲２一飛 checks along the first rank. Gote's legal replies are △７二玉 and △６二玉. Its own silver occupies ８二, so that square is not an escape."
+            "ja": "▲２一飛不成で横から王手。後手に合法な応手は△７二玉と△６二玉です。８二は後手自身の銀が占めるため逃げ道になりません。",
+            "en": "▲２一飛不成, without promoting, checks along the first rank. Gote's legal replies are △７二玉 and △６二玉. Its own silver occupies ８二, so that square is not an escape."
           }
         },
         {

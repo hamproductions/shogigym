@@ -10,7 +10,7 @@
     "en": "Recoordinate against a ranging rook"
   },
   "intro": {
-    "ja": "後手が角道を止めただけでは飛車の行き先はまだ決まらない。飛車が左へ移ったら、先手は玉の位置と金銀の連結を確認し、５六歩で右銀の通路を作れる。銀を前へ出す場面では、後手銀が４三か３二かによって守る升が違うため、駒の利きから手順を選ぶ。 右銀は３九、左銀は７九が出発点。同じ４六銀でも、どちらを動かしたかで自玉側に残る銀が違う。歩を先にぶつける順と銀を先に準備する順は、左銀４六型の比較枝で確かめる。",
+    "ja": "後手が角道を止めただけでは飛車の行き先はまだ決まらない。飛車が左へ移ったら、先手は玉の位置と金銀の連結を確認し、５六歩で右銀の通路を作れる。銀を前へ出す場面では、後手銀が４三か３二かによって守る升が違うため、駒の利きから手順を選ぶ。右銀は３九、左銀は７九が出発点。同じ４六銀でも、どちらを動かしたかで自玉側に残る銀が違う。歩を先にぶつける順と銀を先に準備する順は、左銀４六型の比較枝で確かめる。",
     "en": "A closed bishop diagonal alone does not reveal where Gote's rook will go. Once that rook moves left, Sente can coordinate the king, golds and silvers, then use a 5f pawn move to open a route for the right silver. Before advancing that silver, compare the actual squares defended by a Gote silver on 4c or 3b. The right silver starts on 3i and the left silver on 7i. Even with the same S4f destination, moving a different silver leaves different king-side defenders. The Left Silver 4f lesson compares pawn-first and silver-first contact."
   },
   "check": {
@@ -198,12 +198,12 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "9/3r1k1b1/5s1p1/5p3/7P1/4PS3/9/1BK1G2R1/2SG5 b Pp 1",
+      "start": "9/3r1k1b1/5spp1/5p3/7P1/4PS3/9/1BK1G2R1/2SG5 b Pp 1",
       "steps": [
         {
           "text": {
-            "ja": "先手４六銀・２五歩に対し、後手銀は４三、歩は２三。ここでは２筋の歩を進め、後手が取った場合に銀と飛車の利きがどこへ届くかを調べる。",
-            "en": "Sente has a silver on 4f and pawn on 2e; Gote has a silver on 4c and pawn on 2c. Advance the second-file pawn and inspect where the silver and rook would reach if Gote captures it."
+            "ja": "先手４六銀・２五歩に対し、後手銀は４三、歩は２三と３三。ここでは２筋の歩を進め、後手が取った場合に銀と飛車の利きがどこへ届くかを調べる。",
+            "en": "Sente has a silver on 4f and pawn on 2e; Gote has a silver on 4c and pawns on 2c and 3c. Advance the second-file pawn and inspect where the silver and rook would reach if Gote captures it."
           },
           "marks": {
             "arrows": [
@@ -241,8 +241,8 @@
             "4c3d"
           ],
           "text": {
-            "ja": "銀を３五へ出すと２四歩を狙う。後手４三銀は３四へ出て、先手銀３五を次に取れる位置へ来た。銀同士の接触が生じたので、先手は銀を置いたままにはしない。",
-            "en": "Sente's silver reaches 3e and attacks the pawn on 2d. Gote's silver from 4c steps to 3d, from where it attacks Sente's silver on 3e. The right silver now faces a concrete threat rather than a free advance."
+            "ja": "銀を３五へ出すと２四歩を狙う。後手４三銀は３三の歩に支えられた３四へ出て、先手銀３五を次に取れる位置へ来た。銀同士の接触が生じたので、先手は銀を置いたままにはしない。",
+            "en": "Sente's silver reaches 3e and attacks the pawn on 2d. Gote's silver from 4c steps to 3d, where the pawn on 3c guards it, and attacks Sente's silver on 3e. The right silver now faces a concrete threat rather than a free advance."
           },
           "marks": {
             "arrows": [
@@ -260,8 +260,8 @@
             "3e2d"
           ],
           "text": {
-            "ja": "この応手なら先手銀が２四歩を取って銀取りから逃れた。２筋の飛車も２四を縦に支える。ただし後手は４三銀を３四へ動かす以外の受けも選べるため、駒得を一般化しない。",
-            "en": "Against that reply Sente's silver captures the pawn on 2d and escapes the attack from 3d. The rook also supports 2d along the file. Gote had other defensive choices, so this sample does not establish a universal material gain."
+            "ja": "この応手なら先手銀が２四歩を取って銀取りから逃れた。３四の銀を取る手は３三歩に取り返されるため、銀の交換になる。２筋の飛車も２四を縦に支える。ただし後手は４三銀を３四へ動かす以外の受けも選べるため、駒得を一般化しない。",
+            "en": "Against that reply Sente's silver captures the pawn on 2d and escapes the attack from 3d. Capturing the silver on 3d instead would be recaptured by the pawn on 3c, a silver trade. The rook also supports 2d along the file. Gote had other defensive choices, so this sample does not establish a universal material gain."
           },
           "marks": {
             "boxes": [

@@ -39,12 +39,12 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "k1n6/2s6/3g5/9/1P7/9/9/9/8K b GNp 1",
+      "start": "k1n6/2sg5/9/9/1P7/9/9/9/8K b GNp 1",
       "steps": [
         {
           "text": {
-            "ja": "後手玉９一には桂７一、銀７二、金６三が残り、後手は歩を一枚持っています。先手は歩８五と、持ち駒の金・桂です。この局面に一手で詰む手はありません。王手なら▲８三桂が見えますが、８三には銀７二と桂７一が利いており、８三を守る先手駒はありません。王手という名前だけで駒の安全は決まりません。",
-            "en": "Gote's king on ９一 still has a knight on ７一, a silver on ７二, and a gold on ６三, and Gote holds a pawn. Sente has a pawn on ８五 and a gold and a knight in hand. No Sente move mates at once here. ▲８三桂 is an available check, but the silver on ７二 and the knight on ７一 both cover ８三, and no Sente piece protects it. A checking move does not make its piece safe."
+            "ja": "後手玉９一には桂７一、銀７二、金６二が残り、後手は歩を一枚持っています。先手は歩８五と、持ち駒の金・桂です。この局面に一手で詰む手はありません。王手なら▲８三桂が見えますが、８三には銀７二と桂７一が利いており、８三を守る先手駒はありません。王手という名前だけで駒の安全は決まりません。",
+            "en": "Gote's king on ９一 still has a knight on ７一, a silver on ７二, and a gold on ６二, and Gote holds a pawn. Sente has a pawn on ８五 and a gold and a knight in hand. No Sente move mates at once here. ▲８三桂 is an available check, but the silver on ７二 and the knight on ７一 both cover ８三, and no Sente piece protects it. A checking move does not make its piece safe."
           }
         },
         {
@@ -66,7 +66,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "k1n6/2s6/3g5/9/1P7/9/9/9/8K b GNp 1",
+      "start": "k1n6/2sg5/9/9/1P7/9/9/9/8K b GNp 1",
       "steps": [
         {
           "text": {
@@ -77,12 +77,12 @@
         {
           "moves": [
             "N*8d",
-            "6c6d",
+            "6b5b",
             "G*9b"
           ],
           "text": {
-            "ja": "△６四金と詰めろを受けない例では、▲９二金で詰みます。金９二は桂８四に守られているので玉では取れず、８一と８二は金が押さえます。桂７一・銀７二・金６四・持ち歩にも、この隣接した金の王手を消す合法手はありません。この表示局面では後手の合法手を全列挙して０手と確認しました。ただし△６四金は後手の一例であり、▲８四桂そのものを必至と証明してはいません。",
-            "en": "If Gote plays the unrelated △６四金, ▲９二金 is mate. The gold on ９二 is protected by the knight on ８四, so the king cannot take it, and the gold covers ８一 and ８二. The knight on ７一, silver on ７二, gold on ６四, and pawn in hand have no legal move that stops this adjacent gold check. Exhaustive legal-move enumeration in this displayed position found zero Gote replies. △６四金 is only one Gote choice; the line does not prove that ▲８四桂 is hisshi."
+            "ja": "△５二金と詰めろを受けない例では、▲９二金で詰みます。金９二は桂８四に守られているので玉では取れず、８一と８二は金が押さえます。桂７一・銀７二・金５二・持ち歩にも、この隣接した金の王手を消す合法手はありません。この表示局面では後手の合法手を全列挙して０手と確認しました。ただし△５二金は後手の一例であり、▲８四桂そのものを必至と証明してはいません。",
+            "en": "If Gote plays the unrelated △５二金, ▲９二金 is mate. The gold on ９二 is protected by the knight on ８四, so the king cannot take it, and the gold covers ８一 and ８二. The knight on ７一, silver on ７二, gold on ５二, and pawn in hand have no legal move that stops this adjacent gold check. Exhaustive legal-move enumeration in this displayed position found zero Gote replies. △５二金 is only one Gote choice; the line does not prove that ▲８四桂 is hisshi."
           }
         }
       ]
@@ -94,7 +94,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "k1n6/2s6/3g5/9/1P7/9/9/9/8K b GNp 1",
+      "start": "k1n6/2sg5/9/9/1P7/9/9/9/8K b GNp 1",
       "steps": [
         {
           "text": {
@@ -123,12 +123,12 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "k1n6/2s6/3g5/9/1P7/9/9/9/8K b GNp 1",
+      "start": "k1n6/2sg5/9/9/1P7/9/9/9/8K b GNp 1",
       "steps": [
         {
           "text": {
-            "ja": "後手の持ち歩も一手詰の判定に関わります。９筋には後手歩がないので、▲８四桂に対して△９二歩と打つことができます。９二が埋まれば、狙った▲９二金はそのまま打てません。",
-            "en": "Gote's pawn in hand also matters. With no Gote pawn on the ninth file, △９二歩 is a legal answer to ▲８四桂. Once ９二 is occupied, Sente cannot play the intended ▲９二金 there."
+            "ja": "後手の持ち歩も一手詰の判定に関わります。９筋には後手歩がないので、▲８四桂に対して△９二歩と打つことができます。９二が埋まれば、狙った▲９二金はそのまま打てません。桂で銀７二を取る▲７二桂成も、金６二が銀に利いているので△同金と取り返されます。",
+            "en": "Gote's pawn in hand also matters. With no Gote pawn on the ninth file, △９二歩 is a legal answer to ▲８四桂. Once ９二 is occupied, Sente cannot play the intended ▲９二金 there. Taking the silver on ７二 with ▲７二桂成 is answered by △同金, because the gold on ６二 protects the silver."
           }
         },
         {

@@ -329,8 +329,8 @@
             "4d4c+"
           ],
           "text": {
-            "ja": "後手が玉を動かしても、４三歩成のと金は４二飛と５三金の両方に取られ、４二飛への当たりにならない。この筋では三枚目が成っても駒得は生まれない。",
-            "en": "Even if Gote moves its king, the tokin on 4c can be taken by both the rook on 4b and the gold on 5c, so it does not really attack the rook. On this file, promoting the third pawn still gains nothing."
+            "ja": "後手が玉を動かしても、４三歩成のと金は４二飛に当たっています。ただし後手の４二飛と５三金のどちらでもこのと金を取れるので、飛車を逃がされる前に取られ、駒得は生まれません。この筋では三枚目が成っても得とは限りません。",
+            "en": "Even if Gote moves its king, the tokin on 4c does attack the rook on 4b. But both that rook and the gold on 5c can capture the tokin at once, so no material is won. On this file, promoting the third pawn does not guarantee a gain."
           },
           "marks": {
             "arrows": [

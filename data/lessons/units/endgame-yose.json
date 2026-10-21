@@ -119,8 +119,8 @@
         {
           "moves": ["G*3c", "2b1c", "9i8h"],
           "text": {
-            "ja": "▲３三金は飛車４三に守られた王手です。△１一玉・△１二玉・△２一玉・△３一玉なら飛車を使った連続王手で詰みますが、△１三玉と上へ逃げられるとすぐには詰みません。攻めを続けている間に△９七飛成と歩を取られると９九の先手玉に王手がかかるため、先手は▲８八玉と自玉に一手かけ、歩９七を玉で守ります。評価値は約+4200から+300前後まで下がり、この王手は相手の反撃を数えていない手でした。",
-            "en": "▲３三金 is a check protected by the rook on ４三. Against △１一玉, △１二玉, △２一玉 or △３一玉, consecutive checks with the rook mate, but after △１三玉 the king escapes upward and there is no quick mate. While Sente keeps attacking, △９七飛成 would take the pawn and check Sente's king on ９九, so Sente spends a move on its own king with ▲８八玉, letting the king guard the pawn on ９七. The engine evaluation falls from about +4200 to around +300; this check did not count the opponent's counterattack."
+            "ja": "▲３三金は飛車４三に守られた王手です。△１一玉・△１二玉・△２一玉・△３一玉なら飛車を使った連続王手で詰みますが、△１三玉と上へ逃げられるとすぐには詰みません。攻めを続けている間に△９七飛成と歩を取られると９九の先手玉に王手がかかるため、先手は▲８八玉と自玉に一手かけ、歩９七を玉で守ります。評価値は大差の優勢から互角に近い数値まで大きく下がり、この王手は相手の反撃を数えていない手でした。",
+            "en": "▲３三金 is a check protected by the rook on ４三. Against △１一玉, △１二玉, △２一玉 or △３一玉, consecutive checks with the rook mate, but after △１三玉 the king escapes upward and there is no quick mate. While Sente keeps attacking, △９七飛成 would take the pawn and check Sente's king on ９九, so Sente spends a move on its own king with ▲８八玉, letting the king guard the pawn on ９七. The engine evaluation falls sharply from a large advantage to close to level; this check did not count the opponent's counterattack."
           }
         }
       ],

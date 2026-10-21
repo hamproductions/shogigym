@@ -81,7 +81,7 @@
             "8b8e"
           ],
           "text": {
-            "ja": "先手飛車は３五、後手飛車は８五に浮いた。飛車同士が横一列で向かい合い、先手の３六金は２五を守る。次の２筋への移動は、飛車交換を誘う手として読む。 後手９四金も８五飛を守り、先手が３五飛で取れば同金の取り返しがある。",
+            "ja": "先手飛車は３五、後手飛車は８五に浮いた。飛車同士が横一列で向かい合い、先手の３六金は２五を、後手の９四金は８五を守る。先手が３五飛で８五を取っても９四金に取り返されるので、次の２筋への移動は飛車交換を誘う手として読む。",
             "en": "Sente's rook reaches 3e and Gote floats its rook to 8e. The rooks face each other across the rank, while Sente's gold on 3f guards 2e. A move to the second file must be assessed as a possible rook-exchange offer. Gote’s gold on 9d also defends the rook on 8e and can recapture after R3e8e."
           },
           "marks": {
@@ -160,7 +160,7 @@
       "steps": [
         {
           "text": {
-            "ja": "先手飛車は２五、後手飛車は８五。角３三が斜めを見ているが、いま王手はかかっていない。先手玉５九の行き先を４九金と３九銀の位置から考える。 ３六銀は２五飛を、後手９四金は８五飛を守る。",
+            "ja": "先手飛車は２五、後手飛車は８五。角３三が斜めを見ているが、いま王手はかかっていない。３六銀は２五飛を、後手９四金は８五飛を守る。先手玉５九の行き先は、４九金と３九銀の位置から考える。",
             "en": "Sente's rook is on 2e and Gote's on 8e. The bishop on 3c has diagonal reach, but there is no current check. Choose a king route with the gold on 4i and silver on 3i in mind. Sente’s silver on 3f guards 2e, and Gote’s gold on 9d guards 8e."
           },
           "marks": {
@@ -271,50 +271,71 @@
             "4b3c"
           ],
           "text": {
-            "ja": "先手角が３三で後手角を取り、金が取り返した。角は双方の持ち駒になった。ここでは先手が６六に角を打つと、８四の飛車へ斜めの利きが通る。",
-            "en": "Sente's bishop captures on 3c and Gote's gold recaptures. Each side now holds a bishop. A Sente bishop drop on 6f would attack Gote's rook on 8d along a clear diagonal."
+            "ja": "先手角が３三で後手角を取り、金が取り返した。角は双方の持ち駒になった。ここで先手が７三に角を打つと、５一の玉への王手と８四の飛車への利きが同時に生まれる。",
+            "en": "Sente's bishop captures on 3c and Gote's gold recaptures. Each side now holds a bishop. A Sente bishop drop on 7c gives check to the king on 5a and attacks the rook on 8d at the same time."
           },
           "marks": {
             "arrows": [
-              "6f8d"
+              "7c5a",
+              "7c8d"
             ],
             "boxes": [
-              "6f",
+              "7c",
+              "8d",
+              "5a"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "B*7c"
+          ],
+          "text": {
+            "ja": "７三角打ちは６二を通って５一の玉に王手をかけ、８四の飛車にも利く。角交換前には持ち角がなく、この角は打てなかった。後手は王手に対応する一手しか指せない。",
+            "en": "The bishop dropped on 7c checks the king on 5a through 6b and also attacks the rook on 8d. Sente did not have a bishop to drop before the trade. Gote has to answer the check first."
+          },
+          "marks": {
+            "arrows": [
+              "7c5a",
+              "7c8d"
+            ],
+            "boxes": [
+              "6b",
               "8d"
             ]
           }
         },
         {
           "moves": [
-            "B*6f"
+            "5a4a",
+            "7c8d+"
           ],
           "text": {
-            "ja": "６六角打ちは７五を通って８四飛を攻める。角交換前には持ち角がなく、この角は打てなかった。後手の飛車がどこへ逃げるかも読む。",
-            "en": "The bishop dropped on 6f attacks the rook on 8d through 7e. Sente did not have a bishop to drop before the trade. Gote's rook retreat is the next question."
+            "ja": "この応手では後手玉が４一へ逃げ、先手は７三角で８四の飛車を取って成る。王手が先に入るため飛車を逃がす手がない。後手も角を持つので、角を打つ権利は先手だけのものではない。",
+            "en": "In this sample reply Gote's king steps to 4a and Sente's bishop captures the rook on 8d, promoting. Because the check comes first, Gote has no time to move the rook. Gote also holds a bishop, so the right to drop one is not Sente's alone."
           },
           "marks": {
             "arrows": [
-              "6f8d"
+              "7c8d"
             ],
             "boxes": [
-              "7e"
+              "8d",
+              "4a"
             ]
           }
-        },
+        }
+      ],
+      "variations": [
         {
+          "from": 2,
           "moves": [
-            "8d8b"
+            "B*6b",
+            "7c6b+",
+            "5a6b"
           ],
           "text": {
-            "ja": "この応手では後手飛車を８二へ引く。６六角の利きから外れたが、後手も角を持つ。先手だけに角打ちの権利があるわけではない。",
-            "en": "In this sample reply Gote retreats its rook to 8b, out of the bishop's line. Gote also holds a bishop, so the right to drop one is not Sente's alone."
-          },
-          "marks": {
-            "boxes": [
-              "8b",
-              "6f",
-              "3c"
-            ]
+            "ja": "６二へ角を合駒すると、先手が７三角で取って成り、玉が取り返す。この場合は角交換になり、飛車を取る形とは別の展開になる。",
+            "en": "If Gote interposes a bishop on 6b, Sente's bishop captures it and promotes, and the king recaptures. This becomes a bishop trade rather than a rook win."
           }
         }
       ]

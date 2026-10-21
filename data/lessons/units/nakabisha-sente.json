@@ -25,7 +25,7 @@
       "title": {"ja": "飛車を振る前に角の直線を遮る", "en": "Screen the bishop line before swinging the rook"},
       "side": "sente",
       "kind": "position",
-      "start": "4k3l/1r5b1/9/1p4p2/9/4P4/1PB6/7R1/5GK2 b - 1",
+      "start": "3gkn3/1r5b1/8p/1p4p2/9/4P4/1PB4P1/7R1/4GGK2 b - 1",
       "steps": [
         {
           "text": {
@@ -97,7 +97,7 @@
       "title": {"ja": "中央の歩が消えた後の角交換を数える", "en": "Recount bishop exchanges after the central screen disappears"},
       "side": "sente",
       "kind": "position",
-      "start": "5k2l/1r5b1/9/4p4/4P4/9/2B6/4R4/5GK2 w - 1",
+      "start": "5k2l/1r5b1/9/4p4/4P4/9/2B6/4RG3/6K2 w - 1",
       "steps": [
         {
           "text": {
@@ -120,15 +120,15 @@
             "ja": "△同角▲同飛で角を双方が持ち、先手飛車が５五へ出ます。駒を交換しただけで先手の得とは決まりません。後手が持った角をどこへ打てるか、次の一手まで読みます。",
             "en": "Bx5e Rx5e leaves both players with a bishop in hand and Sente's rook on 5e. The exchange alone is not a gain: Gote can now use the bishop in hand, so inspect its next drop square."
           },
-          "marks": {"last": "5e", "boxes": ["5e", "4d", "3i"]}
+          "marks": {"last": "5e", "boxes": ["5e", "1g", "3i"]}
         },
         {
-          "moves": ["B*4d"],
+          "moves": ["B*1g"],
           "text": {
-            "ja": "この盤面の△４四角は５五飛へ斜めに利きます。王手でも飛車取りの強制勝ちでもなく、先手は飛車の逃げ場所と後手玉４一への攻めを比べます。角交換後の打ち込み地点は盤面ごとに違います。",
-            "en": "Here B*4d attacks R5e diagonally. It is not a check or a forced win of the rook; Sente can consider rook escapes and pressure against K4a. The useful drop square depends on the actual post-exchange board."
+            "ja": "この盤面では△１七角が２八を通って３九の玉に王手をかけます。先手は玉を動かすか２八へ合駒をするかを選ぶことになり、５五の飛車の安全は王手をかわした後に確かめます。角交換後の打ち込み地点は盤面ごとに違い、王手になる地点が先に見つかることもあります。",
+            "en": "On this board B*1g gives check to K3i through 2h. Sente must move the king or interpose on 2h, and the safety of R5e is checked only after the check is answered. The useful drop square depends on the actual post-exchange board, and a checking square may appear before an attacking one."
           },
-          "marks": {"last": "4d", "arrows": ["4d5e"], "boxes": ["5e", "4a"]}
+          "marks": {"last": "1g", "arrows": ["1g3i"], "boxes": ["3i", "2h", "5e"]}
         }
       ]
     }

@@ -58,10 +58,10 @@
           }
         },
         {
-          "moves": ["5a4a"],
+          "moves": ["5a6a"],
           "text": {
-            "ja": "△４一玉と玉を斜線から外せば、歩６二は動けるようになります。角を打たれた側にも玉を移して結び付きを解く手があるため、狙いが続くか次の局面で確かめます。",
-            "en": "△４一玉 moves the king off the diagonal, freeing the pawn on ６二. The defender can break the pin by moving the king, so reassess whether the attack continues in the new position."
+            "ja": "△６一玉と玉を斜線から外せば、歩６二は動けるようになります。玉は６二にも利いているので、角で歩を取っても玉で取り返されます。角を打たれた側にも玉を移して結び付きを解く手があるため、狙いが続くか次の局面で確かめます。",
+            "en": "△６一玉 moves the king off the diagonal, freeing the pawn on ６二. The king still guards ６二, so a bishop capture on that square would be recaptured. The defender can break the pin by moving the king, so reassess whether the attack continues in the new position."
           }
         }
       ]
@@ -117,12 +117,12 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "k8/9/9/9/2g6/1s7/9/9/8K b Bb 1",
+      "start": "k8/9/9/1s7/2g6/9/9/9/8K b Bb 1",
       "steps": [
         {
           "text": {
-            "ja": "後手の金７五へは、角５三から６四を通る斜線があります。金は銀８六に守られているので、角を打てばそのまま取れるわけではありません。離れた駒を狙うときも、相手の守りと逃げ先を確認してください。",
-            "en": "The gold on ７五 lies on a diagonal from ５三 through ６四. The silver on ８六 protects the gold, so a bishop drop does not win it automatically. Check the defender and the target’s escape squares before aiming at a distant piece."
+            "ja": "後手の金７五へは、角５三から６四を通る斜線があります。金は銀８四に守られているので、角を打てばそのまま取れるわけではありません。離れた駒を狙うときも、相手の守りと逃げ先を確認してください。",
+            "en": "The gold on ７五 lies on a diagonal from ５三 through ６四. The silver on ８四 protects the gold, so a bishop drop does not win it automatically. Check the defender and the target’s escape squares before aiming at a distant piece."
           }
         },
         {
@@ -141,8 +141,8 @@
         {
           "moves": ["7e6f"],
           "text": {
-            "ja": "△６六金と金が斜線から退きました。角打ちは相手に応手を求めても、必ず駒得につながるとは限りません。狙いが外れた後は、別の対象へ角の働きを向け直します。",
-            "en": "△６六金 moves the gold off the diagonal. A bishop drop may demand a response without winning material. When the target moves, redirect the bishop toward a new useful square."
+            "ja": "△６六金と金が斜めに前へ出て、角の斜線から外れました。角打ちは相手に応手を求めても、必ず駒得につながるとは限りません。狙いが外れた後は、別の対象へ角の働きを向け直します。",
+            "en": "△６六金 steps the gold diagonally forward, off the bishop’s diagonal. A bishop drop may demand a response without winning material. When the target moves, redirect the bishop toward a new useful square."
           }
         }
       ]

@@ -123,19 +123,19 @@
         {
           "moves": ["6g7f"],
           "text": {
-            "ja": "▲７六銀で歩を取り返し、先手銀が７六に出ました。受けながら前進できましたが、８四銀は７五へ進めるため、７六銀の安全を次に調べます。この受けも後手の速攻を無条件に止める手ではありません。",
-            "en": "Sx7f recaptures the pawn and places Sente's silver on 7f. The defender has advanced, but Gote's silver on 8d can move to 7e, so Sente must reassess the silver on 7f. This defense does not automatically stop the attack."
+            "ja": "▲７六銀で歩を取り返し、先手銀が７六に出ました。受けながら前進できましたが、後手は持ち歩を７五へ打って７六銀を狙えるため、７六銀の安全を次に調べます。この受けも後手の速攻を無条件に止める手ではありません。",
+            "en": "Sx7f recaptures the pawn and places Sente's silver on 7f. The defender has advanced, but Gote can drop a pawn on 7e to attack it, so Sente must reassess the silver on 7f. This defense does not automatically stop the attack."
           },
-          "marks": { "last": "7f", "arrows": ["8d7e"], "boxes": ["7f"] }
+          "marks": { "last": "7f", "boxes": ["7f", "7e"] }
         }
       ],
       "variations": [
         {
           "from": 2,
-          "moves": ["8d7e", "7f6g"],
+          "moves": ["P*7e", "7f6g"],
           "text": {
-            "ja": "後手が△７五銀で７六銀を狙う枝では、▲６七銀と戻せます。ただし７五銀は６六歩へ利くので、銀を逃がしても守りの仕事は続きます。互いの玉が囲えていない局面で、銀を深追いするかどうかは別に判断します。",
-            "en": "If Gote plays S7e to attack Sente's silver, S6g retreats it. Gote's silver on 7e still attacks P6f, so the defensive task remains. With both kings uncastled, further pursuit needs a separate safety check."
+            "ja": "後手が持ち歩を△７五歩と打って７六銀を狙う枝では、▲６七銀と戻せます。７五の歩は８四銀が支えているため、▲同銀は△同銀と取り返されます。逃げる手の一例であり、互いの玉が囲えていない局面で、銀を引くか交換に応じるかは別に判断します。",
+            "en": "If Gote drops a pawn on 7e to attack Sente's silver, S6g retreats it. The pawn on 7e is supported by the silver on 8d, so Sx7e would be met by Sx7e. This retreat is one sample answer; with both kings uncastled, whether to retreat or exchange needs a separate check."
           }
         }
       ]

@@ -77,20 +77,20 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "2g6/1r4kb1/3s2p2/9/9/2PB5/4S4/1R3G1K1/3G5 b Pp 1",
+      "start": "2g6/1r4kb1/3s2p2/9/9/2SB5/9/1R3G1K1/3G5 b Pp 1",
       "steps": [
         {
           "text": {
-            "ja": "双方の飛車が８筋にいて、間の歩はすでにありません。先手角６六が飛車８八を守り、後手金７一が飛車８二を守ります。双方が歩を一枚持つこの局面で、飛車交換と横へ逃げる応手を比べます。",
-            "en": "Both rooks occupy the open eighth file. Sente’s bishop on 6f protects its rook on 8h, while Gote’s gold on 7a protects the rook on 8b. Each side holds one pawn. Compare an exchange with Gote’s sideways retreat."
+            "ja": "双方の飛車が８筋にいて、間の歩はすでにありません。先手角６六が飛車８八を守り、先手銀７六が８五を支えます。後手金７一は飛車８二を守ります。双方が歩を一枚持つこの局面で、飛車交換と横へ逃げる応手を比べます。",
+            "en": "Both rooks occupy the open eighth file. Sente’s bishop on 6f protects its rook on 8h, and Sente’s silver on 7f supports 8e. Gote’s gold on 7a protects the rook on 8b. Each side holds one pawn. Compare an exchange with Gote’s sideways retreat."
           },
-          "marks": { "boxes": ["8b", "8h", "7a", "6f", "7b"] }
+          "marks": { "boxes": ["8b", "8h", "7a", "6f", "7f"] }
         },
         {
           "moves": ["8h8e", "8b7b"],
           "text": {
-            "ja": "▲８五飛に対して後手は△７二飛と横へ逃げた例です。飛車交換は起きず、先手飛車は８五で前へ出ています。歩を持つ後手の反撃もあるので、交換を無理に追う必要はありません。",
-            "en": "After Sente advances to 8e, Gote sidesteps to 7b in this sample. No rooks are exchanged, and Sente's rook is advanced on 8e. Since Gote holds a pawn for counterplay, a forced chase is not required."
+            "ja": "▲８五飛は銀７六が支えているので、後手が△同飛と取れば▲同銀と取り返せます。ここでは後手が交換を断って△７二飛と横へ逃げた一例です。飛車交換は起きず、先手飛車は８五で前へ出ています。歩を持つ後手の反撃もあるので、交換を無理に追う必要はありません。",
+            "en": "Sente's silver on 7f supports 8e, so if Gote's rook takes there, the silver recaptures. In this sample Gote declines the trade and sidesteps to 7b. No rooks are exchanged, and Sente's rook is advanced on 8e. Since Gote holds a pawn for counterplay, a forced chase is not required."
           },
           "marks": { "arrows": ["8b7b"], "boxes": ["8e", "7b"] }
         },
@@ -150,7 +150,7 @@
           "moves": ["6i7h", "6g6i+"],
           "text": {
             "ja": "先手が金を７八へ逃がす一例では、後手飛車は６九へ成って龍になります。金の移動で６九が空き、途中の６八も空いているためです。７八金にも龍の斜め一升の利きが届きます。",
-            "en": "If Sente moves the gold to 7h in this sample, Gote's rook can travel to 6i and promote. Squares 6h and 6i were vacated, and the resulting dragon also attacks the gold on 7h diagonally."
+            "en": "If Sente moves the gold to 7h in this sample, Gote's rook can travel to 6i and promote. The gold's move vacated 6i, and 6h was already empty, so the rook can reach 6i and promote; the dragon also attacks the gold on 7h diagonally."
           },
           "marks": { "arrows": ["6g6i"], "boxes": ["7h", "6i"] }
         },

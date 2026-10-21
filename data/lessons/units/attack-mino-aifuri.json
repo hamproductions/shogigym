@@ -88,15 +88,15 @@
       "steps": [
         {
           "text": {
-            "ja": "桂５四は金４二に当たっています。飛車６九を前へ出すと後手歩６三への圧力は増しますが、金４二を取るまでに一手を渡します。飛車を進める価値と、すぐ金を取る価値を比べます。",
-            "en": "The knight on ５四 already attacks the gold on ４二. Lifting Sente's rook on ６九 would increase pressure on Gote's pawn on ６三, but it gives Gote a turn before the gold is taken. Compare the rook lift with capturing the gold immediately."
+            "ja": "桂５四は金４二に当たっています。飛車６九は６八から６四までが空いているため、すでに後手歩６三に利いています。▲６八飛と上がっても６三への利きは変わらず、金４二を取る前に後手へ一手を渡すだけです。飛車を動かす前に、利きが本当に増えるかを数えます。",
+            "en": "The knight on ５四 already attacks the gold on ４二. Sente's rook on ６九 already reaches Gote's pawn on ６三, because ６八 through ６四 are empty. Lifting it to ６八 adds no control over ６三; it only gives Gote a turn before the gold is taken. Before moving the rook, count whether its reach actually grows."
           }
         },
         {
           "moves": ["6i6h", "4b4c"],
           "text": {
-            "ja": "▲６八飛の後、後手が△４三金と逃げる例です。桂５四は４二には利きますが４三には利かず、角７五の斜め筋も空いた４二を通るだけです。一方、飛車６八は歩６三を縦に狙えます。金を逃がされた損と新しい歩への圧力を、次の手番で評価します。",
-            "en": "After ▲６八飛, this sample has Gote retreat the gold with △４三金. The knight on ５四 attacks ４二 but not ４三, and the bishop's diagonal now passes through an empty ４二. Sente's rook on ６八 does pressure the pawn on ６三. Judge the lost gold target against that new pawn pressure on the next turn."
+            "ja": "▲６八飛の後、後手が△４三金と逃げる例です。桂５四は４二には利きますが４三には利かず、角７五の斜め筋も空いた４二を通るだけです。飛車６八が狙う歩６三は、６九にいた時から取れる位置にありました。準備の一手で増えた利きはなく、金を取る機会だけが消えています。",
+            "en": "After ▲６八飛, this sample has Gote retreat the gold with △４三金. The knight on ５四 attacks ４二 but not ４三, and the bishop's diagonal now passes through an empty ４二. The pawn on ６三 that the rook on ６八 eyes was already capturable from ６九. The preparation move added no control; it only cost the chance to take the gold."
           }
         }
       ]

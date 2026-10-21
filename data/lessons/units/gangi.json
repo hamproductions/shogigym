@@ -146,16 +146,17 @@
         {
           "moves": ["4f4e", "5d4e", "5f4e"],
           "text": {
-            "ja": "歩、後手銀、先手銀の順に４五で取った例です。先手は銀を持ちますが、後手角２二は歩４四が動いたため３三を通って４四へ出られます。銀得だけを見て角道を忘れません。",
-            "en": "In this chosen sequence Sente's pawn takes the pawn, Gote's silver takes the pawn, and Sente's silver takes that silver on 4e. Sente gains a silver in hand, but moving Gote's pawn off 4d also opens a route for its bishop through 3c to 4d."
+            "ja": "歩、後手銀、先手銀の順に４五で取った例です。先手は銀を持ちますが、歩４四が消えたため、後手角２二から３三・４四・５五へ斜めの道が開きました。銀得だけを見て角道を忘れません。",
+            "en": "In this chosen sequence Sente's pawn takes the pawn, Gote's silver takes the pawn, and Sente's silver takes that silver on 4e. Sente gains a silver in hand, but with Gote's pawn gone from 4d, the bishop's diagonal from 2b through 3c, 4d and 5e is now open."
           }
         },
         {
-          "moves": ["2b4d"],
+          "moves": ["2b5e"],
           "text": {
-            "ja": "後手角が４四へ出た後は５五を経て６六の先手歩を見ます。先手左銀６七が６六の歩を守っています。角が出た一手だけで先手が得とも後手が突破とも言わず、４五の銀と６六の歩を両方確認します。",
-            "en": "Gote's bishop develops to 4d and points through 5e toward Sente's pawn on 6f. The left silver on 6g protects that pawn. Neither the silver capture nor the bishop move alone establishes an advantage; check both the advanced silver on 4e and the defended pawn on 6f."
-          }
+            "ja": "後手角は銀４五の前の４四には止まらず、５五まで出ます。５五の角はどの先手駒にも取られず、４六・３七を通して飛車２八を、反対側では６六の歩を狙います。６六の歩は左銀６七と角８八が守っているので、先手はまず飛車を逃げます。銀得の後も、開いた角道への対応が一手必要です。",
+            "en": "Gote's bishop does not stop on 4d, in front of the silver on 4e, but goes on to 5e. No Sente piece can capture it there, and it attacks the rook on 2h through 4f and 3g as well as the pawn on 6f. The left silver on 6g and the bishop on 8h protect that pawn, so Sente's first task is to move the rook. Even after winning the silver, Sente must spend a move answering the opened bishop diagonal."
+          },
+          "marks": { "arrows": ["5e2h", "5e6f"] }
         }
       ]
     },
@@ -177,16 +178,17 @@
         {
           "moves": ["6i7i", "8e8f", "8g8f"],
           "text": {
-            "ja": "玉７九へ寄せた後、後手が８筋の歩を出し、先手歩８七が取った例です。後手飛車８二は８六の歩を取れますが、その飛車が居座れるかは金７八の動きを見て決まります。",
-            "en": "After the king moves toward 7i, Gote pushes the eighth-file pawn and Sente's pawn from 8g captures it. Gote's rook can capture the pawn on 8f, but the gold on 7h can contest that rook."
+            "ja": "玉７九へ寄せた後、後手が８筋の歩を出し、先手歩８七が取った例です。後手飛車８二は８六の歩を取れますが、先手は取った歩を持っています。",
+            "en": "After the king moves toward 7i, Gote pushes the eighth-file pawn and Sente's pawn from 8g captures it. Gote's rook can capture the pawn on 8f, but Sente now has a pawn in hand."
           }
         },
         {
-          "moves": ["8b8f", "7h8g"],
+          "moves": ["8b8f", "P*8g"],
           "text": {
-            "ja": "後手飛車が歩を取り、金７八が８七へ出て８六の飛車を前から狙います。玉７九の近くから金が離れる代価があるため、この一手だけを安全と決めません。後手が飛車を引く応手もあります。",
-            "en": "Gote's rook captures the pawn, and Sente's gold from 7h moves to 8g to attack that rook on 8f. The gold has left the king's neighborhood, so the move has a defensive cost. Gote can withdraw the rook."
-          }
+            "ja": "後手飛車が歩を取り、先手は持ち歩を８七へ打って８六の飛車を追います。歩８七は金７八が守っているので、飛車で取れば金で取り返されます。金を玉７九の隣から動かさずに８筋を受けられます。",
+            "en": "Gote's rook captures the pawn, and Sente drops the pawn from hand on 8g to attack the rook on 8f. The gold on 7h protects that pawn, so if the rook takes it the gold recaptures. Sente defends the eighth file without moving the gold away from the king on 7i."
+          },
+          "marks": { "arrows": ["7h8g"] }
         },
         {
           "moves": ["8f8b"],

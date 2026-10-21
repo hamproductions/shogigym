@@ -40,8 +40,8 @@
       "steps": [
         {
           "text": {
-            "ja": "後手玉７一、後手金７三、先手飛車６三。飛車は金を取りながら７三へ動けます。初手の候補を▲７三飛不成と▲７三飛成に分け、玉が動ける場所をそれぞれ数えます。",
-            "en": "Gote's king is on ７一, its gold on ７三, and Sente's rook on ６三. The rook can capture the gold on ７三. Treat ▲７三飛不成 and ▲７三飛成 as separate checking candidates and count the king's exits after each."
+            "ja": "後手玉７一、後手金７三、先手飛車６三。この章は実戦形式の練習で、盤上の駒と表示された持ち駒だけを使い、後手の持ち駒はありません。飛車は金を取りながら７三へ動けます。初手の候補を▲７三飛不成と▲７三飛成に分け、玉が動ける場所をそれぞれ数えます。",
+            "en": "Gote's king is on ７一, its gold on ７三, and Sente's rook on ６三. This is a practical drill: only the pieces on the board and the hands shown are used, and Gote has no pieces in hand. The rook can capture the gold on ７三. Treat ▲７三飛不成 and ▲７三飛成 as separate checking candidates and count the king's exits after each."
           }
         },
         {
@@ -71,15 +71,15 @@
       "steps": [
         {
           "text": {
-            "ja": "同じ局面を初期状態に戻します。成る選択をしたら、飛車の位置だけでなく、取った後手金が先手の持ち駒になることまで更新してください。まだ金を持っていない初期局面から金打ちを考えてはいけません。",
-            "en": "Reset to the same starting board. If the rook promotes while capturing, update both its new square and the captured Gote gold becoming Sente's hand piece. A gold drop is not available before that capture."
+            "ja": "同じ局面を初期状態に戻します。この章も表示された持ち駒だけを使う実戦形式で、後手の持ち駒はありません。成る選択をしたら、飛車の位置だけでなく、取った後手金が先手の持ち駒になることまで更新してください。まだ金を持っていない初期局面から金打ちを考えてはいけません。",
+            "en": "Reset to the same starting board. This chapter also uses only the hands shown, as a practical drill, and Gote has no pieces in hand. If the rook promotes while capturing, update both its new square and the captured Gote gold becoming Sente's hand piece. A gold drop is not available before that capture."
           }
         },
         {
           "moves": ["6c7c+"],
           "text": {
-            "ja": "▲７三飛成は金を取り、７三の龍は８二と６二にも斜めに利きます。先手の持ち駒は金一枚になり、後手の合法な応手は△８一玉と△６一玉の二つです。応手一覧を書いてから最後の一手を探します。",
-            "en": "▲７三飛成 captures the gold. The dragon on ７三 now covers ８二 and ６二 diagonally, and Sente has one gold in hand. Gote's legal replies are exactly △８一玉 and △６一玉. Write both replies down before choosing the finish."
+            "ja": "▲７三飛成は金を取り、７三の龍は８二と６二にも斜めに利きます。先手の持ち駒は金一枚になり、後手には合駒に使う持ち駒がないので、合法な応手は△８一玉と△６一玉の二つです。応手一覧を書いてから最後の一手を探します。",
+            "en": "▲７三飛成 captures the gold. The dragon on ７三 now covers ８二 and ６二 diagonally, and Sente has one gold in hand. With no hand piece to interpose on ７二, Gote's legal replies are exactly △８一玉 and △６一玉. Write both replies down before choosing the finish."
           }
         },
         {
@@ -112,8 +112,8 @@
       "steps": [
         {
           "text": {
-            "ja": "新しい局面では後手玉５一、後手金４二、先手飛車３三です。▲５三飛成は王手になります。指す前に着地点５三を後手金が取れるかを確認します。",
-            "en": "In this new position Gote has a king on ５一 and gold on ４二; Sente has a rook on ３三. ▲５三飛成 would check. Before choosing it, inspect whether Gote's gold can capture the destination square."
+            "ja": "新しい局面では後手玉５一、後手金４二、先手飛車３三で、表示された持ち駒だけを使います（双方とも持ち駒なし）。▲５三飛成は王手になります。指す前に着地点５三を後手金が取れるかを確認します。",
+            "en": "In this new position Gote has a king on ５一 and gold on ４二; Sente has a rook on ３三. Only the hands shown are used, and neither side has pieces in hand. ▲５三飛成 would check. Before choosing it, inspect whether Gote's gold can capture the destination square."
           }
         },
         {

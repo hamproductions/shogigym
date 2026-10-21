@@ -36,7 +36,7 @@
     {
       "title": { "ja": "逃げ先を二つの利きで選ぶ", "en": "Test each rook escape against two attacks" },
       "side": "sente", "kind": "position",
-      "start": "4k4/9/7p1/6R2/5b3/9/9/9/4K4 b P 1",
+      "start": "3k5/9/7p1/6R2/5b3/9/9/9/4K4 b P 1",
       "steps": [
         { "text": { "ja": "４五角は３四飛を狙い、２三歩は２四を攻めている。飛車を逃がすなら、角から離れるだけでなく着地点も安全か調べる。", "en": "The bishop on 4e attacks the rook on 3d, while the pawn on 2c attacks 2d. A rook escape must leave the bishop's line and land on a safe square." }, "marks": { "arrows": ["4e3d", "2c2d"], "boxes": ["3e", "3f"] } },
         { "moves": ["3d3e", "4e5d"], "text": { "ja": "先手は３五へ引き、角を横から攻めた。後手が角を５四へ逃がす場合、飛車も角も盤上に残る。角の応手は一例で、先手は次の利きを再計算する。", "en": "Sente retreats to 3e and attacks the bishop sideways. If Gote moves the bishop to 5d, both pieces remain on the board. This bishop retreat is one possible reply; reassess the lines afterward." }, "marks": { "arrows": ["3e4e"], "boxes": ["5d", "2c"] } },

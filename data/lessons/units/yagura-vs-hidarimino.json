@@ -61,8 +61,8 @@
         {
           "moves": ["4f3e"],
           "text": {
-            "ja": "銀が桂を取った形です。後手は桂を差し出す義務がなく、３筋の歩交換を選ばない手もあります。先手はこの取り手を用意した上で、銀３五が次に４四の歩などから狙われるかを読みます。",
-            "en": "The silver captures the knight in this chosen line. Gote need not offer the knight or even choose the third-file exchange. Sente should also check what can attack the advanced silver on 3e next, including the pawn on 4d."
+            "ja": "銀が桂を取った形です。後手は桂を差し出す義務がなく、３筋の歩交換を選ばない手もあります。先手はこの取り手を用意した上で、銀３五へ後手が持ち歩を３四に打つ手などで当たってこないかを読みます。",
+            "en": "The silver captures the knight in this chosen line. Gote need not offer the knight or even choose the third-file exchange. Sente should also check what can attack the advanced silver on 3e next, including a pawn dropped on 3d from Gote's hand."
           }
         }
       ]
@@ -97,10 +97,10 @@
           }
         },
         {
-          "moves": ["2b4d"],
+          "moves": ["2b4d", "4e4d"],
           "text": {
-            "ja": "後手が角を４四へ出した例です。角は５五を経て６六の先手歩を見ますが、その歩は金６七に守られています。角が出たことだけで歩や矢倉が失われるとは決めず、４筋の銀交換で得た駒と守りの利きを比べます。",
-            "en": "Gote chooses to develop the bishop to 4d. It points through 5e toward Sente's pawn on 6f, which Sente's gold on 6g protects. The bishop's appearance alone does not win that pawn or the castle; weigh it against the pieces gained in the silver exchange."
+            "ja": "後手が角を４四へ出した悪手の例です。角道は５五から６六の先手歩へ通りますが、４四には先手銀４五が真っ直ぐ前に利いていて、後手に４四を守る駒がありません。先手は銀で角をただで取れます。斜線が開くことと、そこへ出た角が安全であることは別なので、出る先の守りを必ず数えます。",
+            "en": "Gote develops the bishop to 4d, a mistake shown on purpose. The bishop would look through 5e toward Sente's pawn on 6f, but Sente's silver on 4e attacks 4d straight ahead and nothing of Gote's guards 4d. Sente wins the bishop for nothing. An open diagonal does not make the landing square safe, so count the defenders of that square before moving there."
           }
         }
       ]
@@ -176,10 +176,10 @@
       "variations": [
         {
           "from": 0,
-          "moves": ["2g2f", "8f8g+", "7h8g", "8b8g+", "8h9i"],
+          "moves": ["2g2f", "8f8g+", "7h8g", "8b8g+", "8h9i", "G*8i"],
           "text": {
-            "ja": "先手が別の筋の歩を進めるだけなら、後手歩は８七で成り、金で取った後に後手飛車が８七の金を取って成れます。この図では後手銀７六が龍８七を守るため、先手玉８八は９九へ逃げる例になります。後手の攻めが必勝という意味ではなく、７七の銀を動かさない一手で取り返しの配置が変わる比較です。",
-            "en": "If Sente merely advances the pawn on 2g, Gote can promote the pawn on 8g. After Sente's gold captures it, Gote's rook captures the gold and promotes. Here Gote's silver on 7f protects the dragon on 8g, so Sente's king retreats from 8h to 9i in this example. This does not prove a forced win; it shows how a quiet move leaves a different recapture arrangement."
+            "ja": "先手が別の筋の歩を進めるだけの悪手の例です。後手歩は８七で成り、金で取った後に後手飛車が８七の金を取って成れます。後手銀７六が龍８七を守るので取り返せず、先手玉８八は王手を受けます。９九玉は８九金打までの詰みで、７九玉も後手の寄せが続きます。この変化は先手の悪手が負けにつながることを示す比較で、後手が必ず勝つ局面だという意味ではありません。",
+            "en": "If Sente merely advances the pawn on 2g, a deliberate mistake, Gote can promote the pawn on 8g. After Sente's gold captures it, Gote's rook captures the gold and promotes. Gote's silver on 7f protects the dragon on 8g, so it cannot be taken and Sente's king on 8h is in check. Retreating to 9i is mated by a gold dropped on 8i, and 7i also lets Gote's attack continue. The line shows that this quiet move loses the position; it does not mean Gote wins from every similar position."
           }
         }
       ]

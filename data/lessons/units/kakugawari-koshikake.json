@@ -98,12 +98,12 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/1rg6/9/3ps2p1/7P1/3PS4/2N6/2KG5/7R1 b Bb 1",
+      "start": "4k4/1rg6/9/3ps2p1/7P1/3PS4/2NG5/2K6/7R1 b Bb 1",
       "steps": [
         {
           "text": {
-            "ja": "先手桂７七は６五へ跳べます。銀５六も６五へ利きますが、後手には歩６四と銀５四があります。桂を使った後の取り返しと、飛車２九の前にある歩２五を別々に追います。後手金７二は飛車８二を守り、王手の角７三打ちにも同金と取れます。",
-            "en": "Sente's knight on 7g can jump to 6e, a square also controlled by its silver on 5f. Gote has a pawn on 6d and silver on 5d. Track that knight contact separately from Sente's pawn on 2e in front of the rook on 2i. Gote’s gold on 7b guards the rook on 8b and can capture a checking bishop dropped on 7c."
+            "ja": "先手桂７七は６五へ跳べます。金６七は玉７八へ向かう３四からの斜線を塞いでいます。銀５六も６五へ利きますが、後手には歩６四と銀５四があります。桂を使った後の取り返しと、飛車２九の前にある歩２五を別々に追います。後手金７二は飛車８二を守り、王手の角７三打ちにも同金と取れます。",
+            "en": "Sente's knight on 7g can jump to 6e, a square also controlled by its silver on 5f. The gold on 6g blocks the diagonal from 3d toward the king on 7h. Gote has a pawn on 6d and silver on 5d. Track that knight contact separately from Sente's pawn on 2e in front of the rook on 2i. Gote’s gold on 7b guards the rook on 8b and can capture a checking bishop dropped on 7c."
           },
           "marks": { "boxes": ["7b", "8b", "7c"] }
         },
@@ -124,8 +124,8 @@
         {
           "moves": ["2d2e", "2i2e", "B*5b"],
           "text": {
-            "ja": "別の筋では後手歩２四が先手歩２五を取り、先手飛車２九が歩を取り返しました。後手角５二は４三・３四越しに飛車２五を狙います。桂銀の交換後も飛車先は独立に数えます。",
-            "en": "On another file Gote's pawn from 2d captures Sente's pawn on 2e, and the rook from 2i recaptures that pawn. Gote's bishop drop on 5b attacks the rook on 2e through 4c and 3d. Count the rook file independently of the knight and silver trade."
+            "ja": "別の筋では後手歩２四が先手歩２五を取り、先手飛車２九が歩を取り返しました。後手角５二は金６七が斜線を塞ぐため王手ではなく、４三・３四越しに飛車２五を狙う一例です。桂銀の交換後も飛車先は独立に数えます。",
+            "en": "On another file Gote's pawn from 2d captures Sente's pawn on 2e, and the rook from 2i recaptures that pawn. Gote's bishop drop on 5b is one sample drop: the gold on 6g blocks the long diagonal, so it gives no check, and it attacks the rook on 2e through 4c and 3d. Count the rook file independently of the knight and silver trade."
           }
         },
         {
@@ -193,13 +193,14 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/1r7/9/1p7/9/4S4/1PS3N2/3G1G3/2K4R1 w Bb 1",
+      "start": "4k4/1rg6/9/1p7/9/4S4/1PS3N2/3G1G3/2K4R1 w Bb 1",
       "steps": [
         {
           "text": {
-            "ja": "右銀５六で攻めを考える時も、後手飛車８二と歩８四を見ます。先手歩８七の隣には銀７七があり、８六へ利いています。後手が歩を進めた時、先に８筋を押すか待つかで取り返す駒が変わります。",
-            "en": "While Sente considers an attack with the right silver on 5f, Gote's rook on 8b and pawn on 8d still matter. Sente's pawn on 8g has a silver on 7g beside it, covering 8f. Pushing the pawn early or waiting changes which piece must recapture."
-          }
+            "ja": "右銀５六で攻めを考える時も、後手飛車８二と歩８四を見ます。先手歩８七の隣には銀７七があり、８六へ利いています。後手が歩を進めた時、先に８筋を押すか待つかで取り返す駒が変わります。後手金７二は飛車８二を守り、王手の角７三打ちにも同金と取れます。",
+            "en": "While Sente considers an attack with the right silver on 5f, Gote's rook on 8b and pawn on 8d still matter. Sente's pawn on 8g has a silver on 7g beside it, covering 8f. Pushing the pawn early or waiting changes which piece must recapture. Gote's gold on 7b guards the rook on 8b and can capture a checking bishop dropped on 7c."
+          },
+          "marks": { "boxes": ["7b", "8b", "7c"] }
         },
         {
           "moves": ["8d8e", "7i6i"],

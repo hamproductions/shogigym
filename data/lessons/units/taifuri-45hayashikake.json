@@ -10,7 +10,7 @@
     "en": "Count the contact after 4e"
   },
   "intro": {
-    "ja": "四間飛車に対する４五歩早仕掛けでは、４筋の歩を進める前に、交換後の４五を誰が守るかを数える。飛車が４二にいても、４三に味方の駒がいればその飛車はすぐに４五へ来られない。銀の位置と飛車の通路を比べ、仕掛ける時と待つ時を分けて考える。 戦法としての狙いは４筋の接触で角道を開き、角交換によって２筋を守る角を外すこと。この講座の銀・桂の損得例はその判断の補助であり、最後に独立した部分局面で角道と２筋の関係を確かめる。",
+    "ja": "四間飛車に対する４五歩早仕掛けでは、４筋の歩を進める前に、交換後の４五を誰が守るかを数える。飛車が４二にいても、４三に味方の駒がいればその飛車はすぐに４五へ来られない。銀の位置と飛車の通路を比べ、仕掛ける時と待つ時を分けて考える。戦法としての狙いは４筋の接触で角道を開き、角交換によって２筋を守る角を外すこと。この講座の銀・桂の損得例はその判断の補助であり、最後に独立した部分局面で角道と２筋の関係を確かめる。",
     "en": "In an early 4e-pawn attack against Fourth File Rook, count who controls 4e after the pawn exchange before advancing. A rook on 4b cannot immediately reach 4e when its own piece occupies 4c. Compare the silver's position with the rook's lane to decide when to initiate contact and when to wait. The named strategy connects fourth-file contact to opening the bishop diagonal and removing the bishop that defends file two. The local silver and knight examples support that decision; a final independent partial position connects the diagonal to file-two play."
   },
   "check": {
@@ -39,12 +39,12 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "6k2/5r1b1/5s1p1/5pp2/9/2P1SP1P1/9/1BKG3R1/9 b - 1",
+      "start": "6k2/5r1b1/5s1p1/5p3/9/2PPSP1P1/9/1BKG3R1/9 b - 1",
       "steps": [
         {
           "text": {
-            "ja": "後手飛車は４二、銀は４三、歩は４四。先手銀は５六にいる。先手が４五へ歩を進めると、後手が４四歩で取る場合に銀５六から取り返せる。",
-            "en": "Gote has a rook on 4b, silver on 4c and pawn on 4d. Sente's silver is already on 5f. If Sente pushes to 4e and Gote captures with the 4d pawn, the silver can recapture from 5f."
+            "ja": "後手飛車は４二、銀は４三、歩は４四。先手銀は５六にいて、６六の歩が後手角の斜めの利きを止めている。先手が４五へ歩を進め、後手が４四歩で取る場合は、銀５六から取り返せる。",
+            "en": "Gote has a rook on 4b, silver on 4c and pawn on 4d. Sente's silver is on 5f, and the pawn on 6f stops Gote's bishop diagonal. If Sente pushes to 4e and Gote captures with the 4d pawn, the silver can recapture from 5f."
           },
           "marks": {
             "arrows": [
@@ -64,8 +64,8 @@
             "5f4e"
           ],
           "text": {
-            "ja": "後手が４五同歩と応じた例。先手銀が５六から４五の歩を取り、先手は歩を一枚持つ。ただし４五銀は前に出た駒で、後手の次の手まで安全とは限らない。",
-            "en": "Gote accepts the pawn contact in this example. Sente's silver captures the pawn on 4e from 5f, adding one pawn to hand. The advanced silver still needs to survive Gote's next move."
+            "ja": "後手が４五同歩と応じた例。先手銀が５六から４五の歩を取り、先手は歩を一枚持つ。４四の歩が消えても、後手角の斜線は６六の歩で止まる。ただし４五銀は前に出た駒で、後手の次の手まで安全とは限らない。",
+            "en": "Gote accepts the pawn contact in this example. Sente's silver captures the pawn on 4e from 5f, adding one pawn to hand. Even with the 4d pawn gone, Gote's bishop diagonal stops at the pawn on 6f. The advanced silver still needs to survive Gote's next move."
           },
           "marks": {
             "last": "4e",
@@ -95,8 +95,8 @@
             "4e5f"
           ],
           "text": {
-            "ja": "この盤では先手銀が５六へ戻れる。歩交換はできたが、後手も銀を４四へ進めた。得失は次の銀の位置と玉側の安全を合わせて判断する。",
-            "en": "Here Sente's silver can return to 5f. The pawns were exchanged, while Gote gained a silver on 4d. Judge the result with both silvers' placement and king safety in view."
+            "ja": "この盤では先手銀が５六へ戻れる。歩交換はできたが、後手は銀を４四へ進めた。得失は次の銀の位置と玉側の安全を合わせて判断する。",
+            "en": "Here Sente's silver can return to 5f. The pawns were exchanged, and Gote advanced a silver to 4d. Judge the result with both silvers' placement and king safety in view."
           },
           "marks": {
             "boxes": [
@@ -115,16 +115,16 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "6k2/5r1b1/5s1p1/5pp2/9/2P2P1P1/4S4/1BKG3R1/9 b - 1",
+      "start": "6k2/5r1b1/5s1p1/5p3/9/2PP1P1P1/4S4/1BKG3R1/9 b - 1",
       "steps": [
         {
           "text": {
-            "ja": "先手銀はまだ５七。４五の歩交換後に銀を４六へ出しても、それは取り返しではなく一手かけた準備になる。後手銀４三が動く時間を与えるかを数える。",
-            "en": "Sente's silver is still on 5g. Moving it to 4f after a pawn exchange would spend a turn preparing a recapture rather than making one. Count the time this gives the silver on 4c."
+            "ja": "先手銀はまだ５七。４五の歩交換後も、５七の銀は一手では４五に届かない。取り返すには、まず５六へ上がる一手がいる。後手銀４三が動く時間を与えるかを数える。",
+            "en": "Sente's silver is still on 5g. After a 4e pawn exchange it cannot reach 4e in one move; it must first step up to 5f. Count the time this gives the silver on 4c."
           },
           "marks": {
             "arrows": [
-              "5g4f",
+              "5g5f",
               "4c4d"
             ],
             "boxes": [
@@ -136,30 +136,46 @@
         {
           "moves": [
             "4f4e",
-            "4d4e",
-            "5g4f"
+            "4d4e"
           ],
           "text": {
-            "ja": "４五歩を取られた後で先手銀を４六に出した。後手の４五歩は残っており、先手はまだその歩を取っていない。",
-            "en": "After Gote takes the 4e pawn, Sente brings its silver to 4f. Gote's pawn remains on 4e; Sente has not yet recovered it."
+            "ja": "後手が４五の歩を取った。先手の５七銀は４五を取り返せず、後手の４五歩が残る。",
+            "en": "Gote takes the pawn on 4e. Sente's silver on 5g cannot recapture there, and Gote's pawn stays on 4e."
           },
           "marks": {
+            "last": "4e",
             "boxes": [
               "4e",
-              "4f",
+              "5f",
               "4c"
             ]
           }
         },
         {
           "moves": [
-            "4c4d",
-            "4f4e",
+            "5g5f",
+            "4c4d"
+          ],
+          "text": {
+            "ja": "先手が銀を５六へ上げると、４五の歩に銀の利きが届く。後手は銀を４四へ出して４五歩を支えた。これは後手の一例で、強制手ではない。",
+            "en": "Sente lifts the silver to 5f, and it now attacks the pawn on 4e. Gote supports that pawn by advancing its silver to 4d. This is a sample reply, not a forced one."
+          },
+          "marks": {
+            "boxes": [
+              "4d",
+              "4e",
+              "5f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5f4e",
             "4d4e"
           ],
           "text": {
-            "ja": "後手銀が４四へ出ると、先手銀が４五歩を取っても後手銀が同銀と取り返せる。この交換では先手は銀を失う。後手の応手を固定せず、歩を突く前に銀を５六へ上げる手も比較する。",
-            "en": "Gote's silver advances to 4d. If Sente now captures the pawn on 4e, that silver recaptures and Sente loses a silver for the pawn. Gote's choice is not forced, but this reply is enough to make prior silver development worth comparing."
+            "ja": "後手銀が４五歩を支えているため、先手銀が取っても同銀と取り返され、先手は銀を失う。歩を突く前に銀を５六へ上げる手は、後手の応手とあわせて比較する。",
+            "en": "With Gote's silver backing the pawn, Sente's silver capture is answered by a silver recapture and Sente loses a silver. Gote's reply is not forced, so compare lifting the silver to 5f before pushing the pawn together with Gote's answers."
           },
           "marks": {
             "last": "4e",
@@ -172,14 +188,23 @@
       ],
       "variations": [
         {
-          "from": 0,
+          "from": 1,
           "moves": [
-            "5g5f",
-            "2c2d"
+            "5g4f",
+            "4e4f"
           ],
           "text": {
-            "ja": "先に銀を５六へ出す道もある。後手の２四歩は一例で、先手が４五歩を選ぶ時は４四歩と４三銀の応手を改めて読む。",
-            "en": "Developing the silver to 5f first is another option. Gote's 2d pawn push is only a sample reply; Sente must still recheck the 4d pawn and 4c silver before choosing 4e."
+            "ja": "誤りの例。５七銀を４六へ出すと、後手の４五歩の真正面になり、守りもないため歩にそのまま取られる。銀は４五の取り返しに使えない。",
+            "en": "A mistake. Moving the silver from 5g to 4f puts it directly in front of Gote's pawn on 4e with no support, and the pawn simply captures it. The silver cannot serve as the recapture on 4e."
+          },
+          "marks": {
+            "arrows": [
+              "4e4f"
+            ],
+            "boxes": [
+              "4f",
+              "4e"
+            ]
           }
         }
       ]
@@ -250,11 +275,14 @@
           "from": 0,
           "moves": [
             "2f2e",
-            "2c2d"
+            "2c2d",
+            "2e2d",
+            "3c2d",
+            "2h2d"
           ],
           "text": {
-            "ja": "先手が２筋を進め、後手が２四歩で受けた一例。すぐに４五歩をぶつけず、飛車の利きを残したまま相手の応手を見ることもできる。後手２四歩は強制手ではない。",
-            "en": "Sente can advance its second-file pawn and observe a sample Gote reply on 2d while keeping the rook active. This does not force Gote's pawn push; it illustrates a way to delay 4e contact when the rook lane is open."
+            "ja": "先手が２筋を進め、後手が２四歩と応じた誤りの例。２五歩から２四歩と取れば、３三銀が取り返しても飛車が銀を取り、先手は銀を得る。すぐに４五歩をぶつけず、飛車の利きを残したまま相手の応手を見る手もある。",
+            "en": "Sente advances the second-file pawn, and Gote answers with a pawn push to 2d, which is a mistake. Sente takes on 2d, the silver recaptures, and the rook takes that silver, so Sente wins a silver. Delaying 4e contact keeps the rook active while Sente watches Gote's reply."
           }
         }
       ]
@@ -345,8 +373,8 @@
         },
         {
           "text": {
-            "ja": "４五歩を後手歩が取る一例。４四が空いて角同士の道が開く。銀で歩を取り返す以外に角交換も比較できる。",
-            "en": "In this sample Gote captures the pawn on 4e. Vacating 4d opens the bishop diagonal, allowing a bishop exchange to be compared with a silver recapture."
+            "ja": "４五歩を後手歩が取る一例。４四が空いて角同士の道が開く。桂（３七）で歩を取り返す以外に角交換も比較できる。",
+            "en": "In this sample Gote captures the pawn on 4e. Vacating 4d opens the bishop diagonal, allowing a bishop exchange to be compared with a recapture by the knight from 3g."
           },
           "moves": [
             "4f4e",

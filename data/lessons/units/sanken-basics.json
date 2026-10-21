@@ -51,7 +51,7 @@
         },
         {
           "moves": ["5a6a", "7f7e"],
-          "text": { "ja": "▲７五歩と進めても、歩と飛車の間に味方の駒が入らない限り７筋の連携は続きます。一方、△７四歩なら歩同士が接近します。交換するかどうかは、取り返した後の飛車と銀の位置を見て決めます。", "en": "P7e keeps the rook behind the pawn as long as no friendly piece blocks the file. If Gote answers with P7d, the pawns approach contact. Whether to exchange them depends on the rook and silver placements after the recaptures." },
+          "text": { "ja": "▲７五歩と進めても、歩と飛車の間に味方の駒が入らない限り７筋の連携は続きます。一方、ここで△７四歩と突くと歩がぶつかりますが、７四へ取り返せる後手の駒はありません。▲同歩と取られるだけで、歩損になります。", "en": "P7e keeps the rook behind the pawn as long as no friendly piece blocks the file. If Gote answers with P7d, the pawns meet, but no Gote piece can recapture on 7d. Sente simply takes with Px7d and wins a pawn." },
           "marks": { "last": "7e", "boxes": ["7c"] }
         }
       ]
@@ -90,7 +90,7 @@
         },
         {
           "moves": ["3c6f", "7g6f"],
-          "text": { "ja": "△６六角に▲同銀。７七の銀が６六へ進んで角を取り、双方が角を持ちました。先手の７八飛は残っていますが、角が８筋を守る形ではなくなっています。", "en": "After Bx6f Sx6f, Sente's silver from 7g takes the bishop. Each side now has a bishop in hand. Sente's rook remains on 7h, but a bishop no longer guards the eighth file." },
+          "text": { "ja": "△６六角に▲同銀。７七の銀が６六へ進んで角を取り、双方が角を持ちました。先手の７八飛は残っていますが、７七の銀が６六へ移ったため８六と８八への銀の守りがなくなり、７筋は７三の歩へ通じています。", "en": "After Bx6f Sx6f, Sente's silver from 7g takes the bishop. Each side now has a bishop in hand. Sente's rook remains on 7h, but with the silver gone from 7g it no longer covers 8f or 8h, and the seventh file is now open toward the pawn on 7c." },
           "marks": { "last": "6f", "boxes": ["8g", "8d"] }
         },
         {

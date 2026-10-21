@@ -36,13 +36,14 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/1r4b2/9/9/3B5/2SG5/9/7R1/3K5 w - 1",
+      "start": "4k4/1rg3b2/9/9/3B5/2SG5/9/7R1/3K5 w - 1",
       "steps": [
         {
           "text": {
-            "ja": "先手角６五と後手角３二が斜線で向かい合っています。先手の金６六と銀７六はどちらも６五へ取り返せます。角がなくなった後、どちらを前へ出すと守りが残るかを比べます。",
-            "en": "Sente's bishop on 6e and Gote's bishop on 3b face each other along a diagonal. Both Sente's gold on 6f and silver on 7f can recapture on 6e. Compare the defender left behind after the bishops leave the board."
-          }
+            "ja": "先手角６五と後手角３二が斜線で向かい合っています。先手の金６六と銀７六はどちらも６五へ取り返せます。角がなくなった後、どちらを前へ出すと守りが残るかを比べます。後手金７二は飛車８二を守り、王手の角７三打ちにも同金と取れます。",
+            "en": "Sente's bishop on 6e and Gote's bishop on 3b face each other along a diagonal. Both Sente's gold on 6f and silver on 7f can recapture on 6e. Compare the defender left behind after the bishops leave the board. Gote’s gold on 7b guards the rook on 8b and can capture a checking bishop dropped on 7c."
+          },
+          "marks": { "boxes": ["7b", "8b", "7c"] }
         },
         {
           "moves": ["3b6e", "6f6e"],
