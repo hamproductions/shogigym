@@ -1,4 +1,4 @@
-import { mainStrategies, strategyById } from '@/data/strategies'
+import { strategyById } from '@/data/strategies'
 
 const SITE = 'Shogi Gym 将棋ジム'
 export const SITE_URL = (import.meta.env.VITE_SITE_URL ?? 'https://hamproductions.github.io/shogigym').replace(/\/$/, '')
@@ -35,7 +35,7 @@ export function pageMeta(mode: string | undefined, main: string | undefined) {
   }
 }
 
-export const knownMain = (id: string) => mainStrategies().some((s) => s.id === id)
+export const notFoundMeta = () => [{ title: `Page not found · ${SITE}` }, { name: 'robots', content: 'noindex' }]
 
 export function metaTags(title: string, description: string, pathname: string) {
   const url = `${SITE_URL}${pathname.endsWith('/') ? pathname : `${pathname}/`}`
