@@ -57,36 +57,31 @@
       ]
     },
     {
-      "title": { "ja": "６三銀の前で飛車を横へ回す", "en": "Shift the rook beside a 6c silver" },
+      "title": { "ja": "６筋の歩を交換したら、飛車の前に出ず桂で取り返す", "en": "After the sixth-file pawn exchange, recapture with the knight, not the rook" },
       "side": "sente",
       "kind": "position",
-      "start": "5k3/1r5b1/2ps5/3p5/2P6/P1RP5/BPNS5/4G1SK1/5G3 b - 1",
+      "start": "5k3/1r5b1/2ps5/1p1p5/2P6/P1RP5/BPNS5/4G1SK1/5G3 b - 1",
       "steps": [
         {
-          "text": { "ja": "後手銀が６三にいるため、７筋の歩交換だけに飛車を使うと銀の利きとぶつかります。６四歩と先手６六歩の間には６五があり、６筋でも歩の接触を作れます。７六飛の横にある６六歩を先に動かすことが条件です。", "en": "Gote's silver on 6c can affect a seventh-file exchange. There is also contact available between Gote's pawn on 6d and Sente's pawn on 6f. Sente's rook can shift from 7f to 6f only after its own pawn vacates 6f." },
-          "marks": { "arrows": ["6f6e", "7f6f"], "boxes": ["6d"] }
+          "text": { "ja": "後手銀は６三、後手歩は８四・７三・６四です。８四の歩が８筋を塞ぐので、後手飛車は８七の歩に届きません。先手は６六歩を６五へ突いて、６筋で後手の６四歩と接触できます。", "en": "Gote's silver is on 6c, with pawns on 8d, 7c and 6d. The pawn on 8d closes the eighth file, so Gote's rook cannot reach Sente's pawn on 8g. Sente can push the pawn from 6f to 6e and make contact with Gote's pawn on 6d." },
+          "marks": { "arrows": ["6f6e"], "boxes": ["6d", "8d"] }
         },
         {
           "moves": ["6f6e", "6d6e"],
-          "text": { "ja": "▲６五歩に後手が△同歩と取った例です。先手歩はなくなりましたが、６六が空いたため飛車は７六から６六へ横移動できます。後手銀は６三にいて、次の６四にも進めます。", "en": "After P6e Px6e, Sente's pawn is gone and 6f is clear. The rook can now shift sideways from 7f to 6f. Gote's silver remains on 6c and can move to 6d on its next turn." },
-          "marks": { "last": "6e", "arrows": ["7f6f", "6c6d"] }
+          "text": { "ja": "▲６五歩に後手が△同歩と取った例です。先手の歩はなくなり、６六は空きましたが、後手歩が６五に来て６六へ利いています。この地点へ飛車を７六から移すと、歩に取られます。", "en": "After P6e, Gote captures with Px6e as one example. Sente's pawn is gone and 6f is empty, but Gote's pawn on 6e now attacks 6f. A rook moved there from 7f would be captured by that pawn." },
+          "marks": { "last": "6e", "boxes": ["6f"] }
         },
         {
-          "moves": ["7f6f"],
-          "text": { "ja": "▲６六飛で６五の後手歩に飛車を当てました。飛車で歩を取り返す前に、後手銀が６四へ出て歩を守る手を調べます。後手が別の手を選んだ場合だけ、６五の歩を取れる余地が生じます。", "en": "R6f attacks Gote's pawn on 6e. Before recapturing it, check S6d, which would protect the pawn. Only if Gote chooses a different move might the rook take the pawn safely." },
-          "marks": { "last": "6f", "arrows": ["6f6e", "6c6d"] }
-        },
-        {
-          "moves": ["4a3b", "6f6e"],
-          "text": { "ja": "後手が△３二玉とした例なら、▲６五飛で歩を取り返せます。先手は歩交換を終え、飛車は６五に出ました。しかし後手銀はなお６三から６四へ進めるので、次に飛車をどこへ引くかも考えます。", "en": "If Gote plays the sample K3b, R6e recaptures the pawn. Sente has completed a pawn exchange and advanced the rook to 6e. The silver on 6c can still move to 6d, so the rook's next retreat also matters." },
-          "marks": { "last": "6e", "boxes": ["6c", "6d"] }
+          "moves": ["7g6e"],
+          "text": { "ja": "▲６五桂と歩を取り返しました。桂は７三の歩に当たり、５三へも跳べる形です。ただし６五の桂を守る駒はなく、後手が△６四銀と出れば桂に当たります。取り返した後の守りを次に考えます。", "en": "N6e recaptures the pawn. The knight attacks Gote's pawn on 7c and can also jump to 5c. Nothing protects the knight on 6e, however, so Gote's S6d would attack it. Sente has to consider the knight's defense next." },
+          "marks": { "last": "6e", "arrows": ["6e7c", "6e5c"], "boxes": ["6c"] }
         }
       ],
       "variations": [
         {
-          "from": 2,
-          "moves": ["6c6d", "6f7f"],
-          "text": { "ja": "後手が△６四銀で歩を守った枝では、▲７六飛と戻せます。６五歩を飛車で取ると銀に飛車を取られるため、同じ攻め方を機械的に続けません。", "en": "If Gote defends with S6d, R7f retreats. Capturing the pawn on 6e with the rook would allow the silver to take the rook, so Sente changes the plan." }
+          "from": 1,
+          "moves": ["7f6f", "6e6f"],
+          "text": { "ja": "▲６六飛と横へ移すと、△６六歩と歩で飛車を取られます。飛車を守るのは６七銀だけで、歩と飛車の交換では大きく損をします。飛車の前に後手歩がいるときは、横移動を選ばず桂で取り返します。", "en": "If Sente shifts the rook with R6f, Gote plays Px6f and captures it with a pawn. Only the silver on 6g protects the rook, and a rook for a pawn is a large loss. With a Gote pawn on 6e, Sente recaptures with the knight instead of shifting the rook." }
         }
       ]
     },
@@ -94,10 +89,10 @@
       "title": { "ja": "８四飛がいるときは角の利きを先に数える", "en": "Count the bishop before taking beside a rook on 8d" },
       "side": "sente",
       "kind": "position",
-      "start": "5k3/7b1/2ps5/1r1p5/2P6/P1RP5/BPNS5/4G1SK1/5G3 b - 1",
+      "start": "5k3/7b1/2ps5/1r1p5/1pP6/P1RP5/BPNS5/4G1SK1/5G3 b - 1",
       "steps": [
         {
-          "text": { "ja": "後手飛車は８四にいて、７四を横から守ります。後手銀は６三、歩は７三と６四です。先手が７五歩を前進させると９七角の斜線が開きますが、飛車で７四を取る手は後手飛車の利きと重なります。", "en": "Gote's rook on 8d protects 7d from the side. Its silver is on 6c, with pawns on 7c and 6d. Advancing Sente's pawn from 7e opens the bishop on 9g, while a rook capture on 7d would meet Gote's rook." },
+          "text": { "ja": "後手飛車は８四にいて、７四を横から守ります。後手銀は６三、歩は８五・７三・６四です。８五の歩が８筋を塞ぐので、飛車は８七の歩に届きません。先手が７五歩を前進させると９七角の斜線が開きますが、飛車で７四を取る手は後手飛車の利きと重なります。", "en": "Gote's rook on 8d protects 7d from the side. Its silver is on 6c, with pawns on 8e, 7c and 6d. The pawn on 8e closes the eighth file, so the rook cannot reach Sente's pawn on 8g. Advancing Sente's pawn from 7e opens the bishop on 9g, while a rook capture on 7d would meet Gote's rook." },
           "marks": { "arrows": ["7e7d", "8d7d"], "boxes": ["6d"] }
         },
         {

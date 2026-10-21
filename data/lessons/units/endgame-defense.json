@@ -376,8 +376,8 @@
             "4f3g"
           ],
           "text": {
-            "ja": "△３七桂なら▲同銀。先手は金を失いますが、桂を取り返せます。両方の金を無傷で救う手と誤解せず、損害を比べる受けとして読みます。",
-            "en": "After △３七桂, ▲同銀 recaptures. Sente loses a gold but takes the knight. This defense changes the exchange; it does not save both golds intact."
+            "ja": "△３七桂不成なら▲同銀。成っても同じく▲同銀です。先手は金を失いますが、桂を取り返せます。両方の金を無傷で救う手と誤解せず、損害を比べる受けとして読みます。",
+            "en": "After △３七桂不成 (the knight not promoting), ▲同銀 recaptures; ▲同銀 also answers the promotion. Sente loses a gold but takes the knight. This defense changes the exchange; it does not save both golds intact."
           },
           "marks": {
             "arrows": [
@@ -397,8 +397,8 @@
             "4f5g"
           ],
           "text": {
-            "ja": "もう一方の△５七桂にも▲同銀と取れます。桂が跳ねた先へ銀が斜めに下がれるかまで確かめます。",
-            "en": "The other jump, △５七桂, is also met by ▲同銀. Check that the silver can retreat diagonally to the knight’s destination."
+            "ja": "もう一方の△５七桂不成にも▲同銀と取れます。桂が跳ねた先へ銀が斜めに下がれるかまで確かめます。",
+            "en": "The other jump, △５七桂不成 (without promoting), is also met by ▲同銀. Check that the silver can retreat diagonally to the knight’s destination."
           }
         }
       ]

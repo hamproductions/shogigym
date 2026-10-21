@@ -108,25 +108,25 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "k8/9/b3r4/9/9/9/4P4/4K4/3G1G3 w - 1",
+      "start": "k8/b8/4r4/9/9/4P4/9/4K4/3G1G3 w - 1",
       "steps": [
         {
           "text": {
-            "ja": "中住まいの玉５八の前に歩５七があり、後手飛車５三がその歩を狙っています。後手角９三も５七へ斜めに利いています。金６九・４九は５八を守りますが、飛車筋が通れば玉への王手を消す役目は果たしません。",
-            "en": "The pawn on ５七 stands in front of a Nakazumai king on ５八. Gote's rook on ５三 can take it, and Gote's bishop on ９三 controls ５七 along the diagonal. Golds on ６九 and ４九 protect the king's square but cannot themselves stop a rook check once the file opens."
+            "ja": "中住まいの玉５八の前方、５六に歩があり、後手飛車５三がその歩を狙っています。後手角９二も５六へ斜めに利いています。金６九・４九は５八を守りますが、飛車筋が通れば玉への王手を消す役目は果たしません。",
+            "en": "The pawn on ５六 screens a Nakazumai king on ５八 from the front. Gote's rook on ５三 can take it, and Gote's bishop on ９二 controls ５六 along the diagonal. Golds on ６九 and ４九 protect the king's square but cannot themselves stop a rook check once the file opens."
           }
         },
         {
-          "moves": ["5c5g"],
+          "moves": ["5c5f"],
           "text": {
-            "ja": "△５七飛と歩を取って王手。５四・５五・５六が空いているため飛車は５七まで進めます。角９三が飛車５七を守るので、玉は飛車を取れません。",
-            "en": "△５七飛 captures the pawn and checks through the empty squares ５四, ５五, and ５六. The bishop on ９三 protects the rook on ５七, so the king cannot capture it."
+            "ja": "△５六飛と歩を取って王手。５四・５五が空いているので飛車は５六まで進み、空いた５七を通して玉５八に利きます。５六は後手が成れる段ではないので飛車のままで、角９二がその飛車を守っています。",
+            "en": "△５六飛 captures the pawn and checks: the rook passes the empty ５四 and ５五, and its line reaches the king on ５八 through the empty ５七. The sixth rank is outside Gote's promotion zone, so the rook stays unpromoted, and the bishop on ９二 protects it."
           }
         },
         {
           "moves": ["5h4h"],
           "text": {
-            "ja": "▲４八玉で飛車５七の縦筋を外れ、金４九の守るマスへ移りました。中央の玉は左右へ逃げる可能性を持ちますが、実際に安全な方角は相手の利きで決まります。",
+            "ja": "▲４八玉で飛車５六の縦筋を外れ、金４九の守るマスへ移りました。中央の玉は左右へ逃げる可能性を持ちますが、実際に安全な方角は相手の利きで決まります。",
             "en": "▲４八玉 leaves the rook's file for a square protected by the gold on ４九. A central king can have exits on either side, but the opponent's actual piece control determines which exit is safe."
           }
         }

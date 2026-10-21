@@ -10,8 +10,8 @@
     "en": "Five-move mates: read every defensive branch"
   },
   "intro": {
-    "ja": "五手の順は、王手・応手・王手・応手・詰みです。最初の二手で玉の場所、守備駒、持駒が変わり、残る三手の形ができます。最初の局面はこの講座のための部分図、残りはアプリ内の計算機生成局面です。表示された双方の持駒で読む実戦型の練習で、玉方が残り全部の駒を持つ作品の約束とは異なります。駒余りや別解を認め、最長五手の詰みを確かめます。途中の受けによって三手で詰む枝もあります。",
-    "en": "A five-move line is check, defense, check, defense, and mate. The first pair changes the king’s square, defenders, or hands to produce the remaining three-move finish. The first position is a new partial composition; the others come from this app’s computer-generated set. These practical drills use exactly the displayed hands, rather than assigning all unused pieces to the defender as a composed tsume would. Spare material and alternative solutions are allowed. Establish mate within five moves against the longest defense; some branches finish in three."
+    "ja": "五手の順は、王手・応手・王手・応手・詰みです。最初の二手で玉の場所、守備駒、持駒が変わり、残る三手の形ができます。最初の局面はこの講座のための部分図、残りはアプリ内の計算機生成局面です。表示された双方の持駒で読む実戦型の練習で、玉方が残り全部の駒を持つ作品の約束とは異なります。駒余りは認め、最長の受けに対して五手で詰むことを確かめます。途中の受けによって三手で詰む枝もあります。初手に別の五手詰がある章では解説でその手を示しますが、練習で正解になるのは解説の手順と、分岐として収録した手だけです。",
+    "en": "A five-move line is check, defense, check, defense, and mate. The first pair changes the king’s square, defenders, or hands to produce the remaining three-move finish. The first position is a new partial composition; the others come from this app’s computer-generated set. These practical drills use exactly the displayed hands, rather than assigning all unused pieces to the defender as a composed tsume would. Spare material is allowed; establish mate in five moves against the longest defense. Some branches finish in three. Where another first move also mates in five, the chapter names it, but the drill accepts only the explained line and the moves recorded as branches."
   },
   "check": {
     "question": {
@@ -213,8 +213,19 @@
             "S*6b"
           ],
           "text": {
-            "ja": "△５一玉にも▲６二銀まで。同じ銀が斜め前へ王手し、金６三が支えます。別の詰む銀打ちもありますが、ここでは共通の決め手を示します。",
-            "en": "After △５一玉, ▲６二銀 also mates, checking diagonally forward with support from the gold on ６三. Other silver drops can also mate; this line uses a common finish."
+            "ja": "△５一玉にも▲６二銀まで。同じ銀が斜め前へ王手し、金６三が支えます。▲５二銀でも詰みます。",
+            "en": "After △５一玉, ▲６二銀 also mates, checking diagonally forward with support from the gold on ６三. ▲５二銀 mates as well."
+          }
+        },
+        {
+          "from": 2,
+          "moves": [
+            "5b5a",
+            "S*5b"
+          ],
+          "text": {
+            "ja": "△５一玉▲５二銀でも詰みです。銀は玉の正面から王手し、金６三が支えます。",
+            "en": "After △５一玉, ▲５二銀 also mates, checking from directly in front of the king with support from the gold on ６三."
           }
         }
       ]
@@ -244,8 +255,8 @@
             "B*3a"
           ],
           "text": {
-            "ja": "▲３一角は４二を通して５三へ王手します。合法な応手は△４四玉と△４二香の二つです。",
-            "en": "▲３一角 checks along ４二 toward ５三. The legal defenses are △４四玉 and △４二香."
+            "ja": "▲３一角は４二を通して５三へ王手します。合法な応手は△４四玉と△４二香の二つです。△４四玉は三手で詰むので、長く粘る△４二香を本線にします。▲６二飛成・▲４三と・▲４二角も五手で詰みますが、この章は▲３一角の枝を読みます。",
+            "en": "▲３一角 checks along ４二 toward ５三. The legal defenses are △４四玉 and △４二香. △４四玉 is mated in three, so the longer △４二香 is the main line. ▲６二飛成, ▲４三と, and ▲４二角 also mate in five; this chapter reads the branches of ▲３一角."
           },
           "marks": {
             "boxes": [
@@ -261,41 +272,41 @@
         },
         {
           "moves": [
-            "5c4d",
-            "3c3d"
+            "L*4b",
+            "3a4b+"
           ],
           "text": {
-            "ja": "△４四玉には▲３四と。と金３三を一升引き、横から王手します。と金は金と同じ動きなので後ろにも一升動けます。後手の応手は△５五玉だけです。",
-            "en": "After △４四玉, ▲３四と retreats the tokin from ３三 by one square and checks sideways. A tokin moves like a gold, including one square straight backward. Gote’s only reply is △５五玉."
+            "ja": "△４二香には▲同角成。合駒の香を取り、馬が５三の玉へ斜めから王手します。後手の応手は△４四玉だけです。",
+            "en": "After △４二香, ▲同角成 captures the interposed lance, and the horse checks the king on ５三 diagonally. Gote’s only reply is △４四玉."
           },
           "marks": {
             "boxes": [
-              "4d",
-              "3d",
-              "3c",
-              "5e"
+              "4b",
+              "5c",
+              "4d"
             ],
             "arrows": [
-              "3c3d"
+              "3a4b+"
             ]
           }
         },
         {
           "moves": [
-            "4d5e",
-            "G*5f"
+            "5c4d",
+            "G*4e"
           ],
           "text": {
-            "ja": "△５五玉に▲５六金まで。移動した玉の隣へ金を打ちます。合駒を選ぶ枝では、同じ順は使わず角で香を取る続きへ分かれます。",
-            "en": "After △５五玉, ▲５六金 is mate. Drop beside the relocated king. The lance-interposition branch instead requires taking the lance with the bishop."
+            "ja": "△４四玉▲４五金まで。歩４六が金４五を守ります。▲４五飛でも詰みます。合駒を取ってから読む局面は、すぐ玉が逃げた局面とは異なります。",
+            "en": "After △４四玉, ▲４五金 is mate. The pawn on ４六 protects the gold on ４五. ▲４五飛 also mates. Capturing the interposition first produces a different position from the immediate king escape."
           },
           "marks": {
             "boxes": [
-              "5e",
-              "5f"
+              "4d",
+              "4e",
+              "4f"
             ],
             "arrows": [
-              "G*5f"
+              "G*4e"
             ]
           }
         }
@@ -304,14 +315,34 @@
         {
           "from": 1,
           "moves": [
-            "L*4b",
-            "3a4b+",
             "5c4d",
             "G*4e"
           ],
           "text": {
-            "ja": "△４二香には▲同角成△４四玉▲４五金まで。歩４六が金４五を守ります。合駒を取ってから読む局面は、本線の玉移動の局面とは異なります。",
-            "en": "After △４二香, ▲同角成 △４四玉 ▲４五金 is mate. The pawn on ４六 protects the gold on ４五. Capturing the interposition produces a different position from the main king-escape branch."
+            "ja": "すぐ△４四玉と逃げれば▲４五金までの三手です。歩４六が金を守ります。▲４五飛でも詰みます。",
+            "en": "If the king escapes at once with △４四玉, ▲４五金 mates in three. The pawn on ４六 protects the gold. ▲４五飛 also mates."
+          }
+        },
+        {
+          "from": 1,
+          "moves": [
+            "5c4d",
+            "R*4e"
+          ],
+          "text": {
+            "ja": "△４四玉▲４五飛でも詰みです。飛も歩４六に守られます。",
+            "en": "After △４四玉, ▲４五飛 also mates. The rook is likewise protected by the pawn on ４六."
+          }
+        },
+        {
+          "from": 2,
+          "moves": [
+            "5c4d",
+            "R*4e"
+          ],
+          "text": {
+            "ja": "本線の最後も▲４五飛で詰みます。飛は歩４六に守られます。",
+            "en": "The main line’s final move can also be ▲４五飛, protected by the pawn on ４六."
           }
         }
       ]
@@ -432,8 +463,8 @@
             "G*2b"
           ],
           "text": {
-            "ja": "▲２二金に対し、後手は４一か４二へ逃げられます。どちらにも次の▲３二金が王手になります。",
-            "en": "After ▲２二金, Gote can escape to ４一 or ４二. ▲３二金 checks against either reply."
+            "ja": "▲２二金に対し、後手は４一か４二へ逃げられます。どちらにも次の▲３二金が王手になります。初手は▲２一飛打・▲５一飛・▲２一金・▲３二金・▲４二金・▲３二香・▲３二歩でも五手で詰みますが、この章は▲２二金の枝を読みます。",
+            "en": "After ▲２二金, Gote can escape to ４一 or ４二. ▲３二金 checks against either reply. ▲２一飛打, ▲５一飛, ▲２一金, ▲３二金, ▲４二金, ▲３二香, and ▲３二歩 also mate in five as first moves; this chapter reads the branches of ▲２二金."
           },
           "marks": {
             "boxes": [
@@ -453,8 +484,8 @@
             "G*3b"
           ],
           "text": {
-            "ja": "△４一玉▲３二金。今度は５一か５二へ逃げられます。最後に打つ金の場所を、両方の逃げで確認します。",
-            "en": "After △４一玉 ▲３二金, the king can run to ５一 or ５二. Check the final gold-drop square against both escapes."
+            "ja": "△４一玉▲３二金。今度は５一か５二へ逃げられます。最後に打つ金の場所を、両方の逃げで確認します。▲３二金の代わりに▲３一飛でも三手で詰みます。",
+            "en": "After △４一玉 ▲３二金, the king can run to ５一 or ５二. Check the final gold-drop square against both escapes. ▲３一飛 instead of ▲３二金 also mates in three."
           },
           "marks": {
             "boxes": [
@@ -509,8 +540,8 @@
             "G*6b"
           ],
           "text": {
-            "ja": "△４二玉の枝でも▲３二金と王手し、△５一玉・△５二玉のどちらにも▲６二金まで。表示された枝の最終局面は、すべて王手で合法な応手がありません。",
-            "en": "After △４二玉, ▲３二金 checks again. Either △５一玉 or △５二玉 is met by mate with ▲６二金. Every displayed branch ends in check with zero legal replies."
+            "ja": "△４二玉の枝でも▲３二金と王手し、△５一玉・△５二玉のどちらにも▲６二金まで。表示された枝の最終局面は、すべて王手で合法な応手がありません。▲３二金の代わりに▲３二飛・▲５三金でも三手で詰みます。",
+            "en": "After △４二玉, ▲３二金 checks again. Either △５一玉 or △５二玉 is met by mate with ▲６二金. Every displayed branch ends in check with zero legal replies. ▲３二飛 or ▲５三金 instead of ▲３二金 also mates in three."
           }
         },
         {
@@ -522,8 +553,8 @@
             "G*6b"
           ],
           "text": {
-            "ja": "△４二玉の枝でも▲３二金と王手し、△５一玉・△５二玉のどちらにも▲６二金まで。表示された枝の最終局面は、すべて王手で合法な応手がありません。",
-            "en": "After △４二玉, ▲３二金 checks again. Either △５一玉 or △５二玉 is met by mate with ▲６二金. Every displayed branch ends in check with zero legal replies."
+            "ja": "△４二玉の枝でも▲３二金と王手し、△５一玉・△５二玉のどちらにも▲６二金まで。表示された枝の最終局面は、すべて王手で合法な応手がありません。▲３二金の代わりに▲３二飛・▲５三金でも三手で詰みます。",
+            "en": "After △４二玉, ▲３二金 checks again. Either △５一玉 or △５二玉 is met by mate with ▲６二金. Every displayed branch ends in check with zero legal replies. ▲３二飛 or ▲５三金 instead of ▲３二金 also mates in three."
           }
         }
       ]

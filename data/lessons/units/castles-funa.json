@@ -52,8 +52,8 @@
             "5i5h"
           ],
           "text": {
-            "ja": "▲５八金。玉７八は銀７九と金６九に守られ、金６九は金５八を斜め前から支えます。これは舟囲いの基本的な配置です。短い手数で形ができますが、この盤には上部の歩がないため、実戦では攻めを始める前に相手の利きを調べます。 舟囲いを保って攻めるか、左美濃・穴熊へ追加の手数を使うかは別の判断。いま８八は自角が占めるので、玉をそのまま８八へ移せない。",
-            "en": "▲５八金 completes a basic Boat arrangement. The silver on ７九 and gold on ６九 protect the king on ７八, while the gold on ６九 supports the gold on ５八 diagonally forward. It takes little time to form, but this board lacks an upper pawn screen; inspect opposing attacks before starting your own. Keeping Boat for an attack or spending more moves on Left Mino or Anaguma is a separate choice. The bishop currently occupies 8h, so the king cannot simply move there."
+            "ja": "▲５八金。玉７八は銀７九と金６九に守られ、金６九は金５八を斜め前から支えます。これは舟囲いの基本的な配置です。短い手数で形ができますが、この盤には上部の歩がないため、実戦では攻めを始める前に相手の利きを調べます。舟囲いを保って攻めるか、左美濃・穴熊へ追加の手数を使うかは別の判断です。いま８八は自角が占めているので、玉をそのまま８八へ移すことはできません。",
+            "en": "▲５八金 completes a basic Boat arrangement. The silver on ７九 and gold on ６九 protect the king on ７八, while the gold on ６九 supports the gold on ５八 diagonally forward. It takes little time to form, but this board lacks an upper pawn screen; inspect opposing attacks before starting your own. Keeping Boat for an attack or spending more moves on Left Mino or Anaguma is a separate choice. The bishop currently occupies ８八, so the king cannot simply move there."
           }
         }
       ]
@@ -91,12 +91,12 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/9/9/9/9/9/9/1BK1Gr3/2SG5 b - 1",
+      "start": "4k4/9/9/9/9/9/9/1BK1G1r2/2SG5 b - 1",
       "steps": [
         {
           "text": {
-            "ja": "玉７八、銀７九、金６九・５八に対し、後手飛車４八が八段目を見ています。今は金５八が飛車の横利きを止めています。金を６八へ寄せると、玉の隣は厚くなりますが、飛車筋がどこまで伸びるかも変わります。",
-            "en": "Gote's rook on ４八 looks across the eighth rank toward a king on ７八, silver on ７九, and golds on ６九 and ５八. The gold on ５八 currently blocks the rook. Moving it toward ６八 thickens the area beside the king, but also changes how far the rook line extends."
+            "ja": "玉７八、銀７九、金６九・５八に対し、後手飛車３八が八段目を見ています。今は金５八が飛車の横利きを止めています。金を６八へ寄せると、玉の隣は厚くなりますが、飛車筋がどこまで伸びるかも変わります。",
+            "en": "Gote's rook on ３八 looks across the eighth rank toward a king on ７八, silver on ７九, and golds on ６九 and ５八. The gold on ５八 currently blocks the rook. Moving it toward ６八 thickens the area beside the king, but also changes how far the rook line extends."
           }
         },
         {
@@ -104,8 +104,8 @@
             "5h6h"
           ],
           "text": {
-            "ja": "▲６八金で箱入り娘型です。金６八は金６九と銀７九に守られ、飛車４八の筋は５八を通って６八で止まります。玉７八の隣に駒が増えた反面、玉が動ける６八の空きマスはなくなりました。固さだけでなく、王手を受けたときの逃げ道も比べます。",
-            "en": "▲６八金 makes a Boxed-in Daughter arrangement. The gold on ６八 is protected by the gold on ６九 and silver on ７九; the rook's line now runs through ５八 and stops at ６八. The king gains a neighboring defender but loses the empty escape square on ６八. Compare escape routes as well as local protection."
+            "ja": "▲６八金で箱入り娘型です。金６八は金６九と銀７九に守られ、飛車３八の筋は４八・５八を通って６八で止まります。玉７八の隣に駒が増えた反面、玉が動ける６八の空きマスはなくなりました。固さだけでなく、王手を受けたときの逃げ道も比べます。",
+            "en": "▲６八金 makes a Boxed-in Daughter arrangement. The gold on ６八 is protected by the gold on ６九 and silver on ７九; the rook's line now runs through ４八 and ５八 and stops at ６八. The king gains a neighboring defender but loses the empty escape square on ６八. Compare escape routes as well as local protection."
           }
         }
       ]
@@ -117,12 +117,12 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/9/9/9/9/9/9/1BKS1r3/3GG4 b - 1",
+      "start": "4k4/9/9/9/9/9/9/1BKS2r2/3GG4 b - 1",
       "steps": [
         {
           "text": {
-            "ja": "玉７八、銀６八、金６九・５九です。後手飛車４八の横利きは５八を通って銀６八に届きます。金６九は銀６八を守っていますが、金を７九へ寄せても銀との連結を保てるか調べます。",
-            "en": "Sente has king ７八, silver ６八, and golds ６九 and ５九. Gote's rook on ４八 reaches the silver on ６八 through the empty ５八. The gold on ６九 protects the silver now; check whether shifting it to ７九 preserves that connection."
+            "ja": "玉７八、銀６八、金６九・５九です。後手飛車３八の横利きは４八・５八を通って銀６八に届きます。金６九は銀６八を守っていますが、金を７九へ寄せても銀との連結を保てるか調べます。",
+            "en": "Sente has king ７八, silver ６八, and golds ６九 and ５九. Gote's rook on ３八 reaches the silver on ６八 through the empty ４八 and ５八. The gold on ６九 protects the silver now; check whether shifting it to ７九 preserves that connection."
           }
         },
         {

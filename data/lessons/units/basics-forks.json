@@ -112,10 +112,10 @@
           }
         },
         {
-          "moves": ["3c3h"],
+          "moves": ["3c3h+"],
           "text": {
-            "ja": "△３八飛は９八の先手玉へ王手です。飛車は桂の狙いから外れ、先手は金を取る前に王手へ応じなければなりません。",
-            "en": "△３八飛 checks the king on ９八 while moving the rook out of the knight’s reach. Sente must answer the check before taking the gold."
+            "ja": "△３八飛成は９八の先手玉へ王手です。飛車は桂の狙いから外れて竜になり、先手は金を取る前に王手へ応じなければなりません。",
+            "en": "△３八飛成 checks the king on ９八, moving the rook out of the knight’s reach and promoting it to a dragon. Sente must answer the check before taking the gold."
           }
         },
         {
@@ -128,7 +128,7 @@
         {
           "moves": ["5c5b"],
           "text": {
-            "ja": "△５二金と金も逃げれば、桂は飛車にも金にも届きません。王手で一手を奪う応手まで読んで初めて、両取りが実際に得を生むか判断できます。",
+            "ja": "△５二金と金も逃げれば、桂は竜にも金にも届きません。王手で一手を奪う応手まで読んで初めて、両取りが実際に得を生むか判断できます。",
             "en": "△５二金 moves the gold out of reach as well. The knight can no longer reach either target. Include forcing replies such as this check before deciding whether the double attack wins material."
           }
         }

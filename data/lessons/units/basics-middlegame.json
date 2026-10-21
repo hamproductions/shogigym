@@ -131,17 +131,17 @@
           }
         },
         {
-          "moves": ["1a1g"],
+          "moves": ["1a1g+"],
           "text": {
-            "ja": "△１七飛と金を取ると、銀２八が１七へ進んで飛車を取れます。",
-            "en": "△１七飛 takes the gold, allowing the silver on ２八 to capture the rook on １七."
+            "ja": "△１七飛成と金を取って龍になっても、銀２八が１七へ進んで龍を取れます。",
+            "en": "△１七飛成 takes the gold and promotes to a dragon, but the silver on ２八 can capture the dragon on １七."
           }
         },
         {
           "moves": ["2h1g"],
           "text": {
-            "ja": "▲１七銀で飛車を取り返しました。王手を受ける場面でも、受けに使う駒の守りと、相手が取った後の応手を数えます。",
-            "en": "▲１七銀 recaptures the rook. Even while answering check, check what protects the blocking piece and what reply follows if the opponent captures it."
+            "ja": "▲１七銀で龍を取り返しました。王手を受ける場面でも、受けに使う駒の守りと、相手が取った後の応手を数えます。",
+            "en": "▲１七銀 recaptures the dragon. Even while answering check, check what protects the blocking piece and what reply follows if the opponent captures it."
           }
         }
       ]

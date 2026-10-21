@@ -1,0 +1,2751 @@
+{
+  "mode": "read-only audit",
+  "status": "in progress",
+  "findings": [
+    {
+      "unit": "nakabisha-sente",
+      "chapter": 1,
+      "source": "data/lessons/units/nakabisha-sente.json",
+      "sfen": "4k3l/1r5b1/9/1p4p2/9/4P4/1PB6/7R1/5GK2 b - 1",
+      "issue": "The starting position permits an immediate bishop capture on the empty second file before the intended fifth-file preparation.",
+      "legalLine": [
+        "2h2b+",
+        "8b2b",
+        "7g2b+"
+      ],
+      "evidence": "Exact tsshogi createMoveByUSI/isValidMove/doMove replay succeeded. Enumeration of every board origin and promotion option found 8b2b as the only immediate recapture on 2b after 2h2b+.",
+      "interpretation": "The displayed recapture exchanges rooks and leaves Sente with an additional bishop in hand. This is a concrete material counterexample to prioritizing the intended preparation; it is not a proof that this line is forced.",
+      "proposedCorrection": "In an authorized revision, retain a suitable second-file blocker or defender and recheck the intended bishop-screen mechanism.",
+      "verification": "Exact legal capture replay and immediate-recapture enumeration confirmed; bounded engine comparison supports the tactical finding. Exhaustive alternative-defense and browser proof not performed. Source unchanged.",
+      "sourceSha256": "31f60efc4cbd147cfbb902f03ace76458ded54ba4f90800f8bce0eaeb70379f1",
+      "generatedMatchesSource": true
+    },
+    {
+      "unit": "taifuri-46gin",
+      "chapter": 2,
+      "source": "data/lessons/units/taifuri-46gin.json",
+      "sfen": "9/1kg2rsb1/p1p6/5pp2/9/6P2/2P1S4/1BK1G2R1/3G2S2 b - 1",
+      "issue": "The starting position permits R2hx2b+ before silver development or third-file pawn contact.",
+      "legalLine": [
+        "2h2b+"
+      ],
+      "evidence": "Exact tsshogi replay succeeded. Enumeration of every board origin and promotion option found no legal immediate recapture on 2b.",
+      "interpretation": "The bishop can be captured immediately without a direct recapture. The silver on 3b blocks the rook on 4b from recapturing horizontally.",
+      "proposedCorrection": "In an authorized revision, restore the necessary second-file blocker or defender while retaining the intended silver-placement comparison.",
+      "verification": "Exact legal capture replay and immediate-recapture enumeration confirmed; bounded engine comparison supports the tactical finding. Exhaustive alternative-defense and browser proof not performed. Source unchanged.",
+      "sourceSha256": "2b2c47449f15797e6aeb4889b297f8ae3e3bd3cb77b278d9e0f27e4529b02ce3",
+      "generatedMatchesSource": true
+    },
+    {
+      "unit": "proverb-three-pawns",
+      "chapter": 5,
+      "source": "data/lessons/units/proverb-three-pawns.json",
+      "lines": [
+        332,
+        333
+      ],
+      "sourceSha256": "f39e8d329687d2fe9c08d582344fc798ddcafe7c13b2a8728ac764e4e5622180",
+      "issue": "The final comment says the promoted pawn does not attack R4b because the rook and gold can capture it. This confuses an attacked piece with a guaranteed material gain.",
+      "start": "k8/5r3/4gp3/9/9/9/9/5R3/8K b 3P 1",
+      "prefix": [
+        "P*4d",
+        "4c4d",
+        "P*4e",
+        "4d4e",
+        "P*4d",
+        "9a9b",
+        "4d4c+"
+      ],
+      "sfen": "9/k4r3/4g+P3/9/5p3/9/9/5R3/8K w 2p 1",
+      "evidence": {
+        "legalDefenses": [
+          "4b4c",
+          "5c4c"
+        ],
+        "controlProbes": [
+          "4c4b",
+          "4c5c"
+        ],
+        "method": "Exact tsshogi replay. Both defensive captures valid at authored endpoint. For control probes only, changed SFEN side to move to Sente; both tokin captures are legal, confirming its attacks without inserting a fictitious game move."
+      },
+      "proposedCorrection": "State that the tokin attacks the rook but can be captured immediately, so this sequence does not force a material gain.",
+      "verification": "Exact move/control checks confirmed; generated output matches source. No source edits or regeneration. Browser not run."
+    },
+    {
+      "unit": "tesuji-bishop",
+      "chapter": 1,
+      "source": "data/lessons/units/tesuji-bishop.json",
+      "lines": [
+        64,
+        65
+      ],
+      "sourceSha256": "3849336c99e5bb073e4213116fbd21d07d5f353f41c1aa85b04264be15b7ca27",
+      "issue": "Comment requires silver recapture/removal of the checking bishop, but two legal king escapes also answer the check.",
+      "start": "k8/9/9/5r3/b8/9/9/1S7/4K4 b B 1",
+      "prefix": [
+        "B*7g",
+        "9e7g"
+      ],
+      "sfen": "k8/9/9/5r3/9/9/2b6/1S7/4K4 b b 1",
+      "evidence": {
+        "checked": true,
+        "allLegalEvasions": [
+          "5i5h",
+          "5i6i",
+          "8h7g"
+        ],
+        "method": "Enumerated all board origin/destination/promotion combinations using tsshogi. Sente has no pieces in hand, so no legal drop responses are omitted."
+      },
+      "proposedCorrection": "Describe silver recapture as the illustrated reply, and acknowledge legal king escapes instead of claiming recapture is necessary.",
+      "verification": "Exact legal alternatives confirmed; no source edits. Generated output matches source. Browser not run."
+    },
+    {
+      "unit": "yokofu-basics",
+      "chapter": 2,
+      "source": "data/lessons/units/yokofu-basics.json",
+      "line": 33,
+      "sourceSha256": "8b67780e2ce881e76fc17d5103825f28a8fb1b29a0d26f2b967b1eb9b42e96d5",
+      "issue": "The final main-line comment says B8h-7g opens the diagonal toward 3c, but the same diagonal is already clear from 8h before that move.",
+      "start": "4k4/9/6g2/6pR1/9/9/9/1B7/4K4 b - 1",
+      "prefix": [
+        "2d2f",
+        "3c3b"
+      ],
+      "before": "4k4/6g2/9/6p2/9/7R1/9/1B7/4K4 b - 1",
+      "after": "4k4/6g2/9/6p2/9/7R1/2B6/9/4K4 w - 1",
+      "evidence": {
+        "beforeProbe": "8h3c",
+        "afterProbe": "7g3c",
+        "bothLegal": true,
+        "method": "Exact tsshogi replay and legal control probes. After-move probe changes only side-to-move for control inspection."
+      },
+      "proposedCorrection": "Describe the bishop move as remaining on the already-open diagonal, or revise the teaching position if newly opening that diagonal is the intended mechanism.",
+      "verification": "Confirmed before/after control contradiction. Source unchanged; generated output matches."
+    },
+    {
+      "unit": "endgame-tsume-study",
+      "chapter": [
+        1,
+        2
+      ],
+      "source": "data/lessons/units/endgame-tsume-study.json",
+      "lines": [
+        43,
+        81,
+        82
+      ],
+      "sourceSha256": "de9785146f1c5f1a60f015e33db5e9677b7af0d0077746978eccb2c91013f8f8",
+      "issue": "Mating drills do not explicitly declare displayed-hands-only play versus the composed-tsume remaining-piece convention. The claimed complete two-reply list relies on the former.",
+      "evidence": {
+        "displayedHandAfterCapture": "2k6/9/2+R6/9/9/9/9/9/8K w G 1",
+        "displayedLegalDefenses": [
+          "7a6a",
+          "7a8a"
+        ],
+        "remainingPieceConventionProbe": "2k6/9/2+R6/9/9/9/9/9/8K w Gr2b3g4s4n4l18p 1",
+        "additionalLegalDefensesVerified": [
+          "R*7b",
+          "B*7b",
+          "G*7b",
+          "P*7b"
+        ],
+        "method": "Changed only defender hands for an explicit convention comparison; no authored source changed. Probe preserves single-set inventory."
+      },
+      "proposedCorrection": "Explicitly identify these examples as practical mating drills using only displayed board and hand pieces; do not silently import the remaining-piece convention.",
+      "verification": "Convention omission and its effect on ordinary legal reply enumeration confirmed. Mate in three verified under existing displayed hands; no tactical refutation of that result claimed."
+    },
+    {
+      "unit": "taifuri-bougin-ishida",
+      "chapter": 1,
+      "source": "data/lessons/units/taifuri-bougin-ishida.json",
+      "lines": [
+        21,
+        22
+      ],
+      "sourceSha256": "1f5c6745cbae509b8c9a79342ea658b14f8eb49490d0aaae7c2a0527e04fc313",
+      "issue": "The gold-chasing example checks for the absence of P6f but overlooks Sente knight 7g, which immediately captures the advanced gold on 6e. The prescribed rook escape bypasses this material defense.",
+      "start": "9/1r3gk2/2p1s4/1p1g5/2P6/2R6/2N6/1B3GSK1/9 w - 1",
+      "legalLine": [
+        "6d6e",
+        "7g6e"
+      ],
+      "endpoint": "9/1r3gk2/2p1s4/1p7/2PN5/2R6/9/1B3GSK1/9 w G 1",
+      "immediateRecaptures": [],
+      "evidence": "Exact tsshogi legal replay and enumeration of every board origin/promotion option for capture on 6e. Sente gains a gold in hand, knight remains on 6e, and Gote has no hand pieces or immediate recapture.",
+      "proposedCorrection": "Explicitly show Nx6e as the overlooked defense and classify the advance as unsound here, or revise the original teaching position while preserving a coherent contrast with the P6f case.",
+      "verification": "Immediate capture confirmed; no exhaustive best-play or forcing-counterplay verdict. Source unchanged; generated output matches."
+    },
+    {
+      "unit": "attack-mino-aifuri",
+      "chapter": 3,
+      "status": "open",
+      "sourceSha256": "1469a74bf9610d4601b38fa47ebd4ab72f889069af375493dff662b580dfe7fc",
+      "problem": "Both bilingual comments describe increased or new pressure on pawn 6c after R6i6h, but R6i already controls that pawn along the clear sixth file.",
+      "before": "1r2s4/5gsk1/3p4p/4N4/2B6/9/9/9/K2R5 b - 1",
+      "proof": {
+        "beforeCapture": "6i6c+ legal",
+        "move": "6i6h",
+        "afterControlProbe": "6h6c+ legal after explicitly resetting turn to Sente for control comparison",
+        "unchangedLane": [
+          "6h",
+          "6g",
+          "6f",
+          "6e",
+          "6d"
+        ],
+        "sampleGoldEscape": "4b4c legal"
+      },
+      "scope": "False before/after control explanation; no assertion that every rook lift lacks positional value.",
+      "repairRequired": "Describe unchanged sixth-file control and lost tempo accurately, or compose a genuinely blocked preparatory mechanism. Audit mode leaves source unchanged."
+    },
+    {
+      "unit": "taifuri-bougin",
+      "chapter": 3,
+      "status": "open",
+      "sourceSha256": "1f8aa823847b29c16c18aba1ca3ffcecd70e99e0b8f157cd5c596983744f80ef",
+      "problem": "Gold advance 5h4g is described as challenging pawn 4f and reading a later gold capture, but immediately permits pawn 4f4g+ to take that gold with no legal direct recapture. The explanatory continuation skips the actual opponent turn.",
+      "before": "4k4/5r1b1/9/5p3/7P1/6PS1/2P2P3/1BK1G2R1/2SG5 w Pp 1",
+      "proof": {
+        "prefix": [
+          "4d4e",
+          "4g4f",
+          "4e4f",
+          "5h4g"
+        ],
+        "immediateCapture": "4f4g+ legal",
+        "endpoint": "4k4/5r1b1/9/9/7P1/6PS1/2P2+p3/1BK4R1/2SG5 b Pg2p 1",
+        "allDirectRecaptures": []
+      },
+      "scope": "Missing immediate tactical reply to chosen teaching move; no engine-based forced-win claim.",
+      "repairRequired": "Account for immediate pawn capture and label the gold advance as a mistake, or revise the position/line to preserve the intended recapture lesson. Audit leaves source unchanged."
+    }
+  ],
+  "sourceCoverage": {
+    "units": "Both complete authored units read through EOF (136 and 306 lines).",
+    "cachedReferenceText": [
+      ".cache/curriculum-source/6593.txt",
+      ".cache/curriculum-source/7282.txt"
+    ],
+    "references": "Cached text read through EOF; diagrams, linked books and dynamic data not reviewed. No complete source-fidelity or originality verdict.",
+    "historicalHandoff": "Queried for candidate locations; complete handoff reading still pending."
+  },
+  "engine": {
+    "implementation": "@mizarjp/yaneuraou.k-p via scripts/lessons/engine-eval.mjs",
+    "threads": 1,
+    "hashMiB": 32,
+    "ownBook": false,
+    "movetimeMs": 1200,
+    "scorePerspective": "side to move",
+    "rows": [
+      {
+        "unit": "nakabisha-sente",
+        "position": "start",
+        "score": 2948,
+        "bestmove": "7g2b+"
+      },
+      {
+        "unit": "nakabisha-sente",
+        "position": "after 2h2b+",
+        "score": -2924,
+        "bestmove": "8b2b"
+      },
+      {
+        "unit": "nakabisha-sente",
+        "position": "after prescribed 5f5e",
+        "sfen": "4k3l/1r5b1/9/1p4p2/4P4/9/1PB6/7R1/5GK2 w - 1",
+        "score": -146,
+        "bestmove": "8b7b"
+      },
+      {
+        "unit": "taifuri-46gin",
+        "position": "chapter 2 start",
+        "score": 3236,
+        "bestmove": "2h2b+"
+      },
+      {
+        "unit": "taifuri-46gin",
+        "position": "after 2h2b+",
+        "score": -3501,
+        "bestmove": "4b6b"
+      },
+      {
+        "unit": "taifuri-46gin",
+        "position": "after prescribed 5g4f",
+        "sfen": "9/1kg2rsb1/p1p6/5pp2/9/5SP2/2P6/1BK1G2R1/3G2S2 w - 1",
+        "score": -717,
+        "bestmove": "2b3a"
+      }
+    ],
+    "limitations": "Bounded diagnostic. No PV/depth/bounds retained; no exhaustive forcing-counterplay proof or optimal-play guarantee. No mate reported in these six rows."
+  },
+  "browser": "Not run.",
+  "next": "Read hayaishida and declared cached references in full; inspect chapter 2 bishop drop and tactical replies.",
+  "triage": [
+    {
+      "unit": "hineribisha",
+      "chapter": 4,
+      "verdict": "Engine-loss flag rejected as a semantic defect",
+      "reason": "The text describes a conditional knight-for-silver exchange, explicitly denies an absolute barrier, and makes no optimal-play or forced-response claim.",
+      "start": "4k4/1r7/9/1s7/9/2R6/9/9/1N2K4 b - 1",
+      "replayed": [
+        "8i7g",
+        "8d8e",
+        "7g8e",
+        "8b8e"
+      ],
+      "endpoint": "4k4/9/9/9/1r7/2R6/9/9/4K4 b Sn 1",
+      "alternativeReplayed": [
+        "7f7a+"
+      ],
+      "limitation": "Historical mate diagnostic not independently proved; unnecessary to validate the local exchange claim."
+    },
+    {
+      "unit": "castles-hidarimino",
+      "chapter": 1,
+      "verdict": "Defender claim verified; immediate-capture pedagogical concern retained separately",
+      "reason": "Gold 6i legally recaptures after 5i5h 4h5h. The start also allows 5i4h, immediately capturing the unprotected rook; this makes the example artificial, but does not contradict its stated support relationship or establish a false best-play claim.",
+      "start": "4k4/9/9/9/9/9/2B6/1KS2r3/3GG4 b - 1",
+      "replayed": [
+        "5i5h",
+        "4h5h",
+        "6i5h"
+      ],
+      "alternativeReplayed": [
+        "5i4h"
+      ]
+    },
+    {
+      "unit": "castles-hidarimino",
+      "chapter": 4,
+      "verdict": "Pawn-screen and edge-king check claim verified",
+      "replayed": [
+        "9g9h",
+        "9b9f"
+      ],
+      "endpoint": "4k4/9/9/9/9/r8/1S7/KBGG5/9 b p 1",
+      "checkedAtEndpoint": true
+    },
+    {
+      "unit": "castles-funa",
+      "chapter": [
+        3,
+        4
+      ],
+      "verdict": "Conditional support claims verified; engine-loss flags do not refute them",
+      "replayed": [
+        [
+          "5h6h",
+          "4h6h",
+          "6i6h"
+        ],
+        [
+          "5h6h",
+          "4h6h",
+          "7i6h"
+        ],
+        [
+          "6i7i",
+          "4h6h",
+          "7i6h"
+        ],
+        [
+          "6i7i",
+          "4h6h",
+          "5i6h"
+        ]
+      ],
+      "pedagogicalConcern": "Starts permit an immediate capture of the rook (5h4h in chapter 3; 5i4h in chapter 4). Artificial examples demonstrate local connections without claiming optimal play."
+    },
+    {
+      "unit": "basics-value",
+      "chapter": 3,
+      "verdict": "Intentional material-loss example; engine-loss flag rejected as defect",
+      "replayed": [
+        "4d4c",
+        "3b4c"
+      ],
+      "endpoint": "k8/9/5g3/9/9/9/9/9/K8 b RB2GS2N2L10Prbg3s2n2l8p 1",
+      "reason": "Text explicitly counts a silver given up for a pawn, not a recommended profitable exchange. Existing nonempty hands gain precisely the pieces stated."
+    },
+    {
+      "unit": "basics-value",
+      "chapter": 1,
+      "verdict": "Checking knight fork verified against every legal defense",
+      "afterCheck": "9/9/4r1k2/9/5N3/9/9/9/K8 w - 1",
+      "defenses": [
+        "3c2b",
+        "3c2c",
+        "3c2d",
+        "3c3b",
+        "3c3d",
+        "3c4b",
+        "3c4c",
+        "3c4d"
+      ],
+      "rookCaptureLegalAfterEveryDefense": true,
+      "proof": "Enumerated all board origins/destinations and promotion variants with tsshogi isValidMove. Defender has no pieces in hand, so no drops are omitted."
+    },
+    {
+      "unit": "basics-value",
+      "chapter": 4,
+      "verdict": "Two-pawn-for-silver arithmetic verified",
+      "replayed": [
+        "5e4d",
+        "5a4a",
+        "4d5c",
+        "6b5c"
+      ],
+      "endpoint": "5k3/9/4g4/9/9/9/9/9/4K4 b 2Ps 1",
+      "reason": "Sente receives two pawns and loses one silver; declared practice values yield 2 minus 5 equals minus 3. Illustrative king reply is explicitly labeled."
+    },
+    {
+      "unit": "shiken-tateishi",
+      "chapter": 2,
+      "verdict": "Screen and recapture mechanism verified",
+      "replayed": [
+        [
+          "5f5e",
+          "9c9d",
+          "6h6f",
+          "B*4d",
+          "6f7f",
+          "4d5e",
+          "4f5e"
+        ],
+        [
+          "6h6f",
+          "B*4d",
+          "6f7f",
+          "4d8h+"
+        ]
+      ],
+      "reason": "Pawn on 5e blocks the dropped bishop diagonal and silver 4f can recapture a bishop taking it. Without the pawn advance, the sample rook escape permits Bx8h+. Replies are explicitly conditional."
+    },
+    {
+      "unit": "shiken-tateishi",
+      "chapter": 3,
+      "verdict": "Conditional exchange and rook-drop examples verified; engine-loss flag not a semantic defect",
+      "replayed": [
+        [
+          "7e7b+",
+          "6b7b",
+          "6i5h",
+          "R*6i"
+        ],
+        [
+          "7e7b+",
+          "6b7b",
+          "6i6h",
+          "R*6i",
+          "6h6i"
+        ],
+        [
+          "7e7b+",
+          "7a7b"
+        ]
+      ],
+      "reason": "Both players receive a rook after the authored gold recapture. Gold on 6h captures R*6i; gold on 5h cannot move diagonally backward to 6i. The rook on 6i has open rank lines to G4i and L9i. Silver 7a also has a legal alternative recapture, without refuting the selected example.",
+      "limitation": "No claim of a forced exchange or best play; historical alternative mate not independently proved."
+    },
+    {
+      "unit": "proverb-three-pawns",
+      "chapter": [
+        1,
+        3
+      ],
+      "verdict": "Historical engine-loss flags do not contradict conditional demonstration claims",
+      "reason": "Silver acceptance is explicitly optional in chapter 1; chapter 3 teaches nifu timing, not optimal play.",
+      "nifuProbes": [
+        {
+          "prefix": [],
+          "chapter": 3,
+          "move": "P*4d",
+          "legal": false
+        },
+        {
+          "prefix": [
+            "4g4f",
+            "4e4f",
+            "4h4f",
+            "9a9b"
+          ],
+          "chapter": 3,
+          "move": "P*4d",
+          "legal": true
+        },
+        {
+          "prefix": [
+            "P*4d",
+            "5c5b"
+          ],
+          "chapter": 5,
+          "move": "P*4e",
+          "legal": false
+        }
+      ],
+      "blockedRecapture": {
+        "chapter": 5,
+        "prefix": [
+          "P*4d",
+          "4c4d",
+          "P*4e",
+          "4d4e",
+          "P*4d",
+          "4b4d"
+        ],
+        "move": "4h4d",
+        "legal": false
+      }
+    },
+    {
+      "unit": "castles-nakazumai",
+      "chapter": 4,
+      "verdict": "Rook check, bishop protection and king escapes verified",
+      "start": "k8/9/b3r4/9/9/9/4P4/4K4/3G1G3 w - 1",
+      "move": "5c5g",
+      "sfen": "k8/9/b8/9/9/9/4r4/4K4/3G1G3 b p 1",
+      "checked": true,
+      "illegalKingCapture": "5h5g",
+      "allLegalEvasions": [
+        "5h4h",
+        "5h6h"
+      ],
+      "method": "Enumerated all board origin/destination/promotion combinations with tsshogi; defender has no hands. Historical engine loss does not refute this conditional checking example."
+    },
+    {
+      "unit": "tesuji-bishop",
+      "chapter": 2,
+      "verdict": "Pinned rook and three king replies verified",
+      "prefix": [
+        "4f4e"
+      ],
+      "allLegalReplies": [
+        "9a8a",
+        "9a8b",
+        "9a9b"
+      ],
+      "defenderHandsEmpty": true
+    },
+    {
+      "unit": "tesuji-bishop",
+      "chapter": 4,
+      "verdict": "Knight check and illegal pinned-pawn capture verified",
+      "prefix": [
+        "N*8c"
+      ],
+      "allLegalEvasions": [
+        "9a8a",
+        "9a9b"
+      ],
+      "illegalPawnCapture": "8b8c",
+      "defenderHandsEmpty": true
+    },
+    {
+      "unit": "yokofu-basics",
+      "chapter": 2,
+      "verdict": "Additional teaching-position concern confirmed",
+      "reason": "At the start, B8hx3c+ captures the undefended gold before the prescribed rook retreat; no immediate board recapture is legal.",
+      "legalMove": "8h3c+",
+      "endpoint": "4k4/9/6+B2/6pR1/9/9/9/9/4K4 w G 1",
+      "immediateRecaptures": [],
+      "limitation": "This is a concrete immediate material opportunity, not an exhaustive optimal-play or forcing-counterplay verdict. The R2dx3d G3cx3d bad-capture variation remains legal."
+    },
+    {
+      "unit": "rules-checkmate",
+      "chapter": [
+        1,
+        2,
+        3
+      ],
+      "verdict": "Check and mate claims verified with exhaustive legal-reply enumeration",
+      "method": "tsshogi legal board moves over all origin/destination/promotion combinations, plus all seven drop types on all squares. Displayed hands only; all defender hands empty.",
+      "cases": [
+        {
+          "chapter": 1,
+          "prefix": [
+            "8h5h"
+          ],
+          "sfen": "4k4/9/9/9/9/9/9/4R4/K8 w - 1",
+          "checked": true,
+          "legalBoardMoves": [
+            "5a4a",
+            "5a4b",
+            "5a6a",
+            "5a6b"
+          ],
+          "legalDrops": []
+        },
+        {
+          "chapter": 2,
+          "prefix": [
+            "4c5b"
+          ],
+          "sfen": "4k4/4G3R/9/9/9/9/9/9/8K w - 1",
+          "checked": true,
+          "legalBoardMoves": [],
+          "legalDrops": []
+        },
+        {
+          "chapter": 2,
+          "prefix": [
+            "4c4b"
+          ],
+          "sfen": "4k4/5G2R/9/9/9/9/9/9/8K w - 1",
+          "checked": true,
+          "legalBoardMoves": [
+            "5a6a",
+            "5a6b"
+          ],
+          "legalDrops": []
+        },
+        {
+          "chapter": 3,
+          "prefix": [],
+          "sfen": "4k4/4G3R/9/9/9/9/9/9/8K w - 1",
+          "checked": true,
+          "legalBoardMoves": [],
+          "legalDrops": []
+        }
+      ],
+      "reason": "Root engine alternative does not refute an introductory check demonstration. No best-play claim is made."
+    },
+    {
+      "unit": "rules-tsume",
+      "chapter": 1,
+      "verdict": "Failed check demonstration verified",
+      "prefix": [
+        "G*4b"
+      ],
+      "legalDefenses": [
+        "5a4b",
+        "5a6a",
+        "5a6b"
+      ],
+      "afterCapture": "9/5k3/9/9/9/9/9/9/9 b 2r2b4g4s4n4l18p 1",
+      "attackerLegalMovesAfterCapture": [],
+      "reason": "The attacker has no board pieces or hand pieces after king captures gold; no continuation can mate."
+    },
+    {
+      "unit": "rules-tsume",
+      "chapter": 2,
+      "verdict": "One-move mate verified against full defender hand",
+      "prefix": [
+        "G*1b"
+      ],
+      "sfen": "8k/7RG/9/9/9/9/9/9/9 w r2b3g4s4n4l18p 1",
+      "checked": true,
+      "legalBoardMoves": [],
+      "legalDrops": []
+    },
+    {
+      "unit": "rules-tsume",
+      "chapter": 3,
+      "verdict": "All interpositions exhaustively covered by bishop recaptures",
+      "start": "4k4/6S2/2NG5/5R1B1/9/9/9/9/9 w rb3g3s3n4l18p 1",
+      "handConvention": "All remaining nonking pieces assigned to defender; physical inventory fits a single set, excluding attacker king.",
+      "initialLegalBoardMoves": [],
+      "initialLegalDrops": [
+        "R*3c",
+        "R*4b",
+        "B*3c",
+        "B*4b",
+        "G*3c",
+        "G*4b",
+        "S*3c",
+        "S*4b",
+        "N*3c",
+        "N*4b",
+        "L*3c",
+        "L*4b",
+        "P*3c",
+        "P*4b"
+      ],
+      "proof": "For each drop on 4b, B2dx4b gives check with zero legal board or drop replies. For each drop on 3c, B2dx3c leaves only drops on 4b; each is answered by B3cx4b with check and zero legal replies. Exhausted rook/bishop no longer appear in the second defender hand after their capture; all other types remain available.",
+      "verifiedMateEndpoints": 54,
+      "method": "Exact tsshogi legal replay and exhaustive board-origin/destination/promotion plus seven-piece drop enumeration at every defender node. Uses ordinary legality, including otherwise futile blocks.",
+      "shownVariation": [
+        "G*4b",
+        "2d4b"
+      ],
+      "shownEndpoint": "4k4/5BS2/2NG5/5R3/9/9/9/9/9 w Grb2g3s3n4l18p 1"
+    },
+    {
+      "unit": "endgame-tsume-study",
+      "chapter": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "verdict": "Displayed-hand tactical claims verified",
+      "method": "Exact tsshogi replay; all board origins/destinations/promotion choices and all seven drop types enumerated. Mate-in-one search enumerates every legal attacker move and all legal responses to checking candidates.",
+      "start": "2k6/9/2gR5/9/9/9/9/9/8K b - 1",
+      "rootMateInOne": [],
+      "unpromoted": {
+        "prefix": [
+          "6c7c"
+        ],
+        "legalDefenses": [
+          "7a6a",
+          "7a6b",
+          "7a8a",
+          "7a8b"
+        ],
+        "refutation": [
+          "7a8b"
+        ],
+        "mateInOneAfterRefutation": []
+      },
+      "promoted": {
+        "prefix": [
+          "6c7c+"
+        ],
+        "legalDefenses": [
+          "7a6a",
+          "7a8a"
+        ],
+        "matingBranches": [
+          [
+            "7a6a",
+            "G*6b"
+          ],
+          [
+            "7a8a",
+            "G*8b"
+          ]
+        ],
+        "bothEndpointsCheckedWithZeroReplies": true
+      },
+      "failedDragon": {
+        "prefix": [
+          "3c5c+",
+          "4b5c"
+        ],
+        "endpoint": "4k4/9/4g4/9/9/9/9/9/8K b r 1",
+        "checked": false
+      },
+      "spareSilver": {
+        "prefix": [
+          "G*7b"
+        ],
+        "endpoint": "2k6/2GR5/9/9/9/9/9/9/8K w S 1",
+        "checked": true,
+        "legalResponses": []
+      }
+    },
+    {
+      "unit": "rules-fouls",
+      "chapter": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "verdict": "Illustrated legality and mate claims verified; historical engine-loss flags do not refute rule demonstrations",
+      "checks": {
+        "nifu": {
+          "P*6e": false,
+          "P*4d": true,
+          "P*5e": true
+        },
+        "pawnDropCheck": {
+          "move": "P*5b",
+          "legalDefenses": [
+            "5a4a",
+            "5a4b",
+            "5a5b",
+            "5a6a",
+            "5a6b"
+          ]
+        },
+        "forbiddenPawnDropMate": {
+          "chapter": 4,
+          "move": "P*1b",
+          "legal": false
+        },
+        "quietPawnDrop": {
+          "prefix": [
+            "P*1c"
+          ],
+          "checked": false,
+          "allLegalReplies": [
+            "9c9d"
+          ]
+        },
+        "pawnPushMate": {
+          "prefix": [
+            "P*1c",
+            "9c9d",
+            "1c1b"
+          ],
+          "sfen": "8k/8P/6NG1/p8/9/9/9/9/K8 w G 1",
+          "checked": true,
+          "legalReplies": []
+        },
+        "goldDropMate": {
+          "prefix": [
+            "G*1b"
+          ],
+          "checked": true,
+          "legalReplies": []
+        },
+        "mandatoryKnightPromotion": {
+          "unpromotedMove": "3d2b",
+          "legal": false,
+          "promotedMove": "3d2b+",
+          "checked": true,
+          "legalReplies": []
+        }
+      },
+      "method": "Exact tsshogi replay and exhaustive legal board-origin/destination/promotion plus all seven drop types at each stated response endpoint. All branches also replayed through lessonOf.",
+      "limitations": "Repetition explanation correctly requires history; the one illustrative king move is not a repetition adjudication test. No current official rulebook refresh performed."
+    },
+    {
+      "unit": "ureshino-new",
+      "chapter": [
+        1,
+        2,
+        3
+      ],
+      "verdict": "Conditional capture and retreat claims verified; engine-loss flag not a semantic refutation",
+      "replayed": [
+        [
+          "6h5g",
+          "5b5f",
+          "5g5f"
+        ],
+        [
+          "6h5g",
+          "5b5d",
+          "5f5e",
+          "5d5e"
+        ],
+        [
+          "8h7i",
+          "8d8e",
+          "5g6f",
+          "4d6f"
+        ],
+        [
+          "5g6f",
+          "7d7e",
+          "6f7e",
+          "5a4b",
+          "7e8d",
+          "8b8d"
+        ]
+      ],
+      "illegalRecaptureProbes": [
+        {
+          "chapter": 1,
+          "after": [
+            "6h5g",
+            "5b5d",
+            "5f5e",
+            "5d5e"
+          ],
+          "move": "5g5e"
+        },
+        {
+          "chapter": 2,
+          "after": [
+            "8h7i",
+            "8d8e",
+            "5g6f",
+            "4d6f"
+          ],
+          "move": "7i6f"
+        }
+      ],
+      "reason": "Silver protects 5f after development but cannot reach 5e. Bishop retreat to 7i leaves its diagonal blocked by S5g and loses the geometric recapture on 6f. Chapter 3 second pawn capture trades the silver for two pawns as the text warns. No forced or optimal-play claim is made.",
+      "method": "Exact tsshogi legal replay and recapture probes; all authored branches replayed through lessonOf."
+    },
+    {
+      "unit": "aifuri-vs-ishida",
+      "chapter": [
+        1,
+        2,
+        3
+      ],
+      "verdict": "Local attack and retreat claims verified; omitted king recapture retained as pedagogical concern",
+      "replayed": [
+        [
+          "B*6e",
+          "7f7h",
+          "6e4g+",
+          "3h4g"
+        ],
+        [
+          "B*6e",
+          "B*5f",
+          "6e5f",
+          "4g5f"
+        ],
+        [
+          "4d4e",
+          "4f4e",
+          "4b4e",
+          "B*5f",
+          "4e4d"
+        ],
+        [
+          "4d4b",
+          "B*5e",
+          "7c8c"
+        ]
+      ],
+      "chapter1Concern": {
+        "start": "9/5rk2/9/5p3/9/2R6/5G3/6K2/9 w Bb 1",
+        "omittedRecapture": "3h4g",
+        "endpoint": "9/5rk2/9/5p3/9/9/5K3/2R6/9 w 2Bg 1",
+        "interpretation": "Sente king on 3h defends the target gold on 4g. After the authored bishop capture, Kx4g captures the horse, so Gote exchanges bishop for gold; the main-line endpoint alone does not establish net material gain. No explicit guaranteed-gain claim is made, so this remains incomplete accounting rather than a false immediate-capture finding."
+      },
+      "chapter3Control": {
+        "bishop": "5e",
+        "rook": "4b",
+        "gold": "8c",
+        "bishopCaptureOfEitherLegal": false
+      },
+      "method": "Exact tsshogi legal replay and bishop control probes. All authored branches replayed through lessonOf.",
+      "limitations": "Historical engine loss on optional rook relocation is not a refutation of the local diagonal claim. No exhaustive best-play or countercheck search performed."
+    },
+    {
+      "unit": "basics-middlegame",
+      "chapter": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "verdict": "Local exchange, supported block and king-support claims verified",
+      "replayed": [
+        [
+          "4f5e",
+          "4d5e",
+          "8h5e"
+        ],
+        [
+          "4h4d",
+          "3c4d",
+          "5e4d"
+        ],
+        [
+          "2g1g",
+          "1a1g",
+          "2h1g"
+        ],
+        [
+          "6i5h"
+        ]
+      ],
+      "chapter2Endpoint": "k8/9/9/5G3/9/9/9/9/8K w BSr 1",
+      "chapter3Endpoint": "k8/9/9/9/9/9/8S/9/8K w Rg 1",
+      "interpretation": "Chapter 2 correctly counts bishop plus silver for rook and explicitly asks to consider king safety and move order. A historical engine preference for another capture does not refute that conditional accounting. Chapter 3 gold interposition ends check, rook capture restores check, silver recapture ends it. Chapter 4 moves king to gold-supported 5h while silver still covers 6i.",
+      "method": "Exact tsshogi legal replay, current board inspection and lessonOf replay of all authored branches.",
+      "limitations": "No global optimal-play or exhaustive forcing-counterplay verdict."
+    },
+    {
+      "unit": "aifuri-hidari-anaguma",
+      "chapter": [
+        1,
+        2,
+        3
+      ],
+      "verdict": "Castle route and conditional exchanges verified",
+      "replayed": [
+        [
+          "8i9i",
+          "3d3e"
+        ],
+        [
+          "7i8h",
+          "3e3f",
+          "3g3f",
+          "3d3f",
+          "5f3f"
+        ],
+        [
+          "5e5d",
+          "5c5d",
+          "5f5d"
+        ]
+      ],
+      "centralEndpoint": "9/2k4b1/9/4Rpr2/6p2/9/9/LSG6/K8 w Pp 1",
+      "legalImmediateCapturesOn5d": [],
+      "rejectedCandidate": {
+        "move": "3d5d",
+        "legal": false,
+        "reason": "Gote pawn 4d blocks the rook path from 3d to 5d. The attempted extension failed legal replay, so it is not a finding."
+      },
+      "reason": "Third-file recapture gives Sente a rook in hand as stated; central exchange leaves both sides with one pawn. Castle construction gives the opponent a turn without claiming immunity or forced advantage.",
+      "method": "Exact tsshogi replay and enumeration of every board origin/promotion option for immediate capture on 5d. All authored branches replayed through lessonOf."
+    },
+    {
+      "unit": "aigakari-basics",
+      "chapter": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "verdict": "Diagonal opening and conditional rook-entry defenses verified",
+      "replayed": [
+        [
+          "8f8g+",
+          "7h8g"
+        ],
+        [
+          "2d2f",
+          "8e8f",
+          "8g8f",
+          "8b8f",
+          "2f8f"
+        ],
+        [
+          "7h6h",
+          "8f8g+"
+        ],
+        [
+          "5i6h",
+          "8f8g+",
+          "7h8g"
+        ]
+      ],
+      "illegalRecapture": {
+        "prefix": [
+          "7h6h",
+          "8f8g+"
+        ],
+        "move": "6h8g",
+        "legal": false
+      },
+      "interpretation": "Chapter 1 pawn moves clear the previously blocked bishop diagonal. Chapter 2 gold on 7h captures rook on 8g. Chapter 3 floating rook captures across the empty sixth rank. Chapter 4 displacing the gold removes that recapture, while moving the king retains it. Its bad gold move is explicitly situational, so the historical engine-loss flag corroborates rather than refutes the contrast.",
+      "method": "Exact tsshogi replay and displaced-gold probe; all authored branches replayed through lessonOf."
+    },
+    {
+      "unit": "aiyokofu",
+      "chapter": [
+        1,
+        2,
+        3
+      ],
+      "verdict": "Bishop exchange, bishop-drop attack and supported pawn blocks verified",
+      "replayed": [
+        [
+          "2d3d",
+          "8f7f",
+          "P*7g",
+          "7f7g",
+          "7h7g"
+        ],
+        [
+          "8h2b+",
+          "3b2b",
+          "B*5d",
+          "7f8f"
+        ],
+        [
+          "3d7d",
+          "8c7d"
+        ],
+        [
+          "3d3f",
+          "7d7e",
+          "P*7f",
+          "7e7f",
+          "6g7f"
+        ]
+      ],
+      "interpretation": "Captured original seventh-file pawn permits replacement P*7g without nifu; gold recaptures rook taking the new pawn. Bishop exchange puts a bishop in each hand; B*5d attacks R7f and R8f leaves the diagonal. Rook exchange gives both sides a rook; G6g recaptures on 7f in the optional pawn-capture branch. Text explicitly withholds overall advantage claims.",
+      "method": "Exact tsshogi replay of selected continuations and lessonOf replay of every authored branch."
+    },
+    {
+      "unit": "taifuri-bougin-ishida",
+      "chapter": [
+        2,
+        3
+      ],
+      "verdict": "Pawn capture and bishop-block recapture examples verified",
+      "replayed": [
+        [
+          "6d6e",
+          "6f6e"
+        ],
+        [
+          "6c6d",
+          "B*4f",
+          "P*5e",
+          "4f5e",
+          "6d5e"
+        ]
+      ],
+      "method": "Exact tsshogi replay; all authored branches also replay through lessonOf."
+    },
+    {
+      "unit": "endgame-yose",
+      "chapter": [
+        3,
+        4
+      ],
+      "verdict": "Hisshi and stated mating escape branches verified under displayed hands",
+      "method": "Exact tsshogi legal move/drop enumeration. Bounded checking-mate search requires a mate answer to every legal defense, including counterchecks. Three-move search was insufficient for two branches; five-move search then produced complete trees.",
+      "chapter3": {
+        "prefix": [
+          "S*5d",
+          "4c4d",
+          "8e8b+"
+        ],
+        "kingReplies": [
+          "5b4a",
+          "5b5a",
+          "5b6a"
+        ],
+        "preparation": "5d4c+",
+        "defenseToMate": {
+          "5b4a": {
+            "4a3a": "4c3b",
+            "4a5a": "4c5b",
+            "4d4e": "4c4b"
+          },
+          "5b5a": {
+            "4d4e": "4c5b",
+            "5a4a": "4c4b",
+            "5a6a": "4c5b"
+          },
+          "5b6a": {
+            "4d4e": "4c5b",
+            "6a5a": "4c5b"
+          }
+        },
+        "everyListedFinishCheckedWithZeroReplies": true
+      },
+      "chapter4": {
+        "gold3c": {
+          "kingReplies": [
+            "2b1a",
+            "2b1b",
+            "2b1c",
+            "2b2a",
+            "2b3a"
+          ],
+          "mateAfter1aOr2a": {
+            "first": "4c4a+",
+            "forcedReply": "1a1b or 2a1b",
+            "second": "4a3b",
+            "defenseToFinish": {
+              "1b1a": "3b2b",
+              "1b1c": "3b2c"
+            }
+          },
+          "mateAfter1b": {
+            "first": "3c2c",
+            "defenseToFinish": {
+              "1b1a": "4c4a",
+              "1b2a": "4c4a"
+            }
+          },
+          "mateAfter3a": {
+            "first": "4c4b+",
+            "forcedReply": "3a2a",
+            "finish": "3c2b"
+          },
+          "after1c": "No forced checking mate within three moves; longer claim not required by text."
+        },
+        "gold2c": {
+          "kingReplies": [
+            "2b1a",
+            "2b2a",
+            "2b3a"
+          ],
+          "mateAfter1aOr2a": "4c4a",
+          "after3a": "No forced checking mate within three moves; consistent with the stated escape, not proof of no longer mate."
+        }
+      },
+      "limitations": "Stored numerical engine comparison and recommendation K4b were not freshly evaluated. Mate trees prove selected branch claims only; no whole-unit strategic optimality verdict."
+    },
+    {
+      "unit": "taifuri-anaguma",
+      "chapter": [
+        1,
+        2,
+        3
+      ],
+      "verdict": "Castle route and conditional fourth-file recaptures verified",
+      "replayed": [
+        [
+          "4d4e",
+          "2h4h",
+          "4e4f",
+          "4g4f",
+          "4b4f",
+          "4h4f"
+        ],
+        [
+          "2f2e",
+          "9c9d",
+          "2e2d",
+          "2c2d",
+          "2h2d",
+          "P*2c",
+          "2d2h"
+        ]
+      ],
+      "chapter2Endpoint": "3b5/1kg3s2/p1p6/6p2/9/1B3RP2/2P6/LK2S4/2SG1G3 w RPp 1",
+      "interpretation": "R4h supports P4f after the pawn exchange and captures the voluntarily offered Gote rook. Chapter 3 gold on 5h supports S5g and 6g/6h as stated. No bishop-opening claim is made by chapter 2 pawn advance; the historical score drop alone does not refute its conditional demonstration.",
+      "method": "Exact tsshogi replay and lessonOf replay of every authored branch."
+    },
+    {
+      "unit": "rules-promotion",
+      "chapter": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "verdict": "Optional, mandatory and post-drop promotion claims verified",
+      "legalityProbes": [
+        {
+          "chapter": 1,
+          "move": "2e2d+",
+          "legal": false
+        },
+        {
+          "chapter": 1,
+          "move": "2e2c",
+          "legal": true
+        },
+        {
+          "chapter": 1,
+          "move": "2e2c+",
+          "legal": true
+        },
+        {
+          "chapter": 2,
+          "move": "6d6c",
+          "legal": true
+        },
+        {
+          "chapter": 2,
+          "move": "6d6c+",
+          "legal": true
+        },
+        {
+          "chapter": 3,
+          "move": "9b9a",
+          "legal": false
+        },
+        {
+          "chapter": 3,
+          "move": "9b9a+",
+          "legal": true
+        },
+        {
+          "chapter": 3,
+          "move": "1b1a",
+          "legal": false
+        },
+        {
+          "chapter": 3,
+          "move": "1b1a+",
+          "legal": true
+        },
+        {
+          "chapter": 3,
+          "move": "5d4b",
+          "legal": false
+        },
+        {
+          "chapter": 3,
+          "move": "5d4b+",
+          "legal": true
+        }
+      ],
+      "silverDrop": {
+        "sequence": [
+          "S*2a",
+          "5a4a",
+          "2a1b+"
+        ],
+        "afterDrop": "4k2S1/9/9/9/9/9/9/9/4K4 w - 1",
+        "afterPromotion": "5k3/8+S/9/9/9/9/9/9/4K4 w - 1"
+      },
+      "interpretation": "First-rank silver drop remains legal because silver can move backward diagonally. It is an introductory legality example rather than an optimal placement recommendation, so historical engine loss is not a semantic defect.",
+      "method": "Exact tsshogi move-validity probes, SFEN state inspection and lessonOf replay of every authored branch."
+    },
+    {
+      "unit": "shiken-vs-yagura",
+      "chapter": [
+        1,
+        2,
+        3
+      ],
+      "verdict": "Recapture mechanisms verified; rook-drop loss is intentional",
+      "replayed": [
+        [
+          "6h8h",
+          "8e8f",
+          "8g8f",
+          "3a8f",
+          "7g8f",
+          "8b8f",
+          "8h8f"
+        ],
+        [
+          "4f4e",
+          "4d4e",
+          "6h4h",
+          "4c4d",
+          "4h4e",
+          "4d4e"
+        ],
+        [
+          "R*4b",
+          "4c4b"
+        ]
+      ],
+      "rookDrop": {
+        "move": "R*4b",
+        "checked": false,
+        "recapture": "4c4b",
+        "endpoint": "6b2/5ggk1/p5s2/5p3/9/2PP1P3/P1B1P1PPP/6SK1/3G1G3 b 2r 1"
+      },
+      "interpretation": "Chapter 1 prepositioned rook supplies final eighth-file recapture. Chapter 2 gold advance changes immediate control of 4e. Chapter 3 explicitly teaches that R*4b loses to the backward gold capture; Gote then holds both physical rooks. Historical engine loss corroborates the bad example rather than identifying an unacknowledged defect.",
+      "method": "Exact tsshogi replay, check-state inspection and lessonOf replay of every authored branch."
+    },
+    {
+      "unit": "taifuri-millennium",
+      "chapter": [
+        1,
+        2,
+        3
+      ],
+      "verdict": "Bishop escapes and rook lanes verified; no new defect",
+      "verified": {
+        "pawnThreat": "6d6e permits 6e6f",
+        "bishopCounterattack": [
+          "6d6e",
+          "6f7e"
+        ],
+        "bishopCaptureOfRook": "7e4b legal in control-only Sente turn probe",
+        "alternateEscape": [
+          "6d6e",
+          "6f5g",
+          "5e5f"
+        ],
+        "pawnChase": "5f5g legal in control-only Gote turn probe",
+        "initialRookSwing": "4b2b illegal while silver occupies 3b",
+        "rookCapture": [
+          "2e2d",
+          "2c2d",
+          "5g2d",
+          "3b4c",
+          "2d5g",
+          "4b2b",
+          "2h2b+"
+        ]
+      },
+      "method": "Exact tsshogi replay, explicitly turn-adjusted control probes, and lessonOf replay of all authored branches.",
+      "limitations": "No general tactical superiority inferred from local geometry."
+    },
+    {
+      "unit": "endgame-tsumero",
+      "chapter": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "verdict": "Mate-threat and defensive examples verified; diagnostic is not a defect",
+      "initialMateInOne": [],
+      "endpoints": [
+        {
+          "moves": [
+            "N*8c",
+            "7b8c"
+          ],
+          "senteMateInOne": []
+        },
+        {
+          "moves": [
+            "N*8d",
+            "6c6d",
+            "G*9b"
+          ],
+          "checked": true,
+          "legalReplies": 0
+        },
+        {
+          "moves": [
+            "N*8d",
+            "7b8a",
+            "G*9b",
+            "8a9b"
+          ],
+          "senteMateInOne": []
+        },
+        {
+          "moves": [
+            "N*8d",
+            "P*9b",
+            "8d9b+",
+            "9a9b"
+          ],
+          "senteMateInOne": []
+        }
+      ],
+      "chapter5": {
+        "prefix": [
+          "2d2c"
+        ],
+        "checked": false,
+        "legalGoteReplies": 86,
+        "noncheckingReplies": 82,
+        "noncheckingRepliesWithoutMateInOne": [],
+        "onlyRepliesWithoutMateInOne": [
+          "4a4i",
+          "4a4i+",
+          "4a9a",
+          "P*9h"
+        ],
+        "samples": {
+          "4a4b": [
+            "G*2a"
+          ],
+          "4a5a": [
+            "G*1b",
+            "G*2b"
+          ]
+        }
+      },
+      "method": "Enumerated every legal board move with both promotion choices and every legal drop using tsshogi; every mate candidate required check and zero legal replies. lessonOf replayed all authored branches.",
+      "interpretation": "Horse move is expressly not claimed best or hisshi. Exact exhaustive countercheck exception agrees with source; engine loss alone is not a semantic defect."
+    },
+    {
+      "unit": "tesuji-knight",
+      "chapter": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "verdict": "Movement, promotion and defended landing square verified; knight-check diagnostic rejected",
+      "verified": {
+        "jumpLegal": [
+          "6g5e",
+          "6g7e"
+        ],
+        "straightMoveIllegal": "6g6e",
+        "optionalPromotion": [
+          "5e4c",
+          "5e4c+"
+        ],
+        "mandatoryPromotion": {
+          "prefix": [
+            "5e4c",
+            "9a9b"
+          ],
+          "legal": "4c3a+",
+          "illegal": "4c3a"
+        },
+        "knightCheck": {
+          "prefix": [
+            "N*4d"
+          ],
+          "checked": true,
+          "allKingEscapes": [
+            "3b2a",
+            "3b2b",
+            "3b2c",
+            "3b3a",
+            "3b3c",
+            "3b4a",
+            "3b4b",
+            "3b4c"
+          ]
+        },
+        "defendedCapture": [
+          "6f5d",
+          "4c5d"
+        ]
+      },
+      "interpretation": "Chapter 3 expressly presents a nonmating check with a legal king escape, not an optimal tactical move. Chapter 2 labels the rook capture conditional on a cooperative king move. No unsupported forced gain found.",
+      "method": "Exact tsshogi replay and legal destination enumeration; lessonOf all-branch replay."
+    },
+    {
+      "unit": "rules-drops",
+      "chapter": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "verdict": "Drop rules and capture conversion verified; defensive gold diagnostic rejected",
+      "verified": {
+        "silverDrop": {
+          "move": "S*4b",
+          "checked": true,
+          "kingCapture": "5a4b illegal because gold 3c protects 4b",
+          "escape": "5a5b legal"
+        },
+        "capturedTokin": "5e4d yields Sente pawn in hand",
+        "illegalDrops": [
+          "P*1a",
+          "L*1a",
+          "N*1a",
+          "N*1b",
+          "P*4d"
+        ],
+        "legalDrops": [
+          "N*1c",
+          "P*3d",
+          "L*1b"
+        ]
+      },
+      "interpretation": "Chapter 3 illustrates gold placement beside the king and turn consumption; no best-move or material-gain claim. G*5h engine loss does not contradict that elementary mechanism. Physical inventory still bounds possible holdings despite no separate hand-count cap.",
+      "method": "Exact tsshogi replay and legal-drop probes; lessonOf all-branch replay.",
+      "limitations": "Uchifuzume statement covered by prior rules-fouls audit, not a new pawn-drop-mate example here."
+    },
+    {
+      "unit": "attack-mino-aifuri",
+      "chapter": [
+        1,
+        2,
+        3
+      ],
+      "verdict": "Chapter 3 unchanged rook control contradicts new-pressure explanation",
+      "otherChapters": "Pawn/gold/bishop and knight/gold/silver exchanges replay legally; gains explicitly conditional on defender recaptures.",
+      "method": "Exact tsshogi before/after capture probes and lessonOf all-branch replay."
+    },
+    {
+      "unit": "yagura-vs-migishiken",
+      "chapter": [
+        1,
+        2,
+        3
+      ],
+      "verdict": "Conditional recapture chains and bishop blocker verified; no new defect",
+      "verified": {
+        "commonPrefix": [
+          "6d6e",
+          "6f6e",
+          "5d6e",
+          "7g6f",
+          "6e6f",
+          "6g6f"
+        ],
+        "chapter1": {
+          "rookCapture": true,
+          "bishopCapture": false,
+          "continuation": [
+            "6b6f",
+            "3i6f"
+          ]
+        },
+        "chapter2": {
+          "rookCapture": true,
+          "bishopCapture": true,
+          "continuation": [
+            "3c6f",
+            "3i6f",
+            "6b6f"
+          ]
+        },
+        "chapter3": {
+          "initialKnightCapture": "8e7g+ legal in Gote control-only turn probe",
+          "initialBishopCapture": "3c7g+ illegal behind pawn 6f",
+          "openedLine": [
+            "6f6e",
+            "8e7g+",
+            "6g7g",
+            "3c7g+",
+            "8h7g"
+          ],
+          "horseGivesCheck": true,
+          "kingRecaptureLegal": true
+        }
+      },
+      "interpretation": "Sixth-file sequences explicitly conditional, not forced best-play claims. Bishop 3c adds a real recapture absent with bishop 4b. Moving pawn 6f genuinely clears diagonal toward 7g.",
+      "method": "Exact tsshogi capture/control probes, check-state inspection, and lessonOf all-branch replay."
+    },
+    {
+      "unit": "kakugawari-ittezon",
+      "chapter": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "verdict": "Knight landing-square comparison and controlled bishop-move ledger verified",
+      "verified": {
+        "pawn8d": {
+          "7c8e": true,
+          "7c6e": true
+        },
+        "pawn8e": {
+          "7c8e": false,
+          "7c6e": true
+        },
+        "bishopTrades": [
+          [
+            "2b8h+",
+            "7i8h"
+          ],
+          [
+            "2b7g+",
+            "8h7g"
+          ]
+        ],
+        "bothTradesYield": "Bb hands; distinct silver positions explicitly acknowledged"
+      },
+      "rejectedConcern": {
+        "prefix": [
+          "8d8e",
+          "B*7c"
+        ],
+        "checkingFork": true,
+        "defense": "8a7c legally captures checking bishop; no forced rook fork established"
+      },
+      "interpretation": "Sample pawn and knight moves do not claim optimality. Tempo discussion states distinct controlled baselines rather than identical resulting positions.",
+      "method": "Exact tsshogi replay/control probes, all legal checking-fork evasions enumerated, lessonOf all-branch replay."
+    },
+    {
+      "unit": "fujii-vs-hidarimino",
+      "chapter": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "verdict": "Conditional pawn exchanges and recapture mechanisms verified; no new definite defect",
+      "verified": {
+        "chapter2": [
+          "3f3e",
+          "3d3e",
+          "4f3e",
+          "4b3c",
+          "3e2d"
+        ],
+        "chapter2LegalDefenderCaptures": [
+          "3c2d",
+          "2c2d"
+        ],
+        "chapter3": [
+          "4f4e",
+          "4d4e",
+          "5f4e",
+          "4b4c",
+          "4e4d"
+        ],
+        "chapter3GoldRecapture": "4c4d legal",
+        "chapter4": [
+          "8g8f",
+          "8b8f",
+          "6h8h",
+          "8f8h+",
+          "7i8h"
+        ],
+        "rookTradeEndpoint": "b7l/4ggs2/7k1/9/9/9/4B4/1S2G4/5GK2 w RPrp 1"
+      },
+      "interpretation": "Gold recapture claims are legal, and rook trade gives both sides a rook in hand. King also recaptures silver on 2d in displayed chapter 2 continuation; gold is not the only defender. No claim of forced breakthrough or best move accepted from these conditional examples.",
+      "method": "Exact tsshogi continuation/capture probes and lessonOf all-branch replay."
+    },
+    {
+      "unit": "ishida-basics",
+      "chapter": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "verdict": "Rook retreat and conditional bishop/rook exchange accounting verified; no new defect",
+      "verified": {
+        "chapter2": {
+          "prefix": [
+            "7e7d",
+            "7c7d",
+            "7f7d",
+            "8b8d"
+          ],
+          "rookCapture": "8d7d legal in Gote control-only turn probe",
+          "retreat": "7d7f legal"
+        },
+        "chapter3": {
+          "moves": [
+            "8h7g",
+            "2b7g+",
+            "7f7g"
+          ],
+          "endpoint": "4k4/1r7/2p6/9/1pP6/9/1PR6/3S2K2/5G3 w Bb 1"
+        },
+        "chapter4": {
+          "moves": [
+            "8e8f",
+            "7f8f",
+            "8b8f",
+            "8g8f"
+          ],
+          "endpoint": "4k4/7b1/2p6/5p3/2P6/1P7/9/3SB1K2/5G3 w RPr 1"
+        }
+      },
+      "interpretation": "Chapter 3 explicitly conditional bishop trade returns one bishop to each hand via rook recapture. Chapter 4 exchanges rooks and nets Gote pawn; no forced material gain or overall advantage claimed.",
+      "method": "Exact tsshogi replay/control probes and lessonOf all-branch replay."
+    },
+    {
+      "unit": "castles-aifuri",
+      "chapter": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "verdict": "Castle support and attacked escape-square distinction verified; no new defect",
+      "verified": {
+        "wallSilver": {
+          "move": "2h1g",
+          "kingEscape": "3h2h illegal in explicitly Sente-turn control probe",
+          "rookCapture": "2b2h+ legal"
+        },
+        "rightYagura": {
+          "prefix": [
+            "4h3g",
+            "3b3g+"
+          ],
+          "legalGoldRecaptures": [
+            "3h3g",
+            "4g3g"
+          ]
+        }
+      },
+      "interpretation": "Silver advance blocks rook file and has both stated gold defenders; no advantage claim. Friendly silver protection does not make the rook-controlled cleared king exit legal. Gold 5i already supported 4h before moving to 5h; text describes resulting support without claiming it was newly created.",
+      "method": "Exact tsshogi replay/control and recapture probes; lessonOf all-branch replay."
+    },
+    {
+      "unit": "sanken-tomahawk",
+      "chapter": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "verdict": "Extra-defender exchange comparison verified; historical knight-drop loss is intentional unfavorable trade",
+      "verified": {
+        "edgeKnight": {
+          "prefix": [
+            "1g2e",
+            "1c1d",
+            "2e1c+"
+          ],
+          "silverRecapture": "2b1c legal"
+        },
+        "chapter2": {
+          "moves": [
+            "2e3c+",
+            "2b3c",
+            "6f3c+",
+            "3a2b",
+            "3c5e"
+          ],
+          "horseChecksBeforeGoldInterposition": true,
+          "goldAttacksHorse": "2b3c legal in explicitly Gote-turn control probe",
+          "endpoint": "8k/1r5gl/8p/1p7/4+B4/2P5P/1P7/2R2GK2/9 w SPn 1"
+        },
+        "chapter3": {
+          "moves": [
+            "2e3c+",
+            "3b3c",
+            "6f3c+",
+            "2b3c"
+          ],
+          "endpoint": "8k/1r6l/6s2/1p7/9/2P5P/1P7/2R2GK2/9 b GPbn 1"
+        }
+      },
+      "interpretation": "Chapter 2 gains silver/pawn for knight and retains horse in conditional line. Chapter 3 explicitly contrasts losing bishop/knight for gold/pawn when second defender remains. Engine loss corroborates the unfavorable illustration, not an unacknowledged success claim.",
+      "method": "Exact tsshogi replay, check-state/control probes and lessonOf all-branch replay."
+    },
+    {
+      "unit": "kishu-ahiru",
+      "chapter": [
+        1,
+        2,
+        3
+      ],
+      "verdict": "Bishop threat, conditional rook check and newly created gold recapture verified",
+      "verified": {
+        "bishopLine": {
+          "move": "7c6b",
+          "capture": "6b2f legal in Gote control-only turn probe",
+          "sidestep": "2f3f leaves 6b3f illegal"
+        },
+        "fifthFile": {
+          "moves": [
+            "5c5d",
+            "5g5f",
+            "5d5e",
+            "5f5e",
+            "5b5e"
+          ],
+          "checked": true,
+          "endpoint": "4k4/9/9/9/4r4/7R1/2P6/1B1SKS3/2G3G2 b Pp 1"
+        },
+        "goldSupport": {
+          "before": "After hypothetical Sente-turn 3f3c+, 5b3c illegal",
+          "after": [
+            "5b4b",
+            "3f3c+"
+          ],
+          "recapture": "4b3c legal"
+        }
+      },
+      "interpretation": "Pawn sequence expressly conditional on Sente cooperation. G5b4b genuinely creates new recapture coverage; no general Duck refutation or forced check claimed.",
+      "method": "Exact tsshogi before/after and check-state probes, lessonOf all-branch replay."
+    },
+    {
+      "unit": "tesuji-pawn",
+      "chapter": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "verdict": "Pawn mechanisms and exhaustive promotion claim verified; no new defect",
+      "verified": {
+        "promotion": {
+          "prefix": [
+            "P*6d"
+          ],
+          "allLegalGoteReplies": [
+            "6b5d",
+            "6b7d",
+            "9a8a",
+            "9a8b",
+            "9a9b"
+          ],
+          "promotionLegalAfterEveryReply": true
+        },
+        "directSilverCapture": {
+          "move": "3g6d",
+          "goldRecapture": "5c6d legal"
+        },
+        "twoPawnLure": {
+          "moves": [
+            "P*6c",
+            "5b6c",
+            "P*6d",
+            "6c6d",
+            "3g6d"
+          ],
+          "endpoint": "8k/9/9/3B5/9/9/9/9/8K w G2p 1"
+        }
+      },
+      "interpretation": "Reserve/bottom-pawn lines and lures are conditional on shown captures. Chapter 3 stronger universal promotion statement holds for all five legal replies with displayed hands. Chapter 5 explicitly disclaims forcing either gold capture; engine loss is not a contradiction.",
+      "method": "Exact tsshogi board-move enumeration in no-hand defender position, recapture probes, lessonOf all-branch replay."
+    },
+    {
+      "unit": "aifuri-ishida-vs-naka",
+      "chapter": [
+        1,
+        2,
+        3
+      ],
+      "verdict": "Horizontal rook capture and silver-dependent move-order comparison verified",
+      "verified": {
+        "centralLine": [
+          "8i7g",
+          "5e5f",
+          "5g5f",
+          "5b5f",
+          "7f5f"
+        ],
+        "undefendedSeventhFile": {
+          "moves": [
+            "7e7d",
+            "7c7d",
+            "7f7d"
+          ],
+          "allImmediateCapturesOfRook": []
+        },
+        "silverDefendedSeventhFile": {
+          "moves": [
+            "7e7d",
+            "7c7d",
+            "7f7d"
+          ],
+          "silverCapture": "6c7d legal"
+        },
+        "changedOrder": [
+          "7g8e",
+          "7c7d",
+          "7e7d",
+          "6c7d",
+          "7f7d"
+        ]
+      },
+      "interpretation": "Conditional central rook capture and silver lure both legal. Presence of silver genuinely changes safety of direct rook pawn recapture. Knight development is not claimed forced or optimal; historical diagnostic alone is not defect evidence.",
+      "method": "Exact tsshogi replay, all board-origin/promotion capture probes on 7d and lessonOf all-branch replay."
+    },
+    {
+      "unit": "attack-kinmusou",
+      "chapter": [
+        1,
+        2,
+        3
+      ],
+      "verdict": "Conditional gold exchanges and lost-target comparison verified; no new defect",
+      "verified": {
+        "chapter1": {
+          "moves": [
+            "4d4c+",
+            "5b4c",
+            "7f4c+"
+          ],
+          "endpoint": "9/1skg5/5+B3/9/9/9/9/9/8K w Gp 1"
+        },
+        "chapter2": {
+          "moves": [
+            "5e5d",
+            "5c5d",
+            "5g5d",
+            "5b5c",
+            "5d5c+",
+            "6b5c",
+            "2f5c+"
+          ],
+          "endpoint": "9/1sk6/4+B4/9/9/9/9/9/8K w 2GPrp 1"
+        },
+        "chapter3": {
+          "moves": [
+            "7f6e",
+            "5b6c",
+            "4d4c+"
+          ],
+          "endpoint": "9/1skg5/3g1+P3/9/3B5/9/9/9/8K w - 1",
+          "goldCapturesOfTokin": [
+            "6c4c illegal",
+            "6b4c illegal"
+          ]
+        }
+      },
+      "interpretation": "First exchange costs pawn for gold; second costs rook/pawn for two golds/pawn; text focuses rook versus two golds accurately. Bishop preparation explicitly gives gold a turn to leave; it does not claim new bishop support or forced win.",
+      "method": "Exact tsshogi all-main-line replay, capture probes and lessonOf all-branch replay."
+    },
+    {
+      "unit": "kishu-sujichigai",
+      "chapter": [
+        1,
+        2,
+        3
+      ],
+      "verdict": "Pawn blocker, rook relocation and landing-square recaptures verified",
+      "verified": {
+        "initialBishopCapture": "4e7b+ illegal in explicitly Sente-turn control probe",
+        "afterPawnAdvance": {
+          "move": "6c6d",
+          "bishopCapture": "4e7b+ legal"
+        },
+        "rookRelocation": [
+          "7b7a",
+          "7g7f",
+          "6c6d",
+          "4e7b+",
+          "7a7b"
+        ],
+        "knightAttack": {
+          "move": "2a3c",
+          "capture": "3c4e legal in explicitly Gote-turn control probe",
+          "badRetreat": [
+            "4e5d",
+            "5c5d"
+          ]
+        },
+        "goldRecapture": [
+          "5b6b",
+          "4e7b+",
+          "6b7b"
+        ]
+      },
+      "interpretation": "Rook retreat removes original target before opening diagonal and supplies legal horse recapture. Knight attack is explicitly not a trap; pawn capture follows labeled bad retreat. Gold move supplies stated landing-square defense. No forced general refutation claimed.",
+      "method": "Exact tsshogi before/after control probes and lessonOf all-branch replay."
+    },
+    {
+      "unit": "attack-anaguma",
+      "chapter": [
+        1,
+        2,
+        3
+      ],
+      "verdict": "Rook-for-two-golds and added edge recapture verified; no new defect",
+      "verified": {
+        "chapter1": {
+          "moves": [
+            "6h6c+",
+            "7b6c",
+            "3f6c+"
+          ],
+          "endpoint": "kn7/ls7/1pp+B5/9/9/9/9/9/8K w 2Gr 1"
+        },
+        "chapter2": {
+          "moves": [
+            "9e9d",
+            "9c9d",
+            "9h9d",
+            "9b9d",
+            "6g9d"
+          ],
+          "endpoint": "kn7/1sg6/9/B8/9/9/9/9/8K w LPlp 1",
+          "bishopGoldTarget": "9d7b+ legal in explicitly Sente-turn control probe"
+        },
+        "chapter3": {
+          "moves": [
+            "9h9g",
+            "7b8c",
+            "9e9d",
+            "9c9d",
+            "9g9d",
+            "9b9d",
+            "6g9d",
+            "8c9d"
+          ],
+          "endpoint": "kn7/1s7/9/g8/9/9/9/9/8K b LPblp 1"
+        }
+      },
+      "interpretation": "First conditional line trades rook for two golds. Edge exchange leaves bishop on 9d unless gold has had time to reach 8c; then legal gold recapture loses that bishop. Text accurately disclaims forced collapse or mate.",
+      "method": "Exact tsshogi full-main-line replay, target probe and lessonOf all-branch replay."
+    },
+    {
+      "unit": "taifuri-bougin",
+      "chapter": [
+        1,
+        2,
+        3
+      ],
+      "verdict": "Chapter 3 immediate pawn capture of gold confirmed; other local lines replay",
+      "verified": {
+        "rookSilverThreat": [
+          "2f3e",
+          "4b3b"
+        ],
+        "rookCaptureSilver": "3b3e legal in Gote-turn control probe",
+        "rookPawnThreat": [
+          "3e4f",
+          "3b3d"
+        ],
+        "rookCapturePawn": "3d3f legal in Gote-turn control probe"
+      },
+      "method": "Exact tsshogi replay/control probes and exhaustive board-origin/promotion recapture probes at 4g; lessonOf all-branch replay."
+    },
+    {
+      "unit": "gokigen-vs-chousoku",
+      "chapter": [
+        1,
+        2,
+        3
+      ],
+      "verdict": "Bishop and opened-file rook recaptures verified; no new defect",
+      "verified": {
+        "bishopSequence": {
+          "moves": [
+            "B*6d",
+            "4f5e",
+            "5d5e",
+            "6f5e",
+            "6d5e"
+          ],
+          "endpoint": "9/1k2r4/9/9/4b4/9/4P4/2K4R1/9 b SP2s 1"
+        },
+        "rookSequence": {
+          "moves": [
+            "8b8c",
+            "4f5e",
+            "5d5e",
+            "6f5e",
+            "5b5e"
+          ],
+          "endpoint": "9/9/1k7/9/4r4/9/4P4/2K4R1/9 b SPb2s 1"
+        }
+      },
+      "interpretation": "Both chapter 3 choices produce identical silver/pawn hand accounting while retaining different final recapturers. Source expressly recognizes silver departure opens rook file, so bishop drop is optional rather than necessary. Other lines label sample replies and do not claim best play.",
+      "method": "Exact tsshogi comparison-line replay and lessonOf all-branch replay."
+    },
+    {
+      "unit": "ureshino-basics",
+      "chapter": [
+        1,
+        2,
+        3
+      ],
+      "verdict": "Bishop-lane opening and checking move-order comparison verified; no new defect",
+      "verified": {
+        "bishopLane": {
+          "blockedAfter": [
+            "8h7i"
+          ],
+          "captureBefore": "7i2d illegal in Sente-turn control probe",
+          "openedAfter": [
+            "8h7i",
+            "7d7e",
+            "5g6f",
+            "5c6d"
+          ],
+          "capture": "7i2d legal",
+          "promotion": "7i2d+ illegal outside promotion zone"
+        },
+        "checkingLine": {
+          "moves": [
+            "6h5g",
+            "B*9e"
+          ],
+          "checked": true
+        },
+        "kingFirst": {
+          "moves": [
+            "5i4h",
+            "B*9e",
+            "6h5g"
+          ],
+          "checked": false
+        }
+      },
+      "interpretation": "Silver vacating 5g genuinely opens retreated bishop route. Vacating 6h exposes king on 5i to bishop drop, while king-first comparison removes check. Chapter 1 explicitly labels optional rook recapture that loses to bishop.",
+      "method": "Exact tsshogi before/after control and check-state probes; lessonOf all-branch replay."
+    }
+  ],
+  "reviewedUnits": [
+    {
+      "unit": "hineribisha",
+      "sourceSha256": "dcc1dc9e915834d366dba5efb8a6c3e9146258dcd34b7093d12593acbec02264",
+      "fullUnitRead": true,
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/7205.txt",
+        "lines": "1-161 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked material not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "castles-hidarimino",
+      "sourceSha256": "db797fb1a6d381d13391c8150ac140b6dc7503ae2dfc90cb3984db0bffaad8d4",
+      "fullUnitRead": true,
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/6007.txt",
+        "lines": "1-89 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked material not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "castles-funa",
+      "sourceSha256": "42246ad59eca198adfe7d3c9f3e638b956e20c15cab44ed1280e499c583c8cf0",
+      "fullUnitRead": "1-140 EOF",
+      "cachedReferenceText": [
+        {
+          "path": ".cache/curriculum-source/6044.txt",
+          "lines": "1-92 EOF"
+        }
+      ],
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked material not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "basics-value",
+      "sourceSha256": "f0cd2a49ea4045df8c5f518895978bf46516c51c9e6cadb1520dcdf845dcd259",
+      "fullUnitRead": "1-221 EOF",
+      "cachedReferenceText": [
+        {
+          "path": ".cache/curriculum-source/1512.txt",
+          "lines": "1-112 EOF"
+        },
+        {
+          "path": ".cache/curriculum-source/1021.txt",
+          "lines": "1-75 EOF"
+        }
+      ],
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked material not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "shiken-tateishi",
+      "sourceSha256": "2f12d4ab26e02bf406f008898226707f8039e102fae3005ea4f9d1afc14ef7f9",
+      "fullUnitRead": "1-163 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/1001.txt",
+        "lines": "1-120 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked material not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "proverb-three-pawns",
+      "sourceSha256": "f39e8d329687d2fe9c08d582344fc798ddcafe7c13b2a8728ac764e4e5622180",
+      "fullUnitRead": "1-368 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/8322.txt",
+        "lines": "1-114 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "One confirmed wording defect; reference diagrams and linked material not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "castles-nakazumai",
+      "sourceSha256": "b1f2190e782a75ac7d60152be7c0155754ab70e067edda22cbf5438d55b0d513",
+      "fullUnitRead": "1-136 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/6062.txt",
+        "lines": "1-52 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked material not reviewed; no full originality or browser verdict. Existing engine-evaluation comparisons in tesuji-bishop chapters 1/2 not freshly reproduced."
+    },
+    {
+      "unit": "tesuji-bishop",
+      "sourceSha256": "3849336c99e5bb073e4213116fbd21d07d5f353f41c1aa85b04264be15b7ca27",
+      "fullUnitRead": "1-233 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/1586.txt",
+        "lines": "1-165 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked material not reviewed; no full originality or browser verdict. Existing engine-evaluation comparisons in tesuji-bishop chapters 1/2 not freshly reproduced."
+    },
+    {
+      "unit": "yokofu-basics",
+      "sourceSha256": "8b67780e2ce881e76fc17d5103825f28a8fb1b29a0d26f2b967b1eb9b42e96d5",
+      "fullUnitRead": "1-62 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/3783.txt",
+        "lines": "1-126 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams, linked book and video not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "rules-checkmate",
+      "sourceSha256": "7ea9897bca10104083bdceb375cd019e0fd1bed1aa66a03d6e34d8c40d24faff",
+      "fullUnitRead": "1-162 EOF",
+      "cachedReferenceText": [
+        {
+          "path": ".cache/reference/9404582b28.txt",
+          "lines": "1-1329 EOF"
+        },
+        {
+          "path": ".cache/reference/26909d0140.txt",
+          "lines": "1-1685 EOF; truncated middle recovered with 850-1060"
+        },
+        {
+          "path": ".cache/curriculum-source/746.txt",
+          "lines": "1-103 EOF"
+        }
+      ],
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Cached references only; images and linked primary rulebook not reviewed. No full originality or browser verdict. Rule text is not a live rules-update audit."
+    },
+    {
+      "unit": "rules-tsume",
+      "sourceSha256": "5940f75f1f567c4896176f3819805a4cbdfb38f58633267876d107daf5d50626",
+      "fullUnitRead": "1-155 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/5361.txt",
+        "lines": "1-139 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked material not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "endgame-tsume-study",
+      "sourceSha256": "de9785146f1c5f1a60f015e33db5e9677b7af0d0077746978eccb2c91013f8f8",
+      "fullUnitRead": "1-165 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/2418.txt",
+        "lines": "1-158 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked material not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "rules-fouls",
+      "sourceSha256": "2f4af2dfc07c02c535617a47f7760ea51a475918e78114f2d127db20b82cf7d1",
+      "fullUnitRead": "1-388 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/813.txt",
+        "lines": "1-120 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked material not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "ureshino-new",
+      "sourceSha256": "0fd3f61054bf91cdbe7bc4c40cc5550af3ae83b5e0d9c9cb5ae7de2576218265",
+      "fullUnitRead": "1-151 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/5571.txt",
+        "lines": "1-77 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked material not reviewed; no full originality, best-play or browser verdict."
+    },
+    {
+      "unit": "aifuri-vs-ishida",
+      "sourceSha256": "13e756a34d68887ba8768c034e30f2fda510dedc5d3cc65711ec9f80c7322237",
+      "fullUnitRead": "1-136 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/362.txt",
+        "lines": "1-151 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked material not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "basics-middlegame",
+      "sourceSha256": "b0bbfebf12be0c22fca3b4cc5235c23704ab2ef13dc3adfcacf895577961342d",
+      "fullUnitRead": "1-180 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/3198.txt",
+        "lines": "1-179 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked material not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "aifuri-hidari-anaguma",
+      "sourceSha256": "d7efbf5b12dbdb0ab52f3665d402c44115482a0dbfce69d50fa24f92a644039d",
+      "fullUnitRead": "1-124 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/6154.txt",
+        "lines": "1-109 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked material not reviewed; no full originality, exhaustive best-play or browser verdict."
+    },
+    {
+      "unit": "aigakari-basics",
+      "sourceSha256": "5070a0fb4b96df457ea37f71152afd29cf42e08a327ed3a7a2db9e50b9c8d91b",
+      "fullUnitRead": "1-193 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/5873.txt",
+        "lines": "1-96 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked material not reviewed; no full originality, exhaustive best-play or browser verdict."
+    },
+    {
+      "unit": "aiyokofu",
+      "sourceSha256": "469481f7a1671f7ef81f0618d565f82ff1f36ad1e3ff1960c8d7600112ce11b0",
+      "fullUnitRead": "1-57 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/7071.txt",
+        "lines": "1-163 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams, linked book and video not reviewed; no full originality, exhaustive best-play or browser verdict."
+    },
+    {
+      "unit": "taifuri-bougin-ishida",
+      "sourceSha256": "1f5c6745cbae509b8c9a79342ea658b14f8eb49490d0aaae7c2a0527e04fc313",
+      "fullUnitRead": "1-52 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/4502.txt",
+        "lines": "1-218 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Chapter 1 confirmed missed knight capture; reference diagrams and linked material not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "endgame-yose",
+      "sourceSha256": "fc831ff27dc81618a04a9db1eb4bac0bccc28989147a45fe63ab3bed2b19238e",
+      "fullUnitRead": "1-139 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/2375.txt",
+        "lines": "1-163 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked material not reviewed; numerical claims qualitatively supported by fresh 1500 ms engine comparison, approximate figures differ; long mate67 unproved; no full originality or browser verdict."
+    },
+    {
+      "unit": "taifuri-anaguma",
+      "sourceSha256": "36e37e751f1d8e7ad81ef9fccc980cc8998664e6db00ac158eae49d300059953",
+      "fullUnitRead": "1-56 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/7339.txt",
+        "lines": "1-180 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked material not reviewed; no full originality, exhaustive best-play or browser verdict."
+    },
+    {
+      "unit": "rules-promotion",
+      "sourceSha256": "d822ff859ac37f7df2b8880ed3067de29e9bdb8a848c49547b055fee9bd55078",
+      "fullUnitRead": "1-287 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/722.txt",
+        "lines": "1-144 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked material not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "shiken-vs-yagura",
+      "sourceSha256": "419fa9e6a276bb2fe1ed987a11c5f34d520879b50e5ecfc06a19b67c34d7ca82",
+      "fullUnitRead": "1-162 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/1741.txt",
+        "lines": "1-185 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams, linked book and video not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "taifuri-millennium",
+      "sourceSha256": "d5bc53a2e3981edeaad37e359d3fd38fb671dd89921ec8067a71ae1506556ae9",
+      "fullUnitRead": "1-288 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/7988.txt",
+        "lines": "1-102 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked resources not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "endgame-tsumero",
+      "sourceSha256": "1eff0027584a6bcba70b5b4e6358e01719b4837d1cd94578920f7b32bb833a6e",
+      "fullUnitRead": "1-225 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/7368.txt",
+        "lines": "1-128 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked resources not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "tesuji-knight",
+      "sourceSha256": "af2d8f0fe43f40fa4ab1a608e3fa2da192bdb0fa03cb4e1ce46423992b283ec8",
+      "fullUnitRead": "1-157 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/1331.txt",
+        "lines": "1-171 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked resources not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "rules-drops",
+      "sourceSha256": "bb7f6c81b79a0cef0dbafc5510b9cc8d6ae593d7fa4c5028859275c2a9dfbbd7",
+      "fullUnitRead": "1-240 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/738.txt",
+        "lines": "1-117 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked resources not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "attack-mino-aifuri",
+      "sourceSha256": "1469a74bf9610d4601b38fa47ebd4ab72f889069af375493dff662b580dfe7fc",
+      "fullUnitRead": "1-105 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/1070.txt",
+        "lines": "1-177 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked book not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "yagura-vs-migishiken",
+      "sourceSha256": "5e8a41dc902a071a2ccc748a4c3fed4735c47d1179ac3e33faa4b84433942908",
+      "fullUnitRead": "1-157 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/4917.txt",
+        "lines": "1-161 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams, linked book and video not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "kakugawari-ittezon",
+      "sourceSha256": "a35def72fd81e35be99a21147cdc57ea3ad10f28f9ba0ec0bb9c454a733b80fa",
+      "fullUnitRead": "1-183 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/6765.txt",
+        "lines": "1-110 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked resources not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "fujii-vs-hidarimino",
+      "sourceSha256": "6f243a42668693b241d92a3fce03314331b261241bfe6bb40db42f861f23fc60",
+      "fullUnitRead": "1-177 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/7495.txt",
+        "lines": "1-168 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams, linked book and video not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "ishida-basics",
+      "sourceSha256": "df811b6616427656021eb8688c4e79294ff5fe55efa0e3e5128a827148c2a3bd",
+      "fullUnitRead": "1-133 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/6200.txt",
+        "lines": "1-146 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked book not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "castles-aifuri",
+      "sourceSha256": "c70639037d605ad23dfd6a90623be4f3c74e904ca1bb443109710550c5a900fa",
+      "fullUnitRead": "1-129 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/6053.txt",
+        "lines": "1-62 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked resources not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "sanken-tomahawk",
+      "sourceSha256": "007dba241f435ccaeeb9f08b7bb9c6caeee905b3c6027c7d5600811ccbddc67f",
+      "fullUnitRead": "1-138 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/6970.txt",
+        "lines": "1-127 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked book not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "kishu-ahiru",
+      "sourceSha256": "b97d4fa98293d279038375e89356134094056aba5ee819a86c66df3ac663c330",
+      "fullUnitRead": "1-148 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/5283.txt",
+        "lines": "1-112 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked resources not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "tesuji-pawn",
+      "sourceSha256": "3c683af22ab314ce01acec9b8f7b1dc1a0450fd921c4db1945210aa1a11dc6e2",
+      "fullUnitRead": "1-274 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/1629.txt",
+        "lines": "1-208 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams, linked book and video not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "aifuri-ishida-vs-naka",
+      "sourceSha256": "cee63c6af5c22834a84b376078d7a5b57ed68eb71ba4d3274b9c318f0a376b22",
+      "fullUnitRead": "1-126 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/777.txt",
+        "lines": "1-205 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams, linked book and video not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "attack-kinmusou",
+      "sourceSha256": "27d7d0831110163334ba745f2d279803234bb9f0aaee68f0778a7c9191ed9951",
+      "fullUnitRead": "1-105 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/875.txt",
+        "lines": "1-204 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked book not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "kishu-sujichigai",
+      "sourceSha256": "15d30ee1d4e1646b4275b953e3cd3d1722eea24a26d226571baafac0dd5b5bff",
+      "fullUnitRead": "1-126 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/5001.txt",
+        "lines": "1-152 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams, linked book and video not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "attack-anaguma",
+      "sourceSha256": "af0f6450e9ad4f19bfdf9514f0f862f1158a538b378c2ec1538b5dc4cdfa3193",
+      "fullUnitRead": "1-105 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/3014.txt",
+        "lines": "1-139 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked book not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "taifuri-bougin",
+      "sourceSha256": "1f8aa823847b29c16c18aba1ca3ffcecd70e99e0b8f157cd5c596983744f80ef",
+      "fullUnitRead": "1-53 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/7254.txt",
+        "lines": "1-153 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked book not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "gokigen-vs-chousoku",
+      "sourceSha256": "d9c741c670606fb34acf0e130712fbf269044c831ed8f7e8edba69d33e316de1",
+      "fullUnitRead": "1-262 EOF",
+      "cachedReferenceText": {
+        "path": ".cache/curriculum-source/6514.txt",
+        "lines": "1-177 EOF"
+      },
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams, linked books and video not reviewed; no full originality or browser verdict."
+    },
+    {
+      "unit": "ureshino-basics",
+      "sourceSha256": "83e65dcb5bbb8881fbd2f55d23b49bdfa070b28864b78c664dad39b895b1cb62",
+      "fullUnitRead": "1-143 EOF",
+      "cachedReferenceText": [
+        {
+          "path": ".cache/curriculum-source/5608.txt",
+          "lines": "1-84 EOF"
+        },
+        {
+          "path": ".cache/curriculum-source/5519.txt",
+          "lines": "1-114 EOF"
+        }
+      ],
+      "generatedMatchesSource": true,
+      "allBranchesLegallyReplayed": true,
+      "limitations": "Reference diagrams and linked books not reviewed; no full originality or browser verdict."
+    }
+  ],
+  "engineRefresh": {
+    "unit": "endgame-yose",
+    "implementation": "@mizarjp/yaneuraou.k-p via scripts/lessons/engine-eval.mjs",
+    "threads": 1,
+    "hashMiB": 32,
+    "book": false,
+    "movetimeMs": 1500,
+    "scorePerspective": "side to move",
+    "rows": [
+      {
+        "chapter": 4,
+        "prefix": [],
+        "sfen": "9/7k1/5R3/r8/9/9/P8/9/K8 b G 1",
+        "output": "3724 G*2c -"
+      },
+      {
+        "chapter": 4,
+        "prefix": [
+          "G*3c"
+        ],
+        "sfen": "9/7k1/5RG2/r8/9/9/P8/9/K8 w - 1",
+        "output": "-104 2b1c -"
+      },
+      {
+        "chapter": 4,
+        "prefix": [
+          "G*3c",
+          "2b1c"
+        ],
+        "sfen": "9/9/5RG1k/r8/9/9/P8/9/K8 b - 1",
+        "output": "208 9i8h -"
+      },
+      {
+        "chapter": 4,
+        "prefix": [
+          "G*3c",
+          "2b1c",
+          "9i8h"
+        ],
+        "sfen": "9/9/5RG1k/r8/9/9/P8/1K7/9 w - 1",
+        "output": "-57 1c2d -"
+      },
+      {
+        "chapter": 4,
+        "prefix": [
+          "G*2c",
+          "2b3a"
+        ],
+        "sfen": "6k2/9/5R1G1/r8/9/9/P8/9/K8 b - 1",
+        "output": "4293 9i8h -"
+      },
+      {
+        "chapter": 3,
+        "prefix": [
+          "S*5d"
+        ],
+        "sfen": "9/4k4/5p3/4S4/1R7/9/9/9/K8 w - 1",
+        "output": "-3483 5b4b -"
+      },
+      {
+        "chapter": 3,
+        "prefix": [
+          "S*5d",
+          "5b4b"
+        ],
+        "sfen": "9/5k3/5p3/4S4/1R7/9/9/9/K8 b - 1",
+        "output": "30000 8e8c+ 67"
+      },
+      {
+        "chapter": 3,
+        "prefix": [
+          "S*5d",
+          "4c4d"
+        ],
+        "sfen": "9/4k4/9/4Sp3/1R7/9/9/9/K8 b - 1",
+        "output": "30000 8e8b+ 5"
+      }
+    ],
+    "interpretation": "Fresh bounded results support the qualitative G2c versus G3c comparison and select K4b as defender best move after S5d. Historical approximate +4200/+300 values are not exactly reproduced: this run gives +3724 root and +57 at the shown G3c endpoint, with +104/+208 around the intermediate positions.",
+    "limitations": "Search-order/warm-hash dependent diagnostics; wrapper retains neither depth nor PV. Mate 67 after K4b is an unproved engine report, not an independently replayed mate tree. K4b offers longer resistance in this search, not a proved draw or escape from all mate."
+  }
+}

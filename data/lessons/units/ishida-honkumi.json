@@ -60,7 +60,7 @@
       "title": { "ja": "端角の斜線を歩で開く", "en": "Open the edge bishop's diagonal" },
       "side": "sente",
       "kind": "position",
-      "start": "5k3/1r5b1/2ps5/3p5/2P6/P1RP5/1PNS5/1B2G1SK1/5G3 b - 1",
+      "start": "5k3/1r5b1/2p1s4/3p5/2P6/P1RP5/1PNS5/1B2G1SK1/5G3 b - 1",
       "steps": [
         {
           "text": { "ja": "７七桂が上がった後も、８八角は９七へ動けます。９六は先手の歩ですが、９七は空所です。ただし角を９七に置くだけでは、７五の自分の歩が６四への斜線をふさぎます。", "en": "With the knight on 7g, the bishop on 8h can move to the vacant 9g square. Sente's pawn is on 9f, not 9g. Simply moving the bishop will not open the line to 6d: Sente's own pawn on 7e still blocks it." },
@@ -78,8 +78,8 @@
         },
         {
           "moves": ["7c7d", "7f7d"],
-          "text": { "ja": "後手が△同歩と応じる枝では、▲同飛で歩を取り返せます。先手飛車は７四へ進み、角は６四歩を見続けます。ただし前に出た飛車を後手が別の駒で追う余地があるので、これだけで形勢は決まりません。", "en": "If Gote chooses Px7d, Sente can recapture with Rx7d. The rook advances to 7d while the bishop still eyes the pawn on 6d. Gote may challenge the advanced rook with another piece, so this line alone does not decide the position." },
-          "marks": { "last": "7d", "boxes": ["6d", "8b"] }
+          "text": { "ja": "後手が△同歩と応じる枝では、▲同飛で歩を取り返せます。この図の後手銀は５三にいて７四に利いておらず、飛車で取った７四を取り返す駒がありません。銀が６三にいれば▲同飛は△同銀で飛車を失うので、取り返す前に７四を守る駒を数えます。", "en": "If Gote chooses Px7d, Sente can recapture with Rx7d. In this diagram Gote's silver stands on 5c and does not cover 7d, so no Gote piece can retake the rook there. With the silver on 6c, Rx7d would lose the rook to Sx7d, so count the defenders of 7d before recapturing." },
+          "marks": { "last": "7d", "boxes": ["5c", "6d"] }
         }
       ],
       "variations": [
@@ -102,12 +102,12 @@
         },
         {
           "moves": ["8i7g"],
-          "text": { "ja": "▲７七桂で次の▲８五桂が８五歩を取る形になりました。しかし桂が歩を取れることと、取った桂が残れることは別です。後手の飛車が８四へ上がる応手を確認します。", "en": "N7g threatens to take the pawn on 8e with N8e. Being able to take a pawn does not mean the knight will survive on its landing square. Consider Gote's rook move to 8d." },
-          "marks": { "last": "7g", "arrows": ["7g8e", "8b8d"] }
+          "text": { "ja": "▲７七桂で次の▲８五桂が８五歩を取る形になりました。しかし８二の飛車は空いた８筋を通して８五をすでに守っており、桂が歩を取っても△同飛と取り返されます。桂が歩を取れることと、取った桂が残れることは別です。", "en": "N7g threatens to take the pawn on 8e with N8e. But the rook on 8b already defends 8e along the open eighth file, so Rx8e would answer the capture. Being able to take a pawn does not mean the knight will survive on its landing square." },
+          "marks": { "last": "7g", "arrows": ["7g8e", "8b8e"] }
         },
         {
           "moves": ["8b8d"],
-          "text": { "ja": "△８四飛と浮くと、飛車が８五歩を後ろから守ります。先手が桂で８五歩を取れば、後手飛車は８四から８五へ進んで桂を取れます。先手はその交換を選ぶ必要はありません。", "en": "R8d defends the pawn on 8e from behind. If Sente captures that pawn with the knight, Gote's rook can move from 8d to 8e and capture the knight. Sente need not choose that exchange." },
+          "text": { "ja": "後手が△８四飛と浮いても、８五の守りは８二にいたときと変わりません。飛車は８筋を保ったまま前へ出ただけで、桂が８五へ跳べば△同飛と取られる点も同じです。先手はその交換を選ぶ必要はありません。", "en": "If Gote lifts the rook with R8d, the defence of 8e is no different from before: the rook keeps the eighth file and merely steps forward. N8e is still answered by Rx8e, as it was with the rook on 8b. Sente need not choose that exchange." },
           "marks": { "last": "8d", "arrows": ["7g8e", "8d8e"] }
         },
         {
@@ -120,7 +120,7 @@
         {
           "from": 2,
           "moves": ["7g8e", "8d8e"],
-          "text": { "ja": "▲８五桂と歩を取ると、この図では△同飛で桂を取られます。歩一枚の獲得と桂一枚の喪失を数え、別の駒が８五の飛車を取れるかまで調べてから跳びます。", "en": "N8e captures a pawn, but here Rx8e captures the knight. Count a pawn gained against a knight lost, then ask whether another Sente piece can capture the rook on 8e before choosing the jump." }
+          "text": { "ja": "▲８五桂と歩を取ると、飛車が８二にいても８四にいても△同飛で桂を取られます。歩一枚の獲得と桂一枚の喪失を数え、別の駒が８五の飛車を取れるかまで調べてから跳びます。", "en": "N8e captures a pawn, but Rx8e captures the knight whether the rook stands on 8b or 8d. Count a pawn gained against a knight lost, then ask whether another Sente piece can capture the rook on 8e before choosing the jump." }
         }
       ]
     }

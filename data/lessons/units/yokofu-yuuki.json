@@ -39,12 +39,12 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/5g3/6b2/6R2/9/9/1s4P2/2G6/4K2N1 b Pp 1",
+      "start": "4k4/5g3/6b2/6R2/9/1p7/1s4P2/2G6/4K2N1 b Pp 1",
       "steps": [
         {
           "text": {
-            "ja": "先手飛車は３四、玉は５九、金は７八。後手銀８七が金を狙っている。玉を５八と６八のどちらへ動かすかで、７八への守りが変わる。",
-            "en": "Sente's rook is on 3d, king on 5i and gold on 7h. Gote's silver on 8g attacks that gold. Moving the king to 5h or 6h changes who protects 7h."
+            "ja": "先手飛車は３四、玉は５九、金は７八。後手銀８七が金を狙っている。この銀は８六の歩に守られ、金で先に取っても歩に取り返される。玉を５八と６八のどちらへ動かすかで、７八への守りが変わる。",
+            "en": "Sente's rook is on 3d, king on 5i and gold on 7h. Gote's silver on 8g attacks that gold. That silver is guarded by the pawn on 8f, so capturing it first with the gold would be answered by a pawn recapture. Moving the king to 5h or 6h changes who protects 7h."
           },
           "marks": {
             "arrows": [
@@ -141,7 +141,7 @@
             "8b8d"
           ],
           "text": {
-            "ja": "３五歩は３四飛車を後ろから守る。後手飛車が８四に来ると両飛車は同じ段に並ぶが、この盤では後手が３四の飛車を取れば先手歩が取り返せる。飛車交換の損得はその先まで必要だ。 後手９三金は８四を守るため、先手が逆に８四飛を取る場合も同金がある。",
+            "ja": "３五歩は３四飛車を後ろから守る。後手飛車が８四に来ると両飛車は同じ段に並ぶが、この盤では後手が３四の飛車を取れば先手歩が取り返せる。飛車交換の損得はその先まで読む必要がある。後手９三金が８四を守るため、先手が逆に８四飛を取る場合も同金で取り返される。",
             "en": "The pawn on 3e now guards the rook on 3d. Gote moves its rook to 8d, aligning both rooks on the fourth rank. If Gote captures the rook on 3d in this position, Sente's pawn can recapture; the full value of that exchange still needs calculation. Gote’s gold on 9c guards 8d, so a capture of Gote’s rook there also has a recapture."
           },
           "marks": {

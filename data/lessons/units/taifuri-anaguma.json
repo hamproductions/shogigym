@@ -28,7 +28,7 @@
     {
       "title": { "ja": "囲う途中の４筋は止まらない", "en": "The fourth file moves while the castle is unfinished" },
       "side": "sente", "kind": "position",
-      "start": "3b5/1kg2rs2/p1p6/5pp2/9/1B4P2/2P2P3/LK2S2R1/2SG1G3 w - 1",
+      "start": "9/1kg2rsb1/p1p4p1/5pp2/9/6P2/1BP2P3/LK2S2R1/2SG1G3 w - 1",
       "steps": [
         { "text": { "ja": "先手玉は８八、香は９八、銀は７九。９九へ入る手や８八銀で囲いを進めたいが、後手飛車４二と４四歩が４筋を使える。４七歩の前に後手歩が進めるかを確認する。", "en": "Sente has king 8h, lance 9h and silver 7i. Entering 9i and raising the silver are available building moves, but Gote's rook on 4b and pawn on 4d can use the fourth file. Check the pawn in front of Sente's 4g pawn first." }, "marks": { "arrows": ["4d4e", "2h4h"], "boxes": ["4g", "4b"] } },
         { "moves": ["4d4e", "2h4h"], "text": { "ja": "後手が４五歩と進めたため、先手は囲いを一手保留し飛車を２八から４八へ寄せた。４筋の歩が交換になれば、４八飛は取り返しに参加できる。玉がまだ８八でも前線の受けを優先する例。", "en": "Gote pushes to 4e. Sente postpones one castle move and shifts the rook from 2h to 4h, where it can join a fourth-file recapture. The king is still on 8h; this sample prioritizes the active front line." }, "marks": { "boxes": ["4h", "4e", "4g"] } },
@@ -42,7 +42,7 @@
     {
       "title": { "ja": "囲いを足すか２筋を動かすか", "en": "Add a defender or advance the second file" },
       "side": "sente", "kind": "position",
-      "start": "9/1kg2rsb1/p1p4p1/5pp2/9/3B2PP1/2P1SP3/LS5R1/K1G2G3 b - 1",
+      "start": "9/1kg2rsb1/p1p4p1/5pp2/9/6PP1/2P1SP3/LSB4R1/K1G2G3 b - 1",
       "steps": [
         { "text": { "ja": "９九玉・９八香・８八銀・７九金の穴熊に、右金４九がまだ離れている。先手飛車２八の前には２六歩、後手は２三歩。攻めを選ぶなら、歩を突いた後の飛車の働きと、相手に渡す歩を数える。", "en": "Sente has king 9i, lance 9h, silver 8h and gold 7i, while the other gold remains on 4i. Its rook is on 2h behind a pawn on 2f, facing Gote's pawn on 2c. An attack choice requires counting the rook's line and the pawn Gote would gain in a contact." }, "marks": { "boxes": ["9i", "8h", "7i", "4i", "2f", "2c"] } },
         { "moves": ["4i5h", "9c9d"], "text": { "ja": "この本筋では右金を５八へ寄せた。５八金は５七銀と６七・６八の周辺を支える一方、後手にも端歩の一手を与えた。追加の守りが必要かどうかは、後手の攻めが始まる速さで決まる。", "en": "The main example brings the right gold to 5h. It supports Sente's silver on 5g and nearby 6g/6h squares, while Gote gets a move on the edge. Whether this extra cover was worth the time depends on the speed of Gote's attack." }, "marks": { "boxes": ["5h", "5g", "9d"] } },

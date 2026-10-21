@@ -26,11 +26,11 @@
     {
       "title": { "ja": "取れる歩と取ってよい歩", "en": "A reachable pawn is not always a safe capture" },
       "side": "sente", "kind": "position",
-      "start": "4k4/9/6g2/6pR1/9/9/9/1B7/4K4 b - 1",
+      "start": "4k4/9/6g2/6pR1/9/9/2P6/1B7/4K4 b - 1",
       "steps": [
         { "text": { "ja": "２四飛は３四の歩に届くが、後手の３三金がその歩の真後ろにいる。取った後の３四は金の利きに入る。", "en": "The rook on 2d can take the pawn on 3d, but Gote's gold on 3c stands directly behind it. After the capture, 3d is controlled by the gold." }, "marks": { "arrows": ["2d3d", "3c3d"], "boxes": ["3d"] } },
         { "moves": ["2d2f", "3c3b"], "text": { "ja": "ここでは横歩を見送り、飛車を２六へ引く。後手が金を３二へ戻す手は一例で、この瞬間に飛車を渡す危険を避けたことが要点だ。", "en": "Here Sente declines the side pawn and pulls the rook to 2f. Gote's gold retreat to 3b is illustrative. The point is that Sente avoids handing over its rook for that pawn now." }, "marks": { "boxes": ["2f", "3d", "3b"] } },
-        { "moves": ["8h7g"], "text": { "ja": "角を７七へ出すと、今度は３三までの斜めの道が開く。金の位置が変わっても、３四の歩をいつ取るかは新しい局面で数え直す。", "en": "The bishop moves to 7g, opening a diagonal toward 3c. Even after the gold changes squares, the decision to take the pawn on 3d must be recalculated in the new position." }, "marks": { "arrows": ["7g3c"], "boxes": ["3d"] } }
+        { "moves": ["7g7f"], "text": { "ja": "７六歩と突くと、８八の角の斜めが開く。それまでは７七の自分の歩が道をふさいでいた。金の位置が変わっても、３四の歩をいつ取るかは新しい局面で数え直す。", "en": "Pushing the pawn to 7f opens the bishop's diagonal from 8h; until then Sente's own pawn on 7g blocked it. Even after the gold changes squares, the decision to take the pawn on 3d must be recalculated in the new position." }, "marks": { "arrows": ["7g7f", "8h3c"], "boxes": ["3d"] } }
       ],
       "variations": [
         { "from": 0, "moves": ["2d3d", "3c3d"], "text": { "ja": "すぐ３四の歩を飛車で取ると、３三金が同金と飛車を取る。局面にある守り駒を無視した横歩取りは成立しない。", "en": "If the rook immediately takes the pawn on 3d, the gold from 3c captures the rook. This side-pawn capture fails because it ignores a defender already on the board." } }

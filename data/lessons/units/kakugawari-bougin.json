@@ -148,7 +148,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/1rg6/9/7p1/7P1/7S1/9/7R1/3K5 b Bb 1",
+      "start": "4k4/1rg6/9/7p1/7P1/7S1/9/7R1/4K4 b Bb 1",
       "steps": [
         {
           "text": {
@@ -167,22 +167,22 @@
         {
           "moves": ["2h2e"],
           "text": {
-            "ja": "飛車が２五で歩を取りました。先手は歩を持ちますが、飛車２五は角を打たれる斜線にも入ります。持角を使った相手の受けを調べます。",
-            "en": "The rook captures the pawn on 2e and Sente gains a pawn in hand. The rook is also exposed to diagonals from a bishop drop. Check the defender's bishop-in-hand response."
+            "ja": "飛車が２五で歩を取りました。先手は歩を持ちますが、飛車２五は角を打たれる斜線にも入ります。先手玉５九はこの斜線上にないので、一枚の角で王手と飛車取りを同時に掛けられることはありません。持角を使った相手の受けを調べます。",
+            "en": "The rook captures the pawn on 2e and Sente gains a pawn in hand. The rook is also exposed to diagonals from a bishop drop. Sente's king on 5i is not on those diagonals, so no single bishop drop can check the king and attack the rook at once. Check the defender's bishop-in-hand response."
           }
         },
         {
-          "moves": ["B*5b"],
+          "moves": ["B*4g"],
           "text": {
-            "ja": "後手角５二は４三・３四を経て飛車２五を狙います。銀３五が前に出ても飛車を守るわけではありません。先手は取った歩と飛車の退路を両方数えます。",
-            "en": "Gote's bishop on 5b attacks the rook on 2e through 4c and 3d. The advanced silver on 3e does not defend the rook. Sente must count both the pawn gained and the rook's retreat."
+            "ja": "後手は角４七を選び、３六を経て飛車２五を狙いました。玉５九は角の斜線上にないので王手にはなりませんが、飛車を取る狙いがあります。銀３五は飛車を守っていません。飛車の逃げ道は後ろだけでなく、開いた２筋の先にもあります。",
+            "en": "Gote chooses a bishop on 4g, attacking the rook on 2e through 3f. It does not check the king on 5i, but it threatens the rook. The advanced silver on 3e does not defend the rook. The rook's escape squares lie not only behind it but also up the open second file."
           }
         },
         {
-          "moves": ["2e2h"],
+          "moves": ["2e2a+"],
           "text": {
-            "ja": "飛車は２八へ引けます。銀をどかして歩を取る順は合法でも、角打ちを一手使わせる代わりに飛車も二度動きました。後手が歩を取らなければ、この飛車の進出は強制できません。",
-            "en": "The rook can return to 2h. Clearing the silver made the capture legal, but the bishop drop required the rook to move again. Gote need not choose the pawn capture that allows this sequence."
+            "ja": "飛車は２一へ進んで成り、後手玉５一に王手をかけます。角４七は２筋を止めていないので、銀をどかして開けた飛車の通り道はそのままです。ただし後手が歩を取らなければ、この飛車の進出は強制できません。",
+            "en": "The rook can advance to 2a and promote, giving check along the back rank to the king on 5a. The bishop on 4g does not block the second file, so the route opened by moving the silver aside is still open. Gote need not choose the pawn capture that allows this sequence, however."
           }
         }
       ]

@@ -134,51 +134,51 @@
     },
     {
       "title": {
-        "ja": "金を取る間に玉が逃げる",
-        "en": "A material grab gives the king time to escape"
+        "ja": "金を取る間に守りが間に合う",
+        "en": "A material grab gives the defender time"
       },
       "side": "sente",
       "kind": "position",
-      "start": "k8/9/1G7/5g3/9/9/9/9/5R2K b G 1",
+      "start": "k8/2g6/1G7/5g3/9/9/9/9/5R2K b G 1",
       "steps": [
         {
           "text": {
-            "ja": "後手の金４四を先手の飛車４九で取ることもできます。一方、先手の金８三は後手玉９一の近くにあり、持駒の金を使えば詰みを狙える形です。",
-            "en": "The attacker’s rook on ４九 can take the defender’s gold on ４四. At the same time, the attacker’s gold on ８三 is near the defender’s king on ９一, and a gold in hand can create a mating attack."
+            "ja": "後手の金４四を先手の飛車４九で取ることもできます。一方、先手の金８三は後手玉９一の近くにあり、持駒の金を使えば詰みを狙える形です。ただし後手の金７二が、その８三の金に利いています。",
+            "en": "The attacker’s rook on ４九 can take the defender’s gold on ４四. At the same time, the attacker’s gold on ８三 is near the defender’s king on ９一, and a gold in hand can create a mating attack. However, the defender’s gold on ７二 attacks that gold on ８三."
           }
         },
         {
           "text": {
-            "ja": "飛車で金を取った後、後手玉に逃げる時間ができないか、手順をたどってください。",
-            "en": "Trace what happens to the king if the rook takes the gold first."
+            "ja": "飛車で金を取った後、後手がその一手で何をするか、手順をたどってください。",
+            "en": "Trace what the defender does with its move if the rook takes the gold first."
           }
         },
         {
           "moves": ["4i4d"],
           "text": {
-            "ja": "▲４四飛で金を取りました。駒得にはなりますが、後手に玉を動かす手番が渡ります。",
-            "en": "▲４四飛 captures the gold and gains material, but the defender now gets a turn to move the king."
+            "ja": "▲４四飛で金を取りました。駒得にはなりますが、後手に一手を渡します。",
+            "en": "▲４四飛 captures the gold and gains material, but it hands the defender a move."
           }
         },
         {
-          "moves": ["9a8a"],
+          "moves": ["7b8c"],
           "text": {
-            "ja": "△８一玉と逃げました。先手が次に金を打っても、玉の周囲には逃げ道が残ります。",
-            "en": "△８一玉 escapes. If the attacker drops a gold now, the king still has room to get away."
+            "ja": "△８三金で、９二への金打ちを支える先手の金を取られました。後手がほかの手を指せば詰みが残りましたが、この一手で詰み筋が消えます。",
+            "en": "△８三金 captures the gold that supported a drop on ９二. Any other defender move would have left a mate, but this one removes the mating pattern."
           }
         },
         {
           "moves": ["G*9b"],
           "text": {
-            "ja": "▲９二金打は王手ですが、後手玉はさらに逃げられます。駒を取れたことと勝ちが決まったことは別です。",
-            "en": "▲９二金打 gives check, but the king can escape again. Winning material and securing the game are different results."
+            "ja": "ここで▲９二金打と王手しても、打った金を支える駒がありません。",
+            "en": "If the attacker now plays ▲９二金打 with check, nothing supports the dropped gold."
           }
         },
         {
-          "moves": ["8a7a"],
+          "moves": ["9a9b"],
           "text": {
-            "ja": "△７一玉とかわされました。玉が危険な局面では、相手に一手を渡す前に詰みの有無を確かめます。",
-            "en": "△７一玉 steps away. When the king is exposed, check for mate before giving the opponent another turn."
+            "ja": "△同玉と取られ、持駒の金を一枚失いました。駒を取れたことと勝ちが決まったことは別です。玉が危険な局面では、相手に一手を渡す前に詰みの有無を確かめます。",
+            "en": "△同玉 takes it, and the attacker has lost a gold from hand. Winning material and securing the game are different results. When the king is exposed, check for mate before giving the opponent another turn."
           }
         }
       ]
@@ -190,7 +190,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "k8/9/1G7/5g3/9/9/9/9/5R2K b G 1",
+      "start": "k8/2g6/1G7/5g3/9/9/9/9/5R2K b G 1",
       "steps": [
         {
           "text": {
@@ -201,8 +201,8 @@
         {
           "moves": ["G*9b"],
           "text": {
-            "ja": "▲９二金打で詰みです。金は８三の金に守られ、後手玉は盤端で逃げられる升も打った金を取る手もありません。",
-            "en": "▲９二金打 is checkmate. The gold on ８三 protects the drop, and the king at the edge has neither an escape square nor a safe capture of the gold."
+            "ja": "▲９二金打で詰みです。金は８三の金に守られ、後手の金７二は９二に利きません。後手玉は盤端で逃げられる升も打った金を取る手もありません。",
+            "en": "▲９二金打 is checkmate. The gold on ８三 protects the drop, and the defender’s gold on ７二 does not reach ９二. The king at the edge has neither an escape square nor a safe capture of the gold."
           }
         },
         {

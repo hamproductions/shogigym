@@ -51,7 +51,7 @@
     {
       "title": { "ja": "桂が狙う升と飛車の取り返し", "en": "A knight's target and the rook's recapture" },
       "side": "sente", "kind": "position",
-      "start": "4k4/1r7/9/1s7/9/2R6/9/9/1N2K4 b - 1",
+      "start": "l3kg3/1r1g5/p1p6/1s7/9/2R6/9/9/1N1GKG3 b - 1",
       "steps": [
         { "text": { "ja": "後手の銀は８四、飛車は８二。銀が８五へ進むと７六の飛車へ近づく。先手の桂は８九にいて、７七へ跳べる。", "en": "Gote's silver is on 8d and rook on 8b. A silver advance to 8e approaches Sente's rook on 7f. Sente's knight on 8i can jump to 7g." }, "marks": { "arrows": ["8i7g", "8d8e"], "boxes": ["7f"] } },
         { "moves": ["8i7g", "8d8e"], "text": { "ja": "７七桂は８五を跳び先にする。ここで後手が銀を８五へ進めるなら、銀は桂に取られる位置へ入る。ただし後手の８二飛も同じ筋を見ている。", "en": "From 7g the knight attacks 8e. If Gote advances the silver there, it enters the knight's capture square. Gote's rook on 8b also looks down that file." }, "marks": { "arrows": ["7g8e", "8b8e"], "boxes": ["8e"] } },

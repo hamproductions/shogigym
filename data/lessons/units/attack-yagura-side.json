@@ -36,7 +36,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "1r7/6gk1/2R2gs2/9/4N4/2B6/9/9/K8 b - 1",
+      "start": "9/6gk1/2R2gs2/9/4N4/2B6/9/9/K8 b - 1",
       "steps": [
         {
           "text": {
@@ -62,11 +62,11 @@
           "moves": [
             "7c4c+",
             "3b4c",
-            "5e4c+"
+            "7f4c+"
           ],
           "text": {
-            "ja": "飛車から先に▲４三飛成△同金▲同桂成と取ると、同じ金二枚に対して渡すのは飛車になります。成桂４三は角７六に守られますが、桂から始める順より高価な駒を失います。最初にどの駒を使うかまで交換の計算に含めます。",
-            "en": "Starting with ▲４三飛成 △同金 ▲同桂成 also gains two golds, but gives up the rook. The promoted knight on ４三 is protected by the bishop on ７六, yet the cost is higher than starting with the knight. Include the first attacker in the exchange calculation."
+            "ja": "飛車から先に▲４三飛成△同金▲同角成と取ると、同じ金二枚に対して渡すのは飛車になります。馬４三は銀３三に横から取られませんが、飛車は後手の持ち駒に入り、桂から始める順より得がずっと小さくなります。▲同桂成と取り返すと、△７九飛の王手で角７六も取られます。最初にどの駒を使うかまで交換の計算に含めます。",
+            "en": "Starting with ▲４三飛成 △同金 ▲同角成 also gains two golds, but gives up the rook. The silver on ３三 cannot take the horse on ４三 sideways, yet the rook goes to Gote’s hand and the gain is much smaller than starting with the knight. Retaking with ▲同桂成 instead allows the checking drop △７九飛, which also wins the bishop on ７六. Include the first attacker in the exchange calculation."
           }
         }
       ]

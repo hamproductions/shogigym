@@ -36,7 +36,7 @@
       },
       "side": "gote",
       "kind": "position",
-      "start": "1n1gk4/1r7/5spp1/1p7/9/7P1/1PP1P4/7R1/2SGK4 w Bb 1",
+      "start": "lnsgkg1nl/1r5s1/p2ppp1pp/1pp3p2/9/2P4P1/PP1PPPP1P/2G2S1R1/LNS1KG1NL w Bb 1",
       "steps": [
         {
           "text": {
@@ -56,18 +56,18 @@
         {
           "moves": ["7c8e", "8g8f"],
           "text": {
-            "ja": "△８五桂は７七歩と９七への利きを作ります。ただし▲８六歩と突かれると、先手歩が８五桂を狙うので、桂を放置できません。８五が空いていることと、安全な着地点であることは別です。",
-            "en": "...N-8e attacks 7g and 9g. After Sente's sample P-8f, that pawn attacks the knight on 8e, so Gote must respond. An empty landing square is not automatically a safe one."
+            "ja": "△８五桂は９七の歩に利きます。ただし▲８六歩と突かれると、先手の歩が桂を狙います。桂の進み先は７七と９七だけで、７七は金が、９七は香が守っています。８五が空いていることと、安全な着地点であることは別です。",
+            "en": "...N-8e attacks the pawn on 9g. After Sente's sample P-8f, that pawn attacks the knight on 8e. The knight can only go to 7g or 9g, and the gold guards 7g while the lance guards 9g. An empty landing square is not automatically a safe one."
           },
-          "marks": { "last": "8f", "boxes": ["8e", "7g"] }
+          "marks": { "last": "8f", "boxes": ["8e", "7g", "9g"] }
         },
         {
-          "moves": ["8e7g+"],
+          "moves": ["8e9g+", "9i9g"],
           "text": {
-            "ja": "この配置なら△７七桂成で歩を取って桂を８五から逃がせます。先手が７七歩を残している場合に限る具体的な続きで、後手の優勢を示す手順ではありません。",
-            "en": "In this particular setup, ...Nx7g+ captures the pawn and moves the knight off 8e. It depends on Sente leaving the pawn on 7g and does not prove an overall advantage for Gote."
+            "ja": "△９七桂成▲同香と進めば桂を逃がせますが、取れたのは歩一枚で、桂を失います。後手が損をする例です。桂を跳ねる前に、着地点を攻められないかまで確かめます。",
+            "en": "...Nx9g+ Lx9g gets the knight off 8e, but Gote wins one pawn and loses the knight. This is a line where Gote ends up worse. Before jumping the knight, check whether the landing square can be attacked."
           },
-          "marks": { "last": "7g" }
+          "marks": { "last": "9g", "arrows": ["8e9g", "9i9g"] }
         }
       ]
     },
@@ -78,7 +78,7 @@
       },
       "side": "gote",
       "kind": "position",
-      "start": "1n1gk4/1r7/5spp1/1p7/9/7P1/1PP1P4/7R1/2SGK4 w Bb 1",
+      "start": "lnsgkg1nl/1r5s1/p2ppp1pp/1pp3p2/9/2P4P1/PP1PPPP1P/2G2S1R1/LNS1KG1NL w Bb 1",
       "steps": [
         {
           "text": {
@@ -106,8 +106,8 @@
         {
           "moves": ["7c6e"],
           "text": {
-            "ja": "△６五桂は５七歩と７七歩を狙います。ただし桂が前へ出ると相手の歩や角の利きにも近づきます。８五歩型では、８五桂の代わりにこうした別の攻めを読む必要があります。",
-            "en": "...N-6e attacks the pawns on 5g and 7g. The advanced knight also comes closer to opposing pawns and bishop drops. With the pawn on 8e, this is a different attack to assess rather than a substitute that is always better."
+            "ja": "△６五桂は５七の歩を狙います。ただし先手が▲６六歩と突くと桂が狙われ、進み先の５七と７七は先手の駒が守っています。８五歩型では、８五桂の代わりにこうした別の跳ね方も読む必要がありますが、桂を急いで跳ねる手が得とは限りません。",
+            "en": "...N-6e eyes the pawn on 5g. But if Sente plays P-6f, the knight is attacked and both squares it could reach, 5g and 7g, are guarded by Sente. With the pawn on 8e, this other jump has to be read as well, and hurrying the knight forward is not automatically good."
           },
           "marks": { "last": "6e", "boxes": ["5g", "7g"] }
         }
@@ -120,7 +120,7 @@
       },
       "side": "gote",
       "kind": "position",
-      "start": "1n1gk4/1r5b1/1pppp2p1/6p2/9/2P3PP1/1P2P4/1B5R1/2SGK4 w - 1",
+      "start": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P4P1/PP1PPPP1P/1B5R1/LNSGKGSNL w - 1",
       "steps": [
         {
           "text": {
@@ -154,7 +154,7 @@
       },
       "side": "gote",
       "kind": "position",
-      "start": "1n1gk4/1r5b1/1pppp2p1/6p2/9/2P3PP1/1PB1P4/1S5R1/3GK4 w - 1",
+      "start": "lnsgk1snl/1r4gb1/pppppp1pp/6p2/9/2P6/PPBPPPPPP/1S5R1/LN1GKGSNL w - 1",
       "steps": [
         {
           "text": {

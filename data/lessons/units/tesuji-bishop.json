@@ -61,8 +61,8 @@
             "9e7g"
           ],
           "text": {
-            "ja": "△同角不成で先手の角を取られました（△同角成も指せます）。後手の角が７七から玉５九へ利くため、銀で取り返して王手を消す必要があります。",
-            "en": "△同角不成 captures Sente's bishop (△同角成 is also possible). From ７七 the Gote bishop still points at the king on ５九, so Sente must remove it."
+            "ja": "△同角不成で先手の角を取られました（△同角成も指せます）。後手の角が７七から玉５九へ利くため、王手を解く必要があります。銀で取り返す以外に、玉を５八か６九へ動かして王手をかわすこともできます。ここでは銀で取り返します。",
+            "en": "△同角不成 captures Sente's bishop (△同角成 is also possible). From ７七 the Gote bishop still points at the king on ５九, so Sente must end the check. Besides recapturing with the silver, the king can step to ５八 or ６九. Here Sente recaptures with the silver."
           }
         },
         {
@@ -199,8 +199,8 @@
       "steps": [
         {
           "text": {
-            "ja": "角２八から９一玉への道は８二歩で止まる。この歩が８三へ動けば角の王手になるので、歩の前に桂を打つ応手を調べる。角が王手しているという意味ではなく、歩を動かした後の自玉への利きが問題。",
-            "en": "The bishop on 2h points toward the king on 9a, with Gote’s pawn on 8b blocking the line. Moving that pawn to 8c would expose check, so consider a knight drop in front of it. The bishop is not currently checking; the issue is the line left after the pawn moves."
+            "ja": "角２八から９一玉への道は８二歩で止まっています。この歩が８三へ動けば角の王手になるので、歩の前に桂を打つ応手を調べます。今は角が王手しているわけではなく、歩を動かした後の自玉への利きが問題です。",
+            "en": "The bishop on ２八 points toward the king on ９一, with Gote's pawn on ８二 blocking the line. Moving that pawn to ８三 would expose check, so consider a knight drop in front of it. The bishop is not currently checking; the issue is the line left after the pawn moves."
           },
           "marks": {
             "arrows": [
@@ -214,8 +214,8 @@
             "N*8c"
           ],
           "text": {
-            "ja": "８三桂は９一玉を王手する。８二歩で桂を取る手は角筋を開けて自玉の王手を残すため不合法。桂の着地点への見かけの利きと、実際に取れる手を区別する。",
-            "en": "N*8c checks the king on 9a. Capturing with the pawn from 8b is illegal because it opens the bishop diagonal and leaves the king in check. Distinguish apparent coverage of the knight from a legal capture."
+            "ja": "▲８三桂は９一玉を王手します。８二歩で桂を取る手は角筋を開けて自玉の王手を残すため指せません。桂の着地点への見かけの利きと、実際に取れる手を区別します。後手の応手は玉を８一か９二へ動かす二通りだけです。",
+            "en": "▲８三桂 checks the king on ９一. Capturing the knight with the pawn from ８二 is illegal because it opens the bishop's diagonal and leaves the king in check. Distinguish apparent coverage of the knight from a legal capture. Gote's only replies are king moves to ８一 or ９二."
           }
         },
         {
@@ -223,8 +223,8 @@
             "9a9b"
           ],
           "text": {
-            "ja": "９二玉は合法な逃げ。ピンと桂の王手を組み合わせても、この配置は詰みではない。玉が角筋から離れると８二歩の制約も変わる。",
-            "en": "K9b is a legal escape, so the pin and knight check do not mate in this position. Moving the king off the diagonal also changes the pawn’s restriction."
+            "ja": "△９二玉は合法な逃げです。ピンと桂の王手を組み合わせても、この配置は詰みではありません。玉が角筋から離れると、８二歩の制約も変わります。",
+            "en": "△９二玉 is a legal escape, so the pin and knight check do not mate in this position. Moving the king off the diagonal also changes the pawn's restriction."
           }
         }
       ]

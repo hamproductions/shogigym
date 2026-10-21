@@ -90,8 +90,8 @@
         {
           "moves": ["4d5c"],
           "text": {
-            "ja": "▲５三銀で金を取りました。金は先手の持駒に入りましたが、先手の銀は後手の銀の利きに進んでいます。",
-            "en": "▲５三銀 captures the gold. It enters the attacker’s hand, but the silver has moved onto the defender’s silver line."
+            "ja": "▲５三銀不成で金を取りました。金は先手の持駒に入りましたが、先手の銀は後手の銀の利きに進んでいます。",
+            "en": "▲５三銀不成 captures the gold without promoting. It enters the attacker’s hand, but the silver has moved onto the defender’s silver line."
           }
         },
         {
@@ -104,8 +104,8 @@
         {
           "moves": ["5i5c"],
           "text": {
-            "ja": "▲５三飛で後手の銀も取りました。銀は一枚ずつ持駒へ移り、先手は最初に取った金を残します。交換では、守り駒と攻め駒がどう連携するかを最後の取り返しまで追います。",
-            "en": "▲５三飛 captures the defender’s silver. Each side gains a silver in hand, and the attacker keeps the gold taken first. Trace the full sequence to see how a supporting rook changes the result."
+            "ja": "▲５三飛不成で後手の銀も取りました。銀は一枚ずつ持駒へ移り、先手は最初に取った金を残します。交換では、守り駒と攻め駒がどう連携するかを最後の取り返しまで追います。",
+            "en": "▲５三飛不成 captures the defender’s silver without promoting. Each side gains a silver in hand, and the attacker keeps the gold taken first. Trace the full sequence to see how a supporting rook changes the result."
           }
         }
       ]
@@ -117,12 +117,12 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "k8/2r6/9/9/9/9/2GS5/9/8K b - 1",
+      "start": "k8/2r6/9/9/9/9/2GS5/2G6/8K b - 1",
       "steps": [
         {
           "text": {
-            "ja": "後手の飛車７二から７筋は空いています。先手の金７七を６六へ動かすと、飛車が７六へ進める形になりますが、銀６七はその升を守っています。駒を筋から外すときは、相手の侵入先に利きが残るかも見ます。",
-            "en": "The defender’s rook on ７二 has an open route down the seventh file. If the attacker’s gold on ７七 moves to ６六, the rook could enter ７六, but the silver on ６七 protects that square. When clearing a file, check whether the opponent’s entry squares remain defended."
+            "ja": "後手の飛車７二から７筋は空いています。先手の金７七を６六へ動かすと、飛車は７六や７七へ進めるようになります。７六には銀６七、７七には金７八が利き、金７八自身も銀６七が支えています。駒を筋から外すときは、相手の侵入先に利きが残るかも見ます。",
+            "en": "The defender’s rook on ７二 has an open route down the seventh file. If the attacker’s gold on ７七 moves to ６六, the rook could enter ７六 or ７七. The silver on ６七 protects ７六, the gold on ７八 protects ７七, and the silver also protects that gold. When clearing a file, check whether the opponent’s entry squares remain defended."
           }
         },
         {
@@ -141,15 +141,15 @@
         {
           "moves": ["7b7f"],
           "text": {
-            "ja": "△７六飛と飛車が進みました。先手は銀６七でこの飛車を取れます。",
-            "en": "△７六飛 brings the rook down the file. The attacker’s silver on ６七 can capture it."
+            "ja": "後手が△７六飛と７筋へ進んだ場合を見ます。先手は銀６七でこの飛車を取れ、移動した金６六もこの升に利いています。",
+            "en": "Suppose the defender plays △７六飛 down the seventh file. The attacker’s silver on ６七 can capture the rook, and the gold now on ６六 also covers that square."
           }
         },
         {
           "moves": ["6g7f"],
           "text": {
-            "ja": "▲７六銀で飛車を取りました。相手の大駒が筋へ入る前に、守る升とそこへ利かせる駒を確認しておけば、無理な侵入を咎められます。",
-            "en": "▲７六銀 captures the rook. By checking the squares you need to defend and the pieces that cover them before a major piece enters, you can punish an unsupported invasion."
+            "ja": "▲７六銀で飛車を取りました。７七へ成り込んでも金７八に、７八の金を取っても銀６七に取られます。相手の大駒が筋へ入る前に、守る升とそこへ利かせる駒を確認しておけば、無理な侵入を咎められます。",
+            "en": "▲７六銀 captures the rook. Promoting on ７七 would lose the rook to the gold on ７八, and taking that gold would lose it to the silver on ６七. By checking the squares you need to defend and the pieces that cover them before a major piece enters, you can punish an unsupported invasion."
           }
         }
       ]

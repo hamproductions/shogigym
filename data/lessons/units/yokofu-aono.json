@@ -153,12 +153,12 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/7s1/1r4b2/g5R2/9/6P2/6N2/4K4/5G3 w Pp 1",
+      "start": "4k4/5g1s1/lr4b2/g5R2/9/6P2/3G2N2/4K4/5G3 w Pp 1",
       "steps": [
         {
           "text": {
-            "ja": "先手は５八玉、３七桂、３四飛まで進めている。後手銀２二が２三へ出ると、銀の斜め前の３四飛を直接攻める。桂の計画より先に飛車の退路を確かめる。",
-            "en": "Sente has a king on 5h, knight on 3g and rook on 3d. If Gote's silver goes from 2b to 2c, its forward diagonal attacks the rook on 3d. Check the rook's escape before following a knight plan."
+            "ja": "先手は５八玉、３七桂、３四飛まで進め、６七に金を置いて角の斜めの利きに備えている。後手は４二金が３三角を、９三香が９四金を支える。後手銀２二が２三へ出ると、銀の斜め前の３四飛を直接攻める。桂の計画より先に飛車の退路を確かめる。",
+            "en": "Sente has a king on 5h, knight on 3g and rook on 3d, with a gold on 6g against the bishop's diagonal. Gote's gold on 4b supports the bishop on 3c and its lance on 9c supports the gold on 9d. If Gote's silver goes from 2b to 2c, its forward diagonal attacks the rook on 3d. Check the rook's escape before following a knight plan."
           },
           "marks": {
             "arrows": [
@@ -176,8 +176,8 @@
             "3d3e"
           ],
           "text": {
-            "ja": "２三銀に対し飛車を３五へ下げた。銀が利く３四から外れる小さな退路で、桂３七はまだ跳ねていない。飛車を置き去りにして攻める手順との違いを見る。",
-            "en": "Against the silver on 2c, Sente lowers the rook to 3e, away from the silver's attack on 3d. The knight on 3g remains available. The immediate threat to the rook takes priority over launching the knight."
+            "ja": "２三銀に対し飛車を３五へ下げた。銀が利く３四から外れる小さな退路で、桂３七はまだ跳ねていない。９四の金を飛車で取っても９三香に取り返されるので、金取りは狙わない。飛車を置き去りにして攻める手順との違いを見る。",
+            "en": "Against the silver on 2c, Sente lowers the rook to 3e, away from the silver's attack on 3d. The knight on 3g remains available. Capturing the gold on 9d with the rook would only lose the rook to the lance on 9c, so Sente does not go for it. The immediate threat to the rook takes priority over launching the knight."
           },
           "marks": {
             "boxes": [
@@ -210,7 +210,7 @@
             "8c8d"
           ],
           "text": {
-            "ja": "後手飛車は８四へ移った。この例の８四飛は３五飛と同じ段にいないが、次に８五へ来れば横からの飛車交換を提案できる。青野流では先手飛車の位置と玉の備えを一緒に管理する。 後手９四金が８五を守るので、３五飛で８五飛を取っても同金で交換になる。",
+            "ja": "後手飛車は８四へ移った。この例の８四飛は３五飛と同じ段にいないが、次に８五へ来れば横からの飛車交換を提案できる。青野流では先手飛車の位置と玉の備えを一緒に管理する。後手９四金が８五を守るので、３五飛で８五飛を取っても同金で交換になる。",
             "en": "Gote shifts its rook to 8d. Here it is not on the same rank as Sente's rook on 3e; a later move to 8e could propose a lateral rook exchange. In the Aono style, the advanced rook and king preparation must be managed together. Gote’s gold on 9d guards 8e, so R3e8e can be met by a gold recapture."
           },
           "marks": {

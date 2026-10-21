@@ -147,17 +147,28 @@
           }
         },
         {
-          "moves": ["6h5i"],
+          "moves": ["1g5g"],
           "text": {
-            "ja": "玉を５九へ逃がす応手の一例です。王手は止まりましたが飛車１七は角の利きに残ります。玉が最初から５九なら、この角打ちは同じ王手にはなりません。",
-            "en": "Moving the king to 5i is one legal reply. It ends the check but leaves the rook on 1g under attack. Had the king already been on 5i, this bishop drop would not have been the same checking fork."
-          }
+            "ja": "飛車を５七へ寄せて王手を受ける応手です。飛車は角の斜線を遮り、玉６八が支えているので角で取られても取り返せます。同時に５筋から後手玉５一へ王手がかかります。二方向の線は、飛車自身で受けられる形なら飛車損になりません。",
+            "en": "Sliding the rook to 5g answers the check by interposition. The rook blocks the diagonal and is supported by the king on 6h, so a bishop capture can be recaptured. It also gives check down the fifth file to the king on 5a. A fork along two diagonals does not cost the rook when the rook itself can interpose."
+          },
+          "marks": { "boxes": ["5g", "6h"] }
         },
         {
-          "moves": ["3e1g+"],
+          "moves": ["8b5b"],
           "text": {
-            "ja": "後手は飛車１七を取って角を成りました。これは先手が５九へ逃げた場合の実例であり、ほかの王手への対応まで全て否定する証明ではありません。仕掛け前に角打ちの線を消せるかを調べます。",
-            "en": "Gote captures the rook on 1g and promotes its bishop in this sample after the king retreat. This line does not prove that every legal answer to the check loses the rook. Before launching an attack, inspect whether the diagonal can be closed or the king repositioned."
+            "ja": "後手が飛車５二で合駒した一例です。先手は持角を残しています。仕掛け前に、角打ちの線を飛車で受けられるかを確かめます。",
+            "en": "Gote interposes with the rook on 5b in this sample. Sente still holds a bishop in hand. Before launching an attack, check whether a rook interposition can answer the bishop drop's diagonals."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": ["6h5i", "3e1g+"],
+          "text": {
+            "ja": "失敗例です。玉を５九へ逃がして王手は止まりますが、飛車１七が角に取られて角が成ります。玉の移動では線上の飛車を守れないので、飛車で受けるか、仕掛け前に線を消しておきます。",
+            "en": "A deliberate mistake. Moving the king to 5i ends the check, but the bishop captures the rook on 1g and promotes. A king move does not protect a rook on the line, so interpose with the rook or close the diagonal before launching an attack."
           }
         }
       ]
@@ -169,12 +180,12 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/1r7/9/1p7/5S3/9/1PS6/2GK3R1/9 w Bb 1",
+      "start": "4k4/1rg6/9/1p7/5S3/9/1PS6/2GK4R/9 w Bb 1",
       "steps": [
         {
           "text": {
-            "ja": "先手銀４五が前へ出た一方、左銀７七は８六に利いています。後手飛車８二と歩８四が８筋から動く時、先手は攻めの銀だけを見ず、８六を取り返せる駒を数えます。",
-            "en": "Sente's right silver is advanced on 4e, while its left silver on 7g controls 8f. Gote has a rook on 8b and pawn on 8d. When the eighth file opens, count the piece protecting 8f rather than focusing only on the attacking silver."
+            "ja": "先手銀４五が前へ出た一方、左銀７七は８六に利いています。後手飛車８二と歩８四が８筋から動く時、先手は攻めの銀だけを見ず、８六を取り返せる駒を数えます。後手金７二は飛車８二を守り、王手の角７三打ちにも同金と取れます。",
+            "en": "Sente's right silver is advanced on 4e, while its left silver on 7g controls 8f. Gote has a rook on 8b and pawn on 8d. When the eighth file opens, count the piece protecting 8f rather than focusing only on the attacking silver. Gote’s gold on 7b guards the rook on 8b and can capture a checking bishop dropped on 7c."
           }
         },
         {

@@ -30,9 +30,9 @@
     {
       "title": { "ja": "角交換で生まれる飛車への角打ち", "en": "A bishop trade creates a new rook attack" },
       "side": "sente", "kind": "position",
-      "start": "4k4/6gb1/9/6R2/9/2r6/9/1B7/4K4 b Pp 1",
+      "start": "4ks3/6gb1/9/6R2/9/2r6/9/1B7/4K4 b Pp 1",
       "steps": [
-        { "text": { "ja": "先手飛車は３四、後手飛車は７六。角は８八と２二で向かい合う。角が盤上にある間と、双方が角を持った後では、飛車を攻める手段が変わる。", "en": "Sente's rook is on 3d and Gote's on 7f. The bishops face each other from 8h and 2b. Trading them changes the available ways to attack an exposed rook." }, "marks": { "arrows": ["8h2b"], "boxes": ["7f", "3d"] } },
+        { "text": { "ja": "先手飛車は３四、後手飛車は７六。角は８八と２二で向かい合う。３二金は４一銀が守るので、▲３二飛成は金と飛車の交換になる。角が盤上にある間と、双方が角を持った後では、飛車を攻める手段が変わる。", "en": "Sente's rook is on 3d and Gote's on 7f. The bishops face each other from 8h and 2b. The silver on 4a guards the gold on 3b, so taking it with the rook only trades the rook for a gold. Trading bishops changes the available ways to attack an exposed rook." }, "marks": { "arrows": ["8h2b"], "boxes": ["7f", "3d", "3b"] } },
         { "moves": ["8h2b+", "3b2b"], "text": { "ja": "先手角が２二の角を取り、後手の３二金が馬を取り返した。双方が角を一枚ずつ持つ。この盤では、先手はその角を５四へ打つ場所がある。", "en": "Sente's bishop captures on 2b and promotes; Gote's gold from 3b recaptures. Each side now holds a bishop. In this position Sente has a drop square on 5d." }, "marks": { "boxes": ["2b", "5d", "7f"] } },
         { "moves": ["B*5d"], "text": { "ja": "５四角は６五を通って７六飛へ斜めに利く。角交換前には持ち角がなく、この角打ちはできなかった。後手は飛車を逃がすほかにも応手を選べるので、得を決めつけない。", "en": "The bishop on 5d attacks the rook on 7f through 6e. Sente could not make this drop before acquiring a bishop in hand. Gote may choose among rook moves and other replies, so the attack alone proves no gain." }, "marks": { "arrows": ["5d7f"], "boxes": ["6e"] } },
         { "moves": ["7f8f"], "text": { "ja": "この応手では後手飛車を８六へ移す。角の利きから飛車は外れたが、先手の３四飛も前線にある。角一枚の打ち場所だけで全体の優劣は決まらない。", "en": "In this sample reply Gote moves the rook to 8f, off the bishop's diagonal. Sente's rook still sits forward on 3d. One bishop drop does not determine the overall balance." }, "marks": { "boxes": ["8f", "3d", "5d"] } }

@@ -52,8 +52,8 @@
             "6h6g"
           ],
           "text": {
-            "ja": "▲６七金。金６七は歩７六と銀７七の両方を守り、金７八は銀７七を支えています。この金矢倉型では、歩を取られた後に７筋がどう開くかも検討します。６七を銀にする銀矢倉型なら、同じマスでも金と利きが違うため、守るマスを数え直します。 ６七の金だけが利くのは５七・７七・６八、銀だけが利くのは５八・７八。５六・６六・７六は両方が利く。",
-            "en": "▲６七金 protects both the pawn on ７六 and the silver on ７七; the gold on ７八 also supports that silver. In this Gold Yagura core, still calculate how the seventh file opens if the pawn falls. A Silver Yagura puts a silver on ６七 instead, changing its coverage; count the defended squares again rather than treating the pieces as interchangeable. From 6g, gold-only coverage is 5g, 7g and 6h; silver-only coverage is 5h and 7h. Both cover 5f, 6f and 7f."
+            "ja": "▲６七金。金６七は歩７六と銀７七の両方を守り、金７八は銀７七を支えています。この金矢倉型では、歩を取られた後に７筋がどう開くかも検討します。６七を銀にする銀矢倉型なら、同じマスでも金と利きが違うため、守るマスを数え直します。６七に置いたとき、金だけが利くのは５七・７七・６八、銀だけが利くのは５八・７八で、５六・６六・７六にはどちらも利きます。",
+            "en": "▲６七金 protects both the pawn on ７六 and the silver on ７七; the gold on ７八 also supports that silver. In this Gold Yagura core, still calculate how the seventh file opens if the pawn falls. A Silver Yagura puts a silver on ６七 instead, changing its coverage; count the defended squares again rather than treating the pieces as interchangeable. Placed on ６七, only the gold covers ５七, ７七 and ６八, only a silver covers ５八 and ７八, and both cover ５六, ６六 and ７六."
           }
         }
       ]
