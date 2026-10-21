@@ -7,6 +7,7 @@ import type { Spar } from './useSpar'
 import { Button } from '@/app/ui/Button'
 import { Text } from '@/components/ui'
 import { GameOverHeadline, GameOverPanel } from './game-over.styles'
+import { Marks } from '@/app/ui/SideMark'
 
 export function GameOverBanner({ spar, flatView }: { spar: Spar; flatView: boolean }) {
   const { t } = useTranslation()
@@ -49,11 +50,15 @@ export function GameOverBanner({ spar, flatView }: { spar: Spar; flatView: boole
       >
         ×
       </Button>
-      <GameOverHeadline>{headline}</GameOverHeadline>
-      <span>{detail}</span>
+      <GameOverHeadline>
+        <Marks>{headline}</Marks>
+      </GameOverHeadline>
+      <span>
+        <Marks>{detail}</Marks>
+      </span>
       {facts && (
         <Text as="span" tone="muted" size="sm">
-          {facts.join(' · ')}
+          <Marks>{facts.join(' · ')}</Marks>
         </Text>
       )}
       <Wrap gap="2" align="center" justifyContent="center" mt="1">

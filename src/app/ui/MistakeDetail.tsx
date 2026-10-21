@@ -5,6 +5,7 @@ import type { Weakness } from '@/utils/learning'
 import { colorSide, moveText, positionOf } from '@/utils/shogi'
 import { PositionView } from '@/rendering/PositionView'
 import { Text } from '@/components/ui'
+import { FlipMarks } from './SideMark'
 
 const Move = styled('span', {
   base: { px: '0.3em', borderRadius: 'xs', fontWeight: 'bold', whiteSpace: 'nowrap' },
@@ -25,6 +26,7 @@ type Props = { sfen: string; played: string; best: string; tag: Weakness; loss: 
 export function MistakeDetail({ sfen, played, best, tag, loss, reason, showPlayed, snug }: Props) {
   const { t, i18n } = useTranslation()
   const [big, setBig] = useState(false)
+  const boardFlipped = colorSide(positionOf(sfen).color) === 'gote'
   const stop = i18n.language === 'ja' ? '。' : '. '
   return (
     <Box
@@ -39,7 +41,10 @@ export function MistakeDetail({ sfen, played, best, tag, loss, reason, showPlaye
         <Text mt="0" mb={snug ? '0' : '1'} fontSize="sm" lineHeight={snug ? 'snug' : undefined}>
           {showPlayed && (
             <>
-              {t('report.youPlayed')} <Move kind="played">{moveText(sfen, played)}</Move>
+              {t('report.youPlayed')}{' '}
+              <Move kind="played">
+                <FlipMarks flipped={boardFlipped}>{moveText(sfen, played)}</FlipMarks>
+              </Move>
               {stop}
             </>
           )}
@@ -51,13 +56,17 @@ export function MistakeDetail({ sfen, played, best, tag, loss, reason, showPlaye
           {best !== played && (
             <>
               {' '}
-              {t('report.betterWas')} <Move kind="best">{moveText(sfen, best)}</Move> {t('report.keepsMore', { percent: Math.max(1, Math.round(loss * 100)) })}
+              {t('report.betterWas')}{' '}
+              <Move kind="best">
+                <FlipMarks flipped={boardFlipped}>{moveText(sfen, best)}</FlipMarks>
+              </Move>{' '}
+              {t('report.keepsMore', { percent: Math.max(1, Math.round(loss * 100)) })}
             </>
           )}
         </Text>
         {reason && (
           <Text tone="muted" size="sm" mt="0" mb={snug ? '0' : '1'} lineHeight={snug ? 'snug' : undefined}>
-            {reason}
+            <FlipMarks flipped={boardFlipped}>{reason}</FlipMarks>
           </Text>
         )}
       </div>
@@ -74,7 +83,7 @@ export function MistakeDetail({ sfen, played, best, tag, loss, reason, showPlaye
         aria-expanded={big}
         aria-label={t('report.enlargePosition')}
       >
-        <PositionView sfen={sfen} played={played} best={best} flipped={colorSide(positionOf(sfen).color) === 'gote'} />
+        <PositionView sfen={sfen} played={played} best={best} flipped={boardFlipped} />
       </styled.button>
     </Box>
   )

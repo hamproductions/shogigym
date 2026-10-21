@@ -3,6 +3,7 @@ import { styled } from 'styled-system/jsx'
 import { useGlide } from '@/app/hooks/useGlide'
 import { SideMark } from '@/app/ui/SideMark'
 import { evalBarNumber } from './stage.styles'
+import { spellMarks } from '@/utils/notation'
 
 const EvalTrack = styled('div', {
   base: {
@@ -19,12 +20,12 @@ const EvalTrack = styled('div', {
 })
 
 export function EvalBar({ rate, flipped }: { rate: number; flipped: boolean }) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const sente = Math.round(rate * 100)
   const bottomShare = flipped ? 1 - rate : rate
   const fill = useGlide<HTMLDivElement>('height', bottomShare * 100)
   return (
-    <EvalTrack title={t('app.winChance', { value: sente, value2: 100 - sente })} aria-label={t('app.winChanceShort')}>
+    <EvalTrack title={spellMarks(t('app.winChance', { value: sente, value2: 100 - sente }), i18n.language)} aria-label={t('app.winChanceShort')}>
       <styled.div ref={fill} position="absolute" left="0" right="0" bottom="0" bg="#f1eadb" style={{ height: `${bottomShare * 100}%` }} />
       <span className={evalBarNumber({ place: bottomShare >= 0.5 ? 'bottom' : 'top' })}>
         <SideMark side={rate >= 0.5 ? 'sente' : 'gote'} flipped={flipped} />

@@ -15,6 +15,7 @@ import { MistakeDetail } from '@/app/ui/MistakeDetail'
 import type { Mistake } from '@/utils/mistakes'
 import { Text, type TextProps } from '@/components/ui'
 import { LabelBadge } from '@/app/panels/panels.styles'
+import { Marks } from '@/app/ui/SideMark'
 import {
   ReportBar,
   ReportBarFill,
@@ -152,7 +153,7 @@ export function GameReport({ game, userSide, rate, progress: external, choice, o
               aria-label={t(`report.${s}`)}
               title={onChoose ? t('insights.pickSide') : undefined}
             >
-              {s === 'sente' ? '☗' : '☖'}
+              <Marks>{s === 'sente' ? '☗' : '☖'}</Marks>
             </Button>
           ))}
           {onChoose && (
@@ -255,7 +256,9 @@ export function GameReport({ game, userSide, rate, progress: external, choice, o
                     <ReportListItem key={p.ply}>
                       <LabelBadge style={{ ['--label' as string]: LABELS[p.review.label].color }}>{LABELS[p.review.label].symbol}</LabelBadge>
                       <ReportListBody>
-                        <strong>{t('report.played', { ply: p.ply, played: moveText(p.sfen, p.usi), loss: Math.round(p.review.loss * 100) })}</strong>
+                        <strong>
+                          <Marks>{t('report.played', { ply: p.ply, played: moveText(p.sfen, p.usi), loss: Math.round(p.review.loss * 100) })}</Marks>
+                        </strong>
                         <MistakeDetail
                           snug
                           sfen={p.sfen}
@@ -282,7 +285,9 @@ export function GameReport({ game, userSide, rate, progress: external, choice, o
                     {report.praise.map((m) => (
                       <ReportPraiseItem key={m.ply}>
                         <LabelBadge style={{ ['--label' as string]: LABELS[m.review.label].color }}>{LABELS[m.review.label].symbol}</LabelBadge>
-                        <strong>{moveText(m.sfen, m.usi)}</strong>
+                        <strong>
+                          <Marks>{moveText(m.sfen, m.usi)}</Marks>
+                        </strong>
                         <Text as="span" tone="muted" size="sm">
                           {t('report.praiseMove', { ply: m.ply, label: LABELS[m.review.label].text })}
                         </Text>
@@ -398,7 +403,9 @@ export function ReportDialog({ game, userSide, onShow, onRoute, onClose }: Repor
                       <ReportListItem key={p.ply}>
                         <LabelBadge style={{ ['--label' as string]: LABELS[p.review.label].color }}>{LABELS[p.review.label].symbol}</LabelBadge>
                         <ReportListBody>
-                          <strong>{t('report.played', { ply: p.ply, played: moveText(p.sfen, p.usi), loss: Math.round(p.review.loss * 100) })}</strong>
+                          <strong>
+                            <Marks>{t('report.played', { ply: p.ply, played: moveText(p.sfen, p.usi), loss: Math.round(p.review.loss * 100) })}</Marks>
+                          </strong>
                           <MistakeDetail
                             snug
                             sfen={p.sfen}
@@ -425,7 +432,9 @@ export function ReportDialog({ game, userSide, onShow, onRoute, onClose }: Repor
                     {report.praise.map((m) => (
                       <ReportPraiseItem key={m.ply}>
                         <LabelBadge style={{ ['--label' as string]: LABELS[m.review.label].color }}>{LABELS[m.review.label].symbol}</LabelBadge>
-                        <strong>{moveText(m.sfen, m.usi)}</strong>
+                        <strong>
+                          <Marks>{moveText(m.sfen, m.usi)}</Marks>
+                        </strong>
                         <Text as="span" tone="muted" size="sm">
                           {t('report.praiseMove', { ply: m.ply, label: LABELS[m.review.label].text })}
                         </Text>

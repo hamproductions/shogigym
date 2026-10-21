@@ -1,9 +1,10 @@
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { moveText } from '@/utils/shogi'
+import { spellMarks } from '@/utils/notation'
 import { useSession } from '@/app/hooks/session'
 import { Icon } from '@/app/icons'
-import { SideMark } from '@/app/ui/SideMark'
+import { FlipMarks, SideMark } from '@/app/ui/SideMark'
 import type { Spar } from '@/app/modes/spar/useSpar'
 import type { Watch } from '@/app/modes/view/useWatch'
 import type { TesujiTrainer as Tesuji } from '@/app/modes/tesuji/useTesuji'
@@ -81,7 +82,7 @@ export function ModeBarHeading({
   wideMove?: boolean
   turnCompactOnly?: boolean
 }) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [before, after] = t('app.toMove', { side: '\u0001' }).split('\u0001')
   return (
     <styled.div
@@ -131,7 +132,7 @@ export function ModeBarHeading({
           _compact={{ display: 'block', fontSize: 'sm' }}
           _short={{ fontSize: 'md' }}
         >
-          {title}
+          <FlipMarks flipped={flipped}>{title}</FlipMarks>
         </styled.strong>
         <styled.span
           overflow="hidden"
@@ -144,7 +145,7 @@ export function ModeBarHeading({
           role="status"
           aria-busy={busy}
         >
-          {instruction}
+          <FlipMarks flipped={flipped}>{instruction}</FlipMarks>
         </styled.span>
       </styled.span>
       <styled.span
@@ -174,9 +175,9 @@ export function ModeBarHeading({
           color="highlight"
           _compact={{ fontSize: 'md' }}
           _short={{ fontSize: 'md' }}
-          title={lastMove}
+          title={lastMove && spellMarks(lastMove, i18n.language)}
         >
-          {lastMove ?? '\u00a0'}
+          {lastMove ? <FlipMarks flipped={flipped}>{lastMove}</FlipMarks> : '\u00a0'}
         </styled.strong>
         <styled.span
           color="fg.muted"
@@ -195,7 +196,7 @@ export function ModeBarHeading({
 }
 
 export function EvalChip({ rate, barShown, flipped }: { rate: number; barShown: boolean; flipped?: boolean }) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const fill = useGlide<HTMLSpanElement>('width', rate * 100)
   return (
     <styled.span
@@ -210,7 +211,7 @@ export function EvalChip({ rate, barShown, flipped }: { rate: number; barShown: 
       _compact={{ order: '3', flex: '1', h: '28px', p: '{spacing.1} {spacing.2}', '&[data-bar]': { display: 'inline-flex' } }}
       css={{ '&[data-bar]': { display: 'none' } }}
       data-bar={barShown || undefined}
-      title={t('app.winChance', { value: Math.round(rate * 100), value2: 100 - Math.round(rate * 100) })}
+      title={spellMarks(t('app.winChance', { value: Math.round(rate * 100), value2: 100 - Math.round(rate * 100) }), i18n.language)}
     >
       <styled.span color="fg.muted" fontSize="xs" _compact={{ display: 'inline' }}>
         {t('app.winChanceShort')}

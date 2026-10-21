@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import type { View } from '@/app/hooks/useView'
 import type { IconName } from '@/app/icons'
 import { useSettings } from '@/appearance/settings'
+import { spellMarks } from '@/utils/notation'
 
 export type RailTool = {
   id: string
@@ -40,7 +41,7 @@ export function useRailTools({
   onReport,
   onTrends,
 }: ToolActions) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const ja = useSettings().lang === 'ja'
   const { tilted, setTilted, orbit, setOrbit, flatView, showControl, setShowControl, setHideUi, fullscreen, toggleFullscreen } = view
   const primary: RailTool[] = [
@@ -95,7 +96,7 @@ export function useRailTools({
       id: 'control',
       icon: 'control',
       label: t('rail.control'),
-      title: t('app.controlMapWhoControlsEach'),
+      title: spellMarks(t('app.controlMapWhoControlsEach'), i18n.language),
       on: showControl,
       pressed: showControl,
       run: () => setShowControl((v) => !v),

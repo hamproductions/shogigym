@@ -5,6 +5,7 @@ import type { LessonMode } from '@/app/types'
 import { Button } from '@/app/ui/Button'
 import { Flex, styled } from 'styled-system/jsx'
 import { ProgressLine } from './lesson.styles'
+import { Marks } from '@/app/ui/SideMark'
 
 const GrowButton = styled(Button, { base: { flex: '1' } })
 
@@ -22,9 +23,11 @@ export function LessonCard({ course, onOpen, prefix }: { course: Course; onOpen:
       {progress.total > 0 && (
         <styled.span display="flex" justifyContent="space-between" gap="2" color="fg.muted" fontSize="xs">
           <styled.span color="success" css={{ '&[data-defending]': { color: 'info' } }} data-defending={course.notesFromOpponentView || undefined}>
-            {t(course.notesFromOpponentView ? 'picker.theyAttackYouDefendAs' : 'picker.youPlay', {
-              side: t(course.userSide === 'sente' ? 'common.sente' : 'common.gote'),
-            })}
+            <Marks>
+              {t(course.notesFromOpponentView ? 'picker.theyAttackYouDefendAs' : 'picker.youPlay', {
+                side: t(course.userSide === 'sente' ? 'common.sente' : 'common.gote'),
+              })}
+            </Marks>
           </styled.span>
           <span>
             <span title={t('picker.yourMovesInThisLesson')}>{t('picker.rightInQuiz', { learned: progress.learned, total: progress.total })}</span>

@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { Box, styled } from 'styled-system/jsx'
 import type { GameNotes } from './useAnalyzeGames'
 import { Muted, Note } from '@/app/panels/panels.styles'
+import { Marks } from '@/app/ui/SideMark'
 
 export function KifuNotes({ notes, moves, ply: cursor }: { notes: GameNotes; moves: string[]; ply: number }) {
   const { t } = useTranslation()
@@ -15,10 +16,14 @@ export function KifuNotes({ notes, moves, ply: cursor }: { notes: GameNotes; mov
           <styled.span mr="1" px="1.5" borderRadius="xs" bg="info.soft" color="info" fontFamily="sans" fontSize="2xs" fontWeight="bold">
             {t('app.comment')}
           </styled.span>{' '}
-          {notes.comments[cursor]}
+          <Marks>{notes.comments[cursor]}</Marks>
         </Note>
       )}
-      {notes.ending && cursor === noted.length && <Note>{notes.ending}</Note>}
+      {notes.ending && cursor === noted.length && (
+        <Note>
+          <Marks>{notes.ending}</Marks>
+        </Note>
+      )}
     </Box>
   )
 }

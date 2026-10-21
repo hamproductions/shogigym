@@ -15,6 +15,7 @@ import { Button } from '@/app/ui/Button'
 import { Pill } from '@/app/ui/Pill'
 import { Checkbox } from '@/components/ui'
 import { Muted, NarrowColumn, PvLine, SubHeading } from './panels.styles'
+import { spellMarks } from '@/utils/notation'
 
 const MoveLine = styled('div', { base: { display: 'flex', alignItems: 'center', gap: '2.5', _narrow: { flexWrap: 'wrap' } } })
 
@@ -136,7 +137,7 @@ export function EngineResultPane({
         css={{ '@container (max-width: 400px)': { '@media not all and (max-width: 820px)': { display: 'flex', alignItems: 'center', gap: '2', pb: '1' } } }}
       >
         <styled.strong display="block" fontSize="lg" _narrow={{ display: 'none' }} css={{ '@container (max-width: 400px)': { display: 'none' } }}>
-          {standing(senteRate)}
+          <FlipMarks flipped={flipped}>{standing(senteRate)}</FlipMarks>
         </styled.strong>
         <styled.span
           display="none"
@@ -144,7 +145,7 @@ export function EngineResultPane({
           fontVariantNumeric="tabular-nums"
           _narrow={{ display: 'block', fontSize: 'xs' }}
           css={{ '@container (max-width: 400px)': { display: 'block', fontSize: 'xs' } }}
-          title={standing(senteRate)}
+          title={spellMarks(standing(senteRate), i18n.language)}
           aria-label={t('engine.winChanceAgainst', { value: Math.round(senteRate * 100), value2: Math.round((1 - senteRate) * 100) })}
         >
           <FlipMarks flipped={flipped}>{sideMark(senteRate >= 0.5 ? 'sente' : 'gote')}</FlipMarks> {Math.round(Math.max(senteRate, 1 - senteRate) * 100)}%
@@ -167,7 +168,9 @@ export function EngineResultPane({
           _narrow={{ display: 'none', gridColumn: '1 / -1', fontSize: 'xs', whiteSpace: 'nowrap' }}
           css={{ '@container (max-width: 400px)': { display: 'none' } }}
         >
-          {t('engine.winChanceAgainst', { value: Math.round(senteRate * 100), value2: Math.round((1 - senteRate) * 100) })}
+          <FlipMarks flipped={flipped}>
+            {t('engine.winChanceAgainst', { value: Math.round(senteRate * 100), value2: Math.round((1 - senteRate) * 100) })}
+          </FlipMarks>
         </styled.span>
       </Box>
 
@@ -177,7 +180,7 @@ export function EngineResultPane({
         </Muted>
         <MoveLine>
           <MoveName fontSize="2xl" lineHeight="tight" _narrow={{ fontSize: 'lg' }}>
-            {formatMove(best.move)}
+            <FlipMarks flipped={flipped}>{formatMove(best.move)}</FlipMarks>
           </MoveName>
           {isBook(best.move) && <Pill>{t('engine.book')}</Pill>}
           {canPlay && (
@@ -186,8 +189,16 @@ export function EngineResultPane({
             </PlayButton>
           )}
         </MoveLine>
-        {why(best.move) && <Why>{why(best.move)}</Why>}
-        {answer(best) && <Why color="fg.muted">{t('engine.theyWouldLikelyAnswer', { move: answer(best) })}</Why>}
+        {why(best.move) && (
+          <Why>
+            <FlipMarks flipped={flipped}>{why(best.move)!}</FlipMarks>
+          </Why>
+        )}
+        {answer(best) && (
+          <Why color="fg.muted">
+            <FlipMarks flipped={flipped}>{t('engine.theyWouldLikelyAnswer', { move: answer(best) })}</FlipMarks>
+          </Why>
+        )}
       </Box>
 
       {others.length > 0 && <SubHeading>{t('engine.otherMoves')}</SubHeading>}
@@ -196,7 +207,9 @@ export function EngineResultPane({
         return (
           <Box key={c.multipv} py="2.5" borderBottom="1px solid {colors.border}">
             <MoveLine>
-              <MoveName fontSize="lg">{formatMove(c.move)}</MoveName>
+              <MoveName fontSize="lg">
+                <FlipMarks flipped={flipped}>{formatMove(c.move)}</FlipMarks>
+              </MoveName>
               <span className={lossClass(loss)}>{loss === 0 ? t('engine.justAsGood') : t('engine.winChance', { loss })}</span>
               {canPlay && (
                 <PlayButton size="sm" onClick={() => onPlay(c.move)}>
@@ -204,7 +217,11 @@ export function EngineResultPane({
                 </PlayButton>
               )}
             </MoveLine>
-            {why(c.move) && <Why>{why(c.move)}</Why>}
+            {why(c.move) && (
+              <Why>
+                <FlipMarks flipped={flipped}>{why(c.move)!}</FlipMarks>
+              </Why>
+            )}
           </Box>
         )
       })}
@@ -222,7 +239,11 @@ export function EngineResultPane({
       >
         {lineOpen ? t('engine.hideTheLine') : t('engine.seeHowTheBestLine')}
       </styled.button>
-      {lineOpen && <PvLine>{formatPv(best.pv)}</PvLine>}
+      {lineOpen && (
+        <PvLine>
+          <FlipMarks flipped={flipped}>{formatPv(best.pv)}</FlipMarks>
+        </PvLine>
+      )}
 
       <Checkbox.Root
         size="sm"

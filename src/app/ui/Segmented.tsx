@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { Grid, styled } from 'styled-system/jsx'
 import { SegmentGroup } from '@/components/ui'
 import { cx } from './cx'
+import { Marks } from './SideMark'
 
 type Option<T> = { v: T; t: ReactNode; title?: string }
 type SegmentedProps<T> = { value: T; options: Option<T>[]; onChange: (v: T) => void; label?: string; size?: 'small' | 'big'; className?: string }
@@ -25,7 +26,7 @@ export function Segmented<T extends string | number | boolean>({ value, options,
     >
       {options.map((o) => (
         <SegmentGroup.Item key={String(o.v)} value={String(o.v)} title={o.title}>
-          <SegmentGroup.ItemText>{o.t}</SegmentGroup.ItemText>
+          <SegmentGroup.ItemText>{typeof o.t === 'string' ? <Marks>{o.t}</Marks> : o.t}</SegmentGroup.ItemText>
           <SegmentGroup.ItemHiddenInput />
         </SegmentGroup.Item>
       ))}

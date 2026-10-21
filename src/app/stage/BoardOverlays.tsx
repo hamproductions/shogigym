@@ -8,6 +8,7 @@ import { Muted, PlateBox, PlateSide } from '@/app/panels/panels.styles'
 import { styled } from 'styled-system/jsx'
 import inkMask from './announcement-ink.png'
 import { announce as announceStyle, announceName, announceSeal, promoteChoice } from './stage.styles'
+import { Marks } from '@/app/ui/SideMark'
 
 export function AnnounceBadge({ announce }: { announce: Announcement }) {
   const { t } = useTranslation()
@@ -46,7 +47,9 @@ export function AnnounceBadge({ announce }: { announce: Announcement }) {
             _narrow={{ gap: '2', fontSize: '11px', letterSpacing: '0.12em', _before: { w: '16px' } }}
             _motionReduce={{ animation: 'none' }}
           >
-            <span>{announce.side === Color.BLACK ? t('app.sente') : t('app.gote')}</span>
+            <span>
+              <Marks>{announce.side === Color.BLACK ? t('app.sente') : t('app.gote')}</Marks>
+            </span>
             <styled.span pl="3" borderLeft="1px solid color-mix(in srgb, {colors.accent} 45%, transparent)">
               {announce.kind}
             </styled.span>
@@ -145,7 +148,9 @@ export function TsumePlate({ place: position, flipped, userSide }: { place: 'top
   const side = (position === 'top') === flipped ? 'sente' : 'gote'
   return (
     <PlateBox as="span" className={cx('app-plate', position)}>
-      <PlateSide>{side === 'sente' ? t('app.sente') : t('app.gote')}</PlateSide>
+      <PlateSide>
+        <Marks>{side === 'sente' ? t('app.sente') : t('app.gote')}</Marks>
+      </PlateSide>
       <Muted as="span">{side === userSide ? t('app.youAttack') : t('app.defends')}</Muted>
     </PlateBox>
   )

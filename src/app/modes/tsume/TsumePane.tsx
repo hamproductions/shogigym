@@ -8,6 +8,7 @@ import type { Tsume, TsumeState } from './useTsume'
 import { Button } from '@/app/ui/Button'
 import { Checkbox } from '@/components/ui'
 import { Muted, NarrowColumn, Note, PvLine, Result, TaskText } from '@/app/panels/panels.styles'
+import { Marks } from '@/app/ui/SideMark'
 
 function TsumeStatus({ tsume }: { tsume: TsumeState }) {
   const { t } = useTranslation()
@@ -59,7 +60,7 @@ export function TsumePane({ trainer, tsume, banner, onBack }: { trainer: Tsume; 
   return (
     <NarrowColumn>
       <TaskText display="none" _compact={{ display: 'block' }}>
-        {t('tsume.toPlayAndMateIn', { side: sideMark(attackerOf(tsume.problem)), mate: tsume.problem.mate })}
+        <Marks>{t('tsume.toPlayAndMateIn', { side: sideMark(attackerOf(tsume.problem)), mate: tsume.problem.mate })}</Marks>
         <styled.span _compact={{ display: 'none' }}>{t('tsume.everyAttackingMoveMustGive')}</styled.span>
       </TaskText>
       <TsumeStatus tsume={tsume} />

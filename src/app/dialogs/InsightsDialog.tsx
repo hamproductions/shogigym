@@ -21,6 +21,7 @@ import { FIX_ROUTE, LESSONS, type FixRoute } from './ReportDialog'
 import { ReportList, ReportListBody, ReportListItem } from './report.styles'
 import { LabelBadge } from '@/app/panels/panels.styles'
 import { SvgCircle, SvgText } from '@/app/ui/Svg'
+import { spellMarks } from '@/utils/notation'
 
 const radarLine = { fill: 'none', stroke: 'border', strokeWidth: '1' }
 const RadarRing = styled('polygon', { base: radarLine })
@@ -201,7 +202,7 @@ export function InsightsDialog({ onClose, onPractice, onRoute, onLesson }: Props
       onBackdrop={onClose}
     >
       <DialogHeader title={t('insights.title')} closeLabel={t('viewer.close')} onClose={onClose} />
-      <Text tone="muted" size="xs" mb="4" title={t('insights.scopeHint')}>
+      <Text tone="muted" size="xs" mb="4" title={spellMarks(t('insights.scopeHint'), i18n.language)}>
         {t('insights.includedOf', { count: included.length, total: stored.length })}
         {included.length > 0 && ` / ${t('insights.coverage', insights.coverage)}`}
         {progress && ` / ${t('insights.rating', progress)}`}

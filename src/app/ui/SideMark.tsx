@@ -1,6 +1,7 @@
 import { styled } from 'styled-system/jsx'
 import type { Side } from '@/utils/shogi'
 import { sideMark } from '@/utils/notation'
+import { useFlipped } from '@/app/hooks/session'
 
 /** ☗/☖ point the way that side's pieces face on screen, so they turn upside down with a flipped board. */
 export function SideMark({ side, flipped }: { side: Side; flipped?: boolean }) {
@@ -33,5 +34,14 @@ export function FlipMarks({ children, flipped, muted }: { children: string; flip
         ),
       )}
     </>
+  )
+}
+
+/** FlipMarks that follows the board session's orientation. */
+export function Marks({ children, muted }: { children: string; muted?: boolean }) {
+  return (
+    <FlipMarks flipped={useFlipped()} muted={muted}>
+      {children}
+    </FlipMarks>
   )
 }

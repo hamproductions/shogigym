@@ -12,6 +12,7 @@ import type { TesujiState, TesujiTrainer } from './useTesuji'
 import { Button } from '@/app/ui/Button'
 import { Card } from '@/app/ui/Card'
 import { BackLink, Muted, NarrowColumn, Note, Result, TaskText } from '@/app/panels/panels.styles'
+import { Marks } from '@/app/ui/SideMark'
 
 function pieceHint(sfen: string, usi: string, t: TFunction) {
   const move = positionOf(sfen).createMoveByUSI(usi)
@@ -31,7 +32,7 @@ export function TesujiPane({ trainer, drill, replaying, onBack }: { trainer: Tes
     <NarrowColumn>
       {stored(ORIGIN_KEY) && <BackLink onClick={returnToGame}>‹ {t('review.backToGame')}</BackLink>}
       <TaskText css={{ '* + &': { mt: '3' } }}>
-        {t('tesuji.toMoveFindThe', { side })}
+        <Marks>{t('tesuji.toMoveFindThe', { side })}</Marks>
         {drill.filter !== 'all' || drill.hint > 0 || drill.status !== 'asking' ? (
           <strong>{drill.filter === 'all' ? drill.item.tesuji : drill.filter}</strong>
         ) : (
@@ -41,26 +42,36 @@ export function TesujiPane({ trainer, drill, replaying, onBack }: { trainer: Tes
       </TaskText>
       {drill.status === 'asking' && drill.wrong && (
         <Result tone="wrong" mt="3">
-          {drill.hint > 0
-            ? t('tesuji.isNotItLookAgain', { move: moveText(sfen, drill.wrong) })
-            : t('tesuji.isNotItLookAgain2', { move: moveText(sfen, drill.wrong) })}
+          <Marks>
+            {drill.hint > 0
+              ? t('tesuji.isNotItLookAgain', { move: moveText(sfen, drill.wrong) })
+              : t('tesuji.isNotItLookAgain2', { move: moveText(sfen, drill.wrong) })}
+          </Marks>
         </Result>
       )}
       {drill.status === 'asking' && drill.hint > 0 && (
         <Note as="div" mt="3">
           <p>
-            {t('tesuji.hintIdea', { tesuji: drill.item.tesuji, explain: lang === 'ja' ? (drill.item.explainJa ?? drill.item.explain) : drill.item.explain })}
+            <Marks>
+              {t('tesuji.hintIdea', { tesuji: drill.item.tesuji, explain: lang === 'ja' ? (drill.item.explainJa ?? drill.item.explain) : drill.item.explain })}
+            </Marks>
           </p>
-          {drill.hint > 1 && <p>{pieceHint(sfen, drill.item.answer, t)}</p>}
+          {drill.hint > 1 && (
+            <p>
+              <Marks>{pieceHint(sfen, drill.item.answer, t)}</Marks>
+            </p>
+          )}
         </Note>
       )}
       {drill.status !== 'asking' && (
         <Card tone={drill.status === 'right' ? 'good' : null} mt="3">
           <strong>
             {drill.status === 'right' ? '✓ ' : ''}
-            {moveText(sfen, drill.item.answer)}: {drill.item.tesuji} {lang !== 'ja' && <Muted as="span">({drill.item.en})</Muted>}
+            <Marks>{`${moveText(sfen, drill.item.answer)}: ${drill.item.tesuji}`}</Marks> {lang !== 'ja' && <Muted as="span">({drill.item.en})</Muted>}
           </strong>
-          <p>{lang === 'ja' ? (drill.item.explainJa ?? drill.item.explain) : drill.item.explain}</p>
+          <p>
+            <Marks>{lang === 'ja' ? (drill.item.explainJa ?? drill.item.explain) : drill.item.explain}</Marks>
+          </p>
           {drill.item.note && <Note>{drill.item.note}</Note>}
           <Muted>{t('tesuji.from', { from: drill.item.from })}</Muted>
         </Card>

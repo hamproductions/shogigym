@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Box, styled } from 'styled-system/jsx'
 import { LABELS, type Label } from '@/utils/analysis'
 import { SvgPath, SvgText } from '@/app/ui/Svg'
+import { Marks } from '@/app/ui/SideMark'
 
 const W = 360
 const H = 88
@@ -45,10 +46,10 @@ export function EvalGraph({
         _narrow={{ h: '26px', fontSize: '2xs' }}
       >
         <span title={t('graph.senteAhead')} aria-label={t('graph.senteAhead')}>
-          ☗
+          <Marks>☗</Marks>
         </span>
         <span title={t('graph.goteAhead')} aria-label={t('graph.goteAhead')}>
-          ☖
+          <Marks>☖</Marks>
         </span>
       </Box>
       <styled.svg

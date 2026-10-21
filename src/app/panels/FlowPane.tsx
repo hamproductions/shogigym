@@ -7,6 +7,8 @@ import type { Lane } from '@/utils/lanes'
 import { lossClass } from '@/utils/score'
 import { loadStats, loadStatsMeta, type PositionStats, type StatsMeta } from '@/utils/stats'
 import { Muted } from './panels.styles'
+import { Marks } from '@/app/ui/SideMark'
+import { spellMarks } from '@/utils/notation'
 
 const laneCard = cva({
   base: {
@@ -81,7 +83,7 @@ function OpeningStats({
   onHover: (usi: string | null) => void
   lone?: boolean
 }) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const { loading, stats, meta } = useOpeningStats(sfen)
   if (loading) return null
   if (!stats)
@@ -122,7 +124,9 @@ function OpeningStats({
       >
         <span>{t('flow.statsMove')}</span>
         <span>{t('flow.statsPlayed')}</span>
-        <span>{t('flow.statsResult')}</span>
+        <span>
+          <Marks>{t('flow.statsResult')}</Marks>
+        </span>
       </styled.div>
       <styled.ul m="0" p="0" listStyle="none">
         {stats.moves.map((m) => {
@@ -148,7 +152,10 @@ function OpeningStats({
                 onMouseLeave={() => onHover(null)}
                 onFocus={() => onHover(m.usi)}
                 onBlur={() => onHover(null)}
-                title={t('flow.statsRowTitle', { move: text, games: m.games.toLocaleString(), sente: s, gote: g, draw: Math.max(0, 100 - s - g) })}
+                title={spellMarks(
+                  t('flow.statsRowTitle', { move: text, games: m.games.toLocaleString(), sente: s, gote: g, draw: Math.max(0, 100 - s - g) }),
+                  i18n.language,
+                )}
               >
                 <styled.span
                   display="flex"
@@ -161,7 +168,7 @@ function OpeningStats({
                   fontWeight="heavy"
                   whiteSpace="nowrap"
                 >
-                  {text}
+                  <Marks>{text}</Marks>
                   {isBook && (
                     <styled.em
                       px="1"
@@ -202,9 +209,11 @@ function OpeningStats({
                     <styled.i ml="auto" bg="hai.400" style={{ width: `${g}%` }} />
                   </styled.span>
                   <styled.span fontSize="xs" fontVariantNumeric="tabular-nums" whiteSpace="nowrap">
-                    <styled.b fontWeight="bold">☗{s}%</styled.b>{' '}
+                    <styled.b fontWeight="bold">
+                      <Marks>{`☗${s}%`}</Marks>
+                    </styled.b>{' '}
                     <styled.b fontWeight="bold" color="fg.muted">
-                      ☖{g}%
+                      <Marks>{`☖${g}%`}</Marks>
                     </styled.b>
                   </styled.span>
                 </styled.span>
@@ -220,7 +229,7 @@ function OpeningStats({
         fontSize="2xs"
         lineHeight={lone ? 'mincho' : 'snug'}
       >
-        {t('flow.statsKey', { min: THIN_SAMPLE })}
+        <Marks>{t('flow.statsKey', { min: THIN_SAMPLE })}</Marks>
       </styled.p>
       {book && (
         <styled.p
@@ -229,7 +238,7 @@ function OpeningStats({
           fontSize="xs"
           lineHeight={lone ? 'mincho' : undefined}
         >
-          {t('flow.statsBook', { move: bookText, eval: bookEval })}
+          <Marks>{t('flow.statsBook', { move: bookText, eval: bookEval })}</Marks>
           {!stats.moves.some((m) => m.usi === book.usi) && <Muted as="span"> {t('flow.statsBookRare')}</Muted>}
         </styled.p>
       )}
@@ -289,7 +298,7 @@ export function FlowPane({
                       →
                     </styled.i>
                   )}
-                  {step}
+                  <Marks>{step}</Marks>
                 </styled.span>
               ))}
               {lane.forks && <Muted as="span">{t('flow.thenChoices', { forks: lane.forks })}</Muted>}

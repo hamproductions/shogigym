@@ -4,6 +4,7 @@ import { savedAtLabel, sideMark } from '@/utils/notation'
 import type { AnalyzeGames } from './useAnalyzeGames'
 import { Button } from '@/app/ui/Button'
 import { styled } from 'styled-system/jsx'
+import { Marks } from '@/app/ui/SideMark'
 
 const GameRow = styled('li', { base: { display: 'flex', alignItems: 'stretch', gap: '1', mb: '1.5' } })
 
@@ -58,7 +59,7 @@ export function SavedGames({ games, onOpen }: { games: AnalyzeGames; onOpen?: ()
                 {t('games.moves', { count: g.moves.length })}
                 {g.tree && g.tree.children.length > 1 ? t('games.withVariations') : ''}
                 {' · '}
-                {t(`insights.role.${gameChoice(g)}`)}
+                <Marks>{t(`insights.role.${gameChoice(g)}`)}</Marks>
               </styled.span>
             </GameOpen>
             <Button variant="icon" onClick={() => games.deleteSlot(g)} aria-label={t('games.delete', { title: g.title })} title={t('games.delete2')}>

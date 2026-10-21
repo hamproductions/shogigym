@@ -30,6 +30,7 @@ import { styled } from 'styled-system/jsx'
 import { BoardScene, BoardWrap, peek } from './stage.styles'
 
 import type { StandZones } from '@/rendering/board3d/types'
+import { Marks } from '@/app/ui/SideMark'
 
 const Board2D = lazy(() => import('@/rendering/Board2D').then((m) => ({ default: m.Board2D })))
 const BoardFlat = lazy(() => import('@/rendering/BoardFlat').then((m) => ({ default: m.BoardFlat })))
@@ -212,7 +213,9 @@ export function BoardStage({
             fontWeight: 600,
           }}
         >
-          <span>{spar.furigomaBanner}</span>
+          <span>
+            <Marks>{spar.furigomaBanner}</Marks>
+          </span>
           <Button size="sm" onClick={() => spar.clearFurigomaBanner()}>
             ✕
           </Button>
@@ -267,7 +270,7 @@ export function BoardStage({
         >
           {decor.note && dismissedNote !== decor.note && (
             <div className={peek({ placement: 'caption' })} role="status">
-              {decor.note}
+              <Marks>{decor.note}</Marks>
             </div>
           )}
           {mode !== 'tsume' && !picking && plate('bottom')}
@@ -327,7 +330,9 @@ export function BoardStage({
           }}
           onClick={phoneTask.run}
         >
-          <styled.span _compact={{ flex: '1', minW: '0', maxH: 'calc(2em * {lineHeights.tight})', overflowY: 'auto' }}>{phoneTask.text}</styled.span>
+          <styled.span _compact={{ flex: '1', minW: '0', maxH: 'calc(2em * {lineHeights.tight})', overflowY: 'auto' }}>
+            <Marks>{phoneTask.text}</Marks>
+          </styled.span>
           <styled.b _compact={{ flex: 'none', p: '{spacing.1.5} {spacing.2.5}', borderRadius: 'md', bg: 'accent', color: 'accent.contrast', fontSize: 'xs' }}>
             {phoneTask.action} ›
           </styled.b>

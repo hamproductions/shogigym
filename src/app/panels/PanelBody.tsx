@@ -27,6 +27,7 @@ import type { FixRoute } from '@/app/dialogs/ReportDialog'
 import type { Mistake } from '@/utils/mistakes'
 import { styled } from 'styled-system/jsx'
 import { CountsHeading, CountsSection, Muted, Note, PanelContent, PinnedGraph } from './panels.styles'
+import { Marks } from '@/app/ui/SideMark'
 
 const LessonMap = lazy(() => import('@/components/Flowchart').then((m) => ({ default: m.LessonMap })))
 const KifuNotes = lazy(() => import('@/app/modes/analyze/KifuNotes').then((m) => ({ default: m.KifuNotes })))
@@ -85,7 +86,11 @@ function EngineSection({ model }: { model: PanelModel }) {
         </div>
       )}
       {ai && spoilerFree && <Muted>{t('app.theAiStaysQuietUntil')}</Muted>}
-      {ai && !spoilerFree && gameOver && <Muted>{t('app.checkmateWon', { winner: t(toMove === 'sente' ? 'common.gote' : 'common.sente') })}</Muted>}
+      {ai && !spoilerFree && gameOver && (
+        <Muted>
+          <Marks>{t('app.checkmateWon', { winner: t(toMove === 'sente' ? 'common.gote' : 'common.sente') })}</Marks>
+        </Muted>
+      )}
       {!assist && <Muted>{t(mode === 'spar' ? 'app.coachAfterGame' : 'app.helpIsOffTurnIt')}</Muted>}
       {live && (mode === 'lesson' || mode === 'drill') && <Note>{t('engine.lessonNote')}</Note>}
       {live && (

@@ -23,6 +23,7 @@ import { RANDOM_KEY, store, stored } from './reading'
 import { OpeningPicker } from './OpeningPicker'
 import { LessonGuide } from './LessonGuide'
 import type { Lesson } from './useLesson'
+import { Marks } from '@/app/ui/SideMark'
 
 const TALLY_KEY = 'joseki-practice:random-quiz:v1'
 type Tally = { questions: number; right: number; wrong: number }
@@ -196,7 +197,9 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
             {mistake.verdict && (
               <LabelBadge style={{ ['--label' as string]: LABELS[mistake.verdict.label].color }}>{LABELS[mistake.verdict.label].symbol}</LabelBadge>
             )}
-            <VerdictTitle>{mistakeHeadline(moveText(sfen, mistake.usi), mistake)}</VerdictTitle>
+            <VerdictTitle>
+              <Marks>{mistakeHeadline(moveText(sfen, mistake.usi), mistake)}</Marks>
+            </VerdictTitle>
           </VerdictHead>
           {mistake.note && <p>{mistake.note}</p>}
           {mistake.verdict && mistake.verdict.reasons.length > 0 && (
@@ -212,11 +215,13 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
             <p>{mistakeIsBad(mistake) ? t('lesson.theOpponentGetsTheBetter') : t('lesson.nothingGoesWrongRightAway')}</p>
           )}
           <Muted>
-            {lessonMode === 'study'
-              ? mistake.verdict && mistake.verdict.best.move !== mistake.expected && mistake.verdict.best.move !== mistake.usi
-                ? t('lesson.theLessonMoveIsThe', { move: moveText(sfen, mistake.expected), move2: moveText(sfen, mistake.verdict.best.move) })
-                : t('lesson.theLessonMoveIs', { move: moveText(sfen, mistake.expected) })
-              : ''}
+            <Marks>
+              {lessonMode === 'study'
+                ? mistake.verdict && mistake.verdict.best.move !== mistake.expected && mistake.verdict.best.move !== mistake.usi
+                  ? t('lesson.theLessonMoveIsThe', { move: moveText(sfen, mistake.expected), move2: moveText(sfen, mistake.verdict.best.move) })
+                  : t('lesson.theLessonMoveIs', { move: moveText(sfen, mistake.expected) })
+                : ''}
+            </Marks>
             {playing ? t('lesson.theBoardIsPlayingOut') : t('lesson.thatIsHowItContinues')}
           </Muted>
           <Button variant="primary" onClick={onBack}>
@@ -327,16 +332,23 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
               <Muted m="0">{t('lesson.checkingThatMove')}</Muted>
             ) : mistake && !mistakePreview ? (
               <Result tone="wrong">
-                {mistakeIsBad(mistake)
-                  ? t('lesson.wasLabel', { move: moveText(sfen, mistake.usi), label: (mistake.verdict ? LABELS[mistake.verdict.label] : LABELS.mistake).text })
-                  : t('lesson.isNotThisLessonS', { move: moveText(sfen, mistake.usi) })}
+                <Marks>
+                  {mistakeIsBad(mistake)
+                    ? t('lesson.wasLabel', {
+                        move: moveText(sfen, mistake.usi),
+                        label: (mistake.verdict ? LABELS[mistake.verdict.label] : LABELS.mistake).text,
+                      })
+                    : t('lesson.isNotThisLessonS', { move: moveText(sfen, mistake.usi) })}
+                </Marks>
               </Result>
             ) : null}
           </div>
         </Card>
       ) : (
         <Card className={card}>
-          <strong>{theirs ? t('lesson.theirMove', { move: moveText(sfen, theirs.usi) }) : t('lesson.theirMove2')}</strong>
+          <strong>
+            <Marks>{theirs ? t('lesson.theirMove', { move: moveText(sfen, theirs.usi) }) : t('lesson.theirMove2')}</Marks>
+          </strong>
           {level === 'new' && theirs && (
             <styled.span display="block" color="fg.muted" fontSize="xs">
               {moveGloss(sfen, theirs.usi)}
@@ -358,7 +370,9 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
       )}
       {lastMove && prevSfen && lastNote && !mistakePreview && (
         <Box m="{spacing.3} 0 0" fontFamily="mincho" fontSize="sm" lineHeight="mincho">
-          <Muted as="span">{t('lesson.lastMove', { move: moveText(prevSfen, lastMove) })}</Muted>
+          <Muted as="span">
+            <Marks>{t('lesson.lastMove', { move: moveText(prevSfen, lastMove) })}</Marks>
+          </Muted>
           <styled.p m="{spacing.0.5} 0 0">
             <SquareText text={lastNote} context={lesson.annotationText} />
           </styled.p>

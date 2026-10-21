@@ -19,6 +19,7 @@ import { SquareText } from '@/app/modes/lesson/SquareText'
 import { Button } from '@/app/ui/Button'
 import { Card } from '@/app/ui/Card'
 import { BackLink, Muted, NarrowColumn, Note, Result, TaskText } from '@/app/panels/panels.styles'
+import { Marks } from '@/app/ui/SideMark'
 
 function untilText(ms: number) {
   const minutes = Math.round(ms / 60000)
@@ -102,11 +103,13 @@ function ReviewCard({
       <Muted css={{ '* + &': { mt: '3' } }}>
         {t('review.cardOf', { value: drill.index + 1, itemsCount: drill.items.length })}
         {item.kind === 'position' ? t('review.from', { title: courseTitle(item.course, i18n.language) }) : ''}
-        {item.kind === 'position' && item.moves.length > 0
-          ? t('review.after', {
-              move: moveText(item.moves.length > 1 ? sfenAfter(item.course.root.sfen, item.moves.slice(0, -1)) : item.course.root.sfen, item.moves.at(-1)!),
-            })
-          : ''}
+        <Marks>
+          {item.kind === 'position' && item.moves.length > 0
+            ? t('review.after', {
+                move: moveText(item.moves.length > 1 ? sfenAfter(item.course.root.sfen, item.moves.slice(0, -1)) : item.course.root.sfen, item.moves.at(-1)!),
+              })
+            : ''}
+        </Marks>
       </Muted>
       {task && (
         <TaskText mt="3">
@@ -119,14 +122,22 @@ function ReviewCard({
           {item.mistake.reasons[0] && (
             <p>
               {t('review.hintWhy')}
-              {item.mistake.reasons[0]}
+              <Marks>{item.mistake.reasons[0]}</Marks>
             </p>
           )}
           <Principle tag={weaknessOfMistake(item.mistake)} />
-          {hint > 1 && <p>{pieceHint(item.mistake.sfen, item.mistake.best, t)}</p>}
+          {hint > 1 && (
+            <p>
+              <Marks>{pieceHint(item.mistake.sfen, item.mistake.best, t)}</Marks>
+            </p>
+          )}
         </Note>
       )}
-      {learning && lessonNote && <Note mt="3">{lessonNote}</Note>}
+      {learning && lessonNote && (
+        <Note mt="3">
+          <Marks>{lessonNote}</Marks>
+        </Note>
+      )}
       {drill.result === 'right' && (
         <Result tone="right" mt="3">
           {drill.retry ? t('review.rightThisTimeTheCard') : t('review.rightItComesBackLater')}
@@ -134,16 +145,20 @@ function ReviewCard({
       )}
       {drill.result === 'wrong' && (
         <Result tone={mistakeOk ? 'right' : 'wrong'} mt="3">
-          {mistakeOk ? t('review.aGoodMoveTooBut', { move: expected }) : t('review.notThisOneTheBetter', { move: expected })}
+          <Marks>{mistakeOk ? t('review.aGoodMoveTooBut', { move: expected }) : t('review.notThisOneTheBetter', { move: expected })}</Marks>
           {mistakePreview ? t('review.theBoardIsShowingWhat') : t('review.itIsMarkedWithA')}
           {!drill.retry && t('review.thisCardComesBackIn')}
         </Result>
       )}
-      {drill.result && lessonNote && <Note mt="3">{lessonNote}</Note>}
+      {drill.result && lessonNote && (
+        <Note mt="3">
+          <Marks>{lessonNote}</Marks>
+        </Note>
+      )}
       {item.kind === 'mistake' && drill.result === 'wrong' && !drill.retry && item.mistake.reasons[0] && (
         <Note mt="3">
           {t('review.whyYourGameMoveWas')}
-          {item.mistake.reasons[0]}
+          <Marks>{item.mistake.reasons[0]}</Marks>
         </Note>
       )}
       {item.kind === 'mistake' && drill.result === 'wrong' && !drill.retry && <Principle tag={weaknessOfMistake(item.mistake)} spaced />}
