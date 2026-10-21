@@ -1,5 +1,6 @@
 import { Suspense, lazy } from 'react'
-import { Outlet, useParams } from 'react-router'
+import { Outlet } from 'react-router'
+import { useRouteParams } from '@/app/hooks/useRouteParams'
 import { Shell } from './Shell'
 
 const Application = lazy(() => import('@/app/Application').then((m) => ({ default: m.Application })))
@@ -13,7 +14,7 @@ export function HydrateFallback() {
 }
 
 export default function ApplicationLayout() {
-  const params = useParams()
+  const params = useRouteParams()
   return (
     <Suspense fallback={<Shell />}>
       <Application routeMode={params.mode} routeMain={params.main} />

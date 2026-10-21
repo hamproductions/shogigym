@@ -10,7 +10,11 @@ if (base) {
     rmSync(join(out, base.split('/')[0]), { recursive: true })
   }
 }
-cpSync(join(out, 'index.html'), join(out, '404.html'))
+const notFound = join(out, '404')
+if (existsSync(join(notFound, 'index.html'))) {
+  cpSync(join(notFound, 'index.html'), join(out, '404.html'))
+  rmSync(notFound, { recursive: true })
+} else cpSync(join(out, 'index.html'), join(out, '404.html'))
 
 // Pages only serves the root 404.html, so a preview (prerendered at '/' only) needs a real SPA shell at every route for deep links.
 if (process.env.PREVIEW) {

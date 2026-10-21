@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useParams } from 'react-router'
+import { useRouteParams } from '@/app/hooks/useRouteParams'
 import { SETUPS, type Course, type Setup } from '@/utils/model'
 import { scrollPanelTop } from '@/app/hooks/useLayout'
 import { coursesOf } from '@/utils/book'
@@ -89,7 +89,7 @@ function Credits() {
 
 export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProps) {
   const { t } = useTranslation()
-  const { main: routeMain } = useParams()
+  const { main: routeMain } = useRouteParams()
   const { lang, mainStrategy } = useSettings()
   const ja = lang === 'ja'
   const [query, setQuery] = useState('')

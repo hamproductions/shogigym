@@ -1,11 +1,13 @@
 import { index, layout, route, type RouteConfig } from '@react-router/dev/routes'
 import { env } from 'node:process'
+import { mainStrategies } from './data/strategies'
+import { MODE_SLUGS } from './routes/paths'
 
 export default [
   layout('routes/application.tsx', [
     index('routes/page.tsx', { id: 'home' }),
-    route(':mode', 'routes/page.tsx', { id: 'mode' }),
-    route('openings/:main', 'routes/page.tsx', { id: 'openings-main' }),
+    ...MODE_SLUGS.map((slug) => route(slug, 'routes/page.tsx', { id: `mode-${slug}` })),
+    ...mainStrategies().map((s) => route(`openings/${s.id}`, 'routes/page.tsx', { id: `openings-${s.id}` })),
   ]),
   route('viewer', 'routes/viewer.tsx'),
   route('taikyoku', 'routes/taikyoku.tsx'),
@@ -17,4 +19,5 @@ export default [
         route('dev/hands', 'routes/hands.tsx'),
         route('dev/reel', 'routes/reel.tsx'),
       ]),
+  route('*', 'routes/not-found.tsx'),
 ] satisfies RouteConfig
