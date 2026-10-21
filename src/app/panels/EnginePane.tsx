@@ -10,7 +10,7 @@ import { EngineName } from '@/app/EngineSettings'
 import type { BookMove } from '@/utils/book'
 import { sideMark, toSente } from '@/utils/notation'
 import { FlipMarks } from '@/app/ui/SideMark'
-import { useSession } from '@/app/hooks/session'
+import { useFlipped } from '@/app/hooks/session'
 import { lossClass, winLoss } from '@/utils/score'
 import { Button } from '@/app/ui/Button'
 import { Pill } from '@/app/ui/Pill'
@@ -135,7 +135,7 @@ export function EngineResultPane({
   isBook?: (move: string) => boolean
 }) {
   const { t } = useTranslation()
-  const { flipped } = useSession()
+  const flipped = useFlipped()
   const [lineOpen, setLineOpen] = useState(false)
   const [best, ...others] = analysis.candidates
   const bestRate = scoreWinRate(best.score)

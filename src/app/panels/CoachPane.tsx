@@ -6,7 +6,7 @@ import type { Course } from '@/utils/model'
 import i18n from '@/utils/i18n'
 import { moveText } from '@/utils/shogi'
 import { FlipMarks } from '@/app/ui/SideMark'
-import { useSession } from '@/app/hooks/session'
+import { useFlipped } from '@/app/hooks/session'
 import type { BookHit, BookMove } from '@/utils/book'
 import { isWeak } from '@/utils/mistake'
 import { weaknessOf } from '@/utils/learning'
@@ -63,7 +63,7 @@ function Verdict({
   you,
 }: Pick<CoachPaneProps, 'review' | 'bookLast' | 'ai' | 'you'> & { lastMove: string; prevSfen: string }) {
   const { t } = useTranslation()
-  const { flipped } = useSession()
+  const flipped = useFlipped()
   const played = moveText(prevSfen, lastMove)
   if (review)
     return (
@@ -140,7 +140,7 @@ function Verdict({
 
 export function CoachPane({ review, lastMove, prevSfen, bookLast, bookHere, sfen, course, onPlay, canPlay, ai, showBook, you }: CoachPaneProps) {
   const { t } = useTranslation()
-  const { flipped } = useSession()
+  const flipped = useFlipped()
   return (
     <div className="app-coach">
       {lastMove && prevSfen ? (
