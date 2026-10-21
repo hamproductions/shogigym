@@ -1,6 +1,6 @@
 import type { PieceSet } from './pieceSets'
 import { applyTheme, type Theme } from '@/utils/theme'
-import i18n from '@/utils/i18n'
+import i18n, { navigatorLang, SETTINGS_KEY } from '@/utils/i18n'
 import { useSyncExternalStore } from 'react'
 import { playClack } from './clack'
 
@@ -15,6 +15,7 @@ export type Environment = 'traditional' | 'casual' | 'flat' | 'diagram' | 'broad
 export type BoardStyle = 'kaya' | 'shin-kaya' | 'dark' | 'sunfish-light' | 'sunfish-warm' | 'sunfish-resin' | 'sunfish-dark'
 export type TimeControl = 'none' | '10s' | '3m' | '10m' | '10m30s' | '30m60s' | '5m5s'
 export type AiStrength = 'beginner' | 'club' | 'strong' | 'max'
+export type SparCoach = 'live' | 'after'
 export type Lang = 'en' | 'ja'
 export type EngineKind = 'yaneuraou' | 'nnue' | 'fairy'
 
@@ -39,6 +40,7 @@ export type Settings = {
   aiStrategy: string
   mainStrategy: string
   assist: boolean
+  sparCoach: SparCoach | null
   timeControl: TimeControl
   lang: Lang
   engine: EngineKind
@@ -53,15 +55,7 @@ export type PieceAppearance = Partial<
   Pick<Settings, 'pieceSet' | 'pieceFont' | 'pieceStyle' | 'pieceGuide' | 'pieceMaterial' | 'pieceGrain' | 'pieceFinish' | 'pieceColor'>
 >
 
-const KEY = 'joseki-practice:settings:v1'
-
-function navigatorLang(): Lang {
-  try {
-    return navigator.language.toLowerCase().startsWith('ja') ? 'ja' : 'en'
-  } catch {
-    return 'en'
-  }
-}
+const KEY = SETTINGS_KEY
 
 function defaultEnvironment(): Environment {
   try {
@@ -92,6 +86,7 @@ const DEFAULTS: Settings = {
   aiStrategy: 'random',
   mainStrategy: 'shikenbisha',
   assist: true,
+  sparCoach: null,
   timeControl: 'none',
   lang: navigatorLang(),
   engine: 'yaneuraou',
@@ -146,6 +141,17 @@ export function subscribeSettings(listener: () => void) {
 export function useSettings() {
   return useSyncExternalStore(subscribeSettings, () => current)
 }
+
+export type SparGame = Pick<Settings, 'opponent' | 'timeControl' | 'aiStrategy'> & { coach: SparCoach }
+
+export const defaultSparCoach = (timeControl: TimeControl): SparCoach => (timeControl === 'none' ? 'live' : 'after')
+
+export const sparGameOf = ({ opponent, timeControl, aiStrategy, sparCoach }: Settings): SparGame => ({
+  opponent,
+  timeControl,
+  aiStrategy,
+  coach: sparCoach ?? defaultSparCoach(timeControl),
+})
 
 export const STRENGTH: Record<AiStrength, { label: string; movetime: number; pickFrom: number; maxLoss: number }> = {
   beginner: {

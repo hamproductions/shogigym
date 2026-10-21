@@ -1,5 +1,5 @@
-import { useCallback, useMemo, useState } from 'react'
-import { InitialPositionSFEN, type Color, type Move, type PieceType, type Square } from 'tsshogi'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { InitialPositionSFEN, Square, type Color, type Move, type PieceType } from 'tsshogi'
 import { engineSupported } from '@/utils/engine'
 import type { Course } from '@/utils/model'
 import { applyUsi, colorSide, engineReady, hasLegalMove, positionOf, type Side } from '@/utils/shogi'
@@ -35,6 +35,7 @@ export function useBoardSession() {
   const [tree, setTree] = useState<Tree>(emptyTree)
   const [plyBase, setPlyBase] = useState(0)
   const [sourceMarks, setSourceMarks] = useState<SourceMarks | null>(null)
+  const [landing, setLanding] = useState<string | null>(null)
 
   const sfens = useMemo(() => {
     const out = [game.start]
@@ -61,6 +62,7 @@ export function useBoardSession() {
   const gameRef = useLatest(game)
   const treeRef = useLatest(tree)
   const sfensRef = useLatest(sfens)
+  const userSideRef = useLatest(userSide)
 
   const liveSfen = sfens[cursor]
   const sfen = preview && previewSfens ? previewSfens[Math.min(preview.step, previewSfens.length - 1)] : liveSfen
@@ -87,8 +89,8 @@ export function useBoardSession() {
         : null
   const atEnd = cursor === game.moves.length
   const nodes = useMemo(() => (course ? courseNodes(course, settings.lang) : null), [course, settings.lang])
-  const userTurn =
-    mode === 'view' ? !playing && !preview : mode === 'analyze' || (mode === 'lesson' && !course) || toMove === userSide || (mode === 'spar' && !atEnd)
+  const userTurn = mode === 'view' ? !playing && !preview : mode === 'analyze' || (mode === 'lesson' && !course) || toMove === userSide
+  const opponentMoving = mode === 'spar' && !preview && atEnd && landing === liveSfen
   const gameOver = !preview && !hasLegalMove(position)
   const ai = engineSupported() && !course?.noEngine && engineReady(sfen)
   const assist = settings.assist || (!isGameMode(mode) && mode !== 'view')
@@ -100,14 +102,30 @@ export function useBoardSession() {
     if (isGameMode(mode) || mode === 'view') setTree((t) => addPath(t, game.moves))
   }
 
+  useEffect(() => {
+    if (landing === null) return
+    const timer = setTimeout(() => setLanding(null), 1500)
+    return () => clearTimeout(timer)
+  }, [landing])
+  const landed = useCallback((sfen: string) => setLanding((l) => (l === sfen ? null : l)), [])
+
   const play = useCallback(
-    (usi: string) => {
-      setSelection(null)
+    (usi: string, from = cursor) => {
+      const at = sfensRef.current[from]
+      const before = at ? positionOf(at) : null
+      const next = before?.createMoveByUSI(usi) ? applyUsi(at, usi) : null
       setPromotion(null)
-      setPeekFrom(null)
-      const at = sfensRef.current[cursor]
-      const mv = at ? positionOf(at).createMoveByUSI(usi) : null
-      if (!mv || !applyUsi(at, usi)) {
+      if (modeRef.current === 'spar' && before && next && colorSide(before.color) !== userSideRef.current) {
+        const after = positionOf(next)
+        const environment = getSettings().environment
+        setSelection((s) => (s && (!(s.from instanceof Square) || after.board.at(s.from)?.color === s.color) ? s : null))
+        setPeekFrom((p) => (p && after.board.at(p) ? p : null))
+        if (from === cursor && (environment === 'traditional' || environment === 'casual')) setLanding(next)
+      } else {
+        setSelection(null)
+        setPeekFrom(null)
+      }
+      if (!next) {
         setPlaying(false)
         return
       }
@@ -119,16 +137,16 @@ export function useBoardSession() {
         }
       }
       const g = gameRef.current
-      const path = [...g.moves.slice(0, cursor), usi]
+      const path = [...g.moves.slice(0, from), usi]
       const existing = isGameMode(modeRef.current) || modeRef.current === 'view' ? nodeAt(treeRef.current, path) : null
       setGame({
         ...g,
-        detectionResult: g.moves[cursor] === usi ? g.detectionResult : undefined,
-        moves: g.moves[cursor] === usi ? g.moves : existing ? [...path, ...mainContinuation(existing)] : path,
+        detectionResult: g.moves[from] === usi ? g.detectionResult : undefined,
+        moves: g.moves[from] === usi ? g.moves : existing ? [...path, ...mainContinuation(existing)] : path,
       })
-      setCursor(cursor + 1)
+      if (from === cursor) setCursor(cursor + 1)
     },
-    [cursor, sfensRef, gameRef, modeRef, treeRef],
+    [cursor, sfensRef, gameRef, modeRef, treeRef, userSideRef],
   )
 
   const reset = useCallback((start: string, side: Side, nextMode: Mode, nextCourse: Course | null) => {
@@ -146,6 +164,7 @@ export function useBoardSession() {
     setSelection(null)
     setPromotion(null)
     setSourceMarks(null)
+    setLanding(null)
   }, [])
 
   const startPreview = (moves: string[], title: string, step = 0) => {
@@ -231,6 +250,8 @@ export function useBoardSession() {
     atEnd,
     nodes,
     userTurn,
+    opponentMoving,
+    landed,
     gameOver,
     ai,
     assist,

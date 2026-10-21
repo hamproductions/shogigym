@@ -38,6 +38,7 @@ export type Board3DProps = {
   onHand: (color: Color, type: PieceType) => void
   onDrop: (from: Square | PieceType, to: Square) => void
   movable?: Color | null
+  premove?: Color | null
   onArrow?: (usi: string) => void
   onZones?: (zones: StandZones | null) => void
   sideRoom?: number

@@ -86,7 +86,7 @@ function EngineSection({ model }: { model: PanelModel }) {
       )}
       {ai && spoilerFree && <Muted>{t('app.theAiStaysQuietUntil')}</Muted>}
       {ai && !spoilerFree && gameOver && <Muted>{t('app.checkmateWon', { winner: t(toMove === 'sente' ? 'common.gote' : 'common.sente') })}</Muted>}
-      {!assist && <Muted>{t('app.helpIsOffTurnIt')}</Muted>}
+      {!assist && <Muted>{t(mode === 'spar' ? 'app.coachAfterGame' : 'app.helpIsOffTurnIt')}</Muted>}
       {live && (mode === 'lesson' || mode === 'drill') && <Note>{t('engine.lessonNote')}</Note>}
       {live && (
         <EnginePane
@@ -127,7 +127,7 @@ function CoachSection({ model }: { model: PanelModel }) {
       )}
       {mode === 'view' && <Note>{t('watch.description')}</Note>}
       {mode === 'analyze' && analyze.gameNotes && <KifuNotes notes={analyze.gameNotes} moves={game.moves} ply={cursor} />}
-      {(isGameMode(mode) || mode === 'view') && !assist && <Muted>{t('app.helpIsOffNoRatings')}</Muted>}
+      {(isGameMode(mode) || mode === 'view') && !assist && <Muted>{t(mode === 'spar' ? 'app.coachAfterGame' : 'app.helpIsOffNoRatings')}</Muted>}
       {(isGameMode(mode) || mode === 'view') && assist && (
         <CoachPane
           review={coach.review}
@@ -162,31 +162,34 @@ function MoveCounts() {
     if (review) counts.set(review.label, (counts.get(review.label) ?? 0) + 1)
   }
   const rated = [...counts.values()].reduce((sum, count) => sum + count, 0)
+  if (rated === 0) return null
   return (
     <CountsSection>
       <CountsHeading>{t('lesson.yourMoves', { value: rated, total })}</CountsHeading>
       <styled.dl display="grid" gridTemplateColumns="repeat(2, minmax(0, 1fr))" gap="{spacing.1} {spacing.3}" m="{spacing.2} 0 0">
-        {(Object.entries(LABELS) as [Label, (typeof LABELS)[Label]][]).map(([label, meta]) => (
-          <styled.div key={label} display="flex" justifyContent="space-between" gap="1" style={{ ['--label' as string]: meta.color }}>
-            <dt>
-              <styled.span
-                display="inline-block"
-                whiteSpace="nowrap"
-                ml="1.5"
-                color="light-dark(color-mix(in srgb, var(--label) 55%, #000), var(--label))"
-                fontFamily="sans"
-                fontWeight="bold"
-                fontSize="xs"
-              >
-                {meta.symbol}
-              </styled.span>{' '}
-              {meta.text}
-            </dt>
-            <styled.dd m="0" fontVariantNumeric="tabular-nums">
-              {counts.get(label) ?? 0}
-            </styled.dd>
-          </styled.div>
-        ))}
+        {(Object.entries(LABELS) as [Label, (typeof LABELS)[Label]][])
+          .filter(([label]) => counts.has(label))
+          .map(([label, meta]) => (
+            <styled.div key={label} display="flex" justifyContent="space-between" gap="1" style={{ ['--label' as string]: meta.color }}>
+              <dt>
+                <styled.span
+                  display="inline-block"
+                  whiteSpace="nowrap"
+                  ml="1.5"
+                  color="light-dark(color-mix(in srgb, var(--label) 55%, #000), var(--label))"
+                  fontFamily="sans"
+                  fontWeight="bold"
+                  fontSize="xs"
+                >
+                  {meta.symbol}
+                </styled.span>{' '}
+                {meta.text}
+              </dt>
+              <styled.dd m="0" fontVariantNumeric="tabular-nums">
+                {counts.get(label)}
+              </styled.dd>
+            </styled.div>
+          ))}
       </styled.dl>
     </CountsSection>
   )
@@ -194,13 +197,13 @@ function MoveCounts() {
 
 function FlowSection({ model }: { model: PanelModel }) {
   const { t } = useTranslation()
-  const { assist, gameOver, startPreview } = useSession()
+  const { mode, assist, gameOver, startPreview } = useSession()
   const { spoilerFree, lanes, lanesSfen, onHoverLane } = model
   return (
     <>
       {spoilerFree && <Muted>{t('app.findTheMoveYourselfFirst')}</Muted>}
       {!spoilerFree && gameOver && <Muted>{t('app.theGameIsOverCheckmate')}</Muted>}
-      {!assist && <Muted>{t('app.helpIsOffTurnIt2')}</Muted>}
+      {!assist && <Muted>{t(mode === 'spar' ? 'app.coachAfterGame' : 'app.helpIsOffTurnIt2')}</Muted>}
       {assist && !spoilerFree && !gameOver && (
         <FlowPane lanes={lanes} sfen={lanesSfen} onPreview={(moves, title) => startPreview(moves, title)} onHover={onHoverLane} />
       )}

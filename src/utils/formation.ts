@@ -1,11 +1,13 @@
 import { Color, type ImmutablePosition } from 'tsshogi'
 import { currentFormation, finalizeFormationTags, formationTagsAt, type DetectionPreset, type DetectionResult } from './formationTags'
 
+export const QUIET_NAMES = ['居玉', '居飛車']
+
 type FormationHistory = { sfens: string[]; moves: string[]; cursor: number; detectionPreset?: DetectionPreset }
 
 export function formationOf(position: ImmutablePosition, color: Color, history?: FormationHistory) {
   const tags = history ? formationTagsAt(history.sfens, history.moves, history.cursor, history.detectionPreset)[color === Color.BLACK ? 0 : 1] : undefined
-  return currentFormation(position, color, tags)
+  return currentFormation(position, color, tags, history?.cursor)
 }
 
 export function formationMoveTags(sfens: string[], moves: string[], preset?: DetectionPreset, result?: DetectionResult) {

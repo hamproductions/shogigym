@@ -10,7 +10,7 @@ import { isBad } from '@/utils/mistake'
 import { cachedReview } from '@/app/memory'
 import type { Color } from 'tsshogi'
 import { type DetectionPreset } from '@/utils/formationTags'
-import { formationMoveTags, formationName } from '@/utils/formation'
+import { formationMoveTags, formationName, QUIET_NAMES } from '@/utils/formation'
 import { detectTesuji } from '@/app/tesuji'
 import { countMoves, isMainLine, nodeAt, type Tree } from '@/app/tree'
 import { Button } from '@/app/ui/Button'
@@ -29,6 +29,7 @@ type MovesPaneProps = {
   onSwitch?: (path: string[]) => void
   onDelete?: (path: string[], size: number) => void
   rating?: RatingProgress | null
+  ratings?: boolean
   empty?: string
   detectionPreset?: DetectionPreset
   detectionResult?: DetectionPreset & { winner?: Color; checkmate?: boolean; impasse?: boolean }
@@ -41,8 +42,6 @@ const MoveTag = styled('span', {
     ml: '1',
     px: '1',
     borderRadius: 'xs',
-    bg: 'accent.soft',
-    color: 'accent.text',
     fontSize: '2xs',
     fontWeight: 'bold',
     whiteSpace: 'normal',
@@ -50,6 +49,13 @@ const MoveTag = styled('span', {
     _narrow: { display: 'block', w: 'fit-content', maxW: '100%', m: '{spacing.0.5} 0 0' },
     '@container (max-width: 340px)': { display: 'block', m: '{spacing.0.5} 0 0' },
   },
+  variants: {
+    tone: {
+      tesuji: { bg: 'accent.soft', color: 'accent.text' },
+      kifu: { bg: 'surface.2', color: 'fg.muted', boxShadow: 'inset 0 0 0 1px {colors.border}' },
+    },
+  },
+  defaultVariants: { tone: 'kifu' },
 })
 
 export function MoveRows({ count, cell, listRef, title }: { count: number; cell: (i: number) => ReactNode; listRef?: Ref<HTMLOListElement>; title?: string }) {
@@ -90,6 +96,7 @@ export function MovesPane({
   onSwitch,
   onDelete,
   rating,
+  ratings = true,
   canRate = true,
   empty,
   detectionResult,
@@ -100,7 +107,13 @@ export function MovesPane({
   const flipped = useFlipped()
   const listRef = useRef<HTMLOListElement>(null)
   const tesujis = useMemo(() => moves.map((usi, i) => (sfens[i] ? detectTesuji(sfens[i], usi) : null)), [moves, sfens])
-  const detectedTags = useMemo(() => formationMoveTags(sfens, moves, detectionPreset, detectionResult).flat(), [moves, sfens, detectionResult, detectionPreset])
+  const detectedTags = useMemo(
+    () =>
+      formationMoveTags(sfens, moves, detectionPreset, detectionResult)
+        .flat()
+        .filter((tag, i, all) => all.findIndex((other) => other.ply === tag.ply && other.name === tag.name) === i),
+    [moves, sfens, detectionResult, detectionPreset],
+  )
   useEffect(() => {
     const row = listRef.current?.querySelector('button[aria-current]') ?? listRef.current?.lastElementChild
     row?.scrollIntoView({ block: 'nearest' })
@@ -108,7 +121,7 @@ export function MovesPane({
   const [saved, setSaved] = useState<number | null>(null)
   const reviews: (MoveReview | null)[] = moves.map((usi, i) => cachedReview(sfens[i], usi) ?? null)
   const rated = moves.length > 0 && reviews.every(Boolean)
-  const labels = rated || reviews.some(Boolean) ? reviews.map((r) => r?.label ?? null) : null
+  const labels = ratings && (rated || reviews.some(Boolean)) ? reviews.map((r) => r?.label ?? null) : null
   if (moves.length === 0) return <Muted>{empty ?? t('moves.noMovesYetPlayOn')}</Muted>
 
   const mistakeId = (i: number) => `${sfens[i]}|${moves[i]}`
@@ -146,14 +159,24 @@ export function MovesPane({
             <FlipMarks flipped={flipped}>{moveText(sfens[i], usi, moves[i - 1])}</FlipMarks>
           </styled.span>
           {tesuji && (
-            <MoveTag title={t('moves.tesuji', { value: i18n.language === 'ja' ? tesuji.ja : `${tesuji.en} (${tesuji.ja})`, value2: tesuji.explain })}>
+            <MoveTag
+              tone="tesuji"
+              title={t('moves.tesuji', { value: i18n.language === 'ja' ? tesuji.ja : `${tesuji.en} (${tesuji.ja})`, value2: tesuji.explain })}
+            >
               {i18n.language === 'ja' ? tesuji.ja : tesuji.en}
             </MoveTag>
           )}
           {detectedTags
-            .filter((tag) => tag.ply === i + 1 && tag.annotation !== false && tag.name !== tesuji?.ja && (showTesuji || tag.kind !== 'technique'))
+            .filter(
+              (tag) =>
+                tag.ply === i + 1 &&
+                tag.annotation !== false &&
+                !tesuji?.ja.startsWith(tag.name) &&
+                !QUIET_NAMES.includes(tag.name) &&
+                (showTesuji || tag.kind !== 'technique'),
+            )
             .map((tag) => (
-              <MoveTag key={`${tag.kind}|${tag.name}`} title={tag.name}>
+              <MoveTag key={`${tag.kind}|${tag.name}`} tone={tag.kind === 'technique' ? 'tesuji' : 'kifu'} title={tag.name}>
                 {formationName(tag.name, i18n.language)}
               </MoveTag>
             ))}
@@ -229,7 +252,7 @@ export function MovesPane({
     <div>
       <Wrap gap="2" align="center" mb="2.5">
         {rating && <Muted as="span">{t('moves.ratingMoveOf', { progress: rating.done + 1, movesCount: rating.total })}</Muted>}
-        {canRate && rated && !rating && (
+        {ratings && canRate && rated && !rating && (
           <>
             <Muted as="span">{mistakes ? t('moves.mistakesFound', { count: mistakes }) : t('moves.noMistakesFound')}</Muted>
             {mistakes > 0 && saved === null && !allSaved && (

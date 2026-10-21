@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Color, PieceType, Square } from 'tsshogi'
-import { legalTargets, promotionOptions } from '@/utils/shogi'
+import { colorSide, legalTargets, promotionOptions } from '@/utils/shogi'
 import { sideMark } from '@/utils/notation'
 import { sees } from '@/app/pieces'
 import type { LessonMode } from '@/app/types'
@@ -12,11 +12,37 @@ type BoardInputDeps = { mistakes: Mistakes; commit: (usi: string) => void; lesso
 
 export function useBoardInput(session: BoardSession, { mistakes, commit, lessonMode, halted, setNudge }: BoardInputDeps) {
   const { t } = useTranslation()
-  const { mode, course, preview, atEnd, selection, setSelection, position, sfen, peekFrom, setPeekFrom, setPreview, setPlaying, userTurn, setPromotion } =
-    session
+  const {
+    mode,
+    course,
+    preview,
+    atEnd,
+    selection,
+    setSelection,
+    position,
+    sfen,
+    peekFrom,
+    setPeekFrom,
+    setPreview,
+    setPlaying,
+    userTurn,
+    setPromotion,
+    gameOver,
+    userSide,
+  } = session
   const canMove = (userTurn && !(mode === 'spar' && halted)) || (mode === 'lesson' && !!course && lessonMode === 'study' && !preview)
-  const targets = useMemo(() => (selection ? legalTargets(position, selection.from) : []), [selection, position])
+  const targets = useMemo(() => (selection && selection.color === position.color ? legalTargets(position, selection.from) : []), [selection, position])
   const picking = mode === 'lesson' && !course
+  const waiting = (color: Color) => mode === 'spar' && !userTurn && !halted && !gameOver && colorSide(color) === userSide
+  const premove = (from: Square | PieceType, color: Color) => {
+    setPeekFrom(null)
+    if (!atEnd) {
+      setSelection(null)
+      return setNudge(t('app.lookingBackDuringGame'))
+    }
+    setSelection({ from, color })
+    setNudge(t('app.theAiIsThinking'))
+  }
   const dropStaleMistake = () => {
     if (mistakes.mistake && !preview) mistakes.setMistake(null)
   }
@@ -34,7 +60,12 @@ export function useBoardInput(session: BoardSession, { mistakes, commit, lessonM
     if (!atEnd && (mode === 'tsume' || mode === 'drill')) return
     if (selection && targets.some((sq) => sq.equals(square))) return attempt(selection.from, square)
     const piece = position.board.at(square)
-    if (selection?.from instanceof Square && piece?.color !== selection.color && sees(sfen, selection.from).some((sq) => sq.equals(square))) {
+    if (
+      selection?.from instanceof Square &&
+      piece?.color !== selection.color &&
+      !waiting(selection.color) &&
+      sees(sfen, selection.from).some((sq) => sq.equals(square))
+    ) {
       setSelection(null)
       setNudge(position.board.at(selection.from)?.type === PieceType.KING ? t('app.yourKingCannotGoThere') : t('app.thatMoveWouldLeaveYour'))
       return
@@ -46,6 +77,7 @@ export function useBoardInput(session: BoardSession, { mistakes, commit, lessonM
       dropStaleMistake()
       return setSelection({ from: square, color: piece.color })
     }
+    if (piece && waiting(piece.color)) return premove(square, piece.color)
     setSelection(null)
     if (piece && piece.color !== position.color && (mode === 'drill' || mode === 'tsume' || (mode === 'lesson' && lessonMode === 'quiz')) && userTurn) {
       setNudge(t('app.thatIsTheOpponentS', { side: sideMark(position.color) }))
@@ -57,6 +89,11 @@ export function useBoardInput(session: BoardSession, { mistakes, commit, lessonM
   const onHand = (color: Color, type: PieceType) => {
     if (preview) return setPreview(null)
     if (picking) return
+    if (waiting(color)) {
+      setPlaying(false)
+      if (atEnd && selection && !(selection.from instanceof Square) && selection.from === type) return setSelection(null)
+      return premove(type, color)
+    }
     if (color !== position.color || !canMove) return
     setPlaying(false)
     setPeekFrom(null)

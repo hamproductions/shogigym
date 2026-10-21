@@ -1,6 +1,6 @@
 import { Suspense, lazy, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { EvalBar } from './EvalBar'
+import { EvalBar, EvalSlot } from './EvalBar'
 import { Color } from 'tsshogi'
 import type { Side } from '@/utils/shogi'
 import { avatarCues } from '@/rendering/avatars'
@@ -16,7 +16,7 @@ import type { Watch } from '@/app/modes/view/useWatch'
 import { firstPieceHint } from '@/app/modes/tsume/firstPiece'
 import type { TsumeState } from '@/app/modes/tsume/useTsume'
 import { Plate } from '@/app/panels/Plate'
-import { loadPieceFont, useSettings } from '@/appearance/settings'
+import { loadPieceFont, STRENGTH, useSettings } from '@/appearance/settings'
 import { loadBoardStyle } from '@/appearance/boardStyles'
 import { loadPieceSet } from '@/appearance/pieceSets'
 import { isGameMode } from '@/app/types'
@@ -40,6 +40,7 @@ type BoardStageProps = {
   onFurigoma?: (faces: boolean[]) => void
   onMoveLanded: (sfen: string) => void
   evalRate: number | null
+  evalSlot?: boolean
   view: View
   decor: ReturnType<typeof useBoardDecor>
   input: ReturnType<typeof useBoardInput>
@@ -102,6 +103,7 @@ export function BoardStage({
   announce,
   onZones,
   evalRate,
+  evalSlot,
   furigoma,
   onFurigoma,
   onMoveLanded,
@@ -110,7 +112,8 @@ export function BoardStage({
   const settings = useSettings()
   const { key: assetsKey, progress: assetProgress } = usePieceAssetsKey()
   const assetsReady = assetsKey === `${settings.pieceFont}|${settings.pieceSet}|${settings.pieceGuide}|${settings.boardStyle}`
-  const { mode, course, game, position, flipped, userSide, lastMove, selection, promotion, gameOver, sfen, atEnd, userTurn, toMove, sourceMarks } = useSession()
+  const { mode, course, game, position, flipped, userSide, lastMove, selection, promotion, gameOver, sfen, atEnd, userTurn, toMove, sourceMarks, cursor } =
+    useSession()
   const { faces: promotionFaces } = usePromotionFaces(assetsReady && !!promotion)
   const picking = mode === 'lesson' && !course
   const playing = mode === 'spar' || mode === 'view' || (mode === 'lesson' && !!course)
@@ -127,7 +130,7 @@ export function BoardStage({
     () =>
       avatarCues({
         playing,
-        aiTurn: atEnd && !userTurn && !gameOver && !spar.resigned,
+        aiTurn: atEnd && !userTurn && !gameOver && !spar.resigned && !spar.aiEnded,
         resigned: spar.resigned,
         userColor: sideColor(userSide),
         toMove: sideColor(toMove),
@@ -137,7 +140,7 @@ export function BoardStage({
         ply: game.moves.length,
         stamp,
       }),
-    [playing, atEnd, userTurn, gameOver, spar.resigned, userSide, toMove, game.moves.length, game.start, mode, course?.id, lastMove, stamp],
+    [playing, atEnd, userTurn, gameOver, spar.resigned, spar.aiEnded, userSide, toMove, game.moves.length, game.start, mode, course?.id, lastMove, stamp],
   )
   const board = {
     position,
@@ -157,6 +160,7 @@ export function BoardStage({
     onHand: input.onHand,
     onDrop: input.onDrop,
     movable: userTurn && !gameOver ? position.color : null,
+    premove: mode === 'spar' && !userTurn && !gameOver && !spar.halted ? sideColor(userSide) : null,
   }
   const who = (side: Side) =>
     mode === 'view'
@@ -165,7 +169,9 @@ export function BoardStage({
         ? null
         : side === userSide
           ? t('app.you')
-          : t('app.opponent')
+          : mode === 'spar'
+            ? t('plate.ai', { level: STRENGTH[spar.config.opponent].label })
+            : t('app.opponent')
   const plate = (place: 'top' | 'bottom') => {
     const side: Side = (place === 'top') === flipped ? 'sente' : 'gote'
     return (
@@ -176,13 +182,14 @@ export function BoardStage({
         board={position}
         side={side === 'sente' ? Color.BLACK : Color.WHITE}
         who={who(side)}
+        thinking={mode === 'spar' ? side !== userSide && spar.aiThinking : undefined}
       />
     )
   }
-  const sparEnded = mode === 'spar' && (spar.resigned || !!spar.flagged)
+  const sparEnded = mode === 'spar' && (spar.resigned || !!spar.aiEnded || !!spar.flagged)
   const showGameOver = ((gameOver && game.moves.length > 0 && isGameMode(mode)) || sparEnded) && spar.endHidden !== sfen
   return (
-    <BoardWrap className="app-board-wrap" data-eval={evalRate !== null || undefined}>
+    <BoardWrap className="app-board-wrap" data-eval={evalRate !== null || evalSlot || undefined}>
       {mode === 'spar' && spar.furigomaBanner && (
         <div
           className="app-furigoma-banner"
@@ -212,7 +219,7 @@ export function BoardStage({
         </div>
       )}
       <BoardScene className="app-board-scene">
-        {evalRate !== null && <EvalBar rate={evalRate} flipped={flipped} />}
+        {evalRate !== null ? <EvalBar rate={evalRate} flipped={flipped} /> : evalSlot && <EvalSlot />}
         <Suspense fallback={<BoardLoading />}>
           {settings.environment !== 'diagram' &&
           settings.environment !== 'broadcast' &&
@@ -327,7 +334,7 @@ export function BoardStage({
         </styled.button>
       )}
       {showGameOver && <GameOverBanner spar={spar} flatView={view.flatView} />}
-      {announce && <AnnounceBadge key={announce.key} announce={announce} />}
+      {announce && !(mode === 'spar' && announce.at !== cursor) && <AnnounceBadge key={announce.key} announce={announce} />}
       {!decor.note && mode === 'tsume' && tsume && tsume.status === 'playing' && tsume.good === 0 && tsume.hint >= 1 && (
         <div className={peek({ placement: 'hint' })} role="status">
           {t('app.hintTheFirstMoveUses', { piece: firstPieceHint(tsume.problem) })}

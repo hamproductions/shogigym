@@ -18,6 +18,7 @@ export function Plate({
   className,
   placement,
   clock,
+  thinking,
 }: {
   board: ImmutablePosition
   side: Color
@@ -25,21 +26,38 @@ export function Plate({
   className: string
   placement: 'scene' | 'caption'
   clock?: ClockFace
+  thinking?: boolean
 }) {
   const { t, i18n } = useTranslation()
   const { sfens, game, cursor, flipped } = useSession()
   const { strategy, castle } = formationOf(position, color, { sfens, moves: game.moves, cursor })
+  const spar = thinking !== undefined
   return (
     <PlateBox className={cx('app-plate', className)} placement={placement}>
       {clock && (
-        <Clock state={clock.out ? 'out' : clock.low ? 'low' : clock.active ? 'on' : 'idle'} role="timer">
+        <Clock state={clock.out ? 'out' : clock.low ? 'low' : clock.active || thinking ? 'on' : 'idle'} role="timer">
           {clock.out ? t('plate.outOfTime') : clock.text}
         </Clock>
       )}
       <PlateSide>
         <SideMark side={color === Color.BLACK ? 'sente' : 'gote'} flipped={flipped} /> {color === Color.BLACK ? t('plate.sente') : t('plate.gote')}
       </PlateSide>
-      {who && <Muted as="span">{who}</Muted>}
+      {who && (
+        <Muted
+          as="span"
+          minW={spar ? '0' : undefined}
+          overflow={spar ? 'hidden' : undefined}
+          textOverflow={spar ? 'ellipsis' : undefined}
+          whiteSpace={spar ? 'nowrap' : undefined}
+        >
+          {who}
+        </Muted>
+      )}
+      {thinking && (
+        <Muted as="span" flex="none" whiteSpace="nowrap">
+          {t('plate.thinking')}
+        </Muted>
+      )}
       {strategy && <PlatePill title={`${t('plate.strategyFromWhereTheRook')} (${strategy})`}>{formationName(strategy, i18n.language)}</PlatePill>}
       {castle && <PlatePill title={`${t('plate.castleFromWhereTheKing')} (${castle})`}>{formationName(castle, i18n.language)}</PlatePill>}
     </PlateBox>
