@@ -33,12 +33,12 @@
       "title": {"ja": "４筋の歩交換で角を前に出す", "en": "Use a fourth-file exchange to activate the bishop"},
       "side": "sente",
       "kind": "position",
-      "start": "b4g2k/1r4gsl/5p2p/9/3P1P2P/9/2B6/3RG1S2/4KG3 b - 1",
+      "start": "b4g2k/1r4gsl/1p3p2p/9/3P1P2P/2P6/PPB6/3RG1S2/L3KG3 b - 1",
       "steps": [
         {
           "text": {
-            "ja": "先手５九玉・６八飛・７七角に対し、後手は１一玉・１二香・２二銀・３二金の穴熊です。７七角はすでに２二銀へ利きますが、銀は３二金に守られています。端の１五歩を急いで動かす前に、４筋の歩交換で角を前に出せるかを見ます。",
-            "en": "Sente has K5i, R6h and B7g against an Anaguma with Gote K1a, L1b, S2b and G3b. B7g already attacks S2b along 6f–5e–4d–3c; G3b protects the silver. Before spending another edge tempo with P1e, examine whether a fourth-file pawn exchange lets the bishop advance."
+            "ja": "先手５九玉・６八飛・７七角に対し、後手は１一玉・１二香・２二銀・３二金の穴熊です。７七角はすでに２二銀へ利きますが、銀は３二金に守られています。後手８三歩と先手７六・８七・９七歩、９九香で、後手飛車がすぐ９段目へ入る筋はありません。端の１五歩を急いで動かす前に、４筋の歩交換で角を前に出せるかを見ます。",
+            "en": "Sente has K5i, R6h and B7g against an Anaguma with Gote K1a, L1b, S2b and G3b. B7g already attacks S2b along 6f–5e–4d–3c; G3b protects the silver. Gote's P8c and Sente's pawns on 7f, 8g and 9g with L9i leave Gote's rook no immediate route to the back rank. Before spending another edge tempo with P1e, examine whether a fourth-file pawn exchange lets the bishop advance."
           },
           "marks": {"arrows": ["4e4d", "7g4d"], "boxes": ["4e", "2b", "5i"]}
         },
@@ -61,8 +61,8 @@
         {
           "moves": ["3b2c", "4d5e"],
           "text": {
-            "ja": "後手が３二金を△２三金へ移す例では、２二銀への守りを保ちながら１四にも利きを足します。先手は▲５五角と引いて角を残せます。先手１五歩だけを見て端攻めを強行する根拠はなく、別の後手応手なら再計算が必要です。",
-            "en": "In the sample G3b–2c, Gote keeps S2b protected and adds cover on 1d. Sente withdraws B5e and keeps the bishop. P1e alone does not justify a forced edge attack; recalculate if Gote chooses another defense."
+            "ja": "後手が３二金を△２三金へ移す例では、２二銀への守りを保ちながら１四にも利きを足します。先手は▲５五角と引いて角を残せます。後手飛車が８二を離れると９一角と５五角が向き合うので、その時は角の取り合いを読み直します。先手１五歩だけを見て端攻めを強行する根拠はなく、別の後手応手なら再計算が必要です。",
+            "en": "In the sample G3b–2c, Gote keeps S2b protected and adds cover on 1d. Sente withdraws B5e and keeps the bishop. If Gote's rook leaves 8b, B9a and B5e face each other, so read the bishop exchange again at that point. P1e alone does not justify a forced edge attack; recalculate if Gote chooses another defense."
           },
           "marks": {"last": "5e", "boxes": ["2c", "2b", "1d"]}
         }
@@ -123,12 +123,12 @@
       "title": {"ja": "端の一手より先に居玉への飛車侵入を受ける", "en": "Stop the rook's entry before spending an edge tempo"},
       "side": "sente",
       "kind": "position",
-      "start": "2b2g2k/6gsl/8p/9/3PB3P/1r7/9/3RG1S2/L3KG3 b - 1",
+      "start": "2b2g2k/6gsl/8p/9/3PB3P/1r7/9/3RG1S2/LN2KG3 b - 1",
       "steps": [
         {
           "text": {
-            "ja": "後手の穴熊は１一玉・１二香・２二銀・３二金で、８六飛が先手陣へ近づいています。先手は５九居玉で１五歩もあります。端を攻めたくても、８筋の飛車が８九へ入れば横から王手になるので、先にその道を見ます。",
-            "en": "Gote's Anaguma has K1a, L1b, S2b and G3b, while its rook has advanced to 8f. Sente still has K5i and P1e. An edge push is tempting, but a rook reaching 8i would check along the back rank, so count that route first."
+            "ja": "後手の穴熊は１一玉・１二香・２二銀・３二金で、８六飛が先手陣へ近づいています。先手は５九居玉で１五歩もあります。端を攻めたくても、８筋の飛車が８九へ入れば桂を取りながら横から王手になるので、先にその道を見ます。",
+            "en": "Gote's Anaguma has K1a, L1b, S2b and G3b, while its rook has advanced to 8f. Sente still has K5i and P1e. An edge push is tempting, but a rook reaching 8i would take the knight and check along the back rank, so count that route first."
           },
           "marks": {"arrows": ["8f8i+", "6h8h"], "boxes": ["5i", "8f", "1e"]}
         },
@@ -143,8 +143,8 @@
         {
           "moves": ["8f8h+", "5e8h"],
           "text": {
-            "ja": "後手が△８八飛成で先手飛車を取る例なら、▲同角で成飛車を取れます。双方の飛車が盤上から消えたあとも先手玉は５九なので、持ち駒の飛車の打ち場所まで評価してから攻めへ移ります。後手に交換の義務はありません。",
-            "en": "If Gote chooses Rx8h+, Bx8h captures the promoted rook. Both rooks leave the board and Sente's king is still on 5i, so evaluate rook drops after the exchange before attacking. Gote need not take on 8h."
+            "ja": "後手が△８八飛成で先手飛車を取る例なら、▲同角で成飛車を取れます。双方の飛車が盤上から消えたあとも先手玉は５九なので、持ち駒の飛車の打ち場所まで評価してから攻めへ移ります。たとえば△８六飛と打たれると８八角に当たり、角が動けば８九桂も狙われます。後手に交換の義務はありません。",
+            "en": "If Gote chooses Rx8h+, Bx8h captures the promoted rook. Both rooks leave the board and Sente's king is still on 5i, so evaluate rook drops after the exchange before attacking. For example, R*8f hits B8h, and once the bishop moves the knight on 8i is also a target. Gote need not take on 8h."
           },
           "marks": {"last": "8h", "boxes": ["8h", "5i", "1a"]}
         }
@@ -152,10 +152,10 @@
       "variations": [
         {
           "from": 0,
-          "moves": ["1e1d", "8f8i+", "5i4h"],
+          "moves": ["1e1d", "8f8i+", "6h6i"],
           "text": {
-            "ja": "先に▲１四歩と端へ出る枝では、後手は△８九飛成で王手をかけられます。▲４八玉はこの局面での逃げ道の一例ですが、香と飛車が自陣に残ったまま後手に成飛車を作られました。端攻めの価値と居玉への反撃を交換条件として比べます。",
-            "en": "If Sente first plays P1d, Gote can answer R8i+ with check along the back rank. K4h is one legal escape here, but Gote has made a dragon while Sente's edge pawn has only advanced. Compare that cost with any later edge pressure instead of treating the home king as automatically safe."
+            "ja": "先に▲１四歩と端へ出る枝では、後手は△８九飛成と桂を取って王手をかけられます。受けは▲６九飛の合駒か▲４八玉だけですが、▲４八玉には取った桂を△５六桂と打たれ、玉と６八飛の両取りで飛車を失います。▲６九飛と合駒しても、先手は桂を失い、後手に成飛車を作られました。端攻めの価値と居玉への反撃を交換条件として比べます。",
+            "en": "If Sente first plays P1d, Gote can answer Rx8i+, taking the knight with check along the back rank. The only defences are interposing R6i or K4h, and after K4h Gote drops the captured knight with N*5f, forking the king and R6h and winning the rook. Even with the R6i interposition, Sente has lost the knight and Gote has made a dragon. Compare that cost with any later edge pressure instead of treating the home king as automatically safe."
           }
         }
       ]

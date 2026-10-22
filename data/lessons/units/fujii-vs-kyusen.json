@@ -13,8 +13,8 @@
       "en": "Gote's pawn stands on 8f in front of Sente's P8g, while Sente's king remains on 5i. Which pawn contact can Sente resolve before moving K4h?"
     },
     "answer": {
-      "ja": "▲８六歩で後手歩を取れます。先に▲４八玉とすると、この盤面では△８七歩成で先手歩を取られます。▲同歩の後も後手に銀や飛車の応手があるので、８筋が解決したと決めずに再計算します。",
-      "en": "Px8f captures Gote's pawn. If Sente first plays K4h on this board, P8g+ captures Sente's pawn. After Px8f, Gote still has silver and rook replies, so recalculate rather than treating the eighth file as settled."
+      "ja": "▲８六歩で後手歩を取れます（▲同角でも取れます）。先に▲４八玉とすると、この盤面では△８七歩成で先手歩を取られます。▲同歩の後も後手に銀や飛車の応手があるので、８筋が解決したと決めずに再計算します。",
+      "en": "Px8f captures Gote's pawn (Bx8f also captures it). If Sente first plays K4h on this board, P8g+ captures Sente's pawn. After Px8f, Gote still has silver and rook replies, so recalculate rather than treating the eighth file as settled."
     }
   },
   "references": [
@@ -25,7 +25,7 @@
       "title": {"ja": "玉を寄せる前に８七歩の接触を解く", "en": "Answer the eighth-file contact before moving the king"},
       "side": "sente",
       "kind": "position",
-      "start": "b7l/1r2gk3/2s6/9/9/1p7/1PB6/3RG1S2/4KG3 b - 1",
+      "start": "b8/1r2gk3/2sp2ppp/9/9/1p7/PPB6/3RG1S2/4KG3 b - 1",
       "steps": [
         {
           "text": {
@@ -56,8 +56,16 @@
           "from": 0,
           "moves": ["5i4h", "8f8g+"],
           "text": {
-            "ja": "先に▲４八玉とする枝では、△８七歩成で先手歩を取られます。角７七は８六には利きますが、８七の歩を歩で取り返す一手は失いました。",
-            "en": "If Sente moves K4h first, P8g+ captures Sente's pawn. B7g controls 8f, but the chance to meet the pawn on 8f with Px8f has passed."
+            "ja": "先に▲４八玉とする枝では、△８七歩成で先手歩を取られます。８七のと金は７七角にも当たります。角７七は８六には利きますが、８六の歩を歩で取る一手は失いました。",
+            "en": "If Sente moves K4h first, P8g+ captures Sente's pawn, and the tokin on 8g also attacks B7g. B7g controls 8f, but the chance to take the pawn on 8f with Px8f has passed."
+          }
+        },
+        {
+          "from": 0,
+          "moves": ["7g8f"],
+          "text": {
+            "ja": "▲同角と角で取っても目の前の歩は消えます。８六角は４二玉への王手にもなり、後手が△同飛と取れば▲同歩で角と飛車の交換です。どちらで取っても、玉を動かす前に接触を処理する順番は同じです。",
+            "en": "Bx8f also removes the pawn, and B8f checks K4b. If Gote answers Rx8f, Px8f trades bishop for rook. Either capture follows the same order: resolve the contact before moving the king."
           }
         }
       ]
@@ -107,7 +115,7 @@
       "title": {"ja": "６筋の飛車交換に角が参加する", "en": "A bishop joins the sixth-file rook exchange"},
       "side": "sente",
       "kind": "position",
-      "start": "8l/4gk3/1b2s4/3r5/1p7/3P5/2B6/3RG1S2/5GK2 b - 1",
+      "start": "9/4gk3/1b2s1ppp/3r5/1p7/3P5/2B3PPP/3RG1S2/5GK2 b - 1",
       "steps": [
         {
           "text": {
@@ -136,10 +144,10 @@
       "variations": [
         {
           "from": 0,
-          "moves": ["6f6e", "6d7d", "6h6f"],
+          "moves": ["6f6e", "6d7d", "7g5e"],
           "text": {
-            "ja": "後手が△７四飛と横へよけて交換を断る枝では、先手は▲６六飛と浮き、６五歩の後ろへ回れます。飛車交換は後手の義務ではなく、７筋へ移った飛車の利きを調べ直します。",
-            "en": "Gote can decline the exchange with R7d. Sente may lift R6f behind P6e in this sample. The rook exchange is optional; reassess the rook's seventh-file reach."
+            "ja": "後手が△７四飛と横へよけて交換を断る枝です。７筋は７五・７六が空いているので、この飛車は７七角に当たります。▲５五角と角を７筋から外し、開いた斜線へ出る例です。飛車交換は後手の義務ではないので、よけた飛車の新しい利きを先に数えます。",
+            "en": "Gote can decline the exchange with R7d. With 7e and 7f empty, that rook now attacks B7g. In this sample Sente answers B5e, taking the bishop off the seventh file and onto the opened diagonal. The rook exchange is optional, so count the moved rook's new reach first."
           }
         }
       ]

@@ -33,7 +33,7 @@
       "title": { "ja": "２筋の接触は飛車移動より先に読む", "en": "Read the second-file contact before rerouting" },
       "side": "gote",
       "kind": "position",
-      "start": "9/1kg2r1b1/7p1/9/6pP1/2PP5/9/1B5R1/4K4 b - 1",
+      "start": "9/1kg2r1bs/7p1/9/6pP1/2PP5/PP3P3/1B3S1R1/4K4 b - 1",
       "steps": [
         {
           "text": { "ja": "後手飛車は４二、先手飛車は２八です。先手２五歩が２四へ来ると、後手２三歩との交換が始まります。ここで飛車を３筋へ移すだけでは、２筋の進出への応答を一手遅らせます。", "en": "Gote's rook is on 4b and Sente's on 2h. Sente's pawn on 2e can advance to 2d and meet Gote's pawn on 2c. Spending a move solely on the rook transfer would delay Gote's answer to that contact." },
@@ -50,9 +50,9 @@
           "marks": { "last": "3c", "arrows": ["3c2d"], "boxes": ["3b", "3d"] }
         },
         {
-          "moves": ["2d2f", "4b3b"],
-          "text": { "ja": "先手が▲２六飛と引いた後、後手は△３二飛と振り直しました。２筋の歩交換を受けてから移した形ですが、３三角が飛車の前をふさいでいます。次に角をどこへ移すかは先手の２筋の再攻撃を見て決めます。", "en": "After Sente's R2f retreat, Gote reroutes with R3b. This order answered the second-file exchange first, but Gote's bishop on 3c now blocks the rook's rise. Its next move depends on renewed second-file pressure." },
-          "marks": { "last": "3b", "boxes": ["3c", "2f"] }
+          "moves": ["2d2h", "4b3b"],
+          "text": { "ja": "先手が▲２八飛と引いた後、後手は△３二飛と振り直しました。２三には１二銀が利いているので、角が２筋を離れても▲２三飛成とは入れません。２筋の歩交換を受けてから移した形ですが、３三角が飛車の前をふさいでいます。次に角をどこへ移すかは先手の２筋の再攻撃を見て決めます。", "en": "After Sente's R2h retreat, Gote reroutes with R3b. Gote's silver on 1b covers 2c, so Sente cannot break in with R2c+ even though the bishop has left the second file. This order answered the second-file exchange first, but Gote's bishop on 3c now blocks the rook's rise. Its next move depends on renewed second-file pressure." },
+          "marks": { "last": "3b", "boxes": ["3c", "2h", "2c"] }
         }
       ]
     },
@@ -60,10 +60,10 @@
       "title": { "ja": "角を持たれた局面で金をずらす", "en": "Change the bishop-drop geometry before the transfer" },
       "side": "gote",
       "kind": "position",
-      "start": "9/1kg2r3/4p2p1/9/6p2/2P6/7P1/6SR1/4K4 w Bb 1",
+      "start": "9/1kg2r3/4n2p1/9/6p2/2P6/7P1/6SR1/4K4 w Bb 1",
       "steps": [
         {
-          "text": { "ja": "後手は４二飛・７二金・８二玉、先手は角を持っています。ここで後手飛車だけを３二へ移すと、先手は５四へ角を打ち、３二飛と７二金の双方を斜めに狙えます。先に金の位置を変える選択を比べます。後手歩５三は６四から４二飛への角筋を止め、先手銀３八は後手の角３七打ちを取れます。", "en": "Gote has a rook on 4b, gold on 7b and king on 8b; Sente holds a bishop. If Gote only moves the rook to 3b, a bishop drop on 5d can attack both that rook and the gold. First compare a move that changes the gold's square. Gote’s pawn on 5c blocks the diagonal from 6d to R4b, and Sente’s silver on 3h can capture a Gote bishop dropped on 3g." },
+          "text": { "ja": "後手は４二飛・７二金・８二玉、先手は角を持っています。ここで後手飛車だけを３二へ移すと、先手は５四へ角を打ち、３二飛と７二金の双方を斜めに狙えます。先に金の位置を変える選択を比べます。後手桂５三は６四から４二飛への角筋を止め、５四と６四には利いていません。先手銀３八は後手の角３七打ちを取れます。", "en": "Gote has a rook on 4b, gold on 7b and king on 8b; Sente holds a bishop. If Gote only moves the rook to 3b, a bishop drop on 5d can attack both that rook and the gold. First compare a move that changes the gold's square. Gote’s knight on 5c blocks the diagonal from 6d to R4b without reaching 5d or 6d, and Sente’s silver on 3h can capture a Gote bishop dropped on 3g." },
           "marks": { "arrows": ["7b8c", "4b3b"], "boxes": ["5d", "5c", "6d", "4b", "3h", "3g"] }
         },
         {
@@ -95,8 +95,8 @@
         },
         {
           "from": 0,
-          "moves": ["7b8c", "B*6d", "8b7a"],
-          "text": { "ja": "金を８三へ動かした後、先手角６四は８二玉への王手です。後手は△７一玉とかわす一例があります。５三歩が角から４二飛への線を止めているため、この角打ちは王手飛車取りではありません。", "en": "After G8c, Sente’s B*6d checks K8b. Gote can move K7a in this sample. P5c blocks the bishop’s other diagonal to R4b, so the drop is not a checking rook fork." }
+          "moves": ["7b8c", "B*6d", "8b9c"],
+          "text": { "ja": "金を８三へ動かした後、先手角６四は８二玉への王手です。後手は△９三玉とかわします。５三桂が角から４二飛への線を止めているため、この角打ちは王手飛車取りではありません。ただし△７一玉とかわすと、▲５三角成が桂を取って７一玉への王手と４二飛取りを兼ねます。桂は守られていないので、△９三玉の後も▲５三角成で飛車に当てられますが、王手ではないため飛車を逃げる手番があります。", "en": "After G8c, Sente’s B*6d checks K8b. Gote answers K9c. N5c blocks the bishop’s other diagonal to R4b, so the drop is not a checking rook fork. If Gote instead plays K7a, Bx5c+ takes the knight, checks K7a and attacks R4b at once. The knight is undefended, so Bx5c+ can still hit the rook after K9c, but without check Gote has time to move the rook." }
         }
       ]
     },
@@ -104,10 +104,10 @@
       "title": { "ja": "３筋の歩交換後も飛車を残す", "en": "Keep a retreat after the third-file pawn exchange" },
       "side": "gote",
       "kind": "position",
-      "start": "2g6/1k5b1/9/6r2/6pP1/2P6/6P2/7R1/4K4 w - 1",
+      "start": "2g6/1k5b1/9/6r2/6pP1/9/6P2/5S1R1/4K4 w - 1",
       "steps": [
         {
-          "text": { "ja": "後手飛車は３四、歩は３五です。先手は３七歩と２八飛を置き、３筋と２筋の両方に駒を利かせられます。後手が３筋の歩を進めると、先手が取るかどうかで飛車の進路が変わります。", "en": "Gote's rook is on 3d with a pawn on 3e. Sente has a pawn on 3g and rook on 2h. If Gote advances the pawn, Sente's choice to capture or decline changes the rook's route." },
+          "text": { "ja": "後手飛車は３四、歩は３五です。先手は３七歩・４八銀と２八飛を置き、３筋と２筋の両方に駒を利かせられます。後手が３筋の歩を進めると、先手が取るかどうかで飛車の進路が変わります。", "en": "Gote's rook is on 3d with a pawn on 3e. Sente has a pawn on 3g, silver on 4h and rook on 2h. If Gote advances the pawn, Sente's choice to capture or decline changes the rook's route." },
           "marks": { "arrows": ["3e3f", "3g3f"], "boxes": ["3d", "2h"] }
         },
         {
@@ -116,14 +116,14 @@
           "marks": { "last": "3f", "arrows": ["3d3f"] }
         },
         {
-          "moves": ["3d3f", "2h2f"],
-          "text": { "ja": "△同飛で歩を取ると、先手は▲２六飛と浮いて３六の飛車に横から当てました。後手が３六に飛車を置き続ける必要はありません。進んだ飛車の退路３五・３四が空いているか確認します。", "en": "Rx3f takes the pawn, and Sente answers R2f to attack Gote's rook from the side. Gote need not leave the rook on 3f. Check that 3e and 3d are clear for a retreat." },
-          "marks": { "last": "2f", "arrows": ["2f3f", "3f3d"] }
+          "moves": ["3d3f", "P*3g"],
+          "text": { "ja": "△同飛で歩を取ると、先手は一例として▲３七歩と打ち、３六の飛車に当てました。３七歩には４八銀が利いているので、飛車で取ると銀に取り返されます。後手が３六に飛車を置き続ける必要はありません。進んだ飛車の退路３五・３四が空いているか確認します。", "en": "Rx3f takes the pawn, and Sente's sample reply P*3g attacks the rook. The silver on 4h guards 3g, so taking the pawn with the rook would lose it to the silver. Gote need not leave the rook on 3f. Check that 3e and 3d are clear for a retreat." },
+          "marks": { "last": "3g", "arrows": ["3g3f", "3f3d"], "boxes": ["4h"] }
         },
         {
           "moves": ["3f3d"],
-          "text": { "ja": "△３四飛と戻し、飛車を盤上に残しました。双方が一歩ずつ持ち、先手飛車も２六で働いています。歩交換だけを成功と決めず、次の２筋の進行と双方の玉を見直します。", "en": "R3d keeps Gote's rook on the board. Both sides now hold a pawn, while Sente's rook is active on 2f. The exchange alone does not settle the evaluation; the next second-file advance and both kings still matter." },
-          "marks": { "last": "3d", "boxes": ["2f", "2e"] }
+          "text": { "ja": "△３四飛と戻し、飛車を盤上に残しました。後手は歩交換で一歩を手にし、先手は持ち歩を３七に打って３筋を受け直しています。歩交換だけを成功と決めず、次の２筋の進行と双方の玉を見直します。", "en": "R3d keeps Gote's rook on the board. Gote has gained a pawn in hand from the exchange, while Sente spent its pawn on 3g to close the third file again. The exchange alone does not settle the evaluation; the next second-file advance and both kings still matter." },
+          "marks": { "last": "3d", "boxes": ["3g", "2e"] }
         }
       ]
     }

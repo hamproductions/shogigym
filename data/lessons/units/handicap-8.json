@@ -112,38 +112,30 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "3g1g3/3k5/ppppppppp/9/9/2P3PP1/PPBPPPS1P/7R1/LNSGKG1NL b - 1",
+      "start": "5gg2/3k5/ppppppppp/9/9/2P3PP1/PPBPPPS1P/7R1/LNSGKG1NL b - 1",
       "steps": [
         {
           "text": {
-            "ja": "上手玉は６二、金は６一・４一。下手の７七角から３三歩へは６六・５五・４四が空いている。上手玉は３三へ直接利かないが、４一金は３二へ出て成った角を追える。",
-            "en": "Gote's king is on 6b, with golds on 6a and 4a. From B7g, the squares 6f, 5e and 4d are clear toward Gote's pawn on 3c. The king does not directly protect 3c, but G4a can move to 3b and attack a horse there."
+            "ja": "上手玉は６二、金は４一・３一。下手の７七角から３三歩へは６六・５五・４四が空いている。上手玉は３三へ直接利かないが、４一金は３二へ出て成った角を追え、その３二には３一金も利いている。",
+            "en": "Gote's king is on 6b, with golds on 4a and 3a. From B7g, the squares 6f, 5e and 4d are clear toward Gote's pawn on 3c. The king does not directly protect 3c, but G4a can move to 3b and attack a horse there, and G3a also covers 3b."
           },
-          "marks": { "boxes": ["7g", "3c", "4a", "6b"] }
+          "marks": { "boxes": ["7g", "3c", "4a", "3a", "6b"] }
         },
         {
           "moves": ["7g3c+", "4a3b"],
           "text": {
-            "ja": "▲３三角成で歩を取り馬になる。上手の△３二金は馬をすぐには取らないが、３三へ金の利きを向ける。下手は馬を作れたという理由だけで３三に居座れない。",
-            "en": "B3c+ captures the pawn and creates a horse. G3b does not capture it immediately, but the gold now attacks 3c. Promotion does not justify leaving the horse on an attacked square."
+            "ja": "▲３三角成で歩を取り馬になる。△３二金は一例で、３三の馬に金の利きを向ける。３二の金には３一金が付いているので、▲３二馬と取ると△同金で馬を金と換えることになる。下手は馬を作れたという理由だけで３三に居座れない。",
+            "en": "B3c+ captures the pawn and creates a horse. G3b is a sample reply that aims the gold at the horse. G3a protects the gold on 3b, so +Bx3b G3ax3b would trade the horse for a gold. Promotion does not justify leaving the horse on an attacked square."
           },
-          "marks": { "arrows": ["4a3b"], "boxes": ["3c", "3b"] }
+          "marks": { "arrows": ["4a3b"], "boxes": ["3c", "3b", "3a"] }
         },
         {
-          "moves": ["3c5e", "5c5d"],
+          "moves": ["3c7g"],
           "text": {
-            "ja": "▲５五馬と離れると、例の△５四歩は５五の馬を歩で攻める。上手には歩を使って大駒を追う手があり、下手は次に逃げる場所も決めておく必要がある。",
-            "en": "The horse retreats to 5e; in this sample, P5d attacks it from the next square forward. Even without rook or bishop, Gote can gain a tempo against a major piece with a pawn."
+            "ja": "▲７七馬なら４四・５五・６六を通って元の角の位置へ戻れる。下手は３三歩を取って馬を残したが、上手は金を前へ出した。馬ができた後も、逃げ道と守り駒を数え続ける。",
+            "en": "The horse can return to 7g through the empty 4d, 5e and 6f squares. Sente has taken the pawn on 3c and kept the horse, while Gote has advanced a gold. After promoting, keep counting the escape route and the defenders."
           },
-          "marks": { "arrows": ["5c5d"], "boxes": ["5e", "5d"] }
-        },
-        {
-          "moves": ["5e7g"],
-          "text": {
-            "ja": "▲７七馬なら６六を通って元の角の位置へ戻れる。下手は３三歩を取って馬を残したが、上手は金と歩を前進させた。馬ができた後も玉への具体的な道と守り駒を数え続ける。",
-            "en": "The horse can return to 7g through the empty 6f square. Sente has taken the pawn on 3c and kept the horse, while Gote has advanced a gold and a pawn. Continue counting the actual route to the king and its defenders."
-          },
-          "marks": { "arrows": ["5e7g"], "last": "7g" }
+          "marks": { "arrows": ["3c7g"], "last": "7g" }
         }
       ]
     }

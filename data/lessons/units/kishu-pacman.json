@@ -125,22 +125,22 @@
       "title": { "ja": "角の成り先を守ってから受ける", "en": "Cover the bishop's promotion entry" },
       "side": "gote",
       "kind": "position",
-      "start": "4k4/5g3/9/5B3/9/9/9/9/4K4 w P 1",
+      "start": "3g2k2/3p3s1/9/5B3/9/9/9/9/4K4 w P 1",
       "steps": [
         {
           "text": {
-            "ja": "ここでも先手角は歩を取って４四にいます。角は５三へ入って成れます。後手の４二金は５二へ動けば、５三への取り返しを用意できます。",
-            "en": "Here too, Sente's bishop sits on 4d after taking the pawn. It can enter 5c and promote. Gote's gold on 4b can shift to 5b, from where it covers that entry square."
+            "ja": "ここでも先手角は歩を取って４四にいます。３三は２二銀が、２二は３一玉が守り、６二歩は６一金が支えています。しかし５三にはまだ後手の利きがなく、角はそこへ入って成れます。６一金は５二へ動けば、５三への取り返しを用意できます。",
+            "en": "Here too, Sente's bishop sits on 4d after taking the pawn. S2b covers 3c, K3a covers 2b, and G6a supports P6b. Nothing of Gote's reaches 5c yet, so the bishop can enter there and promote. Gote's gold on 6a can shift to 5b, from where it covers that entry square."
           },
-          "marks": { "boxes": ["4d", "5c", "4b", "5b"] }
+          "marks": { "boxes": ["4d", "5c", "6a", "5b"] }
         },
         {
-          "moves": ["4b5b"],
+          "moves": ["6a5b"],
           "text": {
-            "ja": "△５二金で５三を金の前方の利きに入れます。角をすぐ追わず、成り込む地点の交換が後手に成立するようにします。",
-            "en": "G4b–5b places 5c directly in the gold's forward reach. Gote defends the bishop's entry square instead of chasing the bishop immediately."
+            "ja": "△５二金で５三を金の前方の利きに入れます。金は横から６二歩を支えたままで、３三と２二の守りも変わりません。角をすぐ追わず、成り込む地点を先に守ります。",
+            "en": "G6a–5b places 5c directly in the gold's forward reach. The gold still supports P6b from the side, and the cover of 3c and 2b is unchanged. Gote defends the bishop's entry square instead of chasing the bishop immediately."
           },
-          "marks": { "arrows": ["4b5b"], "boxes": ["5c"] }
+          "marks": { "arrows": ["6a5b"], "boxes": ["5c"] }
         },
         {
           "moves": ["4d5c+", "5b5c"],
@@ -156,22 +156,22 @@
       "title": { "ja": "歩を取られない場合も四筋を数える", "en": "Keep counting the fourth file when Sente declines" },
       "side": "gote",
       "kind": "position",
-      "start": "4k4/9/4s4/5p3/9/9/2B4P1/9/4K4 w - 1",
+      "start": "4k4/6g2/4s1p2/5p3/9/9/2B4P1/9/4K4 w - 1",
       "steps": [
         {
           "text": {
-            "ja": "先手は７七角で４四歩を取れる斜線を保ちながら、まだ取っていません。後手の５三銀は４四を守っています。相手が歩を食べると決めつけず、進めた後の空きマスも調べます。",
-            "en": "Sente's bishop on 7g still has a line to Gote's pawn on 4d but has not taken it. Gote's S5c guards 4d. Gote should assess the vacated square if the pawn advances instead of assuming Sente will accept the offer."
+            "ja": "先手は７七角で４四歩を取れる斜線を保ちながら、まだ取っていません。後手の５三銀は４四を守り、３三歩は３二金が支えています。相手が歩を食べると決めつけず、進めた後の空きマスも調べます。",
+            "en": "Sente's bishop on 7g still has a line to Gote's pawn on 4d but has not taken it. Gote's S5c guards 4d, and G3b supports P3c. Gote should assess the vacated square if the pawn advances instead of assuming Sente will accept the offer."
           },
-          "marks": { "boxes": ["7g", "4d", "5c", "4e"] }
+          "marks": { "boxes": ["7g", "4d", "5c", "4e", "3c"] }
         },
         {
           "moves": ["4d4e"],
           "text": {
-            "ja": "△４五歩は４四を空けます。７七角は６六・５五を通って４四へ動けますが、５三銀が残っている限り、そのマスへ入る角は取られます。",
-            "en": "P4d–4e leaves 4d empty. B7g can reach 4d through 6f and 5e, but S5c still controls that square."
+            "ja": "△４五歩は４四を空けます。７七角は６六・５五を通って４四へ動けますが、５三銀が残っている限り、そのマスへ入る角は取られます。歩が動いたことで角筋は３三まで通りますが、３三歩は３二金が守っているので、▲３三角成も△同金で角を失います。",
+            "en": "P4d–4e leaves 4d empty. B7g can reach 4d through 6f and 5e, but S5c still controls that square. The advance also opens the diagonal as far as 3c, where G3b defends the pawn, so B7g×3c+ loses the bishop to G3b×3c as well."
           },
-          "marks": { "arrows": ["4d4e"], "boxes": ["4d", "5c"] }
+          "marks": { "arrows": ["4d4e"], "boxes": ["4d", "5c", "3c", "3b"] }
         },
         {
           "moves": ["7g4d", "5c4d"],
@@ -185,12 +185,12 @@
       "variations": [
         {
           "from": 1,
-          "moves": ["2g2f", "5c4d"],
+          "moves": ["2g2f", "5a5b"],
           "text": {
-            "ja": "先手が２六歩と整備するなら、後手は△４四銀で４五歩の後ろに銀を置けます。ここでは歩得も角得も起きず、互いに次の接触を選ぶ局面です。",
-            "en": "If Sente develops with P2g–2f, Gote can play S5c–4d behind P4e. Neither side has won a bishop or pawn in this branch; the next contact remains a choice."
+            "ja": "先手が２六歩と整備するなら、後手は△５二玉のように５三銀を動かさず、４四と３三の守りを保ちます。△４四銀と上がると４四を守る駒がなくなり、▲同角で銀を取られます。この変化ではまだどちらも駒を得していません。",
+            "en": "If Sente develops with P2g–2f, Gote can keep S5c in place with a move such as K5a–5b, so 4d and 3c stay defended. S5c–4d would leave nothing guarding 4d, and B7g×4d would win the silver. Neither side has won material yet in this branch."
           },
-          "marks": { "arrows": ["5c4d"], "boxes": ["4e"] }
+          "marks": { "arrows": ["5a5b"], "boxes": ["4d", "3c"] }
         }
       ]
     }

@@ -54,10 +54,10 @@
       "variations": [
         {
           "from": 1,
-          "moves": ["8b8a", "8e7d"],
+          "moves": ["8b8a", "2h2g"],
           "text": {
-            "ja": "後手が△８一飛と引くなら、先手は▲７四銀と銀を別の地点へ運ぶ一例があります。８五の銀で飛車を取ったわけではなく、後手は次に角打ちや歩で銀を追えます。飛車を引く受けも比較します。",
-            "en": "If Gote retreats R8a, Sente may move S7d in this sample. The silver has not won a rook, and Gote can still use a bishop drop or pawn move to challenge it. Compare this refusal with the capture line."
+            "ja": "後手が△８一飛と引く枝です。先手は８五の銀を動かさず、▲２七玉と玉を５五からの斜線の外へ出す一例があります。銀が８五にいる間は８筋が閉じていますが、▲７四銀などと銀をどけると△８八飛成で飛車を取られます。▲８四歩と急ぐ手も、△５五角の王手と飛車取りが残ります。飛車を引く受けも比較します。",
+            "en": "In this branch Gote retreats R8a. In the sample, Sente leaves the silver on 8e and plays K2g, stepping off the diagonal from 5e. While the silver stands on 8e it closes the eighth file; moving it away, for example S7d, lets Gote take the rook with R8h+. Hurrying with P*8d also leaves B*5e, a check that attacks the rook as well. Compare this refusal with the capture line."
           }
         },
         {
@@ -115,18 +115,28 @@
         {
           "moves": ["B*5e"],
           "text": {
-            "ja": "△５五角は２八玉への王手で、同時に８八飛も狙います。ただし飛車を必ず取れるわけではなく、先手は合駒や玉の移動など、王手への応手を選べます。まず王手を解いてから飛車の損得を数えます。",
-            "en": "B*5e checks K2h and also attacks R8h. This does not force a rook capture: Sente may block the check or move the king. Resolve the check first, then count the rook's fate."
+            "ja": "△５五角は２八玉への王手で、同時に８八飛も狙います。王手を解く手は９通りありますが、どの応手の後も△８八角成が指せます。飛車は王手の線上にないので、合駒でも玉の移動でも守れません。飛車を取られる代わりに何を得るかを数えます。",
+            "en": "B*5e checks K2h and also attacks R8h. Sente has nine legal replies, and Bx8h+ remains available after every one of them. The rook is off the checking line, so neither a block nor a king move protects it. Count what Sente gets in return for the rook."
           },
           "marks": {"last": "5e", "arrows": ["5e2h", "5e8h"]}
         },
         {
           "moves": ["2h1g", "5e8h+"],
           "text": {
-            "ja": "先手が▲１七玉とかわす一例では、後手が△８八角成で飛車を取れます。これは先手が玉移動を選んだ場合の結果です。先手が３七で斜線を遮る手などもあり、飛車取りを強制手順とはしません。",
-            "en": "If Sente chooses K1g in the sample, Bx8h+ captures the rook. This outcome follows that king move. Sente can also consider interposing on 3g, so the rook capture is not a forced line."
+            "ja": "先手が▲１七玉とかわす一例では、△８八角成で飛車を取られ、先手に見返りはありません。３七に金や銀を合駒しても同じです。持ち角を▲３七角と合駒に使えば、△８八角成に▲８二角成と後手の飛車を取り返せます。",
+            "en": "If Sente plays K1g in the sample, Bx8h+ takes the rook and Sente gets nothing back. Blocking on 3g with the gold or silver changes nothing. Using the bishop in hand to block with B*3g instead lets Sente answer Bx8h+ with Bx8b+, winning Gote's rook back."
           },
           "marks": {"last": "8h", "boxes": ["1g", "8h"]}
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": ["B*3g", "5e8h+", "3g8b+"],
+          "text": {
+            "ja": "▲３七角の合駒は王手を止めると同時に、５五の角がどいた後の８二へ利きを通します。△８八角成で飛車を取られても、▲８二角成で飛車を取り返せます。後手が飛車を取らない応手もありますが、取った場合に損得が釣り合う形です。",
+            "en": "B*3g blocks the check and, once the bishop leaves 5e, its line reaches 8b. After Bx8h+, Sente answers Bx8b+ and wins a rook back. Gote need not take the rook, but if it does, the material evens out."
+          }
         }
       ]
     }

@@ -25,7 +25,7 @@
       "title": {"ja": "持ち角が見る二つの方向", "en": "Two rays from one bishop drop"},
       "side": "sente",
       "kind": "position",
-      "start": "1r7/5k3/7s1/1p7/9/2P6/2S6/3R1GSK1/3G5 b Bb 1",
+      "start": "1r7/5k3/7s1/1p7/9/2P6/2SP2PPP/3R1GSK1/3G5 b Bb 1",
       "steps": [
         {
           "text": {
@@ -37,18 +37,18 @@
         {
           "moves": ["B*4e"],
           "text": {
-            "ja": "▲４五角は５四・６三・７二を通って８一飛を、３四を通って２三銀を狙います。両取りの形ですが、後手には飛車をかわす手も、別の駒で角に働きかける手もあります。",
-            "en": "B*4e attacks R8a through 5d, 6c and 7b, and S2c through 3d. It is a fork in this position, but Gote can move the rook or challenge the bishop in another way."
+            "ja": "▲４五角は５四・６三・７二を通って８一飛を、３四を通って２三銀を狙います。両取りの形ですが、後手には飛車を逃げながら銀を守る手があります。",
+            "en": "B*4e attacks R8a through 5d, 6c and 7b, and S2c through 3d. It has the shape of a fork, but Gote has a rook move that escapes and guards the silver at the same time."
           },
           "marks": {"last": "4e", "arrows": ["4e8a", "4e2c"]}
         },
         {
           "moves": ["8a8b", "4e2c+"],
           "text": {
-            "ja": "後手が△８二飛と引く例なら、▲２三角成で銀を取れます。後手飛車は残り、先手は銀を得て馬を作りました。ただし後手の持ち角と次の応手があるため、この二手だけで全局面の優劣は決まりません。",
-            "en": "If Gote retreats R8b, Bx2c+ captures the silver and promotes. Gote keeps the rook; Sente gets a silver and a horse. Gote still has a bishop in hand and another turn, so the sample does not settle the game."
+            "ja": "△８二飛と引くのは２三銀を見捨てる緩手で、▲２三角成で銀を取って馬を作れます。後手の正しい受けは△８三飛です。飛車が三段目を横に利かせて２三銀を守るので、▲２三角成には△同飛と取り返せます。両取りでも、逃げながらもう一枚を守る手があれば駒得にはなりません。",
+            "en": "R8b is a weak reply that abandons S2c: Bx2c+ wins the silver and makes a horse. Gote's proper defence is R8c, which guards S2c along the third rank, so Bx2c+ is met by Rx2c. A fork gains nothing when one piece can escape while protecting the other."
           },
-          "marks": {"last": "2c", "boxes": ["8b", "2c"]}
+          "marks": {"last": "2c", "boxes": ["8b", "2c", "8c"]}
         }
       ]
     },
@@ -56,7 +56,7 @@
       "title": {"ja": "８筋で飛車が出た場所を角で問う", "en": "Challenge the advanced rook with a bishop"},
       "side": "sente",
       "kind": "position",
-      "start": "9/1r3kg2/9/1p7/9/1P7/2P6/3R1GSK1/3G5 w Bb 1",
+      "start": "9/1r1s1kg2/2pp5/1p7/9/1P7/2P3PPP/3R1GSK1/3G5 w Bb 1",
       "steps": [
         {
           "text": {
@@ -76,8 +76,8 @@
         {
           "moves": ["B*7f"],
           "text": {
-            "ja": "▲７六角は８五飛を隣の斜めから、３二金を６五・５四・４三越しに狙います。後手が飛車を引く以外にも、持ち角で角筋を遮るなどの応手があります。飛車や金を取れることは決まっていないので、実際の受けを読んでから仕掛けます。",
-            "en": "B*7f attacks R8e on one diagonal and G3b through 6e, 5d and 4c on the other. Gote may retreat the rook or use the bishop in hand to interfere. Neither capture is forced without examining that defense."
+            "ja": "▲７六角は８五飛を隣の斜めから、３二金を６五・５四・４三越しに狙います。ただし後手は飛車を逃げれば足り、△８九飛成と成り込む手もあります。３二金は玉が守っているので、▲３二角成は角と金の交換にとどまります。どちらかを取れると決めつけず、飛車の逃げ道まで読んでから打ちます。",
+            "en": "B*7f attacks R8e on one diagonal and G3b through 6e, 5d and 4c on the other. Gote only needs to move the rook, and can even invade with R8i+. The king guards G3b, so Bx3b+ would only trade the bishop for a gold. Read the rook's escape squares before expecting either capture."
           },
           "marks": {"last": "7f", "arrows": ["7f8e", "7f3b"]}
         }
@@ -87,20 +87,20 @@
       "title": {"ja": "６筋の空白は角打ちの落とし穴にもなる", "en": "An open rook file can refute a bishop drop"},
       "side": "sente",
       "kind": "position",
-      "start": "9/1r3k3/9/9/9/9/9/3R1GSK1/9 w b 1",
+      "start": "9/1r3k3/9/9/9/9/6P2/3R1GSK1/9 w b 1",
       "steps": [
         {
           "text": {
-            "ja": "後手は角を持ち、先手の３八銀は６五からの斜線上にいます。ただし先手６八飛の前には６七・６六・６五に駒がありません。角を打つ側は銀だけでなく飛車の縦の利きも確認します。",
-            "en": "Gote holds a bishop and Sente's S3h lies on a diagonal from 6e. Yet R6h has an empty path through 6g and 6f to that drop square. The side dropping a bishop must count the rook's vertical ray too."
+            "ja": "後手は角を持ち、先手の３八銀は６五からの斜線上にいます。ただし先手６八飛の前には６七・６六・６五に駒がありません。角を打つ側は銀だけでなく飛車の縦の利きも確認します。なお３七歩が、４六や５五から２八玉へ通る斜線を止めています。",
+            "en": "Gote holds a bishop and Sente's S3h lies on a diagonal from 6e. Yet R6h has an empty path through 6g and 6f to that drop square. The side dropping a bishop must count the rook's vertical ray too. Note that P3g blocks the diagonals from 4f and 5e toward K2h."
           },
           "marks": {"arrows": ["6h6e", "6e3h"], "boxes": ["6g", "6f"]}
         },
         {
           "moves": ["B*6e", "6h6e"],
           "text": {
-            "ja": "△６五角と打つと、先手は▲同飛で角を取れます。角の３八銀取りは飛車の取り返しより遅く、この配置では角打ちが成立しません。６筋に一枚でも駒が入れば、再計算が必要です。",
-            "en": "After B*6e, Rx6e captures the bishop before it can attack S3h. This drop fails with the sixth file clear. Add a blocker and the calculation changes."
+            "ja": "△６五角と打つと、先手は▲同飛で角を取れます。角の３八銀取りは飛車の取り返しより遅く、６筋が空いている限りこの△６五角は成立しません。６筋に一枚でも駒が入れば、再計算が必要です。",
+            "en": "After B*6e, Rx6e captures the bishop before it can attack S3h. This B*6e fails while the sixth file is clear. Add a blocker and the calculation changes."
           },
           "marks": {"last": "6e", "boxes": ["3h", "6e"]}
         }
@@ -108,11 +108,12 @@
       "variations": [
         {
           "from": 0,
-          "moves": ["4b3b", "6h6f"],
+          "moves": ["4b3b", "4h4g"],
           "text": {
-            "ja": "後手が角をすぐ打たず△３二玉と寄り、先手が▲６六飛と浮く一例です。玉位置と飛車の利きはそれぞれ変わりました。角を使うなら、この新しい盤面で打ち場所を探し直します。",
-            "en": "A sample quiet alternative is K3b and R6f. Both the king's position and the rook's reach have changed. Any bishop drop must be recalculated from this new board."
-          }
+            "ja": "後手が角をすぐ打たず△３二玉と寄り、先手が▲４七金と上がる一例です。△６五角の斜線は４七金に当たり、３八銀までは届かなくなりました。駒が一枚動けば、角の打ち場所も受けも数え直します。",
+            "en": "A sample quiet alternative: Gote plays K3b instead of dropping, and Sente plays G4g. A bishop on 6e would now hit the gold on 4g and no longer reach S3h. Once a single piece moves, recount the drop squares and the defences."
+          },
+          "marks": {"last": "4g", "arrows": ["6e4g"]}
         }
       ]
     }

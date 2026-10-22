@@ -40,8 +40,8 @@
       "steps": [
         {
           "text": {
-            "ja": "先手玉８八・金７八と６七・銀７七を矢倉の芯に、角３九を６六への斜線上に置いた局面です。後手は飛車６二・歩６四・銀５四で６筋を攻めます。後手角４二は自分の歩６四に斜線を遮られており、６六の取り手には含めません。",
-            "en": "Sente has the Yagura core of king 8h, golds 7h and 6g, silver 7g, with its bishop on 3i aimed toward 6f. Gote attacks with rook 6b, pawn 6d, and silver 5d. Gote's bishop on 4b is blocked by its own pawn on 6d and does not recapture on 6f in this line."
+            "ja": "先手玉８八・金７八と６七・銀７七を矢倉の芯に、角３九を６六への斜線上に置いた局面です。後手は飛車６二・歩６四・銀５四で６筋を攻めます。後手角４二の斜線は５三・６四や３三の方向で、６六を通らないため、６六の取り手には含めません。",
+            "en": "Sente has the Yagura core of king 8h, golds 7h and 6g, silver 7g, with its bishop on 3i aimed toward 6f. Gote attacks with rook 6b, pawn 6d, and silver 5d. Gote's bishop on 4b runs along diagonals such as 5c–6d and 3c, none of which passes through 6f, so it does not count as a recapturer on 6f."
           }
         },
         {

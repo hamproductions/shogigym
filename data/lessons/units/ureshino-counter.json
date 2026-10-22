@@ -77,12 +77,12 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "5kb2/1r7/4s4/2p6/9/2P6/3S5/1BR1G1SK1/5G3 b - 1",
+      "start": "1n1g1kb1l/1r4g2/p3spppp/1pp6/9/2PP5/PP1S5/1BR1G1SK1/5G3 b - 1",
       "steps": [
         {
           "text": {
-            "ja": "先手は７八飛の前の７筋歩を７六に置き、後手の歩は７四。７七は空いているので、歩が７五へ出た後に飛車が７五の歩を取り返す道がある。ただし後手５三銀は６四から７五へ利く可能性がある。",
-            "en": "Sente's P7f stands before R7h; Gote's pawn is on 7d. With 7g empty, Sente can recapture a pawn on 7e with the rook after advancing P7e. Gote's S5c can later reach 6d and attack that rook, so the exchange needs an exit plan."
+            "ja": "先手は７八飛の前の７筋歩を７六に置き、後手の歩は７四。７七は空いているので、歩が７五へ出た後に飛車が７五の歩を取り返す道がある。ただし後手５三銀は６四から７五へ利く可能性がある。８筋は８四歩と８七歩で閉じているので、飛車が７八を離れても８八角は後手の飛車に直接狙われない。",
+            "en": "Sente's P7f stands before R7h; Gote's pawn is on 7d. With 7g empty, Sente can recapture a pawn on 7e with the rook after advancing P7e. Gote's S5c can later reach 6d and attack that rook, so the exchange needs an exit plan. The eighth file is closed by P8d and P8g, so B8h is not directly exposed to Gote's rook when the rook leaves 7h."
           }
         },
         {
@@ -119,8 +119,8 @@
         {
           "moves": ["6f6e", "6d6e", "7g5e"],
           "text": {
-            "ja": "▲６五歩に△同歩を選ぶと、先手歩のいた６六と後手歩のいた６四が空く。▲５五角は８二飛を斜めに狙う。ただし後手に銀や角による合い駒の余地があり、飛車取りがそのまま飛車得にはならない。",
-            "en": "If Gote takes P6e, both 6f and 6d are vacated. B5e then attacks R8b along 6d and 7c. Gote can block or move the rook; the attack is not a guaranteed rook gain."
+            "ja": "▲６五歩に△同歩を選ぶと、先手歩のいた６六と後手歩のいた６四が空く。▲５五角は８二飛を斜めに狙う。ただし後手には３一角が後ろから支える△６四銀や、△７三歩の合い駒、飛車を逃げる手があり、飛車取りがそのまま飛車得にはならない。",
+            "en": "If Gote takes P6e, both 6f and 6d are vacated. B5e then attacks R8b along 6d and 7c. Gote can block with S6d, backed by B3a, or with a dropped P7c, or move the rook; the attack is not a guaranteed rook gain."
           }
         },
         {

@@ -33,20 +33,20 @@
       "title": { "ja": "歩を取らせて飛車を四筋へ出す", "en": "Support the fourth-file pawn with a rook lift" },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/1r7/5p3/9/9/4SP3/1P4N2/1KS1GR3/3G5 b Bb 1",
+      "start": "9/1r2k1n2/4sp3/9/9/4SP3/1P4N2/1KS1GR3/3G5 b Bb 1",
       "steps": [
         {
           "text": {
-            "ja": "先手は８八玉・７八銀・６九金・５八金の左美濃、４八飛・５六銀・３七桂の攻撃陣です。角交換済みで双方が角を持ち、先手４六歩と後手４三歩が残っています。４五には５六銀と３七桂の利きがあります。",
-            "en": "Sente has the Left Mino core K8h, S7h, G6i, G5h, with R4h, S5f and N3g ready on the right. Bishops have been exchanged. Sente's P4f faces Gote's P4c, and S5f plus N3g both control 4e."
+            "ja": "先手は８八玉・７八銀・６九金・５八金の左美濃、４八飛・５六銀・３七桂の攻撃陣です。角交換済みで双方が角を持ち、先手４六歩と後手４三歩が向き合います。４五には５六銀と３七桂、４四には後手５三銀と３二桂の利きがあります。",
+            "en": "Sente has the Left Mino core K8h, S7h, G6i, G5h, with R4h, S5f and N3g ready on the right. Bishops have been exchanged and both sides hold one. Sente's P4f faces Gote's P4c; S5f and N3g both control 4e, while Gote's S5c and N3b cover 4d."
           },
-          "marks": { "boxes": ["8h", "7h", "6i", "5h", "4h", "4e", "5f", "3g"] }
+          "marks": { "boxes": ["8h", "7h", "6i", "5h", "4h", "4e", "5f", "3g", "5c", "3b", "4d"] }
         },
         {
           "moves": ["4f4e", "4c4d", "4h4f"],
           "text": {
-            "ja": "▲４五歩に後手が△４四歩と受けた一例です。▲４六飛は４六の歩が前へ出た後なので指せます。飛車を歩の直後に置き、後手が４五歩を取るかどうかを問います。後手は別の受け方も選べます。",
-            "en": "After P4f–4e, this sample has Gote answer P4c–4d. Sente can lift R4h–4f because P4f has vacated that square. The rook now sits behind P4e and asks whether Gote will capture it; Gote has other replies."
+            "ja": "▲４五歩に後手が△４四歩と受けた一例です。４四の歩は５三銀と３二桂が支えるので、▲同歩と取っても△同銀か△同桂で取り返され、歩の交換に終わります。▲４六飛は４六の歩が前へ出た後なので指せます。飛車を歩の直後に置き、後手が４五歩を取るかどうかを問います。後手は別の受け方も選べます。",
+            "en": "After P4f–4e, this sample has Gote answer P4c–4d. S5c and N3b support that pawn, so P4e×4d is met by S5c×4d or N3b×4d and only trades pawns. Sente can lift R4h–4f because P4f has vacated that square. The rook now sits behind P4e and asks whether Gote will capture it; Gote has other replies."
           },
           "marks": { "arrows": ["4h4f"], "boxes": ["4e", "4d"] }
         },
@@ -77,7 +77,7 @@
           "moves": ["7g8f", "B*5e"],
           "text": {
             "ja": "▲８六角と移ると７七が空き、ここで△５五角打は６六・７七を通る８八玉への王手です。角を移った手そのものが悪いと決まったわけではなく、後手が角を持ち、途中が空いた場合に生じる王手です。",
-            "en": "After B7g–8f, B*5e checks K8h through the newly empty 6f and 7g. This does not condemn every bishop move; it shows the check available when Gote holds a bishop and those intermediate squares are open."
+            "en": "After B7g–8f, B*5e checks K8h along 6f and the newly empty 7g. This does not condemn every bishop move; it shows the check available when Gote holds a bishop and those intermediate squares are open."
           },
           "marks": { "arrows": ["7g8f"], "boxes": ["5e", "8h"] }
         },

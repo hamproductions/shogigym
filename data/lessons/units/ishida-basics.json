@@ -58,8 +58,8 @@
       "start": "4k4/1r1s3b1/2p6/5p3/2P6/2R6/1P7/3SB1K2/5G3 b - 1",
       "steps": [
         {
-          "text": { "ja": "７五歩と７三歩の間は７四だけです。７六飛は７五歩を支えていますが、後手の８二飛は横に回れば７筋の飛車にも当たります。歩を交換した先で飛車がどこに戻れるかまで見る局面です。", "en": "Only 7d separates the pawns on 7e and 7c. Sente's rook on 7f supports its pawn, but Gote's rook on 8b can shift sideways and challenge a rook that advances on the seventh file. Plan the retreat before exchanging pawns." },
-          "marks": { "arrows": ["7e7d", "8b8d"], "boxes": ["7d"] }
+          "text": { "ja": "７五歩と７三歩の間は７四だけです。７六飛は７五歩を支えています。歩を交換して飛車が７四へ出ると、後手は手にした歩を７三へ打ち直して飛車に当てられます。歩を交換した先で飛車がどこに戻れるかまで見る局面です。", "en": "Only 7d separates the pawns on 7e and 7c. Sente's rook on 7f supports its pawn. If the pawns are exchanged and the rook advances to 7d, Gote can drop the captured pawn back on 7c to attack it. Plan the retreat before exchanging pawns." },
+          "marks": { "arrows": ["7e7d"], "boxes": ["7d", "7c"] }
         },
         {
           "moves": ["7e7d", "7c7d"],
@@ -67,14 +67,14 @@
           "marks": { "last": "7d", "arrows": ["7f7d"] }
         },
         {
-          "moves": ["7f7d", "8b8d"],
-          "text": { "ja": "▲同飛で歩を取り、後手は△８四飛と横から飛車に当てました。歩は双方の持ち駒になりましたが、先手飛車は７四に居続けると次に飛車交換を迫られます。７五・７六の縦道が空いているか確かめます。", "en": "Rx7d takes the pawn, and Gote's R8d attacks that rook from the side. Each player now holds a pawn. If Sente's rook stays on 7d, Gote can press for a rook exchange; check that 7e and 7f remain clear as retreat squares." },
-          "marks": { "last": "8d", "boxes": ["7d", "7e", "7f"] }
+          "moves": ["7f7d", "P*7c"],
+          "text": { "ja": "▲同飛で歩を取ると、後手は手に入れた歩を△７三歩と打って飛車に当てました。７三の歩は６二銀に守られているので、▲同飛成は△同銀で飛車を失います。飛車は引くことになり、７五・７六の縦道が空いているか確かめます。", "en": "Rx7d takes the pawn, and Gote drops the pawn it captured on 7c to attack the rook. The silver on 6b guards that pawn, so Rx7c+ loses the rook to Sx7c. The rook has to retreat; check that 7e and 7f remain clear." },
+          "marks": { "last": "7c", "boxes": ["7d", "7e", "7f"] }
         },
         {
           "moves": ["7d7f"],
-          "text": { "ja": "▲７六飛と引いて飛車を残しました。歩交換で筋は開きましたが、８四飛も働く位置へ出ています。先手だけの得と決めず、次は８筋の歩と玉の位置も合わせて判断します。", "en": "R7f retreats and keeps Sente's rook on the board. The pawn exchange opened the file, but Gote's rook is active on 8d too. The position needs a fresh assessment of the eighth-file pawn and both kings." },
-          "marks": { "last": "7f", "boxes": ["8d"] }
+          "text": { "ja": "▲７六飛と引いて飛車を残しました。先手は歩を一枚持ち、後手の歩は７三へ戻りました。ただ後手の８二飛は空いた８筋から８七歩を狙える位置なので、次は８筋の守りと玉の位置も合わせて判断します。", "en": "R7f retreats and keeps Sente's rook on the board. Sente now holds a pawn, and Gote's pawn is back on 7c. Gote's rook on 8b can aim down the open eighth file at the pawn on 8g, so the next decision must include that file and both kings." },
+          "marks": { "last": "7f", "boxes": ["8b", "8g"] }
         }
       ]
     },
@@ -82,20 +82,20 @@
       "title": { "ja": "角交換は飛車の位置で変わる", "en": "The rook square changes a bishop exchange" },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/1r5b1/2p6/9/1pP6/2R6/1P7/1B1S2K2/5G3 b - 1",
+      "start": "4k4/1r5b1/2p6/9/1pP6/2R6/1PB6/3S2K2/5G3 w - 1",
       "steps": [
         {
-          "text": { "ja": "７六飛と７五歩はすでに石田流らしい位置です。先手角は８八、後手角は２二で、３三・４四・５五・６六・７七が空いています。角の斜めの道を残したまま７七へ角を動かすと、後手の角交換を受ける形になります。", "en": "The rook on 7f and pawn on 7e show Ishida-style geometry. Sente's bishop is on 8h and Gote's on 2b, with 3c, 4d, 5e, 6f and 7g clear. Moving the bishop to 7g leaves it on the opposing bishop's open diagonal, inviting an exchange." },
-          "marks": { "arrows": ["2b7g", "8h7g"], "boxes": ["7f"] }
+          "text": { "ja": "７六飛と７五歩はすでに石田流らしい位置です。先手角は７七に上がり、２二の後手角と３三・４四・５五・６六の空いた斜めで向かい合っています。後手番なので後手から角交換できますが、７七には６八銀だけでなく７六の飛車も利いています。", "en": "The rook on 7f and pawn on 7e show Ishida-style geometry. Sente's bishop has moved up to 7g and faces Gote's bishop on 2b along the clear diagonal through 3c, 4d, 5e and 6f. Gote is to move and can exchange bishops, but 7g is covered by the rook on 7f as well as the silver on 6h." },
+          "marks": { "arrows": ["2b7g", "7f7g"], "boxes": ["7f", "6h"] }
         },
         {
-          "moves": ["8h7g", "2b7g+"],
-          "text": { "ja": "▲７七角に後手が△同角成を選んだ場合です。後手角は先手角を取り、７七に馬として残ります。しかし先手飛車は７六にいて、７七へ一歩下がれば馬を取れます。", "en": "If Gote answers B7g with Bx7g+, Gote's bishop takes Sente's bishop and becomes a horse on 7g. Sente's rook is on 7f, one square above that horse, and can move back to capture it." },
+          "moves": ["2b7g+"],
+          "text": { "ja": "後手が△７七角成と角を交換した場合です。後手角は先手角を取り、７七に馬として残ります。しかし先手飛車は７六にいて、７七へ一歩下がれば馬を取れます。", "en": "Here Gote exchanges with Bx7g+. Gote's bishop takes Sente's bishop and becomes a horse on 7g. Sente's rook is on 7f, one square above that horse, and can move back to capture it." },
           "marks": { "last": "7g", "arrows": ["7f7g"] }
         },
         {
           "moves": ["7f7g"],
-          "text": { "ja": "▲同飛で馬を取り、双方が角を持ちました。飛車は７七へ戻ったため、７五歩との間の７六は空いています。角交換はこの図で可能でしたが、持ち角の打ち場所と８筋の圧力を調べずに安全とは言えません。", "en": "Rx7g takes the horse, leaving one bishop in each player's hand. The rook has returned to 7g with 7f clear between it and the pawn on 7e. The trade is legal here, but bishop-drop squares and eighth-file pressure still matter." },
+          "text": { "ja": "▲同飛で馬を取り、双方が角を持ちました。▲同銀でも取り返せますが、飛車で取ると７七へ戻り、７五歩との間の７六が空きます。角を渡し合ったので、持ち角の打ち場所と８筋の圧力を続けて確かめます。", "en": "Rx7g takes the horse, leaving one bishop in each player's hand. Sx7g also recaptures, but taking with the rook brings it back to 7g with 7f clear between it and the pawn on 7e. Both sides now hold a bishop, so keep checking bishop-drop squares and eighth-file pressure." },
           "marks": { "last": "7g", "boxes": ["8e", "8g"] }
         }
       ]
@@ -124,8 +124,9 @@
       "variations": [
         {
           "from": 1,
-          "moves": ["8b8d", "8f7f"],
-          "text": { "ja": "後手が交換を避けて△８四飛と浮けば、先手も▲７六飛と引けます。先手は歩を取りましたが、後手飛車は８四から７四や８六をうかがえる位置です。後手の応手で結論は変わります。", "en": "If Gote declines the trade with R8d, Sente can retreat to 7f. Sente has captured a pawn, while Gote's rook on 8d can look toward 7d or 8f. The defender's choice changes the resulting position." }
+          "moves": ["8b8d", "8f8d"],
+          "text": { "ja": "後手が交換を避けるつもりで△８四飛と浮くと、８四には後手の駒が利いておらず、▲同飛で飛車をただで取れます。８筋に残る逃げ方では先手飛車と向かい合ったままなので、交換を避けたことになりません。", "en": "If Gote tries to avoid the trade with R8d, nothing of Gote's guards 8d, so Rx8d wins the rook for free. Any retreat that stays on the eighth file still faces Sente's rook and does not avoid the exchange." },
+          "marks": { "last": "8d" }
         }
       ]
     }

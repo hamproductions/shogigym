@@ -16,8 +16,8 @@
       "en": "After Sente's rook takes a pawn on 8e, Gote's silver moves from 7c to 8d. Can the rook simply stay on 8e?"
     },
     "answer": {
-      "ja": "８四の銀は８五を利かせています。飛車を８六などへ引くか、別の具体的な受けを読む必要があります。教材の局面では▲８六飛と引きます。",
-      "en": "The silver on 8d attacks 8e. The rook needs a retreat such as 8f or another concrete defense; in the displayed position it retreats to 8f."
+      "ja": "８四の銀は８五に利いています。教材の局面では銀を８三の金が支えているので、▲同飛と取ると△同金で飛車と銀の交換になり損です。▲８六飛と一つだけ引くと△８五歩と打たれて再び飛車に当たるので、教材の局面では▲８八飛まで引きます。",
+      "en": "The silver on 8d attacks 8e. In the displayed position the gold on 8c supports the silver, so R8e×8d G8c×8d trades the rook for a silver and loses material. Retreating only one square with R8e–8f lets Gote drop a pawn on 8e and hit the rook again, so in the displayed position the rook goes back to 8h."
     }
   },
   "references": [
@@ -33,7 +33,7 @@
       "title": { "ja": "飛車の通り道を先に作る", "en": "Clear the rook's route first" },
       "side": "sente",
       "kind": "position",
-      "start": "9/2k3rb1/2s6/1p3p3/6p2/2P6/2B6/2S4R1/5K3 b - 1",
+      "start": "ln1g3nl/2k3rb1/p1spp2pp/1p3p3/6p2/2P6/P1B1PPPPP/2S4R1/LN2GK1NL b - 1",
       "steps": [
         {
           "text": {
@@ -43,10 +43,10 @@
           "marks": { "boxes": ["7h", "8h", "4i"] }
         },
         {
-          "moves": ["7h6g", "7b6b"],
+          "moves": ["7h6g", "7b8b"],
           "text": {
-            "ja": "▲６七銀で７八が空きました。銀は７六の歩も支えています。後手の△６二玉はここでの一例で、後手には別の駒組みもあります。",
-            "en": "S7h–6g clears 7h and also supports the pawn on 7f. Gote's K7b–6b is one sample developing move; other setups remain possible."
+            "ja": "▲６七銀で７八が空きました。銀は７六の歩も支えています。後手の△８二玉はここでの一例で、後手には別の駒組みもあります。",
+            "en": "S7h–6g clears 7h and also supports the pawn on 7f. Gote's K7b–8b is one sample developing move; other setups remain possible."
           },
           "marks": { "arrows": ["7h6g"], "boxes": ["7h", "7f"] }
         },
@@ -95,14 +95,14 @@
       "title": { "ja": "８筋で取った後も飛車を守る", "en": "Protect the rook after eighth-file contact" },
       "side": "sente",
       "kind": "position",
-      "start": "9/2k3rb1/2s6/1p3pp2/9/1P7/2B6/1R3GK2/9 b - 1",
+      "start": "ln1g3nl/2k3rb1/pgspp2sp/1p3ppp1/9/1PP6/P1B1PPPPP/1R1S1GKS1/LN1G3NL b - 1",
       "steps": [
         {
           "text": {
-            "ja": "８六の歩と８八の飛車で８筋を押せます。ただし後手の７三銀は８四に進める位置にあり、飛車が８五まで出た後の安全も必要です。",
-            "en": "The pawn on 8f and rook on 8h can press the eighth file. Gote's silver on 7c can reach 8d, so Sente must consider the rook's safety after it advances to 8e."
+            "ja": "８六の歩と８八の飛車で８筋を押せます。ただし後手の７三銀は８四に進める位置にあり、８三の金もその８四を守っています。飛車が８五まで出た後の安全も必要です。",
+            "en": "The pawn on 8f and rook on 8h can press the eighth file. Gote's silver on 7c can reach 8d, and the gold on 8c also guards 8d, so Sente must consider the rook's safety after it advances to 8e."
           },
-          "marks": { "boxes": ["8f", "8d", "7c"] }
+          "marks": { "boxes": ["8f", "8d", "7c", "8c"] }
         },
         {
           "moves": ["8f8e", "8d8e", "8h8e"],
@@ -113,12 +113,12 @@
           "marks": { "arrows": ["8h8e"], "last": "8e" }
         },
         {
-          "moves": ["7c8d", "8e8f"],
+          "moves": ["7c8d", "8e8h"],
           "text": {
-            "ja": "△８四銀は８五の飛車に当たります。▲８六飛と引けば、銀から一段離れ、７七の角も８六を守ります。後手の銀が８四へ出るかは任意なので、この形がいつも成立するという意味ではありません。",
-            "en": "S7c–8d attacks the rook on 8e. R8e–8f retreats one rank, and the bishop on 7g also protects 8f. Gote's silver move is optional; this is a board-specific way to handle that reply."
+            "ja": "△８四銀は８五の飛車に当たります。８四の銀は８三の金が支えているので、▲同飛と取ると△同金で飛車と銀の交換になり損です。▲８六飛と一つだけ引くと、△８五歩と打たれて再び飛車に当たり、▲同飛も△同銀で取られます。そこで▲８八飛と元の位置まで引きます。後手の銀が８四へ出るかは任意なので、この形がいつも成立するという意味ではありません。",
+            "en": "S7c–8d attacks the rook on 8e. The gold on 8c supports the silver on 8d, so R8e×8d G8c×8d would trade the rook for a silver and lose material. Retreating only one square with R8e–8f lets Gote drop a pawn on 8e to hit the rook again, and R8f×8e would be met by S8d×8e. So the rook goes all the way back with R8e–8h. Gote's silver move is optional; this is a board-specific way to handle that reply."
           },
-          "marks": { "arrows": ["8e8f"], "boxes": ["7g", "8f"] }
+          "marks": { "arrows": ["8e8h"], "boxes": ["8d", "8c", "8f"] }
         }
       ]
     }

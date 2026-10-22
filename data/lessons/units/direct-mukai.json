@@ -56,14 +56,14 @@
       "title": {"ja": "歩を取った飛車へ角が届く", "en": "A bishop reaches the rook after pawn contact"},
       "side": "gote",
       "kind": "position",
-      "start": "4k4/7r1/6sp1/9/7P1/9/2P6/4K2R1/9 w Bb 1",
+      "start": "4k4/7r1/6sp1/9/7P1/9/2P4S1/4K2R1/9 w Bb 1",
       "steps": [
         {
           "text": {
-            "ja": "後手２二飛・２三歩に対し、先手歩は２五です。後手が歩をぶつければ飛車で取り返せるように見えますが、先手は角を持っています。飛車が２四へ出た後の斜線も先に見ます。",
-            "en": "Gote has R2b and P2c facing Sente's P2e. Gote may be able to recapture with the rook after pawn contact, but Sente holds a bishop. Inspect the rook's destination on 2d before pushing."
+            "ja": "後手２二飛・２三歩に対し、先手歩は２五で、先手２七銀が２筋の奥をふさいでいます。後手が歩をぶつければ飛車で取り返せるように見えますが、先手は角を持っています。飛車が２四へ出た後の斜線も先に見ます。",
+            "en": "Gote has R2b and P2c facing Sente's P2e, and Sente's S2g blocks the rest of the second file. Gote may be able to recapture with the rook after pawn contact, but Sente holds a bishop. Inspect the rook's destination on 2d before pushing."
           },
-          "marks": {"arrows": ["2c2d", "5g2d"], "boxes": ["2e", "2b"]}
+          "marks": {"arrows": ["2c2d", "5g2d"], "boxes": ["2e", "2b", "2g"]}
         },
         {
           "moves": ["2c2d", "2e2d", "2b2d"],
@@ -74,12 +74,12 @@
           "marks": {"last": "2d", "arrows": ["5g2d"]}
         },
         {
-          "moves": ["B*5g", "2d2b"],
+          "moves": ["B*5g", "2d5d"],
           "text": {
-            "ja": "先手が▲５七角と打ち、後手が△２二飛と引く例です。角打ちは飛車を追えましたが、飛車を取ってはいません。後手も歩を取れたことだけで２四飛が居座れるとは判断しません。",
-            "en": "In the sample B*5g R2b, the drop makes Gote retreat, but it has not captured the rook. Gote should not infer from the pawn capture alone that R2d can remain there."
+            "ja": "▲５七角は説明のための一例で、先手の最善とは限りません。２四飛は３三銀が守っていますが、角と交換になるので逃げます。△５四飛なら斜線から外れ、５七角を５八玉との間に釘付けにします。△２二飛と引くと、斜線が２四を抜けて１三まで通り、▲１三角成と成り込まれます。",
+            "en": "B*5g is an illustrative choice, not necessarily Sente's best. S3c guards R2d, but a bishop-for-rook trade still favors Sente, so the rook moves. R5d leaves the diagonal and pins B5g against K5h. Retreating with R2b would open the diagonal through 2d to 1c, allowing B1c+."
           },
-          "marks": {"last": "2b", "boxes": ["5g", "2b"]}
+          "marks": {"last": "5d", "boxes": ["5g", "5h"], "dashed": ["1c"]}
         }
       ]
     },

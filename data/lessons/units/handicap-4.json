@@ -75,8 +75,8 @@
           "from": 2,
           "moves": ["9d9c+", "8b9c", "9i9c", "8a9c"],
           "text": {
-            "ja": "▲９三歩成に△同銀、▲同香、△同桂と進む一例。下手は上手の歩と銀を取り、上手は下手の歩と香を取る。香を取られた手順まで見てから端の交換を判断する。",
-            "en": "One optional line is P9c+, S9c, L9c and N9c. Sente takes Gote's pawn and silver; Gote takes Sente's pawn and lance. Count the knight's final recapture before judging the edge exchange."
+            "ja": "▲９三歩成に△同銀、▲同香不成、△同桂と進む一例。下手は上手の歩と銀を取り、上手は下手の歩と香を取る。香を取られた手順まで見てから端の交換を判断する。",
+            "en": "One optional line is P9c+, S9c, L9c without promoting, and N9c. Sente takes Gote's pawn and silver; Gote takes Sente's pawn and lance. Count the knight's final recapture before judging the edge exchange."
           }
         }
       ]
