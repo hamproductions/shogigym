@@ -16,8 +16,8 @@
       "en": "A Gote bishop dropped on 6e attacks Sente's rook on 7f and gold on 4g. If the rook retreats to 7h, is capturing the gold forced?"
     },
     "answer": {
-      "ja": "飛車だけを逃がす応手なら△４七角成で金を取れます。ただし先手は金を動かすなど別の受けを選べるため、角打ちだけで駒得が確定するわけではありません。",
-      "en": "Against a rook-only retreat, B6e×4g+ captures the gold. Sente can instead address the gold, so the bishop drop does not force a material gain by itself."
+      "ja": "飛車だけを逃がす応手なら△４七角成で金を取れ、先手には取り返す駒がありません。ただし▲７七飛なら飛車が逃げながら金を守るため、角打ちだけで駒得が確定するわけではありません。",
+      "en": "Against a rook-only retreat, B6e×4g+ captures the gold and nothing can recapture. But R7f–7g escapes while guarding the gold, so the bishop drop does not force a material gain by itself."
     }
   },
   "references": [
@@ -33,12 +33,12 @@
       "title": { "ja": "角打ちの二つの標的", "en": "Two targets for a bishop drop" },
       "side": "gote",
       "kind": "position",
-      "start": "9/5rk2/9/5p3/9/2R6/5G3/6K2/9 w Bb 1",
+      "start": "9/5rk2/9/5p3/9/2R6/5G3/7K1/9 w Bb 1",
       "steps": [
         {
           "text": {
-            "ja": "後手は４二飛と持ち角、先手は７六飛と４七金です。６五に角を打てば７六の飛車へ一歩の斜め、４七の金へ５六を通る斜めが届きます。",
-            "en": "Gote has R4b and a bishop in hand; Sente has R7f and G4g. A bishop on 6e would attack the rook diagonally on 7f and the gold along 5f–4g."
+            "ja": "後手は４二飛と持ち角、先手は７六飛・４七金・２八玉です。６五に角を打てば７六の飛車へ一歩の斜め、４七の金へ５六を通る斜めが届きます。",
+            "en": "Gote has R4b and a bishop in hand; Sente has R7f, G4g and the king on 2h. A bishop on 6e would attack the rook diagonally on 7f and the gold along 5f–4g."
           },
           "marks": { "boxes": ["6e", "7f", "4g", "5f"] }
         },
@@ -53,8 +53,8 @@
         {
           "moves": ["6e4g+"],
           "text": {
-            "ja": "△４七角成で金を取って馬を作れます。これは飛車だけを逃がした場合の結果で、角打ちが必ず金を取れるという意味ではありません。",
-            "en": "B6e×4g+ captures the gold and promotes. That result depends on Sente's rook-only retreat; the fork does not force this reply."
+            "ja": "△４七角成で金を取って馬を作れます。２八の玉は４七に届かず、先手には取り返す駒がありません。これは飛車だけを逃がした場合の結果で、角打ちが必ず金を取れるという意味ではありません。",
+            "en": "B6e×4g+ captures the gold and promotes. The king on 2h does not reach 4g, and no Sente piece can recapture. That result depends on Sente's rook-only retreat; the fork does not force this reply."
           },
           "marks": { "arrows": ["6e4g"], "last": "4g" }
         }
@@ -62,11 +62,12 @@
       "variations": [
         {
           "from": 0,
-          "moves": ["B*6e", "B*5f", "6e5f", "4g5f"],
+          "moves": ["B*6e", "7f7g"],
           "text": {
-            "ja": "先手は▲５六角と合わせる受けもあります。△同角と取るなら▲同金で取り返し、飛車と金を残せます。後手が角を取ることは強制ではなく、角打ちの成否は応手次第です。",
-            "en": "Sente can interpose B*5f. If Gote answers B6e×5f, G4g×5f recaptures, preserving the rook and gold. The bishop capture is optional, so the drop's value depends on the reply."
-          }
+            "ja": "先手は▲７七飛と引く受けもあります。飛車は６五の角筋から外れ、横から４七の金を守ります。△４七角成には▲同飛と取り返せるので、後手は角と金の交換にとどまります。角打ちの成否は応手次第です。",
+            "en": "Sente can instead play R7f–7g. The rook leaves the bishop's diagonal and guards the gold on 4g along the rank. B6e×4g+ is met by R7g×4g, so Gote only trades bishop for gold. The drop's value depends on the reply."
+          },
+          "marks": { "arrows": ["7f7g"], "boxes": ["4g"] }
         }
       ]
     },
@@ -74,12 +75,12 @@
       "title": { "ja": "４筋の歩交換と角の手番", "en": "A fourth-file pawn exchange costs a rook tempo" },
       "side": "gote",
       "kind": "position",
-      "start": "9/5rk2/9/5p3/2P6/2R2P3/9/6K2/9 w Bb 1",
+      "start": "9/5rk2/9/5p3/2P6/2R2P3/5G3/6K2/9 w Bb 1",
       "steps": [
         {
           "text": {
-            "ja": "後手の飛車は４二、歩は４四です。先手は７六飛と４六歩、双方が角を持っています。４筋の歩を交換できても、角打ちで飛車を追われる時間まで計算します。",
-            "en": "Gote has R4b and P4d; Sente has R7f and P4f. Both sides hold a bishop. A pawn exchange on the fourth file may still expose the rook to a bishop drop."
+            "ja": "後手の飛車は４二、歩は４四です。先手は７六飛・４六歩・４七金で、双方が角を持っています。４筋の歩を交換できても、角打ちで飛車を追われる時間まで計算します。",
+            "en": "Gote has R4b and P4d; Sente has R7f, P4f and G4g. Both sides hold a bishop. A pawn exchange on the fourth file may still expose the rook to a bishop drop."
           },
           "marks": { "boxes": ["4d", "4f", "5f"] }
         },
@@ -92,12 +93,12 @@
           "marks": { "arrows": ["4b4e"], "last": "4e" }
         },
         {
-          "moves": ["B*5f", "4e4d"],
+          "moves": ["B*5f", "4e3e"],
           "text": {
-            "ja": "▲５六角は４五の飛車に当たります。ここでは△４四飛と一段引く例を示します。歩交換で得たものは持ち歩であり、飛車を動かす手数や先手角の働きも併せて評価します。",
-            "en": "B*5f attacks the rook on 4e. R4e–4d is one legal retreat. The exchange produced a pawn in hand, but its value must be weighed against the rook tempo and Sente's active bishop."
+            "ja": "先手の応手の一例として▲５六角を示します。角は４五の飛車に当たるので、ここでは△３五飛と横へ逃げます。歩交換で得たものは持ち歩であり、飛車を動かす手数や先手角の働きも併せて評価します。",
+            "en": "One sample Sente reply is B*5f, which attacks the rook on 4e, so Gote sidesteps with R4e–3e. The exchange produced a pawn in hand, but its value must be weighed against the rook tempo and Sente's active bishop."
           },
-          "marks": { "arrows": ["4e4d"], "boxes": ["5f"] }
+          "marks": { "arrows": ["4e3e"], "boxes": ["5f"] }
         }
       ]
     },
@@ -105,7 +106,7 @@
       "title": { "ja": "相手の角筋から飛車を外す", "en": "Move the rook off a bishop fork" },
       "side": "gote",
       "kind": "position",
-      "start": "9/6k2/2g6/5r3/2P6/2R6/9/6K2/9 w Bb 1",
+      "start": "9/6k2/2g6/5r3/2P6/2R6/5PP2/6K2/9 w Bb 1",
       "steps": [
         {
           "text": {
@@ -115,20 +116,20 @@
           "marks": { "boxes": ["4d", "7c", "5e"] }
         },
         {
-          "moves": ["4d4b", "B*5e"],
+          "moves": ["4d2d", "B*5e"],
           "text": {
-            "ja": "△４二飛で４四の飛車を角筋から外しました。先手が▲５五角を選ぶと、角は６四を通って７三金を狙いますが、飛車には当たりません。先手の角打ちは任意の例です。",
-            "en": "R4d–4b removes the rook from the bishop diagonal. If Sente chooses B*5e, the bishop eyes Gote's gold on 7c through 6d, but it no longer attacks the rook. The drop is only a sample reply."
+            "ja": "△２四飛で４四の飛車を角筋から外し、２筋へ回しました。先手が▲５五角を選ぶと、角は６四を通って７三金を狙いますが、飛車には当たりません。先手の角打ちは任意の例です。",
+            "en": "R4d–2d removes the rook from the bishop diagonal and shifts it to the second file. If Sente chooses B*5e, the bishop eyes Gote's gold on 7c through 6d, but it no longer attacks the rook. The drop is only a sample reply."
           },
-          "marks": { "arrows": ["4d4b"], "boxes": ["7c"] }
+          "marks": { "arrows": ["4d2d"], "boxes": ["7c"] }
         },
         {
-          "moves": ["7c8c"],
+          "moves": ["7c6c"],
           "text": {
-            "ja": "△８三金で金も角筋から外せます。角を使わせたことだけで得とは決められず、先手の７筋の飛車と歩、後手の玉の守りを次に比べる必要があります。",
-            "en": "G7c–8c also moves the gold off the bishop's diagonal. Making Sente spend a bishop drop is not automatically a gain; the seventh-file rook, pawn, and Gote's king cover still matter."
+            "ja": "△６三金で金も角筋から外せます。角を使わせたことだけで得とは決められず、先手の７筋の飛車と歩、後手の玉の守りを次に比べる必要があります。",
+            "en": "G7c–6c also moves the gold off the bishop's diagonal. Making Sente spend a bishop drop is not automatically a gain; the seventh-file rook, pawn, and Gote's king cover still matter."
           },
-          "marks": { "arrows": ["7c8c"], "last": "8c" }
+          "marks": { "arrows": ["7c6c"], "last": "6c" }
         }
       ]
     }

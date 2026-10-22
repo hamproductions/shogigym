@@ -7,8 +7,8 @@
     "en": "Ureshino against Climbing Silver: count the eighth file"
   },
   "intro": {
-    "ja": "棒銀では後手の銀が８筋の歩と飛車を助けます。嬉野流の左銀を守りに使うときも、銀だけを追わず、８六の駒を次に取る飛車と角まで数える必要があります。この単元は６八銀から７七への短い受け、８六の銀と飛車の取り合い、７筋への歩の合図を異なる盤面で練習します。",
-    "en": "A Climbing Silver combines the advancing silver with the eighth-file pawn and rook. An Ureshino silver can help defend, but each recapture on 8f changes who occupies the square next. These positions practice a short S6h–7g route, a silver trade backed by the rook, and a pawn interposition on the seventh file."
+    "ja": "棒銀では後手の銀が８筋の歩と飛車を助けます。嬉野流の左銀を守りに使うときも、銀だけを追わず、８六の駒を次に取る飛車と角まで数える必要があります。この単元は６八銀から７七への短い受け、８六の銀と飛車の取り合い、７筋への歩打ちで銀を追う手を異なる盤面で練習します。",
+    "en": "A Climbing Silver combines the advancing silver with the eighth-file pawn and rook. An Ureshino silver can help defend, but each recapture on 8f changes who occupies the square next. These positions practice a short S6h–7g route, a silver trade backed by the rook, and a pawn drop on the seventh file that challenges the silver."
   },
   "check": {
     "question": {
@@ -16,8 +16,8 @@
       "en": "In chapter two, why does S7g×8f not finish the defense after taking Gote's silver?"
     },
     "answer": {
-      "ja": "８二飛が８六へ通っており、△同飛で先手銀を取れるからです。その後の▲７七角は飛車を狙いますが、例の△８二飛のように後手は引けます。双方の８筋の歩と銀が交換されただけで、一連の順から受け切りとは言えません。",
-      "en": "R8b can recapture on 8f. B8h–7g then attacks that rook, but Gote can retreat to 8b in the sample. Both sides have exchanged eighth-file pawns and silvers; this line alone does not prove the attack is over."
+      "ja": "△同飛で８二飛が８六へ出て、先手の銀を取り返すからです。その後８筋をふさいでいるのは８八角だけで、▲７七角と動かすと△８九飛成が王手になります。▲８七歩打で飛車を追っても、△７六飛で歩を取られて７八金を狙われます。銀を取っただけでは受けは終わっていません。",
+      "en": "R8b recaptures on 8f and takes Sente's silver back. B8h is then the only piece blocking the eighth file, so B8h–7g would allow R8i+ with check. Even P*8g, which drives the rook away, lets R8f×7f take a pawn and aim at G7h. Taking the silver does not end the defense."
     }
   },
   "references": [
@@ -76,18 +76,18 @@
         {
           "moves": ["7g8f", "8b8f"],
           "text": {
-            "ja": "▲同銀、△同飛で銀を交換します。後手の飛車は８六へ出ますが、先手の角は８八に残り、７七が空きました。７七へ角を置くかどうかを続けて判断します。",
-            "en": "S7g×8f and R8b×8f exchange the silvers. With 7g vacated, B8h has a route to that square. The rook has reached 8f, so Sente must still decide how to meet it."
+            "ja": "▲同銀、△同飛で銀を交換し、後手の飛車が８六へ出ました。８筋で飛車の前をふさいでいるのは８八角だけです。角を動かすと、飛車は８九まで進んで成れます。",
+            "en": "S7g×8f and R8b×8f exchange the silvers, and the rook reaches 8f. Only B8h now blocks the eighth file. If the bishop moves, the rook can run to 8i and promote."
           },
-          "marks": { "arrows": ["8b8f"], "last": "8f" }
+          "marks": { "arrows": ["8b8f"], "last": "8f", "boxes": ["8h", "8i"] }
         },
         {
-          "moves": ["8h7g", "8f8b"],
+          "moves": ["P*8g", "8f7f", "7h6g"],
           "text": {
-            "ja": "▲７七角は８六飛へ利きます。例の△８二飛なら飛車はその線から離れられます。角を使いながら銀と８筋の歩を交換した形で、双方が歩を持っています。後手の次の歩打ちは別に調べる必要があります。",
-            "en": "B8h–7g attacks R8f, which retreats to 8b in this example. The silver and eighth-file pawn pairs have been exchanged, leaving both players with a pawn in hand. Gote's next pawn drop remains to be assessed."
+            "ja": "▲７七角は飛車に利きますが、△８九飛成が王手になります。そこで▲８七歩打で８筋をふさいだまま飛車を追います。△７六飛は７六の歩を取り、７八金にも利くので、▲６七金と金を逃がします。歩を一枚損しましたが、８筋から王手で成り込まれる形は防ぎました。",
+            "en": "B8h–7g would attack the rook, but R8f–8i+ would then promote with check. P*8g instead drives the rook while keeping the eighth file closed. R8f×7f takes a pawn and also lines up on G7h, so G7h–6g moves the gold away. Sente is a pawn down, but has not allowed a promotion with check on the eighth file."
           },
-          "marks": { "arrows": ["8h7g"], "last": "8b" }
+          "marks": { "arrows": ["7h6g"], "last": "6g", "boxes": ["8g", "7f"] }
         }
       ]
     },
@@ -99,21 +99,30 @@
       "steps": [
         {
           "text": {
-            "ja": "後手銀７五は８六へ進めます。先手銀７七は８六にも６六にも利きます。先手は７筋に歩を持ち、盤上に先手の７筋の歩がないため７六への歩打ちは合法です。銀を取れると断定せず、逃げる場所まで確認します。",
+            "ja": "後手銀７五は８六へ進めます。先手銀７七は８六にも６六にも利きます。先手は歩を持駒に持ち、盤上の７筋に先手の歩がないため７六への歩打ちは合法です。銀を取れると断定せず、逃げる場所まで確認します。",
             "en": "Gote's S7e can approach 8f. Sente's S7g covers 8f and 6f, and Sente has a pawn in hand with no pawn already on the seventh file. A drop on 7f is legal, but it does not prove the opposing silver is trapped."
           },
           "marks": { "boxes": ["7e", "7f", "7g", "8d"] }
         },
         {
-          "moves": ["P*7f", "7e8d", "7f7e"],
+          "moves": ["P*7f", "7e8d"],
           "text": {
-            "ja": "▲７六歩打は７五銀を直接攻めます。後手は例として△８四銀と引けるので、銀の捕獲を主張できません。▲７五歩は空いた７五へ進める手で、８筋への後手の圧力を見ながら７筋を使います。",
-            "en": "P*7f attacks S7e. Gote can retreat S7e–8d in this sample, so the drop does not trap the silver. P7f–7e then advances on the newly cleared seventh-file square while the eighth-file attack remains possible."
+            "ja": "▲７六歩打は７五銀を直接攻めます。後手は例として△８四銀と引けるので、銀の捕獲を主張できません。７六の歩は７五に利き、銀がすぐ７五へ戻るのを防ぎます。ここで▲７五歩と突くと△同銀で歩を取られるので、歩は７六に置いたままにします。",
+            "en": "P*7f attacks S7e. Gote can retreat S7e–8d in this sample, so the drop does not trap the silver. The pawn on 7f covers 7e and keeps the silver from returning at once. Pushing P7f–7e here would only lose the pawn to S8d×7e, so the pawn stays on 7f."
           },
-          "marks": { "arrows": ["7f7e"], "last": "7e", "boxes": ["8d", "8e"] }
+          "marks": { "arrows": ["7e8d"], "last": "8d", "boxes": ["7e", "7f"] }
         }
       ],
       "variations": [
+        {
+          "from": 1,
+          "moves": ["7f7e", "8d7e"],
+          "text": {
+            "ja": "▲７五歩は悪手の例です。７五に利いている先手の駒がないので、△同銀で歩を取られ、銀も７五へ戻ります。",
+            "en": "P7f–7e is a mistake. No Sente piece covers 7e, so S8d×7e wins the pawn and puts the silver back on 7e."
+          },
+          "marks": { "arrows": ["8d7e"], "last": "7e" }
+        },
         {
           "from": 0,
           "moves": ["P*7f", "7e6f", "7g6f"],

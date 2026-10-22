@@ -91,12 +91,12 @@
           "marks": {"last": "2d", "arrows": ["2f2d", "3c2d"]}
         },
         {
-          "moves": ["2f2h", "3c4d"],
+          "moves": ["2f2h", "5e5f"],
           "text": {
-            "ja": "先手が▲２八飛と引く枝なら、後手は△４四銀と中央へ銀を使えます。２筋を一手で突破したわけではなく、後手は５五歩・５二飛を残して次の中央戦を準備する局面です。",
-            "en": "If Sente retreats R2h, Gote can develop S4d toward the center. This has not won the second file; Gote retains P5e and R5b and must evaluate Sente's next plan."
+            "ja": "先手が▲２八飛と引く枝なら、後手は△５六歩と中央の歩を進められます。銀は３三に残したので、▲２四飛には引き続き△同銀があります。次は飛車５二に支えられた△５七歩成が狙いです。銀を動かす前に、２四の歩の守りが残るかを確かめます。",
+            "en": "If Sente retreats R2h, Gote can push the central pawn with P5f. The silver stays on 3c, so R2d is still met by Sx2d. Next Gote aims at P5g+, backed by the rook on 5b. Before moving the silver, check whether the pawn on 2d stays defended."
           },
-          "marks": {"last": "4d", "boxes": ["5e", "5b", "2d"]}
+          "marks": {"last": "5f", "arrows": ["5f5g+"], "boxes": ["3c", "2d", "5b"]}
         }
       ],
       "variations": [

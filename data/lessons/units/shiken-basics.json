@@ -82,7 +82,7 @@
       "title": { "ja": "角交換後の王手を先に消す", "en": "Prepare for a checking bishop drop after exchange" },
       "side": "sente",
       "kind": "position",
-      "start": "4k1s2/1r5b1/9/9/9/9/5P2P/1B1RG1SK1/5G3 b - 1",
+      "start": "l2gk1s2/1r4gb1/pppppp1pp/6p2/9/9/3P1P1PP/1B1RG1SK1/5G3 b - 1",
       "steps": [
         {
           "text": { "ja": "先手は６八飛と２八玉・３八銀・４九金・５八金の美濃系の守りを持ち、角は８八にいます。後手角は２二で、途中の７七から３三まで空いています。角を交換すれば双方に持ち角が生じるので、玉に届く角打ちを先に考えます。", "en": "Sente has a rook on 6h and a Mino-style king cover with K2h, S3h and golds on 4i and 5h. Its bishop is on 8h, Gote's on 2b, and the diagonal between them is open. An exchange gives both sides a bishop in hand, so check possible drops against the king first." },

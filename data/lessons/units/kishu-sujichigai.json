@@ -33,7 +33,7 @@
       "title": { "ja": "歩を動かす前に飛車の退路を作る", "en": "Reposition the rook before opening the diagonal" },
       "side": "gote",
       "kind": "position",
-      "start": "3k5/2r6/3p5/9/5B3/9/2P6/9/4K4 w b 1",
+      "start": "3k5/2r1g4/3p5/9/5B3/9/P8/9/4K4 w b 1",
       "steps": [
         {
           "text": {
@@ -43,10 +43,10 @@
           "marks": { "boxes": ["4e", "6c", "7b"], "arrows": ["4e7b"] }
         },
         {
-          "moves": ["7b7a", "7g7f", "6c6d"],
+          "moves": ["7b7a", "9g9f", "6c6d"],
           "text": {
-            "ja": "先に△７一飛と下がり、先手が７六歩と進めた例で△６四歩。角の斜線は開きましたが、飛車は元の７二にいません。後手は７二へ角が成ってきた場合の取り返しも残しています。先手の７六歩は一例で、待つ義務はありません。",
-            "en": "R7b–7a comes first. After the illustrative P7g–7f, Gote can advance P6c–6d. The diagonal is open, but the rook has left 7b and can recapture a bishop that lands there. Sente's pawn move is only one possible reply."
+            "ja": "先に△７一飛と下がり、先手が９六歩と進めた例で△６四歩。角の斜線は開きましたが、飛車は元の７二にいません。後手は７二へ角が成ってきた場合の取り返しも残しています。先手の９六歩は一例で、待つ義務はありません。",
+            "en": "R7b–7a comes first. After the illustrative P9g–9f, Gote can advance P6c–6d. The diagonal is open, but the rook has left 7b and can recapture a bishop that lands there. Sente's pawn move is only one possible reply."
           },
           "marks": { "arrows": ["7b7a", "6c6d"], "boxes": ["7b"] }
         },
@@ -115,7 +115,7 @@
         {
           "moves": ["4e7b+", "6b7b"],
           "text": {
-            "ja": "ここで▲７二角成を選ぶなら△同金で馬を取れます。角には別の斜線や手待ちがあるため、金上がりだけで筋違い角を無力化したとは言えません。着地点の守備が成立する範囲を示す例です。",
+            "ja": "ここで▲７二角成を選ぶなら△同金で馬を取れます。角には別の斜線や手待ちがあるため、△６二金だけで筋違い角を無力化したとは言えません。着地点の守備が成立する範囲を示す例です。",
             "en": "If Sente now chooses B4e–7b+, G6b×7b takes the horse. Sente can use the bishop elsewhere, so this does not neutralize every off-axis bishop plan. It establishes exactly what this gold move defends."
           },
           "marks": { "arrows": ["6b7b"], "last": "7b" }

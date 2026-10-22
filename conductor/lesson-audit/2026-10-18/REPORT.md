@@ -8,6 +8,22 @@ Read-only audit of the authored lesson units in `data/lessons/units/`. No lesson
 - **All 150 units** went through the automated gates and engine screens described below, so the unread units have machine coverage only.
 - Findings: 54 items — A (misteaches): 20, B (misleading): 15, C (style, minor): 19.
 
+## Repair rounds (2026-10-21/22)
+
+- **Coverage:** all 150 units are now read by hand. 92 were read in this report, 14 in the resumed 2026-10-18 session (`../resumed-2026-10-18.json`, `reviewedUnits`), and 44 in round 1. Every finding from those reads was confirmed by at least 2 of 3 independent skeptics.
+- **Round 1 (`0cdb457`):** 54 units repaired, each checked by an independent re-check.
+- **Round 2 (branch `fix/lesson-audit-remainder`):** 39 units repaired, 77 items, all `fixed`; no item was `not_reproduced` or `skipped`. `bun run lessons`: 150 lessons, 540 chapters, 2591 legal moves, 0 errors; check-unit is ok for all 39 units.
+  - **Remaining findings:** the 24 units from round 1 that still had findings, and the 13 style-only units (不成 notation, register).
+  - **Unresolved triage hints:** kishu-sujichigai, ishida-basics and aifuri-vs-ishida had triage hints above that no one had resolved by hand. These were read again, put through the same skeptic vote, and repaired. aifuri-vs-ishida held four misteaches: an undefended horse next to the king, a block that drops the rook, and two bishop checks that fork the rook.
+  - **shiken-tateishi:** its 4 hints were all refuted, with at most 1 of 3 skeptic votes each, so it was left unchanged.
+  - **Re-checks:** every repaired unit passed an independent read-only re-check. aifuri-basics, fujii-build, fujii-vs-anaguma and legspe passed only on their second repair.
+- **Open: yokofu-avoid** (4 known findings) is left unchanged. Its repair failed the re-check, and the round stopped before the second attempt finished.
+  - **Reviewer evidence, chapter 2:** after 2d2b+ 3b2b, B*9e forks the king and the rook on 8f (+310), so the text's "gives up a rook for a bishop" is wrong.
+  - **Grading:** step 1 grades 2d2f (+51) correct while 2d2b scores +543.
+  - **Wording:** 9c8c is a 寄る move but the text calls it 上げて.
+  - **Next:** repair the composed start so the retreat is really best, or teach the capture.
+- Apart from yokofu-avoid, every finding in this report and every triage candidate below is either repaired or dismissed.
+
 ## Automated results (all 150 units)
 
 - Generated output equals source for 150/150 units (`tools/eq.ts`).

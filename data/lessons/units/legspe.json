@@ -64,7 +64,7 @@
       "title": {"ja": "囲いの途中で８筋が開いたら", "en": "An eighth-file contact before castling is finished"},
       "side": "sente",
       "kind": "position",
-      "start": "9/1r3k3/4p4/9/1p7/9/1P7/3R1GG1L/6SK1 w Bb 1",
+      "start": "9/1r2gk3/3pp4/9/1p7/9/1P7/2SR1GG1L/6SK1 w Bb 1",
       "steps": [
         {
           "text": {
@@ -76,18 +76,18 @@
         {
           "moves": ["8e8f", "8g8f", "8b8f"],
           "text": {
-            "ja": "△８六歩、▲同歩、△同飛の例では、先手と後手が歩を一枚ずつ取り、後手飛車が８六へ出ます。先手６八飛は８八へ横に動けますが、その手で玉の整備は進みません。",
-            "en": "In the sample P8f, Px8f, Rx8f, each side takes a pawn and Gote's rook arrives on 8f. Sente can transfer R6h laterally to 8h, but that move does not develop the king's shelter."
+            "ja": "△８六歩、▲同歩、△同飛の例では、先手と後手が歩を一枚ずつ取り、後手飛車が８六へ出ます。７八銀は８七と８九に利いていますが、８八には先手の駒が利いていません。放っておくと△８八飛成で竜を作られます。",
+            "en": "In the sample P8f, Px8f, Rx8f, each side takes a pawn and Gote's rook arrives on 8f. S7h covers 8g and 8i, but no Sente piece covers 8h. If Sente ignores the rook, Gote promotes with R8h+."
           },
-          "marks": {"last": "8f", "arrows": ["6h8h"]}
+          "marks": {"last": "8f", "boxes": ["7h", "8g", "8h"]}
         },
         {
-          "moves": ["6h8h", "8f7f"],
+          "moves": ["P*8g", "8f2f", "3i2h"],
           "text": {
-            "ja": "▲８八飛と向かい合わせると、後手が△７六飛と横へかわす例もあります。先手は飛車交換を強制しておらず、後手飛車７六は先手陣の７筋に働きます。玉を囲い切る前に、その飛車の利きを見ます。",
-            "en": "R8h confronts Gote's rook, but Gote may sidestep to R7f in this sample. Sente has not forced a rook trade, and R7f can work on the seventh file. Reassess its reach before spending another move on the castle."
+            "ja": "▲８七歩と取った歩を打てば、７八銀に支えられた歩が８筋を止めます。ここでは後手が△２六飛と横へ回り、２九玉に王手をかける例です。▲２八銀の合駒は囲いの一手も兼ねますが、玉はまだ１九に入っていません。後手飛車が８筋から先手玉の筋へ移れることも数えます。",
+            "en": "Dropping the captured pawn with P*8g closes the eighth file, and S7h supports that pawn. In this sample Gote swings the rook sideways to R2f, checking K2i. Blocking with S2h also advances the castle, but the king has not yet reached 1i. Count the fact that Gote's rook can switch from the eighth file to the king's file."
           },
-          "marks": {"last": "7f", "boxes": ["7f", "2i"]}
+          "marks": {"last": "2h", "boxes": ["8g", "2f", "2i"]}
         }
       ]
     },

@@ -124,28 +124,28 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "2b2gs2/1r2g1k1l/6p2/5p3/9/5P3/2B2S3/3RG4/4KG3 b - 1",
+      "start": "lnb2gsn1/1r2g1k1l/p1pppsppp/1p3p3/9/2P2P3/PPBPPSPPP/2SRG4/LN2KG1NL b - 1",
       "steps": [
         {
           "text": {
-            "ja": "後手玉は３二、香は１二ですが、銀はまだ３一です。先手は５九玉を動かさず、４七銀・５八金・４九金を整えました。先手４六歩と後手４四歩がぶつかれば、次の一手を後手が囲いに使うか、４筋の歩に使うかで変化します。",
-            "en": "Gote has K3b and L1b but its silver is still on 3a. Sente has left K5i at home and developed S4g, G5h and G4i. P4f faces P4d; the result depends on whether Gote next spends a turn on the shelter or pushes the pawn again."
+            "ja": "後手玉は３二、香は１二ですが、囲いの銀はまだ３一です。先手は５九玉を動かさず、４七銀・５八金・４九金を整えました。８筋と６筋はどちらも歩で止まっているので、争点は４筋です。先手４六歩は後手４四歩と向かい合い、その４四歩には４三銀が利いています。歩がぶつかれば、次の一手を後手が囲いに使うか、４筋の歩に使うかで変化します。",
+            "en": "Gote has K3b and L1b but its castle silver is still on 3a. Sente has left K5i at home and developed S4g, G5h and G4i. Pawns still block both the eighth and sixth files, so the contact point is the fourth file. P4f faces P4d, which S4c protects; the result depends on whether Gote next spends a turn on the shelter or pushes the pawn again."
           },
-          "marks": { "boxes": ["3a", "4d", "4f", "5i"], "arrows": ["4f4e"] }
+          "marks": { "boxes": ["3a", "4c", "4d", "4f", "5i"], "arrows": ["4f4e"] }
         },
         {
           "moves": ["4f4e", "4d4e", "4g5f"],
           "text": {
-            "ja": "▲４五歩に△同歩と来た例では、先手歩が取られます。▲５六銀は４五の後手歩を次に取りに行く手です。６八飛が歩を直接取れる位置ではないため、銀が到着するまでに後手の応手を一つ確認します。",
-            "en": "After P4e Px4e, Gote's pawn stands on 4e. S5f threatens to capture it diagonally next. R6h cannot capture that pawn directly, so Gote gets a reply before Sente's silver can take it."
+            "ja": "▲４五歩に△同歩と来た例では、先手歩が取られます。４五の後手歩には後手の駒が利いていないので、▲５六銀で次に取りに行きます。６八飛が歩を直接取れる位置ではないため、銀が到着するまでに後手の応手を一つ確認します。",
+            "en": "After P4e Px4e, Gote's pawn stands on 4e with no Gote piece protecting it, so S5f aims to capture it diagonally next. R6h cannot capture that pawn directly, so Gote gets a reply before Sente's silver can take it."
           },
           "marks": { "last": "5f", "arrows": ["5f4e"], "boxes": ["4e"] }
         },
         {
           "moves": ["3a2b", "5f4e"],
           "text": {
-            "ja": "後手が△２二銀と囲いを続ける枝なら▲４五銀で歩を取れます。先手銀は４五へ前進しましたが、後手には金や角で次の受けを作る余地があります。後手の一手が２二に使われたことが、この歩を取れた条件です。",
-            "en": "If Gote continues the castle with S2b, Sx4e captures the pawn. The silver advances, but Gote can still develop a gold or bishop response. The immediate condition for this capture was Gote spending the turn on 2b instead of the fourth-file pawn."
+            "ja": "後手が△２二銀と囲いを続ける枝なら▲４五銀で歩を取れます。先手は歩を取り返しましたが、後手には△４四歩と打って銀に当てる受けが残ります。後手の一手が２二に使われたことが、この歩を取れた条件です。",
+            "en": "If Gote continues the castle with S2b, Sx4e captures the pawn. Sente has won the pawn back, but Gote can still answer with a pawn drop on 4d that hits the silver. The immediate condition for this capture was Gote spending the turn on 2b instead of the fourth-file pawn."
           },
           "marks": { "last": "4e", "boxes": ["2b", "4e", "5i"] }
         }
@@ -155,8 +155,8 @@
           "from": 1,
           "moves": ["4e4f", "4i4h", "4f4g+", "4h4g"],
           "text": {
-            "ja": "後手が囲いを進めず△４六歩と突く枝では、▲４八金と上がって４七を守れます。△４七歩成には▲同金で取り返す例です。金が４七へ出たあとの玉形は別に評価が必要で、単に先手の攻めが成功したとはいえません。",
-            "en": "If Gote instead pushes P4f, Sente can lift G4h to cover 4g. In the sample P4g+ Gx4g, the gold captures the promoted pawn. The gold now stands on 4g and Sente's home-king cover has changed; this is a defensive choice, not proof of a successful attack."
+            "ja": "後手が囲いを進めず△４六歩と突く枝です。４七にはすでに５八金と５六銀が利いているので、△４七歩成は取り返せます。ここでは▲４八金と上がって４七の守りをもう一枚増やしました。続く△４七歩成は歩を捨てるだけの協力的な手順で、▲同金と取ります。金が４七へ出たあとの玉形は別に評価が必要で、単に先手の攻めが成功したとはいえません。",
+            "en": "If Gote instead pushes P4f, 4g is already covered by G5h and S5f, so a promotion there can be recaptured. Here Sente lifts G4h to add a third defender of 4g. The following P4g+ is a cooperative sample that only gives up the pawn, and Gx4g takes it. The gold now stands on 4g and Sente's home-king cover has changed; this is a defensive choice, not proof of a successful attack."
           }
         }
       ]

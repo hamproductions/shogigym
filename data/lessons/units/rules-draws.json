@@ -314,8 +314,8 @@
             "3c4d"
           ],
           "text": {
-            "ja": "比較として、最初の局面で後手玉が８一へ逃げる順です。▲３三角は王手ではなく、続く▲４四角で再び王手になって最初の局面へ戻ります。この一巡には王手でない先手の手が一つ入っています。",
-            "en": "For comparison, Gote's king escapes to 8a from the starting position. Sente's B3c is not a check; the following B4d checks again and brings back the starting position. This cycle includes one Sente move without check."
+            "ja": "比較として、最初の局面で後手玉が８一へ逃げる順です。▲３三角不成は王手ではなく、続く▲４四角不成で再び王手になって最初の局面へ戻ります。どちらも成らないので角のままです。この一巡には王手でない先手の手が一つ入っています。",
+            "en": "For comparison, Gote's king escapes to 8a from the starting position. Sente's B3c without promoting is not a check; the following B4d, again without promoting, checks and brings back the starting position. Neither move promotes, so the piece stays a bishop. This cycle includes one Sente move without check."
           },
           "steps": [
             {

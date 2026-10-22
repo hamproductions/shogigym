@@ -134,8 +134,8 @@
       "steps": [
         {
           "text": {
-            "ja": "先手銀は６七、後手歩は７五です。先手７筋の歩はすでに盤上になく、７五歩への直接の取り手はまだありません。６七銀を前へ出す前に、６六歩を動かして銀の場所を空けます。",
-            "en": "Sente's silver is on 6g and Gote's pawn on 7e. Sente no longer has a seventh-file pawn on the board, so there is no immediate pawn capture on 7e. To advance the silver, Sente first has to clear its pawn from 6f."
+            "ja": "先手銀は６七、後手歩は７五です。先手７筋の歩はすでに盤上になく、７五歩への直接の取り手はまだありません。銀を６六へ出すには、先に６六歩を動かして場所を空けます。",
+            "en": "Sente's silver is on 6g and Gote's pawn on 7e. Sente no longer has a seventh-file pawn on the board, so there is no immediate pawn capture on 7e. To put the silver on 6f, Sente first has to move its pawn off that square."
           },
           "marks": { "boxes": ["6g", "6f", "7e"] }
         },

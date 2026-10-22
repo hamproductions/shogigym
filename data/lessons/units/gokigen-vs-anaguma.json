@@ -25,12 +25,12 @@
       "title": {"ja": "中央で角まで交換に入る", "en": "Count the bishop in a central exchange"},
       "side": "gote",
       "kind": "position",
-      "start": "9/4r2k1/7p1/3sp4/9/4P2P1/2B6/LSGG3R1/K8 w - 1",
+      "start": "9/4r2k1/6pp1/3sp4/9/4P2P1/2B6/LSGG3R1/K8 w - 1",
       "steps": [
         {
           "text": {
-            "ja": "先手は９九玉・９八香・８八銀・７八金を備えていますが、争点は盤中央の５六歩です。後手６四銀は５五を守り、先手７七角も６六が空いているので５五に届きます。双方の取り手を先に数えます。",
-            "en": "Sente has K9i, L9h, S8h and G7h, but the immediate contact is P5f. Gote's S6d covers 5e, while B7g also reaches 5e through an empty 6f. Count both recaptures before pushing."
+            "ja": "先手は９九玉・９八香・８八銀・７八金を備えていますが、争点は盤中央の５六歩です。後手６四銀は５五を守り、先手７七角も６六が空いているので５五に届きます。角筋は３三歩で止まり、２二玉には届いていません。双方の取り手を先に数えます。",
+            "en": "Sente has K9i, L9h, S8h and G7h, but the immediate contact is P5f. Gote's S6d covers 5e, while B7g also reaches 5e through an empty 6f. The diagonal stops at P3c and does not reach K2b. Count both recaptures before pushing."
           },
           "marks": {"arrows": ["6d5e", "7g5e"], "boxes": ["5d", "5f"]}
         },
@@ -87,12 +87,12 @@
       "title": {"ja": "角筋を閉じた歩は再び動ける", "en": "A pawn can reopen the bishop diagonal"},
       "side": "gote",
       "kind": "position",
-      "start": "9/4r2k1/7p1/3sp4/9/4P2P1/2BP5/LSGG3R1/K8 w - 1",
+      "start": "9/4r2k1/6pp1/3sp4/9/4P2P1/2BP5/LSGG3R1/K8 w - 1",
       "steps": [
         {
           "text": {
-            "ja": "今度は先手６七歩が６六へ進める位置にあります。先手角７七から５五への斜線は現状では通っています。歩が６六に来れば角を遮りますが、その歩が再び動けば斜線も開くため、一手先だけで判断しません。",
-            "en": "Sente's P6g can move to 6f. B7g currently reaches 5e, but a pawn on 6f would block that diagonal. The pawn could later advance again, so a single defender count does not settle the exchange."
+            "ja": "今度は先手６七歩が６六へ進める位置にあります。先手角７七から５五への斜線は現状では通っており、その先は３三歩で止まります。歩が６六に来れば角を遮りますが、その歩が再び動けば斜線も開くため、一手先だけで判断しません。",
+            "en": "Sente's P6g can move to 6f. B7g currently reaches 5e, and the line beyond stops at P3c, but a pawn on 6f would block that diagonal. The pawn could later advance again, so a single defender count does not settle the exchange."
           },
           "marks": {"arrows": ["6g6f", "7g5e"], "boxes": ["6f"]}
         },

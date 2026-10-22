@@ -61,8 +61,8 @@
             "7e5g"
           ],
           "text": {
-            "ja": "△５七角で銀を取る応手です。角は金４八の斜め前へ来たため、先手は取り返せます。角が取らなければ、この交換は起こりません。",
-            "en": "△５七角 takes the silver in this line. The bishop has landed diagonally in front of Sente's gold, allowing a recapture. If Gote declines the silver, this exchange does not happen."
+            "ja": "△５七角不成で銀を取る応手です。角は金４八の斜め前へ来たため、先手は取り返せます。角が取らなければ、この交換は起こりません。",
+            "en": "△５七角不成 takes the silver without promoting in this line. The bishop has landed diagonally in front of Sente's gold, allowing a recapture. If Gote declines the silver, this exchange does not happen."
           }
         },
         {
@@ -158,8 +158,8 @@
             "5c4d"
           ],
           "text": {
-            "ja": "▲４四銀で飛車を取りました。成っていればこの斜め後ろの一歩は指せません。実戦では、後手が飛車を逃がす応手も読む必要があります。",
-            "en": "▲４四銀 captures the rook. Promotion on the previous move would have removed this backward-diagonal step. In a game, also calculate Gote's options for moving the rook."
+            "ja": "▲４四銀不成で飛車を取りました。成っていればこの斜め後ろの一歩は指せません。実戦では、後手が飛車を逃がす応手も読む必要があります。",
+            "en": "▲４四銀不成 captures the rook without promoting. Promotion on the previous move would have removed this backward-diagonal step. In a game, also calculate Gote's options for moving the rook."
           }
         }
       ],
@@ -170,8 +170,8 @@
             "5c6d"
           ],
           "text": {
-            "ja": "不成の銀は６四へ斜め後ろに戻ることもできる。６四から５三への斜め前と、その帰り道は両方ある。一方、６四から６三へ真っすぐ進むと、６三から６四へ真後ろには戻れない。",
-            "en": "The unpromoted silver can also return diagonally to 6d. The diagonal route 6d–5c works in both directions. A straight advance 6d–6c does not: an unpromoted silver cannot return straight backward from 6c to 6d."
+            "ja": "▲６四銀不成で、成らなかった銀は斜め後ろの６四へ戻ることもできます。６四から５三への斜め前の道は、行きも帰りも使えます。一方、６四から６三へ真っすぐ進んだ銀は、６三から６四へ真後ろには戻れません。",
+            "en": "With ▲６四銀不成, the silver stays unpromoted and can also return diagonally backward to ６四. The diagonal route between ６四 and ５三 works in both directions. A straight advance from ６四 to ６三 does not: an unpromoted silver cannot step straight back from ６三 to ６四."
           }
         }
       ]

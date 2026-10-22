@@ -88,12 +88,12 @@
         "ja": "７筋の歩で角の取り返しを変える",
         "en": "Use the Seventh-File Pawn to Enable Recapture"
       },
-      "start": "9/1k3r3/4s1b2/5p3/9/4P2P1/2P1S4/1BK1G2R1/3G5 b - 1",
+      "start": "9/1k3r1s1/4s1b2/5p3/9/4P2P1/2P1S4/1BK1G2R1/3G5 b - 1",
       "steps": [
         {
           "text": {
-            "ja": "先手角は８八、銀は５七。７七歩があるまま銀を６六へ出すと、角は７七を通れず６六を守れない。先に７六歩と動かせば、後手の４四歩が動いて角道が開いた局面で、角による取り返しを用意できる。",
-            "en": "Sente's bishop is on 8h and the silver on 5g. With the pawn still on 7g, the bishop cannot pass through 7g to protect a silver on 6f. Moving P7f first prepares a bishop recapture if Gote's 4d pawn later vacates the diagonal."
+            "ja": "先手角は８八、銀は５七。後手角３三は２二銀が守っている。７七歩があるまま銀を６六へ出すと、角は７七を通れず６六を守れない。先に７六歩と動かせば、後手の４四歩が動いて角道が開いた局面で、角による取り返しを用意できる。",
+            "en": "Sente's bishop is on 8h and the silver on 5g. Gote's bishop on 3c is guarded by the silver on 2b. With the pawn still on 7g, the bishop cannot pass through 7g to protect a silver on 6f. Moving P7f first prepares a bishop recapture if Gote's 4d pawn later vacates the diagonal."
           }
         },
         {
@@ -103,8 +103,8 @@
             "5g6f"
           ],
           "text": {
-            "ja": "△４五歩で後手角の３三―６六の斜線が開く。そこで銀を６六に置くなら、７七が空いた先手角の８八―７七―６六の利きも確認する。角による取り返しがあるだけで、銀の進出が必ず得とはいえない。",
-            "en": "P4e opens Gote's bishop diagonal from 3c toward 6f. If Sente places the silver on 6f, the now-empty 7g square lets the bishop on 8h support that silver. The possible recapture does not, by itself, make the silver advance profitable."
+            "ja": "△４五歩で４四が空き、後手角の３三―６六の斜線が開く。先手角からも３三が見えるが、▲３三角成は△同銀で角交換になるだけ。そこで銀を６六に置くなら、７七が空いた先手角の８八―７七―６六の利きも確認する。角による取り返しがあるだけで、銀の進出が必ず得とはいえない。",
+            "en": "P4e empties 4d and opens Gote's bishop diagonal from 3c toward 6f. Sente's bishop now also sees 3c, but B3c+ is met by Sx3c and is only a bishop exchange. If Sente places the silver on 6f, the now-empty 7g square lets the bishop on 8h support that silver. The possible recapture does not, by itself, make the silver advance profitable."
           }
         },
         {
@@ -139,8 +139,8 @@
   ],
   "check": {
     "question": {
-      "ja": "後手角３三・歩４四、先手角８八・歩７七。先手が銀を６六へ出したいとき、後手の△４五歩から△６六角を考える前に、先手は何を確認する？",
-      "en": "Gote has B3c and P4d; Sente has B8h and P7g. Before advancing the silver to 6f against a possible P4e and B6f, what must Sente check?"
+      "ja": "後手角３三（２二銀が守る）・歩４四、先手角８八・歩７七。先手が銀を６六へ出したいとき、後手の△４五歩から△６六角を考える前に、先手は何を確認する？",
+      "en": "Gote has B3c (guarded by S2b) and P4d; Sente has B8h and P7g. Before advancing the silver to 6f against a possible P4e and B6f, what must Sente check?"
     },
     "answer": {
       "ja": "７七歩が８八角の６六への斜線を塞いでいるか。▲７六歩で７七を空ければ、後手が４四歩を動かして角で６六銀を取る場合、▲同角で角を取り返せる。ただし交換後の飛車筋と王の安全も調べる。",

@@ -143,8 +143,8 @@
                 "2d4b"
               ],
               "text": {
-                "ja": "▲４二角で金を取ると詰みです。角４二は飛車４四に守られ、玉は角を取れません。４一は銀３二、５二・６二は金６三、６一は桂７三が押さえ、全合法応手は０手です。合駒を取らせても逃げ道や有効な取り返しが生まれない、この４二金は無駄合として詰将棋の手数に加えません。",
-                "en": "▲４二角 captures the gold with mate. The rook on ４四 protects the bishop; the silver on ３二 covers ４一, the gold on ６三 covers ５二 and ６二, and the knight on ７三 covers ６一. Exhaustive enumeration finds zero legal replies. This ４二 gold creates neither an escape nor an effective recapture after being taken, so it is a futile interposition and is excluded from the stated tsume move count."
+                "ja": "▲４二角不成で金を取ると詰みです（成っても詰みます）。角４二は飛車４四に守られ、玉は角を取れません。４一は銀３二、５二・６二は金６三、６一は桂７三が押さえ、全合法応手は０手です。合駒を取らせても逃げ道や有効な取り返しが生まれない、この４二金は無駄合として詰将棋の手数に加えません。",
+                "en": "▲４二角不成 captures the gold without promoting and mates (promoting also mates). The rook on ４四 protects the bishop; the silver on ３二 covers ４一, the gold on ６三 covers ５二 and ６二, and the knight on ７三 covers ６一. Exhaustive enumeration finds zero legal replies. This ４二 gold creates neither an escape nor an effective recapture after being taken, so it is a futile interposition and is excluded from the stated tsume move count."
               }
             }
           ]

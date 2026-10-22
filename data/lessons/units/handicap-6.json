@@ -82,35 +82,27 @@
         {
           "moves": ["1f1e", "1c1d", "1e1d"],
           "text": {
-            "ja": "▲１五歩に△１四歩と合わせる例なら▲同歩。下手は上手の歩を取るが、次に２二銀が１三へ進める。歩が１四にある間は飛車の前もまだふさがる。",
-            "en": "If Gote meets P1e with P1d, P1d takes that pawn. Sente has gained Gote's edge pawn, but S2b can move to 1c. Sente's own pawn on 1d still stands in front of the rook."
+            "ja": "▲１五歩に△１四歩と合わせる例なら▲同歩。１四の歩は１三を突き、後ろの１八飛が同じ筋でその歩を支える。２二銀は１三を守っているが、▲１三歩成△同銀▲同飛成と進めば、歩一枚で銀を取って龍もできる。",
+            "en": "If Gote meets P1e with P1d, P1d takes that pawn. The pawn on 1d now hits 1c, and R1h backs it on the same file. S2b guards 1c, but after P1c+, Sx1c, Rx1c+ Sente gives one pawn for the silver and also makes a dragon."
           },
-          "marks": { "arrows": ["1e1d"], "boxes": ["1d", "2b"] }
+          "marks": { "arrows": ["1e1d"], "boxes": ["1d", "1c", "1h", "2b"] }
         },
         {
-          "moves": ["2b1c", "1h1e"],
+          "moves": ["2b1c", "1d1c+"],
           "text": {
-            "ja": "△１三銀なら▲１五飛と歩の後ろへ近づく。銀が１四歩を取れば飛車が銀を取り返せるが、銀には１筋を離れて飛車を攻める移動もある。",
-            "en": "Against S1c, R1e moves closer behind the pawn. If the silver takes P1d, the rook can recapture it; the silver can also leave the file and attack the rook instead."
+            "ja": "例の△１三銀は歩の前へ出る手だが、１三の銀を支える上手の駒がない。▲同歩成で銀をただで取り、と金ができる。守りの駒は、その升を支える駒まで数えて初めて受けになる。",
+            "en": "The sample S1c steps in front of the pawn, but no Gote piece supports 1c. P1c+ takes the silver for free and makes a tokin. A defender only holds a square when the pieces supporting it are counted too."
           },
-          "marks": { "arrows": ["1h1e"], "boxes": ["1c", "1d", "1e"] }
-        },
-        {
-          "moves": ["1c2d", "1e1h"],
-          "text": {
-            "ja": "例の△２四銀は１五飛へ利くので、▲１八飛と引く。１四歩は残り、上手銀は２四へ進んだ。下手が歩を取った事実だけで、攻めが続くとはいえない。",
-            "en": "S2d attacks R1e, so the sample rook retreats to 1h. Sente keeps P1d, while Gote's silver has advanced to 2d. Winning one pawn does not settle the ensuing attack."
-          },
-          "marks": { "arrows": ["1e1h"], "boxes": ["2d", "1d"] }
+          "marks": { "arrows": ["1d1c+"], "boxes": ["1c"] }
         }
       ],
       "variations": [
         {
-          "from": 2,
-          "moves": ["1c1d", "1e1d", "4a3b", "1d1c+"],
+          "from": 1,
+          "moves": ["9c9d", "1d1c+", "2b1c", "1h1c+"],
           "text": {
-            "ja": "△１四銀と歩を取る分岐なら▲同飛で銀を取れる。例の△３二金の後は▲１三飛成で龍になる。ただし△１四銀と△３二金を上手が選んだ場合であり、成りを強制できるという意味ではない。",
-            "en": "If Gote chooses S1d to capture the pawn, R1d takes the silver. After the sample G3b, R1c+ promotes. The sequence depends on both optional Gote replies; Sente cannot force this promotion from the starting position."
+            "ja": "上手が端と関係のない△９四歩を指す例なら、すぐ▲１三歩成。△同銀と取れば▲同飛成で、銀一枚では歩と飛車の二枚を止められない。上手は△同銀の代わりに△３一銀と引けるが、その場合は１三のと金が残る。",
+            "en": "If Gote plays an unrelated move such as the sample P9d, P1c+ comes at once. If Sx1c, Rx1c+ follows: one silver cannot hold against pawn and rook together. Gote can retreat S3a instead of capturing, but then the tokin stays on 1c."
           }
         }
       ]

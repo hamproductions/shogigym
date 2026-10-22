@@ -54,8 +54,8 @@
         {
           "moves": ["5a5h"],
           "text": {
-            "ja": "△５八飛で金を取る応手です。飛車は玉５九の真前に来ましたが、ほかの後手駒には守られていません。",
-            "en": "△５八飛 captures the gold in this line. The rook has landed directly in front of the king on ５九 and is not protected by another Gote piece."
+            "ja": "△５八飛不成で金を取る応手です。成って竜になっても、玉で取り返せる点は変わりません。飛車は玉５九の真前に来ましたが、ほかの後手駒には守られていません。",
+            "en": "△５八飛不成 captures the gold without promoting in this line; promoting to a dragon would not change the fact that the king can take it back. The rook has landed directly in front of the king on ５九 and is not protected by another Gote piece."
           }
         },
         {

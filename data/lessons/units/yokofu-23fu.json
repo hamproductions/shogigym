@@ -59,7 +59,7 @@
       "steps": [
         { "text": { "ja": "先手飛車は３四、後手は角を持つ。２三歩は２四を攻めるため、飛車が２筋へ戻る道にも注意が必要だ。", "en": "Sente's rook is on 3d and Gote has a bishop in hand. The pawn on 2c attacks 2d, so a retreat to the second file needs its own safety check." }, "marks": { "boxes": ["3d", "2c", "2d"] } },
         { "moves": ["B*6g"], "text": { "ja": "後手が６七に角を打つと、５六・４五を通る斜めの先に３四飛がある。２四へ戻るだけでは２三歩の利きに入る。", "en": "A bishop drop on 6g attacks the rook on 3d along 5f and 4e. Simply returning to 2d would place the rook in front of Gote's pawn on 2c." }, "marks": { "arrows": ["6g3d", "2c2d"], "boxes": ["3d"] } },
-        { "moves": ["3d1d"], "text": { "ja": "飛車を１四へ寄れば、６七角の斜めからも２三歩の前の升からも外れる。この局面では評価値でもこの退路が最もよい。", "en": "Moving the rook to 1d leaves both the bishop's diagonal and the square in front of the pawn. In this position the engine also rates this retreat highest." }, "marks": { "boxes": ["1d", "6g", "2c"] } }
+        { "moves": ["3d1d"], "text": { "ja": "飛車を１四へ寄れば、６七角の斜めからも２三歩の前の升からも外れる。飛車はどちらの駒にも取られずに残る。", "en": "Moving the rook to 1d leaves both the bishop's diagonal and the square in front of the pawn. The rook survives, attacked by neither piece." }, "marks": { "boxes": ["1d", "6g", "2c"] } }
       ],
       "variations": [
         { "from": 1, "moves": ["3d2d", "2c2d"], "text": { "ja": "２四へ戻ると、２三歩が２四の飛車を取る。角の利きだけを避けても十分ではない。", "en": "If the rook returns to 2d, Gote's pawn from 2c captures it. Escaping the bishop alone is insufficient." } },

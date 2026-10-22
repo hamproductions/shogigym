@@ -77,8 +77,8 @@
             "4f5e"
           ],
           "text": {
-            "ja": "この例では後手が△３五銀と出て４六の銀を攻めました。４四の守りが消えたので、先手は▲５五銀で歩を取ります。ただし後手は飛車で取り返すかどうかを選べます。",
-            "en": "In this sample, Gote advances the silver to 3e and attacks Sente's silver on 4f. With the 4d defender gone, Sente takes the pawn on 5e. Gote may choose whether to recapture with the rook."
+            "ja": "この例では後手が△３五銀と出て４六の銀を攻めました。４四の守りが消えたので、先手は▲５五銀右で歩を取ります。ただし後手は飛車で取り返すかどうかを選べます。",
+            "en": "In this sample, Gote advances the silver to 3e and attacks Sente's silver on 4f. With the 4d defender gone, Sente takes the pawn on 5e with the 4f silver. Gote may choose whether to recapture with the rook."
           },
           "marks": {
             "arrows": [
@@ -157,7 +157,7 @@
             "4f5e"
           ],
           "text": {
-            "ja": "▲５五銀で歩を取り、例示した△同角には４六銀で角を取ります。後手飛車は５三の自分の銀を飛び越えて５五へ行けません。ただし先手も銀一枚を渡しており、これだけで形勢を決められません。",
+            "ja": "▲５五銀左で歩を取り、例示した△同角には４六の銀で▲同銀と角を取ります。後手飛車は５三の自分の銀を飛び越えて５五へ行けません。ただし先手も銀一枚を渡しており、これだけで形勢を決められません。",
             "en": "Sente takes the pawn with the 6f silver. Against the sample bishop recapture, the 4f silver takes the bishop. Gote's rook cannot jump over its own silver on 5c to reach 5e. Sente has also given up a silver, so this exchange alone does not settle the position."
           },
           "marks": {
