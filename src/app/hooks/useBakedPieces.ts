@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { PieceType, promotedPieceType } from 'tsshogi'
-import type { Baked, PromotionAtlas } from '@/rendering/sprites'
+import { Color, PieceType, promotedPieceType } from 'tsshogi'
+import { spriteKey, type Baked, type PromotionAtlas } from '@/rendering/sprites'
 import { loadBoardStyle } from '@/appearance/boardStyles'
 import { loadPieceSet } from '@/appearance/pieceSets'
 import { loadPieceFont, useSettings, type Settings } from '@/appearance/settings'
@@ -8,7 +8,28 @@ import { loadPieceFont, useSettings, type Settings } from '@/appearance/settings
 const promotionCache = new Map<string, PromotionAtlas>()
 const promotionTypes = [PieceType.PAWN, PieceType.LANCE, PieceType.KNIGHT, PieceType.SILVER, PieceType.BISHOP, PieceType.ROOK]
 
-export function usePromotionFaces(enabled: boolean) {
+// The flat board already bakes every face; compose them instead of starting a second GPU bake.
+async function atlasFromSprites(baked: Baked, types: PieceType[]): Promise<PromotionAtlas> {
+  const columns = 4
+  const rows = Math.ceil(types.length / columns)
+  const images = await Promise.all(
+    types.map(async (type) => {
+      const image = new Image()
+      image.src = baked.pieces.get(spriteKey(type, Color.BLACK, true))!
+      await image.decode()
+      return image
+    }),
+  )
+  const cell = images[0].naturalWidth
+  const canvas = document.createElement('canvas')
+  canvas.width = columns * cell
+  canvas.height = rows * cell
+  const ctx = canvas.getContext('2d')!
+  images.forEach((image, i) => ctx.drawImage(image, (i % columns) * cell, Math.floor(i / columns) * cell, cell, cell))
+  return { image: canvas.toDataURL('image/png'), types, columns, rows }
+}
+
+export function usePromotionFaces(enabled: boolean, canBake = true) {
   const settings = useSettings()
   const latest = useRef(settings)
   useEffect(() => {
@@ -22,6 +43,22 @@ export function usePromotionFaces(enabled: boolean) {
     if (!enabled || promotionCache.has(key)) return
     const controller = new AbortController()
     const snapshot = latest.current
+    const flat = bakeCache.get(bakeKey(snapshot))
+    if (flat) {
+      const types = promotionTypes.flatMap((type) => [type, promotedPieceType(type)])
+      atlasFromSprites(flat, types).then(
+        (faces) => {
+          if (controller.signal.aborted) return
+          promotionCache.set(key, faces)
+          setReady({ key, faces })
+        },
+        (error: unknown) => {
+          if (!controller.signal.aborted) setFailure({ key, message: error instanceof Error ? error.message : String(error) })
+        },
+      )
+      return () => controller.abort()
+    }
+    if (!canBake) return
     void Promise.all([loadPieceFont(snapshot.pieceFont), loadPieceSet(snapshot.pieceSet, snapshot.pieceGuide), import('@/rendering/board3d/bake')])
       .then(async ([, , { bakePromotionAtlas }]) => {
         if (controller.signal.aborted) return
@@ -41,7 +78,7 @@ export function usePromotionFaces(enabled: boolean) {
         if (!controller.signal.aborted) setFailure({ key, message: error instanceof Error ? error.message : String(error) })
       })
     return () => controller.abort()
-  }, [enabled, key])
+  }, [enabled, canBake, key])
   return {
     faces: promotionCache.get(key) ?? (ready?.key === key ? ready.faces : null),
     error: failure?.key === key ? failure.message : null,
@@ -88,9 +125,12 @@ function acquireBake(key: string, settings: Settings) {
   return job
 }
 
+const bakeKey = (settings: Settings) =>
+  `appearance-v17|${settings.pieceStyle}|${settings.pieceFinish}|${settings.pieceFont}|${settings.pieceSet}|${settings.pieceGuide}|${settings.pieceMaterial}|${settings.pieceColor}|${settings.pieceGrain}|${settings.boardStyle}|${settings.coords}|${settings.environment}`
+
 export function useBakedPieces(enabled = true) {
   const settings = useSettings()
-  const key = `appearance-v17|${settings.pieceStyle}|${settings.pieceFinish}|${settings.pieceFont}|${settings.pieceSet}|${settings.pieceGuide}|${settings.pieceMaterial}|${settings.pieceColor}|${settings.pieceGrain}|${settings.boardStyle}|${settings.coords}|${settings.environment}`
+  const key = bakeKey(settings)
   const [ready, setReady] = useState<Baked | null>(null)
   const [failure, setFailure] = useState<{ key: string; message: string } | null>(null)
   const error = failure?.key === key ? failure.message : null

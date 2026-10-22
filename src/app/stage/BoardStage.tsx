@@ -115,7 +115,7 @@ export function BoardStage({
   const assetsReady = assetsKey === `${settings.pieceFont}|${settings.pieceSet}|${settings.pieceGuide}|${settings.boardStyle}`
   const { mode, course, game, position, flipped, userSide, lastMove, selection, promotion, gameOver, sfen, atEnd, userTurn, toMove, sourceMarks, cursor } =
     useSession()
-  const { faces: promotionFaces } = usePromotionFaces(assetsReady && !!promotion)
+  const { faces: promotionFaces } = usePromotionFaces(!!promotion, assetsReady)
   const picking = mode === 'lesson' && !course
   const playing = mode === 'spar' || mode === 'view' || (mode === 'lesson' && !!course)
   const sideColor = (side: Side) => (side === 'sente' ? Color.BLACK : Color.WHITE)
