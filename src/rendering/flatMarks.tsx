@@ -14,6 +14,8 @@ const DROP_TYPE: Record<string, PieceType> = {
   R: PieceType.ROOK,
 }
 
+const isDrop = (arrow: BoardArrow) => arrow.usi[1] === '*'
+
 export type Project = (x: number, z: number) => [number, number]
 
 export type HandPoint = (color: Color, type: PieceType) => { x: number; z: number } | null
@@ -195,9 +197,7 @@ export function UnderMarks({
           ))}
         </g>
       )}
-      {arrows.map((arrow, i) => (
-        <Arrow key={`a${i}`} p={p} u={u} arrow={arrow} position={position} handPoint={handPoint} />
-      ))}
+      {arrows.map((arrow, i) => !isDrop(arrow) && <Arrow key={`a${i}`} p={p} u={u} arrow={arrow} position={position} handPoint={handPoint} />)}
     </g>
   )
 }
@@ -213,6 +213,7 @@ export function OverMarks({ props, p, u, coordFill, handPoint }: { props: Board3
       : null
   return (
     <g pointerEvents="none">
+      {arrows.map((arrow, i) => isDrop(arrow) && <Arrow key={`d${i}`} p={p} u={u} arrow={arrow} position={position} handPoint={handPoint} />)}
       {handSlot &&
         (() => {
           const [x, y] = p(handSlot.x, handSlot.z)
