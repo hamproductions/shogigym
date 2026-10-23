@@ -1,0 +1,503 @@
+{
+  "topCategories": ["basics", "skills", "joseki"],
+  "populatedGroups": 21,
+  "reservedGroups": 3,
+  "selectorOnlyGroups": ["角交換振り飛車"],
+  "strategySelectors": 37,
+  "patternCount": 112,
+  "patternsWithMechanismSamples": 14,
+  "patternsWithoutMechanismSamples": 98,
+  "groups": [
+    {
+      "category": "basics",
+      "group": "将棋のルール",
+      "sourceUnits": 9,
+      "currentlyPopulated": true,
+      "patternIds": ["rules-movement", "rules-drop", "rules-promotion"],
+      "mechanismExamples": ["random-1-32", "random-1-40", "random-2-40", "random-2-46", "random-1-48", "random-2-80"]
+    },
+    {
+      "category": "basics",
+      "group": "初心者向け入門講座",
+      "sourceUnits": 10,
+      "currentlyPopulated": true,
+      "patternIds": ["intro-material-reply", "intro-safe-development", "intro-simple-comparison"],
+      "mechanismExamples": ["random-3-30", "random-3-63", "random-1-28"]
+    },
+    {
+      "category": "skills",
+      "group": "手筋",
+      "sourceUnits": 9,
+      "currentlyPopulated": true,
+      "patternIds": ["tesuji-control-delta", "tesuji-two-targets", "tesuji-legal-followup"],
+      "mechanismExamples": ["random-2-80", "random-1-48"]
+    },
+    {
+      "category": "skills",
+      "group": "囲い崩し",
+      "sourceUnits": 9,
+      "currentlyPopulated": true,
+      "patternIds": ["break-remove-guard", "break-entry-exchange", "break-close-exit"],
+      "mechanismExamples": []
+    },
+    {
+      "category": "skills",
+      "group": "詰将棋、必至、寄せ",
+      "sourceUnits": 8,
+      "currentlyPopulated": true,
+      "patternIds": ["endgame-check-defense", "endgame-mate-endpoint", "endgame-conditional-threat"],
+      "mechanismExamples": ["random-2-46", "random-1-68", "random-2-114"]
+    },
+    {
+      "category": "skills",
+      "group": "囲い、駒組み",
+      "sourceUnits": 10,
+      "currentlyPopulated": true,
+      "patternIds": ["castle-protection-change", "castle-escape-route", "castle-development-priority"],
+      "mechanismExamples": []
+    },
+    {
+      "category": "skills",
+      "group": "将棋の格言",
+      "sourceUnits": 0,
+      "currentlyPopulated": false,
+      "patternIds": ["reserved-proverb-fit", "reserved-proverb-exception"],
+      "mechanismExamples": []
+    },
+    {
+      "category": "skills",
+      "group": "勉強法",
+      "sourceUnits": 0,
+      "currentlyPopulated": false,
+      "patternIds": ["reserved-study-retry", "reserved-study-process"],
+      "mechanismExamples": []
+    },
+    {
+      "category": "skills",
+      "group": "棋書",
+      "sourceUnits": 0,
+      "currentlyPopulated": false,
+      "patternIds": ["reserved-book-relevance", "reserved-book-progress"],
+      "mechanismExamples": []
+    },
+    {
+      "category": "joseki",
+      "group": "相振り飛車",
+      "sourceUnits": 4,
+      "currentlyPopulated": true,
+      "patternIds": ["joseki-aifuri-two-files", "joseki-aifuri-castle-direction", "joseki-aifuri-rook-trade-drops"],
+      "mechanismExamples": []
+    },
+    {
+      "category": "joseki",
+      "group": "相掛かり",
+      "sourceUnits": 3,
+      "currentlyPopulated": true,
+      "patternIds": ["joseki-aigakari-pawn-in-hand", "joseki-aigakari-rook-retreat-tempo", "joseki-aigakari-rook-reroute"],
+      "mechanismExamples": ["random-4-43"]
+    },
+    {
+      "category": "joseki",
+      "group": "横歩取り",
+      "sourceUnits": 8,
+      "currentlyPopulated": true,
+      "patternIds": ["joseki-yokofu-lateral-pawn", "joseki-yokofu-rook-escape", "joseki-yokofu-bishop-reply"],
+      "mechanismExamples": ["random-4-43"]
+    },
+    {
+      "category": "joseki",
+      "group": "居飛車",
+      "sourceUnits": 5,
+      "currentlyPopulated": true,
+      "patternIds": ["joseki-ibisha-rook-pawn-support", "joseki-ibisha-silver-entry", "joseki-ibisha-castle-tempo"],
+      "mechanismExamples": []
+    },
+    {
+      "category": "joseki",
+      "group": "振り飛車",
+      "sourceUnits": 4,
+      "currentlyPopulated": true,
+      "patternIds": ["joseki-furibisha-rook-transfer", "joseki-furibisha-bishop-hand-risk", "joseki-furibisha-reverse-file-pressure"],
+      "mechanismExamples": []
+    },
+    {
+      "category": "joseki",
+      "group": "四間飛車",
+      "sourceUnits": 13,
+      "currentlyPopulated": true,
+      "patternIds": ["joseki-shiken-silver-blocker", "joseki-shiken-bishop-contact", "joseki-shiken-home-king-route"],
+      "mechanismExamples": []
+    },
+    {
+      "category": "joseki",
+      "group": "矢倉戦法",
+      "sourceUnits": 9,
+      "currentlyPopulated": true,
+      "patternIds": ["joseki-yagura-gold-silver-links", "joseki-yagura-attacking-silver", "joseki-yagura-edge-lance-cost"],
+      "mechanismExamples": []
+    },
+    {
+      "category": "joseki",
+      "group": "中飛車",
+      "sourceUnits": 7,
+      "currentlyPopulated": true,
+      "patternIds": ["joseki-naka-central-pawn-rook", "joseki-naka-central-silver", "joseki-naka-rapid-silver-opposition"],
+      "mechanismExamples": []
+    },
+    {
+      "category": "joseki",
+      "group": "駒落ち定跡",
+      "sourceUnits": 4,
+      "currentlyPopulated": true,
+      "patternIds": ["joseki-handicap-initial-inventory", "joseki-handicap-missing-defender", "joseki-handicap-upper-lower-tempo"],
+      "mechanismExamples": []
+    },
+    {
+      "category": "joseki",
+      "group": "三間飛車",
+      "sourceUnits": 8,
+      "currentlyPopulated": true,
+      "patternIds": ["joseki-sanken-floating-rook-pawn", "joseki-sanken-edge-bishop-line", "joseki-sanken-eighth-file-counter"],
+      "mechanismExamples": []
+    },
+    {
+      "category": "joseki",
+      "group": "角換わり",
+      "sourceUnits": 6,
+      "currentlyPopulated": true,
+      "patternIds": ["joseki-kakugawari-bishops-in-hand", "joseki-kakugawari-silver-vacancy", "joseki-kakugawari-exchange-tempo"],
+      "mechanismExamples": ["random-3-12"]
+    },
+    {
+      "category": "joseki",
+      "group": "奇襲戦法",
+      "sourceUnits": 5,
+      "currentlyPopulated": true,
+      "patternIds": ["joseki-kishu-offered-pawn", "joseki-kishu-early-knight-cost", "joseki-kishu-unusual-bishop"],
+      "mechanismExamples": []
+    },
+    {
+      "category": "joseki",
+      "group": "向かい飛車",
+      "sourceUnits": 2,
+      "currentlyPopulated": true,
+      "patternIds": ["joseki-mukai-facing-rooks", "joseki-mukai-file-recapture", "joseki-mukai-trade-or-stay"],
+      "mechanismExamples": []
+    },
+    {
+      "category": "joseki",
+      "group": "対振り飛車、対抗型",
+      "sourceUnits": 12,
+      "currentlyPopulated": true,
+      "patternIds": ["joseki-taikou-static-silver-contact", "joseki-taikou-castle-investment", "joseki-taikou-traded-major-vacancy"],
+      "mechanismExamples": []
+    },
+    {
+      "category": "joseki",
+      "group": "嬉野流",
+      "sourceUnits": 5,
+      "currentlyPopulated": true,
+      "patternIds": ["joseki-ureshino-early-silver", "joseki-ureshino-retreated-bishop", "joseki-ureshino-silver-reform"],
+      "mechanismExamples": []
+    }
+  ],
+  "selectors": [
+    {
+      "id": "shikenbisha",
+      "title": "四間飛車",
+      "group": "四間飛車",
+      "basePatternIds": ["joseki-shiken-silver-blocker", "joseki-shiken-bishop-contact", "joseki-shiken-home-king-route"],
+      "overlayPatternId": "strategy-shikenbisha",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "sankenbisha",
+      "title": "三間飛車",
+      "group": "三間飛車",
+      "basePatternIds": ["joseki-sanken-floating-rook-pawn", "joseki-sanken-edge-bishop-line", "joseki-sanken-eighth-file-counter"],
+      "overlayPatternId": "strategy-sankenbisha",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "hayaishida",
+      "title": "早石田",
+      "group": "三間飛車",
+      "basePatternIds": ["joseki-sanken-floating-rook-pawn", "joseki-sanken-edge-bishop-line", "joseki-sanken-eighth-file-counter"],
+      "overlayPatternId": "strategy-hayaishida",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "ishida",
+      "title": "石田流",
+      "group": "三間飛車",
+      "basePatternIds": ["joseki-sanken-floating-rook-pawn", "joseki-sanken-edge-bishop-line", "joseki-sanken-eighth-file-counter"],
+      "overlayPatternId": "strategy-ishida",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "nakabisha",
+      "title": "中飛車",
+      "group": "中飛車",
+      "basePatternIds": ["joseki-naka-central-pawn-rook", "joseki-naka-central-silver", "joseki-naka-rapid-silver-opposition"],
+      "overlayPatternId": "strategy-nakabisha",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "gokigen",
+      "title": "ゴキゲン中飛車",
+      "group": "中飛車",
+      "basePatternIds": ["joseki-naka-central-pawn-rook", "joseki-naka-central-silver", "joseki-naka-rapid-silver-opposition"],
+      "overlayPatternId": "strategy-gokigen",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "mukaibisha",
+      "title": "向かい飛車",
+      "group": "向かい飛車",
+      "basePatternIds": ["joseki-mukai-facing-rooks", "joseki-mukai-file-recapture", "joseki-mukai-trade-or-stay"],
+      "overlayPatternId": "strategy-mukaibisha",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "kakukoukan-furi",
+      "title": "角交換振り飛車",
+      "group": "角交換振り飛車",
+      "basePatternIds": ["joseki-kakukoukan-furi-hands", "joseki-kakukoukan-furi-rook-route", "joseki-kakukoukan-furi-counter-silver"],
+      "overlayPatternId": "strategy-kakukoukan-furi",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "ibisha",
+      "title": "居飛車(対振り飛車)",
+      "group": "対振り飛車、対抗型",
+      "basePatternIds": ["joseki-taikou-static-silver-contact", "joseki-taikou-castle-investment", "joseki-taikou-traded-major-vacancy"],
+      "overlayPatternId": "strategy-ibisha",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "yagura",
+      "title": "矢倉",
+      "group": "矢倉戦法",
+      "basePatternIds": ["joseki-yagura-gold-silver-links", "joseki-yagura-attacking-silver", "joseki-yagura-edge-lance-cost"],
+      "overlayPatternId": "strategy-yagura",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "kakugawari",
+      "title": "角換わり",
+      "group": "角換わり",
+      "basePatternIds": ["joseki-kakugawari-bishops-in-hand", "joseki-kakugawari-silver-vacancy", "joseki-kakugawari-exchange-tempo"],
+      "overlayPatternId": "strategy-kakugawari",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "aigakari",
+      "title": "相掛かり",
+      "group": "相掛かり",
+      "basePatternIds": ["joseki-aigakari-pawn-in-hand", "joseki-aigakari-rook-retreat-tempo", "joseki-aigakari-rook-reroute"],
+      "overlayPatternId": "strategy-aigakari",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "yokofudori",
+      "title": "横歩取り",
+      "group": "横歩取り",
+      "basePatternIds": ["joseki-yokofu-lateral-pawn", "joseki-yokofu-rook-escape", "joseki-yokofu-bishop-reply"],
+      "overlayPatternId": "strategy-yokofudori",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "yoko-85hi",
+      "title": "横歩取り△8五飛",
+      "group": "横歩取り",
+      "basePatternIds": ["joseki-yokofu-lateral-pawn", "joseki-yokofu-rook-escape", "joseki-yokofu-bishop-reply"],
+      "overlayPatternId": "strategy-yoko-85hi",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "yoko-45kaku",
+      "title": "横歩取り△4五角",
+      "group": "横歩取り",
+      "basePatternIds": ["joseki-yokofu-lateral-pawn", "joseki-yokofu-rook-escape", "joseki-yokofu-bishop-reply"],
+      "overlayPatternId": "strategy-yoko-45kaku",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "ittezon",
+      "title": "一手損角換わり",
+      "group": "角換わり",
+      "basePatternIds": ["joseki-kakugawari-bishops-in-hand", "joseki-kakugawari-silver-vacancy", "joseki-kakugawari-exchange-tempo"],
+      "overlayPatternId": "strategy-ittezon",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "kyusen-yagura",
+      "title": "急戦矢倉",
+      "group": "矢倉戦法",
+      "basePatternIds": ["joseki-yagura-gold-silver-links", "joseki-yagura-attacking-silver", "joseki-yagura-edge-lance-cost"],
+      "overlayPatternId": "strategy-kyusen-yagura",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "gangi",
+      "title": "雁木",
+      "group": "矢倉戦法",
+      "basePatternIds": ["joseki-yagura-gold-silver-links", "joseki-yagura-attacking-silver", "joseki-yagura-edge-lance-cost"],
+      "overlayPatternId": "strategy-gangi",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "bougin",
+      "title": "棒銀",
+      "group": "joseki-core",
+      "basePatternIds": ["joseki-core-king-readiness", "joseki-core-contact-reply", "joseki-core-hand-use"],
+      "overlayPatternId": "strategy-bougin",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "hayakurigin",
+      "title": "早繰り銀",
+      "group": "角換わり",
+      "basePatternIds": ["joseki-kakugawari-bishops-in-hand", "joseki-kakugawari-silver-vacancy", "joseki-kakugawari-exchange-tempo"],
+      "overlayPatternId": "strategy-hayakurigin",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "koshikakegin",
+      "title": "腰掛け銀",
+      "group": "角換わり",
+      "basePatternIds": ["joseki-kakugawari-bishops-in-hand", "joseki-kakugawari-silver-vacancy", "joseki-kakugawari-exchange-tempo"],
+      "overlayPatternId": "strategy-koshikakegin",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "migishiken",
+      "title": "右四間飛車",
+      "group": "joseki-core",
+      "basePatternIds": ["joseki-core-king-readiness", "joseki-core-contact-reply", "joseki-core-hand-use"],
+      "overlayPatternId": "strategy-migishiken",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "funa-kyusen",
+      "title": "舟囲い急戦",
+      "group": "joseki-core",
+      "basePatternIds": ["joseki-core-king-readiness", "joseki-core-contact-reply", "joseki-core-hand-use"],
+      "overlayPatternId": "strategy-funa-kyusen",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "hayashikake45",
+      "title": "4五歩早仕掛け",
+      "group": "joseki-core",
+      "basePatternIds": ["joseki-core-king-readiness", "joseki-core-contact-reply", "joseki-core-hand-use"],
+      "overlayPatternId": "strategy-hayashikake45",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "saginomiya",
+      "title": "鷺宮定跡",
+      "group": "joseki-core",
+      "basePatternIds": ["joseki-core-king-readiness", "joseki-core-contact-reply", "joseki-core-hand-use"],
+      "overlayPatternId": "strategy-saginomiya",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "yamada",
+      "title": "山田定跡",
+      "group": "joseki-core",
+      "basePatternIds": ["joseki-core-king-readiness", "joseki-core-contact-reply", "joseki-core-hand-use"],
+      "overlayPatternId": "strategy-yamada",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "naname",
+      "title": "斜め棒銀・4六銀左急戦",
+      "group": "joseki-core",
+      "basePatternIds": ["joseki-core-king-readiness", "joseki-core-contact-reply", "joseki-core-hand-use"],
+      "overlayPatternId": "strategy-naname",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "hayashikake35",
+      "title": "▲3五歩早仕掛け",
+      "group": "joseki-core",
+      "basePatternIds": ["joseki-core-king-readiness", "joseki-core-contact-reply", "joseki-core-hand-use"],
+      "overlayPatternId": "strategy-hayashikake35",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "kei37",
+      "title": "▲3七桂早仕掛け",
+      "group": "joseki-core",
+      "basePatternIds": ["joseki-core-king-readiness", "joseki-core-contact-reply", "joseki-core-hand-use"],
+      "overlayPatternId": "strategy-kei37",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "ponponkei",
+      "title": "ポンポン桂",
+      "group": "joseki-core",
+      "basePatternIds": ["joseki-core-king-readiness", "joseki-core-contact-reply", "joseki-core-hand-use"],
+      "overlayPatternId": "strategy-ponponkei",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "chousoku",
+      "title": "超速▲3七銀",
+      "group": "joseki-core",
+      "basePatternIds": ["joseki-core-king-readiness", "joseki-core-contact-reply", "joseki-core-hand-use"],
+      "overlayPatternId": "strategy-chousoku",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "maruyama",
+      "title": "丸山ワクチン",
+      "group": "joseki-core",
+      "basePatternIds": ["joseki-core-king-readiness", "joseki-core-contact-reply", "joseki-core-hand-use"],
+      "overlayPatternId": "strategy-maruyama",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "torisashi",
+      "title": "鳥刺し・嬉野流",
+      "group": "奇襲戦法",
+      "basePatternIds": ["joseki-kishu-offered-pawn", "joseki-kishu-early-knight-cost", "joseki-kishu-unusual-bishop"],
+      "overlayPatternId": "strategy-torisashi",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "sujichigai",
+      "title": "筋違い角",
+      "group": "奇襲戦法",
+      "basePatternIds": ["joseki-kishu-offered-pawn", "joseki-kishu-early-knight-cost", "joseki-kishu-unusual-bishop"],
+      "overlayPatternId": "strategy-sujichigai",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "ibisha-anaguma",
+      "title": "居飛車穴熊",
+      "group": "joseki-core",
+      "basePatternIds": ["joseki-core-king-readiness", "joseki-core-contact-reply", "joseki-core-hand-use"],
+      "overlayPatternId": "strategy-ibisha-anaguma",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "hidarimino",
+      "title": "左美濃",
+      "group": "joseki-core",
+      "basePatternIds": ["joseki-core-king-readiness", "joseki-core-contact-reply", "joseki-core-hand-use"],
+      "overlayPatternId": "strategy-hidarimino",
+      "namedGameEvidence": false
+    },
+    {
+      "id": "millennium",
+      "title": "ミレニアム",
+      "group": "joseki-core",
+      "basePatternIds": ["joseki-core-king-readiness", "joseki-core-contact-reply", "joseki-core-hand-use"],
+      "overlayPatternId": "strategy-millennium",
+      "namedGameEvidence": false
+    }
+  ],
+  "interpretation": "Template/category coverage is exhaustive for the inventoried hierarchy. Game examples cover mechanisms only; named-opening recognition and runtime integration are not verified."
+}

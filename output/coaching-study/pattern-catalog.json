@@ -1,0 +1,3515 @@
+{
+  "provenance": "Original coaching template designs grounded in the existing guide taxonomy; not executable coaching or tiny-model output.",
+  "globalGates": [
+    "Every slot requires verified position or session facts; missing facts suppress the pattern.",
+    "Never infer strategy from an arbitrary midgame SFEN.",
+    "A sample mapping is mechanism evidence only; it is not proof of a guide/course match.",
+    "Apply spoiler visibility, position freshness, repetition suppression and audio cancellation to all patterns.",
+    "Captured promoted pieces revert to their unpromoted kind in hand.",
+    "Scores, geometric attacks, legal captures and forced results are distinct proof levels."
+  ],
+  "patterns": [
+    {
+      "id": "rules-movement",
+      "category": "basics",
+      "group": "将棋のルール",
+      "title": "移動方向と経路",
+      "intent": "駒の動ける方向と障害物を具体化する",
+      "trigger": "実着手または利用者が選んだ移動候補",
+      "requires": [
+        "{side}・{piece}・{from}・{to}の実局面対応",
+        "合法手判定・駒種別移動規則",
+        "長距離駒なら途中升の占有確認",
+        "次の発話項目を実データの根拠に対応付ける：{movementRule}、{pathObservation}"
+      ],
+      "templateJa": "{side}の{piece}は{from}から{to}へ{movementRule}で動きます。{pathObservation}。",
+      "forbiddenClaims": ["駒の幾何学的な動きだけによる合法手の断定", "玉を王手にさらす移動の許可"],
+      "sampleIds": ["random-1-32"],
+      "status": {
+        "design": "テンプレート設計案・未実装",
+        "eventEvidence": "対応する実イベントあり。機構の例のみで、教材分類・囲い認識の証拠ではない。",
+        "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+      },
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": ["random-1-32"],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "rules-drop",
+      "category": "basics",
+      "group": "将棋のルール",
+      "title": "持駒を使う条件",
+      "intent": "盤上移動と持駒投入を区別する",
+      "trigger": "駒打ちまたは駒打ち候補",
+      "requires": [
+        "{side}の着手前後の持駒数",
+        "{piece}・{to}・空き升・二歩・行き所・打ち歩詰めを含む合法性",
+        "次の発話項目を実データの根拠に対応付ける：{handAfter}、{handBefore}"
+      ],
+      "templateJa": "{side}は持駒の{piece}を{to}へ打ちました。持駒の{piece}は{handBefore}枚から{handAfter}枚になりました。",
+      "forbiddenClaims": ["打てることから駒得や最善を推定", "持駒にない駒の投入"],
+      "sampleIds": ["random-1-40", "random-2-40", "random-2-46"],
+      "status": {
+        "design": "テンプレート設計案・未実装",
+        "eventEvidence": "対応する実イベントあり。機構の例のみで、教材分類・囲い認識の証拠ではない。",
+        "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+      },
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": ["random-1-40", "random-2-40", "random-2-46"],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "rules-promotion",
+      "category": "basics",
+      "group": "将棋のルール",
+      "title": "成りで変わる動き",
+      "intent": "成りの資格と成った後の駒を結び付ける",
+      "trigger": "成りを伴う実着手",
+      "requires": [
+        "{from}または{to}の成り区域該当・強制成り判定",
+        "着手前後の駒種・合法な成り",
+        "{newReach}の障害物付き利き",
+        "次の発話項目を実データの根拠に対応付ける：{pieceAfter}、{pieceBefore}、{promotionEligibility}、{side}"
+      ],
+      "templateJa": "{side}の{pieceBefore}は{to}で成って{pieceAfter}になりました。{promotionEligibility}。成った後は{newReach}にも利きます。",
+      "forbiddenClaims": ["任意の成りを強制と説明", "成っただけで駒得と断定"],
+      "sampleIds": ["random-1-48", "random-2-80"],
+      "status": {
+        "design": "テンプレート設計案・未実装",
+        "eventEvidence": "対応する実イベントあり。機構の例のみで、教材分類・囲い認識の証拠ではない。",
+        "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+      },
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": ["random-1-48", "random-2-80"],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "intro-material-reply",
+      "category": "basics",
+      "group": "初心者向け入門講座",
+      "title": "取った駒と次の取り返し",
+      "intent": "一手の獲得と交換全体を分ける",
+      "trigger": "駒取り後に合法な取り返し例がある",
+      "requires": [
+        "実着手の捕獲と持駒更新",
+        "{reply}を含む合法再生",
+        "{replyCaptured}の再生結果",
+        "次の発話項目を実データの根拠に対応付ける：{replyCondition}、{side}",
+        "捕獲時の駒種{capturedOnBoard}と、成りを戻した持駒種{capturedInHand}を区別する"
+      ],
+      "templateJa": "{side}は盤上の{capturedOnBoard}を取り、持駒に{capturedInHand}を加えました。例えば{replyCondition}なら{reply}で{replyCaptured}を取り返されます。",
+      "forbiddenClaims": ["一手の獲得を最終的な駒得と断定", "応手例を強制と説明", "馬・龍・成駒を成ったままの持駒として記述すること"],
+      "sampleIds": ["random-3-30", "random-3-63"],
+      "status": {
+        "design": "テンプレート設計案・未実装",
+        "eventEvidence": "random-3-30・random-3-63で、実際の捕獲と合法な取り返しを確認。カテゴリへの実装接続は未検証。",
+        "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+      },
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": ["random-3-30", "random-3-63"],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "intro-safe-development",
+      "category": "basics",
+      "group": "初心者向け入門講座",
+      "title": "駒組み前に王手と駒取りを確認",
+      "intent": "安全確認を先に置いて次の駒組みを考える",
+      "trigger": "駒組み候補を案内する前",
+      "requires": [
+        "実局面の王手有無",
+        "相手の合法な即時駒取り一覧",
+        "{developmentMove}の合法性と対象駒の前後比較",
+        "{safetyObservation}の具体的な確認結果",
+        "次の発話項目を実データの根拠に対応付ける：{piece}、{replyToCheck}、{to}"
+      ],
+      "templateJa": "{safetyObservation}。次に{developmentMove}で{piece}を{to}へ動かす場合は、{replyToCheck}を確認してから進めましょう。",
+      "forbiddenClaims": ["駒を前進させただけで安全になったと断定", "未検証の駒組み候補を最善と案内"],
+      "sampleIds": [],
+      "status": {
+        "design": "テンプレート設計案・未実装",
+        "eventEvidence": "必要な実データ・機構の検証例は未取得。発話不可。",
+        "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+      },
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "intro-simple-comparison",
+      "category": "basics",
+      "group": "初心者向け入門講座",
+      "title": "二つの取る手を一項目で比べる",
+      "intent": "初心者が一度に比較する軸を絞る",
+      "trigger": "合法な候補二手に異なる対象がある",
+      "requires": [
+        "{moveA}・{moveB}の合法性",
+        "各手の対象駒・持駒の変化",
+        "比較する{criterion}の事実",
+        "次の発話項目を実データの根拠に対応付ける：{resultA}、{resultB}"
+      ],
+      "templateJa": "{moveA}なら{resultA}、{moveB}なら{resultB}です。まず{criterion}を比べましょう。",
+      "forbiddenClaims": ["一項目だけで総合的な優劣を断定", "棋力や心理の推測"],
+      "sampleIds": ["random-1-28"],
+      "status": {
+        "design": "テンプレート設計案・未実装",
+        "eventEvidence": "対応する実イベントあり。機構の例のみで、教材分類・囲い認識の証拠ではない。",
+        "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+      },
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": ["random-1-28"],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "tesuji-control-delta",
+      "category": "skills",
+      "group": "手筋",
+      "title": "着手で増えた利きを特定",
+      "intent": "既存の利きと新しい利きを分ける",
+      "trigger": "駒の移動・成りで利き集合が変わった",
+      "requires": [
+        "同じ駒の前後の障害物付き利き",
+        "{newSquare}が前は対象外で後に対象内",
+        "対象升の駒と色",
+        "次の発話項目を実データの根拠に対応付ける：{move}、{piece}、{retainedControl}、{target}"
+      ],
+      "templateJa": "{move}で{piece}の利きが変わり、新たに{newSquare}の{target}へ届きました。{retainedControl}。",
+      "forbiddenClaims": ["前からある利きを新しい効果と説明", "利きから安全な駒取りを断定"],
+      "sampleIds": ["random-2-80"],
+      "status": {
+        "design": "テンプレート設計案・未実装",
+        "eventEvidence": "対応する実イベントあり。機構の例のみで、教材分類・囲い認識の証拠ではない。",
+        "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+      },
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": ["random-2-80"],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "tesuji-two-targets",
+      "category": "skills",
+      "group": "手筋",
+      "title": "二つの標的と応手を分ける",
+      "intent": "二対象への利きと確定的な両取り成功を区別する",
+      "trigger": "一枚の駒が異なる二つの敵駒に利く",
+      "requires": [
+        "{attacker}から{targetA}・{targetB}への幾何学的利き",
+        "両対象の升・色・駒種",
+        "合法な次手の確認がなければ利きの説明に限定",
+        "次の発話項目を実データの根拠に対応付ける：{replyCheck}、{squareA}、{squareB}"
+      ],
+      "templateJa": "{attacker}は{squareA}の{targetA}と{squareB}の{targetB}の両方に利いています。次に取れるかは{replyCheck}を確かめます。",
+      "forbiddenClaims": ["幾何学的二対象だけで両取り成功・駒得を断定", "王手やピンを無視した取りの許可"],
+      "sampleIds": ["random-1-48"],
+      "status": {
+        "design": "テンプレート設計案・未実装",
+        "eventEvidence": "対応する実イベントあり。機構の例のみで、教材分類・囲い認識の証拠ではない。",
+        "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+      },
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": ["random-1-48"],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "tesuji-legal-followup",
+      "category": "skills",
+      "group": "手筋",
+      "title": "取りの後の一手まで追う",
+      "intent": "狙いを具体的な合法手順で確かめる",
+      "trigger": "実着手後に検証済みの短い応手例がある",
+      "requires": [
+        "開始SFEN・手番",
+        "{exampleLine}の全手合法再生",
+        "各手の捕獲・成り・持駒更新",
+        "次の発話項目を実データの根拠に対応付ける：{condition}、{observedConsequence}"
+      ],
+      "templateJa": "例えば{condition}なら、{exampleLine}と進む形があります。この順では{observedConsequence}。",
+      "forbiddenClaims": ["参考PVを必然と説明", "検証区間を越えた損得の断定"],
+      "sampleIds": ["random-2-80"],
+      "status": {
+        "design": "テンプレート設計案・未実装",
+        "eventEvidence": "対応する実イベントあり。機構の例のみで、教材分類・囲い認識の証拠ではない。",
+        "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+      },
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": ["random-2-80"],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "break-remove-guard",
+      "category": "skills",
+      "group": "囲い崩し",
+      "title": "守備駒を動かした後の支え",
+      "intent": "守備の除去と支えの消失を因果で説明する",
+      "trigger": "玉周辺の守備駒が捕獲または移動した",
+      "requires": [
+        "玉と守備駒の実位置",
+        "守備駒が支える{entrySquare}の前後比較",
+        "{guardMove}後の合法な攻め筋",
+        "囲い名を使う場合のみ認識根拠",
+        "次の発話項目を実データの根拠に対応付ける：{entryMove}、{guardFrom}、{guard}、{supportAfter}、{supportBefore}"
+      ],
+      "templateJa": "{guardMove}で{guard}が{guardFrom}から離れ、{entrySquare}への支えが{supportBefore}から{supportAfter}に変わりました。{entryMove}を調べる入口です。",
+      "forbiddenClaims": ["守備駒一枚の移動だけで囲い崩壊と断定", "未認識の囲い名", "残る守備駒を無視した侵入成功"],
+      "sampleIds": [],
+      "status": {
+        "design": "テンプレート設計案・未実装",
+        "eventEvidence": "必要な実データ・機構の検証例は未取得。発話不可。",
+        "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+      },
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "break-entry-exchange",
+      "category": "skills",
+      "group": "囲い崩し",
+      "title": "攻めの入口の取り返し",
+      "intent": "侵入口での攻め駒と守備駒の交換を読む",
+      "trigger": "玉周辺の候補侵入口に駒が接触する",
+      "requires": [
+        "{entrySquare}が対象玉の周辺である実位置",
+        "攻め側の合法な侵入手",
+        "守備側の合法な取り返し",
+        "交換後の盤面・持駒",
+        "次の発話項目を実データの根拠に対応付ける：{entryMove}、{nextAttacker}、{recapture}"
+      ],
+      "templateJa": "例えば{entryMove}で{entrySquare}へ入ると、{recapture}という取り返しがあります。交換後に{nextAttacker}が続けるかを確認しましょう。",
+      "forbiddenClaims": ["取り返し可能な地点を無条件の突破口と説明", "攻め駒の数だけで勝敗を断定"],
+      "sampleIds": [],
+      "status": {
+        "design": "テンプレート設計案・未実装",
+        "eventEvidence": "必要な実データ・機構の検証例は未取得。発話不可。",
+        "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+      },
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "break-close-exit",
+      "category": "skills",
+      "group": "囲い崩し",
+      "title": "攻めと玉の逃げ道",
+      "intent": "駒取り以外の逃走範囲の変化を読む",
+      "trigger": "攻めの着手で玉の合法な退路が変化した",
+      "requires": [
+        "前後の玉位置と合法な玉移動集合",
+        "{closedSquare}の閉鎖理由と攻め駒",
+        "玉の捕獲・相手王手を含む合法性",
+        "残る{remainingExits}の列挙",
+        "次の発話項目を実データの根拠に対応付ける：{closureReason}、{move}"
+      ],
+      "templateJa": "{move}の後は{closedSquare}へ玉が逃げられません。{closureReason}ためです。残る逃げ先は{remainingExits}です。",
+      "forbiddenClaims": ["一つの退路閉鎖だけで詰みと断定", "幾何学的利きだけで合法な退路を確定"],
+      "sampleIds": [],
+      "status": {
+        "design": "テンプレート設計案・未実装",
+        "eventEvidence": "必要な実データ・機構の検証例は未取得。発話不可。",
+        "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+      },
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "endgame-check-defense",
+      "category": "skills",
+      "group": "詰将棋、必至、寄せ",
+      "title": "王手への具体的な受け",
+      "intent": "現在の王手を解く機構を説明する",
+      "trigger": "王手に対する実着手が合法に成立",
+      "requires": [
+        "着手前の王手と王手駒の特定",
+        "受けの手と玉位置",
+        "受けた側の着手後の王手解除確認",
+        "次の発話項目を実データの根拠に対応付ける：{checkMechanism}、{defenseMechanism}、{defenseMove}、{side}"
+      ],
+      "templateJa": "{side}は{defenseMove}で{checkMechanism}を受けました。{defenseMechanism}によって、今の王手を解いています。",
+      "forbiddenClaims": ["王手解除を将来の詰み回避と同一視", "合法な受けが複数あるのに唯一と断定"],
+      "sampleIds": ["random-2-46"],
+      "status": {
+        "design": "テンプレート設計案・未実装",
+        "eventEvidence": "対応する実イベントあり。機構の例のみで、教材分類・囲い認識の証拠ではない。",
+        "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+      },
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": ["random-2-46"],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "endgame-mate-endpoint",
+      "category": "skills",
+      "group": "詰将棋、必至、寄せ",
+      "title": "実局面の詰みを確認",
+      "intent": "王手と合法な応手なしを両方示す",
+      "trigger": "実着手後の王手と合法応手零件",
+      "requires": [
+        "{move}の合法性",
+        "着手後の正確なSFENと実際の持駒",
+        "王手確認",
+        "全合法応手列挙の結果が零件",
+        "次の発話項目を実データの根拠に対応付ける：{kingSide}、{side}"
+      ],
+      "templateJa": "{side}の{move}で{kingSide}玉に王手がかかり、詰みになりました。王手を解く合法な応手はありません。",
+      "forbiddenClaims": ["投了表示だけで詰み判定", "単一PVだけで全防御検証済みと扱う", "詰将棋の持駒規約を実戦へ無断適用"],
+      "sampleIds": ["random-1-68", "random-2-114"],
+      "status": {
+        "design": "テンプレート設計案・未実装",
+        "eventEvidence": "対応する実イベントあり。機構の例のみで、教材分類・囲い認識の証拠ではない。",
+        "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+      },
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": ["random-1-68", "random-2-114"],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "endgame-conditional-threat",
+      "category": "skills",
+      "group": "詰将棋、必至、寄せ",
+      "title": "条件付きの詰み筋と受けを区別",
+      "intent": "詰めろ・必至の語を証明範囲に合わせる",
+      "trigger": "王手ではない着手後に詰みの脅威を調べる",
+      "requires": [
+        "着手後が非王手",
+        "明示する{condition}の合法性とその後の詰み木全防御検証",
+        "本当の詰めろなら相手のパス相当で手番を戻した規約上妥当な脅威検証",
+        "必至と呼ぶには全合法防御後の詰み検証",
+        "次の発話項目を実データの根拠に対応付ける：{matingLine}、{verifiedDefense}"
+      ],
+      "templateJa": "例えば{condition}なら、{matingLine}の詰み筋があります。{verifiedDefense}でこの筋を防げるかを分けて調べましょう。",
+      "forbiddenClaims": ["条件付き一変化だけで詰めろ・必至と断定", "一つの受けを調べただけで受けなしと断定"],
+      "sampleIds": [],
+      "status": {
+        "design": "テンプレート設計案・未実装",
+        "eventEvidence": "必要な実データ・機構の検証例は未取得。発話不可。",
+        "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+      },
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "castle-protection-change",
+      "category": "skills",
+      "group": "囲い、駒組み",
+      "title": "玉周辺の守りの増減",
+      "intent": "金銀の形ではなく具体的な支えを見る",
+      "trigger": "玉周辺の升への守備関係が変化した",
+      "requires": [
+        "{kingSquare}と{guard}の実位置",
+        "{protectedSquare}への前後の利き・合法性",
+        "新たな支えと失った支えの両方",
+        "囲い名を出す場合の認識データ",
+        "次の発話項目を実データの根拠に対応付ける：{guardMove}、{lostSquare}、{lostSupportObservation}"
+      ],
+      "templateJa": "{guardMove}で{protectedSquare}を{guard}が支える形になりました。一方、{lostSquare}への支えは{lostSupportObservation}です。",
+      "forbiddenClaims": ["守備枚数の増加だけで玉の安全を断定", "既存の支えを新しい効果と説明", "金銀の位置だけから未検証の囲い名"],
+      "sampleIds": [],
+      "status": {
+        "design": "テンプレート設計案・未実装",
+        "eventEvidence": "必要な実データ・機構の検証例は未取得。発話不可。",
+        "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+      },
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "castle-escape-route",
+      "category": "skills",
+      "group": "囲い、駒組み",
+      "title": "駒組み後の玉の通り道",
+      "intent": "固める手と退路を残す手を比較する",
+      "trigger": "玉周辺の駒組み候補で退路の候補が変わる",
+      "requires": [
+        "候補{moveA}・{moveB}の合法性",
+        "各候補後の玉の合法な隣接移動",
+        "敵駒の利きと味方駒の占有",
+        "次の手番までに相手が動くことを明示",
+        "次の発話項目を実データの根拠に対応付ける：{blockingDifference}、{exitA}、{exitB}"
+      ],
+      "templateJa": "{moveA}の直後の盤面では{exitA}、{moveB}の直後では{exitB}が玉の逃げ先の候補です。{blockingDifference}を比べましょう。",
+      "forbiddenClaims": ["次の相手着手後も同じ退路が必ず残ると断定", "空き升をすべて合法な逃げ道と扱う"],
+      "sampleIds": [],
+      "status": {
+        "design": "テンプレート設計案・未実装",
+        "eventEvidence": "必要な実データ・機構の検証例は未取得。発話不可。",
+        "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+      },
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "castle-development-priority",
+      "category": "skills",
+      "group": "囲い、駒組み",
+      "title": "攻めの準備と守備の優先",
+      "intent": "組み上げの順を相手の具体的な手に合わせる",
+      "trigger": "守備の整備と攻め駒展開の候補が競合する",
+      "requires": [
+        "合法な{defenseMove}と{developmentMove}",
+        "現在の相手の合法な脅威{threatMove}",
+        "各候補後の同一脅威に対する検証",
+        "主張する優先順位の比較根拠",
+        "次の発話項目を実データの根拠に対応付ける：{defenseResult}、{developmentResult}、{priorityReason}"
+      ],
+      "templateJa": "{threatMove}への対応を先に確かめましょう。{defenseMove}なら{defenseResult}、{developmentMove}なら{developmentResult}となるため、{priorityReason}を基準に選びます。",
+      "forbiddenClaims": ["特定の囲いを必ず完成すべきと断定", "前進を駒の働きの改善と同一視", "短時間の候補順だけから絶対の優先順位"],
+      "sampleIds": [],
+      "status": {
+        "design": "テンプレート設計案・未実装",
+        "eventEvidence": "必要な実データ・機構の検証例は未取得。発話不可。",
+        "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+      },
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "reserved-proverb-fit",
+      "category": "skills",
+      "group": "将棋の格言",
+      "title": "格言の適用条件",
+      "intent": "実在する格言を局面の条件と照合する",
+      "trigger": "利用者が実在の格言を選ぶ",
+      "requires": ["出典・表記が確認済みの{proverbText}", "説明に必要な原典の利用条件", "実局面での{matchingCondition}の検証"],
+      "templateJa": "「{proverbText}」を考える場面です。この局面では{matchingCondition}が当てはまるかを確認しましょう。",
+      "forbiddenClaims": ["格言・出典の創作", "格言を例外のない法則と説明"],
+      "sampleIds": [],
+      "status": {
+        "design": "予約設計・現在非表示",
+        "eventEvidence": "必要な実データ・機構の検証例は未取得。発話不可。",
+        "visibility": "設定済みだが教材が零件のため現在の一覧には表示されない。"
+      },
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "reserved-proverb-exception",
+      "category": "skills",
+      "group": "将棋の格言",
+      "title": "格言が当てはまらない例",
+      "intent": "標語と具体的な反例を対比する",
+      "trigger": "確認済みの格言に対する実際の反例が得られた",
+      "requires": [
+        "確認済みの{proverbText}と出典",
+        "{counterMove}の合法再生",
+        "格言を機械的に適用した候補との具体的比較",
+        "次の発話項目を実データの根拠に対応付ける：{exceptionReason}"
+      ],
+      "templateJa": "「{proverbText}」だけで選ぶと、{counterMove}への対応を見落とします。ここでは{exceptionReason}を先に確認しましょう。",
+      "forbiddenClaims": ["架空の反例", "格言を全面的に誤りと断定"],
+      "sampleIds": [],
+      "status": {
+        "design": "予約設計・現在非表示",
+        "eventEvidence": "必要な実データ・機構の検証例は未取得。発話不可。",
+        "visibility": "設定済みだが教材が零件のため現在の一覧には表示されない。"
+      },
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "reserved-study-retry",
+      "category": "skills",
+      "group": "勉強法",
+      "title": "再挑戦から復習項目を選ぶ",
+      "intent": "実際の解答履歴で復習対象を絞る",
+      "trigger": "利用者の復習履歴がある",
+      "requires": [
+        "本人の実際の{attemptRecord}と利用許可",
+        "同じ課題の識別子・実施日時",
+        "正誤判定根拠・未実施との区別",
+        "次の発話項目を実データの根拠に対応付ける：{observedDifficulty}、{reviewAction}、{taskTitle}"
+      ],
+      "templateJa": "{taskTitle}では{observedDifficulty}が記録されています。今回は{reviewAction}に絞って、もう一度考えてみましょう。",
+      "forbiddenClaims": ["架空の正答率・連続日数・棋力", "一度の誤答から恒常的な弱点を断定"],
+      "sampleIds": [],
+      "status": {
+        "design": "予約設計・現在非表示",
+        "eventEvidence": "必要な実データ・機構の検証例は未取得。発話不可。",
+        "visibility": "設定済みだが教材が零件のため現在の一覧には表示されない。"
+      },
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "reserved-study-process",
+      "category": "skills",
+      "group": "勉強法",
+      "title": "考えた手順を振り返る",
+      "intent": "結果だけでなく実際に確認した分岐を整理する",
+      "trigger": "利用者が候補と応手の検討記録を保存した",
+      "requires": [
+        "利用者本人の実際の{candidateNotes}",
+        "合法再生済みの検討分岐",
+        "未検討と誤答の区別",
+        "次の発話項目を実データの根拠に対応付ける：{checkedBranch}、{studyGoal}、{unexaminedReply}"
+      ],
+      "templateJa": "{checkedBranch}までは確認できています。次は未検討の{unexaminedReply}を加えて、{studyGoal}を確かめましょう。",
+      "forbiddenClaims": ["利用者の思考内容を推測", "未記録を未理解と断定"],
+      "sampleIds": [],
+      "status": {
+        "design": "予約設計・現在非表示",
+        "eventEvidence": "必要な実データ・機構の検証例は未取得。発話不可。",
+        "visibility": "設定済みだが教材が零件のため現在の一覧には表示されない。"
+      },
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "reserved-book-relevance",
+      "category": "skills",
+      "group": "棋書",
+      "title": "確認済みの本の該当箇所",
+      "intent": "実在の書誌から学習課題との接点を示す",
+      "trigger": "書誌と内容の一次確認済み資料を利用者が選択した",
+      "requires": [
+        "著者・書名・版の確認済み{bibliography}",
+        "実際に確認した{sectionTitle}と所在",
+        "当該箇所に基づく独自の{topicSummary}",
+        "次の発話項目を実データの根拠に対応付ける：{bookTitle}、{learningTopic}"
+      ],
+      "templateJa": "{bookTitle}の{sectionTitle}は、今回の{learningTopic}を復習する参考になります。{topicSummary}を局面と照らして読んでみましょう。",
+      "forbiddenClaims": ["架空の書名・著者・章・ページ", "未読の本の内容を推薦理由にする", "書籍本文や創作局面の流用"],
+      "sampleIds": [],
+      "status": {
+        "design": "予約設計・現在非表示",
+        "eventEvidence": "必要な実データ・機構の検証例は未取得。発話不可。",
+        "visibility": "設定済みだが教材が零件のため現在の一覧には表示されない。"
+      },
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "reserved-book-progress",
+      "category": "skills",
+      "group": "棋書",
+      "title": "読了範囲から次の課題を選ぶ",
+      "intent": "実際の読書記録と演習をつなぐ",
+      "trigger": "利用者が読了記録と確認済み演習を選択した",
+      "requires": [
+        "本人が記録した{readRange}",
+        "版と箇所が一致する確認済み書誌",
+        "実際に利用可能な{practiceTask}と教材利用条件",
+        "次の発話項目を実データの根拠に対応付ける：{bookTitle}、{learningGoal}"
+      ],
+      "templateJa": "{bookTitle}の{readRange}を読んだ記録があります。{practiceTask}で{learningGoal}を確認してみましょう。",
+      "forbiddenClaims": ["読了・理解度の創作", "権利未確認の演習転載", "読書量から棋力向上を数値で断定"],
+      "sampleIds": [],
+      "status": {
+        "design": "予約設計・現在非表示",
+        "eventEvidence": "必要な実データ・機構の検証例は未取得。発話不可。",
+        "visibility": "設定済みだが教材が零件のため現在の一覧には表示されない。"
+      },
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-aifuri-two-files",
+      "category": "joseki",
+      "group": "相振り飛車",
+      "title": "双方の飛車筋を別々に追う",
+      "intent": "自分の飛車の攻め筋と相手飛車の自陣への通路を同時に示す。",
+      "trigger": "相振り飛車の群同定が済み、一方の飛車移動または飛車筋の歩交換が起きた。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "両軍の飛車位置・前方の最初の障害物・両玉の位置を求める。",
+        "相振りの成立は選択講座または開始手順で確認し、飛車二枚が動いた事実だけを根拠にしない。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{着手側}の飛車は{自軍飛車筋}、{反対側}の飛車は{相手飛車筋}にいます。今回変わったのは{変化した筋と障害物}で、{反対側の通路または接点}は別に残っています。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-aifuri-castle-direction",
+      "category": "joseki",
+      "group": "相振り飛車",
+      "title": "囲いへ正面から来るか横から来るか",
+      "intent": "同じ囲い名でも攻撃の方向で必要な守備駒が変わることを伝える。",
+      "trigger": "相振りの両玉の囲いが入力で確定し、相手飛車または歩が囲いへの接点を変えた。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "囲いの実在する金銀と現在の攻撃方向を、合法手と障害物込みで列挙する。",
+        "正面・横は玉と飛車の相対位置から算出し、囲い名だけで耐性を決めない。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{反対側}の攻めは、この図では囲いの{攻撃方向}へ向かっています。{守備駒}は{接点}を守りますが、{別方向の接点}には同じ守りを数えられません。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-aifuri-rook-trade-drops",
+      "category": "joseki",
+      "group": "相振り飛車",
+      "title": "飛車交換後の両陣への打ち込み",
+      "intent": "両側が振った飛車を交換した後、双方の飛車打ちを対称に数える。",
+      "trigger": "相振りの確認後、実際に飛車交換が完了したか合法な交換枝が選ばれた。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "交換後の両手駒と両陣の合法な打ち場所を確認する。",
+        "片側の攻め筋だけで交換の評価を作らず、相手の王手・駒取りの候補も確認する。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "飛車交換で{先手の持ち飛車}と{後手の持ち飛車}になりました。{着手側}の{打ち込み例}だけでなく、{反対側}の{自陣への打ち込み例}まで比べる局面です。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-aigakari-pawn-in-hand",
+      "category": "joseki",
+      "group": "相掛かり",
+      "title": "飛車先交換で手にした一歩",
+      "intent": "飛車先交換の駒数と持ち歩を区別して説明する。",
+      "trigger": "相掛かりの選択または検証済み手順の中で、飛車先の歩交換が完了した。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "交換前後の双方の歩の盤上数と持ち歩数を比較する。",
+        "取った歩の再使用を述べる場合は二歩・行き所・手番を確認する。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{飛車先交換の手順}で歩を交換し、{着手側}は歩を{持ち歩数}枚持ちました。その持ち歩は、次に{合法な歩打ちの用途}へ使える形です。",
+      "forbiddenClaims": [
+        "任意の駒配置だけから群名・戦法名を断定すること",
+        "短時間PVを最善・必然・定跡の証明とすること",
+        "飛車先交換がそのまま一方的な歩得だという断定"
+      ],
+      "sampleIds": [],
+      "status": "設計案。今回の実例では発火条件全体を確認できないため未割当。戦法認識・実装接続は未検証。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-aigakari-rook-retreat-tempo",
+      "category": "joseki",
+      "group": "相掛かり",
+      "title": "引き飛車の段と相手の一手",
+      "intent": "飛車の退く位置と、その間に相手が使った手を具体的に比較する。",
+      "trigger": "相掛かりの同定後、交換後の飛車を引く実着手があった。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "退却経路と退却先の合法性・守備・敵の利きを確認する。",
+        "手得・手損と言うなら同じ比較局面と実着手列を用意し、未検証なら双方の動いた駒のみ述べる。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{着手側}は飛車を{退却元}から{退却先}へ引きました。その間の{反対側の実着手}により、次は{歩の接点または飛車の退路}の条件が変わっています。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-aigakari-rook-reroute",
+      "category": "joseki",
+      "group": "相掛かり",
+      "title": "飛車の横移動で使う筋を変える",
+      "intent": "飛車先交換から別の筋へ回る際の障害物と手番を追う。",
+      "trigger": "相掛かりの講座内で飛車の横移動があり、別筋への活用が注釈または検証手順で確認された。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "元の筋と移動先の筋の最初の障害物、移動中の相手の実着手を確認する。",
+        "ひねり飛車などの枝名は該当講座タグまたは開始手順がある場合だけ使う。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "飛車は{元の筋}から{新しい筋}へ回りました。{新しい筋の歩または障害物}があるため、いま直接届くのは{現在の到達点}までです。",
+      "forbiddenClaims": [
+        "任意の駒配置だけから群名・戦法名を断定すること",
+        "短時間PVを最善・必然・定跡の証明とすること",
+        "横へ一手動いたことだけでひねり飛車と命名すること"
+      ],
+      "sampleIds": ["random-4-43"],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 sampleIdsは局所機構のみを例示し、戦法被覆を主張しない。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": ["random-4-43"],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-yokofu-lateral-pawn",
+      "category": "joseki",
+      "group": "横歩取り",
+      "title": "横の歩を取った後の飛車位置",
+      "intent": "横歩一枚の獲得と飛車の進出先を一つの事実として説明する。",
+      "trigger": "横歩取りの同定後、飛車が横移動で実際に歩を取った。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "取られた駒が歩であることと飛車の移動方向を確認する。",
+        "飛車の利きの変化は前後の障害物込みの制御差分で確認する。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{着手側}は{横歩のマス}の歩を飛車で取り、持ち歩が{現在枚数}枚になりました。飛車が{移動先}へ出たことで、{新しく届く相手の駒または残る退路}を確認します。",
+      "forbiddenClaims": [
+        "任意の駒配置だけから群名・戦法名を断定すること",
+        "短時間PVを最善・必然・定跡の証明とすること",
+        "横歩を取れたことだけで安全な歩得と結論すること"
+      ],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-yokofu-rook-escape",
+      "category": "joseki",
+      "group": "横歩取り",
+      "title": "横歩の後に飛車を残す道",
+      "intent": "進出した飛車が角や歩に当てられた後の合法な退路を示す。",
+      "trigger": "横歩取りの確認済み分岐で、飛車への攻撃が実際に生じた。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "飛車を攻撃する駒と合法な駒取りを確認する。",
+        "退却で外れた利きと、退却先で新たに受ける利きの両方を比較する。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{攻撃駒}が{現在の飛車位置}へ利いています。{退却例}ならその利きから外れますが、{退却先を守る駒または新たな敵の利き}も数えます。",
+      "forbiddenClaims": [
+        "任意の駒配置だけから群名・戦法名を断定すること",
+        "短時間PVを最善・必然・定跡の証明とすること",
+        "逃げられる升が一つ見つかっただけで飛車が安全とすること"
+      ],
+      "sampleIds": ["random-4-43"],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 sampleIdsは局所機構のみを例示し、戦法被覆を主張しない。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": ["random-4-43"],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-yokofu-bishop-reply",
+      "category": "joseki",
+      "group": "横歩取り",
+      "title": "角の応手で歩得と玉の危険を分ける",
+      "intent": "横歩を取った後に残る角交換・持ち角の応手を区別する。",
+      "trigger": "横歩取りの選択済み枝で角交換または角打ちが候補になった。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "持ち角の有無、打ち場所の合法性、王手か駒取りかを別々に検証する。",
+        "枝名と定跡上の条件は選択講座または典拠付き手順で照合する。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "横歩を取った後も、{反対側}には{角の実着手または条件付き候補}があります。これは{王手・駒取り・斜線への圧力の区別}なので、歩の枚数とは別に{必要な応答}を読みます。",
+      "forbiddenClaims": [
+        "任意の駒配置だけから群名・戦法名を断定すること",
+        "短時間PVを最善・必然・定跡の証明とすること",
+        "角打ちの名称だけで横歩取りの特定定跡と決めること"
+      ],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-ibisha-rook-pawn-support",
+      "category": "joseki",
+      "group": "居飛車",
+      "title": "飛車先の歩をどこまで支えるか",
+      "intent": "居飛車側の飛車と前方の歩の支えを障害物込みで示す。",
+      "trigger": "居飛車群の講座が選択され、自軍の飛車先歩が動いた。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "先後で異なる飛車筋を開始配置・講座情報から確定する。",
+        "自分の歩の先まで飛車の利きを延長しない。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{着手側}の飛車は{飛車位置}から{前方の歩}まで支えています。{間の駒}があるため、その先の{相手の接点}へ直接利いているかは分けて数えます。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-ibisha-silver-entry",
+      "category": "joseki",
+      "group": "居飛車",
+      "title": "銀を前へ出した後の取り返し",
+      "intent": "居飛車の銀の進出先と飛車先の歩の協力を確認する。",
+      "trigger": "居飛車群の銀を使う講座が選択され、銀が歩の接点へ進んだ。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "銀の移動先の合法性と敵味方双方の取り返しを確認する。",
+        "棒銀・早繰り銀などの枝名は対応するタグが確定した場合だけ使用する。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{銀の実着手}で銀が{接点}へ出ました。{自軍の支え}はありますが、{相手の合法な取り返し}もあるので、進出と駒得を分けて考えます。",
+      "forbiddenClaims": [
+        "任意の駒配置だけから群名・戦法名を断定すること",
+        "短時間PVを最善・必然・定跡の証明とすること",
+        "銀が前に出ただけで棒銀の成立や攻めの成功とすること"
+      ],
+      "sampleIds": [],
+      "status": "設計案。今回の実例では発火条件全体を確認できないため未割当。戦法認識・実装接続は未検証。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-ibisha-castle-tempo",
+      "category": "joseki",
+      "group": "居飛車",
+      "title": "囲いの一手と飛車先の接触",
+      "intent": "玉を囲う一手の間に相手の歩が到着するかを示す。",
+      "trigger": "居飛車群の確認後、囲いの一手と目前の歩への応答が候補になった。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "現在の王手・直近の合法な駒取りと、囲いの実着手による守備差分を確認する。",
+        "速さを比較する場合は同一局面からの合法な両方の手順を用意する。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{囲いの手}で{守備の変化}が起こりました。一方、{反対側}の{接触手}は残っているので、次は{飛車先の取り合い}を先に数えます。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-furibisha-rook-transfer",
+      "category": "joseki",
+      "group": "振り飛車",
+      "title": "飛車を振る経路と玉の側",
+      "intent": "飛車を動かす筋と玉が残る側を分けて説明する。",
+      "trigger": "振り飛車群の確認済み開始手順で、飛車を別筋へ回した。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "横移動の経路、間の駒、移動後の飛車と玉の相対位置を確認する。",
+        "飛車一手の横移動だけで振り飛車への分類を行わない。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{着手側}は飛車を{旧位置}から{新位置}へ回しました。玉は{玉位置}に残り、飛車の前は{歩または銀の障害物}まで通っています。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-furibisha-bishop-hand-risk",
+      "category": "joseki",
+      "group": "振り飛車",
+      "title": "角交換後に自陣へ届く角打ち",
+      "intent": "振った飛車と玉の配置に対する持ち角の打ち場所を確認する。",
+      "trigger": "振り飛車群の角交換を扱う枝が選択され、双方または片側が角を持った。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "交換の合法再生と両手駒、対象の角打ちの合法性を確認する。",
+        "王手の斜線にある歩や銀を前後SFENから照合する。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "角交換で{両側の持ち角}になりました。{角打ちの候補}は{経由升}を通るので、{玉または狙われる駒}との間の{遮断駒}を確認します。",
+      "forbiddenClaims": [
+        "任意の駒配置だけから群名・戦法名を断定すること",
+        "短時間PVを最善・必然・定跡の証明とすること",
+        "角交換だけで特定の振り飛車戦法名や優劣を確定すること"
+      ],
+      "sampleIds": [],
+      "status": "設計案。今回の実例では発火条件全体を確認できないため未割当。戦法認識・実装接続は未検証。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-furibisha-reverse-file-pressure",
+      "category": "joseki",
+      "group": "振り飛車",
+      "title": "逆側の飛車筋へ銀を使う",
+      "intent": "飛車を振り直す構想と銀の支えの変化を区別する。",
+      "trigger": "振り飛車群の逆棒銀・振り直しなどの該当講座タグがあり、銀または飛車が構想の接点へ動いた。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "その枝の開始条件と銀・飛車の位置関係を講座手順で確認する。",
+        "銀の利きと飛車の縦道の変化を前後で比較する。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{銀または飛車の実着手}で{狙う筋}へ駒を合わせました。{支える駒}は{接点}を守りますが、{自陣に残る空所}の条件も変わっています。",
+      "forbiddenClaims": [
+        "任意の駒配置だけから群名・戦法名を断定すること",
+        "短時間PVを最善・必然・定跡の証明とすること",
+        "飛車筋を変えただけで逆棒銀と呼ぶこと"
+      ],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-shiken-silver-blocker",
+      "category": "joseki",
+      "group": "四間飛車",
+      "title": "左銀を出しても飛車道が開くとは限らない",
+      "intent": "四間飛車の飛車前の銀と歩を別々の障害物として数える。",
+      "trigger": "四間飛車の講座が選択され、飛車筋の左銀または歩が動いた。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "先後に対応した四間飛車側の飛車筋を確定する。",
+        "銀・歩を動かす前後の飛車の到達点を障害物込みで比較する。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{実着手}で{空いた升}は空きましたが、{残った銀または歩}が飛車の前にあります。いま飛車が直接支えるのは{現在の到達点}までです。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-shiken-bishop-contact",
+      "category": "joseki",
+      "group": "四間飛車",
+      "title": "角で相手の飛車先を受ける",
+      "intent": "相手飛車先の歩交換で角が最後の取り手になる条件を示す。",
+      "trigger": "四間飛車の確認後、相手飛車先の接触点を自軍角が守り、実着手または候補手順に歩交換がある。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "角の経由升と遮断駒、歩・飛車・角の全取り合いを合法再生する。",
+        "相手が飛車で取らない分岐も存在することをメタデータに残す。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{接点}は{角位置}の角が守っています。{歩交換例}のあと相手が飛車で取るなら、{角の取り返し}が用意されています。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-shiken-home-king-route",
+      "category": "joseki",
+      "group": "四間飛車",
+      "title": "居玉のまま使った手と飛車侵入",
+      "intent": "居玉を選ぶ講座で、攻めの一手と自陣への飛車の侵入を具体的に比べる。",
+      "trigger": "四間飛車の居玉を扱う該当講座タグがあり、玉を動かさず攻め・受けに一手使った。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "居玉は実際の開始玉位置から確認し、特定システム名はタグがある場合だけ使用する。",
+        "相手飛車の侵入経路と王手の有無、受ける手の合法性を確認する。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "玉を{玉位置}に残し、{実着手}に一手を使いました。相手飛車の{侵入例}が{王手または駒取り}になるかを、{遮断駒または受ける手}まで数えます。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-yagura-gold-silver-links",
+      "category": "joseki",
+      "group": "矢倉戦法",
+      "title": "金銀の連結と実際の取り返し",
+      "intent": "矢倉系群の名称ではなく、盤上にある金銀の相互防御を読む。",
+      "trigger": "矢倉戦法群が選択され、金銀の移動か城周辺への攻撃があった。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "矢倉・雁木などの実際の枝と囲い形を区別し、群名を全局面の囲い名へ流用しない。",
+        "守られる駒・守る金銀・合法な取り返しを確認する。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{標的の駒}は{守備の金銀}に守られています。{攻撃の候補}で取っても{取り返し}があるので、囲いの名前よりこのつながりを数えます。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-yagura-attacking-silver",
+      "category": "joseki",
+      "group": "矢倉戦法",
+      "title": "攻め銀を出した後の角筋と守り",
+      "intent": "銀を攻めに使うことで囲い周辺の守備が減るかを確認する。",
+      "trigger": "矢倉系の銀の活用を扱う確認済み枝で、銀が自陣から前進した。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "銀の移動で失う利き・加わる利き、角筋の遮断差分を確認する。",
+        "腰掛け銀など別群の名称を配置だけで持ち込まない。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{銀の実着手}で{新しい接点}へ利きを加えました。一方、移動前に守っていた{自陣の升}は{残る守備駒の有無}になり、角の{経由線}も確認が必要です。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-yagura-edge-lance-cost",
+      "category": "joseki",
+      "group": "矢倉戦法",
+      "title": "端攻めに使う香と取り返し",
+      "intent": "矢倉系の端攻めを扱う枝で、歩・香・守備金銀の交換を数える。",
+      "trigger": "矢倉戦法群の端攻めの該当講座が選択され、端歩の接触か香の進出が起きた。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "端歩・香の現在位置と、相手金銀による全取り返しを確認する。",
+        "すずめ刺し等の枝名は該当する講座タグ・開始手順がある場合に限る。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{端の歩の交換}で{端の接点}が変わりました。香を{進出先}へ使うなら、{相手の取り返し}のあとに残る{持ち駒と盤上の守備}まで比べます。",
+      "forbiddenClaims": [
+        "任意の駒配置だけから群名・戦法名を断定すること",
+        "短時間PVを最善・必然・定跡の証明とすること",
+        "端歩を動かしただけで端攻めの定跡名や突破成功を断定すること"
+      ],
+      "sampleIds": [],
+      "status": "設計案。今回の実例では発火条件全体を確認できないため未割当。戦法認識・実装接続は未検証。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-naka-central-pawn-rook",
+      "category": "joseki",
+      "group": "中飛車",
+      "title": "中央の歩を取る前に飛車の縦道を見る",
+      "intent": "中央の歩交換と、その後の飛車の取り返しを分離する。",
+      "trigger": "中飛車の同定後、中央の歩が接触または交換された。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "中央飛車の位置と歩・銀の障害物、接触点への全取り返しを確認する。",
+        "中央の駒配置からゴキゲン中飛車と自動命名しない。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{中央の歩の実着手}で{接点}に歩が来ました。飛車が取り返せるかは{飛車位置}からの{間の歩または銀}が残るかで変わります。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-naka-central-silver",
+      "category": "joseki",
+      "group": "中飛車",
+      "title": "中央へ出した銀と玉の横の空所",
+      "intent": "中央への銀の活用が自玉の守りに与える実際の変化を示す。",
+      "trigger": "中飛車の該当枝で銀が中央へ進んだ。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "移動した銀の攻撃升と以前守っていた自陣升を差分で確認する。",
+        "玉の位置と残る金銀、相手の合法な王手・駒取りを確認する。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{銀の実着手}で中央の{攻撃升}へ利きました。銀が離れた{自陣の升}には{残る守り}があり、攻めと玉の守りを別々に数えます。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-naka-rapid-silver-opposition",
+      "category": "joseki",
+      "group": "中飛車",
+      "title": "相手の速い銀と中央突破点",
+      "intent": "中飛車の中央の支えと相手急戦銀が利く升を照合する。",
+      "trigger": "中飛車の対急戦の該当講座があり、相手銀が中央の接点へ利きを加えた。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "超速などの呼称は相手側のタグ・検証済み開始手順でも確認する。",
+        "中央接点での歩・銀・飛車の取り合いを合法再生し、単純な攻撃駒数だけで結論しない。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{相手銀の実着手}で{中央の接点}に相手銀の利きが加わりました。{自軍の支え}との取り合いは{条件付き交換例}になり、飛車が残る位置まで比べます。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-handicap-initial-inventory",
+      "category": "joseki",
+      "group": "駒落ち定跡",
+      "title": "最初から落ちている駒と取った駒を分ける",
+      "intent": "現在の駒差を駒落ちの開始条件から説明する。",
+      "trigger": "駒落ち講座が選択され、対局の開始配置または指定された落ち駒が入力された。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "駒落ち種別・上手下手・先後・初期盤面と初期持ち駒を確認する。",
+        "現在の駒数だけから何枚落ちか逆算しない。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "この対局は{上手側}が{初期の落ち駒}を欠く開始条件です。現在の{駒差}のうち、実際の駒取りで変わったのは{初期状態との差分}です。",
+      "forbiddenClaims": [
+        "任意の駒配置だけから群名・戦法名を断定すること",
+        "短時間PVを最善・必然・定跡の証明とすること",
+        "落ち駒を既に取った駒や下手の持ち駒として数えること"
+      ],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-handicap-missing-defender",
+      "category": "joseki",
+      "group": "駒落ち定跡",
+      "title": "落ち駒の利きを受けに数えない",
+      "intent": "欠けた飛車角香などを攻防計算へ混入させない。",
+      "trigger": "駒落ちの開始条件確認後、落ち駒なら守るはずの升が攻防の候補になった。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "標準配置ではなく実際の駒落ち盤面で利きと合法な取り返しを計算する。",
+        "欠けた駒と捕獲済み駒を別属性で保持する。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{接点}を調べるとき、開始時から落ちている{落ち駒}の利きは数えません。この盤面で取り返せるのは{実在する取り手またはなし}です。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-handicap-upper-lower-tempo",
+      "category": "joseki",
+      "group": "駒落ち定跡",
+      "title": "上手下手の役割と攻める順番",
+      "intent": "上手下手を先後や教材の学習側と取り違えず、実際の手番と攻防を述べる。",
+      "trigger": "駒落ち講座で上手下手のどちらかが囲いまたは攻撃に一手使った。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "上手下手・着手側・学習側の対応を明示する。",
+        "詰みや持ち駒を述べる場合は表示盤面の条件を使い、残り駒全てを守備側へ自動補充しない。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "いまは{上手または下手}の{実際の着手側}が{実着手}を指しました。次の{反対側}の{合法な応手例}まで数え、駒落ちの役割だけでこの一手の成否は決めません。",
+      "forbiddenClaims": [
+        "任意の駒配置だけから群名・戦法名を断定すること",
+        "短時間PVを最善・必然・定跡の証明とすること",
+        "駒落ちだから特定の側が勝つという予言",
+        "上手を自動的に後手またはCPUとみなすこと"
+      ],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-sanken-floating-rook-pawn",
+      "category": "joseki",
+      "group": "三間飛車",
+      "title": "高い歩の後ろに浮く飛車",
+      "intent": "三間飛車の飛車・高い歩・縦の障害物の関係を説明する。",
+      "trigger": "三間飛車群の浮き飛車を扱う該当枝で飛車またはその筋の歩が動いた。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "先後に対応する飛車筋と、飛車から前方の最初の味方駒までを確認する。",
+        "石田流・早石田という枝名は対応タグか開始手順で確認する。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{浮き飛車の実着手}で飛車が{高い歩}の後ろに並びました。{間の升}が空いているので歩を支えますが、その歩の先まで直接攻める形ではありません。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-sanken-edge-bishop-line",
+      "category": "joseki",
+      "group": "三間飛車",
+      "title": "端角の斜線を高い歩が止める",
+      "intent": "本組みの端角・桂・銀を使う際、同じ筋の歩が角筋を遮る条件を示す。",
+      "trigger": "三間飛車の本組みを扱う選択済み枝で、高い歩または端角を動かした。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "端角から標的までの全経由升を確認する。",
+        "歩を動かす前後の角の到達点の差分と、歩交換後の飛車の取り返しを確認する。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "端の角から{標的}への斜線は、{遮っている味方の歩}で止まっています。{条件付きの歩の移動}のあとに{他の経由升}も空いていれば、角の利きが通ります。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-sanken-eighth-file-counter",
+      "category": "joseki",
+      "group": "三間飛車",
+      "title": "三間の攻めと相手飛車筋の反撃",
+      "intent": "高い歩や浮き飛車に手を使う間の相手側の歩接触と取り返しを数える。",
+      "trigger": "三間飛車の同定後、自軍が攻め筋を進めた直後に相手飛車先が接触した。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "自軍の攻め筋と相手飛車筋を別々に取得する。",
+        "接点を飛車・角・歩のどれで取るか、それぞれの合法な取り返しを確認する。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{自軍の進出手}のあと、相手は{飛車先の接触手}を指しました。{接点}では{自軍の取り手}と{相手飛車の利き}を一緒に数え、攻めの続きを先に決めません。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-kakugawari-bishops-in-hand",
+      "category": "joseki",
+      "group": "角換わり",
+      "title": "角交換で双方に増える持ち角",
+      "intent": "角換わりの交換後の持ち駒と取り返した銀の位置を述べる。",
+      "trigger": "角換わり群の確認済み手順で角交換が実際に完了した。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "双方の角の捕獲と取り返しを合法再生する。",
+        "取り返した駒の旧位置・新位置と、双方の持ち角の枚数を確認する。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{角交換の手順}で双方が角を{持ち角枚数}枚持ち、{取り返した駒}は{新位置}に移りました。次は盤上の角筋だけでなく、{合法な角打ちの候補}も調べます。",
+      "forbiddenClaims": [
+        "任意の駒配置だけから群名・戦法名を断定すること",
+        "短時間PVを最善・必然・定跡の証明とすること",
+        "角を交換しただけで角換わりと分類すること"
+      ],
+      "sampleIds": ["random-3-12"],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 sampleIdsは局所機構のみを例示し、戦法被覆を主張しない。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": ["random-3-12"],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-kakugawari-silver-vacancy",
+      "category": "joseki",
+      "group": "角換わり",
+      "title": "攻め銀の移動で生まれる角打ち",
+      "intent": "角を持ち合う条件で銀の進出が作る空所を示す。",
+      "trigger": "角換わり群の銀の活用を扱う枝で、銀を前へ動かした。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "腰掛け銀・早繰り銀・棒銀は対応する枝のタグがある場合だけ呼ぶ。",
+        "空いた升への角打ちの合法性と、王手・駒取り・単なる利きを区別する。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{銀の実着手}で{攻めの接点}へ銀を使いました。空いた{旧銀位置またはその守備升}には{角打ち候補}があるので、{残る守備駒}の取り返しまで確認します。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-kakugawari-exchange-tempo",
+      "category": "joseki",
+      "group": "角換わり",
+      "title": "角を取りに行った手と取り返す手",
+      "intent": "一手損の名称と盤上の銀の発展を混同せずに手順を比較する。",
+      "trigger": "角換わりまたは一手損の該当講座が選択され、角交換の順序を比較する箇所にいる。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "比較対象は同じ側の手番・同等の駒配置まで揃った二つの合法な手順とする。",
+        "比較が揃わない場合、手得手損は出力せず実際に動いた駒だけ述べる。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{角を取りに行った側}が角を動かし、{取り返した側}は{取り返しの駒}を{新位置}へ進めました。{比較手順が成立した場合のテンポ差、または未比較という中立な説明}。",
+      "forbiddenClaims": [
+        "任意の駒配置だけから群名・戦法名を断定すること",
+        "短時間PVを最善・必然・定跡の証明とすること",
+        "銀が前へ出た事実だけで一手得や有利とすること"
+      ],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-kishu-offered-pawn",
+      "category": "joseki",
+      "group": "奇襲戦法",
+      "title": "差し出された歩を取る前の確認",
+      "intent": "歩を取れるという事実と、そのあとに狙われる駒を分ける。",
+      "trigger": "奇襲戦法の特定講座または明示タグがあり、差し出す歩と応手の分岐が検証されている。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "歩を取る手を合法確認し、続く王手・駒取りを独立に調べる。",
+        "相手の意図は注釈の根拠がなければ推定せず、観測事実として扱う。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{歩を取る候補}は合法ですが、そのあと{相手の具体的な応手}があります。取った一歩と{狙われる駒または玉への王手}を比べてから選ぶ局面です。",
+      "forbiddenClaims": [
+        "任意の駒配置だけから群名・戦法名を断定すること",
+        "短時間PVを最善・必然・定跡の証明とすること",
+        "一つの候補手だけから罠にかかった・奇襲成功と表現すること"
+      ],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-kishu-early-knight-cost",
+      "category": "joseki",
+      "group": "奇襲戦法",
+      "title": "早い桂の進出と残る大駒",
+      "intent": "特定奇襲の桂の進出を、着地点と自陣大駒への反撃から読む。",
+      "trigger": "奇襲戦法群の桂を早く使う該当枝があり、桂が実際に進出した。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "桂の攻撃先・守られているか・退路と、相手の速い反撃を確認する。",
+        "鬼殺し等の具体名は選択講座または検証済み手順からだけ与える。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{桂の実着手}は{桂の目標}へ利きます。一方で{相手の反撃例}が{自軍の大駒または玉}へ届くので、桂の狙いだけで手順を決めません。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-kishu-unusual-bishop",
+      "category": "joseki",
+      "group": "奇襲戦法",
+      "title": "通常と異なる角の位置でも道を数える",
+      "intent": "筋違いなどの角の活用を実在する二つの斜線と守備駒で説明する。",
+      "trigger": "奇襲戦法群の角の活用を扱う確認済み枝で、角を打つか通常と異なる対角線へ置いた。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "角の起点から標的までの経由升を全て確認する。",
+        "二つの標的を一手で守る応手や合法な角取りを確認し、両取りと強制駒得を分ける。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{角の実着手}から{第一の標的}へは{第一の経由升}、{第二の標的}へは{第二の経由升}が通っています。{相手の合法な守り}があるかで、両方を狙えることと駒得できることを分けます。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-mukai-facing-rooks",
+      "category": "joseki",
+      "group": "向かい飛車",
+      "title": "向かい合う飛車と間の歩",
+      "intent": "向かい飛車の飛車二枚の同じ筋と、その間の遮断駒を明示する。",
+      "trigger": "向かい飛車の講座または検証済み開始手順の中で飛車が相手飛車の筋へ回った。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "両飛車の筋と間にある全ての歩・駒を確認する。",
+        "現在の飛車位置だけでは向かい飛車への分類を行わない。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "両方の飛車が{飛車筋}で向かい合いますが、間には{遮断駒の列}があります。{実着手}で変わったのは{空いた升または残る接点}で、すぐ飛車同士が取れるとは限りません。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-mukai-file-recapture",
+      "category": "joseki",
+      "group": "向かい飛車",
+      "title": "向かう筋の歩交換で最後の取り手を見る",
+      "intent": "向かい合う飛車の歩交換を、飛車以外の角銀の守りまで追う。",
+      "trigger": "向かい飛車の確認後、対面する飛車筋で歩が接触した。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "飛車筋の歩・銀・角の取り合いを最後まで合法再生する。",
+        "銀が飛車の縦道を塞ぐか、動いて開くかを前後SFENで確認する。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{歩の接触手}には{取り返しの候補}があります。{角または銀}が{接点}を守っているため、飛車まで出る枝では{最後の取り手}も数えます。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-mukai-trade-or-stay",
+      "category": "joseki",
+      "group": "向かい飛車",
+      "title": "飛車を交換する枝と残す枝",
+      "intent": "同じ筋にいる飛車を交換するか、盤上に残すかで手駒と玉への攻めが変わることを示す。",
+      "trigger": "向かい飛車の選択済み分岐で、合法な飛車交換と非交換の候補が存在する。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "両枝の実際の持ち駒と飛車の到達点を確認する。",
+        "交換後の自陣への王手の打ち場所も確認し、囲い名だけで交換を推奨しない。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{交換枝}なら双方の持ち飛車は{交換後の手駒}になります。{飛車を残す枝}では{飛車の位置と利き}が残るので、{玉への打ち込みまたは接点}と比べます。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-taikou-static-silver-contact",
+      "category": "joseki",
+      "group": "対振り飛車、対抗型",
+      "title": "居飛車側の銀を振り飛車の接点へ使う",
+      "intent": "対抗型の居飛車側から、銀の進出先と振り飛車側の取り返しを確認する。",
+      "trigger": "居飛車対振り飛車の明示的な対局設定があり、居飛車側の銀が攻めに動いた。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "居飛車側・振り飛車側の対応をコースのmain/相手タグまたは開始手順で確認する。",
+        "急戦の具体名は該当タグに限定し、銀の進出後の歩・角・飛車の取り返しを確認する。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "居飛車側の{銀の実着手}は{振り飛車側の接点}へ利きを加えます。振り飛車側には{実在する取り返し}があるので、{交換例}のあとまで比べます。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-taikou-castle-investment",
+      "category": "joseki",
+      "group": "対振り飛車、対抗型",
+      "title": "持久戦の囲いに使う手と反撃の到着",
+      "intent": "居飛車側の囲いを進める間の振り飛車側の具体的な動きを示す。",
+      "trigger": "対抗型の持久戦を扱う該当枝で、居飛車側が囲いに一手使った。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "穴熊・左美濃・ミレニアム等はタグと実際の駒配置で区別する。",
+        "振り飛車側がその一手で指した実着手、王手や接点の到着を確認する。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{居飛車側の囲いの手}で{追加された守り}ができました。その間に振り飛車側は{実際の反撃手}を指しており、{目前の接点}は囲いの完成とは別に受けます。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-taikou-traded-major-vacancy",
+      "category": "joseki",
+      "group": "対振り飛車、対抗型",
+      "title": "大駒交換後の居飛車陣の空所",
+      "intent": "対抗型の交換後に相手が手にした飛角の打ち込みを確認する。",
+      "trigger": "対抗型の同定後、飛車または角の交換が完了した。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "交換後の両手駒、居飛車側の金銀と空いた升を確認する。",
+        "振り飛車側の具体的な合法な王手・駒取りの打ち込みを一つ以上確認する。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{交換した大駒}が{双方の持ち駒}になりました。居飛車側の{空所}には{相手の打ち込み例}があるので、{自軍の合法な取り返しまたは受け}まで準備します。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-ureshino-early-silver",
+      "category": "joseki",
+      "group": "嬉野流",
+      "title": "角を残して進めた銀の仕事",
+      "intent": "嬉野流の選択済み枝で、角を動かす手と銀を使う手の順序を観測事実で説明する。",
+      "trigger": "嬉野流の講座が選択され、初期の角を残したまま銀を進めた。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "嬉野流はshared-other-groupであり、torisashi選択だけをこの群の所属根拠に代用しない。",
+        "銀の移動元・移動先、角の実位置と間の歩を確認する。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{銀の実着手}で{新しい守備または攻撃升}に利きました。角は{残っている角位置}のままで、いまその斜線を止めているのは{遮断駒}です。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-ureshino-retreated-bishop",
+      "category": "joseki",
+      "group": "嬉野流",
+      "title": "引いた角の長い斜線と途中の歩",
+      "intent": "嬉野流の角の使い方を、長い斜線にある味方の歩と相手の駒で確認する。",
+      "trigger": "嬉野流の角の配置転換を扱う枝で、角を引いたか角道の歩が動いた。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "嬉野流講座または明示タグを確認し、一般的な引き角から命名しない。",
+        "角の全経由升と前後の到達点差分を確認する。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{角の実着手}で{標的}への斜線を向けましたが、{途中の歩または駒}で止まっています。{遮断駒が動く条件}が揃ったときだけ、{標的への利き}を数えます。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-ureshino-silver-reform",
+      "category": "joseki",
+      "group": "嬉野流",
+      "title": "攻め銀を戻すと変わる玉側の守り",
+      "intent": "嬉野流の攻め駒の組み替えと玉側の手不足を区別する。",
+      "trigger": "嬉野流の対棒銀・対振り飛車などの選択済み枝で、攻め銀を戻すか横へ組み替えた。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "相手側の戦型も対応タグまたは検証済み手順で確認する。",
+        "銀が失った攻撃升と増えた自玉側の守備升を差分で確認する。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{銀の組み替え手}で{以前の攻めの接点}への利きは{増減}しました。一方、{玉側の守備升}には{新しく使える銀の守り}ができたので、{相手の目前の脅威}と比べます。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "設計案。群別の理論条件・発火判定・自然言語出力は未実装、未実証。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-kakukoukan-furi-hands",
+      "category": "joseki",
+      "group": "角交換振り飛車",
+      "title": "交換後の持ち角を先に確認する",
+      "intent": "selector-only群で角交換後の両手駒を事実から説明する設計。",
+      "trigger": "kakukoukan-furiの選択情報または検証済み対応手順があり、角交換の合法再生が完了した。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "本群のsourceUnitIdsは空。既存著作単位の被覆や対応教材実装を主張しない。",
+        "双方の持ち角枚数と取り返しに使った駒の位置を入力する。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{角交換の実手順}で{両側の持ち角}になりました。取り返した{駒}は{新位置}にいるため、次は{合法な角打ちの候補}を盤面に照合します。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": ["random-3-12"],
+      "status": "selector-only・設計案。kakukoukan-furi選択項目はあるが、この表示群の著作単位は0件。 sampleIdsは局所機構のみを例示し、戦法被覆を主張しない。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": ["random-3-12"],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-kakukoukan-furi-rook-route",
+      "category": "joseki",
+      "group": "角交換振り飛車",
+      "title": "振り直す飛車の通路と持ち角",
+      "intent": "selector-only群で飛車の振り直しと相手の角打ちを同時に確認する設計。",
+      "trigger": "本群の選択があり、角を持ち合う局面で飛車を別筋へ動かした。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "本群の著作単位0件という状態を維持し、新しいレッスンが存在するように表示しない。",
+        "飛車の移動経路と前後の障害物、相手の合法な角打ちによる王手・駒取りを確認する。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "飛車を{旧位置}から{新位置}へ回しました。{相手の角打ち候補}は{王手または狙う駒}へ届くため、{間の守備駒}を残せているか確認します。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "selector-only・設計案。kakukoukan-furi選択項目はあるが、この表示群の著作単位は0件。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-kakukoukan-furi-counter-silver",
+      "category": "joseki",
+      "group": "角交換振り飛車",
+      "title": "飛車筋へ出す銀と角の打ち場所",
+      "intent": "selector-only群で銀を逆側の飛車筋へ使う条件を確認する設計。",
+      "trigger": "本群の選択に加え、銀の逆側活用を扱う枝の手順根拠があり、銀が飛車筋へ進出した。",
+      "requires": [
+        "群名は選択済み講座・明示タグ・検証済み開始手順のいずれかで確定する。任意の中盤SFENや飛車一手の位置から戦法を推定しない。",
+        "着手側・先後・正規化前後SFEN・合法な実着手を入力する。",
+        "各スロットは盤面事実・合法再生・注釈の典拠に結び付け、欠ける場合はこの型を発火しない。",
+        "sampleIdsは機構の例示に限る。掲載した自動対局がこの戦法だったという被覆証明には使わない。",
+        "本群の空のsourceUnitIdsから具体的な教示手順を捏造しない。理論条件は別途検証する設計要件とする。",
+        "銀の進出先の守り、飛車の縦道、双方の持ち角を用いる合法な応手を入力する。",
+        "テンプレートの肯定・否定・変化・数の一致まで事実と照合する。スロットが埋まることだけでは発話を許可しない。"
+      ],
+      "templateJa": "{銀の進出手}で{飛車筋の接点}へ銀を合わせました。{相手の角打ちによる応手}があるので、{銀の支えと飛車の通路}を一緒に読みます。",
+      "forbiddenClaims": ["任意の駒配置だけから群名・戦法名を断定すること", "短時間PVを最善・必然・定跡の証明とすること"],
+      "sampleIds": [],
+      "status": "selector-only・設計案。kakukoukan-furi選択項目はあるが、この表示群の著作単位は0件。 群への所属を検証した対局サンプルは未割当。",
+      "layer": "guide-group",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-core-king-readiness",
+      "strategyId": null,
+      "group": "joseki-core",
+      "title": "仕掛け前の自玉確認",
+      "intent": "固有の戦法を決めず自玉の現状を確認する",
+      "trigger": "仕掛け候補を選ぶ前",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "玉の実位置・合法な王手候補・守備駒の利き"
+      ],
+      "templateJa": "仕掛け候補は{candidateMoveJa}です。こちらの玉は{kingSquare}で、相手の王手候補に{legalOpponentCheckFact}があります。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する"
+      ],
+      "sampleIds": [],
+      "status": "template-only; no sample mapping asserted",
+      "source": {
+        "file": "src/utils/catalog.ts",
+        "line": 120,
+        "rule": "Matchup strategy context; proposed common prompt family, not existing authored prose"
+      },
+      "category": "joseki",
+      "layer": "strategy-shared-core",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-core-contact-reply",
+      "strategyId": null,
+      "group": "joseki-core",
+      "title": "接点の取り返し比較",
+      "intent": "最初の駒の接触で双方の合法な取り返しを比較する",
+      "trigger": "歩または駒の接触が生じた時",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "接点の合法な捕獲候補と取り返しの完全な手順",
+        "各手の捕獲・成り・持駒の増減"
+      ],
+      "templateJa": "{contactSquare}では{legalCaptureJa}が可能です。{verifiedRecaptureLine}まで進めた場合の収支は{materialLedger}です。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する"
+      ],
+      "sampleIds": [],
+      "status": "template-only; no sample mapping asserted",
+      "source": {
+        "file": "src/utils/catalog.ts",
+        "line": 120,
+        "rule": "Matchup strategy context; proposed common prompt family, not existing authored prose"
+      },
+      "category": "joseki",
+      "layer": "strategy-shared-core",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "joseki-core-hand-use",
+      "strategyId": null,
+      "group": "joseki-core",
+      "title": "交換後の持駒用途",
+      "intent": "交換で得た駒と実際に打てる場所を確認する",
+      "trigger": "駒交換が完了した直後",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "交換前後の双方の持駒",
+        "候補の駒打ちの合法性と具体的な利き"
+      ],
+      "templateJa": "交換後の持駒は{handsAfter}です。{legalDropJa}を打った場合の利きは{verifiedDropControlFact}です。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する"
+      ],
+      "sampleIds": [],
+      "status": "template-only; no sample mapping asserted",
+      "source": {
+        "file": "src/utils/catalog.ts",
+        "line": 120,
+        "rule": "Matchup strategy context; proposed common prompt family, not existing authored prose"
+      },
+      "category": "joseki",
+      "layer": "strategy-shared-core",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-shikenbisha",
+      "strategyId": "shikenbisha",
+      "group": "四間飛車",
+      "title": "振った飛車と閉じた角道",
+      "intent": "飛車の配置と角道の状態を別々に説明する",
+      "trigger": "飛車を振る手、または角道の歩を動かす手の直後",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "飛車の実座標と手番別の筋対応",
+        "角道上の全遮断駒と前後差"
+      ],
+      "templateJa": "飛車は{rookSquare}へ移りました。角道は{bishopBlockerFact}。飛車の移動と角の通り道を分けて確認しましょう。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "飛車移動だけで捌きが成立したとする"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 49,
+        "strategyMetadata": "STRATEGIES[id=shikenbisha].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "四間飛車",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-sankenbisha",
+      "strategyId": "sankenbisha",
+      "group": "三間飛車",
+      "title": "角頭側の飛車と接点",
+      "intent": "三間飛車の飛車と相手角頭の位置関係を確認する",
+      "trigger": "三間への飛車移動後、または角頭側で歩が接触した時",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "先手なら７筋・後手なら３筋との対応",
+        "相手の角の実座標と接点までの遮断駒"
+      ],
+      "templateJa": "飛車は{rookSquare}、相手の角は{enemyBishopSquare}です。{contactSquare}までの通り道には{blockerFact}があります。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "角頭に近いだけで攻撃成功とする"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 62,
+        "strategyMetadata": "STRATEGIES[id=sankenbisha].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "三間飛車",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-hayaishida",
+      "strategyId": "hayaishida",
+      "group": "三間飛車",
+      "title": "早い歩伸ばし後の角交換候補",
+      "intent": "早石田の歩の進出と交換後の角の行き先を別々に読む",
+      "trigger": "序盤の対象筋の歩進出または角交換直後",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "棋譜中の歩の前進履歴",
+        "交換後の双方の持角と合法な角打ち候補"
+      ],
+      "templateJa": "歩は{pawnRoute}と進みました。角交換後に使える角打ちは{legalBishopDrop}。その斜線には{diagonalFact}があります。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "５五角が局面を問わず成立するとする"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 72,
+        "strategyMetadata": "STRATEGIES[id=hayaishida].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "三間飛車",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-ishida",
+      "strategyId": "ishida",
+      "group": "三間飛車",
+      "title": "浮き飛車の横道",
+      "intent": "浮き飛車の横移動範囲と自駒の遮断を確認する",
+      "trigger": "飛車が浮く手、または同じ段の駒配置が変わった時",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "飛車の移動前後の横利き",
+        "同段の最初の遮断駒と合法な横移動"
+      ],
+      "templateJa": "{rookSquare}の飛車は横に{legalSidewaysSquares}へ動けます。{blockingPiece}が{blockedDirection}側を止めています。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "浮き飛車なら両側へ自由に動けるとする"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 82,
+        "strategyMetadata": "STRATEGIES[id=ishida].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "三間飛車",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-nakabisha",
+      "strategyId": "nakabisha",
+      "group": "中飛車",
+      "title": "閉じた角道と二枚銀の中央",
+      "intent": "角道を止める中飛車の中央の支えを数える",
+      "trigger": "古典的な角道を閉じた中飛車の駒組み中",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "中央飛車と角道を閉じる歩の実位置",
+        "左右の銀から中央接点への実際の利き"
+      ],
+      "templateJa": "中央の飛車は{rookSquare}です。角道の歩は{bishopBlockerSquare}、二枚の銀から{centralSquare}への利きは{silverControlFact}です。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "すべての中飛車をツノ銀型と認定する"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 92,
+        "strategyMetadata": "STRATEGIES[id=nakabisha].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "中飛車",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-gokigen",
+      "strategyId": "gokigen",
+      "group": "中飛車",
+      "title": "開いた角道と中央の位",
+      "intent": "角道を開けた中央飛車で歩と銀の支えを確認する",
+      "trigger": "中央の歩を伸ばす手、またはその支えを動かす手の後",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "中央の歩の位置と実際の保持状況",
+        "開いた角道の遮断有無と中央の合法な取り返し"
+      ],
+      "templateJa": "中央の歩は{centralPawnSquare}です。{candidateCapture}に対する取り返しは{legalRecaptureFact}。開いた角道は{bishopDiagonalFact}です。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "中央の位だけで優勢とする"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 102,
+        "strategyMetadata": "STRATEGIES[id=gokigen].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "中飛車",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-mukaibisha",
+      "strategyId": "mukaibisha",
+      "group": "向かい飛車",
+      "title": "向かい合う飛車の間の駒",
+      "intent": "対向する飛車を遮る歩と交換順を確認する",
+      "trigger": "対向する筋への飛車移動または同筋の歩交換時",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "両飛車の実座標と同筋判定",
+        "間にある全駒と合法な交換手順"
+      ],
+      "templateJa": "飛車は{ourRookSquare}と{theirRookSquare}にいます。間には{interveningPieces}。{candidateExchange}の後に飛車の線がどう変わるか確かめましょう。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "向かい飛車という名称だけで飛車同士が直通しているとする"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 112,
+        "strategyMetadata": "STRATEGIES[id=mukaibisha].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "向かい飛車",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-kakukoukan-furi",
+      "strategyId": "kakukoukan-furi",
+      "group": "角交換振り飛車",
+      "title": "自発的な角交換と打ち込みの隙",
+      "intent": "角交換の履歴と交換後の合法な角打ちを確認する",
+      "trigger": "角交換から振り飛車の駒組みへ進んだ時",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "どちらが交換を開始したかの棋譜履歴",
+        "双方の持角と候補打ちの合法性・斜線"
+      ],
+      "templateJa": "{exchangeInitiator}から角交換が始まり、今の持角は{bishopHands}です。{legalBishopDrop}の斜線には{dropLineFact}があります。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "中盤の持角だけで角交換振り飛車と認定する"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 122,
+        "strategyMetadata": "STRATEGIES[id=kakukoukan-furi].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "角交換振り飛車",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-ibisha",
+      "strategyId": "ibisha",
+      "group": "対振り飛車、対抗型",
+      "title": "戦法を決め打ちしない対振りの受け",
+      "intent": "居飛車側から振り飛車の現在の接点を確認する",
+      "trigger": "対振り飛車コースで相手が接点を作った時",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "相手飛車の実位置と局面までの経路",
+        "接点での合法な捕獲・取り返し候補"
+      ],
+      "templateJa": "相手の飛車は{opponentRookSquare}です。今の接点は{contactSquare}で、こちらの合法な応手候補に{legalReply}があります。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "一般居飛車の文脈から特定の急戦を断定する"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 135,
+        "strategyMetadata": "STRATEGIES[id=ibisha].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "対振り飛車、対抗型",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-yagura",
+      "strategyId": "yagura",
+      "group": "矢倉戦法",
+      "title": "矢倉の金銀三枚の分担",
+      "intent": "囲い名より各金銀の守備対象を説明する",
+      "trigger": "矢倉コースで囲いの金銀を移動した後",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "指定コースの矢倉構成駒と実際の配置",
+        "動いた金銀の移動前後の守備対象"
+      ],
+      "templateJa": "囲いの金銀は{castleGenerals}です。{lastMoveJa}で{defendedSquare}への利きは{beforeAfterDefense}に変わりました。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "三枚いるだけで堅さや完成を保証する"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 146,
+        "strategyMetadata": "STRATEGIES[id=yagura].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "矢倉戦法",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-kakugawari",
+      "strategyId": "kakugawari",
+      "group": "角換わり",
+      "title": "持角を残した銀の進路",
+      "intent": "角交換後の銀の進展と角打ちの隙を併記する",
+      "trigger": "角換わり文脈で銀を進める手の直後",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "角交換の履歴と双方の持角",
+        "銀の経路とその手で空いたマスへの合法な角打ち"
+      ],
+      "templateJa": "銀は{silverFrom}から{silverTo}へ進みました。空いた{vacatedSquare}を含む角打ち候補は{bishopDropFact}です。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "角交換だけで棒銀・早繰り銀・腰掛け銀のいずれかに決める"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 156,
+        "strategyMetadata": "STRATEGIES[id=kakugawari].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "角換わり",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-aigakari",
+      "strategyId": "aigakari",
+      "group": "相掛かり",
+      "title": "双方の飛車先交換の非対称",
+      "intent": "飛車先の交換状況を左右で別に確認する",
+      "trigger": "片側または双方の飛車先の歩交換後",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "両側の飛車先交換の棋譜履歴",
+        "交換後の飛車位置と持歩の正確な枚数"
+      ],
+      "templateJa": "こちらの飛車先は{ourExchangeState}、相手側は{theirExchangeState}です。持歩は{pawnHands}で、次の歩打ちは{legalPawnDropFact}です。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "片側の交換だけで双方が交換済みとする"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 166,
+        "strategyMetadata": "STRATEGIES[id=aigakari].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "相掛かり",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-yokofudori",
+      "strategyId": "yokofudori",
+      "group": "横歩取り",
+      "title": "横歩を取った飛車の帰路",
+      "intent": "横歩取得と飛車の合法な退路を分離する",
+      "trigger": "横歩取りの履歴が確定した直後",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "横歩取得手と取得した歩の座標",
+        "取得後の飛車に対する合法な攻撃手・退路"
+      ],
+      "templateJa": "{sidePawnCaptureJa}で歩を取りました。飛車の今の退路は{legalRookRetreats}。相手の{legalThreatMove}も確認しましょう。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "一歩得をそのまま形勢の優位とする"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 175,
+        "strategyMetadata": "STRATEGIES[id=yokofudori].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "横歩取り",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-yoko-85hi",
+      "strategyId": "yoko-85hi",
+      "group": "横歩取り",
+      "title": "８五飛型の横利きの境界",
+      "intent": "認識済み８五飛型で横利きの遮断を数える",
+      "trigger": "コースに対応する飛車引きと横の駒配置変化後",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "コース側を確定した飛車位置と座標変換",
+        "飛車の横利きの到達先と途中の遮断駒"
+      ],
+      "templateJa": "飛車を{rookRetreatSquare}へ引いた後、横利きは{rookLateralControl}までです。{blockerSquare}の{blockerPiece}を越えては利きません。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "飛車位置だけで五筋・七筋を常に支配するとする"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 176,
+        "strategyMetadata": "STRATEGIES[id=yoko-85hi].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "横歩取り",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-yoko-45kaku",
+      "strategyId": "yoko-45kaku",
+      "group": "横歩取り",
+      "title": "角打ちの二つの狙いの成立条件",
+      "intent": "角の斜線が飛車ともう一つの標的へ届くか別々に調べる",
+      "trigger": "認識済み横歩取りの角打ち候補を扱う時",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "角が持駒にあり打ちが合法",
+        "両標的までの遮断と相手の合法な受け"
+      ],
+      "templateJa": "{bishopDropJa}の斜線は{targetOneFact}、もう一方は{targetTwoFact}です。両方を狙えるかと、{legalDefense}で受かるかを分けて読みましょう。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "角を打つだけで両取り成功・必勝とする"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 177,
+        "strategyMetadata": "STRATEGIES[id=yoko-45kaku].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "横歩取り",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-ittezon",
+      "strategyId": "ittezon",
+      "group": "角換わり",
+      "title": "角交換を選んだ側と手数",
+      "intent": "交換主体と実際の進行を棋譜から確認する",
+      "trigger": "一手損角換わりの交換直後または振り返り時",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "後手側が角交換した棋譜履歴",
+        "比較基準コースの手順と実際の配置差"
+      ],
+      "templateJa": "角交換を選んだのは{exchangeInitiator}です。基準手順との違いは{verifiedMoveOrderDifference}で、今の配置差は{positionDifference}です。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "名称だけから任意の現局面で一手丸ごと損と数える"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 178,
+        "strategyMetadata": "STRATEGIES[id=ittezon].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "角換わり",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-kyusen-yagura",
+      "strategyId": "kyusen-yagura",
+      "group": "矢倉戦法",
+      "title": "囲い完成前の中央接触",
+      "intent": "急戦の進出と双方の未整備箇所を確認する",
+      "trigger": "矢倉完成前に中央の歩または銀が接触した時",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "コース段階と双方の玉・金銀配置",
+        "中央接点の合法な捕獲と反撃候補"
+      ],
+      "templateJa": "中央では{centralContactFact}が起きています。玉側には{kingDefenseFact}があるため、{legalCountermove}も先に確かめましょう。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "囲い完成前なら攻める側が常に得とする"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 179,
+        "strategyMetadata": "STRATEGIES[id=kyusen-yagura].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "矢倉戦法",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-gangi",
+      "strategyId": "gangi",
+      "group": "矢倉戦法",
+      "title": "二枚銀の並びと交換地点",
+      "intent": "雁木の二枚銀が交換地点にどう関わるか説明する",
+      "trigger": "認識済み雁木で銀や中央の歩を動かした後",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "二枚の銀の現在位置",
+        "交換地点への各銀の合法な取り返しと飛車の関与"
+      ],
+      "templateJa": "銀は{silverOneSquare}と{silverTwoSquare}に並んでいます。{exchangeSquare}への取り返しは{silverRecaptureFact}、飛車の関与は{rookLineFact}です。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "二枚銀が並べばすべての交換を取り返せるとする"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 180,
+        "strategyMetadata": "STRATEGIES[id=gangi].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "矢倉戦法",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-bougin",
+      "strategyId": "bougin",
+      "group": "joseki-core",
+      "title": "前進した銀と飛車の通路",
+      "intent": "直進する銀が攻撃と遮断の両方を作る点を確認する",
+      "trigger": "棒銀の前進で飛車先または端に接点ができた時",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "銀の実際の直進経路と到着位置",
+        "銀の前後で変わる飛車の縦利きと合法な撤退先"
+      ],
+      "templateJa": "銀は{silverRoute}と前進しました。今の{rookFile}筋の飛車道は{rookBlockerFact}。銀の退路は{legalSilverRetreats}です。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "銀の前進を無条件に突破や駒得と評価する"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 182,
+        "strategyMetadata": "STRATEGIES[id=bougin].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "joseki-core",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-hayakurigin",
+      "strategyId": "hayakurigin",
+      "group": "角換わり",
+      "title": "斜めに出る銀と歩交換",
+      "intent": "斜めに進む銀が歩交換に参加できるか確認する",
+      "trigger": "認識済み早繰り銀で銀が斜めに進出する前後",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "銀の斜めの経路が棋譜から確認できる",
+        "歩交換候補とその後の合法な銀の取り返し"
+      ],
+      "templateJa": "銀は{diagonalSilverRoute}と斜めに出ています。{pawnExchangeJa}の後、銀で取り返せるかは{legalSilverRecaptureFact}です。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "銀交換できれば局面を問わず成功とする"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 194,
+        "strategyMetadata": "STRATEGIES[id=hayakurigin].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "角換わり",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-koshikakegin",
+      "strategyId": "koshikakegin",
+      "group": "角換わり",
+      "title": "中央に据えた銀の後ろの支え",
+      "intent": "中央銀と後方の歩の関係を確認する",
+      "trigger": "認識済み腰掛け銀で銀を中央に据えた時",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "手番に合わせた中央銀の実座標",
+        "後方の歩の位置と銀の移動前後の支え"
+      ],
+      "templateJa": "銀は{centralSilverSquare}に据わりました。後方の歩は{supportingPawnSquare}で、銀への支えは{verifiedSupportFact}です。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "中央の銀を見ただけで腰掛け銀と認定する"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 195,
+        "strategyMetadata": "STRATEGIES[id=koshikakegin].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "角換わり",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-migishiken",
+      "strategyId": "migishiken",
+      "group": "joseki-core",
+      "title": "自分の右四筋への集中",
+      "intent": "振り飛車と混同せず右四間の飛車銀連携を確認する",
+      "trigger": "右四間コースで飛車と銀が攻め筋に集まった時",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "自分側の右四筋と絶対座標の対応",
+        "同筋への飛車・銀の実際の利きと歩の接点"
+      ],
+      "templateJa": "自分から見た右四筋は{absoluteFile}筋です。飛車は{rookSquare}、銀は{silverSquare}で、接点{contactSquare}への利きは{supportCountFact}です。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "右四間を振り飛車に分類する"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 197,
+        "strategyMetadata": "STRATEGIES[id=migishiken].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "joseki-core",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-funa-kyusen",
+      "strategyId": "funa-kyusen",
+      "group": "joseki-core",
+      "title": "軽い囲いからの攻めの継続",
+      "intent": "攻めを急ぐ時の自玉と次の接点を同時に確認する",
+      "trigger": "舟囲い急戦コースで最初の仕掛けまたは攻めが一段落した時",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "自玉と囲いの実配置",
+        "攻めを続ける合法手と相手の王手候補"
+      ],
+      "templateJa": "攻めの次の候補は{legalContinuation}です。一方、こちらの玉には{opponentCheckFact}があるので、続行前に両方を確かめましょう。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "囲いが軽いだけで必ず攻め続けるべきとする"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 207,
+        "strategyMetadata": "STRATEGIES[id=funa-kyusen].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "joseki-core",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-hayashikake45",
+      "strategyId": "hayashikake45",
+      "group": "joseki-core",
+      "title": "四筋の突き捨てと他の準備",
+      "intent": "四筋の歩交換と桂・飛車先の準備を別々に数える",
+      "trigger": "４五歩早仕掛けコースで四筋を突く前後",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "手番に対応した四筋の突き捨て手",
+        "桂の実位置と飛車先の歩交換状況"
+      ],
+      "templateJa": "{fourFilePawnMoveJa}で四筋に接点ができました。桂の準備は{knightPreparationFact}、飛車先は{rookPawnPreparationFact}です。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "四筋を突くだけで一連の仕掛けが成立するとする"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 217,
+        "strategyMetadata": "STRATEGIES[id=hayashikake45].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "joseki-core",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-saginomiya",
+      "strategyId": "saginomiya",
+      "group": "joseki-core",
+      "title": "飛車の寄りと角頭の歩",
+      "intent": "飛車移動と角頭への歩の接触を連動させて確認する",
+      "trigger": "鷺宮定跡コースで飛車の寄りまたは角頭への歩突き後",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "コース側に対応する飛車の移動経路",
+        "相手角の頭と対象歩・飛車の実際の利き"
+      ],
+      "templateJa": "飛車は{rookTransferRoute}と寄りました。角頭の{bishopHeadSquare}へは{pawnContactFact}があり、飛車の支えは{rookSupportFact}です。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "飛車を寄るだけで角頭を破れるとする"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 227,
+        "strategyMetadata": "STRATEGIES[id=saginomiya].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "joseki-core",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-yamada",
+      "strategyId": "yamada",
+      "group": "joseki-core",
+      "title": "相手銀の待ち方の識別",
+      "intent": "山田定跡の対象となる相手銀配置を確認する",
+      "trigger": "山田定跡コースで二筋の仕掛けを選ぶ前",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "相手銀がコース対象の待機型かの位置照合",
+        "攻め側の左銀経路と二筋の合法な仕掛け"
+      ],
+      "templateJa": "相手の銀は{opponentSilverSquare}で、対象コースとの一致は{setupMatchFact}です。左銀は{leftSilverSquare}におり、二筋の候補は{legalSecondFileBreak}です。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "３二銀型と４三銀型へ同じ手順を無条件適用する"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 237,
+        "strategyMetadata": "STRATEGIES[id=yamada].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "joseki-core",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-naname",
+      "strategyId": "naname",
+      "group": "joseki-core",
+      "title": "左銀の斜め進出と角頭",
+      "intent": "左銀を使う急戦と右銀の棒銀を区別する",
+      "trigger": "斜め棒銀コースで左銀が攻めに参加した時",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "初期位置から同一銀を追跡した棋譜履歴",
+        "角頭への銀・歩の合法な参加手"
+      ],
+      "templateJa": "左銀は{leftSilverRoute}と進みました。角頭{bishopHeadSquare}への参加手は{legalSilverOrPawnMove}で、相手には{legalDefense}があります。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "前線の銀を見ただけで右銀の棒銀と同一視する"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 246,
+        "strategyMetadata": "STRATEGIES[id=naname].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "joseki-core",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-hayashikake35",
+      "strategyId": "hayashikake35",
+      "group": "joseki-core",
+      "title": "三筋の歩突き捨て後の銀",
+      "intent": "三筋の歩交換と後続銀の進路を確認する",
+      "trigger": "三間飛車への３五歩早仕掛けコースで歩を突き捨てた時",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "対象筋の歩の交換と持歩増減",
+        "後続銀の到達可能地点と角交換の合法性"
+      ],
+      "templateJa": "{thirdFilePawnSacrificeJa}の後、持歩は{pawnHands}です。銀は{legalSilverAdvance}へ進めますが、角交換の可否は{bishopExchangeFact}です。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "歩を渡せば必ず銀が進出できるとする"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 247,
+        "strategyMetadata": "STRATEGIES[id=hayashikake35].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "joseki-core",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-kei37",
+      "strategyId": "kei37",
+      "group": "joseki-core",
+      "title": "桂の跳躍と角交換の準備",
+      "intent": "桂の位置と四筋の歩で角道が変わる条件を確認する",
+      "trigger": "３七桂早仕掛けコースで桂を跳ねる手または四筋の歩突き後",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "右桂の出発・到着地点",
+        "四筋の歩を動かす前後の角道と合法な角交換"
+      ],
+      "templateJa": "桂は{knightSquare}へ跳ねました。{fourFilePawnMoveJa}を指すと角道は{bishopLineChangeFact}となり、交換候補は{legalBishopExchangeFact}です。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "桂が跳ねただけで角交換と突破を保証する"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 248,
+        "strategyMetadata": "STRATEGIES[id=kei37].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "joseki-core",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-ponponkei",
+      "strategyId": "ponponkei",
+      "group": "joseki-core",
+      "title": "早跳ね桂の着地点と支え",
+      "intent": "早く前進する桂の支えと相手歩の捕獲を確認する",
+      "trigger": "ポンポン桂コースで桂の連続跳躍を検討する時",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "同じ桂の連続移動履歴",
+        "着地点の守備と相手の合法な桂取り"
+      ],
+      "templateJa": "桂の次の着地点候補は{legalKnightLanding}です。支えは{landingSupportFact}、相手の桂取りは{legalKnightCaptureFact}です。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "桂を早く跳ねれば攻めが必ずつながるとする"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 249,
+        "strategyMetadata": "STRATEGIES[id=ponponkei].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "joseki-core",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-chousoku",
+      "strategyId": "chousoku",
+      "group": "joseki-core",
+      "title": "二枚銀と中央歩への利き",
+      "intent": "対ゴキゲンの銀進出を中央歩との関係で説明する",
+      "trigger": "超速コースで右銀または左銀が中央へ進んだ後",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "対ゴキゲン文脈と二枚の銀の現在位置",
+        "中央の歩への各銀・角の利きと遮断"
+      ],
+      "templateJa": "銀は{rightSilverSquare}と{leftSilverSquare}です。中央の{centralPawnSquare}へは{silverBishopControlFact}があり、途中の遮断は{blockerFact}です。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "二枚銀と角が常に同じ歩へ利いているとする"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 250,
+        "strategyMetadata": "STRATEGIES[id=chousoku].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "joseki-core",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-maruyama",
+      "strategyId": "maruyama",
+      "group": "joseki-core",
+      "title": "中央飛車への早い角交換",
+      "intent": "相手の飛車移動直後に選んだ角交換の順序を説明する",
+      "trigger": "丸山ワクチンコースで角交換を選んだ直後",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "相手中央飛車移動から交換までの棋譜順序",
+        "交換後の中央歩・銀の利きと持角"
+      ],
+      "templateJa": "{opponentRookMoveJa}の後に{bishopExchangeJa}と交換しました。今の中央は{centralPawnSilverFact}、双方の持角は{bishopHands}です。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "早い角交換だけで中飛車の狙いをすべて消したとする"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 251,
+        "strategyMetadata": "STRATEGIES[id=maruyama].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "joseki-core",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-torisashi",
+      "strategyId": "torisashi",
+      "group": "奇襲戦法",
+      "title": "端側から運ぶ左銀",
+      "intent": "端側経由の左銀を追跡し受けの銀配置と照合する",
+      "trigger": "鳥刺し・嬉野流コースで左銀が端側経路を進む時",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "同じ左銀の初期位置からの移動履歴",
+        "相手受け銀の位置と合法な接点"
+      ],
+      "templateJa": "左銀は端側を通る{leftSilverEdgeRoute}に進んでいます。相手の受け銀は{defendingSilverSquare}で、今の接点は{contactFact}です。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "変則的な銀の経路なら必ず奇襲成功とする"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 252,
+        "strategyMetadata": "STRATEGIES[id=torisashi].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "奇襲戦法",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-sujichigai",
+      "strategyId": "sujichigai",
+      "group": "奇襲戦法",
+      "title": "早打ち角の歩取りと手数",
+      "intent": "角打ち後の歩取得と角の活動範囲を別々に確認する",
+      "trigger": "筋違い角の交換・角打ち履歴が確認された後",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "角交換と早い角打ちの棋譜履歴",
+        "実際の歩取得・角の合法な移動先・比較手順"
+      ],
+      "templateJa": "{earlyBishopDropJa}の角が得た歩は{verifiedPawnCaptureFact}です。今の角の移動先は{legalBishopMoves}で、手順比較では{verifiedTempoDifference}があります。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "歩を狙っただけで取得済みや一歩得とする"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 253,
+        "strategyMetadata": "STRATEGIES[id=sujichigai].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "奇襲戦法",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-ibisha-anaguma",
+      "strategyId": "ibisha-anaguma",
+      "group": "joseki-core",
+      "title": "隅玉の構成駒と出口",
+      "intent": "穴熊の名称から堅さを断定せず現存守備と合法な玉の出口を確認する",
+      "trigger": "居飛車穴熊コースで入城または囲いの金銀を動かした時",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "玉・香・銀・金の現在位置",
+        "玉の合法な移動先と各守備駒の実際の利き"
+      ],
+      "templateJa": "玉は{kingSquare}、囲いの駒は{castlePieces}です。玉の合法な出口は{legalKingMoves}で、{keySquare}の守りは{defenseFact}です。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "穴熊なら駒損しても攻め続けられるとする"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 255,
+        "strategyMetadata": "STRATEGIES[id=ibisha-anaguma].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "joseki-core",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-hidarimino",
+      "strategyId": "hidarimino",
+      "group": "joseki-core",
+      "title": "左美濃の玉位置と横からの接点",
+      "intent": "基本形と天守閣型を混同せず側面の実際の守備を確認する",
+      "trigger": "左美濃コースで玉の位置や側面の金銀が変わった時",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "玉の実位置とコース内の型の照合",
+        "側面への合法な攻撃手と取り返し"
+      ],
+      "templateJa": "玉は{kingSquare}で、コース上の型は{validatedCastleVariant}です。横からの{legalSideAttack}に対する応手は{legalDefenseFact}です。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "左美濃・天守閣美濃なら横攻めに常に強いとする"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 265,
+        "strategyMetadata": "STRATEGIES[id=hidarimino].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "joseki-core",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    },
+    {
+      "id": "strategy-millennium",
+      "strategyId": "millennium",
+      "group": "joseki-core",
+      "title": "角の斜線から外れた玉の実態",
+      "intent": "玉位置と相手角の具体的な斜線を照合する",
+      "trigger": "ミレニアムコースで入城した時または相手角が動いた後",
+      "requires": [
+        "courseContext.strategyId一致、または棋譜を含む検証済み戦法認識。中盤SFEN単体による認定は禁止",
+        "現在のSFEN・手番・直前手を同じ局面キーで固定し、全スロットを検証済み事実から埋める",
+        "座標は実際の先後・観測側に変換する。駒の左右は初期位置から追跡し、駒名だけで推測しない",
+        "玉の実位置と相手角の実位置",
+        "両地点間の斜線・遮断駒・合法な王手候補"
+      ],
+      "templateJa": "玉は{kingSquare}、相手の角は{enemyBishopSquare}です。現在の斜線は{actualDiagonalFact}で、合法な王手候補は{legalCheckFact}です。",
+      "forbiddenClaims": [
+        "戦法名や説明メタデータを現局面の優勢・安全・最善の証明に使う",
+        "短いPVまたは幾何学的な利きだけで必勝・詰み・安全な駒取りを断言する",
+        "必要な事実が欠けたスロットを架空の座標・手順・数量で補完する",
+        "８九玉ならすべての角の攻撃を受けないとする"
+      ],
+      "sampleIds": [],
+      "status": "template-only; strategy-context samples not yet verified",
+      "source": {
+        "file": "src/data/strategies.ts",
+        "line": 275,
+        "strategyMetadata": "STRATEGIES[id=millennium].about; focus only, not positional proof"
+      },
+      "basePatternGroup": "joseki-core",
+      "category": "joseki",
+      "layer": "strategy-overlay",
+      "coverage": {
+        "mechanismSampleIds": [],
+        "namedStrategyRecognitionVerified": false,
+        "runtimeBindingVerified": false
+      }
+    }
+  ]
+}

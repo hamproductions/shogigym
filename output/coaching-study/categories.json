@@ -1,0 +1,2841 @@
+{
+  "scope": "Current app learning taxonomy; metadata inventory only. No lesson semantic audit or engine coverage implied.",
+  "sources": [
+    {
+      "file": "src/app/modes/lesson/library.ts",
+      "lines": "1-71",
+      "evidence": "Category definitions6-17; path mapping20-32; strategy mapping35-59; category/group rules61-71"
+    },
+    {
+      "file": "src/utils/catalog.ts",
+      "lines": "1-168",
+      "evidence": "Matchup setups120-134; technique setups135-151; lesson setups152-166"
+    },
+    {
+      "file": "src/app/modes/lesson/OpeningPicker.tsx",
+      "lines": "1-465",
+      "evidence": "Fixed headings24-27; selector grouped by wing286-321; joseki routing353-362; fixed-group rendering418-443"
+    },
+    {
+      "file": "src/data/strategies.ts",
+      "lines": "1-559",
+      "evidence": "Families33-45; strategies47-284; matchups296-387; techniques389-412; mainStrategies559"
+    },
+    {
+      "file": "src/utils/model.ts",
+      "lines": "1-157",
+      "evidence": "Runtime raw/lesson loading62-65,113-134. Existing raw-course content not inspected in this metadata task."
+    }
+  ],
+  "metadataRead": {
+    "directory": "data/lessons/units",
+    "files": 150,
+    "maxBytes": 22661,
+    "selectedFields": ["id", "title", "path"],
+    "positionAndExplanationContentNotAudited": true
+  },
+  "totals": {
+    "topCategories": 3,
+    "sourceUnits": 150,
+    "liveSourceUnitGroups": 21,
+    "configuredEmptyGroups": [
+      {
+        "category": "skills",
+        "name": "将棋の格言"
+      },
+      {
+        "category": "skills",
+        "name": "勉強法"
+      },
+      {
+        "category": "skills",
+        "name": "棋書"
+      }
+    ],
+    "strategySelectorEntries": 37,
+    "techniqueSetups": 2
+  },
+  "categories": [
+    {
+      "id": "basics",
+      "name": {
+        "ja": "はじめての将棋",
+        "en": "First steps"
+      },
+      "about": {
+        "ja": "駒の動かし方とルール、入門講座",
+        "en": "How the pieces move, the rules, beginner lessons"
+      },
+      "sourceUnitCount": 19,
+      "sourceUnitIds": [
+        "basics-attack-defense",
+        "basics-bishop-trade",
+        "basics-endgame",
+        "basics-forks",
+        "basics-mate-words",
+        "basics-middlegame",
+        "basics-opening",
+        "basics-plan",
+        "basics-value",
+        "judgment-four-factors",
+        "rules-checkmate",
+        "rules-draws",
+        "rules-drops",
+        "rules-fouls",
+        "rules-game",
+        "rules-moves",
+        "rules-promotion",
+        "rules-setup",
+        "rules-tsume"
+      ],
+      "groups": [
+        {
+          "name": "将棋のルール",
+          "sourceUnitCount": 9,
+          "sourceUnitIds": [
+            "rules-checkmate",
+            "rules-draws",
+            "rules-drops",
+            "rules-fouls",
+            "rules-game",
+            "rules-moves",
+            "rules-promotion",
+            "rules-setup",
+            "rules-tsume"
+          ],
+          "sourceUnits": [
+            {
+              "id": "rules-checkmate",
+              "title": {
+                "ja": "王手と詰み、勝ち負け",
+                "en": "Check, checkmate and how games end"
+              },
+              "path": ["はじめての将棋", "ルール"],
+              "source": "data/lessons/units/rules-checkmate.json"
+            },
+            {
+              "id": "rules-draws",
+              "title": {
+                "ja": "千日手と持将棋（入玉）",
+                "en": "Repetition and the impasse (entering king)"
+              },
+              "path": ["はじめての将棋", "ルール"],
+              "source": "data/lessons/units/rules-draws.json"
+            },
+            {
+              "id": "rules-drops",
+              "title": {
+                "ja": "持ち駒を盤上で生かす",
+                "en": "Put pieces in hand to work on the board"
+              },
+              "path": ["はじめての将棋", "ルール"],
+              "source": "data/lessons/units/rules-drops.json"
+            },
+            {
+              "id": "rules-fouls",
+              "title": {
+                "ja": "反則",
+                "en": "Fouls"
+              },
+              "path": ["はじめての将棋", "ルール"],
+              "source": "data/lessons/units/rules-fouls.json"
+            },
+            {
+              "id": "rules-game",
+              "title": {
+                "ja": "将棋の目的と対局の流れ",
+                "en": "The goal of shogi and how a game unfolds"
+              },
+              "path": ["はじめての将棋", "ルール"],
+              "source": "data/lessons/units/rules-game.json"
+            },
+            {
+              "id": "rules-moves",
+              "title": {
+                "ja": "駒の動きを地図でつかむ",
+                "en": "Map the movement patterns of shogi pieces"
+              },
+              "path": ["はじめての将棋", "ルール"],
+              "source": "data/lessons/units/rules-moves.json"
+            },
+            {
+              "id": "rules-promotion",
+              "title": {
+                "ja": "成る手を選ぶタイミング",
+                "en": "When a move can promote"
+              },
+              "path": ["はじめての将棋", "ルール"],
+              "source": "data/lessons/units/rules-promotion.json"
+            },
+            {
+              "id": "rules-setup",
+              "title": {
+                "ja": "駒の並べ方・先手後手の決め方・持ち時間・マナー",
+                "en": "Setting up, choosing colours, clocks and etiquette"
+              },
+              "path": ["はじめての将棋", "ルール"],
+              "source": "data/lessons/units/rules-setup.json"
+            },
+            {
+              "id": "rules-tsume",
+              "title": {
+                "ja": "詰将棋のルール",
+                "en": "Rules of Tsume Shogi"
+              },
+              "path": ["はじめての将棋", "ルール"],
+              "source": "data/lessons/units/rules-tsume.json"
+            }
+          ],
+          "liveSourceUnitGroup": true,
+          "configuredDisplayGroup": true,
+          "presentation": "fixed-category-heading-when-nonempty",
+          "strategySelectorIds": [],
+          "techniqueSetupIds": []
+        },
+        {
+          "name": "初心者向け入門講座",
+          "sourceUnitCount": 10,
+          "sourceUnitIds": [
+            "basics-attack-defense",
+            "basics-bishop-trade",
+            "basics-endgame",
+            "basics-forks",
+            "basics-mate-words",
+            "basics-middlegame",
+            "basics-opening",
+            "basics-plan",
+            "basics-value",
+            "judgment-four-factors"
+          ],
+          "sourceUnits": [
+            {
+              "id": "basics-attack-defense",
+              "title": {
+                "ja": "攻めと受けの読み方",
+                "en": "Reading Attacks and Defences"
+              },
+              "path": ["はじめての将棋", "基本の考え方"],
+              "source": "data/lessons/units/basics-attack-defense.json"
+            },
+            {
+              "id": "basics-bishop-trade",
+              "title": {
+                "ja": "角を交換した後の斜線を読む",
+                "en": "Read the Diagonals After a Bishop Exchange"
+              },
+              "path": ["はじめての将棋", "基本の考え方"],
+              "source": "data/lessons/units/basics-bishop-trade.json"
+            },
+            {
+              "id": "basics-endgame",
+              "title": {
+                "ja": "玉の逃げ道を読んで勝ちを決める",
+                "en": "Read the King’s Escapes to Finish the Game"
+              },
+              "path": ["はじめての将棋", "基本の考え方"],
+              "source": "data/lessons/units/basics-endgame.json"
+            },
+            {
+              "id": "basics-forks",
+              "title": {
+                "ja": "両取りを一手先まで読む",
+                "en": "Read a Double Attack One Reply Further"
+              },
+              "path": ["はじめての将棋", "基本の考え方"],
+              "source": "data/lessons/units/basics-forks.json"
+            },
+            {
+              "id": "basics-mate-words",
+              "title": {
+                "ja": "王手から詰みまで",
+                "en": "From Check to Checkmate"
+              },
+              "path": ["はじめての将棋", "基本の考え方"],
+              "source": "data/lessons/units/basics-mate-words.json"
+            },
+            {
+              "id": "basics-middlegame",
+              "title": {
+                "ja": "ぶつかった駒から次の形を読む",
+                "en": "Read What Comes After the Pieces Meet"
+              },
+              "path": ["はじめての将棋", "基本の考え方"],
+              "source": "data/lessons/units/basics-middlegame.json"
+            },
+            {
+              "id": "basics-opening",
+              "title": {
+                "ja": "駒を働かせて玉を守る",
+                "en": "Develop Pieces While Securing the King"
+              },
+              "path": ["はじめての将棋", "基本の考え方"],
+              "source": "data/lessons/units/basics-opening.json"
+            },
+            {
+              "id": "basics-plan",
+              "title": {
+                "ja": "局面に合わせて方針を変える",
+                "en": "Adapt Your Plan to the Position"
+              },
+              "path": ["はじめての将棋", "基本の考え方"],
+              "source": "data/lessons/units/basics-plan.json"
+            },
+            {
+              "id": "basics-value",
+              "title": {
+                "ja": "駒の価値と駒得",
+                "en": "Piece Value and Material Gain"
+              },
+              "path": ["はじめての将棋", "基本の考え方"],
+              "source": "data/lessons/units/basics-value.json"
+            },
+            {
+              "id": "judgment-four-factors",
+              "title": {
+                "ja": "形勢判断：四つの観点から候補手を比べる",
+                "en": "Assess positions using four factors"
+              },
+              "path": ["はじめての将棋", "基本の考え方"],
+              "source": "data/lessons/units/judgment-four-factors.json"
+            }
+          ],
+          "liveSourceUnitGroup": true,
+          "configuredDisplayGroup": true,
+          "presentation": "fixed-category-heading-when-nonempty",
+          "strategySelectorIds": [],
+          "techniqueSetupIds": []
+        }
+      ]
+    },
+    {
+      "id": "skills",
+      "name": {
+        "ja": "上達のためのテクニック",
+        "en": "Getting stronger"
+      },
+      "about": {
+        "ja": "手筋、囲い崩し、寄せ、囲い、勉強法",
+        "en": "Tactics, castle attacks, mating, castles, study"
+      },
+      "sourceUnitCount": 36,
+      "sourceUnitIds": [
+        "attack-anaguma",
+        "attack-edge",
+        "attack-funa",
+        "attack-kinmusou",
+        "attack-mino-aifuri",
+        "attack-mino-kobin",
+        "attack-mino-side",
+        "attack-yagura-head",
+        "attack-yagura-side",
+        "castles-aifuri",
+        "castles-anaguma",
+        "castles-first",
+        "castles-funa",
+        "castles-hidarimino",
+        "castles-mino",
+        "castles-nakazumai",
+        "castles-other",
+        "castles-yagura",
+        "endgame-defense",
+        "endgame-mate-tesuji",
+        "endgame-mate1",
+        "endgame-mate3",
+        "endgame-mate5",
+        "endgame-tsume-study",
+        "endgame-tsumero",
+        "endgame-yose",
+        "proverb-gold-last",
+        "proverb-three-pawns",
+        "tesuji-bishop",
+        "tesuji-gold",
+        "tesuji-knight",
+        "tesuji-lance",
+        "tesuji-pawn",
+        "tesuji-rook",
+        "tesuji-silver",
+        "yagura-build"
+      ],
+      "groups": [
+        {
+          "name": "手筋",
+          "sourceUnitCount": 9,
+          "sourceUnitIds": [
+            "proverb-gold-last",
+            "proverb-three-pawns",
+            "tesuji-bishop",
+            "tesuji-gold",
+            "tesuji-knight",
+            "tesuji-lance",
+            "tesuji-pawn",
+            "tesuji-rook",
+            "tesuji-silver"
+          ],
+          "sourceUnits": [
+            {
+              "id": "proverb-gold-last",
+              "title": {
+                "ja": "金を残す理由を逃げ道から読む",
+                "en": "Save the Gold for the Square It Covers"
+              },
+              "path": ["上達のためのテクニック", "手筋"],
+              "source": "data/lessons/units/proverb-gold-last.json"
+            },
+            {
+              "id": "proverb-three-pawns",
+              "title": {
+                "ja": "三枚の歩を一枚ずつ判断する",
+                "en": "Make Each of Three Pawns Count"
+              },
+              "path": ["上達のためのテクニック", "手筋"],
+              "source": "data/lessons/units/proverb-three-pawns.json"
+            },
+            {
+              "id": "tesuji-bishop",
+              "title": {
+                "ja": "角筋の先と手前を読む",
+                "en": "Read Both Ends of a Bishop's Line"
+              },
+              "path": ["上達のためのテクニック", "手筋"],
+              "source": "data/lessons/units/tesuji-bishop.json"
+            },
+            {
+              "id": "tesuji-gold",
+              "title": {
+                "ja": "金の横と後ろを使い切る",
+                "en": "Use the Gold's Sideways and Backward Steps"
+              },
+              "path": ["上達のためのテクニック", "手筋"],
+              "source": "data/lessons/units/tesuji-gold.json"
+            },
+            {
+              "id": "tesuji-knight",
+              "title": {
+                "ja": "桂の着地点から次の一手を読む",
+                "en": "Read Beyond the Knight's Landing Square"
+              },
+              "path": ["上達のためのテクニック", "手筋"],
+              "source": "data/lessons/units/tesuji-knight.json"
+            },
+            {
+              "id": "tesuji-lance",
+              "title": {
+                "ja": "香の進路と成った後を読む",
+                "en": "Read the Lance's File and Its Promotion"
+              },
+              "path": ["上達のためのテクニック", "手筋"],
+              "source": "data/lessons/units/tesuji-lance.json"
+            },
+            {
+              "id": "tesuji-pawn",
+              "title": {
+                "ja": "歩一枚で相手の応手を変える",
+                "en": "Change the Reply with a Pawn"
+              },
+              "path": ["上達のためのテクニック", "手筋"],
+              "source": "data/lessons/units/tesuji-pawn.json"
+            },
+            {
+              "id": "tesuji-rook",
+              "title": {
+                "ja": "飛車の縦筋を準備する",
+                "en": "Prepare a Rook's Open File"
+              },
+              "path": ["上達のためのテクニック", "手筋"],
+              "source": "data/lessons/units/tesuji-rook.json"
+            },
+            {
+              "id": "tesuji-silver",
+              "title": {
+                "ja": "銀の五方向を読み分ける",
+                "en": "Choose Among the Silver's Five Directions"
+              },
+              "path": ["上達のためのテクニック", "手筋"],
+              "source": "data/lessons/units/tesuji-silver.json"
+            }
+          ],
+          "liveSourceUnitGroup": true,
+          "configuredDisplayGroup": true,
+          "presentation": "fixed-category-heading-when-nonempty",
+          "strategySelectorIds": [],
+          "techniqueSetupIds": ["sabaki"]
+        },
+        {
+          "name": "囲い崩し",
+          "sourceUnitCount": 9,
+          "sourceUnitIds": [
+            "attack-anaguma",
+            "attack-edge",
+            "attack-funa",
+            "attack-kinmusou",
+            "attack-mino-aifuri",
+            "attack-mino-kobin",
+            "attack-mino-side",
+            "attack-yagura-head",
+            "attack-yagura-side"
+          ],
+          "sourceUnits": [
+            {
+              "id": "attack-anaguma",
+              "title": {
+                "ja": "穴熊の外側から守備の取り返しを数える",
+                "en": "Count Recaptures at the Outside of Anaguma"
+              },
+              "path": ["上達のためのテクニック", "囲い崩し"],
+              "source": "data/lessons/units/attack-anaguma.json"
+            },
+            {
+              "id": "attack-edge",
+              "title": {
+                "ja": "端攻め：歩の補充と後続の利きを読む",
+                "en": "Edge attacks: count pawns and follow-up support"
+              },
+              "path": ["上達のためのテクニック", "囲い崩し"],
+              "source": "data/lessons/units/attack-edge.json"
+            },
+            {
+              "id": "attack-funa",
+              "title": {
+                "ja": "舟囲いの外側の歩と金を狙う",
+                "en": "Attack the Outer Pawn and Gold of a Boat Castle"
+              },
+              "path": ["上達のためのテクニック", "囲い崩し"],
+              "source": "data/lessons/units/attack-funa.json"
+            },
+            {
+              "id": "attack-kinmusou",
+              "title": {
+                "ja": "金無双の二枚金を一手ずつ動かして数える",
+                "en": "Count Each Gold in a Kin Muso Attack"
+              },
+              "path": ["上達のためのテクニック", "囲い崩し"],
+              "source": "data/lessons/units/attack-kinmusou.json"
+            },
+            {
+              "id": "attack-mino-aifuri",
+              "title": {
+                "ja": "相振り飛車の美濃は前の筋と手番で攻める",
+                "en": "Attack Mino's Front Files and Timing in Double Ranging Rook"
+              },
+              "path": ["上達のためのテクニック", "囲い崩し"],
+              "source": "data/lessons/units/attack-mino-aifuri.json"
+            },
+            {
+              "id": "attack-mino-kobin",
+              "title": {
+                "ja": "美濃のコビンは斜めの利きと逃げ道で読む",
+                "en": "Read Mino's Diagonal with Pins and King Exits"
+              },
+              "path": ["上達のためのテクニック", "囲い崩し"],
+              "source": "data/lessons/units/attack-mino-kobin.json"
+            },
+            {
+              "id": "attack-mino-side",
+              "title": {
+                "ja": "美濃を横から攻めるときは取り返しを数える",
+                "en": "Count Recaptures in a Side Attack on Mino"
+              },
+              "path": ["上達のためのテクニック", "囲い崩し"],
+              "source": "data/lessons/units/attack-mino-side.json"
+            },
+            {
+              "id": "attack-yagura-head",
+              "title": {
+                "ja": "矢倉の玉頭と端を攻める前に守備駒を数える",
+                "en": "Count the Defenders Before Pressing a Yagura Head or Edge"
+              },
+              "path": ["上達のためのテクニック", "囲い崩し"],
+              "source": "data/lessons/units/attack-yagura-head.json"
+            },
+            {
+              "id": "attack-yagura-side",
+              "title": {
+                "ja": "矢倉の横攻めは金の支えを一枚ずつ数える",
+                "en": "Count Each Defender in a Lateral Yagura Attack"
+              },
+              "path": ["上達のためのテクニック", "囲い崩し"],
+              "source": "data/lessons/units/attack-yagura-side.json"
+            }
+          ],
+          "liveSourceUnitGroup": true,
+          "configuredDisplayGroup": true,
+          "presentation": "fixed-category-heading-when-nonempty",
+          "strategySelectorIds": [],
+          "techniqueSetupIds": ["kuzushi"]
+        },
+        {
+          "name": "詰将棋、必至、寄せ",
+          "sourceUnitCount": 8,
+          "sourceUnitIds": [
+            "endgame-defense",
+            "endgame-mate-tesuji",
+            "endgame-mate1",
+            "endgame-mate3",
+            "endgame-mate5",
+            "endgame-tsume-study",
+            "endgame-tsumero",
+            "endgame-yose"
+          ],
+          "sourceUnits": [
+            {
+              "id": "endgame-defense",
+              "title": {
+                "ja": "受けの手筋：遮る・逃がす・追い返す",
+                "en": "Defense: block, escape, and counterattack"
+              },
+              "path": ["上達のためのテクニック", "終盤"],
+              "source": "data/lessons/units/endgame-defense.json"
+            },
+            {
+              "id": "endgame-mate-tesuji",
+              "title": {
+                "ja": "寄せの手筋：王手の後に変わる利きを読む",
+                "en": "Finishing Tactics: Read What Each Check Changes"
+              },
+              "path": ["上達のためのテクニック", "終盤"],
+              "source": "data/lessons/units/endgame-mate-tesuji.json"
+            },
+            {
+              "id": "endgame-mate1",
+              "title": {
+                "ja": "十四局面で確かめる一手詰",
+                "en": "Fourteen Original One-Move Mates"
+              },
+              "path": ["上達のためのテクニック", "終盤"],
+              "source": "data/lessons/units/endgame-mate1.json"
+            },
+            {
+              "id": "endgame-mate3",
+              "title": {
+                "ja": "三手の詰み：初手の王手で最後の一手を用意する",
+                "en": "Three-Move Mates: Make the First Check Prepare the Last"
+              },
+              "path": ["上達のためのテクニック", "終盤"],
+              "source": "data/lessons/units/endgame-mate3.json"
+            },
+            {
+              "id": "endgame-mate5",
+              "title": {
+                "ja": "五手の詰み：最初の応手から枝分かれを読む",
+                "en": "Five-move mates: read every defensive branch"
+              },
+              "path": ["上達のためのテクニック", "終盤"],
+              "source": "data/lessons/units/endgame-mate5.json"
+            },
+            {
+              "id": "endgame-tsume-study",
+              "title": {
+                "ja": "詰みの練習：候補手、応手、局面を記録する",
+                "en": "Study Mate by Tracking Candidates, Replies, and Board State"
+              },
+              "path": ["上達のためのテクニック", "終盤"],
+              "source": "data/lessons/units/endgame-tsume-study.json"
+            },
+            {
+              "id": "endgame-tsumero",
+              "title": {
+                "ja": "王手と詰めろを分け、必至は受けまで調べる",
+                "en": "Separate Checks from Mate Threats, Then Test the Defenses"
+              },
+              "path": ["上達のためのテクニック", "終盤"],
+              "source": "data/lessons/units/endgame-tsumero.json"
+            },
+            {
+              "id": "endgame-yose",
+              "title": {
+                "ja": "寄せは王手・逃げ道・自玉を一緒に読む",
+                "en": "Read Checks, Exits, and Your Own King in the Endgame"
+              },
+              "path": ["上達のためのテクニック", "終盤"],
+              "source": "data/lessons/units/endgame-yose.json"
+            }
+          ],
+          "liveSourceUnitGroup": true,
+          "configuredDisplayGroup": true,
+          "presentation": "fixed-category-heading-when-nonempty",
+          "strategySelectorIds": [],
+          "techniqueSetupIds": []
+        },
+        {
+          "name": "囲い、駒組み",
+          "sourceUnitCount": 10,
+          "sourceUnitIds": [
+            "castles-aifuri",
+            "castles-anaguma",
+            "castles-first",
+            "castles-funa",
+            "castles-hidarimino",
+            "castles-mino",
+            "castles-nakazumai",
+            "castles-other",
+            "castles-yagura",
+            "yagura-build"
+          ],
+          "sourceUnits": [
+            {
+              "id": "castles-aifuri",
+              "title": {
+                "ja": "相振り飛車の囲いは前と横を別に見る",
+                "en": "Judge Front and Side Pressure Separately in Double Ranging Rook"
+              },
+              "path": ["上達のためのテクニック", "囲い"],
+              "source": "data/lessons/units/castles-aifuri.json"
+            },
+            {
+              "id": "castles-anaguma",
+              "title": {
+                "ja": "穴熊は蓋と支えの数で読む",
+                "en": "Read an Anaguma by Its Cap and Supports"
+              },
+              "path": ["上達のためのテクニック", "囲い"],
+              "source": "data/lessons/units/castles-anaguma.json"
+            },
+            {
+              "id": "castles-first",
+              "title": {
+                "ja": "囲いを選ぶ前に見る三つの線",
+                "en": "Three Lines to Check Before Choosing a Castle"
+              },
+              "path": ["上達のためのテクニック", "囲い"],
+              "source": "data/lessons/units/castles-first.json"
+            },
+            {
+              "id": "castles-funa",
+              "title": {
+                "ja": "舟囲いから守りと攻めの手を選ぶ",
+                "en": "Choose the Next Move from a Boat Castle"
+              },
+              "path": ["上達のためのテクニック", "囲い"],
+              "source": "data/lessons/units/castles-funa.json"
+            },
+            {
+              "id": "castles-hidarimino",
+              "title": {
+                "ja": "左美濃は角と玉の場所で変わる",
+                "en": "Left Mino Changes with Bishop and King Placement"
+              },
+              "path": ["上達のためのテクニック", "囲い"],
+              "source": "data/lessons/units/castles-hidarimino.json"
+            },
+            {
+              "id": "castles-mino",
+              "title": {
+                "ja": "美濃の金銀と玉頭を読み分ける",
+                "en": "Read Mino's Generals and King-Head Squares"
+              },
+              "path": ["上達のためのテクニック", "囲い"],
+              "source": "data/lessons/units/castles-mino.json"
+            },
+            {
+              "id": "castles-nakazumai",
+              "title": {
+                "ja": "短い囲いは空いた筋で選ぶ",
+                "en": "Choose a Compact Shelter by the Open File"
+              },
+              "path": ["上達のためのテクニック", "囲い"],
+              "source": "data/lessons/units/castles-nakazumai.json"
+            },
+            {
+              "id": "castles-other",
+              "title": {
+                "ja": "珍しい囲いは名前より守りの働きで選ぶ",
+                "en": "Evaluate Unusual Castles by What Their Pieces Defend"
+              },
+              "path": ["上達のためのテクニック", "囲い"],
+              "source": "data/lessons/units/castles-other.json"
+            },
+            {
+              "id": "castles-yagura",
+              "title": {
+                "ja": "矢倉の仲間を利きで選ぶ",
+                "en": "Choose a Yagura Shape by Its Coverage"
+              },
+              "path": ["上達のためのテクニック", "囲い"],
+              "source": "data/lessons/units/castles-yagura.json"
+            },
+            {
+              "id": "yagura-build",
+              "title": {
+                "ja": "相手の利きを見ながら矢倉の芯を作る",
+                "en": "Build the Yagura Core While Reading the Opponent"
+              },
+              "path": ["囲い", "矢倉"],
+              "source": "data/lessons/units/yagura-build.json"
+            }
+          ],
+          "liveSourceUnitGroup": true,
+          "configuredDisplayGroup": true,
+          "presentation": "fixed-category-heading-when-nonempty",
+          "strategySelectorIds": [],
+          "techniqueSetupIds": []
+        },
+        {
+          "name": "将棋の格言",
+          "sourceUnitCount": 0,
+          "sourceUnitIds": [],
+          "sourceUnits": [],
+          "liveSourceUnitGroup": false,
+          "configuredDisplayGroup": true,
+          "presentation": "fixed-category-heading-when-nonempty",
+          "strategySelectorIds": [],
+          "techniqueSetupIds": []
+        },
+        {
+          "name": "勉強法",
+          "sourceUnitCount": 0,
+          "sourceUnitIds": [],
+          "sourceUnits": [],
+          "liveSourceUnitGroup": false,
+          "configuredDisplayGroup": true,
+          "presentation": "fixed-category-heading-when-nonempty",
+          "strategySelectorIds": [],
+          "techniqueSetupIds": []
+        },
+        {
+          "name": "棋書",
+          "sourceUnitCount": 0,
+          "sourceUnitIds": [],
+          "sourceUnits": [],
+          "liveSourceUnitGroup": false,
+          "configuredDisplayGroup": true,
+          "presentation": "fixed-category-heading-when-nonempty",
+          "strategySelectorIds": [],
+          "techniqueSetupIds": []
+        }
+      ]
+    },
+    {
+      "id": "joseki",
+      "name": {
+        "ja": "定跡",
+        "en": "Joseki"
+      },
+      "about": {
+        "ja": "戦法を選び、その定跡を学ぶ",
+        "en": "Pick a strategy and learn its lines"
+      },
+      "sourceUnitCount": 95,
+      "sourceUnitIds": [
+        "aifuri-basics",
+        "aifuri-hidari-anaguma",
+        "aifuri-ishida-vs-naka",
+        "aifuri-vs-ishida",
+        "aigakari-basics",
+        "aigakari-bougin",
+        "aiyokofu",
+        "bougin-basics",
+        "bougin-castles",
+        "bougin-middlegame",
+        "bougin-vs-furibisha",
+        "direct-mukai",
+        "fujii-build",
+        "fujii-vs-anaguma",
+        "fujii-vs-hidarimino",
+        "fujii-vs-kyusen",
+        "gangi",
+        "gokigen-attack",
+        "gokigen-basics",
+        "gokigen-castles",
+        "gokigen-vs-anaguma",
+        "gokigen-vs-choukyusen",
+        "gokigen-vs-chousoku",
+        "handicap-2",
+        "handicap-4",
+        "handicap-6",
+        "handicap-8",
+        "hayaishida",
+        "hineribisha",
+        "ibisha-basics",
+        "ishida-43",
+        "ishida-attack",
+        "ishida-basics",
+        "ishida-honkumi",
+        "kakugawari-45kei",
+        "kakugawari-basics",
+        "kakugawari-bougin",
+        "kakugawari-hayakuri",
+        "kakugawari-ittezon",
+        "kakugawari-koshikake",
+        "kakukoukan-gyakubougin",
+        "kakukoukan-shiken",
+        "kishu-ahiru",
+        "kishu-migishiken-hidarimino",
+        "kishu-onigoroshi",
+        "kishu-pacman",
+        "kishu-sujichigai",
+        "legspe",
+        "mukai-attack",
+        "mukai-build",
+        "nakabisha-sente",
+        "sanken-basics",
+        "sanken-tomahawk",
+        "sanken-vs-bougin",
+        "shiken-basics",
+        "shiken-castles",
+        "shiken-patterns",
+        "shiken-tateishi",
+        "shiken-vs-anaguma",
+        "shiken-vs-funa-bougin",
+        "shiken-vs-igyoku-bougin",
+        "shiken-vs-migishiken",
+        "shiken-vs-yagura",
+        "taifuri-45hayashikake",
+        "taifuri-46gin",
+        "taifuri-anaguma",
+        "taifuri-basics",
+        "taifuri-bougin-ishida",
+        "taifuri-bougin",
+        "taifuri-chousoku",
+        "taifuri-elmo",
+        "taifuri-millennium",
+        "taifuri-ponpon",
+        "taifuri-vs-hayaishida",
+        "taifuri-vs-kakukoukan",
+        "ureshino-basics",
+        "ureshino-counter",
+        "ureshino-new",
+        "ureshino-vs-bougin",
+        "ureshino-vs-shiken",
+        "yagura-37gin",
+        "yagura-aiyagura",
+        "yagura-bougin",
+        "yagura-suzume",
+        "yagura-vs-bougin",
+        "yagura-vs-hidarimino",
+        "yagura-vs-migishiken",
+        "yagura-waki",
+        "yokofu-23fu",
+        "yokofu-45kaku",
+        "yokofu-85hisha",
+        "yokofu-aono",
+        "yokofu-avoid",
+        "yokofu-basics",
+        "yokofu-yuuki"
+      ],
+      "groups": [
+        {
+          "name": "相振り飛車",
+          "sourceUnitCount": 4,
+          "sourceUnitIds": ["aifuri-basics", "aifuri-hidari-anaguma", "aifuri-ishida-vs-naka", "aifuri-vs-ishida"],
+          "sourceUnits": [
+            {
+              "id": "aifuri-basics",
+              "title": {
+                "ja": "相振り飛車で二つの飛車筋を読む",
+                "en": "Reading both rook files in double Ranging Rook"
+              },
+              "path": ["戦法・定跡", "相振り飛車"],
+              "source": "data/lessons/units/aifuri-basics.json"
+            },
+            {
+              "id": "aifuri-hidari-anaguma",
+              "title": {
+                "ja": "中飛車で左穴熊を選ぶ条件",
+                "en": "Choosing a left Anaguma with Central Rook"
+              },
+              "path": ["戦法・定跡", "相振り飛車"],
+              "source": "data/lessons/units/aifuri-hidari-anaguma.json"
+            },
+            {
+              "id": "aifuri-ishida-vs-naka",
+              "title": {
+                "ja": "石田流と中飛車の二つの接点",
+                "en": "Two contact points in Ishida versus Central Rook"
+              },
+              "path": ["戦法・定跡", "相振り飛車"],
+              "source": "data/lessons/units/aifuri-ishida-vs-naka.json"
+            },
+            {
+              "id": "aifuri-vs-ishida",
+              "title": {
+                "ja": "角交換四間飛車から石田流を見る",
+                "en": "Bishop Exchange Fourth File Rook against Ishida"
+              },
+              "path": ["戦法・定跡", "相振り飛車"],
+              "source": "data/lessons/units/aifuri-vs-ishida.json"
+            }
+          ],
+          "liveSourceUnitGroup": true,
+          "configuredDisplayGroup": false,
+          "presentation": "shared-other-group",
+          "strategySelectorIds": [],
+          "techniqueSetupIds": []
+        },
+        {
+          "name": "相掛かり",
+          "sourceUnitCount": 3,
+          "sourceUnitIds": ["aigakari-basics", "aigakari-bougin", "hineribisha"],
+          "sourceUnits": [
+            {
+              "id": "aigakari-basics",
+              "title": {
+                "ja": "相掛かりで飛車先と背後を両方見る",
+                "en": "Watch Both Rook Files in Aigakari"
+              },
+              "path": ["戦法・定跡", "相掛かり"],
+              "source": "data/lessons/units/aigakari-basics.json"
+            },
+            {
+              "id": "aigakari-bougin",
+              "title": {
+                "ja": "相掛かり棒銀の進路と止め時",
+                "en": "Routing and Timing the Aigakari Climbing Silver"
+              },
+              "path": ["戦法・定跡", "相掛かり"],
+              "source": "data/lessons/units/aigakari-bougin.json"
+            },
+            {
+              "id": "hineribisha",
+              "title": {
+                "ja": "浮き飛車をひねる判断",
+                "en": "Choosing when to twist the floating rook"
+              },
+              "path": ["戦法・定跡", "相掛かり"],
+              "source": "data/lessons/units/hineribisha.json"
+            }
+          ],
+          "liveSourceUnitGroup": true,
+          "configuredDisplayGroup": false,
+          "presentation": "under-selected-main-strategy",
+          "strategySelectorIds": ["aigakari"],
+          "techniqueSetupIds": []
+        },
+        {
+          "name": "横歩取り",
+          "sourceUnitCount": 8,
+          "sourceUnitIds": ["aiyokofu", "yokofu-23fu", "yokofu-45kaku", "yokofu-85hisha", "yokofu-aono", "yokofu-avoid", "yokofu-basics", "yokofu-yuuki"],
+          "sourceUnits": [
+            {
+              "id": "aiyokofu",
+              "title": {
+                "ja": "双方の横歩と飛車の行き先",
+                "en": "Mutual side pawns and the rooks' destinations"
+              },
+              "path": ["戦法・定跡", "横歩取り"],
+              "source": "data/lessons/units/aiyokofu.json"
+            },
+            {
+              "id": "yokofu-23fu",
+              "title": {
+                "ja": "２三歩打ちで変わる飛車の通り道",
+                "en": "How a pawn drop on 2c changes the rook's routes"
+              },
+              "path": ["戦法・定跡", "横歩取り"],
+              "source": "data/lessons/units/yokofu-23fu.json"
+            },
+            {
+              "id": "yokofu-45kaku",
+              "title": {
+                "ja": "４五角の二つの狙いを数える",
+                "en": "Count both targets of the bishop on 4e"
+              },
+              "path": ["戦法・定跡", "横歩取り"],
+              "source": "data/lessons/units/yokofu-45kaku.json"
+            },
+            {
+              "id": "yokofu-85hisha",
+              "title": {
+                "ja": "３三角と浮き飛車を読む",
+                "en": "Read the 3c bishop and floating rooks"
+              },
+              "path": ["戦法・定跡", "横歩取り"],
+              "source": "data/lessons/units/yokofu-85hisha.json"
+            },
+            {
+              "id": "yokofu-aono",
+              "title": {
+                "ja": "青野流の玉と桂の時間",
+                "en": "King and knight timing in the Aono style"
+              },
+              "path": ["戦法・定跡", "横歩取り"],
+              "source": "data/lessons/units/yokofu-aono.json"
+            },
+            {
+              "id": "yokofu-avoid",
+              "title": {
+                "ja": "横歩を取らない局面の選び方",
+                "en": "Choosing a position without taking the side pawn"
+              },
+              "path": ["戦法・定跡", "横歩取り"],
+              "source": "data/lessons/units/yokofu-avoid.json"
+            },
+            {
+              "id": "yokofu-basics",
+              "title": {
+                "ja": "横歩を取る前後の確認",
+                "en": "Checks before and after taking a side pawn"
+              },
+              "path": ["戦法・定跡", "横歩取り"],
+              "source": "data/lessons/units/yokofu-basics.json"
+            },
+            {
+              "id": "yokofu-yuuki",
+              "title": {
+                "ja": "勇気流で選ぶ玉の位置",
+                "en": "Choosing the king's square in the Yuuki style"
+              },
+              "path": ["戦法・定跡", "横歩取り"],
+              "source": "data/lessons/units/yokofu-yuuki.json"
+            }
+          ],
+          "liveSourceUnitGroup": true,
+          "configuredDisplayGroup": false,
+          "presentation": "under-selected-main-strategy",
+          "strategySelectorIds": ["yokofudori", "yoko-85hi", "yoko-45kaku"],
+          "techniqueSetupIds": []
+        },
+        {
+          "name": "居飛車",
+          "sourceUnitCount": 5,
+          "sourceUnitIds": ["bougin-basics", "bougin-castles", "bougin-middlegame", "bougin-vs-furibisha", "ibisha-basics"],
+          "sourceUnits": [
+            {
+              "id": "bougin-basics",
+              "title": {
+                "ja": "棒銀は利きを数えて進める",
+                "en": "Advance the Climbing Silver by Counting Control"
+              },
+              "path": ["戦法・定跡", "居飛車"],
+              "source": "data/lessons/units/bougin-basics.json"
+            },
+            {
+              "id": "bougin-castles",
+              "title": {
+                "ja": "棒銀の速度を玉の守りと比べる",
+                "en": "Match Climbing Silver's Pace to the King's Shelter"
+              },
+              "path": ["戦法・定跡", "居飛車"],
+              "source": "data/lessons/units/bougin-castles.json"
+            },
+            {
+              "id": "bougin-middlegame",
+              "title": {
+                "ja": "銀交換の後も飛車と手番を読む",
+                "en": "Read the Rook and Tempo After a Silver Trade"
+              },
+              "path": ["戦法・定跡", "居飛車"],
+              "source": "data/lessons/units/bougin-middlegame.json"
+            },
+            {
+              "id": "bougin-vs-furibisha",
+              "title": {
+                "ja": "振り飛車には角筋と反撃を見て棒銀を使う",
+                "en": "Adapt Climbing Silver to the Bishop Line and Rook Counterplay"
+              },
+              "path": ["戦法・定跡", "居飛車"],
+              "source": "data/lessons/units/bougin-vs-furibisha.json"
+            },
+            {
+              "id": "ibisha-basics",
+              "title": {
+                "ja": "居飛車は筋と玉形を一緒に読む",
+                "en": "Read the Rook File and King Shelter Together"
+              },
+              "path": ["戦法・定跡", "居飛車"],
+              "source": "data/lessons/units/ibisha-basics.json"
+            }
+          ],
+          "liveSourceUnitGroup": true,
+          "configuredDisplayGroup": false,
+          "presentation": "shared-other-group",
+          "strategySelectorIds": [],
+          "techniqueSetupIds": []
+        },
+        {
+          "name": "振り飛車",
+          "sourceUnitCount": 4,
+          "sourceUnitIds": ["direct-mukai", "kakukoukan-gyakubougin", "kakukoukan-shiken", "legspe"],
+          "sourceUnits": [
+            {
+              "id": "direct-mukai",
+              "title": {
+                "ja": "向かい飛車へ直行する前後の角筋",
+                "en": "Bishop lines around a direct Opposing Rook transfer"
+              },
+              "path": ["戦法・定跡", "振り飛車"],
+              "source": "data/lessons/units/direct-mukai.json"
+            },
+            {
+              "id": "kakukoukan-gyakubougin",
+              "title": {
+                "ja": "逆棒銀は飛車の位置から読む",
+                "en": "Read the reverse Climbing Silver from the rook's position"
+              },
+              "path": ["戦法・定跡", "振り飛車"],
+              "source": "data/lessons/units/kakukoukan-gyakubougin.json"
+            },
+            {
+              "id": "kakukoukan-shiken",
+              "title": {
+                "ja": "角交換四間飛車の角と飛車を数える",
+                "en": "Count bishop drops and rook paths in Fourth File Rook"
+              },
+              "path": ["戦法・定跡", "振り飛車"],
+              "source": "data/lessons/units/kakukoukan-shiken.json"
+            },
+            {
+              "id": "legspe",
+              "title": {
+                "ja": "レグスぺの囲いと仕掛けを別々に数える",
+                "en": "Separate Legspe shelter from attack timing"
+              },
+              "path": ["戦法・定跡", "振り飛車"],
+              "source": "data/lessons/units/legspe.json"
+            }
+          ],
+          "liveSourceUnitGroup": true,
+          "configuredDisplayGroup": false,
+          "presentation": "shared-other-group",
+          "strategySelectorIds": [],
+          "techniqueSetupIds": []
+        },
+        {
+          "name": "四間飛車",
+          "sourceUnitCount": 13,
+          "sourceUnitIds": [
+            "fujii-build",
+            "fujii-vs-anaguma",
+            "fujii-vs-hidarimino",
+            "fujii-vs-kyusen",
+            "shiken-basics",
+            "shiken-castles",
+            "shiken-patterns",
+            "shiken-tateishi",
+            "shiken-vs-anaguma",
+            "shiken-vs-funa-bougin",
+            "shiken-vs-igyoku-bougin",
+            "shiken-vs-migishiken",
+            "shiken-vs-yagura"
+          ],
+          "sourceUnits": [
+            {
+              "id": "fujii-build",
+              "title": {
+                "ja": "藤井システムで居玉の一手をどう使うか",
+                "en": "Choosing how to spend a tempo with the Fujii System's home king"
+              },
+              "path": ["戦法・定跡", "四間飛車"],
+              "source": "data/lessons/units/fujii-build.json"
+            },
+            {
+              "id": "fujii-vs-anaguma",
+              "title": {
+                "ja": "藤井システムで穴熊の完成前後を見分ける",
+                "en": "Timing a Fujii System attack against Anaguma"
+              },
+              "path": ["戦法・定跡", "四間飛車"],
+              "source": "data/lessons/units/fujii-vs-anaguma.json"
+            },
+            {
+              "id": "fujii-vs-hidarimino",
+              "title": {
+                "ja": "藤井システムから天守閣美濃をどう測るか",
+                "en": "Reading a Tenshukaku Mino from a Fujii System setup"
+              },
+              "path": ["戦法・定跡", "四間飛車"],
+              "source": "data/lessons/units/fujii-vs-hidarimino.json"
+            },
+            {
+              "id": "fujii-vs-kyusen",
+              "title": {
+                "ja": "藤井システムで急戦の接触を数える",
+                "en": "Counting contact against a quick attack in the Fujii System"
+              },
+              "path": ["戦法・定跡", "四間飛車"],
+              "source": "data/lessons/units/fujii-vs-kyusen.json"
+            },
+            {
+              "id": "shiken-basics",
+              "title": {
+                "ja": "四間飛車の飛車・玉・角",
+                "en": "The rook, king and bishop in Fourth File Rook"
+              },
+              "path": ["戦法・定跡", "四間飛車"],
+              "source": "data/lessons/units/shiken-basics.json"
+            },
+            {
+              "id": "shiken-castles",
+              "title": {
+                "ja": "四間飛車の美濃を選び直す",
+                "en": "Choosing a Mino shelter in Fourth File Rook"
+              },
+              "path": ["戦法・定跡", "四間飛車"],
+              "source": "data/lessons/units/shiken-castles.json"
+            },
+            {
+              "id": "shiken-patterns",
+              "title": {
+                "ja": "左銀の位置で変わる四間飛車の仕事",
+                "en": "How the left silver changes a Fourth File Rook plan"
+              },
+              "path": ["戦法・定跡", "四間飛車"],
+              "source": "data/lessons/units/shiken-patterns.json"
+            },
+            {
+              "id": "shiken-tateishi",
+              "title": {
+                "ja": "立石流の浮き飛車を角打ちと打ち込みから考える",
+                "en": "Tateishi-style floating rook through bishop drops and rook-drop safety"
+              },
+              "path": ["戦法・定跡", "四間飛車"],
+              "source": "data/lessons/units/shiken-tateishi.json"
+            },
+            {
+              "id": "shiken-vs-anaguma",
+              "title": {
+                "ja": "居飛車穴熊への仕掛けを守りの数から選ぶ",
+                "en": "Choose a Fourth File Rook attack by counting Anaguma's defenders"
+              },
+              "path": ["戦法・定跡", "四間飛車"],
+              "source": "data/lessons/units/shiken-vs-anaguma.json"
+            },
+            {
+              "id": "shiken-vs-funa-bougin",
+              "title": {
+                "ja": "舟囲い棒銀に飛車角の配置を合わせる",
+                "en": "Place rook and bishop against a castled Climbing Silver"
+              },
+              "path": ["戦法・定跡", "四間飛車"],
+              "source": "data/lessons/units/shiken-vs-funa-bougin.json"
+            },
+            {
+              "id": "shiken-vs-igyoku-bougin",
+              "title": {
+                "ja": "居玉棒銀には取り手と角道を数える",
+                "en": "Count recaptures and bishop lines against an early Climbing Silver"
+              },
+              "path": ["戦法・定跡", "四間飛車"],
+              "source": "data/lessons/units/shiken-vs-igyoku-bougin.json"
+            },
+            {
+              "id": "shiken-vs-migishiken",
+              "title": {
+                "ja": "右四間飛車の６筋と角の退路を読む",
+                "en": "Reading the sixth file and bishop escapes against Right Fourth File Rook"
+              },
+              "path": ["戦法・定跡", "四間飛車"],
+              "source": "data/lessons/units/shiken-vs-migishiken.json"
+            },
+            {
+              "id": "shiken-vs-yagura",
+              "title": {
+                "ja": "矢倉の連結と引き角に向き合う四間飛車",
+                "en": "Fourth File Rook against Yagura connections and a retreated bishop"
+              },
+              "path": ["戦法・定跡", "四間飛車"],
+              "source": "data/lessons/units/shiken-vs-yagura.json"
+            }
+          ],
+          "liveSourceUnitGroup": true,
+          "configuredDisplayGroup": false,
+          "presentation": "under-selected-main-strategy",
+          "strategySelectorIds": ["shikenbisha"],
+          "techniqueSetupIds": []
+        },
+        {
+          "name": "矢倉戦法",
+          "sourceUnitCount": 9,
+          "sourceUnitIds": [
+            "gangi",
+            "yagura-37gin",
+            "yagura-aiyagura",
+            "yagura-bougin",
+            "yagura-suzume",
+            "yagura-vs-bougin",
+            "yagura-vs-hidarimino",
+            "yagura-vs-migishiken",
+            "yagura-waki"
+          ],
+          "sourceUnits": [
+            {
+              "id": "gangi",
+              "title": {
+                "ja": "雁木は右銀と玉の位置で利きを変える",
+                "en": "Gangi Changes with the Right Silver and King"
+              },
+              "path": ["戦法・定跡", "雁木"],
+              "source": "data/lessons/units/gangi.json"
+            },
+            {
+              "id": "yagura-37gin",
+              "title": {
+                "ja": "矢倉の３七銀は着地点を選んで使う",
+                "en": "Choose Landing Squares for the Yagura Silver on 3g"
+              },
+              "path": ["戦法・定跡", "矢倉"],
+              "source": "data/lessons/units/yagura-37gin.json"
+            },
+            {
+              "id": "yagura-aiyagura",
+              "title": {
+                "ja": "相矢倉は玉の通路と歩の取り返しから考える",
+                "en": "Mutual Yagura: Clear the King's Route and Count Recaptures"
+              },
+              "path": ["戦法・定跡", "矢倉"],
+              "source": "data/lessons/units/yagura-aiyagura.json"
+            },
+            {
+              "id": "yagura-bougin",
+              "title": {
+                "ja": "矢倉の守りを残して棒銀を進める",
+                "en": "Advance Climbing Silver Without Losing the Yagura's Cover"
+              },
+              "path": ["戦法・定跡", "矢倉"],
+              "source": "data/lessons/units/yagura-bougin.json"
+            },
+            {
+              "id": "yagura-suzume",
+              "title": {
+                "ja": "雀刺しは端の取り手を数えて仕掛ける",
+                "en": "Count Edge Recaptures Before a Suzume-zashi Attack"
+              },
+              "path": ["戦法・定跡", "矢倉"],
+              "source": "data/lessons/units/yagura-suzume.json"
+            },
+            {
+              "id": "yagura-vs-bougin",
+              "title": {
+                "ja": "急ぐ棒銀には８筋の取り手を数える",
+                "en": "Count the Eighth-File Recaptures Against Rapid Climbing Silver"
+              },
+              "path": ["戦法・定跡", "矢倉"],
+              "source": "data/lessons/units/yagura-vs-bougin.json"
+            },
+            {
+              "id": "yagura-vs-hidarimino",
+              "title": {
+                "ja": "居角左美濃急戦を矢倉側から受ける",
+                "en": "Defend a Yagura Against Bishop-in-Place Left Mino"
+              },
+              "path": ["戦法・定跡", "矢倉"],
+              "source": "data/lessons/units/yagura-vs-hidarimino.json"
+            },
+            {
+              "id": "yagura-vs-migishiken",
+              "title": {
+                "ja": "右四間飛車には６筋の取る順を読む",
+                "en": "Read the Sixth-File Exchange Against Right Fourth File Rook"
+              },
+              "path": ["戦法・定跡", "矢倉"],
+              "source": "data/lessons/units/yagura-vs-migishiken.json"
+            },
+            {
+              "id": "yagura-waki",
+              "title": {
+                "ja": "脇システムで角交換の前後を読む",
+                "en": "Read Both Sides of the Bishop Exchange in Waki Yagura"
+              },
+              "path": ["戦法・定跡", "矢倉"],
+              "source": "data/lessons/units/yagura-waki.json"
+            }
+          ],
+          "liveSourceUnitGroup": true,
+          "configuredDisplayGroup": false,
+          "presentation": "under-selected-main-strategy",
+          "strategySelectorIds": ["yagura", "kyusen-yagura", "gangi"],
+          "techniqueSetupIds": []
+        },
+        {
+          "name": "中飛車",
+          "sourceUnitCount": 7,
+          "sourceUnitIds": [
+            "gokigen-attack",
+            "gokigen-basics",
+            "gokigen-castles",
+            "gokigen-vs-anaguma",
+            "gokigen-vs-choukyusen",
+            "gokigen-vs-chousoku",
+            "nakabisha-sente"
+          ],
+          "sourceUnits": [
+            {
+              "id": "gokigen-attack",
+              "title": {
+                "ja": "中飛車の中央攻めは取り手から読む",
+                "en": "Count recaptures in a Central Rook attack"
+              },
+              "path": ["戦法・定跡", "中飛車"],
+              "source": "data/lessons/units/gokigen-attack.json"
+            },
+            {
+              "id": "gokigen-basics",
+              "title": {
+                "ja": "後手ゴキゲン中飛車の５筋と角筋",
+                "en": "Fifth-file and bishop-line decisions in Gote's Gokigen Central Rook"
+              },
+              "path": ["戦法・定跡", "中飛車"],
+              "source": "data/lessons/units/gokigen-basics.json"
+            },
+            {
+              "id": "gokigen-castles",
+              "title": {
+                "ja": "中飛車の玉をどこまで囲うか",
+                "en": "How far to castle in Central Rook"
+              },
+              "path": ["戦法・定跡", "中飛車"],
+              "source": "data/lessons/units/gokigen-castles.json"
+            },
+            {
+              "id": "gokigen-vs-anaguma",
+              "title": {
+                "ja": "穴熊の外側で交換を数える",
+                "en": "Count exchanges outside the Anaguma"
+              },
+              "path": ["戦法・定跡", "中飛車"],
+              "source": "data/lessons/units/gokigen-vs-anaguma.json"
+            },
+            {
+              "id": "gokigen-vs-choukyusen",
+              "title": {
+                "ja": "超急戦で角道と飛車先を同時に数える",
+                "en": "Count bishop lines and rook-file pressure in a quick attack"
+              },
+              "path": ["戦法・定跡", "中飛車"],
+              "source": "data/lessons/units/gokigen-vs-choukyusen.json"
+            },
+            {
+              "id": "gokigen-vs-chousoku",
+              "title": {
+                "ja": "超速の銀に中央の取り手を合わせる",
+                "en": "Match recaptures to a fast silver attack"
+              },
+              "path": ["戦法・定跡", "中飛車"],
+              "source": "data/lessons/units/gokigen-vs-chousoku.json"
+            },
+            {
+              "id": "nakabisha-sente",
+              "title": {
+                "ja": "先手中飛車で角道と８筋を同時に見る",
+                "en": "Coordinating the bishop line and eighth file in Sente Central Rook"
+              },
+              "path": ["戦法・定跡", "中飛車"],
+              "source": "data/lessons/units/nakabisha-sente.json"
+            }
+          ],
+          "liveSourceUnitGroup": true,
+          "configuredDisplayGroup": false,
+          "presentation": "under-selected-main-strategy",
+          "strategySelectorIds": ["nakabisha", "gokigen"],
+          "techniqueSetupIds": []
+        },
+        {
+          "name": "駒落ち定跡",
+          "sourceUnitCount": 4,
+          "sourceUnitIds": ["handicap-2", "handicap-4", "handicap-6", "handicap-8"],
+          "sourceUnits": [
+            {
+              "id": "handicap-2",
+              "title": {
+                "ja": "二枚落ち：位を支える駒を数える",
+                "en": "Two-Piece Handicap: Count the Support behind an Outpost"
+              },
+              "path": ["戦法・定跡", "駒落ち"],
+              "source": "data/lessons/units/handicap-2.json"
+            },
+            {
+              "id": "handicap-4",
+              "title": {
+                "ja": "四枚落ち：桂と銀の守りを越える前に",
+                "en": "Four-Piece Handicap: Count Knights and Silvers First"
+              },
+              "path": ["戦法・定跡", "駒落ち"],
+              "source": "data/lessons/units/handicap-4.json"
+            },
+            {
+              "id": "handicap-6",
+              "title": {
+                "ja": "六枚落ち：端の守り駒を数える",
+                "en": "Six-Piece Handicap: Count the Edge Defenders"
+              },
+              "path": ["戦法・定跡", "駒落ち"],
+              "source": "data/lessons/units/handicap-6.json"
+            },
+            {
+              "id": "handicap-8",
+              "title": {
+                "ja": "八枚落ち：線を開き、守りを数える",
+                "en": "Eight-Piece Handicap: Open Lines and Count Defenders"
+              },
+              "path": ["戦法・定跡", "駒落ち"],
+              "source": "data/lessons/units/handicap-8.json"
+            }
+          ],
+          "liveSourceUnitGroup": true,
+          "configuredDisplayGroup": false,
+          "presentation": "shared-other-group",
+          "strategySelectorIds": [],
+          "techniqueSetupIds": []
+        },
+        {
+          "name": "三間飛車",
+          "sourceUnitCount": 8,
+          "sourceUnitIds": [
+            "hayaishida",
+            "ishida-43",
+            "ishida-attack",
+            "ishida-basics",
+            "ishida-honkumi",
+            "sanken-basics",
+            "sanken-tomahawk",
+            "sanken-vs-bougin"
+          ],
+          "sourceUnits": [
+            {
+              "id": "hayaishida",
+              "title": {
+                "ja": "早石田の攻めと玉の位置",
+                "en": "Quick Ishida: pressure and king placement"
+              },
+              "path": ["戦法・定跡", "三間飛車"],
+              "source": "data/lessons/units/hayaishida.json"
+            },
+            {
+              "id": "ishida-43",
+              "title": {
+                "ja": "後手の４→３戦法を見極める",
+                "en": "Timing Gote's Fourth-to-Third File Rook"
+              },
+              "path": ["戦法・定跡", "三間飛車"],
+              "source": "data/lessons/units/ishida-43.json"
+            },
+            {
+              "id": "ishida-attack",
+              "title": {
+                "ja": "石田流本組みからの仕掛けを選ぶ",
+                "en": "Choosing an attack from the Ishida main formation"
+              },
+              "path": ["戦法・定跡", "三間飛車"],
+              "source": "data/lessons/units/ishida-attack.json"
+            },
+            {
+              "id": "ishida-basics",
+              "title": {
+                "ja": "石田流の基本",
+                "en": "Ishida-style fundamentals"
+              },
+              "path": ["戦法・定跡", "三間飛車"],
+              "source": "data/lessons/units/ishida-basics.json"
+            },
+            {
+              "id": "ishida-honkumi",
+              "title": {
+                "ja": "石田流本組みの連携",
+                "en": "Coordinating the Ishida main formation"
+              },
+              "path": ["戦法・定跡", "三間飛車"],
+              "source": "data/lessons/units/ishida-honkumi.json"
+            },
+            {
+              "id": "sanken-basics",
+              "title": {
+                "ja": "三間飛車の基本",
+                "en": "Third File Rook fundamentals"
+              },
+              "path": ["戦法・定跡", "三間飛車"],
+              "source": "data/lessons/units/sanken-basics.json"
+            },
+            {
+              "id": "sanken-tomahawk",
+              "title": {
+                "ja": "トマホーク",
+                "en": "Tomahawk"
+              },
+              "path": ["戦法・定跡", "三間飛車"],
+              "source": "data/lessons/units/sanken-tomahawk.json"
+            },
+            {
+              "id": "sanken-vs-bougin",
+              "title": {
+                "ja": "三間飛車で棒銀を受ける",
+                "en": "Third File Rook against Climbing Silver"
+              },
+              "path": ["戦法・定跡", "三間飛車"],
+              "source": "data/lessons/units/sanken-vs-bougin.json"
+            }
+          ],
+          "liveSourceUnitGroup": true,
+          "configuredDisplayGroup": false,
+          "presentation": "under-selected-main-strategy",
+          "strategySelectorIds": ["sankenbisha", "hayaishida", "ishida"],
+          "techniqueSetupIds": []
+        },
+        {
+          "name": "角換わり",
+          "sourceUnitCount": 6,
+          "sourceUnitIds": ["kakugawari-45kei", "kakugawari-basics", "kakugawari-bougin", "kakugawari-hayakuri", "kakugawari-ittezon", "kakugawari-koshikake"],
+          "sourceUnits": [
+            {
+              "id": "kakugawari-45kei",
+              "title": {
+                "ja": "角換わりの４五桂を見極める",
+                "en": "Judging the 4e Knight in Bishop Exchange"
+              },
+              "path": ["戦法・定跡", "角換わり"],
+              "source": "data/lessons/units/kakugawari-45kei.json"
+            },
+            {
+              "id": "kakugawari-basics",
+              "title": {
+                "ja": "角換わりは角を持ってからの配置を読む",
+                "en": "Bishop Exchange: Read the Board After the Trade"
+              },
+              "path": ["戦法・定跡", "角換わり"],
+              "source": "data/lessons/units/kakugawari-basics.json"
+            },
+            {
+              "id": "kakugawari-bougin",
+              "title": {
+                "ja": "角換わり棒銀は隣の筋と角打ちを数える",
+                "en": "Bishop-Exchange Climbing Silver: Count Adjacent Files and Bishop Drops"
+              },
+              "path": ["戦法・定跡", "角換わり"],
+              "source": "data/lessons/units/kakugawari-bougin.json"
+            },
+            {
+              "id": "kakugawari-hayakuri",
+              "title": {
+                "ja": "角換わり早繰り銀は交換後の利きを確かめる",
+                "en": "Bishop-Exchange Rapid Silver: Count What Remains After Contact"
+              },
+              "path": ["戦法・定跡", "角換わり"],
+              "source": "data/lessons/units/kakugawari-hayakuri.json"
+            },
+            {
+              "id": "kakugawari-ittezon",
+              "title": {
+                "ja": "一手損角換わりの選択を数える",
+                "en": "Counting the Choices in Tempo-Loss Bishop Exchange"
+              },
+              "path": ["戦法・定跡", "角換わり"],
+              "source": "data/lessons/units/kakugawari-ittezon.json"
+            },
+            {
+              "id": "kakugawari-koshikake",
+              "title": {
+                "ja": "角換わり腰掛け銀は取り返しと反撃の時刻を選ぶ",
+                "en": "Bishop-Exchange Reclining Silver: Time the Recapture"
+              },
+              "path": ["戦法・定跡", "角換わり"],
+              "source": "data/lessons/units/kakugawari-koshikake.json"
+            }
+          ],
+          "liveSourceUnitGroup": true,
+          "configuredDisplayGroup": false,
+          "presentation": "under-selected-main-strategy",
+          "strategySelectorIds": ["kakugawari", "ittezon", "hayakurigin", "koshikakegin"],
+          "techniqueSetupIds": []
+        },
+        {
+          "name": "奇襲戦法",
+          "sourceUnitCount": 5,
+          "sourceUnitIds": ["kishu-ahiru", "kishu-migishiken-hidarimino", "kishu-onigoroshi", "kishu-pacman", "kishu-sujichigai"],
+          "sourceUnits": [
+            {
+              "id": "kishu-ahiru",
+              "title": {
+                "ja": "アヒルの浮き飛車と中央を見分ける",
+                "en": "Meet the Duck's floating rook and central king"
+              },
+              "path": ["戦法・定跡", "奇襲対策"],
+              "source": "data/lessons/units/kishu-ahiru.json"
+            },
+            {
+              "id": "kishu-migishiken-hidarimino",
+              "title": {
+                "ja": "左美濃から四筋を動かす条件",
+                "en": "When to open the fourth file from Left Mino"
+              },
+              "path": ["戦法・定跡", "奇襲対策"],
+              "source": "data/lessons/units/kishu-migishiken-hidarimino.json"
+            },
+            {
+              "id": "kishu-onigoroshi",
+              "title": {
+                "ja": "鬼殺しの桂跳ねを受ける数え方",
+                "en": "Count the targets of an Oni-goroshi knight"
+              },
+              "path": ["戦法・定跡", "奇襲対策"],
+              "source": "data/lessons/units/kishu-onigoroshi.json"
+            },
+            {
+              "id": "kishu-pacman",
+              "title": {
+                "ja": "４四歩の誘いを成立させる条件",
+                "en": "What makes an offered fourth-file pawn work"
+              },
+              "path": ["戦法・定跡", "奇襲対策"],
+              "source": "data/lessons/units/kishu-pacman.json"
+            },
+            {
+              "id": "kishu-sujichigai",
+              "title": {
+                "ja": "筋違い角の斜線と着地点を読む",
+                "en": "Read an off-axis bishop's line and landing square"
+              },
+              "path": ["戦法・定跡", "奇襲対策"],
+              "source": "data/lessons/units/kishu-sujichigai.json"
+            }
+          ],
+          "liveSourceUnitGroup": true,
+          "configuredDisplayGroup": false,
+          "presentation": "under-selected-main-strategy",
+          "strategySelectorIds": ["torisashi", "sujichigai"],
+          "techniqueSetupIds": []
+        },
+        {
+          "name": "向かい飛車",
+          "sourceUnitCount": 2,
+          "sourceUnitIds": ["mukai-attack", "mukai-build"],
+          "sourceUnits": [
+            {
+              "id": "mukai-attack",
+              "title": {
+                "ja": "向かい飛車の攻め方",
+                "en": "Attacking with Opposing Rook"
+              },
+              "path": ["戦法・定跡", "向かい飛車"],
+              "source": "data/lessons/units/mukai-attack.json"
+            },
+            {
+              "id": "mukai-build",
+              "title": {
+                "ja": "向かい飛車の組み方",
+                "en": "Building an Opposing Rook setup"
+              },
+              "path": ["戦法・定跡", "向かい飛車"],
+              "source": "data/lessons/units/mukai-build.json"
+            }
+          ],
+          "liveSourceUnitGroup": true,
+          "configuredDisplayGroup": false,
+          "presentation": "under-selected-main-strategy",
+          "strategySelectorIds": ["mukaibisha"],
+          "techniqueSetupIds": []
+        },
+        {
+          "name": "対振り飛車、対抗型",
+          "sourceUnitCount": 12,
+          "sourceUnitIds": [
+            "taifuri-45hayashikake",
+            "taifuri-46gin",
+            "taifuri-anaguma",
+            "taifuri-basics",
+            "taifuri-bougin-ishida",
+            "taifuri-bougin",
+            "taifuri-chousoku",
+            "taifuri-elmo",
+            "taifuri-millennium",
+            "taifuri-ponpon",
+            "taifuri-vs-hayaishida",
+            "taifuri-vs-kakukoukan"
+          ],
+          "sourceUnits": [
+            {
+              "id": "taifuri-45hayashikake",
+              "title": {
+                "ja": "４五歩の接触を数える",
+                "en": "Count the contact after 4e"
+              },
+              "path": ["戦法・定跡", "対振り飛車"],
+              "source": "data/lessons/units/taifuri-45hayashikake.json"
+            },
+            {
+              "id": "taifuri-46gin",
+              "title": {
+                "ja": "左銀４六型の接触点",
+                "en": "Contact points for the left silver on 4f"
+              },
+              "path": ["戦法・定跡", "対振り飛車"],
+              "source": "data/lessons/units/taifuri-46gin.json"
+            },
+            {
+              "id": "taifuri-anaguma",
+              "title": {
+                "ja": "居飛車穴熊の手数と前線",
+                "en": "Construction time and the front line of Static Rook Anaguma"
+              },
+              "path": ["戦法・定跡", "対振り飛車"],
+              "source": "data/lessons/units/taifuri-anaguma.json"
+            },
+            {
+              "id": "taifuri-basics",
+              "title": {
+                "ja": "振り飛車を見て攻守を組み直す",
+                "en": "Recoordinate against a ranging rook"
+              },
+              "path": ["戦法・定跡", "対振り飛車"],
+              "source": "data/lessons/units/taifuri-basics.json"
+            },
+            {
+              "id": "taifuri-bougin-ishida",
+              "title": {
+                "ja": "石田流の浮き飛車に金で圧力をかける",
+                "en": "Press the Ishida floating rook with a gold"
+              },
+              "path": ["戦法・定跡", "対振り飛車"],
+              "source": "data/lessons/units/taifuri-bougin-ishida.json"
+            },
+            {
+              "id": "taifuri-bougin",
+              "title": {
+                "ja": "対振り棒銀の接触と戻り道",
+                "en": "Climbing Silver against a ranging rook"
+              },
+              "path": ["戦法・定跡", "対振り飛車"],
+              "source": "data/lessons/units/taifuri-bougin.json"
+            },
+            {
+              "id": "taifuri-chousoku",
+              "title": {
+                "ja": "ゴキゲン中飛車に超速",
+                "en": "Super-Speed against Gokigen Central Rook"
+              },
+              "path": ["戦法・定跡", "対振り飛車"],
+              "source": "data/lessons/units/taifuri-chousoku.json"
+            },
+            {
+              "id": "taifuri-elmo",
+              "title": {
+                "ja": "エルモ囲いから攻め駒を選ぶ",
+                "en": "Choosing an attack from the Elmo castle"
+              },
+              "path": ["戦法・定跡", "対振り飛車"],
+              "source": "data/lessons/units/taifuri-elmo.json"
+            },
+            {
+              "id": "taifuri-millennium",
+              "title": {
+                "ja": "８九玉と６六角の距離を読む",
+                "en": "Reading the space between the 8i king and 6f bishop"
+              },
+              "path": ["戦法・定跡", "対振り飛車"],
+              "source": "data/lessons/units/taifuri-millennium.json"
+            },
+            {
+              "id": "taifuri-ponpon",
+              "title": {
+                "ja": "桂を跳ねる前の損得勘定",
+                "en": "Count the cost before jumping the knight"
+              },
+              "path": ["戦法・定跡", "対振り飛車"],
+              "source": "data/lessons/units/taifuri-ponpon.json"
+            },
+            {
+              "id": "taifuri-vs-hayaishida",
+              "title": {
+                "ja": "早石田への角打ちは通路から読む",
+                "en": "Read the lanes before dropping a bishop against Quick Ishida"
+              },
+              "path": ["戦法・定跡", "対振り飛車"],
+              "source": "data/lessons/units/taifuri-vs-hayaishida.json"
+            },
+            {
+              "id": "taifuri-vs-kakukoukan",
+              "title": {
+                "ja": "角交換四間飛車に４七銀型",
+                "en": "The 4g silver against Bishop-Exchange Fourth-File Rook"
+              },
+              "path": ["戦法・定跡", "対振り飛車"],
+              "source": "data/lessons/units/taifuri-vs-kakukoukan.json"
+            }
+          ],
+          "liveSourceUnitGroup": true,
+          "configuredDisplayGroup": false,
+          "presentation": "under-selected-main-strategy",
+          "strategySelectorIds": ["ibisha"],
+          "techniqueSetupIds": []
+        },
+        {
+          "name": "嬉野流",
+          "sourceUnitCount": 5,
+          "sourceUnitIds": ["ureshino-basics", "ureshino-counter", "ureshino-new", "ureshino-vs-bougin", "ureshino-vs-shiken"],
+          "sourceUnits": [
+            {
+              "id": "ureshino-basics",
+              "title": {
+                "ja": "嬉野流の出発点：銀・角・飛車先を結ぶ",
+                "en": "Ureshino basics: connect the silver, bishop and rook file"
+              },
+              "path": ["戦法・定跡", "嬉野流"],
+              "source": "data/lessons/units/ureshino-basics.json"
+            },
+            {
+              "id": "ureshino-counter",
+              "title": {
+                "ja": "三間飛車から嬉野流に向き合う",
+                "en": "Meet Ureshino with Third File Rook"
+              },
+              "path": ["戦法・定跡", "嬉野流"],
+              "source": "data/lessons/units/ureshino-counter.json"
+            },
+            {
+              "id": "ureshino-new",
+              "title": {
+                "ja": "新嬉野流：角を引く前の選択",
+                "en": "New Ureshino: decide before retreating the bishop"
+              },
+              "path": ["戦法・定跡", "嬉野流"],
+              "source": "data/lessons/units/ureshino-new.json"
+            },
+            {
+              "id": "ureshino-vs-bougin",
+              "title": {
+                "ja": "嬉野流で棒銀を受ける：八筋の数え方",
+                "en": "Ureshino against Climbing Silver: count the eighth file"
+              },
+              "path": ["戦法・定跡", "嬉野流"],
+              "source": "data/lessons/units/ureshino-vs-bougin.json"
+            },
+            {
+              "id": "ureshino-vs-shiken",
+              "title": {
+                "ja": "嬉野流対四間飛車：接点を選ぶ",
+                "en": "Ureshino versus Fourth File Rook: Choose the Contact"
+              },
+              "path": ["戦法・定跡", "嬉野流"],
+              "source": "data/lessons/units/ureshino-vs-shiken.json"
+            }
+          ],
+          "liveSourceUnitGroup": true,
+          "configuredDisplayGroup": false,
+          "presentation": "shared-other-group",
+          "strategySelectorIds": [],
+          "techniqueSetupIds": []
+        }
+      ]
+    }
+  ],
+  "strategySelector": {
+    "presentationGroups": [
+      {
+        "id": "furibisha",
+        "nameJa": "振り飛車",
+        "strategies": ["shikenbisha", "sankenbisha", "hayaishida", "ishida", "nakabisha", "gokigen", "mukaibisha", "kakukoukan-furi"]
+      },
+      {
+        "id": "ibisha",
+        "nameJa": "居飛車",
+        "strategies": [
+          "ibisha",
+          "yagura",
+          "kakugawari",
+          "aigakari",
+          "yokofudori",
+          "yoko-85hi",
+          "yoko-45kaku",
+          "ittezon",
+          "kyusen-yagura",
+          "gangi",
+          "bougin",
+          "hayakurigin",
+          "koshikakegin",
+          "migishiken",
+          "funa-kyusen",
+          "hayashikake45",
+          "saginomiya",
+          "yamada",
+          "naname",
+          "hayashikake35",
+          "kei37",
+          "ponponkei",
+          "chousoku",
+          "maruyama",
+          "torisashi",
+          "sujichigai",
+          "ibisha-anaguma",
+          "hidarimino",
+          "millennium"
+        ]
+      }
+    ],
+    "familiesAreMetadataNotPickerHeadings": true,
+    "entries": [
+      {
+        "id": "shikenbisha",
+        "title": {
+          "ja": "四間飛車",
+          "en": "Fourth File Rook"
+        },
+        "wing": "furibisha",
+        "family": "shiken",
+        "familyTitle": {
+          "ja": "四間飛車",
+          "en": "Fourth File Rook"
+        },
+        "lessonDisplayGroup": "四間飛車",
+        "matchupIds": [
+          "shikenbisha-basics",
+          "shikenbisha-vs-bougin",
+          "shikenbisha-vs-hayashikake45",
+          "shikenbisha-vs-naname",
+          "shikenbisha-vs-yamada",
+          "shikenbisha-vs-funa-kyusen",
+          "shikenbisha-tateishi",
+          "shikenbisha-vs-saginomiya",
+          "shikenbisha-vs-ibisha-anaguma",
+          "shikenbisha-vs-migishiken",
+          "shikenbisha-vs-ponponkei",
+          "shikenbisha-vs-torisashi",
+          "shikenbisha-kakukoukan",
+          "shikenbisha-vs-hidarimino",
+          "shikenbisha-vs-millennium",
+          "shikenbisha-vs-sankenbisha"
+        ],
+        "sourceUnitIds": [
+          "fujii-build",
+          "fujii-vs-anaguma",
+          "fujii-vs-hidarimino",
+          "fujii-vs-kyusen",
+          "shiken-basics",
+          "shiken-castles",
+          "shiken-patterns",
+          "shiken-tateishi",
+          "shiken-vs-anaguma",
+          "shiken-vs-funa-bougin",
+          "shiken-vs-igyoku-bougin",
+          "shiken-vs-migishiken",
+          "shiken-vs-yagura"
+        ]
+      },
+      {
+        "id": "sankenbisha",
+        "title": {
+          "ja": "三間飛車",
+          "en": "Third File Rook"
+        },
+        "wing": "furibisha",
+        "family": "sanken",
+        "familyTitle": {
+          "ja": "三間飛車",
+          "en": "Third File Rook"
+        },
+        "lessonDisplayGroup": "三間飛車",
+        "matchupIds": [
+          "sankenbisha-basics",
+          "sankenbisha-vs-bougin",
+          "sankenbisha-vs-hayashikake45",
+          "sankenbisha-vs-hayashikake35",
+          "sankenbisha-vs-kei37",
+          "sankenbisha-vs-ibisha-anaguma",
+          "sankenbisha-vs-shikenbisha",
+          "sankenbisha-vs-gokigen",
+          "sankenbisha-vs-mukaibisha",
+          "sankenbisha-vs-sankenbisha"
+        ],
+        "sourceUnitIds": ["hayaishida", "ishida-43", "ishida-attack", "ishida-basics", "ishida-honkumi", "sanken-basics", "sanken-tomahawk", "sanken-vs-bougin"]
+      },
+      {
+        "id": "hayaishida",
+        "title": {
+          "ja": "早石田",
+          "en": "Quick Ishida"
+        },
+        "wing": "furibisha",
+        "family": "sanken",
+        "familyTitle": {
+          "ja": "三間飛車",
+          "en": "Third File Rook"
+        },
+        "lessonDisplayGroup": "三間飛車",
+        "matchupIds": ["hayaishida-basics"],
+        "sourceUnitIds": ["hayaishida", "ishida-43", "ishida-attack", "ishida-basics", "ishida-honkumi", "sanken-basics", "sanken-tomahawk", "sanken-vs-bougin"]
+      },
+      {
+        "id": "ishida",
+        "title": {
+          "ja": "石田流",
+          "en": "Ishida"
+        },
+        "wing": "furibisha",
+        "family": "sanken",
+        "familyTitle": {
+          "ja": "三間飛車",
+          "en": "Third File Rook"
+        },
+        "lessonDisplayGroup": "三間飛車",
+        "matchupIds": ["ishida-vs-ibisha", "ishida-vs-sankenbisha"],
+        "sourceUnitIds": ["hayaishida", "ishida-43", "ishida-attack", "ishida-basics", "ishida-honkumi", "sanken-basics", "sanken-tomahawk", "sanken-vs-bougin"]
+      },
+      {
+        "id": "nakabisha",
+        "title": {
+          "ja": "中飛車",
+          "en": "Central Rook"
+        },
+        "wing": "furibisha",
+        "family": "naka",
+        "familyTitle": {
+          "ja": "中飛車",
+          "en": "Central Rook"
+        },
+        "lessonDisplayGroup": "中飛車",
+        "matchupIds": ["nakabisha-vs-ibisha-anaguma"],
+        "sourceUnitIds": [
+          "gokigen-attack",
+          "gokigen-basics",
+          "gokigen-castles",
+          "gokigen-vs-anaguma",
+          "gokigen-vs-choukyusen",
+          "gokigen-vs-chousoku",
+          "nakabisha-sente"
+        ]
+      },
+      {
+        "id": "gokigen",
+        "title": {
+          "ja": "ゴキゲン中飛車",
+          "en": "Gokigen Central Rook"
+        },
+        "wing": "furibisha",
+        "family": "naka",
+        "familyTitle": {
+          "ja": "中飛車",
+          "en": "Central Rook"
+        },
+        "lessonDisplayGroup": "中飛車",
+        "matchupIds": ["gokigen-vs-chousoku", "gokigen-vs-ibisha", "gokigen-vs-maruyama", "gokigen-vs-sankenbisha"],
+        "sourceUnitIds": [
+          "gokigen-attack",
+          "gokigen-basics",
+          "gokigen-castles",
+          "gokigen-vs-anaguma",
+          "gokigen-vs-choukyusen",
+          "gokigen-vs-chousoku",
+          "nakabisha-sente"
+        ]
+      },
+      {
+        "id": "mukaibisha",
+        "title": {
+          "ja": "向かい飛車",
+          "en": "Opposing Rook"
+        },
+        "wing": "furibisha",
+        "family": "mukai",
+        "familyTitle": {
+          "ja": "向かい飛車",
+          "en": "Opposing Rook"
+        },
+        "lessonDisplayGroup": "向かい飛車",
+        "matchupIds": ["mukaibisha-vs-sankenbisha", "mukaibisha-vs-ibisha"],
+        "sourceUnitIds": ["mukai-attack", "mukai-build"]
+      },
+      {
+        "id": "kakukoukan-furi",
+        "title": {
+          "ja": "角交換振り飛車",
+          "en": "Bishop-exchange Ranging Rook"
+        },
+        "wing": "furibisha",
+        "family": "kakukoukan",
+        "familyTitle": {
+          "ja": "角交換振り飛車",
+          "en": "Bishop-exchange Ranging Rook"
+        },
+        "lessonDisplayGroup": "角交換振り飛車",
+        "matchupIds": ["kakukoukan-furi-vs-ibisha"],
+        "sourceUnitIds": []
+      },
+      {
+        "id": "ibisha",
+        "title": {
+          "ja": "居飛車(対振り飛車)",
+          "en": "Static Rook vs Ranging Rook"
+        },
+        "wing": "ibisha",
+        "family": "taikou",
+        "familyTitle": {
+          "ja": "対抗形",
+          "en": "Static vs Ranging"
+        },
+        "lessonDisplayGroup": "対振り飛車、対抗型",
+        "matchupIds": [
+          "ibisha-vs-shikenbisha",
+          "ibisha-vs-sankenbisha",
+          "ibisha-vs-hayaishida",
+          "ibisha-vs-gokigen",
+          "ibisha-vs-ishida",
+          "ibisha-vs-mukaibisha",
+          "ibisha-vs-kakukoukan-furi"
+        ],
+        "sourceUnitIds": [
+          "taifuri-45hayashikake",
+          "taifuri-46gin",
+          "taifuri-anaguma",
+          "taifuri-basics",
+          "taifuri-bougin-ishida",
+          "taifuri-bougin",
+          "taifuri-chousoku",
+          "taifuri-elmo",
+          "taifuri-millennium",
+          "taifuri-ponpon",
+          "taifuri-vs-hayaishida",
+          "taifuri-vs-kakukoukan"
+        ]
+      },
+      {
+        "id": "yagura",
+        "title": {
+          "ja": "矢倉",
+          "en": "Yagura"
+        },
+        "wing": "ibisha",
+        "family": "aiibisha",
+        "familyTitle": {
+          "ja": "相居飛車",
+          "en": "Double Static Rook"
+        },
+        "lessonDisplayGroup": "矢倉戦法",
+        "matchupIds": ["yagura-vs-yagura", "yagura-vs-kyusen-yagura", "yagura-vs-gangi"],
+        "sourceUnitIds": [
+          "gangi",
+          "yagura-37gin",
+          "yagura-aiyagura",
+          "yagura-bougin",
+          "yagura-suzume",
+          "yagura-vs-bougin",
+          "yagura-vs-hidarimino",
+          "yagura-vs-migishiken",
+          "yagura-waki"
+        ]
+      },
+      {
+        "id": "kakugawari",
+        "title": {
+          "ja": "角換わり",
+          "en": "Bishop Exchange"
+        },
+        "wing": "ibisha",
+        "family": "aiibisha",
+        "familyTitle": {
+          "ja": "相居飛車",
+          "en": "Double Static Rook"
+        },
+        "lessonDisplayGroup": "角換わり",
+        "matchupIds": ["kakugawari-vs-ittezon", "kakugawari-vs-kakugawari"],
+        "sourceUnitIds": ["kakugawari-45kei", "kakugawari-basics", "kakugawari-bougin", "kakugawari-hayakuri", "kakugawari-ittezon", "kakugawari-koshikake"]
+      },
+      {
+        "id": "aigakari",
+        "title": {
+          "ja": "相掛かり",
+          "en": "Double Wing Attack"
+        },
+        "wing": "ibisha",
+        "family": "aiibisha",
+        "familyTitle": {
+          "ja": "相居飛車",
+          "en": "Double Static Rook"
+        },
+        "lessonDisplayGroup": "相掛かり",
+        "matchupIds": ["aigakari-vs-aigakari"],
+        "sourceUnitIds": ["aigakari-basics", "aigakari-bougin", "hineribisha"]
+      },
+      {
+        "id": "yokofudori",
+        "title": {
+          "ja": "横歩取り",
+          "en": "Side Pawn Capture"
+        },
+        "wing": "ibisha",
+        "family": "aiibisha",
+        "familyTitle": {
+          "ja": "相居飛車",
+          "en": "Double Static Rook"
+        },
+        "lessonDisplayGroup": "横歩取り",
+        "matchupIds": ["yokofudori-vs-yoko-85hi", "yokofudori-vs-yoko-45kaku"],
+        "sourceUnitIds": ["aiyokofu", "yokofu-23fu", "yokofu-45kaku", "yokofu-85hisha", "yokofu-aono", "yokofu-avoid", "yokofu-basics", "yokofu-yuuki"]
+      },
+      {
+        "id": "yoko-85hi",
+        "title": {
+          "ja": "横歩取り△8五飛",
+          "en": "Side Pawn: △8五飛"
+        },
+        "wing": "ibisha",
+        "family": "aiibisha",
+        "familyTitle": {
+          "ja": "相居飛車",
+          "en": "Double Static Rook"
+        },
+        "lessonDisplayGroup": "横歩取り",
+        "matchupIds": ["yoko-85hi-vs-yokofudori"],
+        "sourceUnitIds": ["aiyokofu", "yokofu-23fu", "yokofu-45kaku", "yokofu-85hisha", "yokofu-aono", "yokofu-avoid", "yokofu-basics", "yokofu-yuuki"]
+      },
+      {
+        "id": "yoko-45kaku",
+        "title": {
+          "ja": "横歩取り△4五角",
+          "en": "Side Pawn: △4五角"
+        },
+        "wing": "ibisha",
+        "family": "aiibisha",
+        "familyTitle": {
+          "ja": "相居飛車",
+          "en": "Double Static Rook"
+        },
+        "lessonDisplayGroup": "横歩取り",
+        "matchupIds": ["yoko-45kaku-vs-yokofudori"],
+        "sourceUnitIds": ["aiyokofu", "yokofu-23fu", "yokofu-45kaku", "yokofu-85hisha", "yokofu-aono", "yokofu-avoid", "yokofu-basics", "yokofu-yuuki"]
+      },
+      {
+        "id": "ittezon",
+        "title": {
+          "ja": "一手損角換わり",
+          "en": "Tempo-loss Bishop Exchange"
+        },
+        "wing": "ibisha",
+        "family": "aiibisha",
+        "familyTitle": {
+          "ja": "相居飛車",
+          "en": "Double Static Rook"
+        },
+        "lessonDisplayGroup": "角換わり",
+        "matchupIds": ["ittezon-vs-hayakurigin", "ittezon-vs-bougin"],
+        "sourceUnitIds": ["kakugawari-45kei", "kakugawari-basics", "kakugawari-bougin", "kakugawari-hayakuri", "kakugawari-ittezon", "kakugawari-koshikake"]
+      },
+      {
+        "id": "kyusen-yagura",
+        "title": {
+          "ja": "急戦矢倉",
+          "en": "Rapid-attack Yagura"
+        },
+        "wing": "ibisha",
+        "family": "aiibisha",
+        "familyTitle": {
+          "ja": "相居飛車",
+          "en": "Double Static Rook"
+        },
+        "lessonDisplayGroup": "矢倉戦法",
+        "matchupIds": ["kyusen-yagura-vs-yagura"],
+        "sourceUnitIds": [
+          "gangi",
+          "yagura-37gin",
+          "yagura-aiyagura",
+          "yagura-bougin",
+          "yagura-suzume",
+          "yagura-vs-bougin",
+          "yagura-vs-hidarimino",
+          "yagura-vs-migishiken",
+          "yagura-waki"
+        ]
+      },
+      {
+        "id": "gangi",
+        "title": {
+          "ja": "雁木",
+          "en": "Gangi"
+        },
+        "wing": "ibisha",
+        "family": "aiibisha",
+        "familyTitle": {
+          "ja": "相居飛車",
+          "en": "Double Static Rook"
+        },
+        "lessonDisplayGroup": "矢倉戦法",
+        "matchupIds": ["gangi-vs-yagura"],
+        "sourceUnitIds": [
+          "gangi",
+          "yagura-37gin",
+          "yagura-aiyagura",
+          "yagura-bougin",
+          "yagura-suzume",
+          "yagura-vs-bougin",
+          "yagura-vs-hidarimino",
+          "yagura-vs-migishiken",
+          "yagura-waki"
+        ]
+      },
+      {
+        "id": "bougin",
+        "title": {
+          "ja": "棒銀",
+          "en": "Climbing Silver"
+        },
+        "wing": "ibisha",
+        "family": "silver",
+        "familyTitle": {
+          "ja": "銀の戦法",
+          "en": "Silver attacks"
+        },
+        "lessonDisplayGroup": null,
+        "matchupIds": ["bougin-vs-shikenbisha", "bougin-vs-sankenbisha", "bougin-vs-kakugawari", "bougin-vs-aigakari", "bougin-vs-ittezon"],
+        "sourceUnitIds": []
+      },
+      {
+        "id": "hayakurigin",
+        "title": {
+          "ja": "早繰り銀",
+          "en": "Rapid Advancing Silver"
+        },
+        "wing": "ibisha",
+        "family": "silver",
+        "familyTitle": {
+          "ja": "銀の戦法",
+          "en": "Silver attacks"
+        },
+        "lessonDisplayGroup": "角換わり",
+        "matchupIds": ["hayakurigin-vs-kakugawari", "hayakurigin-vs-ittezon"],
+        "sourceUnitIds": ["kakugawari-45kei", "kakugawari-basics", "kakugawari-bougin", "kakugawari-hayakuri", "kakugawari-ittezon", "kakugawari-koshikake"]
+      },
+      {
+        "id": "koshikakegin",
+        "title": {
+          "ja": "腰掛け銀",
+          "en": "Reclining Silver"
+        },
+        "wing": "ibisha",
+        "family": "silver",
+        "familyTitle": {
+          "ja": "銀の戦法",
+          "en": "Silver attacks"
+        },
+        "lessonDisplayGroup": "角換わり",
+        "matchupIds": ["koshikakegin-vs-kakugawari"],
+        "sourceUnitIds": ["kakugawari-45kei", "kakugawari-basics", "kakugawari-bougin", "kakugawari-hayakuri", "kakugawari-ittezon", "kakugawari-koshikake"]
+      },
+      {
+        "id": "migishiken",
+        "title": {
+          "ja": "右四間飛車",
+          "en": "Right Fourth File Rook"
+        },
+        "wing": "ibisha",
+        "family": "kyusen",
+        "familyTitle": {
+          "ja": "急戦",
+          "en": "Rapid attacks"
+        },
+        "lessonDisplayGroup": null,
+        "matchupIds": ["migishiken-vs-shikenbisha"],
+        "sourceUnitIds": []
+      },
+      {
+        "id": "funa-kyusen",
+        "title": {
+          "ja": "舟囲い急戦",
+          "en": "Funa-castle rapid attack"
+        },
+        "wing": "ibisha",
+        "family": "kyusen",
+        "familyTitle": {
+          "ja": "急戦",
+          "en": "Rapid attacks"
+        },
+        "lessonDisplayGroup": null,
+        "matchupIds": ["funa-kyusen-vs-shikenbisha"],
+        "sourceUnitIds": []
+      },
+      {
+        "id": "hayashikake45",
+        "title": {
+          "ja": "4五歩早仕掛け",
+          "en": "Early ▲4五歩 rapid attack"
+        },
+        "wing": "ibisha",
+        "family": "kyusen",
+        "familyTitle": {
+          "ja": "急戦",
+          "en": "Rapid attacks"
+        },
+        "lessonDisplayGroup": null,
+        "matchupIds": ["hayashikake45-vs-shikenbisha", "hayashikake45-vs-sankenbisha"],
+        "sourceUnitIds": []
+      },
+      {
+        "id": "saginomiya",
+        "title": {
+          "ja": "鷺宮定跡",
+          "en": "Saginomiya Joseki"
+        },
+        "wing": "ibisha",
+        "family": "kyusen",
+        "familyTitle": {
+          "ja": "急戦",
+          "en": "Rapid attacks"
+        },
+        "lessonDisplayGroup": null,
+        "matchupIds": ["saginomiya-vs-shikenbisha"],
+        "sourceUnitIds": []
+      },
+      {
+        "id": "yamada",
+        "title": {
+          "ja": "山田定跡",
+          "en": "Yamada Joseki"
+        },
+        "wing": "ibisha",
+        "family": "kyusen",
+        "familyTitle": {
+          "ja": "急戦",
+          "en": "Rapid attacks"
+        },
+        "lessonDisplayGroup": null,
+        "matchupIds": ["yamada-vs-shikenbisha"],
+        "sourceUnitIds": []
+      },
+      {
+        "id": "naname",
+        "title": {
+          "ja": "斜め棒銀・4六銀左急戦",
+          "en": "Diagonal Climbing Silver (Left Silver-46)"
+        },
+        "wing": "ibisha",
+        "family": "kyusen",
+        "familyTitle": {
+          "ja": "急戦",
+          "en": "Rapid attacks"
+        },
+        "lessonDisplayGroup": null,
+        "matchupIds": ["naname-vs-shikenbisha"],
+        "sourceUnitIds": []
+      },
+      {
+        "id": "hayashikake35",
+        "title": {
+          "ja": "▲3五歩早仕掛け",
+          "en": "Early ▲3五歩 rapid attack"
+        },
+        "wing": "ibisha",
+        "family": "kyusen",
+        "familyTitle": {
+          "ja": "急戦",
+          "en": "Rapid attacks"
+        },
+        "lessonDisplayGroup": null,
+        "matchupIds": ["hayashikake35-vs-sankenbisha"],
+        "sourceUnitIds": []
+      },
+      {
+        "id": "kei37",
+        "title": {
+          "ja": "▲3七桂早仕掛け",
+          "en": "Early ▲3七桂 rapid attack"
+        },
+        "wing": "ibisha",
+        "family": "kyusen",
+        "familyTitle": {
+          "ja": "急戦",
+          "en": "Rapid attacks"
+        },
+        "lessonDisplayGroup": null,
+        "matchupIds": ["kei37-vs-sankenbisha"],
+        "sourceUnitIds": []
+      },
+      {
+        "id": "ponponkei",
+        "title": {
+          "ja": "ポンポン桂",
+          "en": "Pon-pon Knight"
+        },
+        "wing": "ibisha",
+        "family": "kyusen",
+        "familyTitle": {
+          "ja": "急戦",
+          "en": "Rapid attacks"
+        },
+        "lessonDisplayGroup": null,
+        "matchupIds": ["ponponkei-vs-shikenbisha"],
+        "sourceUnitIds": []
+      },
+      {
+        "id": "chousoku",
+        "title": {
+          "ja": "超速▲3七銀",
+          "en": "Super-fast ▲3七銀"
+        },
+        "wing": "ibisha",
+        "family": "kyusen",
+        "familyTitle": {
+          "ja": "急戦",
+          "en": "Rapid attacks"
+        },
+        "lessonDisplayGroup": null,
+        "matchupIds": ["chousoku-vs-gokigen"],
+        "sourceUnitIds": []
+      },
+      {
+        "id": "maruyama",
+        "title": {
+          "ja": "丸山ワクチン",
+          "en": "Maruyama Vaccine"
+        },
+        "wing": "ibisha",
+        "family": "taikou",
+        "familyTitle": {
+          "ja": "対抗形",
+          "en": "Static vs Ranging"
+        },
+        "lessonDisplayGroup": null,
+        "matchupIds": ["maruyama-vs-gokigen"],
+        "sourceUnitIds": []
+      },
+      {
+        "id": "torisashi",
+        "title": {
+          "ja": "鳥刺し・嬉野流",
+          "en": "Bird Catcher (Ureshino)"
+        },
+        "wing": "ibisha",
+        "family": "kishu",
+        "familyTitle": {
+          "ja": "奇襲",
+          "en": "Surprise openings"
+        },
+        "lessonDisplayGroup": "奇襲戦法",
+        "matchupIds": ["torisashi-vs-shikenbisha"],
+        "sourceUnitIds": ["kishu-ahiru", "kishu-migishiken-hidarimino", "kishu-onigoroshi", "kishu-pacman", "kishu-sujichigai"]
+      },
+      {
+        "id": "sujichigai",
+        "title": {
+          "ja": "筋違い角",
+          "en": "Wrong-diagonal Bishop"
+        },
+        "wing": "ibisha",
+        "family": "kishu",
+        "familyTitle": {
+          "ja": "奇襲",
+          "en": "Surprise openings"
+        },
+        "lessonDisplayGroup": "奇襲戦法",
+        "matchupIds": ["sujichigai-basics"],
+        "sourceUnitIds": ["kishu-ahiru", "kishu-migishiken-hidarimino", "kishu-onigoroshi", "kishu-pacman", "kishu-sujichigai"]
+      },
+      {
+        "id": "ibisha-anaguma",
+        "title": {
+          "ja": "居飛車穴熊",
+          "en": "Static Rook Anaguma"
+        },
+        "wing": "ibisha",
+        "family": "jikyu",
+        "familyTitle": {
+          "ja": "持久戦",
+          "en": "Slow games"
+        },
+        "lessonDisplayGroup": null,
+        "matchupIds": ["ibisha-anaguma-vs-shikenbisha", "ibisha-anaguma-vs-sankenbisha", "ibisha-anaguma-vs-nakabisha"],
+        "sourceUnitIds": []
+      },
+      {
+        "id": "hidarimino",
+        "title": {
+          "ja": "左美濃",
+          "en": "Left Mino"
+        },
+        "wing": "ibisha",
+        "family": "jikyu",
+        "familyTitle": {
+          "ja": "持久戦",
+          "en": "Slow games"
+        },
+        "lessonDisplayGroup": null,
+        "matchupIds": ["hidarimino-vs-shikenbisha"],
+        "sourceUnitIds": []
+      },
+      {
+        "id": "millennium",
+        "title": {
+          "ja": "ミレニアム",
+          "en": "Millennium"
+        },
+        "wing": "ibisha",
+        "family": "jikyu",
+        "familyTitle": {
+          "ja": "持久戦",
+          "en": "Slow games"
+        },
+        "lessonDisplayGroup": null,
+        "matchupIds": ["millennium-vs-shikenbisha"],
+        "sourceUnitIds": []
+      }
+    ],
+    "strategyGroupMapping": {
+      "shikenbisha": "四間飛車",
+      "sankenbisha": "三間飛車",
+      "hayaishida": "三間飛車",
+      "ishida": "三間飛車",
+      "nakabisha": "中飛車",
+      "gokigen": "中飛車",
+      "mukaibisha": "向かい飛車",
+      "kakukoukan-furi": "角交換振り飛車",
+      "yagura": "矢倉戦法",
+      "kyusen-yagura": "矢倉戦法",
+      "gangi": "矢倉戦法",
+      "kakugawari": "角換わり",
+      "ittezon": "角換わり",
+      "hayakurigin": "角換わり",
+      "koshikakegin": "角換わり",
+      "aigakari": "相掛かり",
+      "yokofudori": "横歩取り",
+      "yoko-85hi": "横歩取り",
+      "yoko-45kaku": "横歩取り",
+      "ibisha": "対振り飛車、対抗型",
+      "torisashi": "奇襲戦法",
+      "sujichigai": "奇襲戦法"
+    },
+    "mappedLessonGroupNames": [
+      "四間飛車",
+      "三間飛車",
+      "中飛車",
+      "向かい飛車",
+      "角交換振り飛車",
+      "対振り飛車、対抗型",
+      "矢倉戦法",
+      "角換わり",
+      "相掛かり",
+      "横歩取り",
+      "奇襲戦法"
+    ],
+    "sharedOtherLessonGroupNames": ["相振り飛車", "居飛車", "振り飛車", "駒落ち定跡", "嬉野流"]
+  },
+  "techniqueSetups": [
+    {
+      "id": "sabaki",
+      "title": {
+        "ja": "捌き",
+        "en": "Sabaki"
+      },
+      "category": "skills",
+      "displayGroup": "手筋",
+      "declaredCourseIds": ["sabaki--kuboryu", "sabaki--torisashi"],
+      "sourceUnitCount": 0,
+      "sourceUnitIds": [],
+      "note": "Separate legacy technique setup; declared course IDs are not authored-unit IDs. Actual raw-course availability was not newly inspected."
+    },
+    {
+      "id": "kuzushi",
+      "title": {
+        "ja": "囲い崩し",
+        "en": "Castle breaking"
+      },
+      "category": "skills",
+      "displayGroup": "囲い崩し",
+      "declaredCourseIds": ["kuzushi--mino-36kei", "kuzushi--kimura-mino", "kuzushi--funa-hashi"],
+      "sourceUnitCount": 0,
+      "sourceUnitIds": [],
+      "note": "Separate legacy technique setup; declared course IDs are not authored-unit IDs. Actual raw-course availability was not newly inspected."
+    }
+  ],
+  "rules": {
+    "category": "technique => skills; path[0] はじめての将棋 => basics; path[0] 戦法、定跡 or 戦法・定跡 => joseki; other path => skills; no path => joseki",
+    "group": "technique: tesuji/sabaki => 手筋, kuzushi => 囲い崩し; otherwise path[0] 囲い => 囲い; otherwise final path element; then PATH_GROUP rename",
+    "pathGroupRenames": {
+      "ルール": "将棋のルール",
+      "基本の考え方": "初心者向け入門講座",
+      "終盤": "詰将棋、必至、寄せ",
+      "囲い": "囲い、駒組み",
+      "矢倉": "矢倉戦法",
+      "雁木": "矢倉戦法",
+      "対振り飛車": "対振り飛車、対抗型",
+      "奇襲対策": "奇襲戦法",
+      "駒落ち": "駒落ち定跡"
+    },
+    "josekiGroup": "Opening path with >1 element => groupOf; opening path with only root => 戦法、定跡; other setups => undefined",
+    "josekiRendering": "Selected main strategy supplies STRATEGY_GROUP. Lessons with that group appear with its ideas/tactics; matchup setups whose main equals selection appear separately. Opening lesson groups absent from all selector mappings appear in shared other groups.",
+    "visibility": "OpeningPicker all includes setup when courses.length>0 or setup.path exists. Non-joseki fixed headings render only when entries exist.",
+    "counts": "sourceUnitCount counts distinct data/lessons/units/*.json metadata; does not count legacy matchup/technique setup cards, courses, mirrored perspectives or chapters."
+  }
+}

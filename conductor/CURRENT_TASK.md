@@ -11,3 +11,12 @@
 - Preserve concurrent historicalart section above and untracked output/, public/historical-shogi.html, src/rendering/historical/. Only this lesson section is staged for the audit taskrecord; concurrentartcontent stays uncommitted.
 - Skills fully read: shogi-lessons1–60, authoring1–55, verification1–90, docslessons1–84; GYST1–27; unfuck-yourself1–60; antislopcore1–724/copy1–372; check1–228/referencesdurable1–21/project1–130/ship1–51; agent-browserstub1–52/runtimecoreEOF. Checkreviewdepthquick/staticcontent.
 - No lessonrepair work remains. Delivery state is established by git HEAD/remote refs and currentheadCI; the source commit and push must cover all intendedauditfiles without including concurrentwork.
+
+
+## Coaching pattern catalog
+
+- Publish the coaching research, reproducible self-play records, categorized template designs and checked sample prose for review.
+- Scope: `conductor/character-lab-voice-research.md` and `output/coaching-study/`. Application, lesson and artwork implementation are outside this change.
+- Entry: `output/coaching-study/README.md`; pattern definitions: `PATTERN_CATALOG.md` / `pattern-catalog.json`; actual randomized match samples: `randomized/SAMPLES.md`.
+- Four completed YaneuraOu games use randomized legal opening candidates and per-side SkillLevel settings; 24 selected positions have move/PV replay and factual prose checks. Templates cover the existing guide hierarchy; named opening recognition and runtime integration remain unverified.
+- PR writing skill read 1–170 through EOF. Both saved game corpora pass independent legal replay; the randomized set passes 42,978 assertions across 444 played plies and all recorded PVs. Category, sample, JSON and document-link checks pass. `bun run check` passes with existing non-fatal source warnings. Generated datasets are marked for collapsed review; authored patterns and readable examples remain visible.

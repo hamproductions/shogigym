@@ -1,0 +1,52 @@
+{
+  "provenance": "Synthetic self-play generated locally; no external games or lesson positions used",
+  "seed": 20261023,
+  "rng": "LCG1664525/1013904223 uint32",
+  "reproducibility": "Seeded choices and exact recorded moves reproduce the stored games. Wall-time engine searches can vary across hardware/reruns.",
+  "engine": "@mizarjp/yaneuraou.k-p",
+  "threads": 1,
+  "hashMiB": 32,
+  "ownBook": false,
+  "generationMs": 100,
+  "reviewMs": 300,
+  "multipv": 3,
+  "games": [
+    {
+      "id": "stable",
+      "plies": 100,
+      "termination": "100-ply-horizon; no outcome adjudicated"
+    },
+    {
+      "id": "open-exchange",
+      "plies": 100,
+      "termination": "100-ply-horizon; no outcome adjudicated"
+    },
+    {
+      "id": "candidate-exploration",
+      "plies": 52,
+      "termination": "checkmate; all legal replies enumerated absent"
+    },
+    {
+      "id": "legal-errors",
+      "plies": 77,
+      "termination": "checkmate; all legal replies enumerated absent"
+    }
+  ],
+  "selectedPositions": 22,
+  "searchesExecutedThisInvocation": 4,
+  "recordedGenerationAnalyses": 329,
+  "recordedReviewAnalyses": 44,
+  "checkedReplayPlies": 11425,
+  "legality": "All played moves and every recorded candidate PV replayed with tsshogi isValidMove + doMove; terminal no-move conditions enumerate all legal moves.",
+  "sha256": {
+    "stable": "878508176fee602f6be47fa06feb636f8d747f58ff9300c40078f106c74ac4a7",
+    "open-exchange": "05af22f27a49074d3bb05a8a1fc38efc0148a9f75385da13bfe5634c20358604",
+    "candidate-exploration": "525504c58cf33513d47f500e894563e5f35c7ab0df075ae174c1dddcfc59db91",
+    "legal-errors": "bea8739d5f624688fba72f2e7468a65fb46ebc0f1a67f523446144ef6d10e5e8"
+  },
+  "limits": [
+    "No claim of real human play, calibrated player strength, long-search optimality, forced mate from short PV, or complete game outcomes at horizon.",
+    "Fourfold repeat stops do not adjudicate perpetual-check fouls.",
+    "No audio, browser, feature code, network or model inference used."
+  ]
+}
