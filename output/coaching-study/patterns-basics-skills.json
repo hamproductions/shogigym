@@ -1,0 +1,534 @@
+[
+  {
+    "id": "rules-movement",
+    "category": "basics",
+    "group": "将棋のルール",
+    "title": "移動方向と経路",
+    "intent": "駒の動ける方向と障害物を具体化する",
+    "trigger": "実着手または利用者が選んだ移動候補",
+    "requires": [
+      "{side}・{piece}・{from}・{to}の実局面対応",
+      "合法手判定・駒種別移動規則",
+      "長距離駒なら途中升の占有確認",
+      "次の発話項目を実データの根拠に対応付ける：{movementRule}、{pathObservation}"
+    ],
+    "templateJa": "{side}の{piece}は{from}から{to}へ{movementRule}で動きます。{pathObservation}。",
+    "forbiddenClaims": ["駒の幾何学的な動きだけによる合法手の断定", "玉を王手にさらす移動の許可"],
+    "sampleIds": ["random-1-32"],
+    "status": {
+      "design": "テンプレート設計案・未実装",
+      "eventEvidence": "対応する実イベントあり。機構の例のみで、教材分類・囲い認識の証拠ではない。",
+      "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+    }
+  },
+  {
+    "id": "rules-drop",
+    "category": "basics",
+    "group": "将棋のルール",
+    "title": "持駒を使う条件",
+    "intent": "盤上移動と持駒投入を区別する",
+    "trigger": "駒打ちまたは駒打ち候補",
+    "requires": [
+      "{side}の着手前後の持駒数",
+      "{piece}・{to}・空き升・二歩・行き所・打ち歩詰めを含む合法性",
+      "次の発話項目を実データの根拠に対応付ける：{handAfter}、{handBefore}"
+    ],
+    "templateJa": "{side}は持駒の{piece}を{to}へ打ちました。持駒の{piece}は{handBefore}枚から{handAfter}枚になりました。",
+    "forbiddenClaims": ["打てることから駒得や最善を推定", "持駒にない駒の投入"],
+    "sampleIds": ["random-1-40", "random-2-40", "random-2-46"],
+    "status": {
+      "design": "テンプレート設計案・未実装",
+      "eventEvidence": "対応する実イベントあり。機構の例のみで、教材分類・囲い認識の証拠ではない。",
+      "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+    }
+  },
+  {
+    "id": "rules-promotion",
+    "category": "basics",
+    "group": "将棋のルール",
+    "title": "成りで変わる動き",
+    "intent": "成りの資格と成った後の駒を結び付ける",
+    "trigger": "成りを伴う実着手",
+    "requires": [
+      "{from}または{to}の成り区域該当・強制成り判定",
+      "着手前後の駒種・合法な成り",
+      "{newReach}の障害物付き利き",
+      "次の発話項目を実データの根拠に対応付ける：{pieceAfter}、{pieceBefore}、{promotionEligibility}、{side}"
+    ],
+    "templateJa": "{side}の{pieceBefore}は{to}で成って{pieceAfter}になりました。{promotionEligibility}。成った後は{newReach}にも利きます。",
+    "forbiddenClaims": ["任意の成りを強制と説明", "成っただけで駒得と断定"],
+    "sampleIds": ["random-1-48", "random-2-80"],
+    "status": {
+      "design": "テンプレート設計案・未実装",
+      "eventEvidence": "対応する実イベントあり。機構の例のみで、教材分類・囲い認識の証拠ではない。",
+      "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+    }
+  },
+  {
+    "id": "intro-material-reply",
+    "category": "basics",
+    "group": "初心者向け入門講座",
+    "title": "取った駒と次の取り返し",
+    "intent": "一手の獲得と交換全体を分ける",
+    "trigger": "駒取り後に合法な取り返し例がある",
+    "requires": [
+      "実着手の捕獲と持駒更新",
+      "{reply}を含む合法再生",
+      "{replyCaptured}の再生結果",
+      "次の発話項目を実データの根拠に対応付ける：{replyCondition}、{side}",
+      "捕獲時の駒種{capturedOnBoard}と、成りを戻した持駒種{capturedInHand}を区別する"
+    ],
+    "templateJa": "{side}は盤上の{capturedOnBoard}を取り、持駒に{capturedInHand}を加えました。例えば{replyCondition}なら{reply}で{replyCaptured}を取り返されます。",
+    "forbiddenClaims": ["一手の獲得を最終的な駒得と断定", "応手例を強制と説明", "馬・龍・成駒を成ったままの持駒として記述すること"],
+    "sampleIds": ["random-3-30", "random-3-63"],
+    "status": {
+      "design": "テンプレート設計案・未実装",
+      "eventEvidence": "random-3-30・random-3-63で、実際の捕獲と合法な取り返しを確認。カテゴリへの実装接続は未検証。",
+      "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+    }
+  },
+  {
+    "id": "intro-safe-development",
+    "category": "basics",
+    "group": "初心者向け入門講座",
+    "title": "駒組み前に王手と駒取りを確認",
+    "intent": "安全確認を先に置いて次の駒組みを考える",
+    "trigger": "駒組み候補を案内する前",
+    "requires": [
+      "実局面の王手有無",
+      "相手の合法な即時駒取り一覧",
+      "{developmentMove}の合法性と対象駒の前後比較",
+      "{safetyObservation}の具体的な確認結果",
+      "次の発話項目を実データの根拠に対応付ける：{piece}、{replyToCheck}、{to}"
+    ],
+    "templateJa": "{safetyObservation}。次に{developmentMove}で{piece}を{to}へ動かす場合は、{replyToCheck}を確認してから進めましょう。",
+    "forbiddenClaims": ["駒を前進させただけで安全になったと断定", "未検証の駒組み候補を最善と案内"],
+    "sampleIds": [],
+    "status": {
+      "design": "テンプレート設計案・未実装",
+      "eventEvidence": "必要な実データ・機構の検証例は未取得。発話不可。",
+      "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+    }
+  },
+  {
+    "id": "intro-simple-comparison",
+    "category": "basics",
+    "group": "初心者向け入門講座",
+    "title": "二つの取る手を一項目で比べる",
+    "intent": "初心者が一度に比較する軸を絞る",
+    "trigger": "合法な候補二手に異なる対象がある",
+    "requires": [
+      "{moveA}・{moveB}の合法性",
+      "各手の対象駒・持駒の変化",
+      "比較する{criterion}の事実",
+      "次の発話項目を実データの根拠に対応付ける：{resultA}、{resultB}"
+    ],
+    "templateJa": "{moveA}なら{resultA}、{moveB}なら{resultB}です。まず{criterion}を比べましょう。",
+    "forbiddenClaims": ["一項目だけで総合的な優劣を断定", "棋力や心理の推測"],
+    "sampleIds": ["random-1-28"],
+    "status": {
+      "design": "テンプレート設計案・未実装",
+      "eventEvidence": "対応する実イベントあり。機構の例のみで、教材分類・囲い認識の証拠ではない。",
+      "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+    }
+  },
+  {
+    "id": "tesuji-control-delta",
+    "category": "skills",
+    "group": "手筋",
+    "title": "着手で増えた利きを特定",
+    "intent": "既存の利きと新しい利きを分ける",
+    "trigger": "駒の移動・成りで利き集合が変わった",
+    "requires": [
+      "同じ駒の前後の障害物付き利き",
+      "{newSquare}が前は対象外で後に対象内",
+      "対象升の駒と色",
+      "次の発話項目を実データの根拠に対応付ける：{move}、{piece}、{retainedControl}、{target}"
+    ],
+    "templateJa": "{move}で{piece}の利きが変わり、新たに{newSquare}の{target}へ届きました。{retainedControl}。",
+    "forbiddenClaims": ["前からある利きを新しい効果と説明", "利きから安全な駒取りを断定"],
+    "sampleIds": ["random-2-80"],
+    "status": {
+      "design": "テンプレート設計案・未実装",
+      "eventEvidence": "対応する実イベントあり。機構の例のみで、教材分類・囲い認識の証拠ではない。",
+      "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+    }
+  },
+  {
+    "id": "tesuji-two-targets",
+    "category": "skills",
+    "group": "手筋",
+    "title": "二つの標的と応手を分ける",
+    "intent": "二対象への利きと確定的な両取り成功を区別する",
+    "trigger": "一枚の駒が異なる二つの敵駒に利く",
+    "requires": [
+      "{attacker}から{targetA}・{targetB}への幾何学的利き",
+      "両対象の升・色・駒種",
+      "合法な次手の確認がなければ利きの説明に限定",
+      "次の発話項目を実データの根拠に対応付ける：{replyCheck}、{squareA}、{squareB}"
+    ],
+    "templateJa": "{attacker}は{squareA}の{targetA}と{squareB}の{targetB}の両方に利いています。次に取れるかは{replyCheck}を確かめます。",
+    "forbiddenClaims": ["幾何学的二対象だけで両取り成功・駒得を断定", "王手やピンを無視した取りの許可"],
+    "sampleIds": ["random-1-48"],
+    "status": {
+      "design": "テンプレート設計案・未実装",
+      "eventEvidence": "対応する実イベントあり。機構の例のみで、教材分類・囲い認識の証拠ではない。",
+      "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+    }
+  },
+  {
+    "id": "tesuji-legal-followup",
+    "category": "skills",
+    "group": "手筋",
+    "title": "取りの後の一手まで追う",
+    "intent": "狙いを具体的な合法手順で確かめる",
+    "trigger": "実着手後に検証済みの短い応手例がある",
+    "requires": [
+      "開始SFEN・手番",
+      "{exampleLine}の全手合法再生",
+      "各手の捕獲・成り・持駒更新",
+      "次の発話項目を実データの根拠に対応付ける：{condition}、{observedConsequence}"
+    ],
+    "templateJa": "例えば{condition}なら、{exampleLine}と進む形があります。この順では{observedConsequence}。",
+    "forbiddenClaims": ["参考PVを必然と説明", "検証区間を越えた損得の断定"],
+    "sampleIds": ["random-2-80"],
+    "status": {
+      "design": "テンプレート設計案・未実装",
+      "eventEvidence": "対応する実イベントあり。機構の例のみで、教材分類・囲い認識の証拠ではない。",
+      "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+    }
+  },
+  {
+    "id": "break-remove-guard",
+    "category": "skills",
+    "group": "囲い崩し",
+    "title": "守備駒を動かした後の支え",
+    "intent": "守備の除去と支えの消失を因果で説明する",
+    "trigger": "玉周辺の守備駒が捕獲または移動した",
+    "requires": [
+      "玉と守備駒の実位置",
+      "守備駒が支える{entrySquare}の前後比較",
+      "{guardMove}後の合法な攻め筋",
+      "囲い名を使う場合のみ認識根拠",
+      "次の発話項目を実データの根拠に対応付ける：{entryMove}、{guardFrom}、{guard}、{supportAfter}、{supportBefore}"
+    ],
+    "templateJa": "{guardMove}で{guard}が{guardFrom}から離れ、{entrySquare}への支えが{supportBefore}から{supportAfter}に変わりました。{entryMove}を調べる入口です。",
+    "forbiddenClaims": ["守備駒一枚の移動だけで囲い崩壊と断定", "未認識の囲い名", "残る守備駒を無視した侵入成功"],
+    "sampleIds": [],
+    "status": {
+      "design": "テンプレート設計案・未実装",
+      "eventEvidence": "必要な実データ・機構の検証例は未取得。発話不可。",
+      "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+    }
+  },
+  {
+    "id": "break-entry-exchange",
+    "category": "skills",
+    "group": "囲い崩し",
+    "title": "攻めの入口の取り返し",
+    "intent": "侵入口での攻め駒と守備駒の交換を読む",
+    "trigger": "玉周辺の候補侵入口に駒が接触する",
+    "requires": [
+      "{entrySquare}が対象玉の周辺である実位置",
+      "攻め側の合法な侵入手",
+      "守備側の合法な取り返し",
+      "交換後の盤面・持駒",
+      "次の発話項目を実データの根拠に対応付ける：{entryMove}、{nextAttacker}、{recapture}"
+    ],
+    "templateJa": "例えば{entryMove}で{entrySquare}へ入ると、{recapture}という取り返しがあります。交換後に{nextAttacker}が続けるかを確認しましょう。",
+    "forbiddenClaims": ["取り返し可能な地点を無条件の突破口と説明", "攻め駒の数だけで勝敗を断定"],
+    "sampleIds": [],
+    "status": {
+      "design": "テンプレート設計案・未実装",
+      "eventEvidence": "必要な実データ・機構の検証例は未取得。発話不可。",
+      "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+    }
+  },
+  {
+    "id": "break-close-exit",
+    "category": "skills",
+    "group": "囲い崩し",
+    "title": "攻めと玉の逃げ道",
+    "intent": "駒取り以外の逃走範囲の変化を読む",
+    "trigger": "攻めの着手で玉の合法な退路が変化した",
+    "requires": [
+      "前後の玉位置と合法な玉移動集合",
+      "{closedSquare}の閉鎖理由と攻め駒",
+      "玉の捕獲・相手王手を含む合法性",
+      "残る{remainingExits}の列挙",
+      "次の発話項目を実データの根拠に対応付ける：{closureReason}、{move}"
+    ],
+    "templateJa": "{move}の後は{closedSquare}へ玉が逃げられません。{closureReason}ためです。残る逃げ先は{remainingExits}です。",
+    "forbiddenClaims": ["一つの退路閉鎖だけで詰みと断定", "幾何学的利きだけで合法な退路を確定"],
+    "sampleIds": [],
+    "status": {
+      "design": "テンプレート設計案・未実装",
+      "eventEvidence": "必要な実データ・機構の検証例は未取得。発話不可。",
+      "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+    }
+  },
+  {
+    "id": "endgame-check-defense",
+    "category": "skills",
+    "group": "詰将棋、必至、寄せ",
+    "title": "王手への具体的な受け",
+    "intent": "現在の王手を解く機構を説明する",
+    "trigger": "王手に対する実着手が合法に成立",
+    "requires": [
+      "着手前の王手と王手駒の特定",
+      "受けの手と玉位置",
+      "受けた側の着手後の王手解除確認",
+      "次の発話項目を実データの根拠に対応付ける：{checkMechanism}、{defenseMechanism}、{defenseMove}、{side}"
+    ],
+    "templateJa": "{side}は{defenseMove}で{checkMechanism}を受けました。{defenseMechanism}によって、今の王手を解いています。",
+    "forbiddenClaims": ["王手解除を将来の詰み回避と同一視", "合法な受けが複数あるのに唯一と断定"],
+    "sampleIds": ["random-2-46"],
+    "status": {
+      "design": "テンプレート設計案・未実装",
+      "eventEvidence": "対応する実イベントあり。機構の例のみで、教材分類・囲い認識の証拠ではない。",
+      "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+    }
+  },
+  {
+    "id": "endgame-mate-endpoint",
+    "category": "skills",
+    "group": "詰将棋、必至、寄せ",
+    "title": "実局面の詰みを確認",
+    "intent": "王手と合法な応手なしを両方示す",
+    "trigger": "実着手後の王手と合法応手零件",
+    "requires": [
+      "{move}の合法性",
+      "着手後の正確なSFENと実際の持駒",
+      "王手確認",
+      "全合法応手列挙の結果が零件",
+      "次の発話項目を実データの根拠に対応付ける：{kingSide}、{side}"
+    ],
+    "templateJa": "{side}の{move}で{kingSide}玉に王手がかかり、詰みになりました。王手を解く合法な応手はありません。",
+    "forbiddenClaims": ["投了表示だけで詰み判定", "単一PVだけで全防御検証済みと扱う", "詰将棋の持駒規約を実戦へ無断適用"],
+    "sampleIds": ["random-1-68", "random-2-114"],
+    "status": {
+      "design": "テンプレート設計案・未実装",
+      "eventEvidence": "対応する実イベントあり。機構の例のみで、教材分類・囲い認識の証拠ではない。",
+      "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+    }
+  },
+  {
+    "id": "endgame-conditional-threat",
+    "category": "skills",
+    "group": "詰将棋、必至、寄せ",
+    "title": "条件付きの詰み筋と受けを区別",
+    "intent": "詰めろ・必至の語を証明範囲に合わせる",
+    "trigger": "王手ではない着手後に詰みの脅威を調べる",
+    "requires": [
+      "着手後が非王手",
+      "明示する{condition}の合法性とその後の詰み木全防御検証",
+      "本当の詰めろなら相手のパス相当で手番を戻した規約上妥当な脅威検証",
+      "必至と呼ぶには全合法防御後の詰み検証",
+      "次の発話項目を実データの根拠に対応付ける：{matingLine}、{verifiedDefense}"
+    ],
+    "templateJa": "例えば{condition}なら、{matingLine}の詰み筋があります。{verifiedDefense}でこの筋を防げるかを分けて調べましょう。",
+    "forbiddenClaims": ["条件付き一変化だけで詰めろ・必至と断定", "一つの受けを調べただけで受けなしと断定"],
+    "sampleIds": [],
+    "status": {
+      "design": "テンプレート設計案・未実装",
+      "eventEvidence": "必要な実データ・機構の検証例は未取得。発話不可。",
+      "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+    }
+  },
+  {
+    "id": "castle-protection-change",
+    "category": "skills",
+    "group": "囲い、駒組み",
+    "title": "玉周辺の守りの増減",
+    "intent": "金銀の形ではなく具体的な支えを見る",
+    "trigger": "玉周辺の升への守備関係が変化した",
+    "requires": [
+      "{kingSquare}と{guard}の実位置",
+      "{protectedSquare}への前後の利き・合法性",
+      "新たな支えと失った支えの両方",
+      "囲い名を出す場合の認識データ",
+      "次の発話項目を実データの根拠に対応付ける：{guardMove}、{lostSquare}、{lostSupportObservation}"
+    ],
+    "templateJa": "{guardMove}で{protectedSquare}を{guard}が支える形になりました。一方、{lostSquare}への支えは{lostSupportObservation}です。",
+    "forbiddenClaims": ["守備枚数の増加だけで玉の安全を断定", "既存の支えを新しい効果と説明", "金銀の位置だけから未検証の囲い名"],
+    "sampleIds": [],
+    "status": {
+      "design": "テンプレート設計案・未実装",
+      "eventEvidence": "必要な実データ・機構の検証例は未取得。発話不可。",
+      "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+    }
+  },
+  {
+    "id": "castle-escape-route",
+    "category": "skills",
+    "group": "囲い、駒組み",
+    "title": "駒組み後の玉の通り道",
+    "intent": "固める手と退路を残す手を比較する",
+    "trigger": "玉周辺の駒組み候補で退路の候補が変わる",
+    "requires": [
+      "候補{moveA}・{moveB}の合法性",
+      "各候補後の玉の合法な隣接移動",
+      "敵駒の利きと味方駒の占有",
+      "次の手番までに相手が動くことを明示",
+      "次の発話項目を実データの根拠に対応付ける：{blockingDifference}、{exitA}、{exitB}"
+    ],
+    "templateJa": "{moveA}の直後の盤面では{exitA}、{moveB}の直後では{exitB}が玉の逃げ先の候補です。{blockingDifference}を比べましょう。",
+    "forbiddenClaims": ["次の相手着手後も同じ退路が必ず残ると断定", "空き升をすべて合法な逃げ道と扱う"],
+    "sampleIds": [],
+    "status": {
+      "design": "テンプレート設計案・未実装",
+      "eventEvidence": "必要な実データ・機構の検証例は未取得。発話不可。",
+      "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+    }
+  },
+  {
+    "id": "castle-development-priority",
+    "category": "skills",
+    "group": "囲い、駒組み",
+    "title": "攻めの準備と守備の優先",
+    "intent": "組み上げの順を相手の具体的な手に合わせる",
+    "trigger": "守備の整備と攻め駒展開の候補が競合する",
+    "requires": [
+      "合法な{defenseMove}と{developmentMove}",
+      "現在の相手の合法な脅威{threatMove}",
+      "各候補後の同一脅威に対する検証",
+      "主張する優先順位の比較根拠",
+      "次の発話項目を実データの根拠に対応付ける：{defenseResult}、{developmentResult}、{priorityReason}"
+    ],
+    "templateJa": "{threatMove}への対応を先に確かめましょう。{defenseMove}なら{defenseResult}、{developmentMove}なら{developmentResult}となるため、{priorityReason}を基準に選びます。",
+    "forbiddenClaims": ["特定の囲いを必ず完成すべきと断定", "前進を駒の働きの改善と同一視", "短時間の候補順だけから絶対の優先順位"],
+    "sampleIds": [],
+    "status": {
+      "design": "テンプレート設計案・未実装",
+      "eventEvidence": "必要な実データ・機構の検証例は未取得。発話不可。",
+      "visibility": "既存の表示グループ。テンプレートの接続は未実装。"
+    }
+  },
+  {
+    "id": "reserved-proverb-fit",
+    "category": "skills",
+    "group": "将棋の格言",
+    "title": "格言の適用条件",
+    "intent": "実在する格言を局面の条件と照合する",
+    "trigger": "利用者が実在の格言を選ぶ",
+    "requires": ["出典・表記が確認済みの{proverbText}", "説明に必要な原典の利用条件", "実局面での{matchingCondition}の検証"],
+    "templateJa": "「{proverbText}」を考える場面です。この局面では{matchingCondition}が当てはまるかを確認しましょう。",
+    "forbiddenClaims": ["格言・出典の創作", "格言を例外のない法則と説明"],
+    "sampleIds": [],
+    "status": {
+      "design": "予約設計・現在非表示",
+      "eventEvidence": "必要な実データ・機構の検証例は未取得。発話不可。",
+      "visibility": "設定済みだが教材が零件のため現在の一覧には表示されない。"
+    }
+  },
+  {
+    "id": "reserved-proverb-exception",
+    "category": "skills",
+    "group": "将棋の格言",
+    "title": "格言が当てはまらない例",
+    "intent": "標語と具体的な反例を対比する",
+    "trigger": "確認済みの格言に対する実際の反例が得られた",
+    "requires": [
+      "確認済みの{proverbText}と出典",
+      "{counterMove}の合法再生",
+      "格言を機械的に適用した候補との具体的比較",
+      "次の発話項目を実データの根拠に対応付ける：{exceptionReason}"
+    ],
+    "templateJa": "「{proverbText}」だけで選ぶと、{counterMove}への対応を見落とします。ここでは{exceptionReason}を先に確認しましょう。",
+    "forbiddenClaims": ["架空の反例", "格言を全面的に誤りと断定"],
+    "sampleIds": [],
+    "status": {
+      "design": "予約設計・現在非表示",
+      "eventEvidence": "必要な実データ・機構の検証例は未取得。発話不可。",
+      "visibility": "設定済みだが教材が零件のため現在の一覧には表示されない。"
+    }
+  },
+  {
+    "id": "reserved-study-retry",
+    "category": "skills",
+    "group": "勉強法",
+    "title": "再挑戦から復習項目を選ぶ",
+    "intent": "実際の解答履歴で復習対象を絞る",
+    "trigger": "利用者の復習履歴がある",
+    "requires": [
+      "本人の実際の{attemptRecord}と利用許可",
+      "同じ課題の識別子・実施日時",
+      "正誤判定根拠・未実施との区別",
+      "次の発話項目を実データの根拠に対応付ける：{observedDifficulty}、{reviewAction}、{taskTitle}"
+    ],
+    "templateJa": "{taskTitle}では{observedDifficulty}が記録されています。今回は{reviewAction}に絞って、もう一度考えてみましょう。",
+    "forbiddenClaims": ["架空の正答率・連続日数・棋力", "一度の誤答から恒常的な弱点を断定"],
+    "sampleIds": [],
+    "status": {
+      "design": "予約設計・現在非表示",
+      "eventEvidence": "必要な実データ・機構の検証例は未取得。発話不可。",
+      "visibility": "設定済みだが教材が零件のため現在の一覧には表示されない。"
+    }
+  },
+  {
+    "id": "reserved-study-process",
+    "category": "skills",
+    "group": "勉強法",
+    "title": "考えた手順を振り返る",
+    "intent": "結果だけでなく実際に確認した分岐を整理する",
+    "trigger": "利用者が候補と応手の検討記録を保存した",
+    "requires": [
+      "利用者本人の実際の{candidateNotes}",
+      "合法再生済みの検討分岐",
+      "未検討と誤答の区別",
+      "次の発話項目を実データの根拠に対応付ける：{checkedBranch}、{studyGoal}、{unexaminedReply}"
+    ],
+    "templateJa": "{checkedBranch}までは確認できています。次は未検討の{unexaminedReply}を加えて、{studyGoal}を確かめましょう。",
+    "forbiddenClaims": ["利用者の思考内容を推測", "未記録を未理解と断定"],
+    "sampleIds": [],
+    "status": {
+      "design": "予約設計・現在非表示",
+      "eventEvidence": "必要な実データ・機構の検証例は未取得。発話不可。",
+      "visibility": "設定済みだが教材が零件のため現在の一覧には表示されない。"
+    }
+  },
+  {
+    "id": "reserved-book-relevance",
+    "category": "skills",
+    "group": "棋書",
+    "title": "確認済みの本の該当箇所",
+    "intent": "実在の書誌から学習課題との接点を示す",
+    "trigger": "書誌と内容の一次確認済み資料を利用者が選択した",
+    "requires": [
+      "著者・書名・版の確認済み{bibliography}",
+      "実際に確認した{sectionTitle}と所在",
+      "当該箇所に基づく独自の{topicSummary}",
+      "次の発話項目を実データの根拠に対応付ける：{bookTitle}、{learningTopic}"
+    ],
+    "templateJa": "{bookTitle}の{sectionTitle}は、今回の{learningTopic}を復習する参考になります。{topicSummary}を局面と照らして読んでみましょう。",
+    "forbiddenClaims": ["架空の書名・著者・章・ページ", "未読の本の内容を推薦理由にする", "書籍本文や創作局面の流用"],
+    "sampleIds": [],
+    "status": {
+      "design": "予約設計・現在非表示",
+      "eventEvidence": "必要な実データ・機構の検証例は未取得。発話不可。",
+      "visibility": "設定済みだが教材が零件のため現在の一覧には表示されない。"
+    }
+  },
+  {
+    "id": "reserved-book-progress",
+    "category": "skills",
+    "group": "棋書",
+    "title": "読了範囲から次の課題を選ぶ",
+    "intent": "実際の読書記録と演習をつなぐ",
+    "trigger": "利用者が読了記録と確認済み演習を選択した",
+    "requires": [
+      "本人が記録した{readRange}",
+      "版と箇所が一致する確認済み書誌",
+      "実際に利用可能な{practiceTask}と教材利用条件",
+      "次の発話項目を実データの根拠に対応付ける：{bookTitle}、{learningGoal}"
+    ],
+    "templateJa": "{bookTitle}の{readRange}を読んだ記録があります。{practiceTask}で{learningGoal}を確認してみましょう。",
+    "forbiddenClaims": ["読了・理解度の創作", "権利未確認の演習転載", "読書量から棋力向上を数値で断定"],
+    "sampleIds": [],
+    "status": {
+      "design": "予約設計・現在非表示",
+      "eventEvidence": "必要な実データ・機構の検証例は未取得。発話不可。",
+      "visibility": "設定済みだが教材が零件のため現在の一覧には表示されない。"
+    }
+  }
+]

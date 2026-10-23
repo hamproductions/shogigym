@@ -1,0 +1,31 @@
+{
+  "terminalChecks": [
+    {
+      "gameId": "random-1",
+      "checked": true,
+      "legalReplies": 0
+    },
+    {
+      "gameId": "random-2",
+      "checked": true,
+      "legalReplies": 0
+    },
+    {
+      "gameId": "random-3",
+      "checked": true,
+      "legalReplies": 0
+    },
+    {
+      "gameId": "random-4",
+      "checked": true,
+      "legalReplies": 0
+    }
+  ],
+  "games": 4,
+  "positions": 24,
+  "plies": 444,
+  "assertions": 42978,
+  "replayedPlies": 17101,
+  "result": "pass",
+  "scope": "Independent second replay of saved games and every recorded PV; selected event provenance, notation, capture, promotion, drop, check, inventories, hands, capture witnesses and score sign independently checked. Does not certify semantic coaching claims or engine strength."
+}

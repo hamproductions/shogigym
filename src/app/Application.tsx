@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react'
+import { Suspense, lazy, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { InitialPositionSFEN } from 'tsshogi'
 import { LABELS } from '@/utils/analysis'
@@ -85,6 +85,8 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
   const [watchSetup, setWatchSetup] = useState(false)
   const [watchOrder, setWatchOrder] = useState<'random' | 'sente' | 'gote'>('random')
   const [pendingFurigoma, setPendingFurigoma] = useState(false)
+  const furigomaCompleted = useRef(false)
+  const furigomaResult = useRef<boolean[] | null>(null)
   const [furigomaFaces, setFurigomaFaces] = useState<boolean[] | null>(null)
   const [confirm, setConfirm] = useState<Confirm | null>(null)
   const [nudge, setNudge] = useTransient<string>(2200)
@@ -146,6 +148,23 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
   const bookHere = useMemo(() => bookMovesAt(sfen, nodes), [sfen, nodes])
   const bookLast = useMemo(() => bookForMove(prevSfen, lastMove, nodes, course), [prevSfen, lastMove, nodes, course])
   const { mistake } = mistakes
+  const startWatch = watch.start
+  const setFurigomaBanner = spar.setFurigomaBanner
+  const completeFurigoma = useCallback(
+    (resolvedSide?: Side) => {
+      if (furigomaCompleted.current) return
+      furigomaCompleted.current = true
+      const side =
+        resolvedSide ?? ((furigomaResult.current ?? Array.from({ length: 5 }, () => Math.random() < 0.5)).filter(Boolean).length >= 3 ? 'sente' : 'gote')
+      if (mode === 'view') startWatch(side)
+      else {
+        load(InitialPositionSFEN.STANDARD, side, 'spar', null)
+        setFurigomaBanner(t(side === 'sente' ? 'app.playSente' : 'app.playGote'))
+      }
+      setPendingFurigoma(false)
+    },
+    [mode, startWatch, load, setFurigomaBanner, t],
+  )
 
   const commit = (usi: string) => {
     session.setPromotion(null)
@@ -199,11 +218,10 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
   useEffect(() => {
     if (mode !== 'view' || !pendingFurigoma || !furigomaFaces) return
     const timer = setTimeout(() => {
-      watch.start(furigomaFaces.filter(Boolean).length >= 3 ? 'sente' : 'gote')
-      setPendingFurigoma(false)
+      completeFurigoma()
     }, 2500)
     return () => clearTimeout(timer)
-  }, [mode, pendingFurigoma, furigomaFaces, watch.start])
+  }, [mode, pendingFurigoma, furigomaFaces, completeFurigoma])
 
   useEffect(() => {
     const back = (event: Event) => {
@@ -303,6 +321,8 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
     spar.setDrawn(!!isRandom)
     session.setPlaying(false)
     if (isRandom) {
+      furigomaCompleted.current = false
+      furigomaResult.current = null
       setFurigomaFaces(null)
       if (three) load(InitialPositionSFEN.STANDARD, side, 'spar', null)
       setPendingFurigoma(true)
@@ -343,7 +363,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
       setShowTrends(false),
       setConfirm(null),
       spar.setNewGameOpen(false),
-      setPendingFurigoma(false)
+      pendingFurigoma ? completeFurigoma() : setPendingFurigoma(false)
     ),
     overlayOpen: lesson.mapOpen && !!course,
     replyMove: opponent.reply?.usi,
@@ -426,6 +446,8 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
           <BoardStage
             furigoma={pendingFurigoma && three}
             onFurigoma={(faces) => {
+              if (!pendingFurigoma || furigomaCompleted.current) return
+              furigomaResult.current = faces
               setFurigomaFaces(faces)
               const pawns = faces.filter(Boolean).length
               sayFurigomaResult(pawns, mode === 'view')
@@ -522,6 +544,8 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
                       say('よろしくお願いします', true)
                       return
                     }
+                    furigomaCompleted.current = false
+                    furigomaResult.current = null
                     setFurigomaFaces(null)
                     setPendingFurigoma(true)
                     if (three) say('振り駒を行います', true)
@@ -543,34 +567,9 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
               }}
             />
           )}
-          {pendingFurigoma && !three && (
-            <Furigoma
-              spectator={mode === 'view'}
-              onCancel={() => setPendingFurigoma(false)}
-              onDone={(side) => {
-                if (mode === 'view') watch.start(side)
-                else {
-                  load(InitialPositionSFEN.STANDARD, side, 'spar', null)
-                  spar.setFurigomaBanner(t(side === 'sente' ? 'app.playSente' : 'app.playGote'))
-                }
-                setPendingFurigoma(false)
-              }}
-            />
-          )}
+          {pendingFurigoma && !three && <Furigoma spectator={mode === 'view'} onDone={completeFurigoma} />}
           {pendingFurigoma && three && (
-            <div
-              onClick={() => {
-                if (!furigomaFaces) return
-                const side = furigomaFaces.filter(Boolean).length >= 3 ? 'sente' : 'gote'
-                if (mode === 'view') watch.start(side)
-                else {
-                  load(InitialPositionSFEN.STANDARD, side, 'spar', null)
-                  spar.setFurigomaBanner(t(side === 'sente' ? 'app.playSente' : 'app.playGote'))
-                }
-                setPendingFurigoma(false)
-              }}
-              style={{ position: 'fixed', inset: 0, zIndex: 100, pointerEvents: 'auto', cursor: furigomaFaces ? 'pointer' : 'default' }}
-            >
+            <div onClick={() => completeFurigoma()} style={{ position: 'fixed', inset: 0, zIndex: 100, pointerEvents: 'auto', cursor: 'pointer' }}>
               <div className={`${dialog().content} app-dialog`} style={{ position: 'absolute', bottom: 24, left: '50%', transform: 'translateX(-50%)' }}>
                 <styled.p mt="0" mx="0" mb="4" role="status">
                   {furigomaFaces
@@ -591,10 +590,10 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
                   <Button
                     onClick={(event) => {
                       event.stopPropagation()
-                      setPendingFurigoma(false)
+                      completeFurigoma()
                     }}
                   >
-                    {t('app.cancel')}
+                    {furigomaFaces ? t('newGame.start') : settings.lang === 'ja' ? 'スキップして対局開始' : 'Skip and start game'}
                   </Button>
                   {furigomaFaces && (
                     <span>{mode === 'view' ? t('watch.starting') : settings.lang === 'ja' ? 'どこかをクリックして対局開始' : 'Click anywhere to start'}</span>

@@ -1,0 +1,422 @@
+[
+  {
+    "id": "random-1-12",
+    "family": "歩の前進と残る角の利き",
+    "short": "後手は６四へ歩を進めましたが、先手の７七の角は３三の歩まで利いています。",
+    "detail": "後手の６三の歩が６四へ移りました。先手には７七の角で３三の歩を取り、成る手もあります。",
+    "evidence": ["usi", "sfenBefore", "sfenAfter", "legalCapturesAfterForSideToMove[usi=7g3c+]"],
+    "withheld": ["角の斜線がこの歩突きで初めて開いたという因果", "角で歩を取る手が安全・最善という断定"],
+    "visibility": {
+      "short": "実着手後（実着手までの情報）",
+      "detail": "検討用（次の手・参考手順を含む）"
+    },
+    "sourceMove": "6c6d",
+    "sourceFactsSha256": "1c38f5ec14c6703a01c2dcd38b593fbb624af606a07b60c1a30b9d7e9bd2f5d2"
+  },
+  {
+    "id": "random-1-28",
+    "family": "歩突きと角の取り方",
+    "short": "後手が４四へ進めた歩は、先手の５五の角で取れます。",
+    "detail": "先手には５五の角で４四の歩を取る手と、６四の歩を取る手があります。どちらも持駒の歩を得る着手ですが、その後の応手も比べたいところです。",
+    "evidence": ["usi", "legalCapturesAfterForSideToMove[usi=5e4d]", "legalCapturesAfterForSideToMove[usi=5e6d]"],
+    "withheld": ["歩を取る手の優劣", "角で歩を取れば最終的に駒得という断定", "短時間解析による評価差を歩突きだけの原因とする断定"],
+    "visibility": {
+      "short": "検討用（次の手の情報を含む）",
+      "detail": "検討用（次の手・参考手順を含む）"
+    },
+    "sourceMove": "4c4d",
+    "sourceFactsSha256": "30753cd62868bc042963af24bdbf46a43b3e84919bb3f9262f81d20eea67de5d"
+  },
+  {
+    "id": "random-1-32",
+    "family": "銀による歩の獲得",
+    "short": "後手は銀で７六の歩を取り、持ち歩が二枚になりました。",
+    "detail": "後手の銀は６五から７六へ進みました。取った歩は持駒に加わり、後手の持ち歩は一枚から二枚へ増えています。",
+    "evidence": ["usi", "captured", "before.sides.white.hands.pawn", "after.sides.white.hands.pawn"],
+    "withheld": ["銀の進出が安全という断定", "一歩の獲得だけによる形勢判断"],
+    "visibility": {
+      "short": "実着手後（実着手までの情報）",
+      "detail": "実着手後（実着手までの情報）"
+    },
+    "sourceMove": "6e7f",
+    "sourceFactsSha256": "0d10a3b0f776b0ec01511574ed590cdc83961e6f768ef1df1f4d55d2c991dc9f"
+  },
+  {
+    "id": "random-1-40",
+    "family": "歩打ちによる銀への利き",
+    "short": "後手が３四に打った歩は、先手の３五の銀に当たっています。",
+    "detail": "後手の持ち歩は三枚から二枚になりました。先手の３五の銀で３四の歩を取る手もあるので、銀の移動先には取る手も含めて考えられます。",
+    "evidence": [
+      "usi",
+      "drop",
+      "before.sides.white.hands.pawn",
+      "after.sides.white.hands.pawn",
+      "geometricallyAttackedUndefendedAfter[square=3e]",
+      "legalCapturesAfterForSideToMove[usi=3e3d]"
+    ],
+    "withheld": ["銀が逃げるしかないという断定", "歩で銀を必ず取れるという断定", "銀で歩を取る手が安全という断定"],
+    "visibility": {
+      "short": "実着手後（実着手までの情報）",
+      "detail": "検討用（次の手・参考手順を含む）"
+    },
+    "sourceMove": "P*3d",
+    "sourceFactsSha256": "e1c79df3f46614375facf05ec412c39f69f15dbc14d7e08fe8a968f01845c31e"
+  },
+  {
+    "id": "random-1-48",
+    "family": "銀取りと角の成り",
+    "short": "後手は８八の銀を取りながら角を成り、持駒に銀も加えました。",
+    "detail": "２二の角が８八の馬になり、８九の桂や９九の香にも利いています。後手の持駒には角一枚に加えて銀一枚があり、盤上の馬と持駒の角は別の駒です。",
+    "evidence": ["usi", "captured", "promotion", "movedSliderControl.afterSquares", "after.sides.white.hands.silver", "after.sides.white.hands.bishop"],
+    "withheld": ["桂や香を安全に取れるという断定", "駒取りを伴う強制手順", "この手が唯一の好手という断定"],
+    "visibility": {
+      "short": "実着手後（実着手までの情報）",
+      "detail": "実着手後（実着手までの情報）"
+    },
+    "sourceMove": "2b8h+",
+    "sourceFactsSha256": "fc351edaf41789d7c027b470547ea391a5779756f1c72151fbdf3dc578f3eab4"
+  },
+  {
+    "id": "random-1-68",
+    "family": "歩を取って詰み",
+    "short": "後手の６六馬で先手の５七玉に王手がかかり、詰みになりました。",
+    "detail": "７五の馬が６六の歩を取り、後手の持ち歩は四枚になりました。着手後は先手玉が王手を受けていて、合法な応手はありません。",
+    "evidence": ["usi", "captured", "sfenAfter", "givesCheck", "after.sides.white.hands.pawn", "terminal.checked", "terminal.legalReplyCount"],
+    "withheld": ["一つのエンジンPVだけを詰みの根拠とする説明", "終局までの全手順が強制だったという断定"],
+    "visibility": {
+      "short": "実着手後（実着手までの情報）",
+      "detail": "実着手後（実着手までの情報）"
+    },
+    "sourceMove": "7e6f",
+    "sourceFactsSha256": "acd96c5a03dc8278b3512a9ec1157bda52a922f69d027d56f0d7720f17a4de63"
+  },
+  {
+    "id": "random-2-12",
+    "family": "銀の移動と角の持駒",
+    "short": "後手は銀を２二へ上がり、角は双方とも持駒に残しています。",
+    "detail": "後手の銀は３一から２二へ移りました。先手には７七の桂で８五の歩を取る手も残っています。",
+    "evidence": ["usi", "after.sides.black.hands.bishop", "after.sides.white.hands.bishop", "legalCapturesAfterForSideToMove[usi=7g8e]"],
+    "withheld": ["囲いの名称", "銀移動が８五の歩取りを新たに生んだという因果", "桂で歩を取る手が安全という断定"],
+    "visibility": {
+      "short": "実着手後（実着手までの情報）",
+      "detail": "検討用（次の手・参考手順を含む）"
+    },
+    "sourceMove": "3a2b",
+    "sourceFactsSha256": "be5c549e765962f083b4af7ff69562e7647de16cae5aa99c718eee4d7ca39c00"
+  },
+  {
+    "id": "random-2-30",
+    "family": "歩の獲得と持駒",
+    "short": "後手は３五の歩を取り、持駒に歩を一枚得ました。",
+    "detail": "後手の歩は３四から３五へ進み、先手の盤上の歩は九枚から八枚になりました。後手には角の持駒も一枚残っています。",
+    "evidence": [
+      "usi",
+      "captured",
+      "before.sides.black.board.pawn",
+      "after.sides.black.board.pawn",
+      "after.sides.white.hands.pawn",
+      "after.sides.white.hands.bishop"
+    ],
+    "withheld": ["歩を取ったことだけによる勝敗・優勢の断定", "取った歩を使う具体的な手の創作"],
+    "visibility": {
+      "short": "実着手後（実着手までの情報）",
+      "detail": "実着手後（実着手までの情報）"
+    },
+    "sourceMove": "3d3e",
+    "sourceFactsSha256": "71a3c7c5c8c638a3add3b1d881c98f3d06ab72505d4f6d8cf9c096cb5355dd82"
+  },
+  {
+    "id": "random-2-40",
+    "family": "歩打ちと金の選択肢",
+    "short": "後手の７四歩打は、先手の７五の金に歩を当てる手です。",
+    "detail": "先手の金には７四の歩を取る手に加え、６四や８五の歩を取る手もあります。金の移動先ごとに、その後に取られないかを比べたい局面です。",
+    "evidence": [
+      "usi",
+      "drop",
+      "geometricallyAttackedUndefendedAfter[square=7e]",
+      "legalCapturesAfterForSideToMove[usi=7e7d]",
+      "legalCapturesAfterForSideToMove[usi=7e6d]",
+      "legalCapturesAfterForSideToMove[usi=7e8e]"
+    ],
+    "withheld": ["金が必ず取られるという断定", "三つの駒取りがすべて安全という断定", "金を引くしかないという断定"],
+    "visibility": {
+      "short": "実着手後（実着手までの情報）",
+      "detail": "検討用（次の手・参考手順を含む）"
+    },
+    "sourceMove": "P*7d",
+    "sourceFactsSha256": "78bfe5d1f2086cc1d1c693500f188ff27122fefdc1254c201b1fd058151c5d3d"
+  },
+  {
+    "id": "random-2-46",
+    "family": "歩の合駒で王手を受ける",
+    "short": "後手は３四へ歩を合駒し、３六の飛車からの王手を遮りました。",
+    "detail": "後手の３二玉と先手の３六の飛車の間に、３四の歩が入りました。先手にはその歩を３四飛と取る手も残っています。",
+    "evidence": ["usi", "drop", "sfenBefore", "sfenAfter", "before.checked", "legalCapturesAfterForSideToMove[usi=3f3d]"],
+    "withheld": ["王手を受けたことで将来の詰みもなくなったという断定", "合駒の歩を取る手が最善・安全という断定"],
+    "visibility": {
+      "short": "実着手後（実着手までの情報）",
+      "detail": "検討用（次の手・参考手順を含む）"
+    },
+    "sourceMove": "P*3d",
+    "sourceFactsSha256": "dabc1f4e52526635a70af72ded3269700b2cdad97ad79531fac47d6f08586169"
+  },
+  {
+    "id": "random-2-80",
+    "family": "金取りと馬の利き",
+    "short": "後手は４七の金を取って角を成り、馬の斜線が先手の２九の飛車まで通りました。",
+    "detail": "取った金は後手の持駒に加わっています。例えば先手２四飛で別の角を取れば、後手２四歩でその飛車を取り返す進行があります。",
+    "evidence": [
+      "usi",
+      "captured",
+      "promotion",
+      "movedSliderControl.beforeSquares",
+      "movedSliderControl.afterSquares",
+      "after.sides.white.hands.gold",
+      "legalCapturesAfterForSideToMove[usi=2i2d]",
+      "review.after.finalBestmoveCandidate.pv[0:2]",
+      "review.after.pvLegallyReplayed"
+    ],
+    "withheld": ["馬による飛車取りが確定という断定", "参考手順が強制という断定", "角を取れば駒得という断定"],
+    "visibility": {
+      "short": "実着手後（実着手までの情報）",
+      "detail": "検討用（次の手・参考手順を含む）"
+    },
+    "sourceMove": "5h4g+",
+    "sourceFactsSha256": "25a0301b6842deeb2e24c097a5961ff680274adb8019c454856fd019a0953f39"
+  },
+  {
+    "id": "random-2-114",
+    "family": "龍の横利きで詰み",
+    "short": "後手の５六龍で先手の６六玉に王手がかかり、詰みになりました。",
+    "detail": "５九の龍が５六の歩を取って玉の隣へ入り、後手の持ち歩は四枚になりました。先手には王手を解く合法な応手がありません。",
+    "evidence": ["usi", "captured", "givesCheck", "sfenAfter", "after.sides.white.hands.pawn", "terminal.checked", "terminal.legalReplyCount"],
+    "withheld": ["エンジンの投了表示だけによる詰みの判定", "過去の手順まで含めた強制性の断定"],
+    "visibility": {
+      "short": "実着手後（実着手までの情報）",
+      "detail": "実着手後（実着手までの情報）"
+    },
+    "sourceMove": "5i5f",
+    "sourceFactsSha256": "26c15cc501b9283695a786c02565a6ccc4534c990668bb98e8164e6a26db80c4"
+  },
+  {
+    "id": "random-3-12",
+    "family": "馬の取り返しと飛車の守り",
+    "short": "後手は２二の馬を飛車で取り、双方が角を一枚ずつ持つ形になりました。",
+    "detail": "先手は８七歩で８六の後手歩を取れる一方、２四の後手歩には２二飛の縦の利きが届いています。",
+    "evidence": [
+      "usi=8b2b",
+      "captured=horse",
+      "after.sides.black.hands.bishop=1",
+      "after.sides.white.hands.bishop=1",
+      "legalCapturesAfterForSideToMove[usi=8g8f]",
+      "movedSliderControl.beforeSquares",
+      "movedSliderControl.afterSquares includes2d"
+    ],
+    "withheld": ["馬を取ったので一方的な角得だという解釈", "飛車の利きを安全な駒取りと同一視すること", "人間の対局や棋力についての解釈"],
+    "visibility": "検討用（実着手後の局面と未着手の応手を含む）",
+    "sourceMove": "8b2b",
+    "sourceFactsSha256": "1033139ff2810a81bec92f6b4b7b872d81c4f85e74c75cffb1bfa7cc2ade90a6"
+  },
+  {
+    "id": "random-3-19",
+    "family": "飛車の前を埋める歩打ち",
+    "short": "先手は２七に歩を打ち、２八飛の前を歩で埋めました。",
+    "detail": "飛車から２五の後手歩への道は２七歩で止まります。例えば△７七角成▲同桂なら、先手８九桂が馬を取り返して双方が角を持ちます。",
+    "evidence": [
+      "usi=P*2g",
+      "drop=true",
+      "sfenBefore",
+      "sfenAfter",
+      "legalCapturesBeforeForSideToMove[usi=2h2e]",
+      "legalCapturesAfterForSideToMove[usi=4d7g+]",
+      "review.after.finalBestmoveCandidate.pv[0:2]"
+    ],
+    "withheld": ["歩打ちで全ての攻めが止まったという断定", "参考PVの強制性", "順位１のPVを無条件に最終候補と扱うこと"],
+    "visibility": "検討用（実着手後の局面と未着手の応手を含む）",
+    "sourceMove": "P*2g",
+    "sourceFactsSha256": "8449c0ca032e1e2e425341a6b71e4c594c00edf0779787a778102abd555a9091"
+  },
+  {
+    "id": "random-3-30",
+    "family": "三つの取り返しを比べる",
+    "short": "後手は７七角成と角を取りましたが、先手は銀・金・桂のいずれでも馬を取り返せます。",
+    "detail": "６八銀・７八金・８九桂が７七への取り手です。例えば▲同銀なら銀が７七へ出て、先手も角を一枚持つ形になります。",
+    "evidence": [
+      "usi=4d7g+",
+      "captured=bishop",
+      "promotion=true",
+      "legalCapturesAfterForSideToMove[usi=6h7g]",
+      "legalCapturesAfterForSideToMove[usi=7h7g]",
+      "legalCapturesAfterForSideToMove[usi=8i7g]",
+      "review.after.finalBestmoveCandidate.pv[0]",
+      "after.sides.white.hands.bishop=1"
+    ],
+    "withheld": ["三種類の取り返しが同じ評価だという断定", "銀で取る手が強制という断定"],
+    "visibility": "検討用（実着手後の局面と未着手の応手を含む）",
+    "sourceMove": "4d7g+",
+    "sourceFactsSha256": "e8eb92c8c6a68554c81bb031f1e8bd526fd34e5d5cea8d046dcf50691cb51f11"
+  },
+  {
+    "id": "random-3-63",
+    "family": "馬を取った銀への歩の取り返し",
+    "short": "先手は７六の馬を銀で取りましたが、後手７五歩がその銀を取れる位置です。",
+    "detail": "馬を取ったことで、先手の持ち角は二枚になりました。△同歩には▲６五桂と７七の桂を使う続きがあります。",
+    "evidence": [
+      "usi=6e7f",
+      "captured=horse",
+      "after.sides.black.hands.bishop=2",
+      "legalCapturesAfterForSideToMove[usi=7e7f]",
+      "sfenAfter",
+      "review.after.finalBestmoveCandidate.pv[0:2]"
+    ],
+    "withheld": ["銀が取られずに残るという断定", "馬と銀の交換だけによる最終的な損得判断", "PVを強制手順と扱うこと"],
+    "visibility": "検討用（実着手後の局面と未着手の応手を含む）",
+    "sourceMove": "6e7f",
+    "sourceFactsSha256": "9f5f6de63fff1bc581b2540828da6a6d5e4da64be02c3be9f444171d36ea80cf"
+  },
+  {
+    "id": "random-3-110",
+    "family": "馬を取った角の斜線",
+    "short": "後手は５三の馬を角で取り、角の利きが８六の先手歩まで届く位置へ進みました。",
+    "detail": "角の斜線は５三から６四・７五を通って８六へ続きます。先手には、６八の後手と金を５七銀か６九歩で取る手も残っています。",
+    "evidence": [
+      "usi=4b5c",
+      "captured=horse",
+      "sfenAfter",
+      "movedSliderControl.beforeSquares",
+      "movedSliderControl.afterSquares includes8f",
+      "legalCapturesAfterForSideToMove[usi=5g6h]",
+      "legalCapturesAfterForSideToMove[usi=6i6h]"
+    ],
+    "withheld": ["８六歩を無償で取れるという断定", "角の移動だけを原因とした形勢判断", "と金を取る手が唯一の応手という断定"],
+    "visibility": "検討用（実着手後の局面と未着手の応手を含む）",
+    "sourceMove": "4b5c",
+    "sourceFactsSha256": "afb2bbdc172bb1eba500b74556a0f49e425ffcc6de9fb77fc5795eeb6edcd753"
+  },
+  {
+    "id": "random-3-157",
+    "family": "金打ちで確定した詰み",
+    "short": "先手の６六金打ちで、５五の後手玉は詰みです。",
+    "detail": "王手の駒は６六金で、５五玉へ斜め前に利いています。",
+    "evidence": [
+      "usi=G*6f",
+      "drop=true",
+      "piece=gold",
+      "givesCheck=true",
+      "sfenAfter",
+      "terminal.checked=true",
+      "terminal.legalReplyCount=0",
+      "terminal.isGameEndpoint=true"
+    ],
+    "withheld": ["金打ち以前の手順が全て強制だったという解釈", "エンジンの投了出力だけを根拠にした詰み判定", "人間の対局の勝敗として扱うこと"],
+    "visibility": "実着手後の終局説明",
+    "sourceMove": "G*6f",
+    "sourceFactsSha256": "b0b5b2346751421c134f9244495606076f9d73f95cafdc5c264868bf69821e33"
+  },
+  {
+    "id": "random-4-12",
+    "family": "歩の取り返しを角まで数える",
+    "short": "後手は２三の歩で２四の先手歩を取りましたが、先手の２八飛からも２四へ届きます。",
+    "detail": "２四は１三の後手角も守るマスです。先手が飛車で歩を取る場合は、続く角の取り返しまで数えます。",
+    "evidence": [
+      "usi=2c2d",
+      "captured=pawn",
+      "legalCapturesAfterForSideToMove[usi=2h2d]",
+      "legalCapturesBeforeForSideToMove[usi=1c2d]",
+      "sfenBefore",
+      "sfenAfter",
+      "semantic-verification.json.extraLegalWitness[usi=2h2d,1c2d]"
+    ],
+    "withheld": ["飛車で取り返す手が最善という断定", "歩を取れることを無償の駒得とすること"],
+    "visibility": "検討用（実着手後の局面と未着手の応手を含む）",
+    "sourceMove": "2c2d",
+    "sourceFactsSha256": "6bdff1350b197d715b23e9547e41ae423a89f4de34ddcf4f07b17663e505f6d0"
+  },
+  {
+    "id": "random-4-23",
+    "family": "端の歩取りと銀の守り",
+    "short": "先手は１四の歩を取りましたが、後手は２三銀でその歩を取り返せます。",
+    "detail": "この着手で先手の持ち歩は一枚になりました。後手には銀で取る手のほか、例えば△３一角と１三角を引く続きもあります。",
+    "evidence": [
+      "usi=1e1d",
+      "captured=pawn",
+      "after.sides.black.hands.pawn=1",
+      "legalCapturesAfterForSideToMove[usi=2c1d]",
+      "review.after.finalBestmoveCandidate.pv[0]",
+      "sfenAfter"
+    ],
+    "withheld": ["端の突破が確定したという断定", "銀の取り返しを強制と扱うこと", "取れる歩を必ず取るべきという判断"],
+    "visibility": "検討用（実着手後の局面と未着手の応手を含む）",
+    "sourceMove": "1e1d",
+    "sourceFactsSha256": "6b1fb5ceb5a1eea1c5807820a9166fe0c20e91556f4c0fa63bce2451b629c0f7"
+  },
+  {
+    "id": "random-4-30",
+    "family": "打った歩を香で取る道",
+    "short": "後手の１七歩打ちには、先手が１九香でその歩を取れます。",
+    "detail": "１八が空いているため、１九香から１七まで通っています。例えば▲１七香△８六角▲同角△同飛なら、角交換のあと後手飛車が８六へ出ます。",
+    "evidence": ["usi=P*1g", "drop=true", "sfenAfter", "legalCapturesAfterForSideToMove[usi=1i1g]", "review.after.finalBestmoveCandidate.pv[0:4]"],
+    "withheld": ["歩を捨てる目的や心理の推定", "香が歩を取ったあとも安全だという断定", "参考手順が強制という断定"],
+    "visibility": "検討用（実着手後の局面と未着手の応手を含む）",
+    "sourceMove": "P*1g",
+    "sourceFactsSha256": "aa1eae1611898f93d4c9f1ce9cc56ef4ca521620af2c6a960ac8cd761d2a41ec"
+  },
+  {
+    "id": "random-4-43",
+    "family": "角の利きから外して角へ当てる",
+    "short": "先手は飛車を３六へ移し、３五の後手角へ縦の利きを向けました。",
+    "detail": "移動前の２六飛は３五角の斜めの利きに入っていました。例えば後手が△３四銀と上がれば、その銀が３五角を守る形に変わります。",
+    "evidence": [
+      "usi=2f3f",
+      "captured=null",
+      "geometricallyAttackedUndefendedBefore[square=2f]",
+      "geometricallyAttackedUndefendedAfter[square=3e]",
+      "movedSliderControl.beforeSquares",
+      "movedSliderControl.afterSquares includes3e",
+      "sfenAfter",
+      "review.after.finalBestmoveCandidate.pv[0]"
+    ],
+    "withheld": ["角を必ず取れるという断定", "銀を上がる手以外に応手がないという断定", "幾何学的な利きをそのまま安全な駒得とみなすこと"],
+    "visibility": "検討用（実着手後の局面と未着手の応手を含む）",
+    "sourceMove": "2f3f",
+    "sourceFactsSha256": "77ca2c067a2c7ec68cc5496b1f02638dd34b33859b66f3c02186453d834a5868"
+  },
+  {
+    "id": "random-4-74",
+    "family": "進めた歩と桂への銀の取り手",
+    "short": "後手が７四へ進めた歩は、先手７五銀で取れる位置です。",
+    "detail": "先手には８六の後手桂を銀で取る手もあります。例えば▲７四銀なら△７一飛と８一の後手飛車を回す続きが示されています。",
+    "evidence": [
+      "usi=7c7d",
+      "captured=null",
+      "legalCapturesAfterForSideToMove[usi=7e7d]",
+      "legalCapturesAfterForSideToMove[usi=7e8f]",
+      "review.after.finalBestmoveCandidate.pv[0:2]",
+      "sfenAfter"
+    ],
+    "withheld": ["７四歩を無償で取れるという断定", "銀が取れる二つの駒を両方取れるという断定", "参考PVの強制性"],
+    "visibility": "検討用（実着手後の局面と未着手の応手を含む）",
+    "sourceMove": "7c7d",
+    "sourceFactsSha256": "339148e723c43262b3b438d4f5db41dd25d28f6a88fd8555b9c89d303b89ee21"
+  },
+  {
+    "id": "random-4-105",
+    "family": "桂打ちで確定した詰み",
+    "short": "先手の５三桂打ちで、４一の後手玉は詰みです。",
+    "detail": "５三の桂が４一玉へ王手をかけており、合法な応手は残っていません。",
+    "evidence": [
+      "usi=N*5c",
+      "drop=true",
+      "piece=knight",
+      "givesCheck=true",
+      "sfenAfter",
+      "terminal.checked=true",
+      "terminal.legalReplyCount=0",
+      "terminal.isGameEndpoint=true"
+    ],
+    "withheld": ["桂打ち以前の局面から手順が一本道だったという解釈", "エンジンの投了出力だけによる詰み判定", "手数だけを根拠とする終盤認定"],
+    "visibility": "実着手後の終局説明",
+    "sourceMove": "N*5c",
+    "sourceFactsSha256": "d948ab5016687f30114fdd7720dad9d856a66611ad9cc3f630376e6f65405eb4"
+  }
+]

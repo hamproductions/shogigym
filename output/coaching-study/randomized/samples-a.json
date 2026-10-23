@@ -1,0 +1,177 @@
+[
+  {
+    "id": "random-1-12",
+    "family": "歩の前進と残る角の利き",
+    "short": "後手は６四へ歩を進めましたが、先手の７七の角は３三の歩まで利いています。",
+    "detail": "後手の６三の歩が６四へ移りました。先手には７七の角で３三の歩を取り、成る手もあります。",
+    "evidence": ["usi", "sfenBefore", "sfenAfter", "legalCapturesAfterForSideToMove[usi=7g3c+]"],
+    "withheld": ["角の斜線がこの歩突きで初めて開いたという因果", "角で歩を取る手が安全・最善という断定"],
+    "visibility": {
+      "short": "実着手後（実着手までの情報）",
+      "detail": "検討用（次の手・参考手順を含む）"
+    }
+  },
+  {
+    "id": "random-1-28",
+    "family": "歩突きと角の取り方",
+    "short": "後手が４四へ進めた歩は、先手の５五の角で取れます。",
+    "detail": "先手には５五の角で４四の歩を取る手と、６四の歩を取る手があります。どちらも持駒の歩を得る着手ですが、その後の応手も比べたいところです。",
+    "evidence": ["usi", "legalCapturesAfterForSideToMove[usi=5e4d]", "legalCapturesAfterForSideToMove[usi=5e6d]"],
+    "withheld": ["歩を取る手の優劣", "角で歩を取れば最終的に駒得という断定", "短時間解析による評価差を歩突きだけの原因とする断定"],
+    "visibility": {
+      "short": "検討用（次の手の情報を含む）",
+      "detail": "検討用（次の手・参考手順を含む）"
+    }
+  },
+  {
+    "id": "random-1-32",
+    "family": "銀による歩の獲得",
+    "short": "後手は銀で７六の歩を取り、持ち歩が二枚になりました。",
+    "detail": "後手の銀は６五から７六へ進みました。取った歩は持駒に加わり、後手の持ち歩は一枚から二枚へ増えています。",
+    "evidence": ["usi", "captured", "before.sides.white.hands.pawn", "after.sides.white.hands.pawn"],
+    "withheld": ["銀の進出が安全という断定", "一歩の獲得だけによる形勢判断"],
+    "visibility": {
+      "short": "実着手後（実着手までの情報）",
+      "detail": "実着手後（実着手までの情報）"
+    }
+  },
+  {
+    "id": "random-1-40",
+    "family": "歩打ちによる銀への利き",
+    "short": "後手が３四に打った歩は、先手の３五の銀に当たっています。",
+    "detail": "後手の持ち歩は三枚から二枚になりました。先手の３五の銀で３四の歩を取る手もあるので、銀の移動先には取る手も含めて考えられます。",
+    "evidence": [
+      "usi",
+      "drop",
+      "before.sides.white.hands.pawn",
+      "after.sides.white.hands.pawn",
+      "geometricallyAttackedUndefendedAfter[square=3e]",
+      "legalCapturesAfterForSideToMove[usi=3e3d]"
+    ],
+    "withheld": ["銀が逃げるしかないという断定", "歩で銀を必ず取れるという断定", "銀で歩を取る手が安全という断定"],
+    "visibility": {
+      "short": "実着手後（実着手までの情報）",
+      "detail": "検討用（次の手・参考手順を含む）"
+    }
+  },
+  {
+    "id": "random-1-48",
+    "family": "銀取りと角の成り",
+    "short": "後手は８八の銀を取りながら角を成り、持駒に銀も加えました。",
+    "detail": "２二の角が８八の馬になり、８九の桂や９九の香にも利いています。後手の持駒には角一枚に加えて銀一枚があり、盤上の馬と持駒の角は別の駒です。",
+    "evidence": ["usi", "captured", "promotion", "movedSliderControl.afterSquares", "after.sides.white.hands.silver", "after.sides.white.hands.bishop"],
+    "withheld": ["桂や香を安全に取れるという断定", "駒取りを伴う強制手順", "この手が唯一の好手という断定"],
+    "visibility": {
+      "short": "実着手後（実着手までの情報）",
+      "detail": "実着手後（実着手までの情報）"
+    }
+  },
+  {
+    "id": "random-1-68",
+    "family": "歩を取って詰み",
+    "short": "後手の６六馬で先手の５七玉に王手がかかり、詰みになりました。",
+    "detail": "７五の馬が６六の歩を取り、後手の持ち歩は四枚になりました。着手後は先手玉が王手を受けていて、合法な応手はありません。",
+    "evidence": ["usi", "captured", "sfenAfter", "givesCheck", "after.sides.white.hands.pawn", "terminal.checked", "terminal.legalReplyCount"],
+    "withheld": ["一つのエンジンPVだけを詰みの根拠とする説明", "終局までの全手順が強制だったという断定"],
+    "visibility": {
+      "short": "実着手後（実着手までの情報）",
+      "detail": "実着手後（実着手までの情報）"
+    }
+  },
+  {
+    "id": "random-2-12",
+    "family": "銀の移動と角の持駒",
+    "short": "後手は銀を２二へ上がり、角は双方とも持駒に残しています。",
+    "detail": "後手の銀は３一から２二へ移りました。先手には７七の桂で８五の歩を取る手も残っています。",
+    "evidence": ["usi", "after.sides.black.hands.bishop", "after.sides.white.hands.bishop", "legalCapturesAfterForSideToMove[usi=7g8e]"],
+    "withheld": ["囲いの名称", "銀移動が８五の歩取りを新たに生んだという因果", "桂で歩を取る手が安全という断定"],
+    "visibility": {
+      "short": "実着手後（実着手までの情報）",
+      "detail": "検討用（次の手・参考手順を含む）"
+    }
+  },
+  {
+    "id": "random-2-30",
+    "family": "歩の獲得と持駒",
+    "short": "後手は３五の歩を取り、持駒に歩を一枚得ました。",
+    "detail": "後手の歩は３四から３五へ進み、先手の盤上の歩は九枚から八枚になりました。後手には角の持駒も一枚残っています。",
+    "evidence": [
+      "usi",
+      "captured",
+      "before.sides.black.board.pawn",
+      "after.sides.black.board.pawn",
+      "after.sides.white.hands.pawn",
+      "after.sides.white.hands.bishop"
+    ],
+    "withheld": ["歩を取ったことだけによる勝敗・優勢の断定", "取った歩を使う具体的な手の創作"],
+    "visibility": {
+      "short": "実着手後（実着手までの情報）",
+      "detail": "実着手後（実着手までの情報）"
+    }
+  },
+  {
+    "id": "random-2-40",
+    "family": "歩打ちと金の選択肢",
+    "short": "後手の７四歩打は、先手の７五の金に歩を当てる手です。",
+    "detail": "先手の金には７四の歩を取る手に加え、６四や８五の歩を取る手もあります。金の移動先ごとに、その後に取られないかを比べたい局面です。",
+    "evidence": [
+      "usi",
+      "drop",
+      "geometricallyAttackedUndefendedAfter[square=7e]",
+      "legalCapturesAfterForSideToMove[usi=7e7d]",
+      "legalCapturesAfterForSideToMove[usi=7e6d]",
+      "legalCapturesAfterForSideToMove[usi=7e8e]"
+    ],
+    "withheld": ["金が必ず取られるという断定", "三つの駒取りがすべて安全という断定", "金を引くしかないという断定"],
+    "visibility": {
+      "short": "実着手後（実着手までの情報）",
+      "detail": "検討用（次の手・参考手順を含む）"
+    }
+  },
+  {
+    "id": "random-2-46",
+    "family": "歩の合駒で王手を受ける",
+    "short": "後手は３四へ歩を合駒し、３六の飛車からの王手を遮りました。",
+    "detail": "後手の３二玉と先手の３六の飛車の間に、３四の歩が入りました。先手にはその歩を３四飛と取る手も残っています。",
+    "evidence": ["usi", "drop", "sfenBefore", "sfenAfter", "before.checked", "legalCapturesAfterForSideToMove[usi=3f3d]"],
+    "withheld": ["王手を受けたことで将来の詰みもなくなったという断定", "合駒の歩を取る手が最善・安全という断定"],
+    "visibility": {
+      "short": "実着手後（実着手までの情報）",
+      "detail": "検討用（次の手・参考手順を含む）"
+    }
+  },
+  {
+    "id": "random-2-80",
+    "family": "金取りと馬の利き",
+    "short": "後手は４七の金を取って角を成り、馬の斜線が先手の２九の飛車まで通りました。",
+    "detail": "取った金は後手の持駒に加わっています。例えば先手２四飛で別の角を取れば、後手２四歩でその飛車を取り返す進行があります。",
+    "evidence": [
+      "usi",
+      "captured",
+      "promotion",
+      "movedSliderControl.beforeSquares",
+      "movedSliderControl.afterSquares",
+      "after.sides.white.hands.gold",
+      "legalCapturesAfterForSideToMove[usi=2i2d]",
+      "review.after.finalBestmoveCandidate.pv[0:2]",
+      "review.after.pvLegallyReplayed"
+    ],
+    "withheld": ["馬による飛車取りが確定という断定", "参考手順が強制という断定", "角を取れば駒得という断定"],
+    "visibility": {
+      "short": "実着手後（実着手までの情報）",
+      "detail": "検討用（次の手・参考手順を含む）"
+    }
+  },
+  {
+    "id": "random-2-114",
+    "family": "龍の横利きで詰み",
+    "short": "後手の５六龍で先手の６六玉に王手がかかり、詰みになりました。",
+    "detail": "５九の龍が５六の歩を取って玉の隣へ入り、後手の持ち歩は四枚になりました。先手には王手を解く合法な応手がありません。",
+    "evidence": ["usi", "captured", "givesCheck", "sfenAfter", "after.sides.white.hands.pawn", "terminal.checked", "terminal.legalReplyCount"],
+    "withheld": ["エンジンの投了表示だけによる詰みの判定", "過去の手順まで含めた強制性の断定"],
+    "visibility": {
+      "short": "実着手後（実着手までの情報）",
+      "detail": "実着手後（実着手までの情報）"
+    }
+  }
+]

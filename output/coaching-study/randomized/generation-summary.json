@@ -1,0 +1,89 @@
+{
+  "provenance": "Synthetic self-play generated locally; no external games or lesson positions used",
+  "seed": 20261024,
+  "rng": "LCG1664525/1013904223 uint32",
+  "reproducibility": "Seeded choices and exact recorded moves reproduce the stored games. Wall-time engine searches and internal SkillLevel randomization can vary across hardware/reruns; seeds control application candidate and level choices only.",
+  "engine": "@mizarjp/yaneuraou.k-p",
+  "threads": 1,
+  "hashMiB": 32,
+  "ownBook": false,
+  "generationMs": 150,
+  "generationSkillLevel": "Random supported SkillLevel per side; recorded in games.strength and generationAnalysis.skillLevel",
+  "reviewSkillLevel": 20,
+  "openingRandomization": "Seeded random legal MultiPV candidate first 12 plies",
+  "reviewMs": 300,
+  "multipv": 3,
+  "games": [
+    {
+      "id": "random-1",
+      "plies": 68,
+      "termination": "checkmate; all legal replies enumerated absent",
+      "strength": {
+        "black": 2,
+        "white": 17,
+        "stratifiedBuckets": {
+          "black": [0, 4],
+          "white": [15, 20]
+        }
+      }
+    },
+    {
+      "id": "random-2",
+      "plies": 114,
+      "termination": "checkmate; all legal replies enumerated absent",
+      "strength": {
+        "black": 7,
+        "white": 12,
+        "stratifiedBuckets": {
+          "black": [5, 9],
+          "white": [10, 14]
+        }
+      }
+    },
+    {
+      "id": "random-3",
+      "plies": 157,
+      "termination": "checkmate; all legal replies enumerated absent",
+      "strength": {
+        "black": 12,
+        "white": 8,
+        "stratifiedBuckets": {
+          "black": [10, 14],
+          "white": [5, 9]
+        }
+      }
+    },
+    {
+      "id": "random-4",
+      "plies": 105,
+      "termination": "checkmate; all legal replies enumerated absent",
+      "strength": {
+        "black": 17,
+        "white": 3,
+        "stratifiedBuckets": {
+          "black": [15, 20],
+          "white": [0, 4]
+        }
+      }
+    }
+  ],
+  "selectedPositions": 24,
+  "searchesExecutedThisInvocation": 492,
+  "recordedGenerationAnalyses": 444,
+  "recordedReviewAnalyses": 48,
+  "checkedReplayPlies": 32516,
+  "legality": "All played moves and every recorded candidate PV replayed with tsshogi isValidMove + doMove; terminal no-move conditions enumerate all legal moves.",
+  "sha256": {
+    "random-1": "fb90c22d23ce635f77659bd4f64cc5ecc320337702575b0e283a0d433f137a5b",
+    "random-2": "c0c1c66fd6d6954226f8ebcb28354ea3d9188fd204ec9bbfa0f5d522640df65a",
+    "random-3": "0a58b83ac7f0a189cdbcc327bf298c660a4281e7b1669479897f1445d59014f0",
+    "random-4": "e626d71aa0d2b77a13e25f641129069ee1a32dae57ac69346991764f002fccf8"
+  },
+  "limits": [
+    "No claim of real human play, calibrated player strength, long-search optimality, forced mate from short PV, or complete game outcomes at horizon.",
+    "Fourfold repeat stops do not adjudicate perpetual-check fouls.",
+    "No audio, browser, feature code, network or model inference used."
+  ],
+  "runtimeEngineId": "id name YaneuraOu NNUE KP256 7.63 32WASM TOURNAMENT",
+  "skillLevelOption": "option name SkillLevel type spin default 20 min 0 max 20"
+}

@@ -31,3 +31,7 @@ For a preparatory move, compare the actual control before and after it; do not c
 # Project lesson skill
 
 For lesson authoring, revision, or audit in this project, use `.agents/skills/shogi-lessons/SKILL.md` and its relevant references. Project-specific skills stay in this repository and use its source schema, declared references, engine harness, and canonical task record. Registering them globally requires an explicit request.
+
+# Coaching annotations
+
+Live coaching uses the existing SquareText and figureMarks pipeline. Keep coordinate text, tile colors and legal move arrows synchronized with the displayed position; suppress stale-position annotations and hidden assistance. PR screenshots use native `gh pr edit --attach`.

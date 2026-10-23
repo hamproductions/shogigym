@@ -1,0 +1,38 @@
+{
+  "result": "pass",
+  "assertions": 64,
+  "reviewedSampleIds": [
+    "random-1-12",
+    "random-1-28",
+    "random-1-32",
+    "random-1-40",
+    "random-1-48",
+    "random-1-68",
+    "random-2-12",
+    "random-2-30",
+    "random-2-40",
+    "random-2-46",
+    "random-2-80",
+    "random-2-114",
+    "random-3-12",
+    "random-3-19",
+    "random-3-30",
+    "random-3-63",
+    "random-3-110",
+    "random-3-157",
+    "random-4-12",
+    "random-4-23",
+    "random-4-30",
+    "random-4-43",
+    "random-4-74",
+    "random-4-105"
+  ],
+  "review": "Primary read all24 short/detail outputs and checked event/hand/capture/PV evidence against independently replayed facts. Additional causal, material and conditional-line checks recorded here.",
+  "corrected": ["random-3-30: clarify only sente acquires a bishop on the proposed recapture; gote already acquired theirs on the actual move."],
+  "extraLegalWitness": {
+    "id": "random-4-12",
+    "usi": ["2h2d", "1c2d"],
+    "status": "Both moves independently replayed legally; hypothetical continuation, not an actual game move."
+  },
+  "limits": ["No tiny model/API evaluation", "No forced-continuation claim from PV", "Naturalness judgments are editorial, not user acceptance"]
+}

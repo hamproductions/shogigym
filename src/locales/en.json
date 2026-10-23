@@ -283,6 +283,30 @@
     "shogiBoard": "Shogi board"
   },
   "coach": {
+    "live": {
+      "more": "Explain this move",
+      "patterns": {
+        "defense": "Responding to check",
+        "recapture": "Captures and replies",
+        "promotion": "Promotion",
+        "drop": "Pieces in hand",
+        "control": "Changed control",
+        "capture": "Capture"
+      },
+      "block": "{{move}} interposes a piece from hand to block the check.",
+      "blockDetail": "This is a legal interposition from a checked position. Resolving this check does not establish safety against the next attack.",
+      "recapture": "The move captures a {{captured}}, but {{replies}} can recapture the {{piece}} on {{square}}.",
+      "canBeCaptured": "The {{piece}} moved to {{square}} can be captured with {{replies}}.",
+      "replyDetail": "These replies have been checked for legality. They are possible replies, not a forced continuation or proof of a safe material gain.",
+      "captureDetail": "The captured {{captured}} is added to the hand as a {{handPiece}}.",
+      "promote": "{{move}} promotes the piece on {{square}} to a {{piece}}.",
+      "promotionDetail": "Check the promoted movement against the opposing pieces and your own king’s defense.",
+      "drop": "A {{piece}} is dropped from hand on {{square}}.",
+      "dropDetail": "The number of {{piece}} pieces in hand changes from {{before}} to {{after}}. Check the dropped piece’s control separately from the pieces still in hand.",
+      "control": "This move brings the {{piece}}’s control onto the {{target}} on {{targetSquare}}.",
+      "controlDetail": "The piece did not control that target from its previous square. Controlling a target does not establish that it can be captured safely.",
+      "capture": "{{move}} captures a {{captured}}."
+    },
     "yourMove": "Your move ",
     "betterWas": "Better was ",
     "betterWasEnd": ".",
