@@ -163,8 +163,8 @@
         {
           "moves": ["7b8c"],
           "text": {
-            "ja": "△８三金で、９二への金打ちを支える先手の金を取られました。後手がほかの手を指せば詰みが残りましたが、この一手で詰み筋が消えます。",
-            "en": "△８三金 captures the gold that supported a drop on ９二. Any other defender move would have left a mate, but this one removes the mating pattern."
+            "ja": "△８三金で、９二への金打ちを支える先手の金を取られました。この受けで、示した９二金打の詰み筋が消えます。後手には８一玉などほかの受けもあるため、８三金だけが唯一の受けではありません。",
+            "en": "△８三金 captures the gold that supported a drop on ９二, removing the shown mating pattern. Gote also has other defenses, including K8a; this gold capture is not the only defense."
           }
         },
         {

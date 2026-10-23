@@ -1,6 +1,9 @@
+import { useMemo } from 'react'
+import { SquareText } from '@/app/modes/lesson/SquareText'
 import { useTranslation } from 'react-i18next'
 import { styled } from 'styled-system/jsx'
 import { LABELS, type MoveReview } from '@/utils/analysis'
+import { moveCoaching } from '@/utils/coaching'
 import type { Course } from '@/utils/model'
 import i18n from '@/utils/i18n'
 import { moveText } from '@/utils/shogi'
@@ -48,7 +51,8 @@ function Verdict({
   bookLast,
   ai,
   you,
-}: Pick<CoachPaneProps, 'review' | 'bookLast' | 'ai' | 'you'> & { lastMove: string; prevSfen: string }) {
+  showReasons,
+}: Pick<CoachPaneProps, 'review' | 'bookLast' | 'ai' | 'you'> & { lastMove: string; prevSfen: string; showReasons: boolean }) {
   const { t } = useTranslation()
   const flipped = useFlipped()
   const played = moveText(prevSfen, lastMove)
@@ -65,7 +69,7 @@ function Verdict({
         </VerdictHead>
         {bookLast?.branch.note && <Note>{bookLast.branch.note}</Note>}
         {bookLast?.branch.kind === 'deviation' && bookLast.branch.punishNote && <Note tone="warn">{bookLast.branch.punishNote}</Note>}
-        {review.reasons.slice(0, 2).map((r) => (
+        {(showReasons ? review.reasons.slice(0, 2) : []).map((r) => (
           <styled.p key={r} m="0 0 {spacing.1.5}" fontSize="sm">
             {r}
           </styled.p>
@@ -114,16 +118,33 @@ function Verdict({
 }
 
 export function CoachPane({ review, lastMove, prevSfen, bookLast, bookHere, sfen, course, onPlay, canPlay, ai, showBook, you }: CoachPaneProps) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const flipped = useFlipped()
+  const feedback = useMemo(() => (lastMove && prevSfen ? moveCoaching(prevSfen, lastMove, i18n.language) : null), [lastMove, prevSfen, i18n.language])
   return (
     <div className="app-coach">
       {lastMove && prevSfen ? (
         <div className="app-verdict">
-          <Verdict review={review} lastMove={lastMove} prevSfen={prevSfen} bookLast={bookLast} ai={ai} you={you} />
+          <Verdict review={review} lastMove={lastMove} prevSfen={prevSfen} bookLast={bookLast} ai={ai} you={you} showReasons={!feedback} />
         </div>
       ) : (
         <Muted>{course ? (course.root.comment ?? course.goalFormation) : t('coach.makeAMoveTheCoach')}</Muted>
+      )}
+      {feedback && (
+        <styled.section mt="3" aria-label={t(`coach.live.patterns.${feedback.pattern}`)}>
+          <styled.p m="0 0 {spacing.1}" color="fg.muted" fontSize="xs" fontWeight="bold">
+            {t(`coach.live.patterns.${feedback.pattern}`)}
+          </styled.p>
+          <styled.p m="0 0 {spacing.2}">
+            <SquareText text={feedback.summary} context={`${feedback.summary}\n${feedback.detail}`} />
+          </styled.p>
+          <styled.details fontSize="sm">
+            <styled.summary cursor="pointer">{t('coach.live.more')}</styled.summary>
+            <styled.p m="{spacing.2} 0">
+              <SquareText text={feedback.detail} context={`${feedback.summary}\n${feedback.detail}`} />
+            </styled.p>
+          </styled.details>
+        </styled.section>
       )}
       {showBook && bookHere.length > 0 && (
         <styled.div mt="5">

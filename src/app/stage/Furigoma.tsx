@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Color, PieceType } from 'tsshogi'
 import { styled, Wrap } from 'styled-system/jsx'
@@ -10,7 +10,7 @@ import { useBakedPieces } from '@/app/hooks/useBakedPieces'
 import { spriteKey } from '@/rendering/sprites'
 import { say, sayFurigomaResult } from '@/utils/voice'
 
-export function Furigoma({ onDone, onCancel, spectator = false }: { onDone: (side: Side) => void; onCancel: () => void; spectator?: boolean }) {
+export function Furigoma({ onDone, spectator = false }: { onDone: (side: Side) => void; spectator?: boolean }) {
   const { t } = useTranslation()
   const settings = useSettings()
   const host = useRef<HTMLDivElement>(null)
@@ -18,6 +18,13 @@ export function Furigoma({ onDone, onCancel, spectator = false }: { onDone: (sid
   useEffect(() => {
     done.current = onDone
   }, [onDone])
+  const [faces] = useState(() => Array.from({ length: 5 }, () => Math.random() < 0.5))
+  const completed = useRef(false)
+  const complete = useCallback(() => {
+    if (completed.current) return
+    completed.current = true
+    done.current(faces.filter(Boolean).length >= 3 ? 'sente' : 'gote')
+  }, [faces])
   const [result, setResult] = useState<string | null>(null)
   const [side, setSide] = useState<Side | null>(null)
   const [loading, setLoading] = useState(true)
@@ -25,19 +32,19 @@ export function Furigoma({ onDone, onCancel, spectator = false }: { onDone: (sid
   const sprites = useBakedPieces()
   useEffect(() => {
     if (!spectator || !side) return
-    const timer = setTimeout(() => done.current(side), 2500)
+    const timer = setTimeout(complete, 2500)
     return () => clearTimeout(timer)
-  }, [spectator, side])
+  }, [spectator, side, complete])
   useEffect(() => {
     const cancel = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         event.stopImmediatePropagation()
-        onCancel()
+        complete()
       }
     }
     window.addEventListener('keydown', cancel, true)
     return () => window.removeEventListener('keydown', cancel, true)
-  }, [onCancel])
+  }, [complete])
   useEffect(() => {
     if (sprites.loading || !sprites.baked) return
     let live = true
@@ -45,6 +52,7 @@ export function Furigoma({ onDone, onCancel, spectator = false }: { onDone: (sid
     playSound('clatter')
     let frame = 0
     const finish = (faces: boolean[]) => {
+      if (completed.current) return
       const pawns = faces.filter(Boolean).length
       const side: Side = pawns >= 3 ? 'sente' : 'gote'
       setResult(
@@ -58,7 +66,6 @@ export function Furigoma({ onDone, onCancel, spectator = false }: { onDone: (sid
       setSide(side)
     }
     if (host.current && sprites.baked) {
-      const faces = Array.from({ length: 5 }, () => Math.random() < 0.5)
       const items = faces.map((face, i) => {
         const image = document.createElement('img')
         image.alt = face ? (ja ? '歩' : 'Pawn') : ja ? 'と金' : 'Tokin'
@@ -90,7 +97,7 @@ export function Furigoma({ onDone, onCancel, spectator = false }: { onDone: (sid
       setLoading(false)
       let previous = performance.now()
       const render = (now: number) => {
-        if (!live || !host.current) return
+        if (!live || completed.current || !host.current) return
         const dt = Math.min(0.03, (now - previous) / 1000)
         previous = now
         items.forEach((item) => {
@@ -146,16 +153,16 @@ export function Furigoma({ onDone, onCancel, spectator = false }: { onDone: (sid
         items.forEach(({ image }) => image.remove())
       }
     }
-  }, [settings.pieceFont, settings.pieceSet, ja, sprites.baked, sprites.loading, spectator, t])
+  }, [settings.pieceFont, settings.pieceSet, ja, sprites.baked, sprites.loading, spectator, t, faces])
   return (
     <div
       onClick={(event) => {
         if ((event.target as HTMLElement).closest('button')) return
-        if (side) done.current(side)
+        if (side) complete()
       }}
     >
-      <Dialog label={ja ? '振り駒' : 'Furigoma'} className="app-furigoma">
-        <DialogHeader title={ja ? '振り駒' : 'Furigoma'} closeLabel={ja ? 'キャンセル' : 'Cancel'} onClose={onCancel} />
+      <Dialog label={ja ? '振り駒' : 'Furigoma'} className="app-furigoma" onBackdrop={complete}>
+        <DialogHeader title={ja ? '振り駒' : 'Furigoma'} closeLabel={ja ? '振り駒をスキップして開始' : 'Skip furigoma and start'} onClose={complete} />
         <div
           ref={host}
           style={{
@@ -177,13 +184,13 @@ export function Furigoma({ onDone, onCancel, spectator = false }: { onDone: (sid
         </styled.p>
         <Wrap gap="2" align="center" justify="flex-end" mt="4">
           <Button
-            variant="ghost"
+            variant="primary"
             onClick={(event) => {
               event.stopPropagation()
-              onCancel()
+              complete()
             }}
           >
-            {ja ? 'キャンセル' : 'Cancel'}
+            {side ? (ja ? '対局開始' : 'Start game') : ja ? 'スキップして対局開始' : 'Skip and start game'}
           </Button>
           {side && <span>{spectator ? t('watch.starting') : ja ? 'どこかをクリックして対局開始' : 'Click anywhere to start'}</span>}
         </Wrap>

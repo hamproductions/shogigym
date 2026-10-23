@@ -1,0 +1,1000 @@
+{
+  "scope": "Historical semantic source audit coverage, reconciled against current 150-unit inventory on 2026-10-23",
+  "limitations": [
+    "Coverage provenance is not a fresh re-audit of all current source files.",
+    "Original 92-unit coverage rests on the original audit report; subsequent batches have per-unit records.",
+    "Browser acceptance and full reference-image/English originality review are not established."
+  ],
+  "batches": {
+    "original": 92,
+    "resumedAdditional": 14,
+    "round1Additional": 44
+  },
+  "missing": [],
+  "units": [
+    {
+      "unit": "aifuri-basics",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:aifuri-basics",
+      "read": "1-126 EOF (aifuri-basics.json); SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84 all EOF",
+      "branchesReplayed": 3
+    },
+    {
+      "unit": "aifuri-hidari-anaguma",
+      "batch": "resumed-2026-10-18",
+      "source": "conductor/lesson-audit/resumed-2026-10-18.json",
+      "read": "1-124 EOF",
+      "sourceSha256": "d7efbf5b12dbdb0ab52f3665d402c44115482a0dbfce69d50fa24f92a644039d"
+    },
+    {
+      "unit": "aifuri-ishida-vs-naka",
+      "batch": "resumed-2026-10-18",
+      "source": "conductor/lesson-audit/resumed-2026-10-18.json",
+      "read": "1-126 EOF",
+      "sourceSha256": "cee63c6af5c22834a84b376078d7a5b57ed68eb71ba4d3274b9c318f0a376b22"
+    },
+    {
+      "unit": "aifuri-vs-ishida",
+      "batch": "resumed-2026-10-18",
+      "source": "conductor/lesson-audit/resumed-2026-10-18.json",
+      "read": "1-136 EOF",
+      "sourceSha256": "13e756a34d68887ba8768c034e30f2fda510dedc5d3cc65711ec9f80c7322237"
+    },
+    {
+      "unit": "aigakari-basics",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "aigakari-bougin",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "aiyokofu",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "attack-anaguma",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "attack-edge",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "attack-funa",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "attack-kinmusou",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "attack-mino-aifuri",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "attack-mino-kobin",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "attack-mino-side",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "attack-yagura-head",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "attack-yagura-side",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "basics-attack-defense",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "basics-bishop-trade",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "basics-endgame",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "basics-forks",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "basics-mate-words",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "basics-middlegame",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "basics-opening",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "basics-plan",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "basics-value",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "bougin-basics",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "bougin-castles",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "bougin-middlegame",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "bougin-vs-furibisha",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "castles-aifuri",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "castles-anaguma",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "castles-first",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "castles-funa",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "castles-hidarimino",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "castles-mino",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "castles-nakazumai",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "castles-other",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "castles-yagura",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "direct-mukai",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:direct-mukai",
+      "read": "1-116 EOF (data/lessons/units/direct-mukai.json); SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84 all EOF",
+      "branchesReplayed": 3
+    },
+    {
+      "unit": "endgame-defense",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "endgame-mate-tesuji",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "endgame-mate1",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "endgame-mate3",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "endgame-mate5",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "endgame-tsume-study",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "endgame-tsumero",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "endgame-yose",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "fujii-build",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:fujii-build",
+      "read": "1-165 EOF (fujii-build.json); SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84 all EOF",
+      "branchesReplayed": 6
+    },
+    {
+      "unit": "fujii-vs-anaguma",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:fujii-vs-anaguma",
+      "read": "1-164 EOF (unit JSON); SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84 all EOF",
+      "branchesReplayed": 6
+    },
+    {
+      "unit": "fujii-vs-hidarimino",
+      "batch": "resumed-2026-10-18",
+      "source": "conductor/lesson-audit/resumed-2026-10-18.json",
+      "read": "1-177 EOF",
+      "sourceSha256": "6f243a42668693b241d92a3fce03314331b261241bfe6bb40db42f861f23fc60"
+    },
+    {
+      "unit": "fujii-vs-kyusen",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:fujii-vs-kyusen",
+      "read": "1-148 EOF",
+      "branchesReplayed": 6
+    },
+    {
+      "unit": "gangi",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "gokigen-attack",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:gokigen-attack",
+      "read": "1-138 EOF (file reports 138 lines via wc -l; final line 138 is closing brace)",
+      "branchesReplayed": 5
+    },
+    {
+      "unit": "gokigen-basics",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:gokigen-basics",
+      "read": "1-163 EOF (data/lessons/units/gokigen-basics.json); SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84 EOF",
+      "branchesReplayed": 7
+    },
+    {
+      "unit": "gokigen-castles",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:gokigen-castles",
+      "read": "1-147 EOF (unit JSON); skill SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84 all EOF",
+      "branchesReplayed": 5
+    },
+    {
+      "unit": "gokigen-vs-anaguma",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:gokigen-vs-anaguma",
+      "read": "1-117 EOF (unit JSON); also SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84, tools pos.ts/replies.ts/m1all.ts full",
+      "branchesReplayed": 3
+    },
+    {
+      "unit": "gokigen-vs-choukyusen",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:gokigen-vs-choukyusen",
+      "read": "1-354 EOF",
+      "branchesReplayed": 5
+    },
+    {
+      "unit": "gokigen-vs-chousoku",
+      "batch": "resumed-2026-10-18",
+      "source": "conductor/lesson-audit/resumed-2026-10-18.json",
+      "read": "1-262 EOF",
+      "sourceSha256": "d9c741c670606fb34acf0e130712fbf269044c831ed8f7e8edba69d33e316de1"
+    },
+    {
+      "unit": "handicap-2",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:handicap-2",
+      "read": "1-149 EOF (handicap-2.json); SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84 EOF",
+      "branchesReplayed": 6
+    },
+    {
+      "unit": "handicap-4",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:handicap-4",
+      "read": "1-171 EOF",
+      "branchesReplayed": 6
+    },
+    {
+      "unit": "handicap-6",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:handicap-6",
+      "read": "1-163 EOF (also read SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84)",
+      "branchesReplayed": 5
+    },
+    {
+      "unit": "handicap-8",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:handicap-8",
+      "read": "1-151 EOF",
+      "branchesReplayed": 3
+    },
+    {
+      "unit": "hayaishida",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:hayaishida",
+      "read": "hayaishida.json 1-125 EOF; SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84 (all EOF)",
+      "branchesReplayed": 5
+    },
+    {
+      "unit": "hineribisha",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "ibisha-basics",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "ishida-43",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:ishida-43",
+      "read": "1-131 EOF (ishida-43.json); also SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84, dump 1-271",
+      "branchesReplayed": 6
+    },
+    {
+      "unit": "ishida-attack",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:ishida-attack",
+      "read": "1-123 EOF (wc -l = 123; the file is 124 lines including the trailing newline)",
+      "branchesReplayed": 5
+    },
+    {
+      "unit": "ishida-basics",
+      "batch": "resumed-2026-10-18",
+      "source": "conductor/lesson-audit/resumed-2026-10-18.json",
+      "read": "1-133 EOF",
+      "sourceSha256": "df811b6616427656021eb8688c4e79294ff5fe55efa0e3e5128a827148c2a3bd"
+    },
+    {
+      "unit": "ishida-honkumi",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:ishida-honkumi",
+      "read": "1-128 EOF (ishida-honkumi.json); SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84 all EOF",
+      "branchesReplayed": 5
+    },
+    {
+      "unit": "judgment-four-factors",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "kakugawari-45kei",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "kakugawari-basics",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "kakugawari-bougin",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "kakugawari-hayakuri",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "kakugawari-ittezon",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "kakugawari-koshikake",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "kakukoukan-gyakubougin",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:kakukoukan-gyakubougin",
+      "read": "1-134 EOF",
+      "branchesReplayed": 5
+    },
+    {
+      "unit": "kakukoukan-shiken",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:kakukoukan-shiken",
+      "read": "1-120 EOF (unit JSON); SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84 all EOF; dump 1250-kakukoukan-shiken.txt 1-167 EOF",
+      "branchesReplayed": 4
+    },
+    {
+      "unit": "kishu-ahiru",
+      "batch": "resumed-2026-10-18",
+      "source": "conductor/lesson-audit/resumed-2026-10-18.json",
+      "read": "1-148 EOF",
+      "sourceSha256": "b97d4fa98293d279038375e89356134094056aba5ee819a86c66df3ac663c330"
+    },
+    {
+      "unit": "kishu-migishiken-hidarimino",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:kishu-migishiken-hidarimino",
+      "read": "1-145 EOF (unit JSON); SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84 all EOF",
+      "branchesReplayed": 4
+    },
+    {
+      "unit": "kishu-onigoroshi",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:kishu-onigoroshi",
+      "read": "1-154 EOF (wc -l 154)",
+      "branchesReplayed": 6
+    },
+    {
+      "unit": "kishu-pacman",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:kishu-pacman",
+      "read": "1-198 EOF (wc -l 198)",
+      "branchesReplayed": 5
+    },
+    {
+      "unit": "kishu-sujichigai",
+      "batch": "resumed-2026-10-18",
+      "source": "conductor/lesson-audit/resumed-2026-10-18.json",
+      "read": "1-126 EOF",
+      "sourceSha256": "15d30ee1d4e1646b4275b953e3cd3d1722eea24a26d226571baafac0dd5b5bff"
+    },
+    {
+      "unit": "legspe",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:legspe",
+      "read": "1-126 EOF (legspe.json); SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84, all EOF",
+      "branchesReplayed": 4
+    },
+    {
+      "unit": "mukai-attack",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:mukai-attack",
+      "read": "1-168 EOF (mukai-attack.json); SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84, all EOF",
+      "branchesReplayed": 4
+    },
+    {
+      "unit": "mukai-build",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:mukai-build",
+      "read": "1-179 EOF (data/lessons/units/mukai-build.json); skill SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84 all EOF",
+      "branchesReplayed": 5
+    },
+    {
+      "unit": "nakabisha-sente",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:nakabisha-sente",
+      "read": "1-136 EOF (unit JSON); also SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84 all EOF",
+      "branchesReplayed": 4
+    },
+    {
+      "unit": "proverb-gold-last",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "proverb-three-pawns",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "rules-checkmate",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "rules-draws",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "rules-drops",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "rules-fouls",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "rules-game",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "rules-moves",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "rules-promotion",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "rules-setup",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "rules-tsume",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "sanken-basics",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:sanken-basics",
+      "read": "sanken-basics.json 1-129 EOF (wc 129 + trailing line); SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84 all EOF",
+      "branchesReplayed": 4
+    },
+    {
+      "unit": "sanken-tomahawk",
+      "batch": "resumed-2026-10-18",
+      "source": "conductor/lesson-audit/resumed-2026-10-18.json",
+      "read": "1-138 EOF",
+      "sourceSha256": "007dba241f435ccaeeb9f08b7bb9c6caeee905b3c6027c7d5600811ccbddc67f"
+    },
+    {
+      "unit": "sanken-vs-bougin",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:sanken-vs-bougin",
+      "read": "1-140 EOF (wc -l 140); skill SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84 all EOF",
+      "branchesReplayed": 6
+    },
+    {
+      "unit": "shiken-basics",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:shiken-basics",
+      "read": "1-111 EOF (shiken-basics.json); SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84, dump.ts 1-143 all EOF",
+      "branchesReplayed": 4
+    },
+    {
+      "unit": "shiken-castles",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:shiken-castles",
+      "read": "1-254 EOF (data/lessons/units/shiken-castles.json); SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84 all EOF",
+      "branchesReplayed": 3
+    },
+    {
+      "unit": "shiken-patterns",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:shiken-patterns",
+      "read": "1-169 EOF (unit JSON); SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84 all EOF",
+      "branchesReplayed": 4
+    },
+    {
+      "unit": "shiken-tateishi",
+      "batch": "resumed-2026-10-18",
+      "source": "conductor/lesson-audit/resumed-2026-10-18.json",
+      "read": "1-163 EOF",
+      "sourceSha256": "2f12d4ab26e02bf406f008898226707f8039e102fae3005ea4f9d1afc14ef7f9"
+    },
+    {
+      "unit": "shiken-vs-anaguma",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:shiken-vs-anaguma",
+      "read": "1-161 EOF (wc -l reports 161; the Read tool shows 161 lines plus a trailing newline). Also read in full: SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84.",
+      "branchesReplayed": 4
+    },
+    {
+      "unit": "shiken-vs-funa-bougin",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:shiken-vs-funa-bougin",
+      "read": "1-134 EOF (unit JSON); SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84 all EOF",
+      "branchesReplayed": 3
+    },
+    {
+      "unit": "shiken-vs-igyoku-bougin",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:shiken-vs-igyoku-bougin",
+      "read": "1-144 EOF",
+      "branchesReplayed": 4
+    },
+    {
+      "unit": "shiken-vs-migishiken",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:shiken-vs-migishiken",
+      "read": "1-165 EOF (unit JSON); SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84 all EOF",
+      "branchesReplayed": 6
+    },
+    {
+      "unit": "shiken-vs-yagura",
+      "batch": "resumed-2026-10-18",
+      "source": "conductor/lesson-audit/resumed-2026-10-18.json",
+      "read": "1-162 EOF",
+      "sourceSha256": "419fa9e6a276bb2fe1ed987a11c5f34d520879b50e5ecfc06a19b67c34d7ca82"
+    },
+    {
+      "unit": "taifuri-45hayashikake",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:taifuri-45hayashikake",
+      "read": "1-401 EOF (plus SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84)",
+      "branchesReplayed": 8
+    },
+    {
+      "unit": "taifuri-46gin",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "taifuri-anaguma",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "taifuri-basics",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "taifuri-bougin",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "taifuri-bougin-ishida",
+      "batch": "resumed-2026-10-18",
+      "source": "conductor/lesson-audit/resumed-2026-10-18.json",
+      "read": "1-52 EOF",
+      "sourceSha256": "1f5c6745cbae509b8c9a79342ea658b14f8eb49490d0aaae7c2a0527e04fc313"
+    },
+    {
+      "unit": "taifuri-chousoku",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:taifuri-chousoku",
+      "read": "1-346 EOF (wc -l 346); skill SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84 all EOF",
+      "branchesReplayed": 7
+    },
+    {
+      "unit": "taifuri-elmo",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "taifuri-millennium",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "taifuri-ponpon",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:taifuri-ponpon",
+      "read": "1-356 EOF (taifuri-ponpon.json); SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84",
+      "branchesReplayed": 10
+    },
+    {
+      "unit": "taifuri-vs-hayaishida",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:taifuri-vs-hayaishida",
+      "read": "1-57 EOF (unit JSON); SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84 all EOF",
+      "branchesReplayed": 5
+    },
+    {
+      "unit": "taifuri-vs-kakukoukan",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:taifuri-vs-kakukoukan",
+      "read": "1-251 EOF (unit JSON); SKILL.md 1-60 EOF, engine-and-verification.md 1-90 EOF, sources-and-authoring.md 1-55 EOF, AGENTS.md 1-33 EOF, docs/lessons.md 1-84 EOF",
+      "branchesReplayed": 3
+    },
+    {
+      "unit": "tesuji-bishop",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "tesuji-gold",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "tesuji-knight",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "tesuji-lance",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "tesuji-pawn",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "tesuji-rook",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "tesuji-silver",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "ureshino-basics",
+      "batch": "resumed-2026-10-18",
+      "source": "conductor/lesson-audit/resumed-2026-10-18.json",
+      "read": "1-143 EOF",
+      "sourceSha256": "83e65dcb5bbb8881fbd2f55d23b49bdfa070b28864b78c664dad39b895b1cb62"
+    },
+    {
+      "unit": "ureshino-counter",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:ureshino-counter",
+      "read": "1-146 EOF (unit JSON); SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84 EOF; dump 1-193 EOF",
+      "branchesReplayed": 5
+    },
+    {
+      "unit": "ureshino-new",
+      "batch": "resumed-2026-10-18",
+      "source": "conductor/lesson-audit/resumed-2026-10-18.json",
+      "read": "1-151 EOF",
+      "sourceSha256": "0fd3f61054bf91cdbe7bc4c40cc5550af3ae83b5e0d9c9cb5ae7de2576218265"
+    },
+    {
+      "unit": "ureshino-vs-bougin",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:ureshino-vs-bougin",
+      "read": "1-129 EOF (unit JSON); dump 1-167 EOF; SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84 all EOF",
+      "branchesReplayed": 4
+    },
+    {
+      "unit": "ureshino-vs-shiken",
+      "batch": "round1-2026-10-21",
+      "source": "workflow wf_5c87188d-d09 journal, read:ureshino-vs-shiken",
+      "read": "1-158 EOF (unit JSON); SKILL.md 1-60, engine-and-verification.md 1-90, sources-and-authoring.md 1-55, AGENTS.md 1-33, docs/lessons.md 1-84",
+      "branchesReplayed": 4
+    },
+    {
+      "unit": "yagura-37gin",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "yagura-aiyagura",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "yagura-bougin",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "yagura-build",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "yagura-suzume",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "yagura-vs-bougin",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "yagura-vs-hidarimino",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "yagura-vs-migishiken",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "yagura-waki",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "yokofu-23fu",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "yokofu-45kaku",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "yokofu-85hisha",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "yokofu-aono",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "yokofu-avoid",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "yokofu-basics",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    },
+    {
+      "unit": "yokofu-yuuki",
+      "batch": "original-2026-10-18",
+      "source": "conductor/lesson-audit/2026-10-18/REPORT.md",
+      "evidenceLevel": "original report records line-by-line board replay; ID derived from complement of explicit unread list"
+    }
+  ],
+  "currentLocalRepairs": [
+    {
+      "unit": "basics-plan",
+      "sourceSha256": "1ef5e5d58fd8863784c02aa125f60dd298b98e979fa68fa055bf66a691d760fd",
+      "independentRecheck": "passed",
+      "sourceGeneratedParity": "equal"
+    },
+    {
+      "unit": "hayaishida",
+      "sourceSha256": "9eefac07c50c554affa9225f3ef000fceacf341fa60f3985dcbf3bb61a8132c3",
+      "independentRecheck": "passed",
+      "sourceGeneratedParity": "equal"
+    },
+    {
+      "unit": "shiken-vs-migishiken",
+      "sourceSha256": "33498dc94ef67c8130431e3c7678ddf9932ecd5d6b1d53821c2eeeb8988e3e5e",
+      "independentRecheck": "passed",
+      "sourceGeneratedParity": "equal"
+    },
+    {
+      "unit": "yokofu-avoid",
+      "sourceSha256": "b91d453f5123d3806853d0afcb5c9a893bfdba1456cbe16fb7358523992ded93",
+      "independentRecheck": "passed",
+      "sourceGeneratedParity": "equal"
+    }
+  ]
+}

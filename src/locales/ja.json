@@ -274,6 +274,30 @@
     "shogiBoard": "将棋盤"
   },
   "coach": {
+    "live": {
+      "more": "理由を詳しく見る",
+      "patterns": {
+        "defense": "王手への受け",
+        "recapture": "駒取りと応手",
+        "promotion": "成り",
+        "drop": "持駒の活用",
+        "control": "利きの変化",
+        "capture": "駒取り"
+      },
+      "block": "{{move}}と持駒を打ち、王手の線を遮りました。",
+      "blockDetail": "王手を受けていた局面での合法な合駒です。今の王手を防いだことと、次の攻めまで防げることは分けて考えます。",
+      "recapture": "{{captured}}を取りましたが、{{replies}}で{{square}}の{{piece}}を取り返せます。",
+      "canBeCaptured": "{{square}}へ動かした{{piece}}は、{{replies}}で取る手があります。",
+      "replyDetail": "ここで挙げた応手は実際に指せる手です。相手が必ず選ぶ手や、取り返した後の駒得が確定した手順という意味ではありません。",
+      "captureDetail": "盤上の{{captured}}を取り、持駒には{{handPiece}}が加わりました。",
+      "promote": "{{move}}と指し、{{square}}の駒は{{piece}}になりました。",
+      "promotionDetail": "成った後の動きで、相手の駒への利きと自玉の守りを確認しましょう。",
+      "drop": "持駒の{{piece}}を{{square}}に打ちました。",
+      "dropDetail": "持駒の{{piece}}は{{before}}枚から{{after}}枚になりました。盤上へ移った駒の利きと、残りの持駒を分けて見ましょう。",
+      "control": "この手で{{piece}}の利きが、新たに{{targetSquare}}の{{target}}へ届きました。",
+      "controlDetail": "動かす前の位置からは、この駒へ利いていませんでした。利きが届くことと、安全に取れることは別です。",
+      "capture": "{{move}}と指して{{captured}}を取りました。"
+    },
     "yourMove": "あなたの手 ",
     "betterWas": "より良い手は",
     "betterWasEnd": "でした。",

@@ -1,6 +1,8 @@
 import { Color, PieceType, Square, formatMove, type Move, type Position } from 'tsshogi'
 import { analyze, scoreToCp, type Analysis, type Candidate, type Score } from './engine'
-import { PIECE_CHAR, positionOf, type Side } from './shogi'
+import { positionOf, type Side } from './shogi'
+import { PIECE_VALUE, pieceName } from './pieceValues'
+export { PIECE_VALUE } from './pieceValues'
 import i18n from './i18n'
 
 export type Label = 'brilliant' | 'great' | 'best' | 'excellent' | 'good' | 'book' | 'inaccuracy' | 'mistake' | 'miss' | 'blunder'
@@ -78,23 +80,6 @@ export const LABELS: Record<Label, { text: string; symbol: string; color: string
   },
 }
 
-export const PIECE_VALUE: Record<PieceType, number> = {
-  [PieceType.PAWN]: 1,
-  [PieceType.LANCE]: 3,
-  [PieceType.KNIGHT]: 4,
-  [PieceType.SILVER]: 5,
-  [PieceType.GOLD]: 6,
-  [PieceType.BISHOP]: 8,
-  [PieceType.ROOK]: 10,
-  [PieceType.KING]: 100,
-  [PieceType.PROM_PAWN]: 7,
-  [PieceType.PROM_LANCE]: 6,
-  [PieceType.PROM_KNIGHT]: 6,
-  [PieceType.PROM_SILVER]: 6,
-  [PieceType.HORSE]: 10,
-  [PieceType.DRAGON]: 12,
-}
-
 const UNPROMOTED_VALUE: Record<PieceType, number> = {
   ...PIECE_VALUE,
   [PieceType.PROM_PAWN]: 1,
@@ -124,25 +109,6 @@ export type MoveReview = {
   reasons: string[]
   bestReasons: string[]
 }
-
-const PIECE_EN: Record<PieceType, string> = {
-  [PieceType.PAWN]: 'pawn',
-  [PieceType.LANCE]: 'lance',
-  [PieceType.KNIGHT]: 'knight',
-  [PieceType.SILVER]: 'silver',
-  [PieceType.GOLD]: 'gold',
-  [PieceType.BISHOP]: 'bishop',
-  [PieceType.ROOK]: 'rook',
-  [PieceType.KING]: 'king',
-  [PieceType.PROM_PAWN]: 'tokin',
-  [PieceType.PROM_LANCE]: 'promoted lance',
-  [PieceType.PROM_KNIGHT]: 'promoted knight',
-  [PieceType.PROM_SILVER]: 'promoted silver',
-  [PieceType.HORSE]: 'horse',
-  [PieceType.DRAGON]: 'dragon',
-}
-
-const pieceName = (type: PieceType) => (i18n.language === 'ja' ? PIECE_CHAR[type] : PIECE_EN[type])
 
 function materialSwing(position: Position, pv: string[], perspective: Color, plies: number) {
   const p = position.clone()
