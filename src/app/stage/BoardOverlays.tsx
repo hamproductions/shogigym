@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
-import type { CSSProperties } from 'react'
+import { useRef, type CSSProperties, type MouseEvent } from 'react'
 import { Color, promotedPieceType, type Move } from 'tsshogi'
+import { PIECE_CHAR } from '@/utils/shogi'
 import type { PromotionAtlas } from '@/rendering/sprites'
 import type { Announcement } from '@/app/hooks/useAnnouncements'
 import { cx } from '@/app/ui/cx'
@@ -97,12 +98,22 @@ export function PromotionPicker({
   onCancel: () => void
 }) {
   const { t } = useTranslation()
+  const pressed = useRef(false)
+  const choose = (event: MouseEvent, action: () => void) => {
+    const fresh = event.detail === 0 || pressed.current
+    pressed.current = false
+    if (fresh) action()
+  }
   return (
     <styled.div
       position="absolute"
       top="50%"
       left="50%"
       zIndex="promote"
+      touchAction="manipulation"
+      onPointerDownCapture={() => {
+        pressed.current = true
+      }}
       transform="translate(-50%, -50%)"
       display="flex"
       gap="2.5"
@@ -114,11 +125,17 @@ export function PromotionPicker({
       aria-label={t('app.promote')}
     >
       {options.map((m) => (
-        <button key={m.usi} className={promoteChoice({ kind: m.promote ? 'yes' : 'no' })} onClick={() => onPick(m.usi)}>
+        <button key={m.usi} className={promoteChoice({ kind: m.promote ? 'yes' : 'no' })} onClick={(event) => choose(event, () => onPick(m.usi))}>
           <styled.span
             w="72px"
             h="72px"
+            display="grid"
+            placeItems="center"
             backgroundRepeat="no-repeat"
+            fontSize="48px"
+            fontWeight="bold"
+            fontFamily="'Shippori Mincho B1', serif"
+            lineHeight="1"
             style={
               faces
                 ? {
@@ -129,11 +146,13 @@ export function PromotionPicker({
                 : undefined
             }
             aria-hidden="true"
-          />
+          >
+            {faces ? null : PIECE_CHAR[m.promote ? promotedPieceType(m.pieceType) : m.pieceType]}
+          </styled.span>
           <span>{m.promote ? t('app.promote2') : t('app.donTPromote')}</span>
         </button>
       ))}
-      <button className={promoteChoice({ kind: 'cancel' })} onClick={onCancel} title={t('app.cancelThisMoveEsc')}>
+      <button className={promoteChoice({ kind: 'cancel' })} onClick={(event) => choose(event, onCancel)} title={t('app.cancelThisMoveEsc')}>
         <styled.span display="grid" placeItems="center" h="56px" fontSize="30px" fontWeight="regular" opacity="0.8">
           ×
         </styled.span>

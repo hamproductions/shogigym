@@ -267,7 +267,6 @@ export function BoardFlat(props: Board3DProps) {
 
   const hand = (color: Color) => {
     const bottom = (color === Color.BLACK) !== flipped
-    const s = bottom ? g.stands.bottom : g.stands.top
     const sign = flipped ? -1 : 1
     const spots = hands
       .get(color)!
@@ -276,8 +275,6 @@ export function BoardFlat(props: Board3DProps) {
     const size = SPRITE_BOX * U * 0.96
     return (
       <g key={color}>
-        <image href={baked.stand} x={s.x} y={s.y} width={s.w} height={s.h} preserveAspectRatio="none" />
-        <rect x={s.x} y={s.y} width={s.w} height={s.h} fill="none" stroke="rgba(60,34,12,0.5)" strokeWidth={2} />
         {spots.map((spot) => {
           const x = g.ox + sign * spot.x * U
           const y = g.oy + sign * spot.z * U
@@ -343,6 +340,12 @@ export function BoardFlat(props: Board3DProps) {
       >
         <image href={baked.board} x={g.bx} y={g.by} width={g.bw} height={g.bh} preserveAspectRatio="none" />
         <SvgRect stroke="none" x={g.bx - 6} y={g.by - 6} width={g.bw + 12} height={g.bh + 12} rx={10} fill="none" pointerEvents="none" />
+        {[g.stands.top, g.stands.bottom].map((stand, i) => (
+          <g key={i} pointerEvents="none">
+            <image href={baked.stand} x={stand.x} y={stand.y} width={stand.w} height={stand.h} preserveAspectRatio="none" />
+            <rect x={stand.x} y={stand.y} width={stand.w} height={stand.h} fill="none" stroke="rgba(60,34,12,0.5)" strokeWidth={2} />
+          </g>
+        ))}
         <MemoUnder props={props} p={project} u={U} handPoint={handPoint} layout={layoutKey} />
         {settings.coords &&
           Array.from({ length: 9 }, (_, i) => (
