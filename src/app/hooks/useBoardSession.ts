@@ -88,9 +88,18 @@ export function useBoardSession() {
         ? sfens[cursor - 1]
         : null
   const atEnd = cursor === game.moves.length
+  const [visualPosition, setVisualPosition] = useState({ sfen, environment: settings.environment })
+  if (visualPosition.sfen !== sfen || visualPosition.environment !== settings.environment) {
+    setVisualPosition({ sfen, environment: settings.environment })
+    if (settings.environment === 'battlefield') {
+      const advancing = visualPosition.environment === 'battlefield' && visualPosition.sfen === prevSfen && lastMove && applyUsi(prevSfen, lastMove) === sfen
+      setLanding(advancing ? sfen : null)
+    }
+  }
   const nodes = useMemo(() => (course ? courseNodes(course, settings.lang) : null), [course, settings.lang])
   const userTurn = mode === 'view' ? !playing && !preview : mode === 'analyze' || (mode === 'lesson' && !course) || toMove === userSide
-  const opponentMoving = mode === 'spar' && !preview && atEnd && landing === liveSfen
+  const visualMoving = settings.environment === 'battlefield' && landing === sfen
+  const opponentMoving = mode === 'spar' && !preview && atEnd && landing === liveSfen && toMove === userSide
   const gameOver = !preview && !hasLegalMove(position)
   const ai = engineSupported() && !course?.noEngine && engineReady(sfen)
   const assist = settings.assist || (!isGameMode(mode) && mode !== 'view')
@@ -104,9 +113,9 @@ export function useBoardSession() {
 
   useEffect(() => {
     if (landing === null) return
-    const timer = setTimeout(() => setLanding(null), 1500)
+    const timer = setTimeout(() => setLanding(null), settings.environment === 'battlefield' ? 10000 : 1500)
     return () => clearTimeout(timer)
-  }, [landing])
+  }, [landing, settings.environment])
   const landed = useCallback((sfen: string) => setLanding((l) => (l === sfen ? null : l)), [])
 
   const play = useCallback(
@@ -129,6 +138,7 @@ export function useBoardSession() {
         setPlaying(false)
         return
       }
+      if (from === cursor && getSettings().environment === 'battlefield') setLanding(next)
       if (getSettings().sound && navigator.userActivation?.isActive !== false) {
         try {
           audioContext()
@@ -251,6 +261,7 @@ export function useBoardSession() {
     nodes,
     userTurn,
     opponentMoving,
+    visualMoving,
     landed,
     gameOver,
     ai,

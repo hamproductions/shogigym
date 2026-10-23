@@ -27,7 +27,7 @@ export function useMovePlayback(playing: boolean, ready: boolean, available: boo
 }
 
 export function useAutoplay(
-  { mode, preview, setPreview, cursor, setCursor, game, nodes, sfen, ai, playing, setPlaying, play, gameOver }: BoardSession,
+  { mode, preview, setPreview, cursor, setCursor, game, nodes, sfen, ai, playing, setPlaying, play, gameOver, visualMoving }: BoardSession,
   bestMove: string | undefined,
 ) {
   const candidate = preview
@@ -45,6 +45,6 @@ export function useAutoplay(
     else play(upcoming)
   }, [upcoming, preview, setPreview, cursor, game.moves.length, setCursor, play])
   const stop = useCallback(() => setPlaying(false), [setPlaying])
-  useMovePlayback(playing, mode !== 'view' || !!preview || cursor < game.moves.length, !!upcoming, step, stop, cursor)
+  useMovePlayback(playing, !visualMoving && (mode !== 'view' || !!preview || cursor < game.moves.length), !!upcoming, step, stop, cursor)
   return mode === 'view' ? undefined : upcoming
 }

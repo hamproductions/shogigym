@@ -1,8 +1,8 @@
 import * as THREE from 'three'
 import { PieceType, Square, type ImmutablePosition } from 'tsshogi'
 import { getSettings } from '@/appearance/settings'
-import { HALF_D, HALF_W, MARGIN, SQ_D, STAND_TOP, squareX, squareZ } from './dimensions'
-import { handSpot } from './hand'
+import { HALF_D, HALF_W, MARGIN, SQ_D, squareX, squareZ } from './dimensions'
+import { handSpot, handSurface } from './hand'
 import { standCenter } from './layout'
 import { arrowTag, badgeSprite, coordPlane, coordSprite, faceTextureRevision, labelSprite } from './textures'
 import { layout } from './layout'
@@ -50,9 +50,17 @@ export const moveTarget = () =>
   new THREE.Mesh(new THREE.CircleGeometry(0.12, 24), new THREE.MeshBasicMaterial({ color: 0x5a3a1c, transparent: true, opacity: 0.5, depthWrite: false }))
 
 function boardMarker(sprite: THREE.Sprite, width: number, height: number, flipped: boolean) {
-  const material = new THREE.MeshBasicMaterial({ map: sprite.material.map, transparent: true, depthTest: false, depthWrite: false })
+  const material = new THREE.MeshBasicMaterial({
+    map: sprite.material.map,
+    transparent: true,
+    depthTest: getSettings().environment === 'battlefield',
+    depthWrite: false,
+  })
   sprite.material.dispose()
-  const marker = new THREE.Mesh(new THREE.PlaneGeometry(width, height), material)
+  const image = material.map!.image as { width: number; height: number }
+  const aspect = image.width / image.height
+  const fittedHeight = Math.min(height, width / aspect)
+  const marker = new THREE.Mesh(new THREE.PlaneGeometry(fittedHeight * aspect, fittedHeight), material)
   marker.renderOrder = 13
   marker.rotation.set(-Math.PI / 2, 0, flipped ? Math.PI : 0)
   return marker
@@ -129,7 +137,7 @@ export function arrowBetween(arrow: Omit<BoardArrow, 'usi'> & { usi?: string }, 
   return group
 }
 
-function castleBox({ squares, color, label }: { squares: Square[]; color: string; label: string }) {
+function castleBox({ squares, color, label }: { squares: Square[]; color: string; label: string }, flipped = false) {
   const xs = squares.map((sq) => squareX(sq.file))
   const zs = squares.map((sq) => squareZ(sq.rank))
   const minX = Math.min(...xs) - 0.5
@@ -149,15 +157,29 @@ function castleBox({ squares, color, label }: { squares: Square[]; color: string
   bar(maxX - minX + t, t, (minX + maxX) / 2, maxZ)
   bar(t, maxZ - minZ, minX, (minZ + maxZ) / 2)
   bar(t, maxZ - minZ, maxX, (minZ + maxZ) / 2)
-  const tag = labelSprite(label, color)
-  tag.position.set((minX + maxX) / 2, 0.5, (minZ + maxZ) / 2 > 0 ? minZ - 0.22 : maxZ + 0.22)
+  const onGround = getSettings().environment === 'battlefield'
+  const tag = onGround ? boardMarker(labelSprite(label, color), Math.min(2.4, Math.max(1, maxX - minX)), 0.28, flipped) : labelSprite(label, color)
+  tag.position.set((minX + maxX) / 2, onGround ? 0.012 : 0.5, (minZ + maxZ) / 2 > 0 ? minZ - 0.22 : maxZ + 0.22)
   group.add(tag)
   return group
 }
 
 const markKeys = new WeakMap<SceneState, string>()
+const pendingMarks = new WeakMap<SceneState, Board3DProps>()
+
+export function flushMarks(s: SceneState) {
+  const props = pendingMarks.get(s)
+  if (props && !s.animations.some((animation) => animation.mesh.userData.motion)) drawMarks(s, props)
+}
 
 export function drawMarks(s: SceneState, props: Board3DProps) {
+  s.marks.visible = true
+  if (getSettings().environment === 'battlefield' && s.animations.some((animation) => animation.mesh.userData.motion)) {
+    pendingMarks.set(s, props)
+    return
+  }
+  pendingMarks.delete(s)
+  s.marks.visible = true
   const { lastMove, selected, selectedColor, targets, arrows, position, flipped } = props
   const settings = getSettings()
   const key = JSON.stringify([
@@ -212,7 +234,7 @@ export function drawMarks(s: SceneState, props: Board3DProps) {
     const ring = new THREE.Mesh(new THREE.RingGeometry(0.44, 0.48, 40), new THREE.MeshBasicMaterial({ color: 0xc8442f }))
     const slot = handSpot(position, selectedColor, selected) ?? standCenter(selectedColor)
     ring.rotation.x = -Math.PI / 2
-    ring.position.set(slot.x, STAND_TOP + 0.004, slot.z)
+    ring.position.set(slot.x, handSurface() + 0.008, slot.z)
     s.marks.add(ring)
   }
   for (const target of targets) s.marks.add(flatOnBoard(moveTarget(), target, 0.006))
@@ -244,13 +266,14 @@ export function drawMarks(s: SceneState, props: Board3DProps) {
   for (const heat of props.heat ?? []) {
     tile(heat.square, heat.color, heat.opacity)
     if (heat.label) {
-      const tag = coordSprite(heat.label)
-      tag.scale.setScalar(0.34)
-      tag.position.set(squareX(heat.square.file) + 0.32, 0.06, squareZ(heat.square.rank) + 0.3)
+      const onGround = settings.environment === 'battlefield'
+      const tag = onGround ? boardMarker(coordSprite(heat.label), 0.28, 0.28, !!flipped) : coordSprite(heat.label)
+      if (!onGround) tag.scale.setScalar(0.34)
+      tag.position.set(squareX(heat.square.file) + 0.32, onGround ? 0.014 : 0.06, squareZ(heat.square.rank) + 0.3)
       s.marks.add(tag)
     }
   }
-  for (const castle of props.castles ?? []) s.marks.add(castleBox(castle))
+  for (const castle of props.castles ?? []) s.marks.add(castleBox(castle, !!flipped))
   if (props.checkSquare)
     s.marks.add(flatOnBoard(squareFrame(0.6, new THREE.MeshBasicMaterial({ color: 0xc62a1a, depthWrite: false })), props.checkSquare, 0.007))
   const stamp = props.stamp && Square.newByUSI(props.stamp.square)

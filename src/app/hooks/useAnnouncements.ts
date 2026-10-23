@@ -13,15 +13,16 @@ import { useTransient } from './useTransient'
 // `seal` is a fixed two-kanji stamp so it fits the seal box, whatever language the UI is in.
 export type Announcement = { side: Color; name: string; kind: string; seal: string; key: number; at: number; tesuji?: boolean }
 
-export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, position }: BoardSession, quiet = false) {
+export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, position, visualMoving }: BoardSession, quiet = false) {
   const { t, i18n } = useTranslation()
   const { showTesuji, environment } = useSettings()
-  const three = environment === 'traditional' || environment === 'casual'
+  const three = environment === 'traditional' || environment === 'casual' || environment === 'battlefield'
   const [announce, setAnnounce] = useTransient<Announcement>(1800)
   const [tesujiNote, setTesujiNote] = useTransient<Tesuji & { at: number }>(6000)
   const announced = useRef<{ start: string; seen: Set<string> }>({ start: '', seen: new Set() })
   const lastCursor = useRef(0)
   useEffect(() => {
+    if (visualMoving) return
     const stepped = cursor === lastCursor.current + 1
     lastCursor.current = cursor
     if (announced.current.start !== game.start || cursor === 0) {
@@ -106,6 +107,7 @@ export function useAnnouncements({ sfen, preview, mode, cursor, game, sfens, pos
     showTesuji,
     three,
     quiet,
+    visualMoving,
   ])
   const onMoveLanded = (landedSfen: string) => {
     if (landedSfen === sfen && !preview && mode !== 'tsume' && cursor > 0 && position.checked && !hasLegalMove(position)) say('ありがとうございました', true)

@@ -297,11 +297,6 @@ export function ModeBar({
               {t('tsume.tryAgain')}
             </BarButton>
           )}
-          {unavailable && (
-            <BarButton size="sm" onClick={() => location.reload()}>
-              {t('engine.reloadPage')}
-            </BarButton>
-          )}
           {mode === 'view' && (
             <>
               <BarButton

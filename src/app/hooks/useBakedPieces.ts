@@ -90,7 +90,7 @@ const bakeCache = new Map<string, Baked>()
 type BakeJob = { controller: AbortController; promise: Promise<Baked>; users: number }
 const jobs = new Map<string, BakeJob>()
 
-function acquireBake(key: string, settings: Settings) {
+function acquireBake(key: string, settings: Settings, scope: 'board' | 'furigoma') {
   const existing = jobs.get(key)
   if (existing && !existing.controller.signal.aborted) {
     existing.users++
@@ -109,7 +109,13 @@ function acquireBake(key: string, settings: Settings) {
     ])
       .then(([, , , , { bakeFlat }]) => {
         controller.signal.throwIfAborted()
-        return bakeFlat(Math.min(512, Math.round(256 * Math.min(2, window.devicePixelRatio || 1))), controller.signal, settings)
+        return bakeFlat(
+          Math.min(512, Math.round(256 * Math.min(2, window.devicePixelRatio || 1))),
+          controller.signal,
+          settings,
+          scope === 'furigoma' ? [PieceType.PAWN, PieceType.PROM_PAWN] : undefined,
+          scope === 'furigoma' ? [Color.BLACK] : undefined,
+        )
       })
       .then((baked) => {
         controller.signal.throwIfAborted()
@@ -128,17 +134,18 @@ function acquireBake(key: string, settings: Settings) {
 const bakeKey = (settings: Settings) =>
   `appearance-v17|${settings.pieceStyle}|${settings.pieceFinish}|${settings.pieceFont}|${settings.pieceSet}|${settings.pieceGuide}|${settings.pieceMaterial}|${settings.pieceColor}|${settings.pieceGrain}|${settings.boardStyle}|${settings.coords}|${settings.environment}`
 
-export function useBakedPieces(enabled = true) {
+export function useBakedPieces(enabled = true, scope: 'board' | 'furigoma' = 'board') {
   const settings = useSettings()
-  const key = bakeKey(settings)
+  const fullKey = bakeKey(settings)
+  const key = scope === 'furigoma' ? `${fullKey}|furigoma` : fullKey
   const [ready, setReady] = useState<Baked | null>(null)
   const [failure, setFailure] = useState<{ key: string; message: string } | null>(null)
   const error = failure?.key === key ? failure.message : null
-  const cached = bakeCache.get(key)
+  const cached = (scope === 'furigoma' ? bakeCache.get(fullKey) : null) ?? bakeCache.get(key)
   useEffect(() => {
-    if (!enabled || bakeCache.has(key)) return
+    if (!enabled || cached) return
     let live = true
-    const job = acquireBake(key, settings)
+    const job = acquireBake(key, settings, scope)
     void job.promise.then(
       (baked) => {
         if (live) setReady(baked)
@@ -151,6 +158,6 @@ export function useBakedPieces(enabled = true) {
       live = false
       if (--job.users === 0) job.controller.abort()
     }
-  }, [key, enabled, settings])
+  }, [key, enabled, settings, scope, cached])
   return { baked: cached ?? ready, loading: enabled && !cached && !error, error }
 }

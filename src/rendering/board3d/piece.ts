@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import { historicalPiece } from '@/rendering/historical/piece'
 import { Color, PieceType, promotedPieceType, unpromotedPieceType } from 'tsshogi'
 import { PIECE_FINISHES, pieceTone, getSettings, type PieceAppearance, pieceFinishOptions } from '@/appearance/settings'
 import { loadedPiece, pieceCode } from '@/appearance/pieceSets'
@@ -275,6 +276,7 @@ function sideTexture(seed: number, appearance?: PieceAppearance) {
 }
 
 export function disposePiece(piece: THREE.Object3D, keepCached = false) {
+  if (piece.userData.historical) (piece as THREE.Mesh).geometry.dispose()
   const resources = piece.userData.pieceResources as Set<THREE.Texture | THREE.BufferGeometry> | undefined
   resources?.forEach((resource) => releaseResource(resource, keepCached))
   resources?.clear()
@@ -312,6 +314,11 @@ export function pieceMesh(
   flat = false,
   custom?: CustomFace,
 ) {
+  if (!custom && !flat && getSettings().environment === 'battlefield') {
+    const mesh = historicalPiece(type, color, seed)
+    mesh.userData.pieceFactory = pieceMesh
+    return mesh
+  }
   const scale = custom?.scale ?? pieceScale(type)
   // Custom faces share one grain variant per glyph so hundreds of distinct tiles stay cheap; the sides still vary by seed.
   const frontMap = (grain: number) =>

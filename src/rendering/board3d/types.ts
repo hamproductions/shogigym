@@ -5,6 +5,7 @@ import type { AvatarCues, AvatarSlot, Wall } from '@/rendering/avatars'
 import type { Surroundings } from './surroundings'
 import type { PieceInstances } from './instances'
 import type { BoardLoadingState } from '@/rendering/BoardLoading'
+import type { BattlefieldEffects } from '@/rendering/historical/effects'
 
 export type BoardArrow = { usi: string; color: string; dashed?: boolean; label?: string }
 
@@ -89,6 +90,7 @@ export type Dust = { points: THREE.Points; burst: (at: THREE.Vector3, count: num
 export type SceneState = {
   room: Surroundings
   avatars?: AvatarSlot
+  battlefieldFx?: BattlefieldEffects
   renderer: THREE.WebGLRenderer
   scene: THREE.Scene
   camera: THREE.PerspectiveCamera
@@ -105,6 +107,19 @@ export type SceneState = {
   tilt: number
   tiltTarget: number
   viewTilted?: boolean
+  spiritFlights: {
+    id: number
+    mesh: THREE.Object3D
+    body?: THREE.Object3D
+    camp: THREE.Object3D
+    from: THREE.Vector3
+    to: THREE.Vector3
+    start: number
+    duration: number
+    revive: number
+    merged?: boolean
+    lastWisp?: number
+  }[]
   animations: {
     mesh: THREE.Object3D
     from: THREE.Vector3
@@ -116,6 +131,7 @@ export type SceneState = {
     toQ?: THREE.Quaternion
     flip?: THREE.Object3D
     land?: (() => void) | null
+    impact?: (() => void) | null
   }[]
   drag: { mesh: THREE.Object3D; from: Square | PieceType } | null
   controls: OrbitControls | null
@@ -125,6 +141,7 @@ export type SceneState = {
   settled?: boolean
   droppedAt?: number
   onLand?: (() => void) | null
+  onImpact?: (() => void) | null
   settle?: () => void
   releaseFlip?: () => void
   lastTime?: number

@@ -1,6 +1,8 @@
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { Box3, Matrix4, TOUCH, Vector3 } from 'three'
 import { cameraFit, layout } from './layout'
+import { getSettings } from '@/appearance/settings'
+import { HALF_W, HALF_D, standWidth } from './dimensions'
 import type { Board3DProps, SceneState } from './types'
 
 const ease = (dt: number, rate: number) => 1 - Math.exp(-dt * rate)
@@ -54,7 +56,10 @@ export function updateView(s: SceneState, props: Board3DProps, dt: number) {
   if (!props.orbit || (s.tilePov && !s.pieces.children.includes(s.tilePov))) s.tilePov = null
   if (!s.tilePov) s.tilePovFrame = null
   if (s.controls) {
-    s.controls.minDistance = s.tilePov ? 0.05 : 6
+    const battlefield = getSettings().environment === 'battlefield'
+    s.controls.minDistance = s.tilePov ? 0.05 : battlefield ? 2.2 : 6
+    s.controls.maxDistance = battlefield && !s.tilePov ? Math.max(48, distance * 1.25) : Math.max(80, distance * 2)
+    s.controls.maxTargetRadius = battlefield ? Math.hypot(HALF_W, HALF_D) + standWidth() : Infinity
     s.controls.maxPolarAngle = s.tilePov ? Math.PI : Math.PI * 0.48
   }
   const near = s.controls ? 0.1 : Math.max(0.1, distance - 45)

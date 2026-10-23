@@ -1,5 +1,6 @@
 import type * as THREE from 'three'
 import type { RoomDims } from '@/rendering/roomFloor'
+import { getSettings } from '@/appearance/settings'
 import { CASUAL } from './dimensions'
 
 type RoomModule = typeof import('@/rendering/room')
@@ -16,7 +17,7 @@ const loadRoom = () =>
 export type Surroundings = { need: () => void; prefetch: () => () => void; dispose: () => void }
 
 export function surroundings(root: THREE.Group, dims: RoomDims): Surroundings {
-  let built = false
+  let built = getSettings().environment === 'battlefield'
   let disposed = false
   const build = (m: RoomModule) => {
     if (built || disposed) return
@@ -34,6 +35,10 @@ export function surroundings(root: THREE.Group, dims: RoomDims): Surroundings {
       else void loadRoom().then(build)
     },
     prefetch: () => {
+      if (built)
+        return () => {
+          disposed = true
+        }
       const idle = (run: () => void) => (typeof window.requestIdleCallback === 'function' ? window.requestIdleCallback(run) : window.setTimeout(run, 0))
       const timer = window.setTimeout(() => idle(() => void loadRoom()), 3000)
       return () => window.clearTimeout(timer)

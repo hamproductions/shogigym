@@ -1,7 +1,9 @@
 import * as THREE from 'three'
+import { getSettings } from '@/appearance/settings'
+import { CAMP_GROUND, campFacing } from '@/rendering/historical/camp'
 import { Color, PieceType, type ImmutablePosition } from 'tsshogi'
 import { HAND_ORDER } from '@/utils/shogi'
-import { SIDE_COT, STAND, STAND_TOP, STRIP_W, komaDepth, komaWidth, pieceScale } from './dimensions'
+import { SIDE_COT, STAND, STAND_TOP, STRIP_W, standWidth, stripDepth, komaDepth, komaWidth, pieceScale } from './dimensions'
 import { layout, standCenter } from './layout'
 import { pieceMesh } from './piece'
 
@@ -199,10 +201,42 @@ function grouped(count: (type: PieceType) => number, expose: number) {
   return settle(placed)
 }
 
+export const handSurface = () => (getSettings().environment === 'battlefield' ? CAMP_GROUND : STAND_TOP)
+
 export function handArrangement(position: ImmutablePosition, color: Color): { spots: HandSpot[]; mode: HandMode } {
   const hand = position.hand(color)
   const c = standCenter(color)
   const sign = color === Color.BLACK ? 1 : -1
+  if (getSettings().environment === 'battlefield') {
+    const facing = campFacing(c.x, c.z)
+    const width = layout.portrait ? (layout.vertical ? stripDepth() : STRIP_W) : standWidth()
+    const depth = layout.portrait ? (layout.vertical ? STRIP_W : stripDepth()) : standWidth()
+    const spots: HandSpot[] = []
+    let x = -width / 2 + 0.18
+    let z = -depth / 2 + 0.18
+    let row = 0
+    for (const type of CAPTURE_ORDER) {
+      const cart = type === PieceType.ROOK || type === PieceType.BISHOP || type === PieceType.LANCE
+      const w = cart || type === PieceType.KNIGHT ? 1.4 : 0.9
+      const d = w
+      for (let nth = 0; nth < hand.count(type); nth++) {
+        if (x + w > width / 2 - 0.18) {
+          x = -width / 2 + 0.18
+          z += row
+          row = 0
+        }
+        spots.push({
+          type,
+          x: c.x + x + w / 2,
+          z: c.z + z + d / 2,
+          rot: facing - (color === Color.WHITE ? Math.PI : 0),
+        })
+        x += w
+        row = Math.max(row, d)
+      }
+    }
+    return { mode: 'rows', spots }
+  }
   if (layout.portrait) {
     const types = [...BIG, PieceType.PAWN].filter((t) => hand.count(t) > 0)
     const along = (i: number) => sign * (STRIP_W / 2 - 0.6 - i * 1.02)
@@ -246,14 +280,14 @@ export const handLayout = (position: ImmutablePosition, color: Color) => handArr
 export function handSpot(position: ImmutablePosition, color: Color, type: PieceType) {
   const spots = handLayout(position, color).filter((p) => p.type === type)
   const spot = spots[Math.floor(spots.length / 2)]
-  return spot ? new THREE.Vector3(spot.x, STAND_TOP, spot.z) : null
+  return spot ? new THREE.Vector3(spot.x, handSurface(), spot.z) : null
 }
 
 export function handPieceMesh(spot: HandSpot, color: Color, seed = 1, envMap?: THREE.Texture) {
   const mesh = pieceMesh(spot.type, color, seed, 64, undefined, envMap)
   mesh.rotation.y += spot.rot
   mesh.rotation.z = spot.roll ?? 0
-  mesh.scale.setScalar(0.96)
-  mesh.position.set(spot.x, STAND_TOP + (spot.lift ?? 0), spot.z)
+  mesh.scale.setScalar(mesh.userData.historical ? 1 : 0.96)
+  mesh.position.set(spot.x, handSurface() + (spot.lift ?? 0), spot.z)
   return mesh
 }

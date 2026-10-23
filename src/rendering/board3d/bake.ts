@@ -45,15 +45,29 @@ const TYPES = [
   PieceType.DRAGON,
 ]
 
-export function bakeFlat(px: number, signal: AbortSignal, settings: Settings = getSettings()): Promise<Baked> {
-  return withBakeRenderer((renderer, environment) => bakeFlatWith(renderer, environment, px, signal, settings))
+export function bakeFlat(
+  px: number,
+  signal: AbortSignal,
+  settings: Settings = getSettings(),
+  types = TYPES,
+  colors = [Color.BLACK, Color.WHITE],
+): Promise<Baked> {
+  return withBakeRenderer((renderer, environment) => bakeFlatWith(renderer, environment, px, signal, settings, types, colors))
 }
 
-async function bakeFlatWith(renderer: THREE.WebGLRenderer, environment: THREE.Texture, px: number, signal: AbortSignal, settings: Settings): Promise<Baked> {
+async function bakeFlatWith(
+  renderer: THREE.WebGLRenderer,
+  environment: THREE.Texture,
+  px: number,
+  signal: AbortSignal,
+  settings: Settings,
+  types: PieceType[],
+  colors: Color[],
+): Promise<Baked> {
   signal.throwIfAborted()
   setBoardDims()
   const columns = 4
-  const rows = Math.ceil(TYPES.length / columns)
+  const rows = Math.ceil(types.length / columns)
   const target = createCapture(columns * px, rows * px)
   const scene = new THREE.Scene()
   addLights(scene, 512)
@@ -77,9 +91,9 @@ async function bakeFlatWith(renderer: THREE.WebGLRenderer, environment: THREE.Te
   const ctx = crop.getContext('2d')!
   const pieces = new Map<string, string>()
   try {
-    for (const color of [Color.BLACK, Color.WHITE]) {
+    for (const color of colors) {
       const meshes: THREE.Object3D[] = []
-      for (const [index, type] of TYPES.entries()) {
+      for (const [index, type] of types.entries()) {
         await nextFrame()
         signal.throwIfAborted()
         const mesh = pieceMesh(type, color, undefined, 48, settings, environment, true)
@@ -92,7 +106,7 @@ async function bakeFlatWith(renderer: THREE.WebGLRenderer, environment: THREE.Te
       await renderer.compileAsync(scene, camera)
       signal.throwIfAborted()
       const atlas = target.render(renderer, scene, camera)
-      for (const [index, type] of TYPES.entries()) {
+      for (const [index, type] of types.entries()) {
         for (const up of [true, false]) {
           ctx.clearRect(0, 0, px, px)
           ctx.save()

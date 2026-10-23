@@ -29,7 +29,7 @@ export function Furigoma({ onDone, spectator = false }: { onDone: (side: Side) =
   const [side, setSide] = useState<Side | null>(null)
   const [loading, setLoading] = useState(true)
   const ja = settings.lang === 'ja'
-  const sprites = useBakedPieces()
+  const sprites = useBakedPieces(true, 'furigoma')
   useEffect(() => {
     if (!spectator || !side) return
     const timer = setTimeout(complete, 2500)

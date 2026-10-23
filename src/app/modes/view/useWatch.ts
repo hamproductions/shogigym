@@ -61,7 +61,7 @@ export function useWatch(session: BoardSession, load: Load, reviewReady: boolean
   }, [mode, result, atEnd, preview, setPlaying])
 
   useEffect(() => {
-    if (!running || !atEnd || preview || (game.moves.length > 0 && !reviewReady)) return
+    if (!running || !atEnd || preview || session.visualMoving || (game.moves.length > 0 && !reviewReady)) return
     let cancelled = false
     let timer: ReturnType<typeof setTimeout> | undefined
     const level = STRENGTH[strength]
@@ -94,7 +94,7 @@ export function useWatch(session: BoardSession, load: Load, reviewReady: boolean
       cancelled = true
       clearTimeout(timer)
     }
-  }, [running, atEnd, preview, reviewReady, game, sfen, strength, strategy, epoch, play, session.toMove, t])
+  }, [running, atEnd, preview, reviewReady, game, sfen, strength, strategy, epoch, play, session.toMove, session.visualMoving, t])
 
   const toggle = () => {
     if (!canPlay) return

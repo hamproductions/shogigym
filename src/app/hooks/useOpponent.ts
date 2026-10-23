@@ -81,11 +81,11 @@ export function useOpponent(
   const endRef = useLatest(end)
   const armed = spar || atEnd
   useEffect(() => {
-    if (!due || !armed || (mode === 'lesson' && lessonMode === 'study')) return
+    if (!due || !armed || session.visualMoving || (mode === 'lesson' && lessonMode === 'study')) return
     const wait = spar ? Math.max(900, (due.until ?? 0) - performance.now()) : 1000
     const timer = setTimeout(() => (spar ? playRef.current(due.usi, endRef.current) : playRef.current(due.usi)), wait)
     return () => clearTimeout(timer)
-  }, [due, armed, spar, mode, lessonMode, playRef, endRef])
+  }, [due, armed, spar, mode, lessonMode, playRef, endRef, session.visualMoving])
 
   return { reply, forget: () => setPending(null) }
 }

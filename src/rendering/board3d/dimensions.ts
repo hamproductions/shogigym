@@ -11,25 +11,31 @@ export const STAND_SLAB = 20 / MM_PER_SQUARE
 export const STAND = 3.4
 export const STRIP_W = 10
 export const STRIP_D = 1.15
+let campLoad = 0
+export const setCampLoad = (load: number) => {
+  campLoad = load === 0 ? 0 : Math.max(campLoad, load)
+}
+export const standWidth = () => (getSettings().environment === 'battlefield' ? Math.max(4.2, Math.ceil(Math.sqrt(campLoad)) * 0.96 + 0.4) : STAND)
+export const stripDepth = () => (getSettings().environment === 'battlefield' ? Math.max(2.4, Math.ceil(campLoad / 8) * 0.96 + 0.4) : STRIP_D)
 
 export function sideStandsFit(w: number, h: number) {
   setBoardDims()
-  return sideStandsFitFor(w, h, HALF_W, HALF_D, STAND)
+  return sideStandsFitFor(w, h, HALF_W, HALF_D, standWidth())
 }
 
 /** Short, wide canvases: captured pieces in narrow vertical strips beside the board so the board fills the height. */
 export function verticalStripsFit(w: number, h: number) {
   setBoardDims()
-  const vertical = Math.min(w / (2 * (HALF_W + 0.25 + STRIP_D) + 0.4), h / (2 * HALF_D + 0.6))
-  const sd = w < 560 ? 0.95 : 1.15
+  const vertical = Math.min(w / (2 * (HALF_W + 0.25 + stripDepth()) + 0.4), h / (2 * HALF_D + 0.6))
+  const sd = getSettings().environment === 'battlefield' ? stripDepth() : w < 560 ? 0.95 : 1.15
   const strips = Math.min(w / (2 * HALF_W + (w < 560 ? 0.5 : 1.0)), h / (2 * (HALF_D + 0.3 + sd) + 0.2))
-  const stands = Math.min(w / (2 * (HALF_W + 0.45 + STAND)), h / (2 * HALF_D + 0.6))
+  const stands = Math.min(w / (2 * (HALF_W + 0.45 + standWidth())), h / (2 * HALF_D + 0.6))
   return vertical > Math.max(strips, stands) * 1.04
 }
 
 export function sideStandsFitFor(w: number, h: number, halfW: number, halfD: number, stand: number) {
   const side = Math.min(w / (2 * (halfW + 0.45 + stand)), h / (2 * halfD + 0.6))
-  const sd = w < 560 ? 0.95 : 1.15
+  const sd = getSettings().environment === 'battlefield' ? stripDepth() : w < 560 ? 0.95 : 1.15
   const strips = Math.min(w / (2 * halfW + (w < 560 ? 0.5 : 1.0)), h / (2 * (halfD + 0.3 + sd) + 0.2))
   return side >= strips * 0.97
 }

@@ -1,25 +1,33 @@
 import * as THREE from 'three'
 import { Color } from 'tsshogi'
-import { HALF_D, HALF_W, STAND, STAND_TOP, STRIP_D } from './dimensions'
+import { HALF_D, HALF_W, STAND_TOP, standWidth, stripDepth } from './dimensions'
 import { sideStandsFit, verticalStripsFit } from './dimensions'
 export { sideStandsFit, verticalStripsFit }
 import type { Latest, SceneState, StandZones } from './types'
 
 export const layout = { portrait: false, narrow: false, vertical: false }
 
-export const stripZ = () => HALF_D + 0.25 + STRIP_D / 2
-export const stripX = () => HALF_W + 0.25 + STRIP_D / 2
+export const stripZ = () => HALF_D + 0.25 + stripDepth() / 2
+export const stripX = () => HALF_W + 0.25 + stripDepth() / 2
 
 export function standCenter(color: Color) {
   const sign = color === Color.BLACK ? 1 : -1
   if (layout.portrait && layout.vertical) return new THREE.Vector3(sign * stripX(), STAND_TOP, 0)
   return layout.portrait
     ? new THREE.Vector3(0, STAND_TOP, sign * stripZ())
-    : new THREE.Vector3(sign * (HALF_W + 0.4 + STAND / 2), STAND_TOP, sign * (HALF_D - STAND / 2))
+    : new THREE.Vector3(sign * (HALF_W + 0.4 + standWidth() / 2), STAND_TOP, sign * (HALF_D - standWidth() / 2))
 }
 
 export function cameraFit(aspect: number, tilt: number, sideRoom: number, portrait = layout.portrait, narrow = layout.narrow, vertical = layout.vertical) {
-  return cameraFitFor(aspect, tilt, sideRoom, { halfW: HALF_W, halfD: HALF_D, stand: STAND, stripD: STRIP_D, stripZ: stripZ() }, portrait, narrow, vertical)
+  return cameraFitFor(
+    aspect,
+    tilt,
+    sideRoom,
+    { halfW: HALF_W, halfD: HALF_D, stand: standWidth(), stripD: stripDepth(), stripZ: stripZ() },
+    portrait,
+    narrow,
+    vertical,
+  )
 }
 
 export function cameraFitFor(
@@ -53,9 +61,10 @@ export function zoneReporter(s: SceneState, latest: Latest) {
     board: () => new THREE.Box3().setFromObject(s.board),
     stands: () =>
       [-1, 1].map((sign) => {
-        const x = sign * (HALF_W + 0.4 + STAND / 2)
-        const z = sign * (HALF_D - STAND / 2)
-        return new THREE.Box3(new THREE.Vector3(x - STAND / 2, STAND_TOP, z - STAND / 2), new THREE.Vector3(x + STAND / 2, STAND_TOP, z + STAND / 2))
+        const width = standWidth()
+        const x = sign * (HALF_W + 0.4 + width / 2)
+        const z = sign * (HALF_D - width / 2)
+        return new THREE.Box3(new THREE.Vector3(x - width / 2, STAND_TOP, z - width / 2), new THREE.Vector3(x + width / 2, STAND_TOP, z + width / 2))
       }),
     obstacles: () => [s.board, ...s.stands.map(({ stand }) => stand)].map((object) => new THREE.Box3().setFromObject(object)),
   })

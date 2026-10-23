@@ -82,8 +82,12 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
   const pick = (): Pick | null => {
     const tag = latest.current.onArrow && nearTag()
     if (tag) return { kind: 'arrow', usi: tag.tag.userData.usi as string }
-    const handHit = raycaster.intersectObjects(s.handMeshes, false)[0]
-    if (handHit) return { kind: 'hand', ...(handHit.object.userData as { color: Color; type: PieceType }) }
+    const handHit = raycaster.intersectObjects(s.handMeshes, true)[0]
+    if (handHit) {
+      let owner = handHit.object
+      while (owner.parent && !s.handMeshes.includes(owner)) owner = owner.parent
+      return { kind: 'hand', ...(owner.userData as { color: Color; type: PieceType }) }
+    }
     const pieceHit = raycaster.intersectObjects(s.pieces.children, true).find((h) => squareOwner(h.object))
     const owner = pieceHit && squareOwner(pieceHit.object)
     if (owner && s.drag?.mesh !== owner) return { kind: 'square', square: owner.userData.square as Square }
@@ -160,6 +164,14 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
     ray(event)
     const hit = pick()
     canvas.style.cursor = hit ? 'pointer' : 'default'
+    const hovered =
+      hit?.kind === 'square'
+        ? s.pieces.children.find((piece) => piece.userData.square?.equals(hit.square))
+        : hit?.kind === 'hand'
+          ? s.handMeshes.find((piece) => piece.userData.type === hit.type && piece.userData.color === hit.color)
+          : undefined
+    const spec = hovered?.userData.figure?.userData.spec
+    canvas.title = spec ? `${spec.name} · ${spec.moves}` : ''
     if (!down || event.pointerId !== down.pointerId) return
     const moved = Math.hypot(event.clientX - down.x, event.clientY - down.y) > 6
     if (s.controls?.enabled && !s.drag && (event.clientX !== down.x || event.clientY !== down.y)) down = null
@@ -167,7 +179,7 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
     if (!s.drag && moved) startDrag(down.pick)
     if (!s.drag) return
     const p = localPoint()
-    if (p) s.drag.mesh.position.set(p.x, 0.6, p.z)
+    if (p && !s.drag.mesh.userData.historical) s.drag.mesh.position.set(p.x, 0.6, p.z)
     const sq = hit?.kind === 'square' ? hit.square : null
     const legal = !!sq && (latest.current.targets ?? []).some((t) => t.equals(sq))
     if (ghost && (!legal || ghost.userData.at !== sq?.usi)) clearGhost()
@@ -268,6 +280,7 @@ export function bindPointer(s: SceneState, latest: Latest, rebuild: () => void) 
   canvas.addEventListener('pointermove', onMove)
   canvas.addEventListener('pointerup', onUp)
   return () => {
+    canvas.removeAttribute('title')
     canvas.removeEventListener('contextmenu', tilePov)
     canvas.removeEventListener('dblclick', tilePov)
     canvas.ownerDocument.removeEventListener('keydown', unlockPov, true)

@@ -841,6 +841,7 @@ export function SettingsDialog({
               options={[
                 { v: 'traditional', t: t('settings.traditional') },
                 { v: 'casual', t: t('settings.casual') },
+                { v: 'battlefield', t: st.lang === 'ja' ? '合戦場' : 'Battlefield' },
                 { v: 'flat', t: t('settings.2d') },
                 { v: 'diagram', t: t('settings.diagram') },
                 { v: 'broadcast', t: t('settings.broadcast') },

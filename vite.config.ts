@@ -9,6 +9,17 @@ const crossOriginIsolation = {
   'Cross-Origin-Opener-Policy': 'same-origin',
 }
 
+const isolationHeaders = (): Plugin => ({
+  name: 'cross-origin-isolation',
+  enforce: 'pre',
+  configureServer(server) {
+    server.middlewares.use((_request, response, next) => {
+      for (const [name, value] of Object.entries(crossOriginIsolation)) response.setHeader(name, value)
+      next()
+    })
+  },
+})
+
 const woff2Only = (): Plugin => ({
   name: 'woff2-only',
   enforce: 'pre',
@@ -30,12 +41,53 @@ const compactJoseki = (): Plugin => ({
 export default defineConfig({
   base: process.env.BASE_PATH ?? '/',
   resolve: {
+    dedupe: ['three'],
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
       'styled-system': fileURLToPath(new URL('./styled-system', import.meta.url)),
     },
   },
-  plugins: [compactJoseki(), woff2Only(), pandacss(), reactRouter()],
+  optimizeDeps: {
+    include: [
+      '@ark-ui/react',
+      '@ark-ui/react/anatomy',
+      '@ark-ui/react/checkbox',
+      '@ark-ui/react/collection',
+      '@ark-ui/react/dialog',
+      '@ark-ui/react/factory',
+      '@ark-ui/react/field',
+      '@ark-ui/react/file-upload',
+      '@ark-ui/react/locale',
+      '@ark-ui/react/portal',
+      '@ark-ui/react/segment-group',
+      '@ark-ui/react/select',
+      '@ark-ui/react/slider',
+      '@ark-ui/react/switch',
+      '@ark-ui/react/tabs',
+      '@ark-ui/react/utils',
+      '@dimforge/rapier3d-compat',
+      '@pixiv/three-vrm',
+      'i18next',
+      'react',
+      'react-dom',
+      'react-dom/client',
+      'react-i18next',
+      'react-router',
+      'react-router/dom',
+      'react/jsx-dev-runtime',
+      'react/jsx-runtime',
+      'three',
+      'three/examples/jsm/controls/OrbitControls.js',
+      'three/examples/jsm/environments/RoomEnvironment.js',
+      'three/examples/jsm/geometries/RoundedBoxGeometry.js',
+      'three/examples/jsm/loaders/GLTFLoader.js',
+      'three/examples/jsm/objects/Sky.js',
+      'three/examples/jsm/postprocessing/OutputPass.js',
+      'three/examples/jsm/utils/BufferGeometryUtils.js',
+      'tsshogi',
+    ],
+  },
+  plugins: [isolationHeaders(), compactJoseki(), woff2Only(), pandacss(), reactRouter()],
   build: {
     chunkSizeWarningLimit: 1500,
     rolldownOptions: {

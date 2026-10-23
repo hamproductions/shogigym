@@ -29,6 +29,7 @@ export function useBoardInput(session: BoardSession, { mistakes, commit, lessonM
     setPromotion,
     gameOver,
     userSide,
+    visualMoving,
   } = session
   const canMove = (userTurn && !(mode === 'spar' && halted)) || (mode === 'lesson' && !!course && lessonMode === 'study' && !preview)
   const targets = useMemo(() => (selection && selection.color === position.color ? legalTargets(position, selection.from) : []), [selection, position])
@@ -55,6 +56,7 @@ export function useBoardInput(session: BoardSession, { mistakes, commit, lessonM
   }
 
   const onSquare = (square: Square) => {
+    if (visualMoving) return
     setPlaying(false)
     if (preview) return setPreview(null)
     if (!atEnd && (mode === 'tsume' || mode === 'drill')) return
@@ -87,6 +89,7 @@ export function useBoardInput(session: BoardSession, { mistakes, commit, lessonM
   }
 
   const onHand = (color: Color, type: PieceType) => {
+    if (visualMoving) return
     if (preview) return setPreview(null)
     if (picking) return
     if (waiting(color)) {
@@ -103,6 +106,7 @@ export function useBoardInput(session: BoardSession, { mistakes, commit, lessonM
   }
 
   const onDrop = (from: Square | PieceType, to: Square) => {
+    if (visualMoving) return
     if (preview) return setPreview(null)
     if (picking || !canMove) return setSelection(null)
     setPlaying(false)

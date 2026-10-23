@@ -243,11 +243,11 @@ export function BoardStage({
               furigoma={furigoma}
               onFurigoma={onFurigoma}
               onMoveLanded={onMoveLanded}
-              tilted={view.tilted && !view.flatView}
+              tilted={(view.tilted || settings.environment === 'battlefield') && !view.flatView}
               snapKey={`${mode}|${game.start}|${course?.id ?? ''}|${tsume?.problem.id ?? ''}`}
               onZones={onZones}
               orbit={view.orbit && !view.flatView}
-              sideRoom={0}
+              sideRoom={settings.environment === 'battlefield' ? 4.2 : 0}
               cues={cues}
             />
           )}

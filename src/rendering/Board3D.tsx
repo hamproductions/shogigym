@@ -22,6 +22,7 @@ import { shadowUpdater } from '@/rendering/board3d/shadows'
 import type { Board3DProps, SceneState } from '@/rendering/board3d/types'
 import { SNAPSHOT_EVENT, TABLE_FLIP_EVENT } from '@/utils/events'
 import { getSettings, playSound, subscribeSettings } from '@/appearance/settings'
+import { PIECE_CHAR } from '@/utils/shogi'
 
 export type { Board3DProps, BoardArrow, StandZones, ZoneRect } from '@/rendering/board3d/types'
 
@@ -55,9 +56,29 @@ function Board3DScene(props: Board3DProps & { onContextLost: () => void }) {
     renderer.domElement.style.width = '100%'
     renderer.domElement.style.height = '100%'
     el.appendChild(renderer.domElement)
+    const minimap = getSettings().environment === 'battlefield' ? document.createElement('canvas') : null
+    let minimapPosition: ImmutablePosition | undefined
+    let minimapFlipped = false
+    if (minimap) {
+      minimap.width = minimap.height = 288
+      minimap.setAttribute('aria-label', 'Battlefield minimap')
+      Object.assign(minimap.style, {
+        position: 'absolute',
+        right: '12px',
+        bottom: '64px',
+        width: 'clamp(144px, 18vw, 216px)',
+        height: 'clamp(144px, 18vw, 216px)',
+        pointerEvents: 'none',
+        border: '1px solid #6e7055',
+        opacity: '0.9',
+      })
+      el.appendChild(minimap)
+    }
     const s = buildScene(renderer)
-    s.avatars = avatarSlot({ root: s.root, camera: s.camera, dims: { thick: THICK, leg: LEG, halfW: HALF_W, halfD: HALF_D } })
-    if (latest.current.cues) s.avatars.cue(latest.current.cues)
+    if (getSettings().environment !== 'battlefield') {
+      s.avatars = avatarSlot({ root: s.root, camera: s.camera, dims: { thick: THICK, leg: LEG, halfW: HALF_W, halfD: HALF_D } })
+      if (latest.current.cues) s.avatars.cue(latest.current.cues)
+    }
     state.current = s
     if (import.meta.env.DEV) (window as unknown as { __dbg: SceneState }).__dbg = s
     const refresh = (animate = false, relayout = false) => {
@@ -76,7 +97,8 @@ function Board3DScene(props: Board3DProps & { onContextLost: () => void }) {
     const unsubscribePower = subscribeSettings(syncPower)
     let width = 0
     let height = 0
-    let pixelRatio = window.devicePixelRatio || 1
+    const renderRatio = () => Math.min(window.devicePixelRatio || 1, getSettings().environment === 'battlefield' ? 1.25 : Infinity)
+    let pixelRatio = renderRatio()
     let resizePending = true
     let bufferPending = false
     let relayoutPending = false
@@ -85,7 +107,7 @@ function Board3DScene(props: Board3DProps & { onContextLost: () => void }) {
       const { clientWidth: w, clientHeight: h } = el
       if (!w || !h) return
       resizePending = false
-      pixelRatio = window.devicePixelRatio || 1
+      pixelRatio = renderRatio()
       if (width === w && height === h && renderer.getPixelRatio() === pixelRatio) return
       width = w
       height = h
@@ -201,6 +223,37 @@ function Board3DScene(props: Board3DProps & { onContextLost: () => void }) {
         reportZones = reportFactory(s, latest)
       }
       reportZones()
+      if (minimap && (minimapPosition !== latest.current.position || minimapFlipped !== latest.current.flipped)) {
+        minimapPosition = latest.current.position
+        minimapFlipped = latest.current.flipped
+        const ctx = minimap.getContext('2d')!
+        ctx.fillStyle = '#d1c5a0'
+        ctx.fillRect(0, 0, 288, 288)
+        ctx.strokeStyle = '#958b6e'
+        for (let i = 0; i <= 9; i++) {
+          ctx.beginPath()
+          ctx.moveTo(i * 32, 0)
+          ctx.lineTo(i * 32, 288)
+          ctx.moveTo(0, i * 32)
+          ctx.lineTo(288, i * 32)
+          ctx.stroke()
+        }
+        for (const square of latest.current.position.board.listNonEmptySquares()) {
+          const piece = latest.current.position.board.at(square)!
+          const x = (latest.current.flipped ? square.file - 1 : 9 - square.file) * 32 + 16
+          const y = (latest.current.flipped ? 9 - square.rank : square.rank - 1) * 32 + 16
+          const forward = (piece.color === Color.BLACK) !== latest.current.flipped ? -1 : 1
+          ctx.save()
+          ctx.translate(x, y)
+          if (forward === 1) ctx.rotate(Math.PI)
+          ctx.fillStyle = '#29261f'
+          ctx.font = 'bold 26px "Noto Serif JP", serif'
+          ctx.textAlign = 'center'
+          ctx.textBaseline = 'middle'
+          ctx.fillText(PIECE_CHAR[piece.type], 0, 1)
+          ctx.restore()
+        }
+      }
       frame = requestAnimationFrame(loop)
     }
     frame = requestAnimationFrame(loop)
@@ -299,6 +352,7 @@ function Board3DScene(props: Board3DProps & { onContextLost: () => void }) {
       window.clearTimeout(flipTimer.current)
       window.removeEventListener(SNAPSHOT_EVENT, onSnapshot)
       unbind()
+      minimap?.remove()
       cancelPrefetch()
       s.room.dispose()
       s.avatars?.dispose()
@@ -329,11 +383,19 @@ function Board3DScene(props: Board3DProps & { onContextLost: () => void }) {
     const stepped = changed ? moveEvent(prev, props.position, latest.current.lastMove) : null
     const event = power.current ? stepped : null
     const fx = power.current
+    let impacted = false
+    s.onImpact =
+      getSettings().environment === 'battlefield' && event?.capture
+        ? () => {
+            impacted = true
+            power.current?.onMove({ ...event, promoted: false, check: null, mate: false, delay: 0, carried: true })
+          }
+        : null
     s.onLand = stepped
       ? () => {
-          playSound(stepped.capture ? 'capture' : 'move')
+          if (getSettings().environment !== 'battlefield') playSound(stepped.capture ? 'capture' : 'move')
           latest.current.onMoveLanded?.(props.position.sfen)
-          if (event && fx) fx.onMove({ ...event, delay: 0, carried: true })
+          if (event) power.current?.onMove({ ...event, capture: impacted ? null : event.capture, delay: 0, carried: true })
         }
       : null
     rebuild(s, latest.current, changed && (!dragged || !!latest.current.lastMove?.endsWith('+')), prev, changed && dragged)
@@ -345,6 +407,7 @@ function Board3DScene(props: Board3DProps & { onContextLost: () => void }) {
       }, 4200)
     else if (!event) fx?.clear()
     s.onLand = null
+    s.onImpact = null
   }, [props.position, props.assetsReady, props.appearanceKey])
 
   useEffect(() => {

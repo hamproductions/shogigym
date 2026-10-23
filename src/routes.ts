@@ -18,6 +18,7 @@ export default [
         route('dev/pieces', 'routes/pieces.tsx'),
         route('dev/hands', 'routes/hands.tsx'),
         route('dev/reel', 'routes/reel.tsx'),
+        route('dev/historical', 'routes/historical.tsx'),
       ]),
   route('*', 'routes/not-found.tsx'),
 ] satisfies RouteConfig

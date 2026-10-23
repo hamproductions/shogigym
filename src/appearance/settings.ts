@@ -3,6 +3,7 @@ import { applyTheme, type Theme } from '@/utils/theme'
 import i18n, { navigatorLang, SETTINGS_KEY } from '@/utils/i18n'
 import { useSyncExternalStore } from 'react'
 import { playClack } from './clack'
+import { playBattlefieldSound, type BattlefieldActor } from './battlefieldSound'
 
 export type PieceStyle = 'two' | 'one'
 export type PieceGuide = 'none' | 'movement' | 'dots' | 'lines'
@@ -11,7 +12,7 @@ export type PieceFont = 'mincho' | 'kaisho' | 'gyosho' | 'antique'
 export type PieceFinish = 'insatsu' | 'oshi' | 'molded' | 'kaki' | 'hori' | 'fukabori' | 'horiume' | 'moriage'
 export type PieceMaterial = 'satsuma' | 'mikura' | 'sham' | 'tsubaki' | 'maki' | 'maple' | 'plastic' | 'glass' | 'frostedGlass'
 export type PieceGrain = 'itame' | 'masame' | 'root' | 'tiger' | 'lightning'
-export type Environment = 'traditional' | 'casual' | 'flat' | 'diagram' | 'broadcast'
+export type Environment = 'battlefield' | 'traditional' | 'casual' | 'flat' | 'diagram' | 'broadcast'
 export type BoardStyle = 'kaya' | 'shin-kaya' | 'dark' | 'sunfish-light' | 'sunfish-warm' | 'sunfish-resin' | 'sunfish-dark'
 export type TimeControl = 'none' | '10s' | '3m' | '10m' | '10m30s' | '30m60s' | '5m5s'
 export type AiStrength = 'beginner' | 'club' | 'strong' | 'max'
@@ -257,9 +258,16 @@ function sweep(when: number, from: number, to: number, gain: number, length: num
   osc.stop(ac.currentTime + when + length)
 }
 
-export function playSound(kind: 'move' | 'capture' | 'komadai' | 'right' | 'wrong' | 'complete' | 'bang' | 'clatter' | 'thump' | 'heartbeat' | 'boom') {
+export function playSound(
+  kind: 'move' | 'capture' | 'komadai' | 'right' | 'wrong' | 'complete' | 'bang' | 'clatter' | 'thump' | 'heartbeat' | 'boom',
+  actor?: BattlefieldActor,
+) {
   if (!current.sound || document.hidden) return
   try {
+    if (current.environment === 'battlefield' && (kind === 'move' || kind === 'capture' || kind === 'komadai')) {
+      playBattlefieldSound(audioContext(), kind, current.volume, trackAudio, actor)
+      return
+    }
     if (kind === 'komadai') playClack(audioContext(), 'komadai', 0.45 * current.volume, trackAudio)
     else if (kind === 'move') playClack(audioContext(), 'board', current.volume, trackAudio)
     else if (kind === 'thump') {
