@@ -46,7 +46,7 @@
         },
         {
           "moves": ["8g8f", "8b8f"],
-          "text": { "ja": "▲同歩△同飛で、先手は８筋の歩を失い、後手飛車が８六へ出ました。飛車が２筋を離れたので、後手２二角を守る駒がなくなっています。８八角から７七・６六・５五・４四・３三を通る斜線が２二まで空いているかを確認します。", "en": "After Px8f Rx8f, Sente's eighth-file pawn is gone and Gote's rook stands on 8f. With the rook off the second rank, nothing guards Gote's bishop on 2b. Check whether Sente's bishop diagonal from 8h through 7g, 6f, 5e, 4d and 3c is clear up to 2b." },
+          "text": { "ja": "▲同歩△同飛で、先手は８筋の歩を失い、後手飛車が８六へ出ました。飛車が２段目を離れたので、後手２二角を守る駒がなくなっています。８八角から７七・６六・５五・４四・３三を通る斜線が２二まで空いているかを確認します。", "en": "After Px8f Rx8f, Sente's eighth-file pawn is gone and Gote's rook stands on 8f. With the rook off the second rank, nothing guards Gote's bishop on 2b. Check whether Sente's bishop diagonal from 8h through 7g, 6f, 5e, 4d and 3c is clear up to 2b." },
           "marks": { "last": "8f", "arrows": ["8h2b"], "boxes": ["2b"] }
         },
         {

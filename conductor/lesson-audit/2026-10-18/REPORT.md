@@ -1,8 +1,16 @@
 # Lesson audit, 2026-10-18
 
-Read-only audit of the authored lesson units in `data/lessons/units/`. No lesson source or generated output was changed. Every finding below needs a source fix followed by `bun run lessons`.
+初回の読み取り監査と、その後の修正記録。初回監査の未読・未修正一覧は履歴であり、現在の状態は修正記録と `coverage-reconciled.json` で確認する。
 
-## Status
+## 最終出荷検証（2026-10-23）
+
+- 旧ハンドオフと並行美術調査のMarkdownをPrettierで整形し、通常の `bun run check` が成功した。独立した検証用worktreeには４単元のソースと生成物だけを適用し、同じ全チェックと対象check-unitが成功した。
+- 実ブラウザの学習画面で、横歩回避の守備駒と解説、方針変更の受けの記述、早石田の２段目の記述、右四間飛車の銀捕獲の変化を確認した。右四間飛車は最後の飛車の取り返しまで画面操作で進めた。
+- 横歩回避の第３章をクイズで実行し、盤上クリックで `2d2f` と `5i5h` がともに正解。後手の `8f8d`、`3d3e` も進み、2/2正解の完了表示を確認した。ブラウザのページエラーは0件。
+- 証拠は `.cache/audit-2026-10-23/browser/verification.json` と同ディレクトリの目視済み画像。画像はローカル検証用で、Gitへ追加しない。これは変更４単元の対象箇所の実行確認であり、全150単元の全画面をブラウザで再監査したという意味ではない。
+- コミット対象は教材修正、生成物、監査記録。並行する歴史表現のコード・画像・調査本文と既存の未追跡ハンドオフは追加しない。ユーザー承認済みのmainへのpushと、その後のremote/CI確認を行う。
+
+## 初回監査時点の状態（2026-10-18）
 
 - **Read line by line with board replay: 92 of 150 units** (rules-game through taifuri-millennium, in curriculum order). The audit was stopped there; **58 units were not read** (list below).
 - **All 150 units** went through the automated gates and engine screens described below, so the unread units have machine coverage only.
@@ -10,6 +18,7 @@ Read-only audit of the authored lesson units in `data/lessons/units/`. No lesson
 
 ## Repair rounds (2026-10-21/22)
 
+- **Coverage evidence (reconciled 2026-10-23):** `coverage-reconciled.json` maps every current unit ID to its historical read batch. Original92 + resumed14 additional + workflow44 additional =150 distinct IDs; no missing IDs. This is historical source-audit coverage, not a fresh browser or source-image audit.
 - **Coverage:** all 150 units are now read by hand. 92 were read in this report, 14 in the resumed 2026-10-18 session (`../resumed-2026-10-18.json`, `reviewedUnits`), and 44 in round 1. Every finding from those reads was confirmed by at least 2 of 3 independent skeptics.
 - **Round 1 (`0cdb457`):** 54 units repaired, each checked by an independent re-check.
 - **Round 2 (branch `fix/lesson-audit-remainder`):** 39 units repaired, 77 items, all `fixed`; no item was `not_reproduced` or `skipped`. `bun run lessons`: 150 lessons, 540 chapters, 2591 legal moves, 0 errors; check-unit is ok for all 39 units.
@@ -17,14 +26,36 @@ Read-only audit of the authored lesson units in `data/lessons/units/`. No lesson
   - **Unresolved triage hints:** kishu-sujichigai, ishida-basics and aifuri-vs-ishida had triage hints above that no one had resolved by hand. These were read again, put through the same skeptic vote, and repaired. aifuri-vs-ishida held four misteaches: an undefended horse next to the king, a block that drops the rook, and two bishop checks that fork the rook.
   - **shiken-tateishi:** its 4 hints were all refuted, with at most 1 of 3 skeptic votes each, so it was left unchanged.
   - **Re-checks:** every repaired unit passed an independent read-only re-check. aifuri-basics, fujii-build, fujii-vs-anaguma and legspe passed only on their second repair.
-- **Open: yokofu-avoid** (4 known findings) is left unchanged. Its repair failed the re-check, and the round stopped before the second attempt finished.
-  - **Reviewer evidence, chapter 2:** after 2d2b+ 3b2b, B*9e forks the king and the rook on 8f (+310), so the text's "gives up a rook for a bishop" is wrong.
-  - **Grading:** step 1 grades 2d2f (+51) correct while 2d2b scores +543.
-  - **Wording:** 9c8c is a 寄る move but the text calls it 上げて.
-  - **Next:** repair the composed start so the retreat is really best, or teach the capture.
-- Apart from yokofu-avoid, every finding in this report and every triage candidate below is either repaired or dismissed.
+- **修正前の再現記録: yokofu-avoid、2026-10-23。** 独立レビュー後、以下の手順を主担当も `pos.ts` で合法確認した。章・手順番号は0始まり。
+  - **A / #2.s1–s3:** 初期局面から `8h2b+ 3b2b 2d2b+` が合法。角交換後に金を取得し、２二の龍を直ちに取れる駒はない。主線の飛車引きより先に検討すべき取得手が残る。`3b2b` は唯一の取り返しだが、唯一の合法応手ではない。
+  - **A / #2.s1:** `2d2f 2b8h+ 7h8h 8f8h+` が合法。角を金で取り返しても後手飛車がその金を取る。`8f8d` という協力的応手だけでは退路の安全性を示せない。
+  - **B / #0.s1–s2:** `6g6f 8b8g+` が合法で、８七歩を取りつつ８八角を攻撃する。歩は角への直通を一時的に遮るが、守られた障壁ではない。
+  - **B / #1.s2–s3:** `8h2b+ 3a2b B*7c` は王手と飛車取り。`P*6b` も合法なので「応手は玉移動・飛車合いのみ」とは記録しない。全7応手を列挙し、`5a4a / 5a4b / 5a5b / 5a6a / B*6b / P*6b` には `7c8b+`、`8b6b` には `7c6b+` で飛車を取れることを主担当が合法確認した。飛車合いでは玉による角の取り返しがあり得るため、全枝で角を無償に残せるとは主張しない。独立レビューと主担当が同じ基本手順を再現した。
+  - **B / #2.v1:** `2d2b+ 3b2b B*9e` は王手で８六飛も狙う。`8f8d 9e8d 9c8d` まで合法で、後手も飛車を渡す。「飛車を角に換える」だけで完結する説明は不十分。９五→８四では成れない。
+  - **C / 文体:** #2.s0/v1 は丁寧体、#2.s1 は常体に丁寧体を継ぎ足している。#0.s2 と #2.s1 に句点後の不要な空白。「飛車を２五へ浮いた」は助詞と動詞が対応していない。前回却下案の `9c8c` /「上げて」は現行ソースに存在しない。
+  - **評価診断:** `@mizarjp/yaneuraou.k-p` 7.6.3-alpha.0、`scripts/lessons/engine-eval.mjs 1500`、Threads=1、Hash=32 MiB、book=false。各行は手番側評価。#2初期局面 +1262 / `8h2b+`、`2d2f`後 +1562（後手）/ `2b8h+`、角交換直後 +2878 / `B*7c`、その王手に `P*6b` 後 +4145 / `7c8b+`。短時間探索であり最善性・完全な詰み証明ではない。
+  - **機械検証:** `check-unit.ts yokofu-avoid` は3章で成功。150単元すべてで `lessonOf(source)` と既存生成物が一致。これらは説明内容・戦術の正しさを保証しない。
+  - **範囲:** 教材ソースと生成物は変更していない。ブラウザ表示、参照記事の図・リンク先を含む原創作の全面検証、現在のCI/deployは未検証。以下の修正後検証とは区別する。
+- **yokofu-avoid 修正後検証、2026-10-23:**
+  - 第1章は９八金で８七歩を守り、後手３一銀も残した。第2章は７二金で７三角を取り、３二金で２二銀を守る。第3章は３一銀・６二歩・７九銀・４八銀を残し、取り返しと玉への斜線を整えた。いずれも独自の部分図であり、定跡の最善手を保証する図ではない。
+  - `8h2b+ 3a2b B*7c 7b7c`、`8h2b+ 3a2b 2f2b+ 3b2b`、第3章の `8h2b+ 3b2b 2d2b+ 3a2b` と `2d2f 2b8h+ 7i8h 8f8h+ 7h8h` を主担当が再現。第3章の `2d2b+ 3b2b B*9e` は王手にならない。
+  - 第3章の玉移動は５八へ変更。再検証で駒損が残った最後の２五飛は採用せず、２六飛と３五歩の現在位置・利きを説明する注釈に置き換えた。協力的な応手は一例として明記し、交換直後の持ち駒と以後の攻めの評価を分けた。文体・助詞を修正した。
+  - 独立レビューが修正後ソース全298行と差分を読み、全主線・変化、説明、注釈の時点、日英対応、物理的駒数、二歩、行き所のない駒を再検証して合格。主担当も旧指摘の反例手順を現行ソースから独立再現した。
+  - `check-unit.ts yokofu-avoid`: 3章成功。`bun run lessons`: 150単元、540章、2062図、2590合法手、0エラー。`check-originality.ts`: 16126文字列、0件。対象JSONのPrettier確認成功。`lessonOf(source)` と生成JSONが一致。
+  - 原創作チェックはキャッシュ本文との自動照合であり、図版・構成・英文の全面的な原創作判定ではない。利用者の実機テストを優先する規則に従い、独立ブラウザ検証は実施していない。教材データのみの変更のため、アプリ全体のビルド・型検査は省略した。空き容量約548 MiBのため重い検証を追加していない。
+  - この監査で残っていた教材修正は完了。コミット、push、PR、配信、ブランチ整理は実施していない。以下の指摘・未読一覧は初回監査時点の履歴であり、現在の未解決一覧ではない。
 
-## Automated results (all 150 units)
+
+- **追加の限定修正、2026-10-23:**
+  - `basics-plan#3.s3`: 金取りだけが唯一の受けだという誤記を修正。`4i4d 9a8a` を主担当が再現し、その後の即詰みがないことを合法手列挙で確認した。日英とも８三金を受けの一例として説明する。
+  - `hayaishida#0.s2`: `8b8f` は８筋を保ったまま２段目を離れる。日本語の「２筋」を「２段目」へ修正した。
+  - `shiken-vs-migishiken#2.v1`: 銀交換後の `6b6e` が取る駒は歩ではなく銀。`6d6e 6f6e 7d6e 5f6e 6b6e 6h6e` を再現して日本語を修正した。
+  - ３件とも独立レビュー合格。主担当は３単元の全文と反例手順を確認した。全150単元の再監査を始めることは範囲拡大だったため中止し、部分的な新規読了記録は全面再監査の証拠として扱わない。
+  - 修正４単元のcheck-unit成功、全生成150単元・540章・2062図・2590合法手・0エラー、全150組のソース／生成物一致、原創作自動照合16126文字列・0件、対象JSONのPrettier成功。
+  - `bun run check` はlint通過後、未変更の `docs/HANDOFF_2026-10-22_LESSON_AUDIT_REMAINDER.md` と並行作業の `output/art/historical-shogi/historical-research.md` の整形警告で停止した。これらは変更せず、残りのPanda codegen・React Router typegen・TypeScript検査は個別実行で全て成功した。
+
+
+## 初回の自動検証結果（150単元）
 
 - Generated output equals source for 150/150 units (`tools/eq.ts`).
 - `validate-curriculum`: 150 lessons, 540 chapters, 2052 figures, 2579 moves, 0 errors.
@@ -32,14 +63,14 @@ Read-only audit of the authored lesson units in `data/lessons/units/`. No lesson
 - Engine screens at 1000 ms per node, YaneuraOu k-p (wasm), 2997 nodes (`data/node-evals-run*.jsonl.gz`): move-loss screen (`data/screen.tsv`), mate screen (`data/mates.tsv`), exhaustive mate-in-1 scan (`data/m1scan.tsv`), notation, side-mark, promotion and ja/en consistency checks (`data/sem.tsv`).
 - The engine scores partial composed positions noisily. Only falsifiable claims count as findings: a mate or a free capture the lesson skips, a "defence" that does not defend, a hanging piece.
 
-## Limitations
+## 初回監査時点の制限
 
 - Text originality against the reference sources was **not checked**: the session network returned 403 for every reference host, so the reference corpus was empty.
 - No browser verification of lesson content.
 - Engine budgets are short (0.8–2 s); evaluations quoted in findings are indicative, the mate and capture claims were replayed exactly with `tools/pos.ts`.
 - 58 units unread by hand: taifuri-45hayashikake, taifuri-ponpon, taifuri-vs-hayaishida, taifuri-bougin-ishida, taifuri-chousoku, taifuri-vs-kakukoukan, mukai-build, mukai-attack, sanken-basics, sanken-vs-bougin, sanken-tomahawk, ishida-basics, ishida-honkumi, ishida-attack, hayaishida, ishida-43, shiken-basics, shiken-castles, shiken-patterns, shiken-vs-igyoku-bougin, shiken-vs-funa-bougin, shiken-vs-yagura, shiken-vs-migishiken, shiken-vs-anaguma, shiken-tateishi, fujii-build, fujii-vs-anaguma, fujii-vs-hidarimino, fujii-vs-kyusen, gokigen-basics, nakabisha-sente, gokigen-castles, gokigen-attack, gokigen-vs-choukyusen, gokigen-vs-chousoku, gokigen-vs-anaguma, kakukoukan-shiken, kakukoukan-gyakubougin, direct-mukai, legspe, aifuri-basics, aifuri-ishida-vs-naka, aifuri-vs-ishida, aifuri-hidari-anaguma, kishu-onigoroshi, kishu-sujichigai, kishu-pacman, kishu-ahiru, kishu-migishiken-hidarimino, ureshino-basics, ureshino-new, ureshino-vs-bougin, ureshino-vs-shiken, ureshino-counter, handicap-8, handicap-6, handicap-4, handicap-2.
 
-## Findings
+## 初回の指摘一覧
 
 Format: `unit#chapter.step` (0-based) · finding · evidence. Severity A = wrong fact or position (misteaches); B = text/board mismatch or misleading; C = style, translation or minor.
 

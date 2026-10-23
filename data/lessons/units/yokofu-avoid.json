@@ -39,7 +39,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/1r5b1/9/6p2/9/2P4P1/1P1P5/1B5R1/2SGK4 b Pp 1",
+      "start": "4k1s2/1r5b1/9/6p2/9/2P4P1/1P1P5/GB5R1/2SGK4 b Pp 1",
       "steps": [
         {
           "text": {
@@ -79,14 +79,16 @@
             "8d8e"
           ],
           "text": {
-            "ja": "先手銀を６八に上げる間に、後手飛車は８五へ浮いた。６六歩は角交換を先送りにしたが、８筋で飛車がどう働くかは別の課題として残る。 ８七歩を残しているので、飛車は８八角を直接取れない。",
-            "en": "Sente develops its silver to 6h while Gote floats the rook to 8e. The pawn on 6f has postponed a direct bishop exchange, but the rook's work on the eighth file remains a separate problem. The retained pawn on 8g prevents a direct rook capture of the bishop on 8h."
+            "ja": "先手銀を６八に上げる間に、後手飛車は８五へ浮いた。８七歩は９八金が守る。後手が８七飛成と取れば９八金で取り返せるため、この図の歩は単なる通路の障害物ではない。６六歩による角道の遮断と、８筋の守りを分けて確認する。",
+            "en": "Sente develops its silver to 6h while Gote floats the rook to 8e. The gold on 9h guards the pawn on 8g: if the rook captures there with promotion, the gold can recapture. Check this eighth-file defense separately from the bishop diagonal closed by the pawn on 6f."
           },
           "marks": {
             "boxes": [
               "6h",
               "8e",
-              "6f"
+              "6f",
+              "8g",
+              "9h"
             ]
           }
         },
@@ -115,7 +117,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k1s2/1r5b1/9/9/9/7R1/9/1B7/3GK1S2 b Pp 1",
+      "start": "4k1s2/1rg3gb1/9/9/9/7R1/9/1B7/3GK1S2 b Pp 1",
       "steps": [
         {
           "text": {
@@ -138,13 +140,15 @@
             "3a2b"
           ],
           "text": {
-            "ja": "先手角が２二の角を取り、後手銀が２二へ取り返した。先手は角を動かす一手を使い、後手は取り返す一手で銀の位置を変えた。この二手だけで絶対的な優劣は決められない。",
-            "en": "Sente's bishop captures on 2b and Gote's silver recaptures there. Sente spent a move initiating the trade; Gote's recapture developed its silver to 2b. Those two moves alone do not establish an absolute advantage."
+            "ja": "先手角が２二の角を取り、後手銀が２二へ取り返した。３二金がその銀を守るため、先手飛車で銀を取っても同金で取り返される。また、７三角の王手には７二金で角を取れる。持ち角の狙いは相手の守備駒まで含めて読む。",
+            "en": "Sente trades bishops and Gote recaptures with the silver on 2b. The gold on 3b guards that silver, so a rook capture would be met by a gold recapture. The gold on 7b can also capture a checking bishop dropped on 7c. Include those defenders when reading bishop-drop threats."
           },
           "marks": {
             "boxes": [
               "2b",
-              "2f"
+              "2f",
+              "3b",
+              "7b"
             ]
           }
         },
@@ -191,12 +195,12 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "4k4/6gb1/g8/6pR1/9/1rP6/9/1BG6/4K4 b Pp 1",
+      "start": "4k1s2/3p2gb1/g8/6pR1/9/1rP6/9/1BG2S3/2S1K4 b Pp 1",
       "steps": [
         {
           "text": {
-            "ja": "先手飛車２四の横に後手歩３四があります。後手飛車８六から２六への横の道は先手歩７六が止め、後手角２二は金３二に守られています。横歩を取る手と飛車を引く手を、これらの支えを含めて比べます。",
-            "en": "Sente’s rook on ２四 stands beside Gote’s pawn on ３四. Sente’s pawn on ７六 blocks the horizontal path from Gote’s rook on ８六 to ２六, while the bishop on ２二 is protected by the gold on ３二. Include those supporting pieces when comparing a side-pawn capture with a rook retreat."
+            "ja": "先手飛車２四の横に後手歩３四がある。７六歩が８六飛の横の道を止め、２二角には３二金と３一銀の守りがある。先手も７八金と７九銀で８八を守る。これらの取り返しを残した図で、横歩を取らず飛車を引く選択を見る。",
+            "en": "Sente's rook on 2d stands beside Gote's pawn on 3d. The pawn on 7f blocks Gote's rook along the sixth rank. Gote's gold on 3b and silver on 3a guard the bishop on 2b; Sente's gold on 7h and silver on 7i guard 8h. With those recaptures available, examine a rook retreat that declines the side pawn."
           },
           "marks": {
             "arrows": [
@@ -217,8 +221,8 @@
             "8f8d"
           ],
           "text": {
-            "ja": "先手は３四歩を取らず、飛車を２六へ引いた。後手飛車は８四へ移動した。この手順では横歩取りの３四飛という枝を選ばないが、後手の歩と飛車は盤上に残る。 歩７六があるため、後手飛車が８六から２六へ直進して取る手は指せません。",
-            "en": "Sente declines the pawn on 3d and retreats its rook to 2f; Gote's rook moves to 8d. This avoids the immediate R2d3d branch, while Gote's pawn and rook remain active on the board. The pawn on ７六 prevents a direct capture from ８六 to ２六."
+            "ja": "先手は３四歩を取らず、飛車を２六へ引いた。ここでは後手も８四飛と引く例を示す。７六歩があるため８六飛で２六飛を直ちに取ることはできないが、角交換など別の応手は残る。飛車を引く手が唯一の選択という意味ではない。",
+            "en": "Sente declines the pawn on 3d and retreats to 2f. This example has Gote retreat to 8d as well. The pawn on 7f prevents an immediate rook capture from 8f to 2f, but other replies, including a bishop exchange, remain possible. The retreat is one choice rather than a forced move."
           },
           "marks": {
             "boxes": [
@@ -231,35 +235,32 @@
         },
         {
           "moves": [
-            "5i6h",
+            "5i5h",
             "3d3e"
           ],
           "text": {
-            "ja": "玉を６八へ寄せる間に後手歩は３五へ進んだ。横歩を取らなかった歩が今度は３五に残り、次の先手飛車の横移動先に影響する。別の戦型に必ず移るとは限らない。",
-            "en": "While Sente moves its king to 6h, Gote advances the declined pawn to 3e. That pawn now occupies a square relevant to the rook's lateral movement. Choosing a rook retreat does not guarantee any single opening family."
+            "ja": "先手が玉を５八へ動かし、後手が３五歩と進めた例だ。取らなかった歩は３五に残り、３六を攻める。飛車を横に動かすときは、その歩の利きも数える。先ほど横歩を取らなかったことだけで、その後の戦型や安全な移動先は決まらない。",
+            "en": "In this example Sente moves the king to 5h and Gote advances the declined pawn to 3e. That pawn attacks 3f, which matters when considering a sideways rook move. Declining the side pawn earlier does not determine the later opening or make every retreat square safe."
           },
           "marks": {
             "boxes": [
-              "6h",
+              "5h",
               "3e",
               "2f"
             ]
           }
         },
         {
-          "moves": [
-            "2f2e"
-          ],
           "text": {
-            "ja": "飛車を２五へ浮いた。後手飛車８四とは段が違う。後手飛車が８五へ移っても、現状では後手自身の３五歩が横の利きを遮る。その歩が動けば飛車同士の関係も変わる。",
-            "en": "Sente floats the rook to 2e, on a different rank from Gote's rook on 8d. Even if Gote later moves to 8e, its own pawn on 3e currently blocks the rook's lateral line. Moving that pawn would change the relationship between the rooks."
+            "ja": "先手飛車は２六、後手飛車は８四で、段が異なる。残った３五歩は３六を攻める一方、５段目では後手飛車の横の利きも遮る。歩を残す選択には、相手の攻めと相手自身の通路を止める効果の両方がある。",
+            "en": "Sente's rook remains on 2f and Gote's on 8d, on different ranks. The pawn on 3e attacks 3f, while also blocking Gote's rook along the fifth rank if it later moves there. Keeping a pawn on the board preserves both its attacking reach and its effect as a blocker."
           },
           "marks": {
             "arrows": [
               "8d8e"
             ],
             "boxes": [
-              "2e",
+              "2f",
               "3e",
               "8d"
             ]
@@ -287,8 +288,8 @@
             "3b2b"
           ],
           "text": {
-            "ja": "▲２二飛成と角を取る手には△同金があります。金３二が２二を横から守るため、この順は角を得る代わりに飛車を渡す交換です。角の位置だけでなく、その後ろの金まで確認します。",
-            "en": "▲２二飛成 can take the bishop, but △同金 recaptures. The gold on ３二 guards ２二 sideways, so this line gives up a rook for a bishop. Inspect the supporting gold as well as the bishop’s square."
+            "ja": "２二飛成には３二金で取り返した。この二手の時点では先手が角を持ち、後手が飛車を持つ。ただし、これは交換直後の内訳であり、その後の持ち角の攻めまで決着したという意味ではない。９五角を打っても６二歩が斜線を遮るので、この図では王手にならない。",
+            "en": "Gote meets the rook capture on 2b with the gold from 3b. Immediately after these two moves, Sente holds a bishop and Gote holds a rook. This is the current material accounting, not a verdict on all later bishop-drop attacks. A bishop dropped on 9e would not check here because the pawn on 6b blocks its diagonal."
           }
         }
       ]
