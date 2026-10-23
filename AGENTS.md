@@ -35,3 +35,7 @@ For lesson authoring, revision, or audit in this project, use `.agents/skills/sh
 # Coaching annotations
 
 Live coaching uses the existing SquareText and figureMarks pipeline. Keep coordinate text, tile colors and legal move arrows synchronized with the displayed position; suppress stale-position annotations and hidden assistance. PR screenshots use native `gh pr edit --attach`.
+
+# Flat board layers and promotion input
+
+Render board and stand surfaces before arrows, then board and hand pieces; arrows must remain beneath physical piece tiles. Promotion choices require a fresh press inside the picker or keyboard activation, never the release/click from the gesture that opened it.

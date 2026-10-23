@@ -8,7 +8,6 @@ import { loadPieceFont, useSettings, type Settings } from '@/appearance/settings
 const promotionCache = new Map<string, PromotionAtlas>()
 const promotionTypes = [PieceType.PAWN, PieceType.LANCE, PieceType.KNIGHT, PieceType.SILVER, PieceType.BISHOP, PieceType.ROOK]
 
-// The flat board already bakes every face; compose them instead of starting a second GPU bake.
 async function atlasFromSprites(baked: Baked, types: PieceType[]): Promise<PromotionAtlas> {
   const columns = 4
   const rows = Math.ceil(types.length / columns)
@@ -50,6 +49,7 @@ export function usePromotionFaces(enabled: boolean, canBake = true) {
         (faces) => {
           if (controller.signal.aborted) return
           promotionCache.set(key, faces)
+          if (promotionCache.size > 4) promotionCache.delete(promotionCache.keys().next().value!)
           setReady({ key, faces })
         },
         (error: unknown) => {

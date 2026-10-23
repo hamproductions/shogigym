@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { useRef, type CSSProperties } from 'react'
+import { useRef, type CSSProperties, type MouseEvent } from 'react'
 import { Color, promotedPieceType, type Move } from 'tsshogi'
 import { PIECE_CHAR } from '@/utils/shogi'
 import type { PromotionAtlas } from '@/rendering/sprites'
@@ -98,10 +98,12 @@ export function PromotionPicker({
   onCancel: () => void
 }) {
   const { t } = useTranslation()
-  // The picker opens on the pointer-down that chose the destination; the touch's own release and
-  // compatibility click land on it, so ignore input until the finger has lifted.
-  const openedAt = useRef(performance.now())
-  const ready = () => performance.now() - openedAt.current > 350
+  const pressed = useRef(false)
+  const choose = (event: MouseEvent, action: () => void) => {
+    const fresh = event.detail === 0 || pressed.current
+    pressed.current = false
+    if (fresh) action()
+  }
   return (
     <styled.div
       position="absolute"
@@ -109,6 +111,9 @@ export function PromotionPicker({
       left="50%"
       zIndex="promote"
       touchAction="manipulation"
+      onPointerDownCapture={() => {
+        pressed.current = true
+      }}
       transform="translate(-50%, -50%)"
       display="flex"
       gap="2.5"
@@ -120,7 +125,7 @@ export function PromotionPicker({
       aria-label={t('app.promote')}
     >
       {options.map((m) => (
-        <button key={m.usi} className={promoteChoice({ kind: m.promote ? 'yes' : 'no' })} onClick={() => ready() && onPick(m.usi)}>
+        <button key={m.usi} className={promoteChoice({ kind: m.promote ? 'yes' : 'no' })} onClick={(event) => choose(event, () => onPick(m.usi))}>
           <styled.span
             w="72px"
             h="72px"
@@ -147,7 +152,7 @@ export function PromotionPicker({
           <span>{m.promote ? t('app.promote2') : t('app.donTPromote')}</span>
         </button>
       ))}
-      <button className={promoteChoice({ kind: 'cancel' })} onClick={() => ready() && onCancel()} title={t('app.cancelThisMoveEsc')}>
+      <button className={promoteChoice({ kind: 'cancel' })} onClick={(event) => choose(event, onCancel)} title={t('app.cancelThisMoveEsc')}>
         <styled.span display="grid" placeItems="center" h="56px" fontSize="30px" fontWeight="regular" opacity="0.8">
           ×
         </styled.span>
