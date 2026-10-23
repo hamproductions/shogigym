@@ -1,6 +1,8 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Color, type Square } from 'tsshogi'
+import { Color, Square } from 'tsshogi'
+import { figureMarks, mentionedSquares, mentionColor, MENTION_OPACITY } from '@/app/modes/lesson/figureMarks'
+import { moveCoaching } from '@/utils/coaching'
 import { LABELS, type MoveReview } from '@/utils/analysis'
 import type { Analysis } from '@/utils/engine'
 import { formationName, formationOf } from '@/utils/formation'
@@ -71,7 +73,18 @@ export function useBoardDecor(session: BoardSession, input: DecorInput) {
   const focusSquare = peekFrom && !position.board.at(peekFrom) ? peekFrom : null
   const focusCell: ControlCell | null = focusSquare ? (control.get(focusSquare.usi) ?? EMPTY_CELL) : null
   const reading = (mode === 'lesson' || mode === 'drill') && !preview && sourceMarks?.at === sfen.split(' ')[0] ? sourceMarks : null
+  const feedback = useMemo(
+    () =>
+      assist && tab === 'coach' && !preview && reviewAt === cursor && reviewAt > 0 && (mode === 'spar' || mode === 'analyze' || mode === 'view')
+        ? moveCoaching(sfens[reviewAt - 1], game.moves[reviewAt - 1], i18n.language)
+        : null,
+    [assist, tab, preview, reviewAt, cursor, mode, sfens, game.moves, i18n.language],
+  )
+  const coachText = feedback ? `${feedback.summary}\n${feedback.detail}` : ''
+  const coachMarks = feedback ? figureMarks([], sfen, false, coachText, feedback.moves) : null
+  const mentions = mentionedSquares(coachText)
   const heat = [
+    ...mentions.map((usi) => ({ square: Square.newByUSI(usi)!, color: mentionColor(mentions, usi)!, opacity: MENTION_OPACITY })),
     ...(reading?.heat ?? []),
     ...(showControl ? controlHeat(control) : []),
     ...(focusSquare && focusCell ? [focusHeat(focusSquare, focusCell)] : []),
@@ -83,7 +96,7 @@ export function useBoardDecor(session: BoardSession, input: DecorInput) {
     for (const c of analysis!.candidates.slice(1)) if (c.move !== best.move) arrows.push({ usi: c.move, color: SHU, dashed: true })
     arrows.push({ usi: best.move, color: SHU, label: t('app.best') })
   }
-  arrows.push(...modeArrows, ...(reading?.arrows ?? []))
+  arrows.push(...modeArrows, ...(reading?.arrows ?? []), ...(coachMarks?.arrows ?? []))
   if (assist && review && isWeak(review.label) && tab === 'coach' && review.reply && reviewAt === cursor && !preview)
     arrows.push({ usi: review.reply.move, color: REFUTE_BLUE })
   if (reply) arrows.push({ usi: reply.usi, color: REPLY_BLUE })

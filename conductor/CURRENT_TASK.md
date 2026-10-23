@@ -20,3 +20,9 @@
 - Entry: `output/coaching-study/README.md`; pattern definitions: `PATTERN_CATALOG.md` / `pattern-catalog.json`; actual randomized match samples: `randomized/SAMPLES.md`.
 - Four completed YaneuraOu games use randomized legal opening candidates and per-side SkillLevel settings; 24 selected positions have move/PV replay and factual prose checks. Templates cover the existing guide hierarchy; named opening recognition and runtime integration remain unverified.
 - PR writing skill read 1–170 through EOF. Both saved game corpora pass independent legal replay; the randomized set passes 42,978 assertions across 444 played plies and all recorded PVs. Category, sample, JSON and document-link checks pass. `bun run check` passes with existing non-fatal source warnings. Generated datasets are marked for collapsed review; authored patterns and readable examples remain visible.
+
+## Runtime implementation
+- Existing Coach panel derives six factual pattern families from actual positions; matching coordinate colors, tiles and legal-reply arrows reuse the lesson annotation renderer. Hide marks outside Coach, with assistance disabled, during previews and when reviewed/displayed plies differ.
+- Furigoma skip and dismissal start the game in 2D/3D. Real headed browser verified 3D skip control and settled start; 2D close started the AI game; imported self-play ply30 showed recapture explanation, colored tile/text and legal arrows.
+- Existing full check passed before annotation addition; final targeted lint/typecheck pass with existing warnings. Real browser confirms assistance-off hides explanation colors/arrows while preserving normal last-move tiles. Native attachments work; replace old coaching screenshot with current annotations.
+- Voice/LLM and all112strategy runtime coverage remain outside implemented scope.
