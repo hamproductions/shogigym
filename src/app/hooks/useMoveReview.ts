@@ -13,6 +13,7 @@ function useReview(sfens: string[], moves: string[], cursor: number, enabled: bo
   useEffect(() => {
     if (!key || !enabled || !engineSupported() || !engineReady(key.split('|')[0])) return
     let cancelled = false
+    const controller = new AbortController()
     const [prev, usi] = key.split('|')
     const known = cachedReview(prev, usi)
     if (known) {
@@ -21,7 +22,7 @@ function useReview(sfens: string[], moves: string[], cursor: number, enabled: bo
         cancelled = true
       }
     }
-    reviewMove(prev, usi, { inBook: inBook(prev, usi) })
+    reviewMove(prev, usi, { inBook: inBook(prev, usi), signal: controller.signal })
       .then((review) => {
         rememberReview(prev, usi, review)
         if (!cancelled) setState({ key, review })
@@ -29,6 +30,7 @@ function useReview(sfens: string[], moves: string[], cursor: number, enabled: bo
       .catch(() => undefined)
     return () => {
       cancelled = true
+      controller.abort()
     }
   }, [key, enabled])
   return enabled && state?.key === key ? state.review : null

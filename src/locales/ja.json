@@ -573,6 +573,11 @@
     "furigomaResult": "歩{{pawns}}枚・と金{{tokins}}枚：上手は{{side}}です"
   },
   "moves": {
+    "reviewProgress": "棋譜解析 {{done}} / {{total}}手 · 操作できます",
+    "reviewPaused": "解析を一時停止 · {{done}} / {{total}}手",
+    "reviewComplete": "解析完了 · {{total}}手",
+    "pauseReview": "解析を停止",
+    "resumeReview": "解析を再開",
     "noMovesYetPlayOn": "まだ指し手がありません。盤で指すか、下から棋譜を読み込んでください。",
     "rateTheRemainingMoves": "残りの手を評価",
     "rateEveryMove": "全ての手を評価",
@@ -773,6 +778,7 @@
     "principleSep": "："
   },
   "settings": {
+    "coordinatesAuto": "自動：検討・学習で表示、対局中は非表示",
     "general": "一般",
     "board": "盤",
     "pieces": "駒",

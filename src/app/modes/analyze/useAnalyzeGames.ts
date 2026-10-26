@@ -33,7 +33,15 @@ export function useAnalyzeGames(
     setConfirm,
     analysisSnapshot,
     onSaveError,
-  }: { load: Load; setTab: (tab: Tab) => void; setConfirm: (confirm: Confirm) => void; analysisSnapshot: () => Snapshot | undefined; onSaveError: () => void },
+    onOpen,
+  }: {
+    load: Load
+    setTab: (tab: Tab) => void
+    setConfirm: (confirm: Confirm) => void
+    analysisSnapshot: () => Snapshot | undefined
+    onSaveError: () => void
+    onOpen: () => void
+  },
 ) {
   const { t } = useTranslation()
   const settings = useSettings()
@@ -56,7 +64,9 @@ export function useAnalyzeGames(
       setGameNotes({ title: parsed.title, comments: parsed.comments ?? [], ending: parsed.ending, moves: parsed.moves.join(' ') })
       setGameTitle(parsed.title || '')
       setPlayers(parsed.players)
+      setSlotId(null)
       setTab('moves')
+      onOpen()
     }
     const variations = countMoves(tree) - mainLine(tree).length
     if (mode === 'analyze' && game.moves.length > 0)
@@ -137,6 +147,7 @@ export function useAnalyzeGames(
       setPlayers(g.players)
       setSlotId(g.id)
       setTab('moves')
+      onOpen()
     }
     if (mode === 'analyze' && game.moves.length > 0 && slotId !== g.id)
       setConfirm({ text: t('app.openTheGameOnThe', { title: g.title }), run, yes: t('app.openIt'), no: t('app.cancel') })
@@ -175,6 +186,7 @@ export function useAnalyzeGames(
       setSlotId(g.id)
       setAutoRate(g.moves.join(' '))
       setTab('moves')
+      onOpen()
     }
     run()
   }

@@ -78,6 +78,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
   const session = useBoardSession()
   const { mode, course, preview, sfen, nodes, prevSfen, lastMove, cursor, atEnd, playing, userSide, game } = session
   const [tab, setTab] = useState<Tab>('coach')
+  const [ratingPaused, setRatingPaused] = useState(false)
   const [palette, setPalette] = useState(false)
   const [showImport, setShowImport] = useState(false)
   const [showTrends, setShowTrends] = useState(false)
@@ -115,6 +116,10 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
     setConfirm,
     analysisSnapshot: () => slots.stashed('analyze'),
     onSaveError: () => setNudge(t('games.couldNotSaveBrowserStorage')),
+    onOpen: () => {
+      layout.setPanel({ hidden: false })
+      requestAnimationFrame(() => scrollPanelTop())
+    },
   })
   useKifuDrop(analyze.importGame, setNudge)
   const spar = useSpar(session, {
@@ -128,15 +133,16 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
     openInAnalyze: analyze.openReview,
     preserveAnalysis: analyze.preserveAnalysis,
     paused: pendingFurigoma,
-    onOpenAnalyze: () => (layout.setDrawer(true), layout.setSheetOpen(true)),
+    onOpenAnalyze: () => layout.setDrawer(true),
     onRematch: (side, drawn) => startSpar(side, drawn),
   })
   const opponent = useOpponent(session, { lessonMode: lesson.lessonMode, halted: spar.halted, sparGame: spar.config, pace: spar.pace, onAiEnd: spar.endByAi })
   const board = mode === 'spar' ? { ...session, assist: spar.assist, userTurn: atEnd ? session.userTurn : spar.over } : session
   const rating = useAutoRate({
-    enabled: board.ai && board.assist && (mode === 'analyze' || mode === 'spar'),
+    enabled: board.ai && board.assist && (mode === 'spar' || (mode === 'analyze' && !ratingPaused)),
     sfens: session.sfens,
     moves: game.moves,
+    cursor,
     allSides: mode === 'analyze',
     userSide,
     onScore: evaluation.recordEval,
@@ -251,7 +257,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
   const lessonDone = lesson.done
   useEffect(() => {
     if (mode === 'lesson' || mode === 'drill' || mode === 'tsume') scrollPanelTop(true)
-  }, [mode, cursor, previewOpen, lessonDone])
+  }, [mode, previewOpen, lessonDone])
   if (layout.twoPanels && tab === 'moves') setTab('coach')
 
   const instruction = (() => {
@@ -452,6 +458,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
             drill={drill}
           />
           <BoardStage
+            hideCoordinates={(mode === 'spar' && atEnd && !spar.over) || spoilerFree}
             furigoma={pendingFurigoma && three}
             onFurigoma={(faces) => {
               if (!pendingFurigoma || furigomaCompleted.current) return
@@ -486,6 +493,8 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
           model={{
             analyzeMoves: slots.stashed('analyze')?.game.moves.length ?? 0,
             rating,
+            ratingPaused,
+            onToggleRating: () => setRatingPaused((paused) => !paused),
             lesson,
             drill,
             tsume,
@@ -495,13 +504,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
             analyze,
             mistakes,
             evaluation,
-            candidateMoves: {
-              ...candidateMoves,
-              select: (move) => {
-                candidateMoves.select(move)
-                if (move && layout.compact) layout.setSheetOpen(true)
-              },
-            },
+            candidateMoves,
             coach,
             level: levels.level,
             reply: opponent.reply,

@@ -32,7 +32,7 @@ export type Settings = {
   pieceMaterial: PieceMaterial
   pieceColor: PieceColor
   pieceGrain: PieceGrain
-  coords: boolean
+  coordinateMode: 'auto' | 'show' | 'hide'
   environment: Environment
   boardStyle: BoardStyle
   thinkMs: number
@@ -79,7 +79,7 @@ const DEFAULTS: Settings = {
   pieceMaterial: 'satsuma',
   pieceColor: 'natural',
   pieceGrain: 'masame',
-  coords: false,
+  coordinateMode: 'auto',
   environment: defaultEnvironment(),
   boardStyle: 'kaya',
   thinkMs: 1500,
@@ -133,6 +133,9 @@ export function setSettings(patch: Partial<Settings>) {
 }
 
 export const getSettings = () => current
+
+export const coordinatesVisible = (settings: Settings, playing = false) =>
+  settings.coordinateMode === 'show' || (settings.coordinateMode === 'auto' && !playing)
 
 export function subscribeSettings(listener: () => void) {
   listeners.add(listener)

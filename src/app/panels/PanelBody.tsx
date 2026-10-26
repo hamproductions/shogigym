@@ -47,6 +47,8 @@ const MovesTab = lazy(() => import('./MovesTab').then((m) => ({ default: m.Moves
 export type PanelModel = {
   analyzeMoves: number
   rating: RatingProgress | null
+  ratingPaused: boolean
+  onToggleRating: () => void
   lesson: Lesson
   drill: Drill
   tsume: Tsume

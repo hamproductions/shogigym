@@ -850,12 +850,13 @@ export function SettingsDialog({
             />
             <SegmentedField
               label={t('settings.boardCoordinates')}
-              value={st.coords}
+              value={st.coordinateMode}
               options={[
-                { v: true, t: t('settings.showWiderMargin') },
-                { v: false, t: t('settings.hide') },
+                { v: 'auto', t: t('settings.coordinatesAuto') },
+                { v: 'show', t: t('settings.showWiderMargin') },
+                { v: 'hide', t: t('settings.hide') },
               ]}
-              onChange={(v) => setSettings({ coords: v })}
+              onChange={(v) => setSettings({ coordinateMode: v })}
             />
             <SegmentedField
               label={t('settings.showTesuji')}

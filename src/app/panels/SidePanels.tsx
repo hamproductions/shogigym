@@ -5,6 +5,8 @@ import type { Layout } from '@/app/hooks/useLayout'
 import { useSettings } from '@/appearance/settings'
 import { TABS, isGameMode, type Tab } from '@/app/types'
 import { useSession } from '@/app/hooks/session'
+import { cachedReview, useReviewVersion } from '@/app/memory'
+import { Button } from '@/app/ui/Button'
 import { Tabs } from '@/app/ui/Tabs'
 import { Icon } from '@/app/icons'
 import { NavFooter } from './NavFooter'
@@ -115,47 +117,80 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
         layout={layout}
         sheetOpen={sheetOpen}
         header={
-          <PanelHeader>
-            <Tabs
-              className={panelTabs}
-              flex="1"
-              minW="0"
-              items={TABS.filter((id) => !(twoPanels && id === 'moves') && (id !== 'report' || reportable)).map((id) => ({
-                id,
-                label: <TabLabel className={labelClass}>{t(`tabs.${id}`)}</TabLabel>,
-              }))}
-              value={rightTab}
-              onChange={setTab}
-            />
-            {!compact && (!layout.panelSide || layout.floatingAvailable) && (
-              <HeaderButton
-                variant="icon"
-                className="app-panel-dock"
-                onClick={layout.togglePanelSide}
-                title={t(layout.panelSide ? 'app.floatPanel' : 'app.dockPanelSide')}
-                aria-label={t(layout.panelSide ? 'app.floatPanel' : 'app.dockPanelSide')}
-              >
-                <Icon name={layout.panelSide ? 'floating' : 'panel'} />
-              </HeaderButton>
-            )}
-            {!compact && (
-              <HeaderButton
-                variant="icon"
-                alignSelf="center"
-                onClick={() => setPanel({ hidden: true })}
-                title={t('app.closeThePanelP')}
-                aria-label={t('app.closeThePanel')}
-              >
-                <Icon name="close" />
-              </HeaderButton>
-            )}
-          </PanelHeader>
+          <>
+            <PanelHeader>
+              <Tabs
+                className={panelTabs}
+                flex="1"
+                minW="0"
+                items={TABS.filter((id) => !(twoPanels && id === 'moves') && (id !== 'report' || reportable)).map((id) => ({
+                  id,
+                  label: <TabLabel className={labelClass}>{t(`tabs.${id}`)}</TabLabel>,
+                }))}
+                value={rightTab}
+                onChange={setTab}
+              />
+              {!compact && (!layout.panelSide || layout.floatingAvailable) && (
+                <HeaderButton
+                  variant="icon"
+                  className="app-panel-dock"
+                  onClick={layout.togglePanelSide}
+                  title={t(layout.panelSide ? 'app.floatPanel' : 'app.dockPanelSide')}
+                  aria-label={t(layout.panelSide ? 'app.floatPanel' : 'app.dockPanelSide')}
+                >
+                  <Icon name={layout.panelSide ? 'floating' : 'panel'} />
+                </HeaderButton>
+              )}
+              {!compact && (
+                <HeaderButton
+                  variant="icon"
+                  alignSelf="center"
+                  onClick={() => setPanel({ hidden: true })}
+                  title={t('app.closeThePanelP')}
+                  aria-label={t('app.closeThePanel')}
+                >
+                  <Icon name="close" />
+                </HeaderButton>
+              )}
+            </PanelHeader>
+            <ReviewStatus model={model} />
+          </>
         }
         footer={!picking && <NavFooter canAutoplay={canAutoplay} watch={model.watch} lesson={model.lesson} />}
       >
         <PanelBody tab={rightTab} model={model} />
       </SidePanel>
     </>
+  )
+}
+
+function ReviewStatus({ model }: { model: PanelModel }) {
+  const { t } = useTranslation()
+  const { mode, game, sfens, ai, assist } = useSession()
+  useReviewVersion()
+  if (mode !== 'analyze' || !game.moves.length || !ai || !assist) return null
+  const done = game.moves.filter((usi, i) => cachedReview(sfens[i], usi)).length
+  const complete = done === game.moves.length
+  return (
+    <styled.div
+      display="flex"
+      alignItems="center"
+      justifyContent="space-between"
+      gap="2"
+      px="3"
+      h="44px"
+      flexShrink="0"
+      borderBottom="1px solid {colors.border}"
+    >
+      <styled.span role="status" fontSize="xs" color="fg.muted" minW="0" whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis">
+        {t(complete ? 'moves.reviewComplete' : model.ratingPaused ? 'moves.reviewPaused' : 'moves.reviewProgress', { done, total: game.moves.length })}
+      </styled.span>
+      {!complete && (
+        <Button size="sm" onClick={model.onToggleRating}>
+          {t(model.ratingPaused ? 'moves.resumeReview' : 'moves.pauseReview')}
+        </Button>
+      )}
+    </styled.div>
   )
 }
 

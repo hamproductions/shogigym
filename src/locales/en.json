@@ -586,6 +586,11 @@
     "furigomaResult": "{{pawns}} pawns · {{tokins}} tokins: 上手 plays {{side}}"
   },
   "moves": {
+    "reviewProgress": "Reviewing {{done}} / {{total}} moves · you can browse now",
+    "reviewPaused": "Review paused · {{done}} / {{total}} moves",
+    "reviewComplete": "Review complete · {{total}} moves",
+    "pauseReview": "Pause review",
+    "resumeReview": "Resume review",
     "noMovesYetPlayOn": "No moves yet. Play on the board, or load a game below.",
     "rateTheRemainingMoves": "Rate the remaining moves",
     "rateEveryMove": "Rate every move",
@@ -793,6 +798,7 @@
     "principleSep": ": "
   },
   "settings": {
+    "coordinatesAuto": "Auto · study on, play off",
     "general": "General",
     "board": "Board",
     "pieces": "Pieces",

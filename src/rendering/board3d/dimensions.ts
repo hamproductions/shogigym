@@ -48,8 +48,8 @@ export let THICK = 182 / MM_PER_SQUARE
 export let LEG = 95 / MM_PER_SQUARE
 
 export function setBoardDims() {
-  const { coords, environment } = getSettings()
-  MARGIN = (coords ? 26 : 8) / MM_PER_SQUARE
+  const { coordinateMode, environment } = getSettings()
+  MARGIN = (coordinateMode !== 'hide' ? 26 : 8) / MM_PER_SQUARE
   HALF_W = 4.5 + MARGIN
   HALF_D = 4.5 * SQ_D + MARGIN
   CASUAL = environment === 'casual'

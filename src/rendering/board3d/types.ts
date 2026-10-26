@@ -13,6 +13,7 @@ export type ZoneRect = { left: number; top: number; width: number; height: numbe
 export type StandZones = { under: ZoneRect; over: ZoneRect; board: ZoneRect; floatingAvailable?: boolean }
 
 export type Board3DProps = {
+  coordinates?: boolean
   assetsReady?: boolean
   loadingState?: BoardLoadingState
   appearanceKey?: string

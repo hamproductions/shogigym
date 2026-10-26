@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Box, styled, Wrap } from 'styled-system/jsx'
 import { input } from 'styled-system/recipes'
@@ -13,7 +13,6 @@ export function ImportBox({ onImport, open, bare }: { onImport: (text: string) =
   const { t } = useTranslation()
   const [text, setText] = useState('')
   const [error, setError] = useState<string | null>(null)
-  const actions = useRef<HTMLDivElement>(null)
   const content = (
     <>
       <Text tone="muted" size="sm" my="1em">
@@ -29,7 +28,7 @@ export function ImportBox({ onImport, open, bare }: { onImport: (text: string) =
         rows={4}
         placeholder={t('games.pasteAGameRecordHere')}
       />
-      <Wrap ref={actions} gap="2" align="center" mb="3">
+      <Wrap gap="2" align="center" mb="3">
         <Button size="sm" variant="primary" onClick={() => setError(onImport(text))} disabled={!text.trim()}>
           {t('games.loadIt')}
         </Button>
@@ -68,14 +67,7 @@ export function ImportBox({ onImport, open, bare }: { onImport: (text: string) =
   )
   if (bare) return <Box mt="3">{content}</Box>
   return (
-    <styled.details
-      mb="2"
-      borderBottom="1px solid {colors.border}"
-      open={open}
-      onToggle={(e) => {
-        if (e.currentTarget.open) setTimeout(() => actions.current?.scrollIntoView({ block: 'nearest', behavior: 'smooth' }), 50)
-      }}
-    >
+    <styled.details mb="2" borderBottom="1px solid {colors.border}" open={open}>
       <styled.summary display="flex" flexDirection="column" pt="1.5" pb="2.5" cursor="pointer">
         <LibJa>{t('games.importAGame')}</LibJa>
         <LibEn>{t('games.kifKi2CsaUsiOr')}</LibEn>
