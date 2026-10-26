@@ -5,6 +5,7 @@ import { styled, Wrap } from 'styled-system/jsx'
 import type { Side } from '@/utils/shogi'
 import { playSound, useSettings } from '@/appearance/settings'
 import { Button } from '@/app/ui/Button'
+import { Marks } from '@/app/ui/SideMark'
 import { Dialog, DialogHeader } from '@/app/ui/Dialog'
 import { useBakedPieces } from '@/app/hooks/useBakedPieces'
 import { spriteKey } from '@/rendering/sprites'
@@ -176,11 +177,13 @@ export function Furigoma({ onDone, spectator = false }: { onDone: (side: Side) =
           }}
         />
         <styled.p mt="0" mx="0" mb="4" role="status">
-          {sprites.error
-            ? ja
-              ? '振り駒を読み込めませんでした'
-              : 'Could not load furigoma'
-            : (result ?? (loading ? (ja ? '振り駒を読み込んでいます…' : 'Loading furigoma…') : ja ? '歩を投げています…' : 'Tossing five pawns…'))}
+          <Marks>
+            {sprites.error
+              ? ja
+                ? '振り駒を読み込めませんでした'
+                : 'Could not load furigoma'
+              : (result ?? (loading ? (ja ? '振り駒を読み込んでいます…' : 'Loading furigoma…') : ja ? '歩を投げています…' : 'Tossing five pawns…'))}
+          </Marks>
         </styled.p>
         <Wrap gap="2" align="center" justify="flex-end" mt="4">
           <Button

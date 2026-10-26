@@ -283,6 +283,15 @@
     "shogiBoard": "Shogi board"
   },
   "coach": {
+    "choices": {
+      "title": "Three candidate moves",
+      "hint": "Select a move to preview its arrow and explanation. Play it only when you decide.",
+      "waitTurn": "Choices appear while you can play at the latest position, outside previews.",
+      "error": "Move analysis failed. Check the engine panel to recover, or continue on the board.",
+      "loading": "Finding legal candidate moves…",
+      "fewer": "The engine has returned fewer than three legal candidates for this position.",
+      "play": "Play selected move"
+    },
     "live": {
       "more": "Explain this move",
       "patterns": {

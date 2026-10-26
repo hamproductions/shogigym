@@ -92,7 +92,9 @@ export function useLayout({ mode, needsPicking, welcome }: { mode: Mode | 'taiky
     const bounds = document.querySelector('.app-shell')?.getBoundingClientRect()
     const height = bounds?.height ?? window.innerHeight
     const top = bounds?.top ?? 0
-    setSheetH(Math.round(Math.min(78, Math.max(22, 100 - ((clientY - top) / height) * 100))))
+    const next = Math.round(Math.min(78, Math.max(22, 100 - ((clientY - top) / height) * 100)))
+    setSheetH(next)
+    setSheetOpen(next >= 50)
   }
   const persistSheet = () =>
     setSheetH((h) => {
@@ -126,7 +128,10 @@ export function useLayout({ mode, needsPicking, welcome }: { mode: Mode | 'taiky
     resizeSheet,
     persistSheet,
     sheetOpen,
-    setSheetOpen,
+    setSheetOpen: (open: boolean | null) => {
+      setSheetOpen(open)
+      setSheetH(open === null ? loadSheetHeight() : open ? 65 : 30)
+    },
   }
 }
 

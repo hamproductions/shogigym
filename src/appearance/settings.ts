@@ -41,6 +41,7 @@ export type Settings = {
   aiStrategy: string
   mainStrategy: string
   assist: boolean
+  threeChoices: boolean
   sparCoach: SparCoach | null
   timeControl: TimeControl
   lang: Lang
@@ -87,6 +88,7 @@ const DEFAULTS: Settings = {
   aiStrategy: 'random',
   mainStrategy: 'shikenbisha',
   assist: true,
+  threeChoices: false,
   sparCoach: null,
   timeControl: 'none',
   lang: navigatorLang(),

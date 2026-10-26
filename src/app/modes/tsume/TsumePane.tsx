@@ -35,7 +35,7 @@ function TsumeStatus({ tsume }: { tsume: TsumeState }) {
     return (
       <PvLine mt="3">
         {t('tsume.solution')}
-        {pvText(tsume.problem.sfen, tsume.problem.pv, tsume.problem.mate)}
+        <Marks>{pvText(tsume.problem.sfen, tsume.problem.pv, tsume.problem.mate)}</Marks>
       </PvLine>
     )
   if (tsume.good > 0)
@@ -98,7 +98,7 @@ export function TsumePane({ trainer, tsume, banner, onBack }: { trainer: Tsume; 
       {tsume.status === 'solved' && (
         <PvLine mt="3">
           {t('tsume.solution')}
-          {pvText(tsume.problem.sfen, tsume.problem.pv, tsume.problem.mate)}
+          <Marks>{pvText(tsume.problem.sfen, tsume.problem.pv, tsume.problem.mate)}</Marks>
         </PvLine>
       )}
       <Muted mt="3">{t('tsume.solvedOfInThisSet', { value: pool.filter((p) => stats.solved.includes(p.id)).length, poolCount: pool.length })}</Muted>

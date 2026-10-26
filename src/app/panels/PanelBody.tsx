@@ -6,6 +6,8 @@ import { colorSide, positionOf } from '@/utils/shogi'
 import { cachedReview, useReviewVersion } from '@/app/memory'
 import { useSession } from '@/app/hooks/session'
 import type { Evaluation } from '@/app/hooks/useEvaluation'
+import type { CandidateMoves } from '@/app/hooks/useCandidateMoves'
+import { CandidateMoves as CandidateMoveChoices } from './CandidateMoves'
 import type { RatingProgress } from '@/app/hooks/useAutoRate'
 import type { Mistakes } from '@/app/hooks/useMistake'
 import type { CoachReview } from '@/app/hooks/useMoveReview'
@@ -54,6 +56,7 @@ export type PanelModel = {
   analyze: AnalyzeGames
   mistakes: Mistakes
   evaluation: Evaluation
+  candidateMoves: CandidateMoves
   coach: CoachReview
   level: Level
   reply: Reply | null
@@ -133,6 +136,9 @@ function CoachSection({ model }: { model: PanelModel }) {
       {mode === 'view' && <Note>{t('watch.description')}</Note>}
       {mode === 'analyze' && analyze.gameNotes && <KifuNotes notes={analyze.gameNotes} moves={game.moves} ply={cursor} />}
       {(isGameMode(mode) || mode === 'view') && !assist && <Muted>{t(mode === 'spar' ? 'app.coachAfterGame' : 'app.helpIsOffNoRatings')}</Muted>}
+      {(mode === 'spar' || mode === 'analyze') && assist && (
+        <CandidateMoveChoices model={model.candidateMoves} error={model.evaluation.error} book={bookHere} />
+      )}
       {(isGameMode(mode) || mode === 'view') && assist && (
         <CoachPane
           review={coach.review}
@@ -237,7 +243,7 @@ export function PanelBody({ tab, model, overlays = true }: { tab: Tab; model: Pa
         </PinnedGraph>
       )}
       <PanelContent className="app-panel-body" key={key}>
-        {overlays && level === 'new' && selection && !(mode === 'lesson' && course) && <PieceGuide sfen={sfen} from={selection.from} />}
+        {overlays && level === 'new' && selection && !(mode === 'lesson' && course) && <PieceGuide sfen={sfen} from={selection.from} color={selection.color} />}
         {tab === 'engine' && (
           <>
             <EngineSection model={model} />

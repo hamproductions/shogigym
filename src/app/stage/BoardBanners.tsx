@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { LABELS } from '@/utils/analysis'
 import { moveText } from '@/utils/shogi'
 import { useSession } from '@/app/hooks/session'
-import { FlipMarks } from '@/app/ui/SideMark'
+import { FlipMarks, Marks } from '@/app/ui/SideMark'
 import { mistakeHeadline, mistakeIsBad, mistakeSeal, type ShownMistake } from '@/utils/mistake'
 import { mainLine, promote } from '@/app/tree'
 import { isGameMode, type Preview } from '@/app/types'
@@ -54,7 +54,7 @@ function PreviewBanner({ preview }: { preview: Preview }) {
     <div className={banner()} data-banner="" role="status">
       <span className={bannerSeal()}>{t('app.preview')}</span>
       <span className={bannerText({ fit: 'hide' })}>
-        {t('app.preview2')}: {preview.title},{' '}
+        {t('app.preview2')}: <Marks>{preview.title}</Marks>,{' '}
         <styled.span whiteSpace="nowrap">{t('app.moveOf', { step: preview.step, movesCount: preview.moves.length })}</styled.span>
       </span>
       <BannerAction size="sm" onClick={() => setPlaying((v) => !v)}>

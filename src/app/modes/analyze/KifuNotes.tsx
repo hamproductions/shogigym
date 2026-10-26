@@ -10,7 +10,11 @@ export function KifuNotes({ notes, moves, ply: cursor }: { notes: GameNotes; mov
   if (!moves.join(' ').startsWith(noted.slice(0, cursor).join(' ')) || cursor > noted.length) return null
   return (
     <Box my="2">
-      {notes.title !== 'Imported game' && cursor === 0 && <Muted>{notes.title}</Muted>}
+      {notes.title !== 'Imported game' && cursor === 0 && (
+        <Muted>
+          <Marks>{notes.title}</Marks>
+        </Muted>
+      )}
       {notes.comments[cursor] && (
         <Note>
           <styled.span mr="1" px="1.5" borderRadius="xs" bg="info.soft" color="info" fontFamily="sans" fontSize="2xs" fontWeight="bold">

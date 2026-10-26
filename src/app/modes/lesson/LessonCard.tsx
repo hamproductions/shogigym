@@ -18,7 +18,7 @@ export function LessonCard({ course, onOpen, prefix }: { course: Course; onOpen:
   return (
     <Flex layerStyle="card" position="relative" flexDirection="column" gap="1" mt="2" p="{spacing.3} {spacing.4} {spacing.4}" overflow="hidden">
       <styled.span fontFamily="mincho" fontWeight="heavy" fontSize="md" lineHeight="snug">
-        {prefix && title.startsWith(`${prefix}: `) ? title.slice(prefix.length + 2) : title}
+        <Marks>{prefix && title.startsWith(`${prefix}: `) ? title.slice(prefix.length + 2) : title}</Marks>
       </styled.span>
       {progress.total > 0 && (
         <styled.span display="flex" justifyContent="space-between" gap="2" color="fg.muted" fontSize="xs">

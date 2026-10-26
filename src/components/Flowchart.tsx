@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useRef } from 'react'
 import { sideToMove, verdictFor, type Course, type JosekiMove, type JosekiNode, type Verdict } from '@/utils/model'
 import { moveText } from '@/utils/shogi'
+import { spellMarks } from '@/utils/notation'
+import { Marks } from '@/app/ui/SideMark'
 import { useTranslation } from 'react-i18next'
 import i18n from '@/utils/i18n'
 import { Button } from '@/app/ui/Button'
@@ -185,7 +187,10 @@ function Diagram({
               current={s.key === currentKey}
               style={{ left, top, width: BOX_W, height: BOX_H }}
               onClick={() => target && onJump(target)}
-              title={[s.steps.map((st) => moveText(st.from.sfen, st.move.usi)).join(' '), s.end.comment].filter(Boolean).join('\n\n')}
+              title={spellMarks(
+                [s.steps.map((st) => moveText(st.from.sfen, st.move.usi)).join(' '), s.end.comment].filter(Boolean).join('\n\n'),
+                i18n.language,
+              )}
             >
               <styled.span color="var(--fc-accent)" fontSize="2xs" fontWeight="bold">
                 {tagText(s)}
@@ -196,13 +201,13 @@ function Diagram({
                     {s.steps[0].ply}
                     {s.steps.length > 1 ? `–${s.steps.at(-1)!.ply}` : ''}
                   </styled.span>
-                  {summary(s)}
+                  <Marks>{summary(s)}</Marks>
                 </Moves>
               ) : (
                 <Moves>{t('lessonMap.initialPosition')}</Moves>
               )}
               <styled.span lineClamp="1" color="fg.muted" fontSize="2xs" lineHeight="snug">
-                {firstSentence(s.end.comment ?? s.steps.at(-1)?.move.punishNote ?? s.steps.at(-1)?.move.note)}
+                <Marks>{firstSentence(s.end.comment ?? s.steps.at(-1)?.move.punishNote ?? s.steps.at(-1)?.move.note)}</Marks>
               </styled.span>
               {insideAt >= 0 && (
                 <styled.span position="absolute" left="0" bottom="0" h="3px" bg="accent" style={{ width: `${((insideAt + 1) / s.steps.length) * 100}%` }} />
@@ -274,7 +279,7 @@ export function LessonMap({ course, currentNodeId, onJump, onClose }: Props & { 
               fontSize="lg"
               _narrow={{ minWidth: '0', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
             >
-              {t('lessonMap.lessonMap', { title: course.title })}
+              <Marks>{t('lessonMap.lessonMap', { title: course.title })}</Marks>
             </styled.strong>
             <Button size="sm" variant="ghost" onClick={onClose}>
               {t('lessonMap.close')}

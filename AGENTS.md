@@ -34,6 +34,8 @@ For lesson authoring, revision, or audit in this project, use `.agents/skills/sh
 
 # Coaching annotations
 
+Side markers must face their owner's board direction: Sente and Gote always oppose, and both reverse when the board flips. Route text markers through SideMark, Marks or FlipMarks; movement guides follow the selected piece's color and board orientation, including hand selections.
+
 Live coaching uses the existing SquareText and figureMarks pipeline. Keep coordinate text, tile colors and legal move arrows synchronized with the displayed position; suppress stale-position annotations and hidden assistance. PR screenshots use native `gh pr edit --attach`.
 
 # Flat board layers and promotion input

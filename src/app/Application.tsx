@@ -16,6 +16,7 @@ import { useBoardDecor } from '@/app/hooks/useBoardDecor'
 import { useBoardInput } from '@/app/hooks/useBoardInput'
 import { useBoardSession } from '@/app/hooks/useBoardSession'
 import { useEvaluation } from '@/app/hooks/useEvaluation'
+import { useCandidateMoves } from '@/app/hooks/useCandidateMoves'
 import { useFlowLanes } from '@/app/hooks/useFlowLanes'
 import { scrollPanelTop, useLayout } from '@/app/hooks/useLayout'
 import { useLevel } from '@/app/hooks/useLevel'
@@ -55,6 +56,7 @@ import { BoardStage } from '@/app/stage/BoardStage'
 import { ModeBar, WatchOptions } from '@/app/stage/ModeBar'
 import { FsExit, Stage } from '@/app/stage/stage.styles'
 import { Button } from '@/app/ui/Button'
+import { Marks } from '@/app/ui/SideMark'
 import { dialog } from 'styled-system/recipes'
 import { Dialog } from '@/app/ui/Dialog'
 import { SegmentedField } from '@/app/ui/Segmented'
@@ -184,7 +186,13 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
     tsume.resume()
   }
   const spoilerFree = lesson.hidesAnswer || drill.hidesAnswer || tsume.hidesAnswer || tesuji.hidesAnswer
+  const candidateMoves = useCandidateMoves(
+    board,
+    evaluation.analysis,
+    !spoilerFree && (mode !== 'spar' || (!spar.halted && !spar.newGameOpen && !spar.over)) && !pendingFurigoma,
+  )
   const decor = useBoardDecor(board, {
+    candidateMove: tab === 'coach' ? (candidateMoves.selected?.move ?? null) : null,
     analysis: evaluation.analysis,
     showBest: evaluation.showBest,
     tab,
@@ -487,6 +495,13 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
             analyze,
             mistakes,
             evaluation,
+            candidateMoves: {
+              ...candidateMoves,
+              select: (move) => {
+                candidateMoves.select(move)
+                if (move && layout.compact) layout.setSheetOpen(true)
+              },
+            },
             coach,
             level: levels.level,
             reply: opponent.reply,
@@ -572,19 +587,21 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
             <div onClick={() => completeFurigoma()} style={{ position: 'fixed', inset: 0, zIndex: 100, pointerEvents: 'auto', cursor: 'pointer' }}>
               <div className={`${dialog().content} app-dialog`} style={{ position: 'absolute', bottom: 24, left: '50%', transform: 'translateX(-50%)' }}>
                 <styled.p mt="0" mx="0" mb="4" role="status">
-                  {furigomaFaces
-                    ? mode === 'view'
-                      ? t('watch.furigomaResult', {
-                          pawns: furigomaFaces.filter(Boolean).length,
-                          tokins: furigomaFaces.filter((face) => !face).length,
-                          side: t(furigomaFaces.filter(Boolean).length >= 3 ? 'common.sente' : 'common.gote'),
-                        })
+                  <Marks>
+                    {furigomaFaces
+                      ? mode === 'view'
+                        ? t('watch.furigomaResult', {
+                            pawns: furigomaFaces.filter(Boolean).length,
+                            tokins: furigomaFaces.filter((face) => !face).length,
+                            side: t(furigomaFaces.filter(Boolean).length >= 3 ? 'common.sente' : 'common.gote'),
+                          })
+                        : settings.lang === 'ja'
+                          ? `歩${furigomaFaces.filter(Boolean).length}枚・と金${furigomaFaces.filter((face) => !face).length}枚：あなたは${furigomaFaces.filter(Boolean).length >= 3 ? '先手' : '後手'}`
+                          : `${furigomaFaces.filter(Boolean).length} pawns · ${furigomaFaces.filter((face) => !face).length} tokins: you play ${furigomaFaces.filter(Boolean).length >= 3 ? 'Sente' : 'Gote'}`
                       : settings.lang === 'ja'
-                        ? `歩${furigomaFaces.filter(Boolean).length}枚・と金${furigomaFaces.filter((face) => !face).length}枚：あなたは${furigomaFaces.filter(Boolean).length >= 3 ? '先手' : '後手'}`
-                        : `${furigomaFaces.filter(Boolean).length} pawns · ${furigomaFaces.filter((face) => !face).length} tokins: you play ${furigomaFaces.filter(Boolean).length >= 3 ? 'Sente' : 'Gote'}`
-                    : settings.lang === 'ja'
-                      ? '振り駒を行います'
-                      : 'Tossing five pawns…'}
+                        ? '振り駒を行います'
+                        : 'Tossing five pawns…'}
+                  </Marks>
                 </styled.p>
                 <Wrap gap="2" align="center" justify="flex-end" mt="4">
                   <Button

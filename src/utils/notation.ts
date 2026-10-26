@@ -7,9 +7,9 @@ export const sideMark = (side: Side | Color) => (side === 'sente' || side === Co
 /** Native tooltips cannot turn a glyph with the board, so they name the sides in words. */
 export const spellMarks = (text: string, lang: string) =>
   text.replace(
-    /([☗☖])(\s?)/g,
+    /([☗☖▲△])(\s?)/g,
     (_, mark: string, space: string) =>
-      `${mark === '☗' ? (lang === 'ja' ? '先手' : 'Sente') : lang === 'ja' ? '後手' : 'Gote'}${space || (lang === 'ja' ? '' : ' ')}`,
+      `${mark === '☗' || mark === '▲' ? (lang === 'ja' ? '先手' : 'Sente') : lang === 'ja' ? '後手' : 'Gote'}${space || (lang === 'ja' ? '' : ' ')}`,
   )
 
 export const rankKanji = (rank: number): string => {

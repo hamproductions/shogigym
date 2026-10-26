@@ -305,7 +305,7 @@ export function FlowPane({
             </styled.span>
             {lane.note && (
               <styled.span fontFamily="mincho" fontSize="xs" color="fg.muted">
-                {lane.note}
+                <Marks>{lane.note}</Marks>
               </styled.span>
             )}
           </button>

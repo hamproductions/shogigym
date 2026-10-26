@@ -25,6 +25,7 @@ const SENTE_BLUE = '#1f7ae0'
 const GOTE_RED = '#d2402a'
 
 type DecorInput = {
+  candidateMove: string | null
   analysis: Analysis | null
   showBest: boolean
   tab: Tab
@@ -97,6 +98,7 @@ export function useBoardDecor(session: BoardSession, input: DecorInput) {
     arrows.push({ usi: best.move, color: SHU, label: t('app.best') })
   }
   arrows.push(...modeArrows, ...(reading?.arrows ?? []), ...(coachMarks?.arrows ?? []))
+  if (input.candidateMove && assist && !spoilerFree && !preview && userTurn && atEnd && !gameOver) arrows.push({ usi: input.candidateMove, color: LANE_AMBER })
   if (assist && review && isWeak(review.label) && tab === 'coach' && review.reply && reviewAt === cursor && !preview)
     arrows.push({ usi: review.reply.move, color: REFUTE_BLUE })
   if (reply) arrows.push({ usi: reply.usi, color: REPLY_BLUE })
