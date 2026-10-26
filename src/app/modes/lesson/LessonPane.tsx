@@ -201,12 +201,16 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
               <Marks>{mistakeHeadline(moveText(sfen, mistake.usi), mistake)}</Marks>
             </VerdictTitle>
           </VerdictHead>
-          {mistake.note && <p>{mistake.note}</p>}
+          {mistake.note && (
+            <p>
+              <Marks>{mistake.note}</Marks>
+            </p>
+          )}
           {mistake.verdict && mistake.verdict.reasons.length > 0 && (
             <styled.ul m="{spacing.1.5} 0" pl="4" fontSize="sm" lineHeight="normal">
               {mistake.verdict.reasons.map((r) => (
                 <styled.li key={r} css={{ '&:not(:first-child)': { mt: '1' } }}>
-                  {r}
+                  <Marks>{r}</Marks>
                 </styled.li>
               ))}
             </styled.ul>
@@ -241,7 +245,9 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
         </Card>
       ) : whatIf ? (
         <Card className={card}>
-          <strong>{t('lesson.preview', { whatIf })}</strong>
+          <strong>
+            <Marks>{t('lesson.preview', { whatIf })}</Marks>
+          </strong>
           <p>{t('lesson.theAiPlaysTheBest')}</p>
         </Card>
       ) : done ? (

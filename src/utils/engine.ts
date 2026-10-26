@@ -276,13 +276,15 @@ export function analyze(
     background = false,
     onUpdate,
     book = false,
-  }: { multipv?: number; movetime?: number; background?: boolean; onUpdate?: (analysis: Analysis) => void; book?: boolean } = {},
+    signal,
+  }: { multipv?: number; movetime?: number; background?: boolean; onUpdate?: (analysis: Analysis) => void; book?: boolean; signal?: AbortSignal } = {},
 ): Promise<Analysis> {
+  signal?.throwIfAborted()
   const key = `${usiPosition}|book:${book}`
   const cached = cache.get(key)
-  if (cached && cached.multipv >= multipv && cached.movetime >= movetime) return cached.result
-  const result = search(usiPosition, multipv, movetime, background, onUpdate, book)
-  if (!background) {
+  if (!signal && cached && cached.multipv >= multipv && cached.movetime >= movetime) return cached.result
+  const result = search(usiPosition, multipv, movetime, background, onUpdate, book, signal)
+  if (!background && !signal) {
     cache.set(key, { multipv, movetime, result })
     result.catch(() => {
       if (cache.get(key)?.result === result) cache.delete(key)
@@ -319,11 +321,14 @@ function search(
   background: boolean,
   onUpdate?: (analysis: Analysis) => void,
   book = false,
+  signal?: AbortSignal,
 ): Promise<Analysis> {
   if (searching && interruptible) current?.postMessage('stop')
   const generation = background ? ++backgroundGeneration : backgroundGeneration
   const run = async () => {
+    signal?.throwIfAborted()
     const engine = await getEngine()
+    signal?.throwIfAborted()
     if (engine !== current || (background && generation !== backgroundGeneration)) return { bestmove: '', candidates: [] }
     let command = usiPosition
     let flipped = false
@@ -355,12 +360,15 @@ function search(
         if (flipped) command = `position sfen ${flipBookPosition(sfen)}${moves ? ` moves ${moves.split(' ').map(flipBookMove).join(' ')}` : ''}`
       }
     }
+    signal?.throwIfAborted()
     searching = true
     interruptible = background
     engine.postMessage(`setoption name MultiPV value ${multipv}`)
     engine.postMessage(command)
     const lines = new Map<number, Candidate>()
     let bestmove = ''
+    const stop = () => engine.postMessage('stop')
+    signal?.addEventListener('abort', stop, { once: true })
     try {
       await waitFor(
         engine,
@@ -387,9 +395,11 @@ function search(
       }
       throw error
     } finally {
+      signal?.removeEventListener('abort', stop)
       searching = false
       interruptible = false
     }
+    signal?.throwIfAborted()
     return { bestmove, candidates: [...lines.values()].sort((a, b) => a.multipv - b.multipv) }
   }
   const result = queue.then(run, run)

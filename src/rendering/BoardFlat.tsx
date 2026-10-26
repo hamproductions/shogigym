@@ -13,7 +13,7 @@ import { HALF_D, HALF_W, MARGIN, STAND, STRIP_D, STRIP_W, setBoardDims } from '@
 import { handArrangement } from '@/rendering/board3d/hand'
 import { layout, sideStandsFit, standCenter, verticalStripsFit } from '@/rendering/board3d/layout'
 import { steppedMove } from '@/utils/stepped'
-import { playSound, useSettings } from '@/appearance/settings'
+import { coordinatesVisible, playSound, useSettings } from '@/appearance/settings'
 import { flat, komaLift } from './board.styles'
 import { SvgRect } from '@/app/ui/Svg'
 
@@ -347,7 +347,7 @@ export function BoardFlat(props: Board3DProps) {
           </g>
         ))}
         <MemoUnder props={props} p={project} u={U} handPoint={handPoint} layout={layoutKey} />
-        {settings.coords &&
+        {(props.coordinates ?? coordinatesVisible(settings)) &&
           Array.from({ length: 9 }, (_, i) => (
             <g
               key={`c${i}`}

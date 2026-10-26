@@ -271,10 +271,12 @@ export function LessonGuide({ course, lesson, series }: Props) {
             <strong>{ja ? 'おさらい' : 'Review'}</strong>
             {setup?.check && (
               <Box>
-                <styled.p m="0 0 {spacing.2}">{ja ? setup.check.question.ja : setup.check.question.en}</styled.p>
+                <styled.p m="0 0 {spacing.2}">
+                  <FlipMarks flipped={flipped}>{ja ? setup.check.question.ja : setup.check.question.en}</FlipMarks>
+                </styled.p>
                 {revealed ? (
                   <styled.p m="0 0 {spacing.2}" fontWeight="bold">
-                    {ja ? setup.check.answer.ja : setup.check.answer.en}
+                    <FlipMarks flipped={flipped}>{ja ? setup.check.answer.ja : setup.check.answer.en}</FlipMarks>
                   </styled.p>
                 ) : (
                   <Button size="sm" onClick={() => setRevealed(true)}>

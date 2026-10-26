@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { styled } from 'styled-system/jsx'
 import { Dialog, Text } from '@/components/ui'
 import type { Command } from './commands'
+import { Marks } from '@/app/ui/SideMark'
 
 export function Palette({ commands, onClose }: { commands: (q: string) => Command[]; onClose: () => void }) {
   const { t } = useTranslation()
@@ -75,10 +76,12 @@ export function Palette({ commands, onClose }: { commands: (q: string) => Comman
                   onMouseEnter={() => setIndex(i)}
                   onClick={() => run(c)}
                 >
-                  <span>{c.label}</span>
+                  <span>
+                    <Marks>{c.label}</Marks>
+                  </span>
                   {c.hint && (
                     <Text as="span" tone="muted" size="sm">
-                      {c.hint}
+                      <Marks>{c.hint}</Marks>
                     </Text>
                   )}
                 </styled.button>

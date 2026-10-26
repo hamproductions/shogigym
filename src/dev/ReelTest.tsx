@@ -70,7 +70,7 @@ export default function ReelTest() {
   const startAt = useRef(0)
 
   useEffect(() => {
-    setSettings({ lang: 'en', environment: 'traditional', characters: true, power: true, sound: false, coords: true })
+    setSettings({ lang: 'en', environment: 'traditional', characters: true, power: true, sound: false, coordinateMode: 'show' })
     const w = window as unknown as { __reel: () => void; __capture: () => void; __frame: (ms: number) => Promise<void> }
     w.__reel = () => {
       done.current = 0

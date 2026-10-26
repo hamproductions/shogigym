@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '@/app/ui/Button'
+import { Marks, SideMark } from '@/app/ui/SideMark'
 import { FilePicker } from '@/app/ui/FilePicker'
 import { Rail } from '@/app/rail/Rail'
 import { SettingsDialog } from '@/app/dialogs/SettingsDialog'
@@ -449,7 +450,7 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
               <MoveCell key={index}>
                 <MoveButton onClick={() => navigate(index + 1)} aria-current={cursor === index + 1 ? 'step' : undefined}>
                   <styled.span display="inline-block" whiteSpace="normal" overflowWrap="anywhere">
-                    {moveLabel(index)}
+                    <Marks>{moveLabel(index)}</Marks>
                   </styled.span>
                 </MoveButton>
               </MoveCell>
@@ -612,7 +613,7 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
               (['w', 'b'] as const).map((side) => (
                 <PlateBox key={side} className={cx('app-plate', side === 'w' ? 'top' : 'bottom')} placement="scene">
                   <Clock state={game.snap.turn === side ? 'on' : 'idle'}>
-                    {side === 'b' ? '☗' : '☖'} {game.snap.counts[side]}
+                    <SideMark side={side === 'b' ? 'sente' : 'gote'} /> {game.snap.counts[side]}
                   </Clock>
                   <PlateSide>{t(side === 'b' ? 'taikyoku.sente' : 'taikyoku.gote')}</PlateSide>
                   <Text as="span" tone="muted" size="sm">
@@ -783,10 +784,10 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
                 </Text>
                 <styled.div display="flex" justifyContent="space-between" gap="2">
                   <span>
-                    ☗ {t('taikyoku.sente')}: <b>{game.snap.royals.b}</b>
+                    <SideMark side="sente" /> {t('taikyoku.sente')}: <b>{game.snap.royals.b}</b>
                   </span>
                   <span>
-                    ☖ {t('taikyoku.gote')}: <b>{game.snap.royals.w}</b>
+                    <SideMark side="gote" /> {t('taikyoku.gote')}: <b>{game.snap.royals.w}</b>
                   </span>
                 </styled.div>
                 <ButtonRow>
@@ -800,7 +801,7 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
                         board.current?.focus(pos, 44)
                       }}
                     >
-                      {cell.side === 'b' ? '☗' : '☖'} {pieceName(cell.key)} · {squareName(pos)}
+                      <SideMark side={cell.side === 'b' ? 'sente' : 'gote'} /> {pieceName(cell.key)} · {squareName(pos)}
                     </Button>
                   ))}
                 </ButtonRow>

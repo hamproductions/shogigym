@@ -58,6 +58,7 @@ export function MovesTab({ model }: { model: PanelModel }) {
     )
   return (
     <>
+      {isGameMode(mode) && !preview && (mode !== 'spar' || spar.over) && <GamesBox games={analyze} browse={mode !== 'analyze'} />}
       <MovesPane
         sfens={sfens}
         detectionResult={detectionResult}
@@ -85,7 +86,6 @@ export function MovesTab({ model }: { model: PanelModel }) {
           })
         }
       />
-      {isGameMode(mode) && !preview && (mode !== 'spar' || spar.over) && <GamesBox games={analyze} browse={mode !== 'analyze'} />}
     </>
   )
 }

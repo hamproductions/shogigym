@@ -5,7 +5,7 @@ import type { ImmutablePosition } from 'tsshogi'
 import { steppedMove } from '@/utils/stepped'
 import { useLatest } from '@/app/hooks/useLatest'
 import type { Board3DProps } from './Board3D'
-import { PIECE_FONTS, loadPieceFont, playSound, useSettings } from '@/appearance/settings'
+import { coordinatesVisible, PIECE_FONTS, loadPieceFont, playSound, useSettings } from '@/appearance/settings'
 import { useSvgBoard } from '@/app/hooks/useSvgBoard'
 import { useBakedPieces } from '@/app/hooks/useBakedPieces'
 import { SPRITE_BOX, spriteKey } from './sprites'
@@ -299,29 +299,30 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
           </g>
         ))}
         {!t.koma && [3, 6].flatMap((a) => [3, 6].map((b) => <circle key={`${a}${b}`} cx={x0 + a * t.cw} cy={y0 + b * t.ch} r={5} fill={t.line} />))}
-        {Array.from({ length: 9 }, (_, i) => (
-          <g
-            key={`c${i}`}
-            fill={t.coord}
-            fontSize={t.coordSize}
-            fontWeight={t.koma ? 800 : 400}
-            fontFamily="'Shippori Mincho B1', serif"
-            textAnchor="middle"
-            dominantBaseline="central"
-          >
-            <text
-              x={x0 + (i + 0.5) * t.cw}
-              y={y0 - t.pad / 2}
-              fontFamily={t.koma ? "'Zen Kaku Gothic New', sans-serif" : undefined}
-              fontWeight={t.koma ? 700 : undefined}
+        {(props.coordinates ?? coordinatesVisible(settings)) &&
+          Array.from({ length: 9 }, (_, i) => (
+            <g
+              key={`c${i}`}
+              fill={t.coord}
+              fontSize={t.coordSize}
+              fontWeight={t.koma ? 800 : 400}
+              fontFamily="'Shippori Mincho B1', serif"
+              textAnchor="middle"
+              dominantBaseline="central"
             >
-              {flipped ? i + 1 : 9 - i}
-            </text>
-            <text x={x0 + boardW + 40} y={y0 + (i + 0.5) * t.ch}>
-              {KANJI_NUM[flipped ? 9 - i : i + 1]}
-            </text>
-          </g>
-        ))}
+              <text
+                x={x0 + (i + 0.5) * t.cw}
+                y={y0 - t.pad / 2}
+                fontFamily={t.koma ? "'Zen Kaku Gothic New', sans-serif" : undefined}
+                fontWeight={t.koma ? 700 : undefined}
+              >
+                {flipped ? i + 1 : 9 - i}
+              </text>
+              <text x={x0 + boardW + 40} y={y0 + (i + 0.5) * t.ch}>
+                {KANJI_NUM[flipped ? 9 - i : i + 1]}
+              </text>
+            </g>
+          ))}
         {position.board.listNonEmptySquares().map((sq) => {
           const piece = position.board.at(sq)!
           const up = (piece.color === Color.BLACK) !== flipped

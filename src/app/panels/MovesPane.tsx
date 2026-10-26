@@ -115,8 +115,19 @@ export function MovesPane({
     [moves, sfens, detectionResult, detectionPreset],
   )
   useEffect(() => {
-    const row = listRef.current?.querySelector('button[aria-current]') ?? listRef.current?.lastElementChild
-    row?.scrollIntoView({ block: 'nearest' })
+    const list = listRef.current
+    const panel = list?.closest('.app-panel-body')
+    if (!panel) return
+    if (cursor === 0) {
+      panel.scrollTop = 0
+      return
+    }
+    const row = list?.querySelector('button[aria-current]')
+    if (!row) return
+    const bounds = panel.getBoundingClientRect()
+    const selected = row.getBoundingClientRect()
+    if (selected.top < bounds.top) panel.scrollTop += selected.top - bounds.top
+    else if (selected.bottom > bounds.bottom) panel.scrollTop += selected.bottom - bounds.bottom
   }, [cursor, moves.length])
   const [saved, setSaved] = useState<number | null>(null)
   const reviews: (MoveReview | null)[] = moves.map((usi, i) => cachedReview(sfens[i], usi) ?? null)

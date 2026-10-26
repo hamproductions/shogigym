@@ -4,6 +4,7 @@ import { dialog } from 'styled-system/recipes'
 import type { JsxStyleProps } from 'styled-system/types'
 import { CloseButton, Dialog as ParkDialog } from '@/components/ui'
 import { cx } from './cx'
+import { Marks } from './SideMark'
 
 type DialogProps = JsxStyleProps & {
   label: string
@@ -48,7 +49,7 @@ export function DialogHeader({
 }) {
   return (
     <styled.div className={cx(dialog().header, className)} {...styles}>
-      <h2 className={dialog().title}>{title}</h2>
+      <h2 className={dialog().title}>{typeof title === 'string' ? <Marks>{title}</Marks> : title}</h2>
       <CloseButton size="lg" onClick={onClose} aria-label={closeLabel} title={closeTitle} />
     </styled.div>
   )

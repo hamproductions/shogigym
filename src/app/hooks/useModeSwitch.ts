@@ -67,7 +67,7 @@ type Modes = {
 
 export function useModeSwitch(
   { load, setLoader, stash, stashed }: ModeSlots,
-  { session, lesson, drill, tsume, tesuji, spar, analyze, mistakes, layout, setTab }: Modes,
+  { session, lesson, drill, tsume, tesuji, spar, analyze, mistakes, setTab }: Modes,
 ) {
   const { mode, game, cursor, userSide, flipped, course, tree, preview } = session
 
@@ -93,7 +93,6 @@ export function useModeSwitch(
       analyze.forgetSlot()
       spar.reset()
       lesson.reset()
-      layout.setSheetOpen(null)
       mistakes.setMistake(null)
     })
   })

@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { PieceType, Square, type ImmutablePosition } from 'tsshogi'
-import { getSettings } from '@/appearance/settings'
+import { coordinatesVisible, getSettings } from '@/appearance/settings'
 import { HALF_D, HALF_W, MARGIN, SQ_D, squareX, squareZ } from './dimensions'
 import { handSpot, handSurface } from './hand'
 import { standCenter } from './layout'
@@ -196,7 +196,7 @@ export function drawMarks(s: SceneState, props: Board3DProps) {
     props.heat,
     props.castles,
     props.stamp,
-    settings.coords,
+    props.coordinates ?? coordinatesVisible(settings),
     settings.boardStyle,
     layout.portrait,
     layout.vertical,
@@ -249,7 +249,7 @@ export function drawMarks(s: SceneState, props: Board3DProps) {
     s.marks.add(group)
   }
   const flip = flipped ? -1 : 1
-  if (getSettings().coords)
+  if (props.coordinates ?? coordinatesVisible(settings))
     for (let i = 1; i <= 9; i++) {
       const file = coordPlane(String(i), MARGIN * 0.82, !!flipped)
       file.position.set(squareX(i), 0.006, -(HALF_D - MARGIN / 2) * flip)

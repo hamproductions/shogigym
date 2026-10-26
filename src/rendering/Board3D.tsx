@@ -494,6 +494,7 @@ function Board3DScene(props: Board3DProps & { onContextLost: () => void }) {
   useEffect(() => {
     if (state.current) drawMarks(state.current, latest.current)
   }, [
+    props.coordinates,
     props.selected,
     props.targets,
     props.arrows,

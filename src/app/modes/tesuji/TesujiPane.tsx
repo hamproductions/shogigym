@@ -72,7 +72,11 @@ export function TesujiPane({ trainer, drill, replaying, onBack }: { trainer: Tes
           <p>
             <Marks>{lang === 'ja' ? (drill.item.explainJa ?? drill.item.explain) : drill.item.explain}</Marks>
           </p>
-          {drill.item.note && <Note>{drill.item.note}</Note>}
+          {drill.item.note && (
+            <Note>
+              <Marks>{drill.item.note}</Marks>
+            </Note>
+          )}
           <Muted>{t('tesuji.from', { from: drill.item.from })}</Muted>
         </Card>
       )}

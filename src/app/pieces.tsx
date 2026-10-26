@@ -3,6 +3,7 @@ import { positionOf } from '@/utils/shogi'
 import { useTranslation } from 'react-i18next'
 import i18n from '@/utils/i18n'
 import { styled } from 'styled-system/jsx'
+import { useFlipped } from '@/app/hooks/session'
 
 type Step = { dx: number; dy: number; slide?: boolean }
 
@@ -176,7 +177,7 @@ export const PIECE_INFO: Record<PieceType, { ja: string; reading: string; en: st
   },
 }
 
-function MoveDiagram({ steps }: { steps: Step[] }) {
+function MoveDiagram({ steps, reversed }: { steps: Step[]; reversed: boolean }) {
   const cells = []
   for (let y = -2; y <= 2; y++)
     for (let x = -2; x <= 2; x++) {
@@ -213,6 +214,7 @@ function MoveDiagram({ steps }: { steps: Step[] }) {
       gridTemplateRows="repeat(5, 14px)"
       gap="0.5"
       alignSelf="flex-start"
+      transform={reversed ? 'rotate(180deg)' : undefined}
       aria-hidden="true"
     >
       {cells}
@@ -220,8 +222,9 @@ function MoveDiagram({ steps }: { steps: Step[] }) {
   )
 }
 
-export function PieceGuide({ sfen, from }: { sfen: string; from: Square | PieceType }) {
+export function PieceGuide({ sfen, from, color }: { sfen: string; from: Square | PieceType; color: Color }) {
   const { t, i18n: lang } = useTranslation()
+  const flipped = useFlipped()
   const ja = lang.language === 'ja'
   const position = positionOf(sfen)
   const type = from instanceof Square ? position.board.at(from)?.type : from
@@ -231,7 +234,7 @@ export function PieceGuide({ sfen, from }: { sfen: string; from: Square | PieceT
   const kingName = type === PieceType.KING && from instanceof Square && position.board.at(from)?.color === Color.BLACK ? '王将' : info.ja
   return (
     <styled.div layerStyle="card" display="flex" gap="3" mb="3" p="{spacing.2.5} {spacing.3}">
-      <MoveDiagram steps={info.steps} />
+      <MoveDiagram steps={info.steps} reversed={(color === Color.WHITE) !== flipped} />
       <div>
         <styled.strong fontFamily="mincho" fontWeight="heavy" fontSize="lg">
           {kingName} {!ja && <GuideNote>{kingName === '王将' ? 'ōshō' : info.reading}</GuideNote>}

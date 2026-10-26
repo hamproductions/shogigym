@@ -16,7 +16,7 @@ import type { Watch } from '@/app/modes/view/useWatch'
 import { firstPieceHint } from '@/app/modes/tsume/firstPiece'
 import type { TsumeState } from '@/app/modes/tsume/useTsume'
 import { Plate } from '@/app/panels/Plate'
-import { loadPieceFont, STRENGTH, useSettings } from '@/appearance/settings'
+import { coordinatesVisible, loadPieceFont, STRENGTH, useSettings } from '@/appearance/settings'
 import { loadBoardStyle } from '@/appearance/boardStyles'
 import { loadPieceSet } from '@/appearance/pieceSets'
 import { isGameMode } from '@/app/types'
@@ -37,6 +37,7 @@ const BoardFlat = lazy(() => import('@/rendering/BoardFlat').then((m) => ({ defa
 const Board3D = lazy(() => import('@/rendering/Board3D').then((m) => ({ default: m.Board3D })))
 
 type BoardStageProps = {
+  hideCoordinates?: boolean
   furigoma?: boolean
   onFurigoma?: (faces: boolean[]) => void
   onMoveLanded: (sfen: string) => void
@@ -91,6 +92,7 @@ function usePieceAssetsKey() {
 
 export function BoardStage({
   view,
+  hideCoordinates = false,
   decor,
   input,
   commit,
@@ -144,6 +146,7 @@ export function BoardStage({
     [playing, atEnd, userTurn, gameOver, spar.resigned, spar.aiEnded, userSide, toMove, game.moves.length, game.start, mode, course?.id, lastMove, stamp],
   )
   const board = {
+    coordinates: coordinatesVisible(settings, hideCoordinates),
     position,
     flipped,
     lastMove,
@@ -235,7 +238,7 @@ export function BoardStage({
             <BoardFlat {...board} tilted={false} onZones={onZones} />
           ) : (
             <Board3D
-              key={`${settings.boardStyle}|${settings.coords}|${settings.environment}`}
+              key={`${settings.boardStyle}|${settings.coordinateMode}|${settings.environment}`}
               assetsReady={assetsReady}
               loadingState={assetProgress}
               appearanceKey={`${settings.pieceStyle}|${settings.pieceFinish}|${settings.pieceMaterial}|${settings.pieceColor}|${settings.pieceGrain}|${assetsKey}`}

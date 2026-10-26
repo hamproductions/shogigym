@@ -14,6 +14,7 @@ export function useAnalysis(sfen: string, enabled: boolean, multipv = 3, movetim
   useEffect(() => {
     if (!enabled || !engineSupported()) return
     let cancelled = false
+    const controller = new AbortController()
     const key = `${epoch}|${sfen}|${multipv}|${movetime}`
     const known = settled.get(key)
     if (known) {
@@ -28,10 +29,10 @@ export function useAnalysis(sfen: string, enabled: boolean, multipv = 3, movetim
           if (!cancelled)
             setState((previous) => ({ sfen, analysis, displayed: previous.sfen === sfen ? (previous.displayed ?? analysis) : analysis, error: null }))
         }
-        const quick = await analyze(usiPosition(sfen), { multipv, movetime: 300, onUpdate })
+        const quick = await analyze(usiPosition(sfen), { multipv, movetime: 300, onUpdate, signal: controller.signal })
         if (cancelled) return
         setState((previous) => ({ sfen, analysis: quick, displayed: quick.candidates.length ? quick : previous.displayed, error: null }))
-        const deep = await analyze(usiPosition(sfen), { multipv, movetime, background: true, onUpdate })
+        const deep = await analyze(usiPosition(sfen), { multipv, movetime, background: true, onUpdate, signal: controller.signal })
         if (deep.candidates.length) {
           settled.set(key, deep)
           if (settled.size > 500) settled.delete(settled.keys().next().value!)
@@ -43,6 +44,7 @@ export function useAnalysis(sfen: string, enabled: boolean, multipv = 3, movetim
     }, 30)
     return () => {
       cancelled = true
+      controller.abort()
       clearTimeout(timer)
     }
   }, [sfen, enabled, multipv, movetime, epoch])

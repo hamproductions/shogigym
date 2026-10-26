@@ -7,7 +7,7 @@ import { moveCoaching } from '@/utils/coaching'
 import type { Course } from '@/utils/model'
 import i18n from '@/utils/i18n'
 import { moveText } from '@/utils/shogi'
-import { FlipMarks } from '@/app/ui/SideMark'
+import { FlipMarks, Marks } from '@/app/ui/SideMark'
 import { useFlipped } from '@/app/hooks/session'
 import type { BookHit, BookMove } from '@/utils/book'
 import { isWeak } from '@/utils/mistake'
@@ -67,11 +67,19 @@ function Verdict({
           </VerdictTitle>
           <VerdictLabel style={{ ['--label' as string]: LABELS[review.label].color }}>{LABELS[review.label].text}</VerdictLabel>
         </VerdictHead>
-        {bookLast?.branch.note && <Note>{bookLast.branch.note}</Note>}
-        {bookLast?.branch.kind === 'deviation' && bookLast.branch.punishNote && <Note tone="warn">{bookLast.branch.punishNote}</Note>}
+        {bookLast?.branch.note && (
+          <Note>
+            <Marks>{bookLast.branch.note}</Marks>
+          </Note>
+        )}
+        {bookLast?.branch.kind === 'deviation' && bookLast.branch.punishNote && (
+          <Note tone="warn">
+            <Marks>{bookLast.branch.punishNote}</Marks>
+          </Note>
+        )}
         {(showReasons ? review.reasons.slice(0, 2) : []).map((r) => (
           <styled.p key={r} m="0 0 {spacing.1.5}" fontSize="sm">
-            {r}
+            <Marks>{r}</Marks>
           </styled.p>
         ))}
         {isWeak(review.label) && <Principle review={review} />}
@@ -81,9 +89,11 @@ function Verdict({
             <strong>
               <FlipMarks flipped={flipped}>{moveText(prevSfen, review.best.move)}</FlipMarks>
             </strong>
-            {review.bestReasons[0] && !review.bestReasons[0].startsWith(prefixOf('moveFacts.engineLine'))
-              ? `: ${review.bestReasons[0]}`
-              : t('coach.betterWasEnd')}
+            <Marks>
+              {review.bestReasons[0] && !review.bestReasons[0].startsWith(prefixOf('moveFacts.engineLine'))
+                ? `: ${review.bestReasons[0]}`
+                : t('coach.betterWasEnd')}
+            </Marks>
           </styled.p>
         )}
       </>
@@ -98,7 +108,11 @@ function Verdict({
           </VerdictTitle>
           <VerdictLabel style={{ ['--label' as string]: LABELS.book.color }}>{t('coach.bookMove')}</VerdictLabel>
         </VerdictHead>
-        {bookLast.branch.note && <Note>{bookLast.branch.note}</Note>}
+        {bookLast.branch.note && (
+          <Note>
+            <Marks>{bookLast.branch.note}</Marks>
+          </Note>
+        )}
       </>
     )
   if (bookLast)
@@ -111,10 +125,18 @@ function Verdict({
           </VerdictTitle>
           <VerdictLabel style={{ ['--label' as string]: LABELS.mistake.color }}>{t('coach.knownMistake')}</VerdictLabel>
         </VerdictHead>
-        {(bookLast.branch.punishNote ?? bookLast.branch.note) && <Note tone="warn">{bookLast.branch.punishNote ?? bookLast.branch.note}</Note>}
+        {(bookLast.branch.punishNote ?? bookLast.branch.note) && (
+          <Note tone="warn">
+            <Marks>{(bookLast.branch.punishNote ?? bookLast.branch.note)!}</Marks>
+          </Note>
+        )}
       </>
     )
-  return <Muted>{ai ? t('coach.checking', { move: played }) : t('coach.isOffTheBookTurn', { move: played })}</Muted>
+  return (
+    <Muted>
+      <Marks>{ai ? t('coach.checking', { move: played }) : t('coach.isOffTheBookTurn', { move: played })}</Marks>
+    </Muted>
+  )
 }
 
 export function CoachPane({ review, lastMove, prevSfen, bookLast, bookHere, sfen, course, onPlay, canPlay, ai, showBook, you }: CoachPaneProps) {
@@ -128,7 +150,9 @@ export function CoachPane({ review, lastMove, prevSfen, bookLast, bookHere, sfen
           <Verdict review={review} lastMove={lastMove} prevSfen={prevSfen} bookLast={bookLast} ai={ai} you={you} showReasons={!feedback} />
         </div>
       ) : (
-        <Muted>{course ? (course.root.comment ?? course.goalFormation) : t('coach.makeAMoveTheCoach')}</Muted>
+        <Muted>
+          <Marks>{course ? (course.root.comment ?? course.goalFormation) : t('coach.makeAMoveTheCoach')}</Marks>
+        </Muted>
       )}
       {feedback && (
         <styled.section mt="3" aria-label={t(`coach.live.patterns.${feedback.pattern}`)}>
@@ -171,7 +195,7 @@ export function CoachPane({ review, lastMove, prevSfen, bookLast, bookHere, sfen
               </styled.strong>
               {b.note && (
                 <styled.span fontFamily="mincho" fontSize="sm" color="fg.muted">
-                  {b.note}
+                  <Marks>{b.note}</Marks>
                 </styled.span>
               )}
             </styled.button>

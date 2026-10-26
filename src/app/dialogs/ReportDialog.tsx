@@ -328,7 +328,7 @@ export function ReportDialog({ game, userSide, onShow, onRoute, onClose }: Repor
         </Text>
         {(['sente', 'gote'] as const).map((s) => (
           <Button key={s} size="sm" on={side === s} onClick={() => setSide(s)}>
-            {t(`report.${s}`)}
+            <Marks>{t(`report.${s}`)}</Marks>
           </Button>
         ))}
       </styled.div>

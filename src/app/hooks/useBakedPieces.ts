@@ -132,7 +132,7 @@ function acquireBake(key: string, settings: Settings, scope: 'board' | 'furigoma
 }
 
 const bakeKey = (settings: Settings) =>
-  `appearance-v17|${settings.pieceStyle}|${settings.pieceFinish}|${settings.pieceFont}|${settings.pieceSet}|${settings.pieceGuide}|${settings.pieceMaterial}|${settings.pieceColor}|${settings.pieceGrain}|${settings.boardStyle}|${settings.coords}|${settings.environment}`
+  `appearance-v17|${settings.pieceStyle}|${settings.pieceFinish}|${settings.pieceFont}|${settings.pieceSet}|${settings.pieceGuide}|${settings.pieceMaterial}|${settings.pieceColor}|${settings.pieceGrain}|${settings.boardStyle}|${settings.coordinateMode}|${settings.environment}`
 
 export function useBakedPieces(enabled = true, scope: 'board' | 'furigoma' = 'board') {
   const settings = useSettings()

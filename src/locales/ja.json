@@ -274,6 +274,15 @@
     "shogiBoard": "将棋盤"
   },
   "coach": {
+    "choices": {
+      "title": "候補手を3つ表示",
+      "hint": "候補を選ぶと盤上の矢印と解説を表示します。指す手は自分で決められます。",
+      "waitTurn": "最新局面で自分が指せるときに候補を表示します。手順のプレビュー中は表示しません。",
+      "error": "候補手を解析できませんでした。エンジン欄で復旧するか、盤上で対局を続けられます。",
+      "loading": "合法な候補手を解析中…",
+      "fewer": "この局面ではエンジンから得られた合法な候補手が3つ未満です。",
+      "play": "選んだ手を指す"
+    },
     "live": {
       "more": "理由を詳しく見る",
       "patterns": {
@@ -564,6 +573,11 @@
     "furigomaResult": "歩{{pawns}}枚・と金{{tokins}}枚：上手は{{side}}です"
   },
   "moves": {
+    "reviewProgress": "棋譜解析 {{done}} / {{total}}手 · 操作できます",
+    "reviewPaused": "解析を一時停止 · {{done}} / {{total}}手",
+    "reviewComplete": "解析完了 · {{total}}手",
+    "pauseReview": "解析を停止",
+    "resumeReview": "解析を再開",
     "noMovesYetPlayOn": "まだ指し手がありません。盤で指すか、下から棋譜を読み込んでください。",
     "rateTheRemainingMoves": "残りの手を評価",
     "rateEveryMove": "全ての手を評価",
@@ -764,6 +778,7 @@
     "principleSep": "："
   },
   "settings": {
+    "coordinatesAuto": "自動：検討・学習で表示、対局中は非表示",
     "general": "一般",
     "board": "盤",
     "pieces": "駒",

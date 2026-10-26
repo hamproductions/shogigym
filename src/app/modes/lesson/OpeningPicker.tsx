@@ -9,6 +9,7 @@ import { setSettings, useSettings } from '@/appearance/settings'
 import { mainStrategies, strategyById } from '@/data/strategies'
 import type { LessonMode, Level } from '@/app/types'
 import { Button } from '@/app/ui/Button'
+import { Marks } from '@/app/ui/SideMark'
 import { Input } from '@/components/ui'
 import { Grid, styled, Wrap } from 'styled-system/jsx'
 import { BackLink, Muted, SubHeading } from '@/app/panels/panels.styles'
@@ -111,7 +112,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
     return (
       <SetupButton key={setup.id} onClick={() => setSetupId(setup.id)}>
         <LibJa>
-          {name(setup)}
+          <Marks>{name(setup)}</Marks>
           {setup.basics && p.learned === 0 && <Tag>{t('picker.startHere')}</Tag>}
         </LibJa>
         <LibEn>{ja ? `${courses.length} 章` : `${courses.length} ${courses.length === 1 ? 'chapter' : 'chapters'}`}</LibEn>
@@ -134,13 +135,15 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
     return (
       <SetupButton key={setup.id} found onClick={() => setSetupId(setup.id)}>
         <LibJa>
-          {name(setup)}
+          <Marks>{name(setup)}</Marks>
           {defending && <Tag>{ja ? '受ける側' : 'Defending side'}</Tag>}
         </LibJa>
-        <LibEn>{crumb(setup)}</LibEn>
+        <LibEn>
+          <Marks>{crumb(setup)}</Marks>
+        </LibEn>
         {chapter && (
           <styled.span color="fg.muted" fontSize="xs" fontStyle="italic">
-            {chapter}
+            <Marks>{chapter}</Marks>
           </styled.span>
         )}
         <LibEn>{ja ? `${courses.length} 章` : `${courses.length} ${courses.length === 1 ? 'chapter' : 'chapters'}`}</LibEn>
@@ -173,13 +176,15 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
         <CrumbLink onClick={() => (setSetupId(null), openCategory(categoryOf(open.setup)))}>
           ‹ {CATEGORIES.find((c) => c.id === categoryOf(open.setup))?.name[ja ? 'ja' : 'en']}
         </CrumbLink>
-        <PickerTitle>{name(open.setup)}</PickerTitle>
+        <PickerTitle>
+          <Marks>{name(open.setup)}</Marks>
+        </PickerTitle>
         <PickerIntro data-spaced kind="overview">
-          {describedSfen ? <SquareText text={intro} context={described} /> : intro}
+          {describedSfen ? <SquareText text={intro} context={described} /> : <Marks>{intro}</Marks>}
         </PickerIntro>
         {plan && (
           <PickerIntro data-spaced kind="plan">
-            {describedSfen ? <SquareText text={plan} context={described} /> : plan}
+            {describedSfen ? <SquareText text={plan} context={described} /> : <Marks>{plan}</Marks>}
           </PickerIntro>
         )}
         {open.setup.path ? (
@@ -192,9 +197,11 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
             {open.courses.length === 0 && open.setup.check && (
               <styled.details data-spaced m="{spacing.3} 0" p="{spacing.2} {spacing.3}" borderRadius="md" bg="card" boxShadow="inset 0 0 0 1px {colors.border}">
                 <styled.summary cursor="pointer" fontWeight="bold">
-                  {ja ? open.setup.check.question.ja : open.setup.check.question.en}
+                  <Marks>{ja ? open.setup.check.question.ja : open.setup.check.question.en}</Marks>
                 </styled.summary>
-                <p>{ja ? open.setup.check.answer.ja : open.setup.check.answer.en}</p>
+                <p>
+                  <Marks>{ja ? open.setup.check.answer.ja : open.setup.check.answer.en}</Marks>
+                </p>
               </styled.details>
             )}
             {open.courses.length > 1 && (
@@ -216,7 +223,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
                           _hover={{ color: 'accent' }}
                           onClick={() => (store(RANDOM_KEY, null), onOpen(course, 'study'))}
                         >
-                          {title.startsWith(prefix) ? title.slice(prefix.length) : title}
+                          <Marks>{title.startsWith(prefix) ? title.slice(prefix.length) : title}</Marks>
                         </styled.button>
                       </li>
                     )
@@ -255,9 +262,17 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
             : []
           return (
             <>
-              {related.length > 0 && <SubHeading data-spaced>{ja ? `「${base}」に関する講座` : `More about ${baseName}`}</SubHeading>}
+              {related.length > 0 && (
+                <SubHeading data-spaced>
+                  <Marks>{ja ? `「${base}」に関する講座` : `More about ${baseName}`}</Marks>
+                </SubHeading>
+              )}
               {related.map(resultCard)}
-              {siblings.length > 0 && <SubHeading data-spaced>{ja ? `${groupName(group!)}の他の講座` : `More in ${groupName(group!)}`}</SubHeading>}
+              {siblings.length > 0 && (
+                <SubHeading data-spaced>
+                  <Marks>{ja ? `${groupName(group!)}の他の講座` : `More in ${groupName(group!)}`}</Marks>
+                </SubHeading>
+              )}
               {siblings.map(resultCard)}
             </>
           )
@@ -313,7 +328,9 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
                     boxShadow={s.id === main.id ? 'inset 0 0 0 1px {colors.accent}' : undefined}
                     onClick={() => (setSettings({ mainStrategy: s.id }), setChoosing(false))}
                   >
-                    <styled.strong fontFamily="mincho">{ja ? s.ja : s.en}</styled.strong>
+                    <styled.strong fontFamily="mincho">
+                      <Marks>{ja ? s.ja : s.en}</Marks>
+                    </styled.strong>
                     <styled.span color="fg.muted" fontSize="xs">
                       {t(`strategy.level${s.level}`)}
                     </styled.span>
@@ -386,7 +403,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
             {t('strategy.yourMain')}
           </styled.span>
           <styled.strong fontFamily="mincho" fontSize="lg">
-            {ja ? main.ja : main.en}
+            <Marks>{ja ? main.ja : main.en}</Marks>
           </styled.strong>
           <styled.em color="accent" fontStyle="normal" fontSize="sm">
             {t('strategy.change')} ›
@@ -398,13 +415,19 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
         {!q && (
           <>
             {mine.filter((g) => g.setup.basics).map(setupCard)}
-            {lessons.length > 0 && <SubHeading data-spaced>{ja ? `${main.ja}の考え方と手筋` : `${main.en}: ideas and tactics`}</SubHeading>}
+            {lessons.length > 0 && (
+              <SubHeading data-spaced>
+                <Marks>{ja ? `${main.ja}の考え方と手筋` : `${main.en}: ideas and tactics`}</Marks>
+              </SubHeading>
+            )}
             {lessons.map(setupCard)}
             {mine.some((g) => !g.setup.basics) && <SubHeading data-spaced>{t('picker.openingsByWhatYourOpponent')}</SubHeading>}
             {mine.filter((g) => !g.setup.basics).map(setupCard)}
             {otherGroups.map((at) => (
               <Fragment key={at}>
-                <SubHeading data-spaced>{groupName(at)}</SubHeading>
+                <SubHeading data-spaced>
+                  <Marks>{groupName(at)}</Marks>
+                </SubHeading>
                 {others.filter((g) => josekiGroupOf(g.setup) === at).map(setupCard)}
               </Fragment>
             ))}
@@ -431,7 +454,9 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
             return (
               entries.length > 0 && (
                 <Fragment key={group}>
-                  <SubHeading data-spaced>{groupName(group)}</SubHeading>
+                  <SubHeading data-spaced>
+                    <Marks>{groupName(group)}</Marks>
+                  </SubHeading>
                   {entries.map(setupCard)}
                 </Fragment>
               )

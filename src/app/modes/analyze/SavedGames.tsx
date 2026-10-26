@@ -52,7 +52,7 @@ export function SavedGames({ games, onOpen }: { games: AnalyzeGames; onOpen?: ()
               }}
             >
               <styled.strong maxW="100%" overflow="hidden" fontSize="sm" textOverflow="ellipsis" whiteSpace="nowrap">
-                {names ? `${sideMark('sente')}${names.sente ?? '?'} vs ${sideMark('gote')}${names.gote ?? '?'}` : g.title}
+                <Marks>{names ? `${sideMark('sente')}${names.sente ?? '?'} vs ${sideMark('gote')}${names.gote ?? '?'}` : g.title}</Marks>
               </styled.strong>
               <styled.span color="fg.muted" fontSize="xs">
                 {names && `${savedAtLabel(new Date(g.savedAt))} · `}
