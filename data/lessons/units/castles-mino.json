@@ -1,23 +1,26 @@
 {
   "id": "castles-mino",
   "order": 340,
-  "path": ["上達のためのテクニック", "囲い"],
+  "path": [
+    "上達のためのテクニック",
+    "囲い"
+  ],
   "title": {
-    "ja": "美濃の金銀と玉頭を読み分ける",
-    "en": "Read Mino's Generals and King-Head Squares"
+    "ja": "美濃囲いの種類：初手からの組み方と強さ・弱点",
+    "en": "The Mino family: build order, strengths and weaknesses"
   },
   "intro": {
-    "ja": "振り飛車で玉を右に囲う美濃には、金を一枚だけ寄せる片美濃、二枚をつなぐ本美濃、金を高くして上部を補う高美濃、銀を冠の位置へ出す銀冠があります。形が変わるたびに横の飛車筋、玉の斜め前、２筋の歩を調べます。左の金銀を守りに加える選択は、攻めに使える駒と手数も変えます。",
-    "en": "Ranging Rook can shelter the king on the right with Half Mino, connect a second gold for full Mino, raise a gold for High Mino, or put a silver above the king in Silver Crown. Each change affects a lateral rook line, the diagonal above the king, or the second-file pawn. Committing more generals also changes the time and material left for attack."
+    "ja": "美濃囲いは、振り飛車の囲いとして最も基本の形です。そこから金や銀をずらしたり増やしたりして、さまざまな形に分かれます。片美濃と本美濃、金を上げた高美濃、さらに銀を載せる銀冠、金銀を四枚使うダイヤモンド美濃、銀を前に置く木村美濃、そして銀や金の位置を替えた銀美濃と金美濃です。この講座では四間飛車を初手から振り、それぞれの囲いがどんな手順でできるか、何が強く何が弱いかを盤上で確かめます。",
+    "en": "Mino is the basic castle of Ranging Rook play. By moving or adding a gold or silver it branches into Kata Mino and Hon Mino, Taka Mino with the gold raised, Gin Kanmuri with a silver crown, Diamond Mino with four pieces, Kimura Mino with the silver ahead, and Gin Mino and Kin Mino with pieces swapped. Swing the Fourth File Rook from move one and see how each version is reached, what it resists and where it is weak."
   },
   "check": {
     "question": {
-      "ja": "美濃の金５八を４七に上げるとき、４七で増える利きと５八で失う利きをどう確かめますか？",
-      "en": "When raising a Mino gold from ５八 to ４七, how do you check the coverage gained and lost?"
+      "ja": "本美濃から高美濃へ組み替えるとき、金を一段上げる前に３筋の歩も突いておくのはなぜですか？",
+      "en": "When turning Hon Mino into Taka Mino, why push the third-file pawn before the gold steps up?"
     },
     "answer": {
-      "ja": "金４七が３六や桂３七を守れるか、元の５八で止めていた横の飛車筋が開かないかを盤上で調べます。高くしただけで安全になるとは決めません。",
-      "en": "Check whether the gold on ４七 protects squares such as ３六 and a knight on ３七, and whether leaving ５八 opens a lateral rook line. Raising the gold alone does not establish safety."
+      "ja": "金が４七に上がると、桂馬から狙われる場所ができます。３筋の歩を突いて３七に桂を跳ねる準備をしておけば、上がった金と玉の斜め前を同時に守れます。",
+      "en": "A gold on 4g becomes a target for a knight. Pushing the third-file pawn and jumping the knight to 3g covers both the advanced gold and the square diagonally ahead of the king."
     }
   },
   "references": [
@@ -26,108 +29,959 @@
       "url": "https://shogi-joutatsu.com/archives/5985",
       "license": "All rights reserved",
       "adapted": false
+    },
+    {
+      "title": "将棋の技図鑑 (yuki-keio/shogi)",
+      "url": "https://github.com/yuki-keio/shogi",
+      "license": "GPL-3.0-only",
+      "adapted": false
     }
   ],
   "chapters": [
     {
       "title": {
-        "ja": "片美濃に二枚目の金をつなぐ",
-        "en": "Connect the second gold to Half Mino"
+        "ja": "片美濃：玉を右に移して銀を上げる",
+        "en": "Kata Mino: king to the right, silver beside it"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/9/9/9/9/9/9/2r3SK1/4GG3 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "玉２八、銀３八、金４九の片美濃型で、もう一枚の金５九が残っています。後手飛車７八は６八・５八を通って右へ利きます。金５九を上げて５八に置けば飛車筋に入るので、支えを確認します。",
-            "en": "Sente has a Half Mino core: king ２八, silver ３八, gold ４九, with the other gold on ５九. Gote's rook on ７八 sees through ６八 and ５八. Raising the gold to ５八 puts it in that rook line, so first check its support."
+            "ja": "片美濃は、美濃の基本になる形です。飛車を四間に振って、空いた二八に玉を入れ、銀を横につけます。金は一枚残したままなので手数が少なく、振り飛車のなかで最も早く囲えます。後手は居飛車で駒組みする想定です。",
+            "en": "Kata Mino is the basis of every Mino. The rook swings to the fourth file, the king goes into the vacated square 2h, and a silver joins it. One gold stays behind, so it is the quickest castle of the family. Gote builds a Static Rook position."
+          },
+          "marks": {
+            "boxes": [
+              "2h",
+              "3h"
+            ]
           }
         },
         {
-          "moves": ["5i5h"],
+          "moves": [
+            "7g7f"
+          ],
           "text": {
-            "ja": "▲５八金で本美濃型の二枚の金がつながります。金４九は５八を斜め前に守り、飛車７八の横筋は金５八で止まります。囲いへ一手使う価値は、飛車筋を止める必要と先手の攻めの速さを比べて決めます。",
-            "en": "▲５八金 connects the two golds in a full Mino core. The gold on ４九 protects ５八 diagonally forward, and the rook line from ７八 stops at the new gold. Whether to spend this move on defense depends on that rook threat and the pace of Sente's own attack."
+            "ja": "▲７六歩。角道を開けます。振り飛車でも角を使うので、まず道を作ります。",
+            "en": "▲7六歩 opens the bishop line. A Ranging Rook player uses the bishop too, so the road is cleared first."
+          },
+          "marks": {
+            "last": "7f"
+          }
+        },
+        {
+          "moves": [
+            "3c3d",
+            "6g6f"
+          ],
+          "text": {
+            "ja": "▲６六歩。次に角道を止めます。角を安全にしておけば、あとで飛車を振ったときに角が狙われにくくなります。",
+            "en": "▲6六歩 closes the bishop line again. A safe bishop makes the later rook swing less risky."
+          },
+          "marks": {
+            "last": "6f"
+          }
+        },
+        {
+          "moves": [
+            "7a6b",
+            "8h7g"
+          ],
+          "text": {
+            "ja": "▲７七角。角を一つ上げます。７七なら、飛車を振ったあとも守りの金銀と連絡できます。",
+            "en": "▲7七角 lifts the bishop one step. On 7g it stays connected to the silver and gold after the rook swings."
+          },
+          "marks": {
+            "last": "7g"
+          }
+        },
+        {
+          "moves": [
+            "4a3b",
+            "2h6h"
+          ],
+          "text": {
+            "ja": "▲６八飛。飛車を右から四つ目の筋へ振ります。四間飛車です。同時に、玉が入る二八が空きました。",
+            "en": "▲6八飛 swings the rook to the fourth file, which is Fourth File Rook, and also frees 2h for the king."
+          },
+          "marks": {
+            "boxes": [
+              "2h"
+            ],
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "8c8d",
+            "7i7h"
+          ],
+          "text": {
+            "ja": "▲７八銀。左の銀を上げて、角と飛車を守ります。",
+            "en": "▲7八銀 lifts the left silver to protect the bishop and rook."
+          },
+          "marks": {
+            "boxes": [
+              "7g",
+              "6h"
+            ],
+            "last": "7h"
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "5i4h"
+          ],
+          "text": {
+            "ja": "▲４八玉。ここから玉を右へ運びます。戦いが起きるのは主に左側なので、玉は反対へ避けます。",
+            "en": "▲4八玉 starts the king on its walk to the right, away from the side where fighting will occur."
+          },
+          "marks": {
+            "last": "4h"
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "4h3h"
+          ],
+          "text": {
+            "ja": "▲３八玉。さらに右へ。",
+            "en": "▲3八玉, one more step to the right."
+          },
+          "marks": {
+            "last": "3h"
+          }
+        },
+        {
+          "moves": [
+            "5a4b",
+            "3h2h"
+          ],
+          "text": {
+            "ja": "▲２八玉。飛車がいた場所に玉が入りました。",
+            "en": "▲2八玉 puts the king where the rook used to be."
+          },
+          "marks": {
+            "last": "2h"
+          }
+        },
+        {
+          "moves": [
+            "6a5b",
+            "1g1f"
+          ],
+          "text": {
+            "ja": "▲１六歩。端の歩を突いて、玉の逃げ道を作ります。",
+            "en": "▲1六歩 pushes the edge pawn so that the king gets an escape square."
+          },
+          "marks": {
+            "boxes": [
+              "1g"
+            ],
+            "last": "1f"
+          }
+        },
+        {
+          "moves": [
+            "7c7d",
+            "3i3h"
+          ],
+          "text": {
+            "ja": "▲３八銀。右の銀が玉の隣に上がって、片美濃の完成です。",
+            "en": "▲3八銀 puts the right silver beside the king and completes Kata Mino."
+          },
+          "marks": {
+            "boxes": [
+              "3h",
+              "2h"
+            ],
+            "last": "3h"
+          }
+        },
+        {
+          "text": {
+            "ja": "片美濃は、手数が少なく、すぐ戦いに入れるのが長所です。金銀が二枚でも、横から来る攻めには、ある程度耐えられます。弱点は、金銀が三枚そろう本美濃より薄いことと、玉の斜め前（３七）や端（１七）を狙う攻めに弱いことです。戦いが始まる前に、金をもう一枚寄せる余裕があるか確かめましょう。",
+            "en": "Kata Mino is quick, so you can start fighting sooner, and even with two pieces it resists a lateral attack to some extent. The weak points: it is thinner than Hon Mino, and it suffers from attacks aimed at the square diagonally ahead of the king (3g) and at the edge (1g). Check whether there is time to bring the second gold before fighting begins."
+          },
+          "marks": {
+            "boxes": [
+              "3g",
+              "1g"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "金を高くして桂の支えを増やす",
-        "en": "Raise a gold to support the forward knight"
+        "ja": "本美濃：金をもう一枚寄せる",
+        "en": "Hon Mino: the second gold comes over"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/9/9/9/9/6p2/6N2/4G1SK1/5G3 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "6g6f",
+            "7a6b",
+            "8h7g",
+            "4a3b",
+            "2h6h",
+            "8c8d",
+            "7i7h",
+            "9c9d",
+            "5i4h",
+            "1c1d",
+            "4h3h",
+            "5a4b",
+            "3h2h",
+            "6a5b",
+            "1g1f",
+            "7c7d",
+            "3i3h"
+          ],
           "text": {
-            "ja": "玉２八、銀３八、金５八・４九、桂３七の本美濃型です。後手歩３六が桂３七を攻めています。金５八を４七に上げると、桂の支えと前方への利きがどう変わるか見ます。",
-            "en": "Sente has king ２八, silver ３八, golds ５八 and ４九, and knight ３七. Gote's pawn on ３六 attacks that knight. Raising the gold from ５八 to ４七 changes both knight support and forward coverage."
+            "ja": "前の章の片美濃の形です。四間飛車に振り、玉を二八に入れ、銀を三八に上げた状態です。",
+            "en": "This is Kata Mino from the previous chapter: Fourth File Rook, king on 2h and silver on 3h."
+          },
+          "marks": {
+            "boxes": [
+              "6i"
+            ]
           }
         },
         {
-          "moves": ["5h4g"],
+          "moves": [
+            "6c6d",
+            "6i5h"
+          ],
           "text": {
-            "ja": "▲４七金。金４七は桂３七を横から守り、歩３六にも斜め前に利きます。銀３八も桂３七を守っています。この高美濃型は上部の守りを増やしましたが、金が去った５八から横の飛車筋が伸びる局面なら別の対処が必要です。",
-            "en": "▲４七金 protects the knight on ３七 sideways and attacks the pawn on ３六 diagonally forward. The silver on ３八 also protects that knight. This High Mino core adds upper coverage, but an opposing rook could exploit the vacated ５八 square in a different position."
+            "ja": "▲５八金。六九の金を斜めに上げて、四九の金、三八の銀と斜めにつなぎます。これで金銀三枚のつながった美濃囲いになります。",
+            "en": "▲5八金 brings the gold on 6i up diagonally, linking it with the gold on 4i and the silver on 3h. Three pieces are now connected, which is the standard Mino."
+          },
+          "marks": {
+            "boxes": [
+              "5h",
+              "4i",
+              "3h"
+            ],
+            "last": "5h"
+          }
+        },
+        {
+          "text": {
+            "ja": "本美濃は、金銀三枚が連なっていて、横から押される攻めに強い囲いです。ただし玉の頭は薄く、桂や角を使って斜め前を狙われる攻めと、端から崩す攻めには弱いままです。六手で組める手早さを考えると守りは固く、多くの振り飛車がこの形を目標にします。",
+            "en": "Hon Mino links three pieces and stands firm when pushed along the ranks. Its weak points remain: the head of the king is thin, and attacks with a knight or bishop on the diagonal front and attacks from the edge still work. For its short build, the protection is sturdy, and most Ranging Rook players aim for this form."
+          },
+          "marks": {
+            "boxes": [
+              "3g",
+              "1g"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "銀冠は王手を止める場所まで確認する",
-        "en": "Silver Crown must answer the actual rook check"
+        "ja": "高美濃：金を一段上げて上に備える",
+        "en": "Taka Mino: the gold steps up to guard above"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/9/9/9/9/9/5GNS1/3r3K1/5G3 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "6g6f",
+            "7a6b",
+            "8h7g",
+            "4a3b",
+            "2h6h",
+            "8c8d",
+            "7i7h",
+            "9c9d",
+            "5i4h",
+            "1c1d",
+            "4h3h",
+            "5a4b",
+            "3h2h",
+            "6a5b",
+            "1g1f",
+            "7c7d",
+            "3i3h",
+            "6c6d",
+            "6i5h"
+          ],
           "text": {
-            "ja": "玉２八、銀２七、桂３七、金４七・４九は銀冠の上部の骨格です。後手飛車６八は５八・４八・３八が空いているため、玉２八へ横から王手しています。飛車６八に届く先手の駒はなく、取って王手を解除することはできません。金４九を３八へ動かせば、王手を遮れるかを確かめます。",
-            "en": "King ２八, silver ２七, knight ３七, and golds ４七 and ４九 form the upper core of Silver Crown. Gote's rook on ６八 checks the king on ２八 laterally through the empty ５八, ４八 and ３八 squares. No Sente piece reaches ６八, so the check cannot be answered by capturing the rook. Test whether moving the lower gold to ３八 blocks the check."
+            "ja": "本美濃の形から始めます。玉の頭の薄さを直す方向に組み替えます。",
+            "en": "Start from Hon Mino and remodel it to cover the thin spot above the king."
+          },
+          "marks": {
+            "boxes": [
+              "4g",
+              "3g"
+            ]
           }
         },
         {
-          "moves": ["4i3h"],
+          "moves": [
+            "5c5d",
+            "4g4f"
+          ],
           "text": {
-            "ja": "▲３八金で飛車６八と玉２八の間を塞ぎました。銀２七は金３八を斜め後ろに守り、玉２八も金３八を守ります。▲３八銀や４八への合駒、▲１七玉と逃げる手でも王手は解除できますが、▲３八金は金を玉の横に置いて銀冠の形を整えます。上部の銀があるだけでは下段の王手は消えません。相手の飛車がどの段にいるかで、銀冠の弱点を調べます。",
-            "en": "▲３八金 interposes between the rook on ６八 and the king on ２八. The silver on ２七 protects the gold diagonally backward, and the king on ２八 also guards it. ▲３八銀, a block on ４八, or ▲１七玉 also gets out of check, but ▲３八金 places a gold beside the king and completes the Silver Crown shape. A silver above the king does not by itself stop a lower-rank check; the rook's actual rank determines the danger."
+            "ja": "▲４六歩。金が上がる場所を空けるため、歩を一つ突きます。",
+            "en": "▲4六歩 pushes a pawn to clear the square the gold is about to use."
+          },
+          "marks": {
+            "boxes": [
+              "4g"
+            ],
+            "last": "4f"
+          }
+        },
+        {
+          "moves": [
+            "6b5c",
+            "3g3f"
+          ],
+          "text": {
+            "ja": "▲３六歩。隣の歩も突いておきます。桂馬が跳ねる場所を作り、上がった金を相手の桂馬から守る準備です。",
+            "en": "▲3六歩 pushes the neighboring pawn too. It makes room for the knight to jump and prepares to guard the advanced gold against an enemy knight."
+          },
+          "marks": {
+            "boxes": [
+              "3g"
+            ],
+            "last": "3f"
+          }
+        },
+        {
+          "moves": [
+            "4c4d",
+            "2i3g"
+          ],
+          "text": {
+            "ja": "▲３七桂。桂馬を跳ねます。この桂馬が、上がる金の隣で守りの役を担います。",
+            "en": "▲3七桂 jumps the knight. It becomes part of the guard beside the gold that is about to step up."
+          },
+          "marks": {
+            "arrows": [
+              "3g4e"
+            ],
+            "last": "3g"
+          }
+        },
+        {
+          "moves": [
+            "2c2d",
+            "5h4g"
+          ],
+          "text": {
+            "ja": "▲４七金。金を一段上げて、高美濃の完成です。玉の頭を金と桂が覆い、上からの攻めに備えます。",
+            "en": "▲4七金 lifts the gold one step, completing Taka Mino. Gold and knight cover the head of the king and prepare for attacks from above."
+          },
+          "marks": {
+            "boxes": [
+              "4g",
+              "3g"
+            ],
+            "last": "4g"
+          }
+        },
+        {
+          "text": {
+            "ja": "高美濃は、玉の頭と斜め前を金と桂が守るので、本美濃の弱点だった斜め攻めに強くなります。そのかわり、金が前に出た分、下の段の守りが薄くなり、横から飛車を打ち込まれると弱くなります。上がった金が、相手の桂や銀の攻めの目標になる点にも注意が要ります。",
+            "en": "Taka Mino covers the head and the diagonal front with gold and knight, so it resists the diagonal attacks that troubled Hon Mino. In exchange the rank behind has become thin, and a rook dropped in from the side is dangerous. The advanced gold is also a target for enemy knights and silvers."
+          },
+          "marks": {
+            "boxes": [
+              "5h",
+              "5i"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "２筋の歩を上げる前に飛車筋を見る",
-        "en": "Check the rook file before advancing the head pawn"
+        "ja": "銀冠：玉の真上に銀を載せる",
+        "en": "Gin Kanmuri: a silver crown on the king"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/7r1/9/9/9/9/7P1/4G1SK1/5G3 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "6g6f",
+            "7a6b",
+            "8h7g",
+            "4a3b",
+            "2h6h",
+            "8c8d",
+            "7i7h",
+            "9c9d",
+            "5i4h",
+            "1c1d",
+            "4h3h",
+            "5a4b",
+            "3h2h",
+            "6a5b",
+            "1g1f",
+            "7c7d",
+            "3i3h",
+            "6c6d",
+            "6i5h",
+            "5c5d",
+            "4g4f",
+            "6b5c",
+            "3g3f",
+            "4c4d",
+            "2i3g",
+            "2c2d",
+            "5h4g"
+          ],
           "text": {
-            "ja": "玉２八、銀３八、金５八・４九の美濃型です。先手歩２七の前方に後手飛車２二がいます。歩を２六へ上げると、玉頭の歩が飛車の筋で狙われるかを確認します。",
-            "en": "Sente has a Mino core with king ２八, silver ３八, and golds ５八 and ４九. Gote's rook on ２二 stands ahead of Sente's pawn on ２七. Before advancing the pawn to ２六, check whether the rook will target it along the file."
+            "ja": "高美濃の形から始めます。ここからさらに頭上を厚くします。",
+            "en": "Start from Taka Mino and thicken the area above the king further."
+          },
+          "marks": {
+            "boxes": [
+              "2g",
+              "3h"
+            ]
           }
         },
         {
-          "moves": ["2g2f"],
+          "moves": [
+            "9d9e",
+            "2g2f"
+          ],
           "text": {
-            "ja": "▲２六歩。飛車２二から２六までの間に駒がなく、２六の歩にはひもが付いていません。銀３八と玉２八が守るのは２七までで、２六には利きません。",
-            "en": "▲２六歩 leaves no piece between Gote's rook on ２二 and the pawn on ２六, and nothing defends the pawn. The silver on ３八 and the king on ２八 cover ２七, not ２六."
+            "ja": "▲２六歩。玉の頭の歩を突いて、銀の上がる場所を空けます。",
+            "en": "▲2六歩 pushes the pawn above the king to make room for the silver."
+          },
+          "marks": {
+            "boxes": [
+              "2g"
+            ],
+            "last": "2f"
           }
         },
         {
-          "moves": ["2b2f"],
+          "moves": [
+            "8d8e",
+            "3h2g"
+          ],
           "text": {
-            "ja": "△２六飛と歩を取られると、空いた２七を通して玉２八への王手になります。先手は飛車２六を取り返せず、歩を一枚損して玉頭の歩がない坊主美濃型になります。ちょんまげ美濃型にするなら、２六に利きを足すか、飛車筋が止まってから歩を上げます。",
-            "en": "△２六飛 takes the pawn and checks the king on ２八 through the now-empty ２七. Sente cannot recapture the rook on ２六, so Sente is a pawn down with a bare-headed Bozu Mino. To keep a Chonmage Mino, add support to ２六 or advance the pawn only after the rook file is blocked."
+            "ja": "▲２七銀。銀を玉の真上へ上げます。これが冠のように見えるので、銀冠と呼ばれます。",
+            "en": "▲2七銀 lifts the silver to the square directly above the king. It looks like a crown, hence the name Gin Kanmuri."
+          },
+          "marks": {
+            "boxes": [
+              "2g"
+            ],
+            "last": "2g"
+          }
+        },
+        {
+          "moves": [
+            "7d7e",
+            "4i3h"
+          ],
+          "text": {
+            "ja": "▲３八金。空いた三八に、金を引き寄せて完成です。",
+            "en": "▲3八金 draws a gold into the vacated 3h, completing the crown."
+          },
+          "marks": {
+            "boxes": [
+              "3h",
+              "2g"
+            ],
+            "last": "3h"
+          }
+        },
+        {
+          "text": {
+            "ja": "銀冠は、玉の上に金銀桂が厚くなるので、上と端からの攻めに強く、終盤の競り合いで頼りになります。下の段はほとんど空ですが、玉を一七へ逃がして詰みを遠ざける粘りもあります。弱点は、組み替えの途中で守りが一時的に薄くなることです。相手の攻めが近いときは、完成を急がず、まず受けます。",
+            "en": "Gin Kanmuri has gold, silver and knight piled above the king, so it resists attacks from above and from the edge and is reliable in the final race. The rank behind is nearly empty, but the king can slip out to 1g and stretch the mating sequence. The weak moment is during the rebuild, when the guard is briefly thin. If the opponent's attack is near, defend first rather than rushing to finish."
+          },
+          "marks": {
+            "boxes": [
+              "2g",
+              "1g",
+              "4i"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "ダイヤモンド美濃：金銀四枚で四角を作る",
+        "en": "Diamond Mino: four pieces in a diamond"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "6g6f",
+            "7a6b",
+            "8h7g",
+            "4a3b",
+            "2h6h",
+            "8c8d",
+            "7i7h",
+            "9c9d",
+            "5i4h",
+            "1c1d",
+            "4h3h",
+            "5a4b",
+            "3h2h",
+            "6a5b",
+            "1g1f",
+            "7c7d",
+            "3i3h"
+          ],
+          "text": {
+            "ja": "片美濃の形から始めます。左の銀を囲いに連れてくる経路を追います。",
+            "en": "Start from Kata Mino and follow how the left silver is brought into the castle."
+          },
+          "marks": {
+            "boxes": [
+              "7h",
+              "5h",
+              "4g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6c6d",
+            "4g4f"
+          ],
+          "text": {
+            "ja": "▲４六歩。銀が入る四七のマスを空けます。",
+            "en": "▲4六歩 clears 4g, the square the silver will occupy."
+          },
+          "marks": {
+            "boxes": [
+              "4g"
+            ],
+            "last": "4f"
+          }
+        },
+        {
+          "moves": [
+            "5c5d",
+            "3g3f"
+          ],
+          "text": {
+            "ja": "▲３六歩。三七も空けておきます。",
+            "en": "▲3六歩 also empties 3g."
+          },
+          "marks": {
+            "last": "3f"
+          }
+        },
+        {
+          "moves": [
+            "6b5c",
+            "7h6g"
+          ],
+          "text": {
+            "ja": "▲６七銀。左の銀を斜め前に動かします。六七は、６筋の歩を突いたときに空いたマスです。",
+            "en": "▲6七銀 sends the left silver diagonally forward onto 6g, which the sixth-file pawn left empty."
+          },
+          "marks": {
+            "boxes": [
+              "6g"
+            ],
+            "last": "6g"
+          }
+        },
+        {
+          "moves": [
+            "4c4d",
+            "6g5h"
+          ],
+          "text": {
+            "ja": "▲５八銀。斜め後ろに引いて、五八に入ります。金がまだ来ていないので、通り道が開いています。",
+            "en": "▲5八銀 steps back diagonally onto 5h. The gold has not arrived yet, so the path is open."
+          },
+          "marks": {
+            "boxes": [
+              "5h"
+            ],
+            "last": "5h"
+          }
+        },
+        {
+          "moves": [
+            "2c2d",
+            "5h4g"
+          ],
+          "text": {
+            "ja": "▲４七銀。さらに斜め前へ。金銀が四角に並ぶ場所へ入ります。",
+            "en": "▲4七銀 steps forward diagonally once more, onto the corner of the future diamond."
+          },
+          "marks": {
+            "boxes": [
+              "4g"
+            ],
+            "last": "4g"
+          }
+        },
+        {
+          "moves": [
+            "9d9e",
+            "6i5h"
+          ],
+          "text": {
+            "ja": "▲５八金。最後に金を五八へ。金と銀が四角形に並び、ダイヤモンド美濃の完成です。",
+            "en": "▲5八金 finishes the shape. Gold and silver now stand at the corners of a square, which is the Diamond Mino."
+          },
+          "marks": {
+            "boxes": [
+              "4g",
+              "5h",
+              "3h",
+              "4i"
+            ],
+            "last": "5h"
+          }
+        },
+        {
+          "text": {
+            "ja": "ダイヤモンド美濃は、金銀を四枚使って玉の周りを固めた形で、手厚さは美濃の中でも上位です。ただし、銀を一枚守りに回したぶん、攻める駒が減ります。また、銀が玉の隣ではなく斜め前にいるので、玉の頭のすき間を突かれる可能性があります。実戦では、戦いの中で自然に銀が囲いに寄る形が多く、狙って組むより結果としてできる形です。",
+            "en": "Diamond Mino uses four pieces around the king and ranks among the most solid Mino forms. The cost is that one silver has stopped attacking, so fewer pieces are left to attack. The silver sits diagonally ahead instead of beside the king, so a gap above the king can be probed. In real games it usually arises as the silver drifts back during the fight rather than being planned from the start."
+          },
+          "marks": {
+            "boxes": [
+              "2g",
+              "3g"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "木村美濃：銀を前に置いて金を寄せる",
+        "en": "Kimura Mino: silver ahead, gold behind"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "6g6f",
+            "7a6b",
+            "8h7g",
+            "4a3b",
+            "2h6h",
+            "8c8d",
+            "7i7h",
+            "9c9d",
+            "5i4h",
+            "1c1d",
+            "4h3h",
+            "5a4b",
+            "3h2h",
+            "6a5b",
+            "1g1f"
+          ],
+          "text": {
+            "ja": "片美濃になる一手手前から始めます。玉は二八に入り、右の銀はまだ三九にいます。ここで銀の動かし方を替えます。",
+            "en": "Start one move before Kata Mino. The king is on 2h and the right silver is still on 3i. Here the silver goes a different way."
+          },
+          "marks": {
+            "boxes": [
+              "3i"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7c7d",
+            "4g4f"
+          ],
+          "text": {
+            "ja": "▲４六歩。銀が通るための道を作ります。",
+            "en": "▲4六歩 makes a path for the silver."
+          },
+          "marks": {
+            "boxes": [
+              "4g"
+            ],
+            "last": "4f"
+          }
+        },
+        {
+          "moves": [
+            "6c6d",
+            "3g3f"
+          ],
+          "text": {
+            "ja": "▲３六歩。これも銀の動きを助け、桂の跳ねる余地も残します。",
+            "en": "▲3六歩 also helps the silver and leaves room for the knight to jump."
+          },
+          "marks": {
+            "last": "3f"
+          }
+        },
+        {
+          "moves": [
+            "5c5d",
+            "3i4h"
+          ],
+          "text": {
+            "ja": "▲４八銀。右の銀を斜めに上げます。玉の隣ではなく、一つ右の列へ向かいます。",
+            "en": "▲4八銀 lifts the right silver diagonally. It heads for the next file rather than staying beside the king."
+          },
+          "marks": {
+            "boxes": [
+              "4h"
+            ],
+            "last": "4h"
+          }
+        },
+        {
+          "moves": [
+            "6b5c",
+            "4h4g"
+          ],
+          "text": {
+            "ja": "▲４七銀。銀が前に出ました。この銀は攻めにも使え、玉の頭の守りにもなります。",
+            "en": "▲4七銀 pushes the silver forward. It can both attack and cover the head of the king."
+          },
+          "marks": {
+            "boxes": [
+              "4g"
+            ],
+            "last": "4g"
+          }
+        },
+        {
+          "moves": [
+            "4c4d",
+            "4i3h"
+          ],
+          "text": {
+            "ja": "▲３八金。金を玉の隣に引き寄せます。銀は三八ではなく四七にいるのが、片美濃と違うところです。",
+            "en": "▲3八金 draws the gold next to the king. The silver on 4g instead of 3h is what sets it apart from Kata Mino."
+          },
+          "marks": {
+            "boxes": [
+              "3h",
+              "4g"
+            ],
+            "last": "3h"
+          }
+        },
+        {
+          "text": {
+            "ja": "木村美濃は、玉の斜め上に銀を置くことで、片美濃の薄いところを埋めた形です。右の桂は動かさずに済むので、必要なら跳ねて攻めに加えられます。使っていない金は、左辺の整備に回せます。ただし守りの駒は二枚だけなので、飛車を打ち込まれると危険です。攻めと守りの釣り合いを見て選びます。",
+            "en": "Kimura Mino covers the weak head of Kata Mino with a silver, and the right knight can still jump to join the attack. The remaining gold can stay on the left to guard that wing. It is still a thin two-piece castle, so a rook drop is dangerous. Choose it for the balance between attack and defense."
+          },
+          "marks": {
+            "boxes": [
+              "2i",
+              "4i"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "銀美濃：五八に銀をつける形",
+        "en": "Gin Mino: a silver on 5h instead of a gold"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "6g6f",
+            "7a6b",
+            "8h7g",
+            "4a3b",
+            "2h6h",
+            "8c8d",
+            "7i7h",
+            "9c9d",
+            "5i4h",
+            "1c1d",
+            "4h3h",
+            "5a4b",
+            "3h2h",
+            "6a5b",
+            "1g1f",
+            "7c7d",
+            "3i3h"
+          ],
+          "text": {
+            "ja": "片美濃の形から始めます。普通なら六九の金を五八に上げますが、ここでは別の駒を使います。",
+            "en": "Start from Kata Mino. Normally the gold on 6i goes to 5h, but a different piece is used here."
+          },
+          "marks": {
+            "boxes": [
+              "5h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6c6d",
+            "7h6g"
+          ],
+          "text": {
+            "ja": "▲６七銀。左の銀を斜め前に出します。",
+            "en": "▲6七銀 brings the left silver forward diagonally."
+          },
+          "marks": {
+            "boxes": [
+              "6g"
+            ],
+            "last": "6g"
+          }
+        },
+        {
+          "moves": [
+            "5c5d",
+            "6g5h"
+          ],
+          "text": {
+            "ja": "▲５八銀。斜め後ろへ引いて五八につけます。金のかわりに銀が囲いの一員になりました。",
+            "en": "▲5八銀 steps back diagonally to 5h. A silver now takes the place of the usual gold."
+          },
+          "marks": {
+            "boxes": [
+              "5h"
+            ],
+            "last": "5h"
+          }
+        },
+        {
+          "text": {
+            "ja": "銀美濃は、六九の金を別の守りに使える形です。この金を左の八筋の守りに回して、バランスよく指します。金が一枚少ないぶん、横から攻められたとき、銀は金ほど粘れません。そのため、飛車が横から当たりやすい展開では注意して使います。",
+            "en": "Gin Mino frees the gold on 6i to guard the eighth-file wing, giving a well-balanced setup. One gold fewer means that when the attack comes from the side, the silver does not hold as well as a gold would. Use it carefully when the opponent's rook is likely to strike along the ranks."
+          },
+          "marks": {
+            "boxes": [
+              "5h",
+              "6i"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "金美濃：三八に金を置く形",
+        "en": "Kin Mino: a gold on 3h"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "6g6f",
+            "7a6b",
+            "8h7g",
+            "4a3b",
+            "2h6h",
+            "8c8d",
+            "7i7h",
+            "9c9d",
+            "5i4h",
+            "1c1d",
+            "4h3h",
+            "5a4b",
+            "3h2h",
+            "6a5b",
+            "1g1f"
+          ],
+          "text": {
+            "ja": "玉が二八に入った段階から始めます。まだ金銀は動いていません。",
+            "en": "Start with the king on 2h. No gold or silver has moved yet."
+          },
+          "marks": {
+            "boxes": [
+              "3i",
+              "4i"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7c7d",
+            "4i3h"
+          ],
+          "text": {
+            "ja": "▲３八金。金を玉の隣に上げます。通常は銀が入るマスです。",
+            "en": "▲3八金 lifts a gold beside the king, onto the square a silver would usually take."
+          },
+          "marks": {
+            "boxes": [
+              "3h"
+            ],
+            "last": "3h"
+          }
+        },
+        {
+          "moves": [
+            "6c6d",
+            "3i4h"
+          ],
+          "text": {
+            "ja": "▲４八銀。銀は一つ左の四八へ。金と銀の並びが入れ替わりました。",
+            "en": "▲4八銀 puts the silver one square left on 4h. Gold and silver have swapped places."
+          },
+          "marks": {
+            "boxes": [
+              "4h",
+              "3h"
+            ],
+            "last": "4h"
+          }
+        },
+        {
+          "text": {
+            "ja": "金美濃は、片美濃より上からの攻めに強い形です。金が玉の隣にいるので、銀より粘り強く、上部の守りは堅くなります。ただし銀の位置が低く、玉の頭は変わらず薄いので、実戦ではあまり多くありません。囲いを変えたいとき、片美濃の形から選べる一つの手として覚えておきます。",
+            "en": "Kin Mino stands better against attacks from above than Kata Mino, since a gold beside the king holds on longer than a silver would. The silver sits low and the head of the king is as thin as before, so it is not common in practice. Keep it in mind as one choice when you want to vary from Kata Mino."
+          },
+          "marks": {
+            "boxes": [
+              "3h",
+              "4h"
+            ]
           }
         }
       ]

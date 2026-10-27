@@ -1,23 +1,26 @@
 {
   "id": "hayaishida",
   "order": 1030,
-  "path": ["戦法・定跡", "三間飛車"],
+  "path": [
+    "戦法・定跡",
+    "石田流"
+  ],
   "title": {
-    "ja": "早石田の攻めと玉の位置",
-    "en": "Quick Ishida: pressure and king placement"
+    "ja": "早石田（升田式石田流）：３手目▲７五歩から角交換の速攻",
+    "en": "Haya-Ishida (Masuda-style): speed attack from ▲7五歩 with a bishop trade"
   },
   "intro": {
-    "ja": "早石田では７筋の歩を早く進め、７筋へ回した飛車とともに働かせます。その間に後手の飛車先も進むため、歩を取られた筋と玉への角の斜線を一手ごとに調べます。角を持った後の両取りも、実際に二つの目標へ道が通る局面でだけ狙います。",
-    "en": "Quick Ishida advances the seventh-file pawn early and coordinates it with a rook on that file. Gote can press its own rook pawn at the same time, so the open file and bishop diagonals around Sente's king need a fresh check each move. A bishop-drop fork matters only when both targets are actually reachable."
+    "ja": "早石田は、３手目の▲７五歩から速攻をかける奇襲です。▲４八玉を入れてから攻める升田式石田流の構えと、相手が飛車先を突いてきたときの王手飛車、ゆっくり組まれたときの▲７四歩からの角交換を、初手からの手順で覚えます。相手が受け方を知らなければ、序盤で一気に優勢になります。",
+    "en": "Haya-Ishida is a surprise attack from ▲7五歩 on move three. From the first move, learn the Masuda-style setup that plays ▲4八玉 before attacking, the bishop fork when Gote pushes the rook pawn, and the ▲7四歩 bishop trade against a slow setup. If Gote does not know the defence, Sente gets ahead in the opening."
   },
   "check": {
     "question": {
-      "ja": "後手が角を持ち、先手玉が５八にいるとき、△１四角が王手になる条件は何ですか？",
-      "en": "Gote holds a bishop and Sente's king is on 5h. When does B*1d give check?"
+      "ja": "早石田で攻める前に▲４八玉と指しておくのはなぜですか？",
+      "en": "Why does Haya-Ishida play ▲4八玉 before attacking?"
     },
     "answer": {
-      "ja": "１四から２五・３六・４七を経て５八まで空いていると王手です。玉が６八へ移った後は同じ斜線から外れますが、角の別の利きまで消えるわけではありません。",
-      "en": "It checks when 2e, 3f and 4g are clear, opening the diagonal from 1d to the king on 5h. Moving the king to 6h leaves that diagonal, though the bishop may still attack other pieces."
+      "ja": "居玉のままだと、のちに△９五角と打たれたときに王手になってしまうからです。先に玉を動かしておけば、角交換から相手の角を打たれても困りません。",
+      "en": "If the king stays on 5i, a later △9五角 comes with check. Moving the king first means a bishop drop after the exchange causes no trouble."
     }
   },
   "references": [
@@ -26,103 +29,387 @@
       "url": "https://shogi-joutatsu.com/archives/5256",
       "license": "All rights reserved",
       "adapted": false
+    },
+    {
+      "title": "将棋の技図鑑 (yuki-keio/shogi)",
+      "url": "https://github.com/yuki-keio/shogi",
+      "license": "GPL-3.0-only",
+      "adapted": false
     }
   ],
   "chapters": [
     {
-      "title": { "ja": "７五歩を急ぐ間の８筋", "en": "The eighth file while the seventh pawn advances" },
+      "title": {
+        "ja": "３手目▲７五歩と升田式石田流の構え",
+        "en": "Third-move ▲7五歩 and the Masuda-style setup"
+      },
       "side": "sente",
-      "kind": "position",
-      "start": "5k3/1r5b1/2p6/9/1p7/2P6/1P1P5/1BR1K4/2SG5 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
-          "text": { "ja": "先手飛車は７八、歩は７六、玉は５八です。７五歩を先に作れますが、後手の８五歩も８六へ進めます。７筋の準備と８筋の受けを同時に数えます。", "en": "Sente's rook is on 7h, pawn on 7f and king on 5h. P7e can be played early, but Gote's pawn on 8e can also advance to 8f. Count Sente's seventh-file plan alongside the eighth-file defense." },
-          "marks": { "arrows": ["7f7e", "8e8f"], "boxes": ["8g", "8b"] }
+          "text": {
+            "ja": "早石田（升田式石田流）は、先手が３手目に７筋の歩を突き出し、飛車を７筋に振って速攻をかける戦法です。ここでは初手から一手ずつ進め、攻めに入る前の構えを作ります。構えができたあとは、後手の応じ方で次の章の攻めが決まります。",
+            "en": "Hayaishida (the Masuda-style Ishida) is a fast attack: Sente pushes the 7th-file pawn on move three and swings the rook to the 7th file. Here you play from move one and build the position before the attack begins. How Gote replies then decides which attack in the next chapters you use."
+          }
         },
         {
-          "moves": ["7f7e", "8e8f"],
-          "text": { "ja": "▲７五歩に後手が△８六歩と来た一例です。先手の８七歩は８六の歩を取れますが、その後ろには後手８二飛がいます。７五歩の攻めだけを続けず、まず８筋の取り合いを見ます。", "en": "In this sample, Gote answers P7e with P8f. Sente's pawn on 8g can take the pawn on 8f, but Gote's rook on 8b is behind it. The seventh-file attack does not remove the need to count this exchange." },
-          "marks": { "last": "8f", "arrows": ["8g8f", "8b8f"] }
+          "moves": [
+            "7g7f"
+          ],
+          "text": {
+            "ja": "▲７六歩。角道を開けます。この歩は次に７五へ進みます。角の斜めが通ると、あとで角交換の手筋が使えるようになります。",
+            "en": "▲7六歩 opens the bishop's diagonal. This pawn goes on to 7e next. With the diagonal open, Sente can later use the bishop exchange as a weapon."
+          },
+          "marks": {
+            "last": "7f",
+            "arrows": [
+              "8h4d"
+            ]
+          }
         },
         {
-          "moves": ["8g8f", "8b8f"],
-          "text": { "ja": "▲同歩△同飛で、先手は８筋の歩を失い、後手飛車が８六へ出ました。飛車が２段目を離れたので、後手２二角を守る駒がなくなっています。８八角から７七・６六・５五・４四・３三を通る斜線が２二まで空いているかを確認します。", "en": "After Px8f Rx8f, Sente's eighth-file pawn is gone and Gote's rook stands on 8f. With the rook off the second rank, nothing guards Gote's bishop on 2b. Check whether Sente's bishop diagonal from 8h through 7g, 6f, 5e, 4d and 3c is clear up to 2b." },
-          "marks": { "last": "8f", "arrows": ["8h2b"], "boxes": ["2b"] }
+          "moves": [
+            "3c3d",
+            "7f7e"
+          ],
+          "text": {
+            "ja": "後手は△３四歩と角道を開けました。ここで３手目に▲７五歩と突きます。７筋の歩を二歩進めて、飛車が通る道と攻める目標を作る、早石田の始まりの手です。後手が△３四歩と角道を開ける手を指してくれることが、この戦法を使う条件になります。",
+            "en": "Gote opens its bishop line with △3四歩. Sente plays ▲7五歩 on move three, advancing the 7th-file pawn two squares and starting Hayaishida. It works when Gote has opened the bishop line, because the later bishop exchange needs that diagonal."
+          },
+          "marks": {
+            "last": "7e",
+            "boxes": [
+              "7e"
+            ]
+          }
         },
         {
-          "moves": ["8h2b+"],
-          "text": { "ja": "▲２二角成で、守りのない後手角をそのまま取れます。飛車が８六へ出た瞬間に角の守りが消えたので、７七へ出て飛車に当てるより先に角そのものを取れます。角を持った先手は、後手に取り返しの手がありません。", "en": "Bx2b+ simply takes the unguarded bishop. The moment the rook stepped out to 8f, nothing protected the bishop, so capturing it beats going to 7g to hit the rook. Gote has no recapture on 2b." },
-          "marks": { "last": "2b", "arrows": ["8h2b"] }
-        }
-      ],
-      "variations": [
+          "moves": [
+            "8c8d",
+            "2h7h"
+          ],
+          "text": {
+            "ja": "後手が△８四歩と飛車先を突いたので、▲７八飛と飛車を７筋に振ります。飛車が左から３番目の筋に入り、７五の歩の後ろに構えました。三間飛車になるので、これを石田流の土台にします。",
+            "en": "Gote pushes the rook pawn with △8四歩, so Sente swings the rook with ▲7八飛. The rook goes to the third file from the left, behind the pawn on 7e. It becomes a Third File Rook formation, the base of Ishida Style."
+          },
+          "marks": {
+            "last": "7h",
+            "boxes": [
+              "7h",
+              "7e"
+            ]
+          }
+        },
         {
-          "from": 2,
-          "moves": ["8h7g", "2b7g+", "7h7g"],
-          "text": { "ja": "ここで▲７七角と飛車に当てるのは、取れる角を見逃した弱い手の例です。△７七角成▲同飛と角を交換するだけで、後手飛車も逃げられます。双方が角を持ち、先手飛車は７七へ移りました。", "en": "Playing B7g to hit the rook here is a deliberately weaker example that overlooks the capturable bishop. Bx7g+ Rx7g only trades bishops and Gote's rook can still escape. Both sides hold a bishop and Sente's rook moves to 7g." }
+          "moves": [
+            "8d8e",
+            "5i4h"
+          ],
+          "text": {
+            "ja": "後手は△８五歩と、さらに飛車先の歩を伸ばしました。攻め合いになる前に、先手は▲４八玉と一手かけます。玉が５九にいると、のちに角を交換されて△９五角と打たれたとき、斜めの筋で王手になってしまうからです。玉を斜めの筋から外しておく、この手を入れた形が升田式石田流の構えです。",
+            "en": "Gote pushes again with △8五歩. Before the fight starts, Sente spends a move on ▲4八玉. With the king on 5i, a later bishop exchange followed by a bishop drop on 9e would come with check along that diagonal. Stepping the king off it gives the Masuda-style setup."
+          },
+          "marks": {
+            "last": "4h",
+            "boxes": [
+              "4h",
+              "5i"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "この構えのポイントは三つです。３手目に▲７五歩を突く。△８四歩に▲７八飛と振る。攻める前に▲４八玉と玉を斜めの筋から外す。ここから先は、後手の次の一手でどの攻めを使うかが決まります。",
+            "en": "Three points. Push ▲7五歩 on move three. Meet △8四歩 with ▲7八飛. Before attacking, step the king off the long diagonal with ▲4八玉. From here, Gote's next move decides which attack Sente uses."
+          },
+          "marks": {
+            "boxes": [
+              "7h",
+              "7e",
+              "4h"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "長所は、受け方を知らない相手なら序盤のうちに差をつけられること、手順が短く覚えやすいことです。短所は、後手の２手目が角道を開ける手でないと使えないこと、そして狙いが分かりやすいので、準備している相手には通用しにくいことです。",
+            "en": "Strengths: against an opponent who does not know the defence it builds an early lead, and the move order is short and easy to remember. Weaknesses: it needs Gote to have opened the bishop line on move two, and because the aim is easy to see, a prepared opponent can neutralize it."
+          }
         }
       ]
     },
     {
-      "title": { "ja": "角打ちの両取りを盤上で確認する", "en": "Verify both targets of a bishop-drop fork" },
+      "title": {
+        "ja": "飛車先を突かれたら王手飛車で優勢",
+        "en": "If Gote pushes the rook pawn, win with a bishop fork"
+      },
       "side": "sente",
-      "kind": "position",
-      "start": "6k2/2r6/7s1/9/2P6/9/9/2R6/2KG5 b B 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
-          "text": { "ja": "先手は角を持ち、７五歩と７八飛で７筋を押さえ、玉は７九です。後手玉は３一、飛車は７二、銀は２三。４五に角を打つと、５四・６三を通る斜線が飛車へ、３四を通る斜線が銀へ向かいます。", "en": "Sente holds a bishop, has a pawn on 7e and a rook on 7h, and the king is on 7i. Gote's king is on 3a, rook on 7b and silver on 2c. A bishop dropped on 4e sees the rook through 5d and 6c, and the silver through 3d." },
-          "marks": { "arrows": ["4e7b", "4e2c"], "boxes": ["4e"] }
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "7f7e",
+            "8c8d",
+            "2h7h",
+            "8d8e",
+            "5i4h"
+          ],
+          "text": {
+            "ja": "升田式石田流の構えです。ここで後手が、すぐに飛車先を突いて攻めてきた場合を見ます。",
+            "en": "This is the Masuda-style setup. Now see what happens if Gote attacks at once by pushing the rook pawn."
+          },
+          "marks": {
+            "last": "4h",
+            "boxes": [
+              "7h",
+              "4h"
+            ]
+          }
         },
         {
-          "moves": ["B*4e"],
-          "text": { "ja": "▲４五角で飛車と銀の二枚へ利きを作りました。７五の先手歩は７八飛から７二飛への縦道をふさいでおり、角打ち以前に飛車を取れていたわけではありません。後手は両取りへの応手を選べます。", "en": "B*4e attacks both major and minor pieces. Sente's pawn on 7e blocks the rook on 7h from simply taking Gote's rook on 7b, so the fork changes the position. Gote can choose how to answer." },
-          "marks": { "last": "4e", "arrows": ["4e7b", "4e2c"] }
+          "moves": [
+            "8e8f",
+            "8g8f",
+            "8b8f"
+          ],
+          "text": {
+            "ja": "△８六歩▲同歩△同飛と進み、後手の飛車が８六に入りました。このままだと、後手が８七へ飛車を打ち込んで龍を作る狙いがあります。ここに切り返しの一手があります。",
+            "en": "△8六歩 ▲同歩 △同飛 puts Gote's rook on 8f. Gote threatens to drop it to 8g and make a dragon. But Sente has a counter move."
+          },
+          "marks": {
+            "last": "8f",
+            "arrows": [
+              "8f8h"
+            ],
+            "boxes": [
+              "8h"
+            ]
+          }
         },
         {
-          "moves": ["7b8b", "4e2c+"],
-          "text": { "ja": "後手が△８二飛と飛車だけを逃がした協力的な例です。銀は守られないので、▲２三角成で取れます。角は３四を通って２三へ入り、敵陣で馬になりました。後手の最善の応じ方ではなく、両取りを即勝ちとはしません。", "en": "A cooperative sample: Gote saves only the rook with R8b, leaving the silver unguarded, so Bx2c+ takes it along the clear 3d square and promotes. This is not Gote's best defence, and a fork alone is not a forced win." },
-          "marks": { "last": "2c", "boxes": ["8b"] }
-        }
-      ],
-      "variations": [
-        {
-          "from": 1,
-          "moves": ["7b7c", "4e2c+", "7c2c"],
-          "text": { "ja": "後手が△７三飛と引く枝では、飛車が７三から２三まで横に利いて銀を守ります。▲２三角成は△同飛で、角と銀の交換にとどまります。両取りが実るのは、一手で両方を守れない場合です。", "en": "If Gote retreats the rook to 7c, it guards the silver along the third rank. Bx2c+ then Rx2c only trades bishop for silver. A fork pays only when no single move guards both targets." }
+          "moves": [
+            "7e7d"
+          ],
+          "text": {
+            "ja": "▲７四歩と攻め合いに出ます。次に▲７三歩成とできれば先手が優勢です。ところが後手は、ここで△同歩と取ることができません。",
+            "en": "Sente counterattacks with ▲7四歩. If Sente can follow with ▲7三歩成, Sente is better. But Gote cannot take with △同歩."
+          },
+          "marks": {
+            "last": "7d",
+            "arrows": [
+              "7d7c"
+            ],
+            "boxes": [
+              "7c"
+            ]
+          }
         },
         {
-          "from": 1,
-          "moves": ["2c1d", "4e7b+"],
-          "text": { "ja": "後手が△１四銀と逃げた枝では、▲７二角成で飛車を取れます。４五から５四・６三を経て７二へ進む斜線を確認します。これも示した銀の退路に対する結果です。", "en": "If Gote retreats the silver to 1d, Bx7b+ captures the rook through 5d and 6c. This result is conditional on that silver retreat." }
+          "moves": [
+            "7c7d",
+            "8h2b+",
+            "3a2b",
+            "B*9e"
+          ],
+          "text": {
+            "ja": "△同歩なら、▲２二角成と角を交換し、△同銀に▲９五角と打ちます。この角が王手になり、同時に８六の飛車にも当たる王手飛車です。早石田の典型的な決め手です。",
+            "en": "If △同歩, ▲2二角成 trades bishops, △同銀, then ▲9五角. The bishop gives check and attacks the rook on 8f at the same time, a double attack. This is the classic finishing tactic of Haya-Ishida."
+          },
+          "marks": {
+            "last": "9e",
+            "arrows": [
+              "9e5a",
+              "9e8f"
+            ],
+            "boxes": [
+              "8f",
+              "5a"
+            ]
+          }
         }
       ]
     },
     {
-      "title": { "ja": "角打ちの王手を避ける玉の一手", "en": "Move the king off a bishop-drop checking line" },
+      "title": {
+        "ja": "ゆっくり組む後手には▲７四歩から角交換",
+        "en": "Against a slower setup, ▲7四歩 and a bishop trade"
+      },
       "side": "sente",
-      "kind": "position",
-      "start": "5k3/1r7/2p6/9/2P6/9/9/2R1K4/3G5 b b 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
-          "text": { "ja": "後手は角を持ち、先手玉は５八です。１四に角を打つと、２五・３六・４七が空いているため５八玉まで斜線が届きます。７五歩をさらに急ぐ前に、玉をこの斜線から外す選択があります。", "en": "Gote holds a bishop and Sente's king is on 5h. A bishop drop on 1d would check along the empty squares 2e, 3f and 4g. Before pressing the pawn on 7e, Sente can step the king off that line." },
-          "marks": { "arrows": ["1d5h", "5h6h"], "boxes": ["5h"] }
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "7f7e",
+            "8c8d",
+            "2h7h",
+            "8d8e",
+            "5i4h"
+          ],
+          "text": {
+            "ja": "後手が飛車先を突かず、ゆっくり駒組みをしてきた場合です。この場合は先手から、７筋で戦いを起こしていきます。",
+            "en": "Here Gote builds slowly without pushing the rook pawn. Sente starts the fight on the seventh file."
+          },
+          "marks": {
+            "last": "4h",
+            "boxes": [
+              "7h",
+              "7e"
+            ]
+          }
         },
         {
-          "moves": ["5h6h"],
-          "text": { "ja": "▲６八玉で１四から５八への角筋から外れました。後手が同じ△１四角を打っても王手にはなりません。ただし角は６九の金にも斜めに利き得るため、玉を動かしただけで全ての角打ちを消したわけではありません。", "en": "K6h leaves the diagonal from 1d to 5h. The same bishop drop no longer checks. It may still affect the gold on 6i, so the king move does not erase every bishop-drop threat." },
-          "marks": { "last": "6h", "boxes": ["1d", "6i"] }
+          "moves": [
+            "7a6b",
+            "7e7d"
+          ],
+          "text": {
+            "ja": "後手が△６二銀と上がった瞬間に、▲７四歩と突きかけます。歩を取らせて、７筋の戦いを起こすのが狙いです。",
+            "en": "As soon as Gote plays △6二銀, Sente pokes with ▲7四歩. The point is to let Gote take the pawn and start the fight on the seventh file."
+          },
+          "marks": {
+            "last": "7d",
+            "boxes": [
+              "7c",
+              "7d"
+            ]
+          }
         },
         {
-          "moves": ["B*1d"],
-          "text": { "ja": "後手が△１四角を打った例でも、角の斜線は空いた５八を通り、６八玉には当たりません。ここでは玉の位置が王手の有無を変えました。後手の角が６九金を狙う可能性は残るため、次の受けは盤上で選びます。", "en": "After the sample B*1d, the bishop's diagonal passes through the now-empty 5h and does not hit Sente's king on 6h. King placement changes whether the drop is check; the gold on 6i may still need attention." },
-          "marks": { "last": "1d", "arrows": ["1d6i"] }
+          "moves": [
+            "7c7d",
+            "8h2b+",
+            "3a2b",
+            "B*5e"
+          ],
+          "text": {
+            "ja": "△７四歩なら、▲２二角成と角を交換し、△同銀に▲５五角と打ちます。この角は飛車と銀に同時に当たる、早石田の狙いの一手です。",
+            "en": "After △7四歩, ▲2二角成 trades bishops, △同銀, then ▲5五角. The bishop attacks the rook and the silver at once, the key move of Haya-Ishida."
+          },
+          "marks": {
+            "last": "5e",
+            "arrows": [
+              "5e8b",
+              "5e2b"
+            ],
+            "boxes": [
+              "8b",
+              "2b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6b7c",
+            "7h7d"
+          ],
+          "text": {
+            "ja": "後手は△７三銀と辛抱強く受けます。飛車を守りつつ、２二の銀も支える手です。先手は▲７四飛と走り、さらに攻めます。自陣には飛車を打たれる隙がないので、飛車を取り合う展開でも不安はありません。",
+            "en": "Gote defends tenaciously with △7三銀, guarding the rook and supporting the silver on 2b. Sente runs the rook with ▲7四飛. Sente's camp has no gap for a dropped rook, so even a rook exchange is safe."
+          },
+          "marks": {
+            "last": "7d",
+            "arrows": [
+              "7d7c"
+            ],
+            "boxes": [
+              "7c"
+            ]
+          }
         }
       ],
       "variations": [
         {
-          "from": 0,
-          "moves": ["7e7d", "B*1d"],
-          "text": { "ja": "先に▲７四歩と進めると、この図では△１四角が５八玉への王手になります。歩の進出自体が悪手と決めるのではなく、王手への応答を要する手順だと認識します。", "en": "If Sente first plays P7d, B*1d gives check against the king on 5h in this position. That does not prove P7d is always wrong; it means Sente must account for the checking reply." }
+          "from": 3,
+          "moves": [
+            "2b3c",
+            "7d7c+",
+            "8a7c",
+            "5e7c+"
+          ],
+          "text": {
+            "ja": "後手が特に受けないなら、飛車を切って攻めます。▲７三飛成△同桂▲同角成と進み、またも王手飛車が決まります。",
+            "en": "If Gote does nothing special, Sente gives up the rook: ▲7三飛成 △同桂 ▲同角成 and a double attack appears again."
+          },
+          "steps": [
+            {
+              "moves": [
+                "8b6b",
+                "N*7d"
+              ],
+              "text": {
+                "ja": "△６二飛と受けたら、▲７四桂と桂を打って飛車をいじめます。飛車が動くと玉が取られる形なので、後手は飛車を見逃すしかありません。すぐに馬で飛車を取りにいかず、桂で堅実に攻めます。",
+                "en": "If Gote defends with △6二飛, ▲7四桂 drops a knight to harass the rook. If the rook moves the king falls, so Gote must tolerate the pressure. Do not rush ▲6二馬; the knight keeps the attack safe."
+              },
+              "marks": {
+                "last": "7d",
+                "arrows": [
+                  "7d6b",
+                  "7d8b"
+                ],
+                "boxes": [
+                  "6b",
+                  "8b"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "from": 3,
+          "moves": [
+            "7c6d"
+          ],
+          "text": {
+            "ja": "後手が△６四銀と受けた場合です。角が当たっていますが、逃げるだけでなく、もっと思い切った手があります。",
+            "en": "Gote may defend with △6四銀. The bishop is attacked, but there is a more daring move than simply retreating."
+          },
+          "steps": [
+            {
+              "moves": [
+                "7d6d",
+                "6c6d",
+                "5e6d"
+              ],
+              "text": {
+                "ja": "▲６四飛と飛車を切り、△同歩に▲同角と進みます。飛車取りと▲５三角成を同時に見せ、相手の飛車が動けば▲９一角成から香を取ります。先手の陣に飛車を打ち込む隙がないから成り立つ攻めです。",
+                "en": "▲6四飛 gives up the rook, △同歩 ▲同角 follows. The bishop attacks the rook and threatens ▲5三角成, and if the rook moves ▲9一角成 takes the lance. This works because Sente's camp has no gap for a dropped rook."
+              },
+              "marks": {
+                "last": "6d",
+                "arrows": [
+                  "6d5c",
+                  "6d8b"
+                ],
+                "boxes": [
+                  "5c",
+                  "8b"
+                ]
+              }
+            },
+            {
+              "moves": [
+                "8b9b",
+                "6d5c+"
+              ],
+              "text": {
+                "ja": "△９二飛と逃げたら、▲５三角成と馬を作ります。飛車と銀の交換で駒損ですが、馬を作った先手の攻めが続き、好調です。",
+                "en": "If Gote runs with △9二飛, ▲5三角成 makes a horse. Sente has given up rook for silver, but the horse keeps the attack going."
+              },
+              "marks": {
+                "last": "5c",
+                "boxes": [
+                  "5c"
+                ]
+              }
+            }
+          ]
         }
       ]
     }

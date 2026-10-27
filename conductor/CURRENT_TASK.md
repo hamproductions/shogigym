@@ -1,11 +1,16 @@
 # Current task
 
-## PR24 merge readiness
-- Scope: update existing fix/drop-arrow-above-komadai against current origin/main, review its complete diff, repair arrow layering and promotion interaction, verify, commit/push and update PR evidence. Do not merge. Preserve primary concurrent artwork and coaching edits.
-- Base: origin/main dbd4e0a. Original PR head9590578; latest main merged without conflicts. Review quick, all4original changed files and BoardFlat/Board2D callers inspected. No reviews or inline comments pending.
-- Layering: all arrows use UnderMarks. Flat board/stand surfaces precede marks; board and hand pieces follow them. This keeps drop arrows visible on stands and beneath every piece tile; diagram/broadcast arrows also stay beneath pieces.
-- Promotion: compose atlas from existing baked sprites, bound cache to4entries, retain GPU path when needed and glyphs while loading. Replace350ms suppression with fresh pointer-down or keyboard activation; opening gesture cannot choose an option merely by releasing late.
-- Verification: isolated full bunruncheck exits0 with existing warnings. Actual headed390px browser: board mouse press opens picker, image tiles render, a compatibility click without a fresh press leaves it open, fresh mouse selects promotion, CDP touch input on the same isolated page opens it and fresh touch selects non-promotion; keyboard Enter on Cancel closes without changing the board. Real physical phone GPU untested.
-- Actual tsume UI: reveal solution, return to start; drop arrow visible from hand stand to board, under origin/other piece sprites. Captures inspected in.cache/pr24-evidence outside version control. Temporary Vite cache directory override used only to isolate dependencies, then removed.
-- Skills: check and durable-context/project-context/mode-ship1–EOF; existing GYST/prove-it-in-pr/agent-browser core read1–EOF. Latest supplied crop fully inspected. No new tests/media/docs committed; renderer invariant added toAGENTS.md.
-- Next: final scoped checks/diff/secret inspection, commit/push current branch to existing PR24 head, attach current evidence through native CLI, inspect rendered PR, confirm current-head CI and remote parity, clean owned browser/server/worktree.
+## Goal (2026-10-27/28)
+- Lessons rejected as unusable: no introduction for 右四間飛車 or most strategies, incoherent UX, fragment positions, joseki drills disconnected. Start over with a 0→pro lesson plan and a tutorial for every strategy. Lessons follow the owner's references: shogi-joutatsu.com articles (`.cache/curriculum-source/<n>.txt`, diagrams `.cache/curriculum/ref/<n>/`) and https://github.com/yuki-keio/shogi 技図鑑 (`.cache/yuki-shogi`, GPL-3.0-only, reference only). Subagents on Sonnet. antislop during (global preference).
+- Latest instruction: finish the current set, hand off, push.
+
+## State (branch feat/lesson-curriculum)
+- 162 units; every strategy unit rebuilt from its article on positions reached from move one; article diagrams replayed with `scripts/lessons/play.ts --target` MATCH (verify scripts `.cache/curriculum/ref/g*-verify.sh`, `hc-verify.sh`, `castles-verify.sh`).
+- `src/data/curriculum.ts`: 8 stages, 19 strategy pages, `TUTORIALS` (70 entries, all per-move chapter 1 from startpos). 12 new `tutorial-*` units for strategies that had none. Castle units rebuilt per castle from move one.
+- UI: `OpeningPicker.tsx` (home path, stage view, strategy page with 入門 section, search over strategy/tutorial names), LessonPane marks finished chapters and follows path order.
+- Checks: `bun run lessons` 162 lessons / 12282 legal moves / 0 errors; check-unit all units 0 FAIL; `bun run check` exit 0; browser: 鷺宮 tutorial playback desktop, 右四間 strategy page, phone width no overflow.
+
+## Remaining (see docs/HANDOFF_2026-10-28_LESSON_CURRICULUM.md)
+- tesuji-*, attack-*, endgame-*, basics-*, rules-* units are still the earlier fragment style; rebuild with the same method.
+- Full click-through of every stage on desktop and phone; independent critic pass.
+- Preserve untracked docs/HANDOFF_2026-10-22_*.md and output/art/.

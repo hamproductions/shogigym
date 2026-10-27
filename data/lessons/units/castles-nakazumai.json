@@ -1,133 +1,458 @@
 {
   "id": "castles-nakazumai",
   "order": 300,
-  "path": ["上達のためのテクニック", "囲い"],
+  "path": [
+    "上達のためのテクニック",
+    "囲い"
+  ],
   "title": {
-    "ja": "短い囲いは空いた筋で選ぶ",
-    "en": "Choose a Compact Shelter by the Open File"
+    "ja": "中住まいの仲間：初手からの組み方と強さ・弱点",
+    "en": "The Nakazumai family: build order, strengths and weaknesses"
   },
   "intro": {
-    "ja": "横歩取りや相掛かりのように飛車が早く働く将棋では、深く囲う前に戦いが始まることがあります。中住まい・中原囲い・いちご囲いは、玉をどこに置き、金銀をどのマスに残すかが違います。少ない手で形ができても、歩が消えて開く飛車筋と玉の逃げ先を確かめてから使いましょう。",
-    "en": "In fast rook openings such as Side Pawn Capture or Double Wing Attack, contact can begin before a deep castle is built. Nakazumai, Nakahara, and Ichigo differ in king position and where their generals stay. A quick shape is useful only after checking which rook lines open if a pawn falls and where the king can then move."
+    "ja": "横歩取りや相掛かりは、飛車と角が序盤から大きく動くので、玉を深く囲う時間がありません。そこで使うのが、玉を中央の五八に置く中住まいと、その仲間の中原囲い、いちご囲いです。横歩取りの流れで中住まいを、角を交換した形で中原囲いを、角を残した形でいちご囲いを、初手から組んで確かめます。",
+    "en": "In Aigakari and Yokofu-dori the rook and bishop move early, so there is no time to castle the king deeply. The answer is Nakazumai, with the king on 5h, and its relatives the Nakahara castle and the Ichigo castle. Build Nakazumai along a Yokofu-dori line, the Nakahara castle in a bishop-trade line, and the Ichigo castle with the bishop kept, all from move one."
   },
   "check": {
     "question": {
-      "ja": "中住まいで玉を５八に置くとき、５筋の歩について何を調べますか？",
-      "en": "When placing the king on ５八 in Nakazumai, what should you check about the fifth-file pawn?"
+      "ja": "中住まいが、堅くないのに攻めにくいといわれるのはなぜですか？",
+      "en": "Why is Nakazumai hard to attack even though it is not solid?"
     },
     "answer": {
-      "ja": "歩が飛車の縦の利きを止めているか、取られた直後に玉が王手を受けるか、左右どちらへ逃げられるかを調べます。金が５八を守っていても、開いた筋の王手を消すとは限りません。",
-      "en": "Check whether the pawn blocks a rook's file, whether its capture would check the king immediately, and which side the king could escape to. Golds protecting ５八 do not necessarily stop a check along an opened file."
+      "ja": "玉が中央にいて、金銀が左右に分かれて守るため、どの方向の攻めにも対応でき、バランスがよいからです。囲いの形はないものの、打ち込める隙が少なくなっています。",
+      "en": "The king is in the center with golds and silvers on both sides, so it can answer an attack from any direction. The shape is not a fortress, but it leaves few gaps for drops."
     }
   },
   "references": [
     {
-      "title": "中住まい系の囲い一覧",
+      "title": "横歩取り・相掛かりの囲い一覧",
       "url": "https://shogi-joutatsu.com/archives/6062",
       "license": "All rights reserved",
+      "adapted": false
+    },
+    {
+      "title": "将棋の技図鑑 (yuki-keio/shogi)",
+      "url": "https://github.com/yuki-keio/shogi",
+      "license": "GPL-3.0-only",
       "adapted": false
     }
   ],
   "chapters": [
     {
       "title": {
-        "ja": "中住まいは左右の金と歩の位置を見る",
-        "en": "Nakazumai needs side support and a pawn screen"
+        "ja": "中住まい：玉を五八に置く横歩取りの形",
+        "en": "Nakazumai: the king on 5h in a Yokofu-dori setup"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/4r4/9/9/9/9/4P4/9/3GKG3 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "先手玉５九の両側に金６九・４九がいて、歩５七が後手飛車５二の筋を止めています。玉を一つ上がると中住まいになります。上がる先を金が守っているか、歩が飛車筋を遮っているかを別々に見ます。",
-            "en": "Sente's king is on ５九 between golds on ６九 and ４九. The pawn on ５七 blocks Gote's rook on ５二. Raising the king forms Nakazumai. Check separately whether the golds protect the destination and whether the pawn still blocks the rook."
+            "ja": "中住まいは、玉を動かさず五八まで上げるだけの囲いです。堅さはありませんが、全体のバランスがよく、横歩取りでよく使われます。ここでは飛車先の歩を突いて、飛車を交換するように見せながら飛車を二六へ戻す流れを、一手ずつ追います。",
+            "en": "Nakazumai simply lifts the king to 5h. It is not firm, but the whole position is balanced, and it is common in Yokofu-dori. Here the rook-pawn is pushed, the pawns are traded on the second file and the rook returns to 2f, move by move."
+          },
+          "marks": {
+            "boxes": [
+              "5h",
+              "4h",
+              "3h",
+              "7h"
+            ]
           }
         },
         {
-          "moves": ["5i5h"],
+          "moves": [
+            "7g7f"
+          ],
           "text": {
-            "ja": "▲５八玉。金６九・４九は両方とも５八を守ります。ただし歩５七が取られれば飛車の縦筋が玉に届くため、金二枚の利きだけで安全とは言えません。中央に玉を置く利点は左右へ動ける余地であり、毎局その逃げ道を確認します。",
-            "en": "▲５八玉 reaches a square protected by both golds. If the pawn on ５七 is captured, the rook's file can reach the king, so two gold defenders are no guarantee of safety. A centrally placed king may have room to move either way; verify those exits in each position."
+            "ja": "▲７六歩。角の通り道を開けます。",
+            "en": "▲7六歩 opens the bishop line."
+          },
+          "marks": {
+            "last": "7f"
+          }
+        },
+        {
+          "moves": [
+            "3c3d",
+            "2g2f"
+          ],
+          "text": {
+            "ja": "▲２六歩。飛車の前の歩を一つ進めます。",
+            "en": "▲2六歩 advances the pawn in front of the rook one step."
+          },
+          "marks": {
+            "last": "2f"
+          }
+        },
+        {
+          "moves": [
+            "8c8d",
+            "2f2e"
+          ],
+          "text": {
+            "ja": "▲２五歩。さらに進めて、相手の陣に近づけます。",
+            "en": "▲2五歩 pushes it further toward the opponent's camp."
+          },
+          "marks": {
+            "last": "2e"
+          }
+        },
+        {
+          "moves": [
+            "8d8e",
+            "2e2d"
+          ],
+          "text": {
+            "ja": "▲２四歩。歩を二四へ突き出します。相手の歩に取らせるのが狙いです。",
+            "en": "▲2四歩 thrusts the pawn to 2d. The aim is to make the opponent's pawn take it."
+          },
+          "marks": {
+            "boxes": [
+              "2d"
+            ],
+            "last": "2d"
+          }
+        },
+        {
+          "moves": [
+            "2c2d",
+            "2h2d"
+          ],
+          "text": {
+            "ja": "▲同飛。相手が△同歩と取ったので、飛車で取り返します。飛車が相手の陣に近づいて、歩の交換が済みました。",
+            "en": "▲同飛 recaptures with the rook after the opponent took the pawn. The pawn exchange is done and the rook stands close to the enemy camp."
+          },
+          "marks": {
+            "boxes": [
+              "2d"
+            ],
+            "last": "2d"
+          }
+        },
+        {
+          "moves": [
+            "4a3b",
+            "2d2f"
+          ],
+          "text": {
+            "ja": "▲２六飛。飛車を元の筋へ戻します。飛車は二六にいて、すぐ働けます。",
+            "en": "▲2六飛 returns the rook along the file. On 2f it can go back into action at once."
+          },
+          "marks": {
+            "boxes": [
+              "2f"
+            ],
+            "last": "2f"
+          }
+        },
+        {
+          "moves": [
+            "7a6b",
+            "6i7h"
+          ],
+          "text": {
+            "ja": "▲７八金。左の金を上げます。",
+            "en": "▲7八金 lifts the left gold."
+          },
+          "marks": {
+            "last": "7h"
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "4i3h"
+          ],
+          "text": {
+            "ja": "▲３八金。右の金を斜めに上げます。玉の右を守る位置です。",
+            "en": "▲3八金 lifts the right gold diagonally to guard the king's right."
+          },
+          "marks": {
+            "boxes": [
+              "3h"
+            ],
+            "last": "3h"
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "3i4h"
+          ],
+          "text": {
+            "ja": "▲４八銀。右の銀を上げて、玉の隣に置きます。",
+            "en": "▲4八銀 lifts the right silver next to the king."
+          },
+          "marks": {
+            "boxes": [
+              "4h"
+            ],
+            "last": "4h"
+          }
+        },
+        {
+          "moves": [
+            "5a4b",
+            "5i5h"
+          ],
+          "text": {
+            "ja": "▲５八玉。玉を一つ上げて、中央に置きます。中住まいの完成です。金銀が左右に分かれて、玉を支えます。",
+            "en": "▲5八玉 lifts the king one step into the center. Nakazumai is complete, with golds and silvers split to either side of the king."
+          },
+          "marks": {
+            "boxes": [
+              "5h",
+              "4h",
+              "3h",
+              "7h",
+              "7i"
+            ],
+            "last": "5h"
+          }
+        },
+        {
+          "text": {
+            "ja": "中住まいは、金銀を左右に配ったバランス型です。どの方向からの攻めにも対応しやすく、打ち込める隙が少ないので、飛車と角が動く将棋で粘り強く戦えます。ただし、堅さではほかの囲いに劣ります。駒の交換が進んで持ち駒が増えると、玉の近くへの打ち込みが怖くなります。",
+            "en": "Nakazumai spreads gold and silver on both sides for balance. It answers an attack from any direction and gives few drop squares, so it holds up in games where rooks and bishops move freely. In solidity it loses to other castles, and once trades give the opponent pieces in hand, drops near the king become dangerous."
+          },
+          "marks": {
+            "boxes": [
+              "6h",
+              "5i"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "中原囲いは金銀の連結を読む",
-        "en": "Read the gold-silver link in Nakahara"
+        "ja": "中原囲い：相掛かりで使う形",
+        "en": "Nakahara castle: the shape used in Aigakari"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/9/9/9/9/9/9/2GK1S3/4G4 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "金７八・５九、銀４八、玉６八です。金５九と銀４八は互いの位置に利いています。玉を下げると、中原囲いの金銀の配置に近い形になります。",
-            "en": "Sente has golds on ７八 and ５九, a silver on ４八, and king on ６八. The gold and silver cover each other's squares. Lowering the king produces a compact Nakahara arrangement."
+            "ja": "中原囲いは、相掛かりで使う囲いで、中原誠十六世名人が使ったことで知られます。玉を六九に置き、金二枚と銀を周りに並べます。ここでは角を交換した形から組みます。",
+            "en": "The Nakahara castle is used in Aigakari and is named for the sixteenth Meijin Nakahara, who played it. The king goes to 6i with golds and silver around it. Here it is built after a bishop trade."
+          },
+          "marks": {
+            "boxes": [
+              "6i",
+              "5i",
+              "7i",
+              "7h"
+            ]
           }
         },
         {
-          "moves": ["6h6i"],
+          "moves": [
+            "7g7f"
+          ],
           "text": {
-            "ja": "▲６九玉。金５九は玉６九を横から守り、銀４八は金５九を守ります。中原囲いでは玉を大きく端へ運ぶより、中央寄りの金銀を連結させて戦いに備えます。ただしこの盤には歩の壁がないので、相手の飛車角が近づく前に進入路を調べる必要があります。",
-            "en": "▲６九玉 is protected sideways by the gold on ５九, while the silver on ４八 protects that gold. Nakahara keeps the king comparatively central and uses connected generals rather than a long king journey. This board has no pawn screen, so inspect the opponent's rook and bishop routes before trusting it."
+            "ja": "▲７六歩。角の通り道を開けます。",
+            "en": "▲7六歩 opens the bishop line."
+          },
+          "marks": {
+            "last": "7f"
+          }
+        },
+        {
+          "moves": [
+            "3c3d",
+            "8h2b+"
+          ],
+          "text": {
+            "ja": "▲２二角成。角を交換します。",
+            "en": "▲2二角成 trades the bishops."
+          },
+          "marks": {
+            "boxes": [
+              "8h"
+            ],
+            "last": "2b"
+          }
+        },
+        {
+          "moves": [
+            "3a2b",
+            "6i7h"
+          ],
+          "text": {
+            "ja": "▲７八金。左の金を上げます。",
+            "en": "▲7八金 lifts the left gold."
+          },
+          "marks": {
+            "boxes": [
+              "7h"
+            ],
+            "last": "7h"
+          }
+        },
+        {
+          "moves": [
+            "8c8d",
+            "5i6i"
+          ],
+          "text": {
+            "ja": "▲６九玉。玉を左へ一つ寄せます。",
+            "en": "▲6九玉 moves the king one step left."
+          },
+          "marks": {
+            "boxes": [
+              "6i"
+            ],
+            "last": "6i"
+          }
+        },
+        {
+          "moves": [
+            "4a3b",
+            "4i5i"
+          ],
+          "text": {
+            "ja": "▲５九金。右の金を横へ寄せて、玉の隣に置きます。",
+            "en": "▲5九金 slides the right gold sideways beside the king."
+          },
+          "marks": {
+            "boxes": [
+              "5i"
+            ],
+            "last": "5i"
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "3i4h"
+          ],
+          "text": {
+            "ja": "▲４八銀。右の銀を上げて完成です。玉、金、銀が下の段に並び、七八の金と七九の銀が左を守ります。",
+            "en": "▲4八銀 lifts the right silver and finishes the castle. King, gold and silver stand along the bottom rank, and the gold on 7h and silver on 7i guard the left."
+          },
+          "marks": {
+            "boxes": [
+              "6i",
+              "5i",
+              "4h",
+              "7h"
+            ],
+            "last": "4h"
+          }
+        },
+        {
+          "text": {
+            "ja": "中原囲いは、玉と金銀が下の段に集まっていて、横歩取りの激しい攻め合いとは違う、腰の入った構えです。金銀が玉の近くにまとまり、打ち込みに強くなります。弱点は、玉が飛車の横利きに入りやすいことと、攻めに使える駒がやや少なくなることです。",
+            "en": "In the Nakahara castle king, gold and silver gather on the bottom rank, a steadier stance than the sharp exchanges of Yokofu-dori. The pieces are close together, so it resists drops. The king is easily caught in the rook's lateral line, and fewer pieces are free to attack."
+          },
+          "marks": {
+            "boxes": [
+              "4i",
+              "5g"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "いちご囲いは玉の両側を金で受ける",
-        "en": "Ichigo places a gold on each side of the king"
+        "ja": "いちご囲い：玉を金二枚ではさむ形",
+        "en": "Ichigo castle: the king between two golds"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/9/9/9/9/9/9/1BG1G2R1/2SK5 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "角８八、金７八・５八、銀７九、飛車２八、玉６九です。６八は二枚の金の間にある空きマスで、両方の金の横の利きが届いています。相手の利きを調べてから玉を入れます。",
-            "en": "Sente has a bishop on ８八, golds on ７八 and ５八, silver on ７九, rook on ２八, and king on ６九. The empty square on ６八 sits between the golds and is covered sideways by both. Check the opponent's control before moving the king in."
+            "ja": "いちご囲いは、玉の左右に金を一枚ずつ置き、下に銀を添えた形です。囲いの形がいちごに似ているからという説もありますが、由来ははっきりしません。角を動かさず、相掛かりで使います。",
+            "en": "The Ichigo castle places a gold on each side of the king and adds a silver below. One explanation of the name is that the shape resembles a strawberry, but the origin is uncertain. The bishop stays home and it is used in Aigakari."
+          },
+          "marks": {
+            "boxes": [
+              "6h",
+              "7h",
+              "5h"
+            ]
           }
         },
         {
-          "moves": ["6i6h"],
+          "moves": [
+            "7g7f"
+          ],
           "text": {
-            "ja": "▲６八玉でいちご囲い型に入りました。金７八・５八が玉６八を横から守ります。玉を支える駒が二枚あっても、上部の歩がないこの盤では前からの攻めに注意が必要です。",
-            "en": "▲６八玉 completes the Ichigo-style arrangement. Golds on ７八 and ５八 protect the king sideways. Even with two supporting golds, this board has no pawn cover above the king, so attacks from the front still require attention."
-          }
-        }
-      ]
-    },
-    {
-      "title": {
-        "ja": "中央の歩が消えたら玉を動かす",
-        "en": "Move the central king when its pawn screen disappears"
-      },
-      "side": "sente",
-      "kind": "position",
-      "start": "k8/b8/4r4/9/9/4P4/9/4K4/3G1G3 w - 1",
-      "steps": [
-        {
-          "text": {
-            "ja": "中住まいの玉５八の前方、５六に歩があり、後手飛車５三がその歩を狙っています。後手角９二も５六へ斜めに利いています。金６九・４九は５八を守りますが、飛車筋が通れば玉への王手を消す役目は果たしません。",
-            "en": "The pawn on ５六 screens a Nakazumai king on ５八 from the front. Gote's rook on ５三 can take it, and Gote's bishop on ９二 controls ５六 along the diagonal. Golds on ６九 and ４九 protect the king's square but cannot themselves stop a rook check once the file opens."
+            "ja": "▲７六歩。角道を開けます。",
+            "en": "▲7六歩 opens the bishop line."
+          },
+          "marks": {
+            "last": "7f"
           }
         },
         {
-          "moves": ["5c5f"],
+          "moves": [
+            "8c8d",
+            "6i7h"
+          ],
           "text": {
-            "ja": "△５六飛と歩を取って王手。５四・５五が空いているので飛車は５六まで進み、空いた５七を通して玉５八に利きます。５六は後手が成れる段ではないので飛車のままで、角９二がその飛車を守っています。",
-            "en": "△５六飛 captures the pawn and checks: the rook passes the empty ５四 and ５五, and its line reaches the king on ５八 through the empty ５七. The sixth rank is outside Gote's promotion zone, so the rook stays unpromoted, and the bishop on ９二 protects it."
+            "ja": "▲７八金。左の金を上げます。玉の左を守る位置です。",
+            "en": "▲7八金 lifts the left gold to guard the king's left."
+          },
+          "marks": {
+            "boxes": [
+              "7h"
+            ],
+            "last": "7h"
           }
         },
         {
-          "moves": ["5h4h"],
+          "moves": [
+            "4a3b",
+            "5i6h"
+          ],
           "text": {
-            "ja": "▲４八玉で飛車５六の縦筋を外れ、金４九の守るマスへ移りました。中央の玉は左右へ逃げる可能性を持ちますが、実際に安全な方角は相手の利きで決まります。",
-            "en": "▲４八玉 leaves the rook's file for a square protected by the gold on ４九. A central king can have exits on either side, but the opponent's actual piece control determines which exit is safe."
+            "ja": "▲６八玉。玉を斜めに上げます。",
+            "en": "▲6八玉 lifts the king diagonally."
+          },
+          "marks": {
+            "boxes": [
+              "6h"
+            ],
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "4i5h"
+          ],
+          "text": {
+            "ja": "▲５八金。右の金を上げて完成です。玉の左右に金が並び、銀が下から支えます。",
+            "en": "▲5八金 lifts the right gold and finishes the castle. Golds stand on both sides of the king and a silver supports from below."
+          },
+          "marks": {
+            "boxes": [
+              "7h",
+              "6h",
+              "5h",
+              "7i"
+            ],
+            "last": "5h"
+          }
+        },
+        {
+          "text": {
+            "ja": "いちご囲いは、金が玉の両側を守るので、横からの攻めに対応しやすい形です。角がそのまま使え、手数も少なく済みます。弱点は、玉の頭と、銀がいない右下が薄いことです。持ち駒を渡す展開では、そこへ打ち込まれないよう気をつけます。",
+            "en": "The Ichigo castle puts golds on both sides, so it deals easily with lateral attacks, keeps the bishop usable and takes few moves. The weak points are the head of the king and the thin lower right without a silver. When pieces go to the opponent, make sure drops cannot land there."
+          },
+          "marks": {
+            "boxes": [
+              "5i",
+              "6g"
+            ]
           }
         }
       ]

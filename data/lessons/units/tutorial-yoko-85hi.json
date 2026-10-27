@@ -1,0 +1,456 @@
+{
+  "id": "tutorial-yoko-85hi",
+  "order": 791,
+  "path": [
+    "戦法・定跡",
+    "横歩取り"
+  ],
+  "title": {
+    "ja": "横歩取り△８五飛入門：横歩を取らせて飛車を８五で働かせる",
+    "en": "Side Pawn with the rook on 8e: let the pawn go and use the rook"
+  },
+  "intro": {
+    "ja": "横歩取り△８五飛は、先手に３四の歩を取らせたあと、後手の飛車を８五に構える戦法です。飛車が横に利いて２筋へも回れます。このレッスンでは初手から基本図まで組み、先手の玉が５八と６八のときの攻め方を後手番で覚えます。",
+    "en": "In Side Pawn with the rook on 8e, Gote lets Sente take the pawn on 3d and then places the rook on 8e, where it reaches the second file sideways. Build the basic position from move one and learn Gote's attack against a king on 5h and on 6h."
+  },
+  "check": {
+    "question": {
+      "ja": "８五の飛車に先手が桂を７七へ跳ねて当ててきたとき、後手はどうしますか？",
+      "en": "When Sente jumps the knight to 7g to attack the rook on 8e, what does Gote do?"
+    },
+    "answer": {
+      "ja": "飛車を２五へ横に動かして逃げます。８五の飛車は横へ利くので、桂の利きから簡単に外れられます。",
+      "en": "Slide the rook sideways to 2e. From 8e the rook moves along the rank, so it easily leaves the knight's attack."
+    }
+  },
+  "references": [
+    {
+      "title": "やねうら王 新ペタショック定跡",
+      "url": "https://github.com/yaneurao/YaneuraOu/releases/tag/new_petabook233",
+      "license": "MIT",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "初手から飛車８五まで組む",
+        "en": "Build the rook on 8e from move one"
+      },
+      "side": "gote",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "text": {
+            "ja": "横歩取り△８五飛は、先手に３四の歩（横歩）を飛車で取らせ、その飛車の動きを見ながら後手の飛車を８五に構える戦法です。飛車が８五にいると、５筋や７筋へ横に利きが通り、状況によって２筋へも回れます。ここでは後手番で、初手から飛車が８五に着くまでを組みます。",
+            "en": "Side Pawn with the rook on 8e lets Sente take the pawn on 3d with the rook, then places Gote's rook on 8e. From 8e the rook sees the fifth and seventh files sideways and can swing to the second file. Playing Gote, build the position from move one until the rook reaches 8e."
+          }
+        },
+        {
+          "moves": [
+            "7g7f",
+            "3c3d"
+          ],
+          "text": {
+            "ja": "▲７六歩に△３四歩と角道を開けます。この歩が、あとで先手の飛車に取られる「横歩」になります。",
+            "en": "Against ▲7六歩 Gote opens the bishop diagonal with △3四歩. This pawn will later be taken by Sente's rook as the side pawn."
+          },
+          "marks": {
+            "last": "3d"
+          }
+        },
+        {
+          "moves": [
+            "2g2f",
+            "8c8d"
+          ],
+          "text": {
+            "ja": "▲２六歩に、△８四歩と飛車先の歩を突きます。後手はこの歩で８筋の歩の交換を目指します。",
+            "en": "Against ▲2六歩 Gote pushes the rook pawn with △8四歩, aiming at a pawn exchange on the eighth file."
+          },
+          "marks": {
+            "last": "8d"
+          }
+        },
+        {
+          "moves": [
+            "2f2e",
+            "8d8e"
+          ],
+          "text": {
+            "ja": "先手が▲２五歩とさらに伸ばしたのに対し、△８五歩と歩をもう一つ進めます。次に８六へ歩をぶつけて交換する準備です。",
+            "en": "Sente stretches to ▲2五歩. Gote answers by pushing the pawn on to 8e, preparing to strike on 8f for a pawn exchange."
+          },
+          "marks": {
+            "last": "8e",
+            "arrows": [
+              "8e8f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6i7h",
+            "8e8f"
+          ],
+          "text": {
+            "ja": "先手が▲７八金と金を上げた間に、△８六歩と突きます。８六の升に歩をぶつけて、歩の交換を仕掛けます。",
+            "en": "While Sente raises the gold with ▲7八金, Gote strikes △8六歩, putting a pawn on 8f to force the exchange."
+          },
+          "marks": {
+            "last": "8f"
+          }
+        },
+        {
+          "moves": [
+            "8g8f",
+            "8b8f"
+          ],
+          "text": {
+            "ja": "▲同歩に、△同飛。飛車で歩を取り返して、お互いに歩を一枚ずつ手にします。飛車が８六に出たので、８筋が後手の持ち場になりました。",
+            "en": "After ▲同歩 Gote recaptures with △同飛 and both sides have a pawn in hand. The rook stands on 8f and the eighth file belongs to Gote."
+          },
+          "marks": {
+            "last": "8f"
+          }
+        },
+        {
+          "moves": [
+            "2e2d",
+            "2c2d"
+          ],
+          "text": {
+            "ja": "先手が▲２四歩と突き出してきました。後手は△同歩と取ります。ここで先手に２筋の歩を取らせて、飛車の動きを引き出します。",
+            "en": "Sente pushes ▲2四歩. Gote takes with △同歩, drawing Sente's rook out along the second file."
+          },
+          "marks": {
+            "last": "2d"
+          }
+        },
+        {
+          "moves": [
+            "2h2d",
+            "8f8b"
+          ],
+          "text": {
+            "ja": "▲同飛と先手の飛車が２四へ出ました。後手は△８二飛と飛車を引きます。３四の歩が先手飛車に狙われますが、これは承知の上です。",
+            "en": "Sente's rook comes out with ▲同飛. Gote retreats the rook with △8二飛. The pawn on 3d is now under attack, but Gote accepts that on purpose."
+          },
+          "marks": {
+            "last": "8b",
+            "boxes": [
+              "3d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2d3d",
+            "8b8e"
+          ],
+          "text": {
+            "ja": "先手は▲３四飛と歩を取りました。これが横歩取りです。後手は△８五飛と飛車を浮かせます。飛車が８五から５筋や７筋に横に利き、桂や角と連携して攻める形です。",
+            "en": "Sente takes the pawn with ▲3四飛, the side-pawn capture. Gote lifts the rook with △8五飛. From 8e the rook reaches the fifth and seventh files sideways and cooperates with knight and bishop."
+          },
+          "marks": {
+            "last": "8e",
+            "boxes": [
+              "3d"
+            ],
+            "arrows": [
+              "8e5e"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "この基本図で覚えることは四つ。横歩を先手に取らせる。飛車は８五へ上げる。角は２二に残して守りにも使う。手持ちの歩を８六に打つ筋を持っている。以降は先手の玉の位置が５八か６八かで攻め方が変わります。",
+            "en": "Four points for this basic position. Let Sente take the side pawn. Lift the rook to 8e. Keep the bishop on 2b where it also defends. Keep the drop of the pawn on 8f in hand. From here the attack depends on whether Sente's king stands on 5h or 6h."
+          },
+          "marks": {
+            "boxes": [
+              "8e",
+              "2b",
+              "3d"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "長所と短所です。長所は、飛車が８五から横へ利いて、５筋や７筋、２筋へ自由に動けること。持ち駒の歩で攻めの手段が増えること。短所は、飛車が盤の端近くにいるため、桂や角の打ち込みで飛車に当てられ逃げ場を失いやすいことと、先手の飛車が３四にいて後手陣に近いことです。",
+            "en": "Strengths and weaknesses. The rook on 8e moves sideways freely to the fifth, seventh and second files, and the pawn in hand adds ideas. The weaknesses are that a rook near the edge can be attacked by knight or bishop drops and run out of squares, and that Sente's rook on 3d is close to Gote's camp."
+          },
+          "marks": {
+            "boxes": [
+              "8g"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "先手５八玉に歩を打って飛車を２筋へ",
+        "en": "Against the 5h king: drop a pawn and swing the rook to the second file"
+      },
+      "side": "gote",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "2g2f",
+            "8c8d",
+            "2f2e",
+            "8d8e",
+            "6i7h",
+            "8e8f",
+            "8g8f",
+            "8b8f",
+            "2e2d",
+            "2c2d",
+            "2h2d",
+            "8f8b",
+            "2d3d",
+            "8b8e"
+          ],
+          "text": {
+            "ja": "基本図です。先手の飛車は３四、後手の飛車は８五にいます。先手が玉を５八へ上げたとき、後手がどう攻めるかを見ます。",
+            "en": "The basic position. Sente's rook is on 3d and Gote's on 8e. See how Gote attacks when Sente moves the king to 5h."
+          },
+          "marks": {
+            "boxes": [
+              "3d",
+              "8e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5i5h",
+            "P*8f"
+          ],
+          "text": {
+            "ja": "先手が▲５八玉と上がったら、△８六歩と歩を打ちます。飛車の前に歩を置いて、次に８七へ歩を進める筋を作ります。",
+            "en": "When Sente moves ▲5八玉, Gote drops △8六歩. A pawn in front of the rook prepares to advance to 8g next."
+          },
+          "marks": {
+            "last": "8f",
+            "arrows": [
+              "8f8g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8i7g",
+            "8e2e"
+          ],
+          "text": {
+            "ja": "▲７七桂で飛車に当てられました。後手は△２五飛と飛車を横に動かして逃げます。８五飛の長所で、横へ動けば桂の利きを外せます。",
+            "en": "Sente attacks the rook with ▲7七桂. Gote slides it sideways with △2五飛. This is the strength of the rook on 8e: a sideways move escapes the knight."
+          },
+          "marks": {
+            "last": "2e",
+            "arrows": [
+              "8e2e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "P*2h",
+            "2b4d"
+          ],
+          "text": {
+            "ja": "先手は▲２八歩と歩を打って２筋を守ります。後手は△４四角と角を出して、飛車と角を働かせます。",
+            "en": "Sente defends the second file with a pawn drop ▲2八歩. Gote brings the bishop out with △4四角, so rook and bishop both work."
+          },
+          "marks": {
+            "last": "4d"
+          }
+        },
+        {
+          "moves": [
+            "7f7e",
+            "3a3b"
+          ],
+          "text": {
+            "ja": "先手の▲７五歩に、△３二銀と銀を上げます。角の近くに銀を置いて、形を整えます。",
+            "en": "Against Sente's ▲7五歩 Gote raises the silver with △3二銀, tidying the shape beside the bishop."
+          },
+          "marks": {
+            "last": "3b"
+          }
+        },
+        {
+          "moves": [
+            "3d3f"
+          ],
+          "text": {
+            "ja": "先手は▲３六飛と飛車を引きました。先手の飛車を引かせ、後手の飛車と角が働く形を作れました。評価は先手がわずかに良い程度で、後手も十分に戦えます。",
+            "en": "Sente retreats the rook with ▲3六飛. Gote has made Sente pull its rook back and both Gote's rook and bishop are active. Sente is only slightly better and Gote can fight well."
+          },
+          "marks": {
+            "last": "3f"
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": [
+            "5i5h",
+            "8e2e",
+            "P*2h"
+          ],
+          "text": {
+            "ja": "歩を打つ前に、いきなり△２五飛と横へ動く手順もあります。先手は▲２八歩と受けて、桂７七で飛車に当てる形にはなりません。ただし形勢は先手がやや良い程度です。",
+            "en": "Gote can also swing at once with △2五飛 before dropping the pawn. Sente defends with ▲2八歩 and the knight jump to 7g no longer hits the rook, though Sente remains slightly better."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "先手６八玉に角を交換して飛車を引く",
+        "en": "Against the 6h king: trade bishops and pull the rook back"
+      },
+      "side": "gote",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "2g2f",
+            "8c8d",
+            "2f2e",
+            "8d8e",
+            "6i7h",
+            "8e8f",
+            "8g8f",
+            "8b8f",
+            "2e2d",
+            "2c2d",
+            "2h2d",
+            "8f8b",
+            "2d3d",
+            "8b8e"
+          ],
+          "text": {
+            "ja": "同じ基本図から、先手が玉を６八へ上げた場合を見ます。５八玉と違い、２筋の受けと角のぶつかり方が変わります。",
+            "en": "From the same basic position, consider Sente's king going to 6h. Compared with 5h, the second-file defence and bishop clashes change."
+          },
+          "marks": {
+            "boxes": [
+              "6h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5i6h",
+            "8e2e"
+          ],
+          "text": {
+            "ja": "先手が▲６八玉と上がったら、すぐ△２五飛と飛車を横に動かします。２筋に圧力をかけ、先手の飛車と角の動きを制限します。",
+            "en": "When Sente moves ▲6八玉, Gote swings at once with △2五飛, putting pressure on the second file and limiting Sente's rook and bishop."
+          },
+          "marks": {
+            "last": "2e"
+          }
+        },
+        {
+          "moves": [
+            "P*2h",
+            "P*2g"
+          ],
+          "text": {
+            "ja": "先手は▲２八歩と受けます。後手は△２七歩と歩を打って、２八の歩を次に△２八歩成と取る手を見せます。",
+            "en": "Sente defends with ▲2八歩. Gote drops △2七歩, threatening to take the pawn on 2h next with a promotion."
+          },
+          "marks": {
+            "last": "2g",
+            "arrows": [
+              "2g2h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8h2b+",
+            "3a2b"
+          ],
+          "text": {
+            "ja": "▲２二角成と先手が角を交換してきます。後手は△同銀と取り、お互いに角を持ち合います。",
+            "en": "Sente trades bishops with ▲2二角成. Gote recaptures with △同銀 and both sides hold a bishop in hand."
+          },
+          "marks": {
+            "last": "2b"
+          }
+        },
+        {
+          "moves": [
+            "B*1f",
+            "2e8e"
+          ],
+          "text": {
+            "ja": "先手は▲１六角と持ち駒の角を打ちます。飛車に当たったので、後手は△８五飛と飛車を元の場所へ戻します。横に動ける利点がここでも生きます。",
+            "en": "Sente drops the bishop with ▲1六角, attacking the rook. Gote returns the rook to its home with △8五飛. Once more the sideways mobility saves it."
+          },
+          "marks": {
+            "last": "8e",
+            "arrows": [
+              "1f2e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7i8h",
+            "2b2c"
+          ],
+          "text": {
+            "ja": "先手は▲８八銀と銀を上げます。後手は△２三銀と銀を前に出して、２筋の形を整えます。",
+            "en": "Sente raises the silver with ▲8八銀. Gote moves the silver forward with △2三銀, fixing the second-file shape."
+          },
+          "marks": {
+            "last": "2c"
+          }
+        },
+        {
+          "moves": [
+            "3d3f"
+          ],
+          "text": {
+            "ja": "先手は▲３六飛と飛車を引きます。２七の歩がまだ残っていて、形勢は互角に近い局面です。",
+            "en": "Sente pulls the rook back with ▲3六飛. The pawn on 2g remains and the position is close to even."
+          },
+          "marks": {
+            "last": "3f"
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": [
+            "5i6h",
+            "2b4d",
+            "8h4d",
+            "4c4d"
+          ],
+          "text": {
+            "ja": "△４四角と角を出す手もあります。▲同角△同歩で角を持ち合う形になりますが、先手がやや指しやすいので、角を出す手は難しい選択です。",
+            "en": "Gote can also bring the bishop out with △4四角. After ▲同角 △同歩 both sides hold a bishop in hand, but Sente is a little more comfortable, so this is a harder choice."
+          }
+        }
+      ]
+    }
+  ]
+}

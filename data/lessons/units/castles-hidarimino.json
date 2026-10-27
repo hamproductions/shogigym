@@ -1,23 +1,26 @@
 {
   "id": "castles-hidarimino",
   "order": 320,
-  "path": ["上達のためのテクニック", "囲い"],
+  "path": [
+    "上達のためのテクニック",
+    "囲い"
+  ],
   "title": {
-    "ja": "左美濃は角と玉の場所で変わる",
-    "en": "Left Mino Changes with Bishop and King Placement"
+    "ja": "左美濃の仲間：初手からの組み方と強さ・弱点",
+    "en": "The Left Mino family: build order, strengths and weaknesses"
   },
   "intro": {
-    "ja": "居飛車で玉を左に囲う左美濃では、角を７七に出して玉を８八に置く形と、角を８八に残して玉を別のマスへ置く形があります。銀冠は銀を前に出して上部を補います。端へ玉を移す変化もありますが、端の歩が消えて飛車筋が通れば王手はかかります。形の名前より、玉の位置と相手の利きで判断します。",
-    "en": "In Static Rook Left Mino, moving the bishop to ７七 permits a king on ８八; keeping the bishop on ８八 calls for a different king square. Silver Crown moves a silver forward to reinforce the top. An edge-king variant also exists, but an opened rook file can still check that king. Judge the actual king square and opposing attacks, not the name of the shape."
+    "ja": "左美濃は、美濃囲いを左右逆にして左側に組む、居飛車の囲いです。主に振り飛車と戦うときに使い、角道を止めずに組めるのが特徴です。基本の左美濃から、角の頭を銀で補う銀冠、さらに穴熊へ進む形、玉を一段上げる天守閣美濃、金銀四枚の四枚美濃、玉を端へ寄せる端玉銀冠、角を動かさない居角左美濃、端美濃までを、初手から組んで確かめます。",
+    "en": "Left Mino is the Mino castle mirrored onto the left wing for Static Rook play. It is used mainly against a Ranging Rook and keeps the bishop line open. From the basic form, build and compare Gin Kanmuri, which covers the bishop's head with a silver, the Anaguma version, the Tenshukaku with the king one step up, the four-piece Mino, the edge-king version, the bishop-at-home version and Hashi Mino, all from move one."
   },
   "check": {
     "question": {
-      "ja": "左美濃で角８八を動かさないとき、玉の行き先と角の利きについて何を確かめますか？",
-      "en": "If the bishop stays on ８八 in Left Mino, what should you check about the king's destination and the bishop's line?"
+      "ja": "左美濃で、振り飛車の美濃より角の頭が弱点になるのはなぜですか？",
+      "en": "Why is the bishop's head a weak point in Left Mino, more so than in the Ranging Rook's Mino?"
     },
     "answer": {
-      "ja": "玉は角のいる８八へ入れないので別のマスを選びます。角８八から７七・６六へ続く斜め筋が自分の駒で塞がれていないか、相手に狙われないかを調べます。",
-      "en": "The king cannot occupy the bishop's ８八 square, so choose another destination. Check whether Sente's own pieces obstruct the diagonal from ８八 through ７七 and ６六, and whether the opponent can challenge it."
+      "ja": "左美濃では、角が七七にいて、その前の七六に歩がいます。この歩が相手の銀や桂の狙いになり、取られると角の頭に穴があきます。銀冠にして銀で補えば、この弱点が薄まります。",
+      "en": "In Left Mino the bishop sits on 7g with a pawn ahead on 7f. That pawn becomes a target for silvers and knights, and if it falls the bishop's head is exposed. Converting to Gin Kanmuri and putting a silver there reduces this weakness."
     }
   },
   "references": [
@@ -26,101 +29,1060 @@
       "url": "https://shogi-joutatsu.com/archives/6007",
       "license": "All rights reserved",
       "adapted": false
+    },
+    {
+      "title": "将棋の技図鑑 (yuki-keio/shogi)",
+      "url": "https://github.com/yuki-keio/shogi",
+      "license": "GPL-3.0-only",
+      "adapted": false
     }
   ],
   "chapters": [
     {
       "title": {
-        "ja": "角７七型は飛車の横筋も数える",
-        "en": "With the bishop on ７七, count the lateral rook line"
+        "ja": "左美濃：舟囲いから組み替える基本形",
+        "en": "Left Mino: the basic form, rebuilt from a Boat castle"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/9/9/9/9/9/2B6/1KS2r3/3GG4 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "玉８八、銀７八、角７七、金６九・５九という左美濃の骨格です。後手飛車４八の横筋は５八・６八を通って銀７八に届きます。金５九を上げて飛車筋に置くなら、金の支えを先に数えます。",
-            "en": "Sente has a Left Mino core: king ８八, silver ７八, bishop ７七, and golds ６九 and ５九. Gote's rook on ４八 reaches the silver on ７八 through ５八 and ６八. Before raising the gold into that rook line, count its defenders."
+            "ja": "左美濃は、まず舟囲いの形を作り、そこから角と玉の位置を入れ替えて組みます。角を七七へ上げ、玉を八八へ運び、銀を七八につければ完成です。後手は四間飛車に振る想定で進めます。",
+            "en": "Left Mino is built by first making a Boat castle and then swapping the places of bishop and king: the bishop goes to 7g, the king to 8h, and a silver joins on 7h. Gote swings to Fourth File Rook in this example."
+          },
+          "marks": {
+            "boxes": [
+              "8h",
+              "7h",
+              "7g"
+            ]
           }
         },
         {
-          "moves": ["5i5h"],
+          "moves": [
+            "7g7f"
+          ],
           "text": {
-            "ja": "▲５八金。金６九が金５八を斜め前に守り、飛車４八の横筋は金５八で止まります。角７七が８八を空けているため玉はそのマスに収まれますが、角がいる７七や玉の上部が攻められたときの受けは別に調べます。",
-            "en": "▲５八金 places a defender on the rook's line, supported diagonally forward by the gold on ６九. The bishop on ７七 leaves ８八 free for the king. This does not settle an attack on the bishop or the squares above the king; evaluate those threats separately."
+            "ja": "▲７六歩。角の通り道を開けます。左美濃は角道を止めない囲いなので、最初に歩を突いておきます。",
+            "en": "▲7六歩 opens the bishop line. Left Mino keeps that line open, so the pawn goes first."
+          },
+          "marks": {
+            "arrows": [
+              "8h4d"
+            ],
+            "last": "7f"
+          }
+        },
+        {
+          "moves": [
+            "4c4d",
+            "9g9f"
+          ],
+          "text": {
+            "ja": "▲９六歩。端の歩を突きます。玉の逃げ道を作り、のちの端攻めにも備えます。",
+            "en": "▲9六歩 pushes the edge pawn. It gives the king room and prepares against an edge attack later."
+          },
+          "marks": {
+            "last": "9f"
+          }
+        },
+        {
+          "moves": [
+            "8b4b",
+            "5i6h"
+          ],
+          "text": {
+            "ja": "▲６八玉。玉を左へ動かします。舟囲いに向かう手順です。",
+            "en": "▲6八玉 starts the king moving left, on the way to the Boat castle."
+          },
+          "marks": {
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "5a6b",
+            "6h7h"
+          ],
+          "text": {
+            "ja": "▲７八玉。もう一つ左へ。",
+            "en": "▲7八玉, one more step left."
+          },
+          "marks": {
+            "last": "7h"
+          }
+        },
+        {
+          "moves": [
+            "6b7b",
+            "4i5h"
+          ],
+          "text": {
+            "ja": "▲５八金。右の金を上げて舟囲いの形になります。ここから左美濃へ組み替えます。",
+            "en": "▲5八金 lifts the right gold and makes the Boat castle. The switch to Left Mino starts from here."
+          },
+          "marks": {
+            "boxes": [
+              "7h",
+              "5h"
+            ],
+            "last": "5h"
+          }
+        },
+        {
+          "moves": [
+            "7b8b",
+            "8h7g"
+          ],
+          "text": {
+            "ja": "▲７七角。角を上げて、玉が八八に入る場所を空けます。",
+            "en": "▲7七角 lifts the bishop to empty 8h for the king."
+          },
+          "marks": {
+            "boxes": [
+              "8h"
+            ],
+            "last": "7g"
+          }
+        },
+        {
+          "moves": [
+            "7a7b",
+            "7h8h"
+          ],
+          "text": {
+            "ja": "▲８八玉。玉が角のいた場所に入りました。",
+            "en": "▲8八玉 puts the king where the bishop was."
+          },
+          "marks": {
+            "boxes": [
+              "8h"
+            ],
+            "last": "8h"
+          }
+        },
+        {
+          "moves": [
+            "3a3b",
+            "7i7h"
+          ],
+          "text": {
+            "ja": "▲７八銀。銀を玉の隣に上げて、左美濃の完成です。金銀が斜めに連なり、横から押されても耐えやすい形になりました。",
+            "en": "▲7八銀 lifts the silver beside the king, finishing Left Mino. Gold and silver link diagonally and stand firm against pressure from the side."
+          },
+          "marks": {
+            "boxes": [
+              "8h",
+              "7h",
+              "6i",
+              "5h"
+            ],
+            "last": "7h"
+          }
+        },
+        {
+          "text": {
+            "ja": "左美濃は、矢倉より少ない手数で組め、角の利きを残せるので、積極的に攻める作戦によく合います。金銀が斜めにつながるので、横から押されても簡単には崩れません。急所は七六の歩の周りで、角の上や玉の真上を突かれると苦しくなります。そこで、銀冠などへ組み替えて穴を埋めていきます。",
+            "en": "Left Mino is quicker than Yagura and leaves the bishop line open, so it pairs well with attack-minded strategies. It stands firm against lateral pressure but has a soft spot at the pawn on 7f; attacks on the bishop's head and directly above the king can break it. Converting to Gin Kanmuri and similar forms patches that spot."
+          },
+          "marks": {
+            "boxes": [
+              "7f",
+              "8g"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "居角なら玉の場所を変える",
-        "en": "Keep the bishop at home and move the king elsewhere"
+        "ja": "銀冠：角の頭を銀でおおう",
+        "en": "Gin Kanmuri: a silver covers the bishop's head"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/9/9/9/4p4/9/9/1BS6/2KGG4 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f",
+            "4c4d",
+            "9g9f",
+            "8b4b",
+            "5i6h",
+            "5a6b",
+            "6h7h",
+            "6b7b",
+            "4i5h",
+            "7b8b",
+            "8h7g",
+            "7a7b",
+            "7h8h",
+            "3a3b",
+            "7i7h"
+          ],
           "text": {
-            "ja": "角８八を動かさず、銀７八・金６九・５九を置いています。角８八は７七・６六を通って後手歩５五を見る斜め筋を持ちます。角と玉は同じ８八に置けないため、玉７九を軸にする居角左美濃型を考えます。",
-            "en": "The bishop stays on ８八 beside a silver on ７八 and golds on ６九 and ５九. Its diagonal runs through ７七 and ６六 toward Gote's pawn on ５五. Because the bishop occupies ８八, a Sitting-Bishop Left Mino plan keeps the king around ７九 instead."
+            "ja": "左美濃の形から始めます。弱点だった角の頭に、銀を回す手順を追います。",
+            "en": "Start from Left Mino and follow how a silver is routed to the weak spot above the bishop."
+          },
+          "marks": {
+            "boxes": [
+              "8g",
+              "7f"
+            ]
           }
         },
         {
-          "moves": ["5i5h"],
+          "moves": [
+            "9c9d",
+            "8g8f"
+          ],
           "text": {
-            "ja": "▲５八金で金６九と連結しました。角を７七へ動かす一手を使わない代わりに、玉７九から角８八の斜め筋が開いているかを毎回確認します。後手が７七や６六を塞げば、この盤の歩５五への角の利きも変わります。",
-            "en": "▲５八金 connects with the gold on ６九. Keeping the bishop on ８八 saves its relocation move, but the plan depends on the diagonal remaining useful. If Gote occupies ７七 or ６六, the bishop's access to the pawn on ５五 changes."
+            "ja": "▲８六歩。玉の前の歩を突いて、銀が入る八七を空けます。",
+            "en": "▲8六歩 pushes the pawn in front of the king to empty 8g for the silver."
+          },
+          "marks": {
+            "boxes": [
+              "8g"
+            ],
+            "last": "8f"
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "7h8g"
+          ],
+          "text": {
+            "ja": "▲８七銀。銀が玉の頭に上がりました。これが「冠」で、角の頭と玉の上を守ります。",
+            "en": "▲8七銀 puts the silver on the head of the king. This is the crown that guards the bishop's head and the space above the king."
+          },
+          "marks": {
+            "boxes": [
+              "8g"
+            ],
+            "last": "8g"
+          }
+        },
+        {
+          "moves": [
+            "2c2d",
+            "6i7h"
+          ],
+          "text": {
+            "ja": "▲７八金。左の金を上げて、空いた七八に入れます。",
+            "en": "▲7八金 lifts the left gold into the vacated 7h."
+          },
+          "marks": {
+            "boxes": [
+              "7h"
+            ],
+            "last": "7h"
+          }
+        },
+        {
+          "moves": [
+            "6a5b",
+            "5h6h"
+          ],
+          "text": {
+            "ja": "▲６八金。右の金を横に寄せて、金二枚を玉の隣に並べます。銀冠の完成です。",
+            "en": "▲6八金 slides the right gold over so that two golds stand beside the king. The Gin Kanmuri is complete."
+          },
+          "marks": {
+            "boxes": [
+              "8g",
+              "7h",
+              "6h"
+            ],
+            "last": "6h"
+          }
+        },
+        {
+          "text": {
+            "ja": "銀冠は、左美濃の弱点だった角の頭を、銀で補った形です。上からの攻めや端攻めに強く、終盤の粘りも効きます。反面、下の段が薄く、横に飛車を打たれると苦しくなります。必要なら、この先で穴熊へ進む道も残っています。",
+            "en": "Gin Kanmuri fixes the bishop's head, the weakness of Left Mino, with a silver. It resists attacks from above and from the edge and holds up in the endgame. The bottom is thin, though, and a rook drop from the side is dangerous. From here you can also continue toward Anaguma."
+          },
+          "marks": {
+            "boxes": [
+              "7i",
+              "6i"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "銀冠は角の前のマスを守る",
-        "en": "Silver Crown covers the square before the bishop"
+        "ja": "銀冠穴熊：左美濃の最終形",
+        "en": "Gin Kanmuri Anaguma: the final form of Left Mino"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/9/9/9/2p6/9/1SB6/1K1G5/2G6 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f",
+            "4c4d",
+            "9g9f",
+            "8b4b",
+            "5i6h",
+            "5a6b",
+            "6h7h",
+            "6b7b",
+            "4i5h",
+            "7b8b",
+            "8h7g",
+            "7a7b",
+            "7h8h",
+            "3a3b",
+            "7i7h",
+            "9c9d",
+            "8g8f",
+            "1c1d",
+            "7h8g",
+            "2c2d",
+            "6i7h",
+            "6a5b",
+            "5h6h"
+          ],
           "text": {
-            "ja": "玉８八、銀８七、角７七、金６八・７九です。後手歩７五が７六へ進むと角７七の前に迫ります。銀８七は７六へ斜め前に利いていますが、金７九はまだ玉の下に残っています。",
-            "en": "Sente has king ８八, silver ８七, bishop ７七, and golds ６八 and ７九. Gote's pawn on ７五 may advance to ７六, directly in front of the bishop. The silver on ８七 controls ７六 diagonally forward; the gold on ７九 remains below the king."
+            "ja": "銀冠の形から始めます。ここから玉を一番隅へ潜らせます。",
+            "en": "Start from Gin Kanmuri. The king now dives into the corner."
+          },
+          "marks": {
+            "boxes": [
+              "9i"
+            ]
           }
         },
         {
-          "moves": ["7i7h"],
+          "moves": [
+            "1a1b",
+            "9i9h"
+          ],
           "text": {
-            "ja": "▲７八金で銀冠型の金銀をつなぎます。金７八は銀８七を斜め前に、角７七を真上に守り、金６八は金７八を横から支えます。銀８七が７六を押さえても、相手の歩や持ち駒が増えれば受け切れるとは限りません。銀冠穴熊や四枚美濃へさらに駒を使うなら、攻めに残る駒も数えます。",
-            "en": "▲７八金 connects a Silver Crown core. The gold on ７八 protects the silver on ８七 diagonally forward and the bishop on ７七 straight ahead; the gold on ６八 supports the new gold sideways. Control of ７六 is useful, but added enemy attackers or drops change the calculation. Further reinforcement into deeper or four-general variants also leaves fewer pieces for attack."
+            "ja": "▲９八香。端の香を一つ上げて、玉の入る隅を空けます。",
+            "en": "▲9八香 lifts the corner lance to empty the corner for the king."
+          },
+          "marks": {
+            "boxes": [
+              "9i"
+            ],
+            "last": "9h"
+          }
+        },
+        {
+          "moves": [
+            "9a9b",
+            "8h9i"
+          ],
+          "text": {
+            "ja": "▲９九玉。玉が隅に入り、銀冠穴熊の完成です。",
+            "en": "▲9九玉 puts the king into the corner, finishing Gin Kanmuri Anaguma."
+          },
+          "marks": {
+            "boxes": [
+              "9i",
+              "9h",
+              "8g"
+            ],
+            "last": "9i"
+          }
+        },
+        {
+          "text": {
+            "ja": "銀冠穴熊は、銀冠の上の守りに、穴熊の隅の堅さが加わった、左美濃の最終形といえる囲いです。銀冠から二手で組めるうえ、玉が飛車から離れていて、終盤の寄せ合いに強くなります。さらに八八に金や銀を足せば、一層堅くなります。ただし、囲いを崩されると逃げ場がありません。",
+            "en": "This is the final form of Left Mino: the upper guard of Gin Kanmuri combined with the corner hardness of Anaguma. It takes only two moves from Gin Kanmuri, and the king is far from the rook, which helps in the final race. A gold or silver on 8h makes it harder still. If the shelter is broken, though, there is nowhere to run."
+          },
+          "marks": {
+            "boxes": [
+              "9i",
+              "8h"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "端玉でも飛車筋は消えない",
-        "en": "An edge king can still face a rook check"
+        "ja": "天守閣美濃：玉を一段上げる",
+        "en": "Tenshukaku Mino: the king one step higher"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/r8/9/9/9/P8/KS7/1BGG5/9 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f",
+            "4c4d",
+            "9g9f",
+            "8b4b",
+            "5i6h",
+            "5a6b",
+            "6h7h",
+            "6b7b",
+            "4i5h"
+          ],
           "text": {
-            "ja": "玉９七、銀８七、角８八、金７八・６八、歩９六に対し、後手飛車９二が９筋を見ています。玉を９八へ下げると端玉銀冠型になりますが、歩９六が飛車筋を止める役目を失えば王手が生じます。",
-            "en": "Sente has king ９七, silver ８七, bishop ８八, golds ７八 and ６八, and pawn ９六. Gote's rook on ９二 looks down the edge file. Lowering the king to ９八 forms an edge-king Silver Crown arrangement, but the pawn on ９六 is the screen against a rook check."
+            "ja": "舟囲いの形から始めます。ここから、角を動かさずに玉を上へ動かします。",
+            "en": "Start from the Boat castle. This time the bishop stays put and the king moves up."
+          },
+          "marks": {
+            "boxes": [
+              "7h",
+              "8h"
+            ]
           }
         },
         {
-          "moves": ["9g9h"],
+          "moves": [
+            "7b8b",
+            "8g8f"
+          ],
           "text": {
-            "ja": "▲９八玉。銀８七は９八を斜め後ろから守ります。ここでは飛車９二と玉９八の間に歩９六があり、ただちに王手ではありません。しかし歩が消えれば飛車の縦筋を調べ直す必要があります。端にいるだけで王手が不可能になるわけではありません。",
-            "en": "▲９八玉 reaches a square protected diagonally backward by the silver on ８七. The pawn on ９六 currently stands between rook and king, so there is no check yet. If that pawn disappears, recalculate the rook's file. An edge location does not make checks impossible."
+            "ja": "▲８六歩。玉が進む八七の場所を空けます。",
+            "en": "▲8六歩 clears 8g for the king to step into."
+          },
+          "marks": {
+            "boxes": [
+              "8g"
+            ],
+            "last": "8f"
+          }
+        },
+        {
+          "moves": [
+            "7a7b",
+            "7h8g"
+          ],
+          "text": {
+            "ja": "▲８七玉。玉が角の上に出ました。天守閣のように、高い場所に構える形です。",
+            "en": "▲8七玉 puts the king on top of the bishop. Like a castle keep it stands on high ground."
+          },
+          "marks": {
+            "boxes": [
+              "8g"
+            ],
+            "last": "8g"
+          }
+        },
+        {
+          "moves": [
+            "3a3b",
+            "7i7h"
+          ],
+          "text": {
+            "ja": "▲７八銀。銀を玉の横に上げて、完成です。",
+            "en": "▲7八銀 lifts the silver beside the king and finishes the shape."
+          },
+          "marks": {
+            "boxes": [
+              "8g",
+              "8h",
+              "7h"
+            ],
+            "last": "7h"
+          }
+        },
+        {
+          "text": {
+            "ja": "天守閣美濃は、角を動かさずに組めるので、手数が少なく、玉が相手の角の通り道から外れます。角頭の弱点を、玉が先に上へ逃げて避けた形です。ただし玉の頭が薄く、相居飛車ではまず使えません。振り飛車相手に向きます。ここから四枚美濃や端玉銀冠に発展します。",
+            "en": "Tenshukaku Mino keeps the bishop at home, so it takes few moves, and the king steps out of the opponent's bishop line. It avoids the weak bishop's head by moving the king up first. The head of the king is thin, so it is almost never used in Static Rook mirrors, only against Ranging Rook. It can grow into the four-piece Mino or the edge-king Gin Kanmuri."
+          },
+          "marks": {
+            "boxes": [
+              "8f",
+              "9g"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "四枚美濃：金銀四枚で守る",
+        "en": "Four-piece Mino: four pieces guard the king"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "4c4d",
+            "9g9f",
+            "8b4b",
+            "5i6h",
+            "5a6b",
+            "6h7h",
+            "6b7b",
+            "4i5h",
+            "7b8b",
+            "8g8f",
+            "7a7b",
+            "7h8g",
+            "3a3b",
+            "7i7h"
+          ],
+          "text": {
+            "ja": "天守閣美濃の形から始めます。ここから、右の銀と金を囲いに寄せていきます。",
+            "en": "Start from Tenshukaku Mino. The right silver and gold are now drawn into the castle."
+          },
+          "marks": {
+            "boxes": [
+              "3i",
+              "5h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "6g6f"
+          ],
+          "text": {
+            "ja": "▲６六歩。金が前へ出る場所を空けます。",
+            "en": "▲6六歩 clears a square for the gold to advance."
+          },
+          "marks": {
+            "boxes": [
+              "6g"
+            ],
+            "last": "6f"
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "5g5f"
+          ],
+          "text": {
+            "ja": "▲５六歩。もう一つ歩を伸ばします。",
+            "en": "▲5六歩 advances one more pawn."
+          },
+          "marks": {
+            "last": "5f"
+          }
+        },
+        {
+          "moves": [
+            "2c2d",
+            "8h7i"
+          ],
+          "text": {
+            "ja": "▲７九角。角を引いて、銀が通る七七の道を空けます。",
+            "en": "▲7九角 retreats the bishop and clears the path for a silver to reach 7g."
+          },
+          "marks": {
+            "boxes": [
+              "7i"
+            ],
+            "last": "7i"
+          }
+        },
+        {
+          "moves": [
+            "6a5b",
+            "3i4h"
+          ],
+          "text": {
+            "ja": "▲４八銀。右の銀を左へ回し始めます。",
+            "en": "▲4八銀 starts the right silver on its trip to the left."
+          },
+          "marks": {
+            "last": "4h"
+          }
+        },
+        {
+          "moves": [
+            "1a1b",
+            "4h5i"
+          ],
+          "text": {
+            "ja": "▲５九銀。斜め後ろへ戻ります。",
+            "en": "▲5九銀 steps back diagonally."
+          },
+          "marks": {
+            "boxes": [
+              "5i"
+            ],
+            "last": "5i"
+          }
+        },
+        {
+          "moves": [
+            "9a9b",
+            "5i6h"
+          ],
+          "text": {
+            "ja": "▲６八銀。斜め前へ。",
+            "en": "▲6八銀 steps forward diagonally."
+          },
+          "marks": {
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "8c8d",
+            "6h7g"
+          ],
+          "text": {
+            "ja": "▲７七銀。銀が玉の斜め前につきました。",
+            "en": "▲7七銀 lands diagonally in front of the king."
+          },
+          "marks": {
+            "boxes": [
+              "7g"
+            ],
+            "last": "7g"
+          }
+        },
+        {
+          "moves": [
+            "2a1c",
+            "5h6g"
+          ],
+          "text": {
+            "ja": "▲６七金。金も前へ出して、四枚美濃の完成です。玉の周りを金銀が囲みます。",
+            "en": "▲6七金 puts the gold forward and completes Four-piece Mino. Gold and silver surround the king."
+          },
+          "marks": {
+            "boxes": [
+              "8g",
+              "7g",
+              "6g",
+              "7h"
+            ],
+            "last": "6g"
+          }
+        },
+        {
+          "text": {
+            "ja": "四枚美濃は、攻めに使うはずの右の銀も守りに回した、とても堅い形です。そのかわり、攻めに使える駒が減り、攻めが細くなります。持久戦になるときや、堅く守って相手の攻めをかわしたいときに向きます。",
+            "en": "Four-piece Mino even uses the right silver, normally an attacker, for defense, making it very sturdy. The cost is fewer attackers and a thin offense. It suits a long game or a plan to defend firmly and counterattack."
+          },
+          "marks": {
+            "boxes": [
+              "7h",
+              "6i"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "端玉銀冠：玉を九筋まで寄せる",
+        "en": "Edge-king Gin Kanmuri: the king on the ninth file"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "4c4d",
+            "9g9f",
+            "8b4b",
+            "5i6h",
+            "5a6b",
+            "6h7h",
+            "6b7b",
+            "4i5h",
+            "7b8b",
+            "8g8f",
+            "7a7b",
+            "7h8g",
+            "3a3b",
+            "7i7h"
+          ],
+          "text": {
+            "ja": "天守閣美濃の形から始めます。ここから、玉を端まで寄せて、銀を冠にかぶせます。",
+            "en": "Start from Tenshukaku Mino. The king shifts to the edge and a silver is placed above it as a crown."
+          },
+          "marks": {
+            "boxes": [
+              "9h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "8g9h"
+          ],
+          "text": {
+            "ja": "▲９八玉。玉を端へ寄せます。端は王手がかかりにくい場所です。",
+            "en": "▲9八玉 moves the king to the edge, where it is hard to check."
+          },
+          "marks": {
+            "boxes": [
+              "9h"
+            ],
+            "last": "9h"
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "7h8g"
+          ],
+          "text": {
+            "ja": "▲８七銀。銀を玉の斜め前につけます。",
+            "en": "▲8七銀 puts the silver diagonally in front of the king."
+          },
+          "marks": {
+            "boxes": [
+              "8g"
+            ],
+            "last": "8g"
+          }
+        },
+        {
+          "moves": [
+            "2c2d",
+            "6i7h"
+          ],
+          "text": {
+            "ja": "▲７八金。金を上げます。",
+            "en": "▲7八金 lifts a gold."
+          },
+          "marks": {
+            "boxes": [
+              "7h"
+            ],
+            "last": "7h"
+          }
+        },
+        {
+          "moves": [
+            "6a5b",
+            "5h6h"
+          ],
+          "text": {
+            "ja": "▲６八金。金二枚が角の隣に並びました。端玉銀冠の完成です。",
+            "en": "▲6八金 completes the shape with two golds next to the bishop. This is the edge-king Gin Kanmuri."
+          },
+          "marks": {
+            "boxes": [
+              "9h",
+              "8g",
+              "7h",
+              "6h"
+            ],
+            "last": "6h"
+          }
+        },
+        {
+          "text": {
+            "ja": "端玉銀冠は、玉が端にいて、周りの駒が玉への王手をさえぎるので、終盤の寄せ合いに強い囲いです。この形を愛用した棋士にちなんで、米長玉の別名もあります。弱点は、玉が端にいるぶん、横の逃げ道が少なく、端攻めを受けると弱くなることです。",
+            "en": "The king on the edge cannot be checked easily, so this castle shines in the final race. It was a favorite of the late Yonenaga, hence the name Yonenaga Gyoku. The weakness is that the edge leaves few escape squares, so an edge attack is dangerous."
+          },
+          "marks": {
+            "boxes": [
+              "9g",
+              "9i"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "居角左美濃：角を動かさずに組む",
+        "en": "Ikaku Left Mino: built with the bishop at home"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "text": {
+            "ja": "居角左美濃は、角を八八に置いたまま玉を七九へ入れて組む、手数の少ない左美濃です。主に矢倉戦法で使い、角のラインを活かして素早く攻めます。後手は居飛車のまま駒組みを進める想定です。",
+            "en": "Ikaku Left Mino keeps the bishop on 8h and puts the king on 7i, which saves moves. It is used mainly in Yagura games and exploits the bishop line to attack quickly. Gote builds a Static Rook setup in this example."
+          },
+          "marks": {
+            "boxes": [
+              "8h",
+              "7i"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7g7f"
+          ],
+          "text": {
+            "ja": "▲７六歩。角の通り道を開けます。",
+            "en": "▲7六歩 opens the bishop line."
+          },
+          "marks": {
+            "arrows": [
+              "8h4d"
+            ],
+            "last": "7f"
+          }
+        },
+        {
+          "moves": [
+            "8c8d",
+            "7i7h"
+          ],
+          "text": {
+            "ja": "▲７八銀。銀を一つ上げて、七九を空けます。玉がそこへ入ります。",
+            "en": "▲7八銀 lifts the silver one step and empties 7i, where the king will go."
+          },
+          "marks": {
+            "boxes": [
+              "7i"
+            ],
+            "last": "7h"
+          }
+        },
+        {
+          "moves": [
+            "4a3b",
+            "4i5h"
+          ],
+          "text": {
+            "ja": "▲５八金。右の金を上げます。",
+            "en": "▲5八金 lifts the right gold."
+          },
+          "marks": {
+            "last": "5h"
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "5i6h"
+          ],
+          "text": {
+            "ja": "▲６八玉。玉を左へ寄せます。",
+            "en": "▲6八玉 moves the king left."
+          },
+          "marks": {
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "6h7i"
+          ],
+          "text": {
+            "ja": "▲７九玉。玉が七九に入って完成です。角は八八にいたままなので、右の角のラインが開いています。",
+            "en": "▲7九玉 settles the king on 7i, finishing the castle. The bishop is still on 8h, so its line stays open."
+          },
+          "marks": {
+            "boxes": [
+              "7i",
+              "8h",
+              "7h"
+            ],
+            "last": "7i"
+          }
+        },
+        {
+          "text": {
+            "ja": "居角左美濃は、角が動かないので手数が省け、八六の地点が争いの焦点になりにくいのが長所です。すぐに角を使った速攻に移れます。弱点は、玉と角が近く、角の筋を相手に使われると守りの駒が足りなくなることです。右四間飛車などの攻撃的な戦法と相性が良い形です。",
+            "en": "With the bishop staying home, moves are saved and 8f rarely becomes the focus of a fight, so a quick bishop attack is available. The weakness is that king and bishop sit close, so if the opponent uses that line, defenders run short. It pairs well with aggressive strategies such as Right Fourth File Rook."
+          },
+          "marks": {
+            "boxes": [
+              "8f",
+              "7i"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "端美濃：香の上に玉を置く",
+        "en": "Hashi Mino: the king above the lance"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "text": {
+            "ja": "端美濃は、玉を九八に置いて、その下の香と並べる形です。名前に美濃とつきますが、穴熊に近い囲いです。串に刺さったように見えるので、串カツ囲いとも呼ばれます。",
+            "en": "Hashi Mino puts the king on 9h directly above the lance. It carries Mino in its name but is closer to Anaguma. The king above the lance looks like food on a skewer, so it is also called Kushikatsu."
+          },
+          "marks": {
+            "boxes": [
+              "9h",
+              "9i"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7g7f"
+          ],
+          "text": {
+            "ja": "▲７六歩。角の通り道を開けます。",
+            "en": "▲7六歩 opens the bishop line."
+          },
+          "marks": {
+            "last": "7f"
+          }
+        },
+        {
+          "moves": [
+            "8c8d",
+            "8h7g"
+          ],
+          "text": {
+            "ja": "▲７七角。角を上げて、玉の通る八八を空けます。",
+            "en": "▲7七角 lifts the bishop and empties 8h for the king's path."
+          },
+          "marks": {
+            "boxes": [
+              "8h"
+            ],
+            "last": "7g"
+          }
+        },
+        {
+          "moves": [
+            "4a3b",
+            "5i6h"
+          ],
+          "text": {
+            "ja": "▲６八玉。玉を左へ進めます。",
+            "en": "▲6八玉 starts the king moving left."
+          },
+          "marks": {
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "6h7h"
+          ],
+          "text": {
+            "ja": "▲７八玉。",
+            "en": "▲7八玉."
+          },
+          "marks": {
+            "last": "7h"
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "7h8h"
+          ],
+          "text": {
+            "ja": "▲８八玉。",
+            "en": "▲8八玉."
+          },
+          "marks": {
+            "last": "8h"
+          }
+        },
+        {
+          "moves": [
+            "7a6b",
+            "8h9h"
+          ],
+          "text": {
+            "ja": "▲９八玉。玉が端の香の上に入りました。",
+            "en": "▲9八玉 puts the king above the lance on the edge."
+          },
+          "marks": {
+            "boxes": [
+              "9h"
+            ],
+            "last": "9h"
+          }
+        },
+        {
+          "moves": [
+            "5c5d",
+            "7i8h"
+          ],
+          "text": {
+            "ja": "▲８八銀。銀を玉の隣に上げます。",
+            "en": "▲8八銀 lifts the silver beside the king."
+          },
+          "marks": {
+            "boxes": [
+              "8h"
+            ],
+            "last": "8h"
+          }
+        },
+        {
+          "moves": [
+            "6b5c",
+            "6i7i"
+          ],
+          "text": {
+            "ja": "▲７九金。金を一つ左へ寄せます。",
+            "en": "▲7九金 shifts a gold one step left."
+          },
+          "marks": {
+            "boxes": [
+              "7i"
+            ],
+            "last": "7i"
+          }
+        },
+        {
+          "moves": [
+            "5a4b",
+            "4i5h"
+          ],
+          "text": {
+            "ja": "▲５八金。右の金を上げます。",
+            "en": "▲5八金 lifts the right gold."
+          },
+          "marks": {
+            "last": "5h"
+          }
+        },
+        {
+          "moves": [
+            "6a5b",
+            "5h6h"
+          ],
+          "text": {
+            "ja": "▲６八金。金を横へ動かして完成です。玉、銀、金が下の段へ連なります。",
+            "en": "▲6八金 slides the gold over to finish. King, silver and golds line up along the bottom."
+          },
+          "marks": {
+            "boxes": [
+              "9h",
+              "8h",
+              "7i",
+              "6h"
+            ],
+            "last": "6h"
+          }
+        },
+        {
+          "text": {
+            "ja": "端美濃は、穴熊より手数が一手少なく、玉が相手の角の筋から外れます。ただし、端攻めには大変弱く、香が取られると玉が丸裸になります。そのため、実戦で見ることはあまりありません。左美濃の仲間として、形だけ覚えておく囲いです。",
+            "en": "Hashi Mino needs one move fewer than Anaguma and the king stays out of the opponent's bishop line. It is very weak to an edge attack, though, and once the lance falls the king is bare, so it is rarely seen in real games. Remember it as a member of the Left Mino family."
+          },
+          "marks": {
+            "boxes": [
+              "9i",
+              "9g"
+            ]
           }
         }
       ]

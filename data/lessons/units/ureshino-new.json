@@ -1,23 +1,26 @@
 {
   "id": "ureshino-new",
   "order": 1390,
-  "path": ["戦法・定跡", "嬉野流"],
+  "path": [
+    "戦法・定跡",
+    "嬉野流"
+  ],
   "title": {
-    "ja": "新嬉野流：角を引く前の選択",
-    "en": "New Ureshino: decide before retreating the bishop"
+    "ja": "新嬉野流：角を引かずに銀を急ぐ組み方",
+    "en": "Shin-Ureshino: hurrying the silver before the bishop retreat"
   },
   "intro": {
-    "ja": "新嬉野流では６八へ出た左銀を５七へ進めても、８八角をすぐには引かない選択があります。５六歩に銀の支えを付けられる一方、銀や歩がもう一歩進むと守りの利きも変わります。角を８八に残す理由、引く条件、銀が左へ出た後の取り返しを別々の盤面で調べます。",
-    "en": "New Ureshino can develop the left silver from 6h to 5g while leaving B8h in place. That silver supports P5f, but its protection changes as pieces advance. These positions ask when to retain or retreat the bishop, and what the silver can safely take on the left."
+    "ja": "新嬉野流は、嬉野流で角を引く手を後回しにして、先に▲５七銀を指す組み方です。５六の歩にヒモを付けて飛車交換での歩取りを防ぎます。初手から組み、従来の嬉野流との違いと、棒銀に対する弱点を理解します。",
+    "en": "Shin-Ureshino postpones the bishop retreat of Ureshino-ryu and plays ▲5七銀 first. Supporting the pawn on 5f prevents it from being lost in a rook trade. Build it from move one and understand how it differs from the older form and where it is weak against Bou-gin."
   },
   "check": {
     "question": {
-      "ja": "５七銀が５六歩を守っていても、５六歩を５五へ進めた後の同じ銀は何を守れなくなりますか？",
-      "en": "S5g protects P5f. What changes if Sente pushes that pawn to 5e?"
+      "ja": "新嬉野流で、角を引く前に▲５七銀を指すのはなぜですか？",
+      "en": "Why does Shin-Ureshino play ▲5七銀 before retreating the bishop?"
     },
     "answer": {
-      "ja": "５七銀は５六へは前進できますが、５五へ二段進んで取り返すことはできません。第一章の分岐では△５四飛が▲５五歩を取れます。角も７七の歩で遮られているため、その歩を取り戻す手は示されていません。",
-      "en": "The silver can recapture on 5f, not two ranks ahead on 5e. In chapter one's optional branch, R5d×5e takes the advanced pawn. P7g blocks B8h's route to 5e, so the illustrated continuation does not regain that pawn."
+      "ja": "５六の歩にヒモを付けて、飛車交換のときに△５六飛と歩を取られる筋を消すためです。従来型はこの歩が浮いて、２枚の歩を取られる変化がありました。",
+      "en": "To support the pawn on 5f and remove the line in which a rook trade lets Gote take it with △5六飛. The older form left that pawn hanging, and Gote could pick off two pawns."
     }
   },
   "references": [
@@ -30,120 +33,305 @@
   ],
   "chapters": [
     {
-      "title": { "ja": "銀の支えは５六で数える", "en": "Count the silver's support on 5f" },
+      "title": {
+        "ja": "角を引かずに▲５七銀を急ぐ",
+        "en": "Delay the bishop retreat and hurry ▲5七銀"
+      },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/4r2b1/9/5p3/9/4P2P1/1PP6/1BGS3R1/4KG3 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "６八銀と５六歩があり、角は８八に残っています。後手５二飛は５六歩を縦に狙えます。まず銀を５七へ動かしたとき、５六の取り返しがどう変わるかを見ます。",
-            "en": "Sente has S6h, P5f and B8h. Gote's R5b has an open line down to P5f. Moving the silver to 5g changes the recapture on that exact square while the bishop stays put."
-          },
-          "marks": { "boxes": ["6h", "5g", "5f", "5b", "8h"] }
+            "ja": "新嬉野流は、嬉野流の出だしから、角を引く手を後回しにして銀を先に進める形です。５六の歩を銀で支えておくことで、あとの飛車交換で歩を取られる筋を消します。相手の出方しだいで、嬉野流以外の駒組みにも変えられます。初手から順に組みます。",
+            "en": "Shin-Ureshino starts the same way as Ureshino-ryu but puts the bishop retreat off and moves the silver first. Supporting the pawn on 5f with that silver removes the lines in which a rook trade wins it. Depending on the opponent, the position can also change into a different set-up. Build it from move one."
+          }
         },
         {
-          "moves": ["6h5g"],
+          "moves": [
+            "7i6h"
+          ],
           "text": {
-            "ja": "▲５七銀で５六歩に銀の利きが付きます。ただし飛車取りが消えたという意味ではありません。後手が歩を取る順と、歩を進めさせる順では収支が違います。",
-            "en": "S6h–5g now protects P5f. It does not remove every fifth-file attack; compare a direct rook capture with a line where the pawn advances first."
+            "ja": "初手は▲６八銀です。嬉野流と同じ出だしで、７九の銀を斜め前の６八へ上げます。この銀を、角を引く前にさらに前へ進めるのが新嬉野流の特徴です。",
+            "en": "The first move is ▲6八銀, the same as Ureshino-ryu: the silver on 7i steps up to 6h. What marks Shin-Ureshino is that this silver goes further before the bishop retreats."
           },
-          "marks": { "arrows": ["6h5g"], "boxes": ["5f"] }
+          "marks": {
+            "last": "6h",
+            "boxes": [
+              "6h"
+            ]
+          }
         },
         {
-          "moves": ["5b5f", "5g5f"],
+          "moves": [
+            "3c3d",
+            "5g5f"
+          ],
           "text": {
-            "ja": "後手があえて△５六飛と歩を取れば▲同銀で飛車を取れます。これは５六という地点の守りを示す任意の悪い応手であり、後手に飛車を差し出す義務はありません。",
-            "en": "If Gote voluntarily plays R5b×5f, S5g×5f captures the rook. This optional error demonstrates the defender on 5f; Gote is free to choose another move."
+            "ja": "後手は△３四歩と角道を開けました。下手は▲５六歩と、５筋の歩を一つ突きます。次にこの歩の後ろへ銀を回す準備で、５六の歩が取られないようにするのがこの形の狙いです。",
+            "en": "Gote opens the bishop diagonal with △3四歩. You push the fifth-file pawn with ▲5六歩. The silver will go behind it next, because the point of this setup is to keep the 5f pawn from being picked off."
           },
-          "marks": { "arrows": ["5g5f"], "last": "5f" }
-        }
-      ],
-      "variations": [
+          "marks": {
+            "last": "5f",
+            "boxes": [
+              "5f"
+            ]
+          }
+        },
         {
-          "from": 1,
-          "moves": ["5b5d", "5f5e", "5d5e", "5i4h", "5e5b"],
+          "moves": [
+            "8c8d",
+            "6h5g"
+          ],
           "text": {
-            "ja": "別の一例で△５四飛に▲５五歩と伸ばすと、△同飛で歩を取られます。▲４八玉、△５二飛はその後の任意の進行です。７七歩が角の斜線を止め、５七銀も５五へは届きません。",
-            "en": "In a different sample, R5b–5d, P5f–5e, R5d×5e takes the pawn. K5i–4h and R5e–5b are optional continuations. P7g blocks B8h's diagonal, while S5g does not reach 5e."
+            "ja": "後手は△８四歩と飛車先を伸ばします。下手は▲５七銀と、６八の銀を５七へ進めます。銀が５六の歩にヒモを付ける形です。角を引く前にこの銀を回すのが、新嬉野流の目印です。角はまだ８八にいます。",
+            "en": "Gote pushes the rook pawn with △8四歩. You advance the silver from 6h with ▲5七銀, tying it to the pawn on 5f. Playing this silver before retreating the bishop is the mark of Shin-Ureshino. The bishop is still on 8h."
           },
-          "marks": { "boxes": ["5f", "5e"], "last": "5b" }
+          "marks": {
+            "last": "5g",
+            "boxes": [
+              "5g",
+              "5f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4a3b",
+            "6i7h"
+          ],
+          "text": {
+            "ja": "後手は△３二金と囲いを整えます。下手は▲７八金と、金を寄せます。７九に角が引いてきたときに、そのそばを守る金になります。",
+            "en": "Gote tidies the castle with △3二金. You bring the gold over with ▲7八金. It will guard the bishop when the bishop retreats to 7i."
+          },
+          "marks": {
+            "last": "7h",
+            "boxes": [
+              "7h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8d8e",
+            "8h7i"
+          ],
+          "text": {
+            "ja": "後手は△８五歩と、さらに飛車先を押します。下手はここで初めて▲７九角と角を引きます。５六の歩にヒモが付いたので、角を引いて嬉野流の形に戻れます。",
+            "en": "Gote pushes on with △8五歩. Only now do you retreat the bishop with ▲7九角. With the 5f pawn already supported, the bishop can drop back into the Ureshino-ryu formation."
+          },
+          "marks": {
+            "last": "7i",
+            "boxes": [
+              "7i"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8e8f",
+            "8g8f"
+          ],
+          "text": {
+            "ja": "後手は△８六歩と、飛車先の歩を交換にきました。下手は▲同歩と取ります。",
+            "en": "Gote offers the rook-pawn exchange with △8六歩. You take it with ▲同歩."
+          },
+          "marks": {
+            "last": "8f"
+          }
+        },
+        {
+          "moves": [
+            "8b8f",
+            "P*8g"
+          ],
+          "text": {
+            "ja": "後手は△同飛と歩を取り返します。下手は▲８七歩と打って受けます。嬉野流の基本形では８八に打ちましたが、新嬉野流は一段上の８七に打つのが違いです。これで後手の飛車が８六にとどまって５六を狙う筋が消えます。ここから先は、ほぼ嬉野流と同じ駒組みになります。",
+            "en": "Gote recaptures with △同飛. You drop a pawn with ▲8七歩. The basic Ureshino-ryu drops one square deeper, on 8h, but Shin-Ureshino drops on 8g. This removes the line in which Gote's rook lingers on 8f and aims at 5f. From here the setup is almost the same as Ureshino-ryu."
+          },
+          "marks": {
+            "last": "8g",
+            "boxes": [
+              "8g",
+              "8f"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "覚えておく点は三つです。一つ、角を引くより先に▲５七銀を回す。二つ、５六の歩を銀で守り、飛車交換のときに歩を取られないようにする。三つ、飛車先の交換には▲８七歩で受ける。相手の構えを見てから、嬉野流以外の駒組みに変える余地も残っています。",
+            "en": "Three points to remember. One: play the silver to 5g before retreating the bishop. Two: guard the pawn on 5f with the silver so it cannot be taken in a rook trade. Three: answer the rook-pawn exchange with ▲8七歩. You also keep the option to switch to a setup other than Ureshino-ryu after seeing how Gote builds."
+          },
+          "marks": {
+            "boxes": [
+              "5g",
+              "5f",
+              "8g"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "強みと弱みです。強みは、従来の嬉野流で起こりうる、飛車交換のときに５六の歩を取られる筋を消せることです。弱みは、飛車先の交換を８七の歩で受けるため、棒銀で攻められると８七の地点が争点になり、受けが一手苦しくなることです。両方の形の長所と短所を知って、相手に合わせて選びます。",
+            "en": "Strengths and weaknesses. The strength is that it removes the line, possible in the older Ureshino-ryu, where a rook trade lets Gote take the pawn on 5f. The weakness is that the rook-pawn exchange is met by a pawn on 8g, so against a climbing silver 8g becomes the point of contention and the defence is a move harder. Know the merits and faults of both forms and choose according to the opponent."
+          },
+          "marks": {
+            "boxes": [
+              "8g",
+              "5f"
+            ]
+          }
         }
       ]
     },
     {
-      "title": { "ja": "角を残し、交換を見てから引く", "en": "Retreat only after checking the bishop exchange" },
+      "title": {
+        "ja": "従来の嬉野流が嫌う展開",
+        "en": "What the older Ureshino-ryu dislikes"
+      },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/1r7/4s4/1p3bp2/9/2P1P2P1/1P2S4/1BG4R1/4KG3 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7i6h",
+            "3c3d",
+            "5g5f",
+            "8c8d",
+            "3i4h",
+            "4a3b",
+            "6i7h",
+            "8d8e",
+            "8h7i",
+            "2b4d",
+            "2g2f",
+            "8e8f"
+          ],
           "text": {
-            "ja": "先手は５七銀を先に置き、角を８八に残しています。後手４四角と８八角は５五・６六・７七を通じて向かい合い、４四角は５三銀に守られています。ここでは角交換をするか、角を引いて保持するかが選択です。",
-            "en": "Sente's S5g developed before B8h retreated. The bishops face each other along 5e, 6f and 7g, and Gote's S5c protects B4d. Sente can consider a bishop exchange or keep the bishop by retreating it."
+            "ja": "比較のために、角を先に引く従来の嬉野流を見ます。後手は△４四角と角道を活かし、飛車先の歩を△８六歩と突き出しました。ここから先手に嫌な変化があります。",
+            "en": "For comparison, look at the older Ureshino-ryu that retreats the bishop first. Gote uses the bishop with △4四角 and pushes the rook pawn with △8六歩. From here Sente faces an unpleasant line."
           },
-          "marks": { "boxes": ["8h", "4d", "5c", "7i"] }
+          "marks": {
+            "last": "8f",
+            "boxes": [
+              "4d",
+              "5f"
+            ]
+          }
         },
         {
-          "moves": ["8h7i", "8d8e"],
+          "moves": [
+            "8g8f",
+            "8b8f",
+            "P*8h",
+            "8f5f"
+          ],
           "text": {
-            "ja": "▲７九角は駒を取り合わずに角を残す選択です。続く△８五歩の後も、７九からの斜線は５七銀で止まります。角を移しただけで遠くの歩に利いたと判断しないでください。",
-            "en": "Here B8h–7i declines the exchange, and Gote advances P8d–8e. The new diagonal from 7i through 6h still stops at S5g. A retreat alone does not activate the bishop."
+            "ja": "▲同歩△同飛▲８八歩と受けたとき、５六の歩にはまだ守りがありません。そこへ△５六飛と飛車で歩を取られてしまいます。銀が６八にいる間は、この歩が浮いたままです。",
+            "en": "After ▲同歩 △同飛 ▲8八歩, the pawn on 5f still has no protection, and △5六飛 takes it with the rook. While the silver is still on 6h, that pawn hangs."
           },
-          "marks": { "arrows": ["8h7i"], "boxes": ["5g", "6h"] }
+          "marks": {
+            "last": "5f",
+            "arrows": [
+              "8f5f"
+            ],
+            "boxes": [
+              "5f"
+            ]
+          }
         },
         {
-          "moves": ["2f2e"],
+          "moves": [
+            "6h5g",
+            "5f2f"
+          ],
           "text": {
-            "ja": "▲２五歩は飛車先を進めつつ５七銀を据え置きます。後手はほかの手も選べますが、この盤面で銀を６六へ急ぐと４四角が届くことを先に確認します。",
-            "en": "P2f–2e develops the rook file while leaving S5g in place. This does not force Gote's reply. Before moving the silver to 6f, inspect B4d's line through 5e to 6f."
+            "ja": "▲５七銀左とあとから守っても、△２六飛と回られて、もう一枚歩を取られます。先手は歩を２枚失い、飛車を打ち込まれる隙も残ります。飛車交換になると先手が指しにくい形です。５六の歩に早くヒモを付ける新嬉野流は、この変化を避けるための工夫です。",
+            "en": "Even if ▲5七銀左 defends afterwards, △2六飛 swings over and picks off a second pawn. Sente is two pawns down and a rook drop remains possible. A rook trade is awkward for Sente. Shin-Ureshino supports the pawn early to avoid exactly this."
           },
-          "marks": { "arrows": ["2f2e"], "boxes": ["6f", "4d"] }
-        }
-      ],
-      "variations": [
-        {
-          "from": 1,
-          "moves": ["5g6f", "4d6f"],
-          "text": {
-            "ja": "△８五歩の直後に▲６六銀と出ると、この図では△同角が６六の銀を取ります。角を７九へ引いたため、先手角は６六に取り返しに行けません。角を残す選択には、銀の進出先を数え直す負担があります。",
-            "en": "After P8d–8e, an immediate S5g–6f lets B4d×6f take the silver in this position. B7i no longer recaptures on 6f. Preserving the bishop means recalculating the silver's next square."
-          },
-          "marks": { "arrows": ["4d6f"], "last": "6f" }
+          "marks": {
+            "last": "2f",
+            "arrows": [
+              "5f2f"
+            ],
+            "boxes": [
+              "2f"
+            ]
+          }
         }
       ]
     },
     {
-      "title": { "ja": "左銀の歩取りと飛車の取り返しを分ける", "en": "Separate a silver pawn gain from the rook recapture" },
+      "title": {
+        "ja": "新嬉野流の弱点：８七の歩が争点になる",
+        "en": "The weakness: the pawn on 8g becomes the target"
+      },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/1r5b1/9/1pp2p3/9/2P1P2P1/1P2S4/1BG2K1R1/6G2 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7i6h",
+            "3c3d",
+            "5g5f",
+            "8c8d",
+            "6h5g",
+            "8d8e",
+            "6i7h",
+            "8e8f",
+            "8g8f",
+            "8b8f",
+            "P*8g",
+            "8f8b",
+            "2g2f",
+            "7a7b",
+            "2f2e",
+            "2b3c",
+            "8h7i",
+            "7b8c",
+            "3i4h",
+            "8c8d",
+            "5g6f",
+            "8d8e",
+            "6f6e"
+          ],
           "text": {
-            "ja": "角を８八に残し、５七銀から左の歩へ向かう局面です。後手には７四歩と８四歩があり、８四歩は８二飛に守られています。銀で７筋の歩を取れても、８筋の歩まで同じように取れるとは限りません。",
-            "en": "B8h has not retreated, and S5g can approach Gote's P7d. Gote also has P8d backed by R8b. A silver capture on the seventh file does not make the adjacent eighth-file pawn free."
+            "ja": "新嬉野流の弱みも見ておきます。棒銀に対する形で、先手は左の銀を大きく回り、▲６五銀と上がるのが定跡です。後手は△８五銀と出てきています。",
+            "en": "Now look at the weak side of Shin-Ureshino. Against a Bou-gin, Sente brings the left silver round and plays ▲6五銀. Gote has advanced with △8五銀."
           },
-          "marks": { "boxes": ["5g", "7d", "8d", "8b"] }
+          "marks": {
+            "last": "6e",
+            "boxes": [
+              "6e",
+              "8e"
+            ]
+          }
         },
         {
-          "moves": ["5g6f", "7d7e", "6f7e"],
+          "moves": [
+            "P*8f"
+          ],
           "text": {
-            "ja": "▲６六銀の後、後手が△７五歩と進める一例なら▲同銀で歩を取れます。後手は７五の歩を進める義務はありません。銀が７五へ出た後は、８四の歩に８二飛の縦の利きがあることを忘れません。",
-            "en": "If Gote chooses P7d–7e after S5g–6f, S6f×7e takes that pawn. The pawn push is optional. From 7e the silver also eyes P8d, but R8b stands behind that pawn."
+            "ja": "△８六歩と歩を打たれます。新嬉野流は飛車先の交換を８七歩で受けているため、この８七の地点が争点になります。従来の形より、後手の攻めが一手早く始まってしまいます。受けはありますが、先手にとってはやや嫌な展開です。",
+            "en": "Gote drops △8六歩. Because Shin-Ureshino answers the rook-pawn exchange on 8g, that square becomes the point of contention, and Gote's attack starts one move earlier than in the older form. There are defences, but it is a slightly unpleasant line for Sente."
           },
-          "marks": { "arrows": ["6f7e"], "last": "7e", "boxes": ["8d", "8b"] }
-        }
-      ],
-      "variations": [
+          "marks": {
+            "last": "8f",
+            "arrows": [
+              "8f8g"
+            ],
+            "boxes": [
+              "8g"
+            ]
+          }
+        },
         {
-          "from": 1,
-          "moves": ["5a4b", "7e8d", "8b8d"],
           "text": {
-            "ja": "後手が△４二玉と指した場合、▲８四銀と歩を取ること自体はできます。しかし△同飛で銀を失います。７五銀が得た一歩を、守られた別の歩まで取りに行って失わないようにします。",
-            "en": "If Gote plays K5a–4b, S7e×8d can take the pawn, but R8b×8d then captures the silver. The first pawn gain does not justify taking a second pawn without counting its rook defender."
-          },
-          "marks": { "arrows": ["8b8d"], "last": "8d" }
+            "ja": "まとめです。新嬉野流は、角引きを保留して５六の歩にヒモを付けるのが特徴で、従来型の弱点を消せます。その代わり、８七の歩が争点になるので、棒銀に対しては受けが一手苦しくなります。両方の長所と短所を知って選びましょう。",
+            "en": "Summary. Shin-Ureshino delays the bishop retreat and supports the pawn on 5f, which removes the older form's weakness. In exchange the pawn on 8g becomes a target, so the defence against Bou-gin is one move tighter. Choose it knowing both sides."
+          }
         }
       ]
     }

@@ -1,0 +1,488 @@
+{
+  "id": "tutorial-kei37",
+  "order": 854,
+  "path": [
+    "戦法・定跡",
+    "対振り飛車"
+  ],
+  "title": {
+    "ja": "▲３七桂早仕掛け入門：５筋と４筋を突き捨てて桂で攻める",
+    "en": "Early ▲3七桂 Attack: sacrifice on the fifth and fourth files and attack with the knight"
+  },
+  "intro": {
+    "ja": "▲３七桂早仕掛けは、舟囲いの居飛車が４六の歩と３七の桂を構え、５筋と４筋の歩を突き捨てて三間飛車を攻める急戦です。この講座では、基本図までの組み方、▲５五歩から桂で４五の歩を取るまでの手順、後手の受けの要になる手と、受けを誤った形を指します。",
+    "en": "The early ▲3七桂 attack is a rapid attack by a Funa-castle Static Rook player: pawn on 4f, knight on 3g, then sacrifices on the fifth and fourth files to attack Third File Rook. You will build the basic position, follow the moves from ▲5五歩 to the knight capturing on 4e, and learn the defender's key resource and the mistake that loses."
+  },
+  "check": {
+    "question": {
+      "ja": "▲３七桂早仕掛けで、▲４五歩の前に▲５五歩を突き捨てるのはなぜですか？",
+      "en": "Why does the early ▲3七桂 attack sacrifice ▲5五歩 before ▲4五歩?"
+    },
+    "answer": {
+      "ja": "５筋の歩を交換して後手の５四の歩をなくしておくと、▲４五歩△同歩のあとに桂で４五の歩を取り返す手が生きるからです。単に▲４五歩では、△同歩▲３三角成△同桂で何も起きません。",
+      "en": "Trading the fifth-file pawn first removes Gote's pawn on 5d, so after ▲4五歩 △同歩 the knight can take back on 4e with effect. Plain ▲4五歩 △同歩 ▲3三角成 △同桂 gets nothing."
+    }
+  },
+  "references": [
+    {
+      "title": "将棋の技図鑑 (yuki-keio/shogi)",
+      "url": "https://github.com/yuki-keio/shogi",
+      "license": "GPL-3.0-only",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "初手から基本図まで組む",
+        "en": "Build the basic position from move one"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "text": {
+            "ja": "目標は、舟囲いに４六の歩と３七の桂を加え、５七に銀を置いた基本図です。相手は三間飛車に振る例で進めます。桂と銀と歩を、４五の一点に向けます。",
+            "en": "The goal is the basic position: Funa castle with a pawn on 4f, a knight on 3g and a silver on 5g. Gote swings to Third File Rook in this example. Knight, silver and pawn all point at 4e."
+          }
+        },
+        {
+          "moves": [
+            "2g2f"
+          ],
+          "text": {
+            "ja": "▲２六歩。まず飛車先の歩を突きます。",
+            "en": "▲2六歩. Start by pushing the rook-file pawn."
+          },
+          "marks": {
+            "last": "2f"
+          }
+        },
+        {
+          "moves": [
+            "3c3d",
+            "7g7f"
+          ],
+          "text": {
+            "ja": "△３四歩と角道を開けられたので、▲７六歩と自分の角道も開けます。",
+            "en": "Gote opens its bishop with △3四歩, and you open your own with ▲7六歩."
+          },
+          "marks": {
+            "last": "7f"
+          }
+        },
+        {
+          "moves": [
+            "4c4d",
+            "3i4h"
+          ],
+          "text": {
+            "ja": "△４四歩と角道を止められたら、▲４八銀。右の銀を上げます。",
+            "en": "Gote closes its bishop line with △4四歩, and you play ▲4八銀 with the right silver."
+          },
+          "marks": {
+            "last": "4h"
+          }
+        },
+        {
+          "moves": [
+            "8b3b",
+            "2f2e"
+          ],
+          "text": {
+            "ja": "△３二飛で三間飛車が決まりました。こちらは▲２五歩と飛車先の歩を伸ばします。",
+            "en": "Gote plays △3二飛, confirming Third File Rook. Advance the rook-file pawn with ▲2五歩."
+          },
+          "marks": {
+            "last": "2e"
+          }
+        },
+        {
+          "moves": [
+            "2b3c",
+            "5i6h"
+          ],
+          "text": {
+            "ja": "△３三角と受けられたら、▲６八玉。玉を囲いへ向かわせます。",
+            "en": "Gote guards with △3三角, and you start the king toward its castle with ▲6八玉."
+          },
+          "marks": {
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "3a4b",
+            "6h7h"
+          ],
+          "text": {
+            "ja": "▲７八玉。玉が舟囲いの位置に着きました。",
+            "en": "▲7八玉. The king reaches its Funa castle square."
+          },
+          "marks": {
+            "last": "7h"
+          }
+        },
+        {
+          "moves": [
+            "5a6b",
+            "5g5f"
+          ],
+          "text": {
+            "ja": "▲５六歩。中央の歩を伸ばして、５七の升を空けます。",
+            "en": "▲5六歩 advances the central pawn and empties 5g."
+          },
+          "marks": {
+            "last": "5f",
+            "boxes": [
+              "5g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5c5d",
+            "4i5h"
+          ],
+          "text": {
+            "ja": "▲５八金。右の金を寄せて舟囲いを固めます。",
+            "en": "▲5八金 firms up the Funa castle with the right gold."
+          },
+          "marks": {
+            "last": "5h"
+          }
+        },
+        {
+          "moves": [
+            "4a5b",
+            "3g3f"
+          ],
+          "text": {
+            "ja": "▲３六歩。桂が３七へ跳ねられるように、３筋の歩を伸ばします。",
+            "en": "▲3六歩 advances the third-file pawn so the knight can jump to 3g."
+          },
+          "marks": {
+            "last": "3f",
+            "boxes": [
+              "3g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6b7b",
+            "9g9f"
+          ],
+          "text": {
+            "ja": "▲９六歩。端の歩を突いておきます。",
+            "en": "▲9六歩 pushes the edge pawn."
+          },
+          "marks": {
+            "last": "9f"
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "4g4f"
+          ],
+          "text": {
+            "ja": "▲４六歩。この戦法を特徴づける一手です。４筋の歩を伸ばし、あとで▲４五歩と突き出す準備をします。",
+            "en": "▲4六歩 is the move that defines this strategy. It advances the fourth-file pawn and prepares the later thrust ▲4五歩."
+          },
+          "marks": {
+            "last": "4f",
+            "arrows": [
+              "4f4e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7b8b",
+            "2i3g"
+          ],
+          "text": {
+            "ja": "▲３七桂。桂を跳ねて、攻めの駒を増やします。桂は４五と２五に利く位置にいます。",
+            "en": "▲3七桂 jumps the knight and adds an attacker. From 3g it covers 4e and 2e."
+          },
+          "marks": {
+            "last": "3g",
+            "arrows": [
+              "3g4e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3b2b",
+            "7i6h"
+          ],
+          "text": {
+            "ja": "△２二飛と後手が飛車を寄せてきました。これが▲３七桂への標準的な受けです。こちらは▲６八銀と進めます。",
+            "en": "Gote shifts the rook with △2二飛, the standard defence to ▲3七桂. You continue with ▲6八銀."
+          },
+          "marks": {
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "6c6d",
+            "6h5g"
+          ],
+          "text": {
+            "ja": "△６四歩と待たれたら、▲５七銀。銀が４六の歩を後ろから支えて、基本図です。",
+            "en": "Gote waits with △6四歩, and ▲5七銀 completes the basic position. The silver backs up the pawn on 4f."
+          },
+          "marks": {
+            "last": "5g",
+            "boxes": [
+              "4f",
+              "3g",
+              "5g"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "覚えることは三つです。４六に歩、３七に桂、５七に銀の三枚が４五を狙うこと。次に▲５五歩と突き捨てる準備ができていること。飛車は２八のまま使わず、桂と銀と歩で攻めること。",
+            "en": "Remember three things. Pawn 4f, knight 3g and silver 5g all aim at 4e. The next move is the sacrifice ▲5五歩. The rook stays on 2h, and the attack is carried out by knight, silver and pawn."
+          },
+          "marks": {
+            "boxes": [
+              "4e",
+              "4f",
+              "3g",
+              "5g"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "５筋と４筋を突き捨てて桂で攻める",
+        "en": "Sacrifice on the fifth and fourth files and attack with the knight"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "2g2f",
+            "3c3d",
+            "7g7f",
+            "4c4d",
+            "3i4h",
+            "8b3b",
+            "2f2e",
+            "2b3c",
+            "5i6h",
+            "3a4b",
+            "6h7h",
+            "5a6b",
+            "5g5f",
+            "5c5d",
+            "4i5h",
+            "4a5b",
+            "3g3f",
+            "6b7b",
+            "9g9f",
+            "9c9d",
+            "4g4f",
+            "7b8b",
+            "2i3g",
+            "3b2b",
+            "7i6h",
+            "6c6d",
+            "6h5g",
+            "7a7b"
+          ],
+          "text": {
+            "ja": "前の章の基本図です。後手は７二銀まで美濃囲いを進めています。ここから、まず５筋の歩を突き捨てます。",
+            "en": "The basic position from chapter 1. Gote has nearly completed its Mino castle. Now sacrifice the fifth-file pawn first."
+          },
+          "marks": {
+            "boxes": [
+              "5d",
+              "4d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5f5e"
+          ],
+          "text": {
+            "ja": "▲５五歩。５筋の歩を突き捨てて、相手の５四の歩をなくすのが狙いです。単に▲４五歩では、△同歩▲３三角成△同桂で何も起きません。",
+            "en": "▲5五歩 is a sacrifice meant to get rid of Gote's pawn on 5d. Plain ▲4五歩 would run into △同歩 ▲3三角成 △同桂 with nothing gained."
+          },
+          "marks": {
+            "last": "5e",
+            "arrows": [
+              "5e5d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5d5e",
+            "4f4e"
+          ],
+          "text": {
+            "ja": "△同歩と取られたら、▲４五歩。４筋の歩を突き出します。",
+            "en": "Gote takes with △同歩, and you thrust ▲4五歩 on the fourth file."
+          },
+          "marks": {
+            "last": "4e",
+            "arrows": [
+              "4e4d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4d4e",
+            "3g4e"
+          ],
+          "text": {
+            "ja": "△同歩と自然に取ると、▲４五桂。桂で歩を取り返します。桂は３三の角と５三の升をねらい、これで攻めが決まります。後手の△同歩は悪手で、ここで攻めを許します。",
+            "en": "Gote naturally takes with △同歩, and ▲4五桂 recaptures with the knight. It attacks the bishop on 3c and eyes 5c, and the attack is decisive. Taking with △同歩 is a mistake that lets this happen."
+          },
+          "marks": {
+            "last": "4e",
+            "arrows": [
+              "4e3c",
+              "4e5c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3c4d",
+            "5g4f"
+          ],
+          "text": {
+            "ja": "△４四角と角を逃がし、▲４六銀。銀を出して４五の桂を支え、次に５五の歩を取る準備をします。",
+            "en": "Gote moves the bishop with △4四角, and you play ▲4六銀, bringing the silver out to back up the knight and prepare the capture on 5e."
+          },
+          "marks": {
+            "last": "4f",
+            "arrows": [
+              "4f5e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5b4c",
+            "4f5e"
+          ],
+          "text": {
+            "ja": "△４三金と備えても、▲５五銀。銀が歩を取って、相手の角に当たります。",
+            "en": "Gote guards with △4三金, and ▲5五銀 takes the pawn and attacks the bishop."
+          },
+          "marks": {
+            "last": "5e",
+            "arrows": [
+              "5e4d"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 2,
+          "moves": [
+            "4b4c",
+            "5g4f"
+          ],
+          "text": {
+            "ja": "△同歩と取らずに、△４三銀と銀で４四を支える受けもあります。銀が４四の歩を支えるので、後手は急いで取らずに様子を見ます。この場合は攻めがそのままでは決まらず、ほぼ互角の戦いです。",
+            "en": "Gote can decline the capture and defend with the silver, △4三銀. The silver backs up the pawn on 4d, so Gote does not hurry to capture. The attack does not break through by itself and the game is roughly even."
+          },
+          "steps": [],
+          "marks": {
+            "last": "4f"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "受けを誤る形",
+        "en": "When the defence goes wrong"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "2g2f",
+            "3c3d",
+            "7g7f",
+            "4c4d",
+            "3i4h",
+            "8b3b",
+            "2f2e"
+          ],
+          "text": {
+            "ja": "三間飛車の側が飛車先を受けなかった場合を見ます。ここまでは基本図と同じ手順です。",
+            "en": "Here we look at a Gote who does not guard the second file. The first moves are the same as before."
+          },
+          "marks": {
+            "last": "2e",
+            "boxes": [
+              "2c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "2e2d"
+          ],
+          "text": {
+            "ja": "△３三角と受けるところ、後手が△１四歩と端歩を突いたら、▲２四歩。２筋の歩を突き捨てます。端歩は価値のある手ですが、この局面では２筋の受けが先です。",
+            "en": "Where △3三角 guards, Gote plays the edge pawn △1四歩 instead, and you sacrifice ▲2四歩. The edge pawn is a useful move, but here the second file must be guarded first."
+          },
+          "marks": {
+            "last": "2d",
+            "arrows": [
+              "2d2c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2c2d",
+            "2h2d"
+          ],
+          "text": {
+            "ja": "△同歩と取られたら、▲２四同飛。飛車で取り返して、２筋を突破しました。飛車が相手陣に入り、先手が指しやすい展開です。",
+            "en": "Gote takes with △同歩, and ▲2四同飛 recaptures with the rook and breaks through the second file. The rook is now in the opponent's camp and Sente is easier to play."
+          },
+          "marks": {
+            "last": "2d"
+          }
+        },
+        {
+          "text": {
+            "ja": "この戦法の長所と短所です。長所は、桂・銀・歩の三枚が４五に集まり、攻めの狙いがはっきりしていること。短所は、△２二飛や△４三銀のような正しい受けを知っている相手には、攻めが決まりにくいこと。また舟囲いは薄く、突き捨てた歩が多いので、攻めが止まると苦しくなります。",
+            "en": "Strengths and weaknesses. Knight, silver and pawn gather on 4e, so the aim is clear. But against a correct defence such as △2二飛 or △4三銀 the attack is hard to force through. The Funa castle is thin and several pawns have been given away, so a stalled attack is painful."
+          },
+          "marks": {
+            "boxes": [
+              "4e",
+              "7h"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,23 +1,26 @@
 {
   "id": "aifuri-hidari-anaguma",
   "order": 1320,
-  "path": ["戦法・定跡", "相振り飛車"],
+  "path": [
+    "戦法・定跡",
+    "中飛車左穴熊"
+  ],
   "title": {
-    "ja": "中飛車で左穴熊を選ぶ条件",
-    "en": "Choosing a left Anaguma with Central Rook"
+    "ja": "中飛車左穴熊：組み方と揺さぶり",
+    "en": "Central Rook Left Anaguma: setup and probing"
   },
   "intro": {
-    "ja": "相振り飛車でも、先手の中飛車は玉を左へ運べます。左穴熊は９九の玉、９八の香、８八の銀と金の連絡を実際の盤で確認して初めて評価できます。囲う一手の間に後手の３筋と５筋がどう動くかを読み、攻めと補強を選び分けます。",
-    "en": "In double Ranging Rook, Sente's Central Rook can place its king on the left. Judge a left Anaguma by its actual king on 9i, lance on 9h, silver on 8h, and connected golds. Each castle move gives Gote a turn, so compare third- and fifth-file contact before adding more cover."
+    "ja": "相手も振り飛車にしてきた相振り飛車で、中飛車の玉を左の隅へ入れて穴熊に組む作戦です。中飛車は相振りで不利と言われますが、玉を左に置けば相手の攻めから遠ざかり、居飛車穴熊のような堅さが手に入ります。初手から左穴熊を完成させ、▲２六飛の揺さぶりを入れて理想形まで組めるようになります。",
+    "en": "When the opponent also plays Ranging Rook, this plan tucks the Central Rook player's king into an Anaguma on the left. Central Rook is said to be at a disadvantage in double Ranging Rook, but a king on the left is far from the opponent's attack and gets the hardness of a Static Rook Anaguma. Build the left Anaguma from move one, add the ▲2六飛 probe, and reach the ideal formation."
   },
   "check": {
     "question": {
-      "ja": "先手が９九玉・９八香・８八銀・７八金を作っても、後手の３筋の歩が迫っています。『穴熊ができたから安全』と言い切れますか？",
-      "en": "Sente has K9i, L9h, S8h and G7h, but Gote's third-file pawn is advancing. Is the completed Anaguma automatically safe?"
+      "ja": "相振り飛車で中飛車が玉を左側に囲うのはなぜですか？",
+      "en": "Why does Central Rook castle on the left in double Ranging Rook?"
     },
     "answer": {
-      "ja": "言い切れません。玉の出口と金銀の連絡に加え、３筋で歩を取った後の飛車同士の取り返し、５筋の攻めに残す手数を確認します。",
-      "en": "No. Check the king's exits and connected defenders, then calculate rook recaptures after third-file pawn contact and the time still available for the fifth-file plan."
+      "ja": "相振りでは相手の飛車が右側（先手から見て３筋や２筋）に来て、そこから攻めてきます。玉を右に囲うとその攻めをまともに受けますが、左の穴熊なら攻めから遠く、居飛車穴熊と同じ堅さで戦えるからです。",
+      "en": "In double Ranging Rook the opponent's rook comes to Sente's right side, the third or second file, and attacks there. A king castled on the right takes that attack head on, while a left Anaguma is far away and as hard as a Static Rook Anaguma."
     }
   },
   "references": [
@@ -30,93 +33,357 @@
   ],
   "chapters": [
     {
-      "title": { "ja": "玉を隅へ入れる一手", "en": "The tempo that tucks the king into the corner" },
+      "title": {
+        "ja": "初手から左穴熊を組む",
+        "en": "Build the left Anaguma from move one"
+      },
       "side": "sente",
-      "kind": "position",
-      "start": "9/2k3rb1/5s3/5pp2/4P4/4R4/2B6/LSG6/1K7 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "先手は５六飛を中央に置き、左側に８九玉・９八香・８八銀・７八金を配置しています。玉はまだ隅に入っていません。後手は３二飛と３四歩を持ち、囲いの途中でも手を進められます。",
-            "en": "Sente has a central rook on 5f and a left-side K8i, L9h, S8h, G7h shelter. The king has not yet entered the corner. Gote has R3b and P3d and can use the turn Sente spends on castling."
-          },
-          "marks": { "boxes": ["8i", "9i", "9h", "8h", "7h", "3d"] }
+            "ja": "先手は中飛車、後手は三間飛車に振る相振り飛車です。普通の中飛車は右側に美濃囲いを作りますが、この作戦では玉を左の９九まで運んで穴熊にします。",
+            "en": "Sente plays Central Rook and Gote swings to Third File Rook: double Ranging Rook. A normal Central Rook builds a Mino on the right, but this plan walks the king to 9i on the left and builds an Anaguma."
+          }
         },
         {
-          "moves": ["8i9i", "3d3e"],
+          "moves": [
+            "7g7f"
+          ],
           "text": {
-            "ja": "▲９九玉で玉は香の下に入りました。後手は一例として△３五歩と進めています。玉を動かす手は守りの形を変えますが、相手にも攻めの準備を一手与えるとわかります。",
-            "en": "K8i–9i puts the king behind the lance. Gote's sample reply P3d–3e advances its own attack. The king move improves the shelter's shape while giving Gote a full turn to prepare contact."
+            "ja": "先手の最初の一手は▲７六歩です。７七の歩を突くと、８八の角の斜めが開きます。この角は、あとで７七へ上がって玉の通り道を空けるために使います。",
+            "en": "Sente's first move is ▲7六歩. Pushing the 7g pawn opens the diagonal of the bishop on 8h. The bishop will later step up to 7g to clear a path for the king."
           },
-          "marks": { "arrows": ["8i9i", "3d3e"], "boxes": ["9i", "3e"] }
+          "marks": {
+            "last": "7f",
+            "arrows": [
+              "8h7g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3c3d",
+            "5g5f"
+          ],
+          "text": {
+            "ja": "後手は△３四歩と角道を開けました。先手は▲５六歩と、５筋の歩を一つ進めます。中飛車は飛車を５筋に回す戦法なので、飛車の前の歩を前へ出しておきます。",
+            "en": "Gote opens the bishop diagonal with △3四歩. You push the fifth-file pawn with ▲5六歩. Central Rook swings the rook to the fifth file, so the pawn in front of it must be advanced."
+          },
+          "marks": {
+            "last": "5f"
+          }
+        },
+        {
+          "moves": [
+            "4c4d",
+            "2h5h"
+          ],
+          "text": {
+            "ja": "後手は△４四歩と角道を止めました。先手は▲５八飛と、飛車を５筋へ回します。これが中飛車の形です。飛車が玉の真上に来るので、攻めにも守りにも使えます。",
+            "en": "Gote closes its bishop line with △4四歩. You swing the rook to the fifth file with ▲5八飛. This is Central Rook, and a rook in front of the king can serve both attack and defence."
+          },
+          "marks": {
+            "last": "5h"
+          }
+        },
+        {
+          "moves": [
+            "3a4b",
+            "5f5e"
+          ],
+          "text": {
+            "ja": "後手は△４二銀と銀を上げます。先手は▲５五歩と、５筋の歩をもう一つ進めて位を取ります。中央に歩を進めて、あとで飛車を活用する足場にします。",
+            "en": "Gote lifts the silver with △4二銀. You push the fifth-file pawn again with ▲5五歩 to take space in the center, a foothold the rook can use later."
+          },
+          "marks": {
+            "last": "5e",
+            "boxes": [
+              "5e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4b4c",
+            "8h7g"
+          ],
+          "text": {
+            "ja": "後手は△４三銀と中央を守ります。先手は▲７七角と角を上げます。８八があいたので、玉が左へ進む道ができます。この道を通って、玉を左の隅へ運びます。",
+            "en": "Gote guards the center with △4三銀. You lift the bishop with ▲7七角. With 8h empty the king has a path to the left, and that path leads to the corner."
+          },
+          "marks": {
+            "last": "7g",
+            "boxes": [
+              "7h",
+              "8h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8b3b",
+            "5i6h"
+          ],
+          "text": {
+            "ja": "後手は△３二飛と三間飛車に構えました。相手も振り飛車の相振り飛車です。先手は▲６八玉と玉を一つ左へ動かします。右に囲うと３筋からの攻めをまともに受けるので、玉を左へ逃がすのがこの作戦の核です。",
+            "en": "Gote swings the rook with △3二飛 to Third File Rook, so both sides range the rook. You step the king one square left with ▲6八玉. Castling on the right would meet the attack on the third file head on, so moving the king left is the core of this plan."
+          },
+          "marks": {
+            "last": "6h",
+            "boxes": [
+              "3b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3d3e",
+            "5h5f"
+          ],
+          "text": {
+            "ja": "後手は△３五歩と３筋を伸ばしてきました。先手は▲５六飛と飛車を一つ浮かせます。飛車の横の利きが３六と２六まで届くので、△３六歩と突く速い攻めが成立しません。この間にじっくり穴熊を組みます。",
+            "en": "Gote pushes on the third file with △3五歩. You lift the rook one step with ▲5六飛. Now the rook's sideways reach extends to 3f and 2f, so the fast △3六歩 push does not work, and you can build the Anaguma in peace."
+          },
+          "marks": {
+            "last": "5f",
+            "arrows": [
+              "5f3f"
+            ],
+            "boxes": [
+              "3f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3b3d",
+            "6h7h"
+          ],
+          "text": {
+            "ja": "後手は△３四飛と飛車を前へ出します。先手は▲７八玉。玉をもう一つ左へ寄せます。",
+            "en": "Gote moves the rook forward with △3四飛. You play ▲7八玉, one more step to the left."
+          },
+          "marks": {
+            "last": "7h"
+          }
+        },
+        {
+          "moves": [
+            "5a6b",
+            "7h8h"
+          ],
+          "text": {
+            "ja": "後手は△６二玉と自玉を動かします。先手は▲８八玉と進めます。角が７七へ出たので、８八が空いていて玉が入れます。",
+            "en": "Gote moves its own king with △6二玉. You continue with ▲8八玉. The bishop went to 7g, so 8h was empty for the king."
+          },
+          "marks": {
+            "last": "8h"
+          }
+        },
+        {
+          "moves": [
+            "6b7b",
+            "9i9h"
+          ],
+          "text": {
+            "ja": "後手は△７二玉と、玉をさらに寄せます。先手は▲９八香と、香を一つ上げます。９九の隅を空けて、玉の入る場所を作ります。",
+            "en": "Gote shifts the king further with △7二玉. You push the lance one step with ▲9八香. This empties the 9i corner so the king can enter."
+          },
+          "marks": {
+            "last": "9h",
+            "boxes": [
+              "9i"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7b8b",
+            "8h9i"
+          ],
+          "text": {
+            "ja": "後手は△８二玉。先手は▲９九玉と、玉を隅へ入れます。９八の香が玉の横を守り、これが穴熊の核の形です。",
+            "en": "Gote plays △8二玉. You put the king into the corner with ▲9九玉. The lance on 9h covers the king's side, and this is the core of an Anaguma."
+          },
+          "marks": {
+            "last": "9i",
+            "boxes": [
+              "9i",
+              "9h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7a7b",
+            "7i8h"
+          ],
+          "text": {
+            "ja": "後手は△７二銀と銀を上げます。先手は▲８八銀と、８八に銀を上げて玉にふたをします。これで左穴熊の完成です。９九の玉、９八の香、８八の銀、７八の金でできた隅の固い囲いです。",
+            "en": "Gote lifts the silver with △7二銀. You cover the king with ▲8八銀, which completes the left Anaguma: king on 9i, lance on 9h, silver on 8h and gold on 7h make a hard corner."
+          },
+          "marks": {
+            "last": "8h",
+            "boxes": [
+              "9i",
+              "9h",
+              "8h"
+            ]
+          }
         },
         {
           "text": {
-            "ja": "９九玉でも、８八銀と７八金の連絡や９筋の逃げ道を毎回点検します。３筋の歩が進んだからといって直ちに詰むわけでも、穴熊だけで反撃が消えるわけでもありません。",
-            "en": "Even with K9i, inspect the S8h–G7h connection and the ninth-file escape route. The third-file pawn advance is neither immediate mate nor an attack erased by the castle label."
+            "ja": "覚えるポイントです。一つ、相振りの中飛車は玉を左に囲う。二つ、相手が３筋を伸ばしてきたら、▲５六飛と浮いて受ける。三つ、受けてから、玉を７八、８八、９九と運び、香と銀でふたをして穴熊を組む。次の章で、この形から▲２六飛の揺さぶりを入れて理想形へ進みます。",
+            "en": "Points to remember. One: in double Ranging Rook, Central Rook castles on the left. Two: when Gote pushes the third file, answer by lifting the rook with ▲5六飛. Three: after that, walk the king to 7h, 8h and 9i and cover it with the lance and silver for an Anaguma. The next chapter adds the ▲2六飛 probe and moves to the ideal formation."
+          },
+          "marks": {
+            "boxes": [
+              "9i",
+              "9h",
+              "8h"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "強みと弱みです。強みは、玉が相手の攻めから遠く、居飛車の穴熊に近い堅さで戦えることです。弱みは、囲いを完成させるまでに手数がかかることと、相振り飛車では中飛車が一般に不利と言われることです。囲いが固まる前に相手の攻めが来ないよう、飛車の位置で３筋を牽制しながら組みます。",
+            "en": "Strengths and weaknesses. The strengths are that the king is far from the opponent's attack and the castle is nearly as hard as a Static Rook Anaguma. The weaknesses are that it takes many moves to finish, and that Central Rook is generally said to be at a disadvantage in double Ranging Rook. Build while the rook keeps the third file in check, so Gote's attack does not arrive before the castle is solid."
+          },
+          "marks": {
+            "boxes": [
+              "3f"
+            ]
           }
         }
       ]
     },
     {
-      "title": { "ja": "組んでいる間の３筋を数える", "en": "Count the third-file recaptures during construction" },
+      "title": {
+        "ja": "▲２六飛の揺さぶりから理想形へ",
+        "en": "From the ▲2六飛 probe to the ideal formation"
+      },
       "side": "sente",
-      "kind": "position",
-      "start": "9/2k4b1/9/5pr2/6p2/4R4/6P2/L1G6/1KS6 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "5g5f",
+            "4c4d",
+            "2h5h",
+            "3a4b",
+            "5f5e",
+            "4b4c",
+            "8h7g",
+            "8b3b",
+            "5i6h",
+            "3d3e",
+            "5h5f",
+            "3b3d",
+            "6h7h",
+            "5a6b",
+            "7h8h",
+            "6b7b",
+            "9i9h",
+            "7b8b",
+            "8h9i",
+            "7a7b",
+            "7i8h"
+          ],
           "text": {
-            "ja": "先手は８九玉・９八香・７八金で、７九銀をまだ８八へ上げていません。後手の飛車３四と歩３五が３筋を押しています。中央の５六飛が３六へ横に届くかも、囲いの手順に関わります。",
-            "en": "Sente has K8i, L9h, G7h and a silver still on 7i. Gote's R3d and P3e press the third file. The central rook on 5f can reach 3f through 4f, a fact that affects the castle tempo."
+            "ja": "前の章で組んだ左穴熊です。ここからは自分から仕掛けず、囲いを固め続けるのが基本方針です。ただし固め始める前に、相手の飛車の動きを狭める一手を入れておきます。",
+            "en": "The left Anaguma from the previous chapter. From here the basic policy is to keep strengthening the castle instead of starting a fight. Before that, though, Sente plays one move that limits the opponent's rook."
           },
-          "marks": { "boxes": ["7i", "8h", "3e", "3g", "5f"] }
+          "marks": {
+            "boxes": [
+              "9i",
+              "8h"
+            ]
+          }
         },
         {
-          "moves": ["7i8h", "3e3f"],
+          "moves": [
+            "4a5b",
+            "5f2f"
+          ],
           "text": {
-            "ja": "▲８八銀で穴熊の銀を置きました。後手が△３六歩と来るのはここでの一例です。先手の３七歩で取ったあと、後手飛車だけを見ず自分の５六飛も数えます。",
-            "en": "S7i–8h places the Anaguma silver. Gote's P3e–3f is one sample challenge. After Sente's pawn on 3g takes it, count both Gote's rook and Sente's rook on 5f."
+            "ja": "△５二金左に▲２六飛と２筋へ回ります。２五・２四は空いているので、次に▲２三飛成と歩を取って竜を作る手が狙いです。",
+            "en": "After △5二金左, the rook swings to the second file with ▲2六飛. The squares 2e and 2d are empty, so the threat is ▲2三飛成, taking the pawn and promoting."
           },
-          "marks": { "arrows": ["7i8h", "3e3f"], "boxes": ["3g"] }
+          "marks": {
+            "last": "2f",
+            "arrows": [
+              "2f2c"
+            ]
+          }
         },
         {
-          "moves": ["3g3f", "3d3f", "5f3f"],
+          "moves": [
+            "2c2d",
+            "2f5f"
+          ],
           "text": {
-            "ja": "▲同歩△同飛なら▲同飛で後手の飛車を取れます。５六から３六への途中の４六は空いています。後手は飛車で取る以外の応手を選べるため、この交換だけで優勢とは決めません。",
-            "en": "If P3g×3f is met by R3d×3f, R5f×3f captures Gote's rook; 4f is empty. Gote need not recapture with the rook, so this sample does not establish an overall advantage."
+            "ja": "後手は△２四歩と突いて受けます。役目を終えた飛車は▲５六飛と元の場所へ戻ります。地味な往復ですが、２四に歩がいると後手は△２四飛と２筋へ回る手が指せません。後手の飛車の行き場が減り、先手はゆっくり囲いを固められます。",
+            "en": "Gote defends with △2四歩, and the rook goes back with ▲5六飛. It looks like a quiet round trip, but with a pawn on 2d Gote can no longer swing the rook to the second file with △2四飛. Gote's rook has fewer squares, and Sente can keep building."
           },
-          "marks": { "arrows": ["5f3f"], "last": "3f" }
-        }
-      ]
-    },
-    {
-      "title": { "ja": "中央で歩を交換する前に", "en": "Before exchanging central pawns" },
-      "side": "sente",
-      "kind": "position",
-      "start": "9/2k4b1/4p4/5pr2/4P1p2/4R4/9/LSG6/K8 b - 1",
-      "steps": [
-        {
-          "text": {
-            "ja": "先手は９九玉の左穴熊と５六飛・５五歩を持ちます。後手には５三歩と３四飛があり、５四に銀はありません。この局面で中央を開くと飛車がどこへ出るかを見ます。",
-            "en": "Sente has the K9i left Anaguma, R5f and P5e. Gote has P5c and R3d, with no silver defending 5d. In this position, central contact may give Sente's rook a square to occupy."
-          },
-          "marks": { "boxes": ["5e", "5c", "5d", "3d"] }
+          "marks": {
+            "last": "5f",
+            "boxes": [
+              "2d"
+            ]
+          }
         },
         {
-          "moves": ["5e5d", "5c5d"],
+          "moves": [
+            "1c1d",
+            "4i5i",
+            "2b1c",
+            "6i7i",
+            "2a3c",
+            "5i6h",
+            "2d2e",
+            "3i4h",
+            "9c9d",
+            "6h7h"
+          ],
           "text": {
-            "ja": "▲５四歩に△同歩と応じた例です。先手の歩は取られますが、５五が空くので５六の飛車は５四へ進めます。後手が歩で応じることは強制ではありません。",
-            "en": "This sample has Gote meet P5e–5d with P5c×5d. Sente's pawn is lost, but 5e becomes empty and the rook on 5f can reach 5d. Gote's pawn capture is optional."
+            "ja": "右の金を▲５九金右・▲６八金右・▲７八金寄と三手かけて穴熊へ寄せ、▲７九金も加えます。７八と７九の金、８八の銀で金銀三枚の穴熊になりました。後手は△１三角・△３三桂と駒を前に出しています。",
+            "en": "The right gold takes three moves, ▲5九金右, ▲6八金右 and ▲7八金寄, to join the Anaguma, and ▲7九金 is added. Golds on 7h and 7i with the silver on 8h make a three-piece Anaguma. Gote has developed with △1三角 and △3三桂."
           },
-          "marks": { "arrows": ["5c5d"], "boxes": ["5e"] }
+          "marks": {
+            "last": "7h",
+            "boxes": [
+              "7h",
+              "7i",
+              "8h"
+            ]
+          }
         },
         {
-          "moves": ["5f5d"],
+          "moves": [
+            "6c6d",
+            "4h5g",
+            "7c7d",
+            "5g6f"
+          ],
           "text": {
-            "ja": "▲同飛で５四の歩を取り、互いに一歩を持ちます。この飛車の進出を選べるのは、５四をすぐ取る後手銀がいない局面だからです。後手の３四飛も残るので、ここからの形勢は別に読みます。",
-            "en": "R5f×5d takes the pawn, leaving each side with one pawn in hand. This advance is available because no Gote silver can immediately recapture on 5d. Gote's R3d remains active, so the resulting position still needs evaluation."
+            "ja": "残った右の銀も▲５七銀・▲６六銀と穴熊に寄せます。これが中飛車左穴熊の理想形です。この後は▲６八角と引き、▲７七銀引で囲いを締めてから大駒をさばきにいきます。玉の堅さで勝っているので、少し駒損しても攻め合いに持ち込んで構いません。",
+            "en": "The remaining right silver also joins with ▲5七銀 and ▲6六銀. This is the ideal formation of Central Rook Left Anaguma. Next, retreat with ▲6八角 and tighten with ▲7七銀引, then trade off the major pieces. Sente's king is much harder, so a race is fine even at a small material cost."
           },
-          "marks": { "arrows": ["5f5d"], "last": "5d" }
+          "marks": {
+            "last": "6f",
+            "arrows": [
+              "7g6h"
+            ],
+            "boxes": [
+              "6f",
+              "7g"
+            ]
+          }
         }
       ]
     }

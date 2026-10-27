@@ -1,23 +1,26 @@
 {
   "id": "bougin-castles",
   "order": 550,
-  "path": ["戦法・定跡", "居飛車"],
+  "path": [
+    "戦法・定跡",
+    "棒銀"
+  ],
   "title": {
-    "ja": "棒銀の速度を玉の守りと比べる",
-    "en": "Match Climbing Silver's Pace to the King's Shelter"
+    "ja": "棒銀と一緒に組む囲い：矢倉・カニ・兜矢倉・舟囲い",
+    "en": "Castles for Bogin: Yagura, Kani, Kabuto Yagura and Funagakoi"
   },
   "intro": {
-    "ja": "棒銀で銀を進める手と、玉を囲う手は同じ一手を使います。囲いの名前だけで順番を決めず、相手の飛車が通れる筋、歩が近づく升、自玉が次に逃げられる升を盤上で確かめます。以下の局面は新たに作った練習例で、相手の応手はそれぞれ一つの選択です。",
-    "en": "An advancing silver and a safer king compete for the same tempo. A castle name does not decide the move order: inspect the opponent's rook file, the squares a pawn can reach, and the king's available route. These composed practice positions show particular defender choices, not forced opening prescriptions."
+    "ja": "棒銀で攻めるには、囲いも一緒に組みます。相手が居飛車なら矢倉囲い、手早く攻めたいならカニ囲い、角を交換したなら兜矢倉、相手が振り飛車なら舟囲いが基本です。それぞれを初手から一手ずつ組み、弱点と使い分けも確かめます。",
+    "en": "To attack with Bogin you build a castle at the same time. Against Ibisha Yagura is standard, Kani builds fast, Kabuto Yagura suits a bishop trade, and against a swung rook the Funagakoi is basic. Each is built from move one, one move at a time, with its weaknesses and when to choose it."
   },
   "check": {
     "question": {
-      "ja": "棒銀の銀をもう一手進めるか、玉側を整えるかを選ぶ前に、何を数えますか？",
-      "en": "What should you count before spending a move on the climbing silver instead of the king's shelter?"
+      "ja": "相手が居飛車のときと振り飛車のとき、棒銀と一緒に組む囲いはそれぞれ何ですか？",
+      "en": "Which castle goes with Bogin against Ibisha, and which against a swung rook?"
     },
     "answer": {
-      "ja": "相手の歩と飛車が次に入れる升、そこを守る金銀の枚数、玉の逃げ道を数えます。囲いが完成形かどうかより、次の具体的な脅威に間に合うかが大切です。",
-      "en": "Count the opponent's pawn and rook entry squares, the golds and silvers defending them, and the king's exits. The immediate threat and timing matter more than whether the castle has a finished label."
+      "ja": "居飛車なら矢倉囲い、振り飛車なら舟囲いです。矢倉は上からの攻めに強く、舟囲いは手早く組めて横からの攻めに耐えます。",
+      "en": "Yagura against Ibisha, Funagakoi against a swung rook. Yagura holds against attacks from above, while Funagakoi is quick to build and handles attacks from the side."
     }
   },
   "references": [
@@ -26,123 +29,532 @@
       "url": "https://shogi-joutatsu.com/archives/6540",
       "license": "All rights reserved",
       "adapted": false
+    },
+    {
+      "title": "将棋の技図鑑 (yuki-keio/shogi)",
+      "url": "https://github.com/yuki-keio/shogi",
+      "license": "GPL-3.0-only",
+      "adapted": false
     }
   ],
   "chapters": [
     {
       "title": {
-        "ja": "中途の囲いでは先に玉の通路を作る",
-        "en": "Give the king a route from an unfinished shelter"
+        "ja": "矢倉囲い：棒銀と一緒に組む",
+        "en": "Yagura: building it together with Bogin"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/3r5/4b4/3p5/7P1/9/6S2/1B5R1/2SGK4 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "先手玉５九はまだ中央にいて、金６九と銀７九だけが左側の守りです。後手には飛車６二と歩６四があり、６筋の形を変える余地があります。銀３七を急ぐ前に、玉５九が６八、７八へ進めるかを確認します。これは完成した囲いではなく途中の形です。",
-            "en": "Sente's king is still on 5i, with a gold on 6i and a silver on 7i to its left. Gote has a rook on 6b and a pawn on 6d that can change the sixth file. Before rushing the silver on 3g, check the king's route through 6h and 7h. This is an intermediate shelter, not a completed castle."
+            "ja": "矢倉囲いは、玉の前に金と銀を揃え、上から来る攻めを正面で受ける囲いです。手数はかかりますが、居飛車どうしの戦いでは定番で、棒銀の攻めとも一緒に組めます。順に一手ずつ、何のための手かを見ながら組みます。",
+            "en": "The Yagura castle lines up golds and silvers in front of the king to stop attacks from above. It takes many moves, but it is the standard against another Ibisha and can be built alongside Bogin. We build it one move at a time and look at the purpose of each."
           }
         },
         {
-          "moves": ["5i6h", "6d6e"],
+          "moves": [
+            "7g7f",
+            "3c3d"
+          ],
           "text": {
-            "ja": "▲６八玉に後手は△６五歩を選びました。６四が空いたので飛車６二はそこへ動けますが、歩６五がその先をまだふさいでいます。今すぐ飛車が６八の玉を直撃するわけではありません。",
-            "en": "After ▲６八玉, Gote chooses △６五歩. Vacating 6d lets the rook move there, though its own pawn on 6e still blocks the file below. The rook does not immediately attack the king on 6h."
+            "ja": "▲７六歩。７八と７九の駒が動けるように、まず７筋の歩を突いて道を空けます。",
+            "en": "▲7六歩 pushes the seventh file pawn first so the pieces on 7h and 7i can start moving."
+          },
+          "marks": {
+            "last": "7f"
           }
         },
         {
-          "moves": ["6h7h", "6b6d"],
+          "moves": [
+            "8h7g",
+            "4c4d",
+            "7g6h",
+            "6c6d"
+          ],
           "text": {
-            "ja": "先手は▲７八玉と寄ってから、後手の△６四飛を見ました。玉７八は金６九が利く升にいます。飛車が６四へ出ても、歩６五が縦の通路をさえぎる点は変わりません。後手が歩をさらに進められるかを次に見ます。",
-            "en": "Sente shifts to ▲７八玉 before Gote's △６四飛. The gold on 6i protects the king's square on 7h. Gote's pawn on 6e still interrupts the rook's vertical path, so the next question is whether that pawn can advance farther."
+            "ja": "角を７七、そして６八へと引きます。玉が入る８八を空けるための下準備で、角は矢倉の中で６八に落ち着きます。",
+            "en": "The bishop steps to 7g and then back to 6h. This clears 8h for the king, and the bishop settles on 6h inside the Yagura."
+          },
+          "marks": {
+            "last": "6h",
+            "boxes": [
+              "8h"
+            ]
           }
         },
         {
-          "moves": ["3g3f"],
+          "moves": [
+            "7i7h",
+            "5c5d",
+            "7h7g",
+            "7c7d"
+          ],
           "text": {
-            "ja": "この例では玉の通路を作った後で▲３六銀と進めます。飛車２八に近い銀を働かせながら、７八の玉と６九の金を残しました。玉を動かしただけで安全が保証されるわけではなく、後手の歩と飛車が動くたびに守りを数え直します。",
-            "en": "Only after using two king moves does Sente advance ▲３六銀 near the rook on 2h. The king on 7h and gold on 6i remain together. Those king moves do not guarantee safety; recount the shelter whenever Gote changes the pawn and rook placement."
+            "ja": "銀を７八、７七と進めます。この銀が矢倉の顔になる駒で、玉の斜め前を守ります。",
+            "en": "The silver goes to 7h and then 7g. This silver is the face of the Yagura and guards diagonally in front of the king."
+          },
+          "marks": {
+            "last": "7g"
+          }
+        },
+        {
+          "moves": [
+            "6i7h",
+            "9c9d"
+          ],
+          "text": {
+            "ja": "金を７八へ上げます。玉の隣に金を置くと、玉の横からの攻めに強くなります。",
+            "en": "The gold steps up to 7h. A gold next to the king makes it stronger against attacks from the side."
+          },
+          "marks": {
+            "last": "7h"
+          }
+        },
+        {
+          "moves": [
+            "5i6i",
+            "1c1d",
+            "6i7i",
+            "8c8d",
+            "7i8h",
+            "2b3c"
+          ],
+          "text": {
+            "ja": "玉を５九から６九、７九、８八へと左に運びます。通り道に駒がなくなったので動けます。８八の玉の前には銀と金が並び、囲いの形がほぼ見えてきました。",
+            "en": "The king walks left from 5i through 6i and 7i to 8h. The pieces in its way are gone, so it can move. Silver and gold now stand in front of it and the shape of the castle is visible."
+          },
+          "marks": {
+            "last": "8h",
+            "boxes": [
+              "8h",
+              "7g",
+              "7h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6g6f",
+            "3a2b"
+          ],
+          "text": {
+            "ja": "▲６六歩。もう一枚の金が上がる６七のマスを空けます。",
+            "en": "▲6六歩 clears 6g, the square the second gold will occupy."
+          },
+          "marks": {
+            "last": "6f",
+            "boxes": [
+              "6g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4i5h",
+            "4a3b",
+            "5h6g",
+            "5a4a"
+          ],
+          "text": {
+            "ja": "右の金を５八、６七と上げます。７七の銀と並んで、矢倉囲いの金銀三枚が完成しました。",
+            "en": "The right gold goes up through 5h to 6g. Standing beside the silver on 7g, it completes the three pieces of the castle."
+          },
+          "marks": {
+            "last": "6g",
+            "boxes": [
+              "7g",
+              "6g",
+              "7h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5g5f",
+            "6a5b"
+          ],
+          "text": {
+            "ja": "▲５六歩も突いて、中央の形を整えます。",
+            "en": "▲5六歩 also advances to complete the centre."
+          },
+          "marks": {
+            "last": "5f"
+          }
+        },
+        {
+          "moves": [
+            "2g2f",
+            "4a3a",
+            "2f2e",
+            "5b4c",
+            "3i3h",
+            "3c4b",
+            "3h2g",
+            "3b3c",
+            "2g2f",
+            "7a7b"
+          ],
+          "text": {
+            "ja": "右側では、２六歩、２五歩、銀を３八、２七、２六と進めて棒銀の形を作ります。左側の矢倉囲いと右側の棒銀は、役割が分かれていて、同じ局面で両立します。矢倉は上からの攻めに強く、金銀が玉の前に集まっています。弱点は、玉の隣の金を守る駒が玉だけで、横からの攻めと端にやや弱いことです。崩されるときは、横から金を狙われたり、端へ飛車・角・桂・香を集められたりします。",
+            "en": "On the right side, ▲2六歩, ▲2五歩 and the silver through 3h and 2g to 2f build the Bogin shape. The Yagura on the left and Bogin on the right have separate jobs and fit together. Yagura is strong against attacks from above and keeps golds and silvers in front of the king. Its weakness is that only the king protects the gold beside it, so attacks from the side and on the edge are a little dangerous. It is broken by attacks on the gold from the side, or by gathering rook, bishop, knight and lance on the edge."
+          },
+          "marks": {
+            "last": "2f",
+            "arrows": [
+              "2f2e"
+            ],
+            "boxes": [
+              "2e"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "舟囲いでは６八の支えを具体的に数える",
-        "en": "Count the support for 6h in a Boat shelter"
+        "ja": "カニ囲い：手早く組む",
+        "en": "Kani: a quick castle"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/3r5/4b4/3p5/7P1/6S2/9/1BK1G2R1/2SG5 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "玉７八、銀７九、金６九・５八、角８八は舟囲いの基本部分です。銀３六と飛車２八は攻め側にいます。相手飛車が６筋を使う前に、６八へ金を上がると、その升を誰が支えるかを見ます。",
-            "en": "The king on 7h, silver on 7i, golds on 6i and 5h, and bishop on 8h form a Boat core. The silver on 3f and rook on 2h serve the attacking side. Before Gote develops along the sixth file, identify the pieces supporting a gold move to 6h."
+            "ja": "カニ囲いは、玉の上に金・銀・金を横一列に並べる囲いです。矢倉囲いよりずっと少ない手数で組めるので、早く攻めたいときに向きます。矢倉に組む途中にもこの形が現れます。",
+            "en": "The Kani castle lines up gold, silver and gold in one row above the king. It takes far fewer moves than Yagura, so it suits a quick attack. This shape also appears on the way to a Yagura."
           }
         },
         {
-          "moves": ["6i6h", "6d6e"],
+          "moves": [
+            "7g7f",
+            "3c3d"
+          ],
           "text": {
-            "ja": "▲６八金で６九の金を玉の隣へ上げ、後手は△６五歩と突きました。６八の金には玉７八、銀７九、金５八が利いています。ただし同じ守り駒が複数あっても、相手の歩６五が進んだ後の形まで読まなければ十分とは言えません。",
-            "en": "▲６八金 brings the gold beside the king, and Gote chooses △６五歩. Sente's king on 7h, silver on 7i, and gold on 5h all cover 6h. Several defenders on one square are useful, but still do not settle what happens after Gote's pawn advances."
+            "ja": "▲７六歩で７八に上がる道を空けます。",
+            "en": "▲7六歩 opens the path to 7h."
+          },
+          "marks": {
+            "last": "7f"
           }
         },
         {
-          "moves": ["3f4e", "6b6d"],
+          "moves": [
+            "6i7h",
+            "4c4d"
+          ],
           "text": {
-            "ja": "先手は▲４五銀と攻め側へ出し、後手は△６四飛と応じました。銀を動かしても６八の三つの支えは残りますが、歩６五が飛車の前にあるので、後手飛車の縦利きはまだ６八まで届きません。攻めを続けるかは次の歩の動き次第です。",
-            "en": "Sente advances ▲４五銀 and Gote chooses △６四飛. The three defenders of 6h remain, while Gote's pawn on 6e still blocks the rook's vertical reach to that square. Whether Sente can keep attacking depends on the pawn's next move."
+            "ja": "金を７八へ上げます。",
+            "en": "The gold goes up to 7h."
+          },
+          "marks": {
+            "last": "7h"
+          }
+        },
+        {
+          "moves": [
+            "7i6h",
+            "6c6d"
+          ],
+          "text": {
+            "ja": "銀を６八へ上げて、７八の金の隣に並べます。",
+            "en": "The silver steps to 6h next to the gold on 7h."
+          },
+          "marks": {
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "5i6i",
+            "5c5d"
+          ],
+          "text": {
+            "ja": "玉を６九へ一つ左に動かします。",
+            "en": "The king shifts one square left to 6i."
+          },
+          "marks": {
+            "last": "6i"
+          }
+        },
+        {
+          "moves": [
+            "4i5h",
+            "7c7d"
+          ],
+          "text": {
+            "ja": "右の金を５八へ上げると、玉の上に金・銀・金が並びました。カニ囲いの完成です。",
+            "en": "The right gold goes up to 5h and gold, silver and gold now stand in a row above the king: the Kani is complete."
+          },
+          "marks": {
+            "last": "5h",
+            "boxes": [
+              "7h",
+              "6h",
+              "5h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2g2f",
+            "9c9d",
+            "2f2e",
+            "1c1d",
+            "3i3h",
+            "8c8d",
+            "3h2g",
+            "2b3c",
+            "2g2f",
+            "3a2b"
+          ],
+          "text": {
+            "ja": "右側は棒銀の形です。カニ囲いは堅さのわりに簡単に組めますが、玉が一番下の段にいるので、横から飛車を打ち込まれる攻めに弱いのが弱点です。余裕があれば、矢倉囲いに組み替えます。",
+            "en": "The right side is the Bogin shape. The Kani is quick to build and fairly solid, but the king sits on the bottom rank, so a rook dropped from the side is dangerous. When there is time, switch to a Yagura."
+          },
+          "marks": {
+            "last": "2f",
+            "arrows": [
+              "2f2e"
+            ],
+            "boxes": [
+              "2e"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "矢倉の金を動かした後の利きを読み直す",
-        "en": "Recount a Yagura's cover after moving a gold"
+        "ja": "兜矢倉：角を交換したとき",
+        "en": "Kabuto Yagura: after a bishop trade"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/9/4b4/3r5/3p1S1P1/9/2SG5/1KG4R1/9 b - 1",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "8h2b+",
+            "3a2b"
+          ],
+          "text": {
+            "ja": "角を交換したあとの将棋では、自陣に角を打たれる隙を作らないことが大切です。兜矢倉は少ない手数で組め、角を打たれる隙も少ない囲いです。まず角交換までを指します。",
+            "en": "After a bishop trade it matters not to leave a gap where the opponent can drop a bishop. Kabuto Yagura takes few moves and leaves few such gaps. First the bishops are traded."
+          },
+          "marks": {
+            "last": "2b"
+          }
+        },
+        {
+          "moves": [
+            "7i7h",
+            "4c4d",
+            "7h7g",
+            "6c6d"
+          ],
+          "text": {
+            "ja": "銀を７八から７七へ。角がなくなった分、銀が７七で玉の斜め前を守ります。",
+            "en": "The silver goes through 7h to 7g. With the bishop gone, it guards diagonally in front of the king from 7g."
+          },
+          "marks": {
+            "last": "7g"
+          }
+        },
+        {
+          "moves": [
+            "5i6h",
+            "5c5d"
+          ],
+          "text": {
+            "ja": "玉は６八へ。矢倉のように８八まで行かず、中央寄りの６八に入ります。",
+            "en": "The king goes to 6h. Unlike Yagura it does not travel to 8h, but stays near the centre on 6h."
+          },
+          "marks": {
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "6i7h",
+            "7c7d"
+          ],
+          "text": {
+            "ja": "金を７八へ上げます。玉の左を固める金です。",
+            "en": "The gold goes up to 7h to protect the king on its left."
+          },
+          "marks": {
+            "last": "7h"
+          }
+        },
+        {
+          "moves": [
+            "4i5h",
+            "9c9d"
+          ],
+          "text": {
+            "ja": "右の金を５八へ。玉の左右を金が挟み、銀と合わせて兜に近い形になります。",
+            "en": "The right gold goes to 5h. Golds flank the king on both sides and with the silver form a helmet shape."
+          },
+          "marks": {
+            "last": "5h",
+            "boxes": [
+              "7h",
+              "6h",
+              "5h",
+              "7g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2g2f",
+            "1c1d",
+            "2f2e",
+            "8c8d",
+            "3i3h",
+            "4a3b",
+            "3h2g",
+            "6a5b",
+            "2g2f",
+            "5a4a"
+          ],
+          "text": {
+            "ja": "右側は棒銀の形です。兜矢倉は、あとから矢倉囲いへ発展させることもできます。玉を８八まで運び、金を６七に上げれば通常の矢倉囲いです。",
+            "en": "The right side builds Bogin. A Kabuto Yagura can later grow into a regular Yagura by moving the king to 8h and a gold to 6g."
+          },
+          "marks": {
+            "last": "2f",
+            "arrows": [
+              "2f2e"
+            ],
+            "boxes": [
+              "2e"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "舟囲い：振り飛車と戦うとき",
+        "en": "Funagakoi: against a swung rook"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "玉８八、金７八・６七、銀７七が矢倉の基本部分です。攻めの銀４五を残したまま、後手の飛車６四と歩６五にどう向き合うかを考えます。歩が次に入れる６六には金６七と銀７七が利きます。",
-            "en": "Sente's king on 8h, golds on 7h and 6g, and silver on 7g form a Yagura core. With the attacking silver on 4e, Sente must assess Gote's rook on 6d and pawn on 6e. Both the gold on 6g and silver on 7g defend 6f, the pawn's next square."
+            "ja": "飛車を振ってくる相手には、矢倉ではなく舟囲いに構えるのが定石です。真上からの攻めに弱く、飛車を動かさない相手には不向きですが、振り飛車の攻めは主に横から来るので十分に持ちこたえます。手数が少なくて済む分、攻めを急げます。",
+            "en": "Against a swung rook the Funagakoi is the basic castle rather than Yagura. It is weak against attacks from above, so it is not used in Ibisha mirrors, but a swung-rook player usually attacks from the side, where it holds up well. It takes few moves and leaves time for the attack."
           }
         },
         {
-          "moves": ["2e2d", "6e6f"],
+          "moves": [
+            "9g9f",
+            "3c3d",
+            "7g7f",
+            "4c4d",
+            "5g5f",
+            "6c6d",
+            "3g3f",
+            "5c5d"
+          ],
           "text": {
-            "ja": "先手が▲２四歩で攻めを進めると、この例の後手は△６六歩と突きました。歩６六は玉８八へ直接届きませんが、金か銀で取れば後手飛車６四の縦の道が開きます。先に取り返しまで読みます。",
-            "en": "Sente pushes ▲２四歩, and Gote chooses △６六歩. The pawn on 6f does not attack the king on 8h directly. But capturing it opens the vertical path for the rook on 6d, so calculate the recapture before taking."
+            "ja": "端の歩と７筋、５筋、３筋の歩を突きます。銀や角が動く道ができ、のちの棒銀の動きにも備えます。",
+            "en": "The edge pawn and the seventh, fifth and third file pawns are pushed. This opens lines for silver and bishop and prepares the Bogin moves later."
+          },
+          "marks": {
+            "last": "3f"
           }
         },
         {
-          "moves": ["6g6f"],
+          "moves": [
+            "5i6h",
+            "7c7d",
+            "6h7h",
+            "9c9d"
+          ],
           "text": {
-            "ja": "▲同金で歩を取り、６六の金を銀７七が守ります。金が前へ出て６七が空いたため、後手の飛車が金６六を取る順まで読んで、この応手を評価します。",
-            "en": "▲同金 captures the pawn, with the silver on 7g protecting the gold now on 6f. Moving the gold vacates 6g; assess the response by calculating what happens if the rook takes the gold on 6f."
-          }
-        }
-      ],
-      "variations": [
-        {
-          "from": 2,
-          "moves": ["6d6f", "7g6f"],
-          "text": {
-            "ja": "後手が△同飛と金を取るなら、▲同銀で飛車を取り返せます。金６六を銀７七が守るために成立する応手で、飛車取りが後手に得だとは言えません。ただし後手はこの飛車取りを選ぶ必要がなく、別の反撃なら改めて読む必要があります。",
-            "en": "If Gote captures that gold with △同飛, ▲同銀 takes the rook. The silver on 7g protects the gold's square, so this rook recapture is not a free gain for Gote. Gote need not choose it; other counters require fresh calculation."
+            "ja": "玉を６八、７八と左へ。７九の銀と６九の金が最初の位置のまま玉の近くに残ります。これが７九銀型の舟囲いです。",
+            "en": "The king goes left through 6h to 7h. The silver on 7i and the gold on 6i stay where they started, close to the king. This is the Funagakoi with the silver on 7i."
+          },
+          "marks": {
+            "last": "7h",
+            "boxes": [
+              "7i",
+              "6i"
+            ]
           }
         },
         {
-          "from": 0,
-          "moves": ["6g6h", "6e6f", "7g6f", "6d6f"],
+          "moves": [
+            "4i5h",
+            "1c1d"
+          ],
           "text": {
-            "ja": "先に▲６八金と引くと６六を守る駒は銀７七だけになります。この例の△６六歩▲同銀△同飛では、６八の金は６六へ二升離れており飛車を取り返せません。金を玉の近くへ置く手が、いつでも６筋の受けを強めるとは限りません。",
-            "en": "If Sente first retreats ▲６八金, only the silver on 7g protects 6f. In the sample △６六歩▲同銀△同飛, the gold on 6h is two squares from 6f and cannot recapture the rook. Moving a gold closer to the king does not always strengthen this file."
+            "ja": "右の金を５八へ上げて、舟囲いの完成です。",
+            "en": "The right gold goes up to 5h and the Funagakoi is complete."
+          },
+          "marks": {
+            "last": "5h",
+            "boxes": [
+              "5h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2g2f",
+            "8c8d",
+            "2f2e",
+            "2b3c",
+            "3i3h",
+            "3a2b",
+            "3h2g",
+            "4a3b",
+            "2g2f",
+            "5a4a"
+          ],
+          "text": {
+            "ja": "右側は棒銀の形です。舟囲いは金銀のつながりが弱く、玉の真上と端に近い斜め上が弱点です。駒の交換で相手の持ち駒が増えたら、玉の近くへ飛車や角を打たれないか注意します。",
+            "en": "The right side builds Bogin. The Funagakoi has loosely connected gold and silver and is weak straight above the king and diagonally above on the edge side. When trades give the opponent more pieces in hand, watch for rook and bishop drops near the king."
+          },
+          "marks": {
+            "last": "2f",
+            "arrows": [
+              "2f2e"
+            ],
+            "boxes": [
+              "2e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7i6h",
+            "6a5b",
+            "6h5g",
+            "4a3a",
+            "6i6h",
+            "5b4c"
+          ],
+          "text": {
+            "ja": "７九の銀を６八から５七へ回し、６九の金を６八へ上げると、６八金型の舟囲いになります。７九銀型より金銀を玉に寄せた形で、どちらを選ぶかは相手の攻め方や自分の好みで決めます。",
+            "en": "Moving the silver on 7i through 6h to 5g and the gold on 6i up to 6h gives the Funagakoi with the gold on 6h. It brings the defenders closer to the king by advancing them from the silver-on-7i form, and you choose between the two by taste."
+          },
+          "marks": {
+            "last": "6h",
+            "boxes": [
+              "6h",
+              "5h",
+              "5g"
+            ]
           }
         }
       ]

@@ -1,158 +1,508 @@
 {
   "id": "shiken-vs-anaguma",
   "order": 1120,
-  "path": ["戦法・定跡", "四間飛車"],
+  "path": [
+    "戦法・定跡",
+    "四間飛車"
+  ],
   "title": {
-    "ja": "居飛車穴熊への仕掛けを守りの数から選ぶ",
-    "en": "Choose a Fourth File Rook attack by counting Anaguma's defenders"
+    "ja": "四間飛車対居飛車穴熊：組ませずに▲２五桂から攻める",
+    "en": "Fourth File Rook vs Static Rook Anaguma: attack with ▲2五桂 before the castle forms"
   },
   "intro": {
-    "ja": "居飛車穴熊を目指す後手にも、玉が移動中の局面と、端を金銀で守った局面があります。先手四間飛車は４筋の歩交換、端の取り合い、右桂の接触を別々に読みます。早く動けば必ず得をするわけではなく、相手の受けに使える一手と自玉の状態を比べます。",
-    "en": "Gote's king passes through an unfinished shelter before it reaches a defended Anaguma corner. Sente's Fourth File Rook can examine fourth-file pawn contact, an edge exchange, and a right-knight attack as separate choices. Acting early helps only when the actual defenders and Sente's own king position justify it."
+    "ja": "居飛車穴熊は完成すると非常に堅く、四間飛車が受けに回ると堅さで負けやすい相手です。そこで四間飛車の側から先に仕掛け、穴熊を完成させないうちに攻め切る指し方を学びます。玉を３九で待機させて右桂を早く跳ね、相手が△１二香と穴熊を決めたところで▲２五桂から４筋を攻めます。",
+    "en": "A finished Static Rook Anaguma is extremely firm, and a Fourth File Rook that only defends tends to lose on solidity. This lesson shows how to strike first and finish the attack before the Anaguma is completed. Keep the king waiting on 3i, jump the right knight early, and once Gote commits with △1二香, attack along the fourth file starting with ▲2五桂."
   },
   "check": {
     "question": {
-      "ja": "後手１一玉・１二香・２二銀・３二金に対して、先手の１五歩が△１四歩と接触したあと、▲同歩に△２三金と上がられたら、端の歩は無条件で突破できますか？",
-      "en": "Gote has K1a, L1b, S2b and G3b. After P1d meets Sente's P1e and Sente captures, Gote moves G3b to 2c. Is an edge breakthrough then automatic?"
+      "ja": "後手が△１二香と穴熊を決めたとき、四間飛車の側は何から攻めますか。",
+      "en": "When Gote commits to the Anaguma with △1二香, with what does Fourth File Rook start the attack?"
     },
     "answer": {
-      "ja": "できません。２三金は１四を守り、１三への成り込み後も香・金で取り返す筋があります。先手は端に使う歩と香、後手の金の移動を最後まで数えます。",
-      "en": "No. G2c protects 1d, and a promotion on 1c can lead to a lance and gold recapture sequence. Count the pawn and lance spent on the edge as well as Gote's displaced gold."
+      "ja": "▲２五桂です。相手の角を動かし、玉が角のラインに入る形を作ってから、▲４八飛と４筋へ回って▲４五歩を狙います。△２二銀と穴熊が固まる前に攻めるのが要点です。",
+      "en": "▲2五桂. It drives Gote's bishop away so the king falls into the bishop's line, and then ▲4八飛 shifts the rook to the fourth file aiming at ▲4五歩. The point is to attack before △2二銀 completes the Anaguma."
     }
   },
   "references": [
     {
-      "title": "四間飛車vs居飛車穴熊",
+      "title": "四間飛車 vs 居飛車穴熊の定跡",
       "url": "https://shogi-joutatsu.com/archives/2744",
       "license": "All rights reserved",
+      "adapted": false
+    },
+    {
+      "title": "将棋の技図鑑 (yuki-keio/shogi)",
+      "url": "https://github.com/yuki-keio/shogi",
+      "license": "GPL-3.0-only",
       "adapted": false
     }
   ],
   "chapters": [
     {
       "title": {
-        "ja": "玉が端へ着く前に４筋の歩を回収する",
-        "en": "Recover the fourth-file pawn while the king is still travelling"
+        "ja": "玉を３九で待たせて右桂を跳ねる",
+        "en": "Wait with the king on 3i and jump the right knight"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "2b3s2/1r2g1gkl/1p1s2p1p/5p3/8P/2PS1P3/1P4PP1/2B1GRSK1/5G3 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "6g6f",
+            "8c8d",
+            "2h6h",
+            "7a6b",
+            "5i4h",
+            "5a4b"
+          ],
           "text": {
-            "ja": "後手玉は２二、香は１二、銀はまだ３一です。先手は２八玉・３八銀・４九金・５八金を置き、飛車を４八へ移しています。４筋には後手４四歩と先手４六歩があり、後手６三銀はまだ４五を守りません。",
-            "en": "Gote's king is on 2b, its lance on 1b, and the silver has not left 3a for the corner. Sente has a sheltered king and has shifted the rook to 4h. P4d faces P4f; Gote's silver on 6c does not yet cover 4e."
+            "ja": "ここまでは普通の四間飛車と居飛車です。▲７六歩で角道を開け、▲６六歩で止めて、▲６八飛と振ります。先手は玉を▲４八玉と出し、美濃囲いへ向かいます。後手はまだ囲いの方針を見せていません。",
+            "en": "So far this is an ordinary Fourth File Rook against Static Rook. ▲7六歩 opens the bishop, ▲6六歩 stops it, ▲6八飛 swings the rook, and the king steps out with ▲4八玉 toward a Mino castle. Gote has not revealed its castle plan."
           },
-          "marks": { "boxes": ["2b", "3a", "4d", "4f"], "arrows": ["4f4e", "4h4e"] }
+          "marks": {
+            "last": "4h",
+            "boxes": [
+              "4h"
+            ]
+          }
         },
         {
-          "moves": ["4f4e", "4d4e"],
+          "moves": [
+            "3i3h",
+            "4b3b",
+            "4h3i",
+            "5c5d"
+          ],
           "text": {
-            "ja": "▲４五歩に後手が△同歩と応じた例です。先手の歩は取られましたが、４六・４七は空き、４八飛が４五の歩を縦に狙えます。後手が歩を取らず金銀を寄せるなら、別の局面として読み直します。",
-            "en": "In this sample Gote accepts P4e with Px4e. Sente's pawn is gone, while 4f and 4g are clear in front of R4h. The rook can capture the pawn on 4e. If Gote declines and improves a defender instead, recalculate from that new position."
+            "ja": "▲３八銀と上げてから、玉を▲３九へ寄せて待機します。ふつうは▲３八玉から▲２八玉と進みますが、その手を一手省いておくと、相手が棒銀などで急戦に来たときは▲２八玉と奥へ入れて戦えます。後手が穴熊を選ぶなら、玉は３九のまま攻めを急ぎます。",
+            "en": "▲3八銀, then the king waits on 3i with ▲3九玉. The usual walk is to 3h and 2h, but skipping one step keeps both options open: if Gote attacks with Bogin or another quick plan, the king can go deeper to 2h, and if Gote picks the Anaguma, Sente rushes the attack with the king still on 3i."
           },
-          "marks": { "last": "4e", "arrows": ["4h4e"] }
+          "marks": {
+            "last": "3i",
+            "boxes": [
+              "3i",
+              "3h"
+            ]
+          }
         },
         {
-          "moves": ["4h4e"],
+          "moves": [
+            "1g1f",
+            "6b5c"
+          ],
           "text": {
-            "ja": "▲４五飛で歩を取り返しました。７八角は６七・５六を通って４五飛を支えます。４筋の歩が消えて７一角の斜線は１七まで通りますが、１三歩が１二香の利きを止めているので、△１七角成には▲同玉と取れます。後手は６三銀を５四へ出して次に４五を狙えるため、歩を回収した飛車をそのまま置けるとは限りません。",
-            "en": "Rx4e recovers Gote's pawn. B7h supports the rook through the open squares 6g and 5f. With the fourth-file pawns gone, B7a's diagonal now reaches 1g, but P1c blocks L1b, so B1g+ can be answered by Kx1g. Gote can bring S6c to 5d, where it would attack 4e on the next turn, so the rook cannot necessarily stay on 4e."
+            "ja": "端の歩を▲１六歩と突くのは、相手の作戦をうかがう手です。後手が△１四歩と受ければ急戦、受けずに別の手を指せば穴熊の可能性が高いと読めます。ただしこの段階では、まだ決めつけられません。",
+            "en": "Pushing the edge pawn with ▲1六歩 probes Gote's plan. If Gote answers with △1四歩 a quick attack is likely, and if Gote plays elsewhere the Anaguma is likely. At this stage it is still not certain."
           },
-          "marks": { "last": "4e", "arrows": ["7h4e", "6c5d", "7a1g"], "boxes": ["4e", "1c"] }
+          "marks": {
+            "last": "1f",
+            "boxes": [
+              "1f"
+            ]
+          }
         },
         {
-          "moves": ["6c5d", "4e4a+"],
+          "moves": [
+            "4g4f",
+            "8d8e",
+            "8h7g",
+            "2b3c",
+            "3g3f",
+            "3b2b",
+            "2i3g"
+          ],
           "text": {
-            "ja": "△５四銀と追われた例では、４筋に後手の駒がないので▲４一飛成と敵陣へ入ります。３一銀はまだ囲いへ寄っておらず、竜は１段目から銀と両方の金に利いています。先手は歩を一枚取り返し、後手銀は中央へ進みました。次の攻めを急ぐ前に、後手８筋の飛車と自玉側の受けを確認します。",
-            "en": "After the sample S5d, the fourth file holds no Gote piece, so the rook enters the camp with R4a+. S3a has not yet joined the shelter, and the dragon on rank a bears on that silver and both golds. Sente has recovered a pawn, while Gote's silver has moved toward the center. Before pressing on, check Gote's eighth-file rook and the safety of Sente's king."
+            "ja": "▲４六歩、▲３六歩と突いて、▲３七桂と右の桂を早めに跳ねます。次に▲４五桂と跳ねれば、角と銀を同時にねらえます。将来は▲２五桂から攻める手も用意しています。右の桂が攻めの要で、囲いを固めるより先にこの形を作るのが大事です。",
+            "en": "▲4六歩 and ▲3六歩 prepare ▲3七桂, jumping the right knight early. From there ▲4五桂 would fork bishop and silver, and later ▲2五桂 is available. The right knight is the key to the attack, and building this shape comes before strengthening the castle."
           },
-          "marks": { "last": "4a", "boxes": ["5d", "3a", "8b"] }
+          "marks": {
+            "last": "3g",
+            "arrows": [
+              "3g4e"
+            ],
+            "boxes": [
+              "4e",
+              "2e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4c4d",
+            "6f6e",
+            "1a1b"
+          ],
+          "text": {
+            "ja": "▲４五桂を防ぐため、後手は△４四歩と突いて角道を閉じました。角道が止まったのを見て、先手は▲６五歩と角道を開けます。そこで後手が△１二香と上がり、穴熊を目指すことがはっきりしました。ここからが四間飛車の速攻です。",
+            "en": "To stop ▲4五桂, Gote pushes △4四歩 and closes its own bishop line. Seeing that, Sente opens its bishop with ▲6五歩. Gote then plays △1二香, which makes the Anaguma plan certain. Now Fourth File Rook starts its quick attack."
+          },
+          "marks": {
+            "last": "1b",
+            "boxes": [
+              "1b",
+              "6e"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "居飛車穴熊の長所は、玉が隅にいて王手がかかりにくく、飛車角の交換をする激しい戦いに強いことです。短所は、組み上げるまでに手数がかかって途中で攻められやすいことと、金銀を多く守りに使うので攻めの駒が足りなくなりやすいことです。四間飛車は、その組み上がる前を狙います。",
+            "en": "Anaguma's strength is that the king in the corner is hard to check and the castle holds up in fierce trades of rook and bishop. Its weaknesses are that it takes many moves to build and can be attacked halfway, and that so many golds and silvers are used for defence that few pieces remain for attack. Fourth File Rook aims at the moment before it is finished."
+          },
+          "marks": {
+            "boxes": [
+              "1b",
+              "3i"
+            ]
+          }
         }
       ]
     },
     {
       "title": {
-        "ja": "囲い終えた端には金の受けがある",
-        "en": "The finished corner has a gold reply to an edge exchange"
+        "ja": "▲２五桂と▲４八飛で力をためる",
+        "en": "Build force with ▲2五桂 and ▲4八飛"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "8k/1r4gsl/1b1p1g2p/5p3/8P/3P1P3/2B6/4GRSK1/5G2L w - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "6g6f",
+            "8c8d",
+            "2h6h",
+            "7a6b",
+            "5i4h",
+            "5a4b",
+            "3i3h",
+            "4b3b",
+            "4h3i",
+            "5c5d",
+            "1g1f",
+            "6b5c",
+            "4g4f",
+            "8d8e",
+            "8h7g",
+            "2b3c",
+            "3g3f",
+            "3b2b",
+            "2i3g",
+            "4c4d",
+            "6f6e",
+            "1a1b"
+          ],
           "text": {
-            "ja": "後手は１一玉・１二香・２二銀・３二金で端に玉を収め、先手１五歩と後手１三歩が向かい合います。先手１九香の前は空いていますが、３二金が２三へ出れば１四を守ります。端の接触を香の突破と即断しません。",
-            "en": "Gote has K1a, L1b, S2b and G3b around the corner. Sente's pawn on 1e faces P1c, and the path ahead of L1i is open. Gote's G3b can move to 2c and defend 1d, so pawn contact is not automatically a lance breakthrough."
+            "ja": "後手が穴熊を決めた局面です。ここから先手は攻めに出ます。",
+            "en": "The position where Gote has committed to Anaguma. Sente now goes on the attack."
           },
-          "marks": { "boxes": ["1a", "1b", "2b", "3b"], "arrows": ["3b2c"] }
+          "marks": {
+            "boxes": [
+              "1b",
+              "3c"
+            ]
+          }
         },
         {
-          "moves": ["1c1d", "1e1d"],
+          "moves": [
+            "3g2e"
+          ],
           "text": {
-            "ja": "△１四歩▲同歩で先手歩が１四へ出ます。この歩は次に１三へ進んで成れますが、後手には金を近づけてから取る選択があります。４八飛は４六歩の後ろにいて、この端の歩を直接支えていません。",
-            "en": "After P1d Px1d, Sente's pawn stands on 1d and could promote on 1c next. Gote can first move a gold toward it. R4h sits behind P4f and does not directly defend this edge pawn."
+            "ja": "▲２五桂と跳ねて、後手の角に当てます。この角が動けば、相手玉が先手の角のラインに入る形になり、▲４五歩の攻めが厳しくなります。右桂を早く跳ねたのはこのためです。後手が△１一玉から△２二銀と囲ってしまうと、この攻めは成立しません。",
+            "en": "▲2五桂 attacks the bishop. If the bishop moves, Gote's king falls into the line of Sente's bishop and ▲4五歩 becomes severe. That is why the right knight was jumped early. Once Gote plays △1一玉 and △2二銀 the attack no longer works."
           },
-          "marks": { "last": "1d", "arrows": ["1d1c+", "3b2c"] }
+          "marks": {
+            "last": "2e",
+            "arrows": [
+              "2e3c"
+            ]
+          }
         },
         {
-          "moves": ["3b2c", "1d1c+", "1b1c"],
+          "moves": [
+            "3c2d",
+            "6h4h"
+          ],
           "text": {
-            "ja": "△２三金の例では▲１三歩成を△同香で取れます。先手の歩は後手香を１三へ呼びましたが、香を取るだけでは２三金が取り返す位置にいます。後手が金を２三以外へ動かせば、取り返しの数も変わります。",
-            "en": "In the sample G2c line, Sente promotes on 1c and Gote's lance captures the tokin. The pawn has drawn the lance to 1c, but G2c is positioned to recapture a Sente lance that takes it. A different gold move would change that recapture count."
+            "ja": "△２四角と角が逃げたあとも、▲４五歩はまだ突きません。▲４八飛と飛車を４筋に移して力を溜めます。飛車を攻めに使う狙いに加え、▲４五歩△５七角成のときに王手がかかってしまうのを避ける意味もあります。",
+            "en": "Even after the bishop runs to 2d, Sente does not play ▲4五歩 yet. ▲4八飛 shifts the rook to the fourth file to gather strength. Besides putting the rook to work, it avoids the check that would come with ▲4五歩 △5七角成."
           },
-          "marks": { "last": "1c", "arrows": ["1i1c", "2c1c"] }
-        },
-        {
-          "moves": ["1i1c", "2c1c"],
-          "text": {
-            "ja": "▲同香不成で香を取って王手をかけても、△同金で後手が香を取り返します。この枝では端の歩と香を双方が交換し、後手金が１三に出ました。金の位置が変わったことは今後の攻め筋ですが、この交換だけで穴熊が崩れたとはいえません。",
-            "en": "Lx1c, declining promotion, captures Gote's lance with check, but Gx1c recaptures. In this line both sides exchange the edge pawn and lance, and Gote's gold ends on 1c. That displacement may matter later; the exchange by itself has not dismantled the shelter."
-          },
-          "marks": { "last": "1c", "boxes": ["1a", "1c", "2b"] }
+          "marks": {
+            "last": "4h",
+            "boxes": [
+              "4e"
+            ]
+          }
         }
       ]
     },
     {
       "title": {
-        "ja": "右桂で角銀を触るときは金の取り返しまで読む",
-        "en": "Count the gold recapture when the right knight contacts bishop and silver"
+        "ja": "穴熊を目指す相手には▲４五歩",
+        "en": "Against the Anaguma, play ▲4五歩"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "9/1r2g1gkl/1p2bps1p/9/8P/3P1P3/2B3N2/3RG1SK1/5G3 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "6g6f",
+            "8c8d",
+            "2h6h",
+            "7a6b",
+            "5i4h",
+            "5a4b",
+            "3i3h",
+            "4b3b",
+            "4h3i",
+            "5c5d",
+            "1g1f",
+            "6b5c",
+            "4g4f",
+            "8d8e",
+            "8h7g",
+            "2b3c",
+            "3g3f",
+            "3b2b",
+            "2i3g",
+            "4c4d",
+            "6f6e",
+            "1a1b",
+            "3g2e",
+            "3c2d",
+            "6h4h"
+          ],
           "text": {
-            "ja": "先手３七桂は４五へ跳べます。後手５三角と３三銀は４五桂の両側にありますが、３三銀は３二金が守っています。後手玉はまだ２二で、先手は２八玉の美濃側に寄せています。",
-            "en": "Sente's knight on 3g can jump to 4e, between Gote's B5c and S3c. The silver on 3c is protected by G3b. Gote's king remains on 2b while Sente's king is on the Mino side at 2h."
+            "ja": "▲４八飛まで進んだ局面です。ここで後手がそのまま穴熊を目指した場合を見ます。",
+            "en": "The position after ▲4八飛. See what happens when Gote keeps heading for the Anaguma."
           },
-          "marks": { "arrows": ["3g4e", "4e3c", "4e5c"], "boxes": ["3b", "2b"] }
+          "marks": {
+            "boxes": [
+              "4h",
+              "1b"
+            ]
+          }
         },
         {
-          "moves": ["3g4e"],
+          "moves": [
+            "2b1a",
+            "4f4e"
+          ],
           "text": {
-            "ja": "▲４五桂は５三角と３三銀の両方へ利きます。５三角の斜線は１七まで通っていますが、１三歩が１二香の利きを止めているので、△１七角成は▲同玉で取れます。後手が角を逃がす一手だけで銀まで失うと決めつけず、後手の歩や金の応手を含めて読みます。先手６六歩は７七角から後手陣へ伸びる斜線をいまは塞いでいます。",
-            "en": "N4e attacks both B5c and S3c. B5c's diagonal reaches 1g, but P1c blocks L1b, so B1g+ can be met by Kx1g. Do not assume that moving the bishop concedes an undefended silver: Gote still has pawn and gold responses. Sente's P6f currently blocks B7g's long diagonal toward Gote's camp."
+            "ja": "△１一玉と穴熊へ進んだら、迷わず▲４五歩と突きます。次に△２二銀と穴熊が固まると、角のラインの攻めが通じなくなるからです。後手はこの歩を△同歩と取れません。４四の歩が動くと、７七の角が１一の玉まで通って王手になり、自分の玉を取られる形だからです。",
+            "en": "When Gote steps to △1一玉, play ▲4五歩 without hesitation. Once △2二銀 finishes the Anaguma, the attack along the bishop line stops working. Gote cannot capture with △同歩: once the pawn on 4d moves, the bishop on 7g reaches the king on 1a, and Gote would leave its own king in check."
           },
-          "marks": { "last": "4e", "arrows": ["4e3c", "4e5c", "5c1g"], "boxes": ["6f", "1c"] }
+          "marks": {
+            "last": "4e",
+            "boxes": [
+              "4d",
+              "1a"
+            ]
+          }
         },
         {
-          "moves": ["5c6d", "4e3c+", "3b3c"],
+          "moves": [
+            "2d5g+",
+            "4e4d",
+            "5g4h",
+            "4i4h"
+          ],
           "text": {
-            "ja": "後手が△６四角と自玉から離れる例なら▲３三桂成で銀を取れますが、△同金で桂も取られます。先手は桂を使って銀を得た一方、後手金は３三へ進みました。△３五角と出て４六歩や１七への筋を狙われた場合は、すぐ銀を取るより▲４七金のように守る手も比べます。この交換の価値は６筋の飛車や玉の危険と合わせて判断します。",
-            "en": "If Gote moves the bishop away from its king to 6d, Nx3c+ captures the silver, but Gx3c takes the knight. Sente has traded a knight for a silver while Gote's gold moves to 3c. If the bishop instead goes to 3e, eyeing P4f and the 1g diagonal, compare a defensive move such as G4g with taking the silver at once. Assess the exchange together with the rook on the sixth file and both kings, not as a free silver."
+            "ja": "後手は△５七角成と成り込み、先手の飛車を取って攻め合います。先手は▲４四歩と進め、△４八馬には▲同金。先手の陣は安定し、飛車を打ち込まれる隙がありません。後手は次の▲４三歩成が王手と銀取りを兼ねるので、苦しい局面です。",
+            "en": "Gote promotes with △5七角成 and takes the rook to race. Sente advances ▲4四歩, and answers △4八馬 with ▲同金. Sente's camp is stable, with no gap for a rook drop. Gote is in trouble because ▲4三歩成 next would check and attack the silver at once."
           },
-          "marks": { "last": "3c", "boxes": ["3c", "6d", "2b"] }
+          "marks": {
+            "last": "4h",
+            "boxes": [
+              "4c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3a2b",
+            "4d4c+",
+            "5c6b"
+          ],
+          "text": {
+            "ja": "後手は△２二銀と守り、▲４三歩成に△６二銀と逃げました。この△６二銀が悪手です。飛車の横の利きを自分で止めてしまい、後手玉に簡単な詰みが生じます。",
+            "en": "Gote defends with △2二銀 and, after ▲4三歩成, retreats with △6二銀. That retreat is the mistake: it blocks the rook's sideways reach and leaves Gote's king open to a simple mate."
+          },
+          "marks": {
+            "last": "6b",
+            "arrows": [
+              "7g2b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7g2b+",
+            "1a2b",
+            "B*3c",
+            "2a3c",
+            "2e3c+",
+            "2b1a",
+            "S*2b"
+          ],
+          "text": {
+            "ja": "▲２二角成と飛び込み、△同玉に▲３三角。△同桂▲同桂成△１一玉に▲２二銀で７手詰めです。穴熊は王手がかかりにくくても、完成前なら簡単に詰みます。実戦では見落としやすいので、この手順を一目で読めるようにしておきましょう。",
+            "en": "▲2二角成 jumps in, and after △同玉 ▲3三角. △同桂 ▲同桂成 △1一玉 ▲2二銀 is a seven-move mate. An Anaguma resists checks, but before it is finished it can be mated easily. The line is easy to overlook in games, so learn to read it at a glance."
+          },
+          "marks": {
+            "last": "2b",
+            "boxes": [
+              "1a",
+              "2b",
+              "3c"
+            ]
+          }
         }
-      ],
-      "variations": [
+      ]
+    },
+    {
+      "title": {
+        "ja": "穴熊をあきらめた場合は４筋を攻め続ける",
+        "en": "If Gote gives up on the Anaguma, keep attacking the fourth file"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
         {
-          "from": 1,
-          "moves": ["4c4d", "4e5c+", "5b5c"],
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "6g6f",
+            "8c8d",
+            "2h6h",
+            "7a6b",
+            "5i4h",
+            "5a4b",
+            "3i3h",
+            "4b3b",
+            "4h3i",
+            "5c5d",
+            "1g1f",
+            "6b5c",
+            "4g4f",
+            "8d8e",
+            "8h7g",
+            "2b3c",
+            "3g3f",
+            "3b2b",
+            "2i3g",
+            "4c4d",
+            "6f6e",
+            "1a1b",
+            "3g2e",
+            "3c2d",
+            "6h4h"
+          ],
           "text": {
-            "ja": "後手が角を逃がさず△４四歩と桂取りを狙う枝では、５三角にまだ桂が利いています。▲５三桂成と角を取れば、△同金で桂は取られても角と桂の交換になり、３三銀を取る交換より駒の差が大きくなります。両方に利いているときは、取り返された後に残る駒の差を比べてから取ります。",
-            "en": "If Gote leaves the bishop and pushes P4d to threaten the knight, B5c is still attacked. Nx5c+ Gx5c loses the knight but wins the bishop, a larger material gain than trading the knight for S3c. When a knight hits two pieces, compare the material left after the recapture before choosing."
+            "ja": "同じ局面に戻ります。今度は後手が穴熊をあきらめて、しっかり守ってきた場合を見ます。",
+            "en": "Back to the same position. This time Gote gives up on the Anaguma and defends solidly."
+          },
+          "marks": {
+            "boxes": [
+              "4h",
+              "1b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6a5b",
+            "7i6h"
+          ],
+          "text": {
+            "ja": "後手が△５二金と４筋の守りを固めてきたら、先手はすぐ攻めずに▲６八銀と上がります。この銀は△５七角成を前もって受けるためです。慌てて攻めず、まず自分の陣の隙を消します。",
+            "en": "When Gote reinforces the fourth file with △5二金, Sente does not attack at once but plays ▲6八銀. This silver covers 5g in advance against △5七角成. Sente first removes the hole in its own camp instead of rushing."
+          },
+          "marks": {
+            "last": "6h",
+            "boxes": [
+              "5g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5b4c",
+            "4f4e"
+          ],
+          "text": {
+            "ja": "後手は△４三金と守りますが、先手はやはり▲４五歩から攻めます。後手は△同歩とは取れません。取れば玉が角で取られます。場合によっては、▲４四歩△同銀▲同飛△同金▲同角と切り込む手も考えられます。",
+            "en": "Gote guards with △4三金, but Sente still attacks with ▲4五歩. Gote cannot take with △同歩, or the king falls to the bishop. Depending on the situation, Sente can also cut in with ▲4四歩 △同銀 ▲同飛 △同金 ▲同角."
+          },
+          "marks": {
+            "last": "4e",
+            "boxes": [
+              "4d",
+              "2b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8b4b"
+          ],
+          "text": {
+            "ja": "後手は飛車を４筋へ寄せて受けました。ですが先手の攻めはこれでも止まりません。何手か先まで見ましょう。",
+            "en": "Gote shifts the rook to the fourth file to defend. Even so, Sente's attack is not stopped. Look a few moves further."
+          },
+          "marks": {
+            "last": "4b",
+            "boxes": [
+              "4e",
+              "4b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4e4d",
+            "5c4d",
+            "P*4e"
+          ],
+          "text": {
+            "ja": "▲４四歩△同銀に▲４五歩と、４筋の歩を連打して攻めます。ここで銀が５三へ引くと、玉が角の利きにさらされます。逃げ場は３三と５五だけで、△５五銀には▲５六歩と打って銀を閉じ込められます。",
+            "en": "▲4四歩 △同銀 ▲4五歩 hammers the fourth-file pawns. If the silver retreats to 5c, the king is exposed to the bishop. Only 3c and 5e remain, and △5五銀 is met by ▲5六歩, which traps the silver."
+          },
+          "marks": {
+            "last": "4e",
+            "boxes": [
+              "4d",
+              "3c",
+              "5e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4d3c",
+            "2e3c",
+            "2a3c",
+            "4e4d"
+          ],
+          "text": {
+            "ja": "ここは指し手が多い局面で、一例を示します。△３三銀▲同桂△同桂▲４四歩と、取った駒を４筋へ次々と放り込みます。基本は４筋を集中して攻めることです。そうすれば後手の守りは崩れていきます。",
+            "en": "Many moves are possible here, and this is one example: △3三銀 ▲同桂 △同桂 ▲4四歩, throwing captured pieces into the fourth file one after another. The basic idea is to concentrate on the fourth file; Gote's defence then crumbles."
+          },
+          "marks": {
+            "last": "4d",
+            "boxes": [
+              "4d",
+              "4c"
+            ]
           }
         }
       ]

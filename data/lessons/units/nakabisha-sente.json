@@ -1,134 +1,254 @@
 {
   "id": "nakabisha-sente",
   "order": 1190,
-  "path": ["戦法・定跡", "中飛車"],
-  "title": {"ja": "先手中飛車で角道と８筋を同時に見る", "en": "Coordinating the bishop line and eighth file in Sente Central Rook"},
+  "path": ["戦法・定跡", "ゴキゲン中飛車"],
+  "title": {
+    "ja": "先手番の中飛車：組み方と角交換の避け方",
+    "en": "Central Rook as Sente: setup and avoiding the bishop trade"
+  },
   "intro": {
-    "ja": "先手中飛車では、５筋の歩と飛車の位置で角交換の条件が変わります。後手が角道を開けたら５五歩が何を遮るかを盤上で確かめ、８筋の歩がぶつかれば玉移動より先に取り手を数えます。角を交換した後は、持ち角の打ち場所が新しく生まれます。",
-    "en": "In Sente Central Rook, the fifth-file pawn and rook placement change the terms of a bishop exchange. When Gote opens the bishop diagonal, verify what P5e actually screens; when the eighth-file pawns meet, count captures before spending a king move. A bishop trade also creates new drop squares for both players."
+    "ja": "先手でも中飛車は指せます。ただし後手番とは手順を変え、初手から▲５六歩と突いて、角を交換されるすきを作りません。相手が飛車先を突いたとき、角道を開けたときのそれぞれについて、基本形までの手順を覚えます。",
+    "en": "Central Rook can be played as Sente too, but the move order differs from the Gote version. Sente starts with ▲5六歩 so that no bishop trade is possible. Learn the route to the basic position against an opponent who pushes the eighth-file pawn and against one who opens the bishop line."
   },
   "check": {
     "question": {
-      "ja": "先手５八飛・７七角・５五歩、後手２二角の局面で、５五歩が遮っている角筋はどこを通りますか？",
-      "en": "Sente has R5h, B7g and P5e against Gote B2b. Which bishop line does P5e interrupt?"
+      "ja": "▲７六歩と角道を開けてから▲５六歩と突くと、後手の△８八角成から△５七角という打ち込みが生じます。先に▲５八飛と振っておくと、この打ち込みはなぜ消えますか？",
+      "en": "If Sente opens the bishop line with ▲7六歩 and then plays ▲5六歩, Gote can trade bishops and drop one on 5g. Why does ranging first with ▲5八飛 remove that drop?"
     },
     "answer": {
-      "ja": "２二角から３三・４四・５五・６六を経て７七角へ向かう斜線です。５五歩が取られたり動いたりすれば条件が変わるため、角交換が永久に消えたとは考えません。",
-      "en": "The line runs from B2b through 3c, 4d, 5e and 6f toward B7g. A capture or move at 5e changes that line; the pawn is a position-specific screen, not a permanent ban on bishop exchange."
+      "ja": "５八の飛車が５七のマスに利いているので、打たれた角をそのまま飛車で取れます。５筋の歩が前へ出て５七が空いているため、飛車の利きが通ります。",
+      "en": "The rook on 5h covers 5g. With the fifth-file pawn already advanced, the square is empty and the rook simply captures the dropped bishop."
     }
   },
   "references": [
-    {"title": "先手番中飛車の駒組み", "url": "https://shogi-joutatsu.com/archives/6593", "license": "All rights reserved", "adapted": false}
+    {
+      "title": "先手番中飛車の駒組み",
+      "url": "https://shogi-joutatsu.com/archives/6593",
+      "license": "All rights reserved",
+      "adapted": false
+    },
+    {
+      "title": "将棋の技図鑑 (yuki-keio/shogi)",
+      "url": "https://github.com/yuki-keio/shogi",
+      "license": "GPL-3.0-only",
+      "adapted": false
+    }
   ],
   "chapters": [
     {
-      "title": {"ja": "飛車を振る前に角の直線を遮る", "en": "Screen the bishop line before swinging the rook"},
+      "title": {
+        "ja": "８四歩に応じて基本形まで組む",
+        "en": "Build the basic position against ...8d"
+      },
       "side": "sente",
-      "kind": "position",
-      "start": "3gkn3/1r5b1/8p/1p4p2/9/4P4/1PB4P1/7R1/4GGK2 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "後手２二角から３三・４四・５五・６六を通る斜線が先手７七角へ向いています。先手５六歩はまだ５五をふさいでいません。後手８四歩もあるので、５筋の形と８筋の進み具合を別々に確認します。",
-            "en": "Gote's B2b has a clear diagonal through 3c, 4d, 5e and 6f to Sente's B7g. Sente's P5f does not yet interrupt it. Gote also has P8d, so assess the bishop line and rook-file timing separately."
-          },
-          "marks": {"arrows": ["5f5e", "2h5h"], "boxes": ["2b", "7g", "8d"]}
+            "ja": "先手の中飛車は、後手のゴキゲン中飛車と違い、初手から５筋の歩を突きます。角道は後で開けます。この章では、後手が飛車先の歩を突いてくる場合の手順を、初手から基本形まで追います。",
+            "en": "Unlike Gote's Gokigen, Sente's Central Rook begins with the fifth-file pawn on move one and opens the bishop line later. This chapter follows the line where Gote pushes the eighth-file pawn, from move one to the basic position."
+          }
         },
         {
-          "moves": ["5f5e", "8d8e"],
+          "moves": ["5g5f"],
           "text": {
-            "ja": "▲５五歩で２二角と７七角の間に先手歩が入ります。後手が△８五歩と飛車先を伸ばす例では、次に８六で接触する前に５筋へ飛車を回す余地があります。５五歩が動けば斜線は再び変わります。",
-            "en": "P5e puts a Sente pawn between B2b and B7g. In this sample Gote advances P8e; the next eighth-file contact is still a turn away, leaving Sente time to swing the rook. If P5e later moves or is captured, recalculate the diagonal."
+            "ja": "初手▲５六歩。中飛車にする意思を最初から見せる手です。角道がまだ閉じているので、後手は角を交換できません。その代わり、中飛車への対策を持つ相手には作戦を読まれた状態で始まります。",
+            "en": "▲5六歩 on move one declares the plan straight away. The bishop line is still shut, so Gote cannot trade bishops. The price is that an opponent prepared against Central Rook knows what is coming."
           },
-          "marks": {"last": "8e", "boxes": ["5e", "8e", "8g"]}
+          "marks": {
+            "last": "5f",
+            "boxes": ["5f"]
+          }
         },
         {
-          "moves": ["2h5h"],
+          "moves": ["8c8d", "7g7f"],
           "text": {
-            "ja": "▲５八飛で飛車を５筋に据えます。５五歩は角道を遮ると同時に、５八飛が縦に向かう地点です。後手８五歩の次の一手を無視して攻めが成功するわけではなく、８七歩・７七角の受けを続けて調べます。",
-            "en": "R5h establishes the central rook behind P5e. That pawn screens the bishop diagonal and sits on the rook's file. Gote's P8e still threatens contact, so check P8g and B7g before treating the setup as complete."
+            "ja": "後手が△８四歩と飛車先を突いたら、▲７六歩と角道を開けます。後手の角道は３三の歩でふさがったままなので、この時点で角を交換される心配はありません。",
+            "en": "When Gote pushes △8四歩, Sente opens the bishop line with ▲7六歩. Gote's own bishop is still blocked by the pawn on 3c, so no trade is available yet."
           },
-          "marks": {"last": "5h", "boxes": ["5e", "8g", "7g"]}
-        }
-      ]
-    },
-    {
-      "title": {"ja": "８筋では歩を取ってから角の移動先を探す", "en": "Resolve the pawn contact, then use the bishop's new line"},
-      "side": "sente",
-      "kind": "position",
-      "start": "4k3l/1r5b1/9/6p2/4P4/1p7/1PB6/4R4/5GK2 b - 1",
-      "steps": [
-        {
-          "text": {
-            "ja": "後手８六歩が先手８七歩の直前にあり、先手飛車は５八です。先手７七角は８六へ利き、５五歩は後手２二角の長い斜線を遮っています。玉を動かす前に、８六の歩をどう処理するかを決めます。",
-            "en": "Gote's P8f contacts Sente's P8g while Sente's rook is on 5h. B7g covers 8f, and P5e interrupts B2b's long diagonal. Decide what to do with P8f before making a king move."
-          },
-          "marks": {"arrows": ["8g8f", "8f8g+"], "boxes": ["7g", "5e", "3i"]}
+          "marks": {
+            "last": "7f",
+            "boxes": ["3c"]
+          }
         },
         {
-          "moves": ["8g8f", "8b8d"],
+          "moves": ["8d8e", "8h7g"],
           "text": {
-            "ja": "▲同歩で先手は８六の歩を取り、後手が△８四飛と浮く例です。後手飛車は８六歩を縦に見ますが、８四へ動いたことで先手角の新しい斜線も生まれます。後手が必ず飛車を浮くわけではありません。",
-            "en": "Px8f captures Gote's pawn. In the sample R8d, Gote's rook eyes the pawn down the file, but its new square can also be reached by a different bishop diagonal. Gote need not float the rook."
+            "ja": "後手が△８五歩と伸ばしたら、▲７七角と上がります。角が８八にいるままだと、△８六歩▲同歩△同飛で飛車が角に当たります。７七なら８筋から離れているので、飛車先の攻めを受けられます。",
+            "en": "Gote extends with △8五歩 and Sente answers ▲7七角. With the bishop still on 8h, the sequence △8六歩 ▲同歩 △同飛 would put the rook against it. From 7g the bishop is off the eighth file and safe from that attack."
           },
-          "marks": {"last": "8d", "boxes": ["8d", "8f", "7g"]}
+          "marks": {
+            "last": "7g",
+            "boxes": ["8h", "8e"]
+          }
         },
         {
-          "moves": ["7g6f"],
+          "moves": ["3c3d", "5f5e"],
           "text": {
-            "ja": "▲６六角で７五を通る角筋が８四飛に当たります。これは△８四飛を選んだ場合の一手で、飛車を取れたという意味ではありません。後手飛車の移動先と５筋の歩の動きで次の判断は変わります。",
-            "en": "B6f attacks R8d through 7e. This is a concrete reply to the sample R8d, not a claim that Sente has won the rook. Gote's rook move and later fifth-file pawn contact still affect the position."
+            "ja": "後手が△３四歩と角道を開けたら、すぐ▲５五歩。５筋の歩が、後手の角の斜めをふさぎます。角を交換しないのが振り飛車の基本なので、相手の誘いには乗りません。",
+            "en": "Gote opens the bishop line with △3四歩, and Sente replies at once with ▲5五歩. The pawn blocks Gote's diagonal. Ranging Rook players avoid bishop trades, so Sente declines the invitation."
           },
-          "marks": {"last": "6f", "arrows": ["6f8d"], "boxes": ["8d", "5e"]}
-        }
-      ],
-      "variations": [
+          "marks": {
+            "last": "5e",
+            "arrows": ["5e5d"],
+            "boxes": ["5e"]
+          }
+        },
         {
-          "from": 0,
-          "moves": ["3i4h", "8f8g+"],
+          "moves": ["7a6b", "2h5h"],
           "text": {
-            "ja": "先に▲４八玉と寄る枝では、△８七歩成で８七の歩を取られます。玉移動そのものが悪いのではなく、この盤面では８筋の接触が一手早いのです。",
-            "en": "If Sente moves K4h first, P8g+ captures Sente's pawn. The king move is not inherently poor; on this board the eighth-file contact arrives first."
+            "ja": "後手が△６二銀と駒組みを進めたら、最後に▲５八飛。飛車を中央へ振って、後手のゴキゲン中飛車と同じ形に合流しました。こちらが先手番なので、同じ形をまるまる一手早く作ったことになります。",
+            "en": "Gote develops with △6二銀 and Sente finishes with ▲5八飛. Both sides now have the Gokigen formation, but Sente has the move in hand, one tempo ahead."
+          },
+          "marks": {
+            "last": "5h",
+            "arrows": ["5h5g"],
+            "boxes": ["5h", "5e"]
+          }
+        },
+        {
+          "text": {
+            "ja": "先手番の利点は、後手と同じ形を一手早く作れることと、角を交換せずに済むことです。弱点は、初手から中飛車と分かるため、中飛車対策を知っている相手には指しにくいことです。続きの囲い方と攻め方は、別の講座で扱います。",
+            "en": "The strengths: Sente reaches the same formation one move earlier and can avoid the bishop trade. The weakness: the plan is visible from move one, so an opponent with a prepared answer can make life difficult. The castle and the attack that follow are in other lessons."
+          },
+          "marks": {
+            "boxes": ["5h", "5e", "7g"]
           }
         }
       ]
     },
     {
-      "title": {"ja": "中央の歩が消えた後の角交換を数える", "en": "Recount bishop exchanges after the central screen disappears"},
+      "title": {
+        "ja": "３四歩には５八飛と振る",
+        "en": "Answer ...3d by ranging with ▲5八飛"
+      },
       "side": "sente",
-      "kind": "position",
-      "start": "5k2l/1r5b1/9/4p4/4P4/9/2B6/4RG3/6K2 w - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": ["5g5f", "3c3d"],
           "text": {
-            "ja": "先手５五歩と後手５四歩が向き合い、先手５八飛・７七角と後手２二角がいます。５五歩が角の直線を遮りますが、５筋で歩を取り合えば遮る駒が入れ替わります。交換後にどちらの角が５五を取れるかを確認します。",
-            "en": "Sente's P5e faces Gote's P5d, with R5h, B7g and Gote B2b on the board. P5e currently screens the bishops. A pawn exchange on that square changes the blocker, so follow every recapture rather than assuming the bishops remain separated."
+            "ja": "初手▲５六歩に対して、後手が△３四歩と角道を開けた場合です。後手の角は２二から斜めに通っていて、先手が７六歩を突けば交換できる形です。",
+            "en": "Here Gote answers ▲5六歩 by opening the bishop line with △3四歩. Gote's bishop now looks down the long diagonal, and Sente's ▲7六歩 would allow a trade."
           },
-          "marks": {"arrows": ["5d5e", "7g5e", "2b5e"], "boxes": ["5e", "5h"]}
+          "marks": {
+            "last": "3d",
+            "boxes": ["7g", "2b"]
+          }
         },
         {
-          "moves": ["5d5e", "7g5e"],
+          "moves": ["2h5h"],
           "text": {
-            "ja": "後手が△５五歩と先手歩を取り、先手は▲同角で後手歩を取り返す枝です。７七角は６六を通って５五へ出られます。しかし後手２二角も３三・４四を通って同じ５五を見ています。",
-            "en": "In the sample Px5e Bx5e, Sente's bishop recaptures Gote's pawn through 6f. Gote's B2b also reaches 5e through 3c and 4d, so Sente's bishop cannot be treated as safely posted there yet."
+            "ja": "▲５八飛と、角道を開ける前に飛車を中央へ振ります。５筋の歩がもう出ているので、あとで角を交換されて△５七角と打たれても、飛車で取れます。打ち込みのすきを先に消す手です。",
+            "en": "▲5八飛 puts the rook in the centre before the bishop line opens. The fifth-file pawn is already advanced, so a later bishop trade followed by a drop on 5g can be answered by capturing it with the rook. The move removes the opening in advance."
           },
-          "marks": {"last": "5e", "arrows": ["2b5e", "5h5e"]}
+          "marks": {
+            "last": "5h",
+            "arrows": ["5h5g"],
+            "boxes": ["5g"]
+          }
         },
         {
-          "moves": ["2b5e", "5h5e"],
+          "moves": ["8c8d", "5f5e", "8d8e", "7g7f"],
           "text": {
-            "ja": "△同角▲同飛で角を双方が持ち、先手飛車が５五へ出ます。駒を交換しただけで先手の得とは決まりません。後手が持った角をどこへ打てるか、次の一手まで読みます。",
-            "en": "Bx5e Rx5e leaves both players with a bishop in hand and Sente's rook on 5e. The exchange alone is not a gain: Gote can now use the bishop in hand, so inspect its next drop square."
+            "ja": "後手が△８四歩と進めたら、先に▲５五歩と突いて、後手の角の斜めを止めます。そのあと▲７六歩と角道を開けます。順番が逆だと角を交換されます。角道を開けた後でも、５五の歩が盾になっています。",
+            "en": "When Gote pushes △8四歩, Sente first plays ▲5五歩 to block Gote's bishop, and only then ▲7六歩 to open the line. The reverse order would allow the trade. Even with the line open, the pawn on 5e acts as a shield."
           },
-          "marks": {"last": "5e", "boxes": ["5e", "1g", "3i"]}
+          "marks": {
+            "last": "7f",
+            "boxes": ["5e", "7f"]
+          }
         },
         {
-          "moves": ["B*1g"],
+          "moves": ["7a6b", "8h7g"],
           "text": {
-            "ja": "この盤面では△１七角が２八を通って３九の玉に王手をかけます。先手は玉を動かすか２八へ合駒をするかを選ぶことになり、５五の飛車の安全は王手をかわした後に確かめます。角交換後の打ち込み地点は盤面ごとに違い、王手になる地点が先に見つかることもあります。",
-            "en": "On this board B*1g gives check to K3i through 2h. Sente must move the king or interpose on 2h, and the safety of R5e is checked only after the check is answered. The useful drop square depends on the actual post-exchange board, and a checking square may appear before an attacking one."
+            "ja": "後手が△６二銀と進めたら、▲７七角と上がります。これで８筋からの攻めを角で受けられるようになり、最初の章と同じ基本形に合流します。",
+            "en": "Gote plays △6二銀 and Sente answers ▲7七角. The bishop now guards against an attack on the eighth file, and the position merges with the basic position of the first chapter."
           },
-          "marks": {"last": "1g", "arrows": ["1g3i"], "boxes": ["3i", "2h", "5e"]}
+          "marks": {
+            "last": "7g",
+            "boxes": ["5h", "5e", "7g"]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 2,
+          "moves": ["8e8f", "8g8f", "8b8f"],
+          "text": {
+            "ja": "▲７六歩のあと、後手がすぐ△８六歩と突っかける変化です。▲同歩に△同飛と取られ、飛車が８六に出て８八の角に当たります。ここは超急戦と呼ばれる形に合流します。別の講座で受け方を学びます。",
+            "en": "After ▲7六歩, Gote can strike at once with △8六歩. After ▲同歩 △同飛 the rook lands on 8f and attacks the bishop on 8h. This leads into the Super-Fast Attack, whose defence is covered in a separate lesson."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "先に７六歩を突くと困る理由",
+        "en": "Why ▲7六歩 first is a problem"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": ["7g7f", "3c3d", "5g5f"],
+          "text": {
+            "ja": "角道を開ける自然な順で駒組みを始め、▲５六歩と突いた局面です。後手はいきなり仕掛けられます。",
+            "en": "Sente starts with the natural bishop-opening move and then plays ▲5六歩. Gote can strike immediately."
+          },
+          "marks": {
+            "last": "5f",
+            "arrows": ["2b8h"]
+          }
+        },
+        {
+          "moves": ["2b8h+", "7i8h", "B*5g"],
+          "text": {
+            "ja": "後手は△８八角成と角を交換し、▲同銀に△５七角と打ち込みます。５七へ打った角には、先手の飛車が遠い２八にいるので手が届きません。次に△８四角成と馬を作る手があり、先手が指しにくい展開です。",
+            "en": "Gote trades with △8八角成, and after ▲同銀 drops a bishop with △5七角. Sente's rook is still on 2h, so the bishop cannot be captured. Gote threatens △8四角成, making a promoted bishop, and Sente is struggling."
+          },
+          "marks": {
+            "last": "5g",
+            "arrows": ["5g8d"],
+            "boxes": ["5g"]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "同じ角打ちは後手番なら切り返せる",
+        "en": "The same drop can be answered when Gote has the rook"
+      },
+      "side": "gote",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": ["7g7f", "3c3d", "2g2f", "5c5d", "8h2b+", "8b2b", "B*5c"],
+          "text": {
+            "ja": "手番を入れ替えた局面です。後手のゴキゲン中飛車に、先手が角を交換して▲５三角と打ち込みました。前の章の△５七角と、形はそっくりです。",
+            "en": "Here the roles are reversed: against Gote's Gokigen, Sente trades bishops and drops ▲5三角. It mirrors the △5七角 drop of the previous chapter."
+          },
+          "marks": {
+            "last": "5c",
+            "arrows": ["5c4b", "5c6b"]
+          }
+        },
+        {
+          "moves": ["B*4b"],
+          "text": {
+            "ja": "後手には△４二角という切り返しがあります。先手はすでに２六へ歩を突いているので、打った角が成りながら逃げ込む２六のマスが埋まっています。ほかへ引いても歩に取られます。同じ筋でも、どちらの側が指すかで結果が逆になります。",
+            "en": "Gote has the counter △4二角. Here Sente has already pushed the rook pawn, so there is no safe retreat for the dropped bishop. The same idea gives opposite results depending on who holds the move, and that is the point of this chapter."
+          },
+          "marks": {
+            "last": "4b",
+            "arrows": ["4b5c"],
+            "boxes": ["4b", "5c"]
+          }
         }
       ]
     }

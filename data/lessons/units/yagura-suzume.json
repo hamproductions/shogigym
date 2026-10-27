@@ -1,23 +1,26 @@
 {
   "id": "yagura-suzume",
   "order": 610,
-  "path": ["戦法・定跡", "矢倉"],
+  "path": [
+    "戦法・定跡",
+    "矢倉"
+  ],
   "title": {
-    "ja": "雀刺しは端の取り手を数えて仕掛ける",
-    "en": "Count Edge Recaptures Before a Suzume-zashi Attack"
+    "ja": "雀刺し：端に戦力を集めて矢倉を崩す",
+    "en": "Suzume-zashi: gather force on the edge to break the Yagura"
   },
   "intro": {
-    "ja": "雀刺しは飛車・香・銀などを相手玉側の端へ寄せる矢倉の攻めです。ここでは香の後ろに飛車を通すための手数、銀と桂が実際に利く升、端歩を受けた後手と受けずに１三へ残した後手の違いを調べます。端に駒を集めても、相手の香や持ち歩の応手を読まずに突破とは言えません。",
-    "en": "Suzume-zashi concentrates a rook, lance, silver, and other support on the edge beside the opposing Yagura king. These composed positions compare the time needed to line up rook and lance, the squares actually covered by silver and knight, and a defender pawn on 1d versus one left on 1c. Concentration is a plan, not proof of a breakthrough; calculate the lance and pawn-drop replies."
+    "ja": "雀刺しは、飛車・角・桂・香を端に集中させて、矢倉囲いを横から崩す攻め方です。矢倉24手組から囲いを完成させ、端歩を突き合う形と端の位を取る形それぞれの仕掛けを、一手ずつ盤で確かめます。",
+    "en": "Suzume-zashi gathers rook, bishop, knight and lance on the edge file to break a Yagura from the side. From the 24-move formation you finish the castles, then play the attack for both cases, the exchanged edge pawns and the edge post, move by move."
   },
   "check": {
     "question": {
-      "ja": "雀刺しで先手歩１五に対し、後手歩が１四と１三のどちらにいるかで何が変わりますか？",
-      "en": "In Suzume-zashi with Sente's pawn on 1e, what changes when Gote's pawn is on 1d rather than 1c?"
+      "ja": "端を突き合った形と、端の位を取れた形では、端攻めの主役の駒がどう違いますか？",
+      "en": "How does the main edge attacker differ between the exchanged edge pawns and the edge post?"
     },
     "answer": {
-      "ja": "１四なら先手歩１五がすぐその歩を取れます。１三なら１四は空升で、先手が歩を進めた後に後手が１三から取る順が生じます。どちらも銀２五、香１六、飛車１七の取り手と、後手の香・持ち歩を続けて数えます。",
-      "en": "At 1d, Gote's pawn can be captured immediately by Sente's pawn from 1e. At 1c, 1d is empty; after Sente advances there, Gote may capture from 1c. In either case count the silver on 2e, lance on 1f, rook on 1g, and Gote's lance and pawn in hand through the whole exchange."
+      "ja": "突き合った形では▲１五歩から銀を使い、わざと銀香交換にして端を破ります。位を取れた形では銀ではなく桂を２五へ跳ね、▲１三桂成と成り捨てて突破します。",
+      "en": "With exchanged edge pawns, the silver goes first from ▲1五歩, and the silver-for-lance trade is accepted to break through. With the post taken, the knight jumps to 2e instead and breaks through with the ▲1三桂成 sacrifice."
     }
   },
   "references": [
@@ -31,166 +34,680 @@
   "chapters": [
     {
       "title": {
-        "ja": "端歩を受けない相手にも交換の代価がある",
-        "en": "An Unopposed Edge Pawn Still Has an Exchange Cost"
+        "ja": "雀刺しの狙いと、囲いの完成まで",
+        "en": "The idea of Suzume-zashi and finishing both castles"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "7nl/1r4gk1/3ppgspp/1p7/7SP/8L/2SG2N1R/1KG6/9 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "双方に矢倉の芯があり、先手は歩１五・香１六・飛車１七・銀２五を端に集めています。後手歩は１三のままで１四は空升です。桂３七は銀２五の升へ跳べないため、この交換では桂を取り手に数えません。",
-            "en": "Both sides have Yagura cores. Sente has pawn 1e, lance 1f, rook 1g, and silver 2e concentrated on the edge. Gote's pawn remains on 1c, leaving 1d empty. The knight on 3g cannot jump to 2e while Sente's own silver occupies that square, so it is not a recapturer in this line."
+            "ja": "雀刺しは、飛車・角・香に銀か桂を加えて、矢倉囲いの端の１筋へ戦力を集める攻め方です。矢倉は端が弱いので、一点に集中すると一気に崩せます。この章では初手から一手ずつ、お互いに矢倉を組み、先手が端歩を突いて狙いを示すところまで進めます。",
+            "en": "Suzume-zashi, the Sparrow Strike, gathers rook, bishop and lance plus a silver or a knight on the first file to break the edge of a Yagura. The edge is the Yagura's weak spot, so a concentrated attack there can break it at once. This chapter goes from move one, move by move: both sides build a Yagura and Sente pushes the edge pawn to show the plan."
           }
         },
         {
-          "moves": ["1e1d"],
+          "moves": [
+            "7g7f"
+          ],
           "text": {
-            "ja": "先手歩が空いた１四へ進みます。まだ歩は取っておらず、後手歩１三が次に１四を取れることを確認します。",
-            "en": "Sente advances the pawn to the vacant 1d. It has captured nothing yet, and Gote's pawn on 1c can take it on the next move."
+            "ja": "最初の手は▲７六歩です。７筋の歩を突いて角の斜めの道を開き、７七の銀が上がる場所も空けます。矢倉はこの一手から始まります。",
+            "en": "▲7六歩 pushes the seventh-file pawn. It opens the bishop's diagonal and empties 7g, the square the silver will use. Every Yagura starts with this move."
+          },
+          "marks": {
+            "last": "7f",
+            "boxes": [
+              "7g"
+            ]
           }
         },
         {
-          "moves": ["1c1d"],
+          "moves": [
+            "8c8d",
+            "7i6h"
+          ],
           "text": {
-            "ja": "後手が歩で取ることを選んだ例です。銀２五は１四へ斜め前に進め、香１六も１五を通って１四を取れます。飛車１七は自分の香１六に遮られるため、すぐ１四を取れません。",
-            "en": "Gote chooses the pawn capture. Sente's silver on 2e can recapture diagonally on 1d, while the lance on 1f and rook on 1g remain behind the contact square."
+            "ja": "後手は△８四歩と飛車先の歩を突きました。こちらは▲６八銀。７九の銀を６八へ上げます。この銀は７七へ進む銀で、７九を空けておくと、あとで角を７九へ下げられます。",
+            "en": "Gote pushes its rook pawn with △8四歩. Sente plays ▲6八銀, lifting the silver from 7i to 6h. It is heading for 7g, and emptying 7i lets the bishop retreat there later."
+          },
+          "marks": {
+            "last": "6h",
+            "arrows": [
+              "6h7g"
+            ],
+            "boxes": [
+              "7i"
+            ]
           }
         },
         {
-          "moves": ["2e1d"],
+          "moves": [
+            "3c3d",
+            "6g6f"
+          ],
           "text": {
-            "ja": "銀が歩を取ります。ここで後手香１一から１四への通路は、１二・１三が空いています。銀が前に出たことだけで端を破ったとは言えません。",
-            "en": "The silver recaptures the pawn on 1d. Squares 1b and 1c are clear between Gote's lance on 1a and the silver, so silver entry alone does not establish a breakthrough."
+            "ja": "後手は△３四歩と角道を開けました。こちらは▲６六歩。６筋の歩を突いて角の道を自分で止め、角交換を避けます。６七が空くので、金の入る場所もできます。",
+            "en": "Gote opens its bishop line with △3四歩. Sente answers with ▲6六歩, which blocks its own bishop diagonal so the bishops are not traded. It also empties 6g, the square for a gold."
+          },
+          "marks": {
+            "last": "6f",
+            "boxes": [
+              "6g"
+            ]
           }
         },
         {
-          "moves": ["1a1d"],
+          "moves": [
+            "7a6b",
+            "5g5f"
+          ],
           "text": {
-            "ja": "後手が香で銀を取った場合、先手は銀を失い、後手香が１四へ出ます。これは後手が選んだ応手で、強制ではありません。",
-            "en": "If Gote chooses to capture the silver with the lance, Sente loses a silver and the lance lands on 1d. Gote is not forced to choose this exchange."
+            "ja": "後手は△６二銀。こちらは▲５六歩です。中央の歩を一つ進めて、７・６・５筋の歩が横に並ぶ壁を作ります。矢倉囲いの前面を固める歩です。",
+            "en": "Gote plays △6二銀. Sente plays ▲5六歩, advancing the central pawn so that the pawns on files 7, 6 and 5 stand side by side. This front wall protects the Yagura."
+          },
+          "marks": {
+            "last": "5f",
+            "boxes": [
+              "7f",
+              "6f",
+              "5f"
+            ]
           }
         },
         {
-          "moves": ["1f1d"],
+          "moves": [
+            "5c5d",
+            "3i4h"
+          ],
           "text": {
-            "ja": "先手香が後手香を取ります。先手は香を持ちますが、銀と香の交換だけなら駒の価値も守りも再評価が必要です。飛車１七は自分の香１四に遮られ、まだ１筋へ直進できません。",
-            "en": "Sente's lance recaptures Gote's lance and gains a lance in hand. A silver-for-lance trade has a material cost, and the rook on 1g is still blocked by its own lance on 1d."
+            "ja": "後手は△５四歩。こちらは▲４八銀です。右の銀を３九から一つ上げます。この銀は、のちに３七へ上がって攻めの主役になります。",
+            "en": "Gote plays △5四歩. Sente plays ▲4八銀, lifting the right silver one square from 3i. It will later go up to 3g and take the lead in the attack."
+          },
+          "marks": {
+            "last": "4h",
+            "arrows": [
+              "4h3g"
+            ]
           }
         },
         {
-          "moves": ["P*1c"],
+          "moves": [
+            "3a4b",
+            "4i5h"
+          ],
           "text": {
-            "ja": "後手が取った歩を１三へ打つ例です。香１四がすぐ１三へ成り込めば、後手桂２一が１三の香を取り返せます。先手は駒を集めた理由だけで香を捨てず、飛車を通す方法や相手の持ち駒を読み直します。",
-            "en": "Gote uses the captured pawn to drop on 1c. If Sente immediately promotes the lance by capturing that pawn, Gote's knight from 2a can recapture on 1c. Sente must reconsider how to open the rook's lane and what the defender holds."
+            "ja": "後手は△４二銀。こちらは▲５八金です。右の金を５八へ寄せます。この金はあとで６七へ上がり、矢倉の金の一枚になります。",
+            "en": "Gote plays △4二銀. Sente plays ▲5八金, shifting the right gold to 5h. Later it climbs to 6g and becomes one of the Yagura's two golds."
+          },
+          "marks": {
+            "last": "5h",
+            "arrows": [
+              "5h6g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4a3b",
+            "6i7h"
+          ],
+          "text": {
+            "ja": "後手は△３二金。こちらは▲７八金です。６九の金を７八へ上げ、玉の左隣に置きます。矢倉囲いの金銀三枚のうち、最初に決まる駒です。",
+            "en": "Gote plays △3二金. Sente plays ▲7八金, lifting the gold from 6i to 7h, next to where the king will stand. It is the first of the three Yagura pieces to settle."
+          },
+          "marks": {
+            "last": "7h",
+            "boxes": [
+              "7h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5a4a",
+            "5i6i"
+          ],
+          "text": {
+            "ja": "後手は△４一玉。こちらは▲６九玉です。玉を一つ左へ動かします。矢倉の玉は最終的に８八へ入るので、少しずつ歩かせます。",
+            "en": "Gote plays △4一玉. Sente plays ▲6九玉, moving the king one square left. A Yagura king ends on 8h, so it walks there a step at a time."
+          },
+          "marks": {
+            "last": "6i",
+            "boxes": [
+              "8h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7c7d",
+            "5h6g"
+          ],
+          "text": {
+            "ja": "後手は△７四歩。こちらは▲６七金です。５八の金を６七へ上げます。７七に銀が入ったとき、すぐ右隣で支える金です。",
+            "en": "Gote plays △7四歩. Sente plays ▲6七金, lifting the gold from 5h to 6g. When the silver arrives on 7g, this gold stands beside it as support."
+          },
+          "marks": {
+            "last": "6g",
+            "boxes": [
+              "6g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6a5b",
+            "6h7g"
+          ],
+          "text": {
+            "ja": "後手は△５二金。こちらは▲７七銀です。６八の銀を７七へ進め、７六の歩の真後ろに置きます。７八の金、７七の銀、６七の金がそろって矢倉の骨組みができました。",
+            "en": "Gote plays △5二金. Sente plays ▲7七銀, moving the silver from 6h to 7g, directly behind the pawn on 7f. With gold on 7h, silver on 7g and gold on 6g, the Yagura frame is complete."
+          },
+          "marks": {
+            "last": "7g",
+            "boxes": [
+              "7h",
+              "7g",
+              "6g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4b3c",
+            "8h7i"
+          ],
+          "text": {
+            "ja": "後手は△３三銀。こちらは▲７九角です。８八は玉の入る場所なので、そこにいる角を７九へ下げます。６八の銀が上がっているので、７九が空いています。",
+            "en": "Gote plays △3三銀. Sente plays ▲7九角. The king is going to 8h, so the bishop there retreats to 7i, which the silver had already vacated."
+          },
+          "marks": {
+            "last": "7i",
+            "boxes": [
+              "8h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2b3a",
+            "3g3f"
+          ],
+          "text": {
+            "ja": "後手は△３一角。こちらは▲３六歩です。３筋の歩を一つ進めて、３七を空けます。あとでここに銀か桂が入り、端攻めに加わります。",
+            "en": "Gote plays △3一角. Sente plays ▲3六歩, advancing the third-file pawn and emptying 3g. Later a silver or a knight will use that square to join the edge attack."
+          },
+          "marks": {
+            "last": "3f",
+            "boxes": [
+              "3g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4c4d"
+          ],
+          "text": {
+            "ja": "後手の△４四歩で、相矢倉の基本図になりました。先手は矢倉の骨組みができ、角は７九にいます。ここから雀刺しを目指して、まず囲いを仕上げます。",
+            "en": "Gote's △4四歩 reaches the basic position of a Yagura mirror. Sente has the Yagura frame and the bishop on 7i. From here Sente aims for the Sparrow Strike and finishes the castle first."
+          },
+          "marks": {
+            "last": "4d",
+            "boxes": [
+              "7g",
+              "7h",
+              "6g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7i6h"
+          ],
+          "text": {
+            "ja": "▲６八角。７九の角を６八へ寄せます。玉の通り道の７九を空ける手で、６八の角は５七・４六・３五・２四と斜めに伸びて、遠く１三の端まで利きが届きます。",
+            "en": "▲6八角 moves the bishop from 7i to 6h. It clears 7i for the king's path, and from 6h the bishop's diagonal runs through 5g, 4f, 3e and 2d all the way to 1c on the edge."
+          },
+          "marks": {
+            "last": "6h",
+            "arrows": [
+              "6h1c"
+            ],
+            "boxes": [
+              "7i"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5b4c",
+            "6i7i"
+          ],
+          "text": {
+            "ja": "後手は△４三金。こちらは▲７九玉です。玉を一つ左へ進めます。角がどいたので、玉が通れます。",
+            "en": "Gote plays △4三金. Sente plays ▲7九玉, moving the king one square left. The bishop has stepped aside, so the king can pass."
+          },
+          "marks": {
+            "last": "7i",
+            "arrows": [
+              "7i8h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3a4b",
+            "2g2f"
+          ],
+          "text": {
+            "ja": "後手は△４二角。こちらは▲２六歩です。飛車の前の歩を一つだけ進めます。２五は空けたままにして、あとで桂が跳ねる場所を残します。",
+            "en": "Gote plays △4二角. Sente plays ▲2六歩, pushing the pawn in front of the rook one square only. 2e stays empty so a knight can jump there later."
+          },
+          "marks": {
+            "last": "2f",
+            "boxes": [
+              "2e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4a3a",
+            "7i8h"
+          ],
+          "text": {
+            "ja": "後手は△３一玉。こちらは▲８八玉です。玉が８八に入り、先手の矢倉が完成しました。",
+            "en": "Gote plays △3一玉. Sente plays ▲8八玉 and the king enters 8h: Sente's Yagura is complete."
+          },
+          "marks": {
+            "last": "8h",
+            "boxes": [
+              "8h",
+              "7h",
+              "7g",
+              "6g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3a2b"
+          ],
+          "text": {
+            "ja": "後手は△２二玉と入って、後手の矢倉も完成です。雀刺しは端を攻める戦法なので、後手玉が２二まで入っているほど端が破れたときの効き目が大きくなります。",
+            "en": "Gote plays △2二玉 and its Yagura is complete too. The Sparrow Strike attacks the edge, so a Gote king already on 2b makes a broken edge all the more dangerous."
+          },
+          "marks": {
+            "last": "2b",
+            "boxes": [
+              "1c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "1g1f"
+          ],
+          "text": {
+            "ja": "▲１六歩。端の歩を一つ突きます。雀刺しの第一歩で、端に戦力を集める合図です。後手の答えは二通りで、△１四歩と突き合う場合と、受けずに▲１五歩と位を取らせる場合があります。以降の章で順に見ます。",
+            "en": "▲1六歩 pushes the edge pawn one square. This is the first step of the Sparrow Strike and the signal that the pieces will gather on the edge. Gote can answer in two ways: △1四歩, matching the pawn, or leaving it so that Sente takes the position with ▲1五歩. The next chapters follow both."
+          },
+          "marks": {
+            "last": "1f",
+            "arrows": [
+              "1f1e"
+            ],
+            "boxes": [
+              "1e"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "覚えることは三つです。一、狙いは矢倉の端で、飛車・角・香に銀か桂を加えて１筋へ集める。二、先に矢倉を完成させ、▲１六歩から仕掛ける。三、後手が端を突き合えば銀から、端の位が取れれば桂から攻める。",
+            "en": "Three things to remember. One: the target is the edge of the Yagura, and rook, bishop and lance plus a silver or knight gather on the first file. Two: finish your own Yagura first and start with ▲1六歩. Three: if Gote matches the edge pawn, attack with the silver; if you can take the edge position, attack with the knight."
+          },
+          "marks": {
+            "boxes": [
+              "1e",
+              "1c"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "長所は、狙いが端の一点にはっきりしていて、矢倉の端の弱さを直接突けることです。短所は、端攻めが通らないと戦力が端に偏って中央が手薄になることと、銀や桂を捨てる駒損の攻めなので、相手が正しく受けると苦しくなることです。受ける側は、早めに端歩を受けたり、香や桂を端に使わせないようにします。",
+            "en": "Its strength is a clear single target, the weak edge of the Yagura. Its weaknesses are that if the edge attack fails, the force is lopsided on the edge and the centre is thin, and that it sacrifices a silver or knight, so correct defence leaves Sente in trouble. The defender can answer the edge pawn early and keep the lance and knight from reaching the edge."
+          },
+          "marks": {
+            "boxes": [
+              "1e"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "端歩を突き合う形：銀から仕掛ける",
+        "en": "Both sides push the edge pawn: attack with the silver first"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "8c8d",
+            "7i6h",
+            "3c3d",
+            "6g6f",
+            "7a6b",
+            "5g5f",
+            "5c5d",
+            "3i4h",
+            "3a4b",
+            "4i5h",
+            "4a3b",
+            "6i7h",
+            "5a4a",
+            "5i6i",
+            "7c7d",
+            "5h6g",
+            "6a5b",
+            "6h7g",
+            "4b3c",
+            "8h7i",
+            "2b3a",
+            "3g3f",
+            "4c4d",
+            "7i6h",
+            "5b4c",
+            "6i7i",
+            "3a4b",
+            "2g2f",
+            "4a3a",
+            "7i8h",
+            "3a2b",
+            "1g1f",
+            "1c1d"
+          ],
+          "text": {
+            "ja": "△１四歩と端歩を受けた形です。この形で攻めに使う駒は、飛車・角・銀・香の四枚です。",
+            "en": "Gote has answered △1四歩. Here the attackers are four pieces: rook, bishop, silver and lance."
+          },
+          "marks": {
+            "last": "1d",
+            "boxes": [
+              "1d",
+              "1f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4h3g",
+            "6b7c",
+            "2f2e",
+            "8d8e",
+            "1i1g",
+            "7c6d",
+            "2h1h"
+          ],
+          "text": {
+            "ja": "▲３七銀、△７三銀、▲２五歩、△８五歩、▲１七香、△６四銀、▲１八飛。香車を１七に上げ、その真後ろへ飛車を回します。香の背後に飛車が控える二段ロケットが、雀刺し独特の組み方です。",
+            "en": "▲3七銀, △7三銀, ▲2五歩, △8五歩, ▲1七香, △6四銀, ▲1八飛. The lance steps up to 1g and the rook slides in right behind it. This two-stage rocket on the edge file is the signature shape of Suzume-zashi."
+          },
+          "marks": {
+            "last": "1h",
+            "arrows": [
+              "1h1g"
+            ],
+            "boxes": [
+              "1g",
+              "1h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "3g2f"
+          ],
+          "text": {
+            "ja": "△９四歩、▲２六銀。銀も二筋へ回して端攻めの仲間に入れます。角も遠く１三へ斜めに利いていて、端の一点に飛・角・銀・香が向かう形になりました。",
+            "en": "△9四歩, ▲2六銀. The silver also comes over to the 2nd file to join the edge attack. The bishop eyes 1c from far away along its diagonal, so rook, bishop, silver and lance all aim at the same corner."
+          },
+          "marks": {
+            "last": "2f",
+            "arrows": [
+              "6h1c"
+            ],
+            "boxes": [
+              "2f",
+              "1g",
+              "1h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8a7c",
+            "1f1e",
+            "1d1e",
+            "2f1e"
+          ],
+          "text": {
+            "ja": "△７三桂に、▲１五歩、△同歩、▲同銀。ここで▲同香と取りたくなりますが、先に銀を使うのが大事な点です。",
+            "en": "After △7三桂 comes ▲1五歩, △同歩, ▲同銀. Taking with the lance looks natural, but spending the silver first is the point."
+          },
+          "marks": {
+            "last": "1e",
+            "boxes": [
+              "1e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "1a1e",
+            "1g1e"
+          ],
+          "text": {
+            "ja": "△同香、▲同香。銀と香の交換で駒の価値では損ですが、１筋が開きました。端攻めでは銀より香のほうが動かしやすいので、わざと銀を渡しているのです。１三へは飛・角・香が利き、後手に受けがありません。",
+            "en": "△同香, ▲同香. Silver for lance is a loss on paper, but the edge file is now open. In an edge attack the lance is the more useful piece, so the silver is given up on purpose. Rook, bishop and lance all hit 1c, and Gote has no defence."
+          },
+          "marks": {
+            "last": "1e",
+            "arrows": [
+              "1e1c",
+              "6h1c"
+            ],
+            "boxes": [
+              "1e",
+              "1h"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "端の位を取る形：桂を跳ねて成り捨てる",
+        "en": "Taking the edge post: jump the knight and sacrifice it"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "8c8d",
+            "7i6h",
+            "3c3d",
+            "6g6f",
+            "7a6b",
+            "5g5f",
+            "5c5d",
+            "3i4h",
+            "3a4b",
+            "4i5h",
+            "4a3b",
+            "6i7h",
+            "5a4a",
+            "5i6i",
+            "7c7d",
+            "5h6g",
+            "6a5b",
+            "6h7g",
+            "4b3c",
+            "8h7i",
+            "2b3a",
+            "3g3f",
+            "4c4d",
+            "7i6h",
+            "5b4c",
+            "6i7i",
+            "3a4b",
+            "2g2f",
+            "4a3a",
+            "7i8h",
+            "3a2b",
+            "1g1f",
+            "6b7c",
+            "1f1e"
+          ],
+          "text": {
+            "ja": "後手が端歩を受けなかったので、▲１五歩と一筋の位を取れました。ここまでの手順は、▲１六歩の後に△７三銀、▲１五歩です。",
+            "en": "Gote ignored the edge, so Sente could play ▲1五歩 and take the post on the 1st file: after ▲1六歩 came △7三銀 and ▲1五歩."
+          },
+          "marks": {
+            "last": "1e",
+            "boxes": [
+              "1e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8d8e",
+            "2i3g",
+            "7c6d",
+            "1i1g",
+            "9c9d",
+            "2h1h"
+          ],
+          "text": {
+            "ja": "△８五歩、▲３七桂、△６四銀、▲１七香、△９四歩、▲１八飛。位を取った形では、銀ではなく桂を端に使います。飛・角・桂・香の四枚が１三を狙います。",
+            "en": "△8五歩, ▲3七桂, △6四銀, ▲1七香, △9四歩, ▲1八飛. With the post secured, the knight, not the silver, joins the edge attack, and rook, bishop, knight and lance all aim at 1c."
+          },
+          "marks": {
+            "last": "1h",
+            "boxes": [
+              "3g",
+              "1g",
+              "1h"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "二筋の歩を五段目へ進めずに残してあるのも小さな工夫です。次に桂が２五へ跳ねるための空きを作っておきます。",
+            "en": "Leaving the 2nd file pawn on 2f is a small detail too: it keeps 2e empty for the knight to jump to next."
+          },
+          "marks": {
+            "arrows": [
+              "3g2e"
+            ],
+            "boxes": [
+              "2f",
+              "2e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8a7c",
+            "3g2e"
+          ],
+          "text": {
+            "ja": "△７三桂に▲２五桂。銀取りに見えますが、本当の狙いは端の突破です。",
+            "en": "After △7三桂, ▲2五桂. It looks like it attacks the silver, but the real goal is to break the edge."
+          },
+          "marks": {
+            "last": "2e",
+            "arrows": [
+              "2e1c"
+            ],
+            "boxes": [
+              "2e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3c2d",
+            "2e1c+"
+          ],
+          "text": {
+            "ja": "△２四銀に、いきなり▲１三桂成。桂は取られても、端が破れればすぐ取り返せます。",
+            "en": "Against △2四銀, ▲1三桂成 at once. The knight may be lost, but breaking the edge wins it back soon."
+          },
+          "marks": {
+            "last": "1c",
+            "boxes": [
+              "1c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2d1c",
+            "1e1d"
+          ],
+          "text": {
+            "ja": "△１三銀、▲１四歩と、取られた桂に構わず追撃します。",
+            "en": "After △1三銀, ▲1四歩 keeps pressing and ignores the lost knight."
+          },
+          "marks": {
+            "last": "1d",
+            "boxes": [
+              "1d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "1g1d"
+          ],
+          "text": {
+            "ja": "△１四銀、▲同香。端をじわじわ攻めて、先手が指しやすい展開です。後手には△１三歩や△１二歩などの粘りがまだ残るので、ここから先は棋書で確認しておきましょう。",
+            "en": "△1四銀, ▲同香. Sente keeps grinding the edge and is more comfortable. Gote still has resources such as △1三歩 or △1二歩, so the continuation is worth checking in a book."
+          },
+          "marks": {
+            "last": "1d",
+            "boxes": [
+              "1d",
+              "1h"
+            ]
           }
         }
       ],
       "variations": [
         {
-          "from": 6,
-          "moves": ["1d1c+", "2a1c", "1g1c+", "2b1c"],
+          "from": 5,
+          "moves": [
+            "1c2d",
+            "2f2e"
+          ],
           "text": {
-            "ja": "香で１三の歩を取って成ると、後手桂２一が成香を取ります。先手飛車１七はその桂を取り返せますが、後手玉２二が飛車を取り返します。端に駒を集めただけでこの交換を選ばず、守りの利きを数え直します。",
-            "en": "After the lance takes the pawn and promotes on 1c, Gote's knight captures it. Sente's rook from 1g can take that knight, but Gote's king from 2b recaptures the rook. Count the defenders before choosing this exchange merely because the attacking pieces are concentrated on the edge."
-          }
-        }
-      ]
-    },
-    {
-      "title": {
-        "ja": "飛車を一度外して香の通路を作る",
-        "en": "Clear the Lance's Path, Then Return the Rook"
-      },
-      "side": "sente",
-      "kind": "position",
-      "start": "7nl/1r4gk1/3ppgsp1/1p6p/7SP/9/2SG2N1R/1KG6/8L b - 1",
-      "steps": [
-        {
-          "text": {
-            "ja": "先手の飛車は１七、香は１九で、飛車が香の前進路を塞いでいます。歩１五の後ろに香と飛車を並べるには、飛車がいったん２筋へ外れる手数が必要です。銀２五は１四を見ますが、桂３七は自分の銀がいる２五へ跳べません。",
-            "en": "Sente's rook is on 1g and the lance on 1i. The rook blocks the lance's route up the file. Lining them up behind the pawn on 1e takes time: the rook must move aside first. Silver 2e controls 1d, while the knight on 3g cannot jump to 2e through an occupied destination."
-          }
-        },
-        {
-          "moves": ["1g2g"],
-          "text": {
-            "ja": "飛車を２七へ寄せ、１七と１八を空けます。端を攻める前の準備であり、この一手には直接の駒得はありません。",
-            "en": "The rook shifts to 2g and clears 1g and 1h for the lance. This is a preparatory move, not an immediate material gain."
-          }
-        },
-        {
-          "moves": ["6c6d"],
-          "text": {
-            "ja": "後手が６筋を進めた例です。後手が先手玉へ急迫する局面なら、先手は端の準備にさらに二手を費やせるかを読み直します。",
-            "en": "Gote advances the sixth-file pawn in this example. If Gote had a faster threat against Sente's king, Sente would have to reconsider spending two more moves on the edge setup."
-          }
-        },
-        {
-          "moves": ["1i1f"],
-          "text": {
-            "ja": "香が１九から１六へ進み、歩１五の後ろへ付きます。香の通路１八・１七は飛車が退いたため空いています。",
-            "en": "The lance advances from 1i to 1f behind the pawn on 1e. Its path through 1h and 1g is open because the rook moved."
-          }
-        },
-        {
-          "moves": ["5c5d"],
-          "text": {
-            "ja": "後手が５筋の歩を進めた例です。後手がどちらの筋で反撃するかが決まれば、先手の端への集中が間に合うかも変わります。",
-            "en": "Gote chooses a fifth-file pawn move. Once a concrete counterattack appears, the value of another edge-preparation tempo may change."
-          }
-        },
-        {
-          "moves": ["2g1g"],
-          "text": {
-            "ja": "飛車が１七へ戻り、歩１五・香１六・飛車１七の順に並びます。香の後ろに飛車がいても、相手香１一・桂２一・持ち歩の取り返しを無視すれば突破は保証されません。",
-            "en": "The rook returns to 1g behind pawn 1e and lance 1f. This is the intended concentration, but Gote's lance on 1a, knight on 2a, and potential pawn in hand still decide whether a particular exchange works."
-          }
-        }
-      ]
-    },
-    {
-      "title": {
-        "ja": "端歩を受けた形では最初から歩が接触する",
-        "en": "Mutual Edge Pawns Begin in Contact"
-      },
-      "side": "sente",
-      "kind": "position",
-      "start": "7nl/1r4gk1/3ppgsp1/1p6p/7SP/8L/2SG2N1R/1KG6/9 b - 1",
-      "steps": [
-        {
-          "text": {
-            "ja": "今度は後手歩が１四へ進んでおり、先手歩１五と隣り合っています。銀２五は１四を守りますが、桂３七は銀２五と同じ升には跳べません。飛車１七は香１六の後ろにいるため、取り返しの順を一手ずつ数えます。",
-            "en": "Here Gote has answered on the edge: its pawn on 1d touches Sente's pawn on 1e. Sente's silver on 2e protects 1d. The knight on 3g still cannot land on its own silver, and the rook on 1g remains behind the lance on 1f."
-          }
-        },
-        {
-          "moves": ["1e1d"],
-          "text": {
-            "ja": "先手歩がすぐ後手歩１四を取ります。前章と違い、空升へ進んだのではなく、この一手で先手に歩が入りました。",
-            "en": "Sente's pawn captures Gote's pawn on 1d immediately. Unlike the unopposed-edge example, this first move gains a pawn in hand rather than advancing onto an empty square."
-          }
-        },
-        {
-          "moves": ["1a1d"],
-          "text": {
-            "ja": "後手が香でその歩を取ることを選んだ例です。後手は歩を持ちますが、１四には銀２五の利きが残ります。後手は香で取らない選択もできます。",
-            "en": "Gote chooses to take the pawn with the lance and gains a pawn in hand. Sente's silver still controls 1d. Gote can decline this lance capture, so the line is conditional."
-          }
-        },
-        {
-          "moves": ["2e1d"],
-          "text": {
-            "ja": "銀が香を取り返します。香１六は１五が空いたので銀１四を後ろから支えます。ただし銀が１三へ進めば、後手桂２一がその升を取れることにも注意します。",
-            "en": "The silver captures the lance. With 1e vacant, Sente's lance on 1f now supports the silver on 1d. A further silver capture on 1c would have to account for Gote's knight on 2a."
-          }
-        },
-        {
-          "moves": ["P*1c"],
-          "text": {
-            "ja": "後手が得た歩を１三へ打って進路を塞ぐ例です。先手は香を持ち、後手は歩を手放しましたが、銀１四をすぐ１三へ突っ込ませるだけでは桂・香・飛車の取り手が続きます。端に集めた駒をすべて同じ升の攻め駒として数えないことが大切です。",
-            "en": "Gote drops its captured pawn on 1c to block the lane. Sente holds a lance, while Gote has spent the pawn. A silver capture on 1c still requires calculating the knight, lance, and rook in sequence; pieces near the edge do not all attack the same square at once."
+            "ja": "▲１四歩に△同銀と取らず、△２四銀と逃げる変化です。そこで▲２五歩と突くのが厳しく、△同銀なら▲１三歩成で端が破れます。",
+            "en": "Instead of taking on 1d, Gote can retreat the silver with △2四銀. ▲2五歩 is then severe: if Gote takes with the silver, ▲1三歩成 breaks the edge."
           }
         }
       ]

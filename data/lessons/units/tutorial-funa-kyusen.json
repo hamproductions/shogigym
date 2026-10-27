@@ -1,0 +1,536 @@
+{
+  "id": "tutorial-funa-kyusen",
+  "order": 829,
+  "path": [
+    "戦法・定跡",
+    "対振り飛車"
+  ],
+  "title": {
+    "ja": "舟囲い急戦入門：四間飛車に銀を出して仕掛ける",
+    "en": "Funa-castle Rapid Attack: bring the silver out against Fourth File Rook"
+  },
+  "intro": {
+    "ja": "玉を舟囲いに置いたまま、相手の囲いが固まる前に銀を前線へ出して仕掛ける居飛車の急戦です。この講座では後手番で、先手の四間飛車に対して舟囲いを組み、銀を６四か４四へ進めて歩をぶつけるところまでを指します。組み方、銀の使い方、銀を出し過ぎて取られる失敗を覚えます。",
+    "en": "A Static Rook rapid attack that keeps the king in the light Funa castle and brings a silver forward before the opponent's castle is solid. You play Gote against a Fourth File Rook: build the castle, then send the silver to 6d or 4d and start the pawn fight. You will learn the setup, how the silver is used, and the overextension that loses it."
+  },
+  "check": {
+    "question": {
+      "ja": "舟囲い急戦で、銀を出す前に５筋の歩を５四まで突いておくのはなぜですか？",
+      "en": "Why does the Funa-castle rapid attack push the fifth-file pawn to 5d before the silver goes out?"
+    },
+    "answer": {
+      "ja": "６二の銀が５三を通って前へ出られるように、５三の升を空けるためです。この銀が６四や４四へ進んで攻めの主役になります。",
+      "en": "To empty 5c so the silver on 6b can pass through it. From there the silver goes to 6d or 4d and leads the attack."
+    }
+  },
+  "references": [
+    {
+      "title": "将棋の技図鑑 (yuki-keio/shogi)",
+      "url": "https://github.com/yuki-keio/shogi",
+      "license": "GPL-3.0-only",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "舟囲いを組んで銀を５三へ",
+        "en": "Build the Funa castle and bring the silver to 5c"
+      },
+      "side": "gote",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "text": {
+            "ja": "目標は、３二玉・３一銀・４一金・５二金の舟囲いを作り、７一の銀を５三まで進めた形です。この講座ではあなたが後手で、先手が四間飛車に振る例で進めます。囲いは軽く、数手で完成します。",
+            "en": "The goal is the Funa castle (king 3b, silver 3a, golds 4a and 5b) with the silver from 7a already on 5c. You are Gote here, and Sente swings to Fourth File Rook in this example. The castle is light and takes only a few moves."
+          }
+        },
+        {
+          "moves": [
+            "7g7f",
+            "3c3d"
+          ],
+          "text": {
+            "ja": "先手の▲７六歩に、△３四歩。自分の角道を開けます。２二の角は、先手の角と斜めに向き合う位置です。",
+            "en": "Answer ▲7六歩 with △3四歩 to open your bishop diagonal. Your bishop on 2b now faces the opposing bishop along the long diagonal."
+          },
+          "marks": {
+            "last": "3d",
+            "arrows": [
+              "2b6f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6g6f",
+            "8c8d"
+          ],
+          "text": {
+            "ja": "先手が▲６六歩と突いたのは、飛車を６筋へ振る四間飛車の合図です。こちらは△８四歩と飛車先の歩を伸ばします。",
+            "en": "Sente's ▲6六歩 signals the swing to the sixth file. Reply with △8四歩, advancing the rook-file pawn."
+          },
+          "marks": {
+            "last": "8d"
+          }
+        },
+        {
+          "moves": [
+            "7i7h",
+            "8d8e"
+          ],
+          "text": {
+            "ja": "▲７八銀に、△８五歩。もう一歩進めて、次に△８六歩とぶつける準備です。ぶつかった先は先手の角の利きの中なので、突くのは仕掛けの瞬間だけです。",
+            "en": "After ▲7八銀, play △8五歩. Next the pawn can strike on 8f, a square the Sente bishop will cover, so the thrust is saved for the right moment."
+          },
+          "marks": {
+            "last": "8e",
+            "arrows": [
+              "8e8f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8h7g",
+            "7a6b"
+          ],
+          "text": {
+            "ja": "先手が▲７七角と上がったところで、△６二銀。７一の銀を一つ進めます。これが攻めの主役になる銀です。",
+            "en": "Sente lifts the bishop with ▲7七角, and you play △6二銀. The silver from 7a steps forward and becomes the attacking piece."
+          },
+          "marks": {
+            "last": "6b"
+          }
+        },
+        {
+          "moves": [
+            "2h6h",
+            "5a4b"
+          ],
+          "text": {
+            "ja": "先手は▲６八飛と飛車を振り、四間飛車がはっきりしました。こちらは△４二玉と玉を左へ動かし始めます。",
+            "en": "Sente plays ▲6八飛, confirming Fourth File Rook. You start walking the king with △4二玉."
+          },
+          "marks": {
+            "last": "4b"
+          }
+        },
+        {
+          "moves": [
+            "5i4h",
+            "4b3b"
+          ],
+          "text": {
+            "ja": "△３二玉。玉は舟囲いの定位置に着きました。",
+            "en": "△3二玉. The king reaches its home square in the Funa castle."
+          },
+          "marks": {
+            "last": "3b",
+            "boxes": [
+              "3b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4h3h",
+            "5c5d"
+          ],
+          "text": {
+            "ja": "△５四歩。５三の升を空けるための一手です。銀はこの升を通って前に出ます。中央の歩も一つ伸びます。",
+            "en": "△5四歩 empties 5c, the square the silver will pass through. It also advances the central pawn."
+          },
+          "marks": {
+            "last": "5d",
+            "boxes": [
+              "5c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3h2h",
+            "6a5b"
+          ],
+          "text": {
+            "ja": "△５二金。６一の金を寄せて、３二玉・３一銀・４一金・５二金の舟囲いが完成しました。金銀が少ないぶん、組む手数も少なくて済みます。",
+            "en": "△5二金 completes the Funa castle: king 3b, silver 3a, golds 4a and 5b. It uses few pieces, so it takes few moves."
+          },
+          "marks": {
+            "last": "5b",
+            "boxes": [
+              "3b",
+              "3a",
+              "4a",
+              "5b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3i3h",
+            "6b5c"
+          ],
+          "text": {
+            "ja": "△５三銀。６二の銀が空けておいた５三へ出ました。ここから６四か４四へ進めて仕掛けます。",
+            "en": "△5三銀. The silver steps onto the square you emptied. From here it goes to 6d or 4d to start the attack."
+          },
+          "marks": {
+            "last": "5c",
+            "arrows": [
+              "5c6d",
+              "5c4d"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "覚えることは四つです。玉は３二、金銀は３一・４一・５二の舟囲い。５四歩で５三を空ける。７一の銀を６二から５三へ運ぶ。飛車先の歩を８五まで伸ばして、後でぶつける準備をしておく。",
+            "en": "Four points. Castle: king 3b, silver 3a, golds 4a and 5b. Push 5d to empty 5c. Carry the 7a silver through 6b to 5c. Advance the rook-file pawn to 8e so a later thrust is ready."
+          },
+          "marks": {
+            "boxes": [
+              "3b",
+              "5c",
+              "8e"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "銀を６四へ出して７筋から攻める",
+        "en": "Silver to 6d: attack on the seventh file"
+      },
+      "side": "gote",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "6g6f",
+            "8c8d",
+            "7i7h",
+            "8d8e",
+            "8h7g",
+            "7a6b",
+            "2h6h",
+            "5a4b",
+            "5i4h",
+            "4b3b",
+            "4h3h",
+            "5c5d",
+            "3h2h",
+            "6a5b",
+            "3i3h",
+            "6b5c"
+          ],
+          "text": {
+            "ja": "前の章の形です。先手は７七の角、６八の飛車、２八の玉。こちらの銀は５三にいます。ここから銀を６四に出し、７筋の歩をぶつけます。",
+            "en": "The formation from chapter 1. Sente has the bishop on 7g, the rook on 6h and the king on 2h. Your silver is on 5c. Now send it to 6d and strike on the seventh file."
+          },
+          "marks": {
+            "boxes": [
+              "5c",
+              "7e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7h6g",
+            "5c6d"
+          ],
+          "text": {
+            "ja": "▲６七銀に、△６四銀。６四の銀は６五と７五に利いています。次の７筋の歩を支える位置です。",
+            "en": "After ▲6七銀 play △6四銀. From 6d the silver covers 6e and 7e, which supports the coming pawn on the seventh file."
+          },
+          "marks": {
+            "last": "6d",
+            "arrows": [
+              "6d7e",
+              "6d6e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6i7h",
+            "7c7d"
+          ],
+          "text": {
+            "ja": "先手が▲７八金と寄せたところで、△７四歩。７筋の歩を伸ばします。",
+            "en": "Sente plays ▲7八金; you answer △7四歩 and start the seventh-file pawn forward."
+          },
+          "marks": {
+            "last": "7d"
+          }
+        },
+        {
+          "moves": [
+            "4i5h",
+            "7d7e"
+          ],
+          "text": {
+            "ja": "▲５八金に、△７五歩。先手の７六の歩に接します。７五は６四の銀が支えているので、取られても取り返せます。",
+            "en": "After ▲5八金 push △7五歩 against the pawn on 7f. The silver on 6d guards 7e, so a capture can be recaptured."
+          },
+          "marks": {
+            "last": "7e",
+            "arrows": [
+              "6d7e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6f6e",
+            "6d6e"
+          ],
+          "text": {
+            "ja": "先手が▲６五歩と銀に歩を当てたら、△同銀と取ります。銀は６五へ出て、先手の角と自分の角の間にある６六・５五・４四・３三が空き、角どうしが向き合います。",
+            "en": "Sente hits the silver with ▲6五歩, and you capture with △同銀. The silver lands on 6e, and the squares between the bishops (6f, 5e, 4d, 3c) are empty, so the two bishops now face each other."
+          },
+          "marks": {
+            "last": "6e",
+            "arrows": [
+              "2b7g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7g2b+",
+            "3b2b"
+          ],
+          "text": {
+            "ja": "先手は▲２二角成と角を取り、△同玉と玉で取り返します。角交換になり、お互い持ち駒に角が入りました。玉は２二に上がりましたが、角を持っているのでしばらくは安全です。",
+            "en": "Sente takes the bishop with ▲2二角成 and you recapture with the king, △同玉. The bishops are traded and each side holds one in hand. The king on 2b is safe for the moment because that bishop is gone."
+          },
+          "marks": {
+            "last": "2b"
+          }
+        },
+        {
+          "moves": [
+            "7f7e",
+            "5d5e"
+          ],
+          "text": {
+            "ja": "▲７五同歩に、△５五歩。５六の升を歩の利きで押さえ、６七の銀が５六へ出る道を塞ぎます。６五の銀は先手の手が届きにくい位置にいます。",
+            "en": "Sente takes the pawn with ▲7五同歩, and you play △5五歩. The pawn controls 5f, so the silver on 6g cannot step there, and your silver on 6e is hard to reach."
+          },
+          "marks": {
+            "last": "5e",
+            "boxes": [
+              "5f"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 5,
+          "moves": [
+            "7f7e",
+            "6e7f",
+            "6g7f"
+          ],
+          "text": {
+            "ja": "▲７五同歩のあと、△７六銀と銀を前に出す失敗です。７六は６七の銀の斜め前にあたるので、▲同銀とただで取られます。銀を出すときは、その升に相手の利きがあるかを数えます。",
+            "en": "After ▲7五同歩, △7六銀 pushes the silver forward by mistake. 7f is in front of the silver on 6g, so ▲同銀 wins it for nothing. Count the opponent's attackers before stepping a silver forward."
+          },
+          "steps": [],
+          "marks": {
+            "last": "7f",
+            "arrows": [
+              "6g7f"
+            ]
+          }
+        },
+        {
+          "from": 5,
+          "moves": [
+            "7f7e",
+            "6e5f",
+            "5g5f"
+          ],
+          "text": {
+            "ja": "△５六銀も同じ失敗です。５六は先手の５七の歩の真正面で、▲同歩と取られます。歩の利きが残っている升へ銀を出してはいけません。",
+            "en": "△5六銀 is the same mistake. 5f is directly in front of the pawn on 5g and ▲同歩 takes it. Never put the silver on a square a pawn still guards."
+          },
+          "steps": [],
+          "marks": {
+            "last": "5f",
+            "arrows": [
+              "5g5f"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "銀を４四へ出して５筋で戦う",
+        "en": "Silver to 4d: fight on the fifth file"
+      },
+      "side": "gote",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "6g6f",
+            "8c8d",
+            "7i7h",
+            "8d8e",
+            "8h7g",
+            "7a6b",
+            "2h6h",
+            "5a4b",
+            "5i4h",
+            "4b3b",
+            "4h3h",
+            "5c5d",
+            "3h2h",
+            "6a5b",
+            "3i3h",
+            "6b5c"
+          ],
+          "text": {
+            "ja": "もう一つの進め方です。同じ形から銀を４四へ出し、５筋の歩を使って戦います。最初の形は前の章と同じです。",
+            "en": "The other route. From the same formation the silver goes to 4d and the fifth-file pawn does the fighting. The setup is the same as before."
+          },
+          "marks": {
+            "boxes": [
+              "5c",
+              "4d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7h6g",
+            "5c4d"
+          ],
+          "text": {
+            "ja": "▲６七銀に、△４四銀。銀が自分の角の前に出ました。５五にも利いています。",
+            "en": "After ▲6七銀 play △4四銀. The silver steps in front of your bishop and also covers 5e."
+          },
+          "marks": {
+            "last": "4d",
+            "arrows": [
+              "4d5e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6f6e",
+            "5d5e"
+          ],
+          "text": {
+            "ja": "先手が▲６五歩と角道を開けたら、△５五歩。５筋の歩を進めて先手の５七の歩に迫ります。銀が５五を支えています。",
+            "en": "Sente opens the bishop line with ▲6五歩, and you advance △5五歩 against the pawn on 5g. The silver guards 5e."
+          },
+          "marks": {
+            "last": "5e",
+            "arrows": [
+              "4d5e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5g5f",
+            "5e5f"
+          ],
+          "text": {
+            "ja": "▲５六歩と合わせられたら、△同歩。５筋の歩を取り合います。",
+            "en": "Sente meets it with ▲5六歩, and you take with △同歩. The fifth-file pawns are traded."
+          },
+          "marks": {
+            "last": "5f"
+          }
+        },
+        {
+          "moves": [
+            "6g5f",
+            "4d5c"
+          ],
+          "text": {
+            "ja": "▲５六同銀と取り返されました。歩を一枚ずつ持ち合い、銀は５六と４四で向き合います。こちらは△５三銀と引いて形を整えます。先手の銀が前に出た分、これからは自分の銀の位置を考えて指します。",
+            "en": "Sente recaptures with ▲5六同銀. Each side now holds a pawn, and the silvers face each other on 5f and 4d. Pull back with △5三銀 to tidy the formation and think again about where your silver stands."
+          },
+          "marks": {
+            "last": "5c"
+          }
+        },
+        {
+          "text": {
+            "ja": "この戦法の長所と短所です。長所は、囲いが軽いので組む手数が少なく、相手の囲いが固まる前に仕掛けられること。短所は、囲いが薄いので、攻めが止まって駒をただで取られると一気に不利になること。攻めるときは必ず、銀を出す升に相手の利きがないかを数えます。",
+            "en": "Strengths and weaknesses. The castle is light, so it takes few moves and lets you attack before the opponent is ready. But it is thin: if the attack stalls or a piece is lost for nothing, the game turns quickly. Always count the attackers on the square before you move the silver there."
+          },
+          "marks": {
+            "boxes": [
+              "3b",
+              "3a",
+              "4a",
+              "5b"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 3,
+          "moves": [
+            "6g5f",
+            "4d5e",
+            "5f5e"
+          ],
+          "text": {
+            "ja": "△５五銀と進むのは失敗です。５五は先手の５六の銀の真正面で、▲同銀とただで取られます。銀同士が向き合うときは、攻める側の利きまで数えます。",
+            "en": "Pushing the silver to 5e is a mistake. It stands right in front of the Sente silver on 5f and ▲同銀 wins it for nothing. When silvers face each other, count the attacker as well."
+          },
+          "steps": [],
+          "marks": {
+            "last": "5e",
+            "arrows": [
+              "5f5e"
+            ]
+          }
+        },
+        {
+          "from": 3,
+          "moves": [
+            "6g5f",
+            "8e8f",
+            "8g8f",
+            "8b8f",
+            "7g8f"
+          ],
+          "text": {
+            "ja": "８筋の歩を△８六歩とぶつける失敗です。▲同歩と取られ、△同飛と進むと、７七の角が８六の飛車を取ります。ここは先手の角の利きの中だからです。",
+            "en": "Thrusting △8六歩 is a mistake. After ▲同歩 and △同飛, the Sente bishop on 7g takes the rook on 8f, because 8f lies inside its line of attack."
+          },
+          "steps": [],
+          "marks": {
+            "last": "8f",
+            "arrows": [
+              "7g8f"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

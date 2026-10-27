@@ -6,21 +6,21 @@
     "対振り飛車"
   ],
   "title": {
-    "ja": "８九玉と６六角の距離を読む",
-    "en": "Reading the space between the 8i king and 6f bishop"
+    "ja": "ミレニアム囲い（トーチカ）：藤井システムに備える組み方",
+    "en": "Millennium Castle (Tochka): building it against the Fujii System"
   },
   "intro": {
-    "ja": "ミレニアム囲いは８九玉を中心に、７七桂・８八銀・７九金などで進路を守る。角を６六へ出す手は玉の通路を作る一方、角自身が歩や桂の標的にもなる。囲いの形だけで安心せず、６筋の歩が来たときの角の逃げ先と、２筋を動かすときの取り返しを具体的に数える。",
-    "en": "A Millennium shelter centers on a king at 8i, with a knight on 7g, silver on 8h and gold on 7i covering routes toward it. Sending the bishop to 6f clears the king's path but can expose the bishop to pawns and knights. Read its actual escape squares after sixth-file pressure and count recaptures before opening the second file."
+    "ja": "玉を８九へ置き、金銀を斜めに連ねるミレニアム囲いで、振り飛車との持久戦に臨みます。堅さは穴熊に一歩譲りますが、後手の角の筋から玉が外れていて、玉頭への攻めに強い囲いです。▲６六角と▲７七桂から組み、銀の寄せ方と角の働かせ方を身につけます。",
+    "en": "The Millennium Castle puts the king on 8i with golds and silvers lined up diagonally, for a long game against Ranging Rook. It is not as sturdy as Anaguma, but the king stays out of the bishop diagonal and resists attacks near the king. Build it with ▲6六角 and ▲7七桂, then learn how to add the silver and how to use the bishop."
   },
   "check": {
     "question": {
-      "ja": "６六角に後手が６五歩を進めた。角に逃げ場がないと形だけで決めてよいか？",
-      "en": "Gote pushes a pawn to 6e against Sente's bishop on 6f. Can the castle pattern alone prove the bishop has no escape?"
+      "ja": "ミレニアム囲いで、銀を囲いへ寄せるとき、▲５七銀ではなく▲５九銀から回るのはなぜですか？",
+      "en": "When adding the silver to the Millennium Castle, why go via ▲5九銀 instead of ▲5七銀?"
     },
     "answer": {
-      "ja": "決められない。７五が空き、６四・５三を通る角筋が開いていれば、角は７五へ動ける。この移動が後手飛車に当たるか、別の歩に取られないかまで盤で確かめる。",
-      "en": "No. If 7e is empty and the line through 6d and 5c is open, the bishop can move to 7e. Check whether that move attacks Gote's rook and whether another pawn can capture the bishop in the actual position."
+      "ja": "５七へ上がると、△６五歩と突かれたときに６六の角が逃げ場を失って働かなくなるからです。５九から６八へ回れば、角の逃げ道が残ります。",
+      "en": "Because after ▲5七銀, △6五歩 leaves the bishop on 6f with no escape square. Going from 5i to 6h keeps an escape path open for the bishop."
     }
   },
   "references": [
@@ -34,63 +34,89 @@
   "chapters": [
     {
       "title": {
-        "ja": "桂を上げて８九を空ける",
-        "en": "Move the knight before entering 8i"
+        "ja": "ミレニアム囲いを組む",
+        "en": "Build the Millennium Castle"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "9/1kg1r4/p1p2sbp1/4pp3/9/2P3PP1/5P3/1BK4R1/1NSG1G3 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "先手は７八玉で、８八に角、８九に桂がいる。８九玉へ一手で潜ることはできない。７七は空いており、７六歩の後ろを使って角と桂を別々に動かせる。",
-            "en": "Sente's king is on 7h, with its bishop on 8h and knight on 8i. The king cannot enter 8i while the knight occupies it. With 7g empty behind the advanced pawn on 7f, the bishop and knight have separate routes out."
+            "ja": "ミレニアム囲い、別名トーチカは、８九に玉を据えて金銀を斜めにつなぐ囲いです。穴熊より堅さは劣るものの、玉が後手の角の射程に入らないので、玉の頭を突くコビン攻めを受け付けにくい点が持ち味です。藤井システムの△８五桂の跳ね出しにも、桂を取るだけで受け切れます。この章では、初手から一手ずつ、この囲いを組みます。",
+            "en": "The Millennium Castle, also called the Tochka, puts the king on 8i and lines the golds and silvers up diagonally around it. It is not as sturdy as Anaguma, but the king stays out of the opponent's bishop diagonal, so it resists attacks on the squares above the king. Against the Fujii System, if Gote attacks with a knight jump to 8e, Sente simply takes it. This chapter builds the castle one move at a time from move one."
+          }
+        },
+        {
+          "moves": [
+            "7g7f"
+          ],
+          "text": {
+            "ja": "まず▲７六歩で角道を開けます。角道を開けるのは、居飛車でも対振り飛車でも共通の最初の一手です。",
+            "en": "First ▲7六歩 opens the bishop diagonal. This is the shared first move against both Static and Ranging Rook."
           },
           "marks": {
-            "arrows": [
-              "8h6f",
-              "8i7g"
-            ],
+            "last": "7f"
+          }
+        },
+        {
+          "moves": [
+            "3c3d",
+            "2g2f"
+          ],
+          "text": {
+            "ja": "△３四歩に▲２六歩。飛車の前の歩を一つ伸ばして、飛車が活躍する場所を作ります。",
+            "en": "After △3四歩 comes ▲2六歩. Advancing the rook pawn one step gives the rook room to work later."
+          },
+          "marks": {
+            "last": "2f"
+          }
+        },
+        {
+          "moves": [
+            "4c4d",
+            "3i4h"
+          ],
+          "text": {
+            "ja": "後手が△４四歩と角道を閉じたので、振り飛車を警戒します。ここで▲４八銀。この銀は相手が居飛車でも振り飛車でも上げる駒なので、戦法が決まるまで待つ手として損がありません。",
+            "en": "Gote closes the bishop diagonal with △4四歩, so watch for Ranging Rook. ▲4八銀 is the waiting move: this silver is brought up against either kind of opponent, so nothing is lost while Gote shows the plan."
+          },
+          "marks": {
+            "last": "4h",
             "boxes": [
-              "8i",
-              "7g"
+              "4h"
             ]
           }
         },
         {
           "moves": [
-            "8h6f",
-            "9c9d",
-            "8i7g",
-            "2c2d"
+            "8b4b",
+            "5i6h"
           ],
           "text": {
-            "ja": "角は８八から６六へ、桂は８九から７七へ動いた。後手は端と２筋を進めた一例。８八と８九の両方が空き、玉が次に８九へ移る通路ができた。",
-            "en": "The bishop moves from 8h to 6f and the knight jumps from 8i to 7g. Gote's edge and second-file pawn moves are sample replies. Both 8h and 8i are now empty, making room for the king."
+            "ja": "△４二飛で四間飛車に決まりました。飛車を左から４番目の筋へ振るので、この名前です。振り飛車と分かったので、▲６八玉と玉を左へ動かして囲いに取りかかります。",
+            "en": "△4二飛 settles it: Fourth File Rook, named because the rook goes to the fourth file counted from Gote's left. Now that it is a Ranging Rook game, ▲6八玉 starts the castle by moving the king left."
           },
           "marks": {
+            "last": "6h",
             "boxes": [
-              "6f",
-              "7g",
-              "8i"
-            ],
-            "arrows": [
-              "7h8i"
+              "4b"
             ]
           }
         },
         {
           "moves": [
-            "7h8i",
-            "5d5e"
+            "2b3c",
+            "6h7h"
           ],
           "text": {
-            "ja": "玉を８九へ寄せた。後手は５筋を進め、盤の中央も動いている。８九玉だけをミレニアムの完成と呼ばず、７九の銀と６九金をどこへつなぐかを次に見る。",
-            "en": "The king reaches 8i while Gote advances its fifth-file pawn. The center has not stood still. King 8i alone is not a finished shelter; Sente still needs to place its silver from 7i and gold from 6i."
+            "ja": "後手は△３三角と角を使う準備。先手は▲７八玉と、もう一つ玉を左へ寄せます。７九の銀と６九の金が最初の位置のまま玉の近くに残るので、これだけで守りの形になっていきます。",
+            "en": "Gote readies the bishop with △3三角 while ▲7八玉 moves the king one more step. The silver on 7i and the gold on 6i stay on their starting squares next to the king, so the defence is already forming."
           },
           "marks": {
+            "last": "7h",
             "boxes": [
-              "8i",
+              "7h",
               "7i",
               "6i"
             ]
@@ -98,188 +124,337 @@
         },
         {
           "moves": [
-            "7i8h",
+            "3a3b",
+            "5g5f"
+          ],
+          "text": {
+            "ja": "△３二銀に対して▲５六歩。５筋の歩を突くと、５七のマスが空きます。ここへ後で銀を上げて、攻めにも守りにも使える柔軟な形になります。",
+            "en": "Gote plays △3二銀 and Sente answers ▲5六歩. Pushing the fifth-file pawn empties 5g, a square where a silver can later go to attack or to defend."
+          },
+          "marks": {
+            "last": "5f",
+            "boxes": [
+              "5g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "4i5h"
+          ],
+          "text": {
+            "ja": "後手がいきなり△９四歩と端を突いてきました。端攻めと玉の頭への攻めを合わせて穴熊を崩す藤井システムの特徴です。先手はまず、▲５八金右と舟囲いの形を整えておきます。",
+            "en": "Gote suddenly pushes the edge pawn with △9四歩, the trademark of the Fujii System, which combines an edge attack with attacks near the king to break Anaguma. Sente first completes the Boat Castle shape with ▲5八金右."
+          },
+          "marks": {
+            "last": "5h",
+            "boxes": [
+              "5h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7a7b",
+            "8h6f"
+          ],
+          "text": {
+            "ja": "△７二銀に▲６六角。角を６六へ上げるのが、ミレニアム囲いの第一の特徴です。７七のマスを桂のために空けます。",
+            "en": "△7二銀 is met by ▲6六角. Raising the bishop to 6f is the first feature of the Millennium Castle: it clears 7g for the knight."
+          },
+          "marks": {
+            "last": "6f",
+            "boxes": [
+              "6f",
+              "7g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4a5b",
+            "8i7g"
+          ],
+          "text": {
+            "ja": "△５二金左に▲７七桂。桂を７七へ跳ねて囲いの一部にします。次に玉を８九へもぐらせます。",
+            "en": "△5二金左 is met by ▲7七桂, bringing the knight to 7g as part of the castle. The king then slips down to 8i."
+          },
+          "marks": {
+            "last": "7g",
+            "boxes": [
+              "7g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6c6d",
+            "7h8i"
+          ],
+          "text": {
+            "ja": "△６四歩に▲８九玉。玉を８九へ入れます。７八から動いて、角と桂の後ろにもぐる形です。",
+            "en": "△6四歩 is met by ▲8九玉. The king drops to 8i from 7h, behind the bishop and knight."
+          },
+          "marks": {
+            "last": "8i",
+            "boxes": [
+              "8i"
+            ]
+          }
+        },
+        {
+          "moves": [
             "7c7d",
-            "6i7i"
+            "5h6h"
           ],
           "text": {
-            "ja": "銀８八と金７九が８九玉の前と横を守る形になった。７七桂は８五・６五へ跳ぶ余地を持つが、後手の歩や桂が来れば盤上で受けを読み直す。後手７四歩も一例で、完成だけで優勢とは言えない。",
-            "en": "Silver 8h and gold 7i now cover squares in front of and beside the king on 8i. The knight on 7g has jumps toward 8e and 6e, but incoming Gote pieces would change the defensive calculation. Gote's 7d pawn is only a sample; finishing the shape does not prove an advantage."
+            "ja": "△７四歩に▲６八金寄。５八の金を６八へ寄せて、囲いの形を作ります。",
+            "en": "△7四歩 is met by ▲6八金寄, shifting the gold from 5h to 6h to shape the castle."
           },
           "marks": {
+            "last": "6h",
             "boxes": [
-              "8i",
-              "8h",
-              "7i",
-              "7g",
-              "6f"
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "title": {
-        "ja": "６五歩の後に角の行き先を描く",
-        "en": "Trace the bishop's exits after a sixth-file push"
-      },
-      "side": "sente",
-      "kind": "position",
-      "start": "9/1kg2r1b1/p1n2s3/3p1pp2/4p4/2PB2PP1/P1N2P3/1S2G2R1/LKG6 w - 1",
-      "steps": [
-        {
-          "text": {
-            "ja": "８九玉、７七桂、８八銀、７九金、５八金で玉側を守る。角は６六、後手歩は６四にいる。７五と６四・５三の斜め筋が空いているかを見れば、６五歩への応手を具体的に調べられる。",
-            "en": "King 8i has a knight on 7g, silver on 8h and golds on 7i and 5h nearby. Sente's bishop stands on 6f facing Gote's pawn on 6d. The empty 7e square and diagonal through 6d and 5c matter when that pawn advances."
-          },
-          "marks": {
-            "arrows": [
-              "6d6e",
-              "6f7e"
-            ],
-            "boxes": [
-              "4b",
-              "6d",
-              "5c"
+              "6h"
             ]
           }
         },
         {
           "moves": [
-            "6d6e"
+            "8a7c",
+            "7i8h"
           ],
           "text": {
-            "ja": "後手歩が６五へ進み、次に６六角を取れるようになった。角に逃げ場がないと決めつけず、７五・５七などの候補と、その先の相手の利きを分けて確認する。",
-            "en": "Gote's pawn advances to 6e and threatens to capture the bishop on 6f next. Do not infer a trapped bishop from the shape: check candidate exits such as 7e and 5g, then examine the opponent's follow-up to each."
+            "ja": "△７三桂に▲８八銀。７九の銀を８八へ上げて、玉の斜め上に置きます。",
+            "en": "△7三桂 is met by ▲8八銀, lifting the silver from 7i to 8h, diagonally above the king."
           },
           "marks": {
-            "arrows": [
-              "6e6f",
-              "6f7e",
-              "6f5g"
-            ]
-          }
-        },
-        {
-          "moves": [
-            "6f7e",
-            "4b5b"
-          ],
-          "text": {
-            "ja": "この盤では角が７五へ逃げられ、６四・５三を通る角筋が４二飛に当たった。後手は飛車を５二へ避けた一例。７五に後手歩などがあれば同じ角移動の価値は変わる。",
-            "en": "Here the bishop escapes to 7e and, through the vacated 6d and empty 5c squares, attacks Gote's rook on 4b. Gote retreats that rook to 5b in this sample. A Gote pawn or another defender at 7e would change the move's value."
-          },
-          "marks": {
-            "arrows": [
-              "7e4b"
-            ],
+            "last": "8h",
             "boxes": [
-              "7e",
-              "5b"
-            ]
-          }
-        },
-        {
-          "text": {
-            "ja": "８九玉が角の斜め筋から外れていても、角６六の安全は別問題。６五歩を見たら『角がどこへ動けるか』と『玉に次に何が当たるか』を別々に数える。関連する定跡コースで銀を５九から６八へ運ぶのは、５七を角の退路として空けておくため。銀が５七にいればその升へは引けないが、それだけでほかの逃げ先まで消えるわけではない。",
-            "en": "Even when the king on 8i is off this particular bishop line, the safety of Sente's bishop on 6f is a separate question. After a pawn push to 6e, count the bishop's moves and the next attack on the king separately. The related opening course routes a silver through 5i to 6h to keep 5g open as a bishop retreat. A silver on 5g blocks that retreat, but that alone does not remove every other escape."
-          }
-        }
-      ],
-      "variations": [
-        {
-          "from": 1,
-          "moves": [
-            "6f5g",
-            "5e5f"
-          ],
-          "text": {
-            "ja": "角を５七へ引くことも合法だが、後手５五歩が５六へ出れば次に５七角を狙う。この盤では７五角と違い、相手に別の歩の追撃を与えるため、単に『逃げたから安全』とは言えない。",
-            "en": "Retreating the bishop to 5g is legal too. Gote's pawn from 5e can then advance to 5f and threaten the bishop on 5g next. Unlike the 7e move in this board, that escape invites another pawn chase, so legality alone does not prove safety."
-          }
-        }
-      ]
-    },
-    {
-      "title": {
-        "ja": "２筋で角を使う前に飛車の通路を数える",
-        "en": "Count the rook lane before using the bishop on the second file"
-      },
-      "side": "sente",
-      "kind": "position",
-      "start": "3b5/1kg1r1s2/p1p1p2p1/5pp2/7P1/2P3P2/P1N1BP3/1S2G2R1/LKG6 b - 1",
-      "steps": [
-        {
-          "text": {
-            "ja": "玉８九の前に７七桂・８八銀・７九金を残し、先手角は５七へ引いている。先手２五歩と後手２三歩が向かい合う。後手銀３二がいるため、後手５二飛は今すぐ２二へ横移動できない。",
-            "en": "Sente retains knight 7g, silver 8h and gold 7i in front of its king on 8i, while its bishop has retreated to 5g. Sente's pawn on 2e faces Gote's pawn on 2c. Gote's silver on 3b currently blocks its rook from sliding from 5b to 2b."
-          },
-          "marks": {
-            "arrows": [
-              "2e2d",
-              "5g2d"
-            ],
-            "boxes": [
-              "3b",
-              "5b",
-              "2c"
-            ]
-          }
-        },
-        {
-          "moves": [
-            "2e2d",
-            "2c2d",
-            "5g2d"
-          ],
-          "text": {
-            "ja": "後手が２四歩を取った場合、先手角は４六・３五を通って２四の歩を取れる。先手は歩を持つが、角が２四に出たことで２筋の飛車との位置関係を読み直す必要がある。",
-            "en": "If Gote accepts on 2d, Sente's bishop reaches that pawn through 4f and 3e and captures it. Sente holds a pawn, but the bishop on 2d changes the rook-file geometry and needs a fresh check."
-          },
-          "marks": {
-            "boxes": [
-              "2d",
-              "3b",
-              "2h"
+              "8h"
             ]
           }
         },
         {
           "moves": [
             "3b4c",
-            "2d5g"
+            "6i7i"
           ],
           "text": {
-            "ja": "後手銀が４三へ動くと３二が空く。先手は角を５七へ戻した一例で、後手飛車が２筋へ寄れるようになったことを無視しない。角を取った歩一枚だけで攻めが決まったとは言えない。",
-            "en": "When Gote's silver moves to 4c, 3b becomes vacant. Sente retreats its bishop to 5g in this sample and now has to account for a rook swing to the second file. Capturing one pawn with the bishop did not decide the attack."
+            "ja": "△４三銀に▲７九金。金が７九へ入り、ここで囲いの骨組みが整いました。金と銀が斜めに連なる様子は美濃囲いに近く、藤井システムの△８五桂が来ても、素直に▲同桂と取ればよいわけです。",
+            "en": "△4三銀 is met by ▲7九金, completing the basic skeleton of the Millennium Castle. The golds and silvers are arranged much like a Mino castle. Against the Fujii System knight jump to 8e, Sente simply takes with ▲同桂."
           },
           "marks": {
-            "arrows": [
-              "5b2b"
-            ],
+            "last": "7i",
             "boxes": [
-              "3b",
-              "5g"
+              "9i",
+              "8h",
+              "7i",
+              "6h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4c5d",
+            "6h7h"
+          ],
+          "text": {
+            "ja": "△５四銀に▲７八金寄。囲いをさらに固めるため、金を７八へ寄せます。",
+            "en": "△5四銀 is met by ▲7八金寄, bringing a gold to 7h to firm up the castle."
+          },
+          "marks": {
+            "last": "7h",
+            "boxes": [
+              "7h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5a6b",
+            "4h5i"
+          ],
+          "text": {
+            "ja": "△６二玉に▲５九銀。５七ではなく５九へ引いた銀を、次に６八へ進めます。",
+            "en": "△6二玉 is met by ▲5九銀. Rather than going up to 5g, the silver steps back to 5i and then heads for 6h."
+          },
+          "marks": {
+            "last": "5i",
+            "boxes": [
+              "5i"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6b7a",
+            "5i6h"
+          ],
+          "text": {
+            "ja": "△７一玉に▲６八銀。銀が囲いに加わり、さらに堅くなりました。５七へ銀を上げると、△６五歩で角の逃げ場がなくなってしまうので、ここは５九からの回り道が正解です。",
+            "en": "△7一玉 is met by ▲6八銀, and the silver joins the castle for extra solidity. Playing the silver up to 5g would leave the bishop with no escape after △6五歩, so the detour via 5i is the right way."
+          },
+          "marks": {
+            "last": "6h",
+            "boxes": [
+              "6h"
             ]
           }
         },
         {
           "text": {
-            "ja": "この盤では後手飛車が直ちに２二へ来ると、先手飛車２八も２二まで同じ空き筋を通って取れる。どちらの飛車が先に動けるかまで調べてから、角を２四に残すか選ぶ。",
-            "en": "In this exact position, if Gote immediately puts its rook on 2b, Sente's rook on 2h can also travel up the clear file and capture it. Count whose turn it is and which squares are empty before leaving the bishop on 2d."
+            "ja": "ここまでの要点です。①▲６六角と▲７七桂で、玉が入る場所を作る。②玉を▲８九へもぐらせ、金銀を斜めにつなぐ。③銀は▲５七ではなく、▲５九から▲６八へ回して囲いにくっつける。④先に囲いを組んでおけば、藤井システムの△８五桂は、単に▲同桂と取れる。",
+            "en": "Points to remember so far. 1) ▲6六角 and ▲7七桂 make room for the king. 2) Drop the king to 8i with ▲8九玉 and link the golds and silvers diagonally. 3) Bring the silver to the castle via ▲5九 and ▲6八, not ▲5七. 4) With the castle built first, the Fujii System knight jump to 8e is met by simply taking ▲同桂."
+          },
+          "marks": {
+            "boxes": [
+              "8i",
+              "7g",
+              "7h",
+              "6h",
+              "7i",
+              "8h"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "長所と短所です。長所は、穴熊より手数が少なく、玉が後手の角の筋から外れていて玉頭への攻めに強いこと。短所は、穴熊ほど堅くはないことと、銀を▲５七へ上げると△６五歩で角の逃げ場がなくなるなど、組む順番を守らないと形が崩れることです。次の章では、囲ったあとの角の使い方を見ます。",
+            "en": "Strengths and weaknesses. The strengths are that it takes fewer moves than Anaguma and the king stays out of the opponent's bishop diagonal, so it resists attacks near the king. The weaknesses are that it is not as sturdy as Anaguma and that the shape falls apart if the order is not kept, for example ▲5七銀 lets △6五歩 trap the bishop. The next chapter shows how to use the bishop after castling."
           }
         }
       ],
       "variations": [
         {
-          "from": 2,
+          "from": 13,
           "moves": [
-            "5b2b",
-            "2h2b+"
+            "4c5d",
+            "4h5g",
+            "6d6e"
           ],
           "text": {
-            "ja": "角が５七へ戻った後、後手飛車が５二から２二へ寄る応手では、先手飛車が２二の飛車を取れる。４二・３二と２三が空き、先手２筋にも遮る駒がない、この盤だけの取り返し。",
-            "en": "After the bishop returns to 5g, a Gote rook swing from 5b to 2b lets Sente's rook capture it on 2b. This recapture relies on the empty 4b, 3b and 2c squares and a clear second file; it is specific to this board."
+            "ja": "銀を５九ではなく▲５七銀と上げると、△６五歩と突かれた瞬間に６六の角が行き場を失います。銀を囲いへ寄せるときは、必ず５九から回ります。",
+            "en": "If the silver goes up with ▲5七銀 instead, △6五歩 leaves the bishop on 6f with nowhere to go. When adding the silver to the castle, always go via 5i."
+          },
+          "marks": {
+            "last": "6e",
+            "boxes": [
+              "6f",
+              "5g"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "囲ったあとの角の使い方",
+        "en": "How to use the bishop after castling"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "2g2f",
+            "4c4d",
+            "3i4h",
+            "8b4b",
+            "5i6h",
+            "2b3c",
+            "6h7h",
+            "3a3b",
+            "5g5f",
+            "9c9d",
+            "4i5h",
+            "7a7b",
+            "8h6f",
+            "4a5b",
+            "8i7g",
+            "6c6d",
+            "7h8i",
+            "7c7d",
+            "5h6h",
+            "8a7c",
+            "7i8h",
+            "3b4c",
+            "6i7i",
+            "4c5d",
+            "6h7h",
+            "5a6b",
+            "4h5i",
+            "6b7a",
+            "5i6h"
+          ],
+          "text": {
+            "ja": "ミレニアム囲いに組み終えた局面です。ここから角を使って攻めに出ます。",
+            "en": "The Millennium Castle is complete. From here Sente goes on the attack with the bishop."
+          },
+          "marks": {
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "7a8b",
+            "2f2e",
+            "6d6e",
+            "6f5g"
+          ],
+          "text": {
+            "ja": "△８二玉に▲２五歩、そこで△６五歩と突かれたら、▲５七角と引きます。６六の角を５七へ引き、この位置から攻めに使っていきます。",
+            "en": "△8二玉 is met by ▲2五歩, and when Gote pushes △6五歩, Sente retreats ▲5七角. The bishop falls back from 6f to 5g and attacks from there."
+          },
+          "marks": {
+            "last": "5g",
+            "arrows": [
+              "5g2d"
+            ],
+            "boxes": [
+              "5g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4d4e",
+            "2e2d"
+          ],
+          "text": {
+            "ja": "△４五歩に▲２四歩と仕掛けます。△同歩なら、角で２四の歩を取ります。",
+            "en": "△4五歩 is met by the attack ▲2四歩. If Gote takes with △同歩, the bishop recaptures on 2d."
+          },
+          "marks": {
+            "last": "2d",
+            "boxes": [
+              "2d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2c2d",
+            "5g2d"
+          ],
+          "text": {
+            "ja": "▲同角で、角が相手の陣近くまで出ました。角を替えにいくこの攻めは、ミレニアム囲いでよく見る筋です。後手は△２二飛と合わせて受けるのが普通ですが、先に▲５五歩と△同銀を交換しておくと、次の▲３三角成が銀に当たり、先手が楽になります。",
+            "en": "After △同歩, ▲同角 puts the bishop into Gote's camp and creates attacking chances. This is the usual bishop-trade attack from this setup. Gote normally defends with △2二飛, but if Sente first throws in ▲5五歩 and △同銀, then ▲3三角成 hits the silver and makes things easier."
+          },
+          "marks": {
+            "last": "2d",
+            "boxes": [
+              "2d"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "覚える点は五つです。ミレニアム囲いは対振り飛車で使う。▲６六角と▲７七桂から玉を８九へもぐらせる。金銀を寄せて固める。銀は▲５七ではなく▲５九から。角は▲５七へ引いて攻めに使う。",
+            "en": "Five points to remember. The Millennium Castle is used against Ranging Rook. Start with ▲6六角 and ▲7七桂 before dropping the king to 8i. Add golds and silvers to harden it. Bring the silver from 5i, not 5g. Retreat the bishop to 5g and use it to attack."
           }
         }
       ]

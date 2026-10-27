@@ -1,23 +1,26 @@
 {
   "id": "yagura-37gin",
   "order": 590,
-  "path": ["戦法・定跡", "矢倉"],
+  "path": [
+    "戦法・定跡",
+    "矢倉"
+  ],
   "title": {
-    "ja": "矢倉の３七銀は着地点を選んで使う",
-    "en": "Choose Landing Squares for the Yagura Silver on 3g"
+    "ja": "矢倉の３七銀戦法：３六銀・３七桂型の攻め",
+    "en": "Yagura ▲3七銀 plan: attacking with silver 3f and knight 3g"
   },
   "intro": {
-    "ja": "玉８八・金７八と６七・銀７七の矢倉を残し、もう一枚の銀を３七から攻めに使います。銀を４六へ出せば３七は桂の場所になりますが、桂の着地点や歩を取った升に相手の利きがあれば、形を作っただけでは攻めになりません。相手の飛車の逃げ方、歩打ちを支える金の利き、自玉側の端の歩も一緒に数える練習です。",
-    "en": "Keep Sente's Yagura core of king 8h, golds 7h and 6g, and silver 7g while using the other silver from 3g. Moving that silver to 4f clears 3g for the knight, but the shape alone is not an attack: check the knight's landing square and the defenders of each pawn contact. Also count the opponent's rook retreats, the gold that backs a pawn drop, and the edge pawn beside your own king."
+    "ja": "相矢倉で▲３七銀と上がったあと、どう攻めを作るかを学びます。歩を交換して手持ちを得る手、端歩を先に伸ばす理由、２筋の継ぎ歩と３筋の▲３三歩、そして角を出された場合の４六銀型までを、局面を一つずつ並べて確かめます。",
+    "en": "Learn how to build an attack after ▲3七銀 in Ai-Yagura: the pawn trade that wins a pawn in hand, why the edge pawn goes first, the 2nd-file pawn chain and the 3rd-file ▲3三歩, and the 4f silver form when Gote pushes the bishop forward. Each position is laid out one step at a time."
   },
   "check": {
     "question": {
-      "ja": "矢倉で銀４六・桂３七を作った後、歩を進めたり桂を跳ねたりする前に何を確かめますか？",
-      "en": "After forming silver 4f and knight 3g in Yagura, what should you check before pushing a pawn or jumping the knight?"
+      "ja": "３六銀・３七桂型で攻める前に、まず何をしておくと攻めが効きますか？",
+      "en": "Before attacking with silver 3f and knight 3g, what should you do first to make the attack work?"
     },
     "answer": {
-      "ja": "桂の着地点を相手の歩が取れるか、歩の交換後に銀を取り返す金や飛車があるか、玉側の端で相手の飛車が歩を取りに出られるかを数えます。飛車や金が退けば攻めの結果も変わるため、例の応手を強制手と扱いません。",
-      "en": "Check whether an enemy pawn can capture the knight's landing square, whether a gold or rook can answer the silver after a pawn trade, and whether a rook can enter on the edge beside your king. Opposing rook and gold replies are choices, so a sample line does not prove a forced attack."
+      "ja": "端の歩を伸ばしておきます。端は矢倉の弱点なので、先に突いておくと▲２五桂や端攻めが効き、攻めが成立しやすくなります。",
+      "en": "Advance the edge pawns first. The edge is a Yagura weakness, so doing it beforehand makes the ▲2五桂 jump and the edge attack effective."
     }
   },
   "references": [
@@ -31,197 +34,938 @@
   "chapters": [
     {
       "title": {
-        "ja": "銀を４六へ移し、桂の升を空ける",
-        "en": "Move the Silver to 4f to Clear the Knight's Square"
+        "ja": "３七銀から３六銀・３七桂の形まで",
+        "en": "From ▲3七銀 to the silver 3f, knight 3g shape"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "3b5/1r4gk1/1p1p1gs1p/9/9/P3P4/B1SG1PSP1/1KG4R1/7N1 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "双方の玉側には矢倉の芯があり、先手の攻め銀は３七、桂は２九です。３七に銀がいる間は桂をそこへ跳ねられません。４六は空いていますが、進出後の５五・４五・３五への利きも盤上で確認します。",
-            "en": "Both sides have Yagura cores. Sente's attacking silver is on 3g and the knight is on 2i; the knight cannot jump onto a square still occupied by its own silver. Square 4f is open, and from there the silver will control 5e, 4e, and 3e."
+            "ja": "３七銀戦法は、相矢倉で銀を３七へ上げ、最後に３六銀と３七桂を並べて、飛車・角・銀・桂で相手玉の方向を攻める戦法です。この章では初手から一手ずつ、お互いが矢倉を組み、３六銀・３七桂の形ができるまでを指します。",
+            "en": "The 3七銀 plan is a Yagura-versus-Yagura strategy. Sente brings the silver to 3g and finally sets silver on 3f and knight on 3g, so that rook, bishop, silver and knight all point toward the opponent's king. This chapter goes from move one, move by move, until both sides have built a Yagura and the 3f silver and 3g knight are in place."
           }
         },
         {
-          "moves": ["3g4f"],
+          "moves": [
+            "7g7f"
+          ],
           "text": {
-            "ja": "銀を４六へ出すと３七が空きます。この局面では後手の歩が４五におらず、銀は５五にも利きます。ただし銀を前へ出した分、後手が別筋を開けば玉側の守備駒で応じる必要があります。",
-            "en": "The silver steps to 4f, clearing 3g and controlling 5e. There is no enemy pawn already on 4e in this board. The advance uses an attacking piece, so any counterplay on another file still has to be met by the castle defenders."
+            "ja": "最初の手は▲７六歩です。７筋の歩を突いて角の斜めの道を開き、７七の銀が上がる場所も空けます。矢倉はこの一手から始まります。",
+            "en": "▲7六歩 pushes the seventh-file pawn. It opens the bishop's diagonal and empties 7g, the square the silver will use. Every Yagura starts with this move."
+          },
+          "marks": {
+            "last": "7f",
+            "boxes": [
+              "7g"
+            ]
           }
         },
         {
-          "moves": ["6c6d"],
+          "moves": [
+            "8c8d",
+            "7i6h"
+          ],
           "text": {
-            "ja": "後手が６筋の歩を進めた例です。６四の歩はこの一手で３七を攻めませんが、次の歩の接触を放置してよいという意味でもありません。",
-            "en": "Gote advances the sixth-file pawn in this sample line. The pawn on 6d does not attack 3g with this move, though Sente must keep watching the next contact on that file."
+            "ja": "後手は△８四歩と飛車先の歩を突きました。こちらは▲６八銀。７九の銀を６八へ上げます。この銀は７七へ進む銀で、７九を空けておくと、あとで角を７九へ下げられます。",
+            "en": "Gote pushes its rook pawn with △8四歩. Sente plays ▲6八銀, lifting the silver from 7i to 6h. It is heading for 7g, and emptying 7i lets the bishop retreat there later."
+          },
+          "marks": {
+            "last": "6h",
+            "arrows": [
+              "6h7g"
+            ],
+            "boxes": [
+              "7i"
+            ]
           }
         },
         {
-          "moves": ["2i3g"],
+          "moves": [
+            "3c3d",
+            "6g6f"
+          ],
           "text": {
-            "ja": "桂が３七へ跳ね、銀４六とともに４五を見ます。桂は２五にも跳べますが、どちらの着地点が安全かは相手の歩や角の位置で変わります。形ができた時点で駒得や仕掛けの成立を決めつけません。",
-            "en": "The knight reaches 3g. It and the silver on 4f both control 4e; the knight can also jump to 2e. Which landing square is safe depends on the actual pawns and bishop, so this formation alone does not establish a profitable attack."
+            "ja": "後手は△３四歩と角道を開けました。こちらは▲６六歩。６筋の歩を突いて角の道を自分で止め、角交換を避けます。６七が空くので、金の入る場所もできます。",
+            "en": "Gote opens its bishop line with △3四歩. Sente answers with ▲6六歩, which blocks its own bishop diagonal so the bishops are not traded. It also empties 6g, the square for a gold."
+          },
+          "marks": {
+            "last": "6f",
+            "boxes": [
+              "6g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7a6b",
+            "5g5f"
+          ],
+          "text": {
+            "ja": "後手は△６二銀。こちらは▲５六歩です。中央の歩を一つ進めて、７・６・５筋の歩が横に並ぶ壁を作ります。矢倉囲いの前面を固める歩です。",
+            "en": "Gote plays △6二銀. Sente plays ▲5六歩, advancing the central pawn so that the pawns on files 7, 6 and 5 stand side by side. This front wall protects the Yagura."
+          },
+          "marks": {
+            "last": "5f",
+            "boxes": [
+              "7f",
+              "6f",
+              "5f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5c5d",
+            "3i4h"
+          ],
+          "text": {
+            "ja": "後手は△５四歩。こちらは▲４八銀です。右の銀を３九から一つ上げます。この銀は、のちに３七へ上がって攻めの主役になります。",
+            "en": "Gote plays △5四歩. Sente plays ▲4八銀, lifting the right silver one square from 3i. It will later go up to 3g and take the lead in the attack."
+          },
+          "marks": {
+            "last": "4h",
+            "arrows": [
+              "4h3g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3a4b",
+            "4i5h"
+          ],
+          "text": {
+            "ja": "後手は△４二銀。こちらは▲５八金です。右の金を５八へ寄せます。この金はあとで６七へ上がり、矢倉の金の一枚になります。",
+            "en": "Gote plays △4二銀. Sente plays ▲5八金, shifting the right gold to 5h. Later it climbs to 6g and becomes one of the Yagura's two golds."
+          },
+          "marks": {
+            "last": "5h",
+            "arrows": [
+              "5h6g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4a3b",
+            "6i7h"
+          ],
+          "text": {
+            "ja": "後手は△３二金。こちらは▲７八金です。６九の金を７八へ上げ、玉の左隣に置きます。矢倉囲いの金銀三枚のうち、最初に決まる駒です。",
+            "en": "Gote plays △3二金. Sente plays ▲7八金, lifting the gold from 6i to 7h, next to where the king will stand. It is the first of the three Yagura pieces to settle."
+          },
+          "marks": {
+            "last": "7h",
+            "boxes": [
+              "7h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5a4a",
+            "5i6i"
+          ],
+          "text": {
+            "ja": "後手は△４一玉。こちらは▲６九玉です。玉を一つ左へ動かします。矢倉の玉は最終的に８八へ入るので、少しずつ歩かせます。",
+            "en": "Gote plays △4一玉. Sente plays ▲6九玉, moving the king one square left. A Yagura king ends on 8h, so it walks there a step at a time."
+          },
+          "marks": {
+            "last": "6i",
+            "boxes": [
+              "8h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7c7d",
+            "5h6g"
+          ],
+          "text": {
+            "ja": "後手は△７四歩。こちらは▲６七金です。５八の金を６七へ上げます。７七に銀が入ったとき、すぐ右隣で支える金です。",
+            "en": "Gote plays △7四歩. Sente plays ▲6七金, lifting the gold from 5h to 6g. When the silver arrives on 7g, this gold stands beside it as support."
+          },
+          "marks": {
+            "last": "6g",
+            "boxes": [
+              "6g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6a5b",
+            "6h7g"
+          ],
+          "text": {
+            "ja": "後手は△５二金。こちらは▲７七銀です。６八の銀を７七へ進め、７六の歩の真後ろに置きます。７八の金、７七の銀、６七の金がそろって矢倉の骨組みができました。",
+            "en": "Gote plays △5二金. Sente plays ▲7七銀, moving the silver from 6h to 7g, directly behind the pawn on 7f. With gold on 7h, silver on 7g and gold on 6g, the Yagura frame is complete."
+          },
+          "marks": {
+            "last": "7g",
+            "boxes": [
+              "7h",
+              "7g",
+              "6g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4b3c",
+            "8h7i"
+          ],
+          "text": {
+            "ja": "後手は△３三銀。こちらは▲７九角です。８八は玉の入る場所なので、そこにいる角を７九へ下げます。６八の銀が上がっているので、７九が空いています。",
+            "en": "Gote plays △3三銀. Sente plays ▲7九角. The king is going to 8h, so the bishop there retreats to 7i, which the silver had already vacated."
+          },
+          "marks": {
+            "last": "7i",
+            "boxes": [
+              "8h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2b3a",
+            "3g3f"
+          ],
+          "text": {
+            "ja": "後手は△３一角。こちらは▲３六歩です。３筋の歩を一つ進めます。このあと▲３五歩と突き出す準備で、同時に３七の銀の足場も作ります。",
+            "en": "Gote plays △3一角. Sente plays ▲3六歩, advancing the third-file pawn. It prepares the ▲3五歩 push that comes later and provides a base for a silver on 3g."
+          },
+          "marks": {
+            "last": "3f",
+            "arrows": [
+              "3f3e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4c4d"
+          ],
+          "text": {
+            "ja": "後手の△４四歩で、相矢倉の基本図になりました。先手は７九角・６九玉・７八金・７七銀・６七金の矢倉の骨組みを作り、後手も同じ形を目指しています。ここからが攻めの準備です。",
+            "en": "Gote's △4四歩 brings us to the basic position of a Yagura mirror. Sente has the frame of bishop on 7i, king on 6i, gold on 7h, silver on 7g and gold on 6g, and Gote is building the same shape. The attack is prepared from here."
+          },
+          "marks": {
+            "last": "4d",
+            "boxes": [
+              "7g",
+              "7h",
+              "6g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4h3g"
+          ],
+          "text": {
+            "ja": "▲３七銀。４八の銀を３七へ上げて、攻めの銀にします。ここで飛車先の▲２五歩はあえて突きません。歩を突いてしまうと、あとで桂が２五へ跳ねる場所が塞がれるためで、プロの相矢倉でもこの歩は中盤まで残します。",
+            "en": "▲3七銀 lifts the silver from 4h to 3g and turns it into the attacking silver. Sente deliberately does not push ▲2五歩. A pawn on 2e would block the square the knight wants to jump to later, which is why professionals keep this pawn back until the middle game."
+          },
+          "marks": {
+            "last": "3g",
+            "boxes": [
+              "2e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5b4c",
+            "3f3e"
+          ],
+          "text": {
+            "ja": "後手は△４三金と、ふつうに囲いを進めました。こちらはすぐ▲３五歩と突き出します。３四の歩とぶつかり、歩の交換を迫る手です。次の数手で、三つの得を同時に取ります。",
+            "en": "Gote simply continues its castle with △4三金. Sente immediately pushes ▲3五歩, which meets the pawn on 3d and forces a pawn exchange. The next few moves win three things at once."
+          },
+          "marks": {
+            "last": "3e",
+            "arrows": [
+              "3e3d"
+            ],
+            "boxes": [
+              "3d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3d3e",
+            "7i3e"
+          ],
+          "text": {
+            "ja": "後手は△３五歩と歩を取りました。こちらは▲同角。７九の角が斜めに飛び出して、３五の歩を取り返します。これで歩が一枚手持ちになりました。",
+            "en": "Gote takes with △3五歩. Sente recaptures with ▲同角: the bishop on 7i flies out along the diagonal and takes the pawn on 3e. Sente now has a pawn in hand."
+          },
+          "marks": {
+            "last": "3e",
+            "arrows": [
+              "7i3e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "P*3d",
+            "3e4f"
+          ],
+          "text": {
+            "ja": "後手は△３四歩と歩を打って角に当てました。こちらは▲４六角と引きます。一つ目の得は歩が一枚手持ちになったこと、二つ目は角が４六から後手の飛車を見張ること、三つ目は７九が空いて玉の通り道ができたことです。",
+            "en": "Gote drops a pawn with △3四歩, attacking the bishop. Sente retreats with ▲4六角. That wins three things: a pawn in hand, a bishop on 4f that eyes Gote's rook, and 7i cleared for the king's path."
+          },
+          "marks": {
+            "last": "4f",
+            "arrows": [
+              "4f8b"
+            ],
+            "boxes": [
+              "7i"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8a7c",
+            "6i7i"
+          ],
+          "text": {
+            "ja": "後手は△７三桂。ここで攻めを急がず、こちらも囲いを仕上げます。▲７九玉。玉を一つ左へ進めます。",
+            "en": "Gote plays △7三桂. Sente does not hurry the attack and finishes the castle first with ▲7九玉, moving the king one square left."
+          },
+          "marks": {
+            "last": "7i",
+            "arrows": [
+              "7i8h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3a4b",
+            "7i8h"
+          ],
+          "text": {
+            "ja": "後手は△４二角。こちらは▲８八玉です。玉が８八に入りました。金銀に守られた矢倉の玉が定位置に着きます。",
+            "en": "Gote plays △4二角. Sente plays ▲8八玉 and the king reaches 8h, its home square behind the gold and silver of the Yagura."
+          },
+          "marks": {
+            "last": "8h",
+            "boxes": [
+              "8h",
+              "7h",
+              "7g",
+              "6g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4a3a",
+            "2g2f"
+          ],
+          "text": {
+            "ja": "後手は△３一玉。こちらは▲２六歩です。飛車の前の歩を一つだけ進めます。２五は桂が跳ねるために空けたままにします。",
+            "en": "Gote plays △3一玉. Sente plays ▲2六歩, pushing the pawn in front of the rook only one square. 2e stays empty for the knight to jump to."
+          },
+          "marks": {
+            "last": "2f",
+            "boxes": [
+              "2e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3a2b"
+          ],
+          "text": {
+            "ja": "後手は△２二玉と入りました。これでお互いの矢倉囲いが完成です。矢倉では、囲いが仕上がるまで仕掛けを我慢し、玉の守りを整えてから攻めに入ります。",
+            "en": "Gote plays △2二玉 and both sides have finished their Yagura. In Yagura play you hold off the attack until the castles are done, and only then start fighting."
+          },
+          "marks": {
+            "last": "2b"
+          }
+        },
+        {
+          "moves": [
+            "3g3f"
+          ],
+          "text": {
+            "ja": "ここから攻めの形を作ります。▲３六銀。３七の銀を前へ進めて、３筋の歩の後ろから相手の陣を睨みます。",
+            "en": "Now the attacking shape is built. ▲3六銀 moves the silver on 3g forward, pointing at the enemy camp from behind the third-file pawn."
+          },
+          "marks": {
+            "last": "3f",
+            "boxes": [
+              "3f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6c6d",
+            "2i3g"
+          ],
+          "text": {
+            "ja": "後手は△６四歩。こちらは▲３七桂です。２九の桂を３七へ跳ねます。３六銀・３七桂の形が完成しました。飛車・角・銀・桂の四枚が後手玉の方を向き、次に▲２五桂と跳ねる狙いがあります。",
+            "en": "Gote plays △6四歩. Sente plays ▲3七桂, jumping the knight from 2i to 3g. The 3f silver and 3g knight shape is complete: rook, bishop, silver and knight all point toward Gote's king, and ▲2五桂 is the next idea."
+          },
+          "marks": {
+            "last": "3g",
+            "arrows": [
+              "3g2e"
+            ],
+            "boxes": [
+              "2e"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "覚えることは四つです。一、飛車先の歩は２六で止めて、２五を桂のために空けておく。二、▲３五歩の歩交換で、歩を一枚手持ちにして角を４六に引く。三、攻める前に、お互いの囲いを完成させる。四、銀は３六、桂は３七に置き、飛・角・銀・桂で攻める。",
+            "en": "Four things to remember. One: stop the rook pawn on 2f and keep 2e empty for the knight. Two: use the ▲3五歩 exchange to win a pawn in hand and retreat the bishop to 4f. Three: finish both castles before attacking. Four: place silver on 3f and knight on 3g and attack with rook, bishop, silver and knight."
+          },
+          "marks": {
+            "boxes": [
+              "2e",
+              "3f",
+              "3g"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "長所は、飛・角・銀・桂の四枚が連携して、２筋でも３筋でも攻められる幅があることです。短所は、▲３五歩の歩交換が決まらない形があること（ここは第４章で見ます）と、攻めの前に囲いを仕上げる手数がかかるため、速い攻めには間に合いにくいことです。次の章から２筋と３筋の攻めを見ていきます。",
+            "en": "Its strength is that four pieces cooperate and can attack on either the second or the third file. Its weaknesses are that the ▲3五歩 exchange does not always work (chapter 4 shows an example) and that finishing the castle first takes moves, so a fast attack may come too early to meet. The next chapters show the attacks on the second and third files."
+          },
+          "marks": {
+            "boxes": [
+              "3g"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "桂が狙う二枚と、その守りを読む",
-        "en": "Read Both Knight Targets and Their Defenders"
+        "ja": "２筋の攻め：継ぎ歩と銀のぶつけ",
+        "en": "Attacking on the 2nd file: the pawn chain and the silver clash"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "3b5/6gk1/4rgs2/7pp/9/P3PS3/2SG2NP1/1KGB3R1/9 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f",
+            "8c8d",
+            "7i6h",
+            "3c3d",
+            "6g6f",
+            "7a6b",
+            "5g5f",
+            "5c5d",
+            "3i4h",
+            "3a4b",
+            "4i5h",
+            "4a3b",
+            "6i7h",
+            "5a4a",
+            "5i6i",
+            "7c7d",
+            "5h6g",
+            "6a5b",
+            "6h7g",
+            "4b3c",
+            "8h7i",
+            "2b3a",
+            "3g3f",
+            "4c4d",
+            "4h3g",
+            "5b4c",
+            "3f3e",
+            "3d3e",
+            "7i3e",
+            "P*3d",
+            "3e4f",
+            "8a7c",
+            "6i7i",
+            "3a4b",
+            "7i8h",
+            "4a3a",
+            "2g2f",
+            "3a2b",
+            "3g3f",
+            "6c6d",
+            "2i3g"
+          ],
           "text": {
-            "ja": "後手飛車は５三、銀は３三です。先手桂３七が４五へ跳ぶと、次の利きは５三と３三へ届きます。４筋には桂を取る後手歩がない一方、３三の銀は金３二・４三に守られています。角６八の筋は銀７七と銀４六でふさがっており、飛車に利かせる先手の駒は跳ねた桂だけです。",
-            "en": "Gote's rook is on 5c and silver on 3c. A knight on 4e would attack both from 3g. There is no Gote pawn on the fourth file poised to take that landing square, but both golds cover the silver on 3c. The bishop on 6h is blocked by the silvers on 7g and 4f, so the knight is the only Sente piece that would attack the rook."
+            "ja": "３六銀・３七桂型の局面から、２筋で仕掛ける順を見ます。",
+            "en": "From the silver 3f, knight 3g shape, we look at how to break through on the 2nd file."
+          },
+          "marks": {
+            "boxes": [
+              "3f",
+              "3g"
+            ]
           }
         },
         {
-          "moves": ["3g4e"],
+          "moves": [
+            "8d8e",
+            "2f2e",
+            "6b6c",
+            "1g1f",
+            "9c9d",
+            "1f1e",
+            "9d9e"
+          ],
           "text": {
-            "ja": "桂が４五へ跳び、飛車５三と銀３三を同時に狙います。銀を取れば金が取り返せるため、二枚に利いたことと二枚を得られることは別です。",
-            "en": "The knight lands on 4e and attacks the rook on 5c and silver on 3c. Capturing the silver would permit a gold recapture, so two attacked pieces are not two free pieces."
+            "ja": "△８五歩、▲２五歩、△６三銀、▲１六歩、△９四歩、▲１五歩、△９五歩。仕掛ける前に端の歩を伸ばしておきます。端は矢倉の弱点なので、攻め始める前にこの一手を入れておくと、あとの攻めがよく効きます。",
+            "en": "△8五歩, ▲2五歩, △6三銀, ▲1六歩, △9四歩, ▲1五歩, △9五歩. Before the break Sente advances the edge pawns. The edge is a weak point of the Yagura, so spending this move first makes the later attack work much better."
+          },
+          "marks": {
+            "last": "9e",
+            "boxes": [
+              "1e",
+              "2e"
+            ]
           }
         },
         {
-          "moves": ["5c5b"],
+          "moves": [
+            "2e2d"
+          ],
           "text": {
-            "ja": "後手が飛車を５二へ引く例です。飛車は桂の利きから外れますが、３三の銀にはまだ桂が利いたままです。飛車の退路は一つとは限らないので、ほかの逃げ方も別に読みます。",
-            "en": "Gote chooses to retreat the rook to 5b. The rook leaves the knight's attack, but the knight on 4e still attacks the silver on 3c. The rook has other retreats, and each must be read separately."
+            "ja": "▲２四歩。これが２筋からの仕掛けです。後手は同歩と取る手と、同銀と取る手があり、まず同歩から見ます。",
+            "en": "▲2四歩 starts the break on the 2nd file. Gote can take with the pawn or with the silver; we look at the pawn capture first."
+          },
+          "marks": {
+            "last": "2d",
+            "arrows": [
+              "2e2d"
+            ],
+            "boxes": [
+              "2d"
+            ]
           }
         },
         {
-          "moves": ["4e3c+"],
+          "moves": [
+            "2c2d",
+            "P*2e"
+          ],
           "text": {
-            "ja": "残った狙いを実行し、桂で銀を取って成ります。成桂は玉２二への王手です。金や玉で取り返されても、桂一枚と銀一枚の交換で先手が駒得します。この局面の唯一の手ではなく、残った狙いを使う一例です。",
-            "en": "Sente carries out the remaining threat: the knight takes the silver and promotes, checking the king on 2b. Even if a gold or the king recaptures, trading a knight for a silver gains material. It is not the only move here, but one way to use the threat that was left."
+            "ja": "△同歩に▲２五歩と継ぎ歩で追い打ちをかけます。取らせて、また打つ。歩を続けて打ち込むこの手筋が継ぎ歩です。",
+            "en": "After △同歩 Sente drops another pawn with ▲2五歩. Giving a pawn and then dropping one again, this repeated pawn drop is the technique called tsugi-fu."
+          },
+          "marks": {
+            "last": "2e",
+            "boxes": [
+              "2e"
+            ]
           }
         },
         {
-          "moves": ["4c3c"],
+          "moves": [
+            "2d2e",
+            "3g2e",
+            "3c2d",
+            "P*3c"
+          ],
           "text": {
-            "ja": "後手が金４三で取り返した例です。先手は銀、後手は桂を持ち駒にしました。取り返さずに玉が逃げると、成桂が金３二を取れます。",
-            "en": "In this sample reply Gote recaptures with the gold from 4c. Sente now holds a silver in hand and Gote a knight. If the king steps away instead of recapturing, the promoted knight can take the gold on 3b."
+            "ja": "△同歩、▲同桂、△２四銀、▲３三歩。桂が２五に跳ねたあと、銀を押しのけて▲３三歩と打つのが矢倉の急所です。これで先手が優勢になります。",
+            "en": "△同歩, ▲同桂, △2四銀, ▲3三歩. Once the knight has jumped to 2e and pushed the silver aside, the drop ▲3三歩 hits the key point of the Yagura and Sente is better."
+          },
+          "marks": {
+            "last": "3c",
+            "boxes": [
+              "3c",
+              "2e"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 2,
+          "moves": [
+            "3c2d",
+            "3f2e"
+          ],
+          "text": {
+            "ja": "△同銀と取られたら、こちらも▲２五銀と銀をぶつけます。後手は同銀と取る手と、△３五銀とかわす手があります。",
+            "en": "If Gote takes with the silver, answer by pushing your own silver forward with ▲2五銀. Gote can then take on 2e or sidestep with △3五銀."
+          },
+          "steps": [
+            {
+              "moves": [
+                "2d2e",
+                "3g2e",
+                "4d4e",
+                "4f6h",
+                "6d6e",
+                "P*3c"
+              ],
+              "text": {
+                "ja": "△同銀、▲同桂、△４五歩、▲６八角、△６五歩、▲３三歩。同じように桂が２五に跳ね、▲３三歩が厳しく響きます。後手の反撃は間に合いません。",
+                "en": "△同銀, ▲同桂, △4五歩, ▲6八角, △6五歩, ▲3三歩. The knight again lands on 2e and the drop ▲3三歩 bites hard. Gote's counterattack arrives too late."
+              },
+              "marks": {
+                "last": "3c",
+                "boxes": [
+                  "3c",
+                  "2e"
+                ]
+              }
+            },
+            {
+              "moves": [
+                "2a3c",
+                "2e1c+",
+                "1a1c",
+                "1e1d"
+              ],
+              "text": {
+                "ja": "ここで△同桂なら、▲１三桂成、△同香、▲１四歩と端を破って先手が良くなります。端の歩を突いておいた効果です。",
+                "en": "If Gote takes with △同桂 here, ▲1三桂成, △同香, ▲1四歩 breaks the edge and Sente is better. This is the payoff of having advanced the edge pawn."
+              },
+              "marks": {
+                "last": "1d",
+                "boxes": [
+                  "1d"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "from": 2,
+          "moves": [
+            "3c2d",
+            "3f2e",
+            "2d3e",
+            "4f3e",
+            "3d3e",
+            "S*3d"
+          ],
+          "text": {
+            "ja": "△３五銀とかわされたら、思い切って角を切ります。▲同角、△同歩、▲３四銀と打ち込み、あとは攻めを切らさないように続けます。",
+            "en": "If Gote sidesteps with △3五銀, Sente sacrifices the bishop: ▲同角, △同歩, ▲3四銀. From here the key is not to let the attack run out of steam."
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "５筋の歩交換の後、歩打ちの当たりを受ける",
-        "en": "Meet the Pawn-Drop Reply After a Fifth-File Exchange"
+        "ja": "３筋の攻め：飛車を回って▲３三歩",
+        "en": "Attacking on the 3rd file: the rook swings over and ▲3三歩"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "3b5/1r4gk1/5gs1p/1p2p4/9/P3PS3/B1SG2NP1/1KG4R1/9 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f",
+            "8c8d",
+            "7i6h",
+            "3c3d",
+            "6g6f",
+            "7a6b",
+            "5g5f",
+            "5c5d",
+            "3i4h",
+            "3a4b",
+            "4i5h",
+            "4a3b",
+            "6i7h",
+            "5a4a",
+            "5i6i",
+            "7c7d",
+            "5h6g",
+            "6a5b",
+            "6h7g",
+            "4b3c",
+            "8h7i",
+            "2b3a",
+            "3g3f",
+            "4c4d",
+            "4h3g",
+            "5b4c",
+            "3f3e",
+            "3d3e",
+            "7i3e",
+            "P*3d",
+            "3e4f",
+            "8a7c",
+            "6i7i",
+            "3a4b",
+            "7i8h",
+            "4a3a",
+            "2g2f",
+            "3a2b",
+            "3g3f",
+            "6c6d",
+            "2i3g"
+          ],
           "text": {
-            "ja": "先手は銀４六・桂３七、歩５六。後手の歩は５四で向かい合っています。銀を５五へ出せるように見えても、先に歩がどう動くか、交換後に歩を打たれたら銀がどこへ下がれるかを確かめます。",
-            "en": "Sente has silver 4f, knight 3g, and pawn 5f opposite Gote's pawn on 5d. Before using 5e as a silver post, calculate the pawn exchange and where the silver can retreat if Gote drops a pawn after it."
+            "ja": "同じ局面に戻り、攻め筋を３筋に変えます。矢倉を崩すときの土台になる筋なので、流れごと頭に入れておきたいところです。",
+            "en": "Now we start from the same position and attack on the 3rd file. It is a basic way of breaking a Yagura, so it is worth learning well."
+          },
+          "marks": {
+            "boxes": [
+              "3f",
+              "3g"
+            ]
           }
         },
         {
-          "moves": ["5f5e"],
+          "moves": [
+            "6b6c",
+            "1g1f",
+            "8d8e",
+            "1f1e",
+            "9c9d",
+            "2h3h"
+          ],
           "text": {
-            "ja": "歩を５五へ進め、５四の後手歩に接触します。銀４六は５五を守っていますが、後手が歩を取るかどうかは選択です。",
-            "en": "The pawn advances to 5e and contacts Gote's pawn on 5d. Sente's silver protects 5e, but Gote can choose whether to capture."
+            "ja": "△６三銀、▲１六歩、△８五歩、▲１五歩、△９四歩、▲３八飛。ここでも端歩を先に伸ばし、その後で飛車を３筋へ回ります。飛車の前に駒が並んで窮屈そうですが、これで準備は整いました。",
+            "en": "△6三銀, ▲1六歩, △8五歩, ▲1五歩, △9四歩, ▲3八飛. The edge pawn comes first again, and then the rook shifts to the 3rd file. The rook looks cramped behind its own pieces, but the preparation is complete."
+          },
+          "marks": {
+            "last": "3h",
+            "arrows": [
+              "2h3h"
+            ],
+            "boxes": [
+              "3h"
+            ]
           }
         },
         {
-          "moves": ["5d5e"],
+          "moves": [
+            "9d9e",
+            "3g2e",
+            "3c2d",
+            "P*3c"
+          ],
           "text": {
-            "ja": "後手が歩を取った例です。これで先手は歩一枚を失い、後手も５五へ歩を出しました。次の銀取りで交換を完了できます。",
-            "en": "In this sample reply, Gote captures the pawn. Sente has lost a pawn and Gote's pawn now occupies 5e, where the silver can complete the exchange."
+            "ja": "△９五歩、▲２五桂、△２四銀、▲３三歩。桂が２五へ跳ねて、銀が逃げたところで▲３三歩。これで攻めが成立します。同銀や同金と取れば▲同桂で駒得です。",
+            "en": "△9五歩, ▲2五桂, △2四銀, ▲3三歩. The knight jumps to 2e, the silver steps aside, and ▲3三歩 makes the attack work. If Gote takes with silver or gold, ▲同桂 wins material."
+          },
+          "marks": {
+            "last": "3c",
+            "boxes": [
+              "3c",
+              "2e"
+            ]
           }
         },
         {
-          "moves": ["4f5e"],
+          "moves": [
+            "2a3c",
+            "2e1c+",
+            "2d1c",
+            "1e1d"
+          ],
           "text": {
-            "ja": "銀が５五の歩を取り、双方が歩一枚ずつを持ちます。先手銀が前へ出ても、これだけで後手の金銀を取れるわけではありません。",
-            "en": "The silver captures on 5e. Each side has gained one pawn in hand. The advanced silver has a post, but it has not won a defender or proved an attack by itself."
+            "ja": "△３三桂、▲１三桂成、△同銀、▲１四歩。桂を端に成り込めば、後手の囲いは端から崩れます。この時点で先手が良くなっています。",
+            "en": "△3三桂, ▲1三桂成, △同銀, ▲1四歩. Once the knight promotes on the edge, Gote's castle crumbles from the side, and Sente is already better."
+          },
+          "marks": {
+            "last": "1d",
+            "boxes": [
+              "1d"
+            ]
           }
         },
         {
-          "moves": ["P*5d"],
+          "moves": [
+            "1c2d",
+            "2f2e",
+            "3c2e",
+            "1d1c+",
+            "1a1c",
+            "1i1c+"
+          ],
           "text": {
-            "ja": "後手が交換で得た歩を５四に打ち、銀５五に当てる例です。５四の歩には金４三が利いているので、銀で取ると金に取り返され、銀を歩と交換することになります。",
-            "en": "In this sample reply, Gote drops the pawn gained in the exchange on 5d, attacking the silver on 5e. The gold on 4c protects that pawn, so capturing it with the silver would let the gold recapture, giving up the silver for a pawn."
-          }
-        },
-        {
-          "moves": ["5e4f"],
-          "text": {
-            "ja": "銀を４六へ戻し、持ち歩を残したまま当たりを避けます。６六へ引く手もあり、退路は一つではありません。５筋の歩交換は一段落しましたが、歩交換だけを成功判定にしません。",
-            "en": "The silver retreats to 4f, avoiding the attack while keeping the pawn in hand. Retreating to 6f is also possible, so this is not the only escape. The fifth-file exchange is settled, but a pawn exchange alone is not a success verdict."
-          }
-        }
-      ]
-    },
-    {
-      "title": {
-        "ja": "攻める前に自玉側の端を数える",
-        "en": "Count the Edge Beside Your King Before Attacking"
-      },
-      "side": "sente",
-      "kind": "position",
-      "start": "3b5/r5gk1/5gs1p/p3p4/9/P8/B1SG2SP1/1KG4R1/7N1 b - 1",
-      "steps": [
-        {
-          "text": {
-            "ja": "先手の攻め銀は３七、後手は飛車９二と歩９四を先手玉側の端へ向けています。歩９六の後ろに飛車へ対抗する駒がなく、角９七は８六へ出れば９五を守れます。攻め銀を動かす一手の前に、９筋の取り手を数えます。",
-            "en": "Sente's attacking silver is on 3g, but Gote has a rook on 9b behind the pawn on 9d, aimed at the edge beside Sente's king. The bishop on 9g can move to 8f and then protect 9e. Count that recapture before spending a move on the distant attacking silver."
-          }
-        },
-        {
-          "moves": ["9g8f"],
-          "text": {
-            "ja": "角を８六へ出すと９五に利きます。９筋の歩をすぐ進めるのではなく、飛車が出た後に取る駒を先に用意する手です。",
-            "en": "The bishop moves to 8f and controls 9e. Sente prepares the piece that could recapture a rook on the edge before advancing the pawn."
-          }
-        },
-        {
-          "moves": ["9d9e"],
-          "text": {
-            "ja": "後手が歩を９五へ寄せた例です。飛車９二から９五の間は、歩が動いたことで空きます。",
-            "en": "Gote advances the pawn to 9e in this sample line. Its move clears the rook's route from 9b toward that square."
-          }
-        },
-        {
-          "moves": ["9f9e"],
-          "text": {
-            "ja": "先手歩が９五の歩を取ります。角８六は９五を守りますが、後手飛車が歩を取るかはまだ決まっていません。",
-            "en": "Sente's pawn captures on 9e, now protected by the bishop on 8f. Gote is not obliged to take the pawn with the rook."
-          }
-        },
-        {
-          "moves": ["9b9e"],
-          "text": {
-            "ja": "後手が飛車で歩を取ることを選んだ場合です。９三・９四は空いていますが、９五の飛車には角の利きがあります。",
-            "en": "If Gote chooses the rook capture, 9c and 9d are clear, but the rook on 9e is on the bishop's diagonal."
-          }
-        },
-        {
-          "moves": ["8f9e"],
-          "text": {
-            "ja": "角が飛車を取り返します。後手が飛車を出さなければ別の戦いになりますが、攻め銀を急いだ場合とは端の歩交換後の取り手が異なります。",
-            "en": "The bishop captures the rook. If Gote declines that capture, play continues differently; the point is that Sente changed the edge's recapture order before launching the silver attack."
+            "ja": "続いて△２四銀、▲２五歩、△同桂、▲１三歩成、△同香、▲同香成。歩をわざと取らせて桂を２五へ引き寄せ、そのあと端で香を使って成香を作ります。最後の成香を玉や銀で取り返しても、▲２五銀と出れば桂が助かりません。",
+            "en": "△2四銀, ▲2五歩, △同桂, ▲1三歩成, △同香, ▲同香成. Sente lets the pawn be taken, then attacks the edge and finishes by capturing with the lance to make a promoted lance. Whether Gote retakes with the king or the silver, ▲2五銀 wins the knight."
+          },
+          "marks": {
+            "last": "1c",
+            "boxes": [
+              "1c"
+            ]
           }
         }
       ],
       "variations": [
         {
           "from": 0,
-          "moves": ["3g4f", "9d9e", "9f9e", "9b9e"],
+          "moves": [
+            "6b6c",
+            "1g1f",
+            "8d8e",
+            "2h3h",
+            "1c1d",
+            "3g2e",
+            "3c2d"
+          ],
           "text": {
-            "ja": "銀を先に４六へ出し、後手が同じ９筋の応酬を選ぶと、角９七は飛車９五をその場で取れません。角を８六へ出せば次に飛車を狙えますが、後手にも退く一手があります。端の準備に使う一手の価値を比較します。",
-            "en": "If Sente moves the silver to 4f first and Gote chooses the same edge exchange, the bishop on 9g cannot capture the rook on 9e immediately. Moving it to 8f would threaten the rook on a later turn, giving Gote time to retreat. This is the cost of spending the preparatory tempo on the distant silver."
+            "ja": "後手も端歩を突いていると、▲２五桂から▲３三歩の筋は成立しません。▲１三桂成としても歩が取れないからです。この場合は端の突き方で攻め方が変わります。",
+            "en": "If Gote has also pushed the edge pawn, the ▲2五桂 and ▲3三歩 idea no longer works, because ▲1三桂成 cannot take a pawn. The way the edge pawns stand changes the whole attack."
+          },
+          "steps": [
+            {
+              "moves": [
+                "1f1e",
+                "1d1e",
+                "P*1c"
+              ],
+              "text": {
+                "ja": "▲１五歩、△同歩、▲１三歩。歩を取らせてから、３段目へ手持ちの歩を打ち込みます。これが端攻めの基本の手筋です。",
+                "en": "▲1五歩, △同歩, ▲1三歩. Let the pawn be taken, then drop a pawn on the third rank. This is the basic edge-attack technique."
+              },
+              "marks": {
+                "last": "1c",
+                "boxes": [
+                  "1c"
+                ]
+              }
+            },
+            {
+              "moves": [
+                "1a1c",
+                "2e1c",
+                "2d1c",
+                "3f2e"
+              ],
+              "text": {
+                "ja": "香で取られたら桂で取り返し、銀に取られたら▲３五銀と進めます。これで３筋への圧力も増していきます。端歩の突き方ひとつで狙う筋が入れ替わる点が、相矢倉の奥深さです。",
+                "en": "△同香, ▲同桂, △同銀, ▲3五銀 and the 3rd-file attack also becomes sharp. How the edge pawns stand changes the plan so much, which is the charm of Ai-Yagura."
+              },
+              "marks": {
+                "last": "2e",
+                "boxes": [
+                  "2e"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "３六銀型が組めない場合：４六銀型",
+        "en": "When the 3f silver cannot be built: the 4f silver form"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "8c8d",
+            "7i6h",
+            "3c3d",
+            "6g6f",
+            "7a6b",
+            "5g5f",
+            "5c5d",
+            "3i4h",
+            "3a4b",
+            "4i5h",
+            "4a3b",
+            "6i7h",
+            "5a4a",
+            "5i6i",
+            "7c7d",
+            "5h6g",
+            "6a5b",
+            "6h7g",
+            "4b3c",
+            "8h7i",
+            "2b3a",
+            "3g3f",
+            "4c4d"
+          ],
+          "text": {
+            "ja": "矢倉24手組の局面に戻ります。後手が△６四角と出てきたら、同じように３六銀の形を目指すとどうなるでしょうか。",
+            "en": "Back to the 24-move formation. What happens if Gote comes out with △6四角 and Sente still tries for the silver on 3f?"
+          },
+          "marks": {
+            "boxes": [
+              "4h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4h3g",
+            "3a6d"
+          ],
+          "text": {
+            "ja": "△４四歩、▲３七銀、△６四角。後手が角を前に出して、飛車先を狙ってきました。",
+            "en": "△4四歩, ▲3七銀, △6四角. Gote puts the bishop forward and aims at the rook's file."
+          },
+          "marks": {
+            "last": "6d",
+            "arrows": [
+              "6d3g"
+            ],
+            "boxes": [
+              "6d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3f3e",
+            "3d3e",
+            "7i3e",
+            "P*3f"
+          ],
+          "text": {
+            "ja": "先ほどと同じ▲３五歩、△同歩、▲同角で歩を交換すると、△３六歩と打たれて失敗です。飛車が狙われ、▲４六銀と逃げても△４五歩で追われます。",
+            "en": "Playing the same ▲3五歩, △同歩, ▲同角 now fails to △3六歩. The rook is attacked, and even ▲4六銀 runs into △4五歩."
+          },
+          "marks": {
+            "last": "3f",
+            "boxes": [
+              "3f"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": [
+            "7i6h",
+            "5b4c",
+            "6i7i",
+            "4a3a",
+            "7i8h",
+            "3a2b",
+            "3g4f",
+            "6b5c",
+            "2i3g"
+          ],
+          "text": {
+            "ja": "３六銀に組めないときは、▲６八角から囲いを整え、銀を４六、桂を３七へ進める４六銀・３七桂型を目指します。プロの将棋にも出る形で、相矢倉の基本形といえます。ここからの攻め方も、飛車を３筋へ回り端歩を詰めるという基本は同じです。",
+            "en": "When the silver cannot go to 3f, Sente builds with ▲6八角 and heads for the silver on 4f and knight on 3g. It appears in professional games and is a basic Ai-Yagura form. The plan from here is the same: swing the rook to the 3rd file and advance the edge pawns."
           }
         }
       ]

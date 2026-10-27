@@ -1,23 +1,26 @@
 {
   "id": "handicap-2",
   "order": 1460,
-  "path": ["戦法・定跡", "駒落ち"],
+  "path": [
+    "戦法・定跡",
+    "駒落ち"
+  ],
   "title": {
-    "ja": "二枚落ち：位を支える駒を数える",
-    "en": "Two-Piece Handicap: Count the Support behind an Outpost"
+    "ja": "二枚落ち：位を取って二つの定跡へ",
+    "en": "Two-Piece Handicap: take space and head into two main lines"
   },
   "intro": {
-    "ja": "二枚落ちでは上手が飛車と角を外し、香・桂・銀・金は残す。上手が先に指す。下手の歩が五段目に達しただけでは攻めは完成しない。銀がその歩を守れる升と、上手が銀や桂をどこへ動かせるかを一緒に読む。",
-    "en": "In a two-piece handicap, Gote removes the rook and bishop but keeps the lances, knights, silvers and golds. Gote moves first. A Sente pawn on the fifth rank is useful only in context: locate its silver support and the defender's silver and knight routes."
+    "ja": "二枚落ちで下手を持ち、四筋と三筋の位を取る序盤を覚えます。そこから攻めを重視する二歩突き切り定跡と、守りを重視する銀多伝定跡へ分かれる様子を、初期配置から順に確認します。",
+    "en": "Play the weaker side in the two-piece handicap and learn the opening of taking space on the fourth and third files. From the starting position, see how it splits into the attack-minded Two Pawns Pushed Through line and the defence-minded Silver Tower line."
   },
   "check": {
     "question": {
-      "ja": "第二章で上手の３三桂が４五の歩を取ったとき、下手の銀はどこから取り返せるか。銀を４七へ戻していた場合はどう違うか。",
-      "en": "In chapter two, when N3c takes P4e, where can Sente's silver recapture from? What changes if that silver has retreated to 4g?"
+      "ja": "二枚落ちの序盤で、すぐ▲４五歩と位を取るのはなぜですか？",
+      "en": "Why does Sente take space at once with ▲4五歩 in the two-piece handicap?"
     },
     "answer": {
-      "ja": "５六銀なら▲４五銀で桂を取れる。銀を４七へ戻すと４五には利かず、同じ桂取りにはならない。位の価値は支えの配置で変わる。",
-      "en": "From 5f, S4e captures the knight. A silver on 4g does not protect 4e, so the same knight capture has no immediate silver recapture. The outpost depends on its supporting piece."
+      "ja": "上手に△４四歩と突かせないためです。突かれると下手の角の斜めが４四で止まって使いにくくなり、上手に角がない二枚落ちでは下手が損をします。",
+      "en": "To stop Gote from playing △4四歩. That would block the bishop's diagonal at 4d, and since Gote has no bishop in the two-piece handicap, Sente would simply lose out."
     }
   },
   "references": [
@@ -31,116 +34,386 @@
   "chapters": [
     {
       "title": {
-        "ja": "三筋の歩を銀で支える",
-        "en": "A Silver behind the Third-File Pawn"
+        "ja": "入門：初手から位を取る形まで",
+        "en": "Tutorial: from move one to taking space"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "lnsg1g1nl/3k1s3/pp3pppp/2ppp4/9/5PP2/PPPPPS1PP/1B5R1/LNSGKG1NL b - 1",
+      "kind": "opening",
+      "start": "lnsgkgsnl/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1",
       "steps": [
         {
           "text": {
-            "ja": "上手は初手に玉を６二へ動かし、飛車と角はないが２一桂・４二銀を残す。下手の３六歩と４七銀には、三筋の歩を伸ばした後に銀を３六へ進める道がある。４六歩があるので、銀の４六への直進はふさがれている。",
-            "en": "Gote's first move was K5a–6b. Although its rook and bishop are absent, N2a and S4b remain. Sente has P3f and S4g; after advancing the pawn, the silver can move diagonally to 3f. Sente's own P4f blocks a straight silver move to 4f."
+            "ja": "二枚落ちは、上手が飛車と角を外して戦う駒落ちです。上手には攻める大駒がありませんが、守りの陣形はしっかり組んでくるので、下手には正確な攻めが求められます。この入門では、下手が４筋と３筋で「位」を取る序盤を、初手から一手ずつ作ります。位を取るとは、歩を五段目まで進めて、そこに足場を作ることです。駒落ちでは上手が先に指します。",
+            "en": "In the two-piece handicap Gote plays without rook and bishop. Gote has no big attacking pieces but builds a solid defence, so Sente must attack accurately. This tutorial builds the opening of taking space on the fourth and third files one move at a time from move one. Taking space means advancing a pawn to the fifth rank to gain a foothold there. In a handicap game Gote moves first."
           },
-          "marks": { "boxes": ["3f", "4g", "4f", "4b", "2a"] }
+          "marks": {
+            "boxes": [
+              "4e",
+              "3e"
+            ]
+          }
         },
         {
-          "moves": ["3f3e", "3c3d", "4g3f"],
+          "moves": [
+            "7a6b",
+            "7g7f"
+          ],
           "text": {
-            "ja": "▲３五歩に△３四歩と向かい合った一例。▲３六銀と出れば３五の歩を銀が支える。上手は３五歩を取る義務はなく、４二銀を３三へ出す選択も残る。",
-            "en": "In this sample, P3e meets Gote's P3d. S3f now protects the pawn on 3e. Gote need not capture that pawn; S4b–3c is another available way to contest the next advance."
+            "ja": "上手は△６二銀と銀を動かしました。下手の最初の一手は▲７六歩です。７七の歩を突くと、８八の角の斜めが開きます。角は二枚落ちの下手の主力の大駒なので、まず使える形にします。",
+            "en": "Gote moves a silver with △6二銀. Your first move is ▲7六歩. Pushing the 7g pawn opens the diagonal of the bishop on 8h. The bishop is your main big piece in this game, so you make it usable first."
           },
-          "marks": { "arrows": ["4g3f"], "boxes": ["3e", "3d", "4b"] }
+          "marks": {
+            "last": "7f",
+            "arrows": [
+              "8h3c"
+            ]
+          }
         },
         {
-          "moves": ["3d3e", "3f3e"],
+          "moves": [
+            "5c5d",
+            "4g4f"
+          ],
           "text": {
-            "ja": "△３五歩と取るなら▲同銀で歩を取り返す。双方の三筋歩は交換され、下手の銀が３五へ出る。歩を支える銀を用意した効果であり、銀の進出だけで突破が決まったわけではない。",
-            "en": "If Gote chooses P3e to capture the outpost, S3e recaptures. Both third-file pawns are exchanged and Sente's silver reaches 3e. This is a supported recapture, not a forced breakthrough."
+            "ja": "上手は△５四歩。下手は▲４六歩と、４筋の歩を突きます。この歩をもう一つ進めて、４筋の位を取る準備です。",
+            "en": "Gote plays △5四歩. You push the fourth-file pawn with ▲4六歩. It will go one step further to take the space on the fourth file."
           },
-          "marks": { "arrows": ["3f3e"], "last": "3e" }
+          "marks": {
+            "last": "4f"
+          }
+        },
+        {
+          "moves": [
+            "6b5c",
+            "4f4e"
+          ],
+          "text": {
+            "ja": "上手は△５三銀。下手は▲４五歩と突いて、４筋の位を取ります。ここで位を取るのは、上手に△４四歩と突かせないためです。△４四歩と突かれると、角の斜めが４四で止まって使いにくくなります。上手には角がないので、下手だけが損をします。",
+            "en": "Gote plays △5三銀. You push ▲4五歩 and take space on the fourth file. You do it now to stop Gote from playing △4四歩. That pawn would block the bishop's diagonal at 4d and make it hard to use, and since Gote has no bishop, only Sente would be hurt."
+          },
+          "marks": {
+            "last": "4e",
+            "boxes": [
+              "4d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5a5b",
+            "3g3f"
+          ],
+          "text": {
+            "ja": "上手は△５二玉と玉を動かします。下手は▲３六歩と、３筋の歩も伸ばします。この手は、将来▲３四歩△同歩▲１一角成と、角の斜めを使って攻める狙いも見せています。",
+            "en": "Gote moves the king with △5二玉. You push the third-file pawn with ▲3六歩. It also hints at a later ▲3四歩 △同歩 ▲1一角成, using the bishop's diagonal to attack."
+          },
+          "marks": {
+            "last": "3f",
+            "arrows": [
+              "8h3c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4a3b",
+            "3i4h"
+          ],
+          "text": {
+            "ja": "上手は△３二金と囲いを整えます。下手は▲４八銀と、右の銀を上げます。前に出した歩を、銀で後ろから支えるための準備です。",
+            "en": "Gote tidies the castle with △3二金. You lift the right silver with ▲4八銀, preparing to support the advanced pawns from behind."
+          },
+          "marks": {
+            "last": "4h"
+          }
+        },
+        {
+          "moves": [
+            "6c6d",
+            "4h4g"
+          ],
+          "text": {
+            "ja": "上手は△６四歩。下手は▲４七銀と銀をもう一つ進めます。４五の歩が上手に狙われても、▲４六銀とひもを付けられます。位を取ったあとに銀を寄せて歩を守る形は、いろいろな戦型に出てきます。",
+            "en": "Gote plays △6四歩. You advance the silver again with ▲4七銀. If the pawn on 4e is attacked, the silver can tie to it with ▲4六銀. Taking space and then bringing a silver up to guard the pawn appears in many openings."
+          },
+          "marks": {
+            "last": "4g",
+            "arrows": [
+              "4g4f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5b6c",
+            "3f3e"
+          ],
+          "text": {
+            "ja": "上手は△６三玉と動きました。下手は▲３五歩と、３筋の位も取ります。この形から、攻めを重視する二歩突き切りか、守りを重視する銀多伝かに進みます。",
+            "en": "Gote moves the king with △6三玉. You push ▲3五歩 and take space on the third file as well. From here the game goes either to the attack-minded Two Pawns Pushed Through or to the defence-minded Silver Tower."
+          },
+          "marks": {
+            "last": "3e",
+            "boxes": [
+              "3e",
+              "4e"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "覚えるポイントです。一つ、▲７六歩で角の道を開けたら、すぐ４筋の歩を▲４五歩まで進めて位を取る。二つ、続けて３筋の歩を▲３五まで進め、二つの位を取る。三つ、銀を４八、４七へ上げて、位の歩を支える。次の章で、ここから分かれる二つの定跡を見ます。",
+            "en": "Points to remember. One: after opening the bishop with ▲7六歩, push the fourth-file pawn at once up to ▲4五歩 to take space. Two: push the third-file pawn to 3e as well, so you hold two spaces. Three: bring the silver up to 4h and 4g to support the advanced pawns. The next chapters show the two main lines that branch from here."
+          },
+          "marks": {
+            "boxes": [
+              "3e",
+              "4e",
+              "4g"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "下手が気をつけることです。位を取るのが遅れて上手に△４四歩と突かれると、下手の角の斜めが止まって攻めにくくなります。位を取った歩は相手に狙われやすいので、銀でひもを付けて取られないようにします。上手に大駒がなくても、歩や駒をただで取られないことが、二枚落ちの基本です。",
+            "en": "What the weaker side must remember. If you are late to take space and Gote plays △4四歩, the bishop's diagonal is blocked and attacking gets harder. The advanced pawns are easy targets, so tie a silver to them so they cannot be won. Even without big pieces on Gote's side, never giving away pawns and pieces for nothing is the basis of the two-piece game."
+          },
+          "marks": {
+            "boxes": [
+              "4d"
+            ]
+          }
         }
       ],
       "variations": [
         {
-          "from": 1,
-          "moves": ["4b3c", "3e3d", "3c3d"],
+          "from": 0,
+          "moves": [
+            "7a6b",
+            "7g7f",
+            "5c5d",
+            "2g2f",
+            "6b5c",
+            "2f2e",
+            "4c4d",
+            "3i3h",
+            "4a3b"
+          ],
           "text": {
-            "ja": "上手が先に△３三銀と出れば、▲３四歩で上手の歩を取っても△同銀で下手の歩を取られる。３六銀は３五を守るが３四を守らない。進む先まで同じ銀が支えるとは考えない。",
-            "en": "If Gote develops S3c instead, P3d takes Gote's pawn but S3d captures Sente's pawn. S3f protects 3e, not 3d. The supporting silver does not automatically cover the next square."
+            "ja": "もし４筋の位を取らずに他の手を指すと、上手が△４四歩と突いてきます。すると下手の角の利きが４四で止まって、攻めに使いにくくなります。上手が少し良くなる形です。",
+            "en": "If Sente does not take space on the fourth file and plays elsewhere, Gote pushes △4四歩. That stops the bishop's diagonal at 4d and makes it hard to use, so Gote gets the slightly better game."
+          },
+          "marks": {
+            "last": "4d",
+            "boxes": [
+              "4d"
+            ]
+          },
+          "steps": []
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "二歩突き切り定跡：三筋を集中して攻める",
+        "en": "Two Pawns Pushed Through: concentrate on the third file"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "lnsgkgsnl/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1",
+      "steps": [
+        {
+          "moves": [
+            "7a6b",
+            "7g7f",
+            "5c5d",
+            "4g4f",
+            "6b5c",
+            "4f4e",
+            "5a5b",
+            "3g3f",
+            "4a3b",
+            "3i4h",
+            "6c6d",
+            "4h4g",
+            "5b6c",
+            "3f3e"
+          ],
+          "text": {
+            "ja": "４筋と３筋の位を取り終えた局面です。ここから、攻めを重視する二歩突き切り定跡に進みます。上手の動きは細かく覚えなくてかまいません。",
+            "en": "The position after taking space on both files. From here the attack-minded Two Pawns Pushed Through line begins. You do not need to memorise Gote's individual moves."
+          },
+          "marks": {
+            "boxes": [
+              "3e",
+              "4e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7c7d",
+            "2h3h",
+            "8c8d",
+            "3h3f",
+            "9c9d",
+            "2i3g"
+          ],
+          "text": {
+            "ja": "下手は飛車を▲３八、▲３六と３筋へ回し、さらに２九の桂を▲３七へ跳ねます。飛車と桂が３筋に並び、３五・４五の二つの歩が前に出た形ができました。三筋を集中して攻めていく、攻め主体の陣形です。攻めたい人におすすめの定跡です。",
+            "en": "Sente swings the rook to the third file with ▲3八 and ▲3六 and jumps the knight from 2i to 3g. Rook and knight line up on the third file behind the two advanced pawns on 3e and 4e. This attack-oriented formation concentrates on the third file and suits players who like to attack."
+          },
+          "marks": {
+            "last": "3g",
+            "arrows": [
+              "3f3e",
+              "3g4e"
+            ],
+            "boxes": [
+              "3f",
+              "3g"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "四筋の位と桂の跳び先",
-        "en": "A Fourth-File Outpost under Knight Pressure"
+        "ja": "銀多伝定跡：銀を縦に並べて囲う",
+        "en": "Silver Tower: stack the silvers and castle"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "lnsg1g2l/3k1s3/pp3pnpp/2ppp1p2/5P3/4S4/PPPPP1PPP/1B5R1/LNSGKG1NL b - 1",
+      "kind": "opening",
+      "start": "lnsgkgsnl/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1",
       "steps": [
         {
+          "moves": [
+            "7a6b",
+            "7g7f",
+            "5c5d",
+            "4g4f",
+            "6b5c",
+            "4f4e",
+            "5a5b",
+            "3g3f",
+            "4a3b",
+            "3i4h",
+            "6c6d",
+            "4h4g",
+            "5b6c",
+            "3f3e"
+          ],
           "text": {
-            "ja": "下手は４五歩を置き、５六銀が４五を守る。一方、上手の３三桂は４五へ跳べる。上手の桂が歩を取っても、５六銀が残れば桂の取り返しを考えられる。",
-            "en": "Sente's P4e is protected by S5f. Gote's N3c can jump to 4e. A knight capture of the pawn is therefore different depending on whether S5f stays in place."
+            "ja": "同じ局面から、今度は守りを重視する銀多伝定跡に進みます。二枚の銀を縦に並べながら、じっくり囲って少しずつ得点を稼ぐ戦い方です。",
+            "en": "From the same position, now the defence-minded Silver Tower line. Two silvers are stacked on the fourth file while Sente castles patiently and picks up small gains."
           },
-          "marks": { "boxes": ["4e", "5f", "3c"] }
+          "marks": {
+            "boxes": [
+              "4g"
+            ]
+          }
         },
         {
-          "moves": ["3g3f", "3c4e", "5f4e"],
+          "moves": [
+            "7c7d",
+            "5g5f",
+            "8c8d",
+            "2h5h"
+          ],
           "text": {
-            "ja": "▲３六歩と別の筋を整えた間に、上手が△４五桂で歩を取る一例。▲同銀で桂を取れば、下手は歩を失う代わりに桂を得る。この応酬を避けて桂を別の升へ使う選択も上手にはある。",
-            "en": "After Sente prepares P3f, one illustrative Gote choice is N4e×P. S4e×N immediately recaptures. Sente gives a pawn and takes a knight in this line; Gote can choose another knight plan."
+            "ja": "まず▲５六歩と突き、飛車を▲５八へ回します。５筋に歩を出すのは、あとで銀が通る道を作るためです。上手は細かい動きに構わず、下手の形に注目しましょう。",
+            "en": "First ▲5六歩 and the rook goes to 5h. The pawn on 5f makes a path for the silver to come through later. Do not worry about Gote's moves and watch Sente's shape."
           },
-          "marks": { "arrows": ["5f4e"], "last": "4e" }
-        }
-      ],
-      "variations": [
+          "marks": {
+            "last": "5h",
+            "arrows": [
+              "5h5f"
+            ]
+          }
+        },
         {
-          "from": 0,
-          "moves": ["5f4g", "3c4e"],
+          "moves": [
+            "9c9d",
+            "7i6h",
+            "1c1d",
+            "6h5g",
+            "2c2d",
+            "5g4f"
+          ],
           "text": {
-            "ja": "５六銀を４七へ戻した直後なら△４五桂が歩を取る。４七銀は４五へ利かないため、前の取り返しは使えない。銀を引く必要がある局面では、四筋の位を同じ形で保てると決めつけない。",
-            "en": "If Sente retreats S4g, N4e captures the pawn without the prior S5f×4e reply. A retreat can be reasonable for other threats, but it changes the outpost's defender count."
+            "ja": "７九の銀を▲６八、▲５七と進め、さらに４六へ出します。これで４六と４七に銀が縦に二枚並びました。これが銀多伝の名前の由来となる形で、４筋の歩を銀で守っています。",
+            "en": "The silver on 7i walks ▲6八, ▲5七 and then out to 4f. Two silvers now stand one above the other on 4f and 4g, which gives the line its name and protects the fourth-file pawn."
+          },
+          "marks": {
+            "last": "4f",
+            "arrows": [
+              "4f4e"
+            ],
+            "boxes": [
+              "4f",
+              "4g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8a7c",
+            "6i7h",
+            "9a9b",
+            "4i4h",
+            "1a1b",
+            "5i4i",
+            "3a4b",
+            "4i3h",
+            "6a5a",
+            "2i3g"
+          ],
+          "text": {
+            "ja": "金を７八と４八へ寄せ、玉を３八へ移します。最後に▲３七桂を跳ねて、囲いが完成します。守りが主体の陣形で、じっくり指したい人にはこちらが向いています。",
+            "en": "The golds move to 7h and 4h, the king goes to 3h, and ▲3七桂 completes the castle. This is a defence-first formation and suits players who prefer a slower game."
+          },
+          "marks": {
+            "last": "3g",
+            "arrows": [
+              "3g4e"
+            ],
+            "boxes": [
+              "3h",
+              "4h"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "残った香を忘れない",
-        "en": "The Edge Lance Is Still on the Board"
+        "ja": "平手では△４四歩を警戒しない理由",
+        "en": "Why △4四歩 is not a worry in an even game"
       },
       "side": "sente",
       "kind": "position",
-      "start": "lnsg1gsnl/3k5/1pppppppp/p8/9/P8/1PPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+      "start": "ln1gk1snl/1r4gb1/pppps1ppp/4pp3/7P1/2P6/PP1PPPP1P/1B4SR1/LNSGKG1NL b - 1",
       "steps": [
         {
           "text": {
-            "ja": "上手の９一香は残っている。下手は９六歩、上手は９四歩まで進めた。両方の９筋歩の後ろに香がいるので、端の歩をぶつける前に９筋の縦線を最後まで読む。",
-            "en": "Gote still has L9a. Sente's pawn is on 9f and Gote's on 9d, with a lance behind each pawn. Before making edge contact, trace the whole ninth file, including what happens after both pawns disappear."
+            "ja": "二枚落ちの定跡で急いで４五の位を取るのは、上手に△４四歩と突かせないためでした。では平手ではどうでしょうか。図は、同じ形で上手が飛車と角を持っている平手の局面です。",
+            "en": "In the two-piece handicap Sente hurries to take 4e to stop △4四歩. What about an even game? This position is the same shape with Gote's rook and bishop restored."
           },
-          "marks": { "boxes": ["9a", "9d", "9f", "9i"] }
+          "marks": {
+            "boxes": [
+              "4d"
+            ]
+          }
         },
         {
-          "moves": ["7g7f", "8c8d", "8h7g"],
           "text": {
-            "ja": "本譜は端を急がず角道を開き、上手の８四歩を見て▲７七角とする。角を動かしただけで９筋が安全になったわけではない。端の歩を押す時には、上手香による取り返しを改めて確かめる。",
-            "en": "The sample opens the bishop diagonal, meets Gote's P8d, and places B7g. This develops another piece without forcing an edge trade. Gote's lance remains relevant whenever Sente later advances P9f."
+            "ja": "平手なら△４四歩を突かれても、さほど困りません。こちらの角が止まる一方で、相手も角を持っているので、その角の働きも同時に損なわれるからです。二枚落ちの上手には角がなく、そうした見返りがないため、下手は早く位を取って突かせないようにします。",
+            "en": "In an even game, after △4四歩 Gote's own bishop diagonal is cramped at the same time. Our bishop becomes awkward but so does the opponent's, so there is no need to worry much. In the two-piece handicap Gote has no bishop to balance this, so taking space matters at once."
           },
-          "marks": { "arrows": ["8h7g"], "boxes": ["9a", "9f"] }
-        }
-      ],
-      "variations": [
-        {
-          "from": 0,
-          "moves": ["9f9e", "9d9e", "9i9e", "9a9e"],
-          "text": {
-            "ja": "すぐ▲９五歩なら△同歩、▲同香に△同香と取れる。下手は上手の歩を取るが、上手は下手の歩と香を取って９五に香を残す。この応酬だけで端の突破が決まるとは言えない。",
-            "en": "On an immediate P9e, Gote can play P9e×P; after L9e×P, L9e×L. Sente takes Gote's pawn while Gote takes Sente's pawn and lance, leaving a Gote lance on 9e. Edge contact is not a free pawn gain."
+          "marks": {
+            "arrows": [
+              "8h4d"
+            ]
           }
         }
       ]

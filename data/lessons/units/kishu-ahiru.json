@@ -1,23 +1,26 @@
 {
   "id": "kishu-ahiru",
   "order": 1360,
-  "path": ["戦法・定跡", "奇襲対策"],
+  "path": [
+    "戦法・定跡",
+    "アヒル戦法"
+  ],
   "title": {
-    "ja": "アヒルの浮き飛車と中央を見分ける",
-    "en": "Meet the Duck's floating rook and central king"
+    "ja": "アヒル戦法対策：向かい飛車と金無双で崩す",
+    "en": "Beating Ahiru: Opposing Rook with Kin-musou"
   },
   "intro": {
-    "ja": "中央付近の玉と横へ動ける浮き飛車を相手にするとき、後手の攻め筋は一つではありません。まず飛車に当たる角道と、玉へ向かう歩交換を別々に数えます。先手が飛車を引く場合も歩を取る場合も、その応手が任意であることを忘れず、接触点を守る駒を確認します。",
-    "en": "Against a central king and a mobile floating rook, Gote has more than one possible contact. Count the bishop line to the rook separately from a pawn exchange on the king's file. Sente may retreat, sidestep or decline a capture, so each result here depends on the shown reply and the actual recapturers."
+    "ja": "浮き浮き飛車からアヒル囲いを組んでくる先手に対し、後手は向かい飛車と金無双で組みます。△４四角から飛車に当たり、逆棒銀や端攻めで囲いを崩す手順を、初手から追って覚えます。",
+    "en": "Against a Sente who floats the rook and builds the Duck castle, Gote builds an Opposing Rook with a Kin-musou. Follow the moves from the opening: △4四角 hits the rook, then a reverse Bou-gin or an edge attack breaks the castle."
   },
   "check": {
     "question": {
-      "ja": "先手飛車が３六から３三歩を取って成ろうとするとき、後手は何を確かめてから歩を守りますか？",
-      "en": "When Sente's rook on 3f threatens to take the pawn on 3c and promote, what should Gote check before defending that pawn?"
+      "ja": "アヒル囲い相手に、美濃囲いではなく金無双に組むのはなぜですか？",
+      "en": "Against the Duck castle, why build a Kin-musou instead of a Mino?"
     },
     "answer": {
-      "ja": "３三までの通路が空いているかと、３三に飛車が来た後に取り返せる駒があるかです。第三章では△４二金で３三を守り、▲３三飛成なら△同金で取れます。先手はその交換を選ぶ必要はありません。",
-      "en": "Check the rook's path to 3c and who can recapture there after promotion. In chapter three, G5b–4b covers 3c, so R3f×3c+ can be met by G4b×3c. Sente need not choose that exchange."
+      "ja": "金無双は美濃より端攻めに強く、５筋の守りも厚いからです。先手の端攻めや角の強襲が決まりにくく、後手はのびのび攻められます。",
+      "en": "A Kin-musou resists edge attacks better than a Mino and has a thicker fifth file. Sente's edge attack and bishop raid are hard to land, so Gote can attack freely."
     }
   },
   "references": [
@@ -30,117 +33,407 @@
   ],
   "chapters": [
     {
-      "title": { "ja": "角の長い斜線で浮き飛車に当てる", "en": "Use a long bishop line against the floating rook" },
+      "title": {
+        "ja": "浮き浮き飛車から金無双を組む",
+        "en": "From the floating rook to Kin-musou"
+      },
       "side": "gote",
-      "kind": "position",
-      "start": "4k4/9/2b6/9/9/7R1/2P6/1B1SKS3/2G3G2 w - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "先手は５八玉、６八・４八銀、７九・３九金で中央に寄った形を作り、飛車を２六に浮かせています。後手角は７三にいます。角を６二へ引くと、５三・４四・３五を通って２六飛に当たるかを数えます。",
-            "en": "Sente has K5h, silvers on 6h and 4h, golds on 7i and 3i, and a floating rook on 2f. Gote's bishop is on 7c. From 6b it would face the rook through 5c, 4d and 3e."
-          },
-          "marks": { "boxes": ["7c", "6b", "5c", "4d", "3e", "2f"] }
+            "ja": "アヒル戦法は、先手が飛車を２六に浮かせて待ちの手を重ねる奇襲戦法です。自玉は動かさずにアヒル囲いを作り、相手の出方を待ちます。この講座は後手の立場です。向かい飛車と金無双で組み、相手の囲いを崩す流れを覚えます。",
+            "en": "Ahiru is a surprise opening in which Sente floats the rook on 2f and keeps making waiting moves. Sente builds the Duck castle and waits for Gote to act. This lesson takes Gote's side: build an Opposing Rook with a Kin-musou and learn how to break the Duck castle."
+          }
         },
         {
-          "moves": ["7c6b"],
+          "moves": [
+            "2g2f",
+            "3c3d",
+            "2f2e",
+            "2b3c"
+          ],
           "text": {
-            "ja": "△６二角は空いた斜線で２六飛へ当てます。角がその場で飛車を取るわけではなく、先手に飛車の置き場を問いかける一手です。",
-            "en": "B7c–6b attacks R2f along the open diagonal. It asks Sente where to put the rook; the bishop has not captured it."
+            "ja": "先手は▲２六歩から▲２五歩と飛車先を伸ばします。後手は△３四歩から△３三角と受けます。角が２二から３三へ上がり、２四の地点を守ります。",
+            "en": "Sente pushes the rook pawn to 2e, and Gote answers with △3四歩 and △3三角. The bishop steps from 2b to 3c and guards 2d."
           },
-          "marks": { "arrows": ["7c6b"], "boxes": ["2f"] }
+          "marks": {
+            "last": "3c",
+            "boxes": [
+              "3c",
+              "2d"
+            ]
+          }
         },
         {
-          "moves": ["2f3f"],
+          "moves": [
+            "2h2f",
+            "8b2b"
+          ],
           "text": {
-            "ja": "▲３六飛と横へ逃げる選択もあります。６二角の斜線は２六を通りますが、３六飛には当たりません。後手は手得だけで駒得を決めつけず、次に３筋で何が狙われるかを見直します。",
-            "en": "Sente may sidestep with R2f–3f. The bishop still points through 2f, but it no longer attacks the rook on 3f. Gote has gained a tempo, not material, and must reassess the third file."
+            "ja": "先手は飛車を▲２六に浮かせます。次に▲３六飛と回って、後手の角頭の歩を狙う手があります。この出だしは浮き浮き飛車と呼ばれ、アヒル戦法でよく見られます。後手は△２二飛と向かい飛車に構えます。▲３六飛なら△２四歩と反撃できます。",
+            "en": "Sente floats the rook with ▲2六飛. The next idea is ▲3六飛, aiming at the pawn in front of Gote's bishop. This start is called Floating Rook and often leads to Ahiru. Gote swings △2二飛 into an Opposing Rook. If Sente plays ▲3六飛, Gote can counter with △2四歩."
           },
-          "marks": { "arrows": ["2f3f"], "last": "3f" }
-        }
-      ],
-      "variations": [
+          "marks": {
+            "last": "2b",
+            "arrows": [
+              "2f3f",
+              "2c2d"
+            ],
+            "boxes": [
+              "3d",
+              "2c"
+            ]
+          }
+        },
         {
-          "from": 1,
-          "moves": ["2f2h"],
+          "moves": [
+            "9g9f",
+            "3a4b",
+            "8h9g",
+            "5a6b",
+            "3i4h",
+            "6b7b"
+          ],
           "text": {
-            "ja": "縦に▲２八飛と引くこともできます。飛車は斜線から外れますが、浮き飛車からの横移動の選択肢は一度手放します。どちらの逃げ方も盤面次第です。",
-            "en": "R2f–2h is another legal retreat. It leaves the diagonal but also gives up the rook's immediate sideways reach from the sixth rank. Neither retreat is universally best."
+            "ja": "先手は端の歩を突いて▲９七角と構えます。後手は銀を△４二銀に上げ、玉を△６二、△７二へ寄せていきます。美濃囲いではなく、金無双へ向かう玉の動きです。",
+            "en": "Sente pushes the edge pawn and places the bishop with ▲9七角. Gote brings the silver to 4b and walks the king to 6b and 7b. The king is heading for a Kin-musou, not a Mino."
           },
-          "marks": { "arrows": ["2f2h"], "last": "2h" }
+          "marks": {
+            "last": "7b",
+            "boxes": [
+              "9g",
+              "7b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4i3i",
+            "9c9d",
+            "5i5h",
+            "4a5b",
+            "7i6h",
+            "7a8b",
+            "6i7i",
+            "6a6b",
+            "9g8f"
+          ],
+          "text": {
+            "ja": "先手は金と銀を整えてアヒル囲いを完成させ、玉は５八のまま動きません。後手は△５二金左と△６二金直で二枚の金を並べ、△８二銀を足して金無双にします。金無双は端攻めに強く、５筋の守りも厚いので、先手の端攻めと角の強襲が決まりにくい形です。",
+            "en": "Sente completes the Duck castle with golds and silvers, and the king stays on 5h. Gote lines up two golds with △5二金左 and △6二金直, adds △8二銀, and has a Kin-musou. It holds well against edge attacks and has a thick fifth file, so Sente's edge attack and bishop raid are hard to land."
+          },
+          "marks": {
+            "last": "8f",
+            "boxes": [
+              "6b",
+              "5b",
+              "7b"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "基本図を覚えるポイントです。浮き浮き飛車には向かい飛車で応じる。後手は金無双に組む。玉を美濃にしないのが特徴で、端攻めに強い。仕掛けは次の△４四角です。",
+            "en": "Points to remember. Meet the floating rook with an Opposing Rook. Build a Kin-musou. Not castling into a Mino is the feature, and it resists edge attacks. The attack starts with △4四角 next."
+          }
         }
       ]
     },
     {
-      "title": { "ja": "中央歩の交換で玉への縦線を開く", "en": "A conditional fifth-file contact" },
+      "title": {
+        "ja": "△４四角で飛車に当て、逆棒銀で崩す",
+        "en": "Hit the rook with △4四角 and break through with a reverse Bou-gin"
+      },
       "side": "gote",
-      "kind": "position",
-      "start": "4k4/4r4/4p4/9/9/7R1/2P1P4/1B1SKS3/2G3G2 w - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "2g2f",
+            "3c3d",
+            "2f2e",
+            "2b3c",
+            "2h2f",
+            "8b2b",
+            "9g9f",
+            "3a4b",
+            "8h9g",
+            "5a6b",
+            "3i4h",
+            "6b7b",
+            "4i3i",
+            "9c9d",
+            "5i5h",
+            "4a5b",
+            "7i6h",
+            "7a8b",
+            "6i7i",
+            "6a6b",
+            "9g8f"
+          ],
           "text": {
-            "ja": "先手玉は５八、５七に歩があります。後手は５二飛の前に５三歩を置いています。歩を交換するなら、歩が消えた後の５筋と、先手が交換を拒む選択を両方数えます。",
-            "en": "Sente's king sits on 5h behind P5g. Gote has R5b behind P5c. A pawn exchange could open the fifth file, but Sente can choose a different reply, so first follow one specific contact."
+            "ja": "前の章の局面です。駒組みが終わったら後手から仕掛けます。先手の飛車は２六に浮いたままです。",
+            "en": "The position from the previous chapter. With the build finished, Gote attacks first. Sente's rook is still floating on 2f."
           },
-          "marks": { "boxes": ["5b", "5c", "5g", "5h"] }
+          "marks": {
+            "last": "8f",
+            "boxes": [
+              "2f"
+            ]
+          }
         },
         {
-          "moves": ["5c5d", "5g5f", "5d5e"],
+          "moves": [
+            "3c4d"
+          ],
           "text": {
-            "ja": "△５四歩に▲５六歩と応じた例では、△５五歩で歩が向き合います。後手飛車はまだ５三の空きマスの後ろにいて、５五の歩が縦線を遮っています。",
-            "en": "After P5c–5d and the illustrative P5g–5f, Gote plays P5d–5e. The pawns meet. Gote's rook is still behind its pawn, so the rook file is not yet open."
+            "ja": "△４四角。角を４四へ出して、２六の飛車に当てます。角道が通った３筋の歩は、角のためにどけておいたものです。先手は飛車を縦に引くか横に逃げるかを選びます。まず縦に引く場合から見ます。",
+            "en": "△4四角 brings the bishop out and hits the rook on 2f. The third-file pawn was advanced earlier to open this diagonal. Sente must retreat the rook either along the file or sideways. First the retreat along the file."
           },
-          "marks": { "arrows": ["5d5e"], "boxes": ["5e", "5f"] }
+          "marks": {
+            "last": "4d",
+            "arrows": [
+              "4d2f"
+            ],
+            "boxes": [
+              "2f"
+            ]
+          }
         },
         {
-          "moves": ["5f5e", "5b5e"],
+          "moves": [
+            "2f2h",
+            "4b3c",
+            "1g1f",
+            "2c2d"
+          ],
           "text": {
-            "ja": "▲５五歩で後手歩を取るなら△同飛で先手歩を取り、５六・５七の空いた筋から５八玉へ王手がかかります。先手は歩を取らずに受け方を選べるので、後手の王手はこの交換に限った結果です。",
-            "en": "If P5f×5e takes Gote's pawn, R5b×5e takes Sente's pawn. With 5f and 5g clear, the rook checks K5h on the fifth file. Sente can decline that exchange; the check follows only from the shown sequence."
+            "ja": "先手が▲２八飛と縦に引いたら、△３三銀。空いた３三のマスへ銀を上げて２筋を狙います。先手が▲１六歩と待つ間に△２四歩と突きます。",
+            "en": "After ▲2八飛 along the file, Gote plays △3三銀, moving the silver into the square the bishop left, aiming at the second file. While Sente waits with ▲1六歩, Gote pushes △2四歩."
           },
-          "marks": { "arrows": ["5b5e"], "last": "5e", "boxes": ["5h"] }
-        }
-      ],
-      "variations": [
+          "marks": {
+            "last": "2d",
+            "arrows": [
+              "2d2e"
+            ],
+            "boxes": [
+              "2e",
+              "3c"
+            ]
+          }
+        },
         {
-          "from": 1,
-          "moves": ["5h4g"],
+          "moves": [
+            "2e2d",
+            "3c2d"
+          ],
           "text": {
-            "ja": "この局面で先手が５五歩を取らず▲４七玉と５筋を外れれば、まだ歩の交換は起きません。後手は同じ歩交換を実現しても５筋の王手にはならないため、玉の位置を見直します。",
-            "en": "Instead of capturing on 5e, Sente can move K5h–4g off the fifth file. The pawn exchange has not occurred, and even if it later does, it will not give the same rook check along the fifth file. Gote must account for the king's new square."
+            "ja": "▲２四歩に△同銀と応じ、銀を２筋に沿って前へ進めます。この攻め方を逆棒銀と呼びます。先手の２筋は歩が足りず、▲２七歩などで受ける苦しい形です。後手が大きく指しやすくなりました。",
+            "en": "After ▲2四歩 △同銀, the silver advances up the second file. This is the reverse Bou-gin attack. Each step weakens Sente's second file, and Sente can only defend with moves like ▲2七歩. Gote has much the easier game."
           },
-          "marks": { "arrows": ["5h4g"], "boxes": ["4g"] }
+          "marks": {
+            "last": "2d",
+            "arrows": [
+              "2d2e"
+            ],
+            "boxes": [
+              "2e"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "この変化のポイントです。飛車が縦に引いたら、△３三銀から△２四歩。歩を切って銀を２筋へ進める逆棒銀で、アヒル囲いの飛車側を崩します。",
+            "en": "Points of this line. If the rook retreats along the file, play △3三銀 and △2四歩. Swap off the pawn and push the silver up the second file, the reverse Bou-gin, to break the rook side of the Duck castle."
+          }
         }
       ]
     },
     {
-      "title": { "ja": "浮き飛車の歩取りに取り返しを用意する", "en": "Prepare a recapture against the rook's pawn raid" },
+      "title": {
+        "ja": "飛車が横に逃げたら陣形を盛り上げる",
+        "en": "If the rook slides sideways, build up the position"
+      },
       "side": "gote",
-      "kind": "position",
-      "start": "4k4/4g4/6p2/9/9/6R2/2P6/1B1SKS3/2G3G2 w - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "2g2f",
+            "3c3d",
+            "2f2e",
+            "2b3c",
+            "2h2f",
+            "8b2b",
+            "9g9f",
+            "3a4b",
+            "8h9g",
+            "5a6b",
+            "3i4h",
+            "6b7b",
+            "4i3i",
+            "9c9d",
+            "5i5h",
+            "4a5b",
+            "7i6h",
+            "7a8b",
+            "6i7i",
+            "6a6b",
+            "9g8f",
+            "3c4d"
+          ],
           "text": {
-            "ja": "先手飛車は３六から３三歩を狙えます。３五・３四は空いており、３三に入れば成れます。後手の５二金は４二へ動くと３三を守る位置になります。",
-            "en": "Sente's rook on 3f can run through empty 3e and 3d to take P3c with promotion. Gote's gold on 5b can move to 4b, where it would defend 3c."
+            "ja": "先手が飛車を横に逃げる場合です。局面は前の章と同じ、△４四角で飛車に当てたところです。",
+            "en": "Now the case where Sente moves the rook sideways. The position is the same as in the previous chapter: the rook has just been hit by △4四角."
           },
-          "marks": { "boxes": ["3f", "3c", "4b", "5b"] }
+          "marks": {
+            "last": "4d",
+            "arrows": [
+              "4d2f"
+            ],
+            "boxes": [
+              "2f"
+            ]
+          }
         },
         {
-          "moves": ["5b4b"],
+          "moves": [
+            "2f3f",
+            "2c2d",
+            "3f3d",
+            "4b3c"
+          ],
           "text": {
-            "ja": "△４二金で３三歩へ金の斜め前の利きを加えます。歩そのものを進めず、飛車が取りに来た地点で取り返す守りです。",
-            "en": "G5b–4b covers P3c diagonally forward. Gote keeps the pawn in place and prepares a recapture on its square."
+            "ja": "先手が▲３六飛なら、△２四歩といきなり仕掛けます。▲３四飛と歩を取られても、△３三銀と上がれば飛車に当たって問題ありません。歩を取らせて銀を上がる、という順です。",
+            "en": "If Sente plays ▲3六飛, Gote starts at once with △2四歩. Even if ▲3四飛 takes a pawn, △3三銀 attacks the rook and there is no problem. The order is: let the pawn go, then bring the silver up."
           },
-          "marks": { "arrows": ["5b4b"], "boxes": ["3c"] }
+          "marks": {
+            "last": "3c",
+            "arrows": [
+              "3c3d"
+            ],
+            "boxes": [
+              "3d"
+            ]
+          }
         },
         {
-          "moves": ["3f3c+", "4b3c"],
+          "moves": [
+            "3d3f",
+            "2d2e",
+            "P*2h",
+            "2e2f",
+            "3i3h"
+          ],
           "text": {
-            "ja": "ここで▲３三飛成と歩を取れば△同金で龍を取れます。先手は別の筋へ飛車を回せるため、これでアヒル全体を崩したとは言えません。後手が確保したのは３三の取り返しです。",
-            "en": "If R3f×3c+ takes the pawn, G4b×3c captures the dragon. Sente can choose another rook route; this proves a recapture on 3c, not a general refutation of the Duck setup."
+            "ja": "飛車は３六へ戻るしかありません。後手は△２五歩と取り込み、先手が底に▲２八歩と打つのを△２六歩と押さえます。先手は▲３八金と受けますが、２筋が崩れてかなり厳しい陣形になりました。なお文章では▲３六歩、▲３二金と書かれていますが、図に従いました。",
+            "en": "The rook can only go back to 3f. Gote takes with △2五歩, and when Sente drops a pawn on the bottom with ▲2八歩, presses on with △2六歩. Sente defends with ▲3八金, but the second file is shattered and the position is very difficult. The written text says ▲3六歩 and ▲3二金; the diagram is followed here."
           },
-          "marks": { "arrows": ["4b3c"], "last": "3c" }
+          "marks": {
+            "last": "3h",
+            "arrows": [
+              "2f2g"
+            ],
+            "boxes": [
+              "2f",
+              "2h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2b2d",
+            "5h5i",
+            "3c3d",
+            "5i5h",
+            "2a3c",
+            "5h5i",
+            "3d4e"
+          ],
+          "text": {
+            "ja": "次は陣形を盛り上げます。飛車を△２四に浮かせ、銀を△３四、桂を△３三と進めて△４五銀。先手の飛車の行き場がかなり狭くなりました。先手は玉を５八と５九に上下させて待っていますが、これは最善の手ではありません。",
+            "en": "Next, build up the position. Float the rook to 2d, advance the silver to 3d and the knight to 3c, and play △4五銀. Sente's rook now has very little room. Sente is waiting by shuffling the king between 5h and 5i, which is not the best move."
+          },
+          "marks": {
+            "last": "4e",
+            "boxes": [
+              "3f",
+              "4e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3f7f",
+            "8b9c",
+            "5i5h",
+            "9c8d"
+          ],
+          "text": {
+            "ja": "右側の銀も働かせます。△９三銀から△８四銀と、端を回って前へ出します。この動きは金無双の形だから指せるものです。次の△８五銀が飛車と角に同時に当たるので、先手は対応を迫られます。",
+            "en": "The right silver comes forward too: △9三銀 and △8四銀. Using the silver from the edge is typical of Kin-musou. Next △8五銀 would fork rook and bishop, so Sente has to respond."
+          },
+          "marks": {
+            "last": "8d",
+            "arrows": [
+              "8d8e"
+            ],
+            "boxes": [
+              "8e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8f9g",
+            "8d8e",
+            "7f6f",
+            "9d9e"
+          ],
+          "text": {
+            "ja": "先手が▲９七角と逃げれば△８五銀、▲６六飛と逃げれば△９五歩です。銀で大駒を追い立てたあと、端の歩を突き出して反撃に移ります。先手が狙っていた端の戦いを、後手が先に仕掛ける形です。",
+            "en": "Sente plays ▲9七角, Gote △8五銀; Sente ▲6六飛, Gote △9五歩. With the big pieces being chased by the silver, Gote counterattacks on the edge. An edge attack is one of the Duck castle's own ideas, but here Gote strikes there first."
+          },
+          "marks": {
+            "last": "9e",
+            "arrows": [
+              "9e9f"
+            ],
+            "boxes": [
+              "9e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "9f9e",
+            "4d6f",
+            "6g6f",
+            "9a9e",
+            "P*9b",
+            "9e9g"
+          ],
+          "text": {
+            "ja": "端攻めの一例です。▲９五歩に△６六角と飛車角を交換して、飛車の横の利きを消します。そのあと△９五香と走り、▲９二歩に△９七香不成。先手の端は崩れ、アヒル囲いは壊れました。",
+            "en": "An example of the edge attack. After ▲9五歩, Gote swaps with △6六角, removing the rook's sideways reach. Then △9五香 runs, and after ▲9二歩 △9七香不成. Sente's edge falls and the Duck castle is broken."
+          },
+          "marks": {
+            "last": "9g",
+            "boxes": [
+              "9g",
+              "9b"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "全体のまとめです。受け方の骨格は、向かい飛車と金無双。仕掛けは△４四角。飛車が縦に下がれば逆棒銀で２筋を攻め、横へ逃げれば銀と桂を前に進めて、最後は端から決めにいきます。",
+            "en": "Summary. Meet the floating rook with an Opposing Rook and build a Kin-musou. Attack with △4四角: against a rook that retreats along the file, use the reverse Bou-gin; against a sideways rook, build up the position and finish with the silver and an edge attack."
+          }
         }
       ]
     }

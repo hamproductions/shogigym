@@ -1,23 +1,26 @@
 {
   "id": "castles-other",
   "order": 360,
-  "path": ["上達のためのテクニック", "囲い"],
+  "path": [
+    "上達のためのテクニック",
+    "囲い"
+  ],
   "title": {
-    "ja": "珍しい囲いは名前より守りの働きで選ぶ",
-    "en": "Evaluate Unusual Castles by What Their Pieces Defend"
+    "ja": "変わった囲い七種：初手からの組み方と強さ・弱点",
+    "en": "Seven unusual castles: build order, strengths and weaknesses"
   },
   "intro": {
-    "ja": "珍しい囲いを見たら、形の名前だけで強弱を決めないでください。歩が飛車筋を止めるか、金銀がその歩を支えるか、玉に安全な出口があるかを盤上で数えます。駒落ちで使う銀多伝のように、対局条件が形の選択を左右する例もあります。ここでは美濃の歩、中央の玉、閉じた角道、端の玉という四つの判断を練習します。各図は局所的な教材図で、相手の持ち駒やほかの攻め筋が加われば結論も変わります。",
-    "en": "Judge an unusual castle by the work its pieces do, not by its name. Count whether a pawn blocks a rook file, whether golds and silvers support that pawn, and whether the king has a safe exit. Playing conditions also matter: Silver Taden, for example, belongs chiefly to two-piece-handicap play. These four local exercises examine an advanced Mino pawn, a central king, a closed bishop diagonal, and an edge king. Additional enemy pieces or pieces in hand can change each decision."
+    "ja": "実戦ではあまり見かけない、変わった囲いを七つ組んでみます。金銀を使わず大駒を切って攻めるアヒル囲い、角道を止めたまま潜る音無しの構え、二枚落ちの下手が使う銀多伝、香の上に玉を置く串カツ囲い、美濃から変形したちょんまげ美濃と坊主美濃、そして初心者が自己流で組みがちな無敵囲いです。珍しい形でも、組み方と強さ、弱点がはっきり分かると、戦いの中で出会ったときに慌てません。",
+    "en": "Here are seven unusual castles that rarely appear in real games: the Duck castle that attacks by throwing away major pieces, the silent stance that dives with the bishop line closed, the silver Taden that the stronger side uses in a two-piece handicap game, the skewer castle with the king above the lance, the two Mino variants called Chonmage and Bozu, and the so-called invincible castle that beginners tend to build by themselves. Even rare shapes are less of a surprise in play once you know how they are built, and what they resist or lack."
   },
   "check": {
     "question": {
-      "ja": "珍しい囲いで玉の隣が空いていれば、それだけで逃げ道と数えてよいですか？",
-      "en": "In an unusual castle, can every empty square beside the king be counted as an escape?"
+      "ja": "ちょんまげ美濃で、二六に残った歩が弱点とされるのはなぜですか？",
+      "en": "Why is the pawn left on 2f a weakness in Chonmage Mino?"
     },
     "answer": {
-      "ja": "いいえ。移動先への相手の利きと、移動後に開く飛車・角の筋を調べます。歩を支える手でも玉のそばの銀を動かす場合があるため、守る場所と失う場所を両方数えます。",
-      "en": "No. Check enemy control of the destination and any rook or bishop line opened by the move. Even a move that supports a pawn may relocate a silver beside the king, so count both the new defense and the cover given up."
+      "ja": "二六の歩は玉の頭に突き出していて、守りの金銀から離れています。相手に狙われたり、取られて空いた場所へ駒を打たれたりする傷になります。銀冠などへ組み替えて消すのがふつうです。",
+      "en": "The pawn on 2f sticks out above the king, away from the golds and silvers. It becomes a target, and if it is taken the vacated area invites drops. It is usually removed by converting to Gin Kanmuri or a similar form."
     }
   },
   "references": [
@@ -26,101 +29,1108 @@
       "url": "https://shogi-joutatsu.com/archives/6076",
       "license": "All rights reserved",
       "adapted": false
+    },
+    {
+      "title": "将棋の技図鑑 (yuki-keio/shogi)",
+      "url": "https://github.com/yuki-keio/shogi",
+      "license": "GPL-3.0-only",
+      "adapted": false
     }
   ],
   "chapters": [
     {
       "title": {
-        "ja": "突いた２筋の歩を銀で支える",
-        "en": "Support an advanced second-file pawn"
+        "ja": "アヒル囲い：金銀を使わず大駒で攻める",
+        "en": "Duck castle: attack with major pieces, no gold or silver at the front"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/7r1/9/9/9/7P1/6P1P/6SK1/5G3 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "玉２八・銀３八・金４九の美濃型ですが、歩２六が前に出ています。後手飛車２二は２筋を見ており、歩２六はまだ銀３八に守られていません。この歩を残したいなら、銀を動かした後の玉の周囲も同時に調べます。",
-            "en": "This Mino core has a king on ２八, silver on ３八, and gold on ４九, with its second-file pawn advanced to ２六. Gote's rook on ２二 faces that file, and the silver does not yet defend the pawn. If Sente wants to keep it, the king's cover must be reassessed after moving the silver."
+            "ja": "アヒル囲いは、玉を中央の五八に置いた、中住まいに似た形です。金銀の打ち込みを受けにくい代わりに、大駒を切ってでも攻めをつなげる奇襲戦法で使います。ここでは飛車を二六に構え、角を九七へ移します。",
+            "en": "The Duck castle puts the king on 5h like Nakazumai. It is used in a surprise attack where major pieces are sacrificed to keep the attack going. Here the rook stands on 2f and the bishop moves to 9g."
+          },
+          "marks": {
+            "boxes": [
+              "5h",
+              "6h",
+              "4h"
+            ]
           }
         },
         {
-          "moves": ["3h2g"],
+          "moves": [
+            "9g9f"
+          ],
           "text": {
-            "ja": "▲２七銀で歩２六を銀が真下から支えます。飛車が歩を取れば銀で取り返せる形ですが、銀３八が空き、玉の左側の守り方は変わりました。２筋の歩を守る価値と、銀を移した後の玉の安全を比べる手です。",
-            "en": "▲２七銀 supports the pawn on ２六 from behind. A rook capture of that pawn can be answered by the silver, but ３八 is now vacant and the king's left-side cover has changed. The move trades one defensive assignment for another; check the rest of the position before choosing it."
+            "ja": "▲９六歩。端の歩を突いて、角が九七へ入る場所を空けます。",
+            "en": "▲9六歩 pushes the edge pawn and empties 9g for the bishop."
+          },
+          "marks": {
+            "boxes": [
+              "9g"
+            ],
+            "last": "9f"
+          }
+        },
+        {
+          "moves": [
+            "8c8d",
+            "8h9g"
+          ],
+          "text": {
+            "ja": "▲９七角。角を端へ移します。ここから角は遠くの敵陣を狙います。",
+            "en": "▲9七角 moves the bishop to the edge, where it aims at the far side of the enemy camp."
+          },
+          "marks": {
+            "boxes": [
+              "9g"
+            ],
+            "last": "9g"
+          }
+        },
+        {
+          "moves": [
+            "4a3b",
+            "2g2f"
+          ],
+          "text": {
+            "ja": "▲２六歩。飛車の前の歩を突きます。",
+            "en": "▲2六歩 pushes the pawn in front of the rook."
+          },
+          "marks": {
+            "last": "2f"
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "2f2e"
+          ],
+          "text": {
+            "ja": "▲２五歩。さらに進めます。飛車が二六へ出る道が空きます。",
+            "en": "▲2五歩 pushes it further, opening the road for the rook to reach 2f."
+          },
+          "marks": {
+            "boxes": [
+              "2e"
+            ],
+            "last": "2e"
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "2h2f"
+          ],
+          "text": {
+            "ja": "▲２六飛。飛車を二六に構えます。二五の歩を後ろから支えて、そのまま敵陣に飛車を使います。",
+            "en": "▲2六飛 puts the rook on 2f, supporting the pawn on 2e from behind and ready to enter the enemy camp."
+          },
+          "marks": {
+            "boxes": [
+              "2f"
+            ],
+            "last": "2f"
+          }
+        },
+        {
+          "moves": [
+            "7a6b",
+            "7i6h"
+          ],
+          "text": {
+            "ja": "▲６八銀。左の銀を上げて、玉の隣に置きます。",
+            "en": "▲6八銀 lifts the left silver next to the king."
+          },
+          "marks": {
+            "boxes": [
+              "6h"
+            ],
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "5c5d",
+            "3i4h"
+          ],
+          "text": {
+            "ja": "▲４八銀。右の銀も上げます。",
+            "en": "▲4八銀 lifts the right silver too."
+          },
+          "marks": {
+            "boxes": [
+              "4h"
+            ],
+            "last": "4h"
+          }
+        },
+        {
+          "moves": [
+            "6b5c",
+            "6i7i"
+          ],
+          "text": {
+            "ja": "▲７九金。左の金を端へ寄せて、八九、七九の守りに使います。",
+            "en": "▲7九金 shifts the left gold aside to guard the left corner area."
+          },
+          "marks": {
+            "boxes": [
+              "7i"
+            ],
+            "last": "7i"
+          }
+        },
+        {
+          "moves": [
+            "5a4b",
+            "4i3i"
+          ],
+          "text": {
+            "ja": "▲３九金。右の金も寄せます。",
+            "en": "▲3九金 shifts the right gold aside."
+          },
+          "marks": {
+            "boxes": [
+              "3i"
+            ],
+            "last": "3i"
+          }
+        },
+        {
+          "moves": [
+            "6a5b",
+            "5i5h"
+          ],
+          "text": {
+            "ja": "▲５八玉。玉を上げて、アヒル囲いの完成です。銀二枚が玉の左右に並び、金は下の段で控えます。",
+            "en": "▲5八玉 lifts the king, completing the Duck castle. Two silvers stand to the king's sides and the golds wait on the bottom rank."
+          },
+          "marks": {
+            "boxes": [
+              "5h",
+              "6h",
+              "4h",
+              "7i",
+              "3i"
+            ],
+            "last": "5h"
+          }
+        },
+        {
+          "text": {
+            "ja": "アヒル囲いは、金銀を前に出さないので、持ち駒を打ち込まれても金銀が玉の近くにいます。そのうえで、飛車と角を働かせて、速攻で攻めます。弱点は、守りの形が薄く、攻めが止まると一気に不利になることです。奇襲として、相手が受け方を知らないときに使います。",
+            "en": "The Duck castle keeps gold and silver near the king instead of advancing them, so drops are less damaging, and the rook and bishop carry a fast attack. The weakness is a thin shape that suffers badly as soon as the attack stalls. It is a surprise weapon for opponents who do not know the answer."
+          },
+          "marks": {
+            "boxes": [
+              "5g",
+              "6g"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "中央玉の出口を金の利きで確かめる",
-        "en": "Test a central king's exit against its gold's control"
+        "ja": "音無しの構え：角道を止めて隅へ潜る",
+        "en": "Otonashi stance: diving into the corner with the bishop line closed"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/4r4/9/9/9/4P4/9/3SK2R1/5G3 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "玉５八を中央に置き、銀６八と金４九を使う変則的な囲いです。飛車５二の縦筋は歩５六で止まっています。中央玉は左右へ動けるように見えますが、移動先を実際に守る駒を確認します。",
-            "en": "Sente has a central king on ５八, silver on ６八, and gold on ４九 in an unconventional shelter. The pawn on ５六 interrupts Gote's rook on ５二. A central king appears able to move either way, but each exit needs an actual defender."
+            "ja": "音無しの構えは、見た目は銀冠穴熊に近いものの、角道を最後まで開けない点が違います。道を閉じていれば、相手に仕掛けの足がかりを与えません。角は後ろへ引いて、玉の近くで働かせます。",
+            "en": "The Otonashi (silent) stance looks close to Gin Kanmuri Anaguma, but the bishop line is never opened. With the line closed the opponent gets no foothold for an attack, and the bishop is pulled back to work near the king."
+          },
+          "marks": {
+            "boxes": [
+              "9i",
+              "8g",
+              "7i"
+            ]
           }
         },
         {
-          "moves": ["5h4h"],
+          "moves": [
+            "9g9f"
+          ],
           "text": {
-            "ja": "▲４八玉は金４九の真上へ移り、金の利きを受けます。もとの５八も歩５六で飛車筋から隔てられていたため、この移動だけで安全が増したとは決まりません。歩５六が失われる場合や相手の持ち駒がある場合まで比べて出口を選びます。",
-            "en": "▲４八玉 steps directly in front of the gold on ４九, which protects the new square. The old square on ５八 was also screened from the rook by the pawn on ５六, so this move alone proves no safety gain. Compare what happens if that pawn falls or Gote has pieces to drop."
+            "ja": "▲９六歩。端の歩を突いておきます。",
+            "en": "▲9六歩 pushes the edge pawn first."
+          },
+          "marks": {
+            "last": "9f"
+          }
+        },
+        {
+          "moves": [
+            "8c8d",
+            "8g8f"
+          ],
+          "text": {
+            "ja": "▲８六歩。玉の前の歩を突いて、銀が入る八七を空けます。",
+            "en": "▲8六歩 pushes the pawn in front of the king and clears 8g for the silver."
+          },
+          "marks": {
+            "boxes": [
+              "8g"
+            ],
+            "last": "8f"
+          }
+        },
+        {
+          "moves": [
+            "4a3b",
+            "9i9h"
+          ],
+          "text": {
+            "ja": "▲９八香。香を一つ上げて、隅を空けます。",
+            "en": "▲9八香 lifts the lance and clears the corner."
+          },
+          "marks": {
+            "boxes": [
+              "9i"
+            ],
+            "last": "9h"
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "7i7h"
+          ],
+          "text": {
+            "ja": "▲７八銀。銀を上げます。七九が空いて、角が入る場所になります。",
+            "en": "▲7八銀 lifts the silver. This empties 7i, where the bishop will go."
+          },
+          "marks": {
+            "boxes": [
+              "7i"
+            ],
+            "last": "7h"
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "7h8g"
+          ],
+          "text": {
+            "ja": "▲８七銀。銀が玉の頭を覆いました。",
+            "en": "▲8七銀 puts the silver on the head of the king's future square."
+          },
+          "marks": {
+            "boxes": [
+              "8g"
+            ],
+            "last": "8g"
+          }
+        },
+        {
+          "moves": [
+            "7a6b",
+            "8h7i"
+          ],
+          "text": {
+            "ja": "▲７九角。角を引いて、七九に置きます。七七の歩は動かないので、角道は止まったままです。",
+            "en": "▲7九角 retreats the bishop to 7i. The pawn on 7g never moves, so the bishop line stays closed."
+          },
+          "marks": {
+            "boxes": [
+              "7i",
+              "7g"
+            ],
+            "last": "7i"
+          }
+        },
+        {
+          "moves": [
+            "5c5d",
+            "5i6h",
+            "6b5c",
+            "6h7h",
+            "5a4b",
+            "7h8h",
+            "6a5b",
+            "8h9i"
+          ],
+          "text": {
+            "ja": "玉を、▲６八玉、▲７八玉、▲８八玉と進め、▲９九玉と隅へ入れます。",
+            "en": "The king goes ▲6八玉, ▲7八玉, ▲8八玉 and enters the corner with ▲9九玉."
+          },
+          "marks": {
+            "boxes": [
+              "9i"
+            ],
+            "last": "9i"
+          }
+        },
+        {
+          "moves": [
+            "2c2d",
+            "6i7h"
+          ],
+          "text": {
+            "ja": "▲７八金。金を上げます。",
+            "en": "▲7八金 lifts a gold."
+          },
+          "marks": {
+            "boxes": [
+              "7h"
+            ],
+            "last": "7h"
+          }
+        },
+        {
+          "moves": [
+            "9a9b",
+            "7h8h"
+          ],
+          "text": {
+            "ja": "▲８八金。金を横へ動かして、玉の斜め前を固めます。",
+            "en": "▲8八金 slides the gold sideways to seal the diagonal in front of the king."
+          },
+          "marks": {
+            "boxes": [
+              "8h"
+            ],
+            "last": "8h"
+          }
+        },
+        {
+          "moves": [
+            "1a1b",
+            "4i5h",
+            "8a9c",
+            "5h6h",
+            "2a1c",
+            "6h7h"
+          ],
+          "text": {
+            "ja": "右の金も、▲５八金、▲６八金、▲７八金と寄せます。金二枚が並んで音無しの構えの完成です。",
+            "en": "The other gold goes ▲5八金, ▲6八金, ▲7八金. With two golds in a row the stance is complete."
+          },
+          "marks": {
+            "boxes": [
+              "9i",
+              "8h",
+              "7h",
+              "8g",
+              "7i"
+            ],
+            "last": "7h"
+          }
+        },
+        {
+          "text": {
+            "ja": "音無しの構えは、角道を止めたまま組むので、相手に狙われにくく、静かに堅くなります。角を引いて使うことで、玉の近くを守りながら、必要なときに攻めに加えます。弱点は、手数がかかることと、角が詰まって攻めに出にくいことです。じっくりした将棋に向きます。",
+            "en": "Because the bishop line stays closed, the stance gives the opponent few targets and hardens quietly. With the bishop pulled back it protects the king and can join the attack when needed. The costs are the many moves needed and a bishop that is hemmed in. It suits a patient game."
+          },
+          "marks": {
+            "boxes": [
+              "7g",
+              "6g"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "角道を閉じたまま角を働かせる",
-        "en": "Find a bishop route while its original diagonal stays closed"
+        "ja": "銀多伝：二枚落ちで使う囲い",
+        "en": "Silver Taden: the castle for two-piece handicap games"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/5r3/9/9/9/9/1SP6/1BG6/K8 b - 1",
+      "kind": "opening",
+      "start": "lnsgkgsnl/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1",
       "steps": [
         {
           "text": {
-            "ja": "玉９九の近くに銀８七・金７八を置き、歩７七は動かしていません。角８八は７七の歩で斜めの道を塞がれています。音無しの構えのように角道をすぐ開けない方針でも、角を働かせる別の経路を考えられます。",
-            "en": "Beside the king on ９九 stand a silver on ８七 and gold on ７八. The unmoved pawn on ７七 blocks the bishop's diagonal from ８八. A closed-diagonal plan, as in Otonashi-style play, still needs a route that lets the bishop contribute."
+            "ja": "銀多伝は、二枚落ちの下手が使う囲いです。二枚落ちでは、上手が飛車と角を持たないので、下手は四筋に銀を二枚並べ、桂と金を使って玉を右側で守ります。定跡として整理された形で、この講座は二枚落ちの局面から始めます。",
+            "en": "Silver Taden is the castle used by the weaker side in a two-piece handicap game. The stronger side has no rook or bishop, and the weaker side lines two silvers on the fourth file and defends the king on the right with knight and gold. It is part of established theory, so this chapter starts from the two-piece handicap position."
+          },
+          "marks": {
+            "boxes": [
+              "4f",
+              "4g",
+              "3h"
+            ]
           }
         },
         {
-          "moves": ["8h7i"],
+          "moves": [
+            "8c8d",
+            "4g4f",
+            "9c9d",
+            "4f4e"
+          ],
           "text": {
-            "ja": "▲７九角で角は６八・５七へ向かう斜め筋を得ます。歩７七を残したまま角を使う案ですが、７九に角を置くと玉の周辺の空きマスも変わります。相手の飛車や持ち駒がその新しい配置を突けないか確かめてから採用します。",
-            "en": "▲７九角 opens a route toward ６八 and ５七 without first moving the pawn on ７七. It also changes which squares near the king are occupied. Check whether Gote's rook or drops can exploit the new arrangement before adopting the route."
+            "ja": "▲４六歩、▲４五歩。４筋の歩を二つ進めます。この歩が、後で銀が出る場所を決めます。",
+            "en": "▲4六歩, ▲4五歩. The fourth-file pawn goes two steps. It decides where the silvers will stand."
+          },
+          "marks": {
+            "boxes": [
+              "4e"
+            ],
+            "last": "4e"
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "3g3f",
+            "7a6b",
+            "2g2f",
+            "6a5b",
+            "1g1f"
+          ],
+          "text": {
+            "ja": "▲３六歩、▲２六歩、▲１六歩。右の歩をそろえて突き、桂馬と銀が出る道を空けます。",
+            "en": "▲3六歩, ▲2六歩, ▲1六歩. The right-side pawns advance together, clearing paths for the knight and silvers."
+          },
+          "marks": {
+            "boxes": [
+              "3f",
+              "2f",
+              "1f"
+            ],
+            "last": "1f"
+          }
+        },
+        {
+          "moves": [
+            "5a4b",
+            "5g5f"
+          ],
+          "text": {
+            "ja": "▲５六歩。真ん中の歩も突きます。左の銀が通る道です。",
+            "en": "▲5六歩 pushes the center pawn, which is the route the left silver will take."
+          },
+          "marks": {
+            "last": "5f"
+          }
+        },
+        {
+          "moves": [
+            "3a3b",
+            "5i4h",
+            "2c2d",
+            "4h3h"
+          ],
+          "text": {
+            "ja": "玉を、▲４八玉、▲３八玉と右へ運びます。",
+            "en": "The king goes ▲4八玉, ▲3八玉 to the right."
+          },
+          "marks": {
+            "boxes": [
+              "3h"
+            ],
+            "last": "3h"
+          }
+        },
+        {
+          "moves": [
+            "8a9c",
+            "3i4h",
+            "2a1c",
+            "4h4g",
+            "7c7d",
+            "4g4f"
+          ],
+          "text": {
+            "ja": "右の銀を、▲４八銀、▲４七銀、▲４六銀と前へ出します。",
+            "en": "The right silver goes forward, ▲4八銀, ▲4七銀, ▲4六銀."
+          },
+          "marks": {
+            "boxes": [
+              "4f"
+            ],
+            "last": "4f"
+          }
+        },
+        {
+          "moves": [
+            "6c6d",
+            "7i6h",
+            "5c5d",
+            "6h5i",
+            "6b5c",
+            "5i4h",
+            "4a3a",
+            "4h4g"
+          ],
+          "text": {
+            "ja": "左の銀も、▲６八銀、▲５九銀、▲４八銀、▲４七銀と遠回りで運び、四六の銀の後ろにつけます。",
+            "en": "The left silver takes the long way, ▲6八銀, ▲5九銀, ▲4八銀, ▲4七銀, to stand behind the silver on 4f."
+          },
+          "marks": {
+            "boxes": [
+              "4g"
+            ],
+            "last": "4g"
+          }
+        },
+        {
+          "moves": [
+            "9a9b",
+            "4i4h"
+          ],
+          "text": {
+            "ja": "▲４八金。金を銀の後ろに上げます。",
+            "en": "▲4八金 lifts a gold behind the silvers."
+          },
+          "marks": {
+            "boxes": [
+              "4h"
+            ],
+            "last": "4h"
+          }
+        },
+        {
+          "moves": [
+            "1a1b",
+            "2i3g"
+          ],
+          "text": {
+            "ja": "▲３七桂。桂馬を跳ねて、銀の隣に置きます。銀多伝の完成です。",
+            "en": "▲3七桂 jumps the knight beside the silver, completing Silver Taden."
+          },
+          "marks": {
+            "boxes": [
+              "4f",
+              "4g",
+              "3g",
+              "4h"
+            ],
+            "last": "3g"
+          }
+        },
+        {
+          "text": {
+            "ja": "銀多伝は、銀を四筋に二枚重ねて前に出し、桂と金が後ろから支える攻めの形です。二枚落ちでは、飛車と角のない上手に対して、銀の厚みで押しつぶせます。玉は三八で守られ、駒を渡さなければ崩れません。普通の将棋ではあまり使いません。",
+            "en": "Silver Taden stacks two silvers on the fourth file with knight and gold behind them, an attacking shape. In a two-piece game the weight of the silvers can overwhelm a side without rook and bishop. The king on 3h stays safe as long as no pieces are given away. It is rarely used in normal games."
+          },
+          "marks": {
+            "boxes": [
+              "5g",
+              "5h"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "端の玉は逃げ先も含めて評価する",
-        "en": "Evaluate an edge king together with its exit"
+        "ja": "串カツ囲い：香の上に玉を置く",
+        "en": "Kushikatsu castle: the king above the lance"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/r8/9/9/9/9/PS7/KG7/L8 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "玉９八・香９九・金８八・銀８七・歩９七です。玉を香の下に置く通常の穴熊とは違い、この図では香９九が玉９八の下にあります。後手飛車９二の縦筋を歩９七が止めています。歩が消えた場合だけでなく、玉が移る先を見ておきます。",
-            "en": "Sente has king ９八, lance ９九, gold ８八, silver ８七, and pawn ９七. Unlike an ordinary Anaguma with the king below the lance, this edge king sits on the eighth rank. The pawn on ９七 blocks Gote's rook on ９二. Examine the king's exit as well as the risk of losing that pawn."
+            "ja": "串カツ囲いは、居飛車穴熊で下にいる玉と上にいる香を、入れ替えた形です。玉を敵の角の筋から外せますが、そのかわり端への攻めが怖くなります。玉が香の真上に重なる姿から、この名で呼ばれます。",
+            "en": "The Kushikatsu castle swaps the king and lance of the Static Rook Anaguma. It keeps the king out of the enemy bishop line but makes an edge attack frightening. The king stacked directly on the lance gives it its name."
+          },
+          "marks": {
+            "boxes": [
+              "9h",
+              "9i"
+            ]
           }
         },
         {
-          "moves": ["9h8i"],
+          "moves": [
+            "7g7f"
+          ],
           "text": {
-            "ja": "▲８九玉と引けば飛車の９筋から離れ、金８八が玉８九を真下に守ります。ただしこの教材図で入れる８九も、実戦では相手の角や持ち駒が利いているかもしれません。端玉の形を選ぶ前に、歩９七の支えと退路を両方数えます。",
-            "en": "▲８九玉 leaves the ninth file, and the gold on ８八 protects the king's new square directly behind it. This exit is available in the local diagram; an enemy bishop or a drop could control it in a game. Before choosing an edge-king shape, count both support for the pawn on ９七 and the king's retreat."
+            "ja": "▲７六歩。角道を開けます。",
+            "en": "▲7六歩 opens the bishop line."
+          },
+          "marks": {
+            "last": "7f"
+          }
+        },
+        {
+          "moves": [
+            "8c8d",
+            "8h7g"
+          ],
+          "text": {
+            "ja": "▲７七角。角を上げて、八八を空けます。",
+            "en": "▲7七角 lifts the bishop and empties 8h."
+          },
+          "marks": {
+            "boxes": [
+              "8h"
+            ],
+            "last": "7g"
+          }
+        },
+        {
+          "moves": [
+            "4a3b",
+            "5i6h",
+            "9c9d",
+            "6h7h",
+            "1c1d",
+            "7h8h",
+            "7a6b",
+            "8h9h"
+          ],
+          "text": {
+            "ja": "玉を、▲６八玉、▲７八玉、▲８八玉と進め、▲９八玉と香の上へ入れます。",
+            "en": "The king goes ▲6八玉, ▲7八玉, ▲8八玉 and steps onto ▲9八玉 above the lance."
+          },
+          "marks": {
+            "boxes": [
+              "9h"
+            ],
+            "last": "9h"
+          }
+        },
+        {
+          "moves": [
+            "5c5d",
+            "7i8h"
+          ],
+          "text": {
+            "ja": "▲８八銀。銀を玉の隣へ。",
+            "en": "▲8八銀 puts the silver beside the king."
+          },
+          "marks": {
+            "boxes": [
+              "8h"
+            ],
+            "last": "8h"
+          }
+        },
+        {
+          "moves": [
+            "6b5c",
+            "6i7i"
+          ],
+          "text": {
+            "ja": "▲７九金。金を左へ寄せます。",
+            "en": "▲7九金 shifts a gold left."
+          },
+          "marks": {
+            "boxes": [
+              "7i"
+            ],
+            "last": "7i"
+          }
+        },
+        {
+          "moves": [
+            "5a4b",
+            "4i5h",
+            "6a5b",
+            "5h6h"
+          ],
+          "text": {
+            "ja": "右の金を、▲５八金、▲６八金と寄せて、完成です。",
+            "en": "The other gold goes ▲5八金, ▲6八金 to finish."
+          },
+          "marks": {
+            "boxes": [
+              "9h",
+              "8h",
+              "7i",
+              "6h"
+            ],
+            "last": "6h"
+          }
+        },
+        {
+          "text": {
+            "ja": "串カツ囲いは、穴熊より手数が少なく、玉が角の筋から外れます。ただし、香が取られると玉の下が空き、端攻めに崩されます。実戦ではほとんど見かけません。形を知っておき、相手に組まれたら端から攻める、と覚えておけば十分です。",
+            "en": "It needs fewer moves than Anaguma and the king is off the bishop line. If the lance is taken, though, the space below the king opens and an edge attack breaks it. It is hardly ever seen. Knowing the shape and remembering to attack from the edge when an opponent builds it is enough."
+          },
+          "marks": {
+            "boxes": [
+              "9i",
+              "9g"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "ちょんまげ美濃：二六の歩を残した美濃",
+        "en": "Chonmage Mino: a Mino with the pawn left on 2f"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "text": {
+            "ja": "ちょんまげ美濃は、玉の頭にあたる二筋の歩を、二六まで突いたままにした美濃囲いです。最初は居飛車らしく見せ、あとで飛車を振る陽動の作戦に現れます。この歩は欠点になるので、のちに処理します。",
+            "en": "Chonmage Mino is a Mino with the pawn above the king left pushed up to 2f. It shows up in the decoy approach where the player first looks like Static Rook and swings the rook afterwards. That pawn is a flaw and is dealt with later."
+          },
+          "marks": {
+            "boxes": [
+              "2f",
+              "2h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7g7f"
+          ],
+          "text": {
+            "ja": "▲７六歩。角道を開けます。",
+            "en": "▲7六歩 opens the bishop line."
+          },
+          "marks": {
+            "last": "7f"
+          }
+        },
+        {
+          "moves": [
+            "8c8d",
+            "2g2f"
+          ],
+          "text": {
+            "ja": "▲２六歩。居飛車らしく飛車先の歩を突きます。これが、のちにちょんまげになる歩です。",
+            "en": "▲2六歩 pushes the rook pawn like a Static Rook player. This is the pawn that later forms the topknot."
+          },
+          "marks": {
+            "boxes": [
+              "2f"
+            ],
+            "last": "2f"
+          }
+        },
+        {
+          "moves": [
+            "4a3b",
+            "2h6h"
+          ],
+          "text": {
+            "ja": "▲６八飛。飛車を四間に振ります。相手には、居飛車だと思わせておいた形です。",
+            "en": "▲6八飛 swings the rook to the fourth file, after leading the opponent to expect Static Rook."
+          },
+          "marks": {
+            "boxes": [
+              "2h"
+            ],
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "5i4h",
+            "1c1d",
+            "4h3h",
+            "7a6b",
+            "3h2h"
+          ],
+          "text": {
+            "ja": "玉を、▲４八玉、▲３八玉、▲２八玉と右へ運びます。",
+            "en": "The king walks ▲4八玉, ▲3八玉, ▲2八玉 to the right."
+          },
+          "marks": {
+            "boxes": [
+              "2h"
+            ],
+            "last": "2h"
+          }
+        },
+        {
+          "moves": [
+            "5c5d",
+            "3i3h"
+          ],
+          "text": {
+            "ja": "▲３八銀。銀を上げて完成です。端歩は突いていません。二六の歩が、玉の頭にぽつんと残ります。",
+            "en": "▲3八銀 lifts the silver. The edge pawn is not pushed, and the pawn on 2f stands alone above the king."
+          },
+          "marks": {
+            "boxes": [
+              "2f",
+              "3h",
+              "2h"
+            ],
+            "last": "3h"
+          }
+        },
+        {
+          "text": {
+            "ja": "ちょんまげ美濃は、居飛車に見せかけて飛車を振るのに便利な形です。弱点は、二六の歩が玉の頭の傷になっていることです。相手に狙われたり、取られたあとに駒を打たれたりします。そこで、銀冠などに組み替えて歩の傷を消すのが一般的です。",
+            "en": "Chonmage Mino is handy for pretending to be Static Rook and then swinging. The pawn on 2f is a flaw at the head of the king: it can be attacked, or a piece can be dropped after it is taken. The usual remedy is to convert to Gin Kanmuri and erase the flaw."
+          },
+          "marks": {
+            "boxes": [
+              "2f",
+              "2g"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "坊主美濃：二筋の歩がなくなった美濃",
+        "en": "Bozu Mino: a Mino without its second-file pawn"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "text": {
+            "ja": "坊主美濃は、ちょんまげ美濃の二六の歩がなくなった形です。頭の毛がない坊主頭のように見えるので、この名前がつきました。陽動振り飛車で使われますが、玉の頭が裸になるので、細かい注意が必要です。",
+            "en": "Bozu Mino is Chonmage Mino after the pawn on 2f has disappeared. The bare top looks like a shaved head, which gives the name. It appears in the decoy Ranging Rook strategy, but with the head of the king bare it demands careful play."
+          },
+          "marks": {
+            "boxes": [
+              "2g",
+              "2f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7g7f"
+          ],
+          "text": {
+            "ja": "▲７六歩。角道を開けます。",
+            "en": "▲7六歩 opens the bishop line."
+          },
+          "marks": {
+            "last": "7f"
+          }
+        },
+        {
+          "moves": [
+            "8c8d",
+            "2g2f"
+          ],
+          "text": {
+            "ja": "▲２六歩。飛車先の歩を突きます。",
+            "en": "▲2六歩 pushes the rook pawn."
+          },
+          "marks": {
+            "boxes": [
+              "2f"
+            ],
+            "last": "2f"
+          }
+        },
+        {
+          "moves": [
+            "2c2d",
+            "2f2e"
+          ],
+          "text": {
+            "ja": "▲２五歩。歩を進めて、相手の二筋の歩と向かい合わせます。",
+            "en": "▲2五歩 pushes the pawn so that it faces the opponent's second-file pawn."
+          },
+          "marks": {
+            "boxes": [
+              "2e"
+            ],
+            "last": "2e"
+          }
+        },
+        {
+          "moves": [
+            "2d2e",
+            "2h2e"
+          ],
+          "text": {
+            "ja": "▲同飛。相手が△２五歩と取ったので、飛車で取り返します。二筋の歩がお互いに消えました。",
+            "en": "▲同飛 recaptures with the rook after the opponent took on 2e. Both second-file pawns have disappeared."
+          },
+          "marks": {
+            "boxes": [
+              "2e"
+            ],
+            "last": "2e"
+          }
+        },
+        {
+          "moves": [
+            "4a3b",
+            "2e2h"
+          ],
+          "text": {
+            "ja": "▲２八飛。飛車を元の筋へ戻します。二筋の歩はこれでなくなりました。",
+            "en": "▲2八飛 returns the rook to its file. The second-file pawn is now gone for good."
+          },
+          "marks": {
+            "boxes": [
+              "2g",
+              "2f"
+            ],
+            "last": "2h"
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "2h6h"
+          ],
+          "text": {
+            "ja": "▲６八飛。飛車を四間に振ります。",
+            "en": "▲6八飛 swings the rook to the fourth file."
+          },
+          "marks": {
+            "boxes": [
+              "2h"
+            ],
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "5i4h",
+            "7a6b",
+            "4h3h",
+            "5a4b",
+            "3h2h"
+          ],
+          "text": {
+            "ja": "玉を、▲４八玉、▲３八玉、▲２八玉と運びます。",
+            "en": "The king walks ▲4八玉, ▲3八玉, ▲2八玉."
+          },
+          "marks": {
+            "boxes": [
+              "2h"
+            ],
+            "last": "2h"
+          }
+        },
+        {
+          "moves": [
+            "6a5b",
+            "3i3h"
+          ],
+          "text": {
+            "ja": "▲３八銀。銀を上げて、完成です。玉の頭には歩が一枚もありません。",
+            "en": "▲3八銀 lifts the silver, finishing the shape. Not a single pawn stands above the king."
+          },
+          "marks": {
+            "boxes": [
+              "2g",
+              "2f",
+              "3h",
+              "2h"
+            ],
+            "last": "3h"
+          }
+        },
+        {
+          "text": {
+            "ja": "坊主美濃は、玉の頭の歩がないぶん、上からの攻めに非常に弱くなります。相手に歩を打たれたり、角や飛車で頭を狙われたりすると、守りの駒が足りません。ちょんまげ美濃以上に弱体化した形なので、銀冠のように玉の頭に駒を足す組み替えを急ぎます。",
+            "en": "With no pawn above the king, Bozu Mino is very weak against attacks from above. A pawn drop or a rook or bishop aimed at the head finds too few defenders. It is weaker than Chonmage Mino, so hurry to add a piece above the king, as in Gin Kanmuri."
+          },
+          "marks": {
+            "boxes": [
+              "2g",
+              "2f",
+              "2e"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "無敵囲い：初心者が自己流で作りがちな形",
+        "en": "Invincible castle: the shape beginners build on their own"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "text": {
+            "ja": "無敵囲いは、飛車を玉の真下に置き、左右を金銀で固めた形です。将棋を覚えたての人が自己流で組むとよくこうなります。名前に反して、強い囲いではありません。いつまでも初心者を卒業しない人を皮肉って名づけられました。",
+            "en": "The invincible castle sets the rook directly beside the king and fills both sides with gold and silver. It is what people who have just learned the game tend to build on their own. Despite the name it is not a strong castle; the name was coined as a joke at players who never grow out of it."
+          },
+          "marks": {
+            "boxes": [
+              "5h",
+              "6h",
+              "4h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2h5h"
+          ],
+          "text": {
+            "ja": "▲５八飛。飛車を玉の前の五八まで動かします。玉の真上に大駒が居座る形です。",
+            "en": "▲5八飛 moves the rook to 5h, directly in front of the king. A major piece now sits on top of the king."
+          },
+          "marks": {
+            "boxes": [
+              "5h"
+            ],
+            "last": "5h"
+          }
+        },
+        {
+          "moves": [
+            "8c8d",
+            "7i6h"
+          ],
+          "text": {
+            "ja": "▲６八銀。左の銀を飛車の隣に上げます。",
+            "en": "▲6八銀 lifts the left silver beside the rook."
+          },
+          "marks": {
+            "boxes": [
+              "6h"
+            ],
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "4a3b",
+            "3i4h"
+          ],
+          "text": {
+            "ja": "▲４八銀。右の銀も上げて、完成です。玉の周りを、金・銀・飛が囲みます。",
+            "en": "▲4八銀 lifts the right silver, completing it. Gold, silver and rook surround the king."
+          },
+          "marks": {
+            "boxes": [
+              "6i",
+              "5i",
+              "4i",
+              "6h",
+              "4h",
+              "5h"
+            ],
+            "last": "4h"
+          }
+        },
+        {
+          "text": {
+            "ja": "無敵囲いは、一見すると金銀が玉を囲んでいて堅そうですが、飛車が玉のすぐ前にいて、攻めの働きをしません。囲いの中に大駒を抱えたまま、攻める駒が足りなくなります。飛車を使って戦う将棋にするなら、早めにほかの囲いへ組み替えます。",
+            "en": "At a glance the golds and silvers look firm around the king, but the rook right in front of it does no attacking work. A major piece is tied up inside the castle and attackers run short. If you want a game that uses the rook, change to another castle early."
+          },
+          "marks": {
+            "boxes": [
+              "5h"
+            ]
           }
         }
       ]

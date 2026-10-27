@@ -1,23 +1,26 @@
 {
   "id": "kishu-onigoroshi",
   "order": 1330,
-  "path": ["戦法・定跡", "奇襲対策"],
+  "path": [
+    "戦法・定跡",
+    "鬼殺し"
+  ],
   "title": {
-    "ja": "鬼殺しの桂跳ねを受ける数え方",
-    "en": "Count the targets of an Oni-goroshi knight"
+    "ja": "鬼殺し：狙いと受け方",
+    "en": "Oni-goroshi: its aim and how to defend"
   },
   "intro": {
-    "ja": "早く６五に跳ねた先手の桂は、次に５三と７三を狙います。後手は桂そのものを追う前に、その二つの着地点を誰が守るか数えましょう。守り駒の位置によって、桂を取れる手も、歩を逃がすだけでは足りない手もあります。",
-    "en": "Sente's early knight on 6e attacks 5c and 7c. Before chasing it, Gote should count who controls both landing squares. The actual defender placement decides whether a knight capture can be recaptured and whether moving one pawn is enough."
+    "ja": "後手の立場で、３手目▲７七桂の奇襲を受ける方法を学びます。先手が桂で攻め、角交換から▲５五角と７筋を狙う流れを初手から追い、△６二金で受ける形を覚えます。四間飛車に構える方法も見ます。",
+    "en": "Learn, from Gote's side, how to meet the surprise ▲7七桂 on the third move. Follow Sente's knight attack and bishop trade from move one up to ▲5五角 and the seventh file, then learn the defence with △6二金. A Fourth File Rook alternative is covered too."
   },
   "check": {
     "question": {
-      "ja": "先手桂が６五にいるとき、後手が７三歩だけを７四へ動かしました。５三歩は安全になりましたか？",
-      "en": "With Sente's knight on 6e, Gote moves only the pawn from 7c to 7d. Is the pawn on 5c now safe?"
+      "ja": "鬼殺しに対して銀ではなく金を６二に上げるのはなぜですか？",
+      "en": "Against Oni-goroshi, why play the gold to 6b instead of the silver?"
     },
     "answer": {
-      "ja": "いいえ。桂は６五から５三へも跳べます。５三に取り返す駒がいなければ▲５三桂成で歩を取られます。",
-      "en": "No. The knight can also jump from 6e to 5c. Without a recapturer there, N6e×5c+ takes the pawn."
+      "ja": "金は真横に動けるので、△６三金と上がると６四の歩を守りながら５三の地点も守れます。銀は横に動けず、▲５三桂成を受けられません。",
+      "en": "A gold can move sideways, so after △6三金 it guards both the pawn on 6d and the square 5c. A silver cannot move sideways and cannot stop ▲5三桂成."
     }
   },
   "references": [
@@ -30,122 +33,438 @@
   ],
   "chapters": [
     {
-      "title": { "ja": "銀で桂の二つの行き先を見る", "en": "One silver covers both knight destinations" },
-      "side": "gote",
-      "kind": "position",
-      "start": "l2gkgsnl/3r3b1/npppspppp/p3p4/3N5/2PP5/PP2PPPPP/1B5R1/L1SGKGSNL w - 1",
+      "title": {
+        "ja": "鬼殺しの狙いを見る",
+        "en": "See what Oni-goroshi is after"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "先手桂は６五から５三と７三へ跳べます。５三には後手の銀、７三には歩がいて、今はどちらにも取り返す駒がありません。７三歩だけを見ずに、二つの跳び先を両方数えます。",
-            "en": "Sente's knight on 6e can jump to 5c or 7c. Gote has a silver on 5c and a pawn on 7c, and neither square has a recapturer yet. Count both landing squares, not only the pawn on 7c."
-          },
-          "marks": { "boxes": ["6e", "5c", "7c", "6d"] }
+            "ja": "鬼殺しは、先手が３手目に▲７七桂と跳ねる奇襲戦法です。この講座は後手の立場で進めます。まず先手の狙いを見て、次の章から受け方を覚えます。",
+            "en": "Oni-goroshi is a surprise opening in which Sente jumps the knight to 7g on the third move. This lesson takes Gote's side. First see what Sente is after, then learn the defence in the following chapters."
+          }
         },
         {
-          "moves": ["5c6d"],
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "8i7g"
+          ],
           "text": {
-            "ja": "△６四銀は６五の桂に当たります。銀は６四から斜め後ろの５三と７三へ戻れるので、桂がどちらへ跳んでも取り返せます。ここでは先手が桂を進める場合を見ます。",
-            "en": "S5c–6d attacks the knight on 6e. From 6d the silver can step diagonally back to 5c or 7c, so it can recapture on either landing square. The next line assumes Sente advances the knight anyway."
+            "ja": "お互いに角道を開けたところで、先手は▲７七桂と跳ねます。ふつうは銀や金を動かす場面で、桂を早く出す手は珍しい形です。この桂がもう一度跳ねて６五へ向かうのが狙いです。",
+            "en": "Once both bishop diagonals are open, Sente jumps the knight to 7g. That is the moment for silver or gold moves, so an early knight is unusual. The knight is heading for a second jump to 6e."
           },
-          "marks": { "arrows": ["5c6d"], "boxes": ["6e", "5c", "7c"] }
+          "marks": {
+            "last": "7g",
+            "arrows": [
+              "7g6e"
+            ],
+            "boxes": [
+              "6e"
+            ]
+          }
         },
         {
-          "moves": ["6e7c+", "6d7c"],
+          "moves": [
+            "8c8d",
+            "7g6e"
+          ],
           "text": {
-            "ja": "▲７三桂成で歩を取っても、△同銀で成桂を取れます。先手は歩一枚と引き換えに桂を失います。先手がこの交換を選ぶ必要はなく、銀が６四から７三へ届くことを確かめる手順です。",
-            "en": "If N6e×7c+ takes the pawn, S6d×7c captures the promoted knight, and Sente has given a knight for one pawn. Sente is not forced into this exchange; the line checks the silver's reach from 6d to 7c."
+            "ja": "後手が△８四歩と居飛車の形を作ると、先手は▲６五桂と跳ねます。この桂は５三と７三の二か所に跳べる位置です。正しく受ければ攻めは続きませんが、受け方を間違えると一気に崩されます。",
+            "en": "Gote builds a Static Rook shape with △8四歩, and Sente jumps ▲6五桂. From 6e the knight can go to 5c or 7c. Played correctly the attack runs out of steam, but a wrong defence collapses quickly."
           },
-          "marks": { "arrows": ["6d7c"], "last": "7c" }
-        }
-      ],
-      "variations": [
-        {
-          "from": 1,
-          "moves": ["6e5c+", "6d5c"],
-          "text": {
-            "ja": "▲５三桂成と反対側へ跳んでも、△同銀で取り返せます。一枚の銀が二つの跳び先を両方見ています。",
-            "en": "If the knight jumps the other way with N6e–5c+, S6d×5c recaptures as well. One silver covers both landing squares."
+          "marks": {
+            "last": "6e",
+            "arrows": [
+              "6e5c",
+              "6e7c"
+            ],
+            "boxes": [
+              "5c",
+              "7c"
+            ]
           }
         }
       ]
     },
     {
-      "title": { "ja": "飛車を歩の後ろへ回す", "en": "Put the rook behind the threatened pawn" },
+      "title": {
+        "ja": "△６二銀と受けると何が起きるか",
+        "en": "What happens after the natural △6二銀"
+      },
       "side": "gote",
-      "kind": "position",
-      "start": "lnsg1kgnl/1r4sb1/ppppppppp/9/3N5/2PP5/PP2PPPPP/1B5R1/L1SGKGSNL w - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "8i7g",
+            "8c8d",
+            "7g6e"
+          ],
           "text": {
-            "ja": "後手の５三歩と７三歩はどちらも６五桂の跳び先です。７三は８一の桂が取り返せますが、５三に取り返す駒はいません。飛車は８二にいて、５二まで横の通路が空いています。",
-            "en": "Both P5c and P7c are knight targets from 6e. The knight on 8a can recapture on 7c, but nothing recaptures on 5c. Gote's rook on 8b has an open sideways route to 5b."
+            "ja": "前の章の図です。ここで△６二銀と受けた場合を見ます。自然に見えますが、先手の狙いどおりに進んでしまう受け方です。後手は何を見落としたのか、手順を追って確かめます。",
+            "en": "The position from the previous chapter. Here we follow △6二銀. It looks natural, yet it plays into Sente's plan. Follow the moves to find what Gote missed."
           },
-          "marks": { "boxes": ["8a", "7c", "5c", "8b", "5b"] }
+          "marks": {
+            "last": "6e",
+            "boxes": [
+              "6e"
+            ]
+          }
         },
         {
-          "moves": ["8b5b"],
+          "moves": [
+            "7a6b"
+          ],
           "text": {
-            "ja": "△５二飛で飛車が５三歩の真後ろに来ます。７二と６二は空いているので横に動けます。これで５三は飛車、７三は桂が取り返せるので、二つの跳び先の両方に守りがつきました。",
-            "en": "R8b–5b puts the rook directly behind P5c; 7b and 6b are empty, so the transfer is legal. Now the rook recaptures on 5c and the knight on 8a recaptures on 7c, so both landing squares are covered."
+            "ja": "△６二銀は、▲５三桂成を防ぐ自然な手です。銀が５三に利くので、桂が跳んでも取り返せます。７三も歩と銀で守られています。",
+            "en": "△6二銀 stops ▲5三桂成. The silver covers 5c, so a knight that jumps there can be recaptured. The square 7c is also guarded by the pawn and the silver."
           },
-          "marks": { "arrows": ["8b5b"], "boxes": ["5c", "7c"] }
+          "marks": {
+            "last": "6b",
+            "arrows": [
+              "6b5c",
+              "6b7c"
+            ],
+            "boxes": [
+              "5c",
+              "7c"
+            ]
+          }
         },
         {
-          "moves": ["6e5c+", "5b5c"],
+          "moves": [
+            "7f7e",
+            "6c6d"
+          ],
           "text": {
-            "ja": "▲５三桂成で歩を取るなら△同飛で成桂を取れます。先手は歩一枚と引き換えに桂を失います。",
-            "en": "If N6e×5c+ takes the pawn, R5b×5c captures the promoted knight, and Sente has given a knight for one pawn."
+            "ja": "先手が▲７五歩と突き、後手は△６四歩と桂を取りに出ます。桂の跳び先は５三も７三も守られているので、桂が捕まったように見えます。",
+            "en": "Sente pushes ▲7五歩 and Gote attacks the knight with △6四歩. Both landing squares 5c and 7c are guarded, so the knight looks trapped."
           },
-          "marks": { "arrows": ["5b5c"], "last": "5c" }
-        }
-      ],
-      "variations": [
+          "marks": {
+            "last": "6d",
+            "arrows": [
+              "6d6e"
+            ],
+            "boxes": [
+              "6e"
+            ]
+          }
+        },
         {
-          "from": 1,
-          "moves": ["6e7c+", "8a7c"],
+          "moves": [
+            "8h2b+",
+            "3a2b",
+            "B*5e"
+          ],
           "text": {
-            "ja": "▲７三桂成と反対側を取っても、△同桂で成桂を取れます。飛車を回したのは５三のためで、７三は最初から８一の桂が守っていました。",
-            "en": "If Sente takes on the other side with N6e×7c+, N8a×7c recaptures. The rook transfer was needed only for 5c; the knight on 8a covered 7c from the start."
+            "ja": "ここが鬼殺しの切り返しです。先手は▲２二角成と角を換え、△同銀に▲５五角と打ち直します。この角は２二の銀と６四の歩を同時に狙う両取りで、桂は取られません。",
+            "en": "Here is Oni-goroshi's counter. Sente trades bishops with ▲2二角成, and after △同銀 drops the bishop back with ▲5五角. It attacks the silver on 2b and the pawn on 6d at once, so the knight survives."
+          },
+          "marks": {
+            "last": "5e",
+            "arrows": [
+              "5e2b",
+              "5e6d"
+            ],
+            "boxes": [
+              "2b",
+              "6d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2b3c",
+            "5e6d",
+            "6a5b",
+            "7e7d"
+          ],
+          "text": {
+            "ja": "銀を△３三銀と逃げると、▲６四角と歩を取られて桂も助かります。後手が△５二金右と守りを固めても、先手は▲７四歩と突いて７三を狙います。ここで△７四同歩と取ると７三の歩が消え、６四の角が８二の飛車に当たって▲８二角成と飛車を取られます。",
+            "en": "If the silver steps to 3c, ▲6四角 takes the pawn and the knight is safe. Even after △5二金右 to firm up, Sente pushes ▲7四歩 aiming at 7c. Taking with △同歩 removes the pawn from 7c, and the bishop on 6d then hits the rook on 8b: ▲8二角成 wins it."
+          },
+          "marks": {
+            "last": "7d",
+            "arrows": [
+              "7d7c",
+              "6d8b"
+            ],
+            "boxes": [
+              "7c",
+              "8b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5b6c",
+            "2h7h"
+          ],
+          "text": {
+            "ja": "後手は△６三金と角に当てて７三も守りますが、先手は▲７八飛と回って７筋に飛車を足します。７四の歩、６五の桂、７八の飛が７筋に集まり、受けるのが難しくなりました。",
+            "en": "Gote plays △6三金, attacking the bishop and covering 7c, but Sente adds the rook with ▲7八飛. The pawn on 7d, the knight on 6e and the rook on 7h all aim at the seventh file, and it has become hard to defend."
+          },
+          "marks": {
+            "last": "7h",
+            "arrows": [
+              "7h7d"
+            ],
+            "boxes": [
+              "7c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6c6d",
+            "7d7c+",
+            "8a7c",
+            "6e7c+",
+            "6b7c",
+            "7h7c"
+          ],
+          "text": {
+            "ja": "△６四金と角を取っても、▲７三歩成から７筋で駒を交換し、最後に▲同飛と成り込みます。先手は飛車が敵陣に入り、はっきり先手がよい形です。教訓は、７筋に集まる駒を銀では受けきれないことです。",
+            "en": "Even if Gote takes the bishop with △6四金, Sente liquidates on the seventh file with ▲7三歩成 and ends with ▲同飛. The rook lands in Gote's camp and Sente is clearly better. The lesson: a silver cannot hold the seventh file against these three pieces."
+          },
+          "marks": {
+            "last": "7c",
+            "arrows": [
+              "7c8b"
+            ],
+            "boxes": [
+              "7c"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "鬼殺しの要点は三つです。３手目▲７七桂から桂を使うこと、角を交換して▲５五角と両取りに打つこと、▲７八飛と回って７筋に駒を集めること。受ける側は、この三つを順に止める必要があります。",
+            "en": "Three points to remember about Oni-goroshi. It plays the knight from the third move, trades bishops to fork with ▲5五角, and then swings ▲7八飛 to gather force on the seventh file. The defender must stop these in order."
           }
         }
       ]
     },
     {
-      "title": { "ja": "片方の歩だけ逃がした場合", "en": "Moving only one target" },
+      "title": {
+        "ja": "△６二金で受ける",
+        "en": "Defend with △6二金"
+      },
       "side": "gote",
-      "kind": "position",
-      "start": "l1sgkgsnl/7b1/n1ppppppp/pr7/1p1N5/2PP5/PP2PPPPP/1B5R1/L1SGKGSNL w - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "8i7g",
+            "8c8d",
+            "7g6e"
+          ],
           "text": {
-            "ja": "先手桂の行き先は５三と７三です。後手の飛車は８四に浮いていて、５三歩の後ろにはいません。どちらの跳び先にも取り返す駒がないので、片方の歩を動かすだけではもう一方が残ります。",
-            "en": "Sente's knight attacks 5c and 7c. Gote's rook stands on 8d, not behind P5c, and neither square has a recapturer, so moving one pawn still leaves the other target."
+            "ja": "前の章と同じ図です。ここで△６二銀ではなく△６二金と上がるのが、鬼殺しを受けるコツです。見た目はほとんど変わりませんが、次の数手でその違いがはっきり出ます。",
+            "en": "The same position as before. The trick is to play the gold to 6b instead of the silver. It looks almost identical, but the next few moves show the difference."
           },
-          "marks": { "boxes": ["7c", "5c", "8d"] }
+          "marks": {
+            "last": "6e",
+            "boxes": [
+              "6b"
+            ]
+          }
         },
         {
-          "moves": ["7c7d", "6e5c"],
+          "moves": [
+            "6a6b"
+          ],
           "text": {
-            "ja": "△７四歩で７三の歩は桂の利きから外れますが、▲５三桂不成で５三歩を取られます。５三の桂は４一と６一の金に同時に当たり、後手はこの桂を取れません。この手順だけで先手勝ちとは決まりませんが、もう一方の跳び先を忘れた損ははっきりしています。",
-            "en": "P7c–7d takes one pawn out of the knight's reach, but N6e×5c, declining promotion, takes the other. The knight on 5c attacks both golds on 4a and 6a, and Gote cannot capture it. This does not prove a Sente win, but overlooking the second landing square clearly costs material."
+            "ja": "△６二金です。金は斜め前には動けませんが、真横に動けます。この横の動きが、５三の地点を守る役目をします。",
+            "en": "△6二金. A gold cannot step diagonally forward, but it can move straight sideways. That sideways move is what lets it cover 5c."
           },
-          "marks": { "arrows": ["6e5c"], "last": "5c", "boxes": ["4a", "6a"] }
+          "marks": {
+            "last": "6b",
+            "arrows": [
+              "6b5b"
+            ],
+            "boxes": [
+              "5c"
+            ]
+          }
         },
         {
+          "moves": [
+            "7f7e",
+            "6c6d",
+            "8h2b+",
+            "3a2b",
+            "B*5e"
+          ],
           "text": {
-            "ja": "桂を受けるときは、取られそうな駒を一枚だけ見るのでなく、桂が跳ぶ二か所、そこへ取り返せる駒、玉への王手を順に点検します。",
-            "en": "When defending, inspect both knight destinations, every available recapturer, and any check on the king rather than protecting only the first visible pawn."
+            "ja": "先手は前と同じく▲７五歩、△６四歩に▲２二角成、△同銀、▲５五角と進めます。銀と歩の両取りですが、ここで後手に受けがあります。",
+            "en": "Sente repeats the plan: ▲7五歩 △6四歩, then ▲2二角成 △同銀 ▲5五角. The fork on silver and pawn appears again, but this time Gote has an answer."
+          },
+          "marks": {
+            "last": "5e",
+            "arrows": [
+              "5e2b",
+              "5e6d"
+            ],
+            "boxes": [
+              "2b",
+              "6d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6b6c"
+          ],
+          "text": {
+            "ja": "△６三金と上がると、攻めが受かります。金が６四の歩を守り、２二の銀には飛車の利きでヒモが付きます。５三へも金が利いているので、▲５三桂も消えました。あとは桂をゆっくり取りに行き、駒組みを進めれば後手が指しやすくなります。",
+            "en": "△6三金 holds everything. The gold protects the pawn on 6d, and the rook backs up the silver on 2b along the second rank. The gold also covers 5c, so ▲5三桂 is gone. Gote can then collect the knight at leisure and carry on building, with the easier game."
+          },
+          "marks": {
+            "last": "6c",
+            "arrows": [
+              "6c6d",
+              "8b2b"
+            ],
+            "boxes": [
+              "6d",
+              "2b",
+              "5c"
+            ]
           }
         }
       ],
       "variations": [
         {
           "from": 0,
-          "moves": ["7a6b"],
+          "moves": [
+            "7a6b",
+            "7f7e",
+            "6c6d",
+            "8h2b+",
+            "3a2b",
+            "B*5e",
+            "6b6c"
+          ],
           "text": {
-            "ja": "この配置なら△６二銀が一手で両方を守ります。銀は６二から斜め前の５三と７三へ出られるので、桂がどちらへ跳んでも取り返せます。",
-            "en": "Here S7a–6b covers both targets in one move. From 6b the silver can step diagonally forward to 5c or 7c, so it recaptures wherever the knight lands."
+            "ja": "比較のために、金ではなく銀で△６三銀と受けた図です。形は似ていますが、銀は真横に動けないため、５三の地点が守れません。",
+            "en": "For comparison, the same defence with the silver: △6三銀. The shape looks similar, but a silver cannot move sideways, so 5c is no longer covered."
+          },
+          "steps": [
+            {
+              "moves": [
+                "6e5c+"
+              ],
+              "text": {
+                "ja": "▲５三桂成と歩を取られます。銀は横に動けないので、成桂を取り返せず、攻めを受け止められなくなります。金を使う理由は、この一点にあります。",
+                "en": "▲5三桂成 takes the pawn. The silver cannot step sideways to recapture, so the attack can no longer be absorbed. This single point is the reason to use the gold."
+              },
+              "marks": {
+                "last": "5c",
+                "arrows": [
+                  "6e5c"
+                ],
+                "boxes": [
+                  "5c"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "振り飛車に構える受け方",
+        "en": "Meeting it with a Ranging Rook"
+      },
+      "side": "gote",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "8i7g"
+          ],
+          "text": {
+            "ja": "鬼殺しは居飛車で受けるだけの戦法ではありません。飛車を振って、先手の桂跳ねを迎える手もあります。",
+            "en": "Oni-goroshi need not be met only with a Static Rook set-up. Gote can also swing the rook and receive the knight jump that way."
+          },
+          "marks": {
+            "last": "7g",
+            "boxes": [
+              "7g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8b4b"
+          ],
+          "text": {
+            "ja": "先手が▲７七桂と跳ねた直後に、△４二飛と四間飛車に回ります。早く桂を出した先手は、まだ囲いも整っていません。振り飛車ならば、６五へ跳んでくる桂を落ち着いて取りにいけます。",
+            "en": "Right after Sente jumps to 7g, Gote swings the rook to the fourth file with △4二飛. Sente has spent a move on the knight and has no castle yet. With the rook swung, Gote can calmly chase the knight if it jumps to 6e."
+          },
+          "marks": {
+            "last": "4b",
+            "arrows": [
+              "4b4h"
+            ],
+            "boxes": [
+              "4b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7g6e",
+            "6a6b",
+            "2h7h",
+            "6c6d"
+          ],
+          "text": {
+            "ja": "先手が無理に▲６五桂と跳ねても、△６二金から△６四歩と桂を取りにいけば後手が有利です。▲７八飛と回ってきても、７筋に飛車先を向ける準備が間に合いません。",
+            "en": "If Sente forces ▲6五桂 anyway, Gote goes △6二金 then △6四歩 to win the knight and stands better. Even after ▲7八飛, the rook does not arrive in time to build pressure on the seventh file."
+          },
+          "marks": {
+            "last": "6d",
+            "arrows": [
+              "6d6e"
+            ],
+            "boxes": [
+              "6e"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "まとめです。鬼殺しは３手目▲７七桂から桂を使う奇襲で、角交換から▲５五角と打ち、７筋を攻めます。居飛車で受けるなら△６二金と上がるのがコツ。振り飛車なら△４二飛と四間飛車に回る方法も有力です。",
+            "en": "Summary. Oni-goroshi is a surprise opening that plays the knight from move three, trades bishops and drops ▲5五角, then attacks on the seventh file. Against a Static Rook set-up the trick is to play the gold to 6b. Swinging to Fourth File Rook with △4二飛 is also a good option."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 2,
+          "moves": [
+            "8h2b+",
+            "3a2b"
+          ],
+          "text": {
+            "ja": "先手が角交換を挑んでも大丈夫です。△同銀と取った２二の銀には四間飛車の飛車が横から利いているので、浮き駒になりません。",
+            "en": "Sente may offer a bishop trade, which is fine. After △同銀 the silver on 2b is protected by the rook on the fourth file along the second rank, so it does not hang."
           }
         }
       ]

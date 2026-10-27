@@ -1,23 +1,26 @@
 {
   "id": "kakugawari-ittezon",
   "order": 710,
-  "path": ["戦法・定跡", "角換わり"],
+  "path": [
+    "戦法・定跡",
+    "角換わり"
+  ],
   "title": {
-    "ja": "一手損角換わりの選択を数える",
-    "en": "Counting the Choices in Tempo-Loss Bishop Exchange"
+    "ja": "一手損角換わり：手損のしくみと駒組み",
+    "en": "Itteson Kakugawari: how the lost tempo works and the formation"
   },
   "intro": {
-    "ja": "一手損という名前は、角交換までに使った手を比較するときの呼び名です。損得を判断するには、比較する局面と数える駒を先に決めます。後手側から、８筋の歩を８四に置くか８五へ進めるか、桂の跳び先を残すかを盤面で調べます。",
-    "en": "The name tempo-loss describes a comparison of moves invested around the bishop trade. First define the positions and which piece moves you are counting. From Gote's side, this lesson examines whether to leave the 8-file pawn on 8d or advance it to 8e, and what that does to the knight's route."
+    "ja": "一手損角換わりは、後手から先に角を交換し、あえて一手を損して戦う角換わりの形です。角を交換すると手損になる仕組み、手損しない角交換との違い、一手損角換わりの駒組みの狙いを、初手から覚えます。",
+    "en": "Itteson Kakugawari is the Bishop Exchange where Gote exchanges first and deliberately gives up a tempo. Learn from move one how an exchange loses a tempo, how it differs from an exchange that does not, and what the formation aims for."
   },
   "check": {
     "question": {
-      "ja": "後手の桂が７三、後手の歩が８五にあります。△８五桂は指せますか。",
-      "en": "Gote has a knight on 7c and its own pawn on 8e. Can Gote play ...N-8e?"
+      "ja": "後手が△８五歩と突いて先手に▲７七角と上がらせてから角を交換すると、手損にならないのはなぜですか？",
+      "en": "Why does Gote not lose a tempo if he pushes △8五歩, makes Sente play ▲7七角 and then exchanges?"
     },
     "answer": {
-      "ja": "指せません。７三桂から８五へは跳べますが、８五は自分の歩で埋まっています。８四歩で止めた局面とは違います。",
-      "en": "No. The knight's jump from 7c reaches 8e, but that square is occupied by Gote's pawn. Leaving the pawn on 8d would keep the landing square open."
+      "ja": "後手が角を動かすのに一手使う一方で、先手も▲７七角と角に一手使っているからです。お互いに角に一手ずつ使うので、駒組みの手数は釣り合います。",
+      "en": "Gote spends one move on his bishop, and Sente also spends one move on ▲7七角. Each side spends one move on the bishop, so the number of moves in the build-up is balanced."
     }
   },
   "references": [
@@ -31,150 +34,312 @@
   "chapters": [
     {
       "title": {
-        "ja": "８五を空けておく",
-        "en": "Keep 8e available"
+        "ja": "入門：初手から一手損角換わりの基本図まで",
+        "en": "Tutorial: from move one to the Itteson Kakugawari basic position"
       },
       "side": "gote",
-      "kind": "position",
-      "start": "lnsgkg1nl/1r5s1/p2ppp1pp/1pp3p2/9/2P4P1/PP1PPPP1P/2G2S1R1/LNS1KG1NL w Bb 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "角を持ち合った局面です。後手歩は８四、後手桂は８一にいます。８五が空いているので、桂を７三へ運べば次の跳び先として使えます。",
-            "en": "Both sides hold a bishop. Gote's pawn is on 8d and knight on 8a. With 8e empty, developing the knight to 7c preserves 8e as a future landing square."
-          },
-          "marks": { "boxes": ["8a", "7c", "8e", "8d"] }
+            "ja": "一手損角換わりは、後手が自分から角を交換し、あえて一手を損して戦う角換わりです。ここでは後手を持ち、初手から基本図まで一手ずつ組みます。先手の指し手が先に出て、そのあとに自分の手を指す順で進みます。交換した角は持ち駒になり、後手は矢倉を目指して囲いを組みます。",
+            "en": "Itteson Kakugawari is a Bishop Exchange in which Gote trades the bishops on his own initiative and knowingly gives up one tempo. You play Gote and build one move at a time from move one up to the basic position. In each step Sente's move comes first and then your own. The traded bishops go into hand, and Gote builds a Yagura castle."
+          }
         },
         {
-          "moves": ["8a7c", "2f2e"],
+          "moves": [
+            "7g7f",
+            "3c3d"
+          ],
           "text": {
-            "ja": "△７三桂のあと、先手は２五歩と進めました。後手は８五に自分の歩を置いていないので、桂の次の跳躍を選べます。先手の応手は一例で、桂跳ねを強制するものではありません。",
-            "en": "After ...N-7c, Sente plays P-2e in this sample. Gote's own pawn has not occupied 8e, so the knight can still choose that jump. Sente's reply is only an illustration; the jump is not forced."
+            "ja": "先手は▲７六歩と角道を開けました。後手は△３四歩と、自分の角道を開けます。これで２二の角が盤の斜めに通り、相手の角と向かい合います。角を交換する準備です。",
+            "en": "Sente opens his bishop line with ▲7六歩. Gote answers with △3四歩 and opens his own bishop line. The bishop on 2b now runs along the diagonal and faces Sente's bishop, which prepares the exchange."
           },
-          "marks": { "last": "2e", "arrows": ["8a7c", "7c8e"] }
+          "marks": {
+            "last": "3d",
+            "arrows": [
+              "2b8h"
+            ],
+            "boxes": [
+              "3c"
+            ]
+          }
         },
         {
-          "moves": ["7c8e", "8g8f"],
+          "moves": [
+            "2g2f",
+            "2b8h+"
+          ],
           "text": {
-            "ja": "△８五桂は９七の歩に利きます。ただし▲８六歩と突かれると、先手の歩が桂を狙います。桂の進み先は７七と９七だけで、７七は金が、９七は香が守っています。８五が空いていることと、安全な着地点であることは別です。",
-            "en": "...N-8e attacks the pawn on 9g. After Sente's sample P-8f, that pawn attacks the knight on 8e. The knight can only go to 7g or 9g, and the gold guards 7g while the lance guards 9g. An empty landing square is not automatically a safe one."
+            "ja": "先手は▲２六歩と飛車先を突きました。そこで後手は△８八角成と、自分から角を交換します。角で相手の角を取りながら成れるので、持ち駒として角が一枚手に入ります。ただし、この角の動きに一手使うので、一手損になります。",
+            "en": "Sente pushes the rook pawn with ▲2六歩. Gote now trades by himself with △8八角成, capturing the bishop and promoting at once, so a bishop goes into his hand. Using a move on the bishop like this is what costs the tempo."
           },
-          "marks": { "last": "8f", "boxes": ["8e", "7g", "9g"] }
+          "marks": {
+            "last": "8h",
+            "boxes": [
+              "8h"
+            ]
+          }
         },
         {
-          "moves": ["8e9g+", "9i9g"],
+          "moves": [
+            "7i8h",
+            "3a2b"
+          ],
           "text": {
-            "ja": "△９七桂成▲同香と進めば桂を逃がせますが、取れたのは歩一枚で、桂を失います。後手が損をする例です。桂を跳ねる前に、着地点を攻められないかまで確かめます。",
-            "en": "...Nx9g+ Lx9g gets the knight off 8e, but Gote wins one pawn and loses the knight. This is a line where Gote ends up worse. Before jumping the knight, check whether the landing square can be attacked."
+            "ja": "先手は▲８八銀と銀で取り返します。これでお互いが角を一枚ずつ持ち駒にしました。後手は△２二銀と、角のいなくなった２二に銀を上げます。この銀は２筋を守り、あとで矢倉の一部にもなります。",
+            "en": "Sente recaptures with ▲8八銀 and both sides now hold a bishop in hand. Gote plays △2二銀, placing the silver on the square the bishop left. The silver guards the second file and later becomes part of the Yagura."
           },
-          "marks": { "last": "9g", "arrows": ["8e9g", "9i9g"] }
+          "marks": {
+            "last": "2b",
+            "boxes": [
+              "2b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6i7h",
+            "4a3b"
+          ],
+          "text": {
+            "ja": "先手は▲７八金と金を寄せます。後手は△３二金と金を上げます。２二の銀の横に金を並べて、玉の周りを固める形です。",
+            "en": "Sente plays ▲7八金. Gote plays △3二金, setting the gold next to the silver on 2b to firm up the area around the king."
+          },
+          "marks": {
+            "last": "3b",
+            "boxes": [
+              "3b",
+              "2b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8h7g",
+            "8c8d"
+          ],
+          "text": {
+            "ja": "先手は▲７七銀と銀を前に出します。後手は△８四歩と、飛車の前の歩を一つだけ突きます。次の△８五歩はまだ突かないでおきます。この保留が、この戦法の特徴です。",
+            "en": "Sente plays ▲7七銀, moving the silver up. Gote pushes the pawn in front of his rook only one square with △8四歩. He leaves △8五歩 unplayed for now, and holding it back is the signature of this strategy."
+          },
+          "marks": {
+            "last": "8d",
+            "boxes": [
+              "8d",
+              "8e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3i3h",
+            "7a7b"
+          ],
+          "text": {
+            "ja": "先手は▲３八銀と右の銀を上げます。後手は△７二銀と上がり、矢倉の形ができてきました。ここが一手損角換わりの基本図です。",
+            "en": "Sente lifts the right silver with ▲3八銀. Gote plays △7二銀 and the Yagura shape appears. This is the basic position of Itteson Kakugawari."
+          },
+          "marks": {
+            "last": "7b",
+            "boxes": [
+              "7b",
+              "2b",
+              "3b"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "覚えることは四つです。後手から先に角を交換する。交換のために一手を使うが、それを承知で指す。△８四歩で止め、△８五歩を保留する。矢倉の囲いを組む。手損の仕組みは次の章で確かめます。",
+            "en": "Four things to remember. Gote is the one who trades the bishops first. The trade uses a tempo, and Gote accepts that. Stop at △8四歩 and hold back △8五歩. Build a Yagura castle. The next chapter checks how the lost tempo arises."
+          },
+          "marks": {
+            "boxes": [
+              "8d",
+              "8e"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "一手損角換わりの長所と短所です。長所は、△８五歩を省いておくことで、あとで互いに腰掛け銀になったときに桂を８五へ跳ねる手が残ることです。短所は、実際に一手遅れているので、先手に攻めの主導権を握られやすいことです。アマチュアの対局では一手の差が勝敗を決めることは少ないので、神経質にならなくて構いません。",
+            "en": "Strengths and weaknesses of Itteson Kakugawari. A strength is that leaving △8五歩 unplayed keeps a knight jump to 8e available once both sides have reached Koshikake Gin. A weakness is that Gote really is a tempo behind, so Sente can take the initiative more easily. Between amateurs a single tempo rarely decides the game, so there is no need to worry."
+          },
+          "marks": {
+            "boxes": [
+              "8e"
+            ]
+          }
         }
       ]
     },
     {
       "title": {
-        "ja": "歩を伸ばすと桂の道が変わる",
-        "en": "A pawn push changes the knight's route"
+        "ja": "角を交換すると一手損になる",
+        "en": "Exchanging bishops costs a tempo"
       },
-      "side": "gote",
-      "kind": "position",
-      "start": "lnsgkg1nl/1r5s1/p2ppp1pp/1pp3p2/9/2P4P1/PP1PPPP1P/2G2S1R1/LNS1KG1NL w Bb 1",
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "同じ初期配置から、今度は８筋の歩を先に進めます。８五歩は８六への圧力を作る一方、８五を自分の桂には使えなくします。",
-            "en": "Start from the same position, but choose the pawn push first. ...P-8e prepares pressure on 8f while occupying the square Gote's knight might otherwise use."
-          },
-          "marks": { "boxes": ["8d", "8e", "8a"] }
+            "ja": "駒を動かす回数が同じなら、盤上の形はどこかで釣り合っているはずです。ところが、角を交換する手順には、実質的に一手を損する形があります。ここでは、初心者同士でよく現れる角交換から、その損の仕組みを見ます。",
+            "en": "When both sides make the same number of moves, the shapes on the board should balance. But some bishop exchanges quietly waste a move. Here we start with an exchange that beginners often play and see where the loss comes from."
+          }
         },
         {
-          "moves": ["8d8e", "2f2e"],
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "2g2f",
+            "2b8h+"
+          ],
           "text": {
-            "ja": "△８五歩に対し、先手は２五歩としました。８五は後手歩のマスです。ここで桂の８五跳ねを予定に入れることはできません。",
-            "en": "After ...P-8e and Sente's sample P-2e, 8e belongs to Gote's pawn. A knight jump to that square cannot be part of the immediate plan."
+            "ja": "先手が飛車先を突いたところで、後手が△８八角成と角を交換してきました。角道を開けた△３四歩のあと、すぐに交換する形で、実戦でも頻繁に出てきます。",
+            "en": "After Sente pushes the rook pawn, Gote exchanges at once with △8八角成. He first opens the bishop line with △3四歩 and then exchanges right away, a pattern seen often in real games."
           },
-          "marks": { "last": "2e", "boxes": ["8e"] }
+          "marks": {
+            "last": "8h",
+            "boxes": [
+              "8h"
+            ]
+          }
         },
         {
-          "moves": ["8a7c", "5i6h"],
+          "moves": [
+            "7i8h",
+            "3a2b",
+            "8h7g",
+            "8c8d",
+            "6i7h",
+            "4a3b"
+          ],
           "text": {
-            "ja": "△７三桂と出ても、８五には自分の歩がいるため桂は着地できません。先手は玉を６八へ動かした例です。次に後手が選べるのは、別の着地点６五です。",
-            "en": "Even after ...N-7c, Gote cannot land on its own pawn at 8e. Sente's K-6h is a sample reply. The knight can instead choose its other forward landing square, 6e."
+            "ja": "先手は▲８八銀と取り、銀を▲７七へ上げます。後手も△２二銀、△８四歩、△３二金と手を進めました。お互いに同じ手数を指しているのに、先手の銀はすでに７七に出て、後手の銀はまだ２二の二段目にいます。後手がまるで一手休んだような形です。",
+            "en": "Sente takes with ▲8八銀 and brings the silver up to 7g. Gote answers with △2二銀, △8四歩 and △3二金. Both sides have made the same number of moves, yet Sente's silver is already out on 7g while Gote's is still on the second rank on 2b. It looks as if Gote skipped a turn."
           },
-          "marks": { "last": "6h", "boxes": ["7c", "8e", "6e"] }
+          "marks": {
+            "last": "4b",
+            "arrows": [
+              "7g7f"
+            ],
+            "boxes": [
+              "7g",
+              "2b"
+            ]
+          }
         },
         {
-          "moves": ["7c6e"],
           "text": {
-            "ja": "△６五桂は５七の歩を狙います。ただし先手が▲６六歩と突くと桂が狙われ、進み先の５七と７七は先手の駒が守っています。８五歩型では、８五桂の代わりにこうした別の跳ね方も読む必要がありますが、桂を急いで跳ねる手が得とは限りません。",
-            "en": "...N-6e eyes the pawn on 5g. But if Sente plays P-6f, the knight is attacked and both squares it could reach, 5g and 7g, are guarded by Sente. With the pawn on 8e, this other jump has to be read as well, and hurrying the knight forward is not automatically good."
+            "ja": "原因は、後手が角を動かすのに一手使ったのに、先手は角に手をかけていない点です。先手は取り返しただけで、角を動かす手を指していません。このように自分から角交換を仕掛けると、実質的に一手パスしたのと同じになります。プロが簡単には角を交換しないのは、この手損を嫌うからです。",
+            "en": "The cause is that Gote spent a move on the bishop while Sente did not spend a move on his bishop; Sente simply recaptured. Starting the exchange yourself therefore amounts to passing once. Professionals do not exchange bishops lightly because they dislike this lost tempo."
           },
-          "marks": { "last": "6e", "boxes": ["5g", "7g"] }
+          "marks": {
+            "boxes": [
+              "8h"
+            ]
+          }
         }
       ]
     },
     {
       "title": {
-        "ja": "角に使った一手を切り出す",
-        "en": "Isolate the bishop move in the ledger"
+        "ja": "手損しない角交換：▲７七角から",
+        "en": "An exchange without losing a tempo: starting with ▲7七角"
       },
-      "side": "gote",
-      "kind": "position",
-      "start": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P4P1/PP1PPPP1P/1B5R1/LNSGKGSNL w - 1",
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f",
+            "8c8d",
+            "2g2f",
+            "8d8e",
+            "8h7g"
+          ],
           "text": {
-            "ja": "後手角は２二、先手角は８八で、どちらもこの図まで角を動かしていないものとして比べます。交換後の持ち駒と銀の進み方を確認するための局面です。",
-            "en": "For this controlled comparison, assume neither bishop has moved before this position: Gote's is on 2b and Sente's on 8h. We will track the bishop move and the developing recapture, not infer the value of an entire opening."
+            "ja": "別の進行です。後手が飛車先を△８五歩まで伸ばしたので、先手は▲７七角と角を上げて備えます。この角上がりの一手が、あとで損を帳消しにします。",
+            "en": "This time Gote pushes the rook pawn with △8五歩 and Sente answers with ▲7七角. That ▲7七角 will later cancel out the lost tempo."
           },
-          "marks": { "boxes": ["2b", "8h", "7i"] }
+          "marks": {
+            "last": "7g",
+            "boxes": [
+              "7g"
+            ]
+          }
         },
         {
-          "moves": ["2b8h+", "7i8h"],
+          "moves": [
+            "3c3d",
+            "7i8h",
+            "4a3b",
+            "6i7h",
+            "2b7g+"
+          ],
           "text": {
-            "ja": "△８八角成▲同銀で角は互いの持ち駒になり、先手銀は７九から８八へ一歩進みました。この比較では後手だけが角を動かす一手を使い、先手は取り返す手で銀を進めています。これが「一手損」と数える基準の一つです。",
-            "en": "After ...Bx8h+ Sx8h, each side has a bishop in hand, and Sente's silver has developed from 7i to 8h by recapturing. Under the stated comparison, Gote spent a bishop move while Sente spent none on its bishop. That is the specific move count behind the tempo-loss label here."
+            "ja": "後手は△３四歩、△３二金と進め、先手は▲８八銀、▲７八金。そのあと、後手が７七で角を交換します。見かけは前と同じ後手からの交換ですが、実際は手損になりません。後手が角に一手使った一方で、先手も▲７七角と一手使っているからです。",
+            "en": "Gote plays △3四歩 and △3二金, Sente plays ▲8八銀 and ▲7八金, and then Gote exchanges on 7g. It looks like the same exchange initiated by Gote, but no tempo is lost: Gote spent a move on his bishop, and Sente spent a move on ▲7七角."
           },
-          "marks": { "last": "8h", "arrows": ["2b8h", "7i8h"] }
+          "marks": {
+            "last": "7g",
+            "boxes": [
+              "7g"
+            ]
+          }
         },
         {
-          "moves": ["8c8d", "8h7g"],
+          "moves": [
+            "8h7g",
+            "3a2b"
+          ],
           "text": {
-            "ja": "続けて△８四歩▲７七銀と進むと、先手銀はもう一歩動きます。後手の８筋歩も進みましたが、この二手は角交換で使った手とは別に記録します。手数の帳尻だけで形勢を決めず、駒の配置も比較します。",
-            "en": "With ...P-8d S-7g, Sente's silver takes another step and Gote's rook pawn advances. Record these later moves separately from the bishop exchange. The move ledger alone does not evaluate the resulting position."
+            "ja": "▲同銀と取って、△２二銀。ここは普通の角換わりの形で、前の局面と比べると、後手が△８五歩を指しているかどうかが違いです。後手が手損せずに角を交換するには、早めに△８五歩と突いて、先手に▲７七角と上がらせる必要があります。",
+            "en": "Sente recaptures with ▲同銀 and Gote plays △2二銀. This is the ordinary Bishop Exchange; compared with the previous position, the difference is whether Gote has played △8五歩. To exchange without losing a tempo, Gote must push △8五歩 early and make Sente play ▲7七角."
           },
-          "marks": { "last": "7g", "boxes": ["8d", "7g"] }
+          "marks": {
+            "last": "2b",
+            "boxes": [
+              "7g",
+              "2b"
+            ]
+          }
         }
       ]
     },
     {
       "title": {
-        "ja": "比較相手を替えると計算も変わる",
-        "en": "Change the baseline, change the count"
+        "ja": "先手から角交換しても一手損角換わりではない",
+        "en": "A Sente-initiated exchange is not Itteson Kakugawari"
       },
-      "side": "gote",
-      "kind": "position",
-      "start": "lnsgk1snl/1r4gb1/pppppp1pp/6p2/9/2P6/PPBPPPPPP/1S5R1/LN1GKGSNL w - 1",
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "2g2f",
+            "8c8d",
+            "8h2b+"
+          ],
           "text": {
-            "ja": "これは前章とは違い、先手がすでに角を７七へ動かし、銀を８八に置いた比較用の図です。後手角は２二のままです。前章と同じ最終局面になるという意味ではなく、角を動かした回数だけを比べます。",
-            "en": "This is a different comparison position: Sente has already moved its bishop to 7g and placed its silver on 8h, while Gote's bishop remains on 2b. The resulting board need not match the previous chapter; this comparison isolates moves spent on bishops."
+            "ja": "立場を逆にして、先手が▲２二角成と飛び込んで交換する進行もあり、この場合は先手が遅れます。それでも名前は一手損角換わりになりません。駒の配置は先後を入れ替えた通常の角換わりと変わらず、そちらに分類する決まりだからです。",
+            "en": "A Sente-initiated exchange with ▲2二角成 also loses a tempo. But it is not classified as Itteson Kakugawari. The roles of Sente and Gote are simply swapped, so it is treated as an ordinary Bishop Exchange."
           },
-          "marks": { "boxes": ["7g", "8h", "2b"] }
-        },
-        {
-          "moves": ["2b7g+", "8h7g"],
-          "text": {
-            "ja": "△７七角成▲同銀で、やはり双方に角が一枚ずつ入ります。ただし、この基準図には先手が角を８八から７七へ動かした一手が含まれています。後手の交換の一手と、先手が先に使った角の一手を対応させられます。",
-            "en": "After ...Bx7g+ Sx7g, both players again hold a bishop. In this defined baseline, Sente has already spent a move relocating the bishop from 8h to 7g. That earlier bishop move can be compared with Gote's exchange move."
-          },
-          "marks": { "last": "7g", "arrows": ["2b7g", "8h7g"] }
-        },
-        {
-          "text": {
-            "ja": "この二つの図は銀の位置や、それまでの駒組みも異なります。したがって「角の手数が同じ」というだけで有利不利は決まりません。一手損を問うときは、比較の出発点と、その一手を使って得た選択肢をセットで示します。",
-            "en": "The two examples also differ in silver placement and prior development. Equal bishop-move counts alone cannot establish who is better. A tempo claim needs both a stated baseline and the choices gained or given up by spending that move."
+          "marks": {
+            "last": "2b",
+            "arrows": [
+              "2b3c"
+            ],
+            "boxes": [
+              "2b"
+            ]
           }
         }
       ]

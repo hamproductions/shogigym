@@ -3,26 +3,26 @@
   "order": 1070,
   "path": ["戦法・定跡", "四間飛車"],
   "title": {
-    "ja": "左銀の位置で変わる四間飛車の仕事",
-    "en": "How the left silver changes a Fourth File Rook plan"
+    "ja": "四間飛車：基本方針と銀の位置による四つの型",
+    "en": "Fourth File Rook: the basic plan and the four silver positions"
   },
   "intro": {
-    "ja": "四間飛車の左銀は７八に残す、６七で支える、６六へ出る、５六へ向かうという選択ができます。同じ銀でも、動くたびに飛車の縦道、角の斜線、守れる歩が変わります。局面にある駒の利きと相手の応手を見て、一つの狙いを選びます。",
-    "en": "The left silver in Fourth File Rook can stay on 7h, support from 6g, advance to 6f, or head for 5f. Each move changes the rook's file, the bishop's diagonal, and which pawns the silver protects. Choose a plan by counting the pieces and possible replies in the actual position."
+    "ja": "四間飛車は囲いが堅い一方で、自分から攻める手段が少ない戦法です。方針は、相手の攻めをいなして飛車を交換し、堅さの差で勝負することです。この講座では、基本形と美濃囲いを初手から組み、銀を７八、６七、６六、５六のどこに置くかで狙いがどう変わるかを、盤上で確かめます。",
+    "en": "Fourth File Rook has a firm castle but few ways to attack on its own. Its plan is to deflect the opponent's attack, trade rooks and win on the difference in solidity. This lesson builds the basic form and Mino castle from move one and shows on the board how the plan changes with the silver on 7h, 6g, 6f or 5f."
   },
   "check": {
     "question": {
-      "ja": "６七銀・６八飛・６六歩の形から銀を６六へ上げると、６八飛の６筋の縦道はすぐに全部開きますか？",
-      "en": "With S6g, R6h and P6f, does raising the silver to 6f immediately open the rook's entire sixth-file route?"
+      "ja": "四間飛車が相手の攻めを待ち、飛車交換を目指すのはなぜですか？",
+      "en": "Why does Fourth File Rook wait for the opponent's attack and aim for a rook exchange?"
     },
     "answer": {
-      "ja": "いいえ。先に６六歩を動かして銀の行き先を空けても、６六へ上がった銀が飛車の前に残ります。銀が別の筋へ動けば、飛車はそこまで通れます。",
-      "en": "No. The pawn must move first to clear 6f, and the silver placed there still stands in front of the rook. The rook's route opens further only when the silver leaves that file."
+      "ja": "飛車を持ち合って攻め合いになれば、同じ条件で戦うことになり、美濃囲いの堅さの分だけ有利になるからです。自分の攻めが薄いので、まず相手の攻めを受けて駒を交換します。",
+      "en": "Once both sides hold a rook and trade attacks, the conditions are equal and the Mino castle's solidity tips the balance. Because its own attack is thin, it first absorbs the opponent's attack and trades pieces."
     }
   },
   "references": [
     {
-      "title": "四間飛車、駒組みのパターン",
+      "title": "四間飛車の基本方針、銀の位置で変わる狙い",
       "url": "https://shogi-joutatsu.com/archives/2491",
       "license": "All rights reserved",
       "adapted": false
@@ -30,138 +30,175 @@
   ],
   "chapters": [
     {
-      "title": {
-        "ja": "５筋を選ぶなら、歩の後ろに銀を置く",
-        "en": "Choose the fifth file with the silver behind its pawn"
-      },
+      "title": { "ja": "守りの戦法と７八銀型の▲６五歩", "en": "A defensive opening, and ▲6五歩 from the 7h silver form" },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/1r5b1/1p4s2/4p4/9/2PP5/PPBSPPPPP/3R2SK1/3G1G3 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f", "8c8d", "2h6h", "8d8e", "8h7g", "3c3d", "6g6f", "7a6b", "7i7h",
+            "4a3b", "5i4h", "9c9d", "4h3h", "1c1d", "3h2h", "6a5b", "3i3h", "5a4b",
+            "1g1f", "7c7d", "6i5h"
+          ],
           "text": {
-            "ja": "先手６七銀は６八飛の真上にあり、５六は空いているため銀はすぐ５六へ進めます。この例では先に５七歩を進め、歩が５五へ移った後で銀を５六に置く構想を見ます。歩が５六にいる間は銀の行き先を塞ぐため、歩と銀の順序を数えます。",
-            "en": "S6g sits immediately ahead of R6h and can already move to the empty 5f square. This example advances P5g first, then places the silver on 5f after the pawn moves to 5e. While the pawn stands on 5f it blocks the silver's destination, so count the order of the pawn and silver moves."
+            "ja": "初手から組んだ四間飛車と美濃囲いです。飛車と角は盤の左側、玉と囲いは右側にあり、攻める場所と守る場所がはっきり分かれています。角が飛車と同じ側にいるので、玉の周りに邪魔な駒がなく、深く堅く囲えます。",
+            "en": "The Fourth File Rook and Mino castle built from move one. Rook and bishop stand on the left, the king and castle on the right, so the place to attack and the place to defend are clearly separated. With the bishop on the rook's side, nothing clutters the king's surroundings and the castle can be deep and firm."
           },
-          "marks": { "boxes": ["6g", "5g", "5f", "5d"] }
+          "marks": { "boxes": ["6h", "7g", "2h", "3h"] }
         },
         {
-          "moves": ["5g5f", "5d5e"],
           "text": {
-            "ja": "▲５六歩に対し、後手が△５五歩と進めた一例です。５六の先手歩は５五の後手歩を取れるので、銀を動かす前に５筋の歩を整理できます。後手はこの歩を突く義務はありません。",
-            "en": "After P5f, Gote's P5e is one possible reply. Sente's pawn on 5f can capture it, clearing 5f before the silver moves. Gote is not required to advance this pawn."
+            "ja": "居飛車は反対に、角が玉の近くにいて囲いが深くなりにくく、角道を開けた７六歩が守りを薄くします。その代わり、飛車と角が同じ方向を向くので攻撃的です。四間飛車は飛車と角が別の方向を向き、攻めはやや地味ですが、守りは堅いのです。",
+            "en": "A Static Rook player is the opposite: the bishop sits near the king, so the castle cannot go deep, and the open bishop diagonal thins the defence. In return, rook and bishop aim the same way and the attack is sharp. Fourth File Rook has rook and bishop pointing in different directions, so the attack is modest but the defence is firm."
           },
-          "marks": { "last": "5e", "arrows": ["5f5e"] }
+          "marks": { "boxes": ["7g", "6h", "2h"] }
         },
         {
-          "moves": ["5f5e", "8c8d"],
           "text": {
-            "ja": "▲５五歩で後手歩を取り、５六が空きました。△８四歩は後手が８筋を進める一例です。ここで６七銀は５六へ進めますが、その一手に使う間に８筋の歩が近づくことも数えます。",
-            "en": "Px5e captures Gote's pawn and vacates 5f. Gote's P8d is a sample advance on another file. Sente's silver can now reach 5f, but that move gives Gote another turn to approach on the eighth file."
+            "ja": "ですから基本方針は、相手が攻めてくるのを待つことです。受けながら飛車を交換できれば、お互いに飛車を持って敵陣へ打ち込む攻め合いになります。同じ条件なら守りの堅い方が有利で、これが「捌き」です。守るだけで攻めを決められてしまうのは、四間飛車によくある負け方です。",
+            "en": "So the basic plan is to wait for the opponent to attack. If you can trade rooks while defending, both sides hold a rook and drop it into the enemy camp. On equal terms the firmer defence wins. This is called sabaki, settling the attacking pieces by exchange. Being attacked with no counterplay is the usual way Fourth File Rook loses."
           },
-          "marks": { "last": "8d", "arrows": ["6g5f"], "boxes": ["8g"] }
+          "marks": { "boxes": ["6h"] }
         },
         {
-          "moves": ["6g5f", "8d8e"],
+          "moves": ["9d9e", "6f6e"],
           "text": {
-            "ja": "▲５六銀は５五歩を真後ろから守り、６七を飛車の前から空けます。後手が△８五歩と進めたので、次の８筋の接触も課題です。銀を出しただけで中央の攻めが成功したとは言えません。",
-            "en": "S5f protects the pawn on 5e from directly behind and clears 6g in front of the rook. Gote's sample P8e raises a separate eighth-file concern. The silver's arrival on 5f does not by itself prove a successful attack."
+            "ja": "ここからが銀の位置による型の違いです。最初は７八銀のまま戦う７八銀型で、初心者にもわかりやすい形です。▲６五歩と突くと、飛車の前の筋が開き、同時に角道も通ります。飛車先の突破と角交換からの捌きを、一手で両方狙えます。",
+            "en": "Now the types by silver position. The first leaves the silver on 7h and is the easiest for beginners. ▲6五歩 opens the file in front of the rook and the bishop diagonal at the same time, threatening a rook-file breakthrough and a bishop exchange with one move."
           },
-          "marks": { "last": "8e", "boxes": ["5f", "5e", "8g"] }
-        },
-        {
-          "moves": ["6h5h"],
-          "text": {
-            "ja": "▲５八飛と飛車を振り直すと、５七が空いているので飛車は５六銀を後ろから支えます。ただし銀が５六にある限り飛車はその先へ直進できず、後手８五歩への対応も残ります。飛車を交換するかどうかは、打ち込み場所と両玉の安全を比べてから決めます。",
-            "en": "R5h shifts behind the silver: 5g is vacant, so the rook protects S5f along the file. The silver still blocks the rook from moving beyond 5f, and Gote's pawn on 8e remains to be addressed. Any rook exchange requires a separate comparison of drop squares and both kings' safety."
-          },
-          "marks": { "last": "5h", "arrows": ["5h5f"], "boxes": ["8e"] }
+          "marks": { "last": "6e", "arrows": ["6h6f", "7g3c"], "boxes": ["6e"] }
         }
       ]
     },
     {
-      "title": {
-        "ja": "７八銀を残す理由は、角交換後にも現れる",
-        "en": "Keeping the silver on 7h can matter after a bishop trade"
-      },
+      "title": { "ja": "６七銀型：飛車を振り直す", "en": "The 6g silver: re-swinging the rook" },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/1r5b1/1p7/2pp5/9/2PP5/PPB1PPPPP/2SR2SK1/3G1G3 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f", "8c8d", "2h6h", "8d8e", "8h7g", "3c3d", "6g6f", "7a6b", "7i7h",
+            "4a3b", "5i4h", "9c9d", "4h3h", "1c1d", "3h2h", "6a5b", "3i3h", "5a4b",
+            "1g1f", "7c7d", "6i5h"
+          ],
           "text": {
-            "ja": "左銀は７八で角７七の真下にいます。６六歩が角の斜線を塞いでおり、６八飛の前の６七は空いています。６筋の歩を進めれば大駒の利きが変わりますが、相手角２二の斜線も同時に調べます。",
-            "en": "The left silver on 7h stands directly below B7g. Sente's pawn on 6f blocks the bishop diagonal, while 6g ahead of R6h is vacant. Advancing the sixth-file pawn changes both major-piece lines, including the diagonal of Gote's bishop on 2b."
+            "ja": "７八銀型の形です。ここから銀の位置を変えて、ほかの型へ進みます。",
+            "en": "The 7h-silver form. From here the silver moves to reach the other types."
           },
-          "marks": { "boxes": ["7h", "7g", "6f"], "arrows": ["2b7g"] }
+          "marks": { "boxes": ["7h"] }
         },
         {
-          "moves": ["6f6e"],
+          "moves": ["9d9e", "7h6g"],
           "text": {
-            "ja": "▲６五歩で６六を空けました。飛車は６七・６六を通って６五の自分の歩まで利き、２二角から７七角への斜線も通ります。先手だけが得をする開線ではありません。",
-            "en": "P6e vacates 6f. The rook now reaches through 6g and 6f to its own pawn on 6e, while the diagonal from B2b to B7g also opens. This clearance helps both sides see new lines."
+            "ja": "▲６七銀と銀を上げると、四間飛車のいちばん基本的な形になります。６七の銀は飛車の前を塞ぐので、飛車は動きにくく見えます。この形はそれを逆に使い、飛車を別の筋へ振り直す準備になっています。",
+            "en": "▲6七銀 gives the most basic Fourth File Rook shape. The silver blocks the rook's path, so the rook looks cramped, but the form is built to use that: it prepares to re-swing the rook to another file."
           },
-          "marks": { "last": "6e", "arrows": ["2b7g"], "boxes": ["6f", "6g"] }
+          "marks": { "last": "6g", "boxes": ["6g"] }
         },
         {
-          "moves": ["2b7g+", "7h7g"],
           "text": {
-            "ja": "後手が△７七角成と角を取る枝では、▲同銀で馬を取れます。７八銀を残した具体的な役割は、この７七への取り返しです。双方が角を持つ形になるので、銀で馬を取った後も角打ちの場所を確認します。",
-            "en": "If Gote chooses Bx7g+, Sx7g captures the horse. Recapturing on 7g is a concrete reason to have kept the silver on 7h. Both players now hold a bishop, so bishop-drop squares still need checking."
+            "ja": "狙いは、飛車を振り直して相手の飛車の正面にぶつけることです。飛車が向かい合えば交換になりやすく、堅い美濃囲いが活きます。７八銀型で要領をつかんだら、次はこの型を身につけると、四間飛車の本筋が指せるようになります。",
+            "en": "The aim is to swing the rook again so that it faces the opponent's rook. Rooks that face each other are easily exchanged, and then the firm Mino castle pays off. Once you have the feel of the 7h form, learn this one next and you can play the main line of Fourth File Rook."
           },
-          "marks": { "last": "7g", "boxes": ["6e", "2h"] }
-        }
-      ],
-      "variations": [
-        {
-          "from": 1,
-          "moves": ["6d6e", "6h6e"],
-          "text": {
-            "ja": "別の応手△６五歩には、▲同飛と取る筋があります。６七と６六が空いたので飛車は６八から６五へ届きます。角交換の枝とは持ち駒と飛車位置が違い、同じ評価を当てはめません。",
-            "en": "Against the different reply P6e, Rx6e is available: 6g and 6f are clear between the rook and the pawn on 6e. This branch leaves different pieces in hand and a different rook square, so it needs its own evaluation."
-          }
+          "marks": { "arrows": ["6h8h"], "boxes": ["8h"] }
         }
       ]
     },
     {
-      "title": {
-        "ja": "６六銀は前へ出るが、飛車道を塞ぐ",
-        "en": "An advanced silver presses forward but blocks the rook"
-      },
+      "title": { "ja": "６六銀型と中飛車への振り直し", "en": "The 6f silver and the switch to Central Rook" },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/1r5b1/1p4s2/9/2p6/3P5/PPBSPPPPP/3R2SK1/3G1G3 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f", "8c8d", "2h6h", "8d8e", "8h7g", "3c3d", "6g6f", "7a6b", "7i7h",
+            "4a3b", "5i4h", "9c9d", "4h3h", "1c1d", "3h2h", "6a5b", "3i3h", "5a4b",
+            "1g1f", "7c7d", "6i5h"
+          ],
           "text": {
-            "ja": "先手銀は６七、後手歩は７五です。先手７筋の歩はすでに盤上になく、７五歩への直接の取り手はまだありません。銀を６六へ出すには、先に６六歩を動かして場所を空けます。",
-            "en": "Sente's silver is on 6g and Gote's pawn on 7e. Sente no longer has a seventh-file pawn on the board, so there is no immediate pawn capture on 7e. To put the silver on 6f, Sente first has to move its pawn off that square."
+            "ja": "同じく、７八銀型から出発します。相手が守りを固めるだけで攻めてこないときは、こちらから銀を繰り出して攻める選択肢があります。",
+            "en": "Again starting from the 7h form. When the opponent only fortifies and does not attack, you can take the initiative and bring the silver forward."
           },
-          "marks": { "boxes": ["6g", "6f", "7e"] }
+          "marks": { "boxes": ["7h"] }
         },
         {
-          "moves": ["6f6e", "8c8d"],
+          "moves": ["9d9e", "7h6g", "8a7c", "6f6e", "5c5d", "6g6f"],
           "text": {
-            "ja": "▲６五歩の後、後手は一例として△８四歩です。６六は空きましたが、まだ６七銀が飛車の真上にいます。相手が８筋を急ぐなら、銀の進出だけに手を使えるかは別問題です。",
-            "en": "P6e clears 6f, and Gote replies with a sample P8d. The silver still occupies 6g immediately ahead of the rook. If Gote speeds up the eighth file, Sente must decide whether there is time for further silver development."
+            "ja": "▲６五歩と突いてから▲６六銀と出る形が６六銀型です。銀が前に出て、棒銀のように攻めを組み立てられます。守りを固めている相手に使う、四間飛車では少し攻撃的な型です。",
+            "en": "Pushing ▲6五歩 and then bringing the silver to 6f gives the 6f-silver form. With the silver forward, you can build an attack like Bogin. It is a rather aggressive type for Fourth File Rook, used against an opponent who is only fortifying."
           },
-          "marks": { "last": "8d", "arrows": ["6g6f"] }
+          "marks": { "last": "6f", "arrows": ["6f5e"], "boxes": ["6e"] }
         },
         {
-          "moves": ["6g6f", "8d8e"],
+          "moves": ["6b5c", "4g4f", "9a9b", "3g3f", "9b9c", "5h4g", "1d1e", "2i3g", "2a3c"],
           "text": {
-            "ja": "▲６六銀は７五歩を前斜めに狙います。一方、銀が今度は６六で飛車の縦道を止め、７七角から５五へ向かう斜線も６六で塞ぎます。△８五歩の進行を見て、銀をさらに進めるか守りへ戻すか選びます。",
-            "en": "S6f attacks Gote's pawn on 7e diagonally forward. It also now blocks R6h on 6f and B7g on the diagonal toward 5e. After Gote's P8e, Sente must weigh another silver move against the need to answer eighth-file pressure."
+            "ja": "ここから囲いを高美濃に組み替えます。４筋と３筋の歩を突き、▲４七金と上がって▲３七桂と跳ねる形です。組み替えている間も、銀は６六で前線を支えています。",
+            "en": "From here the castle is rebuilt into Taka Mino: the fourth and third file pawns advance, the gold goes to 4g and the knight jumps to 3g. During the rebuild the silver on 6f holds the front."
           },
-          "marks": { "last": "8e", "arrows": ["6f7e"], "boxes": ["6f", "8g"] }
+          "marks": { "last": "3g", "arrows": ["5h4g", "2i3g"] }
         },
         {
-          "moves": ["6f7e"],
+          "moves": ["6h5h", "5b6b", "5g5f"],
           "text": {
-            "ja": "ここでは▲７五銀と歩を取りました。銀が６筋から外れ、飛車は６五の歩まで、角は６六を通って後手３三銀の方向へ利きます。ただし後手が７五歩を守る応手を選べば同じ取り方は成立せず、８筋の脅威も消えていません。",
-            "en": "Here Sx7e captures the pawn. With the silver off the sixth file, the rook reaches its pawn on 6e; the bishop's diagonal through 6f toward Gote's silver on 3c opens again. A different Gote defense of 7e could change this capture, and the eighth-file threat remains."
+            "ja": "高美濃に組んだら、▲５八飛と中飛車に振り直します。５筋の歩を▲５六歩と突けば、５五の地点に飛車・銀・角の力が集まります。飛車は５六の歩の後ろ、６六の銀と角が斜めに並んでいます。守りが堅いまま、とても攻撃的な構えになります。",
+            "en": "With Taka Mino complete, re-swing to Central Rook with ▲5八飛. After ▲5六歩, the power of rook, silver and bishop gathers on 5e: the rook behind the pawn on 5f, and the silver on 6f with the bishop behind it on the diagonal. The castle stays firm while the setup becomes very aggressive."
           },
-          "marks": { "last": "7e", "arrows": ["7g3c"], "boxes": ["6e", "8e"] }
+          "marks": { "last": "5f", "arrows": ["5f5e", "6f5e"], "boxes": ["5e"] }
+        }
+      ]
+    },
+    {
+      "title": { "ja": "５六銀型と右側への攻め", "en": "The 5f silver and the attack on the right wing" },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f", "8c8d", "2h6h", "8d8e", "8h7g", "3c3d", "6g6f", "7a6b", "7i7h",
+            "4a3b", "5i4h", "9c9d", "4h3h", "1c1d", "3h2h", "6a5b", "3i3h", "5a4b",
+            "1g1f", "7c7d", "6i5h"
+          ],
+          "text": {
+            "ja": "最後の型です。７八銀型から、銀をもっと右へ回します。",
+            "en": "The last type. From the 7h form, the silver goes further to the right."
+          },
+          "marks": { "boxes": ["7h"] }
+        },
+        {
+          "moves": ["9d9e", "7h6g", "8a7c", "6g5f"],
+          "text": {
+            "ja": "▲６七銀から▲５六銀と出ると、５六銀型です。銀が５六の歩の位置に腰掛ける形で、相手玉のいる右側へ向かって進んでいけます。",
+            "en": "▲6七銀 followed by ▲5六銀 gives the 5f-silver form. The silver sits on 5f and can head to the right wing, where the opponent's king is."
+          },
+          "marks": { "last": "5f", "arrows": ["5f4e"] }
+        },
+        {
+          "moves": ["5c5d", "6f6e", "6b5c", "4g4f", "9a9b", "3g3f"],
+          "text": {
+            "ja": "右側を攻めるために、６筋の歩を▲６五歩と進め、▲４六歩、▲３六歩と４筋と３筋の歩も突きます。歩が進むことで、銀や桂が出ていく場所ができます。",
+            "en": "To attack on the right, the sixth-file pawn goes up with ▲6五歩 and the fourth and third file pawns follow with ▲4六歩 and ▲3六歩. The advanced pawns make room for the silver and knight to come out."
+          },
+          "marks": { "last": "3f", "boxes": ["4e", "2e"] }
+        },
+        {
+          "moves": ["9b9c", "5h4g", "1d1e", "2i3g"],
+          "text": {
+            "ja": "▲４七金と▲３七桂で高美濃囲いの形にします。堅さを保ったまま、桂が攻めの駒として使える位置に来ました。",
+            "en": "▲4七金 and ▲3七桂 make the Taka Mino shape. The castle stays firm and the knight is now in a position to join the attack."
+          },
+          "marks": { "last": "3g", "arrows": ["5h4g", "2i3g"] }
+        },
+        {
+          "moves": ["5b6b", "5f4e", "2a3c", "3g2e"],
+          "text": {
+            "ja": "▲４五銀と▲２五桂が決まりました。角は７七から、銀は４五から、桂は２五から、どれも相手の右側を狙っています。居飛車は右側に玉の囲いがあることが多く、飛車を使わなくても玉に直接迫る厳しい攻めになります。もちろん５六銀型は、局面に応じて普通に組んでもかまいません。",
+            "en": "▲4五銀 and ▲2五桂 are in place. The bishop from 7g, the silver from 4e and the knight from 2e all aim at the opponent's right wing. A Static Rook player often has the castle on that side, so this is a sharp attack on the king that does not even need the rook. Of course the 5f-silver form can also be built as an ordinary setup when the position calls for it."
+          },
+          "marks": { "last": "2e", "arrows": ["4e3d", "2e3c", "7g3c"], "boxes": ["4e", "2e"] }
         }
       ]
     }

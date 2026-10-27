@@ -1,23 +1,26 @@
 {
   "id": "sanken-basics",
   "order": 970,
-  "path": ["戦法・定跡", "三間飛車"],
+  "path": [
+    "戦法・定跡",
+    "三間飛車"
+  ],
   "title": {
-    "ja": "三間飛車の基本",
-    "en": "Third File Rook fundamentals"
+    "ja": "ノーマル三間飛車：組み方と囲い",
+    "en": "Normal Third File Rook: setup and castles"
   },
   "intro": {
-    "ja": "先手の三間飛車では飛車を７筋へ移し、その筋の歩と協力させます。ただ飛車を振るだけでなく、相手の８筋に角がどう働くかを確かめ、玉を囲う時間も選びます。この講座では、飛車の位置、角の利き、玉の移動を別々の局面で判断します。",
-    "en": "In Sente's Third File Rook, the rook moves to the seventh file and works with that file's pawn. The transfer is only part of the plan: check how the bishop meets pressure on the eighth file and when the king has time to seek shelter. These positions separate the rook, bishop and king decisions."
+    "ja": "先手なら７筋に飛車を据える戦法が三間飛車です。初手から指し進めて、飛車を振る順序、飛車先を突かれたときの角の使い方、角道を開けられたときの対応を覚えます。そのあと、美濃囲いから高美濃、銀冠へ育てる囲いの組み方を確かめます。",
+    "en": "Third File Rook swings the rook to the third file from the left. Learn the order of moves from the first move, why the bishop goes up when the opponent pushes the rook pawn, and why you close the bishop line when they open theirs. Then build the Mino and develop it into a Takamino and a Silver Crown."
   },
   "check": {
     "question": {
-      "ja": "先手の飛車を７八に置き、相手の８筋の歩が近づいています。囲いに一手使う前に、何を確認しますか？",
-      "en": "Sente's rook is on 7h and the opponent's eighth-file pawn is approaching. What should you check before spending a move on the castle?"
+      "ja": "三間飛車で相手が飛車先の歩を△８五まで伸ばしたとき、▲７七角と上がるのはなぜですか？",
+      "en": "Why does Third File Rook answer a pushed rook pawn on 8e with ▲7七角?"
     },
     "answer": {
-      "ja": "８六で歩がぶつかった後の取り合いを数え、角などが８六を守るか確認します。守りが足りなければ、玉の移動より先にその筋へ対応します。",
-      "en": "Count the captures after the pawns meet on 8f and check whether a bishop or another piece covers that square. If the defense is insufficient, address the file before moving the king."
+      "ja": "△８六歩と突き込まれても、歩を取り合ったあとの飛車を７七の角で取れるようにして、飛車先の突破を防ぐためです。",
+      "en": "So that if Gote pushes △8六歩, the bishop on 7g can capture the rook after the pawns are exchanged, which stops the rook-pawn breakthrough."
     }
   },
   "references": [
@@ -26,102 +29,292 @@
       "url": "https://shogi-joutatsu.com/archives/6896",
       "license": "All rights reserved",
       "adapted": false
+    },
+    {
+      "title": "将棋の技図鑑 (yuki-keio/shogi)",
+      "url": "https://github.com/yuki-keio/shogi",
+      "license": "GPL-3.0-only",
+      "adapted": false
     }
   ],
   "chapters": [
     {
-      "title": { "ja": "７筋へ飛車を合わせる", "en": "Align the rook with the seventh file" },
+      "title": {
+        "ja": "初手から三間飛車の基本形まで",
+        "en": "Build the Normal Third File Rook from move one"
+      },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/1r1s1g1b1/2p2p3/1p7/9/9/1PP2P3/1B1R5/2S1KG3 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
-          "text": { "ja": "飛車は６八、７筋の歩は７七にあります。７八が空いているので、飛車は一手で隣の筋へ移れます。移動後も、７筋の歩を前へ出せる道があるか見ます。", "en": "The rook is on 6h and the seventh-file pawn on 7g. Square 7h is clear, so the rook can shift one file in a single move. After the shift, check whether the pawn can still advance ahead of it." },
-          "marks": { "arrows": ["6h7h"], "boxes": ["7g"] }
+          "text": {
+            "ja": "三間飛車は、飛車を７筋（先手から見て左から３番目の筋）に据える振り飛車です。ここでは初手から一手ずつ進めて、飛車を振る順序、角の使い方、基本の形を作ります。後手は最もよくある応じ方で指します。",
+            "en": "Normal Third File Rook puts the rook on the 7th file, the third file from the left as Sente sees it. Here you play from move one, one move at a time, and build the rook swing, the bishop's role and the basic formation. Gote answers in the most common way."
+          }
         },
         {
-          "moves": ["6h7h"],
-          "text": { "ja": "▲７八飛で三間飛車の位置になりました。飛車が歩の後方にいるため、７筋の歩が進めば飛車の縦の利きも伸びます。ただし、歩が残る間は飛車がその先を直接攻めているわけではありません。", "en": "R7h establishes the Third File Rook placement. The rook sits behind its pawn, so advancing that pawn may lengthen the rook's file. While the pawn remains in front, the rook does not attack beyond it directly." },
-          "marks": { "last": "7h", "boxes": ["7g"] }
+          "moves": [
+            "7g7f"
+          ],
+          "text": {
+            "ja": "▲７六歩。角の前の歩を突いて、角道を開けます。振り飛車でも角は大事な攻め駒なので、まず斜めの通り道を作ります。",
+            "en": "▲7六歩 pushes the pawn in front of the bishop and opens its diagonal. Even in a Ranging Rook game the bishop is a key piece, so its path is the first thing to open."
+          },
+          "marks": {
+            "last": "7f",
+            "arrows": [
+              "8h4d"
+            ]
+          }
         },
         {
-          "moves": ["4c4d", "7g7f"],
-          "text": { "ja": "相手が４筋の歩を進めたあと、▲７六歩で７筋の歩を一つ前へ。飛車と歩は同じ筋にいますが、飛車が７六を守るには間の７七が空いている必要があります。この局面では空いています。", "en": "After Gote advances the fourth-file pawn, P7f moves Sente's pawn one step. The rook and pawn share a file; the rook protects 7f because 7g, the intervening square, is empty here." },
-          "marks": { "arrows": ["7h7f"], "boxes": ["7g", "7f"] }
+          "moves": [
+            "8c8d",
+            "2h7h"
+          ],
+          "text": {
+            "ja": "後手は△８四歩と飛車先の歩を突きました。そこで▲７八飛と、飛車を７筋へ振ります。飛車が初めの２筋を離れて左から３番目の筋に入ったので、三間飛車です。振る手は、相手の形が決まらないこの段階で早めに指しておきます。",
+            "en": "Gote pushes the rook-file pawn with △8四歩. Now ▲7八飛 swings the rook to the 7th file. The rook has left its home file and sits on the third file from the left, so this is Third File Rook. The swing is played early, while Gote's setup is still undecided."
+          },
+          "marks": {
+            "last": "7h"
+          }
         },
         {
-          "moves": ["5a6a", "7f7e"],
-          "text": { "ja": "▲７五歩と進めても、歩と飛車の間に味方の駒が入らない限り７筋の連携は続きます。一方、ここで△７四歩と突くと歩がぶつかりますが、７四へ取り返せる後手の駒はありません。▲同歩と取られるだけで、歩損になります。", "en": "P7e keeps the rook behind the pawn as long as no friendly piece blocks the file. If Gote answers with P7d, the pawns meet, but no Gote piece can recapture on 7d. Sente simply takes with Px7d and wins a pawn." },
-          "marks": { "last": "7e", "boxes": ["7c"] }
+          "moves": [
+            "8d8e",
+            "8h7g"
+          ],
+          "text": {
+            "ja": "後手は△８五歩とさらに歩を伸ばし、△８六歩の突っ込みをねらっています。ここで▲７七角と角を一つ上げます。角が８六のマスを見張るので、△８六歩と突かれても歩を取り合ったあとに相手の飛車を角で取れます。飛車先を突かれたら角を７七へ上げる、と覚えます。",
+            "en": "Gote pushes again with △8五歩, aiming at a △8六歩 thrust. ▲7七角 lifts the bishop one step. The bishop now watches 8f, so if Gote thrusts △8六歩 the pawns come off and Sente can take the rook with the bishop. Remember: when the rook pawn advances, raise the bishop to 7g."
+          },
+          "marks": {
+            "last": "7g",
+            "arrows": [
+              "7g8f"
+            ],
+            "boxes": [
+              "8f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3c3d",
+            "6g6f"
+          ],
+          "text": {
+            "ja": "後手は△３四歩と自分の角道を開けました。こちらは▲６六歩と、角の前の歩を突いて角道を閉じます。角が交換されると、７八の飛車を守る駒がいなくなるためです。三間飛車では角を相手の飛車の攻めを受ける守りの駒として使うので、簡単には交換させません。",
+            "en": "Gote opens its own bishop line with △3四歩. Sente answers ▲6六歩, closing the bishop's diagonal. If bishops were exchanged, nothing would be left to protect the rook on 7h. In Third File Rook the bishop is a defender against the opposing rook, so it is not traded off lightly."
+          },
+          "marks": {
+            "last": "6f"
+          }
+        },
+        {
+          "moves": [
+            "7a6b",
+            "7i6h"
+          ],
+          "text": {
+            "ja": "後手は△６二銀と銀を上げました。こちらも▲６八銀と銀を上げます。７七の角、７八の飛車、６八の銀が三角形に並び、お互いを守り合う形になります。これが三間飛車の基本形で、このあと玉を囲っていきます。",
+            "en": "Gote brings its silver up with △6二銀. Sente does the same with ▲6八銀. Bishop on 7g, rook on 7h and silver on 6h form a triangle that protects each other. This is the basic formation of Third File Rook, and the king castle comes next."
+          },
+          "marks": {
+            "last": "6h"
+          }
+        },
+        {
+          "text": {
+            "ja": "この形のポイントは四つ。①飛車を７八に置く。②相手が８筋の歩を進めたら、角を７七に引き寄せる。③相手の角道が開いたら、こちらの角道を閉じる。④玉は美濃へ運ぶ。",
+            "en": "Four points to remember. Swing the rook to the 7th file. When the rook pawn is pushed, raise the bishop to 7g. When the opponent opens the bishop line, close yours. Castle in a Mino."
+          },
+          "marks": {
+            "boxes": [
+              "7g",
+              "7h",
+              "6h"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "長所は、後手の急戦に強いこと、そして飛車を前に出す石田流にも組み替えられることです。短所は、相手が穴熊に組むと飛車が相手玉から遠くなり、攻めが届きにくいことです。",
+            "en": "Strengths: it stands up well to Gote's quick attacks, and it can be rearranged into Ishida Style by pushing the rook forward. Weakness: if the opponent builds an Anaguma, the rook is far from the enemy king and the attack has trouble reaching it."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 2,
+          "moves": [
+            "8d8e",
+            "6g6f",
+            "8e8f"
+          ],
+          "text": {
+            "ja": "もし角を上げずに▲６六歩と指すとどうなるかを見ます。後手は△８六歩と突き込みます。",
+            "en": "Consider what happens if Sente skips the bishop move and plays ▲6六歩. Gote pushes in with △8六歩."
+          },
+          "steps": [
+            {
+              "moves": [
+                "8g8f",
+                "8b8f"
+              ],
+              "text": {
+                "ja": "▲８六歩と取っても△同飛と取り返されます。８六の飛車が８七へ成り込む手を、先手は止められません。角が８八にいると８六の飛車を取れないからです。これでは序盤からひどい形になります。",
+                "en": "Even if Sente takes with ▲8六歩, △同飛 recaptures, and Sente cannot stop the rook from dropping to 8g with promotion. The bishop on 8h cannot reach the rook on 8f. This is already a bad position out of the opening."
+              },
+              "marks": {
+                "last": "8f",
+                "arrows": [
+                  "8f8g"
+                ],
+                "boxes": [
+                  "8g"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "from": 3,
+          "moves": [
+            "8e8f",
+            "8g8f",
+            "8b8f"
+          ],
+          "text": {
+            "ja": "７七に角がいれば、同じ△８六歩に対して歩を取り合ったあと、８六の飛車を角で取れます。",
+            "en": "With the bishop on 7g, the same △8六歩 leads to a pawn exchange, and then the rook on 8f is within the bishop's reach."
+          },
+          "steps": [
+            {
+              "moves": [
+                "7g8f"
+              ],
+              "text": {
+                "ja": "▲同角で飛車を取れました。７七の角が８六を見ているおかげで、後手の飛車先突破を未然に防げます。",
+                "en": "▲同角 wins the rook. Because the bishop on 7g eyes 8f, Gote's rook-pawn breakthrough is stopped before it begins."
+              },
+              "marks": {
+                "last": "8f",
+                "boxes": [
+                  "8f"
+                ]
+              }
+            }
+          ]
         }
       ]
     },
     {
-      "title": { "ja": "８筋の歩を角で監視する", "en": "Use the bishop to monitor the eighth file" },
+      "title": {
+        "ja": "美濃囲い・高美濃・銀冠",
+        "en": "Mino, Takamino and Silver Crown"
+      },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/1r5b1/2p6/1p3p3/9/2PB5/1P7/2R6/2S1KG3 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
-          "text": { "ja": "先手角は６六にいて８四の歩へ斜めに利いています。しかし８二の飛車も８四を守っています。▲８四角と歩を取れば飛車に角を取られるので、角の利きだけで得とは判断できません。", "en": "Sente's bishop on 6f sees the pawn on 8d, but Gote's rook on 8b also protects it. Capturing on 8d with the bishop would allow the rook to take it; an attacked pawn is not necessarily a free pawn." },
-          "marks": { "arrows": ["6f8d", "8b8d"], "boxes": ["8d"] }
+          "moves": [
+            "7g7f",
+            "8c8d",
+            "2h7h",
+            "8d8e",
+            "8h7g",
+            "3c3d",
+            "6g6f",
+            "7a6b",
+            "7i6h"
+          ],
+          "text": {
+            "ja": "基本形からさらに玉を囲います。三間飛車は美濃囲いが基本で、そこから高美濃、銀冠と発展させます。以下、後手の応手も入れて初手から組んでみます。",
+            "en": "From the basic formation Sente castles the king. Third File Rook normally uses a Mino, which can develop into a Takamino and then a Silver Crown. The following lines include Gote's replies, played from move one."
+          },
+          "marks": {
+            "last": "6h",
+            "boxes": [
+              "6h"
+            ]
+          }
         },
         {
-          "moves": ["6f7g"],
-          "text": { "ja": "▲７七角と引くと、角の斜めの利きは８六へ向きます。歩を取る手ではなく、次の８筋の接点を守る配置換えです。角を動かす前後で、８四への利きと８六への利きが変わった点を比べてください。", "en": "B7g turns the bishop's diagonal toward 8f. This is a defensive repositioning, not a pawn capture. Compare the bishop's former pressure on 8d with its new coverage of the coming contact square, 8f." },
-          "marks": { "last": "7g", "arrows": ["7g8f"] }
+          "moves": [
+            "5a4b",
+            "5i4h",
+            "4b3b",
+            "4h3h",
+            "6a5b",
+            "3h2h",
+            "1c1d",
+            "3i3h",
+            "9c9d",
+            "6i5h",
+            "5c5d",
+            "1g1f"
+          ],
+          "text": {
+            "ja": "玉を４八、３八、２八と運び、▲３八銀、▲５八金と上がれば美濃囲いです。金銀三枚がジグザグにつながり、少ない手数で堅く組めます。最後に▲１六歩と端を突いておくと、あとで端から攻められたときに役立ちます。",
+            "en": "Walk the king to 4h, 3h and 2h, then ▲3八銀 and ▲5八金 complete the Mino. Gold and silver are linked in a zigzag, which gives a sturdy castle in few moves. Finishing with ▲1六歩 helps later when the edge is attacked."
+          },
+          "marks": {
+            "last": "1f",
+            "boxes": [
+              "2h",
+              "3h",
+              "4i",
+              "5h"
+            ]
+          }
         },
         {
-          "moves": ["8d8e"],
-          "text": { "ja": "△８五歩で歩が近づきました。次に△８六歩と来ても、先手の▲同歩で取り返す手を考える際には角の８六への利きも数えられます。ただし相手は別の筋を使うこともでき、これだけで攻めが消えるわけではありません。", "en": "P8e brings the pawn closer. If Gote next plays P8f, the bishop's coverage of 8f belongs in the count when Sente considers recapturing with the pawn on 8g. Gote may choose another file, so this single defense does not end the attack." },
-          "marks": { "last": "8e", "boxes": ["8f"] }
-        }
-      ]
-    },
-    {
-      "title": { "ja": "角交換を盤面で判断する", "en": "Judge a bishop trade from the board" },
-      "side": "sente",
-      "kind": "position",
-      "start": "4k4/1r7/2p3b2/1p7/9/3B5/1PS6/2R2K3/5GS2 w - 1",
-      "steps": [
-        {
-          "text": { "ja": "後手の角は３三、先手角は６六で向かい合っています。後手番なので角交換が起こり得ます。飛車を７八に置いたことだけを理由に交換を禁止するのではなく、取り返す駒とその後の８筋を確かめます。", "en": "Gote's bishop on 3c faces Sente's on 6f, and it is Gote's turn. A bishop trade is possible. The rook's placement on 7h alone does not forbid a trade; identify the recapturing piece and inspect the eighth file afterward." },
-          "marks": { "arrows": ["3c6f"], "boxes": ["7g"] }
+          "moves": [
+            "5b4b",
+            "3g3f",
+            "2c2d",
+            "4g4f",
+            "9d9e",
+            "5h4g",
+            "1d1e",
+            "2i3g"
+          ],
+          "text": {
+            "ja": "金を４七へ上げ、３七へ桂を跳ねると高美濃です。金が上がった分、上や斜めからの攻めに強くなります。跳ねた３七の桂は、攻めにも使えます。桂を跳ねずに戦う形もあります。",
+            "en": "Move the gold up to 4g and jump the knight to 3g to make a Takamino. With the gold raised, the castle holds better against attacks from above and from the diagonal. The knight on 3g can join the attack, though some players keep the knight home."
+          },
+          "marks": {
+            "last": "3g",
+            "boxes": [
+              "4g",
+              "3g"
+            ]
+          }
         },
         {
-          "moves": ["3c6f", "7g6f"],
-          "text": { "ja": "△６六角に▲同銀。７七の銀が６六へ進んで角を取り、双方が角を持ちました。先手の７八飛は残っていますが、７七の銀が６六へ移ったため８六と８八への銀の守りがなくなり、７筋は７三の歩へ通じています。", "en": "After Bx6f Sx6f, Sente's silver from 7g takes the bishop. Each side now has a bishop in hand. Sente's rook remains on 7h, but with the silver gone from 7g it no longer covers 8f or 8h, and the seventh file is now open toward the pawn on 7c." },
-          "marks": { "last": "6f", "boxes": ["8g", "8d"] }
-        },
-        {
-          "text": { "ja": "ここで次の△８五歩から８筋が近づく可能性を数えます。角交換そのものに決まった評価はありません。持ち角の打ち場所、６六の銀の働き、８筋の受けに使える手番を一緒に調べます。", "en": "From here, consider whether P8e can bring pressure closer. The trade has no fixed verdict: examine bishop-drop squares, the silver on 6f, and the time available to defend the eighth file." }
-        }
-      ]
-    },
-    {
-      "title": { "ja": "囲いへ移る手番を選ぶ", "en": "Choose when to build the shelter" },
-      "side": "sente",
-      "kind": "position",
-      "start": "4k4/1r1s3b1/2p6/1p3p3/9/9/1PB6/2R1G1K2/5GS2 b - 1",
-      "steps": [
-        {
-          "text": { "ja": "飛車は７八、角は７七で８六を見ています。玉は３八、銀は３九、金は４九と５八です。８筋にまだ一手の余裕があり、右側の守りを連結する時間があるか検討します。", "en": "The rook is on 7h and the bishop on 7g covers 8f. Sente's king is on 3h, with silver on 3i and golds on 4i and 5h. There is still a move before eighth-file pawn contact, so consider whether the right-side defenders can connect in time." },
-          "marks": { "boxes": ["2h", "3h", "4h", "8f"] }
-        },
-        {
-          "moves": ["3h2h"],
-          "text": { "ja": "▲２八玉で飛車と反対側へ玉を寄せます。これは囲いの完成ではありません。３九の銀と４九の金がまだ離れているので、次の攻めの速さを見ながら続けます。", "en": "K2h moves the king away from its rook. The shelter is not complete: the silver on 3i and gold on 4i still need to connect. Continue only after checking the speed of Gote's attack." },
-          "marks": { "last": "2h", "boxes": ["3i", "4i"] }
-        },
-        {
-          "moves": ["8d8e", "3i3h"],
-          "text": { "ja": "△８五歩に▲３八銀。銀は玉の左側へ出て、２八の玉を支えます。後手の８筋の歩は８五まで来たので、次の△８六歩に対する歩の取り合いも同時に点検します。", "en": "After P8e, S3h places the silver beside the king on 2h. Gote's pawn has reached 8e, so the pawn exchange after a possible P8f must be checked at the same time." },
-          "marks": { "last": "3h", "boxes": ["8e", "8f"] }
-        },
-        {
-          "moves": ["7c7d", "4i4h"],
-          "text": { "ja": "△７四歩の間に▲４八金と上がり、２八玉・３八銀・４八金のつながりを作りました。これは４九の金を一段上げた配置で、金４八は銀３八を横から守ります。標準の美濃囲いとは右金の段が異なります。ただし角が７七を離れれば８六の守りも変わるため、囲いだけを見て指し続けません。", "en": "While Gote plays P7d, G4h connects the king on 2h, silver on 3h and gold on 4h, placing the gold one rank above its standard Mino square. The gold on 4h protects the silver on 3h sideways. If the bishop leaves 7g, its defense of 8f changes; the castle cannot be considered in isolation." },
-          "marks": { "last": "4h", "boxes": ["2h", "3h", "4h", "8f"] }
+          "moves": [
+            "7c7d",
+            "2g2f",
+            "6c6d",
+            "3h2g",
+            "5d5e",
+            "4i3h"
+          ],
+          "text": {
+            "ja": "さらに２六歩から銀を２七へ上げ、金を３八に寄せると銀冠です。上部はとても堅くなりますが、下の段が薄くなるので、扱いには慣れが要ります。まずは美濃囲いを確実に組めるようにしましょう。",
+            "en": "Next, ▲2六歩 lets the silver go up to 2g and the gold shifts to 3h, giving a Silver Crown. The top becomes very solid but the lower ranks are thin, so it takes practice to handle. Master the Mino first."
+          },
+          "marks": {
+            "last": "3h",
+            "boxes": [
+              "2g",
+              "3h"
+            ]
+          }
         }
       ]
     }

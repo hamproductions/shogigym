@@ -1,23 +1,26 @@
 {
   "id": "yagura-bougin",
   "order": 570,
-  "path": ["戦法・定跡", "矢倉"],
+  "path": [
+    "戦法・定跡",
+    "矢倉"
+  ],
   "title": {
-    "ja": "矢倉の守りを残して棒銀を進める",
-    "en": "Advance Climbing Silver Without Losing the Yagura's Cover"
+    "ja": "矢倉棒銀：基本形と銀の交換",
+    "en": "Yagura-Bogin: the basic shape and trading silvers"
   },
   "intro": {
-    "ja": "矢倉棒銀では、玉８八・金７八と６七・銀７七の守りを残し、別の銀と飛車で前方へ圧力をかけます。銀を出す升が角に狙われていないか、歩を成った後に相手が金を逃がせるか、別筋から反撃されたら何で取り返すかを局面ごとに確かめます。駒交換や角交換の可否は形だけでは決まりません。",
-    "en": "Yagura Climbing Silver keeps the king on 8h with golds on 7h and 6g and a silver on 7g while another silver works with the rook. Check whether a bishop attacks the silver's square, whether Gote can move a gold away from a promoted pawn, and which defender can recapture on another file. Neither a piece trade nor avoiding a bishop trade follows automatically from the formation."
+    "ja": "矢倉棒銀は、左に矢倉囲い、右に棒銀の形を作る、初心者にもおすすめの戦法です。角道を止めて角交換を避けられ、攻めの狙いも分かりやすいのが利点です。初手から基本形まで組み、銀を交換するところまで指して身につけます。",
+    "en": "Yagura-Bogin builds a Yagura on the left and a Bogin on the right and is recommended even for beginners. You can close the bishop line to avoid a bishop trade, and the attacking plan is easy to read. You play from move one to the basic shape and on to the silver trade."
   },
   "check": {
     "question": {
-      "ja": "矢倉棒銀で銀と歩を前へ出すとき、攻めの成功を判断する前に何を読みますか？",
-      "en": "Before calling an advancing silver and pawn a successful Yagura attack, what must you calculate?"
+      "ja": "矢倉棒銀が初心者にすすめられる理由を二つ挙げてください。",
+      "en": "Give two reasons why Yagura-Bogin is recommended to beginners."
     },
     "answer": {
-      "ja": "銀の行き先への角・金の利き、歩が成った後の相手の金の退路、別筋の歩と飛車に対する取り返しを確認します。玉側の金銀を攻めに回すと守りの利きも変わります。",
-      "en": "Check bishop and gold control of the silver's destination, the opposing gold's escape after promotion, and recaptures against pawn-and-rook counterplay. Moving a castle defender into attack also changes the king's protection."
+      "ja": "角道を止めて角交換を避けられること、そして銀を交換するという攻めの狙いが分かりやすいことです。",
+      "en": "You can close the bishop line and avoid a bishop trade, and the attacking aim of trading silvers is easy to understand."
     }
   },
   "references": [
@@ -26,136 +29,531 @@
       "url": "https://shogi-joutatsu.com/archives/3457",
       "license": "All rights reserved",
       "adapted": false
+    },
+    {
+      "title": "将棋の技図鑑 (yuki-keio/shogi)",
+      "url": "https://github.com/yuki-keio/shogi",
+      "license": "GPL-3.0-only",
+      "adapted": false
     }
   ],
   "chapters": [
     {
       "title": {
-        "ja": "角筋を見て攻め銀の升を選ぶ",
-        "en": "Move the attacking silver off a bishop line"
+        "ja": "矢倉棒銀の基本形を組む",
+        "en": "Build the basic Yagura-Bogin shape"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/1r1b2g2/9/7P1/9/9/1PSG2S2/1KG4R1/9 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "玉８八、金７八・６七、銀７七は矢倉の守りです。飛車２八の側には別の銀３七と歩２四がいます。後手の角６二が５三へ出ると、４四・３五を通って２六の銀に当たります。まず銀を出し、角の応手を見て次の升を決めます。",
-            "en": "The king on 8h, golds on 7h and 6g, and silver on 7g make the Yagura core. Another silver on 3g and pawn on 2d work near the rook on 2h. If Gote's bishop on 6b moves to 5c, its diagonal through 4d and 3e reaches a silver on 2f. Choose the next silver square after seeing that reply."
+            "ja": "矢倉棒銀は、左側に矢倉囲いを組み、右側で棒銀の形を作る戦法です。守りと攻めの役割が左右で分かれていて、駒組みの方針が分かりやすいのが長所です。初手から基本形まで、一手ずつ意味を見ながら組みます。",
+            "en": "Yagura-Bogin builds a Yagura castle on the left and a Bogin attack on the right. Defence and offence are split between the two sides, so the plan is easy to follow. We build the basic shape from move one and look at the meaning of each move."
           }
         },
         {
-          "moves": ["3g2f", "6b5c"],
+          "moves": [
+            "7g7f"
+          ],
           "text": {
-            "ja": "▲２六銀に、この例の後手は△５三角で銀に角筋を通しました。銀２六をそのまま置けば△同角の選択があります。ただし飛車２八は２七が空いているため角を取り返せるので、一方的な銀損とは限りません。ここでは銀を残す方針を選びます。",
-            "en": "After ▲２六銀, Gote chooses △５三角, putting the bishop on the silver's diagonal. If Sente leaves the silver on 2f, Gote can capture it; the rook on 2h could then recapture because 2g is empty. That would be a bishop-for-silver exchange, not a free capture. This line instead keeps the silver."
+            "ja": "最初の手は▲７六歩です。７筋の歩を一つ進めて、角の斜めの道を開けます。同時に７七が空くので、のちに銀が入る場所もできます。",
+            "en": "▲7六歩 pushes the seventh-file pawn one square. It opens the bishop's diagonal and empties 7g, the square the silver will use later."
+          },
+          "marks": {
+            "last": "7f",
+            "boxes": [
+              "7g"
+            ]
           }
         },
         {
-          "moves": ["2f2e", "8b8d"],
+          "moves": [
+            "4c4d",
+            "6i7h"
+          ],
           "text": {
-            "ja": "▲２五銀は角筋２六から外れ、歩２四の後ろにつきました。後手は△８四飛と別筋へ出ました。銀を一升進めても、後手の飛車が８筋で動けるので、先手は玉側の銀７七を攻めに使う前に８筋の歩と飛車を見ます。",
-            "en": "▲２五銀 steps off the 2f diagonal and sits behind the pawn on 2d. Gote chooses △８四飛 on another file. Advancing the silver does not end Gote's play; Sente should inspect the eighth-file rook and pawn before diverting the castle silver on 7g."
+            "ja": "後手は△４四歩と突きました。こちらは▲７八金。６九の金を７八へ上げます。矢倉囲いは金二枚と銀一枚で作るので、まず玉の左隣になる場所に金を置きます。",
+            "en": "Gote pushes △4四歩. Sente plays ▲7八金, lifting the gold from 6i to 7h. A Yagura is built from two golds and one silver, so the first gold goes on the square that will sit next to the king."
+          },
+          "marks": {
+            "last": "7h",
+            "boxes": [
+              "7h"
+            ]
           }
         },
         {
-          "moves": ["2d2c+", "3b4b"],
+          "moves": [
+            "3c3d",
+            "7i6h"
+          ],
           "text": {
-            "ja": "▲２三歩成に対し、後手は△４二金と金を逃がしました。と金は残りましたが、金を取ったわけではありません。相手が金を引ける局面では、銀が五段目へ出たことや歩が成ったことだけで駒得を決められません。",
-            "en": "Gote answers ▲２三歩成 by moving the gold from 3b to 4b. The promoted pawn remains, but Sente has not won the gold. A silver on the fifth rank and a promoted pawn create pressure; they do not guarantee a material gain when Gote can move a defender."
+            "ja": "後手は△３四歩。こちらは▲６八銀です。７九の銀を６八へ上げます。この銀は最終的に７七まで進むので、その途中の一歩です。",
+            "en": "Gote plays △3四歩. Sente answers with ▲6八銀, lifting the silver from 7i to 6h. The silver is heading for 7g, and this is the first step on the way."
+          },
+          "marks": {
+            "last": "6h",
+            "arrows": [
+              "6h7g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4a3b",
+            "4i5h"
+          ],
+          "text": {
+            "ja": "後手は△３二金。こちらは▲５八金です。右の金を５八へ寄せます。この金はあとで６七まで上がって、７八の金と７七の銀とあわせて三枚の壁になります。",
+            "en": "Gote plays △3二金. Sente plays ▲5八金, shifting the right gold to 5h. Later it climbs to 6g and, with the gold on 7h and the silver on 7g, forms a wall of three pieces."
+          },
+          "marks": {
+            "last": "5h",
+            "arrows": [
+              "5h6g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3a4b",
+            "5i6i"
+          ],
+          "text": {
+            "ja": "後手は△４二銀。こちらは▲６九玉です。玉を一つ左へ動かします。矢倉では玉が８八まで移るので、少しずつ左へ歩かせます。",
+            "en": "Gote plays △4二銀. Sente plays ▲6九玉, moving the king one square to the left. The king ends up on 8h in a Yagura, so it walks there a step at a time."
+          },
+          "marks": {
+            "last": "6i",
+            "boxes": [
+              "8h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4b3c",
+            "6g6f"
+          ],
+          "text": {
+            "ja": "後手は△３三銀。こちらは▲６六歩と６筋の歩を突きます。歩で角の通り道を自分でふさぎ、相手との角の交換を避けます。同時に６七が空いて、金が上がる場所もできます。",
+            "en": "Gote plays △3三銀. Sente pushes ▲6六歩, which blocks the bishop's own diagonal with a pawn so the bishops cannot be traded. It also empties 6g, the square the gold will take."
+          },
+          "marks": {
+            "last": "6f",
+            "boxes": [
+              "6g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6a5b",
+            "6h7g"
+          ],
+          "text": {
+            "ja": "後手は△５二金。こちらは▲７七銀です。６八の銀を７七へ進めます。７六の歩の真後ろで、矢倉の中心になる銀です。",
+            "en": "Gote plays △5二金. Sente plays ▲7七銀, moving the silver from 6h to 7g. It stands right behind the pawn on 7f and is the centrepiece of the Yagura."
+          },
+          "marks": {
+            "last": "7g",
+            "boxes": [
+              "7f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5b4c",
+            "5h6g"
+          ],
+          "text": {
+            "ja": "後手は△４三金。こちらは▲６七金です。５八の金を６七へ上げます。７七の銀の右隣に金が並び、金銀三枚の壁ができました。",
+            "en": "Gote plays △4三金. Sente plays ▲6七金, lifting the gold from 5h to 6g. It stands beside the silver on 7g, and the wall of gold, silver and gold is complete."
+          },
+          "marks": {
+            "last": "6g",
+            "boxes": [
+              "7h",
+              "7g",
+              "6g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2b3a",
+            "8h7i"
+          ],
+          "text": {
+            "ja": "後手は△３一角。こちらは▲７九角です。８八は玉が入る場所なので、そこにいる角を７九へ下げます。玉の道を空ける手です。",
+            "en": "Gote plays △3一角. Sente plays ▲7九角. The king is going to 8h, so the bishop there steps back to 7i to clear the square."
+          },
+          "marks": {
+            "last": "7i",
+            "boxes": [
+              "8h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3a4b",
+            "7i6h"
+          ],
+          "text": {
+            "ja": "後手は△４二角。こちらは▲６八角です。角を７九から６八へ回します。７九も玉の通り道なので、そこも空けておきます。角は金銀の後ろから守りを支えます。",
+            "en": "Gote plays △4二角. Sente plays ▲6八角, moving the bishop on from 7i to 6h. The king also needs 7i, so that square is cleared too, and the bishop supports the camp from behind the gold and silver."
+          },
+          "marks": {
+            "last": "6h",
+            "boxes": [
+              "7i"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5a4a",
+            "6i7i"
+          ],
+          "text": {
+            "ja": "後手は△４一玉。こちらは▲７九玉です。玉が左へもう一つ進み、７九に入ります。",
+            "en": "Gote plays △4一玉. Sente plays ▲7九玉, and the king takes one more step left onto 7i."
+          },
+          "marks": {
+            "last": "7i",
+            "arrows": [
+              "7i8h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4a3a",
+            "7i8h"
+          ],
+          "text": {
+            "ja": "後手は△３一玉。こちらは▲８八玉です。玉が８八に入り、矢倉囲いが完成しました。玉の右に金と銀が並び、前には７六・６六の歩があって、横からの攻めにも上からの攻めにも強い形です。",
+            "en": "Gote plays △3一玉. Sente plays ▲8八玉, and the king enters 8h: the Yagura is complete. Gold and silver stand to its right with the pawns on 7f and 6f in front, a shape that holds against both side and top attacks."
+          },
+          "marks": {
+            "last": "8h",
+            "boxes": [
+              "8h",
+              "7h",
+              "7g",
+              "6g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3a2b",
+            "5g5f"
+          ],
+          "text": {
+            "ja": "後手は△２二玉。こちらは▲５六歩です。中央の歩を一つ進めて、７・６・５筋の歩を横一列にそろえます。矢倉の壁が厚くなり、中央を押さえる形になります。",
+            "en": "Gote plays △2二玉. Sente plays ▲5六歩, advancing the central pawn so that the pawns on files 7, 6 and 5 stand side by side. This thickens the wall and holds the centre."
+          },
+          "marks": {
+            "last": "5f",
+            "boxes": [
+              "7f",
+              "6f",
+              "5f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "2g2f"
+          ],
+          "text": {
+            "ja": "後手は△９四歩。守りが整ったので、ここから右側で攻めの形を作ります。▲２六歩と、飛車の前の歩を一つ進めます。棒銀の攻めの先頭になる歩です。",
+            "en": "Gote plays △9四歩. The defence is done, so Sente now builds the attack on the right side. ▲2六歩 pushes the pawn in front of the rook one square. It will lead the Bogin attack."
+          },
+          "marks": {
+            "last": "2f",
+            "arrows": [
+              "2f2e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7c7d",
+            "2f2e"
+          ],
+          "text": {
+            "ja": "後手は△７四歩。こちらは▲２五歩です。歩をもう一つ進めて２筋の前線を作ります。ここから先は、２五の歩を足場に銀と飛車で攻めます。",
+            "en": "Gote plays △7四歩. Sente plays ▲2五歩, taking the pawn one more step to form the front line on the second file. The silver and rook will attack from behind this pawn."
+          },
+          "marks": {
+            "last": "2e",
+            "boxes": [
+              "2e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6c6d",
+            "3i3h"
+          ],
+          "text": {
+            "ja": "後手は△６四歩。こちらは▲３八銀です。右の銀を３九から一つ前へ上げます。棒銀の主役になる銀で、ここから斜めに飛車の前へ向かいます。",
+            "en": "Gote plays △6四歩. Sente plays ▲3八銀, lifting the right silver one square from 3i. It is the star of Bogin and heads diagonally toward the square in front of the rook."
+          },
+          "marks": {
+            "last": "3h",
+            "arrows": [
+              "3h2g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5c5d",
+            "3h2g"
+          ],
+          "text": {
+            "ja": "後手は△５四歩。こちらは▲２七銀です。銀が斜めに上がり、２八の飛車の真上の列に入りました。次の一手で飛車の前の歩のすぐ後ろへ着きます。",
+            "en": "Gote plays △5四歩. Sente plays ▲2七銀, moving the silver diagonally into the column above the rook on 2h. One more move puts it right behind the pawn."
+          },
+          "marks": {
+            "last": "2g",
+            "arrows": [
+              "2g2f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8c8d",
+            "2g2f"
+          ],
+          "text": {
+            "ja": "後手は△８四歩。こちらは▲２六銀です。２八の飛車、２六の銀、２五の歩が一直線に並びました。飛車に支えられた銀が歩の後ろに控え、攻めの準備ができています。",
+            "en": "Gote plays △8四歩. Sente plays ▲2六銀. The rook on 2h, silver on 2f and pawn on 2e stand in one line. The silver, backed by the rook, waits behind the pawn and the attack is ready."
+          },
+          "marks": {
+            "last": "2f",
+            "arrows": [
+              "2f1e"
+            ],
+            "boxes": [
+              "2e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7a7b"
+          ],
+          "text": {
+            "ja": "後手は△７二銀。矢倉棒銀の基本図です。覚えることは三つ。一、玉は金銀三枚の矢倉囲い、玉は８八。二、飛車・銀・歩を２筋に一直線に並べる。三、角道は６六歩で止めて、角交換を避ける。",
+            "en": "Gote plays △7二銀, and this is the basic position of Yagura Bogin. Three points to remember. One: the king sits on 8h inside a Yagura of two golds and a silver. Two: rook, silver and pawn line up on the second file. Three: the ▲6六歩 closes the bishop line, so the bishops are not traded."
+          },
+          "marks": {
+            "last": "7b",
+            "boxes": [
+              "8h",
+              "2e"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "長所は、守りと攻めの役割が左右で分かれていて、組み方が分かりやすいことと、角を交換せずに駒組みを進められることです。短所は、銀が出たあと端や３筋から受けられると攻めが止まりやすいことと、玉が８八で遠いため速い攻めに対して手数がかかることです。次の章で角交換を避ける理由を、その次の章で銀の交換を見ます。",
+            "en": "The strengths are that defence on the left and attack on the right are clearly divided, which makes the setup easy to follow, and that the bishops are not traded. The weaknesses are that the attack stalls if the opponent defends from the edge or the third file once the silver goes out, and that the king on 8h is far from the right side if the opponent attacks quickly. The next chapter shows why the bishop trade is avoided, and the one after it the silver exchange."
+          },
+          "marks": {
+            "boxes": [
+              "2f"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "金が逃げた後も歩成りの支えを保つ",
-        "en": "Support the promoted pawn after the gold sidesteps"
+        "ja": "角道を止めて角交換を避ける",
+        "en": "Close the bishop line to avoid a bishop trade"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/1r4g2/4bp3/7P1/7S1/9/1PSG5/1KG4R1/9 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "矢倉の玉８八と金銀の芯を残し、先手の攻め銀２五、歩２四、飛車２八が２筋へ向いています。後手金３二は２三の近くにいますが、後手はその金を取らせる必要はありません。歩を成ってから、取れる駒より守るべき升を見ます。",
-            "en": "Sente retains the Yagura core while the attacking silver on 2e, pawn on 2d, and rook on 2h press the second file. Gote's gold on 3b is near 2c, but Gote need not offer that gold for capture. After promoting the pawn, identify the square to support rather than assume a trade."
+            "ja": "矢倉棒銀の大きな利点は、角を交換せずに駒組みを進められることです。角を取り合う将棋は読む変化が増えるので、慣れないうちは、自分から角の道を止めておく手順が安心です。",
+            "en": "A big advantage of Yagura-Bogin is that you can build the position without a bishop trade. Bishop-trade games are often complicated, so a plan that closes the bishop line yourself helps most when you feel unsure."
           }
         },
         {
-          "moves": ["2d2c+", "3b4b"],
+          "moves": [
+            "7g7f",
+            "3c3d"
+          ],
           "text": {
-            "ja": "▲２三歩成に△４二金と逃げる選択です。金は取れませんが、と金２三は後手陣に残ります。後手にはと金を狙う別の手もあるため、次に先手がどの駒で２三を支えられるかを考えます。",
-            "en": "Gote sidesteps with △４二金 after ▲２三歩成. The gold survives, while Sente's promoted pawn remains on 2c. Other Gote defenses are possible, so the next issue is how Sente can support 2c."
+            "ja": "▲７六歩、△３四歩。お互いに角道が開き、角交換ができる形になりました。放っておくと後手から角を交換されることもあります。",
+            "en": "▲7六歩 and △3四歩 open both bishop lines, so a bishop trade is possible. If nothing is done, Gote can trade bishops."
+          },
+          "marks": {
+            "last": "3d",
+            "arrows": [
+              "8h2b"
+            ]
           }
         },
         {
-          "moves": ["2e3d", "4c4d"],
+          "moves": [
+            "6g6f"
+          ],
           "text": {
-            "ja": "▲３四銀で２三に銀の利きを足しました。後手は△４四歩と突き、４筋の形も変えています。銀３四がと金２三を守る一方、飛車２八の前の２五が空いた点を使えます。",
-            "en": "▲３四銀 adds silver control to 2c. Gote chooses △４四歩, changing the fourth file as well. Moving the silver also clears 2e in front of Sente's rook."
-          }
-        },
-        {
-          "moves": ["2h2e"],
-          "text": {
-            "ja": "▲２五飛で飛車を前へ出し、２四が空いた縦筋からと金２三の後ろに回りました。銀３四も２三を守っています。と金が必ず残るとは言えませんが、この局面では銀と飛車の二つの取り返しを数えて次の攻めを選べます。",
-            "en": "▲２五飛 advances along the cleared second file behind the promoted pawn on 2c. The silver on 3d also protects that square. These two potential recaptures do not make the pawn invulnerable, but they give Sente concrete lines to calculate before the next attack."
-          }
-        }
-      ]
-    },
-    {
-      "title": {
-        "ja": "別筋の反撃には歩と金の順で受ける",
-        "en": "Use the pawn before the gold against a rook counterattack"
-      },
-      "side": "sente",
-      "kind": "position",
-      "start": "4k4/2b1r1g2/9/4p2P1/9/6S2/1PSGP4/1KG4R1/9 b - 1",
-      "steps": [
-        {
-          "text": {
-            "ja": "矢倉の芯は玉８八、金７八・６七、銀７七です。攻め銀３六と歩２四を進める一方、後手は飛車５二と歩５四を同じ筋に置いています。先手歩５七の後ろには金６七があり、５六での取り返しの順序が大切です。",
-            "en": "The Yagura core is king 8h, golds 7h and 6g, and silver 7g. Sente also has an attacking silver on 3f and a pawn on 2d. Gote's rook on 5b stands behind a pawn on 5d. On the fifth file, Sente's pawn on 5g is backed by the gold on 6g; the capture order matters."
-          }
-        },
-        {
-          "moves": ["3f2e", "5d5e"],
-          "text": {
-            "ja": "▲２五銀と銀を進めたところ、後手は△５五歩を選びました。後手の歩は次に５六へ進めます。先手は２筋の攻めだけでなく、飛車５二が歩の後ろにいることを見ます。",
-            "en": "Sente advances ▲２五銀, and Gote chooses △５五歩. Gote's pawn can next reach 5f, with the rook still behind it on 5b. Sente must read that file alongside the second-file attack."
-          }
-        },
-        {
-          "moves": ["2d2c+", "5e5f"],
-          "text": {
-            "ja": "▲２三歩成に後手は△５六歩と進めました。と金を作っても後手の攻めは止まりません。５六の歩を取るなら、先手歩５七から取る順と金６七から取る順を比べます。",
-            "en": "Gote answers ▲２三歩成 with △５六歩. Promoting the pawn does not stop the fifth-file counterattack. Before capturing the pawn on 5f, compare a capture from 5g with one from the gold on 6g."
-          }
-        },
-        {
-          "moves": ["5g5f", "5b5f"],
-          "text": {
-            "ja": "▲同歩に、この分岐の後手は△同飛で歩を取りました。５六の飛車には金６七が斜め前から利いています。後手がこの飛車取りを選ぶ必要はありませんが、選んだ場合の取り返しを確認します。",
-            "en": "Sente takes with ▲同歩. In this branch Gote replies △同飛, capturing that pawn. Sente's gold on 6g controls the rook's square on 5f. Gote need not choose this rook capture, but its consequence is concrete."
-          }
-        },
-        {
-          "moves": ["6g5f"],
-          "text": {
-            "ja": "▲同金で飛車を取りました。金は６七から５六へ出たため、元の矢倉の配置は変わっています。飛車を取ったことだけを見ず、金が空けた６七と玉８八の守りも次に数え直します。",
-            "en": "▲同金 captures the rook. The gold has left 6g for 5f, so the starting Yagura defender arrangement has changed. After this optional Gote reply, reassess the vacated 6g square and the king's remaining cover."
+            "ja": "▲６六歩。角道を歩で止めて、角交換を拒否します。以降は落ち着いて矢倉囲いと棒銀を組んでいけます。",
+            "en": "▲6六歩 closes the line with a pawn and refuses the bishop trade. Sente can then calmly build the Yagura and the Bogin."
+          },
+          "marks": {
+            "last": "6f",
+            "boxes": [
+              "6f"
+            ]
           }
         }
       ],
       "variations": [
         {
-          "from": 2,
-          "moves": ["6g5f", "5b5f", "5g5f"],
+          "from": 1,
+          "moves": [
+            "8h2b+"
+          ],
           "text": {
-            "ja": "最初から▲同金なら△同飛▲同歩で飛車を取り返せます。ただしこの順では金６七を失い、主手順では歩５七を失います。どちらも飛車を取れるため、取り返せるかだけでなく、何を交換したかまで比べます。",
-            "en": "Capturing first with the gold permits △同飛▲同歩: Sente still recaptures the rook, but gives up the gold from 6g instead of the pawn from 5g. Compare the material actually exchanged, not merely whether a rook can eventually be taken."
+            "ja": "▲６六歩で角道を止めなければ、すぐ▲２二角成と角を交換して、角換わりの将棋になります。矢倉を目指すなら、角道を止める一手を急ぎます。",
+            "en": "Without ▲6六歩, ▲2二角成 trades the bishops at once and the game becomes Kakugawari. If you aim for Yagura, close the line quickly."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "棒銀で銀を交換する",
+        "en": "Trade silvers with Bogin"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "4c4d",
+            "6i7h",
+            "3c3d",
+            "7i6h",
+            "4a3b",
+            "4i5h",
+            "3a4b",
+            "5i6i",
+            "4b3c",
+            "6g6f",
+            "6a5b",
+            "6h7g",
+            "5b4c",
+            "5h6g",
+            "2b3a",
+            "8h7i",
+            "3a4b",
+            "7i6h",
+            "5a4a",
+            "6i7i",
+            "4a3a",
+            "7i8h",
+            "3a2b",
+            "5g5f",
+            "9c9d",
+            "2g2f",
+            "7c7d",
+            "2f2e",
+            "6c6d",
+            "3i3h",
+            "5c5d",
+            "3h2g",
+            "8c8d",
+            "2g2f",
+            "7a7b"
+          ],
+          "text": {
+            "ja": "矢倉棒銀の基本形ができた局面です。後手も矢倉囲いを完成させています。ここから棒銀の狙いである、銀の交換を目指して攻めます。",
+            "en": "This is the position with the basic Yagura-Bogin shape complete. Gote has also finished a Yagura. From here the attack aims at the Bogin goal, trading silvers."
+          },
+          "marks": {
+            "boxes": [
+              "3c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2f1e",
+            "8a7c"
+          ],
+          "text": {
+            "ja": "▲１五銀。銀を端から五段目へ出します。後手の１筋の歩はまだ１三にあるので、すぐには取られません。",
+            "en": "▲1五銀 sends the silver from the edge to the fifth rank. Gote's edge pawn is still on 1c, so the silver is not taken at once."
+          },
+          "marks": {
+            "last": "1e"
+          }
+        },
+        {
+          "moves": [
+            "2e2d"
+          ],
+          "text": {
+            "ja": "▲２四歩。銀に構わず２筋の歩を突きます。後手の２三の歩を取る狙いです。",
+            "en": "▲2四歩 pushes the second file pawn without worrying about the silver, aiming to take the pawn on 2c."
+          },
+          "marks": {
+            "last": "2d",
+            "boxes": [
+              "2c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2c2d",
+            "1e2d",
+            "3c2d",
+            "2h2d"
+          ],
+          "text": {
+            "ja": "△同歩、▲同銀、△同銀、▲同飛。銀と銀の交換になりました。先手は銀と歩を持ち駒にしています。持ち駒の銀は、盤上の銀より自由に使えるので、価値が高い駒です。",
+            "en": "△同歩, ▲同銀, △同銀, ▲同飛: the silvers are traded. Sente now holds a silver and a pawn. A silver in hand can be placed anywhere, so it is worth more than one on the board."
+          },
+          "marks": {
+            "last": "2d",
+            "boxes": [
+              "2d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "P*2c",
+            "2d2h"
+          ],
+          "text": {
+            "ja": "△２三歩と受けられたら、▲２八飛と引きます。持ち駒の銀と歩を使った端攻めなどの攻めは、棒銀の中盤の講座で見ます。",
+            "en": "After △2三歩, ▲2八飛 retreats the rook. Attacks using the silver and pawn in hand, such as the edge attack, are covered in the Bogin middlegame lesson."
+          },
+          "marks": {
+            "last": "2h"
           }
         }
       ]

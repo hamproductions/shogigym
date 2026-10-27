@@ -1,0 +1,541 @@
+{
+  "id": "tutorial-yamada",
+  "order": 852,
+  "path": [
+    "戦法・定跡",
+    "対振り飛車"
+  ],
+  "title": {
+    "ja": "山田定跡入門：斜め棒銀から四間飛車の２筋を破る",
+    "en": "Yamada Joseki: break the second file of Fourth File Rook with the diagonal climbing silver"
+  },
+  "intro": {
+    "ja": "山田定跡は、舟囲いの居飛車が５七の銀を４六へ出し、３筋の歩を突き捨ててから角を交換して、四間飛車の２筋を破る急戦です。相手が銀を３二に構えている型に使います。この講座では、基本図までの組み方、３筋の突き捨てから角交換、２筋を破るまでの手順と、後手が角を打たずに囲いを固める場合の応じ方を覚えます。",
+    "en": "The Yamada Joseki is a rapid attack by a Funa-castle Static Rook player: the silver comes out to 4f, the third-file pawn is sacrificed, bishops are traded, and the second file of a Fourth File Rook is broken. It is used against the set-up with the silver on 3b. You will build the basic position, follow the moves from the third-file sacrifice to the second-file break, and learn how to answer a Gote who does not drop a bishop and strengthens the castle instead."
+  },
+  "check": {
+    "question": {
+      "ja": "山田定跡で、銀を４六に出す前に▲３五歩と突き捨てるのはなぜですか？",
+      "en": "Why does the Yamada Joseki sacrifice ▲3五歩 before the silver goes to 4f?"
+    },
+    "answer": {
+      "ja": "すぐ▲４六銀と出ると△４五歩と反発され、△３二銀の形を生かされるからです。先に歩を取らせてから銀を出せば、反発を避けて前線に進めます。",
+      "en": "If ▲4六銀 comes first, Gote pushes back with △4五歩 and makes use of the silver on 3b. Letting the pawn be taken first lets the silver advance without that counter."
+    }
+  },
+  "references": [
+    {
+      "title": "将棋の技図鑑 (yuki-keio/shogi)",
+      "url": "https://github.com/yuki-keio/shogi",
+      "license": "GPL-3.0-only",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "初手から基本図まで組む",
+        "en": "Build the basic position from move one"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "text": {
+            "ja": "目標は、７八玉・５八金・４八銀の舟囲いに、３六の歩と２五の歩、そして５七の銀を加えた基本図です。山田定跡は、相手の四間飛車が銀を３二に上げた型に使います。相手の銀が４三にいる型には向きません。",
+            "en": "The goal is the basic position: Funa castle (king 7h, gold 5h, silver 4h) plus pawns on 3f and 2e and the silver on 5g. The Yamada Joseki is used when Fourth File Rook has put the silver on 3b. It does not suit the set-up with the silver on 4c."
+          }
+        },
+        {
+          "moves": [
+            "7g7f"
+          ],
+          "text": {
+            "ja": "▲７六歩。角の道を開けます。",
+            "en": "▲7六歩 opens the bishop diagonal."
+          },
+          "marks": {
+            "last": "7f"
+          }
+        },
+        {
+          "moves": [
+            "3c3d",
+            "2g2f"
+          ],
+          "text": {
+            "ja": "相手が△３四歩と角道を開けたので、▲２六歩と飛車先の歩を突きます。",
+            "en": "Gote opens its bishop with △3四歩, and you push the rook-file pawn with ▲2六歩."
+          },
+          "marks": {
+            "last": "2f"
+          }
+        },
+        {
+          "moves": [
+            "4c4d",
+            "3i4h"
+          ],
+          "text": {
+            "ja": "△４四歩と相手が角道を止めたら、▲４八銀。右の銀を上げます。この銀は守りに残します。",
+            "en": "Gote closes the bishop line with △4四歩, and you play ▲4八銀. This silver stays at home to defend."
+          },
+          "marks": {
+            "last": "4h"
+          }
+        },
+        {
+          "moves": [
+            "8b4b",
+            "5g5f"
+          ],
+          "text": {
+            "ja": "△４二飛で四間飛車が決まりました。▲５六歩と中央の歩を伸ばします。５七の升を空けて、次に銀を置くための準備です。",
+            "en": "Gote plays △4二飛, confirming Fourth File Rook. Advance the central pawn with ▲5六歩, which empties 5g for the silver."
+          },
+          "marks": {
+            "last": "5f",
+            "boxes": [
+              "5g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "9g9f"
+          ],
+          "text": {
+            "ja": "相手が△９四歩と端を突いたら、▲９六歩と受けます。",
+            "en": "When Gote pushes the edge pawn with △9四歩, answer ▲9六歩."
+          },
+          "marks": {
+            "last": "9f"
+          }
+        },
+        {
+          "moves": [
+            "7a7b",
+            "5i6h"
+          ],
+          "text": {
+            "ja": "▲６八玉。玉を舟囲いへ向かわせます。",
+            "en": "▲6八玉 starts the king toward the Funa castle."
+          },
+          "marks": {
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "3a3b",
+            "6h7h"
+          ],
+          "text": {
+            "ja": "相手は△３二銀と上げました。これが山田定跡の狙う型です。こちらは▲７八玉と玉を舟囲いの位置に収めます。",
+            "en": "Gote plays △3二銀, the set-up the Yamada Joseki aims at. You settle the king with ▲7八玉."
+          },
+          "marks": {
+            "last": "7h",
+            "boxes": [
+              "3b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5a6b",
+            "4i5h"
+          ],
+          "text": {
+            "ja": "▲５八金。右の金を寄せて舟囲いの形を固めます。",
+            "en": "▲5八金 brings the right gold over and firms up the Funa castle."
+          },
+          "marks": {
+            "last": "5h"
+          }
+        },
+        {
+          "moves": [
+            "6b7a",
+            "3g3f"
+          ],
+          "text": {
+            "ja": "▲３六歩。ここが山田定跡の起点です。３筋の歩を伸ばしておきます。",
+            "en": "▲3六歩 is the starting point of the Yamada Joseki. Advance the third-file pawn."
+          },
+          "marks": {
+            "last": "3f"
+          }
+        },
+        {
+          "moves": [
+            "7a8b",
+            "7i6h"
+          ],
+          "text": {
+            "ja": "▲６八銀。左の銀を上げます。この銀を５七から４六へ運んで、攻めの主役にします。",
+            "en": "▲6八銀 lifts the left silver. It travels to 5g, then 4f, and leads the attack."
+          },
+          "marks": {
+            "last": "6h",
+            "arrows": [
+              "6h5g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4a5b",
+            "2f2e"
+          ],
+          "text": {
+            "ja": "△５二金と相手が囲いを進めたところで、▲２五歩。飛車先の歩を伸ばしておきます。",
+            "en": "Gote advances its castle with △5二金, and you push the rook-file pawn with ▲2五歩."
+          },
+          "marks": {
+            "last": "2e"
+          }
+        },
+        {
+          "moves": [
+            "2b3c",
+            "6h5g"
+          ],
+          "text": {
+            "ja": "△３三角と受けられたら、▲５七銀で基本図です。銀が４六へ出られる形になりました。",
+            "en": "Gote guards with △3三角, and ▲5七銀 completes the basic position. The silver is ready to go to 4f."
+          },
+          "marks": {
+            "last": "5g",
+            "arrows": [
+              "5g4f"
+            ],
+            "boxes": [
+              "7h",
+              "5h",
+              "4h",
+              "3f",
+              "2e"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "覚えることは三つです。相手の銀は３二にいること。３六の歩と２五の歩を伸ばし、５七に銀を置くこと。飛車は２八のまま、攻めるときに２六へ浮かすこと。",
+            "en": "Remember three things. Gote's silver is on 3b. Your pawns stand on 3f and 2e with the silver on 5g. The rook stays on 2h and floats to 2f only when the attack begins."
+          },
+          "marks": {
+            "boxes": [
+              "3b",
+              "5g",
+              "2h"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "３筋を突き捨てて角を交換し、２筋を破る",
+        "en": "Sacrifice on the third file, trade bishops and break the second file"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "2g2f",
+            "4c4d",
+            "3i4h",
+            "8b4b",
+            "5g5f",
+            "9c9d",
+            "9g9f",
+            "7a7b",
+            "5i6h",
+            "3a3b",
+            "6h7h",
+            "5a6b",
+            "4i5h",
+            "6b7a",
+            "3g3f",
+            "7a8b",
+            "7i6h",
+            "4a5b",
+            "2f2e",
+            "2b3c",
+            "6h5g",
+            "6c6d"
+          ],
+          "text": {
+            "ja": "前の章の基本図です。後手は△６四歩と待っています。ここから３筋の歩を突き捨て、銀を前に出して攻めます。",
+            "en": "The basic position from chapter 1. Gote has waited with △6四歩. Now sacrifice the third-file pawn, bring the silver forward and attack."
+          },
+          "marks": {
+            "boxes": [
+              "3b",
+              "3d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3f3e"
+          ],
+          "text": {
+            "ja": "▲３五歩。３筋の歩を突き捨てます。先に歩を取らせておけば、銀を出したときに△４五歩と反発されにくくなります。",
+            "en": "▲3五歩 sacrifices the third-file pawn. If Gote takes it first, the silver can come out without being hit by a △4五歩 push-back."
+          },
+          "marks": {
+            "last": "3e",
+            "arrows": [
+              "3e3d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3d3e",
+            "5g4f"
+          ],
+          "text": {
+            "ja": "△同歩と取られたら、▲４六銀。銀が前に出ました。これが山田定跡の斜め棒銀の形です。３五に利いています。",
+            "en": "Gote takes with △同歩, and you play ▲4六銀. The silver is out. This is the diagonal climbing silver of the Yamada Joseki, and it attacks 3e."
+          },
+          "marks": {
+            "last": "4f",
+            "arrows": [
+              "4f3e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3e3f",
+            "4f3e"
+          ],
+          "text": {
+            "ja": "△３六歩と取った歩をさらに進められました。▲同銀と取らせないための手筋です。それでも、こちらは▲３五銀と進めます。歩は取れませんでしたが、銀は前線に出ました。",
+            "en": "Gote pushes the pawn on with △3六歩, a well-known trick to avoid being captured. You still advance ▲3五銀. The pawn could not be captured, but the silver reaches the front line."
+          },
+          "marks": {
+            "last": "3e"
+          }
+        },
+        {
+          "moves": [
+            "4d4e",
+            "8h3c+"
+          ],
+          "text": {
+            "ja": "△４五歩と角道を開けて反撃されたら、▲３三角成と先に角を交換します。",
+            "en": "Gote opens the bishop line with the counter △4五歩, and you trade first with ▲3三角成."
+          },
+          "marks": {
+            "last": "3c",
+            "arrows": [
+              "8h3c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3b3c",
+            "B*8h"
+          ],
+          "text": {
+            "ja": "△同銀と取り返され、こちらは▲８八角と打ち直します。すぐ▲２四歩と攻めるより、先に角を戻して相手の△３三角の反撃を消しておきます。",
+            "en": "Gote recaptures with △同銀, and you drop the bishop back with ▲8八角. Rather than attacking at once with ▲2四歩, first remove the counter of a bishop drop on 3c."
+          },
+          "marks": {
+            "last": "8h"
+          }
+        },
+        {
+          "moves": [
+            "B*5d",
+            "2h2f"
+          ],
+          "text": {
+            "ja": "△５四角と相手も角を打ってきます。八方をにらむ強い反撃です。こちらは▲２六飛と浮きます。すぐ▲２四歩と突くと△３七歩成からの反撃が厳しくなるので、先に飛車を逃がして備えます。",
+            "en": "Gote drops a bishop with △5四角, a strong counter that eyes many squares. You float the rook with ▲2六飛. Pushing ▲2四歩 at once runs into △3七歩成, so the rook is moved first."
+          },
+          "marks": {
+            "last": "2f",
+            "arrows": [
+              "2e2d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "1a1b",
+            "2e2d"
+          ],
+          "text": {
+            "ja": "△１二香と相手が手を渡したところで、満を持して▲２四歩。２筋の攻めを始めます。",
+            "en": "Gote passes with △1二香, and you start the second-file attack at last with ▲2四歩."
+          },
+          "marks": {
+            "last": "2d"
+          }
+        },
+        {
+          "moves": [
+            "2c2d",
+            "3e2d"
+          ],
+          "text": {
+            "ja": "△同歩と取られたら、▲２四同銀。銀が２筋に入りました。",
+            "en": "Gote takes with △同歩, and you recapture ▲2四同銀. The silver enters the second file."
+          },
+          "marks": {
+            "last": "2d"
+          }
+        },
+        {
+          "moves": [
+            "3c2d",
+            "2f2d"
+          ],
+          "text": {
+            "ja": "△２四同銀に、▲２四同飛。飛車が２筋を突破しました。",
+            "en": "Gote recaptures with △2四同銀, and ▲2四同飛 breaks through on the second file with the rook."
+          },
+          "marks": {
+            "last": "2d"
+          }
+        },
+        {
+          "moves": [
+            "P*2h",
+            "2d2h"
+          ],
+          "text": {
+            "ja": "△２八歩と歩を打たれても、▲２八同飛と取って飛車を引き戻します。駒を取り合う難解な中盤戦の入り口で、攻めの狙いは果たせました。",
+            "en": "Gote drops a pawn with △2八歩, and you take back with ▲2八同飛, pulling the rook home. This opens a complicated middle game, and the attack has achieved its goal."
+          },
+          "marks": {
+            "last": "2h"
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 7,
+          "moves": [
+            "4e4f",
+            "2d2c+",
+            "4f4g+"
+          ],
+          "text": {
+            "ja": "△２四同歩と取らず、△４六歩と４筋から攻め合う変化です。▲２三歩成と成り込めますが、△４七歩成と相手も歩を成り、お互いに攻め合う展開になります。",
+            "en": "Instead of taking on 2d, Gote counterattacks on the fourth file with △4六歩. You can promote ▲2三歩成, but △4七歩成 answers in kind, and both sides are racing."
+          },
+          "steps": [],
+          "marks": {
+            "last": "4g"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "角を打たない後手への指し方",
+        "en": "Against a Gote who does not drop the bishop"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "2g2f",
+            "4c4d",
+            "3i4h",
+            "8b4b",
+            "5g5f",
+            "9c9d",
+            "9g9f",
+            "7a7b",
+            "5i6h",
+            "3a3b",
+            "6h7h",
+            "5a6b",
+            "4i5h",
+            "6b7a",
+            "3g3f",
+            "7a8b",
+            "7i6h",
+            "4a5b",
+            "2f2e",
+            "2b3c",
+            "6h5g",
+            "6c6d",
+            "3f3e",
+            "3d3e",
+            "5g4f",
+            "3e3f",
+            "4f3e",
+            "4d4e",
+            "8h3c+",
+            "3b3c",
+            "B*8h"
+          ],
+          "text": {
+            "ja": "前の章と同じ手順で、角を交換して▲８八角と打ち直したところまで進めます。後手が角を打つ代わりに別の手を選んだときを見ます。",
+            "en": "Play the same moves as the previous chapter up to the bishop drop ▲8八角. Here we see what happens when Gote picks a different reply instead of dropping a bishop."
+          },
+          "marks": {
+            "last": "8h"
+          }
+        },
+        {
+          "moves": [
+            "5b6c",
+            "2e2d"
+          ],
+          "text": {
+            "ja": "後手が△６三金と囲いを固めたら、▲２四歩。２筋の歩を突き捨てます。",
+            "en": "If Gote strengthens the castle with △6三金, play ▲2四歩 and push the second-file pawn."
+          },
+          "marks": {
+            "last": "2d"
+          }
+        },
+        {
+          "moves": [
+            "2c2d",
+            "3e2d"
+          ],
+          "text": {
+            "ja": "△同歩と取られたら、▲２四同銀。銀を２筋に入れて、２筋に厚みを作ります。角を打たれる心配がなくなり、攻めを続けられます。",
+            "en": "Gote takes with △同歩, and you recapture ▲2四同銀. The silver adds weight on the second file, with no bishop drop to fear, and the attack can continue."
+          },
+          "marks": {
+            "last": "2d"
+          }
+        },
+        {
+          "text": {
+            "ja": "この戦法の長所と短所です。長所は、銀が前に出るので攻めの形がはっきりしていて、２筋の突破を狙えること。短所は、△３二銀の型にしか使えないこと。また攻めるとき、後手の持ち角や△３七歩成などの反撃に注意しないと、舟囲いが薄いので一気に不利になります。",
+            "en": "Strengths and weaknesses. The silver comes forward, so the attack is clear and aims at the second-file break. But it only works against the silver on 3b, and when attacking you must watch Gote's bishop in hand and counters such as △3七歩成, because the Funa castle is thin."
+          },
+          "marks": {
+            "boxes": [
+              "3b",
+              "7h"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -6,21 +6,21 @@
     "囲い"
   ],
   "title": {
-    "ja": "舟囲いから守りと攻めの手を選ぶ",
-    "en": "Choose the Next Move from a Boat Castle"
+    "ja": "舟囲い：初手からの組み方と強さ・弱点",
+    "en": "Funa-gakoi (Boat): build order, strengths and weaknesses"
   },
   "intro": {
-    "ja": "舟囲いは居飛車の玉を左へ移し、少ない手数で戦いに備える形です。銀を７九に残すか、６八で働かせるか、５七まで出すかで攻めと守りの利きが変わります。金を寄せる箱入り娘やエルモ囲いも、同じ玉の周辺で守る場所を変える選択です。囲いの名前だけでは強さを決めず、相手の飛車筋と駒同士の支えを確かめます。",
-    "en": "Boat castle moves a Static Rook king left and prepares for contact in relatively few moves. Leaving the silver on ７九, using it on ６八, or advancing it to ５七 changes both attack and defense. Boxed-in Daughter and Elmo shift a gold to cover different squares near the same king. Judge the opponent's rook line and connected defenders rather than assuming a named shape is always strong."
+    "ja": "舟囲いは、居飛車が振り飛車と戦うときの定番の囲いです。最短三手で組めるので、攻めに手数を使えます。この講座では、基本の七九銀型を初手から組み、左の銀を六八や五七へ動かす型、金を寄せる箱入り娘とエルモ囲いまで、一つずつ盤上で確かめます。",
+    "en": "Funa-gakoi, the Boat castle, is the usual shelter for a Static Rook player against a Ranging Rook. It can be built in as few as three moves, which leaves time to attack. Build the basic silver-on-7i version from move one, then see the variants: the silver on 6h or 5g, the Hako-iri Musume with a shifted gold, and the Elmo castle."
   },
   "check": {
     "question": {
-      "ja": "舟囲いの銀を６八から５七へ出す前に、何を比較しますか？",
-      "en": "What should you compare before moving a Boat-castle silver from ６八 to ５七?"
+      "ja": "舟囲いの七九銀型を組んだあと、左の銀を攻めに使うのと守りに使うのとでは、何が変わりますか？",
+      "en": "After building the Boat castle with the silver on 7i, what changes depending on whether that silver is used for attack or for defense?"
     },
     "answer": {
-      "ja": "５七から狙える前方のマスと、６八にいた銀が守っていたマスを比べます。銀５七を金が支えるか、相手の飛車が空いた筋に入れるかも調べます。",
-      "en": "Compare the forward squares attacked from ５七 with the squares the silver defended from ６八. Also check whether a gold supports the advanced silver and whether an opened line admits the opponent's rook."
+      "ja": "銀を五七へ出せば攻めの戦力が増えますが、玉の近くが薄くなります。銀を六八に置いたままなら守りは固くなりますが、攻めに回せる駒が減ります。相手の出方を見て、どちらにするかを決めます。",
+      "en": "Sending the silver to 5g adds attacking force but thins the area around the king. Keeping it on 6h makes the shelter firmer but leaves fewer pieces for the attack. Decide by watching what the opponent does."
     }
   },
   "references": [
@@ -29,109 +29,448 @@
       "url": "https://shogi-joutatsu.com/archives/6044",
       "license": "All rights reserved",
       "adapted": false
+    },
+    {
+      "title": "将棋の技図鑑 (yuki-keio/shogi)",
+      "url": "https://github.com/yuki-keio/shogi",
+      "license": "GPL-3.0-only",
+      "adapted": false
     }
   ],
   "chapters": [
     {
       "title": {
-        "ja": "金を上げる一手で舟の形を作る",
-        "en": "One gold move completes the basic Boat shelter"
+        "ja": "舟囲い（７九銀型）：三手で組む基本形",
+        "en": "Boat castle (silver on 7i): the three-move basic form"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/9/9/9/9/9/9/1BK4R1/2SGG4 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "玉７八、角８八、銀７九、金６九・５九、飛車２八です。玉は飛車から離れていますが、金５九はまだ玉の高さに達していません。金を一段上げて、守るマスを数えます。",
-            "en": "Sente has a king on ７八, bishop on ８八, silver on ７九, golds on ６九 and ５九, and rook on ２八. The king is away from the rook, but the gold on ５九 has not yet reached the king's rank. Raise it and count the resulting defended squares."
+            "ja": "舟囲いの基本は、銀と左の金を最初の位置に残し、玉と右の金だけを動かすことです。玉が動いた先で、船に乗ったような形になります。居飛車の準備として歩を三本突き、そのあと玉と金を動かします。後手は四間飛車に振る想定です。",
+            "en": "The basic idea is to leave the silver and the left gold where they started and move only the king and the right gold. The result looks like a king aboard a boat. Three pawn moves come first as preparation, then the king and the gold move. Gote swings to Fourth File Rook here."
+          },
+          "marks": {
+            "boxes": [
+              "7h",
+              "7i",
+              "6i",
+              "5h"
+            ]
           }
         },
         {
           "moves": [
-            "5i5h"
+            "7g7f"
           ],
           "text": {
-            "ja": "▲５八金。玉７八は銀７九と金６九に守られ、金６九は金５八を斜め前から支えます。これは舟囲いの基本的な配置です。短い手数で形ができますが、この盤には上部の歩がないため、実戦では攻めを始める前に相手の利きを調べます。舟囲いを保って攻めるか、左美濃・穴熊へ追加の手数を使うかは別の判断です。いま８八は自角が占めているので、玉をそのまま８八へ移すことはできません。",
-            "en": "▲５八金 completes a basic Boat arrangement. The silver on ７九 and gold on ６九 protect the king on ７八, while the gold on ６九 supports the gold on ５八 diagonally forward. It takes little time to form, but this board lacks an upper pawn screen; inspect opposing attacks before starting your own. Keeping Boat for an attack or spending more moves on Left Mino or Anaguma is a separate choice. The bishop currently occupies ８八, so the king cannot simply move there."
+            "ja": "▲７六歩。角道を開けます。居飛車は角を攻めに使う戦法が多く、最初に道を作っておきます。",
+            "en": "▲7六歩 opens the bishop line. Static Rook strategies often use the bishop in the attack, so the road is cleared first."
+          },
+          "marks": {
+            "arrows": [
+              "8h4d"
+            ],
+            "last": "7f"
+          }
+        },
+        {
+          "moves": [
+            "3c3d",
+            "5g5f"
+          ],
+          "text": {
+            "ja": "▲５六歩。真ん中の歩を進めておくと、あとで銀が五七へ出られ、真ん中の備えにもなります。",
+            "en": "▲5六歩 advances the center pawn so that a silver can later come out to 5g, and it also strengthens the center."
+          },
+          "marks": {
+            "last": "5f"
+          }
+        },
+        {
+          "moves": [
+            "4c4d",
+            "9g9f"
+          ],
+          "text": {
+            "ja": "▲９六歩。端の歩を突きます。端は戦いが起きにくい場所で、突いて困ることが少ない手です。",
+            "en": "▲9六歩 pushes the edge pawn. Fights seldom begin on the edge, so this rarely hurts."
+          },
+          "marks": {
+            "last": "9f"
+          }
+        },
+        {
+          "moves": [
+            "8b4b",
+            "5i6h"
+          ],
+          "text": {
+            "ja": "▲６八玉。玉を左へ動かします。振り飛車が戦う右側から離れる方向です。",
+            "en": "▲6八玉 moves the king left, away from the right side where the Ranging Rook will fight."
+          },
+          "marks": {
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "5a6b",
+            "6h7h"
+          ],
+          "text": {
+            "ja": "▲７八玉。もう一つ左へ。銀と金が元の場所にいるので、玉の周りはほぼ固まりました。",
+            "en": "▲7八玉, one more step left. The silver and gold are on their original squares, so the king is nearly sheltered already."
+          },
+          "marks": {
+            "boxes": [
+              "7i",
+              "6i"
+            ],
+            "last": "7h"
+          }
+        },
+        {
+          "moves": [
+            "6b7b",
+            "4i5h"
+          ],
+          "text": {
+            "ja": "▲５八金。右の金を上げて完成です。玉の右に金、下に銀と金が並び、船のような形になります。",
+            "en": "▲5八金 lifts the right gold and completes the castle. A gold on the right, silver and gold below: it forms the boat shape."
+          },
+          "marks": {
+            "boxes": [
+              "7h",
+              "5h",
+              "7i",
+              "6i"
+            ],
+            "last": "5h"
+          }
+        },
+        {
+          "text": {
+            "ja": "七九銀型は最も標準的で、組む手数が少なく、あとから左美濃や穴熊へ組み替える余地も残ります。弱点は、金銀のつながりが薄いこと。六八と五八の間にすき間があるため、相手に駒を渡すと、そこへ打ち込まれやすくなります。そのため、最初から攻めを急ぐか、堅い囲いへ変えるかを早めに決めておきます。",
+            "en": "The silver-on-7i form is the most standard. It needs few moves and leaves room to switch to Left Mino or Anaguma later. Its weakness is the thin link between the pieces: there is a gap around 6h and 5h, so once the opponent holds pieces in hand it can drop into that gap. Decide early whether to attack at once or to convert to a firmer castle."
+          },
+          "marks": {
+            "boxes": [
+              "6h",
+              "5i"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "銀を前へ出すと守るマスも変わる",
-        "en": "Advancing the silver changes its defensive squares"
+        "ja": "舟囲い（６八銀型）：銀を一つ上げて待つ形",
+        "en": "Boat castle (silver on 6h): the silver steps up and waits"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/9/9/9/9/5p3/9/1BKSG2R1/3G5 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "5g5f",
+            "4c4d",
+            "9g9f",
+            "8b4b",
+            "5i6h",
+            "5a6b",
+            "6h7h",
+            "6b7b",
+            "4i5h"
+          ],
           "text": {
-            "ja": "玉７八、角８八、金５八・６九、銀６八の舟囲い型です。後手の歩４六が進んでおり、銀を５七へ出すとその歩を狙えます。銀を７九に残す形なら玉７八を直接守りますが、６八の銀はすでに別のマスを見ています。",
-            "en": "Sente has a Boat-style king on ７八, bishop on ８八, golds on ５八 and ６九, and silver on ６八. Gote's pawn on ４六 is a target if the silver advances to ５七. A silver left on ７九 would directly protect the king on ７八; this silver on ６八 already covers a different set of squares."
+            "ja": "前の章の七九銀型から始めます。後手は四間飛車に構えています。ここから左の銀をどう使うかが、この章の話題です。",
+            "en": "Start from the silver-on-7i boat of the previous chapter. Gote has set up Fourth File Rook, and this chapter is about what to do with the left silver."
+          },
+          "marks": {
+            "boxes": [
+              "7i"
+            ]
           }
         },
         {
           "moves": [
+            "7b8b",
+            "7i6h"
+          ],
+          "text": {
+            "ja": "▲６八銀。左の銀を斜めに上げます。七九銀型より玉の近くがやや厚くなり、このあと銀を前に進めて攻めに回せます。守りに残すか攻めに使うかは、相手の出方を見て決められます。",
+            "en": "▲6八銀 lifts the left silver diagonally. The area near the king becomes a little thicker, and the silver can later go forward to join the attack. Whether it stays home or attacks can be decided by the opponent's play."
+          },
+          "marks": {
+            "arrows": [
+              "6h5g"
+            ],
+            "last": "6h"
+          }
+        },
+        {
+          "text": {
+            "ja": "六八銀型は、銀の行き先を二つ持つ形です。そのまま玉の横に置けば、七九の空きを除いて守りが厚くなります。五七へ進めれば攻めの銀になります。決めきれない間に相手の攻めを受けるので、仕掛けが迫ったらどちらかに決めましょう。",
+            "en": "The silver on 6h keeps two options open. Left next to the king, it strengthens the defense apart from the empty 7i; moved on to 5g, it becomes an attacking silver. While you hesitate, the opponent can start an attack, so choose one as soon as a clash approaches."
+          },
+          "marks": {
+            "boxes": [
+              "6h",
+              "5g",
+              "7i"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "舟囲い（５七銀型）：銀を攻めに回す形",
+        "en": "Boat castle (silver on 5g): the silver goes to attack"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "5g5f",
+            "4c4d",
+            "9g9f",
+            "8b4b",
+            "5i6h",
+            "5a6b",
+            "6h7h",
+            "6b7b",
+            "4i5h",
+            "7b8b",
+            "7i6h"
+          ],
+          "text": {
+            "ja": "六八銀型の形から始めます。左の銀を攻めに使うなら、さらに前へ進める準備をします。",
+            "en": "Take the silver-on-6h boat as the starting point. If the left silver is to attack, it needs to be pushed further."
+          },
+          "marks": {
+            "boxes": [
+              "6h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7a7b",
             "6h5g"
           ],
           "text": {
-            "ja": "▲５七銀。銀は歩４六を狙い、金５八が銀５七を守ります。一方、銀６八が押さえていた７七・６七への利きはなくなります。５七銀型で攻めを急ぐなら、その空いたマスを後手が使えるかを同時に確かめます。",
-            "en": "▲５七銀 attacks the pawn on ４六, and the gold on ５八 protects the silver. It no longer covers ７七 or ６七 as it did from ６八. When using the ５七 silver for a faster attack, check whether Gote can exploit those vacated defensive squares."
+            "ja": "▲５七銀。銀が攻めの位置に出ました。五六の歩が前にいるので、この銀は歩を後ろから押す形になります。",
+            "en": "▲5七銀 puts the silver in its attacking post. With the pawn ahead on 5f, the silver pushes it from behind."
+          },
+          "marks": {
+            "arrows": [
+              "5g5f"
+            ],
+            "last": "5g"
+          }
+        },
+        {
+          "moves": [
+            "3a3b",
+            "3i4h"
+          ],
+          "text": {
+            "ja": "▲４八銀。今度は右の銀を上げて、玉の守りに回します。銀を役割分担させ、左の銀は攻め、右の銀は守りです。",
+            "en": "▲4八銀 lifts the right silver to defend. The silvers split the work: left for attack, right for defense."
+          },
+          "marks": {
+            "boxes": [
+              "4h"
+            ],
+            "last": "4h"
+          }
+        },
+        {
+          "text": {
+            "ja": "五七銀型は、攻めを重くした舟囲いです。右の銀と二枚の金が玉の守り、左の銀と飛車、角が攻めという分担ができます。ここから六八に金を上げる形もよく指されます。弱点は、玉の左側に守りの駒が少ないことで、攻めが失敗すると、そこを狙われます。",
+            "en": "The silver-on-5g form is a boat castle weighted toward attack: the right silver and two golds defend, while the left silver, rook and bishop attack. A follow-up with a gold to 6h is also common. The weak point is the left side of the king, which has few defenders if the attack fails."
+          },
+          "marks": {
+            "boxes": [
+              "6h",
+              "6i"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "金を寄せると飛車筋の受け先が変わる",
-        "en": "A gold shift changes where the rook line meets resistance"
+        "ja": "箱入り娘：金を寄せて固める形",
+        "en": "Hako-iri Musume: shifting the gold to harden the castle"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/9/9/9/9/9/9/1BK1G1r2/2SG5 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "5g5f",
+            "4c4d",
+            "9g9f",
+            "8b4b",
+            "5i6h",
+            "5a6b",
+            "6h7h",
+            "6b7b",
+            "4i5h"
+          ],
           "text": {
-            "ja": "玉７八、銀７九、金６九・５八に対し、後手飛車３八が八段目を見ています。今は金５八が飛車の横利きを止めています。金を６八へ寄せると、玉の隣は厚くなりますが、飛車筋がどこまで伸びるかも変わります。",
-            "en": "Gote's rook on ３八 looks across the eighth rank toward a king on ７八, silver on ７九, and golds on ６九 and ５八. The gold on ５八 currently blocks the rook. Moving it toward ６八 thickens the area beside the king, but also changes how far the rook line extends."
+            "ja": "七九銀型の舟囲いから、少し堅くしたいときの形を見ます。後手は四間飛車に構えています。",
+            "en": "From the silver-on-7i boat, here is a way to make the castle a little firmer. Gote has set up Fourth File Rook."
+          },
+          "marks": {
+            "boxes": [
+              "5h"
+            ]
           }
         },
         {
           "moves": [
+            "7b8b",
             "5h6h"
           ],
           "text": {
-            "ja": "▲６八金で箱入り娘型です。金６八は金６九と銀７九に守られ、飛車３八の筋は４八・５八を通って６八で止まります。玉７八の隣に駒が増えた反面、玉が動ける６八の空きマスはなくなりました。固さだけでなく、王手を受けたときの逃げ道も比べます。",
-            "en": "▲６八金 makes a Boxed-in Daughter arrangement. The gold on ６八 is protected by the gold on ６九 and silver on ７九; the rook's line now runs through ４八 and ５八 and stops at ６八. The king gains a neighboring defender but loses the empty escape square on ６八. Compare escape routes as well as local protection."
+            "ja": "▲６八金。右の金を玉の横へ寄せます。玉の右に金、下に銀と金が箱のように囲み、舟囲いより守りが固くなります。",
+            "en": "▲6八金 moves the right gold to sit beside the king. The king is now boxed in by golds and the silver, which makes this firmer than the plain boat."
+          },
+          "marks": {
+            "boxes": [
+              "7h",
+              "6h",
+              "7i",
+              "6i"
+            ],
+            "last": "6h"
+          }
+        },
+        {
+          "text": {
+            "ja": "箱入り娘は、玉の周りを金銀で詰めた形です。舟囲いより堅い代わりに、玉が窮屈で逃げ場がありません。攻められると一気に詰まされる危険があり、また五八が空いているので、真ん中への打ち込みにも注意が要ります。相手の攻めが穏やかなときに選ぶ形です。",
+            "en": "Hako-iri Musume packs golds and silver around the king. It is firmer than the plain boat, but the king is cramped and has no way out. If attacked, the king can be mated quickly, and the vacated 5h invites drops into the center. Choose it when the opponent's attack is mild."
+          },
+          "marks": {
+            "boxes": [
+              "5h",
+              "8h"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "エルモ型では下段から銀を支える",
-        "en": "Elmo supports the silver from the lower rank"
+        "ja": "エルモ囲い：金を七九へ寄せる堅い形",
+        "en": "Elmo castle: golds shifted left for a firmer shape"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/9/9/9/9/9/9/1BKS2r2/3GG4 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "5g5f",
+            "4c4d",
+            "9g9f",
+            "8b4b",
+            "5i6h",
+            "5a6b",
+            "6h7h"
+          ],
           "text": {
-            "ja": "玉７八、銀６八、金６九・５九です。後手飛車３八の横利きは４八・５八を通って銀６八に届きます。金６九は銀６八を守っていますが、金を７九へ寄せても銀との連結を保てるか調べます。",
-            "en": "Sente has king ７八, silver ６八, and golds ６九 and ５九. Gote's rook on ３八 reaches the silver on ６八 through the empty ４八 and ５八. The gold on ６九 protects the silver now; check whether shifting it to ７九 preserves that connection."
+            "ja": "玉を七八に動かした段階です。まだ金は動かしていません。後手は四間飛車に構えています。ここから銀と金をずらす手順を追います。",
+            "en": "The king has reached 7h but no gold has moved yet. Gote has set up Fourth File Rook. Follow how the silver and golds shift."
+          },
+          "marks": {
+            "boxes": [
+              "7h",
+              "7i",
+              "6i",
+              "4i"
+            ]
           }
         },
         {
           "moves": [
+            "6b7b",
+            "7i6h"
+          ],
+          "text": {
+            "ja": "▲６八銀。銀を斜めに上げて、金が通るための場所を空けます。",
+            "en": "▲6八銀 lifts the silver diagonally to clear a path for the gold."
+          },
+          "marks": {
+            "boxes": [
+              "7i"
+            ],
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "7b8b",
             "6i7i"
           ],
           "text": {
-            "ja": "▲７九金でエルモ囲い型になります。金７九と金５九はいずれも銀６八を斜め前に守り、金７九は玉７八も支えます。飛車が銀６八を取る順は金で取り返せる形ですが、相手の別の利きや持ち駒が加われば再計算が必要です。",
-            "en": "▲７九金 gives an Elmo-style shape. Golds on ７九 and ５九 both protect the silver on ６八 diagonally forward, and the gold on ７九 also supports the king on ７八. A rook capture of that silver can be recaptured by a gold in this position; added attackers or pieces in hand would require a fresh calculation."
+            "ja": "▲７九金。金を玉の真下へ寄せます。",
+            "en": "▲7九金 slides the gold directly under the king."
+          },
+          "marks": {
+            "boxes": [
+              "7i"
+            ],
+            "last": "7i"
+          }
+        },
+        {
+          "moves": [
+            "7a7b",
+            "4i5i"
+          ],
+          "text": {
+            "ja": "▲５九金。右の金も寄せて、エルモ囲いの完成です。金二枚が下の段で玉と銀を支え、舟囲いより駒のつながりが良くなります。",
+            "en": "▲5九金 shifts the right gold, completing the Elmo castle. The two golds support the king and silver from the bottom rank, linking the pieces better than in the plain boat."
+          },
+          "marks": {
+            "boxes": [
+              "7i",
+              "6h",
+              "5i"
+            ],
+            "last": "5i"
+          }
+        },
+        {
+          "text": {
+            "ja": "エルモ囲いは、舟囲いと同じく手早く組めるうえに、金銀のつながりが良い囲いです。右の銀を五七へ出して、さらに力強くする指し方もあります。急戦向きの舟囲いに、持久戦への備えを足したような形で、攻めにも守りにも使いやすいのが長所です。",
+            "en": "The Elmo castle can be built as fast as the plain boat, and its golds and silver link better. The right silver can also go out to 5g for more force. It is like a boat castle with an added reserve for a longer game, and it is comfortable for both attack and defense."
+          },
+          "marks": {
+            "boxes": [
+              "7i",
+              "5i",
+              "6h"
+            ]
           }
         }
       ]

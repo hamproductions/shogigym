@@ -6,21 +6,21 @@
     "囲い"
   ],
   "title": {
-    "ja": "矢倉の仲間を利きで選ぶ",
-    "en": "Choose a Yagura Shape by Its Coverage"
+    "ja": "矢倉の仲間：初手からの組み方と強さ・弱点",
+    "en": "The Yagura family: build order, strengths and weaknesses"
   },
   "intro": {
-    "ja": "矢倉の仲間には、金を前へ出す形、銀を増やす形、玉を浅く置く形、金を低く構える形があります。名前の違いを暗記するより、７筋と８筋のどのマスを守り、どの駒を攻めに残せるかを比べましょう。この教材の盤面は判断する部分に絞った局面です。周囲の駒や相手の飛車が変われば、同じ囲いでも安全度は変わります。",
-    "en": "The Yagura family includes shapes that raise a gold, add a silver, keep the king shallower, or lower a gold. Compare the seventh- and eighth-file squares they cover and which pieces remain for attack instead of memorizing names alone. These boards isolate the decision being taught. Other pieces and the opposing rook's location can change the safety of the same castle."
+    "ja": "矢倉は居飛車で最もよく使う囲いで、金銀を玉の前に並べて壁を作ります。この講座では、基本の金矢倉と、その途中の形であるカニ囲いから始めます。次に、金銀の数や位置を変えた銀矢倉・片矢倉・総矢倉、隅へ潜る矢倉穴熊、玉を低く構える菊水、銀を前に出す銀立ち、角を交換した将棋で使う形、左右を逆にした右矢倉、兄弟分の雁木と、全部で十五の形を初手から一手ずつ組み、違いを確かめます。",
+    "en": "Yagura is the most common castle for Static Rook play and builds a wall of gold and silver in front of the king. This course starts with the basic Gold Yagura and the Crab castle on its way, then moves to versions with different pieces or squares, the corner Anaguma form, the crouching Kikusui, the forward-silver Gin-dachi, the shapes used after a bishop trade, the mirrored Right Yagura and the cousin Gangi: fifteen shapes in all, each built from move one."
   },
   "check": {
     "question": {
-      "ja": "銀を７七から７六へ進める前に、利きが増えるマスと失うマスをどう調べますか？",
-      "en": "Before advancing a silver from ７七 to ７六, how do you check the squares gained and lost?"
+      "ja": "矢倉を組む途中で、玉を八八へ入れる前に角を引いておくのはなぜですか？",
+      "en": "While building Yagura, why must the bishop be moved away before the king enters 8h?"
     },
     "answer": {
-      "ja": "７六の銀は８五など前方を攻め、７七の銀が守っていた８六などには利かなくなります。銀７六を守る金があるか、８筋の空いたマスを相手が使えるかを両方見ます。",
-      "en": "The silver on ７六 attacks forward squares such as ８五, but stops covering squares such as ８六 that it guarded from ７七. Check both whether a gold protects the advanced silver and whether the opponent can use the newly uncovered eighth-file squares."
+      "ja": "八八は最初に角がいる場所なので、角が居座ると玉が入れません。銀を七七へ上げて角の退く道を作り、角を六八まで下げてから、玉を七九、八八と運びます。",
+      "en": "The bishop starts on 8h, so the king cannot enter until it leaves. Move the silver to 7g first to make room, back the bishop off to 6h, and only then walk the king through 7i to 8h."
     }
   },
   "references": [
@@ -29,74 +29,35 @@
       "url": "https://shogi-joutatsu.com/archives/5958",
       "license": "All rights reserved",
       "adapted": false
+    },
+    {
+      "title": "将棋の技図鑑 (yuki-keio/shogi)",
+      "url": "https://github.com/yuki-keio/shogi",
+      "license": "GPL-3.0-only",
+      "adapted": false
     }
   ],
   "chapters": [
     {
       "title": {
-        "ja": "７六の歩を誰が守るか",
-        "en": "Who protects the pawn on ７六?"
+        "ja": "カニ囲い：矢倉の土台になる形",
+        "en": "Crab castle: the base of Yagura"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/2r6/9/9/9/2P6/2S6/1KGG5/9 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "玉８八、銀７七、金７八・６八という矢倉の骨格です。後手飛車７二は７筋を見ています。いま歩７六は銀７七に守られていますが、金６八を上げれば別の支えもできます。",
-            "en": "Sente has a Yagura core: king ８八, silver ７七, and golds ７八 and ６八. Gote's rook on ７二 looks down the seventh file. The silver currently protects the pawn on ７六; raising the gold adds a second defender."
-          }
-        },
-        {
-          "moves": [
-            "6h6g"
-          ],
-          "text": {
-            "ja": "▲６七金。金６七は歩７六と銀７七の両方を守り、金７八は銀７七を支えています。この金矢倉型では、歩を取られた後に７筋がどう開くかも検討します。６七を銀にする銀矢倉型なら、同じマスでも金と利きが違うため、守るマスを数え直します。６七に置いたとき、金だけが利くのは５七・７七・６八、銀だけが利くのは５八・７八で、５六・６六・７六にはどちらも利きます。",
-            "en": "▲６七金 protects both the pawn on ７六 and the silver on ７七; the gold on ７八 also supports that silver. In this Gold Yagura core, still calculate how the seventh file opens if the pawn falls. A Silver Yagura puts a silver on ６七 instead, changing its coverage; count the defended squares again rather than treating the pieces as interchangeable. Placed on ６七, only the gold covers ５七, ７七 and ６八, only a silver covers ５八 and ７八, and both cover ５六, ６六 and ７六."
-          }
-        }
-      ]
-    },
-    {
-      "title": {
-        "ja": "一手早い入城先を比べる",
-        "en": "Compare an earlier king destination"
-      },
-      "side": "sente",
-      "kind": "position",
-      "start": "4k4/9/9/9/9/2P6/1PSG5/3G5/3K5 b - 1",
-      "steps": [
-        {
-          "text": {
-            "ja": "玉６九、金６七・６八、銀７七です。金６八が７八を横から守る一方、玉はまだ中央寄りにいます。８八まで運ぶ前に７八へ入る手を比較します。",
-            "en": "Sente's king is on ６九, golds on ６七 and ６八, and silver on ７七. The gold on ６八 covers ７八 sideways, while the king remains near the center. Compare entering ７八 now with continuing farther to ８八 later."
-          }
-        },
-        {
-          "moves": [
-            "6i7h"
-          ],
-          "text": {
-            "ja": "▲７八玉。金６八の利きに入って玉を一手で中央から離せます。これを片矢倉型として使うなら、８筋側の距離を省いた利点と、玉７八が残る位置への相手の利きを比べます。カニ囲いのような途中形で戦い始める場合も、完成までの手数だけで安全とは決められません。",
-            "en": "▲７八玉 reaches a square protected by the gold on ６八 and leaves the center in one move. In a Half Yagura plan, compare the saved king move with the opponent's control of the king's remaining square on ７八. The same timing question applies when fighting from an intermediate shape such as Crab castle: fewer construction moves do not by themselves make the king safe."
-          }
-        }
-      ]
-    },
-    {
-      "title": {
-        "ja": "銀を攻めに使うと守りが変わる",
-        "en": "Advancing the silver trades coverage for reach"
-      },
-      "side": "sente",
-      "kind": "position",
-      "start": "4k4/9/9/9/1p7/9/2SG5/1KG6/9 b - 1",
-      "steps": [
-        {
-          "text": {
-            "ja": "玉８八、金７八・６七、銀７七は基本の矢倉に近い配置です。後手の歩８五が前にあり、先手は銀でその歩へ圧力をかけたいところです。銀７七は現在８六を守っています。",
-            "en": "King ８八, golds ７八 and ６七, and silver ７七 make a familiar Yagura core. Gote's pawn on ８五 offers a target for the silver. Before advancing, note that the silver on ７七 currently protects ８六."
+            "ja": "カニ囲いは、金銀金を玉の前に一列に並べた形です。五手で組めて、矢倉の途中の形でもあります。まずこの形を作り、ここから矢倉へ進みます。後手は居飛車のまま駒組みを進める想定です。",
+            "en": "The Crab castle lines gold, silver and gold in a row in front of the king. It takes five moves and doubles as a waypoint toward Yagura, so build this first. Gote is assumed to develop a Static Rook setup."
+          },
+          "marks": {
+            "boxes": [
+              "7h",
+              "6h",
+              "5h"
+            ]
           }
         },
         {
@@ -104,34 +65,2280 @@
             "7g7f"
           ],
           "text": {
-            "ja": "▲７六銀。銀は８五の歩を狙い、金６七が７六の銀を守ります。一方、８六への銀の利きは消えました。銀立ち矢倉型を選ぶなら、攻めの働きと８筋の守備の減少を一緒に評価します。守りに銀をもう一枚加える総矢倉や菱矢倉とは、使える攻め駒の数も異なります。",
-            "en": "▲７六銀 attacks the pawn on ８五, and the gold on ６七 protects the advanced silver. The silver no longer covers ８六. A Raised Silver Yagura plan gains attacking reach while giving up some eighth-file coverage. Adding another silver to a defensive Yagura, as in fuller variants, changes how many attacking pieces remain available."
+            "ja": "▲７六歩。７筋の歩を伸ばして、銀が出る道を作ります。矢倉の最初の一手です。",
+            "en": "▲7六歩 advances the seventh-file pawn and opens the road for the silver. It is the first move of Yagura."
+          },
+          "marks": {
+            "last": "7f"
+          }
+        },
+        {
+          "moves": [
+            "8c8d",
+            "7i6h"
+          ],
+          "text": {
+            "ja": "▲６八銀。左の銀を斜めに上げます。七九が空くので、あとで金と玉が動ける場所になります。",
+            "en": "▲6八銀 lifts the left silver diagonally. This empties 7i, which gold and king will use later."
+          },
+          "marks": {
+            "boxes": [
+              "7i"
+            ],
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "4a3b",
+            "6i7h"
+          ],
+          "text": {
+            "ja": "▲７八金。左の金を一つ上げ、銀の斜め後ろに置きます。",
+            "en": "▲7八金 lifts the left gold and places it diagonally behind the silver."
+          },
+          "marks": {
+            "last": "7h"
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "4i5h"
+          ],
+          "text": {
+            "ja": "▲５八金。右の金も上げます。金銀金が横に並びました。",
+            "en": "▲5八金 lifts the right gold as well. Gold, silver, gold now stand in a row."
+          },
+          "marks": {
+            "boxes": [
+              "7h",
+              "6h",
+              "5h"
+            ],
+            "last": "5h"
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "5i6i"
+          ],
+          "text": {
+            "ja": "▲６九玉。玉を一つ左へ寄せ、並んだ三枚の真下に入れます。カニ囲いの完成です。",
+            "en": "▲6九玉 slides the king one square left, right under the three pieces, completing the Crab castle."
+          },
+          "marks": {
+            "boxes": [
+              "6i"
+            ],
+            "last": "6i"
+          }
+        },
+        {
+          "text": {
+            "ja": "カニ囲いは、手数が少なく、組んだらすぐ攻めに移れるのが強みです。上からの攻めにも一定の厚みがあります。弱点は、玉が下の段にいて横の守りが薄いこと。飛車を打ち込まれると、金銀の連なりを横から崩されます。短く組んで速攻する場面で使い、じっくり戦うなら矢倉へ進めます。",
+            "en": "The Crab castle needs few moves and lets you attack right away, and it has reasonable height against pressure from above. Its weakness is that the king sits on the bottom rank with little cover on the sides, so a rook drop splits the row from the side. Use it for a quick attack, or continue on to Yagura for a longer game."
+          },
+          "marks": {
+            "boxes": [
+              "6i",
+              "4i"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "横の飛車筋には金を低くする選択",
-        "en": "Lower a gold when the rook attacks laterally"
+        "ja": "金矢倉：基本の矢倉",
+        "en": "Gold Yagura: the standard shape"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/9/9/9/9/2P6/2SG5/1KG2r3/9 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f",
+            "8c8d",
+            "7i6h",
+            "4a3b",
+            "6i7h",
+            "9c9d",
+            "4i5h",
+            "1c1d",
+            "5i6i"
+          ],
           "text": {
-            "ja": "玉８八、金７八・６七、銀７七に対し、後手の飛車４八が八段目を横に見ています。金７八が飛車筋を止めていますが、６八は空いています。前を厚くするだけでなく、下段で受ける形も考えます。",
-            "en": "Gote's rook on ４八 looks across the eighth rank toward Sente's king on ８八. The gold on ７八 blocks the line, while ６八 is empty. With a silver on ７七 and gold on ６七, Sente can consider a lower defense instead of only reinforcing the front."
+            "ja": "カニ囲いの形から始めます。ここから金銀を一つずつ前に出し、角をどけて、玉を八八へ運びます。",
+            "en": "Start from the Crab castle. Gold and silver step forward one by one, the bishop gets out of the way, and the king travels to 8h."
+          },
+          "marks": {
+            "boxes": [
+              "7h",
+              "6h",
+              "5h",
+              "6i"
+            ]
           }
         },
         {
           "moves": [
-            "6g6h"
+            "7a6b",
+            "6g6f"
           ],
           "text": {
-            "ja": "▲６八金。飛車が５八を通って６八を取る筋には、金７八と銀７七が６八を守ります。へこみ矢倉型の低い金は横への受けを増やしますが、金６七が守っていた歩７六は銀７七だけの支えになります。右矢倉のように囲う側を反転する形でも、どの利きが増減するかで判断します。雁木は似た出だしから生じても別の囲いです。",
-            "en": "▲６八金 puts the gold directly in the rook's path. The gold on ７八 and silver on ７七 protect ６八 if the rook captures there through ５八. This lower Dented Yagura arrangement adds lateral resistance, but the pawn on ７六 loses the gold's protection and keeps only the silver as defender. Even when the castle is mirrored as Right Yagura, judge the changed coverage. Gangi can arise from related opening choices but is a separate castle."
+            "ja": "▲６六歩。６筋の歩を突いて、金が前へ上がる場所を空けます。",
+            "en": "▲6六歩 pushes the sixth-file pawn to clear a square for a gold to advance."
+          },
+          "marks": {
+            "boxes": [
+              "6g"
+            ],
+            "last": "6f"
+          }
+        },
+        {
+          "moves": [
+            "5c5d",
+            "6h7g"
+          ],
+          "text": {
+            "ja": "▲７七銀。銀が前に出ます。７六の歩を支え、玉の斜め前を守る位置です。角に退く道もできます。",
+            "en": "▲7七銀 puts the silver forward. It supports the pawn on 7f and covers the diagonal front of the castle, and it also opens a retreat route for the bishop."
+          },
+          "marks": {
+            "arrows": [
+              "7g7f"
+            ],
+            "last": "7g"
+          }
+        },
+        {
+          "moves": [
+            "6b5c",
+            "5h6g"
+          ],
+          "text": {
+            "ja": "▲６七金。右の金を斜め前に出して、７七の銀の隣に並べます。",
+            "en": "▲6七金 brings the right gold diagonally forward beside the silver on 7g."
+          },
+          "marks": {
+            "boxes": [
+              "7g",
+              "6g"
+            ],
+            "last": "6g"
+          }
+        },
+        {
+          "moves": [
+            "5a4b",
+            "8h7i"
+          ],
+          "text": {
+            "ja": "▲７九角。玉が入る八八に、まだ角がいます。まず角を一つ引きます。",
+            "en": "▲7九角. The bishop still occupies 8h, the king's future square, so first it retreats one step."
+          },
+          "marks": {
+            "boxes": [
+              "8h"
+            ],
+            "last": "7i"
+          }
+        },
+        {
+          "moves": [
+            "6a5b",
+            "7i6h"
+          ],
+          "text": {
+            "ja": "▲６八角。七九は玉の通り道なので、角をさらに右へ寄せます。",
+            "en": "▲6八角 slides the bishop aside again, since 7i is the king's path."
+          },
+          "marks": {
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "2c2d",
+            "6i7i"
+          ],
+          "text": {
+            "ja": "▲７九玉。玉が通り道に入りました。",
+            "en": "▲7九玉 steps the king onto its path."
+          },
+          "marks": {
+            "last": "7i"
+          }
+        },
+        {
+          "moves": [
+            "9a9b",
+            "7i8h"
+          ],
+          "text": {
+            "ja": "▲８八玉。玉が囲いに入って完成です。７七の銀と６七の金が前を固め、７八の金が横を守ります。",
+            "en": "▲8八玉 takes the king in and completes the castle. Silver and gold hold the front and the gold on 7h guards the side."
+          },
+          "marks": {
+            "boxes": [
+              "8h",
+              "7g",
+              "6g",
+              "7h"
+            ],
+            "last": "8h"
+          }
+        },
+        {
+          "text": {
+            "ja": "金矢倉は、金銀の壁が前に厚く、正面から押される攻めに耐える囲いです。相居飛車の本筋でよく現れます。弱点は、下の段が空いていることと、玉の横が薄いこと。飛車や角を交換したあとは、横から打ち込まれやすくなります。端から玉を狙う攻めにも注意が要ります。",
+            "en": "Gold Yagura has a thick wall in front and stands up to frontal pushes, which is why it is the main castle in Static Rook mirrors. The weak points are the empty bottom rank and the thin cover at the king's side; after rooks and bishops are traded, drops from the side become dangerous. Watch for attacks starting on the edge."
+          },
+          "marks": {
+            "boxes": [
+              "7i",
+              "6i",
+              "9i"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "銀矢倉：右銀を六七へ回す",
+        "en": "Silver Yagura: the right silver goes to 6g"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "8c8d",
+            "7i6h",
+            "4a3b",
+            "6i7h",
+            "9c9d",
+            "5i6i",
+            "1c1d",
+            "6g6f",
+            "7a6b",
+            "6h7g"
+          ],
+          "text": {
+            "ja": "７七まで銀を上げ、６九に玉を寄せた形です。ここから、金矢倉とは違う駒を六七に置きます。",
+            "en": "The left silver has reached 7g and the king stands on 6i. From here a different piece is placed on 6g than in Gold Yagura."
+          },
+          "marks": {
+            "boxes": [
+              "6g",
+              "7g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5c5d",
+            "3i4h"
+          ],
+          "text": {
+            "ja": "▲４八銀。右の銀を動かします。この銀を六七まで運びます。",
+            "en": "▲4八銀 sets the right silver in motion. It will be walked all the way to 6g."
+          },
+          "marks": {
+            "boxes": [
+              "4h"
+            ],
+            "last": "4h"
+          }
+        },
+        {
+          "moves": [
+            "6b5c",
+            "4h5i"
+          ],
+          "text": {
+            "ja": "▲５九銀。斜め後ろへ下がります。銀は後ろにも斜めに動けるので、遠回りできます。",
+            "en": "▲5九銀 steps back diagonally. A silver can also move diagonally backward, so it can take a detour."
+          },
+          "marks": {
+            "boxes": [
+              "5i"
+            ],
+            "last": "5i"
+          }
+        },
+        {
+          "moves": [
+            "5a4b",
+            "5i6h"
+          ],
+          "text": {
+            "ja": "▲６八銀。斜め前へ。左の銀が七七へ出たので、六八が空いています。",
+            "en": "▲6八銀 steps forward diagonally. The left silver has gone to 7g, so 6h is free."
+          },
+          "marks": {
+            "boxes": [
+              "6h"
+            ],
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "6a5b",
+            "6h6g"
+          ],
+          "text": {
+            "ja": "▲６七銀。まっすぐ前へ出ました。７七と六七に銀が並びます。",
+            "en": "▲6七銀 moves straight ahead. Silvers now stand on both 7g and 6g."
+          },
+          "marks": {
+            "boxes": [
+              "7g",
+              "6g"
+            ],
+            "last": "6g"
+          }
+        },
+        {
+          "moves": [
+            "2c2d",
+            "8h7i"
+          ],
+          "text": {
+            "ja": "▲７九角。角を引いて、玉の入る場所を空けます。",
+            "en": "▲7九角 retreats the bishop to clear the king's square."
+          },
+          "marks": {
+            "boxes": [
+              "8h"
+            ],
+            "last": "7i"
+          }
+        },
+        {
+          "moves": [
+            "9a9b",
+            "7i6h"
+          ],
+          "text": {
+            "ja": "▲６八角。玉の通り道を空けるため、さらに寄せます。",
+            "en": "▲6八角 moves over once more to clear the king's path."
+          },
+          "marks": {
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "1a1b",
+            "6i7i"
+          ],
+          "text": {
+            "ja": "▲７九玉。玉が通り道に入ります。",
+            "en": "▲7九玉 steps the king onto the path."
+          },
+          "marks": {
+            "last": "7i"
+          }
+        },
+        {
+          "moves": [
+            "8a9c",
+            "7i8h"
+          ],
+          "text": {
+            "ja": "▲８八玉。玉が入って銀矢倉の完成です。",
+            "en": "▲8八玉 enters the castle and finishes Silver Yagura."
+          },
+          "marks": {
+            "boxes": [
+              "8h",
+              "7g",
+              "6g"
+            ],
+            "last": "8h"
+          }
+        },
+        {
+          "text": {
+            "ja": "銀矢倉は、金銀の連結がよく、金矢倉より守りが細かく噛み合います。その代わり、右の銀を守りに使うので、攻めに回せる駒が減ります。組む手数も金矢倉より長くなります。守りを優先したいときに選ぶ形です。",
+            "en": "Silver Yagura links the golds and silvers more closely than Gold Yagura does. In exchange the right silver is committed to defense, leaving fewer attackers, and it takes longer to build. Choose it when defense is the priority."
+          },
+          "marks": {
+            "boxes": [
+              "5h",
+              "4i"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "片矢倉：玉を七八に置く手数の短い形",
+        "en": "Half Yagura: the king stays on 7h for a shorter build"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "8c8d",
+            "7i6h",
+            "4a3b",
+            "6h7g",
+            "9c9d",
+            "6g6f"
+          ],
+          "text": {
+            "ja": "７六歩、６六歩を突き、銀を七七へ上げた形です。ここから金を使って、玉を八八まで進めずに囲います。",
+            "en": "The pawns are on 7f and 6f and a silver has gone to 7g. The golds now build a shelter without taking the king all the way to 8h."
+          },
+          "marks": {
+            "boxes": [
+              "7g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "4i5h"
+          ],
+          "text": {
+            "ja": "▲５八金。右の金を上げます。",
+            "en": "▲5八金 lifts the right gold."
+          },
+          "marks": {
+            "last": "5h"
+          }
+        },
+        {
+          "moves": [
+            "7a6b",
+            "5h6g"
+          ],
+          "text": {
+            "ja": "▲６七金。さらに斜め前へ出し、七七の銀と並べます。",
+            "en": "▲6七金 advances it diagonally beside the silver on 7g."
+          },
+          "marks": {
+            "boxes": [
+              "7g",
+              "6g"
+            ],
+            "last": "6g"
+          }
+        },
+        {
+          "moves": [
+            "5c5d",
+            "6i6h"
+          ],
+          "text": {
+            "ja": "▲６八金。左の金を一つ上げて、玉の通り道にふたをする位置に置きます。",
+            "en": "▲6八金 lifts the left gold to the square that will sit beside the king."
+          },
+          "marks": {
+            "boxes": [
+              "6h"
+            ],
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "6b5c",
+            "5i6i"
+          ],
+          "text": {
+            "ja": "▲６九玉。玉を左へ寄せます。",
+            "en": "▲6九玉 slides the king left."
+          },
+          "marks": {
+            "last": "6i"
+          }
+        },
+        {
+          "moves": [
+            "5a4b",
+            "6i7h"
+          ],
+          "text": {
+            "ja": "▲７八玉。斜め前へ進み、八八へは入りません。六八の金と七七の銀が、玉の右と前を守ります。",
+            "en": "▲7八玉 steps diagonally forward and stops short of 8h. The gold on 6h and silver on 7g cover the right and the front."
+          },
+          "marks": {
+            "boxes": [
+              "7h",
+              "6h",
+              "7g"
+            ],
+            "last": "7h"
+          }
+        },
+        {
+          "text": {
+            "ja": "片矢倉は、金矢倉より手数が少なく、そのぶん攻めを早く始められます。玉が七八にいるので、右側の横からの攻めに対して、金が近くで受けます。弱点は、玉の左に空きができることと、八筋の端が薄くなることです。攻めを急ぎたいときに合う形です。",
+            "en": "Half Yagura needs fewer moves than Gold Yagura, so the attack can start earlier. With the king on 7h, the gold close by meets lateral attacks from the right. The weaknesses are the empty space to the king's left and the thin eighth file. It fits when you want to attack quickly."
+          },
+          "marks": {
+            "boxes": [
+              "8h",
+              "8g"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "総矢倉：右の銀も囲いに寄せる",
+        "en": "Full Yagura: the right silver joins the castle"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "8c8d",
+            "7i6h",
+            "4a3b",
+            "6i7h",
+            "9c9d",
+            "4i5h",
+            "1c1d",
+            "5i6i",
+            "7a6b",
+            "6g6f",
+            "5c5d",
+            "6h7g",
+            "6b5c",
+            "5h6g",
+            "5a4b",
+            "8h7i",
+            "6a5b",
+            "7i6h",
+            "2c2d",
+            "6i7i",
+            "9a9b",
+            "7i8h"
+          ],
+          "text": {
+            "ja": "金矢倉が完成した形です。ここから、攻めに使うはずの右の銀を、守りに回します。",
+            "en": "Gold Yagura is complete. The right silver, normally an attacker, is now recruited for defense."
+          },
+          "marks": {
+            "boxes": [
+              "3i"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "1a1b",
+            "5g5f"
+          ],
+          "text": {
+            "ja": "▲５六歩。真ん中の歩を突いて、銀が五七へ入る場所を空けます。",
+            "en": "▲5六歩 pushes the center pawn to clear 5g for the silver."
+          },
+          "marks": {
+            "boxes": [
+              "5g"
+            ],
+            "last": "5f"
+          }
+        },
+        {
+          "moves": [
+            "8a9c",
+            "3i4h"
+          ],
+          "text": {
+            "ja": "▲４八銀。右の銀を上げます。",
+            "en": "▲4八銀 lifts the right silver."
+          },
+          "marks": {
+            "last": "4h"
+          }
+        },
+        {
+          "moves": [
+            "2a1c",
+            "4h5g"
+          ],
+          "text": {
+            "ja": "▲５七銀。銀が囲いの一番右につきました。金銀四枚が、７七から５七まで一列に並びます。",
+            "en": "▲5七銀 attaches the silver at the right end. Four pieces now stand in a row from 7g to 5g."
+          },
+          "marks": {
+            "boxes": [
+              "7g",
+              "6g",
+              "5g"
+            ],
+            "last": "5g"
+          }
+        },
+        {
+          "text": {
+            "ja": "総矢倉は、金銀四枚が玉の前を覆うので、守りがとても厚くなります。反面、攻めに使える駒が飛車と角、桂、香くらいに減り、攻めが細くなりやすい点が欠点です。相手が攻めてくるのを待つ展開や、持久戦になりそうなときに役立ちます。",
+            "en": "Full Yagura covers the king with four pieces and is very thick. The downside is that the attack is left with the rook, bishop, knights and lances, which tends to be thin. It helps when you expect to wait for the opponent to come, or when the game looks long."
+          },
+          "marks": {
+            "boxes": [
+              "6g",
+              "5g"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "矢倉穴熊：矢倉からさらに隅へ潜る",
+        "en": "Yagura Anaguma: from Yagura into the corner"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "8c8d",
+            "7i6h",
+            "4a3b",
+            "6i7h",
+            "9c9d",
+            "4i5h",
+            "1c1d",
+            "5i6i",
+            "7a6b",
+            "6g6f",
+            "5c5d",
+            "6h7g",
+            "6b5c",
+            "5h6g",
+            "5a4b",
+            "8h7i",
+            "6a5b",
+            "7i6h"
+          ],
+          "text": {
+            "ja": "玉がまだ六九にいる、矢倉の途中です。角は六八へ退き、金銀は七七と六七にいます。ここから玉を、八八ではなく九九の隅へ運びます。",
+            "en": "A Yagura under construction: the king is still on 6i, the bishop has retreated to 6h and the silver and gold are on 7g and 6g. The king will go to the corner 9i instead of 8h."
+          },
+          "marks": {
+            "boxes": [
+              "6i",
+              "9i"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2c2d",
+            "9i9h"
+          ],
+          "text": {
+            "ja": "▲９八香。端の香を一つ上げて、九九を空けます。ここが玉の入る隅です。",
+            "en": "▲9八香 lifts the corner lance one step to empty 9i, the king's corner."
+          },
+          "marks": {
+            "boxes": [
+              "9i"
+            ],
+            "last": "9h"
+          }
+        },
+        {
+          "moves": [
+            "9a9b",
+            "6i7i"
+          ],
+          "text": {
+            "ja": "▲７九玉。玉を左へ。",
+            "en": "▲7九玉 moves the king left."
+          },
+          "marks": {
+            "last": "7i"
+          }
+        },
+        {
+          "moves": [
+            "1a1b",
+            "7i8h"
+          ],
+          "text": {
+            "ja": "▲８八玉。",
+            "en": "▲8八玉, one more step."
+          },
+          "marks": {
+            "last": "8h"
+          }
+        },
+        {
+          "moves": [
+            "8a9c",
+            "8h9i"
+          ],
+          "text": {
+            "ja": "▲９九玉。玉が隅に入りました。香の下に潜る形で、矢倉穴熊です。",
+            "en": "▲9九玉 puts the king into the corner under its lance, which is Yagura Anaguma."
+          },
+          "marks": {
+            "boxes": [
+              "9i",
+              "9h",
+              "7h"
+            ],
+            "last": "9i"
+          }
+        },
+        {
+          "text": {
+            "ja": "矢倉穴熊は、矢倉の前の壁に、隅の堅さを足した囲いです。ここから銀を八八へ寄せればさらに堅くなります。弱点は、玉が逃げられず、囲いが崩れたときの粘りが少ないことと、組むのに時間がかかることです。相居飛車の持久戦で使います。",
+            "en": "Yagura Anaguma adds the corner's hardness to the front wall of Yagura, and bringing a silver to 8h from here makes it harder still. Its weaknesses are that the king cannot run and that it takes long to build. It is used in long Static Rook mirror games."
+          },
+          "marks": {
+            "boxes": [
+              "8h",
+              "9h"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "菊水矢倉：玉をしゃがませる形",
+        "en": "Kikusui Yagura: the crouching king"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "8h2b+"
+          ],
+          "text": {
+            "ja": "角を交換した形から始めます。後手は相手の角を取り返して、お互いに角を持ち駒にしました。盤上に角がいないので、八八が空いています。",
+            "en": "Start after the bishops were traded. Gote recaptured and both sides hold a bishop in hand. No bishop stands on 8h any more, so that square is free."
+          },
+          "marks": {
+            "boxes": [
+              "8h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3a2b",
+            "6g6f"
+          ],
+          "text": {
+            "ja": "▲６六歩。金の上がる場所を空けます。",
+            "en": "▲6六歩 clears a square for a gold."
+          },
+          "marks": {
+            "boxes": [
+              "6g"
+            ],
+            "last": "6f"
+          }
+        },
+        {
+          "moves": [
+            "8c8d",
+            "4i5h"
+          ],
+          "text": {
+            "ja": "▲５八金。右の金を上げます。",
+            "en": "▲5八金 lifts the right gold."
+          },
+          "marks": {
+            "last": "5h"
+          }
+        },
+        {
+          "moves": [
+            "4a3b",
+            "5h6g"
+          ],
+          "text": {
+            "ja": "▲６七金。斜め前へ進めます。",
+            "en": "▲6七金 advances it diagonally."
+          },
+          "marks": {
+            "boxes": [
+              "6g"
+            ],
+            "last": "6g"
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "6i7h"
+          ],
+          "text": {
+            "ja": "▲７八金。左の金を上げます。",
+            "en": "▲7八金 lifts the left gold."
+          },
+          "marks": {
+            "last": "7h"
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "7i8h"
+          ],
+          "text": {
+            "ja": "▲８八銀。銀を玉の入る場所の前に置きます。",
+            "en": "▲8八銀 places the silver in front of the king's future home."
+          },
+          "marks": {
+            "boxes": [
+              "8h"
+            ],
+            "last": "8h"
+          }
+        },
+        {
+          "moves": [
+            "7a6b",
+            "8i7g"
+          ],
+          "text": {
+            "ja": "▲７七桂。桂馬を跳ねて、八九を空けます。この桂が七七の守りになります。",
+            "en": "▲7七桂 jumps the knight and empties 8i. The knight also guards 7g."
+          },
+          "marks": {
+            "boxes": [
+              "8i",
+              "7g"
+            ],
+            "last": "7g"
+          }
+        },
+        {
+          "moves": [
+            "5c5d",
+            "5i6i"
+          ],
+          "text": {
+            "ja": "▲６九玉。玉を左へ。",
+            "en": "▲6九玉 moves the king left."
+          },
+          "marks": {
+            "last": "6i"
+          }
+        },
+        {
+          "moves": [
+            "6b5c",
+            "6i7i"
+          ],
+          "text": {
+            "ja": "▲７九玉。",
+            "en": "▲7九玉, further left."
+          },
+          "marks": {
+            "last": "7i"
+          }
+        },
+        {
+          "moves": [
+            "5a4b",
+            "7i8i"
+          ],
+          "text": {
+            "ja": "▲８九玉。玉が八九に入って、菊水矢倉の完成です。銀と金が玉の斜め前を守り、深くしゃがんだ形です。",
+            "en": "▲8九玉 settles the king on 8i, completing Kikusui Yagura. Silver and gold cover the diagonal front in a deep crouch."
+          },
+          "marks": {
+            "boxes": [
+              "8i",
+              "8h",
+              "7h"
+            ],
+            "last": "8i"
+          }
+        },
+        {
+          "text": {
+            "ja": "菊水矢倉は、玉を一番下の段まで下げる、低い囲いです。上から押す棒銀のような攻めに強く、八八の銀が前を固めます。弱点は、横の攻めに弱いことです。飛車を打ち込まれると、下の段に逃げ場がなく、玉が窮屈になります。",
+            "en": "Kikusui Yagura lowers the king to the bottom rank. It holds well against attacks that push down from above, such as Bo-gin, with the silver on 8h covering the front. Its weakness is lateral attacks: after a rook drop the king has no room on the bottom rank and is cramped."
+          },
+          "marks": {
+            "boxes": [
+              "9h",
+              "7i"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "銀立ち矢倉：銀を前に出して構える",
+        "en": "Gin-dachi Yagura: the silver stands in front"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "4c4d",
+            "7i6h",
+            "8b4b",
+            "6i7h",
+            "5a6b",
+            "4i5h",
+            "6b7b",
+            "5i6i"
+          ],
+          "text": {
+            "ja": "矢倉の途中にあるカニ囲いの形です。後手は振り飛車に構えました。ここから、銀を壁の中に置かず、前に出して使います。",
+            "en": "The Crab castle again, this time against a Ranging Rook. The silver will stand out in front instead of sitting inside the wall."
+          },
+          "marks": {
+            "boxes": [
+              "6h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7b8b",
+            "6g6f"
+          ],
+          "text": {
+            "ja": "▲６六歩。金が上がる場所を空けます。",
+            "en": "▲6六歩 clears the square for a gold."
+          },
+          "marks": {
+            "boxes": [
+              "6g"
+            ],
+            "last": "6f"
+          }
+        },
+        {
+          "moves": [
+            "7a7b",
+            "5h6g"
+          ],
+          "text": {
+            "ja": "▲６七金。右の金を斜め前に出します。",
+            "en": "▲6七金 sends the right gold diagonally forward."
+          },
+          "marks": {
+            "boxes": [
+              "6g"
+            ],
+            "last": "6g"
+          }
+        },
+        {
+          "moves": [
+            "3a3b",
+            "7f7e"
+          ],
+          "text": {
+            "ja": "▲７五歩。歩をさらに進めます。銀が七六に出られるように、道をあけておくための一手です。",
+            "en": "▲7五歩 advances the pawn further so that the silver can come out to 7f."
+          },
+          "marks": {
+            "boxes": [
+              "7e"
+            ],
+            "last": "7e"
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "6h7g"
+          ],
+          "text": {
+            "ja": "▲７七銀。銀を斜め前に上げます。",
+            "en": "▲7七銀 lifts the silver diagonally."
+          },
+          "marks": {
+            "boxes": [
+              "7g"
+            ],
+            "last": "7g"
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "7g7f"
+          ],
+          "text": {
+            "ja": "▲７六銀。さらに前へ出て、七五の歩を支えます。この銀が相手の囲いを上から押す役です。",
+            "en": "▲7六銀 steps ahead and supports the pawn on 7e. This silver presses down on the opponent's castle."
+          },
+          "marks": {
+            "arrows": [
+              "7f7e"
+            ],
+            "last": "7f"
+          }
+        },
+        {
+          "moves": [
+            "2c2d",
+            "8h7i"
+          ],
+          "text": {
+            "ja": "▲７九角。角を引いて、玉の入る場所を空けます。",
+            "en": "▲7九角 retreats the bishop to clear the king's square."
+          },
+          "marks": {
+            "boxes": [
+              "8h"
+            ],
+            "last": "7i"
+          }
+        },
+        {
+          "moves": [
+            "6a5b",
+            "7i6h"
+          ],
+          "text": {
+            "ja": "▲６八角。",
+            "en": "▲6八角, out of the king's path."
+          },
+          "marks": {
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "1a1b",
+            "6i7i"
+          ],
+          "text": {
+            "ja": "▲７九玉。",
+            "en": "▲7九玉."
+          },
+          "marks": {
+            "last": "7i"
+          }
+        },
+        {
+          "moves": [
+            "9a9b",
+            "7i8h"
+          ],
+          "text": {
+            "ja": "▲８八玉。矢倉の囲いに入りました。銀だけが前に出ているのが、銀立ち矢倉の特徴です。",
+            "en": "▲8八玉 enters the castle. Only the silver stands out in front, which defines Gin-dachi Yagura."
+          },
+          "marks": {
+            "boxes": [
+              "8h",
+              "7f"
+            ],
+            "last": "8h"
+          }
+        },
+        {
+          "text": {
+            "ja": "銀立ち矢倉は、舟囲いから発展させ、振り飛車の美濃囲いを上から攻める構えです。銀が前に出て、相手の囲いに圧力をかけます。その分、七七のあたりが空き、角の頭が弱点になります。銀の位置を相手が狙ってくるので、取られないように歩で支えて使います。",
+            "en": "Gin-dachi Yagura grows out of the Boat castle and aims to press down on a Ranging Rook player's Mino. The silver on the front line applies pressure. It leaves 7g empty, which exposes the head of the bishop, and the opponent will target that silver, so keep it supported by pawns."
+          },
+          "marks": {
+            "boxes": [
+              "7g",
+              "7f"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "菱矢倉：金銀四枚の菱形",
+        "en": "Hishi Yagura: four pieces in a diamond"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "8c8d",
+            "7i6h",
+            "4a3b",
+            "6i7h",
+            "9c9d",
+            "4i5h",
+            "1c1d",
+            "5i6i"
+          ],
+          "text": {
+            "ja": "カニ囲いの形から始めます。ここから、右の銀を囲いの前へ連れてきて、菱形に並べます。",
+            "en": "Start from the Crab castle. The right silver is brought to the front of the castle to form a diamond."
+          },
+          "marks": {
+            "boxes": [
+              "3i"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7a6b",
+            "6g6f"
+          ],
+          "text": {
+            "ja": "▲６六歩。まず前に歩を進めます。",
+            "en": "▲6六歩 first moves a pawn forward."
+          },
+          "marks": {
+            "boxes": [
+              "6f"
+            ],
+            "last": "6f"
+          }
+        },
+        {
+          "moves": [
+            "5c5d",
+            "6f6e"
+          ],
+          "text": {
+            "ja": "▲６五歩。さらに進めて、六六を銀が入れるようにします。",
+            "en": "▲6五歩 pushes it on, so that a silver can occupy 6f."
+          },
+          "marks": {
+            "boxes": [
+              "6e"
+            ],
+            "last": "6e"
+          }
+        },
+        {
+          "moves": [
+            "6b5c",
+            "6h7g"
+          ],
+          "text": {
+            "ja": "▲７七銀。左の銀を上げます。",
+            "en": "▲7七銀 lifts the left silver."
+          },
+          "marks": {
+            "boxes": [
+              "7g"
+            ],
+            "last": "7g"
+          }
+        },
+        {
+          "moves": [
+            "5a4b",
+            "5h6g"
+          ],
+          "text": {
+            "ja": "▲６七金。右の金を斜め前に出します。金銀が前に並びます。",
+            "en": "▲6七金 sends the right gold diagonally forward. Gold and silver line up in front."
+          },
+          "marks": {
+            "boxes": [
+              "7g",
+              "6g"
+            ],
+            "last": "6g"
+          }
+        },
+        {
+          "moves": [
+            "6a5b",
+            "5g5f"
+          ],
+          "text": {
+            "ja": "▲５六歩。右の銀が通れるように歩を突きます。",
+            "en": "▲5六歩 pushes a pawn so the right silver can pass."
+          },
+          "marks": {
+            "boxes": [
+              "5g"
+            ],
+            "last": "5f"
+          }
+        },
+        {
+          "moves": [
+            "2c2d",
+            "3i4h"
+          ],
+          "text": {
+            "ja": "▲４八銀。右の銀を動かし始めます。",
+            "en": "▲4八銀 sets the right silver in motion."
+          },
+          "marks": {
+            "last": "4h"
+          }
+        },
+        {
+          "moves": [
+            "9a9b",
+            "4h5g"
+          ],
+          "text": {
+            "ja": "▲５七銀。斜め前へ。",
+            "en": "▲5七銀 steps diagonally forward."
+          },
+          "marks": {
+            "boxes": [
+              "5g"
+            ],
+            "last": "5g"
+          }
+        },
+        {
+          "moves": [
+            "1a1b",
+            "5g6f"
+          ],
+          "text": {
+            "ja": "▲６六銀。銀が前に出ました。六五の歩と七六の歩に支えられた、囲いの一番前の駒です。",
+            "en": "▲6六銀 arrives at the front, backed by the pawns on 6e and 7f, as the leading piece of the castle."
+          },
+          "marks": {
+            "boxes": [
+              "6f"
+            ],
+            "last": "6f"
+          }
+        },
+        {
+          "moves": [
+            "8a9c",
+            "8h7i"
+          ],
+          "text": {
+            "ja": "▲７九角。角を引きます。",
+            "en": "▲7九角 retreats the bishop."
+          },
+          "marks": {
+            "last": "7i"
+          }
+        },
+        {
+          "moves": [
+            "2a1c",
+            "7i6h"
+          ],
+          "text": {
+            "ja": "▲６八角。",
+            "en": "▲6八角."
+          },
+          "marks": {
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "4c4d",
+            "6i7i"
+          ],
+          "text": {
+            "ja": "▲７九玉。",
+            "en": "▲7九玉."
+          },
+          "marks": {
+            "last": "7i"
+          }
+        },
+        {
+          "moves": [
+            "1d1e",
+            "7i8h"
+          ],
+          "text": {
+            "ja": "▲８八玉。玉が入りました。七七の銀と六六の銀、六七の金、七八の金が菱形の四角を作ります。",
+            "en": "▲8八玉 enters. The silvers on 7g and 6f, the gold on 6g and the gold on 7h form the corners of a diamond."
+          },
+          "marks": {
+            "boxes": [
+              "7g",
+              "6f",
+              "6g",
+              "7h"
+            ],
+            "last": "8h"
+          }
+        },
+        {
+          "text": {
+            "ja": "菱矢倉は、金銀四枚で玉の前を固めた、守りの厚い形です。相居飛車では、とても崩しにくくなります。ただし組むのに手数がかかるうえ、右の銀を囲いに使うので、攻めの駒が足りなくなります。相手が持久戦に出たときの構えです。",
+            "en": "Hishi Yagura fortifies the front of the king with four pieces and is very hard to break in Static Rook mirrors. It takes many moves, and the right silver is used for defense, so there are fewer attackers. It is a stance for when the opponent aims for a long game."
+          },
+          "marks": {
+            "boxes": [
+              "5g",
+              "4h"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "へこみ矢倉：低く構えて斜めに備える",
+        "en": "Hekomi Yagura: a low shape"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "8h2b+"
+          ],
+          "text": {
+            "ja": "角を交換した形です。後手は角を取り返し、お互いに持ち駒に角があります。この形でよく使うのが、低く構えるへこみ矢倉です。",
+            "en": "The bishops have been traded and each side holds one. In this situation a low shape, Hekomi Yagura, is often used."
+          },
+          "marks": {
+            "boxes": [
+              "8h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3a2b",
+            "7i6h"
+          ],
+          "text": {
+            "ja": "▲６八銀。左の銀を上げます。",
+            "en": "▲6八銀 lifts the left silver."
+          },
+          "marks": {
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "8c8d",
+            "6h7g"
+          ],
+          "text": {
+            "ja": "▲７七銀。さらに前へ。",
+            "en": "▲7七銀 goes forward again."
+          },
+          "marks": {
+            "boxes": [
+              "7g"
+            ],
+            "last": "7g"
+          }
+        },
+        {
+          "moves": [
+            "4a3b",
+            "6i7h"
+          ],
+          "text": {
+            "ja": "▲７八金。左の金を上げます。",
+            "en": "▲7八金 lifts the left gold."
+          },
+          "marks": {
+            "last": "7h"
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "4i5h"
+          ],
+          "text": {
+            "ja": "▲５八金。右の金を上げます。",
+            "en": "▲5八金 lifts the right gold."
+          },
+          "marks": {
+            "last": "5h"
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "5h6h"
+          ],
+          "text": {
+            "ja": "▲６八金。金を横へ動かして、六八に置きます。ここが他の矢倉と違うところで、６六と６七に歩と金がいません。",
+            "en": "▲6八金 slides the gold sideways onto 6h. This is where it differs from other Yagura: no gold stands on 6g and the pawn stays there."
+          },
+          "marks": {
+            "boxes": [
+              "6h",
+              "6g"
+            ],
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "7a6b",
+            "5i6i"
+          ],
+          "text": {
+            "ja": "▲６九玉。玉を左へ寄せます。",
+            "en": "▲6九玉 moves the king left."
+          },
+          "marks": {
+            "last": "6i"
+          }
+        },
+        {
+          "moves": [
+            "5c5d",
+            "6i7i"
+          ],
+          "text": {
+            "ja": "▲７九玉。",
+            "en": "▲7九玉."
+          },
+          "marks": {
+            "last": "7i"
+          }
+        },
+        {
+          "moves": [
+            "6b5c",
+            "7i8h"
+          ],
+          "text": {
+            "ja": "▲８八玉。玉が囲いに入って、へこみ矢倉の完成です。金二枚が七八と六八に並び、斜め後ろからの攻めを防ぎます。",
+            "en": "▲8八玉 enters the castle and completes Hekomi Yagura. Two golds stand on 7h and 6h, guarding against attacks from the diagonal behind."
+          },
+          "marks": {
+            "boxes": [
+              "7h",
+              "6h",
+              "8h"
+            ],
+            "last": "8h"
+          }
+        },
+        {
+          "text": {
+            "ja": "へこみ矢倉は、六七の金がなく、低く構えた形です。横からの攻めには、金二枚が下から支えて強くなります。弱点は、斜めの筋が手薄なことです。角を打たれたり、斜めから桂や銀で攻められたりすると崩れやすくなります。角換わり形などでよく見られます。",
+            "en": "Hekomi Yagura has no gold on 6g and sits low. Two golds support it from below, which makes it solid against lateral attacks. The weakness is the thin diagonals: a bishop drop or an attack with knight and silver along the diagonal can break it. It is common in bishop-trade positions."
+          },
+          "marks": {
+            "boxes": [
+              "6g",
+              "5g"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "カブト囲い：角換わりで使う手早い形",
+        "en": "Kabuto castle: the quick shape for bishop trades"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "8h2b+"
+          ],
+          "text": {
+            "ja": "角を交換した形です。ここで組むのがカブト囲いです。矢倉のように時間をかけず、早く戦いに入れます。",
+            "en": "Bishops have been traded. Here the Kabuto (helmet) castle is built, which gets into the fight faster than a full Yagura."
+          },
+          "marks": {
+            "boxes": [
+              "8h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3a2b",
+            "7i6h"
+          ],
+          "text": {
+            "ja": "▲６八銀。左の銀を上げます。",
+            "en": "▲6八銀 lifts the left silver."
+          },
+          "marks": {
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "8c8d",
+            "6h7g"
+          ],
+          "text": {
+            "ja": "▲７七銀。前に出ます。",
+            "en": "▲7七銀 goes to the front."
+          },
+          "marks": {
+            "boxes": [
+              "7g"
+            ],
+            "last": "7g"
+          }
+        },
+        {
+          "moves": [
+            "4a3b",
+            "6i7h"
+          ],
+          "text": {
+            "ja": "▲７八金。左の金を上げます。",
+            "en": "▲7八金 lifts the left gold."
+          },
+          "marks": {
+            "last": "7h"
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "4i5h"
+          ],
+          "text": {
+            "ja": "▲５八金。右の金を上げます。",
+            "en": "▲5八金 lifts the right gold."
+          },
+          "marks": {
+            "last": "5h"
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "5i6h"
+          ],
+          "text": {
+            "ja": "▲６八玉。玉を金二枚の間へ入れます。",
+            "en": "▲6八玉 puts the king between the two golds."
+          },
+          "marks": {
+            "boxes": [
+              "7h",
+              "6h",
+              "5h"
+            ],
+            "last": "6h"
+          }
+        },
+        {
+          "text": {
+            "ja": "カブト囲いは、金二枚が玉を挟み、前に銀と歩が並ぶ形です。少ない手数で組め、このまま戦いを起こせます。矢倉やへこみ矢倉に発展させることもできます。弱点は、玉の真上が薄いことと、駒を持ち合う展開で打ち込みが入りやすいことです。",
+            "en": "The Kabuto castle has two golds beside the king with silver and pawns in front. It is quick, and you can fight straight from it or grow it into Yagura or Hekomi Yagura. The weak points are the thin cover directly above the king and drops that become easy once both sides hold pieces."
+          },
+          "marks": {
+            "boxes": [
+              "6g",
+              "6i"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "ボナンザ囲い：下段が空いた手早い形",
+        "en": "Bonanza castle: fast but open at the bottom"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "8h2b+"
+          ],
+          "text": {
+            "ja": "角を交換した形です。ここから、金二枚を玉の右に並べ、さらに手数を省くボナンザ囲いを組みます。",
+            "en": "The bishops have been traded. From here the Bonanza castle saves even more moves by lining both golds up on the king's right."
+          },
+          "marks": {
+            "boxes": [
+              "8h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3a2b",
+            "7i6h"
+          ],
+          "text": {
+            "ja": "▲６八銀。左の銀を上げます。",
+            "en": "▲6八銀 lifts the left silver."
+          },
+          "marks": {
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "8c8d",
+            "6h7g"
+          ],
+          "text": {
+            "ja": "▲７七銀。前に出ます。",
+            "en": "▲7七銀 steps to the front."
+          },
+          "marks": {
+            "boxes": [
+              "7g"
+            ],
+            "last": "7g"
+          }
+        },
+        {
+          "moves": [
+            "4a3b",
+            "6i6h"
+          ],
+          "text": {
+            "ja": "▲６八金。左の金をまっすぐ上げます。",
+            "en": "▲6八金 lifts the left gold straight ahead."
+          },
+          "marks": {
+            "boxes": [
+              "6h"
+            ],
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "4i5h"
+          ],
+          "text": {
+            "ja": "▲５八金。右の金も上げて、金が二枚横に並びました。",
+            "en": "▲5八金 lifts the right gold, and two golds now stand side by side."
+          },
+          "marks": {
+            "boxes": [
+              "6h",
+              "5h"
+            ],
+            "last": "5h"
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "5i6i"
+          ],
+          "text": {
+            "ja": "▲６九玉。玉を一つ左へ。",
+            "en": "▲6九玉 moves the king one step left."
+          },
+          "marks": {
+            "last": "6i"
+          }
+        },
+        {
+          "moves": [
+            "7a6b",
+            "6i7h"
+          ],
+          "text": {
+            "ja": "▲７八玉。玉が金二枚の横に入って、完成です。",
+            "en": "▲7八玉 takes the king beside the two golds, finishing the castle."
+          },
+          "marks": {
+            "boxes": [
+              "7h",
+              "6h",
+              "5h"
+            ],
+            "last": "7h"
+          }
+        },
+        {
+          "text": {
+            "ja": "ボナンザ囲いは、へこみ矢倉よりも手数が短く、すぐ戦える形です。金銀がまとまって、斜めからの攻めにはある程度耐えます。弱点は、下の段がほとんど空なことです。飛車や角を打ち込まれやすく、持ち駒が増える展開では危険になります。角を交換する将棋で使われます。",
+            "en": "The Bonanza castle takes fewer moves than Hekomi Yagura, so you can fight at once. Golds and silver are bunched and hold against diagonal attacks to a degree. The weakness is the nearly empty bottom rank, which makes rook and bishop drops easy; it gets dangerous as the opponent collects pieces. It is used in games with bishop trades."
+          },
+          "marks": {
+            "boxes": [
+              "7i",
+              "6i"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "土居矢倉：金を五八に置くバランス型",
+        "en": "Doi Yagura: a balanced shape with a gold on 5h"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "8h2b+"
+          ],
+          "text": {
+            "ja": "角を交換した形から始めます。ここから、金を五八に残したままの、バランスの良い矢倉を組みます。",
+            "en": "Start after the bishop trade. A well-balanced Yagura is built from here, leaving a gold on 5h."
+          },
+          "marks": {
+            "boxes": [
+              "8h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3a2b",
+            "6g6f"
+          ],
+          "text": {
+            "ja": "▲６六歩。金が上がる場所を空けます。",
+            "en": "▲6六歩 opens the square for a gold."
+          },
+          "marks": {
+            "boxes": [
+              "6g"
+            ],
+            "last": "6f"
+          }
+        },
+        {
+          "moves": [
+            "8c8d",
+            "5g5f"
+          ],
+          "text": {
+            "ja": "▲５六歩。真ん中の歩も突きます。",
+            "en": "▲5六歩 pushes the center pawn too."
+          },
+          "marks": {
+            "boxes": [
+              "5f"
+            ],
+            "last": "5f"
+          }
+        },
+        {
+          "moves": [
+            "4a3b",
+            "7i6h"
+          ],
+          "text": {
+            "ja": "▲６八銀。左の銀を上げます。",
+            "en": "▲6八銀 lifts the left silver."
+          },
+          "marks": {
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "6h7g"
+          ],
+          "text": {
+            "ja": "▲７七銀。前へ。",
+            "en": "▲7七銀 goes forward."
+          },
+          "marks": {
+            "boxes": [
+              "7g"
+            ],
+            "last": "7g"
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "6i6h"
+          ],
+          "text": {
+            "ja": "▲６八金。左の金を上げます。",
+            "en": "▲6八金 lifts the left gold."
+          },
+          "marks": {
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "7a6b",
+            "6h6g"
+          ],
+          "text": {
+            "ja": "▲６七金。さらに前へ出して、七七の銀の隣に並べます。",
+            "en": "▲6七金 goes further, beside the silver on 7g."
+          },
+          "marks": {
+            "boxes": [
+              "7g",
+              "6g"
+            ],
+            "last": "6g"
+          }
+        },
+        {
+          "moves": [
+            "5c5d",
+            "4i5h"
+          ],
+          "text": {
+            "ja": "▲５八金。右の金は、五八に置いたままにします。",
+            "en": "▲5八金 leaves the right gold on 5h."
+          },
+          "marks": {
+            "boxes": [
+              "5h"
+            ],
+            "last": "5h"
+          }
+        },
+        {
+          "moves": [
+            "6b5c",
+            "5i6i"
+          ],
+          "text": {
+            "ja": "▲６九玉。玉を左へ寄せます。",
+            "en": "▲6九玉 moves the king left."
+          },
+          "marks": {
+            "last": "6i"
+          }
+        },
+        {
+          "moves": [
+            "5a4b",
+            "6i7h"
+          ],
+          "text": {
+            "ja": "▲７八玉。玉が囲いの中に入って、土居矢倉の完成です。",
+            "en": "▲7八玉 enters the shelter and completes Doi Yagura."
+          },
+          "marks": {
+            "boxes": [
+              "7h",
+              "5h",
+              "7g",
+              "6g"
+            ],
+            "last": "7h"
+          }
+        },
+        {
+          "text": {
+            "ja": "土居矢倉は、金を六七と五八に分けて置く形です。堅さは矢倉に劣りますが、玉の周りと真ん中のバランスが良く、隙が少ないのが特徴です。攻めにも守りにも手が回しやすく、型にはまらず柔軟に指したいときに向いています。",
+            "en": "Doi Yagura splits the golds between 6g and 5h. It is less solid than Yagura but balanced around the king and in the center, with few gaps. It is easy to switch between attack and defense, so it suits a flexible game."
+          },
+          "marks": {
+            "boxes": [
+              "5h",
+              "6g"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "右矢倉：矢倉を左右反対に組む",
+        "en": "Right Yagura: the mirror image"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "text": {
+            "ja": "右矢倉は、矢倉を左右反対にして、玉を右側に囲う形です。主に相振り飛車で使います。ここでは飛車を左へ振り、玉を二八へ入れて、金と銀を右の前に並べます。",
+            "en": "Right Yagura is Yagura reversed, with the king on the right wing. It is mainly used in Ranging Rook mirrors. Here the rook swings left, the king enters 2h, and gold and silver line up at the front right."
+          },
+          "marks": {
+            "boxes": [
+              "2h",
+              "3h",
+              "3g",
+              "4g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3g3f"
+          ],
+          "text": {
+            "ja": "▲３六歩。３筋の歩を突いて、銀が前に出る場所を作ります。",
+            "en": "▲3六歩 pushes the third-file pawn to make room for the silver."
+          },
+          "marks": {
+            "boxes": [
+              "3g"
+            ],
+            "last": "3f"
+          }
+        },
+        {
+          "moves": [
+            "4c4d",
+            "4g4f"
+          ],
+          "text": {
+            "ja": "▲４六歩。４筋の歩も突きます。金が四七に入るためです。",
+            "en": "▲4六歩 pushes the fourth-file pawn too, so that a gold can enter 4g."
+          },
+          "marks": {
+            "boxes": [
+              "4g"
+            ],
+            "last": "4f"
+          }
+        },
+        {
+          "moves": [
+            "8b4b",
+            "2h6h"
+          ],
+          "text": {
+            "ja": "▲６八飛。飛車を四間に振ります。二八が空いて、玉の入る場所になります。",
+            "en": "▲6八飛 swings the rook to the fourth file and empties 2h for the king."
+          },
+          "marks": {
+            "boxes": [
+              "2h"
+            ],
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "5a6b",
+            "5i4h"
+          ],
+          "text": {
+            "ja": "▲４八玉。玉を右へ寄せます。",
+            "en": "▲4八玉 moves the king right."
+          },
+          "marks": {
+            "last": "4h"
+          }
+        },
+        {
+          "moves": [
+            "6b7b",
+            "4h3h"
+          ],
+          "text": {
+            "ja": "▲３八玉。",
+            "en": "▲3八玉."
+          },
+          "marks": {
+            "last": "3h"
+          }
+        },
+        {
+          "moves": [
+            "7b8b",
+            "3h2h"
+          ],
+          "text": {
+            "ja": "▲２八玉。玉が二八に入りました。",
+            "en": "▲2八玉 puts the king on 2h."
+          },
+          "marks": {
+            "boxes": [
+              "2h"
+            ],
+            "last": "2h"
+          }
+        },
+        {
+          "moves": [
+            "7a7b",
+            "3i3h"
+          ],
+          "text": {
+            "ja": "▲３八銀。右の銀を上げます。",
+            "en": "▲3八銀 lifts the right silver."
+          },
+          "marks": {
+            "last": "3h"
+          }
+        },
+        {
+          "moves": [
+            "3a3b",
+            "3h3g"
+          ],
+          "text": {
+            "ja": "▲３七銀。銀が前へ出ました。",
+            "en": "▲3七銀 pushes the silver forward."
+          },
+          "marks": {
+            "boxes": [
+              "3g"
+            ],
+            "last": "3g"
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "4i3h"
+          ],
+          "text": {
+            "ja": "▲３八金。空いた三八へ、金を上げます。",
+            "en": "▲3八金 raises a gold into the vacated 3h."
+          },
+          "marks": {
+            "boxes": [
+              "3h"
+            ],
+            "last": "3h"
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "6i5h"
+          ],
+          "text": {
+            "ja": "▲５八金。左の金を上げます。",
+            "en": "▲5八金 lifts the left gold."
+          },
+          "marks": {
+            "last": "5h"
+          }
+        },
+        {
+          "moves": [
+            "2c2d",
+            "5h4g"
+          ],
+          "text": {
+            "ja": "▲４七金。金が四七に入って、右矢倉の完成です。",
+            "en": "▲4七金 settles on 4g and completes Right Yagura."
+          },
+          "marks": {
+            "boxes": [
+              "3g",
+              "4g",
+              "3h",
+              "2h"
+            ],
+            "last": "4g"
+          }
+        },
+        {
+          "text": {
+            "ja": "右矢倉は、矢倉を鏡に映した形で、玉の前に金銀の壁が立ちます。頭の上から押される攻めに備えやすく、玉を縦に攻め合うことの多い相振り飛車に向きます。弱点も矢倉と同じ向きで、下の段が空いていて、横から飛車を打たれる筋に気をつけます。",
+            "en": "Right Yagura has the same wall of gold and silver as Yagura and resists attacks from above. It suits Ranging Rook mirrors, where kings are often attacked along the files. As with Yagura, the empty bottom rank and the lateral attack remain weak points."
+          },
+          "marks": {
+            "boxes": [
+              "2i",
+              "3i"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "雁木囲い：銀を並べて角を残す",
+        "en": "Gangi: silvers side by side, bishop kept in place"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "text": {
+            "ja": "雁木囲いは、矢倉とは別の囲いですが、同じ戦型から使われる兄弟分です。銀を六七に出し、玉の前を覆います。角が七七で働いたままなので、攻めに使いやすいのが特徴です。",
+            "en": "Gangi is a separate castle but a close cousin of Yagura. A silver steps up to 6g and covers the front of the king, while the bishop stays active on 7g, which is good for attacking."
+          },
+          "marks": {
+            "boxes": [
+              "7g",
+              "6g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7g7f"
+          ],
+          "text": {
+            "ja": "▲７六歩。角道を開けます。",
+            "en": "▲7六歩 opens the bishop line."
+          },
+          "marks": {
+            "last": "7f"
+          }
+        },
+        {
+          "moves": [
+            "8c8d",
+            "6g6f"
+          ],
+          "text": {
+            "ja": "▲６六歩。六七の銀の居場所を空けます。",
+            "en": "▲6六歩 clears the square for the silver on 6g."
+          },
+          "marks": {
+            "boxes": [
+              "6g"
+            ],
+            "last": "6f"
+          }
+        },
+        {
+          "moves": [
+            "4a3b",
+            "8h7g"
+          ],
+          "text": {
+            "ja": "▲７七角。角を上げます。角は動かさずに、この位置で働かせます。",
+            "en": "▲7七角 lifts the bishop, and it stays here to work."
+          },
+          "marks": {
+            "boxes": [
+              "7g"
+            ],
+            "last": "7g"
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "7i6h"
+          ],
+          "text": {
+            "ja": "▲６八銀。左の銀を上げます。",
+            "en": "▲6八銀 lifts the left silver."
+          },
+          "marks": {
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "6h6g"
+          ],
+          "text": {
+            "ja": "▲６七銀。前へ出して、七七の角の隣に置きます。",
+            "en": "▲6七銀 pushes the silver forward, next to the bishop on 7g."
+          },
+          "marks": {
+            "boxes": [
+              "6g"
+            ],
+            "last": "6g"
+          }
+        },
+        {
+          "moves": [
+            "7a6b",
+            "6i7h"
+          ],
+          "text": {
+            "ja": "▲７八金。左の金を上げます。",
+            "en": "▲7八金 lifts the left gold."
+          },
+          "marks": {
+            "last": "7h"
+          }
+        },
+        {
+          "moves": [
+            "5c5d",
+            "5i6i"
+          ],
+          "text": {
+            "ja": "▲６九玉。玉を左へ。",
+            "en": "▲6九玉 moves the king left."
+          },
+          "marks": {
+            "last": "6i"
+          }
+        },
+        {
+          "moves": [
+            "6b5c",
+            "4i5h"
+          ],
+          "text": {
+            "ja": "▲５八金。右の金を上げて、雁木囲いの完成です。",
+            "en": "▲5八金 lifts the right gold, finishing Gangi."
+          },
+          "marks": {
+            "boxes": [
+              "7g",
+              "6g",
+              "7h",
+              "5h"
+            ],
+            "last": "5h"
+          }
+        },
+        {
+          "text": {
+            "ja": "雁木は、少ない手数で組め、角をそのまま攻めに使える囲いです。上からの攻めには、金銀が並んで強くなっています。弱点は、下の段に金銀がいないため、飛車を打ち込まれると弱いことと、角の頭を狙う棒銀などの攻めに注意が要ることです。",
+            "en": "Gangi takes few moves and keeps the bishop usable. Gold and silver stand side by side against attacks from above. Its weaknesses are the lack of gold and silver on the bottom rank, which makes a rook drop dangerous, and attacks such as Bo-gin aimed at the head of the bishop."
+          },
+          "marks": {
+            "boxes": [
+              "7f",
+              "7i"
+            ]
           }
         }
       ]

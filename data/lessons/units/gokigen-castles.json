@@ -1,145 +1,568 @@
 {
   "id": "gokigen-castles",
   "order": 1200,
-  "path": ["戦法・定跡", "中飛車"],
-  "title": {"ja": "中飛車の玉をどこまで囲うか", "en": "How far to castle in Central Rook"},
+  "path": [
+    "戦法・定跡",
+    "ゴキゲン中飛車"
+  ],
+  "title": {
+    "ja": "ゴキゲン中飛車の囲い：片美濃・高美濃・金美濃・穴熊の組み方",
+    "en": "Castles for Central Rook: building Kata Mino, Taka Mino, Kin Mino and Anaguma"
+  },
   "intro": {
-    "ja": "中飛車では５筋の飛車が中央の受けと攻めに働きます。玉を右へ移したら、金銀をどこに置くかを相手の歩の速さに合わせて決めましょう。片美濃で戦い始める形、金を前へ出す形、隅まで玉を運ぶ形を、それぞれ盤上の利きで比べます。",
-    "en": "In Central Rook, the rook has work on the fifth file in both attack and defense. Once the king moves right, choose gold and silver squares according to the opponent's pawn pressure. Compare a compact Mino shelter, an advanced gold, and a corner king by checking their actual coverage."
+    "ja": "中飛車は飛車が５筋にいるので、ふつうの美濃囲いとは組み方が少し変わります。この講座では、基本の片美濃囲いと、そこから堅くした高美濃・木村美濃、急戦に強い金美濃、持久戦向きの穴熊と左穴熊を、実戦の駒組みの形で一手ずつ作ります。相手の作戦に応じて、どの囲いを選ぶかも身につきます。",
+    "en": "Because the rook sits on the fifth file, Central Rook castles are built a little differently from the ordinary Mino. This lesson builds the basic Kata Mino, the sturdier Taka Mino and Kimura Mino, the Kin Mino for quick attacks, and the Anaguma and Left Anaguma for slow games, move by move in game-like positions. You also learn which castle to choose against which plan."
   },
   "check": {
     "question": {
-      "ja": "先手２八玉・３八銀・４九金・５八飛の片美濃で、６九金を５八へ動かせますか。また、金を４七へ進めるなら何を確認しますか？",
-      "en": "With Sente K2h, S3h, G4i and R5h in a compact Mino, can G6i move to 5h? What must be checked before advancing a gold to 4g?"
+      "ja": "中飛車の片美濃では、ふつうの美濃囲いと違って、左の金を５八へ上げません。それはなぜですか？",
+      "en": "In a Central Rook Kata Mino the left gold does not go up to 5h, unlike the ordinary Mino. Why not?"
     },
     "answer": {
-      "ja": "５八には自分の飛車がいるため、６九金はそこへ動けません。別の形で金を４七へ出すなら、４七とその前の４六を守る駒、金が離れた側の玉の守り、相手の攻めの手数を数えます。",
-      "en": "No: Sente's own rook occupies 5h. In a different formation, before placing a gold on 4g, count defenders of 4g and 4f, the cover left near the king, and the tempo of the opponent's attack."
+      "ja": "５八には飛車がいて、金が入るマスがふさがっているからです。そのため金は４九と６九に残したまま、玉を２八へ動かし、右の銀を３八へ上げて形を作ります。",
+      "en": "The rook already occupies 5h, so the gold has no square to go to. Instead the golds stay on 4i and 6i, the king walks to 2h and the right silver goes to 3h."
     }
   },
   "references": [
-    {"title": "ゴキゲン中飛車で使う囲い", "url": "https://shogi-joutatsu.com/archives/6566", "license": "All rights reserved", "adapted": false}
+    {
+      "title": "ゴキゲン中飛車で使う囲い",
+      "url": "https://shogi-joutatsu.com/archives/6566",
+      "license": "All rights reserved",
+      "adapted": false
+    },
+    {
+      "title": "将棋の技図鑑 (yuki-keio/shogi)",
+      "url": "https://github.com/yuki-keio/shogi",
+      "license": "GPL-3.0-only",
+      "adapted": false
+    }
   ],
   "chapters": [
     {
-      "title": {"ja": "飛車を残したまま右側をつなぐ", "en": "Connect the right shelter while the rook stays central"},
-      "side": "sente",
-      "kind": "position",
-      "start": "4k4/1r7/5s3/1p2p4/9/4P4/1PB3PP1/4R2K1/L2G1GSNL b - 1",
+      "title": {
+        "ja": "基本図と囲いの選び方",
+        "en": "The basic position and how to choose a castle"
+      },
+      "side": "gote",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "先手飛車は５八、玉は２八です。３九銀を３八へ上げれば、４九金がその銀を支えます。６九金は離れていますが、５八には飛車がいるので、その金を直ちに５八へ寄せる道はありません。",
-            "en": "Sente's rook is on 5h and king on 2h. S3i can advance to 3h, where G4i supports it. G6i remains apart; the rook occupies 5h, so that gold cannot step onto 5h now."
-          },
-          "marks": {"arrows": ["3i3h"], "boxes": ["4i", "5h", "6i"]}
+            "ja": "まず、囲いを組む前の形を確認します。ゴキゲン中飛車は飛車が５筋にいて、角道を止めた５五の歩があります。囲いの駒は飛車の動きの邪魔にならないよう、玉を飛車から離した側へ組みます。",
+            "en": "First, the position before any castling. In Gokigen Central Rook the rook stands on the fifth file with the pawn on 5e blocking the bishop line. The castle goes on the side away from the rook so that it does not get in the rook's way."
+          }
         },
         {
-          "moves": ["3i3h", "8d8e"],
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "2g2f",
+            "5c5d",
+            "2f2e",
+            "8b5b"
+          ],
           "text": {
-            "ja": "▲３八銀で片美濃の右側を作りました。銀は２七・３七・４七を、４九金は３八銀を守ります。後手は△８五歩と飛車先を伸ばしたので、囲いを増築する前に８六の接触も見ます。",
-            "en": "S3h creates the compact Mino shelter. It covers 2g, 3g and 4g, while G4i protects the silver on 3h. Gote's P8e advances the rook pawn, so inspect contact at 8f before spending more moves on the castle."
+            "ja": "初手から、△３四歩、△５四歩、△５二飛と進めて中飛車の構えを作ります。",
+            "en": "From move one: △3四歩, △5四歩 and △5二飛 give the Central Rook setup."
           },
-          "marks": {"last": "8e", "boxes": ["3h", "4i", "8f"]}
+          "marks": {
+            "last": "5b",
+            "boxes": [
+              "5b"
+            ]
+          }
         },
         {
-          "moves": ["5f5e", "5a4b"],
+          "moves": [
+            "3i4h",
+            "5d5e",
+            "5i6h",
+            "2b3c"
+          ],
           "text": {
-            "ja": "▲５五歩で後手５四歩に接触しました。後手が５五で歩を取れば先手飛車が取り返せる配置ですが、△４二玉は一例で、８筋を急ぐ手もあります。片美濃から中央と８筋の先着を比べます。",
-            "en": "P5e makes contact with Gote's pawn on 5d. If that pawn captures on 5e, Sente's rook has a recapture along the cleared file. K4b is only one reply; Gote may instead accelerate on the eighth file. Compare those two tempos from the compact shelter."
+            "ja": "先手が▲４八銀、▲６八玉と進める間に、後手は△５五歩と△３三角を指して基本図になります。ここから先は、駒組みの主役が囲いです。",
+            "en": "While Sente plays ▲4八銀 and ▲6八玉, Gote adds △5五歩 and △3三角, reaching the basic position. From here the castle is the main business."
           },
-          "marks": {"last": "4b", "boxes": ["5e", "8e", "2h"]}
-        }
-      ],
-      "variations": [
+          "marks": {
+            "last": "3c",
+            "boxes": [
+              "5b",
+              "5e",
+              "3c"
+            ]
+          }
+        },
         {
-          "from": 1,
-          "moves": ["5f5e", "5d5e", "5h5e"],
           "text": {
-            "ja": "△５五同歩なら、５七・５六が空いた飛車で▲５五同飛と取り返せます。先手は歩を交換して飛車を５五へ出しましたが、後手の次の手を確認してから形勢を判断します。",
-            "en": "If Gote captures with Px5e, the cleared 5g and 5f squares let Sente play Rx5e. Sente has exchanged pawns and advanced the rook to 5e; evaluate Gote's next move before judging the result."
+            "ja": "囲いの使い分けを先に整理します。片美濃は基本で、手数が少なく堅さも十分です。高美濃と木村美濃は片美濃から堅くした形で、斜めの攻めに強くなります。金美濃は急戦に、穴熊は相手も穴熊で持久戦のときに、左穴熊は相手が飛車を振ったときに選びます。次の章から順番に組みます。",
+            "en": "A quick map of which castle to pick. Kata Mino is the standard: few moves and plenty solid. Taka Mino and Kimura Mino are firmer versions that resist diagonal attacks. Kin Mino is for quick attacks, Anaguma for slow games against another Anaguma, and Left Anaguma when the opponent has ranged the rook. The next chapters build each in turn."
           }
         }
       ]
     },
     {
-      "title": {"ja": "高い金には進出先の確認が要る", "en": "An advanced gold needs a safe route"},
+      "title": {
+        "ja": "片美濃囲いと高美濃囲い",
+        "en": "Kata Mino and Taka Mino"
+      },
       "side": "sente",
-      "kind": "position",
-      "start": "5k3/1r7/5s3/5p3/1p7/4R4/1PB3P2/4G1SK1/5G1NL b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "5g5f",
+            "8c8d",
+            "7g7f",
+            "8d8e",
+            "8h7g",
+            "3c3d",
+            "5f5e",
+            "7a6b",
+            "2h5h"
+          ],
           "text": {
-            "ja": "先手は２八玉・３八銀・４九金で右側を守り、飛車を５六に浮かせています。５八金は４七へ一歩で進めます。４七金は３六・４六・５六に利く一方、５八からは離れるので、前に出せば無条件に堅くなるわけではありません。",
-            "en": "Sente protects K2h with S3h and G4i while R5f floats on the center file. G5h can step to 4g. From 4g it covers 3f, 4f and 5f, but it leaves 5h; advancing it is not an automatic improvement."
+            "ja": "先手の中飛車の基本の形です。この章から先手の側で囲いを作ります。飛車は５八、角は７七、５五の歩が中央にいます。後手は居飛車の駒組みを進めます。",
+            "en": "This is Sente's basic Central Rook position; from here the lessons build the castle on Sente's side. The rook is on 5h, the bishop on 7g and the pawn on 5e. Gote develops in an ordinary way."
           },
-          "marks": {"arrows": ["5h4g"], "boxes": ["4g", "5h", "4d"]}
+          "marks": {
+            "last": "5h",
+            "boxes": [
+              "5h",
+              "5e",
+              "7g"
+            ]
+          }
         },
         {
-          "moves": ["5h4g", "4d4e"],
+          "moves": [
+            "3a4b",
+            "7i6h"
+          ],
           "text": {
-            "ja": "▲４七金に△４五歩と応じた例です。後手歩はまだ金を取れず、次に４六へ進む可能性があります。先手は４七金が４六を守ることと、後手４三銀の利きが４六へ届かないことを盤面で確認します。",
-            "en": "After G4g, the sample P4e does not attack the gold yet; it may advance to 4f next. Verify that G4g covers 4f and that Gote's S4c does not itself reach 4f."
+            "ja": "左の銀を▲６八へ上げます。７七の角の後ろを守る位置で、囲いの左側の土台になります。",
+            "en": "The left silver rises to 6h, supporting the bishop on 7g from behind and forming the left side of the castle."
           },
-          "marks": {"last": "4e", "boxes": ["4g", "4f", "4c"]}
+          "marks": {
+            "last": "6h",
+            "boxes": [
+              "6h"
+            ]
+          }
         },
         {
-          "moves": ["3g3f", "4e4f", "4g4f"],
+          "moves": [
+            "4a3b",
+            "5i4h",
+            "5a4a",
+            "4h3h",
+            "6a5b",
+            "3h2h"
+          ],
           "text": {
-            "ja": "▲３六歩と一手待つ例では、後手が△４六歩と踏み込むと▲同金で歩を取れます。ただし金は４六まで出たため、今度はそこへの後手の新たな利きを読み直します。高い金は受けと活動の交換です。",
-            "en": "After the sample P3f, if Gote commits P4f, Gx4f captures that pawn. The gold has then advanced to 4f, so recalculate any new attacks on that square. The higher gold trades proximity to the king for activity."
+            "ja": "玉を５八→４八→３八→２八と右へ歩かせます。玉は飛車から遠い側へ逃がすのが中飛車の囲いの基本です。２八へ着けば、角と飛車の働きの邪魔になりません。",
+            "en": "The king walks right, 5i, 4h, 3h and then 2h. Moving the king away from the rook is the principle behind Central Rook castles; on 2h it stays out of the way of the bishop and rook."
           },
-          "marks": {"last": "4f", "boxes": ["2h", "4f", "5f"]}
+          "marks": {
+            "last": "2h",
+            "boxes": [
+              "2h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "3i3h",
+            "1c1d",
+            "1g1f"
+          ],
+          "text": {
+            "ja": "右の銀を▲３八へ寄せれば片美濃囲いの完成です。銀が玉の隣、金が４九に残り、少ない駒で横からの攻めを受けます。▲１六歩は玉が端へ逃げるための準備です。",
+            "en": "The right silver slides to 3h and the Kata Mino is complete: silver beside the king and the gold left on 4i. Few pieces, yet enough to resist an attack from the side. ▲1六歩 prepares an escape square on the edge."
+          },
+          "marks": {
+            "last": "1f",
+            "boxes": [
+              "2h",
+              "3h",
+              "4i",
+              "6h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4c4d",
+            "4g4f",
+            "7c7d",
+            "3g3f"
+          ],
+          "text": {
+            "ja": "さらに堅くする高美濃へ進みます。まず▲４六歩と▲３六歩と歩を突いて、金が上がる道を作ります。歩は金の前を守る盾にもなります。",
+            "en": "To firm it up into Taka Mino, Sente first pushes ▲4六歩 and ▲3六歩. This opens the way for the gold to rise and the pawns later shield it."
+          },
+          "marks": {
+            "last": "3f",
+            "boxes": [
+              "4f",
+              "3f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "9d9e",
+            "5h5i",
+            "6c6d",
+            "6i5h",
+            "2c2d",
+            "5h4g"
+          ],
+          "text": {
+            "ja": "飛車が５八にいると金が通れないので、いったん▲５九飛と引きます。空いた５八へ▲５八金と上がり、そのまま▲４七金。これで高美濃囲いです。金が斜めの攻めを受ける位置に上がり、片美濃より堅くなります。",
+            "en": "With the rook on 5h, the gold cannot get through, so Sente first retreats ▲5九飛. The gold then goes ▲5八金 and on to ▲4七金, completing Taka Mino. The gold on 4g meets diagonal attacks, making it sturdier than Kata Mino."
+          },
+          "marks": {
+            "last": "4g",
+            "boxes": [
+              "4g",
+              "5i"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "片美濃の長所は、手数が少なく、攻めに出る前に完成することです。高美濃は手数がかかりますが、金が前に出る分、斜めの攻めに強くなります。ただし、飛車を一度引くので、その間は中央の働きが落ちます。相手の攻めの速さを見て選びます。",
+            "en": "Kata Mino is quick and finishes before the attack starts. Taka Mino costs more moves, but with the gold forward it resists diagonal attacks better. The rook has to retreat for a moment, which weakens the centre in the meantime, so choose by how fast the opponent attacks."
+          }
         }
       ]
     },
     {
-      "title": {"ja": "隅へ入る一手と８筋の一手を比べる", "en": "Compare the corner route with eighth-file pressure"},
+      "title": {
+        "ja": "金美濃から木村美濃へ",
+        "en": "Kin Mino and on to Kimura Mino"
+      },
       "side": "sente",
-      "kind": "position",
-      "start": "5k3/1r7/5s3/1p2pp3/9/4R4/1PB6/6SKL/5G1N1 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "5g5f",
+            "8c8d",
+            "7g7f",
+            "8d8e",
+            "8h7g",
+            "3c3d",
+            "5f5e",
+            "7a6b",
+            "2h5h"
+          ],
           "text": {
-            "ja": "先手香は１八へ上がり、１九が空いています。２八玉はそこへ入れますが、３八銀を２八へ運ぶには３七を経由して二手必要です。後手８四歩と８二飛は８筋を進める準備です。",
-            "en": "Sente's lance has moved to 1h, leaving 1i free for K2h. S3h needs two moves via 3g to reach 2h. Gote's R8b and P8d are ready to advance on the eighth file."
+            "ja": "先手の中飛車の基本の形です。この章から先手の側で囲いを作ります。飛車は５八、角は７七、５五の歩が中央にいます。後手は居飛車の駒組みを進めます。",
+            "en": "This is Sente's basic Central Rook position; from here the lessons build the castle on Sente's side. The rook is on 5h, the bishop on 7g and the pawn on 5e. Gote develops in an ordinary way."
           },
-          "marks": {"arrows": ["2h1i", "3h3g"], "boxes": ["1i", "8f"]}
+          "marks": {
+            "last": "5h",
+            "boxes": [
+              "5h",
+              "5e",
+              "7g"
+            ]
+          }
         },
         {
-          "moves": ["2h1i", "8d8e"],
+          "moves": [
+            "3a4b",
+            "7i6h",
+            "4a3b",
+            "5i4h",
+            "5a4a",
+            "4h3h",
+            "6a5b",
+            "3h2h"
+          ],
           "text": {
-            "ja": "▲１九玉のあと、後手は△８五歩と進めました。玉は隅に入っても、３八銀は玉に隣接していません。先手は銀を３七から２八へ運ぶ時間と、後手の８六歩への備えを比較します。",
-            "en": "K1i reaches the corner, and Gote replies P8e. The silver on 3h is still not adjacent to the king. Sente must compare the two silver moves through 3g with the time needed to meet a possible P8f."
+            "ja": "銀を６八へ、玉を２八へ。ここまでは片美濃と同じです。右の銀が３九に残っているのが分かれ道です。",
+            "en": "Silver to 6h and king to 2h, the same as Kata Mino so far. The fork comes with the right silver still on 3i."
           },
-          "marks": {"last": "8e", "boxes": ["1i", "3h", "8f"]}
+          "marks": {
+            "last": "2h",
+            "boxes": [
+              "2h",
+              "3i"
+            ]
+          }
         },
         {
-          "moves": ["3h3g", "4a3b"],
+          "moves": [
+            "9c9d",
+            "3i4h",
+            "1c1d",
+            "4i3h",
+            "4c4d",
+            "1g1f"
+          ],
           "text": {
-            "ja": "▲３七銀と一度上がる必要があります。後手が△３二玉と使う例なら、次に銀を２八へ引けます。銀の経由地が攻められていないかも確かめます。",
-            "en": "S3g is the necessary intermediate step. If Gote spends a turn on the sample K3b, the silver can then retreat diagonally to 2h. Check that its transit square is safe."
+            "ja": "右の銀を▲４八へ、金を▲３八へ。これが金美濃囲いです。片美濃と違い、二枚の銀が５七の地点に利いています。そこへ駒を打たれたり、桂を跳ねて成り込まれたりする攻めを防げます。超速３七銀のような急戦に強い囲いです。",
+            "en": "The right silver goes to 4h and the gold to 3h: that is Kin Mino. Unlike Kata Mino, both silvers cover 5g, so drops there and knight attacks that promote on that square are held off. It is a good choice against quick attacks such as the Super-Fast ▲3七銀."
           },
-          "marks": {"last": "3b", "arrows": ["3g2h"], "boxes": ["3g", "8e"]}
+          "marks": {
+            "last": "1f",
+            "boxes": [
+              "4h",
+              "3h",
+              "5g"
+            ]
+          }
         },
         {
-          "moves": ["3g2h", "8b8d", "4i3h"],
+          "moves": [
+            "7c7d",
+            "4g4f",
+            "9d9e",
+            "4h4g",
+            "6c6d",
+            "3g3f"
+          ],
           "text": {
-            "ja": "後手が△８四飛と飛車を浮かせる例なら、▲２八銀、▲３八金と続けられます。玉１九・香１八・銀２八・金３八は穴熊の骨格ですが、後手が代わりに８筋の歩を急げばこの三手を待ってくれるとは限りません。",
-            "en": "If Gote spends another turn floating the rook to 8d, Sente can complete S2h and G3h. K1i, L1h, S2h and G3h form an Anaguma skeleton. A faster eighth-file pawn push is another Gote choice; these three defensive moves are not guaranteed for free."
+            "ja": "金美濃から、さらに銀を▲４七へ上げると木村美濃です。３八の金が玉の横を守り、４七の銀が前に出ます。片美濃より、玉の頭へ駒を送り込むコビン攻めに強い形です。",
+            "en": "Advancing the silver further to 4g gives Kimura Mino. The gold on 3h guards beside the king and the silver steps forward. It holds up better than Kata Mino against attacks on the square above the king."
           },
-          "marks": {"last": "3h", "boxes": ["1i", "1h", "2h", "3h", "8e"]}
+          "marks": {
+            "last": "3f",
+            "boxes": [
+              "4g",
+              "3h"
+            ]
+          }
         }
-      ],
-      "variations": [
+      ]
+    },
+    {
+      "title": {
+        "ja": "穴熊囲い",
+        "en": "Anaguma"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
         {
-          "from": 1,
-          "moves": ["3h3g", "8e8f"],
+          "moves": [
+            "5g5f",
+            "8c8d",
+            "7g7f",
+            "8d8e",
+            "8h7g",
+            "3c3d",
+            "5f5e",
+            "7a6b",
+            "2h5h"
+          ],
           "text": {
-            "ja": "▲３七銀に対して後手が△８六歩と急ぐ枝です。先手８七歩が取られそうになり、銀を２八へ運ぶ前に８筋の取り手を調べる必要があります。３七銀が直ちに失敗という意味ではありません。",
-            "en": "If Gote chooses P8f after S3g, Sente's pawn on 8g faces capture. Before completing S2h, Sente must count the eighth-file replies. This branch does not prove S3g was a mistake."
+            "ja": "先手の中飛車の基本の形です。この章から先手の側で囲いを作ります。飛車は５八、角は７七、５五の歩が中央にいます。後手は居飛車の駒組みを進めます。",
+            "en": "This is Sente's basic Central Rook position; from here the lessons build the castle on Sente's side. The rook is on 5h, the bishop on 7g and the pawn on 5e. Gote develops in an ordinary way."
           },
-          "marks": {"last": "8f", "boxes": ["8g", "3g"]}
+          "marks": {
+            "last": "5h",
+            "boxes": [
+              "5h",
+              "5e",
+              "7g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3a4b",
+            "1i1h",
+            "4a3b",
+            "7i6h"
+          ],
+          "text": {
+            "ja": "穴熊に囲うときは、まず端の香を▲１八へ上げて、玉の入る１九のマスを空けます。左の銀も▲６八へ寄せて、角を支えておきます。",
+            "en": "To build Anaguma, the corner lance first rises to 1h, clearing 1i for the king. The left silver also moves to 6h to support the bishop."
+          },
+          "marks": {
+            "last": "1h",
+            "boxes": [
+              "1h",
+              "1i"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5a4a",
+            "5i4h",
+            "6a5b",
+            "4h3h",
+            "9c9d",
+            "3h2h"
+          ],
+          "text": {
+            "ja": "玉を２八まで運びます。ここまでは片美濃と同じ道筋なので、途中まで相手に穴熊と気づかれにくいという面もあります。",
+            "en": "The king walks to 2h, the same route as Kata Mino. That also means the opponent cannot tell it will be Anaguma until late."
+          },
+          "marks": {
+            "last": "2h",
+            "boxes": [
+              "2h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "2h1i",
+            "4c4d",
+            "3i2h",
+            "7c7d",
+            "4i3i"
+          ],
+          "text": {
+            "ja": "玉が▲１九へ入り、銀が２八へ、金が３九へ寄ります。これで穴熊の完成です。玉が隅の奥に入り、金銀が上を覆います。相手が穴熊のときは、こちらも穴熊にして持久戦で戦うことが多い囲いです。",
+            "en": "The king enters 1i, the silver goes to 2h and the gold to 3i. Anaguma is complete: the king deep in the corner under a roof of gold and silver. When the opponent castles into Anaguma too, mirroring it and playing a slow game is common."
+          },
+          "marks": {
+            "last": "3i",
+            "boxes": [
+              "1i",
+              "2h",
+              "3i",
+              "1h"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "穴熊は守りが非常に堅い反面、完成までに手数がかかり、その間に急戦を仕掛けられると苦しくなります。その後は左の金も３八へ寄せて、さらに堅くするのが一般的です。",
+            "en": "Anaguma is extremely solid, but it takes many moves to build and a quick attack during that time is dangerous. The usual follow-up is to bring the other gold to 3h as well for extra solidity."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "左穴熊囲い",
+        "en": "Left Anaguma"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "5g5f",
+            "3c3d",
+            "2h5h",
+            "8b4b",
+            "5f5e",
+            "7a6b",
+            "7g7f",
+            "9c9d",
+            "8h7g"
+          ],
+          "text": {
+            "ja": "この章では、後手が飛車を四間に振った形で、左側に穴熊を作ります。５五の歩を先に突いてから角道を開ける順に注意します。相手の飛車が反対の右側にいるので、玉を左の隅へ逃がしておけば、飛車の攻めから遠ざかれます。",
+            "en": "Here Gote has ranged the rook to the fourth file and Sente builds Left Anaguma on the other wing. Note the order: ▲5五歩 first, then the bishop line opens. Because the opponent's rook is on the far side, tucking the king into the left corner keeps it away from the rook's attack."
+          },
+          "marks": {
+            "last": "7g",
+            "boxes": [
+              "5e",
+              "7g",
+              "4b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "9i9h",
+            "6a5b",
+            "5i6h",
+            "5a6a",
+            "6h7h",
+            "8c8d",
+            "7h8h",
+            "9d9e",
+            "8h9i"
+          ],
+          "text": {
+            "ja": "左の香を▲９八へ上げて、玉が入る９九を空けます。玉は６八→７八→８八と左へ進み、▲９九へ入ります。玉が通るマスがすべて空いている順を選ぶのがコツです。",
+            "en": "The left lance rises to 9h to clear 9i. The king walks 6h, 7h, 8h and enters 9i. The trick is choosing an order in which every square on its path is empty."
+          },
+          "marks": {
+            "last": "9i",
+            "boxes": [
+              "9i",
+              "9h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "1d1e",
+            "7i8h",
+            "8d8e",
+            "6i7h",
+            "6c6d",
+            "4i5i",
+            "2c2d",
+            "5i6i",
+            "4c4d",
+            "6i7i"
+          ],
+          "text": {
+            "ja": "玉の上を固めます。銀を▲８八へ、金を▲７八へ。４九の金は５九、６九、７九と横に寄って玉の隣へ入ります。金と銀が玉を斜めにおおい、穴熊らしい形になります。",
+            "en": "Now the roof over the king. The silver goes to 8h and one gold to 7h; the other gold slides 5i, 6i, 7i alongside the king. Gold and silver cover the king diagonally in the usual Anaguma shape."
+          },
+          "marks": {
+            "last": "7i",
+            "boxes": [
+              "9i",
+              "8h",
+              "7h",
+              "7i"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7c7d",
+            "3i4h",
+            "3a3b",
+            "4h5g",
+            "2b3c",
+            "5g6f",
+            "3c2b",
+            "5h5f"
+          ],
+          "text": {
+            "ja": "残った右の銀は▲４八→▲５七→▲６六と進めます。飛車も５六へ出て、銀と飛車で中央から攻める態勢です。玉は左の隅で安全なので、攻めに駒を使えます。",
+            "en": "The remaining silver travels 4h, 5g and 6f, and the rook steps up to 5f. Silver and rook now attack from the centre, while the king is safe in the left corner, which frees the pieces for the attack."
+          },
+          "marks": {
+            "last": "5f",
+            "arrows": [
+              "6f6e"
+            ],
+            "boxes": [
+              "6f",
+              "5f"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "左穴熊は、相手が振り飛車のときに使います。相手の飛車が玉と反対側にいるので、囲いに攻めが届きにくくなります。相手が居飛車で飛車が左側にあれば、飛車が玉の近くを狙うので、右側の穴熊を選びます。",
+            "en": "Left Anaguma is for opponents who have ranged the rook. Their rook is on the opposite wing, so attacks are slow to reach the castle. If the opponent keeps the rook on the left wing, it would aim near the king, so choose the right-side Anaguma instead."
+          }
         }
       ]
     }

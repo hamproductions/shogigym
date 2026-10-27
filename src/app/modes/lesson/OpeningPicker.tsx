@@ -5,49 +5,39 @@ import { SETUPS, type Course, type Setup } from '@/utils/model'
 import { scrollPanelTop } from '@/app/hooks/useLayout'
 import { coursesOf } from '@/utils/book'
 import { courseProgress } from '@/app/practice'
-import { setSettings, useSettings } from '@/appearance/settings'
-import { mainStrategies, strategyById } from '@/data/strategies'
+import { useSettings } from '@/appearance/settings'
+import {
+  PATH_UNITS,
+  STAGES,
+  STRATEGY_PAGES,
+  TUTORIALS,
+  finishedChapters,
+  pageForMain,
+  stageUnits,
+  strategyPage,
+  type Stage,
+  type StrategyPage,
+} from '@/data/curriculum'
 import type { LessonMode, Level } from '@/app/types'
 import { Button } from '@/app/ui/Button'
 import { Marks } from '@/app/ui/SideMark'
 import { Input } from '@/components/ui'
-import { Grid, styled, Wrap } from 'styled-system/jsx'
+import { styled, Wrap } from 'styled-system/jsx'
 import { BackLink, Muted, SubHeading } from '@/app/panels/panels.styles'
 import { CrumbLink, LibEn, LibJa, PickerIntro, PickerTitle, ProgressLine, SetupButton, SetupGo } from './lesson.styles'
 import { LessonCard } from './LessonCard'
 import { LessonReferences } from './LessonReferences'
 import { SquareText } from './SquareText'
 import { describedPosition, useDescribedBoard } from './describedPosition'
-import { CATEGORIES, STRATEGY_GROUP, categoryOf, groupOf, isOpeningBasics, josekiGroupOf, type Category } from './library'
 import { ORIGIN_KEY, RANDOM_KEY, returnToGame, store, stored } from './reading'
 
-const CATEGORY_KEY = 'joseki-practice:library-category:v1'
-const GROUPS: Record<'basics' | 'skills', string[]> = {
-  basics: ['将棋のルール', '初心者向け入門講座'],
-  skills: ['手筋', '囲い崩し', '詰将棋、必至、寄せ', '囲い、駒組み', '将棋の格言', '勉強法', '棋書'],
-}
-const GROUP_EN: Record<string, string> = {
-  将棋のルール: 'Rules',
-  初心者向け入門講座: 'Beginner course',
-  手筋: 'Tactics',
-  囲い崩し: 'Breaking castles',
-  '詰将棋、必至、寄せ': 'Mate, brinkmate and finishing',
-  '囲い、駒組み': 'Castles and development',
-  将棋の格言: 'Proverbs',
-  勉強法: 'How to study',
-  棋書: 'Books',
-  相振り飛車: 'Double Ranging Rook',
-  駒落ち定跡: 'Handicap joseki',
-  奇襲戦法: 'Surprise openings',
-  '戦法、定跡': 'Opening basics',
-}
+const VIEW_KEY = 'joseki-practice:library-view:v2'
 
 type PickerProps = { onOpen: (c: Course, sub: LessonMode) => void; level: Level; setupId: string | null; setSetupId: (id: string | null) => void }
 type Entry = { setup: Setup; courses: Course[] }
 
-const percent = ({ learned, total }: { learned: number; total: number }) => `${total ? (learned / total) * 100 : 0}%`
-const progressOf = (courses: Course[]) =>
-  courses.map(courseProgress).reduce((a, b) => ({ learned: a.learned + b.learned, total: a.total + b.total }), { learned: 0, total: 0 })
+const lessonId = (unit: string) => `lesson-${unit}`
+const unitOf = (setup: Setup) => (setup.id.startsWith('lesson-') ? setup.id.slice('lesson-'.length) : null)
 
 const lower = (text: string) => text.toLowerCase()
 
@@ -65,6 +55,26 @@ const Tag = styled('em', {
     fontWeight: 'bold',
     fontSize: '2xs',
     verticalAlign: '2px',
+  },
+})
+
+const StageNumber = styled('span', {
+  base: { color: 'accent', fontFamily: 'mincho', fontWeight: 'heavy', mr: '2' },
+})
+
+const NextCard = styled('button', {
+  base: {
+    layerStyle: 'card',
+    position: 'relative',
+    display: 'grid',
+    gridTemplateColumns: '1fr auto',
+    gap: '1',
+    w: '100%',
+    mt: '3',
+    p: '{spacing.3} {spacing.4}',
+    border: '1px solid {colors.accent}',
+    textAlign: 'left',
+    _hover: { bg: 'card.hover' },
   },
 })
 
@@ -91,64 +101,107 @@ function Credits() {
 export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProps) {
   const { t } = useTranslation()
   const { main: routeMain } = useRouteParams()
-  const { lang, mainStrategy } = useSettings()
+  const { lang } = useSettings()
   const ja = lang === 'ja'
   const [query, setQuery] = useState('')
-  const [choosing, setChoosing] = useState(false)
-  const [category, setCategory] = useState<Category | null>(() => (routeMain ? 'joseki' : (stored(CATEGORY_KEY) as Category | null)))
+  const [view, setView] = useState<string | null>(() => {
+    const page = routeMain && pageForMain(routeMain)
+    return page ? `strategy:${page.id}` : stored(VIEW_KEY)
+  })
   useEffect(() => {
     scrollPanelTop()
-  }, [setupId, category, choosing])
-  const openCategory = (id: Category | null) => (setCategory(id), store(CATEGORY_KEY, id))
-  const main = strategyById(mainStrategy) ?? mainStrategies()[0]
+  }, [setupId, view])
+  const openView = (next: string | null) => (setView(next), store(VIEW_KEY, next), setQuery(''))
   const q = query.trim().toLowerCase()
   const all: Entry[] = SETUPS.map((setup) => ({ setup, courses: coursesOf(setup.courseIds) })).filter((g) => g.courses.length || g.setup.path)
+  const byId = new Map(all.map((entry) => [entry.setup.id, entry]))
+  const unitEntry = (unit: string) => byId.get(lessonId(unit))
+  const text = (value: { ja: string; en: string }) => (ja ? value.ja : value.en)
   const name = (setup: Setup) => (ja ? setup.ja : setup.name)
-  const groupName = (group: string) => (ja ? group : (GROUP_EN[group] ?? group))
   const fromGame = !!stored(ORIGIN_KEY)
+  const finished = finishedChapters()
+  const progressOf = (courses: Course[]) => {
+    const quiz = courses.map(courseProgress).reduce((a, b) => ({ learned: a.learned + b.learned, total: a.total + b.total }), { learned: 0, total: 0 })
+    const read = courses.filter((c) => finished.has(c.id)).length
+    return courses.length ? Math.max(read / courses.length, quiz.total ? quiz.learned / quiz.total : 0) : 0
+  }
+  const percent = (value: number) => `${value * 100}%`
+  const chapters = (n: number) => (ja ? `${n} 章` : `${n} ${n === 1 ? 'chapter' : 'chapters'}`)
+  const pageOfSetup = (setup: Setup) => {
+    const unit = unitOf(setup)
+    return unit ? STRATEGY_PAGES.find((page) => page.units.includes(unit)) : setup.main ? pageForMain(setup.main) : undefined
+  }
+  const stageOfSetup = (setup: Setup) => {
+    const unit = unitOf(setup)
+    return unit ? STAGES.find((stage) => stage.units.includes(unit)) : setup.technique ? STAGES.find((stage) => stage.id === 'tesuji') : undefined
+  }
+  const homeOf = (setup: Setup) => {
+    const stage = stageOfSetup(setup)
+    if (stage) return { view: `stage:${stage.id}`, label: text(stage.name) }
+    const page = pageOfSetup(setup)
+    return page ? { view: `strategy:${page.id}`, label: text(page.name) } : { view: null, label: ja ? '将棋を学ぶ' : 'Learn shogi' }
+  }
 
-  const setupCard = ({ setup, courses }: Entry) => {
+  const setupCard = ({ setup, courses }: Entry, index?: number) => {
     const p = progressOf(courses)
+    const defending = courses.length > 0 && courses.every((c) => c.notesFromOpponentView)
     return (
       <SetupButton key={setup.id} onClick={() => setSetupId(setup.id)}>
         <LibJa>
+          {index !== undefined && <StageNumber>{index + 1}</StageNumber>}
           <Marks>{name(setup)}</Marks>
-          {setup.basics && p.learned === 0 && <Tag>{t('picker.startHere')}</Tag>}
+          {defending && <Tag>{ja ? '受ける側' : 'Defending side'}</Tag>}
         </LibJa>
-        <LibEn>{ja ? `${courses.length} 章` : `${courses.length} ${courses.length === 1 ? 'chapter' : 'chapters'}`}</LibEn>
+        <LibEn>{chapters(courses.length)}</LibEn>
         <SetupGo aria-hidden="true">›</SetupGo>
         <ProgressLine style={{ width: percent(p) }} />
       </SetupButton>
     )
   }
-  const crumb = (setup: Setup) => {
-    const category = CATEGORIES.find((c) => c.id === categoryOf(setup))!.name[ja ? 'ja' : 'en']
-    const group = josekiGroupOf(setup) ?? groupOf(setup)
-    return group ? `${category} › ${groupName(group)}` : category
-  }
   const resultCard = (entry: Entry) => {
     const { setup, courses } = entry
     const byChapter = !lower(`${setup.ja} ${setup.name}`).includes(q) ? courses.find((c) => lower(`${c.title} ${c.titleEn ?? ''}`).includes(q)) : undefined
     const chapter = byChapter ? (ja ? byChapter.title : (byChapter.titleEn ?? byChapter.title)) : null
-    const defending = courses.length > 0 && courses.every((c) => c.notesFromOpponentView)
-    const p = progressOf(courses)
     return (
       <SetupButton key={setup.id} found onClick={() => setSetupId(setup.id)}>
         <LibJa>
           <Marks>{name(setup)}</Marks>
-          {defending && <Tag>{ja ? '受ける側' : 'Defending side'}</Tag>}
         </LibJa>
         <LibEn>
-          <Marks>{crumb(setup)}</Marks>
+          <Marks>{homeOf(setup).label}</Marks>
         </LibEn>
         {chapter && (
           <styled.span color="fg.muted" fontSize="xs" fontStyle="italic">
             <Marks>{chapter}</Marks>
           </styled.span>
         )}
-        <LibEn>{ja ? `${courses.length} 章` : `${courses.length} ${courses.length === 1 ? 'chapter' : 'chapters'}`}</LibEn>
+        <LibEn>{chapters(courses.length)}</LibEn>
         <SetupGo aria-hidden="true">›</SetupGo>
-        <ProgressLine style={{ width: percent(p) }} />
+        <ProgressLine style={{ width: percent(progressOf(courses)) }} />
+      </SetupButton>
+    )
+  }
+  const tutorialCard = (label: { ja: string; en: string }, { setup, courses }: Entry) => (
+    <SetupButton key={`${setup.id}-${label.ja}`} onClick={() => setSetupId(setup.id)}>
+      <LibJa>
+        <Marks>{text(label)}</Marks>
+        <Tag>{ja ? '入門' : 'Tutorial'}</Tag>
+      </LibJa>
+      <LibEn>
+        <Marks>{name(setup)}</Marks> · {chapters(courses.length)}
+      </LibEn>
+      <SetupGo aria-hidden="true">›</SetupGo>
+      <ProgressLine style={{ width: percent(progressOf(courses)) }} />
+    </SetupButton>
+  )
+  const pageCard = (page: StrategyPage) => {
+    const entries = page.units.flatMap((unit) => unitEntry(unit) ?? [])
+    return (
+      <SetupButton key={page.id} onClick={() => openView(`strategy:${page.id}`)}>
+        <LibJa>{text(page.name)}</LibJa>
+        <LibEn>{text(page.about)}</LibEn>
+        <SetupGo aria-hidden="true">›</SetupGo>
+        <ProgressLine style={{ width: percent(progressOf(entries.flatMap((e) => e.courses))) }} />
       </SetupButton>
     )
   }
@@ -170,12 +223,14 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
       store(RANDOM_KEY, open.setup.id)
       onOpen(quizzable[Math.floor(Math.random() * quizzable.length)], 'quiz')
     }
+    const home = homeOf(open.setup)
+    const unit = unitOf(open.setup)
+    const nextUnit = unit ? PATH_UNITS[PATH_UNITS.indexOf(unit) + 1] : undefined
+    const next = nextUnit ? unitEntry(nextUnit) : undefined
     return (
       <div>
         {backToGame}
-        <CrumbLink onClick={() => (setSetupId(null), openCategory(categoryOf(open.setup)))}>
-          ‹ {CATEGORIES.find((c) => c.id === categoryOf(open.setup))?.name[ja ? 'ja' : 'en']}
-        </CrumbLink>
+        <CrumbLink onClick={() => (setSetupId(null), openView(home.view))}>‹ {home.label}</CrumbLink>
         <PickerTitle>
           <Marks>{name(open.setup)}</Marks>
         </PickerTitle>
@@ -191,10 +246,33 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
           <>
             {open.courses.length > 0 && (
               <Button variant="primary" w="100%" m="{spacing.2} 0" onClick={() => (store(RANDOM_KEY, null), onOpen(open.courses[0], 'study'))}>
-                {ja ? '始める' : 'Start'}
+                {ja ? '第1章から学ぶ' : 'Study from chapter 1'}
               </Button>
             )}
-            {open.courses.length === 0 && open.setup.check && (
+            {open.courses.length > 1 && (
+              <styled.ol m="{spacing.2} 0 0" pl="5">
+                {open.courses.map((course) => {
+                  const title = ja ? course.title : (course.titleEn ?? course.title)
+                  const prefix = `${name(open.setup)}: `
+                  return (
+                    <li key={course.id}>
+                      <styled.button
+                        p="{spacing.1} 0"
+                        color="fg.default"
+                        fontSize="sm"
+                        textAlign="left"
+                        _hover={{ color: 'accent' }}
+                        onClick={() => (store(RANDOM_KEY, null), onOpen(course, 'study'))}
+                      >
+                        <Marks>{title.startsWith(prefix) ? title.slice(prefix.length) : title}</Marks>
+                        {finished.has(course.id) && <Tag>{ja ? '済' : 'Done'}</Tag>}
+                      </styled.button>
+                    </li>
+                  )
+                })}
+              </styled.ol>
+            )}
+            {open.setup.check && (
               <styled.details data-spaced m="{spacing.3} 0" p="{spacing.2} {spacing.3}" borderRadius="md" bg="card" boxShadow="inset 0 0 0 1px {colors.border}">
                 <styled.summary cursor="pointer" fontWeight="bold">
                   <Marks>{ja ? open.setup.check.question.ja : open.setup.check.question.en}</Marks>
@@ -204,40 +282,13 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
                 </p>
               </styled.details>
             )}
-            {open.courses.length > 1 && (
-              <styled.details mt="2">
-                <styled.summary cursor="pointer" color="fg.muted" fontSize="sm">
-                  {ja ? `目次（${open.courses.length}）` : `Contents (${open.courses.length})`}
-                </styled.summary>
-                <styled.ol m="{spacing.2} 0 0" pl="4">
-                  {open.courses.map((course) => {
-                    const title = ja ? course.title : (course.titleEn ?? course.title)
-                    const prefix = `${name(open.setup)}: `
-                    return (
-                      <li key={course.id}>
-                        <styled.button
-                          p="{spacing.1} 0"
-                          color="fg.default"
-                          fontSize="sm"
-                          textAlign="left"
-                          _hover={{ color: 'accent' }}
-                          onClick={() => (store(RANDOM_KEY, null), onOpen(course, 'study'))}
-                        >
-                          <Marks>{title.startsWith(prefix) ? title.slice(prefix.length) : title}</Marks>
-                        </styled.button>
-                      </li>
-                    )
-                  })}
-                </styled.ol>
-              </styled.details>
-            )}
           </>
         ) : (
           <>
             {open.courses.length > 0 && (
               <Wrap gap="2" align="center" mt="2">
                 <Button variant="primary" onClick={() => (store(RANDOM_KEY, null), onOpen(open.courses[0], 'study'))}>
-                  {ja ? '最初から学ぶ' : 'Start from the beginning'}
+                  {ja ? '最初の手順から学ぶ' : 'Study the first line'}
                 </Button>
                 {quizzable.length > 1 && <Button onClick={random}>{t('lesson.randomQuiz')}</Button>}
               </Wrap>
@@ -247,36 +298,12 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
             ))}
           </>
         )}
-        {(() => {
-          const opponent = open.setup.vs ? strategyById(open.setup.vs) : undefined
-          const base = opponent?.ja ?? open.setup.ja
-          const baseName = opponent?.en ?? open.setup.name
-          const mentions = (g: Entry) => g.setup.ja.includes(base) || g.courses.some((c) => c.title.includes(base))
-          const related = base.length >= 2 ? all.filter((g) => g.setup.id !== open.setup.id && mentions(g)).slice(0, 8) : []
-          const group = josekiGroupOf(open.setup) ?? groupOf(open.setup)
-          const shown = new Set(related.map((g) => g.setup.id))
-          const siblings = group
-            ? all
-                .filter((g) => g.setup.id !== open.setup.id && !shown.has(g.setup.id) && (josekiGroupOf(g.setup) ?? groupOf(g.setup)) === group && g.setup.path)
-                .slice(0, 6)
-            : []
-          return (
-            <>
-              {related.length > 0 && (
-                <SubHeading data-spaced>
-                  <Marks>{ja ? `「${base}」に関する講座` : `More about ${baseName}`}</Marks>
-                </SubHeading>
-              )}
-              {related.map(resultCard)}
-              {siblings.length > 0 && (
-                <SubHeading data-spaced>
-                  <Marks>{ja ? `${groupName(group!)}の他の講座` : `More in ${groupName(group!)}`}</Marks>
-                </SubHeading>
-              )}
-              {siblings.map(resultCard)}
-            </>
-          )
-        })()}
+        {next && (
+          <>
+            <SubHeading data-spaced>{ja ? '次の講座' : 'Next lesson'}</SubHeading>
+            {setupCard(next)}
+          </>
+        )}
         {open.setup.references ? (
           <LessonReferences references={open.setup.references} ja={ja} color="fg.muted" fontSize="sm" mt="2" />
         ) : (
@@ -298,56 +325,12 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
     )
   }
 
-  if (choosing)
-    return (
-      <div>
-        <BackLink onClick={() => setChoosing(false)}>{t('picker.back')}</BackLink>
-        <PickerTitle>{t('strategy.chooseMain')}</PickerTitle>
-        {(['furibisha', 'ibisha'] as const).map((wing) => (
-          <Fragment key={wing}>
-            <SubHeading data-spaced>{t(`strategy.${wing}`)}</SubHeading>
-            <Grid gridTemplateColumns="repeat(auto-fill, minmax(140px, 1fr))" gap="2" mt="2">
-              {mainStrategies()
-                .filter((s) => s.side === wing)
-                .map((s) => (
-                  <styled.button
-                    key={s.id}
-                    display="flex"
-                    flexDirection="column"
-                    alignItems="flex-start"
-                    gap="2px"
-                    p="3"
-                    border="1px solid {colors.border}"
-                    borderColor={s.id === main.id ? 'accent' : undefined}
-                    borderRadius="md"
-                    bg="card"
-                    color="fg.default"
-                    font="inherit"
-                    textAlign="left"
-                    cursor="pointer"
-                    boxShadow={s.id === main.id ? 'inset 0 0 0 1px {colors.accent}' : undefined}
-                    onClick={() => (setSettings({ mainStrategy: s.id }), setChoosing(false))}
-                  >
-                    <styled.strong fontFamily="mincho">
-                      <Marks>{ja ? s.ja : s.en}</Marks>
-                    </styled.strong>
-                    <styled.span color="fg.muted" fontSize="xs">
-                      {t(`strategy.level${s.level}`)}
-                    </styled.span>
-                  </styled.button>
-                ))}
-            </Grid>
-          </Fragment>
-        ))}
-      </div>
-    )
-
   const search = (
     <Input
       mt="2"
       value={query}
       onChange={(e) => setQuery(e.target.value)}
-      placeholder={ja ? 'ルール、手筋、戦法などを検索' : 'Search rules, tactics, openings…'}
+      placeholder={ja ? '戦法、手筋、囲い、ルールを検索' : 'Search strategies, tactics, castles, rules…'}
       aria-label={t('picker.searchLessons')}
     />
   )
@@ -357,133 +340,153 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
         .filter(({ score }) => score >= 30)
         .sort((x, y) => y.score - x.score)
     : []
+  const pageHits = q ? STRATEGY_PAGES.filter((page) => [page.name.ja, page.name.en].some((n) => lower(n).includes(q))) : []
+  const tutorialHits = q ? TUTORIALS.filter((tut) => [tut.name.ja, tut.name.en].some((n) => lower(n).includes(q))) : []
   const results = q && (
     <>
+      {pageHits.map(pageCard)}
+      {tutorialHits.flatMap((tut) => {
+        const entry = unitEntry(tut.unit)
+        return entry ? [tutorialCard(tut.name, entry)] : []
+      })}
       <styled.p data-spaced m="{spacing.1} 0" color="fg.muted" fontSize="xs">
-        {ja ? `${ranked.length}件` : `${ranked.length} ${ranked.length === 1 ? 'result' : 'results'}`}
+        {ja ? `${ranked.length}件の講座` : `${ranked.length} ${ranked.length === 1 ? 'lesson' : 'lessons'}`}
       </styled.p>
       {ranked.slice(0, 30).map(({ entry }) => resultCard(entry))}
-      {ranked.length === 0 && <Muted mt="2">{ja ? '見つかりませんでした。' : 'Nothing found.'}</Muted>}
+      {ranked.length === 0 && pageHits.length === 0 && tutorialHits.length === 0 && <Muted mt="2">{ja ? '見つかりませんでした。' : 'Nothing found.'}</Muted>}
     </>
   )
 
-  if (category === 'joseki') {
-    const group = STRATEGY_GROUP[main.id]
-    const mapped = new Set(mainStrategies().map((s) => STRATEGY_GROUP[s.id]))
-    const lessons = all.filter((g) => josekiGroupOf(g.setup) === group)
-    const mine = all.filter((g) => !g.setup.technique && !g.setup.path && g.setup.main === main.id)
-    const others = all.filter((g) => {
-      const at = josekiGroupOf(g.setup)
-      return at && !mapped.has(at)
+  const page = view?.startsWith('strategy:') ? strategyPage(view.slice('strategy:'.length)) : undefined
+  if (page) {
+    const tutorials = TUTORIALS.filter((tut) => tut.page === page.id).flatMap((tut) => {
+      const entry = unitEntry(tut.unit)
+      return entry ? [{ tut, entry }] : []
     })
-    const otherGroups = [...new Set(others.map((g) => josekiGroupOf(g.setup)!))].sort((a, b) => Number(isOpeningBasics(b)) - Number(isOpeningBasics(a)))
+    const taught = new Set(tutorials.map(({ tut }) => tut.unit))
+    const lessons = page.units.filter((unit) => !taught.has(unit)).flatMap((unit) => unitEntry(unit) ?? [])
+    const drills = all.filter((g) => !g.setup.path && !g.setup.technique && g.setup.main && page.mains.includes(g.setup.main))
+    const against = all.filter((g) => !g.setup.path && !g.setup.technique && g.setup.vs && page.mains.includes(g.setup.vs) && !drills.includes(g))
+    const back = STAGES.find((stage) => stage.strategies?.includes(page.id))
     return (
       <div>
         {backToGame}
-        <CrumbLink onClick={() => openCategory(null)}>{ja ? '‹ 将棋を学ぶ' : '‹ Learn shogi'}</CrumbLink>
-        <PickerTitle>{ja ? '定跡' : 'Joseki'}</PickerTitle>
-        <styled.button
-          display="grid"
-          gridTemplateColumns="auto 1fr auto"
-          alignItems="baseline"
-          gap="3"
-          w="100%"
-          m="{spacing.2} 0 {spacing.3}"
-          p="{spacing.3} {spacing.4}"
-          border="1px solid {colors.border.strong}"
-          borderRadius="md"
-          bg="card"
-          color="fg.default"
-          font="inherit"
-          textAlign="left"
-          cursor="pointer"
-          onClick={() => setChoosing(true)}
-        >
-          <styled.span color="fg.muted" fontSize="xs">
-            {t('strategy.yourMain')}
-          </styled.span>
-          <styled.strong fontFamily="mincho" fontSize="lg">
-            <Marks>{ja ? main.ja : main.en}</Marks>
-          </styled.strong>
-          <styled.em color="accent" fontStyle="normal" fontSize="sm">
-            {t('strategy.change')} ›
-          </styled.em>
-        </styled.button>
-        {level === 'new' && <PickerIntro data-spaced>{t('picker.clickAnyPieceOnThe')}</PickerIntro>}
+        <CrumbLink onClick={() => openView(back ? `stage:${back.id}` : null)}>‹ {back ? text(back.name) : ja ? '将棋を学ぶ' : 'Learn shogi'}</CrumbLink>
+        <PickerTitle>{text(page.name)}</PickerTitle>
+        <PickerIntro data-spaced>{text(page.about)}</PickerIntro>
+        {tutorials.length > 0 && (
+          <>
+            <SubHeading data-spaced>{ja ? '戦法ごとの入門' : 'Tutorial for each strategy'}</SubHeading>
+            {tutorials.map(({ tut, entry }) => tutorialCard(tut.name, entry))}
+          </>
+        )}
+        {lessons.length > 0 && (
+          <>
+            <SubHeading data-spaced>{ja ? 'さらに深く' : 'Going further'}</SubHeading>
+            {lessons.map((entry, index) => setupCard(entry, index))}
+          </>
+        )}
+        {drills.length > 0 && (
+          <>
+            <SubHeading data-spaced>{ja ? '定跡を手で覚える（相手の戦法別）' : 'Drill the lines, by opponent'}</SubHeading>
+            {drills.map((entry) => setupCard(entry))}
+          </>
+        )}
+        {against.length > 0 && (
+          <>
+            <SubHeading data-spaced>{ja ? `${page.name.ja}と戦う側の定跡` : `Lines for the side facing ${page.name.en}`}</SubHeading>
+            {against.map((entry) => setupCard(entry))}
+          </>
+        )}
+      </div>
+    )
+  }
+
+  const stage = view?.startsWith('stage:') ? STAGES.find((s) => s.id === view.slice('stage:'.length)) : undefined
+  if (stage) {
+    const index = STAGES.indexOf(stage)
+    const lessons = stage.units.flatMap((unit) => unitEntry(unit) ?? [])
+    const techniques = stage.id === 'tesuji' ? all.filter((g) => g.setup.technique) : []
+    const following = STAGES[index + 1]
+    return (
+      <div>
+        {backToGame}
+        <CrumbLink onClick={() => openView(null)}>‹ {ja ? '将棋を学ぶ' : 'Learn shogi'}</CrumbLink>
+        <PickerTitle>
+          <StageNumber>{index + 1}</StageNumber>
+          {text(stage.name)}
+        </PickerTitle>
+        <PickerIntro data-spaced>{text(stage.goal)}</PickerIntro>
         {search}
         {results}
         {!q && (
           <>
-            {mine.filter((g) => g.setup.basics).map(setupCard)}
-            {lessons.length > 0 && (
-              <SubHeading data-spaced>
-                <Marks>{ja ? `${main.ja}の考え方と手筋` : `${main.en}: ideas and tactics`}</Marks>
-              </SubHeading>
+            {lessons.map((entry, i) => setupCard(entry, i))}
+            {(stage.strategies?.length ?? 0) > 0 && (
+              <SubHeading data-spaced>{stage.units.length ? (ja ? '戦法のページ' : 'Strategy pages') : ja ? '戦法を選ぶ' : 'Choose a strategy'}</SubHeading>
             )}
-            {lessons.map(setupCard)}
-            {mine.some((g) => !g.setup.basics) && <SubHeading data-spaced>{t('picker.openingsByWhatYourOpponent')}</SubHeading>}
-            {mine.filter((g) => !g.setup.basics).map(setupCard)}
-            {otherGroups.map((at) => (
-              <Fragment key={at}>
-                <SubHeading data-spaced>
-                  <Marks>{groupName(at)}</Marks>
-                </SubHeading>
-                {others.filter((g) => josekiGroupOf(g.setup) === at).map(setupCard)}
-              </Fragment>
-            ))}
+            {stage.strategies?.flatMap((id) => strategyPage(id) ?? []).map(pageCard)}
+            {techniques.length > 0 && <SubHeading data-spaced>{ja ? '盤上で練習する' : 'Practise on the board'}</SubHeading>}
+            {techniques.map((entry) => setupCard(entry))}
+            {following && (
+              <Button w="100%" mt="4" onClick={() => openView(`stage:${following.id}`)}>
+                {ja ? `次の段階：${following.name.ja}` : `Next stage: ${following.name.en}`}
+              </Button>
+            )}
           </>
         )}
-        <Credits />
       </div>
     )
   }
 
-  if (category) {
-    const info = CATEGORIES.find((c) => c.id === category)!
-    const inCategory = all.filter((g) => categoryOf(g.setup) === category)
-    return (
-      <div>
-        {backToGame}
-        <CrumbLink onClick={() => openCategory(null)}>{ja ? '‹ 将棋を学ぶ' : '‹ Learn shogi'}</CrumbLink>
-        <PickerTitle>{ja ? info.name.ja : info.name.en}</PickerTitle>
-        {search}
-        {results}
-        {!q &&
-          GROUPS[category].map((group) => {
-            const entries = inCategory.filter((g) => groupOf(g.setup) === group)
-            return (
-              entries.length > 0 && (
-                <Fragment key={group}>
-                  <SubHeading data-spaced>
-                    <Marks>{groupName(group)}</Marks>
-                  </SubHeading>
-                  {entries.map(setupCard)}
-                </Fragment>
-              )
-            )
-          })}
-      </div>
-    )
-  }
-
+  const stageProgress = (s: Stage) => progressOf(stageUnits(s).flatMap((unit) => unitEntry(unit)?.courses ?? []))
+  const nextUp = PATH_UNITS.map(unitEntry).find((entry) => entry && progressOf(entry.courses) < 1)
+  const wings: { id: StrategyPage['wing']; name: string }[] = [
+    { id: 'ibisha', name: ja ? '居飛車' : 'Static Rook' },
+    { id: 'furibisha', name: ja ? '振り飛車' : 'Ranging Rook' },
+    { id: 'both', name: ja ? '奇襲・駒落ち' : 'Surprise openings and handicaps' },
+  ]
   return (
     <div>
       {backToGame}
       <PickerTitle>{ja ? '将棋を学ぶ' : 'Learn shogi'}</PickerTitle>
+      {level === 'new' && <PickerIntro data-spaced>{t('picker.clickAnyPieceOnThe')}</PickerIntro>}
       {search}
       {results}
-      {!q &&
-        CATEGORIES.map((item) => {
-          const p = progressOf(all.filter((g) => categoryOf(g.setup) === item.id).flatMap((g) => g.courses))
-          return (
-            <SetupButton key={item.id} onClick={() => openCategory(item.id)}>
-              <LibJa>{ja ? item.name.ja : item.name.en}</LibJa>
-              <LibEn>{ja ? item.about.ja : item.about.en}</LibEn>
+      {!q && (
+        <>
+          {nextUp && (
+            <NextCard onClick={() => setSetupId(nextUp.setup.id)}>
+              <LibEn>
+                {ja ? '次に学ぶ' : 'Up next'} · {homeOf(nextUp.setup).label}
+              </LibEn>
+              <LibJa>
+                <Marks>{name(nextUp.setup)}</Marks>
+              </LibJa>
               <SetupGo aria-hidden="true">›</SetupGo>
-              <ProgressLine style={{ width: percent(p) }} />
+            </NextCard>
+          )}
+          <SubHeading data-spaced>{ja ? '入門からプロまでの順番' : 'From beginner to professional'}</SubHeading>
+          {STAGES.map((s, index) => (
+            <SetupButton key={s.id} onClick={() => openView(`stage:${s.id}`)}>
+              <LibJa>
+                <StageNumber>{index + 1}</StageNumber>
+                {text(s.name)}
+              </LibJa>
+              <LibEn>{text(s.goal)}</LibEn>
+              <SetupGo aria-hidden="true">›</SetupGo>
+              <ProgressLine style={{ width: percent(stageProgress(s)) }} />
             </SetupButton>
-          )
-        })}
+          ))}
+          <SubHeading data-spaced>{ja ? '戦法から探す' : 'Browse by strategy'}</SubHeading>
+          {wings.map((wing) => (
+            <Fragment key={wing.id}>
+              <Muted mt="3">{wing.name}</Muted>
+              {STRATEGY_PAGES.filter((p) => p.wing === wing.id).map(pageCard)}
+            </Fragment>
+          ))}
+        </>
+      )}
       <Credits />
     </div>
   )

@@ -1,0 +1,701 @@
+{
+  "id": "tutorial-kyusen-yagura",
+  "order": 641,
+  "path": [
+    "戦法・定跡",
+    "矢倉"
+  ],
+  "title": {
+    "ja": "急戦矢倉入門：居角左美濃から矢倉を攻める",
+    "en": "Rapid-attack Yagura: attacking a Yagura from the Left Mino"
+  },
+  "intro": {
+    "ja": "急戦矢倉は、相手が矢倉を完成させる前に攻める作戦です。このレッスンでは、先手の居角左美濃急戦で囲いを組み、歩の突き捨てと飛車切りで攻め、横歩を取られたときの対応までを学びます。最後に、後手から銀を出して５五歩で中央を攻める形も確認します。",
+    "en": "Rapid-attack Yagura means striking before the opponent finishes the Yagura. Build the Left Mino rapid attack with the bishop left at home, attack with pawn sacrifices and a rook sacrifice, and learn the answer when the side pawn is taken. Finally see the Gote version that sends a silver to the centre and plays 5e."
+  },
+  "check": {
+    "question": {
+      "ja": "居角左美濃急戦で、後手が▲４四飛を△同金と取ったとき、先手が打つ次の手は何ですか？",
+      "en": "In the Left Mino rapid attack, what does Sente play after Gote recaptures the rook sacrifice on 4d with the gold?"
+    },
+    "answer": {
+      "ja": "▲３三歩です。角の斜めが止まり、４四の金が浮き駒になって取れる形になります。",
+      "en": "▲3三歩. It blocks the bishop line and leaves the gold on 4d undefended."
+    }
+  },
+  "references": [
+    {
+      "title": "矢倉戦法vs居角左美濃急戦",
+      "url": "https://shogi-joutatsu.com/archives/4848",
+      "license": "All rights reserved",
+      "adapted": false
+    },
+    {
+      "title": "やねうら王 新ペタショック定跡",
+      "url": "https://github.com/yaneurao/YaneuraOu/releases/tag/new_petabook233",
+      "license": "MIT",
+      "adapted": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": {
+        "ja": "居角左美濃を組む",
+        "en": "Build the Left Mino with the bishop at home"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "text": {
+            "ja": "相手が矢倉を目指して銀を３三へ上げたら、居角左美濃急戦の出番です。角を８八から動かさないまま左美濃に囲い、右の銀と桂を前に出して、矢倉が完成する前に攻めます。囲いが短い手数で済むため、手数の差がそのまま攻めの勢いになります。",
+            "en": "When the opponent heads for a Yagura by putting a silver on 3c, it is time for the Left Mino rapid attack with the bishop left at home. Castle into a Left Mino without moving the bishop from 8h, bring the right silver and knight forward, and attack before the Yagura is complete. The castle takes few moves, so the saved tempo becomes the force of the attack."
+          }
+        },
+        {
+          "moves": [
+            "7g7f"
+          ],
+          "text": {
+            "ja": "▲７六歩。まず角道を開けます。この戦法は角を動かさないので、角の斜めの通り道を相手に意識させておく役目もあります。",
+            "en": "▲7六歩 opens the bishop diagonal first. This plan never moves the bishop, so the open line also reminds the opponent that it is there."
+          },
+          "marks": {
+            "last": "7f",
+            "arrows": [
+              "8h3c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3c3d",
+            "2g2f"
+          ],
+          "text": {
+            "ja": "△３四歩に▲２六歩と飛車先を突きます。",
+            "en": "After △3四歩 Sente pushes the rook pawn with ▲2六歩."
+          },
+          "marks": {
+            "last": "2f"
+          }
+        },
+        {
+          "moves": [
+            "4c4d",
+            "3i4h"
+          ],
+          "text": {
+            "ja": "後手が△４四歩と角道を止めて矢倉の構えを見せます。先手は▲４八銀と右の銀を上げます。",
+            "en": "Gote closes its bishop with △4四歩 and shows a Yagura set-up. Sente lifts the right silver with ▲4八銀."
+          },
+          "marks": {
+            "last": "4h"
+          }
+        },
+        {
+          "moves": [
+            "3a4b",
+            "2f2e"
+          ],
+          "text": {
+            "ja": "△４二銀。矢倉に組むときの銀の動きです。先手は▲２五歩とさらに飛車先を伸ばします。",
+            "en": "Gote plays △4二銀, a typical Yagura silver move. Sente stretches the rook pawn once more with ▲2五歩."
+          },
+          "marks": {
+            "last": "2e"
+          }
+        },
+        {
+          "moves": [
+            "4b3c",
+            "4g4f"
+          ],
+          "text": {
+            "ja": "△３三銀で矢倉の形がはっきりしました。この銀が角道を止める形を見たら、居角左美濃へ進みます。先手は▲４六歩と４筋の歩を進めます。",
+            "en": "With △3三銀 the Yagura shape is clear. A silver on 3c blocking the bishop line is the signal to go for this plan. Sente advances the fourth-file pawn with ▲4六歩."
+          },
+          "marks": {
+            "last": "4f",
+            "boxes": [
+              "3c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4a3b",
+            "4h4g"
+          ],
+          "text": {
+            "ja": "△３二金に対して、▲４七銀と銀を早めに上げます。この銀が５六や４六へ進み、のちの攻めの中心になります。",
+            "en": "After △3二金 Sente brings the silver up early with ▲4七銀. This silver later heads for 5f or 4f and becomes the centre of the attack."
+          },
+          "marks": {
+            "last": "4g",
+            "arrows": [
+              "4g5f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8c8d",
+            "7i7h"
+          ],
+          "text": {
+            "ja": "△８四歩に、▲７八銀。左の銀を玉の横へ寄せて、美濃囲いの骨組みを作ります。",
+            "en": "Against △8四歩 Sente plays ▲7八銀, bringing the left silver beside the king to start the Mino frame."
+          },
+          "marks": {
+            "last": "7h"
+          }
+        },
+        {
+          "moves": [
+            "6a5b",
+            "5i6h"
+          ],
+          "text": {
+            "ja": "△５二金に、▲６八玉。玉が左へ動き始めます。",
+            "en": "After △5二金 Sente starts the king walk with ▲6八玉."
+          },
+          "marks": {
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "8d8e",
+            "6h7i"
+          ],
+          "text": {
+            "ja": "△８五歩に、▲７九玉。玉が７九に入り、左美濃の囲いがほぼ完成しました。後手の矢倉はまだ途中で、手数では先手が上回っています。",
+            "en": "Against △8五歩 Sente plays ▲7九玉. The king settles on 7i and the Left Mino is almost done, while Gote's Yagura is still half built. Sente is ahead in tempo."
+          },
+          "marks": {
+            "last": "7i",
+            "boxes": [
+              "7i",
+              "7h",
+              "6i"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8e8f",
+            "8g8f"
+          ],
+          "text": {
+            "ja": "後手は△８六歩と飛車先の歩を交換にきます。▲同歩と取って、あえて受けます。",
+            "en": "Gote offers a rook-pawn exchange with △8六歩. Sente simply takes with ▲同歩."
+          },
+          "marks": {
+            "last": "8f"
+          }
+        },
+        {
+          "moves": [
+            "8b8f",
+            "P*8g"
+          ],
+          "text": {
+            "ja": "△同飛。飛車を取られても、▲８七歩と手持ちの歩を打てば、飛車に当たります。一見損に見えますが、この間に先手は攻めの形を整えます。",
+            "en": "Gote recaptures with △同飛. Sente drops the pawn in hand with ▲8七歩, which attacks the rook. It looks like a loss of ground, but Sente uses the time to complete the attacking formation."
+          },
+          "marks": {
+            "last": "8g",
+            "arrows": [
+              "8g8f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8f8b",
+            "4i5h"
+          ],
+          "text": {
+            "ja": "△８二飛と飛車が引きました。▲５八金と金を寄せて、囲いを引き締めます。",
+            "en": "Gote retreats the rook with △8二飛. Sente tightens the castle with ▲5八金."
+          },
+          "marks": {
+            "last": "5h"
+          }
+        },
+        {
+          "moves": [
+            "5b4c",
+            "3g3f"
+          ],
+          "text": {
+            "ja": "△４三金。後手は金を前に出して守りを厚くします。先手は▲３六歩と突き、右の桂が跳ねる道を開けます。",
+            "en": "Gote moves the gold to 4c to thicken its defence. Sente pushes ▲3六歩, opening the road for the right knight."
+          },
+          "marks": {
+            "last": "3f"
+          }
+        },
+        {
+          "moves": [
+            "5c5d",
+            "2i3g"
+          ],
+          "text": {
+            "ja": "△５四歩に、▲３七桂。桂を跳ねて、攻めの準備が整いました。",
+            "en": "Against △5四歩 Sente jumps the knight with ▲3七桂. The attacking preparation is complete."
+          },
+          "marks": {
+            "last": "3g",
+            "arrows": [
+              "3g4e",
+              "3g2e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7a6b"
+          ],
+          "text": {
+            "ja": "基本図です。確認する形は、角を８八に残したままの左美濃、４七の銀と３七の桂、そして４六と３六の歩です。飛車先の歩を交換されても気にしません。この形ができたら、次の章で歩を突き捨てて開戦します。",
+            "en": "The basic position. The shape to check: a Left Mino with the bishop still on 8h, the silver on 4g and knight on 3g, and the pawns on 4f and 3f. A rook-pawn exchange is not a worry. Once this shape stands, the next chapter opens the fight by throwing in pawns."
+          },
+          "marks": {
+            "last": "6b",
+            "boxes": [
+              "4g",
+              "3g",
+              "4f",
+              "3f"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "長所と短所です。長所は、囲いが短い手数で済み、矢倉が完成する前に主導権を握れること。そして左美濃は横からの攻めに強く、無理な飛車切りの攻めも成立しやすいことです。短所は、飛車先の歩を交換されて相手に歩を渡すこと、そして横歩を取られた局面の対応を知らないと崩れやすいことです。",
+            "en": "Strengths and weaknesses. The castle takes few moves, so Sente takes the initiative before the Yagura is complete, and the Left Mino resists side attacks, so even a rook sacrifice can work. The weaknesses are conceding the rook-pawn exchange and giving Gote a pawn, and being in trouble if you do not know the answer to the side-pawn capture."
+          },
+          "marks": {
+            "boxes": [
+              "8g",
+              "7f"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "歩を突き捨て、桂を跳ねて飛車を切る",
+        "en": "Throw in pawns, jump the knight and sacrifice the rook"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "2g2f",
+            "4c4d",
+            "3i4h",
+            "3a4b",
+            "2f2e",
+            "4b3c",
+            "4g4f",
+            "4a3b",
+            "4h4g",
+            "8c8d",
+            "7i7h",
+            "6a5b",
+            "5i6h",
+            "8d8e",
+            "6h7i",
+            "8e8f",
+            "8g8f",
+            "8b8f",
+            "P*8g",
+            "8f8b",
+            "4i5h",
+            "5b4c",
+            "3g3f",
+            "5c5d",
+            "2i3g",
+            "7a6b"
+          ],
+          "text": {
+            "ja": "前の章の基本図です。後手は４三に金、３三に銀、２二に角を置いています。先手は４筋と３筋の歩を突き捨てて、桂を跳ねる準備をします。",
+            "en": "The basic position from the previous chapter. Gote has a gold on 4c, silver on 3c and bishop on 2b. Sente throws in the fourth-file and third-file pawns to prepare the knight jump."
+          },
+          "marks": {
+            "boxes": [
+              "4c",
+              "3c",
+              "2b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4f4e",
+            "4d4e",
+            "3f3e",
+            "3d3e"
+          ],
+          "text": {
+            "ja": "▲４五歩、△同歩、▲３五歩、△同歩。歩を二枚渡します。後手の３四の歩が消えて３四の升が空き、のちの桂と飛車の攻めに使えるようになります。",
+            "en": "▲4五歩 △同歩 ▲3五歩 △同歩. Two pawns are given away. The pawn on 3d disappears and the square 3d opens up for the later knight and rook attack."
+          },
+          "marks": {
+            "last": "3e",
+            "boxes": [
+              "3d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3g4e",
+            "3c4d"
+          ],
+          "text": {
+            "ja": "▲４五桂と跳ねます。後手は△４四銀と、銀を出して桂の前に立ちはだかります。これだけでは攻めが止まりそうに見えますが、ここから先手に狙いがあります。",
+            "en": "The knight jumps with ▲4五桂. Gote blocks with the silver, △4四銀. Sente's attack seems to stall, but Sente has a follow-up."
+          },
+          "marks": {
+            "last": "4e",
+            "arrows": [
+              "4e3c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2e2d",
+            "2c2d",
+            "2h2d",
+            "P*2c"
+          ],
+          "text": {
+            "ja": "▲２四歩、△同歩、▲同飛と飛車を２四へ出します。後手は△２三歩と打って飛車を止めました。ここで普通は攻めが切れたと見えます。",
+            "en": "▲2四歩 △同歩 ▲同飛 brings the rook to 2d. Gote stops it with the drop △2三歩. Normally the attack looks finished here."
+          },
+          "marks": {
+            "last": "2c",
+            "arrows": [
+              "2d4d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2d4d"
+          ],
+          "text": {
+            "ja": "▲４四飛。飛車で４四の銀を取ってしまいます。飛車は取り返されますが、左美濃は横からの攻めに強く、飛車を渡してもすぐには崩れません。この飛車切りが居角左美濃急戦の攻めの中心です。",
+            "en": "▲4四飛. The rook takes the silver on 4d. It will be captured back, but the Left Mino holds against side attacks, so giving up the rook does not collapse it. This rook sacrifice is the core of the attack."
+          },
+          "marks": {
+            "last": "4d",
+            "boxes": [
+              "4d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4c4d",
+            "P*3c"
+          ],
+          "text": {
+            "ja": "△同金と取ったら、▲３三歩と歩を打ちます。角が３三の歩に止まって、４四の金は誰も守らない浮き駒になります。先手が優勢です。",
+            "en": "If Gote takes with △同金, drop a pawn with ▲3三歩. The bishop is blocked by the pawn and the gold on 4d is left undefended. Sente is better."
+          },
+          "marks": {
+            "last": "3c",
+            "boxes": [
+              "3c",
+              "4d"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 4,
+          "moves": [
+            "2b4d",
+            "8h4d",
+            "4c4d",
+            "P*3c"
+          ],
+          "text": {
+            "ja": "△同角と取ってきたら、▲同角△同金のあと、やはり▲３三歩が急所です。持ち駒に角と銀が残り、先手の攻めは続きます。",
+            "en": "If Gote takes with the bishop, △同角, play ▲同角 △同金 and again ▲3三歩 is the key move. Sente keeps a bishop and a silver in hand and the attack goes on."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "横歩を取られたら▲６六角",
+        "en": "If the side pawn is taken, play ▲6六角"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "2g2f",
+            "4c4d",
+            "3i4h",
+            "3a4b",
+            "2f2e",
+            "4b3c",
+            "4g4f",
+            "4a3b",
+            "4h4g",
+            "8c8d",
+            "7i7h",
+            "6a5b",
+            "5i6h",
+            "8d8e",
+            "6h7i"
+          ],
+          "text": {
+            "ja": "玉が７九に入った局面まで戻ります。後手は飛車先の歩を交換したあと、もう一つの手を持っています。それが飛車で７六の歩を取る「横歩取り」です。",
+            "en": "Return to the position with the king on 7i. After the rook-pawn exchange, Gote has another idea: taking the pawn on 7f with the rook, the side-pawn capture."
+          },
+          "marks": {
+            "boxes": [
+              "7f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8e8f",
+            "8g8f",
+            "8b8f",
+            "P*8g",
+            "8f7f"
+          ],
+          "text": {
+            "ja": "△８六歩▲同歩△同飛▲８七歩までは同じで、後手は△７六飛と歩を取りました。飛車が深く入り込んで、一見先手が困ります。",
+            "en": "The moves 8f, 8f, rook takes, ▲8七歩 are the same, but now Gote takes the pawn with △7六飛. The rook is deep in the camp and Sente seems to be in trouble."
+          },
+          "marks": {
+            "last": "7f"
+          }
+        },
+        {
+          "moves": [
+            "8h6f"
+          ],
+          "text": {
+            "ja": "▲６六角と角を上がります。角が６六に出たことで、後手の飛車は７四飛から８四飛と引いて元の場所へ戻る道を失います。飛車を閉じ込める狙いです。",
+            "en": "▲6六角 brings the bishop out. The rook can no longer come back through 7d and 8d to its old square, so the bishop starts trapping it."
+          },
+          "marks": {
+            "last": "6f",
+            "arrows": [
+              "6f7e"
+            ],
+            "boxes": [
+              "7d",
+              "8d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5b4c",
+            "7h7g"
+          ],
+          "text": {
+            "ja": "△４三金に、▲７七銀。銀で飛車の逃げ道をさらに狭めます。",
+            "en": "After △4三金 Sente adds the silver with ▲7七銀, narrowing the rook's escape even further."
+          },
+          "marks": {
+            "last": "7g"
+          }
+        },
+        {
+          "moves": [
+            "7f7d",
+            "4g5f"
+          ],
+          "text": {
+            "ja": "△７四飛と飛車が上がったら、▲５六銀。次に▲６五銀と出る手を見せて、飛車をさらに不自由にします。飛車を逃がさず、執拗に追うのがこの変化の方針です。",
+            "en": "When the rook rises to 7d with △7四飛, play ▲5六銀. It threatens ▲6五銀 next and makes the rook even more awkward. The plan here is to keep chasing the rook without letting it escape."
+          },
+          "marks": {
+            "last": "5f",
+            "arrows": [
+              "5f6e"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "まとめです。居角左美濃急戦では、囲いは左美濃で済ませ、攻めは桂の跳ねと歩の突き捨てから飛車を切る形に持ち込みます。横歩を取られた場合は、角を上がって飛車を閉じ込めます。この二つの型を覚えておけば、矢倉に対して先手から主導権を握れます。",
+            "en": "Summary. Castle quickly into a Left Mino, then attack with the knight jump and the pawn sacrifices that lead into the rook sacrifice. If the side pawn is taken, bring the bishop out and trap the rook. With these two patterns Sente can take the initiative against a Yagura."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "後手から仕掛ける急戦矢倉：銀を４四へ出して５五歩",
+        "en": "Rapid attack from Gote: silver to 4d and pawn to 5e"
+      },
+      "side": "gote",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "text": {
+            "ja": "同じ急戦矢倉でも、後手が攻め側になるやり方があります。玉は４一に置いたまま浅く構え、５三の銀を４四へ出して、△５五歩で中央に早く接点を作ります。囲いを深く作る前に戦いを起こすのが狙いです。",
+            "en": "The rapid attack can also be played by Gote. Keep the king shallow on 4a, bring the silver from 5c to 4d, and make an early contact in the centre with △5五歩. The idea is to start the fight before building a deep castle."
+          }
+        },
+        {
+          "moves": [
+            "7g7f",
+            "8c8d",
+            "6g6f",
+            "3c3d",
+            "7i6h",
+            "8d8e",
+            "6h7g",
+            "6a5b"
+          ],
+          "text": {
+            "ja": "先手が矢倉の準備をしている間に、後手は△８四歩、△８五歩と飛車先を伸ばし、△５二金と金を上げます。飛車先を突くのは、８筋で先手の銀や角に圧力をかけておくためです。",
+            "en": "While Sente prepares a Yagura, Gote pushes the rook pawn with 8d and 8e and raises the gold to 5b. The pawn push puts pressure on Sente's silver and bishop on the eighth file."
+          },
+          "marks": {
+            "last": "5b",
+            "arrows": [
+              "8e8f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5g5f",
+            "3a4b",
+            "2g2f",
+            "5c5d",
+            "8h7i",
+            "4b5c",
+            "5i6h",
+            "4a3b"
+          ],
+          "text": {
+            "ja": "後手は△４二銀から△５三銀と銀を動かし、△５四歩と５筋の歩も突きます。玉は浅いまま、３二に金を置いて守ります。５三の銀と５四の歩の位置が、あとで銀を４四へ出し、歩を５五へ進める準備です。",
+            "en": "Gote moves the silver 3a-4b-5c and pushes the fifth-file pawn to 5d. The king stays shallow and a gold on 3b guards it. The silver on 5c and the pawn on 5d prepare the later advance of the silver to 4d and the pawn to 5e."
+          },
+          "marks": {
+            "last": "3b",
+            "boxes": [
+              "5c",
+              "4a"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4i5h",
+            "5a4a",
+            "5h6g",
+            "7c7d",
+            "6h7h",
+            "8a7c"
+          ],
+          "text": {
+            "ja": "後手は玉を４一へ寄せて、△７四歩と△７三桂で７筋にも戦力を回します。先手が囲いを組み切る前に、攻めの駒を先に整えます。",
+            "en": "Gote shifts the king to 4a, then plays the seventh-file pawn and knight to 7c, bringing force to the seventh file as well. Gote puts the attackers in place before Sente finishes the castle."
+          },
+          "marks": {
+            "last": "7c"
+          }
+        },
+        {
+          "moves": [
+            "2f2e",
+            "6c6d",
+            "7h8h",
+            "9c9d",
+            "6i7h",
+            "1c1d",
+            "3g3f",
+            "7a6b"
+          ],
+          "text": {
+            "ja": "△６四歩、△９四歩、△１四歩と歩を進めて、先手の守りを探ります。△６二銀で左の銀を整えて、攻めの陣形をさらに厚くします。",
+            "en": "Gote pushes pawns with 6d, 9d and 1d to probe Sente's defence and tidies the left silver with △6二銀 to thicken the attacking formation."
+          },
+          "marks": {
+            "last": "6b"
+          }
+        },
+        {
+          "moves": [
+            "3i4h",
+            "5c4d",
+            "4h3g",
+            "5d5e"
+          ],
+          "text": {
+            "ja": "△４四銀と銀を出し、△５五歩と突きました。５筋で歩が直接ぶつかる形になります。先手が歩を取れば、４四の銀がその歩を取り返せる形です。これが急戦矢倉の中心の接点です。",
+            "en": "Gote brings the silver to 4d and pushes △5五歩, so the pawns clash directly on the fifth file. If Sente takes the pawn, the silver on 4d can retake it. This is the central contact of the rapid attack."
+          },
+          "marks": {
+            "last": "5e",
+            "arrows": [
+              "4d5e"
+            ],
+            "boxes": [
+              "5e"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 5,
+          "moves": [
+            "5f5e",
+            "4d5e"
+          ],
+          "text": {
+            "ja": "先手が▲５五歩と取ったときは、△同銀。先手は歩を一枚得ますが、銀が５五に出て中央が厚くなります。",
+            "en": "If Sente takes with ▲5五歩, Gote recaptures with △同銀. Sente wins a pawn, but the silver on 5e gives Gote a thick centre."
+          }
+        },
+        {
+          "from": 5,
+          "moves": [
+            "4g4f",
+            "8e8f",
+            "8g8f",
+            "8b8f",
+            "7g8f"
+          ],
+          "text": {
+            "ja": "先手が▲４六歩と受けたら、後手は△８六歩と仕掛ける手があります。ただし７七の銀が８六を守っているので、△同飛とは取れても▲同銀で飛車を取られます。仕掛ける前に守りの駒を数えます。",
+            "en": "If Sente answers ▲4六歩, Gote can try △8六歩. But the silver on 7g guards 8f, so even if the rook takes, ▲同銀 wins it. Count the defenders before starting the attack."
+          }
+        }
+      ]
+    }
+  ]
+}

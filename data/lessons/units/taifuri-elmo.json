@@ -1,54 +1,757 @@
 {
   "id": "taifuri-elmo",
   "order": 860,
-  "path": ["戦法・定跡", "対振り飛車"],
-  "title": { "ja": "エルモ囲いから攻め駒を選ぶ", "en": "Choosing an attack from the Elmo castle" },
+  "path": [
+    "戦法・定跡",
+    "対振り飛車"
+  ],
+  "title": {
+    "ja": "elmo囲い急戦：組み方と三つの仕掛け",
+    "en": "Elmo Castle rush: building it and three attacks"
+  },
   "intro": {
-    "ja": "７八玉・６八銀・７九金の形では、玉の後ろに金、横に銀を残しながら別の駒を攻めへ送れる。右金を５九へ寄る手は選択肢であり、必要な手数は相手の動き次第。囲いの形を確認したうえで、左銀の進路と４筋の飛車・歩の接触を別々に読む。",
-    "en": "A king on 7h has a gold directly behind it on 7i and a silver beside it on 6h, leaving other pieces available for attack. Moving the other gold to 5i is an option whose timing depends on Gote's activity. After identifying the shelter, examine the left silver's route and a fourth-file rook-and-pawn contact separately."
+    "ja": "舟囲いより堅い囲いを▲６八銀と▲７九金で作り、すばやく攻める対振り飛車の急戦です。右の銀は囲いに残さず攻めに使います。組み方を初手から覚え、斜め棒銀、４五歩早仕掛け、右四間飛車の三つの仕掛けを見ます。",
+    "en": "A quick attack against Ranging Rook with a castle sturdier than the Boat Castle, built with ▲6八銀 and ▲7九金. The right silver is used for the attack rather than the castle. Learn the build from move one and see three attacks: diagonal Bougin, the early ▲4五歩 push and Right Fourth File Rook."
   },
   "check": {
-    "question": { "ja": "４筋の歩がぶつかり、先手飛車を４五へ出した。後手飛車も４五の先手飛車を取れるとき、飛車を失うだけかどうかを何で判断する？", "en": "After a fourth-file pawn contact, Sente's rook reaches 4e and Gote's rook can capture it. What determines whether Sente simply loses a rook?" },
-    "answer": { "ja": "４五を守る先手駒を数える。ここで５六銀が４五へ取り返せるなら、後手が飛車交換を選んだ場合は双方の持ち駒に飛車が入り、先手銀が４五に残る。", "en": "Count Sente's defenders of 4e. If the silver on 5f can recapture on 4e, Gote's choice to trade rooks puts a rook in each hand and leaves Sente's silver on 4e." }
+    "question": {
+      "ja": "elmo囲いは、舟囲いと比べて囲いの形がどう違いますか？",
+      "en": "How does the Elmo Castle differ from the Boat Castle?"
+    },
+    "answer": {
+      "ja": "▲６八銀と▲７九金で囲い、さらに右の金を５九へ寄せて、金２枚と銀１枚で玉を守ります。金を７九へ寄せるぶん舟囲いより堅く、５七の銀は攻めに使うので囲いに残しません。",
+      "en": "It uses ▲6八銀 and ▲7九金 and also moves the right gold to 5i, guarding the king with two golds and one silver. Moving a gold to 7i makes it sturdier than the Boat Castle, and the silver on 5g goes to the attack instead of staying."
+    }
   },
-  "references": [{ "title": "elmo囲い急戦", "url": "https://shogi-joutatsu.com/archives/7936", "license": "All rights reserved", "adapted": false }],
+  "references": [
+    {
+      "title": "elmo囲い急戦",
+      "url": "https://shogi-joutatsu.com/archives/7936",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
   "chapters": [
     {
-      "title": { "ja": "７九金で玉の隣をつなぐ", "en": "Connect the shelter with the 7i gold" },
-      "side": "sente", "kind": "position",
-      "start": "9/1kg2rsb1/p1p6/5pp2/9/6PP1/2P1S4/1BKS3R1/3G1G3 b - 1",
+      "title": {
+        "ja": "elmo囲いを初手から組む",
+        "en": "Build the Elmo Castle from move one"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
-        { "text": { "ja": "先手玉は７八、左銀は６八、左金は６九にいる。７九が空いており、６九金は一手でその位置へ動ける。４九の右金と５七の右銀はまだ攻守を選べる。", "en": "Sente's king is on 7h, the left silver on 6h and the left gold on 6i. The empty 7i square is one gold move away. The right gold on 4i and right silver on 5g can still be assigned to defense or attack." }, "marks": { "arrows": ["6i7i"], "boxes": ["7h", "6h", "7i"] } },
-        { "moves": ["6i7i", "9c9d"], "text": { "ja": "金を７九へ寄せ、７八玉・６八銀・７九金のエルモ囲いの核を作った。後手は端歩を進めた一例。７九金は７八玉を後ろから支え、６八銀は玉の横にいる。金７九は銀６八も斜め前に守るが、どの方向にも無条件に強いわけではない。", "en": "The gold reaches 7i, completing the Elmo core of king 7h, silver 6h and gold 7i. Gote's edge-pawn push is a sample reply. The gold supports the king from behind and the silver sits beside the king; the shelter still has board-specific weak points." }, "marks": { "boxes": ["7h", "6h", "7i"] } },
-        { "moves": ["5g4f", "7c7d"], "text": { "ja": "先手は右銀を４六へ使い、後手は７筋の歩を進めた。この例では４九金を動かさずに攻め駒を出した。７四歩や４筋の反撃が速ければ、玉側に残す手数との比較が必要になる。", "en": "Sente sends the right silver to 4f while Gote advances a seventh-file pawn. In this example Sente leaves the gold on 4i and develops an attacker. Faster Gote pressure would change the timing available for the king-side gold." }, "marks": { "boxes": ["4f", "4i", "7h"] } }
-      ],
-      "variations": [
-        { "from": 1, "moves": ["4i5i"], "text": { "ja": "先手が攻め銀より先に右金を５九へ寄せる選択もある。５九金は７九金と同じ段に並ぶが、この一手の間に後手がどの筋を進めるかを見てから採用する。", "en": "Sente may instead shift the right gold to 5i before advancing the silver. That puts the gold on the same rank as the 7i gold, but it costs a move; choose it after checking where Gote can gain time." } }
+        {
+          "text": {
+            "ja": "elmo囲いは、振り飛車と戦う急戦で使う囲いです。舟囲いに比べて金を７九へ寄せるぶん堅く、右の銀は囲いに残さず攻めに回します。この章では、後手が角道を止めて四間飛車に構える流れで、先手の指し手を順に追って組みます。",
+            "en": "The Elmo Castle is a castle for quick attacks against Ranging Rook. By moving a gold to 7i it is sturdier than the Boat Castle, and the right silver is sent into the attack instead of staying home. This chapter follows Sente move by move while Gote closes the bishop line and ranges the rook to the fourth file."
+          }
+        },
+        {
+          "moves": [
+            "7g7f"
+          ],
+          "text": {
+            "ja": "▲７六歩で角道を開けます。居飛車の最初の一手として、対振り飛車でも変わりません。",
+            "en": "▲7六歩 opens the bishop line. It is the standard first move, the same against Ranging Rook."
+          },
+          "marks": {
+            "last": "7f"
+          }
+        },
+        {
+          "moves": [
+            "3c3d",
+            "2g2f"
+          ],
+          "text": {
+            "ja": "△３四歩に▲２六歩。飛車先を一つ伸ばしておきます。",
+            "en": "△3四歩 is met by ▲2六歩, advancing the rook pawn one step."
+          },
+          "marks": {
+            "last": "2f"
+          }
+        },
+        {
+          "moves": [
+            "4c4d",
+            "3i4h"
+          ],
+          "text": {
+            "ja": "後手が角道を止めたので、振り飛車を警戒して▲４八銀。銀を上げておけば、相手が居飛車でも振り飛車でも無駄になりません。",
+            "en": "Gote has closed the bishop line, so Sente prepares for Ranging Rook with ▲4八銀. The silver move is useful whether Gote ends up Static or Ranging Rook."
+          },
+          "marks": {
+            "last": "4h",
+            "boxes": [
+              "4h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8b4b",
+            "5i6h"
+          ],
+          "text": {
+            "ja": "△４二飛で四間飛車が確定しました。ここから振り飛車用の囲いを作ります。▲６八玉と玉を左へ動かし始めます。",
+            "en": "△4二飛 confirms Fourth File Rook. Sente now builds a castle against it, starting with ▲6八玉 to move the king left."
+          },
+          "marks": {
+            "last": "6h",
+            "boxes": [
+              "4b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2b3c",
+            "6h7h"
+          ],
+          "text": {
+            "ja": "△３三角に▲７八玉。玉を７八まで寄せて、囲いの土台にします。",
+            "en": "△3三角 is answered by ▲7八玉. The king on 7h is the base of the castle."
+          },
+          "marks": {
+            "last": "7h",
+            "boxes": [
+              "7h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3a3b",
+            "5g5f"
+          ],
+          "text": {
+            "ja": "△３二銀に▲５六歩。５筋の歩を突いて、５七のマスを空けます。次にこの場所へ銀を使います。",
+            "en": "△3二銀 is met by ▲5六歩, which empties 5g for the silver to use next."
+          },
+          "marks": {
+            "last": "5f",
+            "boxes": [
+              "5g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5a6b",
+            "4h5g"
+          ],
+          "text": {
+            "ja": "△６二玉に▲５七銀。右の銀を５筋へ上げます。ここで▲５八金右と舟囲いに組む手もありますが、elmo囲いを目指すので金は後回しです。居飛車穴熊のような持久戦に進む道もあります。",
+            "en": "△6二玉 is met by ▲5七銀, bringing the right silver to the fifth file. ▲5八金右 would make a Boat Castle, but the Elmo plan leaves the gold for later. The same setup also leads to a Static Rook Anaguma game."
+          },
+          "marks": {
+            "last": "5g",
+            "boxes": [
+              "5g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6b7b",
+            "2f2e"
+          ],
+          "text": {
+            "ja": "△７二玉に▲２五歩。飛車先の歩を伸ばし、あとの攻めに備えます。",
+            "en": "△7二玉 is met by ▲2五歩. Pushing the rook pawn prepares for the later attack."
+          },
+          "marks": {
+            "last": "2e",
+            "boxes": [
+              "2e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7b8b",
+            "3g3f"
+          ],
+          "text": {
+            "ja": "△８二玉に▲３六歩。３筋の歩を突いて、あとで桂や銀が動く道を作ります。",
+            "en": "△8二玉 is met by ▲3六歩, opening the way for the knight and silver later."
+          },
+          "marks": {
+            "last": "3f",
+            "boxes": [
+              "3f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7a7b",
+            "7i6h"
+          ],
+          "text": {
+            "ja": "△７二銀に▲６八銀上。７九の銀を６八へ上げます。次の金寄りの準備です。",
+            "en": "△7二銀 is met by ▲6八銀, lifting the silver from 7i to 6h. It makes room for the gold move that follows."
+          },
+          "marks": {
+            "last": "6h",
+            "boxes": [
+              "6h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "9g9f"
+          ],
+          "text": {
+            "ja": "△９四歩に▲９六歩。後手が端の歩を突いたのに合わせて、こちらも端の歩を突きます。陣形を整える手です。",
+            "en": "After △9四歩 comes ▲9六歩. Gote pushed its edge pawn, so Sente pushes the edge pawn on its own side. It is a move that tidies the formation."
+          },
+          "marks": {
+            "last": "9f"
+          }
+        },
+        {
+          "moves": [
+            "3b4c",
+            "6i7i"
+          ],
+          "text": {
+            "ja": "△４三銀に▲７九金。金を７九へ寄せるのがelmo囲いの特徴で、玉の真後ろに金が付いて堅くなります。",
+            "en": "After △4三銀 comes ▲7九金. Moving the gold to 7i is the mark of the Elmo Castle: the gold sits directly behind the king and makes it sturdy."
+          },
+          "marks": {
+            "last": "7i",
+            "boxes": [
+              "7h",
+              "7i",
+              "6h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4a5b",
+            "4i5i"
+          ],
+          "text": {
+            "ja": "△５二金左に▲５九金。右の金も５九へ寄せると、囲いはさらに堅くなります。玉７八、銀６八、金７九、金５九で、金２枚と銀１枚の囲いです。５七の銀は攻めに使います。",
+            "en": "△5二金左 is met by ▲5九金. Moving the right gold to 5i as well makes the castle sturdier still: king 7h, silver 6h, golds 7i and 5i, two golds and one silver. The silver on 5g is kept for attacking."
+          },
+          "marks": {
+            "last": "5i",
+            "boxes": [
+              "7h",
+              "6h",
+              "7i",
+              "5i"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "ここまでの要点です。①角道を止められたら▲４八銀で様子を見て、振り飛車と決まったら玉を左へ寄せる。②右の銀は▲５七銀と５筋へ上げ、囲いには残さず攻めに回す。③左の銀を▲６八銀上、金を▲７九金と寄せる。④右の金も▲５九金と寄せて、金２枚と銀１枚の囲いにする。",
+            "en": "Points to remember so far. 1) When the bishop line is closed, play ▲4八銀 and watch; once it is Ranging Rook, move the king left. 2) Bring the right silver to the fifth file with ▲5七銀 and send it to the attack instead of leaving it in the castle. 3) Lift the left silver with ▲6八銀上 and move a gold with ▲7九金. 4) Move the right gold with ▲5九金 too, making a castle of two golds and one silver."
+          },
+          "marks": {
+            "boxes": [
+              "7h",
+              "6h",
+              "7i",
+              "5i",
+              "5g"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "elmo囲いの長所は、舟囲いより堅く、そのまま急戦に出られることです。弱みは、５七の銀を攻めに使うため、囲いの金銀が少なめになる点です。仕掛け方は大きく三つ。次の章から、斜め棒銀、４五歩早仕掛け、右四間飛車を順に見ます。",
+            "en": "The strength of the Elmo Castle is that it is sturdier than the Boat Castle and still allows a quick attack. The weakness is that the silver on 5g leaves for the attack, so few pieces guard the king. There are three main attacks: diagonal Bougin, the early ▲4五歩 push and Right Fourth File Rook, covered in the next chapters."
+          }
+        }
       ]
     },
     {
-      "title": { "ja": "歩を取る銀と開く角道", "en": "A silver capture changes a bishop's target" },
-      "side": "sente", "kind": "position",
-      "start": "9/1kg2rsb1/p1p6/5pp2/4p4/6PP1/2P6/1BKS3R1/2G2G3 b - 1",
+      "title": {
+        "ja": "斜め棒銀型：▲４六銀から▲３五歩",
+        "en": "Diagonal Bougin: ▲4六銀 then ▲3五歩"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
-        { "text": { "ja": "囲いの核は７八玉・６八左銀・７九金。後手５五歩を左銀で狙うには、守りの６八銀を動かす必要がある。後手４四歩は今、２二角の斜め筋を止めている。", "en": "The Elmo core starts with king 7h, left silver 6h and gold 7i. Reaching Gote's pawn on 5e with that left silver means moving a defender away from the king. Gote's pawn on 4d currently blocks the bishop on 2b." }, "marks": { "arrows": ["6h5g", "5g4f"], "boxes": ["6h", "4d", "5e"] } },
-        { "moves": ["6h5g", "9c9d", "5g4f", "7c7d"], "text": { "ja": "先手左銀は６八から５七、４六へ進み、後手は端と７筋の歩を動かした一例。６八が空いて玉の近くの銀は減った。５五歩を取る前に、この守りの支払いと後手の角道を比べる。", "en": "Sente's left silver travels from 6h through 5g to 4f as Gote advances edge and seventh-file pawns in this sample. The 6h defender has left the king. Compare that defensive cost and Gote's bishop line before taking the pawn on 5e." }, "marks": { "boxes": ["4f", "6h", "4d", "5e"] } },
-        { "moves": ["4f5e", "4d4e"], "text": { "ja": "先手銀が５五歩を取ると、後手は４五歩で角道を開けた。２二角から３三・４四を通る線が５五銀へ届く。先手は歩を得たが、銀を同じ場所に置くには別の守りが必要。", "en": "Sente's silver captures the pawn on 5e, then Gote pushes to 4e and opens the bishop line through 3c and 4d to the silver. Sente gains a pawn, but keeping the silver on 5e would require another defense." }, "marks": { "arrows": ["2b5e"], "boxes": ["5e"] } },
-        { "moves": ["5e6d"], "text": { "ja": "先手銀を６四へ進めて角の斜め筋から外した。この盤には後手６三歩がないため６四は直ちに歩で取られない。銀を前へ逃がせても、６八に守りの銀は戻らない。", "en": "Sente advances the silver to 6d, off the bishop diagonal. On this board Gote has no pawn on 6c to capture it immediately. Even after this escape, the silver has not returned to 6h beside the king on 7h." }, "marks": { "boxes": ["6d", "6h", "2b"] } }
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "2g2f",
+            "4c4d",
+            "3i4h",
+            "8b4b",
+            "5i6h",
+            "2b3c",
+            "6h7h",
+            "3a3b",
+            "5g5f",
+            "5a6b",
+            "4h5g",
+            "6b7b",
+            "2f2e",
+            "7b8b",
+            "3g3f",
+            "7a7b",
+            "7i6h",
+            "9c9d",
+            "9g9f",
+            "3b4c",
+            "6i7i",
+            "4a5b",
+            "4i5i"
+          ],
+          "text": {
+            "ja": "前章で組んだelmo囲いです。ここから右の銀を４六へ出して、斜め棒銀で仕掛けます。",
+            "en": "The Elmo Castle from the previous chapter. From here the right silver goes to 4f for a diagonal Bougin attack."
+          },
+          "marks": {
+            "last": "5i"
+          }
+        },
+        {
+          "moves": [
+            "6c6d",
+            "5g4f"
+          ],
+          "text": {
+            "ja": "後手が△６四歩と構える間に、▲４六銀と銀を前に出します。５七から斜めに進み、３筋と４筋をにらむ位置です。",
+            "en": "Gote plays △6四歩 and Sente advances the silver with ▲4六銀, from 5g diagonally to a square that eyes the third and fourth files."
+          },
+          "marks": {
+            "last": "4f",
+            "arrows": [
+              "4f3e"
+            ],
+            "boxes": [
+              "4f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5c5d",
+            "3f3e"
+          ],
+          "text": {
+            "ja": "△５四歩に▲３五歩。歩を突き出して仕掛けます。△同歩なら▲同銀で斜め棒銀の攻めが決まるので、後手は取らずに別の受けを選びます。",
+            "en": "△5四歩 is met by ▲3五歩, starting the attack. If Gote takes with △同歩, ▲同銀 completes the diagonal Bougin attack, so Gote chooses a different defence."
+          },
+          "marks": {
+            "last": "3e",
+            "arrows": [
+              "3e3d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4b3b",
+            "3e3d",
+            "4c3d",
+            "2h3h"
+          ],
+          "text": {
+            "ja": "△３二飛と飛車を３筋へ回すのが定跡です。先手は▲３四歩と取り込み、△同銀に▲３八飛と飛車を回して銀に当てます。",
+            "en": "△3二飛 swings the rook to the third file, the standard defence. Sente takes with ▲3四歩, and after △同銀 brings the rook over with ▲3八飛 attacking the silver."
+          },
+          "marks": {
+            "last": "3h",
+            "boxes": [
+              "3h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4d4e"
+          ],
+          "text": {
+            "ja": "後手の△４五歩で、大駒の捌き合いに入ります。ここから先は、対振り斜め棒銀の別の講座で詳しく扱います。elmo囲いの堅さが、この激しい戦いで生きてきます。",
+            "en": "Gote answers with △4五歩 and the position turns into a fight with rook and bishop. The details belong to the dedicated diagonal Bougin lesson; here the sturdiness of the Elmo Castle pays off in the melee."
+          },
+          "marks": {
+            "last": "4e",
+            "arrows": [
+              "3c8h"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 2,
+          "moves": [
+            "3d3e",
+            "4f3e"
+          ],
+          "text": {
+            "ja": "△３五同歩と取ると、▲同銀で銀が五段目に出て、先手の攻めが成功します。",
+            "en": "Taking with △3五同歩 lets ▲同銀 put the silver on the fifth rank, and the attack succeeds."
+          },
+          "marks": {
+            "last": "3e",
+            "boxes": [
+              "3e"
+            ]
+          }
+        }
       ]
     },
     {
-      "title": { "ja": "４筋の飛車交換を数える", "en": "Count recaptures on the fourth file" },
-      "side": "sente", "kind": "position",
-      "start": "9/1kg2rsb1/p1p6/5pp2/9/4SPP2/2P6/1BKS1R3/2G1G4 b - 1",
+      "title": {
+        "ja": "４五歩早仕掛け型",
+        "en": "The early ▲4五歩 push"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
-        { "text": { "ja": "先手は７八玉・６八銀・７九金・５九金を残し、飛車４八と歩４六で４筋を見ている。銀５六は４五へ進める。後手飛車４二と歩４四も同じ筋にいるので、まず４五の取り返しを数える。", "en": "Sente keeps king 7h, silver 6h and golds 7i and 5i while its rook on 4h and pawn on 4f face the fourth file. The silver on 5f can move to 4e. Gote's rook on 4b and pawn on 4d contest the same file, so count the recaptures on 4e first." }, "marks": { "arrows": ["4f4e", "5f4e"], "boxes": ["4b", "4d"] } },
-        { "moves": ["4f4e", "4d4e"], "text": { "ja": "先手歩を４五へ出し、後手が同歩と取った一例。先手の４六が空いたので４八飛は４五へ届き、後手も４四が空いたので４二飛は４五を狙える。後手が歩を取らない応手なら計算は変わる。", "en": "Sente pushes to 4e and Gote captures with its pawn in this sample. With 4f vacated, Sente's rook on 4h can reach 4e; with 4d vacated, Gote's rook on 4b can also reach that square. A declined pawn contact would give a different calculation." }, "marks": { "arrows": ["4h4e", "4b4e"], "boxes": ["4e"] } },
-        { "moves": ["4h4e"], "text": { "ja": "先手飛車が４五歩を取った。後手飛車で取り返される前に、５六銀が４五を守っているかを確認する。飛車が４五へ出たという形だけでは駒得は決まらない。", "en": "Sente's rook captures the pawn on 4e. Before allowing Gote's rook to recapture, verify the silver on 5f protects 4e. The rook's arrival alone does not establish a material gain." }, "marks": { "arrows": ["4b4e", "5f4e"], "boxes": ["5f", "4e"] } },
-        { "moves": ["4b4e", "5f4e"], "text": { "ja": "後手が飛車交換を選ぶと、先手５六銀が４五で取り返す。両者は飛車一枚ずつを持ち、先手銀は４五に残る。駒の枚数だけで有利とは断定せず、互いの飛車打ちと玉の守りを次に調べる。", "en": "If Gote accepts the rook trade, Sente's silver recaptures on 4e. Each side now holds a rook and Sente's silver remains on 4e. Material count alone does not prove an advantage; both rook drops and king safety need a fresh check." }, "marks": { "boxes": ["4e", "7h", "7i"] } }
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "2g2f",
+            "4c4d",
+            "3i4h",
+            "8b4b",
+            "5i6h",
+            "2b3c",
+            "6h7h",
+            "3a3b",
+            "5g5f",
+            "5a6b",
+            "4h5g",
+            "6b7b",
+            "2f2e",
+            "7b8b",
+            "3g3f",
+            "7a7b",
+            "7i6h",
+            "9c9d",
+            "9g9f",
+            "3b4c",
+            "6i7i",
+            "4a5b",
+            "4i5i"
+          ],
+          "text": {
+            "ja": "同じelmo囲いから、４筋の歩を使って仕掛ける形です。",
+            "en": "The same Elmo Castle, now attacking with the fourth-file pawn."
+          },
+          "marks": {
+            "last": "5i"
+          }
+        },
+        {
+          "moves": [
+            "6c6d",
+            "4g4f"
+          ],
+          "text": {
+            "ja": "△６四歩に▲４六歩。銀を出さず、４筋の歩を前に進めます。",
+            "en": "△6四歩 is met by ▲4六歩. The silver stays home and the fourth-file pawn advances."
+          },
+          "marks": {
+            "last": "4f",
+            "boxes": [
+              "4f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5c5d",
+            "4f4e"
+          ],
+          "text": {
+            "ja": "△５四歩に▲４五歩と突き出します。△同歩なら、角を交換してから▲２四歩と２筋を攻められます。そのため後手は取れず、駒組みを続けます。",
+            "en": "△5四歩 is met by ▲4五歩. If Gote takes with △同歩, Sente trades bishops and attacks the second file with ▲2四歩. Gote therefore cannot capture and keeps building."
+          },
+          "marks": {
+            "last": "4e",
+            "arrows": [
+              "4e4d"
+            ],
+            "boxes": [
+              "4e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7c7d",
+            "2i3g"
+          ],
+          "text": {
+            "ja": "△７四歩に▲３七桂。すぐには４四の歩を取らず、桂を跳ねて攻めの力をためます。",
+            "en": "△7四歩 is met by ▲3七桂. Sente does not take on 4d at once and instead jumps the knight to build up force."
+          },
+          "marks": {
+            "last": "3g",
+            "boxes": [
+              "3g",
+              "4e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5b6c",
+            "2e2d"
+          ],
+          "text": {
+            "ja": "△６三金と構えられても、先に２筋を突き捨てます。△６三金のあと▲２四歩、△同歩。",
+            "en": "Gote plays △6三金, but Sente first throws in the second-file pawn with ▲2四歩, △同歩."
+          },
+          "marks": {
+            "last": "2d",
+            "boxes": [
+              "2d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2c2d",
+            "4e4d"
+          ],
+          "text": {
+            "ja": "それから▲４四歩と取り込みます。△同銀には、さらに▲４五歩と打って角の交換を狙うのが定跡です。",
+            "en": "Only then does Sente take on 4d with ▲4四歩. After △同銀, dropping ▲4五歩 again and aiming for a bishop trade is the standard continuation."
+          },
+          "marks": {
+            "last": "4d",
+            "boxes": [
+              "4d"
+            ]
+          }
+        }
       ],
       "variations": [
-        { "from": 2, "moves": ["4b5b", "4e4g"], "text": { "ja": "後手飛車が５二へ避ける応手なら飛車交換は起きない。先手は例として飛車を４七へ引いた。後手の選択次第で持ち駒も次の攻め筋も変わる。", "en": "If Gote retreats the rook to 5b, there is no rook trade. Sente withdraws its rook to 4g in this example. Gote's choice changes both players' hands and the subsequent attacking routes." } }
+        {
+          "from": 2,
+          "moves": [
+            "4d4e",
+            "8h3c+",
+            "2a3c",
+            "2e2d"
+          ],
+          "text": {
+            "ja": "△同歩の場合は、角を交換して▲２四歩と攻めます。４筋の歩が消えたぶん、角のラインが通って攻めがつながります。",
+            "en": "If Gote takes with △同歩, Sente trades bishops and plays ▲2四歩. With the fourth-file pawn gone the bishop line is open and the attack connects."
+          },
+          "marks": {
+            "last": "2d",
+            "boxes": [
+              "2d"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "右四間飛車型",
+        "en": "Right Fourth File Rook"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "text": {
+            "ja": "もう一つの形が、elmo囲いと右四間飛車の組み合わせです。狙いが分かりやすく強力なので、級位者に向く形です。ここでは初手から、右四間の駒組みを順に作ります。",
+            "en": "Another option is the Elmo Castle with Right Fourth File Rook. The aim is clear and strong, which suits kyu-level players. The formation is built from move one below."
+          }
+        },
+        {
+          "moves": [
+            "7g7f"
+          ],
+          "text": {
+            "ja": "▲７六歩で角道を開けます。",
+            "en": "▲7六歩 opens the bishop line."
+          },
+          "marks": {
+            "last": "7f"
+          }
+        },
+        {
+          "moves": [
+            "3c3d",
+            "2g2f"
+          ],
+          "text": {
+            "ja": "△３四歩に▲２六歩。ここでは２筋の歩を二つ目まで伸ばしません。２五のマスは桂の跳ね場所として残します。",
+            "en": "△3四歩 is met by ▲2六歩. The second-file pawn goes no further here: 2e is kept as the landing square for the knight."
+          },
+          "marks": {
+            "last": "2f",
+            "boxes": [
+              "2e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4c4d",
+            "3i4h",
+            "8b4b",
+            "5i6h",
+            "2b3c",
+            "6h7h"
+          ],
+          "text": {
+            "ja": "△４四歩に▲４八銀、△４二飛に▲６八玉、△３三角に▲７八玉。四間飛車に構えられたところから、玉を左へ寄せます。",
+            "en": "△4四歩, ▲4八銀; △4二飛, ▲6八玉; △3三角, ▲7八玉. After Gote ranges the rook to the fourth file, Sente moves the king left."
+          },
+          "marks": {
+            "last": "7h",
+            "boxes": [
+              "7h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3a3b",
+            "4g4f"
+          ],
+          "text": {
+            "ja": "△３二銀に▲４六歩。ここからは５筋の歩を突かず、銀を４八から４七、さらに５六へ運びます。",
+            "en": "△3二銀 is met by ▲4六歩. The fifth-file pawn stays at home this time; the silver travels 4h, 4g, 5f."
+          },
+          "marks": {
+            "last": "4f",
+            "boxes": [
+              "4f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5a6b",
+            "4h4g",
+            "6b7b",
+            "4g5f"
+          ],
+          "text": {
+            "ja": "△６二玉に▲４七銀、△７二玉に▲５六銀。銀が５六に着き、４五の点をにらみます。",
+            "en": "△6二玉, ▲4七銀; △7二玉, ▲5六銀. The silver reaches 5f and eyes the square 4e."
+          },
+          "marks": {
+            "last": "5f",
+            "arrows": [
+              "5f4e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7b8b",
+            "2h4h",
+            "7a7b",
+            "3g3f",
+            "3b4c",
+            "2i3g"
+          ],
+          "text": {
+            "ja": "△８二玉に▲４八飛。飛車を４筋へ回します。続いて△７二銀に▲３六歩、△４三銀に▲３七桂。桂が２五を目指す形になります。",
+            "en": "△8二玉 is met by ▲4八飛, swinging the rook to the fourth file. After △7二銀, ▲3六歩 and △4三銀, ▲3七桂 puts the knight where it can head for 2e."
+          },
+          "marks": {
+            "last": "3g",
+            "arrows": [
+              "3g2e"
+            ],
+            "boxes": [
+              "4h",
+              "3g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4c5d",
+            "7i6h",
+            "6c6d",
+            "6i7i",
+            "4a5b",
+            "4i5i"
+          ],
+          "text": {
+            "ja": "△５四銀に▲６八銀、△６四歩に▲７九金、△５二金左に▲５九金。elmo囲いを仕上げます。",
+            "en": "△5四銀, ▲6八銀; △6四歩, ▲7九金; △5二金左, ▲5九金. The Elmo Castle is finished."
+          },
+          "marks": {
+            "last": "5i",
+            "boxes": [
+              "7h",
+              "6h",
+              "7i",
+              "5i"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "1g1f",
+            "1a1b",
+            "9g9f",
+            "5b6c"
+          ],
+          "text": {
+            "ja": "△９四歩に▲１六歩、△１二香に▲９六歩、最後に△６三金。両端の歩が動いて、準備が終わりました。４五の一点に飛・銀・桂・歩の四枚が向いた、右四間飛車の基本の姿です。",
+            "en": "△9四歩 is met by ▲1六歩, △1二香 by ▲9六歩, then △6三金. The edge pawns are exchanged and the attack is ready: rook, silver, knight and pawn all point at 4e, the basic position of Right Fourth File Rook."
+          },
+          "marks": {
+            "last": "6c",
+            "arrows": [
+              "5f4e",
+              "3g4e"
+            ],
+            "boxes": [
+              "4e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3g2e",
+            "3c2d",
+            "4f4e"
+          ],
+          "text": {
+            "ja": "▲２五桂と跳ねて、後手の角に当てます。△２四角と逃げたら、▲４五歩と突き出して攻めを続けます。この先には、▲１一角成と馬を作る手や、銀を交換して▲３三銀と打ち込む攻めがあります。",
+            "en": "▲2五桂 attacks the bishop. If it runs with △2四角, Sente continues with ▲4五歩. Ahead are ▲1一角成 making a promoted bishop, and trading silvers to drop ▲3三銀."
+          },
+          "marks": {
+            "last": "4e",
+            "arrows": [
+              "2e3c"
+            ],
+            "boxes": [
+              "2e"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "覚えることは三点。囲いは▲６八銀から▲７九金、さらに▲５九金で堅くする。使う相手は、四間や三間など飛車を振った側。仕掛けは、斜め棒銀・４五歩早仕掛け・右四間飛車のどれかを選ぶ。",
+            "en": "Three points to remember. Build the castle with ▲6八銀 and ▲7九金, and firm it up with ▲5九金. Use it against an opponent who has ranged the rook, such as Fourth or Third File Rook. For the attack, choose one of diagonal Bougin, the early ▲4五歩 push or Right Fourth File Rook."
+          }
+        }
       ]
     }
   ]

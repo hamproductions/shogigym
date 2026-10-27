@@ -1,124 +1,598 @@
 {
   "id": "legspe",
   "order": 1280,
-  "path": ["戦法・定跡", "振り飛車"],
-  "title": {"ja": "レグスぺの囲いと仕掛けを別々に数える", "en": "Separate Legspe shelter from attack timing"},
+  "path": [
+    "戦法・定跡",
+    "振り飛車"
+  ],
+  "title": {
+    "ja": "レグスぺ：角交換四間飛車から穴熊へ、向かい飛車で仕掛ける",
+    "en": "Legspe: from Bishop Exchange Fourth File Rook to Anaguma, then attack with an opposing rook"
+  },
   "intro": {
-    "ja": "レグスぺは角交換四間飛車から右の穴熊を目指す構想です。１九玉・１八香・２八銀と金の連結ができる前にも、相手は８筋の歩を動かせます。囲いの完成度だけで飛車交換を選ばず、飛車が出る升と持ち角の斜線を毎回調べます。",
-    "en": "Legspe builds a right-side Anaguma from Bishop Exchange Fourth File Rook. Gote can start eighth-file pawn contact before Sente has K1i, L1h, S2h and connected golds. Judge each rook decision by the actual landing squares and bishop-drop lines, not by the castle's name alone."
+    "ja": "四間飛車で角を換えたあと、玉を穴熊へ潜らせる指し方です。守りが整うまで手を出さず、完成したら飛車を８筋へ回して攻め込みます。駒組み、攻めの手順、角の打ち込みへの対処を順に確かめます。",
+    "en": "A plan that starts as Bishop Exchange Fourth File Rook and builds an Anaguma. Gote first finishes a solid castle, then the rook swings to the opposing-rook file for an attack down the eighth file. Learn the setup, the standard attack, and how to handle a bishop dropped into your camp."
   },
   "check": {
     "question": {
-      "ja": "先手８八飛の横に７七歩があるとき、先手が▲７六歩と進めた後、後手の△５五角は８八飛まで斜線が通りますか？",
-      "en": "Sente has R8h and P7g. If Sente advances P7f, does Gote's B*5e then have a clear diagonal to R8h?"
+      "ja": "振り飛車側が▲８六歩と仕掛けた直後、相手が自陣の７九に角を打ちました。この角の狙いと、受ける手を答えてください。",
+      "en": "After ▲8六歩, the opponent drops △7九角. What does it threaten, and how does the Ranging Rook side respond?"
     },
     "answer": {
-      "ja": "６六と７七が空なら通ります。△５五角から６六・７七・８八が一直線になり、先手飛車が狙われます。７七歩が残れば角の線は歩で止まるため、同じ角打ちでも狙う駒が変わります。",
-      "en": "Yes, if 6f and 7g are empty. The diagonal is 5e–6f–7g–8h. With P7g still in place, that pawn blocks the bishop before it reaches the rook."
+      "ja": "飛車に当たりながら、５七で成る狙いもある角打ちです。両方を一度にかわせるのは▲５八飛だけです。のちに飛車を引けば角は取れますが、相手の８筋からの攻めも始まり、簡単な将棋ではありません。",
+      "en": "It attacks the rook and also threatens △5七角成. ▲5八飛 is the only move that meets both. Retreating the rook to the back rank later wins the bishop, but the opponent attacks down the eighth file, so the game stays difficult."
     }
   },
   "references": [
-    {"title": "レグスぺ", "url": "https://shogi-joutatsu.com/archives/7700", "license": "All rights reserved", "adapted": false}
+    {
+      "title": "レグスぺ",
+      "url": "https://shogi-joutatsu.com/archives/7700",
+      "license": "All rights reserved",
+      "adapted": false
+    },
+    {
+      "title": "将棋の技図鑑 (yuki-keio/shogi)",
+      "url": "https://github.com/yuki-keio/shogi",
+      "license": "GPL-3.0-only",
+      "adapted": false
+    }
   ],
   "chapters": [
     {
-      "title": {"ja": "銀と玉が隅に収まる二手", "en": "Place the silver and king behind the lance"},
+      "title": {
+        "ja": "角交換四間飛車から穴熊に組む",
+        "en": "From Bishop Exchange Fourth File Rook to the Anaguma"
+      },
       "side": "sente",
-      "kind": "position",
-      "start": "9/1r3k3/4p4/1p7/9/9/1P7/3R1GG1L/6SK1 b Bb 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "先手香１八が上がり、玉は２九、銀は３九、金は３八・４八です。ここではまだ玉が１九にも銀が２八にもいないので、穴熊の完成形とは呼びません。後手８四歩が進めば、駒組みを続ける余裕も変わります。後手５三歩は６四から４二玉への角筋を遮っています。",
-            "en": "Sente's L1h has lifted, K2i and S3i remain outside their final squares, and the golds stand on 3h and 4h. This is an intermediate shelter. Gote's P8d can advance while Sente spends moves completing it. Gote’s pawn on 5c blocks the bishop diagonal from 6d to its king on 4b."
-          },
-          "marks": {"boxes": ["1h", "2i", "3i", "3h", "4h", "8d", "5c", "6d", "4b"]}
+            "ja": "レグスぺは、先手が使う戦法です。最初に角を交換して四間飛車に構え、玉を穴熊へ潜らせてから、飛車を８筋へ回して攻めます。守りを完全に固めてから戦うので、狙いが分かりやすいのが魅力です。この章では初手から穴熊の完成まで、一手ずつ組みます。",
+            "en": "Legspe is a Sente strategy. Sente trades bishops, ranges the rook to the fourth file, burrows the king into an Anaguma, and only then swings the rook to the eighth file to attack. Because the defence is finished before the fight, the plan is easy to follow. This chapter builds it one move at a time, from move one to the finished Anaguma."
+          }
         },
         {
-          "moves": ["3i2h", "8d8e", "2i1i"],
+          "moves": [
+            "7g7f"
+          ],
           "text": {
-            "ja": "▲２八銀、△８五歩、▲１九玉の例で、先手玉は香の後ろに入り、銀２八と金３八・４八が連なりました。一方、後手歩も８五へ進んでいます。玉が収まった手数と８筋の接近を一緒に数えます。",
-            "en": "In the sample S2h, P8e, K1i, the king tucks behind the lance with S2h and golds on 3h and 4h connected nearby. Gote's pawn has also advanced to 8e. Count both the shelter moves and the approaching contact."
+            "ja": "▲７六歩。角の前の歩を突いて、角道を開けます。この戦法は最初に角を交換するので、まず角の通り道を作ります。",
+            "en": "▲7六歩 opens the bishop diagonal by moving the pawn in front of it. Legspe starts with a bishop trade, so the bishop needs its path first."
           },
-          "marks": {"last": "1i", "boxes": ["8e", "1h", "2h", "3h"]}
+          "marks": {
+            "last": "7f",
+            "boxes": [
+              "8h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3c3d",
+            "8h2b+"
+          ],
+          "text": {
+            "ja": "後手は△３四歩と、自分の角道を開けました。そこで▲２二角成と、こちらの角で相手の角を取ります。成って馬になりました。角交換の第一歩です。",
+            "en": "Gote opens its own bishop line with △3四歩. Sente captures the bishop with ▲2二角成, promoting on the way. This is the first half of the bishop trade."
+          },
+          "marks": {
+            "last": "2b",
+            "boxes": [
+              "2b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3a2b",
+            "7i8h"
+          ],
+          "text": {
+            "ja": "後手は△同銀と、銀で馬を取り返しました。これで角は両者とも持ち駒です。こちらは▲８八銀。７九の銀を上げて、相手が角を打ち込んでくる隙を減らし、次に７七へ進める準備をします。",
+            "en": "Gote recaptures the promoted bishop with the silver, △同銀, so both sides now hold a bishop in hand. Sente plays ▲8八銀. Lifting the silver from 7i reduces the places where a dropped bishop could hurt, and prepares to bring it to 7g next."
+          },
+          "marks": {
+            "last": "8h",
+            "boxes": [
+              "8h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8c8d",
+            "2h6h"
+          ],
+          "text": {
+            "ja": "後手は△８四歩と、飛車先の歩を突きました。こちらは▲６八飛。飛車を左から数えて４番目の筋へ回します。これが四間飛車の形です。",
+            "en": "Gote pushes the rook pawn with △8四歩. Sente swings the rook to the fourth file from the left with ▲6八飛. This is the Fourth File Rook shape."
+          },
+          "marks": {
+            "last": "6h",
+            "boxes": [
+              "6h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8d8e",
+            "8h7g"
+          ],
+          "text": {
+            "ja": "後手は△８五歩と、さらに歩を伸ばしました。こちらは▲７七銀。銀を７七へ進めて、中央から左側を守ります。角を持ち合っているので、盤の左側に隙を作らないことが大切です。",
+            "en": "Gote extends with △8五歩. Sente plays ▲7七銀, putting the silver on 7g to guard the centre and the left side. Since both players hold a bishop, it matters not to leave gaps on that side."
+          },
+          "marks": {
+            "last": "7g",
+            "boxes": [
+              "7g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5a4b",
+            "5i4h"
+          ],
+          "text": {
+            "ja": "後手は△４二玉と、玉を動かしました。こちらは▲４八玉。玉を右へ動かし始めます。飛車を左に振ったので、玉は反対の右側へ囲うのが振り飛車の基本です。",
+            "en": "Gote moves its king with △4二玉. Sente starts walking the king to the right with ▲4八玉. The rook went left, so the king castles on the opposite side, which is the basic idea of Ranging Rook."
+          },
+          "marks": {
+            "last": "4h"
+          }
+        },
+        {
+          "moves": [
+            "2b3c",
+            "4h3h"
+          ],
+          "text": {
+            "ja": "後手は△３三銀と、銀を上げました。こちらは▲３八玉と、玉をもう一つ右へ進めます。これが角交換四間飛車の基本の形で、ここから穴熊へ組んでいきます。",
+            "en": "Gote raises a silver with △3三銀. Sente moves the king one more step with ▲3八玉. This is the basic Bishop Exchange Fourth File Rook position, and the Anaguma is built from here."
+          },
+          "marks": {
+            "last": "3h",
+            "boxes": [
+              "6h",
+              "7g",
+              "3h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7a6b",
+            "3h2h"
+          ],
+          "text": {
+            "ja": "後手は△６二銀と構えました。こちらは▲２八玉。玉をさらに右へ寄せて、隅の１九を目指します。",
+            "en": "Gote sets up with △6二銀. Sente plays ▲2八玉, moving the king closer to the corner square 1i."
+          },
+          "marks": {
+            "last": "2h"
+          }
+        },
+        {
+          "moves": [
+            "4b3b",
+            "1i1h"
+          ],
+          "text": {
+            "ja": "後手は△３二玉と動きました。こちらは▲１八香。隅にいる香を一つ上げて、玉が１九へ入るための場所を空けます。穴熊はこの香上げから始まります。",
+            "en": "Gote moves with △3二玉. Sente plays ▲1八香, lifting the corner lance one square to make room for the king to enter 1i. The Anaguma begins with this lance move."
+          },
+          "marks": {
+            "last": "1h",
+            "boxes": [
+              "1i"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6a5b",
+            "2h1i"
+          ],
+          "text": {
+            "ja": "後手は△５二金と、囲いを整えました。こちらは▲１九玉。玉が隅に潜りました。これが穴熊で、玉が盤の端の隅にいるので、飛車や角の攻めがほとんど届きません。",
+            "en": "Gote tidies its castle with △5二金. Sente plays ▲1九玉, burrowing the king into the corner. That is the Anaguma: the king sits in the corner, where rook and bishop attacks hardly reach."
+          },
+          "marks": {
+            "last": "1i",
+            "boxes": [
+              "1i"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5b4b",
+            "3i2h"
+          ],
+          "text": {
+            "ja": "後手は△４二金と動きました。こちらは▲２八銀。３九の銀を２八へ上げて、玉の斜め前をふさぎます。穴熊は、玉の周りを金銀で固めて完成します。",
+            "en": "Gote plays △4二金. Sente answers with ▲2八銀, moving the silver from 3i up to 2h to cover the diagonal in front of the king. An Anaguma is finished by surrounding the king with gold and silver."
+          },
+          "marks": {
+            "last": "2h"
+          }
+        },
+        {
+          "moves": [
+            "6c6d",
+            "6i5i"
+          ],
+          "text": {
+            "ja": "後手は△６四歩と突きました。こちらは▲５九金。６九の金を右へずらして、囲いへ近づけていきます。",
+            "en": "Gote pushes △6四歩. Sente plays ▲5九金, sliding the gold from 6i to the right, closer to the castle."
+          },
+          "marks": {
+            "last": "5i"
+          }
+        },
+        {
+          "moves": [
+            "6b6c",
+            "4i3i"
+          ],
+          "text": {
+            "ja": "後手は△６三銀と上がりました。こちらは▲３九金。４九の金を、玉の斜め後ろへ寄せます。",
+            "en": "Gote brings the silver to 6c with △6三銀. Sente plays ▲3九金, moving the gold from 4i beside the king."
+          },
+          "marks": {
+            "last": "3i"
+          }
+        },
+        {
+          "moves": [
+            "3b2b",
+            "5i4h"
+          ],
+          "text": {
+            "ja": "後手は△２二玉と、玉を動かしました。こちらは▲４八金。５九の金を斜めに上げて、守りの厚みを足します。",
+            "en": "Gote plays △2二玉. Sente adds thickness with ▲4八金, stepping the gold from 5i diagonally up."
+          },
+          "marks": {
+            "last": "4h"
+          }
+        },
+        {
+          "moves": [
+            "4a3b",
+            "4h3h"
+          ],
+          "text": {
+            "ja": "後手は△３二金と上がりました。こちらは▲３八金。金を３八へ寄せて、穴熊の完成です。玉は１九、２八の銀、３九と３八の金で囲まれています。攻めるのはこのあとです。",
+            "en": "Gote plays △3二金. Sente finishes the Anaguma with ▲3八金: the king on 1i is wrapped by the silver on 2h and golds on 3i and 3h. The attack comes only after this."
+          },
+          "marks": {
+            "last": "3h",
+            "boxes": [
+              "1i",
+              "2h",
+              "3h",
+              "3i"
+            ]
+          }
         },
         {
           "text": {
-            "ja": "角は双方の持ち駒です。穴熊の形でも、飛車６八から攻め駒を移す前に、自陣の角打ち升と８筋の歩を調べます。囲いができたことは次の攻めを強制しません。",
-            "en": "Both sides still hold bishops. Even with the Anaguma core in place, inspect bishop-drop squares and the eighth-file pawn before rerouting R6h. Completing the shelter does not force an immediate attack."
+            "ja": "覚える点は四つです。最初に角を交換して、飛車は６八、銀は７七に構えること。玉は３八、２八、１九と動かし、香を１八へ上げて場所を空けること。銀は２八、金は３九と３八と４八に寄せること。守りが完成するまで攻めないこと。",
+            "en": "Four points to remember. Trade bishops first, then place the rook on 6h and the silver on 7g. Walk the king through 3h and 2h to 1i, lifting the lance to 1h to make room. Put the silver on 2h and the golds on 3i, 3h and 4h. Do not attack until the castle is complete."
+          },
+          "marks": {
+            "boxes": [
+              "6h",
+              "7g",
+              "1i"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "長所は、玉が隅にいて、ほとんど攻められないことです。守りが固いので、あとは落ち着いて攻めを組み立てられます。弱点は、組むのに手数がかかることと、駒が右側へ集まるので左側が薄くなることです。次の章からの攻めでは、その薄い側を狙って角を打たれる変化にも気をつけます。",
+            "en": "The strengths: the king sits in the corner and is hardly ever attacked, so Sente can build its attack calmly. The weaknesses: the castle takes many moves to build, and with the pieces gathered on the right, the left side is thin. The attack in the next chapters has to watch for a bishop dropped on that thin side."
+          },
+          "marks": {
+            "boxes": [
+              "7i",
+              "6i"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "向かい飛車に振り直して８筋から攻める",
+        "en": "Swing to the opposing rook and attack on the eighth file"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "8h2b+",
+            "3a2b",
+            "7i8h",
+            "8c8d",
+            "2h6h",
+            "8d8e",
+            "8h7g",
+            "5a4b",
+            "5i4h",
+            "2b3c",
+            "4h3h",
+            "7a6b",
+            "3h2h",
+            "4b3b",
+            "1i1h",
+            "6a5b",
+            "2h1i",
+            "5b4b",
+            "3i2h",
+            "6c6d",
+            "6i5i",
+            "6b6c",
+            "4i3i",
+            "3b2b",
+            "5i4h",
+            "4a3b",
+            "4h3h"
+          ],
+          "text": {
+            "ja": "穴熊が完成した局面です。ここから後手が△４四歩と角道を開けたときの、攻め方を見ていきます。",
+            "en": "The Anaguma is complete. From here we see how Sente attacks once Gote has opened the bishop line with △4四歩."
+          },
+          "marks": {
+            "last": "3h",
+            "boxes": [
+              "1i"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4c4d",
+            "6h8h"
+          ],
+          "text": {
+            "ja": "△４四歩に、▲８八飛と向かい飛車に振り直します。これがレグスぺの攻めの出発点です。穴熊は右側に駒が寄っているので、飛車を左へ回して攻めの形を作ります。",
+            "en": "Against △4四歩, Sente swings the rook with ▲8八飛 to the opposing-rook file, the starting point of the Legspe attack. The castle sits on the right, so the rook goes to the left to create the attacking force."
+          },
+          "marks": {
+            "last": "8h",
+            "boxes": [
+              "8h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6c5d",
+            "8g8f"
+          ],
+          "text": {
+            "ja": "後手が△５四銀と構えたら、▲８六歩と突きます。８筋から仕掛けるのが基本の攻めです。",
+            "en": "When Gote plays △5四銀, Sente pushes ▲8六歩. Attacking down the eighth file is the standard plan."
+          },
+          "marks": {
+            "last": "8f",
+            "arrows": [
+              "8f8e"
+            ],
+            "boxes": [
+              "8f",
+              "8e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8e8f",
+            "8h8f"
+          ],
+          "text": {
+            "ja": "８六の歩を△同歩と取られたら、▲同飛と飛車どうしを向かい合わせ、交換を迫ります。銀で取り返す手もあり、そちらは逆棒銀という別の攻めになります。",
+            "en": "If Gote takes with △8六歩, Sente recaptures with ▲同飛, confronting the rook and asking for a rook trade. Recapturing with the silver instead leads to the separate Reverse Rook-Silver attack."
+          },
+          "marks": {
+            "last": "8f",
+            "arrows": [
+              "8f8b"
+            ],
+            "boxes": [
+              "8f",
+              "8b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8b8f",
+            "7g8f",
+            "R*8h",
+            "R*8b"
+          ],
+          "text": {
+            "ja": "後手が受けて立てば、△８六飛、▲同銀、△８八飛、▲８二飛と進み、双方が持ち駒の飛車を相手の陣に据えます。囲いの堅さを頼りにした攻め合いで、勝負は終盤に入ります。",
+            "en": "If Gote accepts the trade, play goes △8六飛, ▲同銀, △8八飛, ▲8二飛, and each side drops a rook into the other camp. The solid Anaguma lets Sente race in the fierce fight that follows."
+          },
+          "marks": {
+            "last": "8b",
+            "boxes": [
+              "8b",
+              "8h"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "まとめます。穴熊を固めたら、▲８八飛と向かい飛車に振り、▲８六歩から飛車交換を狙います。後手が飛車交換に応じなければ、次の変化へ進みます。",
+            "en": "To summarise: once the Anaguma is solid, swing ▲8八飛 and aim for a rook trade with ▲8六歩. If Gote declines the trade, the next variation applies."
           }
         }
       ],
       "variations": [
         {
-          "from": 0,
-          "moves": ["B*6d", "8b6b"],
+          "from": 3,
+          "moves": [
+            "P*8e",
+            "8f8h"
+          ],
           "text": {
-            "ja": "角６四は８二飛を狙っても、５三歩で線が止まるため王手ではありません。後手は△６二飛とかわして角を狙えます。玉を囲う手と比較する際、存在しない王手飛車取りを根拠にしないようにします。",
-            "en": "B*6d attacks R8b but is not check because P5c blocks the line. Gote can move R6b and attack the bishop. Do not compare castling with a checking rook fork that this blocker prevents."
+            "ja": "後手が飛車交換を避けて△８五歩と歩を打ったときは、▲８八飛と引きます。",
+            "en": "If Gote avoids the rook trade with △8五歩, Sente retreats ▲8八飛."
+          },
+          "steps": [
+            {
+              "moves": [
+                "1c1d",
+                "7f7e",
+                "1d1e",
+                "7g7f"
+              ],
+              "text": {
+                "ja": "△１四歩、▲７五歩、△１五歩、▲７六銀と、銀を進出させて８五の歩を狙います。こうなれば振り飛車側が指しやすい形です。",
+                "en": "After △1四歩, ▲7五歩, △1五歩, ▲7六銀, the silver comes forward and eyes the pawn on 8五. This is a comfortable position for the Ranging Rook side."
+              },
+              "marks": {
+                "last": "7f",
+                "boxes": [
+                  "7f",
+                  "8e"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "自陣に角を打たれたときの対応",
+        "en": "When a bishop is dropped into your camp"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "8h2b+",
+            "3a2b",
+            "7i8h",
+            "8c8d",
+            "2h6h",
+            "8d8e",
+            "8h7g",
+            "5a4b",
+            "5i4h",
+            "2b3c",
+            "4h3h",
+            "7a6b",
+            "3h2h",
+            "4b3b",
+            "1i1h",
+            "6a5b",
+            "2h1i",
+            "5b4b",
+            "3i2h",
+            "6c6d",
+            "6i5i",
+            "6b6c",
+            "4i3i",
+            "3b2b",
+            "5i4h",
+            "4a3b",
+            "4h3h",
+            "4c4d",
+            "6h8h",
+            "6c5d",
+            "8g8f"
+          ],
+          "text": {
+            "ja": "▲８六歩と仕掛けた局面です。ここで後手が飛車交換をせず、角を打って反撃してくる変化を見ます。",
+            "en": "This is the position after the attack ▲8六歩. Now we look at Gote counterattacking with a bishop drop instead of trading rooks."
+          },
+          "marks": {
+            "last": "8f",
+            "boxes": [
+              "8f"
+            ]
           }
-        }
-      ]
-    },
-    {
-      "title": {"ja": "囲いの途中で８筋が開いたら", "en": "An eighth-file contact before castling is finished"},
-      "side": "sente",
-      "kind": "position",
-      "start": "9/1r2gk3/3pp4/9/1p7/9/1P7/2SR1GG1L/6SK1 w Bb 1",
-      "steps": [
-        {
-          "text": {
-            "ja": "後手歩は８五まで来ましたが、先手玉はまだ２九、銀は３九です。後手が８筋をさらに進めた場合、先手は玉を潜らせる以外の応手も必要になります。８筋の取り合いを確かめます。後手５三歩は６四から４二玉への角筋を遮っています。",
-            "en": "Gote's pawn has reached 8e while Sente is still at K2i and S3i. A further eighth-file push may require a response before the king can tuck in. Read the pawn exchange first. Gote’s pawn on 5c blocks the bishop diagonal from 6d to its king on 4b."
-          },
-          "marks": {"boxes": ["8e", "8g", "8b", "2i", "3i", "5c", "6d", "4b"]}
         },
         {
-          "moves": ["8e8f", "8g8f", "8b8f"],
+          "moves": [
+            "B*7i"
+          ],
           "text": {
-            "ja": "△８六歩、▲同歩、△同飛の例では、先手と後手が歩を一枚ずつ取り、後手飛車が８六へ出ます。７八銀は８七と８九に利いていますが、８八には先手の駒が利いていません。放っておくと△８八飛成で竜を作られます。",
-            "en": "In the sample P8f, Px8f, Rx8f, each side takes a pawn and Gote's rook arrives on 8f. S7h covers 8g and 8i, but no Sente piece covers 8h. If Sente ignores the rook, Gote promotes with R8h+."
+            "ja": "△７九角。飛車取りと△５七角成の両方を狙う手です。穴熊は駒が片側に寄るので、左側に角を打つ隙ができがちです。",
+            "en": "△7九角 attacks the rook and threatens △5七角成 at once. The Anaguma packs its pieces on one side, so the other side tends to leave room for a bishop drop."
           },
-          "marks": {"last": "8f", "boxes": ["7h", "8g", "8h"]}
+          "marks": {
+            "last": "7i",
+            "arrows": [
+              "7i8h",
+              "7i5g"
+            ],
+            "boxes": [
+              "7i",
+              "8h",
+              "5g"
+            ]
+          }
         },
         {
-          "moves": ["P*8g", "8f2f", "3i2h"],
+          "moves": [
+            "8h5h",
+            "8e8f"
+          ],
           "text": {
-            "ja": "▲８七歩と取った歩を打てば、７八銀に支えられた歩が８筋を止めます。ここでは後手が△２六飛と横へ回り、２九玉に王手をかける例です。▲２八銀の合駒は囲いの一手も兼ねますが、玉はまだ１九に入っていません。後手飛車が８筋から先手玉の筋へ移れることも数えます。",
-            "en": "Dropping the captured pawn with P*8g closes the eighth file, and S7h supports that pawn. In this sample Gote swings the rook sideways to R2f, checking K2i. Blocking with S2h also advances the castle, but the king has not yet reached 1i. Count the fact that Gote's rook can switch from the eighth file to the king's file."
+            "ja": "▲５八飛が両方を受ける唯一の手です。ただ飛車が８筋から離れたため、後手は△８六歩と歩を取り込んできます。",
+            "en": "▲5八飛 is the only move that meets both threats. But because the rook has left the eighth file, Gote takes in the pawn with △8六歩."
           },
-          "marks": {"last": "2h", "boxes": ["8g", "2f", "2i"]}
-        }
-      ]
-    },
-    {
-      "title": {"ja": "７七歩を動かすと飛車の角筋が開く", "en": "Moving P7g opens a bishop line to the rook"},
-      "side": "sente",
-      "kind": "position",
-      "start": "9/1r3k3/4p4/1p7/9/9/2P3P2/1R3GGSL/8K b Bb 1",
-      "steps": [
-        {
-          "text": {
-            "ja": "今度は先手玉１九・香１八・銀２八・金３八と４八がそろい、飛車は８八です。７七歩がある間、後手５五角から６六・７七・８八の斜線は歩で止まります。８筋へ飛車を回した後ほど、この一枚の位置が重要です。後手５三歩は６四から４二玉への角筋を遮っています。",
-            "en": "Sente now has K1i, L1h, S2h, golds on 3h and 4h, and R8h. While P7g remains, a Gote bishop on 5e would meet that pawn along 6f–7g before reaching the rook. This pawn matters after the rook transfer. Gote’s pawn on 5c blocks the bishop diagonal from 6d to its king on 4b."
-          },
-          "marks": {"arrows": ["5e8h"], "boxes": ["7g", "8h", "5c", "6d", "4b"]}
+          "marks": {
+            "last": "8f",
+            "boxes": [
+              "5h",
+              "8f"
+            ]
+          }
         },
         {
-          "moves": ["7g7f", "B*5e"],
+          "moves": [
+            "5h5i",
+            "8f8g+",
+            "5i7i",
+            "8g7g"
+          ],
           "text": {
-            "ja": "先手が▲７六歩と進めた後の△５五角は、６六・７七が空いたため８八飛を狙います。角は３七歩にも当たりますが、３八金が３七を守っています。飛車取りの方を先に処理します。",
-            "en": "After P7f, B*5e has a clear diagonal through 6f and 7g to R8h. It also eyes P3g through 4f, but G3h protects that pawn. Deal with the rook attack first."
+            "ja": "▲５九飛と引けば７九の角を取れます。ただし後手も△８七歩成、▲７九飛、△７七とと攻めてきます。駒得はしていても飛車をさばけていない、難しい局面です。",
+            "en": "Retreating ▲5九飛 wins the bishop on 7九. But Gote goes on with △8七歩成, ▲7九飛 and △7七と. Sente is ahead in material, yet the rook is not yet free, so the position is hard."
           },
-          "marks": {"last": "5e", "arrows": ["5e8h"], "boxes": ["3g"]}
+          "marks": {
+            "last": "7g",
+            "boxes": [
+              "7g",
+              "7i"
+            ]
+          }
         },
         {
-          "moves": ["8h8f"],
           "text": {
-            "ja": "▲８六飛は角の斜線８八を外れる一例です。後手角を打たせた代わりに先手飛車も前へ出ましたが、後手８二飛と８四歩があるので、８筋でただ得とは言えません。７七歩を残す選択と比べます。",
-            "en": "R8f is one way to leave the diagonal at 8h. Gote has committed the bishop and Sente has advanced the rook, but Gote still has R8b and P8d. Compare this with keeping P7g in place rather than claiming a free gain."
-          },
-          "marks": {"last": "8f", "boxes": ["8d", "8b", "8f"]}
+            "ja": "まとめます。▲８六歩に△７九角と打たれたら、▲５八飛が唯一の受けです。角を取れても、飛車をどう活用するかが勝負になります。",
+            "en": "To summarise: if △7九角 meets ▲8六歩, ▲5八飛 is the only defence. Even after winning the bishop, how well the rook is used decides the game."
+          }
         }
       ]
     }

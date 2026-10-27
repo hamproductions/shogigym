@@ -1,23 +1,26 @@
 {
   "id": "ishida-honkumi",
   "order": 1010,
-  "path": ["戦法・定跡", "三間飛車"],
+  "path": [
+    "戦法・定跡",
+    "石田流"
+  ],
   "title": {
-    "ja": "石田流本組みの連携",
-    "en": "Coordinating the Ishida main formation"
+    "ja": "石田流本組み：囲いから桂跳ね、角を端へ",
+    "en": "Ishida Honkumi: castle, knight jump, bishop to the edge"
   },
   "intro": {
-    "ja": "石田流本組みでは、７六の浮き飛車だけでなく、７七桂・６七銀・端に出た角が互いの弱点を補います。形を完成させることより、相手がどの筋を動かしたかを見て次の一手を選ぶことが大切です。この講座では７筋の取り合い、角の斜線、桂の進出と玉の守りを局面ごとに確かめます。",
-    "en": "In the Ishida main formation, the floating rook on 7f works with the knight on 7g, silver on 6g and edge bishop. The point is to choose the next move according to the file Gote has changed, rather than complete a shape at any cost. These positions examine a seventh-file exchange, the bishop's diagonal, knight timing and king cover."
+    "ja": "石田流本組みは、浮き飛車と桂・角・銀の連係で７筋から攻める、石田流の完成形です。基本形から美濃囲いを組み、桂を跳ねてから銀と角を動かす順番を、浮き駒を作らないという視点で確かめます。順番を誤ったときにどう崩されるかも見ます。",
+    "en": "Ishida Honkumi is the finished shape of Ishida-style: a floating rook working with the knight, bishop and silver to attack on the seventh file. Build the Mino from the basic shape, then jump the knight before moving the silver and bishop, always leaving no loose pieces. Also see how a wrong move order gets punished."
   },
   "check": {
     "question": {
-      "ja": "９七角の斜線上に自分の７五歩がいるとき、角は６四の駒を狙えますか？",
-      "en": "Can a bishop on 9g attack a piece on 6d while your own pawn remains on 7e?"
+      "ja": "石田流本組みで、銀を動かす前に桂を７七へ跳ねるのはなぜですか？",
+      "en": "Why jump the knight to 7g before moving the silver when building the Ishida Honkumi?"
     },
     "answer": {
-      "ja": "まだ狙えません。９七角から８六、７五、６四へ続く斜線は７五の自分の歩で止まります。歩が７四へ進んだ後、８六も空いていれば６四まで通ります。",
-      "en": "Not yet. The diagonal from 9g through 8f and 7e to 6d is blocked by your pawn on 7e. Once that pawn moves to 7d, the bishop sees 6d if 8f is also clear."
+      "ja": "先に銀を動かすと、△６五歩▲同歩△８八角成と角を交換され、７九の銀がいないので取り返せず、角を素抜かれるからです。",
+      "en": "If the silver moves first, △6五歩 ▲同歩 △8八角成 trades bishops, and with the silver gone from 7i Sente cannot recapture and loses the bishop."
     }
   },
   "references": [
@@ -26,101 +29,308 @@
       "url": "https://shogi-joutatsu.com/archives/6436",
       "license": "All rights reserved",
       "adapted": false
+    },
+    {
+      "title": "将棋の技図鑑 (yuki-keio/shogi)",
+      "url": "https://github.com/yuki-keio/shogi",
+      "license": "GPL-3.0-only",
+      "adapted": false
     }
   ],
   "chapters": [
     {
-      "title": { "ja": "飛車の隣に銀を利かせる", "en": "Give the floating rook a silver defender" },
+      "title": {
+        "ja": "まず玉を美濃囲いに固める",
+        "en": "Fortify the king in a Mino first"
+      },
       "side": "sente",
-      "kind": "position",
-      "start": "5k3/1r5b1/2ps5/3p5/1pP6/P1RP5/BPN6/3SG1SK1/5G3 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
-          "text": { "ja": "先手は７六飛・７七桂・９七角を置いています。６八銀はまだ７六の飛車を守っていません。玉は２八で銀と金に近く、ここでは攻め駒を一枚つなぐ手を考えます。", "en": "Sente has a rook on 7f, knight on 7g and bishop on 9g. The silver on 6h does not yet defend the rook on 7f. With the king on 2h near its silver and golds, Sente can connect an attacking piece." },
-          "marks": { "arrows": ["6h6g"], "boxes": ["7f"] }
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "7f7e",
+            "5a4b",
+            "6g6f",
+            "8c8d",
+            "2h7h",
+            "8d8e",
+            "7h7f"
+          ],
+          "text": {
+            "ja": "石田流本組みは、飛車を６六まで浮かせ、桂と角を使って７筋と６筋を攻める形です。本組みに組む前に、まず玉の守りを固めます。この章では、出発点の石田流の基本形から美濃囲いを組み上げます。",
+            "en": "Ishida Honkumi floats the rook and uses the knight and bishop to attack on the seventh and sixth files. Before building it, Sente secures the king. This chapter starts from the basic Ishida shape and builds a Mino castle."
+          },
+          "marks": {
+            "last": "7f",
+            "boxes": [
+              "7f",
+              "6f"
+            ]
+          }
         },
         {
-          "moves": ["6h6g"],
-          "text": { "ja": "▲６七銀で銀が７六の飛車に利きます。桂は７七から６五と８五へ跳べますが、どちらの地点も相手の駒を確認してから使います。銀と桂の配置は進出の準備であり、攻めの成功を保証しません。", "en": "S6g now defends the rook on 7f. The knight on 7g can jump to 6e or 8e, but each destination needs a defender count. The connected shape prepares an advance; it does not guarantee one." },
-          "marks": { "last": "6g", "arrows": ["6g7f", "7g8e"] }
+          "moves": [
+            "7a6b",
+            "5i4h",
+            "6c6d"
+          ],
+          "text": {
+            "ja": "後手は△６二銀、△６四歩と動き、先手は▲４八玉と玉を動かします。戦場になる７筋から玉を離しておくのは基本の考え方です。",
+            "en": "Gote plays △6二銀 and △6四歩 while Sente starts moving the king with ▲4八玉. Moving the king away from the fighting on the seventh file is a basic idea."
+          },
+          "marks": {
+            "last": "4h",
+            "boxes": [
+              "4h",
+              "6f"
+            ]
+          }
         },
         {
-          "moves": ["7c7d", "7e7d"],
-          "text": { "ja": "後手が△７四歩と歩を合わせ、先手が▲同歩と取った例です。７六飛は７四の先手歩を縦に支えます。後手は銀で取り返す選択もありますが、そのとき飛車の縦道が空くかを数えます。", "en": "In this sample Gote plays P7d and Sente captures it with Px7d. The rook on 7f supports Sente's pawn vertically. Gote may recapture with the silver; count what then opens on the rook's file." },
-          "marks": { "last": "7d", "arrows": ["6c7d", "7f7d"] }
+          "moves": [
+            "4h3h",
+            "6b6c"
+          ],
+          "text": {
+            "ja": "▲３八玉と進めている間に、後手は△６三銀と銀を上げて７筋の攻めに備えました。ここで先手は、焦って７筋を動かさずに囲いを続けます。",
+            "en": "Sente advances to ▲3八玉 and Gote answers with △6三銀 to guard the seventh file. Sente does not rush the attack there and keeps building the castle."
+          },
+          "marks": {
+            "last": "3h",
+            "boxes": [
+              "3h",
+              "6c"
+            ]
+          }
         },
         {
-          "moves": ["6c7d", "7f7d"],
-          "text": { "ja": "△同銀に▲同飛と進めば、飛車が７四の銀を取ります。先手は銀を得ましたが飛車も前へ出たので、後手の８二飛や持ち駒からの反撃を次に調べます。△同銀は例示した応手で、後手に強制された手ではありません。", "en": "After the illustrative Sx7d, Rx7d captures that silver. Sente gains a silver, but the rook has advanced, so Gote's rook on 8b and possible drops need another look. Sx7d was a sample reply, not a forced defense." },
-          "marks": { "last": "7d", "boxes": ["8b", "7f"] }
-        }
-      ]
-    },
-    {
-      "title": { "ja": "端角の斜線を歩で開く", "en": "Open the edge bishop's diagonal" },
-      "side": "sente",
-      "kind": "position",
-      "start": "5k3/1r5b1/2p1s4/3p5/2P6/P1RP5/1PNS5/1B2G1SK1/5G3 b - 1",
-      "steps": [
-        {
-          "text": { "ja": "７七桂が上がった後も、８八角は９七へ動けます。９六は先手の歩ですが、９七は空所です。ただし角を９七に置くだけでは、７五の自分の歩が６四への斜線をふさぎます。", "en": "With the knight on 7g, the bishop on 8h can move to the vacant 9g square. Sente's pawn is on 9f, not 9g. Simply moving the bishop will not open the line to 6d: Sente's own pawn on 7e still blocks it." },
-          "marks": { "arrows": ["8h9g"], "boxes": ["7e", "6d"] }
+          "moves": [
+            "6i5h"
+          ],
+          "text": {
+            "ja": "▲５八金左です。そのまま▲２八玉と進めると、ほかの駒との連係が弱い金が浮いたままです。先に金を寄せて、隙のない形で囲いを組みます。",
+            "en": "▲5八金左 comes first. Playing ▲2八玉 right away leaves the gold on 6i loose and disconnected. Moving the gold up first builds the castle without gaps."
+          },
+          "marks": {
+            "last": "5h",
+            "boxes": [
+              "5h",
+              "6i"
+            ]
+          }
         },
         {
-          "moves": ["8h9g", "4a3b"],
-          "text": { "ja": "▲９七角と上がり、後手は一例として△３二玉としました。８六が空いていても７五には先手歩が残るため、この時点で角は６四の後手歩を取れません。角の配置と角道の開通は別の手順です。", "en": "B9g is followed by the sample K3b. Although 8f is clear, Sente's pawn remains on 7e, so the bishop cannot yet capture Gote's pawn on 6d. Placing the bishop and opening its line are separate decisions." },
-          "marks": { "last": "3b", "boxes": ["8f", "7e", "6d"] }
+          "moves": [
+            "6a5b",
+            "3h2h",
+            "3a3b",
+            "3i3h",
+            "4b3a",
+            "1g1f",
+            "1c1d"
+          ],
+          "text": {
+            "ja": "△５二金右に▲２八玉、△３二銀に▲３八銀と進めて美濃囲いの完成です。△１四歩には▲１六歩と受けておきます。石田流でも、玉は美濃囲いが基本になります。",
+            "en": "Sente completes the Mino with ▲2八玉 and ▲3八銀, answering △1四歩 with ▲1六歩. In Ishida-style the Mino is the standard castle too."
+          },
+          "marks": {
+            "last": "1f",
+            "boxes": [
+              "2h",
+              "3h",
+              "4i",
+              "5h"
+            ]
+          }
         },
         {
-          "moves": ["7e7d"],
-          "text": { "ja": "▲７四歩で７五が空き、９七角から８六・７五を通って６四の後手歩に利きます。同時に７四歩は後手７三歩と接触します。斜線が開いた事実と、歩交換の損得は分けて考えます。", "en": "P7d vacates 7e. The bishop on 9g now sees Gote's pawn on 6d through 8f and 7e. The advanced pawn also contacts Gote's pawn on 7c. An open diagonal does not by itself settle the pawn exchange." },
-          "marks": { "last": "7d", "arrows": ["9g6d"] }
-        },
-        {
-          "moves": ["7c7d", "7f7d"],
-          "text": { "ja": "後手が△同歩と応じる枝では、▲同飛で歩を取り返せます。この図の後手銀は５三にいて７四に利いておらず、飛車で取った７四を取り返す駒がありません。銀が６三にいれば▲同飛は△同銀で飛車を失うので、取り返す前に７四を守る駒を数えます。", "en": "If Gote chooses Px7d, Sente can recapture with Rx7d. In this diagram Gote's silver stands on 5c and does not cover 7d, so no Gote piece can retake the rook there. With the silver on 6c, Rx7d would lose the rook to Sx7d, so count the defenders of 7d before recapturing." },
-          "marks": { "last": "7d", "boxes": ["5c", "6d"] }
+          "text": {
+            "ja": "この章の収穫は三つです。囲いを先に固めること、金や銀を置き去りにしないこと、そして攻めの準備は次の章で桂の跳ねから始めることです。",
+            "en": "Three things to remember: aim for a Mino first; do not leave loose pieces behind; and build the attacking shape by jumping the knight, which comes next chapter."
+          }
         }
       ],
       "variations": [
         {
+          "from": 1,
+          "moves": [
+            "7e7d",
+            "7c7d",
+            "7f7d",
+            "8e8f"
+          ],
+          "text": {
+            "ja": "相手が△６三銀と備える前に、▲７四歩から７筋を交換したくなりますが、それは失敗です。△同歩▲同飛のあと、△８六歩と突かれます。石田流の飛車は７六で相手の飛車の攻めを止めているので、動かすと８筋を破られます。",
+            "en": "It is tempting to exchange on the seventh file with ▲7四歩 before Gote can play △6三銀, but that fails. After △同歩 ▲同飛, Gote answers △8六歩. The Ishida rook on 7f holds back Gote's rook attack, so moving it lets the eighth file break."
+          }
+        },
+        {
           "from": 2,
-          "moves": ["3b4a", "7d7c+"],
-          "text": { "ja": "後手が歩を取らず△４一玉と引いた一例なら、▲７三歩成で後手の歩を取りながらと金を作れます。後手にはほかの応手もあり、このと金は歩を放置した枝だけの結果です。", "en": "If Gote instead retreats with K4a and leaves the pawn untouched, P7c+ takes Gote's pawn and makes a tokin. This result belongs to that sample refusal; Gote has other replies." }
+          "moves": [
+            "3h2h",
+            "6d6e",
+            "6f6e",
+            "2b8h+"
+          ],
+          "text": {
+            "ja": "もし先に▲２八玉と進めると、△６五歩と仕掛ける変化が残ります。▲同歩に△８八角成と角を交換されます。",
+            "en": "If Sente plays ▲2八玉 first, Gote has △6五歩. After ▲同歩, Gote trades bishops with △8八角成."
+          },
+          "steps": [
+            {
+              "moves": [
+                "7i8h",
+                "B*6g"
+              ],
+              "text": {
+                "ja": "▲同銀と取ると、△６七角と飛車と金の両取りに打たれます。乱戦になり、初心者には避けたい展開です。",
+                "en": "After ▲同銀, Gote drops △6七角 and forks rook and gold. The game turns into a melee, which beginners should avoid."
+              },
+              "marks": {
+                "last": "6g",
+                "arrows": [
+                  "6g7f",
+                  "6g5h"
+                ],
+                "boxes": [
+                  "7f",
+                  "5h"
+                ]
+              }
+            }
+          ]
         }
       ]
     },
     {
-      "title": { "ja": "桂の跳び先と玉の一手を比べる", "en": "Count the knight landing and a king-cover move" },
+      "title": {
+        "ja": "桂から跳ねて本組みを完成させる",
+        "en": "Complete the Honkumi by jumping the knight first"
+      },
       "side": "sente",
-      "kind": "position",
-      "start": "5k3/1r5b1/2ps5/3p5/1pP6/P1RP5/BP1S5/4G1SK1/1N3G3 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
-          "text": { "ja": "先手の桂は８九にいます。７六飛と９七角、６七銀はすでに配置されました。８五の後手歩を桂で狙う前に、８二飛が８筋を通れるかを見ます。玉側では５八金を４八へ寄せる余地もあります。", "en": "Sente's knight is on 8i. The rook on 7f, bishop on 9g and silver on 6g are already placed. Before aiming a knight at Gote's pawn on 8e, check whether the rook on 8b can use that file. On the king side, Sente can also bring the gold from 5h to 4h." },
-          "marks": { "arrows": ["8i7g", "5h4h"], "boxes": ["8e", "8b"] }
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "7f7e",
+            "5a4b",
+            "6g6f",
+            "8c8d",
+            "2h7h",
+            "8d8e",
+            "7h7f",
+            "7a6b",
+            "5i4h",
+            "6c6d",
+            "4h3h",
+            "6b6c",
+            "6i5h",
+            "6a5b",
+            "3h2h",
+            "3a3b",
+            "3i3h",
+            "4b3a",
+            "1g1f",
+            "1c1d"
+          ],
+          "text": {
+            "ja": "前の章で美濃囲いが完成した局面です。次に攻めの形を作ります。順番を間違えると、すぐに隙を突かれます。",
+            "en": "The Mino is complete, and now Sente builds the attacking shape. A wrong move order gives Gote an opening at once."
+          },
+          "marks": {
+            "last": "1f",
+            "boxes": [
+              "2h",
+              "3h"
+            ]
+          }
         },
         {
-          "moves": ["8i7g"],
-          "text": { "ja": "▲７七桂で次の▲８五桂が８五歩を取る形になりました。しかし８二の飛車は空いた８筋を通して８五をすでに守っており、桂が歩を取っても△同飛と取り返されます。桂が歩を取れることと、取った桂が残れることは別です。", "en": "N7g threatens to take the pawn on 8e with N8e. But the rook on 8b already defends 8e along the open eighth file, so Rx8e would answer the capture. Being able to take a pawn does not mean the knight will survive on its landing square." },
-          "marks": { "last": "7g", "arrows": ["7g8e", "8b8e"] }
+          "moves": [
+            "8i7g"
+          ],
+          "text": {
+            "ja": "まず▲７七桂と跳ねます。この順番が大事です。７筋の飛車の後ろに桂が控えます。",
+            "en": "First ▲7七桂. The order matters: the knight stands behind the rook on the seventh file."
+          },
+          "marks": {
+            "last": "7g",
+            "arrows": [
+              "7g6e"
+            ],
+            "boxes": [
+              "7g",
+              "6e"
+            ]
+          }
         },
         {
-          "moves": ["8b8d"],
-          "text": { "ja": "後手が△８四飛と浮いても、８五の守りは８二にいたときと変わりません。飛車は８筋を保ったまま前へ出ただけで、桂が８五へ跳べば△同飛と取られる点も同じです。先手はその交換を選ぶ必要はありません。", "en": "If Gote lifts the rook with R8d, the defence of 8e is no different from before: the rook keeps the eighth file and merely steps forward. N8e is still answered by Rx8e, as it was with the rook on 8b. Sente need not choose that exchange." },
-          "marks": { "last": "8d", "arrows": ["7g8e", "8d8e"] }
+          "moves": [
+            "2b3c",
+            "7i6h",
+            "3a2b",
+            "6h6g"
+          ],
+          "text": {
+            "ja": "桂のあとに銀を動かします。▲６八銀から▲６七銀と、銀は６七が定位置です。銀が前に出て、飛車と桂を後ろから支えます。",
+            "en": "After the knight, the silver moves: ▲6八銀 and ▲6七銀. 6g is the standard post. The silver steps forward and supports the rook and knight from behind."
+          },
+          "marks": {
+            "last": "6g",
+            "boxes": [
+              "6g",
+              "7f",
+              "7g"
+            ]
+          }
         },
         {
-          "moves": ["5h4h"],
-          "text": { "ja": "ここでは▲４八金として４九金・３八銀の近くにもう一枚の金を寄せました。８五での桂損を急がず、玉の守りを一手進める選択です。後手飛車も８四で活発なので、守りを整えた後も７筋と８筋を読み直します。", "en": "G4h brings the other gold beside the gold on 4i and silver on 3h. It spends a move on the king instead of rushing into the knight loss on 8e. Gote's rook is active on 8d, so Sente must reassess both files afterward." },
-          "marks": { "last": "4h", "boxes": ["4i", "3h", "8d"] }
+          "moves": [
+            "2c2d",
+            "9g9f",
+            "9c9d",
+            "8h9g"
+          ],
+          "text": {
+            "ja": "最後に▲９六歩と▲９七角と、角を端へ上げます。角を７七ではなく９七に置くことで、７七が桂の跳ね場所に空くのです。飛車・角・銀・桂が７筋から６筋へ向かう、攻撃的な石田流本組みの完成です。",
+            "en": "Finally ▲9六歩 and ▲9七角 put the bishop on the edge. Placing it on 9g instead of 7g frees 7g for the knight. Rook, bishop, silver and knight all aim at the seventh and sixth files: the aggressive Ishida Honkumi is complete."
+          },
+          "marks": {
+            "last": "9g",
+            "boxes": [
+              "9g",
+              "7g",
+              "6g",
+              "7f"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "まとめです。まず美濃囲いを組み、浮き駒を作らず、桂を跳ねてから銀と角を動かします。",
+            "en": "To sum up: build the Mino first, leave no loose pieces, and jump the knight before moving the silver and bishop."
+          }
         }
       ],
       "variations": [
         {
-          "from": 2,
-          "moves": ["7g8e", "8d8e"],
-          "text": { "ja": "▲８五桂と歩を取ると、飛車が８二にいても８四にいても△同飛で桂を取られます。歩一枚の獲得と桂一枚の喪失を数え、別の駒が８五の飛車を取れるかまで調べてから跳びます。", "en": "N8e captures a pawn, but Rx8e captures the knight whether the rook stands on 8b or 8d. Count a pawn gained against a knight lost, then ask whether another Sente piece can capture the rook on 8e before choosing the jump." }
+          "from": 0,
+          "moves": [
+            "7i6h",
+            "6d6e",
+            "6f6e",
+            "2b8h+"
+          ],
+          "text": {
+            "ja": "桂を跳ねる前に銀を動かすと、△６五歩▲同歩に△８八角成と角を交換され、７九の銀がいなくて取り返せません。角を素抜かれて、いきなり先手が悪くなります。",
+            "en": "If the silver moves before the knight, △6五歩 ▲同歩 △8八角成 trades bishops and Sente has no silver on 7i to recapture. The bishop is lost for nothing and Sente is losing from the start."
+          }
         }
       ]
     }

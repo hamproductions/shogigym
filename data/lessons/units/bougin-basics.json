@@ -1,23 +1,26 @@
 {
   "id": "bougin-basics",
   "order": 520,
-  "path": ["戦法・定跡", "居飛車"],
+  "path": [
+    "戦法・定跡",
+    "棒銀"
+  ],
   "title": {
-    "ja": "棒銀は利きを数えて進める",
-    "en": "Advance the Climbing Silver by Counting Control"
+    "ja": "棒銀：基本形と龍の作り方",
+    "en": "Bogin: the basic shape and making a dragon"
   },
   "intro": {
-    "ja": "棒銀では飛車の筋に向けて銀を進め、歩で接点を作ります。銀が前へ出ただけでは攻めは成立せず、歩の交換後に飛車が通るか、相手の守り駒が何枚いるかを確かめます。相手の飛車先から反撃されたら、攻めの順番を変えて玉の安全も整えます。",
-    "en": "Climbing Silver brings a silver toward the rook's file while pawns create contact. An advanced silver is not an attack by itself: check whether a pawn trade opens the rook's line and how many defenders cover the contact square. If the opponent counters on the other rook file, adjust the order of your attack and secure the king."
+    "ja": "棒銀は、右の銀を飛車の前に出し、飛車・銀・歩を縦に並べて２筋を攻める、攻めの基本の戦法です。初手から基本図まで組み、銀を端から使って龍を作る攻めを一手ずつ指します。３筋から銀を使う場合と、棒銀の長所・弱点も確かめます。",
+    "en": "Bogin sends the right silver in front of the rook, lining up rook, silver and pawn on the second file, and is the basic attacking strategy. Play from move one to the basic position, then step through the attack that uses the silver from the edge and makes a dragon. You also see the third-file version and Bogin's strengths and weaknesses."
   },
   "check": {
     "question": {
-      "ja": "歩、銀、飛車が同じ筋を狙うとき、歩をぶつける前に数えるものは何ですか？",
-      "en": "When pawn, silver and rook target one file, what do you count before pushing the pawn into contact?"
+      "ja": "棒銀で銀取りを恐れず▲２四歩と突くのは、何を狙っているからですか？",
+      "en": "In Bogin, why push ▲2四歩 without fearing the loss of the silver?"
     },
     "answer": {
-      "ja": "交換地点に利く双方の駒、歩と銀が取られた後に飛車が通る道、相手の飛車から受ける反撃を数えます。守りが増えたら同じ順を決め打ちしません。",
-      "en": "Count both sides' control of the exchange square, the rook's route after pawn and silver captures, and counterplay from the opposing rook. Recalculate if the defender adds a piece."
+      "ja": "銀を取られても▲２三歩成で角と金に当たり、金を取って飛車を龍にできるからです。銀一枚を代償に、より大きな成果を得ます。",
+      "en": "Because even after the silver is taken, ▲2三歩成 attacks bishop and gold, so Sente wins the gold and promotes the rook to a dragon. The silver is the price for a bigger gain."
     }
   },
   "references": [
@@ -26,13 +29,19 @@
       "url": "https://shogi-joutatsu.com/archives/2676",
       "license": "All rights reserved",
       "adapted": false
+    },
+    {
+      "title": "将棋の技図鑑 (yuki-keio/shogi)",
+      "url": "https://github.com/yuki-keio/shogi",
+      "license": "GPL-3.0-only",
+      "adapted": false
     }
   ],
   "chapters": [
     {
       "title": {
-        "ja": "銀の通り道を歩が作る",
-        "en": "The pawn clears a route for the silver"
+        "ja": "棒銀の基本形を初手から組む",
+        "en": "Build the Bogin shape from move one"
       },
       "side": "sente",
       "kind": "opening",
@@ -40,177 +49,348 @@
       "steps": [
         {
           "text": {
-            "ja": "先手の銀３九を２筋へ運ぶには、最初から斜めに飛び出す必要はありません。２七の歩が前へ動けば、銀が３八、２七、２六と進む道ができます。飛車２八は最後まで後ろから支えます。",
-            "en": "Sente's silver on 3i does not have to jump directly onto the second file. Once the pawn on 2g advances, the silver can travel through 3h, 2g and 2f. The rook on 2h remains behind the operation."
+            "ja": "棒銀は、右の銀を飛車の前に出し、飛車・銀・歩を縦一列に並べて２筋を攻める戦法です。狙いは銀で道を作り、飛車を敵陣で成らせて龍にすること。まず初手から、この縦一列の形を作ります。",
+            "en": "Bogin sends the right-hand silver in front of the rook so that rook, silver and pawn stand in one column on the second file. The aim is for the silver to clear a path so the rook can promote in the enemy camp. First we build that column from move one."
           }
         },
         {
-          "moves": ["2g2f", "3c3d", "3i3h", "7a6b"],
+          "moves": [
+            "2g2f"
+          ],
           "text": {
-            "ja": "▲２六歩で２七が空き、▲３八銀で銀の最初の行き先を作りました。後手は角道を開いています。銀の移動だけを見ず、相手の角と飛車の準備も確認します。",
-            "en": "▲２六歩 vacates 2g, and ▲３八銀 begins the silver's route. Gote has opened the bishop diagonal. Follow the opponent's bishop and rook development as well as your own silver."
+            "ja": "最初の一手は▲２六歩です。飛車の前の歩を一つ進めます。棒銀では、この歩が２筋の攻めの先頭に立ち、後ろに銀と飛車が続きます。まず先頭の歩を前に出して、攻める筋を決めます。",
+            "en": "The first move is ▲2六歩, pushing the pawn in front of the rook one square. In Bogin this pawn leads the attack on the second file, with the silver and the rook behind it. Moving it first fixes which file you will attack on."
+          },
+          "marks": {
+            "last": "2f",
+            "arrows": [
+              "2f2e"
+            ],
+            "boxes": [
+              "2e"
+            ]
           }
         },
         {
-          "moves": ["3h2g", "4a3b", "2f2e", "5a4b"],
+          "moves": [
+            "3c3d",
+            "2f2e"
+          ],
           "text": {
-            "ja": "銀は２七へ出て、歩は２五へ進みました。銀の前の２六が空き、後手の金３二は２筋の上部を支えます。銀をさらに進めても、後手の歩２三をただちに取れるわけではありません。",
-            "en": "The silver reaches 2g and the pawn 2e, leaving 2f open in front of the silver. Gote's gold on 3b supports the upper second file. Another silver move will not capture the pawn on 2c immediately."
+            "ja": "後手が△３四歩と角道を開けたので、▲２五歩と歩をもう一つ進めます。２五の歩は２三の相手の歩にあと一マスまで近づきました。次に▲２四歩と突けば、歩の取り合いで攻めを始められます。",
+            "en": "Gote opens its bishop line with △3四歩, and Sente answers with ▲2五歩, a second step for the pawn. It now stands one square short of the pawn on 2c. A later ▲2四歩 would start the fight by offering a pawn exchange."
+          },
+          "marks": {
+            "last": "2e",
+            "arrows": [
+              "2e2d"
+            ],
+            "boxes": [
+              "2d"
+            ]
           }
         },
         {
-          "moves": ["2g2f", "8c8d"],
+          "moves": [
+            "4a3b",
+            "3g3f"
+          ],
           "text": {
-            "ja": "▲２六銀で飛車・銀・歩が２筋に並びました。後手は△８四歩と別の筋を準備します。飛車２八と歩２五の間には銀２六がいるので、飛車を働かせるには銀や歩を動かして道を開く手順が必要です。",
-            "en": "▲２六銀 places rook, silver and pawn on the second file; Gote prepares another file with △８四歩. The silver on 2f still stands between the rook on 2h and pawn on 2e. The rook needs a route cleared by later silver and pawn moves."
+            "ja": "後手は△３二金と金を上げて、２筋の守りを固めました。こちらは▲３六歩と３筋の歩を突きます。相手の△３四の歩と向き合って３筋を締め、あとで銀を３筋から出す選択肢も残る手です。",
+            "en": "Gote lifts the gold with △3二金, strengthening the second file. Sente plays ▲3六歩 on the third file. The pawn faces Gote's pawn on 3d, keeps the third file steady, and leaves the option of using the silver from the third file later."
+          },
+          "marks": {
+            "last": "3f",
+            "boxes": [
+              "3b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8c8d",
+            "3i3h"
+          ],
+          "text": {
+            "ja": "後手は△８四歩と飛車先の歩を突きました。こちらは▲３八銀。右の銀を一つ前に上げます。棒銀の主役はこの右の銀です。飛車のすぐ近くへ、ゆっくり運んでいきます。",
+            "en": "Gote pushes its rook pawn with △8四歩. Sente plays ▲3八銀, lifting the right silver one square. This silver is the star of Bogin, and it is now being carried toward the rook step by step."
+          },
+          "marks": {
+            "last": "3h",
+            "arrows": [
+              "3h2g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8d8e",
+            "3h2g"
+          ],
+          "text": {
+            "ja": "後手は△８五歩と進めました。こちらは▲２七銀。銀が斜めに上がって、２八の飛車の真上の列に入りました。次に銀がもう一つ前へ出れば、飛車・銀・歩が縦に並びます。",
+            "en": "Gote advances with △8五歩. Sente plays ▲2七銀, moving the silver diagonally into the column directly above the rook on 2h. One more step forward and rook, silver and pawn stand in a line."
+          },
+          "marks": {
+            "last": "2g",
+            "arrows": [
+              "2g2f"
+            ],
+            "boxes": [
+              "2f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7a7b",
+            "2g2f"
+          ],
+          "text": {
+            "ja": "後手は△７二銀と自陣を整えました。こちらは▲２六銀。２五の歩のすぐ後ろに銀が来て、２八の飛車、２六の銀、２五の歩が縦に一列に並びます。これが原始棒銀の基本図です。銀は飛車に後ろから支えられ、歩の後ろを進みます。",
+            "en": "Gote tidies its camp with △7二銀. Sente plays ▲2六銀. The silver sits right behind the pawn on 2e, so the rook on 2h, the silver on 2f and the pawn on 2e form one column. This is the basic position of the plain Bogin. The silver moves behind the pawn with the rook backing it up."
+          },
+          "marks": {
+            "last": "2f",
+            "arrows": [
+              "2f1e",
+              "2h2f"
+            ],
+            "boxes": [
+              "2e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6c6d"
+          ],
+          "text": {
+            "ja": "後手は△６四歩。基本図が完成しました。覚える点は四つです。一、飛車・銀・歩を２筋に縦一列に並べる。二、銀は３九から３八、２七、２六と一段ずつ上げる。三、銀は端の１五へ出て使う。四、狙いは飛車を敵陣で成らせて龍にすること。",
+            "en": "Gote plays △6四歩 and the basic position is complete. Four points to remember. One: line up rook, silver and pawn on the second file. Two: bring the silver up one step at a time, from 3i to 3h, 2g and 2f. Three: the silver goes out to 1e at the edge. Four: the goal is to promote the rook in the enemy camp and make a dragon."
+          },
+          "marks": {
+            "last": "6d",
+            "arrows": [
+              "2f1e"
+            ],
+            "boxes": [
+              "2e",
+              "1e"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "棒銀の長所は、狙いが単純で攻める駒の使い方を覚えやすいことと、相手の守りが整う前に攻められることです。短所は、狙いが読まれやすく、受け方を知る相手に止められやすいことと、止められると前に出た銀が孤立しやすいことです。次の章で、実際の攻めの手順を見ます。",
+            "en": "Strengths and weaknesses. Bogin has a simple aim that teaches how to attack with gathered pieces, and it can strike before the opponent's defence is ready. Its weaknesses are that the aim is easy to read, so an opponent who knows the defence can stop it, and that a stopped silver is easily stranded in front. The next chapter shows the actual attack."
+          },
+          "marks": {
+            "boxes": [
+              "2f"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "守りの銀が来たら目標を数え直す",
-        "en": "Recount the target when a defender arrives"
+        "ja": "銀を端から使い、龍を作る",
+        "en": "Use the silver from the edge and make a dragon"
       },
       "side": "sente",
       "kind": "opening",
       "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "2g2f",
+            "3c3d",
+            "2f2e",
+            "4a3b",
+            "3g3f",
+            "8c8d",
+            "3i3h",
+            "8d8e",
+            "3h2g",
+            "7a7b",
+            "2g2f",
+            "6c6d"
+          ],
           "text": {
-            "ja": "棒銀の形を作る間に、後手も守り駒を選べます。この例では金３二に加えて銀を３三へ運び、２四への利きを増やします。形だけで歩を突く前に、着地点を見直します。",
-            "en": "Gote can add defenders while Sente builds the Climbing Silver. Here a silver joins the gold on 3b and adds control of 2d. Recheck the destination before pushing a pawn simply because the attacking formation looks ready."
+            "ja": "前の章の基本図です。後手は３二の金で２筋を守っています。飛車で単独に攻めても止められるので、銀と飛車を組み合わせます。銀は一度端へ回り込みます。",
+            "en": "The basic position from the previous chapter. Gote guards the second file with the gold on 3b. A rook attack alone would be stopped, so the silver joins the rook by going around by way of the edge."
+          },
+          "marks": {
+            "boxes": [
+              "3b",
+              "2c"
+            ]
           }
         },
         {
-          "moves": ["2g2f", "8c8d", "3i3h", "3c3d", "3h2g", "4a3b"],
+          "moves": [
+            "2f1e"
+          ],
           "text": {
-            "ja": "先手の銀は２七、後手の金は３二です。まだ２筋の歩は離れています。後手の銀３一がどこへ進むかで、歩交換の条件も変わります。",
-            "en": "Sente's silver is on 2g and Gote's gold on 3b. The second-file pawns have not met. Where Gote's silver from 3a goes will change the conditions for a pawn trade."
+            "ja": "▲１五銀。銀を２六から１五へ斜めに進めて、端から使います。ここで△１四歩と突かれると、銀に当たりそうに見えます。しかし棒銀の狙いは、そこから始まります。",
+            "en": "▲1五銀. The silver steps diagonally from 2f to 1e and uses the edge. If Gote then pushes △1四歩 the silver seems to be attacked. This is exactly where Bogin's idea starts."
+          },
+          "marks": {
+            "last": "1e",
+            "boxes": [
+              "1d"
+            ]
           }
         },
         {
-          "moves": ["2f2e", "3a4b", "2g2f", "4b3c"],
+          "moves": [
+            "1c1d",
+            "2e2d"
+          ],
           "text": {
-            "ja": "△３三銀で２四には後手の歩２三と銀３三が利きます。先手の歩２五も２四を狙いますが、銀２六と飛車２八はまだ２四へ直接利いていません。銀を３五へ出す案も、後手の歩３四があるため危険です。",
-            "en": "△３三銀 adds the silver on 3c to Gote's pawn on 2c as defenders of 2d. Sente's pawn on 2e attacks that square, but the silver on 2f and rook on 2h do not yet attack it directly. The pawn on 3d also makes a silver move to 3e dangerous."
+            "ja": "△１四歩と銀に当てられても、▲２四歩と構わず突きます。２三の歩に歩を当てる攻めで、銀を取らせてもよいという覚悟の手です。銀を逃げて引き返すと、棒銀は成功しません。",
+            "en": "Even after △1四歩 attacks the silver, Sente pushes ▲2四歩 without worrying. The pawn challenges the one on 2c, and it accepts that the silver may be lost. Retreating the silver would end the plan."
+          },
+          "marks": {
+            "last": "2d",
+            "boxes": [
+              "1e",
+              "2c"
+            ]
           }
         },
         {
-          "moves": ["5i6h", "8d8e", "6i7h", "5a4b"],
+          "moves": [
+            "1d1e",
+            "2d2c+"
+          ],
           "text": {
-            "ja": "▲６八玉、▲７八金で玉を飛車から離し、左側の守りを足しました。後手の銀が２四を守る事実は変わりません。攻めを保留して玉形を整えるのも、守り駒を増やされた局面での具体的な選択です。",
-            "en": "▲６八玉 and ▲７八金 move the king away from the rook and add a defender on its left. Gote's silver still covers 2d. Delaying the attack to improve the king's shelter is a concrete response to the added defender."
+            "ja": "△１五歩と銀を取られたあと、▲２三歩成。成った歩は、２二の角と３二の金の両方に当たります。角を逃げれば金を、金を逃げれば角を取れます。銀一枚を捨てて、もっと大きな駒を狙う手順です。",
+            "en": "After △1五歩 takes the silver, ▲2三歩成 follows. The promoted pawn attacks both the bishop on 2b and the gold on 3b. If the bishop moves, the gold falls; if the gold moves, the bishop falls. One silver is sacrificed to win something bigger."
+          },
+          "marks": {
+            "last": "2c",
+            "arrows": [
+              "2c2b",
+              "2c3b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3b2c",
+            "2h2c+"
+          ],
+          "text": {
+            "ja": "△２三金とと金を取っても、▲同飛成と取り返して龍ができました。銀は失いましたが金を取れたので、駒の損得は先手の得になっています。龍を作るという棒銀の狙いが実現しました。",
+            "en": "Gote takes the promoted pawn with △2三金, and ▲同飛成 recaptures and makes a dragon. The silver was lost but a gold was won, so material favours Sente. Bogin's goal of making a dragon is reached."
+          },
+          "marks": {
+            "last": "2c",
+            "arrows": [
+              "2c2b"
+            ]
           }
         }
       ],
       "variations": [
         {
           "from": 2,
-          "moves": ["2f3e", "3d3e"],
+          "moves": [
+            "2c2d",
+            "1e2d"
+          ],
           "text": {
-            "ja": "銀を３五へ出すと、この局面の後手は△同歩で取れます。３筋へ回る道は歩３四が塞いでいます。２筋が厚いからといって、横へ逃がす先まで安全とは限りません。",
-            "en": "If the silver moves to 3e, Gote can capture it with △同歩 in this position. The pawn on 3d blocks this alternative route. A defended second file does not automatically make the neighboring file safe."
-          }
+            "ja": "△１五歩と銀を取らずに、△２四歩と歩を取り返してくる変化です。ここは単純に銀で取り返すだけで攻めが成功します。",
+            "en": "Gote may decline the silver and take the pawn instead with △2四歩. Sente simply recaptures with the silver and the attack works."
+          },
+          "steps": [
+            {
+              "text": {
+                "ja": "▲同銀と進みました。２三のマスに利いているのは先手が飛車と銀の二枚、後手は金の一枚だけです。次の▲２三銀成、△同金、▲同飛成で飛車が成り込めます。攻める駒の数が受ける駒の数を上回っている点が決め手です。",
+                "en": "The silver recaptures on 2d. Two Sente pieces, rook and silver, aim at 2c while Gote has only the gold. The next sequence ▲2三銀成, △同金, ▲同飛成 gets the rook in. The decisive factor is that the attackers outnumber the defenders."
+              },
+              "marks": {
+                "last": "2d",
+                "arrows": [
+                  "2d2c",
+                  "2h2d"
+                ],
+                "boxes": [
+                  "2c"
+                ]
+              }
+            }
+          ]
         }
       ]
     },
     {
       "title": {
-        "ja": "別の筋で歩を銀が取り返す",
-        "en": "Recapture a pawn with the silver on another file"
-      },
-      "side": "sente",
-      "kind": "position",
-      "start": "4k4/1r1g5/5p3/9/5PS2/9/9/2K2R3/3G5 b - 1",
-      "steps": [
-        {
-          "text": {
-            "ja": "先手は飛車４八、銀３五、歩４五。後手の歩４三に自分の歩をぶつける前に、４四での取り返しを読みます。棒銀で使う枚数の読みを４筋に移した練習局面です。飛車の筋と銀の位置が結び付いているかを調べます。",
-            "en": "Sente has a rook on 4h, silver on 3e and pawn on 4e. Calculate the exchanges on 4d against Gote's pawn on 4c. This practice position transfers Climbing Silver's piece-counting method to the fourth file and tests whether rook and silver support each other."
-          }
-        },
-        {
-          "moves": ["4e4d", "4c4d"],
-          "text": {
-            "ja": "▲４四歩にこの例の後手は△同歩と応じました。先手の歩が消え、銀３五は４四の後手歩を取れます。後手が歩を取らなければ、この取り返しの順には進みません。",
-            "en": "Gote chooses △同歩 against ▲４四歩 in this example. Sente's pawn is gone, and the silver on 3e can take Gote's pawn on 4d. If Gote declines the exchange, this recapture line does not arise."
-          }
-        },
-        {
-          "moves": ["3e4d"],
-          "text": {
-            "ja": "▲４四銀で歩を取り返しました。４八の飛車から４四までの４七・４六・４五は空き、飛車が銀４四を後ろから支えます。双方が歩を一枚持ち、銀だけが前へ出た局面です。優勢や成り込みは、この一交換だけでは決まりません。",
-            "en": "▲４四銀 recaptures the pawn. The squares 4g, 4f and 4e between the rook on 4h and silver on 4d are clear, so the rook supports the silver. Each side has a pawn in hand and the silver has advanced. That trade alone proves neither a winning position nor a rook promotion."
-          }
-        }
-      ]
-    },
-    {
-      "title": {
-        "ja": "守りの銀が一枚増えると結果が変わる",
-        "en": "One extra silver changes the exchange"
-      },
-      "side": "sente",
-      "kind": "position",
-      "start": "4k4/1r1g5/4sp3/9/5PS2/9/9/2K2R3/3G5 b - 1",
-      "steps": [
-        {
-          "text": {
-            "ja": "前章の４筋に、後手の銀５三だけを加えました。この銀は４四へ利いています。先手は歩・銀・飛車、後手は歩・銀が交換地点に関わります。同じ突き歩でも、銀が残るかを最後まで読みます。",
-            "en": "Add just Gote's silver on 5c to the previous fourth-file setup. It controls 4d. Sente can involve pawn, silver and rook; Gote can answer with pawn and silver. The same pawn push now needs a longer count to determine whether the silver survives."
-          }
-        },
-        {
-          "moves": ["4e4d", "4c4d", "3e4d"],
-          "text": {
-            "ja": "先手は前章と同じように４四で歩を交換し、銀で取り返しました。しかし後手の銀５三はその銀を取れます。前章の結果をそのまま当てはめられません。",
-            "en": "Sente follows the same pawn trade and silver recapture on 4d. This time Gote's silver on 5c can capture that silver. The previous chapter's outcome does not carry over unchanged."
-          }
-        },
-        {
-          "moves": ["5c4d", "4h4d"],
-          "text": {
-            "ja": "△同銀▲同飛で互いの歩と銀が一枚ずつ交換され、先手の飛車が４四へ出ました。攻め駒をただ得たわけではありません。飛車を前へ出した後も、後手の飛車８二や金６二がどこに利くかを調べます。",
-            "en": "After △同銀▲同飛, each side has traded one pawn and one silver, and Sente's rook stands on 4d. Sente has not won a free attacker. From the rook's advanced square, continue checking Gote's rook on 8b and gold on 6b."
-          }
-        }
-      ]
-    },
-    {
-      "title": {
-        "ja": "相手の飛車が先に動けば玉側を守る",
-        "en": "Meet the opponent's rook before resuming the silver"
+        "ja": "３筋から銀を使う、棒銀の長所と受けられ方",
+        "en": "Using the silver from the third file, and the strengths and weaknesses"
       },
       "side": "sente",
       "kind": "opening",
       "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "2g2f",
+            "3c3d",
+            "2f2e",
+            "4a3b",
+            "3g3f",
+            "8c8d",
+            "3i3h",
+            "8d8e",
+            "3h2g",
+            "7a7b",
+            "2g2f",
+            "6c6d"
+          ],
           "text": {
-            "ja": "棒銀の銀を動かす間にも、後手は８筋を交換できます。この手順では先手が先に金を７八へ置き、後手飛車が進んだときの８七・８八・８九の守りを確認します。",
-            "en": "Gote can trade on the eighth file while Sente prepares a Climbing Silver. In this line Sente places a gold on 7h first, then checks how 8g, 8h and 8i are defended when Gote's rook advances."
+            "ja": "基本図からは、端の▲１五銀のほかに３筋から銀を使う道もあります。後手があらかじめ△１四歩と端を突いている場合は、▲１五銀と出ても歩に当てられるだけで続きません。相手の１筋の歩を見て、銀を端から出すか３筋から出すかを決めます。",
+            "en": "From the basic position there is a second route: using the silver from the third file instead of the edge. If Gote has already pushed the edge pawn with △1四歩, ▲1五銀 is simply attacked by that pawn and goes nowhere. Read the opponent's edge pawn, then choose between the edge and the third file."
+          },
+          "marks": {
+            "boxes": [
+              "3e",
+              "1e"
+            ]
           }
         },
         {
-          "moves": ["7g7f", "8c8d", "6i7h", "8d8e", "2g2f", "8e8f"],
+          "moves": [
+            "3f3e",
+            "3d3e",
+            "2f3e"
+          ],
           "text": {
-            "ja": "後手の歩は８六まで進みました。先手は金７八で８筋の奥を支えていますが、歩の交換で飛車が出てくる可能性を読みます。２筋の歩を進めたからといって、すぐ銀を前に出す局面とは限りません。",
-            "en": "Gote's pawn has reached 8f. Sente's gold on 7h covers squares near the back of that file, but a pawn trade may bring Gote's rook forward. Advancing Sente's second-file pawn does not make an immediate silver push compulsory."
+            "ja": "▲３五歩、△同歩、▲同銀。３筋の歩を捨てて、銀を５段目へ出します。銀が３五に出たので、ここから▲２四歩と２筋を攻める構えができました。",
+            "en": "▲3五歩, △同歩, ▲同銀. Sente gives up the third file pawn to bring the silver to the fifth rank. With the silver on 3e, the attack ▲2四歩 on the second file is now ready."
+          },
+          "marks": {
+            "last": "3e",
+            "arrows": [
+              "3e2d"
+            ],
+            "boxes": [
+              "2d"
+            ]
           }
         },
         {
-          "moves": ["8g8f", "8b8f"],
           "text": {
-            "ja": "▲同歩△同飛で後手の飛車が８六へ出ました。８八の角が８筋の奥を塞ぎ、その角には銀７九が利いています。飛車が角を取る場合の取り返しを確かめてから、次の玉の移動を選びます。",
-            "en": "After ▲同歩△同飛, Gote's rook reaches 8f. Sente's bishop on 8h blocks further travel down that file, and the silver on 7i protects it. Check the recapture if the rook takes the bishop before choosing the king's next square."
-          }
-        },
-        {
-          "moves": ["5i6h", "8f8d", "3i3h"],
-          "text": {
-            "ja": "▲６八玉で玉を自分の飛車２八から離し、金７八のそばへ寄せました。角８八は銀７九に守られ、後手の飛車が８八へ取って入れば銀で取り返せます。この例の後手は△８四飛と引き、先手は▲３八銀で棒銀の準備を再開しました。後手が別の手を選べば、銀の進出より先に８筋への応手を読み直します。",
-            "en": "▲６八玉 moves the king away from Sente's own rook on 2h and next to the gold on 7h. The bishop on 8h is protected by the silver on 7i, which can recapture if Gote's rook takes on 8h. Gote chooses △８四飛 in this line, and Sente resumes Climbing Silver preparation with ▲３八銀. A different Gote reply requires another look at the eighth file before advancing the silver."
+            "ja": "棒銀の長所は、狙いが単純で、駒を集めて攻める基本が身につく点と、守りが整う前に仕掛けられる点です。弱点は、狙いが分かりやすいぶん受け方を用意されやすいことと、前に出た銀が取り残されると苦しくなる点です。受ける側は、銀を中段まで出させないよう端の歩を突いたり、角や桂で銀の進む先を押さえたりします。次の講座では、こうした受けに対する攻め方を見ます。",
+            "en": "Bogin's strengths are its simple aim, which teaches the basics of attacking with gathered pieces, and its speed, since it can strike before the defence is ready. Its weaknesses are that the aim is easy to see and therefore easy to prepare for, and that a silver stranded in front is in trouble. The defender can push an edge pawn so the silver cannot come out, or use bishop and knight to cover its path. The next lesson looks at attacking against such defences."
+          },
+          "marks": {
+            "last": "3e",
+            "boxes": [
+              "3e"
+            ]
           }
         }
       ]

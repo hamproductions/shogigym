@@ -1,4 +1,5 @@
 import { SquareText } from '@/app/modes/lesson/SquareText'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LABELS } from '@/utils/analysis'
 import i18n from '@/utils/i18n'
@@ -24,6 +25,7 @@ import { OpeningPicker } from './OpeningPicker'
 import { LessonGuide } from './LessonGuide'
 import type { Lesson } from './useLesson'
 import { Marks } from '@/app/ui/SideMark'
+import { PATH_UNITS, markChapterFinished } from '@/data/curriculum'
 
 const TALLY_KEY = 'joseki-practice:random-quiz:v1'
 type Tally = { questions: number; right: number; wrong: number }
@@ -52,8 +54,9 @@ function seriesOf(course: Course, lesson: Lesson) {
   const at = siblings.findIndex((c) => c.baseId === course.baseId)
   const random = stored(RANDOM_KEY) === setup.id
   const quizzable = siblings.filter((c) => courseProgress(c).total > 0)
-  const peers = setup.path ? SETUPS.filter((s) => s.path?.join('/') === setup.path?.join('/')) : []
-  const nextSetup = peers[peers.indexOf(setup) + 1]
+  const unit = setup.id.startsWith('lesson-') ? setup.id.slice('lesson-'.length) : null
+  const nextUnit = unit ? PATH_UNITS[PATH_UNITS.indexOf(unit) + 1] : undefined
+  const nextSetup = nextUnit ? SETUPS.find((s) => s.id === `lesson-${nextUnit}`) : undefined
   const go = (next: Course | undefined, mode: LessonMode, shuffled = random) => {
     if (!next) return
     if (shuffled && random) {
@@ -122,6 +125,9 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
   const { t } = useTranslation()
   const { course, liveSfen: sfen, userSide, lastMove, prevSfen, playing, preview, atEnd, flipped } = useSession()
   const { lessonMode, score, justRight, checking, progress, done, asking, offBook, good, showAnswer, jumped } = lesson
+  useEffect(() => {
+    if (done && course) markChapterFinished(course.id)
+  }, [done, course])
   if (!course) return <OpeningPicker onOpen={lesson.open} level={level} setupId={lesson.pickerSetup} setSetupId={lesson.setPickerSetup} />
   const side = sideMark(userSide)
   const series = seriesOf(course, lesson)

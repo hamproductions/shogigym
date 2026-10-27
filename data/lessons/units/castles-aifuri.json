@@ -1,126 +1,752 @@
 {
   "id": "castles-aifuri",
   "order": 350,
-  "path": ["上達のためのテクニック", "囲い"],
+  "path": [
+    "上達のためのテクニック",
+    "囲い"
+  ],
   "title": {
-    "ja": "相振り飛車の囲いは前と横を別に見る",
-    "en": "Judge Front and Side Pressure Separately in Double Ranging Rook"
+    "ja": "相振り飛車の囲い：初手からの組み方と強さ・弱点",
+    "en": "Castles for Ranging Rook mirrors: build order, strengths and weaknesses"
   },
   "intro": {
-    "ja": "相振り飛車では両者の飛車が元の筋を離れます。玉の前の歩を飛車が狙う局面と、下段へ回り込む局面では必要な守りが違います。金無双の二枚金、美濃の低い玉、右矢倉の前の銀を、相手の飛車筋に合わせて選びましょう。金無双の銀２八を動かして逃げ道を作るときも、その空きマスが相手に利かれていないか確かめます。",
-    "en": "In Double Ranging Rook, both rooks leave their original files. A rook pressing the pawn in front of the king and one entering along a lower rank demand different defenses. Compare Kin Muso's two golds, a lower Mino king, and Right Yagura's forward silver against the opponent's actual rook line. Even after moving Kin Muso's silver from ２八, check whether the newly empty escape square is attacked."
+    "ja": "お互いが飛車を振る相振り飛車では、玉を縦から攻められやすく、振り飛車でおなじみの美濃囲いでは頭上が心もとなくなります。そこで、金無双、三九玉型の美濃、高美濃、右矢倉、穴熊といった形が選ばれます。飛車を振るところから初手を追って、それぞれの形が何に強く、どこが弱いかを確かめます。",
+    "en": "When both players swing the rook the kings tend to be attacked down the files, and the familiar Mino can feel thin overhead. So other castles are chosen: Kin Muso, the 3i-king Mino, Taka Mino, Right Yagura and Anaguma. Follow each from the rook swing, and see what each resists and where it is weak."
   },
   "check": {
     "question": {
-      "ja": "金無双の銀２八を動かせば、必ず玉３八の逃げ道ができますか？",
-      "en": "Does moving Kin Muso's silver from ２八 always give the king on ３八 a usable escape?"
+      "ja": "相振り飛車で、美濃囲いより金無双が好まれることがあるのはなぜですか？",
+      "en": "In a Ranging Rook mirror, why is Kin Muso sometimes preferred to Mino?"
     },
     "answer": {
-      "ja": "２八は空きますが、相手の飛車などがそのマスに利いていれば玉は入れません。銀を動かした後の相手の利きを調べて、空きマスと安全な逃げ道を区別します。",
-      "en": "The square becomes empty, but the king cannot enter it if an opposing rook or other piece controls it. Recheck attacks after the silver move; an empty square is not necessarily a safe exit."
+      "ja": "相振り飛車では玉の頭を縦から攻め合う展開が多く、金二枚が玉の上を覆う金無双のほうが耐えやすいからです。ただし、横の攻めには弱いので、銀の位置と逃げ道に注意します。",
+      "en": "In these games the kings are usually attacked head-on along the files, and a Kin Muso whose two golds cover the top of the king holds up better. It is weak to lateral attacks, so watch the silver's position and the king's escape."
     }
   },
   "references": [
     {
-      "title": "金無双、相振り飛車の囲い一覧",
+      "title": "相振り飛車の囲い一覧",
       "url": "https://shogi-joutatsu.com/archives/6053",
       "license": "All rights reserved",
+      "adapted": false
+    },
+    {
+      "title": "将棋の技図鑑 (yuki-keio/shogi)",
+      "url": "https://github.com/yuki-keio/shogi",
+      "license": "GPL-3.0-only",
       "adapted": false
     }
   ],
   "chapters": [
     {
       "title": {
-        "ja": "二枚の金をつなぎ３筋を受ける",
-        "en": "Connect the two golds behind the third-file pawn"
+        "ja": "金無双：相振り飛車の定番",
+        "en": "Kin Muso: the standard for Ranging Rook mirrors"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/6r2/9/9/9/9/6P2/5GKS1/4G4 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "玉３八、銀２八、金４八・５九に対し、後手飛車３二は３筋を見ています。歩３七が飛車筋を止め、金４八と銀２八がその歩を守ります。もう一枚の金を横に並べる意味を確認します。",
-            "en": "Sente has king ３八, silver ２八, and golds ４八 and ５九. Gote's rook on ３二 looks down the third file, stopped by the pawn on ３七. The gold on ４八 and silver on ２八 both protect that pawn. See what connecting the second gold adds."
+            "ja": "金無双は、金を二枚横に並べ、玉の右に銀を置く囲いです。上からの攻めに強いので、相振り飛車の標準になっています。三間飛車に振るところから組みます。後手も振り飛車に構える想定です。",
+            "en": "Kin Muso lines up two golds with a silver on the king's right. It resists attacks from above and is the standard castle in Ranging Rook mirrors. Build it starting from the Third File Rook swing. Gote ranges its rook as well."
+          },
+          "marks": {
+            "boxes": [
+              "5h",
+              "4h",
+              "3h",
+              "2h"
+            ]
           }
         },
         {
-          "moves": ["5i5h"],
+          "moves": [
+            "2h7h"
+          ],
           "text": {
-            "ja": "▲５八金で二枚の金が４八・５八に並ぶ金無双型です。金５八は金４八を横から守ります。ただし銀２八が玉３八の隣を占め、横へ逃げる余地は少ないままです。上からの備えと玉の逃げ道を別々に評価します。",
-            "en": "▲５八金 makes the two-gold Kin Muso arrangement on ４八 and ５八. The new gold protects the other gold sideways. The silver on ２八 still occupies a square beside the king on ３八, limiting lateral movement. Evaluate the front shield and escape routes separately."
+            "ja": "▲７八飛。飛車を三間に振ります。玉が入る二八も空きました。",
+            "en": "▲7八飛 swings the rook to the third file and also frees 2h."
+          },
+          "marks": {
+            "boxes": [
+              "2h"
+            ],
+            "last": "7h"
+          }
+        },
+        {
+          "moves": [
+            "3c3d",
+            "5i4h"
+          ],
+          "text": {
+            "ja": "▲４八玉。玉を右へ寄せます。",
+            "en": "▲4八玉 moves the king right."
+          },
+          "marks": {
+            "last": "4h"
+          }
+        },
+        {
+          "moves": [
+            "8b3b",
+            "4h3h"
+          ],
+          "text": {
+            "ja": "▲３八玉。玉が三八に着きました。ここが囲いの中心です。",
+            "en": "▲3八玉 puts the king on 3h, the center of the castle."
+          },
+          "marks": {
+            "boxes": [
+              "3h"
+            ],
+            "last": "3h"
+          }
+        },
+        {
+          "moves": [
+            "5a6b",
+            "4i4h"
+          ],
+          "text": {
+            "ja": "▲４八金。右の金を玉の隣へ。",
+            "en": "▲4八金 lifts the right gold beside the king."
+          },
+          "marks": {
+            "boxes": [
+              "4h"
+            ],
+            "last": "4h"
+          }
+        },
+        {
+          "moves": [
+            "6b7b",
+            "6i5h"
+          ],
+          "text": {
+            "ja": "▲５八金。左の金も上げて、金二枚が並びます。",
+            "en": "▲5八金 lifts the left gold, and two golds stand together."
+          },
+          "marks": {
+            "boxes": [
+              "5h",
+              "4h"
+            ],
+            "last": "5h"
+          }
+        },
+        {
+          "moves": [
+            "7b8b",
+            "3i2h"
+          ],
+          "text": {
+            "ja": "▲２八銀。銀を玉の右に上げます。",
+            "en": "▲2八銀 lifts the silver on the king's right."
+          },
+          "marks": {
+            "boxes": [
+              "2h"
+            ],
+            "last": "2h"
+          }
+        },
+        {
+          "moves": [
+            "7a7b",
+            "1g1f"
+          ],
+          "text": {
+            "ja": "▲１六歩。端の歩を突いて、玉の逃げ道を作ります。",
+            "en": "▲1六歩 pushes the edge pawn to give the king an escape square."
+          },
+          "marks": {
+            "boxes": [
+              "1g"
+            ],
+            "last": "1f"
+          }
+        },
+        {
+          "text": {
+            "ja": "金無双は、頭上と斜め上からの圧力に強い形です。ただし、二八の銀が玉の逃げ道をふさいで、横から攻められると窮屈になります。また、玉の斜め前のすき間は「うさぎの耳」と呼ばれる弱点です。銀を後で二六や一七へ動かして、逃げ道を作っておく指し方もあります。",
+            "en": "Kin Muso resists pressure from above and from the upper diagonals. The silver on 2h, however, blocks the king's escape, which makes it cramped against a lateral attack, and the gap diagonally ahead of the king is a known soft spot. Some players later move the silver to 2f or 1g to create a way out."
+          },
+          "marks": {
+            "boxes": [
+              "2h",
+              "3g"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "壁銀を動かしても利きは残る",
-        "en": "Clearing a wall silver does not clear enemy control"
+        "ja": "美濃囲い（三九玉型）：玉を二八まで上げない",
+        "en": "Mino with the king on 3i: not stepping up to 2h"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/7r1/9/9/9/9/9/4GGKS1/9 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "玉３八の右に銀２八、左に金４八・５八がある金無双型です。後手飛車２二は２筋を縦に見ています。銀２八は玉の移動先を塞いでいますが、銀を移せば２八が安全になるとは限りません。",
-            "en": "In this Kin Muso core, the king on ３八 has a silver on ２八 and golds on ４八 and ５八. Gote's rook on ２二 looks down the second file. The silver occupies a king escape square, but moving it will not necessarily make that square safe."
+            "ja": "美濃は振り飛車同士の戦いでも組まれます。玉を二八まで運ぶ形が普通ですが、三九に残したまま囲う型も、実戦でよく見かけます。玉が低い分、頭の上の空きが小さくなります。",
+            "en": "Mino is built in Ranging Rook mirrors too. The king usually goes to 2h, but a version that leaves it on 3i is also seen often in real games. With the king lower, the gap above it is smaller."
+          },
+          "marks": {
+            "boxes": [
+              "3i",
+              "3h",
+              "5h"
+            ]
           }
         },
         {
-          "moves": ["2h1g"],
+          "moves": [
+            "2h6h"
+          ],
           "text": {
-            "ja": "▲１七銀で２八は空きました。しかし飛車２二から２八までの筋に駒がなく、玉３八は２八へ移れません。銀１七は２八を斜め後ろに守っていても、相手の飛車の利きは消せないのです。",
-            "en": "▲１七銀 empties ２八, but the file from Gote's rook on ２二 to ２八 is now clear. The king on ３八 cannot move there. The silver on １七 protects ２八 diagonally backward, yet friendly protection does not cancel the enemy rook's control."
+            "ja": "▲６八飛。飛車を四間に振ります。",
+            "en": "▲6八飛 swings the rook to the fourth file."
+          },
+          "marks": {
+            "boxes": [
+              "2h"
+            ],
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "3c3d",
+            "3i3h"
+          ],
+          "text": {
+            "ja": "▲３八銀。右の銀を上げます。",
+            "en": "▲3八銀 lifts the right silver."
+          },
+          "marks": {
+            "boxes": [
+              "3h"
+            ],
+            "last": "3h"
+          }
+        },
+        {
+          "moves": [
+            "8b3b",
+            "5i4h"
+          ],
+          "text": {
+            "ja": "▲４八玉。玉を斜めに上げます。",
+            "en": "▲4八玉 lifts the king diagonally."
+          },
+          "marks": {
+            "last": "4h"
+          }
+        },
+        {
+          "moves": [
+            "5a6b",
+            "4h3i"
+          ],
+          "text": {
+            "ja": "▲３九玉。玉を斜め後ろの三九へ下げます。四九の金と銀の間に入りました。",
+            "en": "▲3九玉 drops the king diagonally back to 3i, between the gold on 4i and the silver."
+          },
+          "marks": {
+            "boxes": [
+              "3i"
+            ],
+            "last": "3i"
+          }
+        },
+        {
+          "moves": [
+            "6b7b",
+            "6i5h"
+          ],
+          "text": {
+            "ja": "▲５八金。左の金を寄せて完成です。金銀が並び、玉の頭と横を守ります。",
+            "en": "▲5八金 brings over the left gold, finishing it. Gold and silver line up and guard the head and sides of the king."
+          },
+          "marks": {
+            "boxes": [
+              "5h",
+              "4i",
+              "3h",
+              "3i"
+            ],
+            "last": "5h"
+          }
+        },
+        {
+          "text": {
+            "ja": "三九玉型の美濃は、玉を二八まで上げないので、頭上のすき間が小さく、縦からの攻めに耐えやすくなっています。その代わり、普通の美濃より玉が窮屈で、横から飛車を打たれると苦しくなります。端歩を突かずに済むので、手数も少なくなります。",
+            "en": "With the king staying on 3i, the gap above it is smaller and attacks along the file are easier to take. In return the king is more cramped than in ordinary Mino and suffers if a rook is dropped from the side. It also saves the edge-pawn move."
+          },
+          "marks": {
+            "boxes": [
+              "2h",
+              "1h"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "右矢倉の銀で前の飛車筋を止める",
-        "en": "Use Right Yagura's silver against a forward rook"
+        "ja": "高美濃：金を上げて頭上を厚くする",
+        "en": "Taka Mino: the gold steps up to thicken the top"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/6r2/9/9/9/9/5G1PP/5SGK1/9 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "玉２八、金３八・４七、銀４八、歩２七・１七です。後手飛車３二の３筋には、玉の前にまだ守り駒がありません。銀を３七へ出すと飛車筋に入るため、銀の支えを数えます。",
-            "en": "Sente has king ２八, golds ３八 and ４七, silver ４八, and pawns ２七 and １七. Gote's rook on ３二 faces an open third file above the king's neighborhood. Advancing the silver to ３七 puts it in that line; count its defenders first."
+            "ja": "美濃囲いの金を一段上げると高美濃です。相振り飛車では、上からの攻めに備えて、この形に組むことが多くなります。対抗形と違い、桂馬は跳ねないのが普通です。",
+            "en": "Raising a gold in Mino gives Taka Mino. In Ranging Rook mirrors this form is common as a defense against attacks from above. Unlike in Ranging versus Static games, the knight usually does not jump."
+          },
+          "marks": {
+            "boxes": [
+              "4g",
+              "2h"
+            ]
           }
         },
         {
-          "moves": ["4h3g"],
+          "moves": [
+            "2h6h"
+          ],
           "text": {
-            "ja": "▲３七銀で右矢倉型の前壁ができます。金３八は銀３七を真上に、金４七は銀３七を横から守ります。飛車３二の縦筋は銀３七で止まりますが、この形を作れただけで優勢とは決まりません。相手の持ち駒や別の筋も確認します。",
-            "en": "▲３七銀 builds a Right Yagura front shield. The gold on ３八 protects the silver straight ahead, and the gold on ４七 supports it sideways. The rook's third-file line stops at the silver, but reaching this shape alone proves no advantage; inspect drops and other attacking lines."
+            "ja": "▲６八飛。飛車を四間に振ります。",
+            "en": "▲6八飛 swings the rook to the fourth file."
+          },
+          "marks": {
+            "boxes": [
+              "2h"
+            ],
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "3c3d",
+            "5i4h",
+            "8b3b",
+            "4h3h",
+            "5a6b",
+            "3h2h"
+          ],
+          "text": {
+            "ja": "玉を、▲４八玉、▲３八玉、▲２八玉と右へ運びます。",
+            "en": "The king walks right, ▲4八玉, ▲3八玉, ▲2八玉."
+          },
+          "marks": {
+            "boxes": [
+              "2h"
+            ],
+            "last": "2h"
+          }
+        },
+        {
+          "moves": [
+            "6b7b",
+            "3i3h"
+          ],
+          "text": {
+            "ja": "▲３八銀。銀を玉の隣に上げます。",
+            "en": "▲3八銀 lifts the silver beside the king."
+          },
+          "marks": {
+            "boxes": [
+              "3h"
+            ],
+            "last": "3h"
+          }
+        },
+        {
+          "moves": [
+            "7b8b",
+            "6i5h"
+          ],
+          "text": {
+            "ja": "▲５八金。金を寄せて美濃囲いになります。",
+            "en": "▲5八金 brings the gold over, making a Mino."
+          },
+          "marks": {
+            "boxes": [
+              "5h"
+            ],
+            "last": "5h"
+          }
+        },
+        {
+          "moves": [
+            "7a7b",
+            "4g4f"
+          ],
+          "text": {
+            "ja": "▲４六歩。金が上がるための場所を空けます。",
+            "en": "▲4六歩 empties the square for the gold to climb."
+          },
+          "marks": {
+            "boxes": [
+              "4g"
+            ],
+            "last": "4f"
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "5h4g"
+          ],
+          "text": {
+            "ja": "▲４七金。金を一段上げて完成です。桂馬は二九にいたままで、跳ねません。",
+            "en": "▲4七金 raises the gold, completing it. The knight stays on 2i and does not jump."
+          },
+          "marks": {
+            "boxes": [
+              "4g",
+              "3h",
+              "2h"
+            ],
+            "last": "4g"
+          }
+        },
+        {
+          "text": {
+            "ja": "高美濃は、玉の頭と斜め前を金が覆うので、上からの攻めに強くなります。そのかわり、金が上がった分、下の段が空き、横から打たれやすくなります。上がった金を、相手の銀や桂に狙われる点にも注意が必要です。",
+            "en": "Taka Mino covers the head and the diagonal front with a gold, so it resists attacks from above. The price is a thinner lower rank, which makes drops from the side easier, and the raised gold can be attacked by enemy silvers and knights."
+          },
+          "marks": {
+            "boxes": [
+              "4i",
+              "5h"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "美濃の玉を低く保つ判断",
-        "en": "Keep a Mino king low when the front file matters"
+        "ja": "右矢倉：矢倉を左右反対に組む",
+        "en": "Right Yagura: Yagura mirrored"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/6r2/9/9/9/9/6P2/4GKS2/5G3 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "玉４八、銀３八、金５八・４九、歩３七です。後手飛車３二を歩３七が遮っています。玉を３九へ引くと、２八へ出る美濃と違う低い玉の位置になります。",
-            "en": "Sente has king ４八, silver ３八, golds ５八 and ４九, and pawn ３七. The pawn blocks Gote's rook on ３二. Retreating the king to ３九 gives a lower Mino king position instead of the usual move toward ２八."
+            "ja": "右矢倉は、矢倉を鏡写しにした、相振り飛車に特有の囲いです。頭上からの攻めに非常に強く、相手に邪魔されず組み上げられたなら、それだけで指しやすくなります。金無双や高美濃を土台に、あとから変えていく手順もあります。",
+            "en": "Right Yagura is Yagura mirrored and belongs to Ranging Rook mirrors. It is very strong against attacks from above, and getting it built undisturbed is already comfortable for the player. It can also grow out of Kin Muso or Taka Mino."
+          },
+          "marks": {
+            "boxes": [
+              "3g",
+              "4g",
+              "3h",
+              "2h"
+            ]
           }
         },
         {
-          "moves": ["4h3i"],
+          "moves": [
+            "3g3f"
+          ],
           "text": {
-            "ja": "▲３九玉。金４九は玉３九を横から守り、銀３八は歩３七を守ります。歩３七が取られた後は飛車の３筋が伸びるため、玉を低くしただけで解決しません。高美濃や穴熊へ組み替える選択も、相手の攻めの速さと比べます。",
-            "en": "▲３九玉 is supported sideways by the gold on ４九, while the silver on ３八 protects the pawn on ３七. If that pawn falls, the third-file rook line opens; keeping the king low alone does not solve the threat. Compare any plan to build High Mino or Anaguma with the speed of Gote's attack."
+            "ja": "▲３六歩。３筋の歩を突いて、銀の上がる場所を作ります。",
+            "en": "▲3六歩 pushes the third-file pawn to make room for the silver."
+          },
+          "marks": {
+            "boxes": [
+              "3g"
+            ],
+            "last": "3f"
+          }
+        },
+        {
+          "moves": [
+            "3c3d",
+            "4g4f"
+          ],
+          "text": {
+            "ja": "▲４六歩。４筋の歩も突きます。金が四七に入る準備です。",
+            "en": "▲4六歩 pushes the fourth-file pawn too, preparing for a gold on 4g."
+          },
+          "marks": {
+            "boxes": [
+              "4g"
+            ],
+            "last": "4f"
+          }
+        },
+        {
+          "moves": [
+            "8b3b",
+            "2h6h"
+          ],
+          "text": {
+            "ja": "▲６八飛。飛車を四間に振って、二八を空けます。",
+            "en": "▲6八飛 swings the rook to the fourth file and empties 2h."
+          },
+          "marks": {
+            "boxes": [
+              "2h"
+            ],
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "5a6b",
+            "5i4h",
+            "6b7b",
+            "4h3h",
+            "7b8b",
+            "3h2h"
+          ],
+          "text": {
+            "ja": "玉を、▲４八玉、▲３八玉、▲２八玉と運びます。",
+            "en": "The king walks ▲4八玉, ▲3八玉, ▲2八玉."
+          },
+          "marks": {
+            "boxes": [
+              "2h"
+            ],
+            "last": "2h"
+          }
+        },
+        {
+          "moves": [
+            "7a7b",
+            "3i3h",
+            "9c9d",
+            "3h3g"
+          ],
+          "text": {
+            "ja": "右の銀を、▲３八銀、▲３七銀と前へ出します。",
+            "en": "The right silver goes forward, ▲3八銀, ▲3七銀."
+          },
+          "marks": {
+            "boxes": [
+              "3g"
+            ],
+            "last": "3g"
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "4i3h"
+          ],
+          "text": {
+            "ja": "▲３八金。空いた三八へ金を上げます。",
+            "en": "▲3八金 raises a gold into the vacated 3h."
+          },
+          "marks": {
+            "boxes": [
+              "3h"
+            ],
+            "last": "3h"
+          }
+        },
+        {
+          "moves": [
+            "6a5b",
+            "6i5h",
+            "8c8d",
+            "5h4g"
+          ],
+          "text": {
+            "ja": "左の金を、▲５八金、▲４七金と上げます。右矢倉の完成です。",
+            "en": "The left gold goes ▲5八金, ▲4七金. Right Yagura is complete."
+          },
+          "marks": {
+            "boxes": [
+              "3g",
+              "4g",
+              "3h",
+              "2h"
+            ],
+            "last": "4g"
+          }
+        },
+        {
+          "text": {
+            "ja": "右矢倉は、金銀の壁が玉の前にそびえ、縦からの攻めに強い囲いです。相振り飛車で玉頭を狙い合う展開に向いています。弱点は矢倉と同じ向きで、下の段が空いていて、飛車を横から打たれる攻めです。組む手数も多いので、相手の攻めが早いと間に合いません。",
+            "en": "Right Yagura raises a wall of gold and silver in front of the king, strong against attacks down the files, which suits Ranging Rook mirrors where kings are targeted head-on. The weakness is the same as Yagura's: the empty bottom rank and rook drops from the side. It also takes many moves, so a fast attack arrives first."
+          },
+          "marks": {
+            "boxes": [
+              "2i",
+              "3i"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "穴熊：四八に金を置く相振り型",
+        "en": "Anaguma with a gold on 4h for Ranging Rook mirrors"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "text": {
+            "ja": "相振り飛車でも穴熊は使われます。右の隅に玉を入れ、周りを金銀で固めます。相振りでは上からの攻めが多いので、四八に金を置いて頭上を厚くするのが特徴です。",
+            "en": "Anaguma is used in Ranging Rook mirrors too. The king goes into the right corner with gold and silver around it. Since attacks come from above, a gold is placed on 4h to thicken the top, which sets it apart."
+          },
+          "marks": {
+            "boxes": [
+              "1i",
+              "4h",
+              "3h",
+              "2h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2h6h"
+          ],
+          "text": {
+            "ja": "▲６八飛。飛車を四間に振ります。",
+            "en": "▲6八飛 swings the rook to the fourth file."
+          },
+          "marks": {
+            "boxes": [
+              "2h"
+            ],
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "3c3d",
+            "5i4h",
+            "8b3b",
+            "4h3h",
+            "5a6b",
+            "3h2h"
+          ],
+          "text": {
+            "ja": "玉を右へ、▲４八玉、▲３八玉、▲２八玉と運びます。",
+            "en": "The king walks right, ▲4八玉, ▲3八玉, ▲2八玉."
+          },
+          "marks": {
+            "boxes": [
+              "2h"
+            ],
+            "last": "2h"
+          }
+        },
+        {
+          "moves": [
+            "6b7b",
+            "1i1h"
+          ],
+          "text": {
+            "ja": "▲１八香。香を上げて、一九を空けます。",
+            "en": "▲1八香 lifts the lance and opens 1i."
+          },
+          "marks": {
+            "boxes": [
+              "1i"
+            ],
+            "last": "1h"
+          }
+        },
+        {
+          "moves": [
+            "7b8b",
+            "2h1i"
+          ],
+          "text": {
+            "ja": "▲１九玉。玉が隅に入りました。",
+            "en": "▲1九玉 puts the king in the corner."
+          },
+          "marks": {
+            "boxes": [
+              "1i"
+            ],
+            "last": "1i"
+          }
+        },
+        {
+          "moves": [
+            "7a7b",
+            "3i2h"
+          ],
+          "text": {
+            "ja": "▲２八銀。銀を上げて、玉にふたをします。",
+            "en": "▲2八銀 lifts the silver and caps the king."
+          },
+          "marks": {
+            "boxes": [
+              "2h"
+            ],
+            "last": "2h"
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "4i3h"
+          ],
+          "text": {
+            "ja": "▲３八金。金を上げます。",
+            "en": "▲3八金 lifts a gold."
+          },
+          "marks": {
+            "boxes": [
+              "3h"
+            ],
+            "last": "3h"
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "6i5h",
+            "6a5b",
+            "5h4h"
+          ],
+          "text": {
+            "ja": "左の金を、▲５八金、▲４八金と寄せます。金二枚が並んで、頭上を固めます。",
+            "en": "The other gold goes ▲5八金, ▲4八金. Two golds stand together and harden the top."
+          },
+          "marks": {
+            "boxes": [
+              "4h",
+              "3h",
+              "2h",
+              "1h"
+            ],
+            "last": "4h"
+          }
+        },
+        {
+          "text": {
+            "ja": "相振り穴熊は、頭上に金が二枚いて、縦の攻めに強くなっています。通常の穴熊の堅さに、頭上の厚みが加わった形です。弱点は、手数がかかることと、玉が隅で逃げ場がなく、端から攻められると苦しいことです。攻めの駒も減るので、戦いの主導権を握りにくくなります。",
+            "en": "This Anaguma has two golds overhead, so it holds up against attacks down the files: the firmness of an ordinary Anaguma plus extra height. The weaknesses are the number of moves needed, the king having no escape in the corner, and trouble against an edge attack. Fewer pieces attack, so it is harder to take the initiative."
+          },
+          "marks": {
+            "boxes": [
+              "1g",
+              "3g"
+            ]
           }
         }
       ]

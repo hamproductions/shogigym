@@ -6,21 +6,21 @@
     "対振り飛車"
   ],
   "title": {
-    "ja": "ゴキゲン中飛車に超速",
-    "en": "Super-Speed against Gokigen Central Rook"
+    "ja": "超速２枚銀：ゴキゲン中飛車への急戦",
+    "en": "Chousoku Two Silvers: a rush against Gokigen Central Rook"
   },
   "intro": {
-    "ja": "超速では二枚の銀を中央の争点に働かせます。銀が５筋へ届くことだけでなく、相手の飛車・角・銀がそのマスにどう利くかを確認してから動きましょう。この講座では、中央の歩を取れる条件と、取った後に残る反撃を別々の局面で考えます。",
-    "en": "Super-Speed puts both silvers to work around the central file. Before moving one toward the fifth file, check how the opposing rook, bishop and silver cover its destination. These positions separate the conditions for taking the central pawn from the counterplay that remains afterward."
+    "ja": "ゴキゲン中飛車に対して、右の銀を▲３七から▲４六へ、左の銀を▲６六へ進めて５五の歩を狙う居飛車の急戦です。後手が囲い優先か銀対抗かで攻め方が変わります。基本形から組み、二つの形への攻めと、後手が先に５筋を交換してきたときの角交換を覚えます。",
+    "en": "A Static Rook rush against Gokigen Central Rook: the right silver goes from 3g to 4f, the left silver to 6f, and the pawn on 5e is the target. The attack differs depending on whether Gote builds a castle first or matches with silvers. Build from the basic position, learn both attacks, and learn the bishop trade when Gote exchanges the fifth file first."
   },
   "check": {
     "question": {
-      "ja": "銀二枚が５五の歩へ届いていても、すぐ取る前に何を数えますか？",
-      "en": "Even if two silvers can reach the pawn on 5e, what must you count before capturing it?"
+      "ja": "超速２枚銀で、５五の地点に利きを集めるのはなぜですか？",
+      "en": "Why does Chousoku Two Silvers concentrate coverage on 5e?"
     },
     "answer": {
-      "ja": "５五を守る飛車・角・銀の利きと、取った後の取り返し方を調べます。守り駒が退いても飛車の横移動など別の反撃が残ることがあります。",
-      "en": "Count the rook, bishop and silver defenders of 5e, then trace the recaptures. A defender moving away can still leave counterplay, including a sideways rook move."
+      "ja": "５五には後手の飛車と角の２枚しか利いておらず、先手は銀２枚と角の３枚が利いているため、５五の歩を取れるからです。取られると後手は攻め手を失います。",
+      "en": "Because Gote has only the rook and bishop covering 5e, while Sente has two silvers and the bishop, so Sente can win the pawn there. Once it falls, Gote loses his attack."
     }
   },
   "references": [
@@ -34,37 +34,186 @@
   "chapters": [
     {
       "title": {
-        "ja": "中央に向かう二枚目の銀",
-        "en": "Bringing the second silver into range"
+        "ja": "ゴキゲン中飛車の基本形から▲３六歩",
+        "en": "From the Gokigen basic position to ▲3六歩"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "9/1kg1r4/7b1/5sp2/4p4/5S3/3SP2P1/1BKG3R1/9 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "後手の飛車は５二、歩は５五です。先手の銀は４六から５五へ進めますが、後手銀４四も同じ地点を守っています。まず左の銀を６七から働かせます。",
-            "en": "Gote has a rook on 5b and a pawn on 5e. Sente's silver on 4f can take that pawn, but Gote's silver on 4d also guards it. Bring the other silver on 6g into the contest first."
+            "ja": "超速は、ゴキゲン中飛車に対して右の銀を素早く▲３七から▲４六へ出し、左の銀も前へ進めて５五の歩を狙う居飛車の急戦です。この章では、初手からゴキゲン中飛車の基本形を一手ずつ作り、超速の出発点となる▲３六歩まで進めます。",
+            "en": "Chousoku is a Static Rook rush against Gokigen Central Rook: the right silver goes quickly via 3g to 4f, the left silver comes forward too, and the pawn on 5e becomes the target. This chapter builds the Gokigen basic position one move at a time from move one and reaches ▲3六歩, the starting point."
+          }
+        },
+        {
+          "moves": [
+            "7g7f"
+          ],
+          "text": {
+            "ja": "▲７六歩で角道を開けます。角が自由に動けるようになります。居飛車の最初の一手で、ゴキゲン中飛車が相手でも変わりません。",
+            "en": "▲7六歩 opens the bishop line, so the bishop can move freely. It is the standard first move for a Static Rook player and does not change against Gokigen Central Rook."
           },
           "marks": {
+            "last": "7f"
+          }
+        },
+        {
+          "moves": [
+            "5c5d",
+            "2g2f"
+          ],
+          "text": {
+            "ja": "△５四歩に▲２六歩。後手が５筋の歩を突いたので、中飛車の気配があります。先手は飛車先の歩を伸ばします。",
+            "en": "△5四歩 hints at a Central Rook. Sente answers ▲2六歩, pushing the rook pawn."
+          },
+          "marks": {
+            "last": "2f"
+          }
+        },
+        {
+          "moves": [
+            "5d5e",
+            "2f2e"
+          ],
+          "text": {
+            "ja": "△５五歩に▲２五歩。５筋の位を取られても、飛車先を二つ伸ばして陣形を整えます。",
+            "en": "Gote takes the fifth-file post with △5五歩, and Sente pushes the rook pawn again with ▲2五歩 to build the formation."
+          },
+          "marks": {
+            "last": "2e",
             "boxes": [
-              "5e",
-              "4d",
-              "6g"
+              "2e"
             ]
           }
         },
         {
           "moves": [
-            "6g5f"
+            "3c3d",
+            "3i4h"
           ],
           "text": {
-            "ja": "▲５六銀で５五を二枚の銀が支えます。歩を取る手はまだ確定ではありません。後手銀が４四に残るなら、その銀による取り返しも数える必要があります。",
-            "en": "Sente's silver reaches 5f, so both silvers now cover 5e. Taking the pawn is still conditional: while Gote's silver stays on 4d, it can recapture there."
+            "ja": "△３四歩に▲４八銀。銀を上げて、飛車が振られるのを待ちます。",
+            "en": "△3四歩 is met by ▲4八銀, bringing the silver up while waiting for the rook to swing."
           },
           "marks": {
+            "last": "4h",
+            "boxes": [
+              "4h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8b5b",
+            "5i6h"
+          ],
+          "text": {
+            "ja": "△５二飛で中飛車が確定しました。これがゴキゲン中飛車です。先手は▲６八玉と玉を左へ向けて、囲いの準備に入ります。",
+            "en": "△5二飛 settles it as Gokigen Central Rook. Sente moves the king left with ▲6八玉 and starts preparing a castle."
+          },
+          "marks": {
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "2b3c",
+            "3g3f"
+          ],
+          "text": {
+            "ja": "△３三角と構えたこの形が、ゴキゲン中飛車の基本的な姿です。ここで先手は３筋の歩を▲３六歩と一つ進めます。３七のマスが空くので、次に右の銀を▲３七銀と上げられます。これが超速の第一歩です。後手は囲いを優先するか、銀を上げて対抗するかを選びます。",
+            "en": "The position after △3三角 is the Gokigen basic position. Here Sente advances the third-file pawn one step with ▲3六歩. That empties 3g, so the right silver can go up next with ▲3七銀. This is the first step of Chousoku. Gote chooses between building a castle first and raising a silver to match."
+          },
+          "marks": {
+            "last": "3f",
+            "boxes": [
+              "3g"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "ここまでの要点です。①角道を開け、飛車先の歩を▲２六歩、▲２五歩と伸ばす。②後手が△５二飛と中飛車に振ったら、▲４八銀と▲６八玉で構える。③▲３六歩と３筋から動き、右の銀を▲３七銀と出す準備をする。この形が超速の出発点です。",
+            "en": "Points to remember so far. 1) Open the bishop line and push the rook pawn with ▲2六歩 and ▲2五歩. 2) When Gote ranges to the center with △5二飛, set up with ▲4八銀 and ▲6八玉. 3) Move on the third file with ▲3六歩 and prepare to bring the right silver out with ▲3七銀. This is the starting point of Chousoku."
+          },
+          "marks": {
+            "boxes": [
+              "3g",
+              "3f",
+              "4h"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "超速の良い点は、銀を素早く前線に出して５五に利きを集め、相手の攻め手を封じられることです。注意する点は、後手が５筋の歩を先に交換してくる変化や、△５五角の切り返しがあることで、どのタイミングで△５六歩と突かれるかが駆け引きになります。次の章から、後手の指し方ごとに攻め方を見ます。",
+            "en": "The strength of Chousoku is that the silvers reach the front quickly and focus on 5e, shutting down Gote's attack. The things to watch are the lines where Gote exchanges the fifth-file pawn first and the counterattack △5五角, so the timing of △5六歩 becomes a battle of nerves. The next chapters follow each Gote setup."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "囲い優先の相手には２枚銀で５五を狙う",
+        "en": "Against a castle-first setup, aim at 5e with two silvers"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "5c5d",
+            "2g2f",
+            "5d5e",
+            "2f2e",
+            "3c3d",
+            "3i4h",
+            "8b5b",
+            "5i6h",
+            "2b3c",
+            "3g3f"
+          ],
+          "text": {
+            "ja": "超速の出発点です。後手が囲いを優先してきた場合の指し方を見ます。",
+            "en": "The starting point of Chousoku. This chapter covers Gote building a castle first."
+          },
+          "marks": {
+            "last": "3f"
+          }
+        },
+        {
+          "moves": [
+            "5a6b",
+            "4h3g"
+          ],
+          "text": {
+            "ja": "△６二玉に▲３七銀。右の銀が３七へ上がります。",
+            "en": "△6二玉 is met by ▲3七銀, bringing the right silver to 3g."
+          },
+          "marks": {
+            "last": "3g",
+            "boxes": [
+              "3g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6b7b",
+            "3g4f"
+          ],
+          "text": {
+            "ja": "△７二玉に▲４六銀。素早く４六まで上がるのが超速の要点です。５五に利きを集め、５五の歩を取るのが狙いです。後手は片美濃囲いを目指します。",
+            "en": "△7二玉 is met by ▲4六銀. Getting the silver to 4f quickly is the heart of Chousoku. It focuses on 5e and aims to take the pawn there, while Gote heads for a Kata Mino castle."
+          },
+          "marks": {
+            "last": "4f",
             "arrows": [
-              "6g5f"
+              "4f5e"
             ],
             "boxes": [
               "5e"
@@ -73,36 +222,57 @@
         },
         {
           "moves": [
-            "4d3e",
-            "4f5e"
+            "7b8b",
+            "6h7h",
+            "7a7b",
+            "7i6h"
           ],
           "text": {
-            "ja": "この例では後手が△３五銀と出て４六の銀を攻めました。４四の守りが消えたので、先手は▲５五銀右で歩を取ります。ただし後手は飛車で取り返すかどうかを選べます。",
-            "en": "In this sample, Gote advances the silver to 3e and attacks Sente's silver on 4f. With the 4d defender gone, Sente takes the pawn on 5e with the 4f silver. Gote may choose whether to recapture with the rook."
+            "ja": "△８二玉、▲７八玉、△７二銀、▲６八銀。先手は左の銀を前へ動かし始めます。",
+            "en": "△8二玉, ▲7八玉, △7二銀, ▲6八銀. Sente starts moving the left silver forward."
           },
           "marks": {
-            "arrows": [
-              "4f5e"
-            ],
+            "last": "6h",
             "boxes": [
-              "5f",
-              "5b"
+              "6h"
             ]
           }
         },
         {
           "moves": [
-            "5b5e",
-            "5f5e"
+            "4a3b",
+            "6h7g",
+            "3a4b",
+            "7g6f"
           ],
           "text": {
-            "ja": "例示した△同飛には▲同銀で飛車を取れます。飛車の利きだけを見ず、５六銀が５五を守る配置を確認してください。この取り返しは後手が飛車を出した場合の結果で、強制手順ではありません。",
-            "en": "If Gote chooses the shown rook capture, Sente's silver from 5f takes the rook. The key is the silver's protection of 5e. This result depends on Gote choosing that recapture; the line is not forced."
+            "ja": "△３二金に▲７七銀、△４二銀に▲６六銀。両方の銀が前線へ並んだ形が「２枚銀」です。次は▲５五銀左で歩を取る狙いで、取られると後手は攻めの足掛かりを失います。５五を数えると、後手は飛と角の二枚、先手は銀二枚に角を加えた三枚です。",
+            "en": "△3二金 is met by ▲7七銀 and △4二銀 by ▲6六銀. With both silvers forward, the formation is called Two Silvers. Sente threatens ▲5五銀左 winning the pawn, after which Gote has no attack. Gote has only the rook and bishop covering 5e, but Sente has two silvers and the bishop."
           },
           "marks": {
+            "last": "6f",
             "arrows": [
-              "5f5e"
+              "6f5e",
+              "4f5e"
             ],
+            "boxes": [
+              "5e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5e5f",
+            "5g5f",
+            "5b5f",
+            "P*5e"
+          ],
+          "text": {
+            "ja": "△５六歩と５筋を交換しても、もう手遅れです。▲同歩、△同飛に▲５五歩と打つと、後手の飛車は動けなくなります。後手はもっと早く△５六歩と動く必要がありました。",
+            "en": "Exchanging with △5六歩 is already too late. After ▲同歩 and △同飛, ▲5五歩 locks Gote's rook in place. Gote needed to play △5六歩 earlier."
+          },
+          "marks": {
+            "last": "5e",
             "boxes": [
               "5e"
             ]
@@ -112,219 +282,363 @@
     },
     {
       "title": {
-        "ja": "守備駒が通路をふさぐ時",
-        "en": "When a defender blocks its own rook"
+        "ja": "銀対抗は▲２九飛から▲４五桂",
+        "en": "Silver-vs-silver: ▲2九飛 then ▲4五桂"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "9/1kg1r4/6b2/5sp2/4p4/3S1S3/4P1NP1/1BKG3R1/9 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f",
+            "5c5d",
+            "2g2f",
+            "5d5e",
+            "2f2e",
+            "3c3d",
+            "3i4h",
+            "8b5b",
+            "5i6h",
+            "2b3c",
+            "3g3f"
+          ],
           "text": {
-            "ja": "５五の歩には後手の飛車５二・角３三・銀４四が関係します。先手の銀は４六と６六。ここでは守る銀が動いた後、飛車の縦の通路がどう変わるかを見ます。",
-            "en": "Gote's rook on 5b, bishop on 3c and silver on 4d all matter to the pawn on 5e. Sente has silvers on 4f and 6f. Watch what happens to the rook's vertical path after the defending silver moves."
+            "ja": "後手が△４二銀から銀を前へ出してくる「銀対抗」の場合です。アマチュアに人気で、ネット将棋でもよく見る形です。",
+            "en": "Here Gote answers with silvers of his own, going △4二銀 and forward, a setup called silver-vs-silver. It is popular among amateurs and common in online games."
           },
           "marks": {
+            "last": "3f"
+          }
+        },
+        {
+          "moves": [
+            "3a4b",
+            "4h3g"
+          ],
+          "text": {
+            "ja": "△４二銀に▲３七銀。後手は△５三銀と銀を５筋へ向けます。",
+            "en": "△4二銀 is met by ▲3七銀. Gote points his silver at the fifth file with △5三銀."
+          },
+          "marks": {
+            "last": "3g",
             "boxes": [
-              "5e",
-              "5c",
+              "3g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4b5c",
+            "3g4f",
+            "5c4d"
+          ],
+          "text": {
+            "ja": "▲４六銀に△４四銀。後手も５五の地点に利きを足しました。",
+            "en": "▲4六銀 is met by △4四銀. Gote has also added coverage to 5e."
+          },
+          "marks": {
+            "last": "4d",
+            "boxes": [
               "4d",
+              "4f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6h7h",
+            "5a6b",
+            "7i6h",
+            "6b7b",
+            "6h7g",
+            "7b8b",
+            "7g6f"
+          ],
+          "text": {
+            "ja": "先手はやはり２枚銀に組みます。▲７八玉、△６二玉、▲６八銀、△７二玉、▲７七銀、△８二玉、▲６六銀。ただし銀対抗では、お互いに５五へ三枚の利きがあるため、すぐに▲５五銀左とは取れません。",
+            "en": "Sente still builds Two Silvers: ▲7八玉, △6二玉, ▲6八銀, △7二玉, ▲7七銀, △8二玉, ▲6六銀. But in silver-vs-silver both sides have three pieces covering 5e, so Sente cannot take on 5e right away."
+          },
+          "marks": {
+            "last": "6f",
+            "boxes": [
               "6f"
             ]
           }
         },
         {
           "moves": [
-            "2g2f",
-            "4d5c"
+            "7a7b",
+            "4i5h",
+            "9c9d",
+            "9g9f",
+            "5b5a",
+            "2i3g"
           ],
           "text": {
-            "ja": "▲２六歩に対し、後手が銀を５三へ引いた一例です。この銀は飛車の正面に入り、５二から５五へ直進する通路をふさぎます。一方で４四が空き、角３三から５五への斜線は開きました。",
-            "en": "After Sente's pawn advance, Gote retreats the silver to 5c in this example. It stands directly in front of the rook, blocking a rook move from 5b to 5e. Vacating 4d also opens the bishop's diagonal from 3c to 5e."
+            "ja": "△７二銀、▲５八金右、△９四歩、▲９六歩、△５一飛。後手は片美濃を組み、５五はしばらく安全です。そこで先手は▲３七桂と跳ねて、攻めの準備をします。次に▲４五桂と跳ね、後手の角の利きをそらして５五銀左を狙います。",
+            "en": "△7二銀, ▲5八金右, △9四歩, ▲9六歩, △5一飛. Gote builds a Kata Mino, and 5e is safe for a while. Sente jumps the knight with ▲3七桂 to prepare, aiming at ▲4五桂 next to deflect Gote's bishop and then ▲5五銀左."
           },
           "marks": {
+            "last": "3g",
+            "arrows": [
+              "3g4e"
+            ],
             "boxes": [
-              "5c",
-              "4d",
-              "5e"
+              "3g"
             ]
           }
         },
         {
           "moves": [
-            "6f5e",
-            "3c5e",
-            "4f5e"
+            "4a3b",
+            "2h2i"
           ],
           "text": {
-            "ja": "▲５五銀左で歩を取り、例示した△同角には４六の銀で▲同銀と角を取ります。後手飛車は５三の自分の銀を飛び越えて５五へ行けません。ただし先手も銀一枚を渡しており、これだけで形勢を決められません。",
-            "en": "Sente takes the pawn with the 6f silver. Against the sample bishop recapture, the 4f silver takes the bishop. Gote's rook cannot jump over its own silver on 5c to reach 5e. Sente has also given up a silver, so this exchange alone does not settle the position."
+            "ja": "△３二金に、▲２九飛と飛車を引きます。▲４五桂と仕掛ける前に、飛車を引いておくのが定跡です。",
+            "en": "△3二金 is met by ▲2九飛, pulling the rook back. Retreating the rook before attacking with ▲4五桂 is the standard move."
           },
           "marks": {
-            "arrows": [
-              "4f5e"
-            ],
+            "last": "2i",
             "boxes": [
-              "5c",
-              "5e"
+              "2i"
             ]
           }
         },
         {
           "moves": [
-            "5c5d"
+            "6c6d",
+            "3g4e"
           ],
           "text": {
-            "ja": "後手は△５四銀と進んで先手の５五銀へ迫ることもできます。角を取ったあとも５筋が安全になったわけではなく、次の退路と後手飛車の働きを読み直します。",
-            "en": "Gote can continue with the shown silver advance to 5d, threatening Sente's silver on 5e. Capturing the bishop did not make the center safe; Sente must reassess its silver's retreat and the rook's activity."
+            "ja": "△６四歩に▲４五桂。いよいよ仕掛けます。後手が△２二角と引く形と、△４二角と引く形があります。",
+            "en": "△6四歩 is met by ▲4五桂, and the attack starts. Gote can pull the bishop back to 2b or to 4b."
           },
           "marks": {
-            "arrows": [
-              "5c5d"
-            ],
+            "last": "4e",
             "boxes": [
-              "5e"
-            ]
-          }
-        }
-      ],
-      "variations": [
-        {
-          "from": 1,
-          "moves": [
-            "3g4e",
-            "3c1e",
-            "6f5e"
-          ],
-          "text": {
-            "ja": "桂４五は３三角と５三銀を狙う。この例で角が１五へ逃げると５五への角の利きが消え、銀６六で歩を取れる。角の退き場所を選んだ結果であって、桂跳ねが常に５筋突破を強制する意味ではない。５三銀による飛車道の遮断は残る。",
-            "en": "N4e attacks the bishop on 3c and silver on 5c. If the bishop chooses 1e, its protection of 5e disappears and Sente’s silver from 6f can take the pawn. This depends on the bishop’s retreat; the knight jump does not force a fifth-file breakthrough. The silver on 5c still blocks the rook."
-          }
-        }
-      ]
-    },
-    {
-      "title": {
-        "ja": "飛車が横へ逃げた後",
-        "en": "After the central rook shifts sideways"
-      },
-      "side": "sente",
-      "kind": "position",
-      "start": "9/1kg1r4/6b2/6p2/4p4/5S3/3SP2P1/1BKG3R1/9 b - 1",
-      "steps": [
-        {
-          "text": {
-            "ja": "後手に４四の銀はいませんが、３三角は５五の歩を斜めに守ります。５二飛の位置だけを前提にした交換計算は、飛車が横へ動いた瞬間に変わります。",
-            "en": "Gote has no silver on 4d, but its bishop on 3c guards the pawn on 5e diagonally. Any exchange calculation based only on the rook staying on 5b changes when it shifts sideways."
-          },
-          "marks": {
-            "boxes": [
-              "5e",
-              "3c",
-              "5b"
-            ]
-          }
-        },
-        {
-          "moves": [
-            "6g5f",
-            "5b4b"
-          ],
-          "text": {
-            "ja": "▲５六銀に対し、後手が△４二飛と横へ寄った一例です。５五の歩から飛車の縦の守りは外れますが、４筋から別の攻めを作る余地があります。",
-            "en": "Sente develops the second silver to 5f; in this example Gote shifts the rook to 4b. Its vertical protection of the pawn on 5e disappears, but the rook can create play on the fourth file."
-          },
-          "marks": {
-            "arrows": [
-              "5b4b"
-            ],
-            "boxes": [
-              "5e",
               "4e"
             ]
           }
         },
         {
           "moves": [
-            "4f5e",
-            "3c5e",
-            "5f5e"
+            "3c4b",
+            "6f5e",
+            "4d5e",
+            "8h5e"
           ],
           "text": {
-            "ja": "先手が歩を取り、後手が角で取り返すなら、５六銀でその角を取れます。ここでも先手は銀一枚と引き換えに角と歩を得た形で、後手の応手は例示です。",
-            "en": "If Sente takes the pawn and Gote chooses to recapture with the bishop, the silver on 5f takes that bishop. Sente has exchanged one silver for a bishop and pawn in this sample; Gote's reply is optional."
+            "ja": "△４二角と引くと、角の利きが５五からずれます。そこで▲５五銀左と歩を取りにいきます。△同銀、▲同角と進んで、先手の角が後手の香に当たり、後手は忙しくなります。",
+            "en": "If Gote pulls back with △4二角, his bishop no longer covers 5e, so Sente goes for the pawn with ▲5五銀左. After △同銀 and ▲同角 the bishop attacks the lance, and Gote is busy."
           },
           "marks": {
-            "arrows": [
-              "5f5e"
-            ],
+            "last": "5e",
             "boxes": [
-              "4b"
+              "5e"
             ]
           }
         },
         {
           "moves": [
-            "4b4e"
+            "2a3c",
+            "S*5c"
           ],
           "text": {
-            "ja": "△４五飛は５五銀を横から攻める。ただし８八角が５五銀を守るため、銀を必ず逃がす必要はない。銀の退路と、同飛に同角と取り返す順を両方調べる。局所的な交換と盤全体の形勢は分けて判断する。",
-            "en": "R4e attacks the silver on 5e, but the bishop on 8h guards it. A retreat is not mandatory: compare silver exits with recapturing the rook using the bishop. Keep the local exchange separate from the overall evaluation."
+            "ja": "△３三桂と香を守るなら、▲５三銀と打ち込みます。△同飛なら▲同桂成で飛車が取れて先手良し、△同角なら▲３三桂成から攻めが続きます。互角の変化ですが、先手が攻めていて指しやすい形です。",
+            "en": "If Gote guards the lance with △3三桂, Sente drops ▲5三銀. After △同飛, ▲同桂成 wins the rook, and after △同角, ▲3三桂成 keeps the attack going. The line is still balanced, but Sente is attacking and has the easier game."
           },
           "marks": {
-            "arrows": [
-              "4b4e"
-            ],
+            "last": "5c",
             "boxes": [
-              "5e"
+              "5c"
             ]
+          }
+        },
+        {
+          "text": {
+            "ja": "超速２枚銀の要点です。右の銀を素早く▲３七銀から▲４六銀へ。左の銀も▲６八、▲７七、▲６六と進める。５五に利きを集めて歩を取るのを狙う。銀対抗の形には、▲２九飛から▲４五桂と仕掛ける。",
+            "en": "Key points of Chousoku Two Silvers. Bring the right silver quickly from 3g to 4f. Advance the left silver through 6h and 7g to 6f. Focus coverage on 5e and aim to take the pawn there. Against silver-vs-silver, attack with ▲2九飛 followed by ▲4五桂."
           }
         }
       ],
       "variations": [
         {
-          "from": 3,
+          "from": 4,
           "moves": [
-            "2g2f",
-            "4e5e",
+            "4a3b",
+            "3g4e",
+            "3c4b",
+            "6f5e",
+            "4d5e",
             "8h5e"
           ],
           "text": {
-            "ja": "銀を残して２六歩とした比較枝。同飛には８八角が５五へ取り返す。後手が飛車で取る順は強制ではない。",
-            "en": "A comparison leaves the silver in place and advances the pawn to 2f. If the rook captures on 5e, the bishop from 8h recaptures. Gote need not choose that rook capture."
+            "ja": "▲２九飛と引かずに▲４五桂と仕掛けるとどうなるでしょうか。△４二角、▲５五銀左、△同銀、▲同角と進みます。",
+            "en": "What happens if Sente attacks with ▲4五桂 without first retreating the rook with ▲2九飛? The play goes △4二角, ▲5五銀左, △同銀, ▲同角."
+          },
+          "marks": {
+            "last": "5e",
+            "boxes": [
+              "5e"
+            ]
+          }
+        },
+        {
+          "from": 4,
+          "moves": [
+            "4a3b",
+            "3g4e",
+            "3c4b",
+            "6f5e",
+            "4d5e",
+            "8h5e",
+            "5a5e",
+            "4f5e",
+            "B*3g"
+          ],
+          "text": {
+            "ja": "飛車を引いていないと、△同飛、▲同銀、△３七角の切り返しが厳しくなります。この角打ちが飛車と銀の両取りになるため、事前に▲２九飛が必要でした。",
+            "en": "Without the rook retreat, △同飛, ▲同銀 and then △3七角 is a severe counter. The bishop drop forks rook and silver, which is why ▲2九飛 was needed first."
+          },
+          "marks": {
+            "last": "3g",
+            "boxes": [
+              "3g"
+            ]
+          }
+        },
+        {
+          "from": 3,
+          "moves": [
+            "6a7b",
+            "4i5h",
+            "7a6b",
+            "9g9f",
+            "5b5a",
+            "2i3g",
+            "9c9d",
+            "2h2i",
+            "4a3b",
+            "3g4e",
+            "3c4b",
+            "6f5e",
+            "4d5e",
+            "8h5e"
+          ],
+          "text": {
+            "ja": "後手が金美濃と呼ばれる囲いを選ぶこともあります。金を５三の近くへ置いて、先手の▲５三銀の打ち込みを消す工夫です。",
+            "en": "Gote may also build a Gold Mino, which puts a gold in range of 5c to remove the drop ▲5三銀."
+          },
+          "marks": {
+            "last": "5e",
+            "boxes": [
+              "5c"
+            ]
+          }
+        },
+        {
+          "from": 6,
+          "moves": [
+            "3c2b",
+            "2e2d",
+            "2c2d",
+            "2i2d",
+            "P*2c",
+            "2d3d"
+          ],
+          "text": {
+            "ja": "後手が△２二角と引いた場合は、２筋の歩を交換してから３四の歩を飛車で取ります。ここで△３三桂と受けると角の利きが切れるため、▲５五銀左で歩が取れる流れです。",
+            "en": "Against the bishop retreat to 2b, Sente exchanges the rook pawn and then takes the third-file pawn. If Gote answers with △3三桂, the bishop line is blocked and ▲5五銀左 wins the pawn."
+          },
+          "marks": {
+            "last": "3d",
+            "boxes": [
+              "3d"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "飛車の段と持ち角の打ち場所",
-        "en": "Rook rank and an opponent’s bishop drop"
+        "ja": "５筋を先に交換されたら角交換",
+        "en": "If Gote exchanges the fifth file first, trade bishops"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "9/1kg6/9/6p2/4Sr3/9/4P2P1/1BKG3R1/9 b b 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f",
+            "5c5d",
+            "2g2f",
+            "5d5e",
+            "2f2e",
+            "3c3d",
+            "3i4h",
+            "8b5b",
+            "5i6h",
+            "2b3c",
+            "3g3f"
+          ],
           "text": {
-            "ja": "この独立した比較盤では後手が角を一枚持つ。先手飛車２八・銀５五に対する３七角打ちは、２八を斜めに狙い、４六を通って５五銀にも当たる。元の銀交換例とは持ち角の所有が違う。",
-            "en": "In this independent comparison Gote holds a bishop. B*3g attacks Sente’s rook on 2h and, through 4f, its silver on 5e. Bishop ownership differs from the earlier silver-exchange example."
+            "ja": "ゴキゲン中飛車側が、素早く５筋の歩を交換してくる場合です。駆け引きの多い変化なので、基本だけを見ます。",
+            "en": "Here Gote quickly exchanges the fifth-file pawn. There are many subtleties, so only the basics are covered."
           },
           "marks": {
-            "arrows": [
-              "3g2h",
-              "3g5e"
+            "last": "3f"
+          }
+        },
+        {
+          "moves": [
+            "5a6b",
+            "4h3g"
+          ],
+          "text": {
+            "ja": "△６二玉に▲３七銀と進んだところで、△５六歩と５筋を交換してきます。",
+            "en": "After △6二玉 and ▲3七銀, Gote exchanges the fifth file with △5六歩."
+          },
+          "marks": {
+            "last": "3g",
+            "boxes": [
+              "3g"
             ]
           }
         },
         {
           "moves": [
-            "2h2i",
-            "B*3g"
+            "5e5f",
+            "5g5f",
+            "5b5f"
           ],
           "text": {
-            "ja": "飛車を２九へ引く比較枝。３七角打ちは４六・５五へ利く一方、２八を斜めに狙う。飛車が２八にいれば標的だが、２九飛はその斜線から外れる。先手銀が３七にいればこの角打ちはできない。飛車の一段差と升の占有を一緒に調べる例で、全ての角打ちを防いだとは言えない。",
-            "en": "A comparison retreats the rook to 2i. B*3g points toward 4f and 5e and also attacks 2h diagonally. A rook on 2h would be a target; the rook on 2i is off that diagonal. A Sente silver occupying 3g would prevent this drop. Compare rook rank and square occupancy without claiming that all bishop drops have been prevented."
+            "ja": "▲同歩、△同飛。ここで、先手には切り返しがあります。",
+            "en": "▲同歩, △同飛. Sente now has a counter."
+          },
+          "marks": {
+            "last": "5f",
+            "boxes": [
+              "5f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8h3c+",
+            "2a3c",
+            "B*6e"
+          ],
+          "text": {
+            "ja": "先手から▲３三角成と角を交換し、△同桂に▲６五角と打ちます。後手は馬を作る手を受けられず、先手が良くなります。",
+            "en": "Sente trades bishops with ▲3三角成, and after △同桂 drops ▲6五角. Gote cannot stop the promoted bishop and Sente is better."
+          },
+          "marks": {
+            "last": "6e",
+            "boxes": [
+              "6e"
+            ]
           }
         }
       ],
@@ -332,12 +646,43 @@
         {
           "from": 0,
           "moves": [
-            "2g2f",
-            "B*3g"
+            "5e5f",
+            "5g5f",
+            "5b5f"
           ],
           "text": {
-            "ja": "先に２六歩とする枝では飛車は２八のまま、角が飛車と銀を同時に狙う。相手がこの角打ちを選んだ場合の比較で、二枚の捕獲や勝ちを強制する証明ではない。",
-            "en": "If Sente first advances the pawn to 2f, its rook remains on 2h and the bishop attacks both rook and silver. This comparison depends on Gote choosing that drop; it proves neither two captures nor a forced win."
+            "ja": "▲３七銀を指す前に、さらに一手早く５筋を交換された場合です。さっきと似た局面ですが、同じように角交換してよいでしょうか。",
+            "en": "Gote exchanges the fifth file one move earlier, before ▲3七銀. The position looks similar, but is a bishop trade still correct?"
+          },
+          "marks": {
+            "last": "5f",
+            "boxes": [
+              "5f"
+            ]
+          }
+        },
+        {
+          "from": 0,
+          "moves": [
+            "5e5f",
+            "5g5f",
+            "5b5f",
+            "8h3c+",
+            "2a3c",
+            "B*6e",
+            "5f5c",
+            "6e8c+",
+            "B*5e"
+          ],
+          "text": {
+            "ja": "▲３七銀を指していない形で同じように進めると、△５五角と打たれる反撃が生まれます。この場合は角交換を急がず、まず▲５七銀などで形を整えるのが正しい指し方です。",
+            "en": "Without ▲3七銀 in, playing the same line allows the counter △5五角. In this position Sente should not rush the bishop trade and should first put the formation in order, for example with ▲5七銀."
+          },
+          "marks": {
+            "last": "5e",
+            "boxes": [
+              "5e"
+            ]
           }
         }
       ]

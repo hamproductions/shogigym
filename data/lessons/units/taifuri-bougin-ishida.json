@@ -1,51 +1,639 @@
 {
   "id": "taifuri-bougin-ishida",
   "order": 920,
-  "path": ["戦法・定跡", "対振り飛車"],
-  "title": { "ja": "石田流の浮き飛車に金で圧力をかける", "en": "Press the Ishida floating rook with a gold" },
+  "path": [
+    "戦法・定跡",
+    "対振り飛車"
+  ],
+  "title": {
+    "ja": "棒金戦法：石田流の飛車を金で押さえ込む",
+    "en": "Bou-Kin against Ishida: pressing the rook down with the gold"
+  },
   "intro": {
-    "ja": "棒金は銀ではなく金を前線へ運び、横にも動ける金で石田流の飛車を追う考え方だ。金が進むほど自玉側の守りは減るため、相手の歩が進路を守っていないかを先に調べる。飛車を動かせたことと飛車を捕まえたことも区別する。",
-    "en": "Rod Gold advances a gold, rather than a silver, to pressure the Ishida rook; the gold can step sideways as well as forward. Each forward step also removes cover from Gote's king side, so first check the opposing pawns around the route. Making the rook move is different from trapping it."
+    "ja": "石田流に組まれたとき、後手が居飛車の急戦で戦う棒金戦法です。△４二玉と上がり、金を△７二、△８三と前線へ出して、相手の飛車を押さえ込みます。駒組みから、７筋と端からの攻め方、▲６五歩から捌かれたときの対応を覚えます。",
+    "en": "Bou-Kin is a Static Rook rush for Gote against Ishida Ranging Rook. Gote lifts the king with △4二玉 and advances the gold through 7b to 8c to press the opponent's rook down. Learn the setup, the attack on the seventh file and the edge, and what to do when Sente tries to free the pieces with ▲6五歩."
   },
   "check": {
-    "question": { "ja": "後手金６四から６五へ出て７六飛を狙う前に、先手６六歩があるかを調べる理由は？", "en": "Why check for Sente's pawn on 6f before advancing Gote's gold from 6d to 6e against a rook on 7f?" },
-    "answer": { "ja": "６六歩があれば６五の金を同歩で取れる。７六飛への金の利きだけを見て進めると、飛車を追う前に金を失う。", "en": "A Sente pawn on 6f can capture the gold on 6e. Counting only the gold's attack on the rook would overlook the immediate loss of the gold." }
+    "question": {
+      "ja": "棒金戦法で、石田流の側に大駒を捌かせないことが大切なのはなぜですか？",
+      "en": "Why is it so important in Bou-Kin not to let the Ishida side free its major pieces?"
+    },
+    "answer": {
+      "ja": "棒金は金を前へ出すぶん自陣の守りが薄いので、飛車や角を自由に使われると、その薄さを突かれて負けてしまうからです。",
+      "en": "Because Bou-Kin pushes the gold forward and leaves Gote's own camp thin, so if the rook and bishop run free the thin defence is punished and Gote loses."
+    }
   },
-  "references": [{ "title": "vs石田流　棒金戦法", "url": "https://shogi-joutatsu.com/archives/4502", "license": "All rights reserved", "adapted": false }],
+  "references": [
+    {
+      "title": "vs石田流　棒金戦法",
+      "url": "https://shogi-joutatsu.com/archives/4502",
+      "license": "All rights reserved",
+      "adapted": false
+    }
+  ],
   "chapters": [
     {
-      "title": { "ja": "６筋の金で７六飛を動かす", "en": "Move the 7f rook with a sixth-file gold" },
-      "side": "gote", "kind": "position",
-      "start": "9/1r3gk2/2p1s4/1p1g5/2P6/2R6/2S6/1B3GSK1/9 w - 1",
+      "title": {
+        "ja": "石田流の出だしと駒組み",
+        "en": "The Ishida opening and the setup"
+      },
+      "side": "gote",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
-        { "text": { "ja": "後手金は６四、先手飛車は７六。先手７五歩と７七銀があるが、どちらも６五には利かず、６六にも先手歩がいない。６五金なら金の斜め前７六に飛車が入るため、飛車の次の位置を問える。", "en": "Gote's gold is on 6d facing Sente's rook on 7f. Sente also has a pawn on 7e and silver on 7g, but neither attacks 6e and there is no pawn on 6f. A move to 6e would put the rook on the gold's forward diagonal, requiring Sente to choose a reply." }, "marks": { "arrows": ["6d6e"], "boxes": ["7f", "6f"] } },
-        { "moves": ["6d6e"], "text": { "ja": "６五金が７六飛に当たった。金は前だけでなく横へも動けるが、この一手で飛車を取ったわけではない。先手には縦横の逃げ道がある。", "en": "The gold on 6e attacks the rook on 7f. Its sideways mobility helps it apply pressure, but no rook has been captured. Sente still has legal vertical and horizontal exits." }, "marks": { "arrows": ["6e7f", "7f8f"], "boxes": ["8d"] } },
-        { "moves": ["7f8f", "8d8e"], "text": { "ja": "先手飛車が８六へ横に逃げた例。後手は８五歩を進めて８六の飛車に当てた。先手の飛車は横や縦へまだ逃げられるため、これを捕獲の完成とは呼ばない。", "en": "Sente's rook sidesteps to 8f in this example. Gote advances its 8d pawn to 8e, attacking the rook on 8f. The rook still has exits, so this is pressure rather than a completed trap." }, "marks": { "arrows": ["8e8f"], "boxes": ["8f", "6e"] } },
-        { "moves": ["8f4f"], "text": { "ja": "先手飛車は７六・６六・５六を通って４六へ退避できる。後手は金を前に出し、先手飛車の位置を変えたが、その代償として３二玉を守る金は４二の一枚だけになっている。", "en": "The rook can cross through 7f, 6f and 5f to reach 4f. Gote has displaced it with the advanced gold, but only the gold on 4b now remains near its king on 3b. Count that defensive cost before continuing the attack." }, "marks": { "last": "4f", "boxes": ["3b", "4b", "6e"] } }
-      ]
-    },
-    {
-      "title": { "ja": "６六歩があれば金は進めない", "en": "The 6f pawn stops an unsupported gold" },
-      "side": "gote", "kind": "position",
-      "start": "9/1r3gk2/2p1s4/1p1g5/2P6/2RP5/2S6/1B3GSK1/9 w - 1",
-      "steps": [
-        { "text": { "ja": "後手金６四と先手飛車７六は前章と同じだが、今度は先手歩６六がいる。この歩は６五へ一歩進めるため、金の着地点を守っている。", "en": "The gold on 6d and rook on 7f are unchanged, but Sente now has a pawn on 6f. That pawn can advance to 6e, the gold's proposed destination." }, "marks": { "arrows": ["6f6e"], "boxes": ["6d", "6e", "7f"] } },
-        { "moves": ["6d6e", "6f6e"], "text": { "ja": "金で飛車を追うだけのつもりで６五へ出ると、先手は６六歩で金を取れる。後手は何も取らずに金を失い、先手が金を持つ。この盤では６五金を先に決める理由がない。", "en": "If Gote advances the gold solely to chase the rook, Sente's 6f pawn captures it on 6e. Gote has captured nothing and loses a gold to Sente's hand. In this board, the rook threat does not justify that move." }, "marks": { "last": "6e", "boxes": ["7f"] } },
-        { "text": { "ja": "金を追い駒にする前に、相手の歩をどこで交換するか、別の駒で６五を支えられるかを読み直す。支えが見つからなければ金を６四に残す。", "en": "Before using the gold as a chaser, look for a concrete pawn exchange or another piece that changes control of 6e. If that support is absent, keep the gold on 6d." } }
-      ]
-    },
-    {
-      "title": { "ja": "前進した金を角から守る", "en": "Defend an advanced gold against a bishop drop" },
-      "side": "gote", "kind": "position",
-      "start": "9/1r3gk2/2pgs4/1p7/2P6/2R6/2N6/1B3GSK1/9 w Bp 1",
-      "steps": [
-        { "text": { "ja": "後手金は６三、先手は角を持っている。金を６四へ進めれば７六飛の方向へ近づく一方、先手の角打ちで金を狙われる可能性がある。後手には歩一枚の持ち駒がある。", "en": "Gote's gold is on 6c and Sente holds a bishop. Advancing the gold toward the rook on 7f can expose it to a bishop drop. Gote also has one pawn in hand, which may change how a diagonal is blocked." }, "marks": { "arrows": ["6c6d"], "boxes": ["4f", "5e", "6d"] } },
-        { "moves": ["6c6d", "B*4f"], "text": { "ja": "後手金６四に対し、先手が４六角を打った例。角は５五を通って６四金に当たる。金の背後に８二飛がいても、間の７三には後手歩があるため、飛車まで一度に取られると決めつけない。", "en": "After the gold reaches 6d, Sente drops a bishop on 4f. Its diagonal through 5e attacks the gold. Gote's rook is farther behind, but a Gote pawn on 7c blocks that longer line; do not assume the rook is also immediately lost." }, "marks": { "arrows": ["4f6d"], "boxes": ["5e", "7c"] } },
-        { "moves": ["P*5e"], "text": { "ja": "後手は５五歩を打ち、４六角と６四金の間に置いた。歩は角で取れるが、その場合は６四金が５五へ斜めに出て角を取り返せる。持ち歩の有無でこの受けは変わる。", "en": "Gote drops a pawn on 5e between the bishop and gold. Sente can capture it with the bishop, but then the gold on 6d can move diagonally to 5e and recapture that bishop. This defense depends on having a pawn in hand." }, "marks": { "last": "5e", "arrows": ["6d5e"] } },
-        { "moves": ["4f5e", "6d5e"], "text": { "ja": "先手が歩を角で取った一例では、後手金が角を取った。後手は歩を支払い角を得たが、先手が歩を取らず別の手を選ぶ余地は残る。金を進める前に、持ち駒と自玉３二の守りを一緒に確認する。", "en": "If Sente accepts the pawn with its bishop, Gote's gold captures the bishop. Gote spent a pawn and gained a bishop in this sample, while Sente could choose another reply. Before pushing the gold, count the available hand pieces alongside the remaining cover of the king on 3b." }, "marks": { "last": "5e", "boxes": ["3b", "4b"] } }
+        {
+          "text": {
+            "ja": "石田流は、先手が飛車を７筋へ振り、７筋の位を取って攻める振り飛車です。この講座では、後手が居飛車の急戦で石田流に立ち向かう棒金戦法を学びます。金を前線へ出して相手の飛車を押さえ込むのが狙いです。盤面は後手の視点で表示します。この章では、後手の指し手を初手から一手ずつ追い、棒金に入る前の駒組みまで組みます。",
+            "en": "Ishida Ranging Rook is a Sente strategy that swings the rook to the seventh file and attacks from there. This lesson teaches the Bou-Kin plan, a Static Rook rush for Gote that advances a gold to press down the opponent's rook. The board is shown from Gote's side. This chapter follows Gote move by move from move one up to the setup before Bou-Kin begins."
+          }
+        },
+        {
+          "moves": [
+            "7g7f",
+            "3c3d"
+          ],
+          "text": {
+            "ja": "▲７六歩に△３四歩。居飛車の後手として、角道を開けます。角が自由に動けるようになり、急戦にも備えられます。",
+            "en": "After ▲7六歩, Gote opens the bishop line with △3四歩 as a Static Rook player. The bishop can now move freely, which prepares for a quick attack."
+          },
+          "marks": {
+            "last": "3d"
+          }
+        },
+        {
+          "moves": [
+            "7f7e",
+            "5a4b"
+          ],
+          "text": {
+            "ja": "先手の▲７五歩が石田流の合図です。次に▲７八飛と飛車を７筋へ回す狙いが見えます。後手は△４二玉と玉を一つ上げて備えます。この一手の意味は、のちの変化を見るとわかります。",
+            "en": "Sente's ▲7五歩 is the signal for Ishida. Sente intends to swing the rook with ▲7八飛 next and use the seventh file. Gote prepares by lifting the king with △4二玉. The reason for this move becomes clear in the variations below."
+          },
+          "marks": {
+            "last": "4b",
+            "boxes": [
+              "4b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6g6f",
+            "8c8d"
+          ],
+          "text": {
+            "ja": "先手は角の道を▲６六歩で止めました。激しい戦いを避ける意図です。後手は△８四歩と飛車先の歩を突きます。飛車の前の歩を進めて、飛車が働く道を作ります。",
+            "en": "Sente closes its own bishop line with ▲6六歩, which signals that it wants to avoid a sharp fight. Gote pushes the rook pawn with △8四歩, advancing the pawn in front of the rook to give the rook room to work."
+          },
+          "marks": {
+            "last": "8d"
+          }
+        },
+        {
+          "moves": [
+            "2h7h",
+            "8d8e"
+          ],
+          "text": {
+            "ja": "先手は▲７八飛と飛車を７筋へ回りました。後手は△８五歩と飛車先をもう一つ突き、先手に飛車の置き場を考えさせます。",
+            "en": "Sente swings the rook to the seventh file with ▲7八飛. Gote pushes the rook pawn one more step with △8五歩, making Sente think about where the rook should stand."
+          },
+          "marks": {
+            "last": "8e"
+          }
+        },
+        {
+          "moves": [
+            "7h7f",
+            "7a6b"
+          ],
+          "text": {
+            "ja": "△８五歩を受けるため、先手は▲７六飛と浮き飛車にするしかありません。この浮き飛車を金で押さえ込むのが棒金戦法の狙いです。後手は△６二銀と銀を上げて、駒組みを進めます。",
+            "en": "To answer △8五歩, Sente has no choice but to lift the rook with ▲7六飛. Pressing that floating rook down with a gold is the aim of Bou-Kin. Gote continues the setup by raising the silver with △6二銀."
+          },
+          "marks": {
+            "last": "6b",
+            "boxes": [
+              "7f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5i4h",
+            "4b3b"
+          ],
+          "text": {
+            "ja": "先手は▲４八玉と玉を動かします。後手は△３二玉と玉を３二へ寄せて、囲いに入ります。玉を飛車や角の筋から離しておきます。",
+            "en": "Sente moves the king with ▲4八玉. Gote slides the king to 3b with △3二玉 and heads into the castle, keeping the king away from the rook and bishop lines."
+          },
+          "marks": {
+            "last": "3b"
+          }
+        },
+        {
+          "moves": [
+            "4h3h",
+            "6c6d"
+          ],
+          "text": {
+            "ja": "先手は▲３八玉。後手は△６四歩と突きます。この歩は、６二の銀が６三へ上がる道を作ります。",
+            "en": "Sente plays ▲3八玉. Gote pushes △6四歩, which opens a path for the silver on 6b to step up to 6c."
+          },
+          "marks": {
+            "last": "6d",
+            "boxes": [
+              "6c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6i5h",
+            "6b6c"
+          ],
+          "text": {
+            "ja": "先手は▲５八金左。後手は△６三銀と銀を６三に構えます。この銀は７筋の歩の交換を防ぐ守りの駒で、先手が７筋から攻めてきたときの備えになります。",
+            "en": "Sente plays ▲5八金左. Gote sets the silver on 6c with △6三銀. This silver stops a pawn exchange on the seventh file and prepares for Sente attacking there."
+          },
+          "marks": {
+            "last": "6c",
+            "boxes": [
+              "6c",
+              "7d"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "駒組みの要点です。①石田流には△４二玉と上げておく。②飛車先を△８四歩、△８五歩と素早く突き、先手に浮き飛車を強いる。③△６四歩から△６三銀と構えて、７筋の歩の交換を許さない。次の章から、金を前に出す棒金の組み方を見ます。",
+            "en": "Points to remember about the setup. 1) Lift the king with △4二玉 against Ishida. 2) Push the rook pawn quickly with △8四歩 and △8五歩 to force Sente into a floating rook. 3) Set up △6四歩 and △6三銀 so that Sente cannot exchange pawns on the seventh file. The next chapter shows how to advance the gold in Bou-Kin."
+          },
+          "marks": {
+            "boxes": [
+              "4b",
+              "6c",
+              "8e"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "棒金の長所と短所です。長所は、金の横の動きで石田流の飛車と角を押さえ込めること。浮き飛車は逃げ場が少ないので相性がよく、狙いもはっきりしています。短所は、金を前に出すぶん自陣が薄いこと。大駒を押さえ切れないと、その薄さを突かれて負けます。石田流側が▲７七桂と▲９七角を保留している形では、▲６五歩から大駒を捌かれて棒金はうまくいきません。",
+            "en": "Strengths and weaknesses of Bou-Kin. The strength is that a gold, which can also move sideways, presses down the Ishida rook and bishop. A floating rook has few escape squares, so the match-up is good and the aim is clear. The weakness is that pushing the gold forward leaves Gote's own camp thin; if the major pieces are not held down, that thinness is punished and Gote loses. When the Ishida side holds back both ▲7七桂 and ▲9七角, ▲6五歩 frees the major pieces and Bou-Kin does not work."
+          }
+        }
       ],
       "variations": [
-        { "from": 1, "moves": ["6d6c"], "text": { "ja": "後手金を６三へ戻すことも合法。持ち歩を使わずに角の当たりを外せるが、６四へ進めた手を戻し、先手角は盤に残る。", "en": "Gote can also retreat the gold to 6c. That saves the pawn in hand but gives back the gold's advance, while Sente's bishop remains active on the board." } }
+        {
+          "from": 2,
+          "moves": [
+            "2h7h",
+            "2b8h+",
+            "7i8h",
+            "B*4e"
+          ],
+          "text": {
+            "ja": "先手が早々に▲７八飛と三間飛車へ振ってきたら、△８八角成から▲同銀、そして△４五角が定跡の進行です。この角は次に△２七角成と△６七角成の二つを狙うため、先手は両方を一度には防げず、後手は馬を確実に作れます。",
+            "en": "If Sente answers with ▲7八飛, Early Ishida, the standard reply is △8八角成, ▲同銀, then the oblique bishop drop △4五角. Sente cannot cover both △2七角成 and △6七角成, so Gote gets a promoted bishop."
+          },
+          "marks": {
+            "last": "4e",
+            "boxes": [
+              "4e"
+            ]
+          }
+        },
+        {
+          "from": 1,
+          "moves": [
+            "7f7e",
+            "7a6b",
+            "2h7h",
+            "2b8h+",
+            "7i8h",
+            "B*4e",
+            "B*5e"
+          ],
+          "text": {
+            "ja": "ただし、△４二玉の前に別の手を挟むと反撃されます。たとえば△６二銀とすると、△４五角に▲５五角が厳しくなります。△４二玉と上がっていれば、△３三桂と受けられるのです。",
+            "en": "If Gote inserts another move before △4二玉, Sente has a counterattack. For example after △6二銀, the answer ▲5五角 to △4五角 is severe. With the king already on 4b, Gote could defend with △3三桂."
+          },
+          "marks": {
+            "last": "5e",
+            "boxes": [
+              "5e"
+            ]
+          }
+        },
+        {
+          "from": 4,
+          "moves": [
+            "7h7f",
+            "7a6b",
+            "7e7d",
+            "8b7b"
+          ],
+          "text": {
+            "ja": "先手がただちに７筋を突き進んできたとします。▲７四歩を△同歩と取らずに、△７二飛と飛車を寄せて受けます。",
+            "en": "If Sente attacks at once on the seventh file with ▲7四歩, Gote does not capture with △同歩 and swings the rook to 7b with △7二飛."
+          },
+          "marks": {
+            "last": "7b",
+            "boxes": [
+              "7b"
+            ]
+          }
+        },
+        {
+          "from": 4,
+          "moves": [
+            "7h7f",
+            "7a6b",
+            "7e7d",
+            "8b7b",
+            "7d7c",
+            "6b7c"
+          ],
+          "text": {
+            "ja": "そこから▲７三歩と打たれても、△同銀で構いません。逆に先手の飛車の前を攻める形になり、銀を進めて飛車を封じれば後手が良くなります。",
+            "en": "Against the follow-up ▲7三歩, △同銀 turns on the opposing rook file. Pushing the silver forward to press the rook down gives Gote the better game."
+          },
+          "marks": {
+            "last": "7c",
+            "boxes": [
+              "7c"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "棒金の駒組みと端からの攻め",
+        "en": "The Bou-Kin setup and the attack from the edge"
+      },
+      "side": "gote",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "7f7e",
+            "5a4b",
+            "6g6f",
+            "8c8d",
+            "2h7h",
+            "8d8e",
+            "7h7f",
+            "7a6b",
+            "5i4h",
+            "4b3b",
+            "4h3h",
+            "6c6d",
+            "6i5h",
+            "6b6c"
+          ],
+          "text": {
+            "ja": "前章の駒組みの局面です。先手が▲７五歩と局面を収めに来た場合の、棒金の理想的な攻め筋を見ます。",
+            "en": "The position from the previous chapter. This chapter covers the ideal Bou-Kin attack when Sente calms things down with ▲7五歩."
+          },
+          "marks": {
+            "last": "6c"
+          }
+        },
+        {
+          "moves": [
+            "3h2h",
+            "3a4b",
+            "3i3h",
+            "1c1d",
+            "1g1f"
+          ],
+          "text": {
+            "ja": "ここから双方が囲いを組みます。先手は美濃囲いへ進みますが、後手はあえて簡単な囲いで切り上げ、すぐ攻めに回る作戦です。",
+            "en": "Both sides finish their castles quickly. Sente builds a Mino castle, while Gote keeps the castle short and aims for a fast attack."
+          },
+          "marks": {
+            "last": "1f",
+            "boxes": [
+              "4b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6a7b",
+            "9g9f"
+          ],
+          "text": {
+            "ja": "△７二金が棒金の構えの第一歩です。金は銀と違って横にも動けるので、前へ出ながら相手の大駒を圧迫するのに向いています。先手は▲９六歩と端を突きます。",
+            "en": "△7二金 is the first step of Bou-Kin. Unlike a silver, a gold can also move sideways, which suits pressing the opponent's major pieces while advancing. Sente pushes the edge pawn with ▲9六歩."
+          },
+          "marks": {
+            "last": "9f",
+            "boxes": [
+              "7b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "8i7g",
+            "7b8c",
+            "8h9g"
+          ],
+          "text": {
+            "ja": "先手は▲７七桂と▲９七角で石田流の陣形を完成させます。対する後手は△８三金と金を前へ繰り出します。浮き飛車は逃げ場が少ないため、金で押さえる棒金と相性がよい戦法です。反面、後手の自陣は薄く、大駒を封じ切れなければその薄さを突かれて敗れます。",
+            "en": "After △9四歩, Sente completes the Ishida formation with ▲7七桂 and ▲9七角, and Gote pushes the gold forward with △8三金. Bou-Kin pairs well with Ishida because the floating rook has few escape squares. The danger is that Gote's own camp is thin, so if the opposing rook and bishop are not shut in, the thin defence loses."
+          },
+          "marks": {
+            "last": "9g",
+            "boxes": [
+              "8c",
+              "9g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7c7d",
+            "7e7d",
+            "8c7d"
+          ],
+          "text": {
+            "ja": "すぐに△７四歩と突き出して仕掛けます。▲同歩と取らせてから△同金と取り返し、７筋で歩を一枚手に入れます。棒金の攻めは、ここが出発点です。",
+            "en": "Gote attacks immediately with △7四歩, and after ▲同歩 takes with △同金, winning a pawn from the seventh file. This is the first step of the Bou-Kin attack."
+          },
+          "marks": {
+            "last": "7d",
+            "boxes": [
+              "7d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "P*7e",
+            "7d8d"
+          ],
+          "text": {
+            "ja": "先手が▲７五歩と収めにきたら、△８四金と横にかわします。金ならではの動きです。",
+            "en": "If Sente calms things down with ▲7五歩, Gote slides the gold sideways with △8四金, a move only a gold can make."
+          },
+          "marks": {
+            "last": "8d",
+            "boxes": [
+              "8d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7i6h",
+            "8b7b"
+          ],
+          "text": {
+            "ja": "▲６八銀に△７二飛。力をためて、７筋からの攻めを狙います。",
+            "en": "▲6八銀 is met by △7二飛. Gote gathers force and aims at the seventh file."
+          },
+          "marks": {
+            "last": "7b",
+            "boxes": [
+              "7b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6h6g",
+            "9d9e",
+            "9f9e",
+            "P*9f"
+          ],
+          "text": {
+            "ja": "▲６七銀に△９五歩、▲同歩、△９六歩。端から手を付けるのが棒金の攻めの基本です。７筋で手に入れた歩が、この歩の叩きに使えます。もし▲同飛なら△９五香の田楽刺しになります。",
+            "en": "▲6七銀 is met by △9五歩, ▲同歩 and △9六歩. Starting from the edge is the basic Bou-Kin attack, and the pawn won on the seventh file is used for this tap. If ▲同飛, △9五香 skewers the rook."
+          },
+          "marks": {
+            "last": "9f",
+            "boxes": [
+              "9f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "9g8h",
+            "8d7e",
+            "7f9f"
+          ],
+          "text": {
+            "ja": "先手が▲８八角と逃げると、７五の地点の利きが消えるので、△７五金と前に出られます。▲９六飛と歩を取られても、飛車は押さえ込まれています。",
+            "en": "When Sente retreats with ▲8八角, the control of 7e disappears and Gote can advance △7五金. After ▲9六飛 takes the pawn, the rook is still pinned down."
+          },
+          "marks": {
+            "last": "9f",
+            "boxes": [
+              "7e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8e8f",
+            "8g8f",
+            "6d6e",
+            "6f6e",
+            "P*8g"
+          ],
+          "text": {
+            "ja": "続けて８筋と６筋の歩を交換してから△８七歩と叩くと、後手が優勢です。先手の角が動けば、△７七角成で桂が取れます。棒金が理想どおりに進んだ形です。",
+            "en": "After throwing in the eighth- and sixth-file pawns, △8七歩 gives Gote the clear edge. If the bishop runs, △7七角成 wins the knight. This is the ideal Bou-Kin attack."
+          },
+          "marks": {
+            "last": "8g",
+            "boxes": [
+              "8g"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "▲６五歩から捌かれたら",
+        "en": "When Sente frees the rook with ▲6五歩"
+      },
+      "side": "gote",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "7f7e",
+            "5a4b",
+            "6g6f",
+            "8c8d",
+            "2h7h",
+            "8d8e",
+            "7h7f",
+            "7a6b",
+            "5i4h",
+            "4b3b",
+            "4h3h",
+            "6c6d",
+            "6i5h",
+            "6b6c",
+            "3h2h",
+            "3a4b",
+            "3i3h",
+            "1c1d",
+            "1g1f",
+            "6a7b",
+            "9g9f",
+            "9c9d",
+            "8i7g",
+            "7b8c",
+            "8h9g",
+            "7c7d",
+            "7e7d",
+            "8c7d"
+          ],
+          "text": {
+            "ja": "７筋で歩を手に入れた局面から、先手が▲６五歩と捌きにきた場合を見ます。",
+            "en": "From the position after Gote wins a pawn on the seventh file, Sente tries to free the pieces with ▲6五歩."
+          },
+          "marks": {
+            "last": "7d"
+          }
+        },
+        {
+          "moves": [
+            "6f6e",
+            "6d6e",
+            "P*6d"
+          ],
+          "text": {
+            "ja": "▲６五歩、△同歩、▲６四歩。後手が△同金なら▲７一飛成、△同銀なら▲７四飛と進むので、一見困ったように見えます。",
+            "en": "▲6五歩, △同歩, ▲6四歩. If Gote takes with △同金, ▲7一飛成 follows, and if △同銀, ▲7四飛, so Gote seems to be in trouble."
+          },
+          "marks": {
+            "last": "6d",
+            "boxes": [
+              "6d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "P*7e"
+          ],
+          "text": {
+            "ja": "ここで銀取りを無視して、△７五歩と飛車に働きかけるのが正解です。",
+            "en": "The right answer is to ignore the threat to the silver and play △7五歩, going after the rook."
+          },
+          "marks": {
+            "last": "7e",
+            "boxes": [
+              "7e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "9g7e",
+            "6c5d"
+          ],
+          "text": {
+            "ja": "▲７五角は成立しますが、△同金から▲同飛と進めると駒得をしているようでも、角が捌けた先手のほうが戦いやすくなります。そこで△５四銀と、大駒を捌かせない手を選びます。棒金では、石田流の飛車と角を自由に動かさないことが一番大切です。",
+            "en": "▲7五角 works for Sente, and following with △同金 and ▲同飛 would win material but free the bishop, which suits Sente. So Gote plays △5四銀 to keep the major pieces from being liberated. In Bou-Kin the top priority is not letting the Ishida rook and bishop run free."
+          },
+          "marks": {
+            "last": "5d",
+            "boxes": [
+              "5d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7e9g",
+            "8b7b"
+          ],
+          "text": {
+            "ja": "先手は▲９七角と角を戻します。後手は△７二飛と構え直し、次に△７五歩などでさらに押さえ込みます。大駒を立ち往生させる指し回しが、棒金の肝です。",
+            "en": "Sente returns the bishop with ▲9七角, and Gote readjusts with △7二飛 aiming to press further with △7五歩. Leaving the major pieces stranded is the heart of Bou-Kin."
+          },
+          "marks": {
+            "last": "7b",
+            "boxes": [
+              "7b"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "棒金がうまくいかない場合",
+        "en": "When Bou-Kin does not work"
+      },
+      "side": "gote",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "7f7e",
+            "5a4b",
+            "6g6f",
+            "8c8d",
+            "2h7h",
+            "8d8e",
+            "7h7f",
+            "7a6b",
+            "5i4h",
+            "4b3b",
+            "4h3h",
+            "6c6d",
+            "6i5h",
+            "6b6c",
+            "3h2h",
+            "3a4b",
+            "3i3h",
+            "6a7b",
+            "9g9f",
+            "7b8c",
+            "5g5f"
+          ],
+          "text": {
+            "ja": "棒金にも苦手な形があります。石田流側が▲７七桂も▲９七角も指さず、手を残している局面では、棒金はうまく働かないことが多いのです。",
+            "en": "Bou-Kin has a weakness. When the Ishida player holds back both ▲7七桂 and ▲9七角, Bou-Kin often fails."
+          },
+          "marks": {
+            "last": "5f"
+          }
+        },
+        {
+          "text": {
+            "ja": "こうした形の石田流は、好きなときに▲６五歩を突いて角を交換し、大駒を動かせます。棒金は守りが薄いため、大駒を自由にされると後手が苦しくなります。",
+            "en": "Here Sente can go ▲6五歩 at any time and trade bishops to free the major pieces. Because Bou-Kin leaves the castle thin, Gote suffers once those pieces are free."
+          }
+        },
+        {
+          "text": {
+            "ja": "覚える点を整理します。石田流には４手目に△４二玉。金を△７二から△８三へ出す。△７四歩から７筋の歩を手に入れる。▲７五歩と収められたら端から攻める。▲６五歩と捌きにきたら、とにかく大駒を働かせないように指す。",
+            "en": "Points to remember. Against Ishida play △4二玉 on move four. Advance the gold from 7b to 8c. Win a pawn from the seventh file with △7四歩. If Sente calms things down with ▲7五歩, attack from the edge. If Sente tries to free the pieces with ▲6五歩, keep the major pieces from working at all costs."
+          }
+        }
       ]
     }
   ]

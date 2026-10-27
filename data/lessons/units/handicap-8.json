@@ -1,23 +1,26 @@
 {
   "id": "handicap-8",
   "order": 1430,
-  "path": ["戦法・定跡", "駒落ち"],
+  "path": [
+    "戦法・定跡",
+    "駒落ち"
+  ],
   "title": {
-    "ja": "八枚落ち：線を開き、守りを数える",
-    "en": "Eight-Piece Handicap: Open Lines and Count Defenders"
+    "ja": "八枚落ち：棒銀で龍を作る",
+    "en": "Eight-Piece Handicap: make a dragon with the climbing silver"
   },
   "intro": {
-    "ja": "八枚落ちの上手は飛車と角、左右の銀・桂・香を外し、玉・金二枚・歩九枚で始める。上手が先に一手指し、下手は残る飛車と角の通り道を歩で開く。この単元では初手の後の構え、飛車と銀が支える歩の成り、角が成っても追われる局面を別々に調べる。",
-    "en": "In an eight-piece handicap, the upper player removes the rook, bishop, both silvers, both knights and both lances, beginning with a king, two golds and nine pawns. The upper player moves first. The lower player opens rook and bishop lines with pawns, then judges a rook-supported promotion and a bishop promotion that still meets resistance."
+    "ja": "八枚落ちで下手を持ち、飛車と角を龍と馬にして攻める方法を、初期配置から順に覚えます。２筋の歩を捨てて銀で取り返す棒銀を中心に、上手が玉を２二に囲って守ってきたときの銀を捨てる攻めまでを学びます。",
+    "en": "Play the weaker side in the eight-piece handicap and learn, from the starting position, how to promote the rook and bishop. The focus is the climbing silver, which sacrifices the second-file pawn and recaptures with the silver, and also the silver sacrifice used when Gote shelters the king on 2b."
   },
   "check": {
     "question": {
-      "ja": "第二章で８三の歩を成ると、上手の７二金が△同金と取れる。それでも下手の飛車が８三の金を取れるのは、どの升が空いているからか。",
-      "en": "In chapter two, Gote's gold on 7b can take Sente's promoted pawn on 8c. Which empty square lets Sente's rook recapture that gold?"
+      "ja": "八枚落ちの下手が目指す形は何ですか？",
+      "en": "What is the target for the weaker side in the eight-piece handicap?"
     },
     "answer": {
-      "ja": "８四が空いている。８五飛から８三へ進む途中の８四に駒がなく、△同金の後は８三のと金も消えているので、▲８三飛成で金を取れる。ただし上手がその金の取り方を選んだ場合の話で、歩成だけで金得は確定しない。",
-      "en": "8d is empty. From 8e the rook passes through 8d; after Gote captures the tokin, 8c is occupied by the gold rather than Sente's pawn. R8c+ then takes the gold. This depends on Gote choosing that capture; promotion alone does not guarantee a gold gain."
+      "ja": "飛車と角を龍と馬に成らせることです。そのために飛車と銀と歩を連携させる棒銀で攻め、２筋の歩を捨てて銀で取り返します。",
+      "en": "To promote the rook and bishop into dragon and horse. Sente does this with the climbing silver, linking rook, silver and pawn, sacrificing the second-file pawn and recapturing with the silver."
     }
   },
   "references": [
@@ -31,111 +34,465 @@
   "chapters": [
     {
       "title": {
-        "ja": "上手の初手後に二つの大駒を起こす",
-        "en": "Activate Both Major Pieces after Gote's First Move"
+        "ja": "入門：初手から棒銀の陣形まで",
+        "en": "Tutorial: from move one to the climbing silver formation"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "3g1g3/5k3/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+      "kind": "opening",
+      "start": "3gkg3/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1",
       "steps": [
         {
           "text": {
-            "ja": "上手は５一玉を４二へ動かした後。盤上の上手の大駒・銀・桂・香は最初からなく、取られて上手の持ち駒になったわけでもない。下手の７七歩と２七歩がそれぞれ角と飛車の前を塞いでいる。",
-            "en": "Gote has already made the first move, K5a–4b. The missing rook, bishop, silvers, knights and lances were removed for the handicap; Gote did not acquire them in hand. Sente's pawns on 7g and 2g still obstruct the bishop and rook."
+            "ja": "八枚落ちは、上手が飛車・角・銀・桂・香を外して戦う駒落ちです。下手のあなたは全部の駒がそろっているので、落ち着いて組めば有利に進みます。この入門では、初手から「棒銀」の陣形ができるまでを下手の一手ずつ作ります。棒銀は、２筋の歩・銀・飛車を縦に並べて攻める形で、狙いは飛車と角を龍と馬に成らせることです。駒落ちでは上手が先に指します。",
+            "en": "In the eight-piece handicap Gote plays without rook, bishop, silver, knight and lance. You, the weaker side Sente, have every piece, so a calm setup gives you the upper hand. This tutorial builds the climbing silver one move at a time from move one. The climbing silver lines up the second-file pawn, the silver and the rook to attack, and the goal is to promote your rook and bishop into dragon and horse. In a handicap game Gote moves first."
           },
-          "marks": { "boxes": ["4b", "7g", "2g", "8h", "2h"] }
+          "marks": {
+            "boxes": [
+              "2h",
+              "8h"
+            ]
+          }
         },
         {
-          "moves": ["7g7f", "6c6d", "8h7g"],
+          "moves": [
+            "4a3b",
+            "7g7f"
+          ],
           "text": {
-            "ja": "▲７六歩で７七を空け、▲７七角と角を一歩前へ出す。後手の△６四歩は一例で、下手の角と飛車がまだ同じ筋に働いていない間に上手も歩を伸ばせる。",
-            "en": "P7f clears 7g and B7g develops through it. Gote's P6d is a sample reply: the upper player can also gain pawn space while Sente's two major pieces remain on separate lines."
+            "ja": "上手は△３二金と指しました。下手の最初の一手は▲７六歩です。７七の歩を一つ進めると、８八の角の斜めの道が開きます。角は盤の右奥へ長く利くので、あとで成って馬になるための準備です。",
+            "en": "Gote opens with △3二金. Your first move is ▲7六歩. Pushing the pawn from 7g opens the diagonal of the bishop on 8h, which reaches deep into the upper right. This prepares the bishop to promote into a horse later."
           },
-          "marks": { "arrows": ["8h7g"], "boxes": ["2g", "2h"] }
+          "marks": {
+            "last": "7f",
+            "arrows": [
+              "8h3c"
+            ]
+          }
         },
         {
-          "moves": ["3c3d", "2g2f"],
+          "moves": [
+            "6a7b",
+            "2g2f"
+          ],
           "text": {
-            "ja": "△３四歩の例に▲２六歩で飛車の縦筋も開く。７七角から３三へは６六・５五・４四を通るが、上手の３三歩は３四へ移っている。角と飛車を動ける形にしただけで、成りや駒得はまだ決まらない。",
-            "en": "After the sample P3d, P2f also opens the rook's file. B7g's diagonal runs through 6f, 5e and 4d toward the now-vacant 3c. Both major pieces have room to work; neither promotion nor material gain follows automatically."
+            "ja": "上手は△７二金。下手は▲２六歩と、飛車の前の歩を一つ突きます。２八の飛車は前に自分の歩がいると進めません。歩を進めて、飛車が動く道を作ります。",
+            "en": "Gote plays △7二金. You push ▲2六歩, the pawn in front of the rook. A rook cannot advance while its own pawn is in the way, so moving the pawn gives the rook a path."
           },
-          "marks": { "arrows": ["2g2f"], "boxes": ["7g", "2h"] }
+          "marks": {
+            "last": "2f",
+            "arrows": [
+              "2h2g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5a5b",
+            "2f2e"
+          ],
+          "text": {
+            "ja": "上手は△５二玉と玉を動かしました。下手の飛車と角は盤の右奥へ利いているので、その反対側へ逃がす狙いです。下手は▲２五歩とさらに突きます。２筋の歩を前線に出して、あとで銀と一緒に相手の陣へぶつける準備をします。",
+            "en": "Gote moves the king with △5二玉, away from the right side your rook and bishop point at. You push again with ▲2五歩. The second-file pawn goes to the front so it can later strike together with the silver."
+          },
+          "marks": {
+            "last": "2e",
+            "boxes": [
+              "2d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6c6d",
+            "3i3h"
+          ],
+          "text": {
+            "ja": "上手は△６四歩。下手は▲３八銀と、右の銀を一つ上げます。この銀が棒銀の主役です。まだ３九にいると前へ進めないので、飛車の隣の３八へ動かして出発させます。",
+            "en": "Gote plays △6四歩. You lift the right silver with ▲3八銀. This silver is the star of the climbing silver. From 3i it cannot head forward, so you bring it up next to the rook to start its march."
+          },
+          "marks": {
+            "last": "3h"
+          }
+        },
+        {
+          "moves": [
+            "5b6c",
+            "3h2g"
+          ],
+          "text": {
+            "ja": "上手は△６三玉と玉を左へ進めました。下手は▲２七銀と、銀を斜めに進めて飛車の前へ置きます。飛車と同じ２筋に銀を入れることで、飛車が銀を後ろから支える形になります。",
+            "en": "Gote walks the king on with △6三玉. You play ▲2七銀, moving the silver diagonally in front of the rook. Putting the silver on the same file lets the rook back it up from behind."
+          },
+          "marks": {
+            "last": "2g"
+          }
+        },
+        {
+          "moves": [
+            "7c7d",
+            "2g2f"
+          ],
+          "text": {
+            "ja": "上手は△７四歩。下手は▲２六銀と、銀をさらに前へ進めます。２五の歩・２六の銀・２八の飛車が縦に一列に並びました。銀が棒のようにまっすぐ前へ出るので、この戦法は棒銀と呼ばれます。",
+            "en": "Gote plays △7四歩. You push the silver on with ▲2六銀. The pawn on 2e, the silver on 2f and the rook on 2h now stand in one column. Because the silver advances straight ahead like a stick, this plan is called the climbing silver."
+          },
+          "marks": {
+            "last": "2f",
+            "arrows": [
+              "2h2g"
+            ],
+            "boxes": [
+              "2e",
+              "2f",
+              "2h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7b7c",
+            "2f3e"
+          ],
+          "text": {
+            "ja": "上手は△７三金。下手は▲３五銀と、銀を斜め前に出します。３五の銀は２四のマスに利いていて、２筋の歩と飛車が同じ２四を狙います。歩・銀・飛の三枚が同じ目標を狙う、棒銀の陣形の完成です。",
+            "en": "Gote plays △7三金. You step the silver diagonally with ▲3五銀. From 3e it covers 2d, the same square the pawn and the rook aim at. Pawn, silver and rook all target 2d, which completes the climbing silver formation."
+          },
+          "marks": {
+            "last": "3e",
+            "arrows": [
+              "3e2d",
+              "2e2d"
+            ],
+            "boxes": [
+              "3e",
+              "2e",
+              "2h"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "覚えるポイントです。一つ、飛車は２八から動かさず、２筋の歩を２五まで突く。二つ、右の銀は３八、２七、２六、３五の順に進める。三つ、上手の指し手は覚えなくてよく、下手の歩・銀・飛車の位置だけを覚える。この形から、歩を捨てて銀で取り返す攻めを次の章で見ます。",
+            "en": "Points to remember. One: leave the rook on 2h and push the second-file pawn up to 2e. Two: bring the right silver along 3h, 2g, 2f and 3e in that order. Three: you do not need to memorise Gote's moves, only the places of your pawn, silver and rook. The next chapter shows the attack that sacrifices a pawn and recaptures with the silver."
+          },
+          "marks": {
+            "boxes": [
+              "3e",
+              "2e",
+              "2h"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "下手が気をつけることです。上手は金二枚だけですが、飛車と角は取られると上手に使われてしまうので、取られる形にしないよう毎手確認します。また、棒銀の形を作る前に角や飛車だけを突っ込まないことも大切です。形がそろってから歩を捨てて攻めれば、勝ちやすい展開になります。",
+            "en": "What the weaker side must remember. Gote has only two golds, but a rook or bishop you lose becomes a strong piece for Gote to drop, so check every move that none of your pieces can be captured. Also do not send the rook or bishop forward alone before the formation is ready. Once the formation stands, sacrificing the pawn and attacking leads to a comfortable win."
+          },
+          "marks": {
+            "boxes": [
+              "2h",
+              "8h"
+            ]
+          }
         }
       ]
     },
     {
       "title": {
-        "ja": "銀の利きを残して８筋の歩を成る",
-        "en": "Keep Silver Support While Promoting on the Eighth File"
+        "ja": "棒銀で２筋を破り、龍を作る",
+        "en": "Break through on the second file with the climbing silver and make a dragon"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "3g1g3/5k3/ppppppppp/9/9/1PPB5/P1SPPPPPP/1R7/LN1GKGSNL b - 1",
+      "kind": "opening",
+      "start": "3gkg3/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1",
       "steps": [
         {
+          "moves": [
+            "4a3b",
+            "7g7f",
+            "6a7b",
+            "2g2f",
+            "5a5b"
+          ],
           "text": {
-            "ja": "下手は８八飛・７七銀・６六角・８六歩。７七銀は８六を守り、飛車は８筋歩の後ろにいる。一方、上手の６一金は７二へ上がれば８三を守れる。歩が成る升と、その後に飛車が進む線を分けて数える。",
-            "en": "Sente has R8h, S7g, B6f and P8f. The silver protects 8f, while the rook stands behind the pawn. Gote's G6a can move to 7b and cover 8c. Count the promotion square and the rook's later route separately."
+            "ja": "△５二玉まで進んだ局面です。ここから、下手は飛車と銀と歩を一つの攻めにまとめる「棒銀」を組みます。",
+            "en": "The position after △5二玉. From here Sente organises rook, silver and pawn into a single attack called the climbing silver."
           },
-          "marks": { "boxes": ["8f", "7g", "8h", "8c", "6a"] }
+          "marks": {
+            "boxes": [
+              "2h"
+            ]
+          }
         },
         {
-          "moves": ["8f8e", "8c8d", "8e8d"],
+          "moves": [
+            "2f2e",
+            "6c6d",
+            "3i3h",
+            "5b6c",
+            "3h2g",
+            "7c7d",
+            "2g2f",
+            "7b7c",
+            "2f3e"
+          ],
           "text": {
-            "ja": "▲８五歩に△８四歩と歩を合わせる一例なら▲同歩。下手は上手の８筋歩を取り、８四の歩の後ろは８八飛へつながる。７七銀は８六に利くが、８四の歩を直接守ってはいない。",
-            "en": "If Gote answers P8e with P8d, P8d takes that pawn. Sente's rook has an open line behind its pawn on 8d. S7g protects 8f, not the advanced pawn on 8d itself."
+            "ja": "下手は▲２五歩と突き、▲３八銀▲２七銀▲２六銀▲３五銀と銀を進めます。上手の指し手は細かく覚えなくてかまいません。見るのは下手の形です。３五の銀、２五の歩、２八の飛車が連携しているのが棒銀の陣形です。",
+            "en": "Sente plays ▲2五歩 and walks the silver up with ▲3八銀, ▲2七銀, ▲2六銀 and ▲3五銀. You do not need to memorise Gote's moves; watch Sente's shape. The silver on 3e, the pawn on 2e and the rook on 2h work together, and that is the climbing silver formation."
           },
-          "marks": { "arrows": ["8e8d"], "boxes": ["8h", "8d", "6a"] }
+          "marks": {
+            "last": "3e",
+            "arrows": [
+              "3e2d",
+              "2e2d"
+            ],
+            "boxes": [
+              "3e",
+              "2e",
+              "2h"
+            ]
+          }
         },
         {
-          "moves": ["6a7b", "8h8e", "5c5d"],
+          "moves": [
+            "6d6e",
+            "2e2d"
+          ],
           "text": {
-            "ja": "△７二金で８三を守るなら、▲８五飛は８四歩の後ろに近づく。例の△５四歩の後、歩を成る手は金に取られるが、８五飛から８三へは８四が空く。上手の金移動も歩成も、この順では選択した手である。",
-            "en": "If Gote uses G7b to cover 8c, R8e moves closer behind the pawn. After the sample P5d, a promoted pawn on 8c can be taken by that gold; the rook can then pass through the vacated 8d square. Both the gold move and the promotion are choices in this line."
+            "ja": "攻めの第一歩は、歩を一枚あげることです。▲２四歩と突き出して、上手に取らせます。歩は失いますが、これが棒銀の合図の一手になります。",
+            "en": "The attack begins by sacrificing a pawn. ▲2四歩 is offered for Gote to take. The pawn will be lost, but giving up the second-file pawn is where the climbing silver attack starts."
           },
-          "marks": { "arrows": ["8h8e"], "boxes": ["8d", "8c", "7b"] }
+          "marks": {
+            "last": "2d"
+          }
         },
         {
-          "moves": ["8d8c+", "7b8c", "8e8c+"],
+          "moves": [
+            "2c2d",
+            "3e2d",
+            "3b4b"
+          ],
           "text": {
-            "ja": "▲８三歩成△同金なら▲同飛成で金を取って龍を作れる。下手は上手の歩と金を取り、上手は下手の歩を取った。この結果は△同金を選んだ場合だけで、上手には途中で別の受けもある。",
-            "en": "On the chosen P8c+, G8c and R8c+ line, Sente captures Gote's pawn and gold and promotes the rook; Gote captures Sente's pawn. This material result depends on Gote taking the tokin with the gold."
+            "ja": "上手が△２四歩と歩を取ったら、下手は▲同銀と銀で取り返します。歩を渡す代わりに、銀が前へ進みました。この形が棒銀の基本です。上手は金を逃がして△４二金と守りを固めます。次の一手を考えてみましょう。",
+            "en": "When Gote takes the pawn with △2四歩, Sente recaptures with the silver, ▲同銀. The pawn is given away but the silver gains ground, which is the essence of the climbing silver. Gote moves the gold away with △4二金. Think about what Sente should play next."
           },
-          "marks": { "arrows": ["8e8c+"], "last": "8c" }
+          "marks": {
+            "last": "2d"
+          }
+        },
+        {
+          "moves": [
+            "2d3c+"
+          ],
+          "text": {
+            "ja": "ここは▲３三銀成と、角の筋に入りながら成ります。△同金と取られても、▲同角成で金を取り返し、馬も手に入ります。しかも飛車の前が空くので、龍を作る手も見えます。▲２三銀成と成ると、角も飛車も働きが鈍るので、行き先は３三が正解です。",
+            "en": "▲3三銀成 is the best move. If Gote takes the silver with △同金, ▲同角成 wins the gold back and makes a horse. Sente can also advance the rook to make a dragon, so rook and bishop both spring to life. ▲2三銀成 would leave both pieces awkward, so going to 3c is the point."
+          },
+          "marks": {
+            "last": "3c",
+            "arrows": [
+              "8h3c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4b5b",
+            "2h2c+"
+          ],
+          "text": {
+            "ja": "△５二金の受けに、▲２三飛成で龍ができました。龍は、相手玉のいる段に作るのが決まりごとです。上手玉は三段目にいるので、龍も三段目に作ります。ここまで来れば下手が優勢で、あとは上手玉を詰ませに行きます。飛車の前に駒がなく、すっきりした状態を「飛車先が軽い」といい、龍を作りやすい良い形です。",
+            "en": "Against △5二金, ▲2三飛成 makes a dragon. The custom is to make the dragon on the same rank as the enemy king; Gote's king stands on the third rank, so the dragon goes to the third rank too. Sente is clearly ahead and now goes after the king. A rook with nothing in front of it is called light, and it is the ideal shape for making a dragon."
+          },
+          "marks": {
+            "last": "2c"
+          }
+        },
+        {
+          "text": {
+            "ja": "まとめ。ねらいは飛車と角を成らせること。そのための道具が、飛車・銀・歩が連動する棒銀です。歩を一枚渡し、銀で取り返しながら前へ進みます。",
+            "en": "Remember: aim to promote rook and bishop. Coordinate rook, silver and pawn in the climbing silver. Start by sacrificing a pawn, then recapture with the silver to advance."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 3,
+          "moves": [
+            "2d3c+",
+            "4b3c",
+            "8h3c+"
+          ],
+          "text": {
+            "ja": "△３三同金なら、▲同角成と角で取ります。金を取り返しながら馬ができるので、下手が優勢です。",
+            "en": "If Gote takes with △同金 on 3c, ▲同角成 recaptures with the bishop. A horse appears while the gold is won back, so Sente is ahead."
+          },
+          "marks": {
+            "last": "3c"
+          }
         }
       ]
     },
     {
       "title": {
-        "ja": "角を成っても追う手を読む",
-        "en": "A Promoted Bishop Still Needs an Exit"
+        "ja": "上手が玉を２二に囲ってきたら",
+        "en": "If Gote shelters the king on 2b"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "5gg2/3k5/ppppppppp/9/9/2P3PP1/PPBPPPS1P/7R1/LNSGKG1NL b - 1",
+      "kind": "opening",
+      "start": "3gkg3/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1",
       "steps": [
         {
+          "moves": [
+            "4a3b",
+            "7g7f",
+            "6a7b",
+            "2g2f"
+          ],
           "text": {
-            "ja": "上手玉は６二、金は４一・３一。下手の７七角から３三歩へは６六・５五・４四が空いている。上手玉は３三へ直接利かないが、４一金は３二へ出て成った角を追え、その３二には３一金も利いている。",
-            "en": "Gote's king is on 6b, with golds on 4a and 3a. From B7g, the squares 6f, 5e and 4d are clear toward Gote's pawn on 3c. The king does not directly protect 3c, but G4a can move to 3b and attack a horse there, and G3a also covers 3b."
+            "ja": "同じ出だしから、上手が玉を２二に置いて棒銀を受け止める形を見ます。玉と金で２三を守られるので、簡単には攻め切れません。",
+            "en": "From the same opening, Gote may put the king on 2b to hold off the climbing silver. The king and gold cover 2c, so it is not easy to break through."
           },
-          "marks": { "boxes": ["7g", "3c", "4a", "3a", "6b"] }
+          "marks": {
+            "boxes": [
+              "2c"
+            ]
+          }
         },
         {
-          "moves": ["7g3c+", "4a3b"],
+          "moves": [
+            "5a4b",
+            "2f2e",
+            "4b3a",
+            "3i3h",
+            "6c6d",
+            "3h2g",
+            "7b6c",
+            "2g2f",
+            "6d6e",
+            "2f3e",
+            "3a2b"
+          ],
           "text": {
-            "ja": "▲３三角成で歩を取り馬になる。△３二金は一例で、３三の馬に金の利きを向ける。３二の金には３一金が付いているので、▲３二馬と取ると△同金で馬を金と換えることになる。下手は馬を作れたという理由だけで３三に居座れない。",
-            "en": "B3c+ captures the pawn and creates a horse. G3b is a sample reply that aims the gold at the horse. G3a protects the gold on 3b, so +Bx3b G3ax3b would trade the horse for a gold. Promotion does not justify leaving the horse on an attacked square."
+            "ja": "上手の手順の細部は気にしなくて大丈夫です。見てほしいのは、上手玉が２二へ移り、２三のマスに玉と金の二枚が利いている点です。下手は先ほどと同じ棒銀を作ります。",
+            "en": "Gote's small moves need not be memorised. Notice that the king has come to 2b, so two pieces, king and gold, defend 2c. Sente builds the same climbing silver shape."
           },
-          "marks": { "arrows": ["4a3b"], "boxes": ["3c", "3b", "3a"] }
+          "marks": {
+            "last": "2b",
+            "boxes": [
+              "2c"
+            ]
+          }
         },
         {
-          "moves": ["3c7g"],
+          "moves": [
+            "2e2d"
+          ],
           "text": {
-            "ja": "▲７七馬なら４四・５五・６六を通って元の角の位置へ戻れる。下手は３三歩を取って馬を残したが、上手は金を前へ出した。馬ができた後も、逃げ道と守り駒を数え続ける。",
-            "en": "The horse can return to 7g through the empty 4d, 5e and 6f squares. Sente has taken the pawn on 3c and kept the horse, while Gote has advanced a gold. After promoting, keep counting the escape route and the defenders."
+            "ja": "ここでも▲２四歩で攻めを始めます。ただ、上手玉がどこにいるかで、このあとの手順が違ってきます。",
+            "en": "Sente again begins by sacrificing the second-file pawn with ▲2四歩. How the attack continues depends on where Gote's king stands."
           },
-          "marks": { "arrows": ["3c7g"], "last": "7g" }
+          "marks": {
+            "last": "2d"
+          }
+        },
+        {
+          "moves": [
+            "2c2d",
+            "3e2d",
+            "P*2c"
+          ],
+          "text": {
+            "ja": "△２四歩▲同銀と進んだところで、上手が△２三歩と歩を打ち、銀が取られそうになります。２三に玉と金の二枚が利いているためです。ここで下手に好手があります。考えてみましょう。",
+            "en": "After △2四歩 ▲同銀, Gote drops △2三歩 and Sente's silver seems about to be captured, because king and gold both cover 2c. Sente has a good reply here. Think before reading on."
+          },
+          "marks": {
+            "last": "2c",
+            "boxes": [
+              "2c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2d2c+",
+            "3b2c"
+          ],
+          "text": {
+            "ja": "銀をタダで捨てる▲２三銀成が定跡です。△同金と取られて、一見すると下手が損をしているように見えます。でも、ここから攻めを続ける手順があります。駒を捨てて攻めるのは勇気が要りますが、定跡を知っていれば指せます。",
+            "en": "Giving the silver away for nothing with ▲2三銀成 is the standard move. After △同金 Sente seems to have lost material, but the attack can continue. Sacrificing pieces takes courage, but with the book you can do it."
+          },
+          "marks": {
+            "last": "2c"
+          }
+        },
+        {
+          "moves": [
+            "P*2d"
+          ],
+          "text": {
+            "ja": "次の一手は歩の打ち込みです。銀を失って駒損ですが、続けて厳しく攻めれば、相手の駒を取って損を埋められます。",
+            "en": "▲2四歩 keeps the attack going. Even a piece down, a strong follow-up wins material back."
+          },
+          "marks": {
+            "last": "2d"
+          }
+        },
+        {
+          "moves": [
+            "2c2d",
+            "2h2d"
+          ],
+          "text": {
+            "ja": "上手が△２四金と歩を取れば、▲同飛と金を取り返せます。結果は銀と金の交換で、下手の駒得になります。これで下手が優勢に進められます。",
+            "en": "If Gote takes the pawn with △2四金, ▲同飛 captures the gold. The net result is silver for gold, a gain for Sente, who is now better."
+          },
+          "marks": {
+            "last": "2d"
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 5,
+          "moves": [
+            "2c3d",
+            "2d2c+",
+            "2b3a"
+          ],
+          "text": {
+            "ja": "上手が△３四金と金を逃げるなら、歩を成って「と金」にします。金と同じ動きで、奪われても相手の持ち駒は歩が増えるだけですから、とても貴重な駒です。",
+            "en": "If Gote escapes with △3四金, Sente makes a tokin with ▲2三歩成. A tokin moves like a gold and gives the opponent only a pawn if captured, so it is very valuable."
+          },
+          "steps": [
+            {
+              "moves": [
+                "2c3c",
+                "3d4d"
+              ],
+              "text": {
+                "ja": "ここで▲３三とと進めます。△同金は▲同角成で馬ができて金も取れるので、下手の勝勢です。それを嫌って上手は△４四金と逃げました。",
+                "en": "▲3三と is the move here. If Gote takes with △同金, ▲同角成 makes a horse and wins the gold, which is winning for Sente. So Gote runs with △4四金."
+              },
+              "marks": {
+                "last": "3c"
+              }
+            },
+            {
+              "moves": [
+                "2h2b+",
+                "3a4a",
+                "3c4b"
+              ],
+              "text": {
+                "ja": "▲２二飛成△４一玉▲４二と、で上手玉が詰みます。上手がどう指しても玉が取られることを、盤で確かめてください。定跡を覚えておけば、こういう手も実戦で見つかります。",
+                "en": "▲2二飛成, △4一玉 and ▲4二と. In three moves Gote's king is mated; check that every reply loses the king. Knowing the book lets you find such difficult moves in a real game."
+              },
+              "marks": {
+                "last": "4b"
+              }
+            }
+          ]
         }
       ]
     }

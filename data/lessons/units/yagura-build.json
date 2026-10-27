@@ -1,23 +1,26 @@
 {
   "id": "yagura-build",
   "order": 560,
-  "path": ["囲い", "矢倉"],
+  "path": [
+    "戦法・定跡",
+    "矢倉"
+  ],
   "title": {
-    "ja": "相手の利きを見ながら矢倉の芯を作る",
-    "en": "Build the Yagura Core While Reading the Opponent"
+    "ja": "矢倉囲い：初手から組み、相手に合わせて手順を変える",
+    "en": "Yagura castle: build from move one and adapt the order"
   },
   "intro": {
-    "ja": "矢倉の目標は玉８八、金７八・６七、銀７七がつながる形です。そこへ向かう間も相手は歩や飛車を動かします。角が玉の通路をふさぐときは退路を作り、飛車先に歩が迫ればその升の守り駒を数えます。示す手順は特定の局面での一例で、囲いの組み順を固定するものではありません。",
-    "en": "A recognizable Yagura core links the king on 8h with golds on 7h and 6g and a silver on 7g. The opponent can move a pawn or rook during construction. Clear a path for the bishop and king, then count the defenders of any rook-pawn entry square. Each line here is a response to its own position, not a universal construction order."
+    "ja": "矢倉囲いは、金二枚と銀一枚を玉の前に並べる居飛車の定番の囲いです。初手から一手ずつ組み、完成形と長所・短所を確かめます。さらに、飛車先を突かれたとき、角道を開けられたとき、後手番のときに手順をどう変えるかを、実際の局面で身につけます。",
+    "en": "The Yagura castle puts two golds and a silver in front of the king and is the standard castle of Ibisha. You build it from move one, step by step, and check its finished shape, strengths and weaknesses. Then you learn on real positions how to change the order when the rook pawn is pushed, when the bishop line is opened, and when you are Gote."
   },
   "check": {
     "question": {
-      "ja": "矢倉を完成させる直前、角の位置と相手の飛車先について何を確認しますか？",
-      "en": "Just before finishing a Yagura, what must you check about your bishop and the opponent's rook pawn?"
+      "ja": "矢倉の組み手順は、なぜ相手の動きによって変える必要がありますか？",
+      "en": "Why must the order of building a Yagura change with the opponent's moves?"
     },
     "answer": {
-      "ja": "角が８八と７九のどちらをふさぐかを見て、玉が実際に通れる道を選びます。相手の歩が進む升に何枚の駒が利くか、歩交換後に飛車を取れるかも盤上で確かめます。",
-      "en": "Check whether the bishop occupies 8h or 7i and choose a king route that is actually open. Count the pieces covering the pawn's next square and calculate any rook capture after the pawn exchange."
+      "ja": "飛車先の歩の交換や角交換などの隙を作らないためです。例えば飛車先を伸ばされたら、▲６八銀から▲７七銀を急いで飛車先を受けます。",
+      "en": "To avoid leaving a gap such as a rook pawn trade or a bishop trade. For example, when the rook pawn is pushed you hurry ▲6八銀 and ▲7七銀 to cover it."
     }
   },
   "references": [
@@ -26,122 +29,526 @@
       "url": "https://shogi-joutatsu.com/archives/1852",
       "license": "All rights reserved",
       "adapted": false
+    },
+    {
+      "title": "将棋の技図鑑 (yuki-keio/shogi)",
+      "url": "https://github.com/yuki-keio/shogi",
+      "license": "GPL-3.0-only",
+      "adapted": false
     }
   ],
   "chapters": [
     {
       "title": {
-        "ja": "角の退路を変えてから玉を入れる",
-        "en": "Choose a bishop exit before bringing in the king"
+        "ja": "初手から矢倉囲いを組む",
+        "en": "Build the Yagura castle from move one"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4kg3/5r1b1/6p2/5p3/9/2PP5/PP7/1BGSG2R1/3K5 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "先手は玉６九、金７八・５八、銀６八、角８八の途中形です。歩７六・６六はすでに進み、７七と６七は空いています。後手の飛車４二と歩４四が動く中、まず銀を７七へ置いて前方の守りを作ります。まだ矢倉の完成形とは呼びません。",
-            "en": "Sente begins with the king on 6i, golds on 7h and 5h, silver on 6h, and bishop on 8h. The pawns on 7f and 6f have already opened 7g and 6g. As Gote's rook on 4b and pawn on 4d develop, first move the silver to 7g to give the front of the future castle a defender. This remains an intermediate shape."
+            "ja": "矢倉囲いは、金二枚と銀一枚を玉の前に並べる、居飛車の定番の囲いです。上からの攻めには強い一方、横からの攻めには弱さがあります。この章では初手から囲いの完成までを一手ずつ組み、各手の意味を確かめます。手順は目安で、実戦では相手の動きを見て入れ替えます。",
+            "en": "The Yagura castle puts two golds and a silver in front of the king, the standard castle of Ibisha. It holds well against attacks from above and is weaker against attacks from the side. This chapter builds it from move one, one move at a time, with the reason for each. The order is a guide and in a real game you reorder it according to the opponent."
           }
         },
         {
-          "moves": ["6h7g", "4d4e"],
+          "moves": [
+            "7g7f",
+            "9c9d"
+          ],
           "text": {
-            "ja": "▲７七銀に後手は△４五歩を選びました。銀が７七へ出ると６八が空き、角８八は７九を経て５七へ引く通路を使えます。角を退かさず玉を８八へ入れることはできません。",
-            "en": "Gote chooses △４五歩 after ▲７七銀. Vacating 6h opens a bishop route from 8h through 7i to 5g. The king cannot occupy 8h while its own bishop remains there."
+            "ja": "▲７六歩。角道を開け、７八と７七に駒が上がれるようにします。最初の一手は矢倉に決めつけず、相手の出方を見る意味もあります。",
+            "en": "▲7六歩 opens the bishop line and makes room for pieces on 7h and 7g. As the first move it also keeps other plans open until you see the opponent's reply."
+          },
+          "marks": {
+            "last": "7f"
           }
         },
         {
-          "moves": ["8h7i", "3c3d", "7i5g", "4b4d"],
+          "moves": [
+            "6i7h",
+            "1c1d"
+          ],
           "text": {
-            "ja": "▲７九角から▲５七角へ移る間に、後手は３筋の歩を進めて飛車を４四へ出しました。角５七は８八と７九を空けます。銀７七と金７八は動かさずに、次は金５八を６七へ上げられます。",
-            "en": "Sente moves the bishop via 7i to 5g while Gote advances the third-file pawn and brings the rook to 4d. The bishop now vacates both 8h and 7i. Sente can next move the gold from 5h to 6g without disturbing the silver on 7g or gold on 7h."
+            "ja": "▲７八金。左の金を玉のそばへ上げます。これからカニ囲いを経由して組みます。",
+            "en": "▲7八金 lifts the left gold next to the king. From here we go through the Kani shape on the way to Yagura."
+          },
+          "marks": {
+            "last": "7h"
           }
         },
         {
-          "moves": ["5h6g", "2b3c", "6i7i", "4a5b", "7i8h"],
+          "moves": [
+            "7i6h",
+            "4c4d"
+          ],
           "text": {
-            "ja": "▲６七金で金銀の外枠をつくり、玉は▲７九玉から▲８八玉へ進みました。途中の後手の角・金の移動も盤上で確認します。終点で玉８八、金７八・６七、銀７七がそろい、この局面で初めて矢倉の芯が完成します。飛車４四や歩４五の影響は引き続き読む必要があります。",
-            "en": "▲６七金 links the defenders, and the king travels through 7i to 8h. Gote's bishop and gold also move between these turns. The final position has king 8h, golds 7h and 6g, and silver 7g: only now is the Yagura core complete. Gote's rook on 4d and pawn on 4e still need attention."
+            "ja": "▲６八銀。７九の銀を斜めに上げて、金と並べます。",
+            "en": "▲6八銀 raises the silver from 7i diagonally and lines it up beside the gold."
+          },
+          "marks": {
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "4i5h",
+            "6c6d"
+          ],
+          "text": {
+            "ja": "▲５八金。右の金も上げて、金・銀・金が横に並びます。",
+            "en": "▲5八金 raises the right gold too, so gold, silver and gold stand in a row."
+          },
+          "marks": {
+            "last": "5h",
+            "boxes": [
+              "7h",
+              "6h",
+              "5h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5i6i",
+            "7c7d"
+          ],
+          "text": {
+            "ja": "▲６九玉。玉を一つ左へ。この金銀金の形がカニ囲いで、ここで攻めに出ることもできます。矢倉に組むなら、ここから金銀の位置を替えていきます。",
+            "en": "▲6九玉 moves the king one square left. This row of gold, silver and gold is the Kani, and one can already attack from here. To reach Yagura, the golds and silver are rearranged from this point."
+          },
+          "marks": {
+            "last": "6i",
+            "boxes": [
+              "7h",
+              "6h",
+              "5h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6g6f",
+            "5c5d"
+          ],
+          "text": {
+            "ja": "▲６六歩。６七の金を置く場所を空け、角道を自分の歩で止めます。",
+            "en": "▲6六歩 clears the square for the gold on 6g and stops the bishop line with your own pawn."
+          },
+          "marks": {
+            "last": "6f",
+            "boxes": [
+              "6g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6h7g",
+            "8c8d"
+          ],
+          "text": {
+            "ja": "▲７七銀。銀を一段前の７七へ出します。囲いの要になる駒で、８筋から歩を突かれても、この銀が８六を守ってくれます。",
+            "en": "▲7七銀 brings the silver one rank forward to 7g. It is the key piece of the castle, and if a pawn is pushed on the eighth file this silver guards 8f."
+          },
+          "marks": {
+            "last": "7g",
+            "boxes": [
+              "7g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5h6g",
+            "6a5b"
+          ],
+          "text": {
+            "ja": "▲６七金。５八の金を６七へ。７七の銀と並べて、外側の枠ができました。あとは玉をこの中へ入れるだけです。",
+            "en": "▲6七金 sends the gold from 5h to 6g, next to the silver on 7g. The outer frame is built; the king only has to enter it."
+          },
+          "marks": {
+            "last": "6g",
+            "boxes": [
+              "7g",
+              "6g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8h7i",
+            "4a3b"
+          ],
+          "text": {
+            "ja": "▲７九角。玉が入る８八には角がいるので、角を７九へ引きます。",
+            "en": "▲7九角 retreats the bishop to 7i, because it stands on 8h, the square the king needs."
+          },
+          "marks": {
+            "last": "7i",
+            "boxes": [
+              "8h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7i6h",
+            "5b4c"
+          ],
+          "text": {
+            "ja": "▲６八角。さらに６八へ。７九を空けて、玉の通り道にします。",
+            "en": "▲6八角 goes further to 6h, which empties 7i as a path for the king."
+          },
+          "marks": {
+            "last": "6h",
+            "boxes": [
+              "7i"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6i7i",
+            "3a4b"
+          ],
+          "text": {
+            "ja": "▲７九玉。玉が７九へ進みます。",
+            "en": "▲7九玉 moves the king to 7i."
+          },
+          "marks": {
+            "last": "7i"
+          }
+        },
+        {
+          "moves": [
+            "7i8h",
+            "5a6b"
+          ],
+          "text": {
+            "ja": "▲８八玉で矢倉囲いの完成です。７八と６七の金、７七の銀が玉の前面を覆っています。覚えるのは細かい手順より、この完成形です。長所は上からの攻めに強いこと、短所は、玉の隣の金を玉だけで守っていることから横からの攻めに弱く、端もやや薄いことです。崩すなら、横から金を狙う、端に駒を集めて攻める、玉の真上から攻める、の三通りがあります。",
+            "en": "▲8八玉 completes the Yagura. Golds on 7h and 6g and a silver on 7g cover the front of the king. What you must remember is this finished shape, not the exact order. Its strength is resistance to attacks from above. Its weakness is that only the king protects the gold beside it, so attacks from the side are dangerous and the edge is a little thin. It can be broken by attacking the gold from the side, by gathering pieces on the edge, or by attacking from directly above the king."
+          },
+          "marks": {
+            "last": "8h",
+            "boxes": [
+              "8h",
+              "7h",
+              "7g",
+              "6g"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "玉が７九にいるなら角は別の出口を選ぶ",
-        "en": "When the king occupies 7i, find another bishop exit"
+        "ja": "飛車先を突かれたら▲７七銀",
+        "en": "If the rook pawn is pushed, play ▲7七銀"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/5r3/9/5p3/9/2PP5/2SG5/1BG4R1/2K6 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "玉７九、角８八、金７八・６七、銀７七の局面です。玉が７九にいるので、角を８八から７九へ引く道はふさがっています。一方、９七には先手の駒がなく、角がそこへ出られるかを確かめます。",
-            "en": "Here the king already occupies 7i, the bishop remains on 8h, and golds on 7h and 6g support the silver on 7g. The king blocks a bishop retreat to 7i. Square 9g is empty, so test that different exit before moving the king."
+            "ja": "囲いの手順は固定ではありません。相手の動きによって、駒を上げる順を入れ替える必要があります。ここでは相手が飛車先を伸ばしてきた場合を見ます。",
+            "en": "The order of castle moves is not fixed. You reorder the pieces according to what the opponent does. Here the opponent pushes the rook pawn."
           }
         },
         {
-          "moves": ["8h9g", "4d4e"],
+          "moves": [
+            "7g7f",
+            "8c8d"
+          ],
           "text": {
-            "ja": "▲９七角で８八を空け、後手は△４五歩を選びました。角９七が安全かどうかは敵の飛車・歩の配置次第ですが、この局面の飛車４二と歩４五は角９七を直接取れません。",
-            "en": "▲９七角 frees 8h, and Gote chooses △４五歩. The safety of 9g depends on the opposing pieces; in this position Gote's rook on 4b and pawn on 4e do not capture the bishop there."
+            "ja": "先手が▲７六歩と突くと、後手は△８四歩で飛車の前の歩を進めました。次に△８五歩、△８六歩と来られると、歩を取り替えられてしまいます。",
+            "en": "After ▲7六歩 Gote advances the pawn in front of its rook with △8四歩. If it keeps coming with △8五歩 and △8六歩, the pawns get swapped."
+          },
+          "marks": {
+            "last": "8d",
+            "boxes": [
+              "8f"
+            ]
           }
         },
         {
-          "moves": ["7i8h", "4b4d", "9g8f"],
+          "moves": [
+            "7i6h",
+            "8d8e"
+          ],
           "text": {
-            "ja": "▲８八玉で金７八・６七、銀７七と玉がつながり、後手の△４四飛を見て角は▲８六角へ移りました。玉の通路を確保するための角移動でも、終点の角筋は局面ごとに読みます。この別経路は９七が空いている場合だけ使えます。",
-            "en": "▲８八玉 completes the Yagura core with golds on 7h and 6g and silver on 7g. After Gote's △４四飛, the bishop shifts to 8f. Its new diagonal still requires evaluation; this exit through 9g was available only because that square was empty."
+            "ja": "▲６八銀と、すぐに銀を上げます。このあと後手が△８五歩と進めても、次の銀の一手が間に合います。",
+            "en": "Sente raises the silver at once with ▲6八銀. Even if Gote continues △8五歩, the next silver move is in time."
+          },
+          "marks": {
+            "last": "8e",
+            "boxes": [
+              "7g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6h7g"
+          ],
+          "text": {
+            "ja": "▲７七銀で８六のマスに銀の利きが加わりました。△８六歩、▲同歩、△同飛と来ても、▲同銀と飛車をただで取れます。守りの利きを一本足しておけば、相手は歩の交換に出られません。これで安心して囲いを組み続けられます。",
+            "en": "▲7七銀 guards 8f. Even if Gote plays △8六歩, ▲同歩 and △同飛, ▲同銀 takes the rook. Adding protection to 8f like this stops the rook pawn trade. Sente can then build the Yagura calmly."
+          },
+          "marks": {
+            "last": "7g",
+            "boxes": [
+              "8f"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 3,
+          "moves": [
+            "8e8f",
+            "8g8f",
+            "8b8f"
+          ],
+          "text": {
+            "ja": "銀を上げるのが一手遅れた場合ではなく、上げたあとに後手が飛車先を交換にきた場合です。△８六歩と突いて、飛車を動かします。",
+            "en": "This is what happens when Gote tries to trade the rook pawn after the silver has been raised. Gote pushes △8六歩 and brings the rook into play."
+          },
+          "steps": [
+            {
+              "moves": [
+                "7g8f"
+              ],
+              "text": {
+                "ja": "△８六同飛と来たところで、▲同銀。銀が飛車を取れます。矢倉に組む途中でも、７七の銀は飛車先の歩の交換を防ぐ役目があります。",
+                "en": "Gote takes with the rook, △8六同飛, and ▲同銀 captures it. Even while the castle is being built, the silver on 7g has the job of stopping the rook pawn trade."
+              },
+              "marks": {
+                "last": "8f"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "角道を開けられたら▲６六歩",
+        "en": "If the bishop line is opened, play ▲6六歩"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "text": {
+            "ja": "今度は後手が先に角道を開けてきた場合です。矢倉の駒組みには、角交換を避けるための注意が必要です。",
+            "en": "Now Gote opens the bishop line first. Building a Yagura then requires care to avoid a bishop trade."
+          }
+        },
+        {
+          "moves": [
+            "7g7f",
+            "3c3d"
+          ],
+          "text": {
+            "ja": "▲７六歩、△３四歩。お互いの角が向かい合いました。このまま不用意に銀を動かすと、角を取られる恐れがあります。",
+            "en": "▲7六歩 and △3四歩 leave the two bishops facing each other. A careless silver move could now lose the bishop."
+          },
+          "marks": {
+            "last": "3d",
+            "arrows": [
+              "8h2b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6g6f"
+          ],
+          "text": {
+            "ja": "▲６六歩と、自分で角道を止めます。角交換を断る手で、矢倉を目指すときの無難な駒組みです。",
+            "en": "▲6六歩 shuts the bishop line yourself. It refuses the bishop trade and is the safe way to continue when aiming for a Yagura."
+          },
+          "marks": {
+            "last": "6f",
+            "boxes": [
+              "6f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8c8d",
+            "7i6h",
+            "8d8e",
+            "6h7g"
+          ],
+          "text": {
+            "ja": "そのあと後手が飛車先を伸ばしたら、やはり▲６八銀から▲７七銀と進め、飛車先の交換を防ぎます。じっくり矢倉囲いを組んでいける形です。",
+            "en": "When Gote then pushes the rook pawn, again play ▲6八銀 and ▲7七銀 to stop the pawn trade. From here the Yagura can be built patiently."
+          },
+          "marks": {
+            "last": "7g",
+            "boxes": [
+              "7g"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": [
+            "7i6h",
+            "2b8h+"
+          ],
+          "text": {
+            "ja": "ここで、いつもの癖で▲６八銀と上げるのは悪手です。△８八角成と角を取られてしまいます。矢倉を組むときは、手順を暗記せず、相手の動きを見て隙を作らないことが大切です。",
+            "en": "Playing ▲6八銀 here out of habit is a mistake. △8八角成 wins the bishop. When building a Yagura, do not rely on a memorised order but watch the opponent and avoid leaving a gap."
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "飛車先の歩は角の利きまで含めて受ける",
-        "en": "Include the bishop when answering rook-pawn pressure"
+        "ja": "後手番で矢倉に組む：ウソ矢倉",
+        "en": "Building Yagura as Gote: the fake Yagura"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/5r1b1/9/9/5p3/6S2/2SGBP3/2G4R1/2K6 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "玉７九は８八へ入れますが、後手は飛車４二と歩４五を同じ筋に置いています。先手は歩４七、角５七で４六を二つの駒から見ています。角５七を動かすかどうかで、飛車が歩交換のあと４六へ出る手への応じ方が変わります。",
-            "en": "The king on 7i can enter 8h, but Gote has a rook on 4b behind a pawn on 4e. Sente's pawn on 4g and bishop on 5g both affect the exchange square 4f. Moving that bishop changes the answer if the rook later lands there."
+            "ja": "後手で矢倉を目指すと、先手の２筋の歩の伸びを最初に受け止めなければなりません。この章では、角でその歩を止めてから矢倉を作る「ウソ矢倉」の手順を見ます。",
+            "en": "As Gote you must deal with Sente pushing the rook pawn when aiming for a Yagura. This chapter shows the fake Yagura setup that covers the rook pawn with the bishop first and then builds the castle."
           }
         },
         {
-          "moves": ["7i8h", "4e4f"],
+          "moves": [
+            "2g2f",
+            "3c3d",
+            "2f2e",
+            "2b3c"
+          ],
           "text": {
-            "ja": "▲８八玉で玉８八・金７八と６七・銀７七の矢倉の芯が完成し、後手は△４六歩と突きました。歩４七で取り返すなら、その後に飛車４二が４六へ進めるかを読みます。囲いの完成だけで手番を安全に使えたとは判断しません。",
-            "en": "▲８八玉 completes the Yagura core, and Gote chooses △４六歩. If Sente's pawn on 4g captures it, check whether the rook on 4b can then advance to 4f. Finishing the castle does not by itself settle this pawn exchange."
+            "ja": "▲２六歩、△３四歩、▲２五歩と、先手は２筋の歩を一気に伸ばしました。銀を３三に上げる暇はないので、△３三角と上がって２四に利きを作ります。矢倉の形からは外れますが、序盤から歩の交換を許すのは損です。",
+            "en": "▲2六歩, △3四歩, ▲2五歩: Sente pushes the rook pawn at once. There is no time to defend with the silver, so △3三角 guards 2d with the bishop. It moves away from the Yagura shape, but the rook pawn trade cannot be allowed."
+          },
+          "marks": {
+            "last": "3c",
+            "arrows": [
+              "3c2d"
+            ],
+            "boxes": [
+              "2d"
+            ]
           }
         },
         {
-          "moves": ["4g4f", "4b4f"],
+          "moves": [
+            "7g7f",
+            "4c4d"
+          ],
           "text": {
-            "ja": "この分岐の△同飛は４六の先手歩を取ります。しかし角５七が４六に利いているため、後手飛車は無条件に歩を取れません。角を動かす前にこの斜線を確認します。",
-            "en": "In this sample line △同飛 takes Sente's pawn on 4f. The bishop on 5g also controls 4f, so the rook capture is not free. Check that diagonal before moving the bishop elsewhere."
+            "ja": "先手が角道を開けて▲７六歩と来たら、△４四歩と角道を閉じます。角交換を避けるのは、後手でも矢倉の基本です。この局面は四間飛車と同じ出だしに見えますが、ここから矢倉に組むのでウソ矢倉と呼ばれます。",
+            "en": "When Sente opens the bishop line with ▲7六歩, Gote closes it with △4四歩. Avoiding the bishop trade is basic for a Yagura even as Gote. The position looks like the start of Fourth File Rook, but Gote builds a Yagura from here, hence the name fake Yagura."
+          },
+          "marks": {
+            "last": "4d",
+            "boxes": [
+              "4d"
+            ]
           }
         },
         {
-          "moves": ["5g4f"],
+          "moves": [
+            "3i4h",
+            "3a2b"
+          ],
           "text": {
-            "ja": "▲同角で飛車を取りました。この駒得は後手が△同飛を選んだ場合だけで、後手は別の手を指せます。要点は、角５七を残したまま歩を取れば４六の飛車に応じられるという守りの枚数です。",
-            "en": "▲同角 takes the rook. That material gain exists only if Gote chooses the rook capture; Gote has other replies. The useful fact is that keeping the bishop on 5g gives Sente a recapture on 4f after the pawn exchange."
+            "ja": "▲４八銀、△２二銀。銀を４二ではなく２二へ上げるのが要点です。あとで△４二角と引く場所を空けておくためです。",
+            "en": "▲4八銀, △2二銀. The key is to raise the silver to 2b instead of 4b, which leaves the square 4b free for the bishop to retreat to later."
+          },
+          "marks": {
+            "last": "2b",
+            "boxes": [
+              "4b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6i7h",
+            "4a3b",
+            "7i6h",
+            "6a5b",
+            "4i5h",
+            "5b4c"
+          ],
+          "text": {
+            "ja": "そのあと金を上げていきます。▲７八金に△３二金、▲６八銀に△５二金、▲５八金に△４三金。金を先に上げておくと、▲４四角と出られる手を防げます。",
+            "en": "Next the golds go up: △3二金 against ▲7八金, △5二金 against ▲6八銀, then △4三金 against ▲5八金. Raising the golds first stops the bishop from coming out with ▲4四角."
+          },
+          "marks": {
+            "last": "4c",
+            "boxes": [
+              "3b",
+              "4c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5i6i",
+            "3c4b"
+          ],
+          "text": {
+            "ja": "▲６九玉に△４二角と引きます。先に金を上げておいたので、角の引き場所が安全です。▲２四歩と突かれても、角の斜めが２四にあるので取り返せます。",
+            "en": "After ▲6九玉 comes △4二角. The bishop retreats after the golds are up. Even if Sente pushes ▲2四歩, the bishop covers 2d so there is no problem."
+          },
+          "marks": {
+            "last": "4b",
+            "boxes": [
+              "2d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3g3f",
+            "2b3c"
+          ],
+          "text": {
+            "ja": "▲３六歩に△３三銀。銀を上げて、矢倉囲いの形ができました。ここから玉を２二まで運べば、後手の矢倉囲いが完成します。手順は長いので、一手ごとの意味を理解して覚えましょう。",
+            "en": "▲3六歩 is met by △3三銀, and the Yagura shape is formed. Carrying the king to 2b from here completes Gote's Yagura. The order is long, so learn the meaning of each move."
+          },
+          "marks": {
+            "last": "3c",
+            "boxes": [
+              "3c",
+              "4c",
+              "3b"
+            ]
           }
         }
       ],
       "variations": [
         {
           "from": 0,
-          "moves": ["5g4h", "4e4f", "4g4f", "4b4f"],
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "8h2b+"
+          ],
           "text": {
-            "ja": "角を先に▲４八角と引くと、この例の△４六歩▲同歩△同飛に対し、４八の角は４六へ縦には動けません。飛車を取る読みは角５七の配置が条件でした。後手の飛車取りを誘うためだけに角を引く順は選びません。",
-            "en": "If the bishop first retreats to 4h, the sample △４六歩▲同歩△同飛 leaves it unable to capture the rook straight up the file. The rook recapture depended on the bishop remaining on 5g. Recheck the defender before choosing a bishop move."
+            "ja": "後手で矢倉を目指すときの注意点です。先手に▲７六歩と突かれ、△３四歩と角道を開けると、いきなり▲２二角成と角を交換されます。後手番では角交換を避けられず、そのときは矢倉ではなく角換わりの形になります。居飛車を指すなら角換わりも覚えておく必要があります。",
+            "en": "A caution when aiming for a Yagura as Gote. If Sente plays ▲7六歩 and Gote opens the bishop line with △3四歩, ▲2二角成 trades the bishops at once. As Gote you cannot always avoid the trade, and then the game becomes Kakugawari, not Yagura. An Ibisha player should know Kakugawari as well."
           }
         }
       ]

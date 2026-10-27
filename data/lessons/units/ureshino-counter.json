@@ -1,23 +1,26 @@
 {
   "id": "ureshino-counter",
   "order": 1420,
-  "path": ["戦法・定跡", "嬉野流"],
+  "path": [
+    "戦法・定跡",
+    "嬉野流"
+  ],
   "title": {
-    "ja": "三間飛車から嬉野流に向き合う",
-    "en": "Meet Ureshino with Third File Rook"
+    "ja": "振り飛車で嬉野流に向き合う：三間飛車と▲４六角",
+    "en": "Facing Ureshino-ryu with a Ranging Rook: Third File Rook and ▲4六角"
   },
   "intro": {
-    "ja": "先手の飛車を７筋に置き、後手の角を引いた嬉野流に対する三つの判断を練習する。美濃囲いを完成させる一手と８筋の接触、７筋の歩を先手から交換するタイミング、６筋の歩交換で開く角筋を別々の盤面で調べる。",
-    "en": "With Sente's rook on the seventh file against a Gote Ureshino formation with a retreated bishop, make three separate decisions: complete Mino before eighth-file contact, time a Sente-initiated seventh-file exchange, and use a newly opened bishop diagonal after a sixth-file exchange."
+    "ja": "嬉野流に対して三間飛車に振り、美濃囲いを組みながら後手の仕掛けを待ちます。７筋の歩を突かれたら角を引き、▲４六角で飛車のコビンを狙う手順を、初手から確認します。",
+    "en": "Against Ureshino-ryu, swing to Third File Rook, build a Mino, and wait for Gote's attack. When the seventh-file pawn advances, retreat the bishop and use ▲4六角 to hit the rook's weak diagonal. Everything is built from move one."
   },
   "check": {
     "question": {
-      "ja": "第三章で▲６五歩△同歩の後、▲５五角が８二飛を狙えるのはなぜか。また、△６四銀とされたら▲６四角だけで銀得といえるか。",
-      "en": "In chapter three, why does B5e target R8b after P6e and ...P6e? If Gote then plays S6d, does B6d win the silver outright?"
+      "ja": "嬉野流に対する振り飛車で、△７五歩と仕掛けられたら▲同歩とせずに▲６八角と引くのはなぜですか？",
+      "en": "Against Ureshino-ryu, why does the Ranging Rook player retreat ▲6八角 instead of capturing △7五歩?"
     },
     "answer": {
-      "ja": "先手の歩が６六を離れ、後手の歩も６四を離れるので、７七角は６六を通って５五へ出られ、５五角から６四・７三・８二がつながる。△６四銀に▲同角なら、後手の３一角が４二・５三を通って△同角と取り返せる。銀得とは決めつけられない。",
-      "en": "Sente's pawn vacates 6f and Gote's pawn vacates 6d, clearing B7g–6f–5e and B5e–6d–7c–8b. After S6d, B6d takes the silver, but Gote's bishop on 3a recaptures through 4b and the now-empty 5c. It is not a free silver."
+      "ja": "角を引いておくと、次の▲４六角が狙えるからです。▲同歩とすると△７六歩などで攻めを受けてしまいますが、角を引けば７筋を取り込まれても▲４六角で斜めから反撃できます。",
+      "en": "Retreating the bishop prepares ▲4六角 next. Capturing invites △7六歩 and an attack, but after the retreat Gote's seventh-file raid still meets ▲4六角 and a diagonal counterattack."
     }
   },
   "references": [
@@ -31,113 +34,347 @@
   "chapters": [
     {
       "title": {
-        "ja": "囲いの一手と８筋の接触を両方数える",
-        "en": "Count the Castle Tempo and the Eighth-File Contact"
+        "ja": "嬉野流に三間飛車で美濃囲いを組む",
+        "en": "Meet Ureshino-ryu with Third File Rook and a Mino"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "5kb2/1r7/4s4/1pp6/9/2P6/1P1S5/1BR1G1K2/5GS2 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f",
+            "3a4b"
+          ],
           "text": {
-            "ja": "先手は７八飛・６七銀、後手は８二飛・３一角・５三銀。先手玉は３八で、３九銀を３八に上げれば２八玉・３八銀・４九金の美濃の芯ができる。ただし後手の８四歩も前進できる。",
-            "en": "Sente has R7h and S6g; Gote has R8b, a retreated B3a and S5c. Sente's king is on 3h. Moving K2h and S3h forms the K2h–S3h–G4i Mino core, but Gote can advance the 8d pawn in the same time."
+            "ja": "後手が△４二銀と角道を開けずに上がる指し方が嬉野流です。ここから角を引いて使うのが狙いです。先手は初手▲７六歩とした局面から、後手の出方に合わせて組みます。",
+            "en": "Gote's △4二銀 without opening the bishop line is Ureshino-ryu; the plan is to retreat the bishop and use it from behind. Here Sente has played ▲7六歩 and Gote answered △4二銀."
+          },
+          "marks": {
+            "last": "4b",
+            "boxes": [
+              "4b"
+            ]
           }
         },
         {
-          "moves": ["3h2h", "8d8e", "3i3h"],
+          "moves": [
+            "6g6f",
+            "5c5d",
+            "7i7h",
+            "4b5c"
+          ],
           "text": {
-            "ja": "この応酬では先手が美濃の芯を作り、後手の歩は８五に来る。囲いが完成しても８七歩への次の接触は別に処理する。",
-            "en": "This sample gives Sente the Mino core while Gote's pawn reaches 8e. Completing the shelter does not settle the next contact against P8g."
+            "ja": "▲６六歩、△５四歩、▲７八銀、△５三銀と進みます。先手は７筋と６筋の歩を突いて、あとで角と銀を動かす形を作ります。",
+            "en": "▲6六歩 △5四歩 ▲7八銀 △5三銀. Sente pushes the seventh and sixth file pawns to prepare the bishop and silver."
+          },
+          "marks": {
+            "last": "5c",
+            "boxes": [
+              "6f",
+              "7h"
+            ]
           }
         },
         {
-          "moves": ["8e8f", "8g8f", "8b8f", "8h7g", "8f8b"],
+          "moves": [
+            "8h7g",
+            "8c8d",
+            "7h6g",
+            "8d8e"
+          ],
           "text": {
-            "ja": "△８六歩▲同歩△同飛を後手が選んだ例。▲７七角は８六飛を斜めから攻め、例の△８二飛なら飛車は戻れる。７六歩には６七銀の利きもあり、飛車が横から７六の歩を取るかどうかはその利きを見て判断する。",
-            "en": "If Gote chooses P8f, P8f and R8f, B7g attacks that rook; the sample rook retreats to 8b. S6g also protects Sente's pawn on 7f, so a sideways rook capture there must be calculated separately."
+            "ja": "▲７七角、△８四歩、▲６七銀、△８五歩。先手は角を７七に上げ、銀を６七で受けの形にします。",
+            "en": "▲7七角 △8四歩 ▲6七銀 △8五歩. Sente raises the bishop to 7g and settles the silver on 6g."
+          },
+          "marks": {
+            "last": "8e",
+            "boxes": [
+              "7g",
+              "6g"
+            ]
           }
-        }
-      ],
-      "variations": [
+        },
         {
-          "from": 1,
-          "moves": ["8e8f", "8g8f", "8b8f", "8h7g", "8f7f", "6g7f"],
+          "moves": [
+            "2h7h"
+          ],
           "text": {
-            "ja": "▲７七角の後に後手が△７六飛と歩を取る分岐なら▲同銀で飛車を取れる。この局面の７六には６七銀が利いている。後手は飛車を引くなど別の手を選べる。",
-            "en": "If Gote instead takes the pawn with R7f after B7g, S6g×7f captures the rook. The silver's protection of 7f is a fact of this board; Gote can choose a rook retreat instead."
+            "ja": "▲７八飛と三間飛車に振ります。嬉野流のあとに急戦を組まれても、三間飛車で待っている方が指しやすいと言われます。",
+            "en": "▲7八飛 swings to Third File Rook. Even if Gote converts to an ordinary anti-Ranging-Rook attack, waiting with Third File Rook is comfortable."
+          },
+          "marks": {
+            "last": "7h",
+            "arrows": [
+              "2h7h"
+            ],
+            "boxes": [
+              "7h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2b3a",
+            "5i4h",
+            "5a4b",
+            "4h3h",
+            "4b3b",
+            "3h2h",
+            "7c7d"
+          ],
+          "text": {
+            "ja": "△３一角と引いて、△４二玉、△３二玉と玉も動かします。先手も▲４八玉、▲３八玉、▲２八玉と美濃囲いを目指します。後手は△７四歩まで進みます。",
+            "en": "△3一角 retreats the bishop and Gote walks the king △4二玉 △3二玉. Sente heads for a Mino with ▲4八玉 ▲3八玉 ▲2八玉, and Gote plays △7四歩."
+          },
+          "marks": {
+            "last": "7d",
+            "boxes": [
+              "3a",
+              "2h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3i3h"
+          ],
+          "text": {
+            "ja": "▲３八銀で美濃囲いの形ができました。後手は角を引き、いつでも攻められる陣形です。これが鳥刺しで、居飛車党が別の出だしからここへ組み替える場合もあります。",
+            "en": "▲3八銀 completes the Mino shape. Gote has retreated the bishop and prepared the attack; this is Torisashi, which Static Rook players also reach by other move orders."
+          },
+          "marks": {
+            "last": "3h",
+            "boxes": [
+              "3h",
+              "3a"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5c6d",
+            "5g5f"
+          ],
+          "text": {
+            "ja": "後手が△６四銀と銀を出したら、先手は▲５六歩と突きます。相手の仕掛けが来る前の備えで、あとで▲６八角から▲４六角と回り、飛車の頭を狙うつもりです。",
+            "en": "After Gote brings the silver out with △6四銀, Sente plays ▲5六歩. It is preparation before Gote's attack lands, with the plan of ▲6八角 and ▲4六角 to hit the head of the rook."
+          },
+          "marks": {
+            "last": "5f",
+            "arrows": [
+              "5f5e"
+            ],
+            "boxes": [
+              "5f"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "ポイントです。嬉野流には三間飛車で対応し、美濃囲いを急ぎながら仕掛けを待つ。▲５六歩を突いて、あとの▲６八角と▲４六角に備えます。",
+            "en": "Points. Meet Ureshino-ryu with Third File Rook, hurry the Mino while waiting for Gote's attack, and play ▲5六歩 to prepare ▲6八角 and ▲4六角."
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "７筋の歩交換で飛車を出し過ぎない",
-        "en": "Exchange Seventh-File Pawns without Overextending"
+        "ja": "速攻の△７五歩には▲６八角",
+        "en": "Against the quick △7五歩, retreat ▲6八角"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "1n1g1kb1l/1r4g2/p3spppp/1pp6/9/2PP5/PP1S5/1BR1G1SK1/5G3 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f",
+            "3a4b",
+            "6g6f",
+            "5c5d",
+            "7i7h",
+            "4b5c",
+            "8h7g",
+            "8c8d",
+            "7h6g",
+            "8d8e",
+            "2h7h",
+            "2b3a",
+            "5i4h",
+            "5a4b",
+            "4h3h",
+            "4b3b",
+            "3h2h",
+            "7c7d",
+            "3i3h",
+            "5c6d",
+            "5g5f"
+          ],
           "text": {
-            "ja": "先手は７八飛の前の７筋歩を７六に置き、後手の歩は７四。７七は空いているので、歩が７五へ出た後に飛車が７五の歩を取り返す道がある。ただし後手５三銀は６四から７五へ利く可能性がある。８筋は８四歩と８七歩で閉じているので、飛車が７八を離れても８八角は後手の飛車に直接狙われない。",
-            "en": "Sente's P7f stands before R7h; Gote's pawn is on 7d. With 7g empty, Sente can recapture a pawn on 7e with the rook after advancing P7e. Gote's S5c can later reach 6d and attack that rook, so the exchange needs an exit plan. The eighth file is closed by P8d and P8g, so B8h is not directly exposed to Gote's rook when the rook leaves 7h."
+            "ja": "前章の最後の局面です。後手は７筋の歩を突き出して、すぐにでも攻めてこられます。",
+            "en": "The position from the previous chapter. Gote can push the seventh-file pawn forward at any time."
+          },
+          "marks": {
+            "last": "6d",
+            "boxes": [
+              "7d"
+            ]
           }
         },
         {
-          "moves": ["7f7e", "7d7e", "7h7e"],
+          "moves": [
+            "7d7e",
+            "7g6h"
+          ],
           "text": {
-            "ja": "▲７五歩に後手が△同歩を選んだ例なら▲同飛。双方の７筋歩を交換し、先手飛車が７五へ出る。後手が歩を取らない選択もあるため、交換は強制ではない。",
-            "en": "If Gote chooses P7e against Sente's P7e, R7e recaptures. The seventh-file pawns have been exchanged and Sente's rook reaches 7e. Gote may decline the pawn capture, so this is a conditional line."
+            "ja": "△７五歩と来ても、先手は歩を取らずに▲６八角と角を引きます。振り飛車らしい受け方で、次の▲４六角が狙いです。▲５九角と引く手も有力です。",
+            "en": "When △7五歩 arrives, do not take with ▲同歩; the Ranging Rook answer is ▲6八角, aiming for ▲4六角 next. ▲5九角 is also a good move."
+          },
+          "marks": {
+            "last": "6h",
+            "arrows": [
+              "6h4f"
+            ],
+            "boxes": [
+              "6h",
+              "4f"
+            ]
           }
         },
         {
-          "moves": ["5c6d", "7e7h"],
+          "moves": [
+            "7e7f",
+            "6g7f",
+            "8b7b"
+          ],
           "text": {
-            "ja": "後手の△６四銀は７五飛を攻める。先手が▲７八飛と戻るなら飛車を渡さずに歩交換を終えられるが、後手銀が進んだ手得も残る。飛車の進出だけで優劣は決まらない。",
-            "en": "S6d attacks R7e. Retreating R7h preserves the rook after the pawn exchange, while Gote has also advanced a silver with tempo. The rook's brief advance alone gives no verdict."
+            "ja": "後手が△７六歩と取り込み、▲同銀、△７二飛と７筋を攻めてきた局面です。",
+            "en": "Gote takes in with △7六歩 ▲同銀 and swings △7二飛 to attack the seventh file."
+          },
+          "marks": {
+            "last": "7b",
+            "boxes": [
+              "7b",
+              "7f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6h4f"
+          ],
+          "text": {
+            "ja": "狙いの▲４六角です。斜めの筋で後手を攻めます。後手が銀を動かすと▲９一角成と香を取られる形です。次に▲６五歩と銀を狙う手があり、振り飛車が指しやすくなります。",
+            "en": "▲4六角 attacks along the diagonal. If Gote moves a silver, ▲9一角成 wins the lance. ▲6五歩 aiming at the silver follows, and the Ranging Rook side is comfortable."
+          },
+          "marks": {
+            "last": "4f",
+            "arrows": [
+              "4f9a"
+            ],
+            "boxes": [
+              "4f",
+              "9a"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "まとめです。▲７五歩に▲同歩と取らずに▲６八角と引き、▲４六角を狙う。後手が７筋を取り込んでも、この角の筋が働く。",
+            "en": "Summary. Do not capture △7五歩; retreat ▲6八角 and aim for ▲4六角. Even if Gote takes in on the seventh file, the bishop diagonal does the work."
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "６筋の交換で開く二本の角道",
-        "en": "Two Bishop Lines Open after a Sixth-File Exchange"
+        "ja": "鳥刺しに棒銀が加わっても▲４六角",
+        "en": "When Torisashi adds a Bou-gin, still aim for ▲4六角"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "5kb2/1r7/4s4/3p5/9/2PP5/2BS5/2R1G1SK1/5G3 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f",
+            "3a4b",
+            "6g6f",
+            "5c5d",
+            "7i7h",
+            "4b5c",
+            "8h7g",
+            "8c8d",
+            "7h6g",
+            "8d8e",
+            "2h7h",
+            "2b3a",
+            "5i4h",
+            "5a4b",
+            "4h3h",
+            "4b3b",
+            "3h2h",
+            "7c7d",
+            "3i3h",
+            "5c6d",
+            "5g5f"
+          ],
           "text": {
-            "ja": "先手の角は７七、歩は６六。後手は６四歩で６筋を閉じ、８二飛を置く。７七角から５五へ行くには６六が空く必要があり、５五角から８二飛を見るには後手の６四歩が動く必要がある。",
-            "en": "Sente has B7g behind P6f. Gote's P6d blocks the line from 5e toward R8b. Both pawns must leave their starting squares before B5e can look along 6d–7c–8b."
+            "ja": "今度は後手がもう一枚の銀を攻めに足してきます。前章の分かれ目と同じ図です。",
+            "en": "Now Gote adds the other silver to the attack. This is the same fork position as before."
+          },
+          "marks": {
+            "last": "6d",
+            "boxes": [
+              "6d"
+            ]
           }
         },
         {
-          "moves": ["6f6e", "6d6e", "7g5e"],
+          "moves": [
+            "7a6b",
+            "6i5h",
+            "6b7c",
+            "1g1f",
+            "7c8d"
+          ],
           "text": {
-            "ja": "▲６五歩に△同歩を選ぶと、先手歩のいた６六と後手歩のいた６四が空く。▲５五角は８二飛を斜めに狙う。ただし後手には３一角が後ろから支える△６四銀や、△７三歩の合い駒、飛車を逃げる手があり、飛車取りがそのまま飛車得にはならない。",
-            "en": "If Gote takes P6e, both 6f and 6d are vacated. B5e then attacks R8b along 6d and 7c. Gote can block with S6d, backed by B3a, or with a dropped P7c, or move the rook; the attack is not a guaranteed rook gain."
+            "ja": "後手は△６二銀から銀を７三、８四と回し、先手は▲５八金左、▲１六歩と応じます。二枚の銀が前に出て、棒銀と斜め棒銀が同居する形です。定跡ではありませんが、級位者の対局ではよく現れます。攻め駒が多いので、受け流して捌くのが方針です。",
+            "en": "△6二銀 ▲5八金左 △7三銀上 ▲1六歩 △8四銀. It looks like a Bou-gin and a diagonal Bou-gin at once. It is unorthodox but common at amateur level. With so many attackers, deflect and aim to trade."
+          },
+          "marks": {
+            "last": "8d",
+            "boxes": [
+              "8d",
+              "6d"
+            ]
           }
         },
         {
-          "moves": ["8b8d"],
+          "moves": [
+            "7g6h",
+            "7d7e",
+            "6h4f"
+          ],
           "text": {
-            "ja": "一例の△８四飛なら後手飛車は角筋から外れる。後手の６五歩も盤上に残るため、先手は角の位置だけで形勢を決めず、６筋の次の接触を見る。",
-            "en": "R8d is one way to leave the bishop's diagonal. Gote's pawn remains on 6e, so Sente must evaluate the next sixth-file contact rather than infer an advantage from the bishop's activity alone."
+            "ja": "ここでもやはり▲６八角と引きます。後手が△７五歩と突くと、すぐ▲４六角です。",
+            "en": "Here too, retreat ▲6八角. When Gote pushes △7五歩, ▲4六角 follows at once."
+          },
+          "marks": {
+            "last": "4f",
+            "arrows": [
+              "6h4f"
+            ],
+            "boxes": [
+              "4f"
+            ]
           }
-        }
-      ],
-      "variations": [
+        },
         {
-          "from": 1,
-          "moves": ["5c6d", "5e6d", "3a6d"],
           "text": {
-            "ja": "角筋を△６四銀で遮る別の手に▲同角と取ると、後手は３一角で△同角と取り返せる。５三銀が動いて５三が空くからで、先手が銀だけを得るわけではない。",
-            "en": "If Gote blocks with S6d, B6d takes the silver, but B3a×6d recaptures Sente's bishop through the newly empty 5c square. Sente has not won a free silver."
+            "ja": "美濃囲いが堅い先手に対し、後手の玉まわりは薄いままです。先手が指しやすい局面です。",
+            "en": "Sente has a firm Mino while Gote's formation is thin. Sente is comfortable."
           }
         }
       ]

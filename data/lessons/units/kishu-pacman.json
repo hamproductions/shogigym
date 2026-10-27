@@ -1,23 +1,26 @@
 {
   "id": "kishu-pacman",
   "order": 1350,
-  "path": ["戦法・定跡", "奇襲対策"],
+  "path": [
+    "戦法・定跡",
+    "パックマン"
+  ],
   "title": {
-    "ja": "４四歩の誘いを成立させる条件",
-    "en": "What makes an offered fourth-file pawn work"
+    "ja": "パックマン：４四歩の罠と飛車角の活用",
+    "en": "Pacman: the 4d pawn trap and using rook and bishop"
   },
   "intro": {
-    "ja": "後手の４四歩を先手角に取らせる構想では、歩を失った後の盤面が問題です。角が入った地点から後手の何を狙うか、後手が一手で角に当てられるか、先手が歩を取らないときの配置まで確かめます。歩を差し出すだけで有利になるわけではありません。",
-    "en": "Offering Gote's pawn on 4d invites a bishop capture, but the position after that capture decides whether the idea works. Check the bishop's new targets, whether Gote can attack it in one move, and what remains if Sente declines. The pawn offer alone proves no advantage."
+    "ja": "後手番で使える奇襲戦法パックマンを、初手から追います。２手目の△４四歩を取られたら飛車を４筋へ回って角を狙い、飛車と角の両方を働かせます。龍を作る展開と、△９五角で攻める展開の両方を覚えます。",
+    "en": "Follow the Gote surprise opening Pacman from move one. If the pawn on 4d is taken, swing the rook to the fourth file and hunt the bishop, putting both rook and bishop to work. Learn both the dragon-making line and the △9五角 attack."
   },
   "check": {
     "question": {
-      "ja": "先手角が４四歩を取って４四に来ました。後手が反撃の飛車を動かす前に、まず何を確かめますか？",
-      "en": "Sente's bishop has taken the offered pawn and reached 4d. What should Gote check before moving a rook to counterattack?"
+      "ja": "パックマンで、先手が４四の歩を取ったあとに△４七飛成とすぐ成らず、△３四歩を指すのはなぜですか？",
+      "en": "In Pacman, why does Gote play △3四歩 instead of promoting at once with △4七飛成?"
     },
     "answer": {
-      "ja": "角が飛車や玉をすでに狙っていないか、飛車の移動経路が空いているか、移動後に王手で飛車を狙われないかまで確かめます。第一章の△２四飛は角に当たりますが、▲３三角成の王手飛車で失敗します。",
-      "en": "Check the bishop’s existing targets, the rook’s path, and whether a checking fork attacks the rook after it moves. In chapter one, △２四飛 attacks the bishop but fails to the checking fork ▲３三角成."
+      "ja": "△３四歩で後手の角の斜めが開き、９九の香車に当たります。飛車と角の大駒二枚を同時に働かせるためです。",
+      "en": "△3四歩 opens the bishop diagonal and attacks the lance on 9i. It puts both big pieces, rook and bishop, to work at once."
     }
   },
   "references": [
@@ -31,59 +34,149 @@
   "chapters": [
     {
       "title": {
-        "ja": "角取りでも王手飛車を許す移動",
-        "en": "A bishop attack that allows a checking rook fork"
+        "ja": "パックマンの基本図",
+        "en": "The basic position of Pacman"
       },
       "side": "gote",
-      "kind": "position",
-      "start": "4k4/7r1/9/5B3/9/9/9/9/4K4 w P 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "先手角が４四歩を取った後を想定した独立の部分図です。先手は歩を持ち、角４四は３三を通って飛車２二を狙っています。後手玉５一の位置も含め、角へ当て返す飛車の移動が本当に成立するかを調べます。",
-            "en": "This independently composed partial position represents a possible aftermath of a bishop capture on ４四. Sente holds a pawn, and the bishop attacks the rook on ２二 through ３三. Include the king on ５一 when testing whether a rook move that attacks the bishop really works."
+            "ja": "パックマンは後手番で使える奇襲戦法です。初手に先手が角道を開けたところで、取られるはずの歩を△４四歩と突きます。歩を取らせることで、先手の角を罠にはめます。この講座は後手の立場で進めます。",
+            "en": "Pacman is a surprise opening for Gote. After Sente opens the bishop diagonal on move one, Gote pushes a pawn to 4d where it can simply be taken. Taking it lets Gote trap the bishop. This lesson takes Gote's side."
+          }
+        },
+        {
+          "moves": [
+            "7g7f"
+          ],
+          "text": {
+            "ja": "先手が▲７六歩と角道を開けます。ここまではふつうの出だしです。",
+            "en": "Sente opens the bishop diagonal with ▲7六歩. So far this is a perfectly ordinary start."
           },
           "marks": {
+            "last": "7f",
             "boxes": [
-              "4d",
-              "3c",
-              "2b",
-              "2d"
+              "8h"
             ]
           }
         },
         {
           "moves": [
-            "2b2d"
+            "4c4d"
           ],
           "text": {
-            "ja": "△２四飛は合法で、３四を通して角４四へ当たります。しかし、この局面では悪手です。飛車を角筋から外しただけでは、次の王手への対応まで済んだことにはなりません。",
-            "en": "△２四飛 is legal and attacks the bishop on ４四 through ３四, but it is a mistake here. Leaving the original diagonal does not answer the bishop’s next checking move."
+            "ja": "△４四歩。先手の角は８八から４四まで利いているので、この歩は取ろうと思えば取れます。けれども歩を取った角は、後手の飛車に狙われる位置に出ます。歩を食べさせて大駒を呼び込む形が、名前の由来です。",
+            "en": "△4四歩. Sente's bishop on 8h reaches 4d along the diagonal, so the pawn can be taken for free. But the bishop that takes it becomes a target for Gote's rook. Letting the pawn be eaten is where the name Pacman comes from."
           },
           "marks": {
+            "last": "4d",
             "arrows": [
-              "2b2d"
+              "8h4d"
             ],
             "boxes": [
-              "3d",
+              "4d"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "パックマンの流れです。先手が歩を取ってきたら飛車を４筋へ回る。先手が取らなければ、普通の将棋に合流する。次の章から、先手が歩を取った場合の指し方を見ます。",
+            "en": "The outline of Pacman. If Sente takes the pawn, Gote swings the rook to the fourth file. If Sente does not take, the game joins an ordinary opening. The next chapters follow the case where Sente takes."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "先手が歩を取ったら飛車を４筋へ回る",
+        "en": "If Sente takes the pawn, swing the rook to the fourth file"
+      },
+      "side": "gote",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "4c4d",
+            "8h4d"
+          ],
+          "text": {
+            "ja": "先手が▲４四角と歩を取りました。ここで後手は飛車を４筋へ回って、角に当てます。",
+            "en": "Sente takes with ▲4四角. Gote now swings the rook to the fourth file and attacks the bishop."
+          },
+          "marks": {
+            "last": "4d",
+            "boxes": [
               "4d"
             ]
           }
         },
         {
           "moves": [
-            "4d3c+"
+            "8b4b"
           ],
           "text": {
-            "ja": "▲３三角成は４二を通して玉５一へ王手し、反対側では飛車２四を狙います。後手飛車はこの王手を消せず、玉を動かす必要があります。角を追ったはずの一手が、王手飛車を許しました。",
-            "en": "▲３三角成 checks the king on ５一 through ４二 and attacks the rook on ２四 in the opposite direction. The rook cannot answer the check, so Gote must move the king. The attempted bishop attack has allowed a checking rook fork."
+            "ja": "△４二飛。角を取るのが狙いです。先手が角を逃げれば、次に△４七飛成と歩を取って龍を作り、乱戦に持ち込めます。この時点で後手の飛車は４筋、角は自陣の８二にいて、大駒がよく働きはじめています。",
+            "en": "△4二飛 threatens the bishop. If it runs, Gote plays △4七飛成 next, taking a pawn and making a dragon, which heads for a melee. Gote's rook is on the fourth file and the bishop is still at home, and both big pieces are about to be active."
           },
           "marks": {
+            "last": "4b",
             "arrows": [
-              "4d3c+",
-              "3c5a",
-              "3c2d"
+              "4b4d"
             ],
+            "boxes": [
+              "4d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4d5c+",
+            "3c3d"
+          ],
+          "text": {
+            "ja": "先手は▲５三角成と馬を作りながら逃げるのが自然です。ここで△４七飛成とすぐ成りたくなりますが、まず△３四歩と角道を開けます。３四の歩で、後手の角の斜めが開き、９九の香車に当たりました。角と飛車の両方を活かすのがこの戦法のコツです。",
+            "en": "Sente naturally escapes with ▲5三角成, making a horse. Gote is tempted by △4七飛成 at once, but first opens the bishop diagonal with △3四歩. The bishop now looks down the long diagonal at the lance on 9i. Using both rook and bishop is the key to this opening."
+          },
+          "marks": {
+            "last": "3d",
+            "arrows": [
+              "2b9i"
+            ],
+            "boxes": [
+              "9i"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "先手が飛車を取ってきたら△９五角",
+        "en": "If Sente takes the rook, play △9五角"
+      },
+      "side": "gote",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "4c4d",
+            "8h4d",
+            "8b4b",
+            "4d5c+",
+            "3c3d"
+          ],
+          "text": {
+            "ja": "前の章の続きです。ここから先手が▲４二馬と飛車を取る展開を見ます。馬と飛車の交換になりますが、後手には狙いがあります。",
+            "en": "Continuing from the previous chapter. Here Sente takes the rook with the horse on 4b. It is a trade of horse for rook, and Gote has something planned."
+          },
+          "marks": {
+            "last": "3d",
             "boxes": [
               "4b"
             ]
@@ -91,106 +184,185 @@
         },
         {
           "moves": [
-            "5a6a",
-            "3c2d"
+            "5c4b",
+            "3a4b",
+            "7i8h",
+            "B*9e"
           ],
           "text": {
-            "ja": "△６一玉は玉を逃がす一例で、▲２四馬と飛車を取られます。ほかの合法な玉の逃げ方でも、２四の飛車を馬で取る手が残ります。歩一枚を渡して角へ当てる構想でも、王手で順番を変えられる場合は反撃になりません。",
-            "en": "△６一玉 is one king escape, after which ▲２四馬 captures the rook. The same horse capture remains after every other legal king escape. Offering a pawn and attacking the bishop does not produce a useful counterattack when a checking fork changes the move order."
+            "ja": "▲４二馬に△同銀と取り返します。後手は持ち駒に角が入りました。先手が香車取りを受けて▲８八銀と上がったところで、△９五角と王手をかけます。この角が５九の玉に当たり、同時に８八の銀の横の守りを動かします。",
+            "en": "Gote recaptures △同銀 after ▲4二馬 and now has a bishop in hand. When Sente answers the lance threat with ▲8八銀, Gote drops △9五角 with check. The bishop attacks the king on 5i and also loosens the support around the silver on 8h."
           },
           "marks": {
+            "last": "9e",
             "arrows": [
-              "3c2d"
+              "9e5i"
             ],
             "boxes": [
-              "2d"
+              "5i",
+              "8h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5i4h",
+            "2b8h+"
+          ],
+          "text": {
+            "ja": "先手が▲４八玉と玉を逃げれば、△８八角成と銀をタダで取れます。飛車の横の利きが止まり、８八の銀に付いていた守りがなくなるためです。▲６八金などの合駒でも同じで、後手が勝勢になります。",
+            "en": "If Sente steps the king aside with ▲4八玉, Gote takes the silver for free with △8八角成. The rook no longer covers the silver along the rank, so nothing guards it. A gold interposition such as ▲6八金 loses the silver the same way, and Gote is winning."
+          },
+          "marks": {
+            "last": "8h",
+            "arrows": [
+              "2b8h"
+            ],
+            "boxes": [
+              "8h"
             ]
           }
         }
       ],
       "variations": [
         {
-          "from": 0,
+          "from": 1,
           "moves": [
-            "2b2g+"
+            "8h7g",
+            "9e7g+",
+            "8i7g",
+            "2b7g+"
           ],
           "text": {
-            "ja": "この図では△２七飛成も合法な退路です。角へ直接は当たりませんが、先手陣へ成り込み、▲３三角成でも飛車を同時に狙われない位置へ移ります。この手の評価はエンジンでも△２四飛より高くなります。角へ当てることだけを条件に退路を選びません。",
-            "en": "△２七飛成 is another legal escape here. It does not directly attack the bishop, but it promotes in Sente’s camp and avoids a rook fork by ▲３三角成. The engine also rates it above △２四飛. Do not require every rook escape to hit the bishop."
+            "ja": "▲７七銀と合駒で受けると、△同角成右と銀を取る手があります。▲同桂に△同角成として、後手は次に確実に香車も取れる形です。",
+            "en": "If Sente blocks with ▲7七銀, Gote has △同角成右, taking the silver. After ▲同桂 △同角成, the lance is also about to fall."
+          },
+          "steps": [
+            {
+              "text": {
+                "ja": "後手は角を一枚渡し、銀・桂・香の三枚を手にします。駒の数で大きく得をして、後手がよくなりました。馬が７七に残っているので、次は９九の香車に手が届きます。",
+                "en": "The bishop is traded for silver, knight and lance: three pieces for one, and Gote is well ahead. The horse stays on 7g and the lance on 9i is next."
+              },
+              "marks": {
+                "last": "7g",
+                "boxes": [
+                  "9i"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "from": 1,
+          "moves": [
+            "R*7g"
+          ],
+          "text": {
+            "ja": "先手が持ち駒の飛車を▲７七飛と打つのが最善の受けです。ただし、せっかく取った飛車を合駒に使うのは先手として面白くありません。このあとは玉の囲いを整える駒組みが続きます。",
+            "en": "Dropping the rook with ▲7七飛 is Sente's best defence. Using the rook just won for a block is unattractive, though, and the game then goes into quiet castle-building."
           }
         }
       ]
     },
     {
-      "title": { "ja": "角の成り先を守ってから受ける", "en": "Cover the bishop's promotion entry" },
+      "title": {
+        "ja": "香車取りを受けられたら龍を作る",
+        "en": "If Sente guards the lance, make a dragon"
+      },
       "side": "gote",
-      "kind": "position",
-      "start": "3g2k2/3p3s1/9/5B3/9/9/9/9/4K4 w P 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f",
+            "4c4d",
+            "8h4d",
+            "8b4b",
+            "4d5c+",
+            "3c3d"
+          ],
           "text": {
-            "ja": "ここでも先手角は歩を取って４四にいます。３三は２二銀が、２二は３一玉が守り、６二歩は６一金が支えています。しかし５三にはまだ後手の利きがなく、角はそこへ入って成れます。６一金は５二へ動けば、５三への取り返しを用意できます。",
-            "en": "Here too, Sente's bishop sits on 4d after taking the pawn. S2b covers 3c, K3a covers 2b, and G6a supports P6b. Nothing of Gote's reaches 5c yet, so the bishop can enter there and promote. Gote's gold on 6a can shift to 5b, from where it covers that entry square."
+            "ja": "今度は先手が飛車を取らず、香車取りだけを受けた場合です。",
+            "en": "Now the case where Sente does not take the rook and only defends the lance."
           },
-          "marks": { "boxes": ["4d", "5c", "6a", "5b"] }
+          "marks": {
+            "last": "3d",
+            "arrows": [
+              "2b9i"
+            ],
+            "boxes": [
+              "9i"
+            ]
+          }
         },
         {
-          "moves": ["6a5b"],
+          "moves": [
+            "7i8h",
+            "4b4g+"
+          ],
           "text": {
-            "ja": "△５二金で５三を金の前方の利きに入れます。金は横から６二歩を支えたままで、３三と２二の守りも変わりません。角をすぐ追わず、成り込む地点を先に守ります。",
-            "en": "G6a–5b places 5c directly in the gold's forward reach. The gold still supports P6b from the side, and the cover of 3c and 2b is unchanged. Gote defends the bishop's entry square instead of chasing the bishop immediately."
+            "ja": "▲８八銀と香を守ったら、△４七飛成。龍を作ります。ここからは△５二金左で馬をはじいて追い払い、美濃囲いに組むのが指しやすい進め方です。馬より龍のほうが使いやすい、と覚えましょう。",
+            "en": "After ▲8八銀 guarding the lance, Gote plays △4七飛成, making a dragon. From here △5二金左 chases the horse away, and building a Mino is the comfortable plan. A dragon is easier to use than a horse."
           },
-          "marks": { "arrows": ["6a5b"], "boxes": ["5c"] }
-        },
-        {
-          "moves": ["4d5c+", "5b5c"],
-          "text": {
-            "ja": "この例で▲５三角成なら△同金で馬を取れます。先手は角をほかへ動かせるので、金上がりだけで誘いが成功したとは言えません。後手が守ったのは５三という一地点です。",
-            "en": "If Sente chooses B4d–5c+, G5b×5c captures the horse. Sente can move the bishop elsewhere, so the gold move does not prove the pawn offer was successful; it defends one specified square."
-          },
-          "marks": { "arrows": ["5b5c"], "last": "5c" }
+          "marks": {
+            "last": "4g",
+            "arrows": [
+              "4g4h"
+            ],
+            "boxes": [
+              "4g"
+            ]
+          }
         }
       ]
     },
     {
-      "title": { "ja": "歩を取られない場合も四筋を数える", "en": "Keep counting the fourth file when Sente declines" },
+      "title": {
+        "ja": "無視されたら普通の将棋に合流する",
+        "en": "If Sente ignores it, play on normally"
+      },
       "side": "gote",
-      "kind": "position",
-      "start": "4k4/6g2/4s1p2/5p3/9/9/2B4P1/9/4K4 w - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f",
+            "4c4d"
+          ],
           "text": {
-            "ja": "先手は７七角で４四歩を取れる斜線を保ちながら、まだ取っていません。後手の５三銀は４四を守り、３三歩は３二金が支えています。相手が歩を食べると決めつけず、進めた後の空きマスも調べます。",
-            "en": "Sente's bishop on 7g still has a line to Gote's pawn on 4d but has not taken it. Gote's S5c guards 4d, and G3b supports P3c. Gote should assess the vacated square if the pawn advances instead of assuming Sente will accept the offer."
+            "ja": "先手の立場では、４四の歩に手を出さないのがいちばん安全です。▲４四角と取らず、普通の駒組みを続けます。",
+            "en": "From Sente's side, not taking the pawn is the safest reply. Instead of ▲4四角, Sente simply carries on building."
           },
-          "marks": { "boxes": ["7g", "4d", "5c", "4e", "3c"] }
+          "marks": {
+            "last": "4d",
+            "boxes": [
+              "4d"
+            ]
+          }
         },
         {
-          "moves": ["4d4e"],
+          "moves": [
+            "2g2f",
+            "3c3d"
+          ],
           "text": {
-            "ja": "△４五歩は４四を空けます。７七角は６六・５五を通って４四へ動けますが、５三銀が残っている限り、そのマスへ入る角は取られます。歩が動いたことで角筋は３三まで通りますが、３三歩は３二金が守っているので、▲３三角成も△同金で角を失います。",
-            "en": "P4d–4e leaves 4d empty. B7g can reach 4d through 6f and 5e, but S5c still controls that square. The advance also opens the diagonal as far as 3c, where G3b defends the pawn, so B7g×3c+ loses the bishop to G3b×3c as well."
+            "ja": "▲２六歩と飛車先を突いておけば、ここまでの罠は始まりません。後手は△３四歩と角道を開け、矢倉や四間飛車など、ほかの戦法の形へ進みます。誘いに乗らないことが、いちばんの対策です。",
+            "en": "After ▲2六歩 the Pacman lines do not arise. Gote plays △3四歩 and the game joins another opening such as Yagura or Fourth File Rook. The best reply is simply not to take the bait."
           },
-          "marks": { "arrows": ["4d4e"], "boxes": ["4d", "5c", "3c", "3b"] }
+          "marks": {
+            "last": "3d",
+            "boxes": [
+              "4d"
+            ]
+          }
         },
         {
-          "moves": ["7g4d", "5c4d"],
           "text": {
-            "ja": "もし先手が▲４四角と入るなら△同銀で取れます。ただし先手は２六歩などで通常の駒組みを続けることもでき、後手は角を取れる前提で攻めを急げません。",
-            "en": "If Sente enters with B7g–4d, S5c×4d captures it. Sente may instead continue development, such as P2g–2f; Gote cannot build a plan that assumes the bishop will enter."
-          },
-          "marks": { "arrows": ["5c4d"], "last": "4d" }
-        }
-      ],
-      "variations": [
-        {
-          "from": 1,
-          "moves": ["2g2f", "5a5b"],
-          "text": {
-            "ja": "先手が２六歩と整備するなら、後手は△５二玉のように５三銀を動かさず、４四と３三の守りを保ちます。△４四銀と上がると４四を守る駒がなくなり、▲同角で銀を取られます。この変化ではまだどちらも駒を得していません。",
-            "en": "If Sente develops with P2g–2f, Gote can keep S5c in place with a move such as K5a–5b, so 4d and 3c stay defended. S5c–4d would leave nothing guarding 4d, and B7g×4d would win the silver. Neither side has won material yet in this branch."
-          },
-          "marks": { "arrows": ["5a5b"], "boxes": ["4d", "3c"] }
+            "ja": "まとめです。２手目△４四歩がパックマン。取られたら飛車を４筋へ回る。龍を作る前に△３四歩で角道を開ける。△９五角の王手が決め手。先手は歩を取らずに無視するのが一番の対策です。",
+            "en": "Summary. △4四歩 on move two is Pacman. If taken, swing the rook to the fourth file. Open the bishop with △3四歩 before making the dragon. △9五角 with check is the key. Sente's best answer is to ignore the pawn."
+          }
         }
       ]
     }

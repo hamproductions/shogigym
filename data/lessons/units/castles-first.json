@@ -1,23 +1,26 @@
 {
   "id": "castles-first",
   "order": 280,
-  "path": ["上達のためのテクニック", "囲い"],
+  "path": [
+    "上達のためのテクニック",
+    "囲い"
+  ],
   "title": {
-    "ja": "囲いを選ぶ前に見る三つの線",
-    "en": "Three Lines to Check Before Choosing a Castle"
+    "ja": "はじめに覚える四つの囲い：初手からの組み方と強さ・弱点",
+    "en": "Four Castles to Learn First: build order, strengths and weaknesses"
   },
   "intro": {
-    "ja": "囲いは名前だけで選ばず、飛車のいる側、玉の前から来る攻め、下段を横切る攻めを見て組みます。矢倉・金無双は前方の歩を支える形、美濃・舟囲いは玉を別の場所へ移す形として、駒同士の利きを盤上で確かめましょう。どの囲いも完成すれば必ず安全というわけではありません。",
-    "en": "Choose a castle by checking the rook's side, pressure from in front of the king, and attacks along the back ranks. Yagura and Kin Muso give useful examples of supporting forward pawns; Mino and Boat show different ways to relocate the king. Verify the pieces' actual protection on the board. No finished shape guarantees safety."
+    "ja": "矢倉・舟囲い・美濃・金無双は、金二枚と銀一枚で玉を守る基本の囲いです。相手の戦型で使い分けます。居飛車同士なら矢倉、居飛車で振り飛車と戦うなら舟囲い、振り飛車で居飛車と戦うなら美濃、振り飛車同士なら金無双です。初手から一手ずつ組み、それぞれが何に強く何に弱いかを盤上で確かめます。",
+    "en": "Yagura, Funa-gakoi (Boat), Mino and Kin Muso each guard the king with two golds and a silver, and you choose one by the opponent's strategy. Use Yagura when both sides keep the rook home, Boat when you keep the rook home against a Ranging Rook, Mino when you range the rook against a Static Rook, and Kin Muso when both sides range. Build each one from move one and see what it resists and what it does not."
   },
   "check": {
     "question": {
-      "ja": "囲いの名前を知っているだけでは足りません。自分の玉を移す前に盤上で何を確かめますか？",
-      "en": "Knowing a castle's name is not enough. What should you inspect on the board before moving your king into it?"
+      "ja": "居飛車で相手が四間飛車に振ったとき、矢倉ではなく舟囲いを選ぶのはなぜですか？",
+      "en": "Against a Fourth File Rook, why does a Static Rook player choose the Boat castle instead of Yagura?"
     },
     "answer": {
-      "ja": "飛車がどちら側で戦うか、玉の前の歩を金銀が守るか、横からの飛車の筋に玉が残らないかを確かめます。相手の飛車の位置が変われば、囲いの弱点も改めて調べます。",
-      "en": "Check which side your rook will fight on, whether golds and silvers protect the pawns ahead of the king, and whether the king remains on a rook's lateral line. Reassess the weak squares if the opposing rook changes files."
+      "ja": "振り飛車の飛車は縦に攻めてくるので、矢倉のように上からの攻めに備える囲いは働きません。舟囲いは三手で組めて横からの攻めに耐えるうえ、早く自分の攻めに回れます。",
+      "en": "A Ranging Rook player attacks along the rook file from the side, and the tall wall of Yagura does little against it. The Boat castle takes only three moves, resists attacks along the ranks, and leaves time to start your own attack."
     }
   },
   "references": [
@@ -26,125 +29,666 @@
       "url": "https://shogi-joutatsu.com/archives/6068",
       "license": "All rights reserved",
       "adapted": false
+    },
+    {
+      "title": "将棋の技図鑑 (yuki-keio/shogi)",
+      "url": "https://github.com/yuki-keio/shogi",
+      "license": "GPL-3.0-only",
+      "adapted": false
     }
   ],
   "chapters": [
     {
       "title": {
-        "ja": "飛車から離れ、守りの駒へ寄る",
-        "en": "Leave the rook's wing and approach a defender"
+        "ja": "矢倉：相居飛車の基本の囲い",
+        "en": "Yagura: the basic castle for Static Rook mirrors"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/9/9/9/9/9/9/2R6/4K1G2 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "先手の飛車は７八、玉は５九、金は３九です。飛車を左側で使う構想なら、玉を右へ運ぶ候補があります。ただし移動先が相手の駒に利かれていないことを、その都度調べます。",
-            "en": "Sente's rook is on ７八, king on ５九, and gold on ３九. If the rook will operate on the left, moving the king right is a candidate. Check the opponent's control of each destination before committing."
+            "ja": "矢倉は、金銀を玉の前に壁のように並べる囲いです。双方が飛車を最初の筋に置いたまま戦う相居飛車で使います。形になるまで十二手かかるので、順番を覚えることが大切です。後手は居飛車のまま駒組みを進める想定です。",
+            "en": "Yagura is a wall of gold and silver in front of the king, used when both players keep the rook at home. It takes twelve moves to finish, so the order matters. Gote is assumed to build a Static Rook position of its own."
+          },
+          "marks": {
+            "boxes": [
+              "8h",
+              "7g",
+              "6g",
+              "7h"
+            ]
           }
         },
         {
-          "moves": ["5i4h"],
+          "moves": [
+            "7g7f"
+          ],
           "text": {
-            "ja": "▲４八玉。玉は飛車から離れ、金３九が守る４八に入りました。振り飛車で美濃囲いや金無双を目指すときも、このように飛車と玉の役割を分けます。居飛車で飛車が右に残るなら、玉を左へ囲う構想が自然です。",
-            "en": "▲４八玉 moves away from the rook onto a square protected by the gold on ３九. The same separation of rook and king guides plans for Mino or Kin Muso in Ranging Rook. With a Static Rook kept on the right, castling the king left is a natural plan."
+            "ja": "▲７六歩。矢倉の壁になる歩を伸ばします。７七に銀が来るまで、この歩が前線を守ります。",
+            "en": "▲7六歩 pushes the pawn that will form the front of the wall. It holds the line until a silver arrives on 7g."
+          },
+          "marks": {
+            "last": "7f"
+          }
+        },
+        {
+          "moves": [
+            "8c8d",
+            "7i6h"
+          ],
+          "text": {
+            "ja": "▲６八銀。左の銀を斜めに上げます。この銀は後で７七へ進みます。また、玉と金が通るための道も空けます。",
+            "en": "▲6八銀 lifts the left silver diagonally. It will go on to 7g later, and its departure from 7i clears space for the king and gold."
+          },
+          "marks": {
+            "arrows": [
+              "6h7g"
+            ],
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "4a3b",
+            "6i7h"
+          ],
+          "text": {
+            "ja": "▲７八金。左の金を一つ上げて、玉が入る場所のすぐ横に置きます。",
+            "en": "▲7八金 brings the left gold up next to the square the king will enter."
+          },
+          "marks": {
+            "last": "7h"
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "4i5h"
+          ],
+          "text": {
+            "ja": "▲５八金。右の金も上げます。これで金銀金が横に並びました。この並びには「カニ囲い」という名前があり、囲い全体の土台になります。",
+            "en": "▲5八金 lifts the right gold. Gold, silver and gold now stand in a row. This arrangement has its own name, the Crab castle, and it is the foundation of the whole castle."
+          },
+          "marks": {
+            "boxes": [
+              "7h",
+              "6h",
+              "5h"
+            ],
+            "last": "5h"
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "5i6i"
+          ],
+          "text": {
+            "ja": "▲６九玉。玉を左へ一つ寄せます。ここから玉を左の隅へ運んでいきます。",
+            "en": "▲6九玉 moves the king one step left, starting its walk toward the corner."
+          },
+          "marks": {
+            "last": "6i"
+          }
+        },
+        {
+          "moves": [
+            "7a6b",
+            "6g6f"
+          ],
+          "text": {
+            "ja": "▲６六歩。６筋の歩を突いて、金が前へ上がる場所を作ります。",
+            "en": "▲6六歩 pushes the sixth-file pawn to make room for a gold to step forward."
+          },
+          "marks": {
+            "boxes": [
+              "6g"
+            ],
+            "last": "6f"
+          }
+        },
+        {
+          "moves": [
+            "5c5d",
+            "6h7g"
+          ],
+          "text": {
+            "ja": "▲７七銀。銀が前に出ます。７六の歩を支え、８八の角と玉の斜め前をかばう駒です。",
+            "en": "▲7七銀 puts the silver in front. It supports the pawn on 7f and shields the bishop and the diagonal in front of the king."
+          },
+          "marks": {
+            "arrows": [
+              "7g7f"
+            ],
+            "last": "7g"
+          }
+        },
+        {
+          "moves": [
+            "6b5c",
+            "5h6g"
+          ],
+          "text": {
+            "ja": "▲６七金。右の金を斜め前に上げ、７七の銀の隣に並べます。金と銀が並んだ壁の完成です。",
+            "en": "▲6七金 puts the right gold beside the silver. The wall of gold and silver is now in place."
+          },
+          "marks": {
+            "boxes": [
+              "7g",
+              "6g"
+            ],
+            "last": "6g"
+          }
+        },
+        {
+          "moves": [
+            "5a4b",
+            "8h7i"
+          ],
+          "text": {
+            "ja": "▲７九角。玉の入る場所は今、角がいる８八です。まず角を一つ引いてどけます。",
+            "en": "▲7九角 moves the bishop back, since 8h is where the king is going to live."
+          },
+          "marks": {
+            "boxes": [
+              "8h"
+            ],
+            "last": "7i"
+          }
+        },
+        {
+          "moves": [
+            "6a5b",
+            "7i6h"
+          ],
+          "text": {
+            "ja": "▲６八角。７九は玉が通る道なので、角をさらに右へ寄せます。",
+            "en": "▲6八角 slides the bishop aside again because 7i is the square the king needs to pass."
+          },
+          "marks": {
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "7c7d",
+            "6i7i"
+          ],
+          "text": {
+            "ja": "▲７九玉。玉が通り道に入りました。",
+            "en": "▲7九玉 puts the king on its way to the corner."
+          },
+          "marks": {
+            "last": "7i"
+          }
+        },
+        {
+          "moves": [
+            "6c6d",
+            "7i8h"
+          ],
+          "text": {
+            "ja": "▲８八玉。玉が囲いに入って、矢倉の完成です。",
+            "en": "▲8八玉 takes the king into the castle and completes Yagura."
+          },
+          "marks": {
+            "boxes": [
+              "8h"
+            ],
+            "last": "8h"
+          }
+        },
+        {
+          "text": {
+            "ja": "矢倉は、正面から押してくる攻めを受け止める囲いです。金銀が前に壁を作り、歩や飛車で上から押されても崩れにくくなります。弱点は、下の段が空いていることと、玉の横が薄いこと。飛車を横から打たれると、金銀の連なりを狙われます。相居飛車ではお互いに矢倉を組むので、この弱点を突かれないよう、飛車を交換するときは打ち込まれる場所に気をつけます。",
+            "en": "Yagura holds well against pressure from the front, since gold and silver form a wall that pawns and the rook have trouble breaking. Its weak points are the empty back ranks and the thin cover beside the king: a rook dropped in gets at the pieces from the side. In mirror games both players build it, so be careful about where an enemy rook can land when rooks are traded."
+          },
+          "marks": {
+            "boxes": [
+              "7i",
+              "6i",
+              "9i"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "矢倉では前の歩の支えを数える",
-        "en": "Count defenders of the forward pawn in Yagura"
+        "ja": "舟囲い：振り飛車と戦う手早い囲い",
+        "en": "Funa-gakoi: the quick castle against a Ranging Rook"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/2r6/9/9/9/2PP5/PP1G5/1KGS5/9 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "玉８八、金７八・６七、銀６八という矢倉を組む途中の形です。後手の飛車７二は７筋を見ています。７六の歩が取られた後まで考える前に、まず今その歩を何枚で守っているか数えます。",
-            "en": "Sente has a Yagura under construction: king ８八, golds ７八 and ６七, silver ６八. Gote's rook on ７二 eyes the seventh file. First count the defenders of the pawn on ７六; then consider what happens if that pawn disappears."
+            "ja": "舟囲いは、居飛車が振り飛車に対して選ぶ、定番の囲いです。玉を左へ二つ動かし、金を一枚上げるだけで、三手で形になります。矢倉より短いので、そのぶん攻めに手数を使えます。後手は四間飛車に振る想定です。",
+            "en": "The Boat castle is the standard shelter for a Static Rook player against a Ranging Rook. Two king steps and one gold move finish it, which is far shorter than Yagura and leaves time to attack. Gote swings to Fourth File Rook in this example."
+          },
+          "marks": {
+            "boxes": [
+              "7h",
+              "5h",
+              "7i",
+              "6i"
+            ]
           }
         },
         {
-          "moves": ["6h7g"],
+          "moves": [
+            "7g7f"
+          ],
           "text": {
-            "ja": "▲７七銀で、銀と金６七がともに歩７六を守ります。銀７七は金７八にも支えられます。矢倉は上からの圧力を受ける際に、前の歩と金銀の連結を使う囲いです。ただし７六の歩を失えば飛車筋が伸びるので、形だけで受け切れるとは決めません。",
-            "en": "▲７七銀 adds the silver to the gold on ６七 as a defender of the pawn on ７六. The gold on ７八 also protects the silver. Yagura can meet pressure from above through this connected pawn-and-general structure. If the pawn falls, the rook's line opens, so the shape alone does not settle the defense."
+            "ja": "▲７六歩。まず角道を開けます。居飛車はこの角を攻めにも使うので、早めに道を作ります。",
+            "en": "▲7六歩 opens the bishop line first. A Static Rook player uses the bishop in the attack, so the road is cleared early."
+          },
+          "marks": {
+            "arrows": [
+              "8h4d"
+            ],
+            "last": "7f"
+          }
+        },
+        {
+          "moves": [
+            "3c3d",
+            "5g5f"
+          ],
+          "text": {
+            "ja": "▲５六歩。真ん中の歩を伸ばします。あとで銀を５七へ出すときの道にもなります。",
+            "en": "▲5六歩 advances the center pawn. It also opens a path for a silver to come to 5g later."
+          },
+          "marks": {
+            "last": "5f"
+          }
+        },
+        {
+          "moves": [
+            "4c4d",
+            "9g9f"
+          ],
+          "text": {
+            "ja": "▲９六歩。端の歩を突きます。端は戦いが起きにくい場所なので、早めに突いておいても損が少なく、あとで香車が働きます。",
+            "en": "▲9六歩 pushes the edge pawn. Fights seldom start on the edge, so little is lost by pushing it early, and it gives the lance a future."
+          },
+          "marks": {
+            "last": "9f"
+          }
+        },
+        {
+          "moves": [
+            "8b4b",
+            "5i6h"
+          ],
+          "text": {
+            "ja": "▲６八玉。玉を左へ寄せます。飛車が振られてくる右側から離れる動きです。",
+            "en": "▲6八玉 moves the king left, away from the right wing where the rook has swung."
+          },
+          "marks": {
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "5a6b",
+            "6h7h"
+          ],
+          "text": {
+            "ja": "▲７八玉。もう一つ左へ。銀と金が最初の位置に残っているので、玉の周りは自然に固まります。",
+            "en": "▲7八玉 steps one more square left. The silver and gold are still on their starting squares, so the king is already surrounded."
+          },
+          "marks": {
+            "last": "7h"
+          }
+        },
+        {
+          "moves": [
+            "6b7b",
+            "4i5h"
+          ],
+          "text": {
+            "ja": "▲５八金。右の金を上げて舟囲いの完成です。",
+            "en": "▲5八金 lifts the right gold, completing the Boat castle."
+          },
+          "marks": {
+            "boxes": [
+              "7h",
+              "5h",
+              "7i",
+              "6i"
+            ],
+            "last": "5h"
+          }
+        },
+        {
+          "text": {
+            "ja": "舟囲いは、横に動く攻めには耐えますが、縦の攻めには弱い囲いです。振り飛車は飛車を縦に使う戦法ではないので、矢倉のような上への備えがなくても困りません。弱点は、金銀のつながりが薄く、長引くと崩れやすいことです。そのぶん、飛車と角を働かせる攻めに早く入れます。持久戦になりそうなら、ここから左美濃や穴熊へ組み替えられます。",
+            "en": "The Boat castle resists attacks along the ranks and is weaker against attacks along the files. A Ranging Rook player does not push down the files the way a Static Rook player would, so the missing height does not matter much. Its weakness is thin protection between the golds and silvers, so a long game can crack it. In return it lets you start the rook and bishop attack early, and you can still switch to Left Mino or Anaguma if the game slows down."
+          },
+          "marks": {
+            "boxes": [
+              "6h",
+              "6g"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "金無双の二枚の金を前線につなぐ",
-        "en": "Connect Kin Muso's two golds to the front"
+        "ja": "美濃囲い：飛車を振って右へ囲う",
+        "en": "Mino: the standard castle for Ranging Rook"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/6r2/9/9/9/9/4PPPP1/4G1KS1/5G3 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "玉３八、銀２八、金５八・４九です。後手の飛車３二が３筋の歩を狙う局面で、金を４八へ上げると金無双の骨格になります。飛車はまだ３七の歩に遮られています。",
-            "en": "Sente has a king on ３八, silver on ２八, and golds on ５八 and ４九. Gote's rook on ３二 aims down the third file. Raising the gold to ４八 completes the core of Kin Muso; the pawn on ３七 currently blocks the rook."
+            "ja": "美濃囲いは、振り飛車が玉を右へ移して組む囲いです。飛車を振ったあと、玉を飛車がいた場所へ入れ、銀と金を寄せます。手数は九手と短く、横から押される攻めにも崩れにくい囲いです。後手は居飛車のまま駒組みを進める想定です。",
+            "en": "Mino is the Ranging Rook castle. After the rook swings, the king walks into the square the rook left, and a silver and gold come up beside it. It is short and very sturdy against attacks along the ranks. Gote builds a Static Rook position in this example."
+          },
+          "marks": {
+            "boxes": [
+              "2h",
+              "3h",
+              "5h",
+              "4i"
+            ]
           }
         },
         {
-          "moves": ["4i4h"],
+          "moves": [
+            "7g7f"
+          ],
           "text": {
-            "ja": "▲４八金。二枚の金が５八・４八に並び、金４八と銀２八がともに歩３七を守ります。相振り飛車で前からの攻めに備える理由は、この歩への具体的な利きで説明できます。一方、下段から横に飛車が入る局面では別の守りも必要です。",
-            "en": "▲４八金 places the two golds on ５八 and ４八. The new gold and the silver on ２八 both protect the pawn on ３七. That concrete coverage explains why Kin Muso can suit a game with forward pressure, such as Double Ranging Rook. A rook invading laterally along the back rank still requires separate attention."
+            "ja": "▲７六歩。角道を開けて、飛車を振る準備をします。",
+            "en": "▲7六歩 opens the bishop line before the rook swings."
+          },
+          "marks": {
+            "last": "7f"
+          }
+        },
+        {
+          "moves": [
+            "3c3d",
+            "6g6f"
+          ],
+          "text": {
+            "ja": "▲６六歩。角道をいったん止めます。６筋の歩を進めておくと、振った飛車が６七まで上がれるようになります。",
+            "en": "▲6六歩 closes the bishop line. With the sixth-file pawn advanced, the rook that swings next can later step up to 6g."
+          },
+          "marks": {
+            "boxes": [
+              "6h"
+            ],
+            "last": "6f"
+          }
+        },
+        {
+          "moves": [
+            "7a6b",
+            "2h6h"
+          ],
+          "text": {
+            "ja": "▲６八飛。飛車を右から四つ目の筋へ振ります。これが四間飛車です。飛車がいた２八が空き、そこに玉が入ります。",
+            "en": "▲6八飛 swings the rook to the fourth file, which is Fourth File Rook. This also empties 2h, where the king is going."
+          },
+          "marks": {
+            "boxes": [
+              "2h"
+            ],
+            "last": "6h"
+          }
+        },
+        {
+          "moves": [
+            "4a3b",
+            "5i4h"
+          ],
+          "text": {
+            "ja": "▲４八玉。玉を右へ寄せます。戦いは左側で起きるので、その反対側へ避難させます。",
+            "en": "▲4八玉 starts the king moving right, away from the side where fighting will happen."
+          },
+          "marks": {
+            "last": "4h"
+          }
+        },
+        {
+          "moves": [
+            "8c8d",
+            "4h3h"
+          ],
+          "text": {
+            "ja": "▲３八玉。さらに右へ。",
+            "en": "▲3八玉, one more step to the right."
+          },
+          "marks": {
+            "last": "3h"
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "3h2h"
+          ],
+          "text": {
+            "ja": "▲２八玉。飛車がいた場所に玉が入りました。",
+            "en": "▲2八玉 puts the king where the rook used to be."
+          },
+          "marks": {
+            "boxes": [
+              "2h"
+            ],
+            "last": "2h"
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "1g1f"
+          ],
+          "text": {
+            "ja": "▲１六歩。端の歩を突きます。玉の逃げ道（１七）を作る意味があります。",
+            "en": "▲1六歩 pushes the edge pawn. It creates an escape square for the king on 1g."
+          },
+          "marks": {
+            "boxes": [
+              "1g"
+            ],
+            "last": "1f"
+          }
+        },
+        {
+          "moves": [
+            "5a4b",
+            "3i3h"
+          ],
+          "text": {
+            "ja": "▲３八銀。銀が玉の隣に上がりました。この時点の形は「片美濃」と呼ばれ、とりあえずの守りになります。",
+            "en": "▲3八銀 puts the silver beside the king. This shape is called Kata Mino and already works as a basic shelter."
+          },
+          "marks": {
+            "boxes": [
+              "3h"
+            ],
+            "last": "3h"
+          }
+        },
+        {
+          "moves": [
+            "6a5b",
+            "6i5h"
+          ],
+          "text": {
+            "ja": "▲５八金。左の金を寄せて美濃囲いの完成です。金銀三枚が斜めにつながり、横から来る力を吸収します。",
+            "en": "▲5八金 brings the left gold over, completing Mino. Gold and silver link diagonally and absorb attacks along the ranks."
+          },
+          "marks": {
+            "boxes": [
+              "2h",
+              "3h",
+              "4i",
+              "5h"
+            ],
+            "last": "5h"
+          }
+        },
+        {
+          "text": {
+            "ja": "美濃囲いは、横に並んだ駒を狙われる展開で粘り強い囲いです。居飛車は歩と銀で押してくることが多く、玉の横に並んだ金銀がそれを受け止めます。弱点は、縦と斜めからの攻めと、端からの攻めです。特に玉の斜め前（３七）を桂や角で狙う攻めと、１筋から崩す端攻めに弱いので、相手の動きを見て防ぎます。",
+            "en": "Mino is very strong against attacks along the ranks, and the linked golds and silver meet the pawn and silver pushes of a Static Rook player. Its weaknesses are attacks along the files and diagonals and from the edge: a knight or bishop aiming at the square diagonally ahead of the king (3g), and an edge attack down the first file. Watch for them and prepare in time."
+          },
+          "marks": {
+            "boxes": [
+              "3g",
+              "1g"
+            ]
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "舟囲いは早く玉の居場所を作る",
-        "en": "Boat castle gives the king an early landing square"
+        "ja": "金無双：相振り飛車で使う囲い",
+        "en": "Kin Muso: the castle for Ranging Rook mirrors"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/9/9/9/9/9/9/1B1KG2R1/2SG5 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "飛車２八を残した居飛車側の局面です。玉６八の左に角８八、下に銀７九と金６九、右に金５八があります。玉を一つ寄るだけで舟囲いの基本形に入れます。",
-            "en": "This is a Static Rook position with the rook still on ２八. The king on ６八 has a bishop on ８八, silver on ７九, gold on ６九, and another gold on ５八. One king move reaches the basic Boat castle arrangement."
+            "ja": "金無双は、二枚の金を玉の隣に横に並べる囲いです。相振り飛車では、玉の頭を縦から攻め合う場面が増えます。そこで、頭上からの圧力に備えやすい金無双が選ばれます。飛車を左へ振り、玉を右へ運ぶところは美濃と似ています。後手も振り飛車にする想定です。",
+            "en": "Kin Muso lines two golds up next to the king. In Ranging Rook mirror games the kings tend to be attacked down the files, so a castle that is strong against attacks from above is preferred. The rook swings left and the king travels right, much as in Mino. Gote also swings its rook in this example."
+          },
+          "marks": {
+            "boxes": [
+              "5h",
+              "4h",
+              "3h",
+              "2h"
+            ]
           }
         },
         {
-          "moves": ["6h7h"],
+          "moves": [
+            "2h7h"
+          ],
           "text": {
-            "ja": "▲７八玉。７八は銀７九と金６九が守ります。舟囲いは少ない手で玉を中央から外せる一方、この盤では玉の上方に歩の壁がありません。相手の飛車がどの筋にいるかを見て、上部を補強する必要があります。",
-            "en": "▲７八玉 lands on a square protected by the silver on ７九 and gold on ６九. Boat castle moves the king away from the center quickly, but this board has no pawn screen above the king. Check the opposing rook's file and reinforce the upper approach when needed."
-          }
-        }
-      ]
-    },
-    {
-      "title": {
-        "ja": "美濃の下段は互いの利きで守る",
-        "en": "Read the mutual protection in Mino's lower ranks"
-      },
-      "side": "sente",
-      "kind": "position",
-      "start": "4k4/9/9/9/9/9/6PP1/2R1G1S2/5GK2 b - 1",
-      "steps": [
-        {
-          "text": {
-            "ja": "飛車７八、金５八・４九、銀３八、玉３九です。玉を２八に入れると美濃囲いの形になります。銀３八と金４九は互いのマスに利いていますが、上の歩が消えれば別の進入路も生じます。",
-            "en": "Sente has a rook on ７八, golds on ５八 and ４九, silver on ３八, and king on ３九. Moving the king to ２八 forms a Mino arrangement. The silver and lower gold protect each other's squares, though losing the pawns above them can open new routes in."
+            "ja": "▲７八飛。飛車を左へ振ります。三間飛車です。空いた２八に、玉を入れる準備ができます。",
+            "en": "▲7八飛 swings the rook left to the third file, Third File Rook. The square 2h is now free to prepare for the king."
+          },
+          "marks": {
+            "boxes": [
+              "2h"
+            ],
+            "last": "7h"
           }
         },
         {
-          "moves": ["3i2h"],
+          "moves": [
+            "3c3d",
+            "5i4h"
+          ],
           "text": {
-            "ja": "▲２八玉。飛車から離れた玉を銀３八が隣で支え、金４九は銀３八を守ります。横から飛車が来ても、金４九や銀３八を一枚ずつ数えて受けを考えます。２七・３七の歩を失う前方の攻めには、同じ形のままで安全とは言えません。",
-            "en": "▲２八玉 separates king from rook. The silver on ３八 stands beside the king, and the gold on ４九 protects that silver. Against a lateral rook, count each defender rather than assuming the castle is impregnable. If the pawns on ２七 and ３七 disappear, the same shape may be exposed from above."
+            "ja": "▲４八玉。玉を右へ寄せます。",
+            "en": "▲4八玉 moves the king right."
+          },
+          "marks": {
+            "last": "4h"
+          }
+        },
+        {
+          "moves": [
+            "8b3b",
+            "4h3h"
+          ],
+          "text": {
+            "ja": "▲３八玉。玉が囲いの位置に着きました。",
+            "en": "▲3八玉 puts the king on its castle square."
+          },
+          "marks": {
+            "last": "3h"
+          }
+        },
+        {
+          "moves": [
+            "5a6b",
+            "4i4h"
+          ],
+          "text": {
+            "ja": "▲４八金。右の金を玉の隣に上げます。",
+            "en": "▲4八金 lifts the right gold beside the king."
+          },
+          "marks": {
+            "boxes": [
+              "4h"
+            ],
+            "last": "4h"
+          }
+        },
+        {
+          "moves": [
+            "6b7b",
+            "6i5h"
+          ],
+          "text": {
+            "ja": "▲５八金。左の金も上げて、金二枚が横に並びました。",
+            "en": "▲5八金 brings the left gold up as well, and the two golds stand side by side."
+          },
+          "marks": {
+            "boxes": [
+              "5h",
+              "4h"
+            ],
+            "last": "5h"
+          }
+        },
+        {
+          "moves": [
+            "7b8b",
+            "3i2h"
+          ],
+          "text": {
+            "ja": "▲２八銀。銀を玉の右に上げます。",
+            "en": "▲2八銀 puts the silver on the king's other side."
+          },
+          "marks": {
+            "last": "2h"
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "1g1f"
+          ],
+          "text": {
+            "ja": "▲１六歩。端の歩を突いて、玉の逃げ道を作ります。これで金無双の完成です。",
+            "en": "▲1六歩 pushes the edge pawn to give the king an escape square, finishing Kin Muso."
+          },
+          "marks": {
+            "boxes": [
+              "1g"
+            ],
+            "last": "1f"
+          }
+        },
+        {
+          "text": {
+            "ja": "金無双は、頭上からの圧力に耐えやすい形です。金二枚が玉の真上と斜め上を押さえ、銀が横に並ぶので、美濃より縦の攻めで崩れにくくなります。弱点は、下の段がすき間だらけなことと、２八の銀が玉の出口をふさぐことです。横から飛車を打たれると逃げ場がなく、一気に寄せられる恐れがあります。そのため、振り飛車同士の戦い以外ではあまり使いません。",
+            "en": "Kin Muso is strong against attacks from above: two golds cover the head of the king and the silver stands alongside, so it holds up better along the files than Mino does. Its weaknesses are the empty back rank and the silver on 2h, which blocks the king's escape. A rook dropped in from the side can trap the king, so it is reserved for Ranging Rook mirrors."
+          },
+          "marks": {
+            "boxes": [
+              "2h",
+              "3i",
+              "4i"
+            ]
           }
         }
       ]

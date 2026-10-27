@@ -1,23 +1,26 @@
 {
   "id": "aifuri-basics",
   "order": 1290,
-  "path": ["戦法・定跡", "相振り飛車"],
+  "path": [
+    "戦法・定跡",
+    "相振り飛車"
+  ],
   "title": {
-    "ja": "相振り飛車で二つの飛車筋を読む",
-    "en": "Reading both rook files in double Ranging Rook"
+    "ja": "相振り飛車の基本：向かい飛車対三間飛車と金無双",
+    "en": "Double Ranging Rook basics: Opposing Rook against Third File Rook, with the Gold Pair castle"
   },
   "intro": {
-    "ja": "先手が向かい飛車、後手が三間飛車を選ぶと、互いの飛車は別の筋で働きます。８筋の攻めを考える前に３筋の反撃を数え、飛車を移す前には通路と玉の位置を確かめましょう。この教材では駒をぶつけた後の取り返し方まで盤上で確認します。",
-    "en": "With Sente's Opposing Rook facing Gote's Third File Rook, the rooks work on different files. Before pressing the eighth file, count Gote's third-file counterplay; before transferring your rook, check its path and your king. The boards also show how to count recaptures after contact."
+    "ja": "お互いが飛車を振る相振り飛車は、対抗型とは感覚が違い、序盤に落とし穴があります。ここでは先手が向かい飛車、後手が三間飛車の形を取り上げ、銀を早めに上げる理由、金無双の組み方、浮き飛車と端歩の扱い、角と桂の使い方を順に見ます。",
+    "en": "In a double Ranging Rook game both sides swing the rook, so the feel differs from Static Rook against Ranging Rook and the opening holds traps. This unit takes Sente's Opposing Rook against Gote's Third File Rook and covers why the silver goes up early, how to build the Gold Pair castle, floating rooks and edge pawns, and the use of bishop and knight."
   },
   "check": {
     "question": {
-      "ja": "先手の飛車が８五で後手の歩を取った後、後手銀が７三から８四へ来ました。８五の飛車をそのまま置いてよいですか？",
-      "en": "After Sente's rook takes a pawn on 8e, Gote's silver moves from 7c to 8d. Can the rook simply stay on 8e?"
+      "ja": "先手が▲７六歩△３四歩▲６六歩△３五歩の後、すぐ▲７七角と上がって向かい飛車に振ると、どんな筋で悪くなりますか？",
+      "en": "After ▲7六歩 △3四歩 ▲6六歩 △3五歩, Sente plays ▲7七角 and swings to the opposing rook at once. What line makes this bad?"
     },
     "answer": {
-      "ja": "８四の銀は８五に利いています。教材の局面では銀を８三の金が支えているので、▲同飛と取ると△同金で飛車と銀の交換になり損です。▲８六飛と一つだけ引くと△８五歩と打たれて再び飛車に当たるので、教材の局面では▲８八飛まで引きます。",
-      "en": "The silver on 8d attacks 8e. In the displayed position the gold on 8c supports the silver, so R8e×8d G8c×8d trades the rook for a silver and loses material. Retreating only one square with R8e–8f lets Gote drop a pawn on 8e and hit the rook again, so in the displayed position the rook goes back to 8h."
+      "ja": "△３六歩▲同歩△同飛と飛車を横に走らせ、▲３七歩に△６六飛と６六の歩を取られます。▲６六角△同角と進んでも角成と△５五角の狙いが残り、先手が苦しくなります。そのため先に▲７八銀から▲６七銀と上がり、６六の歩を守っておきます。",
+      "en": "Gote runs the rook sideways with △3六歩 ▲同歩 △同飛, and after ▲3七歩 takes the pawn with △6六飛. Even ▲6六角 △同角 leaves the threats of promotion and △5五角, so Sente suffers. That is why Sente first plays ▲7八銀 and ▲6七銀 to guard the pawn on 6六."
     }
   },
   "references": [
@@ -26,99 +29,615 @@
       "url": "https://shogi-joutatsu.com/archives/829",
       "license": "All rights reserved",
       "adapted": false
+    },
+    {
+      "title": "将棋の技図鑑 (yuki-keio/shogi)",
+      "url": "https://github.com/yuki-keio/shogi",
+      "license": "GPL-3.0-only",
+      "adapted": false
     }
   ],
   "chapters": [
     {
-      "title": { "ja": "飛車の通り道を先に作る", "en": "Clear the rook's route first" },
+      "title": {
+        "ja": "向かい飛車に組むまでの手順",
+        "en": "How Sente reaches the Opposing Rook"
+      },
       "side": "sente",
-      "kind": "position",
-      "start": "ln1g3nl/2k3rb1/p1spp2pp/1p3p3/6p2/2P6/P1B1PPPPP/2S4R1/LN2GK1NL b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "先手の飛車は２八、後手の飛車は３二です。先手は８筋へ回りたいのですが、７八の銀が横移動の通路をふさいでいます。玉もまだ４九なので、飛車の移動だけで守りが完成するわけではありません。",
-            "en": "Sente's rook is on 2h and Gote's on 3b. Sente wants to transfer to the eighth file, but the silver on 7h blocks the horizontal route. The king is still on 4i, so moving the rook alone does not complete the defense."
-          },
-          "marks": { "boxes": ["7h", "8h", "4i"] }
+            "ja": "相振り飛車は、先手も後手も飛車を振る形です。この章では、先手が向かい飛車、後手が三間飛車に構える例を、初手から一手ずつ組みます。目標は、銀を先に上げてから角と飛車を動かし、向かい飛車を安全に完成させることです。",
+            "en": "In Double Ranging Rook both players swing the rook. This chapter builds one example from move one: Sente takes an Opposing Rook and Gote a Third File Rook. The goal is to raise the silver first, then move the bishop and rook, and complete the Opposing Rook safely."
+          }
         },
         {
-          "moves": ["7h6g", "7b8b"],
+          "moves": [
+            "7g7f"
+          ],
           "text": {
-            "ja": "▲６七銀で７八が空きました。銀は７六の歩も支えています。後手の△８二玉はここでの一例で、後手には別の駒組みもあります。",
-            "en": "S7h–6g clears 7h and also supports the pawn on 7f. Gote's K7b–8b is one sample developing move; other setups remain possible."
+            "ja": "▲７六歩。まず角の前の歩を突いて、角道を開けます。振り飛車の出だしによく使う、基本の一手です。",
+            "en": "▲7六歩. Sente first pushes the pawn in front of the bishop, opening its diagonal. This is a standard opening move for Ranging Rook players."
           },
-          "marks": { "arrows": ["7h6g"], "boxes": ["7h", "7f"] }
+          "marks": {
+            "last": "7f",
+            "boxes": [
+              "8h"
+            ]
+          }
         },
         {
-          "moves": ["2h8h"],
+          "moves": [
+            "3c3d",
+            "6g6f"
+          ],
           "text": {
-            "ja": "▲８八飛で向かい飛車になりました。２八から８八までの横のマスが空いているからこそ動けます。後手の３筋の歩と飛車は残っており、次は８筋だけでなく３筋への備えも比べます。",
-            "en": "R2h–8h completes the Opposing Rook transfer because every intervening square is empty. Gote's third-file pawn and rook remain, so the next decision must account for that file as well as the eighth."
+            "ja": "後手は△３四歩と、角道を開けました。こちらは▲６六歩。自分の角の通り道を、６六の歩でふさぎます。相手も飛車を振りそうなので、角を交換する形は避けて、じっくり構えるためです。この６六の歩が、あとで守るべき大事な歩になります。",
+            "en": "Gote opens its bishop line with △3四歩. Sente answers ▲6六歩, closing its own bishop line with that pawn. The opponent is likely to swing the rook too, so Sente avoids a bishop trade and settles in. This pawn on 6f becomes the one to protect later."
           },
-          "marks": { "arrows": ["2h8h"], "boxes": ["3e", "8d"] }
+          "marks": {
+            "last": "6f",
+            "boxes": [
+              "6f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3d3e",
+            "7i7h"
+          ],
+          "text": {
+            "ja": "後手は△３五歩と、さらに歩を伸ばしました。三間飛車を目指す動きです。こちらは▲７八銀。７九の銀を一つ上げます。次に６七へ進めて６六の歩を支えるための準備で、飛車を振る前にやっておく手です。",
+            "en": "Gote pushes △3五歩 again, heading for a Third File Rook. Sente plays ▲7八銀, lifting the silver one step. Next it goes to 6g to support the pawn on 6f. This is done before the rook swings."
+          },
+          "marks": {
+            "last": "7h",
+            "arrows": [
+              "7h6g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8b3b",
+            "7h6g"
+          ],
+          "text": {
+            "ja": "後手は△３二飛と、飛車を３筋へ振りました。三間飛車です。こちらは▲６七銀。銀を６七へ進めて、６六の歩を後ろから支えます。後手の飛車は３筋から横に動いて６六の歩を狙えるので、先に守っておくのが要点です。",
+            "en": "Gote swings the rook with △3二飛: a Third File Rook. Sente plays ▲6七銀, putting the silver behind the pawn on 6f. Gote's rook can slide sideways from the third file and aim at that pawn, so Sente protects it first."
+          },
+          "marks": {
+            "last": "6g",
+            "boxes": [
+              "6f",
+              "3b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5a6b",
+            "8h7g"
+          ],
+          "text": {
+            "ja": "後手は△６二玉と、玉を動かしました。こちらは▲７七角。角を７七へ引きます。飛車を８八へ振るには、そこにいる角をどける必要があるからです。この順番を守るのが大切です。",
+            "en": "Gote moves the king with △6二玉. Sente plays ▲7七角, pulling the bishop back to 7g. The rook will go to 8h, so the bishop standing there has to step aside first. Keeping this order matters."
+          },
+          "marks": {
+            "last": "7g",
+            "boxes": [
+              "8h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6b7b",
+            "2h8h"
+          ],
+          "text": {
+            "ja": "後手は△７二玉と、さらに玉を寄せました。こちらは▲８八飛。飛車を一番左に近い８筋へ回して、向かい飛車の完成です。銀が６七にいて６六の歩を守っているので、ここまで来れば、あとは落ち着いて囲いを作る段階に入れます。",
+            "en": "Gote moves the king again with △7二玉. Sente plays ▲8八飛, swinging the rook to the eighth file. The Opposing Rook is complete. With the silver on 6g guarding the pawn on 6f, Sente can now calmly build a castle."
+          },
+          "marks": {
+            "last": "8h",
+            "boxes": [
+              "8h",
+              "7g",
+              "6g"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "覚える点は三つです。向かい飛車に振る前に、銀を６七へ上げること。角を７七へ引いてから、飛車を８八へ振ること。６六の歩が一番の弱点なので、この順番を守ること。次の章で、順番を間違えたときに何が起こるかを見ます。",
+            "en": "Three points to remember. Raise the silver to 6g before swinging the rook. Pull the bishop to 7g first, then swing the rook to 8h. The pawn on 6f is the weak point, so keep this order. The next chapter shows what happens when the order is wrong."
+          },
+          "marks": {
+            "boxes": [
+              "6g",
+              "7g",
+              "8h"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "長所は、飛車と角が左側に近く並び、囲いを組む時間を作りやすいことです。弱点は、６六の歩を守る手を忘れて飛車を振ると、後手の飛車に歩を取られて不利になること。さらに、後手に△５五角と仕掛けられる筋にも注意が要ります。この二つは、第２章と第３章で確かめます。",
+            "en": "The strength: rook and bishop sit close together on the left, and Sente gets time to build a castle. The weaknesses: if Sente swings the rook without protecting the pawn on 6f, Gote's rook can win it and Sente is worse. Gote can also start an attack with △5五角. Chapters 2 and 3 check both points."
+          },
+          "marks": {
+            "boxes": [
+              "6f",
+              "5e"
+            ]
+          }
         }
       ]
     },
     {
-      "title": { "ja": "３筋の取り返しを数える", "en": "Count recaptures on the third file" },
+      "title": {
+        "ja": "すぐに振るとうまくいかない",
+        "en": "Why swinging at once fails"
+      },
       "side": "sente",
-      "kind": "position",
-      "start": "9/2k4b1/9/5pr2/6p2/9/5SP2/1R2G1K2/9 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "6g6f",
+            "3d3e"
+          ],
           "text": {
-            "ja": "後手の飛車は３四、歩は３五、先手の歩は３七にあります。４七の銀は３六へ進めますが、いまは歩が３七を守る形も大事です。先手は５八の金を玉の近くへ寄せます。",
-            "en": "Gote has a rook on 3d and pawn on 3e; Sente's pawn stands on 3g. The silver on 4g can move to 3f, but the pawn on 3g also matters. Sente brings the gold on 5h closer to the king."
+            "ja": "同じ局面から、先手が▲７七角と上がって向かい飛車に振る手を調べます。一見自然ですが、後手に狙われる筋があります。",
+            "en": "From the same position we test the quick ▲7七角 and rook swing. It looks natural, but Gote has a line against it."
           },
-          "marks": { "boxes": ["3d", "3e", "3g", "4g"] }
+          "marks": {
+            "last": "3e"
+          }
         },
         {
-          "moves": ["5h4h", "3e3f"],
+          "moves": [
+            "8h7g",
+            "8b3b",
+            "2h8h"
+          ],
           "text": {
-            "ja": "▲４八金に対して△３六歩は一つの試みです。後手の歩は３六に出ましたが、先手の３七歩で取れる位置でもあります。後手が必ずこの手を選ぶわけではありません。",
-            "en": "After G5h–4h, Gote's P3e–3f is one possible probe. The pawn has advanced to 3f, where Sente's pawn on 3g can capture it. This is a sample reply, not a forced choice for Gote."
+            "ja": "▲７七角△３二飛▲８八飛。これで向かい飛車の形にはなりましたが、６六の歩は飛車と角の利きに頼るだけで、守りの駒がありません。",
+            "en": "▲7七角 △3二飛 ▲8八飛 gives the opposing rook, but the pawn on 6六 has no real guard, only bishop and rook lines behind it."
           },
-          "marks": { "arrows": ["3e3f"], "boxes": ["3g"] }
+          "marks": {
+            "last": "8h",
+            "boxes": [
+              "8h",
+              "6f"
+            ]
+          }
         },
         {
-          "moves": ["3g3f", "3d3f", "4g3f"],
+          "moves": [
+            "3e3f",
+            "3g3f",
+            "3b3f",
+            "P*3g",
+            "3f6f"
+          ],
           "text": {
-            "ja": "▲同歩△同飛なら▲同銀で飛車を取れます。後手の飛車が３四から３六へ進む途中の３五は、歩が動いて空いています。銀の利きを数えずに△同飛と決めつけるのは危険で、後手は別の応手を選べます。",
-            "en": "If P3g×3f is met by R3d×3f, S4g×3f captures the rook. The rook's path through 3e is clear after Gote's pawn advanced. Gote can choose another reply; this line illustrates why the silver defender must be counted."
+            "ja": "△３六歩▲同歩△同飛と、後手は飛車を横にすべらせます。▲３七歩と打つ間に△６六飛と歩を取られました。飛車の横の利きが６六まで通るのが痛いところです。",
+            "en": "Gote slides the rook sideways with △3六歩 ▲同歩 △同飛. While Sente drops ▲3七歩, Gote takes the pawn with △6六飛. The rook's sideways reach all the way to 6六 is the problem."
           },
-          "marks": { "arrows": ["4g3f"], "last": "3f" }
+          "marks": {
+            "last": "6f",
+            "boxes": [
+              "6f",
+              "3g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7g6f",
+            "2b6f"
+          ],
+          "text": {
+            "ja": "▲６六角と飛車を取り、△同角と取り返すと、後手の角が６六にいます。ここから△７七角成と△５五角打が見えて、先手は序盤から劣勢です。",
+            "en": "Sente takes the rook with ▲6六角 and Gote recaptures with △同角, leaving a bishop on 6六. Both a promotion on 7七 and a drop on 5五 are in view, so Sente is worse from the opening."
+          },
+          "marks": {
+            "last": "6f",
+            "arrows": [
+              "6f7g"
+            ],
+            "boxes": [
+              "6f"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "まとめます。６六の歩を飛車にかすめ取られると先手は不利になります。向かい飛車に振る前に、６六を守る手を挟む必要があります。",
+            "en": "To summarise: once the rook snatches the pawn on 6六, Sente is worse. Before swinging, insert a move that protects 6六."
+          }
         }
       ]
     },
     {
-      "title": { "ja": "８筋で取った後も飛車を守る", "en": "Protect the rook after eighth-file contact" },
+      "title": {
+        "ja": "△５五角の仕掛けには落ち着いて受ける",
+        "en": "Answering the △5五角 attack calmly"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "6g6f",
+            "3d3e",
+            "7i7h",
+            "8b3b",
+            "7h6g"
+          ],
+          "text": {
+            "ja": "銀を６七に上げた局面です。後手がここで仕掛けてくる変化を見ます。",
+            "en": "Here the silver is already on 6七. We look at how Gote can try to attack."
+          },
+          "marks": {
+            "last": "6g",
+            "boxes": [
+              "6g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3e3f",
+            "3g3f",
+            "2b5e"
+          ],
+          "text": {
+            "ja": "△３六歩▲同歩と突き捨ててから△５五角。飛車に当たり、３七も狙う厄介な手で、石田流でもよく出てくる筋です。しかし受け方が分かっていれば、慌てる必要はありません。",
+            "en": "Gote pushes △3六歩 ▲同歩 and then plays △5五角. It hits the rook and eyes 3七, a nuisance that also shows up against the Ishida Style. If you know the answer there is no need to panic."
+          },
+          "marks": {
+            "last": "5e",
+            "arrows": [
+              "5e2h",
+              "5e3g"
+            ],
+            "boxes": [
+              "5e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2h1h",
+            "3b3f",
+            "6g5f"
+          ],
+          "text": {
+            "ja": "▲１八飛と飛車を逃がし、△３六飛に▲５六銀と角へ当てます。６七の銀は歩を守るだけでなく、この△５五角を防ぐ役もありました。",
+            "en": "Sente retreats the rook with ▲1八飛, and after △3六飛 attacks the bishop with ▲5六銀. The silver on 6七 guarded the pawn and also prepared against △5五角."
+          },
+          "marks": {
+            "last": "5f",
+            "arrows": [
+              "5f5e"
+            ],
+            "boxes": [
+              "5f",
+              "5e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5e2b",
+            "P*3g"
+          ],
+          "text": {
+            "ja": "角が△２二へ逃げたら、▲３七歩と歩で飛車をはじいて収めます。あとは▲７七角から▲８八飛と、ゆっくり向かい飛車に組めば先手が指せます。後手が攻めに手を使う間に、先手は銀を上げて手得しています。",
+            "en": "After the bishop retreats to 2二, Sente settles things by driving the rook away with ▲3七歩. Sente can then play ▲7七角 and ▲8八飛 at leisure. Gote spent moves attacking while Sente gained tempo by raising the silver."
+          },
+          "marks": {
+            "last": "3g",
+            "boxes": [
+              "3g",
+              "3f"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "まとめます。▲６七銀は６六の歩を守り、△５五角も防ぐ一石二鳥の手です。仕掛けられても、飛車を逃がして銀を当てれば収まります。",
+            "en": "To summarise: ▲6七銀 guards the 6六 pawn and prevents △5五角 at once. If Gote attacks anyway, move the rook away and hit the bishop with the silver."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "金無双とは",
+        "en": "What the Gold Pair castle is"
+      },
       "side": "sente",
       "kind": "position",
-      "start": "ln1g3nl/2k3rb1/pgspp2sp/1p3ppp1/9/1PP6/P1B1PPPPP/1R1S1GKS1/LN1G3NL b - 1",
+      "start": "lnsgkgsnl/1r5b1/ppppppppp/9/9/2PP4P/PPBSPPPP1/1R2GGKS1/LN5NL b - 1",
       "steps": [
         {
           "text": {
-            "ja": "８六の歩と８八の飛車で８筋を押せます。ただし後手の７三銀は８四に進める位置にあり、８三の金もその８四を守っています。飛車が８五まで出た後の安全も必要です。",
-            "en": "The pawn on 8f and rook on 8h can press the eighth file. Gote's silver on 7c can reach 8d, and the gold on 8c also guards 8d, so Sente must consider the rook's safety after it advances to 8e."
+            "ja": "金無双は、金二枚を５八と４八に並べ、玉を３八、銀を２八に置く囲いです。二枚金とも呼ばれ、相振り飛車で特によく使われます。プロの将棋ではあまり指されませんが、相振り飛車の感覚をつかむには最適で、アマチュアの対局では十分に通用します。",
+            "en": "The Gold Pair puts two golds on 5八 and 4八, the king on 3八 and a silver on 2八. It is also called the Two Gold castle and appears constantly in double Ranging Rook games. Professionals rarely use it, but it is ideal for learning the feel of these games and is strong enough at amateur level."
           },
-          "marks": { "boxes": ["8f", "8d", "7c", "8c"] }
+          "marks": {
+            "boxes": [
+              "5h",
+              "4h",
+              "3h",
+              "2h"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "金無双に組む順序と罠",
+        "en": "Move order and the trap when building the Gold Pair"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "6g6f",
+            "3d3e",
+            "7i7h",
+            "8b3b",
+            "7h6g",
+            "5a6b",
+            "8h7g",
+            "6b7b",
+            "2h8h"
+          ],
+          "text": {
+            "ja": "向かい飛車の基本形から金無双を目指します。ここにも罠があるので、駒を動かす順序が大切です。",
+            "en": "From the basic Opposing Rook position Sente aims for the Gold Pair. There is a trap here, so the order of moves matters."
+          },
+          "marks": {
+            "last": "8h"
+          }
         },
         {
-          "moves": ["8f8e", "8d8e", "8h8e"],
+          "moves": [
+            "3a4b",
+            "3i2h"
+          ],
           "text": {
-            "ja": "▲８五歩△同歩▲同飛は８筋の歩を交換する一例です。先手は後手の８筋の歩を取り、互いに歩を持ちます。しかし飛車は相手陣へ近づいたので、次の利きを確かめます。",
-            "en": "P8f–8e, P8d×8e, R8h×8e is one eighth-file pawn exchange. Sente captures Gote's pawn and each side gains a pawn in hand. The rook has advanced, so check what attacks its new square."
+            "ja": "後手が△４二銀と上がったら、▲２八銀と先に銀を上げます。この銀には飛車の利きが付いているので、安心して駒組みを進められます。あとは自然に金と玉を寄せていけば金無双です。",
+            "en": "When Gote plays △4二銀, Sente raises the silver first with ▲2八銀. The rook protects this silver, so the setup can proceed calmly. Then gold and king shift naturally into the Gold Pair."
           },
-          "marks": { "arrows": ["8h8e"], "last": "8e" }
+          "marks": {
+            "last": "2h",
+            "boxes": [
+              "2h"
+            ]
+          }
         },
         {
-          "moves": ["7c8d", "8e8h"],
           "text": {
-            "ja": "△８四銀は８五の飛車に当たります。８四の銀は８三の金が支えているので、▲同飛と取ると△同金で飛車と銀の交換になり損です。▲８六飛と一つだけ引くと、△８五歩と打たれて再び飛車に当たり、▲同飛も△同銀で取られます。そこで▲８八飛と元の位置まで引きます。後手の銀が８四へ出るかは任意なので、この形がいつも成立するという意味ではありません。",
-            "en": "S7c–8d attacks the rook on 8e. The gold on 8c supports the silver on 8d, so R8e×8d G8c×8d would trade the rook for a silver and lose material. Retreating only one square with R8e–8f lets Gote drop a pawn on 8e to hit the rook again, and R8f×8e would be met by S8d×8e. So the rook goes all the way back with R8e–8h. Gote's silver move is optional; this is a board-specific way to handle that reply."
+            "ja": "まとめます。金無双は▲２八銀から組みます。玉を先に上げるのは危険です。",
+            "en": "To summarise: build the Gold Pair starting with ▲2八銀. Moving the king first is dangerous."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": [
+            "3a4b",
+            "5i4h",
+            "3e3f",
+            "3g3f",
+            "2b5e"
+          ],
+          "text": {
+            "ja": "△４二銀に対して、ただ▲４八玉と寄ってしまうのは失敗です。△３六歩▲同歩△５五角と打たれ、▲３七桂で受けても△３六飛と歩を取られ、先手がまずくなります。",
+            "en": "If Sente answers △4二銀 with the plain ▲4八玉, then △3六歩 ▲同歩 △5五角 lands. Even defending with ▲3七桂, Gote takes a pawn with △3六飛 and Sente is worse."
           },
-          "marks": { "arrows": ["8e8h"], "boxes": ["8d", "8c", "8f"] }
+          "steps": []
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "攻めの形と駒の活用",
+        "en": "Attacking shape and piece placement"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "6g6f",
+            "3d3e",
+            "7i7h",
+            "8b3b",
+            "7h6g",
+            "5a6b",
+            "8h7g",
+            "6b7b",
+            "2h8h",
+            "3a4b",
+            "3i2h"
+          ],
+          "text": {
+            "ja": "金無双に向けて▲２八銀まで進んだ局面です。ここから、相振り飛車らしい縦方向の攻めの形を整えていきます。",
+            "en": "Sente has reached ▲2八銀 on the way to the Gold Pair. From here the aim is the vertical attacking shape typical of double Ranging Rook."
+          },
+          "marks": {
+            "last": "2h"
+          }
+        },
+        {
+          "moves": [
+            "4a5b",
+            "8g8f",
+            "7a8b",
+            "8f8e"
+          ],
+          "text": {
+            "ja": "後手が金を上げて囲いを作る間に、先手は飛車先の歩を▲８五まで伸ばします。いつでも歩をぶつけられる形にしておくのが目的です。",
+            "en": "While Gote lifts the gold toward a castle, Sente pushes the rook pawn up to 8五. The aim is to be ready to clash with the pawn whenever wanted."
+          },
+          "marks": {
+            "last": "8e",
+            "arrows": [
+              "8e8d"
+            ],
+            "boxes": [
+              "8e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3e3f",
+            "3g3f",
+            "3b3f",
+            "P*3g",
+            "3f3d"
+          ],
+          "text": {
+            "ja": "後手は△３六歩▲同歩△同飛と進め、▲３七歩のあとに△３四飛と飛車を浮かせます。先手が飛車先の歩を交換するのを嫌った手です。浮いた飛車は横に動けるので、低い囲いと相性が良い構えです。",
+            "en": "Gote goes △3六歩 ▲同歩 △同飛 ▲3七歩 and then floats the rook with △3四飛 to stop the pawn exchange. A low castle such as the Gold Pair suits a floating rook, which can also swing to other files to pester."
+          },
+          "marks": {
+            "last": "3d",
+            "boxes": [
+              "3d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5i4h",
+            "6a6b",
+            "4h3h",
+            "4c4d"
+          ],
+          "text": {
+            "ja": "▲４八玉、△６二金、▲３八玉に、後手が△４四歩と突きました。この瞬間、後手の飛車の横の利きが止まります。先手が浮き飛車に構えるのはこのタイミングです。",
+            "en": "Sente plays ▲4八玉 and ▲3八玉 while Gote plays △6二金 and then △4四歩. At that moment the sideways reach of Gote's rook is blocked. This is the time for Sente to float the rook too."
+          },
+          "marks": {
+            "last": "4d",
+            "boxes": [
+              "4d",
+              "3d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8e8d",
+            "8c8d",
+            "8h8d",
+            "P*8c",
+            "8d8f"
+          ],
+          "text": {
+            "ja": "▲８四歩△同歩▲同飛△８三歩▲８六飛と進めます。後手の飛車が横に利かなくなった一瞬を逃さず、先手も飛車を浮かせました。金無双の相手には、この浮き飛車が定番の構えです。",
+            "en": "▲8四歩 △同歩 ▲同飛 △8三歩 ▲8六飛. In the moment Gote's rook loses its sideways reach, Sente also floats the rook. Floating the rook is the basic stance against a Gold Pair."
+          },
+          "marks": {
+            "last": "8f",
+            "boxes": [
+              "8f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4b4c",
+            "6i5h",
+            "2c2d",
+            "4i4h"
+          ],
+          "text": {
+            "ja": "△４三銀、▲５八金、△２四歩、▲４八金。先手の金が５八と４八に並び、金無双の形が整いました。",
+            "en": "After △4三銀, ▲5八金, △2四歩 and ▲4八金, Sente has completed the Gold Pair for now."
+          },
+          "marks": {
+            "last": "4h",
+            "boxes": [
+              "5h",
+              "4h",
+              "3h",
+              "2h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "1g1f",
+            "2d2e",
+            "9g9f",
+            "9c9d"
+          ],
+          "text": {
+            "ja": "後手が△１四歩と端を突いたら、▲１六歩と受けます。端を受けるべきかは局面次第ですが、迷う間は受けておけば大きな失敗にはなりません。相振り飛車は端からの攻めが重いので、自分の側の▲９六歩も必ず突いておきます。",
+            "en": "When Gote pushes the edge pawn with △1四歩, Sente answers ▲1六歩. Whether to answer is a hard question, but a beginner who simply answers will not go wrong. Edge attacks are very strong in double Ranging Rook, so Sente also plays ▲9六歩 without fail."
+          },
+          "marks": {
+            "last": "9d",
+            "boxes": [
+              "9f",
+              "1f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6f6e",
+            "2a3c",
+            "7g6f",
+            "4c5d",
+            "8i7g"
+          ],
+          "text": {
+            "ja": "▲６五歩と角道を開け、▲６六角と据えます。相振り飛車では６六の角が好位置で、いつも狙いたい形です。桂馬も▲７七桂と跳ねて活用し、６五の歩を支えます。これで向かい飛車と金無双の駒組みは完了です。",
+            "en": "Sente opens the bishop line with ▲6五歩 and places the bishop on 6六. In double Ranging Rook the bishop on 6六 is a prime post worth aiming for. The knight jumps to 7七 to join in and to guard the 6五 pawn. The Opposing Rook and Gold Pair setup is now complete."
+          },
+          "marks": {
+            "last": "7g",
+            "boxes": [
+              "6f",
+              "7g"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "まとめます。▲６七銀を早めに上げる、金無双は▲２八銀から組む、浮き飛車に構える、端歩の▲９六歩は突く、角は６六、桂は７七へ。この五つを守れば、駒組みの段階で大きく不利にはなりません。",
+            "en": "To summarise: raise ▲6七銀 early, build the Gold Pair from ▲2八銀, float the rook, play ▲9六歩 on the edge, and put the bishop on 6六 and the knight on 7七. Keep these five points and you will not be badly worse after the setup."
+          }
         }
       ]
     }

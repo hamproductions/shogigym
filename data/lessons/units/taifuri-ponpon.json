@@ -6,21 +6,21 @@
     "対振り飛車"
   ],
   "title": {
-    "ja": "桂を跳ねる前の損得勘定",
-    "en": "Count the cost before jumping the knight"
+    "ja": "ポンポン桂（富沢キック）：桂を捨てて飛車先を破る",
+    "en": "Ponpon Knight (Tomizawa Kick): sacrifice the knight and break the rook file"
   },
   "intro": {
-    "ja": "ポンポン桂では右桂の早い跳躍を攻めのきっかけにする。桂が次にどの駒へ当たり、取られた場合に何を取り返せるかは別々の問題だ。後手の４筋の歩、先手の歩の位置、相手の飛車の通路を確認してから桂を投じる。戦法としての狙いは４筋の接触で角道を開き、角交換によって２筋を守る角を外すこと。この講座の銀・桂の損得例はその判断の補助であり、最後に独立した部分局面で角道と２筋の関係を確かめる。桂を歩で取らせる投資には回収が必要で、持ち角の切り返しも残る。",
-    "en": "Ponpon Knight uses an early jump of Sente's right knight to create contact. The pieces a knight attacks and the compensation available if it is captured are separate questions. Check Gote's fourth-file pawn, Sente's pawn placement and the rook lane before investing the knight. The named strategy connects fourth-file contact to opening the bishop diagonal and removing the bishop that defends file two. The local silver and knight examples support that decision; a final independent partial position connects the diagonal to file-two play. Investing a knight requires compensation, and the opponent retains bishop-drop counterplay."
+    "ja": "左の桂を▲３七、▲４五と続けて跳ね、四間飛車に仕掛ける急戦です。桂を捨てて角交換に持ち込み、２筋を突破します。後手が△６四歩を突いてから仕掛けないと失敗するので、その見極めも覚えます。",
+    "en": "A rush against Fourth File Rook that hops the left knight to 3g and then 4e. Sente sacrifices the knight, trades bishops and breaks through on the second file. The attack fails unless Gote has already played △6四歩, so this lesson also teaches how to check that."
   },
   "check": {
     "question": {
-      "ja": "３七桂が４五へ跳ね、後手４四歩に取られる。先手４六歩で同歩と取り返せても、桂損を解消したことになるか？",
-      "en": "A knight jumps from 3g to 4e and Gote's 4d pawn takes it. If Sente's pawn from 4f recaptures that pawn, has the knight investment already paid for itself?"
+      "ja": "ポンポン桂を仕掛ける前に、後手が△６四歩を突いているか確認するのはなぜですか？",
+      "en": "Why must Sente check for △6四歩 before launching the Ponpon Knight?"
     },
     "answer": {
-      "ja": "ならない。取り返したのは歩一枚で、桂は後手の持ち駒に残る。別の駒を取るか、具体的な攻めを作れるかをさらに読む。",
-      "en": "No. Sente has recovered a pawn, while Gote still holds the knight. Look for an additional capture or a concrete attack before calling the investment sound."
+      "ja": "△６四歩が突かれていないと、角交換のあと▲２四歩と突いた瞬間に△６四角と打たれ、先手が不利になるからです。△６四歩があればその角打ちを防げます。",
+      "en": "Without △6四歩 on the board, Gote answers ▲2四歩 after the bishop trade with the drop △6四角 and Sente is worse. With the pawn on 6d, that drop is impossible."
     }
   },
   "references": [
@@ -34,27 +34,471 @@
   "chapters": [
     {
       "title": {
-        "ja": "桂跳ねが二枚に当たる場合",
-        "en": "A jump that attacks two pieces"
+        "ja": "ポンポン桂の駒組み",
+        "en": "Setting up for the Ponpon Knight"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "9/1k3r3/2p1bpsp1/9/9/3P1P1P1/6N2/1BKG3R1/9 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "後手は４二飛で四間飛車の形だが、４五へ進める後手歩はない。先手は６六歩が８八角の斜線を止め、４六歩が２八飛の前に立っている。３七桂が４五へ跳べば、５三角と３三銀の両方に桂が当たる。",
-            "en": "Gote's rook is on 4b, a Fourth File Rook placement, but no Gote pawn can move onto 4e. Sente's pawn on 6f blocks the diagonal of the bishop on 8h, and its pawn on 4f stands on the line to the rook on 2h. From 3g, the knight can jump to 4e and then threaten both the bishop on 5c and the silver on 3c."
+            "ja": "ポンポン桂は、左の桂を▲３七、▲４五と続けて跳ねて仕掛ける、対四間飛車の急戦です。プロの富沢幹雄九段が愛用したので、富沢キックとも呼ばれます。この章では、仕掛ける直前の形を初手から一手ずつ作ります。",
+            "en": "The Ponpon Knight is a rush against Fourth File Rook that jumps the knight in two hops, first to 3g and then to 4e. It is also called the Tomizawa Kick after the professional who favored it. This chapter builds the position just before the attack, one move at a time from move one."
+          }
+        },
+        {
+          "moves": [
+            "7g7f"
+          ],
+          "text": {
+            "ja": "まず▲７六歩で角道を開けます。角道を開けるのは、居飛車でも対振り飛車でも共通の最初の一手です。",
+            "en": "First ▲7六歩 opens the bishop diagonal. This is the shared first move against both Static and Ranging Rook."
           },
           "marks": {
+            "last": "7f"
+          }
+        },
+        {
+          "moves": [
+            "3c3d",
+            "2g2f"
+          ],
+          "text": {
+            "ja": "△３四歩に▲２六歩。飛車の前の歩を一つ伸ばして、飛車が活躍する場所を作ります。",
+            "en": "After △3四歩 comes ▲2六歩. Advancing the rook pawn one step gives the rook room to work later."
+          },
+          "marks": {
+            "last": "2f"
+          }
+        },
+        {
+          "moves": [
+            "4c4d",
+            "3i4h"
+          ],
+          "text": {
+            "ja": "後手が△４四歩と角道を閉じたので、振り飛車を警戒します。ここで▲４八銀。この銀は相手が居飛車でも振り飛車でも上げる駒なので、戦法が決まるまで待つ手として損がありません。",
+            "en": "Gote closes the bishop diagonal with △4四歩, so watch for Ranging Rook. ▲4八銀 is the waiting move: this silver is brought up against either kind of opponent, so nothing is lost while Gote shows the plan."
+          },
+          "marks": {
+            "last": "4h",
+            "boxes": [
+              "4h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8b4b",
+            "5i6h"
+          ],
+          "text": {
+            "ja": "△４二飛で四間飛車に決まりました。飛車を左から４番目の筋へ振るので、この名前です。振り飛車と分かったので、▲６八玉と玉を左へ動かして囲いに取りかかります。",
+            "en": "△4二飛 settles it: Fourth File Rook, named because the rook goes to the fourth file counted from Gote's left. Now that it is a Ranging Rook game, ▲6八玉 starts the castle by moving the king left."
+          },
+          "marks": {
+            "last": "6h",
+            "boxes": [
+              "4b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2b3c",
+            "6h7h"
+          ],
+          "text": {
+            "ja": "後手は△３三角と角を使う準備。先手は▲７八玉と、もう一つ玉を左へ寄せます。７九の銀と６九の金が最初の位置のまま玉の近くに残るので、これだけで守りの形になっていきます。",
+            "en": "Gote readies the bishop with △3三角 while ▲7八玉 moves the king one more step. The silver on 7i and the gold on 6i stay on their starting squares next to the king, so the defence is already forming."
+          },
+          "marks": {
+            "last": "7h",
+            "boxes": [
+              "7h",
+              "7i",
+              "6i"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "3a3b",
+            "5g5f"
+          ],
+          "text": {
+            "ja": "△３二銀に対して▲５六歩。５筋の歩を突くと、５七のマスが空きます。ここへ後で銀を上げて、攻めにも守りにも使える柔軟な形になります。",
+            "en": "Gote plays △3二銀 and Sente answers ▲5六歩. Pushing the fifth-file pawn empties 5g, a square where a silver can later go to attack or to defend."
+          },
+          "marks": {
+            "last": "5f",
+            "boxes": [
+              "5g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5a6b",
+            "4i5h"
+          ],
+          "text": {
+            "ja": "△６二玉に▲５八金右。右の金を玉の近くへ寄せて、舟囲いの完成です。玉７八、金６九と５八、銀７九という並びで、わずかな手数で組めるので、すぐ攻めに回れます。",
+            "en": "Gote plays △6二玉 and ▲5八金右 brings the right gold next to the king, completing the Boat Castle: king on 7h, golds on 6i and 5h, silver on 7i. It takes very few moves, so Sente can start attacking at once."
+          },
+          "marks": {
+            "last": "5h",
+            "boxes": [
+              "7h",
+              "6i",
+              "5h",
+              "7i"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6b7b",
+            "2f2e"
+          ],
+          "text": {
+            "ja": "△７二玉に▲２五歩。飛車先の歩を２五まで伸ばして、あとで角を交換してから飛車先を破る準備をします。",
+            "en": "After △7二玉 comes ▲2五歩. The rook pawn advances to 2e, preparing to break through on the rook file after a later bishop trade."
+          },
+          "marks": {
+            "last": "2e",
+            "boxes": [
+              "2e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7b8b",
+            "3g3f"
+          ],
+          "text": {
+            "ja": "△８二玉に▲３六歩。３筋の歩を突いて、桂が跳ねる３七のマスを空けます。",
+            "en": "After △8二玉 comes ▲3六歩. It pushes the third-file pawn and empties 3g, the square the knight will jump to."
+          },
+          "marks": {
+            "last": "3f",
+            "boxes": [
+              "3g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "7a7b",
+            "7i6h"
+          ],
+          "text": {
+            "ja": "△７二銀に▲６八銀。ポンポン桂では、仕掛ける前に舟囲いに手を付けて、陣形を整えます。左の銀を５七へ運ぶ途中です。",
+            "en": "After △7二銀 comes ▲6八銀. In the Ponpon Knight, Sente reworks the Boat Castle before attacking. The left silver is on its way to 5g."
+          },
+          "marks": {
+            "last": "6h",
             "arrows": [
-              "3g4e",
-              "4e5c",
-              "4e3c"
+              "6h5g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4a5b",
+            "6h5g"
+          ],
+          "text": {
+            "ja": "△５二金左に▲５七銀左。銀が５七に上がりました。５筋の歩の後ろに控え、攻めにも守りにも使える位置です。",
+            "en": "After △5二金左 comes ▲5七銀左. The silver is now on 5g, behind the fifth-file pawn, a post that serves both attack and defence."
+          },
+          "marks": {
+            "last": "5g"
+          }
+        },
+        {
+          "moves": [
+            "9c9d",
+            "9g9f"
+          ],
+          "text": {
+            "ja": "△９四歩に▲９六歩。後手が端の歩を突いたのに合わせて、こちらも端の歩を突きます。陣形を整える手です。",
+            "en": "After △9四歩 comes ▲9六歩. Gote pushed its edge pawn, so Sente pushes the edge pawn on its own side. It is a move that tidies the formation."
+          },
+          "marks": {
+            "last": "9f"
+          }
+        },
+        {
+          "moves": [
+            "3b4c",
+            "6i6h"
+          ],
+          "text": {
+            "ja": "△４三銀に▲６八金上。６九の金を６八へ上げて、金銀を前に出した囲いにします。駒組みはこれで最終段階です。",
+            "en": "After △4三銀 comes ▲6八金上. The gold on 6i steps up to 6h, giving a castle with golds and silvers pushed forward. The setup is now in its final stage."
+          },
+          "marks": {
+            "last": "6h",
+            "boxes": [
+              "6h",
+              "5g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5c5d",
+            "2i3g"
+          ],
+          "text": {
+            "ja": "△５四歩に▲３七桂。左の桂を一つ跳ねます。▲３六歩で空けておいたマスに入りました。この桂がポンポン桂の攻めの要で、次に▲４五桂と跳ねる手を狙います。",
+            "en": "After △5四歩 comes ▲3七桂. The left knight jumps once, into the square that ▲3六歩 emptied. This knight is the key to the Ponpon Knight attack, and Sente next aims at the second jump, ▲4五桂."
+          },
+          "marks": {
+            "last": "3g",
+            "arrows": [
+              "3g4e"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "仕掛ける直前の形まで組みました。要点は四つです。①舟囲いを作り、左の銀を５七、金を６八へ進める。②▲２五歩と▲３六歩で、飛車先と桂の跳ね場所を用意する。③▲３七桂と跳ねて、次の▲４五桂を狙う。④仕掛けるのは、後手が△６四歩を突いてから。",
+            "en": "The position just before the attack is built. Four points. 1) Make the Boat Castle and bring the left silver to 5g and the gold to 6h. 2) Prepare the rook file and the knight's landing square with ▲2五歩 and ▲3六歩. 3) Jump with ▲3七桂 and aim for the next jump, ▲4五桂. 4) Attack only after Gote has played △6四歩."
+          },
+          "marks": {
+            "boxes": [
+              "3g",
+              "4e",
+              "2e"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "ポンポン桂は、桂を捨てても角交換から飛車先を破る、思い切りのよい作戦です。強みは、相手に準備をさせず一気に攻め込めること。弱みは、桂を損してからの攻めなので、攻めが続かないと桂を失っただけになることです。そのため、仕掛ける前に相手の△６四歩の有無を確認する必要があります。",
+            "en": "The Ponpon Knight is a bold plan that gives up a knight to trade bishops and break through on the rook file. Its strength is that it attacks at once and gives the opponent no time to prepare. Its weakness is that Sente is a knight down, so if the attack fails Sente has merely lost the knight. That is why Sente must check whether Gote has played △6四歩 before attacking."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "▲４五桂の捨て仕掛けから角交換",
+        "en": "The ▲4五桂 sacrifice and the bishop trade"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "2g2f",
+            "4c4d",
+            "3i4h",
+            "8b4b",
+            "5i6h",
+            "2b3c",
+            "6h7h",
+            "3a3b",
+            "5g5f",
+            "5a6b",
+            "4i5h",
+            "6b7b",
+            "2f2e",
+            "7b8b",
+            "3g3f",
+            "7a7b",
+            "7i6h",
+            "4a5b",
+            "6h5g",
+            "9c9d",
+            "9g9f",
+            "3b4c",
+            "6i6h",
+            "5c5d",
+            "2i3g"
+          ],
+          "text": {
+            "ja": "前章の最後の局面です。後手が△６四歩を突いてきたら、ポンポン桂の仕掛けが成立します。",
+            "en": "The final position of the previous chapter. If Gote plays △6四歩, the Ponpon Knight attack works."
+          },
+          "marks": {
+            "last": "3g"
+          }
+        },
+        {
+          "moves": [
+            "6c6d",
+            "3g4e"
+          ],
+          "text": {
+            "ja": "△６四歩に、いきなり▲４五桂と桂を捨てます。ただで捨てるように見えますが、ここからが狙いです。",
+            "en": "Against △6四歩, Sente suddenly sacrifices the knight with ▲4五桂. It looks like a pure giveaway, but this is the point of the plan."
+          },
+          "marks": {
+            "last": "4e",
+            "boxes": [
+              "4e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4d4e",
+            "8h3c+",
+            "2a3c",
+            "2e2d"
+          ],
+          "text": {
+            "ja": "△４五歩と桂を取ると、後手の角道が開きます。そこで先手から▲３三角成と角を交換します。△同桂のあと、▲２四歩と飛車先を突きます。",
+            "en": "If Gote takes with △4五歩, his own bishop line opens. Sente then trades bishops first with ▲3三角成, and after △同桂 pushes ▲2四歩 on the rook file."
+          },
+          "marks": {
+            "last": "2d",
+            "boxes": [
+              "2d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2c2d",
+            "2h2d"
+          ],
+          "text": {
+            "ja": "△同歩に▲同飛。角交換から２筋を突破できました。これがポンポン桂の狙いです。",
+            "en": "△同歩 is met by ▲同飛. The bishop trade has led to a breakthrough on the second file, which is what the Ponpon Knight aims for."
+          },
+          "marks": {
+            "last": "2d",
+            "boxes": [
+              "2d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "P*2b",
+            "B*3a"
+          ],
+          "text": {
+            "ja": "△２二歩と受けても、▲３一角と打てば攻めがつながります。後手の飛車が逃げれば、▲２二角成と進みます。",
+            "en": "Even if Gote defends with △2二歩, ▲3一角 keeps the attack going. If the rook runs, ▲2二角成 follows."
+          },
+          "marks": {
+            "last": "3a",
+            "arrows": [
+              "3a2b"
             ],
             "boxes": [
-              "5c",
-              "3c"
+              "3a"
+            ]
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 3,
+          "moves": [
+            "4b4a",
+            "2d2b+",
+            "5b4b"
+          ],
+          "text": {
+            "ja": "後手には△４一飛と引き、じっくり受ける手があります。▲２二飛成に△４二金と固められると、先手の攻めは止まります。",
+            "en": "Gote has a good defence in the retreat △4一飛. After ▲2二飛成, a patient △4二金 leaves Sente with no way to continue."
+          },
+          "marks": {
+            "last": "4b",
+            "boxes": [
+              "4b"
+            ]
+          }
+        },
+        {
+          "from": 3,
+          "moves": [
+            "4b4a",
+            "B*6f"
+          ],
+          "text": {
+            "ja": "△４一飛と受けられたら、▲６六角と打って何とか攻めをつなぎます。ここからもまだ互角の戦いが続きます。桂を損しているので、攻めを切らさないことが大切です。",
+            "en": "If Gote answers with △4一飛, Sente keeps the attack alive with ▲6六角. The game is still even from here. Since Sente is a knight down, it is vital not to let the attack run dry."
+          },
+          "marks": {
+            "last": "6f",
+            "boxes": [
+              "6f"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "△６四歩を保留されたら",
+        "en": "When Gote holds back △6四歩"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "2g2f",
+            "4c4d",
+            "3i4h",
+            "8b4b",
+            "5i6h",
+            "2b3c",
+            "6h7h",
+            "3a3b",
+            "5g5f",
+            "5a6b",
+            "4i5h",
+            "6b7b",
+            "2f2e",
+            "7b8b",
+            "3g3f",
+            "7a7b",
+            "7i6h",
+            "4a5b",
+            "6h5g",
+            "9c9d",
+            "9g9f",
+            "3b4c",
+            "6i6h",
+            "5c5d",
+            "2i3g"
+          ],
+          "text": {
+            "ja": "同じ局面からの別の変化です。後手が△６四歩を突かず、別の手を指してきた場合を見ます。",
+            "en": "A different line from the same position: Gote does not play △6四歩 and makes another move."
+          },
+          "marks": {
+            "last": "3g"
+          }
+        },
+        {
+          "moves": [
+            "1c1d"
+          ],
+          "text": {
+            "ja": "後手は△１四歩と、△６四歩を保留して端の歩を突きました。",
+            "en": "Gote delays △6四歩 and pushes the edge pawn with △1四歩 instead."
+          },
+          "marks": {
+            "last": "1d",
+            "boxes": [
+              "1d"
             ]
           }
         },
@@ -63,291 +507,57 @@
             "3g4e"
           ],
           "text": {
-            "ja": "４五桂は角と銀を同時に狙う。桂を捨てたわけではなく、後手がどちらを守るかを問う手になった。４五を取れる別の駒が現れれば同じ計算は使えない。",
-            "en": "The knight on 4e attacks the bishop and silver at once. It has not been sacrificed in this board; it asks which target Gote will save. The calculation changes if another Gote piece can capture 4e."
+            "ja": "前の章と同じように▲４五桂と跳ねても、この形では攻めが成立しません。",
+            "en": "Jumping ▲4五桂 as before does not work in this version."
           },
           "marks": {
+            "last": "4e",
             "boxes": [
-              "4e",
-              "5c",
-              "3c"
-            ]
-          }
-        },
-        {
-          "moves": [
-            "5c6d",
-            "4e3c+"
-          ],
-          "text": {
-            "ja": "後手が角を６四へ逃がした一例では、先手桂が３三銀を取って成れる。先手は銀を持ち、桂は３三に残る。６四角は４六歩に筋を止められて２八飛へ直接は当たらないが、歩を取れば飛車に当たるので、先手は次に飛車の置き場所を考える。後手は角を逃がす義務がなく、この獲得は条件付きだ。",
-            "en": "If Gote saves the bishop by moving it to 6d, Sente's knight takes the silver on 3c and promotes. Sente gains a silver in hand and retains the promoted knight on 3c. The pawn on 4f blocks the bishop's line to the rook on 2h, but if the bishop takes that pawn it attacks the rook, so Sente must consider where the rook belongs next. Gote need not choose this bishop retreat, so the gain is conditional."
-          },
-          "marks": {
-            "last": "3c",
-            "boxes": [
-              "6d"
-            ]
-          }
-        }
-      ],
-      "variations": [
-        {
-          "from": 1,
-          "moves": [
-            "3c4d",
-            "4e5c+"
-          ],
-          "text": {
-            "ja": "後手が銀を４四へ逃がす例では、先手桂が５三角を取って成る。角を取れるか銀を取れるかは、後手がどちらを動かすかで変わる。",
-            "en": "If Gote saves the silver on 4d instead, Sente's knight takes the bishop on 5c and promotes. Which piece can be won depends on which one Gote moves."
-          }
-        }
-      ]
-    },
-    {
-      "title": {
-        "ja": "桂を取らせて歩を取り返す",
-        "en": "A pawn recapture after the knight is taken"
-      },
-      "side": "sente",
-      "kind": "position",
-      "start": "9/1k3r1b1/5s1p1/5p3/9/2P2P1P1/6N2/1BKG2R2/9 b - 1",
-      "steps": [
-        {
-          "text": {
-            "ja": "今度は後手歩が４四にいて、先手桂４五を取れる。先手歩は４六なので、後手歩が桂を取れば先手歩でその歩だけは取り返せる。先手飛車は３八に置き、４六歩が動いたあとに５五から２八へ通る角筋を避けている。桂一枚と歩一枚の交換で止まらないかを調べる。",
-            "en": "This time Gote has a pawn on 4d that can capture a knight on 4e. Sente's pawn on 4f can then recapture that pawn. Sente's rook sits on 3h, out of the diagonal from 5e to 2h that opens once the 4f pawn moves. Check whether the line offers anything beyond trading a knight for a pawn."
-          },
-          "marks": {
-            "arrows": [
-              "3g4e",
-              "4d4e",
-              "4f4e"
-            ],
-            "boxes": [
-              "4c",
-              "4b"
-            ]
-          }
-        },
-        {
-          "moves": [
-            "3g4e",
-            "4d4e",
-            "4f4e"
-          ],
-          "text": {
-            "ja": "後手が桂を歩で取り、先手が４六歩で同歩と取り返した例。先手の持ち駒は歩、後手の持ち駒は桂。４四と４六が空くので、８八と２二の角が向かい合い、角交換が可能になる。駒の収支だけでは、取り返したものは桂に見合わない。",
-            "en": "Gote takes the knight with its pawn and Sente recaptures from 4f. Sente holds a pawn; Gote holds a knight. With 4d and 4f vacated, the bishops on 8h and 2b face each other and can be exchanged. On material alone, what Sente has recovered does not pay for the knight."
-          },
-          "marks": {
-            "boxes": [
-              "4e",
-              "4c",
-              "4b"
-            ]
-          }
-        },
-        {
-          "moves": [
-            "4c4d",
-            "4e4d",
-            "4b4d"
-          ],
-          "text": {
-            "ja": "後手銀が４四へ出た場合に限り、先手歩は同歩と銀を取り、後手飛車がその歩を取る。この例では先手は銀と歩を得て桂と歩を失い、後手飛車は４四へ出る。銀を取れる展開を後手に強制したわけではない。",
-            "en": "Only if Gote advances its silver to 4d can Sente's pawn take that silver; Gote's rook then captures the pawn. In this sample Sente gains a silver and pawn while losing a knight and pawn, and Gote's rook becomes active on 4d. The silver advance was Gote's choice, not a forced concession."
-          },
-          "marks": {
-            "last": "4d",
-            "boxes": [
-              "4b",
-              "4c"
-            ]
-          }
-        },
-        {
-          "text": {
-            "ja": "駒の枚数だけでなく、４四飛が先手玉の方向へどう働くかも見る。後手が銀を動かさず守れば、桂を歩一枚で交換した結果が残る。",
-            "en": "Material is only part of the accounting: also check how the rook on 4d bears on Sente's king side. If Gote declines the silver advance, the knight-for-pawn investment remains to be justified."
-          }
-        }
-      ],
-      "variations": [
-        {
-          "from": 1,
-          "moves": [
-            "4c5d"
-          ],
-          "text": {
-            "ja": "後手銀が４三から５四へ移るのも合法。この例では先手歩４五が銀を取る筋はなく、桂損を銀取りで埋める説明はできない。",
-            "en": "Gote may instead move its silver from 4c to 5d. Then Sente's pawn on 4e has no immediate silver to capture, so the knight loss cannot be explained away by the previous sample line."
-          }
-        }
-      ]
-    },
-    {
-      "title": {
-        "ja": "歩が一段遠い時は投じない",
-        "en": "Decline the sacrifice when the pawn is too far back"
-      },
-      "side": "sente",
-      "kind": "position",
-      "start": "9/1k3r1b1/5s1p1/5p3/9/2P4P1/5PN2/1BKG3R1/9 b - 1",
-      "steps": [
-        {
-          "text": {
-            "ja": "先手歩は４七で、桂が４五で取られてもすぐには取り返せない。後手の銀４三も空いた４四へ進める。この配置で桂を跳ねる前に、歩を進める一手との差を考える。",
-            "en": "Sente's pawn is on 4g, one rank farther from the exchange. If the knight is captured on 4e, that pawn cannot recapture at once. Gote's silver on 4c can also move into the vacated 4d square. Compare the knight jump with spending a turn on the pawn first."
-          },
-          "marks": {
-            "arrows": [
-              "4g4f",
-              "3g4e"
-            ],
-            "boxes": [
-              "4d",
               "4e"
             ]
           }
         },
         {
           "moves": [
-            "3g4e",
             "4d4e",
+            "8h3c+",
+            "2a3c",
+            "2e2d",
+            "B*6d"
+          ],
+          "text": {
+            "ja": "△４五歩、▲３三角成、△同桂、▲２四歩に、△６四角と打つのが後手の切り返しです。この角打ちで先手が不利になります。仕掛ける前に必ず△６四歩が突かれているか確認し、突かれていなければ仕掛けません。",
+            "en": "After △4五歩, ▲3三角成, △同桂 and ▲2四歩, Gote counters with the bishop drop △6四角, and Sente is worse. Always check that △6四歩 has been played before attacking, and do not attack if it has not."
+          },
+          "marks": {
+            "last": "6d",
+            "boxes": [
+              "6d"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "整理すると、桂を▲３七から▲４五へ捨てて仕掛け、角交換から２筋の突破をめざす作戦です。ただし後手が△６四歩を後回しにしているときは仕掛けず、別の急戦に切り替えます。",
+            "en": "To summarize, the Ponpon Knight sacrifices the knight by jumping it from 3g to 4e and aims at a breakthrough on the second file after the bishop trade. But when Gote is holding back △6四歩, Sente does not attack and switches to a different rush."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": [
             "4g4f"
           ],
           "text": {
-            "ja": "桂を先に跳ねて取られ、ようやく４六歩を進めた。後手は桂を持ち、４五には後手歩が残る。先手はまだ歩一枚すら回収していない。",
-            "en": "Sente jumps first, Gote takes the knight, and only then can Sente advance its pawn to 4f. Gote holds the knight and still has a pawn on 4e. Sente has not recovered even a pawn yet."
+            "ja": "後手が△６四歩を後回しにしたら、ポンポン桂は見送って▲４六歩と突きます。狙いは別の急戦の４五歩早仕掛けで、角道を開けさせて角を替え、飛車先を破る流れです。",
+            "en": "When Gote holds back △6四歩, Sente passes on the Ponpon Knight and plays ▲4六歩 aiming for the early ▲4五歩 push, forcing open Gote's bishop line and heading for a bishop trade and a rook-file breakthrough."
           },
           "marks": {
+            "last": "4f",
             "boxes": [
-              "4e",
-              "4f",
-              "4c"
+              "4f"
             ]
-          }
-        },
-        {
-          "moves": [
-            "4c4d",
-            "4f4e",
-            "4d4e"
-          ],
-          "text": {
-            "ja": "後手銀が４四へ出る応手では、先手歩が４五歩を取っても後手銀が同銀と取れる。先手は桂と歩を失い、歩を一枚得ただけ。これは桂跳ねを見送る理由となる具体的な応手だ。",
-            "en": "If Gote's silver moves to 4d, it can recapture Sente's pawn after that pawn takes on 4e. Sente has lost a knight and pawn while gaining only a pawn. This concrete defender reply is a reason to withhold the jump in this position."
-          },
-          "marks": {
-            "last": "4e",
-            "boxes": [
-              "4d",
-              "4b"
-            ]
-          }
-        },
-        {
-          "text": {
-            "ja": "４七歩を４六へ進める選択でも、後手がその間に何を指すかを確認する必要がある。桂の勢いだけでは駒損を埋められない。",
-            "en": "Advancing the pawn from 4g to 4f first is an option, but Gote gets a reply in between. The knight's speed alone does not compensate for lost material."
-          }
-        }
-      ],
-      "variations": [
-        {
-          "from": 0,
-          "moves": [
-            "4g4f",
-            "2c2d"
-          ],
-          "text": {
-            "ja": "先手が先に４六歩を用意し、後手が２四歩とした一例。次に桂を跳ねるとしても、後手の４四歩と４三銀を数え直してから決める。",
-            "en": "Sente can prepare with 4f first; Gote's 2d pawn push is only a sample response. Before a later knight jump, Sente must still count the 4d pawn and 4c silver."
-          }
-        }
-      ]
-    },
-    {
-      "title": {
-        "ja": "角道を開いて２筋へつなぐ",
-        "en": "Open the diagonal and connect to file two"
-      },
-      "side": "sente",
-      "kind": "position",
-      "start": "7n1/5r2k/5sbp1/5p3/7P1/5P3/6N2/1BKG3R1/9 b - 1",
-      "steps": [
-        {
-          "text": {
-            "ja": "後手３三角は２四を守るが、４四歩が先手８八角との斜線を止める。４筋の接触でこの歩が動くと、角交換と２筋の歩交換がつながる。これは戦法全体の優劣を示す盤ではなく、利きの変化だけを調べる部分局面。",
-            "en": "Gote’s bishop on 3c guards 2d, while its pawn on 4d blocks the diagonal to Sente’s bishop on 8h. Moving that pawn connects a bishop exchange to file-two contact. This partial position isolates the geometry rather than establishing the strategy’s overall value."
-          }
-        },
-        {
-          "text": {
-            "ja": "桂を歩で取らせると４四が空き、８八角と３三角の間が通る。先手は４六歩で取り返す前に３三で角を交換し、後手桂が取り返す。双方が角を持ち、２四を守っていた角は盤上から消える。",
-            "en": "Sente lets the pawn take the knight, which vacates 4d and opens the line between the bishops on 8h and 3c. Before recapturing on 4e, Sente exchanges bishops on 3c, and Gote's knight recaptures. Both sides hold a bishop, and the bishop that guarded 2d is gone."
-          },
-          "moves": [
-            "3g4e",
-            "4d4e",
-            "8h3c+",
-            "2a3c"
-          ],
-          "marks": {
-            "arrows": [
-              "8h3c",
-              "2a3c"
-            ]
-          }
-        },
-        {
-          "text": {
-            "ja": "続けて４六歩で４五の歩を取り返す。先に取り返すと４六が空き、後手３三角が８八角成と先手角を取り、同玉に５五角を打たれて王手と２八飛取りが同時に掛かる。１一玉は後手の一例にすぎない。先手は桂を失って歩を得ており、桂３三の利きや持ち角の攻めは残る。",
-            "en": "Sente then recaptures the pawn on 4e. Recapturing first would lose the rook: Gote's bishop takes on 8h with promotion, and after the king recaptures, a bishop drop on 5e checks the king and attacks the rook on 2h. The king move to 1a is only a sample reply. Sente has traded a knight for a pawn, and the knight on 3c and the bishop drops still matter."
-          },
-          "moves": [
-            "4f4e",
-            "1b1a"
-          ]
-        },
-        {
-          "text": {
-            "ja": "２四歩から同歩・同飛は相手が応じた場合の一例。角による２四の取り返しはなく、飛車が２筋で働ける。ここだけで先手の得とは判断しない。",
-            "en": "P2d, a pawn capture and R2d illustrate an accepted file-two exchange. The former bishop can no longer recapture on 2d, allowing the rook to work there. This alone does not prove an advantage."
-          },
-          "moves": [
-            "2e2d",
-            "2c2d",
-            "2h2d"
-          ]
-        }
-      ],
-      "variations": [
-        {
-          "from": 0,
-          "moves": [
-            "2e2d",
-            "2c2d",
-            "2h2d",
-            "3c2d"
-          ],
-          "text": {
-            "ja": "角交換より先に飛車で２四歩を取ると、３三角が飛車を取る。角の利きを外す条件を省略しない。",
-            "en": "If the rook captures on 2d before the bishop exchange, the bishop on 3c takes it. Do not omit the condition that removes that defender."
-          }
-        },
-        {
-          "from": 2,
-          "moves": [
-            "2e2d",
-            "B*6d",
-            "2h2g"
-          ],
-          "text": {
-            "ja": "後手が歩を取らず６四角を打つ比較枝。５五・４六・３七を通って２八飛を狙うので、先手は飛車を２七へ逃がす。６四に駒がいればこの角は打てず、斜線の途中に駒があれば当たりも変わる。桂の投資を角交換だけで回収したとは数えない。",
-            "en": "A comparison declines the pawn and drops a bishop on 6d, attacking the rook on 2h through 5e, 4f and 3g. Sente retreats to 2g. Occupying 6d prevents this drop, and a blocker changes its line. The bishop exchange alone has not repaid the knight investment."
           }
         }
       ]

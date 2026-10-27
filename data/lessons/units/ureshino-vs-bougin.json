@@ -1,23 +1,26 @@
 {
   "id": "ureshino-vs-bougin",
   "order": 1400,
-  "path": ["戦法・定跡", "嬉野流"],
+  "path": [
+    "戦法・定跡",
+    "嬉野流"
+  ],
   "title": {
-    "ja": "嬉野流で棒銀を受ける：八筋の数え方",
-    "en": "Ureshino against Climbing Silver: count the eighth file"
+    "ja": "嬉野流対棒銀：銀を回り込んで受ける",
+    "en": "Ureshino-ryu vs Bou-gin: swing the silver round to defend"
   },
   "intro": {
-    "ja": "棒銀では後手の銀が８筋の歩と飛車を助けます。嬉野流の左銀を守りに使うときも、銀だけを追わず、８六の駒を次に取る飛車と角まで数える必要があります。この単元は６八銀から７七への短い受け、８六の銀と飛車の取り合い、７筋への歩打ちで銀を追う手を異なる盤面で練習します。",
-    "en": "A Climbing Silver combines the advancing silver with the eighth-file pawn and rook. An Ureshino silver can help defend, but each recapture on 8f changes who occupies the square next. These positions practice a short S6h–7g route, a silver trade backed by the rook, and a pawn drop on the seventh file that challenges the silver."
+    "ja": "嬉野流は飛車の側の８筋が薄いので、棒銀で攻められやすい戦法です。左の銀を大きく回り込ませ、相手の銀に合わせて▲６五銀と受ける形を、初手から順に覚えます。新嬉野流の場合の注意点も見ます。",
+    "en": "Ureshino-ryu is thin on the rook's side and invites Bou-gin. Learn from move one how to swing the left silver round and answer with ▲6五銀 in step with the opponent's silver. The extra care needed after Shin-Ureshino is covered as well."
   },
   "check": {
     "question": {
-      "ja": "第二章で８六の後手銀を７七銀で取った後、なぜそこで守りが終わったと判断できませんか？",
-      "en": "In chapter two, why does S7g×8f not finish the defense after taking Gote's silver?"
+      "ja": "嬉野流が棒銀を受けるとき、相手の銀が出てくるのに合わせて自分の銀も前に進めるのはなぜですか？",
+      "en": "Why does Ureshino-ryu advance its own silver in step with the opponent's silver when facing Bou-gin?"
     },
     "answer": {
-      "ja": "△同飛で８二飛が８六へ出て、先手の銀を取り返すからです。その後８筋をふさいでいるのは８八角だけで、▲７七角と動かすと△８九飛成が王手になります。▲８七歩打で飛車を追っても、△７六飛で歩を取られて７八金を狙われます。銀を取っただけでは受けは終わっていません。",
-      "en": "R8b recaptures on 8f and takes Sente's silver back. B8h is then the only piece blocking the eighth file, so B8h–7g would allow R8i+ with check. Even P*8g, which drives the rook away, lets R8f×7f take a pawn and aim at G7h. Taking the silver does not end the defense."
+      "ja": "相手の銀の進出に合わせて銀を並べておけば、棒銀はそれ以上攻める手がなくなるからです。受けの銀を５六、６六、６五と進めることが、嬉野流の棒銀対策の骨格です。",
+      "en": "If Sente's silver keeps pace with the opponent's, the Bou-gin runs out of continuations. Moving the defending silver through 5g, 6f and 6e is the backbone of the Ureshino-ryu defence."
     }
   },
   "references": [
@@ -30,107 +33,416 @@
   ],
   "chapters": [
     {
-      "title": { "ja": "７七銀で飛車の取り返しに利かせる", "en": "Use S7g to cover the rook's recapture square" },
+      "title": {
+        "ja": "棒銀には銀を大きく回って受ける",
+        "en": "Meet Bou-gin by swinging the silver round"
+      },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/1r5b1/9/5p3/1ps6/4P2P1/1P7/1BGS3R1/4KG3 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "後手は８二飛・８五歩に７五銀を添えています。先手の銀は６八、角は８八で、７七が空いています。８六で歩を交換するなら後手の飛車と７五銀のどちらが８六へ利くかを分けて見ます。",
-            "en": "Gote has R8b, P8e and an advanced S7e. Sente's silver is on 6h, with 7g empty. The rook and silver approach 8f in different ways; identify the occupant before choosing a recapture."
-          },
-          "marks": { "boxes": ["6h", "7g", "7e", "8e", "8f", "8b"] }
+            "ja": "嬉野流は飛車の側の８筋が薄いので、相手は棒銀で攻めてくることがよくあります。この講座では、先手の嬉野流が棒銀を受ける手順を見ます。左の銀を大きく回して使うのがコツです。初手から順に組みます。",
+            "en": "Ureshino-ryu is thin on the rook's side, so opponents often attack with Bou-gin. This lesson shows how Sente answers it. The key is to swing the left silver round and use it actively. Build it from move one."
+          }
         },
         {
-          "moves": ["6h7g", "8e8f", "8g8f"],
+          "moves": [
+            "7i6h",
+            "8c8d"
+          ],
           "text": {
-            "ja": "▲７七銀の後、△８六歩に▲同歩とした一例です。７七銀は８六へ利きますが、後手は銀で取る手も飛車で取る手も選べます。ここで飛車による取り返しを仮定します。",
-            "en": "After S6h–7g, this sample continues P8e–8f and P8g×8f. S7g protects 8f, but Gote can choose whether to recapture with silver or rook. The next line assumes the rook."
+            "ja": "初手▲６八銀。後手は飛車先を△８四歩と伸ばします。これが棒銀に向かう最初の合図です。",
+            "en": "Move one is ▲6八銀. Gote extends the rook pawn with △8四歩, the first sign of heading toward Bou-gin."
           },
-          "marks": { "arrows": ["6h7g"], "boxes": ["8f", "7e"] }
+          "marks": {
+            "last": "6h",
+            "boxes": [
+              "6h"
+            ]
+          }
         },
         {
-          "moves": ["8b8f", "7g8f", "7e8f"],
+          "moves": [
+            "8h7i",
+            "8d8e"
+          ],
           "text": {
-            "ja": "後手が△同飛なら▲同銀で飛車を取れます。続く△同銀は７五銀による先手銀の取り返しです。先手は飛車と８五歩を得る代わりに８七歩と７七銀を渡した形で、これだけで勝敗は決まりません。",
-            "en": "If Gote chooses R8b×8f, S7g×8f captures the rook; S7e×8f then recaptures Sente's silver. Sente has taken a rook and pawn while Gote has taken a pawn and silver. This optional sequence is a material comparison, not a forced verdict."
+            "ja": "▲７九角と角を引きます。後手は△８五歩と、さらに歩を伸ばします。",
+            "en": "▲7九角 pulls the bishop back, and Gote pushes the pawn further with △8五歩."
           },
-          "marks": { "arrows": ["7e8f"], "last": "8f" }
-        }
-      ]
-    },
-    {
-      "title": { "ja": "８六の銀を取る前に後ろの飛車を見る", "en": "Look behind the silver before capturing it" },
-      "side": "sente",
-      "kind": "position",
-      "start": "4k4/1r5b1/9/5p3/9/1sP1P2P1/2S6/1BG4R1/4KG3 b Pp 1",
-      "steps": [
-        {
-          "text": {
-            "ja": "先手は７七銀、後手は８六銀です。８筋の歩は交換済みで双方に歩が一枚あります。先手銀で後手銀を取れますが、８二飛から８六への縦の線は空いています。",
-            "en": "Sente has S7g facing Gote's S8f. Both sides hold a pawn from the earlier eighth-file exchange. Sente can take the silver, but the path from R8b to 8f is open."
-          },
-          "marks": { "boxes": ["7g", "8f", "8b"] }
+          "marks": {
+            "last": "7i",
+            "boxes": [
+              "7i"
+            ]
+          }
         },
         {
-          "moves": ["7g8f", "8b8f"],
+          "moves": [
+            "6i7h",
+            "7a7b"
+          ],
           "text": {
-            "ja": "▲同銀、△同飛で銀を交換し、後手の飛車が８六へ出ました。８筋で飛車の前をふさいでいるのは８八角だけです。角を動かすと、飛車は８九まで進んで成れます。",
-            "en": "S7g×8f and R8b×8f exchange the silvers, and the rook reaches 8f. Only B8h now blocks the eighth file. If the bishop moves, the rook can run to 8i and promote."
+            "ja": "▲７八金で金を寄せます。後手は△７二銀と銀を動かし、棒銀の構えを見せました。この一手が見えたら、それ以降の駒組みは棒銀に備えて進めます。",
+            "en": "▲7八金 brings the gold over. Gote answers with △7二銀, showing the Bou-gin. When this silver appears, build with Bou-gin in mind."
           },
-          "marks": { "arrows": ["8b8f"], "last": "8f", "boxes": ["8h", "8i"] }
+          "marks": {
+            "last": "7h",
+            "boxes": [
+              "7h"
+            ]
+          }
         },
         {
-          "moves": ["P*8g", "8f7f", "7h6g"],
+          "moves": [
+            "5g5f",
+            "7b8c"
+          ],
           "text": {
-            "ja": "▲７七角は飛車に利きますが、△８九飛成が王手になります。そこで▲８七歩打で８筋をふさいだまま飛車を追います。△７六飛は７六の歩を取り、７八金にも利くので、▲６七金と金を逃がします。歩を一枚損しましたが、８筋から王手で成り込まれる形は防ぎました。",
-            "en": "B8h–7g would attack the rook, but R8f–8i+ would then promote with check. P*8g instead drives the rook while keeping the eighth file closed. R8f×7f takes a pawn and also lines up on G7h, so G7h–6g moves the gold away. Sente is a pawn down, but has not allowed a promotion with check on the eighth file."
+            "ja": "先手は▲５六歩と突き、後手は△８三銀。後手の銀が一段ずつ前へ進んでいます。",
+            "en": "Sente plays ▲5六歩 and Gote △8三銀. Gote's silver is advancing one rank at a time."
           },
-          "marks": { "arrows": ["7h6g"], "last": "6g", "boxes": ["8g", "7f"] }
-        }
-      ]
-    },
-    {
-      "title": { "ja": "７筋の歩で銀を追い、逃げ道を残す", "en": "Challenge the silver with a seventh-file pawn" },
-      "side": "sente",
-      "kind": "position",
-      "start": "4k4/1r5b1/9/5p3/1ps6/4P2P1/1PS6/1BG4R1/4KG3 b P 1",
-      "steps": [
-        {
-          "text": {
-            "ja": "後手銀７五は８六へ進めます。先手銀７七は８六にも６六にも利きます。先手は歩を持駒に持ち、盤上の７筋に先手の歩がないため７六への歩打ちは合法です。銀を取れると断定せず、逃げる場所まで確認します。",
-            "en": "Gote's S7e can approach 8f. Sente's S7g covers 8f and 6f, and Sente has a pawn in hand with no pawn already on the seventh file. A drop on 7f is legal, but it does not prove the opposing silver is trapped."
-          },
-          "marks": { "boxes": ["7e", "7f", "7g", "8d"] }
+          "marks": {
+            "last": "5f",
+            "boxes": [
+              "5f"
+            ]
+          }
         },
         {
-          "moves": ["P*7f", "7e8d"],
+          "moves": [
+            "6h5g",
+            "8c8d"
+          ],
           "text": {
-            "ja": "▲７六歩打は７五銀を直接攻めます。後手は例として△８四銀と引けるので、銀の捕獲を主張できません。７六の歩は７五に利き、銀がすぐ７五へ戻るのを防ぎます。ここで▲７五歩と突くと△同銀で歩を取られるので、歩は７六に置いたままにします。",
-            "en": "P*7f attacks S7e. Gote can retreat S7e–8d in this sample, so the drop does not trap the silver. The pawn on 7f covers 7e and keeps the silver from returning at once. Pushing P7f–7e here would only lose the pawn to S8d×7e, so the pawn stays on 7f."
+            "ja": "▲５七銀と左の銀を中央へ移し、後手は△８四銀と進みます。相手の銀が四段目に着くのと同じ頃に、こちらの銀も前線へ動かす計画です。",
+            "en": "▲5七銀 brings the left silver to the centre, and Gote advances △8四銀. Sente times its own silver to match the opponent's arrival on the fourth rank."
           },
-          "marks": { "arrows": ["7e8d"], "last": "8d", "boxes": ["7e", "7f"] }
+          "marks": {
+            "last": "5g",
+            "boxes": [
+              "5g",
+              "8d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5g6f"
+          ],
+          "text": {
+            "ja": "▲６六銀。銀を大きく回り込ませて、後手の銀と同じ高さに並びました。左の銀を活用するのが、棒銀を受ける最大のポイントです。",
+            "en": "▲6六銀 swings the silver out to the same height as Gote's. Using the left silver actively is the main point of this defence."
+          },
+          "marks": {
+            "last": "6f",
+            "boxes": [
+              "6f",
+              "8d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8d9e",
+            "6f7e"
+          ],
+          "text": {
+            "ja": "後手が△９五銀と端へ進んでも、▲７五銀と並べて対抗します。これで棒銀は次の手がありません。相手の銀が進むたびにこちらも一段ずつ上げる、という受け方を身につけましょう。",
+            "en": "Even after △9五銀, Sente matches with ▲7五銀, and the Bou-gin has no follow-up. Remember the pattern: advance your own silver in step with the opponent's."
+          },
+          "marks": {
+            "last": "7e",
+            "boxes": [
+              "7e",
+              "9e"
+            ]
+          }
         }
       ],
       "variations": [
         {
-          "from": 1,
-          "moves": ["7f7e", "8d7e"],
+          "from": 7,
+          "moves": [
+            "7c7d",
+            "7i4f"
+          ],
           "text": {
-            "ja": "▲７五歩は悪手の例です。７五に利いている先手の駒がないので、△同銀で歩を取られ、銀も７五へ戻ります。",
-            "en": "P7f–7e is a mistake. No Sente piece covers 7e, so S8d×7e wins the pawn and puts the silver back on 7e."
+            "ja": "後手が△７四歩と銀に当ててきたら、▲４六角と出ます。角が飛車を狙う筋になり、後手の攻めは続きません。",
+            "en": "If Gote attacks the silver with △7四歩, Sente plays ▲4六角. The bishop now aims at the rook, and Gote's attack stalls."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "飛車先を切られたあとの受け方",
+        "en": "Defending after the rook pawn has been exchanged"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7i6h",
+            "3c3d",
+            "8h7i",
+            "8c8d",
+            "3i4h",
+            "8d8e",
+            "6i7h",
+            "8e8f",
+            "8g8f",
+            "8b8f",
+            "P*8h"
+          ],
+          "text": {
+            "ja": "別の流れです。後手が先に飛車先の歩を交換し、先手は▲８八歩と一段下に打って受けました。嬉野流の基本形から、棒銀に備える手順です。",
+            "en": "This time Gote has exchanged the rook pawn first, and Sente has answered with ▲8八歩 from one square below. This is the basic Ureshino shape, and from here Sente prepares for Bou-gin."
           },
-          "marks": { "arrows": ["8d7e"], "last": "7e" }
+          "marks": {
+            "last": "8h",
+            "boxes": [
+              "8h"
+            ]
+          }
         },
         {
-          "from": 0,
-          "moves": ["P*7f", "7e6f", "7g6f"],
+          "moves": [
+            "8f8b",
+            "2g2f",
+            "7a7b",
+            "2f2e",
+            "2b3c"
+          ],
           "text": {
-            "ja": "この盤面で△６六銀と踏み込む別の一例なら▲同銀で取れます。７七銀の利きが６六にあるためです。後手には△８四銀など別の合法な逃げ方があり、この分岐は７六歩打の利きだけを示します。",
-            "en": "If Gote instead tries S7e–6f here, S7g×6f captures it. S7g protects that square. Gote also has the retreat to 8d, so this branch illustrates the pawn drop's local effect without claiming a forced trap."
+            "ja": "後手は△８二飛と戻し、先手は▲２六歩から▲２五歩と伸ばします。後手は△７二銀、△３三角。この銀が棒銀の合図であることに変わりありません。",
+            "en": "Gote retreats with △8二飛 and Sente extends with ▲2六歩 and ▲2五歩. Gote plays △7二銀 and △3三角. That silver is the same Bou-gin signal as before."
           },
-          "marks": { "arrows": ["7g6f"], "last": "6f" }
+          "marks": {
+            "last": "3c",
+            "boxes": [
+              "7b",
+              "2e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5g5f",
+            "7b8c",
+            "6h5g",
+            "8c8d",
+            "5g6f"
+          ],
+          "text": {
+            "ja": "そのあと▲５六歩、▲５七銀左、▲６六銀と、先手は早めに左の銀を回り込ませます。後手は△８三銀から△８四銀。この形を作るために、５六の歩と５七への銀を早めに指しておく必要があります。",
+            "en": "Then Sente plays ▲5六歩, ▲5七銀左 and ▲6六銀, bringing the left silver round early. Gote follows with △8三銀 and △8四銀. To get this shape, Sente must play the pawn on 5f and the silver to 5g early."
+          },
+          "marks": {
+            "last": "6f",
+            "boxes": [
+              "6f",
+              "8d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8d8e",
+            "6f6e"
+          ],
+          "text": {
+            "ja": "後手が△８五銀と出れば、こちらは▲６五銀です。見慣れない形ですが、嬉野流が棒銀を止める定番の手です。相手の銀と足並みをそろえて、銀を一段高い位置に上げています。",
+            "en": "When Gote advances △8五銀, Sente plays ▲6五銀. It looks odd, but it is the standard way for Ureshino-ryu to meet Bou-gin. The silver is raised one rank to match Gote's."
+          },
+          "marks": {
+            "last": "6e",
+            "boxes": [
+              "6e",
+              "8e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8e8f",
+            "6e7f"
+          ],
+          "text": {
+            "ja": "後手が△８六銀と進んできたら、▲７六銀と引いて構えます。これで後手の棒銀は先へ進めません。嬉野流独特の受けの形として覚えておきましょう。",
+            "en": "If Gote pushes △8六銀, Sente retreats with ▲7六銀. Gote's Bou-gin then has nothing more. This is a defensive shape peculiar to Ureshino-ryu."
+          },
+          "marks": {
+            "last": "7f",
+            "boxes": [
+              "7f",
+              "8f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4a3b",
+            "9g9f"
+          ],
+          "text": {
+            "ja": "△３二金と寄ったら、▲９六歩。次の▲８七歩で銀を取りにいく狙いです。銀には逃げ場がなく、後手は受けられません。実戦でも銀が捕まる展開はよく出ます。",
+            "en": "After △3二金, Sente plays ▲9六歩. The next move, ▲8七歩, goes after the silver, which has no way to escape, and Gote cannot defend. Winning a trapped silver like this comes up in real games often."
+          },
+          "marks": {
+            "last": "9f",
+            "arrows": [
+              "8h8g"
+            ],
+            "boxes": [
+              "8f"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "新嬉野流からの受けは、一手の遅れに注意",
+        "en": "Defending from Shin-Ureshino: watch the one-move delay"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7i6h",
+            "3c3d",
+            "5g5f",
+            "8c8d",
+            "6h5g",
+            "8d8e",
+            "6i7h",
+            "8e8f",
+            "8g8f",
+            "8b8f",
+            "P*8g",
+            "8f8b"
+          ],
+          "text": {
+            "ja": "今度は新嬉野流の形です。５六の歩に銀でヒモを付けて、飛車先の交換は▲８七歩で受けています。嬉野流以外の駒組みにも変えられる形ですが、今回は棒銀を受けます。",
+            "en": "Now the Shin-Ureshino shape. The pawn on 5f is backed by the silver, and the rook-pawn exchange was met with a drop on 8g. It can turn into other set-ups, but here it faces Bou-gin."
+          },
+          "marks": {
+            "last": "8b",
+            "boxes": [
+              "5g",
+              "8g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "2g2f",
+            "7a7b",
+            "2f2e",
+            "2b3c",
+            "8h7i",
+            "7b8c",
+            "3i4h",
+            "8c8d",
+            "5g6f",
+            "8d8e",
+            "6f6e"
+          ],
+          "text": {
+            "ja": "先手は▲２六歩から銀の動きを進めて、▲６六銀、▲６五銀と、前と同じ受けの形を作ります。後手は△７二銀から△８五銀。８筋の歩が異なるだけで、ほかは同じ形です。",
+            "en": "Sente plays ▲2六歩 and moves the silver, reaching ▲6六銀 and ▲6五銀, the same defensive shape as before. Gote plays △7二銀 and △8五銀. Apart from the pawn on the eighth file, the position is the same."
+          },
+          "marks": {
+            "last": "6e",
+            "boxes": [
+              "6e",
+              "8e"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "P*8f"
+          ],
+          "text": {
+            "ja": "ここで△８六歩と打たれます。新嬉野流は飛車先を８七歩で受けているので、この８七の地点が争いの的になります。相手の攻めが一手早く始まるため、受けにくい展開です。",
+            "en": "Here △8六歩 is dropped. Because Shin-Ureshino answered the rook-pawn exchange with a pawn on 8g, that square becomes the target. Gote's attack arrives one move earlier, so the defence is harder."
+          },
+          "marks": {
+            "last": "8f",
+            "arrows": [
+              "8f8g"
+            ],
+            "boxes": [
+              "8g"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8g8f",
+            "8e8f",
+            "P*8h"
+          ],
+          "text": {
+            "ja": "▲８六歩と取り、△同銀に▲８八歩と受けます。かなり怖い形ですが、まだ受かっています。",
+            "en": "Sente takes with ▲8六歩, and after △同銀 defends with ▲8八歩. It is a frightening shape, but it still holds."
+          },
+          "marks": {
+            "last": "8h",
+            "boxes": [
+              "8h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "P*8g",
+            "6e7f"
+          ],
+          "text": {
+            "ja": "△８七歩と続けて打たれても、▲７六銀と引いて受かります。銀を動かして、８六の銀の動きを止めます。",
+            "en": "Even when △8七歩 follows, ▲7六銀 holds. The retreating silver restrains Gote's silver on 8f."
+          },
+          "marks": {
+            "last": "7f",
+            "boxes": [
+              "7f",
+              "8f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8g8h+",
+            "7h8h",
+            "P*8g",
+            "8h7h"
+          ],
+          "text": {
+            "ja": "後手の△８八歩成には▲同金、続く△８七歩には▲７八金。これで後手の攻めはようやく途切れました。形勢はまだ互角で、先手も攻撃の形を整えにいけます。綱渡りの受けなので、手順を覚えて臨みましょう。",
+            "en": "△8八歩成 is met by ▲同金, and △8七歩 by ▲7八金. Gote's attack has finally run out. The game is still level, and Sente can now work on an attack of its own. The defence is very risky, so learn the order."
+          },
+          "marks": {
+            "last": "7h",
+            "boxes": [
+              "7h",
+              "8g"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "まとめです。棒銀には左の銀を大きく回って受ける。相手の銀が五段目に出たら、こちらも五段目に出る。▲６五銀の受けの形を覚える。新嬉野流では８七の歩が争点になり、一手遅れた受けになるので注意しましょう。",
+            "en": "Summary. Meet Bou-gin by swinging the left silver round. When the opponent's silver reaches the fifth rank, bring yours to the same rank. Learn the ▲6五銀 defensive shape. In Shin-Ureshino the pawn on 8g becomes a target, which puts the defence a move behind, so take care."
+          }
         }
       ]
     }
