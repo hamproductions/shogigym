@@ -1,7 +1,10 @@
 {
   "id": "rules-setup",
   "order": 80,
-  "path": ["はじめての将棋", "ルール"],
+  "path": [
+    "はじめての将棋",
+    "ルール"
+  ],
   "title": {
     "ja": "駒の並べ方・先手後手の決め方・持ち時間・マナー",
     "en": "Setting up, choosing colours, clocks and etiquette"
@@ -69,7 +72,9 @@
           }
         },
         {
-          "moves": ["2g2f"],
+          "moves": [
+            "2g2f"
+          ],
           "text": {
             "ja": "先手が２六歩と指しました。対局時計を使うときは着手を終えたら自分のボタンを押し、後手の時計へ切り替えます。",
             "en": "Sente advances the pawn to 2f. With a physical game clock, press your button after completing the move to start Gote's clock."
@@ -79,7 +84,9 @@
           }
         },
         {
-          "moves": ["3c3d"],
+          "moves": [
+            "3c3d"
+          ],
           "text": {
             "ja": "後手も３四歩と指しました。持ち時間を使い切った時点で負ける方式、残りがなくなった後に一手ごとの秒読みへ移る方式、一手ごとに時間が加わる方式などがあります。",
             "en": "Gote advances the pawn to 3d. Common formats include losing as soon as the main reserve runs out, switching to a fixed period for each later move, or adding a small amount after each move."
@@ -111,7 +118,11 @@
             "en": "From Sente's side, the king is on 5i, with golds beside it, then silvers, knights and lances farther out. The rook is on the right at 2h, the bishop on the left at 8h, and the pawns fill rank 7. Gote uses the same arrangement from its own side."
           },
           "marks": {
-            "boxes": ["2h", "8h", "5i"]
+            "boxes": [
+              "2h",
+              "8h",
+              "5i"
+            ]
           }
         },
         {
@@ -139,8 +150,8 @@
       "steps": [
         {
           "text": {
-            "ja": "振り駒では、上座側の対局者の歩を五枚手に取り、混ぜてから盤や卓上へ振ります。歩の面が多ければ上座の対局者が先手、と金の面が多ければ下座の対局者が先手です。誰が手で振ったかとは分けて判定します。",
-            "en": "For furigoma, take five pawns from the senior-side player, mix and toss them onto the board or table. More pawn sides makes that player Sente; more tokin sides makes the other player Sente. The record keeper or guest tossing the pieces does not become a player."
+            "ja": "盤上の五枚は振り駒の結果を示す図で、対局中の配置ではありません。振り駒では、上座側の対局者の歩を五枚手に取り、混ぜてから盤や卓上へ振ります。歩の面が多ければ上座の対局者が先手、と金の面が多ければ下座の対局者が先手です。誰が手で振ったかとは分けて判定します。",
+            "en": "The five pieces on the board illustrate a toss, not a game position. For furigoma, take five pawns from the senior-side player, mix and toss them onto the board or table. More pawn sides makes that player Sente; more tokin sides makes the other player Sente. The record keeper or guest tossing the pieces does not become a player."
           }
         },
         {
@@ -149,7 +160,12 @@
             "en": "This toss shows four pawn sides and one tokin side. Count the pieces with the pawn side facing up; the majority determines who plays Sente."
           },
           "marks": {
-            "boxes": ["8e", "5e", "4e", "3e"],
+            "boxes": [
+              "8e",
+              "5e",
+              "4e",
+              "3e"
+            ],
             "last": "7e"
           }
         },

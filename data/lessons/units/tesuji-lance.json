@@ -1,23 +1,26 @@
 {
   "id": "tesuji-lance",
   "order": 200,
-  "path": ["上達のためのテクニック", "手筋"],
+  "path": [
+    "上達のためのテクニック",
+    "手筋"
+  ],
   "title": {
-    "ja": "香の進路と成った後を読む",
-    "en": "Read the Lance's File and Its Promotion"
+    "ja": "香の手筋：長い利きを攻めと受けに使う",
+    "en": "Lance techniques: use the long file in attack and defense"
   },
   "intro": {
-    "ja": "香は前方の同じ筋を、駒に当たるまで何マスでも進めます。横や後ろへは動けないので、進路上の駒と、その駒を守る別の駒を一緒に調べます。成香になると金と同じ一マスの動きへ変わります。持ち香を打つときは、最終段には打てないことも確認しましょう。",
-    "en": "A lance travels forward along its file until another piece stops it. It cannot move sideways or backward, so inspect both the piece in its path and any defender of that piece. After promotion it moves one square like a gold. A lance in hand also cannot be dropped on the last rank, where it would have no legal move."
+    "ja": "香は前へ何マスでも進めますが、横や後ろには動けません。香を打つ位置、手前の駒を動かした後の利き、飛車と重ねたときの取り返しを読みます。",
+    "en": "A lance moves any distance forward but cannot move sideways or backward. Calculate where to drop it, what it attacks after a piece moves, and the recapture when it is backed by a rook."
   },
   "check": {
     "question": {
-      "ja": "香で遠くの駒を取れるように見えるとき、進む前に何を確かめますか？",
-      "en": "When a lance appears able to capture a distant piece, what should you verify first?"
+      "ja": "香と飛車を同じ筋に重ねる前に、何を調べますか？",
+      "en": "What should you check before lining up a lance and rook?"
     },
     "answer": {
-      "ja": "途中に駒がないか、取った場所へ相手の駒が利いていないか、成った後に動ける方向がどう変わるかを確かめます。",
-      "en": "Check that its path is clear, that the destination is not defended, and how promotion would change its next move."
+      "ja": "間をふさぐ駒、相手の歩や駒の利き、交換の最後に残る駒を確かめます。",
+      "en": "Check blockers, opposing pawn drops and defenders, and the material left after the exchange."
     }
   },
   "references": [
@@ -26,172 +29,263 @@
       "url": "https://shogi-joutatsu.com/archives/1486",
       "license": "All rights reserved",
       "adapted": false
+    },
+    {
+      "title": "将棋の技図鑑 (yuki-keio/shogi)",
+      "url": "https://github.com/yuki-keio/shogi",
+      "license": "GPL-3.0-only",
+      "adapted": false
     }
   ],
   "chapters": [
     {
       "title": {
-        "ja": "成香の横移動まで数える",
-        "en": "Count the promoted lance's sideways move"
+        "ja": "底香：金の後ろから受ける",
+        "en": "Bottom lance: defend from behind the gold"
       },
       "side": "sente",
       "kind": "position",
-      "start": "k8/2bs5/9/9/2L6/9/9/9/8K b - 1",
+      "start": "lng3snl/1ks2r3/pp1gpp1pp/2pp2b2/9/2PP5/PPS1PPP1P/1KGBG2R1/1N4SNL b L2P 1",
       "steps": [
         {
           "text": {
-            "ja": "先手の香７五の前に後手の角７二、その隣に銀６二があります。７二の角まで香の道は空いています。角を取る際に成れば、次は横の６二へ動けるかを調べられます。",
-            "en": "Sente's lance on ７五 has a clear file to Gote's bishop on ７二, with a silver beside it on ６二. If the lance captures and promotes on ７二, check whether its new movement reaches the silver to the side."
-          }
-        },
-        {
-          "moves": ["7e7b+"],
-          "text": {
-            "ja": "▲７二香成で角を取りました。香のままなら６二へは行けませんが、成香は横へ一マス進めます。ここでは後手玉が９二へ移る応手を見ます。",
-            "en": "▲７二香成 captures the bishop. An unpromoted lance could not move to ６二; a promoted lance can step sideways. This line follows a reply in which Gote's king moves to ９二."
-          }
-        },
-        {
-          "moves": ["9a9b"],
-          "text": {
-            "ja": "△９二玉。６二の銀はそのままです。成香の次の着地点を確認します。",
-            "en": "△９二玉 leaves the silver on ６二. Check the promoted lance's next destination."
-          }
-        },
-        {
-          "moves": ["7b6b"],
-          "text": {
-            "ja": "▲６二成香で銀を取りました。この順は後手が玉を動かした場合の一例です。成る前後で同じ駒の利きが変わることを、続く一手まで読んで確かめます。",
-            "en": "▲６二成香 takes the silver. This is one line after Gote moves the king, not a forced sequence. Follow one move beyond promotion to see how the piece's reach changes."
-          }
-        }
-      ]
-    },
-    {
-      "title": {
-        "ja": "金の後ろから取り返す",
-        "en": "Recapture from behind the gold"
-      },
-      "side": "sente",
-      "kind": "position",
-      "start": "k8/9/9/9/6b2/9/9/3G5/8K b L 1",
-      "steps": [
-        {
-          "text": {
-            "ja": "後手の角３五は４六・５七を通って先手の金６八を狙っています。金から角を直接取ることはできません。持ち香を６九へ打てば、角が金を取ったときに香で取り返す道ができます。香は後ろへ戻れないため、金の後ろから前へ進む配置にします。",
-            "en": "Gote’s bishop on ３五 attacks the gold on ６八 through ４六 and ５七. The gold cannot capture the distant bishop directly. A lance dropped on ６九 prepares a recapture if the bishop takes the gold. Since a lance cannot retreat, place it behind the gold so its forward move reaches the capture square."
+            "ja": "後手の角３四が、４五・５六・６七を通って先手の金７八を狙っています。７筋には先手の歩７六があるため、７九への歩打ちは二歩です。",
+            "en": "Gote’s bishop on ３四 attacks Sente’s gold on ７八 through ４五, ５六 and ６七. Sente already has a pawn on ７六, so a pawn drop on ７九 would be nifu."
           },
           "marks": {
             "boxes": [
-              "3e",
-              "6h",
-              "6i"
-            ],
-            "arrows": [
-              "3e6h"
+              "3d",
+              "7h",
+              "7i",
+              "7f"
             ]
           }
         },
         {
+          "text": {
+            "ja": "▲７九香と金の後ろに打ちます。角が７八の金を取れば、香が前へ進んで取り返せます。",
+            "en": "▲７九香 drops the lance behind the gold. If the bishop captures on ７八, the lance can recapture forward."
+          },
           "moves": [
-            "L*6i"
+            "L*7i"
+          ]
+        },
+        {
+          "text": {
+            "ja": "△７八角成と取る失敗を見ます。馬が玉８八に隣接して王手です。",
+            "en": "Examine the mistake △７八角成. The horse gives check beside the king on ８八."
+          },
+          "moves": [
+            "3d7h+"
+          ]
+        },
+        {
+          "text": {
+            "ja": "▲同香で馬を取り返します。この局面では玉で馬を取る手も合法です。後手は角を取らず別の手を選べます。",
+            "en": "▲同香 recaptures the horse. Here the king can also capture it. Gote may instead choose a different reply."
+          },
+          "moves": [
+            "7i7h"
+          ]
+        },
+        {
+          "text": {
+            "ja": "底香を探すときは、香の前の駒、二歩の有無、香そのものへの攻撃まで確かめます。",
+            "en": "When considering a bottom lance, check its front square, nifu and attacks on the lance itself."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": [
+            "7h6g",
+            "3d6g+"
           ],
           "text": {
-            "ja": "▲６九香。金６八が香の前にあるため、今は金が道をふさいでいます。角がその金を取る場合を読みます。",
-            "en": "▲６九香 places the lance behind the gold on ６八. The gold blocks its path for now; calculate what happens if the bishop captures that gold."
+            "ja": "▲６七金と動くと、角の同じ斜めの筋に残り、△同角成で取られます。",
+            "en": "After ▲６七金 the gold remains on the same diagonal and △同角成 captures it."
           }
         },
         {
+          "from": 1,
           "moves": [
-            "3e6h+"
+            "4c4d"
           ],
           "text": {
-            "ja": "△６八角成で金を取られました。馬は香６九の一つ前にいます。この取りは後手が選んだ一例で、角を逃がすなど別の手も指せます。",
-            "en": "△６八角成 captures the gold and promotes. The horse now stands directly in front of the lance on ６九. This capture is Gote’s illustrative choice; the bishop can also retreat or choose another move."
+            "ja": "△４四歩と別の場所を進めることもできます。角で金を取る手順は強制されません。",
+            "en": "Gote can also play △４四歩 elsewhere; the bishop capture is not forced."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "田楽刺し：手前と奥を同じ筋で狙う",
+        "en": "Lance skewer: target front and rear pieces"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "lng3snl/1ks2r3/pp1gp2pp/2pp1bp2/9/2PP5/PPSGP1P1P/1KGB3R1/LN4SN1 b L2Pp 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "４筋に後手の角４四と飛車４二が並び、先手は持ち香があります。間の４三は空いています。香を下から打つと、手前の角が動いた後に飛車へ利きが届きます。",
+            "en": "Gote’s bishop on ４四 and rook on ４二 share a file, with ４三 empty. A lance dropped below them can reach the rook if the bishop moves."
           },
           "marks": {
-            "arrows": [
-              "3e6h+"
-            ],
             "boxes": [
-              "6i"
+              "4d",
+              "4b",
+              "4g"
             ]
           }
         },
         {
+          "text": {
+            "ja": "▲４七香。角を狙いながら、角の後ろの飛車も見ています。後手の銀３一は４二を守っている点にも注意します。",
+            "en": "▲４七香 attacks the bishop and looks through it toward the rook. Gote’s silver on ３一 also protects ４二."
+          },
           "moves": [
-            "6i6h"
+            "L*4g"
+          ]
+        },
+        {
+          "text": {
+            "ja": "△５五角と逃げる弱い応手を見ます。４筋から角が外れますが、途中で歩を取る手もあります。",
+            "en": "Examine the weaker reply △５五角, moving the bishop off the fourth file. Gote can instead capture a pawn on the way."
+          },
+          "moves": [
+            "4d5e"
+          ]
+        },
+        {
+          "text": {
+            "ja": "▲４二香成で飛車を取ります。成香は金と同じ動きになり、横にも一マス動けます。",
+            "en": "▲４二香成 captures the rook. The promoted lance moves like a gold, including one square sideways."
+          },
+          "moves": [
+            "4g4b+"
+          ]
+        },
+        {
+          "text": {
+            "ja": "△同銀で成香を取られます。先手は飛車を、後手は香を手にしました。長い利きだけでなく、取った地点の守りも数えます。",
+            "en": "△同銀 recaptures the promoted lance. Sente gains a rook and Gote gains a lance; count the defenders of the destination as well as the line."
+          },
+          "moves": [
+            "3a4b"
+          ]
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": [
+            "4d1g+",
+            "2i1g"
           ],
           "text": {
-            "ja": "▲同香で馬を取り返しました。後手の持駒に金、先手の持駒に角が入ります。香を打っただけで金が安全になるのではなく、角が金を取った後の収支を変える守りです。",
-            "en": "▲同香 recaptures the horse. Gote holds a gold and Sente gains a bishop. The lance drop does not guarantee the gold’s survival; it changes the exchange if the bishop takes it."
+            "ja": "△１七角成と歩を取りながら逃げる手には、▲同桂と馬を取れます。香の両狙いでも、相手の途中の攻めを見落とせません。",
+            "en": "Against △１七角成, which captures a pawn while moving away, ▲同桂 captures the horse. Even in a skewer, examine the opponent’s intervening threats."
+          }
+        },
+        {
+          "from": 1,
+          "moves": [
+            "4b4c",
+            "4g4d",
+            "4c4d"
+          ],
+          "text": {
+            "ja": "△４三飛と飛車で角を支えると、▲４四香には△同飛と取り返せます。",
+            "en": "After △４三飛 supports the bishop, ▲４四香 is met by △同飛."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "二段ロケット：香と飛車の交換を読む",
+        "en": "Stacked lance and rook: calculate the exchange"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "lng3snl/1ks2rg2/pp2ppbpp/2pp5/6p2/2PP5/PPSGPPP1P/1KGB3R1/LN4SN1 b LP 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手の飛車２八の前、２七に香を打てます。２筋に先手の歩はありません。後手の角３三は２四に利き、金３二は２三を守っています。",
+            "en": "Sente can drop a lance on ２七 in front of the rook on ２八; there is no Sente pawn on the second file. Gote’s bishop on ３三 controls ２四, and the gold on ３二 protects ２三."
           },
           "marks": {
-            "arrows": [
-              "6i6h"
+            "boxes": [
+              "2h",
+              "2g",
+              "2d",
+              "3c"
             ]
           }
+        },
+        {
+          "text": {
+            "ja": "▲２七香。香と飛車が同じ筋に並び、香が前へ動いた後も飛車の利きが残ります。",
+            "en": "▲２七香 places lance and rook on the same file, so the rook can follow after the lance moves."
+          },
+          "moves": [
+            "L*2g"
+          ]
+        },
+        {
+          "text": {
+            "ja": "△２四歩と進める弱い応手を見ます。銀を２二へ上がる別の受けもあります。",
+            "en": "Examine the weaker reply △２四歩. Gote can also defend by moving the silver to ２二."
+          },
+          "moves": [
+            "2c2d"
+          ]
+        },
+        {
+          "text": {
+            "ja": "▲同香で歩を取ると、３三の角から２四の香が見えます。",
+            "en": "▲同香 captures the pawn, placing the lance on a square reached by the bishop on ３三."
+          },
+          "moves": [
+            "2g2d"
+          ]
+        },
+        {
+          "text": {
+            "ja": "△同角と取る弱い応手には、後ろの飛車が働きます。",
+            "en": "Against the weaker capture △同角, the rook behind the lance can act."
+          },
+          "moves": [
+            "3c2d"
+          ]
+        },
+        {
+          "text": {
+            "ja": "▲同飛で角を取り返します。ただし後手は持ち香を得ており、２三に香を打って飛車を狙う手など、続きの受けを読む必要があります。",
+            "en": "▲同飛 recaptures the bishop. Gote has gained a lance and can, for example, drop it on ２三 to attack the rook; calculate the continuation."
+          },
+          "moves": [
+            "2h2d"
+          ]
         }
-      ]
-    },
-    {
-      "title": {
-        "ja": "歩を打てない筋を見つける",
-        "en": "Notice the file where a pawn cannot be dropped"
-      },
-      "side": "sente",
-      "kind": "position",
-      "start": "5p2k/9/5g3/9/9/9/5L3/9/8K w p 1",
-      "steps": [
+      ],
+      "variations": [
         {
+          "from": 1,
+          "moves": [
+            "3a2b",
+            "2g2c+",
+            "2b2c",
+            "2h2c+",
+            "3b2c"
+          ],
           "text": {
-            "ja": "香４七は金４三を縦に狙っています。後手は歩を持っていますが、同じ４筋に未成の歩４一があるため、４筋へ歩を打って香の道を止める手は二歩です。ここでは金が５四へ逃げる応手を見ます。",
-            "en": "Sente's lance on ４七 attacks Gote's gold on ４三. Gote holds a pawn, but an unpromoted Gote pawn already stands on ４一, so dropping another pawn on the fourth file to block the lance would be nifu. This line follows the gold escaping to ５四."
-          }
-        },
-        {
-          "moves": ["4c5d"],
-          "text": {
-            "ja": "△５四金で金は香の筋から外れました。４一の歩までの道が空いたので、香を前へ進めます。",
-            "en": "△５四金 moves the gold off the lance's file. The path to the pawn on ４一 is now clear."
-          }
-        },
-        {
-          "moves": ["4g4a+"],
-          "text": {
-            "ja": "▲４一香成で歩を取りました。相手が歩を持っているかだけでは受けを判断できません。盤上に同じ筋の歩があるかまで確認します。",
-            "en": "▲４一香成 captures the pawn. A pawn in hand does not always supply a legal interposition; also check whether the defender already has an unpromoted pawn on that file."
-          }
-        }
-      ]
-    },
-    {
-      "title": {
-        "ja": "取った後の斜めの利きを調べる",
-        "en": "Check the diagonal after the capture"
-      },
-      "side": "sente",
-      "kind": "position",
-      "start": "k8/9/5s3/4p4/9/4L4/9/9/8K b - 1",
-      "steps": [
-        {
-          "text": {
-            "ja": "香５六の前には後手の歩５四があり、後手の銀４三がその着地点５四を守っています。香は５四の歩まで一気に進めますが、取った後の香が無事かどうかは別です。",
-            "en": "Gote's pawn on ５四 lies ahead of Sente's lance on ５六, while Gote's silver on ４三 defends ５四. The lance can travel to the pawn in one move; whether it survives there is a separate question."
-          }
-        },
-        {
-          "moves": ["5f5d"],
-          "text": {
-            "ja": "▲５四香で歩を取りました。４三の銀が斜め前へ進むと５四の香を取れます。",
-            "en": "▲５四香 captures the pawn. The silver on ４三 can step diagonally forward and capture the lance on ５四."
-          }
-        },
-        {
-          "moves": ["4c5d"],
-          "text": {
-            "ja": "△５四銀で香を取られました。遠くへ進める香でも、取った先が守られていれば交換は不利になります。長い射程だけでなく着地点の利きを数えます。",
-            "en": "△５四銀 captures the lance. A long-range capture can still lose material when the destination is defended. Count the defender's reach as well as the lance's path."
+            "ja": "△２二銀と受けられた後に▲２三香成、△同銀、▲同飛成と進むと、△同金で飛車も取られます。重ねた駒だけでなく最後の受け駒まで数えます。",
+            "en": "After △２二銀, the sequence ▲２三香成, △同銀, ▲同飛成, △同金 loses the rook as well. Count the final defender, not just the stacked pieces."
           }
         }
       ]

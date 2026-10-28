@@ -10,8 +10,8 @@
     "en": "Edge attacks: count pawns and follow-up support"
   },
   "intro": {
-    "ja": "端は一筋か九筋だけですが、歩・香・桂・銀の取り方で続きが変わります。突き捨てで手持ちの歩を増やしたとは限りません。部分図で、残る持ち歩、端を取る駒、その後ろの攻め駒を一手ずつ確認します。応手は比較のための例で、突破や最善を保証する順ではありません。",
-    "en": "On the first and ninth files, pawn, lance, knight, and silver recaptures lead to different continuations. Sacrificing a pawn does not necessarily replenish your own hand. Use these partial positions to track the pawns remaining in hand, the piece taking on the edge, and the attacker behind it. Replies illustrate comparisons rather than guaranteeing a breakthrough or best play."
+    "ja": "端は一筋か九筋だけですが、歩・香・桂・銀の取り方で続きが変わります。突き捨てで手持ちの歩を増やしたとは限りません。両玉と持ち駒を含む局面で、残る持ち歩、端を取る駒、その後ろの攻め駒を一手ずつ確認します。応手は比較のための例で、突破や最善を保証する順ではありません。",
+    "en": "On the first and ninth files, pawn, lance, knight, and silver recaptures lead to different continuations. Sacrificing a pawn does not necessarily replenish your own hand. Use these positions to track the pawns remaining in hand, the piece taking on the edge, and the attacker behind it. Replies illustrate comparisons rather than guaranteeing a breakthrough or best play."
   },
   "check": {
     "question": {
@@ -39,7 +39,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "5k1nl/6gs1/8p/9/8P/9/9/4R4/1K6L b P 1",
+      "start": "lnsg1k1nl/1r1b2gs1/ppppppppp/9/8P/2B6/PP1PPPPP1/4R4/LKSG1GSNL b Pn 1",
       "steps": [
         {
           "text": {
@@ -113,7 +113,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "5k1nl/6gs1/8p/9/8P/9/9/4R4/1K6L b P 1",
+      "start": "lnsg1k1nl/1r1b2gs1/ppppppppp/9/8P/2B6/PP1PPPPP1/4R4/LKSG1GSNL b Pn 1",
       "steps": [
         {
           "text": {
@@ -197,7 +197,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "6k2/7g1/8l/9/7N1/5B3/9/9/K8 b - 1",
+      "start": "lnsg2kn1/1rsb3g1/ppppppppl/9/7N1/5B3/PPPPPPPPP/7R1/KNSG1GS1L b lp 1",
       "steps": [
         {
           "text": {
@@ -269,7 +269,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "2k6/1g7/s8/9/L8/9/9/9/8K b L 1",
+      "start": "lnk2gsnl/1g2r2b1/spppppppp/9/L8/9/1PPPPPPPP/1B5R1/1NSG1GSNK b L2p 1",
       "steps": [
         {
           "text": {
@@ -344,7 +344,7 @@
       },
       "side": "gote",
       "kind": "position",
-      "start": "5k1nl/6gs1/9/8p/9/9/8P/9/K7L w P 1",
+      "start": "lnsg1k1nl/1r1b2gs1/pppppppp1/8p/9/2B6/PP1PPPPPP/4R4/KNSG1GSNL w Pl 1",
       "steps": [
         {
           "text": {

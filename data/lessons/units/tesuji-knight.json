@@ -1,14 +1,17 @@
 {
   "id": "tesuji-knight",
   "order": 210,
-  "path": ["上達のためのテクニック", "手筋"],
+  "path": [
+    "上達のためのテクニック",
+    "手筋"
+  ],
   "title": {
-    "ja": "桂の着地点から次の一手を読む",
-    "en": "Read Beyond the Knight's Landing Square"
+    "ja": "桂の手筋：跳躍と連携を使う",
+    "en": "Knight techniques: jumps and coordination"
   },
   "intro": {
-    "ja": "桂は前へ二段、横へ一筋の二か所に跳び、途中の駒を越えます。真前や後ろには動けません。成桂になると金と同じ一マスの動きに変わり、跳ぶ力はなくなります。着地点を選ぶときは、取れる駒だけでなく、そこを守る駒と次の桂の利きを一緒に調べましょう。持ち桂は動けなくなる最終二段には打てません。",
-    "en": "A knight jumps two ranks forward and one file sideways, passing over pieces between. It cannot step straight ahead or retreat. After promotion it moves one square like a gold and no longer jumps. Before choosing a landing square, examine its defender and the knight's next targets, not only the piece it can take now. A knight in hand cannot be dropped on either of the last two ranks."
+    "ja": "桂は前へ二段、横へ一筋に跳び、途中の駒を越えます。桂頭への攻め、成りと不成、両取り、控えの桂、継ぎ桂、歩頭の桂とつるし桂を、相手の応手と一緒に学びます。",
+    "en": "A knight jumps two ranks forward and one file sideways, passing over intervening pieces. Study attacks on the knight’s head, promotion choices, forks, reserved and supporting knights, the knight before a pawn and the hanging knight alongside possible replies."
   },
   "check": {
     "question": {
@@ -31,127 +34,517 @@
   "chapters": [
     {
       "title": {
-        "ja": "味方の歩を越えて銀を取る",
-        "en": "Jump over your pawn to take a silver"
+        "ja": "跳ねる前に桂頭を読む",
+        "en": "Check the square in front of the knight"
       },
       "side": "sente",
       "kind": "position",
-      "start": "k8/9/9/9/4s4/3P5/3N5/9/8K b - 1",
+      "start": "lnsgkgsnl/1r5b1/p1pppp1pp/1p4p2/9/2P3P2/PP1PPP1PP/1B5R1/LNSGKGSNL b - 1",
       "steps": [
         {
           "text": {
-            "ja": "先手の桂６七と後手の銀５五の間には味方の歩６六がいます。歩が前をふさいでいても、桂はその上を越えて５五へ跳べます。桂の着地点を二か所とも盤上で探してください。",
-            "en": "Sente's pawn on ６六 stands between the knight on ６七 and Gote's silver on ５五. That pawn blocks a sliding piece, but a knight jumps over it. Locate both landing squares before choosing the silver capture."
+            "ja": "開始局面から▲７六歩、△３四歩、▲３六歩、△８四歩と進んだ局面です。先手の桂２九は、味方の歩２七を越えて３七に跳べます。跳ねた後、桂の前の３六も確認します。",
+            "en": "After ▲７六歩, △３四歩, ▲３六歩 and △８四歩 from the opening position, Sente’s knight on ２九 can jump over the pawn on ２七 to ３七. Also examine ３六, the square in front of its destination."
+          },
+          "marks": {
+            "boxes": [
+              "2i",
+              "2g",
+              "3g",
+              "3f"
+            ]
           }
         },
         {
-          "moves": ["6g5e"],
+          "moves": [
+            "2i3g"
+          ],
           "text": {
-            "ja": "▲５五桂で銀を取りました。６七からは５五と７五が桂の着地点です。６六の歩は移動の邪魔にならず、真前の６五へ桂は進めません。",
-            "en": "▲５五桂 takes the silver. From ６七 the knight could land on ５五 or ７五; the pawn on ６六 does not block either jump, and ６五 straight ahead is not a knight move."
+            "ja": "▲３七桂。桂は歩を飛び越えましたが、３六の歩は後手の歩３四から狙われています。",
+            "en": "▲３七桂 jumps over the pawn, but the pawn on ３六 is exposed to Gote’s pawn on ３四."
+          }
+        },
+        {
+          "moves": [
+            "3d3e"
+          ],
+          "text": {
+            "ja": "△３五歩。次に３六の歩を取れば、桂の前に後手の歩が来ます。",
+            "en": "△３五歩 prepares to capture on ３六 and place a pawn directly in front of the knight."
+          }
+        },
+        {
+          "moves": [
+            "9g9f"
+          ],
+          "text": {
+            "ja": "▲９六歩と別の場所を進める応手を例として見ます。桂頭への攻めを放置した弱い手です。",
+            "en": "The illustrative reply ▲９六歩 plays elsewhere and is weak because it ignores the threat against the knight."
+          }
+        },
+        {
+          "moves": [
+            "3e3f"
+          ],
+          "text": {
+            "ja": "△３六歩と歩を取ります。後手の歩は次に３七の桂を取れます。桂は真前へ進めず、目の前の歩を取れません。",
+            "en": "△３六歩 captures the pawn and threatens the knight on ３七. The knight cannot move straight forward to capture the pawn in front of it."
+          }
+        },
+        {
+          "moves": [
+            "3g2e"
+          ],
+          "text": {
+            "ja": "▲２五桂と跳ねて３七を離れます。２五でも相手の歩や駒の利きがあるため、着地点が安全か続けて確認します。",
+            "en": "▲２五桂 leaves ３七. The new square also needs checking for opposing pawns and defenders; moving away does not guarantee safety."
           }
         }
-      ]
+      ],
+      "variations": []
     },
     {
       "title": {
-        "ja": "次の跳躍を残して成らない",
+        "ja": "不成で次の跳躍を残す",
         "en": "Decline promotion to keep the next jump"
       },
       "side": "sente",
       "kind": "position",
-      "start": "k5r2/9/9/9/4N4/9/9/9/8K b - 1",
+      "start": "lnsg2rnl/1k1s1b2g/pppp2ppp/9/4N4/9/PPPPPPPPP/1B5R1/LNSGKGS1L b 2p 1",
       "steps": [
         {
           "text": {
-            "ja": "桂５五から４三へ跳ぶと、敵陣三段目なので成るか不成かを選べます。後手の飛車３一へ次に跳ぶ利きを残したいなら、４三では成らない手を考えます。飛車が逃げる応手もあるため、捕獲を確定とは数えません。",
-            "en": "A knight on ５五 can jump to ４三, where promotion is optional. Remaining unpromoted preserves a later jump to Gote's rook on ３一. The rook may move away, so this is a threat rather than a guaranteed capture."
+            "ja": "先手の桂５五は４三に跳べます。敵陣三段目では成るか選べますが、不成なら次に３一の飛車を狙えます。",
+            "en": "The knight on ５五 can jump to ４三. Promotion is optional there; declining it keeps a later jump to the rook on ３一."
+          },
+          "marks": {
+            "boxes": [
+              "5e",
+              "4c",
+              "3a"
+            ]
           }
         },
         {
-          "moves": ["5e4c"],
           "text": {
-            "ja": "▲４三桂不成。ここで成ると金の動きになり、３一の飛車へ跳べなくなります。後手が別の場所を動かした場合の続きも見ます。",
-            "en": "▲４三桂不成 keeps the knight's jump. Promoting here would change it to gold movement and remove the route to the rook on ３一. Follow a line where Gote moves elsewhere."
+            "ja": "▲４三桂不成。成桂は金の動きになり、３一へ跳べなくなります。",
+            "en": "▲４三桂不成 keeps the jump. A promoted knight moves like a gold and cannot jump to ３一."
+          },
+          "moves": [
+            "5e4c"
+          ]
+        },
+        {
+          "text": {
+            "ja": "△７二玉と飛車を放置する弱い応手を例にします。後手は飛車を逃がすなど別の手を選べます。",
+            "en": "The illustrative reply △７二玉 is weak because it leaves the rook in place. Gote can instead move the rook or choose another response."
+          },
+          "moves": [
+            "8b7b"
+          ]
+        },
+        {
+          "text": {
+            "ja": "▲３一桂成で飛車を取ります。最終段に到達する桂は必ず成ります。",
+            "en": "▲３一桂成 captures the rook. A knight must promote when it reaches the final rank."
+          },
+          "moves": [
+            "4c3a+"
+          ]
+        },
+        {
+          "text": {
+            "ja": "成りを選ぶ前に、不成で残る次の跳躍と、成った駒が守れるマスを比べます。",
+            "en": "Before promoting, compare the next jump retained by the knight with the squares a promoted knight would defend."
+          }
+        }
+      ],
+      "variations": []
+    },
+    {
+      "title": {
+        "ja": "離れた桂の王手と飛車への狙い",
+        "en": "Knight check and a threat to the rook"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "lnsg2snl/1k1r1b2g/pppp1pppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGS1L b Np 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "持ち桂を７四に打つと、後手玉８二に離れた場所から王手し、飛車６二も狙います。飛車は銀７一に守られています。",
+            "en": "A knight drop on ７四 checks the king on ８二 from a distance and also attacks the rook on ６二. The silver on ７一 defends the rook."
+          },
+          "marks": {
+            "boxes": [
+              "7d",
+              "8b",
+              "6b",
+              "7a"
+            ]
           }
         },
         {
-          "moves": ["9a9b"],
           "text": {
-            "ja": "△９二玉。この応手では飛車３一が残りました。桂は４三から３一へ跳べます。",
-            "en": "△９二玉 leaves the rook on ３一. The unpromoted knight can still jump from ４三 to that square."
+            "ja": "▲７四桂は王手です。桂は玉に隣接しないため、玉はその場から桂を取れません。",
+            "en": "▲７四桂 checks. The knight is not adjacent to the king, so the king cannot capture it from its current square."
+          },
+          "moves": [
+            "N*7d"
+          ]
+        },
+        {
+          "text": {
+            "ja": "△９二玉と逃げられます。王手でも逃げ道があるので詰みではありません。",
+            "en": "△９二玉 escapes. This is check, not mate: the king has a legal escape."
+          },
+          "moves": [
+            "8b9b"
+          ]
+        },
+        {
+          "text": {
+            "ja": "▲６二桂成と飛車を取っても、△同銀と成桂を取り返されます。飛車を取れることと、桂が残ることは別です。",
+            "en": "After ▲６二桂成 captures the rook, △同銀 recaptures the promoted knight. Capturing the rook does not mean the knight survives."
+          },
+          "moves": [
+            "7d6b+",
+            "7a6b"
+          ]
+        },
+        {
+          "text": {
+            "ja": "桂の王手では玉の逃げ先と、もう一つの着地点を守る駒を調べます。",
+            "en": "For a knight check, examine the king’s escapes and defenders of the knight’s other target."
+          }
+        }
+      ],
+      "variations": []
+    },
+    {
+      "title": {
+        "ja": "ふんどしの桂：二つの駒を同時に狙う",
+        "en": "Knight fork: attack two pieces at once"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "lnsg2snl/1k1r1b2g/pppp1pppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGS1L b Np 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "桂５四からは６二と４二へ跳べます。後手の飛車と角を同時に狙う打ち場所ですが、飛車６二は銀７一に守られています。",
+            "en": "From ５四, a knight attacks ６二 and ４二. The drop forks the rook and bishop, but the silver on ７一 protects the rook."
+          },
+          "marks": {
+            "boxes": [
+              "5d",
+              "6b",
+              "4b",
+              "7a"
+            ]
           }
         },
         {
-          "moves": ["4c3a+"],
           "text": {
-            "ja": "▲３一桂成で飛車を取りました。最終段への桂の移動では成りが必要です。４三で成らず、次の跳躍で成る順を区別します。",
-            "en": "▲３一桂成 captures the rook. A knight moving onto the last rank must promote. Distinguish declining promotion on ４三 from promoting on the later capture."
+            "ja": "▲５四桂。飛車と角の両方に利きが届きます。",
+            "en": "▲５四桂 attacks both rook and bishop."
+          },
+          "moves": [
+            "N*5d"
+          ]
+        },
+        {
+          "text": {
+            "ja": "△７二飛と飛車を逃がす例では、角４二が残ります。",
+            "en": "After the illustrative reply △７二飛 saves the rook, the bishop remains on ４二."
+          },
+          "moves": [
+            "6b7b"
+          ]
+        },
+        {
+          "text": {
+            "ja": "▲４二桂成で角を取ります。相手の応手次第で取れる駒は変わります。",
+            "en": "▲４二桂成 captures the bishop. Which target can be taken depends on Gote’s reply."
+          },
+          "moves": [
+            "5d4b+"
+          ]
+        },
+        {
+          "text": {
+            "ja": "両取りを見つけたら、それぞれの駒の逃げ道と、取ったマスの守りを数えます。",
+            "en": "After spotting a fork, check both targets’ escape squares and the defenders of each capture square."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": [
+            "4b5c",
+            "5d6b+",
+            "7a6b"
+          ],
+          "text": {
+            "ja": "△５三角と角を逃がすと、▲６二桂成には△同銀があります。飛車を取っても桂は残りません。",
+            "en": "After △５三角 saves the bishop, ▲６二桂成 is met by △同銀. The knight does not survive the rook capture."
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "玉から離れた場所で王手する",
-        "en": "Check from beyond the king's reach"
+        "ja": "控えの桂：次の跳躍を準備する",
+        "en": "A reserved knight: prepare the next jump"
       },
       "side": "sente",
       "kind": "position",
-      "start": "9/6k2/9/9/9/9/9/9/K8 b N 1",
+      "start": "lnsg2snl/1k1r1b2g/pppp1pppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGS1L b Np 1",
       "steps": [
         {
           "text": {
-            "ja": "後手玉３二に対し、桂を４四へ打てば二段先の３二へ利きが届きます。桂は玉の隣にいないため、玉がその場で桂を取ることはできません。ただし、逃げ道が残るなら詰みとは呼びません。",
-            "en": "Against the king on ３二, a knight dropped on ４四 attacks from two ranks away. The king cannot capture the knight from its current square because the knight is not adjacent. This is check, but it is not mate if the king can escape."
+            "ja": "持ち桂をすぐ両取りの地点に打つ代わりに、手前へ打ち、次の跳躍を狙うのが控えの桂です。ここでは６六から５四を目指します。",
+            "en": "A reserved knight is dropped farther back to prepare a later jump. Here the knight on ６六 aims for ５四."
+          },
+          "marks": {
+            "boxes": [
+              "6f",
+              "5d",
+              "6b",
+              "4b"
+            ]
           }
         },
         {
-          "moves": ["N*4d"],
+          "moves": [
+            "N*6f"
+          ],
           "text": {
-            "ja": "▲４四桂で王手です。桂が利くのは３二と５二の二か所。後手玉が隣の２二へ逃げられるか確かめます。",
-            "en": "▲４四桂 checks the king. The knight attacks ３二 and ５二; check whether the king can move to the neighboring square ２二."
+            "ja": "▲６六桂。次に５四へ跳べば、飛車６二と角４二を同時に狙います。",
+            "en": "▲６六桂 prepares a jump to ５四, where the knight would attack both the rook on ６二 and bishop on ４二."
           }
         },
         {
-          "moves": ["3b2b"],
+          "moves": [
+            "9c9d"
+          ],
           "text": {
-            "ja": "△２二玉と逃げられました。桂の離れた王手は有効でも、この配置では詰みではありません。王手の後は玉の合法な逃げ先まで確認します。",
-            "en": "△２二玉 escapes. The distant knight check worked, but it did not mate in this position. After giving check, inspect the king's legal destinations."
+            "ja": "△９四歩と別の場所を進める協力的な応手を例にします。実戦では後手も狙いに応じて指せます。",
+            "en": "The cooperative reply △９四歩 plays elsewhere. In a game Gote can respond to the threat."
+          }
+        },
+        {
+          "moves": [
+            "6f5d"
+          ],
+          "text": {
+            "ja": "▲５四桂で飛車と角の両取りです。それぞれの守りと逃げ道を確認します。",
+            "en": "▲５四桂 forks the rook and bishop. Check their defenders and escape squares."
+          }
+        },
+        {
+          "text": {
+            "ja": "控えの桂は、今の利きだけでなく、次に跳んだ地点で何を狙えるかを見て探します。",
+            "en": "To find a reserved knight, consider the targets from its next landing square as well as its immediate attacks."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": [
+            "6b7b"
+          ],
+          "text": {
+            "ja": "△７二飛と先に飛車を動かすと、５四に跳ねても飛車と角の両取りにはなりません。",
+            "en": "△７二飛 moves the rook first, so a later jump to ５四 no longer forks rook and bishop."
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "取れる歩の後ろにいる金を読む",
-        "en": "See the gold behind the capturable pawn"
+        "ja": "継ぎ桂：控えた桂の利きに重ねる",
+        "en": "Supporting knight: reinforce the landing square"
       },
       "side": "sente",
       "kind": "position",
-      "start": "k8/9/5g3/4p4/9/3N5/9/9/8K b - 1",
+      "start": "lnsg2snl/1k1r1b2g/ppppppppp/9/9/3N5/PPPPPPPPP/1B5R1/L1SGKGS1L b N 1",
       "steps": [
         {
           "text": {
-            "ja": "桂６六から５四の歩を取れます。しかし後手の金４三は５四へ利いています。歩一枚だけを見て跳ぶ前に、着地点を守る金の応手を読みます。",
-            "en": "The knight on ６六 can jump to take Gote's pawn on ５四. Gote's gold on ４三 also reaches ５四. Before jumping for one pawn, calculate the gold's reply on the landing square."
+            "ja": "桂６六は５四に利いています。持ち桂をその５四に打つと、後手が歩で取った後、控えた桂で同じ地点へ跳べます。",
+            "en": "The knight on ６六 controls ５四. Dropping the knight in hand on ５四 lets the waiting knight jump there if Gote captures it with the pawn."
+          },
+          "marks": {
+            "boxes": [
+              "6f",
+              "5d",
+              "5c",
+              "6b",
+              "4b"
+            ]
           }
         },
         {
-          "moves": ["6f5d"],
+          "moves": [
+            "N*5d"
+          ],
           "text": {
-            "ja": "▲５四桂で歩を取りました。後手の手番になり、４三の金の利きは５四に残っています。歩を取った桂をすぐに動かすことはできません。",
-            "en": "▲５四桂 captures the pawn. It is now Gote's turn, and the gold on ４三 still attacks ５四. Sente cannot move the knight away before Gote replies."
+            "ja": "▲５四桂打。飛車６二と角４二を狙い、後ろの桂が５四を支えています。",
+            "en": "▲５四桂打 attacks the rook on ６二 and bishop on ４二; the other knight supports ５四."
           }
         },
         {
-          "moves": ["4c5d"],
+          "moves": [
+            "5c5d"
+          ],
           "text": {
-            "ja": "△５四金で桂を取られました。桂は障害物を越えられますが、着地点で相手の利きから逃れる特別な動きはありません。",
-            "en": "△５四金 captures the knight. Jumping over intervening pieces does not protect the knight once it lands on a defended square."
+            "ja": "△同歩と桂を取る応手を見ます。後手は桂を持ち駒にしました。",
+            "en": "Examine △同歩 capturing the dropped knight. Gote gains a knight in hand."
+          }
+        },
+        {
+          "moves": [
+            "6f5d"
+          ],
+          "text": {
+            "ja": "▲同桂と歩を取り返すと、もう一枚の桂が５四に到着し、再び飛車と角を狙います。ただし後手に渡した桂と、各駒の守りも数える必要があります。",
+            "en": "▲同桂 recaptures the pawn. The second knight reaches ５四 and attacks rook and bishop again, but Gote has gained a knight and the targets have defenders."
+          }
+        },
+        {
+          "text": {
+            "ja": "継ぎ桂では、先に打つ地点への控えの桂の利きと、交換後の持ち駒を確認します。",
+            "en": "For a supporting knight, verify that the waiting knight controls the drop square and count the pieces in hand after the exchange."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": [
+            "6b7b"
+          ],
+          "text": {
+            "ja": "△７二飛と飛車を逃がす手もあります。歩で桂を取る手順は強制ではありません。",
+            "en": "Gote can also move the rook with △７二飛; capturing the knight with the pawn is not forced."
           }
         }
       ]
+    },
+    {
+      "title": {
+        "ja": "歩頭の桂：歩を動かして打ち場所を作る",
+        "en": "Knight before a pawn: open a drop square"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "lnsg2snl/3r1k1bg/ppppppppp/9/3N5/9/PPPPPPPPP/1B5R1/L1SGK1S1L b GN 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手の歩５三の前に桂を打ち、歩で取らせて５三を空ける筋を見ます。空いた地点に金を打てますが、ここでは詰みとは限りません。",
+            "en": "Dropping a knight in front of the pawn on ５三 can draw the pawn forward and open ５三 for a gold drop. In this position that does not necessarily produce mate."
+          },
+          "marks": {
+            "boxes": [
+              "5c",
+              "5d",
+              "6e",
+              "4b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "N*5d"
+          ],
+          "text": {
+            "ja": "▲５四桂。後手の歩５三はこの桂を取れます。",
+            "en": "▲５四桂 places the knight where the pawn on ５三 can capture it."
+          }
+        },
+        {
+          "moves": [
+            "5c5d"
+          ],
+          "text": {
+            "ja": "△同歩と取れば５三が空きます。取らずに対応する手もあります。",
+            "en": "△同歩 captures the knight and vacates ５三. Gote may instead respond without capturing."
+          }
+        },
+        {
+          "moves": [
+            "G*5c"
+          ],
+          "text": {
+            "ja": "▲５三金と打って玉４二に王手します。桂６五は５三を守るため、玉は金を直接取れません。",
+            "en": "▲５三金 checks the king on ４二. The knight on ６五 defends the gold, so the king cannot capture it directly."
+          }
+        },
+        {
+          "moves": [
+            "4b3b"
+          ],
+          "text": {
+            "ja": "△３二玉と逃げられます。これは詰みではなく、歩を動かして打ち場所を得る仕組みの例です。",
+            "en": "△３二玉 escapes. This is not mate; it illustrates opening a drop square by drawing the pawn forward."
+          }
+        },
+        {
+          "text": {
+            "ja": "歩頭に捨てる前に、空くマスへの打ち駒、守り、玉の逃げ先を確かめます。",
+            "en": "Before sacrificing in front of a pawn, check the piece available for the vacated square, its support and the king’s escapes."
+          }
+        }
+      ],
+      "variations": []
+    },
+    {
+      "title": {
+        "ja": "つるし桂：離れた位置から詰ます",
+        "en": "Hanging knight: mate from a distance"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "k1G6/2R6/9/9/9/9/9/9/8K b Nr2b3g4s3n4l18p 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "これは一手詰の作図です。表示した持ち駒を使い、残りの駒はすべて後手の持ち駒とします。玉９一の逃げ先を飛車７二と金７一が抑えています。",
+            "en": "This is a composed mate-in-one. Use the displayed hands; all remaining pieces are in Gote’s hand. The rook on ７二 and gold on ７一 cover the escapes of the king on ９一."
+          },
+          "marks": {
+            "boxes": [
+              "9a",
+              "8a",
+              "8b",
+              "9b",
+              "7a",
+              "7b",
+              "8c"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "N*8c"
+          ],
+          "text": {
+            "ja": "▲８三桂まで詰み。桂は離れた場所から９一へ王手します。９二と８二は飛車、８一は金が抑え、桂の王手には合駒もできません。",
+            "en": "▲８三桂 is mate. The knight checks ９一 from a distance. The rook covers ９二 and ８二, the gold covers ８一, and a knight check cannot be blocked."
+          }
+        },
+        {
+          "text": {
+            "ja": "つるし桂は、玉の逃げ道が塞がれたところへ、離れた桂で王手できないか探します。",
+            "en": "Look for a hanging knight when a distant knight check can reach a king whose escape squares are already covered."
+          }
+        }
+      ],
+      "variations": []
     }
   ]
 }

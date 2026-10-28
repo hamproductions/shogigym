@@ -1,14 +1,17 @@
 {
   "id": "attack-mino-kobin",
   "order": 380,
-  "path": ["上達のためのテクニック", "囲い崩し"],
+  "path": [
+    "上達のためのテクニック",
+    "囲い崩し"
+  ],
   "title": {
     "ja": "美濃のコビンは斜めの利きと逃げ道で読む",
     "en": "Read Mino's Diagonal with Pins and King Exits"
   },
   "intro": {
     "ja": "コビンは玉の斜め前のマスです。角がその線を見ていても、間の歩を取る駒と、取られた後の応手がなければ攻めは続きません。ここでは角で歩を釘付けにして香を使う方法、飛車の横利きで銀を動かしにくくする方法を別々に学びます。最後に美濃側が玉を斜め筋から外す受けを検討します。教材図の後手の応手は一例で、詰みを断定するものではありません。",
-    "en": "The kobin is a diagonal square beside the king. A bishop on that line still needs a way to remove the intervening pawn and a response to the defender's recapture. First use a bishop pin with a lance, then combine a bishop capture with a rook pin. Finally, examine a Mino defender stepping off the diagonal. Gote's replies in these local examples are choices, and none of the lines claims mate."
+    "en": "The kobin is a diagonal square beside the king. A bishop on that line still needs a way to remove the intervening pawn and a response to the defender's recapture. First use a bishop pin with a lance, then combine a bishop capture with a rook pin. Finally, examine a Mino defender stepping off the diagonal. Gote's replies in these examples are choices, and none of the lines claims mate."
   },
   "check": {
     "question": {
@@ -36,7 +39,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "4g4/5sk2/5p2p/9/9/2B6/9/9/K4R3 b L 1",
+      "start": "lns1g2nl/1r1g1skb1/ppppppppp/9/9/2B6/PPPPP1PPP/4G4/KNSG1RSN1 b Llp 1",
       "steps": [
         {
           "text": {
@@ -45,7 +48,13 @@
           }
         },
         {
-          "moves": ["L*4f", "1c1d", "4f4c+", "4b4c", "4i4c"],
+          "moves": [
+            "L*4f",
+            "1c1d",
+            "4f4c+",
+            "4b4c",
+            "4i4c"
+          ],
           "text": {
             "ja": "▲４六香と据え、後手が△１四歩で端に空間を作った例です。▲４三香成は歩を取りながら玉へ王手し、△同銀なら▲同飛で銀を取って４筋へ進入します。角７六は飛車４三を斜めに支え、金５一はこの飛車を一手で取れません。後手は端歩以外の受けも選べるため、この交換を強制手順とは扱いません。",
             "en": "Sente drops the lance on ４六, and this example has Gote play △１四歩 to make edge space. ▲４三香成 takes the pawn with check. If Gote chooses △同銀, ▲同飛 captures the silver and enters on the fourth file, supported by the bishop on ７六. The gold on ５一 cannot recapture that rook in one move. Gote has defenses other than the edge-pawn advance, so this exchange is conditional."
@@ -60,7 +69,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "5g3/2R3sk1/6p2/7G1/9/9/9/9/K8 b B 1",
+      "start": "lnsg1g1nl/r1R3sk1/ppppppppp/7G1/b8/9/PPPPPPP1P/9/KNSG2SNL b Blp 1",
       "steps": [
         {
           "text": {
@@ -69,7 +78,12 @@
           }
         },
         {
-          "moves": ["B*6f", "4a3a", "6f3c+", "2b1b"],
+          "moves": [
+            "B*6f",
+            "4a3a",
+            "6f3c+",
+            "2b1b"
+          ],
           "text": {
             "ja": "▲６六角の後、後手が△３一金で銀を支えた例では、▲３三角成で歩を取りながら王手します。銀３二が馬を取ろうと３三へ動けば、飛車７二から玉２二への横筋を開けるため取れません。玉２二も金２四が守る馬３三を取れません。△１二玉なら王手を外せます。馬は銀３二を狙いますが、金３一も銀を支えており、銀を取れるとは限りません。",
             "en": "After ▲６六角, this sample has Gote support the silver with △３一金. ▲３三角成 takes the pawn with check. The silver on ３二 cannot capture the horse on ３三 without exposing the king on ２二 to the rook on ７二. The king cannot take the horse either, because Sente's gold on ２四 protects ３三. △１二玉 evades the check. The horse attacks the silver, but the gold on ３一 supports it; winning the silver is not assured."
@@ -84,7 +98,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "k8/9/9/3b5/9/9/6P1P/6SK1/5G2L b - 1",
+      "start": "knsg1gsnl/1r1l5/ppppppppp/3b5/9/9/PPPPPPPPP/1B2R1SK1/LNSG1G2L b n 1",
       "steps": [
         {
           "text": {
@@ -93,13 +107,126 @@
           }
         },
         {
-          "moves": ["2h2i"],
+          "moves": [
+            "2h2i"
+          ],
           "text": {
             "ja": "▲２九玉で玉は角の斜め筋から外れ、銀３八が２九を斜め後ろに守ります。これで歩３七の玉に対する釘付けは解けますが、歩が去れば角筋は香１九まで延び得ます。玉を引く一手の間に相手がほかの攻めを進める可能性も含め、受けと手番の価値を比べます。",
             "en": "▲２九玉 leaves the bishop's diagonal; the silver on ３八 protects ２九 diagonally behind it. The pawn on ３七 is no longer pinned to the king, but moving it could extend the bishop's line toward the lance on １九. The king move also spends a turn, so compare this defense with Gote's other available threats."
           }
         }
       ]
+    },
+    {
+      "title": {
+        "ja": "角筋で歩を縛り桂で王手",
+        "en": "Pin the pawn with a bishop and check with a knight"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "lns1g2nl/1r1g1skb1/ppppppppp/9/9/2B6/PPPPP1PPP/4G4/KNSG1RS1L b Nlp 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "角７六の斜めの先には後手の歩４三、その後ろには玉３二がいます。持ち桂を４四に打つと、桂は玉へ王手します。",
+            "en": "On the bishop’s diagonal from ７六, Gote’s pawn on ４三 stands in front of the king on ３二. A knight drop on ４四 checks the king."
+          },
+          "marks": {
+            "boxes": [
+              "7f",
+              "4c",
+              "4d",
+              "3b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "N*4d"
+          ],
+          "text": {
+            "ja": "▲４四桂。後手が歩４三で桂を取ると、角７六から玉３二への斜めが開いて王手が残るため、その取りは不合法です。",
+            "en": "▲４四桂 checks. The pawn cannot capture it: leaving ４三 would open the bishop’s diagonal to the king."
+          }
+        },
+        {
+          "moves": [
+            "3b3a"
+          ],
+          "text": {
+            "ja": "△３一玉と逃げられます。この位置では桂と角を組み合わせても詰みではありません。",
+            "en": "△３一玉 escapes. In this position the bishop and knight combination is check, not mate."
+          }
+        },
+        {
+          "text": {
+            "ja": "コビンへの桂打ちは、歩の釘付けと玉の逃げ先を一緒に調べます。",
+            "en": "For a knight check on the diagonal side of the king, verify the pawn pin and the king’s escape squares."
+          }
+        }
+      ],
+      "variations": []
+    },
+    {
+      "title": {
+        "ja": "継ぎ桂でコビンに王手を重ねる",
+        "en": "Use a supporting knight for a second check"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "lns1g2nl/1r1g1skb1/ppppppppp/9/9/3BN4/PPPPP1PPP/4G4/K1SG1RS1L b Nlp 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手玉３二に対し、桂５六は４四に利いています。持ち桂を４四へ打ち、歩に取られた後も控えた桂で同じ地点へ跳べます。",
+            "en": "Against the king on ３二, Sente’s knight on ５六 controls ４四. A knight drop on ４四 can be followed by the waiting knight if the pawn captures it."
+          },
+          "marks": {
+            "boxes": [
+              "3b",
+              "4c",
+              "4d",
+              "5f",
+              "6f"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "N*4d"
+          ],
+          "text": {
+            "ja": "▲４四桂打は玉３二への王手です。角６六は５五を通して４四を支えますが、後手の歩４三も桂を取れます。",
+            "en": "▲４四桂打 checks the king. The bishop on ６六 supports ４四 through ５五, but Gote’s pawn on ４三 can capture the knight."
+          }
+        },
+        {
+          "moves": [
+            "4c4d",
+            "5f4d"
+          ],
+          "text": {
+            "ja": "△同歩、▲同桂と控えた桂で取り返し、再び玉３二へ王手します。後手には取る以外の応手もあります。",
+            "en": "After △同歩, ▲同桂 recaptures with the waiting knight and checks again. Gote can answer the first check in other ways."
+          }
+        },
+        {
+          "moves": [
+            "3b3a"
+          ],
+          "text": {
+            "ja": "△３一玉と逃げられます。この例では二度の王手が詰みを意味するわけではありません。",
+            "en": "△３一玉 escapes. Two checks in succession do not by themselves establish mate."
+          }
+        },
+        {
+          "text": {
+            "ja": "継ぎ桂では後ろの桂が打った地点を守るか、王手への全応手と玉の逃げ道を確かめます。",
+            "en": "For a supporting knight, verify that the waiting knight reaches the drop square and examine all replies and escapes."
+          }
+        }
+      ],
+      "variations": []
     }
   ]
 }

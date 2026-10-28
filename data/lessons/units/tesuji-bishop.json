@@ -6,12 +6,12 @@
     "手筋"
   ],
   "title": {
-    "ja": "角筋の先と手前を読む",
-    "en": "Read Both Ends of a Bishop's Line"
+    "ja": "角の手筋：斜めの線と持ち角を使う",
+    "en": "Bishop techniques: diagonals and drops"
   },
   "intro": {
-    "ja": "角は遮る駒がない斜めの線を進みます。打つ場所や途中の歩一枚で、守る場所と狙う駒が変わります。敵陣で成った馬は角の長い斜めの利きに加え、前後左右へ一マス動けます。四つの局面で、王手を遮る角打ちと玉を動かす手を比べること、線を開けた後の応手を読むこと、成った直後に増える一歩を使うこと、角筋で玉に縛られた歩が取れないことを利用することを練習します。",
-    "en": "A bishop travels along clear diagonals. One drop square or one pawn on its route changes both its defensive reach and its targets. After promotion, a horse keeps the long diagonals and gains one-square orthogonal moves. These four positions practice comparing a check-blocking bishop drop with a king move, reading the replies after opening a line, using the horse's new step, and exploiting a pawn that cannot capture because the bishop pins it to its king."
+    "ja": "角は遮る駒のない斜めの線を進みます。攻防の角、線を開く歩、馬の動き、角と桂の連携、筋違い角を相手の応手と一緒に学びます。",
+    "en": "A bishop travels along clear diagonals. Study a bishop used in attack and defense, opening a line with a pawn, the horse’s movement, bishop-and-knight coordination and an off-diagonal drop alongside possible replies."
   },
   "check": {
     "question": {
@@ -34,17 +34,26 @@
   "chapters": [
     {
       "title": {
-        "ja": "王手を遮る角打ちと玉の移動を比べる",
-        "en": "Compare a blocking bishop drop with a king move"
+        "ja": "角で受けながら飛車を狙う",
+        "en": "Block a check while targeting a rook"
       },
       "side": "sente",
       "kind": "position",
-      "start": "k8/9/9/5r3/b8/9/9/1S7/4K4 b B 1",
+      "start": "lnsgkgsnl/9/ppppppppp/5r3/b8/9/PP1PPPPPP/1S5R1/LN1GKGSNL b Bp 1",
       "steps": [
         {
           "text": {
-            "ja": "後手の角９五は８六、７七、６八を通って玉５九を王手しています。持ち角を７七へ打てば王手を遮り、６六、５五の先の飛車４四にも利きます。銀８八が７七を守っていますが、７七の角は８六を通して角９五とも向かい合います。",
-            "en": "Gote's bishop on ９五 checks the king on ５九 along ８六, ７七, and ６八. Dropping Sente's bishop on ７七 blocks the check and points through ６六 and ５五 at the rook on ４四. The silver on ８八 protects ７七, but a bishop there also faces the bishop on ９五 across ８六."
+            "ja": "後手の角９五が玉５九を王手しています。持ち角を７七へ打つと角筋を遮り、飛車４四にも利きます。ただし７七の角は後手の角にも狙われます。",
+            "en": "Gote’s bishop on ９五 checks the king on ５九. A bishop drop on ７七 blocks the check and attacks the rook on ４四, but Gote’s bishop also attacks the drop square."
+          },
+          "marks": {
+            "boxes": [
+              "9e",
+              "7g",
+              "4d",
+              "8h",
+              "5i"
+            ]
           }
         },
         {
@@ -52,8 +61,8 @@
             "B*7g"
           ],
           "text": {
-            "ja": "▲７七角は比べるための手です。王手を遮り、飛車４四と角９五の両方に利いています。ただし７七の角は玉５九の前でピンされ、動けるのは９五と５九を結ぶ斜めの上だけなので、飛車はすぐには取れません。角９五を取られる前に、後手は７七の角と交換できます。",
-            "en": "▲７七角 is the comparison move. It blocks the check and bears on both the rook on ４四 and the bishop on ９五. But the bishop on ７七 is pinned in front of the king on ５九 and may only move along the line between ９五 and ５九, so it cannot take the rook next move. Before its bishop on ９五 is taken, Gote can trade it for the bishop on ７七."
+            "ja": "▲７七角で王手を防ぎます。飛車４四への利きはありますが、角９五から玉５九への線を遮っているため、この角は線を離れられません。",
+            "en": "▲７七角 blocks the check and targets the rook. The bishop is pinned on the line between Gote’s bishop and the king, so it cannot capture the rook immediately."
           }
         },
         {
@@ -61,8 +70,8 @@
             "9e7g"
           ],
           "text": {
-            "ja": "△同角不成で先手の角を取られました（△同角成も指せます）。後手の角が７七から玉５九へ利くため、王手を解く必要があります。銀で取り返す以外に、玉を５八か６九へ動かして王手をかわすこともできます。ここでは銀で取り返します。",
-            "en": "△同角不成 captures Sente's bishop (△同角成 is also possible). From ７七 the Gote bishop still points at the king on ５九, so Sente must end the check. Besides recapturing with the silver, the king can step to ５八 or ６九. Here Sente recaptures with the silver."
+            "ja": "△同角不成と先手の角を取る応手を見ます。△同角成も合法です。",
+            "en": "Examine △同角不成, capturing Sente’s bishop. △同角成 is also legal."
           }
         },
         {
@@ -70,8 +79,14 @@
             "8h7g"
           ],
           "text": {
-            "ja": "▲同銀で角を取り返し、王手を解きました。角を交換しただけで飛車は取れず、後手の飛車は働いたままです。この局面では、角を持ったまま▲５八玉と王手をかわす方が評価値ではるかに優ります。遮る駒を攻めにも使えるかは、相手がその駒を取れるか、遮った駒が動けるかまで確かめます。",
-            "en": "▲同銀 recaptures the bishop and ends the check. The bishops have only been traded: the rook was not won, and Gote's rook stays active. In this position, keeping the bishop in hand and sidestepping with ▲５八玉 is far better by the engine's evaluation. Before counting on an interposed piece to attack as well, check whether the opponent can capture it and whether it is free to move."
+            "ja": "▲同銀で取り返して王手を解きます。角を交換しただけで、飛車４四は残っています。",
+            "en": "▲同銀 recaptures and ends the check. The bishops are exchanged and the rook remains on ４四."
+          }
+        },
+        {
+          "text": {
+            "ja": "攻防に使う角が相手に取られないか、また玉への線に縛られていないかを確かめます。",
+            "en": "Check whether an attacking and defending bishop can be captured or is pinned to its king."
           }
         }
       ],
@@ -82,25 +97,34 @@
             "5i5h"
           ],
           "text": {
-            "ja": "▲５八玉は玉を角筋から外して王手を解き、持ち角を残します。評価値では先手がやや苦しいものの、角を交換する順よりはるかに損の少ない手です。",
-            "en": "▲５八玉 steps off the bishop's line, ending the check while keeping the bishop in hand. The engine still rates Sente somewhat worse, but this loses far less than the line that trades bishops."
+            "ja": "▲５八玉と角筋から玉を動かし、持ち角を残す手もあります。",
+            "en": "▲５八玉 also leaves the diagonal while keeping the bishop in hand."
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "歩が空ける斜めの道",
-        "en": "Clear a diagonal with a pawn"
+        "ja": "歩を進めて角筋を開く",
+        "en": "Open a bishop diagonal with a pawn"
       },
       "side": "sente",
       "kind": "position",
-      "start": "k8/9/2r6/9/9/5P3/9/7B1/8K b - 1",
+      "start": "knsg1gsnl/7bl/pprpppppp/9/9/5P3/PPPPP2PP/3R3B1/LNSGKGSNL b 2p 1",
       "steps": [
         {
           "text": {
-            "ja": "角２八から飛車７三へは３七、４六、５五、６四を通る斜めの線があります。今は先手の歩４六がその途中を塞いでいます。歩を４五へ進めれば４六が空きます。",
-            "en": "The diagonal from Sente's bishop on ２八 to Gote's rook on ７三 runs through ３七, ４六, ５五, and ６四. Sente's pawn on ４六 currently blocks it. Advancing that pawn to ４五 empties ４六."
+            "ja": "角２八から飛車７三へ向かう線を、先手の歩４六が塞いでいます。飛車の奥には後手玉９一がいます。",
+            "en": "Sente’s pawn on ４六 blocks the bishop on ２八 from the rook on ７三. Gote’s king on ９一 stands beyond the rook."
+          },
+          "marks": {
+            "boxes": [
+              "2h",
+              "4f",
+              "7c",
+              "9a",
+              "8a"
+            ]
           }
         },
         {
@@ -108,8 +132,8 @@
             "4f4e"
           ],
           "text": {
-            "ja": "▲４五歩で角筋が飛車７三を通り、奥の玉９一まで届きました。飛車は玉の前でピンされて動けず、後手は持ち駒がないので間に駒を打つこともできません。後手の応手は玉を動かす３通りだけです。",
-            "en": "▲４五歩 opens the bishop's line through the rook on ７三 to the king on ９一. The rook is pinned in front of the king and cannot move, and Gote has no pieces in hand to drop in between. Gote's only replies are three king moves."
+            "ja": "▲４五歩で角筋を開くと、飛車７三は玉９一の前で縛られます。飛車が線を離れると玉に王手がかかります。",
+            "en": "▲４五歩 opens the diagonal, pinning the rook on ７三 in front of the king on ９一. Moving the rook off the line would expose the king to check."
           }
         },
         {
@@ -117,17 +141,24 @@
             "9a9b"
           ],
           "text": {
-            "ja": "△９二玉。飛車は７三に残り、角と飛車の間に駒はありません。",
-            "en": "△９二玉 leaves the rook on ７三, with no piece between it and the bishop."
+            "ja": "△９二玉と動く応手を見ます。玉は７三から離れますが、桂８一は７三を守っています。",
+            "en": "Examine △９二玉. The king moves away from ７三, but the knight on ８一 still protects it."
           }
         },
         {
           "moves": [
-            "2h7c+"
+            "2h7c+",
+            "8a7c"
           ],
           "text": {
-            "ja": "▲７三角成で飛車をただで取り、馬になりました。玉９二は７三に利いていないので取り返せません。玉が７三を守る△８二玉の応手は変化で確かめます。",
-            "en": "▲７三角成 wins the rook for free and promotes to a horse. The king on ９二 does not reach ７三, so it cannot recapture. The reply △８二玉, which guards ７三, is shown in the variation."
+            "ja": "▲７三角成と飛車を取ると、△同桂で馬を取り返されます。角筋が通っただけで、ただで取れるとは限りません。",
+            "en": "After ▲７三角成 captures the rook, △同桂 recaptures the horse. An open diagonal does not guarantee a free capture."
+          }
+        },
+        {
+          "text": {
+            "ja": "線を開いた後は相手に一手あり、狙う駒とその着地点の守りを確認します。",
+            "en": "After opening a line, the opponent gets a move; check the target and the defenders of its square."
           }
         }
       ],
@@ -135,28 +166,38 @@
         {
           "from": 1,
           "moves": [
-            "9a8b"
+            "9a8b",
+            "2h7c+",
+            "8b7c"
           ],
           "text": {
-            "ja": "△８二玉なら玉が７三を守ります。すぐ▲７三角成は△同玉で角と飛車の交換になり、評価値ではほぼ互角になります。ただし飛車は玉８二の前でまだピンされていて動けないので、急いで取る必要はありません。",
-            "en": "After △８二玉 the king guards ７三. Taking at once with ▲７三角成 allows △同玉, a bishop-for-rook trade after which the engine rates the game roughly even. The rook is still pinned in front of the king on ８二 and cannot move, however, so there is no need to hurry the capture."
+            "ja": "△８二玉なら７三を玉で守り、▲７三角成には△同玉と取れます。",
+            "en": "△８二玉 protects ７三 with the king; ▲７三角成 can then be answered by △同玉."
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "成った後の横一マス",
-        "en": "Use the horse's one sideways step"
+        "ja": "馬が増やす横の一歩",
+        "en": "The horse gains a sideways step"
       },
       "side": "sente",
       "kind": "position",
-      "start": "k8/3np4/9/6B2/9/9/9/9/8K b - 1",
+      "start": "knsg1gs1l/3npr1bl/pppp2ppp/6B2/9/9/PPPPPPPPP/3R5/LNSGKGSNL b p 1",
       "steps": [
         {
           "text": {
-            "ja": "角３四から歩５二を取る道には４三を通ります。５二で成れば馬になり、角にはない横一マスの移動が加わります。桂６二はその横一マスにいます。",
-            "en": "The bishop on ３四 can reach the pawn on ５二 through ４三. Promotion on ５二 creates a horse with a one-square sideways step that a bishop lacks. Gote's knight on ６二 stands beside the destination."
+            "ja": "角３四は歩５二を取って成れます。馬５二なら横の桂６二に動けますが、後手の飛車４二は５二と６二の両方を守っています。",
+            "en": "The bishop on ３四 can capture the pawn on ５二 and promote. The resulting horse can step sideways to the knight on ６二, but Gote’s rook on ４二 defends both ５二 and ６二."
+          },
+          "marks": {
+            "boxes": [
+              "3d",
+              "5b",
+              "6b",
+              "4b"
+            ]
           }
         },
         {
@@ -164,8 +205,8 @@
             "3d5b+"
           ],
           "text": {
-            "ja": "▲５二角成で歩を取りました。馬５二は桂６二へ横に動けますが、後手には桂を逃がす一手があります。",
-            "en": "▲５二角成 captures the pawn. The horse on ５二 can move sideways to the knight on ６二, but Gote gets a turn to move the knight."
+            "ja": "▲５二角成で歩を取ります。馬は角の斜めの利きに、上下左右一マスが加わります。",
+            "en": "▲５二角成 captures the pawn. The horse retains bishop diagonals and gains one-square orthogonal moves."
           }
         },
         {
@@ -173,39 +214,60 @@
             "9a9b"
           ],
           "text": {
-            "ja": "△９二玉で桂６二が残りました。馬と桂は同じ段で隣り合っています。",
-            "en": "△９二玉 leaves the knight on ６二, adjacent to the horse on the same rank."
+            "ja": "△９二玉と馬を取らずに動く弱い応手を例にします。飛車で馬を取る手もあります。",
+            "en": "The weaker reply △９二玉 leaves the horse in place; the rook can capture it instead."
           }
         },
         {
           "moves": [
-            "5b6b"
+            "5b6b",
+            "4b6b"
           ],
           "text": {
-            "ja": "▲６二馬で桂を取りました。角のままなら５二から６二へ横に進めません。桂を動かす応手には別の計算が必要です。",
-            "en": "▲６二馬 captures the knight. An unpromoted bishop on ５二 could not make that sideways move. A knight retreat would require a different calculation."
+            "ja": "▲６二馬と横に動いて桂を取る弱い手には、△同飛と馬を取られます。馬の新しい利きと、着地点の守りは別に確認します。",
+            "en": "After the weak capture ▲６二馬, △同飛 takes the horse. Distinguish the horse’s new movement from the defenders of its destination."
+          }
+        },
+        {
+          "text": {
+            "ja": "馬の横や縦の一歩を使う前に、相手の飛車や金銀の利きを確認します。",
+            "en": "Before using a horse’s orthogonal step, check opposing rook and general attacks."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": [
+            "4b5b"
+          ],
+          "text": {
+            "ja": "△同飛と、後手は５二の馬をすぐに取ることもできます。",
+            "en": "Gote can also capture the horse immediately with △同飛."
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "玉への角筋が歩の取りを制限する",
-        "en": "A king diagonal restricts a pawn capture"
+        "ja": "角筋と桂を組み合わせる",
+        "en": "Combine a bishop pin with a knight check"
       },
       "side": "sente",
       "kind": "position",
-      "start": "k8/1p7/9/9/9/9/9/7B1/8K b N 1",
+      "start": "knsg1gsnl/1p1r3bl/p2pppppp/9/9/9/PPPPPP1PP/3R3B1/LNSGKGS1L b N2p 1",
       "steps": [
         {
           "text": {
-            "ja": "角２八から９一玉への道は８二歩で止まっています。この歩が８三へ動けば角の王手になるので、歩の前に桂を打つ応手を調べます。今は角が王手しているわけではなく、歩を動かした後の自玉への利きが問題です。",
-            "en": "The bishop on ２八 points toward the king on ９一, with Gote's pawn on ８二 blocking the line. Moving that pawn to ８三 would expose check, so consider a knight drop in front of it. The bishop is not currently checking; the issue is the line left after the pawn moves."
+            "ja": "角２八と玉９一を結ぶ斜めの途中に後手の歩８二がいます。歩が動くと自玉に角の利きが通ります。",
+            "en": "Gote’s pawn on ８二 blocks the diagonal between the bishop on ２八 and king on ９一. Moving the pawn would expose the king to the bishop."
           },
           "marks": {
-            "arrows": [
-              "2h9a",
-              "8b8c"
+            "boxes": [
+              "2h",
+              "8b",
+              "9a",
+              "8c"
             ]
           }
         },
@@ -214,8 +276,8 @@
             "N*8c"
           ],
           "text": {
-            "ja": "▲８三桂は９一玉を王手します。８二歩で桂を取る手は角筋を開けて自玉の王手を残すため指せません。桂の着地点への見かけの利きと、実際に取れる手を区別します。後手の応手は玉を８一か９二へ動かす二通りだけです。",
-            "en": "▲８三桂 checks the king on ９一. Capturing the knight with the pawn from ８二 is illegal because it opens the bishop's diagonal and leaves the king in check. Distinguish apparent coverage of the knight from a legal capture. Gote's only replies are king moves to ８一 or ９二."
+            "ja": "▲８三桂は玉９一への王手です。歩８二で桂を取ると角筋が開いて自玉に王手が残るため、その取りは不合法です。",
+            "en": "▲８三桂 checks the king on ９一. The pawn cannot capture the knight: moving it would expose the king to the bishop."
           }
         },
         {
@@ -223,8 +285,100 @@
             "9a9b"
           ],
           "text": {
-            "ja": "△９二玉は合法な逃げです。ピンと桂の王手を組み合わせても、この配置は詰みではありません。玉が角筋から離れると、８二歩の制約も変わります。",
-            "en": "△９二玉 is a legal escape, so the pin and knight check do not mate in this position. Moving the king off the diagonal also changes the pawn's restriction."
+            "ja": "△９二玉と逃げられるため、この局面は詰みではありません。角筋から玉が離れ、歩の制約も変わります。",
+            "en": "△９二玉 escapes, so this position is not mate. The king leaves the diagonal, changing the pawn’s restriction."
+          }
+        },
+        {
+          "text": {
+            "ja": "角と桂を組み合わせるときは、間の駒が本当に動けないかと、玉の逃げ先を確かめます。",
+            "en": "When combining bishop and knight, verify that the intervening piece is actually pinned and check the king’s escapes."
+          }
+        }
+      ],
+      "variations": []
+    },
+    {
+      "title": {
+        "ja": "筋違い角：角交換後に打つ",
+        "en": "Off-diagonal bishop after an exchange"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "text": {
+            "ja": "互いの角道を開けて角交換した後、持ち角を４五に打つ筋違い角を見ます。後手も持ち角を使えるため、打ち返しを確認します。",
+            "en": "After both bishop lines open and the bishops are exchanged, examine an off-diagonal bishop drop on ４五. Gote also has a bishop in hand, so check possible counter-drops."
+          }
+        },
+        {
+          "moves": [
+            "7g7f",
+            "3c3d"
+          ],
+          "text": {
+            "ja": "▲７六歩、△３四歩と互いの角道を開きます。",
+            "en": "▲７六歩 and △３四歩 open both bishop diagonals."
+          }
+        },
+        {
+          "moves": [
+            "8h2b+",
+            "3a2b"
+          ],
+          "text": {
+            "ja": "▲２二角成、△同銀で角交換。双方が角を持ち駒にします。",
+            "en": "▲２二角成, △同銀 exchanges the bishops; each side receives a bishop in hand."
+          }
+        },
+        {
+          "moves": [
+            "B*4e"
+          ],
+          "text": {
+            "ja": "▲４五角と筋違いに打ち、３四と６三の歩を両方狙います。",
+            "en": "▲４五角 is an off-diagonal drop attacking the pawns on ３四 and ６三."
+          }
+        },
+        {
+          "moves": [
+            "8c8d",
+            "4e3d"
+          ],
+          "text": {
+            "ja": "△８四歩と別の場所を進める例では、▲３四角と歩を取れます。後手は角を打つなど別の応手も選べます。",
+            "en": "In the illustrative line △８四歩, ▲３四角 captures the pawn. Gote can also respond with a bishop drop or another move."
+          }
+        },
+        {
+          "moves": [
+            "2b3c"
+          ],
+          "text": {
+            "ja": "△３三銀と上がる弱い応手では、銀が３四の角を狙います。角が入った後の反撃と、後手の別の受けも読みます。",
+            "en": "The weaker reply △３三銀 attacks the bishop on ３四. Calculate this counterattack and Gote’s other defenses."
+          }
+        },
+        {
+          "text": {
+            "ja": "筋違い角では両方の狙い、相手の持ち角、着地点への反撃を確認します。",
+            "en": "For an off-diagonal bishop, check both targets, the opponent’s bishop in hand and attacks on the bishop’s landing square."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 3,
+          "moves": [
+            "B*5d",
+            "4e5d",
+            "5c5d"
+          ],
+          "text": {
+            "ja": "△５四角と角を合わせ、▲同角には△同歩と取り返せます。角の打ち返しも考えます。",
+            "en": "△５四角 meets the bishop; after ▲同角, △同歩 recaptures. Account for a bishop counter-drop."
           }
         }
       ]

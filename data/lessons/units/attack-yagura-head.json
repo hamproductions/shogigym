@@ -1,14 +1,17 @@
 {
   "id": "attack-yagura-head",
   "order": 410,
-  "path": ["上達のためのテクニック", "囲い崩し"],
+  "path": [
+    "上達のためのテクニック",
+    "囲い崩し"
+  ],
   "title": {
     "ja": "矢倉の玉頭と端を攻める前に守備駒を数える",
     "en": "Count the Defenders Before Pressing a Yagura Head or Edge"
   },
   "intro": {
-    "ja": "矢倉の玉頭を攻めるときは、歩の交換後に同じ筋へ入れる駒と、その駒を取る銀を確かめます。端では、歩の交換が飛車の侵入路になるかを調べます。どちらも相手の応手が一つに決まるわけではありません。新しい局所図で、攻めが働く条件と、準備に一手かけたときの守り手を比べます。",
-    "en": "At the king's head, check which piece can enter after a pawn exchange and whether a silver can recapture it. At the edge, ask whether that exchange opens a rook route. Neither defender response is forced. These new local positions compare an active attack with the defensive tempo that an extra preparation move allows."
+    "ja": "矢倉の玉頭を攻めるときは、歩の交換後に同じ筋へ入れる駒と、その駒を取る銀を確かめます。端では、歩の交換が飛車の侵入路になるかを調べます。どちらも相手の応手が一つに決まるわけではありません。両玉と持ち駒を含む局面で、攻めが働く条件と、準備に一手かけたときの守り手を比べます。",
+    "en": "At the king's head, check which piece can enter after a pawn exchange and whether a silver can recapture it. At the edge, ask whether that exchange opens a rook route. Neither defender response is forced. These positions compare an active attack with the defensive tempo that an extra preparation move allows."
   },
   "check": {
     "question": {
@@ -36,7 +39,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "9/2kg5/2psg4/9/2P6/9/5B3/2L6/8K b - 1",
+      "start": "lns3rnl/2kg5/pppsgpppp/9/b1P6/9/PP1PPBPPP/2L4R1/1NSG1GSNK b l3p 1",
       "steps": [
         {
           "text": {
@@ -45,7 +48,13 @@
           }
         },
         {
-          "moves": ["7e7d", "7c7d", "7h7d", "6c7d", "4g7d"],
+          "moves": [
+            "7e7d",
+            "7c7d",
+            "7h7d",
+            "6c7d",
+            "4g7d"
+          ],
           "text": {
             "ja": "▲７四歩を△同歩と取った例では、▲同香が７筋から玉に王手します。△同銀なら▲同角で銀を取り、角７四が香車のいたマスを占めます。この局面では香車と銀の交換です。後手が歩を取らない応手もあり、この交換は強制ではありません。",
             "en": "If Gote accepts ▲７四歩 with △同歩, ▲同香 checks along the seventh file. After the sample △同銀, ▲同角 captures that silver and occupies the lance's former square. This line exchanges a lance for a silver. Gote can decline the pawn capture, so the exchange is not forced."
@@ -60,7 +69,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "9/2kg5/p2sg4/9/P8/9/9/R8/8K b - 1",
+      "start": "lns3rnl/2kg3b1/pp1sgpppp/9/P8/9/1PPPPPPPP/RB7/LNSG1GSNK b l3p 1",
       "steps": [
         {
           "text": {
@@ -69,10 +78,16 @@
           }
         },
         {
-          "moves": ["9e9d", "9c9d", "9h9d", "6b7c", "9d9b+"],
+          "moves": [
+            "9e9d",
+            "9c9d",
+            "9h9d",
+            "6b7c",
+            "9d9b+"
+          ],
           "text": {
-            "ja": "▲９四歩に△同歩なら▲同飛で端の歩を取ります。後手が玉頭を補強する△７三金を選んだ例では、▲９二飛成が二段目を通る王手になります。後手の応手は△７一玉・△６一玉か△８二歩の合駒だけで、龍は敵陣に残ります。▲９三飛成でも成れますが王手ではなく、横から狙う金７三は玉７二に守られています。どちらの後手の応手も一例です。",
-            "en": "If Gote answers ▲９四歩 with △同歩, ▲同飛 takes the edge pawn. In this sample Gote reinforces the king's head with △７三金; ▲９二飛成 then promotes with check along the second rank. Gote's only replies are △７一玉, △６一玉 or the pawn drop △８二歩, and the dragon stays in Gote's camp. ▲９三飛成 also promotes, but it is not check, and the gold it eyes on ７三 is protected by the king on ７二. Both Gote replies are examples."
+            "ja": "▲９四歩に△同歩なら▲同飛で端の歩を取ります。△７三金と受けた後の▲９二飛成は王手ですが、この局面では弱い手です。後手は△同香と龍を取れ、△８二銀や△８二香で遮る手もあります。進入するだけで龍が残るとは限りません。",
+            "en": "After ▲９四歩, △同歩, ▲同飛, the sample △７三金 allows ▲９二飛成 to give check. This is weak here: △同香 captures the dragon, and △８二銀 or △８二香 can block the check. Entry alone does not guarantee the dragon survives."
           }
         }
       ]
@@ -84,7 +99,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "9/2kg5/2psg4/9/2P6/9/5B3/2L6/8K b - 1",
+      "start": "lns3rnl/2kg5/pppsgpppp/9/b1P6/9/PP1PPBPPP/2L4R1/1NSG1GSNK b l3p 1",
       "steps": [
         {
           "text": {
@@ -93,10 +108,92 @@
           }
         },
         {
-          "moves": ["4g5f", "5c6d", "7e7d", "7c7d", "7h7d", "6c7d", "5f7d", "6d7d"],
+          "moves": [
+            "4g5f",
+            "5c6d",
+            "7e7d",
+            "7c7d",
+            "7h7d",
+            "6c7d",
+            "5f7d",
+            "6d7d"
+          ],
           "text": {
             "ja": "▲５六角に△６四金と進む一例です。この金は７四に横から利きます。歩７五にも当たっていますが、香７八が支えているので、取れば▲同香で金損です。同じ歩交換から▲同香、△同銀、▲同角と進めても、△同金で角を取られます。歩同士は消え、先手は香車と角を失って銀一枚を得るため、最初の攻めとは収支が変わります。△６四金も歩の取り方も後手の選択です。",
             "en": "One sample is ▲５六角 △６四金. The gold now controls ７四 sideways. It also hits the pawn on ７五, but the lance on ７八 defends that pawn, so taking it would lose the gold to ▲同香. After the same pawn exchange, ▲同香 △同銀 ▲同角 is now met by △同金, which takes the bishop. Both pawns have gone; Sente has spent a lance and bishop for one silver, a different material result from the immediate attack. Gote's gold move and pawn captures are sample choices."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "歩頭の桂で玉頭の歩を進める",
+        "en": "Use a knight offer to advance the pawn near the king"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "lns3rnl/2kg3b1/pppsgpppp/9/1P7/2PB5/P2PPPPPP/1R7/LNSG1GS1K b Nl2p 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "矢倉の玉７二に対し、歩８三の前へ持ち桂を打つと王手です。先手の歩８五と飛車８八も８筋に並んでいます。",
+            "en": "Against the Yagura king on ７二, a knight drop in front of the pawn on ８三 gives check. Sente’s pawn on ８五 and rook on ８八 also share the eighth file."
+          },
+          "marks": {
+            "boxes": [
+              "7b",
+              "8c",
+              "8d",
+              "8e",
+              "8h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "N*8d"
+          ],
+          "text": {
+            "ja": "▲８四桂は玉７二への王手です。後手の歩８三は桂を取れます。",
+            "en": "▲８四桂 checks the king on ７二; Gote’s pawn on ８三 can capture the knight."
+          }
+        },
+        {
+          "moves": [
+            "8c8d",
+            "8e8d"
+          ],
+          "text": {
+            "ja": "△同歩、▲同歩と進む例では、先手の歩が８四へ進み、後手歩のいた８三が空きます。",
+            "en": "In the sample △同歩, ▲同歩, Sente’s pawn advances to ８四 and vacates ８三."
+          }
+        },
+        {
+          "moves": [
+            "7b8b",
+            "8d8c+"
+          ],
+          "text": {
+            "ja": "△８二玉と逃げる応手には、▲８三歩成まで詰みです。飛車８八がと金を守り、と金は玉の逃げ道を抑えます。表示された持ち駒を使います。",
+            "en": "Against △８二玉, ▲８三歩成 is mate. The rook on ８八 protects the tokin, which controls the king’s exits. Use the displayed hands."
+          }
+        },
+        {
+          "text": {
+            "ja": "歩頭の桂は取られた後の歩の位置だけでなく、玉の別の逃げ先や受けも確認します。",
+            "en": "For a knight offer in front of a pawn, check the resulting pawn placement and the king’s other escapes and defenses."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 2,
+          "moves": [
+            "7b6a"
+          ],
+          "text": {
+            "ja": "△６一玉と別の場所へ逃げる応手もあり、８二へ動く手順は強制ではありません。",
+            "en": "△６一玉 is another escape; the move to ８二 is not forced."
           }
         }
       ]

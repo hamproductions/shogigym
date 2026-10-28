@@ -12,6 +12,7 @@ import {
   STRATEGY_PAGES,
   TUTORIALS,
   finishedChapters,
+  nextUnitAfter,
   pageForMain,
   stageUnits,
   strategyPage,
@@ -32,6 +33,8 @@ import { describedPosition, useDescribedBoard } from './describedPosition'
 import { ORIGIN_KEY, RANDOM_KEY, returnToGame, store, stored } from './reading'
 
 const VIEW_KEY = 'joseki-practice:library-view:v2'
+const PAGE_FROM_KEY = 'joseki-practice:library-page-from:v1'
+const SETUP_FROM_KEY = 'joseki-practice:library-setup-from:v1'
 
 type PickerProps = { onOpen: (c: Course, sub: LessonMode) => void; level: Level; setupId: string | null; setSetupId: (id: string | null) => void }
 type Entry = { setup: Setup; courses: Course[] }
@@ -112,6 +115,13 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
     scrollPanelTop()
   }, [setupId, view])
   const openView = (next: string | null) => (setView(next), store(VIEW_KEY, next), setQuery(''))
+  const openPage = (id: string) => (store(PAGE_FROM_KEY, view), openView(`strategy:${id}`))
+  const openSetup = (id: string) => (store(SETUP_FROM_KEY, view), setSetupId(id))
+  const viewLabel = (at: string | null) => {
+    const stage = at?.startsWith('stage:') ? STAGES.find((s) => s.id === at.slice('stage:'.length)) : undefined
+    const page = at?.startsWith('strategy:') ? strategyPage(at.slice('strategy:'.length)) : undefined
+    return stage ? text(stage.name) : page ? text(page.name) : ja ? '将棋を学ぶ' : 'Learn shogi'
+  }
   const q = query.trim().toLowerCase()
   const all: Entry[] = SETUPS.map((setup) => ({ setup, courses: coursesOf(setup.courseIds) })).filter((g) => g.courses.length || g.setup.path)
   const byId = new Map(all.map((entry) => [entry.setup.id, entry]))
@@ -146,7 +156,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
     const p = progressOf(courses)
     const defending = courses.length > 0 && courses.every((c) => c.notesFromOpponentView)
     return (
-      <SetupButton key={setup.id} onClick={() => setSetupId(setup.id)}>
+      <SetupButton key={setup.id} onClick={() => openSetup(setup.id)}>
         <LibJa>
           {index !== undefined && <StageNumber>{index + 1}</StageNumber>}
           <Marks>{name(setup)}</Marks>
@@ -163,7 +173,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
     const byChapter = !lower(`${setup.ja} ${setup.name}`).includes(q) ? courses.find((c) => lower(`${c.title} ${c.titleEn ?? ''}`).includes(q)) : undefined
     const chapter = byChapter ? (ja ? byChapter.title : (byChapter.titleEn ?? byChapter.title)) : null
     return (
-      <SetupButton key={setup.id} found onClick={() => setSetupId(setup.id)}>
+      <SetupButton key={setup.id} found onClick={() => openSetup(setup.id)}>
         <LibJa>
           <Marks>{name(setup)}</Marks>
         </LibJa>
@@ -182,7 +192,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
     )
   }
   const tutorialCard = (label: { ja: string; en: string }, { setup, courses }: Entry) => (
-    <SetupButton key={`${setup.id}-${label.ja}`} onClick={() => setSetupId(setup.id)}>
+    <SetupButton key={`${setup.id}-${label.ja}`} onClick={() => openSetup(setup.id)}>
       <LibJa>
         <Marks>{text(label)}</Marks>
         <Tag>{ja ? '入門' : 'Tutorial'}</Tag>
@@ -197,7 +207,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
   const pageCard = (page: StrategyPage) => {
     const entries = page.units.flatMap((unit) => unitEntry(unit) ?? [])
     return (
-      <SetupButton key={page.id} onClick={() => openView(`strategy:${page.id}`)}>
+      <SetupButton key={page.id} onClick={() => openPage(page.id)}>
         <LibJa>{text(page.name)}</LibJa>
         <LibEn>{text(page.about)}</LibEn>
         <SetupGo aria-hidden="true">›</SetupGo>
@@ -224,13 +234,14 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
       onOpen(quizzable[Math.floor(Math.random() * quizzable.length)], 'quiz')
     }
     const home = homeOf(open.setup)
+    const cameFrom = stored(SETUP_FROM_KEY) ?? home.view
     const unit = unitOf(open.setup)
-    const nextUnit = unit ? PATH_UNITS[PATH_UNITS.indexOf(unit) + 1] : undefined
+    const nextUnit = unit ? nextUnitAfter(unit) : undefined
     const next = nextUnit ? unitEntry(nextUnit) : undefined
     return (
       <div>
         {backToGame}
-        <CrumbLink onClick={() => (setSetupId(null), openView(home.view))}>‹ {home.label}</CrumbLink>
+        <CrumbLink onClick={() => (setSetupId(null), openView(cameFrom))}>‹ {viewLabel(cameFrom)}</CrumbLink>
         <PickerTitle>
           <Marks>{name(open.setup)}</Marks>
         </PickerTitle>
@@ -367,11 +378,13 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
     const lessons = page.units.filter((unit) => !taught.has(unit)).flatMap((unit) => unitEntry(unit) ?? [])
     const drills = all.filter((g) => !g.setup.path && !g.setup.technique && g.setup.main && page.mains.includes(g.setup.main))
     const against = all.filter((g) => !g.setup.path && !g.setup.technique && g.setup.vs && page.mains.includes(g.setup.vs) && !drills.includes(g))
-    const back = STAGES.find((stage) => stage.strategies?.includes(page.id))
+    const fallback = STAGES.find((stage) => stage.strategies?.includes(page.id))
+    const from = stored(PAGE_FROM_KEY)
+    const back = from && !from.startsWith('strategy:') ? from : fallback ? `stage:${fallback.id}` : null
     return (
       <div>
         {backToGame}
-        <CrumbLink onClick={() => openView(back ? `stage:${back.id}` : null)}>‹ {back ? text(back.name) : ja ? '将棋を学ぶ' : 'Learn shogi'}</CrumbLink>
+        <CrumbLink onClick={() => openView(back)}>‹ {viewLabel(back)}</CrumbLink>
         <PickerTitle>{text(page.name)}</PickerTitle>
         <PickerIntro data-spaced>{text(page.about)}</PickerIntro>
         {tutorials.length > 0 && (
@@ -439,8 +452,16 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
     )
   }
 
-  const stageProgress = (s: Stage) => progressOf(stageUnits(s).flatMap((unit) => unitEntry(unit)?.courses ?? []))
+  const stageProgress = (s: Stage) => {
+    if (s.id !== 'first-strategy') return progressOf(stageUnits(s).flatMap((unit) => unitEntry(unit)?.courses ?? []))
+    const foundation = progressOf(s.units.flatMap((unit) => unitEntry(unit)?.courses ?? []))
+    const choices = ['bougin-basics', 'kishu-migishiken-hidarimino', 'shiken-basics', 'gokigen-basics']
+    return (foundation + Math.max(...choices.map((unit) => progressOf(unitEntry(unit)?.courses ?? [])))) / 2
+  }
   const nextUp = PATH_UNITS.map(unitEntry).find((entry) => entry && progressOf(entry.courses) < 1)
+  const firstStrategy = STAGES.find((s) => s.id === 'first-strategy')
+  const nextIndex = nextUp ? PATH_UNITS.indexOf(unitOf(nextUp.setup) ?? '') : -1
+  const chooseStrategy = firstStrategy && (!nextUp || nextIndex >= PATH_UNITS.indexOf('tesuji-pawn')) && stageProgress(firstStrategy) < 1
   const wings: { id: StrategyPage['wing']; name: string }[] = [
     { id: 'ibisha', name: ja ? '居飛車' : 'Static Rook' },
     { id: 'furibisha', name: ja ? '振り飛車' : 'Ranging Rook' },
@@ -455,8 +476,14 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
       {results}
       {!q && (
         <>
-          {nextUp && (
-            <NextCard onClick={() => setSetupId(nextUp.setup.id)}>
+          {chooseStrategy ? (
+            <NextCard onClick={() => openView('stage:first-strategy')}>
+              <LibEn>{ja ? '次に学ぶ' : 'Up next'}</LibEn>
+              <LibJa>{ja ? '最初の戦法を選ぶ' : 'Choose your first strategy'}</LibJa>
+              <SetupGo aria-hidden="true">›</SetupGo>
+            </NextCard>
+          ) : nextUp && (
+            <NextCard onClick={() => openSetup(nextUp.setup.id)}>
               <LibEn>
                 {ja ? '次に学ぶ' : 'Up next'} · {homeOf(nextUp.setup).label}
               </LibEn>

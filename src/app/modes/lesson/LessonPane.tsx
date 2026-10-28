@@ -25,7 +25,7 @@ import { OpeningPicker } from './OpeningPicker'
 import { LessonGuide } from './LessonGuide'
 import type { Lesson } from './useLesson'
 import { Marks } from '@/app/ui/SideMark'
-import { PATH_UNITS, markChapterFinished } from '@/data/curriculum'
+import { markChapterFinished, nextUnitAfter } from '@/data/curriculum'
 
 const TALLY_KEY = 'joseki-practice:random-quiz:v1'
 type Tally = { questions: number; right: number; wrong: number }
@@ -55,7 +55,7 @@ function seriesOf(course: Course, lesson: Lesson) {
   const random = stored(RANDOM_KEY) === setup.id
   const quizzable = siblings.filter((c) => courseProgress(c).total > 0)
   const unit = setup.id.startsWith('lesson-') ? setup.id.slice('lesson-'.length) : null
-  const nextUnit = unit ? PATH_UNITS[PATH_UNITS.indexOf(unit) + 1] : undefined
+  const nextUnit = unit ? nextUnitAfter(unit) : undefined
   const nextSetup = nextUnit ? SETUPS.find((s) => s.id === `lesson-${nextUnit}`) : undefined
   const go = (next: Course | undefined, mode: LessonMode, shuffled = random) => {
     if (!next) return

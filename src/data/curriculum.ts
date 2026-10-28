@@ -196,7 +196,7 @@ export const STAGES: Stage[] = [
     id: 'first-strategy',
     name: { ja: '最初の戦法を一つ覚える', en: 'Learn your first strategy' },
     goal: { ja: '居飛車なら棒銀か右四間飛車、振り飛車なら四間飛車か中飛車を一つ選び、初手から攻め方まで指せるようにする。', en: 'Pick one: Climbing Silver or Right Fourth File Rook for Static Rook, Fourth File Rook or Central Rook for Ranging Rook. Learn it from move one to the attack.' },
-    units: ['castles-first', 'ibisha-basics', 'bougin-basics', 'kishu-migishiken-hidarimino', 'shiken-basics', 'gokigen-basics'],
+    units: ['castles-first'],
     strategies: ['bougin', 'migishiken', 'shikenbisha', 'nakabisha'],
   },
   {
@@ -334,9 +334,12 @@ export const pageForMain = (main: string) => STRATEGY_PAGES.find((page) => page.
 
 export const stageUnits = (stage: Stage) => [...stage.units, ...(stage.strategies ?? []).flatMap((id) => strategyPage(id)?.units ?? [])]
 
-export const PATH_UNITS = [...new Set(STAGES.flatMap(stageUnits))]
+export const PATH_UNITS = [...new Set(STAGES.flatMap((stage) => (stage.id === 'first-strategy' ? stage.units : stageUnits(stage))))]
 
-export const nextUnitAfter = (unit: string) => PATH_UNITS[PATH_UNITS.indexOf(unit) + 1]
+export const nextUnitAfter = (unit: string) => {
+  const index = PATH_UNITS.indexOf(unit)
+  return index < 0 || unit === 'castles-first' ? undefined : PATH_UNITS[index + 1]
+}
 
 const FINISHED_KEY = 'joseki-practice:finished-chapters:v1'
 

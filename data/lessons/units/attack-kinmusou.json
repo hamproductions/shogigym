@@ -1,14 +1,17 @@
 {
   "id": "attack-kinmusou",
   "order": 440,
-  "path": ["上達のためのテクニック", "囲い崩し"],
+  "path": [
+    "上達のためのテクニック",
+    "囲い崩し"
+  ],
   "title": {
     "ja": "金無双の二枚金を一手ずつ動かして数える",
     "en": "Count Each Gold in a Kin Muso Attack"
   },
   "intro": {
-    "ja": "金無双は玉の隣に銀を置き、二枚の金を横につないで前方を守ります。攻める側は銀の壁だけを見て寄せを決めず、どの金が進出先を取れるかを数えます。新しい局所図で、４筋のと金作りと５筋の飛車進出を比べ、金が一手で位置を変えた場合も読み直します。いずれも相手の応手を限定した例で、囲いの名前だけから勝ちを断定しません。",
-    "en": "Kin Muso places a silver beside the king and connects two golds across its front. Count which gold can take an attacking piece rather than inferring a finish from the silver wall. These new local positions compare a fourth-file tokin with a fifth-file rook entry, then show how a gold move changes the first exchange. The defender replies are examples, not proof of a forced win."
+    "ja": "金無双は玉の隣に銀を置き、二枚の金を横につないで前方を守ります。攻める側は銀の壁だけを見て寄せを決めず、どの金が進出先を取れるかを数えます。両玉と持ち駒を含む局面で、４筋のと金作りと５筋の飛車進出を比べ、金が一手で位置を変えた場合も読み直します。いずれも相手の応手を限定した例で、囲いの名前だけから勝ちを断定しません。",
+    "en": "Kin Muso places a silver beside the king and connects two golds across its front. Count which gold can take an attacking piece rather than inferring a finish from the silver wall. These positions compare a fourth-file tokin with a fifth-file rook entry, then show how a gold move changes the first exchange. The defender replies are examples, not proof of a forced win."
   },
   "check": {
     "question": {
@@ -36,7 +39,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "9/1skgg4/9/5P3/9/2B6/9/9/8K b - 1",
+      "start": "lns3rnl/1skgg4/ppp1p1ppp/5P3/b8/2B6/PPPPP1PPP/7R1/LNSG1GSNK b l2p 1",
       "steps": [
         {
           "text": {
@@ -45,7 +48,11 @@
           }
         },
         {
-          "moves": ["4d4c+", "5b4c", "7f4c+"],
+          "moves": [
+            "4d4c+",
+            "5b4c",
+            "7f4c+"
+          ],
           "text": {
             "ja": "▲４三歩成で金５二を次に狙います。後手が△同金と取った例では▲同角成で金を取り返し、馬４三が残ります。歩と金の交換ですが、銀８二や金６二は残るので寄せを断定しません。△同金以外の受けでは、この駒得をそのまま見込めません。",
             "en": "▲４三歩成 threatens the gold on ５二. If Gote chooses △同金, ▲同角成 recaptures the gold and leaves a promoted bishop on ４三. This trades a pawn for a gold, but the silver on ８二 and gold on ６二 remain; it proves no finish. Other replies do not grant this exact material gain."
@@ -60,7 +67,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "9/1skgg4/4p4/9/4P4/7B1/4R4/9/8K b - 1",
+      "start": "lns3rnl/1skgg4/ppppppppp/9/b3P4/7B1/PPPPRPPPP/9/LNSG1GSNK b l 1",
       "steps": [
         {
           "text": {
@@ -69,7 +76,15 @@
           }
         },
         {
-          "moves": ["5e5d", "5c5d", "5g5d", "5b5c", "5d5c+", "6b5c", "2f5c+"],
+          "moves": [
+            "5e5d",
+            "5c5d",
+            "5g5d",
+            "5b5c",
+            "5d5c+",
+            "6b5c",
+            "2f5c+"
+          ],
           "text": {
             "ja": "▲５四歩に△同歩なら▲同飛と進みます。後手が飛車を金で追おうとして△５三金直と出ると、▲同飛成、△同金、▲同角成まで読みます。この金出は飛車と金二枚の交換を許す受けであり、後手は別の応手を選べます。馬５三が残っても、それだけで玉への勝ちは示せません。",
             "en": "If Gote accepts ▲５四歩 with △同歩, ▲同飛 advances the rook. An attempted gold block with △５三金直 allows ▲同飛成 △同金 ▲同角成. That defense trades two golds for the rook, so Gote can choose another reply. Even with a promoted bishop on ５三, the line does not prove a win against the king."
@@ -84,7 +99,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "9/1skgg4/9/5P3/9/2B6/9/9/8K b - 1",
+      "start": "lns3rnl/1skgg4/ppp1p1ppp/5P3/b8/2B6/PPPPP1PPP/7R1/LNSG1GSNK b l2p 1",
       "steps": [
         {
           "text": {
@@ -93,10 +108,176 @@
           }
         },
         {
-          "moves": ["7f6e", "5b6c", "4d4c+"],
+          "moves": [
+            "7f6e",
+            "5b6c",
+            "4d4c+"
+          ],
           "text": {
             "ja": "▲６五角に△６三金左とかわした例です。▲４三歩成でと金は残りますが、５二の金はすでに６三へ移り、４三のと金を取りません。角６五は４三を支え続けても、予定した金取りは起こりません。後手は別の受けも選べるため、この金移動を唯一の正解とはしません。",
             "en": "This sample continues ▲６五角 △６三金左. ▲４三歩成 leaves a tokin, but the gold has left ５二 and no longer takes on ４三. The bishop on ６五 still supports ４三, yet the planned gold exchange does not occur. Gote has other defenses; the gold move is not the only answer."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "角を打って銀と飛車を支える",
+        "en": "Support the silver and rook with a bishop drop"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "lns3rnl/1skgg4/ppppppppp/1S7/b8/9/P1PPPPPPP/1R7/LNSG1G1NK b Blp 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手の金無双は玉７二、銀８二、金６二・５二です。先手は銀８四と飛車８八で歩８三を狙い、持ち角で攻めを支えることができます。",
+            "en": "Gote’s Kin Muso has king ７二, silver ８二 and golds on ６二 and ５二. Sente’s silver on ８四 and rook on ８八 target the pawn on ８三; a bishop in hand can add support."
+          },
+          "marks": {
+            "boxes": [
+              "5f",
+              "8c",
+              "8d",
+              "8h",
+              "7b",
+              "8b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "B*5f"
+          ],
+          "text": {
+            "ja": "▲５六角。６五・７四を通って８三を狙います。飛車８八は銀８四の後ろにいます。",
+            "en": "▲５六角 attacks ８三 through ６五 and ７四. The rook on ８八 sits behind the silver on ８四."
+          }
+        },
+        {
+          "moves": [
+            "9c9d"
+          ],
+          "text": {
+            "ja": "△９四歩と別の場所を進める協力的な応手を例にします。後手は角や銀を使う別の手も選べます。",
+            "en": "The cooperative reply △９四歩 plays elsewhere. Gote can instead respond with the bishop, silver or another move."
+          }
+        },
+        {
+          "moves": [
+            "8d8c+",
+            "8b8c",
+            "5f8c+"
+          ],
+          "text": {
+            "ja": "▲８三銀成、△同銀、▲同角成と進むと、馬が玉７二へ王手します。飛車８八が８三の馬を守り、表示された持ち駒では詰みです。",
+            "en": "After ▲８三銀成, △同銀, ▲同角成, the horse checks the king on ７二. The rook on ８八 protects the horse; with the displayed hands, this is mate."
+          }
+        },
+        {
+          "text": {
+            "ja": "角を足す攻めでは、狙うマスの攻め駒と守り駒、相手の別の応手を数えます。",
+            "en": "When adding a bishop, count attackers and defenders on the target square and examine the opponent’s alternatives."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": [
+            "9e8d",
+            "8h8d"
+          ],
+          "text": {
+            "ja": "△８四角と銀を取る手には▲同飛と角を取り返せます。",
+            "en": "Against △８四角 capturing the silver, ▲同飛 recaptures the bishop."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "端歩と角で銀を誘い出す",
+        "en": "Use the edge pawn and bishop to draw out a silver"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "lns3rnl/1skgg2b1/2ppppppp/p8/9/P2B5/1PPPPPP1P/1R7/LNSG1G1NK b S2Pl 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "金無双の玉７二の隣に銀８二があり、端には香９一と歩９四があります。先手の歩９六、角６六、飛車８八と持ち歩を使って端から銀を動かす例を見ます。",
+            "en": "In Gote’s Kin Muso, the silver on ８二 stands beside the king on ７二; the lance on ９一 and pawn on ９四 guard the edge. Examine how Sente’s pawn ９六, bishop ６六, rook ８八 and pawn in hand can draw the silver away."
+          },
+          "marks": {
+            "boxes": [
+              "9f",
+              "9d",
+              "9c",
+              "9a",
+              "8b",
+              "6f",
+              "8h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "9f9e",
+            "9d9e"
+          ],
+          "text": {
+            "ja": "▲９五歩に△同歩と取る応手を見ます。先手の未成の歩は９筋からなくなります。",
+            "en": "Examine ▲９五歩, △同歩. Sente’s unpromoted pawn leaves the ninth file."
+          }
+        },
+        {
+          "moves": [
+            "P*9c"
+          ],
+          "text": {
+            "ja": "▲９三歩と打ちます。９筋に先手の未成の歩がないので二歩ではありません。",
+            "en": "▲９三歩 is legal because Sente has no unpromoted pawn left on that file."
+          }
+        },
+        {
+          "moves": [
+            "8b9c",
+            "6f9c+",
+            "9a9c",
+            "S*9b"
+          ],
+          "text": {
+            "ja": "△同銀、▲同角成、△同香、▲９二銀という交換例です。飛車８八は空いた８筋を通り、８一の桂に利いています。",
+            "en": "One sample is △同銀, ▲同角成, △同香, ▲９二銀. The rook on ８八 now reaches the knight on ８一 along the cleared file."
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "9b8a+"
+          ],
+          "text": {
+            "ja": "△１四歩と別の場所を動く協力的な応手には、▲８一銀成で桂を取れます。飛車８八が８一を守るため、玉７二は成銀を取れません。",
+            "en": "Against the cooperative reply △１四歩, ▲８一銀成 captures the knight. The rook on ８八 protects ８一, so the king on ７二 cannot take the promoted silver."
+          }
+        },
+        {
+          "text": {
+            "ja": "端の歩を取らせる順は強制ではありません。角を渡す前に、銀・香の取り方と飛車の通路を調べます。",
+            "en": "The pawn captures are not forced. Before sacrificing the bishop, examine the silver and lance replies and verify the rook’s path."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 2,
+          "moves": [
+            "9a9c"
+          ],
+          "text": {
+            "ja": "△同香と香で歩を取る応手もあり、銀を動かす順にはなりません。",
+            "en": "△同香 can capture the pawn with the lance, so the silver need not move as in the main line."
           }
         }
       ]

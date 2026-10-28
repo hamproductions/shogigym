@@ -1,14 +1,17 @@
 {
   "id": "attack-mino-aifuri",
   "order": 390,
-  "path": ["上達のためのテクニック", "囲い崩し"],
+  "path": [
+    "上達のためのテクニック",
+    "囲い崩し"
+  ],
   "title": {
     "ja": "相振り飛車の美濃は前の筋と手番で攻める",
     "en": "Attack Mino's Front Files and Timing in Double Ranging Rook"
   },
   "intro": {
-    "ja": "相振り飛車では互いの飛車が横へ移り、美濃囲いの前の筋に飛車を向けられます。ただし、端や角の一手だけで崩れるわけではありません。歩を取って飛車筋を開く方法と、桂馬で金を攻めて角を後ろから利かせる方法を、守備駒の取り返しまで数えて練習します。準備に一手かけると相手の金が移動できる例も比べます。後手の応手はすべて局所図での選択例です。",
-    "en": "In Double Ranging Rook, the rooks can face files in front of a Mino shelter. That does not make an edge push or a bishop placement an automatic break. Here a pawn capture opens a rook file, and a knight attacks a gold with a bishop behind it. Count the defender's recaptures, then compare a position where one extra preparation move lets the gold escape. Gote's replies are choices in local positions."
+    "ja": "相振り飛車では互いの飛車が横へ移り、美濃囲いの前の筋に飛車を向けられます。ただし、端や角の一手だけで崩れるわけではありません。歩を取って飛車筋を開く方法と、桂馬で金を攻めて角を後ろから利かせる方法を、守備駒の取り返しまで数えて練習します。準備に一手かけると相手の金が移動できる例も比べます。後手の応手は局面ごとの選択例です。",
+    "en": "In Double Ranging Rook, the rooks can face files in front of a Mino shelter. That does not make an edge push or a bishop placement an automatic break. Here a pawn capture opens a rook file, and a knight attacks a gold with a bishop behind it. Count the defender's recaptures, then compare a position where one extra preparation move lets the gold escape. Gote's replies are choices in these positions."
   },
   "check": {
     "question": {
@@ -36,7 +39,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "3r5/5gsk1/4p4/4P4/2B6/9/9/9/K3R4 b - 1",
+      "start": "lnsr3nl/4ggsk1/ppppppppp/4P4/b1B6/9/PPPP1PPPP/9/KNSGRGSNL b l 1",
       "steps": [
         {
           "text": {
@@ -45,10 +48,27 @@
           }
         },
         {
-          "moves": ["5d5c+", "4b5c", "7e5c+"],
+          "moves": [
+            "5d5c+",
+            "4b5c",
+            "7e5c+"
+          ],
           "text": {
             "ja": "▲５三歩成は後手の歩を取り、△同金なら▲同角成で金も取れます。歩５四が去っているため、飛車５九は馬５三を縦に支えます。金が歩を取る応手は一例で、後手が別に受ければ金を取れるとは限りません。飛車の筋が開くことと駒得の確定を区別します。",
             "en": "▲５三歩成 takes Gote's pawn. If Gote replies △同金, ▲同角成 captures the gold. With Sente's pawn gone from ５四, the rook on ５九 supports the horse on ５三 along the file. The gold capture is a sample reply; another defense may preserve the gold. An open rook line is a concrete asset, not a guaranteed material gain."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": [
+            "5b5c",
+            "5i5c+"
+          ],
+          "text": {
+            "ja": "△同金と後手が馬を取る応手には、▲同飛成で金を取り返せます。飛車５九が５三を守っているためです。",
+            "en": "If △同金 captures the horse, ▲同飛成 recaptures the gold because the rook on ５九 supports ５三."
           }
         }
       ]
@@ -60,7 +80,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "1r2s4/5gsk1/6p2/4N4/2B6/9/9/9/K2R5 b - 1",
+      "start": "lr1gs2nl/5gsk1/pppp1pppp/4N4/b1B6/9/PPP1PPPPP/4G4/KNSR1GS1L b Nl2p 1",
       "steps": [
         {
           "text": {
@@ -69,7 +89,11 @@
           }
         },
         {
-          "moves": ["5d4b+", "5a4b", "7e4b+"],
+          "moves": [
+            "5d4b+",
+            "5a4b",
+            "7e4b+"
+          ],
           "text": {
             "ja": "▲４二桂成で金を取り、△同銀なら▲同角成で銀を取って馬を作れます。桂馬と金銀を交換するこの順は、角の斜め筋が空いている場合の例です。後手は銀で取らずに玉を逃がすなど別の応手を選べるため、二枚を必ず取れるとは断定しません。",
             "en": "▲４二桂成 takes the gold. If Gote chooses △同銀, ▲同角成 takes that silver and makes a horse. The sample exchanges a knight for the two defenders because the bishop's route is clear. Gote may decline the silver recapture or choose another reply, so taking both pieces is conditional."
@@ -84,7 +108,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "1r2s4/5gsk1/3p4p/4N4/2B6/9/9/9/K2R5 b - 1",
+      "start": "lr1gs2nl/5gsk1/pppp2ppp/4N4/b1B6/9/PPP1PPPPP/4G4/KNSR1GS1L b Nl3p 1",
       "steps": [
         {
           "text": {
@@ -93,13 +117,75 @@
           }
         },
         {
-          "moves": ["6i6h", "4b4c"],
+          "moves": [
+            "6i6h",
+            "4b4c"
+          ],
           "text": {
             "ja": "▲６八飛の後、後手が△４三金と逃げる例です。桂５四は４二には利きますが４三には利かず、角７五の斜め筋も空いた４二を通るだけです。飛車６八が狙う歩６三は、６九にいた時から取れる位置にありました。準備の一手で増えた利きはなく、金を取る機会だけが消えています。",
             "en": "After ▲６八飛, this sample has Gote retreat the gold with △４三金. The knight on ５四 attacks ４二 but not ４三, and the bishop's diagonal now passes through an empty ４二. The pawn on ６三 that the rook on ６八 eyes was already capturable from ６九. The preparation move added no control; it only cost the chance to take the gold."
           }
         }
       ]
+    },
+    {
+      "title": {
+        "ja": "端歩と香の交換から角を使う",
+        "en": "Bring the bishop in after an edge exchange"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "ln2g1snl/1ksgr2b1/p1ppppppp/9/P8/9/1PPBPPPPP/L4R3/1NSG1GSNK b l2p 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手の美濃は玉８二、銀７二、金６二・５一です。先手は歩９五、香９八、角６七を使い、端の９筋から攻めます。",
+            "en": "Gote’s Mino has king ８二, silver ７二 and golds ６二 and ５一. Sente attacks the ninth-file edge with pawn ９五, lance ９八 and bishop ６七."
+          },
+          "marks": {
+            "boxes": [
+              "9e",
+              "9c",
+              "9h",
+              "9a",
+              "6g",
+              "7b",
+              "8b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "9e9d",
+            "9c9d",
+            "9h9d",
+            "9a9d",
+            "6g9d"
+          ],
+          "text": {
+            "ja": "▲９四歩、△同歩、▲同香、△同香、▲同角と交換する例では、角が９四へ進みます。どちらの取りも後手の選択で、強制ではありません。",
+            "en": "In the sample ▲９四歩, △同歩, ▲同香, △同香, ▲同角, the bishop reaches ９四. Neither of Gote’s captures is forced."
+          }
+        },
+        {
+          "moves": [
+            "7b8c",
+            "9d8c+",
+            "8b8c"
+          ],
+          "text": {
+            "ja": "△８三銀と受けた後に▲同角成と取る弱い手は、△同玉で馬を取られます。７二の銀を狙えても、その移動先は玉８二に守られています。",
+            "en": "After △８三銀, the weak ▲同角成 loses the horse to △同玉. The king on ８二 protects the silver’s destination."
+          }
+        },
+        {
+          "text": {
+            "ja": "端の交換後も、銀や玉が角の進入先を守るかを確認します。",
+            "en": "After the edge exchange, check whether the silver or king defends the bishop’s entry square."
+          }
+        }
+      ],
+      "variations": []
     }
   ]
 }

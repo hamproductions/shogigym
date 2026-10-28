@@ -6,21 +6,21 @@
     "手筋"
   ],
   "title": {
-    "ja": "歩一枚で相手の応手を変える",
-    "en": "Change the Reply with a Pawn"
+    "ja": "歩の手筋：受けと攻めを一手ずつ読む",
+    "en": "Pawn techniques: calculate defense and attack"
   },
   "intro": {
-    "ja": "歩は前へ一マスだけ進みますが、置く場所によって相手の進路を止め、守り駒を動かし、成る道を作れます。歩が敵陣へ進んで成ると金と同じ動きのと金になり、取られると相手の持ち駒では歩に戻ります。歩を打つ前には、その筋に自分の未成の歩がないかも確認しましょう。各局面では、歩を置いた直後だけでなく、相手の応手の後まで読みます。",
-    "en": "A pawn advances one square, yet its placement can block a route, move a defender, or prepare promotion. A pawn promoted in enemy territory moves like a gold as a tokin; when captured, it returns to its captor's hand as a pawn. Before a drop, also check that you have no unpromoted pawn on that file. In each position, calculate beyond the drop and through the defender's reply."
+    "ja": "歩は、相手の進路を止める受けにも、守り駒を動かす攻めにも使えます。七つの局面を通じて、歩を打つ場所、相手の別の応手、その後に残る狙いを確かめます。",
+    "en": "A pawn can block an advance or draw a defender away. Across seven positions, check the drop square, the opponent’s alternatives, and what remains after each reply."
   },
   "check": {
     "question": {
-      "ja": "歩を打って相手の金を動かす構想では、歩を取らせた後に何を確認しますか？",
-      "en": "When you drop a pawn to draw a gold away, what must you verify after the gold takes it?"
+      "ja": "歩を打つ前に、何を確かめますか？",
+      "en": "What should you check before dropping a pawn?"
     },
     "answer": {
-      "ja": "金の移動先と次の歩への応手を読み、最後に狙う駒へ自分の駒の利きが実際に通るか確かめます。相手が歩を取らない応手もあるため、取りを強制したとは数えません。",
-      "en": "Trace the gold's new square and its reply to any second pawn, then verify that your own piece can actually reach the final target. The defender may decline the pawn, so do not treat the capture as forced."
+      "ja": "二歩にならないか、打った歩を相手がどう取れるか、その後の取り返しや別の受けまで読みます。",
+      "en": "Check nifu, each capture of the dropped pawn, and the resulting recapture or alternative defense."
     }
   },
   "references": [
@@ -29,243 +29,595 @@
       "url": "https://shogi-joutatsu.com/archives/1629",
       "license": "All rights reserved",
       "adapted": false
+    },
+    {
+      "title": "将棋の技図鑑 (yuki-keio/shogi)",
+      "url": "https://github.com/yuki-keio/shogi",
+      "license": "GPL-3.0-only",
+      "adapted": false
     }
   ],
   "chapters": [
     {
       "title": {
-        "ja": "一マス控えて進路を止める",
-        "en": "Hold a square behind the advancing pawn"
+        "ja": "底歩：金の下から取り返す",
+        "en": "Bottom pawn: recapture from below the gold"
       },
       "side": "sente",
       "kind": "position",
-      "start": "k8/9/9/9/5p3/9/9/9/5K3 b P 1",
+      "start": "lng1r1snl/1ks6/pp1g1pbpp/2pp2p2/9/2PP5/PPS2PP1P/1KGBG2R1/LN4SNL b 2Pp 1",
       "steps": [
         {
           "text": {
-            "ja": "後手の歩４五は先手玉４九へ向かっています。持ち歩を４七に打てば、後手の歩が４六へ進んだときに取り返せる形です。一マス空ける控えの歩が、進路の先を押さえます。",
-            "en": "Gote's pawn on ４五 is advancing toward Sente's king on ４九. A pawn dropped on ４七 leaves one square between them: if Gote advances to ４六, your pawn can capture it. The reserve pawn controls the next square rather than meeting the pawn immediately."
+            "ja": "後手の飛車５一が金５八を狙っています。５筋に先手の歩はないため、金の真下５九へ歩を打てます。",
+            "en": "Gote’s rook on ５一 attacks the gold on ５八. Sente has no unpromoted pawn on the fifth file, so a pawn may be dropped directly below the gold on ５九。"
+          },
+          "marks": {
+            "boxes": [
+              "5a",
+              "5h",
+              "5i"
+            ]
           }
         },
         {
-          "moves": [
-            "P*4g"
-          ],
           "text": {
-            "ja": "▲４七歩。後手がそのまま歩を進める場合を見ます。別の手を選ばれれば、この交換は起こりません。",
-            "en": "▲４七歩. Follow the line where Gote continues the pawn advance. Another reply would change this exchange."
-          }
-        },
-        {
-          "moves": [
-            "4e4f"
-          ],
-          "text": {
-            "ja": "△４六歩で二枚の歩が隣り合いました。４七の歩は前の４六へ進みながら後手の歩を取れます。",
-            "en": "△４六歩 puts the pawns beside each other. The pawn on ４七 can step forward to ４六 and capture Gote's pawn."
-          }
-        },
-        {
-          "moves": [
-            "4g4f"
-          ],
-          "text": {
-            "ja": "▲４六歩で進んできた歩を取りました。歩を打った時点で止めたと判断せず、相手が進んだ後に取れる位置かを確認します。",
-            "en": "▲４六歩 captures the advancing pawn. The drop mattered because the pawn could make this capture after Gote advanced, not merely because it occupied a nearby square."
-          }
-        }
-      ]
-    },
-    {
-      "title": {
-        "ja": "金の下に歩を残す",
-        "en": "Leave a pawn beneath the gold"
-      },
-      "side": "sente",
-      "kind": "position",
-      "start": "k3r4/9/9/9/9/9/9/4G4/8K b P 1",
-      "steps": [
-        {
-          "text": {
-            "ja": "後手の飛車５一は先手の金５八を縦に狙っています。歩を最下段の５九へ打つ底歩なら、飛車が金を取った後に歩で取り返す筋を作れます。まず二歩にならないことを確認します。",
-            "en": "Gote's rook on ５一 points down the file at Sente's gold on ５八. A pawn on the back rank at ５九, a bottom pawn, can recapture the rook if it takes the gold. Check that the file has no other unpromoted Sente pawn before dropping."
-          }
-        },
-        {
+            "ja": "▲５九歩。金５八を飛車で取られたとき、歩が５八へ進んで取り返せるようになりました。",
+            "en": "▲５九歩 prepares a pawn recapture on ５八 if the rook takes the gold."
+          },
           "moves": [
             "P*5i"
           ],
-          "text": {
-            "ja": "▲５九歩。金はまだ５八にいますが、飛車で取る場合の代償が変わりました。後手が飛車で金を取る応手を確かめます。",
-            "en": "▲５九歩 leaves the gold on ５八 and changes the cost of a rook capture. Consider the reply where Gote takes the gold with the rook."
+          "marks": {
+            "boxes": [
+              "5i",
+              "5h"
+            ]
           }
         },
         {
+          "text": {
+            "ja": "後手が△５八飛成と取る失敗を試します。５九の歩の前に竜が来ました。",
+            "en": "Examine the mistake △５八飛成. The dragon now stands directly in front of the pawn on ５九."
+          },
           "moves": [
             "5a5h+"
-          ],
-          "text": {
-            "ja": "△５八飛成で金を取られました。５九の歩は一つ前の５八へ進んで竜を取れます。",
-            "en": "△５八飛成 takes the gold and promotes. The pawn on ５九 can advance one square to ５八 and capture the dragon."
-          }
+          ]
         },
         {
+          "text": {
+            "ja": "▲５八歩で竜を取り返します。後手は飛車で取らず別の手を選ぶこともできます。",
+            "en": "▲５八歩 recaptures the dragon. Gote can also decline the rook capture."
+          },
           "moves": [
             "5i5h"
+          ]
+        },
+        {
+          "text": {
+            "ja": "底歩を考えるときは、同じ筋の歩と、打った歩自体への攻撃を確かめます。",
+            "en": "When considering a bottom pawn, check the file for nifu and whether the dropped pawn itself is attacked."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": [
+            "5h6g"
           ],
           "text": {
-            "ja": "▲５八歩で竜を取り返しました。底歩は金を取らせない保証ではなく、飛車で取った場合の交換を変える守りです。",
-            "en": "▲５八歩 recaptures the dragon. The bottom pawn does not guarantee that the gold survives; it changes the exchange if the rook takes it."
+            "ja": "▲６七金と逃げる別の受けもあります。底歩を打つ手と、金を移す手を比べましょう。",
+            "en": "▲６七金 is another defense. Compare moving the gold with supporting it by a pawn."
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "成りを予告して桂を追う",
-        "en": "Threaten promotion to chase the knight"
+        "ja": "控えの歩：進む歩に備える",
+        "en": "Reserve pawn: prepare for an advance"
       },
       "side": "sente",
       "kind": "position",
-      "start": "k8/3n5/9/9/9/9/9/9/8K b P 1",
+      "start": "lng3snl/1ks1r4/pp1gp1bpp/2pp2p2/5p3/2PP5/PPSGP1P1P/1KGB3R1/LN4SNL b 2P 1",
       "steps": [
         {
           "text": {
-            "ja": "後手の桂６二の近くへ歩を打ちます。６四から６三へ進めば敵陣に入り、と金へ成れます。ただし、歩を打った直後に成れるわけではありません。後手の応手を一手挟んで読みます。",
-            "en": "Drop a pawn near Gote's knight on ６二. From ６四 it can advance to ６三, enter enemy territory, and promote to a tokin. Promotion is not immediate; calculate Gote's intervening reply."
+            "ja": "後手の歩４五が４六へ進む筋を見ます。先手に４筋の歩はなく、４七へ打てます。",
+            "en": "Consider Gote’s pawn on ４五 advancing to ４六. Sente has no pawn on the fourth file and may drop on ４七."
+          },
+          "marks": {
+            "boxes": [
+              "4e",
+              "4f",
+              "4g"
+            ]
           }
         },
         {
-          "moves": [
-            "P*6d"
-          ],
           "text": {
-            "ja": "▲６四歩で次の６三歩成を狙います。後手は持ち駒がなく、６三に利く駒もないため、この成りを止める手はありません。と金ができると桂６二にも当たるので、ここでは桂が５四へ跳ねて逃げる応手を見ます。",
-            "en": "▲６四歩 threatens ６三歩成 next turn. Gote has nothing in hand and no piece covering ６三, so no reply can stop the promotion. The tokin would also attack the knight on ６二, so in this line the knight jumps away to ５四."
-          }
+            "ja": "▲４七歩。間に４六を空けた控えの歩で、相手が４六に進めば前へ取れます。",
+            "en": "▲４七歩 leaves ４六 between the pawns. If Gote advances to ４六, this pawn can capture forward."
+          },
+          "moves": [
+            "P*4g"
+          ]
         },
         {
-          "moves": [
-            "6b5d"
-          ],
           "text": {
-            "ja": "△５四桂。桂はと金の利きから逃げましたが、６三へ進む歩を取る位置には来ていません。",
-            "en": "△５四桂 takes the knight out of the coming tokin's reach. It does not land where it can capture the pawn's advance to ６三."
-          }
+            "ja": "△４六歩と進めた場合です。後手には飛車を移すなど別の応手もあります。",
+            "en": "Here Gote plays △４六歩. Other replies, including moving the rook, are available."
+          },
+          "moves": [
+            "4e4f"
+          ]
         },
         {
+          "text": {
+            "ja": "▲４六歩で取ります。控えの歩は相手の進路を止めるための備えで、歩を取らせる強制手ではありません。",
+            "en": "▲４六歩 captures. The reserve pawn prepares to meet an advance; it does not force one."
+          },
           "moves": [
-            "6d6c+"
+            "4g4f"
+          ]
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": [
+            "P*4f",
+            "4e4f"
           ],
           "text": {
-            "ja": "▲６三歩成でと金を作りました。この局面では、桂の二通りの跳ねでも玉の三通りの移動でも成りは防げません。実戦では歩を打つ前に、相手に成りを防ぐ応手があるかを調べます。",
-            "en": "▲６三歩成 makes a tokin. In this position neither of the two knight jumps nor any of the three king moves can prevent the promotion. In a game, check before the drop whether the opponent has a reply that stops it."
+            "ja": "▲４六歩とすぐ前に打つと、△同歩で取られます。",
+            "en": "An immediate ▲４六歩 can be captured by △同歩."
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "叩きの歩で銀を動かす",
-        "en": "Displace the silver with a tapping pawn"
+        "ja": "垂れ歩：次の成りを狙う",
+        "en": "Dangling pawn: threaten promotion"
       },
       "side": "sente",
       "kind": "position",
-      "start": "k8/9/2r1g4/3s5/9/9/6B2/9/8K b P 1",
+      "start": "lng3snl/1ks2r3/ppbgpp2p/2pp2p2/9/2PP5/PPSGPPP1P/1KGB3R1/LN4SNL b 2P 1",
       "steps": [
         {
           "text": {
-            "ja": "角３七と飛車７三の間に後手の銀６四がいます。銀を角で直接取ると金５三に取り返されます。歩を６五へ打てば銀を攻めながら、銀が前へ出た場合に角の道を開けます。",
-            "en": "Gote's silver on ６四 blocks the diagonal from Sente's bishop on ３七 to Gote's rook on ７三. Capturing the silver directly would let the gold on ５三 recapture the bishop. A pawn on ６五 attacks the silver and may clear the diagonal if the silver steps forward."
+            "ja": "先手は２筋に歩がなく、持ち歩を打てます。敵陣の一つ手前から次に成る狙いを垂れ歩と呼びます。",
+            "en": "Sente has no pawn on the second file and can drop one. A dangling pawn threatens promotion on its next advance."
+          },
+          "marks": {
+            "boxes": [
+              "2d",
+              "2c"
+            ]
           }
         },
         {
+          "text": {
+            "ja": "▲２四歩。次の▲２三歩成を狙いますが、相手が受ける手も調べます。",
+            "en": "▲２四歩 threatens ▲２三歩成; first check how Gote can respond."
+          },
+          "moves": [
+            "P*2d"
+          ]
+        },
+        {
+          "text": {
+            "ja": "△９四歩と別の場所を進める応手は、２三への成りを止めていません。",
+            "en": "△９四歩 is an illustrative reply elsewhere; it does not stop promotion on ２三."
+          },
+          "moves": [
+            "9c9d"
+          ]
+        },
+        {
+          "text": {
+            "ja": "▲２三歩成でと金を作りました。後手が飛車を回して受ける場合も、分岐で確認しましょう。",
+            "en": "▲２三歩成 makes a tokin. The variation shows a rook defense that changes the exchange."
+          },
+          "moves": [
+            "2d2c+"
+          ]
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": [
+            "4b2b",
+            "2d2c+",
+            "2b2c"
+          ],
+          "text": {
+            "ja": "△２二飛と回られると、成った歩は△２三飛で取られます。先手の飛車も２三へ利いているので、その後の交換まで読みます。",
+            "en": "After △２二飛, Gote can capture the new tokin on ２三. Sente’s rook also attacks ２三, so calculate the exchange."
+          },
+          "steps": [
+            {
+              "text": {
+                "ja": "▲２三飛成で飛車を取り返します。と金を作って終わりではなく、最後の駒の損得まで確認します。",
+                "en": "▲２三飛成 recaptures the rook. Count the full exchange rather than stopping at promotion."
+              },
+              "moves": [
+                "2h2c+"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "叩きの歩：角の道を開く",
+        "en": "Tapping pawn: open a bishop diagonal"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "l1g2s1nl/1k3b3/pnrpgp1pp/1Gps2p2/9/2P6/PPS1PPBPP/1KG4R1/LN4SNL b 2P2p 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "先手の角３七から後手の飛車７三までの斜めには、銀６四がいます。角で銀を直接取れば、金５三に取り返されます。",
+            "en": "Gote’s silver on ６四 blocks the diagonal from Sente’s bishop on ３七 to the rook on ７三. Capturing the silver directly allows the gold on ５三 to recapture."
+          },
+          "marks": {
+            "boxes": [
+              "3g",
+              "6d",
+              "7c"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "▲６五歩と銀の前に打つ叩きの歩。銀が歩を取ると角筋が開きますが、飛車を逃がす別の応手もあります。",
+            "en": "▲６五歩 is a tapping pawn in front of the silver. A silver capture opens the diagonal, but Gote can also move the rook."
+          },
           "moves": [
             "P*6e"
-          ],
-          "text": {
-            "ja": "▲６五歩。銀がこの歩を取る応手では、６四が空きます。別の応手なら角の道が開くとは限りません。このように相手の駒の目の前へ歩を打って応手を問う手を、叩きの歩と呼びます。",
-            "en": "▲６五歩 attacks the silver. If the silver captures this pawn, ６四 becomes empty. Other replies do not necessarily open the bishop's path. This is a tapping pawn: a drop immediately in front of a piece that asks it to respond."
-          }
+          ]
         },
         {
+          "text": {
+            "ja": "△６五銀と取る場合、６四が空きます。",
+            "en": "If Gote chooses △６五銀, ６四 becomes vacant."
+          },
           "moves": [
             "6d6e"
-          ],
-          "text": {
-            "ja": "△６五銀で歩を取られました。角から４六、５五、６四、７三へ続く斜めの道にはもう銀がいません。",
-            "en": "△６五銀 captures the pawn. The diagonal from the bishop through ４六, ５五, and ６四 to ７三 is now clear."
-          }
+          ]
         },
         {
+          "text": {
+            "ja": "▲７三角成で飛車を取り、王手です。金８四が７三を守るので、玉はこの馬を取れません。",
+            "en": "▲７三角成 captures the rook with check. The gold on ８四 protects ７三, so the king cannot capture the horse."
+          },
           "moves": [
             "3g7c+"
+          ]
+        },
+        {
+          "text": {
+            "ja": "歩の取りだけを前提にせず、守り駒や狙った駒が逃げる手も読みます。",
+            "en": "Do not assume the pawn must be captured; also consider moves by the defender and the target."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": [
+            "7c7b"
           ],
           "text": {
-            "ja": "▲７三角成で飛車を取って馬になりました。歩で銀を取るのが目的ではなく、銀が動いた後の角の利きを利用する順番でした。",
-            "en": "▲７三角成 captures the rook and promotes the bishop. The purpose of the pawn was not to win the silver; it was to use the bishop's line after the silver moved."
+            "ja": "△７二飛と飛車を逃がす応手もあります。銀が動かなければ、説明した角の道は開きません。",
+            "en": "△７二飛 moves the rook away. If the silver stays, the bishop’s diagonal remains blocked."
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "二枚目の歩まで応手を読む",
-        "en": "Calculate the reply to the second pawn"
+        "ja": "焦点の歩：二枚の利きと別の受け",
+        "en": "Focal pawn: two defenders and another reply"
       },
       "side": "sente",
       "kind": "position",
-      "start": "8k/4g4/9/9/9/9/6B2/9/8K b 2P 1",
+      "start": "l1g2s1nl/1k3b3/pnrp1p1pp/2s1g1p2/1N7/1G7/PP1SPP1PP/1KRG5/L2B2SNL b 3P3p 1",
       "steps": [
         {
           "text": {
-            "ja": "先手は歩を二枚持ち、角が３七、後手の金が５二にいます。金５二は角の斜めの道（４六・５五・６四）から外れています。６三に打つ歩は金の利きにあり、６二へ成っても金に取られるので、それ自体は脅威ではありません。狙いは金に歩を取らせ、角筋へ近づけることです。ここでは金が歩を取り続ける場合を読みますが、取りは強制されません。",
-            "en": "Sente holds two pawns, with a bishop on ３七 and Gote's gold on ５二, off the bishop's diagonal through ４六, ５五 and ６四. A pawn on ６三 stands within the gold's reach, and promoting on ６二 would only let the gold capture the tokin, so the drop is no threat by itself. The aim is to let the gold take pawns that draw it toward the bishop's diagonal. This line examines a gold that keeps accepting the pawns; those captures are not forced."
+            "ja": "６五は後手の銀７四と金５四の両方が取れる地点です。焦点へ歩を打つ例ですが、先手の桂８五は銀に狙われており、先に▲７三桂で飛車を取る手もあります。ここでは歩打ちの失敗を検討します。",
+            "en": "Both the silver on ７四 and the gold on ５四 can capture on ６五. This illustrates a focal pawn, but the silver also attacks Sente’s knight on ８五; ▲７三桂 can capture the rook immediately. Examine the pawn drop as a mistake."
+          },
+          "marks": {
+            "boxes": [
+              "6e",
+              "7d",
+              "5d",
+              "8e"
+            ]
           }
         },
         {
+          "text": {
+            "ja": "▲６五歩。二枚のどちらで取るかで、その後の飛車筋が変わります。ただし歩を取らず別の受けを選ぶこともできます。",
+            "en": "▲６五歩 asks which defender captures. The resulting rook line differs, but Gote can also decline the pawn."
+          },
           "moves": [
-            "P*6c"
+            "P*6e"
+          ]
+        },
+        {
+          "text": {
+            "ja": "△６五銀と取ると、７筋の銀が動きます。",
+            "en": "After △６五銀, the silver leaves the seventh file."
+          },
+          "moves": [
+            "7d6e"
+          ]
+        },
+        {
+          "text": {
+            "ja": "▲７三飛成で飛車を取り、王手です。桂８五が７三を守るため、玉では取れません。",
+            "en": "▲７三飛成 captures the rook with check. The knight on ８五 protects ７三 from the king."
+          },
+          "moves": [
+            "7h7c+"
+          ]
+        },
+        {
+          "text": {
+            "ja": "二枚の利きが集まる場所でも、歩を取る手だけでなく、駒を逃がす手や別の捕獲を比較します。",
+            "en": "Even at a focal square, compare captures with moves that save a piece or capture elsewhere."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": [
+            "5d6e",
+            "7h7d",
+            "7c7d"
           ],
           "text": {
-            "ja": "▲６三歩。金が６三の歩を取ると、金は角の斜めの道へ近づきます。",
-            "en": "▲６三歩 offers the gold a pawn. If the gold takes it on ６三, the gold moves closer to the bishop's diagonal."
+            "ja": "△６五金なら銀は７四に残ります。▲７四飛には△同飛と取られ、先手の飛車が失われます。",
+            "en": "After △６五金 the silver stays on ７四. If ▲７四飛, △同飛 captures Sente’s rook."
           }
         },
         {
+          "from": 1,
           "moves": [
-            "5b6c"
+            "4b3c"
           ],
           "text": {
-            "ja": "△６三金で一枚目の歩を取られました。二枚目を６四へ打つ前に、６四の歩を金が取った後の配置を読みます。",
-            "en": "△６三金 captures the first pawn. Before using the second pawn on ６四, calculate where the gold will stand if it takes that one too."
+            "ja": "△３三角と別の手を選ぶこともできます。焦点の歩が二枚の駒のどちらかを必ず動かすわけではありません。",
+            "en": "Gote can also play △３三角. A focal pawn does not force either defender to move."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "継ぎ歩：同じ筋へ打ち直す",
+        "en": "Successive pawns: drop again on the file"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "lng3snl/1ks1r4/pp1gppbpp/2pp2p2/9/2PP5/PPSGP1P2/1KGB3R1/LN4SNL b 3P 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "４筋に自分の歩がなく、先手は持ち歩を三枚使えます。継ぎ歩は取られた場所の後ろへ新たに歩を打つ方法です。",
+            "en": "Sente has no pawn on the fourth file and holds three pawns. Successive pawns use another drop behind a pawn that has been captured."
+          },
+          "marks": {
+            "boxes": [
+              "4c",
+              "4d",
+              "4e"
+            ]
           }
         },
         {
+          "text": {
+            "ja": "▲４四歩。後手の歩４三と角３三の両方が、この歩を取れます。",
+            "en": "▲４四歩 can be captured by either Gote’s pawn on ４三 or bishop on ３三."
+          },
           "moves": [
-            "P*6d"
+            "P*4d"
+          ]
+        },
+        {
+          "text": {
+            "ja": "ここでは△同歩と取る場合を見ます。角で取る別の応手は分岐にあります。",
+            "en": "Here examine △同歩. The bishop capture is shown in the variation."
+          },
+          "moves": [
+            "4c4d"
+          ]
+        },
+        {
+          "text": {
+            "ja": "▲４五歩。４四の自分の歩が取られたので、もう一度４筋へ打てます。ただし、この局面では他の手を後回しにする甘い手として検討します。",
+            "en": "▲４五歩 is legal because the previous Sente pawn was captured. In this position, examine it as a weak move that postpones other opportunities."
+          },
+          "moves": [
+            "P*4e"
+          ]
+        },
+        {
+          "text": {
+            "ja": "△同歩なら後手の歩は４五へ進みます。",
+            "en": "After △同歩, Gote’s pawn moves to ４五."
+          },
+          "moves": [
+            "4d4e"
+          ]
+        },
+        {
+          "text": {
+            "ja": "▲４四歩とさらに打てます。ただし角３三に取られるため、これだけで突破とはいえません。",
+            "en": "▲４四歩 can be dropped again, but the bishop on ３三 can capture it. The drop alone does not guarantee a breakthrough."
+          },
+          "moves": [
+            "P*4d"
+          ]
+        },
+        {
+          "text": {
+            "ja": "△９四歩と相手が見逃す場合だけ、次の成りが残ります。",
+            "en": "Only if Gote overlooks the pawn with a move such as △９四歩 does the promotion remain."
+          },
+          "moves": [
+            "9c9d"
+          ]
+        },
+        {
+          "text": {
+            "ja": "▲４三歩成。実戦では、この結果を前提にせず、途中で角が取る応手を先に確かめます。",
+            "en": "▲４三歩成. In a game, examine the bishop capture before relying on this result."
+          },
+          "moves": [
+            "4d4c+"
+          ]
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": [
+            "3c4d"
           ],
           "text": {
-            "ja": "▲６四歩で金６三を攻めます。金が歩を取るなら６四へ進み、角３七から４六、５五を経て金へ利きが届きます。",
-            "en": "▲６四歩 attacks the gold on ６三. If the gold captures it, the gold moves to ６四, which the bishop on ３七 reaches through ４六 and ５五."
+            "ja": "△同角と先に歩を取る応手があります。後手が歩で取り続けるとは限りません。",
+            "en": "△同角 captures the first pawn with the bishop. Gote need not continue capturing with the pawn."
           }
         },
         {
+          "from": 5,
           "moves": [
-            "6c6d"
+            "3c4d"
           ],
           "text": {
-            "ja": "△６四金で二枚目も取られました。金は角筋の６四にいるため、次は角で取れます。",
-            "en": "△６四金 captures the second pawn. The gold now stands on ６四, directly on the bishop's diagonal."
+            "ja": "△同角と三枚目の歩を取られると、４三に成る狙いは消えます。",
+            "en": "△同角 captures the third pawn and removes the promotion threat."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "歩の連打：前へ誘う手と限界",
+        "en": "Repeated pawns: draw a lance forward and test the limit"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "lng2ns1l/1ks2r3/pp1gppbp1/2pp2p2/9/2PP5/PPSGPPP2/1KGB2LR1/LN4SN1 b 3P 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "１筋には先手の歩がなく、後手の香は１一にいます。持ち歩を続けて打ち、香を前へ誘う手順を見ます。",
+            "en": "Sente has no pawn on the first file; Gote’s lance stands on １一. Examine repeated pawn drops that draw the lance forward."
+          },
+          "marks": {
+            "boxes": [
+              "1a",
+              "1b",
+              "1c",
+              "1d"
+            ]
           }
         },
         {
+          "text": {
+            "ja": "▲１二歩。香で取る手のほか、後手の飛車４二も１二の歩を取れます。",
+            "en": "▲１二歩 can be captured by the lance or by Gote’s rook on ４二."
+          },
           "moves": [
-            "3g6d"
+            "P*1b"
+          ]
+        },
+        {
+          "text": {
+            "ja": "△同香と香で取る場合を見ます。",
+            "en": "Examine the lance capture △同香."
+          },
+          "moves": [
+            "1a1b"
+          ]
+        },
+        {
+          "text": {
+            "ja": "▲１三歩。先ほどの歩が取られたため、再び１筋へ打てます。",
+            "en": "▲１三歩 is legal after the first pawn was captured."
+          },
+          "moves": [
+            "P*1c"
+          ]
+        },
+        {
+          "text": {
+            "ja": "△同香と取ると、香は１三へ移ります。",
+            "en": "After △同香, the lance moves to １三."
+          },
+          "moves": [
+            "1b1c"
+          ]
+        },
+        {
+          "text": {
+            "ja": "▲１四歩で再び香の前に打ちます。しかし後手はこの歩も香で取れます。",
+            "en": "▲１四歩 attacks the lance again, but Gote can capture this pawn too."
+          },
+          "moves": [
+            "P*1d"
+          ]
+        },
+        {
+          "text": {
+            "ja": "△９四歩と歩を見逃す失敗なら、香を取る手が残ります。",
+            "en": "If Gote mistakenly overlooks the pawn with △９四歩, Sente can capture the lance."
+          },
+          "moves": [
+            "9c9d"
+          ]
+        },
+        {
+          "text": {
+            "ja": "▲１三歩成で香を取ります。連打は手順を強制する魔法ではなく、各段階で相手の捕獲と別の受けを読む手筋です。",
+            "en": "▲１三歩成 captures the lance. Repeated drops are not automatically forcing; calculate each capture and alternative defense."
+          },
+          "moves": [
+            "1d1c+"
+          ]
+        }
+      ],
+      "variations": [
+        {
+          "from": 1,
+          "moves": [
+            "4b1b"
           ],
           "text": {
-            "ja": "▲６四角で金を取りました。二枚の歩を使っても、金がどちらかを取らずに別の場所へ逃げればこの捕獲は成立しません。歩を打つたびに相手の選択を読み直します。",
-            "en": "▲６四角 captures the gold. The result depends on Gote taking both pawns; if the gold declines either one or moves elsewhere, this capture does not follow. Recalculate the defender's choices after every drop."
+            "ja": "△１二飛と飛車で取る選択もあります。香を前へ引き出す順は強制されません。",
+            "en": "△１二飛 is a rook capture. The sequence that draws the lance forward is not forced."
+          }
+        },
+        {
+          "from": 5,
+          "moves": [
+            "1c1d"
+          ],
+          "text": {
+            "ja": "△１四香と三枚目も取る応手があります。歩を打っただけでは香は取れません。",
+            "en": "△１四香 captures the third pawn. Dropping it does not by itself win the lance."
           }
         }
       ]

@@ -39,12 +39,12 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "2k6/9/R1B6/9/9/9/9/9/8K b GS 1",
+      "start": "2k6/9/R1B6/9/9/9/9/9/8K b GSrb3g3s4n4l18p 1",
       "steps": [
         {
           "text": {
-            "ja": "後手玉は７一。先手は７三の角と９三の飛車を持ち、持ち駒は金と銀です。この局面に一手で詰ます手はありません。金は最後に残し、先に銀で王手をかけます。ほかの順でも詰みますが、ここでは金を最後に使う一本の順を読みます。",
-            "en": "Gote's king is on ７一. Sente has a bishop on ７三, a rook on ９三, and a gold and a silver in hand. No single move mates here. Keep the gold for last and check with the silver first. Other orders also mate; this chapter reads one route that saves the gold for the finish."
+            "ja": "この作図では表示した持ち駒を使い、盤上と先手の持ち駒以外の駒はすべて後手の持ち駒です。後手玉は７一。先手は７三の角と９三の飛車を持ち、持ち駒は金と銀です。この局面に一手で詰ます手はありません。金は最後に残し、先に銀で王手をかけます。ほかの順でも詰みますが、ここでは金を最後に使う一本の順を読みます。",
+            "en": "In this composed position use the displayed hands; all pieces not on the board or in Sente’s hand belong to Gote. Gote's king is on ７一. Sente has a bishop on ７三, a rook on ９三, and a gold and a silver in hand. No single move mates here. Keep the gold for last and check with the silver first. Other orders also mate; this chapter reads one route that saves the gold for the finish."
           }
         },
         {
@@ -96,12 +96,12 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "9/kS1R5/9/9/9/9/9/9/8K b S 1",
+      "start": "9/kS1R5/9/9/9/9/9/9/8K b Sr2b4g2s4n4l18p 1",
       "steps": [
         {
           "text": {
-            "ja": "後手玉９二の横に先手の銀８二がいて、飛車６二が銀を守っています。この局面で持ち駒が金ではなく銀なら、９三に打つ王手の結果が変わります。",
-            "en": "Gote's king is on ９二 beside Sente's silver on ８二, which the rook on ６二 protects. If the piece in hand is a silver rather than a gold, a checking drop on ９三 has a different result."
+            "ja": "この作図では表示した持ち駒を使い、盤上と先手の持ち駒以外の駒はすべて後手の持ち駒です。後手玉９二の横に先手の銀８二がいて、飛車６二が銀を守っています。この局面で持ち駒が金ではなく銀なら、９三に打つ王手の結果が変わります。",
+            "en": "In this composed position use the displayed hands; all pieces not on the board or in Sente’s hand belong to Gote. Gote's king is on ９二 beside Sente's silver on ８二, which the rook on ６二 protects. If the piece in hand is a silver rather than a gold, a checking drop on ９三 has a different result."
           }
         },
         {
@@ -131,12 +131,12 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "5k3/9/9/3B5/9/9/9/9/8K b GS 1",
+      "start": "5k3/9/9/3B5/9/9/9/9/8K b GS2rb3g3s4n4l18p 1",
       "steps": [
         {
           "text": {
-            "ja": "後手玉４一の前の４二は空いています。先手の角６四は５三を通って４二を守ります。金を後まで残す必要があるかは、今４二へ打ったときの全ての逃げ道で決めます。",
-            "en": "The square ４二 in front of Gote's king on ４一 is empty. Sente's bishop on ６四 protects it through ５三. Whether to keep the gold for later depends on every king escape after a gold drop there now."
+            "ja": "この作図では表示した持ち駒を使い、盤上と先手の持ち駒以外の駒はすべて後手の持ち駒です。後手玉４一の前の４二は空いています。先手の角６四は５三を通って４二を守ります。金を後まで残す必要があるかは、今４二へ打ったときの全ての逃げ道で決めます。",
+            "en": "In this composed position use the displayed hands; all pieces not on the board or in Sente’s hand belong to Gote. The square ４二 in front of Gote's king on ４一 is empty. Sente's bishop on ６四 protects it through ５三. Whether to keep the gold for later depends on every king escape after a gold drop there now."
           }
         },
         {

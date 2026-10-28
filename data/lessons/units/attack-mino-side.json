@@ -1,14 +1,17 @@
 {
   "id": "attack-mino-side",
   "order": 370,
-  "path": ["上達のためのテクニック", "囲い崩し"],
+  "path": [
+    "上達のためのテクニック",
+    "囲い崩し"
+  ],
   "title": {
     "ja": "美濃を横から攻めるときは取り返しを数える",
     "en": "Count Recaptures in a Side Attack on Mino"
   },
   "intro": {
-    "ja": "美濃囲いを横から攻めるときは、金を取れるかだけでなく、金を支える銀、飛車が入れる筋、玉の逃げ道を順に調べます。ここでは先手が後手の２筋側に組んだ美濃型を攻める新しい局所図を使います。歩で外側の筋を開く攻めと、飛車・角で金を狙う攻めを、取り返しの失敗例とも比べます。後手の応手は分岐の一例で、示した順以外も選べます。",
-    "en": "When attacking Mino from the side, count more than the gold you might capture: inspect its supporting silver, the file a rook can enter, and the king's exits. These new local positions place Gote's Mino-style shelter near the second file. Compare a pawn break on the outer file and a rook-bishop attack with an exchange that fails. Gote's replies are sample branches, not forced choices."
+    "ja": "美濃囲いを横から攻めるときは、金を取れるかだけでなく、金を支える銀、飛車が入れる筋、玉の逃げ道を順に調べます。ここでは先手が後手の２筋側に組んだ美濃型を攻める両玉と持ち駒を含む局面を使います。歩で外側の筋を開く攻めと、飛車・角で金を狙う攻めを、取り返しの失敗例とも比べます。後手の応手は分岐の一例で、示した順以外も選べます。",
+    "en": "When attacking Mino from the side, count more than the gold you might capture: inspect its supporting silver, the file a rook can enter, and the king's exits. These positions place Gote's Mino-style shelter near the second file. Compare a pawn break on the outer file and a rook-bishop attack with an exchange that fails. Gote's replies are sample branches, not forced choices."
   },
   "check": {
     "question": {
@@ -36,7 +39,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "9/5gsk1/9/5P3/9/9/9/9/K4R3 b - 1",
+      "start": "lnsg3nl/1r1b1gsk1/ppppp1ppp/5P3/9/9/PPPPP1PPP/1B2G4/KNSG1RSNL b lp 1",
       "steps": [
         {
           "text": {
@@ -45,7 +48,12 @@
           }
         },
         {
-          "moves": ["4d4c+", "4b4c", "4i4c", "3b4c"],
+          "moves": [
+            "4d4c+",
+            "4b4c",
+            "4i4c",
+            "3b4c"
+          ],
           "text": {
             "ja": "▲４三歩成に対して後手が△同金と取る例です。▲同飛不成で金を取れても、△同銀が残っています。歩と飛車を金と交換する順なので、この図では飛車の支えだけを根拠に踏み込めません。後手は最初から別の受けも選べます。",
             "en": "One sample reply to ▲４三歩成 is △同金. Sente can take that gold with ▲同飛不成, but △同銀 then captures the rook. This line trades a pawn and rook for the gold; rook support alone does not justify the promotion here. Gote can choose a different first reply."
@@ -60,7 +68,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "5g3/6sk1/5p3/5P3/9/9/9/9/K4R3 b - 1",
+      "start": "lnsg1g1nl/1r1b2sk1/ppppppppp/5P3/9/9/PPPPP1PPP/1B2G4/KNSG1RSNL b l 1",
       "steps": [
         {
           "text": {
@@ -69,7 +77,11 @@
           }
         },
         {
-          "moves": ["4d4c+", "3b4c", "4i4c"],
+          "moves": [
+            "4d4c+",
+            "3b4c",
+            "4i4c"
+          ],
           "text": {
             "ja": "▲４三歩成は歩を取りながら成ります。後手が△同銀と取る例では、▲同飛不成で銀を取り、飛車が４三へ進みます。飛車の前には４二が空いており、金４一を縦に狙う形です。後手は△同銀を選ばずに受けられるため、銀得や金取りが必ず実現するとは言えません。",
             "en": "▲４三歩成 captures the pawn while promoting. In the sample reply △同銀, ▲同飛不成 takes the silver and brings the rook to ４三. With ４二 empty, it now bears down on the gold at ４一. Gote need not choose the silver capture, so neither the silver gain nor the continuing gold threat is forced."
@@ -84,7 +96,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "5g3/2R2gsk1/9/9/2B6/9/PP7/1S7/KG7 b - 1",
+      "start": "lns2g1nl/r1R2gsk1/pppp1pppp/9/b1B6/P8/NPPPPPPPP/1S7/KG3GSNL b lp 1",
       "steps": [
         {
           "text": {
@@ -93,7 +105,11 @@
           }
         },
         {
-          "moves": ["7b4b+", "4a4b", "7e4b+"],
+          "moves": [
+            "7b4b+",
+            "4a4b",
+            "7e4b+"
+          ],
           "text": {
             "ja": "▲４二飛成で金を取り、後手が△同金と応じた場合、▲同角成で二枚目の金を取ります。飛車を渡して金二枚を得て、馬が残る例です。後手は飛車を打てますが、先手玉が囲われているので、王手と馬取りを同時に掛ける打ち込みはありません。△同金は強制ではなく、取る順番も他にあります。金を取る前に、角の通り道と、渡した駒で打たれる反撃を確認します。",
             "en": "After ▲４二飛成 takes the first gold, this sample has Gote reply △同金. ▲同角成 then takes the second gold. Sente gives up the rook for two golds and keeps a horse. Gote can drop the rook, but Sente's king is sheltered, so no drop checks the king and attacks the horse at once. The gold recapture is optional, and this is not the only capturing order. Before taking the gold, verify the bishop's route and the counterattack the handed-over piece allows."
@@ -103,7 +119,11 @@
       "variations": [
         {
           "from": 0,
-          "moves": ["7e4b+", "4a4b", "7b4b+"],
+          "moves": [
+            "7e4b+",
+            "4a4b",
+            "7b4b+"
+          ],
           "text": {
             "ja": "角から先に取る順です。▲４二角成△同金▲同飛成なら、金二枚と引き換えに渡すのは角で済み、竜が４二に残ります。取り返しの数が足りているときは、価値の低い駒から先に取るほうが損を小さくできます。",
             "en": "This order captures with the bishop first. After ▲４二角成 △同金 ▲同飛成, Sente gives up only the bishop for the two golds, and a dragon remains on ４二. When you have enough attackers, capturing with the less valuable piece first keeps the cost lower."
@@ -118,7 +138,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "5g3/6sk1/4R4/7P1/9/4B4/9/9/K8 b - 1",
+      "start": "lnsg1g1nl/1r1b2sk1/ppppR3p/7P1/9/4B4/PPPPPPP1P/9/KNSG1GSNL b l4p 1",
       "steps": [
         {
           "text": {
@@ -127,13 +147,166 @@
           }
         },
         {
-          "moves": ["5c2c+", "3b2c", "2d2c+", "2b3a"],
+          "moves": [
+            "5c2c+",
+            "3b2c",
+            "2d2c+",
+            "2b3a"
+          ],
           "text": {
             "ja": "▲２三飛成に△同銀なら、▲同歩成が王手です。角５六がと金２三を斜めに守るため玉は取れません。しかし図の後手玉は△３一玉と逃げられます。飛車を渡して銀を取り、王手を続けた例であり、詰みや攻めの成功を証明する順ではありません。後手には銀で取る以外の応手もあります。",
             "en": "If Gote answers ▲２三飛成 with △同銀, ▲同歩成 checks again. The bishop on ５六 protects the tokin on ２三, so the king cannot take it. In this position Gote can escape with △３一玉. This sample gives up the rook for the silver and continues the checks; it does not establish mate or a successful attack. Gote also has replies other than the silver capture."
           }
         }
       ]
+    },
+    {
+      "title": {
+        "ja": "金を誘って銀で王手金取り",
+        "en": "Draw out a gold, then check and attack it"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "lnsR1g1nl/1r1bg1sk1/ppppppppp/9/9/9/PPPPPPPPP/1B7/KNSG3NL b GSl 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手玉２二、銀３二、金４一・５二の美濃に対し、先手は金と銀を持ち、飛車６一を置いています。金４一を誘い出して銀で王手と金取りを狙います。",
+            "en": "Against the Mino king on ２二, silver on ３二 and golds on ４一 and ５二, Sente holds a gold and silver with a rook on ６一. Try drawing out the gold before checking and attacking it with the silver."
+          },
+          "marks": {
+            "boxes": [
+              "6a",
+              "4a",
+              "4b",
+              "3a",
+              "2b",
+              "5b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "G*4b",
+            "4a4b"
+          ],
+          "text": {
+            "ja": "▲４二金に△同金上と取る応手を見ます。後手は取らずに別の手を選ぶこともできます。",
+            "en": "Examine ▲４二金, △同金上. Gote can instead decline the capture."
+          }
+        },
+        {
+          "moves": [
+            "S*3a"
+          ],
+          "text": {
+            "ja": "▲３一銀は玉２二への王手で、金４二も狙います。飛車６一は５一と空いた４一を通って銀３一を守ります。",
+            "en": "▲３一銀 checks the king on ２二 and attacks the gold on ４二. The rook on ６一 protects the silver through ５一 and the vacated ４一."
+          }
+        },
+        {
+          "moves": [
+            "2b1b",
+            "3a4b",
+            "5b4b"
+          ],
+          "text": {
+            "ja": "△１二玉と逃げた後、▲４二銀と金を取ると△同金と取り返されます。金５二の横の利きまで数えます。",
+            "en": "After △１二玉, ▲４二銀 captures the gold, but △同金 recaptures. Count the sideways protection from the gold on ５二."
+          }
+        },
+        {
+          "text": {
+            "ja": "王手金取りでも、玉の逃げ道と取り返しの最後まで確かめます。",
+            "en": "Even in a checking fork, inspect the king’s escapes and the full recapture sequence."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 0,
+          "moves": [
+            "G*4b",
+            "4a3a"
+          ],
+          "text": {
+            "ja": "△３一金と金を動かす応手もあり、４二の金を取る順は強制ではありません。",
+            "en": "△３一金 moves the gold; capturing on ４二 is not forced."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "控えた香を成って金に迫る",
+        "en": "Promote a reserved lance beside the Mino gold"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "lnsR1g1nl/1r1bg1sk1/ppppp1ppp/9/9/9/PPPPPPPPP/1B7/KNSG3N1 b LGSPl 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "後手玉２二、銀３二、金４一・５二の美濃に対し、先手は香と銀を持っています。飛車６一は４一の金を狙っています。",
+            "en": "Against the Mino king on ２二, silver on ３二 and golds on ４一 and ５二, Sente holds a lance and silver. The rook on ６一 attacks the gold on ４一."
+          },
+          "marks": {
+            "boxes": [
+              "4c",
+              "4b",
+              "4a",
+              "3a",
+              "2b",
+              "6a"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "L*4c"
+          ],
+          "text": {
+            "ja": "▲４三香と一段離して打ちます。４二へ進んで成る余地を残し、４一の金にも利きます。",
+            "en": "▲４三香 is dropped one square back, leaving room to move to ４二 and promote while attacking the gold on ４一."
+          }
+        },
+        {
+          "moves": [
+            "4a3a"
+          ],
+          "text": {
+            "ja": "△３一金と逃げる応手を例にします。金は飛車６一の横の線上に移ります。",
+            "en": "Examine △３一金. The gold moves onto the rook’s rank."
+          }
+        },
+        {
+          "moves": [
+            "4c4b+",
+            "3a4b"
+          ],
+          "text": {
+            "ja": "▲４二香成に△同金上と取る例では、金が４二へ戻り、３一が空きます。",
+            "en": "In the sample ▲４二香成, △同金上, the gold returns to ４二 and vacates ３一."
+          }
+        },
+        {
+          "moves": [
+            "S*3a",
+            "2b1b"
+          ],
+          "text": {
+            "ja": "▲３一銀は王手金取りですが、△１二玉と逃げられます。金５二も４二を守るため、さらに取る前に交換を読みます。",
+            "en": "▲３一銀 checks and attacks the gold, but △１二玉 escapes. The gold on ５二 also protects ４二, so calculate the exchange before capturing."
+          }
+        },
+        {
+          "text": {
+            "ja": "控えの香では成る場所、相手の逃げ方と、その後の取り返しを調べます。",
+            "en": "For a reserved lance, check the promotion square, the opponent’s escapes and subsequent recaptures."
+          }
+        }
+      ],
+      "variations": []
     }
   ]
 }

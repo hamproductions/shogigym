@@ -1,7 +1,10 @@
 {
   "id": "rules-game",
   "order": 10,
-  "path": ["はじめての将棋", "ルール"],
+  "path": [
+    "はじめての将棋",
+    "ルール"
+  ],
   "title": {
     "ja": "将棋の目的と対局の流れ",
     "en": "The goal of shogi and how a game unfolds"
@@ -42,22 +45,26 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "kp7/9/pG7/9/9/9/9/9/4K4 b R 1",
+      "start": "kp7/9/pG7/9/9/9/9/9/4K4 b Rr2b3g4s4n4l16p 1",
       "steps": [
         {
           "text": {
-            "ja": "終局の形から見ます。後手の玉は９一、歩は８一と９三にあります。先手は８三に金があり、持ち駒の飛車を使えます。目標は玉を盤から取り除くことではなく、王手から逃れる手段をなくすことです。",
-            "en": "Start near the end of a game. Gote's king is on 9a, with pawns on 8a and 9c. Sente has a gold on 8c and a rook in hand. The aim is to leave the king with no legal escape from check, not to capture it."
+            "ja": "終局の形から見ます。後手の玉は９一、歩は８一と９三にあります。先手は８三に金があり、持ち駒の飛車を使えます。目標は玉を盤から取り除くことではなく、王手から逃れる手段をなくすことです。 これは詰みの仕組みを見る作図で、表示した持ち駒を使います。盤上と先手の持ち駒以外の駒は後手の持ち駒です。",
+            "en": "Start near the end of a game. Gote's king is on 9a, with pawns on 8a and 9c. Sente has a gold on 8c and a rook in hand. The aim is to leave the king with no legal escape from check, not to capture it. This is a composed example using the displayed hands; all pieces not on the board or in Sente’s hand belong to Gote."
           }
         },
         {
-          "moves": ["R*9b"],
+          "moves": [
+            "R*9b"
+          ],
           "text": {
             "ja": "先手は飛車を９二に打ちました。飛車の利きが９一の玉に届くので王手です。王手を受けた側は、次の自分の手でその危険を解消しなければなりません。",
             "en": "Sente drops the rook on 9b. Its file reaches the king on 9a, so this is check. The checked player must remove the threat on their next turn."
           },
           "marks": {
-            "arrows": ["R*9b"],
+            "arrows": [
+              "R*9b"
+            ],
             "last": "9b"
           }
         },
@@ -67,7 +74,11 @@
             "en": "The king could try 8a, 8b, or 9b. Its own pawn occupies 8a, while sente's gold guards 8b and the rook's square at 9b. Moving either gote pawn leaves the check unanswered, and the king cannot capture the rook because the gold protects it. With no legal reply to the check, this is checkmate."
           },
           "marks": {
-            "boxes": ["8a", "8b", "9b"]
+            "boxes": [
+              "8a",
+              "8b",
+              "9b"
+            ]
           }
         },
         {
@@ -94,33 +105,45 @@
           }
         },
         {
-          "moves": ["2g2f"],
+          "moves": [
+            "2g2f"
+          ],
           "text": {
             "ja": "先手は２筋の歩を一つ進めました。この一手を指し終えると、先手の番はいったん終わります。",
             "en": "Sente advances the pawn on the second file by one square. Once this move is complete, sente's turn is over."
           },
           "marks": {
-            "arrows": ["2g2f"]
+            "arrows": [
+              "2g2f"
+            ]
           }
         },
         {
-          "moves": ["8c8d"],
+          "moves": [
+            "8c8d"
+          ],
           "text": {
             "ja": "後手も８筋の歩を進めます。駒を動かすと、次に指す側も交代します。",
             "en": "Gote advances the pawn on the eighth file. Moving a piece also passes the turn to the other player."
           },
           "marks": {
-            "arrows": ["8c8d"]
+            "arrows": [
+              "8c8d"
+            ]
           }
         },
         {
-          "moves": ["2f2e"],
+          "moves": [
+            "2f2e"
+          ],
           "text": {
             "ja": "先手に番が戻りました。盤面がどう変わっても、両者は一手ずつ交互に指して局面を進めます。",
             "en": "The turn returns to sente. Whatever changes on the board, the two players continue by alternating one move at a time."
           },
           "marks": {
-            "arrows": ["2f2e"]
+            "arrows": [
+              "2f2e"
+            ]
           }
         }
       ]
@@ -131,33 +154,56 @@
         "en": "Captured pieces change sides"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "4k4/1rs2g3/2p6/7p1/9/9/4P1PR1/2SG5/4K4 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "両者は玉・飛車・金・銀を一枚ずつ、歩を二枚ずつ持っています。先手の飛車は２七、後手の歩は２四にあります。飛車で歩を取った後も、飛車は盤上に残り、歩は先手の持ち駒になります。",
-            "en": "Each side has a king, rook, gold, silver, and two pawns. Sente's rook is on 2g and gote's pawn is on 2d. After the rook captures the pawn, the rook stays on the board and the pawn enters sente's hand."
+            "ja": "初期配置から歩を交換し、取った駒がどちらの持ち駒になるかを見ます。",
+            "en": "From the initial position, exchange pawns and see whose hand receives each captured piece."
           }
         },
         {
-          "moves": ["2g2d"],
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "2g2f",
+            "8c8d",
+            "2f2e",
+            "8d8e"
+          ],
           "text": {
-            "ja": "飛車が２四まで進み、後手の歩を取りました。歩は盤上から消え、先手の持ち駒に一枚加わります。",
-            "en": "The rook travels to 2d and captures gote's pawn. The pawn leaves the board and is added to sente's hand."
-          },
-          "marks": {
-            "arrows": ["2g2d"],
-            "last": "2d"
+            "ja": "両者が歩を進め、先手の歩２五と後手の歩２三が同じ筋に並びます。",
+            "en": "Both players advance pawns. Sente’s pawn on ２五 and Gote’s pawn on ２三 stand on the same file."
+          }
+        },
+        {
+          "moves": [
+            "2e2d",
+            "2c2d"
+          ],
+          "text": {
+            "ja": "▲２四歩に△同歩と取ると、先手の歩は後手の持ち駒になります。",
+            "en": "After ▲２四歩, △同歩 captures Sente’s pawn and adds it to Gote’s hand."
+          }
+        },
+        {
+          "moves": [
+            "2h2d"
+          ],
+          "text": {
+            "ja": "▲同飛で後手の歩を取り返します。飛車は２四に残り、取った歩は先手の持ち駒に入ります。",
+            "en": "▲同飛 captures Gote’s pawn. The rook stays on ２四 and the captured pawn enters Sente’s hand."
           }
         },
         {
           "text": {
-            "ja": "盤面の飛車は２四にありますが、持ち駒欄には取った歩が表示されています。駒を取ると対局から失われず、元の駒種のまま取った側の持ち駒になり、後の自分の番に打てます。",
-            "en": "Sente's rook remains on 2d, while the captured pawn appears in sente's hand. A captured piece stays in the game as a piece of its original type, ready for its new owner to drop on a later turn."
+            "ja": "取った駒は取った側が後の自分の番に打てます。成った駒を取った場合は、成る前の駒に戻して持ち駒にします。",
+            "en": "The capturer may drop a captured piece on a later turn. A captured promoted piece returns to its unpromoted type in hand."
           }
         }
-      ]
+      ],
+      "variations": []
     },
     {
       "title": {
@@ -165,52 +211,54 @@
         "en": "Spend a turn to drop a piece"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "2k6/9/4p4/9/9/9/4P4/9/2K6 b Ss 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "両者は持ち駒の銀を一枚ずつ持ち、盤上には玉と歩があります。自分の番には、盤の駒を動かす手と、持ち駒を打つ手のどちらかを選びます。",
-            "en": "Each side has a silver in hand, as well as a king and pawn on the board. On a turn, the player chooses either to move a board piece or to drop a piece in hand."
+            "ja": "初期配置から角を交換し、持ち駒を打つ一手と、その次の手番を見ます。",
+            "en": "From the initial position, exchange bishops and follow a drop and the next turns."
           }
         },
         {
-          "moves": ["S*4e"],
+          "moves": [
+            "7g7f",
+            "3c3d",
+            "8h2b+",
+            "3a2b"
+          ],
           "text": {
-            "ja": "銀を４五に打ちました。持ち駒を打つこと自体で一手を使うため、この番にもう一枚動かすことはできません。打つ場所は空きマスに限られ、駒ごとの制限も守ります。",
-            "en": "Sente drops the silver on 4e. The drop uses the whole turn, so another piece cannot move immediately afterward. A drop must go on an empty square and obey the restrictions for that piece."
-          },
-          "marks": {
-            "last": "4e"
+            "ja": "▲７六歩、△３四歩、▲２二角成、△同銀。双方が角を一枚ずつ持ち駒にします。",
+            "en": "After ▲７六歩, △３四歩, ▲２二角成, △同銀, each player holds a bishop."
           }
         },
         {
-          "moves": ["7a8a"],
+          "moves": [
+            "B*4e"
+          ],
           "text": {
-            "ja": "後手は玉を７一から８一へ動かしました。先手に番が戻ったら、今度は盤上の駒を動かすこともできます。",
-            "en": "Gote moves the king from 7a to 8a. When the turn returns to sente, a piece already on the board can be moved instead."
-          },
-          "marks": {
-            "arrows": ["7a8a"]
+            "ja": "▲４五角と持ち角を打ちます。打つ手も一手なので、続けて別の駒を動かすことはできません。",
+            "en": "▲４五角 drops the bishop. The drop uses the turn, so Sente cannot move another piece immediately."
           }
         },
         {
-          "moves": ["5g5f"],
+          "moves": [
+            "8c8d",
+            "2g2f"
+          ],
           "text": {
-            "ja": "先手は５七の歩を５六へ進めました。打つ手を選んだ次の番に、盤上の駒を選んでもかまいません。動かす手と打つ手は、番ごとに切り替えられます。",
-            "en": "Sente advances the pawn from 5g to 5f. On a later turn, the player may choose a board move after having dropped a piece. Moving and dropping are choices made anew each turn."
-          },
-          "marks": {
-            "arrows": ["5g5f"]
+            "ja": "△８四歩と後手が指した後、先手は▲２六歩と盤上の駒を動かします。手番ごとに動かすか打つかを選びます。",
+            "en": "After Gote plays △８四歩, Sente moves the on-board pawn with ▲２六歩. The choice between moving and dropping is made each turn."
           }
         },
         {
           "text": {
-            "ja": "指さずに順番を渡すパスはありません。毎回、打ち方の制限も含めて合法な一手を選びます。二歩や打ち歩詰めなど、打つとき固有の決まりは「持ち駒を打つ」レッスンで確認します。",
-            "en": "There is no pass that hands over a turn without moving. Each turn requires one legal move, including all restrictions on drops. The separate lesson on drops covers rules such as nifu and uchi-fuzume."
+            "ja": "打つ場所は空きマスに限られ、駒ごとの制限もあります。パスはできません。",
+            "en": "Drops require empty squares and obey piece-specific restrictions. A player cannot pass."
           }
         }
-      ]
+      ],
+      "variations": []
     }
   ]
 }

@@ -1,14 +1,17 @@
 {
   "id": "tesuji-gold",
   "order": 230,
-  "path": ["上達のためのテクニック", "手筋"],
+  "path": [
+    "上達のためのテクニック",
+    "手筋"
+  ],
   "title": {
-    "ja": "金の横と後ろを使い切る",
-    "en": "Use the Gold's Sideways and Backward Steps"
+    "ja": "金の手筋：守りと頭金・尻金",
+    "en": "Gold techniques: defense and mating drops"
   },
   "intro": {
-    "ja": "金は前後左右と斜め前へ一マス動き、成りません。斜め後ろには動けないため、配置を決める前に次の受けと取りを確認します。ここでは王手への応答、二つの駒に利きを向ける打ち方、横への取りを別々の局面で読みます。相手が別の応手を選べる順では、示した駒得を確定したものとして扱いません。",
-    "en": "A gold moves one square orthogonally or diagonally forward and does not promote. It cannot step diagonally backward, so its placement should account for the next defense or capture. These positions explore a reply to check, a drop that attacks two pieces, and a sideways capture. When Gote has another reply, the illustrated gain is conditional."
+    "ja": "金は前後左右と斜め前へ一マス動き、成りません。守りでの動きに加え、頭金と尻金を、金の支えと玉の逃げ道まで確認します。",
+    "en": "A gold moves one square orthogonally or diagonally forward and does not promote. Study its defensive movement and gold drops at the king’s head and behind it, including support and escape squares."
   },
   "check": {
     "question": {
@@ -31,103 +34,204 @@
   "chapters": [
     {
       "title": {
-        "ja": "真後ろへの一歩で王手を消す",
-        "en": "Step straight back to answer check"
+        "ja": "金を玉の守りに使う",
+        "en": "Use a gold to protect the king"
       },
       "side": "sente",
-      "kind": "position",
-      "start": "k3r4/9/9/9/9/9/4G4/4s4/4K4 b - 1",
+      "kind": "opening",
+      "start": "startpos",
       "steps": [
         {
           "text": {
-            "ja": "銀５八が玉５九を王手しています。金５七は真後ろの５八へ動けるため、銀を取って王手を消せます。ただし後手の飛車５一が同じ筋にいるので、その先の取り返しまで読みます。",
-            "en": "Gote's silver on ５八 checks Sente's king on ５九. The gold on ５七 can step straight backward to capture it. Gote's rook on ５一 points down the same file, so calculate the exchange beyond the first capture."
+            "ja": "金は前後左右と斜め前に一マス動きます。まず初期配置から、玉のそばで金を使う例を見ます。",
+            "en": "A gold moves one square orthogonally or diagonally forward. Start from the initial position and see how a gold can stay beside the king."
           }
         },
         {
-          "moves": ["5g5h"],
+          "moves": [
+            "7g7f",
+            "3c3d"
+          ],
           "text": {
-            "ja": "▲５八金で銀を取り、王手を解除しました。金が５七を空けたので飛車の縦の道が通ります。",
-            "en": "▲５八金 captures the silver and ends the check. Vacating ５七 also opens the rook's path down the file."
+            "ja": "▲７六歩、△３四歩と互いに角道を開きます。",
+            "en": "▲７六歩 and △３四歩 open both bishop diagonals."
           }
         },
         {
-          "moves": ["5a5h"],
+          "moves": [
+            "6i7h",
+            "8c8d"
+          ],
           "text": {
-            "ja": "△５八飛不成で金を取る応手です。成って竜になっても、玉で取り返せる点は変わりません。飛車は玉５九の真前に来ましたが、ほかの後手駒には守られていません。",
-            "en": "△５八飛不成 captures the gold without promoting in this line; promoting to a dragon would not change the fact that the king can take it back. The rook has landed directly in front of the king on ５九 and is not protected by another Gote piece."
+            "ja": "▲７八金と金を左へ上がり、後手は△８四歩と飛車先を進めます。",
+            "en": "▲７八金 moves the gold up and left; Gote replies △８四歩, advancing the rook pawn."
           }
         },
         {
-          "moves": ["5i5h"],
+          "moves": [
+            "5i6h"
+          ],
           "text": {
-            "ja": "▲５八玉で飛車を取り返しました。最初の金の一歩は、銀を取るだけでなく、飛車が金を取った後の玉の取り返しまで含めて判断します。",
-            "en": "▲５八玉 recaptures the rook. The gold's first step works in this line because the king can take the rook after it captures the gold."
+            "ja": "▲６八玉と玉を動かすと、７八の金が横から玉６八を守ります。金は横に一マス動けます。",
+            "en": "▲６八玉 moves the king beside the gold on ７八. The gold protects ６八 with its sideways move."
+          }
+        },
+        {
+          "text": {
+            "ja": "玉を守る金も、横と真後ろに利きます。金の斜め後ろには利かない点も確認します。",
+            "en": "A defending gold controls sideways and straight backward squares, but not its backward diagonals."
           }
         }
-      ]
+      ],
+      "variations": []
     },
     {
       "title": {
-        "ja": "飛車と桂の間へ打つ",
-        "en": "Drop between a rook and a knight"
+        "ja": "金で飛車と桂を同時に狙う",
+        "en": "Attack a rook and knight with a gold"
       },
       "side": "sente",
       "kind": "position",
-      "start": "k8/9/4n1r2/9/9/9/9/9/8K b G 1",
+      "start": "lnsg2s1l/1k1r1n1bg/pppp1pppp/9/9/9/PPPP1PPPP/1B2R4/LNSGK1SNL b G2p 1",
       "steps": [
         {
           "text": {
-            "ja": "後手の飛車３三と桂５三の斜め前に、先手の金を置ける４四があります。金はそこから両方へ利きます。後手が飛車を逃がす場合を見ますが、桂を動かす応手もあります。",
-            "en": "The square ４四 lies one forward diagonal from Gote's rook on ３三 and knight on ５三. A gold dropped there attacks both. This line follows a rook retreat, though Gote can also move the knight."
+            "ja": "持ち金を５三に打つと、後手の飛車６二と桂４二を狙えます。飛車５八が５三を支え、後手の銀３一は桂４二を守っています。",
+            "en": "A gold dropped on ５三 attacks the rook on ６二 and knight on ４二. Sente’s rook on ５八 supports the drop; Gote’s silver on ３一 defends the knight."
+          },
+          "marks": {
+            "boxes": [
+              "5c",
+              "6b",
+              "4b",
+              "5h",
+              "3a"
+            ]
           }
         },
         {
-          "moves": ["G*4d"],
+          "moves": [
+            "G*5c"
+          ],
           "text": {
-            "ja": "▲４四金。金は３三と５三へ動けます。飛車が残れば飛車を、桂が残れば桂を狙う配置です。",
-            "en": "▲４四金 attacks both ３三 and ５三. Which piece remains available depends on Gote's reply."
+            "ja": "▲５三金。斜め前の二方向へ利かせます。",
+            "en": "▲５三金 attacks both targets on its forward diagonals."
           }
         },
         {
-          "moves": ["3c3a"],
+          "moves": [
+            "6b7b"
+          ],
           "text": {
-            "ja": "△３一飛で飛車が離れました。桂５三は金４四の斜め前に残っています。",
-            "en": "△３一飛 moves the rook away. The knight on ５三 remains one forward-diagonal step from the gold."
+            "ja": "△７二飛と飛車を逃がす応手を見ます。",
+            "en": "Examine △７二飛, moving the rook away."
           }
         },
         {
-          "moves": ["4d5c"],
+          "moves": [
+            "5c4b",
+            "3a4b"
+          ],
           "text": {
-            "ja": "▲５三金で桂を取りました。金は敵陣に入っても成らないため、その後も動ける方向は同じです。桂を逃がされればこの取りは成立しません。",
-            "en": "▲５三金 captures the knight. The gold does not promote in enemy territory, so its movement stays the same. This capture would not follow if Gote moved the knight instead."
+            "ja": "▲４二金、△同銀と進むと桂を取って金を失います。この交換を無条件に得とは判断できません。",
+            "en": "After ▲４二金, △同銀, Sente gains a knight but loses the gold. The exchange cannot be assumed favorable."
+          }
+        },
+        {
+          "text": {
+            "ja": "両取りでも相手の応手と取り返しまで読んで、交換後の駒を比べます。",
+            "en": "Even in a fork, calculate the reply and recapture, then compare the resulting material."
           }
         }
-      ]
+      ],
+      "variations": []
     },
     {
       "title": {
-        "ja": "横へ取って角の王手を消す",
-        "en": "Capture sideways to stop a bishop check"
+        "ja": "頭金：玉の前に金を打つ",
+        "en": "Gold at the king’s head"
       },
       "side": "sente",
       "kind": "position",
-      "start": "k8/9/9/9/9/9/4Gb3/9/3K5 b - 1",
+      "start": "k8/2R6/9/9/9/9/9/9/8K b Gr2b3g4s4n4l18p 1",
       "steps": [
         {
           "text": {
-            "ja": "後手の角４七は５八を通って玉６九を王手しています。金５七は同じ段の４七へ横に一マス動けます。角を取ると角筋そのものがなくなります。",
-            "en": "Gote's bishop on ４七 checks the king on ６九 through ５八. Sente's gold on ５七 can move one square sideways to ４七. Capturing the bishop removes the checking line."
+            "ja": "一手詰の作図です。表示した持ち駒を使い、残りの駒はすべて後手の持ち駒とします。玉９一の前の９二に金を打ち、飛車７二でその金を守ります。",
+            "en": "This composed mate-in-one uses the displayed hands, with all remaining pieces in Gote’s hand. Drop the gold on ９二 directly in front of the king on ９一, supported by the rook on ７二."
+          },
+          "marks": {
+            "boxes": [
+              "9a",
+              "9b",
+              "8a",
+              "8b",
+              "7b"
+            ]
           }
         },
         {
-          "moves": ["5g4g"],
+          "moves": [
+            "G*9b"
+          ],
           "text": {
-            "ja": "▲４七金で角を取り、王手を消しました。金の横移動は受けにも使えます。移動先の４七に別の後手駒の利きがないことも確認します。",
-            "en": "▲４七金 captures the bishop and ends the check. The gold's sideways step can be a defensive move; also verify that no other Gote piece protects ４七."
+            "ja": "▲９二金まで詰み。金は８一と８二も抑え、飛車が９二の金を守るので玉は取れません。桂や香の王手とは異なり、隣接する金の王手にも合駒はできません。",
+            "en": "▲９二金 is mate. The gold also covers ８一 and ８二, and the rook protects it. An adjacent gold check cannot be blocked."
+          }
+        },
+        {
+          "text": {
+            "ja": "頭金を探すときは、玉の前に打つ金の守りと、横への逃げ道を確認します。",
+            "en": "For a gold at the king’s head, check the support for the gold and the king’s sideways escapes."
           }
         }
-      ]
+      ],
+      "variations": []
+    },
+    {
+      "title": {
+        "ja": "尻金：玉の後ろから王手する",
+        "en": "Gold behind the king"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "9/k8/2B6/1G7/9/9/9/9/8K b G2rb2g4s4n4l18p 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "一手詰の作図です。表示した持ち駒を使い、残りの駒はすべて後手の持ち駒とします。玉９二の後ろの９一へ金を打てます。角７三は９一と８二に、金８四は９三と８三に利いています。",
+            "en": "This composed mate-in-one uses the displayed hands, with all remaining pieces in Gote’s hand. A gold can be dropped on ９一 behind the king on ９二. The bishop on ７三 controls ９一 and ８二; the gold on ８四 covers ９三 and ８三."
+          },
+          "marks": {
+            "boxes": [
+              "9a",
+              "9b",
+              "8a",
+              "8b",
+              "8c",
+              "9c",
+              "7c",
+              "8d"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "G*9a"
+          ],
+          "text": {
+            "ja": "▲９一金まで詰み。金は真後ろの９二に王手し、８一も抑えます。角が９一を守り、玉は金を取れません。",
+            "en": "▲９一金 is mate. The gold checks backward onto ９二 and covers ８一. The bishop protects ９一, so the king cannot capture the gold."
+          }
+        },
+        {
+          "text": {
+            "ja": "尻金では玉の後ろの打ち場所と、金の守り、残る逃げ道を調べます。",
+            "en": "For a gold behind the king, check the drop square, its protection and all remaining escapes."
+          }
+        }
+      ],
+      "variations": []
     }
   ]
 }

@@ -1,14 +1,17 @@
 {
   "id": "attack-yagura-side",
   "order": 400,
-  "path": ["上達のためのテクニック", "囲い崩し"],
+  "path": [
+    "上達のためのテクニック",
+    "囲い崩し"
+  ],
   "title": {
     "ja": "矢倉の横攻めは金の支えを一枚ずつ数える",
     "en": "Count Each Defender in a Lateral Yagura Attack"
   },
   "intro": {
-    "ja": "矢倉の金が横から狙える位置にいても、別の金がその金を支えていれば一手の攻めでは足りません。飛車が取った後の取り返しと、次の駒が入るマスまで数えます。ここでは飛車・桂・角を重ねる攻めと、角で金を交換して飛車の筋を通す攻めを、いずれも新しい局所図で扱います。守る側が一手使って金をずらせる場合も比べ、詰みや優勢を形だけで決めません。",
-    "en": "A Yagura gold may be exposed from the side while another gold still supports it. Count the first capture, its recapture, and the next attacker. These new local positions show a rook-knight-bishop attack and a bishop exchange that opens a rook file. A defender may spend a turn moving the target gold; neither mate nor advantage follows from the castle name alone."
+    "ja": "矢倉の金が横から狙える位置にいても、別の金がその金を支えていれば一手の攻めでは足りません。飛車が取った後の取り返しと、次の駒が入るマスまで数えます。ここでは飛車・桂・角を重ねる攻めと、角で金を交換して飛車の筋を通す攻めを、両玉と持ち駒を含む局面で扱います。守る側が一手使って金をずらせる場合も比べ、詰みや優勢を形だけで決めません。",
+    "en": "A Yagura gold may be exposed from the side while another gold still supports it. Count the first capture, its recapture, and the next attacker. These positions show a rook-knight-bishop attack and a bishop exchange that opens a rook file. A defender may spend a turn moving the target gold; neither mate nor advantage follows from the castle name alone."
   },
   "check": {
     "question": {
@@ -36,7 +39,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "9/6gk1/2R2gs2/9/4N4/2B6/9/9/K8 b - 1",
+      "start": "lns4nl/1r1b2gk1/ppR2gspp/9/4N4/2B6/PPPPPPPPP/9/KNSG1GS1L b l5p 1",
       "steps": [
         {
           "text": {
@@ -65,8 +68,8 @@
             "7f4c+"
           ],
           "text": {
-            "ja": "飛車から先に▲４三飛成△同金▲同角成と取ると、同じ金二枚に対して渡すのは飛車になります。馬４三は銀３三に横から取られませんが、飛車は後手の持ち駒に入り、桂から始める順より得がずっと小さくなります。▲同桂成と取り返すと、△７九飛の王手で角７六も取られます。最初にどの駒を使うかまで交換の計算に含めます。",
-            "en": "Starting with ▲４三飛成 △同金 ▲同角成 also gains two golds, but gives up the rook. The silver on ３三 cannot take the horse on ４三 sideways, yet the rook goes to Gote’s hand and the gain is much smaller than starting with the knight. Retaking with ▲同桂成 instead allows the checking drop △７九飛, which also wins the bishop on ７六. Include the first attacker in the exchange calculation."
+            "ja": "飛車から先に▲４三飛成△同金▲同角成と取ると、同じ金二枚に対して渡すのは飛車になります。馬４三は銀３三に横から取られませんが、後手は持ち飛車を使えます。最初にどの駒を使うかと、相手の打ち込みまで交換の計算に含めます。",
+            "en": "Starting with ▲４三飛成 △同金 ▲同角成 also gains two golds, but gives up the rook. The silver cannot capture the horse sideways, and Gote gains a rook in hand. Include the first attacker and possible rook drops in the calculation."
           }
         }
       ]
@@ -78,7 +81,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "6r2/2kg5/3sg4/9/9/7B1/9/9/K3R4 b - 1",
+      "start": "lns3rnl/2kg5/pppsgpppp/9/b8/7B1/PPPP1PPPP/9/KNSGRGSNL b l3p 1",
       "steps": [
         {
           "text": {
@@ -106,7 +109,7 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "6r2/2kg5/3sg4/9/4p4/7B1/9/9/K3R4 b - 1",
+      "start": "lns3rnl/2kg5/pppsgpppp/9/b3p4/7B1/PPPP1PPPP/9/KNSGRGSNL b l2p 1",
       "steps": [
         {
           "text": {
@@ -125,6 +128,78 @@
           }
         }
       ]
+    },
+    {
+      "title": {
+        "ja": "横から銀を打ち金の受けを読む",
+        "en": "Drop a silver from the side and read the gold defense"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "lns4nl/3R2gk1/pppppgspp/9/b3N4/2B6/PPPPPPPPP/5r3/KNSG1G2L b Sl2p 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "玉２二、金３二・４三、銀３三の矢倉に対し、飛車６二が金３二を横から狙います。金３二が飛車の線を離れると玉２二に王手がかかります。",
+            "en": "Against the Yagura king on ２二, golds on ３二 and ４三, and silver on ３三, the rook on ６二 attacks the gold on ３二. Moving that gold off the rook’s line would expose the king to check."
+          },
+          "marks": {
+            "boxes": [
+              "6b",
+              "4a",
+              "3b",
+              "4c",
+              "3c",
+              "2b"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "S*4a"
+          ],
+          "text": {
+            "ja": "▲４一銀と打ち、３二の金を狙います。飛車の線を塞いでいる金の動きと、もう一枚の金の利きを読みます。",
+            "en": "▲４一銀 attacks the gold on ３二. Examine where that gold can move while still blocking the rook, and what the other gold protects."
+          }
+        },
+        {
+          "moves": [
+            "3b4b"
+          ],
+          "text": {
+            "ja": "△４二金寄と金を横に動かす応手を見ます。４二の金は飛車と玉の間に残ります。",
+            "en": "Examine △４二金寄. The gold moves sideways but stays between the rook and king."
+          }
+        },
+        {
+          "moves": [
+            "4a3b+",
+            "4b3b"
+          ],
+          "text": {
+            "ja": "▲３二銀成に△同金と取る例です。金は３二に戻り、玉を飛車から遮っています。",
+            "en": "In the sample ▲３二銀成, △同金, the gold returns to ３二 and continues to shield the king from the rook."
+          }
+        },
+        {
+          "moves": [
+            "6b3b+",
+            "2b3b"
+          ],
+          "text": {
+            "ja": "▲３二飛成と金を取る弱い手には△同玉と龍を取られます。３二の龍を先手の駒が守っていません。",
+            "en": "The weak ▲３二飛成 captures the gold but loses the dragon to △同玉: no Sente piece protects it on ３二."
+          }
+        },
+        {
+          "text": {
+            "ja": "横から銀を打つときは、金を動かした後も飛車筋が通るか、最後の取り返しまで確認します。",
+            "en": "When dropping a silver from the side, check whether the rook line opens after the gold moves and calculate the final recapture."
+          }
+        }
+      ],
+      "variations": []
     }
   ]
 }
