@@ -23,7 +23,8 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(request.url)
   const sameOrigin = url.origin === self.location.origin
   const fullBook = url.pathname.includes('/books/peta233-full-v1/')
-  if (fullBook || local || request.method !== 'GET' || !sameOrigin) {
+  const evalFile = url.pathname.includes('/eval/')
+  if (fullBook || evalFile || local || request.method !== 'GET' || !sameOrigin) {
     event.respondWith(fetch(request).then(isolate))
     return
   }
