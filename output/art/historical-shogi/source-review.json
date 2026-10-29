@@ -1,0 +1,21 @@
+{
+  "source": "https://meiji.repo.nii.ac.jp/record/17256/files/532_sum.pdf",
+  "localPath": ".cache/historical-shogi/shimizu-summary.pdf",
+  "sha256": "b5d4fc0efa11e4d4077780eb2880581e3b2e1ed76b0b3d44a8c76d890121cc03",
+  "bytes": 1436165,
+  "pdfPages": 4,
+  "reviewedPages": [1, 2, 3, 4],
+  "review": "全ページをテキスト抽出と1600pxレンダリングで確認。メタデータ表紙と印刷頁1–3。",
+  "relevantSection": "印刷頁2、第四章第二節",
+  "verifiedClaim": "著者は玉・金・銀・桂・香を美称と呼び、五宝・七宝、仏舎利納入時の入れ子容器、釈迦入滅時の四重棺に由来すると考察している。",
+  "limits": "要旨4ページと論証本文の関連章を確認。全263印刷頁や先行論文の読了、具体的な香木同定や車種の確定を意味しない。",
+  "thesis": {
+    "source": "https://meiji.repo.nii.ac.jp/record/17256/files/shimizu_2017_bun.pdf",
+    "localPath": ".cache/historical-shogi/shimizu-thesis.pdf",
+    "bytes": 65367614,
+    "pdfPages": 268,
+    "reviewedText": "前付と目次、第四章第二節・印刷頁136–147全12ページ、抽出本文1–694行。",
+    "visuallyReviewedPrintedPages": [137, 138, 139, 140, 144, 145],
+    "qualification": "平安後期の同時代日本の実例の乏しさを著者自身が留保し、北宋の例と僧侶の見聞を用いた類推として論じる。"
+  }
+}

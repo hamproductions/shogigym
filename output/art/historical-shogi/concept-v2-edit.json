@@ -1,0 +1,5 @@
+{
+  "tool": "built-in image_gen",
+  "reference": "concept-v1.png",
+  "prompt": "Edit this shogi miniature concept sheet. Change ONLY the weapon held by the PAWN figure (second row, second figure from left): replace the drawn curved sword in his right hand with a clearly readable short straight yari spear, wooden shaft roughly figure-height and a narrow straight iron spearhead, held diagonally down in a neutral ready carry. Keep his sheathed sword at waist. Keep pawn pose, identity, clothing, base, all labels, all other eight-role figures, three bottom action studies, composition, materials, lighting, image dimensions completely unchanged. This is a precise single-object correction; do not redesign the sheet."
+}

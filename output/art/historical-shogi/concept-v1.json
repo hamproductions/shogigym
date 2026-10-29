@@ -1,0 +1,104 @@
+{
+  "status": "superseded-pending-historical-research",
+  "historicalReview": "Role and weapon assignments are unapproved creative proposals. Establish historical names, competing etymological theories and referenced clothing or equipment before generating a revised roster. Battlefield grid, minimap, particles, combat sound, distinct silhouettes, movement cues and facing direction are requested; none is implemented by this concept sheet.",
+  "medium": "sculpted-3d-miniatures",
+  "period": {
+    "proposal": "Japan, late Sengoku / Azuchi-Momoyama, circa 1580–1600",
+    "accuracy": "Clothing and equipment require reference checks; role assignments and combat choreography are artistic interpretations."
+  },
+  "pieces": [
+    {
+      "role": "king",
+      "figure": "Court sovereign",
+      "idle": "Formal robes, court headgear, shaku tablet, sheathed sword",
+      "capture": "Set tablet at belt; short draw-cut; resheathe",
+      "note": "Combat behavior is fictional; court costume must not be presented as battlefield dress."
+    },
+    {
+      "role": "gold",
+      "figure": "Armored commander",
+      "capture": "Parry, shoulder check, downward sword cut"
+    },
+    {
+      "role": "silver",
+      "figure": "Mobile swordsman",
+      "capture": "Low sidestep, rising diagonal cut, recover guard"
+    },
+    {
+      "role": "knight",
+      "figure": "Mounted samurai",
+      "capture": "Horse gathers and rears slightly; passing rider cut; controlled landing",
+      "note": "Capture path follows legal knight destination; choreography does not imply intervening captures."
+    },
+    {
+      "role": "lance",
+      "figure": "Yari spearman",
+      "capture": "Lower long spear, driving two-handed thrust, withdraw"
+    },
+    {
+      "role": "pawn",
+      "figure": "Ashigaru foot soldier",
+      "capture": "Short step, quick two-handed spear jab, regain stance"
+    },
+    {
+      "role": "rook",
+      "figure": "Matchlock marksman",
+      "capture": "Shoulder matchlock, aim, match ignition, flash and smoke, recoil, lower weapon"
+    },
+    {
+      "role": "bishop",
+      "figure": "Yumi bowman",
+      "capture": "Set stance, nock and draw, release visible arrow, bow settles"
+    }
+  ],
+  "promotions": [
+    {
+      "role": "promoted-pawn",
+      "capture": "Disciplined advancing spear combination",
+      "appearance": "Better cuirass and command sash; retain pawn silhouette"
+    },
+    {
+      "role": "promoted-lance",
+      "capture": "Sweep aside guard, short spear thrust",
+      "appearance": "Richer lacing and shorter carried spear posture"
+    },
+    {
+      "role": "promoted-knight",
+      "capture": "Horse braces while rider delivers controlled downward cut",
+      "appearance": "Improved rider armor and saddle trim"
+    },
+    {
+      "role": "promoted-silver",
+      "capture": "Deflect, pivot, precise double cut",
+      "appearance": "Additional plates and commander sash"
+    },
+    {
+      "role": "dragon-rook",
+      "capture": "Long range: braced matchlock shot; adjacent diagonal: draw sidearm and cut",
+      "appearance": "Senior gunner, refined armor; no literal dragon"
+    },
+    {
+      "role": "horse-bishop",
+      "capture": "Diagonal: arrow shot; adjacent orthogonal: bow lowered, short sword finish",
+      "appearance": "Senior archer, refined armor; no extra mount required"
+    }
+  ],
+  "sharedAnimation": {
+    "idle": "Subtle breathing and cloth settling; weapons held without clipping adjacent squares",
+    "move": "Short travel cycle appropriate to foot or mounted figure",
+    "capture": "Anticipation, contact or projectile, defender reaction, recovery",
+    "defeat": "Fall with dropped weapon, then dissolve before transfer to captured-piece hand",
+    "drop": "Return as recruited unpromoted figure facing new owner; regain ready stance",
+    "promotion": "Armor and rank details change while preserving recognizable role"
+  },
+  "references": [
+    "https://www.metmuseum.org/art/collection/search/656116",
+    "https://www.iz2.or.jp/english/fukusyoku/kosode/12new.htm",
+    "https://education.asianart.org/wp-content/uploads/sites/6/2019/12/ArtsofSamuraiPacket.pdf",
+    "https://colbase.nich.go.jp/collection_items/tnm/F-16000?locale=en"
+  ],
+  "generation": {
+    "tool": "built-in image_gen",
+    "prompt": "Use case: stylized-concept\nAsset type: approval concept sheet for sculpted 3D shogi miniature characters, not final playable 3D files.\nPrimary request: Create an exquisitely detailed sculpted miniature shogi army with eight clearly distinct Japanese figures, late Sengoku / Azuchi-Momoyama inspired circa 1580–1600. Historical clothing and weapon construction, artistic mapping of shogi roles. Realistic human proportions adapted subtly for legibility at tabletop scale, convincing tiny painted sculptures rather than illustration or flat tokens. All figures on small forward-pointing pentagonal dark wood bases.\nComposition: large landscape contact sheet on neutral warm gray studio background, two rows of four individually separated full-body three-quarter miniature renders, all feet, weapons and bases fully visible. Consistent scale and lighting. Simple small English labels directly under each figure, exactly: top row KING, GOLD, SILVER, KNIGHT; second row LANCE, PAWN, ROOK, BISHOP. One thin bottom strip shows three additional action studies with labels SWORD, SPEAR, MATCHLOCK.\nSubjects:\nKING: Japanese court sovereign in layered ochre formal sokutai robes with traditional black kanmuri court headgear and a shaku tablet, ceremonial sword sheathed at side, dignified upright silhouette, no European crown.\nGOLD: senior armored warrior commander in black lacquered late 16th century gusoku with restrained gold details, plausible kabuto, sword, solid protective stance.\nSILVER: lighter armored agile swordsman in dark indigo textile and iron-gray armor plates, curved Japanese sword drawn in low guard, clearly different helmet and silhouette from gold.\nKNIGHT: compact mounted samurai on a small realistically proportioned Japanese horse with period saddle and tack, rider's sword ready, all four hooves within a compact base footprint, no gigantic European horse.\nLANCE: ashigaru spearman with a long straight-bladed yari, simple iron jingasa and practical body armor, vertical spear in idle stance.\nPAWN: plainly equipped foot soldier with simple jingasa, cloth leggings, modest cuirass, short yari held at side, simpler and shorter silhouette than lance.\nROOK: matchlock marksman with wood-stock Japanese tanegashima matchlock, visible serpentine match holder, simple jingasa and dark lacquer cuirass, weapon held safely upward for idle miniature.\nBISHOP: armored Japanese bowman with asymmetric yumi bow, arrow quiver, indigo and muted brown clothing, no religious robes or European bishop hat.\nAction strip: same GOLD performing a convincing two-handed downward sword cut; same LANCE delivering a two-handed long spear thrust; same ROOK kneeling and firing a matchlock with brief warm muzzle flash and small white smoke plume. Action poses are animation keyframe concepts, not extra classes. No gore.\nMaterials: tiny tactile sculpted details, visible lacing, lacquer sheen, silk folds, dull iron, worn wood, restrained gold, natural skin. Black lacquer and indigo unify army; no oversized fantasy pauldrons, no magic, no modern firearms, no neon, no chibi faces, no European armor, no flat illustrated cutouts.\nLighting: soft studio key light, readable shadows, restrained realistic PBR rendering. Clean approval sheet, each character clearly readable."
+  }
+}

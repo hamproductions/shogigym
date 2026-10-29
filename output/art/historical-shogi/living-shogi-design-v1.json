@@ -1,0 +1,34 @@
+{
+  "status": "awaiting-art-approval",
+  "artifact": "living-shogi-design-v1.png",
+  "scope": "静止画の美術承認案。実装済みの画面やアニメーションの証拠ではない。",
+  "direction": {
+    "energy": 3,
+    "rhythm": 2,
+    "motion": 3,
+    "scene": "人物・騎馬・車両が直接格子を占める生きた将棋の戦場。"
+  },
+  "rationale": {
+    "grid": "合法手とマスの占有を読み取るため。",
+    "camera": "人・馬・車輪のシルエットと盤全体を同時に確認するため。",
+    "palette": "土の地面に藍・生成りの陣営を分離し、琥珀色を選択と移動先に限定するため。",
+    "facing": "人物の身体方向、車の牽引方向、地面上の前向き印を重ね、所有者と前方を読むため。",
+    "roster": "各駒の人・動物・車両という異なる形状を比較するため。",
+    "minimap": "立体の遮蔽に依存せず同じ格子と陣営を俯瞰するため。",
+    "effects": "捕獲の接触点と成りの形態変化を示すため。",
+    "typography": "余分な画面部品を加えず駒名と承認用注記を読むため。"
+  },
+  "historicalInterpretations": {
+    "hisha": "車の語彙に基づく馬牽引の開放車案。実在日本軍の兵科の再現ではない。",
+    "kyosha": "香と車の語彙を用いる香木車案。牽引動物や構造は創作。",
+    "kakugyo": "牛車は検討用の解釈であり、確定した語源ではない。画像内にも明記。",
+    "general": "金銀は意匠上の修飾。色付き甲冑の実在兵科を主張しない。"
+  },
+  "requestedBehaviors": {
+    "attacks": "武器・動物・車両に合わせた捕獲動作を今後設計。",
+    "sound": "蹄・車輪・衣擦れ・武具の接触・変身の効果音を今後設計。静止画では未確認。",
+    "promotion": "歩からと金への三段階の動作案。残る五種の成りの具体的造形は未完成。"
+  },
+  "generator": "built-in image_gen",
+  "prompt": "Use case: stylized-concept\nAsset type: a concrete game art-direction approval board for LIVING SHOGI. Static concept, not a screenshot of a working app.\nPrimary request: Show an impressive sculpted-realism 3D living-shogi battlefield with actual human figures, horses and chariots occupying a large square grid, plus a minimap, unmistakable facing and piece identification, attack particles, and promotion transformation studies. This follows a reference of life-sized human chess. Characters directly inhabit the terrain; NO collectible display plinths, NO wooden shogi tiles standing in for people.\nHistorical honesty: Japanese court and warrior material culture informs clothing and construction. Vehicles and treasure motifs are artistic embodiments of piece names, not a claim that historical Japanese armies used these exact units. Hisha is a horse-drawn chariot proposal, Kyosha an aromatic-wood chariot proposal, Kakugyo an ox-cart proposal explicitly marked as an interpretation. DO NOT turn hisha into a gunner, kakugyo into an archer or priest, or kyosha into a lone spearman.\nComposition: professional landscape art approval sheet, generously sized. Upper 60% one dominant elevated three-quarter gameplay concept view. Lower 22% a clean full-body eight-role roster on the same earthy neutral background, small readable labels. Bottom 18% a promotion storyboard showing three poses of the SAME pawn becoming a gold-ranked guard. Thin restrained separators, no decorative cards, no website layout.\nUpper scene: fully visible exactly 9 by 9 square battlefield of packed pale earth with strongly readable thin dark scored grid lines, surrounded by low grass and a restrained Japanese palisade and distant trees. Cloudy afternoon, excellent legibility, subtle haze only beyond grid. Two opposed sides: near figures oriented toward far edge with dark indigo cloth and white sashimono, far figures toward near edge with ivory cloth and indigo sashimono. Real human anatomy rendered as finely sculpted realistic game characters. Keep models centered on cells, horses and vehicles compact enough to belong to a single cell. This is an illustrative midgame composition, not a claimed legal position. Avoid crowded army blobs; clearly separated pieces and open empty squares. At center a silver general executes one precise sword cut with a tiny impact spark and dust against an enemy infantryman, defender recoils, no gore. One selected mounted horse has a thin amber pentagonal facing marker projected flat on ground, pointed toward its own forward direction; show two restrained amber destination-square outlines forming a forward knight move. Everything else calm.\nMinimap: top-right inset, top-down flat 9 by 9 grid with indigo and ivory small directional triangles, visibly matches broad near/far deployment of the main view, one amber selection. Matte dark backing, fine ivory lines; no made-up scores, stats, clocks, buttons or menus.\nRoster below, exactly eight unique subjects clearly distinct, ordered and labelled with English and kanji:\nKING 玉: dignified Japanese sovereign/commander in layered court robes, restrained jewel motif, upright, Japanese headgear, no Western crown.\nGOLD 金: broad armored general with rounded helmet crest and gold lacquer detailing, low sheathed sword and command baton.\nSILVER 銀: narrower armored general with forked helmet crest, cool silver iron detailing and drawn curved sword, distinguishable from gold by silhouette not just color.\nHORSE 桂: compact horse and mounted rider, recognizable equine silhouette, historically informed Japanese tack.\nINCENSE CHARIOT 香: narrow two-wheel aromatic dark wood carriage, elegant canopy and small incense casket, forward shafts, one compact draft animal, very different from large open hisha vehicle.\nFLYING CHARIOT 飛: open two-wheel horse-drawn chariot with visible large wheels and standing driver, clear forward orientation; no cannon, no modern machinery.\nANGLE MOVER 角: ox-drawn Japanese covered court cart with bowed roof, a visible horned ox, visually distinct from open horse chariot. Put small clear sublabel exactly \"Ox-cart interpretation\" under this subject.\nFOOT SOLDIER 歩: plain infantryman, simple low headgear, spear, modest cloth and armor, smallest most economical silhouette.\nPromotion strip: labels exactly \"PAWN\", \"TRANSFORM\", \"TOKIN\". First pose same plain spear infantryman. Center same individual rises into a guarded stance as a restrained spiral of warm gold leaf fragments and dust traces armor panels forming around the torso; visible intermediate form, not an explosion. Last pose fully transformed gold-ranked infantry guard in richer dark lacquer armor and gold command sash, a prominent small red と rank emblem on sashimono, retains original spear/face for recognition. Tiny caption \"Motion study, not animation\".\nVisual palette: earth, indigo, ivory, one amber tactical accent, restrained gold/silver material accents only. Soft readable shadows. Beautiful tactile wood grain, cloth, leather, lacquer and iron. Realistic sculpted detail, no anime, no chibi, no fantasy oversized weapons, no colored neon spells.\nTypography: restrained readable editorial serif labels, large enough to read, no fake logos or marketing. Top small title \"LIVING SHOGI\" and sublabel \"ART DIRECTION CONCEPT\". Keep important labels and all figures inside frame."
+}
