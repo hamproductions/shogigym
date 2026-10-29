@@ -4,11 +4,14 @@ import type { Lesson } from '@/app/modes/lesson/useLesson'
 import type { TesujiTrainer as Tesuji } from '@/app/modes/tesuji/useTesuji'
 import type { Tsume, TsumeLength } from '@/app/modes/tsume/useTsume'
 import { reviewCounts, type ReviewQueue } from '@/app/practice'
-import { TESUJI_KINDS } from '@/app/tesujiDrills'
+import { tesujiKinds } from '@/app/tesujiDrills'
 import type { LessonMode } from '@/app/types'
 import { Segmented } from '@/app/ui/Segmented'
 import { Select } from '@/app/ui/Select'
-import { BarButton, barSegments, barSelect } from './mode-bar.styles'
+import { BarButton, ControlIcon, ControlLabel, barIcon, barSegments, barSelect } from './mode-bar.styles'
+import { Icon } from '@/app/icons'
+import { TsumeClock } from '@/app/modes/tsume/TsumeClock'
+import { styled } from 'styled-system/jsx'
 
 const LENGTHS: TsumeLength[] = [1, 3, 5, 7, 'all']
 
@@ -26,9 +29,48 @@ export function TsumeControls({ trainer }: { trainer: Tsume }) {
         options={LENGTHS.map((n) => ({ value: String(n), label: n === 'all' ? t('tsume.mixed') : t('tsume.mateIn', { n }) }))}
         onChange={(value) => trainer.start(value === 'all' ? 'all' : (Number(value) as TsumeLength))}
       />
-      <BarButton size="sm" variant={done ? 'primary' : 'secondary'} onClick={trainer.next}>
-        {t('tsume.nextProblem')}
+      <BarButton
+        size="sm"
+        onClick={trainer.togglePause}
+        title={t(trainer.paused ? 'tsume.resume' : 'tsume.pause')}
+        aria-label={t(trainer.paused ? 'tsume.resume' : 'tsume.pause')}
+        aria-pressed={trainer.paused}
+      >
+        <Icon name={trainer.paused ? 'play' : 'pause'} size={16} className={barIcon} />
+        <ControlLabel>{t(trainer.paused ? 'tsume.resume' : 'tsume.pause')}</ControlLabel>
       </BarButton>
+      <BarButton size="sm" variant={done ? 'primary' : 'secondary'} onClick={trainer.next} title={t('tsume.nextProblem')} aria-label={t('tsume.nextProblem')}>
+        <ControlLabel>{t('tsume.nextProblem')}</ControlLabel>
+        <ControlIcon>{t('tsume.next')}</ControlIcon>
+      </BarButton>
+      <styled.span
+        display="none"
+        flex="none"
+        alignItems="center"
+        gap="2"
+        px="1"
+        fontVariantNumeric="tabular-nums"
+        fontWeight="bold"
+        _compact={{ display: 'inline-flex' }}
+      >
+        <span aria-label={t('tsume.elapsed')}>
+          <TsumeClock tsume={tsume} />
+        </span>
+        <styled.span display="inline-flex" gap="0.5" aria-label={t('tsume.history')}>
+          {trainer.history
+            .slice(0, 5)
+            .reverse()
+            .map((attempt) => (
+              <styled.span
+                key={attempt.at}
+                w="1.5"
+                h="3.5"
+                bg={attempt.result === 'solved' ? 'success' : attempt.result === 'failed' ? 'danger' : 'border.strong'}
+                aria-label={t(attempt.result === 'solved' ? 'tsume.resultSolved' : attempt.result === 'failed' ? 'tsume.resultFailed' : 'tsume.resultShown')}
+              />
+            ))}
+        </styled.span>
+      </styled.span>
     </>
   )
 }
@@ -43,7 +85,7 @@ export function TesujiControls({ trainer }: { trainer: Tesuji }) {
         className={barSelect}
         value={drill.filter}
         label={t('tesuji.tesujiType')}
-        options={['all', ...TESUJI_KINDS].map((k) => ({ value: k, label: k === 'all' ? t('tesuji.mixed') : k }))}
+        options={['all', ...tesujiKinds()].map((k) => ({ value: k, label: k === 'all' ? t('tesuji.mixed') : k }))}
         onChange={(value) => trainer.start(value)}
       />
       <BarButton size="sm" variant={drill.status === 'asking' ? 'secondary' : 'primary'} onClick={trainer.next}>

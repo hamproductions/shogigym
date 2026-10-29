@@ -151,7 +151,7 @@ export function CoachPane({ review, lastMove, prevSfen, bookLast, bookHere, sfen
         </div>
       ) : (
         <Muted>
-          <Marks>{course ? (course.root.comment ?? course.goalFormation) : t('coach.makeAMoveTheCoach')}</Marks>
+          <Marks>{course ? (course.root.comment ?? course.goalFormation ?? '') : t('coach.makeAMoveTheCoach')}</Marks>
         </Muted>
       )}
       {feedback && (

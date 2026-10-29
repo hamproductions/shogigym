@@ -23,7 +23,7 @@ export function useAnalysis(sfen: string, enabled: boolean, multipv = 3, movetim
         cancelled = true
       }
     }
-    const timer = setTimeout(async () => {
+    void (async () => {
       try {
         const onUpdate = (analysis: Analysis) => {
           if (!cancelled)
@@ -41,11 +41,10 @@ export function useAnalysis(sfen: string, enabled: boolean, multipv = 3, movetim
       } catch (e) {
         if (!cancelled) setState({ sfen, analysis: null, error: (e as Error).message })
       }
-    }, 30)
+    })()
     return () => {
       cancelled = true
       controller.abort()
-      clearTimeout(timer)
     }
   }, [sfen, enabled, multipv, movetime, epoch])
   return state.sfen === sfen ? state : { sfen, analysis: null, error: null }

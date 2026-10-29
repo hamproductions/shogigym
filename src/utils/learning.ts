@@ -1,6 +1,7 @@
 import { scoreWinRate, type Label, type MoveReview } from './analysis'
 import type { Score } from './engine'
 import i18n from './i18n'
+import englishFacts from 'virtual:english-move-facts'
 import { Color, PieceType } from 'tsshogi'
 import { applyUsi, colorSide, positionOf, type Side } from './shogi'
 import { isBad } from './mistake'
@@ -51,11 +52,13 @@ export type Weakness = 'missedMate' | 'allowedMate' | 'hangs' | 'allowedTactic' 
 export const WEAKNESSES: Weakness[] = ['missedMate', 'allowedMate', 'hangs', 'allowedTactic', 'slippedWin', 'openingSlip', 'other']
 
 const mateFor = (score: Score | undefined) => (score && 'mate' in score ? score.mate : 0)
-const reasonPrefix = (key: string, lng: string) =>
-  i18n.t(key, { lng, move: '\u0000', line: '\u0000', piece: '\u0000', pieces: '\u0000', square: '\u0000', count: 0, what: '\u0000' }).split('\u0000')[0]
+const reasonPrefix = (key: string) =>
+  i18n.t(key, { lng: 'ja', move: '\u0000', line: '\u0000', piece: '\u0000', pieces: '\u0000', square: '\u0000', count: 0, what: '\u0000' }).split('\u0000')[0]
+
+const englishPrefix = (key: string) => (englishFacts[key.slice('moveFacts.'.length) as keyof typeof englishFacts] ?? '').split('{{')[0]
 
 function reasonsMention(reasons: string[], keys: string[]) {
-  const prefixes = keys.flatMap((key) => ['en', 'ja'].map((lng) => reasonPrefix(key, lng))).filter((p) => p.length > 1)
+  const prefixes = keys.flatMap((key) => [englishPrefix(key), reasonPrefix(key)]).filter((p) => p.length > 1)
   return reasons.some((reason) => prefixes.some((p) => reason.startsWith(p)))
 }
 

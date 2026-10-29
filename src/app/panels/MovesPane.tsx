@@ -9,7 +9,7 @@ import { FlipMarks } from '@/app/ui/SideMark'
 import { isBad } from '@/utils/mistake'
 import { cachedReview } from '@/app/memory'
 import type { Color } from 'tsshogi'
-import { type DetectionPreset } from '@/utils/formationTags'
+import { useFormationRules, type DetectionPreset } from '@/utils/formationTags'
 import { formationMoveTags, formationName, QUIET_NAMES } from '@/utils/formation'
 import { detectTesuji } from '@/app/tesuji'
 import { countMoves, isMainLine, nodeAt, type Tree } from '@/app/tree'
@@ -107,12 +107,14 @@ export function MovesPane({
   const flipped = useFlipped()
   const listRef = useRef<HTMLOListElement>(null)
   const tesujis = useMemo(() => moves.map((usi, i) => (sfens[i] ? detectTesuji(sfens[i], usi) : null)), [moves, sfens])
+  const formationRules = useFormationRules()
   const detectedTags = useMemo(
     () =>
       formationMoveTags(sfens, moves, detectionPreset, detectionResult)
         .flat()
         .filter((tag, i, all) => all.findIndex((other) => other.ply === tag.ply && other.name === tag.name) === i),
-    [moves, sfens, detectionResult, detectionPreset],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [moves, sfens, detectionResult, detectionPreset, formationRules],
   )
   useEffect(() => {
     const list = listRef.current

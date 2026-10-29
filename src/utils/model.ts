@@ -1,8 +1,11 @@
-import { buildCatalog, type LessonEntry } from './catalog'
+import { useEffect, useSyncExternalStore } from 'react'
+import { buildCatalog, type LessonEntry, type Setup } from './catalog'
 import { positionOf, colorSide, type Side } from './shogi'
 import type { Text } from '@/data/strategies'
 import type { LessonFigure } from './curriculum'
 import { localizeEnglish } from './notation'
+import { positionHash } from './positionHash'
+import { DERIVED, derive } from './derivedCourses'
 
 export type { Setup } from './catalog'
 
@@ -40,9 +43,12 @@ export type RawCourse = {
   mySide: Side
   userSide?: Side
   source?: string
-  goalFormation: string
+  goalFormation?: string
   goalLabel?: string
   root: JosekiNode
+  mainLine?: string[]
+  file?: string
+  derivedFrom?: string
 }
 
 export type Course = RawCourse & {
@@ -59,76 +65,162 @@ export type Course = RawCourse & {
   mirrored: boolean
 }
 
-const rawFiles = {
-  ...import.meta.glob<string>('../../vendor/shiryu-joseki/src/data/joseki/*.json', { eager: true, query: '?raw', import: 'default' }),
-  ...import.meta.glob<string>('../data/joseki/*.json', { eager: true, query: '?raw', import: 'default' }),
+const files = {
+  ...import.meta.glob<string>('../../vendor/shiryu-joseki/src/data/joseki/*.json', { query: '?raw', import: 'default' }),
+  ...import.meta.glob<string>('../data/joseki/*.json', { query: '?raw', import: 'default' }),
+  ...import.meta.glob<string>('../data/lessons/*.json', { query: '?raw', import: 'default' }),
 }
 
-const DERIVED: { id: string; from: string; start: number; end: number; title: string; goalFormation: string }[] = [
-  {
-    id: 'sabaki--kuboryu',
-    from: 'shikenbisha-vs-bougin--kuboryu',
-    start: 37,
-    end: 48,
-    title: '捌き: 棒銀に△4五歩から捌く(久保流)',
-    goalFormation: '△4五歩で角道を開けて捌き、角を成り込み、守りの銀を4五へ捌く。',
-  },
-  {
-    id: 'sabaki--torisashi',
-    from: 'shikenbisha-vs-torisashi--basic',
-    start: 19,
-    end: 22,
-    title: '捌き: 軽く捌かず手厚く受ける(鳥刺し)',
-    goalFormation: '鳥刺しには△3二銀型のまま軽く捌かず、△4三銀から手厚く受け止める。',
-  },
-]
+let JOSEKI: RawCourse[] = []
 
-function cut(node: JosekiNode, depth: number): JosekiNode {
-  const main = node.branches.find((b) => b.kind === 'main') ?? node.branches.find((b) => b.kind !== 'deviation')
-  if (depth <= 0) return { ...node, branches: [] }
-  return { ...node, branches: node.branches.map((b) => (b === main && b.child ? { ...b, child: cut(b.child, depth - 1) } : b)) }
-}
+export const COURSES: Course[] = []
 
-function derive(base: RawCourse, spec: (typeof DERIVED)[number]): RawCourse {
-  let node = base.root
-  for (let i = 0; i < spec.start; i++) {
-    const next = node.branches.find((b) => b.kind === 'main') ?? node.branches.find((b) => b.kind !== 'deviation')
-    if (!next?.child) break
-    node = next.child
-  }
-  return {
-    ...base,
-    id: spec.id,
-    title: spec.title,
-    goalFormation: spec.goalFormation,
-    source: `${base.title}の${spec.start + 1}手目から${spec.end}手目までを切り出したもの。手順と解説は元のコースと同じ出典(${base.source ?? 'Shiryu181/shogi-joseki'})。`,
-    root: cut(node, spec.end - spec.start),
-  }
-}
-
-const RAW: RawCourse[] = Object.values(rawFiles).map((text) => localizeEnglish(JSON.parse(text) as RawCourse))
-const LESSONS = Object.values(import.meta.glob<string>('../data/lessons/*.json', { eager: true, query: '?raw', import: 'default' }))
-  .map((text) => localizeEnglish(JSON.parse(text) as LessonEntry))
-  .sort((a, b) => a.order - b.order)
-
-const CATALOG = buildCatalog(
-  [
-    ...RAW,
-    ...DERIVED.map((d) =>
-      derive(
-        RAW.find((r) => r.id === d.from)!,
-        d,
-      ),
-    ),
-  ],
-  LESSONS,
-)
-
-export const COURSES: Course[] = CATALOG.courses
-
-export const SETUPS = localizeEnglish(CATALOG.setups)
+export const SETUPS: Setup[] = []
 
 export const courseById = (id: string) => COURSES.find((c) => c.id === id)
+
+const fileOfBase = new Map<string, string>()
+const pendingFiles = new Set<string>()
+const fileLoads = new Map<string, Promise<void>>()
+const courseListeners = new Set<() => void>()
+let courseVersion = 0
+
+export const loadedCourses = () => courseVersion
+
+const indexFetch = typeof window === 'undefined' ? null : import('virtual:course-index')
+indexFetch?.catch(() => undefined)
+let catalogLoad: Promise<void> | null = null
+
+export function loadCatalog() {
+  if (!catalogLoad) {
+    catalogLoad = (indexFetch ?? import('virtual:course-index')).then(({ default: index }) => {
+      JOSEKI = index.joseki.map((raw) => localizeEnglish(raw))
+      const lessons = index.lessons.map((lesson) => localizeEnglish(lesson)).sort((a, b) => a.order - b.order)
+      const catalog = buildCatalog(JOSEKI, lessons)
+      COURSES.push(...catalog.courses)
+      SETUPS.push(...localizeEnglish(catalog.setups))
+      for (const raw of JOSEKI) fileOfBase.set(raw.id, raw.file!)
+      for (const lesson of lessons) for (const course of lesson.courses) fileOfBase.set(course.id, course.file!)
+      fileOfBase.forEach((file) => pendingFiles.add(file))
+      changed()
+    })
+    catalogLoad.catch(() => (catalogLoad = null))
+  }
+  return catalogLoad
+}
+
+export const catalogLoaded = () => SETUPS.length > 0
+
+const changed = () => {
+  courseVersion++
+  courseListeners.forEach((listener) => listener())
+}
+
+let trainable: Record<string, Record<Side, string[]>> | null = null
+let trainableLoad: Promise<void> | null = null
+
+export function trainableHashes(course: Course) {
+  if (!trainable)
+    trainableLoad ??= import('virtual:course-trainable').then(
+      (module) => {
+        trainable = module.default
+        changed()
+      },
+      (error) => {
+        trainableLoad = null
+        console.warn('progress index not loaded', error)
+      },
+    )
+  return trainable?.[course.baseId]?.[course.userSide]
+}
+
+const fileOf = (course: Pick<Course, 'id'> & Partial<Pick<Course, 'baseId'>>) => fileOfBase.get(course.baseId ?? course.id) ?? fileOfBase.get(course.id)
+
+export const courseLoaded = (course: Pick<Course, 'id'> & Partial<Pick<Course, 'baseId'>>) => !pendingFiles.has(fileOf(course) ?? '')
+
+function fill(raw: RawCourse, lesson = false) {
+  COURSES.forEach((course, at) => {
+    if (course.baseId !== raw.id) return
+    COURSES[at] = lesson
+      ? { ...course, ...raw, mainLine: course.mainLine, file: course.file }
+      : { ...course, root: raw.root, source: raw.source, goalFormation: raw.goalFormation, goalLabel: raw.goalLabel }
+  })
+}
+
+function loadFile(file: string): Promise<void> {
+  if (!pendingFiles.has(file)) return Promise.resolve()
+  let loading = fileLoads.get(file)
+  if (!loading) {
+    loading = files[file]().then((text) => {
+      if (file.startsWith('../data/lessons/')) {
+        const lesson = localizeEnglish(JSON.parse(text) as LessonEntry)
+        lesson.courses.forEach((raw) => fill(raw, true))
+        const setup = SETUPS.find((entry) => entry.id === `lesson-${lesson.id}`)
+        if (setup) setup.check = lesson.check
+      } else {
+        const raw = localizeEnglish(JSON.parse(text) as RawCourse)
+        fill(raw)
+        for (const spec of DERIVED) if (spec.from === raw.id) fill(derive(raw, spec))
+      }
+      pendingFiles.delete(file)
+      changed()
+    })
+    loading.catch(() => fileLoads.delete(file))
+    fileLoads.set(file, loading)
+  }
+  return loading
+}
+
+export async function loadCourse(course: Course): Promise<Course> {
+  const file = fileOf(course)
+  if (!file || !pendingFiles.has(file)) return course
+  await loadFile(file)
+  return courseById(course.id) ?? course
+}
+
+export const loadAllJoseki = () =>
+  loadCatalog()
+    .then(() => Promise.all(JOSEKI.map((raw) => loadFile(raw.file!))))
+    .then(() => undefined)
+
+let bookPositions: Promise<{ files: string[]; at: Record<string, number[]> }> | null = null
+
+export async function loadBookFor(sfens: readonly string[]) {
+  if (!bookPositions) {
+    bookPositions = import('virtual:book-positions').then((module) => module.default)
+    bookPositions.catch(() => (bookPositions = null))
+  }
+  const [{ files, at }] = await Promise.all([bookPositions, loadCatalog()])
+  const needed = new Set(sfens.flatMap((sfen) => at[positionHash(sfen)] ?? []))
+  await Promise.all([...needed].map((index) => loadFile(files[index])))
+}
+
+export const prefetchCourses = (courses: Course[]) =>
+  courses.forEach((course) => void loadCourse(course).catch((error) => console.warn('course not loaded', error)))
+
+const subscribeCourses = (listener: () => void) => {
+  courseListeners.add(listener)
+  return () => {
+    courseListeners.delete(listener)
+  }
+}
+
+export const useCourseVersion = () =>
+  useSyncExternalStore(
+    subscribeCourses,
+    () => courseVersion,
+    () => 0,
+  )
+
+export function useLoadedCourses(courses: Course[]): Course[] | null {
+  useCourseVersion()
+  const pending = [...new Set(courses.flatMap((course) => fileOf(course) ?? []))].filter((file) => pendingFiles.has(file))
+  useEffect(() => {
+    pending.forEach((file) => void loadFile(file).catch((error) => console.warn('course not loaded', error)))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pending.join(' ')])
+  return pending.length ? null : courses.map((course) => courseById(course.id) ?? course)
+}
 
 export const sideToMove = (node: JosekiNode): Side => colorSide(positionOf(node.sfen).color)
 

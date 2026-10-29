@@ -1,19 +1,21 @@
 import { useEffect, useRef, useState } from 'react'
 import { Position } from 'tsshogi'
-import { COURSES } from '@/utils/model'
+import { COURSES, loadCatalog, loadCourse } from '@/utils/model'
 import type { Course } from '@/utils/model'
 import { applyUsi, type Side } from '@/utils/shogi'
 import { setupOf } from '@/utils/book'
+import { freeAnalysisCache } from '@/app/memory'
 import type { Drill } from '@/app/modes/drill/useDrill'
 import type { AiEnd, Spar } from '@/app/modes/spar/useSpar'
 import type { Lesson } from '@/app/modes/lesson/useLesson'
 import type { Tsume, TsumeLength } from '@/app/modes/tsume/useTsume'
-import { PROBLEMS, type ReviewQueue } from '@/app/practice'
+import { loadProblems, problemById, type ReviewQueue } from '@/app/practice'
 import type { Tree } from '@/app/tree'
 import type { LessonMode, Mode, Score } from '@/app/types'
 import type { BoardSession } from './useBoardSession'
 import type { SparGame } from '@/appearance/settings'
 import type { ModeSlots, Snapshot } from './useModeSwitch'
+import { useLatest } from './useLatest'
 
 const SESSION_KEY = 'joseki-practice:session:v2'
 
@@ -50,66 +52,97 @@ export function usePersistedSession({ session, lesson, tsume, drill, spar, slots
   const restored = useRef(false)
   const [ready, setReady] = useState(false)
   const placeholder = useRef(true)
+  const modeNow = useLatest(mode)
 
   useEffect(() => {
     if (restored.current) return
     restored.current = true
-    setReady(true)
-    try {
-      const data = readSession()
-      if (!data) return
-      const saved: Partial<Record<Mode, Snapshot>> = {}
-      for (const m of ['spar', 'analyze'] as const) {
-        const g = data[m]
-        if (g && replays(g.start, g.moves))
-          saved[m] = {
-            game: { start: g.start, moves: g.moves },
-            cursor: g.cursor,
-            userSide: g.userSide,
-            flipped: g.userSide === 'gote',
-            course: null,
-            lessonMode: 'study',
-            score: { right: 0, wrong: 0 },
-            tree: g.tree,
-            resigned: g.resigned,
-            aiEnded: g.aiEnded,
-            sparGame: g.sparGame,
-          }
+    const data = (() => {
+      try {
+        return readSession()
+      } catch (error) {
+        console.warn('session not restored', error)
+        return null
       }
-      const saw = data.lesson
-      const lessonSnapshot = (c: Course | undefined): Snapshot | undefined =>
-        c && saw && replays(c.root.sfen, saw.moves)
-          ? {
-              game: { start: c.root.sfen, moves: saw.moves },
-              cursor: saw.moves.length,
-              userSide: c.userSide,
-              flipped: c.userSide === 'gote',
-              course: c,
-              lessonMode: saw.lessonMode,
-              score: saw.score ?? { right: 0, wrong: 0 },
-              lessonAttempts: saw.attempts,
+    })()
+    if (!data) return setReady(true)
+    const requested = modeNow.current
+    const apply = (lessonCourse: Course | undefined) => {
+      const here = modeNow.current === requested
+      let pending: Promise<unknown> | undefined
+      try {
+        const saved: Partial<Record<Mode, Snapshot>> = {}
+        for (const m of ['spar', 'analyze'] as const) {
+          const g = data[m]
+          if (g && replays(g.start, g.moves))
+            saved[m] = {
+              game: { start: g.start, moves: g.moves },
+              cursor: g.cursor,
+              userSide: g.userSide,
+              flipped: g.userSide === 'gote',
+              course: null,
+              lessonMode: 'study',
+              score: { right: 0, wrong: 0 },
+              tree: g.tree,
+              resigned: g.resigned,
+              aiEnded: g.aiEnded,
+              sparGame: g.sparGame,
             }
-          : undefined
-      const lessonNow = lessonSnapshot(saw && COURSES.find((x) => x.id === saw.courseId))
-      if (lessonNow) saved.lesson = lessonNow
-      const into = data.mode === 'spar' || data.mode === 'analyze' || data.mode === 'lesson' ? data.mode : 'spar'
-      const back = saved[into]
-      if (back) {
-        resume(into, back)
-        if (back.resigned) spar.restoreResigned()
-        if (back.aiEnded) spar.endByAi(back.aiEnded)
-        placeholder.current = false
-        if (back.course) lesson.setPickerSetup(setupOf(back.course)?.id ?? null)
+        }
+        const saw = data.lesson
+        const lessonSnapshot = (c: Course | undefined): Snapshot | undefined =>
+          c && saw && replays(c.root.sfen, saw.moves)
+            ? {
+                game: { start: c.root.sfen, moves: saw.moves },
+                cursor: saw.moves.length,
+                userSide: c.userSide,
+                flipped: c.userSide === 'gote',
+                course: c,
+                lessonMode: saw.lessonMode,
+                score: saw.score ?? { right: 0, wrong: 0 },
+                lessonAttempts: saw.attempts,
+              }
+            : undefined
+        const lessonNow = lessonSnapshot(lessonCourse)
+        if (lessonNow) saved.lesson = lessonNow
+        const into = data.mode === 'spar' || data.mode === 'analyze' || data.mode === 'lesson' ? data.mode : 'spar'
+        const back = saved[into]
+        if (back && here) {
+          resume(into, back)
+          if (back.resigned) spar.restoreResigned()
+          if (back.aiEnded) spar.endByAi(back.aiEnded)
+          placeholder.current = false
+          if (back.course) lesson.setPickerSetup(setupOf(back.course)?.id ?? null)
+        }
+        const problem = here && data.mode === 'tsume' && data.tsume ? problemById(data.tsume.problemId) : undefined
+        const drillQueue = here && data.mode === 'drill' ? data.drill?.queue : undefined
+        if (problem) tsume.restore(problem, data.tsume!.length)
+        if (drillQueue) pending = drill.start(drillQueue)
+        if (problem || drillQueue) placeholder.current = false
+        for (const [m, snapshot] of Object.entries(saved)) slots.stash(m as Mode, snapshot)
+      } catch (error) {
+        console.warn('session not restored', error)
       }
-      const problem = data.mode === 'tsume' && data.tsume ? PROBLEMS.find((p) => p.id === data.tsume!.problemId) : undefined
-      if (problem) tsume.restore(problem, data.tsume!.length)
-      if (data.mode === 'drill' && data.drill) drill.start(data.drill.queue)
-      if (problem || (data.mode === 'drill' && data.drill)) placeholder.current = false
-      for (const [m, snapshot] of Object.entries(saved)) slots.stash(m as Mode, snapshot)
-    } catch (error) {
-      console.warn('session not restored', error)
+      if (pending) void pending.finally(() => setReady(true))
+      else setReady(true)
     }
-  }, [lesson, tsume, drill, spar, slots, resume])
+    const problems = data.mode === 'tsume' && data.tsume ? loadProblems() : null
+    const savedId = data.lesson?.courseId
+    if (!savedId && !problems) return apply(undefined)
+    const savedCourse = savedId
+      ? loadCatalog().then(() => {
+          const course = COURSES.find((x) => x.id === savedId)
+          return course && loadCourse(course)
+        })
+      : undefined
+    Promise.all([savedCourse, problems]).then(
+      ([course]) => apply(course),
+      (error) => {
+        console.warn('session not fully restored', error)
+        apply(undefined)
+      },
+    )
+  }, [lesson, tsume, drill, spar, slots, resume, modeNow])
 
   const { lessonMode, score, showAnswer, attempts } = lesson
   const problem = tsume.tsume
@@ -132,7 +165,13 @@ export function usePersistedSession({ session, lesson, tsume, drill, spar, slots
       if (mode === 'analyze') next.analyze = { start: game.start, moves: game.moves, cursor, userSide, tree }
       if (mode === 'tsume' && problem) next.tsume = { problemId: problem.problem.id, length: problem.length }
       if (mode === 'drill' && drillState) next.drill = { queue: drillState.queue }
-      localStorage.setItem(SESSION_KEY, JSON.stringify(next))
+      const text = JSON.stringify(next)
+      try {
+        localStorage.setItem(SESSION_KEY, text)
+      } catch {
+        freeAnalysisCache()
+        localStorage.setItem(SESSION_KEY, text)
+      }
     } catch (error) {
       console.warn('session not saved', error)
     }

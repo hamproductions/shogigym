@@ -1,13 +1,14 @@
-import { useState } from 'react'
+import { Suspense, lazy, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Box, Wrap } from 'styled-system/jsx'
 import { loadGames } from '@/app/games'
-import { ImportBox } from './ImportBox'
 import { SavedGames } from './SavedGames'
 import type { AnalyzeGames } from './useAnalyzeGames'
 import { Button } from '@/app/ui/Button'
 import { Badge } from '@/components/ui'
 import { Muted } from '@/app/panels/panels.styles'
+
+const ImportBox = lazy(() => import('./ImportBox').then((m) => ({ default: m.ImportBox })))
 
 export function GamesBox({ games, browse = true }: { games: AnalyzeGames; browse?: boolean }) {
   const { t } = useTranslation()
@@ -54,7 +55,11 @@ export function GamesBox({ games, browse = true }: { games: AnalyzeGames; browse
       </Wrap>
       {note && <Muted m="{spacing.2} 0 0">{note}</Muted>}
       {view === 'saved' && <SavedGames games={games} />}
-      {view === 'load' && <ImportBox onImport={games.importGame} open />}
+      {view === 'load' && (
+        <Suspense fallback={null}>
+          <ImportBox onImport={games.importGame} open />
+        </Suspense>
+      )}
     </Box>
   )
 }

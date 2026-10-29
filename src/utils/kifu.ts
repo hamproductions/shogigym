@@ -12,7 +12,7 @@ import {
   importKI2,
   importKIF,
 } from 'tsshogi'
-import { COURSES, type Course, type JosekiNode } from './model'
+import { COURSES, courseLoaded, loadedCourses, type Course, type JosekiNode } from './model'
 import { applyUsi } from './shogi'
 import type { DetectionPreset, DetectionResult } from './formationTags'
 
@@ -146,15 +146,21 @@ export function parseGame(text: string): Game | Error {
 
 const strip = (sfen: string) => sfen.split(' ').slice(0, 3).join(' ')
 
-let bookIndex: Map<string, { course: Course; node: JosekiNode }[]> | null = null
+const bookIndex = new Map<string, { course: Course; node: JosekiNode }[]>()
+const indexed = new Set<string>()
+let bookVersion = -1
 
 export function bookLookup(sfen: string) {
-  if (!bookIndex) {
-    bookIndex = new Map()
+  if (bookVersion !== loadedCourses()) {
+    bookVersion = loadedCourses()
     for (const course of COURSES) {
+      if (indexed.has(course.id) || !courseLoaded(course)) continue
+      indexed.add(course.id)
       const walk = (node: JosekiNode) => {
         const key = strip(node.sfen)
-        bookIndex!.set(key, [...(bookIndex!.get(key) ?? []), { course, node }])
+        const hits = bookIndex.get(key)
+        if (hits) hits.push({ course, node })
+        else bookIndex.set(key, [{ course, node }])
         node.branches.forEach((b) => b.child && b.kind !== 'deviation' && walk(b.child))
       }
       walk(course.root)

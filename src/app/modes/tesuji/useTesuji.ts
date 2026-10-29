@@ -1,5 +1,5 @@
 import { Square } from 'tsshogi'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { colorSide, positionOf } from '@/utils/shogi'
 import type { BoardArrow } from '@/rendering/Board3D'
@@ -9,6 +9,7 @@ import type { Load } from '@/app/hooks/useModeSwitch'
 import { sideMark } from '@/utils/notation'
 import { playSound } from '@/appearance/settings'
 import { markTesuji, pickTesuji, type TesujiDrill } from '@/app/tesujiDrills'
+import { useLatest } from '@/app/hooks/useLatest'
 import type { Tab } from '@/app/types'
 
 export type TesujiState = { item: TesujiDrill; filter: string; status: 'asking' | 'right' | 'shown'; missed: boolean; hint: number; wrong?: string }
@@ -19,13 +20,21 @@ export function useTesuji(session: BoardSession, { mistakes, load, setTab }: { m
   const { t } = useTranslation()
   const [drill, setDrill] = useState<TesujiState | null>(null)
   const active = session.mode === 'tesuji'
+  const picking = useRef(0)
+  const modeNow = useLatest(session.mode)
 
   const start = (filter: string, exclude?: string) => {
-    const item = pickTesuji(filter, exclude)
-    if (!item) return
-    load(item.sfen, colorSide(positionOf(item.sfen).color), 'tesuji', null)
-    setDrill({ item, filter, status: 'asking', missed: false, hint: 0 })
-    setTab('coach')
+    const token = ++picking.current
+    const requested = modeNow.current
+    pickTesuji(filter, exclude).then(
+      (item) => {
+        if (!item || token !== picking.current || modeNow.current !== requested) return
+        load(item.sfen, colorSide(positionOf(item.sfen).color), 'tesuji', null)
+        setDrill({ item, filter, status: 'asking', missed: false, hint: 0 })
+        setTab('coach')
+      },
+      (error) => console.warn('tesuji drills not loaded', error),
+    )
   }
 
   const commit = (usi: string) => {

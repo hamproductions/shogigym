@@ -10,7 +10,7 @@ import { PIECE_INFO } from '@/app/pieces'
 import { Button } from '@/app/ui/Button'
 import { Dialog, DialogHeader } from '@/app/ui/Dialog'
 import { Tabs } from '@/app/ui/Tabs'
-import { engineSupported } from '@/utils/engine'
+import { useEngineSupported } from '@/utils/engine'
 import { buildInsights, type InsightGame, type Recurring, type Skill, type Suggestion } from '@/utils/insights'
 import { SETUPS } from '@/utils/model'
 import { PIECE_CHAR } from '@/utils/shogi'
@@ -129,6 +129,7 @@ type Props = {
 }
 
 export function InsightsDialog({ onClose, onPractice, onRoute, onLesson }: Props) {
+  const supported = useEngineSupported()
   const { t, i18n } = useTranslation()
   const ja = i18n.language === 'ja'
   const [stored] = useState(() => loadGames())
@@ -207,7 +208,7 @@ export function InsightsDialog({ onClose, onPractice, onRoute, onLesson }: Props
         {included.length > 0 && ` / ${t('insights.coverage', insights.coverage)}`}
         {progress && ` / ${t('insights.rating', progress)}`}
       </Text>
-      {!engineSupported() && (
+      {!supported && (
         <Text tone="muted" size="sm" mb="4">
           {t('insights.noEngine')}
         </Text>

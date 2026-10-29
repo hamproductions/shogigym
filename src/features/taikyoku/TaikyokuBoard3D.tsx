@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react'
+import { forwardRef, useEffect, useImperativeHandle, useRef, useLayoutEffect } from 'react'
 import { TaikyokuScene, type Marks, type TaikyokuArrow } from './scene3d'
 import { useSettings } from '@/appearance/settings'
 import type { BoardHandle } from './TaikyokuBoard'
@@ -32,7 +32,9 @@ export const TaikyokuBoard3D = forwardRef<BoardHandle, Props>(function TaikyokuB
   const host = useRef<HTMLDivElement>(null)
   const scene = useRef<TaikyokuScene | null>(null)
   const latest = useRef(props)
-  latest.current = props
+  useLayoutEffect(() => {
+    latest.current = props
+  })
 
   useImperativeHandle(ref, () => ({ fit: () => scene.current?.fit(), focus: (pos, px) => scene.current?.focus(pos, px) }), [])
 

@@ -24,17 +24,14 @@ export function useEvaluation({ sfen, ai, toMove }: BoardSession) {
   const evalSente = ai && best ? toSente(best.score, toMove) : null
   const evalKey = strip(sfen)
   const evalCp = evalSente ? scoreToCp(evalSente) : null
-  const updateEvals = (f: (e: Evals) => Evals) =>
-    setEvalsState((e) => {
-      const next = f(e)
-      for (const k of Object.keys(next)) if (next[k] !== e[k]) rememberEval(k, next[k])
-      return next
-    })
-  const recordEval = (key: string, cp: number) => updateEvals((e) => ({ ...e, [key]: cp }))
+  const recordEval = (key: string, cp: number) => {
+    rememberEval(key, cp)
+    setEvalsState((e) => (e[key] === cp ? e : { ...e, [key]: cp }))
+  }
   const [seen, setSeen] = useState({ evalKey, evalCp })
   if (seen.evalKey !== evalKey || seen.evalCp !== evalCp) {
     setSeen({ evalKey, evalCp })
-    if (evalCp !== null) updateEvals((e) => (e[evalKey] === evalCp ? e : { ...e, [evalKey]: evalCp }))
+    if (evalCp !== null) recordEval(evalKey, evalCp)
   }
   return {
     analysis: displayed ?? null,

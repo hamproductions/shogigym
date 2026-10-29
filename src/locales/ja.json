@@ -947,11 +947,20 @@
     "solvedOfInThisSet": "このセットの正解数: {{value}} / {{poolCount}}",
     "reasonIllegal": "指せない手です",
     "reasonNoCheck": "王手ではありません（攻め方は毎手王手）",
-    "reasonStored": "正解は{{move}}です",
     "reasonHolds_one": "受けられて、残り1手で詰みません",
     "reasonHolds_other": "受けられて、残り{{count}}手で詰みません",
     "reasonHoldsNow": "玉に逃げられます",
-    "notMateBecause": "詰みません：{{reason}}。"
+    "notMateBecause": "詰みません：{{reason}}。",
+    "elapsed": "経過時間",
+    "history": "履歴",
+    "resultSolved": "正解",
+    "resultFailed": "不正解",
+    "resultShown": "解答を見た",
+    "reasonOffLine": "想定の手順と違います。",
+    "next": "次へ",
+    "pause": "一時停止",
+    "resume": "再開",
+    "pausedNote": "一時停止中。再開すると続けられます。"
   },
   "viewer": {
     "pieceViewer": "駒ビューア",

@@ -2,13 +2,10 @@ import { Suspense, lazy, useCallback, useEffect, useMemo, useRef, useState } fro
 import { useTranslation } from 'react-i18next'
 import { InitialPositionSFEN } from 'tsshogi'
 import { LABELS } from '@/utils/analysis'
-import '@fontsource/shippori-mincho-b1/800.css'
-import '@fontsource/zen-kaku-gothic-new/400.css'
-import '@fontsource/zen-kaku-gothic-new/500.css'
-import '@fontsource/zen-kaku-gothic-new/700.css'
-import { COURSES, SETUPS } from '@/utils/model'
+import { COURSES, SETUPS, loadBookFor, loadCatalog, useCourseVersion } from '@/utils/model'
 import { useCommands } from '@/app/dialogs/commands'
-import { useSettings } from '@/appearance/settings'
+import { loadSounds, useSettings } from '@/appearance/settings'
+import { loadFormations } from '@/utils/formationTags'
 import { SessionContext } from '@/app/hooks/session'
 import { useAnnouncements } from '@/app/hooks/useAnnouncements'
 import { useAutoplay } from '@/app/hooks/useAutoplay'
@@ -35,13 +32,16 @@ import { Icon } from './icons'
 import { bookForMove, bookMovesAt } from '@/utils/book'
 import { SNAPSHOT_NAME, VIEWER_EVENT } from '@/utils/events'
 import { mistakeIsBad } from '@/utils/mistake'
-import { moveText, type Side } from '@/utils/shogi'
+import { moveText, pvText, type Side } from '@/utils/shogi'
 import { useAnalyzeGames } from '@/app/modes/analyze/useAnalyzeGames'
 import { useDrill } from '@/app/modes/drill/useDrill'
 import { useLesson } from '@/app/modes/lesson/useLesson'
 import { useSpar } from '@/app/modes/spar/useSpar'
 import { useWatch } from '@/app/modes/view/useWatch'
 import { useTesuji } from '@/app/modes/tesuji/useTesuji'
+import { firstPieceHint } from '@/app/modes/tsume/firstPiece'
+import { sideMark } from '@/utils/notation'
+import { attackerOf } from '@/app/practice'
 import { useTsume } from '@/app/modes/tsume/useTsume'
 import { SidePanels } from '@/app/panels/SidePanels'
 import { AppShell } from '@/app/layout.styles'
@@ -74,9 +74,19 @@ const PieceViewer = lazy(() => import('@/features/piece-viewer/PieceViewer').the
 const Furigoma = lazy(() => import('@/app/stage/Furigoma').then((m) => ({ default: m.Furigoma })))
 
 export function Application({ routeMode, routeMain }: { routeMode?: string; routeMain?: string }) {
+  const courseVersion = useCourseVersion()
+  useEffect(() => {
+    void loadSounds()
+    void loadFormations()
+    loadCatalog().catch((error) => console.warn('lesson catalog not loaded', error))
+  }, [])
   const { t } = useTranslation()
   const session = useBoardSession()
-  const { mode, course, preview, sfen, nodes, prevSfen, lastMove, cursor, atEnd, playing, userSide, game } = session
+  const { mode, course, preview, sfen, sfens, nodes, prevSfen, lastMove, cursor, atEnd, playing, userSide, game } = session
+  const needsBook = mode !== 'tsume' && mode !== 'tesuji' && mode !== 'lesson'
+  useEffect(() => {
+    if (needsBook) loadBookFor([...sfens.slice(Math.max(0, cursor - 2), cursor + 1), sfen]).catch((error) => console.warn('opening book not loaded', error))
+  }, [needsBook, sfens, cursor, sfen])
   const [tab, setTab] = useState<Tab>('coach')
   const [ratingPaused, setRatingPaused] = useState(false)
   const [palette, setPalette] = useState(false)
@@ -153,8 +163,10 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
   const { announce, tesujiNote, onMoveLanded } = useAnnouncements(session, mode === 'spar' && !spar.over && !spar.assist)
   const flow = useFlowLanes(session, evaluation.analysis)
   const upcoming = useAutoplay(session, evaluation.best?.move)
-  const bookHere = useMemo(() => bookMovesAt(sfen, nodes), [sfen, nodes])
-  const bookLast = useMemo(() => bookForMove(prevSfen, lastMove, nodes, course), [prevSfen, lastMove, nodes, course])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const bookHere = useMemo(() => bookMovesAt(sfen, nodes), [sfen, nodes, courseVersion])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const bookLast = useMemo(() => bookForMove(prevSfen, lastMove, nodes, course), [prevSfen, lastMove, nodes, course, courseVersion])
   const { mistake } = mistakes
   const startWatch = watch.start
   const setFurigomaBanner = spar.setFurigomaBanner
@@ -273,29 +285,45 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
   const title = mode === 'lesson' ? lesson.title : mode === 'tsume' ? (tsume.title ?? analyze.title) : { drill, tesuji, spar, view: watch, analyze }[mode].title
   const studyReply = lesson.waitingForReply ? opponent.reply : null
   const picking = mode === 'lesson' && !course
+  const tsumeTask = (() => {
+    const state = tsume.tsume
+    if (!state) return null
+    if (state.status === 'solved' || state.status === 'shown')
+      return {
+        text: state.status === 'solved' ? tsume.solvedText(state) : `${t('tsume.solution')}${pvText(state.problem.sfen, state.problem.pv, state.problem.mate)}`,
+        ...(state.status === 'shown' ? { action: t('tsume.tryAgain'), run: tsume.retry } : {}),
+      }
+    const hintAction = state.hint >= 2 ? { action: t('tsume.showSolution'), run: tsume.reveal } : { action: t('tsume.hint'), run: tsume.hint }
+    if (state.status === 'wrong' && state.reply) return { text: `✗ ${state.reason}：${state.reply}`, action: t('tsume.tryAgain'), run: tsume.tryAgain }
+    if (state.status === 'wrong' || (state.missed && state.reason)) return { text: `✗ ${state.reason}${state.reply ? `：${state.reply}` : ''}`, ...hintAction }
+    if (state.hint >= 1) return { text: t('tsume.hintTheFirstMoveUses', { piece: firstPieceHint(state.problem) }), ...hintAction }
+    return { text: t('tsume.toPlayAndMateIn', { side: sideMark(attackerOf(state.problem)), mate: state.problem.mate }), ...hintAction }
+  })()
   const phoneTask =
-    layout.compact && !layout.drawer && !isGameMode(mode) && mode !== 'view'
-      ? spar.erred && coach.review
-        ? {
-            text: t('app.phoneMistake', {
-              move: moveText(session.sfens[coach.reviewAt - 1], game.moves[coach.reviewAt - 1]),
-              label: LABELS[coach.review.label].text,
-            }),
-            action: t('app.takeBack'),
-            run: spar.takeBack,
-          }
-        : {
-            text: instruction,
-            action: studyReply
-              ? t('app.playTheirMove')
-              : picking
-                ? t('app.pickALesson')
-                : mode === 'drill' && !drill.item
-                  ? t('app.pickAQueue')
-                  : t('app.panel'),
-            run: () => (studyReply ? session.play(studyReply.usi) : layout.setDrawer(true)),
-          }
-      : null
+    layout.compact && !layout.drawer && mode === 'tsume'
+      ? tsumeTask
+      : layout.compact && !layout.drawer && !isGameMode(mode) && mode !== 'view' && mode !== 'tsume'
+        ? spar.erred && coach.review
+          ? {
+              text: t('app.phoneMistake', {
+                move: moveText(session.sfens[coach.reviewAt - 1], game.moves[coach.reviewAt - 1]),
+                label: LABELS[coach.review.label].text,
+              }),
+              action: t('app.takeBack'),
+              run: spar.takeBack,
+            }
+          : {
+              text: instruction,
+              action: studyReply
+                ? t('app.playTheirMove')
+                : picking
+                  ? t('app.pickALesson')
+                  : mode === 'drill' && !drill.item
+                    ? t('app.pickAQueue')
+                    : t('app.panel'),
+              run: () => (studyReply ? session.play(studyReply.usi) : layout.setDrawer(true)),
+            }
+        : null
   const autoplayAllowed = isGameMode(mode) || !!preview
   const finished = mode === 'spar' && (session.gameOver || spar.resigned || !!spar.aiEnded || !!spar.flagged)
   const result = !finished
@@ -314,9 +342,10 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
             ? 'loss'
             : 'win'
   useEffect(() => {
-    if (!result) return
-    analyze.saveFinished(result)
-  }, [result]) // eslint-disable-line react-hooks/exhaustive-deps
+    if (mode !== 'spar') return
+    if (!game.moves.length) analyze.forgetLive()
+    else analyze.saveLive(result ?? undefined)
+  }, [mode, game.start, game.moves, result]) // eslint-disable-line react-hooks/exhaustive-deps
   const speechState = useRef({ mode, finished: !!result || !!watch.result, restored })
   useEffect(() => {
     const previous = speechState.current
@@ -398,7 +427,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
   const three = settings.environment === 'traditional' || settings.environment === 'casual'
   const mainStrategy = settings.mainStrategy
   const firstLesson = COURSES.find(
-    (c) => c.id === (SETUPS.find((x) => x.basics && x.main === mainStrategy) ?? SETUPS.find((x) => x.main === mainStrategy) ?? SETUPS[0]).courseIds[0],
+    (c) => c.id === (SETUPS.find((x) => x.basics && x.main === mainStrategy) ?? SETUPS.find((x) => x.main === mainStrategy) ?? SETUPS[0])?.courseIds[0],
   )
 
   return (
@@ -458,7 +487,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
             drill={drill}
           />
           <BoardStage
-            hideCoordinates={(mode === 'spar' && atEnd && !spar.over) || spoilerFree}
+            hideCoordinates={(mode === 'spar' && atEnd && !spar.over) || (spoilerFree && mode !== 'tsume')}
             furigoma={pendingFurigoma && three}
             onFurigoma={(faces) => {
               if (!pendingFurigoma || furigomaCompleted.current) return

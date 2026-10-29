@@ -1,7 +1,7 @@
 import { bookLookup } from './kifu'
 import { strategiesAt } from './catalog'
-import { LEGACY_AI_STRATEGY, STRATEGIES } from '@/data/strategies'
-import { COURSES, SETUPS, type Course, type JosekiMove, type JosekiNode } from './model'
+import { COURSE_SIDES, LEGACY_AI_STRATEGY, STRATEGIES } from '@/data/strategies'
+import { COURSES, SETUPS, type Course, type JosekiMove, type JosekiNode, courseLoaded, loadBookFor } from './model'
 import type { Side } from './shogi'
 import { openingMoves } from './openingBook'
 import { localizeSquares } from './notation'
@@ -28,7 +28,7 @@ export const lessonText = (text: string | null | undefined, en: string | null | 
     : localizeEnglishText(en ?? (text && (lessonNotesEn as Record<string, Record<string, string>>)[course.baseId]?.[text]) ?? text)
 
 export function courseNodes(course: Course, lang = 'ja'): CourseNodes {
-  const key = `${course.id}:${lang}`
+  const key = `${course.id}:${lang}:${courseLoaded(course)}`
   const cached = nodesCache.get(key)
   if (cached) return cached
   const map: CourseNodes = new Map()
@@ -59,9 +59,14 @@ export const strategyCourses = (strategyId: string, side: Side) => {
   return COURSES.filter((c) => strategiesAt(c.baseId, side).includes(id) && !seen.has(c.baseId) && !!seen.add(c.baseId))
 }
 
+export const hasStrategyCourses = (strategyId: string, side: Side) => {
+  const id = aiStrategyId(strategyId)
+  return Object.keys(COURSE_SIDES).some((baseId) => strategiesAt(baseId, side).includes(id))
+}
+
 export function resolveAiStrategy(id: string, side: Side) {
   if (id !== 'random') return aiStrategyId(id)
-  const options = STRATEGIES.filter((strategy) => strategyCourses(strategy.id, side).length > 0)
+  const options = STRATEGIES.filter((strategy) => hasStrategyCourses(strategy.id, side))
   return options[Math.floor(Math.random() * options.length)]?.id ?? ''
 }
 
@@ -75,6 +80,7 @@ export function strategyMove(strategyId: string, side: Side, sfen: string) {
 
 export async function strategyReply(strategyId: string, side: Side, sfen: string, ply: number) {
   if (!strategyId || ply >= 48) return undefined
+  await loadBookFor([sfen])
   const courses = strategyCourses(strategyId, side)
   const allowed = courses.flatMap((course) => goodBranches(courseNodes(course).get(strip(sfen))))
   let evaluated: Awaited<ReturnType<typeof openingMoves>> = []
@@ -146,6 +152,15 @@ export function bookAtPly(sfens: string[], moves: string[], ply: number): BookHi
 }
 
 export const inBook = (sfen: string, usi: string) => bookLookup(sfen).some((h) => h.node.branches.some((b) => b.usi === usi && b.kind !== 'deviation'))
+
+export const isBookMove = (sfen: string, usi: string) =>
+  loadBookFor([sfen]).then(
+    () => inBook(sfen, usi),
+    (error) => {
+      console.warn('opening book not loaded', error)
+      return inBook(sfen, usi)
+    },
+  )
 
 export const setupOf = (course: Course, main?: string) =>
   SETUPS.find((s) => s.courseIds.includes(course.id) && (!main || s.technique || s.main === main)) ?? SETUPS.find((s) => s.courseIds.includes(course.id))

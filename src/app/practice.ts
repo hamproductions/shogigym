@@ -1,21 +1,38 @@
-import problemsData from '@/data/tsume.json'
 import i18n from '@/utils/i18n'
 import { analyze, engineSupported } from '@/utils/engine'
-import { COURSES, SETUPS, findPath, sideToMove, walkNodes, type Course, type JosekiNode } from '@/utils/model'
+import { COURSES, SETUPS, courseLoaded, loadedCourses, trainableHashes, findPath, sideToMove, walkNodes, type Course, type JosekiNode } from '@/utils/model'
+import { positionHash } from '@/utils/positionHash'
 import { getSettings } from '@/appearance/settings'
-import { getCard, isDifficult, isLearned, positionKey } from '@/utils/srs'
+import { cardStore, getCard, isDifficult, isLearned, positionKey } from '@/utils/srs'
 import { loadMistakes, type Mistake } from '@/utils/mistakes'
-import { applyUsi, colorSide, hasLegalMove, moveText, positionOf, type Side } from '@/utils/shogi'
+import { applyUsi, colorSide, hasLegalMove, positionOf, type Side } from '@/utils/shogi'
 
 export type Problem = { id: string; mate: number; sfen: string; pv: string[] }
-const BASE = problemsData as Problem[]
 
-const MATE_IN_ONE: Problem[] = BASE.filter((p) => p.mate === 3 && p.pv.length >= 3).flatMap((p) => {
-  const after = applyUsi(applyUsi(p.sfen, p.pv[0]) ?? '', p.pv[1])
-  return after ? [{ id: `${p.id}-m1`, mate: 1, sfen: after, pv: [p.pv[2]] }] : []
-})
+const mateInOne = (base: Problem[]): Problem[] =>
+  base
+    .filter((p) => p.mate === 3 && p.pv.length >= 3)
+    .flatMap((p) => {
+      const after = applyUsi(applyUsi(p.sfen, p.pv[0]) ?? '', p.pv[1])
+      return after ? [{ id: `${p.id}-m1`, mate: 1, sfen: after, pv: [p.pv[2]] }] : []
+    })
 
-export const PROBLEMS = [...MATE_IN_ONE, ...BASE]
+let problems: Problem[] = []
+let problemsLoad: Promise<Problem[]> | null = null
+
+export function loadProblems() {
+  if (!problemsLoad) {
+    problemsLoad = import('@/data/tsume.json').then((module) => {
+      const base = module.default as Problem[]
+      problems = [...mateInOne(base), ...base]
+      return problems
+    })
+    problemsLoad.catch(() => (problemsLoad = null))
+  }
+  return problemsLoad
+}
+
+export const problemById = (id: string) => problems.find((p) => p.id === id)
 
 const STATS_KEY = 'joseki-practice:tsume:v1'
 export type TsumeStats = { solved: string[]; failed: string[] }
@@ -39,32 +56,70 @@ export function markTsume(id: string, key: 'solved' | 'failed') {
   return next
 }
 
-export function pickProblem(length: number | 'all', exclude?: string): Problem {
+const HISTORY_KEY = 'joseki-practice:tsume-history:v1'
+const HISTORY_LIMIT = 500
+export const TSUME_SESSION_START = Date.now()
+
+export type TsumeResult = 'solved' | 'failed' | 'shown'
+export type TsumeAttempt = { id: string; mate: number; result: TsumeResult; ms: number; at: number }
+
+export function loadTsumeHistory(): TsumeAttempt[] {
+  try {
+    return JSON.parse(localStorage.getItem(HISTORY_KEY) ?? '[]')
+  } catch {
+    return []
+  }
+}
+
+export function recordTsumeAttempt(attempt: TsumeAttempt) {
+  const next = [attempt, ...loadTsumeHistory()].slice(0, HISTORY_LIMIT)
+  try {
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(next))
+  } catch (error) {
+    console.warn('tsume history not persisted', error)
+  }
+  return next
+}
+
+export async function pickProblem(length: number | 'all', exclude?: string): Promise<Problem> {
   const stats = loadTsumeStats()
-  const pool = PROBLEMS.filter((p) => (length === 'all' || p.mate === length) && p.id !== exclude)
-  const unsolved = pool.filter((p) => !stats.solved.includes(p.id))
+  const pool = (await loadProblems()).filter((p) => (length === 'all' || p.mate === length) && p.id !== exclude)
+  const solved = new Set(stats.solved)
+  const unsolved = pool.filter((p) => !solved.has(p.id))
   const from = unsolved.length ? unsolved : pool
   return from[Math.floor(Math.random() * from.length)]
 }
 
 export const attackerOf = (problem: Problem): Side => colorSide(positionOf(problem.sfen).color)
 
-export type TsumeVerdict = { kind: 'continue'; offBook: boolean } | { kind: 'solved' } | { kind: 'wrong'; reason: string }
+export type TsumeVerdict = { kind: 'continue'; offBook: boolean } | { kind: 'solved' } | { kind: 'wrong'; reason: string; refute: boolean; reply?: string }
+
+async function escapeOf(sfen: string) {
+  if (!engineSupported()) return undefined
+  const result = await analyze(`position sfen ${sfen}`, { multipv: 1, movetime: 400 })
+  return result.bestmove && !['resign', 'win'].includes(result.bestmove) ? result.bestmove : undefined
+}
 
 export async function judgeTsumeMove(problem: Problem, line: string[], sfen: string, usi: string, onBook: boolean): Promise<TsumeVerdict> {
   const next = applyUsi(sfen, usi)
-  if (!next) return { kind: 'wrong', reason: i18n.t('tsume.reasonIllegal') }
+  if (!next) return { kind: 'wrong', reason: i18n.t('tsume.reasonIllegal'), refute: false }
   const after = positionOf(next)
-  if (!after.checked) return { kind: 'wrong', reason: i18n.t('tsume.reasonNoCheck') }
+  if (!after.checked) return { kind: 'wrong', reason: i18n.t('tsume.reasonNoCheck'), refute: false, reply: await escapeOf(next) }
   if (!hasLegalMove(after)) return { kind: 'solved' }
   if (onBook && usi === problem.pv[line.length]) return { kind: 'continue', offBook: false }
-  if (!engineSupported()) return { kind: 'wrong', reason: i18n.t('tsume.reasonStored', { move: moveText(sfen, problem.pv[line.length]) }) }
+  if (!engineSupported()) return { kind: 'wrong', reason: i18n.t('tsume.reasonOffLine'), refute: false }
   const movesLeft = Math.ceil((problem.mate - line.length) / 2)
   const result = await analyze(`position sfen ${next}`, { multipv: 1, movetime: 800 })
   const score = result.candidates[0]?.score
   const plies = score && 'mate' in score && score.mate < 0 ? -score.mate : null
   if (plies !== null && Math.ceil(plies / 2) <= movesLeft - 1) return { kind: 'continue', offBook: true }
-  return { kind: 'wrong', reason: movesLeft - 1 > 0 ? i18n.t('tsume.reasonHolds', { count: movesLeft - 1 }) : i18n.t('tsume.reasonHoldsNow') }
+  const reply = result.bestmove && !['resign', 'win'].includes(result.bestmove) ? result.bestmove : undefined
+  return {
+    kind: 'wrong',
+    reason: movesLeft - 1 > 0 ? i18n.t('tsume.reasonHolds', { count: movesLeft - 1 }) : i18n.t('tsume.reasonHoldsNow'),
+    refute: true,
+    reply,
+  }
 }
 
 export async function defenderMove(problem: Problem, line: string[], sfen: string, onBook: boolean): Promise<string | null> {
@@ -91,7 +146,8 @@ export const coursesForMain = (main: string) => {
 
 function trainablePositions() {
   const main = getSettings().mainStrategy
-  const cached = positionsCache.get(main)
+  const key = `${main}:${loadedCourses()}`
+  const cached = positionsCache.get(key)
   if (cached) return cached
   const seen = new Map<string, Spot>()
   for (const course of coursesForMain(main))
@@ -103,11 +159,28 @@ function trainablePositions() {
       else seen.set(key, { key, course, node, depth: path.length, alts: [{ course, node, depth: path.length }] })
     })
   const spots = [...seen.values()]
-  positionsCache.set(main, spots)
+  positionsCache.set(key, spots)
   return spots
 }
 
+let learnedHashes: { store: ReturnType<typeof cardStore>; hashes: Set<string> } | null = null
+
+function learnedPositions() {
+  const store = cardStore()
+  if (learnedHashes?.store !== store)
+    learnedHashes = {
+      store,
+      hashes: new Set(Object.values(store).flatMap((card) => (card.key.startsWith('pos#') && isLearned(card) ? [positionHash(card.key.slice(4))] : []))),
+    }
+  return learnedHashes.hashes
+}
+
 export function courseProgress(course: Course) {
+  const hashes = courseLoaded(course) ? undefined : trainableHashes(course)
+  if (hashes) {
+    const learned = learnedPositions()
+    return { total: hashes.length, learned: hashes.filter((hash) => learned.has(hash)).length }
+  }
   let total = 0
   let learned = 0
   walkNodes(course.root, (node) => {

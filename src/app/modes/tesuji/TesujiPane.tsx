@@ -7,7 +7,7 @@ import type { TFunction } from 'i18next'
 import { PIECE_INFO } from '@/app/pieces'
 import { ORIGIN_KEY, returnToGame, stored } from '@/app/modes/lesson/reading'
 import { useSettings } from '@/appearance/settings'
-import { TESUJI_DRILLS, inTesujiFilter, tesujiStats } from '@/app/tesujiDrills'
+import { inTesujiFilter, tesujiDrills, tesujiStats } from '@/app/tesujiDrills'
 import type { TesujiState, TesujiTrainer } from './useTesuji'
 import { Button } from '@/app/ui/Button'
 import { Card } from '@/app/ui/Card'
@@ -25,7 +25,8 @@ export function TesujiPane({ trainer, drill, replaying, onBack }: { trainer: Tes
   const { t } = useTranslation()
   const lang = useSettings().lang
   const stats = tesujiStats()
-  const pool = TESUJI_DRILLS.filter((d) => inTesujiFilter(d, drill.filter))
+  const solvedIds = new Set(stats.solved)
+  const pool = tesujiDrills().filter((d) => inTesujiFilter(d, drill.filter))
   const { sfen } = drill.item
   const side = sideMark(positionOf(sfen).color)
   return (
@@ -92,7 +93,7 @@ export function TesujiPane({ trainer, drill, replaying, onBack }: { trainer: Tes
           {drill.status === 'asking' && <Button onClick={trainer.reveal}>{t('tesuji.showAnswer')}</Button>}
         </Wrap>
       )}
-      <Muted mt="3">{t('tesuji.solvedFirstTryOf', { value: pool.filter((d) => stats.solved.includes(d.id)).length, poolCount: pool.length })}</Muted>
+      <Muted mt="3">{t('tesuji.solvedFirstTryOf', { value: pool.filter((d) => solvedIds.has(d.id)).length, poolCount: pool.length })}</Muted>
     </NarrowColumn>
   )
 }

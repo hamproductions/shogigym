@@ -34,9 +34,9 @@ import {
   watchSelect,
 } from './mode-bar.styles'
 import { useGlide } from '@/app/hooks/useGlide'
-import { engineSupported, restartEngine, useEngineStatus } from '@/utils/engine'
+import { restartEngine, useEngineStatus, useEngineSupported } from '@/utils/engine'
 import { FAMILIES, STRATEGIES } from '@/data/strategies'
-import { strategyCourses } from '@/utils/book'
+import { hasStrategyCourses } from '@/utils/book'
 
 type ModeBarProps = {
   onFlip: () => void
@@ -249,7 +249,7 @@ export function ModeBar({
   const { t } = useTranslation()
   const settings = useSettings()
   const engine = useEngineStatus()
-  const unavailable = !engineSupported()
+  const unavailable = !useEngineSupported()
   const ja = settings.lang === 'ja'
   const { mode, course, lastMove, prevSfen, plyBase, preview, cursor, toMove, nav, gameOver, game, flipped } = useSession()
   const helpOn = mode === 'spar' ? spar.assist : settings.assist
@@ -464,8 +464,7 @@ export function WatchOptions({ watch }: { watch: Watch }) {
             ]}
             groups={Object.entries(FAMILIES).flatMap(([family, label]) => {
               const choices = STRATEGIES.filter(
-                (strategy) =>
-                  strategy.family === family && (strategyCourses(strategy.id, 'sente').length > 0 || strategyCourses(strategy.id, 'gote').length > 0),
+                (strategy) => strategy.family === family && (hasStrategyCourses(strategy.id, 'sente') || hasStrategyCourses(strategy.id, 'gote')),
               )
               return choices.length
                 ? [{ label: ja ? label.ja : label.en, options: choices.map((strategy) => ({ value: strategy.id, label: ja ? strategy.ja : strategy.en })) }]

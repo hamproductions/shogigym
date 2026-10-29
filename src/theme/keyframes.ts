@@ -26,6 +26,10 @@ export const keyframes = defineKeyframes({
     '12%, 78%': { opacity: '1', transform: 'translate(-50%, -50%) scale(1)' },
     '100%': { opacity: '0', transform: 'translate(-54%, -50%) scale(0.99)' },
   },
+  'skeleton-pulse': {
+    '0%, 100%': { opacity: '0.55' },
+    '50%': { opacity: '1' },
+  },
   // collapse
   'expand-height': {
     from: { height: '0' },

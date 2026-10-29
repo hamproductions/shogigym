@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { reviewMove } from '@/utils/analysis'
 import { engineSupported, scoreToCp } from '@/utils/engine'
-import { inBook, strip } from '@/utils/book'
+import { isBookMove, strip } from '@/utils/book'
 import { toSente } from '@/utils/notation'
 import { colorSide, positionOf, type Side } from '@/utils/shogi'
 import { cachedReview, rememberReview } from '@/app/memory'
@@ -38,7 +38,12 @@ export function useAutoRate({ enabled, sfens, moves, allSides, userSide, cursor,
         const i = todo[n]
         setState({ key, progress: { done: n, total: todo.length } })
         try {
-          const review = await reviewMove(sfens[i], list[i], { movetime: 400, inBook: inBook(sfens[i], list[i]), signal: controller.signal })
+          const review = await reviewMove(sfens[i], list[i], {
+            movetime: 400,
+            inBook: await isBookMove(sfens[i], list[i]),
+            idle: true,
+            signal: controller.signal,
+          })
           if (cancelled) return
           rememberReview(sfens[i], list[i], review)
           onScore(strip(sfens[i]), scoreToCp(toSente(review.before, colorSide(positionOf(sfens[i]).color))))

@@ -2,10 +2,10 @@ import { useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Box, styled } from 'styled-system/jsx'
 import { describeMove, scoreWinRate } from '@/utils/analysis'
-import { engineSupported, useEngineStatus, type Analysis, type Candidate } from '@/utils/engine'
+import { useEngineStatus, type Analysis, type Candidate, useEngineSupported } from '@/utils/engine'
 import i18n from '@/utils/i18n'
 import { applyUsi, moveText, pvText, type Side } from '@/utils/shogi'
-import { EngineName } from '@/app/EngineSettings'
+import { EngineName } from '@/app/EngineName'
 import type { BookMove } from '@/utils/book'
 import { sideMark, toSente } from '@/utils/notation'
 import { FlipMarks } from '@/app/ui/SideMark'
@@ -47,9 +47,10 @@ type EnginePaneProps = {
 }
 
 export function EnginePane({ sfen, toMove, analysis, showBest, setShowBest, onPlay, canPlay, book }: EnginePaneProps) {
+  const supported = useEngineSupported()
   const { t } = useTranslation()
   const status = useEngineStatus()
-  if (!engineSupported())
+  if (!supported)
     return (
       <div role="alert">
         <Muted>{t('engine.theAiNeedsACross')}</Muted>

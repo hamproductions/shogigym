@@ -1,5 +1,3 @@
-import data from '@/data/tesuji-drills.json'
-
 export type TesujiDrill = {
   id: string
   tesuji: string
@@ -12,11 +10,26 @@ export type TesujiDrill = {
   note?: string
 }
 
-export const TESUJI_DRILLS = data as TesujiDrill[]
+let drills: TesujiDrill[] = []
+let kinds: string[] = []
+let drillsLoad: Promise<TesujiDrill[]> | null = null
 
-export const TESUJI_KINDS = [...new Set(TESUJI_DRILLS.map((d) => d.tesuji))].sort(
-  (a, b) => TESUJI_DRILLS.filter((d) => d.tesuji === b).length - TESUJI_DRILLS.filter((d) => d.tesuji === a).length,
-)
+export function loadTesujiDrills() {
+  if (!drillsLoad) {
+    drillsLoad = import('@/data/tesuji-drills.json').then((module) => {
+      drills = module.default as TesujiDrill[]
+      const count = (kind: string) => drills.filter((d) => d.tesuji === kind).length
+      kinds = [...new Set(drills.map((d) => d.tesuji))].sort((a, b) => count(b) - count(a))
+      return drills
+    })
+    drillsLoad.catch(() => (drillsLoad = null))
+  }
+  return drillsLoad
+}
+
+export const tesujiDrills = () => drills
+
+export const tesujiKinds = () => kinds
 
 const KEY = 'joseki-practice:tesuji:v1'
 
@@ -42,8 +55,8 @@ const GROUPS: Record<string, string[]> = { 両取り: ['両取り', 'ふんど�
 
 export const inTesujiFilter = (drill: TesujiDrill, filter: string) => filter === 'all' || (GROUPS[filter] ?? [filter]).includes(drill.tesuji)
 
-export function pickTesuji(filter: string, exclude?: string): TesujiDrill | undefined {
-  const pool = TESUJI_DRILLS.filter((d) => inTesujiFilter(d, filter) && d.id !== exclude)
+export async function pickTesuji(filter: string, exclude?: string): Promise<TesujiDrill | undefined> {
+  const pool = (await loadTesujiDrills()).filter((d) => inTesujiFilter(d, filter) && d.id !== exclude)
   const solved = new Set(tesujiStats().solved)
   const fresh = pool.filter((d) => !solved.has(d.id))
   const from = fresh.length ? fresh : pool

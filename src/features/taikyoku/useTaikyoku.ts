@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState, useLayoutEffect } from 'react'
 import { TaikyokuEngine } from './engine'
 import { cellAt, parseInfo, parseMove, parseSnapshot, same, type Cell, type EngineMove, type Pos, type Score, type Side, type Snapshot } from './notation'
 
@@ -112,7 +112,9 @@ export function useTaikyoku(onEvent: (entry: Omit<LogEntry, 'text'>) => void, an
   const importEngine = useRef<TaikyokuEngine | null>(null)
   const importEpoch = useRef(0)
   const onEventRef = useRef(onEvent)
-  onEventRef.current = onEvent
+  useLayoutEffect(() => {
+    onEventRef.current = onEvent
+  })
   const [game, setGame] = useState<Game | null>(null)
   const [timeline, setTimeline] = useState<string[]>([])
   const [timelineEntries, setTimelineEntries] = useState<TimelineEntry[]>([])
@@ -243,7 +245,9 @@ export function useTaikyoku(onEvent: (entry: Omit<LogEntry, 'text'>) => void, an
     (manual || auto || (!paused && game.snap.turn === 'w')) &&
     game.moves.length < PLY_LIMIT
   const latest = useRef({ aiToMove, strength })
-  latest.current = { aiToMove, strength }
+  useLayoutEffect(() => {
+    latest.current = { aiToMove, strength }
+  })
   const searching = useRef(-1)
 
   // The engine plays whenever it is its turn (or both turns in auto-play).

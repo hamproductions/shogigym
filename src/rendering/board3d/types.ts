@@ -21,6 +21,7 @@ export type Board3DProps = {
   furigoma?: boolean
   onFurigoma?: (faces: boolean[]) => void
   onMoveLanded?: (sfen: string) => void
+  onReady?: (ready: boolean) => void
   flipped: boolean
   tilted: boolean
   orbit?: boolean
@@ -140,6 +141,7 @@ export type SceneState = {
   tilePovFrame?: THREE.Matrix4 | null
   flip: TableFlip | null
   settled?: boolean
+  snapKey?: string
   droppedAt?: number
   onLand?: (() => void) | null
   onImpact?: (() => void) | null

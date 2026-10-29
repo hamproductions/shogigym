@@ -30,7 +30,7 @@ export type LessonEntry = {
   title: Text
   path: string[]
   intro: Text
-  source: string
+  source?: string
   references?: LessonReference[]
   check?: { question: Text; answer: Text }
   courses: RawCourse[]
@@ -56,7 +56,7 @@ function mainLine(root: JosekiNode) {
 
 const sameGame = (a: RawCourse, b: RawCourse) => {
   if (a.root.sfen.split(' ').slice(0, 3).join(' ') !== b.root.sfen.split(' ').slice(0, 3).join(' ')) return false
-  const [x, y] = [mainLine(a.root), mainLine(b.root)]
+  const [x, y] = [a.mainLine ?? mainLine(a.root), b.mainLine ?? mainLine(b.root)]
   const n = Math.min(x.length, y.length)
   return n > 0 && x.slice(0, n).every((usi, i) => usi === y[i])
 }

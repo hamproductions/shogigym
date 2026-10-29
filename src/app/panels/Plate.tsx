@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { Color, type ImmutablePosition } from 'tsshogi'
 import { formationName, formationOf } from '@/utils/formation'
+import { useFormationRules } from '@/utils/formationTags'
 import type { ClockFace } from '@/app/modes/spar/useGameClock'
 import { Pill } from '@/app/ui/Pill'
 import { useSession } from '@/app/hooks/session'
@@ -30,6 +31,7 @@ export function Plate({
 }) {
   const { t, i18n } = useTranslation()
   const { sfens, game, cursor, flipped } = useSession()
+  useFormationRules()
   const { strategy, castle } = formationOf(position, color, { sfens, moves: game.moves, cursor })
   const spar = thinking !== undefined
   return (

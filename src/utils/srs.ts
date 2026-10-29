@@ -72,6 +72,8 @@ export const isDifficult = (card: Card) => card.mistakes >= 3 && card.level < 4
 
 export const allCards = () => Object.values(cards)
 
+export const cardStore = () => cards
+
 export function resetAll() {
   cards = {}
   save()

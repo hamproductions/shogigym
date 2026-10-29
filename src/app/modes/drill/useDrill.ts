@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { loadAllJoseki } from '@/utils/model'
+import { useState, useLayoutEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { InitialPositionSFEN } from 'tsshogi'
 import { colorSide, positionOf } from '@/utils/shogi'
@@ -9,6 +10,7 @@ import type { Mistakes } from '@/app/hooks/useMistake'
 import { buildQueue, expectedMoves, mistakeKey, reviewCounts, type ReviewItem, type ReviewQueue } from '@/app/practice'
 import type { Mistake } from '@/utils/mistakes'
 import type { Mode, Tab } from '@/app/types'
+import { useLatest } from '@/app/hooks/useLatest'
 
 export type DrillState = {
   queue: ReviewQueue
@@ -26,6 +28,7 @@ const ORIGIN_KEY = 'joseki-practice:drill-origin:v1'
 export function useDrill(session: BoardSession, { mistakes, setTab }: { mistakes: Mistakes; setTab: (tab: Tab) => void }) {
   const { t } = useTranslation()
   const [drill, setDrill] = useState<DrillState | null>(null)
+  const modeNow = useLatest(session.mode)
   const item = drill && session.mode === 'drill' ? drill.items[drill.index] : undefined
   const asking = !!item && !drill?.result
 
@@ -69,15 +72,20 @@ export function useDrill(session: BoardSession, { mistakes, setTab }: { mistakes
 
   const start = (queue: ReviewQueue) => {
     setOrigin(undefined)
-    show(queue, buildQueue(queue), 0)
+    const requested = modeNow.current
+    return loadAllJoseki().then(
+      () => modeNow.current === requested && show(queue, buildQueue(queue), 0),
+      (error) => console.warn('review queue not loaded', error),
+    )
   }
-  const [origin, setOriginState] = useState<Mode | undefined>(() => {
+  const [origin, setOriginState] = useState<Mode | undefined>(undefined)
+  useLayoutEffect(() => {
     try {
-      return (sessionStorage.getItem(ORIGIN_KEY) as Mode | null) ?? undefined
+      setOriginState((sessionStorage.getItem(ORIGIN_KEY) as Mode | null) ?? undefined)
     } catch {
-      return undefined
+      setOriginState(undefined)
     }
-  })
+  }, [])
   const setOrigin = (mode: Mode | undefined) => {
     setOriginState(mode)
     try {
@@ -97,7 +105,7 @@ export function useDrill(session: BoardSession, { mistakes, setTab }: { mistakes
   }
   const startDefault = () => {
     const counts = reviewCounts()
-    start(counts.due === 0 && counts.mistakes > 0 ? 'mistakes' : 'due')
+    void start(counts.due === 0 && counts.mistakes > 0 ? 'mistakes' : 'due')
   }
 
   const commit = (usi: string) => {

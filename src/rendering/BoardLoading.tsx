@@ -11,6 +11,8 @@ const phases = {
   shaders: 'settings.loadingShaders',
 }
 
+const LINES = Array.from({ length: 8 }, (_, i) => `${6 + ((i + 1) * 88) / 9}%`)
+
 export function BoardLoading({ error, progress, state }: { error?: string; progress?: number; state?: BoardLoadingState }) {
   const { t } = useTranslation()
   const value = state?.phase === 'shaders' ? undefined : state ? state.done / state.total : progress
@@ -22,33 +24,35 @@ export function BoardLoading({ error, progress, state }: { error?: string; progr
       zIndex="1"
       display="grid"
       placeItems="center"
-      bg="surface.0"
-      color="fg.muted"
+      pointerEvents="none"
       role={error ? 'alert' : 'status'}
       aria-busy={!error}
+      aria-label={error ?? label}
     >
-      <styled.div display="grid" justifyItems="center" gap="16px" w="min(280px, 80%)" font="14px/1.4 {fonts.sans}" textAlign="center">
-        <span>{error ?? label}</span>
-        {!error && (
-          <styled.progress
-            w="100%"
-            h="6px"
-            border="0"
-            borderRadius="3px"
-            overflow="hidden"
-            accentColor="accent"
-            css={{
-              '&::-webkit-progress-bar': { bg: 'border' },
-              '&::-webkit-progress-value': { bg: 'accent' },
-              '&::-moz-progress-bar': { bg: 'accent' },
-            }}
-            max={1}
-            value={value}
-            aria-label={label}
-          />
-        )}
-        {!error && value !== undefined && <styled.span fontVariantNumeric="tabular-nums">{Math.round(value * 100)}%</styled.span>}
-      </styled.div>
+      {error ? (
+        <styled.span color="fg.muted" font="14px/1.4 {fonts.sans}" textAlign="center" pointerEvents="auto">
+          {error}
+        </styled.span>
+      ) : (
+        <styled.div
+          position="relative"
+          h="min(82%, 600px)"
+          maxW="90%"
+          aspectRatio="11 / 12"
+          borderRadius="md"
+          bg="surface.2"
+          overflow="hidden"
+          animation="skeleton-pulse 1.4s ease-in-out infinite"
+        >
+          {LINES.map((at) => (
+            <styled.span key={`v${at}`} position="absolute" top="6%" bottom="6%" w="1px" bg="border" style={{ left: at }} />
+          ))}
+          {LINES.map((at) => (
+            <styled.span key={`h${at}`} position="absolute" left="6%" right="6%" h="1px" bg="border" style={{ top: at }} />
+          ))}
+          {value !== undefined && <styled.span position="absolute" left="0" bottom="0" h="2px" bg="accent" style={{ width: `${value * 100}%` }} />}
+        </styled.div>
+      )}
     </styled.div>
   )
 }

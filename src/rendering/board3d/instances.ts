@@ -2,7 +2,15 @@ import * as THREE from 'three'
 import { instanceTextureKey, instanceTextures, textureProperties } from './instanceTextures'
 
 type Entry = { piece: THREE.Object3D; mesh: THREE.Mesh; key: string }
-type Batch = { entries: Set<Entry>; mesh: THREE.InstancedMesh | null; dirty: boolean; signature?: string; textures?: ReturnType<typeof instanceTextures> }
+type Batch = {
+  entries: Set<Entry>
+  mesh: THREE.InstancedMesh | null
+  dirty: boolean
+  structural: boolean
+  textureRefs: unknown[]
+  signature?: string
+  textures?: ReturnType<typeof instanceTextures>
+}
 
 const identities = new WeakMap<object, number>()
 const materialKeys = new WeakMap<THREE.Material, { version: number; key: string }>()
@@ -58,6 +66,10 @@ export class PieceInstances {
   private parent: THREE.Group
   private retained: boolean
   private textureVariants: boolean
+  private current = new Set<THREE.Object3D>()
+  private visibility = new Map<THREE.Mesh, boolean>()
+  private inverse = new THREE.Matrix4()
+  private matrix = new THREE.Matrix4()
 
   constructor(parent: THREE.Group, retained = false, textureVariants = retained) {
     this.parent = parent
@@ -99,9 +111,9 @@ export class PieceInstances {
       while (this.textureVariants && this.batches.has(key) && !this.fits(this.batches.get(key)!, entry.mesh)) key = `${base}/${++partition}`
       entry.key = key
       let batch = this.batches.get(key)
-      if (!batch) this.batches.set(key, (batch = { entries: new Set(), mesh: null, dirty: true }))
+      if (!batch) this.batches.set(key, (batch = { entries: new Set(), mesh: null, dirty: true, structural: true, textureRefs: [] }))
       batch.entries.add(entry)
-      batch.dirty = true
+      batch.dirty = batch.structural = true
     }
   }
 
@@ -117,25 +129,28 @@ export class PieceInstances {
       const batch = this.batches.get(entry.key)
       if (!batch) continue
       batch.entries.delete(entry)
-      batch.dirty = true
+      batch.dirty = batch.structural = true
     }
   }
 
   update(moving = false) {
-    if (moving) for (const batch of this.batches.values()) batch.dirty = true
-    if (![...this.batches.values()].some((batch) => batch.dirty)) return
+    let any = false
+    for (const batch of this.batches.values()) any = (batch.dirty ||= moving) || any
+    if (!any) return
     for (const [piece, entries] of this.pieces) if (entries) piece.updateWorldMatrix(true, true)
     this.parent.updateWorldMatrix(true, false)
-    const inverse = this.retained ? this.parent.matrixWorld.clone().invert() : null
-    const matrix = new THREE.Matrix4()
+    const inverse = this.retained ? this.inverse.copy(this.parent.matrixWorld).invert() : null
+    const matrix = this.matrix
     for (const [key, batch] of this.batches) {
       if (!batch.dirty) continue
+      let fresh = false
       if (!batch.entries.size) {
         this.release(batch)
         this.batches.delete(key)
         continue
       }
-      if (batch.dirty) {
+      if (this.texturesMoved(batch) || batch.structural || !batch.mesh) {
+        batch.structural = false
         const source = batch.entries.values().next().value!.mesh
         const meshes = [...batch.entries].map((entry) => entry.mesh)
         const signature = [
@@ -163,34 +178,50 @@ export class PieceInstances {
           batch.mesh.frustumCulled = source.frustumCulled
           batch.mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage)
           this.parent.add(batch.mesh)
+          fresh = true
         }
-        batch.dirty = false
       }
+      batch.dirty = false
       const mesh = batch.mesh!
+      const array = mesh.instanceMatrix.array
       let index = 0
+      let moved = fresh
+      let retextured = fresh
       for (const entry of batch.entries) {
         let visible = true
         for (let object: THREE.Object3D | null = entry.mesh; object; object = object.parent) visible &&= object.visible
         if (visible) {
-          mesh.setMatrixAt(index, inverse ? matrix.multiplyMatrices(inverse, entry.mesh.matrixWorld) : entry.mesh.matrixWorld)
-          batch.textures?.update(entry.mesh, index)
+          const world = inverse ? matrix.multiplyMatrices(inverse, entry.mesh.matrixWorld) : entry.mesh.matrixWorld
+          for (let i = 0, offset = index * 16; i < 16; i++)
+            if (array[offset + i] !== Math.fround(world.elements[i])) {
+              mesh.setMatrixAt(index, world)
+              moved = true
+              break
+            }
+          if (batch.textures?.update(entry.mesh, index)) retextured = true
           index++
         }
       }
+      if (mesh.count !== index) moved = retextured = true
       mesh.count = index
-      mesh.instanceMatrix.needsUpdate = true
-      batch.textures?.upload()
-      mesh.computeBoundingSphere()
+      if (moved) {
+        mesh.instanceMatrix.needsUpdate = true
+        mesh.computeBoundingSphere()
+      }
+      if (retextured) batch.textures?.upload()
     }
   }
 
   render(source: THREE.Group, draw: () => void) {
     this.parent.visible = source.visible
-    const current = new Set(source.children)
+    const current = this.current
+    current.clear()
+    for (const piece of source.children) current.add(piece)
     for (const piece of this.pieces.keys()) if (!current.has(piece)) this.remove(piece)
     for (const piece of current) this.add(piece)
     this.update(true)
-    const visibility = new Map<THREE.Mesh, boolean>()
+    const visibility = this.visibility
+    visibility.clear()
     for (const entries of this.pieces.values())
       for (const entry of entries ?? []) {
         visibility.set(entry.mesh, entry.mesh.visible)
@@ -214,6 +245,28 @@ export class PieceInstances {
     return `${mesh.geometry.uuid}/${materialsOf(mesh)
       .map((material) => materialKey(material, this.textureVariants))
       .join('/')}/${mesh.castShadow}/${mesh.receiveShadow}/${mesh.renderOrder}/${mesh.layers.mask}/${mesh.frustumCulled}`
+  }
+
+  private texturesMoved(batch: Batch) {
+    if (!this.textureVariants) return false
+    const refs = batch.textureRefs
+    let at = 0
+    let moved = false
+    for (const entry of batch.entries)
+      for (const material of materialsOf(entry.mesh))
+        for (const property of textureProperties) {
+          const texture = (material as unknown as Record<string, unknown>)[property]
+          if (refs[at] !== texture) {
+            refs[at] = texture
+            moved = true
+          }
+          at++
+        }
+    if (refs.length !== at) {
+      refs.length = at
+      moved = true
+    }
+    return moved
   }
 
   private fits(batch: Batch, mesh: THREE.Mesh) {

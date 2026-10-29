@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useRouteParams } from '@/app/hooks/useRouteParams'
-import { SETUPS, type Course, type Setup } from '@/utils/model'
+import { SETUPS, prefetchCourses as prefetch, useLoadedCourses, type Course, type Setup } from '@/utils/model'
 import { scrollPanelTop } from '@/app/hooks/useLayout'
 import { coursesOf } from '@/utils/book'
 import { courseProgress } from '@/app/practice'
@@ -156,7 +156,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
     const p = progressOf(courses)
     const defending = courses.length > 0 && courses.every((c) => c.notesFromOpponentView)
     return (
-      <SetupButton key={setup.id} onClick={() => openSetup(setup.id)}>
+      <SetupButton key={setup.id} onPointerEnter={() => prefetch(courses)} onFocus={() => prefetch(courses)} onClick={() => openSetup(setup.id)}>
         <LibJa>
           {index !== undefined && <StageNumber>{index + 1}</StageNumber>}
           <Marks>{name(setup)}</Marks>
@@ -221,10 +221,11 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
   const intro = open ? (ja ? open.setup.intro.ja : open.setup.intro.en) : ''
   const plan = open?.setup.plan ? (ja ? open.setup.plan.ja : open.setup.plan.en) : ''
   const described = `${intro}\n${plan}`
+  const loaded = useLoadedCourses(open?.courses ?? [])
   const describedSfen = useMemo(
-    () => (open ? describedPosition(open.courses, `${open.setup.intro.ja}\n${open.setup.plan?.ja ?? ''}`) : null),
+    () => (open && loaded ? describedPosition(loaded, `${open.setup.intro.ja}\n${open.setup.plan?.ja ?? ''}`) : null),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [open?.setup.id],
+    [open?.setup.id, !!loaded],
   )
   useDescribedBoard(describedSfen, described)
   if (open) {
@@ -482,16 +483,18 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
               <LibJa>{ja ? '最初の戦法を選ぶ' : 'Choose your first strategy'}</LibJa>
               <SetupGo aria-hidden="true">›</SetupGo>
             </NextCard>
-          ) : nextUp && (
-            <NextCard onClick={() => openSetup(nextUp.setup.id)}>
-              <LibEn>
-                {ja ? '次に学ぶ' : 'Up next'} · {homeOf(nextUp.setup).label}
-              </LibEn>
-              <LibJa>
-                <Marks>{name(nextUp.setup)}</Marks>
-              </LibJa>
-              <SetupGo aria-hidden="true">›</SetupGo>
-            </NextCard>
+          ) : (
+            nextUp && (
+              <NextCard onClick={() => openSetup(nextUp.setup.id)}>
+                <LibEn>
+                  {ja ? '次に学ぶ' : 'Up next'} · {homeOf(nextUp.setup).label}
+                </LibEn>
+                <LibJa>
+                  <Marks>{name(nextUp.setup)}</Marks>
+                </LibJa>
+                <SetupGo aria-hidden="true">›</SetupGo>
+              </NextCard>
+            )
           )}
           <SubHeading data-spaced>{ja ? '入門からプロまでの順番' : 'From beginner to professional'}</SubHeading>
           {STAGES.map((s, index) => (

@@ -60,7 +60,6 @@ let nativeBook: Promise<boolean> | null = null
 let session = 0
 let listener: ((line: string) => void) | null = null
 let pending: (() => void) | null = null
-let queue: Promise<unknown> = Promise.resolve()
 let interruptible = false
 let searching = false
 let backgroundGeneration = 0
@@ -80,6 +79,7 @@ export function useEngineStatus() {
         statusListeners.delete(l)
       }
     },
+    () => status,
     () => status,
   )
 }
@@ -141,7 +141,12 @@ function waitFor(engine: UsiModule, command: string, terminator: string, onLine?
   })
 }
 
+const noSubscribe = () => () => {}
+
+export const useEngineSupported = () => useSyncExternalStore(noSubscribe, engineSupported, () => true)
+
 export function engineSupported(): boolean {
+  if (typeof window === 'undefined') return true
   return typeof SharedArrayBuffer !== 'undefined' && window.crossOriginIsolated
 }
 
@@ -266,7 +271,60 @@ export function parseInfo(line: string): Candidate | null {
   }
 }
 
-const cache = new Map<string, { multipv: number; movetime: number; result: Promise<Analysis> }>()
+type Shared = {
+  multipv: number
+  movetime: number
+  users: number
+  listeners: Set<(analysis: Analysis) => void>
+  controller: AbortController
+  job: Job
+  result: Promise<Analysis>
+}
+
+const cache = new Map<string, { multipv: number; movetime: number; analysis: Analysis }>()
+const inflight = new Map<string, Shared>()
+
+const enough = (entry: { multipv: number; movetime: number } | undefined, multipv: number, movetime: number) =>
+  !!entry && entry.multipv >= multipv && entry.movetime >= movetime
+
+function remember(key: string, multipv: number, movetime: number, analysis: Analysis) {
+  if (!analysis.candidates.length || enough(cache.get(key), multipv, movetime)) return
+  cache.delete(key)
+  cache.set(key, { multipv, movetime, analysis })
+  if (cache.size > 400) cache.delete(cache.keys().next().value!)
+}
+
+function join(shared: Shared, onUpdate?: (analysis: Analysis) => void, signal?: AbortSignal): Promise<Analysis> {
+  shared.users++
+  if (onUpdate) shared.listeners.add(onUpdate)
+  let left = false
+  const leave = () => {
+    if (left) return
+    left = true
+    shared.users--
+    if (onUpdate) shared.listeners.delete(onUpdate)
+    if (!shared.users) shared.controller.abort()
+  }
+  return new Promise<Analysis>((resolve, reject) => {
+    const abort = () => {
+      leave()
+      reject(signal!.reason)
+    }
+    signal?.addEventListener('abort', abort, { once: true })
+    shared.result.then(
+      (analysis) => {
+        signal?.removeEventListener('abort', abort)
+        left = true
+        resolve(analysis)
+      },
+      (error) => {
+        signal?.removeEventListener('abort', abort)
+        left = true
+        reject(error)
+      },
+    )
+  })
+}
 
 export function analyze(
   usiPosition: string,
@@ -274,24 +332,52 @@ export function analyze(
     multipv = 3,
     movetime = 1500,
     background = false,
+    idle = false,
     onUpdate,
     book = false,
     signal,
-  }: { multipv?: number; movetime?: number; background?: boolean; onUpdate?: (analysis: Analysis) => void; book?: boolean; signal?: AbortSignal } = {},
+  }: {
+    multipv?: number
+    movetime?: number
+    background?: boolean
+    idle?: boolean
+    onUpdate?: (analysis: Analysis) => void
+    book?: boolean
+    signal?: AbortSignal
+  } = {},
 ): Promise<Analysis> {
   signal?.throwIfAborted()
   const key = `${usiPosition}|book:${book}`
-  const cached = cache.get(key)
-  if (!signal && cached && cached.multipv >= multipv && cached.movetime >= movetime) return cached.result
-  const result = search(usiPosition, multipv, movetime, background, onUpdate, book, signal)
-  if (!background && !signal) {
-    cache.set(key, { multipv, movetime, result })
-    result.catch(() => {
-      if (cache.get(key)?.result === result) cache.delete(key)
+  const known = cache.get(key)
+  if (known && enough(known, multipv, movetime)) return Promise.resolve(known.analysis)
+  if (background) {
+    const { job, result } = search(usiPosition, multipv, movetime, PRIORITY.background, onUpdate, book, signal)
+    return result.then((analysis) => {
+      if (!signal?.aborted && !job.stopped) remember(key, multipv, movetime, analysis)
+      return analysis
     })
-    if (cache.size > 400) cache.delete(cache.keys().next().value!)
   }
-  return result
+  const priority = idle ? PRIORITY.idle : PRIORITY.foreground
+  const existing = inflight.get(key)
+  if (existing && !existing.controller.signal.aborted && enough(existing, multipv, movetime)) {
+    existing.job.priority = Math.max(existing.job.priority, priority)
+    return join(existing, onUpdate, signal)
+  }
+  const controller = new AbortController()
+  const listeners = new Set<(analysis: Analysis) => void>()
+  const { job, result } = search(usiPosition, multipv, movetime, priority, (analysis) => listeners.forEach((l) => l(analysis)), book, controller.signal)
+  const shared: Shared = { multipv, movetime, users: 0, listeners, controller, job, result }
+  inflight.set(key, shared)
+  result.then(
+    (analysis) => remember(key, multipv, movetime, analysis),
+    () => undefined,
+  )
+  void result
+    .catch(() => undefined)
+    .finally(() => {
+      if (inflight.get(key) === shared) inflight.delete(key)
+    })
+  return join(shared, onUpdate, signal)
 }
 
 async function prepareBook(engine: UsiModule) {
@@ -314,16 +400,36 @@ async function prepareBook(engine: UsiModule) {
   return true
 }
 
+const PRIORITY = { idle: 0, background: 1, foreground: 2 } as const
+
+type Job = { priority: number; order: number; stopped: boolean; start: () => void }
+
+const jobs: Job[] = []
+let running: Job | null = null
+let jobOrder = 0
+
+function pump() {
+  if (running || !jobs.length) return
+  const next = jobs.reduce((best, job) => (job.priority > best.priority || (job.priority === best.priority && job.order < best.order) ? job : best))
+  jobs.splice(jobs.indexOf(next), 1)
+  running = next
+  next.start()
+}
+
 function search(
   usiPosition: string,
   multipv: number,
   movetime: number,
-  background: boolean,
+  priority: number,
   onUpdate?: (analysis: Analysis) => void,
   book = false,
   signal?: AbortSignal,
-): Promise<Analysis> {
-  if (searching && interruptible) current?.postMessage('stop')
+): { job: Job; result: Promise<Analysis> } {
+  const background = priority === PRIORITY.background
+  if (searching && interruptible && running && (priority > running.priority || priority === PRIORITY.background)) {
+    running.stopped = true
+    current?.postMessage('stop')
+  }
   const generation = background ? ++backgroundGeneration : backgroundGeneration
   const run = async () => {
     signal?.throwIfAborted()
@@ -362,11 +468,16 @@ function search(
     }
     signal?.throwIfAborted()
     searching = true
-    interruptible = background
+    interruptible = job.priority !== PRIORITY.foreground
     engine.postMessage(`setoption name MultiPV value ${multipv}`)
     engine.postMessage(command)
     const lines = new Map<number, Candidate>()
     let bestmove = ''
+    let frame = 0
+    const report = () => {
+      frame = 0
+      onUpdate?.({ bestmove: lines.get(1)?.move ?? '', candidates: [...lines.values()].sort((a, b) => a.multipv - b.multipv) })
+    }
     const stop = () => engine.postMessage('stop')
     signal?.addEventListener('abort', stop, { once: true })
     try {
@@ -382,7 +493,7 @@ function search(
               info.pv = info.pv.map(flipBookMove)
             }
             lines.set(info.multipv, info)
-            if (info.multipv === 1) onUpdate?.({ bestmove: info.move, candidates: [...lines.values()].sort((a, b) => a.multipv - b.multipv) })
+            if (onUpdate && !frame) frame = requestAnimationFrame(report)
           }
           if (line.startsWith('bestmove')) bestmove = flipped ? flipBookMove(line.split(' ')[1]) : line.split(' ')[1]
         },
@@ -396,15 +507,31 @@ function search(
       throw error
     } finally {
       signal?.removeEventListener('abort', stop)
+      cancelAnimationFrame(frame)
       searching = false
       interruptible = false
     }
     signal?.throwIfAborted()
     return { bestmove, candidates: [...lines.values()].sort((a, b) => a.multipv - b.multipv) }
   }
-  const result = queue.then(run, run)
-  queue = result.catch(() => undefined)
-  return result
+  const job: Job = { priority, order: jobOrder++, stopped: false, start: () => undefined }
+  const attempt = (): Promise<Analysis> =>
+    new Promise<void>((resolve) => {
+      job.start = resolve
+      jobs.push(job)
+      pump()
+    })
+      .then(run)
+      .finally(() => {
+        running = null
+        pump()
+      })
+      .then((analysis) => {
+        if (!job.stopped || job.priority !== PRIORITY.idle || signal?.aborted) return analysis
+        job.stopped = false
+        return attempt()
+      })
+  return { job, result: attempt() }
 }
 
 export function scoreToCp(score: Score): number {

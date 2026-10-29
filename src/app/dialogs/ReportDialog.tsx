@@ -6,8 +6,8 @@ import { Button } from '@/app/ui/Button'
 import type { GameChoice } from '@/app/games'
 import { Dialog, DialogHeader } from '@/app/ui/Dialog'
 import { LABELS, reviewMove } from '@/utils/analysis'
-import { inBook } from '@/utils/book'
-import { engineSupported } from '@/utils/engine'
+import { isBookMove } from '@/utils/book'
+import { engineSupported, useEngineSupported } from '@/utils/engine'
 import { buildReport, PHASES, playerMoves, type GameLike, type Weakness } from '@/utils/learning'
 import { SETUPS } from '@/utils/model'
 import { moveText, type Side } from '@/utils/shogi'
@@ -83,7 +83,11 @@ function useRatings(game: GameLike, side: Side, enabled = true) {
       for (let i = 0; i < todo.length && !cancelled; i++) {
         setProgress({ done: i, total: todo.length })
         try {
-          rememberReview(todo[i].sfen, todo[i].usi, await reviewMove(todo[i].sfen, todo[i].usi, { movetime: 400, inBook: inBook(todo[i].sfen, todo[i].usi) }))
+          rememberReview(
+            todo[i].sfen,
+            todo[i].usi,
+            await reviewMove(todo[i].sfen, todo[i].usi, { movetime: 400, inBook: await isBookMove(todo[i].sfen, todo[i].usi) }),
+          )
         } catch {
           break
         }
@@ -114,6 +118,7 @@ type GameReportProps = {
 }
 
 export function GameReport({ game, userSide, rate, progress: external, choice, onChoose, onShow, onRoute, onPractice, onLesson, onExpand }: GameReportProps) {
+  const supported = useEngineSupported()
   const { t, i18n } = useTranslation()
   const [side, setSide] = useState<Side>(userSide)
   const version = useReviewVersion()
@@ -173,7 +178,7 @@ export function GameReport({ game, userSide, rate, progress: external, choice, o
           {t('report.rating', progress)}
         </ReportText>
       )}
-      {!engineSupported() && report.rated < report.total && (
+      {!supported && report.rated < report.total && (
         <ReportText tone="muted" size="sm">
           {t('report.noEngine')}
         </ReportText>
@@ -305,6 +310,7 @@ export function GameReport({ game, userSide, rate, progress: external, choice, o
 }
 
 export function ReportDialog({ game, userSide, onShow, onRoute, onClose }: ReportProps) {
+  const supported = useEngineSupported()
   const { t } = useTranslation()
   const [side, setSide] = useState<Side>(userSide)
   const version = useReviewVersion()
@@ -342,7 +348,7 @@ export function ReportDialog({ game, userSide, onShow, onRoute, onClose }: Repor
               {t('report.rating', progress)}
             </ReportText>
           )}
-          {!engineSupported() && report.rated < report.total && (
+          {!supported && report.rated < report.total && (
             <ReportText tone="muted" size="sm">
               {t('report.noEngine')}
             </ReportText>

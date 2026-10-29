@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { reviewMove } from '@/utils/analysis'
-import { inBook } from '@/utils/book'
+import { isBookMove } from '@/utils/book'
 import { engineSupported } from '@/utils/engine'
 import { playerMoves } from '@/utils/learning'
 import type { Side } from '@/utils/shogi'
@@ -32,7 +32,7 @@ export function useBatchRate(games: Rateable[], enabled: boolean): RatingProgres
           rememberReview(
             queue[n].sfen,
             queue[n].usi,
-            await reviewMove(queue[n].sfen, queue[n].usi, { movetime: 300, inBook: inBook(queue[n].sfen, queue[n].usi) }),
+            await reviewMove(queue[n].sfen, queue[n].usi, { movetime: 300, inBook: await isBookMove(queue[n].sfen, queue[n].usi), idle: true }),
           )
         } catch {
           break

@@ -67,6 +67,7 @@ export function binaryStore(namespace: string, key: string) {
           }
         },
         () => info,
+        () => null,
       ),
   }
 }

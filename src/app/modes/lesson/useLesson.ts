@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { InitialPositionSFEN } from 'tsshogi'
 import { usiPosition } from '@/utils/analysis'
 import { analyze, engineSupported } from '@/utils/engine'
-import { courseTitle, findPath, sideToMove, type Course, type JosekiNode } from '@/utils/model'
+import { courseTitle, findPath, loadCourse, sideToMove, type Course, type JosekiNode } from '@/utils/model'
 import { applyUsi, engineReady, moveText, positionOf } from '@/utils/shogi'
 import { positionKey, record } from '@/utils/srs'
 import type { BoardArrow } from '@/rendering/Board3D'
@@ -142,7 +142,8 @@ export function useLesson(session: BoardSession, { mistakes, load, setTab, close
     setScore(snapshot.score)
   }
 
-  const open = (c: Course, sub: LessonMode = 'study') => {
+  const open = async (target: Course, sub: LessonMode = 'study') => {
+    const c = await loadCourse(target)
     markOpened(c.id)
     load(c.root.sfen, c.userSide, 'lesson', c)
     setLessonMode(sub)
@@ -158,7 +159,7 @@ export function useLesson(session: BoardSession, { mistakes, load, setTab, close
 
   const switchLessonMode = (m: LessonMode) => {
     if (m === lessonMode) return
-    if (m === 'quiz' && course) return open(course, 'quiz')
+    if (m === 'quiz' && course) return void open(course, 'quiz')
     setLessonMode(m)
     setAnswerAt(null)
   }

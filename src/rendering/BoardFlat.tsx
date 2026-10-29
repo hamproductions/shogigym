@@ -111,7 +111,14 @@ export function BoardFlat(props: Board3DProps) {
     observer.observe(el)
     return () => observer.disconnect()
   }, [])
-  const zoned = !!props.onZones && window.innerWidth >= 1100 && sideStandsFit(window.innerWidth - 100, window.innerHeight - 110)
+  const [viewport, setViewport] = useState({ w: 0, h: 0 })
+  useLayoutEffect(() => {
+    const measure = () => setViewport({ w: window.innerWidth, h: window.innerHeight })
+    measure()
+    window.addEventListener('resize', measure)
+    return () => window.removeEventListener('resize', measure)
+  }, [])
+  const zoned = !!props.onZones && viewport.w >= 1100 && sideStandsFit(viewport.w - 100, viewport.h - 110)
   const vertical = !zoned && verticalStripsFit(box.w, box.h)
   const g = geometry(vertical || !(zoned || sideStandsFit(box.w, box.h)), box.w < 560, vertical)
   const margin = MARGIN * U
@@ -253,7 +260,7 @@ export function BoardFlat(props: Board3DProps) {
   if (!baked)
     return (
       <div className={flat({ wood: true })} ref={wrapRef}>
-        <div role="status">{error ?? i18n.t('settings.loadingEvalFile')}</div>
+        {error && <div role="alert">{error}</div>}
       </div>
     )
 

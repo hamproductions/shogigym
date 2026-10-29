@@ -40,7 +40,8 @@ import { SegmentedField, SettingRow } from '@/app/ui/Segmented'
 import { Tabs } from '@/app/ui/Tabs'
 import { VERSION } from '@/utils/version'
 import { GlyphFace, GuideMarks, OptionButton, OptionGrid, OptionPreview, PreviewCanvas, PreviewImage } from './previews.styles'
-import { Slider, Text } from '@/components/ui'
+import { Text } from '@/components/ui'
+import * as Slider from '@/components/ui/slider'
 
 type SettingsTab = 'general' | 'board' | 'pieces' | 'play' | 'about'
 const FONTS = Object.keys(PIECE_FONTS) as PieceFont[]

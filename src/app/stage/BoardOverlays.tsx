@@ -166,7 +166,7 @@ export function TsumePlate({ place: position, flipped, userSide }: { place: 'top
   const { t } = useTranslation()
   const side = (position === 'top') === flipped ? 'sente' : 'gote'
   return (
-    <PlateBox as="span" className={cx('app-plate', position)}>
+    <PlateBox as="span" className={cx('app-plate', position)} placement={position === 'top' ? 'scene' : 'caption'}>
       <PlateSide>
         <Marks>{side === 'sente' ? t('app.sente') : t('app.gote')}</Marks>
       </PlateSide>

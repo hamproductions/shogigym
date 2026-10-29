@@ -6,6 +6,7 @@ import { moveCoaching } from '@/utils/coaching'
 import { LABELS, type MoveReview } from '@/utils/analysis'
 import type { Analysis } from '@/utils/engine'
 import { formationName, formationOf } from '@/utils/formation'
+import { useFormationRules } from '@/utils/formationTags'
 import { kingSquare, reachable } from '@/utils/shogi'
 import type { BoardArrow } from '@/rendering/Board3D'
 import { EMPTY_CELL, controlHeat, controlMap, focusHeat, type ControlCell } from '@/utils/control'
@@ -47,6 +48,7 @@ type DecorInput = {
 
 export function useBoardDecor(session: BoardSession, input: DecorInput) {
   const { t, i18n } = useTranslation()
+  useFormationRules()
   const { position, sfen, sfens, preview, gameOver, cursor, game, peekFrom, mode, course, userSide, userTurn, atEnd, ai, assist, lastMove, sourceMarks } =
     session
   const {

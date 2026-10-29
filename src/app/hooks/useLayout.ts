@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import type { StandZones } from '@/rendering/board3d/types'
 import type { Mode } from '@/app/types'
 import { useLatest } from './useLatest'
@@ -32,11 +32,17 @@ export function scrollPanelTop(smooth = false) {
 }
 
 export function useLayout({ mode, needsPicking, welcome }: { mode: Mode | 'taikyoku'; needsPicking: boolean; welcome: boolean }) {
-  const [viewport, setViewport] = useState(() => ({ w: window.innerWidth, h: window.innerHeight }))
-  const [compact, setCompact] = useState(() => window.matchMedia(PHONE_QUERY).matches)
-  const [panelPrefs, setPanelPrefs] = useState(loadPanelPrefs)
+  const [viewport, setViewport] = useState({ w: 1440, h: 900 })
+  const [compact, setCompact] = useState(false)
+  const [panelPrefs, setPanelPrefs] = useState<PanelPrefs>({ width: 380, hidden: false })
   const [drawer, setDrawer] = useState(false)
-  const [sheetH, setSheetH] = useState(loadSheetHeight)
+  const [sheetH, setSheetH] = useState<number | null>(null)
+  useLayoutEffect(() => {
+    setViewport({ w: window.innerWidth, h: window.innerHeight })
+    setCompact(window.matchMedia(PHONE_QUERY).matches)
+    setPanelPrefs(loadPanelPrefs())
+    setSheetH(loadSheetHeight())
+  }, [])
   const [sheetOpen, setSheetOpen] = useState<boolean | null>(null)
   const [zones, setZones] = useState<StandZones | null>(null)
 
@@ -69,22 +75,23 @@ export function useLayout({ mode, needsPicking, welcome }: { mode: Mode | 'taiky
     (!needsPicking || (zones.over.width >= 320 && zones.over.height >= Math.max(520, viewport.h * 0.75)))
   const panelSide = !compact && (!!panelPrefs.side || (panelPrefs.side === undefined && mode === 'analyze') || !floatingAvailable)
   const zoned = !compact && !panelSide
-  const twoPanels = zoned && !panelPrefs.hidden && !!zones
+  const twoPanels = zoned && !panelPrefs.hidden && !!zones && mode !== 'tsume'
 
   const compactRef = useLatest(compact)
   const panelHiddenRef = useLatest(panelHidden)
+  const panelPrefsRef = useLatest(panelPrefs)
+  const sheetHRef = useLatest(sheetH)
 
   const setPanel = (patch: Partial<PanelPrefs>) => {
     if (compactRef.current && patch.hidden !== undefined) return setDrawer(!patch.hidden)
-    setPanelPrefs((prev) => {
-      const next = { ...prev, ...patch }
-      try {
-        localStorage.setItem(PANEL_KEY, JSON.stringify(next))
-      } catch (error) {
-        console.warn('panel prefs not persisted', error)
-      }
-      return next
-    })
+    const next = { ...panelPrefsRef.current, ...patch }
+    panelPrefsRef.current = next
+    setPanelPrefs(next)
+    try {
+      localStorage.setItem(PANEL_KEY, JSON.stringify(next))
+    } catch (error) {
+      console.warn('panel prefs not persisted', error)
+    }
   }
   const togglePanel = () => setPanel({ hidden: !panelHiddenRef.current })
 
@@ -96,15 +103,13 @@ export function useLayout({ mode, needsPicking, welcome }: { mode: Mode | 'taiky
     setSheetH(next)
     setSheetOpen(next >= 50)
   }
-  const persistSheet = () =>
-    setSheetH((h) => {
-      try {
-        if (h) localStorage.setItem(SHEET_KEY, String(h))
-      } catch (error) {
-        console.warn('sheet size not persisted', error)
-      }
-      return h
-    })
+  const persistSheet = () => {
+    try {
+      if (sheetHRef.current) localStorage.setItem(SHEET_KEY, String(sheetHRef.current))
+    } catch (error) {
+      console.warn('sheet size not persisted', error)
+    }
+  }
 
   return {
     compact,

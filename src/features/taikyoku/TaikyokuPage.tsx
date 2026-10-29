@@ -1,3 +1,4 @@
+import { useHydrated } from '@/utils/hydrated'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '@/app/ui/Button'
@@ -82,6 +83,7 @@ const Pane = styled('div', { base: { display: 'flex', flexDirection: 'column', g
 const ButtonRow = styled('div', { base: { display: 'flex', flexWrap: 'wrap', gap: '2' } })
 
 export function TaikyokuPage({ onBack }: { onBack: () => void }) {
+  const hydrated = useHydrated()
   const { t } = useTranslation()
   const { lang, assist } = useSettings()
   const board = useRef<BoardHandle>(null)
@@ -503,7 +505,7 @@ export function TaikyokuPage({ onBack }: { onBack: () => void }) {
           { id: 'last', icon: 'orbit', label: t('taikyoku.zoom.last'), disabled: !game?.last, run: () => game?.last && board.current?.focus(game.last.to, 44) },
           { id: 'settings', icon: 'gear', label: t('rail.settings'), on: showSettings, run: () => setShowSettings(true) },
           { id: 'hide', icon: 'panel', label: t('app.hideUiShort'), run: () => hud.setHideUi(true) },
-          ...(document.fullscreenEnabled
+          ...(hydrated && document.fullscreenEnabled
             ? [
                 {
                   id: 'fullscreen',

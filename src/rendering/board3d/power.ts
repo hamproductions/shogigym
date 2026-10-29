@@ -101,8 +101,8 @@ varying vec3 vColor;
 varying float vAlpha;
 void main() {
   float d = length(gl_PointCoord - 0.5);
-  float a = smoothstep(0.5, 0.0, d);
-  gl_FragColor = vec4(mix(vColor, vec3(1.0), smoothstep(0.22, 0.0, d) * 0.8), a * a * vAlpha);
+  float a = 1.0 - smoothstep(0.0, 0.5, d);
+  gl_FragColor = vec4(mix(vColor, vec3(1.0), (1.0 - smoothstep(0.0, 0.22, d)) * 0.8), a * a * vAlpha);
 }`
 
 function sparkField() {

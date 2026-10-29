@@ -108,7 +108,7 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
   const reportable = isGameMode(mode) && game.moves.length > 0
   const ja = useSettings().lang === 'ja'
   const { compact, zones, twoPanels, setPanel } = layout
-  const rightTab = (twoPanels && tab === 'moves') || (tab === 'report' && !reportable) ? 'coach' : tab
+  const rightTab = mode === 'tsume' || (twoPanels && tab === 'moves') || (tab === 'report' && !reportable) ? 'coach' : tab
   const labelClass = ja ? 'app-ja' : 'app-en'
   return (
     <>
@@ -123,10 +123,12 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
                 className={panelTabs}
                 flex="1"
                 minW="0"
-                items={TABS.filter((id) => !(twoPanels && id === 'moves') && (id !== 'report' || reportable)).map((id) => ({
-                  id,
-                  label: <TabLabel className={labelClass}>{t(`tabs.${id}`)}</TabLabel>,
-                }))}
+                items={TABS.filter((id) => (mode === 'tsume' ? id === 'coach' : !(twoPanels && id === 'moves') && (id !== 'report' || reportable))).map(
+                  (id) => ({
+                    id,
+                    label: <TabLabel className={labelClass}>{t(`tabs.${id}`)}</TabLabel>,
+                  }),
+                )}
                 value={rightTab}
                 onChange={setTab}
               />
@@ -156,7 +158,7 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
             <ReviewStatus model={model} />
           </>
         }
-        footer={!picking && <NavFooter canAutoplay={canAutoplay} watch={model.watch} lesson={model.lesson} />}
+        footer={!picking && mode !== 'tsume' && <NavFooter canAutoplay={canAutoplay} watch={model.watch} lesson={model.lesson} />}
       >
         <PanelBody tab={rightTab} model={model} />
       </SidePanel>

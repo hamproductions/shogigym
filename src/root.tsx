@@ -7,7 +7,19 @@ import { NotFound } from './routes/not-found'
 import { StatusPage } from './routes/StatusPage'
 import { StatusDetails, StatusSummary, StatusText, statusAction, useDocumentEnglish } from './routes/status'
 
+import minchoFonts from '@fontsource/shippori-mincho-b1/800.css?url'
+import gothicFonts from '@fontsource/zen-kaku-gothic-new/400.css?url'
+import gothicMediumFonts from '@fontsource/zen-kaku-gothic-new/500.css?url'
+import gothicBoldFonts from '@fontsource/zen-kaku-gothic-new/700.css?url'
+
 const base = import.meta.env.BASE_URL
+
+const fontScript = `for (const href of ${JSON.stringify([minchoFonts, gothicFonts, gothicMediumFonts, gothicBoldFonts])}) {
+  const link = document.createElement('link')
+  link.rel = 'stylesheet'
+  link.href = href
+  document.head.appendChild(link)
+}`
 
 const themeScript = `(() => {
   let theme = 'system'
@@ -49,6 +61,7 @@ export function Layout({ children }: { children: ReactNode }) {
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script dangerouslySetInnerHTML={{ __html: isolationScript }} />
+        <script dangerouslySetInnerHTML={{ __html: fontScript }} />
         <Meta />
         <Links />
       </head>
@@ -85,6 +98,9 @@ export default function Root() {
     }
   }, [])
   // the Taikyoku page brings its own engine; skip the shogi engine preload there
+  useEffect(() => {
+    void navigator.storage?.persist?.().catch((error) => console.warn('storage not persistent', error))
+  }, [])
   const taikyoku = /\/taikyoku\/?$/.test(useLocation().pathname)
   useEffect(() => {
     if (taikyoku) return

@@ -1,86 +1,160 @@
 import { useTranslation } from 'react-i18next'
-import { styled, Wrap } from 'styled-system/jsx'
+import { Flex, styled, Wrap } from 'styled-system/jsx'
 import { pvText } from '@/utils/shogi'
 import { sideMark } from '@/utils/notation'
-import { PROBLEMS, attackerOf, loadTsumeStats } from '@/app/practice'
+import { attackerOf } from '@/app/practice'
 import { firstPieceHint } from './firstPiece'
 import type { Tsume, TsumeState } from './useTsume'
+import { TsumeClock } from './TsumeClock'
+import { seconds } from './seconds'
 import { Button } from '@/app/ui/Button'
 import { Checkbox } from '@/components/ui'
-import { Muted, NarrowColumn, Note, PvLine, Result, TaskText } from '@/app/panels/panels.styles'
 import { Marks } from '@/app/ui/SideMark'
 
-function TsumeStatus({ tsume }: { tsume: TsumeState }) {
+const Status = styled('div', {
+  base: {
+    display: 'grid',
+    gridTemplateColumns: '1fr auto',
+    alignItems: 'center',
+    gap: '3',
+    mt: '2',
+    p: '{spacing.3} {spacing.3.5}',
+    borderRadius: 'md',
+    bg: 'surface.2',
+  },
+  variants: {
+    tone: {
+      idle: {},
+      right: { bg: 'success.soft', color: 'success' },
+      wrong: { bg: 'danger.soft', color: 'danger' },
+    },
+  },
+})
+
+const Tile = styled('button', {
+  base: {
+    w: '7',
+    h: '7',
+    borderRadius: 'sm',
+    fontSize: 'sm',
+    fontWeight: 'bold',
+    color: 'white',
+    cursor: 'pointer',
+    _focusVisible: { outline: '2px solid {colors.accent}', outlineOffset: '1px' },
+  },
+  variants: { result: { solved: { bg: 'success' }, failed: { bg: 'danger' }, shown: { bg: 'border.strong', color: 'fg.default' } } },
+})
+
+const MARK = { solved: '✓', failed: '✗', shown: '–' } as const
+
+function StatusLine({ trainer, tsume }: { trainer: Tsume; tsume: TsumeState }) {
   const { t } = useTranslation()
-  if (tsume.status === 'checking') return <Muted mt="3">{t('tsume.checkingYourMove')}</Muted>
-  if (tsume.status === 'solved')
+  const clock = (
+    <styled.span fontSize="2xl" fontWeight="bold" fontVariantNumeric="tabular-nums" aria-label={t('tsume.elapsed')}>
+      <TsumeClock tsume={tsume} />
+    </styled.span>
+  )
+  if (tsume.status === 'solved' || tsume.status === 'shown')
     return (
-      <Result tone="right" mt="3">
-        {tsume.seen
-          ? t('tsume.mateSolvedAfterSeeingThe')
-          : tsume.hint >= 2
-            ? t('tsume.mateSolvedAfterTheFirst')
-            : tsume.missed
-              ? t('tsume.mateSolvedOnASecond')
-              : t('tsume.mateSolved')}
-      </Result>
+      <Status tone={tsume.status === 'solved' && !tsume.missed && !tsume.seen && tsume.hint < 2 ? 'right' : 'idle'} role="status">
+        <styled.div minW="0">
+          <styled.strong display="block" fontFamily="mincho" fontSize="lg">
+            {tsume.status === 'shown' ? t('tsume.solution') : trainer.solvedText(tsume)}
+          </styled.strong>
+          <styled.span color="fg.muted" fontSize="sm">
+            <Marks>{pvText(tsume.problem.sfen, tsume.problem.pv, tsume.problem.mate)}</Marks>
+          </styled.span>
+        </styled.div>
+        {clock}
+      </Status>
     )
-  if (tsume.status === 'wrong')
-    return (
-      <Result tone="wrong" mt="3">
-        {tsume.reason ? t('tsume.notMateBecause', { reason: tsume.reason }) : t('tsume.notMate')}
-      </Result>
-    )
-  if (tsume.status === 'shown')
-    return (
-      <PvLine mt="3">
-        {t('tsume.solution')}
-        <Marks>{pvText(tsume.problem.sfen, tsume.problem.pv, tsume.problem.mate)}</Marks>
-      </PvLine>
-    )
-  if (tsume.good > 0)
-    return (
-      <Result tone="right" mt="3">
-        {t('tsume.checkAndStillMateIn')}
-      </Result>
-    )
+  const wrong = tsume.status === 'wrong' || (!!tsume.missed && !!tsume.reason)
   return (
-    <Note tone={tsume.hint >= 1 ? 'hint' : 'idle'} mt="3">
-      {tsume.hint >= 1
-        ? t('tsume.hintTheFirstMoveUses', { piece: firstPieceHint(tsume.problem) }) + (tsume.hint >= 2 ? t('tsume.theYellowArrowShowsIt') : '')
-        : t('tsume.stuckHintTellsYouWhich')}
-    </Note>
+    <Status tone={wrong ? 'wrong' : 'idle'} role="status">
+      <styled.div minW="0">
+        <styled.strong display="block" fontFamily="mincho" fontSize="lg">
+          {wrong ? (
+            <Marks>{`✗ ${tsume.reason}${tsume.reply ? `：${tsume.reply}` : ''}`}</Marks>
+          ) : tsume.good > 0 ? (
+            t('tsume.checkAndStillMateIn')
+          ) : (
+            <Marks>{t('tsume.toPlayAndMateIn', { side: sideMark(attackerOf(tsume.problem)), mate: tsume.problem.mate })}</Marks>
+          )}
+        </styled.strong>
+        {trainer.paused && (
+          <styled.span display="block" color="fg.muted" fontSize="sm">
+            {t('tsume.pausedNote')}
+          </styled.span>
+        )}
+        {tsume.status === 'checking' && (
+          <styled.span color="fg.muted" fontSize="sm">
+            {t('tsume.checkingYourMove')}
+          </styled.span>
+        )}
+        {tsume.hint >= 1 && !wrong && (
+          <styled.span color="fg.muted" fontSize="sm">
+            {t('tsume.hintTheFirstMoveUses', { piece: firstPieceHint(tsume.problem) })}
+          </styled.span>
+        )}
+      </styled.div>
+      {clock}
+    </Status>
   )
 }
 
-export function TsumePane({ trainer, tsume, banner, onBack }: { trainer: Tsume; tsume: TsumeState; banner: boolean; onBack: () => void }) {
+export function TsumePane({ trainer, tsume }: { trainer: Tsume; tsume: TsumeState; banner: boolean; onBack: () => void }) {
   const { t } = useTranslation()
-  const stats = loadTsumeStats()
-  const pool = PROBLEMS.filter((p) => tsume.length === 'all' || p.mate === tsume.length)
+  const recent = trainer.history.slice(0, 24).reverse()
+  const label = { solved: t('tsume.resultSolved'), failed: t('tsume.resultFailed'), shown: t('tsume.resultShown') }
+  const done = tsume.status === 'solved' || tsume.status === 'shown'
   return (
-    <NarrowColumn>
-      <TaskText display="none" _compact={{ display: 'block' }}>
-        <Marks>{t('tsume.toPlayAndMateIn', { side: sideMark(attackerOf(tsume.problem)), mate: tsume.problem.mate })}</Marks>
-        <styled.span _compact={{ display: 'none' }}>{t('tsume.everyAttackingMoveMustGive')}</styled.span>
-      </TaskText>
-      <TsumeStatus tsume={tsume} />
-      <Wrap gap="2" align="center" mt="3" _narrow={{ order: '-1' }}>
-        {tsume.status === 'wrong' && !banner && (
-          <Button variant="primary" onClick={onBack}>
+    <div>
+      <StatusLine trainer={trainer} tsume={tsume} />
+      <Wrap gap="2" align="center" mt="3">
+        {tsume.status === 'wrong' && tsume.reply && (
+          <Button variant="primary" onClick={trainer.tryAgain} title="R">
             {t('tsume.tryAgain')}
           </Button>
         )}
-        {tsume.status === 'shown' && <Button onClick={trainer.retry}>{t('tsume.tryAgain')}</Button>}
-        {tsume.status === 'playing' && tsume.hint === 0 && <Button onClick={trainer.hint}>{t('tsume.hint')}</Button>}
-        {(tsume.status === 'playing' || tsume.status === 'wrong') && <Button onClick={trainer.reveal}>{t('tsume.showSolution')}</Button>}
+        {!done && (
+          <>
+            {tsume.hint < 2 && (
+              <Button onClick={trainer.hint} title="I">
+                {t('tsume.hint')}
+              </Button>
+            )}
+            <Button onClick={trainer.reveal} title="S">
+              {t('tsume.showSolution')}
+            </Button>
+          </>
+        )}
+        {tsume.status === 'shown' && (
+          <Button onClick={trainer.retry} title="R">
+            {t('tsume.tryAgain')}
+          </Button>
+        )}
       </Wrap>
+      {recent.length > 0 && (
+        <Flex gap="1" wrap="wrap" mt="4" aria-label={t('tsume.history')}>
+          {recent.map((attempt) => (
+            <Tile
+              key={`${attempt.id}-${attempt.at}`}
+              result={attempt.result}
+              title={`${t('tsume.mateIn', { n: attempt.mate })} · ${label[attempt.result]} · ${seconds(attempt.ms)}`}
+              aria-label={`${t('tsume.mateIn', { n: attempt.mate })} ${label[attempt.result]} ${seconds(attempt.ms)}`}
+              onClick={() => trainer.open(attempt.id)}
+            >
+              {MARK[attempt.result]}
+            </Tile>
+          ))}
+        </Flex>
+      )}
       <Checkbox.Root
         size="sm"
         display="flex"
         alignItems="center"
         gap="2"
-        mt="3"
-        mb="1.5"
+        mt="4"
         color="fg.muted"
         fontSize="sm"
         cursor="pointer"
@@ -95,13 +169,6 @@ export function TsumePane({ trainer, tsume, banner, onBack }: { trainer: Tsume; 
           {t('tsume.escapeSquaresShowWhereThe')}
         </Checkbox.Label>
       </Checkbox.Root>
-      {tsume.status === 'solved' && (
-        <PvLine mt="3">
-          {t('tsume.solution')}
-          <Marks>{pvText(tsume.problem.sfen, tsume.problem.pv, tsume.problem.mate)}</Marks>
-        </PvLine>
-      )}
-      <Muted mt="3">{t('tsume.solvedOfInThisSet', { value: pool.filter((p) => stats.solved.includes(p.id)).length, poolCount: pool.length })}</Muted>
-    </NarrowColumn>
+    </div>
   )
 }

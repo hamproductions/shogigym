@@ -1,3 +1,4 @@
+import { useHydrated } from '@/utils/hydrated'
 import { useTranslation } from 'react-i18next'
 import type { View } from '@/app/hooks/useView'
 import type { IconName } from '@/app/icons'
@@ -42,6 +43,7 @@ export function useRailTools({
   onTrends,
 }: ToolActions) {
   const { t, i18n } = useTranslation()
+  const hydrated = useHydrated()
   const ja = useSettings().lang === 'ja'
   const { tilted, setTilted, orbit, setOrbit, flatView, showControl, setShowControl, setHideUi, fullscreen, toggleFullscreen } = view
   const primary: RailTool[] = [
@@ -65,7 +67,7 @@ export function useRailTools({
   const secondary: RailTool[] = [{ id: 'image', icon: 'image', label: t('rail.exportImage'), run: () => onSaveImage(snapshotName) }]
   const bottom: RailTool[] = [
     { id: 'hide', icon: 'panel', label: t('app.hideUiShort'), title: `${t('app.hideUi')} (H)`, run: () => setHideUi(true) },
-    ...(document.fullscreenEnabled
+    ...(!hydrated || document.fullscreenEnabled
       ? [
           {
             id: 'fullscreen',

@@ -24,7 +24,7 @@ if (process.env.PREVIEW) {
     const dir = join(out, route)
     if (existsSync(join(dir, 'index.html'))) continue
     mkdirSync(dir, { recursive: true })
-    cpSync(join(out, 'index.html'), join(dir, 'index.html'))
+    cpSync(join(out, existsSync(join(out, '__spa-fallback.html')) ? '__spa-fallback.html' : 'index.html'), join(dir, 'index.html'))
   }
 }
 

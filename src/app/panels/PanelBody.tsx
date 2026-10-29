@@ -29,20 +29,21 @@ import type { FixRoute } from '@/app/dialogs/ReportDialog'
 import type { Mistake } from '@/utils/mistakes'
 import { styled } from 'styled-system/jsx'
 import { CountsHeading, CountsSection, Muted, Note, PanelContent, PinnedGraph } from './panels.styles'
+import { PanelSkeleton } from './PanelSkeleton'
+import { MovesTab } from './MovesTab'
+import { KifuNotes } from '@/app/modes/analyze/KifuNotes'
+import { ReviewPane } from '@/app/modes/drill/ReviewPane'
+import { LessonPane } from '@/app/modes/lesson/LessonPane'
+import { TesujiPane } from '@/app/modes/tesuji/TesujiPane'
+import { TsumePane } from '@/app/modes/tsume/TsumePane'
+import { CoachPane } from './CoachPane'
+import { EnginePane } from './EnginePane'
+import { EvalGraph } from './EvalGraph'
+import { FlowPane } from './FlowPane'
 import { Marks } from '@/app/ui/SideMark'
 
 const LessonMap = lazy(() => import('@/components/Flowchart').then((m) => ({ default: m.LessonMap })))
-const KifuNotes = lazy(() => import('@/app/modes/analyze/KifuNotes').then((m) => ({ default: m.KifuNotes })))
-const ReviewPane = lazy(() => import('@/app/modes/drill/ReviewPane').then((m) => ({ default: m.ReviewPane })))
-const LessonPane = lazy(() => import('@/app/modes/lesson/LessonPane').then((m) => ({ default: m.LessonPane })))
-const TesujiPane = lazy(() => import('@/app/modes/tesuji/TesujiPane').then((m) => ({ default: m.TesujiPane })))
-const TsumePane = lazy(() => import('@/app/modes/tsume/TsumePane').then((m) => ({ default: m.TsumePane })))
 const GameReport = lazy(() => import('@/app/dialogs/ReportDialog').then((m) => ({ default: m.GameReport })))
-const CoachPane = lazy(() => import('./CoachPane').then((m) => ({ default: m.CoachPane })))
-const EnginePane = lazy(() => import('./EnginePane').then((m) => ({ default: m.EnginePane })))
-const EvalGraph = lazy(() => import('./EvalGraph').then((m) => ({ default: m.EvalGraph })))
-const FlowPane = lazy(() => import('./FlowPane').then((m) => ({ default: m.FlowPane })))
-const MovesTab = lazy(() => import('./MovesTab').then((m) => ({ default: m.MovesTab })))
 
 export type PanelModel = {
   analyzeMoves: number
@@ -233,7 +234,7 @@ export function PanelBody({ tab, model, overlays = true }: { tab: Tab; model: Pa
   const key = `${mode}|${course?.id ?? ''}|${lesson.lessonMode}|${tab}|${tsume.tsume?.problem.id ?? ''}|${drill.drill?.index ?? ''}`
   const endRate = lesson.done && evaluation.evalSente ? (userSide === 'sente' ? evaluation.senteRate : 1 - evaluation.senteRate) : null
   return (
-    <Suspense fallback={null}>
+    <>
       {(tab === 'moves' || tab === 'report') && ai && assist && game.moves.length > 0 && (isGameMode(mode) || mode === 'view') && (
         <PinnedGraph>
           <EvalGraph
@@ -253,20 +254,22 @@ export function PanelBody({ tab, model, overlays = true }: { tab: Tab; model: Pa
           </>
         )}
         {tab === 'report' && isGameMode(mode) && game.moves.length > 0 && (
-          <GameReport
-            key={game.start}
-            game={game}
-            userSide={userSide}
-            rate={false}
-            choice={choice}
-            onChoose={choose}
-            progress={model.rating}
-            onShow={(ply) => setCursor(ply - 1)}
-            onRoute={model.onReportRoute}
-            onExpand={model.onReportExpand}
-            onPractice={model.onReportPractice}
-            onLesson={model.onReportLesson}
-          />
+          <Suspense fallback={<PanelSkeleton />}>
+            <GameReport
+              key={game.start}
+              game={game}
+              userSide={userSide}
+              rate={false}
+              choice={choice}
+              onChoose={choose}
+              progress={model.rating}
+              onShow={(ply) => setCursor(ply - 1)}
+              onRoute={model.onReportRoute}
+              onExpand={model.onReportExpand}
+              onPractice={model.onReportPractice}
+              onLesson={model.onReportLesson}
+            />
+          </Suspense>
         )}
         {tab === 'coach' && mode === 'lesson' && (
           <LessonPane
@@ -282,11 +285,13 @@ export function PanelBody({ tab, model, overlays = true }: { tab: Tab; model: Pa
           />
         )}
         {overlays && lesson.mapOpen && course && (
-          <LessonMap course={course} currentNodeId={nodes?.get(strip(sfen))?.id ?? null} onJump={lesson.jumpTo} onClose={() => lesson.setMapOpen(false)} />
+          <Suspense fallback={null}>
+            <LessonMap course={course} currentNodeId={nodes?.get(strip(sfen))?.id ?? null} onJump={lesson.jumpTo} onClose={() => lesson.setMapOpen(false)} />
+          </Suspense>
         )}
         {tab === 'coach' && <CoachSection model={model} />}
         {tab === 'moves' && <MovesTab model={model} />}
       </PanelContent>
-    </Suspense>
+    </>
   )
 }

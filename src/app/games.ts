@@ -1,5 +1,6 @@
 import type { DetectionPreset, DetectionResult } from '@/utils/formationTags'
 import type { Tree } from './tree'
+import { freeAnalysisCache } from './memory'
 
 export type GameResult = 'win' | 'loss' | 'resigned' | 'time'
 
@@ -36,8 +37,15 @@ export function loadGames(): StoredGame[] {
 }
 
 function write(games: StoredGame[]) {
+  const text = JSON.stringify(games)
   try {
-    localStorage.setItem(KEY, JSON.stringify(games))
+    localStorage.setItem(KEY, text)
+    return true
+  } catch {
+    freeAnalysisCache()
+  }
+  try {
+    localStorage.setItem(KEY, text)
     return true
   } catch (error) {
     console.warn('games not persisted', error)
@@ -57,9 +65,4 @@ export function deleteGame(id: string) {
   write(loadGames().filter((g) => g.id !== id))
 }
 
-export const gameId = (start: string, moves: string[]) => {
-  let h = 0
-  for (const c of `${start}|${moves.join(' ')}`) h = (h * 31 + c.charCodeAt(0)) | 0
-  return `ai-${(h >>> 0).toString(36)}`
-}
 export const gameChoice = (g: StoredGame): GameChoice => (gameRole(g) === 'study' ? 'study' : g.userSide)

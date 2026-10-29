@@ -968,11 +968,20 @@
     "solvedOfInThisSet": "Solved {{value}} of {{poolCount}} in this set.",
     "reasonIllegal": "not a legal move",
     "reasonNoCheck": "not a check, and every attacking move must check",
-    "reasonStored": "the solution is {{move}}",
     "reasonHolds_one": "the defence holds, no mate in the 1 move left",
     "reasonHolds_other": "the defence holds, no mate in the {{count}} moves left",
     "reasonHoldsNow": "the king escapes",
-    "notMateBecause": "Not mate: {{reason}}."
+    "notMateBecause": "Not mate: {{reason}}.",
+    "elapsed": "Time",
+    "history": "History",
+    "resultSolved": "Solved",
+    "resultFailed": "Missed",
+    "resultShown": "Solution shown",
+    "reasonOffLine": "Not the expected line.",
+    "next": "Next",
+    "pause": "Pause",
+    "resume": "Resume",
+    "pausedNote": "Paused. Resume to continue."
   },
   "viewer": {
     "pieceViewer": "Piece viewer",

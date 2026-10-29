@@ -5,7 +5,7 @@ import { applyUsi } from '@/utils/shogi'
 import type { BoardSession } from '@/app/hooks/useBoardSession'
 import type { Load, Snapshot } from '@/app/hooks/useModeSwitch'
 import { savedAtLabel, sideMark } from '@/utils/notation'
-import { deleteGame, gameId, loadGames, storeGame, type GameResult, type StoredGame } from '@/app/games'
+import { deleteGame, loadGames, storeGame, type GameResult, type StoredGame } from '@/app/games'
 import { STRENGTH, useSettings } from '@/appearance/settings'
 import { allLines, countMoves, mainLine } from '@/app/tree'
 import { isGameMode, type Confirm, type Tab } from '@/app/types'
@@ -13,6 +13,26 @@ import { isGameMode, type Confirm, type Tab } from '@/app/types'
 export type GameNotes = { title: string; comments: string[]; ending?: string; moves: string }
 
 const IMPORTED = 'Imported game'
+const LIVE_KEY = 'joseki-practice:live-game:v1'
+
+type LiveGame = { id: string; start: string; moves: string[] }
+
+function readLive(): LiveGame | null {
+  try {
+    return JSON.parse(localStorage.getItem(LIVE_KEY) ?? 'null')
+  } catch {
+    return null
+  }
+}
+
+function writeLive(live: LiveGame | null) {
+  try {
+    if (live) localStorage.setItem(LIVE_KEY, JSON.stringify(live))
+    else localStorage.removeItem(LIVE_KEY)
+  } catch (error) {
+    console.warn('live game not tracked', error)
+  }
+}
 
 function firstIllegalMove(start: string, moves: string[]) {
   let at: string | null = start
@@ -154,24 +174,29 @@ export function useAnalyzeGames(
     else run()
   }
 
-  const saveFinished = (result: GameResult) => {
-    if (game.moves.length < 2) return
-    const id = gameId(game.start, game.moves)
-    if (loadGames().some((g) => g.id === id)) return
-    const when = savedAtLabel(new Date())
-    storeGame({
+  const saveLive = (result?: GameResult) => {
+    if (game.moves.length < 2) return true
+    const live = readLive()
+    const continues =
+      live && live.start === game.start && live.moves.slice(0, Math.min(live.moves.length, game.moves.length, 2)).join(' ') === game.moves.slice(0, 2).join(' ')
+    const id = continues ? live.id : `ai-${Date.now().toString(36)}`
+    const existing = continues ? loadGames().find((g) => g.id === id) : undefined
+    const ok = storeGame({
       id,
-      title: t('app.vsAiAs', { side: sideMark(userSide), when }),
-      savedAt: Date.now(),
+      title: existing?.title ?? t('app.vsAiAs', { side: sideMark(userSide), when: savedAtLabel(new Date()) }),
+      savedAt: existing?.savedAt ?? Date.now(),
       start: game.start,
       detectionPreset: game.detectionPreset,
       detectionResult: game.detectionResult,
       moves: game.moves,
       tree: tree.children.length ? tree : undefined,
       userSide,
-      result,
+      result: result ?? existing?.result,
       vsAi: true,
     })
+    writeLive({ id, start: game.start, moves: game.moves.slice(0, 2) })
+    if (!ok) onSaveError()
+    return ok
   }
 
   const reviewSlot = (g: StoredGame, _confirmReplace: number) => {
@@ -210,7 +235,8 @@ export function useAnalyzeGames(
     preserveAnalysis,
     openSlot,
     deleteSlot,
-    saveFinished,
+    saveLive,
+    forgetLive: () => writeLive(null),
     reviewSlot,
     openReview: (title: string, rate: string) => {
       setGameTitle(title)

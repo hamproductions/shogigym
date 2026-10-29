@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
-import { BoardLoading, type BoardLoadingState } from './BoardLoading'
+import { useEffect, useRef, useState, useLayoutEffect } from 'react'
 import { styled } from 'styled-system/jsx'
 import { Color, type ImmutablePosition } from 'tsshogi'
 import { avatarSlot } from './avatars'
@@ -36,11 +35,16 @@ function Board3DScene(props: Board3DProps & { onContextLost: () => void }) {
   setBoardDims()
   const host = useRef<HTMLDivElement>(null)
   const [ready, setReady] = useState(false)
-  const [loadingState, setLoadingState] = useState<BoardLoadingState>({ phase: 'pieces', done: 0, total: 1 })
   const piecesReady = useRef(false)
   const state = useRef<SceneState | null>(null)
   const latest = useRef(props)
-  latest.current = props
+  useLayoutEffect(() => {
+    latest.current = props
+  })
+  useEffect(() => {
+    latest.current.onReady?.(ready)
+  }, [ready])
+  useEffect(() => () => latest.current.onReady?.(false), [])
   const previous = useRef<ImmutablePosition | null>(null)
   const power = useRef<Power | null>(null)
   const flipTimer = useRef(0)
@@ -48,7 +52,9 @@ function Board3DScene(props: Board3DProps & { onContextLost: () => void }) {
   const appearance = useRef<string | undefined>(undefined)
   const pieceFactory = useRef(pieceMesh)
   const zoneFactory = useRef(zoneReporter)
-  zoneFactory.current = zoneReporter
+  useLayoutEffect(() => {
+    zoneFactory.current = zoneReporter
+  })
 
   useEffect(() => {
     const el = host.current!
@@ -423,9 +429,6 @@ function Board3DScene(props: Board3DProps & { onContextLost: () => void }) {
     if (initial) setReady(false)
     const settings = getSettings()
     const pending = piecePreparation(s, latest.current.position)
-    const total = pending.length
-    let done = 0
-    setLoadingState({ phase: 'pieces', done, total: Math.max(1, total) })
     const uploaded = new Set<THREE.Texture>()
     const uploads: THREE.Texture[] = []
     let piece: THREE.Object3D | null = null
@@ -441,7 +444,6 @@ function Board3DScene(props: Board3DProps & { onContextLost: () => void }) {
         if (piece) {
           disposePiece(piece, true)
           piece = null
-          setLoadingState({ phase: 'pieces', done: ++done, total })
         }
         const next = pending.shift()
         if (!next) break
@@ -464,7 +466,6 @@ function Board3DScene(props: Board3DProps & { onContextLost: () => void }) {
       previous.current = latest.current.position
       appearance.current = props.appearanceKey
       pieceFactory.current = pieceMesh
-      setLoadingState({ phase: 'shaders', done: 0, total: 1 })
       if (!initial) setReady(true)
     }
     frame = requestAnimationFrame(prepare)
@@ -512,10 +513,6 @@ function Board3DScene(props: Board3DProps & { onContextLost: () => void }) {
     if (state.current) state.current.tiltTarget = props.tilted ? 1 : 0
   }, [props.tilted])
 
-  useEffect(() => {
-    if (state.current) state.current.settled = false
-  }, [props.snapKey])
-
   return (
     <styled.div
       className="board3d"
@@ -527,8 +524,6 @@ function Board3DScene(props: Board3DProps & { onContextLost: () => void }) {
       minH="0"
       css={{ '& canvas': { display: 'block', touchAction: 'none' }, '&[aria-busy=true] canvas': { visibility: 'hidden' } }}
       aria-busy={!ready}
-    >
-      {!ready && <BoardLoading state={props.assetsReady === false ? props.loadingState : loadingState} />}
-    </styled.div>
+    ></styled.div>
   )
 }

@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LABELS } from '@/utils/analysis'
 import i18n from '@/utils/i18n'
-import { SETUPS, type Course } from '@/utils/model'
+import { SETUPS, catalogLoaded, useCourseVersion, type Course } from '@/utils/model'
 import { moveText } from '@/utils/shogi'
 import { useSession } from '@/app/hooks/session'
 import { FlipMarks } from '@/app/ui/SideMark'
@@ -22,6 +22,7 @@ import { courseProgress } from '@/app/practice'
 import type { LessonMode } from '@/app/types'
 import { RANDOM_KEY, store, stored } from './reading'
 import { OpeningPicker } from './OpeningPicker'
+import { PanelSkeleton } from '@/app/panels/PanelSkeleton'
 import { LessonGuide } from './LessonGuide'
 import type { Lesson } from './useLesson'
 import { Marks } from '@/app/ui/SideMark'
@@ -125,9 +126,11 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
   const { t } = useTranslation()
   const { course, liveSfen: sfen, userSide, lastMove, prevSfen, playing, preview, atEnd, flipped } = useSession()
   const { lessonMode, score, justRight, checking, progress, done, asking, offBook, good, showAnswer, jumped } = lesson
+  useCourseVersion()
   useEffect(() => {
     if (done && course) markChapterFinished(course.id)
   }, [done, course])
+  if (!course && !catalogLoaded()) return <PanelSkeleton />
   if (!course) return <OpeningPicker onOpen={lesson.open} level={level} setupId={lesson.pickerSetup} setSetupId={lesson.setPickerSetup} />
   const side = sideMark(userSide)
   const series = seriesOf(course, lesson)

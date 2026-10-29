@@ -2,7 +2,6 @@ import type { PieceSet } from './pieceSets'
 import { applyTheme, type Theme } from '@/utils/theme'
 import i18n, { navigatorLang, SETTINGS_KEY } from '@/utils/i18n'
 import { useSyncExternalStore } from 'react'
-import { playClack } from './clack'
 import { playBattlefieldSound, type BattlefieldActor } from './battlefieldSound'
 
 export type PieceStyle = 'two' | 'one'
@@ -100,6 +99,8 @@ const DEFAULTS: Settings = {
   showTesuji: true,
 }
 
+export const SERVER_SETTINGS: Settings = { ...DEFAULTS, lang: 'ja', environment: 'traditional' }
+
 function read(): Settings {
   try {
     const saved = JSON.parse(localStorage.getItem(KEY) ?? '{}')
@@ -115,7 +116,7 @@ function read(): Settings {
   }
 }
 
-let current = read()
+let current = typeof window === 'undefined' ? SERVER_SETTINGS : read()
 void i18n.changeLanguage(current.lang)
 applyTheme(current.theme)
 const listeners = new Set<() => void>()
@@ -145,7 +146,11 @@ export function subscribeSettings(listener: () => void) {
 }
 
 export function useSettings() {
-  return useSyncExternalStore(subscribeSettings, () => current)
+  return useSyncExternalStore(
+    subscribeSettings,
+    () => current,
+    () => SERVER_SETTINGS,
+  )
 }
 
 export type SparGame = Pick<Settings, 'opponent' | 'timeControl' | 'aiStrategy'> & { coach: SparCoach }
@@ -208,6 +213,27 @@ export function audioContext() {
   }
   if (audio.state === 'suspended') void audio.resume()
   return audio
+}
+
+let clack: typeof import('./clack') | null = null
+let clackLoad: Promise<void> | null = null
+
+export function loadSounds() {
+  clackLoad ??= import('./clack').then(
+    (module) => {
+      clack = module
+    },
+    (error) => {
+      clackLoad = null
+      console.warn('piece sounds not loaded', error)
+    },
+  )
+  return clackLoad
+}
+
+function playClack(kind: 'board' | 'komadai', volume: number) {
+  if (clack) clack.playClack(audioContext(), kind, volume, trackAudio)
+  else void loadSounds().then(() => clack?.playClack(audioContext(), kind, volume, trackAudio))
 }
 
 export function trackAudio(source: AudioScheduledSourceNode) {
@@ -273,8 +299,8 @@ export function playSound(
       playBattlefieldSound(audioContext(), kind, current.volume, trackAudio, actor)
       return
     }
-    if (kind === 'komadai') playClack(audioContext(), 'komadai', 0.45 * current.volume, trackAudio)
-    else if (kind === 'move') playClack(audioContext(), 'board', current.volume, trackAudio)
+    if (kind === 'komadai') playClack('komadai', 0.45 * current.volume)
+    else if (kind === 'move') playClack('board', current.volume)
     else if (kind === 'thump') {
       sweep(0, 150, 38, 0.8, 0.5)
       knock(0, 110, 6, 0.3)
@@ -290,7 +316,7 @@ export function playSound(
       knock(0, 420, 5, 0.5)
       knock(0.02, 1600, 2.5, 0.2)
       for (const [i, f] of [523, 784, 1046].entries()) tone(0.35 + i * 0.08, f, 0.05, 2.2)
-    } else if (kind === 'capture') playClack(audioContext(), 'board', current.volume, trackAudio)
+    } else if (kind === 'capture') playClack('board', current.volume)
     else if (kind === 'bang') {
       knock(0, 140, 9, 0.45)
       knock(0, 420, 5, 0.25)

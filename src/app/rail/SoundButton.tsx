@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState } from 'react'
+import { Suspense, lazy, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Icon } from '@/app/icons'
-import { playSound, setSettings, useSettings } from '@/appearance/settings'
-import { Slider } from '@/components/ui'
+import { setSettings, useSettings } from '@/appearance/settings'
 import { styled } from 'styled-system/jsx'
 import { RailButton, RailLabel, RailSlot } from './rail.styles'
+
+const VolumeSlider = lazy(() => import('./VolumeSlider').then((m) => ({ default: m.VolumeSlider })))
 
 export function SoundButton({ compact }: { compact: boolean }) {
   const { t } = useTranslation()
@@ -83,23 +84,11 @@ export function SoundButton({ compact }: { compact: boolean }) {
             : undefined
         }
       >
-        <Slider.Root
-          w="140px"
-          min={0}
-          max={1}
-          step={0.05}
-          value={[muted ? 0 : volume]}
-          aria-label={[t('settings.volume')]}
-          onValueChange={({ value }) => setSettings({ sound: value[0] > 0, volume: value[0] })}
-          onValueChangeEnd={() => playSound('move')}
-        >
-          <Slider.Control>
-            <Slider.Track>
-              <Slider.Range />
-            </Slider.Track>
-            <Slider.Thumbs />
-          </Slider.Control>
-        </Slider.Root>
+        {open && (
+          <Suspense fallback={<styled.div w="140px" h="5" />}>
+            <VolumeSlider value={muted ? 0 : volume} />
+          </Suspense>
+        )}
       </styled.div>
     </RailSlot>
   )

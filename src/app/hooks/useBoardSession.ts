@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { InitialPositionSFEN, Square, type Color, type Move, type PieceType } from 'tsshogi'
-import { engineSupported } from '@/utils/engine'
+import { useEngineSupported } from '@/utils/engine'
 import type { Course } from '@/utils/model'
 import { applyUsi, colorSide, engineReady, hasLegalMove, positionOf, type Side } from '@/utils/shogi'
 import { courseNodes } from '@/utils/book'
@@ -101,7 +101,8 @@ export function useBoardSession() {
   const visualMoving = settings.environment === 'battlefield' && landing === sfen
   const opponentMoving = mode === 'spar' && !preview && atEnd && landing === liveSfen && toMove === userSide
   const gameOver = !preview && !hasLegalMove(position)
-  const ai = engineSupported() && !course?.noEngine && engineReady(sfen)
+  const supported = useEngineSupported()
+  const ai = supported && !course?.noEngine && engineReady(sfen)
   const assist = settings.assist || (!isGameMode(mode) && mode !== 'view')
   const onVariation = (isGameMode(mode) || mode === 'view') && cursor > 0 && !isMainLine(tree, game.moves.slice(0, cursor))
 
@@ -139,6 +140,7 @@ export function useBoardSession() {
         return
       }
       if (from === cursor && getSettings().environment === 'battlefield') setLanding(next)
+      if (from === cursor && modeRef.current === 'tsume' && ['traditional', 'casual'].includes(getSettings().environment)) setLanding(next)
       if (getSettings().sound && navigator.userActivation?.isActive !== false) {
         try {
           audioContext()
@@ -262,6 +264,7 @@ export function useBoardSession() {
     userTurn,
     opponentMoving,
     visualMoving,
+    landing,
     landed,
     gameOver,
     ai,

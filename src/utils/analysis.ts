@@ -306,16 +306,16 @@ export function usiPosition(sfen: string): string {
 export async function reviewMove(
   sfen: string,
   usi: string,
-  opts: { inBook?: boolean; movetime?: number; previousLoss?: number; signal?: AbortSignal } = {},
+  opts: { inBook?: boolean; movetime?: number; previousLoss?: number; idle?: boolean; signal?: AbortSignal } = {},
 ): Promise<MoveReview> {
   const movetime = opts.movetime ?? 300
-  const before = await analyze(usiPosition(sfen), { multipv: 3, movetime, signal: opts.signal })
+  const before = await analyze(usiPosition(sfen), { multipv: 3, movetime, idle: opts.idle, signal: opts.signal })
   const position = positionOf(sfen)
   const move = position.createMoveByUSI(usi)
   if (!move || !position.doMove(move)) throw new Error(`illegal ${usi}`)
   const known = before.candidates.find((c) => c.move === usi && c.pv.length > 1)
   const after: Analysis = known
     ? { bestmove: known.pv[1], candidates: [{ ...known, move: known.pv[1], pv: known.pv.slice(1), score: negate(known.score) }] }
-    : await analyze(usiPosition(position.sfen), { multipv: 1, movetime, signal: opts.signal })
+    : await analyze(usiPosition(position.sfen), { multipv: 3, movetime, idle: opts.idle, signal: opts.signal })
   return classify({ sfen, usi, before, after, inBook: opts.inBook ?? false, previousLoss: opts.previousLoss })
 }

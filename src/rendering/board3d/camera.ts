@@ -40,6 +40,10 @@ export function updateView(s: SceneState, props: Board3DProps, dt: number) {
   s.viewTilted = props.tilted
   s.tilt += (s.tiltTarget - s.tilt) * ease(dt, 9)
   const flip = props.flipped ? Math.PI : 0
+  if (s.snapKey !== props.snapKey) {
+    s.snapKey = props.snapKey
+    s.settled = false
+  }
   if (!s.settled) {
     s.root.rotation.y = flip
     s.settled = true

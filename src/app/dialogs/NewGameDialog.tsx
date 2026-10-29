@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FAMILIES, STRATEGIES } from '@/data/strategies'
 import { otherSide, type Side } from '@/utils/shogi'
-import { aiStrategyId, strategyCourses } from '@/utils/book'
+import { aiStrategyId, hasStrategyCourses } from '@/utils/book'
 import {
   STRENGTH,
   TIME_CONTROLS,
@@ -56,9 +56,7 @@ export function NewGameDialog({
     const options = STRATEGIES.filter(
       (x) =>
         x.family === family &&
-        (pick === 'random'
-          ? strategyCourses(x.id, 'sente').length > 0 || strategyCourses(x.id, 'gote').length > 0
-          : strategyCourses(x.id, otherSide(pick)).length > 0),
+        (pick === 'random' ? hasStrategyCourses(x.id, 'sente') || hasStrategyCourses(x.id, 'gote') : hasStrategyCourses(x.id, otherSide(pick))),
     )
     return options.length
       ? [

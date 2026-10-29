@@ -71,7 +71,9 @@ export const TaikyokuBoard = forwardRef<BoardHandle, Props>(function TaikyokuBoa
   const frame = useRef(0)
   const tween = useRef<{ from: Camera; to: Camera; start: number } | null>(null)
   const latest = useRef(props)
-  latest.current = props
+  useLayoutEffect(() => {
+    latest.current = props
+  })
 
   const viewport = () => {
     const c = canvas.current

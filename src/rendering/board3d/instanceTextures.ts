@@ -123,10 +123,14 @@ export function instanceTextures(meshes: THREE.Mesh[], capacity: number) {
     textures,
     update: (mesh: THREE.Mesh, index: number) => {
       const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material]
+      let changed = false
       for (const layer of layers) {
-        const texture = (materials[layer.material] as TexturedMaterial)[layer.property]!
-        layer.attribute.setX(index, layer.indices.get(texture)!)
+        const value = layer.indices.get((materials[layer.material] as TexturedMaterial)[layer.property]!)!
+        if (layer.attribute.getX(index) === value) continue
+        layer.attribute.setX(index, value)
+        changed = true
       }
+      return changed
     },
     upload: () => layers.forEach((layer) => (layer.attribute.needsUpdate = true)),
     dispose: () => {

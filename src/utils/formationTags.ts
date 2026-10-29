@@ -1,5 +1,6 @@
 import { Color, InitialPositionSFEN, PieceType, Square, pieceTypeToSFEN, unpromotedPieceType, type ImmutablePosition } from 'tsshogi'
-import data from '@/data/formations.json'
+import { useSyncExternalStore } from 'react'
+import type formations from '@/data/formations.json'
 import { positionOf } from './shogi'
 import { detectCustom } from './bioshogiCustom'
 import { detectMotion } from './bioshogiMotion'
@@ -48,8 +49,44 @@ type State = {
   generalPreset: boolean
   usedCounts: [Partial<Record<PieceType, number>>, Partial<Record<PieceType, number>>]
 }
-const rules = data.rules as Rule[]
-const oneShot = new Set(rules.filter((rule) => rule.turn_eq !== undefined).map((rule) => rule.name))
+let rules: Rule[] = []
+let definitions: (typeof formations)['definitions'] = []
+let oneShot = new Set<string>()
+let rulesLoad: Promise<void> | null = null
+let rulesVersion = 0
+const rulesListeners = new Set<() => void>()
+
+export function loadFormations() {
+  rulesLoad ??= import('@/data/formations.json').then(
+    ({ default: data }) => {
+      rules = data.rules as Rule[]
+      definitions = data.definitions
+      oneShot = new Set(rules.filter((rule) => rule.turn_eq !== undefined).map((rule) => rule.name))
+      cache = { sfens: [], moves: [], states: [] }
+      rulesVersion++
+      rulesListeners.forEach((listener) => listener())
+    },
+    (error) => {
+      rulesLoad = null
+      console.warn('formation rules not loaded', error)
+    },
+  )
+  return rulesLoad
+}
+
+const subscribeRules = (listener: () => void) => {
+  rulesListeners.add(listener)
+  return () => {
+    rulesListeners.delete(listener)
+  }
+}
+
+export const useFormationRules = () =>
+  useSyncExternalStore(
+    subscribeRules,
+    () => rulesVersion,
+    () => 0,
+  )
 const side = (color: Color) => (color === Color.BLACK ? 0 : 1)
 const square = (color: Color, file: number, rank: number) => (color === Color.BLACK ? new Square(file, rank) : new Square(10 - file, 10 - rank))
 const code = (position: ImmutablePosition, at: Square) => {
@@ -121,7 +158,7 @@ function add(state: State, color: Color, rule: Rule, ply: number, detectedPly = 
   if (tags.some((tag) => tag.name === rule.name && (!repeat || tag.ply === ply))) return
   if (rule.name === '居飛車' && tags.some((tag) => tag.name === '振り飛車')) return
   if (rule.name === '振り飛車' && tags.some((tag) => tag.name === '居飛車')) return
-  const definition = data.definitions.find((definition) => definition.name === rule.name)
+  const definition = definitions.find((definition) => definition.name === rule.name)
   tags.push({
     name: rule.name,
     kind: rule.kind,
@@ -136,7 +173,7 @@ function add(state: State, color: Color, rule: Rule, ply: number, detectedPly = 
     [definition?.add_to_self, color],
     [definition?.add_to_opponent, color === Color.BLACK ? Color.WHITE : Color.BLACK],
   ] as const) {
-    const extra = data.definitions.find((definition) => definition.name === name)
+    const extra = definitions.find((definition) => definition.name === name)
     if (extra) add(state, owner, { name: extra.name, kind: extra.kind as Rule['kind'], cells: [] }, ply, detectedPly, false, false)
   }
 }

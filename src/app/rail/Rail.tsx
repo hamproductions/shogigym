@@ -7,6 +7,8 @@ import { Icon } from '@/app/icons'
 import { flipTable, saveBoardImage } from '@/utils/events'
 import { useSettings } from '@/appearance/settings'
 import { MODES, type Mode } from '@/app/types'
+import { loadProblems } from '@/app/practice'
+import { loadTesujiDrills } from '@/app/tesujiDrills'
 import { RailSeal } from './RailSeal'
 import { Dialog, DialogHeader } from '@/app/ui/Dialog'
 import { useInstallApp } from './useInstallApp'
@@ -15,6 +17,9 @@ import { useRailCapacity } from './useRailCapacity'
 import { useRailTools, type RailTool } from './useRailTools'
 import { styled } from 'styled-system/jsx'
 import { RailButton, RailLabel, RailNav, RailSlot } from './rail.styles'
+
+const prefetchMode = (mode: Mode) =>
+  (mode === 'tsume' ? loadProblems() : mode === 'tesuji' ? loadTesujiDrills() : null)?.catch((error) => console.warn('mode data not loaded', error))
 
 type RailProps = {
   mode: Mode
@@ -149,10 +154,11 @@ export function Rail({
   const [modeMenu, setModeMenu] = useState(false)
   const [moreAt, setMoreAt] = useState<HTMLElement | null>(null)
   const [modeAt, setModeAt] = useState<HTMLElement | null>(null)
-  const [tablet, setTablet] = useState(() => window.matchMedia('(pointer: coarse)').matches)
-  useEffect(() => {
+  const [tablet, setTablet] = useState(false)
+  useLayoutEffect(() => {
     const media = window.matchMedia('(pointer: coarse)')
     const sync = () => setTablet(media.matches)
+    sync()
     media.addEventListener('change', sync)
     return () => media.removeEventListener('change', sync)
   }, [])
@@ -221,7 +227,15 @@ export function Rail({
             createPortal(
               <RailMenu anchor={modeAt} phone={phone} close={() => setModeMenu(false)}>
                 {MODES.map((m) => (
-                  <RailButton key={m.id} kind="menu" className="app-rail-btn" data-on={mode === m.id || undefined} onClick={() => onMode(m.id)}>
+                  <RailButton
+                    key={m.id}
+                    kind="menu"
+                    className="app-rail-btn"
+                    data-on={mode === m.id || undefined}
+                    onPointerEnter={() => prefetchMode(m.id)}
+                    onFocus={() => prefetchMode(m.id)}
+                    onClick={() => onMode(m.id)}
+                  >
                     <Icon name={m.icon} size={20} />
                     <RailLabel kind="menu">{t(`modes.${m.id}.name`)}</RailLabel>
                   </RailButton>
@@ -239,6 +253,8 @@ export function Rail({
             ref={i === MODES.length - 1 ? lastModeRef : undefined}
             className="app-rail-btn"
             data-on={mode === m.id || undefined}
+            onPointerEnter={() => prefetchMode(m.id)}
+            onFocus={() => prefetchMode(m.id)}
             onClick={() => onMode(m.id)}
             aria-pressed={mode === m.id}
             title={t('modes.title', { name: t(`modes.${m.id}.name`), hint: t(`modes.${m.id}.hint`) })}
