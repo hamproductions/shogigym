@@ -116,3 +116,15 @@ Each unit in `TUTORIALS` is the tutorial for its strategy. Its chapter 1 must be
 If the unit's current chapter 1 already starts from `startpos`, split its grouped steps into per-move steps and write the missing explanations. Otherwise insert a new chapter 1 titled `入門：初手から<基本図の名前>まで` / `Tutorial: from move one to <basic position>`, built from the same moves the rest of the unit uses (the article's basic diagram, verified with play.ts MATCH), and keep the existing chapters after it. Do not shorten the later chapters.
 
 Verify with `bun scripts/lessons/check-unit.ts <id>`, and check that every step in chapter 1 has at most two moves.
+
+## Non-opening units (tactics, castle attacks, endgame, basics)
+
+These units teach named techniques, not openings. The references (shogi-joutatsu article plus the matching yuki-keio 技図鑑 entry: tarefu, tataki_no_fu, tokin_zukuri, wariuchi_no_gin, fundoshi_no_kei, oute_bisha, juji_bisha, dengaku_zashi, atama_kin, hara_kin, sokofu, aki_oute, ryo_oute, keito_no_gin) define what to cover. Composed diagrams are creative works, so build your own positions; do not copy the article's piece layout.
+
+- One chapter per named technique or idea the article covers, titled with its common name (for example 「垂れ歩」 / "Dangling pawn"). Unit title: `<topic>：<what the learner can do afterwards>`, plain and concrete. No abstract "count / read" titles.
+- First step: what the technique is and when it appears in real games, in one or two sentences.
+- Then show it on a position that looks like a real game: both kings present and protected, sensible castles or a believable middlegame, enough pieces that the learner recognises the situation. A focused board with fewer pieces is fine for mate problems and endgame drills, but never a board with unexplained floating pieces.
+- Then play the technique move by move: the learner's move, the opponent's best reply (check it with `printf '<sfen>\n' | node scripts/lessons/engine-eval.mjs 1000`), and the result, with marks. Add the common wrong move as a variation that shows why it fails.
+- End each chapter with one sentence on how to spot the technique in your own games.
+- Mate units: every claimed mate must be a real mate. Verify the final position with `bun .cache/audit-2026-10-22/tools/pos.ts "<sfen>" --mates` or the engine (mate score).
+- Use `kind: "position"` and a full SFEN start. Check with `bun scripts/lessons/check-unit.ts <id> --engine`: zero ERROR lines, and no engine-loss NOTE on the learner's moves unless the text explains it is a deliberate mistake.

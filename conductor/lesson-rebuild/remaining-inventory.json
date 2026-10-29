@@ -1,0 +1,1172 @@
+{
+  "scope": "Remaining non-opening lesson units from the current curriculum handoff",
+  "units": [
+    {
+      "id": "attack-anaguma",
+      "source": "data/lessons/units/attack-anaguma.json",
+      "sourceSha256": "af0f6450e9ad4f19bfdf9514f0f862f1158a538b378c2ec1538b5dc4cdfa3193",
+      "generated": "src/data/lessons/attack-anaguma.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-attack-anaguma-1",
+        "lesson-attack-anaguma-2",
+        "lesson-attack-anaguma-3"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "穴熊崩しの手筋",
+          "url": "https://shogi-joutatsu.com/archives/3014",
+          "local": ".cache/curriculum-source/3014.txt",
+          "localExists": true
+        }
+      ],
+      "status": "in progress: semantic and originality review pending; generated output stale",
+      "currentSourceSha256": "4147b9fca63165613ea489271e11259d9db2191848705d403fa8753fc9048c94"
+    },
+    {
+      "id": "attack-edge",
+      "source": "data/lessons/units/attack-edge.json",
+      "sourceSha256": "c33acc4daf60b0f9013bbb6e5c10580464894e8db3dc2ff23e1e00ac51cad8b4",
+      "generated": "src/data/lessons/attack-edge.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-attack-edge-1",
+        "lesson-attack-edge-2",
+        "lesson-attack-edge-3",
+        "lesson-attack-edge-4",
+        "lesson-attack-edge-5"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "端攻め（戦術の範囲の確認）",
+          "url": "https://ja.wikipedia.org/wiki/端攻め",
+          "local": null,
+          "localExists": null
+        }
+      ],
+      "status": "in progress: semantic and originality review pending; generated output stale",
+      "currentSourceSha256": "60c387eca3fc9a53e6fd4979794843363064d6b41801da38922716ec2ba8fff0"
+    },
+    {
+      "id": "attack-funa",
+      "source": "data/lessons/units/attack-funa.json",
+      "sourceSha256": "f6a2dcf4134c2ebfde4425fb7ef3c5a3d03fa73dbb07a7af4585e38dc8e0f510",
+      "generated": "src/data/lessons/attack-funa.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-attack-funa-1",
+        "lesson-attack-funa-2",
+        "lesson-attack-funa-3"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "舟囲い崩しの手筋",
+          "url": "https://shogi-joutatsu.com/archives/3048",
+          "local": ".cache/curriculum-source/3048.txt",
+          "localExists": true
+        }
+      ],
+      "status": "in progress: named tactics, semantic and originality review pending; generated output stale",
+      "currentSourceSha256": "b86153f256a0f21e378b7747d47813fe2615e31fc5f54c37c5f0a80bfb071a9c"
+    },
+    {
+      "id": "attack-kinmusou",
+      "source": "data/lessons/units/attack-kinmusou.json",
+      "sourceSha256": "27d7d0831110163334ba745f2d279803234bb9f0aaee68f0778a7c9191ed9951",
+      "generated": "src/data/lessons/attack-kinmusou.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-attack-kinmusou-1",
+        "lesson-attack-kinmusou-2",
+        "lesson-attack-kinmusou-3"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "金無双崩しの手筋",
+          "url": "https://shogi-joutatsu.com/archives/875",
+          "local": ".cache/curriculum-source/875.txt",
+          "localExists": true
+        }
+      ],
+      "status": "in progress: semantic and originality review pending; generated output stale",
+      "currentSourceSha256": "1e14180f65e6b2801f2fc5e00386e36ec671ad5a8164e9c0c7cd612ae98bfc70"
+    },
+    {
+      "id": "attack-mino-aifuri",
+      "source": "data/lessons/units/attack-mino-aifuri.json",
+      "sourceSha256": "965277dc42220e1b79a758fc1333478731dc7f56ce8a2a06ae8a173d4abc67c8",
+      "generated": "src/data/lessons/attack-mino-aifuri.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-attack-mino-aifuri-1",
+        "lesson-attack-mino-aifuri-2",
+        "lesson-attack-mino-aifuri-3"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "美濃囲い崩しの手筋③ 相振り飛車での攻め方",
+          "url": "https://shogi-joutatsu.com/archives/1070",
+          "local": ".cache/curriculum-source/1070.txt",
+          "localExists": true
+        }
+      ],
+      "status": "in progress: named tactics, semantic and originality review pending; generated output stale",
+      "currentSourceSha256": "d0ceafe4174f5205f4ff50f06cd39b63cccfbca415f3b573807c94b6f2b23587"
+    },
+    {
+      "id": "attack-mino-kobin",
+      "source": "data/lessons/units/attack-mino-kobin.json",
+      "sourceSha256": "be7f62dfd87e87ec58961a8ce305903e3527f5bba40d44ca56d89e4b130ade04",
+      "generated": "src/data/lessons/attack-mino-kobin.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-attack-mino-kobin-1",
+        "lesson-attack-mino-kobin-2",
+        "lesson-attack-mino-kobin-3"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "美濃囲い崩しの手筋② コビン攻め",
+          "url": "https://shogi-joutatsu.com/archives/2615",
+          "local": ".cache/curriculum-source/2615.txt",
+          "localExists": true
+        }
+      ],
+      "status": "in progress: semantic and originality review pending; generated output stale",
+      "currentSourceSha256": "fc5ca9b4f4b769bacc2555db2dd7b161f304c9db025c19ea736941f57ba5d93d"
+    },
+    {
+      "id": "attack-mino-side",
+      "source": "data/lessons/units/attack-mino-side.json",
+      "sourceSha256": "d4f2f5a19870aea8dadaa85d0aace6137034a4dfe4a0ce2a6f6742a45ebace8c",
+      "generated": "src/data/lessons/attack-mino-side.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-attack-mino-side-1",
+        "lesson-attack-mino-side-2",
+        "lesson-attack-mino-side-3",
+        "lesson-attack-mino-side-4"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "美濃囲い崩しの手筋① 横から攻める",
+          "url": "https://shogi-joutatsu.com/archives/2646",
+          "local": ".cache/curriculum-source/2646.txt",
+          "localExists": true
+        }
+      ],
+      "status": "in progress: semantic and originality review pending; generated output stale",
+      "currentSourceSha256": "706e68b97d02352b09a8c2b655f83b838b6d1806b3cab39da07960728ce03d7c"
+    },
+    {
+      "id": "attack-yagura-head",
+      "source": "data/lessons/units/attack-yagura-head.json",
+      "sourceSha256": "e5a8969faa9c05dfde6785629a85fe1050e9dc4f89fa2869670670e7f4ff996f",
+      "generated": "src/data/lessons/attack-yagura-head.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-attack-yagura-head-1",
+        "lesson-attack-yagura-head-2",
+        "lesson-attack-yagura-head-3"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "矢倉囲い崩しの手筋② 玉頭攻めと端攻め",
+          "url": "https://shogi-joutatsu.com/archives/2313",
+          "local": ".cache/curriculum-source/2313.txt",
+          "localExists": true
+        }
+      ],
+      "status": "in progress: named tactics, semantic and originality review pending; generated output stale",
+      "currentSourceSha256": "e1b735ca0996813ff86529c4caa3fc94202b15176c3fe183693660926ec0ca31"
+    },
+    {
+      "id": "attack-yagura-side",
+      "source": "data/lessons/units/attack-yagura-side.json",
+      "sourceSha256": "d8a8894734cc529086bb7074b4b4ac17fea343aa1935cf107a0a283ce1b6633f",
+      "generated": "src/data/lessons/attack-yagura-side.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-attack-yagura-side-1",
+        "lesson-attack-yagura-side-2",
+        "lesson-attack-yagura-side-3"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "矢倉囲い崩しの手筋① 横からの崩し方",
+          "url": "https://shogi-joutatsu.com/archives/2276",
+          "local": ".cache/curriculum-source/2276.txt",
+          "localExists": true
+        }
+      ],
+      "status": "in progress: named tactics, semantic and originality review pending; generated output stale",
+      "currentSourceSha256": "74f3aeced6d1c6a82e338067294c896602eac46ec8dd47d502c1989b47896267"
+    },
+    {
+      "id": "basics-attack-defense",
+      "source": "data/lessons/units/basics-attack-defense.json",
+      "sourceSha256": "ffec5496d408d3f9efa9e49e13cd67e8b19efe74e80b47eb02af136987aa8033",
+      "generated": "src/data/lessons/basics-attack-defense.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-basics-attack-defense-1",
+        "lesson-basics-attack-defense-2",
+        "lesson-basics-attack-defense-3",
+        "lesson-basics-attack-defense-4"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "攻め方と受け方の基本",
+          "url": "https://shogi-joutatsu.com/archives/3271",
+          "local": ".cache/curriculum-source/3271.txt",
+          "localExists": true
+        }
+      ],
+      "status": "not started"
+    },
+    {
+      "id": "basics-bishop-trade",
+      "source": "data/lessons/units/basics-bishop-trade.json",
+      "sourceSha256": "6941d602b56128e48279ec05ee95a5ee8ea57d4869c054daed21ee11f550c46a",
+      "generated": "src/data/lessons/basics-bishop-trade.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-basics-bishop-trade-1",
+        "lesson-basics-bishop-trade-2",
+        "lesson-basics-bishop-trade-3"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "角交換された時の指し方",
+          "url": "https://shogi-joutatsu.com/archives/2590",
+          "local": ".cache/curriculum-source/2590.txt",
+          "localExists": true
+        }
+      ],
+      "status": "not started"
+    },
+    {
+      "id": "basics-endgame",
+      "source": "data/lessons/units/basics-endgame.json",
+      "sourceSha256": "19bc2d9490718745dd2bf8d7de5744e8f1945a77a4e201191a93bfad0baaaa46",
+      "generated": "src/data/lessons/basics-endgame.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-basics-endgame-1",
+        "lesson-basics-endgame-2",
+        "lesson-basics-endgame-3"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "終盤の指し方、考え方",
+          "url": "https://shogi-joutatsu.com/archives/3239",
+          "local": ".cache/curriculum-source/3239.txt",
+          "localExists": true
+        },
+        {
+          "title": "終盤のコツと勉強法",
+          "url": "https://shogi-joutatsu.com/archives/580",
+          "local": ".cache/curriculum-source/580.txt",
+          "localExists": true
+        }
+      ],
+      "status": "not started"
+    },
+    {
+      "id": "basics-forks",
+      "source": "data/lessons/units/basics-forks.json",
+      "sourceSha256": "0e602aacbd01822d28a6924cf04a7e6629d6fd55a1f06d3efff77b7b0c4f31f5",
+      "generated": "src/data/lessons/basics-forks.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-basics-forks-1",
+        "lesson-basics-forks-2",
+        "lesson-basics-forks-3"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "両取りの6パターン",
+          "url": "https://shogi-joutatsu.com/archives/1067",
+          "local": ".cache/curriculum-source/1067.txt",
+          "localExists": true
+        }
+      ],
+      "status": "not started"
+    },
+    {
+      "id": "basics-mate-words",
+      "source": "data/lessons/units/basics-mate-words.json",
+      "sourceSha256": "0aebab6b6c4968784a6de6cacbeb96e2ddb737ec688c24e2d61b8624d02319ee",
+      "generated": "src/data/lessons/basics-mate-words.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-basics-mate-words-1",
+        "lesson-basics-mate-words-2",
+        "lesson-basics-mate-words-3",
+        "lesson-basics-mate-words-4",
+        "lesson-basics-mate-words-5"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "王手、詰み、詰めろ、必至って？",
+          "url": "https://shogi-joutatsu.com/archives/1821",
+          "local": ".cache/curriculum-source/1821.txt",
+          "localExists": true
+        }
+      ],
+      "status": "not started"
+    },
+    {
+      "id": "basics-middlegame",
+      "source": "data/lessons/units/basics-middlegame.json",
+      "sourceSha256": "454469ee3ed9cfdb9751e469273b2b874f9b6cea52cf211edfc446dd30be8947",
+      "generated": "src/data/lessons/basics-middlegame.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-basics-middlegame-1",
+        "lesson-basics-middlegame-2",
+        "lesson-basics-middlegame-3",
+        "lesson-basics-middlegame-4"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "中盤の指し方、考え方",
+          "url": "https://shogi-joutatsu.com/archives/3198",
+          "local": ".cache/curriculum-source/3198.txt",
+          "localExists": true
+        }
+      ],
+      "status": "not started"
+    },
+    {
+      "id": "basics-opening",
+      "source": "data/lessons/units/basics-opening.json",
+      "sourceSha256": "be23f6b1db7c9f468922a5ff64470cd1ccf49dd91b3ca9a6e0a64de0aedd8ef2",
+      "generated": "src/data/lessons/basics-opening.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-basics-opening-1",
+        "lesson-basics-opening-2",
+        "lesson-basics-opening-3",
+        "lesson-basics-opening-4"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "序盤の指し方、考え方",
+          "url": "https://shogi-joutatsu.com/archives/3156",
+          "local": ".cache/curriculum-source/3156.txt",
+          "localExists": true
+        }
+      ],
+      "status": "not started"
+    },
+    {
+      "id": "basics-plan",
+      "source": "data/lessons/units/basics-plan.json",
+      "sourceSha256": "1ef5e5d58fd8863784c02aa125f60dd298b98e979fa68fa055bf66a691d760fd",
+      "generated": "src/data/lessons/basics-plan.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-basics-plan-1",
+        "lesson-basics-plan-2",
+        "lesson-basics-plan-3",
+        "lesson-basics-plan-4",
+        "lesson-basics-plan-5"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "指し方の基本方針",
+          "url": "https://shogi-joutatsu.com/archives/2911",
+          "local": ".cache/curriculum-source/2911.txt",
+          "localExists": true
+        }
+      ],
+      "status": "not started"
+    },
+    {
+      "id": "basics-value",
+      "source": "data/lessons/units/basics-value.json",
+      "sourceSha256": "f0cd2a49ea4045df8c5f518895978bf46516c51c9e6cadb1520dcdf845dcd259",
+      "generated": "src/data/lessons/basics-value.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-basics-value-1",
+        "lesson-basics-value-2",
+        "lesson-basics-value-3",
+        "lesson-basics-value-4"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "駒の価値と特徴",
+          "url": "https://shogi-joutatsu.com/archives/1512",
+          "local": ".cache/curriculum-source/1512.txt",
+          "localExists": true
+        },
+        {
+          "title": "駒得の考え方",
+          "url": "https://shogi-joutatsu.com/archives/1021",
+          "local": ".cache/curriculum-source/1021.txt",
+          "localExists": true
+        }
+      ],
+      "status": "not started"
+    },
+    {
+      "id": "endgame-defense",
+      "source": "data/lessons/units/endgame-defense.json",
+      "sourceSha256": "c2ad65eb3d11bbb81c744ef225128ddb7e0fa99813b7cbfe9061c64b0ad2638d",
+      "generated": "src/data/lessons/endgame-defense.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-endgame-defense-1",
+        "lesson-endgame-defense-2",
+        "lesson-endgame-defense-3",
+        "lesson-endgame-defense-4",
+        "lesson-endgame-defense-5"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "合駒（用語と働きの確認）",
+          "url": "https://ja.wikipedia.org/wiki/合駒",
+          "local": null,
+          "localExists": null
+        }
+      ],
+      "status": "not started"
+    },
+    {
+      "id": "endgame-mate-tesuji",
+      "source": "data/lessons/units/endgame-mate-tesuji.json",
+      "sourceSha256": "839f0d300506f8ae6c2ef9ec89d61d03b09959ec2e82ad2def0da5df2a0cfd5d",
+      "generated": "src/data/lessons/endgame-mate-tesuji.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-endgame-mate-tesuji-1",
+        "lesson-endgame-mate-tesuji-2",
+        "lesson-endgame-mate-tesuji-3",
+        "lesson-endgame-mate-tesuji-4",
+        "lesson-endgame-mate-tesuji-5"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "詰将棋で覚える寄せの手筋①",
+          "url": "https://shogi-joutatsu.com/archives/109",
+          "local": ".cache/curriculum-source/109.txt",
+          "localExists": true
+        },
+        {
+          "title": "詰将棋で覚える寄せの手筋②",
+          "url": "https://shogi-joutatsu.com/archives/5325",
+          "local": ".cache/curriculum-source/5325.txt",
+          "localExists": true
+        }
+      ],
+      "status": "not started"
+    },
+    {
+      "id": "endgame-mate1",
+      "source": "data/lessons/units/endgame-mate1.json",
+      "sourceSha256": "8059c5160f6ee1bafaf64426a9e3c89005cb666bfb5f367e4e371f2eb4d0549d",
+      "generated": "src/data/lessons/endgame-mate1.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-endgame-mate1-1",
+        "lesson-endgame-mate1-2",
+        "lesson-endgame-mate1-3",
+        "lesson-endgame-mate1-4",
+        "lesson-endgame-mate1-5",
+        "lesson-endgame-mate1-6",
+        "lesson-endgame-mate1-7",
+        "lesson-endgame-mate1-8",
+        "lesson-endgame-mate1-9",
+        "lesson-endgame-mate1-10",
+        "lesson-endgame-mate1-11",
+        "lesson-endgame-mate1-12",
+        "lesson-endgame-mate1-13",
+        "lesson-endgame-mate1-14"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "初心者向け、1手詰の問題",
+          "url": "https://shogi-joutatsu.com/archives/1854",
+          "local": ".cache/curriculum-source/1854.txt",
+          "localExists": true
+        }
+      ],
+      "status": "not started"
+    },
+    {
+      "id": "endgame-mate3",
+      "source": "data/lessons/units/endgame-mate3.json",
+      "sourceSha256": "33cb0f0c0acf6f4d24d5b0e8de6d29ece8e418b3edeaa9a1c7df97635ac1f85c",
+      "generated": "src/data/lessons/endgame-mate3.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-endgame-mate3-1",
+        "lesson-endgame-mate3-2",
+        "lesson-endgame-mate3-3",
+        "lesson-endgame-mate3-4",
+        "lesson-endgame-mate3-5"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "初級者向け、3手詰の問題①",
+          "url": "https://shogi-joutatsu.com/archives/4633",
+          "local": ".cache/curriculum-source/4633.txt",
+          "localExists": true
+        },
+        {
+          "title": "初級者向け、3手詰の問題②",
+          "url": "https://shogi-joutatsu.com/archives/19",
+          "local": ".cache/curriculum-source/19.txt",
+          "localExists": true
+        },
+        {
+          "title": "5手詰のコツ",
+          "url": "https://shogi-joutatsu.com/archives/386",
+          "local": ".cache/curriculum-source/386.txt",
+          "localExists": true
+        }
+      ],
+      "status": "not started"
+    },
+    {
+      "id": "endgame-mate5",
+      "source": "data/lessons/units/endgame-mate5.json",
+      "sourceSha256": "3f5bc9d94c872c98295d6df28136676b855e1efd57578bdafd6d1ae02caa77d6",
+      "generated": "src/data/lessons/endgame-mate5.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-endgame-mate5-1",
+        "lesson-endgame-mate5-2",
+        "lesson-endgame-mate5-3",
+        "lesson-endgame-mate5-4",
+        "lesson-endgame-mate5-5"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "日本将棋連盟 まいにち詰将棋（ルールのみ参照）",
+          "url": "https://www.shogi.or.jp/tsume_shogi/",
+          "local": null,
+          "localExists": null
+        }
+      ],
+      "status": "not started"
+    },
+    {
+      "id": "endgame-tsume-study",
+      "source": "data/lessons/units/endgame-tsume-study.json",
+      "sourceSha256": "8ac1c7d50834e32f0a79c23b95ab0e2dbf017efc904ae5f2fda7e76698313aff",
+      "generated": "src/data/lessons/endgame-tsume-study.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-endgame-tsume-study-1",
+        "lesson-endgame-tsume-study-2",
+        "lesson-endgame-tsume-study-3",
+        "lesson-endgame-tsume-study-4"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "詰将棋を利用した勉強法",
+          "url": "https://shogi-joutatsu.com/archives/2418",
+          "local": ".cache/curriculum-source/2418.txt",
+          "localExists": true
+        }
+      ],
+      "status": "not started"
+    },
+    {
+      "id": "endgame-tsumero",
+      "source": "data/lessons/units/endgame-tsumero.json",
+      "sourceSha256": "e464adee7a9a16875b321172db2a83e358c89e2f7ebb65d415eca4be57f2c57a",
+      "generated": "src/data/lessons/endgame-tsumero.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-endgame-tsumero-1",
+        "lesson-endgame-tsumero-2",
+        "lesson-endgame-tsumero-3",
+        "lesson-endgame-tsumero-4",
+        "lesson-endgame-tsumero-5"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "詰めろ、必至のコツ",
+          "url": "https://shogi-joutatsu.com/archives/7368",
+          "local": ".cache/curriculum-source/7368.txt",
+          "localExists": true
+        }
+      ],
+      "status": "not started"
+    },
+    {
+      "id": "endgame-yose",
+      "source": "data/lessons/units/endgame-yose.json",
+      "sourceSha256": "3fda10ef9effc41be67a06bcbaaaf402a00766992ac3fcb050cca3c2db363127",
+      "generated": "src/data/lessons/endgame-yose.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-endgame-yose-1",
+        "lesson-endgame-yose-2",
+        "lesson-endgame-yose-3",
+        "lesson-endgame-yose-4"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "終盤、寄せから詰みまでの考え方",
+          "url": "https://shogi-joutatsu.com/archives/2375",
+          "local": ".cache/curriculum-source/2375.txt",
+          "localExists": true
+        }
+      ],
+      "status": "not started"
+    },
+    {
+      "id": "judgment-four-factors",
+      "source": "data/lessons/units/judgment-four-factors.json",
+      "sourceSha256": "b97a54eac1648d331a983437fbd373809a11f8c479d2791528e6b837421b271c",
+      "generated": "src/data/lessons/judgment-four-factors.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-judgment-four-factors-1",
+        "lesson-judgment-four-factors-2",
+        "lesson-judgment-four-factors-3",
+        "lesson-judgment-four-factors-4",
+        "lesson-judgment-four-factors-5"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "勝又清和七段インタビュー：形勢判断の四要素",
+          "url": "https://bookplus.nikkei.com/atcl/column/031000478/031000001/",
+          "local": null,
+          "localExists": null
+        }
+      ],
+      "status": "not started"
+    },
+    {
+      "id": "proverb-gold-last",
+      "source": "data/lessons/units/proverb-gold-last.json",
+      "sourceSha256": "d26153e70af85d036133d21e163ba9c9cdfbc32baf4d973a95bdeb0421507bc9",
+      "generated": "src/data/lessons/proverb-gold-last.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-proverb-gold-last-1",
+        "lesson-proverb-gold-last-2",
+        "lesson-proverb-gold-last-3"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "金はトドメに残せ",
+          "url": "https://shogi-joutatsu.com/archives/1783",
+          "local": ".cache/curriculum-source/1783.txt",
+          "localExists": true
+        }
+      ],
+      "status": "in progress: semantic and originality review pending; generated output stale",
+      "currentSourceSha256": "d53d242013b408747268c6d491cd3495d057285aaaa7e940e6b25c063e6b7834"
+    },
+    {
+      "id": "proverb-three-pawns",
+      "source": "data/lessons/units/proverb-three-pawns.json",
+      "sourceSha256": "4644954ac236985c739d3a3ecf00effdcd60a49c9bdf4c57b7037a00402a39f1",
+      "generated": "src/data/lessons/proverb-three-pawns.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-proverb-three-pawns-1",
+        "lesson-proverb-three-pawns-2",
+        "lesson-proverb-three-pawns-3",
+        "lesson-proverb-three-pawns-4",
+        "lesson-proverb-three-pawns-5"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "三歩持ったら継ぎ歩に垂れ歩",
+          "url": "https://shogi-joutatsu.com/archives/8322",
+          "local": ".cache/curriculum-source/8322.txt",
+          "localExists": true
+        }
+      ],
+      "status": "in progress: semantic and originality review pending; generated output stale",
+      "currentSourceSha256": "217a74ee1249c74750a26859deeb04cda798141172ff50b242c3c3841af1f287"
+    },
+    {
+      "id": "rules-checkmate",
+      "source": "data/lessons/units/rules-checkmate.json",
+      "sourceSha256": "7ea9897bca10104083bdceb375cd019e0fd1bed1aa66a03d6e34d8c40d24faff",
+      "generated": "src/data/lessons/rules-checkmate.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-rules-checkmate-1",
+        "lesson-rules-checkmate-2",
+        "lesson-rules-checkmate-3"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "王手 (Wikipedia日本語版)",
+          "url": "https://ja.wikipedia.org/wiki/王手",
+          "local": null,
+          "localExists": null
+        },
+        {
+          "title": "詰み (Wikipedia日本語版)",
+          "url": "https://ja.wikipedia.org/wiki/詰み",
+          "local": null,
+          "localExists": null
+        },
+        {
+          "title": "王手と詰み、勝敗の決め方",
+          "url": "https://shogi-joutatsu.com/archives/746",
+          "local": ".cache/curriculum-source/746.txt",
+          "localExists": true
+        }
+      ],
+      "status": "not started"
+    },
+    {
+      "id": "rules-draws",
+      "source": "data/lessons/units/rules-draws.json",
+      "sourceSha256": "01174f978892baf39e006a4b87f558dcdcd768f338cb67e6195f6e5f20eb9767",
+      "generated": "src/data/lessons/rules-draws.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-rules-draws-1",
+        "lesson-rules-draws-2",
+        "lesson-rules-draws-3",
+        "lesson-rules-draws-4"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "入玉・持将棋 (Wikipedia日本語版)",
+          "url": "https://ja.wikipedia.org/wiki/入玉",
+          "local": null,
+          "localExists": null
+        },
+        {
+          "title": "千日手 (Wikipedia日本語版)",
+          "url": "https://ja.wikipedia.org/wiki/千日手",
+          "local": null,
+          "localExists": null
+        },
+        {
+          "title": "千日手",
+          "url": "https://shogi-joutatsu.com/archives/758",
+          "local": ".cache/curriculum-source/758.txt",
+          "localExists": true
+        },
+        {
+          "title": "入玉の扱い、持将棋と宣言法およびトライルール",
+          "url": "https://shogi-joutatsu.com/archives/932",
+          "local": ".cache/curriculum-source/932.txt",
+          "localExists": true
+        }
+      ],
+      "status": "not started"
+    },
+    {
+      "id": "rules-drops",
+      "source": "data/lessons/units/rules-drops.json",
+      "sourceSha256": "bb7f6c81b79a0cef0dbafc5510b9cc8d6ae593d7fa4c5028859275c2a9dfbbd7",
+      "generated": "src/data/lessons/rules-drops.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-rules-drops-1",
+        "lesson-rules-drops-2",
+        "lesson-rules-drops-3",
+        "lesson-rules-drops-4"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "駒の取り方、持駒の使い方",
+          "url": "https://shogi-joutatsu.com/archives/738",
+          "local": ".cache/curriculum-source/738.txt",
+          "localExists": true
+        }
+      ],
+      "status": "not started"
+    },
+    {
+      "id": "rules-fouls",
+      "source": "data/lessons/units/rules-fouls.json",
+      "sourceSha256": "2f4af2dfc07c02c535617a47f7760ea51a475918e78114f2d127db20b82cf7d1",
+      "generated": "src/data/lessons/rules-fouls.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-rules-fouls-1",
+        "lesson-rules-fouls-2",
+        "lesson-rules-fouls-3",
+        "lesson-rules-fouls-4",
+        "lesson-rules-fouls-5",
+        "lesson-rules-fouls-6"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "反則、禁じ手について",
+          "url": "https://shogi-joutatsu.com/archives/813",
+          "local": ".cache/curriculum-source/813.txt",
+          "localExists": true
+        }
+      ],
+      "status": "not started"
+    },
+    {
+      "id": "rules-game",
+      "source": "data/lessons/units/rules-game.json",
+      "sourceSha256": "c377bf3b26ff0deb036949824f49c246d650e43d1d5fabfb48b7430b1eb3ee22",
+      "generated": "src/data/lessons/rules-game.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-rules-game-1",
+        "lesson-rules-game-2",
+        "lesson-rules-game-3",
+        "lesson-rules-game-4"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "将棋 (Wikipedia日本語版)",
+          "url": "https://ja.wikipedia.org/wiki/将棋",
+          "local": null,
+          "localExists": null
+        },
+        {
+          "title": "将棋の遊び方、対局の大まかな流れ",
+          "url": "https://shogi-joutatsu.com/archives/656",
+          "local": ".cache/curriculum-source/656.txt",
+          "localExists": true
+        }
+      ],
+      "status": "in progress: semantic and originality review pending; generated output stale",
+      "currentSourceSha256": "edf638ce19c357c9a266ea13274a858d83e9b61a8738352b40cb1702136cff14"
+    },
+    {
+      "id": "rules-moves",
+      "source": "data/lessons/units/rules-moves.json",
+      "sourceSha256": "5751d72a7e361e83df0398e8dece43878dd5dbee9cba1bd044909f7672d7fe27",
+      "generated": "src/data/lessons/rules-moves.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-rules-moves-1",
+        "lesson-rules-moves-2",
+        "lesson-rules-moves-3",
+        "lesson-rules-moves-4",
+        "lesson-rules-moves-5"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "将棋の駒 (Wikipedia日本語版)",
+          "url": "https://ja.wikipedia.org/wiki/将棋の駒",
+          "local": null,
+          "localExists": null
+        },
+        {
+          "title": "駒の動き",
+          "url": "https://shogi-joutatsu.com/archives/615",
+          "local": ".cache/curriculum-source/615.txt",
+          "localExists": true
+        }
+      ],
+      "status": "not started"
+    },
+    {
+      "id": "rules-promotion",
+      "source": "data/lessons/units/rules-promotion.json",
+      "sourceSha256": "d822ff859ac37f7df2b8880ed3067de29e9bdb8a848c49547b055fee9bd55078",
+      "generated": "src/data/lessons/rules-promotion.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-rules-promotion-1",
+        "lesson-rules-promotion-2",
+        "lesson-rules-promotion-3",
+        "lesson-rules-promotion-4"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "駒の成り方",
+          "url": "https://shogi-joutatsu.com/archives/722",
+          "local": ".cache/curriculum-source/722.txt",
+          "localExists": true
+        }
+      ],
+      "status": "not started"
+    },
+    {
+      "id": "rules-setup",
+      "source": "data/lessons/units/rules-setup.json",
+      "sourceSha256": "acad0cc7491ac386be9c9a00184219f89055463e2f39390fdca6fe2f024b753e",
+      "generated": "src/data/lessons/rules-setup.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-rules-setup-1",
+        "lesson-rules-setup-2",
+        "lesson-rules-setup-3",
+        "lesson-rules-setup-4"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "将棋 (Wikipedia日本語版)",
+          "url": "https://ja.wikipedia.org/wiki/将棋",
+          "local": null,
+          "localExists": null
+        },
+        {
+          "title": "将棋駒の並べ方、伊藤流と大橋流",
+          "url": "https://shogi-joutatsu.com/archives/1137",
+          "local": ".cache/curriculum-source/1137.txt",
+          "localExists": true
+        },
+        {
+          "title": "振り駒による先手と後手の決め方",
+          "url": "https://shogi-joutatsu.com/archives/1106",
+          "local": ".cache/curriculum-source/1106.txt",
+          "localExists": true
+        },
+        {
+          "title": "持ち時間のルール",
+          "url": "https://shogi-joutatsu.com/archives/8083",
+          "local": ".cache/curriculum-source/8083.txt",
+          "localExists": true
+        },
+        {
+          "title": "対局時のマナー",
+          "url": "https://shogi-joutatsu.com/archives/1127",
+          "local": ".cache/curriculum-source/1127.txt",
+          "localExists": true
+        }
+      ],
+      "status": "in progress: semantic and originality review pending; generated output stale",
+      "currentSourceSha256": "59a3d8475cf8a73e2d0627fa1e590a70b56dd93845f88970d8242658562b076b"
+    },
+    {
+      "id": "rules-tsume",
+      "source": "data/lessons/units/rules-tsume.json",
+      "sourceSha256": "785f304261d7e6dba404449aee1fbc6117dd5b0e84efbf0dec060571e4212fcc",
+      "generated": "src/data/lessons/rules-tsume.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-rules-tsume-1",
+        "lesson-rules-tsume-2",
+        "lesson-rules-tsume-3"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "詰将棋の遊び方、ルール",
+          "url": "https://shogi-joutatsu.com/archives/5361",
+          "local": ".cache/curriculum-source/5361.txt",
+          "localExists": true
+        }
+      ],
+      "status": "not started"
+    },
+    {
+      "id": "tesuji-bishop",
+      "source": "data/lessons/units/tesuji-bishop.json",
+      "sourceSha256": "2d9fc6ce4959abd3b38a69186cb1626363f18c1e8d797ef9aa941d516965b356",
+      "generated": "src/data/lessons/tesuji-bishop.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-tesuji-bishop-1",
+        "lesson-tesuji-bishop-2",
+        "lesson-tesuji-bishop-3",
+        "lesson-tesuji-bishop-4"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "角行の動き、手筋と使い方",
+          "url": "https://shogi-joutatsu.com/archives/1586",
+          "local": ".cache/curriculum-source/1586.txt",
+          "localExists": true
+        }
+      ],
+      "status": "in progress: semantic and originality review pending; generated output may be stale",
+      "currentSourceSha256": "2b58da2e93e827c7ec6dcfd625501d5751f104b237c929fed38a53b1b27006fa"
+    },
+    {
+      "id": "tesuji-gold",
+      "source": "data/lessons/units/tesuji-gold.json",
+      "sourceSha256": "f3664a1f90d529c6fb24269240961611f7be6299ee455ec73d319c7a79ae6844",
+      "generated": "src/data/lessons/tesuji-gold.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-tesuji-gold-1",
+        "lesson-tesuji-gold-2",
+        "lesson-tesuji-gold-3"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "金将の動き、手筋と使い方",
+          "url": "https://shogi-joutatsu.com/archives/1516",
+          "local": ".cache/curriculum-source/1516.txt",
+          "localExists": true
+        }
+      ],
+      "status": "in progress: semantic and originality review pending; generated output may be stale",
+      "currentSourceSha256": "af4f7facd8a7013e2be73e36006c1feb81ec9079377ce02837ac88b998701225"
+    },
+    {
+      "id": "tesuji-knight",
+      "source": "data/lessons/units/tesuji-knight.json",
+      "sourceSha256": "af2d8f0fe43f40fa4ab1a608e3fa2da192bdb0fa03cb4e1ce46423992b283ec8",
+      "generated": "src/data/lessons/tesuji-knight.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-tesuji-knight-1",
+        "lesson-tesuji-knight-2",
+        "lesson-tesuji-knight-3",
+        "lesson-tesuji-knight-4"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "桂馬の動き、手筋と使い方",
+          "url": "https://shogi-joutatsu.com/archives/1331",
+          "local": ".cache/curriculum-source/1331.txt",
+          "localExists": true
+        }
+      ],
+      "status": "in progress: semantic and originality review pending; generated output may be stale",
+      "currentSourceSha256": "a21fce4a25a0249a3d3a3b6f7a1dd22ed4b8aa6a995dffff3c0e22a72a33f03e"
+    },
+    {
+      "id": "tesuji-lance",
+      "source": "data/lessons/units/tesuji-lance.json",
+      "sourceSha256": "a7bcbc3adf64f353e9d5677be26ed1d8ee668754e0ec6436a8b5ad2be2d7df87",
+      "generated": "src/data/lessons/tesuji-lance.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-tesuji-lance-1",
+        "lesson-tesuji-lance-2",
+        "lesson-tesuji-lance-3",
+        "lesson-tesuji-lance-4"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "香車の動き、手筋と使い方",
+          "url": "https://shogi-joutatsu.com/archives/1486",
+          "local": ".cache/curriculum-source/1486.txt",
+          "localExists": true
+        }
+      ],
+      "status": "in progress: semantic and originality review pending; generated output may be stale",
+      "currentSourceSha256": "7ad510926e3b9040592b2810863cf281e0ef6dd1c93f73269caca5c5485b2bc8"
+    },
+    {
+      "id": "tesuji-pawn",
+      "source": "data/lessons/units/tesuji-pawn.json",
+      "sourceSha256": "d608a50754960163dde26830758ee3cc7d367d893ce211f8e8772a89f620ab42",
+      "generated": "src/data/lessons/tesuji-pawn.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-tesuji-pawn-1",
+        "lesson-tesuji-pawn-2",
+        "lesson-tesuji-pawn-3",
+        "lesson-tesuji-pawn-4",
+        "lesson-tesuji-pawn-5",
+        "lesson-tesuji-pawn-6",
+        "lesson-tesuji-pawn-7"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "歩兵の動き、手筋と使い方",
+          "url": "https://shogi-joutatsu.com/archives/1629",
+          "local": ".cache/curriculum-source/1629.txt",
+          "localExists": true
+        },
+        {
+          "title": "将棋の技図鑑 (yuki-keio/shogi)",
+          "url": "https://github.com/yuki-keio/shogi",
+          "local": null,
+          "localExists": null
+        }
+      ],
+      "status": "in progress: semantic and originality review pending; generated output may be stale",
+      "currentSourceSha256": "d608a50754960163dde26830758ee3cc7d367d893ce211f8e8772a89f620ab42"
+    },
+    {
+      "id": "tesuji-rook",
+      "source": "data/lessons/units/tesuji-rook.json",
+      "sourceSha256": "4d603fe74487750a36a7cb2d305e9c425f170747b160528c6d154c3fe3f5ec2a",
+      "generated": "src/data/lessons/tesuji-rook.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-tesuji-rook-1",
+        "lesson-tesuji-rook-2",
+        "lesson-tesuji-rook-3"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "飛車の動き、手筋と使い方",
+          "url": "https://shogi-joutatsu.com/archives/1541",
+          "local": ".cache/curriculum-source/1541.txt",
+          "localExists": true
+        }
+      ],
+      "status": "in progress: semantic and originality review pending; generated output may be stale",
+      "currentSourceSha256": "2d0d8e6c03240b94ca30406f06b35a569a85568d2cc16170de6303ae1cd8b1f0"
+    },
+    {
+      "id": "tesuji-silver",
+      "source": "data/lessons/units/tesuji-silver.json",
+      "sourceSha256": "8f482a2c6ff4066c55cc562023db5c237ecb5a64ebb4aff4a16d4f95285fbe70",
+      "generated": "src/data/lessons/tesuji-silver.json",
+      "generatedExists": true,
+      "existingCourseIds": [
+        "lesson-tesuji-silver-1",
+        "lesson-tesuji-silver-2",
+        "lesson-tesuji-silver-3"
+      ],
+      "replacement": "Rewrite the same authored unit and regenerate its standard lesson courses",
+      "references": [
+        {
+          "title": "銀将の動き、手筋と使い方",
+          "url": "https://shogi-joutatsu.com/archives/1313",
+          "local": ".cache/curriculum-source/1313.txt",
+          "localExists": true
+        }
+      ],
+      "status": "in progress: semantic and originality review pending; generated output may be stale",
+      "currentSourceSha256": "399aee6863e90b782fe6105c24ccb2aeba04c0411cbc4a74d1721fc385630444"
+    }
+  ]
+}
