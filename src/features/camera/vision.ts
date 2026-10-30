@@ -399,6 +399,16 @@ export function inferMove(
   return null
 }
 
+export function legalUsis(position: ImmutablePosition) {
+  const color = position.color
+  const hand = position.hand(color)
+  const sources = [
+    ...position.board.listNonEmptySquares().filter((sq) => position.board.at(sq)!.color === color),
+    ...HAND_ORDER.filter((t) => hand.count(t) > 0),
+  ]
+  return sources.flatMap((from) => legalTargets(position, from).flatMap((to) => promotionOptions(position, from, to).map((m) => m.usi)))
+}
+
 export const moveShape = (position: ImmutablePosition, changes: number[]) => {
   const color = position.color
   if (changes.length === 1) {

@@ -15,6 +15,7 @@ import {
   cropCells,
   MOTION,
   moveShape,
+  legalUsis,
   occupancy,
   autoGrid,
   gridLocked,
@@ -39,11 +40,18 @@ const STILL = 2
 const CONFIRM = 2
 const UNSURE = 10
 const TAKEBACK = 4
+const LONG = 45
 const SETUP_TOLERANCE = 4
 
 const changedSquares = (a: string, b: string) => {
   const [p, q] = [positionOf(a), positionOf(b)]
   return Square.all.filter((s) => p.board.at(s)?.type !== q.board.at(s)?.type || p.board.at(s)?.color !== q.board.at(s)?.color).map((s) => s.index)
+}
+const recentReplies = (line: string[], n: number, userSide: Side) => {
+  const out: { ply: number; cells: number[] }[] = []
+  for (let k = n - 1; k >= 0 && k >= n - 4 && out.length < 2; k--)
+    if (colorSide(positionOf(line[k]).color) !== userSide) out.unshift({ ply: k, cells: changedSquares(line[k], line[k + 1]) })
+  return out
 }
 const snapshot = (patches: Float32Array, red: Float32Array): Frame => ({ patches: patches.slice(), red: red.slice() })
 const GRID_WIDTH = 360
@@ -95,8 +103,8 @@ export type CameraStatus =
   | { kind: 'partial'; move: { sfen: string; usi: string }; missing: number[]; extra: number[] }
   | { kind: 'unstable'; cells: number[] }
   | { kind: 'mismatch'; cells: number[] }
-  | { kind: 'expect'; cells: number[]; move?: { sfen: string; usi: string }; undo: boolean }
-  | { kind: 'sent'; sfen: string; usi: string }
+  | { kind: 'expect'; cells: number[]; move?: { sfen: string; usi: string; last?: string }; undo: boolean }
+  | { kind: 'sent'; sfen: string; usi: string; last?: string }
   | { kind: 'takeback'; ply: number }
   | { kind: 'ahead'; cells: number[]; side: Side }
   | { kind: 'unknown'; cells: number[]; added: number[]; side: Side; covered: boolean }
@@ -338,7 +346,12 @@ export function useCamera(deps: CameraDeps) {
         const toMove = colorSide(positionOf(line[at]).color)
         if (opponent && toMove !== userSide) {
           verdict(`behind:${at}`, 1)
-          return setStatus({ kind: 'expect', cells: changedSquares(line[at], live), move: { sfen: line[at], usi: moves[at] }, undo: false })
+          return setStatus({
+            kind: 'expect',
+            cells: changedSquares(line[at], live),
+            move: { sfen: line[at], usi: moves[at], last: moves[at - 1] },
+            undo: false,
+          })
         }
         if (!verdict(`takeback:${at}`, TAKEBACK)) return
         const id = `undo:${n}`
@@ -347,13 +360,20 @@ export function useCamera(deps: CameraDeps) {
         undo()
         return setStatus({ kind: 'takeback', ply: at })
       }
-      const pending = opponent && n > 0 && colorSide(positionOf(line[n - 1]).color) !== userSide ? changedSquares(line[n - 1], live) : null
-      if (pending && off.every((c) => pending.includes(c))) {
-        verdict(`behind:${n - 1}`, 1)
-        return setStatus({ kind: 'expect', cells: pending, move: { sfen: line[n - 1], usi: moves[n - 1] }, undo: false })
+      const replies = opponent ? recentReplies(line, n, userSide) : []
+      const loose = new Set(replies.flatMap((r) => r.cells))
+      if (replies.length && off.every((c) => loose.has(c))) {
+        const reply = replies.find((r) => r.cells.some((c) => off.includes(c)))!
+        verdict(`behind:${reply.ply}`, 1)
+        return setStatus({
+          kind: 'expect',
+          cells: reply.cells,
+          move: { sfen: line[reply.ply], usi: moves[reply.ply], last: moves[reply.ply - 1] },
+          undo: false,
+        })
       }
       const added = off.filter((c) => observed[c] === 1)
-      if (moveShape(here, off)) {
+      const play = (off: number[]) => {
         if (!verdict(`move:${off.join(',')}`, CONFIRM)) return
         if (!canMove || busy) return setStatus({ kind: 'ahead', cells: off, side: colorSide(here.color) })
         if (e.classifying) return
@@ -390,19 +410,28 @@ export function useCamera(deps: CameraDeps) {
             if ('usi' in resolution) {
               commit(resolution.usi)
               if (calibrationRef.current && !calibrationRef.current.oriented) setCalibration({ ...calibrationRef.current, oriented: true })
-              return setStatus({ kind: 'sent', sfen: live, usi: resolution.usi })
+              return setStatus({ kind: 'sent', sfen: live, usi: resolution.usi, last: moves[n - 1] })
             }
             promote(resolution.promote.from, resolution.promote.to)
           })
-        return
       }
-      if (!verdict(`off:${off.join(',')}`, UNSURE)) return
-      if (off.length > SETUP_TOLERANCE)
-        return setStatus(
-          added.length * 3 >= off.length * 2
-            ? { kind: 'unknown', cells: off, added, side: colorSide(here.color), covered: true }
-            : { kind: 'mismatch', cells: off },
-        )
+      if (moveShape(here, off)) return play(off)
+      if (loose.size && canMove && !busy) {
+        const expected = occupancyOf(here)
+        const found = new Map<string, number[]>()
+        for (const usi of legalUsis(here)) {
+          const next = positionOf(live)
+          next.doMove(next.createMoveByUSI(usi)!)
+          const after = occupancyOf(next)
+          const cells = occupancyChanges(expected, after)
+          if (cells.some((c) => !loose.has(c)) && occupancyChanges(after, observed).every((c) => loose.has(c))) found.set(cells.join(','), cells)
+        }
+        if (found.size === 1) return play([...found.values()][0])
+      }
+      const covered = off.length > SETUP_TOLERANCE && added.length * 3 >= off.length * 2
+      if (!verdict(`off:${off.join(',')}`, covered ? LONG : UNSURE)) return
+      if (covered) return setStatus({ kind: 'unknown', cells: off, added, side: colorSide(here.color), covered: true })
+      if (off.length > SETUP_TOLERANCE) return setStatus({ kind: 'mismatch', cells: off })
       setStatus({ kind: 'unknown', cells: off, added, side: colorSide(here.color), covered: false })
     },
     [latest, setStatus, calibrationRef, setCalibration, anchor],
@@ -519,7 +548,7 @@ export function useCamera(deps: CameraDeps) {
       e.settled = e.occupied.slice()
       e.still = 0
       e.calm = 0
-      if (++e.moving >= 8) setStatus({ kind: 'moving' })
+      if (++e.moving >= LONG) setStatus({ kind: 'moving' })
       return
     }
     const unsteady = e.settled ? [...e.occupied.keys()].filter((c) => e.settled![c] !== e.occupied[c]) : []

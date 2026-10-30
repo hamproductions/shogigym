@@ -13,7 +13,7 @@ import type { Point } from './geometry'
 import { useCamera, type CameraDebug, type CameraStatus } from './useCamera'
 import { encode } from 'uqr'
 import { deskId, PHONE_SOURCE, phoneUrl } from './phone'
-import { announce, moveParts, moveReading, squareName, squareParts, squareReading } from './speech'
+import { announce, moveParts, moveReading, squareName, squareParts } from './speech'
 import { cellPolygon, gridLines } from './vision'
 
 type CameraPanelProps = {
@@ -234,19 +234,23 @@ const Cell = styled(SvgPath, { base: { fill: 'accent', opacity: '0.45', '&[data-
 
 const path = (points: Point[]) => points.map((p, i) => `${i ? 'L' : 'M'}${p.x} ${p.y}`).join('') + 'Z'
 
-function spokenParts(status: CameraStatus): string[] {
+function spokenParts(status: CameraStatus, live: string): string[] {
   const sideKey = (side: Side) => (side === 'sente' ? '先手' : '後手')
   switch (status.kind) {
     case 'sent':
-      return moveParts(moveText(status.sfen, status.usi))
+      return moveParts(moveText(status.sfen, status.usi, status.last))
     case 'expect':
-      return status.move ? [...moveParts(moveText(status.move.sfen, status.move.usi)), 'cam:をさしてください'] : []
+      return status.move ? [...moveParts(moveText(status.move.sfen, status.move.usi, status.move.last)), 'cam:をさしてください'] : []
     case 'unknown':
-      return status.covered ? ['cam:手が盤にかかっています'] : [...status.cells.slice(0, 2).flatMap(squareParts), 'cam:を確認してください']
+      return status.covered ? ['cam:手が盤にかかっています'] : stepParts(status.cells, live)
     case 'watching':
       return status.ready ? ['cam:あなたの番です'] : []
     case 'ahead':
-      return [`cam:いまは${sideKey(status.side)}の番です`]
+      return [`cam:いまは${sideKey(status.side)}の番です`, ...stepParts(status.cells, live)]
+    case 'mismatch':
+      return stepParts(status.cells, live)
+    case 'takeback':
+      return ['cam:待ったしました']
     case 'shifted':
       return ['cam:盤が動きました']
     case 'drop':
@@ -259,11 +263,9 @@ function spokenParts(status: CameraStatus): string[] {
 function spokenText(status: CameraStatus) {
   switch (status.kind) {
     case 'sent':
-      return moveReading(moveText(status.sfen, status.usi))
+      return moveReading(moveText(status.sfen, status.usi, status.last))
     case 'expect':
-      return status.move ? `${moveReading(moveText(status.move.sfen, status.move.usi))}、をさしてください` : ''
-    case 'unknown':
-      return `${status.cells.map((c) => `${squareReading(c)}${status.added.includes(c) ? 'に こまが ふえました' : 'の こまが きえました'}`).join('、')}。${status.side === 'sente' ? 'せんて' : 'ごて'}の さしてに なりません`
+      return status.move ? `${moveReading(moveText(status.move.sfen, status.move.usi, status.move.last))}、をさしてください` : ''
     case 'ahead':
       return `いまは ${status.side === 'sente' ? 'せんて' : 'ごて'}の ばんです`
     case 'shifted':
@@ -273,6 +275,40 @@ function spokenText(status: CameraStatus) {
     default:
       return ''
   }
+}
+
+const route = (usi: string) =>
+  usi[1] === '*' ? '' : `（${squareName(Square.newByUSI(usi.slice(0, 2))!.index)}→${squareName(Square.newByUSI(usi.slice(2, 4))!.index)}）`
+
+type Step = { from?: number; to?: number }
+
+function plan(cells: number[], live: string): Step[] {
+  const position = positionOf(live)
+  const missing = cells.filter((c) => position.board.at(Square.newByIndex(c)))
+  const left = cells.filter((c) => !position.board.at(Square.newByIndex(c)))
+  const distance = (a: number, b: number) => Math.max(Math.abs((a % 9) - (b % 9)), Math.abs(Math.floor(a / 9) - Math.floor(b / 9)))
+  const out: Step[] = missing.map((to) => ({ from: left.sort((a, b) => distance(a, to) - distance(b, to)).shift(), to }))
+  return [...out, ...left.map((from) => ({ from }))]
+}
+
+function steps(cells: number[], live: string, t: (key: string, options?: Record<string, unknown>) => string) {
+  const out = plan(cells, live).map(({ from, to }) =>
+    to === undefined
+      ? t('camera.stepRemove', { from: squareName(from!) })
+      : from === undefined
+        ? t('camera.stepPlace', { piece: squareContent(live, to, t), to: squareName(to) })
+        : t('camera.stepMove', { from: squareName(from), to: squareName(to), piece: squareContent(live, to, t) }),
+  )
+  return out.slice(0, 3).join(' ') + (out.length > 3 ? t('camera.more', { count: out.length - 3 }) : '')
+}
+
+function stepParts(cells: number[], live: string) {
+  const [first] = plan(cells, live)
+  if (!first) return []
+  const { from, to } = first
+  if (to === undefined) return [...squareParts(from!), 'cam:の駒をどけてください']
+  if (from === undefined) return [...squareParts(to), 'cam:に駒を置いてください']
+  return [...squareParts(from), 'cam:の駒を', ...squareParts(to), 'cam:へうごかしてください']
 }
 
 function squareContent(live: string, cell: number, t: (key: string) => string) {
@@ -307,26 +343,21 @@ function statusText(status: CameraStatus, t: (key: string, options?: Record<stri
     case 'unstable':
       return t('camera.unstable', { squares: status.cells.slice(0, 3).map(squareName).join('・') })
     case 'mismatch':
-      return t('camera.mismatch', { count: status.cells.length })
+      return steps(status.cells, live, t) || t('camera.mismatch', { count: status.cells.length })
     case 'expect':
       return status.move
-        ? t('camera.expect', { move: moveText(status.move.sfen, status.move.usi) })
+        ? t('camera.expect', { move: `${moveText(status.move.sfen, status.move.usi, status.move.last)}${route(status.move.usi)}` })
         : status.cells.length <= 6
-          ? t('camera.setupSquares', { squares: status.cells.map((c) => `${squareName(c)} ${squareContent(live, c, t)}`).join('・') })
+          ? steps(status.cells, live, t)
           : t('camera.setup', { count: status.cells.length })
     case 'sent':
-      return t('camera.sent', { move: moveText(status.sfen, status.usi) })
+      return t('camera.sent', { move: moveText(status.sfen, status.usi, status.last) })
     case 'takeback':
       return t('camera.takeback')
     case 'ahead':
-      return t('camera.ahead', { side: sideMark(status.side), squares: status.cells.map(squareName).join('・') })
+      return t('camera.ahead', { side: sideMark(status.side), steps: steps(status.cells, live, t) })
     case 'unknown':
-      return status.covered
-        ? t('camera.covered')
-        : status.cells
-            .slice(0, 2)
-            .map((c) => t(status.added.includes(c) ? 'camera.seenPiece' : 'camera.missingPiece', { square: squareName(c) }))
-            .join(t('camera.and')) + (status.cells.length > 2 ? t('camera.more', { count: status.cells.length - 2 }) : '')
+      return status.covered ? t('camera.covered') : steps(status.cells, live, t)
     case 'shifted':
       return t('camera.shifted')
     case 'searching':
@@ -350,7 +381,7 @@ export function CameraPanel({ onClose, docked = false, ...deps }: CameraPanelPro
   const [spoken, setSpoken] = useState({ key: '', at: 0 })
   useEffect(() => {
     if (place.mute) return
-    const parts = spokenParts(status)
+    const parts = spokenParts(status, deps.live)
     if (!parts.length) return
     const key = status.kind === 'watching' ? `ready:${status.ply}` : parts.join('|')
     const now = Date.now()
