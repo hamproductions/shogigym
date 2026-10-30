@@ -18,7 +18,55 @@ export function deskId() {
   }
 }
 
-export const phoneUrl = (id: string) => `${location.origin}${import.meta.env.BASE_URL}${PHONE_PATH}?to=${encodeURIComponent(id)}`
+export const phoneUrl = (id?: string) => `${location.origin}${import.meta.env.BASE_URL}${PHONE_PATH}${id ? `?to=${encodeURIComponent(id)}` : ''}`
+
+const ROOM = 'shogigym-room-'
+const TARGET_KEY = 'joseki-practice:camera-target:v1'
+
+export function lastDesk() {
+  try {
+    return localStorage.getItem(TARGET_KEY)
+  } catch {
+    return null
+  }
+}
+
+export function rememberDesk(id: string) {
+  if (id.startsWith(ROOM)) return
+  try {
+    localStorage.setItem(TARGET_KEY, id)
+  } catch {
+    return
+  }
+}
+
+function publicAddress(): Promise<string | null> {
+  return new Promise((resolve) => {
+    const connection = new RTCPeerConnection({ iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] })
+    const done = (address: string | null) => {
+      clearTimeout(timer)
+      connection.close()
+      resolve(address)
+    }
+    const timer = setTimeout(() => done(null), 4000)
+    connection.onicecandidate = ({ candidate }) => {
+      const parts = candidate?.candidate.split(' ') ?? []
+      if (parts[7] === 'srflx' && parts[4]?.includes('.')) done(parts[4])
+    }
+    connection.createDataChannel('probe')
+    connection
+      .createOffer()
+      .then((offer) => connection.setLocalDescription(offer))
+      .catch(() => done(null))
+  })
+}
+
+export async function roomId() {
+  const address = await publicAddress()
+  if (!address) return null
+  const digest = new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`shogigym:${address}`)))
+  return ROOM + [...digest.slice(0, 8)].map((b) => b.toString(16).padStart(2, '0')).join('')
+}
 
 const createPeer = async (id?: string): Promise<Peer> => {
   const { default: PeerClass } = await import('peerjs')
@@ -28,14 +76,21 @@ const createPeer = async (id?: string): Promise<Peer> => {
 export type PhoneLink = 'waiting' | 'connected' | 'error'
 
 export function receivePhone(onStream: (stream: MediaStream | null) => void, onLink: (link: PhoneLink) => void) {
-  let peer: Peer | null = null
+  const peers: Peer[] = []
   let stopped = false
-  void createPeer(deskId()).then((created) => {
+  let retry = 0
+  const listen = async (id: string, primary: boolean) => {
+    const created = await createPeer(id)
     if (stopped) return created.destroy()
-    peer = created
-    created.on('open', () => onLink('waiting'))
-    created.on('error', () => onLink('error'))
-    created.on('disconnected', () => !stopped && created.reconnect())
+    peers.push(created)
+    if (primary) created.on('open', () => onLink('waiting'))
+    created.on('error', (error) => {
+      if (error.type === 'unavailable-id') {
+        created.destroy()
+        if (!stopped) retry = window.setTimeout(() => void listen(id, primary), 5000)
+      } else if (primary) onLink('error')
+    })
+    created.on('disconnected', () => !stopped && !created.destroyed && created.reconnect())
     created.on('call', (call) => {
       call.answer()
       call.on('stream', (stream) => {
@@ -47,47 +102,49 @@ export function receivePhone(onStream: (stream: MediaStream | null) => void, onL
         onStream(null)
       })
     })
+  }
+  void listen(deskId(), true)
+  void roomId().then((id) => {
+    if (id && !stopped) void listen(id, false)
   })
   return () => {
     stopped = true
-    peer?.destroy()
+    clearTimeout(retry)
+    peers.forEach((peer) => peer.destroy())
   }
 }
 
 export function sendPhone(to: string, stream: MediaStream, onLink: (link: PhoneLink) => void) {
   let peer: Peer | null = null
   let stopped = false
-  let retry = 0
-  const call = () => {
-    if (!peer || stopped) return
-    const media = peer.call(to, stream)
-    media.on('stream', () => undefined)
-    media.peerConnection?.addEventListener('connectionstatechange', () => {
-      const state = media.peerConnection.connectionState
-      if (state === 'connected') onLink('connected')
-      if (state === 'failed' || state === 'disconnected') {
-        onLink('waiting')
-        retry = window.setTimeout(call, 1500)
-      }
-    })
-    media.on('close', () => {
-      onLink('waiting')
-      if (!stopped) retry = window.setTimeout(call, 1500)
+  let connected = false
+  const restart = () => {
+    peer?.destroy()
+    peer = null
+    connected = false
+    void createPeer().then((created) => {
+      if (stopped) return created.destroy()
+      peer = created
+      created.on('open', () => {
+        const media = created.call(to, stream)
+        media.peerConnection?.addEventListener('connectionstatechange', () => {
+          const state = media.peerConnection.connectionState
+          connected = state === 'connected'
+          onLink(connected ? 'connected' : 'waiting')
+        })
+        media.on('close', () => {
+          connected = false
+          onLink('waiting')
+        })
+      })
+      created.on('error', (error) => error.type !== 'peer-unavailable' && onLink('error'))
     })
   }
-  void createPeer().then((created) => {
-    if (stopped) return created.destroy()
-    peer = created
-    created.on('open', call)
-    created.on('error', () => {
-      onLink('error')
-      if (!stopped) retry = window.setTimeout(call, 2000)
-    })
-    created.on('disconnected', () => !stopped && created.reconnect())
-  })
+  restart()
+  const watchdog = window.setInterval(() => !connected && restart(), 6000)
   return () => {
     stopped = true
-    clearTimeout(retry)
+    clearInterval(watchdog)
     peer?.destroy()
   }
 }

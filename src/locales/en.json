@@ -1341,7 +1341,7 @@
     "goteSide": "☖ Gote side",
     "sending": "Sending to the board app · {{count}} frames. Point the camera at the whole board and keep this screen on.",
     "phone": "Phone (Wi-Fi)",
-    "phoneWaiting": "Scan this QR code with your phone's camera, allow camera access, and point it at the board.",
+    "phoneWaiting": "Scan this QR code with your phone, or on the same Wi-Fi just open the address below on the phone. It connects by itself, and reconnects automatically next time.",
     "undo": "Undo that move",
     "video": "Video file",
     "ended": "Video finished. Copy the KIF from the 棋譜 tab.",
@@ -1369,7 +1369,7 @@
     "senderWaiting": "Connecting to the board app… Keep this screen on and point the camera at the whole board.",
     "senderConnected": "Connected. Point the camera at the whole board and keep this screen on.",
     "senderError": "Can't reach the board app. Check both devices are online; retrying…",
-    "senderNoTarget": "Open this page by scanning the QR code in the board app's camera panel.",
+    "senderNoTarget": "Couldn't find the board app. Open the camera panel on the computer, or scan its QR code.",
     "phoneLinkError": "Can't reach the connection service. Check the internet connection."
   }
 }

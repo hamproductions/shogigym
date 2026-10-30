@@ -228,7 +228,7 @@ function PhoneCode() {
       <styled.svg viewBox={`0 0 ${data.length} ${data.length}`} width="min(180px, 60%)" height="auto" bg="white" shapeRendering="crispEdges" aria-label={url}>
         <SvgPath d={d} fill="black" />
       </styled.svg>
-      <QrUrl>{url}</QrUrl>
+      <QrUrl>{phoneUrl()}</QrUrl>
     </QrBox>
   )
 }

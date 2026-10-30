@@ -203,6 +203,24 @@ export function useCamera(deps: CameraDeps) {
     if (open) preloadClassifier()
   }, [open])
 
+  const [phone, setPhone] = useState<{ stream: MediaStream | null; link: PhoneLink }>({ stream: null, link: 'waiting' })
+  useEffect(() => {
+    if (!open || file) return
+    return receivePhone(
+      (media) => {
+        setPhone((p) => ({ ...p, stream: media }))
+        if (media) update((s) => (s.deviceId === PHONE_SOURCE ? s : { ...s, deviceId: PHONE_SOURCE }))
+      },
+      (link) => setPhone((p) => ({ ...p, link })),
+    )
+  }, [open, file, update])
+
+  useEffect(() => {
+    if (!open || file || stored.deviceId !== PHONE_SOURCE) return
+    setStream(phone.stream)
+    if (!phone.stream) setStatus({ kind: 'phone', link: phone.link })
+  }, [open, file, stored.deviceId, phone, setStatus])
+
   useEffect(() => {
     if (!open || file) return
     let cancelled = false
@@ -213,20 +231,9 @@ export function useCamera(deps: CameraDeps) {
         .then((all) => !cancelled && setDevices(all.filter((d) => d.kind === 'videoinput')))
         .catch(() => undefined)
     if (stored.deviceId === PHONE_SOURCE) {
-      setStatus({ kind: 'phone', link: 'waiting' })
-      const stop = receivePhone(
-        (media) => {
-          if (cancelled) return
-          setStream(media)
-          if (!media) setStatus({ kind: 'phone', link: 'waiting' })
-        },
-        (link) => !cancelled && link !== 'connected' && setStatus({ kind: 'phone', link }),
-      )
       listDevices()
       return () => {
         cancelled = true
-        stop()
-        setStream(null)
       }
     }
     const constraints: MediaTrackConstraints = stored.deviceId

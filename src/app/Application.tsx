@@ -74,6 +74,8 @@ const PieceViewer = lazy(() => import('@/features/piece-viewer/PieceViewer').the
 const Furigoma = lazy(() => import('@/app/stage/Furigoma').then((m) => ({ default: m.Furigoma })))
 const CameraPanel = lazy(() => import('@/features/camera/CameraPanel').then((m) => ({ default: m.CameraPanel })))
 
+const CAMERA_OPEN = 'joseki-practice:camera-open:v1'
+
 export function Application({ routeMode, routeMain }: { routeMode?: string; routeMain?: string }) {
   const courseVersion = useCourseVersion()
   useEffect(() => {
@@ -93,6 +95,20 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
   const [palette, setPalette] = useState(false)
   const [showImport, setShowImport] = useState(false)
   const [cameraOpen, setCameraOpen] = useState(false)
+  useEffect(() => {
+    try {
+      if (localStorage.getItem(CAMERA_OPEN) === '1') setCameraOpen(true)
+    } catch {
+      return
+    }
+  }, [])
+  useEffect(() => {
+    try {
+      localStorage.setItem(CAMERA_OPEN, cameraOpen ? '1' : '0')
+    } catch {
+      return
+    }
+  }, [cameraOpen])
   const [cameraLive, setCameraLive] = useState(false)
   const [showTrends, setShowTrends] = useState(false)
   const [report, setReport] = useState(false)
