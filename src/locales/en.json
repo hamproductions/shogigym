@@ -60,6 +60,7 @@
     "toLivePosition": "Back to the current position",
     "checkYourKingIsIn": "Check! Your king is in check.",
     "yourMove": "Your move.",
+    "playAiMoveOnBoard": "Play the AI's move {{move}} on the board.",
     "theAiIsThinking": "The AI is thinking.",
     "tryAnythingTheAiTab": "Try anything. The AI tab rates the position.",
     "you": "You",

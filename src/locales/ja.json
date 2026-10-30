@@ -60,6 +60,7 @@
     "toLivePosition": "現局面に戻る",
     "checkYourKingIsIn": "王手！ 玉に王手がかかっています。",
     "yourMove": "あなたの手番です。",
+    "playAiMoveOnBoard": "AIの手 {{move}} を盤で指してください。",
     "theAiIsThinking": "AIが考えています。",
     "tryAnythingTheAiTab": "自由に指してみましょう。形勢タブで局面を評価します。",
     "you": "あなた",

@@ -306,6 +306,8 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
         ? t('app.wasAMistakeTryAgain', { move: moveText(session.sfens[mistake.base], mistake.usi) })
         : t(mode === 'lesson' || mode === 'drill' ? 'app.isAFineMoveBut' : 'app.isAFineMoveNotIt', { move: moveText(session.sfens[mistake.base], mistake.usi) })
     if (preview) return t('app.previewWatchItPlayOut')
+    if (mode === 'spar' && cameraOpen && cameraLive && opponent.reply)
+      return t('app.playAiMoveOnBoard', { move: moveText(session.sfens[session.sfens.length - 1], opponent.reply.usi, game.moves.at(-1)) })
     return { lesson, drill, tesuji, tsume, spar, view: watch, analyze }[mode].instruction()
   })()
   const title = mode === 'lesson' ? lesson.title : mode === 'tsume' ? (tsume.title ?? analyze.title) : { drill, tesuji, spar, view: watch, analyze }[mode].title
