@@ -535,7 +535,7 @@ function search(
 }
 
 export function scoreToCp(score: Score): number {
-  return 'cp' in score ? score.cp : Math.sign(score.mate || 1) * 30000
+  return 'cp' in score ? score.cp : score.mate > 0 ? 30000 : -30000
 }
 
 export function formatScore(score: Score): string {

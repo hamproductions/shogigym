@@ -20,7 +20,6 @@ import {
   autoGrid,
   gridLocked,
   gridScore,
-  snapRefine,
   occupancyChanges,
   occupancyOf,
   SHIFTED,
@@ -517,18 +516,6 @@ export function useCamera(deps: CameraDeps) {
         e.previous = null
         e.settled = null
         return setCalibration({ ...calibration, corners: found.corners })
-      }
-    } else if (now - e.gridAt > 3000 && e.still >= STILL && e.anchorFor && samePosition(e.anchorFor, latest.current.live)) {
-      e.gridAt = now
-      const { small, score: before } = gridAt(calibration.corners)
-      const snapped = snapRefine(small.data, small.width, small.height, calibration.corners)
-      const moved = Math.max(...snapped.corners.map((c, i) => Math.hypot(c.x - calibration.corners[i].x, c.y - calibration.corners[i].y))) > 0.004
-      if (moved && snapped.score > before * 1.05 && gridLocked(small.data, small.width, small.height, snapped.corners)) {
-        e.reference = null
-        e.anchorFor = null
-        e.previous = null
-        e.settled = null
-        return setCalibration({ ...calibration, corners: snapped.corners })
       }
     }
     if (e.orient || calibration.lift === undefined) {

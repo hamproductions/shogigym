@@ -47,7 +47,7 @@ export function useAutoRate({ enabled, sfens, moves, allSides, userSide, cursor,
           if (cancelled) return
           rememberReview(sfens[i], list[i], review)
           onScore(strip(sfens[i]), scoreToCp(toSente(review.before, colorSide(positionOf(sfens[i]).color))))
-          if (sfens[i + 1]) onScore(strip(sfens[i + 1]), scoreToCp(toSente(review.after, colorSide(positionOf(sfens[i + 1]).color))))
+          if (sfens[i + 1]) onScore(strip(sfens[i + 1]), scoreToCp(toSente(review.after, colorSide(positionOf(sfens[i]).color))))
         } catch {
           break
         }
