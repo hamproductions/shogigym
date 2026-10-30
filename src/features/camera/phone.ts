@@ -48,7 +48,7 @@ function publicAddress(): Promise<string | null> {
       connection.close()
       resolve(address)
     }
-    const timer = setTimeout(() => done(null), 4000)
+    const timer = setTimeout(() => done(null), 10000)
     connection.onicecandidate = ({ candidate }) => {
       const parts = candidate?.candidate.split(' ') ?? []
       if (parts[7] === 'srflx' && parts[4]?.includes('.')) done(parts[4])
@@ -61,8 +61,9 @@ function publicAddress(): Promise<string | null> {
   })
 }
 
-export async function roomId() {
+export async function roomId(attempts = 3): Promise<string | null> {
   const address = await publicAddress()
+  if (!address && attempts > 1) return roomId(attempts - 1)
   if (!address) return null
   const digest = new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`shogigym:${address}`)))
   return ROOM + [...digest.slice(0, 8)].map((b) => b.toString(16).padStart(2, '0')).join('')
