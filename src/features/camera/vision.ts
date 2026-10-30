@@ -443,6 +443,7 @@ export const SHIFTED = 6
 export function decide(observed: Uint8Array, baseline: Uint8Array, physical: string, live: string, targets: string[], canMove: boolean): Decision {
   const here = positionOf(physical)
   const changes = occupancyChanges(baseline, observed)
+  if (physical !== live && !occupancyChanges(occupancyOf(positionOf(live)), observed).length) return { kind: 'sync', sfen: live }
   if (!changes.length) return { kind: 'idle' }
   const expected = occupancyOf(here)
   const reached = targets.filter((sfen) => sameSet(occupancyChanges(expected, occupancyOf(positionOf(sfen))), changes))

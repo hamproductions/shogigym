@@ -382,14 +382,16 @@ export function useCamera(deps: CameraDeps) {
               })
             }
           }
-          if (e.streak.count >= UNSURE)
+          if (e.streak.count >= UNSURE) {
+            const off = occupancyChanges(occupancyOf(positionOf(live)), e.occupied)
             setStatus({
               kind: 'unknown',
-              cells: decision.cells,
-              added: decision.added,
-              side: colorSide(positionOf(physical).color),
+              cells: off,
+              added: off.filter((c) => e.occupied[c] === 1),
+              side: colorSide(positionOf(live).color),
               covered: decision.added.length >= 3 && decision.added.length === decision.cells.length,
             })
+          }
           return
         case 'move': {
           if (!confirmed) return
