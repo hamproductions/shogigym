@@ -240,8 +240,6 @@ const path = (points: Point[]) => points.map((p, i) => `${i ? 'L' : 'M'}${p.x} $
 function spokenParts(status: CameraStatus, live: string): string[] {
   const sideKey = (side: Side) => (side === 'sente' ? '先手' : '後手')
   switch (status.kind) {
-    case 'sent':
-      return moveParts(moveText(status.sfen, status.usi, status.last))
     case 'expect':
       return status.move ? [...moveParts(moveText(status.move.sfen, status.move.usi, status.move.last)), 'cam:をさしてください'] : []
     case 'unknown':
@@ -254,8 +252,6 @@ function spokenParts(status: CameraStatus, live: string): string[] {
       return stepParts(status.cells, live)
     case 'takeback':
       return ['cam:待ったしました']
-    case 'shifted':
-      return ['cam:盤が動きました']
     case 'drop':
       return ['cam:どの駒を打ちましたか']
     default:
@@ -271,8 +267,6 @@ function spokenText(status: CameraStatus) {
       return status.move ? `${moveReading(moveText(status.move.sfen, status.move.usi, status.move.last))}、をさしてください` : ''
     case 'ahead':
       return `いまは ${status.side === 'sente' ? 'せんて' : 'ごて'}の ばんです`
-    case 'shifted':
-      return 'ばんが うごきました。あわせなおします'
     case 'drop':
       return 'どの こまを うちましたか'
     default:
@@ -398,8 +392,7 @@ export function CameraPanel({ onClose, docked = false, onLive, ...deps }: Camera
       announce(parts, spokenText(status))
       setSpoken({ key, at: Date.now() })
     }
-    if (status.kind !== 'unknown') return say()
-    const timer = setTimeout(say, 1500)
+    const timer = setTimeout(say, status.kind === 'unknown' || status.kind === 'mismatch' ? 1500 : 600)
     return () => clearTimeout(timer)
   }, [status, place.mute, spoken])
   const savePlace = (next: Place) => {

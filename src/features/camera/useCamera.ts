@@ -293,6 +293,7 @@ export function useCamera(deps: CameraDeps) {
     noise: 0,
     streak: { key: '', count: 0 },
     anchorFor: null as string | null,
+    shiftedFor: 0,
     matched: -1,
     booked: null as string | null,
     book: new PieceBook(),
@@ -610,9 +611,12 @@ export function useCamera(deps: CameraDeps) {
       }
     }
     if (off.length >= SHIFTED && e.lines > 0 && gridAt(calibration.corners).score < e.lines * 0.6) {
+      if (++e.shiftedFor < LONG) return
+      e.shiftedFor = 0
       e.regrid = true
       return setStatus({ kind: 'shifted' })
     }
+    e.shiftedFor = 0
     if (!off.length) e.lines = Math.max(e.lines * 0.9, gridAt(calibration.corners).score)
     resolve(off)
   }, [calibrationRef, resolve, latest, autoFit, setCalibration, setStatus])

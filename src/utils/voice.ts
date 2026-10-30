@@ -5,6 +5,8 @@ let manifest: Promise<Record<string, string>> | null = null
 const clips = new Map<string, Promise<AudioBuffer | null>>()
 let playing: AudioBufferSourceNode | null = null
 let playingUntil = 0
+let sequence: GainNode | null = null
+let turn = 0
 
 const load = (text: string) => {
   let clip = clips.get(text)
@@ -36,6 +38,8 @@ export function say(text: string, urgent = false) {
     const ac = audioContext()
     if (!urgent && ac.currentTime < playingUntil) return
     playing?.stop()
+    sequence?.disconnect()
+    sequence = null
     const source = ac.createBufferSource()
     const gain = ac.createGain()
     gain.gain.value = Math.min(1, volume * 1.5)
@@ -75,12 +79,16 @@ const JOIN = 0.12
 export async function sayParts(texts: string[]) {
   const { sound, voice, volume } = getSettings()
   if (!sound || !voice || document.hidden || !texts.length) return true
+  const mine = ++turn
   const buffers = await Promise.all(texts.map(load))
   if (buffers.some((b) => !b)) return false
+  if (mine !== turn) return true
   const ac = audioContext()
   playing?.stop()
+  sequence?.disconnect()
   let at = ac.currentTime + 0.02
   const gain = ac.createGain()
+  sequence = gain
   gain.gain.value = Math.min(1, volume * 1.5)
   gain.connect(ac.destination)
   for (const buffer of buffers as AudioBuffer[]) {
