@@ -21,6 +21,7 @@ type CameraPanelProps = {
   line: string[]
   moves: string[]
   userSide: Side
+  opponent: boolean
   canMove: boolean
   busy: boolean
   over: boolean
@@ -315,6 +316,8 @@ function statusText(status: CameraStatus, t: (key: string, options?: Record<stri
           : t('camera.setup', { count: status.cells.length })
     case 'sent':
       return t('camera.sent', { move: moveText(status.sfen, status.usi) })
+    case 'takeback':
+      return t('camera.takeback')
     case 'ahead':
       return t('camera.ahead', { side: sideMark(status.side), squares: status.cells.map(squareName).join('・') })
     case 'unknown':
@@ -542,15 +545,6 @@ export function CameraPanel({ onClose, docked = false, ...deps }: CameraPanelPro
               {t('camera.undo')}
             </Button>
           )}
-          <Button
-            size="sm"
-            variant={status.kind === 'mismatch' ? 'primary' : 'secondary'}
-            onClick={camera.resync}
-            disabled={!complete}
-            title={t('camera.syncTitle')}
-          >
-            {t('camera.sync')}
-          </Button>
         </Row>
       )}
     </Panel>

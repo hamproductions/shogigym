@@ -1,5 +1,5 @@
 import { Color, PieceType, Square, type ImmutablePosition } from 'tsshogi'
-import { HAND_ORDER, legalTargets, positionOf, promotionOptions } from '@/utils/shogi'
+import { HAND_ORDER, legalTargets, promotionOptions } from '@/utils/shogi'
 import { apply, homography, PIECE_HEIGHT, pose, SQUARE_ASPECT, type Point } from './geometry'
 
 export const PATCH = 24
@@ -399,14 +399,7 @@ export function inferMove(
   return null
 }
 
-export type Decision =
-  | { kind: 'idle' }
-  | { kind: 'sync'; sfen: string }
-  | { kind: 'move'; changes: number[] }
-  | { kind: 'flip' }
-  | { kind: 'unknown'; cells: number[]; added: number[]; shifted: boolean }
-
-const moveShape = (position: ImmutablePosition, changes: number[]) => {
+export const moveShape = (position: ImmutablePosition, changes: number[]) => {
   const color = position.color
   if (changes.length === 1) {
     const piece = position.board.at(Square.newByIndex(changes[0]))
@@ -419,47 +412,7 @@ const moveShape = (position: ImmutablePosition, changes: number[]) => {
   return pieces.filter((p) => p).length === 1 && mover!.color === color
 }
 
-const legalChange = (position: ImmutablePosition, changes: number[]) => {
-  if (!moveShape(position, changes)) return false
-  const squares = changes.map((c) => Square.newByIndex(c))
-  if (squares.length === 1) {
-    const at = squares[0]
-    const piece = position.board.at(at)
-    if (!piece)
-      return HAND_ORDER.some(
-        (t) => position.hand(position.color).count(t) > 0 && !!position.createMove(t, at) && position.isValidMove(position.createMove(t, at)!),
-      )
-    return legalTargets(position, at).some((to) => !!position.board.at(to) && position.board.at(to)!.color !== position.color)
-  }
-  const [from, to] = position.board.at(squares[0]) ? squares : [squares[1], squares[0]]
-  return legalTargets(position, from).some((sq) => sq.equals(to))
-}
-
-const sameSet = (a: number[], b: number[]) => a.length === b.length && a.every((v) => b.includes(v))
-
-export const SETUP_TOLERANCE = 4
 export const SHIFTED = 6
-
-export function decide(observed: Uint8Array, baseline: Uint8Array, physical: string, live: string, targets: string[], canMove: boolean): Decision {
-  const here = positionOf(physical)
-  const changes = occupancyChanges(baseline, observed)
-  if (physical !== live && !occupancyChanges(occupancyOf(positionOf(live)), observed).length) return { kind: 'sync', sfen: live }
-  if (!changes.length) return { kind: 'idle' }
-  const expected = occupancyOf(here)
-  const reached = targets.filter((sfen) => sameSet(occupancyChanges(expected, occupancyOf(positionOf(sfen))), changes))
-  const legal = moveShape(here, changes)
-  if (legal && canMove && physical === live) return { kind: 'move', changes }
-  if (reached.length) return { kind: 'sync', sfen: reached.includes(live) ? live : reached[0] }
-  if (legal) return { kind: 'move', changes }
-  if (
-    legalChange(
-      here,
-      changes.map((c) => CELLS - 1 - c),
-    )
-  )
-    return { kind: 'flip' }
-  return { kind: 'unknown', cells: changes, added: changes.filter((c) => observed[c] === 1), shifted: changes.length >= SHIFTED }
-}
 
 const LIFTS = [0, 0.04, 0.08, 0.12, 0.16, 0.2, 0.24]
 

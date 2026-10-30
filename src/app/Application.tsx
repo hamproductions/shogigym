@@ -439,6 +439,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
       line={session.sfens}
       moves={game.moves}
       userSide={userSide}
+      opponent={mode === 'spar'}
       canMove={input.canMove && !session.visualMoving && !session.promotion}
       busy={session.visualMoving}
       over={session.gameOver || (mode === 'spar' && spar.over)}
