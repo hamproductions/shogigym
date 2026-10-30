@@ -464,7 +464,7 @@ export function lineContrasts(data: Uint8ClampedArray, width: number, height: nu
           const p = apply(plane, vertical ? { x: a, y: b } : { x: b, y: a })
           return luma(data, width, height, p.x, p.y)
         }
-        sum += Math.min(at(k - 0.12, t), at(k + 0.12, t)) - at(k, t)
+        sum += Math.min(at(k - 0.12, t), at(k + 0.12, t)) - Math.min(at(k - 0.04, t), at(k, t), at(k + 0.04, t))
         n++
       }
       out.push(sum / n)
@@ -490,7 +490,7 @@ export function gridScore(data: Uint8ClampedArray, width: number, height: number
         }
         const lo = k - 0.12
         const hi = k + 0.12
-        line += at(k, t)
+        line += Math.min(at(k - 0.04, t), at(k, t), at(k + 0.04, t))
         off += Math.min(at(lo, t), at(hi, t))
         n++
       }
@@ -668,9 +668,9 @@ export function snapGrid(data: Uint8ClampedArray, width: number, height: number,
   })
 }
 
-function globalSearch(data: Uint8ClampedArray, width: number, height: number, start: Point[], shift: number, wide = false) {
+function globalSearch(data: Uint8ClampedArray, width: number, height: number, start: Point[], shift: number, wide = false, keep = 1) {
   const center = start.reduce((sum, p) => ({ x: sum.x + p.x / 4, y: sum.y + p.y / 4 }), { x: 0, y: 0 })
-  let best = { corners: start, score: gridScore(data, width, height, start) }
+  const found: { corners: Point[]; score: number }[] = [{ corners: start, score: gridScore(data, width, height, start, true) }]
   const scales = wide ? [0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.35, 1.5, 1.6] : [0.85, 0.9, 0.95, 1, 1.05, 1.1, 1.15]
   const steps = wide ? 6 : 10
   const reach = wide ? 0.2 : shift
@@ -681,32 +681,39 @@ function globalSearch(data: Uint8ClampedArray, width: number, height: number, st
           const dx = (i / steps) * reach
           const dy = ((j / steps) * reach * width) / height
           const corners = start.map((p) => ({ x: center.x + (p.x - center.x) * sx + dx, y: center.y + (p.y - center.y) * sy + dy }))
-          const score = gridScore(data, width, height, corners, true)
-          if (score > best.score) best = { corners, score }
+          found.push({ corners, score: gridScore(data, width, height, corners, true) })
         }
-  return { corners: best.corners, score: gridScore(data, width, height, best.corners) }
+  found.sort((a, b) => b.score - a.score)
+  const apart = (a: Point[], b: Point[]) => Math.max(...a.map((p, i) => Math.hypot(p.x - b[i].x, p.y - b[i].y))) > 0.04
+  const picked: Point[][] = []
+  for (const candidate of found) {
+    if (picked.length >= keep) break
+    if (picked.every((p) => apart(p, candidate.corners))) picked.push(candidate.corners)
+  }
+  return picked.map((corners) => ({ corners, score: gridScore(data, width, height, corners) }))
 }
 
 export function gridLocked(data: Uint8ClampedArray, width: number, height: number, corners: Point[]) {
   const contrasts = lineContrasts(data, width, height, corners)
   const median = [...contrasts].sort((a, b) => a - b)[10] ?? 0
-  return median > 8 && contrasts.filter((v) => v < median * 0.35).length <= 2
+  return median > 8 && contrasts.filter((v) => v < median * 0.35).length <= 3
 }
 
 export function autoGrid(data: Uint8ClampedArray, width: number, height: number, previous?: Point[] | null, track = false) {
   const starts = [previous, track ? null : detectBoard(data, width, height)].filter((p): p is Point[] => !!p && p.length === 4)
   let best: { corners: Point[]; score: number } | null = null
-  for (const start of starts) {
-    let current = globalSearch(data, width, height, start, track ? 0.06 : 0.12)
-    for (let n = 0; n < 4; n++) {
-      const corners = snapGrid(data, width, height, current.corners)
-      const score = gridScore(data, width, height, corners)
-      if (score <= current.score) break
-      current = { corners, score }
+  for (const start of starts)
+    for (let current of globalSearch(data, width, height, start, track ? 0.06 : 0.12, false, track ? 1 : 3)) {
+      for (let n = 0; n < 4; n++) {
+        const corners = snapGrid(data, width, height, current.corners)
+        const score = gridScore(data, width, height, corners)
+        if (score <= current.score) break
+        current = { corners, score }
+      }
+      const fine = refineCorners(data, width, height, current.corners, 0.08)
+      if (!best || fine.score > best.score) best = fine
+      if (gridLocked(data, width, height, fine.corners)) return fine
     }
-    const fine = refineCorners(data, width, height, current.corners, 0.08)
-    if (!best || fine.score > best.score) best = fine
-  }
   return best
 }
 
