@@ -93,6 +93,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
   const [palette, setPalette] = useState(false)
   const [showImport, setShowImport] = useState(false)
   const [cameraOpen, setCameraOpen] = useState(false)
+  const [cameraLive, setCameraLive] = useState(false)
   const [showTrends, setShowTrends] = useState(false)
   const [report, setReport] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
@@ -148,7 +149,14 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
     onOpenAnalyze: () => layout.setDrawer(true),
     onRematch: (side, drawn) => startSpar(side, drawn),
   })
-  const opponent = useOpponent(session, { lessonMode: lesson.lessonMode, halted: spar.halted, sparGame: spar.config, pace: spar.pace, onAiEnd: spar.endByAi })
+  const opponent = useOpponent(session, {
+    lessonMode: lesson.lessonMode,
+    halted: spar.halted,
+    sparGame: spar.config,
+    pace: spar.pace,
+    onAiEnd: spar.endByAi,
+    hold: cameraOpen && cameraLive,
+  })
   const board = mode === 'spar' ? { ...session, assist: spar.assist, userTurn: atEnd ? session.userTurn : spar.over } : session
   const rating = useAutoRate({
     enabled: board.ai && board.assist && (mode === 'spar' || (mode === 'analyze' && !ratingPaused)),
@@ -440,6 +448,9 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
       moves={game.moves}
       userSide={userSide}
       opponent={mode === 'spar'}
+      reply={mode === 'spar' ? opponent.reply?.usi : undefined}
+      land={opponent.land}
+      onLive={setCameraLive}
       canMove={input.canMove && !session.visualMoving && !session.promotion}
       busy={session.visualMoving}
       over={session.gameOver || (mode === 'spar' && spar.over)}

@@ -19,7 +19,14 @@ const pieces = (sfen: string) => sfen.split(' ')[0].replace(/[^a-zA-Z]/g, '').le
 
 export function useOpponent(
   session: BoardSession,
-  { lessonMode, halted, sparGame, pace, onAiEnd }: { lessonMode: LessonMode; halted: boolean; sparGame: SparGame; pace: Pace; onAiEnd: (end: AiEnd) => void },
+  {
+    lessonMode,
+    halted,
+    sparGame,
+    pace,
+    onAiEnd,
+    hold = false,
+  }: { lessonMode: LessonMode; halted: boolean; sparGame: SparGame; pace: Pace; onAiEnd: (end: AiEnd) => void; hold?: boolean },
 ) {
   const { epoch } = useEngineStatus()
   const { mode, course, nodes, atEnd, toMove, userSide, liveSfen, preview, play, gameOver, game, sfens } = session
@@ -81,11 +88,11 @@ export function useOpponent(
   const endRef = useLatest(end)
   const armed = spar || atEnd
   useEffect(() => {
-    if (!due || !armed || session.visualMoving || (mode === 'lesson' && lessonMode === 'study')) return
+    if (!due || !armed || (spar && hold) || session.visualMoving || (mode === 'lesson' && lessonMode === 'study')) return
     const wait = spar ? Math.max(900, (due.until ?? 0) - performance.now()) : 1000
     const timer = setTimeout(() => (spar ? playRef.current(due.usi, endRef.current) : playRef.current(due.usi)), wait)
     return () => clearTimeout(timer)
-  }, [due, armed, spar, mode, lessonMode, playRef, endRef, session.visualMoving])
+  }, [due, armed, spar, hold, mode, lessonMode, playRef, endRef, session.visualMoving])
 
-  return { reply, forget: () => setPending(null) }
+  return { reply, forget: () => setPending(null), land: () => due && spar && playRef.current(due.usi, endRef.current) }
 }

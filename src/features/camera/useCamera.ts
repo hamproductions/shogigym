@@ -140,6 +140,8 @@ type CameraDeps = {
   moves: string[]
   userSide: Side
   opponent: boolean
+  reply?: string
+  land: () => void
   canMove: boolean
   busy: boolean
   over: boolean
@@ -318,7 +320,7 @@ export function useCamera(deps: CameraDeps) {
   const resolve = useCallback(
     (off: number[]) => {
       const e = engine.current
-      const { live, line, moves, userSide, opponent, canMove, busy, commit, promote, undo } = latest.current
+      const { live, line, moves, userSide, opponent, reply, land, canMove, busy, commit, promote, undo } = latest.current
       const here = positionOf(live)
       const n = line.findIndex((s) => samePosition(s, live))
       const observed = e.occupied
@@ -327,6 +329,32 @@ export function useCamera(deps: CameraDeps) {
         e.decisionKey = key
         e.streak = e.streak.key === key ? { key, count: e.streak.count + 1 } : { key, count: 1 }
         return e.streak.count >= need
+      }
+      if (reply) {
+        const next = positionOf(live)
+        next.doMove(next.createMoveByUSI(reply)!)
+        const target = occupancyOf(next)
+        const replyCells = occupancyChanges(occupancyOf(here), target)
+        const left = occupancyChanges(target, observed)
+        const loosely = legalUsis(next).some((usi) => {
+          const after = positionOf(next.sfen)
+          after.doMove(after.createMoveByUSI(usi)!)
+          const cells = occupancyChanges(target, occupancyOf(after))
+          return cells.some((c) => !replyCells.includes(c)) && occupancyChanges(occupancyOf(after), observed).every((c) => replyCells.includes(c))
+        })
+        if (!left.length || moveShape(next, left) || loosely) {
+          if (!verdict(`land:${reply}`, CONFIRM)) return
+          const id = `${live}:land:${reply}`
+          if (e.issued === id) return
+          e.issued = id
+          land()
+          return setStatus({ kind: 'sent', sfen: live, usi: reply, last: moves[n - 1] })
+        }
+        if (off.every((c) => replyCells.includes(c))) {
+          verdict(`reply:${reply}`, 1)
+          if (!off.length) anchor(live)
+          return setStatus({ kind: 'expect', cells: replyCells, move: { sfen: live, usi: reply, last: moves[n - 1] }, undo: false })
+        }
       }
       if (!off.length) {
         verdict('sync', 1)

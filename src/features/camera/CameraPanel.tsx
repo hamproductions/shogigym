@@ -22,6 +22,9 @@ type CameraPanelProps = {
   moves: string[]
   userSide: Side
   opponent: boolean
+  reply?: string
+  land: () => void
+  onLive: (live: boolean) => void
   canMove: boolean
   busy: boolean
   over: boolean
@@ -369,11 +372,16 @@ function statusText(status: CameraStatus, t: (key: string, options?: Record<stri
   }
 }
 
-export function CameraPanel({ onClose, docked = false, ...deps }: CameraPanelProps) {
+export function CameraPanel({ onClose, docked = false, onLive, ...deps }: CameraPanelProps) {
   const { t } = useTranslation()
   const [place, setPlace] = useState(readPlace)
   const camera = useCamera({ open: true, ...deps, debug: !!place.debug })
   const { status, calibration, video, preview, debug } = camera
+  const streaming = !['starting', 'phone', 'ended', 'error', 'calibrate', 'searching'].includes(status.kind)
+  useEffect(() => {
+    onLive(streaming)
+  }, [streaming, onLive])
+  useEffect(() => () => onLive(false), [onLive])
   const [draft, setDraft] = useState<Point[] | null>(null)
   const [drag, setDrag] = useState<number | null>(null)
   const [grab, setGrab] = useState<{ dx: number; dy: number } | null>(null)
