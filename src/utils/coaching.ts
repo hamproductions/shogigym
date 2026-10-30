@@ -1,16 +1,17 @@
 import { PieceType, Square, formatMove, unpromotedPieceType } from 'tsshogi'
 import { PIECE_VALUE, pieceName } from './pieceValues'
+import { squareName } from './notation'
 import { positionOf } from './shogi'
 import i18n from './i18n'
 
-export function moveCoaching(sfen: string, usi: string, language = i18n.language) {
+export function moveCoaching(sfen: string, usi: string) {
   const before = positionOf(sfen)
   const move = before.createMoveByUSI(usi)
   if (!move || !before.isValidMove(move)) return null
   const after = before.clone()
   if (!after.doMove(move)) return null
   const piece = after.board.at(move.to)!
-  const square = language === 'ja' ? `${move.to.file}${'一二三四五六七八九'[move.to.rank - 1]}` : move.to.usi
+  const square = squareName(move.to)
   const values = { piece: pieceName(piece.type), square, move: formatMove(before, move) }
   const captured = move.capturedPieceType
   const capture = captured ? i18n.t('coach.live.captureDetail', { captured: pieceName(captured), handPiece: pieceName(unpromotedPieceType(captured)) }) : ''
@@ -64,7 +65,7 @@ export function moveCoaching(sfen: string, usi: string, language = i18n.language
     .sort((a, b) => PIECE_VALUE[after.board.at(b)!.type] - PIECE_VALUE[after.board.at(a)!.type])
   if (targets.length) {
     const target = targets[0]
-    const targetSquare = language === 'ja' ? `${target.file}${'一二三四五六七八九'[target.rank - 1]}` : target.usi
+    const targetSquare = squareName(target)
     const control = i18n.t('coach.live.control', { ...values, target: pieceName(after.board.at(target)!.type), targetSquare })
     return describe(
       move.promote

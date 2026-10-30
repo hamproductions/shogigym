@@ -79,7 +79,7 @@ export function useBoardDecor(session: BoardSession, input: DecorInput) {
   const feedback = useMemo(
     () =>
       assist && tab === 'coach' && !preview && reviewAt === cursor && reviewAt > 0 && (mode === 'spar' || mode === 'analyze' || mode === 'view')
-        ? moveCoaching(sfens[reviewAt - 1], game.moves[reviewAt - 1], i18n.language)
+        ? moveCoaching(sfens[reviewAt - 1], game.moves[reviewAt - 1])
         : null,
     [assist, tab, preview, reviewAt, cursor, mode, sfens, game.moves, i18n.language],
   )

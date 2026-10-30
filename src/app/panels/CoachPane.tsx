@@ -142,7 +142,7 @@ function Verdict({
 export function CoachPane({ review, lastMove, prevSfen, bookLast, bookHere, sfen, course, onPlay, canPlay, ai, showBook, you }: CoachPaneProps) {
   const { t, i18n } = useTranslation()
   const flipped = useFlipped()
-  const feedback = useMemo(() => (lastMove && prevSfen ? moveCoaching(prevSfen, lastMove, i18n.language) : null), [lastMove, prevSfen, i18n.language])
+  const feedback = useMemo(() => (lastMove && prevSfen ? moveCoaching(prevSfen, lastMove) : null), [lastMove, prevSfen, i18n.language])
   return (
     <div className="app-coach">
       {lastMove && prevSfen ? (

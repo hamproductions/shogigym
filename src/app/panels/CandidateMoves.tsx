@@ -14,11 +14,11 @@ import { Button } from '@/app/ui/Button'
 import { Muted } from './panels.styles'
 
 export function CandidateMoves({ model, error, book }: { model: Candidates; error: string | null; book: BookMove[] }) {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const settings = useSettings()
   const { sfen, play, ai } = useSession()
   const status = useEngineStatus()
-  const feedback = model.selected ? moveCoaching(sfen, model.selected.move, i18n.language) : null
+  const feedback = model.selected ? moveCoaching(sfen, model.selected.move) : null
   const explain = feedback ? `${feedback.summary} ${feedback.detail}` : model.selected ? moveGloss(sfen, model.selected.move) : ''
   const note = model.selected ? book.find((move) => move.usi === model.selected!.move)?.note : null
   const after = model.selected ? applyUsi(sfen, model.selected.move) : null
