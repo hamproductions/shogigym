@@ -364,6 +364,10 @@ export function useCamera(deps: CameraDeps) {
             e.regrid = true
             return setStatus({ kind: 'shifted' })
           }
+          if (decision.shifted && decision.added.length * 3 < decision.cells.length * 2) {
+            if (!confirmed) return
+            return setStatus({ kind: 'mismatch', cells: decision.cells })
+          }
           if (decision.shifted)
             return setStatus({ kind: 'unknown', cells: decision.cells, added: decision.added, side: colorSide(positionOf(physical).color), covered: true })
           if (e.streak.count >= UNSURE && !samePosition(physical, live)) {

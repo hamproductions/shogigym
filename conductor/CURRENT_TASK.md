@@ -1,6 +1,6 @@
 # Current task
 
-Camera-driven play: a physical board watched by a camera (USB/connected camera, the user's Android phone over USB via the dev relay) drives the app in real time, vs-AI first, at awkward camera angles. Branch `main`, all changes uncommitted; no commit/push authorized. Dev server on 5173 (project server, may stay up); phone relay recordings in scratchpad `rec/` (~3,700 frames of the user's real tripod setup).
+Camera-driven play: a physical board watched by a camera (USB/connected camera, the user's Android phone over USB via the dev relay) drives the app in real time, vs-AI first, at awkward camera angles. Branch `feat/camera-play` (PR #28, preview deploy authorized by the user); further pushes need a new instruction. Dev server on 5173 (project server, may stay up); phone relay recordings in scratchpad `rec/` (~3,700 frames of the user's real tripod setup).
 
 ## Request ledger (user requests this session, in order; status)
 
@@ -10,7 +10,7 @@ Camera-driven play: a physical board watched by a camera (USB/connected camera, 
 | 2 | Use the GitHub references; dig GitHub more | done (kbinani/shogi-camera MIT design ported; others unlicensed, ideas only) |
 | 3 | Moves not detected on the real board | several causes fixed; real re-test pending |
 | 4 | UI must not shift while dragging; no unlabeled green line; corners must not jump | done |
-| 5 | Phone as camera, plug and play: no adb, no dev-server dependency (Wi-Fi/WebRTC fine) | implemented: `/camera-send` production route + PeerJS (MIT) WebRTC, public broker 0.peerjs.com for signalling only, QR in the panel; dev relay, adb watchdog and JPEG path removed. Verified two-tab P2P (fake camera → panel 1280×720). Real phone needs the deployed HTTPS site (deploy not authorized) |
+| 5 | Phone as camera, plug and play: no adb, no dev-server dependency (Wi-Fi/WebRTC fine) | implemented: `/camera-send` production route + PeerJS (MIT) WebRTC, public broker 0.peerjs.com for signalling only, QR in the panel; dev relay, adb watchdog and JPEG path removed. Verified two-tab P2P (fake camera → panel 1280×720). Deployed as PR #28 preview (branch `feat/camera-play`, https://hamproductions.github.io/shogigym/pr/28/); QR uses BASE_URL; `/camera-send` prerendered. Verified on the preview: desk QR → second tab with fake camera → 「接続しました」, desk video 960×540. Real phone not yet confirmed by the user |
 | 6 | Piece type for captures/drops; follow references; YOLO/transfer learning; ONNX/MediaPipe allowed | partial: CNN fine-tuned on user pieces (~90% unseen) for drops/promotions; no full-board reading |
 | 7 | Official match video → precise KIF | capability in the hook; panel button removed per #24; no exposed entry point |
 | 8 | Train like ShogiVision | done once (light run); more training pending labelled real footage |
