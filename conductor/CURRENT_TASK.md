@@ -41,6 +41,7 @@ Camera-driven play: a physical board watched by a connected or phone camera driv
 | 33 | Voice overlap, 盤が動きました loop, graph zigzag/mate flip, random re-grid | done: single voice channel, fewer announcements; regrid only after ~3 s; after-move eval sign and mate-0 fixed; periodic grid re-snap removed. Verified camera regression + consistent evals |
 | 34 | Auto grid fails / shifted one file on the current board | done: window line sampling, top-3 candidate search, 3 weak lines allowed, game-occupancy acceptance, full re-search when the saved grid does not read the game; phone sends 1080p detail at up to 6 Mbit/s (verified on the Pixel: 1080x1920, contentHint detail). Offline: current board 81/81 squares correct |
 | 35 | Handoff and push to main | done: main `7bfa62e` + handoff commit, production run 41096009037 success |
+| 36 | Rail unreachable at short windows (#29) | fixed locally, commit 718470f on main, NOT pushed (needs instruction). Verified on load: 577/650 px fold modes into the mode menu with その他 visible; 700/800/820 px show all modes. Live-resize path unverified: test browser stopped rendering frames (display likely asleep) |
 
 Explicit non-actions: no commit/push/PR; no outbound/cloud services (VOICEVOX and training run locally); no synthetic frames on the relay while the user's phone streams; do not touch the other session's Chromium.
 
