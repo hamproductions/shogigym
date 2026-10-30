@@ -42,6 +42,7 @@ Camera-driven play: a physical board watched by a connected or phone camera driv
 | 34 | Auto grid fails / shifted one file on the current board | done: window line sampling, top-3 candidate search, 3 weak lines allowed, game-occupancy acceptance, full re-search when the saved grid does not read the game; phone sends 1080p detail at up to 6 Mbit/s (verified on the Pixel: 1080x1920, contentHint detail). Offline: current board 81/81 squares correct |
 | 35 | Handoff and push to main | done: main `7bfa62e` + handoff commit, production run 41096009037 success |
 | 36 | Rail unreachable at short windows (#29) | fixed locally, commit 718470f on main, NOT pushed (needs instruction). Verified on load: 577/650 px fold modes into the mode menu with その他 visible; 700/800/820 px show all modes. Live-resize path unverified: test browser stopped rendering frames (display likely asleep) |
+| 37 | Per-square recognition of every piece | measured, not shipped: deployed model on all 81 squares of two full-res frames of the user's board (start position) → type 37–38/40, empty 41/41, side 40/40; errors are 金↔銀 (one 銀→飛). Too unreliable to act on alone (2–3 false reports per board); needs fine-tuning on the user's 金/銀 before use. Training not started (needs approval; ~7 GB free) |
 
 Explicit non-actions: no commit/push/PR; no outbound/cloud services (VOICEVOX and training run locally); no synthetic frames on the relay while the user's phone streams; do not touch the other session's Chromium.
 
