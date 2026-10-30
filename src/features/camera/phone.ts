@@ -115,6 +115,20 @@ export function receivePhone(onStream: (stream: MediaStream | null) => void, onL
   }
 }
 
+async function sharpen(connection: RTCPeerConnection) {
+  for (const sender of connection.getSenders()) {
+    if (sender.track?.kind !== 'video') continue
+    const parameters = sender.getParameters()
+    parameters.degradationPreference = 'maintain-resolution'
+    parameters.encodings = (parameters.encodings?.length ? parameters.encodings : [{}]).map((encoding) => ({
+      ...encoding,
+      maxBitrate: 6_000_000,
+      scaleResolutionDownBy: 1,
+    }))
+    await sender.setParameters(parameters).catch(() => undefined)
+  }
+}
+
 export function sendPhone(to: string, stream: MediaStream, onLink: (link: PhoneLink) => void) {
   let peer: Peer | null = null
   let stopped = false
@@ -131,6 +145,7 @@ export function sendPhone(to: string, stream: MediaStream, onLink: (link: PhoneL
         media.peerConnection?.addEventListener('connectionstatechange', () => {
           const state = media.peerConnection.connectionState
           connected = state === 'connected'
+          if (connected) void sharpen(media.peerConnection)
           onLink(connected ? 'connected' : 'waiting')
         })
         media.on('close', () => {

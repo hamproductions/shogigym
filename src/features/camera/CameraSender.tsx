@@ -32,9 +32,10 @@ export function CameraSender() {
       .then((l) => (lock = l))
       .catch(() => undefined)
     navigator.mediaDevices
-      .getUserMedia({ video: { facingMode: { ideal: 'environment' }, width: { ideal: 1280 }, height: { ideal: 720 } }, audio: false })
+      .getUserMedia({ video: { facingMode: { ideal: 'environment' }, width: { ideal: 1920 }, height: { ideal: 1080 } }, audio: false })
       .then((stream) => {
         media = stream
+        stream.getVideoTracks().forEach((track) => (track.contentHint = 'detail'))
         element.srcObject = stream
         element.play().catch(() => undefined)
         setLink('waiting')

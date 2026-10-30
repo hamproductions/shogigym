@@ -472,6 +472,23 @@ export function useCamera(deps: CameraDeps) {
     [latest, setStatus, calibrationRef, setCalibration, anchor],
   )
 
+  const fitsGame = useCallback(
+    (small: { data: Uint8ClampedArray; width: number; height: number }, corners: Point[]) => {
+      const { live, line } = latest.current
+      const frame = frameBuffer()
+      const red = redBuffer()
+      const targets = [live, ...line].map((sfen) => occupancyOf(positionOf(sfen)))
+      return ([0, 2] as const).some((rotation) => {
+        const sampler = buildSampler({ corners, rotation }, small.width, small.height)
+        if (!sampler) return false
+        sample(sampler, small.data, frame, red)
+        const seen = occupancy(frame, undefined, null, red)
+        return targets.some((target) => occupancyChanges(target, seen).length <= 2)
+      })
+    },
+    [latest],
+  )
+
   const process = useCallback(() => {
     const element = video.current
     const calibration = calibrationRef.current
@@ -494,7 +511,8 @@ export function useCamera(deps: CameraDeps) {
       e.gridAt = now
       const small = gridView(element)
       const found = autoGrid(small.data, small.width, small.height)
-      if (found && gridLocked(small.data, small.width, small.height, found.corners)) return setCornersRef.current(found.corners)
+      if (found && (gridLocked(small.data, small.width, small.height, found.corners) || fitsGame(small, found.corners)))
+        return setCornersRef.current(found.corners)
       return setStatus({ kind: 'searching' })
     }
     context.drawImage(element, 0, 0, width, height)
@@ -508,9 +526,11 @@ export function useCamera(deps: CameraDeps) {
       e.regrid = false
       e.gridAt = now
       const { small, score: before } = gridAt(calibration.corners)
-      const found = autoGrid(small.data, small.width, small.height, calibration.corners, true)
+      const kept = fitsGame(small, calibration.corners)
+      const found = autoGrid(small.data, small.width, small.height, calibration.corners, kept)
       const moved = found && Math.max(...found.corners.map((c, i) => Math.hypot(c.x - calibration.corners[i].x, c.y - calibration.corners[i].y))) > 0.006
-      if (found && moved && found.score > before + 3 && gridLocked(small.data, small.width, small.height, found.corners)) {
+      const better = found && (kept ? found.score > before + 3 : true)
+      if (found && moved && better && (gridLocked(small.data, small.width, small.height, found.corners) || fitsGame(small, found.corners))) {
         e.reference = null
         e.anchorFor = null
         e.previous = null
@@ -606,7 +626,7 @@ export function useCamera(deps: CameraDeps) {
     e.shiftedFor = 0
     if (!off.length) e.lines = Math.max(e.lines * 0.9, gridAt(calibration.corners).score)
     resolve(off)
-  }, [calibrationRef, resolve, latest, autoFit, setCalibration, setStatus])
+  }, [calibrationRef, resolve, latest, autoFit, fitsGame, setCalibration, setStatus])
 
   const processRef = useLatest(process)
   const ready = !!calibration && calibration.corners.length === 4
