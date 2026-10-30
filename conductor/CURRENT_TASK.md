@@ -36,6 +36,8 @@ Camera-driven play: a physical board watched by a camera (USB/connected camera, 
 | 28 | Screen twitching every frame; pieces move randomly; piece designs flicker; 駒台 still broken | open: suspected main-thread load from the camera path (relay JSON/base64 parse + JPEG decode at up to 19 fps, two GPU readbacks per frame) competing with the 3D render loop; also HMR from live edits. Vision compute itself ≈2.4 ms/frame. Plan: move relay receive/decode and vision to a Web Worker; A/B check by closing the camera panel |
 
 | 30 | Stateless reading: always evaluate the whole board; physical take-back without waiting | done: each still frame matched against current/earlier/pre-AI positions or current+1 legal move; 盤と一致 removed. Verified with a fake-camera video in analyze mode: 9 moves incl. captures, 2-ply physical take-back, new branch, recorded moves exact. Spar take-back path not yet exercised live |
+| 31 | AI move as arrow; you move it; then the app moves it. Accept your move when the AI move is skipped on the board; instructions as from→to; 同 notation | done, verified with live canvas camera vs the real AI (hold, land, skip, both-at-once, 2-move take-back). Open: header still says AI thinking while the arrow waits |
+| 32 | Phone/computer discover each other without QR; remember pairing | done: network room from public address + saved last computer on the phone; panel always listens, auto-switches, reopens after reload. Verified in browser and on the real Pixel (plain address reconnects) |
 
 Explicit non-actions: no commit/push/PR; no outbound/cloud services (VOICEVOX and training run locally); no synthetic frames on the relay while the user's phone streams; do not touch the other session's Chromium.
 
