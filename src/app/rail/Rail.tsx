@@ -193,6 +193,37 @@ export function Rail({
       }
     : defaults
   const { railRef, lastModeRef, capacity } = useRailCapacity(compact)
+  const [packed, setPacked] = useState(false)
+  const needed = useRef(0)
+  useLayoutEffect(() => {
+    const rail = railRef.current
+    if (!rail || compact || !navigation) return
+    const check = () => {
+      if (packed) return rail.clientHeight >= needed.current && setPacked(false)
+      const last = lastModeRef.current
+      if (!last) return
+      const slot = last.offsetHeight + (parseFloat(getComputedStyle(rail).gap) || 4)
+      const free = rail.getBoundingClientRect().bottom - last.getBoundingClientRect().bottom - (parseFloat(getComputedStyle(rail).paddingBottom) || 0)
+      const short = (top.length + 2) * slot - free
+      if (short <= 0) return
+      needed.current = rail.clientHeight + short
+      setPacked(true)
+    }
+    check()
+    let frame = 0
+    const later = () => {
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(check)
+    }
+    const observer = new ResizeObserver(later)
+    observer.observe(rail)
+    window.addEventListener('resize', later)
+    return () => {
+      cancelAnimationFrame(frame)
+      observer.disconnect()
+      window.removeEventListener('resize', later)
+    }
+  }, [packed, compact, navigation, railRef, lastModeRef, top.length])
   const all = [...primary, ...secondary, ...bottom]
   const extras: RailTool[] = navigation ? [{ id: 'taikyoku', icon: 'spar', label: t('palette.taikyoku'), run: () => void navigate('/taikyoku') }] : []
   const available = Math.max(0, capacity - top.length)
@@ -212,7 +243,7 @@ export function Rail({
           <Icon name="back" size={20} />
         </RailButton>
       )}
-      {navigation && compact && (
+      {navigation && (compact || packed) && (
         <RailSlot data-rail-slot="mode">
           <RailButton
             ref={lastModeRef}
@@ -250,6 +281,7 @@ export function Rail({
       )}
       {navigation &&
         !compact &&
+        !packed &&
         MODES.map((m, i) => (
           <RailButton
             key={m.id}
