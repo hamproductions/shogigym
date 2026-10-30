@@ -39,6 +39,7 @@ Camera-driven play: a physical board watched by a camera (USB/connected camera, 
 | 31 | AI move as arrow; you move it; then the app moves it. Accept your move when the AI move is skipped on the board; instructions as from→to; 同 notation | done, verified with live canvas camera vs the real AI (hold, land, skip, both-at-once, 2-move take-back). Header now says to play the AI move on the board (verified) |
 | 32 | Phone/computer discover each other without QR; remember pairing | done: network room from public address + saved last computer on the phone; panel always listens, auto-switches, reopens after reload. Verified in browser and on the real Pixel (plain address reconnects) |
 | 33 | Voice overlap, 盤が動きました loop, graph zigzag/mate flip, random re-grid | done: single voice channel, fewer announcements; regrid only after ~3 s; after-move eval sign and mate-0 fixed; periodic grid re-snap removed. Verified camera regression + consistent evals |
+| 34 | Auto grid fails / shifted one file on the current board | done: window line sampling, top-3 candidate search, 3 weak lines allowed, game-occupancy acceptance, full re-search when the saved grid does not read the game; phone sends 1080p detail at up to 6 Mbit/s (verified on the Pixel: 1080x1920, contentHint detail). Offline: current board 81/81 squares correct |
 
 Explicit non-actions: no commit/push/PR; no outbound/cloud services (VOICEVOX and training run locally); no synthetic frames on the relay while the user's phone streams; do not touch the other session's Chromium.
 
