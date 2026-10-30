@@ -1,13 +1,13 @@
 import { useEffect, useState, type PointerEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { styled } from 'styled-system/jsx'
-import { PieceType, Square } from 'tsshogi'
+import { Color, PieceType, Square } from 'tsshogi'
 import { Icon } from '@/app/icons'
 import { Button } from '@/app/ui/Button'
 import { Select } from '@/app/ui/Select'
 import { SvgPath } from '@/app/ui/Svg'
 import { Marks } from '@/app/ui/SideMark'
-import { moveText, PIECE_CHAR, type Side } from '@/utils/shogi'
+import { moveText, PIECE_CHAR, positionOf, type Side } from '@/utils/shogi'
 import { sideMark } from '@/utils/notation'
 import type { Point } from './geometry'
 import { useCamera, type CameraDebug, type CameraStatus } from './useCamera'
@@ -274,7 +274,12 @@ function spokenText(status: CameraStatus) {
   }
 }
 
-function statusText(status: CameraStatus, t: (key: string, options?: Record<string, unknown>) => string, corners: number) {
+function squareContent(live: string, cell: number, t: (key: string) => string) {
+  const piece = positionOf(live).board.at(Square.newByIndex(cell))
+  return piece ? `${piece.color === Color.BLACK ? '☗' : '☖'}${PIECE_CHAR[piece.type]}` : t('camera.emptySquare')
+}
+
+function statusText(status: CameraStatus, t: (key: string, options?: Record<string, unknown>) => string, corners: number, live: string) {
   switch (status.kind) {
     case 'starting':
       return t('camera.starting')
@@ -306,7 +311,7 @@ function statusText(status: CameraStatus, t: (key: string, options?: Record<stri
       return status.move
         ? t('camera.expect', { move: moveText(status.move.sfen, status.move.usi) })
         : status.cells.length <= 6
-          ? t('camera.setupSquares', { squares: status.cells.map(squareName).join('・') })
+          ? t('camera.setupSquares', { squares: status.cells.map((c) => `${squareName(c)} ${squareContent(live, c, t)}`).join('・') })
           : t('camera.setup', { count: status.cells.length })
     case 'sent':
       return t('camera.sent', { move: moveText(status.sfen, status.usi) })
@@ -513,7 +518,7 @@ export function CameraPanel({ onClose, docked = false, ...deps }: CameraPanelPro
           aria-hidden="true"
         />
         <Status role="status" data-tone={tone} data-collapsed={collapsed || undefined}>
-          <Marks>{statusText(status, t, corners.length)}</Marks>
+          <Marks>{statusText(status, t, corners.length, deps.live)}</Marks>
         </Status>
       </Row>
       {place.debug && debug && <DebugText>{debugText(debug)}</DebugText>}

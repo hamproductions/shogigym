@@ -331,7 +331,7 @@ export function useCamera(deps: CameraDeps) {
       const confirmed = e.streak.count >= CONFIRM
       const behind = (): CameraStatus => {
         const at = line.findIndex((s) => samePosition(s, physical))
-        const next = at >= 0 && line[at + 1] && moves[at] && samePosition(line[at + 1], live)
+        const next = at >= 0 && moves[at] && line.findIndex((s) => samePosition(s, live)) > at
         return { kind: 'expect', cells: changedSquares(physical, live), move: next ? { sfen: line[at], usi: moves[at] } : undefined, undo: e.issued !== null }
       }
       switch (decision.kind) {
