@@ -69,3 +69,29 @@ export function say(text: string, urgent = false) {
 export function sayFurigomaResult(pawns: number, spectator = false) {
   say(`${pawns >= 3 ? '歩' : 'と金'}が${pawns >= 3 ? pawns : 5 - pawns}枚出たので、${spectator ? '上手' : 'あなた'}は${pawns >= 3 ? '先手' : '後手'}です`, true)
 }
+
+const JOIN = 0.12
+
+export async function sayParts(texts: string[]) {
+  const { sound, voice, volume } = getSettings()
+  if (!sound || !voice || document.hidden || !texts.length) return true
+  const buffers = await Promise.all(texts.map(load))
+  if (buffers.some((b) => !b)) return false
+  const ac = audioContext()
+  playing?.stop()
+  let at = ac.currentTime + 0.02
+  const gain = ac.createGain()
+  gain.gain.value = Math.min(1, volume * 1.5)
+  gain.connect(ac.destination)
+  for (const buffer of buffers as AudioBuffer[]) {
+    const source = ac.createBufferSource()
+    source.buffer = buffer
+    source.connect(gain)
+    trackAudio(source)
+    source.start(at)
+    playing = source
+    at += Math.max(0.05, buffer.duration - JOIN)
+  }
+  playingUntil = at
+  return true
+}

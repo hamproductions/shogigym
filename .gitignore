@@ -24,6 +24,7 @@ dist-ssr
 *.sw?
 
 public/engine
+public/ort
 .shots
 build
 .react-router

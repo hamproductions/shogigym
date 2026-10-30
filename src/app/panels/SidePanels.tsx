@@ -13,7 +13,16 @@ import { NavFooter } from './NavFooter'
 import { PanelBody, type PanelModel } from './PanelBody'
 import { HeaderButton, PanelHeader, TabLabel, floatingTabs, panelTabs } from './panels.styles'
 
-type SidePanelsProps = { layout: Layout; tab: Tab; setTab: (tab: Tab) => void; sheetOpen: boolean; model: PanelModel; canAutoplay: boolean; picking: boolean }
+type SidePanelsProps = {
+  dock?: ReactNode
+  layout: Layout
+  tab: Tab
+  setTab: (tab: Tab) => void
+  sheetOpen: boolean
+  model: PanelModel
+  canAutoplay: boolean
+  picking: boolean
+}
 
 const PanelAside = styled('aside', {
   base: {
@@ -102,7 +111,7 @@ function LeftPanel({
   )
 }
 
-export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay, picking }: SidePanelsProps) {
+export function SidePanels({ dock, layout, tab, setTab, sheetOpen, model, canAutoplay, picking }: SidePanelsProps) {
   const { t } = useTranslation()
   const { mode, game } = useSession()
   const reportable = isGameMode(mode) && game.moves.length > 0
@@ -118,6 +127,7 @@ export function SidePanels({ layout, tab, setTab, sheetOpen, model, canAutoplay,
         sheetOpen={sheetOpen}
         header={
           <>
+            {dock}
             <PanelHeader>
               <Tabs
                 className={panelTabs}

@@ -10,6 +10,7 @@ export default [
     ...mainStrategies().map((s) => route(`openings/${s.id}`, 'routes/page.tsx', { id: `openings-${s.id}` })),
   ]),
   route('viewer', 'routes/viewer.tsx'),
+  route('camera-send', 'routes/camera-send.tsx'),
   route('taikyoku', 'routes/taikyoku.tsx'),
   ...(env.NODE_ENV === 'production'
     ? []

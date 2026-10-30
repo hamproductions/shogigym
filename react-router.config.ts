@@ -11,6 +11,6 @@ export default {
   basename: process.env.BASE_PATH ?? '/',
   prerender:
     prerender === 'full'
-      ? ['/', NOT_FOUND_PATH, '/taikyoku', ...MODE_SLUGS.map((m) => `/${m}`), ...mainStrategies().map((s) => `/openings/${s.id}`)]
-      : ['/', NOT_FOUND_PATH],
+      ? ['/', NOT_FOUND_PATH, '/taikyoku', '/camera-send', ...MODE_SLUGS.map((m) => `/${m}`), ...mainStrategies().map((s) => `/openings/${s.id}`)]
+      : ['/', NOT_FOUND_PATH, '/camera-send'],
 } satisfies Config

@@ -1,54 +1,55 @@
 # Current task
 
-Performance pass: instant analysis, startup, lag. Requirements: no artificial delays (deferral/debounce/throttle presented as speedups); lessons load per lesson on demand, not in bulk; loading states are contained skeletons, not full-surface overlays. Branch `feat/lesson-curriculum` (HEAD `f6ec3a2`); changes uncommitted; no commit/push authorized.
+Camera-driven play: a physical board watched by a camera (USB/connected camera, the user's Android phone over USB via the dev relay) drives the app in real time, vs-AI first, at awkward camera angles. Branch `main`, all changes uncommitted; no commit/push authorized. Dev server on 5173 (project server, may stay up); phone relay recordings in scratchpad `rec/` (~3,700 frames of the user's real tripod setup).
 
-## Changes (uncommitted)
+## Request ledger (user requests this session, in order; status)
 
-- Engine (`src/utils/engine.ts`): priority queue (foreground > background deep > idle rating); background and idle searches are preempted by higher-priority requests; preempted idle searches rerun afterwards; completed results cached for every caller; identical foreground searches share one run with refcounted abort; partial results never cached; progress updates coalesced per animation frame. `useAnalysis` starts immediately (debounce removed). Engine preload unchanged (eager).
-- Ratings (`useAutoRate`, `useBatchRate`, `reviewMove`) run at idle priority; review reply search uses multipv 3 to share the eval search.
-- `src/app/memory.ts`: only changed maps persisted, during idle time, flushed on `pagehide`. `useEvaluation` records single keys.
-- Rendering: instance matrices/texture layers upload only on change; shadow dirtiness tracks instance matrix version/count.
-- Lessons: `vite.config.ts` `lesson-index` plugin emits `virtual:lesson-index` (metadata, root start position, FNV hashes of trainable positions; no trees, goal text or checks). `src/utils/model.ts` loads one lesson chunk on demand (`loadLesson`, `loadCourse`, `useLoadedCourses`, `prefetchCourses`), replaces course entries and setup checks on load. Entry points await load: `useLesson.open`, session restore. Picker prefetches on hover/focus and loads on setup open. Unloaded lesson progress uses hashed positions (`courseProgress`). Book index rebuilds when lessons load.
-- Skeletons: `BoardLoading` is a contained board-shaped skeleton; lazy panels use `PanelSkeleton`; `skeleton-pulse` keyframe.
+| # | Request | Status |
+|---|---|---|
+| 1 | Investigate shogi.nkkuma.tokyo; camera moves pieces vs AI, real time; connected + smartphone camera; odd angles | in progress (live real-board game not yet confirmed working) |
+| 2 | Use the GitHub references; dig GitHub more | done (kbinani/shogi-camera MIT design ported; others unlicensed, ideas only) |
+| 3 | Moves not detected on the real board | several causes fixed; real re-test pending |
+| 4 | UI must not shift while dragging; no unlabeled green line; corners must not jump | done |
+| 5 | Phone as camera, plug and play: no adb, no dev-server dependency (Wi-Fi/WebRTC fine) | implemented: `/camera-send` production route + PeerJS (MIT) WebRTC, public broker 0.peerjs.com for signalling only, QR in the panel; dev relay, adb watchdog and JPEG path removed. Verified two-tab P2P (fake camera → panel 1280×720). Real phone needs the deployed HTTPS site (deploy not authorized) |
+| 6 | Piece type for captures/drops; follow references; YOLO/transfer learning; ONNX/MediaPipe allowed | partial: CNN fine-tuned on user pieces (~90% unseen) for drops/promotions; no full-board reading |
+| 7 | Official match video → precise KIF | capability in the hook; panel button removed per #24; no exposed entry point |
+| 8 | Train like ShogiVision | done once (light run); more training pending labelled real footage |
+| 9 | Did you brick my PC | answered (training on near-full disk caused the stall) |
+| 10 | Test a whole game | done on synthetic footage; real game pending |
+| 11 | Camera panel blocking; own position | done (docked in side column; floating fallback) |
+| 12 | Too slow; too much 盤と一致 fiddling | done (baseline-relative reads, hysteresis, faster confirm, auto-match to app line) |
+| 13 | Read moves aloud for headless play; use zundamon | done (VOICEVOX clips; ready prompt once per ply) |
+| 14 | 駒台 broken: hand piece off the stand (reported 3×) | open: resize does not reproduce; investigating code paths |
+| 15 | Auto grid; no manual line fiddling | done (360-px detection, startup re-detect, 3 s snap) |
+| 16 | Specific, short problem messages | done (per-square 見えます/見えません; partial-move message) |
+| 17 | No twitch/loop; auto-pick drops; ready feedback; hand vs board moved | done |
+| 18 | Camera stops after game end | done |
+| 19 | Mixed piece typefaces | open: not reproduced with defaults; needs the user's 駒 settings |
+| 20 | Read the whole board state / recognize every square; drops pick wrong piece | partial (see #6) |
+| 21 | Use our 3D data for training | pending |
+| 22 | What footage was tested; test on the real setup | in progress (real frames now used; found resolution, crease, orientation bugs) |
+| 23 | Debug info | done (デバッグ toggle) |
+| 24 | Remove the video file button from the camera panel | done |
+| 25 | ☗/☖ randomly switching | fixed (lock after first read; legal-only flips) |
+| 26 | 「盤の上に手があります」 stuck (phone on tripod) | fixed (flicker counted only when still) |
+| 27 | 「４四の駒が見えません」 after reproducing AI move | fixed (partial-move message; no flicker freeze) |
+| 28 | Screen twitching every frame; pieces move randomly; piece designs flicker; 駒台 still broken | open: suspected main-thread load from the camera path (relay JSON/base64 parse + JPEG decode at up to 19 fps, two GPU readbacks per frame) competing with the 3D render loop; also HMR from live edits. Vision compute itself ≈2.4 ms/frame. Plan: move relay receive/decode and vision to a Web Worker; A/B check by closing the camera panel |
 
-## Verification (dev server, port 5173, Chrome for Testing)
+Explicit non-actions: no commit/push/PR; no outbound/cloud services (VOICEVOX and training run locally); no synthetic frames on the relay while the user's phone streams; do not touch the other session's Chromium.
 
-- tsc, oxlint (no new findings), prettier pass.
-- Startup on `/openings`: 0 lesson files requested, index only. Opening a lesson setup fetched exactly `castles-first.json`; first chapter opened in 52 ms with full tree; reload restored that lesson (one chunk).
-- Real engine: first progress update 4 ms; cache hit 0 ms; duplicate requests share one search; foreground during rating returned in 306 ms (own 300 ms search), rating reran to depth 18.
-- 3D board could not be verified: on the full disk the browser compositor stalls (baseline code without these changes stalls identically). Flat board verified. GPU shader disk cache must be disabled for any browser run while the disk is full.
-- Pre-change baseline (3D, M2 Pro, dev): first frame 1.56 s, idle 60 fps.
+## Implementation state
 
-## Later changes (uncommitted)
+- `src/features/camera/`: `geometry.ts`; `vision.ts` (sampling, occupancy hysteresis empty <0.24 / occupied >0.32 / red ink, PieceBook, decide/inferMove, auto grid, `gridLocked`, `snapRefine`); `useCamera.ts` (sources device/phone/file, baseline-relative changes, orientation lock, flicker damping when still, statuses, async classifier, debug snapshot); `CameraPanel.tsx`; `classifier.ts` (onnxruntime-web, `public/models/piece.onnx`); `speech.ts` + zundamon `cam:*` phrases; `phone.ts` + `/dev/camera-send`; Vite relay + adb reverse watchdog.
+- Real-footage facts: grid detection reliable only at ~360 px width (all grid work uses a 360-wide copy); 5筋 crease puts empty 5四/5五 at 0.12–0.16, pieces ≥0.37; piece direction cannot decide 180° orientation; the user sits at the image top.
 
-- Pause sources: shadow change detection and piece instancing are allocation-free per frame (GC pauses); saved move reviews are stored per entry (`joseki-practice:review:<key>`, legacy blob migrated once) so no multi-MB JSON write happens during play; book index grows incrementally as lessons load.
-- Loading: board loader overlay and progress removed; 3D canvas stays hidden until ready (no swap placeholder; an SVG-placeholder swap flashed and was reverted). Shell has no loader. Panel skeleton is static (no pulse). Application chunk fetch starts in the route `clientLoader`.
-- Frame-0 prerender (user chose: prerender full app; saved language/layout applied before first paint; board area reserved, board appears once): SSR-safety started — `theme.ts` guarded, server snapshots for settings (`traditional`, `ja`), engine status, reviews, lessons, binary store; `engineSupported()` true on server; `useView` fullscreen initial false. Next blocker: `useLayout` derives compact layout and viewport from `window` during render; layout must move to CSS media queries plus pre-paint data attributes before prerender can match. Probe script copy: scratchpad `ssr-probe.mjs` (run from project root with a separate cacheDir).
-- Tsume pool: 1148 composed problems (mate 3: 399, 5: 379, 7: 370) plus derived mate-in-1 from the 3-move set.
+## Verification
 
-## Tsume and kifu (uncommitted, browser-verified on flat board)
+- Synthetic: 10-ply oblique render 10/10; vs-AI synthetic games 34 and 56 plies all read; 56-ply video 56/56.
+- Real: auto grid locks on clear recorded frames, not on hand frames; live occupancy matches the app square by square; classifier loads in browser.
+- Not verified: a complete live game on the real board after the latest fixes; 駒台 bug; typeface mix.
 
-- Tsume: per-problem timer, streak, session score/average, persistent attempt history (`joseki-practice:tsume-history:v1`, 500 max, click to replay), auto-next after a solve (450 ms, toggle persisted), shortcuts N/Enter next, R retry, I hint, S solution (H stays hide-UI), defender reply delay 600→200 ms. Verified: solve recorded ✓ with time and auto-advanced; S recorded "shown"; N advanced; no console errors. Timer keeps counting while dialogs are open or the tab is hidden.
-- Kifu: vs-AI games autosave every move into one record (`joseki-practice:live-game:v1` tracks the id; reset when moves return to 0); result added on finish. Verified two moves pairs updated one record. Game/session writes free the analysis cache and retry on quota errors; `navigator.storage.persist()` requested at startup.
-- 3D (real GPU, dev): first frame 1.73 s; restored session, moves, AI reply and rating render correctly with the instancing/shadow changes. Promotion and capture not yet exercised.
-
-- Tsume UI pass (antislop during): pane scoreboard (mate label, large tabular timer, streak, session score, average, ink-tally run strip of session results), Next button in pane after solve/show, shortcut legend with Kbd, timer pauses while tab hidden; compact bar shows timer + streak and an icon Next button with hidden label; tsume plates moved into the reserved plate slots (bottom plate no longer covers the phone task banner). Verified dark desktop 1440×900, light phone 400×860 (no horizontal overflow, drawer content), solve on flipped board recorded and auto-advanced, no console errors.
-
-- Tsume rework after UX audit + council (3 independent reviews, findings verified in code/runtime): panel reduced to one status box (prompt / ✗ reason / ✓ result + clock), Hint and Solution, recent-result tiles, escape-squares toggle; scoreboard, run strip, key legend, auto-next toggle and set count removed. Wrong move: played immediately, shown 700 ms, taken back, reason stays, try again by moving; refutation only via "逃げ方を見る". Solve: grace 1.2 s after the mating move lands (3D landing tracked in tsume), then next. Stale verdicts/takebacks guarded by an attempt token; skip records failed; retry after a shown solution resets clock and hint. Tsume hides kifu/eval tabs and nav footer, single floating panel, stable coordinates. Phone: status card with one action (Hint → Solution; Try again after a shown solution; none after a solve), Next labelled 次へ, timer plus last five results in the bar; duplicate board hint overlay removed.
-
-- Tsume follow-up: every wrong move (non-check included) plays the engine's best defence on the board, names it in the status ("✗ reason：reply"), holds 2 s, then auto takes back (non-check without engine: 0.7 s). Pause button freezes the clock and holds auto take-back/advance. New problems snap orientation (no 180° spin). Settings/engine-status hooks no longer render defaults first (fixed piece font switching after load). Verified in browser (flat and 3D).
-
-- First frame / Lighthouse (desktop preset, production `PRERENDER=min` build served by `vite preview` on 4173; Chrome for Testing 150 headless): baseline 80 (FCP 0.6, LCP 2.1, TBT 220, CLS 0.001). Now 93/96/94 (FCP 0.9–1.1, LCP 1.0–1.1, TBT 50–120, CLS 0.004, SI 1.6–1.7). Changes: application route renders `Application` at prerender (no shell/HydrateFallback); hydration-stable first render (`useHydrated`, `SERVER_SETTINGS` server snapshot, layout/rail measurements in layout effects); board mounts after hydration; UI font-face CSS loaded non-blocking via head script with `font-display: optional` for Zen Kaku/Shippori; panel panes static so hydration keeps server HTML (Suspense only around GameReport/LessonMap); Board2D lazy again (three.js out of initial graph). Remaining measured costs: 3.66 MB modulepreloaded JS (model 1.56 MB courses+lesson index, ModeBar chunk 0.83 MB incl. tsume.json and tesuji drills), engine glue 2×109 ms tasks, 3D board readiness drives SI.
-- Mate-in-3 (m3-13) verified in 3D: promotion picker, captures to hand, defender drop, mid-line miss shows reply and takes back to mid-line, mate message with line. Pause/clock review findings fixed (functional verdict updates, resume/retry/visibility/finish with pause, defender waits while paused, reply hold starts after landing with 3 s fallback).
-
-- React Doctor (`npx react-doctor@latest --json`, telemetry off): 45 → 55, errors 27 → 3 (remaining: state-guarded Rail portal, dev HandsTest, camp.ts false positive — needsUpdate set after loop). Fixes: `useEngineSupported` hydration-safe hook replaces render-time `engineSupported()`; useLayout persistence moved out of state updaters; render-time ref writes moved to layout effects (useView, Board3D, taikyoku); useDrill sessionStorage and BoardFlat viewport read in layout effects; taikyoku fullscreen gated by `useHydrated`; GLSL smoothstep edges fixed in power.ts; Set lookups for solved lists. Remaining 352 warnings are mostly Panda prefer-token (109), only-export-components (74), complexity (41). No Million.js skill exists; Million.js not adopted (unmaintained, React 19 fit unverified). Lighthouse after: 95/95 (one cold outlier 85), TBT 50 ms, CLS 0.004.
-
-- Initial JS (modulepreloaded): 3.66 MB → 1.32 MB raw / 420 KB gzip. Everything below loads on demand. Course catalog: `virtual:course-index` is fetched at module load on the client and applied by `loadCatalog()` after hydration. `COURSES`/`SETUPS` fill in place and `useCourseVersion` re-renders. Async entry points await the catalog: `loadCourse`, `loadAllJoseki`, `loadBookFor`, session restore. The lesson pane shows `PanelSkeleton` until it arrives. Strategy availability is static (`hasStrategyCourses`, from `COURSE_SIDES`). Joseki trees: `virtual:book-positions` with `loadBookFor`. Progress hashes: `virtual:course-trainable`. Tsume problems and tesuji drills load on demand, with rail hover/focus prefetch. Piece sounds (`clack`): `loadSounds()` on mount; a first sound before load queues. Castle rules (`formations.json`): `loadFormations()` on mount; consumers subscribe via `useFormationRules`. English locale: inline i18next backend; ja is bundled because it is the prerender language; the en fetch starts at module load when the saved language is en; `learning.ts` uses `virtual:english-move-facts` (856 B) instead of en.json. UI lib: `Slider`, `Switch` and `Field` were removed from the `@/components/ui` barrel (Slider is imported directly by lazy users); the volume slider is lazy and renders only while open; ImportBox is lazy in GamesBox; `EngineName` was split from EngineSettings (FilePicker no longer preloaded).
-- Restore/route correctness: mode start functions return void; async starts (tsume, tesuji, drill) apply only if the mode is unchanged. `usePersistedSession` reports ready only after the async restore, including drill start, applies, so explicit URLs win and saving waits for the restore. Preview builds (`PRERENDER=min`) copy `__spa-fallback.html` into route directories (`scripts/flatten-build.mjs`): copying `index.html`, which now holds the prerendered `/` app, caused hydration mismatches that left a second `.app-shell` in `<body>`.
-- Browser-verified (production build): one shell and the correct route for /, /play/, /tsume/, /review/, /analyze/, /view/, /openings/, /openings/shikenbisha/, /tesuji/ with saved tsume and drill sessions; play ▲7六歩 rated 本 with note and AI reply; volume slider loads on hover; /openings list after catalog; lesson chapter restore after reload; English UI after reload with en loaded at 146 ms; tsume start/restore/next; tesuji 18 filters / 934 drills; no console errors. Lighthouse desktop 88/92/92: simulated FCP 1.2 s, LCP 1.2–1.5 s, TBT 50–90 ms, CLS 0.004; observed FCP/LCP 96 ms. The simulated FCP counts the modulepreloaded JS.
-- Board loading: `BoardLoading` skeleton is prerendered in the board slot and stays until Board3D reports ready via `onReady` (cleared on unmount); for 2D/flat boards it covers the server render and serves as the Suspense fallback. The Board3D chunk download starts at BoardStage module load (3D environments). Measured board first frame (headless, production): 1.0–1.15 s now vs 1.25–1.67 s for committed HEAD. Avatars (hands) already load 1.5 s after mount on idle and do not gate the first frame; disabling the book load showed no difference.
-- Known gaps: the start position still loads ~86 joseki files (~700 KB) after hydration in book modes; vendor joseki lack English notes.
+- Rail: at short windows (~577 px tall) 「その他」 falls below the visible rail, so the camera tool is unreachable (#29 open). Source dropdown now always shown (phone option was hidden when the computer has no camera).
 
 ## Next
 
-Lighthouse simulated FCP: remaining preload is react/router/Ark (~520 KB raw) plus app code (~600 KB). Options: lazy lesson/drill/tsume/tesuji panes and hooks (not prerendered at `/`), Panda token runtime (31 KB). Mobile Lighthouse not run.
+#28/#14: confirm with the user whether twitching stops with the camera panel closed; move camera receive/decode/vision off the main thread (Web Worker). Avatar capture carry and mesh reuse reviewed: interrupted carries are released; held meshes are swapped on rebuild.

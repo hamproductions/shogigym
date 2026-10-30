@@ -28,6 +28,7 @@ type ToolActions = {
   onInstall?: () => void
   onReport?: () => void
   onTrends?: () => void
+  camera?: { on: boolean; toggle: () => void }
 }
 
 export function useRailTools({
@@ -41,6 +42,7 @@ export function useRailTools({
   onInstall,
   onReport,
   onTrends,
+  camera,
 }: ToolActions) {
   const { t, i18n } = useTranslation()
   const hydrated = useHydrated()
@@ -64,7 +66,22 @@ export function useRailTools({
         ]
       : []),
   ]
-  const secondary: RailTool[] = [{ id: 'image', icon: 'image', label: t('rail.exportImage'), run: () => onSaveImage(snapshotName) }]
+  const secondary: RailTool[] = [
+    ...(camera
+      ? [
+          {
+            id: 'camera',
+            icon: 'camera',
+            label: t('rail.camera'),
+            title: t('rail.cameraTitle'),
+            on: camera.on,
+            pressed: camera.on,
+            run: camera.toggle,
+          } satisfies RailTool,
+        ]
+      : []),
+    { id: 'image', icon: 'image', label: t('rail.exportImage'), run: () => onSaveImage(snapshotName) },
+  ]
   const bottom: RailTool[] = [
     { id: 'hide', icon: 'panel', label: t('app.hideUiShort'), title: `${t('app.hideUi')} (H)`, run: () => setHideUi(true) },
     ...(!hydrated || document.fullscreenEnabled

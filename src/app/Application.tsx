@@ -72,6 +72,7 @@ const SettingsDialog = lazy(() => import('@/app/dialogs/SettingsDialog').then((m
 const WelcomeDialog = lazy(() => import('@/app/dialogs/WelcomeDialog').then((m) => ({ default: m.WelcomeDialog })))
 const PieceViewer = lazy(() => import('@/features/piece-viewer/PieceViewer').then((m) => ({ default: m.PieceViewer })))
 const Furigoma = lazy(() => import('@/app/stage/Furigoma').then((m) => ({ default: m.Furigoma })))
+const CameraPanel = lazy(() => import('@/features/camera/CameraPanel').then((m) => ({ default: m.CameraPanel })))
 
 export function Application({ routeMode, routeMain }: { routeMode?: string; routeMain?: string }) {
   const courseVersion = useCourseVersion()
@@ -91,6 +92,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
   const [ratingPaused, setRatingPaused] = useState(false)
   const [palette, setPalette] = useState(false)
   const [showImport, setShowImport] = useState(false)
+  const [cameraOpen, setCameraOpen] = useState(false)
   const [showTrends, setShowTrends] = useState(false)
   const [report, setReport] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
@@ -430,6 +432,25 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
     (c) => c.id === (SETUPS.find((x) => x.basics && x.main === mainStrategy) ?? SETUPS.find((x) => x.main === mainStrategy) ?? SETUPS[0])?.courseIds[0],
   )
 
+  const cameraDocked = !layout.compact && !layout.panelHidden
+  const camera = (
+    <CameraPanel
+      live={mode === 'spar' ? session.sfens[session.sfens.length - 1] : sfen}
+      line={session.sfens}
+      moves={game.moves}
+      userSide={userSide}
+      canMove={input.canMove && !session.visualMoving && !session.promotion}
+      busy={session.visualMoving}
+      over={session.gameOver || (mode === 'spar' && spar.over)}
+      commit={commit}
+      undo={() => (mode === 'spar' ? spar.takeBack() : session.setCursor(Math.max(0, cursor - 1)))}
+      promote={(from, to) => input.onDrop(from, to)}
+      fresh={() => load(InitialPositionSFEN.STANDARD, 'sente', 'analyze', null)}
+      onClose={() => setCameraOpen(false)}
+      docked={cameraDocked}
+    />
+  )
+
   return (
     <SessionContext.Provider value={board}>
       <AppShell
@@ -458,6 +479,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
           onSettings={() => setShowSettings(true)}
           onPalette={() => setPalette(true)}
           onTrends={() => setShowTrends(true)}
+          camera={{ on: cameraOpen, toggle: () => setCameraOpen((v) => !v) }}
           onReport={isGameMode(mode) && game.moves.length > 0 ? () => (setTab('report'), layout.setPanel({ hidden: false })) : undefined}
           snapshotName={`${SNAPSHOT_NAME}-${mode}-${cursor}`}
         />
@@ -515,6 +537,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
           />
         </Stage>
         <SidePanels
+          dock={cameraOpen && cameraDocked ? <Suspense fallback={null}>{camera}</Suspense> : undefined}
           layout={layout}
           tab={tab}
           setTab={setTab}
@@ -686,6 +709,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
           {confirm && <ConfirmDialog confirm={confirm} onClose={() => setConfirm(null)} />}
           {showSettings && <SettingsDialog onClose={() => setShowSettings(false)} level={levels.level} onLevel={levels.setLevel} />}
           {showViewer && <PieceViewer onClose={() => setShowViewer(false)} />}
+          {cameraOpen && !cameraDocked && camera}
           {levels.welcome && (
             <WelcomeDialog
               level={levels.level}

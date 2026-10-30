@@ -4,7 +4,7 @@
   "version": "1.6.0",
   "type": "module",
   "scripts": {
-    "postinstall": "mkdir -p public/engine && cp node_modules/@mizarjp/yaneuraou.k-p/lib/yaneuraou.k-p.js node_modules/@mizarjp/yaneuraou.k-p/lib/yaneuraou.k-p.wasm node_modules/@mizarjp/yaneuraou.k-p/lib/yaneuraou.k-p.worker.js node_modules/@mizarjp/yaneuraou.halfkp.noeval/lib/yaneuraou.halfkp.noeval.js node_modules/@mizarjp/yaneuraou.halfkp.noeval/lib/yaneuraou.halfkp.noeval.wasm node_modules/@mizarjp/yaneuraou.halfkp.noeval/lib/yaneuraou.halfkp.noeval.worker.js public/engine/ && mkdir -p public/engine/fairy && cp node_modules/fairy-stockfish-nnue.wasm/stockfish.js node_modules/fairy-stockfish-nnue.wasm/stockfish.wasm node_modules/fairy-stockfish-nnue.wasm/stockfish.worker.js public/engine/fairy/ && panda codegen",
+    "postinstall": "mkdir -p public/engine && cp node_modules/@mizarjp/yaneuraou.k-p/lib/yaneuraou.k-p.js node_modules/@mizarjp/yaneuraou.k-p/lib/yaneuraou.k-p.wasm node_modules/@mizarjp/yaneuraou.k-p/lib/yaneuraou.k-p.worker.js node_modules/@mizarjp/yaneuraou.halfkp.noeval/lib/yaneuraou.halfkp.noeval.js node_modules/@mizarjp/yaneuraou.halfkp.noeval/lib/yaneuraou.halfkp.noeval.wasm node_modules/@mizarjp/yaneuraou.halfkp.noeval/lib/yaneuraou.halfkp.noeval.worker.js public/engine/ && mkdir -p public/engine/fairy && cp node_modules/fairy-stockfish-nnue.wasm/stockfish.js node_modules/fairy-stockfish-nnue.wasm/stockfish.wasm node_modules/fairy-stockfish-nnue.wasm/stockfish.worker.js public/engine/fairy/ && mkdir -p public/ort && cp node_modules/onnxruntime-web/dist/ort-wasm-simd-threaded.wasm public/ort/ && panda codegen",
     "dev": "react-router dev",
     "build": "panda codegen && react-router typegen && tsc -b && PANDA_HASH=1 react-router build && node scripts/flatten-build.mjs && panda codegen",
     "lint": "oxlint",
@@ -36,12 +36,15 @@
     "fairy-stockfish-nnue.wasm": "^1.1.12",
     "i18next": "^26.4.2",
     "isbot": "5.2.2",
+    "onnxruntime-web": "1.20.1",
+    "peerjs": "1.5.4",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-i18next": "^17.0.15",
     "react-router": "8.4.0",
     "three": "^0.186.1",
-    "tsshogi": "^2.3.4"
+    "tsshogi": "^2.3.4",
+    "uqr": "0.1.2"
   },
   "devDependencies": {
     "@pandacss/dev": "2.1.2",

@@ -31,6 +31,7 @@ type RailProps = {
   onPalette: () => void
   onReport?: () => void
   onTrends?: () => void
+  camera?: { on: boolean; toggle: () => void }
   onLessonBack?: () => void
   snapshotName: string
   tools?: RailTool[]
@@ -139,6 +140,7 @@ export function Rail({
   onPalette,
   onReport,
   onTrends,
+  camera,
   onLessonBack,
   snapshotName,
   tools,
@@ -179,6 +181,7 @@ export function Rail({
     onInstall: installation.installed ? undefined : installation.install,
     onReport,
     onTrends,
+    camera,
   })
   const { primary, secondary, top, bottom, menu } = tools
     ? {

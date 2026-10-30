@@ -81,6 +81,63 @@ export const TESUJI = readingsFor([
 
 const COUNT = ['いち', 'に', 'さん', 'し', 'ご', 'ろく', 'しち', 'はち', 'きゅう']
 
+const FILE_KANA = ['いち', 'に', 'さん', 'よん', 'ご', 'ろく', 'なな', 'はち', 'きゅう']
+const SIDES = [
+  ['☗', 'せんて'],
+  ['☖', 'ごて'],
+] as const
+const SQUARES = FILE_KANA.flatMap((file, f) =>
+  FILE_KANA.map((rank, r) => ({ text: `${'１２３４５６７８９'[f]}${'一二三四五六七八九'[r]}`, say: `${file}${rank}` })),
+)
+const TOKENS: Record<string, string> = {
+  歩: 'ふ',
+  香: 'きょう',
+  桂: 'けい',
+  銀: 'ぎん',
+  金: 'きん',
+  角: 'かく',
+  飛: 'ひしゃ',
+  玉: 'ぎょく',
+  王: 'おう',
+  と: 'と',
+  成香: 'なりきょう',
+  成桂: 'なりけい',
+  成銀: 'なりぎん',
+  馬: 'うま',
+  龍: 'りゅう',
+  竜: 'りゅう',
+  右: 'みぎ',
+  左: 'ひだり',
+  直: 'すぐ',
+  上: 'あがる',
+  引: 'ひく',
+  寄: 'よる',
+  打: 'うつ',
+  成: 'なり',
+  不成: 'ならず',
+}
+
+const CAMERA: Phrase[] = [
+  ...SIDES.flatMap(([mark, side]) => [
+    ...SQUARES.map(({ text, say }) => ({ text: `cam:${mark}${text}`, say: `${side}、${say}` })),
+    { text: `cam:${mark}同`, say: `${side}、どう` },
+  ]),
+  ...SQUARES.map(({ text, say }) => ({ text: `cam:sq:${text}`, say })),
+  ...Object.entries(TOKENS).map(([text, say]) => ({ text: `cam:${text}`, say })),
+  { text: 'cam:をさしてください', say: 'お、さしてください' },
+  { text: 'cam:に駒が増えました', say: 'に、こまがふえました' },
+  { text: 'cam:の駒が消えました', say: 'の、こまがきえました' },
+  { text: 'cam:先手の合法手になりません', say: 'せんての、ごうほうしゅに、なりません' },
+  { text: 'cam:後手の合法手になりません', say: 'ごての、ごうほうしゅに、なりません' },
+  { text: 'cam:いまは先手の番です', say: 'いまわ、せんての、ばんです' },
+  { text: 'cam:いまは後手の番です', say: 'いまわ、ごての、ばんです' },
+  { text: 'cam:盤が動きました', say: 'ばんが、うごきました。あわせなおします' },
+  { text: 'cam:どの駒を打ちましたか', say: 'どのこまを、うちましたか' },
+  { text: 'cam:あなたの番です', say: 'あなたの、ばんです' },
+  { text: 'cam:を確認してください', say: 'お、かくにんしてください' },
+  { text: 'cam:手が盤にかかっています', say: 'てが、ばんに、かかっています' },
+]
+
 export const PHRASES: Phrase[] = [
   ...named(FORMATIONS, ''),
   ...named(TESUJI, ''),
@@ -105,4 +162,5 @@ export const PHRASES: Phrase[] = [
   { text: '時間切れ', say: 'じかんぎれ' },
   ...[10, 20, 30, 40, 50].map((n) => ({ text: `${n}秒`, say: `${['じゅう', 'にじゅう', 'さんじゅう', 'よんじゅう', 'ごじゅう'][n / 10 - 1]}びょう` })),
   ...COUNT.map((say, i) => ({ text: String(i + 1), say })),
+  ...CAMERA,
 ]

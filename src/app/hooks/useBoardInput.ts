@@ -119,5 +119,5 @@ export function useBoardInput(session: BoardSession, { mistakes, commit, lessonM
     setSelection(null)
   }
 
-  return { targets, onSquare, onHand, onDrop, cancelPromotion }
+  return { targets, canMove, onSquare, onHand, onDrop, cancelPromotion }
 }
