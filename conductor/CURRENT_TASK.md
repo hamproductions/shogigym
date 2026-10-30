@@ -1,12 +1,12 @@
 # Current task
 
-Camera-driven play: a physical board watched by a camera (USB/connected camera, the user's Android phone over USB via the dev relay) drives the app in real time, vs-AI first, at awkward camera angles. Branch `feat/camera-play` (PR #28, preview deploy authorized by the user); further pushes need a new instruction. Dev server on 5173 (project server, may stay up); phone relay recordings in scratchpad `rec/` (~3,700 frames of the user's real tripod setup).
+Camera-driven play: a physical board watched by a connected or phone camera drives the app in real time (vs AI and analysis), at oblique angles. Shipped: fast-forwarded to `main` (`7bfa62e`), PR #28 merged, production deployed. Full continuation record: `docs/HANDOFF_2026-10-31_CAMERA_PLAY.md`. No further push/deploy without a new instruction. Dev server on 5173 may stay up; test data under `/private/tmp/claude-502/`.
 
 ## Request ledger (user requests this session, in order; status)
 
 | # | Request | Status |
 |---|---|---|
-| 1 | Investigate shogi.nkkuma.tokyo; camera moves pieces vs AI, real time; connected + smartphone camera; odd angles | in progress (live real-board game not yet confirmed working) |
+| 1 | Investigate shogi.nkkuma.tokyo; camera moves pieces vs AI, real time; connected + smartphone camera; odd angles | shipped to main; user judged it usable; full real-board game on the final build not yet reported |
 | 2 | Use the GitHub references; dig GitHub more | done (kbinani/shogi-camera MIT design ported; others unlicensed, ideas only) |
 | 3 | Moves not detected on the real board | several causes fixed; real re-test pending |
 | 4 | UI must not shift while dragging; no unlabeled green line; corners must not jump | done |
@@ -40,6 +40,7 @@ Camera-driven play: a physical board watched by a camera (USB/connected camera, 
 | 32 | Phone/computer discover each other without QR; remember pairing | done: network room from public address + saved last computer on the phone; panel always listens, auto-switches, reopens after reload. Verified in browser and on the real Pixel (plain address reconnects) |
 | 33 | Voice overlap, 盤が動きました loop, graph zigzag/mate flip, random re-grid | done: single voice channel, fewer announcements; regrid only after ~3 s; after-move eval sign and mate-0 fixed; periodic grid re-snap removed. Verified camera regression + consistent evals |
 | 34 | Auto grid fails / shifted one file on the current board | done: window line sampling, top-3 candidate search, 3 weak lines allowed, game-occupancy acceptance, full re-search when the saved grid does not read the game; phone sends 1080p detail at up to 6 Mbit/s (verified on the Pixel: 1080x1920, contentHint detail). Offline: current board 81/81 squares correct |
+| 35 | Handoff and push to main | done: main `7bfa62e` + handoff commit, production run 41096009037 success |
 
 Explicit non-actions: no commit/push/PR; no outbound/cloud services (VOICEVOX and training run locally); no synthetic frames on the relay while the user's phone streams; do not touch the other session's Chromium.
 
@@ -58,4 +59,4 @@ Explicit non-actions: no commit/push/PR; no outbound/cloud services (VOICEVOX an
 
 ## Next
 
-#28/#14: confirm with the user whether twitching stops with the camera panel closed; move camera receive/decode/vision off the main thread (Web Worker). Avatar capture carry and mesh reuse reviewed: interrupted carries are released; held meshes are swapped on rebuild.
+Wait for the user's real-board report; then rail overflow at short windows, 駒台/flicker/typefaces (need their settings). Details and commands: `docs/HANDOFF_2026-10-31_CAMERA_PLAY.md` §10–§12.
