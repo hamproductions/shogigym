@@ -44,6 +44,8 @@ const isolationScript = `if (window.isSecureContext && 'serviceWorker' in naviga
   }
   navigator.serviceWorker.addEventListener('controllerchange', reloadWhenControlled)
   navigator.serviceWorker.register('${base}coi-sw.js?mode=${import.meta.env.MODE}', { scope: '${base}' }).then(reloadWhenControlled)
+  const precache = () => navigator.serviceWorker.ready.then((registration) => registration.active?.postMessage('precache'))
+  addEventListener('load', () => ('requestIdleCallback' in window ? requestIdleCallback(precache, { timeout: 10000 }) : setTimeout(precache, 5000)))
 }`
 
 export function Layout({ children }: { children: ReactNode }) {
