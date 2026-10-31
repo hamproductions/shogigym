@@ -1,4 +1,5 @@
-import { cpSync, existsSync, mkdirSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs'
+import { createHash } from 'node:crypto'
+import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 const base = (process.env.BASE_PATH ?? '/').replace(/^\/|\/$/g, '')
@@ -48,3 +49,27 @@ writeFileSync(
   join(out, 'robots.txt'),
   process.env.PREVIEW ? 'User-agent: *\nDisallow: /\n' : `User-agent: *\nAllow: /\nDisallow: /dev/\nDisallow: /pr/\nSitemap: ${site}/sitemap.xml\n`,
 )
+
+// Offline precache: list every file the app needs so the service worker can store them ahead of use, and stamp the cache name with a hash of that list so each build gets its own cache.
+const optional = ['books/peta233-full-v1/', 'eval/']
+const skip = new Set(['coi-sw.js', 'precache.json', 'sitemap.xml', 'robots.txt', '404.html', 'og.png', '_headers'])
+const files = []
+const list = (dir, path) => {
+  for (const name of readdirSync(dir)) {
+    const full = join(dir, name)
+    const rel = `${path}${name}`
+    if (statSync(full).isDirectory()) list(full, `${rel}/`)
+    else if (!skip.has(rel) && !rel.endsWith('.map') && !optional.some((o) => rel.startsWith(o))) files.push({ url: rel, size: statSync(full).size })
+  }
+}
+list(out, '')
+files.sort((a, b) => a.url.localeCompare(b.url))
+const shell = (url) => url.endsWith('.html') || url === 'manifest.webmanifest' || url.startsWith('icon-') || url === 'favicon.svg'
+const version = createHash('sha256').update(JSON.stringify(files)).digest('hex').slice(0, 12)
+const toUrl = (url) => (url.endsWith('/index.html') ? url.slice(0, -'index.html'.length) : url === 'index.html' ? './' : url)
+writeFileSync(
+  join(out, 'precache.json'),
+  JSON.stringify({ version, shell: files.filter((f) => shell(f.url)).map((f) => toUrl(f.url)), rest: files.filter((f) => !shell(f.url)).map((f) => f.url) }),
+)
+const sw = join(out, 'coi-sw.js')
+writeFileSync(sw, readFileSync(sw, 'utf8').replace("'shogigym-v1'", `'shogigym-${version}'`))
