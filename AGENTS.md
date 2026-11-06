@@ -59,3 +59,7 @@ Before any GitHub write, verify `gh api user --jq .login` is `hamzaabamboo`; com
 # Engine control placement
 
 The New Game dialog selects the playing engine. The AI panel bar selects the analysis engine independently of board side; advanced analysis controls belong in the AI settings dialog. Do not expose Sente/Gote model selectors for these roles.
+
+# Pull request language and title
+
+PR titles and descriptions use English. Titles use Conventional Commits syntax, such as `fix: ...`. Preserve Summary, Evidence, and Merge Danger sections and individual before/after evidence.
