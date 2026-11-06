@@ -2,8 +2,9 @@ import { Position } from 'tsshogi'
 
 export type Text = { ja: string; en: string }
 export type Marks = { last?: string; arrows?: string[]; ghosts?: string[]; boxes?: string[]; dashed?: string[] }
-export type Step = { moves?: string[]; text: Text; marks?: Marks; illustration?: { crop?: unknown; pieces?: unknown } }
-export type Variation = { from: number; moves: string[]; text: Text; steps?: Step[] }
+export type MoveKind = 'main' | 'alt' | 'deviation'
+export type Step = { moves?: string[]; kind?: MoveKind; text: Text; marks?: Marks; illustration?: { crop?: unknown; pieces?: unknown } }
+export type Variation = { from: number; moves: string[]; kind?: MoveKind; text: Text; steps?: Step[] }
 export type Chapter = { title: Text; side: 'sente' | 'gote'; kind?: 'opening' | 'position'; start: string; steps: Step[]; variations?: Variation[] }
 export type Reference = { title: string; url: string; license: string; adapted?: boolean }
 export type Unit = {
@@ -17,7 +18,7 @@ export type Unit = {
   practice?: boolean
   chapters: Chapter[]
 }
-export type Branch = { usi: string; kind: 'main' | 'deviation'; child: Node }
+export type Branch = { usi: string; kind: MoveKind; child: Node }
 export type Node = { id: string; sfen: string; comment?: string; commentEn?: string; figures?: object[]; branches: Branch[] }
 
 export const STARTPOS = 'lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1'
@@ -43,7 +44,8 @@ export function buildUnit(unit: Unit) {
     target.commentEn = target.commentEn ? `${target.commentEn}\n${step.text.en}` : step.text.en
     target.figures = [...(target.figures ?? []), { id: figureId, ...(step.marks ? { marks: step.marks } : {}), ...(step.illustration ?? {}) }]
   }
-  const play = (from: Node, moves: string[], kind: 'main' | 'deviation', where: string) => {
+  const play = (from: Node, moves: string[], kind: MoveKind, where: string) => {
+    if (!['main', 'alt', 'deviation'].includes(kind)) throw new Error(`Invalid move kind ${where}: ${kind}`)
     const position = Position.newBySFEN(from.sfen)
     if (!position) throw new Error(`Invalid position ${where}`)
     let current = from
@@ -69,17 +71,17 @@ export function buildUnit(unit: Unit) {
     const tips: Node[] = []
     let tip = root
     chapter.steps.forEach((step, n) => {
-      tip = step.moves?.length ? play(tip, step.moves, 'main', `${where}.${n}`) : tip
+      tip = step.moves?.length ? play(tip, step.moves, step.kind ?? 'main', `${where}.${n}`) : tip
       annotate(tip, step, `${index + 1}-${n + 1}`)
       tips.push(tip)
     })
     chapter.variations?.forEach((variation, v) => {
       const from = tips[variation.from]
       if (!from) throw new Error(`Variation without anchor ${where} v${v}`)
-      let at = play(from, variation.moves, 'deviation', `${where} v${v}`)
+      let at = play(from, variation.moves, variation.kind ?? 'deviation', `${where} v${v}`)
       annotate(at, { text: variation.text }, `${index + 1}-v${v + 1}`)
       variation.steps?.forEach((step, n) => {
-        at = step.moves?.length ? play(at, step.moves, 'main', `${where} v${v}.${n}`) : at
+        at = step.moves?.length ? play(at, step.moves, step.kind ?? 'main', `${where} v${v}.${n}`) : at
         annotate(at, step, `${index + 1}-v${v + 1}-${n + 1}`)
       })
     })

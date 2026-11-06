@@ -501,9 +501,26 @@
             "4f3e",
             "P*3d",
             "2e2d",
-            "2c2d",
+            "2c2d"
+          ],
+          "text": {
+            "ja": "居玉のまま銀交換を進める比較です。２四へ駒を出す前に、１五から玉へ通る角筋を確認します。",
+            "en": "This comparison continues the exchange with the king still on 5i. Before advancing on 2d, check the bishop diagonal from 1e to the king."
+          }
+        },
+        {
+          "moves": [
             "3e2d",
-            "3c2d",
+            "3c2d"
+          ],
+          "kind": "deviation",
+          "text": {
+            "ja": "▲２四銀△同銀と進めました。続いて飛車で取ると、１五角の王手飛車が生じます。",
+            "en": "▲2四銀 △同銀 continues the premature exchange. Recapturing with the rook now permits the bishop fork on 1e."
+          }
+        },
+        {
+          "moves": [
             "2h2d"
           ],
           "text": {
@@ -515,7 +532,8 @@
             "boxes": [
               "2d"
             ]
-          }
+          },
+          "kind": "deviation"
         },
         {
           "moves": [
@@ -658,7 +676,7 @@
           "steps": [
             {
               "text": {
-                "ja": "△同飛が３五の銀と８八の地点を同時に狙う十字飛車になります。５筋と８筋の両方に利きが走り、先手が苦しくなります。継ぎ歩には取らずに攻め合うのが正しい対応です。",
+                "ja": "△同飛が３五の銀と８八の地点を同時に狙う十字飛車になります。五段目と８筋の両方に利きが走り、先手が苦しくなります。継ぎ歩には取らずに攻め合うのが正しい対応です。",
                 "en": "△同飛 becomes a cross-shaped rook attacking both the silver on 3e and the 8th file at once. Sente is in trouble. The right answer to the continued pawn is to leave it and counterattack."
               },
               "marks": {

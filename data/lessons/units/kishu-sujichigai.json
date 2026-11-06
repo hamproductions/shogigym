@@ -59,10 +59,10 @@
           "marks": {
             "last": "3d",
             "arrows": [
-              "8h3d"
+              "8h2b"
             ],
             "boxes": [
-              "3d"
+              "2b"
             ]
           }
         },
@@ -72,8 +72,8 @@
             "3a2b"
           ],
           "text": {
-            "ja": "先手が▲２二角成と角を取り、後手は△同銀と取り返します。後手の持ち駒に角が一枚入りました。先手は持ち駒がありません。",
-            "en": "Sente takes the bishop with ▲2二角成 and Gote recaptures with △同銀. Gote now holds a bishop in hand, while Sente holds nothing."
+            "ja": "先手が▲２二角成と角を取り、後手は△同銀と取り返します。両者が角を一枚ずつ持ち駒にしました。",
+            "en": "Sente takes the bishop with ▲2二角成 and Gote recaptures with △同銀. Both sides now hold one bishop in hand."
           },
           "marks": {
             "last": "2b",
@@ -234,8 +234,8 @@
             "1c1d"
           ],
           "text": {
-            "ja": "先手は▲３八銀と締め、後手は△５二金から△４三金と矢倉囲いを完成させます。端の歩を突き合ったところが目安の局面です。後手は角を持ち駒にしているぶん、攻めの手段が多く、指しやすい展開です。なお図では先手の金が６九から上がっており、解説の文字は金右ですが、図の配置に従いました。",
-            "en": "Sente tightens with ▲3八銀 and Gote completes the Yagura with △5二金 and △4三金. Edge pawns are pushed on both sides, which marks the end of the line. With a bishop in hand Gote has more attacking resources and is comfortable. In the diagram Sente's gold comes from 6i even though the written line says right gold; the diagram's placement is followed here."
+            "ja": "先手は▲３八銀と締め、後手は△５二金から△４三金と矢倉囲いを完成させます。端の歩を突き合ったところが目安の局面です。後手は角を持ち駒にしているぶん、攻めの手段が多く、指しやすい展開です。この手順の▲５八金は、６九の金を上げる手です。",
+            "en": "Sente tightens with ▲3八銀 and Gote completes the Yagura with △5二金 and △4三金. Edge pawns are pushed on both sides, which marks the end of the line. With a bishop in hand Gote has more attacking resources and is comfortable. In this line, ▲5八金 moves the gold from 6i to 5h."
           },
           "marks": {
             "last": "1d",

@@ -1,0 +1,137 @@
+export default {
+  id: 'aigakari--gote',
+  title: '後手相掛かり：浮き飛車の横道と大駒交換',
+  titleEn: 'Gote Aigakari: Lateral Rook Routes and Major-Piece Exchanges',
+  myStrategy: 'aigakari',
+  opponentStrategy: 'aigakari',
+  mySide: 'gote',
+  userSide: 'gote',
+  source:
+    '相掛かりの標準的な歩交換、浮き飛車、角交換の考え方から独立して構成。序盤の候補手は新ペタショック定跡（MIT）で照合し、解説はこのアプリのために書き下ろし。',
+  goalFormation:
+    '後手飛車は８四、先手飛車は２八。先手が浮き飛車を引いてから８筋の歩を交換する。角交換後、３四の後手歩が飛車の横道をふさぐ位置と、その歩が進んだあとの飛車交換を比べる。',
+  goalLabel: '飛車の横道にある歩を確かめる',
+  goalSfen: 'ln1gk2nl/3s2gs1/p1pppp1pp/1r4p2/9/2P6/PP1PPPP1P/2G4R1/LNS1KGSNL b BPbp 1',
+  rootComment:
+    '後手として相掛かりの駒組みを進めます。まず自分の歩を交換して飛車を８四へ置き、角交換のあとに残る盤上の駒と持ち駒を数えます。飛車が横へ動くときは、出発点だけでなく途中の升と到着点の守りも確認しましょう。',
+  rootCommentEn:
+    'Develop Aigakari from Gote’s side. Exchange the rook pawn, place the rook on 8d, and count the board pieces and hands after the bishop exchange. Before sliding the rook sideways, inspect the intervening squares and the protection of its destination.',
+  line: {
+    moves: '2g2f 4a3b 6i7h 8c8d 2f2e 8d8e 2e2d 2c2d 2h2d P*2c 2d2f 3c3d 2f2h 8e8f 8g8f 8b8f P*8g 8f8d 7g7f 7a6b 8h2b+ 3a2b',
+    notes: {
+      1: '△３二金から始める手順です。２三を金で守ってから飛車先を伸ばします。',
+      5: '△８五歩で先手の８七の歩に近づきました。角道はまだ開いていません。',
+      7: '▲２四歩に△同歩。取った歩が後手の持ち駒になります。',
+      9: '▲同飛に△２三歩と打ち直します。飛車を取る手ではなく、２三への進入を止める歩です。',
+      10: '先手は▲２六飛と浮きました。この飛車は８六にも横から利くので、すぐ△８六飛と出る場合は飛車交換も読む必要があります。',
+      11: '△３四歩で角道を開けます。この歩自身は四段目にいるため、８四から２四へ飛車が通る途中の障害でもあります。',
+      12: 'この例では先手が▲２八飛と引きます。８六への先手飛車の横利きがなくなってから、後手は歩交換に進みます。',
+      15: '△同飛で８六へ。先手が▲８七歩と打つと、その歩は８六を狙います。',
+      17: '△８四飛。８筋の歩が消え、飛車が四段目を横に使える配置になりました。',
+      21: '▲２二角成に△同銀。ここで角交換が完了し、双方が角と歩を一枚ずつ持ちます。',
+    },
+    notesEn: {
+      1: 'This move order starts with △3二金, protecting 2c before advancing the rook pawn.',
+      5: '△8五歩 approaches Sente’s pawn on 8g. The bishop diagonal is still closed.',
+      7: 'After ▲2四歩, △同歩 gives Gote a pawn in hand.',
+      9: 'After ▲同飛, △2三歩 replaces a pawn on 2c. The drop does not capture the rook; it obstructs entry on 2c.',
+      10: 'Sente floats the rook with ▲2六飛, controlling 8f laterally. An immediate rook advance to 8f would require reading a rook exchange too.',
+      11: '△3四歩 opens the bishop diagonal. That pawn also occupies the rook’s lateral route from 8d to 2d.',
+      12: 'In this example Sente retreats with ▲2八飛. Gote exchanges pawns after Sente’s rook no longer controls 8f laterally.',
+      15: '△同飛 reaches 8f. Sente’s following ▲8七歩 attacks that square.',
+      17: '△8四飛 places the rook on the fourth rank after the eighth-file pawn has been exchanged.',
+      21: '▲2二角成 and △同銀 complete the bishop exchange. Each side now holds one bishop and one pawn.',
+    },
+    comment:
+      '飛車８四と飛車２八、後手銀２二を確認します。角は双方の持ち駒です。８四飛から２四へは３四の自分の歩がふさぐため、今すぐ動けません。次の枝では先手が飛車を再び浮いたあと、角を打つ例と横道を開ける例を比べます。',
+    commentEn:
+      'Locate the rooks on 8d and 2h and Gote’s silver on 2b. Both bishops are now in hand. Gote’s own pawn on 3d blocks the route from 8d to 2d. The branches let Sente float the rook again before comparing a bishop drop with clearing the lateral route.',
+    branches: [
+      {
+        kind: 'alt',
+        moves: '2h2f B*4d 2f2h',
+        notes: {
+          0: '先手が▲２六飛と再び浮く例です。',
+          1: '△４四角。３五を通って２六の飛車へ利きが届きます。',
+          2: 'この例では▲２八飛と引きます。角を打つ前後で、飛車の置き場所が変わりました。',
+        },
+        notesEn: {
+          0: 'In this example Sente floats the rook again with ▲2六飛.',
+          1: '△4四角 attacks the rook on 2f through 3e.',
+          2: 'Sente chooses ▲2八飛. Compare the rook’s square before and after the bishop drop.',
+        },
+        comment:
+          '▲２八飛と引いた後は、角４四から５五・６六・７七・８八を通る斜線を確認します。先手の香９九まで道が通っています。玉を動かす前に、この捕獲と比較します。',
+        commentEn: 'After ▲2八飛, trace bishop 4d’s diagonal through 5e, 6f, 7g and 8h to the lance on 9i. Compare that capture before selecting a king move.',
+        branches: [
+          {
+            kind: 'alt',
+            moves: '4d9i+',
+            comment:
+              '△９九角成で香を取り、馬を作ります。後手の持ち駒は香と歩、先手は角と歩です。先手には銀７九を８八へ動かして馬を狙う手などもあるため、香を取れたことから勝ちや強制手順までは断定しません。',
+            commentEn:
+              '△9九角成 captures the lance and promotes. Gote holds a lance and pawn; Sente holds a bishop and pawn. Sente can later use moves such as silver 7i to 8h against the horse, so the lance capture establishes neither a forced line nor a win.',
+          },
+          {
+            kind: 'deviation',
+            moves: '5a4b',
+            comment:
+              '△４二玉は合法ですが、今取れる香９九を△角成で取る機会を見送る弱い選択です。先手が銀７九を８八へ出すなど角道へ対応する前に、駒取りを確認します。',
+            commentEn:
+              '△4二玉 is legal but weaker because it misses the available lance capture with bishop promotion on 9i. Check that capture before Sente can respond to the diagonal, for example by developing silver 7i to 8h.',
+          },
+        ],
+      },
+      {
+        kind: 'alt',
+        moves: '2h2f 3d3e 5i6h 8d2d 2f2d 2c2d',
+        notes: {
+          0: '先手が▲２六飛と浮く比較例です。',
+          1: '△３五歩で３四が空き、８四飛の横道が開きます。',
+          2: '先手が玉を６八へ動かす例を進めます。この応手を強制する手順ではありません。',
+          3: '△２四飛。３四が空いたので四段目を通れます。２三の歩は２四の飛車を守ります。',
+          4: '先手が飛車交換に応じる▲同飛の例です。',
+          5: '△同歩で飛車を取り返します。後手の歩は２三から２四へ進み、双方が飛車を持ち駒にしました。',
+        },
+        notesEn: {
+          0: 'For comparison, Sente floats the rook with ▲2六飛.',
+          1: '△3五歩 clears 3d and opens the lateral rook route.',
+          2: 'This example continues with ▲6八玉; the reply is not claimed to be forced.',
+          3: '△2四飛 crosses the cleared fourth rank. The pawn on 2c protects the rook on 2d.',
+          4: 'Sente chooses to exchange rooks with ▲同飛.',
+          5: '△同歩 recaptures from 2c to 2d. Each side now holds a rook.',
+        },
+        comment:
+          '角に続いて飛車も持ち駒になりました。後手歩２四と３五、先手玉６八を確認します。大駒を交換したあとは、持ち駒を打つ場所と自玉への王手を改めて調べます。',
+        commentEn:
+          'The rooks have joined the bishops in hand. Locate Gote’s pawns on 2d and 3e and Sente’s king on 6h. After major-piece exchanges, inspect drop squares and checks against your own king afresh.',
+      },
+      {
+        kind: 'alt',
+        moves: '3i3h 3d3e 3h2g 9c9d',
+        notes: {
+          0: '先手が右銀を３八へ出し、２七・３六を使う進路を考える例です。',
+          1: '△３五歩で３六へ利かせます。３四にいたときは、３六へ直接取ることはできませんでした。',
+          2: '▲２七銀で銀を進めます。次の△９四歩は比較用に選んだ待ち手です。',
+        },
+        notesEn: {
+          0: 'Sente develops the right silver to 3h, considering the route through 2g and 3f.',
+          1: '△3五歩 adds direct control of 3f. From 3d, the pawn could not capture a piece on 3f in one move.',
+          2: '▲2七銀 develops the silver. The following △9四歩 is a selected waiting move for comparison.',
+        },
+        comment: '歩３五が３六を守る配置です。次は先手がこの升へ銀を進める失敗を比較します。',
+        commentEn: 'Pawn 3e controls 3f. Next compare Sente’s mistake of advancing the silver onto that square.',
+        branches: [
+          {
+            kind: 'deviation',
+            moves: '2g3f 3e3f 3g3f',
+            comment:
+              '３五歩は銀の３六への進出を制限しました。先手は角と歩二枚、後手は角・銀・歩を持ちます。銀が２七から２六へ進むなど、３六を避ける別の選択もあります。歩を突けば銀の全進路を止められるという意味ではありません。',
+            commentEn:
+              'The pawn on 3e restricted the silver’s entry to 3f. Sente holds a bishop and two pawns; Gote holds a bishop, silver and pawn. Sente could choose another route, such as 2g to 2f. The pawn does not stop every possible silver advance.',
+          },
+        ],
+      },
+    ],
+  },
+}

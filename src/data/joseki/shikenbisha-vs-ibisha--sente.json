@@ -1,0 +1,430 @@
+{
+ "id": "shikenbisha-vs-ibisha--sente",
+ "title": "先手四間飛車：美濃から８筋へ振り直す",
+ "titleEn": "Sente Fourth File Rook: From Mino to an Eighth-File Transfer",
+ "myStrategy": "shikenbisha",
+ "opponentStrategy": "ibisha",
+ "mySide": "sente",
+ "userSide": "sente",
+ "source": "先手四間飛車の美濃と向かい飛車への転換という標準的な構想を、新ペタショック定跡（MIT）の候補手と照合。角で歩を取り返したあとの二つの中央の歩を独立した比較として構成し、説明を新しく執筆。",
+ "goalFormation": "先手飛車６八、玉２八・銀３八・金５八の美濃。比較枝では飛車を８八へ振り直し、８筋の歩を角で取り返してから６五歩と５五歩の中央の接触を用意する。",
+ "goalLabel": "飛車の移動前後の通り道を確認する",
+ "goalSfen": "ln3g1nl/1r1sg1kb1/p3sp1p1/2ppp1p1p/1p7/2PPPP3/PPBS2PPP/3RG1SK1/LN3G1NL b - 1",
+ "root": {
+  "id": "n0",
+  "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+  "comment": "先手四間飛車で、銀を先に３八へ進める組み方を読みます。この場合は玉が自分の銀を通れないため、４八から３九を経由して２八へ運びます。囲ったあとも飛車の位置を固定せず、８筋へ移る比較を見ます。",
+  "commentEn": "Build Sente Fourth File Rook with the silver developed to 3h first. The king cannot pass through its own silver, so its route from 4h to 2h goes through 3i. After building the castle, compare transferring the rook to the eighth file.",
+  "branches": [
+   {
+    "usi": "7g7f",
+    "kind": "main",
+    "child": {
+     "id": "n_0",
+     "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL w - 1",
+     "branches": [
+      {
+       "usi": "8c8d",
+       "kind": "main",
+       "child": {
+        "id": "n_1",
+        "sfen": "lnsgkgsnl/1r5b1/p1ppppppp/1p7/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL b - 1",
+        "branches": [
+         {
+          "usi": "6g6f",
+          "kind": "main",
+          "child": {
+           "id": "n_2",
+           "sfen": "lnsgkgsnl/1r5b1/p1ppppppp/1p7/9/2PP5/PP2PPPPP/1B5R1/LNSGKGSNL w - 1",
+           "branches": [
+            {
+             "usi": "8d8e",
+             "kind": "main",
+             "child": {
+              "id": "n_3",
+              "sfen": "lnsgkgsnl/1r5b1/p1ppppppp/9/1p7/2PP5/PP2PPPPP/1B5R1/LNSGKGSNL b - 1",
+              "branches": [
+               {
+                "usi": "8h7g",
+                "kind": "main",
+                "child": {
+                 "id": "n_4",
+                 "sfen": "lnsgkgsnl/1r5b1/p1ppppppp/9/1p7/2PP5/PPB1PPPPP/7R1/LNSGKGSNL w - 1",
+                 "branches": [
+                  {
+                   "usi": "3c3d",
+                   "kind": "main",
+                   "child": {
+                    "id": "n_5",
+                    "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/6p2/1p7/2PP5/PPB1PPPPP/7R1/LNSGKGSNL b - 1",
+                    "branches": [
+                     {
+                      "usi": "2h6h",
+                      "kind": "main",
+                      "note": "▲６八飛で四間飛車を選びます。",
+                      "noteEn": "▲6八飛 chooses Fourth File Rook.",
+                      "child": {
+                       "id": "n_6",
+                       "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/6p2/1p7/2PP5/PPB1PPPPP/3R5/LNSGKGSNL w - 1",
+                       "branches": [
+                        {
+                         "usi": "7a6b",
+                         "kind": "main",
+                         "child": {
+                          "id": "n_7",
+                          "sfen": "ln1gkgsnl/1r1s3b1/p1pppp1pp/6p2/1p7/2PP5/PPB1PPPPP/3R5/LNSGKGSNL b - 1",
+                          "branches": [
+                           {
+                            "usi": "3i3h",
+                            "kind": "main",
+                            "note": "▲３八銀を先に上げます。この升には自分の玉を動かせません。",
+                            "noteEn": "▲3八銀 develops the silver first. The king cannot move onto that friendly piece.",
+                            "child": {
+                             "id": "n_8",
+                             "sfen": "ln1gkgsnl/1r1s3b1/p1pppp1pp/6p2/1p7/2PP5/PPB1PPPPP/3R2S2/LNSGKG1NL w - 1",
+                             "branches": [
+                              {
+                               "usi": "5a4b",
+                               "kind": "main",
+                               "child": {
+                                "id": "n_9",
+                                "sfen": "ln1g1gsnl/1r1s1k1b1/p1pppp1pp/6p2/1p7/2PP5/PPB1PPPPP/3R2S2/LNSGKG1NL b - 1",
+                                "branches": [
+                                 {
+                                  "usi": "5i4h",
+                                  "kind": "main",
+                                  "note": "▲４八玉。次に３八へは銀がいるため進めません。",
+                                  "noteEn": "▲4八玉 cannot continue through 3h because the silver occupies it.",
+                                  "child": {
+                                   "id": "n_10",
+                                   "sfen": "ln1g1gsnl/1r1s1k1b1/p1pppp1pp/6p2/1p7/2PP5/PPB1PPPPP/3R1KS2/LNSG1G1NL w - 1",
+                                   "branches": [
+                                    {
+                                     "usi": "4b3b",
+                                     "kind": "main",
+                                     "child": {
+                                      "id": "n_11",
+                                      "sfen": "ln1g1gsnl/1r1s2kb1/p1pppp1pp/6p2/1p7/2PP5/PPB1PPPPP/3R1KS2/LNSG1G1NL b - 1",
+                                      "branches": [
+                                       {
+                                        "usi": "4h3i",
+                                        "kind": "main",
+                                        "note": "▲３九玉と銀の後ろを通ります。",
+                                        "noteEn": "▲3九玉 passes behind the silver.",
+                                        "child": {
+                                         "id": "n_12",
+                                         "sfen": "ln1g1gsnl/1r1s2kb1/p1pppp1pp/6p2/1p7/2PP5/PPB1PPPPP/3R2S2/LNSG1GKNL w - 1",
+                                         "branches": [
+                                          {
+                                           "usi": "5c5d",
+                                           "kind": "main",
+                                           "child": {
+                                            "id": "n_13",
+                                            "sfen": "ln1g1gsnl/1r1s2kb1/p1pp1p1pp/4p1p2/1p7/2PP5/PPB1PPPPP/3R2S2/LNSG1GKNL b - 1",
+                                            "branches": [
+                                             {
+                                              "usi": "3i2h",
+                                              "kind": "main",
+                                              "note": "▲２八玉で美濃の玉の位置へ来ました。",
+                                              "noteEn": "▲2八玉 reaches the Mino king square.",
+                                              "child": {
+                                               "id": "n_14",
+                                               "sfen": "ln1g1gsnl/1r1s2kb1/p1pp1p1pp/4p1p2/1p7/2PP5/PPB1PPPPP/3R2SK1/LNSG1G1NL w - 1",
+                                               "branches": [
+                                                {
+                                                 "usi": "6a5b",
+                                                 "kind": "main",
+                                                 "child": {
+                                                  "id": "n_15",
+                                                  "sfen": "ln3gsnl/1r1sg1kb1/p1pp1p1pp/4p1p2/1p7/2PP5/PPB1PPPPP/3R2SK1/LNSG1G1NL b - 1",
+                                                  "branches": [
+                                                   {
+                                                    "usi": "7i7h",
+                                                    "kind": "main",
+                                                    "note": "▲７八銀で左銀も上げます。飛車６八がいるので６八へは進めません。",
+                                                    "noteEn": "▲7八銀 develops the left silver. Rook 6h prevents it from using 6h.",
+                                                    "child": {
+                                                     "id": "n_16",
+                                                     "sfen": "ln3gsnl/1r1sg1kb1/p1pp1p1pp/4p1p2/1p7/2PP5/PPB1PPPPP/2SR2SK1/LN1G1G1NL w - 1",
+                                                     "branches": [
+                                                      {
+                                                       "usi": "3a4b",
+                                                       "kind": "main",
+                                                       "child": {
+                                                        "id": "n_17",
+                                                        "sfen": "ln3g1nl/1r1sgskb1/p1pp1p1pp/4p1p2/1p7/2PP5/PPB1PPPPP/2SR2SK1/LN1G1G1NL b - 1",
+                                                        "branches": [
+                                                         {
+                                                          "usi": "6i5h",
+                                                          "kind": "main",
+                                                          "note": "▲５八金で玉側へ金を寄せます。",
+                                                          "noteEn": "▲5八金 develops a king-side defender.",
+                                                          "child": {
+                                                           "id": "n_18",
+                                                           "sfen": "ln3g1nl/1r1sgskb1/p1pp1p1pp/4p1p2/1p7/2PP5/PPB1PPPPP/2SRG1SK1/LN3G1NL w - 1",
+                                                           "branches": [
+                                                            {
+                                                             "usi": "4b5c",
+                                                             "kind": "main",
+                                                             "child": {
+                                                              "id": "n_19",
+                                                              "sfen": "ln3g1nl/1r1sg1kb1/p1ppsp1pp/4p1p2/1p7/2PP5/PPB1PPPPP/2SRG1SK1/LN3G1NL b - 1",
+                                                              "branches": [
+                                                               {
+                                                                "usi": "5g5f",
+                                                                "kind": "main",
+                                                                "child": {
+                                                                 "id": "n_20",
+                                                                 "sfen": "ln3g1nl/1r1sg1kb1/p1ppsp1pp/4p1p2/1p7/2PPP4/PPB2PPPP/2SRG1SK1/LN3G1NL w - 1",
+                                                                 "branches": [
+                                                                  {
+                                                                   "usi": "6c6d",
+                                                                   "kind": "main",
+                                                                   "child": {
+                                                                    "id": "n_21",
+                                                                    "sfen": "ln3g1nl/1r1sg1kb1/p1p1sp1pp/3pp1p2/1p7/2PPP4/PPB2PPPP/2SRG1SK1/LN3G1NL b - 1",
+                                                                    "branches": [
+                                                                     {
+                                                                      "usi": "4g4f",
+                                                                      "kind": "main",
+                                                                      "child": {
+                                                                       "id": "n_22",
+                                                                       "sfen": "ln3g1nl/1r1sg1kb1/p1p1sp1pp/3pp1p2/1p7/2PPPP3/PPB3PPP/2SRG1SK1/LN3G1NL w - 1",
+                                                                       "branches": [
+                                                                        {
+                                                                         "usi": "7c7d",
+                                                                         "kind": "main",
+                                                                         "child": {
+                                                                          "id": "n_23",
+                                                                          "sfen": "ln3g1nl/1r1sg1kb1/p3sp1pp/2ppp1p2/1p7/2PPPP3/PPB3PPP/2SRG1SK1/LN3G1NL b - 1",
+                                                                          "branches": [
+                                                                           {
+                                                                            "usi": "7h6g",
+                                                                            "kind": "main",
+                                                                            "note": "▲６七銀は歩６六を守り、飛車を８八へ動かす途中の７八も空けました。",
+                                                                            "noteEn": "▲6七銀 guards pawn 6f and clears 7h along the rook’s possible route to 8h.",
+                                                                            "child": {
+                                                                             "id": "n_24",
+                                                                             "sfen": "ln3g1nl/1r1sg1kb1/p3sp1pp/2ppp1p2/1p7/2PPPP3/PPBS2PPP/3RG1SK1/LN3G1NL w - 1",
+                                                                             "branches": [
+                                                                              {
+                                                                               "usi": "1c1d",
+                                                                               "kind": "main",
+                                                                               "child": {
+                                                                                "id": "n_25",
+                                                                                "sfen": "ln3g1nl/1r1sg1kb1/p3sp1p1/2ppp1p1p/1p7/2PPPP3/PPBS2PPP/3RG1SK1/LN3G1NL b - 1",
+                                                                                "branches": [
+                                                                                 {
+                                                                                  "usi": "6h8h",
+                                                                                  "kind": "alt",
+                                                                                  "note": "▲８八飛で相手の飛車８二と同じ筋へ移ります。間には双方の歩が残っています。",
+                                                                                  "noteEn": "▲8八飛 transfers onto the file of Gote’s rook on 8b, with both pawns still between the rooks.",
+                                                                                  "child": {
+                                                                                   "id": "nb0_0",
+                                                                                   "sfen": "ln3g1nl/1r1sg1kb1/p3sp1p1/2ppp1p1p/1p7/2PPPP3/PPBS2PPP/1R2G1SK1/LN3G1NL w - 1",
+                                                                                   "branches": [
+                                                                                    {
+                                                                                     "usi": "9c9d",
+                                                                                     "kind": "main",
+                                                                                     "note": "後手が△９四歩と別の筋を選ぶ比較です。",
+                                                                                     "noteEn": "This comparison selects △9四歩 on another file.",
+                                                                                     "child": {
+                                                                                      "id": "nb0_1",
+                                                                                      "sfen": "ln3g1nl/1r1sg1kb1/4sp1p1/p1ppp1p1p/1p7/2PPPP3/PPBS2PPP/1R2G1SK1/LN3G1NL b - 1",
+                                                                                      "branches": [
+                                                                                       {
+                                                                                        "usi": "8g8f",
+                                                                                        "kind": "main",
+                                                                                        "note": "▲８六歩で歩をぶつけます。",
+                                                                                        "noteEn": "▲8六歩 offers pawn contact.",
+                                                                                        "child": {
+                                                                                         "id": "nb0_2",
+                                                                                         "sfen": "ln3g1nl/1r1sg1kb1/4sp1p1/p1ppp1p1p/1p7/1PPPPP3/P1BS2PPP/1R2G1SK1/LN3G1NL w - 1",
+                                                                                         "branches": [
+                                                                                          {
+                                                                                           "usi": "8e8f",
+                                                                                           "kind": "main",
+                                                                                           "note": "後手が△同歩で取る応手を選びます。",
+                                                                                           "noteEn": "Gote selects △同歩.",
+                                                                                           "child": {
+                                                                                            "id": "nb0_3",
+                                                                                            "sfen": "ln3g1nl/1r1sg1kb1/4sp1p1/p1ppp1p1p/9/1pPPPP3/P1BS2PPP/1R2G1SK1/LN3G1NL b p 1",
+                                                                                            "branches": [
+                                                                                             {
+                                                                                              "usi": "7g8f",
+                                                                                              "kind": "main",
+                                                                                              "note": "▲同角で角７七が８六へ取り返します。飛車は８八のまま、角８六がその前を止めています。",
+                                                                                              "noteEn": "▲同角 recaptures from 7g to 8f. The rook remains on 8h, blocked farther ahead by its own bishop on 8f.",
+                                                                                              "child": {
+                                                                                               "id": "nb0_4",
+                                                                                               "sfen": "ln3g1nl/1r1sg1kb1/4sp1p1/p1ppp1p1p/9/1BPPPP3/P2S2PPP/1R2G1SK1/LN3G1NL w Pp 1",
+                                                                                               "branches": [
+                                                                                                {
+                                                                                                 "usi": "5c4d",
+                                                                                                 "kind": "main",
+                                                                                                 "note": "後手が△４四銀と中央へ出る例です。",
+                                                                                                 "noteEn": "Gote selects the central development △4四銀.",
+                                                                                                 "child": {
+                                                                                                  "id": "nb0_5",
+                                                                                                  "sfen": "ln3g1nl/1r1sg1kb1/5p1p1/p1pppsp1p/9/1BPPPP3/P2S2PPP/1R2G1SK1/LN3G1NL b Pp 1",
+                                                                                                  "branches": [
+                                                                                                   {
+                                                                                                    "usi": "6f6e",
+                                                                                                    "kind": "main",
+                                                                                                    "note": "▲６五歩で６六を空けます。６四の後手歩との接触も残ります。",
+                                                                                                    "noteEn": "▲6五歩 clears 6f and leaves contact with Gote’s pawn on 6d.",
+                                                                                                    "child": {
+                                                                                                     "id": "nb0_6",
+                                                                                                     "sfen": "ln3g1nl/1r1sg1kb1/5p1p1/p1pppsp1p/3P5/1BP1PP3/P2S2PPP/1R2G1SK1/LN3G1NL w Pp 1",
+                                                                                                     "branches": [
+                                                                                                      {
+                                                                                                       "usi": "4a4b",
+                                                                                                       "kind": "main",
+                                                                                                       "child": {
+                                                                                                        "id": "nb0_7",
+                                                                                                        "sfen": "ln5nl/1r1sggkb1/5p1p1/p1pppsp1p/3P5/1BP1PP3/P2S2PPP/1R2G1SK1/LN3G1NL b Pp 1",
+                                                                                                        "branches": [
+                                                                                                         {
+                                                                                                          "usi": "6g6f",
+                                                                                                          "kind": "main",
+                                                                                                          "note": "▲６六銀で６五歩を守り、５五へも利かせます。",
+                                                                                                          "noteEn": "▲6六銀 protects pawn 6e and also controls 5e.",
+                                                                                                          "child": {
+                                                                                                           "id": "nb0_8",
+                                                                                                           "sfen": "ln5nl/1r1sggkb1/5p1p1/p1pppsp1p/3P5/1BPSPP3/P5PPP/1R2G1SK1/LN3G1NL w Pp 1",
+                                                                                                           "branches": [
+                                                                                                            {
+                                                                                                             "usi": "2b3c",
+                                                                                                             "kind": "main",
+                                                                                                             "note": "後手が△３三角を選ぶ比較です。",
+                                                                                                             "noteEn": "This comparison selects △3三角.",
+                                                                                                             "child": {
+                                                                                                              "id": "nb0_9",
+                                                                                                              "sfen": "ln5nl/1r1sggk2/5pbp1/p1pppsp1p/3P5/1BPSPP3/P5PPP/1R2G1SK1/LN3G1NL b Pp 1",
+                                                                                                              "branches": [
+                                                                                                               {
+                                                                                                                "usi": "5f5e",
+                                                                                                                "kind": "main",
+                                                                                                                "note": "▲５五歩で５四歩へ接触します。この歩５五は銀６六が守ります。",
+                                                                                                                "noteEn": "▲5五歩 contacts pawn 5d, protected by silver 6f.",
+                                                                                                                "child": {
+                                                                                                                 "id": "nb0_10",
+                                                                                                                 "sfen": "ln5nl/1r1sggk2/5pbp1/p1pppsp1p/3PP4/1BPS1P3/P5PPP/1R2G1SK1/LN3G1NL w Pp 1",
+                                                                                                                 "branches": [],
+                                                                                                                 "comment": "双方は歩を一枚持ちます。先手は飛車８八・角８六に、銀６六と歩６五・５五を合わせました。８筋を交換しても飛車の前には自分の角が残ります。中央の接触に相手がどう取り返すかも、守る銀を含めて読み続けます。",
+                                                                                                                 "commentEn": "Each side holds one pawn. Sente combines rook 8h and bishop 8f with silver 6f and pawns 6e and 5e. The eighth-file exchange has not removed Sente’s own bishop from the rook line. Continue by calculating central recaptures together with the supporting silver."
+                                                                                                                }
+                                                                                                               }
+                                                                                                              ]
+                                                                                                             }
+                                                                                                            }
+                                                                                                           ]
+                                                                                                          }
+                                                                                                         }
+                                                                                                        ]
+                                                                                                       }
+                                                                                                      }
+                                                                                                     ]
+                                                                                                    }
+                                                                                                   }
+                                                                                                  ]
+                                                                                                 }
+                                                                                                }
+                                                                                               ]
+                                                                                              }
+                                                                                             }
+                                                                                            ]
+                                                                                           }
+                                                                                          }
+                                                                                         ]
+                                                                                        }
+                                                                                       }
+                                                                                      ]
+                                                                                     }
+                                                                                    }
+                                                                                   ]
+                                                                                  }
+                                                                                 }
+                                                                                ],
+                                                                                "comment": "飛車６八、玉２八、銀３八、金５八の配置です。左銀が７八を空け、角も７七へ動いているので、飛車が６八から７八を通って８八へ動けます。次の比較で実際に振り直します。",
+                                                                                "commentEn": "The arrangement has rook 6h, king 2h, silver 3h and gold 5h. The left silver has cleared 7h and the bishop has moved to 7g, allowing the rook to travel from 6h through 7h to 8h. The comparison makes that transfer on the board."
+                                                                               }
+                                                                              }
+                                                                             ]
+                                                                            }
+                                                                           }
+                                                                          ]
+                                                                         }
+                                                                        }
+                                                                       ]
+                                                                      }
+                                                                     }
+                                                                    ]
+                                                                   }
+                                                                  }
+                                                                 ]
+                                                                }
+                                                               }
+                                                              ]
+                                                             }
+                                                            }
+                                                           ]
+                                                          }
+                                                         }
+                                                        ]
+                                                       }
+                                                      }
+                                                     ]
+                                                    }
+                                                   }
+                                                  ]
+                                                 }
+                                                }
+                                               ]
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          }
+                                         ]
+                                        }
+                                       }
+                                      ]
+                                     }
+                                    }
+                                   ]
+                                  }
+                                 }
+                                ]
+                               }
+                              }
+                             ]
+                            }
+                           }
+                          ]
+                         }
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

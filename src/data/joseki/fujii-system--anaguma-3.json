@@ -214,7 +214,7 @@
                                                                                 "branches": [
                                                                                  {
                                                                                   "usi": "3d2c+",
-                                                                                  "kind": "alt",
+                                                                                  "kind": "deviation",
                                                                                   "note": "３四銀が２三歩を取って成る。先手はさらに歩を取る。",
                                                                                   "child": {
                                                                                    "id": "nb0_0",

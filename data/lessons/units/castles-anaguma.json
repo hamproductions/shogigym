@@ -373,8 +373,8 @@
             "8h2b+"
           ],
           "text": {
-            "ja": "▲２二角成。角を交換します。盤上に角がいなくなり、八八が空きます。",
-            "en": "▲2二角成 trades bishops. No bishop is left on the board and 8h is free."
+            "ja": "▲２二角成で後手の角を取りました。先手の馬が２二に残り、８八は空いています。先手だけが持ち角を得た段階で、後手の銀による取り返しは次の手です。",
+            "en": "▲2二角成 captures Gote's bishop. Sente's promoted bishop remains on 2b and 8h is empty. Only Sente has a bishop in hand so far; Gote's silver recapture comes next."
           },
           "marks": {
             "boxes": [
@@ -389,8 +389,8 @@
             "8g8f"
           ],
           "text": {
-            "ja": "▲８六歩。八七を空けて、銀が入る場所を作ります。",
-            "en": "▲8六歩 empties 8g, the square for a silver."
+            "ja": "△２二銀で馬が取られ、双方に持ち角ができました。先手は▲８六歩と進め、銀を置く予定の８七を空けます。",
+            "en": "△2二銀 recaptures the promoted bishop, giving both players a bishop in hand. Sente then plays ▲8六歩 to clear 8g for a silver."
           },
           "marks": {
             "boxes": [
@@ -548,8 +548,8 @@
         },
         {
           "text": {
-            "ja": "ビッグ4は、金銀四枚が玉の周りに集まり、そのまま優勢になるといわれるほど堅い形です。ただし実戦では、ここまで組む時間を相手が与えてくれることはまれです。また、攻めに使える駒が飛車、桂、香、歩しかなく、攻めはとても細くなります。早い攻めには、組み上がる前に対応するのが大切です。",
-            "en": "Big 4 is so firm that reaching it is said to be a winning position by itself. In real games the opponent seldom gives time to get that far, and the attack is left with the rook, knight, lance and pawns, which is very thin. Meet a fast attack before the castle is finished."
+            "ja": "金８八・７八、銀８七・７七が玉の近くへ集まりました。先手には飛車や桂・香・歩に加え、持ち角も残っています。ただし金銀四枚は守りに使っているため、攻めに参加できる駒と、その間の玉の安全を合わせて考えます。完成した名前だけで優勢とは判断できません。",
+            "en": "Golds on 8h and 7h and silvers on 8g and 7g gather near the king. Sente still has a bishop in hand as well as the rook, knights, lances and pawns. With all four golds and silvers committed to defense, consider the available attackers together with the king's safety. Completing a named castle alone does not establish an advantage."
           },
           "marks": {
             "boxes": [
@@ -641,8 +641,8 @@
         },
         {
           "text": {
-            "ja": "銀冠穴熊は、通常の居飛車穴熊より隙が少なく、角道を開けたまま組みやすいのが長所です。八八の金や銀を足せば、さらに堅くなります。弱点は、組み替えに手数がかかることと、玉が隅で逃げ場がないことです。",
-            "en": "Compared with the plain Static Rook Anaguma it leaves fewer gaps and is easy to build with the bishop line open. A gold or silver added on 8h makes it harder still. The costs are the many moves needed to convert and the king having no room to run."
+            "ja": "銀は８七、玉は９九にいます。この図では８八が空いており、玉は▲８八玉と動けます。あとで８八へ金や銀を足すと、その逃げ道は自分の駒で埋まります。囲いを固める前後で、玉の動けるマスも確認してください。",
+            "en": "The silver is on 8g and the king on 9i. In this position 8h is empty, and the king can move there with ▲8八玉. Adding a gold or silver on 8h later would occupy that escape square. Check the king’s available squares as you reinforce the castle."
           },
           "marks": {
             "boxes": [

@@ -243,8 +243,8 @@
                 "8b8f"
               ],
               "text": {
-                "ja": "▲同歩△同飛と進むと、８六の飛車に当たる駒がありません。次に飛車が８九へ成り込む手を防げず、後手が優勢になります。角が７七にいれば、この飛車を取れたはずです。",
-                "en": "After ▲同歩 △同飛, nothing attacks the rook on 8f. Sente cannot stop it from promoting next, and Gote is better. With the bishop on 7g, the rook could have been captured."
+                "ja": "▲同歩△同飛で後手の飛車が８六へ出ました。８八には先手の角が残っていて、後手は△８八飛成と角を取る狙いがあります。角を７七へ上げていれば、８六の飛車を角で取れる位置でした。",
+                "en": "After ▲同歩 △同飛, Gote’s rook is on 8f. Sente’s bishop remains on 8h, and Gote threatens △8八飛成 to capture it. A bishop developed to 7g would instead be able to capture the rook on 8f."
               },
               "marks": {
                 "last": "8f",

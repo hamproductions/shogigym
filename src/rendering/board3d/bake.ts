@@ -90,11 +90,17 @@ async function bakeFlatWith(
   crop.width = crop.height = px
   const ctx = crop.getContext('2d')!
   const pieces = new Map<string, string>()
+  let lastYield = performance.now()
+  const yieldIfNeeded = async () => {
+    if (performance.now() - lastYield < 8) return
+    await nextFrame()
+    lastYield = performance.now()
+  }
   try {
     for (const color of colors) {
       const meshes: THREE.Object3D[] = []
       for (const [index, type] of types.entries()) {
-        await nextFrame()
+        await yieldIfNeeded()
         signal.throwIfAborted()
         const mesh = pieceMesh(type, color, undefined, 48, settings, environment, true)
         mesh.rotation.y = 0
@@ -118,7 +124,7 @@ async function bakeFlatWith(
           ctx.restore()
           pieces.set(spriteKey(type, color, up), crop.toDataURL('image/png'))
         }
-        await nextFrame()
+        await yieldIfNeeded()
         signal.throwIfAborted()
       }
       for (const mesh of meshes) {

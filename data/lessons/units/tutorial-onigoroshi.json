@@ -86,7 +86,15 @@
         },
         {
           "moves": [
-            "8c8d",
+            "8c8d"
+          ],
+          "text": {
+            "ja": "桂跳ねの直前です。次は罠を狙う一方、正確に受けられると損をする比較手です。",
+            "en": "Before the knight jump: the next move sets a trap but loses material against accurate defence."
+          }
+        },
+        {
+          "moves": [
             "7g6e"
           ],
           "text": {
@@ -101,7 +109,8 @@
             "boxes": [
               "5c"
             ]
-          }
+          },
+          "kind": "deviation"
         },
         {
           "text": {
@@ -131,7 +140,15 @@
             "7g7f",
             "3c3d",
             "8i7g",
-            "8c8d",
+            "8c8d"
+          ],
+          "text": {
+            "ja": "桂跳ねの直前です。次は罠を狙う一方、正確に受けられると損をする比較手です。",
+            "en": "Before the knight jump: the next move sets a trap but loses material against accurate defence."
+          }
+        },
+        {
+          "moves": [
             "7g6e"
           ],
           "text": {
@@ -140,7 +157,8 @@
           },
           "marks": {
             "last": "6e"
-          }
+          },
+          "kind": "deviation"
         },
         {
           "moves": [
@@ -239,8 +257,8 @@
             "7h7c+"
           ],
           "text": {
-            "ja": "△６四金と角を取っても、▲７三歩成から一気に決まります。△同桂▲同桂成△同銀▲同飛成と、７三で駒を次々に交換し、先手の竜が７三に入りました。角を一枚損しても、後手の玉の周りは薄くなり、先手が優勢です。この「７筋に集中する攻め」が鬼殺しの狙いです。",
-            "en": "Even if Gote grabs the bishop with △6四金, ▲7三歩成 settles things. After △同桂 ▲同桂成 △同銀 ▲同飛成 the pieces are traded on 7c and a promoted rook lands there. Sente is a bishop down but Gote's camp is thin and Sente is better. This concentration on the seventh file is the aim of the opening."
+            "ja": "△６四金で角を取られたあと、７三で歩・桂・銀を交換し、先手の竜が７三へ入りました。この一連の交換で先手は角を渡し、銀と歩を得ています。桂は互いに一枚ずつ取り合いました。竜の働きだけでなく、持ち駒と後手の反撃も比べましょう。",
+            "en": "After △6四金 takes the bishop, the exchanges on 7c bring Sente’s dragon into the camp. Across the sequence, Sente gives a bishop for a silver and a pawn; each side also captures a knight. Compare the hands and Gote’s counterplay as well as the dragon’s activity."
           },
           "marks": {
             "last": "7c",
@@ -252,14 +270,15 @@
       ],
       "variations": [
         {
-          "from": 3,
+          "from": 4,
           "moves": [
             "B*7g"
           ],
           "text": {
             "ja": "▲６四角のあと、金を固めずに持ち駒の角を△７七角と打ち込む変化です。空いた７七に角を打たれ、先手は飛車の逃げ場を考えることになります。ソフトはここでも後手がやや指しやすいと評価します。この罠は相手が気づかないことに賭けた手順で、後手に最善の反撃が残っています。",
             "en": "A different reply: instead of firming up, Gote drops the bishop in hand on 7g. The vacated square lets the bishop in and Sente has to think about the rook. Engines still rate Gote as slightly better here. The trap bets on the opponent not noticing, and Gote has a strong counter."
-          }
+          },
+          "kind": "alt"
         }
       ]
     },
@@ -277,7 +296,15 @@
             "7g7f",
             "3c3d",
             "8i7g",
-            "8c8d",
+            "8c8d"
+          ],
+          "text": {
+            "ja": "桂跳ねの直前です。次は罠を狙う一方、正確に受けられると損をする比較手です。",
+            "en": "Before the knight jump: the next move sets a trap but loses material against accurate defence."
+          }
+        },
+        {
+          "moves": [
             "7g6e"
           ],
           "text": {
@@ -286,7 +313,8 @@
           },
           "marks": {
             "last": "6e"
-          }
+          },
+          "kind": "deviation"
         },
         {
           "moves": [
@@ -355,7 +383,7 @@
       ],
       "variations": [
         {
-          "from": 0,
+          "from": 1,
           "moves": [
             "7a6b"
           ],
@@ -386,8 +414,8 @@
                 "6e5c+"
               ],
               "text": {
-                "ja": "銀は横に動けません。▲５三桂成と桂が成り込み、金に当たりながら受けが崩れます。金なら残る５三の利きが、銀では残らないのです。",
-                "en": "A silver cannot step sideways. ▲5三桂成 lands with the promoted knight and Gote's defence breaks down. The coverage of 5c that a gold keeps is gone with a silver."
+                "ja": "▲５三桂成と歩を取り、桂が成りました。６三の銀は横の５三を守れないため、この成り込みを取れません。成桂は金と同じ動きになり、４一と６一の金への桂の両取りにはなっていません。",
+                "en": "▲5三桂成 captures the pawn and promotes. The silver on 6c cannot move sideways to 5c to capture it. The promoted knight now moves as a gold, so it does not fork the golds on 4a and 6a."
               },
               "marks": {
                 "last": "5c",
@@ -425,7 +453,15 @@
         },
         {
           "moves": [
-            "8b4b",
+            "8b4b"
+          ],
+          "text": {
+            "ja": "桂跳ねの直前です。次は罠を狙う一方、正確に受けられると損をする比較手です。",
+            "en": "Before the knight jump: the next move sets a trap but loses material against accurate defence."
+          }
+        },
+        {
+          "moves": [
             "7g6e"
           ],
           "text": {
@@ -434,7 +470,8 @@
           },
           "marks": {
             "last": "6e"
-          }
+          },
+          "kind": "deviation"
         },
         {
           "moves": [

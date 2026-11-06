@@ -158,15 +158,20 @@
         {
           "from": 3,
           "moves": [
-            "6b6c",
-            "4i5h",
-            "6d6e"
+            "6b6c"
           ],
-          "text": {
-            "ja": "▲４八銀を指さずに▲５八金とすると、△６五歩の仕掛けがすぐに成立します。",
-            "en": "If Sente plays ▲5八金 without first playing ▲4八銀, the △6五歩 attack works immediately."
-          },
           "steps": [
+            {
+              "moves": [
+                "4i5h",
+                "6d6e"
+              ],
+              "kind": "deviation",
+              "text": {
+                "ja": "▲４八銀を指さずに▲５八金とすると、△６五歩の仕掛けがすぐに成立します。",
+                "en": "If Sente plays ▲5八金 without first playing ▲4八銀, the △6五歩 attack works immediately."
+              }
+            },
             {
               "moves": [
                 "6f6e",
@@ -184,9 +189,15 @@
                   "6f8h",
                   "6f3i"
                 ]
-              }
+              },
+              "kind": "deviation"
             }
-          ]
+          ],
+          "kind": "alt",
+          "text": {
+            "ja": "△６三銀まで進めた比較です。先に右銀を動かす順と、金を急ぐ順を比べます。",
+            "en": "After △6三銀, compare developing the right silver first with rushing the gold."
+          }
         }
       ]
     },
@@ -502,8 +513,8 @@
             "B*7g"
           ],
           "text": {
-            "ja": "後手が△４四角と打って無理に攻めても、▲７七角と受ければ大丈夫です。この形からの右四間飛車の攻めは無理筋でした。記事の文章は▲３三角としていますが、図は▲７七角です。",
-            "en": "Even if Gote forces matters with △4四角, ▲7七角 meets it. Right Fourth File Rook has no real attack from this shape. The article's text says ▲3三角 here but its diagram shows ▲7七角."
+            "ja": "△４四角に▲７七角と持ち角を打ちます。７七の角は４四の角と同じ斜めの道に入り、８八玉の前に立ちます。盤面で二枚の角と玉の位置を確認してください。",
+            "en": "Against △4四角, Sente drops the bishop with ▲7七角. It stands in front of the king on 8h, on the same diagonal as Gote’s bishop on 4d. Locate both bishops and the king on the board."
           },
           "marks": {
             "last": "7g",

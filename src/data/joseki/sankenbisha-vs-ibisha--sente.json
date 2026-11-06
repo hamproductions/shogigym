@@ -1,0 +1,304 @@
+{
+ "id": "sankenbisha-vs-ibisha--sente",
+ "title": "先手三間飛車：７八飛を残して美濃を組む",
+ "titleEn": "Sente Third File Rook: Keep the Rook on 7h and Build Mino",
+ "myStrategy": "sankenbisha",
+ "opponentStrategy": "ibisha",
+ "mySide": "sente",
+ "userSide": "sente",
+ "source": "先手三間飛車の７八飛と美濃囲いの標準的な駒組みを、新ペタショック定跡（MIT）の候補手から独立して選択。後手用の棋譜を機械的に反転せず、この配置に合わせた説明を新しく執筆。",
+ "goalFormation": "先手は飛車７八・角７七、玉２八・銀３八・金５八の美濃。左銀６七と歩６六・５六・４六を置き、飛車を浮かずに駒組みを進める。",
+ "goalLabel": "飛車の位置と玉側の守りを確かめる",
+ "goalSfen": "ln3g1nl/1r2g1kb1/p2ssp1pp/2ppp1p2/1p7/2PPPP3/PPBS2PPP/2R1G1SK1/LN3G1NL b - 1",
+ "root": {
+  "id": "n0",
+  "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+  "comment": "先手で三間飛車を指し、飛車を７八に置く基本形です。玉は右側の２八へ運びます。石田流のように飛車を７六へ浮く構想とは区別し、角７七の後ろの飛車と、中央を支える左銀を確認してください。",
+  "commentEn": "As Sente, establish the normal Third File Rook arrangement with the rook on 7h and move the king toward 2h. Distinguish this from floating the rook to 7f in Ishida. Locate the rook behind bishop 7g and the left silver supporting the center.",
+  "branches": [
+   {
+    "usi": "7g7f",
+    "kind": "main",
+    "child": {
+     "id": "n_0",
+     "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL w - 1",
+     "branches": [
+      {
+       "usi": "8c8d",
+       "kind": "main",
+       "child": {
+        "id": "n_1",
+        "sfen": "lnsgkgsnl/1r5b1/p1ppppppp/1p7/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL b - 1",
+        "branches": [
+         {
+          "usi": "6g6f",
+          "kind": "main",
+          "note": "▲６六歩で６七が空き、自分の角の斜線はいったん歩６六で止まります。",
+          "noteEn": "▲6六歩 clears 6g and temporarily blocks Sente’s bishop diagonal on 6f.",
+          "child": {
+           "id": "n_2",
+           "sfen": "lnsgkgsnl/1r5b1/p1ppppppp/1p7/9/2PP5/PP2PPPPP/1B5R1/LNSGKGSNL w - 1",
+           "branches": [
+            {
+             "usi": "8d8e",
+             "kind": "main",
+             "child": {
+              "id": "n_3",
+              "sfen": "lnsgkgsnl/1r5b1/p1ppppppp/9/1p7/2PP5/PP2PPPPP/1B5R1/LNSGKGSNL b - 1",
+              "branches": [
+               {
+                "usi": "8h7g",
+                "kind": "main",
+                "note": "▲７七角は８六を守ります。相手の８五歩が８六へ進んだ場合の取り返しを考える配置です。",
+                "noteEn": "▲7七角 guards 8f, preparing a recapture if Gote’s pawn on 8e advances there.",
+                "child": {
+                 "id": "n_4",
+                 "sfen": "lnsgkgsnl/1r5b1/p1ppppppp/9/1p7/2PP5/PPB1PPPPP/7R1/LNSGKGSNL w - 1",
+                 "branches": [
+                  {
+                   "usi": "3c3d",
+                   "kind": "main",
+                   "child": {
+                    "id": "n_5",
+                    "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/6p2/1p7/2PP5/PPB1PPPPP/7R1/LNSGKGSNL b - 1",
+                    "branches": [
+                     {
+                      "usi": "2h7h",
+                      "kind": "main",
+                      "note": "▲７八飛。７七の角を後ろから支えます。飛車の前には角７七と歩７六がいます。",
+                      "noteEn": "▲7八飛 supports bishop 7g from behind. The bishop on 7g and pawn on 7f stand in front of the rook.",
+                      "child": {
+                       "id": "n_6",
+                       "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/6p2/1p7/2PP5/PPB1PPPPP/2R6/LNSGKGSNL w - 1",
+                       "branches": [
+                        {
+                         "usi": "7a6b",
+                         "kind": "main",
+                         "child": {
+                          "id": "n_7",
+                          "sfen": "ln1gkgsnl/1r1s3b1/p1pppp1pp/6p2/1p7/2PP5/PPB1PPPPP/2R6/LNSGKGSNL b - 1",
+                          "branches": [
+                           {
+                            "usi": "7i6h",
+                            "kind": "main",
+                            "note": "▲６八銀で左銀を上げます。今は角７七にも利きます。",
+                            "noteEn": "▲6八銀 develops the left silver and also guards bishop 7g at this moment.",
+                            "child": {
+                             "id": "n_8",
+                             "sfen": "ln1gkgsnl/1r1s3b1/p1pppp1pp/6p2/1p7/2PP5/PPB1PPPPP/2RS5/LN1GKGSNL w - 1",
+                             "branches": [
+                              {
+                               "usi": "5a4b",
+                               "kind": "main",
+                               "child": {
+                                "id": "n_9",
+                                "sfen": "ln1g1gsnl/1r1s1k1b1/p1pppp1pp/6p2/1p7/2PP5/PPB1PPPPP/2RS5/LN1GKGSNL b - 1",
+                                "branches": [
+                                 {
+                                  "usi": "5i4h",
+                                  "kind": "main",
+                                  "child": {
+                                   "id": "n_10",
+                                   "sfen": "ln1g1gsnl/1r1s1k1b1/p1pppp1pp/6p2/1p7/2PP5/PPB1PPPPP/2RS1K3/LN1G1GSNL w - 1",
+                                   "branches": [
+                                    {
+                                     "usi": "4b3b",
+                                     "kind": "main",
+                                     "child": {
+                                      "id": "n_11",
+                                      "sfen": "ln1g1gsnl/1r1s2kb1/p1pppp1pp/6p2/1p7/2PP5/PPB1PPPPP/2RS1K3/LN1G1GSNL b - 1",
+                                      "branches": [
+                                       {
+                                        "usi": "4h3h",
+                                        "kind": "main",
+                                        "child": {
+                                         "id": "n_12",
+                                         "sfen": "ln1g1gsnl/1r1s2kb1/p1pppp1pp/6p2/1p7/2PP5/PPB1PPPPP/2RS2K2/LN1G1GSNL w - 1",
+                                         "branches": [
+                                          {
+                                           "usi": "5c5d",
+                                           "kind": "main",
+                                           "child": {
+                                            "id": "n_13",
+                                            "sfen": "ln1g1gsnl/1r1s2kb1/p1pp1p1pp/4p1p2/1p7/2PP5/PPB1PPPPP/2RS2K2/LN1G1GSNL b - 1",
+                                            "branches": [
+                                             {
+                                              "usi": "3h2h",
+                                              "kind": "main",
+                                              "note": "▲２八玉で玉を飛車と反対側へ運びました。",
+                                              "noteEn": "▲2八玉 takes the king to the wing opposite the rook.",
+                                              "child": {
+                                               "id": "n_14",
+                                               "sfen": "ln1g1gsnl/1r1s2kb1/p1pp1p1pp/4p1p2/1p7/2PP5/PPB1PPPPP/2RS3K1/LN1G1GSNL w - 1",
+                                               "branches": [
+                                                {
+                                                 "usi": "6a5b",
+                                                 "kind": "main",
+                                                 "child": {
+                                                  "id": "n_15",
+                                                  "sfen": "ln3gsnl/1r1sg1kb1/p1pp1p1pp/4p1p2/1p7/2PP5/PPB1PPPPP/2RS3K1/LN1G1GSNL b - 1",
+                                                  "branches": [
+                                                   {
+                                                    "usi": "3i3h",
+                                                    "kind": "main",
+                                                    "note": "▲３八銀は玉２八の隣です。",
+                                                    "noteEn": "▲3八銀 stands beside king 2h.",
+                                                    "child": {
+                                                     "id": "n_16",
+                                                     "sfen": "ln3gsnl/1r1sg1kb1/p1pp1p1pp/4p1p2/1p7/2PP5/PPB1PPPPP/2RS2SK1/LN1G1G1NL w - 1",
+                                                     "branches": [
+                                                      {
+                                                       "usi": "3a4b",
+                                                       "kind": "main",
+                                                       "child": {
+                                                        "id": "n_17",
+                                                        "sfen": "ln3g1nl/1r1sgskb1/p1pp1p1pp/4p1p2/1p7/2PP5/PPB1PPPPP/2RS2SK1/LN1G1G1NL b - 1",
+                                                        "branches": [
+                                                         {
+                                                          "usi": "6i5h",
+                                                          "kind": "main",
+                                                          "note": "▲５八金で金を一枚寄せます。右金４九はまだ元の升に残っています。",
+                                                          "noteEn": "▲5八金 develops one gold. The right gold remains on its starting square, 4i.",
+                                                          "child": {
+                                                           "id": "n_18",
+                                                           "sfen": "ln3g1nl/1r1sgskb1/p1pp1p1pp/4p1p2/1p7/2PP5/PPB1PPPPP/2RSG1SK1/LN3G1NL w - 1",
+                                                           "branches": [
+                                                            {
+                                                             "usi": "4b5c",
+                                                             "kind": "main",
+                                                             "child": {
+                                                              "id": "n_19",
+                                                              "sfen": "ln3g1nl/1r1sg1kb1/p1ppsp1pp/4p1p2/1p7/2PP5/PPB1PPPPP/2RSG1SK1/LN3G1NL b - 1",
+                                                              "branches": [
+                                                               {
+                                                                "usi": "5g5f",
+                                                                "kind": "main",
+                                                                "note": "▲５六歩で中央の５七を空けます。",
+                                                                "noteEn": "▲5六歩 clears the central square 5g.",
+                                                                "child": {
+                                                                 "id": "n_20",
+                                                                 "sfen": "ln3g1nl/1r1sg1kb1/p1ppsp1pp/4p1p2/1p7/2PPP4/PPB2PPPP/2RSG1SK1/LN3G1NL w - 1",
+                                                                 "branches": [
+                                                                  {
+                                                                   "usi": "6c6d",
+                                                                   "kind": "main",
+                                                                   "child": {
+                                                                    "id": "n_21",
+                                                                    "sfen": "ln3g1nl/1r1sg1kb1/p1p1sp1pp/3pp1p2/1p7/2PPP4/PPB2PPPP/2RSG1SK1/LN3G1NL b - 1",
+                                                                    "branches": [
+                                                                     {
+                                                                      "usi": "4g4f",
+                                                                      "kind": "main",
+                                                                      "note": "▲４六歩。中央の歩は６六・５六・４六です。",
+                                                                      "noteEn": "▲4六歩 leaves central pawns on 6f, 5f and 4f.",
+                                                                      "child": {
+                                                                       "id": "n_22",
+                                                                       "sfen": "ln3g1nl/1r1sg1kb1/p1p1sp1pp/3pp1p2/1p7/2PPPP3/PPB3PPP/2RSG1SK1/LN3G1NL w - 1",
+                                                                       "branches": [
+                                                                        {
+                                                                         "usi": "7c7d",
+                                                                         "kind": "main",
+                                                                         "child": {
+                                                                          "id": "n_23",
+                                                                          "sfen": "ln3g1nl/1r1sg1kb1/p3sp1pp/2ppp1p2/1p7/2PPPP3/PPB3PPP/2RSG1SK1/LN3G1NL b - 1",
+                                                                          "branches": [
+                                                                           {
+                                                                            "usi": "6h6g",
+                                                                            "kind": "main",
+                                                                            "note": "▲６七銀で左銀が６六歩を守ります。６七は最初に６六歩で空けた升です。",
+                                                                            "noteEn": "▲6七銀 guards pawn 6f, using the square cleared by the earlier pawn move.",
+                                                                            "child": {
+                                                                             "id": "n_24",
+                                                                             "sfen": "ln3g1nl/1r1sg1kb1/p3sp1pp/2ppp1p2/1p7/2PPPP3/PPBS2PPP/2R1G1SK1/LN3G1NL w - 1",
+                                                                             "branches": [
+                                                                              {
+                                                                               "usi": "6b6c",
+                                                                               "kind": "main",
+                                                                               "note": "後手が△６三銀と歩６四を支える配置を選びました。",
+                                                                               "noteEn": "Gote selects △6三銀, supporting pawn 6d.",
+                                                                               "child": {
+                                                                                "id": "n_25",
+                                                                                "sfen": "ln3g1nl/1r2g1kb1/p2ssp1pp/2ppp1p2/1p7/2PPPP3/PPBS2PPP/2R1G1SK1/LN3G1NL b - 1",
+                                                                                "branches": [],
+                                                                                "comment": "先手飛車は７八に残り、玉２八の隣に銀３八、中央寄りに金５八があります。左銀６七は歩６六を守ります。次に歩を動かすときは、空く升と角７七の道の変化を確認し、この形を理由に飛車を自動的に７六へ浮かないでください。",
+                                                                                "commentEn": "Sente’s rook remains on 7h, with silver 3h beside king 2h and gold 5h toward the center. Silver 6g guards pawn 6f. Before another pawn advance, inspect the cleared squares and bishop 7g’s changing diagonal; this arrangement does not call for automatically floating the rook to 7f."
+                                                                               }
+                                                                              }
+                                                                             ]
+                                                                            }
+                                                                           }
+                                                                          ]
+                                                                         }
+                                                                        }
+                                                                       ]
+                                                                      }
+                                                                     }
+                                                                    ]
+                                                                   }
+                                                                  }
+                                                                 ]
+                                                                }
+                                                               }
+                                                              ]
+                                                             }
+                                                            }
+                                                           ]
+                                                          }
+                                                         }
+                                                        ]
+                                                       }
+                                                      }
+                                                     ]
+                                                    }
+                                                   }
+                                                  ]
+                                                 }
+                                                }
+                                               ]
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          }
+                                         ]
+                                        }
+                                       }
+                                      ]
+                                     }
+                                    }
+                                   ]
+                                  }
+                                 }
+                                ]
+                               }
+                              }
+                             ]
+                            }
+                           }
+                          ]
+                         }
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

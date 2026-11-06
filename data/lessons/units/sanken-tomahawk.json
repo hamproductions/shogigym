@@ -355,8 +355,8 @@
             "6f6e"
           ],
           "text": {
-            "ja": "後手の角が△２四角と動いたので、▲６五歩と角道を開けます。７七の角が相手玉の方へ通りました。２二の銀が動くと角で玉が取られるので、銀は動けません。",
-            "en": "Gote's bishop moves with △2四角, so Sente opens the bishop line with ▲6五歩. The bishop on 7g now points toward Gote's king, and the silver on 2b cannot move without exposing it."
+            "ja": "△２四角に▲６五歩と進めると、７七の角から２二の銀、その奥の１一玉まで斜めの道が開きます。銀はこの道を外れると王手を放置してしまいます。ただし、△３三銀のように同じ斜めの道に残る移動は可能です。",
+            "en": "After △2四角, ▲6五歩 opens the diagonal from the bishop on 7g through the silver on 2b to the king on 1a. The silver cannot leave that diagonal and expose its king. A move along the same diagonal, such as △3三銀, remains legal."
           },
           "marks": {
             "last": "6e",
@@ -392,8 +392,8 @@
             "2e1c+"
           ],
           "text": {
-            "ja": "ここで▲１三桂成と端の香の前へ成り込みます。桂を一枚手放すことになりますが、端に駒を集めて後手陣を崩します。７七の角が玉をにらみ続けているため、２二の銀は離れられません。",
-            "en": "Now ▲1三桂成. Sente gives up the knight for the moment but swarms the edge to break through. It matters that the bishop pins the silver on 2b to the king."
+            "ja": "▲１三桂成と歩を取りながら成ります。２二の銀でこの成桂を取る△１三銀は、７七の角から１一玉への道を開けるため指せません。銀がまったく動けないのではなく、玉への斜めの道をふさぐ必要がある点を確認しましょう。",
+            "en": "▲1三桂成 captures the pawn and promotes. The silver on 2b cannot capture this knight with △1三銀: that would open the bishop’s diagonal from 7g to the king on 1a. The restriction is that the silver must keep this diagonal blocked."
           },
           "marks": {
             "last": "1c",

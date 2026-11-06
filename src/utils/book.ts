@@ -1,7 +1,7 @@
 import { bookLookup } from './kifu'
 import { strategiesAt } from './catalog'
 import { COURSE_SIDES, LEGACY_AI_STRATEGY, STRATEGIES } from '@/data/strategies'
-import { COURSES, SETUPS, type Course, type JosekiMove, type JosekiNode, courseLoaded, loadBookFor } from './model'
+import { COURSES, SETUPS, type Course, type JosekiMove, type JosekiNode, courseLoaded, loadedBookNodes, loadBookFor } from './model'
 import type { Side } from './shogi'
 import { openingMoves } from './openingBook'
 import { localizeSquares } from './notation'
@@ -27,23 +27,30 @@ export const lessonText = (text: string | null | undefined, en: string | null | 
     ? (text ?? undefined)
     : localizeEnglishText(en ?? (text && (lessonNotesEn as Record<string, Record<string, string>>)[course.baseId]?.[text]) ?? text)
 
+const lessonNode = (node: JosekiNode, course: Course, lang: string): JosekiNode => ({
+  ...node,
+  comment: lessonText(node.comment, node.commentEn, lang, course),
+  branches: node.branches.map((branch) => ({
+    ...branch,
+    note: lessonText(branch.note, branch.noteEn, lang, course),
+    aim: lessonText(branch.aim, undefined, lang, course),
+    punishNote: lessonText(branch.punishNote, undefined, lang, course),
+  })),
+})
+
+export function courseNodeAt(course: Course, moves: readonly string[], sfen: string, lang = 'ja'): JosekiNode | undefined {
+  let node: JosekiNode | null | undefined = course.root
+  for (const usi of moves) node = node?.branches.find((branch) => branch.usi === usi)?.child
+  return node && strip(node.sfen) === strip(sfen) ? lessonNode(node, course, lang) : courseNodes(course, lang).get(strip(sfen))
+}
+
 export function courseNodes(course: Course, lang = 'ja'): CourseNodes {
   const key = `${course.id}:${lang}:${courseLoaded(course)}`
   const cached = nodesCache.get(key)
   if (cached) return cached
   const map: CourseNodes = new Map()
   const walk = (node: JosekiNode) => {
-    if (!map.has(strip(node.sfen)))
-      map.set(strip(node.sfen), {
-        ...node,
-        comment: lessonText(node.comment, node.commentEn, lang, course),
-        branches: node.branches.map((branch) => ({
-          ...branch,
-          note: lessonText(branch.note, branch.noteEn, lang, course),
-          aim: lessonText(branch.aim, undefined, lang, course),
-          punishNote: lessonText(branch.punishNote, undefined, lang, course),
-        })),
-      })
+    if (!map.has(strip(node.sfen))) map.set(strip(node.sfen), lessonNode(node, course, lang))
     node.branches.forEach((b) => b.child && walk(b.child))
   }
   walk(course.root)
@@ -70,9 +77,17 @@ export function resolveAiStrategy(id: string, side: Side) {
   return options[Math.floor(Math.random() * options.length)]?.id ?? ''
 }
 
+function strategyNodes(strategyId: string, side: Side, sfen: string) {
+  const indexed = loadedBookNodes(sfen)
+  return strategyCourses(strategyId, side).flatMap((course) => {
+    const node = courseLoaded(course) ? courseNodes(course).get(strip(sfen)) : indexed.find((hit) => hit.baseId === course.baseId)?.node
+    return node ? [node] : []
+  })
+}
+
 export function strategyMove(strategyId: string, side: Side, sfen: string) {
-  const options = strategyCourses(strategyId, side).flatMap((c) => {
-    const pick = mainBranch(courseNodes(c).get(strip(sfen)))
+  const options = strategyNodes(strategyId, side, sfen).flatMap((node) => {
+    const pick = mainBranch(node)
     return pick ? [pick] : []
   })
   return options[Math.floor(Math.random() * options.length)]
@@ -81,8 +96,7 @@ export function strategyMove(strategyId: string, side: Side, sfen: string) {
 export async function strategyReply(strategyId: string, side: Side, sfen: string, ply: number) {
   if (!strategyId || ply >= 48) return undefined
   await loadBookFor([sfen])
-  const courses = strategyCourses(strategyId, side)
-  const allowed = courses.flatMap((course) => goodBranches(courseNodes(course).get(strip(sfen))))
+  const allowed = strategyNodes(strategyId, side, sfen).flatMap((node) => goodBranches(node))
   let evaluated: Awaited<ReturnType<typeof openingMoves>> = []
   try {
     evaluated = await openingMoves(sfen)
@@ -163,7 +177,9 @@ export const isBookMove = (sfen: string, usi: string) =>
   )
 
 export const setupOf = (course: Course, main?: string) =>
-  SETUPS.find((s) => s.courseIds.includes(course.id) && (!main || s.technique || s.main === main)) ?? SETUPS.find((s) => s.courseIds.includes(course.id))
+  SETUPS.find((s) => s.id === course.setupId && (!main || s.technique || s.main === main)) ??
+  SETUPS.find((s) => s.courseIds.includes(course.id) && (!main || s.technique || s.main === main)) ??
+  SETUPS.find((s) => s.courseIds.includes(course.id))
 
 export const setupsFor = (main: string) => SETUPS.filter((s) => s.main === main)
 

@@ -8,6 +8,7 @@ import { savedAtLabel, sideMark } from '@/utils/notation'
 import { deleteGame, loadGames, storeGame, type GameResult, type StoredGame } from '@/app/games'
 import { STRENGTH, useSettings } from '@/appearance/settings'
 import { allLines, countMoves, mainLine } from '@/app/tree'
+import { positionCorrectionIssue } from '@/utils/positionCorrection'
 import { isGameMode, type Confirm, type Tab } from '@/app/types'
 
 export type GameNotes = { title: string; comments: string[]; ending?: string; moves: string }
@@ -224,9 +225,60 @@ export function useAnalyzeGames(
       no: t('app.keepIt'),
     })
 
+  const positionLines = tree.children.length ? allLines(tree) : [game.moves]
+  const positionError = (start: string, keepMoves: boolean) => {
+    const issue = positionCorrectionIssue(start, keepMoves ? positionLines : [])
+    return issue === 'invalid' ? t('positionEditor.invalid') : issue === null ? null : t('positionEditor.illegalMove', { count: issue })
+  }
+
+  const applyPosition = (start: string, keepMoves: boolean): string | null => {
+    const error = positionError(start, keepMoves)
+    if (error) return error
+    const savedAt = Date.now()
+    const existing = slotId ? loadGames().find((g) => g.id === slotId) : undefined
+    const original = {
+      title: gameTitle || t('app.analysis'),
+      start: game.start,
+      moves: tree.children.length ? mainLine(tree) : game.moves,
+      tree: tree.children.length ? tree : undefined,
+      userSide,
+      players,
+      role: 'study' as const,
+    }
+    if (
+      (!existing ||
+        JSON.stringify([existing.start, existing.moves, existing.tree, existing.players, existing.userSide, existing.title]) !==
+          JSON.stringify([original.start, original.moves, original.tree, original.players, original.userSide, original.title])) &&
+      !storeGame({ ...original, id: crypto.randomUUID(), savedAt })
+    )
+      return t('games.couldNotSaveBrowserStorage')
+    const corrected: StoredGame = {
+      ...original,
+      id: crypto.randomUUID(),
+      title: `${original.title} · ${t('positionEditor.corrected')}`,
+      savedAt,
+      start,
+      moves: keepMoves ? original.moves : [],
+      tree: keepMoves ? original.tree : undefined,
+    }
+    if (!storeGame(corrected)) return t('games.couldNotSaveBrowserStorage')
+    load(start, userSide, 'analyze', null)
+    session.setGame({ start, moves: corrected.moves })
+    if (corrected.tree) session.setTree(corrected.tree)
+    session.setCursor(0)
+    setGameTitle(corrected.title)
+    setSlotId(corrected.id)
+    if (!keepMoves) setGameNotes(null)
+    setTab('moves')
+    onOpen()
+    return null
+  }
+
   return {
     gameNotes,
     gameTitle,
+    positionDraft: { start: game.start, current: session.sfen, lines: positionLines, hasMoves: positionLines.some((line) => line.length > 0) },
+    applyPosition,
     slotId,
     autoRating: mode === 'analyze' && autoRate === game.moves.join(' '),
     importGame,

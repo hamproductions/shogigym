@@ -187,8 +187,8 @@
             "8h7g"
           ],
           "text": {
-            "ja": "後手は△７六飛と、先手の７六の歩を飛車で取りました。お互いに横歩を取ったので、相横歩取りと呼びます。この飛車は７八の金に当たっています。先手は▲７七銀と銀を立ちます。金にひもを付けて、飛車の進路もふさぐ手です。これが相横歩取りの基本の形です。覚えることは三つ。後手は角を交換してから△７六飛と取り返す。先手は▲７七銀で金を守る。ほかに▲７七桂や▲７七歩もあるが、銀の受けが基本。",
-            "en": "Gote takes the pawn on 7f with △7六飛. Both sides have taken a side pawn, hence the name. This rook attacks the gold on 7h. Sente answers with ▲7七銀, which protects the gold and blocks the rook's path. This is the basic position of the line. Remember three things: Gote exchanges bishops first and then retakes with △7六飛, Sente protects the gold with ▲7七銀, and although ▲7七桂 or ▲7七歩 exist, the silver is the standard answer."
+            "ja": "後手は△７六飛と、先手の７六の歩を飛車で取りました。お互いに横歩を取ったので、相横歩取りと呼びます。この飛車は７八の金に当たっています。先手は▲７七銀と銀を立ちます。銀７七が飛車７六から金７八への道をふさぎます。銀を守っているのは金７八で、銀自身は真後ろの７八へ利いていません。これが相横歩取りの基本の形です。覚えることは三つ。後手は角を交換してから△７六飛と取り返す。先手は▲７七銀で飛車の道を止め、金７八がその銀を守る。ほかに▲７七桂や▲７七歩もあるが、銀の受けが基本。",
+            "en": "Gote takes the pawn on 7f with △7六飛. Both sides have taken a side pawn, hence the name. This rook attacks the gold on 7h. Sente answers with ▲7七銀, which blocks the rook’s path to gold 7h. The gold protects the silver; the silver does not control the square directly behind it on 7h. This is the basic position of the line. Remember three things: Gote exchanges bishops first and then retakes with △7六飛, Sente blocks the rook’s path with ▲7七銀, supported by gold 7h, and although ▲7七桂 or ▲7七歩 exist, the silver is the standard answer."
           },
           "marks": {
             "last": "7g",
@@ -437,7 +437,7 @@
           ],
           "text": {
             "ja": "▲７四飛と飛車を交換し、△同歩に▲４六角と打ちます。この角は後手の９一の香に当たっています。後手には香を受ける手がいくつかありますが、意外と受けにくいのが特徴です。後手は持ち駒の歩や角を使って、△８二歩や△８二角で受けます。",
-            "en": "Sente exchanges rooks with ▲7四飛 and, after △同歩, drops ▲4六角. The bishop hits the lance on 1a, and Gote finds it surprisingly hard to parry. Gote has to defend with a pawn or bishop from hand, typically △8二歩 or △8二角."
+            "en": "Sente exchanges rooks with ▲7四飛 and, after △同歩, drops ▲4六角. The bishop hits the lance on 9a, and Gote finds it surprisingly hard to parry. Gote has to defend with a pawn or bishop from hand, typically △8二歩 or △8二角."
           },
           "marks": {
             "last": "4f",
@@ -518,7 +518,7 @@
           },
           "marks": {
             "boxes": [
-              "1a"
+              "9a"
             ]
           }
         },

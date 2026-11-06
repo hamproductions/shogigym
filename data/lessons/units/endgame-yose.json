@@ -1,7 +1,10 @@
 {
   "id": "endgame-yose",
   "order": 450,
-  "path": ["上達のためのテクニック", "終盤"],
+  "path": [
+    "上達のためのテクニック",
+    "終盤"
+  ],
   "title": {
     "ja": "寄せは王手・逃げ道・自玉を一緒に読む",
     "en": "Read Checks, Exits, and Your Own King in the Endgame"
@@ -45,7 +48,11 @@
           }
         },
         {
-          "moves": ["G*5c", "4b3a", "7c7a+"],
+          "moves": [
+            "G*5c",
+            "4b3a",
+            "7c7a+"
+          ],
           "text": {
             "ja": "▲５三金は４二の玉に王手。△３一玉と逃げる例なら、▲７一飛成で一段目から再び王手をかけられます。３一まで逃げられたことも事実で、これだけで詰みとは言えません。後手はほかの合法な逃げ先や受けも検討できます。",
             "en": "▲５三金 checks the king on ４二. In the sample line △３一玉, ▲７一飛成 gives another check along the first rank. The king did reach ３一, so this is not a mating proof. Gote can examine other legal exits and defenses."
@@ -69,7 +76,11 @@
           }
         },
         {
-          "moves": ["5d5c+", "5b5c", "7c5c+"],
+          "moves": [
+            "5d5c+",
+            "5b5c",
+            "7c5c+"
+          ],
           "text": {
             "ja": "▲５三歩成は４二の玉への王手です。△同金を選んだ場合、▲同飛成で金を取り、龍が再び王手をかけます。龍５三は金６四に守られるため、玉４二はその龍を取れません。歩と金の交換を得た一例ですが、後手がと金を取らずに玉を動かす応手は別に読みます。",
             "en": "▲５三歩成 checks the king on ４二. If Gote chooses △同金, ▲同飛成 takes that gold and the new dragon checks again. Sente's gold on ６四 protects the dragon on ５三, so the king on ４二 cannot capture it. This example gains a gold for the pawn; Gote can instead answer the check with a king move rather than taking the tokin, which needs separate reading."
@@ -93,11 +104,24 @@
           }
         },
         {
-          "moves": ["S*5d", "4c4d", "8e8b+"],
+          "moves": [
+            "S*5d"
+          ],
+          "text": {
+            "ja": "▲５四銀で４三を押さえました。歩４三が動いた場合も、玉はその升へ逃げられません。",
+            "en": "▲5四銀 covers 4c, so advancing that pawn will not create a king escape on its former square."
+          }
+        },
+        {
+          "moves": [
+            "4c4d",
+            "8e8b+"
+          ],
           "text": {
             "ja": "▲５四銀は４三に利きます。△４四歩と進む例で▲８二飛成とすると、龍は５二の玉を横から王手します。このとき４三は空いていても銀５四が利くので、玉はそこへ逃げられません。玉が４一・５一・６一のどこへ逃げても▲４三銀成と寄れば次の詰みを防げないため、△４四歩は負けを早める悪手です。後手は△４二玉のように歩を動かさずに受けるのがまさり、その場合は寄せをさらに読む必要があります。",
             "en": "▲５四銀 covers ４三. In the sample continuation △４四歩 ▲８二飛成, the dragon checks the king on ５二 along the second rank. Although ４三 is now vacant, the silver on ５四 prevents the king from escaping there. Wherever the king goes (４一, ５一 or ６一), ▲４三銀成 leaves a mate next move that cannot be stopped, so △４四歩 is a losing mistake. Gote does better to defend without moving the pawn, for example △４二玉, and that line needs further reading."
-          }
+          },
+          "kind": "deviation"
         }
       ]
     },
@@ -117,21 +141,30 @@
           }
         },
         {
-          "moves": ["G*3c", "2b1c", "9i8h"],
+          "moves": [
+            "G*3c",
+            "2b1c",
+            "9i8h"
+          ],
           "text": {
             "ja": "▲３三金は飛車４三に守られた王手です。△１一玉・△１二玉・△２一玉・△３一玉なら飛車を使った連続王手で詰みますが、△１三玉と上へ逃げられるとすぐには詰みません。攻めを続けている間に△９七飛成と歩を取られると９九の先手玉に王手がかかるため、先手は▲８八玉と自玉に一手かけ、歩９七を玉で守ります。評価値は大差の優勢から互角に近い数値まで大きく下がり、この王手は相手の反撃を数えていない手でした。",
             "en": "▲３三金 is a check protected by the rook on ４三. Against △１一玉, △１二玉, △２一玉 or △３一玉, consecutive checks with the rook mate, but after △１三玉 the king escapes upward and there is no quick mate. While Sente keeps attacking, △９七飛成 would take the pawn and check Sente's king on ９九, so Sente spends a move on its own king with ▲８八玉, letting the king guard the pawn on ９七. The engine evaluation falls sharply from a large advantage to close to level; this check did not count the opponent's counterattack."
-          }
+          },
+          "kind": "deviation"
         }
       ],
       "variations": [
         {
           "from": 0,
-          "moves": ["G*2c", "2b3a"],
+          "moves": [
+            "G*2c",
+            "2b3a"
+          ],
           "text": {
             "ja": "同じ金打ちでも▲２三金なら、飛車の横利きに守られたうえで１三への逃げ道もふさぎます。△１一玉や△２一玉は▲４一飛成で詰むため、後手が詰みを避けるには△３一玉しかありません。先手は大きな優勢を保ちますが、△９七飛成の筋はまだ残っているので、次の一手も自玉の安全と比べて選びます。",
             "en": "Dropping the gold on ２三 instead keeps it protected by the rook along the rank and also closes the exit to １三. △１一玉 or △２一玉 is mated by ▲４一飛成, so △３一玉 is Gote's only way to avoid mate. Sente keeps a large advantage, but the △９七飛成 idea is still there, so the next move must also be weighed against the safety of Sente's own king."
-          }
+          },
+          "kind": "alt"
         }
       ]
     }

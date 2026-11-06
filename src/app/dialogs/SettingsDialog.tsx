@@ -913,27 +913,6 @@ export function SettingsDialog({
         )}
         {tab === 'play' && (
           <>
-            <SegmentedField
-              label={t('settings.thinkingTime')}
-              value={st.thinkMs}
-              options={[
-                { v: 500, t: t('settings.fast') },
-                { v: 1500, t: t('settings.normal') },
-                { v: 4000, t: t('settings.deep') },
-              ]}
-              onChange={(v) => setSettings({ thinkMs: v })}
-            />
-            <SegmentedField
-              label={t('settings.candidateMovesShown')}
-              value={st.candidates}
-              options={[
-                { v: 1, t: '1' },
-                { v: 2, t: '2' },
-                { v: 3, t: '3' },
-                { v: 5, t: '5' },
-              ]}
-              onChange={(v) => setSettings({ candidates: v })}
-            />
             <EngineSettings />
           </>
         )}

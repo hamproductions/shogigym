@@ -192,8 +192,8 @@
                 "P*7d"
               ],
               "text": {
-                "ja": "▲７四歩の打ちが桂取りです。７三の桂に当たり、後手はこの桂を守れず、先手がよくなります。△８四飛の意味は、こうした筋を消すことにあります。",
-                "en": "The drop ▲7四歩 attacks the knight on 7c. Gote cannot protect it and Sente is better. The point of △8四飛 is to remove such lines."
+                "ja": "▲７四歩打は桂７三へ当たります。ただし△６五桂と歩を取りながら逃げる手や、△７二歩打で桂を守る手が合法です。桂を必ず取れるとは決めず、歩の圧力と相手の受けを比べます。",
+                "en": "▲7四歩打 attacks knight 7c, but Gote can legally escape by △6五桂, capturing a pawn, or defend it with △7二歩打. Compare the pawn pressure with those replies rather than assuming the knight must fall."
               },
               "marks": {
                 "last": "7d",
@@ -314,7 +314,7 @@
           ],
           "text": {
             "ja": "後手は△８九飛成と飛車を逃げました。▲１一角成と香を取る手は魅力的ですが、△２二銀で攻めが続きません。そこで▲８八飛と引いて飛車交換を迫るのが正着です。以後は大駒を打ち合う終盤戦ですが、美濃囲いの堅い先手が指しやすい形です。",
-            "en": "Gote saves the rook with △8九飛成. Taking the lance with ▲1一角成 is attractive, but △2二銀 leaves Sente without a follow-up. The correct move is ▲8八飛, pulling the rook back to force a rook exchange. After that comes an endgame of dropping major pieces, in which the firm Mino makes Sente the more comfortable side."
+            "en": "Gote saves the rook with △8九飛成. Taking the lance with ▲1一角成 is attractive, but △2二銀 leaves Sente without a follow-up. The correct move is ▲8八飛, pulling the rook back to press for a rook exchange. After that comes an endgame of dropping major pieces, in which the firm Mino makes Sente the more comfortable side."
           },
           "marks": {
             "last": "8h",

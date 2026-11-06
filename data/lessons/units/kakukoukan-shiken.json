@@ -217,16 +217,28 @@
         {
           "from": 3,
           "moves": [
-            "8d8e",
-            "3i3h",
-            "2b8h+",
-            "7i8h",
-            "B*2h"
+            "8d8e"
           ],
           "text": {
-            "ja": "玉を動かさないまま▲３八銀と上がると、後手に△２八角と打ち込まれます。７八が空いたまま、玉の通り道に角を置かれるので、手順を守ることが大切です。",
-            "en": "If Sente plays ▲3八銀 before moving the king, Gote drops △2八角. The bishop lands in the king's path, so the move order must be respected."
-          }
+            "ja": "△８五歩まで共通に進めました。玉を先に進める順序と、銀を先に上げる失敗を比べます。",
+            "en": "The shared line reaches △8五歩. Compare moving the king first with the mistaken early silver move."
+          },
+          "kind": "alt",
+          "steps": [
+            {
+              "moves": [
+                "3i3h",
+                "2b8h+",
+                "7i8h",
+                "B*2h"
+              ],
+              "kind": "deviation",
+              "text": {
+                "ja": "玉を動かさないまま▲３八銀と上がると、後手に△２八角と打ち込まれます。７八が空いたまま、玉の通り道に角を置かれるので、手順を守ることが大切です。",
+                "en": "If Sente plays ▲3八銀 before moving the king, Gote drops △2八角. The bishop lands in the king's path, so the move order must be respected."
+              }
+            }
+          ]
         }
       ]
     },
@@ -361,7 +373,8 @@
           "text": {
             "ja": "垂らしの歩を打ったあと、△３三銀と上がる変化も有力です。▲８八飛と飛車を寄せて、８筋から逆襲します。相手から８筋を攻めてきたはずなのに、気づけば先手が８筋を攻めています。",
             "en": "After the dangling pawn Gote may play △3三銀. Sente answers ▲8八飛 and counterattacks on the eighth file. Gote started the attack on that file, but now Sente is the one pressing it."
-          }
+          },
+          "kind": "alt"
         }
       ]
     }

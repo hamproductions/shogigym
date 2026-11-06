@@ -75,6 +75,7 @@ export function buildCatalog(raws: RawCourse[], lessons: LessonEntry[] = []) {
   const byId = new Map(raws.map((r) => [r.id, r]))
   const courses = new Map<string, Course>()
   const setups: Setup[] = []
+  const ownerOf = (raw: RawCourse, side: Side) => MATCHUPS.find((mu) => mu.courseIds.includes(raw.id) && sideOf(raw, mu.main) === side)
   const make = (raw: RawCourse, userSide: Side, setupId: string, main: string | null, vs: string | null) => {
     const id = courseIdFor(raw, userSide)
     const existing = courses.get(id)
@@ -89,7 +90,7 @@ export function buildCatalog(raws: RawCourse[], lessons: LessonEntry[] = []) {
       titleEn: mirrored && strategy ? `${raw.titleEn ?? TITLES_EN[raw.id] ?? raw.title} (as ${strategy.en})` : (raw.titleEn ?? TITLES_EN[raw.id]),
       userSide,
       notesFromOpponentView: userSide !== raw.mySide,
-      setupId,
+      setupId: ownerOf(raw, userSide)?.id ?? setupId,
       main,
       vs,
       mirrored,
@@ -112,7 +113,7 @@ export function buildCatalog(raws: RawCourse[], lessons: LessonEntry[] = []) {
     const list = [...own]
     const candidates = MATCHUPS.filter((r) => r.main === mu.vs && r.vs === mu.main)
       .flatMap((r) => explicit.get(r.id)!.map(({ raw, side }) => ({ raw, side: other(side) })))
-      .filter(({ raw, side }) => strategiesAt(raw.id, side).includes(mu.main))
+      .filter(({ raw, side }) => strategiesAt(raw.id, side).includes(mu.main) && (!ownerOf(raw, side) || ownerOf(raw, side)?.id === mu.id))
       .sort((a, b) => Number(a.side !== a.raw.mySide) - Number(b.side !== b.raw.mySide))
     for (const c of candidates) if (!list.some((o) => o.side === c.side && (o.raw.id === c.raw.id || sameGame(o.raw, c.raw)))) list.push(c)
     const main = strategyById(mu.main)

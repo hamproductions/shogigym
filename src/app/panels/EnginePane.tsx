@@ -6,6 +6,8 @@ import { useEngineStatus, type Analysis, type Candidate, useEngineSupported } fr
 import i18n from '@/utils/i18n'
 import { applyUsi, moveText, pvText, type Side } from '@/utils/shogi'
 import { EngineName } from '@/app/EngineName'
+import { EngineSettings } from '@/app/EngineSettings'
+import { useSettings } from '@/appearance/settings'
 import type { BookMove } from '@/utils/book'
 import { sideMark, toSente } from '@/utils/notation'
 import { FlipMarks } from '@/app/ui/SideMark'
@@ -46,10 +48,21 @@ type EnginePaneProps = {
   book: BookMove[]
 }
 
-export function EnginePane({ sfen, toMove, analysis, showBest, setShowBest, onPlay, canPlay, book }: EnginePaneProps) {
+export function EnginePane(props: EnginePaneProps) {
+  return (
+    <>
+      <EngineSettings compact />
+      <EngineAnalysis {...props} />
+    </>
+  )
+}
+
+function EngineAnalysis({ sfen, toMove, analysis, showBest, setShowBest, onPlay, canPlay, book }: EnginePaneProps) {
   const supported = useEngineSupported()
   const { t } = useTranslation()
   const status = useEngineStatus()
+  const settings = useSettings()
+  const name = <EngineName kind={settings.engineAnalysis ?? settings.engine} />
   if (!supported)
     return (
       <div role="alert">
@@ -57,17 +70,17 @@ export function EnginePane({ sfen, toMove, analysis, showBest, setShowBest, onPl
         <Button onClick={() => location.reload()}>{t('engine.reloadPage')}</Button>
       </div>
     )
-  if (status.error) return <EngineName />
+  if (status.error && status.kind === (settings.engineAnalysis ?? settings.engine)) return name
   if (status.loading)
     return (
       <div role="status" aria-busy="true">
-        <EngineName />
+        {name}
       </div>
     )
   if (!analysis || !analysis.candidates.length)
     return (
       <>
-        <EngineName />
+        {name}
         <Muted>{t('engine.analysingThePosition')}</Muted>
       </>
     )
@@ -89,7 +102,7 @@ export function EnginePane({ sfen, toMove, analysis, showBest, setShowBest, onPl
       setShowBest={setShowBest}
       onPlay={onPlay}
       canPlay={canPlay}
-      name={<EngineName />}
+      name={name}
       formatMove={(move) => moveText(sfen, move)}
       formatPv={(pv) => pvText(sfen, pv, 8)}
       why={why}

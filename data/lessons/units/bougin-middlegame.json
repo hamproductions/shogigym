@@ -60,11 +60,11 @@
             "3h2g",
             "2b3a",
             "2g2f",
-            "3a4b"
+            "6c6d"
           ],
           "text": {
-            "ja": "棒銀の基本図から始めます。後手は３三の銀と３二の金で２筋を堅く守っていて、前の講座のようには簡単に龍が作れません。そこで攻めの目標を、前に出した銀を相手の守りの銀と交換することに置きます。交換できれば、持ち駒の銀と歩で攻めを続けられます。",
-            "en": "We start from the basic Bogin position. Gote guards the second file firmly with a silver on 3c and a gold on 3b, so a dragon is not easy to make as in the previous lesson. The target becomes trading the advanced silver for Gote's defending silver. Once it is traded, the silver and pawn in hand carry the attack on."
+            "ja": "棒銀の基本図から始めます。後手は３三の銀と３二の金で２筋を堅く守っていて、前の講座のようには簡単に龍が作れません。そこで攻めの目標を、前に出した銀を相手の守りの銀と交換することに置きます。交換できれば、持ち駒の銀と歩で攻めを続けられます。 この比較では後手が６四歩を選び、角は３一に残っています。２四を角４二で守る配置とは異なります。",
+            "en": "We start from the basic Bogin position. Gote guards the second file firmly with a silver on 3c and a gold on 3b, so a dragon is not easy to make as in the previous lesson. The target becomes trading the advanced silver for Gote's defending silver. Once it is traded, the silver and pawn in hand carry the attack on. This comparison selects Gote’s pawn move to 6d, leaving the bishop on 3a. Unlike a bishop on 4b, it does not guard 2d."
           },
           "marks": {
             "boxes": [
@@ -94,8 +94,8 @@
             "2e2d"
           ],
           "text": {
-            "ja": "▲２四歩と、銀に構わず歩を突きます。銀を取られても▲２三歩成が角でなく金銀に当たる手になるので、銀を逃げる必要がありません。後手に攻めを止める手はなく、銀を取るか、歩を取るかのどちらかです。",
-            "en": "Sente ignores the attack on the silver and pushes ▲2四歩. If Gote takes the silver, ▲2三歩成 forks gold and silver, so the silver does not have to run. Gote must pick between taking the silver and taking the pawn."
+            "ja": "▲２四歩と、銀への当たりを残して接触します。この教材では後手が歩を取る順を本線、銀を取る順を比較枝で見ます。ただし応手はこの二つだけではありません。△２二銀と引けば、▲２三歩成には△同金があり、さらに▲同飛成としても銀２二が取り返せます。",
+            "en": "▲2四歩 makes contact while leaving the silver attacked. This course follows Gote’s pawn capture and compares capturing the silver, but those are not the only replies. After △2二銀, ▲2三歩成 can be met by △同金; if ▲同飛成 follows, the silver on 2b can recapture."
           },
           "marks": {
             "last": "2d",
@@ -191,7 +191,7 @@
             "3h2g",
             "2b3a",
             "2g2f",
-            "3a4b",
+            "6c6d",
             "2f1e",
             "1c1d",
             "2e2d",
@@ -206,8 +206,8 @@
             "8d8e"
           ],
           "text": {
-            "ja": "前の章の続きで、先手は▲１六歩と端の歩を突いてあります。後手は△１四歩と△２三歩が端に並んでいます。持ち駒の銀と歩を使って、端から後手の陣を崩します。",
-            "en": "We continue from the last chapter, with Sente having pushed ▲1六歩 on the edge. Gote has the pawns on 1d and 2c lined up beside it. Sente breaks into Gote's camp from the edge with the silver and pawn in hand."
+            "ja": "前の章の続きで、先手は▲１六歩と端の歩を突いてあります。後手は△１四歩と△２三歩が端に並んでいます。持ち駒の銀と歩を使って、端から後手の陣を崩します。 この比較では後手が６四歩を選び、角は３一に残っています。２四を角４二で守る配置とは異なります。",
+            "en": "We continue from the last chapter, with Sente having pushed ▲1六歩 on the edge. Gote has the pawns on 1d and 2c lined up beside it. Sente breaks into Gote's camp from the edge with the silver and pawn in hand. This comparison selects Gote’s pawn move to 6d, leaving the bishop on 3a. Unlike a bishop on 4b, it does not guard 2d."
           },
           "marks": {
             "boxes": [

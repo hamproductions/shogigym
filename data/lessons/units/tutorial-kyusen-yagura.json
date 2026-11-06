@@ -202,7 +202,7 @@
             "P*8g"
           ],
           "text": {
-            "ja": "△同飛。飛車を取られても、▲８七歩と手持ちの歩を打てば、飛車に当たります。一見損に見えますが、この間に先手は攻めの形を整えます。",
+            "ja": "△同飛。歩を取られても、▲８七歩と手持ちの歩を打てば、飛車に当たります。一見損に見えますが、この間に先手は攻めの形を整えます。",
             "en": "Gote recaptures with △同飛. Sente drops the pawn in hand with ▲8七歩, which attacks the rook. It looks like a loss of ground, but Sente uses the time to complete the attacking formation."
           },
           "marks": {
@@ -421,7 +421,8 @@
               "3c",
               "4d"
             ]
-          }
+          },
+          "kind": "deviation"
         }
       ],
       "variations": [
@@ -436,7 +437,8 @@
           "text": {
             "ja": "△同角と取ってきたら、▲同角△同金のあと、やはり▲３三歩が急所です。持ち駒に角と銀が残り、先手の攻めは続きます。",
             "en": "If Gote takes with the bishop, △同角, play ▲同角 △同金 and again ▲3三歩 is the key move. Sente keeps a bishop and a silver in hand and the attack goes on."
-          }
+          },
+          "kind": "alt"
         }
       ]
     },
@@ -677,22 +679,35 @@
             "4d5e"
           ],
           "text": {
-            "ja": "先手が▲５五歩と取ったときは、△同銀。先手は歩を一枚得ますが、銀が５五に出て中央が厚くなります。",
-            "en": "If Sente takes with ▲5五歩, Gote recaptures with △同銀. Sente wins a pawn, but the silver on 5e gives Gote a thick centre."
-          }
+            "ja": "▲５五歩△同銀で歩を交換しました。双方が歩を一枚ずつ持ち、後手銀は５五へ出ています。歩の損得ではなく、銀が中央へ進んだ配置を見ます。",
+            "en": "▲5五歩 △同銀 exchanges pawns. Each side gains a pawn in hand, and Gote’s silver reaches 5e. The change is the silver’s central activity, not a net pawn gain."
+          },
+          "kind": "alt"
         },
         {
           "from": 5,
           "moves": [
             "4g4f",
             "8e8f",
-            "8g8f",
-            "8b8f",
-            "7g8f"
+            "8g8f"
+          ],
+          "kind": "alt",
+          "steps": [
+            {
+              "moves": [
+                "8b8f",
+                "7g8f"
+              ],
+              "kind": "deviation",
+              "text": {
+                "ja": "先手が▲４六歩と受けたら、後手は△８六歩と仕掛ける手があります。ただし７七の銀が８六を守っているので、△同飛とは取れても▲同銀で飛車を取られます。仕掛ける前に守りの駒を数えます。",
+                "en": "If Sente answers ▲4六歩, Gote can try △8六歩. But the silver on 7g guards 8f, so even if the rook takes, ▲同銀 wins it. Count the defenders before starting the attack."
+              }
+            }
           ],
           "text": {
-            "ja": "先手が▲４六歩と受けたら、後手は△８六歩と仕掛ける手があります。ただし７七の銀が８六を守っているので、△同飛とは取れても▲同銀で飛車を取られます。仕掛ける前に守りの駒を数えます。",
-            "en": "If Sente answers ▲4六歩, Gote can try △8六歩. But the silver on 7g guards 8f, so even if the rook takes, ▲同銀 wins it. Count the defenders before starting the attack."
+            "ja": "▲４六歩△８六歩▲同歩までの比較です。次に飛車で取る前に、７七の銀の利きを確認します。",
+            "en": "Compare ▲4六歩 △8六歩 ▲同歩. Before recapturing with the rook, inspect Silver7g’s control."
           }
         }
       ]

@@ -241,8 +241,8 @@
             "4h4g"
           ],
           "text": {
-            "ja": "後手は△５二金。先手は▲４七銀と右の銀を進めます。４七と６七に銀が並び、角をはさんで二本の「ツノ」のように見えます。ツノ銀雁木と呼ばれる理由です。この銀は桂と一緒に４五を狙う駒にもなります。",
-            "en": "Gote plays △5二金. Sente moves the right silver on with ▲4七銀. Silvers on 4g and 6g with the bishop between them look like two horns, which is why it is called Tsuno-gin (Horned Silver) Gangi. This silver will also attack 4e together with the knight."
+            "ja": "後手は△５二金。先手は▲４七銀と右の銀を進めます。４七と６七に銀が並び、二本の「ツノ」のように見えます。角は７七です。ツノ銀雁木と呼ばれる理由です。この銀は桂と一緒に４五を狙う駒にもなります。",
+            "en": "Gote plays △5二金. Sente moves the right silver on with ▲4七銀. Silvers on 4g and 6g look like two horns; the bishop stands on 7g, which is why it is called Tsuno-gin (Horned Silver) Gangi. This silver will also attack 4e together with the knight."
           },
           "marks": {
             "last": "4g",
@@ -474,8 +474,8 @@
             "2d2i"
           ],
           "text": {
-            "ja": "後手は△２三歩と打って飛車の進路を止めます。先手は▲２九飛と一番下まで引きます。後手が角を打つ場所はなくなり、こちらは７一へ角を打つ手を残せます。雁木は角打ちに強い形なので、角を交換する展開は先手に有利です。",
-            "en": "Gote drops the pawn with △2三歩 to block the rook's path, and Sente pulls the rook all the way back with ▲2九飛. Gote has no square left for a bishop drop, while Sente keeps a drop on 7a in reserve. Gangi is solid against bishop drops, so a bishop exchange favors Sente."
+            "ja": "後手は△２三歩と打って飛車の進路を止めます。先手は▲２九飛と一番下まで引きます。後手の角打ちを自陣の守備駒で警戒し、こちらは７一へ角を打つ手を残せます。雁木は角打ちに強い形なので、角を交換したあとも打ち込みを確認します。たとえば△１八角は合法で、２九の飛車に当たります。",
+            "en": "After △2三歩 blocks the file, ▲2九飛 retreats the rook to the back rank. Sente keeps a bishop drop on 7a in reserve, but must still check counterdrops: △1八角 is legal and attacks the rook on 2i."
           },
           "marks": {
             "last": "2i",
@@ -491,31 +491,45 @@
           "from": 2,
           "moves": [
             "3c4d",
-            "2e2d",
-            "4d4e",
-            "P*4f"
+            "2e2d"
           ],
           "text": {
-            "ja": "△４四銀と受けたあと、△４五銀と桂を取る変化です。",
-            "en": "Variation: after △4四銀, Gote takes the knight with △4五銀."
+            "ja": "△４四銀▲２四歩から、桂を取る比較を見ます。",
+            "en": "After △4四銀 ▲2四歩, compare capturing the knight."
           },
           "steps": [
             {
+              "moves": [
+                "4d4e"
+              ],
+              "kind": "deviation",
               "text": {
-                "ja": "銀が４五に出ても、▲４六歩と歩を打てば銀は逃げ場がなく、次に取られてしまいます。桂を取られても慌てなくて大丈夫です。",
-                "en": "Even with the silver on 4e, the pawn drop ▲4六歩 leaves it without an escape, and it will be captured next. Losing the knight is not a problem."
-              },
-              "marks": {
-                "last": "4f",
-                "arrows": [
-                  "4f4e"
-                ],
-                "boxes": [
-                  "4e"
-                ]
+                "ja": "△４五銀は桂を取りますが、銀の退路と２三への歩成りを比べる必要があります。",
+                "en": "△4五銀 takes the knight, but compare the silver’s retreat routes and the pawn promotion on 2c."
+              }
+            },
+            {
+              "moves": [
+                "P*4f"
+              ],
+              "kind": "deviation",
+              "text": {
+                "ja": "▲４六歩は銀を狙いますが、より直接的な▲２三歩成を見送る比較手です。銀は△３六銀と歩を取り、▲同銀なら先手は銀を得る一方、後手は桂と歩を得ます。銀が無条件にただで取れるわけではありません。",
+                "en": "▲4六歩 attacks the silver but passes up the more direct ▲2三歩成. After △3六銀 takes a pawn and ▲同銀 recaptures, Sente has gained a silver while Gote has gained a knight and a pawn. The silver is not recovered for free."
+              }
+            },
+            {
+              "moves": [
+                "4e3f",
+                "4g3f"
+              ],
+              "text": {
+                "ja": "△３六銀▲同銀と進みました。後手は桂と歩、先手は銀を持ちます。",
+                "en": "After △3六銀 ▲同銀, Gote holds the knight and pawn, while Sente holds a silver."
               }
             }
-          ]
+          ],
+          "kind": "alt"
         }
       ]
     },

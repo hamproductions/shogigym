@@ -75,13 +75,13 @@ export function useBoardDecor(session: BoardSession, input: DecorInput) {
   const peekSquare = peekFrom && position.board.at(peekFrom) ? peekFrom : null
   const focusSquare = peekFrom && !position.board.at(peekFrom) ? peekFrom : null
   const focusCell: ControlCell | null = focusSquare ? (control.get(focusSquare.usi) ?? EMPTY_CELL) : null
-  const reading = (mode === 'lesson' || mode === 'drill') && !preview && sourceMarks?.at === sfen.split(' ')[0] ? sourceMarks : null
+  const reading = (mode === 'lesson' || mode === 'drill') && !spoilerFree && !preview && sourceMarks?.at === sfen.split(' ')[0] ? sourceMarks : null
   const feedback = useMemo(
     () =>
       assist && tab === 'coach' && !preview && reviewAt === cursor && reviewAt > 0 && (mode === 'spar' || mode === 'analyze' || mode === 'view')
-        ? moveCoaching(sfens[reviewAt - 1], game.moves[reviewAt - 1])
+        ? moveCoaching(sfens[reviewAt - 1], game.moves[reviewAt - 1], { review })
         : null,
-    [assist, tab, preview, reviewAt, cursor, mode, sfens, game.moves, i18n.language],
+    [assist, tab, preview, reviewAt, cursor, mode, sfens, game.moves, review, i18n.language],
   )
   const coachText = feedback ? `${feedback.summary}\n${feedback.detail}` : ''
   const coachMarks = feedback ? figureMarks([], sfen, false, coachText, feedback.moves) : null

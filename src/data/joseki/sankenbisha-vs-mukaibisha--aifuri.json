@@ -1,0 +1,410 @@
+{
+ "id": "sankenbisha-vs-mukaibisha--aifuri",
+ "title": "相振り三間飛車：歩を交換して相手の飛車を受ける",
+ "titleEn": "Double Ranging Rook: Exchange Pawns and Meet the Opposing Rook",
+ "myStrategy": "sankenbisha",
+ "opponentStrategy": "mukaibisha",
+ "mySide": "gote",
+ "userSide": "gote",
+ "source": "後手三間飛車と先手向かい飛車の標準的な相振り構想を、新ペタショック定跡（MIT）の候補手と照合して独立に構成。別の飛車の引き場所を用いた比較枝と説明を新しく執筆。",
+ "goalFormation": "後手飛車３二・歩３五と美濃、先手飛車８八・歩８六と金無双。３筋の歩交換で手持ちを得てから、８筋の交換に歩を打って対応する比較を読む。",
+ "goalLabel": "取った歩の再利用先を見つける",
+ "goalSfen": "ln1g3nl/1ks1g1rb1/pppp1s1pp/4pp3/6p2/1PPP5/P1BSPPPPP/1R2GGKS1/LN5NL b - 1",
+ "root": {
+  "id": "n0",
+  "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+  "comment": "これから後手飛車３二と先手飛車８八の相振りを組みます。先手の向かい飛車は後手玉側の８筋へ向かう構想です。飛車の違う筋を一緒に見て、自分の歩交換で得た持ち駒を守りへ使う例を読みます。",
+  "commentEn": "We will build a Double Ranging Rook position with Gote’s rook on 3b and Sente’s on 8h. Sente’s Opposing Rook plan targets the eighth file on Gote’s king wing. Read both rook files together: a pawn gained on your own file can later be used in defense.",
+  "branches": [
+   {
+    "usi": "7g7f",
+    "kind": "main",
+    "child": {
+     "id": "n_0",
+     "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL w - 1",
+     "branches": [
+      {
+       "usi": "3c3d",
+       "kind": "main",
+       "child": {
+        "id": "n_1",
+        "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL b - 1",
+        "branches": [
+         {
+          "usi": "6g6f",
+          "kind": "main",
+          "child": {
+           "id": "n_2",
+           "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2PP5/PP2PPPPP/1B5R1/LNSGKGSNL w - 1",
+           "branches": [
+            {
+             "usi": "3d3e",
+             "kind": "main",
+             "note": "△３五歩で飛車を振る筋の歩を伸ばします。",
+             "noteEn": "△3五歩 advances the pawn on the intended rook file.",
+             "child": {
+              "id": "n_3",
+              "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/9/6p2/2PP5/PP2PPPPP/1B5R1/LNSGKGSNL b - 1",
+              "branches": [
+               {
+                "usi": "8h7g",
+                "kind": "main",
+                "child": {
+                 "id": "n_4",
+                 "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/9/6p2/2PP5/PPB1PPPPP/7R1/LNSGKGSNL w - 1",
+                 "branches": [
+                  {
+                   "usi": "8b3b",
+                   "kind": "main",
+                   "note": "△３二飛。先手はまだ飛車を移していません。",
+                   "noteEn": "△3二飛 ranges Gote’s rook. Sente has not transferred its rook yet.",
+                   "child": {
+                    "id": "n_5",
+                    "sfen": "lnsgkgsnl/6rb1/pppppp1pp/9/6p2/2PP5/PPB1PPPPP/7R1/LNSGKGSNL b - 1",
+                    "branches": [
+                     {
+                      "usi": "7i6h",
+                      "kind": "main",
+                      "child": {
+                       "id": "n_6",
+                       "sfen": "lnsgkgsnl/6rb1/pppppp1pp/9/6p2/2PP5/PPB1PPPPP/3S3R1/LN1GKGSNL w - 1",
+                       "branches": [
+                        {
+                         "usi": "5a6b",
+                         "kind": "main",
+                         "child": {
+                          "id": "n_7",
+                          "sfen": "lnsg1gsnl/3k2rb1/pppppp1pp/9/6p2/2PP5/PPB1PPPPP/3S3R1/LN1GKGSNL b - 1",
+                          "branches": [
+                           {
+                            "usi": "6h6g",
+                            "kind": "main",
+                            "note": "▲６七銀は歩６六を守ります。",
+                            "noteEn": "▲6七銀 guards pawn 6f.",
+                            "child": {
+                             "id": "n_8",
+                             "sfen": "lnsg1gsnl/3k2rb1/pppppp1pp/9/6p2/2PP5/PPBSPPPPP/7R1/LN1GKGSNL w - 1",
+                             "branches": [
+                              {
+                               "usi": "6b7b",
+                               "kind": "main",
+                               "child": {
+                                "id": "n_9",
+                                "sfen": "lnsg1gsnl/2k3rb1/pppppp1pp/9/6p2/2PP5/PPBSPPPPP/7R1/LN1GKGSNL b - 1",
+                                "branches": [
+                                 {
+                                  "usi": "2h8h",
+                                  "kind": "main",
+                                  "note": "▲８八飛で向かい飛車になりました。",
+                                  "noteEn": "▲8八飛 establishes Opposing Rook.",
+                                  "child": {
+                                   "id": "n_10",
+                                   "sfen": "lnsg1gsnl/2k3rb1/pppppp1pp/9/6p2/2PP5/PPBSPPPPP/1R7/LN1GKGSNL w - 1",
+                                   "branches": [
+                                    {
+                                     "usi": "7b8b",
+                                     "kind": "main",
+                                     "child": {
+                                      "id": "n_11",
+                                      "sfen": "lnsg1gsnl/1k4rb1/pppppp1pp/9/6p2/2PP5/PPBSPPPPP/1R7/LN1GKGSNL b - 1",
+                                      "branches": [
+                                       {
+                                        "usi": "5i4h",
+                                        "kind": "main",
+                                        "child": {
+                                         "id": "n_12",
+                                         "sfen": "lnsg1gsnl/1k4rb1/pppppp1pp/9/6p2/2PP5/PPBSPPPPP/1R3K3/LN1G1GSNL w - 1",
+                                         "branches": [
+                                          {
+                                           "usi": "7a7b",
+                                           "kind": "main",
+                                           "note": "△７二銀で玉８二の隣を守ります。銀は８三へも利きます。",
+                                           "noteEn": "△7二銀 guards beside king 8b and also controls 8c.",
+                                           "child": {
+                                            "id": "n_13",
+                                            "sfen": "ln1g1gsnl/1ks3rb1/pppppp1pp/9/6p2/2PP5/PPBSPPPPP/1R3K3/LN1G1GSNL b - 1",
+                                            "branches": [
+                                             {
+                                              "usi": "4h3h",
+                                              "kind": "main",
+                                              "child": {
+                                               "id": "n_14",
+                                               "sfen": "ln1g1gsnl/1ks3rb1/pppppp1pp/9/6p2/2PP5/PPBSPPPPP/1R4K2/LN1G1GSNL w - 1",
+                                               "branches": [
+                                                {
+                                                 "usi": "4a5b",
+                                                 "kind": "main",
+                                                 "child": {
+                                                  "id": "n_15",
+                                                  "sfen": "ln1g2snl/1ks1g1rb1/pppppp1pp/9/6p2/2PP5/PPBSPPPPP/1R4K2/LN1G1GSNL b - 1",
+                                                  "branches": [
+                                                   {
+                                                    "usi": "4i4h",
+                                                    "kind": "main",
+                                                    "child": {
+                                                     "id": "n_16",
+                                                     "sfen": "ln1g2snl/1ks1g1rb1/pppppp1pp/9/6p2/2PP5/PPBSPPPPP/1R3GK2/LN1G2SNL w - 1",
+                                                     "branches": [
+                                                      {
+                                                       "usi": "3a4b",
+                                                       "kind": "main",
+                                                       "child": {
+                                                        "id": "n_17",
+                                                        "sfen": "ln1g3nl/1ks1gsrb1/pppppp1pp/9/6p2/2PP5/PPBSPPPPP/1R3GK2/LN1G2SNL b - 1",
+                                                        "branches": [
+                                                         {
+                                                          "usi": "6i5h",
+                                                          "kind": "main",
+                                                          "note": "▲５八金。先手は金４八・５八を横に並べる金無双です。",
+                                                          "noteEn": "▲5八金 places Sente’s golds side by side on 4h and 5h in Kinmusou.",
+                                                          "child": {
+                                                           "id": "n_18",
+                                                           "sfen": "ln1g3nl/1ks1gsrb1/pppppp1pp/9/6p2/2PP5/PPBSPPPPP/1R2GGK2/LN4SNL w - 1",
+                                                           "branches": [
+                                                            {
+                                                             "usi": "4c4d",
+                                                             "kind": "main",
+                                                             "child": {
+                                                              "id": "n_19",
+                                                              "sfen": "ln1g3nl/1ks1gsrb1/ppppp2pp/5p3/6p2/2PP5/PPBSPPPPP/1R2GGK2/LN4SNL b - 1",
+                                                              "branches": [
+                                                               {
+                                                                "usi": "3i2h",
+                                                                "kind": "main",
+                                                                "note": "▲２八銀で玉３八の隣へ銀を置きます。",
+                                                                "noteEn": "▲2八銀 places a silver beside king 3h.",
+                                                                "child": {
+                                                                 "id": "n_20",
+                                                                 "sfen": "ln1g3nl/1ks1gsrb1/ppppp2pp/5p3/6p2/2PP5/PPBSPPPPP/1R2GGKS1/LN5NL w - 1",
+                                                                 "branches": [
+                                                                  {
+                                                                   "usi": "4b4c",
+                                                                   "kind": "main",
+                                                                   "note": "△４三銀は３四へ利きます。３五の歩を直接守る升ではありません。",
+                                                                   "noteEn": "△4三銀 controls 3d, not the pawn square on 3e itself.",
+                                                                   "child": {
+                                                                    "id": "n_21",
+                                                                    "sfen": "ln1g3nl/1ks1g1rb1/ppppps1pp/5p3/6p2/2PP5/PPBSPPPPP/1R2GGKS1/LN5NL b - 1",
+                                                                    "branches": [
+                                                                     {
+                                                                      "usi": "8g8f",
+                                                                      "kind": "main",
+                                                                      "note": "▲８六歩で先手も飛車先の歩を進めます。",
+                                                                      "noteEn": "▲8六歩 advances Sente’s rook pawn too.",
+                                                                      "child": {
+                                                                       "id": "n_22",
+                                                                       "sfen": "ln1g3nl/1ks1g1rb1/ppppps1pp/5p3/6p2/1PPP5/P1BSPPPPP/1R2GGKS1/LN5NL w - 1",
+                                                                       "branches": [
+                                                                        {
+                                                                         "usi": "5c5d",
+                                                                         "kind": "main",
+                                                                         "child": {
+                                                                          "id": "n_23",
+                                                                          "sfen": "ln1g3nl/1ks1g1rb1/pppp1s1pp/4pp3/6p2/1PPP5/P1BSPPPPP/1R2GGKS1/LN5NL b - 1",
+                                                                          "branches": [
+                                                                           {
+                                                                            "usi": "8f8e",
+                                                                            "kind": "alt",
+                                                                            "note": "先手が▲８五歩と伸ばす応手を選びます。",
+                                                                            "noteEn": "Sente selects ▲8五歩.",
+                                                                            "child": {
+                                                                             "id": "nb0_0",
+                                                                             "sfen": "ln1g3nl/1ks1g1rb1/pppp1s1pp/4pp3/1P4p2/2PP5/P1BSPPPPP/1R2GGKS1/LN5NL w - 1",
+                                                                             "branches": [
+                                                                              {
+                                                                               "usi": "3e3f",
+                                                                               "kind": "main",
+                                                                               "note": "△３六歩で相手の３七歩へ接触します。",
+                                                                               "noteEn": "△3六歩 contacts Sente’s pawn on 3g.",
+                                                                               "child": {
+                                                                                "id": "nb0_1",
+                                                                                "sfen": "ln1g3nl/1ks1g1rb1/pppp1s1pp/4pp3/1P7/2PP2p2/P1BSPPPPP/1R2GGKS1/LN5NL b - 1",
+                                                                                "branches": [
+                                                                                 {
+                                                                                  "usi": "3g3f",
+                                                                                  "kind": "main",
+                                                                                  "child": {
+                                                                                   "id": "nb0_2",
+                                                                                   "sfen": "ln1g3nl/1ks1g1rb1/pppp1s1pp/4pp3/1P7/2PP2P2/P1BSPP1PP/1R2GGKS1/LN5NL w P 1",
+                                                                                   "branches": [
+                                                                                    {
+                                                                                     "usi": "3b3f",
+                                                                                     "kind": "main",
+                                                                                     "note": "▲同歩△同飛で双方が歩を一枚ずつ持ちました。",
+                                                                                     "noteEn": "▲同歩 △同飛 leaves one pawn in each hand.",
+                                                                                     "child": {
+                                                                                      "id": "nb0_3",
+                                                                                      "sfen": "ln1g3nl/1ks1g2b1/pppp1s1pp/4pp3/1P7/2PP2r2/P1BSPP1PP/1R2GGKS1/LN5NL b Pp 1",
+                                                                                      "branches": [
+                                                                                       {
+                                                                                        "usi": "P*3g",
+                                                                                        "kind": "main",
+                                                                                        "note": "▲３七歩打は飛車３六への当たりです。",
+                                                                                        "noteEn": "▲3七歩打 attacks rook 3f.",
+                                                                                        "child": {
+                                                                                         "id": "nb0_4",
+                                                                                         "sfen": "ln1g3nl/1ks1g2b1/pppp1s1pp/4pp3/1P7/2PP2r2/P1BSPPPPP/1R2GGKS1/LN5NL w p 1",
+                                                                                         "branches": [
+                                                                                          {
+                                                                                           "usi": "3f3d",
+                                                                                           "kind": "main",
+                                                                                           "note": "△３四飛と引きます。銀４三が３四を守ります。先手歩４七が利く４六へは移っていません。",
+                                                                                           "noteEn": "△3四飛 retreats to a square guarded by silver 4c, avoiding 4f, which Sente’s pawn on 4g controls.",
+                                                                                           "child": {
+                                                                                            "id": "nb0_5",
+                                                                                            "sfen": "ln1g3nl/1ks1g2b1/pppp1s1pp/4ppr2/1P7/2PP5/P1BSPPPPP/1R2GGKS1/LN5NL b p 1",
+                                                                                            "branches": [
+                                                                                             {
+                                                                                              "usi": "8e8d",
+                                                                                              "kind": "main",
+                                                                                              "note": "▲８四歩で先手も飛車先を交換しに来ます。",
+                                                                                              "noteEn": "▲8四歩 challenges the pawn on Sente’s own rook file.",
+                                                                                              "child": {
+                                                                                               "id": "nb0_6",
+                                                                                               "sfen": "ln1g3nl/1ks1g2b1/pppp1s1pp/1P2ppr2/9/2PP5/P1BSPPPPP/1R2GGKS1/LN5NL w p 1",
+                                                                                               "branches": [
+                                                                                                {
+                                                                                                 "usi": "8c8d",
+                                                                                                 "kind": "main",
+                                                                                                 "child": {
+                                                                                                  "id": "nb0_7",
+                                                                                                  "sfen": "ln1g3nl/1ks1g2b1/p1pp1s1pp/1p2ppr2/9/2PP5/P1BSPPPPP/1R2GGKS1/LN5NL b 2p 1",
+                                                                                                  "branches": [
+                                                                                                   {
+                                                                                                    "usi": "8h8d",
+                                                                                                    "kind": "main",
+                                                                                                    "note": "△同歩▲同飛で先手飛車が８四へ出ました。",
+                                                                                                    "noteEn": "△同歩 ▲同飛 brings Sente’s rook to 8d.",
+                                                                                                    "child": {
+                                                                                                     "id": "nb0_8",
+                                                                                                     "sfen": "ln1g3nl/1ks1g2b1/p1pp1s1pp/1R2ppr2/9/2PP5/P1BSPPPPP/4GGKS1/LN5NL w P2p 1",
+                                                                                                     "branches": [
+                                                                                                      {
+                                                                                                       "usi": "P*8c",
+                                                                                                       "kind": "main",
+                                                                                                       "note": "△８三歩打で飛車８四へ当てます。３筋で得た歩をここで使えます。銀７二が歩８三を守っています。",
+                                                                                                       "noteEn": "△8三歩打 attacks that rook, reusing a pawn gained earlier. Silver 7b guards the dropped pawn.",
+                                                                                                       "child": {
+                                                                                                        "id": "nb0_9",
+                                                                                                        "sfen": "ln1g3nl/1ks1g2b1/pppp1s1pp/1R2ppr2/9/2PP5/P1BSPPPPP/4GGKS1/LN5NL b Pp 1",
+                                                                                                        "branches": [
+                                                                                                         {
+                                                                                                          "usi": "8d8f",
+                                                                                                          "kind": "main",
+                                                                                                          "note": "先手が▲８六飛と引く応手を選びます。",
+                                                                                                          "noteEn": "Sente selects the retreat ▲8六飛.",
+                                                                                                          "child": {
+                                                                                                           "id": "nb0_10",
+                                                                                                           "sfen": "ln1g3nl/1ks1g2b1/pppp1s1pp/4ppr2/9/1RPP5/P1BSPPPPP/4GGKS1/LN5NL w Pp 1",
+                                                                                                           "branches": [],
+                                                                                                           "comment": "後手飛車３四は銀４三に守られ、先手飛車は８六です。双方は歩を一枚持ちます。歩打ちで飛車を動かしたあとも、相手の歩や銀の利きを確かめて引き場所を選びます。",
+                                                                                                           "commentEn": "Gote’s rook on 3d is guarded by silver 4c; Sente’s rook is on 8f. Each side holds one pawn. After a drop attacks a rook, choose the retreat square from the actual pawn and silver controls."
+                                                                                                          }
+                                                                                                         }
+                                                                                                        ]
+                                                                                                       }
+                                                                                                      }
+                                                                                                     ]
+                                                                                                    }
+                                                                                                   }
+                                                                                                  ]
+                                                                                                 }
+                                                                                                }
+                                                                                               ]
+                                                                                              }
+                                                                                             }
+                                                                                            ]
+                                                                                           }
+                                                                                          }
+                                                                                         ]
+                                                                                        }
+                                                                                       }
+                                                                                      ]
+                                                                                     }
+                                                                                    }
+                                                                                   ]
+                                                                                  }
+                                                                                 }
+                                                                                ]
+                                                                               }
+                                                                              }
+                                                                             ]
+                                                                            }
+                                                                           }
+                                                                          ],
+                                                                          "comment": "後手の３五歩と先手の８六歩が、それぞれの飛車の前にあります。後手の手持ちはまだありません。次の比較では３筋で歩を交換してから、８筋を守る歩打ちまで進めます。",
+                                                                          "commentEn": "Gote’s pawn on 3e and Sente’s on 8f stand ahead of their respective rooks. Gote has nothing in hand yet. The comparison first exchanges third-file pawns, then uses a pawn drop to meet contact on the eighth file."
+                                                                         }
+                                                                        }
+                                                                       ]
+                                                                      }
+                                                                     }
+                                                                    ]
+                                                                   }
+                                                                  }
+                                                                 ]
+                                                                }
+                                                               }
+                                                              ]
+                                                             }
+                                                            }
+                                                           ]
+                                                          }
+                                                         }
+                                                        ]
+                                                       }
+                                                      }
+                                                     ]
+                                                    }
+                                                   }
+                                                  ]
+                                                 }
+                                                }
+                                               ]
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          }
+                                         ]
+                                        }
+                                       }
+                                      ]
+                                     }
+                                    }
+                                   ]
+                                  }
+                                 }
+                                ]
+                               }
+                              }
+                             ]
+                            }
+                           }
+                          ]
+                         }
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

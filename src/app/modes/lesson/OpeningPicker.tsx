@@ -18,6 +18,7 @@ import {
   strategyPage,
   type Stage,
   type StrategyPage,
+  type Tutorial,
 } from '@/data/curriculum'
 import type { LessonMode, Level } from '@/app/types'
 import { Button } from '@/app/ui/Button'
@@ -126,6 +127,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
   const all: Entry[] = SETUPS.map((setup) => ({ setup, courses: coursesOf(setup.courseIds) })).filter((g) => g.courses.length || g.setup.path)
   const byId = new Map(all.map((entry) => [entry.setup.id, entry]))
   const unitEntry = (unit: string) => byId.get(lessonId(unit))
+  const tutorialEntry = (tutorial: Tutorial) => (tutorial.setup ? byId.get(tutorial.setup) : tutorial.unit ? unitEntry(tutorial.unit) : undefined)
   const text = (value: { ja: string; en: string }) => (ja ? value.ja : value.en)
   const name = (setup: Setup) => (ja ? setup.ja : setup.name)
   const fromGame = !!stored(ORIGIN_KEY)
@@ -229,6 +231,8 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
   )
   useDescribedBoard(describedSfen, described)
   if (open) {
+    const resume = open.courses.find((course) => !finished.has(course.id)) ?? open.courses[0]
+    const resumeIndex = open.courses.indexOf(resume)
     const quizzable = open.courses.filter((c) => courseProgress(c).total > 0)
     const random = () => {
       store(RANDOM_KEY, open.setup.id)
@@ -257,8 +261,14 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
         {open.setup.path ? (
           <>
             {open.courses.length > 0 && (
-              <Button variant="primary" w="100%" m="{spacing.2} 0" onClick={() => (store(RANDOM_KEY, null), onOpen(open.courses[0], 'study'))}>
-                {ja ? '第1章から学ぶ' : 'Study from chapter 1'}
+              <Button variant="primary" w="100%" m="{spacing.2} 0" onClick={() => (store(RANDOM_KEY, null), onOpen(resume, 'study'))}>
+                {resumeIndex > 0
+                  ? ja
+                    ? `第${resumeIndex + 1}章から続ける`
+                    : `Continue with chapter ${resumeIndex + 1}`
+                  : ja
+                    ? '第1章を読む'
+                    : 'Read chapter 1'}
               </Button>
             )}
             {open.courses.length > 1 && (
@@ -269,7 +279,8 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
                   return (
                     <li key={course.id}>
                       <styled.button
-                        p="{spacing.1} 0"
+                        minH="11"
+                        p="{spacing.2} 0"
                         color="fg.default"
                         fontSize="sm"
                         textAlign="left"
@@ -346,23 +357,28 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
       aria-label={t('picker.searchLessons')}
     />
   )
+  const tutorialHits = q
+    ? TUTORIALS.filter((tut) => [tut.name.ja, tut.name.en].some((n) => lower(n).includes(q))).flatMap((tut) => {
+        const entry = tutorialEntry(tut)
+        return entry ? [{ tut, entry }] : []
+      })
+    : []
+  const tutorialIds = new Set(tutorialHits.map(({ entry }) => entry.setup.id))
   const ranked = q
     ? all
+        .filter((entry) => !tutorialIds.has(entry.setup.id))
         .map((entry) => ({ entry, score: matchScore(entry, q) + Math.min(entry.courses.length, 5) }))
         .filter(({ score }) => score >= 30)
         .sort((x, y) => y.score - x.score)
     : []
   const pageHits = q ? STRATEGY_PAGES.filter((page) => [page.name.ja, page.name.en].some((n) => lower(n).includes(q))) : []
-  const tutorialHits = q ? TUTORIALS.filter((tut) => [tut.name.ja, tut.name.en].some((n) => lower(n).includes(q))) : []
+  const lessonCount = ranked.length + tutorialHits.length
   const results = q && (
     <>
       {pageHits.map(pageCard)}
-      {tutorialHits.flatMap((tut) => {
-        const entry = unitEntry(tut.unit)
-        return entry ? [tutorialCard(tut.name, entry)] : []
-      })}
+      {tutorialHits.map(({ tut, entry }) => tutorialCard(tut.name, entry))}
       <styled.p data-spaced m="{spacing.1} 0" color="fg.muted" fontSize="xs">
-        {ja ? `${ranked.length}件の講座` : `${ranked.length} ${ranked.length === 1 ? 'lesson' : 'lessons'}`}
+        {ja ? `${lessonCount}件の講座` : `${lessonCount} ${lessonCount === 1 ? 'lesson' : 'lessons'}`}
       </styled.p>
       {ranked.slice(0, 30).map(({ entry }) => resultCard(entry))}
       {ranked.length === 0 && pageHits.length === 0 && tutorialHits.length === 0 && <Muted mt="2">{ja ? '見つかりませんでした。' : 'Nothing found.'}</Muted>}
@@ -372,12 +388,19 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
   const page = view?.startsWith('strategy:') ? strategyPage(view.slice('strategy:'.length)) : undefined
   if (page) {
     const tutorials = TUTORIALS.filter((tut) => tut.page === page.id).flatMap((tut) => {
-      const entry = unitEntry(tut.unit)
+      const entry = tutorialEntry(tut)
       return entry ? [{ tut, entry }] : []
     })
     const taught = new Set(tutorials.map(({ tut }) => tut.unit))
     const lessons = page.units.filter((unit) => !taught.has(unit)).flatMap((unit) => unitEntry(unit) ?? [])
-    const drills = all.filter((g) => !g.setup.path && !g.setup.technique && g.setup.main && page.mains.includes(g.setup.main))
+    const drills = all.filter(
+      (g) =>
+        !g.setup.path &&
+        !g.setup.technique &&
+        g.setup.main &&
+        page.mains.includes(g.setup.main) &&
+        !tutorials.some(({ entry }) => entry.setup.id === g.setup.id),
+    )
     const against = all.filter((g) => !g.setup.path && !g.setup.technique && g.setup.vs && page.mains.includes(g.setup.vs) && !drills.includes(g))
     const fallback = STAGES.find((stage) => stage.strategies?.includes(page.id))
     const from = stored(PAGE_FROM_KEY)
@@ -472,7 +495,20 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
     <div>
       {backToGame}
       <PickerTitle>{ja ? '将棋を学ぶ' : 'Learn shogi'}</PickerTitle>
+      <PickerIntro data-spaced>
+        {ja
+          ? '説明と盤面を見比べながら手順を進めます。読んだ章は、矢印のないクイズで練習できます。'
+          : 'Read each explanation beside its board position. Then practise the chapter in a quiz without arrows.'}
+      </PickerIntro>
       {level === 'new' && <PickerIntro data-spaced>{t('picker.clickAnyPieceOnThe')}</PickerIntro>}
+      <Wrap gap="2" mt="3" mb="2">
+        <Button minH="11" onClick={() => openView('stage:rules')}>
+          {ja ? '初めて：ルールから学ぶ' : 'New to shogi: learn the rules'}
+        </Button>
+        <Button minH="11" onClick={() => openView('stage:first-strategy')}>
+          {ja ? 'ルールは分かる：戦法を選ぶ' : 'Know the rules: choose an opening'}
+        </Button>
+      </Wrap>
       {search}
       {results}
       {!q && (
@@ -496,7 +532,7 @@ export function OpeningPicker({ onOpen, level, setupId, setSetupId }: PickerProp
               </NextCard>
             )
           )}
-          <SubHeading data-spaced>{ja ? '入門からプロまでの順番' : 'From beginner to professional'}</SubHeading>
+          <SubHeading data-spaced>{ja ? '順番に学ぶ' : 'Follow the learning path'}</SubHeading>
           {STAGES.map((s, index) => (
             <SetupButton key={s.id} onClick={() => openView(`stage:${s.id}`)}>
               <LibJa>

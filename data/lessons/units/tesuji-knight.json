@@ -80,7 +80,8 @@
           "text": {
             "ja": "▲９六歩と別の場所を進める応手を例として見ます。桂頭への攻めを放置した弱い手です。",
             "en": "The illustrative reply ▲９六歩 plays elsewhere and is weak because it ignores the threat against the knight."
-          }
+          },
+          "kind": "deviation"
         },
         {
           "moves": [
@@ -141,7 +142,8 @@
           },
           "moves": [
             "8b7b"
-          ]
+          ],
+          "kind": "deviation"
         },
         {
           "text": {
@@ -332,7 +334,8 @@
           "text": {
             "ja": "△９四歩と別の場所を進める協力的な応手を例にします。実戦では後手も狙いに応じて指せます。",
             "en": "The cooperative reply △９四歩 plays elsewhere. In a game Gote can respond to the threat."
-          }
+          },
+          "kind": "deviation"
         },
         {
           "moves": [

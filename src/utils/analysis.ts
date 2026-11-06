@@ -134,25 +134,47 @@ function attackedEnemies(position: Position, move: Move): PieceType[] {
   for (const square of after.board.listNonEmptySquares()) {
     const piece = after.board.at(square)
     if (!piece || piece.color === move.color || piece.type === PieceType.KING) continue
-    if (attackersOf(after, square, move.color).some((s) => s.equals(move.to))) out.push(piece.type)
+    if (capturesOf(after, square, move.color).some((capture) => capture.from instanceof Square && capture.from.equals(move.to))) out.push(piece.type)
   }
   return out.sort((a, b) => PIECE_VALUE[b] - PIECE_VALUE[a])
 }
 
-function attackersOf(position: Position, square: Square, color: Color): Square[] {
-  return position.listAttackers(square).filter((s) => position.board.at(s)?.color === color && !s.equals(square))
+function capturesOf(position: Position, square: Square, color: Color): Move[] {
+  const at = position.clone()
+  at.setColor(color)
+  if (at.board.at(square)?.color === color) return []
+  return at.listAttackers(square).flatMap((from) => {
+    if (at.board.at(from)?.color !== color || from.equals(square)) return []
+    const move = at.createMove(from, square)
+    if (!move) return []
+    const legal = [move, move.withPromote()].find((candidate) => at.isValidMove(candidate))
+    return legal ? [legal] : []
+  })
+}
+
+function canLosePiece(position: Position, square: Square, color: Color, badTrade: boolean): boolean {
+  const piece = position.board.at(square)
+  if (!piece || piece.color !== color) return false
+  const enemy = color === Color.BLACK ? Color.WHITE : Color.BLACK
+  return capturesOf(position, square, enemy).some((capture) => {
+    if (badTrade && PIECE_VALUE[capture.pieceType] < PIECE_VALUE[piece.type]) return true
+    return !canRecapture(position, capture)
+  })
+}
+
+function canRecapture(position: Position, capture: Move): boolean {
+  const after = position.clone()
+  after.setColor(capture.color)
+  after.doMove(capture)
+  return capturesOf(after, capture.to, capture.color === Color.BLACK ? Color.WHITE : Color.BLACK).length > 0
 }
 
 function hangingPieces(position: Position, color: Color): Map<string, PieceType> {
   const out = new Map<string, PieceType>()
-  const enemy = color === Color.BLACK ? Color.WHITE : Color.BLACK
   for (const square of position.board.listNonEmptySquares()) {
     const piece = position.board.at(square)!
     if (piece.color !== color || piece.type === PieceType.KING || PIECE_VALUE[piece.type] < 4) continue
-    const attackers = attackersOf(position, square, enemy)
-    if (attackers.length === 0) continue
-    const cheapest = Math.min(...attackers.map((s) => PIECE_VALUE[position.board.at(s)!.type]))
-    if (attackersOf(position, square, color).length === 0 || cheapest < PIECE_VALUE[piece.type]) out.set(square.usi, piece.type)
+    if (canLosePiece(position, square, color, true)) out.set(square.usi, piece.type)
   }
   return out
 }
@@ -163,17 +185,14 @@ function isHanging(position: Position, move: Move): boolean {
   const after = position.clone()
   after.doMove(move)
   return (
-    hangingPieces(after, move.color).has(move.to.usi) ||
-    (PIECE_VALUE[after.board.at(move.to)!.type] < 4 &&
-      attackersOf(after, move.to, after.color).length > 0 &&
-      attackersOf(after, move.to, move.color).length === 0)
+    hangingPieces(after, move.color).has(move.to.usi) || (PIECE_VALUE[after.board.at(move.to)!.type] < 4 && canLosePiece(after, move.to, move.color, false))
   )
 }
 
 export function describeMove(sfen: string, usi: string): string[] {
   const position = positionOf(sfen)
   const move = position.createMoveByUSI(usi)
-  if (!move) return []
+  if (!move || move.usi !== usi || !position.isValidMove(move)) return []
   const out: string[] = []
   if (move.capturedPieceType) out.push(i18n.t('moveFacts.captures', { piece: pieceName(move.capturedPieceType) }))
   const after = position.clone()
@@ -181,7 +200,7 @@ export function describeMove(sfen: string, usi: string): string[] {
   if (after.checked) out.push(i18n.t('moveFacts.check'))
   if (move.promote) out.push(i18n.t('moveFacts.promotes', { piece: pieceName(after.board.at(move.to)!.type) }))
   if (!(move.from instanceof Square)) out.push(i18n.t('moveFacts.drops', { piece: pieceName(move.pieceType) }))
-  const targets = attackedEnemies(position, move).filter((t) => t !== move.capturedPieceType)
+  const targets = attackedEnemies(position, move)
   if (targets.length >= 2) out.push(i18n.t('moveFacts.forks', { a: pieceName(targets[0]), b: pieceName(targets[1]) }))
   else if (targets.length === 1 && PIECE_VALUE[targets[0]] >= 5) out.push(i18n.t('moveFacts.attacks', { piece: pieceName(targets[0]) }))
   return out
@@ -192,11 +211,11 @@ function lineText(sfen: string, pv: string[], plies: number): string {
   const out: string[] = []
   for (const usi of pv.slice(0, plies)) {
     const move = p.createMoveByUSI(usi)
-    if (!move || !p.isValidMove(move)) break
+    if (!move || move.usi !== usi || !p.isValidMove(move)) break
     out.push(formatMove(p, move))
     p.doMove(move)
   }
-  return out.join(' ')
+  return out.join(' ') + (out.length === plies && pv.length > plies ? ' …' : '')
 }
 
 export function explainMistake(sfen: string, usi: string, best: Candidate, reply: Candidate | null): string[] {
@@ -206,18 +225,26 @@ export function explainMistake(sfen: string, usi: string, best: Candidate, reply
   const reasons: string[] = []
   const after = position.clone()
   after.doMove(move)
+  const capturedValue = move.capturedPieceType ? PIECE_VALUE[move.capturedPieceType] + UNPROMOTED_VALUE[move.capturedPieceType] : 0
+  const movedType = after.board.at(move.to)!.type
+  const exchangeLoses = capturedValue < PIECE_VALUE[movedType] + UNPROMOTED_VALUE[movedType]
+  if ('mate' in best.score && best.score.mate > 0 && best.move !== usi)
+    reasons.push(i18n.t('moveFacts.missedMate', { count: best.score.mate, line: lineText(sfen, best.pv, Math.min(best.score.mate, 6)) }))
+  if (reply && 'mate' in reply.score && reply.score.mate > 0)
+    reasons.push(
+      i18n.t('mate' in best.score && best.score.mate < 0 ? 'moveFacts.opponentMate' : 'moveFacts.allowsMate', {
+        count: reply.score.mate,
+        line: lineText(after.sfen, reply.pv, Math.min(reply.score.mate, 6)),
+      }),
+    )
   const hangingBefore = hangingPieces(position, move.color)
   for (const [square, type] of hangingPieces(after, move.color)) {
     if (hangingBefore.has(square) || square === move.to.usi) continue
     reasons.push(i18n.t('moveFacts.leavesHanging', { piece: pieceName(type), square: squareName(square) }))
   }
-  if ('mate' in best.score && best.score.mate > 0 && best.move !== usi)
-    reasons.push(i18n.t('moveFacts.missedMate', { count: best.score.mate, line: lineText(sfen, best.pv, best.score.mate) }))
-  if (reply && 'mate' in reply.score && reply.score.mate > 0)
-    reasons.push(i18n.t('moveFacts.allowsMate', { count: reply.score.mate, line: lineText(after.sfen, reply.pv, reply.score.mate) }))
   if (reply) {
     const replyMove = after.createMoveByUSI(reply.move)
-    if (replyMove?.capturedPieceType && replyMove.to.equals(move.to))
+    if (exchangeLoses && replyMove?.capturedPieceType && replyMove.to.equals(move.to) && after.isValidMove(replyMove) && !canRecapture(after, replyMove))
       reasons.push(
         i18n.t('moveFacts.canBeTaken', {
           piece: pieceName(after.board.at(move.to)!.type),
@@ -225,11 +252,11 @@ export function explainMistake(sfen: string, usi: string, best: Candidate, reply
           move: formatMove(after, replyMove),
         }),
       )
-    else if (isHanging(position, move))
+    else if (exchangeLoses && canLosePiece(after, move.to, move.color, false))
       reasons.push(i18n.t('moveFacts.enPrise', { piece: pieceName(after.board.at(move.to)!.type), square: squareName(move.to.usi) }))
     const { swing, captured } = materialSwing(after, reply.pv, move.color, 6)
     const lost = captured.filter((c) => c.by !== move.color).map((c) => pieceName(c.type))
-    if (swing <= -4 && lost.length)
+    if (swing + capturedValue <= -4 && lost.length)
       reasons.push(i18n.t('moveFacts.losesMaterial', { pieces: lost.join(i18n.t('moveFacts.sep')), line: lineText(after.sfen, reply.pv, 3) }))
     const threat = describeMove(after.sfen, reply.move)
     if (threat.length)
@@ -242,6 +269,13 @@ export function explainMistake(sfen: string, usi: string, best: Candidate, reply
     if (swing >= 4) reasons.push(i18n.t('moveFacts.bestWins', { move: lineText(sfen, [best.move], 1), line: lineText(sfen, best.pv, 3) }))
   }
   return reasons
+}
+
+export function reviewReasons(sfen: string, review: Pick<MoveReview, 'usi' | 'label' | 'best' | 'reply'>): string[] {
+  const { usi, label, best, reply } = review
+  const critical = (reply && 'mate' in reply.score && reply.score.mate > 0) || ('mate' in best.score && best.score.mate > 0 && best.move !== usi)
+  const explain = critical || ['inaccuracy', 'mistake', 'miss', 'blunder'].includes(label)
+  return [...new Set([...(explain ? explainMistake(sfen, usi, best, reply) : []), ...describeMove(sfen, usi)])]
 }
 
 export function bestMoveReasons(sfen: string, best: Candidate): string[] {
@@ -285,7 +319,6 @@ export function classify(params: { sfen: string; usi: string; before: Analysis; 
   else if (loss <= 0.2) label = (params.previousLoss ?? 0) >= 0.1 && bestWp >= 0.6 ? 'miss' : 'mistake'
   else label = (params.previousLoss ?? 0) >= 0.1 && bestWp >= 0.6 && userWp >= 0.4 ? 'miss' : 'blunder'
 
-  const bad = ['inaccuracy', 'mistake', 'miss', 'blunder'].includes(label)
   return {
     usi,
     label,
@@ -294,7 +327,7 @@ export function classify(params: { sfen: string; usi: string; before: Analysis; 
     after: afterScore,
     best,
     reply,
-    reasons: bad ? explainMistake(sfen, usi, best, reply) : describeMove(sfen, usi),
+    reasons: reviewReasons(sfen, { usi, label, best, reply }),
     bestReasons: best.move === usi ? [] : bestMoveReasons(sfen, best),
   }
 }

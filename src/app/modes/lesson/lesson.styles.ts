@@ -69,6 +69,7 @@ export const feedback = cva({
     h: 'calc(2em * {lineHeights.normal} + 2 * {spacing.3})',
     overflowY: 'auto',
     mt: '2',
+    '&:empty': { display: 'none' },
   },
   variants: {
     floating: {

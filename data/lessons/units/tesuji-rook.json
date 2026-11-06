@@ -86,7 +86,8 @@
           "text": {
             "ja": "△３三角は飛車を狙いますが、この局面では弱い応手です。▲２一飛成と桂を取りながら成る手があります。",
             "en": "△３三角 attacks the rook but is a weak reply here. ▲２一飛成 captures the knight and promotes."
-          }
+          },
+          "kind": "deviation"
         }
       ],
       "variations": []
@@ -98,12 +99,12 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "lnsgkgsnl/3br4/pp1pppppp/1P7/9/P8/B1PPPPPPP/4R4/LNSGKGSNL b p 1",
+      "start": "lnsgkgsnl/1p1br4/p2pppppp/1P7/9/P8/B1PPPPPPP/4R4/LNSGKGSNL b p 1",
       "steps": [
         {
           "text": {
-            "ja": "後手の角６二は７三を通って先手の歩８四を狙っています。先手の飛車５八はまだ８四を守っていません。",
-            "en": "Gote’s bishop on ６二 attacks the pawn on ８四 through ７三. Sente’s rook on ５八 does not yet protect that pawn."
+            "ja": "後手の角６二は７三を通って先手の歩８四を狙っています。先手の飛車５八はまだ８四を守っていません。この練習図では後手歩を８二に置いています。８二の歩が守るのは８三で、８四ではありません。",
+            "en": "Gote’s bishop on 6b attacks Sente’s pawn on 8d through 7c. Sente’s rook on 5h does not yet guard the pawn. In this teaching position Gote’s pawn is on 8b: it guards 8c, not 8d."
           },
           "marks": {
             "boxes": [
@@ -131,15 +132,16 @@
           "text": {
             "ja": "△８四角と歩を取る弱い応手を見ます。後手は交換を避けることもできます。",
             "en": "The illustrative capture △８四角 is weak: Gote can instead avoid the exchange."
-          }
+          },
+          "kind": "deviation"
         },
         {
           "moves": [
             "8h8d"
           ],
           "text": {
-            "ja": "▲同飛で角を取り返します。８筋の間のマスが空いていることが必要です。",
-            "en": "▲同飛 recaptures the bishop. The intervening squares on the eighth file must be clear."
+            "ja": "▲同飛で角を取り返します。途中の８七・８六・８五は空いています。後手歩が８三にいる別の配置なら△同歩で飛車を取られるため、歩の後ろに飛車を置くだけでなく、取り返した先の守りも確認します。",
+            "en": "▲同飛 recaptures the bishop through empty 8g, 8f and 8e. With Gote’s pawn on 8c instead, △同歩 would capture the rook. Check the defenders of the landing square as well as the rook’s support from behind."
           }
         }
       ],

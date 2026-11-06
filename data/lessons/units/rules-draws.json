@@ -289,7 +289,15 @@
             "5e4d",
             "7a8b",
             "4d5e",
-            "8b7a",
+            "8b7a"
+          ],
+          "text": {
+            "ja": "同じ一巡を繰り返し、後手玉が７一へ戻りました。次に角を４四へ戻すと、連続王手のまま同一局面が四度目になります。",
+            "en": "The cycle repeats and Gote returns to 7a. Returning the bishop to 4d now would produce the fourth occurrence with uninterrupted Sente checks."
+          }
+        },
+        {
+          "moves": [
             "5e4d"
           ],
           "text": {
@@ -301,7 +309,8 @@
             "arrows": [
               "4d7a"
             ]
-          }
+          },
+          "kind": "deviation"
         }
       ],
       "variations": [
@@ -346,7 +355,8 @@
                 "en": "A repetition without continuous check is handled as a draw or replay according to the rules in use. Some official matches restart with the players' sides swapped and their remaining time carried over. Follow the event or service rules when they specify a different procedure."
               }
             }
-          ]
+          ],
+          "kind": "alt"
         }
       ]
     }

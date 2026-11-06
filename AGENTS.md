@@ -2,6 +2,8 @@
 
 When the user is actively testing the app, implement requested changes directly and limit checks to essential source validation. Do not launch independent browser sessions, screenshots, viewport sweeps or device verification unless the user explicitly requests them. Preserve the running development servers and let the user verify the visible result.
 
+For authorized browser verification, keep one isolated named session and prefix every `agent-browser` command with `AGENT_BROWSER_HEADED=1` and the required mock-keychain, basic password-store and mute-audio arguments. Applying headed mode only to the opening command can replace the browser on a later command; verify the owned Chrome process has no `--headless` argument before visual acceptance.
+
 # Variant presentation
 
 Taikyoku uses the main game's traditional room, physical square and koma dimensions, piece renderer and baked 2D pipeline. Preserve material, finish and font settings. Variant rules govern captures and victory; show royal targets and remaining royals explicitly. Do not replace shared presentation with simplified independent drawing or scale characters and pieces to fit the board.
@@ -28,16 +30,36 @@ Mating drills must state whether they use the displayed hands or the composed-ts
 
 For a preparatory move, compare the actual control before and after it; do not claim that it creates protection or pressure already present. Before accepting a teaching position, check immediate captures and forcing counterchecks, and retain the blockers and defenders needed for the illustrated line. Label cooperative replies and deliberate mistakes explicitly.
 
+Opening-course `rootComment` and `rootCommentEn` describe `startSfen`, which defaults to the standard initial position; `goalSfen` does not change the displayed start. Describe a planned formation as a future position, or explain it at the reached segment node. Recompute pins, blocked rays and hands at each branch endpoint: a dropped blocker can free a pinned defender, and a captured pawn spent on a later drop is no longer in hand.
+
 # Project lesson skill
 
 For lesson authoring, revision, or audit in this project, use `.agents/skills/shogi-lessons/SKILL.md` and its relevant references. Project-specific skills stay in this repository and use its source schema, declared references, engine harness, and canonical task record. Registering them globally requires an explicit request.
 
 # Coaching annotations
 
-Side markers must face their owner's board direction: Sente and Gote always oppose, and both reverse when the board flips. Route text markers through SideMark, Marks or FlipMarks; movement guides follow the selected piece's color and board orientation, including hand selections.
+Render authored ▲/△ side notation as tile glyphs through the shared marker renderer, never literal triangles. Side markers must face their owner's board direction: Sente and Gote always oppose, and both reverse when the board flips. Route text markers through SideMark, Marks or FlipMarks; movement guides follow the selected piece's color and board orientation, including hand selections.
+
+For a correction involving Sente/Gote or move order, replay the exact path and verify the displayed ply, side to move and commentary timing before editing labels. Do not infer a request to remove, rename or restyle side identifiers from a turn-order question.
 
 Live coaching uses the existing SquareText and figureMarks pipeline. Keep coordinate text, tile colors and legal move arrows synchronized with the displayed position; suppress stale-position annotations and hidden assistance. PR screenshots use native `gh pr edit --attach`.
+
+Text-linked square colors take priority over authored box fills and default last-move fills. Emit one teaching fill per square; when an annotation covers the last move, suppress the separate last-move fill in every renderer instead of blending conflicting colors.
 
 # Flat board layers and promotion input
 
 Render board and stand surfaces before arrows, then board and hand pieces; arrows must remain beneath physical piece tiles. Promotion choices require a fresh press inside the picker or keyboard activation, never the release/click from the gesture that opened it.
+
+In 3D, drop arrows follow the hand stand's surface height before reaching the board. Board-height arrows must not pass above pieces on lower stands. Arrow labels obey the same tile occlusion: depth-tested in 3D and drawn before pieces in flat renderers.
+
+# Scoped PR delivery
+
+Before any GitHub write, verify `gh api user --jq .login` is `hamzaabamboo`; commit identity does not verify API identity. Concurrent tasks require file and hunk ownership isolation. Preserve the shared checkout branch and unfinished changes from other tasks. A PR request requires execution; status lists do not complete it.
+
+# Engine control placement
+
+The New Game dialog selects the playing engine. The AI panel bar selects the analysis engine independently of board side; advanced analysis controls belong in the AI settings dialog. Do not expose Sente/Gote model selectors for these roles.
+
+# Pull request language and title
+
+PR titles and descriptions use English. Titles use Conventional Commits syntax, such as `fix: ...`. Preserve Summary, Evidence, and Merge Danger sections and individual before/after evidence.

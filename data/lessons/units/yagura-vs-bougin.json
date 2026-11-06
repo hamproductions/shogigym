@@ -324,13 +324,14 @@
                 "2b6f"
               ],
               "text": {
-                "ja": "△６六銀、▲同銀、△同角。後手は銀を捨てて角の筋を通しました。飛車ばかり見ていると、この角の攻めを見落とします。二方向の攻めを同時に受けるのは簡単ではありません。",
-                "en": "△6六銀 ▲同銀 △同角: Gote gives up the silver to open the bishop's diagonal. If you watch only the rook, this bishop attack is easy to miss, and defending two directions at once is hard."
+                "ja": "△６六銀、▲同銀、△同角で、後手の角が６六に出ました。角の二つの斜めの道は、５七・４八を通って３九の銀へ、７七・８八を通って９九の香へ届きます。次の手を選ぶ前に、どの駒が角に当たっているか確認してください。",
+                "en": "After △6六銀, ▲同銀 and △同角, Gote’s bishop reaches 6f. Its diagonals reach the silver on 3i through 5g and 4h, and the lance on 9i through 7g and 8h. Locate those targets before choosing Sente’s next move."
               },
               "marks": {
                 "last": "6f",
                 "arrows": [
-                  "6f6h"
+                  "6f3i",
+                  "6f9i"
                 ],
                 "boxes": [
                   "6f"
@@ -458,8 +459,8 @@
             "6d6e"
           ],
           "text": {
-            "ja": "後手が△６四歩から△６五歩と、六筋の歩を突き捨ててきました。ただで歩が取れても、すぐに喜ばず、相手の狙いを考えます。この歩を取らないと△６四歩とされて劣勢になるので、取るのは正しい手です。",
-            "en": "Gote pushes the sixth file pawn with △6四歩 and △6五歩 and just throws it away. Free pawns deserve suspicion, so think about the aim. Not taking it would allow △6四歩 and a worse game, so the capture itself is correct."
+            "ja": "後手は△６四歩から△６五歩と歩を進めました。６五の歩を取れば、先手の６六が空いて後手の角道が通ります。一方、歩を残すと後手には△６六歩と先手の歩を取る手があります。この章では▲同歩と取る例を見ます。",
+            "en": "Gote advances the pawn with △6四歩 and △6五歩. Capturing it clears Sente’s 6f square and opens Gote’s bishop diagonal. If the pawn remains, Gote can capture Sente’s pawn with △6六歩. This chapter examines the example ▲同歩."
           },
           "marks": {
             "last": "6e",

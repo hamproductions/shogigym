@@ -51,12 +51,17 @@ export default {
       },
       {
         kind: 'alt',
-        moves: '2e2d 2c2d 2h2d 3c2d',
-        notes: {
-          1: '２四歩には後手の同歩がある。',
-          3: '先手飛車まで２四で歩を取ると、３三銀が飛車を取る。',
-        },
-        comment: '角が向き合っていても、３三銀の２四への利きは消えない。２筋の歩交換と飛車の進出を同じ手として扱わず、取り返しを数える。',
+        moves: '2e2d 2c2d',
+        comment: '▲２四歩△同歩のあと、３三銀は２四を守ったままです。',
+        commentEn: 'After ▲2四歩 △同歩, silver 3c still guards 2d.',
+        branches: [
+          {
+            kind: 'deviation',
+            moves: '2h2d 3c2d',
+            comment: '▲同飛は△同銀で飛車を失う誤りです。角が向き合っていても、銀３三の２四への利きは消えません。',
+            commentEn: '▲同飛 is a mistake: △同銀 captures the rook. The facing bishops have not removed silver 3c’s control of 2d.',
+          },
+        ],
       },
     ],
   },

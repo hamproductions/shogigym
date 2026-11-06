@@ -259,6 +259,8 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
   }
   const lastTo = lastMove ? Square.newByUSI(lastMove.slice(2, 4)) : null
   const lastFrom = lastMove && lastMove[1] !== '*' ? Square.newByUSI(lastMove.slice(0, 2)) : null
+  const tinted = new Set(heat?.map((entry) => entry.square.usi))
+  const annotatedMove = !!lastMove && (tinted.has(lastMove.slice(0, 2)) || tinted.has(lastMove.slice(2, 4)))
   return (
     <div className={flat()} aria-busy={loading}>
       {(loading || error) && (
@@ -284,8 +286,8 @@ export function Board2D({ style, ...props }: Board3DProps & { style: FlatStyle }
           <UnderMarks props={props} p={project} u={t.cw} handPoint={handPoint} />
         ) : (
           <>
-            {lastFrom && cell(lastFrom, style === 'diagram' ? '#9cc3ff' : '#fff2a8', 0.35, 'lf')}
-            {lastTo && cell(lastTo, style === 'diagram' ? '#9cc3ff' : '#fff2a8', 0.6, 'lt')}
+            {lastFrom && !annotatedMove && cell(lastFrom, style === 'diagram' ? '#9cc3ff' : '#fff2a8', 0.35, 'lf')}
+            {lastTo && !annotatedMove && cell(lastTo, style === 'diagram' ? '#9cc3ff' : '#fff2a8', 0.6, 'lt')}
             {(heat ?? []).map((h, i) => cell(h.square, `#${h.color.toString(16).padStart(6, '0')}`, h.opacity, `h${i}`))}
             {checkSquare && cell(checkSquare, '#e0301e', 0.45, 'ck')}
             {selected instanceof Square && cell(selected, '#ffd76a', 0.7, 'sel')}

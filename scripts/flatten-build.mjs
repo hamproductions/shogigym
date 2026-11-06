@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto'
 import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { sharePreviewOutput } from './shared-preview-assets.mjs'
 
 const base = (process.env.BASE_PATH ?? '/').replace(/^\/|\/$/g, '')
 const out = 'build/client'
@@ -29,6 +30,8 @@ if (process.env.PREVIEW) {
   }
 }
 
+sharePreviewOutput(out)
+
 const site = (process.env.SITE_URL ?? 'https://hamproductions.github.io/shogigym').replace(/\/$/, '')
 const pages = []
 const walk = (dir, path) => {
@@ -51,7 +54,7 @@ writeFileSync(
 )
 
 // Offline precache: list every file the app needs so the service worker can store them ahead of use, and stamp the cache name with a hash of that list so each build gets its own cache.
-const optional = ['books/peta233-full-v1/', 'eval/']
+const optional = ['books/peta233-full-v1/', 'eval/', 'engines/models/']
 const skip = new Set(['coi-sw.js', 'precache.json', 'sitemap.xml', 'robots.txt', '404.html', 'og.png', '_headers'])
 const files = []
 const list = (dir, path) => {

@@ -1,23 +1,26 @@
 import { useTranslation } from 'react-i18next'
 import { restartEngine, useEngineStatus } from '@/utils/engine'
-import { useSettings } from '@/appearance/settings'
+import { useSettings, type EngineKind } from '@/appearance/settings'
+import { engineLabel } from '@/utils/engineModels'
 import { Button } from '@/app/ui/Button'
 import { Text } from '@/components/ui'
 import { Result } from '@/app/panels/panels.styles'
 
-export function EngineName() {
+export function EngineName({ kind }: { kind?: EngineKind }) {
   const { t } = useTranslation()
   const status = useEngineStatus()
-  const st = useSettings()
-  const label = { yaneuraou: t('settings.yaneuraou'), nnue: t('settings.yaneuraouNnue'), fairy: t('settings.fairyStockfish') }[st.engine]
+  const settings = useSettings()
+  const selected = kind ?? settings.engineAnalysis ?? settings.engine
+  const label = engineLabel(selected)
+  const matching = selected === status.kind
   return (
     <>
-      <Text tone="muted" size="2xs" mt="0" mb="2">
+      <Text tone="muted" size="2xs" mt="0" mb="2" title={matching ? status.name : undefined}>
         {t('engine.activeEngine', {
-          name: status.kind === st.engine && status.name ? status.name : `${label} ${status.error ? '' : t('engine.engineStarting')}`.trim(),
+          name: `${label}${matching && status.loading ? ` · ${t('settings.loadingModel')}` : ''}`,
         })}
       </Text>
-      {status.kind === st.engine && status.error && (
+      {matching && status.error && (
         <div role="alert">
           <Result tone="wrong">{status.error}</Result>
           <Button size="sm" onClick={restartEngine}>

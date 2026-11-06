@@ -11,10 +11,10 @@ const hex = (color: number) => `#${color.toString(16).padStart(6, '0')}`
  */
 export function SquareText({ text, context = text }: { text: string; context?: string }) {
   const flipped = useFlipped()
-  const squares = mentionedSquares(`${context}\n${text}`)
+  const squares = mentionedSquares(text, context)
   return (
     <>
-      {squareParts(text).map((part, i) =>
+      {squareParts(text, context).map((part, i) =>
         typeof part === 'string' ? (
           <FlipMarks key={i} flipped={flipped}>
             {part}
@@ -24,6 +24,7 @@ export function SquareText({ text, context = text }: { text: string; context?: s
             key={i}
             p="0 0.2em"
             borderRadius="0.25em"
+            whiteSpace="nowrap"
             bg="color-mix(in srgb, var(--sq) 38%, transparent)"
             boxShadow="inset 0 -2px 0 var(--sq)"
             css={{ '--sq': '#e0b84a' }}

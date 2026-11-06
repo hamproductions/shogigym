@@ -2,7 +2,8 @@ import { useGameChoice } from '@/app/modes/analyze/useGameChoice'
 import { Suspense, lazy } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LABELS, type Label } from '@/utils/analysis'
-import { colorSide, positionOf } from '@/utils/shogi'
+import { colorSide, enginePositionIssue, positionOf } from '@/utils/shogi'
+import { useEngineSupported } from '@/utils/engine'
 import { cachedReview, useReviewVersion } from '@/app/memory'
 import { useSession } from '@/app/hooks/session'
 import type { Evaluation } from '@/app/hooks/useEvaluation'
@@ -80,15 +81,24 @@ export type PanelModel = {
 
 function EngineSection({ model }: { model: PanelModel }) {
   const { t } = useTranslation()
-  const { mode, ai, assist, gameOver, toMove, sfen, userTurn, play } = useSession()
+  const { mode, course, ai, assist, gameOver, toMove, sfen, userTurn, play } = useSession()
+  const supported = useEngineSupported()
   const { spoilerFree, evaluation, bookHere } = model
   const live = ai && assist && !spoilerFree && !gameOver
   return (
     <>
       {!ai && (
         <div role="alert">
-          <Muted>{t('app.theAiNeedsACross')}</Muted>
-          <Button onClick={() => location.reload()}>{t('engine.reloadPage')}</Button>
+          <Muted>
+            {t(
+              !supported
+                ? 'app.theAiNeedsACross'
+                : course?.noEngine
+                  ? 'engine.disabledForLesson'
+                  : `engine.positionUnavailable.${enginePositionIssue(sfen) ?? 'invalid'}`,
+            )}
+          </Muted>
+          {!supported && <Button onClick={() => location.reload()}>{t('engine.reloadPage')}</Button>}
         </div>
       )}
       {ai && spoilerFree && <Muted>{t('app.theAiStaysQuietUntil')}</Muted>}
@@ -211,14 +221,14 @@ function MoveCounts() {
 
 function FlowSection({ model }: { model: PanelModel }) {
   const { t } = useTranslation()
-  const { mode, assist, gameOver, startPreview } = useSession()
-  const { spoilerFree, lanes, lanesSfen, onHoverLane } = model
+  const { mode, ai, assist, gameOver, startPreview } = useSession()
+  const { spoilerFree, lanes, lanesSfen, onHoverLane, evaluation } = model
   return (
     <>
       {spoilerFree && <Muted>{t('app.findTheMoveYourselfFirst')}</Muted>}
       {!spoilerFree && gameOver && <Muted>{t('app.theGameIsOverCheckmate')}</Muted>}
       {!assist && <Muted>{t(mode === 'spar' ? 'app.coachAfterGame' : 'app.helpIsOffTurnIt2')}</Muted>}
-      {assist && !spoilerFree && !gameOver && (
+      {assist && !spoilerFree && !gameOver && (lanes.length > 0 || (ai && !evaluation.error)) && (
         <FlowPane lanes={lanes} sfen={lanesSfen} onPreview={(moves, title) => startPreview(moves, title)} onHover={onHoverLane} />
       )}
     </>

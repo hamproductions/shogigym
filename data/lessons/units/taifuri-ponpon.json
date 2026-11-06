@@ -10,8 +10,8 @@
     "en": "Ponpon Knight (Tomizawa Kick): sacrifice the knight and break the rook file"
   },
   "intro": {
-    "ja": "左の桂を▲３七、▲４五と続けて跳ね、四間飛車に仕掛ける急戦です。桂を捨てて角交換に持ち込み、２筋を突破します。後手が△６四歩を突いてから仕掛けないと失敗するので、その見極めも覚えます。",
-    "en": "A rush against Fourth File Rook that hops the left knight to 3g and then 4e. Sente sacrifices the knight, trades bishops and breaks through on the second file. The attack fails unless Gote has already played △6四歩, so this lesson also teaches how to check that."
+    "ja": "右の桂を▲３七、▲４五と続けて跳ね、四間飛車に仕掛ける急戦です。桂を捨てて角交換に持ち込み、２筋を突破します。後手が△６四歩を突いてから仕掛けないと失敗するので、その見極めも覚えます。",
+    "en": "A rush against Fourth File Rook that hops the right knight to 3g and then 4e. Sente sacrifices the knight, trades bishops and breaks through on the second file. The attack fails unless Gote has already played △6四歩, so this lesson also teaches how to check that."
   },
   "check": {
     "question": {
@@ -43,7 +43,7 @@
       "steps": [
         {
           "text": {
-            "ja": "ポンポン桂は、左の桂を▲３七、▲４五と続けて跳ねて仕掛ける、対四間飛車の急戦です。プロの富沢幹雄九段が愛用したので、富沢キックとも呼ばれます。この章では、仕掛ける直前の形を初手から一手ずつ作ります。",
+            "ja": "ポンポン桂は、右の桂を▲３七、▲４五と続けて跳ねて仕掛ける、対四間飛車の急戦です。プロの富沢幹雄九段が愛用したので、富沢キックとも呼ばれます。この章では、仕掛ける直前の形を初手から一手ずつ作ります。",
             "en": "The Ponpon Knight is a rush against Fourth File Rook that jumps the knight in two hops, first to 3g and then to 4e. It is also called the Tomizawa Kick after the professional who favored it. This chapter builds the position just before the attack, one move at a time from move one."
           }
         },
@@ -254,8 +254,8 @@
             "2i3g"
           ],
           "text": {
-            "ja": "△５四歩に▲３七桂。左の桂を一つ跳ねます。▲３六歩で空けておいたマスに入りました。この桂がポンポン桂の攻めの要で、次に▲４五桂と跳ねる手を狙います。",
-            "en": "After △5四歩 comes ▲3七桂. The left knight jumps once, into the square that ▲3六歩 emptied. This knight is the key to the Ponpon Knight attack, and Sente next aims at the second jump, ▲4五桂."
+            "ja": "△５四歩に▲３七桂。右の桂を一つ跳ねます。▲３六歩で空けておいたマスに入りました。この桂がポンポン桂の攻めの要で、次に▲４五桂と跳ねる手を狙います。",
+            "en": "After △5四歩 comes ▲3七桂. The right knight jumps once, into the square that ▲3六歩 emptied. This knight is the key to the Ponpon Knight attack, and Sente next aims at the second jump, ▲4五桂."
           },
           "marks": {
             "last": "3g",

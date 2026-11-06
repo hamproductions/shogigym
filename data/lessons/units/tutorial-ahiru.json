@@ -142,8 +142,8 @@
             "4i3i"
           ],
           "text": {
-            "ja": "▲３九金。金を左へ寄せます。美濃のように玉の近くにはおかず、端と玉の間に厚みを置くのが特徴です。",
-            "en": "▲3九金 slides the gold left. Unlike Mino it does not hug the king; the shape spreads out to the sides."
+            "ja": "▲３九金。４九の金を３九へ、先手から見て右へ寄せます。美濃のように玉の近くにはおかず、端と玉の間に厚みを置くのが特徴です。",
+            "en": "▲3九金 slides the gold from 4i to 3i, to Sente’s right. Unlike Mino it does not hug the king; the shape spreads out to the sides."
           },
           "marks": {
             "last": "3i"
@@ -285,8 +285,8 @@
             "3f3d"
           ],
           "text": {
-            "ja": "後手は△２四歩と反撃します。先手は気にせず▲３四飛と歩を取りました。飛車が敵陣に入っています。",
-            "en": "Gote counters with △2四歩. Sente ignores it and takes the pawn with ▲3四飛. The rook is inside Gote's camp."
+            "ja": "後手は△２四歩と反撃します。先手は気にせず▲３四飛と歩を取りました。飛車は３四に出ましたが、４段目は敵陣の１～３段目の外です。",
+            "en": "Gote counters with △2四歩. Sente ignores it and takes the pawn with ▲3四飛. The rook reaches 3d on rank d, outside Sente’s promotion zone on ranks a–c."
           },
           "marks": {
             "last": "3d"

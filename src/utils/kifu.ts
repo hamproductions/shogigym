@@ -2,6 +2,7 @@ import {
   Color,
   SpecialMoveType,
   Move,
+  Position,
   Record,
   RecordFormatType,
   RecordMetadataKey,
@@ -12,7 +13,7 @@ import {
   importKI2,
   importKIF,
 } from 'tsshogi'
-import { COURSES, courseLoaded, loadedCourses, type Course, type JosekiNode } from './model'
+import { COURSES, courseLoaded, loadedBookNodes, loadedCourses, type Course, type JosekiNode } from './model'
 import { applyUsi } from './shogi'
 import type { DetectionPreset, DetectionResult } from './formationTags'
 
@@ -38,7 +39,8 @@ export function decodeKifuFile(buffer: ArrayBuffer): string {
 export function parseGame(text: string): Game | Error {
   const data = text.trim()
   if (!data) return new Error('Paste a kifu first.')
-  const format = detectRecordFormat(data)
+  const position = Position.newBySFEN(data.replace(/\s+/g, ' '))
+  const format = position ? RecordFormatType.SFEN : detectRecordFormat(data)
   const record: Record | Error =
     format === RecordFormatType.KIF
       ? importKIF(data)
@@ -51,7 +53,7 @@ export function parseGame(text: string): Game | Error {
             : format === RecordFormatType.USEN
               ? Record.newByUSEN(data)
               : format === RecordFormatType.SFEN
-                ? Record.newByUSI(`sfen ${data}`)
+                ? Record.newByUSI(`sfen ${position?.sfen ?? data}`)
                 : Record.newByUSI(data)
   if (record instanceof Error) {
     const bad = /^Invalid move: (\S+)/.exec(record.message)?.[1]
@@ -74,7 +76,7 @@ export function parseGame(text: string): Game | Error {
     .map((node) => node.move)
     .filter((m): m is Move => m instanceof Move)
     .map((m) => m.usi)
-  if (moves.length === 0 && record.initialPosition.sfen.startsWith(START.slice(0, -2)))
+  if (moves.length === 0 && !position && format !== RecordFormatType.USI && record.initialPosition.sfen.startsWith(START.slice(0, -2)))
     return new Error("that doesn't look like a game record (KIF, KI2, CSA, USI or SFEN)")
   const usiTokens =
     /\bmoves\b/.test(data) && (format === RecordFormatType.USI || !format)
@@ -110,7 +112,7 @@ export function parseGame(text: string): Game | Error {
     }
     return digits.indexOf(value)
   }
-  const rawHand = /\bsfen\s+\S+\s+[bw]\s+(\S+)/.exec(data)?.[1] ?? (format === RecordFormatType.SFEN ? data.split(/\s+/)[2] : undefined)
+  const rawHand = /\bsfen\s+\S+\s+[bw]\s+(\S+)/.exec(data)?.[1] ?? (format === RecordFormatType.SFEN ? (position?.sfen ?? data).split(/\s+/)[2] : undefined)
   const kingHands = [0, 0] as [number, number]
   for (const [index, owner] of ['先手', '後手'].entries()) {
     const held = new RegExp(`^${owner}の持駒[：:]([^\\n]+)`, 'm').exec(data)?.[1]
@@ -166,7 +168,13 @@ export function bookLookup(sfen: string) {
       walk(course.root)
     }
   }
-  return bookIndex.get(strip(sfen)) ?? []
+  const loaded = bookIndex.get(strip(sfen)) ?? []
+  const pending = loadedBookNodes(sfen).filter((hit) => hit.book)
+  return COURSES.flatMap((course) =>
+    courseLoaded(course)
+      ? loaded.filter((hit) => hit.course.id === course.id)
+      : pending.filter((hit) => hit.baseId === course.baseId).map(({ node }) => ({ course, node })),
+  )
 }
 
 export const accuracyFromLoss = (lossPercent: number) => Math.max(0, Math.min(100, 103.1668 * Math.exp(-0.04354 * lossPercent) - 3.1669))

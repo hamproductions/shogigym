@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { PieceType, Square, type ImmutablePosition } from 'tsshogi'
 import { coordinatesVisible, getSettings } from '@/appearance/settings'
-import { HALF_D, HALF_W, MARGIN, SQ_D, squareX, squareZ } from './dimensions'
+import { HALF_D, HALF_W, MARGIN, SQ_D, STRIP_W, standWidth, stripDepth, squareX, squareZ } from './dimensions'
 import { handSpot, handSurface } from './hand'
 import { standCenter } from './layout'
 import { arrowTag, badgeSprite, coordPlane, coordSprite, faceTextureRevision, labelSprite } from './textures'
@@ -49,11 +49,11 @@ export function squareFrame(inner: number, material: THREE.MeshBasicMaterial) {
 export const moveTarget = () =>
   new THREE.Mesh(new THREE.CircleGeometry(0.12, 24), new THREE.MeshBasicMaterial({ color: 0x5a3a1c, transparent: true, opacity: 0.5, depthWrite: false }))
 
-function boardMarker(sprite: THREE.Sprite, width: number, height: number, flipped: boolean) {
+function boardMarker(sprite: THREE.Sprite, width: number, height: number, flipped: boolean, occluded = false) {
   const material = new THREE.MeshBasicMaterial({
     map: sprite.material.map,
     transparent: true,
-    depthTest: getSettings().environment === 'battlefield',
+    depthTest: occluded || getSettings().environment === 'battlefield',
     depthWrite: false,
   })
   sprite.material.dispose()
@@ -72,18 +72,37 @@ export function arrowMesh(arrow: BoardArrow, position: ImmutablePosition, stack 
   if (!to || !/^([1-9][a-i]|[PLNSGBR]\*)[1-9][a-i]\+?$/.test(arrow.usi)) return new THREE.Group()
   const end = new THREE.Vector3(squareX(to.file), 0.05, squareZ(to.rank))
   let start: THREE.Vector3
+  let sourceSurface: { height: number; until: number; boardAt: number } | undefined
   if (arrow.usi[1] === '*') {
     const slot = handSpot(position, mover, DROP_TYPE[arrow.usi[0]]) ?? standCenter(mover)
     start = new THREE.Vector3(slot.x, 0.05, slot.z)
+    const direction = end.clone().sub(start).setY(0).normalize()
+    const center = standCenter(mover)
+    const halfX = (layout.portrait ? (layout.vertical ? stripDepth() : STRIP_W) : standWidth()) / 2
+    const halfZ = (layout.portrait ? (layout.vertical ? STRIP_W : stripDepth()) : standWidth()) / 2
+    const exit = (value: number, origin: number, middle: number, half: number) => (value === 0 ? Infinity : (middle + Math.sign(value) * half - origin) / value)
+    const enter = (value: number, origin: number, half: number) => (value === 0 ? -Infinity : (-Math.sign(value) * half - origin) / value)
+    sourceSurface = {
+      height: handSurface(),
+      until: Math.max(0, Math.min(exit(direction.x, start.x, center.x, halfX), exit(direction.z, start.z, center.z, halfZ))),
+      boardAt: Math.max(enter(direction.x, start.x, HALF_W), enter(direction.z, start.z, HALF_D)),
+    }
   } else {
     const from = Square.newByUSI(arrow.usi.slice(0, 2))
     if (!from) return new THREE.Group()
     start = new THREE.Vector3(squareX(from.file), 0.05, squareZ(from.rank))
   }
-  return arrowBetween(arrow, start, end, stack, flipped)
+  return arrowBetween(arrow, start, end, stack, flipped, sourceSurface)
 }
 
-export function arrowBetween(arrow: Omit<BoardArrow, 'usi'> & { usi?: string }, start: THREE.Vector3, end: THREE.Vector3, stack = 0, flipped = false) {
+export function arrowBetween(
+  arrow: Omit<BoardArrow, 'usi'> & { usi?: string },
+  start: THREE.Vector3,
+  end: THREE.Vector3,
+  stack = 0,
+  flipped = false,
+  sourceSurface?: { height: number; until: number; boardAt: number },
+) {
   const dir = end.clone().sub(start)
   const length = dir.length()
   const shaft = Math.max(0.01, length - 0.45)
@@ -108,16 +127,28 @@ export function arrowBetween(arrow: Omit<BoardArrow, 'usi'> & { usi?: string }, 
   const segment = arrow.dashed ? 0.16 : shaft
   const gap = arrow.dashed ? 0.1 : 0
   for (let y = 0; y < shaft - 0.001; y += segment + gap) {
-    const part = new THREE.Shape()
     const top = Math.min(shaft, y + segment)
-    part.moveTo(-w, y)
-    part.lineTo(w, y)
-    part.lineTo(w, top)
-    part.lineTo(-w, top)
-    part.closePath()
-    shapes.push(part)
+    const cuts = [y, ...(sourceSurface ? [sourceSurface.until, sourceSurface.boardAt].filter((at) => at > y && at < top) : []), top]
+    for (let index = 1; index < cuts.length; index++) {
+      const part = new THREE.Shape()
+      part.moveTo(-w, cuts[index - 1])
+      part.lineTo(w, cuts[index - 1])
+      part.lineTo(w, cuts[index])
+      part.lineTo(-w, cuts[index])
+      part.closePath()
+      shapes.push(part)
+    }
   }
-  const mesh = new THREE.Mesh(new THREE.ShapeGeometry(shapes), material)
+  const geometry = new THREE.ShapeGeometry(shapes)
+  if (sourceSurface) {
+    const vertices = geometry.attributes.position
+    for (let index = 0; index < vertices.count; index++) {
+      const blend = THREE.MathUtils.clamp((vertices.getY(index) - sourceSurface.until) / Math.max(0.001, sourceSurface.boardAt - sourceSurface.until), 0, 1)
+      vertices.setZ(index, sourceSurface.height * (1 - blend))
+    }
+    geometry.computeVertexNormals()
+  }
+  const mesh = new THREE.Mesh(geometry, material)
   mesh.renderOrder = arrow.dashed ? 9 : 10
   mesh.rotation.x = -Math.PI / 2
   const group = new THREE.Group()
@@ -126,7 +157,7 @@ export function arrowBetween(arrow: Omit<BoardArrow, 'usi'> & { usi?: string }, 
   group.rotation.y = Math.atan2(-dir.x, -dir.z)
   if (arrow.label) {
     const flip = flipped ? -1 : 1
-    const tag = boardMarker(arrowTag(arrow.label, arrow.color), 0.56, 0.25, flipped)
+    const tag = boardMarker(arrowTag(arrow.label, arrow.color), 0.56, 0.25, flipped, true)
     tag.userData.usi = arrow.usi
     tag.position.set(end.x, 0.004, end.z + (0.49 - stack * 0.25) * SQ_D * flip)
     tag.position.sub(group.position).applyAxisAngle(new THREE.Vector3(0, 1, 0), -group.rotation.y)
@@ -217,7 +248,8 @@ export function drawMarks(s: SceneState, props: Board3DProps) {
   })
   s.marks.clear()
   const tile = (square: Square, color: number, opacity: number) => s.marks.add(flatOnBoard(squareTile(color, opacity), square, 0.004))
-  if (lastMove) {
+  const tinted = new Set(props.heat?.map((entry) => entry.square.usi))
+  if (lastMove && !tinted.has(lastMove.slice(0, 2)) && !tinted.has(lastMove.slice(2, 4))) {
     const to = Square.newByUSI(lastMove.slice(2, 4))
     if (to) tile(to, 0xe8a63a, 0.55)
     if (lastMove[1] !== '*') {

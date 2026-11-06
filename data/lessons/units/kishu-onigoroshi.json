@@ -228,11 +228,11 @@
             "8a7c",
             "6e7c+",
             "6b7c",
-            "7h7c"
+            "7h7c+"
           ],
           "text": {
-            "ja": "△６四金と角を取っても、▲７三歩成から７筋で駒を交換し、最後に▲同飛と成り込みます。先手は飛車が敵陣に入り、はっきり先手がよい形です。教訓は、７筋に集まる駒を銀では受けきれないことです。",
-            "en": "Even if Gote takes the bishop with △6四金, Sente liquidates on the seventh file with ▲7三歩成 and ends with ▲同飛. The rook lands in Gote's camp and Sente is clearly better. The lesson: a silver cannot hold the seventh file against these three pieces."
+            "ja": "△６四金と角を取っても、▲７三歩成から７筋で駒を交換し、最後に▲同飛成と成り込みます。先手は飛車が敵陣に入り、はっきり先手がよい形です。教訓は、７筋に集まる駒を銀では受けきれないことです。",
+            "en": "Even if Gote takes the bishop with △6四金, Sente liquidates on the seventh file with ▲7三歩成 and ends with ▲同飛成, promoting the rook. The rook lands in Gote's camp and Sente is clearly better. The lesson: a silver cannot hold the seventh file against these three pieces."
           },
           "marks": {
             "last": "7c",
@@ -285,13 +285,13 @@
             "6a6b"
           ],
           "text": {
-            "ja": "△６二金です。金は斜め前には動けませんが、真横に動けます。この横の動きが、５三の地点を守る役目をします。",
-            "en": "△6二金. A gold cannot step diagonally forward, but it can move straight sideways. That sideways move is what lets it cover 5c."
+            "ja": "△６二金と上がります。金は斜め前へ動けますが、斜め後ろへは動けません。真横にも動けるので、このあと６三へ進むと、横の５三も守れます。",
+            "en": "Gote plays △6二金. A gold can step diagonally forward, but not diagonally backward. It also moves sideways: after advancing to 6c, it can guard 5c alongside it."
           },
           "marks": {
             "last": "6b",
             "arrows": [
-              "6b5b"
+              "6b5c"
             ],
             "boxes": [
               "5c"

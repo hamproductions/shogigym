@@ -37,10 +37,7 @@ export function useBoardInput(session: BoardSession, { mistakes, commit, lessonM
   const waiting = (color: Color) => mode === 'spar' && !userTurn && !halted && !gameOver && colorSide(color) === userSide
   const premove = (from: Square | PieceType, color: Color) => {
     setPeekFrom(null)
-    if (!atEnd) {
-      setSelection(null)
-      return setNudge(t('app.lookingBackDuringGame'))
-    }
+    if (!atEnd) return setSelection(null)
     setSelection({ from, color })
     setNudge(t('app.theAiIsThinking'))
   }

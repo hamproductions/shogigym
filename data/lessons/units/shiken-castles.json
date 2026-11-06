@@ -1,7 +1,10 @@
 {
   "id": "shiken-castles",
   "order": 1060,
-  "path": ["戦法・定跡", "四間飛車"],
+  "path": [
+    "戦法・定跡",
+    "四間飛車"
+  ],
   "title": {
     "ja": "四間飛車の囲い：美濃囲いから高美濃・銀冠まで",
     "en": "Fourth File Rook castles: from Mino to Taka Mino and Silver Crown"
@@ -36,116 +39,269 @@
   ],
   "chapters": [
     {
-      "title": { "ja": "片美濃囲いから本美濃囲いまで", "en": "From Kata Mino to Hon Mino" },
-      "side": "sente",
-      "kind": "opening",
-      "start": "startpos",
-      "steps": [
-        {
-          "moves": ["7g7f", "8c8d", "2h6h", "8d8e", "8h7g", "3c3d", "6g6f", "7a6b", "7i7h"],
-          "text": {
-            "ja": "スタートは四間飛車の形です。玉はまだ５九に残っています。この玉を２八まで歩かせ、金と銀を寄せていくのが美濃囲いの作り方で、手数が少なく、相手が横から攻めてきても崩れにくい形になります。",
-            "en": "We start from the Fourth File Rook form, with the king still on 5i. Walking the king to 2h and moving a gold and a silver next to it makes the Mino castle, which takes few moves and does not crumble easily when the opponent attacks from the side."
-          },
-          "marks": { "boxes": ["5i", "2h"] }
-        },
-        {
-          "moves": ["4a3b", "5i4h", "9c9d", "4h3h"],
-          "text": {
-            "ja": "▲４八玉、▲３八玉と、玉を一つずつ右へ動かします。飛車を振った側の玉は、飛車の反対へ向かうのが自然です。後手は△３二金と△９四歩で自陣を整えています。",
-            "en": "▲4八玉 and ▲3八玉 walk the king to the right one step at a time. After the rook swing, the king heads for the opposite side. Gote tidies its camp with △3二金 and △9四歩."
-          },
-          "marks": { "last": "3h", "arrows": ["5i4h", "4h3h"] }
-        },
-        {
-          "moves": ["1c1d", "3h2h", "6a5b", "3i3h"],
-          "text": {
-            "ja": "▲２八玉まで進め、空いた３八へ▲３八銀と上がります。玉を２八に置いてから銀を上げるのが組み方の一つで、銀を先に上げる順もあります。最終的に同じ形になればかまいません。",
-            "en": "▲2八玉 completes the king's walk, and ▲3八銀 then fills 3h. Raising the silver after the king is one order and raising it first is another. What matters is reaching the same final shape."
-          },
-          "marks": { "last": "3h", "boxes": ["2h", "3h"] }
-        },
-        {
-          "moves": ["5a4b", "1g1f", "7c7d"],
-          "text": {
-            "ja": "端の１筋の歩を▲１六歩と進めておくと、玉が追われたときに１七へ逃げ道ができます。玉の隣に銀、斜め後ろに金が一枚ずつ並んだこの姿が片美濃囲いです。完成の一歩手前ですが、このまま戦っても十分に実戦的です。",
-            "en": "Advancing the edge pawn with ▲1六歩 gives the king an escape square on 1g when it is chased. A silver beside the king and a gold behind it, one of each, make Kata Mino. It is one step short of the finished castle, but it is practical enough to play with as it is."
-          },
-          "marks": { "last": "1f", "boxes": ["2h", "3h", "4i", "6i"] }
-        },
-        {
-          "moves": ["6i5h", "6c6d"],
-          "text": {
-            "ja": "▲５八金と左の金を寄せると、美濃囲いの完成です。他の美濃系の囲いと区別するため、本美濃囲いとも呼びます。たった一手で守りの硬さがぐんと増しました。弱点は上からの攻めで、玉の真上が空いています。",
-            "en": "▲5八金 slides the left gold over and the Mino castle is complete. It is also called Hon Mino to tell it apart from the other Mino castles. One move makes the defence much firmer. The weak point is an attack from above, since the space over the king is open."
-          },
-          "marks": { "last": "5h", "arrows": ["6i5h"], "boxes": ["2g"] }
-        },
-        {
-          "text": {
-            "ja": "本美濃囲いの長所は、金銀が横に並んでつながり、横からの攻めに強いことです。少ない手数で組めるのも利点です。弱点は端と玉の斜め前で、角や桂を使って玉の斜め前を狙われると崩れやすくなります。相手がそこを狙ってくるときは、次の章の高美濃へ組み替えて備えます。",
-            "en": "Hon Mino's strength is that the gold and silver stand side by side and are linked, so it holds against attacks from the side, and it takes few moves. Its weak points are the edge and the squares diagonally in front of the king, which a bishop or knight can aim at. If the opponent goes for them, rebuild into Taka Mino as shown in the next chapter."
-          },
-          "marks": { "boxes": ["2g", "3g", "1h"] }
-        }
-      ]
-    },
-    {
-      "title": { "ja": "高美濃囲いと銀冠へ組み替える", "en": "Rebuild into Taka Mino and Silver Crown" },
+      "title": {
+        "ja": "片美濃囲いから本美濃囲いまで",
+        "en": "From Kata Mino to Hon Mino"
+      },
       "side": "sente",
       "kind": "opening",
       "start": "startpos",
       "steps": [
         {
           "moves": [
-            "7g7f", "8c8d", "2h6h", "8d8e", "8h7g", "3c3d", "6g6f", "7a6b", "7i7h",
-            "4a3b", "5i4h", "9c9d", "4h3h", "1c1d", "3h2h", "6a5b", "3i3h", "5a4b",
-            "1g1f", "7c7d", "6i5h", "6c6d"
+            "7g7f",
+            "8c8d",
+            "2h6h",
+            "8d8e",
+            "8h7g",
+            "3c3d",
+            "6g6f",
+            "7a6b",
+            "7i7h"
+          ],
+          "text": {
+            "ja": "スタートは四間飛車の形です。玉はまだ５九に残っています。この玉を２八まで歩かせ、金と銀を寄せていくのが美濃囲いの作り方で、手数が少なく、相手が横から攻めてきても崩れにくい形になります。",
+            "en": "We start from the Fourth File Rook form, with the king still on 5i. Walking the king to 2h and moving a gold and a silver next to it makes the Mino castle, which takes few moves and does not crumble easily when the opponent attacks from the side."
+          },
+          "marks": {
+            "boxes": [
+              "5i",
+              "2h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "4a3b",
+            "5i4h",
+            "9c9d",
+            "4h3h"
+          ],
+          "text": {
+            "ja": "▲４八玉、▲３八玉と、玉を一つずつ右へ動かします。飛車を振った側の玉は、飛車の反対へ向かうのが自然です。後手は△３二金と△９四歩で自陣を整えています。",
+            "en": "▲4八玉 and ▲3八玉 walk the king to the right one step at a time. After the rook swing, the king heads for the opposite side. Gote tidies its camp with △3二金 and △9四歩."
+          },
+          "marks": {
+            "last": "3h",
+            "arrows": [
+              "5i4h",
+              "4h3h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "1c1d",
+            "3h2h",
+            "6a5b",
+            "3i3h"
+          ],
+          "text": {
+            "ja": "▲２八玉まで進め、空いた３八へ▲３八銀と上がります。玉を２八に置いてから銀を上げるのが組み方の一つで、銀を先に上げる順もあります。最終的に同じ形になればかまいません。",
+            "en": "▲2八玉 completes the king's walk, and ▲3八銀 then fills 3h. Raising the silver after the king is one order and raising it first is another. What matters is reaching the same final shape."
+          },
+          "marks": {
+            "last": "3h",
+            "boxes": [
+              "2h",
+              "3h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "5a4b",
+            "1g1f",
+            "7c7d"
+          ],
+          "text": {
+            "ja": "端の１筋の歩を▲１六歩と進めておくと、玉が追われたときに１七へ逃げ道ができます。玉の隣に銀、斜め後ろに金が一枚ずつ並んだこの姿が片美濃囲いです。完成の一歩手前ですが、このまま戦っても十分に実戦的です。",
+            "en": "Advancing the edge pawn with ▲1六歩 gives the king an escape square on 1g when it is chased. A silver beside the king and a gold behind it, one of each, make Kata Mino. It is one step short of the finished castle, but it is practical enough to play with as it is."
+          },
+          "marks": {
+            "last": "1f",
+            "boxes": [
+              "2h",
+              "3h",
+              "4i",
+              "6i"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "6i5h",
+            "6c6d"
+          ],
+          "text": {
+            "ja": "▲５八金と左の金を寄せると、美濃囲いの完成です。他の美濃系の囲いと区別するため、本美濃囲いとも呼びます。たった一手で守りの硬さがぐんと増しました。弱点は上からの攻めで、玉の真上が空いています。",
+            "en": "▲5八金 slides the left gold over and the Mino castle is complete. It is also called Hon Mino to tell it apart from the other Mino castles. One move makes the defence much firmer. The weak point is an attack from above, since the space over the king is open."
+          },
+          "marks": {
+            "last": "5h",
+            "arrows": [
+              "6i5h"
+            ],
+            "boxes": [
+              "2g"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "本美濃囲いの長所は、金銀が横に並んでつながり、横からの攻めに強いことです。少ない手数で組めるのも利点です。弱点は端と玉の斜め前で、角や桂を使って玉の斜め前を狙われると崩れやすくなります。相手がそこを狙ってくるときは、次の章の高美濃へ組み替えて備えます。",
+            "en": "Hon Mino's strength is that the gold and silver stand side by side and are linked, so it holds against attacks from the side, and it takes few moves. Its weak points are the edge and the squares diagonally in front of the king, which a bishop or knight can aim at. If the opponent goes for them, rebuild into Taka Mino as shown in the next chapter."
+          },
+          "marks": {
+            "boxes": [
+              "2g",
+              "3g",
+              "1h"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "高美濃囲いと銀冠へ組み替える",
+        "en": "Rebuild into Taka Mino and Silver Crown"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "moves": [
+            "7g7f",
+            "8c8d",
+            "2h6h",
+            "8d8e",
+            "8h7g",
+            "3c3d",
+            "6g6f",
+            "7a6b",
+            "7i7h",
+            "4a3b",
+            "5i4h",
+            "9c9d",
+            "4h3h",
+            "1c1d",
+            "3h2h",
+            "6a5b",
+            "3i3h",
+            "5a4b",
+            "1g1f",
+            "7c7d",
+            "6i5h",
+            "6c6d"
           ],
           "text": {
             "ja": "前の章で組んだ本美濃囲いです。攻める手が見つからないときや、上からの攻めが気になるときは、囲いに手を加えて強くしていきます。",
             "en": "The Hon Mino from the previous chapter. When no attack presents itself, or when an attack from above worries you, strengthen the castle by adding moves."
           },
-          "marks": { "boxes": ["2h", "3h", "4i", "5h"] }
+          "marks": {
+            "boxes": [
+              "2h",
+              "3h",
+              "4i",
+              "5h"
+            ]
+          }
         },
         {
-          "moves": ["4g4f", "9d9e", "3g3f", "1d1e"],
+          "moves": [
+            "4g4f",
+            "9d9e",
+            "3g3f",
+            "8b8c"
+          ],
           "text": {
-            "ja": "まず４筋と３筋の歩を一つずつ進めます。金を上げる場所を空けておくための準備です。歩を先に進めてから金を動かすのが、高美濃を組む順番です。",
-            "en": "First advance the fourth and third file pawns one square each. This clears the squares the gold will use. Pawns first, then the gold, is the order for Taka Mino."
+            "ja": "まず４筋と３筋の歩を一つずつ進めます。金を上げる場所を空けておくための準備です。歩を先に進めてから金を動かすのが、高美濃を組む順番です。この組み替えの例では、後手は△８三飛と静かに構え、１筋の歩は１四に残します。端で歩がぶつかっている局面なら、その対応を先に考えます。",
+            "en": "First advance the fourth and third file pawns one square each. This clears the squares the gold will use. Pawns first, then the gold, is the order for Taka Mino. In this formation example Gote chooses the quiet △8三飛, leaving its edge pawn on 1d. If the edge pawns are already in contact, resolve that threat before continuing the rebuild."
           },
-          "marks": { "last": "3f", "boxes": ["4g", "3g"] }
+          "marks": {
+            "last": "3f",
+            "boxes": [
+              "4g",
+              "3g"
+            ]
+          }
         },
         {
-          "moves": ["5h4g", "2c2d", "2i3g", "8a7c"],
+          "moves": [
+            "5h4g",
+            "2c2d",
+            "2i3g",
+            "8a7c"
+          ],
           "text": {
             "ja": "▲４七金と金を斜めに上げ、▲３七桂と桂を跳ねます。金が一段上がると、上からの攻めにも備えられます。桂を跳ねるのは必須ではありませんが、攻めに使える駒になります。これが高美濃囲いです。",
             "en": "▲4七金 lifts the gold diagonally and ▲3七桂 jumps the knight. With the gold one rank higher, the castle also resists attacks from above. The knight jump is optional but turns that knight into an attacking piece. This is Taka Mino."
           },
-          "marks": { "last": "3g", "arrows": ["5h4g", "2i3g"], "boxes": ["4g"] }
+          "marks": {
+            "last": "3g",
+            "arrows": [
+              "5h4g",
+              "2i3g"
+            ],
+            "boxes": [
+              "4g"
+            ]
+          }
         },
         {
-          "moves": ["2g2f", "5c5d", "3h2g", "4c4d"],
+          "moves": [
+            "2g2f",
+            "5c5d",
+            "3h2g",
+            "4c4d"
+          ],
           "text": {
             "ja": "さらに▲２六歩と突き、▲２七銀と銀を上げます。この瞬間は銀が玉の隣を離れ、金銀がばらばらになって守りが大きく落ちます。攻めが迫っていないことを確かめてから上げてください。",
             "en": "Next ▲2六歩, then ▲2七銀 raises the silver. At this moment the silver leaves the king's side and the gold and silver are cut apart, so the defence drops a lot. Make sure no attack is pending before you play it."
           },
-          "marks": { "last": "2g", "arrows": ["3h2g"], "boxes": ["3h"] }
+          "marks": {
+            "last": "2g",
+            "arrows": [
+              "3h2g"
+            ],
+            "boxes": [
+              "3h"
+            ]
+          }
         },
         {
-          "moves": ["4i3h"],
+          "moves": [
+            "4i3h"
+          ],
           "text": {
             "ja": "最後に▲３八金と、４九の金を銀のいた場所へ寄せます。これで銀冠の完成です。玉の頭に銀が乗り、上からの攻めに強くなりました。囲い全体を前へ出して攻めに使う指し方ができ、プロにも好まれます。",
             "en": "Finally ▲3八金 moves the gold from 4i to the square the silver left. This completes the Silver Crown. The silver sits above the king, so it resists attacks from above, and the whole castle can be pushed forward to join the attack, which is why professionals like it."
           },
-          "marks": { "last": "3h", "arrows": ["4i3h"], "boxes": ["2g", "3h"] }
+          "marks": {
+            "last": "3h",
+            "arrows": [
+              "4i3h"
+            ],
+            "boxes": [
+              "2g",
+              "3h"
+            ]
+          }
         },
         {
           "text": {
             "ja": "高美濃は上からの攻めに強い反面、上がった金を桂で狙われやすく、横からの攻めには本美濃よりやや弱くなります。銀冠は組み替えの途中が弱く、下の段へ打ち込まれる攻めに注意が要ります。初心者は片美濃か本美濃で十分戦えます。相手の攻め方を見て、組み替えるかどうかを決めましょう。",
             "en": "Taka Mino resists attacks from above, but the raised gold is an easy target for a knight and it is slightly weaker against side attacks than Hon Mino. Silver Crown is weak during the rebuild and needs care against drops on the back rank. Beginners can fight well with Kata Mino or Hon Mino. Decide whether to rebuild by watching how the opponent attacks."
           },
-          "marks": { "boxes": ["4g", "2g", "3h"] }
+          "marks": {
+            "boxes": [
+              "4g",
+              "2g",
+              "3h"
+            ]
+          }
         }
       ]
     }

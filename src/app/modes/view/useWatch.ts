@@ -2,8 +2,8 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Record } from 'tsshogi'
 import { scoreWinRate } from '@/utils/analysis'
-import { analyze, useEngineStatus } from '@/utils/engine'
-import { applyUsi, colorSide, otherSide, positionOf } from '@/utils/shogi'
+import { analyze, engineSupported, useEngineStatus } from '@/utils/engine'
+import { applyUsi, colorSide, enginePositionIssue, otherSide, positionOf } from '@/utils/shogi'
 import { STRENGTH, useSettings, type AiStrength } from '@/appearance/settings'
 import type { BoardSession } from '@/app/hooks/useBoardSession'
 import type { Load } from '@/app/hooks/useModeSwitch'
@@ -69,7 +69,9 @@ export function useWatch(session: BoardSession, load: Load, reviewReady: boolean
     const analysis = (async () => {
       const planned = strategy ? await strategyReply(strategy, session.toMove, sfen, game.moves.length) : undefined
       if (cancelled) return { bestmove: '', candidates: [] }
-      return planned ? { bestmove: planned.usi, candidates: [] } : analyze(command, { multipv: level.pickFrom, movetime: level.movetime, book: !!strategy })
+      return planned
+        ? { bestmove: planned.usi, candidates: [] }
+        : analyze(command, { multipv: level.pickFrom, movetime: level.movetime, book: !!strategy, purpose: 'playing' })
     })()
     analysis
       .then((analysis) => {
@@ -125,7 +127,9 @@ export function useWatch(session: BoardSession, load: Load, reviewReady: boolean
     },
     title: t('watch.title'),
     instruction: () =>
-      !ai ? t('engine.theAiNeedsACross') : (error ?? result ?? (tossing ? t('watch.tossing') : running ? t('watch.playing') : t('watch.paused'))),
+      !ai
+        ? t(!engineSupported() ? 'engine.theAiNeedsACross' : `engine.positionUnavailable.${enginePositionIssue(sfen) ?? 'invalid'}`)
+        : (error ?? result ?? (tossing ? t('watch.tossing') : running ? t('watch.playing') : t('watch.paused'))),
   }
 }
 

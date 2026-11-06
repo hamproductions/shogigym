@@ -201,8 +201,8 @@
       "steps": [
         {
           "text": {
-            "ja": "後手香１三は金２二に守られています。先手桂２五は１三を取れますが、取り返しを読まずに香得とは数えません。角４六は３五・２四を通して１三へ利いています。",
-            "en": "Gote’s lance on １三 is protected by the gold on ２二. Sente’s knight on ２五 can capture it, but that alone is not a free lance. The bishop on ４六 reaches １三 through ３五 and ２四."
+            "ja": "後手香１三は金２二に守られています。先手桂２五は１三を取れますが、取り返しを読まずに香得とは数えません。角４六は３五・２四を通して１三へ利いています。 後手桂２一も１三へ利いています。角で取り返した後も、この桂の取り返しが残る配置です。",
+            "en": "Gote’s lance on １三 is protected by the gold on ２二. Sente’s knight on ２五 can capture it, but that alone is not a free lance. The bishop on ４六 reaches １三 through ３五 and ２四. Gote’s knight on 2a also controls 1c. Its recapture remains available after Sente’s bishop takes there."
           },
           "marks": {
             "boxes": [
@@ -233,18 +233,20 @@
         {
           "moves": [
             "2b1c",
-            "4f1c+"
+            "4f1c+",
+            "2a1c"
           ],
           "text": {
-            "ja": "△同金▲同角成なら、桂一枚を使って香と金が先手の持駒に入り、馬１三が残ります。角筋が通ることが、この交換の条件です。",
-            "en": "After △同金 ▲同角成, Sente has spent a knight, gained a lance and gold in hand, and retained a horse on １三. The open bishop diagonal makes this exchange possible."
+            "ja": "△同金▲同角成だけで止めず、△同桂まで進めます。先手は桂と角を使って香と金を得ましたが、馬は残りません。角の通り道が開いていても、着地点１三を守る桂２一まで数えないと交換を誤ります。",
+            "en": "Continue past △同金 ▲同角成 to △同桂. Sente spends a knight and bishop for a lance and gold; no horse remains. An open bishop diagonal does not settle the exchange: include the knight on 2a defending the landing square, 1c."
           },
           "marks": {
             "boxes": [
-              "1c"
+              "1c",
+              "2a"
             ],
             "arrows": [
-              "4f1c+"
+              "2a1c"
             ]
           }
         }

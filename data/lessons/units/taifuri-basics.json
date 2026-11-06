@@ -49,8 +49,8 @@
       "steps": [
         {
           "text": {
-            "ja": "後手が△３四歩と△４四歩で角道を止めました。この形は振り飛車になることが多く、居飛車側は相手の出方を見てから組み方を決めます。この章では、振り飛車に備える囲い「舟囲い」を、先手の指し手一手ずつ組んでいきます。",
-            "en": "Gote has stopped its bishop diagonal with △3四歩 and △4四歩. This setup often turns into Ranging Rook, so the Static Rook side waits to see the opponent's plan before choosing a formation. This chapter builds the Boat Castle, a castle that prepares for Ranging Rook, one move at a time for Sente."
+            "ja": "これから後手が△３四歩、△４四歩と指して角道を止め、四間飛車へ組む例を見ます。今の盤面は初期配置です。先手は相手の手を確かめながら、玉を左へ運ぶ舟囲いを一手ずつ作ります。",
+            "en": "In the following example, Gote will play △3四歩 and △4四歩 to close the bishop diagonal, then build Fourth File Rook. The board currently shows the initial position. Follow Gote's moves while building Sente's Boat Castle one move at a time, taking the king left."
           }
         },
         {
@@ -314,8 +314,8 @@
             "3e2d"
           ],
           "text": {
-            "ja": "△２四同歩なら▲同銀です。銀が相手陣の四段目に入り、攻めが続いて先手が優勢になります。",
-            "en": "If Gote takes with △2四同歩, ▲同銀 puts the silver on the fourth rank inside Gote's camp, the attack goes on and Sente is better."
+            "ja": "△２四同歩に、先手は▲同銀と２四へ進みました。２四は先手から見て四段目で、成れる敵陣の一〜三段目にはまだ入っていません。銀の利きと相手の応手を確かめ、次の攻めを考えます。",
+            "en": "After △2四同歩, Sente recaptures with ▲同銀 on 2d. Square 2d lies on rank d, outside Sente's promotion zone on ranks a–c. Examine the silver's control and Gote's replies before choosing the next attack."
           },
           "marks": {
             "last": "2d",
@@ -344,21 +344,42 @@
         {
           "from": 1,
           "moves": [
-            "3b4c",
-            "3f3e",
-            "3d3e",
-            "5g4f",
-            "4c3d"
+            "3b4c"
+          ],
+          "kind": "alt",
+          "steps": [
+            {
+              "moves": [
+                "3f3e",
+                "3d3e"
+              ],
+              "kind": "deviation",
+              "text": {
+                "ja": "先に▲３五歩と突く順を比較します。△同歩のあとに銀を出すと、後手は３四へ銀を進められます。",
+                "en": "Compare pushing ▲3五歩 too soon. After △同歩, developing the silver lets Gote occupy 3d."
+              }
+            },
+            {
+              "moves": [
+                "5g4f",
+                "4c3d"
+              ],
+              "kind": "deviation",
+              "text": {
+                "ja": "▲４六銀に△３四銀。後手銀が３五を守り、狙っていた▲３五銀の進出を止めています。▲５五銀という別の移動まで不可能になったわけではありません。",
+                "en": "▲4六銀 △3四銀 puts Gote’s silver behind 3e and stops the intended ▲3五銀 entry. This does not make every fifth-rank move impossible: ▲5五銀 is still legal."
+              },
+              "marks": {
+                "last": "3d",
+                "boxes": [
+                  "3d"
+                ]
+              }
+            }
           ],
           "text": {
-            "ja": "順番を逆にして先に▲３五歩、△同歩としてしまうと、▲４六銀に△３四銀と受けられ、銀が五段目へ出られません。△４三銀型では銀を先に出します。",
-            "en": "If Sente plays ▲3五歩 first and △同歩, then ▲4六銀 runs into △3四銀, which defends. Against the 4c-silver setup, the silver comes out first."
-          },
-          "marks": {
-            "last": "3d",
-            "boxes": [
-              "3d"
-            ]
+            "ja": "△４三銀の構えです。次に歩と銀の順番を逆にした失敗例を見ます。",
+            "en": "Gote has set up with △4三銀. Next compare the mistaken pawn-before-silver order."
           }
         }
       ]
@@ -446,19 +467,31 @@
         {
           "from": 0,
           "moves": [
-            "4a5b",
-            "5g4f",
-            "4d4e"
+            "4a5b"
+          ],
+          "kind": "alt",
+          "steps": [
+            {
+              "moves": [
+                "5g4f",
+                "4d4e"
+              ],
+              "kind": "deviation",
+              "text": {
+                "ja": "逆に先に▲４六銀と出ると、△４五歩と突かれて追い返されます。４五の歩は飛車が支えているので、銀で取れません。△３二銀型では、歩の突き捨てが先です。",
+                "en": "If Sente goes ▲4六銀 first, △4五歩 pushes the silver back, and the rook on the fourth file protects that pawn so the silver cannot take it. With the silver on 3b, the pawn throw-in has to come first."
+              },
+              "marks": {
+                "last": "4e",
+                "boxes": [
+                  "4e"
+                ]
+              }
+            }
           ],
           "text": {
-            "ja": "逆に先に▲４六銀と出ると、△４五歩と突かれて追い返されます。４五の歩は飛車が支えているので、銀で取れません。△３二銀型では、歩の突き捨てが先です。",
-            "en": "If Sente goes ▲4六銀 first, △4五歩 pushes the silver back, and the rook on the fourth file protects that pawn so the silver cannot take it. With the silver on 3b, the pawn throw-in has to come first."
-          },
-          "marks": {
-            "last": "4e",
-            "boxes": [
-              "4e"
-            ]
+            "ja": "△５二金のあと、銀を先に出す比較を見ます。",
+            "en": "After △5二金, compare developing the silver first."
           }
         }
       ]

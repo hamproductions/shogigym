@@ -122,8 +122,8 @@
             "8f3a+"
           ],
           "text": {
-            "ja": "後手は△３二玉と逃げます。そこで▲３一角成と、角を切って銀を取りながら王手をかけます。先手は銀と歩を手にし、次に▲８二飛成で後手の飛車を取りながら龍を作る手が残っています。８筋が開いているので、飛車が一直線に８二まで届きます。",
-            "en": "Gote steps to 3b. Now ▲3一角成 takes the silver with check, giving up the bishop for it. Sente holds a silver and a pawn, and next threatens ▲8二飛成, which captures the rook and makes a dragon. The eighth file is open, so the rook reaches 8b in one line."
+            "ja": "△３二玉と逃げる弱い応手を選んだ比較です。飛車で角を取る別の応手もあるため、この王手が玉の移動を強制するわけではありません。▲３一角成は銀を取りながら王手をかけ、８筋の飛車交換も狙います。",
+            "en": "This comparison chooses the weaker king retreat △3二玉. The check does not force a king move: Gote can capture the bishop with the rook instead. ▲3一角成 captures a silver with check while Sente also eyes the rook exchange on the eighth file."
           },
           "marks": {
             "last": "3a",
@@ -134,12 +134,27 @@
               "3a",
               "8b"
             ]
-          }
+          },
+          "kind": "deviation"
         },
         {
           "text": {
-            "ja": "覚えておくのは、後手が５筋の歩を突いたら▲８六歩の突き捨てから角が王手になる、という点です。角の斜めの利きを見る習慣をつけておけば、上級者どうしの対局でも似た形を見逃しません。",
-            "en": "The lesson: when Gote pushes the fifth-file pawn, ▲8六歩 followed by a bishop check wins at once. If you get into the habit of tracing the bishop's diagonal, you will not miss this pattern even in strong players' games."
+            "ja": "５筋の歩が動いたら、８六から玉へ通る角筋を確認します。ただし王手への応手は玉の移動だけではありません。飛車による角取りと、その後の交換まで比べましょう。",
+            "en": "When the fifth-file pawn moves, trace the bishop diagonal from 8f to the king. A check does not necessarily force the king to move: compare the rook capture and the exchanges that follow."
+          }
+        }
+      ],
+      "variations": [
+        {
+          "from": 2,
+          "kind": "alt",
+          "moves": [
+            "8b8f",
+            "8h8f"
+          ],
+          "text": {
+            "ja": "△同飛と角を取り、▲同飛と飛車を取り返す応手です。この交換では先手が角を渡して飛車を得ます。後手も持ち角を使えるので、交換後の打ち込みを確認します。",
+            "en": "△同飛 captures the bishop, and ▲同飛 captures that rook. Sente has exchanged a bishop for a rook, while Gote gains a bishop in hand. Examine counterdrops after the exchange."
           }
         }
       ]
@@ -181,7 +196,7 @@
           ],
           "text": {
             "ja": "７八の金、７七の角、２八の玉。この陣形が出発点です。先手がどう動くかというと、まず飛車をぶつけて交換を求めます。形の組み方は、組み方の単元で見た通りです。",
-            "en": "The basic Opposing Rook formation: Half Mino, bishop on 7g, left gold on 7h. From here Sente follows the basic plan of an Opposing Rook, which is to force a rook trade. The build was covered in the previous unit."
+            "en": "The basic Opposing Rook formation: Half Mino, bishop on 7g, left gold on 7h. From here Sente follows the basic plan of an Opposing Rook, which is to offer a rook trade. The build was covered in the previous unit."
           },
           "marks": {
             "last": "7h",
@@ -238,8 +253,8 @@
             "4i5i"
           ],
           "text": {
-            "ja": "▲８八飛と、取られそうな桂を守りながら飛車を打ちます。後手が△２四歩と進めても、▲５九金と寄って６九の飛車の逃げ道を消せます。打ち込まれた飛車はそのまま取られてしまいます。向かい飛車は飛車を打ち込まれても平気で、逆に取りに行けます。",
-            "en": "Sente drops ▲8八飛, which also guards the knight that was in danger. Even if Gote plays △2四歩, ▲5九金 closes the escape squares of the rook on 6i. The dropped rook is trapped and lost. An Opposing Rook has no fear of a rook drop and can even hunt it down."
+            "ja": "▲８八飛で桂を守り、△２四歩に▲５九金と飛車を追う例です。後手は△５九飛成と金を取りながら成れますが、▲同角で取り返せます。飛車を無償で取るのではなく、飛車と金の交換まで数えます。",
+            "en": "▲8八飛 guards the knight; after the selected △2四歩, ▲5九金 attacks the rook. Gote can answer △5九飛成 by capturing the gold, then ▲同角 recaptures. Count a rook-for-gold exchange rather than a free rook."
           },
           "marks": {
             "last": "5i",
@@ -317,8 +332,8 @@
             "8h8e"
           ],
           "text": {
-            "ja": "△３二銀と守りを固められても、▲８五飛で歩を取り、再び交換を求めます。後手は歩を持っていないので、△８五歩の受けはもう使えません。交換を避ける手がなく、流れは先手のものです。",
-            "en": "Gote adds a defender with △3二銀, and Sente captures the pawn with ▲8五飛, offering the rook trade again. Gote has no pawn in hand now, so △8五歩 is not available, and the trade cannot be avoided. Sente keeps the initiative."
+            "ja": "△３二銀と守りを固められても、▲８五飛で歩を取り、再び交換を求めます。後手は歩を持っていないので、△８五歩の受けはもう使えません。ただし△４二飛など、飛車を横へ動かして交換を避ける手はあります。",
+            "en": "Gote adds a defender with △3二銀, and Sente captures the pawn with ▲8五飛, offering the rook trade again. Gote has no pawn in hand now, so △8五歩 is not available, but a rook retreat such as △4二飛 can still avoid the exchange."
           },
           "marks": {
             "last": "8e",
@@ -356,8 +371,8 @@
                 "P*7d"
               ],
               "text": {
-                "ja": "▲７五歩と突き捨て、△同歩のあと▲７四歩と打ちます。桂の前に歩を置かれると、桂は逃げ場がなく取られてしまいます。跳ねた桂の頭を歩で叩くのは、振り飛車の基本的な狙いです。",
-                "en": "▲7五歩 is a pawn sacrifice, and after △同歩 comes ▲7四歩. A knight with a pawn right in front of it has nowhere to go and is lost. Hitting the head of a jumped knight with a pawn is a basic Ranging Rook idea."
+                "ja": "▲７五歩△同歩▲７四歩と、桂の前へ歩を打ちます。７三の桂には△６五桂という合法な逃げ道があるため、桂取りが確定したわけではありません。歩で圧力をかけ、相手の桂の移動先も数えます。",
+                "en": "▲7五歩 △同歩 ▲7四歩 places a pawn in front of the knight. The knight can still escape legally with △6五桂, so its capture is not assured. Use the pawn for pressure while checking the knight’s destinations."
               },
               "marks": {
                 "last": "7d",
@@ -370,7 +385,8 @@
                 ]
               }
             }
-          ]
+          ],
+          "kind": "alt"
         }
       ]
     }

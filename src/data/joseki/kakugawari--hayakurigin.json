@@ -1,0 +1,472 @@
+{
+ "id": "kakugawari--hayakurigin",
+ "title": "角換わり早繰り銀：３五から２四への交換",
+ "titleEn": "Bishop Exchange Fast Silver: From 3e to an Exchange on 2d",
+ "myStrategy": "kakugawari",
+ "opponentStrategy": "kakugawari",
+ "mySide": "sente",
+ "userSide": "sente",
+ "source": "通常の角換わり早繰り銀の銀３七・４六と、３筋・２筋の連続した歩交換の標準的な構想から独立して構成。新ペタショック定跡（MIT）の候補手を照合し、説明はこのアプリ用に新しく執筆。",
+ "goalFormation": "右銀を３八・３七・４六へ運び、３五歩の交換後に３五銀と出る。後手の３四歩打に対し、２四歩から双方の銀を交換し、飛車を２四へ進める比較枝を読む。",
+ "goalLabel": "銀が移る升と次の取り返しを読む",
+ "goalSfen": "ln1g3nl/1r3kg2/p1p1ppspp/3ps4/1p4SP1/2P6/PPSPPP2P/2GK3R1/LN3G1NL w BPbp 1",
+ "root": {
+  "id": "n0",
+  "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+  "comment": "早繰り銀では、右銀を３七から４六へ出し、３筋で歩を交換します。２六へ進む棒銀と進路を比べてください。角換わりなので双方が角を持ち、銀を前へ出しても角打ちへの注意は続きます。",
+  "commentEn": "Fast Silver develops the right silver through 3g to 4f and exchanges pawns on the third file. Compare this route with Climbing Silver’s advance to 2f. Both sides hold bishops after the exchange, so bishop drops remain relevant as the silver advances.",
+  "branches": [
+   {
+    "usi": "2g2f",
+    "kind": "main",
+    "child": {
+     "id": "n_0",
+     "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/7P1/PPPPPPP1P/1B5R1/LNSGKGSNL w - 1",
+     "branches": [
+      {
+       "usi": "8c8d",
+       "kind": "main",
+       "child": {
+        "id": "n_1",
+        "sfen": "lnsgkgsnl/1r5b1/p1ppppppp/1p7/9/7P1/PPPPPPP1P/1B5R1/LNSGKGSNL b - 1",
+        "branches": [
+         {
+          "usi": "7g7f",
+          "kind": "main",
+          "child": {
+           "id": "n_2",
+           "sfen": "lnsgkgsnl/1r5b1/p1ppppppp/1p7/9/2P4P1/PP1PPPP1P/1B5R1/LNSGKGSNL w - 1",
+           "branches": [
+            {
+             "usi": "4a3b",
+             "kind": "main",
+             "child": {
+              "id": "n_3",
+              "sfen": "lnsgk1snl/1r4gb1/p1ppppppp/1p7/9/2P4P1/PP1PPPP1P/1B5R1/LNSGKGSNL b - 1",
+              "branches": [
+               {
+                "usi": "2f2e",
+                "kind": "main",
+                "child": {
+                 "id": "n_4",
+                 "sfen": "lnsgk1snl/1r4gb1/p1ppppppp/1p7/7P1/2P6/PP1PPPP1P/1B5R1/LNSGKGSNL w - 1",
+                 "branches": [
+                  {
+                   "usi": "8d8e",
+                   "kind": "main",
+                   "child": {
+                    "id": "n_5",
+                    "sfen": "lnsgk1snl/1r4gb1/p1ppppppp/9/1p5P1/2P6/PP1PPPP1P/1B5R1/LNSGKGSNL b - 1",
+                    "branches": [
+                     {
+                      "usi": "8h7g",
+                      "kind": "main",
+                      "child": {
+                       "id": "n_6",
+                       "sfen": "lnsgk1snl/1r4gb1/p1ppppppp/9/1p5P1/2P6/PPBPPPP1P/7R1/LNSGKGSNL w - 1",
+                       "branches": [
+                        {
+                         "usi": "3c3d",
+                         "kind": "main",
+                         "child": {
+                          "id": "n_7",
+                          "sfen": "lnsgk1snl/1r4gb1/p1pppp1pp/6p2/1p5P1/2P6/PPBPPPP1P/7R1/LNSGKGSNL b - 1",
+                          "branches": [
+                           {
+                            "usi": "7i8h",
+                            "kind": "main",
+                            "child": {
+                             "id": "n_8",
+                             "sfen": "lnsgk1snl/1r4gb1/p1pppp1pp/6p2/1p5P1/2P6/PPBPPPP1P/1S5R1/LN1GKGSNL w - 1",
+                             "branches": [
+                              {
+                               "usi": "2b7g+",
+                               "kind": "main",
+                               "child": {
+                                "id": "n_9",
+                                "sfen": "lnsgk1snl/1r4g2/p1pppp1pp/6p2/1p5P1/2P6/PP+bPPPP1P/1S5R1/LN1GKGSNL b b 1",
+                                "branches": [
+                                 {
+                                  "usi": "8h7g",
+                                  "kind": "main",
+                                  "child": {
+                                   "id": "n_10",
+                                   "sfen": "lnsgk1snl/1r4g2/p1pppp1pp/6p2/1p5P1/2P6/PPSPPPP1P/7R1/LN1GKGSNL w Bb 1",
+                                   "branches": [
+                                    {
+                                     "usi": "3a2b",
+                                     "kind": "main",
+                                     "child": {
+                                      "id": "n_11",
+                                      "sfen": "lnsgk2nl/1r4gs1/p1pppp1pp/6p2/1p5P1/2P6/PPSPPPP1P/7R1/LN1GKGSNL b Bb 1",
+                                      "branches": [
+                                       {
+                                        "usi": "6i7h",
+                                        "kind": "main",
+                                        "child": {
+                                         "id": "n_12",
+                                         "sfen": "lnsgk2nl/1r4gs1/p1pppp1pp/6p2/1p5P1/2P6/PPSPPPP1P/2G4R1/LN2KGSNL w Bb 1",
+                                         "branches": [
+                                          {
+                                           "usi": "2b3c",
+                                           "kind": "main",
+                                           "child": {
+                                            "id": "n_13",
+                                            "sfen": "lnsgk2nl/1r4g2/p1ppppspp/6p2/1p5P1/2P6/PPSPPPP1P/2G4R1/LN2KGSNL b Bb 1",
+                                            "branches": [
+                                             {
+                                              "usi": "3i3h",
+                                              "kind": "main",
+                                              "child": {
+                                               "id": "n_14",
+                                               "sfen": "lnsgk2nl/1r4g2/p1ppppspp/6p2/1p5P1/2P6/PPSPPPP1P/2G3SR1/LN2KG1NL w Bb 1",
+                                               "branches": [
+                                                {
+                                                 "usi": "7a6b",
+                                                 "kind": "main",
+                                                 "child": {
+                                                  "id": "n_15",
+                                                  "sfen": "ln1gk2nl/1r1s2g2/p1ppppspp/6p2/1p5P1/2P6/PPSPPPP1P/2G3SR1/LN2KG1NL b Bb 1",
+                                                  "branches": [
+                                                   {
+                                                    "usi": "3g3f",
+                                                    "kind": "main",
+                                                    "note": "▲３六歩で３七を空けます。",
+                                                    "noteEn": "▲3六歩 clears 3g.",
+                                                    "child": {
+                                                     "id": "n_16",
+                                                     "sfen": "ln1gk2nl/1r1s2g2/p1ppppspp/6p2/1p5P1/2P3P2/PPSPPP2P/2G3SR1/LN2KG1NL w Bb 1",
+                                                     "branches": [
+                                                      {
+                                                       "usi": "6c6d",
+                                                       "kind": "main",
+                                                       "child": {
+                                                        "id": "n_17",
+                                                        "sfen": "ln1gk2nl/1r1s2g2/p1p1ppspp/3p2p2/1p5P1/2P3P2/PPSPPP2P/2G3SR1/LN2KG1NL b Bb 1",
+                                                        "branches": [
+                                                         {
+                                                          "usi": "3h3g",
+                                                          "kind": "main",
+                                                          "note": "▲３七銀。２七ではなく３七を経由します。",
+                                                          "noteEn": "▲3七銀 uses 3g rather than Climbing Silver’s 2g route.",
+                                                          "child": {
+                                                           "id": "n_18",
+                                                           "sfen": "ln1gk2nl/1r1s2g2/p1p1ppspp/3p2p2/1p5P1/2P3P2/PPSPPPS1P/2G4R1/LN2KG1NL w Bb 1",
+                                                           "branches": [
+                                                            {
+                                                             "usi": "6b6c",
+                                                             "kind": "main",
+                                                             "child": {
+                                                              "id": "n_19",
+                                                              "sfen": "ln1gk2nl/1r4g2/p1psppspp/3p2p2/1p5P1/2P3P2/PPSPPPS1P/2G4R1/LN2KG1NL b Bb 1",
+                                                              "branches": [
+                                                               {
+                                                                "usi": "3g4f",
+                                                                "kind": "main",
+                                                                "note": "▲４六銀で３五と５五へ利かせます。",
+                                                                "noteEn": "▲4六銀 controls 3e and 5e.",
+                                                                "child": {
+                                                                 "id": "n_20",
+                                                                 "sfen": "ln1gk2nl/1r4g2/p1psppspp/3p2p2/1p5P1/2P2SP2/PPSPPP2P/2G4R1/LN2KG1NL w Bb 1",
+                                                                 "branches": [
+                                                                  {
+                                                                   "usi": "6c5d",
+                                                                   "kind": "main",
+                                                                   "note": "後手銀は６二・６三から５四へ進みました。もう一枚の銀は３三です。",
+                                                                   "noteEn": "Gote’s other silver has developed through 6b and 6c to 5d. The defensive silver remains on 3c.",
+                                                                   "child": {
+                                                                    "id": "n_21",
+                                                                    "sfen": "ln1gk2nl/1r4g2/p1p1ppspp/3ps1p2/1p5P1/2P2SP2/PPSPPP2P/2G4R1/LN2KG1NL b Bb 1",
+                                                                    "branches": [
+                                                                     {
+                                                                      "usi": "5i6h",
+                                                                      "kind": "main",
+                                                                      "child": {
+                                                                       "id": "n_22",
+                                                                       "sfen": "ln1gk2nl/1r4g2/p1p1ppspp/3ps1p2/1p5P1/2P2SP2/PPSPPP2P/2GK3R1/LN3G1NL w Bb 1",
+                                                                       "branches": [
+                                                                        {
+                                                                         "usi": "5a4b",
+                                                                         "kind": "main",
+                                                                         "child": {
+                                                                          "id": "n_23",
+                                                                          "sfen": "ln1g3nl/1r3kg2/p1p1ppspp/3ps1p2/1p5P1/2P2SP2/PPSPPP2P/2GK3R1/LN3G1NL b Bb 1",
+                                                                          "branches": [
+                                                                           {
+                                                                            "usi": "3f3e",
+                                                                            "kind": "main",
+                                                                            "note": "▲３五歩で接触します。この例は△同歩と取る応手を続けます。",
+                                                                            "noteEn": "▲3五歩 creates contact. This example continues with △同歩.",
+                                                                            "child": {
+                                                                             "id": "n_24",
+                                                                             "sfen": "ln1g3nl/1r3kg2/p1p1ppspp/3ps1p2/1p4PP1/2P2S3/PPSPPP2P/2GK3R1/LN3G1NL w Bb 1",
+                                                                             "branches": [
+                                                                              {
+                                                                               "usi": "3d3e",
+                                                                               "kind": "main",
+                                                                               "child": {
+                                                                                "id": "n_25",
+                                                                                "sfen": "ln1g3nl/1r3kg2/p1p1ppspp/3ps4/1p4pP1/2P2S3/PPSPPP2P/2GK3R1/LN3G1NL b Bbp 1",
+                                                                                "branches": [
+                                                                                 {
+                                                                                  "usi": "4f3e",
+                                                                                  "kind": "main",
+                                                                                  "note": "▲同銀で３五へ進み、歩を一枚持ちました。後手銀３三は２四を守っています。",
+                                                                                  "noteEn": "▲同銀 reaches 3e and gains a pawn in hand. Gote’s silver on 3c still guards 2d.",
+                                                                                  "child": {
+                                                                                   "id": "n_26",
+                                                                                   "sfen": "ln1g3nl/1r3kg2/p1p1ppspp/3ps4/1p4SP1/2P6/PPSPPP2P/2GK3R1/LN3G1NL w BPbp 1",
+                                                                                   "branches": [
+                                                                                    {
+                                                                                     "usi": "P*3d",
+                                                                                     "kind": "alt",
+                                                                                     "note": "△３四歩打は銀３五への当たりです。",
+                                                                                     "noteEn": "△3四歩打 attacks the silver on 3e.",
+                                                                                     "child": {
+                                                                                      "id": "nb0_0",
+                                                                                      "sfen": "ln1g3nl/1r3kg2/p1p1ppspp/3ps1p2/1p4SP1/2P6/PPSPPP2P/2GK3R1/LN3G1NL b BPb 1",
+                                                                                      "branches": [
+                                                                                       {
+                                                                                        "usi": "2e2d",
+                                                                                        "kind": "main",
+                                                                                        "note": "この例では銀を引かず▲２四歩と接触します。以下の取り合いは選んだ応手です。",
+                                                                                        "noteEn": "This example creates contact with ▲2四歩 rather than retreating the silver. The following captures are selected replies.",
+                                                                                        "child": {
+                                                                                         "id": "nb0_1",
+                                                                                         "sfen": "ln1g3nl/1r3kg2/p1p1ppspp/3ps1pP1/1p4S2/2P6/PPSPPP2P/2GK3R1/LN3G1NL w BPb 1",
+                                                                                         "branches": [
+                                                                                          {
+                                                                                           "usi": "2c2d",
+                                                                                           "kind": "main",
+                                                                                           "note": "後手が歩で取る例です。銀で取る応手は別の順になります。",
+                                                                                           "noteEn": "Gote chooses the pawn capture. A silver capture gives a different move order.",
+                                                                                           "child": {
+                                                                                            "id": "nb0_2",
+                                                                                            "sfen": "ln1g3nl/1r3kg2/p1p1pps1p/3ps1pp1/1p4S2/2P6/PPSPPP2P/2GK3R1/LN3G1NL b BPbp 1",
+                                                                                            "branches": [
+                                                                                             {
+                                                                                              "usi": "3e2d",
+                                                                                              "kind": "main",
+                                                                                              "note": "▲同銀に△同銀で、先手の右銀が取られます。",
+                                                                                              "noteEn": "▲同銀 and △同銀 remove Sente’s right silver.",
+                                                                                              "child": {
+                                                                                               "id": "nb0_3",
+                                                                                               "sfen": "ln1g3nl/1r3kg2/p1p1pps1p/3ps1pS1/1p7/2P6/PPSPPP2P/2GK3R1/LN3G1NL w B2Pbp 1",
+                                                                                               "branches": [
+                                                                                                {
+                                                                                                 "usi": "3c2d",
+                                                                                                 "kind": "main",
+                                                                                                 "child": {
+                                                                                                  "id": "nb0_4",
+                                                                                                  "sfen": "ln1g3nl/1r3kg2/p1p1pp2p/3ps1ps1/1p7/2P6/PPSPPP2P/2GK3R1/LN3G1NL b B2Pbsp 1",
+                                                                                                  "branches": [
+                                                                                                   {
+                                                                                                    "usi": "2h2d",
+                                                                                                    "kind": "main",
+                                                                                                    "note": "▲同飛で後手銀も取り、双方が銀を一枚ずつ持ちました。",
+                                                                                                    "noteEn": "▲同飛 also captures Gote’s silver. Both sides now hold one silver.",
+                                                                                                    "child": {
+                                                                                                     "id": "nb0_5",
+                                                                                                     "sfen": "ln1g3nl/1r3kg2/p1p1pp2p/3ps1pR1/1p7/2P6/PPSPPP2P/2GK5/LN3G1NL w BS2Pbsp 1",
+                                                                                                     "branches": [
+                                                                                                      {
+                                                                                                       "usi": "P*2c",
+                                                                                                       "kind": "alt",
+                                                                                                       "note": "△２三歩打で飛車へ当てます。",
+                                                                                                       "noteEn": "△2三歩打 attacks the rook.",
+                                                                                                       "child": {
+                                                                                                        "id": "nb0b0_0",
+                                                                                                        "sfen": "ln1g3nl/1r3kg2/p1p1pp1pp/3ps1pR1/1p7/2P6/PPSPPP2P/2GK5/LN3G1NL b BS2Pbs 1",
+                                                                                                        "branches": [
+                                                                                                         {
+                                                                                                          "usi": "2d3d",
+                                                                                                          "kind": "main",
+                                                                                                          "note": "▲３四飛で後手歩を取り、別の筋へ移る例です。",
+                                                                                                          "noteEn": "This example chooses ▲3四飛, capturing Gote’s pawn and changing files.",
+                                                                                                          "child": {
+                                                                                                           "id": "nb0b0_1",
+                                                                                                           "sfen": "ln1g3nl/1r3kg2/p1p1pp1pp/3ps1R2/1p7/2P6/PPSPPP2P/2GK5/LN3G1NL w BS3Pbs 1",
+                                                                                                           "branches": [
+                                                                                                            {
+                                                                                                             "usi": "8b8d",
+                                                                                                             "kind": "main",
+                                                                                                             "note": "後手が飛車を８四へ出す応手を選びます。",
+                                                                                                             "noteEn": "Gote chooses to develop the rook to 8d.",
+                                                                                                             "child": {
+                                                                                                              "id": "nb0b0_2",
+                                                                                                              "sfen": "ln1g3nl/5kg2/p1p1pp1pp/1r1ps1R2/1p7/2P6/PPSPPP2P/2GK5/LN3G1NL b BS3Pbs 1",
+                                                                                                              "branches": [
+                                                                                                               {
+                                                                                                                "usi": "B*1e",
+                                                                                                                "kind": "main",
+                                                                                                                "note": "▲１五角打は２四・３三を通る玉４二への王手です。２四へ打つと歩２三に取られるため、その升を避けます。",
+                                                                                                                "noteEn": "▲1五角打 checks king 4b through 2d and 3c. A drop on 2d would instead be captured by pawn 2c.",
+                                                                                                                "child": {
+                                                                                                                 "id": "nb0b0_3",
+                                                                                                                 "sfen": "ln1g3nl/5kg2/p1p1pp1pp/1r1ps1R2/1p6B/2P6/PPSPPP2P/2GK5/LN3G1NL w S3Pbs 1",
+                                                                                                                 "branches": [
+                                                                                                                  {
+                                                                                                                   "usi": "4b5b",
+                                                                                                                   "kind": "main",
+                                                                                                                   "note": "この例では△５二玉と避けます。",
+                                                                                                                   "noteEn": "This reply moves the king to 5b.",
+                                                                                                                   "child": {
+                                                                                                                    "id": "nb0b0_4",
+                                                                                                                    "sfen": "ln1g3nl/4k1g2/p1p1pp1pp/1r1ps1R2/1p6B/2P6/PPSPPP2P/2GK5/LN3G1NL b S3Pbs 1",
+                                                                                                                    "branches": [
+                                                                                                                     {
+                                                                                                                      "usi": "S*3c",
+                                                                                                                      "kind": "main",
+                                                                                                                      "note": "▲３三銀打。交換で手に入れた銀を使い、金３二へ当てます。角１五と飛車３四が銀を守っています。",
+                                                                                                                      "noteEn": "▲3三銀打 reuses the acquired silver to attack gold 3b. Both bishop 1e and rook 3d protect the silver.",
+                                                                                                                      "child": {
+                                                                                                                       "id": "nb0b0_5",
+                                                                                                                       "sfen": "ln1g3nl/4k1g2/p1p1ppSpp/1r1ps1R2/1p6B/2P6/PPSPPP2P/2GK5/LN3G1NL w 3Pbs 1",
+                                                                                                                       "branches": [
+                                                                                                                        {
+                                                                                                                         "usi": "3b3c",
+                                                                                                                         "kind": "main",
+                                                                                                                         "note": "△同金と銀を取る応手には、▲同角成で金を取ります。",
+                                                                                                                         "noteEn": "This example answers △同金 with ▲同角成, capturing the gold.",
+                                                                                                                         "child": {
+                                                                                                                          "id": "nb0b0_6",
+                                                                                                                          "sfen": "ln1g3nl/4k4/p1p1ppgpp/1r1ps1R2/1p6B/2P6/PPSPPP2P/2GK5/LN3G1NL b 3Pb2s 1",
+                                                                                                                          "branches": [
+                                                                                                                           {
+                                                                                                                            "usi": "1e3c+",
+                                                                                                                            "kind": "main",
+                                                                                                                            "child": {
+                                                                                                                             "id": "nb0b0_7",
+                                                                                                                             "sfen": "ln1g3nl/4k4/p1p1pp+Bpp/1r1ps1R2/1p7/2P6/PPSPPP2P/2GK5/LN3G1NL w G3Pb2s 1",
+                                                                                                                             "branches": [],
+                                                                                                                             "comment": "先手は飛車３四と馬３三で３筋へ利かせ、金と歩三枚を持っています。後手は角と銀二枚を持ちます。相手が銀を金で取る応手を選んだ交換例であり、銀打ちから金取りまでを常に強制できるとはしていません。",
+                                                                                                                             "commentEn": "Sente’s rook on 3d and horse on 3c act on the third file, with a gold and three pawns in hand. Gote holds a bishop and two silvers. This selects Gote’s gold capture rather than claiming the silver drop always forces the exchange."
+                                                                                                                            }
+                                                                                                                           }
+                                                                                                                          ]
+                                                                                                                         }
+                                                                                                                        }
+                                                                                                                       ]
+                                                                                                                      }
+                                                                                                                     }
+                                                                                                                    ]
+                                                                                                                   }
+                                                                                                                  }
+                                                                                                                 ]
+                                                                                                                }
+                                                                                                               }
+                                                                                                              ]
+                                                                                                             }
+                                                                                                            }
+                                                                                                           ]
+                                                                                                          }
+                                                                                                         }
+                                                                                                        ]
+                                                                                                       }
+                                                                                                      }
+                                                                                                     ],
+                                                                                                     "comment": "先手の持ち駒は角・銀・歩二枚、後手は角・銀・歩一枚です。飛車２四と後手銀５四が盤上に残ります。銀交換だけで攻めの成功とは決めず、次の歩打ちや角打ちと飛車の退路を確認します。",
+                                                                                                     "commentEn": "Sente holds a bishop, silver and two pawns; Gote holds a bishop, silver and one pawn. The rook on 2d and Gote’s silver on 5d remain on the board. The exchange alone does not prove a successful attack: examine pawn drops, bishop drops and the rook’s retreat squares."
+                                                                                                    }
+                                                                                                   }
+                                                                                                  ]
+                                                                                                 }
+                                                                                                }
+                                                                                               ]
+                                                                                              }
+                                                                                             }
+                                                                                            ]
+                                                                                           }
+                                                                                          }
+                                                                                         ]
+                                                                                        }
+                                                                                       }
+                                                                                      ]
+                                                                                     }
+                                                                                    }
+                                                                                   ],
+                                                                                   "comment": "先手銀３五、後手銀３三と５四を確認します。双方に角と歩の持ち駒があります。３五の銀は２四にも動けますが、２三の歩と３三銀の取り返しまで含めて読む必要があります。",
+                                                                                   "commentEn": "Locate Sente’s silver on 3e and Gote’s silvers on 3c and 5d. Both sides hold a bishop and pawn. The silver on 3e can reach 2d, but read the pawn on 2c and silver on 3c as potential recaptures."
+                                                                                  }
+                                                                                 }
+                                                                                ]
+                                                                               }
+                                                                              }
+                                                                             ]
+                                                                            }
+                                                                           }
+                                                                          ]
+                                                                         }
+                                                                        }
+                                                                       ]
+                                                                      }
+                                                                     }
+                                                                    ]
+                                                                   }
+                                                                  }
+                                                                 ]
+                                                                }
+                                                               }
+                                                              ]
+                                                             }
+                                                            }
+                                                           ]
+                                                          }
+                                                         }
+                                                        ]
+                                                       }
+                                                      }
+                                                     ]
+                                                    }
+                                                   }
+                                                  ]
+                                                 }
+                                                }
+                                               ]
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          }
+                                         ]
+                                        }
+                                       }
+                                      ]
+                                     }
+                                    }
+                                   ]
+                                  }
+                                 }
+                                ]
+                               }
+                              }
+                             ]
+                            }
+                           }
+                          ]
+                         }
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

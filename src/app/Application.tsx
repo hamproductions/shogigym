@@ -136,7 +136,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
     needsPicking: (mode === 'lesson' && !course) || (mode === 'drill' && !drill.drill?.items.length),
     welcome: levels.welcome,
   })
-  const lesson = useLesson(session, { mistakes, load, setTab, closeSheet: () => layout.setSheetOpen(false), compact: layout.compact })
+  const lesson = useLesson(session, { mistakes, load, setTab, setSheetOpen: layout.setSheetOpen, compact: layout.compact })
   const tsume = useTsume(session, { mistakes, load, setTab })
   const tesuji = useTesuji(session, { mistakes, load, setTab })
   const analyze = useAnalyzeGames(session, {
@@ -173,7 +173,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
     onAiEnd: spar.endByAi,
     hold: cameraOpen && cameraLive,
   })
-  const board = mode === 'spar' ? { ...session, assist: spar.assist, userTurn: atEnd ? session.userTurn : spar.over } : session
+  const board = mode === 'spar' ? { ...session, assist: spar.assist } : session
   const rating = useAutoRate({
     enabled: board.ai && board.assist && (mode === 'spar' || (mode === 'analyze' && !ratingPaused)),
     sfens: session.sfens,

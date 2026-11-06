@@ -364,8 +364,8 @@
         },
         {
           "text": {
-            "ja": "箱入り娘は、玉の周りを金銀で詰めた形です。舟囲いより堅い代わりに、玉が窮屈で逃げ場がありません。攻められると一気に詰まされる危険があり、また五八が空いているので、真ん中への打ち込みにも注意が要ります。相手の攻めが穏やかなときに選ぶ形です。",
-            "en": "Hako-iri Musume packs golds and silver around the king. It is firmer than the plain boat, but the king is cramped and has no way out. If attacked, the king can be mated quickly, and the vacated 5h invites drops into the center. Choose it when the opponent's attack is mild."
+            "ja": "箱入り娘では、６八の金と７九の銀・６九の金が玉の近くに集まっています。これらの駒や８八の角が横や後ろへの移動先をふさぎますが、この表示局面では７七へ動けます。５八も空いているので、相手の攻め駒と持ち駒を見て守りと退路を確かめます。",
+            "en": "In Hako-iri Musume, the golds on 6h and 6i and silver on 7i gather near the king. Those pieces and the bishop on 8h occupy sideways and rearward destinations, but in this displayed position the king can move to 7g. With 5h also empty, assess both protection and escape routes against the opponent's pieces and hand."
           },
           "marks": {
             "boxes": [

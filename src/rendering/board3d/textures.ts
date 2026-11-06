@@ -420,17 +420,20 @@ export function arrowTag(text: string, color: string) {
 
 export function labelSprite(text: string, color: string) {
   const { canvas, ctx } = canvas2d(256, 64)
+  const font = '800 34px "Shippori Mincho B1", serif'
+  ctx.font = font
+  canvas.width = Math.max(256, Math.ceil(ctx.measureText(text).width) + 24)
   ctx.fillStyle = color
   ctx.beginPath()
-  ctx.roundRect(4, 8, 248, 48, 10)
+  ctx.roundRect(4, 8, canvas.width - 8, 48, 10)
   ctx.fill()
   ctx.fillStyle = '#fbf6ec'
-  ctx.font = '800 34px "Shippori Mincho B1", serif'
+  ctx.font = font
   ctx.textAlign = 'center'
   ctx.textBaseline = 'middle'
-  ctx.fillText(text, 128, 34)
+  ctx.fillText(text, canvas.width / 2, 34)
   const s = sprite(canvas, 12)
-  s.scale.set(1.6, 0.4, 1)
+  s.scale.set((1.6 * canvas.width) / 256, 0.4, 1)
   return s
 }
 

@@ -338,40 +338,62 @@
         {
           "from": 5,
           "moves": [
-            "7f7e",
-            "6e7f",
-            "6g7f"
+            "7f7e"
           ],
           "text": {
-            "ja": "▲７五同歩のあと、△７六銀と銀を前に出す失敗です。７六は６七の銀の斜め前にあたるので、▲同銀とただで取られます。銀を出すときは、その升に相手の利きがあるかを数えます。",
-            "en": "After ▲7五同歩, △7六銀 pushes the silver forward by mistake. 7f is in front of the silver on 6g, so ▲同銀 wins it for nothing. Count the opponent's attackers before stepping a silver forward."
+            "ja": "ここまでは比較の共通手順です。続く後手の進出先と、先手の取り返しを確認します。",
+            "en": "This is the shared preparation for the comparison. Check Gote’s next destination and Sente’s recapture."
           },
-          "steps": [],
-          "marks": {
-            "last": "7f",
-            "arrows": [
-              "6g7f"
-            ]
-          }
+          "steps": [
+            {
+              "moves": [
+                "6e7f",
+                "6g7f"
+              ],
+              "kind": "deviation",
+              "text": {
+                "ja": "▲７五同歩のあと、△７六銀と銀を前に出す失敗です。７六は６七の銀の斜め前にあたるので、▲同銀とただで取られます。銀を出すときは、その升に相手の利きがあるかを数えます。",
+                "en": "After ▲7五同歩, △7六銀 pushes the silver forward by mistake. 7f is in front of the silver on 6g, so ▲同銀 wins it for nothing. Count the opponent's attackers before stepping a silver forward."
+              },
+              "marks": {
+                "last": "7f",
+                "arrows": [
+                  "6g7f"
+                ]
+              }
+            }
+          ],
+          "kind": "alt"
         },
         {
           "from": 5,
           "moves": [
-            "7f7e",
-            "6e5f",
-            "5g5f"
+            "7f7e"
           ],
           "text": {
-            "ja": "△５六銀も同じ失敗です。５六は先手の５七の歩の真正面で、▲同歩と取られます。歩の利きが残っている升へ銀を出してはいけません。",
-            "en": "△5六銀 is the same mistake. 5f is directly in front of the pawn on 5g and ▲同歩 takes it. Never put the silver on a square a pawn still guards."
+            "ja": "ここまでは比較の共通手順です。続く後手の進出先と、先手の取り返しを確認します。",
+            "en": "This is the shared preparation for the comparison. Check Gote’s next destination and Sente’s recapture."
           },
-          "steps": [],
-          "marks": {
-            "last": "5f",
-            "arrows": [
-              "5g5f"
-            ]
-          }
+          "steps": [
+            {
+              "moves": [
+                "6e5f",
+                "5g5f"
+              ],
+              "kind": "deviation",
+              "text": {
+                "ja": "△５六銀も同じ失敗です。５六は先手の５七の歩の真正面で、▲同歩と取られます。歩の利きが残っている升へ銀を出してはいけません。",
+                "en": "△5六銀 is the same mistake. 5f is directly in front of the pawn on 5g and ▲同歩 takes it. Never put the silver on a square a pawn still guards."
+              },
+              "marks": {
+                "last": "5f",
+                "arrows": [
+                  "5g5f"
+                ]
+              }
+            }
+          ],
+          "kind": "alt"
         }
       ]
     },
@@ -493,42 +515,64 @@
         {
           "from": 3,
           "moves": [
-            "6g5f",
-            "4d5e",
-            "5f5e"
+            "6g5f"
           ],
           "text": {
-            "ja": "△５五銀と進むのは失敗です。５五は先手の５六の銀の真正面で、▲同銀とただで取られます。銀同士が向き合うときは、攻める側の利きまで数えます。",
-            "en": "Pushing the silver to 5e is a mistake. It stands right in front of the Sente silver on 5f and ▲同銀 wins it for nothing. When silvers face each other, count the attacker as well."
+            "ja": "ここまでは比較の共通手順です。続く後手の進出先と、先手の取り返しを確認します。",
+            "en": "This is the shared preparation for the comparison. Check Gote’s next destination and Sente’s recapture."
           },
-          "steps": [],
-          "marks": {
-            "last": "5e",
-            "arrows": [
-              "5f5e"
-            ]
-          }
+          "steps": [
+            {
+              "moves": [
+                "4d5e",
+                "5f5e"
+              ],
+              "kind": "deviation",
+              "text": {
+                "ja": "△５五銀と進むのは失敗です。５五は先手の５六の銀の真正面で、▲同銀とただで取られます。銀同士が向き合うときは、攻める側の利きまで数えます。",
+                "en": "Pushing the silver to 5e is a mistake. It stands right in front of the Sente silver on 5f and ▲同銀 wins it for nothing. When silvers face each other, count the attacker as well."
+              },
+              "marks": {
+                "last": "5e",
+                "arrows": [
+                  "5f5e"
+                ]
+              }
+            }
+          ],
+          "kind": "alt"
         },
         {
           "from": 3,
           "moves": [
             "6g5f",
             "8e8f",
-            "8g8f",
-            "8b8f",
-            "7g8f"
+            "8g8f"
           ],
           "text": {
-            "ja": "８筋の歩を△８六歩とぶつける失敗です。▲同歩と取られ、△同飛と進むと、７七の角が８六の飛車を取ります。ここは先手の角の利きの中だからです。",
-            "en": "Thrusting △8六歩 is a mistake. After ▲同歩 and △同飛, the Sente bishop on 7g takes the rook on 8f, because 8f lies inside its line of attack."
+            "ja": "ここまでは比較の共通手順です。続く後手の進出先と、先手の取り返しを確認します。",
+            "en": "This is the shared preparation for the comparison. Check Gote’s next destination and Sente’s recapture."
           },
-          "steps": [],
-          "marks": {
-            "last": "8f",
-            "arrows": [
-              "7g8f"
-            ]
-          }
+          "steps": [
+            {
+              "moves": [
+                "8b8f",
+                "7g8f"
+              ],
+              "kind": "deviation",
+              "text": {
+                "ja": "８筋の歩を△８六歩とぶつける失敗です。▲同歩と取られ、△同飛と進むと、７七の角が８六の飛車を取ります。ここは先手の角の利きの中だからです。",
+                "en": "Thrusting △8六歩 is a mistake. After ▲同歩 and △同飛, the Sente bishop on 7g takes the rook on 8f, because 8f lies inside its line of attack."
+              },
+              "marks": {
+                "last": "8f",
+                "arrows": [
+                  "7g8f"
+                ]
+              }
+            }
+          ],
+          "kind": "alt"
         }
       ]
     }

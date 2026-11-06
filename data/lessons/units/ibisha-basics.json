@@ -6,21 +6,21 @@
     "居飛車"
   ],
   "title": {
-    "ja": "居飛車：飛車先と角道で決まる戦法",
-    "en": "Ibisha: strategies decided by the rook pawn and the bishop line"
+    "ja": "居飛車：歩交換と角の守りを読む",
+    "en": "Static Rook: Pawn Exchanges and Bishop Protection"
   },
   "intro": {
-    "ja": "序盤の作戦は、大駒の使い方で四つに分かれます。飛車の前の歩を取り替えるかどうかと、角の道を開けておくかどうかの組み合わせです。初手から実際に指しながら、四つの形の特徴、後手番での受け方、居飛車の攻めと振り飛車のちがいを身につけます。",
-    "en": "A shogi strategy is decided by how you use the rook and the bishop. Whether you trade the rook pawn and whether you open the bishop line combine into four strategies: Yagura, Kakugawari, Aigakari and Yokofudori. Play from move one to learn each shape, how to choose among them, how to answer as Gote, and how Ibisha attacks differ from Furibisha."
+    "ja": "居飛車は、先手なら２筋、後手なら８筋の飛車を軸に構える作戦です。ここでは歩交換と角の守りを実際の手で確かめ、相居飛車の四つの例を見ます。矢倉・角換わり・相掛かり・横歩取り以外にも、雁木などの組み方があります。",
+    "en": "Static Rook uses the original rook file: the second file for Sente and the eighth for Gote. Practise pawn exchanges and bishop protection, then compare four examples of Double Static Rook. Yagura, Bishop Exchange, Aigakari and Side Pawn Capture are examples; other formations include Gangi."
   },
   "check": {
     "question": {
-      "ja": "飛車の前の歩を取り替えず、角の道も歩でふさぐ作戦は何ですか？",
-      "en": "Which strategy does not trade the rook pawn and closes the bishop line?"
+      "ja": "この教材の矢倉の手順で、銀を６八へ動かす前に金を７八へ置く理由は？",
+      "en": "In this Yagura sequence, why put the gold on 7h before moving the silver to 6h?"
     },
     "answer": {
-      "ja": "矢倉です。四つの中でもっとも戦いが穏やかで、最初に覚える作戦に向いています。",
-      "en": "Yagura. It is the calmest of the four and the best strategy to learn first."
+      "ja": "８八の角を金で守るためです。角道が開いたあと△８八角成と取られても、７八の金で取り返せます。自分の駒を動かすときは、元の守りがなくならないか確認します。",
+      "en": "The gold protects the bishop on 8h. If Gote captures with △8八角成 after the diagonal opens, the gold on 7h can recapture. Before moving a defender, check what protection it leaves behind."
     }
   },
   "references": [
@@ -55,8 +55,8 @@
       "steps": [
         {
           "text": {
-            "ja": "序盤の作戦は、二枚の大駒の働かせ方で決まります。飛車には、前の歩を突き合って取り替えるかどうか、角には、斜めの道を空けておくかどうかという選択があります。最初は飛車の前の歩を取り替える手順を、初手から確かめます。",
-            "en": "An opening plan is set by how the two major pieces work. For the rook the choice is whether to swap pawns on its file, and for the bishop whether to leave its diagonal open. We begin with the pawn swap in front of the rook, from move one."
+            "ja": "まず２筋で歩を取り合います。歩が持ち駒へ移る手と、飛車が進む手を分けて見てください。交換できるかは、相手が取り返す升を守っているかでも変わります。",
+            "en": "Begin with a pawn exchange on the second file. Track the captures into hand separately from the rook advance. Whether the exchange works also depends on the opponent’s control of the recapture square."
           }
         },
         {
@@ -67,8 +67,8 @@
             "4a3b"
           ],
           "text": {
-            "ja": "▲２六歩、▲２五歩と飛車の前の歩を二つ伸ばします。後手は△３四歩と角道を開け、△３二金と上がっています。後手の角は２二にいて、２四のマスにはまだ何も利いていません。この形が交換の出発点です。",
-            "en": "▲2六歩 and ▲2五歩 push the pawn in front of the rook two steps. Gote has opened the bishop line with △3四歩 and played △3二金. Gote's bishop still sits on 2b and does not guard 2d, which is what makes the trade possible."
+            "ja": "先手歩は２五、後手金は３二です。後手角２二は２四へ動けません。この配置で２四の歩交換を進めます。",
+            "en": "Sente’s pawn is on 2e and Gote’s gold on 3b. The bishop on 2b cannot move to 2d. Continue the pawn exchange from this position."
           },
           "marks": {
             "last": "3b",
@@ -84,8 +84,8 @@
             "2h2d"
           ],
           "text": {
-            "ja": "▲２四歩と突き、△同歩と取らせてから▲同飛。お互いに歩を一枚ずつ持ちました。飛車は敵陣の入口の２四まで進み、相手の２筋の歩はなくなっています。",
-            "en": "▲2四歩 is taken by △同歩, then ▲同飛 retakes. Each side holds one pawn in hand. The rook has advanced to 2d at the gate of the enemy camp and Gote's second file pawn is gone."
+            "ja": "▲２四歩、△同歩、▲同飛で、双方が歩を一枚ずつ持ちました。飛車は２四にいます。２四はまだ先手の成れる範囲ではありません。",
+            "en": "▲2四歩, △同歩 and ▲同飛 give each side one pawn in hand. The rook reaches 2d, which is still outside Sente’s promotion zone."
           },
           "marks": {
             "last": "2d",
@@ -100,8 +100,8 @@
             "2d2h"
           ],
           "text": {
-            "ja": "△２三歩と歩を打たれて飛車は止まるので、▲２八飛と戻します。これで飛車先の歩の交換が完了です。得をしたのは三つ。歩を一枚持ち駒にできたこと、飛車が敵陣へ直通する筋になったこと、２五の地点へ銀や桂を進められるようになったことです。",
-            "en": "Gote stops the rook with △2三歩, so ▲2八飛 goes back home. The trade is complete. It gains three things: a pawn in hand, a rook file that points straight into the enemy camp, and the 2e square, where a silver or a knight can later advance."
+            "ja": "後手は持ち歩を２三へ打ち、先手は飛車を２八へ引きました。先手の持ち歩は一枚、後手の持ち歩はゼロです。２五が空いた一方、２三歩が飛車の縦の道を止めています。",
+            "en": "Gote drops its pawn on 2c and Sente retreats to 2h. Sente still holds one pawn; Gote holds none. The exchange clears 2e, but the pawn on 2c blocks the rook’s vertical path."
           },
           "marks": {
             "last": "2h",
@@ -114,8 +114,8 @@
     },
     {
       "title": {
-        "ja": "飛車先を交換できない形",
-        "en": "When the trade is not possible"
+        "ja": "２四を守る角がいる場合",
+        "en": "When a bishop guards 2d"
       },
       "side": "sente",
       "kind": "opening",
@@ -123,8 +123,8 @@
       "steps": [
         {
           "text": {
-            "ja": "同じ出だしでも、後手が角を３三へ上がると事情が変わります。２四の地点に角が利くので、飛車先の歩の交換は簡単には成立しません。",
-            "en": "The same opening goes differently when Gote places the bishop on 3c. The bishop now covers 2d, so the pawn trade no longer works so easily."
+            "ja": "次は後手角の位置を変えて比べます。同じ歩交換を始めても、飛車の着く２四を相手の角が守っていれば結果が変わります。",
+            "en": "Compare a different bishop placement. The same pawn exchange changes if Gote’s bishop guards the rook’s destination on 2d."
           }
         },
         {
@@ -135,8 +135,8 @@
             "2b3c"
           ],
           "text": {
-            "ja": "△３三角と上がった局面です。後手の角は３三から２四、１五へと斜めに利いています。さっきの局面と違うのは、２二の角がここにいる点だけです。",
-            "en": "This is the position after △3三角. The bishop on 3c covers the diagonal through 2d and 1e. Compared with the last chapter, the only difference is where Gote's bishop stands."
+            "ja": "△３三角と上がった局面です。後手の角は３三から２四、１五へと斜めに利いています。この章では、角が２四を守っている点に注目しましょう。",
+            "en": "After △3三角, the bishop on 3c covers the diagonal through 2d and 1e. Focus on its control of 2d when considering the pawn exchange."
           },
           "marks": {
             "last": "3c",
@@ -154,8 +154,8 @@
             "2c2d"
           ],
           "text": {
-            "ja": "同じように▲２四歩と突き、△同歩と取られました。ここで飛車を進めたくなりますが、それが罠です。",
-            "en": "Sente pushes ▲2四歩 as before and Gote takes with △同歩. Pushing the rook forward now is tempting, and that is the trap."
+            "ja": "歩を取り合い、２四には後手歩が残りました。先手が飛車で取る前に、角３三から２四への斜めの利きを確認します。",
+            "en": "The pawn captures leave Gote’s pawn on 2d. Before recapturing with the rook, check the diagonal from the bishop on 3c to 2d."
           },
           "marks": {
             "last": "2d",
@@ -170,12 +170,13 @@
             "3c2d"
           ],
           "text": {
-            "ja": "ここで▲２四飛と取り返すと、△同角で飛車が消えます。歩一枚の代わりに飛車を失うのは大損です。角の斜めが２四にある限りこの手は指せないので、飛車の前の歩をどう扱うかは、作戦を選ぶときの大きな分かれ目になります。",
-            "en": "If Sente plays ▲2四飛, Gote answers △同角 and wins the rook. Regaining a pawn is nothing next to losing the rook. While the bishop covers 2d the trade cannot be made, so this question helps decide the whole strategy."
+            "ja": "▲同飛に△同角で後手が飛車を取りました。飛車の移動自体は合法ですが、この取り返しがあります。歩を取る利益だけでなく、移動先で取られる駒も数えて判断します。",
+            "en": "After ▲同飛, △同角 captures the rook. The rook move is legal, but allows this recapture. Count what can be lost on the destination square as well as the pawn gained."
           },
           "marks": {
             "last": "2d"
-          }
+          },
+          "kind": "deviation"
         }
       ]
     },
@@ -190,8 +191,8 @@
       "steps": [
         {
           "text": {
-            "ja": "角については、角道を開けたままにするか、自分の歩で閉じるかの二択です。開けておくと角の動ける範囲が広く、閉じると狭くなります。",
-            "en": "For the bishop there are two choices: keep its line open, or close it with your own pawn. An open line gives the bishop wide scope and a closed one narrows it."
+            "ja": "角の道は、自分の歩や銀でも止まります。ここでは７七を空ける手と、その先の６六を歩でふさぐ手を比べます。",
+            "en": "Your own pawns and silvers can block the bishop. Compare clearing 7g with placing a pawn farther along the diagonal on 6f."
           }
         },
         {
@@ -199,8 +200,8 @@
             "7g7f"
           ],
           "text": {
-            "ja": "▲７六歩と突くと、角の斜めの道が開きます。８八の角は７七、６六、５五と利き、相手の角と向かい合う形になります。",
-            "en": "▲7六歩 opens the diagonal. The bishop on 8h now covers 7g, 6f and 5e, and faces the opposing bishop."
+            "ja": "▲７六歩で７七が空き、角８八から７七・６六・５五を通る道が開きました。相手の角２二までは、まだ後手歩３三が道を止めています。",
+            "en": "▲7六歩 clears 7g, opening the path from bishop 8h through 7g, 6f and 5e. Gote’s pawn on 3c still blocks the path farther along toward bishop 2b."
           },
           "marks": {
             "last": "7f",
@@ -215,8 +216,8 @@
             "6g6f"
           ],
           "text": {
-            "ja": "そのあと▲６六歩と突くと、角の前に自分の歩が立って道が閉じます。角はしばらく動けませんが、そのかわり角交換の心配がなく、じっくり囲える形になります。",
-            "en": "If ▲6六歩 follows, the pawn stands in front of the bishop and shuts the line. The bishop is stuck for a while, but no bishop trade can happen, so the position stays calm and you can build a castle."
+            "ja": "後手が３四歩と動いたあと、先手は６六歩で角道を止めました。角８八と角２二は直接取り合えなくなりました。これだけで他の筋の攻めまで防げるわけではありません。",
+            "en": "After Gote opens with △3四歩, Sente blocks the diagonal with ▲6六歩. The bishops on 8h and 2b can no longer capture one another directly. This does not prevent attacks on other files."
           },
           "marks": {
             "last": "6f",
@@ -229,8 +230,8 @@
     },
     {
       "title": {
-        "ja": "矢倉戦法：交換せず、角道も閉じる",
-        "en": "Yagura: no trade, bishop line closed"
+        "ja": "矢倉の入口：角を守って銀を進める",
+        "en": "Entering Yagura: Protect the Bishop Before Developing the Silver"
       },
       "side": "sente",
       "kind": "opening",
@@ -238,57 +239,62 @@
       "steps": [
         {
           "text": {
-            "ja": "飛車先の歩を交換せず、角道も閉じる組み合わせが矢倉戦法です。お互いにじっくり囲いを作るので、四つの戦法の中でいちばん戦いが穏やかで、はじめての人に向いています。ここでは互いの駒組みの途中の局面まで進めます。",
-            "en": "Not trading the rook pawn and closing the bishop line gives Yagura. Both sides build castles patiently, so it is the calmest of the four and the best one to start with. Here we play up to a typical middle point of the setup."
+            "ja": "矢倉へ向かう駒組みの一例です。銀を７七へ進める前に、角８八を誰が守るか確認します。相手の応手によって早い戦いもあるため、矢倉なら必ずゆっくり組めるとは限りません。",
+            "en": "Follow one route toward Yagura. Before developing the silver to 7g, identify the defender of bishop 8h. Early contact remains possible, so choosing Yagura does not guarantee a slow setup."
           }
         },
         {
           "moves": [
             "2g2f",
             "8c8d",
-            "2f2e",
+            "7g7f",
             "8d8e"
           ],
           "text": {
-            "ja": "飛車先の歩は２五まで伸ばして止めます。後手も８五まで伸ばしています。相手の飛車先が先に交換されることはなく、お互いに飛車先の交換は保留の形です。",
-            "en": "The rook pawn goes to 2e and stops. Gote's goes to 8e. Neither side trades it yet, so the rook pawn trade stays in reserve for both."
+            "ja": "先手歩は２六と７六、後手歩は８五です。先手角８八の斜めの道は開きましたが、後手歩３三はまだ残っています。次に金を７八へ置きます。",
+            "en": "Sente has pawns on 2f and 7f, and Gote has a pawn on 8e. Sente’s bishop diagonal has opened, while Gote’s pawn remains on 3c. Next place the gold on 7h."
           },
           "marks": {
             "last": "8e",
             "boxes": [
-              "2e",
-              "8e"
+              "8h",
+              "7h"
             ]
           }
         },
         {
           "moves": [
-            "7g7f",
+            "6i7h",
             "3c3d",
-            "7i7h",
+            "7i6h",
             "4c4d"
           ],
           "text": {
-            "ja": "▲７六歩と角道を開けつつ、銀を７八へ。△３四歩、△４四歩と後手も歩を突いて応じます。銀を７八に上げるのは、あとで７七へ進めて矢倉囲いの一部にするためです。",
-            "en": "▲7六歩 opens the bishop line for the moment, and the silver steps to 7h. Gote answers with △3四歩 and △4四歩. The silver on 7h is on its way to 7g, where it forms part of the Yagura castle."
+            "ja": "▲７八金で角８八を守ってから、▲６八銀と左銀を動かしました。後手が角道を開けた時点でも、△８八角成には金で取り返せます。この例では後手が４四歩で角道を止めます。",
+            "en": "▲7八金 protects bishop 8h before ▲6八銀 develops the left silver. After Gote opens the diagonal, the gold can recapture △8八角成. In this line Gote instead closes the diagonal with △4四歩."
           },
           "marks": {
             "last": "4d",
+            "boxes": [
+              "7h",
+              "8h",
+              "6h"
+            ],
             "arrows": [
-              "7h7g"
+              "7h8h"
             ]
           }
         },
         {
           "moves": [
-            "7h7g",
-            "3a3b",
             "6g6f",
+            "3a3b",
+            "6h7g",
             "3b3c"
           ],
           "text": {
-            "ja": "銀を７七へ上げ、▲６六歩で角道を自分で閉じました。後手は銀を３三に上げて同じように構えています。この形が矢倉戦法の入口です。銀と金を玉の前に並べる矢倉囲いは、次の講座で組み方を詳しく見ます。",
-            "en": "The silver goes up to 7g and ▲6六歩 closes the bishop line by hand. Gote mirrors this with a silver on 3c. This is the doorway to Yagura. The castle of silvers and golds in front of the king is covered in detail in a later lesson."
+            "ja": "▲６六歩で道を止め、左銀が６八から７七へ進みました。金７八が銀７七も守ります。玉はまだ５九なので、これは囲いの途中です。完成形の金銀と玉の配置は、矢倉の講座で続けます。",
+            "en": "▲6六歩 blocks the diagonal, then the left silver develops from 6h to 7g. Gold 7h also protects that silver. The king is still on 5i, so the castle remains incomplete. Continue with the final gold, silver and king arrangement in the Yagura course."
           },
           "marks": {
             "last": "3c",
@@ -311,8 +317,8 @@
       "steps": [
         {
           "text": {
-            "ja": "残る三つは、矢倉と比べて飛車の前の歩か角の道のどちらか、または両方の扱いが違います。角の道を開けたまま歩を取り替えないのが角換わり、角の道を閉じて歩を取り替えるのが相掛かり、角も歩も開放するのが横歩取りです。順に初手から確かめます。",
-            "en": "The other three differ from Yagura in the rook pawn, the bishop line, or both. Kakugawari keeps the line open and does not trade the rook pawn, Aigakari trades the rook pawn and closes the line, and Yokofudori does both. We go through them from move one."
+            "ja": "相居飛車には、角を交換する角換わり、双方の飛車先を交換する相掛かり、横歩の取り合いに進む横歩取りもあります。ここではそれぞれの出だしを見ます。歩と角の二つの条件だけですべての戦法を分類するものではありません。",
+            "en": "Other Double Static Rook families include Bishop Exchange, Aigakari with rook-pawn exchanges, and Side Pawn Capture. Compare their opening moves here. Two conditions about pawns and bishops do not classify every opening."
           }
         },
         {
@@ -325,8 +331,8 @@
             "8d8e"
           ],
           "text": {
-            "ja": "角換わりは、角道を開けたまま飛車先を交換しません。この手順でお互いに２五と８五まで歩を伸ばします。",
-            "en": "Kakugawari keeps the bishop line open and does not trade the rook pawn. Both sides push the rook pawn to 2e and 8e in this order."
+            "ja": "２五と８五に両軍の歩があります。７七・６六・５五を通る角８八の斜めに、自分の駒はありません。次は先手が２二の角を取る例です。ここから角交換以外の手を選ぶこともできます。",
+            "en": "Both rook pawns have advanced to 2e and 8e, and both bishop diagonals are open. This example continues with Sente exchanging bishops. The current arrangement does not force a single continuation."
           },
           "marks": {
             "last": "8e",
@@ -345,8 +351,8 @@
             "8h7g"
           ],
           "text": {
-            "ja": "▲同角成から△同銀と角を交換します。先手は角を持ち駒にし、銀を７七へ進めて自陣を整えます。後手も銀を３三へ上げ、角を持ち駒にして打ち込みの隙を探します。駒を打つ場所に注意が必要で、攻めも受けも速い戦型です。",
-            "en": "The bishops are traded with 角成 and the recapture △同銀. Sente holds the bishop in hand and develops the silver to 7g; Gote brings a silver to 3c and also holds a bishop. Watch the squares where a bishop could be dropped, because both attack and defence are fast here."
+            "ja": "▲２二角成に△同銀で、双方が角を持ちました。そのあと銀を７七と３三へ運びます。盤上から角が消えても、持ち駒から打てるため、自陣の空き升も確認します。",
+            "en": "▲2二角成 and △同銀 give both sides a bishop in hand. The silvers then develop to 7g and 3c. Bishops leaving the board can return as drops, so inspect empty squares in your own camp."
           },
           "marks": {
             "last": "7g",
@@ -371,17 +377,18 @@
             "2c2d",
             "2h2d",
             "8e8f",
-            "2d2h",
-            "P*2c",
             "8g8f",
             "8b8f",
+            "2d2h",
+            "P*2c",
             "P*8g",
             "8f8b"
           ],
           "text": {
-            "ja": "飛車先を交換して角道を閉じたままにするのが相掛かりです。この図では▲２四歩、△同歩、▲同飛から▲２八飛と戻し、後手も８筋で同じように交換して、お互いに歩を一枚持っています。角道は閉じたままなので、角交換はありません。",
-            "en": "Trading the rook pawn while keeping the bishop line closed is Aigakari. Here Sente trades on the second file with ▲2四歩 and ▲同飛 and goes back to 2h. Gote trades the same way on the eighth file, so each side ends up with a pawn in hand. The bishop lines stay closed, so there is no bishop trade."
-          }
+            "ja": "相掛かりの出だしの一例です。２筋と８筋で歩を取り合い、双方の飛車を引きました。双方に歩が一枚ずつあり、角道はまだ開いていません。このあと角道を開く選択もあります。",
+            "en": "This Aigakari example exchanges pawns on the second and eighth files, then retreats both rooks. Each side holds one pawn and neither bishop diagonal has opened yet. Opening those diagonals later remains possible."
+          },
+          "kind": "alt"
         },
         {
           "from": 0,
@@ -396,9 +403,10 @@
             "4a3b"
           ],
           "text": {
-            "ja": "飛車先を交換し合い、角道もお互いに開けると横歩取りの出だしです。この図はまだ歩を交換する前ですが、７六と３四の歩で両方の角道が開き、２五と８五の歩は交換のかまえです。横歩取りはもっとも戦いが激しく、慣れるまで難しい戦型です。",
-            "en": "If both sides keep the bishop lines open and also trade the rook pawn, you get the opening of Yokofudori. In this figure the trade has not happened yet, but the pawns on 7f and 3d open both bishops and the pawns on 2e and 8e wait to trade. Yokofudori is the sharpest of the four and hard to handle at first."
-          }
+            "ja": "横歩取りへ進める出だしです。双方の角道が開き、金７八と３二が上がっています。まだ飛車先も横歩も取っていないため、横歩取りの攻防はここから先の講座で確かめます。",
+            "en": "This opening can lead to Side Pawn Capture. Both bishop diagonals are open, with golds on 7h and 3b. No rook-pawn or side-pawn capture has happened yet; the later captures are covered in that course."
+          },
+          "kind": "alt"
         }
       ]
     },
@@ -413,8 +421,8 @@
       "steps": [
         {
           "text": {
-            "ja": "後手を持つときは、相手の指し方を見て戦法を決めます。先手の飛車先の歩が伸びてきたら、△３三角で受けるのが基本です。ここでは後手の手を中心に見ます。",
-            "en": "As Gote you pick the strategy after seeing how Sente starts. When Sente pushes the rook pawn, the standard answer is to cover it with △3三角. This chapter follows Gote's moves."
+            "ja": "後手も相手の手を見て配置を選びます。ここでは角３三で２四を守る手と、先に角を交換する手を比べます。毎回同じ応手が必要という規則ではありません。",
+            "en": "Gote also chooses a formation in response to Sente. Compare guarding 2d with the bishop on 3c against exchanging bishops first. These are examples rather than compulsory replies."
           }
         },
         {
@@ -423,8 +431,8 @@
             "3c3d"
           ],
           "text": {
-            "ja": "先手が▲２六歩と飛車先を伸ばしたら、△３四歩と角道を開けます。ここまでは矢倉でも角換わりでも共通の指し方です。",
-            "en": "When Sente pushes the rook pawn with ▲2六歩, Gote opens the bishop line with △3四歩. This is common to both Yagura and Kakugawari."
+            "ja": "△３四歩で後手の角道を開きました。先手歩は２六、角は８八です。先手が次に何を動かすかで角同士が向かい合う時期も変わります。",
+            "en": "△3四歩 opens Gote’s bishop diagonal. Sente’s pawn is on 2f and bishop on 8h. Sente’s next move affects when the bishops face one another."
           },
           "marks": {
             "last": "3d"
@@ -436,8 +444,8 @@
             "2b3c"
           ],
           "text": {
-            "ja": "先手が▲２五歩と伸ばしてきたら△３三角。角が２四に利いて、先手の飛車先の交換を防ぎます。後手が矢倉や角換わりを選ぶ最初の合図です。",
-            "en": "If Sente pushes ▲2五歩, Gote answers △3三角. The bishop covers 2d and stops the rook pawn trade. This is the first step toward Yagura or Kakugawari for Gote."
+            "ja": "△３三角は２四を守る選択です。先手が２四で歩を取り合ってから飛車を進めると、この角に取られます。後手が別の駒組みを選ぶ手順もあります。",
+            "en": "△3三角 is one way to guard 2d. A pawn exchange followed by a rook advance to 2d would allow this bishop to capture. Gote may also choose other development sequences."
           },
           "marks": {
             "last": "3c",
@@ -470,8 +478,8 @@
             "7g7f"
           ],
           "text": {
-            "ja": "先手が▲２六歩の次にいきなり▲７六歩と角道を開けてくる場合です。ここで後手が銀を前に出すと、角を取られる心配があります。",
-            "en": "Sente may open the bishop line with ▲7六歩 right after ▲2六歩. Here a silver advance by Gote would risk losing the bishop."
+            "ja": "先手が早く７六歩と動いた場合です。両方の角道が開き、角２二と８八が向かい合いました。後手から交換する選択を見ます。",
+            "en": "Here Sente opens early with ▲7六歩. Both diagonals are clear and the bishops on 2b and 8h face one another. Follow Gote’s choice to exchange first."
           },
           "steps": [
             {
@@ -507,7 +515,8 @@
                 ]
               }
             }
-          ]
+          ],
+          "kind": "alt"
         }
       ]
     },
@@ -522,8 +531,8 @@
       "steps": [
         {
           "text": {
-            "ja": "居飛車は飛車を元の位置のまま使う戦法の総称です。飛車と角が同じ方向に利くので攻める力が強い反面、玉を囲うのが難しくなります。反対に飛車を横へ動かす戦法が振り飛車です。最後に、居飛車の攻めの基本形と、振り飛車の基本形を見ます。",
-            "en": "Ibisha means using the rook on its starting file. Rook and bishop point the same way, which makes attacks strong, but it is harder to castle the king. Furibisha is the opposite, swinging the rook sideways. This chapter ends with the basic Ibisha attack and the basic Furibisha setup."
+            "ja": "居飛車と振り飛車は、序盤にどの筋で飛車を使うかの違いです。どちらにも攻めと守りの選択があります。最後に、居飛車の銀の進出と、四間飛車への飛車の移動を比べます。",
+            "en": "Static Rook and Ranging Rook differ in the file used by the rook during the opening. Both involve attacking and defensive choices. Compare a Static Rook silver advance with the rook transfer in Fourth File Rook."
           }
         },
         {
@@ -531,24 +540,23 @@
             "2g2f",
             "3c3d",
             "2f2e",
-            "4a3b",
+            "2b3c",
             "3i3h",
-            "8c8d",
+            "4c4d",
             "3h2g",
-            "8d8e",
+            "8b4b",
             "2g2f"
           ],
           "text": {
-            "ja": "棒銀は、銀を２筋へ進めて飛車と一緒に２筋を攻める形です。３九の銀が３八、２七と進み、２六に出ました。前に２五の歩があり、後ろの飛車と銀が一直線に並びます。矢倉でも角換わりでも使える、居飛車の攻めの基本です。",
-            "en": "Bogin sends the silver up the second file to attack alongside the rook. The silver on 3i goes to 3h and 2g, then out to 2f. The pawn is on 2e in front and the rook stands behind, so they line up in a row. It works in both Yagura and Kakugawari and is the basic Ibisha attack."
+            "ja": "右銀が３八・２七・２六へ進む棒銀です。歩２五、銀２六、飛車２八が並びました。後手角３三は２四を守り、飛車は４二へ動いています。２五には自分の歩がいるので、銀は今すぐその升へ進めません。",
+            "en": "Climbing Silver develops the right silver through 3h and 2g to 2f. Pawn 2e, silver 2f and rook 2h share a file. Gote’s bishop on 3c guards 2d and the rook has moved to 4b. Sente’s own pawn prevents the silver from immediately entering 2e."
           },
           "marks": {
             "last": "2f",
-            "arrows": [
-              "2f2e"
-            ],
             "boxes": [
-              "2e"
+              "2e",
+              "2f",
+              "2h"
             ]
           }
         }
@@ -568,9 +576,10 @@
             "2h6h"
           ],
           "text": {
-            "ja": "飛車を横へ動かして使うのが振り飛車で、ここでは四間飛車を見ます。飛車を６八に振り、角は７七へ上がって７八の銀と一緒に左側を固めます。玉を右に囲えるので、守りが堅く、反撃型の戦い方に向きます。居飛車は攻撃重視、振り飛車は守り重視と覚えます。",
-            "en": "Moving the rook sideways is Furibisha, and here is its basic form, Fourth File Rook. The rook goes to 6h, the bishop steps up to 7g and the silver on 7h helps shape the left side. The king can castle on the right, so the defence is solid and counter-attacking play suits it. Remember Ibisha as attack-minded and Furibisha as defence-minded."
-          }
+            "ja": "先手が飛車を６八へ動かす四間飛車です。角７七と銀７八が左側に残り、玉はまだ５九にいます。このあと玉を右側へ運ぶ構想があります。今回見た四つの相居飛車だけが選択肢ではなく、相手の配置に合わせて飛車と守り駒を使います。",
+            "en": "Fourth File Rook moves Sente’s rook to 6h. Bishop 7g and silver 7h remain on the left, while the king is still on 5i. A later plan can move the king to the right. The four Double Static Rook examples are not the only choices: coordinate the rook and defenders with the opponent’s formation."
+          },
+          "kind": "alt"
         }
       ]
     }

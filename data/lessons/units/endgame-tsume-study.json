@@ -1,7 +1,10 @@
 {
   "id": "endgame-tsume-study",
   "order": 500,
-  "path": ["上達のためのテクニック", "終盤"],
+  "path": [
+    "上達のためのテクニック",
+    "終盤"
+  ],
   "title": {
     "ja": "詰みの練習：候補手、応手、局面を記録する",
     "en": "Study Mate by Tracking Candidates, Replies, and Board State"
@@ -45,14 +48,19 @@
           }
         },
         {
-          "moves": ["6c7c"],
+          "moves": [
+            "6c7c"
+          ],
           "text": {
             "ja": "▲７三飛不成は金を取って王手します。しかし飛車には斜めの利きがないため、後手は△８一玉・△８二玉・△６一玉・△６二玉と指せます。王手というだけでは玉の応手を一つに絞れません。",
             "en": "▲７三飛不成 captures the gold and checks, but an unpromoted rook has no diagonal step. Gote can play △８一玉, △８二玉, △６一玉, or △６二玉. A checking label does not narrow the defender to one reply."
-          }
+          },
+          "kind": "deviation"
         },
         {
-          "moves": ["7a8b"],
+          "moves": [
+            "7a8b"
+          ],
           "text": {
             "ja": "例えば△８二玉は合法で、この局面から先手に一手詰はありません。後手の一つの受けで三手詰の候補は消えます。復習では「７三に成らないと８二への斜めの利きが増えない」と具体的に書き残します。",
             "en": "For example, △８二玉 is legal, and Sente has no mate in one from that position. One defensive reply is enough to refute this three-move candidate. In review, write the exact cause: without promotion, the rook does not gain diagonal control of ８二."
@@ -76,14 +84,19 @@
           }
         },
         {
-          "moves": ["6c7c+"],
+          "moves": [
+            "6c7c+"
+          ],
           "text": {
             "ja": "▲７三飛成は金を取り、７三の龍は８二と６二にも斜めに利きます。先手の持ち駒は金一枚になり、後手には合駒に使う持ち駒がないので、合法な応手は△８一玉と△６一玉の二つです。応手一覧を書いてから最後の一手を探します。",
             "en": "▲７三飛成 captures the gold. The dragon on ７三 now covers ８二 and ６二 diagonally, and Sente has one gold in hand. With no hand piece to interpose on ７二, Gote's legal replies are exactly △８一玉 and △６一玉. Write both replies down before choosing the finish."
           }
         },
         {
-          "moves": ["7a8a", "G*8b"],
+          "moves": [
+            "7a8a",
+            "G*8b"
+          ],
           "text": {
             "ja": "△８一玉には▲８二金まで。龍７三が８二の金を守り、後手の合法な応手は０手です。最初は金を持たず、飛車が金を取ってから使った、という持ち駒の変化も答えの一部です。",
             "en": "After △８一玉, ▲８二金 is mate. The dragon on ７三 protects the dropped gold, and Gote has zero legal replies. The hand changed from empty to one gold only after the rook's capture; that state change is part of the solution."
@@ -93,11 +106,15 @@
       "variations": [
         {
           "from": 1,
-          "moves": ["7a6a", "G*6b"],
+          "moves": [
+            "7a6a",
+            "G*6b"
+          ],
           "text": {
             "ja": "△６一玉には▲６二金まで。龍７三は反対側の６二も守ります。ここも後手に合法な応手はありません。二つの逃げを両方詰ませて初めて初手を採用できます。",
             "en": "Against △６一玉, ▲６二金 is mate. The dragon on ７三 also protects ６二 on the other side. Gote has no legal reply here either. The first move is established only after both escapes are covered."
-          }
+          },
+          "kind": "alt"
         }
       ]
     },
@@ -117,11 +134,15 @@
           }
         },
         {
-          "moves": ["3c5c+", "4b5c"],
+          "moves": [
+            "3c5c+",
+            "4b5c"
+          ],
           "text": {
             "ja": "▲５三飛成には△同金が合法で、龍が取られます。後手の持ち駒には飛車が増え、王手は消えます。失敗の最初の地点は最終手ではなく、初手の着地点を守る相手金を数えなかったところです。",
             "en": "After ▲５三飛成, △同金 legally captures the dragon. Gote gains a rook in hand and the check ends. The first error was not a missing final move; it was failing to count the gold's attack on the checking move's destination."
-          }
+          },
+          "kind": "deviation"
         },
         {
           "text": {
@@ -147,7 +168,9 @@
           }
         },
         {
-          "moves": ["G*7b"],
+          "moves": [
+            "G*7b"
+          ],
           "text": {
             "ja": "▲７二金で詰みです。６二の飛車が７二の金を守り、金が６一・８一などを押さえます。後手の合法な応手は０手で、先手には銀が残ります。持ち駒が余っても盤上の詰みは成立します。",
             "en": "▲７二金 is mate. The rook on ６二 protects the gold on ７二, while the gold covers exits including ６一 and ８一. Gote has zero legal replies, and Sente's silver remains in hand. An unused hand piece does not undo a legal board mate."

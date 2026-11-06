@@ -1,0 +1,54 @@
+diff --git a/source/usi.cpp b/source/usi.cpp
+index 3bf539a..1a34d8f 100644
+--- a/source/usi.cpp
++++ b/source/usi.cpp
+@@ -1817,11 +1817,25 @@ namespace {
+ // wasm_keep_alive()で保持するインスタンス。プロセス終了まで解放しない。(理由はusi.hを参照)
+ std::unique_ptr<IEngine>   wasm_engine;
+ std::unique_ptr<USIEngine> wasm_usi;
++std::mutex wasm_command_mutex;
++std::condition_variable wasm_command_ready;
++std::queue<std::string> wasm_commands;
+ }  // namespace
+ 
+ void wasm_keep_alive(std::unique_ptr<IEngine> engine, std::unique_ptr<USIEngine> usi) {
+     wasm_engine = std::move(engine);
+     wasm_usi    = std::move(usi);
++    std::thread([] {
++        while (true) {
++            std::unique_lock<std::mutex> lock(wasm_command_mutex);
++            wasm_command_ready.wait(lock, [] { return !wasm_commands.empty(); });
++            auto command = std::move(wasm_commands.front());
++            wasm_commands.pop();
++            lock.unlock();
++            wasm_usi->exec_command_from_js(command);
++        }
++    }).detach();
++    emscripten_exit_with_live_runtime();
+ }
+ 
+ USIEngine* wasm_usi_instance() { return wasm_usi.get(); }
+@@ -1843,7 +1857,12 @@ EMSCRIPTEN_KEEPALIVE extern "C" int usi_command(const char* c_cmd) {
+     if (usi == nullptr)
+         return 1;
+ 
+-    return usi->exec_command_from_js(std::string(c_cmd));
++    {
++        std::lock_guard<std::mutex> lock(wasm_command_mutex);
++        wasm_commands.emplace(c_cmd);
++    }
++    wasm_command_ready.notify_one();
++    return 0;
+ }
+ #endif
+ 
+diff --git a/source/wasm_pre.js b/source/wasm_pre.js
+index b10378d..4c6706f 100644
+--- a/source/wasm_pre.js
++++ b/source/wasm_pre.js
+@@ -1,4 +1,5 @@
+ (function () {
++  if (ENVIRONMENT_IS_PTHREAD) return;
+   // Message listeners
+ 
+   var quit = false;

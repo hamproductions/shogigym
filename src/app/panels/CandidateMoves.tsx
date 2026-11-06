@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { styled } from 'styled-system/jsx'
 import { Checkbox } from '@/components/ui'
@@ -14,11 +15,14 @@ import { Button } from '@/app/ui/Button'
 import { Muted } from './panels.styles'
 
 export function CandidateMoves({ model, error, book }: { model: Candidates; error: string | null; book: BookMove[] }) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const settings = useSettings()
   const { sfen, play, ai } = useSession()
   const status = useEngineStatus()
-  const feedback = model.selected ? moveCoaching(sfen, model.selected.move) : null
+  const feedback = useMemo(
+    () => (model.selected ? moveCoaching(sfen, model.selected.move, { candidate: model.selected }) : null),
+    [sfen, model.selected, i18n.language],
+  )
   const explain = feedback ? `${feedback.summary} ${feedback.detail}` : model.selected ? moveGloss(sfen, model.selected.move) : ''
   const note = model.selected ? book.find((move) => move.usi === model.selected!.move)?.note : null
   const after = model.selected ? applyUsi(sfen, model.selected.move) : null

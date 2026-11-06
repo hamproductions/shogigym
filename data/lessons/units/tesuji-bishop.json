@@ -99,7 +99,8 @@
           "text": {
             "ja": "▲５八玉と角筋から玉を動かし、持ち角を残す手もあります。",
             "en": "▲５八玉 also leaves the diagonal while keeping the bishop in hand."
-          }
+          },
+          "kind": "alt"
         }
       ]
     },
@@ -188,8 +189,8 @@
       "steps": [
         {
           "text": {
-            "ja": "角３四は歩５二を取って成れます。馬５二なら横の桂６二に動けますが、後手の飛車４二は５二と６二の両方を守っています。",
-            "en": "The bishop on ３四 can capture the pawn on ５二 and promote. The resulting horse can step sideways to the knight on ６二, but Gote’s rook on ４二 defends both ５二 and ６二."
+            "ja": "角３四は５二の歩を取って成れますが、その馬は飛車４二に取られます。今は５二の歩が飛車の横の道を止めています。馬が５二から６二へ動くと５二が空き、飛車４二から６二まで通ります。",
+            "en": "The bishop on 3d can capture the pawn on 5b and promote, but Rook4b can then capture it. The pawn on 5b currently blocks the rook’s horizontal line. If the horse leaves 5b for 6b, that square clears and the rook’s line reaches 6b."
           },
           "marks": {
             "boxes": [
@@ -207,7 +208,8 @@
           "text": {
             "ja": "▲５二角成で歩を取ります。馬は角の斜めの利きに、上下左右一マスが加わります。",
             "en": "▲５二角成 captures the pawn. The horse retains bishop diagonals and gains one-square orthogonal moves."
-          }
+          },
+          "kind": "deviation"
         },
         {
           "moves": [
@@ -216,7 +218,8 @@
           "text": {
             "ja": "△９二玉と馬を取らずに動く弱い応手を例にします。飛車で馬を取る手もあります。",
             "en": "The weaker reply △９二玉 leaves the horse in place; the rook can capture it instead."
-          }
+          },
+          "kind": "deviation"
         },
         {
           "moves": [
@@ -226,7 +229,8 @@
           "text": {
             "ja": "▲６二馬と横に動いて桂を取る弱い手には、△同飛と馬を取られます。馬の新しい利きと、着地点の守りは別に確認します。",
             "en": "After the weak capture ▲６二馬, △同飛 takes the horse. Distinguish the horse’s new movement from the defenders of its destination."
-          }
+          },
+          "kind": "deviation"
         },
         {
           "text": {
@@ -244,7 +248,8 @@
           "text": {
             "ja": "△同飛と、後手は５二の馬をすぐに取ることもできます。",
             "en": "Gote can also capture the horse immediately with △同飛."
-          }
+          },
+          "kind": "alt"
         }
       ]
     },

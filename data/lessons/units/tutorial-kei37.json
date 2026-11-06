@@ -358,7 +358,8 @@
               "4e3c",
               "4e5c"
             ]
-          }
+          },
+          "kind": "deviation"
         },
         {
           "moves": [
@@ -407,7 +408,8 @@
           "steps": [],
           "marks": {
             "last": "4f"
-          }
+          },
+          "kind": "alt"
         }
       ]
     },
@@ -463,8 +465,8 @@
             "2h2d"
           ],
           "text": {
-            "ja": "△同歩と取られたら、▲２四同飛。飛車で取り返して、２筋を突破しました。飛車が相手陣に入り、先手が指しやすい展開です。",
-            "en": "Gote takes with △同歩, and ▲2四同飛 recaptures with the rook and breaks through the second file. The rook is now in the opponent's camp and Sente is easier to play."
+            "ja": "△同歩に▲２四同飛。飛車が２八から２四へ進み、取った歩は先手の持ち駒になりました。２四は四段目で、成れる敵陣の一〜三段目にはまだ届いていません。",
+            "en": "After △同歩, ▲2四同飛 recaptures. The rook advances from 2h to 2d and the captured pawn enters Sente's hand. Square 2d is on rank d, outside Sente's promotion zone on ranks a–c."
           },
           "marks": {
             "last": "2d"

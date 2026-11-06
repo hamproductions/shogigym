@@ -67,7 +67,7 @@ type Modes = {
 
 export function useModeSwitch(
   { load, setLoader, stash, stashed }: ModeSlots,
-  { session, lesson, drill, tsume, tesuji, spar, analyze, mistakes, setTab }: Modes,
+  { session, lesson, drill, tsume, tesuji, spar, analyze, mistakes, layout, setTab }: Modes,
 ) {
   const { mode, game, cursor, userSide, flipped, course, tree, preview } = session
 
@@ -115,6 +115,7 @@ export function useModeSwitch(
     tsume.setShowEscape(false)
     session.setPeekFrom(null)
     setTab('coach')
+    if (layout.compact && mode === 'lesson' && (m === 'analyze' || m === 'spar')) layout.setSheetOpen(true, 45)
     const back = stashed(m)
     if (back && (m === 'spar' || m === 'analyze' || (m === 'lesson' && back.course))) {
       resume(m, back)

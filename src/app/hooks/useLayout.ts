@@ -61,7 +61,13 @@ export function useLayout({ mode, needsPicking, welcome }: { mode: Mode | 'taiky
   const [openedFor, setOpenedFor] = useState('')
   if (openedFor !== pickKey) {
     setOpenedFor(pickKey)
-    if (compact && needsPicking && !welcome) setDrawer(true)
+    if (compact && !welcome && (needsPicking || mode === 'lesson')) {
+      setDrawer(true)
+      if (mode === 'lesson' && sheetH === null) {
+        setSheetH(needsPicking ? 65 : 45)
+        setSheetOpen(true)
+      }
+    }
   }
   useEffect(() => {
     if (drawer) scrollPanelTop()
@@ -73,7 +79,7 @@ export function useLayout({ mode, needsPicking, welcome }: { mode: Mode | 'taiky
     !!zones &&
     (zones.floatingAvailable ?? (zones.over.width >= 280 && zones.over.height >= 240 && zones.under.width >= 280 && zones.under.height >= 240)) &&
     (!needsPicking || (zones.over.width >= 320 && zones.over.height >= Math.max(520, viewport.h * 0.75)))
-  const panelSide = !compact && (!!panelPrefs.side || (panelPrefs.side === undefined && mode === 'analyze') || !floatingAvailable)
+  const panelSide = !compact && (!!panelPrefs.side || (panelPrefs.side === undefined && (mode === 'analyze' || mode === 'lesson')) || !floatingAvailable)
   const zoned = !compact && !panelSide
   const twoPanels = zoned && !panelPrefs.hidden && !!zones && mode !== 'tsume'
 
@@ -133,9 +139,9 @@ export function useLayout({ mode, needsPicking, welcome }: { mode: Mode | 'taiky
     resizeSheet,
     persistSheet,
     sheetOpen,
-    setSheetOpen: (open: boolean | null) => {
+    setSheetOpen: (open: boolean | null, height?: number) => {
       setSheetOpen(open)
-      setSheetH(open === null ? loadSheetHeight() : open ? 65 : 30)
+      setSheetH(height ?? (open === null ? loadSheetHeight() : open ? 65 : 30))
     },
   }
 }

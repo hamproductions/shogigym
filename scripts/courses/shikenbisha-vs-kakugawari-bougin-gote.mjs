@@ -48,13 +48,18 @@ export default {
           '歩打ちから飛車を７六へ活用したが、先手は２六銀と持ち角で反撃できる。後手は７六飛の横利きだけを成果とせず、２筋に歩がぶつかった際の取り方と玉７二の安全を次に比べる。',
       },
       {
-        kind: 'alt',
-        moves: 'B*6d 4f7f',
+        kind: 'deviation',
+        moves: 'B*6d 6c6d',
         notes: {
-          0: '先手は歩打ちの代わりに角６四打。５五を通して４六飛に利かせる。',
-          1: '△７六飛。角６四の斜線から横へ外れながら７六の先手歩を取る。',
+          0: '▲６四角打は飛車４六を狙いますが、後手歩６三の利きへ角を打つ間違いです。',
+          1: '△同歩で角を取れます。飛車を逃がす前に、攻めてきた駒を取れるかを確認します。',
         },
-        comment: '持ち角を使う別の追い方。角６四は飛車４六には当たるが、飛車７六には当たらない。',
+        notesEn: {
+          0: '▲6四角 attacks rook 4f but mistakenly drops the bishop onto a square controlled by Gote’s pawn on 6c.',
+          1: '△同歩 captures the bishop. Before retreating a rook, check whether its attacker can be captured.',
+        },
+        comment: '角６四の当たりだけを見て飛車を逃がす必要はありません。この図では△同歩で角を取り、先手に盤上の駒で直ちに取り返されません。',
+        commentEn: 'The bishop attack does not require a rook retreat here. △同歩 captures the bishop without an immediate recapture by a Sente board piece.',
       },
     ],
   },

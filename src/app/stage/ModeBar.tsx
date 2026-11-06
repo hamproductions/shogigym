@@ -252,6 +252,8 @@ export function ModeBar({
   const unavailable = !useEngineSupported()
   const ja = settings.lang === 'ja'
   const { mode, course, lastMove, prevSfen, plyBase, preview, cursor, toMove, nav, gameOver, game, flipped } = useSession()
+  const selectedEngine = (mode === 'spar' || mode === 'view' ? settings.enginePlaying : settings.engineAnalysis) ?? settings.engine
+  const matchingEngine = engine.kind === selectedEngine
   const helpOn = mode === 'spar' ? spar.assist : settings.assist
   const seal = !ja ? (
     <Icon name={MODES.find((m) => m.id === mode)!.icon} size={22} />
@@ -265,8 +267,16 @@ export function ModeBar({
       <ModeBarHeading
         seal={seal}
         title={title}
-        instruction={unavailable ? t('engine.theAiNeedsACross') : engine.error ? engine.error : engine.loading ? t('engine.loadingEngine') : instruction}
-        busy={engine.loading}
+        instruction={
+          unavailable
+            ? t('engine.theAiNeedsACross')
+            : matchingEngine && engine.error
+              ? engine.error
+              : matchingEngine && engine.loading
+                ? t('engine.loadingEngine')
+                : instruction
+        }
+        busy={matchingEngine && engine.loading}
         ply={
           lastMove && prevSfen
             ? t('app.move', { value: plyBase + (preview ? preview.base + preview.step : cursor) })
@@ -286,7 +296,7 @@ export function ModeBar({
       )}
       <Controls>
         <Tools>
-          {engine.error && (isGameMode(mode) || mode === 'view') && (
+          {matchingEngine && engine.error && (isGameMode(mode) || mode === 'view') && (
             <BarButton
               size="sm"
               onClick={() => {

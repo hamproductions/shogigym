@@ -461,7 +461,15 @@
             "4i3h",
             "7f2f",
             "3i2h",
-            "3c8h+",
+            "3c8h+"
+          ],
+          "text": {
+            "ja": "▲３八金△２六飛▲２八銀△８八角成までの局面です。銀と飛車のどちらで取り返すかを確認します。",
+            "en": "The position after ▲3八金 △2六飛 ▲2八銀 △8八角成. Compare recapturing with the silver or the rook."
+          }
+        },
+        {
+          "moves": [
             "7i8h",
             "B*9e"
           ],
@@ -475,7 +483,8 @@
               "9e6h",
               "9e8d"
             ]
-          }
+          },
+          "kind": "deviation"
         }
       ]
     }

@@ -213,7 +213,8 @@
           "text": {
             "ja": "△９二玉と飛車を放置する弱い応手を見ます。後手は飛車を動かすこともできます。",
             "en": "The illustrative reply △９二玉 is weak because it leaves the rook attacked. Gote can move the rook instead."
-          }
+          },
+          "kind": "deviation"
         },
         {
           "moves": [

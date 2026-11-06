@@ -576,8 +576,8 @@
             "8h7i"
           ],
           "text": {
-            "ja": "▲７九角。角を引いて、銀が通る七七の道を空けます。",
-            "en": "▲7九角 retreats the bishop and clears the path for a silver to reach 7g."
+            "ja": "▲７九角と角を引きます。７七はすでに空いており、この手で新しく空いたのは８八です。銀を回す手順と角の斜線を確認します。",
+            "en": "▲7九角 retreats the bishop. Square 7g was already empty; this move newly vacates 8h. Track the silver’s route and the bishop’s diagonal separately."
           },
           "marks": {
             "boxes": [
@@ -634,8 +634,8 @@
             "6h7g"
           ],
           "text": {
-            "ja": "▲７七銀。銀が玉の斜め前につきました。",
-            "en": "▲7七銀 lands diagonally in front of the king."
+            "ja": "▲７七銀。銀は玉８七の隣に、同じ七段目で並びました。",
+            "en": "▲7七銀 places the silver beside king 8g on the same rank."
           },
           "marks": {
             "boxes": [

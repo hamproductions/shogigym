@@ -851,8 +851,8 @@
                 "3f2e"
               ],
               "text": {
-                "ja": "香で取られたら桂で取り返し、銀に取られたら▲３五銀と進めます。これで３筋への圧力も増していきます。端歩の突き方ひとつで狙う筋が入れ替わる点が、相矢倉の奥深さです。",
-                "en": "△同香, ▲同桂, △同銀, ▲3五銀 and the 3rd-file attack also becomes sharp. How the edge pawns stand changes the plan so much, which is the charm of Ai-Yagura."
+                "ja": "△同香、▲同桂、△同銀のあと、▲２五銀と３六の銀を進めます。銀は２四、３四、１四に利く位置へ出ました。桂を交換したあとに残る銀と、端の歩の配置を確認しましょう。",
+                "en": "After △同香, ▲同桂 and △同銀, ▲2五銀 advances the silver from 3f to 2e. It now controls 2d, 3d and 1d. Examine the remaining silver and edge pawns after the knight exchange."
               },
               "marks": {
                 "last": "2e",
@@ -938,8 +938,8 @@
             "P*3f"
           ],
           "text": {
-            "ja": "先ほどと同じ▲３五歩、△同歩、▲同角で歩を交換すると、△３六歩と打たれて失敗です。飛車が狙われ、▲４六銀と逃げても△４五歩で追われます。",
-            "en": "Playing the same ▲3五歩, △同歩, ▲同角 now fails to △3六歩. The rook is attacked, and even ▲4六銀 runs into △4五歩."
+            "ja": "先ほどと同じ▲３五歩、△同歩、▲同角で歩を交換すると、△３六歩と打たれて失敗です。３七の銀が狙われ、▲４六銀と逃げても△４五歩で追われます。",
+            "en": "Playing the same ▲3五歩, △同歩, ▲同角 now fails to △3六歩. The silver on 3g is attacked, and even ▲4六銀 runs into △4五歩."
           },
           "marks": {
             "last": "3f",

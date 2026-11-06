@@ -82,13 +82,22 @@
             "9e9d",
             "9c9d",
             "9h9d",
-            "6b7c",
+            "6b7c"
+          ],
+          "text": {
+            "ja": "歩の交換と、表示の金の受けまで進めました。次に入る駒への取り返しを数えます。",
+            "en": "After the pawn contact and the displayed gold defense, count the recaptures against the next entering piece."
+          }
+        },
+        {
+          "moves": [
             "9d9b+"
           ],
           "text": {
             "ja": "▲９四歩に△同歩なら▲同飛で端の歩を取ります。△７三金と受けた後の▲９二飛成は王手ですが、この局面では弱い手です。後手は△同香と龍を取れ、△８二銀や△８二香で遮る手もあります。進入するだけで龍が残るとは限りません。",
             "en": "After ▲９四歩, △同歩, ▲同飛, the sample △７三金 allows ▲９二飛成 to give check. This is weak here: △同香 captures the dragon, and △８二銀 or △８二香 can block the check. Entry alone does not guarantee the dragon survives."
-          }
+          },
+          "kind": "deviation"
         }
       ]
     },
@@ -112,7 +121,15 @@
             "4g5f",
             "5c6d",
             "7e7d",
-            "7c7d",
+            "7c7d"
+          ],
+          "text": {
+            "ja": "歩の交換と、表示の金の受けまで進めました。次に入る駒への取り返しを数えます。",
+            "en": "After the pawn contact and the displayed gold defense, count the recaptures against the next entering piece."
+          }
+        },
+        {
+          "moves": [
             "7h7d",
             "6c7d",
             "5f7d",
@@ -121,7 +138,8 @@
           "text": {
             "ja": "▲５六角に△６四金と進む一例です。この金は７四に横から利きます。歩７五にも当たっていますが、香７八が支えているので、取れば▲同香で金損です。同じ歩交換から▲同香、△同銀、▲同角と進めても、△同金で角を取られます。歩同士は消え、先手は香車と角を失って銀一枚を得るため、最初の攻めとは収支が変わります。△６四金も歩の取り方も後手の選択です。",
             "en": "One sample is ▲５六角 △６四金. The gold now controls ７四 sideways. It also hits the pawn on ７五, but the lance on ７八 defends that pawn, so taking it would lose the gold to ▲同香. After the same pawn exchange, ▲同香 △同銀 ▲同角 is now met by △同金, which takes the bishop. Both pawns have gone; Sente has spent a lance and bishop for one silver, a different material result from the immediate attack. Gote's gold move and pawn captures are sample choices."
-          }
+          },
+          "kind": "deviation"
         }
       ]
     },

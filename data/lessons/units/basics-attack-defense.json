@@ -133,8 +133,8 @@
         {
           "moves": ["5g5c+"],
           "text": {
-            "ja": "▲５三飛成で金を取れます。飛車が進む道にも到着した升にも後手の利きがなく、金が先手の持駒に加わり、飛車は竜になります。",
-            "en": "▲５三飛成 captures the gold. No defender controls the rook's route or its destination, so the captured gold enters the attacker's hand and the rook promotes to a dragon."
+            "ja": "▲５三飛成で金を取り、飛車は竜になります。途中の５四は金の利きに入っていましたが、飛車はそのマスを通過できます。取ったあとの５三へ届く後手の駒がないので、竜を取り返されません。",
+            "en": "▲５三飛成 captures the gold and promotes the rook to a dragon. The gold controlled 5d along the route, but a rook may pass through an attacked square. After the capture, no Gote piece can reach 5c to recapture the dragon."
           }
         },
         {

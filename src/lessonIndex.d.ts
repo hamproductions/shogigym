@@ -11,7 +11,8 @@ declare module 'virtual:course-trainable' {
 }
 
 declare module 'virtual:book-positions' {
-  const book: { files: string[]; at: Record<string, number[]> }
+  import type { JosekiNode } from '@/utils/model'
+  const book: Record<number, () => Promise<[string, JosekiNode, boolean][]>>
   export default book
 }
 

@@ -123,6 +123,14 @@ export function detectTesuji(before: string, usi: string): Tesuji | null {
     if (drop && piece.type === PieceType.SILVER) return T.wariuchi
     return T.ryodori
   }
-  if (king && attackers > 0) return T.sutegoma
+  if (
+    king &&
+    attackers > 0 &&
+    enemySquares.some((from) => {
+      const capture = pos.createMove(from, to)
+      return capture && (pos.isValidMove(capture) || pos.isValidMove(capture.withPromote()))
+    })
+  )
+    return T.sutegoma
   return null
 }

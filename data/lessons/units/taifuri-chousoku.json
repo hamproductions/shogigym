@@ -19,8 +19,8 @@
       "en": "Why does Chousoku Two Silvers concentrate coverage on 5e?"
     },
     "answer": {
-      "ja": "５五には後手の飛車と角の２枚しか利いておらず、先手は銀２枚と角の３枚が利いているため、５五の歩を取れるからです。取られると後手は攻め手を失います。",
-      "en": "Because Gote has only the rook and bishop covering 5e, while Sente has two silvers and the bishop, so Sente can win the pawn there. Once it falls, Gote loses his attack."
+      "ja": "銀４六・６六が５五に利き、角８八は銀６六の後ろに控えています。左銀が５五へ動くと６六が空き、角の取り返しの道が開きます。今の利きの枚数と、駒が動いた後に加わる支えを分けて数えます。",
+      "en": "Silvers 4f and 6f control 5e, while bishop 8h waits behind silver 6f. Moving the left silver to 5e clears 6f and opens the bishop’s recapture line. Count present attackers separately from support that appears after a piece moves."
     }
   },
   "references": [
@@ -246,8 +246,8 @@
             "7g6f"
           ],
           "text": {
-            "ja": "△３二金に▲７七銀、△４二銀に▲６六銀。両方の銀が前線へ並んだ形が「２枚銀」です。次は▲５五銀左で歩を取る狙いで、取られると後手は攻めの足掛かりを失います。５五を数えると、後手は飛と角の二枚、先手は銀二枚に角を加えた三枚です。",
-            "en": "△3二金 is met by ▲7七銀 and △4二銀 by ▲6六銀. With both silvers forward, the formation is called Two Silvers. Sente threatens ▲5五銀左 winning the pawn, after which Gote has no attack. Gote has only the rook and bishop covering 5e, but Sente has two silvers and the bishop."
+            "ja": "△３二金▲７七銀△４二銀▲６六銀で二枚銀の配置です。銀二枚が５五を狙い、角８八は銀６六の後ろにいます。左銀が動いた後は角の道が開くので、初めから三枚が５五へ利いているとは数えず、取り返す順を読みます。",
+            "en": "△3二金 ▲7七銀 △4二銀 ▲6六銀 builds Two Silvers. Both silvers target 5e, and bishop 8h stands behind silver 6f. Moving the left silver opens the bishop’s line; read the recapture order rather than counting three current attackers."
           },
           "marks": {
             "last": "6f",
@@ -356,8 +356,8 @@
             "7g6f"
           ],
           "text": {
-            "ja": "先手はやはり２枚銀に組みます。▲７八玉、△６二玉、▲６八銀、△７二玉、▲７七銀、△８二玉、▲６六銀。ただし銀対抗では、お互いに５五へ三枚の利きがあるため、すぐに▲５五銀左とは取れません。",
-            "en": "Sente still builds Two Silvers: ▲7八玉, △6二玉, ▲6八銀, △7二玉, ▲7七銀, △8二玉, ▲6六銀. But in silver-vs-silver both sides have three pieces covering 5e, so Sente cannot take on 5e right away."
+            "ja": "先手は▲７八玉、▲６八銀、▲７七銀、▲６六銀と二枚銀に組みます。後手も銀４四が５五を守っています。双方の角はそれぞれ自分の銀の後ろにいるため、今の利きだけでなく、銀が動き角道が開いた後の取り返しを数えます。",
+            "en": "Sente builds Two Silvers with ▲7八玉, ▲6八銀, ▲7七銀 and ▲6六銀. Gote’s silver on 4d also guards 5e. Both bishops stand behind their own silvers: count the recaptures after those silvers move and open the diagonals, as well as the present attackers."
           },
           "marks": {
             "last": "6f",
@@ -429,8 +429,8 @@
             "8h5e"
           ],
           "text": {
-            "ja": "△４二角と引くと、角の利きが５五からずれます。そこで▲５五銀左と歩を取りにいきます。△同銀、▲同角と進んで、先手の角が後手の香に当たり、後手は忙しくなります。",
-            "en": "If Gote pulls back with △4二角, his bishop no longer covers 5e, so Sente goes for the pawn with ▲5五銀左. After △同銀 and ▲同角 the bishop attacks the lance, and Gote is busy."
+            "ja": "△４二角と引く応手を選びます。角が３三に残れば、銀４四が動いた後に５五への道が開きますが、４二ではその取り返しがありません。▲５五銀左△同銀▲同角と進めると、先手角は香１一を狙います。飛車による取り返しも続けて数えます。",
+            "en": "This selects △4二角. A bishop remaining on 3c could reach 5e after silver 4d moves, whereas one on 4b cannot make that recapture. After ▲5五銀左 △同銀 ▲同角, Sente’s bishop targets lance 1a. Also count the possible rook recapture."
           },
           "marks": {
             "last": "5e",
@@ -466,47 +466,71 @@
         {
           "from": 4,
           "moves": [
-            "4a3b",
-            "3g4e",
-            "3c4b",
-            "6f5e",
-            "4d5e",
-            "8h5e"
+            "4a3b"
           ],
           "text": {
-            "ja": "▲２九飛と引かずに▲４五桂と仕掛けるとどうなるでしょうか。△４二角、▲５五銀左、△同銀、▲同角と進みます。",
-            "en": "What happens if Sente attacks with ▲4五桂 without first retreating the rook with ▲2九飛? The play goes △4二角, ▲5五銀左, △同銀, ▲同角."
+            "ja": "△３二金まで共通に進めました。ここから飛車を２九へ引かずに仕掛ける失敗を比べます。",
+            "en": "The shared preparation reaches △3二金. Compare the mistake of attacking before retreating the rook to 2i."
           },
-          "marks": {
-            "last": "5e",
-            "boxes": [
-              "5e"
-            ]
-          }
+          "kind": "alt",
+          "steps": [
+            {
+              "moves": [
+                "3g4e",
+                "3c4b",
+                "6f5e",
+                "4d5e",
+                "8h5e"
+              ],
+              "kind": "deviation",
+              "text": {
+                "ja": "▲２九飛と引かずに▲４五桂と仕掛けるとどうなるでしょうか。△４二角、▲５五銀左、△同銀、▲同角と進みます。",
+                "en": "What happens if Sente attacks with ▲4五桂 without first retreating the rook with ▲2九飛? The play goes △4二角, ▲5五銀左, △同銀, ▲同角."
+              },
+              "marks": {
+                "last": "5e",
+                "boxes": [
+                  "5e"
+                ]
+              }
+            }
+          ]
         },
         {
           "from": 4,
           "moves": [
-            "4a3b",
-            "3g4e",
-            "3c4b",
-            "6f5e",
-            "4d5e",
-            "8h5e",
-            "5a5e",
-            "4f5e",
-            "B*3g"
+            "4a3b"
           ],
           "text": {
-            "ja": "飛車を引いていないと、△同飛、▲同銀、△３七角の切り返しが厳しくなります。この角打ちが飛車と銀の両取りになるため、事前に▲２九飛が必要でした。",
-            "en": "Without the rook retreat, △同飛, ▲同銀 and then △3七角 is a severe counter. The bishop drop forks rook and silver, which is why ▲2九飛 was needed first."
+            "ja": "△３二金まで共通に進めました。ここから飛車を２九へ引かずに仕掛ける失敗を比べます。",
+            "en": "The shared preparation reaches △3二金. Compare the mistake of attacking before retreating the rook to 2i."
           },
-          "marks": {
-            "last": "3g",
-            "boxes": [
-              "3g"
-            ]
-          }
+          "kind": "alt",
+          "steps": [
+            {
+              "moves": [
+                "3g4e",
+                "3c4b",
+                "6f5e",
+                "4d5e",
+                "8h5e",
+                "5a5e",
+                "4f5e",
+                "B*3g"
+              ],
+              "kind": "deviation",
+              "text": {
+                "ja": "飛車を引いていないと、△同飛、▲同銀、△３七角の切り返しが厳しくなります。この角打ちが飛車と銀の両取りになるため、事前に▲２九飛が必要でした。",
+                "en": "Without the rook retreat, △同飛, ▲同銀 and then △3七角 is a severe counter. The bishop drop forks rook and silver, which is why ▲2九飛 was needed first."
+              },
+              "marks": {
+                "last": "3g",
+                "boxes": [
+                  "3g"
+                ]
+              }
+            }
+          ]
         },
         {
           "from": 3,

@@ -13,7 +13,7 @@ export function SideMark({ side, flipped }: { side: Side; flipped?: boolean }) {
 
 export function FlipMarks({ children, flipped, muted }: { children: string; flipped?: boolean; muted?: boolean }) {
   return (
-    <>
+    <styled.span minW="0" overflowWrap="anywhere">
       {children.split(/([☗☖▲△])/).map((part, i) =>
         part === '☗' || part === '☖' || part === '▲' || part === '△' ? (
           <styled.span
@@ -24,13 +24,13 @@ export function FlipMarks({ children, flipped, muted }: { children: string; flip
             fontSize={muted ? 'sm' : undefined}
             color={muted ? 'fg.muted' : undefined}
           >
-            {part}
+            {sideMark(part === '☖' || part === '△' ? 'gote' : 'sente')}
           </styled.span>
         ) : (
           part
         ),
       )}
-    </>
+    </styled.span>
   )
 }
 

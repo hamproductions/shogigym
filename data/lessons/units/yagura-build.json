@@ -419,7 +419,7 @@
         "ja": "後手番で矢倉に組む：ウソ矢倉",
         "en": "Building Yagura as Gote: the fake Yagura"
       },
-      "side": "sente",
+      "side": "gote",
       "kind": "opening",
       "start": "startpos",
       "steps": [

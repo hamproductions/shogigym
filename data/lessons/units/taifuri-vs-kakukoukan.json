@@ -350,8 +350,8 @@
             "4d4e"
           ],
           "text": {
-            "ja": "後手が４筋の歩を突いて、先手の４六歩を逆用して攻めてくる形です。△４五歩で後手は歩を持ちます。",
-            "en": "Gote may use the fourth-file pawn against Sente's ▲4六歩 and attack with △4五歩, winning a pawn in hand."
+            "ja": "後手が４筋の歩を４四、４五へ進め、先手の４六歩へ近づけました。４五は空きマスだったため、この手では歩を取っておらず、双方の持ち駒も変わりません。次に先手がどう応じるかを考える局面です。",
+            "en": "Gote advances the fourth-file pawn through 4d to 4e, approaching Sente's pawn on 4f. Since 4e was empty, this move captured nothing and neither hand changed. Now consider how Sente should respond."
           },
           "marks": {
             "last": "4e",

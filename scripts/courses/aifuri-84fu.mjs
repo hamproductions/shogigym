@@ -62,13 +62,26 @@ export default {
         ],
       },
       {
-        kind: 'alt',
-        moves: '7b6c 6e6h',
-        notes: {
-          0: '後手銀６三。七二銀が六筋へ出て、六五飛車の前方へ守りを足す。後手は持ち歩を温存している。',
-          1: '先手飛車６八。銀との接触を急がず飛車を戻す。双方の持ち歩はこの時点で一枚ずつ。',
-        },
-        comment: '歩６三打が唯一の応手ではない。後手銀６三という具体的な配置変更に応じて、飛車の働きを再評価する。',
+        kind: 'deviation',
+        moves: '7b6c',
+        comment: '△６三銀は飛車６五に銀を取られる誤りです。歩を打って銀で守る形と、銀自身を飛車の前へ出す形を区別します。',
+        commentEn:
+          '△6三銀 is a mistake: rook 6e can capture that silver. Distinguish a pawn drop guarded by the silver from putting the silver itself in front of the rook.',
+        branches: [
+          {
+            kind: 'alt',
+            moves: '6e6c+',
+            comment: '▲６三飛成で銀を取り、飛車を成れます。後手に直ちに竜を取り返す盤上の駒はありません。',
+            commentEn: '▲6三飛成 captures the silver and promotes. Gote has no immediate board recapture of the dragon.',
+          },
+          {
+            kind: 'deviation',
+            moves: '6e6h',
+            comment: '▲６八飛と戻すのは、今取れる銀を見送る弱い比較です。銀６三を追加の守りと決めつけず、捕獲できるかを先に確認します。',
+            commentEn:
+              '▲6八飛 is the weaker comparison, passing up the available silver capture. Check captures before treating silver 6c as an added defender.',
+          },
+        ],
       },
     ],
   },

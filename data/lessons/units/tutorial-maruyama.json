@@ -267,8 +267,8 @@
             "7b8b"
           ],
           "text": {
-            "ja": "基本図です。覚えることは四つ。５二に飛車が来たら▲２二角成と角を交換する。玉は７八へ運び、銀は８八と５七に置く。金は６八と５八。角を渡したので、持ち駒の角を打たれる筋に常に気を配る。",
-            "en": "The basic position. Four points: when the rook reaches 5b, trade with ▲2二角成. Walk the king to 7h with silvers on 8h and 5g and golds on 6h and 5h. Keep the pawn on 3g to block the bishop. And always watch for bishop drops, since both sides hold a bishop."
+            "ja": "基本図です。玉は７八、銀は８八と５七、金は６八と５八にいます。先手は角を持ち、後手の角は６四に出ています。３七の歩が６四から２八への斜めの道をふさいでいることも確認しましょう。",
+            "en": "In the basic position, the king is on 7h, the silvers on 8h and 5g, and the golds on 6h and 5h. Sente holds a bishop; Gote’s bishop is on 6d. Notice that the pawn on 3g blocks the diagonal from 6d to 2h."
           },
           "marks": {
             "last": "8b",
@@ -283,8 +283,8 @@
         },
         {
           "text": {
-            "ja": "長所と短所です。長所は、中飛車が得意な角を序盤で消せることと、相手の形が決まる前に先手が主導権を握りやすいこと。短所は、角を持ち合うので打ち込まれる隙に常に注意が必要なことと、先手も駒組みに手数がかかることです。後手が５筋で駒を取り合う形に持ち込むと、判断が難しくなります。",
-            "en": "Strengths and weaknesses. The strength is that Gote loses its bishop early and Sente usually takes the initiative before Gote settles. The weakness is that holding bishops on both sides means drop squares need constant care, and Sente also spends many moves on its own build. If Gote steers the game into trades on the fifth file, decisions become harder."
+            "ja": "角交換のあと、先手は玉と金銀の配置を整えました。後手の角は６四にいるので、その利きと歩を動かしたときに開く道を見てください。先手の持ち角を使う場所も探しながら、次の章で５筋や２筋の歩の交換を見ます。",
+            "en": "After the bishop exchange, Sente has arranged the king and its guards. Gote’s bishop is on 6d: watch its diagonals and the lines that open when pawns move. In the next chapters, examine pawn exchanges on the fifth and second files while looking for places to use Sente’s bishop in hand."
           },
           "marks": {
             "boxes": [
@@ -459,7 +459,8 @@
           "text": {
             "ja": "角を△５三角と引く変化です。それでも▲７七銀と銀を出し、６筋の位を取って先手が有利に進みます。",
             "en": "Gote can retreat the bishop to 5c instead. Sente still plays ▲7七銀, keeps the sixth-file space and stays ahead."
-          }
+          },
+          "kind": "alt"
         },
         {
           "from": 1,
@@ -549,8 +550,8 @@
             "3c4d"
           ],
           "text": {
-            "ja": "▲７七銀と銀を出して態勢を整えます。後手は△４四銀と銀を戻して中央を守ります。",
-            "en": "Sente brings the silver out with ▲7七銀. Gote replies △4四銀 and defends the centre."
+            "ja": "▲７七銀と銀を出します。後手は３三に残っていた別の銀を△４四銀と進めました。５五で歩を取った銀は５五に残り、銀二枚で中央へ働きかけています。",
+            "en": "Sente develops with ▲7七銀. Gote brings the other silver from 3c to 4d; the silver that captured the pawn remains on 5e. Both silvers now work in the centre."
           },
           "marks": {
             "last": "7g"
